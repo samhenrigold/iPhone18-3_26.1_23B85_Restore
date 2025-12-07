@@ -10,12 +10,10 @@
 
 - (NSString)identifier
 {
-  v2 = *(self + OBJC_IVAR____TtC13ShellSceneKit17ProfileActivation_identifier);
-  v3 = *(self + OBJC_IVAR____TtC13ShellSceneKit17ProfileActivation_identifier + 8);
 
-  v4 = sub_265FEC0D0();
+  v2 = sub_265FEC0D0();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC13ShellSceneKit17ProfileActivation)init
@@ -40,17 +38,15 @@
 
 - (void)encodeWithBSXPCCoder:(id)coder
 {
-  v5 = *(self + OBJC_IVAR____TtC13ShellSceneKit17ProfileActivation_identifier);
-  v6 = *(self + OBJC_IVAR____TtC13ShellSceneKit17ProfileActivation_identifier + 8);
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_265FEC0D0();
-  v9 = sub_265FEC0D0();
-  [coder encodeObject:v8 forKey:v9];
+  v6 = sub_265FEC0D0();
+  v7 = sub_265FEC0D0();
+  [coder encodeObject:v6 forKey:v7];
 
-  v10 = *(selfCopy + OBJC_IVAR____TtC13ShellSceneKit17ProfileActivation_inControl);
-  v11 = sub_265FEC0D0();
-  [coder encodeBool:v10 forKey:v11];
+  v8 = *(selfCopy + OBJC_IVAR____TtC13ShellSceneKit17ProfileActivation_inControl);
+  v9 = sub_265FEC0D0();
+  [coder encodeBool:v8 forKey:v9];
   swift_unknownObjectRelease();
 }
 

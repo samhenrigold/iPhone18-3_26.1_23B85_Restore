@@ -12,13 +12,11 @@
 - (double)videoPlaybackCurrentTime
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SeymourCore8PlaybackVSgMd, &_s11SeymourCore8PlaybackVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
+  MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v17 - v5;
   v7 = type metadata accessor for Playback();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v7, v9);
   v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = OBJC_IVAR___SMSeymourElapsedTimeAccumulator_playback;
   swift_beginAccess();
@@ -45,8 +43,7 @@
 {
   v3 = type metadata accessor for Date();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v3, v5);
   v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   Date.init()();
@@ -60,8 +57,7 @@
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
+  MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v13 - v8;
   if (date)
   {

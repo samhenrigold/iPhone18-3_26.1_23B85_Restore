@@ -212,7 +212,7 @@ LABEL_47:
 
 - (id)formattedAddressString
 {
-  v3 = SKUIContactsFramework();
+  v3 = SKUIContactsFramework(self, a2);
   v4 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cnmutableposta.isa, v3));
   v5 = v4;
   if (self->_administrativeArea)
@@ -241,15 +241,16 @@ LABEL_47:
   }
 
   v6 = [(NSArray *)self->_addressLines componentsJoinedByString:@"\n"];
-  if ([v6 length])
+  v7 = [v6 length];
+  if (v7)
   {
-    [v5 setStreet:v6];
+    v7 = [v5 setStreet:v6];
   }
 
-  v7 = SKUIContactsFramework();
-  v8 = [SKUIWeakLinkedClassForString(&cfstr_Cnpostaladdres.isa v7)];
+  v9 = SKUIContactsFramework(v7, v8);
+  v10 = [SKUIWeakLinkedClassForString(&cfstr_Cnpostaladdres.isa v9)];
 
-  return v8;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

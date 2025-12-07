@@ -48,43 +48,42 @@
     timer = self->_timer;
     self->_timer = 0;
 
-    v12 = *(self->_completionHandler + 2);
+    v11 = *(self->_completionHandler + 2);
 
-    v12();
+    v11();
   }
 
   else
   {
-    updateHandler = self->_updateHandler;
     (*(self->_updateHandler + 2))();
     if (timeout % 0x3CuLL)
     {
-      v6 = (timeout % 0x3CuLL);
+      v5 = (timeout % 0x3CuLL);
     }
 
     else
     {
-      v6 = 60.0;
+      v5 = 60.0;
     }
 
-    v7 = dispatch_source_create(MEMORY[0x277D85D38], 0, 1uLL, MEMORY[0x277D85CD0]);
-    v8 = self->_timer;
-    self->_timer = v7;
+    v6 = dispatch_source_create(MEMORY[0x277D85D38], 0, 1uLL, MEMORY[0x277D85CD0]);
+    v7 = self->_timer;
+    self->_timer = v6;
 
-    v9 = dispatch_time(0, (v6 * 1000000000.0));
-    dispatch_source_set_timer(self->_timer, v9, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v8 = dispatch_time(0, (v5 * 1000000000.0));
+    dispatch_source_set_timer(self->_timer, v8, 0xFFFFFFFFFFFFFFFFLL, 0);
     objc_initWeak(&location, self);
-    v10 = self->_timer;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __61__LAPSPasscodeBackoffTimerController__startTimerWithTimeout___block_invoke;
-    v13[3] = &unk_278A66028;
-    objc_copyWeak(v14, &location);
-    v14[1] = timeout;
-    v14[2] = *&v6;
-    dispatch_source_set_event_handler(v10, v13);
+    v9 = self->_timer;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __61__LAPSPasscodeBackoffTimerController__startTimerWithTimeout___block_invoke;
+    v12[3] = &unk_278A66028;
+    objc_copyWeak(v13, &location);
+    v13[1] = timeout;
+    v13[2] = *&v5;
+    dispatch_source_set_event_handler(v9, v12);
     dispatch_activate(self->_timer);
-    objc_destroyWeak(v14);
+    objc_destroyWeak(v13);
     objc_destroyWeak(&location);
   }
 }

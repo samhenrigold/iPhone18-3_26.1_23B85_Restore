@@ -34,11 +34,11 @@ uint64_t ACMobileShimCopyTicket(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return v11;
 }
 
-void sub_298329228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_298329228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -123,9 +123,9 @@ uint64_t ACMImageWithName(uint64_t a1)
   return [(ACMImageLoader *)v2 imageNamed:a1];
 }
 
-void sub_29832A8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29832A8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -175,8 +175,9 @@ void *ACFRandomData(uint64_t a1)
 
 void ACFMakeRandomString(char *a1, uint64_t a2)
 {
+  v3 = a1;
   v9[1] = *MEMORY[0x29EDCA608];
-  MEMORY[0x2A1C7C4A8]();
+  MEMORY[0x2A1C7C4A8](a1);
   v5 = v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   ACFMakeRandomData(v5, v4);
   for (; a2; --a2)
@@ -189,20 +190,20 @@ void ACFMakeRandomString(char *a1, uint64_t a2)
       v8 = 59;
     }
 
-    *a1++ = v8;
+    *v3++ = v8;
   }
 }
 
 uint64_t ACFRandomString(uint64_t a1)
 {
   v4[1] = *MEMORY[0x29EDCA608];
-  v2 = v4 - ((MEMORY[0x2A1C7C4A8]() + 16) & 0xFFFFFFFFFFFFFFF0);
+  v2 = v4 - ((MEMORY[0x2A1C7C4A8](a1) + 16) & 0xFFFFFFFFFFFFFFF0);
   ACFMakeRandomString(v2, a1);
   v2[a1] = 0;
   return [MEMORY[0x29EDBA0F8] stringWithUTF8String:v2];
 }
 
-uint64_t ACFEncodeBase64(uint64_t result)
+void *ACFEncodeBase64(void *result)
 {
   if (result)
   {
@@ -365,26 +366,26 @@ void *ACFDecodeBase32(void *a1)
   return v9;
 }
 
-uint64_t ACFEncodeBase16(void *a1)
+uint64_t ACFEncodeBase16(void *a1, uint64_t a2)
 {
   if (a1)
   {
-    v2 = [MEMORY[0x29EDBA050] string];
-    v3 = [a1 bytes];
+    v3 = [MEMORY[0x29EDBA050] string];
+    v4 = [a1 bytes];
     if ([a1 length])
     {
-      v4 = 0;
+      v5 = 0;
       do
       {
-        [v2 appendFormat:@"%02x", *(v3 + v4++)];
+        [v3 appendFormat:@"%02x", *(v4 + v5++)];
       }
 
-      while (v4 < [a1 length]);
+      while (v5 < [a1 length]);
     }
 
-    v5 = MEMORY[0x29EDBA0F8];
+    v6 = MEMORY[0x29EDBA0F8];
 
-    return [v5 stringWithString:v2];
+    return [v6 stringWithString:v3];
   }
 
   else
@@ -398,45 +399,45 @@ uint64_t ACFEncodeBase16(void *a1)
   }
 }
 
-uint64_t ACFDecodeBase16(void *a1)
+uint64_t ACFDecodeBase16(void *a1, uint64_t a2)
 {
   if (a1)
   {
-    v2 = [MEMORY[0x29EDB8DF8] data];
+    v3 = [MEMORY[0x29EDB8DF8] data];
     if ([a1 length])
     {
-      v3 = 0;
-      v4 = 0x7FFFFFFFFFFFFFFFLL;
+      v4 = 0;
+      v5 = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
-        v5 = [@"0123456789abcdef" rangeOfString:objc_msgSend(a1 options:{"substringWithRange:", v3, 1), 1}];
-        if (v5 != 0x7FFFFFFFFFFFFFFFLL)
+        v6 = [@"0123456789abcdef" rangeOfString:objc_msgSend(a1 options:{"substringWithRange:", v4, 1), 1}];
+        if (v6 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          if (v4 == 0x7FFFFFFFFFFFFFFFLL)
+          if (v5 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v4 = v5;
+            v5 = v6;
           }
 
           else
           {
-            v8 = v5 + 16 * v4;
-            [v2 appendBytes:&v8 length:1];
-            v4 = 0x7FFFFFFFFFFFFFFFLL;
+            v9 = v6 + 16 * v5;
+            [v3 appendBytes:&v9 length:1];
+            v5 = 0x7FFFFFFFFFFFFFFFLL;
           }
         }
 
-        ++v3;
+        ++v4;
       }
 
-      while (v3 < [a1 length]);
-      if (v4 != 0x7FFFFFFFFFFFFFFFLL)
+      while (v4 < [a1 length]);
+      if (v5 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v7 = 16 * v4;
-        [v2 appendBytes:&v7 length:1];
+        v8 = 16 * v5;
+        [v3 appendBytes:&v8 length:1];
       }
     }
 
-    return [MEMORY[0x29EDB8DA0] dataWithData:v2];
+    return [MEMORY[0x29EDB8DA0] dataWithData:v3];
   }
 
   else
@@ -479,11 +480,11 @@ uint64_t ACFSHA1Init()
   }
 }
 
-void ACFSHA1Update(void *a1, void *a2)
+void ACFSHA1Update(void *result, void *a2)
 {
-  if (a1 && a2)
+  if (result && a2)
   {
-    v3 = [a1 bytes];
+    v3 = [result bytes];
     v4 = [a2 bytes];
     v5 = [a2 length];
 
@@ -496,9 +497,9 @@ void ACFSHA1Update(void *a1, void *a2)
   }
 }
 
-uint64_t ACFSHA1Final(void *a1)
+uint64_t ACFSHA1Final(void *a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     CC_SHA1_Final(md, [a1 bytes]);
@@ -584,7 +585,7 @@ uint64_t ACFSHA256ForString(void *a1)
   return ACFSHA256(v1);
 }
 
-uint64_t ACFCrypt_Process(void *a1, void *a2, CCAlgorithm a3, uint64_t a4, unint64_t a5, void *a6, int a7, CCOptions a8)
+uint64_t ACFCrypt_Process(void *a1, void *a2, CCAlgorithm a3, void *a4, unint64_t a5, void *a6, int a7, CCOptions a8)
 {
   v16 = [a1 length];
   if (!v16)
@@ -742,7 +743,7 @@ void *ACFEncodeObscuredString(void *a1, unint64_t a2)
   return v8;
 }
 
-uint64_t ACFObscureAndBaseEncode64String(void *a1)
+void *ACFObscureAndBaseEncode64String(void *a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -754,8 +755,8 @@ uint64_t ACFObscureAndBaseEncode64String(void *a1)
     return 0;
   }
 
-  v1 = ACFEncodeObscuredString(a1, 2 * [a1 lengthOfBytesUsingEncoding:4]);
-  if (!v1)
+  v2 = ACFEncodeObscuredString(a1, 2 * [a1 lengthOfBytesUsingEncoding:4]);
+  if (!v2)
   {
     if (qword_2A1EB8F30 && (ACFLogSettingsGetLevelMask() & 8) != 0)
     {
@@ -765,7 +766,7 @@ uint64_t ACFObscureAndBaseEncode64String(void *a1)
     return 0;
   }
 
-  result = ACFEncodeBase64(v1);
+  result = ACFEncodeBase64(v2);
   if (qword_2A1EB8F30 && !result)
   {
     if ((ACFLogSettingsGetLevelMask() & 8) != 0)
@@ -811,7 +812,7 @@ uint64_t ACFDecodeObscuredString(void *a1)
   return v9;
 }
 
-uint64_t ACFHmacSHA1(void *a1, void *a2)
+void *ACFHmacSHA1(void *a1, void *a2)
 {
   result = 0;
   v11 = *MEMORY[0x29EDCA608];
@@ -841,7 +842,7 @@ uint64_t ACFHmacSHA1(void *a1, void *a2)
   return result;
 }
 
-uint64_t ACFHmacSHA256(void *a1, void *a2)
+void *ACFHmacSHA256(void *a1, void *a2)
 {
   result = 0;
   v10 = *MEMORY[0x29EDCA608];
@@ -1022,7 +1023,7 @@ const __CFDictionary *ACFLogSettingsSynchronizeFromDictionary(const __CFDictiona
   return result;
 }
 
-void ACFLogImpl(int a1, uint64_t a2, char *__s, uint64_t a4, const char *a5, uint64_t a6)
+void ACFLogImpl(uint64_t result, uint64_t a2, char *__s, uint64_t a4, const char *a5, uint64_t a6)
 {
   if (!a6)
   {
@@ -1030,6 +1031,7 @@ void ACFLogImpl(int a1, uint64_t a2, char *__s, uint64_t a4, const char *a5, uin
   }
 
   v8 = __s;
+  v10 = result;
   if (a5)
   {
     v11 = a5;
@@ -1052,7 +1054,7 @@ void ACFLogImpl(int a1, uint64_t a2, char *__s, uint64_t a4, const char *a5, uin
   Destination = ACFLogSettingsGetDestination();
   if (!Destination)
   {
-    v14 = a1;
+    v14 = v10;
     v15 = a2;
     v16 = v8;
     v17 = a4;
@@ -1072,7 +1074,7 @@ LABEL_17:
       return;
     }
 
-    v14 = a1;
+    v14 = v10;
     v15 = a2;
     v16 = v8;
     v17 = a4;
@@ -1082,7 +1084,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  ACFLogImplStandard(a1, a2, v8, a4, v11, a6);
+  ACFLogImplStandard(v10, a2, v8, a4, v11, a6);
 }
 
 asl_object_t ACFLogImplASL(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, uint64_t a6, int a7)
@@ -1258,16 +1260,16 @@ void ACFLogImplStandard(int a1, uint64_t a2, uint64_t a3, uint64_t a4, const cha
   }
 }
 
-void ACFLog(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, char *a6, ...)
+void ACFLog(uint64_t result, uint64_t a2, char *a3, uint64_t a4, const char *a5, char *a6, ...)
 {
   va_start(va, a6);
   if (a6)
   {
-    ACFLogWithArgs(a1, a2, a3, a4, a5, a6, va);
+    ACFLogWithArgs(result, a2, a3, a4, a5, a6, va);
   }
 }
 
-void ACFLogWithArgs(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, char *cStr, uint64_t a7)
+void ACFLogWithArgs(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, char *cStr, uint64_t a7)
 {
   if (cStr)
   {
@@ -1282,23 +1284,24 @@ void ACFLogWithArgs(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, 
   }
 }
 
-void ACFLogNSWithArgs(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7)
+void ACFLogNSWithArgs(uint64_t result, uint64_t a2, char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7)
 {
   if (a6)
   {
-    ACFLogImpl(a1, a2, a3, a4, a5, [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:a6 arguments:a7]);
+    ACFLogImpl(result, a2, a3, a4, a5, [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:a6 arguments:a7]);
   }
 }
 
-void ACFLogCF(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, const __CFString *a6, uint64_t a7, uint64_t a8, char a9)
+void ACFLogCF(uint64_t result, uint64_t a2, char *a3, uint64_t a4, const char *a5, const __CFString *a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (a6)
   {
-    ACFLogCFWithArgs(a1, a2, a3, a4, a5, a6, &a9);
+    ACFLogCFWithArgs(result, a2, a3, a4, a5, a6, va);
   }
 }
 
-void ACFLogCFWithArgs(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, CFStringRef format, va_list arguments)
+void ACFLogCFWithArgs(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, CFStringRef format, va_list arguments)
 {
   if (format)
   {
@@ -1313,11 +1316,11 @@ void ACFLogCFWithArgs(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5
   }
 }
 
-void ACFLogNS(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void ACFLogNS(uint64_t result, uint64_t a2, char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a6)
   {
-    ACFLogNSWithArgs(a1, a2, a3, a4, a5, a6, &a9);
+    ACFLogNSWithArgs(result, a2, a3, a4, a5, a6, &a9);
   }
 }
 
@@ -1370,7 +1373,7 @@ void ACFProfileEnd(uint64_t a1, char *a2, uint64_t a3, const char *a4, uint64_t 
   }
 }
 
-void ACFLogC(int a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, char *a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void ACFLogC(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, const char *a5, char *a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a6)
   {
@@ -1558,7 +1561,7 @@ uint64_t ACFNumberGetBooleanValue(const __CFNumber *a1)
   return *v1;
 }
 
-uint64_t ACFGetBooleanValue(const __CFString *a1)
+const __CFString *ACFGetBooleanValue(const __CFString *a1)
 {
   v1 = *MEMORY[0x29EDB8EF8];
   if (!a1)
@@ -2416,9 +2419,9 @@ void dispatch_async_on_main_thread(uint64_t a1)
   _Block_object_dispose(&v5, 8);
 }
 
-void sub_29835552C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29835552C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

@@ -193,17 +193,15 @@
 
 + (id)invitationPreferencesForAllHandlesWithStyles:(int64_t)styles
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E695DFD8]);
   v5 = [[TUConversationInvitationPreference alloc] initWithHandleType:2 notificationStyles:styles];
   v6 = [[TUConversationInvitationPreference alloc] initWithHandleType:3 notificationStyles:styles, v5];
-  v12[1] = v6;
+  v11[1] = v6;
   v7 = [[TUConversationInvitationPreference alloc] initWithHandleType:1 notificationStyles:styles];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
   v9 = [v4 initWithArray:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

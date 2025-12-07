@@ -90,11 +90,11 @@ LABEL_11:
 - (void)provider:(id)provider performJoinCallAction:(id)action
 {
   actionCopy = action;
-  v6 = sub_100004778();
+  v6 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v75 = actionCopy;
+    v77 = actionCopy;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "action: %@", buf, 0xCu);
   }
 
@@ -105,13 +105,13 @@ LABEL_11:
   bundleIdentifier = [v9 bundleIdentifier];
   if (bundleIdentifier && (v11 = bundleIdentifier, [v9 bundleIdentifier], v12 = objc_claimAutoreleasedReturnValue(), v13 = -[CSDGFTServiceConversationProviderDelegate isProviderForeground:](self, "isProviderForeground:", v12), v12, v11, (v13 & 1) == 0))
   {
-    v19 = sub_100004778();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(v14);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier2 = [v9 bundleIdentifier];
       *buf = 138412290;
-      v75 = bundleIdentifier2;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] bundleIdentifer: %@ not in the foreground, failing join call action", buf, 0xCu);
+      v77 = bundleIdentifier2;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[WARN] bundleIdentifer: %@ not in the foreground, failing join call action", buf, 0xCu);
     }
 
     [actionCopy fail];
@@ -121,180 +121,181 @@ LABEL_11:
   {
     selfCopy = self;
     callerID = [actionCopy callerID];
-    v15 = &_s10Foundation3URLVMa_ptr_0;
-    v54 = v9;
+    v16 = &_s10Foundation3URLVMa_ptr_0;
+    v56 = v9;
     if (callerID)
     {
-      v16 = [TUConversationMember alloc];
+      v17 = [TUConversationMember alloc];
       callerID2 = [actionCopy callerID];
       tuHandle = [callerID2 tuHandle];
-      v56 = [v16 initWithHandle:tuHandle nickname:0];
+      v58 = [v17 initWithHandle:tuHandle nickname:0];
     }
 
     else
     {
-      v56 = 0;
+      v58 = 0;
     }
 
     remoteMembers = [actionCopy remoteMembers];
-    v58 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [remoteMembers count]);
+    v60 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [remoteMembers count]);
 
     otherInvitedHandles = [actionCopy otherInvitedHandles];
-    v23 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [otherInvitedHandles count]);
+    v24 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [otherInvitedHandles count]);
 
-    v24 = +[NSMutableSet set];
-    v69 = 0u;
-    v70 = 0u;
+    v25 = +[NSMutableSet set];
     v71 = 0u;
     v72 = 0u;
-    v55 = actionCopy;
+    v73 = 0u;
+    v74 = 0u;
+    v57 = actionCopy;
     obj = [actionCopy remoteMembers];
-    v25 = [obj countByEnumeratingWithState:&v69 objects:v79 count:16];
-    v57 = v24;
-    if (v25)
+    v26 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
+    v59 = v25;
+    if (v26)
     {
-      v26 = v25;
-      v27 = *v70;
+      v27 = v26;
+      v28 = *v72;
       do
       {
-        v28 = 0;
-        v59 = v26;
+        v29 = 0;
+        v61 = v27;
         do
         {
-          if (*v70 != v27)
+          if (*v72 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v69 + 1) + 8 * v28);
-          handle = [v29 handle];
+          v30 = *(*(&v71 + 1) + 8 * v29);
+          handle = [v30 handle];
           tuHandle2 = [handle tuHandle];
 
-          if ([v24 containsObject:tuHandle2])
+          v33 = [v25 containsObject:tuHandle2];
+          if (v33)
           {
-            v32 = sub_100004778();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            v34 = sub_100004778(v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v75 = tuHandle2;
-              v76 = 2112;
-              v77 = v24;
-              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] Skipping member with handle %@ because it already exists in seen handles: %@", buf, 0x16u);
+              v77 = tuHandle2;
+              v78 = 2112;
+              v79 = v25;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[WARN] Skipping member with handle %@ because it already exists in seen handles: %@", buf, 0x16u);
             }
           }
 
           else
           {
-            v33 = v15;
-            v32 = [objc_alloc(v15[183]) initWithHandle:tuHandle2 nickname:0];
-            stableDeviceIdentifier = [v29 stableDeviceIdentifier];
-            [v32 setStableDeviceIdentifier:stableDeviceIdentifier];
+            v35 = v16;
+            v34 = [objc_alloc(v16[183]) initWithHandle:tuHandle2 nickname:0];
+            stableDeviceIdentifier = [v30 stableDeviceIdentifier];
+            [v34 setStableDeviceIdentifier:stableDeviceIdentifier];
 
+            v69 = 0u;
+            v70 = 0u;
             v67 = 0u;
             v68 = 0u;
-            v65 = 0u;
-            v66 = 0u;
-            v35 = v23;
-            v36 = v23;
-            v37 = [v36 countByEnumeratingWithState:&v65 objects:v78 count:16];
-            if (v37)
+            v37 = v24;
+            v38 = v24;
+            v39 = [v38 countByEnumeratingWithState:&v67 objects:v80 count:16];
+            if (v39)
             {
-              v38 = v37;
-              v39 = *v66;
+              v40 = v39;
+              v41 = *v68;
               do
               {
-                for (i = 0; i != v38; i = i + 1)
+                for (i = 0; i != v40; i = i + 1)
                 {
-                  if (*v66 != v39)
+                  if (*v68 != v41)
                   {
-                    objc_enumerationMutation(v36);
+                    objc_enumerationMutation(v38);
                   }
 
-                  if ([*(*(&v65 + 1) + 8 * i) isEquivalentToHandle:tuHandle2])
+                  if ([*(*(&v67 + 1) + 8 * i) isEquivalentToHandle:tuHandle2])
                   {
-                    [v32 setIsOtherInvitedHandle:1];
+                    [v34 setIsOtherInvitedHandle:1];
                   }
                 }
 
-                v38 = [v36 countByEnumeratingWithState:&v65 objects:v78 count:16];
+                v40 = [v38 countByEnumeratingWithState:&v67 objects:v80 count:16];
               }
 
-              while (v38);
+              while (v40);
             }
 
-            [v58 addObject:v32];
-            v24 = v57;
-            [v57 addObject:tuHandle2];
-            v23 = v35;
-            v15 = v33;
-            v26 = v59;
+            [v60 addObject:v34];
+            v25 = v59;
+            [v59 addObject:tuHandle2];
+            v24 = v37;
+            v16 = v35;
+            v27 = v61;
           }
 
-          v28 = v28 + 1;
+          v29 = v29 + 1;
         }
 
-        while (v28 != v26);
-        v26 = [obj countByEnumeratingWithState:&v69 objects:v79 count:16];
+        while (v29 != v27);
+        v27 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
       }
 
-      while (v26);
+      while (v27);
     }
 
+    v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    actionCopy = v55;
-    otherInvitedHandles2 = [v55 otherInvitedHandles];
-    v42 = [otherInvitedHandles2 countByEnumeratingWithState:&v61 objects:v73 count:16];
-    v9 = v54;
-    if (v42)
+    actionCopy = v57;
+    otherInvitedHandles2 = [v57 otherInvitedHandles];
+    v44 = [otherInvitedHandles2 countByEnumeratingWithState:&v63 objects:v75 count:16];
+    v9 = v56;
+    if (v44)
     {
-      v43 = v42;
-      v44 = *v62;
+      v45 = v44;
+      v46 = *v64;
       do
       {
-        for (j = 0; j != v43; j = j + 1)
+        for (j = 0; j != v45; j = j + 1)
         {
-          if (*v62 != v44)
+          if (*v64 != v46)
           {
             objc_enumerationMutation(otherInvitedHandles2);
           }
 
-          tuHandle3 = [*(*(&v61 + 1) + 8 * j) tuHandle];
-          [v23 addObject:tuHandle3];
+          tuHandle3 = [*(*(&v63 + 1) + 8 * j) tuHandle];
+          [v24 addObject:tuHandle3];
         }
 
-        v43 = [otherInvitedHandles2 countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v45 = [otherInvitedHandles2 countByEnumeratingWithState:&v63 objects:v75 count:16];
       }
 
-      while (v43);
+      while (v45);
     }
 
     conversationManager = [(CSDAbstractFaceTimeConversationProviderDelegate *)selfCopy conversationManager];
-    groupUUID = [v55 groupUUID];
-    messagesGroupUUID = [v55 messagesGroupUUID];
-    remotePushTokens = [v55 remotePushTokens];
-    if ([v55 isVideo])
+    groupUUID = [v57 groupUUID];
+    messagesGroupUUID = [v57 messagesGroupUUID];
+    remotePushTokens = [v57 remotePushTokens];
+    if ([v57 isVideo])
     {
-      v51 = 2;
+      v53 = 2;
     }
 
     else
     {
-      v51 = 1;
+      v53 = 1;
     }
 
-    v52 = [conversationManager findOrCreateConversationWithGroupUUID:groupUUID messagesGroupUUID:messagesGroupUUID remoteMembers:v58 otherInvitedHandles:v23 localMember:v56 remotePushTokens:remotePushTokens link:0 activity:0 avMode:v51 presentationMode:objc_msgSend(v55 conversationProvider:"presentationMode") screenSharingRequest:{v54, 0}];
+    v54 = [conversationManager findOrCreateConversationWithGroupUUID:groupUUID messagesGroupUUID:messagesGroupUUID remoteMembers:v60 otherInvitedHandles:v24 localMember:v58 remotePushTokens:remotePushTokens link:0 activity:0 avMode:v53 presentationMode:objc_msgSend(v57 conversationProvider:"presentationMode") screenSharingRequest:{v56, 0}];
 
-    if (v52)
+    if (v54)
     {
-      [(CSDAbstractFaceTimeConversationProviderDelegate *)selfCopy proceedToJoinForConversation:v52 action:v55];
+      [(CSDAbstractFaceTimeConversationProviderDelegate *)selfCopy proceedToJoinForConversation:v54 action:v57];
     }
 
     else
     {
-      [v55 fail];
+      [v57 fail];
     }
   }
 }
@@ -305,43 +306,43 @@ LABEL_11:
   queue = [(CSDAbstractFaceTimeConversationProviderDelegate *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Performing end call action %@", &v18, 0xCu);
+    v20 = 138412290;
+    v21 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Performing end call action %@", &v20, 0xCu);
   }
 
   callUUID = [actionCopy callUUID];
   conversationUUIDsByCallUUID = [(CSDAbstractFaceTimeConversationProviderDelegate *)self conversationUUIDsByCallUUID];
-  v10 = [conversationUUIDsByCallUUID objectForKeyedSubscript:callUUID];
+  v11 = [conversationUUIDsByCallUUID objectForKeyedSubscript:callUUID];
 
   conversationManager = [(CSDAbstractFaceTimeConversationProviderDelegate *)self conversationManager];
   conversationsByUUID = [conversationManager conversationsByUUID];
-  v13 = [conversationsByUUID objectForKeyedSubscript:v10];
+  v14 = [conversationsByUUID objectForKeyedSubscript:v11];
 
-  if (v13)
+  if (v14)
   {
-    [(CSDAbstractFaceTimeConversationProviderDelegate *)self leaveConversation:v13 withCallUUID:callUUID reason:-1];
+    [(CSDAbstractFaceTimeConversationProviderDelegate *)self leaveConversation:v14 withCallUUID:callUUID reason:-1];
     [actionCopy fulfill];
   }
 
   else
   {
-    v14 = sub_100004778();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       conversationUUIDsByCallUUID2 = [(CSDAbstractFaceTimeConversationProviderDelegate *)self conversationUUIDsByCallUUID];
       conversationManager2 = [(CSDAbstractFaceTimeConversationProviderDelegate *)self conversationManager];
       conversationsByUUID2 = [conversationManager2 conversationsByUUID];
-      v18 = 138412802;
-      v19 = callUUID;
-      v20 = 2112;
-      v21 = conversationUUIDsByCallUUID2;
+      v20 = 138412802;
+      v21 = callUUID;
       v22 = 2112;
-      v23 = conversationsByUUID2;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation for end call action call UUID %@. self.conversationUUIDsByCallUUID: %@ self.conversationManager.conversationsByUUID: %@", &v18, 0x20u);
+      v23 = conversationUUIDsByCallUUID2;
+      v24 = 2112;
+      v25 = conversationsByUUID2;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation for end call action call UUID %@. self.conversationUUIDsByCallUUID: %@ self.conversationManager.conversationsByUUID: %@", &v20, 0x20u);
     }
 
     [actionCopy fail];
@@ -356,12 +357,12 @@ LABEL_11:
   queue = [(CSDAbstractFaceTimeConversationProviderDelegate *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Failing %@ It is not supported by GFTaaS", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Failing %@ It is not supported by GFTaaS", &v9, 0xCu);
   }
 
   [actionCopy fail];
@@ -373,12 +374,12 @@ LABEL_11:
   queue = [(CSDAbstractFaceTimeConversationProviderDelegate *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = actionCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Failing %@ It is not supported by GFTaaS", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = actionCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Failing %@ It is not supported by GFTaaS", &v9, 0xCu);
   }
 
   [actionCopy fail];
@@ -478,7 +479,7 @@ LABEL_6:
     {
       if (!v9)
       {
-        conversationManager = sub_100004778();
+        conversationManager = sub_100004778(2);
         if (os_log_type_enabled(conversationManager, OS_LOG_TYPE_ERROR))
         {
           sub_10047B9B4(changedCopy, conversationManager);
@@ -519,7 +520,7 @@ LABEL_6:
 
     if (!v9)
     {
-      v36 = sub_100004778();
+      v36 = sub_100004778(3);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         sub_10047BA2C(changedCopy, v36);
@@ -566,19 +567,16 @@ LABEL_6:
       v42 = *v45;
       do
       {
-        v43 = 0;
-        do
+        for (i = 0; i != v41; i = i + 1)
         {
           if (*v45 != v42)
           {
             objc_enumerationMutation(v33);
           }
 
-          [*(*(&v44 + 1) + 8 * v43) fulfill];
-          v43 = v43 + 1;
+          [*(*(&v44 + 1) + 8 * i) fulfill];
         }
 
-        while (v41 != v43);
         v41 = [v33 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 

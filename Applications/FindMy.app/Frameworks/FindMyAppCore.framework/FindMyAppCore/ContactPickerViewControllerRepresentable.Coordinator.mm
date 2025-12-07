@@ -32,20 +32,21 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_B7900();
+  v5 = sub_B7900();
+  v7 = v6;
   if (swift_weakLoadStrong())
   {
     selfCopy = self;
-    v6 = sub_1F0A0();
+    v9 = sub_1F0A0(v5, v7);
   }
 
   else
   {
 
-    v6 = 0;
+    v9 = 0;
   }
 
-  return v6;
+  return v9;
 }
 
 - (id)searchController:(id)controller tintColorForRecipient:(id)recipient

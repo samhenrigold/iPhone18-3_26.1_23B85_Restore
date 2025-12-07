@@ -14,8 +14,8 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v4 = [formatterCopy appendUInt64:self->_context withName:@"context" format:1];
-  v5 = [formatterCopy appendObject:self->_keyCommand withName:@"keyCommands"];
+  v3 = [formatterCopy appendUInt64:? withName:? format:?];
+  v4 = [formatterCopy appendObject:? withName:?];
 }
 
 - (id)initForProtobufDecoding
@@ -27,54 +27,49 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  keyCommand = self->_keyCommand;
   coderCopy = coder;
-  [coderCopy encodeObject:keyCommand forKey:@"keyCommand"];
-  [coderCopy encodeInt64:self->_context forKey:@"context"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
 }
 
 - (BKSHIDAuthenticatedKeyCommandSpecification)initWithCoder:(id)coder
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   _init = [[BKSHIDAuthenticatedKeyCommandSpecification alloc] _init];
 
   if (_init)
   {
-    _init->_context = [coderCopy decodeInt64ForKey:@"context"];
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"keyCommand"];
+    _init->_context = [coderCopy decodeInt64ForKey:?];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
     keyCommand = _init->_keyCommand;
     _init->_keyCommand = v6;
 
-    v8 = _init->_keyCommand;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = MEMORY[0x1E696ABC0];
-      v10 = *MEMORY[0x1E696A798];
-      v20 = *MEMORY[0x1E696A588];
-      v11 = _init->_keyCommand;
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_keyCommand invalid class:%@", objc_opt_class()];
-      v21[0] = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-      v14 = [v9 errorWithDomain:v10 code:22 userInfo:v13];
+      v8 = MEMORY[0x1E696ABC0];
+      v15 = *MEMORY[0x1E696A588];
+      v16 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      v10 = [v8 errorWithDomain:? code:? userInfo:?];
 
-      if (v14)
+      if (v10)
       {
-        v15 = BKLogEventDelivery();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v11 = BKLogEventDelivery();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v19 = v14;
-          _os_log_error_impl(&dword_186345000, v15, OS_LOG_TYPE_ERROR, "error decoding authenticated key command spec:%{public}@", buf, 0xCu);
+          v14 = v10;
+          _os_log_error_impl(&dword_186345000, v11, OS_LOG_TYPE_ERROR, "error decoding authenticated key command spec:%{public}@", buf, 0xCu);
         }
 
-        [coderCopy failWithError:v14];
+        [coderCopy failWithError:?];
       }
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return _init;
 }
 
@@ -84,59 +79,56 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && equalCopy[1] == self->_context)
   {
-    v5 = equalCopy[2];
-    keyCommand = self->_keyCommand;
-    v7 = BSEqualObjects();
+    v5 = BSEqualObjects();
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  return v7;
+  return v5;
 }
 
 - (id)_init
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = BKSHIDAuthenticatedKeyCommandSpecification;
-  v3 = [(BKSHIDAuthenticatedKeyCommandSpecification *)&v11 init];
+  v23 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = BKSHIDAuthenticatedKeyCommandSpecification;
+  v3 = [(BKSHIDAuthenticatedKeyCommandSpecification *)&v10 init];
   if (v3)
   {
     v4 = objc_opt_class();
     if (v4 != objc_opt_class())
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no subclassing"];
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v8 = NSStringFromSelector(a2);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v7 = NSStringFromSelector(a2);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
         *buf = 138544642;
-        v13 = v8;
-        v14 = 2114;
-        v15 = v10;
-        v16 = 2048;
-        v17 = v3;
-        v18 = 2114;
-        v19 = @"BKSHIDAuthenticatedKeyCommandSpecification.m";
-        v20 = 1024;
-        v21 = 28;
-        v22 = 2114;
-        v23 = v7;
+        v12 = v7;
+        v13 = 2114;
+        v14 = v9;
+        v15 = 2048;
+        v16 = v3;
+        v17 = 2114;
+        v18 = @"BKSHIDAuthenticatedKeyCommandSpecification.m";
+        v19 = 1024;
+        v20 = 28;
+        v21 = 2114;
+        v22 = v6;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v7 UTF8String];
+      [v6 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863B70F8);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -159,8 +151,9 @@
 
 uint64_t __60__BKSHIDAuthenticatedKeyCommandSpecification_protobufSchema__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E698E750] buildSchemaForClass:objc_opt_class() builder:&__block_literal_global_13753];
+  v1 = MEMORY[0x1E698E750];
+  objc_opt_class();
+  v2 = [v1 buildSchemaForClass:? builder:?];
   v3 = protobufSchema_schema_13751;
   protobufSchema_schema_13751 = v2;
 
@@ -170,16 +163,17 @@ uint64_t __60__BKSHIDAuthenticatedKeyCommandSpecification_protobufSchema__block_
 void __60__BKSHIDAuthenticatedKeyCommandSpecification_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_context"];
-  [v2 addRepeatingField:"_keyCommands" containsClass:objc_opt_class()];
+  [v2 addField:?];
+  objc_opt_class();
+  [v2 addRepeatingField:? containsClass:?];
 }
 
 + (id)specificationWithKeyCommand:(id)command context:(unint64_t)context
 {
   commandCopy = command;
   _init = [[BKSHIDAuthenticatedKeyCommandSpecification alloc] _init];
-  [_init setContext:context];
-  [_init setKeyCommand:commandCopy];
+  [_init setContext:?];
+  [_init setKeyCommand:?];
 
   return _init;
 }

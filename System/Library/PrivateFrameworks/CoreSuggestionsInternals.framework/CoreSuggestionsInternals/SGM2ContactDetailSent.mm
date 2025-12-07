@@ -3,7 +3,11 @@
 - (NSString)key;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)detailAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)foundInAsString:(int)string;
+- (id)sourceAsString:(int)string;
+- (id)tokensAsString:(int)string;
 - (int)StringAsDetail:(id)detail;
 - (int)StringAsFoundIn:(id)in;
 - (int)StringAsSource:(id)source;
@@ -241,7 +245,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v8 = *(equalCopy + 32);
   if (self->_hasName)
   {
     if ((*(equalCopy + 32) & 1) == 0)
@@ -422,19 +425,18 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -453,9 +455,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  detail = self->_detail;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -469,9 +470,8 @@ LABEL_6:
   }
 
 LABEL_14:
-  foundIn = self->_foundIn;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -485,15 +485,13 @@ LABEL_7:
   }
 
 LABEL_15:
-  hasName = self->_hasName;
   PBDataWriterWriteBOOLField();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_8:
-    tokens = self->_tokens;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_9:
@@ -678,6 +676,21 @@ LABEL_28:
   return v4;
 }
 
+- (id)tokensAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AFD0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasTokens:(BOOL)tokens
 {
   if (tokens)
@@ -752,6 +765,21 @@ LABEL_28:
   return v4;
 }
 
+- (id)foundInAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AFB0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasFoundIn:(BOOL)in
 {
   if (in)
@@ -816,6 +844,21 @@ LABEL_28:
   return v4;
 }
 
+- (id)detailAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894AF88[string];
+  }
+
+  return v4;
+}
+
 - (int)detail
 {
   if (*&self->_has)
@@ -840,6 +883,29 @@ LABEL_28:
   else
   {
     v4 = [sourceCopy isEqualToString:@"SGMDocumentTypeMessage"];
+  }
+
+  return v4;
+}
+
+- (id)sourceAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMDocumentTypeMessage";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMDocumentTypeEmail";
   }
 
   return v4;

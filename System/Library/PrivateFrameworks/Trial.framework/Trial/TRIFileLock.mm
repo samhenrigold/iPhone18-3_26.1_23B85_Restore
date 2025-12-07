@@ -8,7 +8,7 @@
 + ($A5A652246548B43F8BC05201A1C72A70)acquireLockOnPath:(id)path fileLockMode:(id)mode blocking:(BOOL)blocking andRunBlock:(id)block
 {
   blockingCopy = blocking;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   blockCopy = block;
   v12 = objc_autoreleasePoolPush();
@@ -58,15 +58,15 @@ LABEL_11:
       v22 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v25 = __error();
-        v26 = strerror(*v25);
-        v27 = *__error();
+        v24 = __error();
+        v25 = strerror(*v24);
+        v26 = *__error();
         *buf = 138412802;
-        v29 = pathCopy;
-        v30 = 2080;
-        v31 = v26;
-        v32 = 1024;
-        v33 = v27;
+        v28 = pathCopy;
+        v29 = 2080;
+        v30 = v25;
+        v31 = 1024;
+        v32 = v26;
         _os_log_error_impl(&dword_22EA6B000, v22, OS_LOG_TYPE_ERROR, "Failed to open lock on path %@: %s (%d)", buf, 0x1Cu);
       }
 
@@ -93,7 +93,6 @@ LABEL_18:
 LABEL_19:
 
   objc_autoreleasePoolPop(v12);
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

@@ -60,7 +60,7 @@
 
   *__error() = v3;
   v5 = object_getClassName(self);
-  _SASetCrashLogMessage(5646, "SARecipeState classDictionaryKey not overridden by %s", v6, v7, v8, v9, v10, v11, v5);
+  _SASetCrashLogMessage(5646, "SARecipeState classDictionaryKey not overridden by %s", v5);
   result = _os_crash();
   __break(1u);
   return result;
@@ -68,51 +68,47 @@
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([(SARecipeState *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v12 = *__error();
-    v13 = _sa_logt();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = *__error();
+    v12 = _sa_logt();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = [(SARecipeState *)self debugDescription];
+      v13 = [(SARecipeState *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v14 UTF8String];
-      v39 = 2048;
+      uTF8String = [v13 UTF8String];
+      v23 = 2048;
       sizeInBytesForSerializedVersion = [(SARecipeState *)self sizeInBytesForSerializedVersion];
-      v41 = 2048;
+      v25 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v13, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v12;
-    v15 = [(SARecipeState *)self debugDescription];
-    uTF8String2 = [v15 UTF8String];
-    [(SARecipeState *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(5654, "%s: size %lu != buffer length %lu", v17, v18, v19, v20, v21, v22, uTF8String2);
+    *__error() = v11;
+    v14 = [(SARecipeState *)self debugDescription];
+    _SASetCrashLogMessage(5654, "%s: size %lu != buffer length %lu", [v14 UTF8String], -[SARecipeState sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
 LABEL_7:
-    v23 = *__error();
-    v24 = _sa_logt();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v15 = *__error();
+    v16 = _sa_logt();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v25 = [(SARecipeState *)self debugDescription];
-      uTF8String3 = [v25 UTF8String];
+      v17 = [(SARecipeState *)self debugDescription];
+      uTF8String2 = [v17 UTF8String];
       threadStateIndex = self->_threadStateIndex;
       *buf = 136315394;
-      uTF8String = uTF8String3;
-      v39 = 2048;
+      uTF8String = uTF8String2;
+      v23 = 2048;
       sizeInBytesForSerializedVersion = threadStateIndex;
-      _os_log_error_impl(&dword_1E0E2F000, v24, OS_LOG_TYPE_ERROR, "%s: %lu threadStateIndex", buf, 0x16u);
+      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "%s: %lu threadStateIndex", buf, 0x16u);
     }
 
-    *__error() = v23;
-    v28 = [(SARecipeState *)self debugDescription];
-    uTF8String4 = [v28 UTF8String];
-    v36 = self->_threadStateIndex;
-    _SASetCrashLogMessage(5659, "%s: %lu threadStateIndex", v30, v31, v32, v33, v34, v35, uTF8String4);
+    *__error() = v15;
+    v20 = [(SARecipeState *)self debugDescription];
+    _SASetCrashLogMessage(5659, "%s: %lu threadStateIndex", [v20 UTF8String], self->_threadStateIndex);
 
     _os_crash();
     __break(1u);
@@ -127,7 +123,6 @@ LABEL_7:
 
   *(&buffer->var2 + 2) = v9;
   *(&buffer->var1 + 1) = SASerializableIndexForPointerFromSerializationDictionary(self->_thread, dictionary);
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -146,7 +141,7 @@ LABEL_7:
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_7;
@@ -154,35 +149,34 @@ LABEL_7:
 
   if (length <= 0xD)
   {
-    v8 = *__error();
-    v9 = _sa_logt();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = *__error();
+    v8 = _sa_logt();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v19 = 2048;
-      v20 = 14;
-      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SARecipeState struct %lu", buf, 0x16u);
+      v12 = 2048;
+      v13 = 14;
+      _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SARecipeState struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(5680, "bufferLength %lu < serialized SARecipeState struct %lu", v10, v11, v12, v13, v14, v15, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(5680, "bufferLength %lu < serialized SARecipeState struct %lu", length, 14);
     _os_crash();
     __break(1u);
 LABEL_7:
-    v16 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SARecipeState version" userInfo:0];
-    objc_exception_throw(v16);
+    v9 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SARecipeState version" userInfo:0];
+    objc_exception_throw(v9);
   }
 
   result = objc_alloc_init(objc_opt_class());
   *(result + 2) = *(buffer + 10);
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_9;
@@ -190,24 +184,24 @@ LABEL_7:
 
   if (length <= 0xD)
   {
-    v15 = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v14 = *__error();
+    v15 = _sa_logt();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v26 = 2048;
-      v27 = 14;
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SARecipeState struct %lu", buf, 0x16u);
+      v19 = 2048;
+      v20 = 14;
+      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SARecipeState struct %lu", buf, 0x16u);
     }
 
-    *__error() = v15;
-    _SASetCrashLogMessage(5694, "bufferLength %lu < serialized SARecipeState struct %lu", v17, v18, v19, v20, v21, v22, length);
+    *__error() = v14;
+    _SASetCrashLogMessage(5694, "bufferLength %lu < serialized SARecipeState struct %lu", length, 14);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v23 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SARecipeState version" userInfo:0];
-    objc_exception_throw(v23);
+    v16 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SARecipeState version" userInfo:0];
+    objc_exception_throw(v16);
   }
 
   v10 = *(buffer + 2);
@@ -215,7 +209,6 @@ LABEL_9:
   v12 = SASerializableNonnullInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v10, dictionary, bufferDictionary, v11);
   thread = self->_thread;
   self->_thread = v12;
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

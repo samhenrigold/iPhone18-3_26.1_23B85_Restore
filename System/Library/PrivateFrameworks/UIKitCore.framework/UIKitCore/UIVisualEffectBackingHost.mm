@@ -461,10 +461,10 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  v7 = [(NSArray *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
   v8 = v12;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -936,7 +936,7 @@ LABEL_17:
 - (id)_initialValueForKey:(id)key
 {
   keyCopy = key;
-  if ([@"backgroundEffects" isEqualToString:keyCopy])
+  if (objc_msgSend_isEqualToString_(@"backgroundEffects"))
   {
     v5 = 40;
 LABEL_5:
@@ -944,7 +944,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([@"contentEffects" isEqualToString:keyCopy])
+  if (objc_msgSend_isEqualToString_(@"contentEffects"))
   {
     v5 = 32;
     goto LABEL_5;

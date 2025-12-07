@@ -1,8 +1,11 @@
 @interface _MRTextInputTraitsProtobuf
 - (BOOL)isEqual:(id)equal;
+- (id)autocapitalizationTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)keyboardTypeAsString:(int)string;
+- (id)returnKeyTypeAsString:(int)string;
 - (int)StringAsAutocapitalizationType:(id)type;
 - (int)StringAsKeyboardType:(id)type;
 - (int)StringAsReturnKeyType:(id)type;
@@ -63,25 +66,40 @@
   *&self->_has = *&self->_has & 0xFFFB | v3;
 }
 
+- (id)autocapitalizationTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769A320[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAutocapitalizationType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Words"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Sentences"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"AllCharacters"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
@@ -122,70 +140,85 @@
   *&self->_has = *&self->_has & 0xFFF7 | v3;
 }
 
+- (id)keyboardTypeAsString:(int)string
+{
+  if (string >= 0xD)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769A340[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsKeyboardType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Default"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"ASCIICapable"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"NumbersAndPunctuation"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"URL"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"NumberPad"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"PhonePad"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"NamePhonePad"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"EmailAddress"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
 
-  else if ([typeCopy isEqualToString:@"DecimalPad"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"Twitter"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
 
-  else if ([typeCopy isEqualToString:@"WebSearch"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 10;
   }
 
-  else if ([typeCopy isEqualToString:@"Alphabet"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 11;
   }
 
-  else if ([typeCopy isEqualToString:@"PasscodePad"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 12;
   }
@@ -226,65 +259,80 @@
   *&self->_has = *&self->_has & 0xFFEF | v3;
 }
 
+- (id)returnKeyTypeAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769A3A8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsReturnKeyType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Default"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Go"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Google"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"Join"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"Next"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
 
-  else if ([typeCopy isEqualToString:@"Route"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"Search"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 6;
   }
 
-  else if ([typeCopy isEqualToString:@"Send"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 7;
   }
 
-  else if ([typeCopy isEqualToString:@"Yahoo"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"Done"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
 
-  else if ([typeCopy isEqualToString:@"EmergencyCall"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 10;
   }
 
-  else if ([typeCopy isEqualToString:@"Continue"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 11;
   }
@@ -563,12 +611,11 @@ LABEL_24:
 {
   toCopy = to;
   has = self->_has;
-  v18 = toCopy;
+  v8 = toCopy;
   if ((has & 4) != 0)
   {
-    autocapitalizationType = self->_autocapitalizationType;
     PBDataWriterWriteInt32Field();
-    toCopy = v18;
+    toCopy = v8;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -587,9 +634,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  keyboardType = self->_keyboardType;
   PBDataWriterWriteInt32Field();
-  toCopy = v18;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -603,9 +649,8 @@ LABEL_4:
   }
 
 LABEL_19:
-  returnKeyType = self->_returnKeyType;
   PBDataWriterWriteInt32Field();
-  toCopy = v18;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -619,9 +664,8 @@ LABEL_5:
   }
 
 LABEL_20:
-  autocorrection = self->_autocorrection;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -635,9 +679,8 @@ LABEL_6:
   }
 
 LABEL_21:
-  spellchecking = self->_spellchecking;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -651,9 +694,8 @@ LABEL_7:
   }
 
 LABEL_22:
-  enablesReturnKeyAutomatically = self->_enablesReturnKeyAutomatically;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -667,9 +709,8 @@ LABEL_8:
   }
 
 LABEL_23:
-  secureTextEntry = self->_secureTextEntry;
   PBDataWriterWriteBOOLField();
-  toCopy = v18;
+  toCopy = v8;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -683,31 +724,28 @@ LABEL_9:
   }
 
 LABEL_24:
-  validTextRangeLocation = self->_validTextRangeLocation;
   PBDataWriterWriteUint64Field();
-  toCopy = v18;
+  toCopy = v8;
   if (*&self->_has)
   {
 LABEL_10:
-    validTextRangeLength = self->_validTextRangeLength;
     PBDataWriterWriteUint64Field();
-    toCopy = v18;
+    toCopy = v8;
   }
 
 LABEL_11:
   p_pINEntrySeparatorIndexes = &self->_pINEntrySeparatorIndexes;
   if (p_pINEntrySeparatorIndexes->count)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
-      v9 = p_pINEntrySeparatorIndexes->list[v8];
       PBDataWriterWriteUint64Field();
-      toCopy = v18;
-      ++v8;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v8 < p_pINEntrySeparatorIndexes->count);
+    while (v7 < p_pINEntrySeparatorIndexes->count);
   }
 }
 
@@ -1040,7 +1078,6 @@ LABEL_11:
       goto LABEL_60;
     }
 
-    v7 = *(equalCopy + 60);
     if (self->_autocorrection)
     {
       if ((*(equalCopy + 60) & 1) == 0)
@@ -1067,7 +1104,6 @@ LABEL_11:
       goto LABEL_60;
     }
 
-    v8 = *(equalCopy + 63);
     if (self->_spellchecking)
     {
       if ((*(equalCopy + 63) & 1) == 0)
@@ -1094,7 +1130,6 @@ LABEL_11:
       goto LABEL_60;
     }
 
-    v9 = *(equalCopy + 61);
     if (self->_enablesReturnKeyAutomatically)
     {
       if ((*(equalCopy + 61) & 1) == 0)
@@ -1131,7 +1166,6 @@ LABEL_60:
     goto LABEL_60;
   }
 
-  v10 = *(equalCopy + 62);
   if (self->_secureTextEntry)
   {
     if ((*(equalCopy + 62) & 1) == 0)

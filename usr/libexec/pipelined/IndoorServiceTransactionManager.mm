@@ -168,11 +168,11 @@
   if (os_log_type_enabled(qword_10045B058, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    *v28 = descriptionCopy;
+    *v32 = descriptionCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "IndoorServiceTransactionManager: request to end transaction w/ name %@", buf, 0xCu);
   }
 
-  v6 = [(IndoorServiceTransactionManager *)self hasOpenTransactionWithDescription:descriptionCopy];
+  LOBYTE(v6) = [(IndoorServiceTransactionManager *)self hasOpenTransactionWithDescription:descriptionCopy];
   if (v6)
   {
     v7 = [(NSMutableDictionary *)self->_activeTransactions objectForKey:descriptionCopy];
@@ -197,46 +197,46 @@
         goto LABEL_30;
       }
 
-      v20 = sub_10034D0D0();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v22 = sub_10034D0D0(0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        v21 = descriptionCopy;
+        v23 = descriptionCopy;
         uTF8String = [descriptionCopy UTF8String];
         *buf = 68289795;
-        *v28 = 0;
-        *&v28[4] = 2082;
-        *&v28[6] = "";
-        v29 = 2081;
-        v30 = uTF8String;
-        v31 = 2082;
-        v32 = "assert";
+        *v32 = 0;
+        *&v32[4] = 2082;
+        *&v32[6] = "";
         v33 = 2081;
-        v34 = "[transactionsOfType count] > 0";
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:IndoorServiceTransactionManager: expected to have at least one transaction, type:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+        v34 = uTF8String;
+        v35 = 2082;
+        v36 = "assert";
+        v37 = 2081;
+        v38 = "[transactionsOfType count] > 0";
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:IndoorServiceTransactionManager: expected to have at least one transaction, type:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       }
 
-      v23 = sub_10034D0D0();
-      if (os_signpost_enabled(v23))
+      v26 = sub_10034D0D0(v25);
+      if (os_signpost_enabled(v26))
       {
-        v24 = descriptionCopy;
+        v27 = descriptionCopy;
         uTF8String2 = [descriptionCopy UTF8String];
         *buf = 68289795;
-        *v28 = 0;
-        *&v28[4] = 2082;
-        *&v28[6] = "";
-        v29 = 2081;
-        v30 = uTF8String2;
-        v31 = 2082;
-        v32 = "assert";
+        *v32 = 0;
+        *&v32[4] = 2082;
+        *&v32[6] = "";
         v33 = 2081;
-        v34 = "[transactionsOfType count] > 0";
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IndoorServiceTransactionManager: expected to have at least one transaction", "{msg%{public}.0s:IndoorServiceTransactionManager: expected to have at least one transaction, type:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+        v34 = uTF8String2;
+        v35 = 2082;
+        v36 = "assert";
+        v37 = 2081;
+        v38 = "[transactionsOfType count] > 0";
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IndoorServiceTransactionManager: expected to have at least one transaction", "{msg%{public}.0s:IndoorServiceTransactionManager: expected to have at least one transaction, type:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       }
 
-      v18 = sub_10034D0D0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v20 = sub_10034D0D0(v29);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v26 = descriptionCopy;
+        v30 = descriptionCopy;
         sub_1003879C8([descriptionCopy UTF8String], buf);
       }
 
@@ -245,53 +245,53 @@
 
     else
     {
-      v12 = sub_10034D0D0();
+      v12 = sub_10034D0D0(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         v13 = descriptionCopy;
         uTF8String3 = [descriptionCopy UTF8String];
         *buf = 68289795;
-        *v28 = 0;
-        *&v28[4] = 2082;
-        *&v28[6] = "";
-        v29 = 2081;
-        v30 = uTF8String3;
-        v31 = 2082;
-        v32 = "assert";
+        *v32 = 0;
+        *&v32[4] = 2082;
+        *&v32[6] = "";
         v33 = 2081;
-        v34 = "transactionsOfType";
+        v34 = uTF8String3;
+        v35 = 2082;
+        v36 = "assert";
+        v37 = 2081;
+        v38 = "transactionsOfType";
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:IndoorServiceTransactionManager: list of transactions for this type should exist!, type:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       }
 
-      v15 = sub_10034D0D0();
-      if (os_signpost_enabled(v15))
+      v16 = sub_10034D0D0(v15);
+      if (os_signpost_enabled(v16))
       {
-        v16 = descriptionCopy;
+        v17 = descriptionCopy;
         uTF8String4 = [descriptionCopy UTF8String];
         *buf = 68289795;
-        *v28 = 0;
-        *&v28[4] = 2082;
-        *&v28[6] = "";
-        v29 = 2081;
-        v30 = uTF8String4;
-        v31 = 2082;
-        v32 = "assert";
+        *v32 = 0;
+        *&v32[4] = 2082;
+        *&v32[6] = "";
         v33 = 2081;
-        v34 = "transactionsOfType";
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IndoorServiceTransactionManager: list of transactions for this type should exist!", "{msg%{public}.0s:IndoorServiceTransactionManager: list of transactions for this type should exist!, type:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+        v34 = uTF8String4;
+        v35 = 2082;
+        v36 = "assert";
+        v37 = 2081;
+        v38 = "transactionsOfType";
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IndoorServiceTransactionManager: list of transactions for this type should exist!", "{msg%{public}.0s:IndoorServiceTransactionManager: list of transactions for this type should exist!, type:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
       }
 
-      v18 = sub_10034D0D0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v20 = sub_10034D0D0(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v19 = descriptionCopy;
+        v21 = descriptionCopy;
         sub_100387A38([descriptionCopy UTF8String], buf);
       }
 
       v6 = 88;
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/indoorservice/IndoorServiceTransactionManager.mm", v6, "[IndoorServiceTransactionManager closeTransactionWithDescription:]");
     __break(1u);
 LABEL_30:
     sub_1003879A0();
@@ -300,7 +300,7 @@ LABEL_11:
     if (os_log_type_enabled(qword_10045B058, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *v28 = descriptionCopy;
+      *v32 = descriptionCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "IndoorServiceTransactionManager: successfully closed a transaction w/ name %@", buf, 0xCu);
     }
   }

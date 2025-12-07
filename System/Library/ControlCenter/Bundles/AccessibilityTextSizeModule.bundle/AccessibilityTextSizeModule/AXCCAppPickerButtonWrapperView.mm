@@ -9,7 +9,7 @@
 - (AXCCAppPickerButtonWrapperView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR___AXCCAppPickerButtonWrapperView_model;
-  type metadata accessor for AppPickerButtonModel();
+  type metadata accessor for AppPickerButtonModel(0);
   v5 = swift_allocObject();
   sub_29C944FAC();
   *(&self->super.super.super.isa + v4) = v5;
@@ -20,7 +20,7 @@
 
 - (void)setOptions:(id)options
 {
-  sub_29C946768(0, &qword_2A1798C20);
+  sub_29C946768(0, &qword_2A1798C20, off_29F3350E8);
   v4 = sub_29C9473C0();
   selfCopy = self;
   AppPickerButtonWrapperView.setOptions(_:)(v4);

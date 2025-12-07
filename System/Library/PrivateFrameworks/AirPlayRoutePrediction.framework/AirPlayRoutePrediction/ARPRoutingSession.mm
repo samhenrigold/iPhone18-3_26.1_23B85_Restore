@@ -65,16 +65,16 @@
 
 + (id)routingSessionsFromNowPlayingEvents:(id)events microLocationEvents:(id)locationEvents routingSessionTimeout:(double)timeout
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   locationEventsCopy = locationEvents;
-  v9 = ARPLog();
+  v9 = ARPLog(locationEventsCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v29 = [eventsCopy count];
-    v30 = 2048;
-    v31 = [locationEventsCopy count];
+    v28 = [eventsCopy count];
+    v29 = 2048;
+    v30 = [locationEventsCopy count];
     _os_log_impl(&dword_23EB15000, v9, OS_LOG_TYPE_INFO, "routingSessionsFromNowPlayingEvents: nowPlayingEvents: %lu microLocationEvents: %lu", buf, 0x16u);
   }
 
@@ -85,30 +85,29 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v29 = v11;
-    v30 = 2048;
-    v31 = v13;
+    v28 = v11;
+    v29 = 2048;
+    v30 = v13;
     _os_log_impl(&dword_23EB15000, v9, OS_LOG_TYPE_INFO, "routingSessionsFromNowPlayingEvents: defaultMicroLocationSimilarityThreshold: %f microLocationCorrelationGracePeriod: %f", buf, 0x16u);
   }
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
   reverseObjectEnumerator = [eventsCopy reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __99__ARPRoutingSession_routingSessionsFromNowPlayingEvents_microLocationEvents_routingSessionTimeout___block_invoke;
-  v22[3] = &unk_278C645A0;
-  v23 = locationEventsCopy;
-  v24 = v14;
-  v25 = v13;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __99__ARPRoutingSession_routingSessionsFromNowPlayingEvents_microLocationEvents_routingSessionTimeout___block_invoke;
+  v21[3] = &unk_278C645A0;
+  v22 = locationEventsCopy;
+  v23 = v14;
+  v24 = v13;
   timeoutCopy = timeout;
-  v27 = v11;
+  v26 = v11;
   v17 = v14;
   v18 = locationEventsCopy;
-  [allObjects enumerateObjectsUsingBlock:v22];
+  [allObjects enumerateObjectsUsingBlock:v21];
 
   v19 = [v17 copy];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -250,7 +249,7 @@ uint64_t __99__ARPRoutingSession_routingSessionsFromNowPlayingEvents_microLocati
 
 void __99__ARPRoutingSession_routingSessionsFromNowPlayingEvents_microLocationEvents_routingSessionTimeout___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = [*(a1 + 32) startDate];
   v9 = [v7 interval];
@@ -261,20 +260,20 @@ void __99__ARPRoutingSession_routingSessionsFromNowPlayingEvents_microLocationEv
 
   if (v12 > v13)
   {
-    v14 = ARPLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = ARPLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v15 = [*(a1 + 32) startDate];
-      v16 = [v7 interval];
-      v17 = [v16 endDate];
-      v18 = *(a1 + 64);
-      v25 = 138412802;
-      v26 = v15;
-      v27 = 2112;
-      v28 = v17;
-      v29 = 2048;
-      v30 = v18;
-      _os_log_impl(&dword_23EB15000, v14, OS_LOG_TYPE_INFO, "routingSessionsFromNowPlayingEvents: stopping enumeration of sessions since: [nowPlayingEvent.startDate (%@) timeIntervalSinceDate:session.interval.endDate (%@)] > routingSessionTimeout (%f)", &v25, 0x20u);
+      v16 = [*(a1 + 32) startDate];
+      v17 = [v7 interval];
+      v18 = [v17 endDate];
+      v19 = *(a1 + 64);
+      v26 = 138412802;
+      v27 = v16;
+      v28 = 2112;
+      v29 = v18;
+      v30 = 2048;
+      v31 = v19;
+      _os_log_impl(&dword_23EB15000, v15, OS_LOG_TYPE_INFO, "routingSessionsFromNowPlayingEvents: stopping enumeration of sessions since: [nowPlayingEvent.startDate (%@) timeIntervalSinceDate:session.interval.endDate (%@)] > routingSessionTimeout (%f)", &v26, 0x20u);
     }
 
 LABEL_11:
@@ -282,20 +281,21 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v19 = *(a1 + 40);
-  v20 = [v7 outputDeviceID];
-  LODWORD(v19) = [v19 isEqualToString:v20];
+  v20 = *(a1 + 40);
+  v21 = [v7 outputDeviceID];
+  LODWORD(v20) = [v20 isEqualToString:v21];
 
-  if (v19)
+  if (v20)
   {
-    if (![*(a1 + 40) isEqualToString:@"Speaker"] || (objc_msgSend(v7, "microLocationProbabilityVector"), v21 = objc_claimAutoreleasedReturnValue(), v22 = ARPMicroLocationSimilarity(v21, *(a1 + 48)), v21, v22 >= *(a1 + 72)))
+    v22 = [*(a1 + 40) isEqualToString:@"Speaker"];
+    if (!v22 || ([v7 microLocationProbabilityVector], v23 = objc_claimAutoreleasedReturnValue(), v24 = ARPMicroLocationSimilarity(v23, *(a1 + 48)), v23, v24 >= *(a1 + 72)))
     {
-      v23 = ARPLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v25 = ARPLog(v22);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v25 = 134217984;
-        v26 = a3;
-        _os_log_impl(&dword_23EB15000, v23, OS_LOG_TYPE_INFO, "routingSessionsFromNowPlayingEvents: found sessionIndex: %lu", &v25, 0xCu);
+        v26 = 134217984;
+        v27 = a3;
+        _os_log_impl(&dword_23EB15000, v25, OS_LOG_TYPE_INFO, "routingSessionsFromNowPlayingEvents: found sessionIndex: %lu", &v26, 0xCu);
       }
 
       *(*(*(a1 + 56) + 8) + 24) = a3;
@@ -304,8 +304,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (ARPRoutingSession)initWithOutputDeviceID:(id)d interval:(id)interval microLocationProbabilityVector:(id)vector

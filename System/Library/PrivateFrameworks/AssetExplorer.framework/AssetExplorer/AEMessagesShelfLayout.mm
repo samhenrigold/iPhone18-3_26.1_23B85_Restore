@@ -141,7 +141,7 @@
 
 - (CGRect)_frameForGridItemAtIndexPath:(PXSimpleIndexPath *)path
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   itemFramesForCurrentDataSource = self->_itemFramesForCurrentDataSource;
   if (itemFramesForCurrentDataSource)
   {
@@ -163,9 +163,9 @@
         v7 = @"WAS NOT";
       }
 
-      v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_2411DE000, v6, OS_LOG_TYPE_ERROR, "<Shelf layout> Precomputed item frames unavailable, layout %@ prepared at least once", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&dword_2411DE000, v6, OS_LOG_TYPE_ERROR, "<Shelf layout> Precomputed item frames unavailable, layout %@ prepared at least once", &v12, 0xCu);
     }
 
     p_x = MEMORY[0x277CBF3A0];
@@ -175,7 +175,6 @@
   v9 = p_x[3];
   v10 = *p_x;
   v11 = p_x[1];
-  v12 = *MEMORY[0x277D85DE8];
   result.size.height = v9;
   result.size.width = v8;
   result.origin.y = v11;

@@ -36,7 +36,7 @@ uint64_t __92__SBHomeScreenOverlayViewControllerAccessibility__accessibilityLoad
 
 - (BOOL)accessibilityPerformEscape
 {
-  v3 = AXSBHIconManagerFromSharedIconController();
+  v3 = AXSBHIconManagerFromSharedIconController(self, a2);
   v4 = [v3 safeBoolForKey:@"isMainDisplayLibraryViewVisible"];
 
   if (v4)

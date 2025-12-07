@@ -9,19 +9,17 @@
 
 - (id)actionDisabledError
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = WFLocalizedString(@"Use Model Cannot Be Run");
   v3 = WFLocalizedString(@"This action is not currently available.");
   v4 = MEMORY[0x1E696ABC0];
   v5 = *MEMORY[0x1E696A588];
-  v10[0] = *MEMORY[0x1E696A578];
-  v10[1] = v5;
-  v11[0] = v2;
-  v11[1] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = *MEMORY[0x1E696A578];
+  v9[1] = v5;
+  v10[0] = v2;
+  v10[1] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v4 errorWithDomain:@"WFActionErrorDomain" code:1 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

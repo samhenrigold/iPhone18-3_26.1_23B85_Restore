@@ -10,32 +10,32 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = entriesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        v20 = 0;
-        v13 = [v12 performOrJournalWithProfile:profileCopy error:&v20];
-        v14 = v20;
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v19 = 0;
+        v13 = [v12 performOrJournalWithProfile:profileCopy error:&v19];
+        v14 = v19;
         if ((v13 & 1) == 0)
         {
           _HKInitializeLogging();
@@ -43,9 +43,9 @@
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v26 = v12;
-            v27 = 2114;
-            v28 = v14;
+            v25 = v12;
+            v26 = 2114;
+            v27 = v14;
             _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Failed to perform during journal merge: %{public}@", buf, 0x16u);
           }
 
@@ -62,7 +62,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
       if (v9)
       {
         continue;
@@ -73,8 +73,6 @@
   }
 
 LABEL_15:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (HDOnboardingCompletionJournalOperation)initWithCodableOnboardingCompletions:(id)completions syncProvenance:(int64_t)provenance

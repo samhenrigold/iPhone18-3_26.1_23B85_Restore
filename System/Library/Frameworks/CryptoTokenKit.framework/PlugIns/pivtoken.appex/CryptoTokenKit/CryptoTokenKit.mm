@@ -1,13 +1,13 @@
-id sub_100001258()
+id sub_100001258(uint64_t a1)
 {
   if (qword_10000CEE8 != -1)
   {
     sub_100003738();
   }
 
-  v1 = qword_10000CEF0;
+  v2 = qword_10000CEF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001A38(id a1)
@@ -17,26 +17,26 @@ void sub_100001A38(id a1)
   _objc_release_x1();
 }
 
-id sub_1000021D4()
+id sub_1000021D4(uint64_t a1)
 {
   if (qword_10000CEF8 != -1)
   {
     sub_1000037D4();
   }
 
-  v1 = qword_10000CF00;
+  v2 = qword_10000CF00;
 
-  return v1;
+  return v2;
 }
 
-void sub_1000025A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000025A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -78,10 +78,11 @@ void sub_1000025E4(uint64_t a1, void *a2)
   }
 }
 
-void sub_100003478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_100003478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 192), 8);
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -174,15 +175,4 @@ void sub_100003A5C()
   sub_1000036B4();
   sub_1000036A8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_100003B4C(uint64_t *a1)
-{
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
-  sub_1000036A8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }

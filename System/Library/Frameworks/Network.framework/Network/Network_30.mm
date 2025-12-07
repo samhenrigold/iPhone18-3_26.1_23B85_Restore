@@ -8,7 +8,7 @@ uint64_t nw_fd_wrapper_guard(void *a1)
     v24 = __nwlog_obj();
     *buf = 136446210;
     v35 = "nw_fd_wrapper_guard";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s called with null wrapper", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -108,7 +108,7 @@ LABEL_17:
     *v37 = v6;
     *&v37[4] = 1024;
     *&v37[6] = v4;
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s Failed to guard fd %d %{darwin.errno}d", buf, 24);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -356,7 +356,7 @@ void nw_activity_get_token(void *a1, _OWORD *a2)
     v22 = "nw_activity_get_token";
     v23 = 2082;
     v24 = "Cannot get token before activation";
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s BUG IN CLIENT OF LIBNETWORK: %{public}s", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v19 = 0;
@@ -433,7 +433,7 @@ void nw_activity_get_token(void *a1, _OWORD *a2)
     v5 = __nwlog_obj();
     *buf = 136446210;
     v22 = "nw_activity_get_token";
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null activity", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v19 = 0;
@@ -506,7 +506,7 @@ LABEL_37:
 LABEL_4:
 }
 
-uint64_t nw_path_copy_path_for_client(uint64_t a1)
+char *nw_path_copy_path_for_client(uint64_t a1)
 {
   if (nw_context_copy_implicit_context::onceToken[0] != -1)
   {
@@ -630,7 +630,7 @@ nw_listener_t nw_listener_create_with_port(const char *port, nw_parameters_t par
 {
   v26 = *MEMORY[0x1E69E9840];
   v3 = parameters;
-  nw_allow_use_of_dispatch_internal();
+  nw_allow_use_of_dispatch_internal(v3);
   if (port)
   {
     if (v3)
@@ -652,7 +652,7 @@ nw_listener_t nw_listener_create_with_port(const char *port, nw_parameters_t par
     v11 = __nwlog_obj();
     *buf = 136446210;
     v23 = "nw_listener_create_with_port";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v20 = 0;
@@ -722,7 +722,7 @@ LABEL_39:
     v7 = __nwlog_obj();
     *buf = 136446210;
     v23 = "nw_listener_create_with_port";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null port", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v20 = 0;
@@ -804,8 +804,9 @@ uint64_t sub_181C4E92C(uint64_t *a1)
   v4 = *(v1 + 16);
   v3 = *(v1 + 24);
   v5 = *a1;
-  sub_181AA39C0(v4);
-  result = sub_181A554F4(v5);
+  v6 = a1[1];
+  sub_181AA39C0(v4, v3);
+  result = sub_181A554F4(v5, v6);
   *a1 = v4;
   a1[1] = v3;
   return result;
@@ -816,8 +817,9 @@ uint64_t sub_181C4E988@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
   v6 = *(v2 + 16);
   v5 = *(v2 + 24);
   v7 = *(a1 + 32);
-  sub_181AA39C0(v6);
-  result = sub_181A554F4(v7);
+  v8 = *(a1 + 40);
+  sub_181AA39C0(v6, v5);
+  result = sub_181A554F4(v7, v8);
   *(a1 + 32) = v6;
   *(a1 + 40) = v5;
   *a2 = *(a1 + 189);
@@ -881,7 +883,7 @@ LABEL_17:
     v36 = "nw_listener_start";
     v37 = 2082;
     v38 = v3 + 42;
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s [%{public}s] In wrong state for start", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v30 = 0;
@@ -989,7 +991,7 @@ LABEL_16:
   v19 = __nwlog_obj();
   *v41 = 136446210;
   *&v41[4] = "nw_listener_start";
-  v20 = _os_log_send_and_compose_impl();
+  v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s called with null listener", v41, 12);
 
   buf[0] = 16;
   type = OS_LOG_TYPE_DEFAULT;
@@ -1104,7 +1106,7 @@ void nw_path_enumerate_interface_options_with_details(void *a1, void *a2)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v23 = "nw_path_enumerate_interface_options_with_details";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null path", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v20 = 0;
@@ -1188,7 +1190,7 @@ LABEL_37:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v23 = "nw_path_enumerate_interface_options_with_details";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null enumerate_block", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -1288,7 +1290,7 @@ LABEL_11:
     v18 = gLogObj;
     *buf = 136446210;
     v38 = "nw_interface_option_details_create";
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s [[NW_CONCRETE_CLASS_NAME(interface_option_details) alloc] init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v35 = 0;
@@ -1372,7 +1374,7 @@ LABEL_10:
   v27 = __nwlog_obj();
   *buf = 136446210;
   v38 = "nw_interface_option_details_create";
-  v28 = _os_log_send_and_compose_impl();
+  v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null nexus_agent", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v35 = 0;
@@ -1674,7 +1676,7 @@ LABEL_44:
             v43 = type metadata accessor for ParametersStorage();
             v44 = objc_allocWithZone(v43);
             v45 = OBJC_IVAR____TtC7Network17ParametersStorage_storageLock;
-            type metadata accessor for SystemLock._Storage();
+            type metadata accessor for SystemLock._Storage(0);
             v46 = swift_allocObject();
             *(v46 + 16) = 0;
             *&v44[v45] = v46;
@@ -1755,18 +1757,18 @@ LABEL_54:
 
 char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3, unint64_t a4, uint64_t a5, NSObject *a6)
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v11 = a2;
   if (!v11)
   {
     v52 = __nwlog_obj();
     *buf = 136446210;
-    v81 = "nw_path_copy_path_for_tlv";
-    v53 = _os_log_send_and_compose_impl();
+    v82 = "nw_path_copy_path_for_tlv";
+    v53 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v52, 16, "%{public}s called with null context", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v78) = 0;
-    if (!__nwlog_fault(v53, type, &v78))
+    LOBYTE(v79) = 0;
+    if (!__nwlog_fault(v53, type, &v79))
     {
       goto LABEL_157;
     }
@@ -1778,21 +1780,21 @@ char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3
       if (os_log_type_enabled(v54, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v55, "%{public}s called with null context", buf, 0xCu);
       }
 
       goto LABEL_156;
     }
 
-    if (v78 != 1)
+    if (v79 != 1)
     {
       v54 = __nwlog_obj();
       v68 = type[0];
       if (os_log_type_enabled(v54, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v68, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
       }
 
@@ -1808,7 +1810,7 @@ char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3
       if (v62)
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v61, "%{public}s called with null context, no backtrace", buf, 0xCu);
       }
 
@@ -1818,9 +1820,9 @@ char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3
     if (v62)
     {
       *buf = 136446466;
-      v81 = "nw_path_copy_path_for_tlv";
-      v82 = 2082;
-      v83 = backtrace_string;
+      v82 = "nw_path_copy_path_for_tlv";
+      v83 = 2082;
+      v84 = backtrace_string;
       _os_log_impl(&dword_181A37000, v54, v61, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
@@ -1831,12 +1833,12 @@ char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3
   {
     v56 = __nwlog_obj();
     *buf = 136446210;
-    v81 = "nw_path_copy_path_for_tlv";
-    v53 = _os_log_send_and_compose_impl();
+    v82 = "nw_path_copy_path_for_tlv";
+    v53 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s called with null parameters_buffer", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v78) = 0;
-    if (!__nwlog_fault(v53, type, &v78))
+    LOBYTE(v79) = 0;
+    if (!__nwlog_fault(v53, type, &v79))
     {
       goto LABEL_157;
     }
@@ -1848,21 +1850,21 @@ char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3
       if (os_log_type_enabled(v54, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v57, "%{public}s called with null parameters_buffer", buf, 0xCu);
       }
 
       goto LABEL_156;
     }
 
-    if (v78 != 1)
+    if (v79 != 1)
     {
       v54 = __nwlog_obj();
       v69 = type[0];
       if (os_log_type_enabled(v54, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v69, "%{public}s called with null parameters_buffer, backtrace limit exceeded", buf, 0xCu);
       }
 
@@ -1878,7 +1880,7 @@ char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3
       if (v64)
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v63, "%{public}s called with null parameters_buffer, no backtrace", buf, 0xCu);
       }
 
@@ -1888,9 +1890,9 @@ char *nw_path_copy_path_for_tlv(const unsigned __int8 *a1, void *a2, uint64_t a3
     if (v64)
     {
       *buf = 136446466;
-      v81 = "nw_path_copy_path_for_tlv";
-      v82 = 2082;
-      v83 = backtrace_string;
+      v82 = "nw_path_copy_path_for_tlv";
+      v83 = 2082;
+      v84 = backtrace_string;
       _os_log_impl(&dword_181A37000, v54, v63, "%{public}s called with null parameters_buffer, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
@@ -1909,12 +1911,12 @@ LABEL_132:
   {
     v58 = __nwlog_obj();
     *buf = 136446210;
-    v81 = "nw_path_copy_path_for_tlv";
-    v53 = _os_log_send_and_compose_impl();
+    v82 = "nw_path_copy_path_for_tlv";
+    v53 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v58, 16, "%{public}s called with null parameters_buffer_size", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v78) = 0;
-    if (!__nwlog_fault(v53, type, &v78))
+    LOBYTE(v79) = 0;
+    if (!__nwlog_fault(v53, type, &v79))
     {
       goto LABEL_157;
     }
@@ -1926,12 +1928,12 @@ LABEL_132:
       if (os_log_type_enabled(v54, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v59, "%{public}s called with null parameters_buffer_size", buf, 0xCu);
       }
     }
 
-    else if (v78 == 1)
+    else if (v79 == 1)
     {
       v65 = __nw_create_backtrace_string();
       v54 = __nwlog_obj();
@@ -1942,9 +1944,9 @@ LABEL_132:
         if (v67)
         {
           *buf = 136446466;
-          v81 = "nw_path_copy_path_for_tlv";
-          v82 = 2082;
-          v83 = v65;
+          v82 = "nw_path_copy_path_for_tlv";
+          v83 = 2082;
+          v84 = v65;
           _os_log_impl(&dword_181A37000, v54, v66, "%{public}s called with null parameters_buffer_size, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -1965,7 +1967,7 @@ LABEL_158:
       if (v67)
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v66, "%{public}s called with null parameters_buffer_size, no backtrace", buf, 0xCu);
       }
     }
@@ -1977,7 +1979,7 @@ LABEL_158:
       if (os_log_type_enabled(v54, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v54, v70, "%{public}s called with null parameters_buffer_size, backtrace limit exceeded", buf, 0xCu);
       }
     }
@@ -1992,55 +1994,56 @@ LABEL_156:
   if (v12)
   {
     _nw_parameters_set_context(v12, v11);
-    v78 = 0;
+    v79 = 0;
     *type = 0;
-    v76 = 0;
     v77 = 0;
+    v78 = 0;
+    v76 = 0;
     v75 = 0;
     v74 = 0;
-    v73 = 0;
-    if ((nw_path_parse_necp_parameters(v13, type, &v78, &v77, &v76, &v75, &v74, &v73 + 1, &v73, a3, a4) & 1) == 0)
+    if ((nw_path_parse_necp_parameters(v13, type, &v79, &v78, &v77, &v76, &v75, &v74 + 1, &v74, a3, a4) & 1) == 0)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
       v21 = gLogObj;
       *buf = 136446210;
-      v81 = "nw_path_copy_path_for_tlv";
-      v22 = _os_log_send_and_compose_impl();
+      v82 = "nw_path_copy_path_for_tlv";
+      LODWORD(v71) = 12;
+      v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s nw_path_parse_necp_parameters failed", buf, v71);
 
-      v72 = OS_LOG_TYPE_ERROR;
-      v71 = 0;
-      if (!__nwlog_fault(v22, &v72, &v71))
+      v73 = OS_LOG_TYPE_ERROR;
+      v72 = 0;
+      if (!__nwlog_fault(v22, &v73, &v72))
       {
         goto LABEL_102;
       }
 
-      if (v72 == OS_LOG_TYPE_FAULT)
+      if (v73 == OS_LOG_TYPE_FAULT)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v23 = gLogObj;
-        v24 = v72;
-        if (os_log_type_enabled(v23, v72))
+        v24 = v73;
+        if (os_log_type_enabled(v23, v73))
         {
           *buf = 136446210;
-          v81 = "nw_path_copy_path_for_tlv";
+          v82 = "nw_path_copy_path_for_tlv";
           _os_log_impl(&dword_181A37000, v23, v24, "%{public}s nw_path_parse_necp_parameters failed", buf, 0xCu);
         }
 
         goto LABEL_101;
       }
 
-      if (v71 != 1)
+      if (v72 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v23 = gLogObj;
-        v32 = v72;
-        if (os_log_type_enabled(v23, v72))
+        v32 = v73;
+        if (os_log_type_enabled(v23, v73))
         {
           *buf = 136446210;
-          v81 = "nw_path_copy_path_for_tlv";
+          v82 = "nw_path_copy_path_for_tlv";
           _os_log_impl(&dword_181A37000, v23, v32, "%{public}s nw_path_parse_necp_parameters failed, backtrace limit exceeded", buf, 0xCu);
         }
 
@@ -2051,14 +2054,14 @@ LABEL_156:
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
       v23 = gLogObj;
-      v29 = v72;
-      v30 = os_log_type_enabled(v23, v72);
+      v29 = v73;
+      v30 = os_log_type_enabled(v23, v73);
       if (!v28)
       {
         if (v30)
         {
           *buf = 136446210;
-          v81 = "nw_path_copy_path_for_tlv";
+          v82 = "nw_path_copy_path_for_tlv";
           _os_log_impl(&dword_181A37000, v23, v29, "%{public}s nw_path_parse_necp_parameters failed, no backtrace", buf, 0xCu);
         }
 
@@ -2068,18 +2071,18 @@ LABEL_156:
       if (v30)
       {
         *buf = 136446466;
-        v81 = "nw_path_copy_path_for_tlv";
-        v82 = 2082;
-        v83 = v28;
+        v82 = "nw_path_copy_path_for_tlv";
+        v83 = 2082;
+        v84 = v28;
         _os_log_impl(&dword_181A37000, v23, v29, "%{public}s nw_path_parse_necp_parameters failed, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
       goto LABEL_29;
     }
 
-    if (v77)
+    if (v78)
     {
-      v14 = v77;
+      v14 = v78;
       v15 = _nw_path_create(0, v13);
       v16 = v15;
       if (v15)
@@ -2087,12 +2090,12 @@ LABEL_156:
         _nw_path_set_browse_descriptor(v15, v14);
 
 LABEL_32:
-        _nw_path_set_group_descriptor(v16, v78);
-        _nw_path_set_advertise_descriptor(v16, v76);
-        _nw_path_set_is_listener(v16, v75);
-        _nw_path_set_custom_ethertype(v16, v74);
-        _nw_path_set_custom_ip_protocol(v16, SHIBYTE(v73));
-        _nw_path_set_is_interpose(v16, v73);
+        _nw_path_set_group_descriptor(v16, v79);
+        _nw_path_set_advertise_descriptor(v16, v77);
+        _nw_path_set_is_listener(v16, v76);
+        _nw_path_set_custom_ethertype(v16, v75);
+        _nw_path_set_custom_ip_protocol(v16, SHIBYTE(v74));
+        _nw_path_set_is_interpose(v16, v74);
         _nw_path_set_client_id(v16, a1);
         if (!a5 || !a6 || (nw_path_parse_necp_result(v16, a5, a6) & 1) != 0)
         {
@@ -2106,44 +2109,45 @@ LABEL_105:
         networkd_settings_init();
         v35 = gLogObj;
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
-        v36 = _os_log_send_and_compose_impl();
+        v82 = "nw_path_copy_path_for_tlv";
+        LODWORD(v71) = 12;
+        v36 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v35, 16, "%{public}s nw_path_parse_necp_result failed", buf, v71);
 
-        v72 = OS_LOG_TYPE_ERROR;
-        v71 = 0;
-        if (!__nwlog_fault(v36, &v72, &v71))
+        v73 = OS_LOG_TYPE_ERROR;
+        v72 = 0;
+        if (!__nwlog_fault(v36, &v73, &v72))
         {
           goto LABEL_96;
         }
 
-        if (v72 == OS_LOG_TYPE_FAULT)
+        if (v73 == OS_LOG_TYPE_FAULT)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
           v37 = gLogObj;
-          v38 = v72;
-          if (os_log_type_enabled(v37, v72))
+          v38 = v73;
+          if (os_log_type_enabled(v37, v73))
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v37, v38, "%{public}s nw_path_parse_necp_result failed", buf, 0xCu);
           }
         }
 
-        else if (v71 == 1)
+        else if (v72 == 1)
         {
           v43 = __nw_create_backtrace_string();
           v37 = __nwlog_obj();
-          v44 = v72;
-          v45 = os_log_type_enabled(v37, v72);
+          v44 = v73;
+          v45 = os_log_type_enabled(v37, v73);
           if (v43)
           {
             if (v45)
             {
               *buf = 136446466;
-              v81 = "nw_path_copy_path_for_tlv";
-              v82 = 2082;
-              v83 = v43;
+              v82 = "nw_path_copy_path_for_tlv";
+              v83 = 2082;
+              v84 = v43;
               _os_log_impl(&dword_181A37000, v37, v44, "%{public}s nw_path_parse_necp_result failed, dumping backtrace:%{public}s", buf, 0x16u);
             }
 
@@ -2154,7 +2158,7 @@ LABEL_105:
           if (v45)
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v37, v44, "%{public}s nw_path_parse_necp_result failed, no backtrace", buf, 0xCu);
           }
         }
@@ -2162,11 +2166,11 @@ LABEL_105:
         else
         {
           v37 = __nwlog_obj();
-          v49 = v72;
-          if (os_log_type_enabled(v37, v72))
+          v49 = v73;
+          if (os_log_type_enabled(v37, v73))
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v37, v49, "%{public}s nw_path_parse_necp_result failed, backtrace limit exceeded", buf, 0xCu);
           }
         }
@@ -2184,23 +2188,24 @@ LABEL_96:
       networkd_settings_init();
       v33 = gLogObj;
       *buf = 136446210;
-      v81 = "nw_path_copy_path_for_tlv";
-      v22 = _os_log_send_and_compose_impl();
+      v82 = "nw_path_copy_path_for_tlv";
+      LODWORD(v71) = 12;
+      v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v33, 16, "%{public}s nw_path_create_browse failed", buf, v71);
 
-      v72 = OS_LOG_TYPE_ERROR;
-      v71 = 0;
-      if (__nwlog_fault(v22, &v72, &v71))
+      v73 = OS_LOG_TYPE_ERROR;
+      v72 = 0;
+      if (__nwlog_fault(v22, &v73, &v72))
       {
-        if (v72 == OS_LOG_TYPE_FAULT)
+        if (v73 == OS_LOG_TYPE_FAULT)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
           v23 = gLogObj;
-          v34 = v72;
-          if (os_log_type_enabled(v23, v72))
+          v34 = v73;
+          if (os_log_type_enabled(v23, v73))
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v23, v34, "%{public}s nw_path_create_browse failed", buf, 0xCu);
           }
 
@@ -2209,14 +2214,14 @@ LABEL_101:
           goto LABEL_102;
         }
 
-        if (v71 != 1)
+        if (v72 != 1)
         {
           v23 = __nwlog_obj();
-          v48 = v72;
-          if (os_log_type_enabled(v23, v72))
+          v48 = v73;
+          if (os_log_type_enabled(v23, v73))
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v23, v48, "%{public}s nw_path_create_browse failed, backtrace limit exceeded", buf, 0xCu);
           }
 
@@ -2225,14 +2230,14 @@ LABEL_101:
 
         v28 = __nw_create_backtrace_string();
         v23 = __nwlog_obj();
-        v41 = v72;
-        v42 = os_log_type_enabled(v23, v72);
+        v41 = v73;
+        v42 = os_log_type_enabled(v23, v73);
         if (!v28)
         {
           if (v42)
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v23, v41, "%{public}s nw_path_create_browse failed, no backtrace", buf, 0xCu);
           }
 
@@ -2242,9 +2247,9 @@ LABEL_101:
         if (v42)
         {
           *buf = 136446466;
-          v81 = "nw_path_copy_path_for_tlv";
-          v82 = 2082;
-          v83 = v28;
+          v82 = "nw_path_copy_path_for_tlv";
+          v83 = 2082;
+          v84 = v28;
           _os_log_impl(&dword_181A37000, v23, v41, "%{public}s nw_path_create_browse failed, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -2272,37 +2277,38 @@ LABEL_29:
       networkd_settings_init();
       v39 = gLogObj;
       *buf = 136446210;
-      v81 = "nw_path_copy_path_for_tlv";
-      v22 = _os_log_send_and_compose_impl();
+      v82 = "nw_path_copy_path_for_tlv";
+      LODWORD(v71) = 12;
+      v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v39, 16, "%{public}s nw_path_create failed", buf, v71);
 
-      v72 = OS_LOG_TYPE_ERROR;
-      v71 = 0;
-      if (__nwlog_fault(v22, &v72, &v71))
+      v73 = OS_LOG_TYPE_ERROR;
+      v72 = 0;
+      if (__nwlog_fault(v22, &v73, &v72))
       {
-        if (v72 == OS_LOG_TYPE_FAULT)
+        if (v73 == OS_LOG_TYPE_FAULT)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
           v23 = gLogObj;
-          v40 = v72;
-          if (os_log_type_enabled(v23, v72))
+          v40 = v73;
+          if (os_log_type_enabled(v23, v73))
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v23, v40, "%{public}s nw_path_create failed", buf, 0xCu);
           }
 
           goto LABEL_101;
         }
 
-        if (v71 != 1)
+        if (v72 != 1)
         {
           v23 = __nwlog_obj();
-          v50 = v72;
-          if (os_log_type_enabled(v23, v72))
+          v50 = v73;
+          if (os_log_type_enabled(v23, v73))
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v23, v50, "%{public}s nw_path_create failed, backtrace limit exceeded", buf, 0xCu);
           }
 
@@ -2311,14 +2317,14 @@ LABEL_29:
 
         v28 = __nw_create_backtrace_string();
         v23 = __nwlog_obj();
-        v46 = v72;
-        v47 = os_log_type_enabled(v23, v72);
+        v46 = v73;
+        v47 = os_log_type_enabled(v23, v73);
         if (!v28)
         {
           if (v47)
           {
             *buf = 136446210;
-            v81 = "nw_path_copy_path_for_tlv";
+            v82 = "nw_path_copy_path_for_tlv";
             _os_log_impl(&dword_181A37000, v23, v46, "%{public}s nw_path_create failed, no backtrace", buf, 0xCu);
           }
 
@@ -2328,9 +2334,9 @@ LABEL_29:
         if (v47)
         {
           *buf = 136446466;
-          v81 = "nw_path_copy_path_for_tlv";
-          v82 = 2082;
-          v83 = v28;
+          v82 = "nw_path_copy_path_for_tlv";
+          v83 = 2082;
+          v84 = v28;
           _os_log_impl(&dword_181A37000, v23, v46, "%{public}s nw_path_create failed, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -2355,12 +2361,12 @@ LABEL_103:
   networkd_settings_init();
   v17 = gLogObj;
   *buf = 136446210;
-  v81 = "nw_path_copy_path_for_tlv";
-  v18 = _os_log_send_and_compose_impl();
+  v82 = "nw_path_copy_path_for_tlv";
+  v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s nw_parameters_create failed", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
-  LOBYTE(v78) = 0;
-  if (__nwlog_fault(v18, type, &v78))
+  LOBYTE(v79) = 0;
+  if (__nwlog_fault(v18, type, &v79))
   {
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
@@ -2371,12 +2377,12 @@ LABEL_103:
       if (os_log_type_enabled(v19, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v19, v20, "%{public}s nw_parameters_create failed", buf, 0xCu);
       }
     }
 
-    else if (v78 == 1)
+    else if (v79 == 1)
     {
       v25 = __nw_create_backtrace_string();
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -2389,9 +2395,9 @@ LABEL_103:
         if (v27)
         {
           *buf = 136446466;
-          v81 = "nw_path_copy_path_for_tlv";
-          v82 = 2082;
-          v83 = v25;
+          v82 = "nw_path_copy_path_for_tlv";
+          v83 = 2082;
+          v84 = v25;
           _os_log_impl(&dword_181A37000, v19, v26, "%{public}s nw_parameters_create failed, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
@@ -2407,7 +2413,7 @@ LABEL_103:
       if (v27)
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v19, v26, "%{public}s nw_parameters_create failed, no backtrace", buf, 0xCu);
       }
     }
@@ -2421,7 +2427,7 @@ LABEL_103:
       if (os_log_type_enabled(v19, type[0]))
       {
         *buf = 136446210;
-        v81 = "nw_path_copy_path_for_tlv";
+        v82 = "nw_path_copy_path_for_tlv";
         _os_log_impl(&dword_181A37000, v19, v31, "%{public}s nw_parameters_create failed, backtrace limit exceeded", buf, 0xCu);
       }
     }
@@ -2483,7 +2489,7 @@ void nw_listener_set_state_changed_handler(nw_listener_t listener, nw_listener_s
   v6 = __nwlog_obj();
   *buf = 136446210;
   v20 = "nw_listener_set_state_changed_handler";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null listener", buf, 12);
 
   v18 = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -2599,7 +2605,7 @@ void nw_listener_set_queue(nw_listener_t listener, dispatch_queue_t queue)
     v7 = __nwlog_obj();
     *buf = 136446210;
     v27 = "nw_listener_set_queue";
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null listener", buf, 12);
 
     v25 = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -2693,7 +2699,7 @@ LABEL_37:
   v11 = __nwlog_obj();
   *buf = 136446210;
   v27 = "nw_listener_set_queue";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null queue", buf, 12);
 
   v25 = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -2766,7 +2772,7 @@ LABEL_4:
 
 void nw_listener_handle_new_path_on_queue(void *a1, void *a2)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   nw_context_assert_queue(*(v3 + 3));
@@ -2777,8 +2783,8 @@ void nw_listener_handle_new_path_on_queue(void *a1, void *a2)
     aBlock[2] = ___ZL36nw_listener_handle_new_path_on_queueP22NWConcrete_nw_listenerPU21objcproto10OS_nw_path8NSObject_block_invoke;
     aBlock[3] = &unk_1E6A3D760;
     v5 = v3;
-    v63 = v5;
-    v64 = v4;
+    v64 = v5;
+    v65 = v4;
     v6 = _Block_copy(aBlock);
     os_unfair_lock_lock(v3 + 2);
     v6[2](v6);
@@ -2817,21 +2823,21 @@ LABEL_116:
           *applier = MEMORY[0x1E69E9820];
           *&applier[8] = 3221225472;
           *&applier[16] = ___ZL42nw_listener_update_trigger_agents_on_queueP22NWConcrete_nw_listener_block_invoke;
-          *&v68 = &unk_1E6A2E1E0;
-          v61 = v13;
-          *(&v68 + 1) = v61;
-          v60 = v12;
-          v69 = v60;
+          *&v69 = &unk_1E6A2E1E0;
+          v62 = v13;
+          *(&v69 + 1) = v62;
+          v61 = v12;
+          v70 = v61;
           v15 = v11;
-          v70 = v15;
+          v71 = v15;
           v16 = v7;
-          v71 = v16;
+          v72 = v16;
           xpc_array_apply(v14, applier);
           count = xpc_array_get_count(v15);
           if (count)
           {
             objc_storeStrong(v7 + 25, v11);
-            v18 = v61;
+            v18 = v62;
             v19 = *(v7 + 24);
             *(v7 + 24) = v18;
           }
@@ -2938,9 +2944,9 @@ LABEL_13:
                     *&applier[12] = 2082;
                     *&applier[14] = v55;
                     *&applier[22] = 1024;
-                    LODWORD(v68) = 1;
-                    WORD2(v68) = 2082;
-                    *(&v68 + 6) = "cannot satisfy";
+                    LODWORD(v69) = 1;
+                    WORD2(v69) = 2082;
+                    *(&v69 + 6) = "cannot satisfy";
                     _os_log_impl(&dword_181A37000, v34, OS_LOG_TYPE_DEBUG, "%{public}s [%{public}s] Trigger failed: [%d] %{public}s", applier, 0x26u);
                   }
                 }
@@ -2977,9 +2983,9 @@ LABEL_13:
                     *&applier[12] = 2082;
                     *&applier[14] = v52;
                     *&applier[22] = 1024;
-                    LODWORD(v68) = v32;
-                    WORD2(v68) = 2082;
-                    *(&v68 + 6) = v53;
+                    LODWORD(v69) = v32;
+                    WORD2(v69) = 2082;
+                    *(&v69 + 6) = v53;
                     _os_log_impl(&dword_181A37000, v34, OS_LOG_TYPE_ERROR, "%{public}s [%{public}s] Trigger failed: [%d] %{public}s", applier, 0x26u);
                   }
                 }
@@ -3010,7 +3016,7 @@ LABEL_13:
                     *&applier[12] = 2082;
                     *&applier[14] = v35;
                     *&applier[22] = 2048;
-                    *&v68 = v36;
+                    *&v69 = v36;
                     _os_log_impl(&dword_181A37000, v34, OS_LOG_TYPE_DEBUG, "%{public}s [%{public}s] Triggered %zu agents", applier, 0x20u);
                   }
                 }
@@ -3025,7 +3031,8 @@ LABEL_115:
               v46 = __nwlog_obj();
               *applier = 136446210;
               *&applier[4] = "nw_listener_trigger_agents_on_queue";
-              v47 = _os_log_send_and_compose_impl();
+              LODWORD(v60) = 12;
+              v47 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v46, 16, "%{public}s xpc_array_create failed", applier, v60);
 
               buf[0] = 16;
               type = OS_LOG_TYPE_DEFAULT;
@@ -3105,9 +3112,9 @@ LABEL_110:
             {
               v42 = nw_listener_get_id_string(v16);
               *buf = 136446466;
-              v73 = "nw_listener_update_trigger_agents_on_queue";
-              v74 = 2082;
-              v75 = v42;
+              v74 = "nw_listener_update_trigger_agents_on_queue";
+              v75 = 2082;
+              v76 = v42;
               _os_log_impl(&dword_181A37000, v19, OS_LOG_TYPE_INFO, "%{public}s [%{public}s] all triggered agents updated", buf, 0x16u);
             }
           }
@@ -3117,12 +3124,12 @@ LABEL_110:
 
         v37 = __nwlog_obj();
         *buf = 136446210;
-        v73 = "nw_listener_update_trigger_agents_on_queue";
-        v38 = _os_log_send_and_compose_impl();
+        v74 = "nw_listener_update_trigger_agents_on_queue";
+        v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v37, 16, "%{public}s xpc_array_create failed", buf, 12);
 
         type = OS_LOG_TYPE_ERROR;
-        v65 = 0;
-        if (__nwlog_fault(v38, &type, &v65))
+        v66 = 0;
+        if (__nwlog_fault(v38, &type, &v66))
         {
           if (type == OS_LOG_TYPE_FAULT)
           {
@@ -3131,12 +3138,12 @@ LABEL_110:
             if (os_log_type_enabled(v39, type))
             {
               *buf = 136446210;
-              v73 = "nw_listener_update_trigger_agents_on_queue";
+              v74 = "nw_listener_update_trigger_agents_on_queue";
               _os_log_impl(&dword_181A37000, v39, v40, "%{public}s xpc_array_create failed", buf, 0xCu);
             }
           }
 
-          else if (v65 == 1)
+          else if (v66 == 1)
           {
             v43 = __nw_create_backtrace_string();
             v39 = __nwlog_obj();
@@ -3147,9 +3154,9 @@ LABEL_110:
               if (v45)
               {
                 *buf = 136446466;
-                v73 = "nw_listener_update_trigger_agents_on_queue";
-                v74 = 2082;
-                v75 = v43;
+                v74 = "nw_listener_update_trigger_agents_on_queue";
+                v75 = 2082;
+                v76 = v43;
                 _os_log_impl(&dword_181A37000, v39, v44, "%{public}s xpc_array_create failed, dumping backtrace:%{public}s", buf, 0x16u);
               }
 
@@ -3160,7 +3167,7 @@ LABEL_110:
             if (v45)
             {
               *buf = 136446210;
-              v73 = "nw_listener_update_trigger_agents_on_queue";
+              v74 = "nw_listener_update_trigger_agents_on_queue";
               _os_log_impl(&dword_181A37000, v39, v44, "%{public}s xpc_array_create failed, no backtrace", buf, 0xCu);
             }
           }
@@ -3172,7 +3179,7 @@ LABEL_110:
             if (os_log_type_enabled(v39, type))
             {
               *buf = 136446210;
-              v73 = "nw_listener_update_trigger_agents_on_queue";
+              v74 = "nw_listener_update_trigger_agents_on_queue";
               _os_log_impl(&dword_181A37000, v39, v50, "%{public}s xpc_array_create failed, backtrace limit exceeded", buf, 0xCu);
             }
           }
@@ -3210,9 +3217,9 @@ LABEL_98:
       {
         v27 = nw_listener_get_id_string(v7);
         *buf = 136446466;
-        v73 = "nw_listener_update_trigger_agents_on_queue";
-        v74 = 2082;
-        v75 = v27;
+        v74 = "nw_listener_update_trigger_agents_on_queue";
+        v75 = 2082;
+        v76 = v27;
         _os_log_impl(&dword_181A37000, v10, OS_LOG_TYPE_ERROR, "%{public}s [%{public}s] no inactive agent information", buf, 0x16u);
       }
     }
@@ -3668,7 +3675,7 @@ uint64_t nw_path_listener_uses_nexus_only(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_path_listener_uses_nexus_only";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null path", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -3744,7 +3751,7 @@ uint64_t sub_181C54400(uint64_t *a1)
 {
   v2 = *a1;
   v3 = *(v1 + 32);
-  is_ultra_constrained_allowed = swift_beginAccess();
+  swift_beginAccess();
   if (*(v3 + 230) & 1) != 0 && (*(v2 + 136))
   {
     if (qword_1ED4106B8 != -1)
@@ -3809,47 +3816,43 @@ uint64_t sub_181C54400(uint64_t *a1)
     goto LABEL_55;
   }
 
-  if ((*(v3 + 231) & 1) == 0 && (*(v2 + 137) & 0x40) != 0)
+  if ((*(v3 + 231) & 1) == 0 && (*(v2 + 137) & 0x40) != 0 && (nw_path_is_ultra_constrained_allowed() & 1) == 0)
   {
-    is_ultra_constrained_allowed = nw_path_is_ultra_constrained_allowed();
-    if ((is_ultra_constrained_allowed & 1) == 0)
+    if (qword_1ED4106B8 != -1)
     {
-      if (qword_1ED4106B8 != -1)
-      {
-        swift_once();
-      }
+      swift_once();
+    }
 
-      v52 = sub_182AD2698();
-      __swift_project_value_buffer(v52, qword_1ED411DA8);
+    v52 = sub_182AD2698();
+    __swift_project_value_buffer(v52, qword_1ED411DA8);
 
-      v13 = sub_182AD2678();
-      v14 = sub_182AD38A8();
+    v13 = sub_182AD2678();
+    v14 = sub_182AD38A8();
 
-      if (!os_log_type_enabled(v13, v14))
-      {
-        goto LABEL_56;
-      }
+    if (!os_log_type_enabled(v13, v14))
+    {
+      goto LABEL_56;
+    }
 
-      v15 = swift_slowAlloc();
-      v16 = swift_slowAlloc();
-      v102 = v16;
-      *v15 = 136315138;
-      v54 = *(v2 + 40);
-      v53 = *(v2 + 48);
+    v15 = swift_slowAlloc();
+    v16 = swift_slowAlloc();
+    v102 = v16;
+    *v15 = 136315138;
+    v54 = *(v2 + 40);
+    v53 = *(v2 + 48);
 
-      v55 = sub_181C64FFC(v54, v53, &v102);
+    v55 = sub_181C64FFC(v54, v53, &v102);
 
-      *(v15 + 4) = v55;
-      v20 = "Ultra constrained not allowed, cannot use interface option %s";
+    *(v15 + 4) = v55;
+    v20 = "Ultra constrained not allowed, cannot use interface option %s";
 LABEL_55:
-      _os_log_impl(&dword_181A37000, v13, v14, v20, v15, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v16);
-      MEMORY[0x1865DF520](v16, -1, -1);
-      MEMORY[0x1865DF520](v15, -1, -1);
+    _os_log_impl(&dword_181A37000, v13, v14, v20, v15, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1(v16);
+    MEMORY[0x1865DF520](v16, -1, -1);
+    MEMORY[0x1865DF520](v15, -1, -1);
 LABEL_56:
 
-      return 1;
-    }
+    return 1;
   }
 
   v5 = *(v3 + 240);
@@ -3967,8 +3970,7 @@ LABEL_13:
     }
   }
 
-  is_ultra_constrained_allowed = sub_181AC81FC(is_ultra_constrained_allowed);
-  if (is_ultra_constrained_allowed)
+  if (sub_181AC81FC(v4))
   {
     v10 = v102;
     v8 = v103;
@@ -4140,8 +4142,7 @@ LABEL_62:
     break;
   }
 
-  is_ultra_constrained_allowed = sub_181AC81FC(is_ultra_constrained_allowed);
-  if (is_ultra_constrained_allowed)
+  if (sub_181AC81FC(v4))
   {
     v60 = v102;
     v58 = v103;
@@ -4196,17 +4197,8 @@ LABEL_85:
     v86 = v83 + 8 * v80++;
     v103 = v80;
     v87 = *(v86 + 40);
-    v82 = *(v87 + 40);
-    if (v82 != *(v2 + 40) || *(v87 + 48) != *(v2 + 48))
-    {
-      v82 = sub_182AD4268();
-      if ((v82 & 1) == 0)
-      {
-        goto LABEL_95;
-      }
-    }
-
-    if (*(v87 + 16) != *(v2 + 16))
+    v88 = *(v87 + 40) == *(v2 + 40) && *(v87 + 48) == *(v2 + 48);
+    if (!v88 && (sub_182AD4268() & 1) == 0 || *(v87 + 16) != *(v2 + 16))
     {
       goto LABEL_95;
     }
@@ -4356,7 +4348,7 @@ void nw_interface_option_details_get_nexus_agent(void *a1, _OWORD *a2)
     v9 = __nwlog_obj();
     *buf = 136446210;
     v21 = "nw_interface_option_details_get_nexus_agent";
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null out_nexus_agent", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v18 = 0;
@@ -4427,7 +4419,7 @@ LABEL_36:
     v5 = __nwlog_obj();
     *buf = 136446210;
     v21 = "nw_interface_option_details_get_nexus_agent";
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null interface_option_details", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v18 = 0;
@@ -4516,7 +4508,7 @@ id nw_interface_option_details_copy_remote_endpoint(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_interface_option_details_copy_remote_endpoint";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null interface_option_details", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -4610,7 +4602,7 @@ const char *nw_listener_get_id_string(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_listener_get_id_string";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null listener", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -4700,7 +4692,7 @@ uint64_t ___ZL45nw_listener_has_flow_for_nexus_agent_on_queueP22NWConcrete_nw_li
   return v8;
 }
 
-BOOL sub_181C55C6C(void *a1)
+BOOL sub_181C55C6C(char *a1)
 {
   v2 = type metadata accessor for Endpoint.EndpointType(0);
   MEMORY[0x1EEE9AC00](v2);
@@ -4708,7 +4700,7 @@ BOOL sub_181C55C6C(void *a1)
   v5 = OBJC_IVAR____TtC7Network8Endpoint_type;
   v6 = a1;
   swift_beginAccess();
-  sub_181A546E0(a1 + v5, v4, type metadata accessor for Endpoint.EndpointType);
+  sub_181A546E0(&a1[v5], v4, type metadata accessor for Endpoint.EndpointType);
 
   if (swift_getEnumCaseMultiPayload())
   {
@@ -4755,10 +4747,11 @@ BOOL sub_181C55C6C(void *a1)
   }
 }
 
-_DWORD *nw_fd_wrapper_create(int a1)
+_DWORD *nw_fd_wrapper_create(uint64_t a1)
 {
+  v1 = a1;
   *&v18[13] = *MEMORY[0x1E69E9840];
-  if (a1 < 0)
+  if ((a1 & 0x80000000) != 0)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
@@ -4766,8 +4759,8 @@ _DWORD *nw_fd_wrapper_create(int a1)
     *buf = 136446466;
     v16 = "nw_fd_wrapper_create";
     v17 = 1024;
-    *v18 = a1;
-    v5 = _os_log_send_and_compose_impl();
+    *v18 = v1;
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with invalid fd %d", buf, 18);
 
     type = OS_LOG_TYPE_ERROR;
     v13 = 0;
@@ -4784,7 +4777,7 @@ _DWORD *nw_fd_wrapper_create(int a1)
           *buf = 136446466;
           v16 = "nw_fd_wrapper_create";
           v17 = 1024;
-          *v18 = a1;
+          *v18 = v1;
           _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with invalid fd %d", buf, 0x12u);
         }
       }
@@ -4804,7 +4797,7 @@ _DWORD *nw_fd_wrapper_create(int a1)
             *buf = 136446722;
             v16 = "nw_fd_wrapper_create";
             v17 = 1024;
-            *v18 = a1;
+            *v18 = v1;
             v18[2] = 2082;
             *&v18[3] = backtrace_string;
             _os_log_impl(&dword_181A37000, v6, v10, "%{public}s called with invalid fd %d, dumping backtrace:%{public}s", buf, 0x1Cu);
@@ -4824,7 +4817,7 @@ _DWORD *nw_fd_wrapper_create(int a1)
           *buf = 136446466;
           v16 = "nw_fd_wrapper_create";
           v17 = 1024;
-          *v18 = a1;
+          *v18 = v1;
           _os_log_impl(&dword_181A37000, v6, v10, "%{public}s called with invalid fd %d, no backtrace", buf, 0x12u);
         }
       }
@@ -4840,7 +4833,7 @@ _DWORD *nw_fd_wrapper_create(int a1)
           *buf = 136446466;
           v16 = "nw_fd_wrapper_create";
           v17 = 1024;
-          *v18 = a1;
+          *v18 = v1;
           _os_log_impl(&dword_181A37000, v6, v12, "%{public}s called with invalid fd %d, backtrace limit exceeded", buf, 0x12u);
         }
       }
@@ -4884,7 +4877,7 @@ uint64_t nw_parameters_get_disable_listener_datapath(char *a1)
   v2 = __nwlog_obj();
   *buf = 136446210;
   v12 = "nw_parameters_get_disable_listener_datapath";
-  v3 = _os_log_send_and_compose_impl();
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v9 = 0;
@@ -5017,7 +5010,7 @@ LABEL_39:
     *&buf[4] = "nw_listener_start_advertising_on_queue";
     *&buf[12] = 2082;
     *&buf[14] = v7 + 42;
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [%{public}s] Failed to create advertiser", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -5123,9 +5116,9 @@ LABEL_37:
 LABEL_40:
 }
 
-void sub_181C569B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, ...)
+void sub_181C569B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5142,7 +5135,7 @@ uint64_t nw_utilities_execute_block_as_persona_from_parameters(void *a1, void *a
     v8 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_utilities_execute_block_as_persona_from_parameters";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -5222,7 +5215,7 @@ LABEL_41:
     v12 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_utilities_execute_block_as_persona_from_parameters";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null block", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -5318,48 +5311,52 @@ uint64_t sub_181C56F4C(uint64_t a1, uint64_t a2, uint64_t a3)
   return swift_unknownObjectRelease();
 }
 
-void sub_181C56FBC(uint64_t a1, NSObject *a2, uint64_t a3, void (*a4)(int *))
+void sub_181C56FBC(void *a1, NSObject *a2, uint64_t a3, void (*a4)(int *))
 {
   v7 = *(a3 + 16);
   os_unfair_lock_lock((v7 + 208));
   swift_unknownObjectRetain();
-  sub_181C570C0(a1, a2, &v18);
-  v8 = v18;
-  v9 = v18 | (v19 << 32);
-  *(v7 + 204) = v19;
+  sub_181C570C0(a1, a2, &v22);
+  v8 = v22;
+  v9 = v22 | (v23 << 32);
+  *(v7 + 204) = v23;
   *(v7 + 200) = v8;
   if (v9 >= 0x8000000002 && (nw_utilities_minos_atleast(1) & 1) != 0)
   {
     v10 = *(v7 + 48);
+    v11 = *(v7 + 56);
     *(v7 + 48) = 0;
     *(v7 + 56) = 0;
-    sub_181A554F4(v10);
-    v11 = *(v7 + 32);
+    sub_181A554F4(v10, v11);
+    v12 = *(v7 + 32);
+    v13 = *(v7 + 40);
     *(v7 + 32) = 0;
     *(v7 + 40) = 0;
-    sub_181A554F4(v11);
-    v12 = *(v7 + 16);
+    sub_181A554F4(v12, v13);
+    v14 = *(v7 + 16);
+    v15 = *(v7 + 24);
     *(v7 + 16) = 0;
     *(v7 + 24) = 0;
-    sub_181A554F4(v12);
-    v13 = *(v7 + 64);
+    sub_181A554F4(v14, v15);
+    v16 = *(v7 + 64);
+    v17 = *(v7 + 72);
     *(v7 + 64) = 0;
     *(v7 + 72) = 0;
-    sub_181A554F4(v13);
+    sub_181A554F4(v16, v17);
   }
 
-  v14 = *(v7 + 204);
-  v15 = *(v7 + 200);
+  v18 = *(v7 + 204);
+  v19 = *(v7 + 200);
   os_unfair_lock_unlock((v7 + 208));
   if (a4)
   {
-    v16 = v15;
-    v17 = (v15 | (v14 << 32)) >> 32;
-    a4(&v16);
+    v20 = v19;
+    v21 = (v19 | (v18 << 32)) >> 32;
+    a4(&v20);
   }
 }
 
-uint64_t sub_181C570C0@<X0>(uint64_t result@<X0>, NSObject *a2@<X1>, uint64_t a3@<X8>)
+void *sub_181C570C0@<X0>(void *result@<X0>, NSObject *a2@<X1>, uint64_t a3@<X8>)
 {
   if (result <= 1)
   {
@@ -5579,7 +5576,7 @@ uint64_t nw_path_copy_advertise_descriptor(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_path_copy_advertise_descriptor";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null path", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -5665,7 +5662,7 @@ uint64_t nw_path_copy_browse_descriptor(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_path_copy_browse_descriptor";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null path", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -5770,7 +5767,7 @@ uint64_t nw_path_copy_group_descriptor(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_path_copy_group_descriptor";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null path", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -5884,7 +5881,7 @@ atomic_uint *nw_agent_client_get_next_id(atomic_uint *result)
   return result;
 }
 
-id _nw_path_flow_copy_interface_0(char *a1)
+char *_nw_path_flow_copy_interface_0(char *a1)
 {
   v1 = &a1[OBJC_IVAR____TtC7Network12__NWPathFlow_flow];
   v2 = a1;
@@ -5949,7 +5946,7 @@ id nw_agent_client_copy_parameters(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_agent_client_copy_parameters";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null client", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -6152,7 +6149,7 @@ id nw_activity_copy_parent_activity(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_activity_copy_parent_activity";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null activity", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -6276,7 +6273,7 @@ uint64_t sub_181C58A34(uint64_t a1)
   {
     swift_getObjectType();
     swift_unknownObjectRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA83A440);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA83A440, &qword_182AF5B58);
     if (swift_dynamicCast())
     {
       v2 = v4;
@@ -6921,7 +6918,7 @@ LABEL_81:
       v85 = sub_18206EADC(v18, v19, v164, v44);
       sub_181D9D680(v164, v44);
       sub_181D9D680(v18, v19);
-      if ((v85 & 1) == 0)
+      if (!v85)
       {
         return 0;
       }
@@ -7796,7 +7793,7 @@ uint64_t nw_path_flow_is_assigned(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_path_flow_is_assigned";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null flow", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -7892,7 +7889,7 @@ uint64_t nw_path_flow_is_defunct(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_path_flow_is_defunct";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null flow", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -8021,7 +8018,7 @@ LABEL_47:
       v20 = __nwlog_obj();
       *buf = 136446210;
       v34 = "[nw_ip_channel_inbox matchesFlow:parameters:]";
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null parameters", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v31 = 0;
@@ -8094,7 +8091,7 @@ LABEL_47:
       v16 = __nwlog_obj();
       *buf = 136446210;
       v34 = "[nw_ip_channel_inbox matchesFlow:parameters:]";
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null flow", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v31 = 0;
@@ -8232,20 +8229,14 @@ uint64_t sub_181C5B0D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
   v37 = v10;
   v11 = OBJC_IVAR____TtC7Network7NWArray_deque;
 
-  v12 = swift_beginAccess();
+  swift_beginAccess();
   if (v9 != v10)
   {
     goto LABEL_7;
   }
 
-  while (1)
+  while ((sub_181AC81FC(v12) & 1) != 0)
   {
-    v12 = sub_181AC81FC(v12);
-    if ((v12 & 1) == 0)
-    {
-      break;
-    }
-
     v8 = v35;
     v9 = v36;
 LABEL_7:
@@ -8270,8 +8261,7 @@ LABEL_7:
       {
         if (v16 == v34)
         {
-          v12 = sub_181AC81FC(v12);
-          if ((v12 & 1) == 0)
+          if ((sub_181AC81FC(v12) & 1) == 0)
           {
 
             swift_unknownObjectRetain();
@@ -8291,7 +8281,7 @@ LABEL_7:
               v23 = *&v6[v11];
               if (v23[2] < v22 || (result & 1) == 0)
               {
-                result = sub_181ACC600(result, v22);
+                result = sub_181ACC600(result, v22, 0);
                 v23 = *&v6[v11];
               }
 
@@ -8342,7 +8332,7 @@ LABEL_27:
                 if (!v28)
                 {
                   v23[3] = v31;
-                  v12 = swift_endAccess();
+                  swift_endAccess();
                   goto LABEL_29;
                 }
 
@@ -8413,7 +8403,7 @@ id nw_agent_client_copy_endpoint(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_agent_client_copy_endpoint";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null client", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -8572,7 +8562,7 @@ id nw_agent_client_copy_path(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_agent_client_copy_path";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null client", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -8657,22 +8647,22 @@ uint64_t sub_181C5BBB8()
   LODWORD(v8) = *(v0 + 100);
   *(&v8 + 4) = v4;
   HIDWORD(v8) = v3;
-  v9 = 0uLL;
-  v5 = _s7Network10SystemUUIDV2eeoiySbAC_ACtFZ_0(&v8, &v9);
+  v11 = 0uLL;
+  v5 = _s7Network10SystemUUIDV2eeoiySbAC_ACtFZ_0(&v8, &v11);
   result = 0;
   if (!v5)
   {
     if (v2)
     {
-      *&v9 = v2;
+      *&v11 = v2;
 
-      sub_181AC23B8(&v9, &v8);
+      sub_181AC23B8(&v11, &v8);
       result = v8;
       if (v8)
       {
         v6 = DWORD2(v8);
         v7 = *(v8 + 80);
-        result = sub_181AD1A40(v8);
+        result = sub_181AD1A40(v8, *(&v8 + 1), v9, v10);
         if ((v7 & 0x13) == 1)
         {
           return 0;
@@ -8710,7 +8700,7 @@ void nw_protocol_stack_iterate_application_protocols(nw_protocol_stack_t stack, 
     v6 = __nwlog_obj();
     *buf = 136446210;
     v19 = "nw_protocol_stack_iterate_application_protocols";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null stack", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v16 = 0;
@@ -8798,7 +8788,7 @@ LABEL_33:
   v11 = __nwlog_obj();
   *buf = 136446210;
   v19 = "nw_protocol_stack_iterate_application_protocols";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null iterate_block", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -8872,9 +8862,9 @@ LABEL_33:
 LABEL_4:
 }
 
-uint64_t nw_parameters_copy_application_id(void *a1)
+char *nw_parameters_copy_application_id(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (!v1)
@@ -8882,7 +8872,7 @@ uint64_t nw_parameters_copy_application_id(void *a1)
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_parameters_copy_application_id";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null parameters", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     uu[0] = 0;
@@ -8918,7 +8908,7 @@ uint64_t nw_parameters_copy_application_id(void *a1)
           }
 
           free(backtrace_string);
-          goto LABEL_49;
+          goto LABEL_52;
         }
 
         if (v17)
@@ -8932,17 +8922,17 @@ uint64_t nw_parameters_copy_application_id(void *a1)
       else
       {
         v12 = __nwlog_obj();
-        v21 = type[0];
+        v22 = type[0];
         if (os_log_type_enabled(v12, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_parameters_copy_application_id";
-          _os_log_impl(&dword_181A37000, v12, v21, "%{public}s called with null parameters, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v12, v22, "%{public}s called with null parameters, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-LABEL_49:
+LABEL_52:
     if (v11)
     {
       free(v11);
@@ -8953,14 +8943,14 @@ LABEL_49:
   }
 
   *type = 0u;
-  v23 = 0u;
+  v24 = 0u;
   _nw_parameters_get_effective_audit_token(v1, type);
   *buf = *type;
-  *&buf[16] = v23;
-  if (*type | *&type[8] | v23 | *(&v23 + 1))
+  *&buf[16] = v24;
+  if (*type | *&type[8] | v24 | *(&v24 + 1))
   {
     *buf = *type;
-    *&buf[16] = v23;
+    *&buf[16] = v24;
     v3 = nw_application_id_create_with_audit_token(buf);
     if (gLogDatapath == 1)
     {
@@ -8982,7 +8972,7 @@ LABEL_49:
   }
 
   memset(uu, 0, sizeof(uu));
-  _nw_parameters_get_e_proc_uuid(v2, uu);
+  _nw_parameters_get_e_proc_uuid();
   if (!uuid_is_null(uu))
   {
     if (v3)
@@ -8998,8 +8988,8 @@ LABEL_49:
 
     if (gLogDatapath == 1)
     {
-      v20 = __nwlog_obj();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = __nwlog_obj();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136446978;
         *&buf[4] = "nw_parameters_copy_application_id";
@@ -9009,7 +8999,7 @@ LABEL_49:
         *&buf[24] = 16;
         *&buf[28] = 2096;
         *&buf[30] = uu;
-        _os_log_impl(&dword_181A37000, v20, OS_LOG_TYPE_DEBUG, "%{public}s getting application ID %@ from parameters UUID: %{uuid_t}.16P", buf, 0x26u);
+        _os_log_impl(&dword_181A37000, v21, OS_LOG_TYPE_DEBUG, "%{public}s getting application ID %@ from parameters UUID: %{uuid_t}.16P", buf, 0x26u);
       }
     }
   }
@@ -9079,15 +9069,24 @@ LABEL_18:
   }
 
   v18 = __nwlog_obj();
-  os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  {
+    v19 = 3;
+  }
+
+  else
+  {
+    v19 = 2;
+  }
+
   *buf = 136446210;
   *&buf[4] = "strict_strdup";
-  v19 = _os_log_send_and_compose_impl();
+  v20 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s strdup() failed", buf, 12);
 
-  result = __nwlog_should_abort(v19);
+  result = __nwlog_should_abort(v20);
   if (!result)
   {
-    free(v19);
+    free(v20);
     v7 = 0;
     goto LABEL_18;
   }
@@ -9112,7 +9111,7 @@ void nw_application_id_get_persona(void *a1, _OWORD *a2)
     v9 = __nwlog_obj();
     *buf = 136446210;
     v21 = "nw_application_id_get_persona";
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null persona_id", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v18 = 0;
@@ -9183,7 +9182,7 @@ LABEL_36:
     v5 = __nwlog_obj();
     *buf = 136446210;
     v21 = "nw_application_id_get_persona";
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null application_id", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v18 = 0;
@@ -9276,7 +9275,7 @@ LABEL_4:
     v9 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_ip_channel_inbox_get_parameters";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null inbox", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -9349,7 +9348,7 @@ LABEL_43:
   v5 = __nwlog_obj();
   *buf = 136446210;
   v24 = "nw_ip_channel_inbox_get_parameters";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null protocol", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v21 = 0;
@@ -9423,7 +9422,7 @@ LABEL_5:
 
 void __34__nw_ip_channel_inbox_description__block_invoke(uint64_t a1)
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v141 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
   {
@@ -9433,15 +9432,22 @@ void __34__nw_ip_channel_inbox_description__block_invoke(uint64_t a1)
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v3 = gLogObj;
-  v4 = _os_log_send_and_compose_impl();
+  v4 = *(*(a1 + 32) + 152);
+  v5 = *v4;
+  v77 = 68157954;
+  LODWORD(v78[0]) = v5;
+  WORD2(v78[0]) = 2096;
+  *(v78 + 6) = v4;
+  v75 = 18;
+  v6 = _os_log_send_and_compose_impl(2, 0, &v79, 63, &dword_181A37000, v3, 0, "%{network:sockaddr}.*P", &v77, v75);
 
-  if (v4 == &v72)
+  if (v6 == &v79)
   {
 LABEL_68:
-    v67 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"flow: %@, local: %s, scope: %u, protocol: %u", *(*(a1 + 32) + 72), &v72, *(*(a1 + 32) + 160), *(*(a1 + 32) + 166));
-    v68 = *(a1 + 32);
-    v69 = *(v68 + 24);
-    *(v68 + 24) = v67;
+    v69 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"flow: %@, local: %s, scope: %u, protocol: %u", *(*(a1 + 32) + 72), &v79, *(*(a1 + 32) + 160), *(*(a1 + 32) + 166));
+    v70 = *(a1 + 32);
+    v71 = *(v70 + 24);
+    *(v70 + 24) = v69;
 
     v2 = *(*(a1 + 32) + 24);
 LABEL_69:
@@ -9449,258 +9455,258 @@ LABEL_69:
     return;
   }
 
-  if (v4)
+  if (v6)
   {
 LABEL_4:
-    v5 = v72;
-    *v4 = v72;
-    if (v5)
+    v7 = v79;
+    *v6 = v79;
+    if (v7)
     {
-      v6 = v73;
-      v4[1] = v73;
-      if (v6)
+      v8 = v80;
+      v6[1] = v80;
+      if (v8)
       {
-        v7 = v74;
-        v4[2] = v74;
-        if (v7)
+        v9 = v81;
+        v6[2] = v81;
+        if (v9)
         {
-          v8 = v75;
-          v4[3] = v75;
-          if (v8)
+          v10 = v82;
+          v6[3] = v82;
+          if (v10)
           {
-            v9 = v76;
-            v4[4] = v76;
-            if (v9)
+            v11 = v83;
+            v6[4] = v83;
+            if (v11)
             {
-              v10 = v77;
-              v4[5] = v77;
-              if (v10)
+              v12 = v84;
+              v6[5] = v84;
+              if (v12)
               {
-                v11 = v78;
-                v4[6] = v78;
-                if (v11)
+                v13 = v85;
+                v6[6] = v85;
+                if (v13)
                 {
-                  v12 = v79;
-                  v4[7] = v79;
-                  if (v12)
+                  v14 = v86;
+                  v6[7] = v86;
+                  if (v14)
                   {
-                    v13 = v80;
-                    v4[8] = v80;
-                    if (v13)
+                    v15 = v87;
+                    v6[8] = v87;
+                    if (v15)
                     {
-                      v14 = v81;
-                      v4[9] = v81;
-                      if (v14)
+                      v16 = v88;
+                      v6[9] = v88;
+                      if (v16)
                       {
-                        v15 = v82;
-                        v4[10] = v82;
-                        if (v15)
+                        v17 = v89;
+                        v6[10] = v89;
+                        if (v17)
                         {
-                          v16 = v83;
-                          v4[11] = v83;
-                          if (v16)
+                          v18 = v90;
+                          v6[11] = v90;
+                          if (v18)
                           {
-                            v17 = v84;
-                            v4[12] = v84;
-                            if (v17)
+                            v19 = v91;
+                            v6[12] = v91;
+                            if (v19)
                             {
-                              v18 = v85;
-                              v4[13] = v85;
-                              if (v18)
+                              v20 = v92;
+                              v6[13] = v92;
+                              if (v20)
                               {
-                                v19 = v86;
-                                v4[14] = v86;
-                                if (v19)
+                                v21 = v93;
+                                v6[14] = v93;
+                                if (v21)
                                 {
-                                  v20 = v87;
-                                  v4[15] = v87;
-                                  if (v20)
+                                  v22 = v94;
+                                  v6[15] = v94;
+                                  if (v22)
                                   {
-                                    v21 = v88;
-                                    v4[16] = v88;
-                                    if (v21)
+                                    v23 = v95;
+                                    v6[16] = v95;
+                                    if (v23)
                                     {
-                                      v22 = v89;
-                                      v4[17] = v89;
-                                      if (v22)
+                                      v24 = v96;
+                                      v6[17] = v96;
+                                      if (v24)
                                       {
-                                        v23 = v90;
-                                        v4[18] = v90;
-                                        if (v23)
+                                        v25 = v97;
+                                        v6[18] = v97;
+                                        if (v25)
                                         {
-                                          v24 = v91;
-                                          v4[19] = v91;
-                                          if (v24)
+                                          v26 = v98;
+                                          v6[19] = v98;
+                                          if (v26)
                                           {
-                                            v25 = v92;
-                                            v4[20] = v92;
-                                            if (v25)
+                                            v27 = v99;
+                                            v6[20] = v99;
+                                            if (v27)
                                             {
-                                              v26 = v93;
-                                              v4[21] = v93;
-                                              if (v26)
+                                              v28 = v100;
+                                              v6[21] = v100;
+                                              if (v28)
                                               {
-                                                v27 = v94;
-                                                v4[22] = v94;
-                                                if (v27)
+                                                v29 = v101;
+                                                v6[22] = v101;
+                                                if (v29)
                                                 {
-                                                  v28 = v95;
-                                                  v4[23] = v95;
-                                                  if (v28)
+                                                  v30 = v102;
+                                                  v6[23] = v102;
+                                                  if (v30)
                                                   {
-                                                    v29 = v96;
-                                                    v4[24] = v96;
-                                                    if (v29)
+                                                    v31 = v103;
+                                                    v6[24] = v103;
+                                                    if (v31)
                                                     {
-                                                      v30 = v97;
-                                                      v4[25] = v97;
-                                                      if (v30)
+                                                      v32 = v104;
+                                                      v6[25] = v104;
+                                                      if (v32)
                                                       {
-                                                        v31 = v98;
-                                                        v4[26] = v98;
-                                                        if (v31)
+                                                        v33 = v105;
+                                                        v6[26] = v105;
+                                                        if (v33)
                                                         {
-                                                          v32 = v99;
-                                                          v4[27] = v99;
-                                                          if (v32)
+                                                          v34 = v106;
+                                                          v6[27] = v106;
+                                                          if (v34)
                                                           {
-                                                            v33 = v100;
-                                                            v4[28] = v100;
-                                                            if (v33)
+                                                            v35 = v107;
+                                                            v6[28] = v107;
+                                                            if (v35)
                                                             {
-                                                              v34 = v101;
-                                                              v4[29] = v101;
-                                                              if (v34)
+                                                              v36 = v108;
+                                                              v6[29] = v108;
+                                                              if (v36)
                                                               {
-                                                                v35 = v102;
-                                                                v4[30] = v102;
-                                                                if (v35)
+                                                                v37 = v109;
+                                                                v6[30] = v109;
+                                                                if (v37)
                                                                 {
-                                                                  v36 = v103;
-                                                                  v4[31] = v103;
-                                                                  if (v36)
+                                                                  v38 = v110;
+                                                                  v6[31] = v110;
+                                                                  if (v38)
                                                                   {
-                                                                    v37 = v104;
-                                                                    v4[32] = v104;
-                                                                    if (v37)
+                                                                    v39 = v111;
+                                                                    v6[32] = v111;
+                                                                    if (v39)
                                                                     {
-                                                                      v38 = v105;
-                                                                      v4[33] = v105;
-                                                                      if (v38)
+                                                                      v40 = v112;
+                                                                      v6[33] = v112;
+                                                                      if (v40)
                                                                       {
-                                                                        v39 = v106;
-                                                                        v4[34] = v106;
-                                                                        if (v39)
+                                                                        v41 = v113;
+                                                                        v6[34] = v113;
+                                                                        if (v41)
                                                                         {
-                                                                          v40 = v107;
-                                                                          v4[35] = v107;
-                                                                          if (v40)
+                                                                          v42 = v114;
+                                                                          v6[35] = v114;
+                                                                          if (v42)
                                                                           {
-                                                                            v41 = v108;
-                                                                            v4[36] = v108;
-                                                                            if (v41)
+                                                                            v43 = v115;
+                                                                            v6[36] = v115;
+                                                                            if (v43)
                                                                             {
-                                                                              v42 = v109;
-                                                                              v4[37] = v109;
-                                                                              if (v42)
+                                                                              v44 = v116;
+                                                                              v6[37] = v116;
+                                                                              if (v44)
                                                                               {
-                                                                                v43 = v110;
-                                                                                v4[38] = v110;
-                                                                                if (v43)
+                                                                                v45 = v117;
+                                                                                v6[38] = v117;
+                                                                                if (v45)
                                                                                 {
-                                                                                  v44 = v111;
-                                                                                  v4[39] = v111;
-                                                                                  if (v44)
+                                                                                  v46 = v118;
+                                                                                  v6[39] = v118;
+                                                                                  if (v46)
                                                                                   {
-                                                                                    v45 = v112;
-                                                                                    v4[40] = v112;
-                                                                                    if (v45)
+                                                                                    v47 = v119;
+                                                                                    v6[40] = v119;
+                                                                                    if (v47)
                                                                                     {
-                                                                                      v46 = v113;
-                                                                                      v4[41] = v113;
-                                                                                      if (v46)
+                                                                                      v48 = v120;
+                                                                                      v6[41] = v120;
+                                                                                      if (v48)
                                                                                       {
-                                                                                        v47 = v114;
-                                                                                        v4[42] = v114;
-                                                                                        if (v47)
+                                                                                        v49 = v121;
+                                                                                        v6[42] = v121;
+                                                                                        if (v49)
                                                                                         {
-                                                                                          v48 = v115;
-                                                                                          v4[43] = v115;
-                                                                                          if (v48)
+                                                                                          v50 = v122;
+                                                                                          v6[43] = v122;
+                                                                                          if (v50)
                                                                                           {
-                                                                                            v49 = v116;
-                                                                                            v4[44] = v116;
-                                                                                            if (v49)
+                                                                                            v51 = v123;
+                                                                                            v6[44] = v123;
+                                                                                            if (v51)
                                                                                             {
-                                                                                              v50 = v117;
-                                                                                              v4[45] = v117;
-                                                                                              if (v50)
+                                                                                              v52 = v124;
+                                                                                              v6[45] = v124;
+                                                                                              if (v52)
                                                                                               {
-                                                                                                v51 = v118;
-                                                                                                v4[46] = v118;
-                                                                                                if (v51)
+                                                                                                v53 = v125;
+                                                                                                v6[46] = v125;
+                                                                                                if (v53)
                                                                                                 {
-                                                                                                  v52 = v119;
-                                                                                                  v4[47] = v119;
-                                                                                                  if (v52)
+                                                                                                  v54 = v126;
+                                                                                                  v6[47] = v126;
+                                                                                                  if (v54)
                                                                                                   {
-                                                                                                    v53 = v120;
-                                                                                                    v4[48] = v120;
-                                                                                                    if (v53)
+                                                                                                    v55 = v127;
+                                                                                                    v6[48] = v127;
+                                                                                                    if (v55)
                                                                                                     {
-                                                                                                      v54 = v121;
-                                                                                                      v4[49] = v121;
-                                                                                                      if (v54)
+                                                                                                      v56 = v128;
+                                                                                                      v6[49] = v128;
+                                                                                                      if (v56)
                                                                                                       {
-                                                                                                        v55 = v122;
-                                                                                                        v4[50] = v122;
-                                                                                                        if (v55)
+                                                                                                        v57 = v129;
+                                                                                                        v6[50] = v129;
+                                                                                                        if (v57)
                                                                                                         {
-                                                                                                          v56 = v123;
-                                                                                                          v4[51] = v123;
-                                                                                                          if (v56)
+                                                                                                          v58 = v130;
+                                                                                                          v6[51] = v130;
+                                                                                                          if (v58)
                                                                                                           {
-                                                                                                            v57 = v124;
-                                                                                                            v4[52] = v124;
-                                                                                                            if (v57)
+                                                                                                            v59 = v131;
+                                                                                                            v6[52] = v131;
+                                                                                                            if (v59)
                                                                                                             {
-                                                                                                              v58 = v125;
-                                                                                                              v4[53] = v125;
-                                                                                                              if (v58)
+                                                                                                              v60 = v132;
+                                                                                                              v6[53] = v132;
+                                                                                                              if (v60)
                                                                                                               {
-                                                                                                                v59 = v126;
-                                                                                                                v4[54] = v126;
-                                                                                                                if (v59)
+                                                                                                                v61 = v133;
+                                                                                                                v6[54] = v133;
+                                                                                                                if (v61)
                                                                                                                 {
-                                                                                                                  v60 = v127;
-                                                                                                                  v4[55] = v127;
-                                                                                                                  if (v60)
+                                                                                                                  v62 = v134;
+                                                                                                                  v6[55] = v134;
+                                                                                                                  if (v62)
                                                                                                                   {
-                                                                                                                    v61 = v128;
-                                                                                                                    v4[56] = v128;
-                                                                                                                    if (v61)
+                                                                                                                    v63 = v135;
+                                                                                                                    v6[56] = v135;
+                                                                                                                    if (v63)
                                                                                                                     {
-                                                                                                                      v62 = v129;
-                                                                                                                      v4[57] = v129;
-                                                                                                                      if (v62)
+                                                                                                                      v64 = v136;
+                                                                                                                      v6[57] = v136;
+                                                                                                                      if (v64)
                                                                                                                       {
-                                                                                                                        v63 = v130;
-                                                                                                                        v4[58] = v130;
-                                                                                                                        if (v63)
+                                                                                                                        v65 = v137;
+                                                                                                                        v6[58] = v137;
+                                                                                                                        if (v65)
                                                                                                                         {
-                                                                                                                          v64 = v131;
-                                                                                                                          v4[59] = v131;
-                                                                                                                          if (v64)
+                                                                                                                          v66 = v138;
+                                                                                                                          v6[59] = v138;
+                                                                                                                          if (v66)
                                                                                                                           {
-                                                                                                                            v65 = v132;
-                                                                                                                            v4[60] = v132;
-                                                                                                                            if (v65)
+                                                                                                                            v67 = v139;
+                                                                                                                            v6[60] = v139;
+                                                                                                                            if (v67)
                                                                                                                             {
-                                                                                                                              v66 = v133;
-                                                                                                                              v4[61] = v133;
-                                                                                                                              if (v66)
+                                                                                                                              v68 = v140;
+                                                                                                                              v6[61] = v140;
+                                                                                                                              if (v68)
                                                                                                                               {
-                                                                                                                                v4[62] = 0;
+                                                                                                                                v6[62] = 0;
                                                                                                                               }
                                                                                                                             }
                                                                                                                           }
@@ -9764,18 +9770,30 @@ LABEL_4:
       }
     }
 
-    free(v4);
+    free(v6);
     goto LABEL_68;
   }
 
-  v70 = __nwlog_obj();
-  os_log_type_enabled(v70, OS_LOG_TYPE_ERROR);
-  v71 = _os_log_send_and_compose_impl();
-
-  if (!__nwlog_should_abort(v71))
+  v72 = __nwlog_obj();
+  if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
   {
-    free(v71);
-    v4 = 0;
+    v73 = 3;
+  }
+
+  else
+  {
+    v73 = 2;
+  }
+
+  v77 = 136446210;
+  v78[0] = "_strict_strlcpy";
+  LODWORD(v76) = 12;
+  v74 = _os_log_send_and_compose_impl(v73, 0, 0, 0, &dword_181A37000, v72, 16, "%{public}s strict_strlcpy called with NULL dst", &v77, v76);
+
+  if (!__nwlog_should_abort(v74))
+  {
+    free(v74);
+    v6 = 0;
     goto LABEL_4;
   }
 

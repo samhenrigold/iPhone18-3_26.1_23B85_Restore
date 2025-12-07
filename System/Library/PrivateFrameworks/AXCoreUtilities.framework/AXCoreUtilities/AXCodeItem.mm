@@ -10,6 +10,7 @@
 - (NSString)debugCodeTypeDescription;
 - (NSString)name;
 - (id)description;
+- (id)initAccessibilityCodeItemWithPath:(id)path targetType:(int64_t)type platformToTarget:(id)target loadOrder:(unsigned __int16)order;
 - (id)prepareBackingBundleIfNeeded:(id *)needed;
 - (int64_t)type;
 - (unint64_t)hash;
@@ -171,6 +172,22 @@ uint64_t __28__AXCodeItem__codeItemQueue__block_invoke()
   return v8;
 }
 
+- (id)initAccessibilityCodeItemWithPath:(id)path targetType:(int64_t)type platformToTarget:(id)target loadOrder:(unsigned __int16)order
+{
+  orderCopy = order;
+  targetCopy = target;
+  v11 = [(AXCodeItem *)self initWithPath:path isDyldOpened:0];
+  v12 = v11;
+  if (v11)
+  {
+    [(AXCodeItem *)v11 setTargetType:type];
+    [(AXCodeItem *)v12 setLoadOrder:orderCopy];
+    [(AXCodeItem *)v12 setPlatformToTarget:targetCopy];
+  }
+
+  return v12;
+}
+
 - (void)addPlatformToTargetEntries:(id)entries
 {
   entriesCopy = entries;
@@ -275,16 +292,16 @@ uint64_t __28__AXCodeItem__codeItemQueue__block_invoke()
 
 - (void)_cacheLazyProperties
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   path = [(AXCodeItem *)self path];
   pathComponents = [path pathComponents];
   reverseObjectEnumerator = [pathComponents reverseObjectEnumerator];
 
-  v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v50 objects:v54 count:16];
+  v6 = [reverseObjectEnumerator countByEnumeratingWithState:&v49 objects:v53 count:16];
   if (!v6)
   {
     goto LABEL_42;
@@ -292,17 +309,17 @@ uint64_t __28__AXCodeItem__codeItemQueue__block_invoke()
 
   v7 = v6;
   v8 = 1;
-  v9 = *v51;
+  v9 = *v50;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v51 != v9)
+      if (*v50 != v9)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v11 = *(*(&v50 + 1) + 8 * i);
+      v11 = *(*(&v49 + 1) + 8 * i);
       pathExtension = [v11 pathExtension];
       v13 = [pathExtension isEqualToString:@"dylib"];
 
@@ -462,7 +479,7 @@ LABEL_41:
       }
     }
 
-    v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v50 objects:v54 count:16];
+    v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v49 objects:v53 count:16];
     if (v7)
     {
       continue;
@@ -480,8 +497,6 @@ LABEL_42:
 
     self->_type = 0;
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIsLoaded:(BOOL)loaded
@@ -714,9 +729,9 @@ void __50__AXCodeItem_loadWithStrategy_onQueue_completion___block_invoke_2(void 
   if (!a1[6])
   {
     v4 = a1[4];
-    v14 = 0;
-    v5 = [v4 prepareBackingBundleIfNeeded:&v14];
-    v6 = v14;
+    v12 = 0;
+    v5 = [v4 prepareBackingBundleIfNeeded:&v12];
+    v6 = v12;
     if (v6)
     {
       v7 = v6;
@@ -724,30 +739,28 @@ void __50__AXCodeItem_loadWithStrategy_onQueue_completion___block_invoke_2(void 
 
     else
     {
-      v13 = 0;
-      v8 = [v5 loadAndReturnError:&v13];
-      v7 = v13;
+      v11 = 0;
+      v8 = [v5 loadAndReturnError:&v11];
+      v7 = v11;
       if (v8)
       {
         *(a1[4] + 16) |= 1u;
-        v9 = a1[4];
-        v10 = *(a1[5] + 16);
+        v9 = *(a1[5] + 16);
 LABEL_10:
-        v10();
+        v9();
 
         return;
       }
     }
 
-    v11 = a1[4];
-    v10 = *(a1[5] + 16);
+    v9 = *(a1[5] + 16);
     goto LABEL_10;
   }
 
   v3 = a1[4];
   v2 = a1[5];
-  v12 = [MEMORY[0x1E696ABC0] ax_errorWithDomain:@"AXLoading" description:@"dlopen strategy not inplemented"];
-  (*(v2 + 16))(v2, v3, 0, v12);
+  v10 = [MEMORY[0x1E696ABC0] ax_errorWithDomain:@"AXLoading" description:@"dlopen strategy not inplemented"];
+  (*(v2 + 16))(v2, v3, 0, v10);
 }
 
 - (AXCodeItem)associatedAccessibilityCodeItem

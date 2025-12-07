@@ -22,6 +22,7 @@
 + (void)printIOSurfaceDataInBytes:(__IOSurface *)bytes;
 + (void)printStruct:(VirtANEModel *)struct;
 - (BOOL)beginRealTimeTask;
+- (BOOL)callIOUserClient:(unsigned int)client inParams:(VirtANEModel *)params outParams:(VirtANEModel *)outParams;
 - (BOOL)compileModel:(id)model options:(id)options qos:(unsigned int)qos error:(id *)error;
 - (BOOL)compiledModelExistsFor:(id)for;
 - (BOOL)compiledModelExistsMatchingHash:(id)hash;
@@ -33,9 +34,9 @@
 - (BOOL)echo:(id)echo;
 - (BOOL)endRealTimeTask;
 - (BOOL)evaluateWithModel:(id)model options:(id)options request:(id)request qos:(unsigned int)qos error:(id *)error;
-- (BOOL)hasANE;
-- (BOOL)isInternalBuild;
+- (BOOL)loadModel:(id)model options:(id)options qos:(unsigned int)qos error:(id *)error;
 - (BOOL)loadModelNewInstance:(id)instance options:(id)options modelInstParams:(id)params qos:(unsigned int)qos error:(id *)error;
+- (BOOL)loadModelNewInstanceLegacy:(id)legacy options:(id)options modelInstParams:(id)params qos:(unsigned int)qos error:(id *)error;
 - (BOOL)mapIOSurfacesWithModel:(id)model request:(id)request cacheInference:(BOOL)inference error:(id *)error;
 - (BOOL)sessionHintWithModel:(id)model hint:(id)hint options:(id)options report:(id)report error:(id *)error;
 - (BOOL)transferFileToHostWithPath:(id)path withChunkSize:(unsigned int)size withUUID:(id)d withModelInputPath:(id)inputPath overWriteFileNameWith:(id)with;
@@ -62,9 +63,6 @@
 - (unint64_t)getValidateNetworkVersion;
 - (unint64_t)negotiatedCapabilityMask;
 - (unint64_t)outputDictIOSurfaceSize;
-- (unsigned)negotiatedDataInterfaceVersion;
-- (unsigned)numANECores;
-- (unsigned)numANEs;
 - (void)checkKernReturnValue:(int)value selector:(unsigned int)selector outParams:(VirtANEModel *)params;
 - (void)copyErrorValue:(VMData *)value;
 - (void)copyErrorValue:(__CFDictionary *)value vmData:(VMData *)data;
@@ -100,10 +98,10 @@
 
 - (_ANEVirtualClient)initWithSingletonAccess
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = _ANEVirtualClient;
-  v3 = [(_ANEVirtualClient *)&v22 init];
+  v22 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = _ANEVirtualClient;
+  v3 = [(_ANEVirtualClient *)&v21 init];
   if (!v3)
   {
     goto LABEL_32;
@@ -154,7 +152,7 @@
 
       if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
       {
-        [(_ANEVirtualClient *)&v19 initWithSingletonAccess];
+        [(_ANEVirtualClient *)&v18 initWithSingletonAccess];
       }
 
       if (IOServiceOpen(v12, *v11, 0, &v3->_connect))
@@ -210,7 +208,7 @@
     }
 
 LABEL_32:
-    [(_ANEVirtualClient *)v3 exchangeBuildVersionInfo];
+    objc_msgSend_exchangeBuildVersionInfo(v3);
     v9 = v3;
     goto LABEL_33;
   }
@@ -224,7 +222,6 @@ LABEL_8:
   v9 = 0;
 LABEL_33:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -237,75 +234,75 @@ LABEL_33:
 
 - (BOOL)doEvaluateWithModelLegacy:(id)legacy options:(id)options request:(id)request qos:(unsigned int)qos completionEvent:(id)event error:(id *)error
 {
-  v385 = *MEMORY[0x1E69E9840];
+  v379 = *MEMORY[0x1E69E9840];
   legacyCopy = legacy;
   optionsCopy = options;
   requestCopy = request;
   eventCopy = event;
-  bzero(v296, 0x1728uLL);
-  v235 = requestCopy;
+  bzero(v295, 0x1728uLL);
+  v234 = requestCopy;
   selfCopy = self;
-  v233 = optionsCopy;
+  v232 = optionsCopy;
   if (([(_ANEVirtualClient *)self negotiatedCapabilityMask]& 4) != 0)
   {
-    v231 = legacyCopy;
+    v230 = legacyCopy;
     if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
     {
       [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
     }
 
-    v325[0] = 0;
+    v321[0] = 0;
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     v24 = *MEMORY[0x1E695E480];
     v25 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-    modelURL = [v231 modelURL];
+    modelURL = [v230 modelURL];
 
     if (modelURL)
     {
-      [(_ANEVirtualClient *)self copyAllModelFiles:v231 dictionary:Mutable ioSurfaceRefs:v25];
+      [(_ANEVirtualClient *)self copyAllModelFiles:v230 dictionary:Mutable ioSurfaceRefs:v25];
     }
 
-    v229 = v25;
-    [(_ANEVirtualClient *)self copyModelMetaData:v231 options:v233 dictionary:Mutable vmData:v296];
-    [(_ANEVirtualClient *)self copyOptions:v233 dictionary:Mutable vmData:v296];
-    [(_ANEVirtualClient *)self copyErrorValue:Mutable vmData:v296];
+    v228 = v25;
+    [(_ANEVirtualClient *)self copyModelMetaData:v230 options:v232 dictionary:Mutable vmData:v295];
+    [(_ANEVirtualClient *)self copyOptions:v232 dictionary:Mutable vmData:v295];
+    [(_ANEVirtualClient *)self copyErrorValue:Mutable vmData:v295];
     valuePtr = 0;
+    v290 = 0u;
     v291 = 0u;
     v292 = 0u;
     v293 = 0u;
-    v294 = 0u;
     inputArray = [requestCopy inputArray];
-    v28 = [inputArray countByEnumeratingWithState:&v291 objects:v384 count:16];
+    v28 = [inputArray countByEnumeratingWithState:&v290 objects:v378 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v292;
+      v30 = *v291;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v292 != v30)
+          if (*v291 != v30)
           {
             objc_enumerationMutation(inputArray);
           }
 
-          ID = IOSurfaceGetID([*(*(&v291 + 1) + 8 * i) ioSurface]);
+          ID = IOSurfaceGetID([*(*(&v290 + 1) + 8 * i) ioSurface]);
           v33 = valuePtr;
-          v308[valuePtr] = ID;
+          v307[valuePtr] = ID;
           v34 = CFStringCreateWithFormat(0, 0, @"inputArray%d", v33);
-          v35 = CFNumberCreate(v24, kCFNumberSInt32Type, &v308[valuePtr]);
+          v35 = CFNumberCreate(v24, kCFNumberSInt32Type, &v307[valuePtr]);
           CFDictionarySetValue(Mutable, v34, v35);
           CFRelease(v35);
           CFRelease(v34);
           if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
           {
-            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:&valuePtr options:v308 request:? qos:? completionEvent:? error:?];
+            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
           }
 
           ++valuePtr;
         }
 
-        v29 = [inputArray countByEnumeratingWithState:&v291 objects:v384 count:16];
+        v29 = [inputArray countByEnumeratingWithState:&v290 objects:v378 count:16];
       }
 
       while (v29);
@@ -315,43 +312,43 @@ LABEL_33:
     CFDictionarySetValue(Mutable, @"inputArrayCount", v36);
     CFRelease(v36);
     valuePtr = 0;
+    v286 = 0u;
     v287 = 0u;
     v288 = 0u;
     v289 = 0u;
-    v290 = 0u;
-    obja = [v235 inputIndexArray];
-    v37 = [obja countByEnumeratingWithState:&v287 objects:v381 count:16];
+    obja = [v234 inputIndexArray];
+    v37 = [obja countByEnumeratingWithState:&v286 objects:v375 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v288;
+      v39 = *v287;
       do
       {
         for (j = 0; j != v38; ++j)
         {
-          if (*v288 != v39)
+          if (*v287 != v39)
           {
             objc_enumerationMutation(obja);
           }
 
-          v41 = *(*(&v287 + 1) + 8 * j);
+          v41 = *(*(&v286 + 1) + 8 * j);
           unsignedIntValue = [v41 unsignedIntValue];
           v43 = valuePtr;
-          v308[valuePtr + 64] = unsignedIntValue;
+          v307[valuePtr + 64] = unsignedIntValue;
           v44 = CFStringCreateWithFormat(0, 0, @"inputIndexArray%d", v43);
-          v45 = CFNumberCreate(v24, kCFNumberSInt32Type, &v308[valuePtr + 64]);
+          v45 = CFNumberCreate(v24, kCFNumberSInt32Type, &v307[valuePtr + 64]);
           CFDictionarySetValue(Mutable, v44, v45);
           CFRelease(v45);
           CFRelease(v44);
           if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
           {
-            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v380 options:v41 request:? qos:? completionEvent:? error:?];
+            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v374 options:v41 request:? qos:? completionEvent:? error:?];
           }
 
           ++valuePtr;
         }
 
-        v38 = [obja countByEnumeratingWithState:&v287 objects:v381 count:16];
+        v38 = [obja countByEnumeratingWithState:&v286 objects:v375 count:16];
       }
 
       while (v38);
@@ -361,42 +358,42 @@ LABEL_33:
     CFDictionarySetValue(Mutable, @"inputIndexArrayCount", v46);
     CFRelease(v46);
     valuePtr = 0;
+    v282 = 0u;
     v283 = 0u;
     v284 = 0u;
     v285 = 0u;
-    v286 = 0u;
-    outputArray = [v235 outputArray];
-    v48 = [outputArray countByEnumeratingWithState:&v283 objects:v379 count:16];
+    outputArray = [v234 outputArray];
+    v48 = [outputArray countByEnumeratingWithState:&v282 objects:v373 count:16];
     if (v48)
     {
       v49 = v48;
-      v50 = *v284;
+      v50 = *v283;
       do
       {
         for (k = 0; k != v49; ++k)
         {
-          if (*v284 != v50)
+          if (*v283 != v50)
           {
             objc_enumerationMutation(outputArray);
           }
 
-          v52 = IOSurfaceGetID([*(*(&v283 + 1) + 8 * k) ioSurface]);
+          v52 = IOSurfaceGetID([*(*(&v282 + 1) + 8 * k) ioSurface]);
           v53 = valuePtr;
-          v309[valuePtr] = v52;
+          v307[valuePtr + 128] = v52;
           v54 = CFStringCreateWithFormat(0, 0, @"outputArray%d", v53);
-          v55 = CFNumberCreate(v24, kCFNumberSInt32Type, &v309[valuePtr]);
+          v55 = CFNumberCreate(v24, kCFNumberSInt32Type, &v307[valuePtr + 128]);
           CFDictionarySetValue(Mutable, v54, v55);
           CFRelease(v55);
           CFRelease(v54);
           if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
           {
-            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:&valuePtr options:v309 request:? qos:? completionEvent:? error:?];
+            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
           }
 
           ++valuePtr;
         }
 
-        v49 = [outputArray countByEnumeratingWithState:&v283 objects:v379 count:16];
+        v49 = [outputArray countByEnumeratingWithState:&v282 objects:v373 count:16];
       }
 
       while (v49);
@@ -406,31 +403,31 @@ LABEL_33:
     CFDictionarySetValue(Mutable, @"outputArrayCount", v56);
     CFRelease(v56);
     valuePtr = 0;
+    v278 = 0u;
     v279 = 0u;
     v280 = 0u;
     v281 = 0u;
-    v282 = 0u;
-    objb = [v235 outputIndexArray];
-    v57 = [objb countByEnumeratingWithState:&v279 objects:v376 count:16];
+    objb = [v234 outputIndexArray];
+    v57 = [objb countByEnumeratingWithState:&v278 objects:v370 count:16];
     if (v57)
     {
       v58 = v57;
-      v59 = *v280;
+      v59 = *v279;
       do
       {
         for (m = 0; m != v58; ++m)
         {
-          if (*v280 != v59)
+          if (*v279 != v59)
           {
             objc_enumerationMutation(objb);
           }
 
-          v61 = *(*(&v279 + 1) + 8 * m);
+          v61 = *(*(&v278 + 1) + 8 * m);
           unsignedIntValue2 = [v61 unsignedIntValue];
           v63 = valuePtr;
-          v309[valuePtr + 64] = unsignedIntValue2;
+          v307[valuePtr + 192] = unsignedIntValue2;
           v64 = CFStringCreateWithFormat(0, 0, @"outputIndexArray%d", v63);
-          v65 = CFNumberCreate(v24, kCFNumberSInt32Type, &v309[valuePtr + 64]);
+          v65 = CFNumberCreate(v24, kCFNumberSInt32Type, &v307[valuePtr + 192]);
           CFDictionarySetValue(Mutable, v64, v65);
           CFRelease(v65);
           CFRelease(v64);
@@ -442,7 +439,7 @@ LABEL_33:
           ++valuePtr;
         }
 
-        v58 = [objb countByEnumeratingWithState:&v279 objects:v376 count:16];
+        v58 = [objb countByEnumeratingWithState:&v278 objects:v370 count:16];
       }
 
       while (v58);
@@ -453,95 +450,95 @@ LABEL_33:
     CFRelease(v66);
     if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
     {
-      [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v235 options:? request:? qos:? completionEvent:? error:?];
+      [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v234 options:? request:? qos:? completionEvent:? error:?];
     }
 
-    weightsBuffer = [v235 weightsBuffer];
+    weightsBuffer = [v234 weightsBuffer];
     ioSurface = [weightsBuffer ioSurface];
 
     if (ioSurface)
     {
-      weightsBuffer2 = [v235 weightsBuffer];
-      v310 = IOSurfaceGetID([weightsBuffer2 ioSurface]);
+      weightsBuffer2 = [v234 weightsBuffer];
+      v308 = IOSurfaceGetID([weightsBuffer2 ioSurface]);
 
-      v70 = CFNumberCreate(v24, kCFNumberSInt32Type, &v310);
+      v70 = CFNumberCreate(v24, kCFNumberSInt32Type, &v308);
       CFDictionarySetValue(Mutable, @"ioSIDWeightsBufferIndex", v70);
       CFRelease(v70);
       if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
       {
-        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:? options:? request:? qos:? completionEvent:? error:?];
+        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
       }
     }
 
     else
     {
-      v310 = 0;
+      v308 = 0;
     }
 
-    procedureIndex = [v235 procedureIndex];
+    procedureIndex = [v234 procedureIndex];
     unsignedLongLongValue = [procedureIndex unsignedLongLongValue];
 
     v79 = CFNumberCreate(v24, kCFNumberSInt64Type, &unsignedLongLongValue);
     CFDictionarySetValue(Mutable, @"procedureIndex", v79);
     CFRelease(v79);
-    transactionHandle = [v235 transactionHandle];
-    unsignedLongLongValue2 = [transactionHandle unsignedLongLongValue];
+    transactionHandle = [v234 transactionHandle];
+    v310[0] = [transactionHandle unsignedLongLongValue];
 
-    v81 = CFNumberCreate(v24, kCFNumberSInt64Type, &unsignedLongLongValue2);
+    v81 = CFNumberCreate(v24, kCFNumberSInt64Type, v310);
     CFDictionarySetValue(Mutable, @"transactionHandle", v81);
     CFRelease(v81);
     valuePtr = 0;
+    v274 = 0u;
     v275 = 0u;
     v276 = 0u;
     v277 = 0u;
-    v278 = 0u;
-    objc = [v235 perfStatsArray];
-    v82 = [objc countByEnumeratingWithState:&v275 objects:v373 count:16];
+    objc = [v234 perfStatsArray];
+    v82 = [objc countByEnumeratingWithState:&v274 objects:v367 count:16];
     if (v82)
     {
       v83 = v82;
-      v84 = *v276;
+      v84 = *v275;
       do
       {
         for (n = 0; n != v83; ++n)
         {
-          if (*v276 != v84)
+          if (*v275 != v84)
           {
             objc_enumerationMutation(objc);
           }
 
-          v86 = *(*(&v275 + 1) + 8 * n);
+          v86 = *(*(&v274 + 1) + 8 * n);
           stats = [v86 stats];
           v88 = IOSurfaceGetID([stats ioSurface]);
-          v313[valuePtr] = v88;
+          *(&v310[1] + valuePtr) = v88;
 
           v89 = CFStringCreateWithFormat(0, 0, @"ioSIDPerfStats%d", valuePtr);
-          v90 = CFNumberCreate(v24, kCFNumberSInt32Type, &v313[valuePtr]);
+          v90 = CFNumberCreate(v24, kCFNumberSInt32Type, &v310[1] + 4 * valuePtr);
           CFDictionarySetValue(Mutable, v89, v90);
           CFRelease(v90);
           CFRelease(v89);
           statType = [v86 statType];
           v92 = valuePtr;
-          v314[valuePtr] = statType;
+          *(&v310[33] + valuePtr) = statType;
           v93 = CFStringCreateWithFormat(0, 0, @"perfStatsType%d", v92);
-          v94 = CFNumberCreate(v24, kCFNumberSInt32Type, &v314[valuePtr]);
+          v94 = CFNumberCreate(v24, kCFNumberSInt32Type, &v310[33] + 4 * valuePtr);
           CFDictionarySetValue(Mutable, v93, v94);
           CFRelease(v94);
           CFRelease(v93);
           if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
           {
-            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:&valuePtr options:v313 request:? qos:? completionEvent:? error:?];
+            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
           }
 
           if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
           {
-            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:&valuePtr options:v314 request:? qos:? completionEvent:? error:?];
+            [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
           }
 
           ++valuePtr;
         }
 
-        v83 = [objc countByEnumeratingWithState:&v275 objects:v373 count:16];
+        v83 = [objc countByEnumeratingWithState:&v274 objects:v367 count:16];
       }
 
       while (v83);
@@ -550,9 +547,9 @@ LABEL_33:
     v95 = CFNumberCreate(v24, kCFNumberSInt32Type, &valuePtr);
     CFDictionarySetValue(Mutable, @"perfStatsCount", v95);
     CFRelease(v95);
-    v321 = 0;
-    v322 = 0;
-    v323 = 0;
+    v317 = 0;
+    v318 = 0;
+    v319 = 0;
     v96 = MEMORY[0x1E695DF20];
     v97 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:4096];
     v98 = [v96 dictionaryWithObjectsAndKeys:{v97, *MEMORY[0x1E696CE30], 0}];
@@ -566,35 +563,35 @@ LABEL_33:
         [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
       }
 
-      legacyCopy = v231;
-      v163 = v233;
+      legacyCopy = v230;
+      v163 = v232;
       v164 = eventCopy;
-      v165 = v235;
+      v165 = v234;
       goto LABEL_199;
     }
 
-    v322 = IOSurfaceGetID(v99);
-    v100 = CFNumberCreate(v24, kCFNumberSInt32Type, &v322);
+    v318 = IOSurfaceGetID(v99);
+    v100 = CFNumberCreate(v24, kCFNumberSInt32Type, &v318);
     CFDictionarySetValue(Mutable, @"ioSIDPerformanceStatsIndex", v100);
     CFRelease(v100);
     if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
     {
-      [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:&v322 request:? qos:? completionEvent:? error:?];
+      [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
     }
 
-    sharedEvents = [v235 sharedEvents];
+    sharedEvents = [v234 sharedEvents];
 
     if (sharedEvents)
     {
-      bzero(&v339, 0x1460uLL);
-      sharedEvents2 = [v235 sharedEvents];
+      bzero(&v335, 0x1460uLL);
+      sharedEvents2 = [v234 sharedEvents];
       signalEvents = [sharedEvents2 signalEvents];
-      v340 = [signalEvents count];
+      v336 = [signalEvents count];
 
-      if (v340)
+      if (v336)
       {
         v104 = CFStringCreateWithFormat(0, 0, @"signalEventsCount");
-        v105 = CFNumberCreate(v24, kCFNumberSInt64Type, &v340);
+        v105 = CFNumberCreate(v24, kCFNumberSInt64Type, &v336);
         CFDictionarySetValue(Mutable, v104, v105);
         CFRelease(v105);
         CFRelease(v104);
@@ -602,34 +599,34 @@ LABEL_33:
 
       if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
       {
-        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:&v340 request:? qos:? completionEvent:? error:?];
+        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
       }
 
-      v273 = 0u;
-      v274 = 0u;
-      v271 = 0u;
       v272 = 0u;
-      sharedEvents3 = [v235 sharedEvents];
+      v273 = 0u;
+      v270 = 0u;
+      v271 = 0u;
+      sharedEvents3 = [v234 sharedEvents];
       signalEvents2 = [sharedEvents3 signalEvents];
 
-      v237 = signalEvents2;
-      objd = [signalEvents2 countByEnumeratingWithState:&v271 objects:v338 count:16];
+      v236 = signalEvents2;
+      objd = [signalEvents2 countByEnumeratingWithState:&v270 objects:v334 count:16];
       if (objd)
       {
         v108 = 0;
-        v239 = *v272;
+        v238 = *v271;
         do
         {
           for (ii = 0; ii != objd; ++ii)
           {
-            if (*v272 != v239)
+            if (*v271 != v238)
             {
-              objc_enumerationMutation(v237);
+              objc_enumerationMutation(v236);
             }
 
-            v110 = *(*(&v271 + 1) + 8 * ii);
+            v110 = *(*(&v270 + 1) + 8 * ii);
             sharedEvent = [v110 sharedEvent];
-            v112 = &v362[5 * v108];
+            v112 = &v358[5 * v108];
             *v112 = [sharedEvent eventPort];
 
             *(v112 + 1) = [v110 eventType];
@@ -646,13 +643,13 @@ LABEL_33:
               v127 = NSStringFromSelector(a2);
               v128 = *v112;
               v129 = v112[1];
-              v332 = 138412802;
-              v333 = v127;
-              v334 = 1024;
-              v335 = v128;
-              v336 = 2048;
-              v337 = v129;
-              _os_log_debug_impl(&dword_1AD246000, 0, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient signal events port is %#x and value is %llu\n", &v332, 0x1Cu);
+              v328 = 138412802;
+              v329 = v127;
+              v330 = 1024;
+              v331 = v128;
+              v332 = 2048;
+              v333 = v129;
+              _os_log_debug_impl(&dword_1AD246000, 0, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient signal events port is %#x and value is %llu\n", &v328, 0x1Cu);
             }
 
             v117 = CFStringCreateWithFormat(0, 0, @"signalEvents%dport", v108);
@@ -683,7 +680,7 @@ LABEL_33:
             v108 = (v108 + 1);
           }
 
-          objd = [v237 countByEnumeratingWithState:&v271 objects:v338 count:16];
+          objd = [v236 countByEnumeratingWithState:&v270 objects:v334 count:16];
         }
 
         while (objd);
@@ -714,11 +711,11 @@ LABEL_33:
           eventPort = [sharedEvent2 eventPort];
           if (value == 4097)
           {
-            v363[0] = eventPort;
+            v359[0] = eventPort;
 
             signalEvents6 = [eventCopy signalEvents];
             v143 = [signalEvents6 objectAtIndexedSubscript:v132];
-            v363[1] = [v143 eventType];
+            v359[1] = [v143 eventType];
 
             signalEvents7 = [eventCopy signalEvents];
             v145 = [signalEvents7 objectAtIndexedSubscript:v132];
@@ -728,29 +725,29 @@ LABEL_33:
             v147 = [signalEvents8 objectAtIndexedSubscript:v132];
             symbolIndex = [v147 symbolIndex];
 
-            v366 = 0;
+            v362 = 0;
             if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
             {
               v148 = NSStringFromSelector(a2);
-              v332 = 138412802;
-              v333 = v148;
-              v334 = 1024;
-              v335 = v363[0];
-              v336 = 2048;
-              v337 = value2;
+              v328 = 138412802;
+              v329 = v148;
+              v330 = 1024;
+              v331 = v359[0];
+              v332 = 2048;
+              v333 = value2;
               v149 = "%@: ANEVirtualClient success completionEvent signal events port is %#x and value is %llu\n";
 LABEL_111:
-              _os_log_debug_impl(&dword_1AD246000, 0, OS_LOG_TYPE_DEBUG, v149, &v332, 0x1Cu);
+              _os_log_debug_impl(&dword_1AD246000, 0, OS_LOG_TYPE_DEBUG, v149, &v328, 0x1Cu);
             }
           }
 
           else
           {
-            v367[0] = eventPort;
+            v363[0] = eventPort;
 
             signalEvents9 = [eventCopy signalEvents];
             v151 = [signalEvents9 objectAtIndexedSubscript:v132];
-            v367[1] = [v151 eventType];
+            v363[1] = [v151 eventType];
 
             signalEvents10 = [eventCopy signalEvents];
             v153 = [signalEvents10 objectAtIndexedSubscript:v132];
@@ -760,16 +757,16 @@ LABEL_111:
             v155 = [signalEvents11 objectAtIndexedSubscript:v132];
             symbolIndex2 = [v155 symbolIndex];
 
-            v370 = 0;
+            v366 = 0;
             if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
             {
               v148 = NSStringFromSelector(a2);
-              v332 = 138412802;
-              v333 = v148;
-              v334 = 1024;
-              v335 = v367[0];
-              v336 = 2048;
-              v337 = value3;
+              v328 = 138412802;
+              v329 = v148;
+              v330 = 1024;
+              v331 = v363[0];
+              v332 = 2048;
+              v333 = value3;
               v149 = "%@: ANEVirtualClient error completionEvent signal events port is %#x and value is %llu\n";
               goto LABEL_111;
             }
@@ -780,12 +777,12 @@ LABEL_111:
           if ((v134 & 1) == 0)
           {
             v196 = CFStringCreateWithFormat(0, 0, @"successEventport");
-            v197 = CFNumberCreate(v24, kCFNumberSInt32Type, v363);
+            v197 = CFNumberCreate(v24, kCFNumberSInt32Type, v359);
             CFDictionarySetValue(Mutable, v196, v197);
             CFRelease(v197);
             CFRelease(v196);
             v198 = CFStringCreateWithFormat(0, 0, @"errorEventport");
-            v199 = CFNumberCreate(v24, kCFNumberSInt32Type, v367);
+            v199 = CFNumberCreate(v24, kCFNumberSInt32Type, v363);
             CFDictionarySetValue(Mutable, v198, v199);
             CFRelease(v199);
             CFRelease(v198);
@@ -794,15 +791,15 @@ LABEL_111:
         }
       }
 
-      sharedEvents4 = [v235 sharedEvents];
+      sharedEvents4 = [v234 sharedEvents];
       waitEvents = [sharedEvents4 waitEvents];
-      v339 = [waitEvents count];
+      v335 = [waitEvents count];
 
-      v202 = v339 != 0;
-      if (v339)
+      v202 = v335 != 0;
+      if (v335)
       {
         v203 = CFStringCreateWithFormat(0, 0, @"waitEventsCount");
-        v204 = CFNumberCreate(v24, kCFNumberSInt64Type, &v339);
+        v204 = CFNumberCreate(v24, kCFNumberSInt64Type, &v335);
         CFDictionarySetValue(Mutable, v203, v204);
         CFRelease(v204);
         CFRelease(v203);
@@ -812,38 +809,38 @@ LABEL_111:
         }
       }
 
-      v238 = v202;
+      v237 = v202;
       if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
       {
-        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:&v339 request:? qos:? completionEvent:? error:?];
+        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
       }
 
-      v269 = 0u;
-      v270 = 0u;
-      v267 = 0u;
       v268 = 0u;
-      sharedEvents5 = [v235 sharedEvents];
+      v269 = 0u;
+      v266 = 0u;
+      v267 = 0u;
+      sharedEvents5 = [v234 sharedEvents];
       waitEvents2 = [sharedEvents5 waitEvents];
 
-      v240 = waitEvents2;
-      v207 = [waitEvents2 countByEnumeratingWithState:&v267 objects:v331 count:16];
+      v239 = waitEvents2;
+      v207 = [waitEvents2 countByEnumeratingWithState:&v266 objects:v327 count:16];
       if (v207)
       {
         v208 = v207;
         v209 = 0;
-        obje = *v268;
+        obje = *v267;
         do
         {
           for (jj = 0; jj != v208; ++jj)
           {
-            if (*v268 != obje)
+            if (*v267 != obje)
             {
-              objc_enumerationMutation(v240);
+              objc_enumerationMutation(v239);
             }
 
-            v211 = *(*(&v267 + 1) + 8 * jj);
+            v211 = *(*(&v266 + 1) + 8 * jj);
             sharedEvent3 = [v211 sharedEvent];
-            v213 = &v341 + 10 * v209;
+            v213 = &v337 + 10 * v209;
             *v213 = [sharedEvent3 eventPort];
 
             v213[1] = [v211 eventType];
@@ -871,13 +868,13 @@ LABEL_111:
             v209 = (v209 + 1);
           }
 
-          v208 = [v240 countByEnumeratingWithState:&v267 objects:v331 count:16];
+          v208 = [v239 countByEnumeratingWithState:&v266 objects:v327 count:16];
         }
 
         while (v208);
       }
 
-      v222 = v238;
+      v222 = v237;
     }
 
     else
@@ -889,15 +886,15 @@ LABEL_111:
     errorCopy2 = error;
     v223 = [(_ANEVirtualClient *)selfCopy callIOUserClientWithDictionary:4 inDictionary:Mutable error:error];
     CFRelease(Mutable);
-    legacyCopy = v231;
-    modelURL2 = [v231 modelURL];
+    legacyCopy = v230;
+    modelURL2 = [v230 modelURL];
 
-    v163 = v233;
+    v163 = v232;
     v164 = eventCopy;
     if (modelURL2)
     {
-      [_ANEVirtualClient freeModelFileIOSurfaces:v229];
-      CFRelease(v229);
+      [_ANEVirtualClient freeModelFileIOSurfaces:v228];
+      CFRelease(v228);
     }
 
     v225 = os_log_type_enabled(0, OS_LOG_TYPE_DEBUG);
@@ -908,14 +905,14 @@ LABEL_111:
         [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
       }
 
-      [_ANEVirtualClient copyDictionaryDataToStruct:&v324 dictionary:v223];
-      v195 = v325[0] == 1;
+      [_ANEVirtualClient copyDictionaryDataToStruct:&v320 dictionary:v223];
+      v195 = v321[0] == 1;
       if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
       {
-        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:v325 request:? qos:? completionEvent:? error:?];
+        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
       }
 
-      v165 = v235;
+      v165 = v234;
       goto LABEL_196;
     }
 
@@ -924,7 +921,7 @@ LABEL_111:
       [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
     }
 
-    v165 = v235;
+    v165 = v234;
     if (v222)
     {
       if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
@@ -936,10 +933,10 @@ LABEL_111:
       goto LABEL_196;
     }
 
-    [(_ANEVirtualClient *)selfCopy releaseIOSurfaces:v296];
+    [(_ANEVirtualClient *)selfCopy releaseIOSurfaces:v295];
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:error options:? request:? qos:? completionEvent:? error:?];
+      [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
     }
 
 LABEL_199:
@@ -947,10 +944,10 @@ LABEL_199:
     goto LABEL_200;
   }
 
-  [(_ANEVirtualClient *)self copyModel:legacyCopy options:optionsCopy vmData:v296];
-  [(_ANEVirtualClient *)self copyErrorValue:v296];
+  [(_ANEVirtualClient *)self copyModel:legacyCopy options:optionsCopy vmData:v295];
+  [(_ANEVirtualClient *)self copyErrorValue:v295];
   obj = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:optionsCopy requiringSecureCoding:1 error:0];
-  v297 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", obj, [obj length], v307);
+  v296 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", obj, [obj length], v306);
   string_id = [legacyCopy string_id];
   programHandle = [legacyCopy programHandle];
   intermediateBufferHandle = [legacyCopy intermediateBufferHandle];
@@ -959,66 +956,66 @@ LABEL_199:
   qosCopy = qos;
   if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
   {
-    LODWORD(v339) = 67112192;
-    HIDWORD(v339) = v299[4];
-    LOWORD(v340) = 1024;
-    *(&v340 + 2) = v299[5];
-    HIWORD(v340) = 1024;
-    v341 = v299[6];
-    v342 = 1024;
-    v343 = v299[7];
+    LODWORD(v335) = 67112192;
+    HIDWORD(v335) = v298[4];
+    LOWORD(v336) = 1024;
+    *(&v336 + 2) = v298[5];
+    HIWORD(v336) = 1024;
+    v337 = v298[6];
+    v338 = 1024;
+    v339 = v298[7];
+    v340 = 2048;
+    v341 = string_id;
+    v342 = 2048;
+    v343 = programHandle;
     v344 = 2048;
-    v345 = string_id;
-    v346 = 2048;
-    v347 = programHandle;
-    v348 = 2048;
-    v349 = intermediateBufferHandle;
+    v345 = intermediateBufferHandle;
+    v346 = 1024;
+    v347 = queueDepth;
+    v348 = 1024;
+    v349 = v303;
     v350 = 1024;
-    v351 = queueDepth;
+    v351 = perfStatsMask;
     v352 = 1024;
-    v353 = v304;
+    v353 = qosCopy;
     v354 = 1024;
-    v355 = perfStatsMask;
+    v355 = v306[0];
     v356 = 1024;
-    v357 = qosCopy;
-    v358 = 1024;
-    v359 = v307[0];
-    v360 = 1024;
-    v361 = v320;
-    _os_log_debug_impl(&dword_1AD246000, 0, OS_LOG_TYPE_DEBUG, "ANEVirtualClient Evaluate: virtualANEModel.ioSIDModelNet=%u virtualANEModel.ioSIDModelShape=%u virtualANEModel.ioSIDModelWeight=%u virtualANEModel.ioSIDKey=%u virtualANEModel.string_id=%lld virtualANEModel.programHandle=%lld virtualANEModel.intermediateBufferHandle=%lld virtualANEModel.queueDepth=%d virtualANEModel.ioSIDModelAttributes=%u virtualANEModel.perfStatsMask=%u virtualANEModel.qos=%u virtualANEModel.ioSIDOptions=%u virtualANEModel.ioSIDErrorValue=%u", &v339, 0x5Cu);
+    v357 = v316;
+    _os_log_debug_impl(&dword_1AD246000, 0, OS_LOG_TYPE_DEBUG, "ANEVirtualClient Evaluate: virtualANEModel.ioSIDModelNet=%u virtualANEModel.ioSIDModelShape=%u virtualANEModel.ioSIDModelWeight=%u virtualANEModel.ioSIDKey=%u virtualANEModel.string_id=%lld virtualANEModel.programHandle=%lld virtualANEModel.intermediateBufferHandle=%lld virtualANEModel.queueDepth=%d virtualANEModel.ioSIDModelAttributes=%u virtualANEModel.perfStatsMask=%u virtualANEModel.qos=%u virtualANEModel.ioSIDOptions=%u virtualANEModel.ioSIDErrorValue=%u", &v335, 0x5Cu);
   }
 
-  v265 = 0u;
-  v266 = 0u;
-  v263 = 0u;
   v264 = 0u;
+  v265 = 0u;
+  v262 = 0u;
+  v263 = 0u;
   inputArray2 = [requestCopy inputArray];
-  v17 = [inputArray2 countByEnumeratingWithState:&v263 objects:v330 count:16];
+  v17 = [inputArray2 countByEnumeratingWithState:&v262 objects:v326 count:16];
   if (v17)
   {
     v18 = v17;
     v19 = 0;
-    v20 = *v264;
+    v20 = *v263;
     do
     {
       for (kk = 0; kk != v18; ++kk)
       {
-        if (*v264 != v20)
+        if (*v263 != v20)
         {
           objc_enumerationMutation(inputArray2);
         }
 
-        v22 = IOSurfaceGetID([*(*(&v263 + 1) + 8 * kk) ioSurface]);
-        v308[v19] = v22;
+        v22 = IOSurfaceGetID([*(*(&v262 + 1) + 8 * kk) ioSurface]);
+        v307[v19] = v22;
         if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
         {
-          [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v22 options:v375 request:? qos:? completionEvent:? error:?];
+          [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v22 options:v369 request:? qos:? completionEvent:? error:?];
         }
 
         ++v19;
       }
 
-      v18 = [inputArray2 countByEnumeratingWithState:&v263 objects:v330 count:16];
+      v18 = [inputArray2 countByEnumeratingWithState:&v262 objects:v326 count:16];
     }
 
     while (v18);
@@ -1029,29 +1026,29 @@ LABEL_199:
     v19 = 0;
   }
 
-  v316 = v19;
+  v312 = v19;
+  v258 = 0u;
   v259 = 0u;
   v260 = 0u;
   v261 = 0u;
-  v262 = 0u;
-  inputIndexArray = [v235 inputIndexArray];
-  v72 = [inputIndexArray countByEnumeratingWithState:&v259 objects:v329 count:16];
+  inputIndexArray = [v234 inputIndexArray];
+  v72 = [inputIndexArray countByEnumeratingWithState:&v258 objects:v325 count:16];
   if (v72)
   {
     v73 = v72;
     v74 = 0;
-    v75 = *v260;
+    v75 = *v259;
     do
     {
       for (mm = 0; mm != v73; ++mm)
       {
-        if (*v260 != v75)
+        if (*v259 != v75)
         {
           objc_enumerationMutation(inputIndexArray);
         }
 
-        v77 = *(*(&v259 + 1) + 8 * mm);
-        v308[v74 + 64] = [v77 unsignedIntValue];
+        v77 = *(*(&v258 + 1) + 8 * mm);
+        v307[v74 + 64] = [v77 unsignedIntValue];
         if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
         {
           [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v77 options:? request:? qos:? completionEvent:? error:?];
@@ -1060,7 +1057,7 @@ LABEL_199:
         ++v74;
       }
 
-      v73 = [inputIndexArray countByEnumeratingWithState:&v259 objects:v329 count:16];
+      v73 = [inputIndexArray countByEnumeratingWithState:&v258 objects:v325 count:16];
     }
 
     while (v73);
@@ -1071,38 +1068,38 @@ LABEL_199:
     v74 = 0;
   }
 
-  v317 = v74;
+  v313 = v74;
+  v254 = 0u;
   v255 = 0u;
   v256 = 0u;
   v257 = 0u;
-  v258 = 0u;
-  outputArray2 = [v235 outputArray];
-  v157 = [outputArray2 countByEnumeratingWithState:&v255 objects:v328 count:16];
+  outputArray2 = [v234 outputArray];
+  v157 = [outputArray2 countByEnumeratingWithState:&v254 objects:v324 count:16];
   if (v157)
   {
     v158 = v157;
     v159 = 0;
-    v160 = *v256;
+    v160 = *v255;
     do
     {
       for (nn = 0; nn != v158; ++nn)
       {
-        if (*v256 != v160)
+        if (*v255 != v160)
         {
           objc_enumerationMutation(outputArray2);
         }
 
-        v162 = IOSurfaceGetID([*(*(&v255 + 1) + 8 * nn) ioSurface]);
-        v309[v159] = v162;
+        v162 = IOSurfaceGetID([*(*(&v254 + 1) + 8 * nn) ioSurface]);
+        v307[v159 + 128] = v162;
         if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
         {
-          [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v162 options:&v383 request:? qos:? completionEvent:? error:?];
+          [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v162 options:&v377 request:? qos:? completionEvent:? error:?];
         }
 
         ++v159;
       }
 
-      v158 = [outputArray2 countByEnumeratingWithState:&v255 objects:v328 count:16];
+      v158 = [outputArray2 countByEnumeratingWithState:&v254 objects:v324 count:16];
     }
 
     while (v158);
@@ -1113,29 +1110,29 @@ LABEL_199:
     v159 = 0;
   }
 
-  v318 = v159;
+  v314 = v159;
+  v250 = 0u;
   v251 = 0u;
   v252 = 0u;
   v253 = 0u;
-  v254 = 0u;
-  outputIndexArray = [v235 outputIndexArray];
-  v167 = [outputIndexArray countByEnumeratingWithState:&v251 objects:v327 count:16];
+  outputIndexArray = [v234 outputIndexArray];
+  v167 = [outputIndexArray countByEnumeratingWithState:&v250 objects:v323 count:16];
   if (v167)
   {
     v168 = v167;
     v169 = 0;
-    v170 = *v252;
+    v170 = *v251;
     do
     {
       for (i1 = 0; i1 != v168; ++i1)
       {
-        if (*v252 != v170)
+        if (*v251 != v170)
         {
           objc_enumerationMutation(outputIndexArray);
         }
 
-        v172 = *(*(&v251 + 1) + 8 * i1);
-        v309[v169 + 64] = [v172 unsignedIntValue];
+        v172 = *(*(&v250 + 1) + 8 * i1);
+        v307[v169 + 192] = [v172 unsignedIntValue];
         if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
         {
           [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v172 options:? request:? qos:? completionEvent:? error:?];
@@ -1144,7 +1141,7 @@ LABEL_199:
         ++v169;
       }
 
-      v168 = [outputIndexArray countByEnumeratingWithState:&v251 objects:v327 count:16];
+      v168 = [outputIndexArray countByEnumeratingWithState:&v250 objects:v323 count:16];
     }
 
     while (v168);
@@ -1155,22 +1152,22 @@ LABEL_199:
     v169 = 0;
   }
 
-  v319 = v169;
-  v165 = v235;
+  v315 = v169;
+  v165 = v234;
   if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
   {
-    [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v235 options:? request:? qos:? completionEvent:? error:?];
+    [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v234 options:? request:? qos:? completionEvent:? error:?];
   }
 
-  weightsBuffer3 = [v235 weightsBuffer];
+  weightsBuffer3 = [v234 weightsBuffer];
   ioSurface2 = [weightsBuffer3 ioSurface];
 
   if (ioSurface2)
   {
-    weightsBuffer4 = [v235 weightsBuffer];
+    weightsBuffer4 = [v234 weightsBuffer];
     v176 = IOSurfaceGetID([weightsBuffer4 ioSurface]);
 
-    v310 = v176;
+    v308 = v176;
     if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
     {
       [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
@@ -1179,59 +1176,59 @@ LABEL_199:
 
   else
   {
-    v310 = 0;
+    v308 = 0;
   }
 
-  procedureIndex2 = [v235 procedureIndex];
+  procedureIndex2 = [v234 procedureIndex];
   unsignedLongLongValue = [procedureIndex2 unsignedLongLongValue];
 
-  transactionHandle2 = [v235 transactionHandle];
-  unsignedLongLongValue2 = [transactionHandle2 unsignedLongLongValue];
+  transactionHandle2 = [v234 transactionHandle];
+  v310[0] = [transactionHandle2 unsignedLongLongValue];
 
-  v249 = 0u;
-  v250 = 0u;
-  v247 = 0u;
   v248 = 0u;
-  perfStatsArray = [v235 perfStatsArray];
-  v180 = [perfStatsArray countByEnumeratingWithState:&v247 objects:v326 count:16];
+  v249 = 0u;
+  v246 = 0u;
+  v247 = 0u;
+  perfStatsArray = [v234 perfStatsArray];
+  v180 = [perfStatsArray countByEnumeratingWithState:&v246 objects:v322 count:16];
   if (!v180)
   {
 
 LABEL_158:
-    v315 = 0;
+    v311 = 0;
     goto LABEL_159;
   }
 
   v181 = v180;
   v182 = 0;
-  v183 = *v248;
+  v183 = *v247;
   do
   {
     v184 = 0;
     v185 = v182;
     do
     {
-      if (*v248 != v183)
+      if (*v247 != v183)
       {
         objc_enumerationMutation(perfStatsArray);
       }
 
-      v186 = *(*(&v247 + 1) + 8 * v184);
+      v186 = *(*(&v246 + 1) + 8 * v184);
       stats2 = [v186 stats];
       v188 = IOSurfaceGetID([stats2 ioSurface]);
 
-      v313[v185] = v188;
+      *(&v310[1] + v185) = v188;
       v182 = v185 + 1;
-      v314[v185] = [v186 statType];
-      v315 = v185 + 1;
+      *(&v310[33] + v185) = [v186 statType];
+      v311 = v185 + 1;
       if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
       {
-        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v188 options:v378 request:? qos:? completionEvent:? error:?];
+        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v188 options:v372 request:? qos:? completionEvent:? error:?];
       }
 
       if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
       {
-        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v380 options:v186 request:? qos:? completionEvent:? error:?];
+        [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:v374 options:v186 request:? qos:? completionEvent:? error:?];
       }
 
       ++v184;
@@ -1239,21 +1236,21 @@ LABEL_158:
     }
 
     while (v181 != v184);
-    v181 = [perfStatsArray countByEnumeratingWithState:&v247 objects:v326 count:16];
+    v181 = [perfStatsArray countByEnumeratingWithState:&v246 objects:v322 count:16];
   }
 
   while (v181);
 
-  v165 = v235;
+  v165 = v234;
   if (!v182)
   {
     goto LABEL_158;
   }
 
 LABEL_159:
-  v321 = 0;
-  v322 = 0;
-  v323 = 0;
+  v317 = 0;
+  v318 = 0;
+  v319 = 0;
   v189 = MEMORY[0x1E695DF20];
   v190 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:4096];
   v191 = [v189 dictionaryWithObjectsAndKeys:{v190, *MEMORY[0x1E696CE30], 0}];
@@ -1275,10 +1272,10 @@ LABEL_159:
   }
 
   IOSurfaceLock(v192, 0, 0);
-  v322 = IOSurfaceGetID(buffer);
+  v318 = IOSurfaceGetID(buffer);
   if (os_log_type_enabled(0, OS_LOG_TYPE_DEBUG))
   {
-    [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:&v322 request:? qos:? completionEvent:? error:?];
+    [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:a2 options:? request:? qos:? completionEvent:? error:?];
   }
 
   IOSurfaceUnlock(buffer, 0, 0);
@@ -1289,23 +1286,22 @@ LABEL_159:
     [_ANEVirtualClient(Private) doEvaluateWithModelLegacy:options:request:qos:completionEvent:error:];
   }
 
-  v195 = [(_ANEVirtualClient *)selfCopy callIOUserClient:4 inParams:v299 outParams:&v324];
+  v195 = [(_ANEVirtualClient *)selfCopy callIOUserClient:4 inParams:v298 outParams:&v320];
 
 LABEL_196:
-  [(_ANEVirtualClient *)v193 updateError:v296 error:errorCopy2];
-  v226 = [(_ANEVirtualClient *)v193 updatePerformanceStats:v296];
+  [(_ANEVirtualClient *)v193 updateError:v295 error:errorCopy2];
+  v226 = [(_ANEVirtualClient *)v193 updatePerformanceStats:v295];
   [v165 setPerfStats:v226];
 
-  [(_ANEVirtualClient *)v193 releaseIOSurfaces:v296];
+  [(_ANEVirtualClient *)v193 releaseIOSurfaces:v295];
 LABEL_200:
 
-  v227 = *MEMORY[0x1E69E9840];
   return v195;
 }
 
 - (BOOL)compileModel:(id)model options:(id)options qos:(unsigned int)qos error:(id *)error
 {
-  v54[9] = *MEMORY[0x1E69E9840];
+  v53[9] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   optionsCopy = options;
   v11 = gLogger;
@@ -1316,18 +1312,18 @@ LABEL_200:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  bzero(v44, 0x1728uLL);
+  bzero(v43, 0x1728uLL);
   if (([(_ANEVirtualClient *)self negotiatedCapabilityMask]& 4) == 0)
   {
-    [(_ANEVirtualClient *)self copyModel:modelCopy options:optionsCopy vmData:v44];
-    [(_ANEVirtualClient *)self copyOptions:optionsCopy vmData:v44];
-    [(_ANEVirtualClient *)self copyModelOptionFiles:modelCopy options:optionsCopy vmData:v44];
-    [(_ANEVirtualClient *)self copyErrorValue:v44];
-    v47[0] = qos;
-    [(_ANEVirtualClient *)self callIOUserClient:1 inParams:&v46 outParams:&v48];
+    [(_ANEVirtualClient *)self copyModel:modelCopy options:optionsCopy vmData:v43];
+    [(_ANEVirtualClient *)self copyOptions:optionsCopy vmData:v43];
+    [(_ANEVirtualClient *)self copyModelOptionFiles:modelCopy options:optionsCopy vmData:v43];
+    [(_ANEVirtualClient *)self copyErrorValue:v43];
+    v46[0] = qos;
+    [(_ANEVirtualClient *)self callIOUserClient:1 inParams:&v45 outParams:&v47];
     v12 = 0;
 LABEL_11:
-    if (v49)
+    if (v48)
     {
       v18 = [_ANEVirtualClient dictionaryGetNSStringForKey:v12 key:@"modelCacheURLIdentifier"];
       if (v18)
@@ -1335,7 +1331,7 @@ LABEL_11:
         [modelCopy setCacheURLIdentifier:v18];
       }
 
-      v19 = [(_ANEVirtualClient *)self getModelAttribute:v44];
+      v19 = [(_ANEVirtualClient *)self getModelAttribute:v43];
       [modelCopy updateModelAttributes:v19 state:2];
       v20 = gLogger;
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
@@ -1346,20 +1342,20 @@ LABEL_11:
       }
     }
 
-    if (error && v51)
+    if (error && v50)
     {
       IOSurfaceLock(buffer, 0, 0);
       BaseAddress = IOSurfaceGetBaseAddress(buffer);
       v22 = objc_alloc(MEMORY[0x1E695DEF0]);
-      v40 = [v22 initWithBytes:BaseAddress length:v51];
+      v39 = [v22 initWithBytes:BaseAddress length:v50];
       v23 = MEMORY[0x1E695DFD8];
-      v54[0] = objc_opt_class();
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
-      v38 = [v23 setWithArray:v24];
+      v53[0] = objc_opt_class();
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+      v37 = [v23 setWithArray:v24];
 
-      v43 = 0;
-      v25 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v40 error:&v43];
-      v26 = v43;
+      v42 = 0;
+      v25 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v39 error:&v42];
+      v26 = v42;
       if (v26)
       {
         v27 = gLogger;
@@ -1371,28 +1367,28 @@ LABEL_11:
         }
       }
 
-      v28 = [v25 decodeObjectOfClasses:v38 forKey:{*MEMORY[0x1E696A508], v38}];
+      v28 = [v25 decodeObjectOfClasses:v37 forKey:{*MEMORY[0x1E696A508], v37}];
       IOSurfaceUnlock(buffer, 0, 0);
       v29 = MEMORY[0x1E696ABC0];
       v30 = +[_ANEStrings errorDomainVirtIO];
-      v31 = v50;
-      v52 = *MEMORY[0x1E696A578];
-      v53 = v28;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v31 = v49;
+      v51 = *MEMORY[0x1E696A578];
+      v52 = v28;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
       v33 = [v29 errorWithDomain:v30 code:v31 userInfo:v32];
 
       v34 = v33;
       *error = v33;
     }
 
-    [(_ANEVirtualClient *)self updateError:v44 error:error];
-    [(_ANEVirtualClient *)self releaseIOSurfaces:v44];
+    [(_ANEVirtualClient *)self updateError:v43 error:error];
+    [(_ANEVirtualClient *)self releaseIOSurfaces:v43];
     if (v12)
     {
       CFRelease(v12);
     }
 
-    v35 = v49 != 0;
+    v35 = v48 != 0;
     goto LABEL_27;
   }
 
@@ -1401,17 +1397,17 @@ LABEL_11:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  v49 = 0;
+  v48 = 0;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   v14 = *MEMORY[0x1E695E480];
   v15 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   [(_ANEVirtualClient *)self copyAllModelFiles:modelCopy dictionary:Mutable ioSurfaceRefs:v15];
-  [(_ANEVirtualClient *)self copyModelMetaData:modelCopy options:optionsCopy dictionary:Mutable vmData:v44];
-  [(_ANEVirtualClient *)self copyOptions:optionsCopy dictionary:Mutable vmData:v44];
-  [(_ANEVirtualClient *)self copyModelOptionFiles:modelCopy options:optionsCopy dictionary:Mutable vmData:v44];
-  [(_ANEVirtualClient *)self copyErrorValue:Mutable vmData:v44];
-  v47[0] = qos;
-  v16 = CFNumberCreate(v14, kCFNumberSInt32Type, v47);
+  [(_ANEVirtualClient *)self copyModelMetaData:modelCopy options:optionsCopy dictionary:Mutable vmData:v43];
+  [(_ANEVirtualClient *)self copyOptions:optionsCopy dictionary:Mutable vmData:v43];
+  [(_ANEVirtualClient *)self copyModelOptionFiles:modelCopy options:optionsCopy dictionary:Mutable vmData:v43];
+  [(_ANEVirtualClient *)self copyErrorValue:Mutable vmData:v43];
+  v46[0] = qos;
+  v16 = CFNumberCreate(v14, kCFNumberSInt32Type, v46);
   CFDictionarySetValue(Mutable, @"qos", v16);
   CFRelease(v16);
   [_ANEVirtualClient setCodeSigningIdentity:Mutable];
@@ -1431,7 +1427,7 @@ LABEL_11:
       [_ANEVirtualClient compileModel:options:qos:error:];
     }
 
-    [_ANEVirtualClient copyDictionaryDataToStruct:&v48 dictionary:v12];
+    [_ANEVirtualClient copyDictionaryDataToStruct:&v47 dictionary:v12];
     goto LABEL_11;
   }
 
@@ -1440,11 +1436,10 @@ LABEL_11:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  [(_ANEVirtualClient *)self releaseIOSurfaces:v44];
+  [(_ANEVirtualClient *)self releaseIOSurfaces:v43];
   v35 = 0;
 LABEL_27:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v35;
 }
 
@@ -1454,32 +1449,32 @@ LABEL_27:
   {
     if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
     {
-      [_ANEVirtualClient printStruct:struct];
+      +[_ANEVirtualClient printStruct:];
     }
   }
 }
 
 - (BOOL)transferFileToHostWithPath:(id)path withChunkSize:(unsigned int)size withUUID:(id)d withModelInputPath:(id)inputPath overWriteFileNameWith:(id)with
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dCopy = d;
   inputPathCopy = inputPath;
   withCopy = with;
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x4012000000;
-  v81 = __Block_byref_object_copy__2;
-  v82 = __Block_byref_object_dispose__2;
-  v83 = &unk_1AD2A047D;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x4012000000;
+  v80 = __Block_byref_object_copy__2;
+  v81 = __Block_byref_object_dispose__2;
+  v82 = &unk_1AD2A047D;
+  v83 = 0;
   v84 = 0;
-  v85 = 0;
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = __112___ANEVirtualClient_transferFileToHostWithPath_withChunkSize_withUUID_withModelInputPath_overWriteFileNameWith___block_invoke;
-  v77[3] = &unk_1E79BA3B8;
-  v77[4] = &v78;
-  v15 = MEMORY[0x1B26F37D0](v77);
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __112___ANEVirtualClient_transferFileToHostWithPath_withChunkSize_withUUID_withModelInputPath_overWriteFileNameWith___block_invoke;
+  v76[3] = &unk_1E79BA3B8;
+  v76[4] = &v77;
+  v15 = MEMORY[0x1B26F37D0](v76);
   if (!size)
   {
     v19 = gLogger;
@@ -1510,9 +1505,9 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v76 = 0;
+  v75 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v17 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v76];
+  v17 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v75];
 
   if ((v17 & 1) == 0)
   {
@@ -1527,7 +1522,7 @@ LABEL_18:
     goto LABEL_17;
   }
 
-  if (v76 == 1)
+  if (v75 == 1)
   {
     v18 = gLogger;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -1542,40 +1537,40 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v97 = 0;
-  memset(v96, 0, sizeof(v96));
+  v96 = 0;
+  memset(v95, 0, sizeof(v95));
   inputStruct = 0u;
-  v95 = 0u;
-  v23 = +[_ANEStrings hwxExtension];
-  v24 = [pathCopy hasSuffix:v23];
+  v94 = 0u;
+  v22 = +[_ANEStrings hwxExtension];
+  v23 = [pathCopy hasSuffix:v22];
 
-  if (v24)
+  if (v23)
   {
-    v25 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v26 = +[_ANEStrings binExtension];
-    v27 = [pathCopy hasSuffix:v26];
+    v25 = +[_ANEStrings binExtension];
+    v26 = [pathCopy hasSuffix:v25];
 
-    if (!v27)
+    if (!v26)
     {
-      v96[0] = 0;
+      v95[0] = 0;
       goto LABEL_26;
     }
 
-    v25 = 2;
+    v24 = 2;
   }
 
-  v96[0] = v25;
+  v95[0] = v24;
 LABEL_26:
   lastPathComponent = [pathCopy lastPathComponent];
   if (withCopy && [withCopy length])
   {
-    v29 = withCopy;
+    v28 = withCopy;
 
-    lastPathComponent = v29;
+    lastPathComponent = v28;
   }
 
   else if (!lastPathComponent)
@@ -1586,12 +1581,12 @@ LABEL_26:
   if (![lastPathComponent length])
   {
 LABEL_34:
-    v30 = gLogger;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = gLogger;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
-      v31 = v30;
+      v30 = v29;
       [_ANEVirtualClient transferFileToHostWithPath:withChunkSize:withUUID:withModelInputPath:overWriteFileNameWith:];
       goto LABEL_36;
     }
@@ -1603,30 +1598,30 @@ LABEL_44:
 
   if (([lastPathComponent lengthOfBytesUsingEncoding:4] + 1) >= 0x101)
   {
-    v30 = gLogger;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = gLogger;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
-      v31 = v30;
+      v30 = v29;
       [_ANEVirtualClient transferFileToHostWithPath:withChunkSize:withUUID:withModelInputPath:overWriteFileNameWith:];
 LABEL_36:
       v20 = 0;
-      v30 = v31;
+      v29 = v30;
       goto LABEL_69;
     }
 
     goto LABEL_44;
   }
 
-  if (([lastPathComponent getCString:&v96[1] maxLength:256 encoding:4] & 1) == 0)
+  if (([lastPathComponent getCString:&v95[1] maxLength:256 encoding:4] & 1) == 0)
   {
-    v30 = gLogger;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = gLogger;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
-      v31 = v30;
+      v30 = v29;
       [_ANEVirtualClient transferFileToHostWithPath:withChunkSize:withUUID:withModelInputPath:overWriteFileNameWith:];
       goto LABEL_36;
     }
@@ -1634,16 +1629,16 @@ LABEL_36:
     goto LABEL_44;
   }
 
-  v69 = [MEMORY[0x1E696AC00] fileHandleForReadingAtPath:pathCopy];
+  v68 = [MEMORY[0x1E696AC00] fileHandleForReadingAtPath:pathCopy];
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-  v75 = 0;
-  v68 = [defaultManager2 attributesOfItemAtPath:pathCopy error:&v75];
-  v70 = v75;
+  v74 = 0;
+  v67 = [defaultManager2 attributesOfItemAtPath:pathCopy error:&v74];
+  v69 = v74;
 
-  if (v70)
+  if (v69)
   {
-    v33 = gLogger;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = gLogger;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1654,29 +1649,29 @@ LABEL_36:
     goto LABEL_68;
   }
 
-  fileSize = [v68 fileSize];
-  v34 = gLogger;
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  fileSize = [v67 fileSize];
+  v33 = gLogger;
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    v60 = NSStringFromSelector(a2);
+    v59 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v87 = v60;
-    v88 = 2048;
-    *v89 = fileSize;
-    *&v89[8] = 1024;
-    *&v89[10] = size;
-    v90 = 2112;
-    *v91 = pathCopy;
-    _os_log_debug_impl(&dword_1AD246000, v34, OS_LOG_TYPE_DEBUG, "%@: Begin file transfer to host with fileSize=%llu chunkSize=%u at path=%@", buf, 0x26u);
+    v86 = v59;
+    v87 = 2048;
+    *v88 = fileSize;
+    *&v88[8] = 1024;
+    *&v88[10] = size;
+    v89 = 2112;
+    *v90 = pathCopy;
+    _os_log_debug_impl(&dword_1AD246000, v33, OS_LOG_TYPE_DEBUG, "%@: Begin file transfer to host with fileSize=%llu chunkSize=%u at path=%@", buf, 0x26u);
   }
 
-  v35 = +[_ANEVirtualClient getCodeSigningIdentity];
-  v36 = v35;
-  v63 = v35;
-  if (!v35)
+  v34 = +[_ANEVirtualClient getCodeSigningIdentity];
+  v35 = v34;
+  v62 = v34;
+  if (!v34)
   {
-    v37 = gLogger;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = gLogger;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1686,10 +1681,10 @@ LABEL_36:
     goto LABEL_66;
   }
 
-  if (([v35 lengthOfBytesUsingEncoding:4]+ 1) >= 0x81)
+  if (([v34 lengthOfBytesUsingEncoding:4]+ 1) >= 0x81)
   {
-    v37 = gLogger;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = gLogger;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1702,10 +1697,10 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  if (([v36 getCString:&v96[257] maxLength:128 encoding:4]& 1) == 0)
+  if (([v35 getCString:&v95[257] maxLength:128 encoding:4]& 1) == 0)
   {
-    v37 = gLogger;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v36 = gLogger;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -1717,12 +1712,12 @@ LABEL_66:
 
   if (inputPathCopy && [inputPathCopy length])
   {
-    v38 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:pathCopy requiringSecureCoding:1 error:0];
-    v39 = v38;
-    if (!v38)
+    v37 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:pathCopy requiringSecureCoding:1 error:0];
+    v38 = v37;
+    if (!v37)
     {
-      v37 = gLogger;
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v36 = gLogger;
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1732,17 +1727,17 @@ LABEL_66:
       goto LABEL_66;
     }
 
-    v40 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v38, [v38 length], &inputStruct + 8);
-    v79[6] = v40;
-    *(&v95 + 1) = [v39 length];
+    v39 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v37, [v37 length], &inputStruct + 8);
+    v78[6] = v39;
+    *(&v94 + 1) = [v38 length];
   }
 
-  if (v96[0] == 2)
+  if (v95[0] == 2)
   {
     if (!dCopy)
     {
-      v37 = gLogger;
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v36 = gLogger;
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1754,8 +1749,8 @@ LABEL_66:
 
     if (([dCopy lengthOfBytesUsingEncoding:4] + 1) >= 0x26)
     {
-      v37 = gLogger;
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v36 = gLogger;
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1765,10 +1760,10 @@ LABEL_66:
       goto LABEL_66;
     }
 
-    if (([dCopy getCString:&v96[385] maxLength:37 encoding:4] & 1) == 0)
+    if (([dCopy getCString:&v95[385] maxLength:37 encoding:4] & 1) == 0)
     {
-      v37 = gLogger;
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v36 = gLogger;
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -1781,91 +1776,91 @@ LABEL_66:
 
   else
   {
-    v96[385] = 0;
+    v95[385] = 0;
   }
 
+  v60 = 0;
   v61 = 0;
-  v62 = 0;
   v20 = 1;
-  while (fileSize > v62)
+  while (fileSize > v61)
   {
     context = objc_autoreleasePoolPush();
-    v41 = gLogger;
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v40 = gLogger;
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
-      v67 = v41;
-      v53 = NSStringFromSelector(a2);
+      v66 = v40;
+      v52 = NSStringFromSelector(a2);
       *buf = 138413314;
-      v87 = v53;
-      v88 = 1024;
-      *v89 = v61;
-      *&v89[4] = 2048;
-      *&v89[6] = fileSize;
-      v90 = 1024;
-      *v91 = size;
-      *&v91[4] = 2112;
-      *&v91[6] = pathCopy;
-      _os_log_debug_impl(&dword_1AD246000, v67, OS_LOG_TYPE_DEBUG, "%@: Transferring chunkSeq=%d to host with fileSize=%llu chunkSize=%u at path=%@", buf, 0x2Cu);
+      v86 = v52;
+      v87 = 1024;
+      *v88 = v60;
+      *&v88[4] = 2048;
+      *&v88[6] = fileSize;
+      v89 = 1024;
+      *v90 = size;
+      *&v90[4] = 2112;
+      *&v90[6] = pathCopy;
+      _os_log_debug_impl(&dword_1AD246000, v66, OS_LOG_TYPE_DEBUG, "%@: Transferring chunkSeq=%d to host with fileSize=%llu chunkSize=%u at path=%@", buf, 0x2Cu);
 
-      v41 = v67;
+      v40 = v66;
     }
 
-    if (fileSize - v62 >= size)
+    if (fileSize - v61 >= size)
     {
       sizeCopy = size;
     }
 
     else
     {
-      sizeCopy = fileSize - v62;
+      sizeCopy = fileSize - v61;
     }
 
-    v43 = [v69 readDataOfLength:sizeCopy];
-    v44 = v43;
-    v66 = v43;
-    if (!v43)
+    v42 = [v68 readDataOfLength:sizeCopy];
+    v43 = v42;
+    v65 = v42;
+    if (!v42)
     {
-      v49 = gLogger;
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v48 = gLogger;
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        v54 = NSStringFromSelector(a2);
+        v53 = NSStringFromSelector(a2);
         *buf = 138413314;
-        v87 = v54;
-        v88 = 1024;
-        *v89 = v61;
-        *&v89[4] = 2048;
-        *&v89[6] = fileSize;
-        v90 = 1024;
-        *v91 = size;
-        *&v91[4] = 2112;
-        *&v91[6] = pathCopy;
-        _os_log_error_impl(&dword_1AD246000, v49, OS_LOG_TYPE_ERROR, "%@: ERROR failed to get segment=%d for fileSize=%llu chunkSize=%u at path=%@", buf, 0x2Cu);
+        v86 = v53;
+        v87 = 1024;
+        *v88 = v60;
+        *&v88[4] = 2048;
+        *&v88[6] = fileSize;
+        v89 = 1024;
+        *v90 = size;
+        *&v90[4] = 2112;
+        *&v90[6] = pathCopy;
+        _os_log_error_impl(&dword_1AD246000, v48, OS_LOG_TYPE_ERROR, "%@: ERROR failed to get segment=%d for fileSize=%llu chunkSize=%u at path=%@", buf, 0x2Cu);
       }
 
       goto LABEL_90;
     }
 
-    v45 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v43, [v43 length], &inputStruct + 4);
-    v79[7] = v45;
-    if (v45)
+    v44 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v42, [v42 length], &inputStruct + 4);
+    v78[7] = v44;
+    if (v44)
     {
-      LODWORD(inputStruct) = v61;
-      *&v95 = [v44 length];
+      LODWORD(inputStruct) = v60;
+      *&v94 = [v43 length];
       outputStruct = 0;
       outputStructCnt = 1;
-      v46 = IOConnectCallMethod(self->_connect, 0x16u, 0, 0, &inputStruct, 0x1C8uLL, 0, 0, &outputStruct, &outputStructCnt);
-      if (v46)
+      v45 = IOConnectCallMethod(self->_connect, 0x16u, 0, 0, &inputStruct, 0x1C8uLL, 0, 0, &outputStruct, &outputStructCnt);
+      if (v45)
       {
-        v47 = v46;
-        v48 = gLogger;
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v46 = v45;
+        v47 = gLogger;
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v55 = NSStringFromSelector(a2);
+          v54 = NSStringFromSelector(a2);
           *buf = 138412546;
-          v87 = v55;
-          v88 = 1024;
-          *v89 = v47;
-          _os_log_error_impl(&dword_1AD246000, v48, OS_LOG_TYPE_ERROR, "%@: ERROR kernel call failed with ret=0x%x", buf, 0x12u);
+          v86 = v54;
+          v87 = 1024;
+          *v88 = v46;
+          _os_log_error_impl(&dword_1AD246000, v47, OS_LOG_TYPE_ERROR, "%@: ERROR kernel call failed with ret=0x%x", buf, 0x12u);
         }
 
         goto LABEL_90;
@@ -1873,72 +1868,72 @@ LABEL_66:
 
       if (outputStruct)
       {
-        v52 = v79[7];
-        if (v52)
+        v51 = v78[7];
+        if (v51)
         {
-          CFRelease(v52);
-          v79[7] = 0;
+          CFRelease(v51);
+          v78[7] = 0;
         }
 
-        *&v95 = 0;
+        *&v94 = 0;
         DWORD1(inputStruct) = 0;
-        v62 += [v44 length];
-        ++v61;
-        v51 = 1;
+        v61 += [v43 length];
+        ++v60;
+        v50 = 1;
         goto LABEL_91;
       }
 
-      v50 = gLogger;
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v49 = gLogger;
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        v58 = NSStringFromSelector(a2);
-        v59 = [v66 length];
+        v57 = NSStringFromSelector(a2);
+        v58 = [v65 length];
         *buf = 138413570;
-        v87 = v58;
-        v88 = 1024;
-        *v89 = v61;
-        *&v89[4] = 2048;
-        *&v89[6] = fileSize;
-        v90 = 1024;
-        *v91 = size;
-        *&v91[4] = 2048;
-        *&v91[6] = v59;
-        v92 = 2112;
-        v93 = pathCopy;
-        _os_log_error_impl(&dword_1AD246000, v50, OS_LOG_TYPE_ERROR, "%@: ERROR failed to transfer segment=%d for fileSize=%llu chunkSize=%u chunkDataLength=%llu at path=%@", buf, 0x36u);
+        v86 = v57;
+        v87 = 1024;
+        *v88 = v60;
+        *&v88[4] = 2048;
+        *&v88[6] = fileSize;
+        v89 = 1024;
+        *v90 = size;
+        *&v90[4] = 2048;
+        *&v90[6] = v58;
+        v91 = 2112;
+        v92 = pathCopy;
+        _os_log_error_impl(&dword_1AD246000, v49, OS_LOG_TYPE_ERROR, "%@: ERROR failed to transfer segment=%d for fileSize=%llu chunkSize=%u chunkDataLength=%llu at path=%@", buf, 0x36u);
       }
     }
 
     else
     {
-      v50 = gLogger;
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v49 = gLogger;
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        v56 = NSStringFromSelector(a2);
-        v57 = [v66 length];
+        v55 = NSStringFromSelector(a2);
+        v56 = [v65 length];
         *buf = 138413570;
-        v87 = v56;
-        v88 = 1024;
-        *v89 = v61;
-        *&v89[4] = 2048;
-        *&v89[6] = fileSize;
-        v90 = 1024;
-        *v91 = size;
-        *&v91[4] = 2048;
-        *&v91[6] = v57;
-        v92 = 2112;
-        v93 = pathCopy;
-        _os_log_error_impl(&dword_1AD246000, v50, OS_LOG_TYPE_ERROR, "%@: ERROR failed to write segment=%d to IOSurface for fileSize=%llu chunkSize=%u chunkDataLength=%llu at path=%@", buf, 0x36u);
+        v86 = v55;
+        v87 = 1024;
+        *v88 = v60;
+        *&v88[4] = 2048;
+        *&v88[6] = fileSize;
+        v89 = 1024;
+        *v90 = size;
+        *&v90[4] = 2048;
+        *&v90[6] = v56;
+        v91 = 2112;
+        v92 = pathCopy;
+        _os_log_error_impl(&dword_1AD246000, v49, OS_LOG_TYPE_ERROR, "%@: ERROR failed to write segment=%d to IOSurface for fileSize=%llu chunkSize=%u chunkDataLength=%llu at path=%@", buf, 0x36u);
       }
     }
 
 LABEL_90:
     v20 = 0;
-    v51 = 0;
+    v50 = 0;
 LABEL_91:
 
     objc_autoreleasePoolPop(context);
-    if ((v51 & 1) == 0)
+    if ((v50 & 1) == 0)
     {
       break;
     }
@@ -1946,37 +1941,295 @@ LABEL_91:
 
   v15[2](v15);
 LABEL_67:
-  v33 = v63;
+  v32 = v62;
 LABEL_68:
 
-  v30 = v69;
+  v29 = v68;
 LABEL_69:
 
 LABEL_19:
-  _Block_object_dispose(&v78, 8);
+  _Block_object_dispose(&v77, 8);
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20 & 1;
+}
+
+- (BOOL)loadModel:(id)model options:(id)options qos:(unsigned int)qos error:(id *)error
+{
+  v6 = (MEMORY[0x1EEE9AC00])(self, a2, model, options, *&qos, error);
+  v57 = v7;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v14 = v6;
+  v74 = *MEMORY[0x1E69E9840];
+  v16 = v15;
+  v58 = v11;
+  v17 = gLogger;
+  v18 = v17;
+  if (!v16)
+  {
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      NSStringFromSelector(v13);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEVirtualClient loadModel:options:qos:error:];
+    }
+
+    goto LABEL_12;
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    NSStringFromSelector(v13);
+    objc_claimAutoreleasedReturnValue();
+    [_ANEVirtualClient loadModel:options:qos:error:];
+  }
+
+  bzero(v66, 0x1728uLL);
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (([v14 negotiatedCapabilityMask] & 4) == 0)
+  {
+    v20 = gLogger;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      v54 = NSStringFromSelector(v13);
+      buf = 138412802;
+      v61 = v54;
+      v62 = 1024;
+      negotiatedDataInterfaceVersion = [v14 negotiatedDataInterfaceVersion];
+      v64 = 2048;
+      negotiatedCapabilityMask = [v14 negotiatedCapabilityMask];
+      _os_log_error_impl(&dword_1AD246000, v20, OS_LOG_TYPE_ERROR, "%@: Host too old, model load not supported, negotiatedDataInterfaceVersion=0x%x negotiatedCapabilityMask=0x%llx", &buf, 0x1Cu);
+    }
+
+    if (v57)
+    {
+      v21 = NSStringFromSelector(v13);
+      *v57 = [_ANEErrors hostTooOld:v21];
+    }
+
+    goto LABEL_12;
+  }
+
+  v59 = 0;
+  if ([_ANEVirtualClient shouldUsePrecompiledPath:v16 options:v58 shouldUseChunking:&v59 chunkingThreshold:209715200]&& v59 == 1)
+  {
+    if ([v14 negotiatedDataInterfaceVersion] <= 0x20405)
+    {
+      v24 = gLogger;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        NSStringFromSelector(v13);
+        objc_claimAutoreleasedReturnValue();
+        [v14 negotiatedDataInterfaceVersion];
+        [_ANEVirtualClient loadModel:options:qos:error:];
+      }
+
+      if (v57)
+      {
+        v25 = NSStringFromSelector(v13);
+        *v57 = [_ANEErrors guestToHostInterfaceTooOld:v25];
+      }
+
+      goto LABEL_12;
+    }
+
+    modelURL = [v16 modelURL];
+    path = [modelURL path];
+
+    if (([v14 transferFileToHostWithPath:path withChunkSize:209715200 withUUID:0 withModelInputPath:path overWriteFileNameWith:0] & 1) == 0)
+    {
+      v52 = gLogger;
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      {
+        NSStringFromSelector(v13);
+        objc_claimAutoreleasedReturnValue();
+        [_ANEVirtualClient loadModel:options:qos:error:];
+      }
+
+      if (v57)
+      {
+        v53 = NSStringFromSelector(v13);
+        *v57 = [_ANEErrors virtualizationDataError:v53];
+      }
+
+      goto LABEL_12;
+    }
+
+    v48 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:1];
+    [(__CFDictionary *)Mutable setObject:v48 forKey:@"fileDataAlreadySent"];
+
+    lastPathComponent = [path lastPathComponent];
+    [(__CFDictionary *)Mutable setObject:lastPathComponent forKey:@"genericFileName"];
+
+    v26 = 1;
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  v69 = 0;
+  v27 = *MEMORY[0x1E695E480];
+  v28 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+  if ((v26 & 1) == 0)
+  {
+    modelURL2 = [v16 modelURL];
+    v30 = modelURL2 == 0;
+
+    if (!v30 && ([v14 copyAllModelFiles:v16 dictionary:Mutable ioSurfaceRefs:v28] & 1) == 0)
+    {
+      CFRelease(Mutable);
+      CFRelease(v28);
+LABEL_12:
+      v22 = 0;
+      goto LABEL_13;
+    }
+  }
+
+  getCacheURLIdentifier = [v16 getCacheURLIdentifier];
+  v32 = getCacheURLIdentifier == 0;
+
+  if (!v32)
+  {
+    cacheURLIdentifier = [v16 cacheURLIdentifier];
+
+    v34 = gLogger;
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(v13);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEVirtualClient loadModel:options:qos:error:];
+    }
+
+    CFDictionarySetValue(Mutable, @"modelCacheURLIdentifier", cacheURLIdentifier);
+  }
+
+  [v14 copyModelMetaData:v16 options:v58 dictionary:Mutable vmData:v66];
+  [v14 copyOptions:v58 dictionary:Mutable vmData:v66];
+  [v14 copyModelOptionFiles:v16 options:v58 dictionary:Mutable vmData:v66];
+  [v14 copyErrorValue:Mutable vmData:v66];
+  v67[0] = v9;
+  v35 = CFNumberCreate(v27, kCFNumberSInt32Type, v67);
+  CFDictionarySetValue(Mutable, @"qos", v35);
+  CFRelease(v35);
+  getCacheURLIdentifier2 = [v16 getCacheURLIdentifier];
+  LODWORD(v35) = getCacheURLIdentifier2 == 0;
+
+  if (v35)
+  {
+    operator new();
+  }
+
+  [_ANEVirtualClient setCodeSigningIdentity:Mutable];
+  [v14 printDictionary:Mutable];
+  v37 = [v14 callIOUserClientWithDictionary:2 inDictionary:Mutable error:v57];
+  CFRelease(Mutable);
+  [v14 printDictionary:v37];
+  modelURL3 = [v16 modelURL];
+  v39 = modelURL3 == 0;
+
+  if (!v39)
+  {
+    [_ANEVirtualClient freeModelFileIOSurfaces:v28];
+    CFRelease(v28);
+  }
+
+  if (!v37)
+  {
+    if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
+    {
+      [_ANEVirtualClient loadModel:options:qos:error:];
+    }
+
+    [v14 releaseIOSurfaces:v66];
+    goto LABEL_12;
+  }
+
+  v40 = gLogger;
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+  {
+    NSStringFromSelector(v13);
+    objc_claimAutoreleasedReturnValue();
+    [_ANEVirtualClient loadModel:options:qos:error:];
+  }
+
+  [_ANEVirtualClient copyDictionaryDataToStruct:&v68 dictionary:v37];
+  v55 = [v14 getModelAttribute:v66];
+  if (v69)
+  {
+    v41 = [_ANEVirtualClient dictionaryGetNSStringForKey:v37 key:@"modelCacheURLIdentifier"];
+    if (v41)
+    {
+      [v16 setCacheURLIdentifier:v41];
+    }
+
+    [v16 updateModelAttributes:v55 state:v73 programHandle:v70 intermediateBufferHandle:v71 queueDepth:{v72, v55}];
+    v42 = [_ANEProgramForEvaluation programWithHandle:v70 intermediateBufferHandle:v71 queueDepth:v72];
+    [v16 setProgram:v42];
+
+    v43 = [_ANEDeviceController controllerWithProgramHandle:v70];
+    v44 = [_ANEProgramIOSurfacesMapper mapperWithController:v43];
+    [v16 setMapper:v44];
+
+    v50 = gLogger;
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(v13);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEVirtualClient loadModel:options:qos:error:];
+    }
+  }
+
+  else
+  {
+    v45 = gLogger;
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(v13);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEVirtualClient loadModel:options:qos:error:];
+    }
+
+    [v16 updateModelAttributes:v55 state:5];
+  }
+
+  [v14 updateError:v66 error:{v57, v55}];
+  [v14 releaseIOSurfaces:v66];
+  CFRelease(v37);
+  v51 = gLogger;
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+  {
+    NSStringFromSelector(v13);
+    objc_claimAutoreleasedReturnValue();
+    [_ANEVirtualClient loadModel:options:qos:error:];
+  }
+
+  v22 = v69 != 0;
+LABEL_13:
+
+  return v22;
 }
 
 - (BOOL)loadModelNewInstance:(id)instance options:(id)options modelInstParams:(id)params qos:(unsigned int)qos error:(id *)error
 {
-  v162 = *MEMORY[0x1E69E9840];
+  v161 = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
   optionsCopy = options;
   paramsCopy = params;
-  v108 = paramsCopy;
-  v109 = instanceCopy;
+  v107 = paramsCopy;
+  v108 = instanceCopy;
   if (instanceCopy)
   {
     if (paramsCopy)
     {
-      v107 = [optionsCopy objectForKeyedSubscript:kANEFBaseModelIdentifierKey[0]];
-      if (v107)
+      v106 = [optionsCopy objectForKeyedSubscript:kANEFBaseModelIdentifierKey[0]];
+      if (v106)
       {
         if ([(_ANEVirtualClient *)self negotiatedDataInterfaceVersion]<= 0x20405)
         {
-          v11 = [(_ANEVirtualClient *)self loadModelNewInstanceLegacy:instanceCopy options:optionsCopy modelInstParams:v108 qos:qos error:error];
+          v11 = [(_ANEVirtualClient *)self loadModelNewInstanceLegacy:instanceCopy options:optionsCopy modelInstParams:v107 qos:qos error:error];
 LABEL_177:
 
           goto LABEL_178;
@@ -2038,7 +2291,7 @@ LABEL_176:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             v80 = NSStringFromSelector(a2);
-            procedureArray = [v108 procedureArray];
+            procedureArray = [v107 procedureArray];
             *buf = 138412546;
             *&buf[4] = v80;
             *&buf[12] = 2048;
@@ -2046,13 +2299,13 @@ LABEL_176:
             _os_log_debug_impl(&dword_1AD246000, v23, OS_LOG_TYPE_DEBUG, "%@: Procedures to load=%lu", buf, 0x16u);
           }
 
-          v124 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v144 = 0u;
-          v145 = 0u;
-          v142 = 0u;
+          v123 = objc_alloc_init(MEMORY[0x1E695DF70]);
           v143 = 0u;
-          obj = [v108 procedureArray];
-          v24 = [obj countByEnumeratingWithState:&v142 objects:v161 count:16];
+          v144 = 0u;
+          v141 = 0u;
+          v142 = 0u;
+          obj = [v107 procedureArray];
+          v24 = [obj countByEnumeratingWithState:&v141 objects:v160 count:16];
           if (!v24)
           {
 
@@ -2060,29 +2313,29 @@ LABEL_176:
             goto LABEL_105;
           }
 
-          v123 = 0;
-          v118 = 0;
-          v25 = 0;
-          v121 = 1;
-          v113 = *v143;
-          v119 = *MEMORY[0x1E696A3B8];
-LABEL_36:
+          v122 = 0;
           v117 = 0;
-          v114 = v24;
+          v25 = 0;
+          v120 = 1;
+          v112 = *v142;
+          v118 = *MEMORY[0x1E696A3B8];
+LABEL_36:
+          v116 = 0;
+          v113 = v24;
           while (1)
           {
-            if (*v143 != v113)
+            if (*v142 != v112)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v142 + 1) + 8 * v117);
+            v26 = *(*(&v141 + 1) + 8 * v116);
+            v137 = 0u;
             v138 = 0u;
             v139 = 0u;
             v140 = 0u;
-            v141 = 0u;
             weightArray = [v26 weightArray];
-            v27 = [weightArray countByEnumeratingWithState:&v138 objects:v160 count:16];
+            v27 = [weightArray countByEnumeratingWithState:&v137 objects:v159 count:16];
             if (v27)
             {
               break;
@@ -2090,14 +2343,14 @@ LABEL_36:
 
 LABEL_95:
 
-            ++v118;
-            if (++v117 == v114)
+            ++v117;
+            if (++v116 == v113)
             {
-              v24 = [obj countByEnumeratingWithState:&v142 objects:v161 count:16];
+              v24 = [obj countByEnumeratingWithState:&v141 objects:v160 count:16];
               if (!v24)
               {
 
-                if ((v121 & 1) == 0)
+                if ((v120 & 1) == 0)
                 {
                   if (error)
                   {
@@ -2118,25 +2371,25 @@ LABEL_175:
                 }
 
 LABEL_105:
-                v128 = 0;
-                v129 = &v128;
-                v130 = 0x5812000000;
-                v131 = __Block_byref_object_copy__47;
-                v132 = __Block_byref_object_dispose__48;
-                v133 = &unk_1AD2A047D;
+                v127 = 0;
+                v128 = &v127;
+                v129 = 0x5812000000;
+                v130 = __Block_byref_object_copy__47;
+                v131 = __Block_byref_object_dispose__48;
+                v132 = &unk_1AD2A047D;
+                v133 = 0u;
                 v134 = 0u;
-                v135 = 0u;
-                v136 = 0;
-                v127[0] = MEMORY[0x1E69E9820];
-                v127[1] = 3221225472;
-                v127[2] = __76___ANEVirtualClient_loadModelNewInstance_options_modelInstParams_qos_error___block_invoke;
-                v127[3] = &unk_1E79BA3B8;
-                v127[4] = &v128;
-                v65 = MEMORY[0x1B26F37D0](v127);
-                v159 = 0;
-                memset(v158, 0, sizeof(v158));
+                v135 = 0;
+                v126[0] = MEMORY[0x1E69E9820];
+                v126[1] = 3221225472;
+                v126[2] = __76___ANEVirtualClient_loadModelNewInstance_options_modelInstParams_qos_error___block_invoke;
+                v126[3] = &unk_1E79BA3B8;
+                v126[4] = &v127;
+                v65 = MEMORY[0x1B26F37D0](v126);
+                v158 = 0;
                 memset(v157, 0, sizeof(v157));
-                v156 = 0u;
+                memset(v156, 0, sizeof(v156));
+                v155 = 0u;
                 memset(buf, 0, sizeof(buf));
                 if (([uUIDString lengthOfBytesUsingEncoding:4] + 1) >= 0x26)
                 {
@@ -2154,11 +2407,11 @@ LABEL_141:
                   v11 = 0;
 LABEL_173:
 
-                  _Block_object_dispose(&v128, 8);
+                  _Block_object_dispose(&v127, 8);
                   goto LABEL_174;
                 }
 
-                if (([uUIDString getCString:v158 maxLength:37 encoding:4] & 1) == 0)
+                if (([uUIDString getCString:v157 maxLength:37 encoding:4] & 1) == 0)
                 {
                   v66 = gLogger;
                   if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
@@ -2177,7 +2430,7 @@ LABEL_126:
                 }
 
                 *&buf[20] = qos;
-                getCacheURLIdentifier2 = [v109 getCacheURLIdentifier];
+                getCacheURLIdentifier2 = [v108 getCacheURLIdentifier];
                 v69 = [getCacheURLIdentifier2 dataUsingEncoding:4];
 
                 if (!v69)
@@ -2205,27 +2458,27 @@ LABEL_172:
                 }
 
                 v70 = [(_ANEVirtualClient *)self copyToIOSurface:v69 length:[v69 length] ioSID:&buf[4]];
-                v129[7] = v70;
+                v128[7] = v70;
                 if (v70 && *&buf[4])
                 {
                   *&buf[32] = [v69 length];
                   v71 = [(_ANEVirtualClient *)self copyDictionaryToIOSurface:optionsCopy copiedDataSize:&buf[40] createdIOSID:&buf[8]];
-                  v129[8] = v71;
+                  v128[8] = v71;
                   if (v71 && *&buf[8])
                   {
                     v72 = [_ANEVirtualClient createIOSurface:256 ioSID:buf | 0xC];
-                    v129[9] = v72;
-                    *&v156 = 256;
+                    v128[9] = v72;
+                    *&v155 = 256;
                     v73 = [_ANEVirtualClient createIOSurface:0x100000 ioSID:&buf[16]];
-                    v129[10] = v73;
-                    *(&v156 + 1) = 0x100000;
-                    v126 = 0;
-                    v74 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v108 requiringSecureCoding:1 error:&v126];
-                    v75 = v126;
+                    v128[10] = v73;
+                    *(&v155 + 1) = 0x100000;
+                    v125 = 0;
+                    v74 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v107 requiringSecureCoding:1 error:&v125];
+                    v75 = v125;
                     if (v74)
                     {
                       v76 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v74, [v74 length], buf);
-                      v129[6] = v76;
+                      v128[6] = v76;
                       if (v76 && *buf)
                       {
                         *&buf[24] = [v74 length];
@@ -2268,13 +2521,13 @@ LABEL_172:
                           goto LABEL_168;
                         }
 
-                        if ([v78 getCString:v157 maxLength:128 encoding:4])
+                        if ([v78 getCString:v156 maxLength:128 encoding:4])
                         {
+                          v152 = 0u;
                           v153 = 0u;
-                          v154 = 0u;
                           outputStruct = 0u;
-                          v125 = 48;
-                          v91 = IOConnectCallMethod(self->_connect, 0x17u, 0, 0, buf, 0xE8uLL, 0, 0, &outputStruct, &v125);
+                          v124 = 48;
+                          v91 = IOConnectCallMethod(self->_connect, 0x17u, 0, 0, buf, 0xE8uLL, 0, 0, &outputStruct, &v124);
                           if (v91)
                           {
                             v92 = gLogger;
@@ -2311,29 +2564,29 @@ LABEL_186:
                               goto LABEL_186;
                             }
 
-                            v93 = [_ANEVirtualClient getDictionaryWithJSONEncodingFromIOSurface:v129[10] withArchivedDataSize:*(&v154 + 1)];
+                            v93 = [_ANEVirtualClient getDictionaryWithJSONEncodingFromIOSurface:v128[10] withArchivedDataSize:*(&v153 + 1)];
                             if (v93)
                             {
                               v65[2](v65);
-                              [v109 updateModelAttributes:v93 state:HIDWORD(v153) programHandle:*(&outputStruct + 1) intermediateBufferHandle:v153 queueDepth:SBYTE8(v153)];
-                              v100 = [_ANEProgramForEvaluation programWithHandle:*(&outputStruct + 1) intermediateBufferHandle:v153 queueDepth:SBYTE8(v153)];
-                              [v109 setProgram:v100];
+                              [v108 updateModelAttributes:v93 state:HIDWORD(v152) programHandle:*(&outputStruct + 1) intermediateBufferHandle:v152 queueDepth:SBYTE8(v152)];
+                              v99 = [_ANEProgramForEvaluation programWithHandle:*(&outputStruct + 1) intermediateBufferHandle:v152 queueDepth:SBYTE8(v152)];
+                              [v108 setProgram:v99];
 
-                              v101 = [_ANEDeviceController controllerWithProgramHandle:*(&outputStruct + 1)];
-                              v102 = [_ANEProgramIOSurfacesMapper mapperWithController:v101];
-                              [v109 setMapper:v102];
+                              v100 = [_ANEDeviceController controllerWithProgramHandle:*(&outputStruct + 1)];
+                              v101 = [_ANEProgramIOSurfacesMapper mapperWithController:v100];
+                              [v108 setMapper:v101];
 
-                              v103 = gLogger;
-                              if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
+                              v102 = gLogger;
+                              if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
                               {
-                                v105 = NSStringFromSelector(a2);
-                                *v146 = 138412802;
-                                v147 = v105;
-                                v148 = 1024;
-                                v149 = outputStruct;
-                                v150 = 2112;
-                                v151 = v109;
-                                _os_log_debug_impl(&dword_1AD246000, v103, OS_LOG_TYPE_DEBUG, "%@: END loadModelNewInstance success=%d updatedModel=%@", v146, 0x1Cu);
+                                v104 = NSStringFromSelector(a2);
+                                *v145 = 138412802;
+                                v146 = v104;
+                                v147 = 1024;
+                                v148 = outputStruct;
+                                v149 = 2112;
+                                v150 = v108;
+                                _os_log_debug_impl(&dword_1AD246000, v102, OS_LOG_TYPE_DEBUG, "%@: END loadModelNewInstance success=%d updatedModel=%@", v145, 0x1Cu);
                               }
 
                               v11 = outputStruct;
@@ -2341,8 +2594,8 @@ LABEL_186:
 
                             else
                             {
-                              v104 = gLogger;
-                              if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+                              v103 = gLogger;
+                              if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
                               {
                                 NSStringFromSelector(a2);
                                 objc_claimAutoreleasedReturnValue();
@@ -2465,22 +2718,22 @@ LABEL_139:
             }
           }
 
-          v28 = *v139;
+          v28 = *v138;
 LABEL_41:
           v29 = 0;
           while (1)
           {
-            if (*v139 != v28)
+            if (*v138 != v28)
             {
               objc_enumerationMutation(weightArray);
             }
 
-            v30 = *(*(&v138 + 1) + 8 * v29);
+            v30 = *(*(&v137 + 1) + 8 * v29);
             v31 = objc_autoreleasePoolPush();
             weightURL = [v30 weightURL];
             path = [weightURL path];
 
-            if ([v124 containsObject:path])
+            if ([v123 containsObject:path])
             {
               v34 = gLogger;
               if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
@@ -2489,9 +2742,9 @@ LABEL_41:
                 *buf = 138413058;
                 *&buf[4] = v48;
                 *&buf[12] = 1024;
-                *&buf[14] = v118;
+                *&buf[14] = v117;
                 *&buf[18] = 1024;
-                *&buf[20] = v123;
+                *&buf[20] = v122;
                 *&buf[24] = 2112;
                 *&buf[26] = path;
                 _os_log_debug_impl(&dword_1AD246000, v34, OS_LOG_TYPE_DEBUG, "%@: For procedure=%u weight=%u weight file already transferred at path=%@", buf, 0x22u);
@@ -2502,9 +2755,9 @@ LABEL_41:
             }
 
             defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-            v137 = v25;
-            v34 = [defaultManager attributesOfItemAtPath:path error:&v137];
-            v37 = v137;
+            v136 = v25;
+            v34 = [defaultManager attributesOfItemAtPath:path error:&v136];
+            v37 = v136;
 
             if (v34)
             {
@@ -2532,14 +2785,14 @@ LABEL_41:
               v39 = NSStringFromSelector(a2);
               v25 = [_ANEErrors dataNotFoundForMethod:v39];
 LABEL_69:
-              v121 = 0;
+              v120 = 0;
               v35 = 4;
 LABEL_70:
 
               goto LABEL_71;
             }
 
-            v121 = 0;
+            v120 = 0;
             v35 = 4;
             v25 = v37;
 LABEL_71:
@@ -2552,12 +2805,12 @@ LABEL_71:
                 goto LABEL_95;
               }
 
-              ++v123;
+              ++v122;
             }
 
             if (v27 == ++v29)
             {
-              v63 = [weightArray countByEnumeratingWithState:&v138 objects:v160 count:16];
+              v63 = [weightArray countByEnumeratingWithState:&v137 objects:v159 count:16];
               v27 = v63;
               if (!v63)
               {
@@ -2568,7 +2821,7 @@ LABEL_71:
             }
           }
 
-          v38 = [v34 objectForKeyedSubscript:v119];
+          v38 = [v34 objectForKeyedSubscript:v118];
           v39 = v38;
           if (v38 && [v38 unsignedLongLongValue])
           {
@@ -2579,9 +2832,9 @@ LABEL_71:
               *buf = 138413314;
               *&buf[4] = v56;
               *&buf[12] = 1024;
-              *&buf[14] = v118;
+              *&buf[14] = v117;
               *&buf[18] = 1024;
-              *&buf[20] = v123;
+              *&buf[20] = v122;
               *&buf[24] = 2112;
               *&buf[26] = v39;
               *&buf[34] = 2112;
@@ -2635,7 +2888,7 @@ LABEL_71:
                 {
 
 LABEL_58:
-                  [v124 addObject:path];
+                  [v123 addObject:path];
                   v25 = 0;
                   v35 = 0;
                   goto LABEL_70;
@@ -2763,7 +3016,7 @@ LABEL_28:
     if (error)
     {
 LABEL_13:
-      v107 = NSStringFromSelector(a2);
+      v106 = NSStringFromSelector(a2);
       [_ANEErrors invalidModelInstanceErrorForMethod:?];
       *error = v11 = 0;
       goto LABEL_177;
@@ -2789,27 +3042,160 @@ LABEL_13:
   v11 = 0;
 LABEL_178:
 
-  v98 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
+- (BOOL)loadModelNewInstanceLegacy:(id)legacy options:(id)options modelInstParams:(id)params qos:(unsigned int)qos error:(id *)error
+{
+  v7 = (MEMORY[0x1EEE9AC00])(self, a2, legacy, options, params, *&qos, error);
+  v38 = v9;
+  aSelector = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v16 = v7;
+  v56 = *MEMORY[0x1E69E9840];
+  v43 = v17;
+  v41 = v15;
+  v42 = v13;
+  LODWORD(v15) = [v16 negotiatedDataInterfaceVersion];
+  v18 = gLogger;
+  v19 = v18;
+  if (v15 >> 10 <= 0x80)
+  {
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      NSStringFromSelector(aSelector);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEVirtualClient loadModelNewInstanceLegacy:options:modelInstParams:qos:error:];
+    }
+
+LABEL_5:
+    v20 = 0;
+    goto LABEL_26;
+  }
+
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  {
+    v36 = NSStringFromSelector(aSelector);
+    *v44 = 138412802;
+    v45 = v36;
+    v46 = 2112;
+    v47 = v43;
+    v48 = 2112;
+    v49 = v41;
+    _os_log_debug_impl(&dword_1AD246000, v19, OS_LOG_TYPE_DEBUG, "%@:ANEVirtualClient loadModelNewInstance Model=%@ options=%@\n", v44, 0x20u);
+  }
+
+  bzero(v44, 0x1728uLL);
+  if (([v16 negotiatedCapabilityMask] & 4) != 0)
+  {
+    if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
+    {
+      [_ANEVirtualClient loadModelNewInstanceLegacy:options:modelInstParams:qos:error:];
+    }
+
+    v51 = 0;
+    theDict = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    v26 = *MEMORY[0x1E695E480];
+    cf = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+    modelURL = [v43 modelURL];
+    v28 = modelURL == 0;
+
+    if (v28 || ([v16 copyAllModelFiles:v43 dictionary:theDict ioSurfaceRefs:cf] & 1) != 0)
+    {
+      getCacheURLIdentifier = [v43 getCacheURLIdentifier];
+      v30 = getCacheURLIdentifier == 0;
+
+      if (!v30)
+      {
+        cacheURLIdentifier = [v43 cacheURLIdentifier];
+
+        v32 = gLogger;
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        {
+          NSStringFromSelector(aSelector);
+          objc_claimAutoreleasedReturnValue();
+          [_ANEVirtualClient loadModel:options:qos:error:];
+        }
+
+        CFDictionarySetValue(theDict, @"modelCacheURLIdentifier", cacheURLIdentifier);
+      }
+
+      [v16 copyModelMetaData:v43 options:v41 dictionary:theDict vmData:v44];
+      [v16 copyOptions:v41 dictionary:theDict vmData:v44];
+      [v16 copyModelOptionFiles:v43 options:v41 dictionary:theDict vmData:v44];
+      [v16 copyErrorValue:theDict vmData:v44];
+      v50[0] = v11;
+      v33 = CFNumberCreate(v26, kCFNumberSInt32Type, v50);
+      CFDictionarySetValue(theDict, @"qos", v33);
+      CFRelease(v33);
+      operator new();
+    }
+
+    CFRelease(theDict);
+    CFRelease(cf);
+    goto LABEL_5;
+  }
+
+  v21 = [v16 getModelAttribute:v44];
+  if (v51)
+  {
+    [v43 updateModelAttributes:v21 state:v55 programHandle:v52 intermediateBufferHandle:v53 queueDepth:v54];
+    v22 = [_ANEProgramForEvaluation programWithHandle:v52 intermediateBufferHandle:v53 queueDepth:v54];
+    [v43 setProgram:v22];
+
+    v23 = [_ANEDeviceController controllerWithProgramHandle:v52];
+    v24 = [_ANEProgramIOSurfacesMapper mapperWithController:v23];
+    [v43 setMapper:v24];
+
+    v25 = gLogger;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(aSelector);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEVirtualClient loadModel:options:qos:error:];
+    }
+  }
+
+  else
+  {
+    v34 = gLogger;
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(aSelector);
+      objc_claimAutoreleasedReturnValue();
+      [_ANEVirtualClient loadModel:options:qos:error:];
+    }
+
+    [v43 updateModelAttributes:v21 state:5];
+  }
+
+  [v16 updateError:v44 error:v38];
+  [v16 releaseIOSurfaces:v44];
+  v20 = v51 != 0;
+
+LABEL_26:
+  return v20;
 }
 
 - (BOOL)unloadModel:(id)model options:(id)options qos:(unsigned int)qos error:(id *)error
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   optionsCopy = options;
   v10 = gLogger;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v44 = NSStringFromSelector(a2);
+    v43 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v75 = v44;
-    v76 = 2112;
-    v77 = modelCopy;
-    v78 = 2112;
-    v79 = optionsCopy;
-    LOWORD(v80) = 1024;
-    *(&v80 + 2) = qos;
+    v74 = v43;
+    v75 = 2112;
+    v76 = modelCopy;
+    v77 = 2112;
+    v78 = optionsCopy;
+    LOWORD(v79) = 1024;
+    *(&v79 + 2) = qos;
     _os_log_debug_impl(&dword_1AD246000, v10, OS_LOG_TYPE_DEBUG, "%@: Model=%@ options=%@ qos=%d\n", buf, 0x26u);
   }
 
@@ -2838,50 +3224,50 @@ LABEL_178:
     {
     }
 
-    v80 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v11, [v11 length], v94);
-    v81 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v27, [v27 length], v85);
+    v79 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v11, [v11 length], v93);
+    v80 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v27, [v27 length], v84);
+    v82 = 0;
     v83 = 0;
-    v84 = 0;
     string_id = [modelCopy string_id];
     programHandle = [modelCopy programHandle];
     intermediateBufferHandle = [modelCopy intermediateBufferHandle];
-    v90[0] = [modelCopy queueDepth];
-    v91 = 0;
+    v89[0] = [modelCopy queueDepth];
+    v90 = 0;
     perfStatsMask = [modelCopy perfStatsMask];
     qosCopy2 = qos;
     v28 = gLogger;
     if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
     {
-      *v48 = 67112192;
-      v49 = v83;
-      v50 = 1024;
-      v51 = HIDWORD(v83);
-      v52 = 1024;
-      v53 = v84;
-      v54 = 1024;
-      v55 = v85[0];
-      v56 = 2048;
-      v57 = string_id;
-      v58 = 2048;
-      v59 = programHandle;
-      v60 = 2048;
-      v61 = intermediateBufferHandle;
-      v62 = 1024;
-      v63 = v90[0];
-      v64 = 1024;
-      v65 = v91;
-      v66 = 1024;
-      v67 = perfStatsMask;
-      v68 = 1024;
-      v69 = qosCopy2;
-      v70 = 1024;
-      v71 = v94[0];
-      v72 = 1024;
-      v73 = v94[413];
-      _os_log_debug_impl(&dword_1AD246000, v28, OS_LOG_TYPE_DEBUG, "ANEVirtualClient virtualANEModel.ioSIDModelNet=%u virtualANEModel.ioSIDModelShape=%u virtualANEModel.ioSIDModelWeight=%u virtualANEModel.ioSIDKey=%u virtualANEModel.string_id=%lld virtualANEModel.programHandle=%lld virtualANEModel.intermediateBufferHandle=%lld virtualANEModel.queueDepth=%d virtualANEModel.ioSIDModelAttributes=%u virtualANEModel.perfStatsMask=%u virtualANEModel.qos=%u virtualANEModel.ioSIDOptions=%u virtualANEModel.ioSIDErrorValue=%u", v48, 0x5Cu);
+      *v47 = 67112192;
+      v48 = v82;
+      v49 = 1024;
+      v50 = HIDWORD(v82);
+      v51 = 1024;
+      v52 = v83;
+      v53 = 1024;
+      v54 = v84[0];
+      v55 = 2048;
+      v56 = string_id;
+      v57 = 2048;
+      v58 = programHandle;
+      v59 = 2048;
+      v60 = intermediateBufferHandle;
+      v61 = 1024;
+      v62 = v89[0];
+      v63 = 1024;
+      v64 = v90;
+      v65 = 1024;
+      v66 = perfStatsMask;
+      v67 = 1024;
+      v68 = qosCopy2;
+      v69 = 1024;
+      v70 = v93[0];
+      v71 = 1024;
+      v72 = v93[413];
+      _os_log_debug_impl(&dword_1AD246000, v28, OS_LOG_TYPE_DEBUG, "ANEVirtualClient virtualANEModel.ioSIDModelNet=%u virtualANEModel.ioSIDModelShape=%u virtualANEModel.ioSIDModelWeight=%u virtualANEModel.ioSIDKey=%u virtualANEModel.string_id=%lld virtualANEModel.programHandle=%lld virtualANEModel.intermediateBufferHandle=%lld virtualANEModel.queueDepth=%d virtualANEModel.ioSIDModelAttributes=%u virtualANEModel.perfStatsMask=%u virtualANEModel.qos=%u virtualANEModel.ioSIDOptions=%u virtualANEModel.ioSIDErrorValue=%u", v47, 0x5Cu);
     }
 
-    v29 = [(_ANEVirtualClient *)self callIOUserClient:3 inParams:&v82 outParams:&v95];
+    v29 = [(_ANEVirtualClient *)self callIOUserClient:3 inParams:&v81 outParams:&v94];
     if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
     {
       [_ANEVirtualClient unloadModel:options:qos:error:];
@@ -2898,7 +3284,7 @@ LABEL_31:
     [_ANEVirtualClient unloadModel:options:qos:error:];
   }
 
-  v96 = 0;
+  v95 = 0;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   [(_ANEVirtualClient *)self copyModelMetaData:modelCopy options:MEMORY[0x1E695E0F8] dictionary:Mutable vmData:buf];
   getCacheURLIdentifier = [modelCopy getCacheURLIdentifier];
@@ -2941,13 +3327,13 @@ LABEL_31:
   {
   }
 
-  v81 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v11, [v11 length], v85);
+  v80 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v11, [v11 length], v84);
   v30 = *MEMORY[0x1E695E480];
-  v31 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v85);
+  v31 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v84);
   CFDictionarySetValue(Mutable, @"ioSIDKey", v31);
   CFRelease(v31);
-  v86[0] = [v11 length];
-  v32 = CFNumberCreate(v30, kCFNumberSInt64Type, v86);
+  v85[0] = [v11 length];
+  v32 = CFNumberCreate(v30, kCFNumberSInt64Type, v85);
   CFDictionarySetValue(Mutable, @"keyLength", v32);
   CFRelease(v32);
   string_id = [modelCopy string_id];
@@ -2962,8 +3348,8 @@ LABEL_31:
   v35 = CFNumberCreate(v30, kCFNumberSInt64Type, &intermediateBufferHandle);
   CFDictionarySetValue(Mutable, @"intermediateBufferHandle", v35);
   CFRelease(v35);
-  v90[0] = [modelCopy queueDepth];
-  v36 = CFNumberCreate(v30, kCFNumberSInt8Type, v90);
+  v89[0] = [modelCopy queueDepth];
+  v36 = CFNumberCreate(v30, kCFNumberSInt8Type, v89);
   CFDictionarySetValue(Mutable, @"queueDepth", v36);
   CFRelease(v36);
   perfStatsMask = [modelCopy perfStatsMask];
@@ -2988,8 +3374,8 @@ LABEL_31:
       [_ANEVirtualClient unloadModel:options:qos:error:];
     }
 
-    [_ANEVirtualClient copyDictionaryDataToStruct:&v95 dictionary:v39];
-    v29 = v96 == 1;
+    [_ANEVirtualClient copyDictionaryDataToStruct:&v94 dictionary:v39];
+    v29 = v95 == 1;
     v41 = gLogger;
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
@@ -3012,21 +3398,20 @@ LABEL_31:
   v29 = 0;
 LABEL_32:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
 - (BOOL)evaluateWithModel:(id)model options:(id)options request:(id)request qos:(unsigned int)qos error:(id *)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   optionsCopy = options;
   requestCopy = request;
   v16 = requestCopy;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = 0;
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = 0;
   if (!modelCopy)
   {
     goto LABEL_15;
@@ -3037,52 +3422,52 @@ LABEL_32:
 
   if (!v18)
   {
-    v37 = dispatch_queue_create("com.apple.ane.vmclient-async", 0);
-    if (v37)
+    v36 = dispatch_queue_create("com.apple.ane.vmclient-async", 0);
+    if (v36)
     {
-      v38 = [objc_alloc(MEMORY[0x1E696CE08]) initWithDispatchQueue:v37];
-      if (!v38 && os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
+      v37 = [objc_alloc(MEMORY[0x1E696CE08]) initWithDispatchQueue:v36];
+      if (!v37 && os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
       {
         [_ANEVirtualClient evaluateWithModel:options:request:qos:error:];
       }
 
       v19 = objc_opt_new();
-      v35 = [_ANESharedSignalEvent signalEventWithValue:4097 symbolIndex:0 eventType:0 sharedEvent:v19, v19];
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __65___ANEVirtualClient_evaluateWithModel_options_request_qos_error___block_invoke;
-      v56[3] = &unk_1E79BA3E0;
-      v57 = v19;
+      v34 = [_ANESharedSignalEvent signalEventWithValue:4097 symbolIndex:0 eventType:0 sharedEvent:v19, v19];
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __65___ANEVirtualClient_evaluateWithModel_options_request_qos_error___block_invoke;
+      v55[3] = &unk_1E79BA3E0;
+      v56 = v19;
       v20 = v16;
-      v58 = v20;
-      v34 = v57;
-      [v57 notifyListener:v38 atValue:4097 block:v56];
+      v57 = v20;
+      v33 = v56;
+      [v56 notifyListener:v37 atValue:4097 block:v55];
       v21 = objc_opt_new();
-      v36 = [_ANESharedSignalEvent signalEventWithValue:1 symbolIndex:0 eventType:0 sharedEvent:v21];
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = __65___ANEVirtualClient_evaluateWithModel_options_request_qos_error___block_invoke_82;
-      v53[3] = &unk_1E79BA3E0;
+      v35 = [_ANESharedSignalEvent signalEventWithValue:1 symbolIndex:0 eventType:0 sharedEvent:v21];
+      v52[0] = MEMORY[0x1E69E9820];
+      v52[1] = 3221225472;
+      v52[2] = __65___ANEVirtualClient_evaluateWithModel_options_request_qos_error___block_invoke_82;
+      v52[3] = &unk_1E79BA3E0;
       v22 = v21;
-      v54 = v22;
+      v53 = v22;
       v23 = v20;
-      v55 = v23;
-      [v22 notifyListener:v38 atValue:1 block:v53];
+      v54 = v23;
+      [v22 notifyListener:v37 atValue:1 block:v52];
       v24 = gLogger;
       if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218498;
-        v65 = v35;
-        v66 = 2048;
-        v67 = v36;
-        v68 = 2112;
-        v69 = modelCopy;
+        v64 = v34;
+        v65 = 2048;
+        v66 = v35;
+        v67 = 2112;
+        v68 = modelCopy;
         _os_log_debug_impl(&dword_1AD246000, v24, OS_LOG_TYPE_DEBUG, "[_ANEVirtualClient] completionEvent success event %p error event %p for model %@\n", buf, 0x20u);
       }
 
-      v63[0] = v35;
-      v63[1] = v36;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:2];
+      v62[0] = v34;
+      v62[1] = v35;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
       v26 = [_ANESharedEvents sharedEventsWithSignalEvents:v25 waitEvents:MEMORY[0x1E695E0F0]];
 
       queue = [(_ANEVirtualClient *)self queue];
@@ -3090,17 +3475,17 @@ LABEL_32:
       block[1] = 3221225472;
       block[2] = __65___ANEVirtualClient_evaluateWithModel_options_request_qos_error___block_invoke_90;
       block[3] = &unk_1E79BA408;
-      v51 = &v59;
+      v50 = &v58;
       block[4] = self;
-      v47 = modelCopy;
-      v48 = optionsCopy;
+      v46 = modelCopy;
+      v47 = optionsCopy;
       qosCopy = qos;
-      v49 = v23;
-      v50 = v26;
+      v48 = v23;
+      v49 = v26;
       v28 = v26;
       dispatch_sync(queue, block);
 
-      *(v60 + 24) = 1;
+      *(v59 + 24) = 1;
       goto LABEL_11;
     }
 
@@ -3118,53 +3503,52 @@ LABEL_15:
   }
 
   queue2 = [(_ANEVirtualClient *)self queue];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __65___ANEVirtualClient_evaluateWithModel_options_request_qos_error___block_invoke_2;
-  v39[3] = &unk_1E79BA430;
-  v43 = &v59;
-  v39[4] = self;
-  v40 = modelCopy;
-  v41 = optionsCopy;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __65___ANEVirtualClient_evaluateWithModel_options_request_qos_error___block_invoke_2;
+  v38[3] = &unk_1E79BA430;
+  v42 = &v58;
+  v38[4] = self;
+  v39 = modelCopy;
+  v40 = optionsCopy;
   qosCopy2 = qos;
-  v42 = v16;
+  v41 = v16;
   errorCopy = error;
-  dispatch_sync(queue2, v39);
+  dispatch_sync(queue2, v38);
 
 LABEL_11:
-  v30 = *(v60 + 24);
+  v30 = *(v59 + 24);
 LABEL_16:
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v58, 8);
 
-  v32 = *MEMORY[0x1E69E9840];
   return v30 & 1;
 }
 
 - (BOOL)doEvaluateWithModel:(id)model options:(id)options request:(id)request qos:(unsigned int)qos completionEvent:(id)event error:(id *)error
 {
-  v256 = *MEMORY[0x1E69E9840];
+  v255 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   optionsCopy = options;
   requestCopy = request;
   eventCopy = event;
   bzero(&programHandle, 0x1AC0uLL);
+  v216 = 0u;
   v217 = 0u;
-  v218 = 0u;
-  v215 = 0u;
-  outputStruct = 0u;
-  v208 = 0;
-  v209 = &v208;
-  v210 = 0x5012000000;
-  v211 = __Block_byref_object_copy__91;
-  v212 = __Block_byref_object_dispose__92;
-  v213 = &unk_1AD2A047D;
   v214 = 0u;
-  v207[0] = MEMORY[0x1E69E9820];
-  v207[1] = 3221225472;
-  v207[2] = __83___ANEVirtualClient_doEvaluateWithModel_options_request_qos_completionEvent_error___block_invoke;
-  v207[3] = &unk_1E79BA3B8;
-  v207[4] = &v208;
-  v169 = MEMORY[0x1B26F37D0](v207);
+  outputStruct = 0u;
+  v207 = 0;
+  v208 = &v207;
+  v209 = 0x5012000000;
+  v210 = __Block_byref_object_copy__91;
+  v211 = __Block_byref_object_dispose__92;
+  v212 = &unk_1AD2A047D;
+  v213 = 0u;
+  v206[0] = MEMORY[0x1E69E9820];
+  v206[1] = 3221225472;
+  v206[2] = __83___ANEVirtualClient_doEvaluateWithModel_options_request_qos_completionEvent_error___block_invoke;
+  v206[3] = &unk_1E79BA3B8;
+  v206[4] = &v207;
+  v168 = MEMORY[0x1B26F37D0](v206);
   programHandle = [modelCopy programHandle];
   qosCopy = qos;
   if (optionsCopy)
@@ -3174,11 +3558,11 @@ LABEL_16:
     if (v12)
     {
       v14 = [v12 length];
-      v222[1] = v14;
+      v221[1] = v14;
       if (v14)
       {
-        v15 = [(_ANEVirtualClient *)self copyToIOSurface:v13 length:v14 ioSID:&v220];
-        v209[8] = v15;
+        v15 = [(_ANEVirtualClient *)self copyToIOSurface:v13 length:v14 ioSID:&v219];
+        v208[8] = v15;
 
         goto LABEL_5;
       }
@@ -3209,186 +3593,186 @@ LABEL_128:
   }
 
 LABEL_5:
-  v205 = 0u;
-  v206 = 0u;
-  v203 = 0u;
   v204 = 0u;
+  v205 = 0u;
+  v202 = 0u;
+  v203 = 0u;
   inputArray = [requestCopy inputArray];
-  v17 = [inputArray countByEnumeratingWithState:&v203 objects:v255 count:16];
+  v17 = [inputArray countByEnumeratingWithState:&v202 objects:v254 count:16];
   v18 = 0;
   if (v17)
   {
-    v19 = *v204;
+    v19 = *v203;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v204 != v19)
+        if (*v203 != v19)
         {
           objc_enumerationMutation(inputArray);
         }
 
-        ID = IOSurfaceGetID([*(*(&v203 + 1) + 8 * i) ioSurface]);
-        v231[v18] = ID;
+        ID = IOSurfaceGetID([*(*(&v202 + 1) + 8 * i) ioSurface]);
+        v230[v18] = ID;
         v22 = gLogger;
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           v23 = NSStringFromSelector(a2);
-          v247 = 138412546;
-          v248 = v23;
-          v249 = 1024;
-          *v250 = ID;
-          _os_log_debug_impl(&dword_1AD246000, v22, OS_LOG_TYPE_DEBUG, "%@: request.inputArray ioSID: %u", &v247, 0x12u);
+          v246 = 138412546;
+          v247 = v23;
+          v248 = 1024;
+          *v249 = ID;
+          _os_log_debug_impl(&dword_1AD246000, v22, OS_LOG_TYPE_DEBUG, "%@: request.inputArray ioSID: %u", &v246, 0x12u);
         }
 
         ++v18;
       }
 
-      v17 = [inputArray countByEnumeratingWithState:&v203 objects:v255 count:16];
+      v17 = [inputArray countByEnumeratingWithState:&v202 objects:v254 count:16];
     }
 
     while (v17);
   }
 
-  v224 = v18;
+  v223 = v18;
+  v198 = 0u;
   v199 = 0u;
   v200 = 0u;
   v201 = 0u;
-  v202 = 0u;
   inputIndexArray = [requestCopy inputIndexArray];
   v25 = 0;
-  v26 = [inputIndexArray countByEnumeratingWithState:&v199 objects:v254 count:16];
+  v26 = [inputIndexArray countByEnumeratingWithState:&v198 objects:v253 count:16];
   if (v26)
   {
-    v27 = *v200;
+    v27 = *v199;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v200 != v27)
+        if (*v199 != v27)
         {
           objc_enumerationMutation(inputIndexArray);
         }
 
-        v29 = *(*(&v199 + 1) + 8 * j);
-        v231[v25 + 64] = [v29 unsignedIntValue];
+        v29 = *(*(&v198 + 1) + 8 * j);
+        v230[v25 + 64] = [v29 unsignedIntValue];
         v30 = gLogger;
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           v31 = NSStringFromSelector(a2);
           unsignedLongLongValue = [v29 unsignedLongLongValue];
-          v247 = 138412546;
-          v248 = v31;
-          v249 = 2048;
-          *v250 = unsignedLongLongValue;
-          _os_log_debug_impl(&dword_1AD246000, v30, OS_LOG_TYPE_DEBUG, "%@: request.inputIndexArray : %llu", &v247, 0x16u);
+          v246 = 138412546;
+          v247 = v31;
+          v248 = 2048;
+          *v249 = unsignedLongLongValue;
+          _os_log_debug_impl(&dword_1AD246000, v30, OS_LOG_TYPE_DEBUG, "%@: request.inputIndexArray : %llu", &v246, 0x16u);
         }
 
         ++v25;
       }
 
-      v26 = [inputIndexArray countByEnumeratingWithState:&v199 objects:v254 count:16];
+      v26 = [inputIndexArray countByEnumeratingWithState:&v198 objects:v253 count:16];
     }
 
     while (v26);
   }
 
-  v225 = v25;
+  v224 = v25;
+  v194 = 0u;
   v195 = 0u;
   v196 = 0u;
   v197 = 0u;
-  v198 = 0u;
   outputArray = [requestCopy outputArray];
   v34 = 0;
-  v35 = [outputArray countByEnumeratingWithState:&v195 objects:v253 count:16];
+  v35 = [outputArray countByEnumeratingWithState:&v194 objects:v252 count:16];
   if (v35)
   {
-    v36 = *v196;
+    v36 = *v195;
     do
     {
       for (k = 0; k != v35; ++k)
       {
-        if (*v196 != v36)
+        if (*v195 != v36)
         {
           objc_enumerationMutation(outputArray);
         }
 
-        v38 = IOSurfaceGetID([*(*(&v195 + 1) + 8 * k) ioSurface]);
-        v231[v34 + 128] = v38;
+        v38 = IOSurfaceGetID([*(*(&v194 + 1) + 8 * k) ioSurface]);
+        v230[v34 + 128] = v38;
         v39 = gLogger;
         if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
         {
           v40 = NSStringFromSelector(a2);
-          v247 = 138412546;
-          v248 = v40;
-          v249 = 1024;
-          *v250 = v38;
-          _os_log_debug_impl(&dword_1AD246000, v39, OS_LOG_TYPE_DEBUG, "%@: request.outputArray ioSID: %u", &v247, 0x12u);
+          v246 = 138412546;
+          v247 = v40;
+          v248 = 1024;
+          *v249 = v38;
+          _os_log_debug_impl(&dword_1AD246000, v39, OS_LOG_TYPE_DEBUG, "%@: request.outputArray ioSID: %u", &v246, 0x12u);
         }
 
         ++v34;
       }
 
-      v35 = [outputArray countByEnumeratingWithState:&v195 objects:v253 count:16];
+      v35 = [outputArray countByEnumeratingWithState:&v194 objects:v252 count:16];
     }
 
     while (v35);
   }
 
-  v226 = v34;
+  v225 = v34;
+  v190 = 0u;
   v191 = 0u;
   v192 = 0u;
   v193 = 0u;
-  v194 = 0u;
   outputIndexArray = [requestCopy outputIndexArray];
   v42 = 0;
-  v43 = [outputIndexArray countByEnumeratingWithState:&v191 objects:v252 count:16];
+  v43 = [outputIndexArray countByEnumeratingWithState:&v190 objects:v251 count:16];
   if (v43)
   {
-    v44 = *v192;
+    v44 = *v191;
     do
     {
       for (m = 0; m != v43; ++m)
       {
-        if (*v192 != v44)
+        if (*v191 != v44)
         {
           objc_enumerationMutation(outputIndexArray);
         }
 
-        v46 = *(*(&v191 + 1) + 8 * m);
-        v231[v42 + 192] = [v46 unsignedIntValue];
+        v46 = *(*(&v190 + 1) + 8 * m);
+        v230[v42 + 192] = [v46 unsignedIntValue];
         v47 = gLogger;
         if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
         {
           v48 = NSStringFromSelector(a2);
           unsignedLongLongValue2 = [v46 unsignedLongLongValue];
-          v247 = 138412546;
-          v248 = v48;
-          v249 = 2048;
-          *v250 = unsignedLongLongValue2;
-          _os_log_debug_impl(&dword_1AD246000, v47, OS_LOG_TYPE_DEBUG, "%@: request.outputIndexArray : %llu", &v247, 0x16u);
+          v246 = 138412546;
+          v247 = v48;
+          v248 = 2048;
+          *v249 = unsignedLongLongValue2;
+          _os_log_debug_impl(&dword_1AD246000, v47, OS_LOG_TYPE_DEBUG, "%@: request.outputIndexArray : %llu", &v246, 0x16u);
         }
 
         ++v42;
       }
 
-      v43 = [outputIndexArray countByEnumeratingWithState:&v191 objects:v252 count:16];
+      v43 = [outputIndexArray countByEnumeratingWithState:&v190 objects:v251 count:16];
     }
 
     while (v43);
   }
 
-  v227 = v42;
+  v226 = v42;
   weightsBuffer = [requestCopy weightsBuffer];
   if ([weightsBuffer ioSurface])
   {
     weightsBuffer2 = [requestCopy weightsBuffer];
-    HIDWORD(v220) = IOSurfaceGetID([weightsBuffer2 ioSurface]);
+    HIDWORD(v219) = IOSurfaceGetID([weightsBuffer2 ioSurface]);
   }
 
   else
   {
-    HIDWORD(v220) = 0;
+    HIDWORD(v219) = 0;
   }
 
   v53 = gLogger;
@@ -3404,57 +3788,57 @@ LABEL_5:
   transactionHandle = [requestCopy transactionHandle];
   unsignedLongLongValue4 = [transactionHandle unsignedLongLongValue];
 
-  v189 = 0u;
-  v190 = 0u;
-  v187 = 0u;
   v188 = 0u;
+  v189 = 0u;
+  v186 = 0u;
+  v187 = 0u;
   obj = [requestCopy perfStatsArray];
   v57 = 0;
-  v58 = [obj countByEnumeratingWithState:&v187 objects:v251 count:16];
+  v58 = [obj countByEnumeratingWithState:&v186 objects:v250 count:16];
   if (v58)
   {
-    v59 = *v188;
+    v59 = *v187;
     do
     {
       for (n = 0; n != v58; ++n)
       {
-        if (*v188 != v59)
+        if (*v187 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v61 = *(*(&v187 + 1) + 8 * n);
+        v61 = *(*(&v186 + 1) + 8 * n);
         stats = [v61 stats];
         v63 = IOSurfaceGetID([stats ioSurface]);
 
-        v231[v57 + 256] = v63;
-        v231[v57 + 320] = [v61 statType];
+        v230[v57 + 256] = v63;
+        v230[v57 + 320] = [v61 statType];
         v64 = gLogger;
         if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
         {
           v65 = NSStringFromSelector(a2);
           statType = [v61 statType];
-          v247 = 138412802;
-          v248 = v65;
-          v249 = 1024;
-          *v250 = v63;
-          *&v250[4] = 2048;
-          *&v250[6] = statType;
-          _os_log_debug_impl(&dword_1AD246000, v64, OS_LOG_TYPE_DEBUG, "%@: ioSIDPerStats ioSID: %u statsType : %ld", &v247, 0x1Cu);
+          v246 = 138412802;
+          v247 = v65;
+          v248 = 1024;
+          *v249 = v63;
+          *&v249[4] = 2048;
+          *&v249[6] = statType;
+          _os_log_debug_impl(&dword_1AD246000, v64, OS_LOG_TYPE_DEBUG, "%@: ioSIDPerStats ioSID: %u statsType : %ld", &v246, 0x1Cu);
         }
 
         ++v57;
       }
 
-      v58 = [obj countByEnumeratingWithState:&v187 objects:v251 count:16];
+      v58 = [obj countByEnumeratingWithState:&v186 objects:v250 count:16];
     }
 
     while (v58);
   }
 
-  v228 = v57;
-  v67 = [_ANEVirtualClient createIOSurface:4096 ioSID:&v221];
-  v209[6] = v67;
+  v227 = v57;
+  v67 = [_ANEVirtualClient createIOSurface:4096 ioSID:&v220];
+  v208[6] = v67;
   if (!v67)
   {
     v142 = gLogger;
@@ -3468,8 +3852,8 @@ LABEL_5:
     goto LABEL_128;
   }
 
-  v68 = [_ANEVirtualClient createIOSurface:4096 ioSID:&v221 + 4];
-  v209[9] = v68;
+  v68 = [_ANEVirtualClient createIOSurface:4096 ioSID:&v220 + 4];
+  v208[9] = v68;
   if (!v68)
   {
     v69 = gLogger;
@@ -3487,32 +3871,32 @@ LABEL_5:
   {
     sharedEvents2 = [requestCopy sharedEvents];
     signalEvents = [sharedEvents2 signalEvents];
-    v233 = [signalEvents count];
+    v232 = [signalEvents count];
 
-    v185 = 0u;
-    v186 = 0u;
-    v183 = 0u;
     v184 = 0u;
+    v185 = 0u;
+    v182 = 0u;
+    v183 = 0u;
     sharedEvents3 = [requestCopy sharedEvents];
     signalEvents2 = [sharedEvents3 signalEvents];
 
-    v77 = [signalEvents2 countByEnumeratingWithState:&v183 objects:v246 count:16];
+    v77 = [signalEvents2 countByEnumeratingWithState:&v182 objects:v245 count:16];
     if (v77)
     {
       v78 = 0;
-      v79 = *v184;
+      v79 = *v183;
       do
       {
         for (ii = 0; ii != v77; ++ii)
         {
-          if (*v184 != v79)
+          if (*v183 != v79)
           {
             objc_enumerationMutation(signalEvents2);
           }
 
-          v81 = *(*(&v183 + 1) + 8 * ii);
+          v81 = *(*(&v182 + 1) + 8 * ii);
           sharedEvent = [v81 sharedEvent];
-          v83 = &v234[5 * v78 + 320];
+          v83 = &v233[5 * v78 + 320];
           *v83 = [sharedEvent eventPort];
 
           *(v83 + 1) = [v81 eventType];
@@ -3526,19 +3910,19 @@ LABEL_5:
             v85 = NSStringFromSelector(a2);
             v86 = *v83;
             v87 = v83[1];
-            v247 = 138412802;
-            v248 = v85;
-            v249 = 1024;
-            *v250 = v86;
-            *&v250[4] = 2048;
-            *&v250[6] = v87;
-            _os_log_debug_impl(&dword_1AD246000, v84, OS_LOG_TYPE_DEBUG, "%@: signal events port is %#x and value is %llu\n", &v247, 0x1Cu);
+            v246 = 138412802;
+            v247 = v85;
+            v248 = 1024;
+            *v249 = v86;
+            *&v249[4] = 2048;
+            *&v249[6] = v87;
+            _os_log_debug_impl(&dword_1AD246000, v84, OS_LOG_TYPE_DEBUG, "%@: signal events port is %#x and value is %llu\n", &v246, 0x1Cu);
           }
 
           ++v78;
         }
 
-        v77 = [signalEvents2 countByEnumeratingWithState:&v183 objects:v246 count:16];
+        v77 = [signalEvents2 countByEnumeratingWithState:&v182 objects:v245 count:16];
       }
 
       while (v77);
@@ -3587,18 +3971,18 @@ LABEL_5:
           v106 = [signalEvents8 objectAtIndexedSubscript:v92];
           symbolIndex = [v106 symbolIndex];
 
-          v239 = 0;
+          v238 = 0;
           v107 = gLogger;
           if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
           {
             v108 = NSStringFromSelector(a2);
-            v247 = 138412802;
-            v248 = v108;
-            v249 = 1024;
-            *v250 = eventPort;
-            *&v250[4] = 2048;
-            *&v250[6] = value;
-            _os_log_debug_impl(&dword_1AD246000, v107, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient success completionEvent signal events port is %#x and value is %llu\n", &v247, 0x1Cu);
+            v246 = 138412802;
+            v247 = v108;
+            v248 = 1024;
+            *v249 = eventPort;
+            *&v249[4] = 2048;
+            *&v249[6] = value;
+            _os_log_debug_impl(&dword_1AD246000, v107, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient success completionEvent signal events port is %#x and value is %llu\n", &v246, 0x1Cu);
           }
         }
 
@@ -3621,18 +4005,18 @@ LABEL_5:
           v117 = [signalEvents12 objectAtIndexedSubscript:v92];
           symbolIndex2 = [v117 symbolIndex];
 
-          v244 = 0;
+          v243 = 0;
           v107 = gLogger;
           if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
           {
             v118 = NSStringFromSelector(a2);
-            v247 = 138412802;
-            v248 = v118;
-            v249 = 1024;
-            *v250 = eventPort2;
-            *&v250[4] = 2048;
-            *&v250[6] = value2;
-            _os_log_debug_impl(&dword_1AD246000, v107, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient error completionEvent signal events port is %#x and value is %llu\n", &v247, 0x1Cu);
+            v246 = 138412802;
+            v247 = v118;
+            v248 = 1024;
+            *v249 = eventPort2;
+            *&v249[4] = 2048;
+            *&v249[6] = value2;
+            _os_log_debug_impl(&dword_1AD246000, v107, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient error completionEvent signal events port is %#x and value is %llu\n", &v246, 0x1Cu);
           }
         }
 
@@ -3645,9 +4029,9 @@ LABEL_5:
 
     sharedEvents4 = [requestCopy sharedEvents];
     waitEvents = [sharedEvents4 waitEvents];
-    v232 = [waitEvents count];
+    v231 = [waitEvents count];
 
-    if (v232)
+    if (v231)
     {
       v121 = gLogger;
       if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
@@ -3664,30 +4048,30 @@ LABEL_5:
       [_ANEVirtualClient doEvaluateWithModel:v124 options:? request:? qos:? completionEvent:? error:?];
     }
 
-    v181 = 0u;
-    v182 = 0u;
-    v179 = 0u;
     v180 = 0u;
+    v181 = 0u;
+    v178 = 0u;
+    v179 = 0u;
     sharedEvents5 = [requestCopy sharedEvents];
     waitEvents2 = [sharedEvents5 waitEvents];
 
-    v127 = [waitEvents2 countByEnumeratingWithState:&v179 objects:v245 count:16];
+    v127 = [waitEvents2 countByEnumeratingWithState:&v178 objects:v244 count:16];
     if (v127)
     {
       v128 = 0;
-      v129 = *v180;
+      v129 = *v179;
       do
       {
         for (jj = 0; jj != v127; ++jj)
         {
-          if (*v180 != v129)
+          if (*v179 != v129)
           {
             objc_enumerationMutation(waitEvents2);
           }
 
-          v131 = *(*(&v179 + 1) + 8 * jj);
+          v131 = *(*(&v178 + 1) + 8 * jj);
           sharedEvent4 = [v131 sharedEvent];
-          v133 = &v234[5 * v128];
+          v133 = &v233[5 * v128];
           *v133 = [sharedEvent4 eventPort];
 
           *(v133 + 1) = [v131 eventType];
@@ -3698,15 +4082,15 @@ LABEL_5:
           ++v128;
         }
 
-        v127 = [waitEvents2 countByEnumeratingWithState:&v179 objects:v245 count:16];
+        v127 = [waitEvents2 countByEnumeratingWithState:&v178 objects:v244 count:16];
       }
 
       while (v127);
     }
   }
 
-  v134 = [_ANEVirtualClient createIOSurface:256 ioSID:v222];
-  v209[7] = v134;
+  v134 = [_ANEVirtualClient createIOSurface:256 ioSID:v221];
+  v208[7] = v134;
   if (!v134)
   {
     v135 = gLogger;
@@ -3719,8 +4103,8 @@ LABEL_5:
 
   inputStruct[0] = &programHandle;
   inputStruct[1] = 6848;
-  v177 = 48;
-  v137 = IOConnectCallMethod(self->_connect, 0x13u, 0, 0, inputStruct, 0x10uLL, 0, 0, &outputStruct, &v177);
+  v176 = 48;
+  v137 = IOConnectCallMethod(self->_connect, 0x13u, 0, 0, inputStruct, 0x10uLL, 0, 0, &outputStruct, &v176);
   if (v137)
   {
     v137 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Kernel call failed with error=0x%x", v137];
@@ -3739,7 +4123,7 @@ LABEL_5:
       *error = v139;
     }
 
-    v169[2]();
+    v168[2]();
 
 LABEL_127:
     goto LABEL_128;
@@ -3747,10 +4131,10 @@ LABEL_127:
 
   if ((outputStruct & 1) == 0)
   {
-    v145 = v209[7];
-    v176 = 0;
-    v146 = [_ANEVirtualClient updateError:v145 errorLength:v217 errorCode:*(&outputStruct + 1) error:&v176];
-    v139 = v176;
+    v145 = v208[7];
+    v175 = 0;
+    v146 = [_ANEVirtualClient updateError:v145 errorLength:v216 errorCode:*(&outputStruct + 1) error:&v175];
+    v139 = v175;
     if (!v146)
     {
       v147 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Inferences failed with unknown host error"];
@@ -3803,25 +4187,24 @@ LABEL_127:
       }
     }
 
-    v169[2]();
+    v168[2]();
     goto LABEL_127;
   }
 
-  v143 = [_ANEVirtualClient updatePerformanceStats:v209[6] performanceStatsLength:v218 perfStatsRawIOSurfaceRef:v209[9] performanceStatsRawLength:*(&v218 + 1) hwExecutionTime:*(&v217 + 1)];
+  v143 = [_ANEVirtualClient updatePerformanceStats:v208[6] performanceStatsLength:v217 perfStatsRawIOSurfaceRef:v208[9] performanceStatsRawLength:*(&v217 + 1) hwExecutionTime:*(&v216 + 1)];
   [requestCopy setPerfStats:v143];
 
-  v169[2]();
+  v168[2]();
   v144 = 1;
 LABEL_129:
 
-  _Block_object_dispose(&v208, 8);
-  v165 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v207, 8);
   return v144;
 }
 
 - (BOOL)compiledModelExistsFor:(id)for
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26[344] = *MEMORY[0x1E69E9840];
   forCopy = for;
   v6 = gLogger;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -3831,7 +4214,7 @@ LABEL_129:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  bzero(v24, 0x1728uLL);
+  bzero(v23, 0x1728uLL);
   if (([(_ANEVirtualClient *)self negotiatedCapabilityMask]& 4) != 0)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -3842,7 +4225,7 @@ LABEL_129:
     if (!v11)
     {
       [(_ANEVirtualClient *)self copyAllModelFiles:forCopy dictionary:Mutable ioSurfaceRefs:v9];
-      [(_ANEVirtualClient *)self copyModelMetaData:forCopy options:MEMORY[0x1E695E0F8] dictionary:Mutable vmData:v24];
+      [(_ANEVirtualClient *)self copyModelMetaData:forCopy options:MEMORY[0x1E695E0F8] dictionary:Mutable vmData:v23];
     }
 
     getCacheURLIdentifier = [forCopy getCacheURLIdentifier];
@@ -3887,9 +4270,9 @@ LABEL_129:
         [_ANEVirtualClient compiledModelExistsFor:];
       }
 
-      [_ANEVirtualClient copyDictionaryDataToStruct:&v26 dictionary:v16];
-      v7 = v27 == 1;
-      if (v27 == 1)
+      [_ANEVirtualClient copyDictionaryDataToStruct:&v25 dictionary:v16];
+      v7 = v26[0] == 1;
+      if (v26[0] == 1)
       {
         v20 = [_ANEVirtualClient dictionaryGetNSStringForKey:v16 key:@"modelCacheURLIdentifier"];
         if (v20)
@@ -3922,19 +4305,18 @@ LABEL_129:
 
   else
   {
-    [(_ANEVirtualClient *)self copyModel:forCopy options:MEMORY[0x1E695E0F8] vmData:v24];
-    v7 = [(_ANEVirtualClient *)self callIOUserClient:5 inParams:&v25 outParams:0];
+    [(_ANEVirtualClient *)self copyModel:forCopy options:MEMORY[0x1E695E0F8] vmData:v23];
+    v7 = [(_ANEVirtualClient *)self callIOUserClient:5 inParams:&v24 outParams:0];
   }
 
-  [(_ANEVirtualClient *)self releaseIOSurfaces:v24];
+  [(_ANEVirtualClient *)self releaseIOSurfaces:v23];
 
-  v22 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)purgeCompiledModel:(id)model
 {
-  v21[671] = *MEMORY[0x1E69E9840];
+  v20[671] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   v6 = gLogger;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -3944,7 +4326,7 @@ LABEL_129:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  bzero(v20, 0x1728uLL);
+  bzero(v19, 0x1728uLL);
   if (([(_ANEVirtualClient *)self negotiatedCapabilityMask]& 4) != 0)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -3957,7 +4339,7 @@ LABEL_129:
       [(_ANEVirtualClient *)self copyAllModelFiles:modelCopy dictionary:Mutable ioSurfaceRefs:v8];
     }
 
-    [(_ANEVirtualClient *)self copyModelMetaData:modelCopy options:MEMORY[0x1E695E0F8] dictionary:Mutable vmData:v20];
+    [(_ANEVirtualClient *)self copyModelMetaData:modelCopy options:MEMORY[0x1E695E0F8] dictionary:Mutable vmData:v19];
     getCacheURLIdentifier = [modelCopy getCacheURLIdentifier];
     v12 = getCacheURLIdentifier == 0;
 
@@ -4011,18 +4393,16 @@ LABEL_129:
 
   else
   {
-    [(_ANEVirtualClient *)self copyModel:modelCopy options:MEMORY[0x1E695E0F8] vmData:v20];
-    [(_ANEVirtualClient *)self callIOUserClient:6 inParams:v21 outParams:0];
+    [(_ANEVirtualClient *)self copyModel:modelCopy options:MEMORY[0x1E695E0F8] vmData:v19];
+    [(_ANEVirtualClient *)self callIOUserClient:6 inParams:v20 outParams:0];
   }
 
-  [(_ANEVirtualClient *)self releaseIOSurfaces:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(_ANEVirtualClient *)self releaseIOSurfaces:v19];
 }
 
 - (BOOL)compiledModelExistsMatchingHash:(id)hash
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   hashCopy = hash;
   v6 = gLogger;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -4032,31 +4412,31 @@ LABEL_129:
     [_ANEVirtualClient compiledModelExistsMatchingHash:];
   }
 
-  bzero(v23, 0x1728uLL);
+  bzero(v22, 0x1728uLL);
   v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:hashCopy requiringSecureCoding:1 error:0];
   if (([(_ANEVirtualClient *)self negotiatedCapabilityMask]& 4) != 0)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v23[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v25);
+    v22[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v24);
     v11 = *MEMORY[0x1E695E480];
-    v12 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v25);
+    v12 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v24);
     CFDictionarySetValue(Mutable, @"ioSIDHashString", v12);
     CFRelease(v12);
-    v26[0] = [v7 length];
-    v13 = CFNumberCreate(v11, kCFNumberSInt64Type, v26);
+    v25[0] = [v7 length];
+    v13 = CFNumberCreate(v11, kCFNumberSInt64Type, v25);
     CFDictionarySetValue(Mutable, @"hashStringLength", v13);
     CFRelease(v13);
     v14 = gLogger;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = [v7 length];
+      v20 = NSStringFromSelector(a2);
+      v21 = [v7 length];
       *buf = 138412802;
-      v29 = v21;
-      v30 = 2048;
-      v31 = v22;
-      v32 = 2112;
-      v33 = hashCopy;
+      v28 = v20;
+      v29 = 2048;
+      v30 = v21;
+      v31 = 2112;
+      v32 = hashCopy;
       _os_log_debug_impl(&dword_1AD246000, v14, OS_LOG_TYPE_DEBUG, "%@:ANEVirtualClient length=%lu hashString=%@ \n", buf, 0x20u);
     }
 
@@ -4064,8 +4444,8 @@ LABEL_129:
     CFRelease(Mutable);
     if (v15)
     {
-      [_ANEVirtualClient copyDictionaryDataToStruct:v27 dictionary:v15];
-      v9 = v27[1] == 1;
+      [_ANEVirtualClient copyDictionaryDataToStruct:v26 dictionary:v15];
+      v9 = v26[1] == 1;
       v16 = gLogger;
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
@@ -4090,34 +4470,33 @@ LABEL_129:
 
   else
   {
-    v23[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v25);
-    v26[0] = [v7 length];
+    v22[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v24);
+    v25[0] = [v7 length];
     v8 = gLogger;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = [v7 length];
+      v18 = NSStringFromSelector(a2);
+      v19 = [v7 length];
       *buf = 138412802;
-      v29 = v19;
-      v30 = 2048;
-      v31 = v20;
-      v32 = 2112;
-      v33 = hashCopy;
+      v28 = v18;
+      v29 = 2048;
+      v30 = v19;
+      v31 = 2112;
+      v32 = hashCopy;
       _os_log_debug_impl(&dword_1AD246000, v8, OS_LOG_TYPE_DEBUG, "%@:ANEVirtualClient length=%lu hashString=%@ \n", buf, 0x20u);
     }
 
-    v9 = [(_ANEVirtualClient *)self callIOUserClient:7 inParams:&v24 outParams:0];
+    v9 = [(_ANEVirtualClient *)self callIOUserClient:7 inParams:&v23 outParams:0];
   }
 
-  [(_ANEVirtualClient *)self releaseIOSurfaces:v23];
+  [(_ANEVirtualClient *)self releaseIOSurfaces:v22];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)purgeCompiledModelMatchingHash:(id)hash
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   hashCopy = hash;
   v6 = gLogger;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -4127,18 +4506,18 @@ LABEL_129:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  bzero(v17, 0x1728uLL);
+  bzero(v16, 0x1728uLL);
   v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:hashCopy requiringSecureCoding:1 error:0];
   if (([(_ANEVirtualClient *)self negotiatedCapabilityMask]& 4) != 0)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v17[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v19);
+    v16[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v18);
     v10 = *MEMORY[0x1E695E480];
-    v11 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v19);
+    v11 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v18);
     CFDictionarySetValue(Mutable, @"ioSIDHashString", v11);
     CFRelease(v11);
-    v20[0] = [v7 length];
-    v12 = CFNumberCreate(v10, kCFNumberSInt64Type, v20);
+    v19[0] = [v7 length];
+    v12 = CFNumberCreate(v10, kCFNumberSInt64Type, v19);
     CFDictionarySetValue(Mutable, @"hashStringLength", v12);
     CFRelease(v12);
     v13 = [(_ANEVirtualClient *)self callIOUserClientWithDictionary:8 inDictionary:Mutable error:0];
@@ -4161,33 +4540,30 @@ LABEL_129:
 
   else
   {
-    v17[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v19);
-    v20[0] = [v7 length];
+    v16[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v18);
+    v19[0] = [v7 length];
     v8 = gLogger;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v15 = NSStringFromSelector(a2);
-      v16 = [v7 length];
+      v14 = NSStringFromSelector(a2);
+      v15 = [v7 length];
       *buf = 138412802;
-      v22 = v15;
-      v23 = 2048;
-      v24 = v16;
-      v25 = 2112;
-      v26 = hashCopy;
+      v21 = v14;
+      v22 = 2048;
+      v23 = v15;
+      v24 = 2112;
+      v25 = hashCopy;
       _os_log_debug_impl(&dword_1AD246000, v8, OS_LOG_TYPE_DEBUG, "%@:ANEVirtualClient length=%lu hashString=%@ \n", buf, 0x20u);
     }
 
-    [(_ANEVirtualClient *)self callIOUserClient:8 inParams:&v18 outParams:0];
+    [(_ANEVirtualClient *)self callIOUserClient:8 inParams:&v17 outParams:0];
   }
 
-  [(_ANEVirtualClient *)self releaseIOSurfaces:v17];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(_ANEVirtualClient *)self releaseIOSurfaces:v16];
 }
 
 - (BOOL)beginRealTimeTask
 {
-  v7 = *MEMORY[0x1E69E9840];
   v4 = gLogger;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -4196,14 +4572,11 @@ LABEL_129:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  result = [(_ANEVirtualClient *)self callIOUserClient:9 inParams:0 outParams:0];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(_ANEVirtualClient *)self callIOUserClient:9 inParams:0 outParams:0];
 }
 
 - (BOOL)endRealTimeTask
 {
-  v7 = *MEMORY[0x1E69E9840];
   v4 = gLogger;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -4212,14 +4585,12 @@ LABEL_129:
     [_ANEVirtualClient compileModel:options:qos:error:];
   }
 
-  result = [(_ANEVirtualClient *)self callIOUserClient:10 inParams:0 outParams:0];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(_ANEVirtualClient *)self callIOUserClient:10 inParams:0 outParams:0];
 }
 
 - (BOOL)echo:(id)echo
 {
-  v21[339] = *MEMORY[0x1E69E9840];
+  v20[339] = *MEMORY[0x1E69E9840];
   echoCopy = echo;
   v6 = gLogger;
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -4230,25 +4601,25 @@ LABEL_129:
   }
 
   v7 = [echoCopy dataUsingEncoding:4];
-  bzero(v17, 0x1728uLL);
+  bzero(v16, 0x1728uLL);
   if (([(_ANEVirtualClient *)self negotiatedCapabilityMask]& 4) != 0)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v17[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v19);
+    v16[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v18);
     v10 = *MEMORY[0x1E695E480];
-    v11 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v19);
+    v11 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, v18);
     CFDictionarySetValue(Mutable, @"ioSIDHashString", v11);
     CFRelease(v11);
-    v20[0] = [v7 length];
-    v12 = CFNumberCreate(v10, kCFNumberSInt64Type, v20);
+    v19[0] = [v7 length];
+    v12 = CFNumberCreate(v10, kCFNumberSInt64Type, v19);
     CFDictionarySetValue(Mutable, @"hashStringLength", v12);
     CFRelease(v12);
     v13 = [(_ANEVirtualClient *)self callIOUserClientWithDictionary:11 inDictionary:Mutable error:0];
     CFRelease(Mutable);
     if (v13)
     {
-      [_ANEVirtualClient copyDictionaryDataToStruct:v21 dictionary:v13];
-      v8 = v21[1] == 1;
+      [_ANEVirtualClient copyDictionaryDataToStruct:v20 dictionary:v13];
+      v8 = v20[1] == 1;
       v14 = gLogger;
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
@@ -4273,27 +4644,26 @@ LABEL_129:
 
   else
   {
-    v17[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v19);
-    v20[0] = [v7 length];
-    v8 = [(_ANEVirtualClient *)self callIOUserClient:11 inParams:&v18 outParams:0];
+    v16[0] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v7, [v7 length], v18);
+    v19[0] = [v7 length];
+    v8 = [(_ANEVirtualClient *)self callIOUserClient:11 inParams:&v17 outParams:0];
   }
 
-  [(_ANEVirtualClient *)self releaseIOSurfaces:v17];
+  [(_ANEVirtualClient *)self releaseIOSurfaces:v16];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (DeviceExtendedInfo)getDeviceInfo
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   *&retstr->var4[4] = 0u;
   *&retstr->var4[20] = 0u;
   *&retstr->var0.var2 = 0u;
   *&retstr->var1 = 0u;
   *&retstr->var0.var0 = 0u;
-  v13 = 80;
-  v5 = IOConnectCallMethod([(_ANEVirtualClient *)self connect], 0x12u, 0, 0, 0, 0, 0, 0, retstr, &v13);
+  v12 = 80;
+  v5 = IOConnectCallMethod([(_ANEVirtualClient *)self connect], 0x12u, 0, 0, 0, 0, 0, 0, retstr, &v12);
   v6 = gLogger;
   v7 = v6;
   if (v5)
@@ -4312,88 +4682,46 @@ LABEL_129:
     var3 = retstr->var0.var3;
     var2 = retstr->var0.var2;
     *buf = 138413058;
-    v15 = v8;
-    v16 = 1024;
-    v17 = 18;
-    v18 = 1024;
-    v19 = var3;
-    v20 = 2048;
-    v21 = var2;
+    v14 = v8;
+    v15 = 1024;
+    v16 = 18;
+    v17 = 1024;
+    v18 = var3;
+    v19 = 2048;
+    v20 = var2;
     _os_log_impl(&dword_1AD246000, v7, OS_LOG_TYPE_INFO, "%@: ANEVirtualClient Successfully called method %d with result=%d %llx.\n", buf, 0x22u);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)hasANE
-{
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self getDeviceInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (int64_t)aneBoardtype
 {
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self getDeviceInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)isInternalBuild
-{
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self getDeviceInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  objc_msgSend_getDeviceInfo(self, a2);
+  return v3;
 }
 
 - (id)aneArchitectureTypeStr
 {
-  *&v6[36] = *MEMORY[0x1E69E9840];
+  *&v5[36] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
-  [(_ANEVirtualClient *)self getDeviceInfo];
-  v3 = [v2 stringWithUTF8String:v6];
-  v4 = *MEMORY[0x1E69E9840];
+  objc_msgSend_getDeviceInfo(self, a2);
+  v3 = [v2 stringWithUTF8String:v5];
 
   return v3;
 }
 
-- (unsigned)numANEs
-{
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self getDeviceInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)numANECores
-{
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self getDeviceInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (unint64_t)getValidateNetworkVersion
 {
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self exchangeBuildVersionInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  objc_msgSend_exchangeBuildVersionInfo(self, a2);
+  return v3;
 }
 
 - (BOOL)validateEnvironmentForPrecompiledBinarySupport
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = +[_ANEDeviceInfo isInternalBuild];
   isInternalBuild = [(_ANEVirtualClient *)self isInternalBuild];
   negotiatedDataInterfaceVersion = [(_ANEVirtualClient *)self negotiatedDataInterfaceVersion];
@@ -4430,62 +4758,61 @@ LABEL_129:
     v15 = gLogger;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
-      v19 = 138413570;
-      v20 = v18;
-      v21 = 1024;
-      v22 = v4;
-      v23 = 1024;
-      v24 = isInternalBuild;
-      v25 = 1024;
-      v26 = negotiatedDataInterfaceVersion > 0x20401;
-      v27 = 1024;
-      v28 = v12 >> 1;
-      v29 = 1024;
-      v30 = v11;
-      _os_log_error_impl(&dword_1AD246000, v15, OS_LOG_TYPE_ERROR, "%@: ERROR : conditions for precompiled binary support not met! isGuestInternalBuild=%d isHostInternalBuild=%d minimumInterfaceRequirementsMet=%d minimumCapabilityRequirementsMet=%d isPrecompiledBinaryBootArgSet=%d", &v19, 0x2Au);
+      v17 = NSStringFromSelector(a2);
+      v18 = 138413570;
+      v19 = v17;
+      v20 = 1024;
+      v21 = v4;
+      v22 = 1024;
+      v23 = isInternalBuild;
+      v24 = 1024;
+      v25 = negotiatedDataInterfaceVersion > 0x20401;
+      v26 = 1024;
+      v27 = v12 >> 1;
+      v28 = 1024;
+      v29 = v11;
+      _os_log_error_impl(&dword_1AD246000, v15, OS_LOG_TYPE_ERROR, "%@: ERROR : conditions for precompiled binary support not met! isGuestInternalBuild=%d isHostInternalBuild=%d minimumInterfaceRequirementsMet=%d minimumCapabilityRequirementsMet=%d isPrecompiledBinaryBootArgSet=%d", &v18, 0x2Au);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (__CFDictionary)validateNetworkCreateMLIR:(unint64_t)r validation_params:(__CFDictionary *)validation_params
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if ([(_ANEVirtualClient *)self negotiatedDataInterfaceVersion]> 0x20403)
   {
     inputStruct = 0u;
-    v24 = 0u;
+    v23 = 0u;
     outputStruct = 0;
-    v22 = 0;
+    v21 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x4012000000;
-    v26 = __Block_byref_object_copy__120;
-    v27 = __Block_byref_object_dispose__121;
-    v28 = &unk_1AD2A047D;
+    v25 = __Block_byref_object_copy__120;
+    v26 = __Block_byref_object_dispose__121;
+    v27 = &unk_1AD2A047D;
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __65___ANEVirtualClient_validateNetworkCreateMLIR_validation_params___block_invoke;
-    v20[3] = &unk_1E79BA3B8;
-    v20[4] = buf;
-    v11 = MEMORY[0x1B26F37D0](v20);
-    v12 = [(_ANEVirtualClient *)self copyDictionaryToIOSurface:validation_params copiedDataSize:&v24 createdIOSID:&inputStruct + 8];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __65___ANEVirtualClient_validateNetworkCreateMLIR_validation_params___block_invoke;
+    v19[3] = &unk_1E79BA3B8;
+    v19[4] = buf;
+    v11 = MEMORY[0x1B26F37D0](v19);
+    v12 = [(_ANEVirtualClient *)self copyDictionaryToIOSurface:validation_params copiedDataSize:&v23 createdIOSID:&inputStruct + 8];
     *(*&buf[8] + 48) = v12;
-    if (v12 && v24)
+    if (v12 && v23)
     {
       v13 = [_ANEVirtualClient createIOSurface:512 ioSID:&inputStruct | 0xC];
       *(*&buf[8] + 56) = v13;
       if (v13)
       {
-        *(&v24 + 1) = 512;
+        *(&v23 + 1) = 512;
         *&inputStruct = r;
-        v19 = 16;
-        if (IOConnectCallMethod(self->_connect, 0x15u, 0, 0, &inputStruct, 0x20uLL, 0, 0, &outputStruct, &v19))
+        v18 = 16;
+        if (IOConnectCallMethod(self->_connect, 0x15u, 0, 0, &inputStruct, 0x20uLL, 0, 0, &outputStruct, &v18))
         {
           v14 = gLogger;
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -4502,15 +4829,15 @@ LABEL_18:
 LABEL_19:
 
           _Block_object_dispose(buf, 8);
-          goto LABEL_20;
+          return v10;
         }
 
         if (outputStruct)
         {
-          if (v22)
+          if (v21)
           {
 LABEL_28:
-            if (outputStruct == 1 && v22)
+            if (outputStruct == 1 && v21)
             {
               v10 = [_ANEVirtualClient getCFDictionaryFromIOSurface:*(*&buf[8] + 56) dataLength:?];
               v11[2](v11);
@@ -4520,8 +4847,8 @@ LABEL_28:
             goto LABEL_12;
           }
 
-          v18 = gLogger;
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v17 = gLogger;
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             NSStringFromSelector(a2);
             objc_claimAutoreleasedReturnValue();
@@ -4531,8 +4858,8 @@ LABEL_28:
 
         else
         {
-          v18 = gLogger;
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v17 = gLogger;
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             NSStringFromSelector(a2);
             objc_claimAutoreleasedReturnValue();
@@ -4578,15 +4905,12 @@ LABEL_28:
     _os_log_impl(&dword_1AD246000, v8, OS_LOG_TYPE_INFO, "%@: Host too old to support validateNetworkCreateMLIR. NegotiatedDataInterfaceVersion=%u", buf, 0x12u);
   }
 
-  v10 = 0;
-LABEL_20:
-  v16 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 0;
 }
 
 - (__CFDictionary)validateNetworkCreate:(unint64_t)create uuid:(id)uuid function:(id)function directoryPath:(id)path scratchPadPath:(id)padPath milTextData:(id)data
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   uuidCopy = uuid;
   functionCopy = function;
   pathCopy = path;
@@ -4598,11 +4922,11 @@ LABEL_20:
     aSelector = a2;
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
-    bzero(v55, 0x7F0uLL);
+    bzero(v54, 0x7F0uLL);
     inputStruct = create;
     if (dataCopy)
     {
-      cf = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", dataCopy, [dataCopy length], v61);
+      cf = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", dataCopy, [dataCopy length], v60);
       v21 = [dataCopy length];
     }
 
@@ -4612,19 +4936,19 @@ LABEL_20:
       cf = 0;
     }
 
-    *&v61[4] = v21;
+    *&v60[4] = v21;
     v22 = uuidCopy;
     v23 = [uuidCopy cStringUsingEncoding:4];
     v24 = strlen(v23);
-    memcpy(v55, v23, v24);
+    memcpy(v54, v23, v24);
     v25 = functionCopy;
     v26 = [functionCopy cStringUsingEncoding:4];
     v27 = strlen(v26);
-    memcpy(&v56, v26, v27);
+    memcpy(&v55, v26, v27);
     v28 = padPathCopy;
     v29 = [padPathCopy cStringUsingEncoding:4];
     v30 = strlen(v29);
-    memcpy(v57, v29, v30);
+    memcpy(v56, v29, v30);
     if (![(_ANEVirtualClient *)self copyFilesInDirectoryToIOSurfaces:pathCopy ioSurfaceRefs:Mutable ioSurfaceSizes:array fileNames:array2])
     {
       if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
@@ -4636,27 +4960,27 @@ LABEL_20:
       goto LABEL_29;
     }
 
-    v60 = [array count];
-    if (v60)
+    v59 = [array count];
+    if (v59)
     {
       v31 = 0;
       v32 = 744;
       do
       {
         v33 = [array objectAtIndexedSubscript:v31];
-        v59[v31] = [v33 unsignedLongLongValue];
+        v58[v31] = [v33 unsignedLongLongValue];
 
         ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v31);
-        v57[v31 + 65] = IOSurfaceGetID(ValueAtIndex);
+        v56[v31 + 65] = IOSurfaceGetID(ValueAtIndex);
         v35 = [array2 objectAtIndexedSubscript:v31];
         v36 = v35;
-        strlcpy(&v55[v32 - 8], [v35 UTF8String], 0x28uLL);
+        strlcpy(&v54[v32 - 8], [v35 UTF8String], 0x28uLL);
 
         ++v31;
         v32 += 40;
       }
 
-      while (v31 < v60);
+      while (v31 < v59);
     }
 
     v37 = MEMORY[0x1E695DF20];
@@ -4667,8 +4991,8 @@ LABEL_20:
     v41 = v40;
     if (v40)
     {
-      v57[64] = IOSurfaceGetID(v40);
-      v58 = 10485760;
+      v56[64] = IOSurfaceGetID(v40);
+      v57 = 10485760;
       output = 0;
       outputCnt = 1;
       v42 = IOConnectCallMethod([(_ANEVirtualClient *)self connect], 0x11u, 0, 0, &inputStruct, 0x7F8uLL, &output, &outputCnt, 0, 0);
@@ -4724,7 +5048,6 @@ LABEL_29:
   v18 = 0;
 LABEL_30:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -4740,7 +5063,7 @@ LABEL_30:
 
 - (BuildVersionInfo)exchangeBuildVersionInfo
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   *&retstr->var7[11] = 0u;
   *&retstr->var7[13] = 0u;
   *&retstr->var7[7] = 0u;
@@ -4796,8 +5119,8 @@ LABEL_12:
   v13 = v12;
   uTF8String = [(__CFString *)v12 UTF8String];
   v15 = strlen(uTF8String);
-  v22 = 192;
-  v16 = IOConnectCallMethod([(_ANEVirtualClient *)self connect], 0xFu, 0, 0, uTF8String, v15 + 1, 0, 0, retstr, &v22);
+  v21 = 192;
+  v16 = IOConnectCallMethod([(_ANEVirtualClient *)self connect], 0xFu, 0, 0, uTF8String, v15 + 1, 0, 0, retstr, &v21);
   v17 = gLogger;
   v18 = v17;
   if (v16)
@@ -4814,52 +5137,37 @@ LABEL_12:
   {
     v19 = NSStringFromSelector(a3);
     *buf = 138412546;
-    v24 = v19;
-    v25 = 1024;
-    v26 = 15;
+    v23 = v19;
+    v24 = 1024;
+    v25 = 15;
     _os_log_impl(&dword_1AD246000, v18, OS_LOG_TYPE_INFO, "%@: ANEVirtualClient Successfully called method %d", buf, 0x12u);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)negotiatedDataInterfaceVersion
-{
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self exchangeBuildVersionInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (unint64_t)negotiatedCapabilityMask
 {
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self exchangeBuildVersionInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  objc_msgSend_exchangeBuildVersionInfo(self, a2);
+  return v3;
 }
 
 - (id)hostBuildVersionStr
 {
-  v6[22] = *MEMORY[0x1E69E9840];
+  v5[22] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
-  [(_ANEVirtualClient *)self exchangeBuildVersionInfo];
-  v3 = [v2 stringWithUTF8String:v6];
-  v4 = *MEMORY[0x1E69E9840];
+  objc_msgSend_exchangeBuildVersionInfo(self, a2);
+  v3 = [v2 stringWithUTF8String:v5];
 
   return v3;
 }
 
 - (unint64_t)outputDictIOSurfaceSize
 {
-  v5 = *MEMORY[0x1E69E9840];
-  [(_ANEVirtualClient *)self exchangeBuildVersionInfo];
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  objc_msgSend_exchangeBuildVersionInfo(self, a2);
+  return v3;
 }
 
 - (BOOL)mapIOSurfacesWithModel:(id)model request:(id)request cacheInference:(BOOL)inference error:(id *)error
@@ -4931,7 +5239,7 @@ LABEL_12:
 
 - (BOOL)doMapIOSurfacesWithModel:(id)model request:(id)request cacheInference:(BOOL)inference error:(id *)error
 {
-  v151 = *MEMORY[0x1E69E9840];
+  v150 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   requestCopy = request;
   if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
@@ -4949,9 +5257,9 @@ LABEL_12:
     [_ANEVirtualClient doMapIOSurfacesWithModel:request:cacheInference:error:];
   }
 
-  bzero(v101, 0x1728uLL);
-  [(_ANEVirtualClient *)self copyModel:modelCopy options:MEMORY[0x1E695E0F8] vmData:v101];
-  [(_ANEVirtualClient *)self copyErrorValue:v101];
+  bzero(v100, 0x1728uLL);
+  [(_ANEVirtualClient *)self copyModel:modelCopy options:MEMORY[0x1E695E0F8] vmData:v100];
+  [(_ANEVirtualClient *)self copyErrorValue:v100];
   string_id = [modelCopy string_id];
   programHandle = [modelCopy programHandle];
   intermediateBufferHandle = [modelCopy intermediateBufferHandle];
@@ -4962,211 +5270,211 @@ LABEL_12:
   if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67112192;
-    *v134 = v103[4];
-    *&v134[4] = 1024;
-    *&v134[6] = v103[5];
-    LOWORD(v135) = 1024;
-    *(&v135 + 2) = v103[6];
-    HIWORD(v135) = 1024;
-    *v136 = v103[7];
-    *&v136[4] = 2048;
-    *&v136[6] = string_id;
-    *&v136[14] = 2048;
-    *&v136[16] = programHandle;
-    v137 = 2048;
-    v138 = intermediateBufferHandle;
-    v139 = 1024;
-    v140 = queueDepth;
-    v141 = 1024;
-    v142 = v109;
-    v143 = 1024;
-    v144 = perfStatsMask;
-    v145 = 1024;
-    v146 = v111;
-    v147 = 1024;
-    v148 = v112;
-    v149 = 1024;
-    v150 = v123;
+    *v133 = v102[4];
+    *&v133[4] = 1024;
+    *&v133[6] = v102[5];
+    LOWORD(v134) = 1024;
+    *(&v134 + 2) = v102[6];
+    HIWORD(v134) = 1024;
+    *v135 = v102[7];
+    *&v135[4] = 2048;
+    *&v135[6] = string_id;
+    *&v135[14] = 2048;
+    *&v135[16] = programHandle;
+    v136 = 2048;
+    v137 = intermediateBufferHandle;
+    v138 = 1024;
+    v139 = queueDepth;
+    v140 = 1024;
+    v141 = v108;
+    v142 = 1024;
+    v143 = perfStatsMask;
+    v144 = 1024;
+    v145 = v110;
+    v146 = 1024;
+    v147 = v111;
+    v148 = 1024;
+    v149 = v122;
     _os_log_debug_impl(&dword_1AD246000, v8, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel: virtualANEModel.ioSIDModelNet=%u virtualANEModel.ioSIDModelShape=%u virtualANEModel.ioSIDModelWeight=%u virtualANEModel.ioSIDKey=%u virtualANEModel.string_id=%lld virtualANEModel.programHandle=%lld virtualANEModel.intermediateBufferHandle=%lld virtualANEModel.queueDepth=%d virtualANEModel.ioSIDModelAttributes=%u virtualANEModel.perfStatsMask=%u virtualANEModel.qos=%u virtualANEModel.ioSIDOptions=%u virtualANEModel.ioSIDErrorValue=%u", buf, 0x5Cu);
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   inputArray = [requestCopy inputArray];
-  v10 = [inputArray countByEnumeratingWithState:&v97 objects:v132 count:16];
+  v10 = [inputArray countByEnumeratingWithState:&v96 objects:v131 count:16];
   v11 = 0;
   if (v10)
   {
-    v12 = *v98;
+    v12 = *v97;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v98 != v12)
+        if (*v97 != v12)
         {
           objc_enumerationMutation(inputArray);
         }
 
-        ID = IOSurfaceGetID([*(*(&v97 + 1) + 8 * i) ioSurface]);
-        v113[v11] = ID;
+        ID = IOSurfaceGetID([*(*(&v96 + 1) + 8 * i) ioSurface]);
+        v112[v11] = ID;
         v15 = gLogger;
         if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          *v134 = ID;
+          *v133 = ID;
           _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel request1 ioSID: %u", buf, 8u);
         }
 
         ++v11;
       }
 
-      v10 = [inputArray countByEnumeratingWithState:&v97 objects:v132 count:16];
+      v10 = [inputArray countByEnumeratingWithState:&v96 objects:v131 count:16];
     }
 
     while (v10);
   }
 
-  v119 = v11;
+  v118 = v11;
+  v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  v96 = 0u;
   inputIndexArray = [requestCopy inputIndexArray];
-  v17 = [inputIndexArray countByEnumeratingWithState:&v93 objects:v131 count:16];
+  v17 = [inputIndexArray countByEnumeratingWithState:&v92 objects:v130 count:16];
   v18 = 0;
   if (v17)
   {
-    v19 = *v94;
+    v19 = *v93;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v94 != v19)
+        if (*v93 != v19)
         {
           objc_enumerationMutation(inputIndexArray);
         }
 
-        v21 = *(*(&v93 + 1) + 8 * j);
-        v113[v18 + 64] = [v21 unsignedIntValue];
+        v21 = *(*(&v92 + 1) + 8 * j);
+        v112[v18 + 64] = [v21 unsignedIntValue];
         v22 = gLogger;
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           unsignedLongLongValue = [v21 unsignedLongLongValue];
           *buf = 134217984;
-          *v134 = unsignedLongLongValue;
+          *v133 = unsignedLongLongValue;
           _os_log_debug_impl(&dword_1AD246000, v22, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel request2 ioSID: %llu", buf, 0xCu);
         }
 
         ++v18;
       }
 
-      v17 = [inputIndexArray countByEnumeratingWithState:&v93 objects:v131 count:16];
+      v17 = [inputIndexArray countByEnumeratingWithState:&v92 objects:v130 count:16];
     }
 
     while (v17);
   }
 
-  v120 = v18;
+  v119 = v18;
+  v88 = 0u;
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
   outputArray = [requestCopy outputArray];
   v25 = 0;
-  v26 = [outputArray countByEnumeratingWithState:&v89 objects:v130 count:16];
+  v26 = [outputArray countByEnumeratingWithState:&v88 objects:v129 count:16];
   if (v26)
   {
-    v27 = *v90;
+    v27 = *v89;
     do
     {
       for (k = 0; k != v26; ++k)
       {
-        if (*v90 != v27)
+        if (*v89 != v27)
         {
           objc_enumerationMutation(outputArray);
         }
 
-        v29 = IOSurfaceGetID([*(*(&v89 + 1) + 8 * k) ioSurface]);
-        v113[v25 + 128] = v29;
+        v29 = IOSurfaceGetID([*(*(&v88 + 1) + 8 * k) ioSurface]);
+        v112[v25 + 128] = v29;
         v30 = gLogger;
         if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          *v134 = v29;
+          *v133 = v29;
           _os_log_debug_impl(&dword_1AD246000, v30, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel request3 ioSID: %u", buf, 8u);
         }
 
         ++v25;
       }
 
-      v26 = [outputArray countByEnumeratingWithState:&v89 objects:v130 count:16];
+      v26 = [outputArray countByEnumeratingWithState:&v88 objects:v129 count:16];
     }
 
     while (v26);
   }
 
-  v121 = v25;
+  v120 = v25;
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v88 = 0u;
   outputIndexArray = [requestCopy outputIndexArray];
   v32 = 0;
-  v33 = [outputIndexArray countByEnumeratingWithState:&v85 objects:v129 count:16];
+  v33 = [outputIndexArray countByEnumeratingWithState:&v84 objects:v128 count:16];
   if (v33)
   {
-    v34 = *v86;
+    v34 = *v85;
     do
     {
       for (m = 0; m != v33; ++m)
       {
-        if (*v86 != v34)
+        if (*v85 != v34)
         {
           objc_enumerationMutation(outputIndexArray);
         }
 
-        v36 = *(*(&v85 + 1) + 8 * m);
-        v113[v32 + 192] = [v36 unsignedIntValue];
+        v36 = *(*(&v84 + 1) + 8 * m);
+        v112[v32 + 192] = [v36 unsignedIntValue];
         v37 = gLogger;
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
           unsignedLongLongValue2 = [v36 unsignedLongLongValue];
           *buf = 134217984;
-          *v134 = unsignedLongLongValue2;
+          *v133 = unsignedLongLongValue2;
           _os_log_debug_impl(&dword_1AD246000, v37, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel request4 ioSID: %llu", buf, 0xCu);
         }
 
         ++v32;
       }
 
-      v33 = [outputIndexArray countByEnumeratingWithState:&v85 objects:v129 count:16];
+      v33 = [outputIndexArray countByEnumeratingWithState:&v84 objects:v128 count:16];
     }
 
     while (v33);
   }
 
-  v122 = v32;
+  v121 = v32;
   v39 = gLogger;
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
   {
     inputArray2 = [requestCopy inputArray];
-    v68 = [inputArray2 count];
+    v67 = [inputArray2 count];
     inputIndexArray2 = [requestCopy inputIndexArray];
-    v70 = [inputIndexArray2 count];
+    v69 = [inputIndexArray2 count];
     outputArray2 = [requestCopy outputArray];
-    v72 = [outputArray2 count];
+    v71 = [outputArray2 count];
     outputIndexArray2 = [requestCopy outputIndexArray];
-    v74 = [outputIndexArray2 count];
+    v73 = [outputIndexArray2 count];
     *buf = 134218752;
-    *v134 = v68;
-    *&v134[8] = 2048;
-    v135 = v70;
-    *v136 = 2048;
-    *&v136[2] = v72;
-    *&v136[10] = 2048;
-    *&v136[12] = v74;
+    *v133 = v67;
+    *&v133[8] = 2048;
+    v134 = v69;
+    *v135 = 2048;
+    *&v135[2] = v71;
+    *&v135[10] = 2048;
+    *&v135[12] = v73;
     _os_log_debug_impl(&dword_1AD246000, v39, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel: request.inputArray %lu request.inputIndexArray %lu request.outputArray %lu request.outputIndexArray %lu", buf, 0x2Au);
   }
 
@@ -5175,7 +5483,7 @@ LABEL_12:
 
   if (v41)
   {
-    v114 = 0;
+    v113 = 0;
   }
 
   else
@@ -5183,7 +5491,7 @@ LABEL_12:
     weightsBuffer2 = [requestCopy weightsBuffer];
     v43 = IOSurfaceGetID([weightsBuffer2 ioSurface]);
 
-    v114 = v43;
+    v113 = v43;
     if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
     {
       [_ANEVirtualClient doMapIOSurfacesWithModel:request:cacheInference:error:];
@@ -5196,46 +5504,46 @@ LABEL_12:
   transactionHandle = [requestCopy transactionHandle];
   unsignedLongLongValue4 = [transactionHandle unsignedLongLongValue];
 
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   obj = [requestCopy perfStatsArray];
-  v46 = [obj countByEnumeratingWithState:&v81 objects:v128 count:16];
+  v46 = [obj countByEnumeratingWithState:&v80 objects:v127 count:16];
   if (!v46)
   {
 
 LABEL_65:
-    v118 = 0;
+    v117 = 0;
     goto LABEL_66;
   }
 
   v47 = 0;
-  v48 = *v82;
+  v48 = *v81;
   do
   {
     v49 = 0;
     v50 = v47;
     do
     {
-      if (*v82 != v48)
+      if (*v81 != v48)
       {
         objc_enumerationMutation(obj);
       }
 
-      v51 = *(*(&v81 + 1) + 8 * v49);
+      v51 = *(*(&v80 + 1) + 8 * v49);
       stats = [v51 stats];
       v53 = IOSurfaceGetID([stats ioSurface]);
 
-      v117[v50] = v53;
+      v116[v50] = v53;
       v47 = v50 + 1;
-      v117[v50 + 64] = [v51 statType];
-      v118 = v50 + 1;
+      v116[v50 + 64] = [v51 statType];
+      v117 = v50 + 1;
       v54 = gLogger;
       if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        *v134 = v53;
+        *v133 = v53;
         _os_log_debug_impl(&dword_1AD246000, v54, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel request6 ioSID: %u", buf, 8u);
       }
 
@@ -5244,7 +5552,7 @@ LABEL_65:
       {
         statType = [v51 statType];
         *buf = 134217984;
-        *v134 = statType;
+        *v133 = statType;
         _os_log_debug_impl(&dword_1AD246000, v55, OS_LOG_TYPE_DEBUG, "ANEVirtualClient mapIOSurfacesWithModel request7 ioSID: %ld", buf, 0xCu);
       }
 
@@ -5253,7 +5561,7 @@ LABEL_65:
     }
 
     while (v46 != v49);
-    v46 = [obj countByEnumeratingWithState:&v81 objects:v128 count:16];
+    v46 = [obj countByEnumeratingWithState:&v80 objects:v127 count:16];
   }
 
   while (v46);
@@ -5264,9 +5572,9 @@ LABEL_65:
   }
 
 LABEL_66:
+  v123 = 0;
   v124 = 0;
   v125 = 0;
-  v126 = 0;
   v57 = MEMORY[0x1E695DF20];
   v58 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:4096];
   v59 = [v57 dictionaryWithObjectsAndKeys:{v58, *MEMORY[0x1E696CE30], 0}];
@@ -5276,7 +5584,7 @@ LABEL_66:
   if (v60)
   {
     IOSurfaceLock(v60, 0, 0);
-    v125 = IOSurfaceGetID(buffer);
+    v124 = IOSurfaceGetID(buffer);
     v61 = gLogger;
     if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
     {
@@ -5293,12 +5601,12 @@ LABEL_66:
       [_ANEVirtualClient doMapIOSurfacesWithModel:request:cacheInference:error:];
     }
 
-    v62 = [(_ANEVirtualClient *)self callIOUserClient:13 inParams:v103 outParams:&v127];
-    [(_ANEVirtualClient *)self updateError:v101 error:error];
-    v63 = [(_ANEVirtualClient *)self updatePerformanceStats:v101];
+    v62 = [(_ANEVirtualClient *)self callIOUserClient:13 inParams:v102 outParams:&v126];
+    [(_ANEVirtualClient *)self updateError:v100 error:error];
+    v63 = [(_ANEVirtualClient *)self updatePerformanceStats:v100];
     [requestCopy setPerfStats:v63];
 
-    [(_ANEVirtualClient *)self releaseIOSurfaces:v101];
+    [(_ANEVirtualClient *)self releaseIOSurfaces:v100];
   }
 
   else
@@ -5314,13 +5622,12 @@ LABEL_66:
     v62 = 0;
   }
 
-  v65 = *MEMORY[0x1E69E9840];
   return v62;
 }
 
 - (BOOL)sessionHintWithModel:(id)model hint:(id)hint options:(id)options report:(id)report error:(id *)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   hintCopy = hint;
   optionsCopy = options;
@@ -5347,36 +5654,36 @@ LABEL_16:
         goto LABEL_58;
       }
 
-      v66 = 0;
-      memset(v65, 0, sizeof(v65));
+      v65 = 0;
+      memset(v64, 0, sizeof(v64));
       memset(buf, 0, sizeof(buf));
       outputStruct = 0;
+      v55 = 0;
       v56 = 0;
-      v57 = 0;
-      v46 = 0;
-      v47 = &v46;
-      v48 = 0x4812000000;
-      v49 = __Block_byref_object_copy__129;
-      v50 = __Block_byref_object_dispose__130;
-      v51 = &unk_1AD2A047D;
-      v53 = 0;
-      v54 = 0;
+      v45 = 0;
+      v46 = &v45;
+      v47 = 0x4812000000;
+      v48 = __Block_byref_object_copy__129;
+      v49 = __Block_byref_object_dispose__130;
+      v50 = &unk_1AD2A047D;
       v52 = 0;
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __68___ANEVirtualClient_sessionHintWithModel_hint_options_report_error___block_invoke;
-      v45[3] = &unk_1E79BA3B8;
-      v45[4] = &v46;
-      v43 = MEMORY[0x1B26F37D0](v45);
+      v53 = 0;
+      v51 = 0;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __68___ANEVirtualClient_sessionHintWithModel_hint_options_report_error___block_invoke;
+      v44[3] = &unk_1E79BA3B8;
+      v44[4] = &v45;
+      v42 = MEMORY[0x1B26F37D0](v44);
       *buf = [modelCopy programHandle];
       *&buf[8] = [modelCopy intermediateBufferHandle];
       buf[16] = [modelCopy queueDepth];
       v23 = hintCopy;
-      strcpy(&v65[1] + 8, [hintCopy UTF8String]);
+      strcpy(&v64[1] + 8, [hintCopy UTF8String]);
       if (optionsCopy)
       {
-        v24 = [(_ANEVirtualClient *)self copyDictionaryToIOSurface:optionsCopy copiedDataSize:v65 createdIOSID:&buf[20]];
-        v47[6] = v24;
+        v24 = [(_ANEVirtualClient *)self copyDictionaryToIOSurface:optionsCopy copiedDataSize:v64 createdIOSID:&buf[20]];
+        v46[6] = v24;
         if (!v24)
         {
           v31 = gLogger;
@@ -5402,7 +5709,7 @@ LABEL_16:
       if (reportCopy)
       {
         v25 = [_ANEVirtualClient createIOSurface:512 ioSID:&buf[24]];
-        v47[7] = v25;
+        v46[7] = v25;
         if (!v25)
         {
           v33 = gLogger;
@@ -5424,16 +5731,16 @@ LABEL_47:
           *error = v35;
 
 LABEL_48:
-          v43[2]();
+          v42[2]();
 LABEL_56:
           LOBYTE(error) = 0;
 LABEL_57:
 
-          _Block_object_dispose(&v46, 8);
+          _Block_object_dispose(&v45, 8);
           goto LABEL_58;
         }
 
-        DWORD2(v65[0]) = 512;
+        DWORD2(v64[0]) = 512;
       }
 
       if (!error)
@@ -5442,13 +5749,13 @@ LABEL_57:
       }
 
       v26 = [_ANEVirtualClient createIOSurface:256 ioSID:&buf[28]];
-      v47[8] = v26;
+      v46[8] = v26;
       if (v26)
       {
-        *&v65[1] = 256;
+        *&v64[1] = 256;
 LABEL_25:
-        v44 = 24;
-        v27 = IOConnectCallMethod(self->_connect, 0x14u, 0, 0, buf, 0x138uLL, 0, 0, &outputStruct, &v44);
+        v43 = 24;
+        v27 = IOConnectCallMethod(self->_connect, 0x14u, 0, 0, buf, 0x138uLL, 0, 0, &outputStruct, &v43);
         if (v27)
         {
           v28 = gLogger;
@@ -5465,7 +5772,7 @@ LABEL_25:
             *error = [_ANEErrors virtualizationKernelError:v29 kernelErrorCode:v27];
 
 LABEL_55:
-            v43[2]();
+            v42[2]();
             goto LABEL_56;
           }
 
@@ -5479,7 +5786,7 @@ LABEL_55:
         {
           if (error)
           {
-            [_ANEVirtualClient updateError:v47[8] errorLength:v56 error:error];
+            [_ANEVirtualClient updateError:v46[8] errorLength:v55 error:error];
           }
 
           goto LABEL_55;
@@ -5487,18 +5794,18 @@ LABEL_55:
 
         if (reportCopy)
         {
-          v37 = [_ANEVirtualClient getCFDictionaryFromIOSurface:v47[7] dataLength:v57];
+          v37 = [_ANEVirtualClient getCFDictionaryFromIOSurface:v46[7] dataLength:v56];
           v38 = gLogger;
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
-            v42 = NSStringFromSelector(a2);
-            *v58 = 138412802;
-            v59 = v42;
-            v60 = 2048;
-            v61 = v57;
-            v62 = 2112;
-            v63 = v37;
-            _os_log_debug_impl(&dword_1AD246000, v38, OS_LOG_TYPE_DEBUG, "%@: ERROR : reportDataSize=%llu report=%@", v58, 0x20u);
+            v41 = NSStringFromSelector(a2);
+            *v57 = 138412802;
+            v58 = v41;
+            v59 = 2048;
+            v60 = v56;
+            v61 = 2112;
+            v62 = v37;
+            _os_log_debug_impl(&dword_1AD246000, v38, OS_LOG_TYPE_DEBUG, "%@: ERROR : reportDataSize=%llu report=%@", v57, 0x20u);
           }
 
           if ([v37 count])
@@ -5508,8 +5815,8 @@ LABEL_55:
 
           else
           {
-            v41 = gLogger;
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+            v40 = gLogger;
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               NSStringFromSelector(a2);
               objc_claimAutoreleasedReturnValue();
@@ -5518,7 +5825,7 @@ LABEL_55:
           }
         }
 
-        v43[2]();
+        v42[2]();
         LOBYTE(error) = 1;
         goto LABEL_57;
       }
@@ -5586,7 +5893,6 @@ LABEL_32:
 
 LABEL_58:
 
-  v39 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -5610,20 +5916,20 @@ LABEL_58:
 
 - (void)copyModel:(id)model options:(id)options vmData:(VMData *)data
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   optionsCopy = options;
-  v107 = modelCopy;
+  v106 = modelCopy;
   if (data)
   {
     modelURL = [modelCopy modelURL];
     path = [modelURL path];
     lastPathComponent = [path lastPathComponent];
 
-    v93 = lastPathComponent;
-    v109 = [lastPathComponent componentsSeparatedByString:@"."];
-    lastObject = [v109 lastObject];
-    modelURL2 = [v107 modelURL];
+    v92 = lastPathComponent;
+    v108 = [lastPathComponent componentsSeparatedByString:@"."];
+    lastObject = [v108 lastObject];
+    modelURL2 = [v106 modelURL];
     path2 = [modelURL2 path];
 
     if ([lastObject isEqual:@"hwx"])
@@ -5662,9 +5968,9 @@ LABEL_58:
     if ([lastObject isEqual:@"net"])
     {
       v18 = objc_opt_new();
-      for (i = 0; i < [v109 count] - 1; ++i)
+      for (i = 0; i < [v108 count] - 1; ++i)
       {
-        v20 = [v109 objectAtIndexedSubscript:i];
+        v20 = [v108 objectAtIndexedSubscript:i];
         [v18 appendString:v20];
 
         [v18 appendString:@"."];
@@ -5674,13 +5980,13 @@ LABEL_58:
       {
         v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@net", v18];
         v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@shape", v18];
-        v96 = [(_ANEVirtualClient *)self readWeightFilename:path2];
-        v87 = v23;
-        v89 = v24;
+        v95 = [(_ANEVirtualClient *)self readWeightFilename:path2];
+        v86 = v23;
+        v88 = v24;
         lastPathComponent3 = [path2 lastPathComponent];
         v26 = [path2 stringByReplacingOccurrencesOfString:lastPathComponent3 withString:&stru_1F224D6A0];
 
-        if (v96)
+        if (v95)
         {
           v27 = gLogger;
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
@@ -5690,7 +5996,7 @@ LABEL_58:
             [_ANEVirtualClient copyModel:options:vmData:];
           }
 
-          v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v26, v96];
+          v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v26, v95];
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
           v30 = [defaultManager attributesOfItemAtPath:v28 error:0];
 
@@ -5712,18 +6018,18 @@ LABEL_58:
 
             lastPathComponent4 = [v34 lastPathComponent];
 
-            v96 = lastPathComponent4;
+            v95 = lastPathComponent4;
           }
         }
 
         else
         {
-          v96 = @"model.espresso.weights";
+          v95 = @"model.espresso.weights";
         }
 
-        v36 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v87 requiringSecureCoding:1 error:0];
-        v37 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v89 requiringSecureCoding:1 error:0];
-        v38 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v96 requiringSecureCoding:1 error:0];
+        v36 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v86 requiringSecureCoding:1 error:0];
+        v37 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v88 requiringSecureCoding:1 error:0];
+        v38 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v95 requiringSecureCoding:1 error:0];
         data->var12 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v36, [v36 length], &data->var17.var54);
         data->var13 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v37, [v37 length], &data->var17.var56);
         data->var14 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v38, [v38 length], &data->var17.var58);
@@ -5736,17 +6042,17 @@ LABEL_58:
         v41 = gLogger;
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
-          v76 = NSStringFromSelector(a2);
+          v75 = NSStringFromSelector(a2);
           *buf = 138413314;
-          *v112 = v76;
+          *v111 = v75;
+          *&v111[8] = 2112;
+          *v112 = v40;
           *&v112[8] = 2112;
-          *v113 = v40;
-          *&v113[8] = 2112;
-          v114 = v87;
-          v115 = 2112;
-          v116 = v89;
-          v117 = 2112;
-          v118 = v96;
+          v113 = v86;
+          v114 = 2112;
+          v115 = v88;
+          v116 = 2112;
+          v117 = v95;
           _os_log_debug_impl(&dword_1AD246000, v41, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient: .net filepath=%@ : netname=%@ : shapename=%@ : weightname=%@ ", buf, 0x34u);
         }
 
@@ -5755,89 +6061,89 @@ LABEL_58:
 
       else
       {
-        v87 = @"model.espresso.net";
-        v89 = @"model.espresso.shape";
-        v96 = @"model.espresso.weights";
+        v86 = @"model.espresso.net";
+        v88 = @"model.espresso.shape";
+        v95 = @"model.espresso.weights";
       }
 
       v17 = path2;
-      v21 = v87;
-      v22 = v89;
+      v21 = v86;
+      v22 = v88;
     }
 
     else
     {
       v21 = @"model.espresso.net";
       v22 = @"model.espresso.shape";
-      v96 = @"model.espresso.weights";
+      v95 = @"model.espresso.weights";
     }
 
-    v106 = v17;
-    v88 = v21;
-    v90 = v22;
-    v80 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v17, v21];
-    v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v17, v22];
-    v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v17, v96];
-    v77 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/net.plist", v17];
-    v42 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v80];
-    v91 = v42;
-    v103 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v79];
+    v105 = v17;
+    v87 = v21;
+    v89 = v22;
+    v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v17, v21];
+    v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v17, v22];
+    v77 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v17, v95];
+    v76 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/net.plist", v17];
+    v42 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v79];
+    v90 = v42;
     v102 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v78];
-    v100 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v77];
+    v101 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v77];
+    v99 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v76];
     v43 = MEMORY[0x1E696ACC8];
-    v44 = [v107 key];
+    v44 = [v106 key];
     v45 = [v44 length];
     if (v45)
     {
-      v46 = [v107 key];
+      v46 = [v106 key];
     }
 
     else
     {
-      v46 = v106;
+      v46 = v105;
     }
 
-    v101 = [v43 archivedDataWithRootObject:v46 requiringSecureCoding:1 error:0];
+    v100 = [v43 archivedDataWithRootObject:v46 requiringSecureCoding:1 error:0];
     if (v45)
     {
     }
 
     v47 = MEMORY[0x1E696ACC8];
-    modelAttributes = [v107 modelAttributes];
-    v94 = [v47 archivedDataWithRootObject:modelAttributes requiringSecureCoding:1 error:0];
+    modelAttributes = [v106 modelAttributes];
+    v93 = [v47 archivedDataWithRootObject:modelAttributes requiringSecureCoding:1 error:0];
 
     v49 = MEMORY[0x1E696ACC8];
-    modelURL3 = [v107 modelURL];
+    modelURL3 = [v106 modelURL];
     path3 = [modelURL3 path];
     v52 = [v49 archivedDataWithRootObject:path3 requiringSecureCoding:1 error:0];
 
     data->var19 = 0;
-    v92 = v52;
+    v91 = v52;
     data->var0 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v42, [v42 length], &data->var17.var2);
-    data->var1 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v103, [v103 length], &data->var17.var3);
-    data->var2 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v102, [v102 length], &data->var17.var4);
-    data->var8 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v100, [v100 length], &data->var17.var28);
-    data->var6 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v101, [v101 length], &data->var17.var5);
-    data->var7 = [(_ANEVirtualClient *)self copyToIOSurface:v94 length:0x100000 ioSID:&data->var17.var19];
+    data->var1 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v102, [v102 length], &data->var17.var3);
+    data->var2 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v101, [v101 length], &data->var17.var4);
+    data->var8 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v99, [v99 length], &data->var17.var28);
+    data->var6 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v100, [v100 length], &data->var17.var5);
+    data->var7 = [(_ANEVirtualClient *)self copyToIOSurface:v93 length:0x100000 ioSID:&data->var17.var19];
     data->var11 = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v52, [v52 length], &data->var17.var52);
     data->var17.var61 = 0;
     data->var17.var6 = [v42 length];
-    data->var17.var7 = [v103 length];
-    data->var17.var8 = [v102 length];
-    data->var17.var9 = [v101 length];
-    data->var17.var20 = [v94 length];
-    data->var17.var14 = [v107 string_id];
-    data->var17.var15 = [v107 programHandle];
-    data->var17.var16 = [v107 intermediateBufferHandle];
-    data->var17.var17 = [v107 queueDepth];
-    data->var17.var21 = [v107 perfStatsMask];
-    data->var17.var29 = [v100 length];
+    data->var17.var7 = [v102 length];
+    data->var17.var8 = [v101 length];
+    data->var17.var9 = [v100 length];
+    data->var17.var20 = [v93 length];
+    data->var17.var14 = [v106 string_id];
+    data->var17.var15 = [v106 programHandle];
+    data->var17.var16 = [v106 intermediateBufferHandle];
+    data->var17.var17 = [v106 queueDepth];
+    data->var17.var21 = [v106 perfStatsMask];
+    data->var17.var29 = [v99 length];
     data->var17.var53 = [v52 length];
-    v110 = [optionsCopy objectForKey:kANEFEspressoFileResourcesKey[0]];
-    if ([v110 count])
+    v109 = [optionsCopy objectForKey:kANEFEspressoFileResourcesKey[0]];
+    if ([v109 count])
     {
       v53 = 0;
-      v104 = 0;
+      v103 = 0;
       v54 = 0;
       var16 = data->var16;
       var12 = data->var17.var12;
@@ -5845,18 +6151,18 @@ LABEL_58:
       var10 = data->var17.var10;
       var11 = data->var17.var11;
       var13 = data->var17.var13;
-      while (v53 < [v110 count])
+      while (v53 < [v109 count])
       {
-        v55 = [v110 objectAtIndexedSubscript:v53];
+        v55 = [v109 objectAtIndexedSubscript:v53];
 
         v56 = gLogger;
         if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
         {
           v68 = NSStringFromSelector(a2);
           *buf = 138412546;
-          *v112 = v68;
-          *&v112[8] = 2112;
-          *v113 = v55;
+          *v111 = v68;
+          *&v111[8] = 2112;
+          *v112 = v55;
           _os_log_debug_impl(&dword_1AD246000, v56, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient: %@ \n", buf, 0x16u);
         }
 
@@ -5864,50 +6170,50 @@ LABEL_58:
         lastObject2 = [v57 lastObject];
         if (([lastObject2 isEqual:@"net"] & 1) == 0 && (objc_msgSend(lastObject2, "isEqual:", @"shape") & 1) == 0 && (objc_msgSend(lastObject2, "isEqual:", @"weights") & 1) == 0)
         {
-          v59 = v104;
-          if (v104 >= 32)
+          v59 = v103;
+          if (v103 >= 32)
           {
             v60 = gLogger;
             if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
             {
               v73 = NSStringFromSelector(a2);
-              v74 = [v110 count];
+              v74 = [v109 count];
               *buf = 138412802;
-              *v112 = v73;
-              *&v112[8] = 2048;
-              *v113 = v74;
-              *&v113[8] = 1024;
-              LODWORD(v114) = 32;
+              *v111 = v73;
+              *&v111[8] = 2048;
+              *v112 = v74;
+              *&v112[8] = 1024;
+              LODWORD(v113) = 32;
               _os_log_error_impl(&dword_1AD246000, v60, OS_LOG_TYPE_ERROR, "%@: ANEVirtualClient: %lu execeed max number of reference expresso files %d \n", buf, 0x1Cu);
             }
 
-            v59 = v104;
+            v59 = v103;
           }
 
-          v99 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v55 requiringSecureCoding:1 error:0];
+          v98 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v55 requiringSecureCoding:1 error:0];
           v61 = v59;
-          var16[v59] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v99, [v99 length], &var12[v59]);
-          var13[v59] = [v99 length];
+          var16[v59] = -[_ANEVirtualClient copyToIOSurface:length:ioSID:](self, "copyToIOSurface:length:ioSID:", v98, [v98 length], &var12[v59]);
+          var13[v59] = [v98 length];
           v62 = gLogger;
           if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
           {
             v69 = var12[v59];
             v70 = var13[v59];
             *buf = 67109632;
-            *v112 = v59;
-            *&v112[4] = 1024;
-            *&v112[6] = v69;
-            *v113 = 2048;
-            *&v113[2] = v70;
+            *v111 = v59;
+            *&v111[4] = 1024;
+            *&v111[6] = v69;
+            *v112 = 2048;
+            *&v112[2] = v70;
             _os_log_debug_impl(&dword_1AD246000, v62, OS_LOG_TYPE_DEBUG, "ioSModelEspressoRefFileName[%d] surface ID: %d length: %llu\n", buf, 0x18u);
           }
 
-          v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v106, v55];
+          v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", v105, v55];
           v64 = gLogger;
           if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            *v112 = v63;
+            *v111 = v63;
             _os_log_debug_impl(&dword_1AD246000, v64, OS_LOG_TYPE_DEBUG, " fileEspresso %@\n", buf, 0xCu);
           }
 
@@ -5921,18 +6227,18 @@ LABEL_58:
             v71 = *v66;
             v72 = var11[v61];
             *buf = 67109632;
-            *v112 = v104;
-            *&v112[4] = 1024;
-            *&v112[6] = v71;
-            *v113 = 2048;
-            *&v113[2] = v72;
+            *v111 = v103;
+            *&v111[4] = 1024;
+            *&v111[6] = v71;
+            *v112 = 2048;
+            *&v112[2] = v72;
             _os_log_debug_impl(&dword_1AD246000, v67, OS_LOG_TYPE_DEBUG, "ioSIDModelEspressoRefFile[%d] surface ID: %d length: %llu\n", buf, 0x18u);
           }
 
-          v42 = v91;
-          v52 = v92;
+          v42 = v90;
+          v52 = v91;
 
-          ++v104;
+          ++v103;
         }
 
         ++v53;
@@ -5943,36 +6249,34 @@ LABEL_58:
 
   else
   {
-    v93 = gLogger;
-    if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+    v92 = gLogger;
+    if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
       [_ANEVirtualClient copyModel:options:vmData:];
     }
   }
-
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)copyFilesInDirectoryToIOSurfaces:(id)surfaces ioSurfaceRefs:(__CFArray *)refs ioSurfaceSizes:(id)sizes fileNames:(id)names
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   surfacesCopy = surfaces;
   sizesCopy = sizes;
   namesCopy = names;
-  v53 = surfacesCopy;
+  v52 = surfacesCopy;
   if ([surfacesCopy hasSuffix:@"/"])
   {
     v9 = [surfacesCopy substringToIndex:{objc_msgSend(surfacesCopy, "length") - 1}];
 
-    v53 = v9;
+    v52 = v9;
   }
 
   [MEMORY[0x1E696AC08] defaultManager];
-  v52 = v62 = 0;
-  [v52 fileExistsAtPath:v53 isDirectory:&v62];
-  if ((v62 & 1) == 0)
+  v51 = v61 = 0;
+  [v51 fileExistsAtPath:v52 isDirectory:&v61];
+  if ((v61 & 1) == 0)
   {
     if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
     {
@@ -5984,11 +6288,11 @@ LABEL_58:
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v61 = 0;
-  v45 = [defaultManager contentsOfDirectoryAtPath:v53 error:&v61];
-  v49 = v61;
+  v60 = 0;
+  v44 = [defaultManager contentsOfDirectoryAtPath:v52 error:&v60];
+  v48 = v60;
 
-  if (v49 || !v45)
+  if (v48 || !v44)
   {
     if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
     {
@@ -6000,50 +6304,50 @@ LABEL_55:
     goto LABEL_60;
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
-  obj = v45;
-  v11 = [obj countByEnumeratingWithState:&v57 objects:v69 count:16];
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  obj = v44;
+  v11 = [obj countByEnumeratingWithState:&v56 objects:v68 count:16];
   if (!v11)
   {
 
-    v49 = 0;
+    v48 = 0;
     goto LABEL_57;
   }
 
   v12 = 0;
-  v49 = 0;
-  v51 = 1;
-  v13 = *v58;
+  v48 = 0;
+  v50 = 1;
+  v13 = *v57;
   do
   {
     v14 = 0;
     do
     {
-      if (*v58 != v13)
+      if (*v57 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v57 + 1) + 8 * v14);
+      v15 = *(*(&v56 + 1) + 8 * v14);
       v16 = objc_autoreleasePoolPush();
       if (v12 < 0x20)
       {
-        v19 = [v53 stringByAppendingPathComponent:v15];
-        v56 = 0;
-        if ([v52 fileExistsAtPath:v19 isDirectory:&v56])
+        v19 = [v52 stringByAppendingPathComponent:v15];
+        v55 = 0;
+        if ([v51 fileExistsAtPath:v19 isDirectory:&v55])
         {
           v20 = gLogger;
-          if (v56 == 1)
+          if (v55 == 1)
           {
             if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v64 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
-              v65 = 2112;
-              v66 = v19;
+              v63 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
+              v64 = 2112;
+              v65 = v19;
               v21 = v20;
               v22 = "%s: Sub-directory found at location=%@ cannot be traversed (unsupported), SKIPPING";
               v23 = 22;
@@ -6056,24 +6360,24 @@ LABEL_55:
           if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v64 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
-            v65 = 2112;
-            v66 = v19;
+            v63 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
+            v64 = 2112;
+            v65 = v19;
             _os_log_debug_impl(&dword_1AD246000, v20, OS_LOG_TYPE_DEBUG, "%s: Copying %@", buf, 0x16u);
           }
 
           v25 = objc_alloc(MEMORY[0x1E695DEF0]);
-          v55 = 0;
-          v26 = [v25 initWithContentsOfFile:v19 options:0 error:&v55];
-          v49 = v55;
+          v54 = 0;
+          v26 = [v25 initWithContentsOfFile:v19 options:0 error:&v54];
+          v48 = v54;
           if (v26)
           {
-            v54 = 0;
+            v53 = 0;
             v27 = [v26 length];
-            v28 = [(_ANEVirtualClient *)self copyToIOSurface:v26 length:v27 ioSID:&v54];
+            v28 = [(_ANEVirtualClient *)self copyToIOSurface:v26 length:v27 ioSID:&v53];
             if (v28)
             {
-              if (v54)
+              if (v53)
               {
                 CFArrayAppendValue(refs, v28);
                 v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v27];
@@ -6090,9 +6394,9 @@ LABEL_55:
               if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v64 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
-                v65 = 2112;
-                v66 = v19;
+                v63 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
+                v64 = 2112;
+                v65 = v19;
                 v31 = v35;
                 v32 = "%s: FAILED to get IOSID for %@";
 LABEL_33:
@@ -6108,9 +6412,9 @@ LABEL_34:
               if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v64 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
-                v65 = 2112;
-                v66 = v19;
+                v63 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
+                v64 = 2112;
+                v65 = v19;
                 v31 = v34;
                 v32 = "%s: FAILED to write data to IOSurface for %@";
                 goto LABEL_33;
@@ -6124,11 +6428,11 @@ LABEL_34:
             if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v64 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
-              v65 = 2112;
-              v66 = v19;
-              v67 = 2112;
-              v68 = v49;
+              v63 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
+              v64 = 2112;
+              v65 = v19;
+              v66 = 2112;
+              v67 = v48;
               v31 = v30;
               v32 = "%s: Could not extract data from %@ with error %@, copy FAILED";
               v33 = 32;
@@ -6136,7 +6440,7 @@ LABEL_34:
             }
           }
 
-          v51 = 0;
+          v50 = 0;
           v18 = 2;
 LABEL_36:
         }
@@ -6147,11 +6451,11 @@ LABEL_36:
           if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v64 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
-            v65 = 2112;
-            v66 = v15;
-            v67 = 2112;
-            v68 = v19;
+            v63 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
+            v64 = 2112;
+            v65 = v15;
+            v66 = 2112;
+            v67 = v19;
             v21 = v24;
             v22 = "%s: file=%@ does not exists at location=%@, SKIPPING";
             v23 = 32;
@@ -6170,13 +6474,13 @@ LABEL_20:
       if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v64 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
-        v65 = 1024;
-        LODWORD(v66) = 32;
+        v63 = "[_ANEVirtualClient copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:]";
+        v64 = 1024;
+        LODWORD(v65) = 32;
         _os_log_error_impl(&dword_1AD246000, v17, OS_LOG_TYPE_ERROR, "%s: max file count reached %d, copy FAILED", buf, 0x12u);
       }
 
-      v51 = 0;
+      v50 = 0;
       v18 = 2;
 LABEL_38:
       objc_autoreleasePoolPop(v16);
@@ -6189,14 +6493,14 @@ LABEL_38:
     }
 
     while (v11 != v14);
-    v36 = [obj countByEnumeratingWithState:&v57 objects:v69 count:16];
+    v36 = [obj countByEnumeratingWithState:&v56 objects:v68 count:16];
     v11 = v36;
   }
 
   while (v36);
 LABEL_45:
 
-  if ((v51 & 1) == 0)
+  if ((v50 & 1) == 0)
   {
     Count = CFArrayGetCount(refs);
     if (Count >= 1)
@@ -6222,13 +6526,12 @@ LABEL_57:
 LABEL_60:
 
 LABEL_61:
-  v42 = *MEMORY[0x1E69E9840];
   return v40;
 }
 
 - (BOOL)copyAllModelFiles:(id)files dictionary:(__CFDictionary *)dictionary ioSurfaceRefs:(__CFArray *)refs
 {
-  v105 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   filesCopy = files;
   if (!filesCopy || !dictionary || !refs)
   {
@@ -6237,7 +6540,7 @@ LABEL_61:
       [_ANEVirtualClient copyAllModelFiles:dictionary:ioSurfaceRefs:];
     }
 
-    v78 = 0;
+    v77 = 0;
     goto LABEL_112;
   }
 
@@ -6251,10 +6554,10 @@ LABEL_61:
     [_ANEVirtualClient copyAllModelFiles:dictionary:ioSurfaceRefs:];
   }
 
-  v98 = 0;
+  v97 = 0;
   v6 = &stru_1F224D6A0;
-  [defaultManager fileExistsAtPath:path isDirectory:&v98];
-  if (v98)
+  [defaultManager fileExistsAtPath:path isDirectory:&v97];
+  if (v97)
   {
     goto LABEL_7;
   }
@@ -6285,7 +6588,7 @@ LABEL_61:
       }
     }
 
-    v81 = v6;
+    v80 = v6;
     v63 = [v55 mutableCopy];
     [v63 removeLastObject];
     v64 = [v63 componentsJoinedByString:@"/"];
@@ -6306,29 +6609,29 @@ LABEL_61:
     }
 
     v60 = 0;
-    v81 = &stru_1F224D6A0;
+    v80 = &stru_1F224D6A0;
   }
 
   if ((v59 & 1) == 0)
   {
 LABEL_109:
-    v78 = 0;
+    v77 = 0;
     goto LABEL_110;
   }
 
-  v6 = v81;
+  v6 = v80;
   if (!v60)
   {
 LABEL_7:
-    v83 = 0;
+    v82 = 0;
     goto LABEL_8;
   }
 
-  if (![(__CFString *)v81 length])
+  if (![(__CFString *)v80 length])
   {
     if (!os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
     {
-      v78 = 0;
+      v77 = 0;
       goto LABEL_111;
     }
 
@@ -6336,15 +6639,15 @@ LABEL_7:
     goto LABEL_109;
   }
 
-  v83 = 1;
+  v82 = 1;
 LABEL_8:
-  v81 = v6;
+  v80 = v6;
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-  v97 = 0;
-  v74 = [defaultManager2 contentsOfDirectoryAtPath:path error:&v97];
-  v73 = v97;
+  v96 = 0;
+  v73 = [defaultManager2 contentsOfDirectoryAtPath:path error:&v96];
+  v72 = v96;
 
-  if (v73 || !v74)
+  if (v72 || !v73)
   {
     if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
     {
@@ -6352,41 +6655,41 @@ LABEL_8:
     }
 
 LABEL_91:
-    v78 = 0;
+    v77 = 0;
     goto LABEL_106;
   }
 
-  v96 = 0;
+  v95 = 0;
+  v91 = 0u;
   v92 = 0u;
   v93 = 0u;
   v94 = 0u;
-  v95 = 0u;
-  obj = v74;
-  v8 = [obj countByEnumeratingWithState:&v92 objects:v104 count:16];
+  obj = v73;
+  v8 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
   if (!v8)
   {
-    v78 = 1;
+    v77 = 1;
     goto LABEL_100;
   }
 
-  v78 = 1;
-  v9 = *v93;
+  v77 = 1;
+  v9 = *v92;
   allocator = *MEMORY[0x1E695E480];
   while (2)
   {
     v10 = 0;
     do
     {
-      if (*v93 != v9)
+      if (*v92 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v92 + 1) + 8 * v10);
+      v11 = *(*(&v91 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
-      if (v96 < 0x20)
+      if (v95 < 0x20)
       {
-        if (v83 && ![v11 containsString:v81])
+        if (v82 && ![v11 containsString:v80])
         {
           v14 = 3;
           goto LABEL_41;
@@ -6399,7 +6702,7 @@ LABEL_91:
         {
           if (os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG))
           {
-            [_ANEVirtualClient copyAllModelFiles:v91 dictionary:? ioSurfaceRefs:?];
+            [_ANEVirtualClient copyAllModelFiles:v90 dictionary:? ioSurfaceRefs:?];
           }
 
           goto LABEL_39;
@@ -6448,31 +6751,31 @@ LABEL_91:
             negotiatedDataInterfaceVersion = [(_ANEVirtualClient *)self negotiatedDataInterfaceVersion];
             *buf = 138412546;
             *&buf[4] = v51;
-            v100 = 1024;
-            *v101 = negotiatedDataInterfaceVersion;
+            v99 = 1024;
+            *v100 = negotiatedDataInterfaceVersion;
             _os_log_error_impl(&dword_1AD246000, v20, OS_LOG_TYPE_ERROR, "%@: LLIR bundle not supported negotiatedInterfaceVersion=0x%x", buf, 0x12u);
           }
 
           goto LABEL_39;
         }
 
-        v89 = 0;
-        if (([defaultManager fileExistsAtPath:v15 isDirectory:&v89] & 1) == 0)
+        v88 = 0;
+        if (([defaultManager fileExistsAtPath:v15 isDirectory:&v88] & 1) == 0)
         {
           v27 = gLogger;
           if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
             *&buf[4] = v11;
-            v100 = 2112;
-            *v101 = v15;
+            v99 = 2112;
+            *v100 = v15;
             _os_log_error_impl(&dword_1AD246000, v27, OS_LOG_TYPE_ERROR, "copyAllModelFiles file=%@ does not exist at location=%@, SKIPPING\n", buf, 0x16u);
           }
 
           goto LABEL_39;
         }
 
-        v21 = v89;
+        v21 = v88;
         v22 = gLogger;
         v23 = os_log_type_enabled(gLogger, OS_LOG_TYPE_DEBUG);
         if (v21 == 1)
@@ -6495,10 +6798,10 @@ LABEL_40:
         {
           *buf = 138412802;
           *&buf[4] = v11;
-          v100 = 2112;
-          *v101 = path;
-          *&v101[8] = 2112;
-          *&v101[10] = v15;
+          v99 = 2112;
+          *v100 = path;
+          *&v100[8] = 2112;
+          *&v100[10] = v15;
           _os_log_debug_impl(&dword_1AD246000, v22, OS_LOG_TYPE_DEBUG, "copyAllModelFiles file=%@ directoryPath=%@ fullFilePath=%@", buf, 0x20u);
         }
 
@@ -6540,19 +6843,19 @@ LABEL_40:
 
             else
             {
-              v69 = v29;
-              v70 = v96;
-              v38 = CFStringCreateWithFormat(0, 0, @"fileIOSID%u", v96);
+              v68 = v29;
+              v69 = v95;
+              v38 = CFStringCreateWithFormat(0, 0, @"fileIOSID%u", v95);
               v39 = CFNumberCreate(allocator, kCFNumberSInt32Type, &valuePtr);
               CFDictionarySetValue(dictionary, v38, v39);
               CFRelease(v39);
               CFRelease(v38);
-              v40 = CFStringCreateWithFormat(0, 0, @"fileName%u", v70);
+              v40 = CFStringCreateWithFormat(0, 0, @"fileName%u", v69);
               CFDictionarySetValue(dictionary, v40, v11);
               CFRelease(v40);
-              v41 = CFStringCreateWithFormat(0, 0, @"fileLength%u", v70);
-              v87 = [v69 length];
-              v42 = CFNumberCreate(allocator, kCFNumberSInt64Type, &v87);
+              v41 = CFStringCreateWithFormat(0, 0, @"fileLength%u", v69);
+              v86 = [v68 length];
+              v42 = CFNumberCreate(allocator, kCFNumberSInt64Type, &v86);
               CFDictionarySetValue(dictionary, v41, v42);
               CFRelease(v42);
               CFRelease(v41);
@@ -6565,9 +6868,9 @@ LABEL_40:
               {
                 v47 = MEMORY[0x1E696AD98];
                 [fileModificationDate timeIntervalSince1970];
-                v68 = [v47 numberWithDouble:?];
-                stringValue = [v68 stringValue];
-                v49 = CFStringCreateWithFormat(0, 0, @"FileLastModificationTimeStamp%u", v70);
+                v67 = [v47 numberWithDouble:?];
+                stringValue = [v67 stringValue];
+                v49 = CFStringCreateWithFormat(0, 0, @"FileLastModificationTimeStamp%u", v69);
                 CFDictionarySetValue(dictionary, v49, stringValue);
                 CFRelease(v49);
                 v50 = gLogger;
@@ -6575,10 +6878,10 @@ LABEL_40:
                 {
                   *buf = 136315650;
                   *&buf[4] = "[_ANEVirtualClient copyAllModelFiles:dictionary:ioSurfaceRefs:]";
-                  v100 = 1024;
-                  *v101 = v70;
-                  *&v101[4] = 2112;
-                  *&v101[6] = stringValue;
+                  v99 = 1024;
+                  *v100 = v69;
+                  *&v100[4] = 2112;
+                  *&v100[6] = stringValue;
                   _os_log_debug_impl(&dword_1AD246000, v50, OS_LOG_TYPE_DEBUG, "%s fileCounter:%u lastModificationTimeStampString:%@", buf, 0x1Cu);
                 }
 
@@ -6592,16 +6895,16 @@ LABEL_40:
                 {
                   *buf = 136315394;
                   *&buf[4] = "[_ANEVirtualClient copyAllModelFiles:dictionary:ioSurfaceRefs:]";
-                  v100 = 2112;
-                  *v101 = v15;
+                  v99 = 2112;
+                  *v100 = v15;
                   _os_log_error_impl(&dword_1AD246000, v53, OS_LOG_TYPE_ERROR, "%s lastModificationDate not available for %@", buf, 0x16u);
                 }
               }
 
-              v96 = v70 + 1;
+              v95 = v69 + 1;
 
               v14 = 0;
-              v29 = v69;
+              v29 = v68;
             }
 
             goto LABEL_70;
@@ -6611,7 +6914,7 @@ LABEL_40:
           if (!os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
           {
 LABEL_62:
-            v78 = 0;
+            v77 = 0;
             v14 = 2;
 LABEL_70:
 
@@ -6645,7 +6948,7 @@ LABEL_70:
       v13 = gLogger;
       if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
       {
-        [_ANEVirtualClient copyAllModelFiles:v102 dictionary:&v103 ioSurfaceRefs:v13];
+        [_ANEVirtualClient copyAllModelFiles:v101 dictionary:&v102 ioSurfaceRefs:v13];
       }
 
       v14 = 1;
@@ -6666,7 +6969,7 @@ LABEL_41:
     }
 
     while (v8 != v10);
-    v54 = [obj countByEnumeratingWithState:&v92 objects:v104 count:16];
+    v54 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
     v8 = v54;
     if (v54)
     {
@@ -6679,12 +6982,12 @@ LABEL_41:
 LABEL_100:
 
 LABEL_101:
-  if ((v78 & 1) != 0 && v96)
+  if ((v77 & 1) != 0 && v95)
   {
-    v65 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v96);
+    v65 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v95);
     CFDictionarySetValue(dictionary, @"numModelFiles", v65);
     CFRelease(v65);
-    v78 = 1;
+    v77 = 1;
   }
 
   else if (os_log_type_enabled(gLogger, OS_LOG_TYPE_ERROR))
@@ -6695,17 +6998,16 @@ LABEL_101:
 LABEL_106:
 
 LABEL_110:
-  v6 = v81;
+  v6 = v80;
 LABEL_111:
 
 LABEL_112:
-  v66 = *MEMORY[0x1E69E9840];
-  return v78 & 1;
+  return v77 & 1;
 }
 
 + (__IOSurface)copyLLIRBundleToIOSurface:(id)surface writtenDataSize:(unint64_t *)size
 {
-  v35[3] = *MEMORY[0x1E69E9840];
+  v34[3] = *MEMORY[0x1E69E9840];
   surfaceCopy = surface;
   if (surfaceCopy)
   {
@@ -6734,16 +7036,16 @@ LABEL_112:
         {
           lastPathComponent = [surfaceCopy lastPathComponent];
           v10 = [lastPathComponent dataUsingEncoding:4];
-          v27 = v10;
-          v32 = [v10 length];
-          if (v32)
+          v26 = v10;
+          v31 = [v10 length];
+          if (v31)
           {
-            [data appendBytes:&v32 length:4];
+            [data appendBytes:&v31 length:4];
             [data appendData:v10];
-            v29 = [defaultManager enumeratorAtPath:surfaceCopy];
+            v28 = [defaultManager enumeratorAtPath:surfaceCopy];
             for (i = 0; ; i = nextObject)
             {
-              nextObject = [v29 nextObject];
+              nextObject = [v28 nextObject];
 
               if (!nextObject)
               {
@@ -6751,18 +7053,18 @@ LABEL_112:
               }
 
               v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@/%@", surfaceCopy, nextObject];
-              v31 = 0;
-              if ([defaultManager fileExistsAtPath:v13 isDirectory:&v31])
+              v30 = 0;
+              if ([defaultManager fileExistsAtPath:v13 isDirectory:&v30])
               {
-                if (v31 == 1)
+                if (v30 == 1)
                 {
-                  v30 = [nextObject length];
-                  [data appendBytes:&v30 length:4];
+                  v29 = [nextObject length];
+                  [data appendBytes:&v29 length:4];
                   v14 = [nextObject dataUsingEncoding:4];
                   [data appendData:v14];
 
-                  v35[0] = 0;
-                  [data appendBytes:v35 length:8];
+                  v34[0] = 0;
+                  [data appendBytes:v34 length:8];
                 }
 
                 else
@@ -6781,22 +7083,22 @@ LABEL_112:
                     goto LABEL_40;
                   }
 
-                  v30 = [nextObject length];
-                  [data appendBytes:&v30 length:4];
+                  v29 = [nextObject length];
+                  [data appendBytes:&v29 length:4];
                   v16 = [nextObject dataUsingEncoding:4];
                   [data appendData:v16];
 
-                  v35[0] = [v15 length];
-                  [data appendBytes:v35 length:8];
+                  v34[0] = [v15 length];
+                  [data appendBytes:v34 length:8];
                   [data appendData:v15];
                 }
               }
             }
 
-            v33 = *MEMORY[0x1E696CE30];
+            v32 = *MEMORY[0x1E696CE30];
             v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSObject length](data, "length")}];
-            v34 = v18;
-            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+            v33 = v18;
+            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
 
             v19 = IOSurfaceCreate(v13);
             v17 = v19;
@@ -6831,8 +7133,8 @@ LABEL_41:
 
           else
           {
-            v29 = gLogger;
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v28 = gLogger;
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               NSStringFromSelector(a2);
               objc_claimAutoreleasedReturnValue();
@@ -6895,7 +7197,6 @@ LABEL_44:
   v17 = 0;
 LABEL_45:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -6915,7 +7216,7 @@ LABEL_45:
 
 - (void)copyModelMetaData:(id)data options:(id)options dictionary:(__CFDictionary *)dictionary vmData:(VMData *)vmData
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   optionsCopy = options;
   if (vmData)
@@ -6961,7 +7262,7 @@ LABEL_45:
     v25 = [v23 archivedDataWithRootObject:modelAttributes requiringSecureCoding:1 error:0];
     aSelector = a2;
 
-    v54 = v25;
+    v53 = v25;
     vmData->var7 = [(_ANEVirtualClient *)self copyToIOSurface:v25 length:0x100000 ioSID:&vmData->var17.var19];
     v26 = *v16;
     v27 = CFNumberCreate(*v16, kCFNumberSInt32Type, &vmData->var17.var19);
@@ -6993,7 +7294,7 @@ LABEL_45:
       {
         v37 = NSStringFromSelector(aSelector);
         sourceURL2 = [dataCopy sourceURL];
-        [_ANEVirtualClient copyModelMetaData:v37 options:sourceURL2 dictionary:v59 vmData:?];
+        [_ANEVirtualClient copyModelMetaData:v37 options:sourceURL2 dictionary:v58 vmData:?];
       }
 
       v39 = MEMORY[0x1E696ACC8];
@@ -7056,13 +7357,10 @@ LABEL_45:
       [_ANEVirtualClient copyModel:options:vmData:];
     }
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (id)readWeightFilename:(id)filename
 {
-  v14 = *MEMORY[0x1E69E9840];
   filenameCopy = filename;
   v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:filenameCopy];
   if (v6)
@@ -7101,14 +7399,11 @@ LABEL_45:
     v7 = @"model.espresso.weights";
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)doJsonParsingMatchWeightName:(id)name
 {
-  v11 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:nameCopy options:0 error:0];
   if (!v5)
@@ -7164,14 +7459,12 @@ LABEL_12:
 
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)parallelDecompressedData:(id)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = dataCopy;
   if (!dataCopy || [dataCopy length] < 0x1D || (v6 = objc_msgSend(v5, "bytes"), v7 = v6, *v6 != 112) || v6[1] != 98 || v6[2] != 122)
@@ -7185,7 +7478,7 @@ LABEL_13:
   {
     if (v8 == 52)
     {
-      v12 = COMPRESSION_LZ4;
+      v11 = COMPRESSION_LZ4;
       goto LABEL_23;
     }
 
@@ -7199,15 +7492,15 @@ LABEL_13:
 
   if (v8 == 122)
   {
-    v12 = COMPRESSION_ZLIB;
+    v11 = COMPRESSION_ZLIB;
     goto LABEL_23;
   }
 
   if (v8 != 120)
   {
 LABEL_17:
-    v13 = gLogger;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = gLogger;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -7215,17 +7508,17 @@ LABEL_17:
     }
 
 LABEL_20:
-    v12 = COMPRESSION_LZFSE;
+    v11 = COMPRESSION_LZFSE;
     goto LABEL_23;
   }
 
-  v12 = COMPRESSION_LZMA;
+  v11 = COMPRESSION_LZMA;
 LABEL_23:
-  v14 = bswap64(*(v7 + 12));
-  if (v14 >= 0x80000001)
+  v13 = bswap64(*(v7 + 12));
+  if (v13 >= 0x80000001)
   {
-    v15 = gLogger;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = gLogger;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -7233,31 +7526,29 @@ LABEL_23:
     }
   }
 
-  v9 = [MEMORY[0x1E695DF88] dataWithLength:v14];
-  v16 = v9;
+  v9 = [MEMORY[0x1E695DF88] dataWithLength:v13];
+  v15 = v9;
   mutableBytes = [v9 mutableBytes];
-  v18 = [v9 length];
-  v19 = v5;
-  v20 = compression_decode_buffer(mutableBytes, v18, ([v5 bytes] + 28), objc_msgSend(v5, "length") - 28, 0, v12);
-  if (v20 != [v9 length])
+  v17 = [v9 length];
+  v18 = v5;
+  v19 = compression_decode_buffer(mutableBytes, v17, ([v5 bytes] + 28), objc_msgSend(v5, "length") - 28, 0, v11);
+  if (v19 != [v9 length])
   {
-    v21 = gLogger;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = gLogger;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = NSStringFromSelector(a2);
-      v23 = 138412802;
-      v24 = v22;
-      v25 = 2048;
-      v26 = v20;
-      v27 = 2048;
-      v28 = [v9 length];
-      _os_log_error_impl(&dword_1AD246000, v21, OS_LOG_TYPE_ERROR, "%@: Mismatching decompression size %zu %zu ", &v23, 0x20u);
+      v21 = NSStringFromSelector(a2);
+      v22 = 138412802;
+      v23 = v21;
+      v24 = 2048;
+      v25 = v19;
+      v26 = 2048;
+      v27 = [v9 length];
+      _os_log_error_impl(&dword_1AD246000, v20, OS_LOG_TYPE_ERROR, "%@: Mismatching decompression size %zu %zu ", &v22, 0x20u);
     }
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -7309,7 +7600,6 @@ LABEL_11:
 
 - (void)copyModelOptionFiles:(id)files options:(id)options vmData:(VMData *)data
 {
-  v21 = *MEMORY[0x1E69E9840];
   filesCopy = files;
   optionsCopy = options;
   v11 = optionsCopy;
@@ -7356,13 +7646,10 @@ LABEL_11:
 
     data->var17.var26 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyModelOptionFiles:(id)files options:(id)options dictionary:(__CFDictionary *)dictionary vmData:(VMData *)data
 {
-  v25 = *MEMORY[0x1E69E9840];
   filesCopy = files;
   optionsCopy = options;
   v13 = optionsCopy;
@@ -7417,13 +7704,10 @@ LABEL_11:
   v23 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt64Type, &data->var17.var27);
   CFDictionarySetValue(dictionary, @"compilerOptionFileLength", v23);
   CFRelease(v23);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyErrorValue:(VMData *)value
 {
-  v12 = *MEMORY[0x1E69E9840];
   *&value->var17.var46 = 0u;
   v5 = MEMORY[0x1E695DF20];
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:256];
@@ -7456,13 +7740,10 @@ LABEL_11:
       [_ANEVirtualClient copyErrorValue:];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyErrorValue:(__CFDictionary *)value vmData:(VMData *)data
 {
-  v15 = *MEMORY[0x1E69E9840];
   *&data->var17.var46 = 0u;
   v7 = MEMORY[0x1E695DF20];
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:256];
@@ -7498,13 +7779,11 @@ LABEL_11:
       [_ANEVirtualClient copyErrorValue:];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (__IOSurface)copyToIOSurface:(id)surface length:(unint64_t)length ioSID:(unsigned int *)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   surfaceCopy = surface;
   if (!d)
   {
@@ -7549,17 +7828,17 @@ LABEL_11:
     v15 = gLogger;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = [surfaceCopy length];
-      v21 = *d;
+      v18 = NSStringFromSelector(a2);
+      v19 = [surfaceCopy length];
+      v20 = *d;
       *buf = 138413058;
-      v23 = v19;
-      v24 = 2048;
-      v25 = v20;
-      v26 = 2048;
+      v22 = v18;
+      v23 = 2048;
+      v24 = v19;
+      v25 = 2048;
       lengthCopy = length;
-      v28 = 1024;
-      v29 = v21;
+      v27 = 1024;
+      v28 = v20;
       _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "%@ ANEVirtualClient data in bytes %lu IOSurfaceLength %lu IOSID: %u\n", buf, 0x26u);
     }
 
@@ -7568,8 +7847,8 @@ LABEL_11:
 
   else
   {
-    v18 = gLogger;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = gLogger;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -7579,13 +7858,12 @@ LABEL_11:
 
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (__IOSurface)copyToIOSurface:(char *)surface size:(unint64_t)size ioSID:(unsigned int *)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!d)
   {
     v11 = gLogger;
@@ -7629,14 +7907,14 @@ LABEL_11:
     v15 = gLogger;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = *d;
+      v18 = NSStringFromSelector(a2);
+      v19 = *d;
       *buf = 138412802;
-      v22 = v19;
-      v23 = 2048;
+      v21 = v18;
+      v22 = 2048;
       sizeCopy = size;
-      v25 = 1024;
-      v26 = v20;
+      v24 = 1024;
+      v25 = v19;
       _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "%@ ANEVirtualClient data in bytes length %lu IOSID: %u\n", buf, 0x1Cu);
     }
 
@@ -7645,8 +7923,8 @@ LABEL_11:
 
   else
   {
-    v18 = gLogger;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = gLogger;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       NSStringFromSelector(a2);
       objc_claimAutoreleasedReturnValue();
@@ -7656,13 +7934,12 @@ LABEL_11:
 
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (void)printIOSurfaceDataInBytes:(__IOSurface *)bytes
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (bytes)
   {
     IOSurfaceLock(bytes, 0, 0);
@@ -7679,11 +7956,11 @@ LABEL_12:
           v10 = NSStringFromSelector(a2);
           v11 = v7[i];
           *buf = 138412802;
-          v14 = v10;
-          v15 = 2048;
-          v16 = i;
-          v17 = 1024;
-          v18 = v11;
+          v13 = v10;
+          v14 = 2048;
+          v15 = i;
+          v16 = 1024;
+          v17 = v11;
           _os_log_debug_impl(&dword_1AD246000, v9, OS_LOG_TYPE_DEBUG, "%@ ANEVirtualClient byte[%llu]=0x%x\n", buf, 0x1Cu);
         }
       }
@@ -7696,13 +7973,11 @@ LABEL_12:
   {
     +[_ANEVirtualClient printIOSurfaceDataInBytes:];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getDictionaryWithJSONEncodingFromIOSurface:(__IOSurface *)surface withArchivedDataSize:(unint64_t)size
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!surface)
   {
     v13 = gLogger;
@@ -7750,22 +8025,22 @@ LABEL_16:
   }
 
   v8 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:BaseAddress length:size];
-  v19 = 0;
-  v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:1 error:&v19];
-  v10 = v19;
+  v18 = 0;
+  v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:1 error:&v18];
+  v10 = v18;
   v11 = v10;
   if (!v9 || v10)
   {
     v15 = gLogger;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
+      v17 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v21 = v18;
-      v22 = 2048;
+      v20 = v17;
+      v21 = 2048;
       sizeCopy = size;
-      v24 = 2112;
-      v25 = v11;
+      v23 = 2112;
+      v24 = v11;
       _os_log_error_impl(&dword_1AD246000, v15, OS_LOG_TYPE_ERROR, "%@: ERROR : failed to extract archived dictionary with archivedDataSize=%llu err=%@!", buf, 0x20u);
     }
 
@@ -7780,23 +8055,22 @@ LABEL_16:
   }
 
 LABEL_21:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)getModelAttribute:(VMData *)attribute
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   IOSurfaceLock(attribute->var7, 0, 0);
   v5 = MEMORY[0x1E695E0F8];
   BaseAddress = IOSurfaceGetBaseAddress(attribute->var7);
   if (BaseAddress)
   {
     v7 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:BaseAddress length:attribute->var18.var20];
-    v14 = 0;
-    v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:1 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v5 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:1 error:&v13];
+    v8 = v13;
   }
 
   else
@@ -7817,26 +8091,54 @@ LABEL_21:
   v9 = gLogger;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v12 = NSStringFromSelector(a2);
+    v11 = NSStringFromSelector(a2);
     var20 = attribute->var18.var20;
     *buf = 138412802;
-    v16 = v12;
-    v17 = 2048;
-    v18 = var20;
-    v19 = 2112;
-    v20 = v5;
+    v15 = v11;
+    v16 = 2048;
+    v17 = var20;
+    v18 = 2112;
+    v19 = v5;
     _os_log_debug_impl(&dword_1AD246000, v9, OS_LOG_TYPE_DEBUG, "%@: ANEVirtualClient Model Attribute Length %llu Model Attribute value %@\n", buf, 0x20u);
   }
 
   IOSurfaceUnlock(attribute->var7, 0, 0);
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
+- (BOOL)callIOUserClient:(unsigned int)client inParams:(VirtANEModel *)params outParams:(VirtANEModel *)outParams
+{
+  v6 = *&client;
+  if (outParams)
+  {
+    outputStruct = outParams;
+  }
+
+  else
+  {
+    outputStruct = &v13;
+  }
+
+  v12 = 2640;
+  connect = [(_ANEVirtualClient *)self connect];
+  if (params)
+  {
+    v10 = 2640;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  [(_ANEVirtualClient *)self checkKernReturnValue:IOConnectCallMethod(connect selector:v6 outParams:0, 0, params, v10, 0, 0, outputStruct, &v12), v6, outputStruct];
+  return outputStruct->var1 != 0;
+}
+
 + (id)getObjectFromIOSurface:(__IOSurface *)surface classType:(Class)type length:(unint64_t)length
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   if (!surface)
   {
     v10 = gLogger;
@@ -7898,9 +8200,9 @@ LABEL_16:
     goto LABEL_22;
   }
 
-  v18[0] = 0;
-  v11 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v10 error:v18];
-  v12 = v18[0];
+  v17[0] = 0;
+  v11 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v10 error:v17];
+  v12 = v17[0];
   if (v12)
   {
     v13 = gLogger;
@@ -7937,7 +8239,6 @@ LABEL_21:
 LABEL_22:
 
 LABEL_23:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -8081,7 +8382,6 @@ LABEL_20:
 
 + (void)copyDictionaryDataToStruct:(VirtANEModel *)struct dictionary:(__CFDictionary *)dictionary
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (struct && dictionary)
   {
     bzero(struct, 0xA50uLL);
@@ -8107,13 +8407,11 @@ LABEL_20:
       +[_ANEVirtualClient copyDictionaryDataToStruct:dictionary:];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getCodeSigningIdentity
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   task_info_outCnt = 8;
   if (task_info(*MEMORY[0x1E69E9A60], 0xFu, task_info_out, &task_info_outCnt))
   {
@@ -8130,9 +8428,9 @@ LABEL_20:
 
   else
   {
-    v12[0] = *task_info_out;
-    v12[1] = v11;
-    v5 = [_ANEModelToken codeSigningIDFor:v12 processIdentifier:getpid()];
+    v11[0] = *task_info_out;
+    v11[1] = v10;
+    v5 = [_ANEModelToken codeSigningIDFor:v11 processIdentifier:getpid()];
     v4 = v5;
     if (v5)
     {
@@ -8153,8 +8451,6 @@ LABEL_20:
       v3 = 0;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -8177,13 +8473,11 @@ LABEL_20:
 
 - (__CFDictionary)callIOUserClientWithDictionary:(unsigned int)dictionary inDictionary:(__CFDictionary *)inDictionary error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   valuePtr = dictionary;
   if (!inDictionary)
   {
-LABEL_15:
-    error = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   v9 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
@@ -8200,10 +8494,10 @@ LABEL_15:
       [_ANEVirtualClient callIOUserClientWithDictionary:inDictionary:error:];
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
-  v24 = 4096;
+  v23 = 4096;
   v11 = operator new[](0x1000uLL, MEMORY[0x1E69E5398]);
   if (!v11)
   {
@@ -8212,13 +8506,13 @@ LABEL_15:
       [_ANEVirtualClient callIOUserClientWithDictionary:inDictionary:error:];
     }
 
-    goto LABEL_15;
+    return 0;
   }
 
   outputStruct = v11;
   BytePtr = CFDataGetBytePtr(v10);
   Length = CFDataGetLength(v10);
-  v15 = IOConnectCallMethod([(_ANEVirtualClient *)self connect], 0x10u, 0, 0, BytePtr, Length, 0, 0, outputStruct, &v24);
+  v15 = IOConnectCallMethod([(_ANEVirtualClient *)self connect], 0x10u, 0, 0, BytePtr, Length, 0, 0, outputStruct, &v23);
   CFRelease(v10);
   if (v15)
   {
@@ -8260,14 +8554,12 @@ LABEL_15:
   }
 
   MEMORY[0x1B26F3360](outputStruct, 0x1000C4077774924);
-LABEL_24:
-  v21 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (void)checkKernReturnValue:(int)value selector:(unsigned int)selector outParams:(VirtANEModel *)params
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (value)
   {
     if (params)
@@ -8279,13 +8571,13 @@ LABEL_24:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = NSStringFromSelector(a2);
-      v11 = 138412802;
-      v12 = v9;
-      v13 = 1024;
+      v10 = 138412802;
+      v11 = v9;
+      v12 = 1024;
       selectorCopy = selector;
-      v15 = 1024;
+      v14 = 1024;
       valueCopy = value;
-      _os_log_error_impl(&dword_1AD246000, v8, OS_LOG_TYPE_ERROR, "%@: Failed to call method %d with error %d", &v11, 0x18u);
+      _os_log_error_impl(&dword_1AD246000, v8, OS_LOG_TYPE_ERROR, "%@: Failed to call method %d with error %d", &v10, 0x18u);
     }
   }
 
@@ -8299,13 +8591,10 @@ LABEL_24:
       [_ANEVirtualClient checkKernReturnValue:selector:outParams:];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)updateError:(__IOSurface *)error errorLength:(unint64_t)length error:(id *)a5
 {
-  v12 = *MEMORY[0x1E69E9840];
   if (a5)
   {
     v7 = [_ANEVirtualClient getObjectFromIOSurface:error classType:objc_opt_class() length:length];
@@ -8333,14 +8622,12 @@ LABEL_24:
     }
   }
 
-  result = a5 != 0;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return a5 != 0;
 }
 
 + (BOOL)updateError:(__IOSurface *)error errorLength:(unint64_t)length errorCode:(int64_t)code error:(id *)a6
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   if (!error)
   {
     v12 = gLogger;
@@ -8400,13 +8687,13 @@ LABEL_17:
 
   v12 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:BaseAddress length:length];
   v13 = MEMORY[0x1E695DFD8];
-  v28[0] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
-  v24 = [v13 setWithArray:v14];
+  v27[0] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v23 = [v13 setWithArray:v14];
 
-  v25 = 0;
-  v15 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v12 error:&v25];
-  v16 = v25;
+  v24 = 0;
+  v15 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v12 error:&v24];
+  v16 = v24;
   if (v16)
   {
     IOSurfaceUnlock(error, 0, 0);
@@ -8423,23 +8710,23 @@ LABEL_17:
 
   else
   {
-    v17 = [v15 decodeObjectOfClasses:v24 forKey:*MEMORY[0x1E696A508]];
+    v17 = [v15 decodeObjectOfClasses:v23 forKey:*MEMORY[0x1E696A508]];
     IOSurfaceUnlock(error, 0, 0);
     v18 = v17 != 0;
     if (v17)
     {
-      v21 = MEMORY[0x1E696ABC0];
-      v22 = +[_ANEStrings errorDomainVirtIO];
-      v26 = *MEMORY[0x1E696A578];
-      v27 = v17;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      *a6 = [v21 errorWithDomain:v22 code:code userInfo:v23];
+      v20 = MEMORY[0x1E696ABC0];
+      v21 = +[_ANEStrings errorDomainVirtIO];
+      v25 = *MEMORY[0x1E696A578];
+      v26 = v17;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      *a6 = [v20 errorWithDomain:v21 code:code userInfo:v22];
     }
 
     else
     {
-      v22 = gLogger;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = gLogger;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -8449,13 +8736,12 @@ LABEL_17:
   }
 
 LABEL_18:
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)updateError:(VMData *)error error:(id *)a4
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   if (a4)
   {
     v4 = error->var18.var47 == 0;
@@ -8473,15 +8759,15 @@ LABEL_18:
     BaseAddress = IOSurfaceGetBaseAddress(error->var9);
     if (BaseAddress)
     {
-      v26 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:BaseAddress length:error->var18.var47];
+      v25 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:BaseAddress length:error->var18.var47];
       v10 = MEMORY[0x1E695DFD8];
-      v31 = objc_opt_class();
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+      v30 = objc_opt_class();
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
       v12 = [v10 setWithArray:v11];
 
-      v28 = 0;
-      v13 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v26 error:&v28];
-      v14 = v28;
+      v27 = 0;
+      v13 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v25 error:&v27];
+      v14 = v27;
       if (v14)
       {
         v15 = gLogger;
@@ -8493,14 +8779,14 @@ LABEL_18:
         }
       }
 
-      v16 = [v13 decodeObjectOfClasses:v12 forKey:{*MEMORY[0x1E696A508], v26}];
+      v16 = [v13 decodeObjectOfClasses:v12 forKey:{*MEMORY[0x1E696A508], v25}];
       IOSurfaceUnlock(error->var9, 0, 0);
       v17 = MEMORY[0x1E696ABC0];
       v18 = +[_ANEStrings errorDomainVirtIO];
       var46 = error->var18.var46;
-      v29 = *MEMORY[0x1E696A578];
-      v30 = v16;
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28 = *MEMORY[0x1E696A578];
+      v29 = v16;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
       *a4 = [v17 errorWithDomain:v18 code:var46 userInfo:v20];
     }
 
@@ -8515,22 +8801,20 @@ LABEL_18:
       }
 
       v22 = MEMORY[0x1E696ABC0];
-      v27 = +[_ANEStrings errorDomainVirtIO];
+      v26 = +[_ANEStrings errorDomainVirtIO];
       v23 = error->var18.var46;
-      v32 = *MEMORY[0x1E696A578];
-      v33[0] = @"Failed with NULL databaseAddress";
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-      *a4 = [v22 errorWithDomain:v27 code:v23 userInfo:v12];
+      v31 = *MEMORY[0x1E696A578];
+      v32[0] = @"Failed with NULL databaseAddress";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      *a4 = [v22 errorWithDomain:v26 code:v23 userInfo:v12];
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (id)updatePerformanceStats:(__IOSurface *)stats performanceStatsLength:(unint64_t)length perfStatsRawIOSurfaceRef:(__IOSurface *)ref performanceStatsRawLength:(unint64_t)rawLength hwExecutionTime:(unint64_t)time
 {
-  v25 = *MEMORY[0x1E69E9840];
   if (!(time | length))
   {
     v19 = gLogger;
@@ -8640,14 +8924,12 @@ LABEL_10:
 
 LABEL_29:
 LABEL_30:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (id)updatePerformanceStats:(VMData *)stats
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (stats->var18.var51 || stats->var18.var49)
   {
     IOSurfaceLock(stats->var10, 0, 0);
@@ -8676,8 +8958,6 @@ LABEL_30:
   {
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -8798,7 +9078,6 @@ LABEL_30:
 
 - (__IOSurface)copyDictionaryToIOSurface:(id)surface copiedDataSize:(unint64_t *)size createdIOSID:(unsigned int *)d
 {
-  v17 = *MEMORY[0x1E69E9840];
   surfaceCopy = surface;
   if (!surfaceCopy)
   {
@@ -8876,13 +9155,12 @@ LABEL_18:
   v13 = [(_ANEVirtualClient *)self copyToIOSurface:v11 length:v12 ioSID:d];
 LABEL_19:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (BOOL)shouldUsePrecompiledPath:(id)path options:(id)options shouldUseChunking:(BOOL *)chunking chunkingThreshold:(unint64_t)threshold
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   optionsCopy = options;
   v12 = optionsCopy;
@@ -8892,15 +9170,15 @@ LABEL_19:
     {
       if (chunking)
       {
-        v36 = 0;
+        v35 = 0;
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
         modelURL = [pathCopy modelURL];
         path = [modelURL path];
-        v16 = [defaultManager fileExistsAtPath:path isDirectory:&v36];
+        v16 = [defaultManager fileExistsAtPath:path isDirectory:&v35];
 
         if (v16)
         {
-          if (v36 == 1)
+          if (v35 == 1)
           {
             modelURL4 = gLogger;
             if (os_log_type_enabled(modelURL4, OS_LOG_TYPE_DEBUG))
@@ -8917,45 +9195,45 @@ LABEL_19:
             defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
             modelURL2 = [pathCopy modelURL];
             path2 = [modelURL2 path];
-            v35 = 0;
-            v23 = [defaultManager2 attributesOfItemAtPath:path2 error:&v35];
-            modelURL4 = v35;
+            v34 = 0;
+            v23 = [defaultManager2 attributesOfItemAtPath:path2 error:&v34];
+            modelURL4 = v34;
 
             if (modelURL4)
             {
               v24 = gLogger;
               if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
-                v32 = NSStringFromSelector(a2);
+                v31 = NSStringFromSelector(a2);
                 modelURL3 = [pathCopy modelURL];
                 path3 = [modelURL3 path];
                 *buf = 138412802;
-                v38 = v32;
-                v39 = 2112;
-                v40 = path3;
-                v41 = 2112;
-                v42 = modelURL4;
+                v37 = v31;
+                v38 = 2112;
+                v39 = path3;
+                v40 = 2112;
+                v41 = modelURL4;
                 _os_log_error_impl(&dword_1AD246000, v24, OS_LOG_TYPE_ERROR, "%@: FAILED to get attributes for file at path=%@ with error=%@", buf, 0x20u);
               }
             }
 
             else
             {
-              v27 = [v23 objectForKeyedSubscript:*MEMORY[0x1E696A3B8]];
-              if ([v27 unsignedLongLongValue] > threshold)
+              v26 = [v23 objectForKeyedSubscript:*MEMORY[0x1E696A3B8]];
+              if ([v26 unsignedLongLongValue] > threshold)
               {
                 *chunking = 1;
               }
 
-              v28 = [v12 objectForKeyedSubscript:kANEFModelTypeKey[0]];
-              v29 = [v28 isEqualToString:kANEFModelPreCompiledValue[0]];
+              v27 = [v12 objectForKeyedSubscript:kANEFModelTypeKey[0]];
+              v28 = [v27 isEqualToString:kANEFModelPreCompiledValue[0]];
 
-              if (v29)
+              if (v28)
               {
                 modelURL4 = [pathCopy modelURL];
                 path4 = [modelURL4 path];
-                v31 = +[_ANEStrings hwxExtension];
-                v19 = [path4 hasSuffix:v31];
+                v30 = +[_ANEStrings hwxExtension];
+                v19 = [path4 hasSuffix:v30];
 
                 goto LABEL_24;
               }
@@ -9023,7 +9301,6 @@ LABEL_24:
   v19 = 0;
 LABEL_25:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -9067,65 +9344,6 @@ LABEL_25:
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_8(v1, v2, v3, 5.778e-34);
   OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient unarchive error %@ \n", v4, v5);
-}
-
-+ (void)printStruct:(int *)a1 .cold.1(int *a1)
-{
-  v58 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  v8 = *(a1 + 1);
-  v9 = a1[4];
-  v10 = a1[5];
-  v11 = a1[6];
-  v24 = a1[219];
-  v26 = *(a1 + 111);
-  v28 = a1[225];
-  v29 = *(a1 + 113);
-  v30 = a1[228];
-  v31 = *(a1 + 115);
-  v32 = a1[488];
-  v33 = *(a1 + 245);
-  v34 = *(a1 + 246);
-  v36 = a1[623];
-  v38 = a1[625];
-  v40 = a1[627];
-  v12 = a1[7];
-  v41 = *(a1 + 314);
-  v42 = *(a1 + 315);
-  v44 = a1[633];
-  v45 = *(a1 + 317);
-  v46 = a1[636];
-  v47 = *(a1 + 319);
-  v48 = a1[640];
-  v49 = *(a1 + 321);
-  v50 = a1[644];
-  v51 = *(a1 + 323);
-  v52 = a1[648];
-  v53 = *(a1 + 325);
-  v54 = a1[652];
-  v55 = *(a1 + 327);
-  v56 = a1[656];
-  v57 = *(a1 + 329);
-  v13 = *(a1 + 4);
-  v14 = *(a1 + 5);
-  v15 = *(a1 + 6);
-  v16 = *(a1 + 104);
-  v17 = *(a1 + 105);
-  v18 = *(a1 + 106);
-  v19 = *(a1 + 856);
-  v20 = *(a1 + 857);
-  v21 = a1[215];
-  v22 = *(a1 + 108);
-  v23 = a1[218];
-  v25 = a1[220];
-  v27 = a1[224];
-  v35 = a1[622];
-  v37 = a1[624];
-  v39 = a1[626];
-  v43 = a1[632];
-  OUTLINED_FUNCTION_19();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18Cu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferFileToHostWithPath:withChunkSize:withUUID:withModelInputPath:overWriteFileNameWith:.cold.1()
@@ -9309,9 +9527,8 @@ LABEL_25:
 - (void)loadModel:options:qos:error:.cold.8()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *(v1 + 4112);
-  OUTLINED_FUNCTION_3_3(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient LoadModel no success %lld.\n", v5, v6);
+  OUTLINED_FUNCTION_3_3(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient LoadModel no success %lld.\n", v4, v5);
 }
 
 - (void)loadModel:options:qos:error:.cold.9()
@@ -9474,17 +9691,8 @@ LABEL_25:
 - (void)unloadModel:options:qos:error:.cold.4()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_3(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient unloadModel success=%lld", v5, v6);
-}
-
-- (void)unloadModel:options:qos:error:.cold.6()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_19();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient unloadModel success=%lld", v4, v5);
 }
 
 - (void)evaluateWithModel:options:request:qos:error:.cold.2()
@@ -9510,13 +9718,12 @@ LABEL_25:
 
 - (void)doEvaluateWithModel:(void *)a1 options:request:qos:completionEvent:error:.cold.3(void *a1)
 {
-  v3 = OUTLINED_FUNCTION_25(a1);
-  v4 = *v2;
-  OUTLINED_FUNCTION_23(v3, 5.778e-34);
+  v2 = OUTLINED_FUNCTION_25(a1);
+  OUTLINED_FUNCTION_23(v2, 5.778e-34);
   *(v1 + 12) = 1024;
-  *(v1 + 14) = v5;
+  *(v1 + 14) = v3;
   OUTLINED_FUNCTION_24();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x12u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
 - (void)doEvaluateWithModel:(void *)a1 options:request:qos:completionEvent:error:.cold.4(void *a1)
@@ -9547,13 +9754,12 @@ LABEL_25:
 
 - (void)doEvaluateWithModel:(void *)a1 options:request:qos:completionEvent:error:.cold.7(void *a1)
 {
-  v3 = OUTLINED_FUNCTION_25(a1);
-  v4 = *v2;
-  OUTLINED_FUNCTION_23(v3, 5.778e-34);
+  v2 = OUTLINED_FUNCTION_25(a1);
+  OUTLINED_FUNCTION_23(v2, 5.778e-34);
   *(v1 + 12) = 2048;
-  *(v1 + 14) = v5;
+  *(v1 + 14) = v3;
   OUTLINED_FUNCTION_24();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)doEvaluateWithModel:(void *)a1 options:request:qos:completionEvent:error:.cold.8(void *a1)
@@ -9607,9 +9813,8 @@ LABEL_25:
 - (void)compiledModelExistsFor:.cold.4()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_3(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient compiledModelExistsFor success=%lld", v5, v6);
+  OUTLINED_FUNCTION_3_3(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient compiledModelExistsFor success=%lld", v4, v5);
 }
 
 - (void)purgeCompiledModel:.cold.3()
@@ -9629,9 +9834,8 @@ LABEL_25:
 - (void)compiledModelExistsMatchingHash:.cold.2()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_3(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient compiledModelExistsMatchingHash dictionary success=%lld", v5, v6);
+  OUTLINED_FUNCTION_3_3(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient compiledModelExistsMatchingHash dictionary success=%lld", v4, v5);
 }
 
 - (void)purgeCompiledModelMatchingHash:.cold.2()
@@ -9644,9 +9848,8 @@ LABEL_25:
 - (void)echo:.cold.2()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_3(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient echo dictionary success=%lld", v5, v6);
+  OUTLINED_FUNCTION_3_3(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: ANEVirtualClient echo dictionary success=%lld", v4, v5);
 }
 
 - (void)getDeviceInfo
@@ -9695,14 +9898,6 @@ LABEL_25:
   OUTLINED_FUNCTION_2_0(&dword_1AD246000, v3, v4, "%@: ERROR : FAILED to copy input validation_params dictionary to IOSurface", v5);
 }
 
-- (void)validateNetworkCreate:uuid:function:directoryPath:scratchPadPath:milTextData:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)validateNetworkCreate:uuid:function:directoryPath:scratchPadPath:milTextData:.cold.2()
 {
   OUTLINED_FUNCTION_6_1();
@@ -9739,45 +9934,24 @@ LABEL_25:
 
 - (void)mapIOSurfacesWithModel:request:cacheInference:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_19();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)doMapIOSurfacesWithModel:request:cacheInference:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_19();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)doMapIOSurfacesWithModel:request:cacheInference:error:.cold.3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_19();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)doMapIOSurfacesWithModel:request:cacheInference:error:.cold.4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_19();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)doMapIOSurfacesWithModel:request:cacheInference:error:.cold.5()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_1(v3, 5.778e-34, v1, v4);
+  OUTLINED_FUNCTION_0_1(v1, 5.778e-34, v2, v3);
   OUTLINED_FUNCTION_14();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
 - (void)doMapIOSurfacesWithModel:request:cacheInference:error:.cold.6()
@@ -9886,11 +10060,9 @@ LABEL_25:
 
 - (void)copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyFilesInDirectoryToIOSurfaces:(uint64_t)a1 ioSurfaceRefs:(uint64_t)a2 ioSurfaceSizes:fileNames:.cold.2(uint64_t a1, uint64_t a2)
@@ -9903,29 +10075,11 @@ LABEL_25:
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-- (void)copyFilesInDirectoryToIOSurfaces:ioSurfaceRefs:ioSurfaceSizes:fileNames:.cold.3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)copyAllModelFiles:dictionary:ioSurfaceRefs:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_19();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)copyAllModelFiles:dictionary:ioSurfaceRefs:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyAllModelFiles:dictionary:ioSurfaceRefs:.cold.3()
@@ -9937,29 +10091,23 @@ LABEL_25:
 
 - (void)copyAllModelFiles:dictionary:ioSurfaceRefs:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_19();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyAllModelFiles:dictionary:ioSurfaceRefs:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_19();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyAllModelFiles:dictionary:ioSurfaceRefs:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyAllModelFiles:(_BYTE *)a1 dictionary:(_BYTE *)a2 ioSurfaceRefs:.cold.7(_BYTE *a1, _BYTE *a2)
@@ -10055,9 +10203,8 @@ LABEL_25:
 - (void)copyModelMetaData:options:dictionary:vmData:.cold.2()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_3(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: sourceURLLength=%lld\n", v5, v6);
+  OUTLINED_FUNCTION_3_3(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_11_0(&dword_1AD246000, "%@: sourceURLLength=%lld\n", v4, v5);
 }
 
 - (void)readWeightFilename:.cold.1()
@@ -10105,10 +10252,9 @@ LABEL_25:
 - (void)parallelDecompressedData:.cold.1()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_1(v3, 5.778e-34, v1, v4);
+  OUTLINED_FUNCTION_0_1(v1, 5.778e-34, v2, v3);
   OUTLINED_FUNCTION_12_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
 - (void)parallelDecompressedData:.cold.2()
@@ -10136,10 +10282,9 @@ LABEL_25:
 - (void)copyErrorValue:.cold.1()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_1(v3, 5.778e-34, v1, v4);
+  OUTLINED_FUNCTION_0_1(v1, 5.778e-34, v2, v3);
   OUTLINED_FUNCTION_14();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
 - (void)copyErrorValue:.cold.2()
@@ -10183,14 +10328,6 @@ LABEL_25:
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4(v1, v2, 5.7779e-34);
   OUTLINED_FUNCTION_2_0(&dword_1AD246000, v3, v4, "%@: ANEVirtualClient ioSID pointer null\n", v5);
-}
-
-+ (void)printIOSurfaceDataInBytes:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getDictionaryWithJSONEncodingFromIOSurface:withArchivedDataSize:.cold.1()
@@ -10259,11 +10396,9 @@ LABEL_25:
 
 + (void)getCFDictionaryFromIOSurface:dataLength:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_28();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)copyDictionaryDataToStruct:dictionary:.cold.1()
@@ -10282,11 +10417,9 @@ LABEL_25:
 
 + (void)setCodeSigningIdentity:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_19();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callIOUserClientWithDictionary:inDictionary:error:.cold.1()
@@ -10303,20 +10436,17 @@ LABEL_25:
 
 - (void)callIOUserClientWithDictionary:inDictionary:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_28();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)callIOUserClientWithDictionary:inDictionary:error:.cold.3()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_1(v3, 5.778e-34, v1, v4);
+  OUTLINED_FUNCTION_0_1(v1, 5.778e-34, v2, v3);
   OUTLINED_FUNCTION_12_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
 - (void)checkKernReturnValue:selector:outParams:.cold.1()
@@ -10432,10 +10562,9 @@ LABEL_25:
 - (void)updatePerformanceStats:.cold.1()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_3(v3, 5.778e-34, v1, v4);
+  OUTLINED_FUNCTION_3_3(v1, 5.778e-34, v2, v3);
   OUTLINED_FUNCTION_12_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 - (void)copyDictionaryToIOSurface:copiedDataSize:createdIOSID:.cold.1()

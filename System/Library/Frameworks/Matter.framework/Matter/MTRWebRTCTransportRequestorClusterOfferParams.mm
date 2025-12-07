@@ -74,14 +74,14 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   unsignedShortValue = 0;
-  v31 = 0;
-  v27 = 0uLL;
-  v28 = 0;
-  v25[0] = 0;
-  v25[1] = 0;
-  v24 = v25;
+  v30 = 0;
+  v26 = 0uLL;
+  v27 = 0;
+  v24[0] = 0;
+  v24[1] = 0;
+  v23 = v24;
   webRTCSessionID = [(MTRWebRTCTransportRequestorClusterOfferParams *)self webRTCSessionID];
   unsignedShortValue = [webRTCSessionID unsignedShortValue];
 
@@ -89,15 +89,15 @@
   v6 = v5;
   sub_238DB9BD8(buf, [v5 UTF8String], objc_msgSend(v5, "lengthOfBytesUsingEncoding:", 4));
 
-  v27 = *buf;
+  v26 = *buf;
   iceServers = [(MTRWebRTCTransportRequestorClusterOfferParams *)self iceServers];
   LOBYTE(v5) = iceServers == 0;
 
   if ((v5 & 1) == 0)
   {
-    v28 = 1;
+    v27 = 1;
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
     iceServers2 = [(MTRWebRTCTransportRequestorClusterOfferParams *)self iceServers];
     v9 = [iceServers2 count] == 0;
 
@@ -106,8 +106,8 @@
       operator new();
     }
 
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
   }
 
   iceTransportPolicy = [(MTRWebRTCTransportRequestorClusterOfferParams *)self iceTransportPolicy];
@@ -115,43 +115,43 @@
 
   if (!v11)
   {
-    v31 = 1;
-    v32 = 0uLL;
+    v30 = 1;
+    v31 = 0uLL;
     iceTransportPolicy2 = [(MTRWebRTCTransportRequestorClusterOfferParams *)self iceTransportPolicy];
     v13 = iceTransportPolicy2;
     sub_238DB9BD8(buf, [iceTransportPolicy2 UTF8String], objc_msgSend(iceTransportPolicy2, "lengthOfBytesUsingEncoding:", 4));
 
-    v32 = *buf;
+    v31 = *buf;
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v23);
-  if (v23)
+  sub_2393D9C18(0x62FuLL, 0, &v22);
+  if (v22)
   {
     sub_2393C7B90(buf);
+    v34 = 0;
     v35 = 0;
+    v33 = &unk_284BB83A8;
     v36 = 0;
-    v34 = &unk_284BB83A8;
-    v37 = 0;
-    sub_238EA16C4(&v34, &v23, 0);
-    sub_2393C7BF0(buf, &v34, 0xFFFFFFFF);
+    sub_238EA16C4(&v33, &v22, 0);
+    sub_2393C7BF0(buf, &v33, 0xFFFFFFFF);
     v15 = sub_238F33CD8(&unsignedShortValue, buf, 0x100uLL);
     v16 = v15;
-    if (v15 || (v15 = sub_238DD2EFC(buf, &v23), v16 = v15, v15))
+    if (v15 || (v15 = sub_238DD2EFC(buf, &v22), v16 = v15, v15))
     {
       v17 = v14;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v23);
+      sub_238DD2F90(reader, &v22);
       v15 = sub_2393C7114(reader, 21, 256);
-      v17 = v21;
+      v17 = v20;
       v16 = v15;
     }
 
-    v34 = &unk_284BB83A8;
-    sub_238EA1758(&v36);
+    v33 = &unk_284BB83A8;
     sub_238EA1758(&v35);
+    sub_238EA1758(&v34);
   }
 
   else
@@ -161,14 +161,13 @@
     v16 = 11;
   }
 
-  sub_238EA1758(&v23);
-  sub_238EA1790(&v24);
-  v18 = *MEMORY[0x277D85DE8];
-  v19 = v15 & 0xFFFFFFFF00000000 | v16;
-  v20 = v17;
-  result.mFile = v20;
-  result.mError = v19;
-  result.mLine = HIDWORD(v19);
+  sub_238EA1758(&v22);
+  sub_238EA1790(&v23);
+  v18 = v15 & 0xFFFFFFFF00000000 | v16;
+  v19 = v17;
+  result.mFile = v19;
+  result.mError = v18;
+  result.mLine = HIDWORD(v18);
   return result;
 }
 

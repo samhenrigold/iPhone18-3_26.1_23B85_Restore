@@ -1,6 +1,9 @@
 @interface EMMailboxScope
 + (EMMailboxScope)allMailboxesScope;
 + (EMMailboxScope)noMailboxesScope;
++ (id)mailboxScopeForMailboxObjectIDs:(id)ds forExclusion:(BOOL)exclusion;
++ (id)mailboxScopeForMailboxType:(int64_t)type forExclusion:(BOOL)exclusion;
++ (id)mailboxScopeForMailboxTypes:(id)types forExclusion:(BOOL)exclusion;
 - (BOOL)_scopeContainsMailboxWithObjectID:(id)d mailboxTypeBlock:(id)block;
 - (BOOL)containsOnlyInboxType;
 - (BOOL)isEqual:(id)equal;
@@ -196,6 +199,38 @@ void __34__EMMailboxScope_noMailboxesScope__block_invoke()
   return v3;
 }
 
++ (id)mailboxScopeForMailboxObjectIDs:(id)ds forExclusion:(BOOL)exclusion
+{
+  exclusionCopy = exclusion;
+  dsCopy = ds;
+  v6 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:dsCopy];
+  v7 = [[EMMailboxScope alloc] initWithMailboxTypes:0 excludeTypes:0 mailboxObjectIDs:v6 excludeMailboxes:exclusionCopy];
+
+  return v7;
+}
+
++ (id)mailboxScopeForMailboxType:(int64_t)type forExclusion:(BOOL)exclusion
+{
+  exclusionCopy = exclusion;
+  v6 = objc_alloc(MEMORY[0x1E695DFD8]);
+  v7 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  v8 = [v6 initWithObjects:{v7, 0}];
+
+  v9 = [[EMMailboxScope alloc] initWithMailboxTypes:v8 excludeTypes:exclusionCopy mailboxObjectIDs:0 excludeMailboxes:0];
+
+  return v9;
+}
+
++ (id)mailboxScopeForMailboxTypes:(id)types forExclusion:(BOOL)exclusion
+{
+  exclusionCopy = exclusion;
+  typesCopy = types;
+  v6 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:typesCopy];
+  v7 = [[EMMailboxScope alloc] initWithMailboxTypes:v6 excludeTypes:exclusionCopy mailboxObjectIDs:0 excludeMailboxes:0];
+
+  return v7;
+}
+
 - (EMMailboxScope)initWithMailboxTypes:(id)types excludeTypes:(BOOL)excludeTypes mailboxObjectIDs:(id)ds excludeMailboxes:(BOOL)mailboxes cached:(BOOL)cached
 {
   cachedCopy = cached;
@@ -378,7 +413,7 @@ id __42__EMMailboxScope__mailboxTypesDescription__block_invoke(uint64_t a1, void
 
 - (void)encodeWithCoder:(id)coder
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   mailboxTypes = [(EMMailboxScope *)self mailboxTypes];
   allObjects = [mailboxTypes allObjects];
@@ -388,56 +423,54 @@ id __42__EMMailboxScope__mailboxTypesDescription__block_invoke(uint64_t a1, void
   [coderCopy encodeBool:-[EMMailboxScope excludeTypes](self forKey:{"excludeTypes"), @"EFPropertyKey_excludeTypes"}];
   v8 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"url.absoluteString" ascending:1];
   mailboxObjectIDs = [(EMMailboxScope *)self mailboxObjectIDs];
-  v13[0] = v8;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v11 = [mailboxObjectIDs sortedArrayUsingDescriptors:v10];
 
   [coderCopy encodeObject:v11 forKey:@"mailboxObjectIDs"];
   [coderCopy encodeBool:-[EMMailboxScope excludeMailboxes](self forKey:{"excludeMailboxes"), @"EFPropertyKey_excludeMailboxes"}];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mailboxScopeByAddingMailboxes:(id)mailboxes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   mailboxesCopy = mailboxes;
   mailboxObjectIDs = [(EMMailboxScope *)self mailboxObjectIDs];
-  v23 = [mailboxObjectIDs mutableCopy];
+  v22 = [mailboxObjectIDs mutableCopy];
 
   selfCopy = self;
   if ([(EMMailboxScope *)self excludeMailboxes])
   {
     v5 = [mailboxesCopy ef_mapSelector:sel_objectID];
-    [v23 ef_removeObjectsInArray:v5];
+    [v22 ef_removeObjectsInArray:v5];
 
     goto LABEL_16;
   }
 
   excludeTypes = [(EMMailboxScope *)self excludeTypes];
   mailboxTypes = [(EMMailboxScope *)self mailboxTypes];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v8 = mailboxesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v9)
   {
     goto LABEL_15;
   }
 
-  v10 = *v25;
+  v10 = *v24;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v25 != v10)
+      if (*v24 != v10)
       {
         objc_enumerationMutation(v8);
       }
 
-      v12 = *(*(&v24 + 1) + 8 * i);
+      v12 = *(*(&v23 + 1) + 8 * i);
       v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "type")}];
       v14 = [mailboxTypes containsObject:v13];
 
@@ -455,10 +488,10 @@ id __42__EMMailboxScope__mailboxTypesDescription__block_invoke(uint64_t a1, void
       }
 
       objectID = [v12 objectID];
-      [v23 addObject:objectID];
+      [v22 addObject:objectID];
     }
 
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
   }
 
   while (v9);
@@ -467,47 +500,45 @@ LABEL_15:
 LABEL_16:
   v16 = [EMMailboxScope alloc];
   mailboxTypes2 = [(EMMailboxScope *)selfCopy mailboxTypes];
-  v18 = [(EMMailboxScope *)v16 initWithMailboxTypes:mailboxTypes2 excludeTypes:[(EMMailboxScope *)selfCopy excludeTypes] mailboxObjectIDs:v23 excludeMailboxes:[(EMMailboxScope *)selfCopy excludeMailboxes]];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [(EMMailboxScope *)v16 initWithMailboxTypes:mailboxTypes2 excludeTypes:[(EMMailboxScope *)selfCopy excludeTypes] mailboxObjectIDs:v22 excludeMailboxes:[(EMMailboxScope *)selfCopy excludeMailboxes]];
 
   return v18;
 }
 
 - (id)mailboxScopeByRemovingMailboxes:(id)mailboxes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   mailboxesCopy = mailboxes;
   mailboxObjectIDs = [(EMMailboxScope *)self mailboxObjectIDs];
-  v23 = [mailboxObjectIDs mutableCopy];
+  v22 = [mailboxObjectIDs mutableCopy];
 
   selfCopy = self;
   if ([(EMMailboxScope *)self excludeMailboxes])
   {
     excludeTypes = [(EMMailboxScope *)self excludeTypes];
     mailboxTypes = [(EMMailboxScope *)self mailboxTypes];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v7 = mailboxesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (!v8)
     {
       goto LABEL_14;
     }
 
-    v9 = *v25;
+    v9 = *v24;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         v12 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v11, "type")}];
         v13 = [mailboxTypes containsObject:v12];
 
@@ -525,10 +556,10 @@ LABEL_16:
         }
 
         objectID = [v11 objectID];
-        [v23 addObject:objectID];
+        [v22 addObject:objectID];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (!v8)
       {
 LABEL_14:
@@ -539,14 +570,12 @@ LABEL_14:
   }
 
   v15 = [mailboxesCopy ef_mapSelector:sel_objectID];
-  [v23 ef_removeObjectsInArray:v15];
+  [v22 ef_removeObjectsInArray:v15];
 
 LABEL_16:
   v16 = [EMMailboxScope alloc];
   mailboxTypes2 = [(EMMailboxScope *)selfCopy mailboxTypes];
-  v18 = [(EMMailboxScope *)v16 initWithMailboxTypes:mailboxTypes2 excludeTypes:[(EMMailboxScope *)selfCopy excludeTypes] mailboxObjectIDs:v23 excludeMailboxes:[(EMMailboxScope *)selfCopy excludeMailboxes]];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [(EMMailboxScope *)v16 initWithMailboxTypes:mailboxTypes2 excludeTypes:[(EMMailboxScope *)selfCopy excludeTypes] mailboxObjectIDs:v22 excludeMailboxes:[(EMMailboxScope *)selfCopy excludeMailboxes]];
 
   return v18;
 }

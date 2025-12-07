@@ -1,5 +1,8 @@
 @interface CMFitnessShared
 + (BOOL)isDeviceSatellitePaired;
++ (BOOL)isWorkoutEndReminderEnabledWhenDeviceIsInMoveTimeMode:(BOOL)mode withCurrentSetting:(id)setting;
++ (BOOL)isWorkoutResumeReminderEnabledWhenDeviceIsInMoveTimeMode:(BOOL)mode withCurrentSetting:(id)setting;
++ (BOOL)isWorkoutStartReminderEnabledWhenDeviceIsSatellitePaired:(BOOL)paired isInMoveTimeMode:(BOOL)mode withCurrentSetting:(id)setting;
 @end
 
 @implementation CMFitnessShared
@@ -19,6 +22,51 @@
   }
 
   return v2;
+}
+
++ (BOOL)isWorkoutStartReminderEnabledWhenDeviceIsSatellitePaired:(BOOL)paired isInMoveTimeMode:(BOOL)mode withCurrentSetting:(id)setting
+{
+  if (mode)
+  {
+    return 0;
+  }
+
+  if (setting)
+  {
+    return objc_msgSend_BOOLValue(setting, a2, paired);
+  }
+
+  return !paired;
+}
+
++ (BOOL)isWorkoutEndReminderEnabledWhenDeviceIsInMoveTimeMode:(BOOL)mode withCurrentSetting:(id)setting
+{
+  if (mode)
+  {
+    return 0;
+  }
+
+  if (setting)
+  {
+    return objc_msgSend_BOOLValue(setting, a2, mode);
+  }
+
+  return 1;
+}
+
++ (BOOL)isWorkoutResumeReminderEnabledWhenDeviceIsInMoveTimeMode:(BOOL)mode withCurrentSetting:(id)setting
+{
+  if (mode)
+  {
+    return 0;
+  }
+
+  if (setting)
+  {
+    return objc_msgSend_BOOLValue(setting, a2, mode);
+  }
+
+  return 1;
 }
 
 @end

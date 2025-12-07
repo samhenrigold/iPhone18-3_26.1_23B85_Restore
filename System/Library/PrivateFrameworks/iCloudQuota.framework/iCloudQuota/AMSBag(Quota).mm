@@ -11,9 +11,9 @@
     +[AMSBag(Quota) quotaBag];
   }
 
-  v1 = quotaBag_quotaBag;
+  v2 = quotaBag_quotaBag;
 
-  return v1;
+  return v2;
 }
 
 @end

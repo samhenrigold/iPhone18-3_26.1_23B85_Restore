@@ -135,7 +135,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    second = self->_second;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -155,7 +154,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  hour = self->_hour;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -170,12 +168,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  minute = self->_minute;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    weekday = self->_weekday;
     PBDataWriterWriteInt32Field();
   }
 

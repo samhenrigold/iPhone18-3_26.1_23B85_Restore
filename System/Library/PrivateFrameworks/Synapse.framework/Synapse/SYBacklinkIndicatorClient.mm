@@ -3,6 +3,7 @@
 + (SYBacklinkIndicatorClient)clientWithLinkIdentifiers:(id)identifiers;
 + (void)hideIndicator;
 + (void)hotCornerExited;
++ (void)toggleIndicatorWithDisplayID:(unsigned int)d corner:(int64_t)corner;
 - (BOOL)_shouldSendIndicatorRequest;
 - (SYBacklinkIndicatorClient)init;
 - (int64_t)_showIndicatorAction;
@@ -69,6 +70,16 @@
   [(SYBacklinkIndicatorClient *)v2 setCorner:-1];
   [(SYBacklinkIndicatorClient *)v2 setAction:1];
   return v2;
+}
+
++ (void)toggleIndicatorWithDisplayID:(unsigned int)d corner:(int64_t)corner
+{
+  v5 = *&d;
+  v6 = objc_opt_new();
+  [v6 setDisplayID:v5];
+  [v6 setCorner:corner];
+  [v6 setAction:2];
+  [v6 requestIndicatorWithCompletion:0];
 }
 
 + (void)hideIndicator
@@ -169,24 +180,24 @@ void __58__SYBacklinkIndicatorClient__configureConnectionAndResume__block_invoke
 
 - (void)_sendIndicatorRequestWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(SYBacklinkIndicatorClient *)self _createConnectionIfNeeded];
   if (![(SYBacklinkIndicatorClient *)self sentRequest])
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
     connection = [(SYBacklinkIndicatorClient *)self connection];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __65__SYBacklinkIndicatorClient__sendIndicatorRequestWithCompletion___block_invoke;
-    v16[3] = &unk_27856B808;
-    v16[4] = &v17;
-    v6 = [connection remoteObjectProxyWithErrorHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __65__SYBacklinkIndicatorClient__sendIndicatorRequestWithCompletion___block_invoke;
+    v15[3] = &unk_27856B808;
+    v15[4] = &v16;
+    v6 = [connection remoteObjectProxyWithErrorHandler:v15];
 
-    if ((v18[3] & 1) == 0)
+    if ((v17[3] & 1) == 0)
     {
       _showIndicatorAction = [(SYBacklinkIndicatorClient *)self _showIndicatorAction];
       v8 = os_log_create("com.apple.synapse", "BacklinkMonitor");
@@ -199,7 +210,7 @@ void __58__SYBacklinkIndicatorClient__configureConnectionAndResume__block_invoke
           linkIdentifiers = [(SYBacklinkIndicatorClient *)self linkIdentifiers];
           v12 = [linkIdentifiers count];
           *buf = 134217984;
-          v22 = v12;
+          v21 = v12;
           _os_log_impl(&dword_225901000, v10, OS_LOG_TYPE_DEFAULT, "BacklinkIndicatorClient: Will call showIndicatorForBacklink on service. Link identifier count: %ld", buf, 0xCu);
         }
 
@@ -224,15 +235,13 @@ void __58__SYBacklinkIndicatorClient__configureConnectionAndResume__block_invoke
       [(SYBacklinkIndicatorClient *)self setSentRequest:1];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, [(SYBacklinkIndicatorClient *)self sentRequest]);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SYBacklinkIndicatorClient__sendIndicatorRequestWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -276,37 +285,42 @@ void __65__SYBacklinkIndicatorClient__sendIndicatorRequestWithCompletion___block
 
 - (BOOL)_shouldSendIndicatorRequest
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (-[SYBacklinkIndicatorClient _showIndicatorAction](self, "_showIndicatorAction") || ([MEMORY[0x277CBEBD0] standardUserDefaults], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "doubleForKey:", @"lastShowIndicatorTime"), v4 = v3, v2, objc_msgSend(MEMORY[0x277CBEAA8], "timeIntervalSinceReferenceDate"), v6 = v5 - v4, v6 < 60.0))
+  v12 = *MEMORY[0x277D85DE8];
+  if ([(SYBacklinkIndicatorClient *)self _showIndicatorAction])
   {
-    result = 1;
+    return 1;
+  }
+
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults doubleForKey:@"lastShowIndicatorTime"];
+  v4 = v3;
+
+  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v6 = v5 - v4;
+  if (v6 < 60.0)
+  {
+    return 1;
+  }
+
+  if (v4 <= 0.0)
+  {
+    v8 = &stru_2838DFF18;
   }
 
   else
   {
-    if (v4 <= 0.0)
-    {
-      v9 = &stru_2838DFF18;
-    }
-
-    else
-    {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@" Last was %0.1fs ago.", *&v6];
-    }
-
-    v10 = os_log_create("com.apple.synapse", "BacklinkMonitor");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-    {
-      *buf = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_225901000, v10, OS_LOG_TYPE_INFO, "BacklinkIndicatorClient: Will not send request to service, no recent show indicator requests.%@", buf, 0xCu);
-    }
-
-    result = 0;
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@" Last was %0.1fs ago.", *&v6];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v9 = os_log_create("com.apple.synapse", "BacklinkMonitor");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_225901000, v9, OS_LOG_TYPE_INFO, "BacklinkIndicatorClient: Will not send request to service, no recent show indicator requests.%@", buf, 0xCu);
+  }
+
+  return 0;
 }
 
 + (void)clientWithDomainIdentifiers:(uint64_t)a3 linkIdentifiers:(uint64_t)a4 .cold.1(void *a1, void *a2, uint64_t a3, uint64_t a4)
@@ -317,11 +331,10 @@ void __65__SYBacklinkIndicatorClient__sendIndicatorRequestWithCompletion___block
 
 void __65__SYBacklinkIndicatorClient__sendIndicatorRequestWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Error creating remote object for backlink indicator: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Error creating remote object for backlink indicator: %@", &v2, 0xCu);
 }
 
 @end

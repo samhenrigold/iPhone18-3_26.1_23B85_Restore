@@ -42,7 +42,7 @@
 
 - (id)addTOCEntriesForTOCTableGroup:(id)group
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   v7 = objc_msgSend_tocTableGroupTable(self, v5, v6);
   v10 = objc_msgSend_date(MEMORY[0x1E695DF00], v8, v9);
@@ -52,26 +52,26 @@
   if (!v16)
   {
     v17 = objc_msgSend_tocTable(self, v14, v15);
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v20 = objc_msgSend_allTables(groupCopy, v18, v19, 0);
-    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v30, v34, 16);
+    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v29, v33, 16);
     if (v22)
     {
       v24 = v22;
-      v25 = *v31;
+      v25 = *v30;
       while (2)
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v31 != v25)
+          if (*v30 != v25)
           {
             objc_enumerationMutation(v20);
           }
 
-          v27 = objc_msgSend_addEntryForTable_(v17, v23, *(*(&v30 + 1) + 8 * i));
+          v27 = objc_msgSend_addEntryForTable_(v17, v23, *(*(&v29 + 1) + 8 * i));
           if (v27)
           {
             v16 = v27;
@@ -79,7 +79,7 @@
           }
         }
 
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v30, v34, 16);
+        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v23, &v29, v33, 16);
         if (v24)
         {
           continue;
@@ -93,21 +93,19 @@
 LABEL_12:
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)createTOCInDatabase:(id)database options:(unint64_t)options error:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   v10 = objc_msgSend_TOCTableGroupInDatabase_options_(self, v9, databaseCopy, options);
   v13 = objc_msgSend_tocTableGroupTable(v10, v11, v12);
   isMigrationTOC = objc_msgSend_isMigrationTOC(v10, v14, v15);
   v19 = objc_msgSend_tocTable(v10, v17, v18);
   v22 = objc_msgSend_createTableSQL(v19, v20, v21);
-  v56 = databaseCopy;
+  v55 = databaseCopy;
   v24 = objc_msgSend_executeSQL_(databaseCopy, v23, v22);
   v27 = v24;
   if (isMigrationTOC)
@@ -144,34 +142,34 @@ LABEL_3:
     }
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = objc_msgSend_allTables(v10, v25, v26);
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v57, v61, 16);
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v56, v60, 16);
   if (v29)
   {
     v30 = v29;
-    v52 = v22;
+    v51 = v22;
     errorCopy = error;
-    v54 = v13;
-    v31 = *v58;
+    v53 = v13;
+    v31 = *v57;
     while (2)
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v58 != v31)
+        if (*v57 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = *(*(&v57 + 1) + 8 * i);
+        v33 = *(*(&v56 + 1) + 8 * i);
         v36 = objc_autoreleasePoolPush();
         if (v33 != v19)
         {
           v37 = objc_msgSend_createTableSQL(v33, v34, v35);
-          v39 = objc_msgSend_executeSQL_(v56, v38, v37);
+          v39 = objc_msgSend_executeSQL_(v55, v38, v37);
           v27 = v39;
           if ((isMigrationTOC & 1) == 0)
           {
@@ -203,7 +201,7 @@ LABEL_26:
         objc_autoreleasePoolPop(v36);
       }
 
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v43, &v57, v61, 16);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v43, &v56, v60, 16);
       if (v30)
       {
         continue;
@@ -215,8 +213,8 @@ LABEL_26:
     v27 = 0;
 LABEL_27:
     error = errorCopy;
-    v13 = v54;
-    v22 = v52;
+    v13 = v53;
+    v22 = v51;
   }
 
   else
@@ -259,7 +257,6 @@ LABEL_32:
 LABEL_35:
   v49 = v10;
 
-  v50 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -345,53 +342,52 @@ LABEL_35:
 
 - (id)_tableClasses
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_options(self, a2, v2);
   v4 = objc_opt_class();
   if (v3)
   {
-    v10 = v4;
-    v11 = objc_opt_class();
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, &v10, 2, v10, v11, v12, v13, v14);
+    v9 = v4;
+    v10 = objc_opt_class();
+    objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, &v9, 2, v9, v10, v11, v12, v13);
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
+    v12 = objc_opt_class();
     v13 = objc_opt_class();
-    v14 = objc_opt_class();
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v5, &v12, 3, v10, v11, v12, v13, v14);
+    objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v5, &v11, 3, v9, v10, v11, v12, v13);
   }
   v7 = ;
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_tablesByNameInitializer
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = objc_msgSend__tableClasses(self, v4, v5, 0);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v29, v33, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v28, v32, 16);
   if (v8)
   {
     v11 = v8;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
+        v14 = *(*(&v28 + 1) + 8 * i);
         v15 = objc_msgSend_logicalTableName(v14, v9, v10);
         v16 = [v14 alloc];
         v18 = objc_msgSend_initWithLogicalTableName_(v16, v17, v15);
@@ -401,62 +397,60 @@ LABEL_35:
         objc_msgSend_setObject_forKey_(v3, v23, v18, v15);
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v29, v33, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v28, v32, 16);
     }
 
     while (v11);
   }
 
   v26 = objc_msgSend_copy(v3, v24, v25);
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 - (CKSQLiteTOCTableGroup)initWithName:(id)name options:(unint64_t)options database:(id)database
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   databaseCopy = database;
   v11 = objc_msgSend_setFlag_(self, v10, 1);
-  v29.receiver = self;
-  v29.super_class = CKSQLiteTOCTableGroup;
-  v12 = [(CKSQLiteTableGroup *)&v29 initWithName:nameCopy options:options database:databaseCopy];
+  v28.receiver = self;
+  v28.super_class = CKSQLiteTOCTableGroup;
+  v12 = [(CKSQLiteTableGroup *)&v28 initWithName:nameCopy options:options database:databaseCopy];
   v15 = v12;
   if (v12)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v16 = objc_msgSend_allTables(v12, v13, v14, 0);
-    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v25, v30, 16);
+    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v24, v29, 16);
     if (v18)
     {
       v20 = v18;
-      v21 = *v26;
+      v21 = *v25;
       do
       {
         v22 = 0;
         do
         {
-          if (*v26 != v21)
+          if (*v25 != v21)
           {
             objc_enumerationMutation(v16);
           }
 
-          objc_msgSend_setTableGroup_(*(*(&v25 + 1) + 8 * v22++), v19, v15);
+          objc_msgSend_setTableGroup_(*(*(&v24 + 1) + 8 * v22++), v19, v15);
         }
 
         while (v20 != v22);
-        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v25, v30, 16);
+        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v24, v29, 16);
       }
 
       while (v20);
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -475,33 +469,33 @@ LABEL_35:
 - (id)isUseable
 {
   selfCopy = self;
-  v70[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   v4 = objc_msgSend_allTables(self, a2, v2);
-  v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v58, v62, 16);
-  if (!v56)
+  v55 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v57, v61, 16);
+  if (!v55)
   {
     goto LABEL_25;
   }
 
-  v55 = *v59;
-  v53 = v4;
-  v54 = selfCopy;
+  v54 = *v58;
+  v52 = v4;
+  v53 = selfCopy;
   do
   {
     v6 = 0;
     do
     {
-      if (*v59 != v55)
+      if (*v58 != v54)
       {
         objc_enumerationMutation(v4);
       }
 
-      v7 = *(*(&v58 + 1) + 8 * v6);
-      v57 = objc_autoreleasePoolPush();
+      v7 = *(*(&v57 + 1) + 8 * v6);
+      v56 = objc_autoreleasePoolPush();
       v10 = v7;
       if (selfCopy)
       {
@@ -509,10 +503,10 @@ LABEL_35:
         v14 = objc_msgSend_newEntryObject(v11, v12, v13);
         v17 = objc_msgSend_dbTableName(v10, v15, v16);
         objc_msgSend_setDbTableName_(v14, v18, v17);
-        v70[0] = CKSQLiteTOCTableEntryDbVersionPropertyName;
-        v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v70, 1);
-        v69 = CKSQLiteTOCTableEntryDbTablePropertyName;
-        v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, &v69, 1);
+        v69[0] = CKSQLiteTOCTableEntryDbVersionPropertyName;
+        v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v69, 1);
+        v68 = CKSQLiteTOCTableEntryDbTablePropertyName;
+        v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, &v68, 1);
         v24 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(v11, v23, v20, v14, v22, 0);
 
         if (objc_msgSend_CKIsNoMatchingRowError_(MEMORY[0x1E696ABC0], v25, v24))
@@ -543,16 +537,16 @@ LABEL_19:
           if (v41 == v44)
           {
             v24 = 0;
-            selfCopy = v54;
+            selfCopy = v53;
             goto LABEL_19;
           }
 
           v45 = v44;
           v46 = NSStringFromClass(v37);
-          v52 = v45;
-          selfCopy = v54;
-          v4 = v53;
-          v24 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v47, @"CKErrorDomain", 1, @"CKSQLiteDatabase<%p>: %@ version changed: database=%lu runtime=%lu", v54, v46, v41, v52);
+          v51 = v45;
+          selfCopy = v53;
+          v4 = v52;
+          v24 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v47, @"CKErrorDomain", 1, @"CKSQLiteDatabase<%p>: %@ version changed: database=%lu runtime=%lu", v53, v46, v41, v51);
 
           if (!v24)
           {
@@ -571,14 +565,14 @@ LABEL_19:
           v33 = v32;
           v36 = objc_msgSend_logicalTableName(v10, v34, v35);
           *buf = 134218498;
-          v64 = v54;
-          v65 = 2114;
-          v66 = v36;
-          v67 = 2114;
-          v68 = v24;
+          v63 = v53;
+          v64 = 2114;
+          v65 = v36;
+          v66 = 2114;
+          v67 = v24;
           _os_log_error_impl(&dword_1883EA000, v33, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: TOC table %{public}@ is unusable, error: %{public}@", buf, 0x20u);
 
-          selfCopy = v54;
+          selfCopy = v53;
         }
 
         goto LABEL_19;
@@ -587,7 +581,7 @@ LABEL_19:
       v24 = 0;
 LABEL_20:
 
-      objc_autoreleasePoolPop(v57);
+      objc_autoreleasePoolPop(v56);
       if (v24)
       {
         goto LABEL_26;
@@ -596,9 +590,9 @@ LABEL_20:
       ++v6;
     }
 
-    while (v56 != v6);
-    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v48, &v58, v62, 16);
-    v56 = v49;
+    while (v55 != v6);
+    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v48, &v57, v61, 16);
+    v55 = v49;
   }
 
   while (v49);
@@ -606,33 +600,31 @@ LABEL_25:
   v24 = 0;
 LABEL_26:
 
-  v50 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 - (BOOL)needsMigration:(id *)migration
 {
-  v62[3] = *MEMORY[0x1E69E9840];
+  v61[3] = *MEMORY[0x1E69E9840];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = objc_msgSend_allTables(self, a2, migration);
-  v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v48, v52, 16);
-  if (v47)
+  v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v47, v51, 16);
+  if (v46)
   {
-    v46 = *v49;
+    v45 = *v48;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v49 != v46)
+      if (*v48 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v48 + 1) + 8 * v5);
+      v8 = *(*(&v47 + 1) + 8 * v5);
       if (self)
       {
         break;
@@ -655,10 +647,10 @@ LABEL_20:
         goto LABEL_32;
       }
 
-      if (v47 == ++v5)
+      if (v46 == ++v5)
       {
-        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v38, &v48, v52, 16);
-        v47 = v40;
+        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v38, &v47, v51, 16);
+        v46 = v40;
         if (v40)
         {
           goto LABEL_3;
@@ -673,12 +665,12 @@ LABEL_20:
     v15 = objc_msgSend_newEntryObject(v12, v13, v14);
     v18 = objc_msgSend_dbTableName(v8, v16, v17);
     objc_msgSend_setDbTableName_(v15, v19, v18);
-    v62[0] = CKSQLiteTOCTableEntryDbVersionPropertyName;
-    v62[1] = CKSQLiteTOCTableEntrySchemaPropertyName;
-    v62[2] = CKSQLiteTOCTableEntryPropertyDataName;
-    v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v20, v62, 3);
-    v61 = CKSQLiteTOCTableEntryDbTablePropertyName;
-    v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, &v61, 1);
+    v61[0] = CKSQLiteTOCTableEntryDbVersionPropertyName;
+    v61[1] = CKSQLiteTOCTableEntrySchemaPropertyName;
+    v61[2] = CKSQLiteTOCTableEntryPropertyDataName;
+    v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v20, v61, 3);
+    v60 = CKSQLiteTOCTableEntryDbTablePropertyName;
+    v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, &v60, 1);
     v25 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(v12, v24, v21, v15, v23, 0);
 
     if (objc_msgSend_CKIsNoMatchingRowError_(MEMORY[0x1E696ABC0], v26, v25))
@@ -731,12 +723,12 @@ LABEL_14:
     {
       *buf = 134218754;
       selfCopy = self;
-      v55 = 2114;
-      v56 = @"YES";
-      v57 = 2114;
-      v58 = v18;
-      v59 = 2114;
-      v60 = 0;
+      v54 = 2114;
+      v55 = @"YES";
+      v56 = 2114;
+      v57 = v18;
+      v58 = 2114;
+      v59 = 0;
       _os_log_error_impl(&dword_1883EA000, v36, OS_LOG_TYPE_ERROR, "CKSQLiteDatabase<%p>: TOC migration check returning %{public}@ for table %{public}@, error: %{public}@", buf, 0x2Au);
     }
 
@@ -751,7 +743,6 @@ LABEL_28:
   v37 = 0;
 LABEL_32:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
@@ -788,28 +779,28 @@ LABEL_10:
 
 - (id)migrateDataFromGroup:(id)group
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   groupCopy = group;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = objc_msgSend__tableClasses(self, v5, v6);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v30, v34, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v29, v33, 16);
   if (v8)
   {
     v11 = v8;
-    v12 = *v31;
+    v12 = *v30;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v31 != v12)
+      if (*v30 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = objc_msgSend_logicalTableName(*(*(&v30 + 1) + 8 * v13), v9, v10);
+      v14 = objc_msgSend_logicalTableName(*(*(&v29 + 1) + 8 * v13), v9, v10);
       v16 = objc_msgSend_tableWithName_(self, v15, v14);
       v18 = objc_msgSend_tableWithName_(groupCopy, v17, v14);
       v20 = v18;
@@ -820,9 +811,9 @@ LABEL_3:
 
       else
       {
-        v29 = 0;
-        v23 = objc_msgSend_migrateDataFromTable_error_(v16, v19, v18, &v29);
-        v24 = v29;
+        v28 = 0;
+        v23 = objc_msgSend_migrateDataFromTable_error_(v16, v19, v18, &v28);
+        v24 = v28;
         v22 = v24;
         if ((v23 & 1) == 0 && !v24)
         {
@@ -837,7 +828,7 @@ LABEL_3:
 
       if (v11 == ++v13)
       {
-        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v30, v34, 16);
+        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v29, v33, 16);
         if (v11)
         {
           goto LABEL_3;
@@ -853,8 +844,6 @@ LABEL_3:
 LABEL_18:
     v22 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -874,10 +863,10 @@ LABEL_18:
 
 - (id)prepareNewlyOpenedDatabase
 {
-  v121 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_tocTableGroupTable(self, a2, v2);
-  v103 = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
-  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v5, &v103, 1);
+  v102 = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
+  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v5, &v102, 1);
   v8 = objc_msgSend_fetchProperties_inObject_label_(v4, v7, v6, self, 0);
 
   if (v8)
@@ -902,13 +891,13 @@ LABEL_18:
   if (self)
   {
     v16 = objc_msgSend_tocTableGroupTable(self, v9, v10);
-    *v120 = CKSQLiteTOCTableGroupTableCreatingClassPropertyName;
-    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, v120, 1);
-    v102 = 0;
-    v20 = objc_msgSend_fetchDistinctProperties_label_error_(v16, v19, v18, 0, &v102);
-    v21 = v102;
+    *v119 = CKSQLiteTOCTableGroupTableCreatingClassPropertyName;
+    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, v119, 1);
+    v101 = 0;
+    v20 = objc_msgSend_fetchDistinctProperties_label_error_(v16, v19, v18, 0, &v101);
+    v21 = v101;
 
-    v92 = v21;
+    v91 = v21;
     if (v21)
     {
       if (ck_log_initialization_predicate != -1)
@@ -927,50 +916,50 @@ LABEL_18:
 
     else
     {
-      v91 = v8;
+      v90 = v8;
       isFirstInstanceSinceBoot = objc_msgSend_isFirstInstanceSinceBoot(self, v22, v23);
-      v96 = objc_msgSend_tocTableGroupTable(self, v25, v26);
-      v97 = objc_opt_class();
-      *v116 = 0u;
+      v95 = objc_msgSend_tocTableGroupTable(self, v25, v26);
+      v96 = objc_opt_class();
+      *v115 = 0u;
+      v116 = 0u;
       v117 = 0u;
       v118 = 0u;
-      v119 = 0u;
-      v90 = v20;
+      v89 = v20;
       obj = v20;
-      v99 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, v116, &buf, 16);
-      if (v99)
+      v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, v115, &buf, 16);
+      if (v98)
       {
-        v98 = *v117;
+        v97 = *v116;
         v28 = @"Creating class %@ is not a CKSQLiteTableGroup subclass";
-        if (!v97)
+        if (!v96)
         {
           v28 = @"Creating class %@ not found";
         }
 
-        v94 = v28;
+        v93 = v28;
         do
         {
-          for (i = 0; i != v99; ++i)
+          for (i = 0; i != v98; ++i)
           {
-            if (*v117 != v98)
+            if (*v116 != v97)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*&v116[8] + 8 * i);
+            v30 = *(*&v115[8] + 8 * i);
             v31 = objc_autoreleasePoolPush();
             v34 = objc_msgSend_creatingClass(v30, v32, v33);
             v35 = v34;
             if (v34)
             {
               v36 = NSClassFromString(v34);
-              v100 = v35;
-              v101 = v31;
-              if (v36 && (v38 = v36, objc_msgSend_isSubclassOfClass_(v36, v37, v97)))
+              v99 = v35;
+              v100 = v31;
+              if (v36 && (v38 = v36, objc_msgSend_isSubclassOfClass_(v36, v37, v96)))
               {
                 if (isFirstInstanceSinceBoot && objc_msgSend_rebootShouldClearData(v38, v37, v39))
                 {
-                  v40 = objc_msgSend_tableGroupsWithClass_(v96, v37, v35);
+                  v40 = objc_msgSend_tableGroupsWithClass_(v95, v37, v35);
                   v41 = @"rebooted";
                 }
 
@@ -979,7 +968,7 @@ LABEL_18:
                   v44 = objc_msgSend_expirationDate(v38, v37, v39);
                   if (v44)
                   {
-                    v40 = objc_msgSend_expiredTableGroupsWithClass_expirationDate_(v96, v43, v35, v44);
+                    v40 = objc_msgSend_expiredTableGroupsWithClass_expirationDate_(v95, v43, v35, v44);
                     v41 = @"expired";
                   }
 
@@ -993,56 +982,56 @@ LABEL_18:
 
               else
               {
-                v41 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v37, v94, v35);
-                v40 = objc_msgSend_tableGroupsWithClass_(v96, v42, v35);
-                v38 = v97;
+                v41 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v37, v93, v35);
+                v40 = objc_msgSend_tableGroupsWithClass_(v95, v42, v35);
+                v38 = v96;
               }
 
-              v110 = 0u;
-              v111 = 0u;
-              *v108 = 0u;
               v109 = 0u;
+              v110 = 0u;
+              *v107 = 0u;
+              v108 = 0u;
               v45 = v40;
-              v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, v108, &v104, 16);
+              v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, v107, &v103, 16);
               if (v47)
               {
                 v50 = v47;
-                v51 = *v109;
+                v51 = *v108;
                 do
                 {
                   for (j = 0; j != v50; ++j)
                   {
-                    if (*v109 != v51)
+                    if (*v108 != v51)
                     {
                       objc_enumerationMutation(v45);
                     }
 
-                    v53 = *(*&v108[8] + 8 * j);
+                    v53 = *(*&v107[8] + 8 * j);
                     v54 = objc_msgSend_db(self, v48, v49);
                     objc_msgSend_expireGroup_reason_database_(v38, v55, v53, v41, v54);
                   }
 
-                  v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, v108, &v104, 16);
+                  v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, v107, &v103, 16);
                 }
 
                 while (v50);
               }
 
-              v35 = v100;
-              v31 = v101;
+              v35 = v99;
+              v31 = v100;
             }
 
             objc_autoreleasePoolPop(v31);
           }
 
-          v99 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v56, v116, &buf, 16);
+          v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v56, v115, &buf, 16);
         }
 
-        while (v99);
+        while (v98);
       }
 
-      v20 = v90;
-      v8 = v91;
+      v20 = v89;
+      v8 = v90;
     }
   }
 
@@ -1053,8 +1042,8 @@ LABEL_18:
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v113 = sub_188695408;
-      v114 = &unk_1E70BC1A0;
+      v112 = sub_188695408;
+      v113 = &unk_1E70BC1A0;
       selfCopy = self;
       v61 = objc_msgSend_performTransaction_(self, v59, &buf);
       if (v61)
@@ -1068,18 +1057,18 @@ LABEL_18:
         v64 = ck_log_facility_sql;
         if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
         {
-          LODWORD(v104) = 138543362;
-          *(&v104 + 4) = v63;
-          _os_log_fault_impl(&dword_1883EA000, v64, OS_LOG_TYPE_FAULT, "Failed to remove empty table group: %{public}@", &v104, 0xCu);
+          LODWORD(v103) = 138543362;
+          *(&v103 + 4) = v63;
+          _os_log_fault_impl(&dword_1883EA000, v64, OS_LOG_TYPE_FAULT, "Failed to remove empty table group: %{public}@", &v103, 0xCu);
         }
       }
 
-      *&v104 = MEMORY[0x1E69E9820];
-      *(&v104 + 1) = 3221225472;
-      v105 = sub_1886954E4;
-      v106 = &unk_1E70BC1A0;
+      *&v103 = MEMORY[0x1E69E9820];
+      *(&v103 + 1) = 3221225472;
+      v104 = sub_1886954E4;
+      v105 = &unk_1E70BC1A0;
       selfCopy2 = self;
-      v66 = objc_msgSend_performTransaction_(self, v62, &v104);
+      v66 = objc_msgSend_performTransaction_(self, v62, &v103);
       if (v66)
       {
         if (ck_log_initialization_predicate != -1)
@@ -1090,18 +1079,18 @@ LABEL_18:
         v67 = ck_log_facility_sql;
         if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
         {
-          *v116 = 138543362;
-          *&v116[4] = v66;
-          _os_log_fault_impl(&dword_1883EA000, v67, OS_LOG_TYPE_FAULT, "Database table check failed: %{public}@", v116, 0xCu);
+          *v115 = 138543362;
+          *&v115[4] = v66;
+          _os_log_fault_impl(&dword_1883EA000, v67, OS_LOG_TYPE_FAULT, "Database table check failed: %{public}@", v115, 0xCu);
         }
       }
 
-      *v116 = MEMORY[0x1E69E9820];
-      *&v116[8] = 3221225472;
-      *&v117 = sub_1886955CC;
-      *(&v117 + 1) = &unk_1E70BC1A0;
-      *&v118 = self;
-      v68 = objc_msgSend_performTransaction_(self, v65, v116);
+      *v115 = MEMORY[0x1E69E9820];
+      *&v115[8] = 3221225472;
+      *&v116 = sub_1886955CC;
+      *(&v116 + 1) = &unk_1E70BC1A0;
+      *&v117 = self;
+      v68 = objc_msgSend_performTransaction_(self, v65, v115);
 
       if (v68)
       {
@@ -1113,20 +1102,20 @@ LABEL_18:
         v71 = ck_log_facility_sql;
         if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
         {
-          *v108 = 138543362;
-          *&v108[4] = v68;
-          _os_log_fault_impl(&dword_1883EA000, v71, OS_LOG_TYPE_FAULT, "Failed to remove orphaned TOC entries: %{public}@", v108, 0xCu);
+          *v107 = 138543362;
+          *&v107[4] = v68;
+          _os_log_fault_impl(&dword_1883EA000, v71, OS_LOG_TYPE_FAULT, "Failed to remove orphaned TOC entries: %{public}@", v107, 0xCu);
         }
       }
 
       v72 = objc_msgSend_db(self, v69, v70);
-      *v108 = MEMORY[0x1E69E9820];
-      *&v108[8] = 3221225472;
-      *&v109 = sub_1886956A8;
-      *(&v109 + 1) = &unk_1E70BC1A0;
+      *v107 = MEMORY[0x1E69E9820];
+      *&v107[8] = 3221225472;
+      *&v108 = sub_1886956A8;
+      *(&v108 + 1) = &unk_1E70BC1A0;
       v73 = v72;
-      *&v110 = v73;
-      v75 = objc_msgSend_performDatabaseTransactionWithoutForeignKeyConstraints_(v73, v74, v108);
+      *&v109 = v73;
+      v75 = objc_msgSend_performDatabaseTransactionWithoutForeignKeyConstraints_(v73, v74, v107);
 
       if (v75)
       {
@@ -1138,9 +1127,9 @@ LABEL_18:
         v76 = ck_log_facility_sql;
         if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_FAULT))
         {
-          *v120 = 138543362;
-          *&v120[4] = v75;
-          _os_log_fault_impl(&dword_1883EA000, v76, OS_LOG_TYPE_FAULT, "failed to remove orphaned database tables: %{public}@", v120, 0xCu);
+          *v119 = 138543362;
+          *&v119[4] = v75;
+          _os_log_fault_impl(&dword_1883EA000, v76, OS_LOG_TYPE_FAULT, "failed to remove orphaned database tables: %{public}@", v119, 0xCu);
         }
       }
     }
@@ -1174,14 +1163,12 @@ LABEL_18:
     v8 = objc_msgSend_databaseMatchesCurrentProcess(v85, v86, v87);
   }
 
-  v88 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)databaseValidationSuccess
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_tocImageInfoTable(self, a2, v2);
   v6 = objc_msgSend_updateForCurrentProcess(v3, v4, v5);
 
@@ -1195,13 +1182,11 @@ LABEL_18:
     v7 = ck_log_facility_sql;
     if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_error_impl(&dword_1883EA000, v7, OS_LOG_TYPE_ERROR, "Failed to mark database validation success: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_error_impl(&dword_1883EA000, v7, OS_LOG_TYPE_ERROR, "Failed to mark database validation success: %{public}@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

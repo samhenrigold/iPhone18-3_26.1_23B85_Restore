@@ -1,883 +1,3 @@
-uint64_t _ZZZN16MockTimerService22createOneShotTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEEEUb0_EN3__2D1Ev(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    _Block_release(v2);
-  }
-
-  if (*a1)
-  {
-    dispatch_release(*a1);
-  }
-
-  return a1;
-}
-
-void MockTimerService::createPeriodicTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, void *a6@<X8>)
-{
-  v26[4] = *MEMORY[0x1E69E9840];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 1174405120;
-  v22[2] = ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS0_8functionIFvvEEE_block_invoke;
-  v22[3] = &__block_descriptor_tmp_24_0;
-  v22[4] = a1;
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    __p = *a2;
-  }
-
-  v24 = a3;
-  v25 = a4;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v26, a5);
-  v13 = v22;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 0x40000000;
-  v14[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__110unique_ptrINS_5TimerENS4_14default_deleteIS6_EEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSC__block_invoke;
-  v14[3] = &__block_descriptor_tmp_58;
-  v14[4] = a1 + 8;
-  v14[5] = &v13;
-  v15 = v14;
-  v11 = *(a1 + 24);
-  if (*(a1 + 32))
-  {
-    *a6 = 0;
-    block = MEMORY[0x1E69E9820];
-    v17 = 0x40000000;
-    v18 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v19 = &__block_descriptor_tmp_60;
-    v20 = a6;
-    v21 = &v15;
-    dispatch_async_and_wait(v11, &block);
-  }
-
-  else
-  {
-    *a6 = 0;
-    block = MEMORY[0x1E69E9820];
-    v17 = 0x40000000;
-    v18 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v19 = &__block_descriptor_tmp_59;
-    v20 = a6;
-    v21 = &v15;
-    dispatch_sync(v11, &block);
-  }
-
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v26);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-void ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tNS0_8functionIFvvEEE_block_invoke(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 192);
-  std::mutex::lock(v5);
-  if (!*(v4 + 248))
-  {
-    v6 = operator new(0x58uLL);
-    v6[10] = 0;
-    *(v6 + 3) = 0u;
-    *(v6 + 4) = 0u;
-    *(v6 + 1) = 0u;
-    *(v6 + 2) = 0u;
-    *v6 = 0u;
-    std::unique_ptr<ctu::MockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>>::reset[abi:ne200100]((v4 + 248), v6);
-  }
-
-  std::condition_variable::notify_one((v4 + 200));
-  ctu::IMockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>::call<std::string const&,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>> const&>(*(v4 + 248), (a1 + 40), (a1 + 64));
-  std::mutex::unlock(v5);
-  v7 = *(v4 + 256);
-  if (*(a1 + 63) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, *(a1 + 40), *(a1 + 48));
-  }
-
-  else
-  {
-    __p = *(a1 + 40);
-  }
-
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 72);
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v12, a1 + 80);
-  MockTimerServiceState::createPeriodicTimer(a2, v7, &__p, v8, v9, v12);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v12);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void MockTimerService::createPeriodicTimerImpl(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, NSObject **a5@<X5>, void **a6@<X6>, void *a7@<X8>)
-{
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 1174405120;
-  v16[2] = ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEE_block_invoke;
-  v16[3] = &__block_descriptor_tmp_27_0;
-  v16[4] = a1;
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    __p = *a2;
-  }
-
-  v18 = a3;
-  v19 = a4;
-  v13 = *a5;
-  object = v13;
-  if (v13)
-  {
-    dispatch_retain(v13);
-  }
-
-  v14 = *a6;
-  if (*a6)
-  {
-    v14 = _Block_copy(v14);
-  }
-
-  aBlock = v14;
-  v22 = v16;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 0x40000000;
-  v23[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__110unique_ptrINS_5TimerENS4_14default_deleteIS6_EEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSC__block_invoke;
-  v23[3] = &__block_descriptor_tmp_58;
-  v23[4] = a1 + 8;
-  v23[5] = &v22;
-  v24 = v23;
-  v15 = *(a1 + 24);
-  if (*(a1 + 32))
-  {
-    *a7 = 0;
-    block = MEMORY[0x1E69E9820];
-    v26 = 0x40000000;
-    v27 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v28 = &__block_descriptor_tmp_60;
-    v29 = a7;
-    v30 = &v24;
-    dispatch_async_and_wait(v15, &block);
-  }
-
-  else
-  {
-    *a7 = 0;
-    block = MEMORY[0x1E69E9820];
-    v26 = 0x40000000;
-    v27 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__110unique_ptrIN3ctu5TimerENS1_14default_deleteIS4_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v28 = &__block_descriptor_tmp_59;
-    v29 = a7;
-    v30 = &v24;
-    dispatch_sync(v15, &block);
-  }
-
-  if (aBlock)
-  {
-    _Block_release(aBlock);
-  }
-
-  if (object)
-  {
-    dispatch_release(object);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-}
-
-void ___ZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEE_block_invoke(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 192);
-  std::mutex::lock(v5);
-  if (!*(v4 + 248))
-  {
-    v6 = operator new(0x58uLL);
-    v6[10] = 0;
-    *(v6 + 3) = 0u;
-    *(v6 + 4) = 0u;
-    *(v6 + 1) = 0u;
-    *(v6 + 2) = 0u;
-    *v6 = 0u;
-    std::unique_ptr<ctu::MockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>>::reset[abi:ne200100]((v4 + 248), v6);
-  }
-
-  std::condition_variable::notify_one((v4 + 200));
-  ctu::IMockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>::call<std::string const&,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>> const&>(*(v4 + 248), (a1 + 40), (a1 + 64));
-  std::mutex::unlock(v5);
-  v7 = *(v4 + 256);
-  if (*(a1 + 63) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v15, *(a1 + 40), *(a1 + 48));
-  }
-
-  else
-  {
-    v15 = *(a1 + 40);
-  }
-
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 72);
-  v10 = *(a1 + 80);
-  if (v10)
-  {
-    dispatch_retain(v10);
-  }
-
-  v11 = *(a1 + 88);
-  if (v11)
-  {
-    v12 = _Block_copy(v11);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v17 = 0;
-  v16[0] = &unk_1F1CB95A0;
-  v16[1] = v10;
-  if (v10)
-  {
-    dispatch_retain(v10);
-  }
-
-  if (v12)
-  {
-    v13 = _Block_copy(v12);
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  v16[2] = v13;
-  v17 = v16;
-  MockTimerServiceState::createPeriodicTimer(a2, v7, &v15, v8, v9, v16);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v16);
-  if (v12)
-  {
-    _Block_release(v12);
-  }
-
-  if (v10)
-  {
-    dispatch_release(v10);
-  }
-
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v15.__r_.__value_.__l.__data_);
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t _ZZZN16MockTimerService23createPeriodicTimerImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEE11qos_class_tN8dispatch5queueENSH_5blockIU13block_pointerFvvEEEEUb1_EN3__3D1Ev(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    _Block_release(v2);
-  }
-
-  if (*a1)
-  {
-    dispatch_release(*a1);
-  }
-
-  return a1;
-}
-
-uint64_t MockTimerService::now(MockTimerService *this)
-{
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 0x40000000;
-  v4[2] = ___ZN16MockTimerService3nowEv_block_invoke;
-  v4[3] = &__block_descriptor_tmp_29;
-  v4[4] = this;
-  v5 = v4;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 0x40000000;
-  v6[2] = ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIU13block_pointerFNSt3__16chrono10time_pointINS5_12steady_clockENS5_8durationIxNS4_5ratioILl1ELl1000000000EEEEEEEvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSF__block_invoke;
-  v6[3] = &__block_descriptor_tmp_61;
-  v6[4] = this + 8;
-  v6[5] = &v5;
-  v7 = v6;
-  v2 = this + 24;
-  v1 = *(this + 3);
-  if (*(v2 + 1))
-  {
-    block = MEMORY[0x1E69E9820];
-    v9 = 0x40000000;
-    v10 = ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__16chrono10time_pointINS2_12steady_clockENS2_8durationIxNS1_5ratioILl1ELl1000000000EEEEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v11 = &__block_descriptor_tmp_63;
-    v12 = &v14;
-    v13 = &v7;
-    v14 = 0;
-    dispatch_async_and_wait(v1, &block);
-  }
-
-  else
-  {
-    block = MEMORY[0x1E69E9820];
-    v9 = 0x40000000;
-    v10 = ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__16chrono10time_pointINS2_12steady_clockENS2_8durationIxNS1_5ratioILl1ELl1000000000EEEEEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke;
-    v11 = &__block_descriptor_tmp_62;
-    v12 = &v14;
-    v13 = &v7;
-    v14 = 0;
-    dispatch_sync(v1, &block);
-  }
-
-  return v14;
-}
-
-void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<MockTimerServiceState::ScheduledThing> const&,std::shared_ptr<MockTimerServiceState::ScheduledThing> const&),std::__wrap_iter<std::shared_ptr<MockTimerServiceState::ScheduledThing>*>>(uint64_t a1, uint64_t a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4)
-{
-  v4 = a4 - 2;
-  if (a4 >= 2)
-  {
-    v7 = v4 >> 1;
-    v8 = (a1 + 16 * (v4 >> 1));
-    v9 = (a2 - 16);
-    if ((*a3)(v8, (a2 - 16)))
-    {
-      v15 = *v9;
-      *v9 = 0;
-      *(v9 + 1) = 0;
-      do
-      {
-        v10 = v8;
-        v11 = *v8;
-        *v8 = 0;
-        *(v8 + 1) = 0;
-        v12 = *(v9 + 1);
-        *v9 = v11;
-        if (v12)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-        }
-
-        if (!v7)
-        {
-          break;
-        }
-
-        v7 = (v7 - 1) >> 1;
-        v8 = (a1 + 16 * v7);
-        v9 = v10;
-      }
-
-      while (((*a3)(v8, &v15) & 1) != 0);
-      v13 = v15;
-      v15 = 0uLL;
-      v14 = *(v10 + 1);
-      *v10 = v13;
-      if (v14)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-      }
-
-      if (*(&v15 + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v15 + 1));
-      }
-    }
-  }
-}
-
-void sub_1A910CB3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::unique_ptr<ctu::MockMethodHandler<void,std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>>::reset[abi:ne200100](void **a1, void *a2)
-{
-  v2 = *a1;
-  *a1 = a2;
-  if (v2)
-  {
-    v3 = v2[8];
-    if (v3)
-    {
-      v4 = v2[9];
-      v5 = v2[8];
-      if (v4 != v3)
-      {
-        do
-        {
-          v6 = *(v4 - 8);
-          if (v6)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-          }
-
-          v4 -= 16;
-        }
-
-        while (v4 != v3);
-        v5 = v2[8];
-      }
-
-      v2[9] = v3;
-      operator delete(v5);
-    }
-
-    v7 = v2[7];
-    if (v7 == v2 + 4)
-    {
-      (*(*v7 + 32))(v7);
-    }
-
-    else if (v7)
-    {
-      (*(*v7 + 40))(v7);
-    }
-
-    v8 = v2[1];
-    if (v8)
-    {
-      v9 = v2[2];
-      v10 = v2[1];
-      if (v9 != v8)
-      {
-        do
-        {
-          v11 = *(v9 - 17);
-          v9 -= 5;
-          if (v11 < 0)
-          {
-            operator delete(*v9);
-          }
-        }
-
-        while (v9 != v8);
-        v10 = v2[1];
-      }
-
-      v2[2] = v8;
-      operator delete(v10);
-    }
-
-    operator delete(v2);
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::allocate_shared[abi:ne200100]<MockTimerServiceState::ScheduledThing,std::allocator<MockTimerServiceState::ScheduledThing>,std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>> &,std::function<void ()(void)>,0>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
-{
-  v16[2] = *MEMORY[0x1E69E9840];
-  v8 = operator new(0x68uLL);
-  v8[1] = 0;
-  v8[2] = 0;
-  *v8 = &unk_1F1CB93B0;
-  v9 = *a2;
-  v16[0] = a2[1];
-  *(v16 + 7) = *(a2 + 15);
-  v10 = *(a2 + 23);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  v11 = *a3;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v15, a4);
-  *(v8 + 24) = 0;
-  v12 = v16[0];
-  v8[4] = v9;
-  v8[5] = v12;
-  *(v8 + 47) = *(v16 + 7);
-  *(v8 + 55) = v10;
-  v8[7] = v11;
-  v8[8] = 0;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100]((v8 + 9), v15);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v15);
-  *a1 = v8 + 3;
-  a1[1] = v8;
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void std::__shared_ptr_emplace<MockTimerServiceState::ScheduledThing>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F1CB93B0;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete(v1);
-}
-
-void std::__shared_ptr_emplace<MockTimerServiceState::ScheduledThing>::__on_zero_shared(uint64_t a1)
-{
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](a1 + 72);
-  if (*(a1 + 55) < 0)
-  {
-    v2 = *(a1 + 32);
-
-    operator delete(v2);
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = (a2 + 24);
-  v4 = *(a2 + 24);
-  if (v4)
-  {
-    if (v4 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**v3 + 24))(*v3, a1);
-      return a1;
-    }
-
-    *(a1 + 24) = v4;
-  }
-
-  else
-  {
-    v3 = (a1 + 24);
-  }
-
-  *v3 = 0;
-  return a1;
-}
-
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-void *std::shared_ptr<MockTimerService>::shared_ptr[abi:ne200100]<MockTimerService,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1},0>(void *a1, uint64_t a2)
-{
-  *a1 = a2;
-  v4 = operator new(0x20uLL);
-  v4->__vftable = &unk_1F1CB9400;
-  v4->__shared_owners_ = 0;
-  v4->__shared_weak_owners_ = 0;
-  v4[1].__vftable = a2;
-  a1[1] = v4;
-  if (a2)
-  {
-    v5 = *(a2 + 16);
-    if (!v5)
-    {
-      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      *(a2 + 8) = a2;
-      *(a2 + 16) = v4;
-      goto LABEL_6;
-    }
-
-    if (v5->__shared_owners_ == -1)
-    {
-      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-      atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      *(a2 + 8) = a2;
-      *(a2 + 16) = v4;
-      std::__shared_weak_count::__release_weak(v5);
-LABEL_6:
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-    }
-  }
-
-  return a1;
-}
-
-void sub_1A910D000(void *a1)
-{
-  __cxa_begin_catch(a1);
-  dispatch_barrier_async_f(v1[3], v1, std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1}::operator() const(MockTimerService*)::{lambda(void *)#1}::__invoke);
-  __cxa_rethrow();
-}
-
-void std::__shared_ptr_pointer<MockTimerService *,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService *)#1},std::allocator<MockTimerService>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  operator delete(v1);
-}
-
-uint64_t std::__shared_ptr_pointer<MockTimerService *,std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService *)#1},std::allocator<MockTimerService>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::shared_ptr<MockTimerService> ctu::SharedSynchronizable<MockTimerService>::make_shared_ptr<MockTimerService>(MockTimerService*)::{lambda(MockTimerService*)#1}::operator() const(MockTimerService*)::{lambda(void *)#1}::__invoke(uint64_t result)
-{
-  if (result)
-  {
-    return (*(*result + 72))();
-  }
-
-  return result;
-}
-
-void __copy_helper_block_e8_32b40c45_ZTSNSt3__110shared_ptrIK16MockTimerServiceEE(void *a1, uint64_t a2)
-{
-  _Block_object_assign(a1 + 4, *(a2 + 32), 7);
-  v4 = *(a2 + 48);
-  a1[5] = *(a2 + 40);
-  a1[6] = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-}
-
-void __destroy_helper_block_e8_32b40c45_ZTSNSt3__110shared_ptrIK16MockTimerServiceEE(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(a1 + 32);
-
-  _Block_object_dispose(v3, 7);
-}
-
-uint64_t ___ZN8dispatch9sync_implIRU13block_pointerFmvEEENSt3__15decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS4_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
-{
-  result = (*(**(a1 + 40) + 16))();
-  **(a1 + 32) = result;
-  return result;
-}
-
-uint64_t ___ZN8dispatch19async_and_wait_implIRU13block_pointerFmvEEENSt3__15decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS4_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
-{
-  result = (*(**(a1 + 40) + 16))();
-  **(a1 + 32) = result;
-  return result;
-}
-
-__n128 ___ZNK3ctu20SharedSynchronizableI16MockTimerServiceE20execute_wrapped_syncIZNS1_14popTimersFiredEvE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS5__block_invoke@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X8>)
-{
-  v2 = *(**(a1 + 40) + 256);
-  result = *(v2 + 56);
-  *a2 = result;
-  a2[1].n128_u64[0] = *(v2 + 72);
-  *(v2 + 64) = 0;
-  *(v2 + 72) = 0;
-  *(v2 + 56) = 0;
-  return result;
-}
-
-void ___ZN8dispatch9sync_implIRU13block_pointerFNSt3__16vectorINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
-{
-  (*(**(a1 + 40) + 16))(&v3);
-  v2 = *(a1 + 32);
-  std::vector<std::string>::__vdeallocate(v2);
-  *&v2->__begin_ = v3;
-  v2->__end_cap_.__value_ = v4;
-  v3 = 0uLL;
-  v4 = 0;
-  v5 = &v3;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
-}
-
-void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
-{
-  if (this->__begin_)
-  {
-    std::vector<std::string>::clear[abi:ne200100](this);
-    operator delete(this->__begin_);
-    this->__begin_ = 0;
-    this->__end_ = 0;
-    this->__end_cap_.__value_ = 0;
-  }
-}
-
-void ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__16vectorINS1_12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEENS6_IS8_EEEEvEEENS1_5decayIDTclfp0_EEE4typeEP16dispatch_queue_sOT_NS1_17integral_constantIbLb0EEE_block_invoke(uint64_t a1)
-{
-  (*(**(a1 + 40) + 16))(&v3);
-  v2 = *(a1 + 32);
-  std::vector<std::string>::__vdeallocate(v2);
-  *&v2->__begin_ = v3;
-  v2->__end_cap_.__value_ = v4;
-  v3 = 0uLL;
-  v4 = 0;
-  v5 = &v3;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
-}
-
-void *_ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_ED1Ev(void *a1)
-{
-  *a1 = &unk_1F1CB9490;
-  v2 = a1[2];
-  if (v2)
-  {
-    _Block_release(v2);
-  }
-
-  v3 = a1[1];
-  if (v3)
-  {
-    dispatch_release(v3);
-  }
-
-  return a1;
-}
-
-void _ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_ED0Ev(void *__p)
-{
-  *__p = &unk_1F1CB9490;
-  v2 = __p[2];
-  if (v2)
-  {
-    _Block_release(v2);
-  }
-
-  v3 = __p[1];
-  if (v3)
-  {
-    dispatch_release(v3);
-  }
-
-  operator delete(__p);
-}
-
-void *_ZNKSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E7__cloneEv(uint64_t a1)
-{
-  v2 = operator new(0x18uLL);
-  v3 = *(a1 + 8);
-  *v2 = &unk_1F1CB9490;
-  v2[1] = v3;
-  if (v3)
-  {
-    dispatch_retain(v3);
-  }
-
-  v4 = *(a1 + 16);
-  if (v4)
-  {
-    v4 = _Block_copy(v4);
-  }
-
-  v2[2] = v4;
-  return v2;
-}
-
-void *_ZNKSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E7__cloneEPNS0_6__baseISL_EE(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 8);
-  *a2 = &unk_1F1CB9490;
-  a2[1] = v4;
-  if (v4)
-  {
-    dispatch_retain(v4);
-  }
-
-  result = *(a1 + 16);
-  if (result)
-  {
-    result = _Block_copy(result);
-  }
-
-  a2[2] = result;
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E7destroyEv(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  if (v2)
-  {
-    _Block_release(v2);
-  }
-
-  v3 = *(a1 + 8);
-  if (v3)
-  {
-
-    dispatch_release(v3);
-  }
-}
-
-void _ZNSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E18destroy_deallocateEv(void *__p)
-{
-  v2 = __p[2];
-  if (v2)
-  {
-    _Block_release(v2);
-  }
-
-  v3 = __p[1];
-  if (v3)
-  {
-    dispatch_release(v3);
-  }
-
-  operator delete(__p);
-}
-
 uint64_t _ZNKSt3__110__function6__funcIZZN16MockTimerService17scheduleAfterImplENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_5tupleIJN3ctu8TimeTypeENS_6chrono8durationIxNS_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSI_5blockIU13block_pointerFvvEEEEUb_E3__1NS6_ISO_EESL_E6targetERKSt9type_info(uint64_t a1, uint64_t a2)
 {
   if (std::type_info::operator==[abi:ne200100](a2, &_ZTIZZN16MockTimerService17scheduleAfterImplENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEEN8dispatch5queueENSG_5blockIU13block_pointerFvvEEEEUb_E3__1))
@@ -1085,9 +205,9 @@ LABEL_40:
   return result;
 }
 
-void sub_1A910D96C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A910D96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::tuple<std::string,std::tuple<ctu::TimeType,std::chrono::duration<long long,std::ratio<1l,1000000l>>>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1468,7 +588,7 @@ std::string *ctu::RestXpcListener::Configuration::Configuration(std::string *thi
   return this;
 }
 
-uint64_t ctu::RestXpcListener::Configuration::isEntitled(const char *a1, void *a2)
+BOOL ctu::RestXpcListener::Configuration::isEntitled(const char *a1, void *a2)
 {
   if (MEMORY[0x1AC581B70](*a2) != MEMORY[0x1E69E9E68])
   {
@@ -1480,33 +600,32 @@ uint64_t ctu::RestXpcListener::Configuration::isEntitled(const char *a1, void *a
     if (*(a1 + 1))
     {
 LABEL_5:
-      memset(v13, 0, sizeof(v13));
-      v5 = *a2;
+      memset(v11, 0, sizeof(v11));
       xpc_connection_get_audit_token();
-      v6 = xpc_copy_entitlement_for_token();
-      v7 = MEMORY[0x1E69E9E80];
-      if (v6 || (v6 = xpc_null_create()) != 0)
+      v4 = xpc_copy_entitlement_for_token();
+      v5 = MEMORY[0x1E69E9E80];
+      if (v4 || (v4 = xpc_null_create()) != 0)
       {
-        if (MEMORY[0x1AC581B70](v6) == v7)
+        if (MEMORY[0x1AC581B70](v4) == v5)
         {
-          xpc_retain(v6);
-          v8 = v6;
+          xpc_retain(v4);
+          v6 = v4;
         }
 
         else
         {
-          v8 = xpc_null_create();
+          v6 = xpc_null_create();
         }
       }
 
       else
       {
-        v8 = xpc_null_create();
-        v6 = 0;
+        v6 = xpc_null_create();
+        v4 = 0;
       }
 
-      xpc_release(v6);
-      if (MEMORY[0x1AC581B70](v8) != v7)
+      xpc_release(v4);
+      if (MEMORY[0x1AC581B70](v6) != v5)
       {
         goto LABEL_18;
       }
@@ -1516,20 +635,20 @@ LABEL_5:
         a1 = *a1;
       }
 
-      if (xpc_dictionary_get_value(v8, a1) && (v11 = xpc_dictionary_get_value(v8, a1), MEMORY[0x1AC581B70](v11) == MEMORY[0x1E69E9E58]))
+      if (xpc_dictionary_get_value(v6, a1) && (v9 = xpc_dictionary_get_value(v6, a1), MEMORY[0x1AC581B70](v9) == MEMORY[0x1E69E9E58]))
       {
-        value = xpc_dictionary_get_value(v8, a1);
-        v4 = xpc_BOOL_get_value(value);
+        value = xpc_dictionary_get_value(v6, a1);
+        v3 = xpc_BOOL_get_value(value);
       }
 
       else
       {
 LABEL_18:
-        v4 = 0;
+        v3 = 0;
       }
 
-      xpc_release(v8);
-      return v4;
+      xpc_release(v6);
+      return v3;
     }
   }
 
@@ -1543,11 +662,11 @@ LABEL_18:
     dispatch_once(&qword_1EB3828C8, &__block_literal_global_3);
   }
 
-  v9 = _MergedGlobals_3;
+  v7 = _MergedGlobals_3;
   if (os_log_type_enabled(_MergedGlobals_3, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v13[0]) = 0;
-    _os_log_debug_impl(&dword_1A90E3000, v9, OS_LOG_TYPE_DEBUG, "Entitlement policy not used by RestXpcListener. Clients always allowed", v13, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_debug_impl(&dword_1A90E3000, v7, OS_LOG_TYPE_DEBUG, "Entitlement policy not used by RestXpcListener. Clients always allowed", v11, 2u);
   }
 
   return 1;
@@ -1693,21 +812,21 @@ void ctu::RestXpcListener::weak_from_this(ctu::RestXpcListener *this@<X0>, void 
   std::__shared_weak_count::__release_shared[abi:ne200100](v6);
 }
 
-void ctu::RestXpcListener::createConnector(xpc_connection_t *this@<X0>, uint64_t *a2@<X8>)
+void ctu::RestXpcListener::createConnector(xpc_connection_t *this@<X0>, void *a2@<X8>)
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
-  ctu::RestXpcListener::createPeerConnection(this, &object);
+  ctu::RestXpcListener::createPeerConnection(&object, this);
   ctu::rest::RestXpcConnector::create(&object, a2);
   xpc_release(object);
 }
 
-void ctu::RestXpcListener::createPeerConnection(xpc_connection_t *this@<X0>, void *a2@<X8>)
+void ctu::RestXpcListener::createPeerConnection(uint64_t *__return_ptr a1@<X8>, xpc_connection_t *this@<X0>)
 {
-  ctu::RestXpcListener::getXpcEndpoint(this, &v7);
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  ctu::RestXpcListener::getXpcEndpoint(&v7, this);
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v3 = xpc_null_create();
-  *a2 = v3;
+  *a1 = v3;
   v4 = v7;
   if (MEMORY[0x1AC581B70](v7) == MEMORY[0x1E69E9E90])
   {
@@ -1718,7 +837,7 @@ void ctu::RestXpcListener::createPeerConnection(xpc_connection_t *this@<X0>, voi
     }
 
     v6 = xpc_null_create();
-    *a2 = v5;
+    *a1 = v5;
     xpc_release(v3);
     xpc_release(v6);
   }
@@ -1827,22 +946,22 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void *ctu::RestXpcListener::getXpcEndpoint@<X0>(xpc_connection_t *this@<X0>, void *a2@<X8>)
+uint64_t *ctu::RestXpcListener::getXpcEndpoint@<X0>(uint64_t *__return_ptr a1@<X8>, xpc_connection_t *this@<X0>)
 {
   result = xpc_endpoint_create(this[3]);
-  *a2 = result;
+  *a1 = result;
   if (!result)
   {
     result = xpc_null_create();
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
 }
 
-void *ctu::RestXpcListener::getOrCreateResourceConnection_sync(void *a1, void **a2, uint64_t a3)
+void *ctu::RestXpcListener::getOrCreateResourceConnection_sync(void *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v5 = a1[11];
   v6 = (a1 + 10);
   v7 = *a2;
@@ -1884,11 +1003,10 @@ void *ctu::RestXpcListener::getOrCreateResourceConnection_sync(void *a1, void **
 
   if (v8 != v14)
   {
-    v15 = v8 + 1;
-    goto LABEL_65;
+    return v8 + 1;
   }
 
-  std::allocate_shared[abi:ne200100]<ctu::XpcRestResourceConnection,std::allocator<ctu::XpcRestResourceConnection>,xpc::connection const&,std::string,0>(a2, a3, &v45);
+  std::allocate_shared[abi:ne200100]<ctu::XpcRestResourceConnection,std::allocator<ctu::XpcRestResourceConnection>,xpc::connection const&,std::string,0>(a2, a3, &v44);
   v16 = *a2;
   v17 = a1[11];
   if (v17)
@@ -1933,16 +1051,16 @@ void *ctu::RestXpcListener::getOrCreateResourceConnection_sync(void *a1, void **
       v16 = xpc_null_create();
     }
 
+    v52 = 0xAAAAAAAAAAAAAAAALL;
     v53 = 0xAAAAAAAAAAAAAAAALL;
-    v54 = 0xAAAAAAAAAAAAAAAALL;
     object = v16;
-    v47 = xpc_null_create();
+    v46 = xpc_null_create();
+    v52 = 0;
     v53 = 0;
-    v54 = 0;
+    v47 = 0;
     v48 = 0;
-    v49 = 0;
     p_object = &object;
-    v51 = v6;
+    v50 = v6;
     v25 = a1[10];
     v24 = a1[11];
     v26 = v25 + 24 * v24;
@@ -2033,7 +1151,7 @@ LABEL_48:
 
     if (a1[12] == v24)
     {
-      boost::container::vector<boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>,boost::container::new_allocator<boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>,boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>*,boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>>(&v46, v6, v18, &object);
+      boost::container::vector<boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>,boost::container::new_allocator<boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>,boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>*,boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>>(&v45, v6, v18, &object);
       goto LABEL_56;
     }
 
@@ -2057,55 +1175,53 @@ LABEL_48:
     }
 
 LABEL_55:
-    v46 = v18;
+    v45 = v18;
 LABEL_56:
-    if (v54)
+    if (v53)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v53);
     }
 
     xpc_release(object);
-    v18 = v46;
-    if (v49)
+    v18 = v45;
+    if (v48)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v48);
     }
 
-    xpc_release(v47);
+    xpc_release(v46);
   }
 
-  v41 = v45;
+  v41 = v44;
   v42 = *(v18 + 16);
-  v45 = 0uLL;
+  v44 = 0uLL;
   *(v18 + 8) = v41;
-  v15 = (v18 + 8);
+  v15 = v18 + 8;
   if (v42)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v42);
   }
 
-  if (*(&v45 + 1))
+  if (*(&v44 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v45 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v44 + 1));
   }
 
-LABEL_65:
-  v43 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
-void sub_1A910EE24(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, ...)
+void sub_1A910EE24(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v8 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   boost::container::dtl::value_destructor<boost::container::new_allocator<boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>,boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>>::~value_destructor(va1);
   boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::~pair(va);
-  if (a3)
+  if (a6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
   }
 
   _Unwind_Resume(a1);
@@ -2176,12 +1292,12 @@ unint64_t ctu::RestXpcListener::getResourceConnection_sync@<X0>(unint64_t this@<
 
 BOOL ctu::RestXpcListener::handleNewClient(uint64_t a1, xpc_connection_t *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (MEMORY[0x1AC581B70](*a2) == MEMORY[0x1E69E9E68])
   {
     pid = xpc_connection_get_pid(*a2);
     v7 = *a2;
-    v16 = v7;
+    v15 = v7;
     if (v7)
     {
       xpc_retain(v7);
@@ -2190,12 +1306,12 @@ BOOL ctu::RestXpcListener::handleNewClient(uint64_t a1, xpc_connection_t *a2)
     else
     {
       v7 = xpc_null_create();
-      v16 = v7;
+      v15 = v7;
     }
 
-    isEntitled = ctu::RestXpcListener::Configuration::isEntitled((a1 + 40), &v16);
+    isEntitled = ctu::RestXpcListener::Configuration::isEntitled((a1 + 40), &v15);
     xpc_release(v7);
-    v16 = 0;
+    v15 = 0;
     if (isEntitled)
     {
       v9 = *a2;
@@ -2215,26 +1331,26 @@ BOOL ctu::RestXpcListener::handleNewClient(uint64_t a1, xpc_connection_t *a2)
         dispatch_retain(*(a1 + 32));
       }
 
-      ctu::RestXpcListener::weak_from_this(a1, &v14);
+      ctu::RestXpcListener::weak_from_this(a1, &v13);
       *buf = MEMORY[0x1E69E9820];
-      v18 = 1174405120;
-      v19 = ___ZNK3ctu15XpcServerHelper12acceptClientINS_15RestXpcListenerEEEvN3xpc10connectionEN8dispatch5queueENSt3__18weak_ptrIT_EE_block_invoke;
-      v20 = &__block_descriptor_tmp_27_1;
-      v12 = v15;
+      v17 = 1174405120;
+      v18 = ___ZNK3ctu15XpcServerHelper12acceptClientINS_15RestXpcListenerEEEvN3xpc10connectionEN8dispatch5queueENSt3__18weak_ptrIT_EE_block_invoke;
+      v19 = &__block_descriptor_tmp_27_1;
+      v12 = v14;
+      v20 = v13;
       v21 = v14;
-      v22 = v15;
-      if (v15)
+      if (v14)
       {
-        atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v23 = v9;
+      v22 = v9;
       xpc_connection_set_event_handler(v9, buf);
       xpc_connection_set_target_queue(v9, v11);
       xpc_connection_resume(v9);
-      if (v22)
+      if (v21)
       {
-        std::__shared_weak_count::__release_weak(v22);
+        std::__shared_weak_count::__release_weak(v21);
       }
 
       if (v12)
@@ -2248,7 +1364,7 @@ BOOL ctu::RestXpcListener::handleNewClient(uint64_t a1, xpc_connection_t *a2)
       }
 
       xpc_release(v9);
-      result = 1;
+      return 1;
     }
 
     else
@@ -2265,7 +1381,7 @@ BOOL ctu::RestXpcListener::handleNewClient(uint64_t a1, xpc_connection_t *a2)
         *buf = 67109120;
         *&buf[4] = pid;
         _os_log_impl(&dword_1A90E3000, v10, OS_LOG_TYPE_INFO, "Client [%d] is not entitled and thus is rejected", buf, 8u);
-        goto LABEL_16;
+        return 0;
       }
     }
   }
@@ -2283,12 +1399,10 @@ BOOL ctu::RestXpcListener::handleNewClient(uint64_t a1, xpc_connection_t *a2)
     {
       *buf = 0;
       _os_log_error_impl(&dword_1A90E3000, v4, OS_LOG_TYPE_ERROR, "New REST XPC client has no valid connection", buf, 2u);
-LABEL_16:
-      result = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2302,18 +1416,18 @@ void sub_1A910F1A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void ctu::RestXpcListener::handleClientMessage(ctu::RestXpcListener *this, void **a2, xpc_object_t *a3)
+void ctu::RestXpcListener::handleClientMessage(ctu::RestXpcListener *this, xpc_object_t *a2, xpc_object_t *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (xpc_dictionary_get_value(*a3, "r"))
   {
-    v18[0] = a3;
-    v18[1] = "a";
-    xpc::dict::object_proxy::operator xpc::object(v18, &object);
+    v17[0] = a3;
+    v17[1] = "a";
+    xpc::dict::object_proxy::operator xpc::object(v17, &object);
+    v20 = 0;
     v21 = 0;
     v22 = 0;
-    v23 = 0;
-    xpc::dyn_cast_or_default(&object, &v21, &__p);
+    xpc::dyn_cast_or_default(&object, &v20, &__p);
     ResourceConnection_sync = ctu::RestXpcListener::getOrCreateResourceConnection_sync(this, a2, &__p);
     v8 = *ResourceConnection_sync;
     v7 = ResourceConnection_sync[1];
@@ -2328,21 +1442,21 @@ void ctu::RestXpcListener::handleClientMessage(ctu::RestXpcListener *this, void 
     }
 
     xpc_release(object);
-    v18[0] = 0xAAAAAAAAAAAAAAAALL;
-    ctu::rest::createReply(a3, v18);
-    v9 = MEMORY[0x1AC581B70](v18[0]);
+    v17[0] = 0xAAAAAAAAAAAAAAAALL;
+    ctu::rest::createReply(v17, a3);
+    v9 = MEMORY[0x1AC581B70](v17[0]);
     v10 = *(this + 8);
     if (v9 == MEMORY[0x1E69E9E80])
     {
-      v21 = v8;
-      v22 = v7;
+      v20 = v8;
+      v21 = v7;
       if (v7)
       {
         atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v12 = *a3;
-      v16 = v12;
+      v15 = v12;
       if (v12)
       {
         xpc_retain(v12);
@@ -2350,13 +1464,13 @@ void ctu::RestXpcListener::handleClientMessage(ctu::RestXpcListener *this, void 
 
       else
       {
-        v16 = xpc_null_create();
+        v15 = xpc_null_create();
       }
 
-      v13 = v18[0];
-      if (v18[0])
+      v13 = v17[0];
+      if (v17[0])
       {
-        xpc_retain(v18[0]);
+        xpc_retain(v17[0]);
       }
 
       else
@@ -2364,29 +1478,29 @@ void ctu::RestXpcListener::handleClientMessage(ctu::RestXpcListener *this, void 
         v13 = xpc_null_create();
       }
 
-      v25 = 0;
-      v24[0] = &unk_1F1CB5660;
-      v24[1] = v13;
+      v24 = 0;
+      v23[0] = &unk_1F1CB5660;
+      v23[1] = v13;
       v14 = xpc_null_create();
-      v25 = v24;
-      (*(*v10 + 24))(v10, &v21, &v16, v24);
-      std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v24);
+      v24 = v23;
+      (*(*v10 + 24))(v10, &v20, &v15, v23);
+      std::__function::__value_func<void ()(xpc::object)>::~__value_func[abi:ne200100](v23);
       xpc_release(v14);
-      xpc_release(v16);
-      v16 = 0;
+      xpc_release(v15);
+      v15 = 0;
     }
 
     else
     {
-      v21 = v8;
-      v22 = v7;
+      v20 = v8;
+      v21 = v7;
       if (v7)
       {
         atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v11 = *a3;
-      v17 = v11;
+      v16 = v11;
       if (v11)
       {
         xpc_retain(v11);
@@ -2394,27 +1508,25 @@ void ctu::RestXpcListener::handleClientMessage(ctu::RestXpcListener *this, void 
 
       else
       {
-        v17 = xpc_null_create();
+        v16 = xpc_null_create();
       }
 
-      (*(*v10 + 16))(v10, &v21, &v17);
-      xpc_release(v17);
-      v17 = 0;
+      (*(*v10 + 16))(v10, &v20, &v16);
+      xpc_release(v16);
+      v16 = 0;
     }
 
-    if (v22)
+    if (v21)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
     }
 
-    xpc_release(v18[0]);
+    xpc_release(v17[0]);
     if (v7)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1A910F4A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, xpc_object_t a10, xpc_object_t a11, uint64_t a12, xpc_object_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21)
@@ -2590,13 +1702,13 @@ uint64_t ctu::RestDispatchListener::RestDispatchListener(uint64_t a1, NSObject *
   return a1;
 }
 
-uint64_t ctu::RestDispatchListener::createConnector@<X0>(ctu::RestDispatchListener *this@<X0>, uint64_t *a2@<X8>)
+uint64_t ctu::RestDispatchListener::createConnector@<X0>(std::__shared_weak_count **this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
   ctu::rest::RestDispatchConnector::create(a2);
-  v4 = *(this + 2);
-  if (!v4 || (v5 = *a2, v6 = *(this + 1), (v7 = std::__shared_weak_count::lock(v4)) == 0))
+  v4 = this[2];
+  if (!v4 || (v5 = *a2, v6 = this[1], (v7 = std::__shared_weak_count::lock(v4)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
@@ -3017,69 +2129,68 @@ void boost::container::vector<boost::container::dtl::pair<xpc::connection,std::s
   }
 
   v10 = v5 <= v9 ? v9 : *(a2 + 1) + 1;
-  v11 = *(a2 + 1) - 0x555555555555554 < 0;
   if (v5 > 0x555555555555555)
   {
 LABEL_26:
     boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
   }
 
-  v16 = *a2;
-  v17 = operator new(24 * v10);
-  v18 = v17;
-  v19 = *a2;
-  v20 = *a2 + 24 * *(a2 + 1);
+  v15 = *a2;
+  v16 = operator new(24 * v10);
+  v17 = v16;
+  v18 = *a2;
+  v19 = *a2 + 24 * *(a2 + 1);
   if (*a2 != a3)
   {
-    v21 = *a2;
+    v20 = *a2;
     do
     {
-      v22 = boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::pair(v17, v21);
-      v21 += 24;
-      v17 = (v22 + 24);
+      v21 = boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::pair(v16, v20);
+      v20 += 24;
+      v16 = (v21 + 24);
     }
 
-    while (v21 != a3);
+    while (v20 != a3);
   }
 
-  v23 = boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::pair(v17, a4);
-  if (v20 != a3)
+  v22 = boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::pair(v16, a4);
+  if (v19 != a3)
   {
-    v24 = v23 + 24;
-    v25 = a3;
+    v23 = v22 + 24;
+    v24 = a3;
     do
     {
-      v26 = boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::pair(v24, v25);
-      v25 += 24;
-      v24 = v26 + 24;
+      v25 = boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::pair(v23, v24);
+      v24 += 24;
+      v23 = v25 + 24;
     }
 
-    while (v25 != v20);
+    while (v24 != v19);
   }
 
-  if (v19)
+  if (v18)
   {
     for (i = *(a2 + 1); i; --i)
     {
-      v28 = *(v19 + 16);
-      if (v28)
+      v27 = *(v18 + 16);
+      if (v27)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
       }
 
-      xpc_release(*v19);
-      *v19 = 0;
-      v19 += 24;
+      xpc_release(*v18);
+      *v18 = 0;
+      v18 += 24;
     }
 
     operator delete(*a2);
   }
 
-  v29 = *(a2 + 1) + 1;
-  *a2 = v18;
-  *(a2 + 1) = v29;
+  v28 = *(a2 + 1) + 1;
+  *a2 = v17;
+  *(a2 + 1) = v28;
   *(a2 + 2) = v10;
-  *a1 = &v18[a3 - v16];
+  *a1 = &v17[a3 - v15];
 }
 
 uint64_t boost::container::dtl::pair<xpc::connection,std::shared_ptr<ctu::XpcRestResourceConnection>>::operator=(uint64_t a1, xpc_object_t *a2)
@@ -3188,8 +2299,7 @@ uint64_t ctu::XpcRestResourceConnection::XpcRestResourceConnection(uint64_t a1, 
   v4 = *a3;
   *(a1 + 24) = *(a3 + 2);
   *(a1 + 8) = v4;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   *a1 = &unk_1F1CB6918;
   *(a1 + 32) = *a2;
@@ -3568,85 +2678,84 @@ void boost::container::vector<boost::container::dtl::pair<ctu::rest::RestConnect
   }
 
   v10 = v5 <= v9 ? v9 : *(a2 + 1) + 1;
-  v11 = *(a2 + 1) - 0x555555555555554 < 0;
   if (v5 > 0x555555555555555)
   {
 LABEL_27:
     boost::container::throw_length_error("get_next_capacity, allocator's max size reached", a2);
   }
 
-  v16 = *a2;
-  v17 = operator new(24 * v10);
-  v18 = v17;
-  v19 = *a2;
-  v20 = *a2 + 24 * *(a2 + 1);
-  v21 = v17;
+  v15 = *a2;
+  v16 = operator new(24 * v10);
+  v17 = v16;
+  v18 = *a2;
+  v19 = (*a2 + 24 * *(a2 + 1));
+  v20 = v16;
   if (*a2 != a3)
   {
-    v22 = *a2;
-    v21 = v17;
+    v21 = *a2;
+    v20 = v16;
     do
     {
-      *v21 = *v22;
-      *(v21 + 2) = v22[2];
-      v22[1] = 0;
-      v22[2] = 0;
-      v22 += 3;
-      v21 += 24;
+      *v20 = *v21;
+      v20[2] = v21[2];
+      v21[1] = 0;
+      v21[2] = 0;
+      v21 += 3;
+      v20 += 3;
     }
 
-    while (v22 != a3);
+    while (v21 != a3);
   }
 
-  *v21 = *a4;
-  *(v21 + 2) = *(a4 + 16);
+  *v20 = *a4;
+  v20[2] = *(a4 + 16);
   *(a4 + 8) = 0;
   *(a4 + 16) = 0;
-  if (v20 != a3)
+  if (v19 != a3)
   {
-    v23 = v21 + 40;
-    v24 = a3;
+    v22 = v20 + 5;
+    v23 = a3;
     do
     {
-      *(v23 - 1) = *v24;
-      *v23 = v24[2];
+      *(v22 - 1) = *v23;
+      *v22 = v23[2];
+      v22 += 3;
+      v23[1] = 0;
+      v23[2] = 0;
       v23 += 3;
-      v24[1] = 0;
-      v24[2] = 0;
-      v24 += 3;
     }
 
-    while (v24 != v20);
+    while (v23 != v19);
   }
 
-  if (v19)
+  if (v18)
   {
-    v25 = *(a2 + 1);
-    if (v25)
+    v24 = *(a2 + 1);
+    if (v24)
     {
-      v26 = (v19 + 16);
+      v25 = (v18 + 16);
       do
       {
-        if (*v26)
+        if (*v25)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*v26);
+          std::__shared_weak_count::__release_shared[abi:ne200100](*v25);
         }
 
-        v26 += 3;
-        --v25;
+        v25 += 3;
+        --v24;
       }
 
-      while (v25);
+      while (v24);
     }
 
     operator delete(*a2);
   }
 
-  v27 = *(a2 + 1) + 1;
-  *a2 = v18;
-  *(a2 + 1) = v27;
+  v26 = *(a2 + 1) + 1;
+  *a2 = v17;
+  *(a2 + 1) = v26;
   *(a2 + 2) = v10;
-  *a1 = &v18[a3 - v16];
+  *a1 = a3 + v17 - v15;
 }
 
 void std::__shared_ptr_emplace<ctu::DispatchRestResourceConnection>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3692,7 +2801,7 @@ uint64_t std::__function::__func<ctu::RestDispatchListener::handleClientMessageW
   }
 }
 
-void **dispatch::async<void ctu::SharedSynchronizable<ctu::RestDispatchListener>::execute_wrapped<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0>(ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0,dispatch_queue_s *::default_delete<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void **dispatch::async<void ctu::SharedSynchronizable<ctu::RestDispatchListener>::execute_wrapped<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0>(ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0,dispatch_queue_s *::default_delete<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0>>)::{lambda(void *)#1}::__invoke(unint64_t **a1)
 {
   v1 = *a1;
   v20 = a1;
@@ -3793,13 +2902,13 @@ void **dispatch::async<void ctu::SharedSynchronizable<ctu::RestDispatchListener>
   return std::unique_ptr<void ctu::SharedSynchronizable<ctu::RestModuleState>::execute_wrapped<ctu::RestModuleState::sendRawGet(std::string &&,std::function<void ()(xpc::object)> &&)::$_0>(ctu::RestModuleState::sendRawGet(std::string &&,std::function<void ()(xpc::object)> &&)::$_0 &&)::{lambda(void)#1},std::default_delete<ctu::RestModuleState::sendRawGet(std::string &&,std::function<void ()(xpc::object)> &&)::$_0>>::~unique_ptr[abi:ne200100](&v20);
 }
 
-void sub_1A91113CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, xpc_object_t *a11, xpc_object_t object, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16)
+void sub_1A91113CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, xpc_object_t *a11, xpc_object_t object, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18)
 {
   xpc_release(object);
   object = 0;
-  if (a16)
+  if (a18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
   }
 
   std::unique_ptr<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0,std::default_delete<ctu::RestDispatchListener::handleClientError(ctu::rest::RestConnectorSourceBase const*,xpc::object)::$_0>>::~unique_ptr[abi:ne200100](&a11);
@@ -3917,35 +3026,33 @@ void TelephonyBasebandWatchdogStartWithStackshot(NSObject **a1, unsigned int a2,
 
 void __TelephonyBasebandWatchdogStartWithStackshot_block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   *&v1 = 0xAAAAAAAAAAAAAAAALL;
   *(&v1 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v25 = v1;
-  v26 = v1;
-  v23 = v1;
   v24 = v1;
-  v21 = v1;
+  v25 = v1;
   v22 = v1;
-  v19 = v1;
+  v23 = v1;
   v20 = v1;
-  v17 = v1;
+  v21 = v1;
   v18 = v1;
-  v15 = v1;
+  v19 = v1;
   v16 = v1;
-  v13 = v1;
+  v17 = v1;
   v14 = v1;
-  *__str = v1;
+  v15 = v1;
   v12 = v1;
+  v13 = v1;
+  *__str = v1;
+  v11 = v1;
   snprintf(__str, 0x100uLL, "Telephony operation timeout at '%s', timeout %u\n", *(a1 + 32), *(a1 + 40));
   _TelephonyUtilDebugPrint("TelephonyBasebandWatchdogStartWithStackshot_block_invoke", "Telephony watchdog fired: %s\n", v2, v3, v4, v5, v6, v7, __str);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v10 = __str;
+    v9 = __str;
     _os_log_error_impl(&dword_1A90E3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Telephony watchdog fired: %s\n", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 const void **ctu::Http::HttpResponse::getResponseData@<X0>(ctu::Http::HttpResponse *this@<X0>, void *a2@<X8>)
@@ -3985,14 +3092,14 @@ const void **ctu::Http::HttpResponse::getResponseData@<X0>(ctu::Http::HttpRespon
   return ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(&theData);
 }
 
-void sub_1A9111944(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9111944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *v2;
-  if (*v2)
+  va_start(va, a3);
+  v5 = *v3;
+  if (*v3)
   {
-    *(v2 + 8) = v4;
-    operator delete(v4);
+    *(v3 + 8) = v5;
+    operator delete(v5);
   }
 
   ctu::SharedRef<__CFData const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFData const>::~SharedRef(va);
@@ -4406,20 +3513,20 @@ void ctu::rest::WatchableRestResourceHelper::cleanupExpired(ctu::rest::Watchable
   }
 }
 
-void ctu::rest::WatchableRestResourceHelper::getWatcherNames(ctu::rest::WatchableRestResourceHelper *this@<X0>, xpc_object_t *a2@<X8>)
+void ctu::rest::WatchableRestResourceHelper::getWatcherNames(xpc_object_t *__return_ptr a1@<X8>, ctu::rest::WatchableRestResourceHelper *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v4 = xpc_array_create(0, 0);
   v5 = v4;
   if (v4)
   {
-    *a2 = v4;
+    *a1 = v4;
   }
 
   else
   {
     v5 = xpc_null_create();
-    *a2 = v5;
+    *a1 = v5;
     if (!v5)
     {
       v6 = xpc_null_create();
@@ -4436,7 +3543,7 @@ void ctu::rest::WatchableRestResourceHelper::getWatcherNames(ctu::rest::Watchabl
 
   v6 = xpc_null_create();
 LABEL_8:
-  *a2 = v6;
+  *a1 = v6;
 LABEL_9:
   xpc_release(v5);
   v7 = *(this + 1);
@@ -4467,7 +3574,7 @@ LABEL_9:
               v14 = xpc_null_create();
             }
 
-            xpc_array_append_value(*a2, v14);
+            xpc_array_append_value(*a1, v14);
             xpc_release(v14);
           }
 
@@ -4491,7 +3598,7 @@ void sub_1A91121C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::rest::WatchableRestResourceHelper::addWatcher(uint64_t *a1, unint64_t *a2)
+uint64_t ctu::rest::WatchableRestResourceHelper::addWatcher(__n128 **a1, unint64_t *a2)
 {
   v3 = 0xAAAAAAAAAAAAAAAALL;
   v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -4672,10 +3779,10 @@ void ctu::rest::WatchableRestResourceHelper::removeWatchers(ctu::rest::Watchable
   *(this + 1) = 0;
 }
 
-void sub_1A9112480(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A9112480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  va_start(va, a3);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   std::vector<std::shared_ptr<ctu::RestResourceConnection>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4749,24 +3856,22 @@ void std::vector<std::shared_ptr<ctu::RestResourceConnection>>::clear[abi:ne2001
   a1[1] = v2;
 }
 
-void boost::container::dtl::flat_tree<std::weak_ptr<ctu::RestResourceConnection>,boost::move_detail::identity<std::weak_ptr<ctu::RestResourceConnection>>,std::owner_less<std::weak_ptr<ctu::RestResourceConnection>>,void>::emplace_unique<std::shared_ptr<ctu::RestResourceConnection>>(uint64_t *a1@<X0>, unint64_t *a2@<X1>, __n128 **a3@<X8>)
+void boost::container::dtl::flat_tree<std::weak_ptr<ctu::RestResourceConnection>,boost::move_detail::identity<std::weak_ptr<ctu::RestResourceConnection>>,std::owner_less<std::weak_ptr<ctu::RestResourceConnection>>,void>::emplace_unique<std::shared_ptr<ctu::RestResourceConnection>>(__n128 **a1@<X0>, unint64_t *a2@<X1>, __n128 **a3@<X8>)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = a2[1];
-  v5.n128_u64[0] = *a2;
-  v5.n128_u64[1] = v3;
+  v4.n128_u64[0] = *a2;
+  v4.n128_u64[1] = v3;
   if (v3)
   {
     atomic_fetch_add_explicit((v3 + 16), 1uLL, memory_order_relaxed);
   }
 
-  boost::container::dtl::flat_tree<std::weak_ptr<ctu::RestResourceConnection>,boost::move_detail::identity<std::weak_ptr<ctu::RestResourceConnection>>,std::owner_less<std::weak_ptr<ctu::RestResourceConnection>>,void>::insert_unique(a1, &v5, a3);
-  if (v5.n128_u64[1])
+  boost::container::dtl::flat_tree<std::weak_ptr<ctu::RestResourceConnection>,boost::move_detail::identity<std::weak_ptr<ctu::RestResourceConnection>>,std::owner_less<std::weak_ptr<ctu::RestResourceConnection>>,void>::insert_unique(a1, &v4, a3);
+  if (v4.n128_u64[1])
   {
-    std::__shared_weak_count::__release_weak(v5.n128_u64[1]);
+    std::__shared_weak_count::__release_weak(v4.n128_u64[1]);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1A91126B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
@@ -5490,27 +4595,26 @@ uint64_t TelephonyRadiosGetHardwareConfig()
 uint64_t ctu::llvm::StringRef::compare_lower(uint64_t a1, const char *a2, unint64_t a3)
 {
   v3 = a3;
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  if (v5 < a3)
+  v4 = *(a1 + 8);
+  if (v4 < a3)
   {
     a3 = *(a1 + 8);
   }
 
   LODWORD(result) = ascii_strncasecmp(*a1, a2, a3);
-  if (v5 < v3)
+  if (v4 < v3)
   {
-    v7 = -1;
+    v6 = -1;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  if (v5 == v3)
+  if (v4 == v3)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   if (result)
@@ -5520,7 +4624,7 @@ uint64_t ctu::llvm::StringRef::compare_lower(uint64_t a1, const char *a2, unint6
 
   else
   {
-    return v7;
+    return v6;
   }
 }
 
@@ -5846,106 +4950,102 @@ void *ctu::llvm::StringRef::upper@<X0>(ctu::llvm::StringRef *this@<X0>, void *a2
 
 unint64_t ctu::llvm::StringRef::find(uint64_t *a1, unsigned __int8 *a2, size_t a3, unint64_t a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a1[1];
   v5 = v4 - a3;
   if (v4 < a3)
   {
-    goto LABEL_2;
+    return -1;
   }
 
   v6 = a4;
   if (a3 - 256 < 0xFFFFFFFFFFFFFF01 || v4 <= 0xF)
   {
-    v21 = v5 + 1;
+    v20 = v5 + 1;
     if (v5 + 1 <= a4)
     {
-LABEL_2:
-      v6 = -1;
-      goto LABEL_3;
+      return -1;
     }
 
-    v22 = *a1;
+    v21 = *a1;
     while (1)
     {
-      v23 = v6 >= v4 ? v4 : v6;
-      if (a3 <= v4 - v23 && (!a3 || !memcmp((v22 + v23), a2, a3)))
+      v22 = v6 >= v4 ? v4 : v6;
+      if (a3 <= v4 - v22 && (!a3 || !memcmp((v21 + v22), a2, a3)))
       {
         break;
       }
 
-      if (v21 == ++v6)
+      if (v20 == ++v6)
       {
-        goto LABEL_2;
+        return -1;
       }
     }
   }
 
   else
   {
-    v11 = v4 - a4;
+    v10 = v4 - a4;
     if (v4 <= a4)
     {
-      goto LABEL_2;
+      return -1;
     }
 
-    v25 = vdupq_n_s8(a3);
-    v26 = v25;
-    v24[12] = v25;
-    v24[13] = v25;
-    v24[10] = v25;
-    v24[11] = v25;
-    v24[8] = v25;
-    v24[9] = v25;
-    v24[6] = v25;
-    v24[7] = v25;
-    v24[4] = v25;
-    v24[5] = v25;
-    v24[2] = v25;
-    v24[3] = v25;
-    v24[0] = v25;
-    v24[1] = v25;
+    v24 = vdupq_n_s8(a3);
+    v25 = v24;
+    v23[12] = v24;
+    v23[13] = v24;
+    v23[10] = v24;
+    v23[11] = v24;
+    v23[8] = v24;
+    v23[9] = v24;
+    v23[6] = v24;
+    v23[7] = v24;
+    v23[4] = v24;
+    v23[5] = v24;
+    v23[2] = v24;
+    v23[3] = v24;
+    v23[0] = v24;
+    v23[1] = v24;
     if (a3 != 1)
     {
-      v12 = 1;
-      v13 = a3 - 1;
-      v14 = a2;
+      v11 = 1;
+      v12 = a3 - 1;
+      v13 = a2;
       do
       {
-        v15 = *v14++;
-        *(v24 + v15) = v13--;
+        v14 = *v13++;
+        *(v23 + v14) = v12--;
       }
 
-      while (a3 - 1 != v12++);
+      while (a3 - 1 != v11++);
     }
 
-    if (v11 < a3)
+    if (v10 < a3)
     {
-      goto LABEL_2;
+      return -1;
     }
 
-    v17 = *a1;
-    v18 = *a1 + a3 - 1;
+    v16 = *a1;
+    v17 = *a1 + a3 - 1;
     while (1)
     {
-      v19 = v6 >= v4 ? v4 : v6;
-      if (a3 <= v4 - v19 && !memcmp((v17 + v19), a2, a3))
+      v18 = v6 >= v4 ? v4 : v6;
+      if (a3 <= v4 - v18 && !memcmp((v16 + v18), a2, a3))
       {
         break;
       }
 
-      v20 = *(v24 + *(v18 + v6));
-      v11 -= v20;
-      v6 += v20;
-      if (v11 < a3)
+      v19 = *(v23 + *(v17 + v6));
+      v10 -= v19;
+      v6 += v19;
+      if (v10 < a3)
       {
-        goto LABEL_2;
+        return -1;
       }
     }
   }
 
-LABEL_3:
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -5991,7 +5091,7 @@ size_t ctu::llvm::StringRef::rfind(uint64_t *a1, void *__s2, size_t __n)
   return v5;
 }
 
-uint64_t ctu::llvm::StringRef::find_first_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t ctu::llvm::StringRef::find_first_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -6035,7 +5135,7 @@ unint64_t ctu::llvm::StringRef::find_first_not_of(ctu::llvm::StringRef *this, un
   return a3;
 }
 
-uint64_t ctu::llvm::StringRef::find_first_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t ctu::llvm::StringRef::find_first_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -6060,7 +5160,7 @@ uint64_t ctu::llvm::StringRef::find_first_not_of(void *a1, unsigned __int8 *a2, 
   return a4;
 }
 
-uint64_t ctu::llvm::StringRef::find_last_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t ctu::llvm::StringRef::find_last_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -6118,7 +5218,7 @@ unint64_t ctu::llvm::StringRef::find_last_not_of(ctu::llvm::StringRef *this, uns
   return -1;
 }
 
-uint64_t ctu::llvm::StringRef::find_last_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+unint64_t ctu::llvm::StringRef::find_last_not_of(void *a1, unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   for (; a3; --a3)
   {
@@ -6151,9 +5251,9 @@ uint64_t ctu::llvm::StringRef::find_last_not_of(void *a1, unsigned __int8 *a2, u
   return -1;
 }
 
-void ctu::llvm::StringRef::split(__int128 *a1, uint64_t a2, unsigned __int8 *a3, size_t a4, int a5, int a6)
+void ctu::llvm::StringRef::split(__int128 *result, uint64_t a2, unsigned __int8 *a3, size_t a4, int a5, int a6)
 {
-  v20 = *a1;
+  v20 = *result;
   v6 = v20;
   if (!v20)
   {
@@ -7441,8 +6541,8 @@ uint64_t *TelephonyCapabilitiesGetHardwareModel()
 
 void __TelephonyCapabilitiesGetHardwareModel_block_invoke()
 {
-  v24 = *MEMORY[0x1E69E9840];
-  memset(v22, 0, sizeof(v22));
+  v23 = *MEMORY[0x1E69E9840];
+  memset(v21, 0, sizeof(v21));
   v0 = dlopen("/usr/lib/libMobileGestalt.dylib", 1);
   if (!v0)
   {
@@ -7560,8 +6660,8 @@ LABEL_45:
           _os_log_debug_impl(&dword_1A90E3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Detected a WiFi Watch", buf, 2u);
         }
 
-        v20 = 104;
-        v21 = 87;
+        v19 = 104;
+        v20 = 87;
       }
 
       else
@@ -7572,19 +6672,19 @@ LABEL_45:
           _os_log_debug_impl(&dword_1A90E3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Detected a WiFi iPad", buf, 2u);
         }
 
-        v20 = 100;
-        v21 = 80;
+        v19 = 100;
+        v20 = 80;
       }
 
       LODWORD(sTelephonyCapabilitiesHardwareModelInfo) = 99;
-      BYTE4(sTelephonyCapabilitiesHardwareModelInfo) = v21;
-      BYTE5(sTelephonyCapabilitiesHardwareModelInfo) = v20;
+      BYTE4(sTelephonyCapabilitiesHardwareModelInfo) = v20;
+      BYTE5(sTelephonyCapabilitiesHardwareModelInfo) = v19;
       HIWORD(sTelephonyCapabilitiesHardwareModelInfo) = 0;
       dword_1ED40DDB0 = 0;
       v5 = v13;
 LABEL_8:
       CFRelease(v5);
-      goto LABEL_50;
+      return;
     }
 
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -7631,7 +6731,7 @@ LABEL_14:
     goto LABEL_45;
   }
 
-  if (!CFStringGetCString(v13, v22, 32, 0x600u))
+  if (!CFStringGetCString(v13, v21, 32, 0x600u))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -7650,12 +6750,12 @@ LABEL_46:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    *&buf[4] = v22;
+    *&buf[4] = v21;
     _os_log_debug_impl(&dword_1A90E3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Detected a baseband device with hardware model string '%s'", buf, 0xCu);
   }
 
   memset(buf, 170, 12);
-  if (TelephonyUtilParseHardwareModel(v22, buf))
+  if (TelephonyUtilParseHardwareModel(v21, buf))
   {
     sTelephonyCapabilitiesHardwareModelInfo = *buf;
     dword_1ED40DDB0 = *&buf[8];
@@ -7665,7 +6765,7 @@ LABEL_46:
       _os_log_debug_impl(&dword_1A90E3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Successfully set the hardware model info", buf, 2u);
     }
 
-    goto LABEL_50;
+    return;
   }
 
   dword_1ED40DDB0 = 0;
@@ -7673,7 +6773,7 @@ LABEL_46:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    *&buf[4] = v22;
+    *&buf[4] = v21;
     v6 = MEMORY[0x1E69E9C10];
     v7 = "Failed to set hardware model info based on hardware model string '%s'";
     v8 = 12;
@@ -7683,14 +6783,12 @@ LABEL_46:
 LABEL_47:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v22[0]) = 0;
-    _os_log_error_impl(&dword_1A90E3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Treating device as unknown Telephony product due error determining hardware model info from MobileGestalt query", v22, 2u);
+    LOWORD(v21[0]) = 0;
+    _os_log_error_impl(&dword_1A90E3000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Treating device as unknown Telephony product due error determining hardware model info from MobileGestalt query", v21, 2u);
   }
 
   dword_1ED40DDB0 = 0;
   sTelephonyCapabilitiesHardwareModelInfo = 0;
-LABEL_50:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t TelephonyCapabilitiesSetHardwareModel(uint64_t result)
@@ -7733,8 +6831,9 @@ BOOL ctu::fs::is_directory(const char *a1)
   return !stat(a1, &v4) && (v4.st_mode & 0xF000) == 0x4000;
 }
 
-BOOL ctu::fs::create_directory(const void *a1, const void *a2, mode_t a3, int a4)
+BOOL ctu::fs::create_directory(const void *a1, const void *a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   v28[0] = a1;
   v28[1] = a2;
   v8.tv_sec = 0xAAAAAAAAAAAAAAAALL;
@@ -7755,7 +6854,7 @@ BOOL ctu::fs::create_directory(const void *a1, const void *a2, mode_t a3, int a4
 
   if (!a4)
   {
-    return ctu::fs::_create_directory(a1, a2, a3);
+    return ctu::fs::_create_directory(a1, a2, v5);
   }
 
   memset(&__str, 170, sizeof(__str));
@@ -7834,7 +6933,7 @@ LABEL_38:
       {
         v21 = (v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v25 : v25.__r_.__value_.__r.__words[0];
         v22 = (v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? SHIBYTE(v25.__r_.__value_.__r.__words[2]) : v25.__r_.__value_.__l.__size_;
-        if (!ctu::fs::_create_directory(v21, v22, a3))
+        if (!ctu::fs::_create_directory(v21, v22, v5))
         {
           break;
         }
@@ -7888,11 +6987,11 @@ BOOL ctu::fs::_create_directory(const char *a1, uint64_t a2, mode_t a3)
   v4 = mkdir(a1, a3);
   if (v4)
   {
-    v5 = *__error();
-    v6 = *__error();
-    v7 = __error();
-    strerror(*v7);
-    _TelephonyUtilDebugPrintError("_create_directory", "Failed to make directory %s with mode 0x%x (error: %d(0x%x) (%s))", v8, v9, v10, v11, v12, v13, a1);
+    __error();
+    __error();
+    v5 = __error();
+    strerror(*v5);
+    _TelephonyUtilDebugPrintError("_create_directory", "Failed to make directory %s with mode 0x%x (error: %d(0x%x) (%s))", v6, v7, v8, v9, v10, v11, a1);
   }
 
   return v4 == 0;
@@ -7925,11 +7024,11 @@ BOOL ctu::fs::iterate_folder(const char *a1, uint64_t a2, uint64_t a3)
   {
     v9 = "Failed to close directory %s (error: %d(0x%x) (%s))";
 LABEL_8:
-    v10 = *__error();
-    v11 = *__error();
-    v12 = __error();
-    strerror(*v12);
-    _TelephonyUtilDebugPrintError("iterate_folder", v9, v13, v14, v15, v16, v17, v18, a1);
+    __error();
+    __error();
+    v10 = __error();
+    strerror(*v10);
+    _TelephonyUtilDebugPrintError("iterate_folder", v9, v11, v12, v13, v14, v15, v16, a1);
   }
 
   return v6 != 0;
@@ -8039,8 +7138,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = (v4 + 24);
   }
@@ -8084,12 +7182,12 @@ uint64_t ctu::fs::memory_mapped_file::load(ctu::fs::memory_mapped_file *this)
 
   if (v3 < 0)
   {
-    v28 = *(this + 1);
-    v29 = *__error();
-    v30 = *__error();
-    v31 = __error();
-    strerror(*v31);
-    return _TelephonyUtilDebugPrintError("load", "Failed to open file %s (error: %d(0x%x) (%s))", v32, v33, v34, v35, v36, v37, v28);
+    v24 = *(this + 1);
+    __error();
+    __error();
+    v25 = __error();
+    strerror(*v25);
+    return _TelephonyUtilDebugPrintError("load", "Failed to open file %s (error: %d(0x%x) (%s))", v26, v27, v28, v29, v30, v31, v24);
   }
 
   else
@@ -8111,23 +7209,23 @@ uint64_t ctu::fs::memory_mapped_file::load(ctu::fs::memory_mapped_file *this)
         }
 
         v8 = *(this + 1);
-        v9 = *__error();
-        v10 = *__error();
-        v11 = __error();
-        strerror(*v11);
-        _TelephonyUtilDebugPrintError("load", "Failed to map file %s (error: %d(0x%x) (%s))", v12, v13, v14, v15, v16, v17, v8);
+        __error();
+        __error();
+        v9 = __error();
+        strerror(*v9);
+        _TelephonyUtilDebugPrintError("load", "Failed to map file %s (error: %d(0x%x) (%s))", v10, v11, v12, v13, v14, v15, v8);
       }
     }
 
     result = close(v4);
     if (result)
     {
-      v18 = *(this + 1);
-      v19 = *__error();
-      v20 = *__error();
-      v21 = __error();
-      strerror(*v21);
-      return _TelephonyUtilDebugPrintError("load", "Failed to close file %s (error: %d(0x%x) (%s))", v22, v23, v24, v25, v26, v27, v18);
+      v16 = *(this + 1);
+      __error();
+      __error();
+      v17 = __error();
+      strerror(*v17);
+      return _TelephonyUtilDebugPrintError("load", "Failed to close file %s (error: %d(0x%x) (%s))", v18, v19, v20, v21, v22, v23, v16);
     }
   }
 
@@ -8159,11 +7257,11 @@ uint64_t ctu::fs::memory_mapped_file::unload(ctu::fs::memory_mapped_file *this)
   if (!v3 && munmap(v2, *(this + 8)))
   {
     v4 = *(this + 1);
-    v5 = *__error();
-    v6 = *__error();
-    v7 = __error();
-    strerror(*v7);
-    _TelephonyUtilDebugPrintError("unload", "Failed to unmap file %s (error: %d(0x%x) (%s))", v8, v9, v10, v11, v12, v13, v4);
+    __error();
+    __error();
+    v5 = __error();
+    strerror(*v5);
+    _TelephonyUtilDebugPrintError("unload", "Failed to unmap file %s (error: %d(0x%x) (%s))", v6, v7, v8, v9, v10, v11, v4);
   }
 
   result = *(this + 7);
@@ -8172,12 +7270,12 @@ uint64_t ctu::fs::memory_mapped_file::unload(ctu::fs::memory_mapped_file *this)
     result = close(result);
     if (result)
     {
-      v15 = *(this + 1);
-      v16 = *__error();
-      v17 = *__error();
-      v18 = __error();
-      strerror(*v18);
-      result = _TelephonyUtilDebugPrintError("unload", "Failed to close file %s (error: %d(0x%x) (%s))", v19, v20, v21, v22, v23, v24, v15);
+      v13 = *(this + 1);
+      __error();
+      __error();
+      v14 = __error();
+      strerror(*v14);
+      result = _TelephonyUtilDebugPrintError("unload", "Failed to close file %s (error: %d(0x%x) (%s))", v15, v16, v17, v18, v19, v20, v13);
     }
 
     *(this + 7) = -1;
@@ -8224,11 +7322,11 @@ uint64_t ctu::fs::write_to_completion(ctu::fs *this, char *__buf, size_t __nbyte
     }
   }
 
-  v8 = *__error();
-  v9 = *__error();
-  v10 = __error();
-  strerror(*v10);
-  _TelephonyUtilDebugPrintError("write_to_completion", "Failed to write to file descriptor %d (error: %d(0x%x) (%s))", v11, v12, v13, v14, v15, v16, this);
+  __error();
+  __error();
+  v8 = __error();
+  strerror(*v8);
+  _TelephonyUtilDebugPrintError("write_to_completion", "Failed to write to file descriptor %d (error: %d(0x%x) (%s))", v9, v10, v11, v12, v13, v14, this);
   return 0;
 }
 
@@ -8237,11 +7335,11 @@ uint64_t ctu::fs::open_file(const char *a1, uint64_t a2, int a3, uint64_t a4)
   v5 = open(a1, a3, a4);
   if ((v5 & 0x80000000) != 0)
   {
-    v6 = *__error();
-    v7 = *__error();
-    v8 = __error();
-    strerror(*v8);
-    _TelephonyUtilDebugPrintError("open_file", "Failed to open file %s (error: %d(0x%x) (%s))", v9, v10, v11, v12, v13, v14, a1);
+    __error();
+    __error();
+    v6 = __error();
+    strerror(*v6);
+    _TelephonyUtilDebugPrintError("open_file", "Failed to open file %s (error: %d(0x%x) (%s))", v7, v8, v9, v10, v11, v12, a1);
   }
 
   return v5;
@@ -8257,11 +7355,11 @@ BOOL ctu::fs::close_file(ctu::fs *this)
       break;
     }
 
-    v3 = *__error();
-    v4 = *__error();
-    v5 = __error();
-    strerror(*v5);
-    _TelephonyUtilDebugPrintError("close_file", "Failed to close file descriptor %d (error: %d(0x%x)) (%s)", v6, v7, v8, v9, v10, v11, this);
+    __error();
+    __error();
+    v3 = __error();
+    strerror(*v3);
+    _TelephonyUtilDebugPrintError("close_file", "Failed to close file descriptor %d (error: %d(0x%x)) (%s)", v4, v5, v6, v7, v8, v9, this);
   }
 
   while (*__error() == 4);
@@ -8270,156 +7368,151 @@ BOOL ctu::fs::close_file(ctu::fs *this)
 
 uint64_t ctu::fs::copy_file(const char *a1, uint64_t a2, const char *a3, uint64_t a4, int a5)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v8 = strlen(a1);
   v9 = ctu::fs::open_file(a1, v8, 0, 420);
   if ((v9 & 0x80000000) != 0)
+  {
+    return 0;
+  }
+
+  v10 = v9;
+  v11 = strlen(a3);
+  v12 = ctu::fs::open_file(a3, v11, 514, 420);
+  if ((v12 & 0x80000000) != 0)
   {
     v15 = 0;
   }
 
   else
   {
-    v10 = v9;
-    v11 = strlen(a3);
-    v12 = ctu::fs::open_file(a3, v11, 514, 420);
-    if ((v12 & 0x80000000) != 0)
+    v13 = v12;
+    while (1)
     {
-      v15 = 0;
-    }
-
-    else
-    {
-      v13 = v12;
-      while (1)
+      memset(__b, 170, sizeof(__b));
+      v14 = read(v10, __b, 0x400uLL);
+      if (v14 < 0)
       {
-        memset(__b, 170, sizeof(__b));
-        v14 = read(v10, __b, 0x400uLL);
-        if (v14 < 0)
-        {
-          v16 = *__error();
-          v17 = *__error();
-          v18 = __error();
-          strerror(*v18);
-          _TelephonyUtilDebugPrintError("copy_file", "Failed to read source file %s (error: %d(0x%x) (%s))", v19, v20, v21, v22, v23, v24, a1);
+        __error();
+        __error();
+        v16 = __error();
+        strerror(*v16);
+        _TelephonyUtilDebugPrintError("copy_file", "Failed to read source file %s (error: %d(0x%x) (%s))", v17, v18, v19, v20, v21, v22, a1);
 LABEL_16:
-          v15 = 0;
-          goto LABEL_17;
-        }
-
-        if (!v14)
-        {
-          break;
-        }
-
-        if ((ctu::fs::write_to_completion(v13, __b, v14) & 1) == 0)
-        {
-          goto LABEL_16;
-        }
+        v15 = 0;
+        goto LABEL_17;
       }
 
-      if (a5)
+      if (!v14)
       {
-        *&v25 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *&__b[112] = v25;
-        *&__b[128] = v25;
-        *&__b[80] = v25;
-        *&__b[96] = v25;
-        *&__b[48] = v25;
-        *&__b[64] = v25;
-        *&__b[16] = v25;
-        *&__b[32] = v25;
-        *__b = v25;
-        if (fstat(v10, __b))
-        {
-          v26 = *__error();
-          v27 = *__error();
-          v28 = __error();
-          strerror(*v28);
-          _TelephonyUtilDebugPrintError("copy_file", "Failed to get status of source file %s (error: %d(0x%x) (%s))", v29, v30, v31, v32, v33, v34, a1);
-          goto LABEL_16;
-        }
-
-        if (fchmod(v13, *&__b[4]))
-        {
-          v35 = *__error();
-          v36 = *__error();
-          v37 = __error();
-          strerror(*v37);
-          _TelephonyUtilDebugPrintError("copy_file", "Failed to change mode of destination file %s (error: %d(0x%x) (%s))", v38, v39, v40, v41, v42, v43, a3);
-          goto LABEL_16;
-        }
+        break;
       }
 
-      v15 = 1;
-LABEL_17:
-      ctu::fs::close_file(v13);
+      if ((ctu::fs::write_to_completion(v13, __b, v14) & 1) == 0)
+      {
+        goto LABEL_16;
+      }
     }
 
-    ctu::fs::close_file(v10);
+    if (a5)
+    {
+      *&v23 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *&__b[112] = v23;
+      *&__b[128] = v23;
+      *&__b[80] = v23;
+      *&__b[96] = v23;
+      *&__b[48] = v23;
+      *&__b[64] = v23;
+      *&__b[16] = v23;
+      *&__b[32] = v23;
+      *__b = v23;
+      if (fstat(v10, __b))
+      {
+        __error();
+        __error();
+        v24 = __error();
+        strerror(*v24);
+        _TelephonyUtilDebugPrintError("copy_file", "Failed to get status of source file %s (error: %d(0x%x) (%s))", v25, v26, v27, v28, v29, v30, a1);
+        goto LABEL_16;
+      }
+
+      if (fchmod(v13, *&__b[4]))
+      {
+        __error();
+        __error();
+        v31 = __error();
+        strerror(*v31);
+        _TelephonyUtilDebugPrintError("copy_file", "Failed to change mode of destination file %s (error: %d(0x%x) (%s))", v32, v33, v34, v35, v36, v37, a3);
+        goto LABEL_16;
+      }
+    }
+
+    v15 = 1;
+LABEL_17:
+    ctu::fs::close_file(v13);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
+  ctu::fs::close_file(v10);
   return v15;
 }
 
 BOOL ctu::fs::load_file(const void *a1, const void *a2, char **a3)
 {
-  v29[72] = *MEMORY[0x1E69E9840];
-  v28[0] = a1;
-  v28[1] = a2;
-  memset(&v29[1], 170, 0x238uLL);
-  ctu::llvm::StringRef::operator std::string(v28, __p);
-  v29[59] = 0;
+  v27[72] = *MEMORY[0x1E69E9840];
+  v26[0] = a1;
+  v26[1] = a2;
+  memset(&v27[1], 170, 0x238uLL);
+  ctu::llvm::StringRef::operator std::string(v26, __p);
+  v27[59] = 0;
   v4 = MEMORY[0x1E69E5528] + 64;
-  v29[53] = MEMORY[0x1E69E5528] + 64;
+  v27[53] = MEMORY[0x1E69E5528] + 64;
   v5 = MEMORY[0x1E69E54C8];
   v6 = *(MEMORY[0x1E69E54C8] + 16);
-  v29[0] = *(MEMORY[0x1E69E54C8] + 8);
-  *(v29 + *(v29[0] - 24)) = v6;
-  v29[1] = 0;
-  v7 = (v29 + *(v29[0] - 24));
-  std::ios_base::init(v7, &v29[2]);
+  v27[0] = *(MEMORY[0x1E69E54C8] + 8);
+  *(v27 + *(v27[0] - 24)) = v6;
+  v27[1] = 0;
+  v7 = (v27 + *(v27[0] - 24));
+  std::ios_base::init(v7, &v27[2]);
   v8 = MEMORY[0x1E69E5528] + 24;
   v7[1].__vftable = 0;
   v7[1].__fmtflags_ = -1;
-  v29[0] = v8;
-  v29[53] = v4;
-  MEMORY[0x1AC5809E0](&v29[2]);
+  v27[0] = v8;
+  v27[53] = v4;
+  MEMORY[0x1AC5809E0](&v27[2]);
   if (!std::filebuf::open())
   {
-    std::ios_base::clear((v29 + *(v29[0] - 24)), *(&v29[4] + *(v29[0] - 24)) | 4);
+    std::ios_base::clear((v27 + *(v27[0] - 24)), *(&v27[4] + *(v27[0] - 24)) | 4);
   }
 
-  if (v27 < 0)
+  if (v25 < 0)
   {
     operator delete(__p[0]);
   }
 
   __p[0] = 0;
-  if (v29[17] && ((file_size = ctu::fs::get_file_size(v29, __p), (v10 = __p[0]) != 0) ? (v11 = file_size) : (v11 = 0), v11 && !*(&v29[4] + *(v29[0] - 24))))
+  if (v27[17] && ((file_size = ctu::fs::get_file_size(v27, __p), (v10 = __p[0]) != 0) ? (v11 = file_size) : (v11 = 0), v11 && !*(&v27[4] + *(v27[0] - 24))))
   {
-    v16 = *a3;
-    v15 = a3[1];
-    v17 = (v15 - *a3);
-    v18 = (__p[0] - v17);
-    if (__p[0] <= v17)
+    v15 = *a3;
+    v14 = a3[1];
+    v16 = (v14 - *a3);
+    v17 = (__p[0] - v16);
+    if (__p[0] <= v16)
     {
-      if (__p[0] < v17)
+      if (__p[0] < v16)
       {
-        a3[1] = &v16[__p[0]];
+        a3[1] = &v15[__p[0]];
       }
     }
 
     else
     {
-      v19 = a3[2];
-      if (v19 - v15 >= v18)
+      v18 = a3[2];
+      if (v18 - v14 >= v17)
       {
-        v24 = &v18[v15];
-        bzero(v15, __p[0] - v17);
-        a3[1] = v24;
+        v23 = &v17[v14];
+        bzero(v14, __p[0] - v16);
+        a3[1] = v23;
       }
 
       else
@@ -8429,43 +7522,41 @@ BOOL ctu::fs::load_file(const void *a1, const void *a2, char **a3)
           std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
         }
 
-        v20 = v19 - v16;
-        v21 = (2 * v20);
-        if ((2 * v20) <= __p[0])
+        v19 = v18 - v15;
+        v20 = (2 * v19);
+        if ((2 * v19) <= __p[0])
         {
-          v21 = __p[0];
+          v20 = __p[0];
         }
 
-        if (v20 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v19 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v22 = 0x7FFFFFFFFFFFFFFFLL;
+          v21 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v22 = v21;
+          v21 = v20;
         }
 
-        v23 = operator new(v22);
-        bzero(&v17[v23], v10 - v17);
-        memcpy(v23, v16, v17);
-        *a3 = v23;
-        a3[1] = &v10[v23];
-        a3[2] = v23 + v22;
-        if (v16)
+        v22 = operator new(v21);
+        bzero(&v16[v22], v10 - v16);
+        memcpy(v22, v15, v16);
+        *a3 = v22;
+        a3[1] = &v10[v22];
+        a3[2] = v22 + v21;
+        if (v15)
         {
-          operator delete(v16);
+          operator delete(v15);
         }
       }
-
-      v25 = *a3;
     }
 
     std::istream::read();
-    v12 = v29[1] == v10;
+    v12 = v27[1] == v10;
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((v29 + *(v29[0] - 24)), *(&v29[4] + *(v29[0] - 24)) | 4);
+      std::ios_base::clear((v27 + *(v27[0] - 24)), *(&v27[4] + *(v27[0] - 24)) | 4);
     }
   }
 
@@ -8474,31 +7565,27 @@ BOOL ctu::fs::load_file(const void *a1, const void *a2, char **a3)
     v12 = 0;
   }
 
-  v29[0] = *v5;
-  *(v29 + *(v29[0] - 24)) = v5[3];
-  MEMORY[0x1AC5809F0](&v29[2]);
+  v27[0] = *v5;
+  *(v27 + *(v27[0] - 24)) = v5[3];
+  MEMORY[0x1AC5809F0](&v27[2]);
   std::istream::~istream();
-  MEMORY[0x1AC580CE0](&v29[53]);
-  v13 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1AC580CE0](&v27[53]);
   return v12;
 }
 
 BOOL ctu::fs::get_file_size(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 136);
   if (v2)
   {
     std::istream::tellg();
     std::istream::seekg();
     std::istream::tellg();
-    *a2 = v6;
+    *a2 = v5;
     std::istream::seekg();
   }
 
-  result = v2 != 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 != 0;
 }
 
 void *std::ifstream::~ifstream(void *a1)
@@ -8515,50 +7602,41 @@ void *std::ifstream::~ifstream(void *a1)
 
 BOOL ctu::fs::get_file_size(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[72] = *MEMORY[0x1E69E9840];
-  if (a2)
+  v11[72] = *MEMORY[0x1E69E9840];
+  if (!a2)
   {
-    memset(&v12[1], 170, 0x238uLL);
-    v12[59] = 0;
-    v4 = MEMORY[0x1E69E5528] + 64;
-    v12[53] = MEMORY[0x1E69E5528] + 64;
-    v5 = MEMORY[0x1E69E54C8];
-    v6 = *(MEMORY[0x1E69E54C8] + 16);
-    v12[0] = *(MEMORY[0x1E69E54C8] + 8);
-    *(v12 + *(v12[0] - 24)) = v6;
-    v12[1] = 0;
-    v7 = (v12 + *(v12[0] - 24));
-    std::ios_base::init(v7, &v12[2]);
-    v8 = MEMORY[0x1E69E5528] + 24;
-    v7[1].__vftable = 0;
-    v7[1].__fmtflags_ = -1;
-    v12[0] = v8;
-    v12[53] = v4;
-    MEMORY[0x1AC5809E0](&v12[2]);
-    if (!std::filebuf::open())
-    {
-      std::ios_base::clear((v12 + *(v12[0] - 24)), *(&v12[4] + *(v12[0] - 24)) | 4);
-    }
+    return 0;
+  }
 
-    if (v12[17])
-    {
-      file_size = ctu::fs::get_file_size(v12, a3);
-      if (!std::filebuf::close())
-      {
-        std::ios_base::clear((v12 + *(v12[0] - 24)), *(&v12[4] + *(v12[0] - 24)) | 4);
-      }
-    }
+  memset(&v11[1], 170, 0x238uLL);
+  v11[59] = 0;
+  v4 = MEMORY[0x1E69E5528] + 64;
+  v11[53] = MEMORY[0x1E69E5528] + 64;
+  v5 = MEMORY[0x1E69E54C8];
+  v6 = *(MEMORY[0x1E69E54C8] + 16);
+  v11[0] = *(MEMORY[0x1E69E54C8] + 8);
+  *(v11 + *(v11[0] - 24)) = v6;
+  v11[1] = 0;
+  v7 = (v11 + *(v11[0] - 24));
+  std::ios_base::init(v7, &v11[2]);
+  v8 = MEMORY[0x1E69E5528] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  v11[0] = v8;
+  v11[53] = v4;
+  MEMORY[0x1AC5809E0](&v11[2]);
+  if (!std::filebuf::open())
+  {
+    std::ios_base::clear((v11 + *(v11[0] - 24)), *(&v11[4] + *(v11[0] - 24)) | 4);
+  }
 
-    else
+  if (v11[17])
+  {
+    file_size = ctu::fs::get_file_size(v11, a3);
+    if (!std::filebuf::close())
     {
-      file_size = 0;
+      std::ios_base::clear((v11 + *(v11[0] - 24)), *(&v11[4] + *(v11[0] - 24)) | 4);
     }
-
-    v12[0] = *v5;
-    *(v12 + *(v12[0] - 24)) = v5[3];
-    MEMORY[0x1AC5809F0](&v12[2]);
-    std::istream::~istream();
-    MEMORY[0x1AC580CE0](&v12[53]);
   }
 
   else
@@ -8566,14 +7644,18 @@ BOOL ctu::fs::get_file_size(uint64_t a1, uint64_t a2, void *a3)
     file_size = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = *v5;
+  *(v11 + *(v11[0] - 24)) = v5[3];
+  MEMORY[0x1AC5809F0](&v11[2]);
+  std::istream::~istream();
+  MEMORY[0x1AC580CE0](&v11[53]);
   return file_size;
 }
 
-void sub_1A9119FF4(_Unwind_Exception *a1)
+void sub_1A9119FF4(_Unwind_Exception *a1, uint64_t a2, ...)
 {
   std::istream::~istream();
-  MEMORY[0x1AC580CE0](v1);
+  MEMORY[0x1AC580CE0](v2);
   _Unwind_Resume(a1);
 }
 
@@ -9310,114 +8392,110 @@ void std::basic_regex<char,std::regex_traits<char>>::~basic_regex(std::locale *t
 
 const void **ctu::fs::get_unique_pathname@<X0>(const void *a1@<X0>, const void *a2@<X1>, _OWORD *a3@<X8>)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v17[0] = a1;
-  v17[1] = a2;
+  v26 = *MEMORY[0x1E69E9840];
+  v16[0] = a1;
+  v16[1] = a2;
   v4.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v4.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v19.st_blksize = v4;
-  *v19.st_qspare = v4;
-  v19.st_birthtimespec = v4;
-  *&v19.st_size = v4;
-  v19.st_mtimespec = v4;
-  v19.st_ctimespec = v4;
-  *&v19.st_uid = v4;
-  v19.st_atimespec = v4;
-  *&v19.st_dev = v4;
-  if (stat(a1, &v19))
+  *&v18.st_blksize = v4;
+  *v18.st_qspare = v4;
+  v18.st_birthtimespec = v4;
+  *&v18.st_size = v4;
+  v18.st_mtimespec = v4;
+  v18.st_ctimespec = v4;
+  *&v18.st_uid = v4;
+  v18.st_atimespec = v4;
+  *&v18.st_dev = v4;
+  if (stat(a1, &v18))
   {
-    result = ctu::llvm::StringRef::operator std::string(v17, a3);
+    return ctu::llvm::StringRef::operator std::string(v16, a3);
   }
 
-  else
+  for (i = 1; ; ++i)
   {
-    for (i = 1; ; ++i)
+    v7.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    v7.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+    v24 = v7;
+    v25 = v7;
+    v22 = v7;
+    v23 = v7;
+    v20 = v7;
+    v21 = v7;
+    *v18.st_qspare = v7;
+    v19 = v7;
+    *&v18.st_size = v7;
+    *&v18.st_blksize = v7;
+    v18.st_ctimespec = v7;
+    v18.st_birthtimespec = v7;
+    v18.st_atimespec = v7;
+    v18.st_mtimespec = v7;
+    *&v18.st_dev = v7;
+    *&v18.st_uid = v7;
+    snprintf(&v18, 0x100uLL, "-%u", i);
+    memset(a3, 170, 24);
+    ctu::llvm::StringRef::operator std::string(v16, &v17);
+    std::string::basic_string[abi:ne200100]<0>(__p, &v18);
+    if ((v15 & 0x80u) == 0)
     {
-      v8.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      v8.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      v25 = v8;
-      v26 = v8;
-      v23 = v8;
-      v24 = v8;
-      v21 = v8;
-      v22 = v8;
-      *v19.st_qspare = v8;
-      v20 = v8;
-      *&v19.st_size = v8;
-      *&v19.st_blksize = v8;
-      v19.st_ctimespec = v8;
-      v19.st_birthtimespec = v8;
-      v19.st_atimespec = v8;
-      v19.st_mtimespec = v8;
-      *&v19.st_dev = v8;
-      *&v19.st_uid = v8;
-      snprintf(&v19, 0x100uLL, "-%u", i);
-      memset(a3, 170, 24);
-      ctu::llvm::StringRef::operator std::string(v17, &v18);
-      std::string::basic_string[abi:ne200100]<0>(__p, &v19);
-      if ((v16 & 0x80u) == 0)
-      {
-        v9 = __p;
-      }
+      v8 = __p;
+    }
 
-      else
-      {
-        v9 = __p[0];
-      }
+    else
+    {
+      v8 = __p[0];
+    }
 
-      if ((v16 & 0x80u) == 0)
-      {
-        v10 = v16;
-      }
+    if ((v15 & 0x80u) == 0)
+    {
+      v9 = v15;
+    }
 
-      else
-      {
-        v10 = __p[1];
-      }
+    else
+    {
+      v9 = __p[1];
+    }
 
-      v11 = std::string::append(&v18, v9, v10);
-      v12 = *&v11->__r_.__value_.__l.__data_;
-      *(a3 + 2) = *(&v11->__r_.__value_.__l + 2);
-      *a3 = v12;
-      v11->__r_.__value_.__l.__size_ = 0;
-      v11->__r_.__value_.__r.__words[2] = 0;
-      v11->__r_.__value_.__r.__words[0] = 0;
-      if (v16 < 0)
-      {
-        operator delete(__p[0]);
-      }
+    v10 = std::string::append(&v17, v8, v9);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    *(a3 + 2) = *(&v10->__r_.__value_.__l + 2);
+    *a3 = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    if (v15 < 0)
+    {
+      operator delete(__p[0]);
+    }
 
-      if (SHIBYTE(v18.st_gid) < 0)
-      {
-        operator delete(*&v18.st_dev);
-      }
+    if (SHIBYTE(v17.st_gid) < 0)
+    {
+      operator delete(*&v17.st_dev);
+    }
 
-      v13 = *(a3 + 23) >= 0 ? a3 : *a3;
-      v14.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-      v14.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&v18.st_blksize = v14;
-      *v18.st_qspare = v14;
-      *&v18.st_size = v14;
-      v18.st_ctimespec = v14;
-      v18.st_birthtimespec = v14;
-      v18.st_atimespec = v14;
-      v18.st_mtimespec = v14;
-      *&v18.st_dev = v14;
-      *&v18.st_uid = v14;
-      result = stat(v13, &v18);
-      if (result)
-      {
-        break;
-      }
+    v12 = *(a3 + 23) >= 0 ? a3 : *a3;
+    v13.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    v13.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+    *&v17.st_blksize = v13;
+    *v17.st_qspare = v13;
+    *&v17.st_size = v13;
+    v17.st_ctimespec = v13;
+    v17.st_birthtimespec = v13;
+    v17.st_atimespec = v13;
+    v17.st_mtimespec = v13;
+    *&v17.st_dev = v13;
+    *&v17.st_uid = v13;
+    result = stat(v12, &v17);
+    if (result)
+    {
+      break;
+    }
 
-      if (*(a3 + 23) < 0)
-      {
-        operator delete(*a3);
-      }
+    if (*(a3 + 23) < 0)
+    {
+      operator delete(*a3);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9438,21 +8516,21 @@ uint64_t ctu::fs::remove_file(const std::__fs::filesystem::path *a1, std::error_
     return 1;
   }
 
-  v3 = *__error();
-  v4 = *__error();
-  v5 = __error();
-  strerror(*v5);
-  _TelephonyUtilDebugPrintError("remove_file", "Failed to remove file %s (error: %d(0x%x) (%s))", v6, v7, v8, v9, v10, v11, a1);
+  __error();
+  __error();
+  v3 = __error();
+  strerror(*v3);
+  _TelephonyUtilDebugPrintError("remove_file", "Failed to remove file %s (error: %d(0x%x) (%s))", v4, v5, v6, v7, v8, v9, a1);
   if (!unlink(a1))
   {
     return 1;
   }
 
-  v12 = *__error();
-  v13 = *__error();
-  v14 = __error();
-  strerror(*v14);
-  _TelephonyUtilDebugPrintError("remove_file", "Failed to unlink file %s (error: %d(0x%x) (%s))", v15, v16, v17, v18, v19, v20, a1);
+  __error();
+  __error();
+  v10 = __error();
+  strerror(*v10);
+  _TelephonyUtilDebugPrintError("remove_file", "Failed to unlink file %s (error: %d(0x%x) (%s))", v11, v12, v13, v14, v15, v16, a1);
   return 0;
 }
 
@@ -9811,11 +8889,11 @@ LABEL_19:
           return 1;
         }
 
-        v10 = *__error();
-        v11 = *__error();
-        v12 = __error();
-        strerror(*v12);
-        _TelephonyUtilDebugPrintError("rename", "Failed to rename %s -> %s (error: %d(0x%x) (%s))", v13, v14, v15, v16, v17, v18, a1);
+        __error();
+        __error();
+        v10 = __error();
+        strerror(*v10);
+        _TelephonyUtilDebugPrintError("rename", "Failed to rename %s -> %s (error: %d(0x%x) (%s))", v11, v12, v13, v14, v15, v16, a1);
         return 0;
       }
 
@@ -9847,53 +8925,946 @@ const void **ctu::fs::rename_directory_unique@<X0>(const std::__fs::filesystem::
 {
   v8.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v8.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v24.st_blksize = v8;
-  *v24.st_qspare = v8;
-  v24.st_birthtimespec = v8;
-  *&v24.st_size = v8;
-  v24.st_mtimespec = v8;
-  v24.st_ctimespec = v8;
-  *&v24.st_uid = v8;
-  v24.st_atimespec = v8;
-  *&v24.st_dev = v8;
-  if (!stat(a1, &v24) && (v24.st_mode & 0xF000) == 0x4000)
+  *&v22.st_blksize = v8;
+  *v22.st_qspare = v8;
+  v22.st_birthtimespec = v8;
+  *&v22.st_size = v8;
+  v22.st_mtimespec = v8;
+  v22.st_ctimespec = v8;
+  *&v22.st_uid = v8;
+  v22.st_atimespec = v8;
+  *&v22.st_dev = v8;
+  if (!stat(a1, &v22) && (v22.st_mode & 0xF000) == 0x4000)
   {
-    ctu::fs::get_unique_pathname(a2, a3, &v24);
-    st_ino = v24.st_ino;
-    if ((v24.st_gid & 0x80000000) == 0)
+    ctu::fs::get_unique_pathname(a2, a3, &v22);
+    st_ino = v22.st_ino;
+    if ((v22.st_gid & 0x80000000) == 0)
     {
-      v11 = &v24;
+      v11 = &v22;
     }
 
     else
     {
-      v11 = *&v24.st_dev;
+      v11 = *&v22.st_dev;
     }
 
-    if ((v24.st_gid & 0x80000000) == 0)
+    if ((v22.st_gid & 0x80000000) == 0)
     {
-      st_ino = SHIBYTE(v24.st_gid);
+      st_ino = SHIBYTE(v22.st_gid);
     }
 
-    v23[0] = v11;
-    v23[1] = st_ino;
-    if ((SHIBYTE(v24.st_gid) & 0x8000000000000000) != 0)
+    v21[0] = v11;
+    v21[1] = st_ino;
+    if ((SHIBYTE(v22.st_gid) & 0x8000000000000000) != 0)
     {
-      operator delete(*&v24.st_dev);
+      operator delete(*&v22.st_dev);
     }
 
     rename(a1, v11, v9);
     if (!v12)
     {
-      return ctu::llvm::StringRef::operator std::string(v23, a4);
+      return ctu::llvm::StringRef::operator std::string(v21, a4);
     }
 
-    v13 = *__error();
-    v14 = *__error();
-    v15 = __error();
-    strerror(*v15);
-    _TelephonyUtilDebugPrintError("rename_directory_unique", "Failed to rename %s -> %s (error: %d(0x%x) (%s))", v16, v17, v18, v19, v20, v21, a1);
+    __error();
+    __error();
+    v13 = __error();
+    strerror(*v13);
+    _TelephonyUtilDebugPrintError("rename_directory_unique", "Failed to rename %s -> %s (error: %d(0x%x) (%s))", v14, v15, v16, v17, v18, v19, a1);
   }
 
   return std::string::basic_string[abi:ne200100]<0>(a4, "");
+}
+
+BOOL ctu::fs::chmod(const char *a1, uint64_t a2, mode_t a3)
+{
+  v4 = chmod(a1, a3);
+  if (v4)
+  {
+    __error();
+    __error();
+    v5 = __error();
+    strerror(*v5);
+    _TelephonyUtilDebugPrintError("chmod", "Failed to change mode of file %s to (0x%x) (error: %d(0x%x) (%s))", v6, v7, v8, v9, v10, v11, a1);
+  }
+
+  return v4 == 0;
+}
+
+uint64_t ctu::fs::get_filtered_files(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = opendir(a1);
+  if (!v7)
+  {
+    v29 = "Failed to open directory %s (error: %d(0x%x) (%s))";
+    goto LABEL_25;
+  }
+
+  v8 = v7;
+  v9 = readdir(v7);
+  if (!v9)
+  {
+    if (!closedir(v8))
+    {
+      goto LABEL_26;
+    }
+
+    v29 = "Failed to close directory %s (error: %d(0x%x) (%s))";
+LABEL_25:
+    __error();
+    __error();
+    v30 = __error();
+    strerror(*v30);
+    _TelephonyUtilDebugPrintError("get_filtered_files", v29, v31, v32, v33, v34, v35, v36, a1);
+    goto LABEL_26;
+  }
+
+  v10 = v9;
+  v11 = 0;
+  do
+  {
+    std::string::basic_string[abi:ne200100]<0>(v38, v10->d_name);
+    v12 = v39;
+    if ((v39 & 0x80u) == 0)
+    {
+      v13 = v38;
+    }
+
+    else
+    {
+      v13 = v38[0];
+    }
+
+    if ((v39 & 0x80u) != 0)
+    {
+      v12 = v38[1];
+    }
+
+    *&v14 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v42 = v14;
+    v41[6] = 0xAAAAAAAAAAAAAA00;
+    v41[3] = 0xAAAAAAAAAAAAAAAALL;
+    v41[4] = 0;
+    v41[5] = 0;
+    v41[7] = 0;
+    v41[8] = 0;
+    LOBYTE(v42) = 0;
+    BYTE8(v42) = 0;
+    v43 = 0;
+    *__p = 0u;
+    memset(v41, 0, 24);
+    v15 = std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(v13, (v13 + v12), __p, a3);
+    if (__p[0])
+    {
+      operator delete(__p[0]);
+    }
+
+    if (v39 < 0)
+    {
+      operator delete(v38[0]);
+      if (!v15)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else if (!v15)
+    {
+      goto LABEL_18;
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(__p, v10->d_name);
+    std::vector<std::string>::push_back[abi:ne200100](a4, __p);
+    if (SHIBYTE(v41[0]) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    v11 = 1;
+LABEL_18:
+    v10 = readdir(v8);
+  }
+
+  while (v10);
+  if (!closedir(v8))
+  {
+    if (v11)
+    {
+      return 1;
+    }
+
+    goto LABEL_26;
+  }
+
+  __error();
+  __error();
+  v22 = __error();
+  strerror(*v22);
+  _TelephonyUtilDebugPrintError("get_filtered_files", "Failed to close directory %s (error: %d(0x%x) (%s))", v23, v24, v25, v26, v27, v28, a1);
+  if ((v11 & 1) == 0)
+  {
+LABEL_26:
+    _TelephonyUtilDebugPrint("get_filtered_files", "Found no matching content in %s", v16, v17, v18, v19, v20, v21, a1);
+    return 0;
+  }
+
+  return 1;
+}
+
+void sub_1A911B958(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  if (a25 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ctu::fs::get_last_number_in_unique_path(const void *a1@<X0>, const void *a2@<X1>, uint64_t a3@<X8>)
+{
+  v65[0] = a1;
+  v65[1] = a2;
+  memset(v64, 170, sizeof(v64));
+  ctu::llvm::StringRef::operator std::string(v65, v64);
+  memset(v63, 170, sizeof(v63));
+  std::string::basic_string[abi:ne200100]<0>(v63, "/");
+  v4 = HIBYTE(v64[2]);
+  v5 = SHIBYTE(v64[2]);
+  v6 = v64[0];
+  v7 = v64[1];
+  if (SHIBYTE(v64[2]) >= 0)
+  {
+    v8 = v64;
+  }
+
+  else
+  {
+    v8 = v64[0];
+  }
+
+  if (SHIBYTE(v64[2]) >= 0)
+  {
+    v9 = HIBYTE(v64[2]);
+  }
+
+  else
+  {
+    v9 = v64[1];
+  }
+
+  if (SHIBYTE(v63[2]) >= 0)
+  {
+    v10 = v63;
+  }
+
+  else
+  {
+    v10 = v63[0];
+  }
+
+  if (SHIBYTE(v63[2]) >= 0)
+  {
+    v11 = HIBYTE(v63[2]);
+  }
+
+  else
+  {
+    v11 = v63[1];
+  }
+
+  v12 = v8 - 1;
+  do
+  {
+    if (!v9)
+    {
+      goto LABEL_23;
+    }
+
+    v13 = v9;
+    if (!v11)
+    {
+      break;
+    }
+
+    v14 = memchr(v10, v9[v12], v11);
+    v9 = v13 - 1;
+  }
+
+  while (v14);
+  v15 = v13 - 1;
+  if (v5 < 0)
+  {
+    if (v7 > v15)
+    {
+      v64[1] = v13;
+      goto LABEL_22;
+    }
+
+LABEL_122:
+    std::string::__throw_out_of_range[abi:ne200100]();
+  }
+
+  if (v15 >= v4)
+  {
+    goto LABEL_122;
+  }
+
+  HIBYTE(v64[2]) = v13;
+  v6 = v64;
+LABEL_22:
+  v13[v6] = 0;
+  v4 = HIBYTE(v64[2]);
+  v6 = v64[0];
+  v7 = v64[1];
+  LOBYTE(v5) = HIBYTE(v64[2]);
+LABEL_23:
+  v61 = 0xAAAAAAAAAAAAAAAALL;
+  v62 = 0xAAAAAAAAAAAAAAAALL;
+  if ((v5 & 0x80u) == 0)
+  {
+    v16 = v64;
+  }
+
+  else
+  {
+    v16 = v6;
+  }
+
+  if ((v5 & 0x80u) == 0)
+  {
+    v17 = v4;
+  }
+
+  else
+  {
+    v17 = v7;
+  }
+
+  v60 = 0xAAAAAAAAAAAAAAAALL;
+  ctu::fs::get_dir_name(v16, v17, &v60);
+  if (SHIBYTE(v64[2]) >= 0)
+  {
+    v18 = HIBYTE(v64[2]);
+  }
+
+  else
+  {
+    v18 = v64[1];
+  }
+
+  if (!v18)
+  {
+    goto LABEL_81;
+  }
+
+  v19 = HIBYTE(v62);
+  if (v62 < 0)
+  {
+    v19 = v61;
+  }
+
+  if (!v19)
+  {
+LABEL_81:
+    ctu::llvm::StringRef::operator std::string(v65, a3);
+    goto LABEL_115;
+  }
+
+  memset(&v59, 170, sizeof(v59));
+  if (SHIBYTE(v64[2]) >= 0)
+  {
+    v20 = v64;
+  }
+
+  else
+  {
+    v20 = v64[0];
+  }
+
+  ctu::fs::get_base_name(v20, v18, &v59);
+  if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v59.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v59.__r_.__value_.__l.__size_;
+  }
+
+  memset(v58, 170, sizeof(v58));
+  v22 = v58;
+  std::string::basic_string[abi:ne200100](v58, size + 13);
+  if (SHIBYTE(v58[2]) < 0)
+  {
+    v22 = v58[0];
+  }
+
+  if (size)
+  {
+    if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v23 = &v59;
+    }
+
+    else
+    {
+      v23 = v59.__r_.__value_.__r.__words[0];
+    }
+
+    memmove(v22, v23, size);
+  }
+
+  strcpy(v22 + size, "-[[:alnum:]]*");
+  *&v24 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v57[1].__ct_ = v24;
+  *&v57[2].__loc_.__locale_ = v24;
+  *&v57[0].__loc_.__locale_ = v24;
+  *&v57[0].__col_ = v24;
+  std::regex_traits<char>::regex_traits(v57);
+  memset(&v57[1], 0, 40);
+  v25 = HIBYTE(v58[2]);
+  if (SHIBYTE(v58[2]) >= 0)
+  {
+    v26 = v58;
+  }
+
+  else
+  {
+    v26 = v58[0];
+  }
+
+  if (SHIBYTE(v58[2]) < 0)
+  {
+    v25 = v58[1];
+  }
+
+  if (std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(v57, v26, &v25[v26]) != &v25[v26])
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17>();
+  }
+
+  v54 = 0;
+  v55 = 0;
+  v56 = 0;
+  if (v62 >= 0)
+  {
+    v27 = &v60;
+  }
+
+  else
+  {
+    v27 = v60;
+  }
+
+  if (v62 >= 0)
+  {
+    v28 = SHIBYTE(v62);
+  }
+
+  else
+  {
+    v28 = v61;
+  }
+
+  std::locale::locale(&v49, &v57[0].__loc_);
+  v50 = *&v57[0].__ct_;
+  v51 = v57[1];
+  locale = v57[2].__loc_.__locale_;
+  if (v57[2].__loc_.__locale_)
+  {
+    atomic_fetch_add_explicit(v57[2].__loc_.__locale_ + 1, 1uLL, memory_order_relaxed);
+  }
+
+  ct = v57[2].__ct_;
+  if (ctu::fs::get_filtered_files(v27, v28, &v49, &v54))
+  {
+    v29 = v54;
+    v30 = v55;
+    if (locale)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](locale);
+    }
+
+    std::locale::~locale(&v49);
+    if (v29 != v30)
+    {
+      v31 = v54;
+      v32 = v55;
+      if (v54 == v55)
+      {
+        v33 = 0;
+      }
+
+      else
+      {
+        v33 = 0;
+        do
+        {
+          memset(&v48, 170, sizeof(v48));
+          ctu::tokenize(v31, 45, 0, &v48);
+          memset(&v47, 170, sizeof(v47));
+          if (*(v48.__r_.__value_.__l.__size_ - 1) < 0)
+          {
+            std::string::__init_copy_ctor_external(&v47, *(v48.__r_.__value_.__l.__size_ - 24), *(v48.__r_.__value_.__l.__size_ - 16));
+          }
+
+          else
+          {
+            v34 = *(v48.__r_.__value_.__l.__size_ - 24);
+            v47.__r_.__value_.__r.__words[2] = *(v48.__r_.__value_.__l.__size_ - 8);
+            *&v47.__r_.__value_.__l.__data_ = v34;
+          }
+
+          if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v35 = &v47;
+          }
+
+          else
+          {
+            v35 = v47.__r_.__value_.__r.__words[0];
+          }
+
+          v36 = strtol(v35, 0, 0);
+          if (v33 <= v36)
+          {
+            v33 = v36;
+          }
+
+          if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v47.__r_.__value_.__l.__data_);
+          }
+
+          v47.__r_.__value_.__r.__words[0] = &v48;
+          std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v47);
+          ++v31;
+        }
+
+        while (v31 != v32);
+      }
+
+      if (SHIBYTE(v64[2]) >= 0)
+      {
+        v37 = HIBYTE(v64[2]);
+      }
+
+      else
+      {
+        v37 = v64[1];
+      }
+
+      memset(&v47, 170, sizeof(v47));
+      v38 = &v47;
+      std::string::basic_string[abi:ne200100](&v47, v37 + 1);
+      if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v38 = v47.__r_.__value_.__r.__words[0];
+      }
+
+      if (v37)
+      {
+        if (SHIBYTE(v64[2]) >= 0)
+        {
+          v39 = v64;
+        }
+
+        else
+        {
+          v39 = v64[0];
+        }
+
+        memmove(v38, v39, v37);
+      }
+
+      *(&v38->__r_.__value_.__l.__data_ + v37) = 45;
+      std::to_string(&v46, v33);
+      if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v40 = &v46;
+      }
+
+      else
+      {
+        v40 = v46.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v41 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v41 = v46.__r_.__value_.__l.__size_;
+      }
+
+      v42 = std::string::append(&v47, v40, v41);
+      v43 = *&v42->__r_.__value_.__l.__data_;
+      v48.__r_.__value_.__r.__words[2] = v42->__r_.__value_.__r.__words[2];
+      *&v48.__r_.__value_.__l.__data_ = v43;
+      v42->__r_.__value_.__l.__size_ = 0;
+      v42->__r_.__value_.__r.__words[2] = 0;
+      v42->__r_.__value_.__r.__words[0] = 0;
+      v44 = std::string::append(&v48, "/", 1uLL);
+      v45 = *&v44->__r_.__value_.__l.__data_;
+      *(a3 + 16) = *(&v44->__r_.__value_.__l + 2);
+      *a3 = v45;
+      v44->__r_.__value_.__l.__size_ = 0;
+      v44->__r_.__value_.__r.__words[2] = 0;
+      v44->__r_.__value_.__r.__words[0] = 0;
+      if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v48.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v46.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v47.__r_.__value_.__l.__data_);
+      }
+
+      goto LABEL_109;
+    }
+  }
+
+  else
+  {
+    if (locale)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](locale);
+    }
+
+    std::locale::~locale(&v49);
+  }
+
+  ctu::llvm::StringRef::operator std::string(v65, a3);
+LABEL_109:
+  v48.__r_.__value_.__r.__words[0] = &v54;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v48);
+  if (v57[2].__loc_.__locale_)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v57[2].__loc_.__locale_);
+  }
+
+  std::locale::~locale(&v57[0].__loc_);
+  if (SHIBYTE(v58[2]) < 0)
+  {
+    operator delete(v58[0]);
+  }
+
+  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v59.__r_.__value_.__l.__data_);
+  }
+
+LABEL_115:
+  if (SHIBYTE(v62) < 0)
+  {
+    operator delete(v60);
+  }
+
+  if (SHIBYTE(v63[2]) < 0)
+  {
+    operator delete(v63[0]);
+  }
+
+  if (SHIBYTE(v64[2]) < 0)
+  {
+    operator delete(v64[0]);
+  }
+}
+
+void sub_1A911BF2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::locale a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, std::locale a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
+{
+  if (a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  __p = &a37;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
+  std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&a40);
+  if (*(v46 - 209) < 0)
+  {
+    operator delete(*(v46 - 232));
+  }
+
+  if (*(v46 - 185) < 0)
+  {
+    operator delete(*(v46 - 208));
+  }
+
+  if (*(v46 - 161) < 0)
+  {
+    operator delete(*(v46 - 184));
+  }
+
+  if (*(v46 - 137) < 0)
+  {
+    operator delete(*(v46 - 160));
+  }
+
+  if (*(v46 - 113) < 0)
+  {
+    operator delete(*(v46 - 136));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL ctu::fs::get_partition_info(const char *a1, uint64_t a2, void *a3, void *a4, unint64_t *a5)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  memset(&v20, 0, sizeof(v20));
+  v9 = statvfs(a1, &v20);
+  v10 = v9 == 0;
+  if (v9)
+  {
+    __error();
+    __error();
+    v11 = __error();
+    strerror(*v11);
+    _TelephonyUtilDebugPrintError("get_partition_info", "Failed to get filesystem statistics pertaining to path %s (error: %d(0x%x) (%s))", v12, v13, v14, v15, v16, v17, a1);
+  }
+
+  else
+  {
+    *a5 = v20.f_frsize;
+    f_bavail = v20.f_bavail;
+    *a3 = v20.f_blocks;
+    *a4 = f_bavail;
+  }
+
+  return v10;
+}
+
+std::regex_traits<char> *__cdecl std::regex_traits<char>::regex_traits(std::regex_traits<char> *this)
+{
+  v2 = MEMORY[0x1AC580C60]();
+  this->__ct_ = std::locale::use_facet(v2, MEMORY[0x1E69E5318]);
+  this->__col_ = std::locale::use_facet(&this->__loc_, MEMORY[0x1E69E5340]);
+  return this;
+}
+
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(uint64_t a1, char *a2, char *a3)
+{
+  v6 = operator new(8uLL);
+  *v6 = &unk_1F1CB53F0;
+  v7 = operator new(0x10uLL);
+  v7[1] = v6;
+  std::shared_ptr<std::__empty_state<char>>::reset[abi:ne200100]<std::__empty_state<char>,0>((a1 + 40), v7);
+  v8 = *(a1 + 40);
+  *(a1 + 56) = v8;
+  v9 = *(a1 + 24) & 0x1F0;
+  if (v9 > 0x3F)
+  {
+    switch(v9)
+    {
+      case 0x40u:
+LABEL_14:
+
+        return std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, a2, a3);
+      case 0x80u:
+        v13 = memchr(a2, 10, a3 - a2);
+        if (v13)
+        {
+          v14 = v13;
+        }
+
+        else
+        {
+          v14 = a3;
+        }
+
+        if (v14 == a2)
+        {
+          v15 = operator new(0x10uLL);
+          first = v8->__first_;
+          v15[1].__vftable = first;
+          v8->__first_ = v15;
+          *(a1 + 56) = *(*(a1 + 56) + 8);
+        }
+
+        else
+        {
+          std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<char const*>(a1, a2, v14);
+        }
+
+        while (1)
+        {
+          v21 = (v14 == a3 ? v14 : v14 + 1);
+          if (v21 == a3)
+          {
+            break;
+          }
+
+          v17 = memchr(v21, 10, a3 - v21);
+          if (v17)
+          {
+            v14 = v17;
+          }
+
+          else
+          {
+            v14 = a3;
+          }
+
+          v18 = *(a1 + 56);
+          if (v14 == v21)
+          {
+            v19 = operator new(0x10uLL);
+            v20 = v18->__first_;
+            v19[1].__vftable = v20;
+            v18->__first_ = v19;
+            *(a1 + 56) = *(*(a1 + 56) + 8);
+          }
+
+          else
+          {
+            std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<char const*>(a1, v21, v14);
+          }
+
+          std::basic_regex<char,std::regex_traits<char>>::__push_alternation(a1, v8, v18);
+        }
+
+        break;
+      case 0x100u:
+        v10 = memchr(a2, 10, a3 - a2);
+        if (v10)
+        {
+          v11 = v10;
+        }
+
+        else
+        {
+          v11 = a3;
+        }
+
+        if (v11 == a2)
+        {
+          v22 = operator new(0x10uLL);
+          v23 = v8->__first_;
+          v22[1].__vftable = v23;
+          v8->__first_ = v22;
+          *(a1 + 56) = *(*(a1 + 56) + 8);
+        }
+
+        else
+        {
+          std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, a2, v11);
+        }
+
+        while (1)
+        {
+          v21 = (v11 == a3 ? v11 : v11 + 1);
+          if (v21 == a3)
+          {
+            break;
+          }
+
+          v24 = memchr(v21, 10, a3 - v21);
+          if (v24)
+          {
+            v11 = v24;
+          }
+
+          else
+          {
+            v11 = a3;
+          }
+
+          v25 = *(a1 + 56);
+          if (v11 == v21)
+          {
+            v26 = operator new(0x10uLL);
+            v27 = v25->__first_;
+            v26[1].__vftable = v27;
+            v25->__first_ = v26;
+            *(a1 + 56) = *(*(a1 + 56) + 8);
+          }
+
+          else
+          {
+            std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v21, v11);
+          }
+
+          std::basic_regex<char,std::regex_traits<char>>::__push_alternation(a1, v8, v25);
+        }
+
+        break;
+      default:
+        goto LABEL_54;
+    }
+
+    return v21;
+  }
+
+  else if (v9)
+  {
+    if (v9 != 16)
+    {
+      if (v9 != 32)
+      {
+LABEL_54:
+        std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)14>();
+      }
+
+      goto LABEL_14;
+    }
+
+    return std::basic_regex<char,std::regex_traits<char>>::__parse_basic_reg_exp<char const*>(a1, a2, a3);
+  }
+
+  else
+  {
+
+    return std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<char const*>(a1, a2, a3);
+  }
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1AC5808D0](exception, 17);
+  __cxa_throw(exception, MEMORY[0x1E69E53A0], MEMORY[0x1E69E52B0]);
+}
+
+void std::shared_ptr<std::__empty_state<char>>::reset[abi:ne200100]<std::__empty_state<char>,0>(void *a1, uint64_t a2)
+{
+  v4 = operator new(0x20uLL);
+  *v4 = &unk_1F1CB4A58;
+  v4[1] = 0;
+  v4[2] = 0;
+  v4[3] = a2;
+  v5 = a1[1];
+  *a1 = a2;
+  a1[1] = v4;
+  if (v5)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
 }

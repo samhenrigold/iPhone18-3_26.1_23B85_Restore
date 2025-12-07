@@ -15,7 +15,7 @@
 - (void)viewWillLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ConnectionAssistantConnectionViewController();
+  v3.super_class = type metadata accessor for ConnectionAssistantConnectionViewController(0);
   v2 = v3.receiver;
   [(ConnectionAssistantConnectionViewController *)&v3 viewWillLayoutSubviews];
   sub_1000EB214();

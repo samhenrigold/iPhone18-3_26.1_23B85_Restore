@@ -1,5 +1,6 @@
 @interface SGMIMetricsMailAttachmentHistogram
 - (BOOL)isEqual:(id)equal;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -520,7 +521,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    category = self->_category;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -540,7 +540,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  countUpTo8KB = self->_countUpTo8KB;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -555,7 +554,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  count8KBTo32KB = self->_count8KBTo32KB;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -570,7 +568,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  count32KBTo128KB = self->_count32KBTo128KB;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -585,7 +582,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  count128KBTo512KB = self->_count128KBTo512KB;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -600,12 +596,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  count512KBTo2MB = self->_count512KBTo2MB;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    countOver2MB = self->_countOver2MB;
     PBDataWriterWriteUint32Field();
   }
 
@@ -843,6 +837,21 @@ LABEL_13:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)categoryAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27894EBC8[string];
   }
 
   return v4;

@@ -113,7 +113,7 @@ uint64_t __56__ASGizmoBulletinPostingManager_initWithDatabaseClient___block_invo
 
 - (id)_batchedNotificationRequestsFromCodableBulletins:(id)bulletins withAdditions:(id)additions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   bulletinsCopy = bulletins;
   additionsCopy = additions;
   ASLoggingInitialize();
@@ -122,7 +122,7 @@ uint64_t __56__ASGizmoBulletinPostingManager_initWithDatabaseClient___block_invo
   {
     v9 = v8;
     *buf = 134217984;
-    v27 = [bulletinsCopy count];
+    v26 = [bulletinsCopy count];
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Batching %ld notifications", buf, 0xCu);
   }
 
@@ -130,27 +130,26 @@ uint64_t __56__ASGizmoBulletinPostingManager_initWithDatabaseClient___block_invo
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __96__ASGizmoBulletinPostingManager__batchedNotificationRequestsFromCodableBulletins_withAdditions___block_invoke;
-  v20[3] = &unk_278C4D008;
-  v21 = additionsCopy;
-  v22 = uUIDString;
-  v23 = bulletinsCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __96__ASGizmoBulletinPostingManager__batchedNotificationRequestsFromCodableBulletins_withAdditions___block_invoke;
+  v19[3] = &unk_278C4D008;
+  v20 = additionsCopy;
+  v21 = uUIDString;
+  v22 = bulletinsCopy;
   v13 = v10;
-  v24 = v13;
+  v23 = v13;
   selfCopy = self;
   v14 = bulletinsCopy;
   v15 = uUIDString;
   v16 = additionsCopy;
-  [v14 enumerateObjectsUsingBlock:v20];
+  [v14 enumerateObjectsUsingBlock:v19];
   v17 = v13;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-void __96__ASGizmoBulletinPostingManager__batchedNotificationRequestsFromCodableBulletins_withAdditions___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __96__ASGizmoBulletinPostingManager__batchedNotificationRequestsFromCodableBulletins_withAdditions___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v12 = a2;
   v5 = [*(a1 + 32) mutableCopy];
@@ -158,7 +157,7 @@ void __96__ASGizmoBulletinPostingManager__batchedNotificationRequestsFromCodable
   v7 = +[ASNotificationSentinelKeys awaitingSentinelKey];
   [v5 setObject:v6 forKeyedSubscript:v7];
 
-  if ([*(a1 + 48) count] - 1 == a3)
+  if (([*(a1 + 48) count] - 1) == a3)
   {
     v8 = *(a1 + 40);
     v9 = +[ASNotificationSentinelKeys sentinelKey];
@@ -243,7 +242,7 @@ void __96__ASGizmoBulletinPostingManager__batchedNotificationRequestsFromCodable
 
 - (void)postNotificationRequest:(id)request
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FF8];
@@ -251,14 +250,12 @@ void __96__ASGizmoBulletinPostingManager__batchedNotificationRequestsFromCodable
   {
     v6 = v5;
     identifier = [requestCopy identifier];
-    v9 = 138412290;
-    v10 = identifier;
-    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Adding notification request with identifier %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = identifier;
+    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Adding notification request with identifier %@", &v8, 0xCu);
   }
 
   [(ASGizmoBulletinPostingManager *)self _postNotificationRequest:requestCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueBulletins:(id)bulletins withPostingSyle:(int64_t)syle
@@ -297,7 +294,7 @@ uint64_t __66__ASGizmoBulletinPostingManager_enqueueBulletins_withPostingSyle___
 
 - (void)removeCompetitionNotificationsForFriendUUID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   uUIDString = [dCopy UUIDString];
   v6 = [(ASGizmoBulletinPostingManager *)self recordIDForFriendUUID:uUIDString];
@@ -308,12 +305,12 @@ uint64_t __66__ASGizmoBulletinPostingManager_enqueueBulletins_withPostingSyle___
     if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = dCopy;
+      v14 = dCopy;
       _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Found competition request bulletin record to withdraw for friend: %{public}@", buf, 0xCu);
     }
 
-    v13 = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+    v12 = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
     [(ASGizmoBulletinPostingManager *)self _withdrawNotificationRequestsWithIdentifiers:v8];
 
     [(ASGizmoBulletinPostingManager *)self removeRecordIDForFriendUUID:uUIDString];
@@ -327,11 +324,9 @@ uint64_t __66__ASGizmoBulletinPostingManager_enqueueBulletins_withPostingSyle___
     block[2] = __77__ASGizmoBulletinPostingManager_removeCompetitionNotificationsForFriendUUID___block_invoke;
     block[3] = &unk_278C4B250;
     block[4] = self;
-    v12 = uUIDString;
+    v11 = uUIDString;
     dispatch_async(notificationQueue, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __77__ASGizmoBulletinPostingManager_removeCompetitionNotificationsForFriendUUID___block_invoke(uint64_t a1)
@@ -364,22 +359,20 @@ uint64_t __77__ASGizmoBulletinPostingManager_removeCompetitionNotificationsForFr
 
 - (void)removeNotificationWithIdentifier:(id)identifier
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = identifierCopy;
+    v9 = identifierCopy;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Withdrawing bulletin with identifier %@", buf, 0xCu);
   }
 
-  v8 = identifierCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = identifierCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   [(ASGizmoBulletinPostingManager *)self _withdrawNotificationRequestsWithIdentifiers:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerNotificationCategories:(id)categories
@@ -449,7 +442,7 @@ void __64__ASGizmoBulletinPostingManager_registerNotificationCategories___block_
 
 void __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossible__block_invoke_3(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) isProtectedDataAvailable];
   v3 = v2;
   if (*(*(*(a1 + 40) + 8) + 24) & 1) == 0 && (*(*(*(a1 + 48) + 8) + 24) & v2)
@@ -476,7 +469,7 @@ void __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossib
       v11 = v10;
       v12 = [v7 count];
       *buf = 134217984;
-      *v50 = v12;
+      *v49 = v12;
       _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Notifications to post: %ld", buf, 0xCu);
     }
 
@@ -487,7 +480,7 @@ void __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossib
       v14 = v13;
       v15 = [v9 count];
       *buf = 134217984;
-      *v50 = v15;
+      *v49 = v15;
       _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "Notifications to defer: %ld", buf, 0xCu);
     }
 
@@ -533,28 +526,28 @@ void __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossib
       v17 = 0;
     }
 
-    v42 = v9;
-    v41 = [v9 hk_filter:&__block_literal_global_329_0];
+    v41 = v9;
+    v40 = [v9 hk_filter:&__block_literal_global_329_0];
     v25 = [*(a1 + 32) _batchedNotificationRequestsFromCodableBulletins:?];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v26 = [v25 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v45;
+      v28 = *v44;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v45 != v28)
+          if (*v44 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v44 + 1) + 8 * i);
+          v30 = *(*(&v43 + 1) + 8 * i);
           if ([v30 notificationRequestType] == 5)
           {
             v31 = [v30 notificationRequest];
@@ -565,7 +558,7 @@ void __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossib
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v27);
@@ -598,10 +591,10 @@ void __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossib
       dispatch_after(v39, MEMORY[0x277D85CD0], block);
     }
 
-    v7 = v42;
+    v7 = v41;
 LABEL_33:
 
-    goto LABEL_34;
+    return;
   }
 
   ASLoggingInitialize();
@@ -611,16 +604,13 @@ LABEL_33:
     v19 = *(*(*(a1 + 40) + 8) + 24);
     v20 = *(*(*(a1 + 48) + 8) + 24);
     *buf = 67109632;
-    *v50 = v19;
-    *&v50[4] = 1024;
-    *&v50[6] = v20;
-    v51 = 1024;
-    v52 = v3;
+    *v49 = v19;
+    *&v49[4] = 1024;
+    *&v49[6] = v20;
+    v50 = 1024;
+    v51 = v3;
     _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "Not posting queued notifications, isSuppressed=%{BOOL}d isOnWrist=%{BOOL}d protectedDataAvailable=%{BOOL}d", buf, 0x14u);
   }
-
-LABEL_34:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossible__block_invoke_323(uint64_t a1, void *a2)
@@ -649,7 +639,7 @@ uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPo
 
 uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPossible__block_invoke_327(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 type];
   v4 = MEMORY[0x277CBEAA8];
@@ -661,25 +651,25 @@ uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPo
   v8 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v5;
-    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Publish date is %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v5;
+    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Publish date is %@", &v17, 0xCu);
   }
 
   if (v6 && ([MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate], v10 = v9, objc_msgSend(v6, "timeIntervalSinceReferenceDate"), v10 > v11))
   {
     ASLoggingInitialize();
-    v15 = *v7;
+    v14 = *v7;
     v12 = 0;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v15;
-      v17 = [v2 title];
-      v18 = 134218242;
-      v19 = v3;
-      v20 = 2112;
-      v21 = v17;
-      _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "Dropping queued bulletin because it's been queued for too long: %lu / %@", &v18, 0x16u);
+      v15 = v14;
+      v16 = [v2 title];
+      v17 = 134218242;
+      v18 = v3;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "Dropping queued bulletin because it's been queued for too long: %lu / %@", &v17, 0x16u);
 
       v12 = 0;
     }
@@ -690,7 +680,6 @@ uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPo
     v12 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -709,7 +698,7 @@ uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPo
 
 - (void)_queue_postNotificationRequests:(id)requests
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FF8];
@@ -720,31 +709,31 @@ uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPo
   }
 
   dispatch_assert_queue_V2(self->_notificationQueue);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = requestsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(ASGizmoBulletinPostingManager *)self _postNotificationRequest:*(*(&v14 + 1) + 8 * v10++), v14];
+        [(ASGizmoBulletinPostingManager *)self _postNotificationRequest:*(*(&v13 + 1) + 8 * v10++), v13];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v8);
@@ -753,8 +742,6 @@ uint64_t __74__ASGizmoBulletinPostingManager__postQueuedNotificationRequestsIfPo
   v11 = [(NSSet *)self->_notificationRequests setByAddingObjectsFromArray:v6];
   notificationRequests = self->_notificationRequests;
   self->_notificationRequests = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postNotificationRequest:(id)request
@@ -803,7 +790,7 @@ void __58__ASGizmoBulletinPostingManager__postNotificationRequest___block_invoke
 
 - (void)postFakeBulletins:(id)bulletins
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   bulletinsCopy = bulletins;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FF8];
@@ -815,22 +802,20 @@ void __58__ASGizmoBulletinPostingManager__postNotificationRequest___block_invoke
 
   allObjects = [bulletinsCopy allObjects];
 
-  v15 = *MEMORY[0x277CE9270];
-  v16[0] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = *MEMORY[0x277CE9270];
+  v15[0] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v8 = [(ASGizmoBulletinPostingManager *)self _batchedNotificationRequestsFromCodableBulletins:allObjects withAdditions:v7];
 
   notificationQueue = self->_notificationQueue;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __51__ASGizmoBulletinPostingManager_postFakeBulletins___block_invoke;
-  v12[3] = &unk_278C4B250;
-  v12[4] = self;
-  v13 = v8;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __51__ASGizmoBulletinPostingManager_postFakeBulletins___block_invoke;
+  v11[3] = &unk_278C4B250;
+  v11[4] = self;
+  v12 = v8;
   v10 = v8;
-  dispatch_async(notificationQueue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(notificationQueue, v11);
 }
 
 void __51__ASGizmoBulletinPostingManager_postFakeBulletins___block_invoke(uint64_t a1)
@@ -842,7 +827,7 @@ void __51__ASGizmoBulletinPostingManager_postFakeBulletins___block_invoke(uint64
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   ASLoggingInitialize();
@@ -850,7 +835,7 @@ void __51__ASGizmoBulletinPostingManager_postFakeBulletins___block_invoke(uint64
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = responseCopy;
+    v20 = responseCopy;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "GizmoBulletinPostingManager received notification response: %{public}@", buf, 0xCu);
   }
 
@@ -861,15 +846,13 @@ void __51__ASGizmoBulletinPostingManager_postFakeBulletins___block_invoke(uint64
   userInfo = [content userInfo];
 
   v15 = [objc_alloc(MEMORY[0x277CE9138]) initWithActionIdentifier:actionIdentifier userInfo:userInfo];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __109__ASGizmoBulletinPostingManager_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
-  v18[3] = &unk_278C4C178;
-  v19 = handlerCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __109__ASGizmoBulletinPostingManager_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
+  v17[3] = &unk_278C4C178;
+  v18 = handlerCopy;
   v16 = handlerCopy;
-  [(ASGizmoBulletinPostingManager *)self handleNotificationResponse:v15 completion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [(ASGizmoBulletinPostingManager *)self handleNotificationResponse:v15 completion:v17];
 }
 
 - (void)handleNotificationResponse:(id)response completion:(id)completion
@@ -891,17 +874,15 @@ void __51__ASGizmoBulletinPostingManager_postFakeBulletins___block_invoke(uint64
 
 void __58__ASGizmoBulletinPostingManager__postNotificationRequest___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v9 = 138543618;
-  v10 = objc_opt_class();
-  v11 = 2114;
-  v12 = a3;
-  v7 = v10;
-  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "%{public}@ error requesting notification request %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543618;
+  v9 = objc_opt_class();
+  v10 = 2114;
+  v11 = a3;
+  v7 = v9;
+  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "%{public}@ error requesting notification request %{public}@", &v8, 0x16u);
 }
 
 @end

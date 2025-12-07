@@ -11,7 +11,7 @@
   selfCopy = self;
   [limitCopy countDownDuration];
 
-  sub_21A176C98(&qword_27CD03878);
+  sub_21A176C98(&qword_27CD03878, &qword_21A30DFD0);
   sub_21A2F7194();
 }
 

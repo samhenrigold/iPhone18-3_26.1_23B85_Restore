@@ -3,6 +3,7 @@
 - (WLDataMigrationDelegate)delegate;
 - (void)deleteMessages;
 - (void)lookupAppDataContainer:(id)container;
+- (void)startMigrationUsingRetryPolicies:(BOOL)policies;
 - (void)testAMSPurchase;
 @end
 
@@ -46,6 +47,25 @@ void __46__WLDataMigrationController_initWithDelegate___block_invoke(uint64_t a1
       WeakRetained = v4;
     }
   }
+}
+
+- (void)startMigrationUsingRetryPolicies:(BOOL)policies
+{
+  policiesCopy = policies;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __62__WLDataMigrationController_startMigrationUsingRetryPolicies___block_invoke;
+  v14[3] = &unk_279EB4128;
+  v14[4] = self;
+  v6 = [(WLDaemonConnection *)self daemonWithErrorHandler:v14];
+  _WLLog(v3, 1, @"%@: startMigration will call daemon", v7, v8, v9, v10, v11, self);
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __62__WLDataMigrationController_startMigrationUsingRetryPolicies___block_invoke_2;
+  v13[3] = &unk_279EB4150;
+  v13[4] = self;
+  [v6 startMigrationUsingRetryPolicies:policiesCopy delegate:WeakRetained useMigrationKit:0 replyBlock:v13];
 }
 
 void __62__WLDataMigrationController_startMigrationUsingRetryPolicies___block_invoke(uint64_t a1, void *a2)

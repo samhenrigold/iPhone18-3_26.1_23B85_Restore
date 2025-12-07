@@ -13,8 +13,8 @@
 
   if (v4)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
-    sub_20D099B18(&qword_28111FFB0, &qword_27C81AF70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
+    sub_20D099B18(&qword_28111FFB0, &qword_27C81AF70, &unk_20D5BCEC0);
     v5 = sub_20D567CD8();
   }
 

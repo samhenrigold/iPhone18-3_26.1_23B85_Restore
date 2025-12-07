@@ -85,7 +85,7 @@
 
 - (id)buildReports
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = HKSPLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -96,71 +96,69 @@
     [(HDSPAnalyticsDailyReportBuilder *)self morningIndexRange];
     v7 = NSStringFromHKDayIndexRange();
     *buf = 138543874;
-    v32 = v3;
-    v33 = 2050;
-    v34 = v6;
-    v35 = 2114;
-    v36 = v7;
+    v30 = v3;
+    v31 = 2050;
+    v32 = v6;
+    v33 = 2114;
+    v34 = v7;
     _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Building daily analytics report from %{public}lu summaries in range %{public}@", buf, 0x20u);
   }
 
   if (HKShowSensitiveLogItems())
   {
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     daySummaries2 = [(HDSPAnalyticsDailyReportBuilder *)self daySummaries];
-    v9 = [daySummaries2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v9 = [daySummaries2 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v27 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(daySummaries2);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * i);
-          v14 = HKSPLogForCategory();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v13 = HKSPLogForCategory();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = objc_opt_class();
-            v16 = v15;
-            v17 = HKSensitiveLogItem();
+            v14 = objc_opt_class();
+            v15 = v14;
+            v16 = HKSensitiveLogItem();
             *buf = 138543618;
-            v32 = v15;
-            v33 = 2114;
-            v34 = v17;
-            _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Summary: %{public}@", buf, 0x16u);
+            v30 = v14;
+            v31 = 2114;
+            v32 = v16;
+            _os_log_impl(&dword_269B11000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Summary: %{public}@", buf, 0x16u);
           }
         }
 
-        v10 = [daySummaries2 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v10 = [daySummaries2 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v10);
     }
   }
 
-  v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
   _dailyReportEvent = [(HDSPAnalyticsDailyReportBuilder *)self _dailyReportEvent];
-  [v18 addObject:_dailyReportEvent];
+  [v17 addObject:_dailyReportEvent];
 
   _windDownEvents = [(HDSPAnalyticsDailyReportBuilder *)self _windDownEvents];
-  [v18 addObjectsFromArray:_windDownEvents];
+  [v17 addObjectsFromArray:_windDownEvents];
 
   analyticsStore = [(HDSPAnalyticsDailyReportBuilder *)self analyticsStore];
   [analyticsStore markAllActionsAsCollected];
 
-  v22 = [v18 copy];
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = [v17 copy];
 
-  return v22;
+  return v21;
 }
 
 - (id)currentDate
@@ -753,7 +751,7 @@ BOOL __65__HDSPAnalyticsDailyReportBuilder__lastNightsNumberOfAwakeEvents__block
   return v6 < 0 == v5 && v6 < *(a1 + 40);
 }
 
-uint64_t __65__HDSPAnalyticsDailyReportBuilder__lastNightsNumberOfAwakeEvents__block_invoke_2(uint64_t a1, void *a2)
+void *__65__HDSPAnalyticsDailyReportBuilder__lastNightsNumberOfAwakeEvents__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 category];
   v4 = *(*(a1 + 32) + 8);
@@ -827,7 +825,7 @@ id __50__HDSPAnalyticsDailyReportBuilder__windDownEvents__block_invoke(uint64_t 
 
 - (BOOL)_didInteractWithWindDownActionsWithinLastTwoDays
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   currentDate = [(HDSPAnalyticsDailyReportBuilder *)self currentDate];
   hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
   v5 = [currentDate hk_morningIndexWithCalendar:hk_gregorianCalendar] - 2;
@@ -835,46 +833,46 @@ id __50__HDSPAnalyticsDailyReportBuilder__windDownEvents__block_invoke(uint64_t 
   analyticsStore = [(HDSPAnalyticsDailyReportBuilder *)self analyticsStore];
   v7 = [analyticsStore windDownActionsAfterMorningIndex:v5];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   allValues = [v7 allValues];
-  v9 = [allValues countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v23;
+          v17 = *v22;
           while (2)
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v23 != v17)
+              if (*v22 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              if ([*(*(&v22 + 1) + 8 * j) wasUsed])
+              if ([*(*(&v21 + 1) + 8 * j) wasUsed])
               {
 
                 v19 = 1;
@@ -882,7 +880,7 @@ id __50__HDSPAnalyticsDailyReportBuilder__windDownEvents__block_invoke(uint64_t 
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v16)
             {
               continue;
@@ -893,7 +891,7 @@ id __50__HDSPAnalyticsDailyReportBuilder__windDownEvents__block_invoke(uint64_t 
         }
       }
 
-      v10 = [allValues countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v25 objects:v30 count:16];
       v19 = 0;
     }
 
@@ -907,13 +905,12 @@ id __50__HDSPAnalyticsDailyReportBuilder__windDownEvents__block_invoke(uint64_t 
 
 LABEL_19:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)_changedSchedule:(id)schedule withinNumberOfDays:(unint64_t)days currentDate:(id)date calendar:(id)calendar
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   dateCopy = date;
   calendarCopy = calendar;
@@ -936,23 +933,22 @@ LABEL_19:
     v15 = HKSPLogForCategory();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138543362;
-      v23 = objc_opt_class();
-      v21 = v23;
-      _os_log_error_impl(&dword_269B11000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Schedule's last modified date occurred after the current date", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = objc_opt_class();
+      v20 = v22;
+      _os_log_error_impl(&dword_269B11000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Schedule's last modified date occurred after the current date", &v21, 0xCu);
     }
   }
 
   v16 = 0;
 LABEL_8:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)_weeksSinceOnboardDate:(id)date currentDate:(id)currentDate calendar:(id)calendar
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   currentDateCopy = currentDate;
   calendarCopy = calendar;
@@ -968,10 +964,10 @@ LABEL_6:
     v10 = HKSPLogForCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138543362;
-      v19 = objc_opt_class();
-      v17 = v19;
-      _os_log_error_impl(&dword_269B11000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Onboard date occurred after the current date", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = objc_opt_class();
+      v16 = v18;
+      _os_log_error_impl(&dword_269B11000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Onboard date occurred after the current date", &v17, 0xCu);
     }
 
     goto LABEL_6;
@@ -983,30 +979,29 @@ LABEL_6:
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v14, "weekOfYear")}];
 
 LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_biologicalSex
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   healthStore = [(HDSPAnalyticsDailyReportBuilder *)self healthStore];
-  v12 = 0;
-  v3 = [healthStore biologicalSexWithError:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [healthStore biologicalSexWithError:&v11];
+  v4 = v11;
 
   if (v4)
   {
     v5 = HKSPLogForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v4;
-      v11 = v10;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v4;
+      v10 = v9;
       _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Unable access biological sex due to error: %{public}@", buf, 0x16u);
     }
 
@@ -1024,30 +1019,29 @@ LABEL_7:
   v7 = off_279C7BAF8[biologicalSex];
 LABEL_8:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)_userAgeForCurrentDate:(id)date
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   healthStore = [(HDSPAnalyticsDailyReportBuilder *)self healthStore];
-  v15 = 0;
-  v6 = [healthStore dateOfBirthComponentsWithError:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [healthStore dateOfBirthComponentsWithError:&v14];
+  v7 = v14;
 
   if (v7)
   {
     v8 = HKSPLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
+      v12 = objc_opt_class();
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v7;
-      v14 = v13;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v7;
+      v13 = v12;
       _os_log_error_impl(&dword_269B11000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Unable access age due to error: %{public}@", buf, 0x16u);
     }
 
@@ -1059,8 +1053,6 @@ LABEL_8:
     v10 = [v6 hk_ageWithCurrentDate:dateCopy];
     v9 = [MEMORY[0x277CCABB0] numberWithInteger:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -83,7 +83,7 @@
 - (void)handleMuteButtonTapped
 {
   selfCopy = self;
-  sub_1D1830();
+  sub_1D1830(v2);
 }
 
 - (NSArray)accessibilityElements

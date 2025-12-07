@@ -5,33 +5,33 @@
 
 Class ___PCSSyncingSetupInterface_block_invoke()
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = _PCSSyncingSetupInterface_keyClasses;
   _PCSSyncingSetupInterface_keyClasses = v2;
 
   v4 = MEMORY[0x1E695DFA8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v5 = getCKAcceptableValueClassesSymbolLoc_ptr;
-  v20 = getCKAcceptableValueClassesSymbolLoc_ptr;
+  v19 = getCKAcceptableValueClassesSymbolLoc_ptr;
   if (!getCKAcceptableValueClassesSymbolLoc_ptr)
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __getCKAcceptableValueClassesSymbolLoc_block_invoke;
-    v16[3] = &unk_1E7B18A90;
-    v16[4] = &v17;
-    __getCKAcceptableValueClassesSymbolLoc_block_invoke(v16);
-    v5 = v18[3];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __getCKAcceptableValueClassesSymbolLoc_block_invoke;
+    v15[3] = &unk_1E7B18A90;
+    v15[4] = &v16;
+    __getCKAcceptableValueClassesSymbolLoc_block_invoke(v15);
+    v5 = v17[3];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   if (!v5)
   {
     [PCSAccountsModel init];
@@ -44,8 +44,8 @@ Class ___PCSSyncingSetupInterface_block_invoke()
   _PCSSyncingSetupInterface_errClasses = v7;
 
   v9 = MEMORY[0x1E695DFD8];
-  v21 = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v20 = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
   v11 = [v9 setWithArray:v10];
   v12 = _PCSSyncingSetupInterface_statsClasses;
   _PCSSyncingSetupInterface_statsClasses = v11;
@@ -59,7 +59,6 @@ Class ___PCSSyncingSetupInterface_block_invoke()
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 

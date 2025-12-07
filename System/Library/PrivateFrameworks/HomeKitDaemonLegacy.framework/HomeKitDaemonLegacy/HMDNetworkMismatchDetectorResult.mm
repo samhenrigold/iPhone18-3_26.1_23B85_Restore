@@ -21,7 +21,7 @@
   v5 = [(HMDNetworkMismatchDetectorResult *)&v9 init];
   if (v5)
   {
-    v6 = [fiCopy copy];
+    v6 = objc_msgSend_copy(fiCopy);
     accessoriesNotOnWiFi = v5->_accessoriesNotOnWiFi;
     v5->_accessoriesNotOnWiFi = v6;
   }

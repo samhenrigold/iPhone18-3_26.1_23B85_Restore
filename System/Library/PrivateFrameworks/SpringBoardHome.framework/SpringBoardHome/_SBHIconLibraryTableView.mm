@@ -44,7 +44,7 @@
   rect2 = v4;
   [(_SBHIconLibraryTableView *)self contentOffset];
   v45 = v5;
-  [(_SBHIconLibraryTableView *)self bounds];
+  objc_msgSend_bounds(self);
   v44 = v6;
   [(_SBHIconLibraryTableView *)self adjustedContentInset];
   v8 = v7;

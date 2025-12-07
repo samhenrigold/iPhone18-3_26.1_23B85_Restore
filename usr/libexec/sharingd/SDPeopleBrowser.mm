@@ -136,7 +136,7 @@
 - (void)networkBrowser:(id)browser nodesChangedForParent:(__SFNode *)parent protocol:(id)protocol error:(int)error
 {
   browserCopy = browser;
-  v9 = magic_head_log();
+  v9 = magic_head_log(browserCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_1000AA838(v9);
@@ -145,7 +145,7 @@
   v10 = objc_opt_new();
   v11 = [browserCopy childrenForNode:parent];
   people = self->_people;
-  v48 = browserCopy;
+  v49 = browserCopy;
   if (people)
   {
     v13 = people;
@@ -156,27 +156,27 @@
     v13 = objc_opt_new();
   }
 
-  v49 = v13;
-  v64 = 0u;
+  v50 = v13;
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
+  v64 = 0u;
   obj = v11;
-  v14 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
+  v14 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v63;
+    v16 = *v64;
     do
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v63 != v16)
+        if (*v64 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v62 + 1) + 8 * i);
+        v18 = *(*(&v63 + 1) + 8 * i);
         v19 = SFNodeCopyRealName();
         lowercaseString = [v19 lowercaseString];
 
@@ -203,113 +203,113 @@
         [v10 addObject:v22];
       }
 
-      v15 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
+      v15 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
     }
 
     while (v15);
   }
 
+  v53 = +[NSMutableArray array];
+  v48 = +[NSMutableArray array];
   v52 = +[NSMutableArray array];
-  v47 = +[NSMutableArray array];
   v51 = +[NSMutableArray array];
-  v50 = +[NSMutableArray array];
-  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v24 = v49;
-  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v58 objects:v71 count:16];
+  v62 = 0u;
+  v24 = v50;
+  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v59 objects:v72 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v59;
+    v27 = *v60;
     do
     {
       for (j = 0; j != v26; j = j + 1)
       {
-        if (*v59 != v27)
+        if (*v60 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v58 + 1) + 8 * j);
+        v29 = *(*(&v59 + 1) + 8 * j);
         if ([v10 containsObject:v29])
         {
-          [v52 addObject:v29];
+          [v53 addObject:v29];
         }
 
         else
         {
-          [v51 addObject:v29];
+          [v52 addObject:v29];
           contactIdentifier = [v29 contactIdentifier];
           if (contactIdentifier)
           {
-            [v50 addObject:contactIdentifier];
+            [v51 addObject:contactIdentifier];
           }
 
-          v31 = magic_head_log();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          v32 = magic_head_log(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             displayName = [v29 displayName];
             nodeIdentifier = [v29 nodeIdentifier];
             *buf = 138412546;
-            v68 = displayName;
-            v69 = 2112;
-            v70 = nodeIdentifier;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Removing person %@ (%@)", buf, 0x16u);
+            v69 = displayName;
+            v70 = 2112;
+            v71 = nodeIdentifier;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Removing person %@ (%@)", buf, 0x16u);
           }
         }
       }
 
-      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v58 objects:v71 count:16];
+      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v59 objects:v72 count:16];
     }
 
     while (v26);
   }
 
-  v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v34 = v10;
-  v35 = [v34 countByEnumeratingWithState:&v54 objects:v66 count:16];
-  if (v35)
+  v56 = 0u;
+  v35 = v10;
+  v36 = [v35 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  if (v36)
   {
-    v36 = v35;
-    v37 = *v55;
+    v37 = v36;
+    v38 = *v56;
     do
     {
-      for (k = 0; k != v36; k = k + 1)
+      for (k = 0; k != v37; k = k + 1)
       {
-        if (*v55 != v37)
+        if (*v56 != v38)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v35);
         }
 
-        v39 = *(*(&v54 + 1) + 8 * k);
-        if (![(NSArray *)v24 containsObject:v39])
+        v40 = *(*(&v55 + 1) + 8 * k);
+        if (![(NSArray *)v24 containsObject:v40])
         {
-          [v47 addObject:v39];
+          [v48 addObject:v40];
         }
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v54 objects:v66 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v55 objects:v67 count:16];
     }
 
-    while (v36);
+    while (v37);
   }
 
-  v40 = [v52 arrayByAddingObjectsFromArray:v47];
-  v41 = [v40 sortedArrayUsingComparator:&stru_1008CF150];
-  v42 = [NSPredicate predicateWithBlock:&stru_1008CF190];
-  v43 = [v41 filteredArrayUsingPredicate:v42];
+  v41 = [v53 arrayByAddingObjectsFromArray:v48];
+  v42 = [v41 sortedArrayUsingComparator:&stru_1008CF150];
+  v43 = [NSPredicate predicateWithBlock:&stru_1008CF190];
+  v44 = [v42 filteredArrayUsingPredicate:v43];
 
-  v44 = self->_people;
-  self->_people = v43;
-  v45 = v43;
+  v45 = self->_people;
+  self->_people = v44;
+  v46 = v44;
 
   WeakRetained = objc_loadWeakRetained(&self->_diffableDelegate);
-  [WeakRetained browser:self didUpdatePeople:self->_people deletedContactIdentifiers:v50];
+  [WeakRetained browser:self didUpdatePeople:self->_people deletedContactIdentifiers:v51];
 }
 
 - (SDPeopleBrowserDiffableDelegate)diffableDelegate

@@ -46,87 +46,87 @@
   objc_opt_class();
   v5 = TSUDynamicCast();
 
-  if (v5 && (objc_msgSend_maskBounds(self, v6, v7), v9 = v8, v11 = v10, v13 = v12, v15 = v14, objc_msgSend_maskBounds(v5, v16, v17), v42.origin.x = v18, v42.origin.y = v19, v42.size.width = v20, v42.size.height = v21, v41.origin.x = v9, v41.origin.y = v11, v41.size.width = v13, v41.size.height = v15, CGRectEqualToRect(v41, v42)) && (objc_msgSend_scale(self, v22, v23), v25 = v24, objc_msgSend_scale(v5, v26, v27), v25 == v30))
+  if (v5 && (-[KNLiveVideoMaskGeometry maskBounds](self, "maskBounds"), v7 = v6, v9 = v8, v11 = v10, v13 = v12, [v5 maskBounds], v30.origin.x = v14, v30.origin.y = v15, v30.size.width = v16, v30.size.height = v17, v29.origin.x = v7, v29.origin.y = v9, v29.size.width = v11, v29.size.height = v13, CGRectEqualToRect(v29, v30)) && (-[KNLiveVideoMaskGeometry scale](self, "scale"), v19 = v18, objc_msgSend(v5, "scale"), v19 == v20))
   {
-    objc_msgSend_normalizedOffset(self, v28, v29);
-    v32 = v31;
-    v34 = v33;
-    objc_msgSend_normalizedOffset(v5, v35, v36);
-    v39 = v34 == v38 && v32 == v37;
+    [(KNLiveVideoMaskGeometry *)self normalizedOffset];
+    v22 = v21;
+    v24 = v23;
+    [v5 normalizedOffset];
+    v27 = v24 == v26 && v22 == v25;
   }
 
   else
   {
-    v39 = 0;
+    v27 = 0;
   }
 
-  return v39;
+  return v27;
 }
 
 - (unint64_t)hash
 {
   v3 = objc_alloc_init(MEMORY[0x277D811E8]);
   v4 = MEMORY[0x277CCAE60];
-  objc_msgSend_maskBounds(self, v5, v6);
-  v34[0] = v7;
-  v34[1] = v8;
-  v34[2] = v9;
-  v34[3] = v10;
-  v12 = objc_msgSend_valueWithBytes_objCType_(v4, v11, v34, "{CGRect={CGPoint=dd}{CGSize=dd}}");
-  objc_msgSend_addObject_(v3, v13, v12);
+  [(KNLiveVideoMaskGeometry *)self maskBounds];
+  v19[0] = v5;
+  v19[1] = v6;
+  v19[2] = v7;
+  v19[3] = v8;
+  v9 = [v4 valueWithBytes:v19 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+  [v3 addObject:v9];
 
-  v14 = MEMORY[0x277CCABB0];
-  objc_msgSend_scale(self, v15, v16);
-  v19 = objc_msgSend_numberWithDouble_(v14, v17, v18);
-  objc_msgSend_addObject_(v3, v20, v19);
+  v10 = MEMORY[0x277CCABB0];
+  [(KNLiveVideoMaskGeometry *)self scale];
+  v11 = [v10 numberWithDouble:?];
+  [v3 addObject:v11];
 
-  v21 = MEMORY[0x277CCAE60];
-  objc_msgSend_normalizedOffset(self, v22, v23);
-  v33[0] = v24;
-  v33[1] = v25;
-  v27 = objc_msgSend_valueWithBytes_objCType_(v21, v26, v33, "{CGPoint=dd}");
-  objc_msgSend_addObject_(v3, v28, v27);
+  v12 = MEMORY[0x277CCAE60];
+  [(KNLiveVideoMaskGeometry *)self normalizedOffset];
+  v18[0] = v13;
+  v18[1] = v14;
+  v15 = [v12 valueWithBytes:v18 objCType:"{CGPoint=dd}"];
+  [v3 addObject:v15];
 
-  v31 = objc_msgSend_hashValue(v3, v29, v30);
-  return v31;
+  hashValue = [v3 hashValue];
+  return hashValue;
 }
 
 - (CGRect)videoBoundsForNaturalSize:(CGSize)size
 {
-  objc_msgSend_maskBounds(self, a2, v3);
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  objc_msgSend_normalizedOffset(self, v13, v14);
-  v25 = v16;
-  v26 = v15;
-  v28.origin.x = v6;
-  v28.origin.y = v8;
-  v28.size.width = v10;
-  v28.size.height = v12;
-  CGRectGetWidth(v28);
-  v29.origin.x = v6;
-  v29.origin.y = v8;
-  v29.size.width = v10;
-  v29.size.height = v12;
-  CGRectGetHeight(v29);
+  [(KNLiveVideoMaskGeometry *)self maskBounds];
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  [(KNLiveVideoMaskGeometry *)self normalizedOffset];
+  v20 = v13;
+  v21 = v12;
+  v23.origin.x = v5;
+  v23.origin.y = v7;
+  v23.size.width = v9;
+  v23.size.height = v11;
+  CGRectGetWidth(v23);
+  v24.origin.x = v5;
+  v24.origin.y = v7;
+  v24.size.width = v9;
+  v24.size.height = v11;
+  CGRectGetHeight(v24);
   TSUFitOrFillSizeInSize();
-  objc_msgSend_scale(self, v17, v18, v25, v26);
-  if (v19 > 1.0)
+  [(KNLiveVideoMaskGeometry *)self scale:v20];
+  if (v14 > 1.0)
   {
     TSUMultiplySizeScalar();
   }
 
   TSUCenterOfRect();
   TSUAddPoints();
-  v20 = TSURectWithCenterAndSize();
+  TSURectWithCenterAndSize();
 
-  MEMORY[0x2821EC598](v20);
-  result.size.height = v24;
-  result.size.width = v23;
-  result.origin.y = v22;
-  result.origin.x = v21;
+  MEMORY[0x2821EC598](v15);
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.y = v17;
+  result.origin.x = v16;
   return result;
 }
 
@@ -134,40 +134,40 @@
 {
   height = size.height;
   width = size.width;
-  objc_msgSend_maskBounds(self, a2, v3);
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  objc_msgSend_videoBoundsForNaturalSize_(self, v15, v16, width, height);
-  v18 = v17;
-  v20 = v19;
-  v32 = v22;
-  v33 = v21;
-  v23 = -v17;
-  v24 = -v19;
-  v34.origin.x = v8;
-  v34.origin.y = v10;
-  v34.size.width = v12;
-  v34.size.height = v14;
-  CGRectOffset(v34, v23, v24);
-  v35.origin.x = v18;
-  v35.origin.y = v20;
-  v35.size.height = v32;
-  v35.size.width = v33;
-  CGRectOffset(v35, v23, v24);
+  [(KNLiveVideoMaskGeometry *)self maskBounds];
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  [(KNLiveVideoMaskGeometry *)self videoBoundsForNaturalSize:width, height];
+  v15 = v14;
+  v17 = v16;
+  v29 = v19;
+  v30 = v18;
+  v20 = -v14;
+  v21 = -v16;
+  v31.origin.x = v7;
+  v31.origin.y = v9;
+  v31.size.width = v11;
+  v31.size.height = v13;
+  CGRectOffset(v31, v20, v21);
+  v32.origin.x = v15;
+  v32.origin.y = v17;
+  v32.size.height = v29;
+  v32.size.width = v30;
+  CGRectOffset(v32, v20, v21);
   TSUNormalizedSubrectInRect();
-  x = v36.origin.x;
-  v26 = v36.size.width;
-  v27 = v36.size.height;
-  v28 = 1.0 - CGRectGetMaxY(v36);
-  v29 = x;
-  v30 = v26;
-  v31 = v27;
-  result.size.height = v31;
-  result.size.width = v30;
-  result.origin.y = v28;
-  result.origin.x = v29;
+  x = v33.origin.x;
+  v23 = v33.size.width;
+  v24 = v33.size.height;
+  v25 = 1.0 - CGRectGetMaxY(v33);
+  v26 = x;
+  v27 = v23;
+  v28 = v24;
+  result.size.height = v28;
+  result.size.width = v27;
+  result.origin.y = v25;
+  result.origin.x = v26;
   return result;
 }
 

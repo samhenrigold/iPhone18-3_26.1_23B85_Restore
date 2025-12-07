@@ -15,6 +15,7 @@
 - (void)idleExit;
 - (void)initIdleTimer;
 - (void)initSignals;
+- (void)initUARP:(BOOL)p;
 - (void)processAPIDict:(id)dict;
 - (void)registerForEAMatchingNotifications;
 - (void)registerForNotifydNotification:(id)notification filterName:(id)name;
@@ -232,6 +233,25 @@ LABEL_14:
 LABEL_34:
 
   return v25;
+}
+
+- (void)initUARP:(BOOL)p
+{
+  pCopy = p;
+  if (dlopen("/System/Library/PrivateFrameworks/CoreUARP.framework/CoreUARP", 16))
+  {
+    v5 = dispatch_queue_create("UARP Manager", 0);
+    uarpQueue = self->_uarpQueue;
+    self->_uarpQueue = v5;
+
+    v7 = [[UARPManagerAUD alloc] initWithQueue:self->_uarpQueue];
+    uarpManager = self->_uarpManager;
+    self->_uarpManager = v7;
+
+    [(UARPManagerAUD *)self->_uarpManager start:pCopy];
+
+    [(AUDController *)self setActivityForUARPPeriodicLaunch:pCopy];
+  }
 }
 
 - (void)initSignals
@@ -1362,11 +1382,10 @@ LABEL_52:
 {
   notificationCopy = notification;
   nameCopy = name;
-  v13 = @"Notification";
-  v14 = notificationCopy;
-  v8 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = @"Notification";
+  v13 = notificationCopy;
+  v8 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   v9 = _CFXPCCreateXPCObjectFromCFObject();
-  log = self->_log;
   if (v9)
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
@@ -1377,12 +1396,12 @@ LABEL_52:
     [nameCopy cStringUsingEncoding:4];
     xpc_set_event();
     processingQueue = self->_processingQueue;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10000CD70;
-    v12[3] = &unk_100081460;
-    v12[4] = self;
-    xpc_set_event_stream_handler("com.apple.notifyd.matching", processingQueue, v12);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000CD70;
+    v11[3] = &unk_100081460;
+    v11[4] = self;
+    xpc_set_event_stream_handler("com.apple.notifyd.matching", processingQueue, v11);
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))

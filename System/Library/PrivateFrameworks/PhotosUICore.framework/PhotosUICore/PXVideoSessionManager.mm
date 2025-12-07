@@ -281,11 +281,11 @@ void __45__PXVideoSessionManager_checkInVideoSession___block_invoke_4(uint64_t a
   dispatch_async(v4, v6);
 }
 
-uint64_t __45__PXVideoSessionManager_checkInVideoSession___block_invoke_5(uint64_t result)
+void *__45__PXVideoSessionManager_checkInVideoSession___block_invoke_5(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    v1 = *(result + 40);
+    v1 = result[5];
     if (*(v1 + 136) == 1)
     {
       return [*(v1 + 112) checkInReusableObject:?];
@@ -466,7 +466,7 @@ void __39__PXVideoSessionManager_sharedInstance__block_invoke()
       v25 = objc_alloc_init(PXPhotoKitLivePhotoVideoContentProviderSpec);
       if (optionsCopy)
       {
-        [optionsCopy livePhotoLoopTimeRange];
+        objc_msgSend_livePhotoLoopTimeRange(optionsCopy);
       }
 
       else
@@ -488,7 +488,7 @@ void __39__PXVideoSessionManager_sharedInstance__block_invoke()
         v26 = objc_opt_class();
         if (v26)
         {
-          [v26 livePhotoCrossfadeDuration];
+          objc_msgSend_livePhotoCrossfadeDuration(v26);
         }
 
         else

@@ -108,7 +108,7 @@ id __22__HFZoneBuilder_rooms__block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v4 = [v2 home];
+  v4 = objc_msgSend_home(v2);
   v5 = [v4 hf_roomWithIdentifier:v3];
 
   return v5;
@@ -116,24 +116,22 @@ id __22__HFZoneBuilder_rooms__block_invoke(uint64_t a1, void *a2)
 
 - (id)_performValidation
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D2C900];
   v4 = [(HFItemBuilder *)self lazy_verifyPropertyIsSet:@"name"];
-  v11[0] = v4;
+  v10[0] = v4;
   name = [(HFZoneBuilder *)self name];
   v6 = [(HFItemBuilder *)self lazy_verifyNameIsNotEmpty:name];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v3 chainFutures:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)commitItem
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v3 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -153,40 +151,39 @@ id __22__HFZoneBuilder_rooms__block_invoke(uint64_t a1, void *a2)
   v6 = *v5;
 
   _performValidation = [(HFZoneBuilder *)self _performValidation];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __27__HFZoneBuilder_commitItem__block_invoke;
-  v22[3] = &unk_277DF3D10;
-  objc_copyWeak(&v23, &location);
-  v8 = [_performValidation flatMap:v22];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __27__HFZoneBuilder_commitItem__block_invoke_2;
-  v20[3] = &unk_277DF3D10;
-  objc_copyWeak(&v21, &location);
-  v9 = [v8 flatMap:v20];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __27__HFZoneBuilder_commitItem__block_invoke_3;
-  v17[3] = &unk_277E01118;
-  objc_copyWeak(&v19, &location);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __27__HFZoneBuilder_commitItem__block_invoke;
+  v21[3] = &unk_277DF3D10;
+  objc_copyWeak(&v22, &location);
+  v8 = [_performValidation flatMap:v21];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __27__HFZoneBuilder_commitItem__block_invoke_2;
+  v19[3] = &unk_277DF3D10;
+  objc_copyWeak(&v20, &location);
+  v9 = [v8 flatMap:v19];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __27__HFZoneBuilder_commitItem__block_invoke_3;
+  v16[3] = &unk_277E01118;
+  objc_copyWeak(&v18, &location);
   v10 = v6;
-  v18 = v10;
-  v11 = [v9 recover:v17];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __27__HFZoneBuilder_commitItem__block_invoke_4;
-  v15[3] = &unk_277DF3D10;
-  objc_copyWeak(&v16, &location);
-  v12 = [v11 flatMap:v15];
-  objc_destroyWeak(&v16);
+  v17 = v10;
+  v11 = [v9 recover:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __27__HFZoneBuilder_commitItem__block_invoke_4;
+  v14[3] = &unk_277DF3D10;
+  objc_copyWeak(&v15, &location);
+  v12 = [v11 flatMap:v14];
+  objc_destroyWeak(&v15);
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -279,43 +276,39 @@ id __27__HFZoneBuilder_commitItem__block_invoke_4(uint64_t a1)
 
 void __28__HFZoneBuilder__createZone__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) name];
-    v6 = [*(a1 + 32) home];
-    v10 = 138412546;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "HFZoneBuilder: Creating zone with name %@ in home %@", &v10, 0x16u);
+    v6 = objc_msgSend_home(*(a1 + 32));
+    v9 = 138412546;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "HFZoneBuilder: Creating zone with name %@ in home %@", &v9, 0x16u);
   }
 
-  v7 = [*(a1 + 32) home];
+  v7 = objc_msgSend_home(*(a1 + 32));
   v8 = [*(a1 + 32) name];
   [v7 addZoneWithName:v8 completionHandler:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __28__HFZoneBuilder__createZone__block_invoke_12(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "HFZoneBuilder: Zone creation failed with error %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "HFZoneBuilder: Zone creation failed with error %@", &v5, 0xCu);
   }
 
   v4 = +[HFErrorHandler sharedHandler];
   [v4 logError:v2 operationDescription:@"HFZoneBuilder.addZone"];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __28__HFZoneBuilder__createZone__block_invoke_18(uint64_t a1, void *a2)
@@ -347,7 +340,7 @@ void __28__HFZoneBuilder__createZone__block_invoke_20(uint64_t a1, void *a2)
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [*(a1 + 32) zone];
     [v5 home:v3 didAddZone:v4];
   }
@@ -355,16 +348,16 @@ void __28__HFZoneBuilder__createZone__block_invoke_20(uint64_t a1, void *a2)
 
 - (id)_updateName
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     name = [(HFZoneBuilder *)self name];
-    home = [(HFItemBuilder *)self home];
+    v5 = objc_msgSend_home(self);
     *buf = 138412546;
-    v19 = name;
-    v20 = 2112;
-    v21 = home;
+    v18 = name;
+    v19 = 2112;
+    v20 = v5;
     _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "HFZoneBuilder: Updating zone with name %@ in home %@", buf, 0x16u);
   }
 
@@ -387,22 +380,20 @@ void __28__HFZoneBuilder__createZone__block_invoke_20(uint64_t a1, void *a2)
 
   else
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __28__HFZoneBuilder__updateName__block_invoke;
-    v17[3] = &unk_277DF2C68;
-    v17[4] = self;
-    v12 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v17];
-    v13 = [v12 addFailureBlock:&__block_literal_global_27_13];
     v16[0] = MEMORY[0x277D85DD0];
     v16[1] = 3221225472;
-    v16[2] = __28__HFZoneBuilder__updateName__block_invoke_31;
-    v16[3] = &unk_277DF2CE0;
+    v16[2] = __28__HFZoneBuilder__updateName__block_invoke;
+    v16[3] = &unk_277DF2C68;
     v16[4] = self;
-    v11 = [v12 flatMap:v16];
+    v12 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v16];
+    v13 = [v12 addFailureBlock:&__block_literal_global_27_13];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __28__HFZoneBuilder__updateName__block_invoke_31;
+    v15[3] = &unk_277DF2CE0;
+    v15[4] = self;
+    v11 = [v12 flatMap:v15];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -418,20 +409,18 @@ void __28__HFZoneBuilder__updateName__block_invoke(uint64_t a1, void *a2)
 
 void __28__HFZoneBuilder__updateName__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "HFZoneBuilder: Zone name change failed with error %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_ERROR, "HFZoneBuilder: Zone name change failed with error %@", &v5, 0xCu);
   }
 
   v4 = +[HFErrorHandler sharedHandler];
   [v4 logError:v2 operationDescription:@"HFRoomBuilder.updateName"];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __28__HFZoneBuilder__updateName__block_invoke_31(uint64_t a1, void *a2)
@@ -462,7 +451,7 @@ void __28__HFZoneBuilder__updateName__block_invoke_32(uint64_t a1, void *a2)
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [*(a1 + 32) zone];
     [v5 home:v3 didUpdateNameForZone:v4];
   }
@@ -516,10 +505,10 @@ id __29__HFZoneBuilder__updateRooms__block_invoke(uint64_t a1, void *a2)
 
 id __29__HFZoneBuilder__updateRooms__block_invoke_2(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = [WeakRetained home];
+  v5 = objc_msgSend_home(WeakRetained);
   v6 = [v5 hf_roomWithIdentifier:v3];
 
   if (!v6)
@@ -527,23 +516,23 @@ id __29__HFZoneBuilder__updateRooms__block_invoke_2(uint64_t a1, void *a2)
     v7 = HFLogForCategory(0x2BuLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v21 = [WeakRetained home];
+      v20 = objc_msgSend_home(WeakRetained);
       *buf = 138412546;
-      v31 = v3;
-      v32 = 2112;
-      v33 = v21;
+      v30 = v3;
+      v31 = 2112;
+      v32 = v20;
       _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Could not find room with UUID: %@ in home: %@. This is going to cause the HFZoneBuilder commit to fail.", buf, 0x16u);
     }
   }
 
   v8 = [*(a1 + 32) rooms];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __29__HFZoneBuilder__updateRooms__block_invoke_35;
-  v28[3] = &unk_277DF7E60;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __29__HFZoneBuilder__updateRooms__block_invoke_35;
+  v27[3] = &unk_277DF7E60;
   v9 = v6;
-  v29 = v9;
-  v10 = [v8 na_any:v28];
+  v28 = v9;
+  v10 = [v8 na_any:v27];
 
   v11 = HFLogForCategory(0x2BuLL);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
@@ -552,7 +541,7 @@ id __29__HFZoneBuilder__updateRooms__block_invoke_2(uint64_t a1, void *a2)
     if (v12)
     {
       *buf = 138412290;
-      v31 = v9;
+      v30 = v9;
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "HFZoneBuilder: Skipping adding room %@ as one already exists!", buf, 0xCu);
     }
 
@@ -565,33 +554,31 @@ id __29__HFZoneBuilder__updateRooms__block_invoke_2(uint64_t a1, void *a2)
     {
       v14 = [WeakRetained name];
       *buf = 138412546;
-      v31 = v9;
-      v32 = 2112;
-      v33 = v14;
+      v30 = v9;
+      v31 = 2112;
+      v32 = v14;
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "HFZoneBuilder: Assigning room %@ to zone named %@", buf, 0x16u);
     }
 
     v15 = MEMORY[0x277D2C900];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __29__HFZoneBuilder__updateRooms__block_invoke_37;
-    v25[3] = &unk_277DF4150;
-    v26 = *(a1 + 32);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __29__HFZoneBuilder__updateRooms__block_invoke_37;
+    v24[3] = &unk_277DF4150;
+    v25 = *(a1 + 32);
     v16 = v9;
-    v27 = v16;
-    v17 = [v15 futureWithErrorOnlyHandlerAdapterBlock:v25];
+    v26 = v16;
+    v17 = [v15 futureWithErrorOnlyHandlerAdapterBlock:v24];
     v18 = [v17 addFailureBlock:&__block_literal_global_40_6];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __29__HFZoneBuilder__updateRooms__block_invoke_3;
-    v22[3] = &unk_277DF9400;
-    v22[4] = WeakRetained;
-    v23 = v16;
-    v24 = *(a1 + 32);
-    v13 = [v17 flatMap:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __29__HFZoneBuilder__updateRooms__block_invoke_3;
+    v21[3] = &unk_277DF9400;
+    v21[4] = WeakRetained;
+    v22 = v16;
+    v23 = *(a1 + 32);
+    v13 = [v17 flatMap:v21];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -636,7 +623,7 @@ void __29__HFZoneBuilder__updateRooms__block_invoke_4(uint64_t a1, void *a2)
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 home:v3 didAddRoom:*(a1 + 40) toZone:*(a1 + 48)];
   }
 }
@@ -660,10 +647,10 @@ id __29__HFZoneBuilder__updateRooms__block_invoke_5(uint64_t a1, void *a2)
 
 id __29__HFZoneBuilder__updateRooms__block_invoke_6(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = [WeakRetained home];
+  v5 = objc_msgSend_home(WeakRetained);
   v6 = [v5 hf_roomWithIdentifier:v3];
 
   if (!v6)
@@ -671,11 +658,11 @@ id __29__HFZoneBuilder__updateRooms__block_invoke_6(uint64_t a1, void *a2)
     v7 = HFLogForCategory(0x2BuLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v18 = [WeakRetained home];
+      v17 = objc_msgSend_home(WeakRetained);
       *buf = 138412546;
-      v26 = v3;
-      v27 = 2112;
-      v28 = v18;
+      v25 = v3;
+      v26 = 2112;
+      v27 = v17;
       _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Could not find room with UUID: %@ in home: %@. This is going to cause the HFZoneBuilder commit to fail.", buf, 0x16u);
     }
   }
@@ -685,33 +672,31 @@ id __29__HFZoneBuilder__updateRooms__block_invoke_6(uint64_t a1, void *a2)
   {
     v9 = [WeakRetained name];
     *buf = 138412546;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v9;
+    v25 = v6;
+    v26 = 2112;
+    v27 = v9;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "HFZoneBuilder: Removing room %@ from zone named %@", buf, 0x16u);
   }
 
   v10 = MEMORY[0x277D2C900];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __29__HFZoneBuilder__updateRooms__block_invoke_48;
-  v22[3] = &unk_277DF4150;
-  v23 = *(a1 + 32);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __29__HFZoneBuilder__updateRooms__block_invoke_48;
+  v21[3] = &unk_277DF4150;
+  v22 = *(a1 + 32);
   v11 = v6;
-  v24 = v11;
-  v12 = [v10 futureWithErrorOnlyHandlerAdapterBlock:v22];
+  v23 = v11;
+  v12 = [v10 futureWithErrorOnlyHandlerAdapterBlock:v21];
   v13 = [v12 addFailureBlock:&__block_literal_global_51_2];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __29__HFZoneBuilder__updateRooms__block_invoke_3_55;
-  v19[3] = &unk_277DF9400;
-  v19[4] = WeakRetained;
-  v20 = v11;
-  v21 = *(a1 + 32);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __29__HFZoneBuilder__updateRooms__block_invoke_3_55;
+  v18[3] = &unk_277DF9400;
+  v18[4] = WeakRetained;
+  v19 = v11;
+  v20 = *(a1 + 32);
   v14 = v11;
-  v15 = [v12 flatMap:v19];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [v12 flatMap:v18];
 
   return v15;
 }
@@ -747,7 +732,7 @@ void __29__HFZoneBuilder__updateRooms__block_invoke_4_56(uint64_t a1, void *a2)
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 home:v3 didRemoveRoom:*(a1 + 40) fromZone:*(a1 + 48)];
   }
 }

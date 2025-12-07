@@ -412,9 +412,9 @@ void __67__VUIAggregateMediaLibrary_enqueueFetchRequests_completionHandler___blo
 
 void __67__VUIAggregateMediaLibrary_enqueueFetchRequests_completionHandler___block_invoke_4(uint64_t a1, void *a2, unint64_t a3)
 {
-  v37 = a2;
+  v40 = a2;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v6 = [v37 mediaEntities];
+  v6 = [v40 mediaEntities];
   if ([v6 count])
   {
     [v5 addObjectsFromArray:v6];
@@ -436,8 +436,8 @@ void __67__VUIAggregateMediaLibrary_enqueueFetchRequests_completionHandler___blo
 
   if ([*(a1 + 32) count] > a3)
   {
-    v35 = v6;
-    v36 = v5;
+    v38 = v6;
+    v39 = v5;
     v10 = v5;
     v11 = [*(a1 + 32) objectAtIndex:a3];
     v12 = [v11 range];
@@ -481,72 +481,49 @@ void __67__VUIAggregateMediaLibrary_enqueueFetchRequests_completionHandler___blo
     }
 
     v20 = v18;
-    v21 = VUISidebandMediaItemKind();
-    if ([v11 _isItemsFetch])
+    v21 = VUISidebandMediaItemKind(v20);
+    v22 = [v11 _isItemsFetch];
+    if (v22)
     {
-      v22 = VUISidebandMediaItemKind();
-    }
-
-    else if ([v11 _isShowsFetch])
-    {
-      v22 = VUISidebandSeriesMediaCollectionKind();
+      v23 = VUISidebandMediaItemKind(v22);
     }
 
     else
     {
-      if (![v11 _isSeasonsFetch])
+      v24 = [v11 _isShowsFetch];
+      if (v24)
       {
-        goto LABEL_26;
+        v23 = VUISidebandSeriesMediaCollectionKind(v24);
       }
 
-      v22 = VUISidebandSeasonMediaCollectionKind();
+      else
+      {
+        v25 = [v11 _isSeasonsFetch];
+        if (!v25)
+        {
+          goto LABEL_26;
+        }
+
+        v23 = VUISidebandSeasonMediaCollectionKind(v25);
+      }
     }
 
-    v23 = v22;
+    v26 = v23;
 
-    v21 = v23;
+    v21 = v26;
 LABEL_26:
-    v24 = [v11 _manualSortDescriptorsWithMediaEntityKind:v21 propertiesRequiredForSort:0];
-    v25 = v20;
-    if (v24)
+    v27 = [v11 _manualSortDescriptorsWithMediaEntityKind:v21 propertiesRequiredForSort:0];
+    v28 = v20;
+    if (v27)
     {
-      v25 = [v20 sortedArrayUsingDescriptors:v24];
+      v28 = [v20 sortedArrayUsingDescriptors:v27];
     }
 
-    v26 = [v11 _sortIndexPropertyKeyWithMediaEntityKind:v21];
-    v33 = v24;
-    if (v26)
+    v29 = [v11 _sortIndexPropertyKeyWithMediaEntityKind:v21];
+    v36 = v27;
+    if (v29)
     {
-      v27 = [VUIMediaLibraryUtilities sortIndexesForMediaEntities:v25 sortIndexPropertyKey:v26];
-    }
-
-    else
-    {
-      v27 = 0;
-    }
-
-    v34 = v20;
-    v28 = [v11 groupingKeyPath];
-    if (v28)
-    {
-      v29 = [v11 groupingSortComparator];
-      v30 = [VUIMediaLibraryUtilities groupingForMediaEntities:v25 groupingKeyPath:v28 groupingSortComparator:v29 performDefaultSort:1 sortIndexPropertyKey:v26];
-
-      if ([v11 _shouldGenerateGroupingSortIndexes])
-      {
-        v31 = [VUIMediaLibraryUtilities sortIndexesForGrouping:v30];
-LABEL_36:
-        v32 = objc_alloc_init(VUIMediaEntityFetchResponse);
-        [(VUIMediaEntityFetchResponse *)v32 setMediaEntities:v25];
-        [(VUIMediaEntityFetchResponse *)v32 setSortIndexes:v27];
-        [(VUIMediaEntityFetchResponse *)v32 setGrouping:v30];
-        [(VUIMediaEntityFetchResponse *)v32 setGroupingSortIndexes:v31];
-        [*(a1 + 40) addObject:v32];
-
-        v6 = v35;
-        v5 = v36;
-        goto LABEL_37;
-      }
+      v30 = [VUIMediaLibraryUtilities sortIndexesForMediaEntities:v28 sortIndexPropertyKey:v29];
     }
 
     else
@@ -554,7 +531,36 @@ LABEL_36:
       v30 = 0;
     }
 
-    v31 = 0;
+    v37 = v20;
+    v31 = [v11 groupingKeyPath];
+    if (v31)
+    {
+      v32 = [v11 groupingSortComparator];
+      v33 = [VUIMediaLibraryUtilities groupingForMediaEntities:v28 groupingKeyPath:v31 groupingSortComparator:v32 performDefaultSort:1 sortIndexPropertyKey:v29];
+
+      if ([v11 _shouldGenerateGroupingSortIndexes])
+      {
+        v34 = [VUIMediaLibraryUtilities sortIndexesForGrouping:v33];
+LABEL_36:
+        v35 = objc_alloc_init(VUIMediaEntityFetchResponse);
+        [(VUIMediaEntityFetchResponse *)v35 setMediaEntities:v28];
+        [(VUIMediaEntityFetchResponse *)v35 setSortIndexes:v30];
+        [(VUIMediaEntityFetchResponse *)v35 setGrouping:v33];
+        [(VUIMediaEntityFetchResponse *)v35 setGroupingSortIndexes:v34];
+        [*(a1 + 40) addObject:v35];
+
+        v6 = v38;
+        v5 = v39;
+        goto LABEL_37;
+      }
+    }
+
+    else
+    {
+      v33 = 0;
+    }
+
+    v34 = 0;
     goto LABEL_36;
   }
 

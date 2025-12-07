@@ -56,37 +56,45 @@
         v29 = 0u;
         memset(buf, 0, sizeof(buf));
         v12 = PLMigrationGetLog();
-        os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
         v23 = 138543618;
-        v24 = v14;
+        v24 = v15;
         v25 = 2112;
         v26 = v8;
-        LODWORD(v21) = 22;
-        v15 = _os_log_send_and_compose_impl();
+        v16 = _os_log_send_and_compose_impl(v13, 0, buf, 512, &dword_19BF1F000, v12, 16, "Failed to process %{public}@. Error: %@", &v23, 22);
 
-        v16 = [(PLModelMigrationActionCore *)self logger:&v23];
-        [v16 logWithMessage:v15 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{248, 16}];
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v16 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{248, 16}];
 
-        if (v15 != buf)
+        if (v16 != buf)
         {
-          free(v15);
+          free(v16);
         }
       }
 
       else
       {
-        v17 = PLMigrationGetLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = PLMigrationGetLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
           *buf = 138543618;
-          *&buf[4] = v19;
+          *&buf[4] = v20;
           *&buf[12] = 2112;
           *&buf[14] = v8;
-          _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
         }
       }
     }

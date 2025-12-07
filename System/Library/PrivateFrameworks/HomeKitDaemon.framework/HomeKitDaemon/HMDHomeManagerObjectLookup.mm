@@ -19,31 +19,31 @@
 
 - (void)_scanAccounts
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = +[HMDAppleAccountManager sharedManager];
   account = [v3 account];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
-  v27 = account;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v26 = account;
   modelBackedObjects = [account modelBackedObjects];
-  v6 = [modelBackedObjects countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v6 = [modelBackedObjects countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v40;
+    v8 = *v39;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(modelBackedObjects);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * i);
+        v10 = *(*(&v38 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -53,57 +53,57 @@
         }
       }
 
-      v7 = [modelBackedObjects countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v7 = [modelBackedObjects countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v7);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = +[HMDRemoteAccountManager sharedManager];
-  v13 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v13 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v36;
-    v28 = *v36;
+    v15 = *v35;
+    v27 = *v35;
     do
     {
       v16 = 0;
-      v29 = v14;
+      v28 = v14;
       do
       {
-        if (*v36 != v15)
+        if (*v35 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v35 + 1) + 8 * v16);
+        v17 = *(*(&v34 + 1) + 8 * v16);
         if ([v17 isAuthenticated])
         {
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           modelBackedObjects2 = [v17 modelBackedObjects];
-          v19 = [modelBackedObjects2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+          v19 = [modelBackedObjects2 countByEnumeratingWithState:&v30 objects:v42 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v32;
+            v21 = *v31;
             do
             {
               for (j = 0; j != v20; ++j)
               {
-                if (*v32 != v21)
+                if (*v31 != v21)
                 {
                   objc_enumerationMutation(modelBackedObjects2);
                 }
 
-                v23 = *(*(&v31 + 1) + 8 * j);
+                v23 = *(*(&v30 + 1) + 8 * j);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
@@ -113,55 +113,53 @@
                 }
               }
 
-              v20 = [modelBackedObjects2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+              v20 = [modelBackedObjects2 countByEnumeratingWithState:&v30 objects:v42 count:16];
             }
 
             while (v20);
           }
 
-          v15 = v28;
-          v14 = v29;
+          v15 = v27;
+          v14 = v28;
         }
 
         ++v16;
       }
 
       while (v16 != v14);
-      v14 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v14 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v14);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scanCloudZones
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   homeManager = [(HMDHomeManagerObjectLookup *)self homeManager];
   cloudZones = [homeManager cloudZones];
 
-  v5 = [cloudZones countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [cloudZones countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(cloudZones);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         uuidToObjectMapping = [(HMDObjectLookup *)self uuidToObjectMapping];
         uuid = [v9 uuid];
         [uuidToObjectMapping setObject:v9 forKey:uuid];
@@ -170,41 +168,39 @@
       }
 
       while (v6 != v8);
-      v6 = [cloudZones countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [cloudZones countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scanHomes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   homeManager = [(HMDHomeManagerObjectLookup *)self homeManager];
   homes = [homeManager homes];
 
-  v5 = [homes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [homes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(homes);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         uuidToObjectMapping = [(HMDObjectLookup *)self uuidToObjectMapping];
         uuid = [v9 uuid];
         [uuidToObjectMapping setObject:v9 forKey:uuid];
@@ -213,13 +209,11 @@
       }
 
       while (v6 != v8);
-      v6 = [homes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [homes countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanObjects
@@ -264,10 +258,9 @@
 
 void __41__HMDHomeManagerObjectLookup_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_75789;
-  logCategory__hmf_once_v1_75789 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_75789;
+  logCategory__hmf_once_v1_75789 = v0;
 }
 
 @end

@@ -52,22 +52,26 @@
 
 - (NSString)state
 {
+  v39 = 0;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v5 = 0;
+  NSAppendPrintF(&v39, "%@\n", v4);
+  v5 = v39;
 
-  NSAppendPrintF();
-  v6 = v5;
+  v38 = v5;
+  NSAppendPrintF(&v38, "-------------\n");
+  v6 = v38;
 
-  versionByte = self->_versionByte;
-  NSAppendPrintF();
-  v7 = v6;
+  v37 = v6;
+  NSAppendPrintF(&v37, "Version Byte: %u\n", self->_versionByte);
+  v7 = v37;
 
+  v36 = v7;
   goodbyeTimerInterval = self->_goodbyeTimerInterval;
-  NSAppendPrintF();
-  v9 = v7;
+  NSAppendPrintF(&v36, "Goodbye Timer Interval: %.2f\n", goodbyeTimerInterval);
+  v9 = v36;
 
+  v35 = v9;
   if (self->_advertisingEnabled)
   {
     v10 = @"YES";
@@ -78,47 +82,78 @@
     v10 = @"NO";
   }
 
-  v25 = v10;
-  NSAppendPrintF();
-  v11 = v9;
+  NSAppendPrintF(&v35, "Advertising Enabled: %@\n", v10);
+  v11 = v35;
 
-  [(SDActivityController *)self shouldStart];
-  NSAppendPrintF();
-  v12 = v11;
-
-  shouldNotAdvertiseRequesters = self->_shouldNotAdvertiseRequesters;
-  v26 = SFCompactStringFromCollection();
-  NSAppendPrintF();
-  v14 = v12;
-
-  self->_isAdvertising;
-  NSAppendPrintF();
-  v15 = v14;
-
-  self->_powerAssertionID;
-  NSAppendPrintF();
-  v16 = v15;
-
-  if (self->_powerAssertionClientPID)
+  v34 = v11;
+  if ([(SDActivityController *)self shouldStart])
   {
-    powerAssertionClientPID = self->_powerAssertionClientPID;
-    NSAppendPrintF();
-    v17 = v16;
-
-    v16 = v17;
+    v12 = @"YES";
   }
 
-  currentAdvertisementPayload = self->_currentAdvertisementPayload;
-  v19 = SFAdvertisementDescriptionFromPayloadData();
-  NSAppendPrintF();
-  v20 = v16;
+  else
+  {
+    v12 = @"NO";
+  }
 
-  currentAdvertisementOptions = self->_currentAdvertisementOptions;
-  v28 = SFCompactStringFromCollection();
-  NSAppendPrintF();
-  v22 = v20;
+  NSAppendPrintF(&v34, "Should Start: %@\n", v12);
+  v13 = v34;
 
-  return v20;
+  v33 = v13;
+  v14 = SFCompactStringFromCollection();
+  NSAppendPrintF(&v33, "Should Not Advertise Requesters: %@\n", v14);
+  v15 = v33;
+
+  v32 = v15;
+  if (self->_isAdvertising)
+  {
+    v16 = @"YES";
+  }
+
+  else
+  {
+    v16 = @"NO";
+  }
+
+  NSAppendPrintF(&v32, "Is Advertising: %@\n", v16);
+  v17 = v32;
+
+  v31 = v17;
+  if (self->_powerAssertionID)
+  {
+    v18 = @"YES";
+  }
+
+  else
+  {
+    v18 = @"NO";
+  }
+
+  NSAppendPrintF(&v31, "Has Power Assertion:%@\n", v18);
+  v19 = v31;
+
+  powerAssertionClientPID = self->_powerAssertionClientPID;
+  if (powerAssertionClientPID)
+  {
+    v30 = v19;
+    NSAppendPrintF(&v30, "Power Assertion PID: %d\n", powerAssertionClientPID);
+    v21 = v30;
+
+    v19 = v21;
+  }
+
+  v29 = v19;
+  v22 = SFAdvertisementDescriptionFromPayloadData();
+  NSAppendPrintF(&v29, "Current Advertisement Payload: %@\n", v22);
+  v23 = v29;
+
+  v28 = v23;
+  v24 = SFCompactStringFromCollection();
+  NSAppendPrintF(&v28, "Current Advertisement Options: %@\n", v24);
+  v25 = v28;
+  v26 = v28;
+
+  return v25;
 }
 
 - (SDActivityAdvertiser)init
@@ -195,18 +230,16 @@
     v8 = handoff_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_currentAdvertisementPayload;
-      v10 = SFAdvertisementDescriptionFromPayloadData();
-      v11 = self->_rawAdvertisementData;
-      v12 = SFHexStringForData();
+      v9 = SFAdvertisementDescriptionFromPayloadData();
+      v10 = SFHexStringForData();
       currentAdvertisementOptions = self->_currentAdvertisementOptions;
-      *v26 = 138412802;
-      *&v26[4] = v10;
+      *v24 = 138412802;
+      *&v24[4] = v9;
+      v25 = 2112;
+      v26 = v10;
       v27 = 2112;
-      v28 = v12;
-      v29 = 2112;
-      v30 = currentAdvertisementOptions;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Started advertising %@ as %@ with options %@", v26, 0x20u);
+      v28 = currentAdvertisementOptions;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Started advertising %@ as %@ with options %@", v24, 0x20u);
     }
 
     [(SDActivityAdvertiser *)self preventIdleSleepAssertion];
@@ -218,11 +251,11 @@
   {
     if (!currentAdvertisementPayload && self->_goodbyeTimer)
     {
-      v15 = handoff_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = handoff_log();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v26 = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Goodbye packet advertising interrupted", v26, 2u);
+        *v24 = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Goodbye packet advertising interrupted", v24, 2u);
       }
 
       [(SDActivityAdvertiser *)self invalidateGoodbyeTimer];
@@ -230,73 +263,73 @@
 
     if (self->_isAdvertising)
     {
-      v16 = @"Stopped";
+      v14 = @"Stopped";
     }
 
     else
     {
-      v16 = @"Skipping request for";
+      v14 = @"Skipping request for";
     }
 
-    v17 = v16;
-    v18 = handoff_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v15 = v14;
+    v16 = handoff_log();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_advertisingEnabled)
       {
-        v19 = @"YES";
+        v17 = @"YES";
       }
 
       else
       {
-        v19 = @"NO";
+        v17 = @"NO";
       }
 
       if ([(SDStatusMonitor *)self->_monitor currentConsoleUser])
       {
-        v20 = @"YES";
+        v18 = @"YES";
       }
 
       else
       {
-        v20 = @"NO";
+        v18 = @"NO";
       }
 
       if (([(IDSContinuity *)self->_continuity state]& 0x8000000000000000) != 0 || [(IDSContinuity *)self->_continuity state]> 3)
       {
-        v21 = "UnexpectedState";
+        v19 = "UnexpectedState";
       }
 
       else
       {
-        v21 = off_1008CFA38[[(IDSContinuity *)self->_continuity state]];
+        v19 = off_1008CFA38[[(IDSContinuity *)self->_continuity state]];
       }
 
-      v22 = [(NSMutableSet *)self->_shouldNotAdvertiseRequesters count];
+      v20 = [(NSMutableSet *)self->_shouldNotAdvertiseRequesters count];
       shouldStart = [(SDActivityController *)self shouldStart];
-      *v26 = 138413570;
+      *v24 = 138413570;
       if (shouldStart)
       {
-        v24 = @"YES";
+        v22 = @"YES";
       }
 
       else
       {
-        v24 = @"NO";
+        v22 = @"NO";
       }
 
-      *&v26[4] = v17;
+      *&v24[4] = v15;
+      v25 = 2112;
+      v26 = v17;
       v27 = 2112;
-      v28 = v19;
-      v29 = 2112;
-      v30 = v20;
-      v31 = 2080;
-      v32 = v21;
-      v33 = 2048;
+      v28 = v18;
+      v29 = 2080;
+      v30 = v19;
+      v31 = 2048;
+      v32 = v20;
+      v33 = 2112;
       v34 = v22;
-      v35 = 2112;
-      v36 = v24;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ advertising: advertisingEnabled %@, currentConsoleUser %@, state %s, shouldNotAdvertiseRequestersCount %lu, shouldStart %@", v26, 0x3Eu);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ advertising: advertisingEnabled %@, currentConsoleUser %@, state %s, shouldNotAdvertiseRequestersCount %lu, shouldStart %@", v24, 0x3Eu);
     }
 
     if (self->_isAdvertising)
@@ -305,7 +338,7 @@
     }
 
     [(SDActivityAdvertiser *)self releaseIdleSleepAssertion];
-    v25 = self->_advertisingTransaction;
+    v23 = self->_advertisingTransaction;
     self->_advertisingTransaction = 0;
 
     return 0;
@@ -333,15 +366,14 @@
   v5 = handoff_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    shouldNotAdvertiseRequesters = self->_shouldNotAdvertiseRequesters;
-    v7 = SFCompactStringFromCollection();
-    v8 = 136315650;
-    v9 = "[SDActivityAdvertiser stopForReason:]";
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2112;
-    v13 = reasonCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s %@ + %@", &v8, 0x20u);
+    v6 = SFCompactStringFromCollection();
+    v7 = 136315650;
+    v8 = "[SDActivityAdvertiser stopForReason:]";
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s %@ + %@", &v7, 0x20u);
   }
 
   [(NSMutableSet *)self->_shouldNotAdvertiseRequesters addObject:reasonCopy];
@@ -357,15 +389,14 @@
   v5 = handoff_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    shouldNotAdvertiseRequesters = self->_shouldNotAdvertiseRequesters;
-    v7 = SFCompactStringFromCollection();
-    v8 = 136315650;
-    v9 = "[SDActivityAdvertiser resumeForReason:]";
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2112;
-    v13 = reasonCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s %@ - %@", &v8, 0x20u);
+    v6 = SFCompactStringFromCollection();
+    v7 = 136315650;
+    v8 = "[SDActivityAdvertiser resumeForReason:]";
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s %@ - %@", &v7, 0x20u);
   }
 
   if ([(NSMutableSet *)self->_shouldNotAdvertiseRequesters containsObject:reasonCopy])
@@ -692,7 +723,7 @@ LABEL_20:
     v3 = handoff_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000CFBB8();
+      sub_1000CFBB8(self, v3);
     }
 
     [(NSTimer *)self->_goodbyeTimer invalidate];
@@ -709,7 +740,7 @@ LABEL_20:
     v4 = handoff_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000CFC4C();
+      sub_1000CFC4C(self, v4);
     }
 
     [(SDActivityAdvertiser *)self stop];
@@ -738,37 +769,37 @@ LABEL_20:
 
   if (bOOLValue)
   {
-    v7 = 8;
+    v8 = 8;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  *mutableBytes = v7;
+  *mutableBytes = v8;
   currentAdvertisementOptions = self->_currentAdvertisementOptions;
-  v9 = off_100970760();
-  v10 = [(NSDictionary *)currentAdvertisementOptions objectForKeyedSubscript:v9];
-  bOOLValue2 = [v10 BOOLValue];
+  v10 = off_100970760(v7);
+  v11 = [(NSDictionary *)currentAdvertisementOptions objectForKeyedSubscript:v10];
+  bOOLValue2 = [v11 BOOLValue];
 
   mutableBytes[4] = bOOLValue2;
-  v12 = [(NSData *)self->_currentAdvertisementPayload length];
+  v13 = [(NSData *)self->_currentAdvertisementPayload length];
   currentAdvertisementPayload = self->_currentAdvertisementPayload;
-  if (v12 == 9)
+  if (v13 == 9)
   {
     bytes = [(NSData *)currentAdvertisementPayload bytes];
-    v15 = bytes[8];
+    v16 = bytes[8];
     *(mutableBytes + 5) = *bytes;
-    mutableBytes[13] = v15;
+    mutableBytes[13] = v16;
   }
 
   else if (currentAdvertisementPayload)
   {
-    v16 = handoff_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = handoff_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CFCE0(&self->_currentAdvertisementPayload, v16);
+      sub_1000CFCE0(&self->_currentAdvertisementPayload, v17);
     }
   }
 

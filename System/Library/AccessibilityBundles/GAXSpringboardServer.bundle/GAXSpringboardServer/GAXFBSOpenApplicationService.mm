@@ -17,13 +17,14 @@
 {
   applicationCopy = application;
   v7 = +[GAXSpringboard sharedInstance];
-  if (![v7 isActive])
+  isActive = [v7 isActive];
+  if (!isActive)
   {
     goto LABEL_6;
   }
 
-  v8 = GAXAllowedRemoteUIProcesses();
-  if ([v8 containsObject:applicationCopy])
+  v9 = GAXAllowedRemoteUIProcesses(isActive);
+  if ([v9 containsObject:applicationCopy])
   {
     goto LABEL_5;
   }
@@ -34,28 +35,28 @@
 
 LABEL_5:
 LABEL_6:
-    v14.receiver = self;
-    v14.super_class = GAXFBSOpenApplicationService;
-    v10 = [(GAXFBSOpenApplicationService *)&v14 canOpenApplication:applicationCopy reason:reason];
+    v15.receiver = self;
+    v15.super_class = GAXFBSOpenApplicationService;
+    v11 = [(GAXFBSOpenApplicationService *)&v15 canOpenApplication:applicationCopy reason:reason];
     goto LABEL_7;
   }
 
-  v12 = [v7 isBundleIDAllowedApp:applicationCopy];
+  v13 = [v7 isBundleIDAllowedApp:applicationCopy];
 
-  if (v12)
+  if (v13)
   {
     goto LABEL_6;
   }
 
-  v13 = GAXLogCommon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = GAXLogCommon();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v16 = applicationCopy;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Guided Access returning NO for canActivate of app: %{public}@", buf, 0xCu);
+    v17 = applicationCopy;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Guided Access returning NO for canActivate of app: %{public}@", buf, 0xCu);
   }
 
-  v10 = 0;
+  v11 = 0;
   if (reason)
   {
     *reason = 1;
@@ -63,7 +64,7 @@ LABEL_6:
 
 LABEL_7:
 
-  return v10;
+  return v11;
 }
 
 - (void)_openApplication:(id)application withOptions:(id)options clientHandle:(id)handle completion:(id)completion
@@ -73,13 +74,14 @@ LABEL_7:
   handleCopy = handle;
   completionCopy = completion;
   v14 = +[GAXSpringboard sharedInstance];
-  if (![v14 isActive])
+  isActive = [v14 isActive];
+  if (!isActive)
   {
     goto LABEL_6;
   }
 
-  v15 = GAXAllowedRemoteUIProcesses();
-  if ([v15 containsObject:applicationCopy])
+  v16 = GAXAllowedRemoteUIProcesses(isActive);
+  if ([v16 containsObject:applicationCopy])
   {
     goto LABEL_5;
   }
@@ -90,43 +92,43 @@ LABEL_7:
 
 LABEL_5:
 LABEL_6:
-    v23.receiver = self;
-    v23.super_class = GAXFBSOpenApplicationService;
-    [(GAXFBSOpenApplicationService *)&v23 _openApplication:applicationCopy withOptions:optionsCopy clientHandle:handleCopy completion:completionCopy];
+    v24.receiver = self;
+    v24.super_class = GAXFBSOpenApplicationService;
+    [(GAXFBSOpenApplicationService *)&v24 _openApplication:applicationCopy withOptions:optionsCopy clientHandle:handleCopy completion:completionCopy];
     goto LABEL_7;
   }
 
-  v17 = [v14 isBundleIDAllowedApp:applicationCopy];
+  v18 = [v14 isBundleIDAllowedApp:applicationCopy];
 
-  if (v17)
+  if (v18)
   {
     goto LABEL_6;
   }
 
-  v18 = GAXLogCommon();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = GAXLogCommon();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v34 = applicationCopy;
-    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Guided Access blocking activation of app: %{public}@", buf, 0xCu);
+    v35 = applicationCopy;
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Guided Access blocking activation of app: %{public}@", buf, 0xCu);
   }
 
   if (completionCopy)
   {
-    v19 = FBSOpenApplicationErrorDomain;
-    v31 = NSLocalizedFailureReasonErrorKey;
-    v32 = @"Guided Access is active";
-    v20 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    v21 = [NSError errorWithDomain:v19 code:1 userInfo:v20];
+    v20 = FBSOpenApplicationErrorDomain;
+    v32 = NSLocalizedFailureReasonErrorKey;
+    v33 = @"Guided Access is active";
+    v21 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v22 = [NSError errorWithDomain:v20 code:1 userInfo:v21];
 
-    v24 = _NSConcreteStackBlock;
-    v25 = 3221225472;
-    v26 = sub_13F58;
-    v27 = &unk_2D5F0;
-    v30 = completionCopy;
-    v28 = handleCopy;
-    v29 = v21;
-    v22 = v21;
+    v25 = _NSConcreteStackBlock;
+    v26 = 3221225472;
+    v27 = sub_13F58;
+    v28 = &unk_2D5F0;
+    v31 = completionCopy;
+    v29 = handleCopy;
+    v30 = v22;
+    v23 = v22;
     AXPerformSafeBlock();
   }
 

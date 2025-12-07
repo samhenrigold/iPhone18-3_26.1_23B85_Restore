@@ -74,7 +74,7 @@
   {
     if (self->_renderingVersion != version)
     {
-      v3 = _PTLogSystem();
+      v3 = _PTLogSystem(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         [PTRenderPipelineState setRenderingVersion:];
@@ -118,7 +118,7 @@
   pipelineDescritor = self->_pipelineDescritor;
   if (pipelineDescritor)
   {
-    [(PTRenderPipelineDescriptor *)pipelineDescritor preferredTransform];
+    objc_msgSend_preferredTransform(pipelineDescritor);
   }
 
   else
@@ -135,7 +135,7 @@
 
   else if (v15 == -1)
   {
-    v16 = _PTLogSystem();
+    v16 = _PTLogSystem(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PTRenderPipelineState prepareForRendering:];
@@ -206,7 +206,7 @@
 
   v37 = self->_renderIntegration;
   metalContext = self->_metalContext;
-  [(PTRenderPipelineDescriptor *)self->_pipelineDescritor disparitySize];
+  objc_msgSend_disparitySize(self->_pipelineDescritor);
   v40 = v39;
   v42 = v41;
   debugRendering = [(PTRenderPipelineDescriptor *)self->_pipelineDescritor debugRendering];
@@ -240,7 +240,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  [rectCopy scissorRect];
+  objc_msgSend_scissorRect(rectCopy);
   if (*&v16 == 0 || ![(PTMetalContext *)self->_metalContext imageblocksSupported])
   {
     goto LABEL_10;
@@ -278,14 +278,14 @@ LABEL_11:
 
 - (int)encodeRenderTo:(id)to withRenderRequest:(id)request
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   toCopy = to;
   requestCopy = request;
   if ([(PTRenderPipelineState *)self prepareForRendering:0])
   {
-    if ([toCopy status] && objc_msgSend(toCopy, "status") != 1)
+    if ([toCopy status] && (v8 = objc_msgSend(toCopy, "status"), v8 != 1))
     {
-      destinationColor2 = _PTLogSystem();
+      destinationColor2 = _PTLogSystem(v8);
       if (os_log_type_enabled(destinationColor2, OS_LOG_TYPE_ERROR))
       {
         [PTRenderPipelineState encodeRenderTo:toCopy withRenderRequest:destinationColor2];
@@ -314,14 +314,14 @@ LABEL_11:
         goto LABEL_18;
       }
 
-      [requestCopy scissorRect];
+      objc_msgSend_scissorRect(requestCopy);
       if (!*buf && !*&buf[8] && __PAIR128__(*&buf[16], 0) == *&buf[24])
       {
         memset(buf, 0, sizeof(buf));
         goto LABEL_24;
       }
 
-      [requestCopy scissorRect];
+      v13 = objc_msgSend_scissorRect(requestCopy);
       if (*buf == 0 && *&buf[16] == __PAIR128__(height, width))
       {
 LABEL_18:
@@ -334,21 +334,21 @@ LABEL_25:
           *&buf[8] = 0;
           *&buf[16] = [(PTTexture *)self->_intermediateOutput width];
           *&buf[24] = [(PTTexture *)self->_intermediateOutput height];
-          v56[0] = *buf;
-          v56[1] = *&buf[16];
-          [requestCopy setScissorRect:v56];
+          v64[0] = *buf;
+          v64[1] = *&buf[16];
+          [requestCopy setScissorRect:v64];
 LABEL_26:
           sourceColor = [requestCopy sourceColor];
           width = [sourceColor width];
           [(PTRenderPipelineDescriptor *)self->_pipelineDescritor colorInputSize];
-          if (width == v16)
+          if (width == v18)
           {
             sourceColor2 = [requestCopy sourceColor];
             height = [sourceColor2 height];
             [(PTRenderPipelineDescriptor *)self->_pipelineDescritor colorInputSize];
-            v20 = v19;
+            v22 = v21;
 
-            if (height == v20)
+            if (height == v22)
             {
               goto LABEL_35;
             }
@@ -358,14 +358,14 @@ LABEL_26:
           {
           }
 
-          v21 = _PTLogSystem();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v24 = _PTLogSystem(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            [(PTRenderPipelineState *)&self->_pipelineDescritor encodeRenderTo:requestCopy withRenderRequest:v21];
+            [(PTRenderPipelineState *)&self->_pipelineDescritor encodeRenderTo:requestCopy withRenderRequest:v24];
           }
 
-          v22 = _PTLogSystem();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v26 = _PTLogSystem(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             [PTRenderPipelineState encodeRenderTo:withRenderRequest:];
           }
@@ -376,9 +376,9 @@ LABEL_35:
           {
             destinationColor4 = [requestCopy destinationColor];
             height2 = [destinationColor4 height];
-            v26 = self->_colorOutputSize.height;
+            v30 = self->_colorOutputSize.height;
 
-            if (height2 == v26)
+            if (height2 == v30)
             {
               goto LABEL_44;
             }
@@ -388,30 +388,30 @@ LABEL_35:
           {
           }
 
-          v27 = _PTLogSystem();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v32 = _PTLogSystem(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            v48 = destinationColor2;
-            v49 = self->_colorOutputSize.width;
-            v50 = self->_colorOutputSize.height;
+            v56 = destinationColor2;
+            v57 = self->_colorOutputSize.width;
+            v58 = self->_colorOutputSize.height;
             destinationColor5 = [requestCopy destinationColor];
             width2 = [destinationColor5 width];
             destinationColor6 = [requestCopy destinationColor];
             height3 = [destinationColor6 height];
             *buf = 134218752;
-            *&buf[4] = v49;
+            *&buf[4] = v57;
             *&buf[12] = 2048;
-            *&buf[14] = v50;
-            destinationColor2 = v48;
+            *&buf[14] = v58;
+            destinationColor2 = v56;
             *&buf[22] = 2048;
             *&buf[24] = width2;
-            v58 = 2048;
-            v59 = height3;
-            _os_log_error_impl(&dword_2243FB000, v27, OS_LOG_TYPE_ERROR, "Invalid output size. Expected %f %f. Was %lu %lu", buf, 0x2Au);
+            v66 = 2048;
+            v67 = height3;
+            _os_log_error_impl(&dword_2243FB000, v32, OS_LOG_TYPE_ERROR, "Invalid output size. Expected %f %f. Was %lu %lu", buf, 0x2Au);
           }
 
-          v28 = _PTLogSystem();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v34 = _PTLogSystem(v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             [PTRenderPipelineState encodeRenderTo:withRenderRequest:];
           }
@@ -436,23 +436,23 @@ LABEL_44:
             else
             {
               [requestCopy destinationColor];
-              v35 = v55 = destinationColor2;
-              transferFunction4 = [v35 transferFunction];
+              v42 = v63 = destinationColor2;
+              transferFunction4 = [v42 transferFunction];
 
-              destinationColor2 = v55;
+              destinationColor2 = v63;
               if (!transferFunction4)
               {
                 goto LABEL_54;
               }
             }
 
-            v37 = _PTLogSystem();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v44 = _PTLogSystem(v41);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
-              [PTRenderPipelineState encodeRenderTo:requestCopy withRenderRequest:v37];
+              [PTRenderPipelineState encodeRenderTo:requestCopy withRenderRequest:v44];
             }
 
-            sourceColor3 = _PTLogSystem();
+            sourceColor3 = _PTLogSystem(v45);
             if (os_log_type_enabled(sourceColor3, OS_LOG_TYPE_ERROR))
             {
               [PTRenderPipelineState encodeRenderTo:withRenderRequest:];
@@ -460,34 +460,34 @@ LABEL_44:
           }
 
 LABEL_54:
-          v12 = [(RenderingIntegration *)self->_renderIntegration renderContinuousWithSource:toCopy renderRequest:requestCopy];
+          v14 = [(RenderingIntegration *)self->_renderIntegration renderContinuousWithSource:toCopy renderRequest:requestCopy];
           if (self->_intermediateOutput)
           {
             useRGBA = [(PTRenderPipelineDescriptor *)self->_pipelineDescritor useRGBA];
             util = self->_util;
             intermediateOutput = self->_intermediateOutput;
             destinationColor2 = destinationColor2;
-            v41 = intermediateOutput;
-            v42 = v41;
+            v49 = intermediateOutput;
+            v50 = v49;
             if (useRGBA)
             {
-              texRGBA = [(PTTexture *)v41 texRGBA];
+              texRGBA = [(PTTexture *)v49 texRGBA];
               [destinationColor2 texRGBA];
             }
 
             else
             {
-              texLuma = [(PTTexture *)v41 texLuma];
+              texLuma = [(PTTexture *)v49 texLuma];
               texLuma2 = [destinationColor2 texLuma];
               [(PTUtil *)util rotateTexture:toCopy inTex:texLuma outTex:texLuma2 rotationDegrees:self->_colorOutputRotationDegrees];
 
               util = self->_util;
-              texRGBA = [(PTTexture *)v42 texChroma];
+              texRGBA = [(PTTexture *)v50 texChroma];
               [destinationColor2 texChroma];
             }
-            v46 = ;
+            v54 = ;
 
-            [(PTUtil *)util rotateTexture:toCopy inTex:texRGBA outTex:v46 rotationDegrees:self->_colorOutputRotationDegrees];
+            [(PTUtil *)util rotateTexture:toCopy inTex:texRGBA outTex:v54 rotationDegrees:self->_colorOutputRotationDegrees];
             [requestCopy setDestinationColor:destinationColor2];
           }
 
@@ -495,27 +495,27 @@ LABEL_54:
         }
 
 LABEL_24:
-        [requestCopy scissorRect];
+        objc_msgSend_scissorRect(requestCopy);
         goto LABEL_25;
       }
 
-      v13 = _PTLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = _PTLogSystem(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [PTRenderPipelineState encodeRenderTo:withRenderRequest:];
       }
     }
 
-    v12 = -2;
+    v14 = -2;
 LABEL_59:
 
     goto LABEL_60;
   }
 
-  v12 = -1;
+  v14 = -1;
 LABEL_60:
 
-  return v12;
+  return v14;
 }
 
 - (float)cameraIntrinsicMatrix

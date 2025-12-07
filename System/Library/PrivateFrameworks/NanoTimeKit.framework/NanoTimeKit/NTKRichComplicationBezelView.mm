@@ -20,13 +20,13 @@
 {
   filledCopy = filled;
   deviceCopy = device;
-  v6 = (NTKWhistlerSubdialComplicationDistanceFromCenter)();
+  v6 = NTKWhistlerSubdialComplicationDistanceFromCenter(deviceCopy);
   v7 = v6 - NTKWhistlerSubdialComplicationEditingInset(deviceCopy);
   v8 = NTKWhistlerSubdialComplicationDistanceFromCenter(deviceCopy) * 0.95;
   [NTKAnalogUtilities largeDialDiameterForDevice:deviceCopy];
   v10 = v9 * 0.5 - NTKKeylineWidth();
-  v11 = NTKWhistlerSubdialComplicationDiameter(deviceCopy);
-  v13 = v7 + v12 * 0.5 + ___LayoutConstants_block_invoke_4(v11, deviceCopy);
+  v11 = v7 + NTKWhistlerSubdialComplicationDiameter(deviceCopy) * 0.5;
+  v13 = v11 + ___LayoutConstants_block_invoke_4(v12, deviceCopy);
   v14 = [off_27877BE80 heartKeylineWithDevice:deviceCopy outerRadius:filledCopy innerRadius:v10 sideComplicationDistance:v13 topComplicationDistance:v7 strokeWidth:v8 filled:NTKKeylineWidth()];
 
   return v14;
@@ -109,7 +109,7 @@ uint64_t __53__NTKRichComplicationBezelView_keylineViewForDevice___block_invoke(
   v26 = 0u;
   v27 = 0u;
   v25 = 0u;
-  [self transformForState:state];
+  objc_msgSend_transformForState_(self);
   v18 = *MEMORY[0x277D768C8];
   v19 = *(MEMORY[0x277D768C8] + 8);
   v20 = *(MEMORY[0x277D768C8] + 16);

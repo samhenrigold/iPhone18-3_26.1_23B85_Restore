@@ -153,133 +153,354 @@
   date = [MEMORY[0x1E695DF00] date];
   v7 = [v5 stringFromDate:date];
 
-  if (levelCopy > 0x14)
+  if (levelCopy <= 0x14)
   {
-    v46 = 0;
-    NSAppendPrintF_safe();
-    v45 = 0;
+    v62 = 0;
+    NSAppendPrintF_safe(&v62, "TimeStamp:       %@\n", v7);
+    v8 = v62;
+    v61 = v8;
+    v9 = "AoS Bi";
     aosState = self->_aosState;
-    NSAppendPrintF_safe();
-    v10 = v45;
-
-    v44 = v10;
-    v31 = self->_bitRate / 0x3E8uLL;
-    NSAppendPrintF_safe();
-    v11 = v10;
-
-    v43 = v11;
-    if (self->_codecType <= 0x1Du)
+    if (aosState == 2)
     {
-      self->_codecType;
+      v9 = "AoS Uni";
     }
 
-    NSAppendPrintF_safe();
-    v13 = v43;
+    if (aosState < 2)
+    {
+      v9 = "None";
+    }
 
-    v42[6] = v13;
-    self->_btBand;
-    NSAppendPrintF_safe();
-    v20 = v13;
+    NSAppendPrintF_safe(&v61, "AoS:             %s\n", v9);
+    v11 = v61;
 
-    v42[5] = v20;
-    self->_deviceName;
-    NSAppendPrintF_safe();
-    v21 = v20;
+    v60 = v11;
+    NSAppendPrintF_safe(&v60, "Bitrate:         %u Kbps\n", self->_bitRate / 0x3E8);
+    v12 = v60;
 
-    v42[4] = v21;
-    v37 = self->_jitterBufferSeconds * 1000.0;
-    NSAppendPrintF_safe();
-    v22 = v21;
+    v59 = v12;
+    codecType = self->_codecType;
+    if (codecType > 0x1D)
+    {
+      if (codecType == 30)
+      {
+        v14 = "AAC-ELD";
+        goto LABEL_35;
+      }
 
-    v42[3] = v22;
-    noiseFloor90 = self->_noiseFloor90;
-    NSAppendPrintF_safe();
-    v23 = v22;
+      if (codecType != 40)
+      {
+        if (codecType == 50)
+        {
+          v14 = "MSBC";
+          goto LABEL_35;
+        }
 
-    v42[2] = v23;
-    v39 = self->_retransmitRate * 100.0;
-    NSAppendPrintF_safe();
-    v24 = v23;
+        goto LABEL_30;
+      }
 
-    v42[1] = v24;
-    rssiAverage = self->_rssiAverage;
-    NSAppendPrintF_safe();
-    v18 = v24;
+      v14 = "CVSD";
+    }
 
-    signalToNoiseRatio = self->_signalToNoiseRatio;
-    v42[0] = v18;
-    v19 = v42;
+    else
+    {
+      if (!self->_codecType)
+      {
+        v14 = "Unknown";
+        goto LABEL_35;
+      }
+
+      if (codecType != 10)
+      {
+        if (codecType == 20)
+        {
+          v14 = "AAC-LC";
+          goto LABEL_35;
+        }
+
+LABEL_30:
+        v14 = "?";
+        goto LABEL_35;
+      }
+
+      v14 = "SBC";
+    }
+
+LABEL_35:
+    NSAppendPrintF_safe(&v59, "Codec:           %s\n", v14);
+    v20 = v59;
+
+    v58 = v20;
+    btBand = self->_btBand;
+    if (btBand > 0xF)
+    {
+      if (self->_btBand > 0x3Fu)
+      {
+        if (btBand == 64)
+        {
+          v22 = "HRB UNII-5C";
+          goto LABEL_75;
+        }
+
+        if (btBand == 128)
+        {
+          v22 = "HRB UNII-5D";
+          goto LABEL_75;
+        }
+      }
+
+      else
+      {
+        if (btBand == 16)
+        {
+          v22 = "HRB UNII-5A";
+          goto LABEL_75;
+        }
+
+        if (btBand == 32)
+        {
+          v22 = "HRB UNII-5B";
+          goto LABEL_75;
+        }
+      }
+    }
+
+    else if (self->_btBand > 3u)
+    {
+      if (btBand == 4)
+      {
+        v22 = "HRB UNII-3";
+        goto LABEL_75;
+      }
+
+      if (btBand == 8)
+      {
+        v22 = "HRB UNII-4";
+        goto LABEL_75;
+      }
+    }
+
+    else
+    {
+      if (btBand == 1)
+      {
+        v22 = "ISM2.4";
+        goto LABEL_75;
+      }
+
+      if (btBand == 2)
+      {
+        v22 = "HRB UNII-1";
+LABEL_75:
+        NSAppendPrintF_safe(&v58, "Frequency:       %s\n", v22);
+        v26 = v58;
+
+        v57 = v26;
+        NSAppendPrintF_safe(&v57, "Jitter Buffer:   %.0f ms\n", self->_jitterBufferSeconds * 1000.0);
+        v27 = v57;
+
+        v56 = v27;
+        NSAppendPrintF_safe(&v56, "Noise Floor:     %d\n", self->_noiseFloor90);
+        v28 = v56;
+
+        v55 = v28;
+        NSAppendPrintF_safe(&v55, "Retransmit Rate: %.0f%%\n", self->_retransmitRate * 100.0);
+        v29 = v55;
+
+        v54 = v29;
+        NSAppendPrintF_safe(&v54, "RSSI Avg:        %d\n", self->_rssiAverage);
+        v30 = v54;
+
+        v53 = v30;
+        v31 = &v53;
+        NSAppendPrintF_safe(&v53, "Signal-to-Noise: %d\n");
+        goto LABEL_80;
+      }
+    }
+
+    v22 = "?";
+    goto LABEL_75;
+  }
+
+  v52 = 0;
+  NSAppendPrintF_safe(&v52, "Time: %@", v7);
+  v15 = v52;
+  v51 = v15;
+  NSAppendPrintF_safe(&v51, ", AoS %d", self->_aosState);
+  v16 = v51;
+
+  v50 = v16;
+  NSAppendPrintF_safe(&v50, ", BtRt %u Kbps", self->_bitRate / 0x3E8);
+  v17 = v50;
+
+  v49 = v17;
+  v18 = self->_codecType;
+  if (v18 > 0x1D)
+  {
+    if (v18 == 30)
+    {
+      v19 = "AAC-ELD";
+      goto LABEL_51;
+    }
+
+    if (v18 != 40)
+    {
+      if (v18 == 50)
+      {
+        v19 = "MSBC";
+        goto LABEL_51;
+      }
+
+      goto LABEL_31;
+    }
+
+    v19 = "CVSD";
   }
 
   else
   {
-    v51 = 0;
-    NSAppendPrintF_safe();
-    v50 = 0;
-    self->_aosState;
-    NSAppendPrintF_safe();
-    v8 = v50;
-
-    v49 = v8;
-    v29 = self->_bitRate / 0x3E8uLL;
-    NSAppendPrintF_safe();
-    v9 = v8;
-
-    v48 = v9;
-    if (self->_codecType <= 0x1Du)
+    if (!self->_codecType)
     {
-      self->_codecType;
+      v19 = "Unknown";
+      goto LABEL_51;
     }
 
-    NSAppendPrintF_safe();
-    v12 = v48;
+    if (v18 != 10)
+    {
+      if (v18 == 20)
+      {
+        v19 = "AAC-LC";
+        goto LABEL_51;
+      }
 
-    v47[5] = v12;
-    self->_btBand;
-    NSAppendPrintF_safe();
-    v14 = v12;
+LABEL_31:
+      v19 = "?";
+      goto LABEL_51;
+    }
 
-    v47[4] = v14;
-    v32 = self->_jitterBufferSeconds * 1000.0;
-    NSAppendPrintF_safe();
-    v15 = v14;
-
-    v47[3] = v15;
-    v33 = self->_noiseFloor90;
-    NSAppendPrintF_safe();
-    v16 = v15;
-
-    v47[2] = v16;
-    v34 = self->_retransmitRate * 100.0;
-    NSAppendPrintF_safe();
-    v17 = v16;
-
-    v47[1] = v17;
-    v35 = self->_rssiAverage;
-    NSAppendPrintF_safe();
-    v18 = v17;
-
-    v47[0] = v18;
-    v36 = self->_signalToNoiseRatio;
-    v19 = v47;
+    v19 = "SBC";
   }
 
-  NSAppendPrintF_safe();
-  v25 = *v19;
+LABEL_51:
+  NSAppendPrintF_safe(&v49, ", Codc %s", v19);
+  v23 = v49;
 
-  if (v25)
+  v48 = v23;
+  v24 = self->_btBand;
+  if (v24 > 0xF)
   {
-    v26 = v25;
+    if (self->_btBand > 0x3Fu)
+    {
+      if (v24 == 64)
+      {
+        v25 = "HRB UNII-5C";
+        goto LABEL_77;
+      }
+
+      if (v24 == 128)
+      {
+        v25 = "HRB UNII-5D";
+        goto LABEL_77;
+      }
+    }
+
+    else
+    {
+      if (v24 == 16)
+      {
+        v25 = "HRB UNII-5A";
+        goto LABEL_77;
+      }
+
+      if (v24 == 32)
+      {
+        v25 = "HRB UNII-5B";
+        goto LABEL_77;
+      }
+    }
+
+LABEL_76:
+    v25 = "?";
+    goto LABEL_77;
+  }
+
+  if (self->_btBand > 3u)
+  {
+    if (v24 == 4)
+    {
+      v25 = "HRB UNII-3";
+      goto LABEL_77;
+    }
+
+    if (v24 == 8)
+    {
+      v25 = "HRB UNII-4";
+      goto LABEL_77;
+    }
+
+    goto LABEL_76;
+  }
+
+  if (v24 == 1)
+  {
+    v25 = "ISM2.4";
+    goto LABEL_77;
+  }
+
+  if (v24 != 2)
+  {
+    goto LABEL_76;
+  }
+
+  v25 = "HRB UNII-1";
+LABEL_77:
+  NSAppendPrintF_safe(&v48, ", Freq %s", v25);
+  v32 = v48;
+
+  v47 = v32;
+  deviceName = self->_deviceName;
+  if (!deviceName)
+  {
+    deviceName = @"?";
+  }
+
+  NSAppendPrintF_safe(&v47, ", DvNm '%@'", deviceName);
+  v34 = v47;
+
+  v46 = v34;
+  NSAppendPrintF_safe(&v46, ", JtBf %.0f ms", self->_jitterBufferSeconds * 1000.0);
+  v35 = v46;
+
+  v45 = v35;
+  NSAppendPrintF_safe(&v45, ", NsFl %d", self->_noiseFloor90);
+  v36 = v45;
+
+  v44 = v36;
+  NSAppendPrintF_safe(&v44, ", RtmR %.0f%%", self->_retransmitRate * 100.0);
+  v37 = v44;
+
+  v43 = v37;
+  NSAppendPrintF_safe(&v43, ", RSSI %d", self->_rssiAverage);
+  v30 = v43;
+
+  v31 = &v42;
+  NSAppendPrintF_safe(&v42, ", SNR %d");
+LABEL_80:
+  v38 = *v31;
+
+  if (v38)
+  {
+    v39 = v38;
   }
 
   else
   {
-    v26 = &stru_1F40009C8;
+    v39 = &stru_1F40009C8;
   }
 
-  v27 = v26;
+  v40 = v39;
 
-  return v26;
+  return v39;
 }
 
 void __47__CBAudioLinkQualityInfo_descriptionWithLevel___block_invoke()
@@ -305,7 +526,7 @@ void __47__CBAudioLinkQualityInfo_descriptionWithLevel___block_invoke()
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_3_4();
-      *v5 = CBErrorF(-6756, "%@ init failed", v43, v44, v45, v46, v47, v48, v50);
+      *v5 = CBErrorF(-6756, "%@ init failed", v63, v64, v65, v66, v67, v68, v70);
     }
 
     goto LABEL_33;
@@ -315,57 +536,57 @@ void __47__CBAudioLinkQualityInfo_descriptionWithLevel___block_invoke()
   {
     if (v5)
     {
-      v49 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v50);
-      OUTLINED_FUNCTION_16(v49);
+      v69 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v70);
+      OUTLINED_FUNCTION_16(v69);
       goto LABEL_28;
     }
 
     goto LABEL_33;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_3_1();
-  if (v14 == 6)
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_3_1(v14, v15, v16, v17, v18);
+  if (v19 == 6)
   {
-    OUTLINED_FUNCTION_5_4(v14, v15, v16, v17, v18, v19, v20, v21, v50, 0);
+    OUTLINED_FUNCTION_5_4(v19, v20, v21, v22, v23, v24, v25, v26, v70, 0);
   }
 
-  else if (v14 == 5)
+  else if (v19 == 5)
   {
     goto LABEL_33;
   }
 
-  OUTLINED_FUNCTION_0();
-  v22 = OUTLINED_FUNCTION_5();
-  if (v22 == 6)
+  v27 = OUTLINED_FUNCTION_0();
+  v32 = OUTLINED_FUNCTION_5(v27, v28, v29, v30, v31);
+  if (v32 == 6)
   {
     *(v7 + 16) = 0;
   }
 
-  else if (v22 == 5)
+  else if (v32 == 5)
   {
     goto LABEL_33;
   }
 
-  OUTLINED_FUNCTION_0();
-  v23 = OUTLINED_FUNCTION_3_1();
-  if (v23 == 6)
+  v33 = OUTLINED_FUNCTION_0();
+  v38 = OUTLINED_FUNCTION_3_1(v33, v34, v35, v36, v37);
+  if (v38 == 6)
   {
-    OUTLINED_FUNCTION_11(v23, v24, v25, v26, v27, v28, v29, v30, v50, 0);
+    OUTLINED_FUNCTION_11(v38, v39, v40, v41, v42, v43, v44, v45, v70, 0);
   }
 
-  else if (v23 == 5)
+  else if (v38 == 5)
   {
     goto LABEL_33;
   }
 
-  v31 = OUTLINED_FUNCTION_1_3();
-  if (v31 == 6)
+  v46 = OUTLINED_FUNCTION_1_3(v38, "auCT", v40);
+  if (v46 == 6)
   {
-    OUTLINED_FUNCTION_10_1(v31, v32, v33, v34, v35, v36, v37, v38, v50, 0);
+    OUTLINED_FUNCTION_10_1(v46, v47, v48, v49, v50, v51, v52, v53, v70, 0);
   }
 
-  else if (v31 == 5)
+  else if (v46 == 5)
   {
     goto LABEL_33;
   }
@@ -377,43 +598,45 @@ void __47__CBAudioLinkQualityInfo_descriptionWithLevel___block_invoke()
   }
 
   OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeDouble())
+  v54 = CUXPCDecodeDouble();
+  if (!v54)
   {
     goto LABEL_33;
   }
 
-  v39 = OUTLINED_FUNCTION_1_3();
-  if (v39 == 6)
+  v56 = OUTLINED_FUNCTION_1_3(v54, "noFl", v55);
+  if (v56 == 6)
   {
     *(v7 + 11) = 0;
   }
 
-  else if (v39 == 5)
+  else if (v56 == 5)
   {
     goto LABEL_33;
   }
 
   OUTLINED_FUNCTION_1_0();
-  if (!CUXPCDecodeDouble())
+  v57 = CUXPCDecodeDouble();
+  if (!v57)
   {
     goto LABEL_33;
   }
 
-  v40 = OUTLINED_FUNCTION_1_3();
-  if (v40 == 6)
+  v59 = OUTLINED_FUNCTION_1_3(v57, "rsAv", v58);
+  if (v59 == 6)
   {
     *(v7 + 12) = 0;
   }
 
-  else if (v40 == 5)
+  else if (v59 == 5)
   {
     goto LABEL_33;
   }
 
-  v41 = OUTLINED_FUNCTION_1_3();
-  if (v41 != 6)
+  v61 = OUTLINED_FUNCTION_1_3(v59, "snr", v60);
+  if (v61 != 6)
   {
-    if (v41 != 5)
+    if (v61 != 5)
     {
       goto LABEL_27;
     }

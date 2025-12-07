@@ -1,1055 +1,3 @@
-uint64_t kdu_params::delete_unparsed_attribute(uint64_t this, const char *a2)
-{
-  v2 = *(this + 96);
-  if (!v2)
-  {
-LABEL_64:
-    v37 = 0;
-    memset(v36, 0, sizeof(v36));
-    kdu_error::kdu_error(v36, "Kakadu Core Error:\n");
-    (*(*&v36[0] + 16))(v36, "Attempting to delete a non-existent attribute with kdu_params::delete_unparsed_attribute.");
-    kdu_error::~kdu_error(v36);
-  }
-
-  v4 = this;
-  v5 = *(this + 96);
-  while (*v5 != a2)
-  {
-    v5 = *(v5 + 56);
-    if (!v5)
-    {
-      while (1)
-      {
-        this = strcmp(*v2, a2);
-        if (!this)
-        {
-          break;
-        }
-
-        v2 = *(v2 + 56);
-        if (!v2)
-        {
-          goto LABEL_64;
-        }
-      }
-
-      v5 = v2;
-      break;
-    }
-  }
-
-  if ((*(v5 + 49) & 1) == 0)
-  {
-    v6 = (*(v5 + 32) * *(v5 + 36));
-    if (v6)
-    {
-      if ((*(v4 + 104) & 1) == 0)
-      {
-        *(v4 + 104) = 1;
-        v7 = *(v4 + 80);
-        *(v7 + 104) = 1;
-        v8 = **(v7 + 64);
-        *(v8 + 104) = 1;
-        *(*(v8 + 48) + 104) = 1;
-      }
-
-      if (v6 >= 1)
-      {
-        v9 = (v6 + 15) & 0xFFFFFFF0;
-        v10 = vdupq_n_s64(v6 - 1);
-        v11 = xmmword_186205E50;
-        v12 = xmmword_186205E60;
-        v13 = xmmword_186205E70;
-        v14 = xmmword_186205E80;
-        v15 = xmmword_186205E90;
-        v16 = xmmword_186205EA0;
-        v17 = xmmword_186205EB0;
-        v18 = xmmword_186205EC0;
-        v19 = (*(v5 + 40) + 208);
-        v20 = vdupq_n_s64(0x10uLL);
-        do
-        {
-          v21 = vmovn_s64(vcgeq_u64(v10, v18));
-          if (vuzp1_s8(vuzp1_s16(v21, *v10.i8), *v10.i8).u8[0])
-          {
-            *(v19 - 192) = 0;
-          }
-
-          if (vuzp1_s8(vuzp1_s16(v21, *&v10), *&v10).i8[1])
-          {
-            *(v19 - 168) = 0;
-          }
-
-          if (vuzp1_s8(vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v17))), *&v10).i8[2])
-          {
-            *(v19 - 144) = 0;
-            *(v19 - 120) = 0;
-          }
-
-          v22 = vmovn_s64(vcgeq_u64(v10, v16));
-          if (vuzp1_s8(*&v10, vuzp1_s16(v22, *&v10)).i32[1])
-          {
-            *(v19 - 96) = 0;
-          }
-
-          if (vuzp1_s8(*&v10, vuzp1_s16(v22, *&v10)).i8[5])
-          {
-            *(v19 - 72) = 0;
-          }
-
-          if (vuzp1_s8(*&v10, vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v15)))).i8[6])
-          {
-            *(v19 - 48) = 0;
-            *(v19 - 24) = 0;
-          }
-
-          v23 = vmovn_s64(vcgeq_u64(v10, v14));
-          if (vuzp1_s8(vuzp1_s16(v23, *v10.i8), *v10.i8).u8[0])
-          {
-            *v19 = 0;
-          }
-
-          if (vuzp1_s8(vuzp1_s16(v23, *&v10), *&v10).i8[1])
-          {
-            v19[24] = 0;
-          }
-
-          if (vuzp1_s8(vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v13))), *&v10).i8[2])
-          {
-            v19[48] = 0;
-            v19[72] = 0;
-          }
-
-          v24 = vmovn_s64(vcgeq_u64(v10, v12));
-          if (vuzp1_s8(*&v10, vuzp1_s16(v24, *&v10)).i32[1])
-          {
-            v19[96] = 0;
-          }
-
-          if (vuzp1_s8(*&v10, vuzp1_s16(v24, *&v10)).i8[5])
-          {
-            v19[120] = 0;
-          }
-
-          if (vuzp1_s8(*&v10, vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, *&v11)))).i8[6])
-          {
-            v19[144] = 0;
-            v19[168] = 0;
-          }
-
-          v16 = vaddq_s64(v16, v20);
-          v17 = vaddq_s64(v17, v20);
-          v18 = vaddq_s64(v18, v20);
-          v15 = vaddq_s64(v15, v20);
-          v14 = vaddq_s64(v14, v20);
-          v13 = vaddq_s64(v13, v20);
-          v12 = vaddq_s64(v12, v20);
-          v19 += 384;
-          v11 = vaddq_s64(v11, v20);
-          v9 -= 16;
-        }
-
-        while (v9);
-      }
-    }
-
-    *(v5 + 36) = 0;
-  }
-
-  if (*(v4 + 80) == v4)
-  {
-    for (i = *(v4 + 88); i; i = *(i + 11))
-    {
-      this = kdu_params::delete_unparsed_attribute(i, a2);
-    }
-
-    if ((*(v4 + 20) & 0x80000000) != 0)
-    {
-      v26 = *(v4 + 16);
-      v27 = *(v4 + 32);
-      if (v27 >= 1)
-      {
-        v28 = v27 + 1;
-        v29 = (*(v4 + 64) + 8 * (v28 + v28 * v26) + 8);
-        do
-        {
-          this = *v29;
-          if (*v29)
-          {
-            v30 = this == v4;
-          }
-
-          else
-          {
-            v30 = 1;
-          }
-
-          if (!v30)
-          {
-            this = kdu_params::delete_unparsed_attribute(this, a2);
-          }
-
-          ++v29;
-          --v28;
-        }
-
-        while (v28 > 1);
-        v26 = *(v4 + 16);
-      }
-
-      if (v26 < 0)
-      {
-        v31 = *(v4 + 28);
-        if (v31 >= 1)
-        {
-          v32 = *(v4 + 32);
-          v33 = (*(v4 + 64) + 8 * v32 + 8);
-          v34 = v31 + 1;
-          do
-          {
-            this = *v33;
-            if (*v33)
-            {
-              v35 = this == v4;
-            }
-
-            else
-            {
-              v35 = 1;
-            }
-
-            if (!v35)
-            {
-              this = kdu_params::delete_unparsed_attribute(this, a2);
-              LODWORD(v32) = *(v4 + 32);
-            }
-
-            v33 += v32 + 1;
-            --v34;
-          }
-
-          while (v34 > 1);
-        }
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t display_options(char *a1, kdu_message *a2)
-{
-  v3 = a1;
-  v27 = *MEMORY[0x1E69E9840];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  *v22 = 0u;
-  memset(v21, 0, sizeof(v21));
-  v20 = 0;
-  v4 = *a1;
-  if (v4 != 91)
-  {
-    if (v4 != 40)
-    {
-      display_options();
-    }
-
-    (*(*a2 + 16))(a2, "Expected one of the identifiers, ");
-    v6 = 0;
-    v7 = 0;
-    v8 = v21;
-    v9 = v22;
-    do
-    {
-      v10 = v9;
-      v3 = parse_translator_entry(v3 + 1, 0x2Cu, v9, &v20, v5);
-      if (v7)
-      {
-        (*(*a2 + 16))(a2, ", ");
-      }
-
-      if (v6)
-      {
-        (*(*a2 + 16))(a2, "");
-        (*(*a2 + 16))(a2, v6);
-        (*(*a2 + 16))(a2, "");
-        v7 = 1;
-      }
-
-      v11 = *v3;
-      v9 = v8;
-      v8 = v10;
-      v6 = v10;
-    }
-
-    while (v11 == 44);
-    if (v11 != 41)
-    {
-      display_options();
-    }
-
-    v12 = ".";
-    if ((v7 & 1) == 0)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_20:
-    (*(*a2 + 16))(a2, " or ");
-    goto LABEL_21;
-  }
-
-  (*(*a2 + 16))(a2, "Expected one or more of the identifiers, ");
-  v14 = 0;
-  v15 = 0;
-  v16 = v21;
-  v17 = v22;
-  do
-  {
-    v10 = v17;
-    v3 = parse_translator_entry(v3 + 1, 0x7Cu, v17, &v20, v13);
-    if (v15)
-    {
-      (*(*a2 + 16))(a2, ", ");
-    }
-
-    if (v14)
-    {
-      (*(*a2 + 16))(a2, "");
-      (*(*a2 + 16))(a2, v14);
-      (*(*a2 + 16))(a2, "");
-      v15 = 1;
-    }
-
-    v18 = *v3;
-    v17 = v16;
-    v16 = v10;
-    v14 = v10;
-  }
-
-  while (v18 == 124);
-  if (v18 != 93)
-  {
-    display_options();
-  }
-
-  if (v15)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_21:
-  (*(*a2 + 16))(a2, "");
-  (*(*a2 + 16))(a2, v10);
-  return (*(*a2 + 16))(a2, v12);
-}
-
-uint64_t kdu_params::textualize_attributes(uint64_t this, kdu_message *a2, char a3)
-{
-  v32 = *MEMORY[0x1E69E9840];
-  v20 = this;
-  for (i = *(this + 96); i; i = i[7])
-  {
-    if (*(i + 9) && (*(i + 48) != 1 || (a3 & 1) == 0))
-    {
-      (*(*a2 + 16))(a2, *i);
-      if ((*(v20 + 20) & 0x80000000) == 0 || (*(v20 + 16) & 0x80000000) == 0 || *(v20 + 42) == 1)
-      {
-        strcpy(v27, ":");
-        (*(*a2 + 16))(a2, v27);
-        if ((*(v20 + 16) & 0x80000000) == 0)
-        {
-          (*(*a2 + 16))(a2, "T");
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
-          v29 = 0u;
-          *v27 = 0u;
-          if (*(a2 + 8))
-          {
-            sprintf(v27, "%x");
-          }
-
-          else
-          {
-            sprintf(v27, "%d");
-          }
-
-          (*(*a2 + 16))(a2, v27);
-        }
-
-        if ((*(v20 + 20) & 0x80000000) == 0)
-        {
-          (*(*a2 + 16))(a2, "C");
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
-          v29 = 0u;
-          *v27 = 0u;
-          if (*(a2 + 8))
-          {
-            sprintf(v27, "%x");
-          }
-
-          else
-          {
-            sprintf(v27, "%d");
-          }
-
-          (*(*a2 + 16))(a2, v27);
-        }
-
-        if (*(v20 + 42) == 1)
-        {
-          (*(*a2 + 16))(a2, "I");
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
-          v29 = 0u;
-          *v27 = 0u;
-          if (*(a2 + 8))
-          {
-            sprintf(v27, "%x");
-          }
-
-          else
-          {
-            sprintf(v27, "%d");
-          }
-
-          (*(*a2 + 16))(a2, v27);
-        }
-      }
-
-      strcpy(v27, "=");
-      (*(*a2 + 16))(a2, v27);
-      if (*(i + 9) >= 1)
-      {
-        v6 = 0;
-        while (1)
-        {
-          if (v6)
-          {
-            strcpy(v27, ",");
-            (*(*a2 + 16))(a2, v27);
-          }
-
-          LODWORD(v7) = *(i + 8);
-          if (v7 > 1)
-          {
-            strcpy(v27, "{");
-            (*(*a2 + 16))(a2, v27);
-            LODWORD(v7) = *(i + 8);
-          }
-
-          if (v7 >= 1)
-          {
-            break;
-          }
-
-LABEL_80:
-          if (++v6 >= *(i + 9))
-          {
-            goto LABEL_81;
-          }
-        }
-
-        v8 = 0;
-        while (2)
-        {
-          v9 = i[5];
-          if (v8)
-          {
-            strcpy(v27, ",");
-            (*(*a2 + 16))(a2, v27);
-          }
-
-          v10 = (v9 + 24 * v7 * v6 + 24 * v8);
-          if ((v10[4] & 1) == 0)
-          {
-            *&v24 = 0;
-            *v22 = 0u;
-            v23 = 0u;
-            kdu_error::kdu_error(v22, "Kakadu Core Error:\n");
-            (*(*v22 + 16))(v22, "Attempting to textualize a code-stream parameter attribute, which has only partially been set!\nError occurred in attribute");
-            (*(*v22 + 16))(v22, " ");
-            (*(*v22 + 16))(v22, *i);
-            (*(*v22 + 16))(v22, " ");
-            (*(*v22 + 16))(v22, "in field ");
-            v30 = 0u;
-            v31 = 0u;
-            v28 = 0u;
-            v29 = 0u;
-            *v27 = 0u;
-            if (v22[8])
-            {
-              sprintf(v27, "%x");
-            }
-
-            else
-            {
-              sprintf(v27, "%d");
-            }
-
-            (*(*v22 + 16))(v22, v27);
-            (*(*v22 + 16))(v22, " of record ");
-            v30 = 0u;
-            v31 = 0u;
-            v28 = 0u;
-            v29 = 0u;
-            *v27 = 0u;
-            if (v22[8])
-            {
-              sprintf(v27, "%x");
-            }
-
-            else
-            {
-              sprintf(v27, "%d");
-            }
-
-            (*(*v22 + 16))(v22, v27);
-            (*(*v22 + 16))(v22, ".");
-            kdu_error::~kdu_error(v22);
-          }
-
-          v11 = *(v10 + 1);
-          v12 = *v11;
-          if (v12 > 0x45)
-          {
-            if (v12 == 91)
-            {
-              v25 = 0u;
-              v26 = 0u;
-              v23 = 0u;
-              v24 = 0u;
-              *v22 = 0u;
-              v21 = 0;
-              if (!*v10)
-              {
-                v30 = 0uLL;
-                v31 = 0uLL;
-                v28 = 0uLL;
-                v29 = 0uLL;
-                *v27 = 0uLL;
-                if (*(a2 + 8))
-                {
-                  sprintf(v27, "%x");
-                }
-
-                else
-                {
-                  sprintf(v27, "%d");
-                }
-
-                (*(*a2 + 16))(a2, v27);
-              }
-
-              v16 = 0;
-              do
-              {
-                v11 = parse_translator_entry(v11 + 1, 0x7Cu, v22, &v21, v5);
-                v17 = v21 | v16;
-                if ((v21 & ~*v10) == 0 && v17 > v16)
-                {
-                  (*(*a2 + 16))(a2, v22);
-                  if (v17 == *v10)
-                  {
-                    goto LABEL_77;
-                  }
-
-                  strcpy(v27, ",");
-                  (*(*a2 + 16))(a2, v27);
-                  v16 = v17;
-                }
-              }
-
-              while (*v11 == 124);
-              if (v16 != *v10)
-              {
-                kdu_params::textualize_attributes();
-              }
-
-              goto LABEL_77;
-            }
-
-            if (v12 != 73)
-            {
-              if (v12 != 70)
-              {
-LABEL_84:
-                kdu_params::textualize_attributes();
-              }
-
-              v13 = *v10;
-              v30 = 0u;
-              v31 = 0u;
-              v28 = 0u;
-              v29 = 0u;
-              *v27 = 0u;
-              sprintf(v27, "%f", v13);
-              (*(*a2 + 16))(a2, v27);
-LABEL_77:
-              ++v8;
-              v7 = *(i + 8);
-              if (v8 >= v7)
-              {
-                if (v7 >= 2)
-                {
-                  strcpy(v27, "}");
-                  (*(*a2 + 16))(a2, v27);
-                }
-
-                goto LABEL_80;
-              }
-
-              continue;
-            }
-
-            v30 = 0u;
-            v31 = 0u;
-            v28 = 0u;
-            v29 = 0u;
-            *v27 = 0u;
-            if (*(a2 + 8))
-            {
-              sprintf(v27, "%x");
-            }
-
-            else
-            {
-              sprintf(v27, "%d");
-            }
-          }
-
-          else
-          {
-            if (v12 != 40)
-            {
-              if (v12 == 66)
-              {
-                if (*v10)
-                {
-                  v14 = "yes";
-                }
-
-                else
-                {
-                  v14 = "no";
-                }
-
-                (*(*a2 + 16))(a2, v14);
-              }
-
-              else
-              {
-                if (v12 != 67)
-                {
-                  goto LABEL_84;
-                }
-
-                (*(*v20 + 64))(v20, a2, *i, v8, *v10);
-              }
-
-              goto LABEL_77;
-            }
-
-            v30 = 0u;
-            v31 = 0u;
-            v28 = 0u;
-            v29 = 0u;
-            *v27 = 0u;
-            *v22 = 0;
-            while (1)
-            {
-              v15 = parse_translator_entry(v11 + 1, 0x2Cu, v27, v22, v5);
-              if (*v22 == *v10)
-              {
-                break;
-              }
-
-              v11 = v15;
-              if (*v15 != 44)
-              {
-                kdu_params::textualize_attributes();
-              }
-            }
-          }
-
-          break;
-        }
-
-        (*(*a2 + 16))(a2, v27);
-        goto LABEL_77;
-      }
-
-LABEL_81:
-      strcpy(v27, "\n");
-      this = (*(*a2 + 16))(a2, v27);
-    }
-  }
-
-  return this;
-}
-
-uint64_t kdu_params::textualize_attributes(uint64_t this, kdu_message *a2, int a3, int a4, char a5)
-{
-  v7 = this;
-  if (a3 < 0)
-  {
-    v8 = -1;
-  }
-
-  else
-  {
-    v8 = a3;
-  }
-
-  v9 = *(this + 28);
-  if (v9 <= a4)
-  {
-    v10 = v9 - 1;
-  }
-
-  else
-  {
-    v10 = a4;
-  }
-
-  v11 = *(this + 16);
-  if (v11 < 0)
-  {
-    v11 = v8;
-  }
-
-  else
-  {
-    v12 = v11 >= a3 && v11 <= v10;
-    v10 = *(this + 16);
-    if (!v12)
-    {
-      return this;
-    }
-  }
-
-  if (*(this + 24))
-  {
-
-    return kdu_params::textualize_attributes(this, a2, a5);
-  }
-
-  else
-  {
-    v13 = *(this + 20);
-    if (v13 < 0)
-    {
-      v14 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v13;
-    }
-
-    if (v11 <= v10)
-    {
-      v15 = *(this + 32);
-      if (v13 >= 0)
-      {
-        v16 = *(this + 20);
-      }
-
-      else
-      {
-        v16 = v15 - 1;
-      }
-
-      v17 = *(this + 64) + 8 * (v11 + 1 + (v11 + 1) * v15) + 8 * v14 + 8;
-      v25 = v10;
-      do
-      {
-        if (v14 <= v16)
-        {
-          v18 = v17;
-          v19 = v14;
-          do
-          {
-            v20 = *v18;
-            if (*(*v18 + 20) == v14 && *(v20 + 16) == v11)
-            {
-              do
-              {
-                this = kdu_params::textualize_attributes(v20, a2, a5);
-                v20 = *(v20 + 88);
-              }
-
-              while (v20);
-            }
-
-            ++v18;
-            v21 = v14 == v16;
-            LODWORD(v14) = v14 + 1;
-          }
-
-          while (!v21);
-          v15 = *(v7 + 32);
-          v10 = v25;
-          v14 = v19;
-        }
-
-        v17 += 8 * v15 + 8;
-        v21 = v11++ == v10;
-      }
-
-      while (!v21);
-    }
-
-    if (*(v7 + 48) == v7)
-    {
-      for (i = *(v7 + 56); i; i = *(i + 7))
-      {
-        this = kdu_params::textualize_attributes(i, a2, a3, a4, a5);
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t kdu_params::translate_marker_segment(kdu_params *this, uint64_t a2, uint64_t a3, unsigned __int8 *a4, int a5, uint64_t a6)
-{
-  v16 = -1;
-  v6 = *(**(this + 8) + 48);
-  if (!v6)
-  {
-    return 0;
-  }
-
-  while (*(v6 + 7) <= a5 || ((*(*v6 + 40))(v6, a2, a3, a4, &v16) & 1) == 0)
-  {
-    v6 = *(v6 + 7);
-    if (!v6)
-    {
-      return 0;
-    }
-  }
-
-  v13 = v16;
-  if (*(v6 + 42) == 1)
-  {
-    v14 = -1;
-    v16 = -1;
-  }
-
-  else
-  {
-    v14 = v16;
-    v13 = 0;
-  }
-
-  result = kdu_params::access_relation(v6, a5, v14, v13, 0);
-  if (result)
-  {
-    v15 = result;
-    if (*(result + 40) == 1 && (*(result + 42) & 1) == 0)
-    {
-      while (v15[37] == 1)
-      {
-        result = 0;
-        v15 = *(v15 + 11);
-        if (!v15)
-        {
-          return result;
-        }
-      }
-    }
-
-    result = (*(*v15 + 48))(v15, a2, a3, a4, a6);
-    if (result)
-    {
-      v15[37] = 1;
-      if (v15[40] == 1 && (v15[42] & 1) == 0)
-      {
-        kdu_params::new_instance(v15);
-      }
-
-      v15[36] = 0;
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t kdu_params::generate_marker_segments(kdu_params *this, kdu_output *a2, int a3, uint64_t a4)
-{
-  v4 = *(**(this + 8) + 48);
-  if (v4)
-  {
-    v8 = 0;
-    v23 = a3 + 1;
-    while (1)
-    {
-      if (*(v4 + 28) > a3)
-      {
-        v9 = *(v4 + 32);
-        if ((v9 & 0x80000000) == 0)
-        {
-          break;
-        }
-      }
-
-LABEL_44:
-      v4 = *(v4 + 56);
-      if (!v4)
-      {
-        return v8;
-      }
-    }
-
-    v10 = v23 + v23 * v9;
-    v11 = *(*(v4 + 64) + 8 * v10);
-    v12 = -1;
-    while (1)
-    {
-      v13 = *(v4 + 64);
-      v14 = *(v13 + 8 * v10);
-      if (*(v14 + 16) == a3 || *(v11 + 16) == a3 && *(v11 + 37) == 1)
-      {
-        v15 = *(v14 + 20);
-        if (v15 == v12)
-        {
-          if ((v12 & 0x8000000000000000) == 0)
-          {
-            goto LABEL_18;
-          }
-
-          goto LABEL_20;
-        }
-
-        if (*(v14 + 41) == 1)
-        {
-          if (v12 < 0 || v15 != -1)
-          {
-            kdu_params::generate_marker_segments();
-          }
-
-          v16 = kdu_params::access_relation(v14, a3, v12, 0, 0);
-          v13 = *(v4 + 64);
-          if (v16 != *(v13 + 8 * v10) || (v14 = v16, *(v16 + 20) != v12))
-          {
-            kdu_params::generate_marker_segments();
-          }
-
-LABEL_18:
-          if (*(v11 + 16) != a3 || (v17 = v11, (*(v11 + 37) & 1) == 0))
-          {
-LABEL_20:
-            v17 = *(v13 + 8 * v12 + 8);
-            if ((*(v17 + 37) & 1) == 0)
-            {
-              if (*(v4 + 37))
-              {
-                v17 = v4;
-              }
-
-              else
-              {
-                v17 = 0;
-              }
-            }
-          }
-
-          if (v17 == v14)
-          {
-            v18 = 0;
-          }
-
-          else
-          {
-            v18 = v17;
-          }
-
-          do
-          {
-            if (*(v14 + 42) == 1)
-            {
-              if ((*(v14 + 16) & 0x80000000) != 0)
-              {
-                goto LABEL_35;
-              }
-
-              v19 = *(v14 + 24);
-              v18 = v4;
-              while (1)
-              {
-                v20 = *(v18 + 24);
-                if (v20 >= v19)
-                {
-                  break;
-                }
-
-                v18 = *(v18 + 88);
-                if (!v18)
-                {
-                  goto LABEL_35;
-                }
-              }
-
-              if (v20 != v19 || (*(v18 + 37) & 1) == 0)
-              {
-LABEL_35:
-                v18 = 0;
-              }
-            }
-
-            v21 = (*(*v14 + 32))(v14, a2, v18, a4);
-            if (v21 <= 0)
-            {
-              if (*(v14 + 37))
-              {
-                v18 = v14;
-              }
-
-              else
-              {
-                v18 = 0;
-              }
-            }
-
-            else
-            {
-              if (v21 <= 3)
-              {
-                kdu_params::generate_marker_segments();
-              }
-
-              v8 = (v21 + v8);
-              *(v14 + 37) = 1;
-              v18 = v14;
-            }
-
-            v14 = *(v14 + 88);
-          }
-
-          while (v14);
-        }
-      }
-
-      ++v12;
-      ++v10;
-      if (v12 >= *(v4 + 32))
-      {
-        goto LABEL_44;
-      }
-    }
-  }
-
-  return 0;
-}
-
 kdu_params *kdu_params::finalize_all(kdu_params *this, _BOOL8 a2)
 {
   v3 = this;
@@ -1635,7 +583,7 @@ LABEL_104:
 
 uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_params *a3, int a4)
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     siz_params::write_marker_segment();
@@ -1643,42 +591,42 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
 
   if (a4)
   {
-    LODWORD(v61) = 0;
+    LODWORD(v60) = 0;
   }
 
   else
   {
-    v79 = 0;
     v78 = 0;
-    *v76 = 0;
-    *v77 = 0;
-    *v74 = 0;
+    v77 = 0;
     *v75 = 0;
+    *v76 = 0;
     *v73 = 0;
-    if (!kdu_params::get(this, "Sprofile", 0, 0, &v78, 1, 1, 1) || !kdu_params::get(this, "Scap", 0, 0, &v79, 1, 1, 1) || !kdu_params::get(this, "Sextensions", 0, 0, &v77[1], 1, 1, 1) || !kdu_params::get(this, "Ssize", 0, 0, &v76[1], 1, 1, 1) || !kdu_params::get(this, "Ssize", 0, 1, v77, 1, 1, 1) || !kdu_params::get(this, "Sorigin", 0, 0, &v75[1], 1, 1, 1) || !kdu_params::get(this, "Sorigin", 0, 1, v76, 1, 1, 1) || !kdu_params::get(this, "Stiles", 0, 0, &v74[1], 1, 1, 1) || !kdu_params::get(this, "Stiles", 0, 1, v75, 1, 1, 1) || !kdu_params::get(this, "Stile_origin", 0, 0, &v73[1], 1, 1, 1) || !kdu_params::get(this, "Stile_origin", 0, 1, v74, 1, 1, 1) || (kdu_params::get(this, "Scomponents", 0, 0, v73, 1, 1, 1) & 1) == 0)
+    *v74 = 0;
+    *v72 = 0;
+    if (!kdu_params::get(this, "Sprofile", 0, 0, &v77, 1, 1, 1) || !kdu_params::get(this, "Scap", 0, 0, &v78, 1, 1, 1) || !kdu_params::get(this, "Sextensions", 0, 0, &v76[1], 1, 1, 1) || !kdu_params::get(this, "Ssize", 0, 0, &v75[1], 1, 1, 1) || !kdu_params::get(this, "Ssize", 0, 1, v76, 1, 1, 1) || !kdu_params::get(this, "Sorigin", 0, 0, &v74[1], 1, 1, 1) || !kdu_params::get(this, "Sorigin", 0, 1, v75, 1, 1, 1) || !kdu_params::get(this, "Stiles", 0, 0, &v73[1], 1, 1, 1) || !kdu_params::get(this, "Stiles", 0, 1, v74, 1, 1, 1) || !kdu_params::get(this, "Stile_origin", 0, 0, &v72[1], 1, 1, 1) || !kdu_params::get(this, "Stile_origin", 0, 1, v73, 1, 1, 1) || (kdu_params::get(this, "Scomponents", 0, 0, v72, 1, 1, 1) & 1) == 0)
     {
-      *&v82 = 0;
-      *v80 = 0u;
-      v81 = 0u;
-      kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-      (*(*v80 + 16))(v80, "Unable to write SIZ marker segment yet!");
-      kdu_error::~kdu_error(v80);
+      *&v81 = 0;
+      *v79 = 0u;
+      v80 = 0u;
+      kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+      (*(*v79 + 16))(v79, "Unable to write SIZ marker segment yet!");
+      kdu_error::~kdu_error(v79);
     }
 
-    v5 = v73[0];
-    if (v73[0] - 16385 <= 0xFFFFBFFF)
+    v5 = v72[0];
+    if (v72[0] - 16385 <= 0xFFFFBFFF)
     {
-      *&v82 = 0;
-      *v80 = 0u;
-      v81 = 0u;
-      kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-      (*(*v80 + 16))(v80, "Illegal number of image components! Must be in the range 1 to 16384.");
-      kdu_error::~kdu_error(v80);
+      *&v81 = 0;
+      *v79 = 0u;
+      v80 = 0u;
+      kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+      (*(*v79 + 16))(v79, "Illegal number of image components! Must be in the range 1 to 16384.");
+      kdu_error::~kdu_error(v79);
     }
 
-    v72 = 0;
-    v6 = kdu_params::get(this, "Mcomponents", 0, 0, &v72, 1, 1, 1);
-    if (v72)
+    v71 = 0;
+    v6 = kdu_params::get(this, "Mcomponents", 0, 0, &v71, 1, 1, 1);
+    if (v71)
     {
       v7 = v6;
     }
@@ -1690,52 +638,52 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
 
     if (v7 == 1)
     {
-      if ((v72 - 16385) <= 0xFFFFBFFF)
+      if ((v71 - 16385) <= 0xFFFFBFFF)
       {
-        *&v82 = 0;
-        *v80 = 0u;
-        v81 = 0u;
-        kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-        kdu_error::~kdu_error(v80);
+        *&v81 = 0;
+        *v79 = 0u;
+        v80 = 0u;
+        kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+        kdu_error::~kdu_error(v79);
       }
 
-      v59 = v72 + 6;
+      v58 = v71 + 6;
     }
 
     else
     {
-      v59 = 0;
+      v58 = 0;
     }
 
-    v58 = 3 * v5;
+    v57 = 3 * v5;
     if (a2)
     {
-      LODWORD(v61) = 3 * v5 + 40;
-      v8 = v73[1];
-      v9 = v74[0];
-      if ((v74[0] & 0x80000000) != 0 || (v73[1] & 0x80000000) != 0)
+      LODWORD(v60) = 3 * v5 + 40;
+      v8 = v72[1];
+      v9 = v73[0];
+      if ((v73[0] & 0x80000000) != 0 || (v72[1] & 0x80000000) != 0)
       {
-        v11 = v74[1];
-        v12 = v75[0];
-        v13 = v77[0];
-        lcm = v75[0];
-        if ((v75[0] + v74[0]) >= v77[0])
+        v11 = v73[1];
+        v12 = v74[0];
+        v13 = v76[0];
+        lcm = v74[0];
+        if ((v74[0] + v73[0]) >= v76[0])
         {
-          v9 = v76[0];
-          v74[0] = v76[0];
+          v9 = v75[0];
+          v73[0] = v75[0];
           lcm = 1;
         }
 
-        v15 = v76[1];
-        v16 = v74[1];
-        if ((v74[1] + v73[1]) >= v76[1])
+        v15 = v75[1];
+        v16 = v73[1];
+        if ((v73[1] + v72[1]) >= v75[1])
         {
-          v73[1] = v75[1];
+          v72[1] = v74[1];
           v16 = 1;
         }
 
         v17 = kdu_params::access_cluster(this, "COD");
-        v18 = v13 - v76[0];
+        v18 = v13 - v75[0];
         if (v12 <= 1)
         {
           v19 = 1;
@@ -1748,7 +696,7 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
 
         if (v18 <= 0)
         {
-          v20 = -((v76[0] - v13) / v19);
+          v20 = -((v75[0] - v13) / v19);
         }
 
         else
@@ -1756,7 +704,7 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
           v20 = (v18 - 1) / v19 + 1;
         }
 
-        v21 = v15 - v75[1];
+        v21 = v15 - v74[1];
         if (v11 <= 1)
         {
           v22 = 1;
@@ -1771,7 +719,7 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
         v23 = (v21 - 1) / v22;
         if (v34)
         {
-          v24 = -((v75[1] - v15) / v22);
+          v24 = -((v74[1] - v15) / v22);
         }
 
         else
@@ -1779,11 +727,11 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
           v24 = v23 + 1;
         }
 
-        v60 = v24 * v20;
+        v59 = v24 * v20;
         if (((v24 * v20) & 0x80000000) == 0)
         {
-          v63 = -1;
-          v25 = v73[0];
+          v62 = -1;
+          v25 = v72[0];
           do
           {
             if (v25 >= 1)
@@ -1791,56 +739,55 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
               v26 = 0;
               do
               {
-                v65[0] = 1;
-                v71 = 1;
-                kdu_params::get(this, "Ssampling", v26, 0, &v71, 1, 1, 1);
-                kdu_params::get(this, "Ssampling", v26, 1, v65, 1, 1, 1);
-                v70 = 0;
+                v64[0] = 1;
+                v70 = 1;
+                kdu_params::get(this, "Ssampling", v26, 0, &v70, 1, 1, 1);
+                kdu_params::get(this, "Ssampling", v26, 1, v64, 1, 1, 1);
                 v69 = 0;
-                if (!v17 || (v27 = kdu_params::access_relation(v17, v63, v26, 0, 1), (v17 = v27) == 0) || !kdu_params::get(v27, "Clevels", 0, 0, &v70, 1, 1, 1) || (kdu_params::get(v17, "Cuse_precincts", 0, 0, &v69, 1, 1, 1) & 1) == 0)
+                v68 = 0;
+                if (!v17 || (v27 = kdu_params::access_relation(v17, v62, v26, 0, 1), (v17 = v27) == 0) || !kdu_params::get(v27, "Clevels", 0, 0, &v69, 1, 1, 1) || (kdu_params::get(v17, "Cuse_precincts", 0, 0, &v68, 1, 1, 1) & 1) == 0)
                 {
-                  *&v82 = 0;
-                  *v80 = 0u;
-                  v81 = 0u;
-                  kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-                  (*(*v80 + 16))(v80, "Attempting to write geometrically transformed SIZ marker information without attaching and finalizing all tile-component COD marker information.  This is essential to establish canvas coordinate equivalence relationships.");
-                  kdu_error::~kdu_error(v80);
+                  *&v81 = 0;
+                  *v79 = 0u;
+                  v80 = 0u;
+                  kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+                  (*(*v79 + 16))(v79, "Attempting to write geometrically transformed SIZ marker information without attaching and finalizing all tile-component COD marker information.  This is essential to establish canvas coordinate equivalence relationships.");
+                  kdu_error::~kdu_error(v79);
                 }
 
-                v28 = v70;
-                if ((v70 & 0x80000000) == 0)
+                v28 = v69;
+                if ((v69 & 0x80000000) == 0)
                 {
-                  v29 = -v70;
+                  v29 = -v69;
                   do
                   {
                     v30 = 15;
-                    *v68 = 15;
-                    *&v68[4] = 15;
+                    *v67 = 15;
+                    *&v67[4] = 15;
                     v31 = 15;
-                    if (v69)
+                    if (v68)
                     {
-                      kdu_params::get(v17, "Cprecincts", v29 + v70, 0, v68, 1, 1, 1);
-                      kdu_params::get(v17, "Cprecincts", v29 + v70, 1, &v68[4], 1, 1, 1);
-                      v30 = v68[0];
-                      v31 = v68[4];
+                      kdu_params::get(v17, "Cprecincts", v29 + v69, 0, v67, 1, 1, 1);
+                      kdu_params::get(v17, "Cprecincts", v29 + v69, 1, &v67[4], 1, 1, 1);
+                      v30 = v67[0];
+                      v31 = v67[4];
                     }
 
-                    v32 = (v65[0] << (v31 + v28));
-                    v33 = (v71 << (v30 + v28));
+                    v32 = (v64[0] << (v31 + v28));
+                    v33 = (v70 << (v30 + v28));
                     v34 = v32 < 1 || v33 <= 0;
                     if (v34)
                     {
-                      *&v82 = 0;
-                      *v80 = 0u;
-                      v81 = 0u;
-                      kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-                      (*(*v80 + 16))(v80, "Error attempting to convert geometrically transformed canvas coordinates to legal marker ranges.  Try using a smaller precinct size (you can use the transcoding utility to achieve this at the same time as geometric transformations.");
-                      kdu_error::~kdu_error(v80);
+                      *&v81 = 0;
+                      *v79 = 0u;
+                      v80 = 0u;
+                      kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+                      (*(*v79 + 16))(v79, "Error attempting to convert geometrically transformed canvas coordinates to legal marker ranges.  Try using a smaller precinct size (you can use the transcoding utility to achieve this at the same time as geometric transformations.");
+                      kdu_error::~kdu_error(v79);
                     }
 
                     lcm = find_lcm(lcm, v32);
-                    v35 = find_lcm(v16, v33);
-                    v16 = v35;
+                    v16 = find_lcm(v16, v33);
                     ++v29;
                     v34 = v28-- <= 0;
                   }
@@ -1849,68 +796,68 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
                 }
 
                 ++v26;
-                v25 = v73[0];
+                v25 = v72[0];
               }
 
-              while (v26 < v73[0]);
+              while (v26 < v72[0]);
             }
 
-            ++v63;
+            ++v62;
           }
 
-          while (v63 != v60);
-          v9 = v74[0];
+          while (v62 != v59);
+          v9 = v73[0];
         }
 
         if (v9 < 0)
         {
           if (lcm <= 1)
           {
-            v37 = 1;
+            v36 = 1;
           }
 
           else
           {
-            v37 = lcm;
+            v36 = lcm;
           }
 
-          v36 = lcm + lcm * (~v9 / v37);
+          v35 = lcm + lcm * (~v9 / v36);
         }
 
         else
         {
-          v36 = 0;
+          v35 = 0;
         }
 
-        if ((v73[1] & 0x80000000) != 0)
+        if ((v72[1] & 0x80000000) != 0)
         {
           if (v16 <= 1)
           {
-            v39 = 1;
+            v38 = 1;
           }
 
           else
           {
-            v39 = v16;
+            v38 = v16;
           }
 
-          v38 = v16 + v16 * (~v73[1] / v39);
+          v37 = v16 + v16 * (~v72[1] / v38);
         }
 
         else
         {
-          v38 = 0;
+          v37 = 0;
         }
 
-        v77[0] += v36;
-        v76[1] += v38;
-        v75[1] += v38;
-        v10 = v76[0] + v36;
-        v76[0] += v36;
-        v8 = v38 + v73[1];
-        v9 += v36;
-        v73[1] += v38;
-        v74[0] = v9;
+        v76[0] += v35;
+        v75[1] += v37;
+        v74[1] += v37;
+        v10 = v75[0] + v35;
+        v75[0] += v35;
+        v8 = v37 + v72[1];
+        v9 += v35;
+        v72[1] += v37;
+        v73[0] = v9;
         if (v9 < 0 || v8 < 0)
         {
           siz_params::write_marker_segment();
@@ -1919,266 +866,266 @@ uint64_t siz_params::write_marker_segment(siz_params *this, kdu_output *a2, kdu_
 
       else
       {
-        v10 = v76[0];
+        v10 = v75[0];
       }
 
-      if (v10 < v9 || v75[1] < v8 || v10 >= (v75[0] + v9) || v75[1] >= (v74[1] + v8) || v77[0] <= v10 || v76[1] <= v75[1])
+      if (v10 < v9 || v74[1] < v8 || v10 >= (v74[0] + v9) || v74[1] >= (v73[1] + v8) || v76[0] <= v10 || v75[1] <= v74[1])
       {
-        *&v82 = 0;
-        *v80 = 0u;
-        v81 = 0u;
-        kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-        (*(*v80 + 16))(v80, "Cannot write SIZ marker with illegal canvas coordinates.  The first tile is required to have a non-empty intersection with the image region on the canvas.");
-        kdu_error::~kdu_error(v80);
+        *&v81 = 0;
+        *v79 = 0u;
+        v80 = 0u;
+        kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+        (*(*v79 + 16))(v79, "Cannot write SIZ marker with illegal canvas coordinates.  The first tile is required to have a non-empty intersection with the image region on the canvas.");
+        kdu_error::~kdu_error(v79);
       }
 
       kdu_output::put(a2, 255);
       kdu_output::put(a2, 81);
-      kdu_output::put(a2, (v58 + 38) >> 8);
-      kdu_output::put(a2, v58 + 38);
-      if (v78 == 3)
+      kdu_output::put(a2, (v57 + 38) >> 8);
+      kdu_output::put(a2, v57 + 38);
+      if (v77 == 3)
       {
-        v40 = LOWORD(v77[1]) | 0x8000;
+        v39 = LOWORD(v76[1]) | 0x8000;
       }
 
       else
       {
-        if (v78 > 5 || v77[1])
+        if (v77 > 5 || v76[1])
         {
-          *&v82 = 0;
-          *v80 = 0u;
-          v81 = 0u;
-          kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-          (*(*v80 + 16))(v80, "Illegal profile index.  Sprofile must be set in the range 0 to 5; 3 is required if Part 2 features are to be used.");
-          kdu_error::~kdu_error(v80);
+          *&v81 = 0;
+          *v79 = 0u;
+          v80 = 0u;
+          kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+          (*(*v79 + 16))(v79, "Illegal profile index.  Sprofile must be set in the range 0 to 5; 3 is required if Part 2 features are to be used.");
+          kdu_error::~kdu_error(v79);
         }
 
-        if (v78 == 2)
+        if (v77 == 2)
         {
-          v40 = 0;
+          v39 = 0;
         }
 
-        else if (v78 < 4)
+        else if (v77 < 4)
         {
-          v40 = v78 + 1;
+          v39 = v77 + 1;
         }
 
         else
         {
-          v40 = v78 - 1;
+          v39 = v77 - 1;
         }
       }
 
-      if (v79)
+      if (v78)
       {
-        v41 = v40 | 0x4000;
+        v40 = v39 | 0x4000;
       }
 
       else
       {
-        v41 = v40;
+        v40 = v39;
       }
 
-      kdu_output::put(a2, SHIBYTE(v41));
-      kdu_output::put(a2, v41);
-      v42 = kdu_output::put(a2, v77[0]);
-      v43 = kdu_output::put(a2, v76[1]);
-      v44 = kdu_output::put(a2, v76[0]);
-      v45 = kdu_output::put(a2, v75[1]);
-      v46 = kdu_output::put(a2, v75[0]);
-      v47 = kdu_output::put(a2, v74[1]);
-      v48 = kdu_output::put(a2, v74[0]);
-      v49 = kdu_output::put(a2, v73[1]);
-      v50 = v73[0];
-      kdu_output::put(a2, SBYTE1(v73[0]));
-      kdu_output::put(a2, v50);
-      v51 = v42 + v43 + v44 + v45 + v46 + v47 + v48 + v49 + 8;
+      kdu_output::put(a2, SHIBYTE(v40));
+      kdu_output::put(a2, v40);
+      v41 = kdu_output::put(a2, v76[0]);
+      v42 = kdu_output::put(a2, v75[1]);
+      v43 = kdu_output::put(a2, v75[0]);
+      v44 = kdu_output::put(a2, v74[1]);
+      v45 = kdu_output::put(a2, v74[0]);
+      v46 = kdu_output::put(a2, v73[1]);
+      v47 = kdu_output::put(a2, v73[0]);
+      v48 = kdu_output::put(a2, v72[1]);
+      v49 = v72[0];
+      kdu_output::put(a2, SBYTE1(v72[0]));
+      kdu_output::put(a2, v49);
+      v50 = v41 + v42 + v43 + v44 + v45 + v46 + v47 + v48 + 8;
+      v69 = 0;
       v70 = 0;
-      v71 = 0;
-      *v68 = 0;
-      if (v73[0] >= 1)
+      *v67 = 0;
+      if (v72[0] >= 1)
       {
-        v52 = 0;
+        v51 = 0;
         do
         {
-          if (!kdu_params::get(this, "Ssigned", v52, 0, &v71, 1, 1, 1) || !kdu_params::get(this, "Sprecision", v52, 0, &v70, 1, 1, 1) || !kdu_params::get(this, "Ssampling", v52, 0, v68, 1, 1, 1) || (kdu_params::get(this, "Ssampling", v52, 1, &v68[4], 1, 1, 1) & 1) == 0)
+          if (!kdu_params::get(this, "Ssigned", v51, 0, &v70, 1, 1, 1) || !kdu_params::get(this, "Sprecision", v51, 0, &v69, 1, 1, 1) || !kdu_params::get(this, "Ssampling", v51, 0, v67, 1, 1, 1) || (kdu_params::get(this, "Ssampling", v51, 1, &v67[4], 1, 1, 1) & 1) == 0)
           {
-            *&v82 = 0;
-            *v80 = 0u;
-            v81 = 0u;
-            kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-            (*(*v80 + 16))(v80, "Unable to write SIZ marker segment! Precision or sub-sampling information missing for at least one component.");
-            kdu_error::~kdu_error(v80);
+            *&v81 = 0;
+            *v79 = 0u;
+            v80 = 0u;
+            kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+            (*(*v79 + 16))(v79, "Unable to write SIZ marker segment! Precision or sub-sampling information missing for at least one component.");
+            kdu_error::~kdu_error(v79);
           }
 
-          if ((v70 - 39) <= 0xFFFFFFD9)
+          if ((v69 - 39) <= 0xFFFFFFD9)
           {
-            v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "Illegal image sample bit-depth, ");
-            v83 = 0u;
-            v84 = 0u;
-            v81 = 0u;
+            v66 = 0;
+            *v64 = 0u;
+            v65 = 0u;
+            kdu_error::kdu_error(v64, "Kakadu Core Error:\n");
+            (*(*v64 + 16))(v64, "Illegal image sample bit-depth, ");
             v82 = 0u;
-            *v80 = 0u;
-            if (LOBYTE(v65[2]))
+            v83 = 0u;
+            v80 = 0u;
+            v81 = 0u;
+            *v79 = 0u;
+            if (LOBYTE(v64[2]))
             {
-              sprintf(v80, "%x");
+              sprintf(v79, "%x");
             }
 
             else
             {
-              sprintf(v80, "%d");
+              sprintf(v79, "%d");
             }
 
-            (*(*v65 + 16))(v65, v80);
-            (*(*v65 + 16))(v65, ". Legal range is from 1 to 38 bits per sample.");
-            kdu_error::~kdu_error(v65);
+            (*(*v64 + 16))(v64, v79);
+            (*(*v64 + 16))(v64, ". Legal range is from 1 to 38 bits per sample.");
+            kdu_error::~kdu_error(v64);
           }
 
-          if ((*&v68[4] - 256) < 0xFFFFFF01 || (*v68 - 256) <= 0xFFFFFF00)
+          if ((*&v67[4] - 256) < 0xFFFFFF01 || (*v67 - 256) <= 0xFFFFFF00)
           {
-            v67 = 0;
-            *v65 = 0u;
-            v66 = 0u;
-            kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-            (*(*v65 + 16))(v65, "Illegal component sub-sampling factors, {");
-            v83 = 0u;
-            v84 = 0u;
-            v81 = 0u;
+            v66 = 0;
+            *v64 = 0u;
+            v65 = 0u;
+            kdu_error::kdu_error(v64, "Kakadu Core Error:\n");
+            (*(*v64 + 16))(v64, "Illegal component sub-sampling factors, {");
             v82 = 0u;
-            *v80 = 0u;
-            if (LOBYTE(v65[2]))
+            v83 = 0u;
+            v80 = 0u;
+            v81 = 0u;
+            *v79 = 0u;
+            if (LOBYTE(v64[2]))
             {
-              sprintf(v80, "%x");
+              sprintf(v79, "%x");
             }
 
             else
             {
-              sprintf(v80, "%d");
+              sprintf(v79, "%d");
             }
 
-            (*(*v65 + 16))(v65, v80);
-            (*(*v65 + 16))(v65, ",");
-            v83 = 0u;
-            v84 = 0u;
-            v81 = 0u;
+            (*(*v64 + 16))(v64, v79);
+            (*(*v64 + 16))(v64, ",");
             v82 = 0u;
-            *v80 = 0u;
-            if (LOBYTE(v65[2]))
+            v83 = 0u;
+            v80 = 0u;
+            v81 = 0u;
+            *v79 = 0u;
+            if (LOBYTE(v64[2]))
             {
-              sprintf(v80, "%x");
+              sprintf(v79, "%x");
             }
 
             else
             {
-              sprintf(v80, "%d");
+              sprintf(v79, "%d");
             }
 
-            (*(*v65 + 16))(v65, v80);
-            (*(*v65 + 16))(v65, "}. Legal range is from 1 to 255.");
-            kdu_error::~kdu_error(v65);
+            (*(*v64 + 16))(v64, v79);
+            (*(*v64 + 16))(v64, "}. Legal range is from 1 to 255.");
+            kdu_error::~kdu_error(v64);
           }
 
-          v53 = kdu_output::put(a2, v70 + (v71 << 7) - 1);
-          v54 = kdu_output::put(a2, v68[4]);
-          v51 += v53 + v54 + kdu_output::put(a2, v68[0]);
-          ++v52;
+          v52 = kdu_output::put(a2, v69 + (v70 << 7) - 1);
+          v53 = kdu_output::put(a2, v67[4]);
+          v50 += v52 + v53 + kdu_output::put(a2, v67[0]);
+          ++v51;
         }
 
-        while (v52 < v73[0]);
+        while (v51 < v72[0]);
       }
 
-      if (v51 != v61)
+      if (v50 != v60)
       {
         siz_params::write_marker_segment();
       }
 
-      if (v59)
+      if (v58)
       {
         kdu_output::put(a2, 255);
         kdu_output::put(a2, 120);
-        kdu_output::put(a2, (v59 - 2) >> 8);
-        kdu_output::put(a2, v59 - 2);
-        v55 = v72;
-        kdu_output::put(a2, SBYTE1(v72));
-        kdu_output::put(a2, v55);
-        if (v72 < 1)
+        kdu_output::put(a2, (v58 - 2) >> 8);
+        kdu_output::put(a2, v58 - 2);
+        v54 = v71;
+        kdu_output::put(a2, SBYTE1(v71));
+        kdu_output::put(a2, v54);
+        if (v71 < 1)
         {
-          v57 = 6;
+          v56 = 6;
         }
 
         else
         {
-          v56 = 0;
-          v57 = 6;
+          v55 = 0;
+          v56 = 6;
           do
           {
-            if (!kdu_params::get(this, "Msigned", v56, 0, &v71, 1, 1, 1) || (kdu_params::get(this, "Mprecision", v56, 0, &v70, 1, 1, 1) & 1) == 0)
+            if (!kdu_params::get(this, "Msigned", v55, 0, &v70, 1, 1, 1) || (kdu_params::get(this, "Mprecision", v55, 0, &v69, 1, 1, 1) & 1) == 0)
             {
-              *&v82 = 0;
-              *v80 = 0u;
-              v81 = 0u;
-              kdu_error::kdu_error(v80, "Kakadu Core Error:\n");
-              (*(*v80 + 16))(v80, "Unable to write CBD marker segment! Precision or signed/unsigned information missing for at least one MCT output component.");
-              kdu_error::~kdu_error(v80);
+              *&v81 = 0;
+              *v79 = 0u;
+              v80 = 0u;
+              kdu_error::kdu_error(v79, "Kakadu Core Error:\n");
+              (*(*v79 + 16))(v79, "Unable to write CBD marker segment! Precision or signed/unsigned information missing for at least one MCT output component.");
+              kdu_error::~kdu_error(v79);
             }
 
-            if ((v70 - 39) <= 0xFFFFFFD9)
+            if ((v69 - 39) <= 0xFFFFFFD9)
             {
-              v67 = 0;
-              *v65 = 0u;
-              v66 = 0u;
-              kdu_error::kdu_error(v65, "Kakadu Core Error:\n");
-              (*(*v65 + 16))(v65, "Illegal precision for MCT output component, ");
-              v83 = 0u;
-              v84 = 0u;
-              v81 = 0u;
+              v66 = 0;
+              *v64 = 0u;
+              v65 = 0u;
+              kdu_error::kdu_error(v64, "Kakadu Core Error:\n");
+              (*(*v64 + 16))(v64, "Illegal precision for MCT output component, ");
               v82 = 0u;
-              *v80 = 0u;
-              if (LOBYTE(v65[2]))
+              v83 = 0u;
+              v80 = 0u;
+              v81 = 0u;
+              *v79 = 0u;
+              if (LOBYTE(v64[2]))
               {
-                sprintf(v80, "%x");
+                sprintf(v79, "%x");
               }
 
               else
               {
-                sprintf(v80, "%d");
+                sprintf(v79, "%d");
               }
 
-              (*(*v65 + 16))(v65, v80);
-              (*(*v65 + 16))(v65, ". Legal range is from 1 to 38 bits per sample.");
-              kdu_error::~kdu_error(v65);
+              (*(*v64 + 16))(v64, v79);
+              (*(*v64 + 16))(v64, ". Legal range is from 1 to 38 bits per sample.");
+              kdu_error::~kdu_error(v64);
             }
 
-            v57 += kdu_output::put(a2, v70 + (v71 << 7) - 1);
-            ++v56;
+            v56 += kdu_output::put(a2, v69 + (v70 << 7) - 1);
+            ++v55;
           }
 
-          while (v56 < v72);
+          while (v55 < v71);
         }
 
-        if (v57 != v59)
+        if (v56 != v58)
         {
           siz_params::write_marker_segment();
         }
 
-        LODWORD(v61) = v59 + v61;
+        LODWORD(v60) = v58 + v60;
       }
     }
 
     else
     {
-      return v59 + 3 * v5 + 40;
+      return v58 + 3 * v5 + 40;
     }
   }
 
-  return v61;
+  return v60;
 }
 
-uint64_t find_lcm(int a1, uint64_t a2)
+uint64_t find_lcm(uint64_t a1, uint64_t a2)
 {
   if (a1 < 1 || a2 < 1)
   {
@@ -2203,7 +1150,7 @@ uint64_t find_lcm(int a1, uint64_t a2)
           }
 
           v2 *= v3;
-          a1 /= v3;
+          LODWORD(a1) = a1 / v3;
           v4 = (v4 / v3);
           if (a1 % v3)
           {
@@ -2595,71 +1542,71 @@ uint64_t kdu_read(unsigned __int8 **a1, unsigned __int8 *a2, int a3)
   return v4;
 }
 
-void siz_params::finalize(siz_params *this)
+void siz_params::finalize(siz_params *this, char a2)
 {
-  *v10 = 0;
   *v11 = 0;
+  *v12 = 0;
+  v10 = 0;
   v9 = 0;
-  v8 = 0;
-  v2 = kdu_params::get(this, "Scomponents", 0, 0, &v11[1], 1, 1, 1);
-  v3 = kdu_params::get(this, "Ssampling", 0, 0, v11, 1, 1, 1);
-  v4 = kdu_params::get(this, "Sdims", 0, 0, v11, 1, 1, 1);
-  if (kdu_params::get(this, "Ssize", 0, 0, v10, 1, 1, 1))
+  v3 = kdu_params::get(this, "Scomponents", 0, 0, &v12[1], 1, 1, 1);
+  v4 = kdu_params::get(this, "Ssampling", 0, 0, v12, 1, 1, 1);
+  v5 = kdu_params::get(this, "Sdims", 0, 0, v12, 1, 1, 1);
+  if (kdu_params::get(this, "Ssize", 0, 0, v11, 1, 1, 1))
   {
-    kdu_params::get(this, "Ssize", 0, 1, &v10[1], 1, 1, 1);
+    kdu_params::get(this, "Ssize", 0, 1, &v11[1], 1, 1, 1);
   }
 
-  if (!kdu_params::get(this, "Sorigin", 0, 0, &v8, 1, 1, 1) || (kdu_params::get(this, "Sorigin", 0, 1, &v9, 1, 1, 1) & 1) == 0)
+  if (!kdu_params::get(this, "Sorigin", 0, 0, &v9, 1, 1, 1) || (kdu_params::get(this, "Sorigin", 0, 1, &v10, 1, 1, 1) & 1) == 0)
   {
-    v8 = 0;
-    kdu_params::set(this, "Sorigin", 0, 0, 0);
     v9 = 0;
+    kdu_params::set(this, "Sorigin", 0, 0, 0);
+    v10 = 0;
     kdu_params::set(this, "Sorigin", 0, 1, 0);
   }
 
-  if (v2 & 1 | ((v3 & 1) == 0))
+  if (v3 & 1 | ((v4 & 1) == 0))
   {
-    if (v2 & 1 | ((v4 & 1) == 0))
+    if (v3 & 1 | ((v5 & 1) == 0))
     {
-      if ((v2 & 1) == 0)
+      if ((v3 & 1) == 0)
       {
-        v7 = 0;
-        *v5 = 0u;
-        v6 = 0u;
-        kdu_error::kdu_error(v5, "Kakadu Core Error:\n");
-        (*(*v5 + 16))(v5, "Problem trying to finalize SIZ information. Insufficient data supplied to determine the number of image components! Available information is as follows:\n\n");
-        kdu_params::textualize_attributes(this, v5, 1);
-        (*(*v5 + 16))(v5, "\n");
-        kdu_error::~kdu_error(v5);
+        v8 = 0;
+        *v6 = 0u;
+        v7 = 0u;
+        kdu_error::kdu_error(v6, "Kakadu Core Error:\n");
+        (*(*v6 + 16))(v6, "Problem trying to finalize SIZ information. Insufficient data supplied to determine the number of image components! Available information is as follows:\n\n");
+        kdu_params::textualize_attributes(this, v6, 1);
+        (*(*v6 + 16))(v6, "\n");
+        kdu_error::~kdu_error(v6);
       }
     }
 
     else
     {
-      v11[1] = 1;
-      if (kdu_params::get(this, "Sdims", 1, 0, v11, 0, 0, 1))
+      v12[1] = 1;
+      if (kdu_params::get(this, "Sdims", 1, 0, v12, 0, 0, 1))
       {
         do
         {
-          ++v11[1];
+          ++v12[1];
         }
 
-        while ((kdu_params::get(this, "Sdims", v11[1], 0, v11, 0, 0, 1) & 1) != 0);
+        while ((kdu_params::get(this, "Sdims", v12[1], 0, v12, 0, 0, 1) & 1) != 0);
       }
     }
   }
 
   else
   {
-    v11[1] = 1;
-    if (kdu_params::get(this, "Ssampling", 1, 0, v11, 0, 0, 1))
+    v12[1] = 1;
+    if (kdu_params::get(this, "Ssampling", 1, 0, v12, 0, 0, 1))
     {
       do
       {
-        ++v11[1];
+        ++v12[1];
       }
 
-      while ((kdu_params::get(this, "Ssampling", v11[1], 0, v11, 0, 0, 1) & 1) != 0);
+      while ((kdu_params::get(this, "Ssampling", v12[1], 0, v12, 0, 0, 1) & 1) != 0);
     }
   }
 
@@ -3033,7 +1980,7 @@ BOOL mct_params::check_marker_segment(mct_params *this, int a2, int a3, unsigned
   return (~v7 & 3) != 0 && v8 != 0;
 }
 
-uint64_t mct_params::read_marker_segment(mct_params *this, int a2, int a3, unsigned __int8 *a4, int a5)
+uint64_t mct_params::read_marker_segment(mct_params *this, int a2, unsigned int a3, unsigned __int8 *a4, int a5)
 {
   v43 = *MEMORY[0x1E69E9840];
   if (a5)
@@ -3767,7 +2714,7 @@ BOOL mcc_params::check_marker_segment(mcc_params *this, int a2, int a3, unsigned
   return result;
 }
 
-uint64_t mcc_params::read_marker_segment(mcc_params *this, int a2, int a3, unsigned __int8 *a4, int a5)
+uint64_t mcc_params::read_marker_segment(mcc_params *this, int a2, unsigned int a3, unsigned __int8 *a4, int a5)
 {
   v61 = *MEMORY[0x1E69E9840];
   if (a5)
@@ -6787,7 +5734,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t cod_params::read_marker_segment(cod_params *this, int a2, int a3, unsigned __int8 *a4, int a5)
+uint64_t cod_params::read_marker_segment(cod_params *this, int a2, unsigned int a3, unsigned __int8 *a4, int a5)
 {
   v47 = *MEMORY[0x1E69E9840];
   if (a5)
@@ -9491,7 +8438,7 @@ void qcd_params::qcd_params(qcd_params *this)
   *this = &unk_1EF4D2EA8;
   kdu_params::add_dependency(this, "COD");
   kdu_params::add_dependency(this, "ADS");
-  kdu_params::define_attribute(this, "Qguard", "Number of guard bits to prevent overflow in the magnitude bit-plane representation. Typical values are 1 or 2.\n\t\t[Default is 1]", "I");
+  kdu_params::define_attribute(this, "Qguard", "Number of guard bits to prevent overflow in the magnitude bit-plane representation. Typical values are 1 or 2.\n\t\t[Default is 1]", "I", 0);
 }
 
 uint64_t qcd_params::copy_with_xforms(qcd_params *this, kdu_params *a2, int a3, int a4, int a5)
@@ -9766,10 +8713,10 @@ uint64_t qcd_params::write_marker_segment(qcd_params *this, kdu_output *a2, kdu_
               kdu_error::~kdu_error(&v56);
             }
 
-            *&v23 = v46;
+            v23 = v46;
             LODWORD(v56) = 0;
             v24 = kdu_params::get(a3, "Qabs_steps", v19, 0, &v56, 1, 1, 1);
-            if (*&v56 == *&v23)
+            if (*&v56 == v23)
             {
               v25 = v24;
             }
@@ -9866,7 +8813,7 @@ LABEL_53:
 
       LODWORD(v46) = 2;
       kdu_params::get(v31, "Sprofile", 0, 0, &v46, 1, 1, 1);
-      if (!LODWORD(v46))
+      if (v46 == 0.0)
       {
         v45 = 0;
         v43 = 0u;
@@ -10002,4 +8949,888 @@ LABEL_53:
   }
 
   return result;
+}
+
+int *step_to_eps_mu(float a1, int *result, int *a3)
+{
+  v3 = a1;
+  if (a1 <= 0.0)
+  {
+    v8 = 0;
+    memset(v7, 0, sizeof(v7));
+    kdu_error::kdu_error(v7, "Kakadu Core Error:\n");
+    (*(*&v7[0] + 16))(v7, "Absolute quantization step sizes must be strictly positive.");
+    kdu_error::~kdu_error(v7);
+  }
+
+  v4 = 0;
+  while (v3 < 1.0)
+  {
+    v3 = v3 + v3;
+    ++v4;
+  }
+
+  *result = v4;
+  v5 = vcvtms_s32_f32(((v3 + -1.0) * 2048.0) + 0.5);
+  *a3 = v5;
+  if (v5 < 2048)
+  {
+    v6 = *result;
+  }
+
+  else
+  {
+    *a3 = 0;
+    v6 = *result - 1;
+    *result = v6;
+  }
+
+  if (v6 >= 32)
+  {
+    *result = 31;
+    *a3 = 0;
+    v6 = *result;
+  }
+
+  if (v6 < 0)
+  {
+    *result = 0;
+    *a3 = 2047;
+  }
+
+  return result;
+}
+
+uint64_t qcd_params::check_marker_segment(qcd_params *this, int a2, int a3, unsigned __int8 *a4, int *a5)
+{
+  if (a2 == 65372)
+  {
+    v5 = -1;
+    goto LABEL_3;
+  }
+
+  result = 0;
+  if (a2 == 65373 && a3 >= 2)
+  {
+    v8 = *a4;
+    *a5 = v8;
+    if (*(this + 8) < 257)
+    {
+      return 1;
+    }
+
+    v5 = a4[1] | (v8 << 8);
+LABEL_3:
+    *a5 = v5;
+    return 1;
+  }
+
+  return result;
+}
+
+uint64_t qcd_params::read_marker_segment(qcd_params *this, int a2, int a3, unsigned __int8 *a4, int a5)
+{
+  v38 = *MEMORY[0x1E69E9840];
+  if (a5)
+  {
+    return 0;
+  }
+
+  v9 = *(this + 5);
+  if (v9 < 0)
+  {
+    v11 = a4;
+    if (a2 != 65372)
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (a2 != 65373)
+    {
+      return 0;
+    }
+
+    v11 = (a4 + 1);
+    v10 = *a4;
+    if (*(this + 8) >= 257)
+    {
+      v11 = (a4 + 2);
+      v10 = a4[1] | (v10 << 8);
+    }
+
+    if (v10 != v9)
+    {
+      return 0;
+    }
+  }
+
+  if ((*(this + 4) & 0x80000000) == 0)
+  {
+    v12 = kdu_params::access_cluster(this, "SIZ");
+    if (!v12)
+    {
+      qcd_params::read_marker_segment();
+    }
+
+    v32 = 2;
+    kdu_params::get(v12, "Sprofile", 0, 0, &v32, 1, 1, 1);
+    if (!v32)
+    {
+      v31 = 0;
+      v29 = 0u;
+      v30 = 0u;
+      kdu_warning::kdu_warning(&v29, "Kakadu Core Warning:\n");
+      (*(v29 + 16))(&v29, "Profile violation detected (code-stream is technically illegal).  QCD/QCC marker segments may only appear in the main header of a Profile-0 code-stream.  You should set Sprofile to 1 or 2.  Problem detected in tile ");
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      *v33 = 0u;
+      if (BYTE8(v29))
+      {
+        sprintf(v33, "%x");
+      }
+
+      else
+      {
+        sprintf(v33, "%d");
+      }
+
+      (*(v29 + 16))(&v29, v33);
+      (*(v29 + 16))(&v29, ".");
+      kdu_warning::~kdu_warning(&v29);
+    }
+  }
+
+  v13 = &a4[a3];
+  if (&v13[-v11] <= 0)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    *exception = v11;
+    __cxa_throw(exception, MEMORY[0x1E69E53E8], 0);
+  }
+
+  v14 = (v11 + 1);
+  v15 = *v11;
+  kdu_params::set(this, "Qguard", 0, 0, (v15 >> 5));
+  v16 = a3;
+  if ((v15 & 0x1F) == 2)
+  {
+    v22 = 0;
+LABEL_29:
+    kdu_params::set(this, "Qderived", 0, 0, v22);
+    if (v14 < v13 - 1)
+    {
+      v23 = 0;
+      v24 = &a4[v16 + ~v11];
+      do
+      {
+        if (v24 <= 1)
+        {
+          v25 = __cxa_allocate_exception(8uLL);
+          *v25 = v14;
+          __cxa_throw(v25, MEMORY[0x1E69E53E8], 0);
+        }
+
+        kdu_params::set(this, "Qabs_steps", v23++, 0, ((vcvts_n_f32_u32(v14[1] | ((*v14 & 7) << 8), 0xBuLL) + 1.0) / (1 << (*v14 >> 3))));
+        v24 -= 2;
+        v14 += 2;
+        v18 = v14;
+      }
+
+      while (v14 < v13 - 1);
+      goto LABEL_33;
+    }
+
+LABEL_43:
+    v28 = __cxa_allocate_exception(8uLL);
+    *v28 = v14;
+    __cxa_throw(v28, MEMORY[0x1E69E53E8], 0);
+  }
+
+  if ((v15 & 0x1F) == 1)
+  {
+    v22 = 1;
+    goto LABEL_29;
+  }
+
+  if ((v15 & 0x1F) != 0)
+  {
+    *&v35 = 0;
+    *v33 = 0u;
+    v34 = 0u;
+    kdu_error::kdu_error(v33, "Kakadu Core Error:\n");
+    (*(*v33 + 16))(v33, "Undefined style byte found in QCD/QCC marker segment!");
+    kdu_error::~kdu_error(v33);
+  }
+
+  if (v14 >= v13)
+  {
+    goto LABEL_43;
+  }
+
+  v17 = 0;
+  v18 = v13;
+  v19 = &a4[v16 + ~v11];
+  v20 = v19;
+  do
+  {
+    v21 = &v17[v11];
+    if (v20 <= 0)
+    {
+      v26 = __cxa_allocate_exception(8uLL);
+      *v26 = v21 + 1;
+      __cxa_throw(v26, MEMORY[0x1E69E53E8], 0);
+    }
+
+    kdu_params::set(this, "Qabs_ranges", v17++, 0, (v21[1] >> 3));
+    --v20;
+  }
+
+  while (v19 != v17);
+LABEL_33:
+  if (v18 != v13)
+  {
+    v31 = 0;
+    v29 = 0u;
+    v30 = 0u;
+    kdu_error::kdu_error(&v29, "Kakadu Core Error:\n");
+    (*(v29 + 16))(&v29, "Malformed QCD/QCC marker segment encountered. The final ");
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    *v33 = 0u;
+    if (BYTE8(v29))
+    {
+      sprintf(v33, "%x");
+    }
+
+    else
+    {
+      sprintf(v33, "%d");
+    }
+
+    (*(v29 + 16))(&v29, v33);
+    (*(v29 + 16))(&v29, " bytes were not consumed!");
+    kdu_error::~kdu_error(&v29);
+  }
+
+  return 1;
+}
+
+void sub_185F761BC(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 a17, __int128 a18, uint64_t a19)
+{
+  if (v20 == 1)
+  {
+    __cxa_begin_catch(v19);
+    a19 = 0;
+    a17 = 0u;
+    a18 = 0u;
+    kdu_error::kdu_error(&a17, "Kakadu Core Error:\n");
+    (*(a17 + 16))(&a17, "Malformed QCD/QCC marker segment encountered. Marker segment is too small.");
+    kdu_error::~kdu_error(&a17);
+  }
+
+  _Unwind_Resume(v19);
+}
+
+kdu_params *qcd_params::finalize(kdu_params *this, char a2)
+{
+  v47 = *MEMORY[0x1E69E9840];
+  if ((a2 & 1) == 0)
+  {
+    v34 = 0;
+    *v33 = 0;
+    v32 = 0.0;
+    v27 = this;
+    if ((kdu_params::get(this, "Qguard", 0, 0, v33, 1, 1, 1) & 1) == 0)
+    {
+      v33[0] = 1;
+      kdu_params::set(v27, "Qguard", 0, 0, 1);
+    }
+
+    v2 = kdu_params::access_cluster(v27, "COD");
+    if (!v2)
+    {
+      qcd_params::finalize();
+    }
+
+    v3 = kdu_params::access_relation(v2, v27[4], v27[5], 0, 1);
+    v4 = v3;
+    if (!v3)
+    {
+      qcd_params::finalize();
+    }
+
+    v31 = 0;
+    *v30 = 0;
+    if (!kdu_params::get(v3, "Creversible", 0, 0, &v31, 1, 1, 1) || !kdu_params::get(v4, "Clevels", 0, 0, &v30[1], 1, 1, 1) || (kdu_params::get(v4, "Ckernels", 0, 0, v30, 1, 1, 1) & 1) == 0)
+    {
+      qcd_params::finalize();
+    }
+
+    if (v30[0] == -1)
+    {
+      v36[0] = 0;
+      if ((kdu_params::get(v4, "Catk", 0, 0, v36, 1, 1, 1) & 1) == 0)
+      {
+        qcd_params::finalize();
+      }
+
+      v6 = kdu_params::access_cluster(v27, "ATK");
+      if (!v6 || (v5 = kdu_params::access_relation(v6, v27[4], -1, v36[0], 1)) == 0)
+      {
+        qcd_params::finalize();
+      }
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    v44 = 0;
+    memset(v43, 0, sizeof(v43));
+    if (v30[1] < 1)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v7 = 0;
+      v8 = 1;
+      do
+      {
+        kdu_params::get(v4, "Cdecomp", v7, 0, &v34, 1, 1, 1);
+        v8 = v8 + cod_params::expand_decomp_bands(v34, v43, v9) - 1;
+        ++v7;
+      }
+
+      while (v7 < v30[1]);
+    }
+
+    v10 = 0;
+    do
+    {
+      v11 = kdu_params::get(v27, "Qabs_steps", v10++, 0, &v32, 1, 1, 0);
+    }
+
+    while ((v11 & 1) != 0);
+    v12 = 0;
+    do
+    {
+      v13 = kdu_params::get(v27, "Qabs_ranges", v12++, 0, &v33[1], 1, 1, 0);
+    }
+
+    while ((v13 & 1) != 0);
+    v29 = 0;
+    if (v31)
+    {
+      this = kdu_params::get(v27, "Qderived", 0, 0, &v29, 1, 1, 1);
+      if (!this || v29)
+      {
+        v29 = 0;
+        this = kdu_params::set(v27, "Qderived", 0, 0, 0);
+      }
+
+      if (v8 + 1 != v12)
+      {
+        v28 = 0;
+        v14 = kdu_params::access_cluster(v27, "SIZ");
+        if ((kdu_params::get(v14, "Sprecision", v27[5] & ~(v27[5] >> 31), 0, &v28, 1, 1, 1) & 1) == 0)
+        {
+          v38 = 0;
+          *v36 = 0u;
+          v37 = 0u;
+          kdu_error::kdu_error(v36, "Kakadu Core Error:\n");
+          (*(*v36 + 16))(v36, "Trying to finalize quantization parameter attributes without first providing any information about the image component bit-depths (i.e. Sprecision).");
+          kdu_error::~kdu_error(v36);
+        }
+
+        v15 = v27[8];
+        if (v27[5] < 0)
+        {
+          if (v15 < 1)
+          {
+            goto LABEL_52;
+          }
+
+          for (i = 0; i < v15; ++i)
+          {
+            v17 = v28;
+            v36[0] = 0;
+            v18 = kdu_params::get(v14, "Sprecision", i, 0, v36, 1, 1, 1);
+            if (v36[0] == v17)
+            {
+              v19 = v18;
+            }
+
+            else
+            {
+              v19 = 0;
+            }
+
+            if ((v19 & 1) == 0)
+            {
+              kdu_params::access_relation(v27, v27[4], i, 0, 0);
+            }
+
+            v15 = v27[8];
+          }
+        }
+
+        if (v15 >= 3)
+        {
+          v20 = ++v28;
+          goto LABEL_53;
+        }
+
+LABEL_52:
+        v20 = v28;
+LABEL_53:
+        if (v20 <= 4)
+        {
+          v28 = v20 + 1;
+        }
+
+        v46 = 0;
+        memset(v45, 0, sizeof(v45));
+        v42 = 0;
+        *v41 = 0;
+        v40 = 0;
+        *v39 = 0;
+        bzero(v36, 0x288uLL);
+        kdu_kernels::clear(v36);
+        if (v5)
+        {
+          v22 = 0;
+          v23 = 0;
+          v24 = 0;
+          v35 = 0;
+          while (kdu_params::get(v5, "Ksteps", v23, 0, &v35, 1, 1, 1))
+          {
+            v24 += v35;
+            ++v23;
+            v22 += 16;
+          }
+
+          operator new[]();
+        }
+
+        v35 = 0;
+        kdu_params::get(v4, "Ckernels", 0, 0, &v35, 1, 1, 1);
+        kdu_kernels::init(v36, v35, 1);
+      }
+    }
+
+    else
+    {
+      v45[0] = 0.0;
+      if (kdu_params::get(v27, "Qstep", 0, 0, v45, 1, 1, 1))
+      {
+        if (kdu_params::get(v27, "Qabs_steps", 0, 0, &v32, 0, 0, 0))
+        {
+          v38 = 0;
+          *v36 = 0u;
+          v37 = 0u;
+          kdu_warning::kdu_warning(v36, "Kakadu Core Warning:\n");
+          kdu_warning::~kdu_warning(v36);
+        }
+
+        if ((kdu_params::get(v27, "Qderived", 0, 0, &v29, 1, 1, 1) & 1) == 0)
+        {
+          v29 = 0;
+          kdu_params::set(v27, "Qderived", 0, 0, 0);
+        }
+
+        derive_absolute_steps(v27, v4, v5, v30[1], v8, v45[0], v29);
+      }
+
+      if (v10 - 1 >= v8)
+      {
+        if (!kdu_params::get(v27, "Qderived", 0, 0, &v29, 1, 1, 1) || v29)
+        {
+          v29 = 0;
+          kdu_params::set(v27, "Qderived", 0, 0, 0);
+        }
+      }
+
+      else
+      {
+        v21 = kdu_params::get(v27, "Qderived", 0, 0, &v29, 1, 1, 1);
+        if (v10 != 2)
+        {
+          if ((v21 & 1) == 0)
+          {
+            v29 = 0;
+            kdu_params::set(v27, "Qderived", 0, 0, 0);
+          }
+
+          v45[0] = 0.0039062;
+          kdu_params::set(v27, "Qstep", 0, 0, 0.00390625);
+          derive_absolute_steps(v27, v4, v5, v30[1], v8, v45[0], v29);
+        }
+
+        if (!v21 || !v29)
+        {
+          v29 = 1;
+          kdu_params::set(v27, "Qderived", 0, 0, 1);
+        }
+      }
+
+      if (v29)
+      {
+        v25 = 1;
+      }
+
+      else
+      {
+        v25 = v8;
+      }
+
+      this = kdu_params::get(v27, "Qabs_steps", 0, 0, &v32, 0, 0, 1);
+      if (!this)
+      {
+        v35 = 0;
+        v36[0] = 0;
+        operator new[]();
+      }
+
+      v35 = 0;
+      v36[0] = 0;
+      if (v25 >= 1)
+      {
+        for (j = 0; j != v25; ++j)
+        {
+          if ((kdu_params::get(v27, "Qabs_steps", j, 0, &v32, 1, 1, 1) & 1) == 0)
+          {
+            qcd_params::finalize();
+          }
+
+          step_to_eps_mu(v32, v36, &v35);
+          this = kdu_params::set(v27, "Qabs_steps", j, 0, (((v35 * 0.00048828) + 1.0) / (1 << SLOBYTE(v36[0]))));
+        }
+      }
+    }
+  }
+
+  return this;
+}
+
+void sub_185F77168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  kdu_warning::~kdu_warning(va);
+  _Unwind_Resume(a1);
+}
+
+void derive_absolute_steps(qcd_params *a1, kdu_params *a2, kdu_params *a3, int a4, int a5, float a6, int a7)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v17 = 0;
+  *v16 = 0;
+  v15 = 0;
+  *v14 = 0;
+  bzero(v13, 0x288uLL);
+  kdu_kernels::clear(v13);
+  if (a3)
+  {
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v12 = 0;
+    while (kdu_params::get(a3, "Ksteps", v9, 0, &v12, 1, 1, 1))
+    {
+      v10 += v12;
+      ++v9;
+      v8 += 16;
+    }
+
+    operator new[]();
+  }
+
+  v12 = 0;
+  kdu_params::get(a2, "Ckernels", 0, 0, &v12, 1, 1, 1);
+  kdu_kernels::init(v13, v12, 0);
+}
+
+void sub_185F77740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  kdu_kernels::reset(va);
+  _Unwind_Resume(a1);
+}
+
+void rgn_params::rgn_params(rgn_params *this)
+{
+  *(this + 1) = "RGN";
+  *(this + 8) = 0;
+  *(this + 1) = xmmword_186206BB0;
+  *(this + 20) = 256;
+  *(this + 42) = 0;
+  *(this + 6) = this;
+  *(this + 7) = 0;
+  *(this + 8) = this + 72;
+  *(this + 9) = this;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = this;
+  *(this + 104) = 0;
+  *(this + 9) = 16842753;
+  *(this + 14) = 0;
+  *this = &unk_1EF4D2F08;
+  kdu_params::define_attribute(this, "Rshift", "Region of interest up-shift value.  All subband samples which are involved in the synthesis of any image sample which belongs to the foreground region of an ROI mask will be effectively shifted up (scaled by two the power of this shift value) prior to quantization.  The region geometry is specified independently and is not explicitly signalled through the code-stream; instead, this shift must be sufficiently large to enable the decoder to separate the foreground and background on the basis of the shifted sample amplitudes alone.  You will receive an appropriate error message if the shift value is too small.\n\t\t[Default is 0]", "I", 0);
+}
+
+const char *rgn_params::copy_with_xforms(rgn_params *this, kdu_params *a2)
+{
+  v4 = 0;
+  result = kdu_params::get(a2, "Rshift", 0, 0, &v4, 0, 1, 1);
+  if (result)
+  {
+    return kdu_params::set(this, "Rshift", 0, 0, v4);
+  }
+
+  return result;
+}
+
+uint64_t rgn_params::write_marker_segment(rgn_params *this, kdu_output *a2, kdu_params *a3, int a4)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  if (a4 || (*(this + 5) & 0x80000000) != 0)
+  {
+    return 0;
+  }
+
+  *v19 = 0;
+  if ((kdu_params::get(this, "Rshift", 0, 0, v19, 1, 1, 1) & 1) == 0)
+  {
+    *v19 = 0;
+  }
+
+  if (a3)
+  {
+    *v20 = 0;
+    v9 = kdu_params::get(a3, "Rshift", 0, 0, v20, 1, 1, 1);
+    v10 = *v19;
+    if (v9)
+    {
+      v11 = *v20;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    if (*v19 != v11)
+    {
+      goto LABEL_14;
+    }
+
+    return 0;
+  }
+
+  v10 = *v19;
+  if (!*v19)
+  {
+    return 0;
+  }
+
+LABEL_14:
+  if (v10 >= 0x100)
+  {
+    v18 = 0;
+    memset(v17, 0, sizeof(v17));
+    kdu_error::kdu_error(v17, "Kakadu Core Error:\n");
+    (*(*&v17[0] + 16))(v17, "Illegal ROI up-shift, ");
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    *v20 = 0u;
+    if (BYTE8(v17[0]))
+    {
+      sprintf(v20, "%x");
+    }
+
+    else
+    {
+      sprintf(v20, "%d");
+    }
+
+    (*(*&v17[0] + 16))(v17, v20);
+    (*(*&v17[0] + 16))(v17, ". Legal range is from 0 to 255!");
+    kdu_error::~kdu_error(v17);
+  }
+
+  v12 = *(this + 8);
+  if (v12 < 257)
+  {
+    v4 = 7;
+  }
+
+  else
+  {
+    v4 = 8;
+  }
+
+  if (a2)
+  {
+    v13 = v12 < 257;
+    kdu_output::put(a2, 255);
+    kdu_output::put(a2, 94);
+    kdu_output::put(a2, 0);
+    kdu_output::put(a2, v4 - 2);
+    v14 = *(this + 5);
+    if (v13)
+    {
+      v15 = kdu_output::put(a2, v14) + 4;
+    }
+
+    else
+    {
+      kdu_output::put(a2, SBYTE1(v14));
+      kdu_output::put(a2, v14);
+      v15 = 6;
+    }
+
+    v16 = kdu_output::put(a2, 0);
+    if (v4 != v16 + v15 + kdu_output::put(a2, v19[0]))
+    {
+      rgn_params::write_marker_segment();
+    }
+  }
+
+  return v4;
+}
+
+BOOL rgn_params::check_marker_segment(rgn_params *this, int a2, int a3, unsigned __int8 *a4, int *a5)
+{
+  result = a2 == 65374 && a3 > 1;
+  if (result)
+  {
+    v8 = *a4;
+    *a5 = v8;
+    if (*(this + 8) >= 257)
+    {
+      *a5 = a4[1] | (v8 << 8);
+    }
+  }
+
+  return result;
+}
+
+uint64_t rgn_params::read_marker_segment(rgn_params *this, int a2, int a3, unsigned __int8 *a4, int a5)
+{
+  v24 = *MEMORY[0x1E69E9840];
+  if (a2 != 65374 || a5 != 0)
+  {
+    return 0;
+  }
+
+  v6 = *(this + 5);
+  if (v6 < 0)
+  {
+    return 0;
+  }
+
+  v8 = *(this + 8);
+  if (v8 <= 256)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+  if (v9 > a3)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    *exception = a4;
+    __cxa_throw(exception, MEMORY[0x1E69E53E8], 0);
+  }
+
+  v11 = a4 + 1;
+  v10 = *a4;
+  if (v8 >= 257)
+  {
+    v11 = a4 + 2;
+    v10 = a4[1] | (v10 << 8);
+  }
+
+  if (v10 != v6)
+  {
+    return 0;
+  }
+
+  v12 = &a4[a3];
+  if (v12 - v11 <= 0)
+  {
+    v16 = __cxa_allocate_exception(8uLL);
+    *v16 = v11;
+    goto LABEL_29;
+  }
+
+  v13 = v11 + 1;
+  if (*v11)
+  {
+    *&v21 = 0;
+    *v19 = 0u;
+    v20 = 0u;
+    kdu_error::kdu_error(v19, "Kakadu Core Error:\n");
+    (*(*v19 + 16))(v19, "Encountered non-Part1 RGN marker segment!");
+    kdu_error::~kdu_error(v19);
+  }
+
+  if (v12 - v13 <= 0)
+  {
+    v16 = __cxa_allocate_exception(8uLL);
+    *v16 = v13;
+LABEL_29:
+    __cxa_throw(v16, MEMORY[0x1E69E53E8], 0);
+  }
+
+  kdu_params::set(this, "Rshift", 0, 0, v11[1]);
+  if (v11 + 2 != v12)
+  {
+    v18 = 0;
+    memset(v17, 0, sizeof(v17));
+    kdu_error::kdu_error(v17, "Kakadu Core Error:\n");
+    (*(*&v17[0] + 16))(v17, "Malformed RGN marker segment encountered. The final ");
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    *v19 = 0u;
+    if (BYTE8(v17[0]))
+    {
+      sprintf(v19, "%x");
+    }
+
+    else
+    {
+      sprintf(v19, "%d");
+    }
+
+    (*(*&v17[0] + 16))(v17, v19);
+    (*(*&v17[0] + 16))(v17, " bytes were not consumed!");
+    kdu_error::~kdu_error(v17);
+  }
+
+  return 1;
 }

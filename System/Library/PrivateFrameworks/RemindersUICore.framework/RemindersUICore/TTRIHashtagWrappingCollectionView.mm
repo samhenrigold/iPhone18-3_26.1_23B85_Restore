@@ -108,7 +108,7 @@
   {
   }
 
-  sub_21D0CF7E0(v9, &qword_27CE5C690);
+  sub_21D0CF7E0(v9, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)hashtagButtonAction:(id)action
@@ -129,7 +129,7 @@
 
   sub_21D8F3088(v6);
 
-  sub_21D0CF7E0(v6, &qword_27CE5C690);
+  sub_21D0CF7E0(v6, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)containerViewDidLayoutArrangedSubviews:(id)subviews
@@ -183,17 +183,17 @@
   interactionCopy = interaction;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_21D8F354C(update);
-  v10 = v9;
-  v13 = v8;
-  v14 = v9;
+  sub_21D8F354C(update);
+  v9 = v8;
+  v13 = v10;
+  v14 = v8;
   sub_21DBF8E0C();
   sub_21D8F381C(&v13);
   sub_21D59B93C(v13, v14);
-  if (v10)
+  if (v9)
   {
 
-    v10 = 2;
+    v9 = 2;
   }
 
   initWithDropOperation_ = [objc_allocWithZone(MEMORY[0x277D754A8]) initWithDropOperation_];
@@ -242,9 +242,10 @@
 {
   interactionCopy = interaction;
   selfCopy = self;
-  v7 = _s15RemindersUICore33TTRIHashtagWrappingCollectionViewC22contextMenuInteraction_016configurationForH10AtLocationSo09UIContextH13ConfigurationCSgSo0nhI0C_So7CGPointVtF_0();
+  _s15RemindersUICore33TTRIHashtagWrappingCollectionViewC22contextMenuInteraction_016configurationForH10AtLocationSo09UIContextH13ConfigurationCSgSo0nhI0C_So7CGPointVtF_0();
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 @end

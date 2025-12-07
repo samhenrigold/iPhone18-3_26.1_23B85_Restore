@@ -520,12 +520,12 @@ uint64_t __52__PKPassFrontFaceView_setShowsBarcodeView_animated___block_invoke(u
   return [*(v1 + 912) setAlpha:v2];
 }
 
-uint64_t __52__PKPassFrontFaceView_setShowsBarcodeView_animated___block_invoke_2(uint64_t a1)
+void *__52__PKPassFrontFaceView_setShowsBarcodeView_animated___block_invoke_2(uint64_t a1)
 {
   result = *(a1 + 32);
   if ((*(result + 929) & 1) == 0)
   {
-    return [result removeContentView:*(result + 912) ofType:2];
+    return [result removeContentView:*(result + 114) ofType:2];
   }
 
   return result;

@@ -407,31 +407,32 @@ LABEL_20:
         goto LABEL_126;
       }
 
-      v30 = 72 * v29;
-      v31 = WTF::fastMalloc((72 * v29));
-      selfCopy->_highlight.var0.__val_.gridHighlightOverlays.m_capacity = v30 / 0x48;
-      selfCopy->_highlight.var0.__val_.gridHighlightOverlays.m_buffer = v31;
-      v32 = *(update + 19);
-      if (v32)
+      v30 = (9 * v29);
+      v31 = 8 * v30;
+      v32 = WTF::fastMalloc(v30, (8 * v30));
+      selfCopy->_highlight.var0.__val_.gridHighlightOverlays.m_capacity = v31 / 0x48;
+      selfCopy->_highlight.var0.__val_.gridHighlightOverlays.m_buffer = v32;
+      v33 = *(update + 19);
+      if (v33)
       {
-        v33 = *(update + 8);
-        v34 = 72 * v32;
+        v34 = *(update + 8);
+        v35 = 72 * v33;
         do
         {
-          v31 = (WebCore::InspectorOverlayHighlight::GridHighlightOverlay::GridHighlightOverlay(v31, v33) + 72);
-          v33 = (v33 + 72);
-          v34 -= 72;
+          v32 = (WebCore::InspectorOverlayHighlight::GridHighlightOverlay::GridHighlightOverlay(v32, v34) + 72);
+          v34 = (v34 + 72);
+          v35 -= 72;
         }
 
-        while (v34);
+        while (v35);
       }
     }
 
-    v35 = *(update + 23);
+    v36 = *(update + 23);
     selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_buffer = 0;
     *&selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_capacity = 0;
-    selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_size = v35;
-    if (!v35)
+    selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_size = v36;
+    if (!v36)
     {
 LABEL_45:
       selfCopy->_highlight.var0.__val_.usePageCoordinates = *(update + 96);
@@ -439,25 +440,26 @@ LABEL_45:
       goto LABEL_109;
     }
 
-    if (v35 < 0x1E1E1E2)
+    if (v36 < 0x1E1E1E2)
     {
-      v36 = 136 * v35;
-      v37 = WTF::fastMalloc((136 * v35));
-      selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_capacity = v36 / 0x88;
-      selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_buffer = v37;
-      v38 = *(update + 23);
-      if (v38)
+      v37 = (17 * v36);
+      v38 = 8 * v37;
+      v39 = WTF::fastMalloc(v37, (8 * v37));
+      selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_capacity = v38 / 0x88;
+      selfCopy->_highlight.var0.__val_.flexHighlightOverlays.m_buffer = v39;
+      v40 = *(update + 23);
+      if (v40)
       {
-        v39 = *(update + 10);
-        v40 = 136 * v38;
+        v41 = *(update + 10);
+        v42 = 136 * v40;
         do
         {
-          v37 = (WebCore::InspectorOverlayHighlight::FlexHighlightOverlay::FlexHighlightOverlay(v37, v39) + 136);
-          v39 = (v39 + 136);
-          v40 -= 136;
+          v39 = (WebCore::InspectorOverlayHighlight::FlexHighlightOverlay::FlexHighlightOverlay(v39, v41) + 136);
+          v41 = (v41 + 136);
+          v42 -= 136;
         }
 
-        while (v40);
+        while (v42);
       }
 
       goto LABEL_45;
@@ -473,11 +475,11 @@ LABEL_126:
   {
     if ((m_colorAndFlags & 0x8000000000000) != 0)
     {
-      v90 = (m_colorAndFlags & 0xFFFFFFFFFFFFLL);
+      v92 = (m_colorAndFlags & 0xFFFFFFFFFFFFLL);
       if (atomic_fetch_add((m_colorAndFlags & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
       {
-        atomic_store(1u, v90);
-        WTF::fastFree(v90, v9);
+        atomic_store(1u, v92);
+        WTF::fastFree(v92, v9);
       }
     }
 
@@ -494,11 +496,11 @@ LABEL_126:
   {
     if ((v13 & 0x8000000000000) != 0)
     {
-      v91 = (v13 & 0xFFFFFFFFFFFFLL);
+      v93 = (v13 & 0xFFFFFFFFFFFFLL);
       if (atomic_fetch_add((v13 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
       {
-        atomic_store(1u, v91);
-        WTF::fastFree(v91, v9);
+        atomic_store(1u, v93);
+        WTF::fastFree(v93, v9);
       }
     }
 
@@ -515,11 +517,11 @@ LABEL_126:
   {
     if ((v15 & 0x8000000000000) != 0)
     {
-      v92 = (v15 & 0xFFFFFFFFFFFFLL);
+      v94 = (v15 & 0xFFFFFFFFFFFFLL);
       if (atomic_fetch_add((v15 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
       {
-        atomic_store(1u, v92);
-        WTF::fastFree(v92, v9);
+        atomic_store(1u, v94);
+        WTF::fastFree(v94, v9);
       }
     }
 
@@ -536,11 +538,11 @@ LABEL_126:
   {
     if ((v17 & 0x8000000000000) != 0)
     {
-      v93 = (v17 & 0xFFFFFFFFFFFFLL);
+      v95 = (v17 & 0xFFFFFFFFFFFFLL);
       if (atomic_fetch_add((v17 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
       {
-        atomic_store(1u, v93);
-        WTF::fastFree(v93, v9);
+        atomic_store(1u, v95);
+        WTF::fastFree(v95, v9);
       }
     }
 
@@ -557,11 +559,11 @@ LABEL_126:
   {
     if ((v19 & 0x8000000000000) != 0)
     {
-      v94 = (v19 & 0xFFFFFFFFFFFFLL);
+      v96 = (v19 & 0xFFFFFFFFFFFFLL);
       if (atomic_fetch_add((v19 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
       {
-        atomic_store(1u, v94);
-        WTF::fastFree(v94, v9);
+        atomic_store(1u, v96);
+        WTF::fastFree(v96, v9);
       }
     }
 
@@ -596,193 +598,193 @@ LABEL_126:
       m_size = v23;
     }
 
-    v41 = *(update + 8);
+    v43 = *(update + 8);
     if (m_size)
     {
       frameCopy = frame;
-      v96 = selfCopy;
-      v42 = (v41 + 72 * m_size);
+      v98 = selfCopy;
+      v44 = (v43 + 72 * m_size);
       m_buffer = selfCopy->_highlight.var0.__val_.gridHighlightOverlays.m_buffer;
       do
       {
-        v44 = *m_buffer;
-        if (*m_buffer != *v41)
+        v46 = *m_buffer;
+        if (*m_buffer != *v43)
         {
-          if ((v44 & 0x8000000000000) != 0)
+          if ((v46 & 0x8000000000000) != 0)
           {
-            v67 = (v44 & 0xFFFFFFFFFFFFLL);
-            if (atomic_fetch_add((v44 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
+            v69 = (v46 & 0xFFFFFFFFFFFFLL);
+            if (atomic_fetch_add((v46 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
             {
-              atomic_store(1u, v67);
-              WTF::fastFree(v67, v21);
+              atomic_store(1u, v69);
+              WTF::fastFree(v69, v21);
             }
           }
 
-          v45 = *v41;
-          *m_buffer = *v41;
-          if ((v45 & 0x8000000000000) != 0)
+          v47 = *v43;
+          *m_buffer = *v43;
+          if ((v47 & 0x8000000000000) != 0)
           {
-            atomic_fetch_add((v45 & 0xFFFFFFFFFFFFLL), 1u);
+            atomic_fetch_add((v47 & 0xFFFFFFFFFFFFLL), 1u);
           }
         }
 
-        if (v41 == m_buffer)
+        if (v43 == m_buffer)
         {
-          WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(m_buffer + 24, v41 + 24);
+          WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(m_buffer + 24, v43 + 24);
         }
 
         else
         {
-          v46 = *(m_buffer + 5);
-          v47 = *(v41 + 5);
-          if (v46 <= v47)
+          v48 = *(m_buffer + 5);
+          v49 = *(v43 + 5);
+          if (v48 <= v49)
           {
-            if (v47 > *(m_buffer + 4))
+            if (v49 > *(m_buffer + 4))
             {
-              WTF::Vector<WebCore::FloatLine,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(m_buffer + 8, 0);
-              WTF::Vector<WebCore::FloatLine,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(m_buffer + 8, *(v41 + 5));
-              v46 = *(m_buffer + 5);
+              WTF::Vector<WebCore::FloatLine,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(m_buffer + 1, 0);
+              WTF::Vector<WebCore::FloatLine,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(m_buffer + 8, *(v43 + 5));
+              v48 = *(m_buffer + 5);
             }
           }
 
           else
           {
-            *(m_buffer + 5) = v47;
-            v46 = v47;
+            *(m_buffer + 5) = v49;
+            v48 = v49;
           }
 
-          if (v46)
+          if (v48)
           {
-            memmove(*(m_buffer + 1), *(v41 + 1), 20 * v46);
-            v46 = *(m_buffer + 5);
+            memmove(*(m_buffer + 1), *(v43 + 1), 20 * v48);
+            v48 = *(m_buffer + 5);
           }
 
-          v48 = *(v41 + 5);
-          if (v46 != v48)
+          v50 = *(v43 + 5);
+          if (v48 != v50)
           {
-            v49 = 5 * v46;
-            v50 = *(m_buffer + 1) + 20 * v46;
-            v51 = *(v41 + 1) + 4 * v49;
-            v52 = 20 * v48 - 4 * v49;
+            v51 = 5 * v48;
+            v52 = *(m_buffer + 1) + 20 * v48;
+            v53 = *(v43 + 1) + 4 * v51;
+            v54 = 20 * v50 - 4 * v51;
             do
             {
-              v53 = *v51;
-              *(v50 + 16) = *(v51 + 16);
-              *v50 = v53;
-              v50 += 20;
-              v51 += 20;
-              v52 -= 20;
+              v55 = *v53;
+              *(v52 + 16) = *(v53 + 16);
+              *v52 = v55;
+              v52 += 20;
+              v53 += 20;
+              v54 -= 20;
             }
 
-            while (v52);
-            LODWORD(v46) = *(v41 + 5);
+            while (v54);
+            LODWORD(v48) = *(v43 + 5);
           }
 
-          *(m_buffer + 5) = v46;
-          WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(m_buffer + 24, v41 + 24);
-          v54 = *(m_buffer + 13);
-          v55 = *(v41 + 13);
-          if (v54 <= v55)
+          *(m_buffer + 5) = v48;
+          WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(m_buffer + 24, v43 + 24);
+          v56 = *(m_buffer + 13);
+          v57 = *(v43 + 13);
+          if (v56 <= v57)
           {
-            if (v55 > *(m_buffer + 12))
+            if (v57 > *(m_buffer + 12))
             {
-              WTF::Vector<WebCore::InspectorOverlayHighlight::GridHighlightOverlay::Area,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(m_buffer + 10, 0);
-              WTF::Vector<WebCore::TextRecognitionBlockData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(m_buffer + 40, *(v41 + 13));
-              v54 = *(m_buffer + 13);
+              WTF::Vector<WebCore::InspectorOverlayHighlight::GridHighlightOverlay::Area,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity((m_buffer + 40), 0);
+              WTF::Vector<WebCore::TextRecognitionBlockData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(m_buffer + 40, *(v43 + 13));
+              v56 = *(m_buffer + 13);
             }
           }
 
           else
           {
-            WTF::VectorDestructor<true,WebCore::TextRecognitionBlockData>::destruct((*(m_buffer + 5) + 40 * v55), (*(m_buffer + 5) + 40 * v54));
-            *(m_buffer + 13) = v55;
-            v54 = v55;
+            WTF::VectorDestructor<true,WebCore::TextRecognitionBlockData>::destruct((*(m_buffer + 5) + 40 * v57), (*(m_buffer + 5) + 40 * v56));
+            *(m_buffer + 13) = v57;
+            v56 = v57;
           }
 
-          v56 = *(v41 + 5);
-          v57 = *(m_buffer + 5);
-          if (v54)
+          v58 = *(v43 + 5);
+          v59 = *(m_buffer + 5);
+          if (v56)
           {
-            v58 = v56 + 40 * v54;
+            v60 = v58 + 40 * v56;
             do
             {
-              WTF::String::operator=(v57, v56);
-              v59 = *(v56 + 24);
-              *(v57 + 8) = *(v56 + 8);
-              *(v57 + 24) = v59;
-              v56 += 40;
-              v57 += 40;
+              WTF::String::operator=(v59, v58);
+              v61 = *(v58 + 24);
+              *(v59 + 8) = *(v58 + 8);
+              *(v59 + 24) = v61;
+              v58 += 40;
+              v59 += 40;
             }
 
-            while (v56 != v58);
-            v56 = *(v41 + 5);
-            v54 = *(m_buffer + 13);
-            v57 = *(m_buffer + 5);
+            while (v58 != v60);
+            v58 = *(v43 + 5);
+            v56 = *(m_buffer + 13);
+            v59 = *(m_buffer + 5);
           }
 
-          v60 = *(v41 + 13);
-          if (v54 != v60)
+          v62 = *(v43 + 13);
+          if (v56 != v62)
           {
-            v61 = 5 * v54;
-            v62 = v56 + 40 * v60;
-            v63 = v57 + 8 * v61;
-            v64 = v56 + 8 * v61;
+            v63 = 5 * v56;
+            v64 = v58 + 40 * v62;
+            v65 = v59 + 8 * v63;
+            v66 = v58 + 8 * v63;
             do
             {
-              v65 = *v64;
-              if (*v64)
+              v67 = *v66;
+              if (*v66)
               {
-                atomic_fetch_add_explicit(v65, 2u, memory_order_relaxed);
+                atomic_fetch_add_explicit(v67, 2u, memory_order_relaxed);
               }
 
-              *v63 = v65;
-              v66 = *(v64 + 8);
-              *(v63 + 24) = *(v64 + 24);
-              *(v63 + 8) = v66;
-              v63 += 40;
-              v64 += 40;
+              *v65 = v67;
+              v68 = *(v66 + 8);
+              *(v65 + 24) = *(v66 + 24);
+              *(v65 + 8) = v68;
+              v65 += 40;
+              v66 += 40;
             }
 
-            while (v64 != v62);
-            LODWORD(v54) = *(v41 + 13);
+            while (v66 != v64);
+            LODWORD(v56) = *(v43 + 13);
           }
 
-          *(m_buffer + 13) = v54;
+          *(m_buffer + 13) = v56;
         }
 
-        WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(m_buffer + 14, v41 + 14);
-        v41 = (v41 + 72);
+        WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(m_buffer + 56, v43 + 14);
+        v43 = (v43 + 72);
         m_buffer = (m_buffer + 72);
       }
 
-      while (v41 != v42);
-      v41 = *(update + 8);
+      while (v43 != v44);
+      v43 = *(update + 8);
       m_size = p_highlight->var0.__val_.gridHighlightOverlays.m_size;
-      selfCopy = v96;
+      selfCopy = v98;
     }
 
-    v68 = *(update + 19);
-    if (m_size != v68)
+    v70 = *(update + 19);
+    if (m_size != v70)
     {
-      v69 = (p_highlight->var0.__val_.gridHighlightOverlays.m_buffer + 72 * m_size);
-      v70 = (v41 + 72 * m_size);
-      v71 = 72 * v68 - 72 * m_size;
+      v71 = (p_highlight->var0.__val_.gridHighlightOverlays.m_buffer + 72 * m_size);
+      v72 = (v43 + 72 * m_size);
+      v73 = 72 * v70 - 72 * m_size;
       do
       {
-        v69 = (WebCore::InspectorOverlayHighlight::GridHighlightOverlay::GridHighlightOverlay(v69, v70) + 72);
-        v70 = (v70 + 72);
-        v71 -= 72;
+        v71 = (WebCore::InspectorOverlayHighlight::GridHighlightOverlay::GridHighlightOverlay(v71, v72) + 72);
+        v72 = (v72 + 72);
+        v73 -= 72;
       }
 
-      while (v71);
+      while (v73);
       m_size = *(update + 19);
     }
 
     p_highlight->var0.__val_.gridHighlightOverlays.m_size = m_size;
-    v72 = *(update + 23);
-    if (p_highlight->var0.__val_.flexHighlightOverlays.m_size <= v72)
+    v74 = *(update + 23);
+    if (p_highlight->var0.__val_.flexHighlightOverlays.m_size <= v74)
     {
-      if (v72 > p_highlight->var0.__val_.flexHighlightOverlays.m_capacity)
+      if (v74 > p_highlight->var0.__val_.flexHighlightOverlays.m_capacity)
       {
         WTF::Vector<WebCore::InspectorOverlayHighlight::FlexHighlightOverlay,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(&p_highlight->var0.__val_.flexHighlightOverlays, 0);
         WTF::Vector<WebCore::InspectorOverlayHighlight::FlexHighlightOverlay,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(&p_highlight->var0.__val_.flexHighlightOverlays, *(update + 23));
@@ -791,90 +793,90 @@ LABEL_126:
 
     else
     {
-      WTF::Vector<WebCore::InspectorOverlayHighlight::FlexHighlightOverlay,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(&p_highlight->var0.__val_.flexHighlightOverlays, v72);
+      WTF::Vector<WebCore::InspectorOverlayHighlight::FlexHighlightOverlay,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrink(&p_highlight->var0.__val_.flexHighlightOverlays, v74);
     }
 
-    v73 = *(update + 10);
-    v74 = p_highlight->var0.__val_.flexHighlightOverlays.m_size;
-    v75 = p_highlight->var0.__val_.flexHighlightOverlays.m_buffer;
-    if (v74)
+    v75 = *(update + 10);
+    v76 = p_highlight->var0.__val_.flexHighlightOverlays.m_size;
+    v77 = p_highlight->var0.__val_.flexHighlightOverlays.m_buffer;
+    if (v76)
     {
-      v76 = selfCopy;
-      v77 = 0;
-      v78 = 136 * v74;
+      v78 = selfCopy;
+      v79 = 0;
+      v80 = 136 * v76;
       do
       {
-        v79 = *(v75 + v77);
-        if (v79 != *(v73 + v77))
+        v81 = *(v77 + v79);
+        if (v81 != *(v75 + v79))
         {
-          if ((v79 & 0x8000000000000) != 0)
+          if ((v81 & 0x8000000000000) != 0)
           {
-            v83 = (v79 & 0xFFFFFFFFFFFFLL);
-            if (atomic_fetch_add((v79 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
+            v85 = (v81 & 0xFFFFFFFFFFFFLL);
+            if (atomic_fetch_add((v81 & 0xFFFFFFFFFFFFLL), 0xFFFFFFFF) == 1)
             {
-              atomic_store(1u, v83);
-              WTF::fastFree(v83, v72);
+              atomic_store(1u, v85);
+              WTF::fastFree(v85, v74);
             }
           }
 
-          v80 = *(v73 + v77);
-          *(v75 + v77) = v80;
-          if ((v80 & 0x8000000000000) != 0)
+          v82 = *(v75 + v79);
+          *(v77 + v79) = v82;
+          if ((v82 & 0x8000000000000) != 0)
           {
-            atomic_fetch_add((v80 & 0xFFFFFFFFFFFFLL), 1u);
+            atomic_fetch_add((v82 & 0xFFFFFFFFFFFFLL), 1u);
           }
         }
 
-        v81 = v75 + v77;
-        v82 = *(v73 + v77 + 8);
-        *(v81 + 24) = *(v73 + v77 + 24);
-        *(v81 + 8) = v82;
-        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v75 + v77 + 40, v73 + v77 + 40);
-        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v75 + v77 + 56, v73 + v77 + 56);
-        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v75 + v77 + 72, v73 + v77 + 72);
-        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v75 + v77 + 88, v73 + v77 + 88);
-        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v75 + v77 + 104, v73 + v77 + 104);
-        WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=((v75 + v77 + 120), (v73 + v77 + 120));
-        v77 += 136;
+        v83 = v77 + v79;
+        v84 = *(v75 + v79 + 8);
+        *(v83 + 24) = *(v75 + v79 + 24);
+        *(v83 + 8) = v84;
+        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v77 + v79 + 40, v75 + v79 + 40);
+        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v77 + v79 + 56, v75 + v79 + 56);
+        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v77 + v79 + 72, v75 + v79 + 72);
+        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v77 + v79 + 88, v75 + v79 + 88);
+        WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v77 + v79 + 104, v75 + v79 + 104);
+        WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(v77 + v79 + 120, (v75 + v79 + 120));
+        v79 += 136;
       }
 
-      while (v78 != v77);
-      v73 = *(update + 10);
-      LODWORD(v74) = p_highlight->var0.__val_.flexHighlightOverlays.m_size;
-      v75 = p_highlight->var0.__val_.flexHighlightOverlays.m_buffer;
-      selfCopy = v76;
+      while (v80 != v79);
+      v75 = *(update + 10);
+      LODWORD(v76) = p_highlight->var0.__val_.flexHighlightOverlays.m_size;
+      v77 = p_highlight->var0.__val_.flexHighlightOverlays.m_buffer;
+      selfCopy = v78;
     }
 
-    v84 = *(update + 23);
-    if (v74 != v84)
+    v86 = *(update + 23);
+    if (v76 != v86)
     {
-      v85 = (v75 + 136 * v74);
-      v86 = (v73 + 136 * v74);
-      v87 = 136 * v84 - 136 * v74;
+      v87 = (v77 + 136 * v76);
+      v88 = (v75 + 136 * v76);
+      v89 = 136 * v86 - 136 * v76;
       do
       {
-        v85 = (WebCore::InspectorOverlayHighlight::FlexHighlightOverlay::FlexHighlightOverlay(v85, v86) + 136);
-        v86 = (v86 + 136);
-        v87 -= 136;
+        v87 = (WebCore::InspectorOverlayHighlight::FlexHighlightOverlay::FlexHighlightOverlay(v87, v88) + 136);
+        v88 = (v88 + 136);
+        v89 -= 136;
       }
 
-      while (v87);
-      LODWORD(v74) = *(update + 23);
+      while (v89);
+      LODWORD(v76) = *(update + 23);
     }
 
-    p_highlight->var0.__val_.flexHighlightOverlays.m_size = v74;
+    p_highlight->var0.__val_.flexHighlightOverlays.m_size = v76;
   }
 
   p_highlight->var0.__val_.usePageCoordinates = *(update + 96);
 LABEL_109:
   [objc_msgSend(MEMORY[0x1E69DCEB0] mainScreen];
-  [(WKInspectorHighlightView *)selfCopy setContentScaleFactor:v88 * scale];
+  [(WKInspectorHighlightView *)selfCopy setContentScaleFactor:v90 * scale];
   WebCore::FloatRect::operator CGRect();
   [(WKInspectorHighlightView *)selfCopy setFrame:?];
-  v89 = *(update + 40);
-  if ((v89 - 1) >= 2)
+  v91 = *(update + 40);
+  if ((v91 - 1) >= 2)
   {
-    if (v89 == 3)
+    if (v91 == 3)
     {
       [(WKInspectorHighlightView *)selfCopy _layoutForRectsHighlight:update];
     }

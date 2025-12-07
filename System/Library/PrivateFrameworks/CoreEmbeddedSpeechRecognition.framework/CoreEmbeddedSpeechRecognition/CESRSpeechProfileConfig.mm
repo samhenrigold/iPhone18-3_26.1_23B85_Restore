@@ -16,7 +16,7 @@
 
 - (BOOL)_parseJsonObject:(id)object
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -66,8 +66,8 @@ LABEL_19:
           v17 = *MEMORY[0x277CEF0E8];
           if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
           {
-            v21 = 136315138;
-            v22 = "[CESRSpeechProfileConfig _parseJsonObject:]";
+            v20 = 136315138;
+            v21 = "[CESRSpeechProfileConfig _parseJsonObject:]";
             v18 = "%s Failed to parse Entity Cleanup config.";
             goto LABEL_17;
           }
@@ -83,8 +83,8 @@ LABEL_18:
           goto LABEL_18;
         }
 
-        v21 = 136315138;
-        v22 = "[CESRSpeechProfileConfig _parseJsonObject:]";
+        v20 = 136315138;
+        v21 = "[CESRSpeechProfileConfig _parseJsonObject:]";
         v18 = "%s Failed to parse Contextual Entity config.";
       }
 
@@ -96,8 +96,8 @@ LABEL_18:
           goto LABEL_18;
         }
 
-        v21 = 136315138;
-        v22 = "[CESRSpeechProfileConfig _parseJsonObject:]";
+        v20 = 136315138;
+        v21 = "[CESRSpeechProfileConfig _parseJsonObject:]";
         v18 = "%s Failed to parse App Entity config.";
       }
     }
@@ -110,29 +110,28 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      v21 = 136315138;
-      v22 = "[CESRSpeechProfileConfig _parseJsonObject:]";
+      v20 = 136315138;
+      v21 = "[CESRSpeechProfileConfig _parseJsonObject:]";
       v18 = "%s Failed to parse Direct Donation config.";
     }
 
 LABEL_17:
-    _os_log_error_impl(&dword_225EEB000, v17, OS_LOG_TYPE_ERROR, v18, &v21, 0xCu);
+    _os_log_error_impl(&dword_225EEB000, v17, OS_LOG_TYPE_ERROR, v18, &v20, 0xCu);
     goto LABEL_18;
   }
 
   v16 = 0;
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (CESRSpeechProfileConfig)init
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = CESRSpeechProfileConfig;
-  v2 = [(CESRSpeechProfileConfig *)&v16 init];
+  v18 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = CESRSpeechProfileConfig;
+  v2 = [(CESRSpeechProfileConfig *)&v15 init];
   v3 = v2;
   if (!v2)
   {
@@ -148,7 +147,7 @@ LABEL_12:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v18 = "[CESRSpeechProfileConfig init]";
+    v17 = "[CESRSpeechProfileConfig init]";
     _os_log_debug_impl(&dword_225EEB000, v6, OS_LOG_TYPE_DEBUG, "%s Trying to parse config...", buf, 0xCu);
   }
 
@@ -162,7 +161,7 @@ LABEL_9:
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v18 = "[CESRSpeechProfileConfig init]";
+      v17 = "[CESRSpeechProfileConfig init]";
       _os_log_impl(&dword_225EEB000, v11, OS_LOG_TYPE_INFO, "%s Successfully loaded Speech Profile Config.", buf, 0xCu);
     }
 
@@ -173,7 +172,7 @@ LABEL_9:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v18 = "[CESRSpeechProfileConfig init]";
+    v17 = "[CESRSpeechProfileConfig init]";
     _os_log_debug_impl(&dword_225EEB000, v9, OS_LOG_TYPE_DEBUG, "%s Initial parse from Trial config failed. Trying to load default config directly...", buf, 0xCu);
   }
 
@@ -185,18 +184,17 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v15 = *v5;
+  v14 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v18 = "[CESRSpeechProfileConfig init]";
-    _os_log_error_impl(&dword_225EEB000, v15, OS_LOG_TYPE_ERROR, "%s Failed to parse Speech Profile config file - likely it's malformed.", buf, 0xCu);
+    v17 = "[CESRSpeechProfileConfig init]";
+    _os_log_error_impl(&dword_225EEB000, v14, OS_LOG_TYPE_ERROR, "%s Failed to parse Speech Profile config file - likely it's malformed.", buf, 0xCu);
   }
 
   v12 = 0;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

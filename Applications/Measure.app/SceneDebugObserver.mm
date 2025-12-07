@@ -45,7 +45,7 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_10017F974(&qword_1004A0C40, type metadata accessor for NSKeyValueChangeKey);
+    sub_10017F974(&qword_1004A0C40, type metadata accessor for NSKeyValueChangeKey, &unk_1003D4E44);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

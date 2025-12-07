@@ -36,9 +36,11 @@
 
 uint64_t __35__TIAggdReporter_singletonInstance__block_invoke()
 {
-  singletonInstance_singletonInstance = objc_alloc_init(TIAggdReporter);
+  v0 = objc_alloc_init(TIAggdReporter);
+  v1 = singletonInstance_singletonInstance;
+  singletonInstance_singletonInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)getDefaultSoftwareLayout

@@ -411,9 +411,8 @@ LABEL_15:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_opt_class() allocWithZone:zone];
-  source = self->_source;
-  LOBYTE(v7) = self->_disputed;
-  return [v4 initWithIdentifier:self->_identifier name:self->_name category:self->_category categoryMUID:self->_categoryMUID address:self->_address location:self->_location source:source mapItemPlaceType:self->_mapItemPlaceType muid:self->_muid resultProviderID:self->_resultProviderID geoMapItemHandle:self->_geoMapItemHandle geoMapItemIdentifier:self->_geoMapItemIdentifier creationDate:self->_creationDate expirationDate:self->_expirationDate extendedAttributes:self->_extendedAttributes displayLanguage:self->_displayLanguage disputed:v7];
+  LOBYTE(v6) = self->_disputed;
+  return [v4 initWithIdentifier:self->_identifier name:self->_name category:self->_category categoryMUID:self->_categoryMUID address:self->_address location:self->_location source:self->_source mapItemPlaceType:self->_mapItemPlaceType muid:self->_muid resultProviderID:self->_resultProviderID geoMapItemHandle:self->_geoMapItemHandle geoMapItemIdentifier:self->_geoMapItemIdentifier creationDate:self->_creationDate expirationDate:self->_expirationDate extendedAttributes:self->_extendedAttributes displayLanguage:self->_displayLanguage disputed:v6];
 }
 
 - (id)outputToDictionary
@@ -546,7 +545,7 @@ uint64_t __30__RTMapItem_hasKnownTypeItem___block_invoke(uint64_t a1, void *a2)
 
 + (id)sourceToString:(unint64_t)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v6 = array;
   if (!string)
@@ -825,16 +824,16 @@ LABEL_47:
     v8 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = 138413058;
-      v14 = v12;
-      v15 = 2048;
+      v11 = NSStringFromSelector(a2);
+      v12 = 138413058;
+      v13 = v11;
+      v14 = 2048;
       stringCopy = string;
-      v17 = 2080;
-      v18 = "+[RTMapItem sourceToString:]";
-      v19 = 1024;
-      v20 = 548;
-      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "%@ does not handle RTMapItemSource, %lu (in %s:%d)", &v13, 0x26u);
+      v16 = 2080;
+      v17 = "+[RTMapItem sourceToString:]";
+      v18 = 1024;
+      v19 = 548;
+      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "%@ does not handle RTMapItemSource, %lu (in %s:%d)", &v12, 0x26u);
     }
   }
 
@@ -847,8 +846,6 @@ LABEL_47:
   {
     v9 = &stru_1F3DD00E8;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -868,7 +865,6 @@ LABEL_47:
   if (self->_source != source)
   {
     self->_source = source;
-    extendedAttributes = self->_extendedAttributes;
     [RTMapItem updateWeightWithSource:"updateWeightWithSource:extendedAttributes:" extendedAttributes:?];
   }
 }

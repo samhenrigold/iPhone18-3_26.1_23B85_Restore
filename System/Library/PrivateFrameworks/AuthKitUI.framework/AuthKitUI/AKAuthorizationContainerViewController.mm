@@ -31,19 +31,19 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, controller);
-  v16 = 0;
-  objc_storeStrong(&v16, context);
-  v13 = objc_opt_class();
-  if (v13 == objc_opt_class())
+  v17 = 0;
+  objc_storeStrong(&v17, context);
+  v14 = objc_opt_class();
+  if (v14 == objc_opt_class())
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-    MEMORY[0x277D82BD8](currentDevice);
+    *&v4 = MEMORY[0x277D82BD8](currentDevice).n128_u64[0];
     if (userInterfaceIdiom == 1)
     {
-      v4 = [AKAuthorizationContaineriPadViewController alloc];
-      v19 = [(AKAuthorizationContaineriPadViewController *)v4 initWithRootViewController:location[0] authorizationContext:v16];
-      v15 = 1;
+      v5 = [AKAuthorizationContaineriPadViewController alloc];
+      v20 = [(AKAuthorizationContaineriPadViewController *)v5 initWithRootViewController:location[0] authorizationContext:v17];
+      v16 = 1;
     }
 
     else
@@ -53,41 +53,41 @@
       MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
       if (isAuthKitSolariumFeatureEnabled)
       {
-        v5 = [AKAuthorizationContaineriPadViewController alloc];
+        v6 = [AKAuthorizationContaineriPadViewController alloc];
       }
 
       else
       {
-        v5 = [AKAuthorizationContaineriPhoneViewController alloc];
+        v6 = [AKAuthorizationContaineriPhoneViewController alloc];
       }
 
-      v19 = [(AKAuthorizationContaineriPadViewController *)v5 initWithRootViewController:location[0] authorizationContext:v16];
-      v15 = 1;
+      v20 = [(AKAuthorizationContaineriPadViewController *)v6 initWithRootViewController:location[0] authorizationContext:v17];
+      v16 = 1;
     }
   }
 
   else
   {
-    v6 = selfCopy;
+    v7 = selfCopy;
     selfCopy = 0;
-    v14.receiver = v6;
-    v14.super_class = AKAuthorizationContainerViewController;
-    selfCopy = [(AKAuthorizationContainerViewController *)&v14 initWithNibName:0 bundle:?];
+    v15.receiver = v7;
+    v15.super_class = AKAuthorizationContainerViewController;
+    selfCopy = [(AKAuthorizationContainerViewController *)&v15 initWithNibName:0 bundle:?];
     objc_storeStrong(&selfCopy, selfCopy);
     if (selfCopy)
     {
       objc_storeStrong(selfCopy + 124, location[0]);
-      objc_storeStrong(selfCopy + 125, v16);
+      objc_storeStrong(selfCopy + 125, v17);
     }
 
-    v19 = MEMORY[0x277D82BE0](selfCopy);
-    v15 = 1;
+    v20 = MEMORY[0x277D82BE0](selfCopy);
+    v16 = 1;
   }
 
-  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  return v19;
+  return v20;
 }
 
 - (AKAuthorizationContainerViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -147,19 +147,19 @@
 - (void)_setPaneDelegateForTopViewController
 {
   selfCopy = self;
-  v6[1] = a2;
+  v7[1] = a2;
   rootViewController = [(AKAuthorizationContainerViewController *)self rootViewController];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  MEMORY[0x277D82BD8](rootViewController);
+  *&v2 = MEMORY[0x277D82BD8](rootViewController).n128_u64[0];
   if (isKindOfClass)
   {
-    v6[0] = [(AKAuthorizationContainerViewController *)selfCopy rootViewController];
-    v2 = selfCopy;
-    topViewController = [v6[0] topViewController];
-    [(AKAuthorizationContainerViewController *)v2 _setPaneDelegateForViewController:?];
+    v7[0] = [(AKAuthorizationContainerViewController *)selfCopy rootViewController];
+    v3 = selfCopy;
+    topViewController = [v7[0] topViewController];
+    [(AKAuthorizationContainerViewController *)v3 _setPaneDelegateForViewController:?];
     MEMORY[0x277D82BD8](topViewController);
-    objc_storeStrong(v6, 0);
+    objc_storeStrong(v7, 0);
   }
 }
 
@@ -212,14 +212,14 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, controller);
-  v8 = 0;
-  objc_storeStrong(&v8, viewController);
-  v6 = selfCopy;
+  v9 = 0;
+  objc_storeStrong(&v9, viewController);
+  v7 = selfCopy;
   topViewController = [location[0] topViewController];
-  [(AKAuthorizationContainerViewController *)v6 _clearPaneDelegateForViewController:?];
-  MEMORY[0x277D82BD8](topViewController);
-  [(AKAuthorizationContainerViewController *)selfCopy _setPaneDelegateForViewController:v8];
-  objc_storeStrong(&v8, 0);
+  [(AKAuthorizationContainerViewController *)v7 _clearPaneDelegateForViewController:?];
+  *&v5 = MEMORY[0x277D82BD8](topViewController).n128_u64[0];
+  [(AKAuthorizationContainerViewController *)selfCopy _setPaneDelegateForViewController:v9, v5];
+  objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
 }
 

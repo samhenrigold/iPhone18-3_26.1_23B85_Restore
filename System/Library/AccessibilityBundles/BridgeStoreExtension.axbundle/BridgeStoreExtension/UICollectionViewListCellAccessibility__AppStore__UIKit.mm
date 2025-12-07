@@ -86,20 +86,19 @@
   if (_axSwitch)
   {
     [_axSwitch accessibilityTraits];
-    v5 = *MEMORY[0x29EDBDBD0];
     accessibilityTraits = _AXTraitsRemoveTrait();
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = UICollectionViewListCellAccessibility__AppStore__UIKit;
-    accessibilityTraits = [(UICollectionViewListCellAccessibility__AppStore__UIKit *)&v9 accessibilityTraits];
+    v8.receiver = self;
+    v8.super_class = UICollectionViewListCellAccessibility__AppStore__UIKit;
+    accessibilityTraits = [(UICollectionViewListCellAccessibility__AppStore__UIKit *)&v8 accessibilityTraits];
   }
 
-  v7 = accessibilityTraits;
+  v6 = accessibilityTraits;
 
-  return v7;
+  return v6;
 }
 
 - (id)_accessibilitySupplementaryFooterViews

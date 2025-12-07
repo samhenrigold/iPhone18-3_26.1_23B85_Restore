@@ -228,7 +228,7 @@
   v3 = NSStringFromRange(a1);
   [a2 length];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Attempted to addAttachment:atTextRange: with an out of bound range: %@. Adding attachment to the end of text storage instead, %lu.", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Attempted to addAttachment:atTextRange: with an out of bound range: %@. Adding attachment to the end of text storage instead, %lu.", v6, v7, v8, v9);
 }
 
 - (void)_addInlineAttachment:(NSRange)a1 inTextStorage:(void *)a2 atTextRange:.cold.1(NSRange a1, void *a2)
@@ -236,7 +236,7 @@
   v3 = NSStringFromRange(a1);
   [a2 length];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Attempted to addInlineAttachment:atTextRange: with an out of bound range: %@. Adding token attachment to the end of text storage instead, %lu.", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_4(&dword_1D4171000, v4, v5, "Attempted to addInlineAttachment:atTextRange: with an out of bound range: %@. Adding token attachment to the end of text storage instead, %lu.", v6, v7, v8, v9);
 }
 
 @end

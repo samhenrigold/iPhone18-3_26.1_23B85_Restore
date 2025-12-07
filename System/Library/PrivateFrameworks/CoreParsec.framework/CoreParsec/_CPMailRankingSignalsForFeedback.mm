@@ -47,389 +47,76 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_72;
-  }
-
-  wasReorderedByRecency = self->_wasReorderedByRecency;
-  if (wasReorderedByRecency != [equalCopy wasReorderedByRecency])
-  {
-    goto LABEL_72;
-  }
-
-  numEngagements = self->_numEngagements;
-  if (numEngagements != [equalCopy numEngagements])
-  {
-    goto LABEL_72;
-  }
-
-  numDaysEngagedLast30Days = self->_numDaysEngagedLast30Days;
-  if (numDaysEngagedLast30Days != [equalCopy numDaysEngagedLast30Days])
-  {
-    goto LABEL_72;
-  }
-
-  averageEngagementAgeLast7Days = self->_averageEngagementAgeLast7Days;
-  if (averageEngagementAgeLast7Days != [equalCopy averageEngagementAgeLast7Days])
-  {
-    goto LABEL_72;
-  }
-
-  averageEngagementAgeLast14Days = self->_averageEngagementAgeLast14Days;
-  if (averageEngagementAgeLast14Days != [equalCopy averageEngagementAgeLast14Days])
-  {
-    goto LABEL_72;
-  }
-
-  averageEngagementAgeLast21Days = self->_averageEngagementAgeLast21Days;
-  if (averageEngagementAgeLast21Days != [equalCopy averageEngagementAgeLast21Days])
-  {
-    goto LABEL_72;
-  }
-
-  averageEngagementAgeLast30Days = self->_averageEngagementAgeLast30Days;
-  if (averageEngagementAgeLast30Days != [equalCopy averageEngagementAgeLast30Days])
-  {
-    goto LABEL_72;
-  }
-
-  daysSinceReceipt = self->_daysSinceReceipt;
-  if (daysSinceReceipt != [equalCopy daysSinceReceipt])
-  {
-    goto LABEL_72;
-  }
-
-  l1Score = self->_l1Score;
-  [equalCopy l1Score];
-  if (l1Score != v14)
-  {
-    goto LABEL_72;
-  }
-
-  l2Score = self->_l2Score;
-  [equalCopy l2Score];
-  if (l2Score != v16)
-  {
-    goto LABEL_72;
-  }
-
-  isFlagged = self->_isFlagged;
-  if (isFlagged != [equalCopy isFlagged])
-  {
-    goto LABEL_72;
-  }
-
-  isRepliedTo = self->_isRepliedTo;
-  if (isRepliedTo != [equalCopy isRepliedTo])
-  {
-    goto LABEL_72;
-  }
-
-  isSemanticMatch = self->_isSemanticMatch;
-  if (isSemanticMatch != [equalCopy isSemanticMatch])
-  {
-    goto LABEL_72;
-  }
-
-  isSyntacticMatch = self->_isSyntacticMatch;
-  if (isSyntacticMatch != [equalCopy isSyntacticMatch])
-  {
-    goto LABEL_72;
-  }
-
-  semanticScore = self->_semanticScore;
-  [equalCopy semanticScore];
-  if (semanticScore != v22)
-  {
-    goto LABEL_72;
-  }
-
-  syntacticScore = self->_syntacticScore;
-  [equalCopy syntacticScore];
-  if (syntacticScore != v24)
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInAuthors = self->_countUnigramMatchInAuthors;
-  if (countUnigramMatchInAuthors != [equalCopy countUnigramMatchInAuthors])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInAuthors = self->_countBigramMatchInAuthors;
-  if (countBigramMatchInAuthors != [equalCopy countBigramMatchInAuthors])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInAuthors = self->_countNgramMatchInAuthors;
-  if (countNgramMatchInAuthors != [equalCopy countNgramMatchInAuthors])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInAuthors = self->_countUnigramPrefixMatchInAuthors;
-  if (countUnigramPrefixMatchInAuthors != [equalCopy countUnigramPrefixMatchInAuthors])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInAuthors = self->_countBigramPrefixMatchInAuthors;
-  if (countBigramPrefixMatchInAuthors != [equalCopy countBigramPrefixMatchInAuthors])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramPrefixMatchInAuthors = self->_countNgramPrefixMatchInAuthors;
-  if (countNgramPrefixMatchInAuthors != [equalCopy countNgramPrefixMatchInAuthors])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInAuthorEmailAddresses = self->_countUnigramMatchInAuthorEmailAddresses;
-  if (countUnigramMatchInAuthorEmailAddresses != [equalCopy countUnigramMatchInAuthorEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInAuthorEmailAddresses = self->_countBigramMatchInAuthorEmailAddresses;
-  if (countBigramMatchInAuthorEmailAddresses != [equalCopy countBigramMatchInAuthorEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInAuthorEmailAddresses = self->_countNgramMatchInAuthorEmailAddresses;
-  if (countNgramMatchInAuthorEmailAddresses != [equalCopy countNgramMatchInAuthorEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInAuthorEmailAddresses = self->_countUnigramPrefixMatchInAuthorEmailAddresses;
-  if (countUnigramPrefixMatchInAuthorEmailAddresses != [equalCopy countUnigramPrefixMatchInAuthorEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInAuthorEmailAddresses = self->_countBigramPrefixMatchInAuthorEmailAddresses;
-  if (countBigramPrefixMatchInAuthorEmailAddresses != [equalCopy countBigramPrefixMatchInAuthorEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramPrefixMatchInAuthorEmailAddresses = self->_countNgramPrefixMatchInAuthorEmailAddresses;
-  if (countNgramPrefixMatchInAuthorEmailAddresses != [equalCopy countNgramPrefixMatchInAuthorEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInSubject = self->_countUnigramMatchInSubject;
-  if (countUnigramMatchInSubject != [equalCopy countUnigramMatchInSubject])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInSubject = self->_countBigramMatchInSubject;
-  if (countBigramMatchInSubject != [equalCopy countBigramMatchInSubject])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInSubject = self->_countNgramMatchInSubject;
-  if (countNgramMatchInSubject != [equalCopy countNgramMatchInSubject])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInSubject = self->_countUnigramPrefixMatchInSubject;
-  if (countUnigramPrefixMatchInSubject != [equalCopy countUnigramPrefixMatchInSubject])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInSubject = self->_countBigramPrefixMatchInSubject;
-  if (countBigramPrefixMatchInSubject != [equalCopy countBigramPrefixMatchInSubject])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramPrefixMatchInSubject = self->_countNgramPrefixMatchInSubject;
-  if (countNgramPrefixMatchInSubject != [equalCopy countNgramPrefixMatchInSubject])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInTextContent = self->_countUnigramMatchInTextContent;
-  if (countUnigramMatchInTextContent != [equalCopy countUnigramMatchInTextContent])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInTextContent = self->_countBigramMatchInTextContent;
-  if (countBigramMatchInTextContent != [equalCopy countBigramMatchInTextContent])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInTextContent = self->_countNgramMatchInTextContent;
-  if (countNgramMatchInTextContent != [equalCopy countNgramMatchInTextContent])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInTextContent = self->_countUnigramPrefixMatchInTextContent;
-  if (countUnigramPrefixMatchInTextContent != [equalCopy countUnigramPrefixMatchInTextContent])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInTextContent = self->_countBigramPrefixMatchInTextContent;
-  if (countBigramPrefixMatchInTextContent != [equalCopy countBigramPrefixMatchInTextContent])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramPrefixMatchInTextContent = self->_countNgramPrefixMatchInTextContent;
-  if (countNgramPrefixMatchInTextContent != [equalCopy countNgramPrefixMatchInTextContent])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInRecipients = self->_countUnigramMatchInRecipients;
-  if (countUnigramMatchInRecipients != [equalCopy countUnigramMatchInRecipients])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInRecipients = self->_countBigramMatchInRecipients;
-  if (countBigramMatchInRecipients != [equalCopy countBigramMatchInRecipients])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInRecipients = self->_countNgramMatchInRecipients;
-  if (countNgramMatchInRecipients != [equalCopy countNgramMatchInRecipients])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInRecipients = self->_countUnigramPrefixMatchInRecipients;
-  if (countUnigramPrefixMatchInRecipients != [equalCopy countUnigramPrefixMatchInRecipients])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInRecipients = self->_countBigramPrefixMatchInRecipients;
-  if (countBigramPrefixMatchInRecipients != [equalCopy countBigramPrefixMatchInRecipients])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramPrefixMatchInRecipients = self->_countNgramPrefixMatchInRecipients;
-  if (countNgramPrefixMatchInRecipients != [equalCopy countNgramPrefixMatchInRecipients])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInRecipientEmailAddresses = self->_countUnigramMatchInRecipientEmailAddresses;
-  if (countUnigramMatchInRecipientEmailAddresses != [equalCopy countUnigramMatchInRecipientEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInRecipientEmailAddresses = self->_countBigramMatchInRecipientEmailAddresses;
-  if (countBigramMatchInRecipientEmailAddresses != [equalCopy countBigramMatchInRecipientEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInRecipientEmailAddresses = self->_countNgramMatchInRecipientEmailAddresses;
-  if (countNgramMatchInRecipientEmailAddresses != [equalCopy countNgramMatchInRecipientEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInRecipientEmailAddresses = self->_countUnigramPrefixMatchInRecipientEmailAddresses;
-  if (countUnigramPrefixMatchInRecipientEmailAddresses != [equalCopy countUnigramPrefixMatchInRecipientEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInRecipientEmailAddresses = self->_countBigramPrefixMatchInRecipientEmailAddresses;
-  if (countBigramPrefixMatchInRecipientEmailAddresses != [equalCopy countBigramPrefixMatchInRecipientEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramPrefixMatchInRecipientEmailAddresses = self->_countNgramPrefixMatchInRecipientEmailAddresses;
-  if (countNgramPrefixMatchInRecipientEmailAddresses != [equalCopy countNgramPrefixMatchInRecipientEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInEmailAddresses = self->_countUnigramMatchInEmailAddresses;
-  if (countUnigramMatchInEmailAddresses != [equalCopy countUnigramMatchInEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInEmailAddresses = self->_countBigramMatchInEmailAddresses;
-  if (countBigramMatchInEmailAddresses != [equalCopy countBigramMatchInEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInEmailAddresses = self->_countNgramMatchInEmailAddresses;
-  if (countNgramMatchInEmailAddresses != [equalCopy countNgramMatchInEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInEmailAddresses = self->_countUnigramPrefixMatchInEmailAddresses;
-  if (countUnigramPrefixMatchInEmailAddresses != [equalCopy countUnigramPrefixMatchInEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInEmailAddresses = self->_countBigramPrefixMatchInEmailAddresses;
-  if (countBigramPrefixMatchInEmailAddresses != [equalCopy countBigramPrefixMatchInEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramPrefixMatchInEmailAddresses = self->_countNgramPrefixMatchInEmailAddresses;
-  if (countNgramPrefixMatchInEmailAddresses != [equalCopy countNgramPrefixMatchInEmailAddresses])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramMatchInAttachmentTypes = self->_countUnigramMatchInAttachmentTypes;
-  if (countUnigramMatchInAttachmentTypes != [equalCopy countUnigramMatchInAttachmentTypes])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramMatchInAttachmentTypes = self->_countBigramMatchInAttachmentTypes;
-  if (countBigramMatchInAttachmentTypes != [equalCopy countBigramMatchInAttachmentTypes])
-  {
-    goto LABEL_72;
-  }
-
-  countNgramMatchInAttachmentTypes = self->_countNgramMatchInAttachmentTypes;
-  if (countNgramMatchInAttachmentTypes != [equalCopy countNgramMatchInAttachmentTypes])
-  {
-    goto LABEL_72;
-  }
-
-  countUnigramPrefixMatchInAttachmentTypes = self->_countUnigramPrefixMatchInAttachmentTypes;
-  if (countUnigramPrefixMatchInAttachmentTypes != [equalCopy countUnigramPrefixMatchInAttachmentTypes])
-  {
-    goto LABEL_72;
-  }
-
-  countBigramPrefixMatchInAttachmentTypes = self->_countBigramPrefixMatchInAttachmentTypes;
-  if (countBigramPrefixMatchInAttachmentTypes == [equalCopy countBigramPrefixMatchInAttachmentTypes] && (countNgramPrefixMatchInAttachmentTypes = self->_countNgramPrefixMatchInAttachmentTypes, countNgramPrefixMatchInAttachmentTypes == objc_msgSend(equalCopy, "countNgramPrefixMatchInAttachmentTypes")) && (countUnigramMatchInAttachmentNames = self->_countUnigramMatchInAttachmentNames, countUnigramMatchInAttachmentNames == objc_msgSend(equalCopy, "countUnigramMatchInAttachmentNames")) && (countBigramMatchInAttachmentNames = self->_countBigramMatchInAttachmentNames, countBigramMatchInAttachmentNames == objc_msgSend(equalCopy, "countBigramMatchInAttachmentNames")) && (countNgramMatchInAttachmentNames = self->_countNgramMatchInAttachmentNames, countNgramMatchInAttachmentNames == objc_msgSend(equalCopy, "countNgramMatchInAttachmentNames")) && (countUnigramPrefixMatchInAttachmentNames = self->_countUnigramPrefixMatchInAttachmentNames, countUnigramPrefixMatchInAttachmentNames == objc_msgSend(equalCopy, "countUnigramPrefixMatchInAttachmentNames")) && (countBigramPrefixMatchInAttachmentNames = self->_countBigramPrefixMatchInAttachmentNames, countBigramPrefixMatchInAttachmentNames == objc_msgSend(equalCopy, "countBigramPrefixMatchInAttachmentNames")))
+  if ([equalCopy isMemberOfClass:objc_opt_class()]
+    && (wasReorderedByRecency = self->_wasReorderedByRecency, wasReorderedByRecency == [equalCopy wasReorderedByRecency])
+    && (numEngagements = self->_numEngagements, numEngagements == [equalCopy numEngagements])
+    && (numDaysEngagedLast30Days = self->_numDaysEngagedLast30Days, numDaysEngagedLast30Days == [equalCopy numDaysEngagedLast30Days])
+    && (averageEngagementAgeLast7Days = self->_averageEngagementAgeLast7Days, averageEngagementAgeLast7Days == [equalCopy averageEngagementAgeLast7Days])
+    && (averageEngagementAgeLast14Days = self->_averageEngagementAgeLast14Days, averageEngagementAgeLast14Days == [equalCopy averageEngagementAgeLast14Days])
+    && (averageEngagementAgeLast21Days = self->_averageEngagementAgeLast21Days, averageEngagementAgeLast21Days == [equalCopy averageEngagementAgeLast21Days])
+    && (averageEngagementAgeLast30Days = self->_averageEngagementAgeLast30Days, averageEngagementAgeLast30Days == [equalCopy averageEngagementAgeLast30Days])
+    && (daysSinceReceipt = self->_daysSinceReceipt, daysSinceReceipt == [equalCopy daysSinceReceipt])
+    && (l1Score = self->_l1Score, [equalCopy l1Score], l1Score == v14)
+    && (l2Score = self->_l2Score, [equalCopy l2Score], l2Score == v16)
+    && (isFlagged = self->_isFlagged, isFlagged == [equalCopy isFlagged])
+    && (isRepliedTo = self->_isRepliedTo, isRepliedTo == [equalCopy isRepliedTo])
+    && (isSemanticMatch = self->_isSemanticMatch, isSemanticMatch == [equalCopy isSemanticMatch])
+    && (isSyntacticMatch = self->_isSyntacticMatch, isSyntacticMatch == [equalCopy isSyntacticMatch])
+    && (semanticScore = self->_semanticScore, [equalCopy semanticScore], semanticScore == v22)
+    && (syntacticScore = self->_syntacticScore, [equalCopy syntacticScore], syntacticScore == v24)
+    && (countUnigramMatchInAuthors = self->_countUnigramMatchInAuthors, countUnigramMatchInAuthors == [equalCopy countUnigramMatchInAuthors])
+    && (countBigramMatchInAuthors = self->_countBigramMatchInAuthors, countBigramMatchInAuthors == [equalCopy countBigramMatchInAuthors])
+    && (countNgramMatchInAuthors = self->_countNgramMatchInAuthors, countNgramMatchInAuthors == [equalCopy countNgramMatchInAuthors])
+    && (countUnigramPrefixMatchInAuthors = self->_countUnigramPrefixMatchInAuthors, countUnigramPrefixMatchInAuthors == [equalCopy countUnigramPrefixMatchInAuthors])
+    && (countBigramPrefixMatchInAuthors = self->_countBigramPrefixMatchInAuthors, countBigramPrefixMatchInAuthors == [equalCopy countBigramPrefixMatchInAuthors])
+    && (countNgramPrefixMatchInAuthors = self->_countNgramPrefixMatchInAuthors, countNgramPrefixMatchInAuthors == [equalCopy countNgramPrefixMatchInAuthors])
+    && (countUnigramMatchInAuthorEmailAddresses = self->_countUnigramMatchInAuthorEmailAddresses, countUnigramMatchInAuthorEmailAddresses == [equalCopy countUnigramMatchInAuthorEmailAddresses])
+    && (countBigramMatchInAuthorEmailAddresses = self->_countBigramMatchInAuthorEmailAddresses, countBigramMatchInAuthorEmailAddresses == [equalCopy countBigramMatchInAuthorEmailAddresses])
+    && (countNgramMatchInAuthorEmailAddresses = self->_countNgramMatchInAuthorEmailAddresses, countNgramMatchInAuthorEmailAddresses == [equalCopy countNgramMatchInAuthorEmailAddresses])
+    && (countUnigramPrefixMatchInAuthorEmailAddresses = self->_countUnigramPrefixMatchInAuthorEmailAddresses, countUnigramPrefixMatchInAuthorEmailAddresses == [equalCopy countUnigramPrefixMatchInAuthorEmailAddresses])
+    && (countBigramPrefixMatchInAuthorEmailAddresses = self->_countBigramPrefixMatchInAuthorEmailAddresses, countBigramPrefixMatchInAuthorEmailAddresses == [equalCopy countBigramPrefixMatchInAuthorEmailAddresses])
+    && (countNgramPrefixMatchInAuthorEmailAddresses = self->_countNgramPrefixMatchInAuthorEmailAddresses, countNgramPrefixMatchInAuthorEmailAddresses == [equalCopy countNgramPrefixMatchInAuthorEmailAddresses])
+    && (countUnigramMatchInSubject = self->_countUnigramMatchInSubject, countUnigramMatchInSubject == [equalCopy countUnigramMatchInSubject])
+    && (countBigramMatchInSubject = self->_countBigramMatchInSubject, countBigramMatchInSubject == [equalCopy countBigramMatchInSubject])
+    && (countNgramMatchInSubject = self->_countNgramMatchInSubject, countNgramMatchInSubject == [equalCopy countNgramMatchInSubject])
+    && (countUnigramPrefixMatchInSubject = self->_countUnigramPrefixMatchInSubject, countUnigramPrefixMatchInSubject == [equalCopy countUnigramPrefixMatchInSubject])
+    && (countBigramPrefixMatchInSubject = self->_countBigramPrefixMatchInSubject, countBigramPrefixMatchInSubject == [equalCopy countBigramPrefixMatchInSubject])
+    && (countNgramPrefixMatchInSubject = self->_countNgramPrefixMatchInSubject, countNgramPrefixMatchInSubject == [equalCopy countNgramPrefixMatchInSubject])
+    && (countUnigramMatchInTextContent = self->_countUnigramMatchInTextContent, countUnigramMatchInTextContent == [equalCopy countUnigramMatchInTextContent])
+    && (countBigramMatchInTextContent = self->_countBigramMatchInTextContent, countBigramMatchInTextContent == [equalCopy countBigramMatchInTextContent])
+    && (countNgramMatchInTextContent = self->_countNgramMatchInTextContent, countNgramMatchInTextContent == [equalCopy countNgramMatchInTextContent])
+    && (countUnigramPrefixMatchInTextContent = self->_countUnigramPrefixMatchInTextContent, countUnigramPrefixMatchInTextContent == [equalCopy countUnigramPrefixMatchInTextContent])
+    && (countBigramPrefixMatchInTextContent = self->_countBigramPrefixMatchInTextContent, countBigramPrefixMatchInTextContent == [equalCopy countBigramPrefixMatchInTextContent])
+    && (countNgramPrefixMatchInTextContent = self->_countNgramPrefixMatchInTextContent, countNgramPrefixMatchInTextContent == [equalCopy countNgramPrefixMatchInTextContent])
+    && (countUnigramMatchInRecipients = self->_countUnigramMatchInRecipients, countUnigramMatchInRecipients == [equalCopy countUnigramMatchInRecipients])
+    && (countBigramMatchInRecipients = self->_countBigramMatchInRecipients, countBigramMatchInRecipients == [equalCopy countBigramMatchInRecipients])
+    && (countNgramMatchInRecipients = self->_countNgramMatchInRecipients, countNgramMatchInRecipients == [equalCopy countNgramMatchInRecipients])
+    && (countUnigramPrefixMatchInRecipients = self->_countUnigramPrefixMatchInRecipients, countUnigramPrefixMatchInRecipients == [equalCopy countUnigramPrefixMatchInRecipients])
+    && (countBigramPrefixMatchInRecipients = self->_countBigramPrefixMatchInRecipients, countBigramPrefixMatchInRecipients == [equalCopy countBigramPrefixMatchInRecipients])
+    && (countNgramPrefixMatchInRecipients = self->_countNgramPrefixMatchInRecipients, countNgramPrefixMatchInRecipients == [equalCopy countNgramPrefixMatchInRecipients])
+    && (countUnigramMatchInRecipientEmailAddresses = self->_countUnigramMatchInRecipientEmailAddresses, countUnigramMatchInRecipientEmailAddresses == [equalCopy countUnigramMatchInRecipientEmailAddresses])
+    && (countBigramMatchInRecipientEmailAddresses = self->_countBigramMatchInRecipientEmailAddresses, countBigramMatchInRecipientEmailAddresses == [equalCopy countBigramMatchInRecipientEmailAddresses])
+    && (countNgramMatchInRecipientEmailAddresses = self->_countNgramMatchInRecipientEmailAddresses, countNgramMatchInRecipientEmailAddresses == [equalCopy countNgramMatchInRecipientEmailAddresses])
+    && (countUnigramPrefixMatchInRecipientEmailAddresses = self->_countUnigramPrefixMatchInRecipientEmailAddresses, countUnigramPrefixMatchInRecipientEmailAddresses == [equalCopy countUnigramPrefixMatchInRecipientEmailAddresses])
+    && (countBigramPrefixMatchInRecipientEmailAddresses = self->_countBigramPrefixMatchInRecipientEmailAddresses, countBigramPrefixMatchInRecipientEmailAddresses == [equalCopy countBigramPrefixMatchInRecipientEmailAddresses])
+    && (countNgramPrefixMatchInRecipientEmailAddresses = self->_countNgramPrefixMatchInRecipientEmailAddresses, countNgramPrefixMatchInRecipientEmailAddresses == [equalCopy countNgramPrefixMatchInRecipientEmailAddresses])
+    && (countUnigramMatchInEmailAddresses = self->_countUnigramMatchInEmailAddresses, countUnigramMatchInEmailAddresses == [equalCopy countUnigramMatchInEmailAddresses])
+    && (countBigramMatchInEmailAddresses = self->_countBigramMatchInEmailAddresses, countBigramMatchInEmailAddresses == [equalCopy countBigramMatchInEmailAddresses])
+    && (countNgramMatchInEmailAddresses = self->_countNgramMatchInEmailAddresses, countNgramMatchInEmailAddresses == [equalCopy countNgramMatchInEmailAddresses])
+    && (countUnigramPrefixMatchInEmailAddresses = self->_countUnigramPrefixMatchInEmailAddresses, countUnigramPrefixMatchInEmailAddresses == [equalCopy countUnigramPrefixMatchInEmailAddresses])
+    && (countBigramPrefixMatchInEmailAddresses = self->_countBigramPrefixMatchInEmailAddresses, countBigramPrefixMatchInEmailAddresses == [equalCopy countBigramPrefixMatchInEmailAddresses])
+    && (countNgramPrefixMatchInEmailAddresses = self->_countNgramPrefixMatchInEmailAddresses, countNgramPrefixMatchInEmailAddresses == [equalCopy countNgramPrefixMatchInEmailAddresses])
+    && (countUnigramMatchInAttachmentTypes = self->_countUnigramMatchInAttachmentTypes, countUnigramMatchInAttachmentTypes == [equalCopy countUnigramMatchInAttachmentTypes])
+    && (countBigramMatchInAttachmentTypes = self->_countBigramMatchInAttachmentTypes, countBigramMatchInAttachmentTypes == [equalCopy countBigramMatchInAttachmentTypes])
+    && (countNgramMatchInAttachmentTypes = self->_countNgramMatchInAttachmentTypes, countNgramMatchInAttachmentTypes == [equalCopy countNgramMatchInAttachmentTypes])
+    && (countUnigramPrefixMatchInAttachmentTypes = self->_countUnigramPrefixMatchInAttachmentTypes, countUnigramPrefixMatchInAttachmentTypes == [equalCopy countUnigramPrefixMatchInAttachmentTypes])
+    && (countBigramPrefixMatchInAttachmentTypes = self->_countBigramPrefixMatchInAttachmentTypes, countBigramPrefixMatchInAttachmentTypes == [equalCopy countBigramPrefixMatchInAttachmentTypes])
+    && (countNgramPrefixMatchInAttachmentTypes = self->_countNgramPrefixMatchInAttachmentTypes, countNgramPrefixMatchInAttachmentTypes == [equalCopy countNgramPrefixMatchInAttachmentTypes])
+    && (countUnigramMatchInAttachmentNames = self->_countUnigramMatchInAttachmentNames, countUnigramMatchInAttachmentNames == [equalCopy countUnigramMatchInAttachmentNames])
+    && (countBigramMatchInAttachmentNames = self->_countBigramMatchInAttachmentNames, countBigramMatchInAttachmentNames == [equalCopy countBigramMatchInAttachmentNames])
+    && (countNgramMatchInAttachmentNames = self->_countNgramMatchInAttachmentNames, countNgramMatchInAttachmentNames == [equalCopy countNgramMatchInAttachmentNames])
+    && (countUnigramPrefixMatchInAttachmentNames = self->_countUnigramPrefixMatchInAttachmentNames, countUnigramPrefixMatchInAttachmentNames == [equalCopy countUnigramPrefixMatchInAttachmentNames])
+    && (countBigramPrefixMatchInAttachmentNames = self->_countBigramPrefixMatchInAttachmentNames, countBigramPrefixMatchInAttachmentNames == [equalCopy countBigramPrefixMatchInAttachmentNames]))
   {
     countNgramPrefixMatchInAttachmentNames = self->_countNgramPrefixMatchInAttachmentNames;
     v79 = countNgramPrefixMatchInAttachmentNames == [equalCopy countNgramPrefixMatchInAttachmentNames];
@@ -437,7 +124,6 @@
 
   else
   {
-LABEL_72:
     v79 = 0;
   }
 
@@ -449,425 +135,355 @@ LABEL_72:
   to;
   if ([(_CPMailRankingSignalsForFeedback *)self wasReorderedByRecency])
   {
-    wasReorderedByRecency = self->_wasReorderedByRecency;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self numEngagements])
   {
-    numEngagements = self->_numEngagements;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self numDaysEngagedLast30Days])
   {
-    numDaysEngagedLast30Days = self->_numDaysEngagedLast30Days;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self averageEngagementAgeLast7Days])
   {
-    averageEngagementAgeLast7Days = self->_averageEngagementAgeLast7Days;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self averageEngagementAgeLast14Days])
   {
-    averageEngagementAgeLast14Days = self->_averageEngagementAgeLast14Days;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self averageEngagementAgeLast21Days])
   {
-    averageEngagementAgeLast21Days = self->_averageEngagementAgeLast21Days;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self averageEngagementAgeLast30Days])
   {
-    averageEngagementAgeLast30Days = self->_averageEngagementAgeLast30Days;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self daysSinceReceipt])
   {
-    daysSinceReceipt = self->_daysSinceReceipt;
     PBDataWriterWriteUint64Field();
   }
 
   [(_CPMailRankingSignalsForFeedback *)self l1Score];
-  if (v12 != 0.0)
+  if (v4 != 0.0)
   {
-    l1Score = self->_l1Score;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPMailRankingSignalsForFeedback *)self l2Score];
-  if (v14 != 0.0)
+  if (v5 != 0.0)
   {
-    l2Score = self->_l2Score;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self isFlagged])
   {
-    isFlagged = self->_isFlagged;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self isRepliedTo])
   {
-    isRepliedTo = self->_isRepliedTo;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self isSemanticMatch])
   {
-    isSemanticMatch = self->_isSemanticMatch;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self isSyntacticMatch])
   {
-    isSyntacticMatch = self->_isSyntacticMatch;
     PBDataWriterWriteBOOLField();
   }
 
   [(_CPMailRankingSignalsForFeedback *)self semanticScore];
-  if (v20 != 0.0)
+  if (v6 != 0.0)
   {
-    semanticScore = self->_semanticScore;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPMailRankingSignalsForFeedback *)self syntacticScore];
-  if (v22 != 0.0)
+  if (v7 != 0.0)
   {
-    syntacticScore = self->_syntacticScore;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInAuthors])
   {
-    countUnigramMatchInAuthors = self->_countUnigramMatchInAuthors;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInAuthors])
   {
-    countBigramMatchInAuthors = self->_countBigramMatchInAuthors;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInAuthors])
   {
-    countNgramMatchInAuthors = self->_countNgramMatchInAuthors;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInAuthors])
   {
-    countUnigramPrefixMatchInAuthors = self->_countUnigramPrefixMatchInAuthors;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInAuthors])
   {
-    countBigramPrefixMatchInAuthors = self->_countBigramPrefixMatchInAuthors;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInAuthors])
   {
-    countNgramPrefixMatchInAuthors = self->_countNgramPrefixMatchInAuthors;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInAuthorEmailAddresses])
   {
-    countUnigramMatchInAuthorEmailAddresses = self->_countUnigramMatchInAuthorEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInAuthorEmailAddresses])
   {
-    countBigramMatchInAuthorEmailAddresses = self->_countBigramMatchInAuthorEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInAuthorEmailAddresses])
   {
-    countNgramMatchInAuthorEmailAddresses = self->_countNgramMatchInAuthorEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInAuthorEmailAddresses])
   {
-    countUnigramPrefixMatchInAuthorEmailAddresses = self->_countUnigramPrefixMatchInAuthorEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInAuthorEmailAddresses])
   {
-    countBigramPrefixMatchInAuthorEmailAddresses = self->_countBigramPrefixMatchInAuthorEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInAuthorEmailAddresses])
   {
-    countNgramPrefixMatchInAuthorEmailAddresses = self->_countNgramPrefixMatchInAuthorEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInSubject])
   {
-    countUnigramMatchInSubject = self->_countUnigramMatchInSubject;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInSubject])
   {
-    countBigramMatchInSubject = self->_countBigramMatchInSubject;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInSubject])
   {
-    countNgramMatchInSubject = self->_countNgramMatchInSubject;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInSubject])
   {
-    countUnigramPrefixMatchInSubject = self->_countUnigramPrefixMatchInSubject;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInSubject])
   {
-    countBigramPrefixMatchInSubject = self->_countBigramPrefixMatchInSubject;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInSubject])
   {
-    countNgramPrefixMatchInSubject = self->_countNgramPrefixMatchInSubject;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInTextContent])
   {
-    countUnigramMatchInTextContent = self->_countUnigramMatchInTextContent;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInTextContent])
   {
-    countBigramMatchInTextContent = self->_countBigramMatchInTextContent;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInTextContent])
   {
-    countNgramMatchInTextContent = self->_countNgramMatchInTextContent;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInTextContent])
   {
-    countUnigramPrefixMatchInTextContent = self->_countUnigramPrefixMatchInTextContent;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInTextContent])
   {
-    countBigramPrefixMatchInTextContent = self->_countBigramPrefixMatchInTextContent;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInTextContent])
   {
-    countNgramPrefixMatchInTextContent = self->_countNgramPrefixMatchInTextContent;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInRecipients])
   {
-    countUnigramMatchInRecipients = self->_countUnigramMatchInRecipients;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInRecipients])
   {
-    countBigramMatchInRecipients = self->_countBigramMatchInRecipients;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInRecipients])
   {
-    countNgramMatchInRecipients = self->_countNgramMatchInRecipients;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInRecipients])
   {
-    countUnigramPrefixMatchInRecipients = self->_countUnigramPrefixMatchInRecipients;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInRecipients])
   {
-    countBigramPrefixMatchInRecipients = self->_countBigramPrefixMatchInRecipients;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInRecipients])
   {
-    countNgramPrefixMatchInRecipients = self->_countNgramPrefixMatchInRecipients;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInRecipientEmailAddresses])
   {
-    countUnigramMatchInRecipientEmailAddresses = self->_countUnigramMatchInRecipientEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInRecipientEmailAddresses])
   {
-    countBigramMatchInRecipientEmailAddresses = self->_countBigramMatchInRecipientEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInRecipientEmailAddresses])
   {
-    countNgramMatchInRecipientEmailAddresses = self->_countNgramMatchInRecipientEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInRecipientEmailAddresses])
   {
-    countUnigramPrefixMatchInRecipientEmailAddresses = self->_countUnigramPrefixMatchInRecipientEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInRecipientEmailAddresses])
   {
-    countBigramPrefixMatchInRecipientEmailAddresses = self->_countBigramPrefixMatchInRecipientEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInRecipientEmailAddresses])
   {
-    countNgramPrefixMatchInRecipientEmailAddresses = self->_countNgramPrefixMatchInRecipientEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInEmailAddresses])
   {
-    countUnigramMatchInEmailAddresses = self->_countUnigramMatchInEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInEmailAddresses])
   {
-    countBigramMatchInEmailAddresses = self->_countBigramMatchInEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInEmailAddresses])
   {
-    countNgramMatchInEmailAddresses = self->_countNgramMatchInEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInEmailAddresses])
   {
-    countUnigramPrefixMatchInEmailAddresses = self->_countUnigramPrefixMatchInEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInEmailAddresses])
   {
-    countBigramPrefixMatchInEmailAddresses = self->_countBigramPrefixMatchInEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInEmailAddresses])
   {
-    countNgramPrefixMatchInEmailAddresses = self->_countNgramPrefixMatchInEmailAddresses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInAttachmentTypes])
   {
-    countUnigramMatchInAttachmentTypes = self->_countUnigramMatchInAttachmentTypes;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInAttachmentTypes])
   {
-    countBigramMatchInAttachmentTypes = self->_countBigramMatchInAttachmentTypes;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInAttachmentTypes])
   {
-    countNgramMatchInAttachmentTypes = self->_countNgramMatchInAttachmentTypes;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInAttachmentTypes])
   {
-    countUnigramPrefixMatchInAttachmentTypes = self->_countUnigramPrefixMatchInAttachmentTypes;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInAttachmentTypes])
   {
-    countBigramPrefixMatchInAttachmentTypes = self->_countBigramPrefixMatchInAttachmentTypes;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInAttachmentTypes])
   {
-    countNgramPrefixMatchInAttachmentTypes = self->_countNgramPrefixMatchInAttachmentTypes;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramMatchInAttachmentNames])
   {
-    countUnigramMatchInAttachmentNames = self->_countUnigramMatchInAttachmentNames;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramMatchInAttachmentNames])
   {
-    countBigramMatchInAttachmentNames = self->_countBigramMatchInAttachmentNames;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramMatchInAttachmentNames])
   {
-    countNgramMatchInAttachmentNames = self->_countNgramMatchInAttachmentNames;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countUnigramPrefixMatchInAttachmentNames])
   {
-    countUnigramPrefixMatchInAttachmentNames = self->_countUnigramPrefixMatchInAttachmentNames;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countBigramPrefixMatchInAttachmentNames])
   {
-    countBigramPrefixMatchInAttachmentNames = self->_countBigramPrefixMatchInAttachmentNames;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPMailRankingSignalsForFeedback *)self countNgramPrefixMatchInAttachmentNames])
   {
-    countNgramPrefixMatchInAttachmentNames = self->_countNgramPrefixMatchInAttachmentNames;
     PBDataWriterWriteUint32Field();
   }
 

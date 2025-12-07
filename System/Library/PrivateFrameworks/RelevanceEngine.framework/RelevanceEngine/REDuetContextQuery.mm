@@ -117,33 +117,33 @@
 
 - (id)createRegistrationsWithCallback:(id)callback
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
-  v5 = CoreDuetContextLibraryCore();
+  v5 = CoreDuetContextLibraryCore(0);
   array = MEMORY[0x277CBEBF8];
   if (callbackCopy && v5)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     devices = [(REDuetContextQuery *)self devices];
-    v8 = [devices countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [devices countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(devices);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           identifier = [v12 identifier];
 
           if (identifier)
@@ -162,76 +162,72 @@
           }
         }
 
-        v9 = [devices countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [devices countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)_keyPathsForDevice:(id)device
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   keyPaths = [(REDuetContextQuery *)self keyPaths];
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(keyPaths, "count")}];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = keyPaths;
-  v7 = [obj countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v7 = [obj countByEnumeratingWithState:&v19 objects:v28 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x2050000000;
+        v10 = *(*(&v19 + 1) + 8 * i);
+        v24 = 0;
+        v25 = &v24;
+        v26 = 0x2050000000;
         v11 = get_CDContextualKeyPathClass_softClass;
-        v28 = get_CDContextualKeyPathClass_softClass;
+        v27 = get_CDContextualKeyPathClass_softClass;
         if (!get_CDContextualKeyPathClass_softClass)
         {
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __get_CDContextualKeyPathClass_block_invoke;
-          v24[3] = &unk_2785F9BC0;
-          v24[4] = &v25;
-          __get_CDContextualKeyPathClass_block_invoke(v24);
-          v11 = v26[3];
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __get_CDContextualKeyPathClass_block_invoke;
+          v23[3] = &unk_2785F9BC0;
+          v23[4] = &v24;
+          __get_CDContextualKeyPathClass_block_invoke(v23);
+          v11 = v25[3];
         }
 
         v12 = v11;
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
         identifier = [deviceCopy identifier];
         uUIDString = [identifier UUIDString];
         v15 = [v11 remoteKeyPathForKeyPath:v10 forDeviceID:uUIDString];
         [v6 addObject:v15];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v28 count:16];
     }
 
     while (v7);
   }
 
   v16 = [(REDuetContextQuery *)self _sortedKeyPaths:v6];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -257,7 +253,7 @@ uint64_t __38__REDuetContextQuery__sortedKeyPaths___block_invoke(uint64_t a1, vo
 
 - (void)setDevices:(id)devices
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
   devices = self->_devices;
   if (devices != devicesCopy && ([(NSSet *)devices isEqual:devicesCopy]& 1) == 0)
@@ -267,26 +263,26 @@ uint64_t __38__REDuetContextQuery__sortedKeyPaths___block_invoke(uint64_t a1, vo
     self->_devices = v6;
 
     array = [MEMORY[0x277CBEB18] array];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = self->_devices;
-    v10 = [(NSSet *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [(NSSet *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           identifier = [v14 identifier];
 
           if (identifier)
@@ -302,7 +298,7 @@ uint64_t __38__REDuetContextQuery__sortedKeyPaths___block_invoke(uint64_t a1, vo
           }
         }
 
-        v11 = [(NSSet *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [(NSSet *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -312,92 +308,90 @@ uint64_t __38__REDuetContextQuery__sortedKeyPaths___block_invoke(uint64_t a1, vo
     searchKeyPaths = self->_searchKeyPaths;
     self->_searchKeyPaths = v17;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueFromUserContext:(id)context
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (self->_evalBlock)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     keyPaths = [(REDuetContextQuery *)self keyPaths];
-    v7 = [keyPaths countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v7 = [keyPaths countByEnumeratingWithState:&v41 objects:v47 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v43;
+      v9 = *v42;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v43 != v9)
+          if (*v42 != v9)
           {
             objc_enumerationMutation(keyPaths);
           }
 
-          v11 = *(*(&v42 + 1) + 8 * i);
+          v11 = *(*(&v41 + 1) + 8 * i);
           v12 = [v11 key];
           [dictionary setObject:v11 forKeyedSubscript:v12];
         }
 
-        v8 = [keyPaths countByEnumeratingWithState:&v42 objects:v48 count:16];
+        v8 = [keyPaths countByEnumeratingWithState:&v41 objects:v47 count:16];
       }
 
       while (v8);
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     obj = self->_searchKeyPaths;
-    v32 = [(NSArray *)obj countByEnumeratingWithState:&v38 objects:v47 count:16];
-    if (v32)
+    v31 = [(NSArray *)obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+    if (v31)
     {
       selfCopy = self;
-      v31 = *v39;
+      v30 = *v38;
       while (1)
       {
         v13 = 0;
 LABEL_12:
-        if (*v39 != v31)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = v13;
-        v14 = *(*(&v38 + 1) + 8 * v13);
+        v32 = v13;
+        v14 = *(*(&v37 + 1) + 8 * v13);
         v15 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v14, "count")}];
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
         v16 = v14;
-        v17 = [v16 countByEnumeratingWithState:&v34 objects:v46 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
         if (!v17)
         {
           break;
         }
 
         v18 = v17;
-        v19 = *v35;
+        v19 = *v34;
 LABEL_16:
         v20 = 0;
         while (1)
         {
-          if (*v35 != v19)
+          if (*v34 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v34 + 1) + 8 * v20);
+          v21 = *(*(&v33 + 1) + 8 * v20);
           v22 = [contextCopy objectForContextualKeyPath:v21];
           if (!v22)
           {
@@ -415,7 +409,7 @@ LABEL_16:
 
           if (v18 == ++v20)
           {
-            v18 = [v16 countByEnumeratingWithState:&v34 objects:v46 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v33 objects:v45 count:16];
             if (v18)
             {
               goto LABEL_16;
@@ -425,15 +419,15 @@ LABEL_16:
           }
         }
 
-        v13 = v33 + 1;
-        if (v33 + 1 != v32)
+        v13 = v32 + 1;
+        if (v32 + 1 != v31)
         {
           goto LABEL_12;
         }
 
         v26 = 0;
-        v32 = [(NSArray *)obj countByEnumeratingWithState:&v38 objects:v47 count:16];
-        if (!v32)
+        v31 = [(NSArray *)obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+        if (!v31)
         {
           goto LABEL_31;
         }
@@ -456,8 +450,6 @@ LABEL_31:
   {
     v26 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

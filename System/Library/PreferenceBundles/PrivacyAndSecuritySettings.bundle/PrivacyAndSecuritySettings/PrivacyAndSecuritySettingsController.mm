@@ -38,7 +38,7 @@
   sub_527A4();
   sub_45F0C(l, v8, v7);
 
-  sub_515E4(v8);
+  sub_515E4(v8, v7);
 }
 
 - (_TtC26PrivacyAndSecuritySettings36PrivacyAndSecuritySettingsController)initWithNibName:(id)name bundle:(id)bundle
@@ -49,7 +49,7 @@
     sub_54668();
     *&self->PSViewController_opaque[OBJC_IVAR____TtC26PrivacyAndSecuritySettings36PrivacyAndSecuritySettingsController____lazy_storage___privacyAndSecuritySettingsListViewModel] = 0;
     v8 = OBJC_IVAR____TtC26PrivacyAndSecuritySettings36PrivacyAndSecuritySettingsController____lazy_storage___privacyAndSecuritySettingsList;
-    v9 = type metadata accessor for PrivacyAndSecuritySettingsList();
+    v9 = type metadata accessor for PrivacyAndSecuritySettingsList(0);
     (*(*(v9 - 8) + 56))(&self->PSViewController_opaque[v8], 1, 1, v9);
     bundleCopy = bundle;
     v11 = sub_54638();
@@ -59,7 +59,7 @@
   {
     *&self->PSViewController_opaque[OBJC_IVAR____TtC26PrivacyAndSecuritySettings36PrivacyAndSecuritySettingsController____lazy_storage___privacyAndSecuritySettingsListViewModel] = 0;
     v12 = OBJC_IVAR____TtC26PrivacyAndSecuritySettings36PrivacyAndSecuritySettingsController____lazy_storage___privacyAndSecuritySettingsList;
-    v13 = type metadata accessor for PrivacyAndSecuritySettingsList();
+    v13 = type metadata accessor for PrivacyAndSecuritySettingsList(0);
     (*(*(v13 - 8) + 56))(&self->PSViewController_opaque[v12], 1, 1, v13);
     bundleCopy2 = bundle;
     v11 = 0;
@@ -77,7 +77,7 @@
   ObjectType = swift_getObjectType();
   *&self->PSViewController_opaque[OBJC_IVAR____TtC26PrivacyAndSecuritySettings36PrivacyAndSecuritySettingsController____lazy_storage___privacyAndSecuritySettingsListViewModel] = 0;
   v6 = OBJC_IVAR____TtC26PrivacyAndSecuritySettings36PrivacyAndSecuritySettingsController____lazy_storage___privacyAndSecuritySettingsList;
-  v7 = type metadata accessor for PrivacyAndSecuritySettingsList();
+  v7 = type metadata accessor for PrivacyAndSecuritySettingsList(0);
   (*(*(v7 - 8) + 56))(&self->PSViewController_opaque[v6], 1, 1, v7);
   v11.receiver = self;
   v11.super_class = ObjectType;

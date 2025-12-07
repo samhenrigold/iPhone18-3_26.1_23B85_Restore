@@ -56,7 +56,8 @@
   firstObject = [cardSections firstObject];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     text = [firstObject text];
     text_elements = [text text_elements];
@@ -65,38 +66,38 @@
     formatted_text = [firstObject2 formatted_text];
     firstObject3 = [formatted_text firstObject];
 
-    if (firstObject3 && ([firstObject3 text], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "length"), v12, v13))
+    if (firstObject3 && ([firstObject3 text], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "length"), v16, v17))
     {
       text2 = [firstObject3 text];
-      v15 = [text2 copy];
+      v19 = [text2 copy];
     }
 
     else
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v21 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(v14, v15);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [(WBSBrowsingAssistantResult *)self _extractSummaryFromResult:v17];
+        [(WBSBrowsingAssistantResult *)self _extractSummaryFromResult:v21];
       }
 
       [(WBSBrowsingAssistantResult *)self _clearSummaryAndTableOfContents];
-      v15 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(isKindOfClass, v8);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(WBSBrowsingAssistantResult *)self _extractSummaryFromResult:v16, firstObject];
+      [(WBSBrowsingAssistantResult *)self _extractSummaryFromResult:v20, firstObject];
     }
 
     [(WBSBrowsingAssistantResult *)self _clearSummaryAndTableOfContents];
-    v15 = 0;
+    v19 = 0;
   }
 
-  return v15;
+  return v19;
 }
 
 - (id)_extractDisclaimerFromResult:(id)result
@@ -114,30 +115,30 @@
     formatted_text = [firstObject formatted_text];
     firstObject2 = [formatted_text firstObject];
 
-    if (firstObject2 && ([firstObject2 text], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "length"), v13, v14))
+    if (firstObject2 && ([firstObject2 text], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "length"), v15, v16))
     {
       text2 = [firstObject2 text];
-      v16 = [text2 copy];
+      v18 = [text2 copy];
     }
 
     else
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(v13, v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [(WBSBrowsingAssistantResult *)self _extractDisclaimerFromResult:v17];
+        [(WBSBrowsingAssistantResult *)self _extractDisclaimerFromResult:v19];
       }
 
-      v16 = 0;
+      v18 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  return v16;
+  return v18;
 }
 
 uint64_t __59__WBSBrowsingAssistantResult__extractDisclaimerFromResult___block_invoke(uint64_t a1, void *a2)

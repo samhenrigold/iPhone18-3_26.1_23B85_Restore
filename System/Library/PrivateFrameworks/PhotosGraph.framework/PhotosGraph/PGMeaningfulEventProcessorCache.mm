@@ -42,7 +42,7 @@
 
 - (unint64_t)significantPartsOfDayForMomentNodes:(id)nodes
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   os_unfair_lock_lock(&self->_lock);
   significantPartOfDayNodesByMomentNode = self->_significantPartOfDayNodesByMomentNode;
@@ -62,30 +62,30 @@
   }
 
   v13 = [(MABinaryAdjacency *)significantPartOfDayNodesByMomentNode targetsForSources:nodesCopy];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   partsOfDay = [v13 partsOfDay];
-  v15 = [partsOfDay countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [partsOfDay countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     v18 = 1;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(partsOfDay);
         }
 
-        v18 |= [*(*(&v22 + 1) + 8 * i) unsignedIntegerValue];
+        v18 |= [*(*(&v21 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v16 = [partsOfDay countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [partsOfDay countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
@@ -97,13 +97,12 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (unint64_t)partsOfDayForMomentNodes:(id)nodes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   os_unfair_lock_lock(&self->_lock);
   partOfDayNodesByMomentNode = self->_partOfDayNodesByMomentNode;
@@ -120,30 +119,30 @@
   }
 
   v11 = [(MABinaryAdjacency *)partOfDayNodesByMomentNode targetsForSources:nodesCopy];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   partsOfDay = [v11 partsOfDay];
-  v13 = [partsOfDay countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [partsOfDay countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     v16 = 1;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(partsOfDay);
         }
 
-        v16 |= [*(*(&v20 + 1) + 8 * i) unsignedIntegerValue];
+        v16 |= [*(*(&v19 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v14 = [partsOfDay countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [partsOfDay countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
@@ -155,13 +154,12 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)publicEventCategoryNodesForMomentNodes:(id)nodes
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   os_unfair_lock_lock(&self->_lock);
   publicEventCategoryNodesByMomentNode = self->_publicEventCategoryNodesByMomentNode;
@@ -169,10 +167,10 @@
   {
     v6 = objc_alloc(MEMORY[0x277D22C00]);
     v7 = +[PGGraphMomentNode publicEventOfMoment];
-    v16[0] = v7;
+    v15[0] = v7;
     v8 = +[PGGraphPublicEventNode categoryOfPublicEvent];
-    v16[1] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[1] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v10 = [v6 initWithSteps:v9];
 
     v11 = [MEMORY[0x277D22BF8] adjacencyWithSources:self->_momentNodes relation:v10 targetsClass:objc_opt_class()];
@@ -184,8 +182,6 @@
 
   v13 = [(MABinaryAdjacency *)publicEventCategoryNodesByMomentNode targetsForSources:nodesCopy];
   os_unfair_lock_unlock(&self->_lock);
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

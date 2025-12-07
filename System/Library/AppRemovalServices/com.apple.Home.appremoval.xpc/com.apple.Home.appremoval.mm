@@ -8,16 +8,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id os_log_appremoval()
+id os_log_appremoval(uint64_t a1)
 {
   if (qword_100008630 != -1)
   {
     sub_100001250();
   }
 
-  v1 = qword_100008628;
+  v2 = qword_100008628;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000C98(id a1)

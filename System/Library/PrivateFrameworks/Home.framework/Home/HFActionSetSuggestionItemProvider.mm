@@ -13,43 +13,43 @@
 
 - (HFActionSetSuggestionItemProvider)initWithHome:(id)home
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   homeCopy = home;
-  v27.receiver = self;
-  v27.super_class = HFActionSetSuggestionItemProvider;
-  v6 = [(HFItemProvider *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = HFActionSetSuggestionItemProvider;
+  v6 = [(HFItemProvider *)&v26 init];
   v7 = v6;
   if (v6)
   {
-    v22 = homeCopy;
+    v21 = homeCopy;
     objc_storeStrong(&v6->_home, home);
     v8 = [MEMORY[0x277CBEB58] set];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v9 = +[HFActionSetSuggestionVendor supportedBuiltInActionSetTypes];
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           v15 = [(HFActionSetSuggestionItemProvider *)v7 _builtInActionSetOfType:v14];
           if (v15)
           {
             v16 = [HFActionSetSuggestionItem alloc];
-            home = [(HFActionSetSuggestionItemProvider *)v7 home];
-            v18 = [(HFActionSetSuggestionItem *)v16 initWithHome:home actionSet:v15];
+            v17 = objc_msgSend_home(v7);
+            v18 = [(HFActionSetSuggestionItem *)v16 initWithHome:v17 actionSet:v15];
 
             [v18 setIncludeExistingActionSets:[(HFActionSetSuggestionItemProvider *)v7 includeExistingActionSets]];
             [v18 setPersistAddedSuggestions:[(HFActionSetSuggestionItemProvider *)v7 persistAddedSuggestions]];
@@ -61,27 +61,26 @@
             v18 = HFLogForCategory(0x2CuLL);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              home2 = [(HFActionSetSuggestionItemProvider *)v7 home];
+              v19 = objc_msgSend_home(v7);
               *buf = 138412546;
-              v29 = v14;
-              v30 = 2112;
-              v31 = home2;
+              v28 = v14;
+              v29 = 2112;
+              v30 = v19;
               _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "No action set found for builtin type %@ in home %@", buf, 0x16u);
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v31 count:16];
       }
 
       while (v11);
     }
 
     [(HFActionSetSuggestionItemProvider *)v7 setStaticSuggestionItems:v8];
-    homeCopy = v22;
+    homeCopy = v21;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -126,8 +125,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFActionSetSuggestionItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -135,8 +134,8 @@
 - (id)_builtInActionSetOfType:(id)type
 {
   typeCopy = type;
-  home = [(HFActionSetSuggestionItemProvider *)self home];
-  actionSets = [home actionSets];
+  v5 = objc_msgSend_home(self);
+  actionSets = [v5 actionSets];
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = __61__HFActionSetSuggestionItemProvider__builtInActionSetOfType___block_invoke;
@@ -179,8 +178,8 @@ uint64_t __61__HFActionSetSuggestionItemProvider__builtInActionSetOfType___block
   }
 
   [(HFActionSetSuggestionItemProvider *)self setHasProvidedStaticSuggestionItems:1];
-  home = [(HFActionSetSuggestionItemProvider *)self home];
-  actionSets = [home actionSets];
+  v5 = objc_msgSend_home(self);
+  actionSets = [v5 actionSets];
   v15[4] = self;
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
@@ -255,7 +254,7 @@ HFActionSetSuggestionItem *__48__HFActionSetSuggestionItemProvider_reloadItems__
   v6 = v5;
 
   v7 = [HFActionSetSuggestionItem alloc];
-  v8 = [*(a1 + 32) home];
+  v8 = objc_msgSend_home(*(a1 + 32));
   v9 = [(HFActionSetSuggestionItem *)v7 initWithHome:v8 actionSet:v6];
 
   v10 = [*(a1 + 32) serviceLikeItem];

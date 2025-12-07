@@ -28,7 +28,7 @@ Class __get_ANEDeviceInfoClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -39,7 +39,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "_ANEDeviceInfo");
   }
 
   get_ANEDeviceInfoClass_softClass = *(*(*(a1 + 32) + 8) + 24);

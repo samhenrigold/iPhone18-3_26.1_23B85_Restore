@@ -51,24 +51,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_sharingKeyBytes)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    sharingKeyType = self->_sharingKeyType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sharingKeySeed)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -138,7 +137,6 @@
     }
   }
 
-  v10 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_sharingKeyType != *(equalCopy + 6))
@@ -155,10 +153,10 @@ LABEL_11:
   }
 
   sharingKeySeed = self->_sharingKeySeed;
-  v12 = equalCopy[2];
-  if (sharingKeySeed | v12)
+  v11 = equalCopy[2];
+  if (sharingKeySeed | v11)
   {
-    isEqual = objc_msgSend_isEqual_(sharingKeySeed, v7, v12);
+    isEqual = objc_msgSend_isEqual_(sharingKeySeed, v7, v11);
   }
 
   else

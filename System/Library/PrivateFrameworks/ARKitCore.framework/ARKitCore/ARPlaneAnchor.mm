@@ -72,7 +72,7 @@
 {
   v15.receiver = self;
   v15.super_class = ARPlaneAnchor;
-  v5 = [ARAnchor initWithIdentifier:sel_initWithIdentifier_transform_ transform:?];
+  v5 = [(ARAnchor *)&v15 initWithIdentifier:identifier transform:?];
   v6 = v5;
   if (v5)
   {
@@ -95,7 +95,7 @@
   extentCopy = extent;
   v101 = v5;
   v103 = v4;
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self, direction);
   v10 = vmulq_f32(v9, v101);
   v11 = v10.f32[2] + vaddv_f32(*v10.f32);
   if (v11 > -0.00000011921)
@@ -104,7 +104,7 @@
   }
 
   v99 = v9;
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v13 = vmulq_f32(v99, vsubq_f32(v12, v103));
   v14 = (v13.f32[2] + vaddv_f32(*v13.f32)) / v11;
   if (v14 < 0.0)
@@ -113,14 +113,14 @@
   }
 
   v100 = v14;
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v97 = v18;
   v98 = v17;
   v96 = v19;
   v20 = vmlaq_n_f32(v103, v101, v100);
   v20.i32[3] = 1.0;
   v104 = v20;
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v112 = __invert_f4(v111);
   v21 = 0;
   v105[0] = v98;
@@ -325,7 +325,7 @@ LABEL_17:
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
   identifier = [(ARAnchor *)self identifier];
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v16 = ARMatrix4x4Description(_descriptionCopy, v12, v13, v14, v15);
   [(ARPlaneAnchor *)self center];
   v18 = ARVector3Description(v17);

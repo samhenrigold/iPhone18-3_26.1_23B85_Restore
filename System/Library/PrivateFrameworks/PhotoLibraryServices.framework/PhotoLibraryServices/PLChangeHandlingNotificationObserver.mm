@@ -180,7 +180,7 @@ LABEL_9:
   return selfCopy;
 }
 
-uint64_t __72__PLChangeHandlingNotificationObserver_stopObservingRemoteNotifications__block_invoke(uint64_t a1)
+void *__72__PLChangeHandlingNotificationObserver_stopObservingRemoteNotifications__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _lock_stopObservingRemoteNotifications];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -400,7 +400,7 @@ void __89__PLChangeHandlingNotificationObserver__lock_startObservingRemoteNotifi
 
 - (PLChangeHandlingNotificationObserver)initWithLowPriorityThrottleInterval:(double)interval targetWorkloop:(id)workloop
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   workloopCopy = workloop;
   if (!workloopCopy)
   {
@@ -408,9 +408,9 @@ void __89__PLChangeHandlingNotificationObserver__lock_startObservingRemoteNotifi
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLChangeHandlingNotificationObserver.m" lineNumber:56 description:{@"Invalid parameter not satisfying: %@", @"targetWorkloop"}];
   }
 
-  v25.receiver = self;
-  v25.super_class = PLChangeHandlingNotificationObserver;
-  v9 = [(PLChangeHandlingNotificationObserver *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = PLChangeHandlingNotificationObserver;
+  v9 = [(PLChangeHandlingNotificationObserver *)&v26 init];
   v10 = v9;
   if (v9)
   {
@@ -425,33 +425,42 @@ void __89__PLChangeHandlingNotificationObserver__lock_startObservingRemoteNotifi
     v10->_eventLog = v12;
 
     objc_storeStrong(&v10->_workloop, workloop);
-    v14 = s_dispatch_queue_create_for_notifications("com.apple.photos.PLChangeHandlingNotificationObserver.lowNotifyQueue", v10->_workloop);
+    v14 = s_dispatch_queue_create_for_notifications("com.apple.photos.PLChangeHandlingNotificationObserver.lowNotifyQueue", v10->_workloop, 9);
     lowNotifyQueue = v10->_lowNotifyQueue;
     v10->_lowNotifyQueue = v14;
 
-    PLIsForegroundApplication();
-    v16 = s_dispatch_queue_create_for_notifications("com.apple.photos.PLChangeHandlingNotificationObserver.highNotifyQueue", v10->_workloop);
-    highNotifyQueue = v10->_highNotifyQueue;
-    v10->_highNotifyQueue = v16;
-
-    v18 = [objc_alloc(MEMORY[0x1E69BDD80]) initWithProvider:v10];
-    stateHandler = v10->_stateHandler;
-    v10->_stateHandler = v18;
-
-    v20 = PLPhotosObjectLifecycleGetLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    if (PLIsForegroundApplication())
     {
-      v21 = objc_opt_class();
-      *buf = 138412802;
-      v27 = v21;
-      v28 = 2048;
-      v29 = v10;
-      v30 = 2048;
-      intervalCopy = interval;
-      _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEBUG, "%@ %p initWithLowPriorityThrottleInterval:%f", buf, 0x20u);
+      v16 = 25;
     }
 
-    v22 = v10;
+    else
+    {
+      v16 = 17;
+    }
+
+    v17 = s_dispatch_queue_create_for_notifications("com.apple.photos.PLChangeHandlingNotificationObserver.highNotifyQueue", v10->_workloop, v16);
+    highNotifyQueue = v10->_highNotifyQueue;
+    v10->_highNotifyQueue = v17;
+
+    v19 = [objc_alloc(MEMORY[0x1E69BDD80]) initWithProvider:v10];
+    stateHandler = v10->_stateHandler;
+    v10->_stateHandler = v19;
+
+    v21 = PLPhotosObjectLifecycleGetLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      v22 = objc_opt_class();
+      *buf = 138412802;
+      v28 = v22;
+      v29 = 2048;
+      v30 = v10;
+      v31 = 2048;
+      intervalCopy = interval;
+      _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEBUG, "%@ %p initWithLowPriorityThrottleInterval:%f", buf, 0x20u);
+    }
+
+    v23 = v10;
   }
 
   return v10;

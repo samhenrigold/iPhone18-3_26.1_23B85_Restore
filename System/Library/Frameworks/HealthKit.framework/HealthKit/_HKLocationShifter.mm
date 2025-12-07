@@ -24,26 +24,26 @@
 
 + (BOOL)isShiftRequiredForLocations:(id)locations
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   locationsCopy = locations;
-  v4 = [locationsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [locationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(locationsCopy);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         [v7 coordinate];
         v10 = v9;
@@ -57,7 +57,7 @@
         }
       }
 
-      v4 = [locationsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [locationsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -69,7 +69,6 @@
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

@@ -284,9 +284,9 @@ LABEL_17:
       if (self->_submitted)
       {
         v8 = [NSString stringWithFormat:@"metric, %@, has already been submitted", v7];
-        v46 = NSLocalizedDescriptionKey;
-        v47 = v8;
-        v9 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+        v45 = NSLocalizedDescriptionKey;
+        v46 = v8;
+        v9 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
         v10 = [NSError errorWithDomain:@"MOErrorDomain" code:0 userInfo:v9];
 
         v11 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);
@@ -320,18 +320,17 @@ LABEL_17:
               v22 = NSStringFromSelector(a2);
               metrics = self->_metrics;
               *buf = 138412802;
-              v39 = v22;
-              v40 = 2112;
-              v41 = v7;
-              v42 = 2112;
-              v43 = metrics;
+              v38 = v22;
+              v39 = 2112;
+              v40 = v7;
+              v41 = 2112;
+              v42 = metrics;
               _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "MO_LOG_INFO: %@, submitting, %@, metrics, %@", buf, 0x20u);
             }
           }
 
           v24 = [[NSString alloc] initWithCString:_mo_analytics_get_event(&var0) encoding:1];
           v25 = [NSString stringWithFormat:@"com.apple.Moments.%@", v24];
-          v26 = self->_metrics;
           AnalyticsSendEvent();
 
           self->_submitted = 1;
@@ -339,37 +338,37 @@ LABEL_17:
 
         else
         {
-          v27 = [NSMutableSet setWithSet:v8];
-          [v27 minusSet:v20];
-          v36 = v20;
-          v28 = [NSMutableSet setWithSet:v20];
-          [v28 minusSet:v8];
-          v35 = v27;
-          v29 = [NSString stringWithFormat:@"metric keys set does not match with keys that metric, %@, supports.  Extra keys, %@, missing keys, %@", v7, v27, v28];
-          v44 = NSLocalizedDescriptionKey;
-          v45 = v29;
-          v30 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-          v31 = [NSError errorWithDomain:@"MOErrorDomain" code:7 userInfo:v30];
+          v26 = [NSMutableSet setWithSet:v8];
+          [v26 minusSet:v20];
+          v35 = v20;
+          v27 = [NSMutableSet setWithSet:v20];
+          [v27 minusSet:v8];
+          v34 = v26;
+          v28 = [NSString stringWithFormat:@"metric keys set does not match with keys that metric, %@, supports.  Extra keys, %@, missing keys, %@", v7, v26, v27];
+          v43 = NSLocalizedDescriptionKey;
+          v44 = v28;
+          v29 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          v30 = [NSError errorWithDomain:@"MOErrorDomain" code:7 userInfo:v29];
 
-          v32 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v31 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             [MOMetric submitMetricsWithError:forEvent:];
           }
 
-          v33 = v31;
-          *error = v31;
+          v32 = v30;
+          *error = v30;
 
-          v20 = v36;
+          v20 = v35;
         }
       }
     }
 
     else
     {
-      v48 = NSLocalizedDescriptionKey;
-      v49 = @"metricName cannot be nil";
-      v15 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v47 = NSLocalizedDescriptionKey;
+      v48 = @"metricName cannot be nil";
+      v15 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
       v8 = [NSError errorWithDomain:@"MOErrorDomain" code:7 userInfo:v15];
 
       v16 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);
@@ -411,9 +410,9 @@ LABEL_17:
       if (self->_submitted)
       {
         v7 = [NSString stringWithFormat:@"metric, %@, has already been submitted", metricName];
-        v46 = NSLocalizedDescriptionKey;
-        v47 = v7;
-        v8 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+        v45 = NSLocalizedDescriptionKey;
+        v46 = v7;
+        v8 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
         v9 = [NSError errorWithDomain:@"MOErrorDomain" code:0 userInfo:v8];
 
         v10 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);
@@ -447,18 +446,17 @@ LABEL_17:
               v22 = NSStringFromSelector(a2);
               metrics = self->_metrics;
               *buf = 138412802;
-              v39 = v22;
-              v40 = 2112;
-              v41 = metricName;
-              v42 = 2112;
-              v43 = metrics;
+              v38 = v22;
+              v39 = 2112;
+              v40 = metricName;
+              v41 = 2112;
+              v42 = metrics;
               _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "MO_LOG_INFO: %@, submitting, %@, metrics, %@", buf, 0x20u);
             }
           }
 
           v24 = [[NSString alloc] initWithCString:_mo_analytics_get_event(&event) encoding:1];
           v25 = [NSString stringWithFormat:@"com.apple.Moments.%@", v24];
-          v26 = self->_metrics;
           AnalyticsSendEvent();
 
           self->_submitted = 1;
@@ -466,37 +464,37 @@ LABEL_17:
 
         else
         {
-          v27 = [NSMutableSet setWithSet:v7];
-          [v27 minusSet:v20];
-          v36 = v20;
-          v28 = [NSMutableSet setWithSet:v20];
-          [v28 minusSet:v7];
-          v35 = v27;
-          v29 = [NSString stringWithFormat:@"metric keys set does not match with keys that metric, %@, supports.  Extra keys, %@, missing keys, %@", metricName, v27, v28];
-          v44 = NSLocalizedDescriptionKey;
-          v45 = v29;
-          v30 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-          v31 = [NSError errorWithDomain:@"MOErrorDomain" code:7 userInfo:v30];
+          v26 = [NSMutableSet setWithSet:v7];
+          [v26 minusSet:v20];
+          v35 = v20;
+          v27 = [NSMutableSet setWithSet:v20];
+          [v27 minusSet:v7];
+          v34 = v26;
+          v28 = [NSString stringWithFormat:@"metric keys set does not match with keys that metric, %@, supports.  Extra keys, %@, missing keys, %@", metricName, v26, v27];
+          v43 = NSLocalizedDescriptionKey;
+          v44 = v28;
+          v29 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          v30 = [NSError errorWithDomain:@"MOErrorDomain" code:7 userInfo:v29];
 
-          v32 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v31 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
             [MOMetric submitMetricsWithError:forEvent:];
           }
 
-          v33 = v31;
-          *error = v31;
+          v32 = v30;
+          *error = v30;
 
-          v20 = v36;
+          v20 = v35;
         }
       }
     }
 
     else
     {
-      v48 = NSLocalizedDescriptionKey;
-      v49 = @"metricName cannot be nil";
-      v15 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v47 = NSLocalizedDescriptionKey;
+      v48 = @"metricName cannot be nil";
+      v15 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
       v7 = [NSError errorWithDomain:@"MOErrorDomain" code:7 userInfo:v15];
 
       v16 = _mo_log_facility_get_os_log(&MOLogFacilityMetric);

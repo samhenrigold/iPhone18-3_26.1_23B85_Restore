@@ -15,7 +15,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C41B0();
@@ -85,7 +85,7 @@ LABEL_7:
 
     else
     {
-      v14 = sub_100002660();
+      v14 = sub_100002660(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1001C41E4();
@@ -103,7 +103,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    v12 = sub_100002660();
+    v12 = sub_100002660(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1001C4218();
@@ -165,9 +165,9 @@ LABEL_7:
 
 - (id)configuredRecordFromAttributes
 {
-  v12.receiver = self;
-  v12.super_class = BCMutableCollectionDetail;
-  configuredRecordFromAttributes = [(BCMutableCloudData *)&v12 configuredRecordFromAttributes];
+  v13.receiver = self;
+  v13.super_class = BCMutableCollectionDetail;
+  configuredRecordFromAttributes = [(BCMutableCloudData *)&v13 configuredRecordFromAttributes];
   if (configuredRecordFromAttributes)
   {
     name = [(BCMutableCollectionDetail *)self name];
@@ -196,7 +196,7 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    v8 = sub_100002660();
+    v8 = sub_100002660(v11);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1001C424C(self);

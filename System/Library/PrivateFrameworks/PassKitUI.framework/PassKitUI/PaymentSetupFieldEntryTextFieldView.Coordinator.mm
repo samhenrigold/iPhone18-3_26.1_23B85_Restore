@@ -34,6 +34,7 @@
   sub_1BD660EF8(fieldCopy, location, length, v9, v11);
   LOBYTE(length) = v14;
 
+  v11, v15, v16, v17, v18, v19, v20, v21;
   return length & 1;
 }
 

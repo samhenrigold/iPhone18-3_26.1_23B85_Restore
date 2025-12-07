@@ -375,7 +375,7 @@ void __53__SBSAElementContentProvider_preferencesFromContext___block_invoke(uint
 
     if (!v7)
     {
-      __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_cold_1();
+      __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_cold_1(a1, v5);
     }
   }
 
@@ -477,7 +477,7 @@ void __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_2(ui
 
     if (!v6)
     {
-      __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_2_cold_1();
+      __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_2_cold_1(a1, v4);
     }
   }
 
@@ -597,7 +597,7 @@ void __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription
 
     if (!v7)
     {
-      __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription_layoutTransition_transitionDescriptions_context___block_invoke_3_cold_1();
+      __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription_layoutTransition_transitionDescriptions_context___block_invoke_3_cold_1(a1, v5);
     }
   }
 
@@ -607,13 +607,13 @@ void __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription
   }
 
   v8 = [*(a1 + 40) initialElementContexts];
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription_layoutTransition_transitionDescriptions_context___block_invoke_4;
-  v65[3] = &unk_2783AD700;
-  v66 = *(a1 + 48);
-  v59 = v8;
-  v9 = [v8 bs_firstObjectPassingTest:v65];
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription_layoutTransition_transitionDescriptions_context___block_invoke_4;
+  v71[3] = &unk_2783AD700;
+  v72 = *(a1 + 48);
+  v65 = v8;
+  v9 = [v8 bs_firstObjectPassingTest:v71];
   v10 = [*(a1 + 56) isCollisionImminent];
   v11 = v9 != 0;
   v12 = [*(a1 + 64) viewControllerAppearState] != 0;
@@ -622,7 +622,7 @@ void __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription
   v15 = SBSAObjectInCollectionAssociatedWithElementIdentity(v13, v14, 0);
 
   [v15 bounds];
-  v58 = v15;
+  v64 = v15;
   [v15 center];
   SBUnintegralizedRectCenteredAboutPoint();
   v17 = v16;
@@ -630,307 +630,309 @@ void __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription
   v21 = v20;
   v23 = v22;
   [*(a1 + 80) inertContainerFrame];
-  LOBYTE(v13) = SBSARectApproximatelyEqualToRect();
+  v25 = v24;
+  v26.n128_f64[0] = v17;
+  LOBYTE(v13) = SBSARectApproximatelyEqualToRect(v26, v19, v21, v23, v25, v27, v28, v29, 0.01);
   [*(a1 + 80) inertContainerFrame];
-  v71.origin.x = v17;
-  v71.origin.y = v19;
-  v71.size.width = v21;
-  v71.size.height = v23;
-  v24 = (*(a1 + 64) == 0) | v13 | CGRectContainsRect(v67, v71);
-  v25 = [*(a1 + 56) lastChangingElementLayoutTransition];
-  v60 = [v25 elementWithIdentityWasOrIsSensorAttached:*(a1 + 48)];
+  v77.origin.x = v17;
+  v77.origin.y = v19;
+  v77.size.width = v21;
+  v77.size.height = v23;
+  v30 = (*(a1 + 64) == 0) | v13 | CGRectContainsRect(v73, v77);
+  v31 = [*(a1 + 56) lastChangingElementLayoutTransition];
+  v66 = [v31 elementWithIdentityWasOrIsSensorAttached:*(a1 + 48)];
 
   if (v11 && v12)
   {
-    v26 = 2;
+    v32 = 2;
   }
 
   else
   {
-    v26 = 1;
+    v32 = 1;
   }
 
   if (v11 && v12)
   {
-    v27 = 3;
+    v33 = 3;
   }
 
   else
   {
-    v27 = 0;
+    v33 = 0;
   }
 
-  if (v24)
+  if (v30)
   {
-    v28 = v27;
+    v34 = v33;
   }
 
   else
   {
-    v28 = v26;
+    v34 = v32;
   }
 
-  v29 = *(*(a1 + 32) + 48);
-  if (!v29)
+  v35 = *(*(a1 + 32) + 48);
+  if (!v35)
   {
     goto LABEL_27;
   }
 
-  if (v29 == -1)
+  if (v35 == -1)
   {
-    v30 = v10;
+    v36 = v10;
   }
 
   else
   {
-    v30 = 0;
+    v36 = 0;
   }
 
-  v31 = 1;
-  if ((v28 - 1) >= 2)
+  v37 = 1;
+  if ((v34 - 1) >= 2)
   {
-    v31 = -1;
+    v37 = -1;
   }
 
-  if ((v30 & 1) != 0 || v29 == v31)
+  if ((v36 & 1) != 0 || v35 == v37)
   {
 LABEL_27:
-    v32 = [*(a1 + 80) layoutDirection];
-    v33 = *(a1 + 64);
-    if (v33)
+    v38 = [*(a1 + 80) layoutDirection];
+    v39 = *(a1 + 64);
+    if (v39)
     {
-      v34 = [v33 layoutMode];
+      v40 = [v39 layoutMode];
       if (v9)
       {
 LABEL_29:
-        v35 = [v9 layoutMode];
+        v41 = [v9 layoutMode];
 LABEL_32:
-        v57 = v3;
-        v36 = [v7 interfaceElementIdentifier];
-        [v7 setAppearState:v28];
-        v37 = 0.0;
-        if (v60 && (!v34 || v35 != v34))
+        v63 = v3;
+        v42 = [v7 interfaceElementIdentifier];
+        [v7 setAppearState:v34];
+        v43 = 0.0;
+        if (v66 && (!v40 || v41 != v40))
         {
-          v37 = 1.0;
+          v43 = 1.0;
           if (*(*(a1 + 32) + 32))
           {
-            v37 = 0.0;
+            v43 = 0.0;
           }
         }
 
-        [v7 setSensorObscuringShadowProgress:v37];
+        [v7 setSensorObscuringShadowProgress:v43];
         (*(*(a1 + 88) + 16))();
-        if (v34 == 3)
+        if (v40 == 3)
         {
-          v38 = v10;
+          v44 = v10;
         }
 
         else
         {
-          v38 = 1;
+          v44 = 1;
         }
 
-        if (v34 == 2)
+        if (v40 == 2)
         {
-          v39 = v10;
-        }
-
-        else
-        {
-          v39 = 1;
-        }
-
-        if (v34 < 2)
-        {
-          v40 = 1;
+          v45 = v10;
         }
 
         else
         {
-          v40 = v10;
+          v45 = 1;
         }
 
-        if (v39)
+        if (v40 < 2)
         {
-          v41 = 1.0;
-        }
-
-        else
-        {
-          v41 = 0.0;
-        }
-
-        if (v39)
-        {
-          v42 = 0.0;
+          v46 = 1;
         }
 
         else
         {
-          v42 = 1.0;
-        }
-
-        [v7 setLeadingViewBlurProgress:v41];
-        (*(*(a1 + 88) + 16))();
-        [v7 setLeadingViewAlpha:v42];
-        (*(*(a1 + 88) + 16))();
-        if (v40)
-        {
-          v43 = 1.0;
-        }
-
-        else
-        {
-          v43 = 0.0;
-        }
-
-        if (v7)
-        {
-          [v7 leadingViewTransform];
-        }
-
-        else
-        {
-          v62 = 0u;
-          v63 = 0u;
-          v61 = 0u;
-        }
-
-        [*(a1 + 64) preferredLeadingBounds];
-        Width = CGRectGetWidth(v68);
-        SBSASquishedTransform(&v61, 1, v32 == 1, &v64, v43, Width);
-        [v7 setLeadingViewTransform:&v64];
-        (*(*(a1 + 88) + 16))();
-        v45 = v39 | ([*(a1 + 64) systemApertureLayoutCustomizingOptions] >> 1) & 1;
-        if (v45)
-        {
-          v46 = 1.0;
-        }
-
-        else
-        {
-          v46 = 0.0;
+          v46 = v10;
         }
 
         if (v45)
-        {
-          v47 = 0.0;
-        }
-
-        else
         {
           v47 = 1.0;
         }
 
-        [v7 setTrailingViewBlurProgress:v46];
+        else
+        {
+          v47 = 0.0;
+        }
+
+        if (v45)
+        {
+          v48 = 0.0;
+        }
+
+        else
+        {
+          v48 = 1.0;
+        }
+
+        [v7 setLeadingViewBlurProgress:v47];
         (*(*(a1 + 88) + 16))();
-        [v7 setTrailingViewAlpha:v47];
+        [v7 setLeadingViewAlpha:v48];
         (*(*(a1 + 88) + 16))();
+        if (v46)
+        {
+          v49 = 1.0;
+        }
+
+        else
+        {
+          v49 = 0.0;
+        }
+
         if (v7)
         {
-          [v7 trailingViewTransform];
+          objc_msgSend_leadingViewTransform(v7);
         }
 
         else
         {
-          v62 = 0u;
-          v63 = 0u;
-          v61 = 0u;
+          v68 = 0u;
+          v69 = 0u;
+          v67 = 0u;
         }
 
-        v48 = v34 < 2;
-        [*(a1 + 64) preferredTrailingBounds];
-        v49 = CGRectGetWidth(v69);
-        SBSASquishedTransform(&v61, 0, v32 == 1, &v64, v43, v49);
-        [v7 setTrailingViewTransform:&v64];
+        [*(a1 + 64) preferredLeadingBounds];
+        Width = CGRectGetWidth(v74);
+        SBSASquishedTransform(&v67, 1, v38 == 1, &v70, v49, Width);
+        [v7 setLeadingViewTransform:&v70];
         (*(*(a1 + 88) + 16))();
-        if (v34 == 1)
-        {
-          v50 = v10;
-        }
-
-        else
-        {
-          v50 = 1;
-        }
-
-        if (v50)
-        {
-          v51 = 1.0;
-        }
-
-        else
-        {
-          v51 = 0.0;
-        }
-
-        if (v50)
-        {
-          v52 = 0.0;
-        }
-
-        else
+        v51 = v45 | ([*(a1 + 64) systemApertureLayoutCustomizingOptions] >> 1) & 1;
+        if (v51)
         {
           v52 = 1.0;
         }
 
-        [v7 setMinimalViewBlurProgress:v51];
-        (*(*(a1 + 88) + 16))();
-        [v7 setMinimalViewAlpha:v52];
-        (*(*(a1 + 88) + 16))();
-        if ((v50 & v60 & (v48 | v10)) != 0)
+        else
         {
-          v53 = 1.0;
+          v52 = 0.0;
         }
 
-        else
+        if (v51)
         {
           v53 = 0.0;
         }
 
+        else
+        {
+          v53 = 1.0;
+        }
+
+        [v7 setTrailingViewBlurProgress:v52];
+        (*(*(a1 + 88) + 16))();
+        [v7 setTrailingViewAlpha:v53];
+        (*(*(a1 + 88) + 16))();
         if (v7)
         {
-          [v7 minimalViewTransform];
+          objc_msgSend_trailingViewTransform(v7);
         }
 
         else
         {
-          v62 = 0u;
-          v63 = 0u;
-          v61 = 0u;
+          v68 = 0u;
+          v69 = 0u;
+          v67 = 0u;
         }
 
-        v3 = v57;
+        v54 = v40 < 2;
+        [*(a1 + 64) preferredTrailingBounds];
+        v55 = CGRectGetWidth(v75);
+        SBSASquishedTransform(&v67, 0, v38 == 1, &v70, v49, v55);
+        [v7 setTrailingViewTransform:&v70];
+        (*(*(a1 + 88) + 16))();
+        if (v40 == 1)
+        {
+          v56 = v10;
+        }
+
+        else
+        {
+          v56 = 1;
+        }
+
+        if (v56)
+        {
+          v57 = 1.0;
+        }
+
+        else
+        {
+          v57 = 0.0;
+        }
+
+        if (v56)
+        {
+          v58 = 0.0;
+        }
+
+        else
+        {
+          v58 = 1.0;
+        }
+
+        [v7 setMinimalViewBlurProgress:v57];
+        (*(*(a1 + 88) + 16))();
+        [v7 setMinimalViewAlpha:v58];
+        (*(*(a1 + 88) + 16))();
+        if ((v56 & v66 & (v54 | v10)) != 0)
+        {
+          v59 = 1.0;
+        }
+
+        else
+        {
+          v59 = 0.0;
+        }
+
+        if (v7)
+        {
+          objc_msgSend_minimalViewTransform(v7);
+        }
+
+        else
+        {
+          v68 = 0u;
+          v69 = 0u;
+          v67 = 0u;
+        }
+
+        v3 = v63;
         [*(a1 + 64) preferredMinimalBounds];
-        v54 = CGRectGetWidth(v70);
-        SBSASquishedTransform(&v61, 1, v32 == 1, &v64, v53, v54);
-        [v7 setMinimalViewTransform:&v64];
+        v60 = CGRectGetWidth(v76);
+        SBSASquishedTransform(&v67, 1, v38 == 1, &v70, v59, v60);
+        [v7 setMinimalViewTransform:&v70];
         (*(*(a1 + 88) + 16))();
         SBSABehavesLikeCustom([v9 layoutMode], objc_msgSend(v9, "systemApertureCustomLayout"));
         SBSABehavesLikeCustom([*(a1 + 64) layoutMode], objc_msgSend(*(a1 + 64), "systemApertureCustomLayout"));
-        if (v38)
+        if (v44)
         {
-          v55 = 1.0;
+          v61 = 1.0;
         }
 
         else
         {
-          v55 = 0.0;
+          v61 = 0.0;
         }
 
-        if (v38)
+        if (v44)
         {
-          v56 = 0.0;
+          v62 = 0.0;
         }
 
         else
         {
-          v56 = 1.0;
+          v62 = 1.0;
         }
 
-        [v7 setCustomContentBlurProgress:v55];
+        [v7 setCustomContentBlurProgress:v61];
         (*(*(a1 + 88) + 16))();
-        [v7 setCustomContentAlpha:v56];
+        [v7 setCustomContentAlpha:v62];
         (*(*(a1 + 88) + 16))();
 
         goto LABEL_89;
@@ -939,14 +941,14 @@ LABEL_32:
 
     else
     {
-      v34 = 0;
+      v40 = 0;
       if (v9)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 0;
+    v41 = 0;
     goto LABEL_32;
   }
 
@@ -971,31 +973,31 @@ LABEL_89:
   [v8 handleFailureInMethod:a2 object:a3 file:@"SBSAElementContentProvider.m" lineNumber:97 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
-void __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_cold_1()
+void __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
-void __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_2_cold_1()
+void __53__SBSAElementContentProvider_preferencesFromContext___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
-void __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription_layoutTransition_transitionDescriptions_context___block_invoke_3_cold_1()
+void __120__SBSAElementContentProvider__updatedElementDescriptionFromDescription_layoutTransition_transitionDescriptions_context___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsaelementdes.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsaelementdes.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
 @end

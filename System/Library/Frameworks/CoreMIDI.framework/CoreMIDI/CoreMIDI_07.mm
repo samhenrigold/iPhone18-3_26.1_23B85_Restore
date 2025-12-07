@@ -1,3 +1,66 @@
+OSStatus MIDIPortDisconnectSource(MIDIPortRef port, MIDIEndpointRef source)
+{
+  v2 = *&source;
+  v3 = *&port;
+  *&v22[5] = *MEMORY[0x277D85DE8];
+  gMIDIClientLog();
+  v4 = gMIDIClientLog(void)::clilib;
+  if (os_log_type_enabled(gMIDIClientLog(void)::clilib, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136316162;
+    v16 = "MIDIClientLib.cpp";
+    v17 = 1024;
+    v18 = 836;
+    v19 = 2080;
+    v20 = "MIDIPortDisconnectSource";
+    v21 = 1024;
+    *v22 = v3;
+    v22[2] = 1024;
+    *&v22[3] = v2;
+    _os_log_impl(&dword_2371C2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d ->%s 0x%x 0x%x", buf, 0x28u);
+  }
+
+  if (gInMIDIServer)
+  {
+    v6 = _MIDIPortDisconnectSource(v3, v2);
+  }
+
+  else
+  {
+    v13 = 0;
+    v7 = MIDIProcess::CheckInitialization(&v13, v5);
+    v8 = v13;
+    if (v13)
+    {
+      goto LABEL_8;
+    }
+
+    LocalMIDIReceiverList::ReceiverConnectEndpoint((v7 + 21), v3, v2, 0, 0);
+    v10 = ClientInterface::global(v9);
+    v6 = ((*v10)[7])(v10, v3, v2);
+  }
+
+  v8 = v6;
+LABEL_8:
+  gMIDIClientLog();
+  v11 = gMIDIClientLog(void)::clilib;
+  if (os_log_type_enabled(gMIDIClientLog(void)::clilib, OS_LOG_TYPE_DEBUG))
+  {
+    ErrorFormatter::ErrorFormatter(v14, v8);
+    *buf = 136315906;
+    v16 = "MIDIClientLib.cpp";
+    v17 = 1024;
+    v18 = 844;
+    v19 = 2080;
+    v20 = "MIDIPortDisconnectSource";
+    v21 = 2080;
+    *v22 = v14;
+    _os_log_impl(&dword_2371C2000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d <-%s%s", buf, 0x26u);
+  }
+
+  return v8;
+}
+
 OSStatus MIDIDestinationCreate(MIDIClientRef client, CFStringRef name, MIDIReadProc readProc, void *refCon, MIDIEndpointRef *outDest)
 {
   v6[0] = MEMORY[0x277D85DD0];
@@ -9,7 +72,7 @@ OSStatus MIDIDestinationCreate(MIDIClientRef client, CFStringRef name, MIDIReadP
   return MIDIDestinationCreateInternal(*&client, name, 1, outDest, v6, 0);
 }
 
-uint64_t MIDIDestinationCreateInternal(MIDIServer *a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6)
+uint64_t MIDIDestinationCreateInternal(MIDIServer *a1, const __CFString *a2, uint64_t a3, int *a4, const void *a5, const void *a6)
 {
   v47 = *MEMORY[0x277D85DE8];
   gMIDIClientLog();
@@ -37,7 +100,7 @@ uint64_t MIDIDestinationCreateInternal(MIDIServer *a1, uint64_t a2, uint64_t a3,
 
   if (gInMIDIServer)
   {
-    v14 = _MIDIDestinationCreate(a1);
+    v14 = _MIDIDestinationCreate(a1, a2, a3, a4, a5, a6);
     if (!a4)
     {
 LABEL_25:
@@ -117,7 +180,7 @@ LABEL_18:
     ObjectTreeCache::Invalidate((v22 + 36));
     if (!v14)
     {
-      LocalMIDIReceiverList::Add((v22 + 21));
+      LocalMIDIReceiverList::Add((v22 + 21), a1, *a4, a3, a5, a6);
     }
   }
 
@@ -172,7 +235,7 @@ OSStatus MIDISourceCreateWithProtocol(MIDIClientRef client, CFStringRef name, MI
 
   if (gInMIDIServer)
   {
-    v10 = _MIDISourceCreate(v7);
+    v10 = _MIDISourceCreate(v7, name, v5, outSrc);
     if (!outSrc)
     {
 LABEL_24:
@@ -300,7 +363,7 @@ OSStatus MIDIEndpointDispose(MIDIEndpointRef endpt)
 
   if (gInMIDIServer)
   {
-    v4 = _MIDIEndpointDispose(v1);
+    v4 = _MIDIEndpointDispose(v1, v3);
   }
 
   else
@@ -537,7 +600,7 @@ uint64_t MIDISetupInstall_Priv(MIDIServer *a1, int *a2)
   if (gInMIDIServer)
   {
 
-    return _MIDISetupInstall(a1);
+    return _MIDISetupInstall(a1, a2);
   }
 
   else
@@ -920,7 +983,7 @@ OSStatus MIDISetupAddExternalDevice(MIDIDeviceRef device)
 
   if (gInMIDIServer)
   {
-    v4 = _MIDISetupAddExternalDevice(v1);
+    v4 = _MIDISetupAddExternalDevice(v1, v3);
   }
 
   else
@@ -977,7 +1040,7 @@ OSStatus MIDISetupRemoveExternalDevice(MIDIDeviceRef device)
 
   if (gInMIDIServer)
   {
-    v4 = _MIDISetupRemoveExternalDevice(v1);
+    v4 = _MIDISetupRemoveExternalDevice(v1, v3);
   }
 
   else
@@ -1034,7 +1097,7 @@ OSStatus MIDIRestart(void)
 
   if (gInMIDIServer)
   {
-    v3 = _MIDIRestart(v1);
+    v3 = _MIDIRestart(v1, v2);
   }
 
   else
@@ -1206,7 +1269,7 @@ OSStatus MIDISetupAddDevice(MIDIDeviceRef device)
 
   if (gInMIDIServer)
   {
-    v4 = _MIDISetupAddDevice(v1);
+    v4 = _MIDISetupAddDevice(v1, v3);
   }
 
   else
@@ -1263,7 +1326,7 @@ OSStatus MIDISetupRemoveDevice(MIDIDeviceRef device)
 
   if (gInMIDIServer)
   {
-    v4 = _MIDISetupRemoveDevice(v1);
+    v4 = _MIDISetupRemoveDevice(v1, v3);
   }
 
   else
@@ -1488,7 +1551,7 @@ OSStatus MIDIThruConnectionDispose(MIDIThruConnectionRef connection)
 
   if (gInMIDIServer)
   {
-    v4 = _MIDIThruConnectionDispose(v1);
+    v4 = _MIDIThruConnectionDispose(v1, v3);
   }
 
   else
@@ -2135,7 +2198,7 @@ void UMPCIObjectDispose(MIDIServer *a1)
 
   if (gInMIDIServer)
   {
-    v4 = _UMPCIObjectDispose(a1);
+    v4 = _UMPCIObjectDispose(a1, v3);
   }
 
   else
@@ -2300,7 +2363,7 @@ uint64_t UMPCIGlobalState(MIDIServer *a1, int *a2)
   v19 = *MEMORY[0x277D85DE8];
   if (gInMIDIServer)
   {
-    v3 = _UMPCIGlobalState(a1);
+    v3 = _UMPCIGlobalState(a1, a2);
   }
 
   else
@@ -2343,7 +2406,7 @@ uint64_t UMPCIDiscover(MIDIServer *a1, int *a2)
   v18 = *MEMORY[0x277D85DE8];
   if (gInMIDIServer)
   {
-    v2 = _UMPCIDiscover(a1);
+    v2 = _UMPCIDiscover(a1, a2);
   }
 
   else
@@ -2581,16 +2644,16 @@ uint64_t Scheduler::SchedulePacket(uint64_t this, void *a2, unsigned int a3, MID
   return this;
 }
 
-void sub_23724AD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23724AD7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  *(&v4 + 1) = a3;
-  *&v4 = 0;
-  v5 = v4;
+  va_start(va, a5);
+  *(&v6 + 1) = a5;
+  *&v6 = 0;
+  v7 = v6;
   CADeprecated::CAMutex::Locker::~Locker(va);
-  if (v5)
+  if (v7)
   {
-    (*(&v5 + 1))();
+    (*(&v7 + 1))();
   }
 
   _Unwind_Resume(a1);
@@ -2739,7 +2802,7 @@ void *std::__tree<std::__value_type<unsigned long long,ScheduledEvent>,std::__ma
     v5 = a2;
     do
     {
-      v4 = v5[2];
+      v4 = *(v5 + 16);
       v6 = *v4 == v5;
       v5 = v4;
     }
@@ -2942,25 +3005,25 @@ void Scheduler::FlushAllOutput(Scheduler *this)
   }
 }
 
-void sub_23724B6F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23724B6F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   FlushManager::~FlushManager(va);
   CADeprecated::CAMutex::Locker::~Locker(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t FlushManagerBase::InspectEvent(uint64_t result, int a2, uint64_t a3)
+void FlushManagerBase::InspectEvent(void *a1, int a2, uint64_t a3)
 {
-  for (i = *(result + 8); ; ++i)
+  for (i = a1[1]; ; ++i)
   {
-    if (i == *(result + 16))
+    if (i == a1[2])
     {
       operator new();
     }
@@ -3009,48 +3072,38 @@ uint64_t FlushManagerBase::InspectEvent(uint64_t result, int a2, uint64_t a3)
           v18 = WORD1(v14) & 0xF;
           if (v17 == 8 || (v17 == 9 ? (v19 = v16 == 0) : (v19 = 0), v19))
           {
-            v20 = 1 << (BYTE1(v14) & 7);
-            result = (v14 >> 11) & 0xF;
-            *(&v9[5 * v18] + result) |= v20;
+            *(&v9[5 * v18] + ((v14 >> 11) & 0xF)) |= 1 << (BYTE1(v14) & 7);
           }
 
           else if (v17 == 14)
           {
-            result = &v9[5 * v18];
-            *(result + 17) = 1;
+            BYTE1(v9[5 * v18 + 4]) = 1;
           }
 
-          else
+          else if ((*v13 & 0x7F00) == 0x4000 && v17 == 11)
           {
-            result = v14 & 0x7F00;
-            if (result == 0x4000 && v17 == 11)
-            {
-              result = &v9[5 * v18];
-              *(result + 16) = 1;
-            }
+            LOBYTE(v9[5 * v18 + 4]) = 1;
           }
 
           v13 += MIDI::UniversalPacket::word_sizes[v15];
         }
 
         while (v13 < v12);
-        v21 = *(v8 + 8);
+        v20 = *(v8 + 8);
         v6 = *(a3 + 4);
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      v8 = v10 + 4 * v21;
+      v8 = v10 + 4 * v20;
       ++v7;
     }
 
     while (v7 < v6);
   }
-
-  return result;
 }
 
 void Scheduler::FlushEndpoint(Scheduler *this, int a2)
@@ -3121,15 +3174,15 @@ void Scheduler::FlushEndpoint(Scheduler *this, int a2)
   }
 }
 
-void sub_23724BAEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23724BAEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   FlushManager::~FlushManager(va);
   CADeprecated::CAMutex::Locker::~Locker(va1);
   _Unwind_Resume(a1);
@@ -6742,13 +6795,13 @@ LABEL_33:
   return v5;
 }
 
-void sub_23725381C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23725381C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   IPCBufferReader::~IPCBufferReader(va1);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
@@ -6952,9 +7005,9 @@ LABEL_30:
   return v8;
 }
 
-void sub_237253C4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237253C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -7345,7 +7398,7 @@ LABEL_2:
   return v7;
 }
 
-uint64_t MIGClient::MIDIDestinationCreateInternal(MIGClient *this, int a2, CFStringRef theString, MIDIProtocolID a4, unsigned int *a5)
+uint64_t MIGClient::MIDIDestinationCreateInternal(MIGClient *this, mach_port_t a2, CFStringRef theString, mach_port_name_t a4, unsigned int *a5)
 {
   v52 = *MEMORY[0x277D85DE8];
   LODWORD(v19[0]) = 0;
@@ -7404,7 +7457,8 @@ uint64_t MIGClient::MIDIDestinationCreateInternal(MIGClient *this, int a2, CFStr
   v13 = (v12 + 3) & 0x7FC;
   *&msg[v13 + 40] = a4;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v11);
+  *&msg[8] = v11;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F4A00000000;
   if (MEMORY[0x28223BE58])
@@ -7509,14 +7563,14 @@ LABEL_32:
   return v9;
 }
 
-void sub_2372547A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372547A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MIGClient::MIDIInputPortCreateInternal(MIGClient *this, int a2, CFStringRef theString, MIDIProtocolID a4, unsigned int *a5)
+uint64_t MIGClient::MIDIInputPortCreateInternal(MIGClient *this, mach_port_t a2, CFStringRef theString, mach_port_name_t a4, unsigned int *a5)
 {
   v52 = *MEMORY[0x277D85DE8];
   LODWORD(v19[0]) = 0;
@@ -7575,7 +7629,8 @@ uint64_t MIGClient::MIDIInputPortCreateInternal(MIGClient *this, int a2, CFStrin
   v13 = (v12 + 3) & 0x7FC;
   *&msg[v13 + 40] = a4;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v11);
+  *&msg[8] = v11;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F4400000000;
   if (MEMORY[0x28223BE58])
@@ -7680,9 +7735,9 @@ LABEL_32:
   return v9;
 }
 
-void sub_237254A94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237254A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
@@ -7814,9 +7869,9 @@ LABEL_2:
   return v5;
 }
 
-void sub_237254D04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237254D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
@@ -8281,13 +8336,13 @@ LABEL_33:
   return v5;
 }
 
-void sub_237255580(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237255580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   IPCBufferReader::~IPCBufferReader(va1);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
@@ -8498,9 +8553,9 @@ LABEL_29:
   return v10;
 }
 
-void sub_237255A44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237255A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferReader::~IPCBufferReader(va);
   _Unwind_Resume(a1);
 }
@@ -8629,36 +8684,40 @@ void sub_237255D38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIGClient::MIDISetupRemoveDevice(MIGClient *this, int a2)
+uint64_t MIGClient::MIDISetupRemoveDevice(MIGClient *this, uint64_t a2)
 {
+  v2 = a2;
   v3 = MIDIProcess::defaultInstance(this);
   v4 = *((**v3)(v3) + 468);
 
-  return MIDIClient_SetupRemoveDevice(v4, a2, 0);
+  return MIDIClient_SetupRemoveDevice(v4, v2, 0);
 }
 
-uint64_t MIGClient::MIDISetupAddDevice(MIGClient *this, int a2)
+uint64_t MIGClient::MIDISetupAddDevice(MIGClient *this, uint64_t a2)
 {
+  v2 = a2;
   v3 = MIDIProcess::defaultInstance(this);
   v4 = *((**v3)(v3) + 468);
 
-  return MIDIClient_SetupAddDevice(v4, a2, 0);
+  return MIDIClient_SetupAddDevice(v4, v2, 0);
 }
 
-uint64_t MIGClient::MIDISetupRemoveExternalDevice(MIGClient *this, int a2)
+uint64_t MIGClient::MIDISetupRemoveExternalDevice(MIGClient *this, uint64_t a2)
 {
+  v2 = a2;
   v3 = MIDIProcess::defaultInstance(this);
   v4 = *((**v3)(v3) + 468);
 
-  return MIDIClient_SetupRemoveDevice(v4, a2, 1);
+  return MIDIClient_SetupRemoveDevice(v4, v2, 1);
 }
 
-uint64_t MIGClient::MIDISetupAddExternalDevice(MIGClient *this, int a2)
+uint64_t MIGClient::MIDISetupAddExternalDevice(MIGClient *this, uint64_t a2)
 {
+  v2 = a2;
   v3 = MIDIProcess::defaultInstance(this);
   v4 = *((**v3)(v3) + 468);
 
-  return MIDIClient_SetupAddDevice(v4, a2, 1);
+  return MIDIClient_SetupAddDevice(v4, v2, 1);
 }
 
 uint64_t MIGClient::MIDIEntityAddOrRemoveEndpoints(MIGClient *this, unsigned int a2, int a3, int a4)
@@ -8704,7 +8763,7 @@ uint64_t MIGClient::MIDIEntityAddOrRemoveEndpoints(MIGClient *this, unsigned int
       else if (v15.msgh_id == 8133)
       {
         v13 = 4294966996;
-        if ((v15.msgh_bits & 0x80000000) == 0 && *&v15.msgh_size == 36)
+        if ((v15.msgh_bits & 0x80000000) == 0 && v15.msgh_size == 36 && !v15.msgh_remote_port)
         {
           v13 = v17;
           if (!v17)
@@ -8719,7 +8778,7 @@ uint64_t MIGClient::MIDIEntityAddOrRemoveEndpoints(MIGClient *this, unsigned int
         v13 = 4294966995;
       }
 
-LABEL_20:
+LABEL_21:
       mach_msg_destroy(&v15);
       return v13;
     }
@@ -8735,7 +8794,7 @@ LABEL_20:
       mach_port_deallocate(*MEMORY[0x277D85F48], v15.msgh_local_port);
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   return v12;
@@ -8823,7 +8882,7 @@ LABEL_21:
   return v10;
 }
 
-uint64_t MIGClient::MIDIDeviceNewEntity(MIGClient *this, int a2, CFStringRef theString, MIDIProtocolID a4, int a5, int a6, int a7, unsigned int *a8)
+uint64_t MIGClient::MIDIDeviceNewEntity(MIGClient *this, mach_port_t a2, CFStringRef theString, MIDIProtocolID a4, int a5, int a6, int a7, unsigned int *a8)
 {
   v59 = *MEMORY[0x277D85DE8];
   LODWORD(v26[0]) = 0;
@@ -8886,7 +8945,8 @@ uint64_t MIGClient::MIDIDeviceNewEntity(MIGClient *this, int a2, CFStringRef the
   v20[12] = a6;
   v20[13] = a7;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v17);
+  *&msg[8] = v17;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F5F00000000;
   if (MEMORY[0x28223BE58])
@@ -8991,9 +9051,9 @@ LABEL_32:
   return v15;
 }
 
-void sub_237256574(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237256574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IPCBufferWriter::~IPCBufferWriter(va);
   _Unwind_Resume(a1);
 }
@@ -9077,7 +9137,8 @@ uint64_t MIGClient::MIDIExternalDeviceCreate(MIGClient *this, const __CFString *
   memcpy(v20 + 556, v15, v16);
   *(v20 + 138) = v16;
   reply_port = mig_get_reply_port();
-  *&msg[8] = __PAIR64__(reply_port, v11);
+  *&msg[8] = v11;
+  *&msg[12] = reply_port;
   *msg = 5395;
   *&msg[16] = 0x1F5E00000000;
   if (MEMORY[0x28223BE58])
@@ -9184,18 +9245,18 @@ LABEL_8:
   return v8;
 }
 
-void sub_237256928(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237256928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void *);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, void *);
   v10 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   IPCBufferWriter::~IPCBufferWriter(va);
   IPCBufferWriter::~IPCBufferWriter(va1);
   IPCBufferWriter::~IPCBufferWriter(va2);
@@ -9699,7 +9760,7 @@ LABEL_27:
   return v12;
 }
 
-uint64_t MIGClient::MIDIObjectRemoveProperty(MIGClient *this, int a2, CFStringRef theString)
+uint64_t MIGClient::MIDIObjectRemoveProperty(MIGClient *this, mach_port_t a2, CFStringRef theString)
 {
   v47 = *MEMORY[0x277D85DE8];
   LODWORD(v14[0]) = 0;
@@ -9747,13 +9808,14 @@ uint64_t MIGClient::MIDIObjectRemoveProperty(MIGClient *this, int a2, CFStringRe
     if (v15 > 0x200)
     {
       v5 = 4294966989;
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     __memcpy_chk();
     DWORD1(v17) = v8;
     reply_port = mig_get_reply_port();
-    *&msg[8] = __PAIR64__(reply_port, v7);
+    *&msg[8] = v7;
+    *&msg[12] = reply_port;
     *msg = 5395;
     *&msg[16] = 0x1F5600000000;
     if (MEMORY[0x28223BE58])
@@ -9786,13 +9848,13 @@ uint64_t MIGClient::MIDIObjectRemoveProperty(MIGClient *this, int a2, CFStringRe
         else if (*&msg[20] == 8122)
         {
           v12 = 4294966996;
-          if ((*msg & 0x80000000) == 0 && *&msg[4] == 36)
+          if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
           {
             v12 = v17;
             if (!v17)
             {
               v5 = 0;
-              goto LABEL_24;
+              goto LABEL_25;
             }
           }
         }
@@ -9802,10 +9864,10 @@ uint64_t MIGClient::MIDIObjectRemoveProperty(MIGClient *this, int a2, CFStringRe
           v12 = 4294966995;
         }
 
-LABEL_23:
+LABEL_24:
         mach_msg_destroy(msg);
         v5 = v12;
-        goto LABEL_24;
+        goto LABEL_25;
       }
 
       mig_dealloc_reply_port(*&msg[12]);
@@ -9814,7 +9876,7 @@ LABEL_23:
     v12 = 268435460;
     if (v5 != 268435460)
     {
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -9822,139 +9884,10 @@ LABEL_23:
       mach_port_deallocate(*MEMORY[0x277D85F48], *&msg[12]);
     }
 
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
-LABEL_24:
+LABEL_25:
   IPCBufferWriter::~IPCBufferWriter(v14);
   return v5;
-}
-
-void sub_237257500(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  IPCBufferWriter::~IPCBufferWriter(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t MIGClient::MIDIObjectGetProperties(MIGClient *this, int a2, const UInt8 **a3, int a4)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  v7 = MIDIProcess::defaultInstance(this);
-  v8 = *((**v7)(v7) + 468);
-  memset(&msg[20], 0, 44);
-  *&msg[4] = 0u;
-  *&msg[24] = *MEMORY[0x277D85EF8];
-  *&msg[32] = a2;
-  *&msg[36] = a4;
-  reply_port = mig_get_reply_port();
-  *&msg[8] = v8;
-  *&msg[12] = reply_port;
-  *msg = 5395;
-  *&msg[16] = 0x1F5500000000;
-  if (MEMORY[0x28223BE58])
-  {
-    voucher_mach_msg_set(msg);
-    v10 = *&msg[12];
-  }
-
-  else
-  {
-    v10 = reply_port;
-  }
-
-  v11 = mach_msg(msg, 275, 0x28u, 0x40u, v10, 0x493E0u, 0);
-  v12 = v11;
-  if ((v11 - 268435458) <= 0xE && ((1 << (v11 - 2)) & 0x4003) != 0)
-  {
-    mig_put_reply_port(*&msg[12]);
-  }
-
-  else
-  {
-    if (!v11)
-    {
-      if (*&msg[20] == 71)
-      {
-        v15 = 4294966988;
-      }
-
-      else if (*&msg[20] == 8121)
-      {
-        if ((*msg & 0x80000000) == 0)
-        {
-          if (*&msg[4] == 36)
-          {
-            v15 = 4294966996;
-            if (*&msg[32])
-            {
-              if (*&msg[8])
-              {
-                v15 = 4294966996;
-              }
-
-              else
-              {
-                v15 = *&msg[32];
-              }
-            }
-          }
-
-          else
-          {
-            v15 = 4294966996;
-          }
-
-          goto LABEL_31;
-        }
-
-        v15 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && msg[39] == 1)
-        {
-          v13 = *&msg[40];
-          if (*&msg[40] == *&msg[52])
-          {
-            v14 = *&msg[28];
-LABEL_21:
-            *msg = v14;
-            *&msg[8] = v13;
-            *&msg[12] = 1;
-            *&msg[16] = 0;
-            *a3 = IPCBufferReader::ReadCFPropertyList(msg, 1);
-            IPCBufferReader::~IPCBufferReader(msg);
-            return 0;
-          }
-        }
-      }
-
-      else
-      {
-        v15 = 4294966995;
-      }
-
-LABEL_31:
-      mach_msg_destroy(msg);
-      return v15;
-    }
-
-    mig_dealloc_reply_port(*&msg[12]);
-  }
-
-  v15 = 268435460;
-  if (v12 == 268435460)
-  {
-    if ((*msg & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x277D85F48], *&msg[12]);
-    }
-
-    goto LABEL_31;
-  }
-
-  if (!v12)
-  {
-    goto LABEL_21;
-  }
-
-  return v12;
 }

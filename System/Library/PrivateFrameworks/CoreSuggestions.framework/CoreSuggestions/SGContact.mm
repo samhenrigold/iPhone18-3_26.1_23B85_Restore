@@ -45,13 +45,13 @@
 
 - (void)enumerateDetailsWithBlock:(id)block
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   context = objc_autoreleasePoolPush();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   emailAddresses = self->_emailAddresses;
   phones = self->_phones;
   if (!phones)
@@ -64,48 +64,48 @@
     emailAddresses = MEMORY[0x1E695E0F0];
   }
 
-  v32[0] = phones;
-  v32[1] = emailAddresses;
+  v31[0] = phones;
+  v31[1] = emailAddresses;
   selfCopy = self;
-  v33 = vbslq_s8(vceqzq_s64(*&self->_postalAddresses), vdupq_n_s64(MEMORY[0x1E695E0F0]), *&self->_postalAddresses);
-  obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
-  v22 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
-  if (v22)
+  v32 = vbslq_s8(vceqzq_s64(*&self->_postalAddresses), vdupq_n_s64(MEMORY[0x1E695E0F0]), *&self->_postalAddresses);
+  obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
+  v21 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+  if (v21)
   {
-    v21 = *v28;
+    v20 = *v27;
     do
     {
       v7 = 0;
       do
       {
-        if (*v28 != v21)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * v7);
+        v8 = *(*(&v26 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v24;
+          v13 = *v23;
           do
           {
             v14 = 0;
             do
             {
-              if (*v24 != v13)
+              if (*v23 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v23 + 1) + 8 * v14);
+              v15 = *(*(&v22 + 1) + 8 * v14);
               v16 = objc_autoreleasePoolPush();
               blockCopy[2](blockCopy, v15);
               objc_autoreleasePoolPop(v16);
@@ -113,7 +113,7 @@
             }
 
             while (v12 != v14);
-            v12 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v12);
@@ -123,11 +123,11 @@
         ++v7;
       }
 
-      while (v7 != v22);
-      v22 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
+      while (v7 != v21);
+      v21 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   if (selfCopy->_birthday)
@@ -136,8 +136,6 @@
   }
 
   objc_autoreleasePoolPop(context);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)detailForRecordId:(id)id
@@ -253,12 +251,9 @@ void __31__SGContact_detailForRecordId___block_invoke_2(uint64_t a1, void *a2)
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_recordId;
-  v5 = *&self->_postalAddresses;
-  v6 = [v3 initWithFormat:@"<SGContact recordId:%@\n name='%@'\n  emails: %@\n  phones: %@\n  postal addresses: %@\n  social profiles: %@\n  birthday: %@\n  photo: %@\n significance: %lu\n>", self->_recordId, self->_name, self->_emailAddresses, self->_phones, self->_postalAddresses, self->_socialProfiles, self->_birthday, self->_photoPath, self->_significance];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<SGContact recordId:%@\n name='%@'\n  emails: %@\n  phones: %@\n  postal addresses: %@\n  social profiles: %@\n  birthday: %@\n  photo: %@\n significance: %lu\n>", self->_recordId, self->_name, self->_emailAddresses, self->_phones, self->_postalAddresses, self->_socialProfiles, self->_birthday, self->_photoPath, self->_significance];
 
-  return v6;
+  return v2;
 }
 
 - (unint64_t)richness

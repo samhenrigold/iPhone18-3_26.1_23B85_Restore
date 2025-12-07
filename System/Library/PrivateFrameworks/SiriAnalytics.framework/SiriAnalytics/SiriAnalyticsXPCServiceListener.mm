@@ -7,7 +7,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   processIdentifier = [connectionCopy processIdentifier];
   if (SiriAnalyticsLoggingInit_once != -1)
@@ -19,11 +19,11 @@
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v21 = "[SiriAnalyticsXPCServiceListener listener:shouldAcceptNewConnection:]";
-    v22 = 2112;
-    v23 = connectionCopy;
-    v24 = 1024;
-    v25 = processIdentifier;
+    v20 = "[SiriAnalyticsXPCServiceListener listener:shouldAcceptNewConnection:]";
+    v21 = 2112;
+    v22 = connectionCopy;
+    v23 = 1024;
+    v24 = processIdentifier;
     _os_log_impl(&dword_1D9863000, v7, OS_LOG_TYPE_INFO, "%s %@ Siri Analytics Connection Connected (pid=%d])", buf, 0x1Cu);
   }
 
@@ -37,28 +37,27 @@
   [connectionCopy setExportedInterface:v13];
 
   [connectionCopy setExportedObject:v12];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___block_invoke;
-  v18[3] = &__block_descriptor_36_e5_v8__0l;
-  v19 = processIdentifier;
-  [connectionCopy setInvalidationHandler:v18];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___block_invoke_2;
-  v16[3] = &__block_descriptor_36_e5_v8__0l;
-  v17 = processIdentifier;
-  [connectionCopy setInterruptionHandler:v16];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___block_invoke;
+  v17[3] = &__block_descriptor_36_e5_v8__0l;
+  v18 = processIdentifier;
+  [connectionCopy setInvalidationHandler:v17];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___block_invoke_2;
+  v15[3] = &__block_descriptor_36_e5_v8__0l;
+  v16 = processIdentifier;
+  [connectionCopy setInterruptionHandler:v15];
   [connectionCopy _setQueue:self->_queue];
   [connectionCopy resume];
 
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 void __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -68,19 +67,17 @@ void __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 136315394;
-    v6 = "[SiriAnalyticsXPCServiceListener listener:shouldAcceptNewConnection:]_block_invoke";
-    v7 = 1024;
-    v8 = v3;
-    _os_log_impl(&dword_1D9863000, v2, OS_LOG_TYPE_INFO, "%s Siri Analytics Connection Invalidated (pid=%d)", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[SiriAnalyticsXPCServiceListener listener:shouldAcceptNewConnection:]_block_invoke";
+    v6 = 1024;
+    v7 = v3;
+    _os_log_impl(&dword_1D9863000, v2, OS_LOG_TYPE_INFO, "%s Siri Analytics Connection Invalidated (pid=%d)", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -90,14 +87,12 @@ void __70__SiriAnalyticsXPCServiceListener_listener_shouldAcceptNewConnection___
   if (os_log_type_enabled(SiriAnalyticsLogContextXPC, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 136315394;
-    v6 = "[SiriAnalyticsXPCServiceListener listener:shouldAcceptNewConnection:]_block_invoke";
-    v7 = 1024;
-    v8 = v3;
-    _os_log_impl(&dword_1D9863000, v2, OS_LOG_TYPE_INFO, "%s Siri Analytics Connection Interrupted (pid=%d)", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[SiriAnalyticsXPCServiceListener listener:shouldAcceptNewConnection:]_block_invoke";
+    v6 = 1024;
+    v7 = v3;
+    _os_log_impl(&dword_1D9863000, v2, OS_LOG_TYPE_INFO, "%s Siri Analytics Connection Interrupted (pid=%d)", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (SiriAnalyticsXPCServiceListener)initWithMachServiceName:(id)name entitlementsKey:(id)key queue:(id)queue delegate:(id)delegate

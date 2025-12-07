@@ -47,67 +47,67 @@
 
 - (HDCodableStateOfMind)codableRepresentationForSync
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDCodableStateOfMind);
-  v26.receiver = self;
-  v26.super_class = &off_283D44F30;
-  v3 = objc_msgSendSuper2(&v26, sel_codableRepresentationForSync);
+  v25.receiver = self;
+  v25.super_class = &off_283D44F30;
+  v3 = objc_msgSendSuper2(&v25, sel_codableRepresentationForSync);
   [(HDCodableStateOfMind *)v2 setSample:v3];
 
   -[HDCodableStateOfMind setReflectiveInterval:](v2, "setReflectiveInterval:", [self reflectiveInterval]);
   [self valence];
   [(HDCodableStateOfMind *)v2 setValence:?];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   labels = [self labels];
-  v5 = [labels countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v5 = [labels countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(labels);
         }
 
-        -[HDCodableStateOfMind addLabels:](v2, "addLabels:", [*(*(&v22 + 1) + 8 * i) longLongValue]);
+        -[HDCodableStateOfMind addLabels:](v2, "addLabels:", [*(*(&v21 + 1) + 8 * i) longLongValue]);
       }
 
-      v6 = [labels countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v6 = [labels countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   domains = [self domains];
-  v10 = [domains countByEnumeratingWithState:&v18 objects:v27 count:16];
+  v10 = [domains countByEnumeratingWithState:&v17 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(domains);
         }
 
-        -[HDCodableStateOfMind addDomains:](v2, "addDomains:", [*(*(&v18 + 1) + 8 * j) longLongValue]);
+        -[HDCodableStateOfMind addDomains:](v2, "addDomains:", [*(*(&v17 + 1) + 8 * j) longLongValue]);
       }
 
-      v11 = [domains countByEnumeratingWithState:&v18 objects:v27 count:16];
+      v11 = [domains countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
     while (v11);
@@ -120,8 +120,6 @@
     context2 = [self context];
     [(HDCodableStateOfMind *)v2 setContext:context2];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

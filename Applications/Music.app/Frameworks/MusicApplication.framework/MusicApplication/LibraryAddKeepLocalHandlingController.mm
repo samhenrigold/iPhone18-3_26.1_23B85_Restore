@@ -14,10 +14,10 @@
 
 + (id)requiredPropertiesForModelClass:(Class)class
 {
-  swift_getObjCClassMetadata();
-  v3 = sub_2BAFF8();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  v4 = sub_2BAFF8(ObjCClassMetadata);
 
-  return v3;
+  return v4;
 }
 
 @end

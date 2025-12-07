@@ -1,5 +1,4 @@
 @interface MPSCPUAccelerationStructure
-- (_MPSAxisAlignedBoundingBox)boundingBox;
 - (id).cxx_construct;
 - (void)dealloc;
 - (void)rebuildWithDescriptor:(id)descriptor;
@@ -7,13 +6,6 @@
 @end
 
 @implementation MPSCPUAccelerationStructure
-
-- (_MPSAxisAlignedBoundingBox)boundingBox
-{
-  min = self[1].min;
-  max = self[1].max;
-  return self;
-}
 
 - (void)dealloc
 {
@@ -32,138 +24,136 @@
 - (void)rebuildWithDescriptor:(id)descriptor
 {
   v5 = sub_239E05F90();
-  objc_msgSend_rebuildWithDescriptor_queue_(self, v6, descriptor, v5, v7);
+  objc_msgSend_rebuildWithDescriptor_queue_(self, v6, descriptor, v5);
 
   dispatch_release(v5);
 }
 
 - (void)rebuildWithDescriptor:(id)descriptor queue:(id)queue
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   self->_branchingFactor = 4;
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  if (!objc_msgSend_isSubclassOfClass_(v7, v9, v8, v10, v11))
+  if (!objc_msgSend_isSubclassOfClass_(v7, v9, v8))
   {
-    v86 = 3;
-    v87 = 0x3727C5AC3F000000;
-    v88 = xmmword_239E26D40;
-    v89 = 0x1000000010;
-    v90 = 4;
-    v85 = &unk_284D08698;
+    v63 = 3;
+    v64 = 0x3727C5AC3F000000;
+    v65 = xmmword_239E26D40;
+    v66 = 0x1000000010;
+    v67 = 4;
+    v62 = &unk_284D08698;
     self->_instancing = 1;
-    self->_identityTransforms = objc_msgSend_transformType(descriptor, v12, v13, v14, v15) == 1;
-    v48 = objc_msgSend_transformData(descriptor, v44, v45, v46, v47);
-    v53 = objc_msgSend_transformType(descriptor, v49, v50, v51, v52);
-    v58 = objc_msgSend_instanceData(descriptor, v54, v55, v56, v57);
-    v63 = objc_msgSend_instanceCount(descriptor, v59, v60, v61, v62);
-    sub_239E0D774(&v85, v48, v53, v58, v63, queue, &self->_boundingBox);
+    self->_identityTransforms = objc_msgSend_transformType(descriptor, v10, v11) == 1;
+    v32 = objc_msgSend_transformData(descriptor, v30, v31);
+    v35 = objc_msgSend_transformType(descriptor, v33, v34);
+    v38 = objc_msgSend_instanceData(descriptor, v36, v37);
+    v41 = objc_msgSend_instanceCount(descriptor, v39, v40);
+    sub_239E0D774(&v62, v32, v35, v38, v41, queue, &self->_boundingBox);
   }
 
   *&self->_instancing = 0;
-  v16 = 15 * LODWORD(self->_branchingFactor);
-  v86 = 3;
-  v87 = 0x3727C5AC3F000000;
-  *&v88 = 0x10000001000;
-  DWORD2(v88) = 1;
-  HIDWORD(v88) = v16;
-  v89 = 0x1000000010;
-  v90 = 4;
-  v84 = 0;
-  v85 = &unk_284D08698;
-  v82 = 0;
-  v83 = 0;
-  v79 = 0;
-  v80 = 0;
-  v81 = 0;
-  v76 = 0;
-  v77 = 0;
-  v78 = 0;
-  v73 = 0;
-  v74 = 0;
-  v75 = 0;
+  v12 = 15 * LODWORD(self->_branchingFactor);
+  v63 = 3;
+  v64 = 0x3727C5AC3F000000;
+  *&v65 = 0x10000001000;
+  DWORD2(v65) = 1;
+  HIDWORD(v65) = v12;
+  v66 = 0x1000000010;
+  v67 = 4;
+  v61 = 0;
+  v62 = &unk_284D08698;
+  v59 = 0;
+  v60 = 0;
+  v56 = 0;
+  v57 = 0;
+  v58 = 0;
+  v53 = 0;
+  v54 = 0;
+  v55 = 0;
+  v50 = 0;
+  v51 = 0;
+  v52 = 0;
   __p = 0;
-  v71 = 0;
-  v72 = 0;
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v17 = objc_msgSend_geometryDescriptors(descriptor, v12, v13, v14, v15);
-  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v66, v91, 16);
-  if (v23)
+  v48 = 0;
+  v49 = 0;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v13 = objc_msgSend_geometryDescriptors(descriptor, v10, v11);
+  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v43, v68, 16);
+  if (v17)
   {
-    v24 = *v67;
+    v18 = *v44;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v67 != v24)
+        if (*v44 != v18)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v13);
         }
 
-        v26 = *(*(&v66 + 1) + 8 * i);
-        v65 = objc_msgSend_vertexData(v26, v19, v20, v21, v22);
-        sub_239DEDD74(&v82, &v65);
-        LODWORD(v65) = objc_msgSend_vertexStride(v26, v27, v28, v29, v30);
-        sub_239DEDE48(&v73, &v65);
-        v65 = objc_msgSend_indexData(v26, v31, v32, v33, v34);
-        sub_239DEDD74(&v79, &v65);
-        if (objc_msgSend_indexDataType(v26, v35, v36, v37, v38) == 16)
+        v20 = *(*(&v43 + 1) + 8 * i);
+        v42 = objc_msgSend_vertexData(v20, v15, v16);
+        sub_239DEDD74(&v59, &v42);
+        LODWORD(v42) = objc_msgSend_vertexStride(v20, v21, v22);
+        sub_239DEDE48(&v50, &v42);
+        v42 = objc_msgSend_indexData(v20, v23, v24);
+        sub_239DEDD74(&v56, &v42);
+        if (objc_msgSend_indexDataType(v20, v25, v26) == 16)
         {
-          v39 = 2;
+          v27 = 2;
         }
 
         else
         {
-          v39 = 4;
+          v27 = 4;
         }
 
-        LODWORD(v65) = v39;
-        sub_239DEDE48(&__p, &v65);
-        LODWORD(v65) = objc_msgSend_triangleCount(v26, v40, v41, v42, v43);
-        sub_239DEDE48(&v76, &v65);
+        LODWORD(v42) = v27;
+        sub_239DEDE48(&__p, &v42);
+        LODWORD(v42) = objc_msgSend_triangleCount(v20, v28, v29);
+        sub_239DEDE48(&v53, &v42);
       }
 
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v19, &v66, v91, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v43, v68, 16);
     }
 
-    while (v23);
+    while (v17);
   }
 
-  self->_bvh = sub_239E0CEC8(&v85, &v82, &v73, &v79, &__p, &v76, 0, queue, &self->_boundingBox);
+  self->_bvh = sub_239E0CEC8(&v62, &v59, &v50, &v56, &__p, &v53, 0, queue, &self->_boundingBox);
   if (__p)
   {
-    v71 = __p;
+    v48 = __p;
     operator delete(__p);
   }
 
-  if (v73)
+  if (v50)
   {
-    v74 = v73;
-    operator delete(v73);
+    v51 = v50;
+    operator delete(v50);
   }
 
-  if (v76)
+  if (v53)
   {
-    v77 = v76;
-    operator delete(v76);
+    v54 = v53;
+    operator delete(v53);
   }
 
-  if (v79)
+  if (v56)
   {
-    v80 = v79;
-    operator delete(v79);
+    v57 = v56;
+    operator delete(v56);
   }
 
-  if (v82)
+  if (v59)
   {
-    v83 = v82;
-    operator delete(v82);
+    v60 = v59;
+    operator delete(v59);
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (id).cxx_construct

@@ -67,19 +67,19 @@ LABEL_16:
   return 0;
 }
 
-void sub_10003B5C4(char *__filename, unsigned int *a2, unsigned int a3)
+void sub_10003B5C4(char *__filename, uint64_t a2, unsigned int a3)
 {
-  v35 = 0;
-  v34 = 0;
-  v33 = -1;
-  v32 = -1;
-  v31 = 0;
-  v30 = 0;
+  v33 = 0;
+  v32 = 0;
+  v31 = -1;
+  v30 = -1;
   v29 = 0;
   v28 = 0;
   v27 = 0;
   v26 = 0;
-  v23 = 0;
+  v25 = 0;
+  v24 = 0;
+  v21 = 0;
   if (__filename)
   {
     v6 = fopen(__filename, "a");
@@ -95,9 +95,8 @@ void sub_10003B5C4(char *__filename, unsigned int *a2, unsigned int a3)
     v6 = __stdoutp;
   }
 
-  if (a2[2] != 1)
+  if (*(a2 + 8) != 1)
   {
-    v21 = a2[2];
     fprintf(__stderrp, "Version mismatch, expected 1 got %d\n");
 LABEL_9:
     if (__filename)
@@ -111,17 +110,16 @@ LABEL_9:
 
   if (*a2 > a3)
   {
-    v20 = *a2;
     fprintf(__stderrp, "Insufficient size, expected %d got %d\n");
     goto LABEL_9;
   }
 
-  v7 = a2[1];
-  v8 = sub_10003DDFC(0, 264, &v23, 0, 1);
+  v7 = *(a2 + 4);
+  v8 = sub_10003DDFC(0, 264, &v21, 0, 1);
   if (v8)
   {
     v9 = v8;
-    if (v23 >= 2 && 22 * *v8 + 2 <= v23)
+    if (v21 >= 2 && 22 * *v8 + 2 <= v21)
     {
       v11 = &xmmword_1000D82F0;
       strcpy(&xmmword_1000D82F0, "USER PARTITION");
@@ -129,24 +127,24 @@ LABEL_9:
       strcpy(byte_1000D832C, "SKINNY PARTITION");
       fwrite("Band stats:\n", 0xCuLL, 1uLL, v6);
       fwrite("Flags: Bits/Cell (1/3/4), r: retrace, C: GCcan, M: GCmust, S: Special, R: GCrd, E: erased, I: toInvalidate\n", 0x6BuLL, 1uLL, v6);
-      v12 = *(a2 + 3);
-      v25 = v12.i32[0];
-      v24 = vrev64_s32(v12);
-      v22 = v9;
+      v12 = *(a2 + 12);
+      v23 = v12.i32[0];
+      v22 = vrev64_s32(v12);
+      v20 = v9;
       v13 = (v9 + 1);
-      v14 = sub_10003C69C(v6, a2 + 5, v7, 1u, &v24, &v26, &v34, &v32, &v30, &v28, v13);
-      v15 = sub_10003C69C(v6, v14, v7, 0, &v24, &v26, &v34, &v32, &v30, &v28, v13);
-      sub_10003C69C(v6, v15, v7, 2u, &v24, &v26, &v34, &v32, &v30, &v28, v13);
+      v14 = sub_10003C69C(v6, (a2 + 20), v7, 1u, &v22, &v24, &v32, &v30, &v28, &v26, v13);
+      v15 = sub_10003C69C(v6, v14, v7, 0, &v22, &v24, &v32, &v30, &v28, &v26, v13);
+      sub_10003C69C(v6, v15, v7, 2u, &v22, &v24, &v32, &v30, &v28, &v26, v13);
       for (i = 0; i != 12; i += 4)
       {
-        v17 = *(&v28 + i);
+        v17 = *(&v26 + i);
         if (v17)
         {
-          v18 = *(&v30 + i) / v17;
-          *(&v30 + i) = v18;
-          v19 = v24.u32[i / 4];
-          fprintf(v6, "%-23s: Erase Cycles: Max(%d, %d%% of EoL) Min(%d, %d%% of EoL) Avg(%d, %d%% of EoL)\n", v11, *(&v34 + i), 100 * *(&v34 + i) / v19, *(&v32 + i), 100 * *(&v32 + i) / v19, v18, 100 * v18 / v19);
-          fprintf(v6, "%24s Max band age:    (%d)\n", " ", *(&v26 + i));
+          v18 = *(&v28 + i) / v17;
+          *(&v28 + i) = v18;
+          v19 = v22.u32[i / 4];
+          fprintf(v6, "%-23s: Erase Cycles: Max(%d, %d%% of EoL) Min(%d, %d%% of EoL) Avg(%d, %d%% of EoL)\n", v11, *(&v32 + i), 100 * *(&v32 + i) / v19, *(&v30 + i), 100 * *(&v30 + i) / v19, v18, 100 * v18 / v19);
+          fprintf(v6, "%24s Max band age:    (%d)\n", " ", *(&v24 + i));
           fprintf(v6, "%24s EoL erase cycles:(%d)\n", " ", v19);
         }
 
@@ -158,7 +156,7 @@ LABEL_9:
         fclose(v6);
       }
 
-      v10 = v22;
+      v10 = v20;
     }
 
     else
@@ -270,7 +268,7 @@ void sub_10003B9F4(char *__filename, unsigned int *a2, unsigned int a3, int a4)
         v94[1] = v22;
         if (v13 == v12)
         {
-          v23 = *(v14 - 4);
+          v23 = *(v14 - 1);
         }
 
         else
@@ -614,10 +612,10 @@ uint64_t sub_10003C2B0(char *a1, int a2, _DWORD *a3, uint64_t a4)
 
 uint64_t sub_10003C364(char *__filename, uint64_t a2, char a3, uint64_t a4)
 {
-  strcpy(v30, "InvalidPage");
-  strcpy(v29, "InvalidTemp");
-  strcpy(v27, "Unknown");
-  v28 = 0;
+  strcpy(v29, "InvalidPage");
+  strcpy(v28, "InvalidTemp");
+  strcpy(v26, "Unknown");
+  v27 = 0;
   if (__filename)
   {
     __stream = fopen(__filename, "a");
@@ -675,10 +673,10 @@ LABEL_11:
     return v8;
   }
 
-  v23 = *(a2 + 4);
-  v24 = __filename;
+  v22 = *(a2 + 4);
+  v23 = __filename;
   fwrite("===Grown Bad Blocks===\n", 0x17uLL, 1uLL, __stream);
-  v25 = v8;
+  v24 = v8;
   if (v8)
   {
     v13 = v8;
@@ -694,42 +692,41 @@ LABEL_11:
       v20 = *(v9 + 4);
       if (*(v9 + 5) == 4095)
       {
-        __sprintf_chk(v30, 0, 0xCuLL, "%s");
-      }
-
-      else
-      {
-        v22 = *(v9 + 5);
-        __sprintf_chk(v30, 0, 0xCuLL, "%u");
-      }
-
-      if (v18 << 24 == -2130706432)
-      {
         __sprintf_chk(v29, 0, 0xCuLL, "%s");
       }
 
       else
       {
-        __sprintf_chk(v29, 0, 0xCuLL, "%d");
+        __sprintf_chk(v29, 0, 0xCuLL, "%u");
+      }
+
+      if (v18 << 24 == -2130706432)
+      {
+        __sprintf_chk(v28, 0, 0xCuLL, "%s");
+      }
+
+      else
+      {
+        __sprintf_chk(v28, 0, 0xCuLL, "%d");
       }
 
       if (v19 <= 3)
       {
-        __sprintf_chk(v27, 0, 0xCuLL, "%s", off_10009CB18[v19]);
+        __sprintf_chk(v26, 0, 0xCuLL, "%s", off_10009CB18[v19]);
       }
 
       v9 += 16;
-      fprintf(__stream, "Bus: %u CE: %u CAU: %u Block: %u Cycles: %u Reason: %u Page: %s Temp: %s mode: %s\n", v14, v15, v17, v16, v21, v20, v30, v29, v27);
+      fprintf(__stream, "Bus: %u CE: %u CAU: %u Block: %u Cycles: %u Reason: %u Page: %s Temp: %s mode: %s\n", v14, v15, v17, v16, v21, v20, v29, v28, v26);
       --v13;
     }
 
     while (v13);
   }
 
-  v8 = v25;
-  fprintf(__stream, "Grown Bad Blocks Count: %u\n", v25);
-  fprintf(__stream, "Factory Bad Blocks Count: %u\n", v23);
-  if (v24)
+  v8 = v24;
+  fprintf(__stream, "Grown Bad Blocks Count: %u\n", v24);
+  fprintf(__stream, "Factory Bad Blocks Count: %u\n", v22);
+  if (v23)
   {
     goto LABEL_11;
   }
@@ -922,7 +919,7 @@ LABEL_41:
   return v11;
 }
 
-BOOL sub_10003CA04(char **a1, int a2, void *a3, size_t a4, char a5)
+BOOL sub_10003CA04(char **a1, uint64_t a2, void *a3, size_t a4, uint64_t a5)
 {
   v10 = 0;
   v7 = sub_10003DA48(a1, a2, 0, 0, &v10, 0, a5);
@@ -1363,10 +1360,9 @@ BOOL print_geometry(char *__filename)
 uint64_t sub_10003D53C(const char *a1)
 {
   v15 = 0;
-  v21[0] = unk_1000944B4;
-  strcpy(v21 + 11, "_ERR_PAYLOAD   ");
+  strcpy(v21, "NAND_GEOM_ERR_PAYLOAD   ");
   strcpy(v20, "NAND_GEOM_ERR_BLOCK_INFO");
-  qmemcpy(&v20[25], "NAND_GEOM_ERR_HEADER   ", 23);
+  strcpy(&v20[25], "NAND_GEOM_ERR_HEADER    ");
   strcpy(v18, "NAND_GEOM_ERR_UNC     ");
   strcpy(v19, "NAND_GEOM_ERR_REFRESH ");
   strcpy(v16, "NAND_GEOM_ERR_NO_ERROR");
@@ -1485,8 +1481,12 @@ uint64_t sub_10003DA34(int a1)
   }
 }
 
-void *sub_10003DA48(char **a1, int a2, int a3, int a4, void *a5, char a6, char a7)
+void *sub_10003DA48(char **a1, uint64_t a2, int a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
+  v7 = a7;
+  v8 = a6;
+  v10 = a4;
+  v12 = a2;
   v13 = a1;
   v21 = 0;
   *a5 = 0;
@@ -1499,10 +1499,10 @@ LABEL_11:
   }
 
   v14 = a3;
-  v15 = sub_10003DBF8(v13, a2, a3, a4, a7);
+  v15 = sub_10003DBF8(v13, v12, a3, v10, v7);
   if (!v15)
   {
-    fprintf(__stderrp, "failed to get data size for cmd option %d\n", a2);
+    fprintf(__stderrp, "failed to get data size for cmd option %d\n", v12);
     goto LABEL_11;
   }
 
@@ -1513,7 +1513,7 @@ LABEL_11:
   if (v18)
   {
     bzero(v18, v17);
-    if (sub_10003DCC0(v13, a2, v14, a4, v19, v17, a6, a7))
+    if (sub_10003DCC0(v13, v12, v14, v10, v19, v17, v8, v7))
     {
       *a5 = v16;
     }
@@ -2095,7 +2095,7 @@ id NandInfoExtractToCA_runAllSteps(int a1)
 
   else
   {
-    sub_100012748("NandInfoExtractToCA_runAllSteps: Could not get nand_exporter_t", v3, v4, v5, v6, v7, v8, v9, v19);
+    sub_100012748("NandInfoExtractToCA_runAllSteps: Could not get nand_exporter_t", v3, v4, v5, v6, v7, v8, v9);
   }
 
   v17 = v2;
@@ -2108,9 +2108,9 @@ id sub_10003EC54(uint64_t a1)
 {
   if (!&_AnalyticsSendEventLazy)
   {
-    v251 = @"com.apple.NANDInfo.ErrorMessage";
-    v252 = @"Unable call CA API AnalyticsSendEventLazy";
-    v13 = [NSDictionary dictionaryWithObjects:&v252 forKeys:&v251 count:1];
+    v252 = @"com.apple.NANDInfo.ErrorMessage";
+    v253 = @"Unable call CA API AnalyticsSendEventLazy";
+    v13 = [NSDictionary dictionaryWithObjects:&v253 forKeys:&v252 count:1];
     goto LABEL_197;
   }
 
@@ -2125,7 +2125,7 @@ id sub_10003EC54(uint64_t a1)
 
   v2 = [@"/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m" lastPathComponent];
   v3 = [NSString stringWithUTF8String:"NandInfoExtractToCA_runStep"];
-  v209 = a1;
+  v210 = a1;
   v4 = [&off_1000D2F78 objectAtIndexedSubscript:a1];
   NSLog(@"%@: %@: logging %@\n", v2, v3, v4);
 
@@ -2153,12 +2153,12 @@ id sub_10003EC54(uint64_t a1)
         IsEventUsed = AnalyticsIsEventUsed();
         NSLog(@"NANDInfo: %@ enabled=%d\n", v133, IsEventUsed);
         v135 = off_1000D8068[0];
-        v262 = _NSConcreteStackBlock;
-        v263 = 3221225472;
-        v264 = sub_100044FBC;
-        v265 = &unk_10009CB40;
-        v266 = v132;
-        v136 = sub_100044010(v135, &v262);
+        v263 = _NSConcreteStackBlock;
+        v264 = 3221225472;
+        v265 = sub_100044FBC;
+        v266 = &unk_10009CB40;
+        v267 = v132;
+        v136 = sub_100044010(v135, &v263);
         v137 = v136 == 0;
         if (v136)
         {
@@ -2202,13 +2202,13 @@ id sub_10003EC54(uint64_t a1)
         v110 = AnalyticsIsEventUsed();
         NSLog(@"NANDInfo: %@ enabled=%d\n", v109, v110);
         v111 = off_1000D7FE8[0];
-        v262 = _NSConcreteStackBlock;
-        v263 = 3221225472;
-        v264 = sub_100044F9C;
-        v265 = &unk_10009CB40;
+        v263 = _NSConcreteStackBlock;
+        v264 = 3221225472;
+        v265 = sub_100044F9C;
+        v266 = &unk_10009CB40;
         v112 = v14;
-        v266 = v112;
-        v113 = sub_100044010(v111, &v262);
+        v267 = v112;
+        v113 = sub_100044010(v111, &v263);
         v114 = v113 == 0;
         if (v113)
         {
@@ -2237,13 +2237,13 @@ id sub_10003EC54(uint64_t a1)
         v118 = AnalyticsIsEventUsed();
         NSLog(@"NANDInfo: %@ enabled=%d\n", v117, v118);
         v119 = off_1000D7FF0[0];
-        *&v253 = _NSConcreteStackBlock;
-        *(&v253 + 1) = 3221225472;
-        *&v254 = sub_100044FA4;
-        *(&v254 + 1) = &unk_10009CB40;
+        *&v254 = _NSConcreteStackBlock;
+        *(&v254 + 1) = 3221225472;
+        *&v255 = sub_100044FA4;
+        *(&v255 + 1) = &unk_10009CB40;
         v120 = v112;
-        *&v255 = v120;
-        v121 = sub_100044010(v119, &v253);
+        *&v256 = v120;
+        v121 = sub_100044010(v119, &v254);
         v122 = v121 == 0;
         if (v121)
         {
@@ -2272,13 +2272,13 @@ id sub_10003EC54(uint64_t a1)
         v126 = AnalyticsIsEventUsed();
         NSLog(@"NANDInfo: %@ enabled=%d\n", v125, v126);
         v127 = off_1000D7FF8[0];
-        *&v247 = _NSConcreteStackBlock;
-        *(&v247 + 1) = 3221225472;
-        *&v248 = sub_100044FAC;
-        *(&v248 + 1) = &unk_10009CB40;
-        v12 = v209;
-        *&v249 = v120;
-        v128 = sub_100044010(v127, &v247);
+        *&v248 = _NSConcreteStackBlock;
+        *(&v248 + 1) = 3221225472;
+        *&v249 = sub_100044FAC;
+        *(&v249 + 1) = &unk_10009CB40;
+        v12 = v210;
+        *&v250 = v120;
+        v128 = sub_100044010(v127, &v248);
         v129 = v128 == 0;
         if (v128)
         {
@@ -2321,9 +2321,9 @@ LABEL_186:
     }
 
     v13 = objc_alloc_init(NSMutableDictionary);
-    v257 = off_1000D8058[0];
-    v258 = off_1000D8060[0];
-    v223 = [NSArray arrayWithObjects:&v257 count:2];
+    v258 = off_1000D8058[0];
+    v259 = off_1000D8060[0];
+    v224 = [NSArray arrayWithObjects:&v258 count:2];
     v25 = CopyWhitelistedNANDMSPInfo();
     v26 = v25;
     if (v25)
@@ -2335,65 +2335,65 @@ LABEL_186:
         [v26 removeObjectForKey:off_1000D80B0[0]];
       }
 
-      v220 = [v26 count];
-      v247 = 0u;
+      v221 = [v26 count];
       v248 = 0u;
       v249 = 0u;
       v250 = 0u;
-      v214 = v26;
+      v251 = 0u;
+      v215 = v26;
       obj = v26;
-      v226 = [obj countByEnumeratingWithState:&v247 objects:&v262 count:16];
+      v227 = [obj countByEnumeratingWithState:&v248 objects:&v263 count:16];
       v28 = 0;
-      if (v226)
+      if (v227)
       {
-        context = *v248;
+        context = *v249;
         do
         {
           v29 = 0;
           v30 = v28;
           do
           {
-            if (*v248 != context)
+            if (*v249 != context)
             {
               objc_enumerationMutation(obj);
             }
 
-            v231 = v29;
-            v31 = *(*(&v247 + 1) + 8 * v29);
+            v232 = v29;
+            v31 = *(*(&v248 + 1) + 8 * v29);
             v28 = [obj objectForKeyedSubscript:v31];
 
             [v28 setObject:v31 forKeyedSubscript:off_1000D81D8];
-            v32 = [NSNumber numberWithUnsignedInteger:v220];
+            v32 = [NSNumber numberWithUnsignedInteger:v221];
             [v28 setObject:v32 forKeyedSubscript:off_1000D81E0];
 
-            v245 = 0u;
             v246 = 0u;
-            v243 = 0u;
+            v247 = 0u;
             v244 = 0u;
-            v234 = v223;
-            v33 = [v234 countByEnumeratingWithState:&v243 objects:&v253 count:16];
+            v245 = 0u;
+            v235 = v224;
+            v33 = [v235 countByEnumeratingWithState:&v244 objects:&v254 count:16];
             if (v33)
             {
               v34 = v33;
-              v35 = *v244;
+              v35 = *v245;
               do
               {
                 for (i = 0; i != v34; i = i + 1)
                 {
-                  if (*v244 != v35)
+                  if (*v245 != v35)
                   {
-                    objc_enumerationMutation(v234);
+                    objc_enumerationMutation(v235);
                   }
 
-                  v37 = *(*(&v243 + 1) + 8 * i);
+                  v37 = *(*(&v244 + 1) + 8 * i);
                   v38 = AnalyticsIsEventUsed();
                   NSLog(@"NANDInfo: %@ enabled=%d\n", v37, v38);
-                  v237 = _NSConcreteStackBlock;
-                  v238 = 3221225472;
-                  v239 = sub_100044FB4;
-                  v240 = &unk_10009CB40;
-                  v241 = v28;
-                  if (sub_100044010(v37, &v237))
+                  v238 = _NSConcreteStackBlock;
+                  v239 = 3221225472;
+                  v240 = sub_100044FB4;
+                  v241 = &unk_10009CB40;
+                  v242 = v28;
+                  if (sub_100044010(v37, &v238))
                   {
                     NSLog(@"NANDInfo: SUCCESS in logging %@ using AnalyticsSendEventLazy\n", v37);
                     [v13 objectForKey:v37];
@@ -2429,28 +2429,28 @@ LABEL_43:
                   v13 = v39;
                 }
 
-                v34 = [v234 countByEnumeratingWithState:&v243 objects:&v253 count:16];
+                v34 = [v235 countByEnumeratingWithState:&v244 objects:&v254 count:16];
               }
 
               while (v34);
             }
 
-            v29 = v231 + 1;
+            v29 = v232 + 1;
             v30 = v28;
           }
 
-          while ((v231 + 1) != v226);
-          v226 = [obj countByEnumeratingWithState:&v247 objects:&v262 count:16];
+          while ((v232 + 1) != v227);
+          v227 = [obj countByEnumeratingWithState:&v248 objects:&v263 count:16];
         }
 
-        while (v226);
+        while (v227);
       }
 
-      NSLog(@"NANDInfo: %@ completed (total_nof_msps:%lu)\n", off_1000D8058[0], v220);
-      NSLog(@"NANDInfo: %@ completed (total_nof_msps:%lu)\n", off_1000D8060[0], v220);
+      NSLog(@"NANDInfo: %@ completed (total_nof_msps:%lu)\n", off_1000D8058[0], v221);
+      NSLog(@"NANDInfo: %@ completed (total_nof_msps:%lu)\n", off_1000D8060[0], v221);
 
-      v12 = v209;
-      v26 = v214;
+      v12 = v210;
+      v26 = v215;
     }
 
     else
@@ -2485,11 +2485,11 @@ LABEL_43:
         v47 = [NSString stringWithFormat:@"%@ 2-months", v50];
 
         v51 = [NSNumber numberWithInt:v46];
-        v261[0] = v51;
+        v262[0] = v51;
         v46 = (v46 + 1440);
         v52 = [NSNumber numberWithInt:v46];
-        v261[1] = v52;
-        v53 = [NSArray arrayWithObjects:v261 count:2];
+        v262[1] = v52;
+        v53 = [NSArray arrayWithObjects:v262 count:2];
         [v45 setObject:v53 forKeyedSubscript:v47];
 
         v48 = (v48 - 1);
@@ -2505,30 +2505,30 @@ LABEL_43:
         v47 = [NSString stringWithFormat:@"%@ 6-months", v57];
 
         v58 = [NSNumber numberWithInt:v54];
-        v260[0] = v58;
+        v261[0] = v58;
         v54 = (v54 + 4320);
         v59 = [NSNumber numberWithInt:v54];
-        v260[1] = v59;
-        v60 = [NSArray arrayWithObjects:v260 count:2];
+        v261[1] = v59;
+        v60 = [NSArray arrayWithObjects:v261 count:2];
         [v45 setObject:v60 forKeyedSubscript:v47];
 
         v55 = (v55 - 1);
       }
 
       while (v55 != -8);
-      v208 = v47;
-      v257 = off_1000D8038[0];
-      v258 = off_1000D8040[0];
-      v259 = off_1000D8048[0];
-      v211 = [NSArray arrayWithObjects:&v257 count:3];
-      v247 = 0u;
+      v209 = v47;
+      v258 = off_1000D8038[0];
+      v259 = off_1000D8040[0];
+      v260 = off_1000D8048[0];
+      v212 = [NSArray arrayWithObjects:&v258 count:3];
       v248 = 0u;
       v249 = 0u;
       v250 = 0u;
-      v215 = v45;
+      v251 = 0u;
+      v216 = v45;
       v13 = obja;
-      v212 = [v215 countByEnumeratingWithState:&v247 objects:&v262 count:16];
-      if (!v212)
+      v213 = [v216 countByEnumeratingWithState:&v248 objects:&v263 count:16];
+      if (!v213)
       {
 LABEL_176:
 
@@ -2536,23 +2536,23 @@ LABEL_176:
       }
 
       v61 = 0;
-      v210 = *v248;
+      v211 = *v249;
       v62 = @"/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m";
 LABEL_58:
       v63 = 0;
       v64 = v61;
 LABEL_59:
-      if (*v248 != v210)
+      if (*v249 != v211)
       {
-        objc_enumerationMutation(v215);
+        objc_enumerationMutation(v216);
       }
 
-      v65 = *(*(&v247 + 1) + 8 * v63);
-      v66 = [v215 objectForKeyedSubscript:v65];
+      v65 = *(*(&v248 + 1) + 8 * v63);
+      v66 = [v216 objectForKeyedSubscript:v65];
       v67 = [v66 objectAtIndexedSubscript:0];
       v68 = [v67 unsignedIntValue];
 
-      v69 = [v215 objectForKeyedSubscript:v65];
+      v69 = [v216 objectForKeyedSubscript:v65];
       v70 = [v69 objectAtIndexedSubscript:1];
       v71 = [v70 unsignedIntValue];
 
@@ -2577,30 +2577,30 @@ LABEL_59:
       }
 
       contexta = v72;
-      v221 = v63;
-      v245 = 0u;
+      v222 = v63;
       v246 = 0u;
-      v243 = 0u;
+      v247 = 0u;
       v244 = 0u;
-      v224 = v211;
+      v245 = 0u;
+      v225 = v212;
       v76 = &MSURetrievePreviousRestoreDate_ptr;
-      v235 = [v224 countByEnumeratingWithState:&v243 objects:&v253 count:16];
-      if (!v235)
+      v236 = [v225 countByEnumeratingWithState:&v244 objects:&v254 count:16];
+      if (!v236)
       {
         goto LABEL_85;
       }
 
-      v232 = *v244;
+      v233 = *v245;
 LABEL_66:
       v77 = 0;
       while (1)
       {
-        if (*v244 != v232)
+        if (*v245 != v233)
         {
-          objc_enumerationMutation(v224);
+          objc_enumerationMutation(v225);
         }
 
-        v78 = *(*(&v243 + 1) + 8 * v77);
+        v78 = *(*(&v244 + 1) + 8 * v77);
         v79 = [(__CFString *)v62 lastPathComponent];
         v80 = [v76[211] stringWithUTF8String:"createAndLogSMagHistoryFTLFieldsToCoreAnalyticsForEvent"];
         v81 = AnalyticsIsEventUsed();
@@ -2640,13 +2640,13 @@ LABEL_66:
 
         [v61 setObject:v65 forKeyedSubscript:@"ESR_Cadence"];
         v84 = objc_autoreleasePoolPush();
-        v237 = _NSConcreteStackBlock;
-        v238 = 3221225472;
-        v239 = sub_100045340;
-        v240 = &unk_10009CB90;
-        v241 = v78;
-        v242 = v61;
-        v85 = sub_100044010(v78, &v237);
+        v238 = _NSConcreteStackBlock;
+        v239 = 3221225472;
+        v240 = sub_100045340;
+        v241 = &unk_10009CB90;
+        v242 = v78;
+        v243 = v61;
+        v85 = sub_100044010(v78, &v238);
         v86 = v62;
         v87 = v85;
         v88 = v86;
@@ -2691,21 +2691,21 @@ LABEL_77:
         v62 = v88;
         v76 = &MSURetrievePreviousRestoreDate_ptr;
 LABEL_79:
-        if (v235 == ++v77)
+        if (v236 == ++v77)
         {
-          v101 = [v224 countByEnumeratingWithState:&v243 objects:&v253 count:16];
-          v235 = v101;
+          v101 = [v225 countByEnumeratingWithState:&v244 objects:&v254 count:16];
+          v236 = v101;
           if (!v101)
           {
 LABEL_85:
 
             objc_autoreleasePoolPop(contexta);
-            v63 = v221 + 1;
+            v63 = v222 + 1;
             v64 = v61;
-            if ((v221 + 1) == v212)
+            if ((v222 + 1) == v213)
             {
-              v212 = [v215 countByEnumeratingWithState:&v247 objects:&v262 count:16];
-              if (!v212)
+              v213 = [v216 countByEnumeratingWithState:&v248 objects:&v263 count:16];
+              if (!v213)
               {
 LABEL_175:
 
@@ -2725,64 +2725,64 @@ LABEL_175:
 
     v13 = objc_alloc_init(NSMutableDictionary);
     has_internal_content = os_variant_has_internal_content();
-    v222 = [NSMutableArray arrayWithObjects:off_1000D8000[0], off_1000D8008[0], off_1000D8010[0], off_1000D8018[0], off_1000D8020[0], off_1000D8028[0], off_1000D8030[0], 0];
+    v223 = [NSMutableArray arrayWithObjects:off_1000D8000[0], off_1000D8008[0], off_1000D8010[0], off_1000D8018[0], off_1000D8020[0], off_1000D8028[0], off_1000D8030[0], 0];
     if (has_internal_content)
     {
-      [v222 addObject:off_1000D8050[0]];
+      [v223 addObject:off_1000D8050[0]];
     }
 
     v157 = objc_autoreleasePoolPush();
     v158 = CopySMagNANDFTLCustomHistoryInfo(0);
-    v247 = 0u;
     v248 = 0u;
     v249 = 0u;
     v250 = 0u;
-    contextb = [&off_1000D2ED8 countByEnumeratingWithState:&v247 objects:&v262 count:16];
+    v251 = 0u;
+    contextb = [&off_1000D2ED8 countByEnumeratingWithState:&v248 objects:&v263 count:16];
     if (contextb)
     {
       v159 = 0;
-      v213 = v157;
-      v216 = *v248;
+      v214 = v157;
+      v217 = *v249;
 LABEL_135:
       v160 = 0;
       v161 = v159;
 LABEL_136:
-      if (*v248 != v216)
+      if (*v249 != v217)
       {
         objc_enumerationMutation(&off_1000D2ED8);
       }
 
-      v162 = *(*(&v247 + 1) + 8 * v160);
+      v162 = *(*(&v248 + 1) + 8 * v160);
       v163 = [&off_1000D2ED8 objectForKeyedSubscript:v162];
       v164 = [v163 intValue];
 
       v159 = CopySMagHistoryNANDFTLInfo(0, v164, 2);
       if (!v159 || ([v159 objectForKey:@"com.apple.NANDInfo.IsStatMagSupported"], v165 = objc_claimAutoreleasedReturnValue(), v165, !v165) || (objc_msgSend(v159, "objectForKey:", @"com.apple.NANDInfo.IsStatMagSupported"), v166 = objc_claimAutoreleasedReturnValue(), v167 = objc_msgSend(v166, "unsignedLongLongValue"), v166, v167))
       {
-        v225 = v160;
-        v245 = 0u;
+        v226 = v160;
         v246 = 0u;
-        v243 = 0u;
+        v247 = 0u;
         v244 = 0u;
-        v227 = v222;
-        v236 = [v227 countByEnumeratingWithState:&v243 objects:&v253 count:16];
-        if (!v236)
+        v245 = 0u;
+        v228 = v223;
+        v237 = [v228 countByEnumeratingWithState:&v244 objects:&v254 count:16];
+        if (!v237)
         {
           goto LABEL_164;
         }
 
-        v233 = *v244;
+        v234 = *v245;
         while (1)
         {
           v168 = 0;
           do
           {
-            if (*v244 != v233)
+            if (*v245 != v234)
             {
-              objc_enumerationMutation(v227);
+              objc_enumerationMutation(v228);
             }
 
-            v169 = *(*(&v243 + 1) + 8 * v168);
+            v169 = *(*(&v244 + 1) + 8 * v168);
             v170 = [@"/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m" lastPathComponent];
             v171 = [NSString stringWithUTF8String:"createAndLogSMagFTLFieldsToCoreAnalyticsForEvent"];
             v172 = AnalyticsIsEventUsed();
@@ -2805,13 +2805,13 @@ LABEL_150:
 
               [v159 setObject:v162 forKeyedSubscript:@"ESR_Cadence"];
               v175 = objc_autoreleasePoolPush();
-              v237 = _NSConcreteStackBlock;
-              v238 = 3221225472;
-              v239 = sub_100044FC4;
-              v240 = &unk_10009CB90;
-              v241 = v169;
-              v242 = v159;
-              v176 = sub_100044010(v169, &v237);
+              v238 = _NSConcreteStackBlock;
+              v239 = 3221225472;
+              v240 = sub_100044FC4;
+              v241 = &unk_10009CB90;
+              v242 = v169;
+              v243 = v159;
+              v176 = sub_100044010(v169, &v238);
               v177 = [@"/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m" lastPathComponent];
               v178 = [NSString stringWithUTF8String:"createAndLogSMagFTLFieldsToCoreAnalyticsForEvent"];
               v179 = v178;
@@ -2872,18 +2872,18 @@ LABEL_158:
             v168 = v168 + 1;
           }
 
-          while (v236 != v168);
-          v188 = [v227 countByEnumeratingWithState:&v243 objects:&v253 count:16];
-          v236 = v188;
+          while (v237 != v168);
+          v188 = [v228 countByEnumeratingWithState:&v244 objects:&v254 count:16];
+          v237 = v188;
           if (!v188)
           {
 LABEL_164:
 
-            v160 = v225 + 1;
+            v160 = v226 + 1;
             v161 = v159;
-            if (v225 + 1 == contextb)
+            if (v226 + 1 == contextb)
             {
-              contextb = [&off_1000D2ED8 countByEnumeratingWithState:&v247 objects:&v262 count:16];
+              contextb = [&off_1000D2ED8 countByEnumeratingWithState:&v248 objects:&v263 count:16];
               if (!contextb)
               {
                 break;
@@ -2897,8 +2897,8 @@ LABEL_164:
         }
       }
 
-      v12 = v209;
-      v157 = v213;
+      v12 = v210;
+      v157 = v214;
     }
 
     objc_autoreleasePoolPop(v157);
@@ -2921,37 +2921,37 @@ LABEL_164:
       objb = v13;
       v142 = AnalyticsIsEventUsed();
       NSLog(@"NANDInfo: kEventName_massStorage_NANDInfo_XNUStats_NANDViews_1 enabled=%d\n", v142);
-      v255 = 0u;
       v256 = 0u;
-      v253 = 0u;
+      v257 = 0u;
       v254 = 0u;
+      v255 = 0u;
       v143 = v141;
-      v144 = [v143 countByEnumeratingWithState:&v253 objects:&v262 count:16];
+      v144 = [v143 countByEnumeratingWithState:&v254 objects:&v263 count:16];
       if (v144)
       {
         v145 = v144;
         v146 = 0;
-        v147 = *v254;
+        v147 = *v255;
         do
         {
           for (j = 0; j != v145; j = j + 1)
           {
-            if (*v254 != v147)
+            if (*v255 != v147)
             {
               objc_enumerationMutation(v143);
             }
 
-            v149 = *(*(&v253 + 1) + 8 * j);
+            v149 = *(*(&v254 + 1) + 8 * j);
             v150 = [v143 objectForKey:v149];
 
             v151 = off_1000D8070[0];
-            *&v247 = _NSConcreteStackBlock;
-            *(&v247 + 1) = 3221225472;
-            *&v248 = sub_10004534C;
-            *(&v248 + 1) = &unk_10009CB40;
+            *&v248 = _NSConcreteStackBlock;
+            *(&v248 + 1) = 3221225472;
+            *&v249 = sub_10004534C;
+            *(&v249 + 1) = &unk_10009CB40;
             v146 = v150;
-            *&v249 = v146;
-            v152 = sub_100044010(v151, &v247);
+            *&v250 = v146;
+            v152 = sub_100044010(v151, &v248);
             v153 = v152 == 0;
             if (v152)
             {
@@ -2977,7 +2977,7 @@ LABEL_164:
             [v140 setObject:v155 forKeyedSubscript:v149];
           }
 
-          v145 = [v143 countByEnumeratingWithState:&v253 objects:&v262 count:16];
+          v145 = [v143 countByEnumeratingWithState:&v254 objects:&v263 count:16];
         }
 
         while (v145);
@@ -2999,7 +2999,7 @@ LABEL_164:
     }
 
 LABEL_190:
-    v12 = v209;
+    v12 = v210;
     if (v13)
     {
       goto LABEL_191;
@@ -3007,8 +3007,8 @@ LABEL_190:
 
 LABEL_195:
     v196 = [&off_1000D2F78 objectAtIndexedSubscript:v12];
-    [v196 UTF8String];
-    sub_100012748("%s: unable to log %s to CA", v197, v198, v199, v200, v201, v202, v203, "/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m");
+    v197 = [v196 UTF8String];
+    sub_100012748("%s: unable to log %s to CA", v198, v199, v200, v201, v202, v203, v204, "/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m", v197);
 
     v13 = 0;
     v194 = @"%@: %@: unable to log %@\n";
@@ -3063,32 +3063,32 @@ LABEL_173:
 
   v16 = AnalyticsIsEventUsed();
   NSLog(@"NANDInfo: createAndLogUSBStorageTelemetryToCoreAnalyticsForEvent: kEventName_massStorage_USBStorageInfo_Counters_1 enabled=%d\n", v16);
-  v255 = 0u;
   v256 = 0u;
-  v253 = 0u;
+  v257 = 0u;
   v254 = 0u;
+  v255 = 0u;
   v17 = v14;
-  v18 = [v17 countByEnumeratingWithState:&v253 objects:&v262 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v254 objects:&v263 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v254;
+    v20 = *v255;
     do
     {
       for (k = 0; k != v19; k = k + 1)
       {
-        if (*v254 != v20)
+        if (*v255 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v253 + 1) + 8 * k);
-        *&v247 = _NSConcreteStackBlock;
-        *(&v247 + 1) = 3221225472;
-        *&v248 = sub_1000453FC;
-        *(&v248 + 1) = &unk_10009CB40;
-        *&v249 = v22;
-        v23 = sub_100044010(off_1000D8088, &v247);
+        v22 = *(*(&v254 + 1) + 8 * k);
+        *&v248 = _NSConcreteStackBlock;
+        *(&v248 + 1) = 3221225472;
+        *&v249 = sub_1000453FC;
+        *(&v249 + 1) = &unk_10009CB40;
+        *&v250 = v22;
+        v23 = sub_100044010(off_1000D8088, &v248);
         if (v23)
         {
           NSLog(@"NANDInfo: SUCCESS in logging kEventName_massStorage_USBStorageInfo_Counters using AnalyticsSendEventLazy\n");
@@ -3100,11 +3100,11 @@ LABEL_173:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v253 objects:&v262 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v254 objects:&v263 count:16];
     }
 
     while (v19);
-    v12 = v209;
+    v12 = v210;
   }
 
   else
@@ -3124,18 +3124,19 @@ LABEL_194:
 LABEL_191:
   v194 = @"%@: %@: successfully logged %@\n";
 LABEL_196:
-  v204 = [@"/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m" lastPathComponent];
-  v205 = [NSString stringWithUTF8String:"NandInfoExtractToCA_runStep"];
-  v206 = [&off_1000D2F78 objectAtIndexedSubscript:v12];
-  NSLog(&v194->isa, v204, v205, v206);
+  v205 = [@"/Library/Caches/com.apple.xbs/Sources/EmbeddedStorageReporting_libs/NANDInfo/NANDInfo.m" lastPathComponent];
+  v206 = [NSString stringWithUTF8String:"NandInfoExtractToCA_runStep"];
+  v207 = [&off_1000D2F78 objectAtIndexedSubscript:v12];
+  NSLog(&v194->isa, v205, v206, v207);
 
 LABEL_197:
 
   return v13;
 }
 
-NANDInfo_GeomErrorPayloadManager *sub_100040740(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+NANDInfo_GeomErrorPayloadManager *sub_100040740(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a1;
   v31 = 0;
   v32 = 0;
   v9 = qword_1000D82C8;
@@ -3146,7 +3147,8 @@ NANDInfo_GeomErrorPayloadManager *sub_100040740(uint64_t a1, uint64_t a2, uint64
 
   else
   {
-    if (!sub_10003E22C(&v32))
+    a1 = sub_10003E22C(&v32);
+    if (!a1)
     {
       v21 = "_getGeomErrorPayloadBuffer: Could not get nand_exporter_t";
       goto LABEL_11;
@@ -3172,7 +3174,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v11 = v10();
+  v11 = (v10)(a1, a2, a3, a4, a5, a6, a7, a8);
   v19 = sub_10003DA48(v9, *(v11 + 4), 0, 0, &v31, 0, 1);
   v20 = v31;
 LABEL_12:
@@ -3183,7 +3185,7 @@ LABEL_12:
 
   if (v19 && v20)
   {
-    v22 = [[NANDInfo_GeomErrorPayloadManager alloc] initWithPayloadBuf:v19 bufSize:v20 prevNumErrors:a1];
+    v22 = [[NANDInfo_GeomErrorPayloadManager alloc] initWithPayloadBuf:v19 bufSize:v20 prevNumErrors:v8];
     v23 = v22;
     if (v22 && [(NANDInfo_GeomErrorPayloadManager *)v22 hasNewErrors])
     {
@@ -3222,7 +3224,7 @@ void *CopyWhitelistedNANDFTLInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
     else
     {
-      sub_100012748("CopyWhitelistedNANDFTLInfo: Unable to gather ESR FTL fields", v16, v17, v18, v19, v20, v21, v22, v37);
+      sub_100012748("CopyWhitelistedNANDFTLInfo: Unable to gather ESR FTL fields", v16, v17, v18, v19, v20, v21, v22);
     }
 
     v24 = sub_100040EE4(v15);
@@ -3251,7 +3253,7 @@ void *CopyWhitelistedNANDFTLInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
   else
   {
-    sub_100012748("CopyWhitelistedNANDFTLInfo: Unable to gather other FTL fields", v8, v9, v10, v11, v12, v13, v14, v37);
+    sub_100012748("CopyWhitelistedNANDFTLInfo: Unable to gather other FTL fields", v8, v9, v10, v11, v12, v13, v14);
   }
 
   v35 = [NSString stringWithUTF8String:sub_100012818()];
@@ -3260,10 +3262,11 @@ void *CopyWhitelistedNANDFTLInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return v15;
 }
 
-id sub_100040A40(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+id sub_100040A40(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a3;
   v9 = a2;
+  v10 = a1;
   v51 = 0;
   v52 = 0;
   v11 = qword_1000D82C8;
@@ -3274,7 +3277,8 @@ id sub_100040A40(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uin
 
   else
   {
-    if (!sub_10003E22C(&v51))
+    a1 = sub_10003E22C(&v51);
+    if (!a1)
     {
       v13 = "gatherASPFTLData: Could not get nand_exporter_t";
       goto LABEL_19;
@@ -3287,7 +3291,7 @@ id sub_100040A40(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uin
   {
     v13 = "gatherASPFTLData: No io_connection exist";
 LABEL_19:
-    sub_100012748(v13, a2, a3, a4, a5, a6, a7, a8, v51);
+    sub_100012748(v13, a2, a3, a4, a5, a6, a7, a8, v51, v52);
     v18 = 0;
     goto LABEL_42;
   }
@@ -3317,7 +3321,7 @@ LABEL_25:
 
   v8 = 0;
 LABEL_11:
-  v14 = v12();
+  v14 = (v12)(a1, a2, a3, a4, a5, a6, a7, a8);
   v15 = sub_10003DA48(v51, *(v14 + 4), 0, v8, &v52, 0, 0);
   v16 = v15;
   if (v15)
@@ -3345,7 +3349,7 @@ LABEL_11:
     if (v19)
     {
       v27 = v19;
-      if (a1)
+      if (v10)
       {
         v28 = (v51[19])(v19, v16, v52);
       }
@@ -3379,7 +3383,7 @@ LABEL_11:
 
         else
         {
-          sub_100012748("Stat Magazine not supported", v40, v41, v42, v43, v44, v45, v46, v51);
+          sub_100012748("Stat Magazine not supported", v40, v41, v42, v43, v44, v45, v46);
           v48 = &off_1000C0DB8;
         }
 
@@ -3388,7 +3392,7 @@ LABEL_11:
 
       else
       {
-        sub_100012748("gatherASPFTLData: parseFTL failed", v29, v30, v31, v32, v33, v34, v35, v51);
+        sub_100012748("gatherASPFTLData: parseFTL failed", v29, v30, v31, v32, v33, v34, v35);
         v18 = 0;
       }
 
@@ -3403,7 +3407,7 @@ LABEL_11:
 
     else
     {
-      sub_100012748("gatherASPFTLData: Could not allocate memory for pcxt.ftlData", v20, v21, v22, v23, v24, v25, v26, v51);
+      sub_100012748("gatherASPFTLData: Could not allocate memory for pcxt.ftlData", v20, v21, v22, v23, v24, v25, v26);
       v18 = 0;
     }
   }
@@ -3463,7 +3467,7 @@ id sub_100040CD8()
 
       else
       {
-        sub_100012748("getCacheDeleteInfo: unable to get output from CacheDeleteCopyItemizedPurgeableSpaceWithInfo", v4, v5, v6, v7, v8, v9, v10, v22);
+        sub_100012748("getCacheDeleteInfo: unable to get output from CacheDeleteCopyItemizedPurgeableSpaceWithInfo", v4, v5, v6, v7, v8, v9, v10);
       }
 
       objc_autoreleasePoolPop(v2);
@@ -3886,7 +3890,7 @@ id sub_100040EE4(void *a1)
 
   else
   {
-    sub_100012748("gatherASPFTLOtherData_Stats: ftlDict is NULL", v6, v7, v8, v9, v10, v11, v12, v135);
+    sub_100012748("gatherASPFTLOtherData_Stats: ftlDict is NULL", v6, v7, v8, v9, v10, v11, v12);
   }
 
   return v2;
@@ -3911,10 +3915,10 @@ id CopySMagHistoryNANDFTLInfo(uint64_t a1, uint64_t a2, int a3)
   }
 
   v28 = v20;
-  v138 = v7;
+  v137 = v7;
   if (a1 >= a2)
   {
-    sub_100012748("CopySMagHistoryNANDFTLInfo: parameters must satisfy lookBackTimeHours1 < lookBackTimeHours2 for deltas", v21, v22, v23, v24, v25, v26, v27, v134);
+    sub_100012748("CopySMagHistoryNANDFTLInfo: parameters must satisfy lookBackTimeHours1 < lookBackTimeHours2 for deltas", v21, v22, v23, v24, v25, v26, v27);
     v81 = v28;
   }
 
@@ -3922,7 +3926,7 @@ id CopySMagHistoryNANDFTLInfo(uint64_t a1, uint64_t a2, int a3)
   {
     v29 = sub_100040A40(0, 0, a2, v23, v24, v25, v26, v27);
     v30 = v29;
-    v136 = v19;
+    v135 = v19;
     if (v29)
     {
       v31 = [v29 objectForKey:@"osBuildStr"];
@@ -3984,32 +3988,32 @@ id CopySMagHistoryNANDFTLInfo(uint64_t a1, uint64_t a2, int a3)
           v56 = [NSNumber numberWithDouble:v55];
           [v7 setObject:v56 forKeyedSubscript:off_1000D8138[0]];
 
-          v142 = 0u;
-          v143 = 0u;
-          v140 = 0u;
           v141 = 0u;
-          v135 = v28;
+          v142 = 0u;
+          v139 = 0u;
+          v140 = 0u;
+          v134 = v28;
           v57 = v28;
-          v58 = [v57 countByEnumeratingWithState:&v140 objects:v144 count:16];
+          v58 = [v57 countByEnumeratingWithState:&v139 objects:v143 count:16];
           if (!v58)
           {
             goto LABEL_44;
           }
 
           v59 = v58;
-          v60 = *v141;
-          v137 = a3 & 0xFFFFFFFD;
-          v139 = a3 - 1;
+          v60 = *v140;
+          v136 = a3 & 0xFFFFFFFD;
+          v138 = a3 - 1;
           while (1)
           {
             for (i = 0; i != v59; i = i + 1)
             {
-              if (*v141 != v60)
+              if (*v140 != v60)
               {
                 objc_enumerationMutation(v57);
               }
 
-              v62 = *(*(&v140 + 1) + 8 * i);
+              v62 = *(*(&v139 + 1) + 8 * i);
               v63 = [v30 objectForKey:v62];
               if (v63)
               {
@@ -4042,7 +4046,7 @@ LABEL_25:
                 objc_opt_class();
                 v71 = objc_opt_isKindOfClass();
 
-                v7 = v138;
+                v7 = v137;
                 if (v71)
                 {
                   if (v55 <= 0.0)
@@ -4058,10 +4062,10 @@ LABEL_25:
                     v74 = [v30 objectForKey:v62];
                     v75 = (v73 - [v74 unsignedLongLongValue]);
 
-                    v7 = v138;
+                    v7 = v137;
                   }
 
-                  if (!v137)
+                  if (!v136)
                   {
                     v67 = [NSNumber numberWithDouble:v75];
                     [v7 setObject:v67 forKeyedSubscript:v62];
@@ -4074,7 +4078,7 @@ LABEL_34:
               if (v76)
               {
 
-                if (v139 <= 1)
+                if (v138 <= 1)
                 {
                   v77 = [v30 objectForKey:v62];
 
@@ -4101,12 +4105,12 @@ LABEL_34:
               }
             }
 
-            v59 = [v57 countByEnumeratingWithState:&v140 objects:v144 count:16];
+            v59 = [v57 countByEnumeratingWithState:&v139 objects:v143 count:16];
             if (!v59)
             {
 LABEL_44:
 
-              v28 = v135;
+              v28 = v134;
               v6 = &MSURetrievePreviousRestoreDate_ptr;
               goto LABEL_48;
             }
@@ -4114,7 +4118,7 @@ LABEL_44:
         }
       }
 
-      sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather other stats magazine deltas", v43, v44, v45, v46, v47, v48, v49, v134);
+      sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather other stats magazine deltas", v43, v44, v45, v46, v47, v48, v49);
     }
 
     else
@@ -4126,7 +4130,7 @@ LABEL_46:
 LABEL_48:
     v81 = v7;
 
-    v19 = v136;
+    v19 = v135;
   }
 
   v89 = sub_100040CD8();
@@ -4137,7 +4141,7 @@ LABEL_48:
 
   else
   {
-    sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather ESR FTL fields", v82, v83, v84, v85, v86, v87, v88, v134);
+    sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather ESR FTL fields", v82, v83, v84, v85, v86, v87, v88);
   }
 
   v90 = sub_100040EE4(v19);
@@ -4149,7 +4153,7 @@ LABEL_48:
 
   else
   {
-    sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather ESR FTL fields", v91, v92, v93, v94, v95, v96, v97, v134);
+    sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather ESR FTL fields", v91, v92, v93, v94, v95, v96, v97);
   }
 
   v98 = v81;
@@ -4189,7 +4193,7 @@ LABEL_48:
 
       v102 = [NSNumber numberWithDouble:v110];
       [v100 setObject:v102 forKeyedSubscript:@"averageTLCPECycles"];
-      v7 = v138;
+      v7 = v137;
     }
 
 LABEL_66:
@@ -4224,7 +4228,7 @@ LABEL_72:
 
         v113 = [NSNumber numberWithDouble:v121];
         [v100 setObject:v113 forKeyedSubscript:@"averageSLCPECycles"];
-        v7 = v138;
+        v7 = v137;
         goto LABEL_72;
       }
     }
@@ -4244,7 +4248,7 @@ LABEL_75:
 
   else
   {
-    sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather new delta fields", v124, v125, v126, v127, v128, v129, v130, v134);
+    sub_100012748("CopySMagHistoryNANDFTLInfo: Unable to gather new delta fields", v124, v125, v126, v127, v128, v129, v130);
   }
 
   v131 = [NSString stringWithUTF8String:sub_100012818()];
@@ -4496,289 +4500,283 @@ LABEL_50:
 
 id CopyWhitelistedNANDMSPInfo()
 {
-  v0 = &MSURetrievePreviousRestoreDate_ptr;
-  v116 = objc_alloc_init(NSMutableDictionary);
-  v121 = 0;
-  v122 = 0;
-  v8 = off_1000D8000;
-  v9 = qword_1000D82C8;
-  v10 = &MSURetrievePreviousRestoreDate_ptr;
+  v112 = objc_alloc_init(NSMutableDictionary);
+  v117 = 0;
+  v118 = 0;
+  v7 = off_1000D8000;
+  v8 = qword_1000D82C8;
+  v9 = &MSURetrievePreviousRestoreDate_ptr;
   if (qword_1000D82C8)
   {
-    v121 = qword_1000D82C8;
+    v117 = qword_1000D82C8;
   }
 
   else
   {
-    if (!sub_10003E22C(&v121))
+    if (!sub_10003E22C(&v117))
     {
-      v33 = "gatherASPMSPData: Could not get nand_exporter_t";
+      v32 = "gatherASPMSPData: Could not get nand_exporter_t";
       goto LABEL_16;
     }
 
-    v9 = v121;
+    v8 = v117;
   }
 
-  v11 = v9[7];
-  if (!v11 || !v9[17])
+  v10 = v8[7];
+  if (!v10 || !v8[17])
   {
-    v33 = "gatherASPMSPData: Controller does not support MSP data";
+    v32 = "gatherASPMSPData: Controller does not support MSP data";
 LABEL_16:
-    sub_100012748(v33, v1, v2, v3, v4, v5, v6, v7, v112);
-    v14 = 0;
+    sub_100012748(v32, v0, v1, v2, v3, v4, v5, v6);
+    v13 = 0;
     goto LABEL_17;
   }
 
-  v12 = v11();
-  if (!*(v121 + 4))
+  v11 = v10();
+  if (!*(v117 + 4))
   {
-    v33 = "gatherASPMSPData: No io_connection exist";
+    v32 = "gatherASPMSPData: No io_connection exist";
     goto LABEL_16;
   }
 
-  v13 = v12;
-  v14 = objc_alloc_init(NSMutableDictionary);
-  v15 = malloc_type_calloc(1uLL, 0x10uLL, 0x10200405F07FB98uLL);
-  if (!v15)
+  v12 = v11;
+  v13 = objc_alloc_init(NSMutableDictionary);
+  v14 = malloc_type_calloc(1uLL, 0x10uLL, 0x10200405F07FB98uLL);
+  if (!v14)
   {
-    sub_100012748("gatherASPMSPData: Memory allocation issue!", v16, v17, v18, v19, v20, v21, v22, v112);
+    sub_100012748("gatherASPMSPData: Memory allocation issue!", v15, v16, v17, v18, v19, v20, v21);
     goto LABEL_17;
   }
 
-  v23 = v15;
-  v24 = 0;
-  v15[8] = 0;
+  v22 = v14;
+  v23 = 0;
+  v14[8] = 0;
   while (1)
   {
-    v122 = 0;
-    v25 = sub_10003DA48(v121, *(v13 + 4), 0, v24, &v122, 0, 1);
-    if (!v25)
+    v118 = 0;
+    v24 = sub_10003DA48(v117, *(v12 + 4), 0, v23, &v118, 0, 1);
+    if (!v24)
     {
       break;
     }
 
-    free(v25);
-    if (++v24 == 9)
+    free(v24);
+    v23 = (v23 + 1);
+    if (v23 == 9)
     {
-      v23[8] = 9;
+      v22[8] = 9;
       goto LABEL_48;
     }
   }
 
-  v23[8] = v24;
-  if (v24)
+  v22[8] = v23;
+  if (v23)
   {
 LABEL_48:
-    v82 = malloc_type_calloc(v24, 0x20uLL, 0x20040DC1BFBCFuLL);
-    if (v82)
+    v79 = malloc_type_calloc(v23, 0x20uLL, 0x20040DC1BFBCFuLL);
+    if (v79)
     {
-      v83 = v82;
-      *v23 = v82;
-      if (!v23[8])
+      v80 = v79;
+      *v22 = v79;
+      if (!v22[8])
       {
-        v104 = 0;
+        v101 = 0;
 LABEL_72:
-        free(v83);
+        free(v80);
         goto LABEL_73;
       }
 
-      v114 = v14;
-      v84 = 0;
-      v85 = 0;
-      v86 = 0;
+      v110 = v13;
+      v81 = 0;
+      v82 = 0;
+      v83 = 0;
       while (1)
       {
-        v122 = 0;
-        v87 = sub_10003DA48(v121, *(v13 + 4), 0, v85, &v122, 0, 0);
-        if (!v87)
+        v118 = 0;
+        v84 = sub_10003DA48(v117, *(v12 + 4), 0, v82, &v118, 0, 0);
+        if (!v84)
         {
-          sub_100012748("gatherASPMSPData: getNANDMSPBuffer tunnel command failed !", v88, v89, v90, v91, v92, v93, v94, v112);
+          sub_100012748("gatherASPMSPData: getNANDMSPBuffer tunnel command failed !", v85, v86, v87, v88, v89, v90, v91);
           goto LABEL_63;
         }
 
-        v95 = v87;
-        if (!(v121[17])(v83, v87, v122))
+        v92 = v84;
+        if (!(v117[17])(v80, v84, v118))
         {
           break;
         }
 
-        v103 = v85 < v23[8];
-        v104 = sub_1000475C8((*v23 + v84), 0);
+        v100 = v82 < v22[8];
+        v101 = sub_1000475C8((*v22 + v81), 0);
 
-        v112 = v85;
-        v105 = [NSString stringWithFormat:@"%d"];
-        [v114 setObject:v104 forKeyedSubscript:v105];
+        v102 = [NSString stringWithFormat:@"%d", v82];
+        [v110 setObject:v101 forKeyedSubscript:v102];
 
-        v106 = v121[20];
-        if (v106)
+        v103 = v117[20];
+        if (v103)
         {
-          (v106)(*v23 + v84);
+          (v103)(*v22 + v81);
         }
 
-        v83 += 32 * v103;
-        free(v95);
-        ++v85;
-        v107 = v23[8];
-        v84 += 32;
-        v86 = v104;
-        v0 = &MSURetrievePreviousRestoreDate_ptr;
-        if (v85 >= v107)
+        v80 += 32 * v100;
+        free(v92);
+        ++v82;
+        v104 = v22[8];
+        v81 += 32;
+        v83 = v101;
+        if (v82 >= v104)
         {
-          v8 = off_1000D8000;
+          v7 = off_1000D8000;
           goto LABEL_65;
         }
       }
 
-      sub_100012748("gatherASPMSPData: parseMSP failed !", v96, v97, v98, v99, v100, v101, v102, v112);
-      free(v95);
+      sub_100012748("gatherASPMSPData: parseMSP failed !", v93, v94, v95, v96, v97, v98, v99);
+      free(v92);
 LABEL_63:
-      v8 = off_1000D8000;
+      v7 = off_1000D8000;
       goto LABEL_64;
     }
 
-    v114 = v14;
-    v108 = "gatherASPMSPData: Could not allocate memory for genericPCxt";
+    v110 = v13;
+    v105 = "gatherASPMSPData: Could not allocate memory for genericPCxt";
   }
 
   else
   {
-    v114 = v14;
-    v108 = "gatherASPMSPData: Unable to gather any NAND MSP fields";
+    v110 = v13;
+    v105 = "gatherASPMSPData: Unable to gather any NAND MSP fields";
   }
 
-  sub_100012748(v108, v26, v27, v28, v29, v30, v31, v32, v112);
-  v86 = 0;
+  sub_100012748(v105, v25, v26, v27, v28, v29, v30, v31);
+  v83 = 0;
 LABEL_64:
-  LODWORD(v107) = v23[8];
-  v104 = v86;
+  LODWORD(v104) = v22[8];
+  v101 = v83;
 LABEL_65:
-  v14 = v114;
-  if (v107)
+  v13 = v110;
+  if (v104)
   {
-    v109 = 0;
-    v110 = 0;
+    v106 = 0;
+    v107 = 0;
     do
     {
-      if (*v23)
+      if (*v22)
       {
-        v111 = v121[20];
-        if (v111)
+        v108 = v117[20];
+        if (v108)
         {
-          (v111)(*v23 + v109);
-          LODWORD(v107) = v23[8];
+          (v108)(*v22 + v106);
+          LODWORD(v104) = v22[8];
         }
       }
 
-      ++v110;
-      v109 += 32;
+      ++v107;
+      v106 += 32;
     }
 
-    while (v110 < v107);
+    while (v107 < v104);
   }
 
-  v83 = *v23;
-  v10 = &MSURetrievePreviousRestoreDate_ptr;
-  if (*v23)
+  v80 = *v22;
+  v9 = &MSURetrievePreviousRestoreDate_ptr;
+  if (*v22)
   {
     goto LABEL_72;
   }
 
 LABEL_73:
-  free(v23);
+  free(v22);
 
 LABEL_17:
-  if (!v8[89] && v121)
+  if (!v7[89] && v117)
   {
-    sub_10003E378(v121);
+    sub_10003E378(v117);
   }
 
-  if (v14)
+  if (v13)
   {
-    v48 = sub_100043550();
-    if (!v48)
+    v47 = sub_100043550();
+    if (!v47)
     {
-      sub_100012748("CopyWhitelistedNANDMSPInfo: Unable to gather ESR MSP fields", v41, v42, v43, v44, v45, v46, v47, v112);
+      sub_100012748("CopyWhitelistedNANDMSPInfo: Unable to gather ESR MSP fields", v40, v41, v42, v43, v44, v45, v46);
     }
 
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
-    v118 = 0u;
-    v113 = v14;
-    v49 = v14;
-    v50 = [v49 countByEnumeratingWithState:&v117 objects:v123 count:16];
-    if (v50)
+    v115 = 0u;
+    v116 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    v109 = v13;
+    v48 = v13;
+    v49 = [v48 countByEnumeratingWithState:&v113 objects:v119 count:16];
+    if (v49)
     {
-      v51 = v50;
-      v52 = 0;
-      v53 = *v118;
-      v115 = v48;
+      v50 = v49;
+      v51 = 0;
+      v52 = *v114;
+      v111 = v47;
       do
       {
-        for (i = 0; i != v51; i = i + 1)
+        for (i = 0; i != v50; i = i + 1)
         {
-          if (*v118 != v53)
+          if (*v114 != v52)
           {
-            objc_enumerationMutation(v49);
+            objc_enumerationMutation(v48);
           }
 
-          v55 = *(*(&v117 + 1) + 8 * i);
-          v56 = [v49 objectForKey:v55];
-          v57 = v0[244];
+          v54 = *(*(&v113 + 1) + 8 * i);
+          v55 = [v48 objectForKey:v54];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v58 = [v49 objectForKey:v55];
+            v56 = [v48 objectForKey:v54];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
-            v0 = &MSURetrievePreviousRestoreDate_ptr;
             if (isKindOfClass)
             {
-              v60 = [NSMutableDictionary alloc];
-              v61 = [v49 objectForKey:v55];
-              v62 = [v60 initWithDictionary:v61];
+              v58 = [NSMutableDictionary alloc];
+              v59 = [v48 objectForKey:v54];
+              v60 = [v58 initWithDictionary:v59];
 
-              v52 = v62;
-              v70 = objc_alloc_init(NSMutableDictionary);
-              if (v52)
+              v51 = v60;
+              v68 = objc_alloc_init(NSMutableDictionary);
+              if (v51)
               {
-                v71 = [v52 objectForKey:off_1000D81E8];
+                v69 = [v51 objectForKey:off_1000D81E8];
 
-                if (v71)
+                if (v69)
                 {
-                  v72 = [v52 objectForKey:off_1000D81E8];
-                  v73 = [v72 unsignedLongLongValue];
+                  v70 = [v51 objectForKey:off_1000D81E8];
+                  v71 = [v70 unsignedLongLongValue];
 
-                  v74 = [NSNumber numberWithUnsignedLongLong:v73];
-                  [v70 setObject:v74 forKeyedSubscript:off_1000D81F0];
+                  v72 = [NSNumber numberWithUnsignedLongLong:v71];
+                  [v68 setObject:v72 forKeyedSubscript:off_1000D81F0];
 
-                  v75 = [NSNumber numberWithUnsignedLongLong:WORD1(v73)];
-                  [v70 setObject:v75 forKeyedSubscript:off_1000D81F8];
+                  v73 = [NSNumber numberWithUnsignedLongLong:WORD1(v71)];
+                  [v68 setObject:v73 forKeyedSubscript:off_1000D81F8];
 
-                  v76 = [NSNumber numberWithUnsignedLongLong:WORD2(v73)];
-                  [v70 setObject:v76 forKeyedSubscript:off_1000D8200];
+                  v74 = [NSNumber numberWithUnsignedLongLong:WORD2(v71)];
+                  [v68 setObject:v74 forKeyedSubscript:off_1000D8200];
 
-                  v48 = v115;
-                  v77 = HIWORD(v73);
-                  v0 = &MSURetrievePreviousRestoreDate_ptr;
-                  v78 = [NSNumber numberWithUnsignedLongLong:v77];
-                  [v70 setObject:v78 forKeyedSubscript:off_1000D8208];
+                  v47 = v111;
+                  v75 = [NSNumber numberWithUnsignedLongLong:HIWORD(v71)];
+                  [v68 setObject:v75 forKeyedSubscript:off_1000D8208];
                 }
               }
 
               else
               {
-                sub_100012748("gatherMSPOtherData: Unable to gather other MSP data", v63, v64, v65, v66, v67, v68, v69, v112);
+                sub_100012748("gatherMSPOtherData: Unable to gather other MSP data", v61, v62, v63, v64, v65, v66, v67);
               }
 
-              [v52 addEntriesFromDictionary:v70];
-              if (v48 && v52)
+              [v51 addEntriesFromDictionary:v68];
+              if (v47 && v51)
               {
-                [v52 addEntriesFromDictionary:v48];
+                [v51 addEntriesFromDictionary:v47];
               }
 
-              [v116 setObject:v52 forKeyedSubscript:v55];
+              [v112 setObject:v51 forKeyedSubscript:v54];
             }
           }
 
@@ -4787,32 +4785,32 @@ LABEL_17:
           }
         }
 
-        v51 = [v49 countByEnumeratingWithState:&v117 objects:v123 count:16];
+        v50 = [v48 countByEnumeratingWithState:&v113 objects:v119 count:16];
       }
 
-      while (v51);
+      while (v50);
     }
 
     else
     {
-      v52 = 0;
+      v51 = 0;
     }
 
-    v10 = &MSURetrievePreviousRestoreDate_ptr;
-    v14 = v113;
+    v9 = &MSURetrievePreviousRestoreDate_ptr;
+    v13 = v109;
   }
 
   else
   {
-    sub_100012748("CopyWhitelistedNANDMSPInfo: Unable to gather MSP fields", v34, v35, v36, v37, v38, v39, v40, v112);
-    v52 = 0;
+    sub_100012748("CopyWhitelistedNANDMSPInfo: Unable to gather MSP fields", v33, v34, v35, v36, v37, v38, v39);
+    v51 = 0;
   }
 
-  v79 = [v10[211] stringWithUTF8String:sub_100012818()];
-  [v116 setObject:v79 forKeyedSubscript:off_1000D80B0[0]];
+  v76 = [v9[211] stringWithUTF8String:sub_100012818()];
+  [v112 setObject:v76 forKeyedSubscript:off_1000D80B0[0]];
 
-  v80 = v116;
-  return v80;
+  v77 = v112;
+  return v77;
 }
 
 id sub_100043550()
@@ -4865,7 +4863,7 @@ id sub_100043550()
 
   else
   {
-    sub_100012748("gatherASPOtherData: Unable to get FTL stats", v7, v8, v9, v10, v11, v12, v13, v26);
+    sub_100012748("gatherASPOtherData: Unable to get FTL stats", v7, v8, v9, v10, v11, v12, v13);
   }
 
   return v0;
@@ -4956,7 +4954,7 @@ id CopyWhitelistedStorageStats()
 
   if (!v0)
   {
-    sub_100012748("CopyWhitelistedNANDFTLInfo: Unable to gather other FTL fields", v24, v25, v26, v27, v28, v29, v30, v33);
+    sub_100012748("CopyWhitelistedNANDFTLInfo: Unable to gather other FTL fields", v24, v25, v26, v27, v28, v29, v30);
   }
 
   v31 = [NSString stringWithUTF8String:sub_100012818()];
@@ -5036,7 +5034,7 @@ id sub_100043B60()
   return v0;
 }
 
-id LogStorageUIDatatoCA(void *a1, int a2)
+NSMutableArray *LogStorageUIDatatoCA(void *a1, int a2)
 {
   v2 = sub_1000462EC(a1);
   v14 = objc_opt_new();
@@ -5108,13 +5106,13 @@ uint64_t sub_100044010(uint64_t a1, void *a2)
   v10 = v2;
   if (&_AnalyticsSendEventLazy)
   {
-    v14 = v2;
+    v13 = v2;
     v11 = AnalyticsSendEventLazy();
   }
 
   else
   {
-    sub_100012748("AnalyticsSendEventLazy SPI does not exist", v3, v4, v5, v6, v7, v8, v9, v13);
+    sub_100012748("AnalyticsSendEventLazy SPI does not exist", v3, v4, v5, v6, v7, v8, v9);
     v11 = 0;
   }
 
@@ -6245,7 +6243,7 @@ id sub_100046274(uint64_t a1)
   return v2;
 }
 
-void *sub_1000462EC(void *a1)
+NSMutableArray *sub_1000462EC(void *a1)
 {
   v1 = a1;
   v2 = objc_alloc_init(NSMutableDictionary);
@@ -7024,12 +7022,19 @@ void sub_1000494B4(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "ERROR: Unexpected state %ld for XPC activity %p", &v3, 0x16u);
 }
 
+void sub_1000495A4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  sub_100008A5C(&_mh_execute_header, a2, a3, "XPC activity %p cannot be deferred!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100049614(void *a1)
 {
   v2 = a1;
   v3 = [sub_100008A78() xpcActivity];
   sub_100008A30();
-  sub_100008A3C(&_mh_execute_header, v4, v5, "xpc_activity %p cannot be deferred", v6, v7, v8, v9, v10);
+  sub_100008A3C(&_mh_execute_header, v4, v5, "xpc_activity %p cannot be deferred", v6, v7, v8, v9);
 }
 
 void sub_1000496A4(void *a1)
@@ -7037,7 +7042,7 @@ void sub_1000496A4(void *a1)
   v2 = a1;
   v3 = [sub_100008A78() xpcActivity];
   sub_100008A30();
-  sub_100008A3C(&_mh_execute_header, v4, v5, "xpc_activity %p deferred!", v6, v7, v8, v9, v10);
+  sub_100008A3C(&_mh_execute_header, v4, v5, "xpc_activity %p deferred!", v6, v7, v8, v9);
 }
 
 void sub_100049734(void *a1)
@@ -7053,7 +7058,28 @@ void sub_1000497D4(void *a1)
   v2 = a1;
   v3 = [sub_100008A78() xpcActivity];
   sub_100008A30();
-  sub_100008A3C(&_mh_execute_header, v4, v5, "xpc_activity %p cannot be force deferred", v6, v7, v8, v9, v10);
+  sub_100008A3C(&_mh_execute_header, v4, v5, "xpc_activity %p cannot be force deferred", v6, v7, v8, v9);
+}
+
+void sub_1000499EC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  sub_100008A5C(&_mh_execute_header, a2, a3, "Error opening file of name - %s\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100049AF4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  sub_100008A5C(&_mh_execute_header, a2, a3, "All stats save to path %s failed.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100049B60(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  sub_100008A5C(&_mh_execute_header, a2, a3, "Band stats save to path %s failed.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100049BCC(void *a1, void *a2)
@@ -7138,7 +7164,7 @@ void sub_10004A174(void *a1, void *a2)
   v5 = a2;
   [a1 UTF8String];
   sub_100008A30();
-  sub_10000F718(&_mh_execute_header, v6, v7, "Raw dict inconsistency: %s", v8, v9, v10, v11, v12);
+  sub_10000F718(&_mh_execute_header, v6, v7, "Raw dict inconsistency: %s", v8, v9, v10, v11);
 }
 
 void sub_10004A204(void *a1, void *a2)
@@ -7154,16 +7180,18 @@ void sub_10004A2B0(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 localizedDescription];
-  [v4 UTF8String];
-  sub_100008A3C(&_mh_execute_header, v5, v6, "DP tasking payload fetch error %s", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 136315138;
+  *(&v11 + 4) = [v4 UTF8String];
+  sub_100008A3C(&_mh_execute_header, v5, v6, "DP tasking payload fetch error %s", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10004A394(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 localizedDescription];
-  [v4 UTF8String];
-  sub_100008A3C(&_mh_execute_header, v5, v6, "DP tasking mark complete error %s", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 136315138;
+  *(&v11 + 4) = [v4 UTF8String];
+  sub_100008A3C(&_mh_execute_header, v5, v6, "DP tasking mark complete error %s", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10004A434(void *a1, void *a2)

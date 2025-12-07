@@ -263,18 +263,14 @@
     }
   }
 
-  else
+  else if (([(NSString *)identifier isEqual:?]& 1) == 0)
   {
-    v8 = [(NSString *)identifier isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_38;
-    }
+    goto LABEL_38;
   }
 
   cardNickname = self->_cardNickname;
-  v10 = descriptorCopy[4];
-  if (cardNickname && v10)
+  v9 = descriptorCopy[4];
+  if (cardNickname && v9)
   {
     if (([(NSString *)cardNickname isEqual:?]& 1) == 0)
     {
@@ -282,14 +278,14 @@
     }
   }
 
-  else if (cardNickname != v10)
+  else if (cardNickname != v9)
   {
     goto LABEL_38;
   }
 
   displayableLastFour = self->_displayableLastFour;
-  v12 = descriptorCopy[5];
-  if (displayableLastFour && v12)
+  v11 = descriptorCopy[5];
+  if (displayableLastFour && v11)
   {
     if (([(NSString *)displayableLastFour isEqual:?]& 1) == 0)
     {
@@ -297,7 +293,7 @@
     }
   }
 
-  else if (displayableLastFour != v12)
+  else if (displayableLastFour != v11)
   {
     goto LABEL_38;
   }
@@ -308,8 +304,8 @@
   }
 
   lastUsage = self->_lastUsage;
-  v14 = descriptorCopy[7];
-  if (lastUsage && v14)
+  v13 = descriptorCopy[7];
+  if (lastUsage && v13)
   {
     if (([(NSDate *)lastUsage isEqual:?]& 1) == 0)
     {
@@ -317,65 +313,65 @@
     }
   }
 
-  else if (lastUsage != v14)
+  else if (lastUsage != v13)
   {
     goto LABEL_38;
   }
 
-  v15 = descriptorCopy[10];
-  v16 = self->_primaryAccountIdentifier;
-  v17 = v15;
-  v18 = v17;
-  if (v16 == v17)
+  v14 = descriptorCopy[10];
+  v15 = self->_primaryAccountIdentifier;
+  v16 = v14;
+  v17 = v16;
+  if (v15 == v16)
   {
   }
 
   else
   {
-    if (!v16 || !v17)
+    if (!v15 || !v16)
     {
 LABEL_37:
 
       goto LABEL_38;
     }
 
-    v19 = [(NSString *)v16 isEqualToString:v17];
+    isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-    if (!v19)
+    if (!isEqualToString)
     {
       goto LABEL_38;
     }
   }
 
-  v20 = descriptorCopy[11];
-  v16 = self->_passUniqueIdentifier;
-  v21 = v20;
-  v18 = v21;
-  if (v16 == v21)
+  v19 = descriptorCopy[11];
+  v15 = self->_passUniqueIdentifier;
+  v20 = v19;
+  v17 = v20;
+  if (v15 == v20)
   {
 
 LABEL_41:
-    v23 = self->_cardIsInWallet == *(descriptorCopy + 9);
+    v22 = self->_cardIsInWallet == *(descriptorCopy + 9);
     goto LABEL_39;
   }
 
-  if (!v16 || !v21)
+  if (!v15 || !v20)
   {
     goto LABEL_37;
   }
 
-  v22 = [(NSString *)v16 isEqualToString:v21];
+  v21 = objc_msgSend_isEqualToString_(v15);
 
-  if (v22)
+  if (v21)
   {
     goto LABEL_41;
   }
 
 LABEL_38:
-  v23 = 0;
+  v22 = 0;
 LABEL_39:
 
-  return v23;
+  return v22;
 }
 
 @end

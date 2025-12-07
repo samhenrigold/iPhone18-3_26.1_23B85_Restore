@@ -97,37 +97,38 @@ void __38__TPFavoritesController_fetchIfNeeded__block_invoke(uint64_t a1)
 
   if (!self->_favoritesEntries)
   {
-    v4 = TPDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = TPDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1B4894000, v4, OS_LOG_TYPE_DEFAULT, "Performing Initial Fetch", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_1B4894000, v5, OS_LOG_TYPE_DEFAULT, "Performing Initial Fetch", v15, 2u);
     }
 
-    v5 = objc_alloc_init(MEMORY[0x1E69D8A90]);
+    v6 = objc_alloc_init(MEMORY[0x1E69D8A90]);
     callProviderManager = self->_callProviderManager;
-    self->_callProviderManager = v5;
+    self->_callProviderManager = v6;
 
     [(TUCallProviderManager *)self->_callProviderManager addDelegate:self queue:self->_serialDispatchQueue];
-    if ([MEMORY[0x1E695CE18] authorizationStatusForEntityType:0] == 3)
+    v8 = [MEMORY[0x1E695CE18] authorizationStatusForEntityType:0];
+    if (v8 == 3)
     {
-      v7 = objc_alloc_init(MEMORY[0x1E695CE18]);
+      v9 = objc_alloc_init(MEMORY[0x1E695CE18]);
       p_super = &self->_contactStore->super;
-      self->_contactStore = v7;
+      self->_contactStore = v9;
     }
 
     else
     {
-      p_super = TPDefaultLog();
+      p_super = TPDefaultLog(v8);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [(TPFavoritesController *)p_super performInitialFetchIfNeeded];
       }
     }
 
-    v9 = [objc_alloc(MEMORY[0x1E695CE90]) initWithContactStore:self->_contactStore];
+    v11 = [objc_alloc(MEMORY[0x1E695CE90]) initWithContactStore:self->_contactStore];
     favoritesManager = self->_favoritesManager;
-    self->_favoritesManager = v9;
+    self->_favoritesManager = v11;
 
     fetchFavoritesEntries = [(TPFavoritesController *)self fetchFavoritesEntries];
     [(TPFavoritesController *)self setFavoritesEntries:fetchFavoritesEntries];
@@ -139,18 +140,18 @@ void __38__TPFavoritesController_fetchIfNeeded__block_invoke(uint64_t a1)
 
 - (id)fetchFavoritesEntries
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   serialDispatchQueue = [(TPFavoritesController *)self serialDispatchQueue];
   dispatch_assert_queue_V2(serialDispatchQueue);
 
-  v4 = TPDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = TPDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B4894000, v4, OS_LOG_TYPE_DEFAULT, "Fetching Favorites Entries", buf, 2u);
+    _os_log_impl(&dword_1B4894000, v5, OS_LOG_TYPE_DEFAULT, "Fetching Favorites Entries", buf, 2u);
   }
 
-  v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
   contactCache = [(TPFavoritesController *)self contactCache];
   [contactCache removeAllObjects];
 
@@ -159,149 +160,150 @@ void __38__TPFavoritesController_fetchIfNeeded__block_invoke(uint64_t a1)
 
   favoritesManager = [(TPFavoritesController *)self favoritesManager];
   entries = [favoritesManager entries];
-  v9 = [entries copy];
+  v10 = [entries copy];
 
-  v10 = TPDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = TPDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [(TPFavoritesController *)v9 fetchFavoritesEntries];
+    [(TPFavoritesController *)v10 fetchFavoritesEntries];
   }
 
-  v47 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  obj = v9;
-  v11 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
-  if (v11)
+  v49 = 0u;
+  obj = v10;
+  v13 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+  if (v13)
   {
-    v13 = v11;
-    v14 = 0;
-    v43 = *v46;
-    v15 = *MEMORY[0x1E695C150];
-    v41 = *MEMORY[0x1E695C1B8];
-    *&v12 = 138412290;
-    v40 = v12;
+    v15 = v13;
+    v16 = 0;
+    v46 = *v49;
+    v17 = *MEMORY[0x1E695C150];
+    v44 = *MEMORY[0x1E695C1B8];
+    *&v14 = 138412290;
+    v43 = v14;
     do
     {
-      v16 = 0;
+      v18 = 0;
       do
       {
-        if (*v46 != v43)
+        if (*v49 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v45 + 1) + 8 * v16);
-        v18 = TPDefaultLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v19 = *(*(&v48 + 1) + 8 * v18);
+        v20 = TPDefaultLog(v13);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          *v49 = 67109120;
-          LODWORD(v50) = v14;
-          _os_log_debug_impl(&dword_1B4894000, v18, OS_LOG_TYPE_DEBUG, "Fetching data for entry %i", v49, 8u);
+          *v52 = 67109120;
+          LODWORD(v53) = v16;
+          _os_log_debug_impl(&dword_1B4894000, v20, OS_LOG_TYPE_DEBUG, "Fetching data for entry %i", v52, 8u);
         }
 
-        v19 = v17;
-        actionType = [v19 actionType];
-        if ([actionType isEqualToString:v15])
+        v21 = v19;
+        actionType = [v21 actionType];
+        if ([actionType isEqualToString:v17])
         {
         }
 
         else
         {
-          actionType2 = [v19 actionType];
-          v22 = [actionType2 isEqualToString:v41];
+          actionType2 = [v21 actionType];
+          v24 = [actionType2 isEqualToString:v44];
 
-          v23 = v19;
-          if (!v22)
+          v25 = v21;
+          if (!v24)
           {
             goto LABEL_21;
           }
         }
 
         callProviderManager = [(TPFavoritesController *)self callProviderManager];
-        v25 = [callProviderManager providerForFavoritesEntry:v19];
+        v27 = [callProviderManager providerForFavoritesEntry:v21];
 
-        if (!v25)
+        if (!v27)
         {
           [(TPFavoritesController *)self setNeedsProvidersUpdates:1];
         }
 
-        v23 = v19;
-        if (([v25 supportsAudioAndVideo] & 1) == 0)
+        v25 = v21;
+        if (([v27 supportsAudioAndVideo] & 1) == 0)
         {
-          v23 = v19;
-          if (([v25 supportsAudioOnly] & 1) == 0)
+          v25 = v21;
+          if (([v27 supportsAudioOnly] & 1) == 0)
           {
 
-            v23 = 0;
+            v25 = 0;
           }
         }
 
 LABEL_21:
-        if (v23)
+        if (v25)
         {
-          [v44 addObject:v23];
-          if (!-[TPFavoritesController prefetchCount](self, "prefetchCount") || (v26 = -[TPFavoritesController prefetchCount](self, "prefetchCount"), v26 >= [v44 count]))
+          [v47 addObject:v25];
+          prefetchCount = [(TPFavoritesController *)self prefetchCount];
+          if (!prefetchCount || (v29 = -[TPFavoritesController prefetchCount](self, "prefetchCount"), prefetchCount = [v47 count], v29 >= prefetchCount))
           {
-            v27 = TPDefaultLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v30 = TPDefaultLog(prefetchCount);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
-              [(TPFavoritesController *)buf fetchFavoritesEntries:&v52];
+              [(TPFavoritesController *)buf fetchFavoritesEntries:&v55];
             }
 
             contactCache2 = [(TPFavoritesController *)self contactCache];
-            v29 = [(TPFavoritesController *)self fetchContactForFavoritesEntry:v23];
-            v30 = [(TPFavoritesController *)self contactCacheKeyForFavoritesEntry:v23];
-            [contactCache2 setObject:v29 forKey:v30];
+            v32 = [(TPFavoritesController *)self fetchContactForFavoritesEntry:v25];
+            v33 = [(TPFavoritesController *)self contactCacheKeyForFavoritesEntry:v25];
+            [contactCache2 setObject:v32 forKey:v33];
 
-            v31 = [(TPFavoritesController *)self fetchTransportNameForFavoritesEntry:v19];
-            if (v31)
+            v34 = [(TPFavoritesController *)self fetchTransportNameForFavoritesEntry:v21];
+            if (v34)
             {
               transportNameCache2 = [(TPFavoritesController *)self transportNameCache];
-              v33 = [(TPFavoritesController *)self transportNameCacheKeyForFavoritesEntry:v19];
-              [transportNameCache2 setObject:v31 forKey:v33];
+              v36 = [(TPFavoritesController *)self transportNameCacheKeyForFavoritesEntry:v21];
+              [transportNameCache2 setObject:v34 forKey:v36];
             }
 
             else
             {
-              transportNameCache2 = TPDefaultLog();
+              transportNameCache2 = TPDefaultLog(0);
               if (os_log_type_enabled(transportNameCache2, OS_LOG_TYPE_ERROR))
               {
-                *v49 = v40;
-                v50 = v19;
-                _os_log_error_impl(&dword_1B4894000, transportNameCache2, OS_LOG_TYPE_ERROR, "Cannot find a transport name for this favorites entry %@", v49, 0xCu);
+                *v52 = v43;
+                v53 = v21;
+                _os_log_error_impl(&dword_1B4894000, transportNameCache2, OS_LOG_TYPE_ERROR, "Cannot find a transport name for this favorites entry %@", v52, 0xCu);
               }
             }
 
-            name = [v23 name];
+            name = [v25 name];
           }
         }
 
+        ++v18;
         ++v16;
-        ++v14;
       }
 
-      while (v13 != v16);
-      v13 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+      while (v15 != v18);
+      v13 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v15 = v13;
     }
 
     while (v13);
   }
 
-  v35 = TPDefaultLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v39 = TPDefaultLog(v38);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = [v44 count];
-    *v49 = 134217984;
-    v50 = v36;
-    _os_log_impl(&dword_1B4894000, v35, OS_LOG_TYPE_DEFAULT, "Found %lu Favorite Entries", v49, 0xCu);
+    v40 = [v47 count];
+    *v52 = 134217984;
+    v53 = v40;
+    _os_log_impl(&dword_1B4894000, v39, OS_LOG_TYPE_DEFAULT, "Found %lu Favorite Entries", v52, 0xCu);
   }
 
-  v37 = [v44 copy];
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = [v47 copy];
 
-  return v37;
+  return v41;
 }
 
 - (NSCache)contactCache
@@ -665,10 +667,7 @@ void __50__TPFavoritesController_contactForFavoritesEntry___block_invoke(uint64_
 
 uint64_t __65__TPFavoritesController_contactForFavoritesEntry_keyDescriptors___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) fetchContactForFavoritesEntry:*(a1 + 40) keyDescriptors:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) fetchContactForFavoritesEntry:*(a1 + 40) keyDescriptors:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -704,10 +703,7 @@ uint64_t __65__TPFavoritesController_contactForFavoritesEntry_keyDescriptors___b
 
 uint64_t __68__TPFavoritesController_contactsForFavoritesEntries_keyDescriptors___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) fetchContactForFavoritesEntries:*(a1 + 40) keyDescriptors:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) fetchContactForFavoritesEntries:*(a1 + 40) keyDescriptors:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -818,10 +814,10 @@ void __56__TPFavoritesController_transportNameForFavoritesEntry___block_invoke(u
 
   if (!v6)
   {
-    v7 = TPDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = TPDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [TPFavoritesController fetchContactForFavoritesEntry:v7];
+      [TPFavoritesController fetchContactForFavoritesEntry:v8];
     }
 
     v6 = objc_alloc_init(MEMORY[0x1E695CD58]);
@@ -858,8 +854,8 @@ void __56__TPFavoritesController_transportNameForFavoritesEntry___block_invoke(u
 
     if (!v15)
     {
-      v17 = TPDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = TPDefaultLog(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v20 = self->_contactStore;
         *buf = 138412802;
@@ -868,14 +864,12 @@ void __56__TPFavoritesController_transportNameForFavoritesEntry___block_invoke(u
         v25 = entryCopy;
         v26 = 2112;
         v27 = v16;
-        _os_log_error_impl(&dword_1B4894000, v17, OS_LOG_TYPE_ERROR, "Could not retrieve a contact using contact store (%@), favorites entry (%@) error (%@)", buf, 0x20u);
+        _os_log_error_impl(&dword_1B4894000, v18, OS_LOG_TYPE_ERROR, "Could not retrieve a contact using contact store (%@), favorites entry (%@) error (%@)", buf, 0x20u);
       }
     }
 
     contact = v15;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return contact;
 }
@@ -943,8 +937,8 @@ void __56__TPFavoritesController_transportNameForFavoritesEntry___block_invoke(u
 
     if (!v23 || v24)
     {
-      v25 = TPDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = TPDefaultLog(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v28 = self->_contactStore;
         *buf = 138412802;
@@ -953,7 +947,7 @@ void __56__TPFavoritesController_transportNameForFavoritesEntry___block_invoke(u
         v37 = v11;
         v38 = 2112;
         v39 = v24;
-        _os_log_error_impl(&dword_1B4894000, v25, OS_LOG_TYPE_ERROR, "Could not retrieve a contact using contact store (%@), favorites entry (%@) error (%@)", buf, 0x20u);
+        _os_log_error_impl(&dword_1B4894000, v26, OS_LOG_TYPE_ERROR, "Could not retrieve a contact using contact store (%@), favorites entry (%@) error (%@)", buf, 0x20u);
       }
     }
   }
@@ -962,8 +956,6 @@ void __56__TPFavoritesController_transportNameForFavoritesEntry___block_invoke(u
   {
     v23 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -1055,11 +1047,10 @@ void __70__TPFavoritesController_handleContactsFavoritesDidChangeNotification___
 
 - (void)fetchContactForFavoritesEntry:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_1B4894000, log, OS_LOG_TYPE_ERROR, "Creating an empty contact for favorites entry %@.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_1B4894000, log, OS_LOG_TYPE_ERROR, "Creating an empty contact for favorites entry %@.", &v1, 0xCu);
 }
 
 - (void)fetchFavoritesEntries

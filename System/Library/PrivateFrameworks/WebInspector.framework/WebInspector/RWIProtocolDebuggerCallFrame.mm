@@ -8,6 +8,7 @@
 - (RWIProtocolRuntimeRemoteObject)thisObject;
 - (void)setCallFrameId:(id)id;
 - (void)setFunctionName:(id)name;
+- (void)setIsTailDeleted:(BOOL)deleted;
 - (void)setLocation:(id)location;
 - (void)setScopeChain:(id)chain;
 - (void)setThisObject:(id)object;
@@ -18,16 +19,16 @@
 - (RWIProtocolDebuggerCallFrame)initWithCallFrameId:(id)id functionName:(id)name location:(id)location scopeChain:(id)chain thisObject:(id)object isTailDeleted:(BOOL)deleted
 {
   deletedCopy = deleted;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   idCopy = id;
   nameCopy = name;
   locationCopy = location;
   chainCopy = chain;
   objectCopy = object;
-  v36.receiver = self;
-  v36.super_class = RWIProtocolDebuggerCallFrame;
-  v31 = [(RWIProtocolJSONObject *)&v36 init];
-  if (v31)
+  v35.receiver = self;
+  v35.super_class = RWIProtocolDebuggerCallFrame;
+  v30 = [(RWIProtocolJSONObject *)&v35 init];
+  if (v30)
   {
     if (!idCopy)
     {
@@ -49,27 +50,27 @@
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"scopeChain"}];
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v13 = chainCopy;
-    v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v14)
     {
-      v15 = *v33;
+      v15 = *v32;
       v16 = *MEMORY[0x277CBE660];
       do
       {
         v17 = 0;
         do
         {
-          if (*v33 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v32 + 1) + 8 * v17);
+          v18 = *(*(&v31 + 1) + 8 * v17);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -83,7 +84,7 @@
         }
 
         while (v14 != v17);
-        v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v14);
@@ -94,17 +95,16 @@
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"thisObject"}];
     }
 
-    [(RWIProtocolDebuggerCallFrame *)v31 setCallFrameId:idCopy];
-    [(RWIProtocolDebuggerCallFrame *)v31 setFunctionName:nameCopy];
-    [(RWIProtocolDebuggerCallFrame *)v31 setLocation:locationCopy];
-    [(RWIProtocolDebuggerCallFrame *)v31 setScopeChain:v13];
-    [(RWIProtocolDebuggerCallFrame *)v31 setThisObject:objectCopy];
-    [(RWIProtocolDebuggerCallFrame *)v31 setIsTailDeleted:deletedCopy];
-    v22 = v31;
+    [(RWIProtocolDebuggerCallFrame *)v30 setCallFrameId:idCopy];
+    [(RWIProtocolDebuggerCallFrame *)v30 setFunctionName:nameCopy];
+    [(RWIProtocolDebuggerCallFrame *)v30 setLocation:locationCopy];
+    [(RWIProtocolDebuggerCallFrame *)v30 setScopeChain:v13];
+    [(RWIProtocolDebuggerCallFrame *)v30 setThisObject:objectCopy];
+    [(RWIProtocolDebuggerCallFrame *)v30 setIsTailDeleted:deletedCopy];
+    v22 = v30;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v30;
 }
 
 - (void)setCallFrameId:(id)id
@@ -157,7 +157,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDebuggerCallFrame;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"location"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -203,27 +203,27 @@
 
 - (void)setScopeChain:(id)chain
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = chain;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -234,18 +234,18 @@
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolDebuggerCallFrame;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"scopeChain"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolDebuggerCallFrame;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"scopeChain"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -258,8 +258,6 @@
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)scopeChain
@@ -290,7 +288,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDebuggerCallFrame;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"this"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -332,6 +330,13 @@
   }
 
   return v7;
+}
+
+- (void)setIsTailDeleted:(BOOL)deleted
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDebuggerCallFrame;
+  [(RWIProtocolJSONObject *)&v3 setBool:deleted forKey:@"isTailDeleted"];
 }
 
 - (BOOL)isTailDeleted

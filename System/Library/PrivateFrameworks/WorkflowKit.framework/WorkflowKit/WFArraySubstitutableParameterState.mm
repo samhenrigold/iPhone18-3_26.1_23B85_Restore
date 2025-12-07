@@ -48,21 +48,19 @@
 
 void __117__WFArraySubstitutableParameterState_getObjectRepresentationOfVariableWithContext_processingValueClass_valueHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
+  v7[4] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v8[2] = objc_opt_class();
-  v8[3] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __117__WFArraySubstitutableParameterState_getObjectRepresentationOfVariableWithContext_processingValueClass_valueHandler___block_invoke_2;
-  v6[3] = &unk_1E837DBF8;
-  v7 = *(a1 + 32);
-  [v3 generateCollectionByCoercingToItemClasses:v4 completionHandler:v6];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v7[2] = objc_opt_class();
+  v7[3] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:4];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __117__WFArraySubstitutableParameterState_getObjectRepresentationOfVariableWithContext_processingValueClass_valueHandler___block_invoke_2;
+  v5[3] = &unk_1E837DBF8;
+  v6 = *(a1 + 32);
+  [v3 generateCollectionByCoercingToItemClasses:v4 completionHandler:v5];
 }
 
 void __117__WFArraySubstitutableParameterState_getObjectRepresentationOfVariableWithContext_processingValueClass_valueHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -247,7 +245,7 @@ LABEL_7:
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   providerCopy = provider;
   parameterCopy = parameter;
@@ -257,15 +255,15 @@ LABEL_7:
   {
     if (objc_opt_isKindOfClass())
     {
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __99__WFArraySubstitutableParameterState_valueFromSerializedRepresentation_variableProvider_parameter___block_invoke;
-      v17[3] = &unk_1E837D9A0;
-      v18 = providerCopy;
-      v19 = parameterCopy;
-      v12 = [v11 if_compactMap:v17];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __99__WFArraySubstitutableParameterState_valueFromSerializedRepresentation_variableProvider_parameter___block_invoke;
+      v16[3] = &unk_1E837D9A0;
+      v17 = providerCopy;
+      v18 = parameterCopy;
+      v12 = [v11 if_compactMap:v16];
 
-      v13 = v18;
+      v13 = v17;
     }
 
     else
@@ -274,14 +272,14 @@ LABEL_7:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315906;
-        v21 = "WFEnforceClass";
-        v22 = 2114;
-        v23 = v11;
-        v24 = 2114;
-        v25 = objc_opt_class();
-        v26 = 2114;
-        v27 = v10;
-        v14 = v25;
+        v20 = "WFEnforceClass";
+        v21 = 2114;
+        v22 = v11;
+        v23 = 2114;
+        v24 = objc_opt_class();
+        v25 = 2114;
+        v26 = v10;
+        v14 = v24;
         _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
       }
 
@@ -293,8 +291,6 @@ LABEL_7:
   {
     v12 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

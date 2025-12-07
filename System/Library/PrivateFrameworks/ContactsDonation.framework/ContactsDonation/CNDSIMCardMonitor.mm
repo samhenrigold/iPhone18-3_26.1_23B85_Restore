@@ -365,26 +365,26 @@ void __40__CNDSIMCardMonitor_infoWithCompletion___block_invoke(uint64_t a1, void
 
 void __47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 subscriptionsInUse];
   if (v6)
   {
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke_21;
-    v23 = &unk_278569A88;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke_21;
+    v22 = &unk_278569A88;
     v7 = *(a1 + 32);
     v8 = *(a1 + 48);
-    v24 = v7;
-    v25 = v8;
-    v9 = [v6 _cn_compactMap:&v20];
+    v23 = v7;
+    v24 = v8;
+    v9 = [v6 _cn_compactMap:&v19];
     v10 = [*(a1 + 48) os_log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = [v9 count];
       *buf = 134217984;
-      v27 = v11;
+      v26 = v11;
       _os_log_impl(&dword_2258E5000, v10, OS_LOG_TYPE_INFO, "Read %lu values from SIM", buf, 0xCu);
     }
 
@@ -401,8 +401,6 @@ void __47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke(uint64_t a
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 CNDSIMCardItem *__47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke_21(uint64_t a1, void *a2)
@@ -494,23 +492,23 @@ LABEL_21:
 
 void __47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2258E5000, a2, a3, "Could not get subscription information: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2258E5000, a2, a3, "Could not get subscription information: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke_21_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2258E5000, a2, a3, "Skipping subscription because there was an error fetching the phone number: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2258E5000, a2, a3, "Skipping subscription because there was an error fetching the phone number: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __47__CNDSIMCardMonitor_infoWithClient_completion___block_invoke_21_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2258E5000, a2, a3, "Skipping subscription because there was an error fetching the label: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2258E5000, a2, a3, "Skipping subscription because there was an error fetching the label: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

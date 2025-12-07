@@ -74,7 +74,7 @@
 
 - (void)generateTransferQRCodeCellPressed:(id)pressed
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   v5 = pressedCopy;
   if (self->_flow)
@@ -90,17 +90,17 @@
   else
   {
     [pressedCopy setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
-    v19[0] = *MEMORY[0x277D49548];
+    v18[0] = *MEMORY[0x277D49548];
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:11];
     v8 = *MEMORY[0x277D49578];
     iccid = self->_iccid;
-    v20[0] = v7;
-    v20[1] = iccid;
+    v19[0] = v7;
+    v19[1] = iccid;
     v10 = *MEMORY[0x277D49538];
-    v19[1] = v8;
-    v19[2] = v10;
-    v20[2] = self->_carrierName;
-    getLogger = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v18[1] = v8;
+    v18[2] = v10;
+    v19[2] = self->_carrierName;
+    getLogger = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
     v11 = [MEMORY[0x277D49530] flowWithOptions:getLogger];
     flow = self->_flow;
@@ -109,25 +109,23 @@
     [(TSSIMSetupFlow *)self->_flow setDelegate:self];
     objc_initWeak(&buf, self);
     v13 = self->_flow;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __73__PSUIGenerateTransferQRCodeSpecifier_generateTransferQRCodeCellPressed___block_invoke;
-    v15[3] = &unk_279BAACB0;
-    v15[4] = self;
-    objc_copyWeak(&v17, &buf);
-    v16 = v5;
-    [(TSSIMSetupFlow *)v13 firstViewController:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __73__PSUIGenerateTransferQRCodeSpecifier_generateTransferQRCodeCellPressed___block_invoke;
+    v14[3] = &unk_279BAACB0;
+    v14[4] = self;
+    objc_copyWeak(&v16, &buf);
+    v15 = v5;
+    [(TSSIMSetupFlow *)v13 firstViewController:v14];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __73__PSUIGenerateTransferQRCodeSpecifier_generateTransferQRCodeCellPressed___block_invoke(id *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -140,11 +138,11 @@ void __73__PSUIGenerateTransferQRCodeSpecifier_generateTransferQRCodeCellPressed
       {
         v7 = objc_opt_class();
         v8 = [WeakRetained iccid];
-        v16 = 138412546;
-        v17 = v7;
-        v18 = 2112;
-        v19 = v8;
-        _os_log_impl(&dword_2658DE000, v5, OS_LOG_TYPE_DEFAULT, "present %@: for iccid: %@", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v7;
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&dword_2658DE000, v5, OS_LOG_TYPE_DEFAULT, "present %@: for iccid: %@", &v15, 0x16u);
       }
 
       v9 = [WeakRetained iccid];
@@ -163,9 +161,9 @@ void __73__PSUIGenerateTransferQRCodeSpecifier_generateTransferQRCodeCellPressed
 
     else if (v6)
     {
-      v16 = 138412290;
-      v17 = v3;
-      _os_log_impl(&dword_2658DE000, v5, OS_LOG_TYPE_DEFAULT, "invalid specifier. skip present : %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v3;
+      _os_log_impl(&dword_2658DE000, v5, OS_LOG_TYPE_DEFAULT, "invalid specifier. skip present : %@", &v15, 0xCu);
     }
   }
 
@@ -176,13 +174,11 @@ void __73__PSUIGenerateTransferQRCodeSpecifier_generateTransferQRCodeCellPressed
     {
       v13 = objc_loadWeakRetained(a1 + 6);
       v14 = [v13 iccid];
-      v16 = 138412290;
-      v17 = v14;
-      _os_log_impl(&dword_2658DE000, WeakRetained, OS_LOG_TYPE_DEFAULT, "invalid view for qr code with iccid: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_impl(&dword_2658DE000, WeakRetained, OS_LOG_TYPE_DEFAULT, "invalid view for qr code with iccid: %@", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showSpinner:(BOOL)spinner
@@ -279,7 +275,7 @@ void __51__PSUIGenerateTransferQRCodeSpecifier_showSpinner___block_invoke(uint64
 
 void __61__PSUIGenerateTransferQRCodeSpecifier_simSetupFlowCompleted___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -292,9 +288,9 @@ void __61__PSUIGenerateTransferQRCodeSpecifier_simSetupFlowCompleted___block_inv
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 48);
-      v13 = 134217984;
-      v14 = v7;
-      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "simSetupFlowCompleted with completionType:%ld", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = v7;
+      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "simSetupFlowCompleted with completionType:%ld", &v12, 0xCu);
     }
 
     v8 = v3[30];
@@ -306,8 +302,6 @@ void __61__PSUIGenerateTransferQRCodeSpecifier_simSetupFlowCompleted___block_inv
     v11 = +[SSFlowHostCache sharedInstance];
     [v11 removeObjectForKey:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (PSListController)hostController

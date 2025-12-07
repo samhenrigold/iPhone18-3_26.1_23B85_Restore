@@ -10,34 +10,34 @@
 
 - (id)preconditionsForServiceName:(id)name
 {
-  sub_1A84E5DBC();
+  v3 = sub_1A84E5DBC();
 
-  sub_1A8408CD8();
+  sub_1A8408CD8(v3);
 
   sub_1A8244B68(0, &qword_1EB2E46E0, 0x1E69A8250);
-  v3 = sub_1A84E5FEC();
+  v4 = sub_1A84E5FEC();
 
-  return v3;
+  return v4;
 }
 
 - (id)preferredAccountIDForServiceName:(id)name
 {
-  sub_1A84E5DBC();
+  v3 = sub_1A84E5DBC();
 
-  sub_1A8408FA4();
-  v4 = v3;
+  sub_1A8408FA4(v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1A84E5D8C();
+    v6 = sub_1A84E5D8C();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)calculateReachabilityWithRequest:(id)request responseHandler:(id)handler

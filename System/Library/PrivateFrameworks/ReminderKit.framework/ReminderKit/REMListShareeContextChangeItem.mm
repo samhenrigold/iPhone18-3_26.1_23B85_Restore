@@ -27,17 +27,17 @@
 
 - (void)addSharee:(id)sharee
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   shareeCopy = sharee;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     listChangeItem = [(REMListShareeContextChangeItem *)self listChangeItem];
-    v12 = 138412546;
-    v13 = listChangeItem;
-    v14 = 2112;
-    v15 = shareeCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding sharee {listChangeItem: %@, sharee: %@}", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = listChangeItem;
+    v13 = 2112;
+    v14 = shareeCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Adding sharee {listChangeItem: %@, sharee: %@}", &v11, 0x16u);
   }
 
   listChangeItem2 = [(REMListShareeContextChangeItem *)self listChangeItem];
@@ -52,8 +52,6 @@
   [v9 addObject:shareeCopy];
   listChangeItem3 = [(REMListShareeContextChangeItem *)self listChangeItem];
   [listChangeItem3 setSharees:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)sharees
@@ -117,17 +115,17 @@
 
 - (void)removeSharee:(id)sharee
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   shareeCopy = sharee;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     listChangeItem = [(REMListShareeContextChangeItem *)self listChangeItem];
-    v12 = 138412546;
-    v13 = listChangeItem;
-    v14 = 2112;
-    v15 = shareeCopy;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Removing sharee {listChangeItem: %@, recurrenceRule: %@}", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = listChangeItem;
+    v13 = 2112;
+    v14 = shareeCopy;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Removing sharee {listChangeItem: %@, recurrenceRule: %@}", &v11, 0x16u);
   }
 
   listChangeItem2 = [(REMListShareeContextChangeItem *)self listChangeItem];
@@ -137,26 +135,22 @@
   [v9 removeObject:shareeCopy];
   listChangeItem3 = [(REMListShareeContextChangeItem *)self listChangeItem];
   [listChangeItem3 setSharees:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllSharees
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = +[REMLogStore write];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     listChangeItem = [(REMListShareeContextChangeItem *)self listChangeItem];
-    v7 = 138412290;
-    v8 = listChangeItem;
-    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "Removing all sharee {listChangeItem: %@}", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = listChangeItem;
+    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_INFO, "Removing all sharee {listChangeItem: %@}", &v6, 0xCu);
   }
 
   listChangeItem2 = [(REMListShareeContextChangeItem *)self listChangeItem];
   [listChangeItem2 setSharees:MEMORY[0x1E695E0F0]];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

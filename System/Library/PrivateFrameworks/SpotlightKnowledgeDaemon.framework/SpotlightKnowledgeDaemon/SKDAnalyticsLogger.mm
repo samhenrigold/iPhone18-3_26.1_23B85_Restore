@@ -90,7 +90,7 @@
 
 - (void)logEvent:(id)event level:(unint64_t)level
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (![(SKDAnalyticsLogger *)self supportedEvent:eventCopy])
   {
@@ -163,37 +163,37 @@ LABEL_44:
     [SKDAnalyticsLogger logEvent:level:];
   }
 
-  v45 = getAnalyticsKeys_sAnalyticsKeys;
-  v43 = eventCopy;
+  v44 = getAnalyticsKeys_sAnalyticsKeys;
+  v42 = eventCopy;
   feedback = [eventCopy feedback];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v15 = [feedback countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v15 = [feedback countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (!v15)
   {
-    v47 = 0;
+    v46 = 0;
     goto LABEL_43;
   }
 
   v16 = v15;
-  v47 = 0;
-  v17 = *v49;
+  v46 = 0;
+  v17 = *v48;
   v18 = *MEMORY[0x277CBEEE8];
-  v44 = v13;
+  v43 = v13;
   do
   {
     v19 = 0;
-    v46 = v16;
+    v45 = v16;
     do
     {
-      if (*v49 != v17)
+      if (*v48 != v17)
       {
         objc_enumerationMutation(feedback);
       }
 
-      v20 = *(*(&v48 + 1) + 8 * v19);
+      v20 = *(*(&v47 + 1) + 8 * v19);
       v21 = [feedback objectForKeyedSubscript:{feedback, selfCopy}];
 
       if (v21 != v18)
@@ -210,7 +210,7 @@ LABEL_44:
             v26 = v18;
             v27 = v17;
             v28 = [feedback objectForKeyedSubscript:v20];
-            v29 = [v45 objectForKeyedSubscript:v23];
+            v29 = [v44 objectForKeyedSubscript:v23];
             if (objc_opt_isKindOfClass())
             {
               v30 = [feedback objectForKeyedSubscript:v20];
@@ -236,7 +236,7 @@ LABEL_44:
                 }
 
                 v33 = unsignedIntValue;
-                v16 = v46;
+                v16 = v45;
                 if (unsignedIntValue > 0x12B)
                 {
 
@@ -262,27 +262,27 @@ LABEL_44:
               {
                 v18 = v26;
 LABEL_28:
-                v16 = v46;
+                v16 = v45;
               }
 
-              v32 = v47;
-              if (!v47)
+              v32 = v46;
+              if (!v46)
               {
                 v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
               }
 
-              v47 = v32;
+              v46 = v32;
               [v32 setObject:v30 forKey:v23];
 
-              v13 = v44;
+              v13 = v43;
             }
 
             else
             {
-              v13 = v44;
+              v13 = v43;
               v17 = v27;
               v18 = v26;
-              v16 = v46;
+              v16 = v45;
             }
           }
         }
@@ -292,7 +292,7 @@ LABEL_28:
     }
 
     while (v16 != v19);
-    v34 = [feedback countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v34 = [feedback countByEnumeratingWithState:&v47 objects:v51 count:16];
     v16 = v34;
   }
 
@@ -300,9 +300,9 @@ LABEL_28:
 LABEL_43:
 
   self = selfCopy;
-  eventCopy = v43;
-  v7 = v47;
-  if (v47)
+  eventCopy = v42;
+  v7 = v46;
+  if (v46)
   {
     goto LABEL_44;
   }
@@ -312,49 +312,46 @@ LABEL_48:
 LABEL_49:
 
 LABEL_50:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flush
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   logs = [(SKDAnalyticsLogger *)self logs];
   os_unfair_lock_lock(&self->_lock);
   logs = self->_logs;
   self->_logs = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = logs;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(SKDLogProviding *)self->_analyticsProvider sendLog:*(*(&v11 + 1) + 8 * v9++) domain:@"com.apple.spotlightknowledged.async", v11];
+        [(SKDLogProviding *)self->_analyticsProvider sendLog:*(*(&v10 + 1) + 8 * v9++) domain:@"com.apple.spotlightknowledged.async", v10];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportedTrackingEvent:(id)event
@@ -388,34 +385,34 @@ LABEL_50:
 
 - (void)trackingEventEnd:(id)end
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   endCopy = end;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v26 = endCopy;
-    v28 = endCopy;
+    v25 = endCopy;
+    v27 = endCopy;
     logs = [(SKDAnalyticsLogger *)self logs];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v6 = [logs countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v6 = [logs countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v34;
+      v9 = *v33;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v34 != v9)
+          if (*v33 != v9)
           {
             objc_enumerationMutation(logs);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * i);
+          v11 = *(*(&v32 + 1) + 8 * i);
           if ([v11 count])
           {
             os_unfair_lock_lock(&self->_lock);
@@ -435,7 +432,7 @@ LABEL_50:
           }
         }
 
-        v7 = [logs countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v7 = [logs countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v7);
@@ -446,28 +443,28 @@ LABEL_50:
       v8 = 0;
     }
 
-    logs2 = [v28 logs];
+    logs2 = [v27 logs];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v16 = logs2;
-    v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v30;
+      v19 = *v29;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v30 != v19)
+          if (*v29 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * j);
+          v21 = *(*(&v28 + 1) + 8 * j);
           if ([v21 count])
           {
             os_unfair_lock_lock(&self->_lock);
@@ -487,7 +484,7 @@ LABEL_50:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v18);
@@ -498,10 +495,8 @@ LABEL_50:
       [(SKDAnalyticsLogger *)self flush];
     }
 
-    endCopy = v27;
+    endCopy = v26;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

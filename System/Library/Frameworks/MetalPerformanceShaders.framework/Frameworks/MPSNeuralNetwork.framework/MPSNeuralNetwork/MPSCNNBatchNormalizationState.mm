@@ -131,7 +131,7 @@ LABEL_3:
     if (v12)
     {
       objc_msgSend_debugDescription(selfCopy, v5, v6, v7, v8, v9, v10, v11);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationState.mm", 0x7E, @"Error: attempted to extract gamma buffer from temporary MPSState with readCount of 0.\n\t%@", v13, v14, v15, v16);
       self = selfCopy;
     }
   }
@@ -157,7 +157,7 @@ LABEL_3:
     if (v12)
     {
       objc_msgSend_debugDescription(selfCopy, v5, v6, v7, v8, v9, v10, v11);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationState.mm", 0x86, @"Error: attempted to extract beta buffer from temporary MPSState with readCount of 0.\n\t%@", v13, v14, v15, v16);
       self = selfCopy;
     }
   }
@@ -183,7 +183,7 @@ LABEL_3:
     if (v14)
     {
       objc_msgSend_debugDescription(selfCopy, v7, v8, v9, v10, v11, v12, v13);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationState.mm", 0x8E, @"Error: attempted to extract mean buffer from temporary MPSState with readCount of 0.\n\t%@", v15, v16, v17, v18);
       self = selfCopy;
     }
   }
@@ -216,7 +216,7 @@ LABEL_3:
     if (v14)
     {
       objc_msgSend_debugDescription(selfCopy, v7, v8, v9, v10, v11, v12, v13);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationState.mm", 0x9B, @"Error: attempted to extract variance buffer from temporary MPSState with readCount of 0.\n\t%@", v15, v16, v17, v18);
       self = selfCopy;
     }
   }
@@ -249,7 +249,7 @@ LABEL_3:
     if (v14)
     {
       objc_msgSend_debugDescription(selfCopy, v7, v8, v9, v10, v11, v12, v13);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationState.mm", 0xA8, @"Error: attempted to extract gradientForGamma from temporary MPSState with readCount of 0.\n\t%@", v15, v16, v17, v18);
       self = selfCopy;
     }
   }
@@ -282,7 +282,7 @@ LABEL_3:
     if (v14)
     {
       objc_msgSend_debugDescription(selfCopy, v7, v8, v9, v10, v11, v12, v13);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationState.mm", 0xB3, @"Error: attempted to extract gradientForBeta from temporary MPSState with readCount of 0.\n\t%@", v15, v16, v17, v18);
       self = selfCopy;
     }
   }

@@ -23,9 +23,11 @@
 
 uint64_t __29__MSDPlatform_sharedInstance__block_invoke()
 {
-  sharedInstance_shared = objc_alloc_init(MSDPlatform);
+  v0 = objc_alloc_init(MSDPlatform);
+  v1 = sharedInstance_shared;
+  sharedInstance_shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (BOOL)iOSHub
@@ -47,13 +49,13 @@ Class __21__MSDPlatform_iOSHub__block_invoke()
 
 - (MSDPlatform)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = MSDPlatform;
-  v2 = [(MSDPlatform *)&v10 init];
+  v16 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = MSDPlatform;
+  v2 = [(MSDPlatform *)&v9 init];
   if (!v2)
   {
-    goto LABEL_16;
+    return v2;
   }
 
   v3 = MGCopyAnswer();
@@ -86,7 +88,8 @@ Class __21__MSDPlatform_iOSHub__block_invoke()
 
     else
     {
-      if (![v4 isEqualToString:@"xrOS"])
+      v3 = [v4 isEqualToString:@"xrOS"];
+      if (!v3)
       {
         goto LABEL_13;
       }
@@ -96,25 +99,23 @@ Class __21__MSDPlatform_iOSHub__block_invoke()
       v5 = @"xrOS";
     }
 
-    [(MSDPlatform *)v2 setPlatformType:v5];
+    v3 = [(MSDPlatform *)v2 setPlatformType:v5];
   }
 
 LABEL_13:
-  v6 = defaultLogHandle();
+  v6 = defaultLogHandle(v3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     platformType = [(MSDPlatform *)v2 platformType];
     *buf = 136315650;
-    v12 = "[MSDPlatform init]";
-    v13 = 2114;
-    v14 = platformType;
-    v15 = 2114;
-    v16 = 0;
+    v11 = "[MSDPlatform init]";
+    v12 = 2114;
+    v13 = platformType;
+    v14 = 2114;
+    v15 = 0;
     _os_log_impl(&dword_259B7D000, v6, OS_LOG_TYPE_DEFAULT, "%s: PlatformType='%{public}@' DeviceClass='%{public}@'", buf, 0x20u);
   }
 
-LABEL_16:
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -195,27 +196,27 @@ LABEL_15:
 
 - (BOOL)isValidProductList:(id)list
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   listCopy = list;
-  v5 = [listCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [listCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(listCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -232,7 +233,7 @@ LABEL_24:
         }
       }
 
-      v6 = [listCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [listCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       v11 = 1;
       if (v6)
       {
@@ -250,26 +251,24 @@ LABEL_24:
 
 LABEL_26:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)raiseInvalidProductListExceptionWithReason:(id)reason
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAD8] exceptionWithName:@"InvalidManifestProductList" reason:reason userInfo:0];
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[MSDPlatform raiseInvalidProductListExceptionWithReason:]";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, "%s - Exception:  %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[MSDPlatform raiseInvalidProductListExceptionWithReason:]";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, "%s - Exception:  %{public}@", &v5, 0x16u);
   }
 
   [v3 raise];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -36,7 +36,7 @@
 
 - (void)coordinator:(id)coordinator didUpdateProgress:(double)progress forPhase:(unint64_t)phase overallProgress:(double)overallProgress
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if (phase == 1)
   {
     v8 = [(_IXSimpleInstallerDelegate *)self progressBlock:coordinator];
@@ -44,18 +44,16 @@
     if (v8)
     {
       progressBlock = [(_IXSimpleInstallerDelegate *)self progressBlock];
-      v14[0] = @"Status";
+      v13[0] = @"Status";
       v10 = IXStatusForInstallationProgress(progress);
-      v14[1] = @"PercentComplete";
-      v15[0] = v10;
+      v13[1] = @"PercentComplete";
+      v14[0] = v10;
       v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:progress];
-      v15[1] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+      v14[1] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
       (progressBlock)[2](progressBlock, v12);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

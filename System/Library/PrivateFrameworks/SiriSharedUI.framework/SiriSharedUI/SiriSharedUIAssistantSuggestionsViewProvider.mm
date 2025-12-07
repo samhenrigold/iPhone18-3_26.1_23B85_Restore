@@ -60,8 +60,8 @@ LABEL_3:
   v7 = sub_21E49AEB8;
 LABEL_6:
   v10 = sub_21E498710(v5, v8, v7, v9);
-  sub_21E3F1EB0(v7);
-  sub_21E3F1EB0(v5);
+  sub_21E3F1EB0(v7, v9);
+  sub_21E3F1EB0(v5, v8);
   return v10;
 }
 
@@ -130,10 +130,10 @@ LABEL_5:
   v12 = sub_21E49AB0C;
 LABEL_10:
   v17 = sub_21E498A10(v9, v13, v10, v14, v11, v15, v12, v16);
-  sub_21E3F1EB0(v12);
-  sub_21E3F1EB0(v11);
-  sub_21E3F1EB0(v10);
-  sub_21E3F1EB0(v9);
+  sub_21E3F1EB0(v12, v16);
+  sub_21E3F1EB0(v11, v15);
+  sub_21E3F1EB0(v10, v14);
+  sub_21E3F1EB0(v9, v13);
   return v17;
 }
 
@@ -202,10 +202,10 @@ LABEL_5:
   v12 = sub_21E49AAF4;
 LABEL_10:
   v17 = sub_21E498D70(v9, v13, v10, v14, v11, v15, v12, v16);
-  sub_21E3F1EB0(v12);
-  sub_21E3F1EB0(v11);
-  sub_21E3F1EB0(v10);
-  sub_21E3F1EB0(v9);
+  sub_21E3F1EB0(v12, v16);
+  sub_21E3F1EB0(v11, v15);
+  sub_21E3F1EB0(v10, v14);
+  sub_21E3F1EB0(v9, v13);
   return v17;
 }
 
@@ -213,7 +213,7 @@ LABEL_10:
 {
   installedCopy = installed;
   lockedCopy = locked;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278, &unk_21E4E6570);
   MEMORY[0x28223BE20](v14 - 8);
   v16 = &v22 - v15;
   v17 = _Block_copy(completion);
@@ -235,12 +235,12 @@ LABEL_10:
   selfCopy = self;
   sub_21E4990D0(lockedCopy, source, installedCopy, v16, sub_21E49AECC, v20);
 
-  sub_21E424BC0(v16, &qword_27CEC5278);
+  sub_21E424BC0(v16, &qword_27CEC5278, &unk_21E4E6570);
 }
 
 - (void)fetchConversationStarterViewsWithDeviceLocked:(BOOL)locked isVoiceTrigger:(BOOL)trigger invocationSource:(int64_t)source isFirstInvocationSinceOSInstalled:(BOOL)installed completion:(id)completion
 {
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4968);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4968, &qword_21E4E5240);
   MEMORY[0x28223BE20](v12 - 8);
   v14 = &v23 - v13;
   v15 = _Block_copy(completion);
@@ -288,7 +288,7 @@ LABEL_10:
 - (void)fetchAutoCompletionViewsWithQuery:(id)query deviceLocked:(BOOL)locked turnId:(id)id completion:(id)completion
 {
   lockedCopy = locked;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5278, &unk_21E4E6570);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v21 - v11;
   v13 = _Block_copy(completion);
@@ -312,7 +312,7 @@ LABEL_10:
   selfCopy = self;
   sub_21E4926CC(v14, v16, lockedCopy, v12, sub_21E49A408, v19);
 
-  sub_21E424BC0(v12, &qword_27CEC5278);
+  sub_21E424BC0(v12, &qword_27CEC5278, &unk_21E4E6570);
 }
 
 - (id)getInitialSuggestionViewWrappers
@@ -326,7 +326,7 @@ LABEL_10:
 
   *(&selfCopy->super.isa + OBJC_IVAR____TtC12SiriSharedUI44SiriSharedUIAssistantSuggestionsViewProvider_suggestionViews) = v6;
 
-  sub_21E43F008(0, &qword_280C14100);
+  sub_21E43F008(0, &qword_280C14100, off_278353770);
   v7 = sub_21E4DD078();
 
   return v7;
@@ -389,10 +389,11 @@ LABEL_10:
   v6 = (self + OBJC_IVAR____TtC12SiriSharedUI44SiriSharedUIAssistantSuggestionsViewProvider_contextMenuHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21E3F1EB0(v7);
+  sub_21E3F1EB0(v7, v8);
 }
 
 - (void)startNewTypingSession

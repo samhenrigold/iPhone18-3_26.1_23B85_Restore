@@ -36,7 +36,7 @@
 
 - (BOOL)_loadWebView
 {
-  v3 = _AESearchLog();
+  v3 = _AESearchLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -101,7 +101,7 @@ LABEL_6:
       [configuration contentLayoutSize];
       [configuration gutterWidth];
       v17 = objc_alloc_init(ContentViewStyleManagerBookInfo);
-      -[ContentViewStyleManagerBookInfo setRespectImageSizeClassIsPrefix:](v17, "setRespectImageSizeClassIsPrefix:", [v3 respectImageSizeClassIsPrefix]);
+      [(ContentViewStyleManagerBookInfo *)v17 setRespectImageSizeClassIsPrefix:objc_msgSend_respectImageSizeClassIsPrefix(v3)];
       respectImageSizeClass = [v3 respectImageSizeClass];
       [(ContentViewStyleManagerBookInfo *)v17 setRespectImageSizeClass:respectImageSizeClass];
 
@@ -265,36 +265,37 @@ LABEL_12:
 
 - (BOOL)_waitForLoadSemaphore
 {
-  if (([(BKWK2EpubSearchOperation *)self isCancelled]& 1) != 0)
+  isCancelled = [(BKWK2EpubSearchOperation *)self isCancelled];
+  if (isCancelled)
   {
     return 0;
   }
 
-  v3 = _AESearchLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _AESearchLog(isCancelled);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     selfCopy2 = self;
-    v12 = 1024;
+    v14 = 1024;
     ordinal = [(BKSearchOperation *)self ordinal];
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "START _waitForLoadSemaphore %x for ordinal: %d", buf, 0xEu);
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "START _waitForLoadSemaphore %x for ordinal: %d", buf, 0xEu);
   }
 
   loadSemaphore = [(BKWK2EpubSearchOperation *)self loadSemaphore];
-  v5 = dispatch_semaphore_wait(loadSemaphore, [(BKWK2EpubSearchOperation *)self _semaphoreWaitTime]);
+  v6 = dispatch_semaphore_wait(loadSemaphore, [(BKWK2EpubSearchOperation *)self _semaphoreWaitTime]);
 
-  v6 = _AESearchLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = _AESearchLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     ordinal2 = [(BKSearchOperation *)self ordinal];
     *buf = 67109376;
     selfCopy2 = self;
-    v12 = 1024;
+    v14 = 1024;
     ordinal = ordinal2;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "FINISH _waitForLoadSemaphore %x for ordinal: %d", buf, 0xEu);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "FINISH _waitForLoadSemaphore %x for ordinal: %d", buf, 0xEu);
   }
 
-  if (v5 < 1)
+  if (v6 < 1)
   {
     return 0;
   }
@@ -310,7 +311,7 @@ LABEL_12:
 
 - (void)cancel
 {
-  v3 = _AESearchLog();
+  v3 = _AESearchLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
@@ -381,28 +382,29 @@ LABEL_12:
 - (void)_startFindPerformIndexingFromMainThread:(BOOL)thread
 {
   threadCopy = thread;
-  if (([(BKWK2EpubSearchOperation *)self isCancelled]& 1) == 0)
+  isCancelled = [(BKWK2EpubSearchOperation *)self isCancelled];
+  if ((isCancelled & 1) == 0)
   {
     if (threadCopy)
     {
-      v5 = _AESearchLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = _AESearchLog(isCancelled);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         ordinal = [(BKSearchOperation *)self ordinal];
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "_doSearch index does not contain text unit for ordinal %lu", buf, 0xCu);
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "_doSearch index does not contain text unit for ordinal %lu", buf, 0xCu);
       }
 
       objc_initWeak(buf, self);
       webView = [(BKWK2EpubSearchOperation *)self webView];
-      v7[0] = _NSConcreteStackBlock;
-      v7[1] = 3221225472;
-      v7[2] = sub_E3A5C;
-      v7[3] = &unk_1E5B18;
-      objc_copyWeak(&v8, buf);
-      [webView _getContentsAsStringWithCompletionHandler:v7];
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3221225472;
+      v8[2] = sub_E3A5C;
+      v8[3] = &unk_1E5B18;
+      objc_copyWeak(&v9, buf);
+      [webView _getContentsAsStringWithCompletionHandler:v8];
 
-      objc_destroyWeak(&v8);
+      objc_destroyWeak(&v9);
       objc_destroyWeak(buf);
     }
 
@@ -422,44 +424,54 @@ LABEL_12:
     v5 = 0;
   }
 
-  else if ([contentCopy length])
+  else
   {
-    v6 = _AESearchLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = [contentCopy length];
+    if (v6)
     {
-      *buf = 134217984;
-      ordinal = [(BKSearchOperation *)self ordinal];
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "_doSearch indexing textContent for ordinal %lu", buf, 0xCu);
-    }
-
-    baseURL = [(BKWK2EpubSearchOperation *)self baseURL];
-    absoluteString = [baseURL absoluteString];
-    lastPathComponent = [absoluteString lastPathComponent];
-    v10 = [BKTextIndex bookIndexWithName:lastPathComponent];
-
-    if (v10)
-    {
-      v5 = 1;
-      [v10 indexTextUnit:contentCopy withOrdinal:-[BKSearchOperation ordinal](self indexSynchronously:{"ordinal"), 1}];
-      searchString = [(BKSearchOperation *)self searchString];
-      v12 = [v10 queryForString:searchString maxOrdinal:-1];
-
-      if (v12)
+      v7 = _AESearchLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 0;
-        if (([v12 isCandidateOrdinal:-[BKSearchOperation ordinal](self isMissing:{"ordinal"), &v16}] & 1) == 0 && (v16 & 1) == 0)
-        {
-          v13 = _AESearchLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-          {
-            ordinal2 = [(BKSearchOperation *)self ordinal];
-            *buf = 134217984;
-            ordinal = ordinal2;
-            _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "_doSearch contains a hit for ordinal %lu", buf, 0xCu);
-          }
+        *buf = 134217984;
+        ordinal = [(BKSearchOperation *)self ordinal];
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "_doSearch indexing textContent for ordinal %lu", buf, 0xCu);
+      }
 
-          v5 = 0;
+      baseURL = [(BKWK2EpubSearchOperation *)self baseURL];
+      absoluteString = [baseURL absoluteString];
+      lastPathComponent = [absoluteString lastPathComponent];
+      v11 = [BKTextIndex bookIndexWithName:lastPathComponent];
+
+      if (v11)
+      {
+        v5 = 1;
+        [v11 indexTextUnit:contentCopy withOrdinal:-[BKSearchOperation ordinal](self indexSynchronously:{"ordinal"), 1}];
+        searchString = [(BKSearchOperation *)self searchString];
+        v13 = [v11 queryForString:searchString maxOrdinal:-1];
+
+        if (v13)
+        {
+          v18 = 0;
+          v14 = [v13 isCandidateOrdinal:-[BKSearchOperation ordinal](self isMissing:{"ordinal"), &v18}];
+          if ((v14 & 1) == 0 && (v18 & 1) == 0)
+          {
+            v15 = _AESearchLog(v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            {
+              ordinal2 = [(BKSearchOperation *)self ordinal];
+              *buf = 134217984;
+              ordinal = ordinal2;
+              _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "_doSearch contains a hit for ordinal %lu", buf, 0xCu);
+            }
+
+            v5 = 0;
+          }
         }
+      }
+
+      else
+      {
+        v5 = 1;
       }
     }
 
@@ -469,46 +481,42 @@ LABEL_12:
     }
   }
 
-  else
-  {
-    v5 = 1;
-  }
-
   return v5;
 }
 
 - (BOOL)_waitForFindSemaphore
 {
-  if (([(BKWK2EpubSearchOperation *)self isCancelled]& 1) != 0)
+  isCancelled = [(BKWK2EpubSearchOperation *)self isCancelled];
+  if (isCancelled)
   {
     return 0;
   }
 
-  v3 = _AESearchLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _AESearchLog(isCancelled);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
     selfCopy2 = self;
-    v12 = 1024;
+    v14 = 1024;
     ordinal = [(BKSearchOperation *)self ordinal];
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "START _waitForFindSemaphore %x for ordinal: %d", buf, 0xEu);
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "START _waitForFindSemaphore %x for ordinal: %d", buf, 0xEu);
   }
 
   findSemaphore = [(BKWK2EpubSearchOperation *)self findSemaphore];
-  v5 = dispatch_semaphore_wait(findSemaphore, [(BKWK2EpubSearchOperation *)self _semaphoreWaitTime]);
+  v6 = dispatch_semaphore_wait(findSemaphore, [(BKWK2EpubSearchOperation *)self _semaphoreWaitTime]);
 
-  v6 = _AESearchLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = _AESearchLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     ordinal2 = [(BKSearchOperation *)self ordinal];
     *buf = 67109376;
     selfCopy2 = self;
-    v12 = 1024;
+    v14 = 1024;
     ordinal = ordinal2;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "FINISH _waitForFindSemaphore %x for ordinal: %d", buf, 0xEu);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "FINISH _waitForFindSemaphore %x for ordinal: %d", buf, 0xEu);
   }
 
-  if (v5 < 1)
+  if (v6 < 1)
   {
     return 0;
   }
@@ -540,28 +548,28 @@ LABEL_12:
 
       if (v7)
       {
-        v8 = _AESearchLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = _AESearchLog(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           cfiString = [v7 cfiString];
           *buf = 138412290;
-          v16 = cfiString;
-          _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Resuming previous search at location: %@", buf, 0xCu);
+          v17 = cfiString;
+          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Resuming previous search at location: %@", buf, 0xCu);
         }
 
         cfiString2 = [v7 cfiString];
-        v11 = [NSString stringWithFormat:@"__ibooks_cfi_utilities.setSelectedRange('%@')", cfiString2];;
+        v12 = [NSString stringWithFormat:@"__ibooks_cfi_utilities.setSelectedRange('%@')", cfiString2];;
 
         objc_initWeak(buf, self);
         webView = [(BKWK2EpubSearchOperation *)self webView];
-        v13[0] = _NSConcreteStackBlock;
-        v13[1] = 3221225472;
-        v13[2] = sub_E4284;
-        v13[3] = &unk_1E36A8;
-        objc_copyWeak(&v14, buf);
-        [webView evaluateJavaScript:v11 completionHandler:v13];
+        v14[0] = _NSConcreteStackBlock;
+        v14[1] = 3221225472;
+        v14[2] = sub_E4284;
+        v14[3] = &unk_1E36A8;
+        objc_copyWeak(&v15, buf);
+        [webView evaluateJavaScript:v12 completionHandler:v14];
 
-        objc_destroyWeak(&v14);
+        objc_destroyWeak(&v15);
         objc_destroyWeak(buf);
       }
     }
@@ -586,7 +594,7 @@ LABEL_12:
 
 - (BOOL)_doSearch
 {
-  v3 = _AESearchLog();
+  v3 = _AESearchLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -603,7 +611,7 @@ LABEL_12:
   v9 = v8;
   if (v7 && v8)
   {
-    v10 = _AESearchLog();
+    v10 = _AESearchLog(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       ordinal2 = [(BKSearchOperation *)self ordinal];
@@ -615,30 +623,31 @@ LABEL_12:
     searchString = [(BKSearchOperation *)self searchString];
     v13 = [v7 queryForString:searchString maxOrdinal:-1];
 
-    v24 = 0;
-    if (([v13 isCandidateOrdinal:-[BKSearchOperation ordinal](self isMissing:{"ordinal"), &v24}] & 1) == 0 && (v24 & 1) == 0)
+    v26 = 0;
+    v14 = [v13 isCandidateOrdinal:-[BKSearchOperation ordinal](self isMissing:{"ordinal"), &v26}];
+    if ((v14 & 1) == 0 && (v26 & 1) == 0)
     {
       self->super._isDone = 1;
-      v21 = _AESearchLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = _AESearchLog(v14);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         ordinal3 = [(BKSearchOperation *)self ordinal];
         *buf = 134217984;
         ordinal = ordinal3;
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "_doSearch index query contains search string.  Search done for ordinal %lu", buf, 0xCu);
+        _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "_doSearch index query contains search string.  Search done for ordinal %lu", buf, 0xCu);
       }
 
       contentProcessDidTerminate = 0;
       goto LABEL_23;
     }
 
-    v14 = _AESearchLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _AESearchLog(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       ordinal4 = [(BKSearchOperation *)self ordinal];
       *buf = 134217984;
       ordinal = ordinal4;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "_doSearch index query does not contain search string for ordinal %lu", buf, 0xCu);
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "_doSearch index query does not contain search string for ordinal %lu", buf, 0xCu);
     }
   }
 
@@ -646,13 +655,13 @@ LABEL_12:
 
   if (webView)
   {
-    v17 = _AESearchLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = _AESearchLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       startSearchFromIndex = [(BKSearchOperation *)self startSearchFromIndex];
       *buf = 134217984;
       ordinal = startSearchFromIndex;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "_doSearch already have a web view.  Continuing search from index %lu", buf, 0xCu);
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "_doSearch already have a web view.  Continuing search from index %lu", buf, 0xCu);
     }
   }
 
@@ -670,10 +679,10 @@ LABEL_12:
 
   else
   {
-    v23 = [(BKWK2EpubSearchOperation *)self _startFindPerformIndexing:(v7 != 0) & (v9 ^ 1)];
+    v25 = [(BKWK2EpubSearchOperation *)self _startFindPerformIndexing:(v7 != 0) & (v9 ^ 1u)];
     contentProcessDidTerminate = 1;
     self->super._isDone = 1;
-    if (v23)
+    if (v25)
     {
       goto LABEL_23;
     }
@@ -691,15 +700,15 @@ LABEL_23:
   v6 = [(BKWK2EpubSearchOperation *)self url];
   v7 = [lCopy be_isEquivalentToURL:v6 ignoringFragment:1];
 
-  v8 = _AESearchLog();
-  v9 = v8;
+  v9 = _AESearchLog(v8);
+  v10 = v9;
   if (v7)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134217984;
+      v11 = 134217984;
       ordinal = [(BKSearchOperation *)self ordinal];
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "didFinishLoadOfURL for ordinal %lu", &v10, 0xCu);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "didFinishLoadOfURL for ordinal %lu", &v11, 0xCu);
     }
 
     [(BKWK2EpubSearchOperation *)self _configureWebView];
@@ -707,18 +716,18 @@ LABEL_23:
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
+      v11 = 138412290;
       ordinal = lCopy;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "loaded non main url - didFinishLoadOfURL: %@", &v10, 0xCu);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "loaded non main url - didFinishLoadOfURL: %@", &v11, 0xCu);
     }
   }
 }
 
 - (void)_didFinishConfiguringWebView
 {
-  v3 = _AESearchLog();
+  v3 = _AESearchLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -737,15 +746,15 @@ LABEL_23:
   v7 = [(BKWK2EpubSearchOperation *)self url];
   v8 = [lCopy be_isEquivalentToURL:v7 ignoringFragment:1];
 
-  v9 = _AESearchLog();
-  loadSemaphore = v9;
+  v10 = _AESearchLog(v9);
+  loadSemaphore = v10;
   if (v8)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = lCopy;
-      _os_log_impl(&dword_0, loadSemaphore, OS_LOG_TYPE_DEFAULT, "failedToLoadURL: %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = lCopy;
+      _os_log_impl(&dword_0, loadSemaphore, OS_LOG_TYPE_DEFAULT, "failedToLoadURL: %@", &v12, 0xCu);
     }
 
     [(BKWK2EpubSearchOperation *)self setSuccessfulLoad:0];
@@ -753,17 +762,17 @@ LABEL_23:
     dispatch_semaphore_signal(loadSemaphore);
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v11 = 138412290;
-    v12 = lCopy;
-    _os_log_impl(&dword_0, loadSemaphore, OS_LOG_TYPE_ERROR, "loaded non main url - failedToLoadURL: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = lCopy;
+    _os_log_impl(&dword_0, loadSemaphore, OS_LOG_TYPE_ERROR, "loaded non main url - failedToLoadURL: %@", &v12, 0xCu);
   }
 }
 
 - (void)navigationHandlerWebContentLoadFailed:(id)failed
 {
-  v4 = _AESearchLog();
+  v4 = _AESearchLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134217984;
@@ -782,7 +791,7 @@ LABEL_23:
 - (void)_webView:(id)view didCountMatches:(unint64_t)matches forString:(id)string
 {
   stringCopy = string;
-  v8 = _AESearchLog();
+  v8 = _AESearchLog(stringCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134218498;
@@ -799,72 +808,74 @@ LABEL_23:
 {
   viewCopy = view;
   stringCopy = string;
-  if (([(BKWK2EpubSearchOperation *)self isCancelled]& 1) != 0)
+  isCancelled = [(BKWK2EpubSearchOperation *)self isCancelled];
+  if (isCancelled)
   {
     goto LABEL_14;
   }
 
-  v12 = _AESearchLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _AESearchLog(isCancelled);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218754;
     indexCopy2 = matches;
-    v25 = 2112;
-    v26 = stringCopy;
-    v27 = 2048;
-    indexCopy = index;
+    v27 = 2112;
+    v28 = stringCopy;
     v29 = 2048;
+    indexCopy = index;
+    v31 = 2048;
     ordinal = [(BKSearchOperation *)self ordinal];
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "didFindMatches: %lu forString:%@ withMatchIndex: %lu for ordinal %lu", buf, 0x2Au);
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "didFindMatches: %lu forString:%@ withMatchIndex: %lu for ordinal %lu", buf, 0x2Au);
   }
 
-  if ([(BKSearchOperation *)self startSearchFromIndex]<= index)
+  startSearchFromIndex = [(BKSearchOperation *)self startSearchFromIndex];
+  if (startSearchFromIndex <= index)
   {
     searchBook = [(BKSearchOperation *)self searchBook];
     if ([searchBook hasPhysicalPages])
     {
       physicalPageMap = [(BKWK2EpubSearchOperation *)self physicalPageMap];
-      v16 = [physicalPageMap count] == 0;
+      v18 = [physicalPageMap count] == 0;
 
-      if (v16)
+      if (v18)
       {
-        v17 = 0;
+        v19 = 0;
         goto LABEL_13;
       }
 
       searchBook = [(BKWK2EpubSearchOperation *)self physicalPageMap];
-      v17 = [searchBook valueForKey:@"href"];
+      v19 = [searchBook valueForKey:@"href"];
     }
 
     else
     {
-      v17 = 0;
+      v19 = 0;
     }
 
 LABEL_13:
-    v18 = [BECFIUtilitiesJS getSelectedRangeScript:v17];
+    v20 = [BECFIUtilitiesJS getSelectedRangeScript:v19];
     objc_initWeak(buf, self);
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_E4F8C;
-    v20[3] = &unk_1E5B40;
-    objc_copyWeak(&v22, buf);
-    v19 = v17;
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_E4F8C;
+    v22[3] = &unk_1E5B40;
+    objc_copyWeak(&v24, buf);
     v21 = v19;
-    [viewCopy evaluateJavaScript:v18 completionHandler:v20];
+    v23 = v21;
+    [viewCopy evaluateJavaScript:v20 completionHandler:v22];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
 
     goto LABEL_14;
   }
 
-  v13 = _AESearchLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = _AESearchLog(startSearchFromIndex);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     indexCopy2 = index;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Skipping previously found result index %lu.", buf, 0xCu);
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Skipping previously found result index %lu.", buf, 0xCu);
   }
 
   [(BKWK2EpubSearchOperation *)self _startWebKitFind];
@@ -875,7 +886,7 @@ LABEL_14:
 {
   hrefsCopy = hrefs;
   resultCopy = result;
-  v7 = _AESearchLog();
+  v7 = _AESearchLog(resultCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -896,10 +907,10 @@ LABEL_14:
       [v11 setSearchString:searchString];
 
       [v11 setOrdinal:{-[BKSearchOperation ordinal](self, "ordinal")}];
-      v50 = [v10 objectForKey:@"contextText"];
-      if (v50)
+      v51 = [v10 objectForKey:@"contextText"];
+      if (v51)
       {
-        v13 = sub_E5660(v50);
+        v13 = sub_E5660(v51);
         objc_opt_class();
         v14 = [v13 objectForKey:@"context"];
         v15 = BUDynamicCast();
@@ -916,20 +927,20 @@ LABEL_14:
 
       objc_opt_class();
       v20 = [v10 objectForKey:@"rects"];
-      v49 = BUDynamicCast();
+      v50 = BUDynamicCast();
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v55 = 0x3032000000;
-      v56 = sub_E56D0;
-      v57 = sub_E56E0;
-      v58 = objc_opt_new();
-      v53[0] = _NSConcreteStackBlock;
-      v53[1] = 3221225472;
-      v53[2] = sub_E56E8;
-      v53[3] = &unk_1E5B68;
-      v53[4] = &buf;
-      [v49 enumerateObjectsUsingBlock:v53];
+      v56 = 0x3032000000;
+      v57 = sub_E56D0;
+      v58 = sub_E56E0;
+      v59 = objc_opt_new();
+      v54[0] = _NSConcreteStackBlock;
+      v54[1] = 3221225472;
+      v54[2] = sub_E56E8;
+      v54[3] = &unk_1E5B68;
+      v54[4] = &buf;
+      [v50 enumerateObjectsUsingBlock:v54];
       searchBook = [(BKSearchOperation *)self searchBook];
       if ([searchBook isFixedLayout])
       {
@@ -956,9 +967,9 @@ LABEL_14:
       }
 
       v34 = [v10 objectForKey:@"cfi"];
-      v52 = 0;
-      v35 = [[BKEpubCFILocation alloc] initWithCFI:v34 error:&v52];
-      v36 = v52;
+      v53 = 0;
+      v35 = [[BKEpubCFILocation alloc] initWithCFI:v34 error:&v53];
+      v36 = v53;
       [v11 setLocation:v35];
 
       v37 = *(*(&buf + 1) + 40);
@@ -998,18 +1009,19 @@ LABEL_14:
     }
   }
 
-  if ([(NSMutableArray *)self->super._results count]< 0x64)
+  v47 = [(NSMutableArray *)self->super._results count];
+  if (v47 < 0x64)
   {
     [(BKWK2EpubSearchOperation *)self _startWebKitFind];
   }
 
   else
   {
-    v47 = _AESearchLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v48 = _AESearchLog(v47);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "Found more than the max search results.  Stop for this operation.", &buf, 2u);
+      _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Found more than the max search results.  Stop for this operation.", &buf, 2u);
     }
 
     findSemaphore = [(BKWK2EpubSearchOperation *)self findSemaphore];
@@ -1020,7 +1032,7 @@ LABEL_14:
 - (void)_webView:(id)view didFailToFindString:(id)string
 {
   stringCopy = string;
-  v6 = _AESearchLog();
+  v6 = _AESearchLog(stringCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;

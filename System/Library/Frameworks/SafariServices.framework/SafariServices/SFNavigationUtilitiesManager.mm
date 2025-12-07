@@ -85,7 +85,7 @@ void __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFrameNa
   dispatch_group_leave(v3);
 }
 
-uint64_t __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFrameNavigation_navigationType_completionHandler___block_invoke_3(uint64_t a1)
+uint64_t __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFrameNavigation_navigationType_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32) || *(a1 + 40) != 1)
   {
@@ -187,21 +187,21 @@ uint64_t __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFra
   return result;
 }
 
-void __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFrameNavigation_navigationType_completionHandler___block_invoke_3_22(uint64_t a1)
+void __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFrameNavigation_navigationType_completionHandler___block_invoke_3_22(uint64_t a1, uint64_t a2)
 {
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXPageLoading(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFrameNavigation_navigationType_completionHandler___block_invoke_3_22_cold_1(v2);
+      __113___SFNavigationUtilitiesManager_websitePoliciesForURL_isForMainFrameNavigation_navigationType_completionHandler___block_invoke_3_22_cold_1(v3);
     }
   }
 
   (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  v4 = *(*(a1 + 48) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = 0;
 
   dispatch_block_cancel(*(a1 + 32));
 }

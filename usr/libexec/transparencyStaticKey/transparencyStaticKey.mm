@@ -53,11 +53,11 @@ void sub_100002724(id a1)
   _objc_release_x1();
 }
 
-void sub_100002BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100002BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 144), 8);
+  _Block_object_dispose((v22 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -447,16 +447,16 @@ void sub_100004A74(uint64_t a1)
   }
 }
 
-void sub_1000051F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000051F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000052E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000052E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -487,9 +487,9 @@ void sub_100005DFC(uint64_t a1)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_100006800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100006800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -512,9 +512,9 @@ void sub_100006830(void *a1)
   *(v5 + 40) = v4;
 }
 
-void sub_100006A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100006A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -569,9 +569,9 @@ void sub_100006BCC(uint64_t a1)
   }
 }
 
-void sub_100006ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100006ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -599,9 +599,9 @@ void sub_100006EEC(uint64_t a1)
   }
 }
 
-void sub_1000073E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000073E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -819,7 +819,7 @@ void sub_100008524(uint64_t a1, int a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10006DA38(a1);
+      sub_10006DA38();
     }
   }
 }
@@ -965,10 +965,11 @@ void sub_100009F58(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_10000A144(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A144(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000F620(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -1195,7 +1196,7 @@ void sub_100011A64(id a1)
   qword_1000AECB0 = v1;
 }
 
-uint64_t sub_100011C5C()
+uint64_t sub_100011C5C(uint64_t a1, uint64_t a2)
 {
   if (qword_1000AECC0 != -1)
   {
@@ -1646,7 +1647,7 @@ void sub_100012650(uint64_t a1, id *a2)
   sub_1000126BC(a1, a2, v4, 0);
 }
 
-void sub_1000126BC(uint64_t a1, void *a2, unsigned int a3, int a4)
+void sub_1000126BC(uint64_t a1, void *a2, int a3, int a4)
 {
   v5 = *(*(a1 + 64) - 4 * a3);
   if (v5 != a4 && v5 != 0)
@@ -1665,7 +1666,7 @@ void sub_1000126BC(uint64_t a1, void *a2, unsigned int a3, int a4)
     }
 
     v12 = *(a1 + 64);
-    if ((a3 & 0x80000000) != 0)
+    if (a3 < 0)
     {
       *(v12 + 4 * -a3) = 0;
     }
@@ -1719,14 +1720,14 @@ void sub_100012800(uint64_t a1, uint64_t a2)
   sub_10002B300(v7);
 }
 
-uint64_t sub_1000128A8(uint64_t a1, void *a2, void *a3)
+void *sub_1000128A8(void *a1, void *a2, void *a3)
 {
   v5 = a3;
 
   return sub_1000128EC(a1, a2, v5);
 }
 
-uint64_t sub_1000128EC(uint64_t a1, void *a2, void *a3)
+void *sub_1000128EC(void *a1, void *a2, void *a3)
 {
   v3 = a3;
   v6 = a2[1];
@@ -1734,7 +1735,7 @@ uint64_t sub_1000128EC(uint64_t a1, void *a2, void *a3)
   v8 = *(v6 + 28);
   if ((v8 & 0xF02) != 0)
   {
-    v9 = *(a1 + 64);
+    v9 = a1[8];
     v10 = *(v6 + 24);
     v11 = *(v9 + v10);
     *(v9 + v10) = a3;
@@ -1804,7 +1805,7 @@ LABEL_29:
   }
 
   v15 = *(v6 + 20);
-  v16 = *(a1 + 64);
+  v16 = a1[8];
   if ((v15 & 0x80000000) != 0)
   {
     v19 = *(v6 + 16);
@@ -1831,7 +1832,7 @@ LABEL_29:
     }
   }
 
-  v20 = *(a1 + 64);
+  v20 = a1[8];
   v21 = *(v6 + 24);
   v11 = *(v20 + v21);
   *(v20 + v21) = v3;
@@ -1894,7 +1895,7 @@ id sub_100012B74(uint64_t a1, void *a2)
   return [a2 defaultValue];
 }
 
-id sub_100012C04(void *a1, void *a2, uint64_t a3)
+void *sub_100012C04(void *a1, void *a2, uint64_t a3)
 {
   if (([a2 isValidEnumValue:?] & 1) == 0)
   {
@@ -1904,7 +1905,7 @@ id sub_100012C04(void *a1, void *a2, uint64_t a3)
   return sub_100012CB0(a1, a2, a3);
 }
 
-id sub_100012CB0(void *a1, uint64_t a2, int a3)
+void *sub_100012CB0(void *a1, uint64_t a2, int a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -1998,20 +1999,20 @@ LABEL_3:
   return v9 & 1;
 }
 
-void *sub_100012E5C(void *a1, uint64_t a2, int a3)
+void *sub_100012E5C(void *result, uint64_t a2, int a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return sub_100012E6C(a1, a2, a3);
+      return sub_100012E6C(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id sub_100012E6C(void *a1, uint64_t a2, int a3)
+void *sub_100012E6C(void *a1, uint64_t a2, int a3)
 {
   v5 = *(a2 + 8);
   v6 = *(a2 + 16);
@@ -2127,20 +2128,20 @@ id sub_100012FB0(uint64_t a1, void *a2)
   return [a2 defaultValue];
 }
 
-void *sub_100013024(void *a1, uint64_t a2, uint64_t a3)
+void *sub_100013024(void *result, uint64_t a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return sub_100013034(a1, a2, a3);
+      return sub_100013034(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id sub_100013034(void *a1, uint64_t a2, uint64_t a3)
+void *sub_100013034(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -2221,20 +2222,20 @@ float sub_10001312C(uint64_t a1, void *a2)
   return result;
 }
 
-void *sub_1000131BC(void *a1, uint64_t a2, float a3)
+void *sub_1000131BC(void *result, uint64_t a2, float a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return sub_1000131CC(a1, a2, a3);
+      return sub_1000131CC(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id sub_1000131CC(void *a1, uint64_t a2, float a3)
+void *sub_1000131CC(void *a1, uint64_t a2, float a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -2305,20 +2306,20 @@ double sub_1000132C8(uint64_t a1, void *a2)
   return COERCE_DOUBLE([a2 defaultValue]);
 }
 
-void *sub_100013358(void *a1, uint64_t a2, double a3)
+void *sub_100013358(void *result, uint64_t a2, double a3)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return sub_100013368(a1, a2, a3);
+      return sub_100013368(result, a2, a3);
     }
   }
 
-  return a1;
+  return result;
 }
 
-id sub_100013368(void *a1, uint64_t a2, double a3)
+void *sub_100013368(void *a1, uint64_t a2, double a3)
 {
   v6 = *(a2 + 16);
   v7 = *(a2 + 8);
@@ -2364,7 +2365,7 @@ id sub_100013368(void *a1, uint64_t a2, double a3)
   return sub_10002AFEC(a1);
 }
 
-uint64_t sub_100013468(uint64_t result, void *a2, void *a3)
+void *sub_100013468(void *result, void *a2, void *a3)
 {
   if (result && a2)
   {
@@ -2377,7 +2378,7 @@ uint64_t sub_100013468(uint64_t result, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_1000134C8(uint64_t result, void *a2, void *a3)
+void *sub_1000134C8(void *result, void *a2, void *a3)
 {
   if (result && a2)
   {
@@ -2390,7 +2391,7 @@ uint64_t sub_1000134C8(uint64_t result, void *a2, void *a3)
   return result;
 }
 
-__CFString *sub_100013564(void *a1, __CFString *a2)
+const __CFString *sub_100013564(void *a1, __CFString *a2)
 {
   v2 = &stru_100096EB8;
   if (a1)
@@ -2987,7 +2988,7 @@ id sub_1000143B8(void *a1, void *a2)
         {
           case '""':
             v9 = a2;
-            v10 = @"\\"";
+            v10 = @"\";
             goto LABEL_19;
           case '\'':
             v9 = a2;
@@ -2995,7 +2996,7 @@ id sub_1000143B8(void *a1, void *a2)
             goto LABEL_19;
           case '\\':
             v9 = a2;
-            v10 = @"\\\";
+            v10 = @"\\\"";
             goto LABEL_19;
         }
       }
@@ -3047,7 +3048,7 @@ LABEL_20:
   return [a2 appendString:@""];
 }
 
-NSString *sub_10001456C(char *a1, int a2, void *a3)
+NSMutableString *sub_10001456C(char *a1, int a2, void *a3)
 {
   v3 = 0;
   if (a1 && a3)
@@ -3171,25 +3172,7 @@ uint64_t sub_100014750(char **a1)
     v4 = v1[1];
     *a1 = v1 + 2;
     v5 = v4 << 7;
-    if ((v4 & 0x80000000) == 0)
-    {
-      return v5 | v3;
-    }
-
-    v3 |= v5 & 0x3F80;
-    v6 = v1[2];
-    *a1 = v1 + 3;
-    v5 = v6 << 14;
-    if ((v6 & 0x80000000) == 0)
-    {
-      return v5 | v3;
-    }
-
-    v3 |= v5 & 0x1FC000;
-    v7 = v1[3];
-    *a1 = v1 + 4;
-    v5 = v7 << 21;
-    if (v7 < 0)
+    if (v4 < 0 && (v3 |= v5 & 0x3F80, v6 = v1[2], *a1 = v1 + 3, v5 = v6 << 14, v6 < 0) && (v3 |= v5 & 0x1FC000, v7 = v1[3], *a1 = v1 + 4, v5 = v7 << 21, v7 < 0))
     {
       v9 = v1[4];
       *a1 = v1 + 5;
@@ -3435,7 +3418,7 @@ id sub_100014D04(void *a1, void *a2)
         {
           case '""':
             v8 = a2;
-            v9 = @"\\"";
+            v9 = @"\";
             break;
           case '\'':
             v8 = a2;
@@ -3443,7 +3426,7 @@ id sub_100014D04(void *a1, void *a2)
             break;
           case '\\':
             v8 = a2;
-            v9 = @"\\\";
+            v9 = @"\\\"";
             break;
           default:
 LABEL_14:
@@ -3766,56 +3749,56 @@ unint64_t sub_1000166DC()
   return atomic_load(&qword_1000AED10);
 }
 
-uint64_t sub_1000167D8(uint64_t a1)
+void *sub_1000167D8(uint64_t a1)
 {
   v2 = [+[TransparencyGPBType descriptor](TransparencyGPBType "descriptor")];
 
   return sub_100012DA8(a1, v2);
 }
 
-id sub_100016824(void *a1, int a2)
+uint64_t sub_100016824(uint64_t a1, int a2)
 {
   v4 = [+[TransparencyGPBType descriptor](TransparencyGPBType "descriptor")];
 
   return sub_100012DAC(a1, v4, a2);
 }
 
-uint64_t sub_1000168FC(uint64_t a1)
+void *sub_1000168FC(uint64_t a1)
 {
   v2 = [+[TransparencyGPBField descriptor](TransparencyGPBField "descriptor")];
 
   return sub_100012DA8(a1, v2);
 }
 
-id sub_100016948(void *a1, int a2)
+uint64_t sub_100016948(uint64_t a1, int a2)
 {
   v4 = [+[TransparencyGPBField descriptor](TransparencyGPBField "descriptor")];
 
   return sub_100012DAC(a1, v4, a2);
 }
 
-uint64_t sub_10001699C(uint64_t a1)
+void *sub_10001699C(uint64_t a1)
 {
   v2 = [+[TransparencyGPBField descriptor](TransparencyGPBField "descriptor")];
 
   return sub_100012DA8(a1, v2);
 }
 
-id sub_1000169E8(void *a1, int a2)
+uint64_t sub_1000169E8(uint64_t a1, int a2)
 {
   v4 = [+[TransparencyGPBField descriptor](TransparencyGPBField "descriptor")];
 
   return sub_100012DAC(a1, v4, a2);
 }
 
-uint64_t sub_100016AAC(uint64_t a1)
+void *sub_100016AAC(uint64_t a1)
 {
   v2 = [+[TransparencyGPBEnum descriptor](TransparencyGPBEnum "descriptor")];
 
   return sub_100012DA8(a1, v2);
 }
 
-id sub_100016AF8(void *a1, int a2)
+uint64_t sub_100016AF8(uint64_t a1, int a2)
 {
   v4 = [+[TransparencyGPBEnum descriptor](TransparencyGPBEnum "descriptor")];
 
@@ -3881,7 +3864,7 @@ const void *sub_100017574(objc_class *a1, SEL sel)
 LABEL_6:
       v8 = class_getName(a1);
       v9 = strlen(v8);
-      __chkstk_darwin();
+      __chkstk_darwin(v9);
       v11 = &v14 - v10;
       bzero(&v14 - v10, v12 + 1);
       memcpy(v11, v8, v9);
@@ -3907,28 +3890,28 @@ LABEL_6:
   return 0;
 }
 
-uint64_t sub_1000177A0(uint64_t a1)
+void *sub_1000177A0(uint64_t a1)
 {
   v2 = [+[TransparencyGPBApi descriptor](TransparencyGPBApi "descriptor")];
 
   return sub_100012DA8(a1, v2);
 }
 
-id sub_1000177EC(void *a1, int a2)
+uint64_t sub_1000177EC(uint64_t a1, int a2)
 {
   v4 = [+[TransparencyGPBApi descriptor](TransparencyGPBApi "descriptor")];
 
   return sub_100012DAC(a1, v4, a2);
 }
 
-uint64_t sub_1000178C4(uint64_t a1)
+void *sub_1000178C4(uint64_t a1)
 {
   v2 = [+[TransparencyGPBMethod descriptor](TransparencyGPBMethod "descriptor")];
 
   return sub_100012DA8(a1, v2);
 }
 
-id sub_100017910(void *a1, int a2)
+uint64_t sub_100017910(uint64_t a1, int a2)
 {
   v4 = [+[TransparencyGPBMethod descriptor](TransparencyGPBMethod "descriptor")];
 
@@ -4111,16 +4094,16 @@ uint64_t *sub_100017EF4(uint64_t *result, unint64_t a2)
   return result;
 }
 
-uint64_t *sub_100018054(uint64_t *result, unsigned int a2)
+uint64_t *sub_100018054(uint64_t *a1, unsigned int a2)
 {
   if ((a2 & 0x80000000) != 0)
   {
-    return sub_100017EF4(result, a2);
+    return sub_100017EF4(a1, a2);
   }
 
   else
   {
-    return sub_10001837C(result, a2);
+    return sub_10001837C(a1, a2);
   }
 }
 
@@ -4168,7 +4151,7 @@ uint64_t *sub_10001837C(uint64_t *result, unsigned int a2)
   return result;
 }
 
-uint64_t *sub_100018744(uint64_t *a1, int a2, unsigned int a3)
+uint64_t *sub_100018744(uint64_t *a1, uint64_t a2, unsigned int a3)
 {
   v5 = sub_100025184(a2, 0);
   sub_10001837C(a1, v5);
@@ -4600,7 +4583,7 @@ char *sub_10001AFDC(void *a1)
   return &v1[v2];
 }
 
-uint64_t sub_10001B02C(int a1)
+uint64_t sub_10001B02C(uint64_t a1)
 {
   v1 = sub_100025184(a1, 0);
   v2 = 10;
@@ -4632,7 +4615,7 @@ uint64_t sub_10001B02C(int a1)
   }
 }
 
-uint64_t sub_10001B07C(int a1)
+uint64_t sub_10001B07C(uint64_t a1)
 {
   v1 = sub_100025184(a1, 0);
   v2 = 2;
@@ -4664,7 +4647,7 @@ uint64_t sub_10001B07C(int a1)
   }
 }
 
-uint64_t sub_10001B0CC(int a1)
+uint64_t sub_10001B0CC(uint64_t a1)
 {
   v1 = sub_100025184(a1, 0);
   v2 = 6;
@@ -4696,7 +4679,7 @@ uint64_t sub_10001B0CC(int a1)
   }
 }
 
-uint64_t sub_10001B11C(int a1, unint64_t a2)
+uint64_t sub_10001B11C(uint64_t a1, unint64_t a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 2;
@@ -4730,7 +4713,7 @@ uint64_t sub_10001B11C(int a1, unint64_t a2)
   return sub_10001AEA4(a2) + v7;
 }
 
-uint64_t sub_10001B184(int a1, unsigned int a2)
+uint64_t sub_10001B184(uint64_t a1, unsigned int a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 1;
@@ -4790,7 +4773,7 @@ uint64_t sub_10001B184(int a1, unsigned int a2)
   return v8 + v4;
 }
 
-uint64_t sub_10001B224(int a1)
+uint64_t sub_10001B224(uint64_t a1)
 {
   v1 = sub_100025184(a1, 0);
   v2 = 3;
@@ -4822,7 +4805,7 @@ uint64_t sub_10001B224(int a1)
   }
 }
 
-char *sub_10001B274(int a1, void *a2)
+char *sub_10001B274(uint64_t a1, void *a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 2;
@@ -4881,7 +4864,7 @@ char *sub_10001B274(int a1, void *a2)
   return &v8[v7 + v9];
 }
 
-char *sub_10001B318(int a1, void *a2)
+char *sub_10001B318(uint64_t a1, void *a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 4;
@@ -4915,7 +4898,7 @@ char *sub_10001B318(int a1, void *a2)
   return [a2 serializedSize] + v7;
 }
 
-char *sub_10001B384(int a1, void *a2)
+char *sub_10001B384(uint64_t a1, void *a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 2;
@@ -4974,7 +4957,7 @@ char *sub_10001B384(int a1, void *a2)
   return &v8[v7 + v9];
 }
 
-char *sub_10001B424(int a1, void *a2)
+char *sub_10001B424(uint64_t a1, void *a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 2;
@@ -5033,7 +5016,7 @@ char *sub_10001B424(int a1, void *a2)
   return &v8[v7 + v9];
 }
 
-uint64_t sub_10001B4C4(int a1, unsigned int a2)
+uint64_t sub_10001B4C4(uint64_t a1, unsigned int a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 1;
@@ -5087,7 +5070,7 @@ uint64_t sub_10001B4C4(int a1, unsigned int a2)
   return v8 + v4;
 }
 
-uint64_t sub_10001B558(int a1, int a2)
+uint64_t sub_10001B558(uint64_t a1, int a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 1;
@@ -5146,7 +5129,7 @@ uint64_t sub_10001B558(int a1, int a2)
   return v12 + v4;
 }
 
-uint64_t sub_10001B5F4(int a1, uint64_t a2)
+uint64_t sub_10001B5F4(uint64_t a1, uint64_t a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 2;
@@ -5250,7 +5233,7 @@ char *sub_10001B6F0(unsigned int a1, void *a2)
   return &sub_10001B424(3, a2)[v9];
 }
 
-uint64_t sub_10001B780(int a1, int a2)
+uint64_t sub_10001B780(uint64_t a1, int a2)
 {
   v3 = sub_100025184(a1, 0);
   v4 = 1;
@@ -5491,9 +5474,9 @@ void sub_10001F6CC(uint64_t a1)
   dispatch_sync(v2, block);
 }
 
-void sub_10001F880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001F880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5745,9 +5728,9 @@ void sub_100021168(id a1)
   _objc_release_x1();
 }
 
-void sub_10002135C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002135C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5793,9 +5776,9 @@ void sub_100021374(uint64_t a1)
   }
 }
 
-void sub_1000215F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000215F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5997,9 +5980,9 @@ void sub_1000228EC(id a1)
   _objc_release_x1();
 }
 
-void sub_1000229F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000229F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6010,9 +5993,9 @@ void sub_100022A08(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v2 == 0;
 }
 
-void sub_100022B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100022B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6724,7 +6707,7 @@ LABEL_35:
   return result;
 }
 
-id sub_100024ECC(id result, void *a2)
+void *sub_100024ECC(void *result, void *a2)
 {
   switch(result)
   {
@@ -6838,9 +6821,9 @@ void sub_100025E0C(uint64_t a1)
   (*(v1 + 16))(v1, v2);
 }
 
-void sub_100025F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100025F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6854,10 +6837,7 @@ uint64_t sub_100025F84(uint64_t result, uint64_t a2)
 
 uint64_t sub_100025F9C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) onQueueMapMailbox];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) onQueueMapMailbox];
 
   return _objc_release_x1();
 }
@@ -7466,16 +7446,18 @@ void sub_100029850(uint64_t a1, void *a2)
   }
 }
 
-void sub_10002A5F8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10002A5F8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_10002A62C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10002A62C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_10002AE10(_Unwind_Exception *a1)
@@ -7528,7 +7510,7 @@ void *sub_10002AF98(objc_class *a1, uint64_t a2, void *a3)
   return v5;
 }
 
-id sub_10002AFEC(void *a1)
+void *sub_10002AFEC(void *a1)
 {
   result = a1[4];
   if (result)
@@ -7548,7 +7530,7 @@ id sub_10002AFEC(void *a1)
   return result;
 }
 
-id sub_10002B014(void *a1, uint64_t a2)
+void *sub_10002B014(void *a1, uint64_t a2)
 {
   v11 = 0u;
   v12 = 0u;
@@ -7605,7 +7587,7 @@ id sub_10002B014(void *a1, uint64_t a2)
   return result;
 }
 
-id sub_10002B180(void *a1, uint64_t a2)
+void *sub_10002B180(void *a1, uint64_t a2)
 {
   v11 = 0u;
   v12 = 0u;
@@ -7851,9 +7833,9 @@ void *sub_10002C300(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_10002C6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002C6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7934,13 +7916,13 @@ uint64_t sub_10002DA1C(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_10002E3E8(void *a1, int a2, uint64_t *a3, uint64_t a4, void *a5)
+void sub_10002E3E8(void *a1, int a2, uint64_t a3, uint64_t a4, void *a5)
 {
   if (a2)
   {
-    v9 = sub_100038D20(a3 + 1);
-    v10 = sub_1000391A8((a3 + 1), v9);
-    while (sub_1000391FC((a3 + 1)))
+    v9 = sub_100038D20((a3 + 8));
+    v10 = sub_1000391A8(a3 + 8, v9);
+    while (sub_1000391FC(a3 + 8))
     {
       v11 = sub_1000327E8(a1, a5, a3, a4, 0);
       if (v11)
@@ -7950,7 +7932,7 @@ void sub_10002E3E8(void *a1, int a2, uint64_t *a3, uint64_t a4, void *a5)
       }
     }
 
-    sub_1000391F4((a3 + 1), v10);
+    sub_1000391F4(a3 + 8, v10);
   }
 
   else
@@ -8070,7 +8052,7 @@ LABEL_17:
   return sub_1000391F4(a3 + 8, v9);
 }
 
-void sub_10002EF5C(void *a1, void *a2, uint64_t *a3, uint64_t a4)
+void sub_10002EF5C(void *a1, void *a2, char *a3, uint64_t a4)
 {
   v8 = sub_10002FA1C(a1, a2);
   switch(*(a2[1] + 30))
@@ -8102,7 +8084,7 @@ void sub_10002EF5C(void *a1, void *a2, uint64_t *a3, uint64_t a4)
       goto LABEL_14;
     case 8:
     case 0xC:
-      sub_100038C94(a3 + 1);
+      sub_100038C94((a3 + 8));
       goto LABEL_32;
     case 9:
       sub_100038DB0(a3 + 1);
@@ -8164,7 +8146,7 @@ LABEL_24:
   }
 }
 
-void *sub_10002F2E8(uint64_t a1, void *a2)
+void *sub_10002F2E8(void *a1, void *a2)
 {
   v4 = sub_100012268(a1, a2);
   if (!v4)
@@ -8176,7 +8158,7 @@ void *sub_10002F2E8(uint64_t a1, void *a2)
   return v4;
 }
 
-void *sub_10002FA1C(uint64_t a1, void *a2)
+void *sub_10002FA1C(void *a1, void *a2)
 {
   v4 = sub_100012268(a1, a2);
   if (!v4)
@@ -8244,7 +8226,7 @@ uint64_t sub_100031068(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t sub_1000310A4(uint64_t a1, unint64_t a2)
+uint64_t sub_1000310A4(uint64_t a1, uint64_t a2)
 {
   result = sub_100018F20(a2);
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -8272,7 +8254,7 @@ uint64_t sub_100031158(uint64_t a1, unsigned int a2)
   return result;
 }
 
-uint64_t sub_100031194(uint64_t a1, unint64_t a2)
+uint64_t sub_100031194(uint64_t a1, uint64_t a2)
 {
   result = sub_100018F20(a2);
   *(*(*(a1 + 32) + 8) + 24) += result;
@@ -8291,26 +8273,25 @@ void sub_100032420(uint64_t a1, uint64_t a2, int a3)
   if (a3)
   {
     v5 = objc_opt_class();
-    v6 = *(a1 + 32);
-    if (*(v6 + 48))
+    if (*(*(a1 + 32) + 48))
     {
-      v7 = *(v6 + 48);
+      v6 = *(*(a1 + 32) + 48);
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
-    [NSException raise:NSInvalidArgumentException format:@"%@: %@ can only be set to NO (to clear field).", v5, NSStringFromSelector(v7)];
+    [NSException raise:NSInvalidArgumentException format:@"%@: %@ can only be set to NO (to clear field).", v5, NSStringFromSelector(v6)];
   }
 
-  v8 = *(a1 + 32);
+  v7 = *(a1 + 32);
 
-  sub_10001250C(a2, v8);
+  sub_10001250C(a2, v7);
 }
 
-TransparencyGPBAutocreatedArray *sub_100032508(uint64_t a1, objc_class *a2)
+TransparencyGPBEnumArray *sub_100032508(uint64_t a1, objc_class *a2)
 {
   v2 = *(a1 + 32);
   v3 = (*(a2 + 8) + *(v2[1] + 24));
@@ -8332,7 +8313,7 @@ TransparencyGPBAutocreatedArray *sub_100032508(uint64_t a1, objc_class *a2)
         v6 = &OBJC_IVAR___TransparencyGPBAutocreatedArray__autocreator;
       }
 
-      *(&result->super.super.super.isa + *v6) = 0;
+      *(&result->super.isa + *v6) = 0;
 
       return v5;
     }
@@ -8379,7 +8360,7 @@ id sub_100032674(uint64_t a1, uint64_t a2)
   return [v2 count];
 }
 
-const __CFString *sub_1000327E8(void *a1, void *a2, uint64_t *a3, uint64_t a4, void *a5)
+const __CFString *sub_1000327E8(void *a1, void *a2, char *a3, uint64_t a4, void *a5)
 {
   v5 = a1[1];
   switch(*(v5 + 44))
@@ -8421,7 +8402,7 @@ const __CFString *sub_1000327E8(void *a1, void *a2, uint64_t *a3, uint64_t a4, v
       goto LABEL_19;
     case 8:
       v26 = [NSNumber alloc];
-      v27 = sub_100038C94(a3 + 1);
+      v27 = sub_100038C94((a3 + 8));
       goto LABEL_42;
     case 9:
       v15 = [NSNumber alloc];
@@ -8444,7 +8425,7 @@ LABEL_27:
       return [v11 initWithUnsignedInt:v12];
     case 0xC:
       v13 = [NSNumber alloc];
-      v14 = sub_100038C94(a3 + 1);
+      v14 = sub_100038C94((a3 + 8));
 LABEL_10:
 
       return [v13 initWithUnsignedLongLong:v14];
@@ -8510,50 +8491,49 @@ TransparencyGPBAutocreatedDictionary *sub_100032C94(void *a1, objc_class *a2)
 {
   v4 = [a1 mapKeyDataType];
   result = 0;
-  v6 = a1[1];
-  v7 = *(v6 + 30);
+  v6 = *(a1[1] + 30);
   switch(v4)
   {
     case 0u:
       result = 0;
-      switch(*(v6 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v8 = TransparencyGPBBoolBoolDictionary;
+          v7 = TransparencyGPBBoolBoolDictionary;
           goto LABEL_67;
         case 1:
         case 0xB:
-          v8 = TransparencyGPBBoolUInt32Dictionary;
+          v7 = TransparencyGPBBoolUInt32Dictionary;
           goto LABEL_67;
         case 2:
         case 7:
         case 9:
-          v8 = TransparencyGPBBoolInt32Dictionary;
+          v7 = TransparencyGPBBoolInt32Dictionary;
           goto LABEL_67;
         case 3:
-          v8 = TransparencyGPBBoolFloatDictionary;
+          v7 = TransparencyGPBBoolFloatDictionary;
           goto LABEL_67;
         case 4:
         case 0xC:
-          v8 = TransparencyGPBBoolUInt64Dictionary;
+          v7 = TransparencyGPBBoolUInt64Dictionary;
           goto LABEL_67;
         case 5:
         case 8:
         case 0xA:
-          v8 = TransparencyGPBBoolInt64Dictionary;
+          v7 = TransparencyGPBBoolInt64Dictionary;
           goto LABEL_67;
         case 6:
-          v8 = TransparencyGPBBoolDoubleDictionary;
+          v7 = TransparencyGPBBoolDoubleDictionary;
           goto LABEL_67;
         case 0xD:
         case 0xE:
         case 0xF:
-          v8 = TransparencyGPBBoolObjectDictionary;
+          v7 = TransparencyGPBBoolObjectDictionary;
           goto LABEL_67;
         case 0x10:
           return result;
         case 0x11:
-          v9 = TransparencyGPBBoolEnumDictionary;
+          v8 = TransparencyGPBBoolEnumDictionary;
           goto LABEL_65;
         default:
           goto LABEL_68;
@@ -8562,44 +8542,44 @@ TransparencyGPBAutocreatedDictionary *sub_100032C94(void *a1, objc_class *a2)
     case 1u:
     case 0xBu:
       result = 0;
-      switch(*(v6 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v8 = TransparencyGPBUInt32BoolDictionary;
+          v7 = TransparencyGPBUInt32BoolDictionary;
           goto LABEL_67;
         case 1:
         case 0xB:
-          v8 = TransparencyGPBUInt32UInt32Dictionary;
+          v7 = TransparencyGPBUInt32UInt32Dictionary;
           goto LABEL_67;
         case 2:
         case 7:
         case 9:
-          v8 = TransparencyGPBUInt32Int32Dictionary;
+          v7 = TransparencyGPBUInt32Int32Dictionary;
           goto LABEL_67;
         case 3:
-          v8 = TransparencyGPBUInt32FloatDictionary;
+          v7 = TransparencyGPBUInt32FloatDictionary;
           goto LABEL_67;
         case 4:
         case 0xC:
-          v8 = TransparencyGPBUInt32UInt64Dictionary;
+          v7 = TransparencyGPBUInt32UInt64Dictionary;
           goto LABEL_67;
         case 5:
         case 8:
         case 0xA:
-          v8 = TransparencyGPBUInt32Int64Dictionary;
+          v7 = TransparencyGPBUInt32Int64Dictionary;
           goto LABEL_67;
         case 6:
-          v8 = TransparencyGPBUInt32DoubleDictionary;
+          v7 = TransparencyGPBUInt32DoubleDictionary;
           goto LABEL_67;
         case 0xD:
         case 0xE:
         case 0xF:
-          v8 = TransparencyGPBUInt32ObjectDictionary;
+          v7 = TransparencyGPBUInt32ObjectDictionary;
           goto LABEL_67;
         case 0x10:
           return result;
         case 0x11:
-          v9 = TransparencyGPBUInt32EnumDictionary;
+          v8 = TransparencyGPBUInt32EnumDictionary;
           goto LABEL_65;
         default:
           goto LABEL_68;
@@ -8609,44 +8589,44 @@ TransparencyGPBAutocreatedDictionary *sub_100032C94(void *a1, objc_class *a2)
     case 7u:
     case 9u:
       result = 0;
-      switch(*(v6 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v8 = TransparencyGPBInt32BoolDictionary;
+          v7 = TransparencyGPBInt32BoolDictionary;
           goto LABEL_67;
         case 1:
         case 0xB:
-          v8 = TransparencyGPBInt32UInt32Dictionary;
+          v7 = TransparencyGPBInt32UInt32Dictionary;
           goto LABEL_67;
         case 2:
         case 7:
         case 9:
-          v8 = TransparencyGPBInt32Int32Dictionary;
+          v7 = TransparencyGPBInt32Int32Dictionary;
           goto LABEL_67;
         case 3:
-          v8 = TransparencyGPBInt32FloatDictionary;
+          v7 = TransparencyGPBInt32FloatDictionary;
           goto LABEL_67;
         case 4:
         case 0xC:
-          v8 = TransparencyGPBInt32UInt64Dictionary;
+          v7 = TransparencyGPBInt32UInt64Dictionary;
           goto LABEL_67;
         case 5:
         case 8:
         case 0xA:
-          v8 = TransparencyGPBInt32Int64Dictionary;
+          v7 = TransparencyGPBInt32Int64Dictionary;
           goto LABEL_67;
         case 6:
-          v8 = TransparencyGPBInt32DoubleDictionary;
+          v7 = TransparencyGPBInt32DoubleDictionary;
           goto LABEL_67;
         case 0xD:
         case 0xE:
         case 0xF:
-          v8 = TransparencyGPBInt32ObjectDictionary;
+          v7 = TransparencyGPBInt32ObjectDictionary;
           goto LABEL_67;
         case 0x10:
           return result;
         case 0x11:
-          v9 = TransparencyGPBInt32EnumDictionary;
+          v8 = TransparencyGPBInt32EnumDictionary;
           goto LABEL_65;
         default:
           goto LABEL_68;
@@ -8662,44 +8642,44 @@ TransparencyGPBAutocreatedDictionary *sub_100032C94(void *a1, objc_class *a2)
     case 4u:
     case 0xCu:
       result = 0;
-      switch(*(v6 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v8 = TransparencyGPBUInt64BoolDictionary;
+          v7 = TransparencyGPBUInt64BoolDictionary;
           goto LABEL_67;
         case 1:
         case 0xB:
-          v8 = TransparencyGPBUInt64UInt32Dictionary;
+          v7 = TransparencyGPBUInt64UInt32Dictionary;
           goto LABEL_67;
         case 2:
         case 7:
         case 9:
-          v8 = TransparencyGPBUInt64Int32Dictionary;
+          v7 = TransparencyGPBUInt64Int32Dictionary;
           goto LABEL_67;
         case 3:
-          v8 = TransparencyGPBUInt64FloatDictionary;
+          v7 = TransparencyGPBUInt64FloatDictionary;
           goto LABEL_67;
         case 4:
         case 0xC:
-          v8 = TransparencyGPBUInt64UInt64Dictionary;
+          v7 = TransparencyGPBUInt64UInt64Dictionary;
           goto LABEL_67;
         case 5:
         case 8:
         case 0xA:
-          v8 = TransparencyGPBUInt64Int64Dictionary;
+          v7 = TransparencyGPBUInt64Int64Dictionary;
           goto LABEL_67;
         case 6:
-          v8 = TransparencyGPBUInt64DoubleDictionary;
+          v7 = TransparencyGPBUInt64DoubleDictionary;
           goto LABEL_67;
         case 0xD:
         case 0xE:
         case 0xF:
-          v8 = TransparencyGPBUInt64ObjectDictionary;
+          v7 = TransparencyGPBUInt64ObjectDictionary;
           goto LABEL_67;
         case 0x10:
           return result;
         case 0x11:
-          v9 = TransparencyGPBUInt64EnumDictionary;
+          v8 = TransparencyGPBUInt64EnumDictionary;
           goto LABEL_65;
         default:
           goto LABEL_68;
@@ -8709,44 +8689,44 @@ TransparencyGPBAutocreatedDictionary *sub_100032C94(void *a1, objc_class *a2)
     case 8u:
     case 0xAu:
       result = 0;
-      switch(*(v6 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v8 = TransparencyGPBInt64BoolDictionary;
+          v7 = TransparencyGPBInt64BoolDictionary;
           goto LABEL_67;
         case 1:
         case 0xB:
-          v8 = TransparencyGPBInt64UInt32Dictionary;
+          v7 = TransparencyGPBInt64UInt32Dictionary;
           goto LABEL_67;
         case 2:
         case 7:
         case 9:
-          v8 = TransparencyGPBInt64Int32Dictionary;
+          v7 = TransparencyGPBInt64Int32Dictionary;
           goto LABEL_67;
         case 3:
-          v8 = TransparencyGPBInt64FloatDictionary;
+          v7 = TransparencyGPBInt64FloatDictionary;
           goto LABEL_67;
         case 4:
         case 0xC:
-          v8 = TransparencyGPBInt64UInt64Dictionary;
+          v7 = TransparencyGPBInt64UInt64Dictionary;
           goto LABEL_67;
         case 5:
         case 8:
         case 0xA:
-          v8 = TransparencyGPBInt64Int64Dictionary;
+          v7 = TransparencyGPBInt64Int64Dictionary;
           goto LABEL_67;
         case 6:
-          v8 = TransparencyGPBInt64DoubleDictionary;
+          v7 = TransparencyGPBInt64DoubleDictionary;
           goto LABEL_67;
         case 0xD:
         case 0xE:
         case 0xF:
-          v8 = TransparencyGPBInt64ObjectDictionary;
+          v7 = TransparencyGPBInt64ObjectDictionary;
           goto LABEL_67;
         case 0x10:
           return result;
         case 0x11:
-          v9 = TransparencyGPBInt64EnumDictionary;
+          v8 = TransparencyGPBInt64EnumDictionary;
           goto LABEL_65;
         default:
           goto LABEL_68;
@@ -8754,36 +8734,36 @@ TransparencyGPBAutocreatedDictionary *sub_100032C94(void *a1, objc_class *a2)
 
     case 0xEu:
       result = 0;
-      switch(*(v6 + 30))
+      switch(*(a1[1] + 30))
       {
         case 0:
-          v8 = TransparencyGPBStringBoolDictionary;
+          v7 = TransparencyGPBStringBoolDictionary;
           goto LABEL_67;
         case 1:
         case 0xB:
-          v8 = TransparencyGPBStringUInt32Dictionary;
+          v7 = TransparencyGPBStringUInt32Dictionary;
           goto LABEL_67;
         case 2:
         case 7:
         case 9:
-          v8 = TransparencyGPBStringInt32Dictionary;
+          v7 = TransparencyGPBStringInt32Dictionary;
           goto LABEL_67;
         case 3:
-          v8 = TransparencyGPBStringFloatDictionary;
+          v7 = TransparencyGPBStringFloatDictionary;
           goto LABEL_67;
         case 4:
         case 0xC:
-          v8 = TransparencyGPBStringUInt64Dictionary;
+          v7 = TransparencyGPBStringUInt64Dictionary;
           goto LABEL_67;
         case 5:
         case 8:
         case 0xA:
-          v8 = TransparencyGPBStringInt64Dictionary;
+          v7 = TransparencyGPBStringInt64Dictionary;
           goto LABEL_67;
         case 6:
-          v8 = TransparencyGPBStringDoubleDictionary;
+          v7 = TransparencyGPBStringDoubleDictionary;
 LABEL_67:
-          result = objc_alloc_init(v8);
+          result = objc_alloc_init(v7);
           goto LABEL_68;
         case 0xD:
         case 0xE:
@@ -8799,9 +8779,9 @@ LABEL_67:
         case 0x10:
           return result;
         case 0x11:
-          v9 = TransparencyGPBStringEnumDictionary;
+          v8 = TransparencyGPBStringEnumDictionary;
 LABEL_65:
-          result = [[v9 alloc] initWithValidationFunction:{objc_msgSend(objc_msgSend(a1, "enumDescriptor"), "enumVerifier")}];
+          result = [[v8 alloc] initWithValidationFunction:{objc_msgSend(objc_msgSend(a1, "enumDescriptor"), "enumVerifier")}];
           goto LABEL_68;
         default:
           goto LABEL_68;
@@ -8812,18 +8792,18 @@ LABEL_65:
 LABEL_68:
       if (a2)
       {
-        if (v4 == 14 && (v7 - 13) <= 3)
+        if (v4 == 14 && (v6 - 13) <= 3)
         {
 LABEL_71:
-          v10 = &OBJC_IVAR___TransparencyGPBAutocreatedDictionary__autocreator;
+          v9 = &OBJC_IVAR___TransparencyGPBAutocreatedDictionary__autocreator;
         }
 
         else
         {
-          v10 = &OBJC_IVAR___TransparencyGPBInt32Int32Dictionary__autocreator;
+          v9 = &OBJC_IVAR___TransparencyGPBInt32Int32Dictionary__autocreator;
         }
 
-        *(&result->super.super.super.isa + *v10) = a2;
+        *(&result->super.super.super.isa + *v9) = a2;
       }
 
       break;
@@ -8832,7 +8812,7 @@ LABEL_71:
   return result;
 }
 
-TransparencyGPBAutocreatedArray *sub_10003333C(void *a1, objc_class *a2)
+TransparencyGPBEnumArray *sub_10003333C(void *a1, objc_class *a2)
 {
   v3 = *(a1[1] + 30);
   switch(*(a1[1] + 30))
@@ -8876,7 +8856,7 @@ LABEL_14:
 LABEL_17:
         v6 = &OBJC_IVAR___TransparencyGPBAutocreatedArray__autocreator;
 LABEL_19:
-        *(&result->super.super.super.isa + *v6) = a2;
+        *(&result->super.isa + *v6) = a2;
       }
 
       else
@@ -8907,7 +8887,7 @@ LABEL_15:
   }
 }
 
-uint64_t sub_1000336D0(uint64_t a1, uint64_t a2, void *a3)
+void *sub_1000336D0(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = [a3 copy];
@@ -8915,7 +8895,7 @@ uint64_t sub_1000336D0(uint64_t a1, uint64_t a2, void *a3)
   return sub_1000128EC(a2, v4, v5);
 }
 
-uint64_t sub_100033718(uint64_t a1, uint64_t a2, void *a3)
+void *sub_100033718(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = [a3 copy];
@@ -8983,6 +8963,13 @@ void sub_100034718(void *key, const __CFDictionary *a2, CFDictionaryRef theDict)
   }
 }
 
+void sub_100034F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
+{
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_100034FC4(uint64_t a1, unint64_t a2)
 {
   result = sub_10001B11C(*(a1 + 40), a2);
@@ -9019,14 +9006,14 @@ unint64_t sub_100035A4C()
   return atomic_load(&qword_1000AEDE0);
 }
 
-uint64_t sub_100035BD4(uint64_t a1)
+void *sub_100035BD4(uint64_t a1)
 {
   v2 = [+[TransparencyGPBValue descriptor](TransparencyGPBValue "descriptor")];
 
   return sub_100012DA8(a1, v2);
 }
 
-id sub_100035C20(void *a1, int a2)
+uint64_t sub_100035C20(uint64_t a1, int a2)
 {
   v4 = [+[TransparencyGPBValue descriptor](TransparencyGPBValue "descriptor")];
 
@@ -9410,19 +9397,19 @@ id sub_100039C10(void *a1, void *a2, uint64_t a3)
   return result;
 }
 
-void *sub_100039CFC(void *a1, const char *a2, int a3)
+void *sub_100039CFC(void *result, const char *a2, int a3)
 {
   switch(a3)
   {
     case 13:
-      return [a1 writeBytes:2 value:a2];
+      return [result writeBytes:2 value:a2];
     case 14:
-      return [a1 writeString:2 value:a2];
+      return [result writeString:2 value:a2];
     case 15:
-      return [a1 writeMessage:2 value:a2];
+      return [result writeMessage:2 value:a2];
   }
 
-  return a1;
+  return result;
 }
 
 BOOL sub_100039D3C(void *a1)
@@ -9442,11 +9429,11 @@ void sub_100039D84(void *a1, uint64_t *a2, uint64_t a3, void *a4, void *a5)
 {
   v9 = [a4 mapKeyDataType];
   v10 = *(a4[1] + 30);
-  v24 = 0;
   v25 = 0;
+  v26 = 0;
   if (v10 == 17)
   {
-    v24 = [a4 defaultValue];
+    v25 = [a4 defaultValue];
   }
 
   v11 = sub_1000251AC(v9, 0);
@@ -9460,23 +9447,23 @@ void sub_100039D84(void *a1, uint64_t *a2, uint64_t a3, void *a4, void *a5)
       v15 = sub_100038E18((a2 + 1));
       if (v15 == v12)
       {
-        v16 = &v25;
-        v17 = a2;
-        v18 = v9;
+        v17 = &v26;
+        v18 = a2;
+        v19 = v9;
         goto LABEL_8;
       }
 
-      v19 = v15;
+      v20 = v15;
       if (v15 != v14)
       {
         break;
       }
 
-      v16 = &v24;
-      v17 = a2;
-      v18 = v10;
+      v17 = &v25;
+      v18 = a2;
+      v19 = v10;
 LABEL_8:
-      sub_10003A000(v17, v16, v18, a3, a4);
+      sub_10003A000(v18, v17, v19, a3, a4);
     }
 
     if (!v15)
@@ -9490,15 +9477,16 @@ LABEL_8:
     }
   }
 
-  v20 = v25;
-  if (v9 == 14 && !v25)
+  v21 = v26;
+  if (v9 == 14 && !v26)
   {
-    v20 = &stru_100096EB8;
-    v25 = v20;
+    v15 = &stru_100096EB8;
+    v21 = v15;
+    v26 = v15;
   }
 
-  v21 = v24;
-  if ((v10 - 13) > 3u || v24)
+  v22 = v25;
+  if ((v10 - 13) > 3u || v25)
   {
     goto LABEL_25;
   }
@@ -9506,35 +9494,35 @@ LABEL_8:
   switch(v10)
   {
     case 13:
-      v22 = sub_100011C5C();
+      v23 = sub_100011C5C(v15, v16);
       goto LABEL_23;
     case 15:
-      v22 = objc_alloc_init([a4 msgClass]);
+      v23 = objc_alloc_init([a4 msgClass]);
 LABEL_23:
-      v21 = v22;
-      v24 = v22;
+      v22 = v23;
+      v25 = v23;
       goto LABEL_25;
     case 14:
-      v22 = &stru_100096EB8;
+      v23 = &stru_100096EB8;
       goto LABEL_23;
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_25:
   if (v9 == 14 && (v10 - 13) <= 3u)
   {
-    [a1 setObject:v21 forKey:v20];
+    [a1 setObject:v22 forKey:v21];
     goto LABEL_34;
   }
 
-  if (v10 == 17 && (*(a4[1] + 28) & 0x1000) != 0 && ![a4 isValidEnumValue:v21])
+  if (v10 == 17 && (*(a4[1] + 28) & 0x1000) != 0 && ![a4 isValidEnumValue:v22])
   {
-    [a5 addUnknownMapEntry:*(a4[1] + 16) value:{objc_msgSend(a1, "serializedDataForUnknownValue:forKey:keyDataType:", v21, &v25, v9)}];
+    [a5 addUnknownMapEntry:*(a4[1] + 16) value:{objc_msgSend(a1, "serializedDataForUnknownValue:forKey:keyDataType:", v22, &v26, v9)}];
   }
 
   else
   {
-    [a1 setTransparencyGPBGenericValue:&v24 forTransparencyGPBGenericValueKey:&v25];
+    [a1 setTransparencyGPBGenericValue:&v25 forTransparencyGPBGenericValueKey:&v26];
   }
 
 LABEL_32:
@@ -9543,7 +9531,7 @@ LABEL_32:
     goto LABEL_35;
   }
 
-  v20 = v25;
+  v21 = v26;
 LABEL_34:
 
 LABEL_35:

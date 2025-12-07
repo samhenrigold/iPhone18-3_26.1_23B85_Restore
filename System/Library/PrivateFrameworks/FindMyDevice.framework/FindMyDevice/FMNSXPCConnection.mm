@@ -143,42 +143,38 @@ void __58__FMNSXPCConnection_initWithConfiguration_exportedObject___block_invoke
 
 void __58__FMNSXPCConnection_initWithConfiguration_exportedObject___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = LogCategory_Unspecified();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) serviceName];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1DF650000, v2, OS_LOG_TYPE_DEFAULT, "FMNSXPCConnection Connection interrupted %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1DF650000, v2, OS_LOG_TYPE_DEFAULT, "FMNSXPCConnection Connection interrupted %@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FMNSXPCConnectionErrorDomain" code:1 userInfo:0];
   v6 = [WeakRetained future];
   [v6 finishWithError:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__FMNSXPCConnection_initWithConfiguration_exportedObject___block_invoke_6(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = LogCategory_Unspecified();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) serviceName];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1DF650000, v2, OS_LOG_TYPE_DEFAULT, "FMNSXPCConnection Connection invalidated %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1DF650000, v2, OS_LOG_TYPE_DEFAULT, "FMNSXPCConnection Connection invalidated %@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"FMNSXPCConnectionErrorDomain" code:0 userInfo:0];
   v6 = [WeakRetained future];
   [v6 finishWithError:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -191,7 +187,7 @@ void __58__FMNSXPCConnection_initWithConfiguration_exportedObject___block_invoke
 
 void __38__FMNSXPCConnection_remoteObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = LogCategory_Unspecified();
@@ -211,15 +207,13 @@ void __38__FMNSXPCConnection_remoteObjectProxy__block_invoke(uint64_t a1, void *
   }
 
   v7 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E696AA08];
-  v13[0] = v3;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E696AA08];
+  v12[0] = v3;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v7 errorWithDomain:@"FMNSXPCConnectionErrorDomain" code:v6 userInfo:v8];
 
   v10 = [WeakRetained future];
   [v10 finishWithError:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addFailureBlock:(id)block
@@ -255,20 +249,18 @@ uint64_t __37__FMNSXPCConnection_addFailureBlock___block_invoke(uint64_t result,
 
 - (void)destroyXPCConnection
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DF650000, a2, OS_LOG_TYPE_DEBUG, "Invalidating the xpc connection %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF650000, a2, OS_LOG_TYPE_DEBUG, "Invalidating the xpc connection %@", &v2, 0xCu);
 }
 
 void __38__FMNSXPCConnection_remoteObjectProxy__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "FMNSXPCConnection could not create remote object proxy %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF650000, a2, OS_LOG_TYPE_ERROR, "FMNSXPCConnection could not create remote object proxy %@", &v2, 0xCu);
 }
 
 @end

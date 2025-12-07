@@ -102,7 +102,7 @@
 
           else
           {
-            v28 = _PSLoggingFacility();
+            v28 = _PSLoggingFacility(0);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               *buf = v30;

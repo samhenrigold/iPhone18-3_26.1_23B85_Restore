@@ -40,7 +40,7 @@
 
 - (void)replaceBusses:(NSArray *)busArray
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = busArray;
   v5 = [(AUAudioUnitBusArray *)self count];
   v6 = [(NSArray *)v4 count];
@@ -54,40 +54,40 @@
     v7 = @"outputBusses";
   }
 
-  v23 = v7;
+  v22 = v7;
   if (v5 != v6)
   {
-    [(AUAudioUnit *)self->_ownerAudioUnit willChangeValueForKey:v23];
+    [(AUAudioUnit *)self->_ownerAudioUnit willChangeValueForKey:v22];
   }
 
   begin = self->_observers.__begin_;
   end = self->_observers.__end_;
   while (begin != end)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v10 = self->_busses;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         v13 = 0;
         do
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          BusPropertyObserver::remove(begin, *(*(&v28 + 1) + 8 * v13++));
+          BusPropertyObserver::remove(begin, *(*(&v27 + 1) + 8 * v13++));
         }
 
         while (v11 != v13);
-        v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v11);
@@ -104,30 +104,30 @@
   v17 = self->_observers.__end_;
   while (v16 != v17)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v18 = self->_busses;
-    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v19)
     {
-      v20 = *v25;
+      v20 = *v24;
       do
       {
         v21 = 0;
         do
         {
-          if (*v25 != v20)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          BusPropertyObserver::add(v16, *(*(&v24 + 1) + 8 * v21++));
+          BusPropertyObserver::add(v16, *(*(&v23 + 1) + 8 * v21++));
         }
 
         while (v19 != v21);
-        v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v19);
@@ -139,53 +139,49 @@
   [(AUAudioUnitBusArray *)self indexBusses];
   if (v5 != v6)
   {
-    [(AUAudioUnit *)self->_ownerAudioUnit didChangeValueForKey:v23];
+    [(AUAudioUnit *)self->_ownerAudioUnit didChangeValueForKey:v22];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)indexBusses
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_busses;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
-        [v8 setIndex:{v5, v10}];
+        v8 = *(*(&v9 + 1) + 8 * i);
+        [v8 setIndex:{v5, v9}];
         [v8 setBusType:self->_busType];
         [v8 setOwnerAudioUnit:self->_ownerAudioUnit];
         ++v5;
       }
 
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserverFromAllBusses:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v8 = observer;
   v9 = keyPath;
   begin = self->_observers.__begin_;
@@ -198,31 +194,31 @@
 
       if (v13 == context)
       {
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
         v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
         v14 = self->_busses;
-        v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
         v16 = v15;
         if (v15)
         {
-          v17 = *v22;
+          v17 = *v21;
           do
           {
             v18 = 0;
             do
             {
-              if (*v22 != v17)
+              if (*v21 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              BusPropertyObserver::remove(begin, *(*(&v21 + 1) + 8 * v18++));
+              BusPropertyObserver::remove(begin, *(*(&v20 + 1) + 8 * v18++));
             }
 
             while (v16 != v18);
-            v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+            v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
           }
 
           while (v16);
@@ -240,51 +236,48 @@
 
     begin = (begin + 32);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserverToAllBusses:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v10 = keyPath;
   objc_initWeak(&location, observer);
   v11 = v10;
-  v22 = v11;
-  v23 = options;
-  v24 = context;
+  v21 = v11;
+  v22 = options;
+  v23 = context;
   std::vector<BusPropertyObserver>::push_back[abi:ne200100](&self->_observers, &location);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v12 = self->_busses;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v13)
   {
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        BusPropertyObserver::add(&location, *(*(&v17 + 1) + 8 * v15++));
+        BusPropertyObserver::add(&location, *(*(&v16 + 1) + 8 * v15++));
       }
 
       while (v13 != v15);
-      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
 
   objc_destroyWeak(&location);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

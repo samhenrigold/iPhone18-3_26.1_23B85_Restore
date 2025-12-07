@@ -100,21 +100,21 @@
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_anchor();
+  v7 = __atxlog_handle_anchor(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForStartDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.LocationVisit" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_anchor();
+    v13 = __atxlog_handle_anchor(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForEndDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.LocationVisit" errorCode:-1 logHandle:v13];
 
     if (v14 && ([coderCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
     {
       v16 = MEMORY[0x277D42620];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_anchor();
+      v18 = __atxlog_handle_anchor(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"codingKeyForLocationIdentifier" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent.LocationVisit" errorCode:-1 logHandle:v18];
 
       if (v19 && ([coderCopy error], v20 = objc_claimAutoreleasedReturnValue(), v20, !v20))

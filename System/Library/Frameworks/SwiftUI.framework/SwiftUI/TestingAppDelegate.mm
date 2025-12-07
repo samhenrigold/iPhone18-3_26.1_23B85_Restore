@@ -25,7 +25,8 @@
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;
-  LOBYTE(v7) = specialized TestingAppDelegate.application(_:runTest:options:)(applicationCopy, v7, v9);
+  specialized TestingAppDelegate.application(_:runTest:options:)(applicationCopy, v7, v9);
+  LOBYTE(v7) = v12;
 
   return v7 & 1;
 }

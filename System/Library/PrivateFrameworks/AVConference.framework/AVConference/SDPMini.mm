@@ -912,7 +912,7 @@ LABEL_13:
           continue;
         }
 
-        if ([v11 hasPrefix:{@"FLS", v33, *buf, *&buf[16], v35}])
+        if ([v11 hasPrefix:{@"FLS", v33, *buf, *&buf[8], v35}])
         {
           if ([(NSDictionary *)v5 objectForKeyedSubscript:&unk_1F57997B0])
           {

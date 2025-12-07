@@ -106,32 +106,32 @@
 
 - (void)_createIndex
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = self->_history;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NRDeviceCollectionHistoryEntry *)*(*(&v16 + 1) + 8 * v7++) setHistoryManager:?];
+        [(NRDeviceCollectionHistoryEntry *)*(*(&v15 + 1) + 8 * v7++) setHistoryManager:?];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -154,13 +154,11 @@
   }
 
   [(NRMutableStateBase *)v12 setParentDelegate:self];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (NRDeviceCollectionHistory)initWithCoder:(id)coder
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(NRDeviceCollectionHistory *)self init];
   if (!v5)
@@ -173,9 +171,9 @@
   {
     v5->_startIndex = [coderCopy decodeInt64ForKey:@"startIndex"];
     v10 = MEMORY[0x1E695DFD8];
-    v35[0] = objc_opt_class();
-    v35[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+    v34[0] = objc_opt_class();
+    v34[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"history"];
     history = v5->_history;
@@ -229,22 +227,22 @@ LABEL_25:
         v22 = [(NRSwitchRecordCollection *)v22 init];
         if (v22)
         {
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           v24 = v23;
-          v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v31 objects:buf count:16];
+          v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v30 objects:buf count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v32;
+            v27 = *v31;
             do
             {
               v28 = 0;
               do
               {
-                if (*v32 != v27)
+                if (*v31 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
@@ -253,7 +251,7 @@ LABEL_25:
               }
 
               while (v26 != v28);
-              v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v31 objects:buf count:16];
+              v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v30 objects:buf count:16];
             }
 
             while (v26);
@@ -273,13 +271,12 @@ LABEL_25:
   v9 = [(NRDeviceCollectionHistory *)v5 initWithProtobuf:v8];
 
 LABEL_26:
-  v29 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (NRDeviceCollectionHistory)initWithProtobuf:(id)protobuf
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   v5 = [(NRDeviceCollectionHistory *)self init];
   v6 = v5;
@@ -300,10 +297,10 @@ LABEL_26:
     history = v6->_history;
     v6->_history = array;
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     if (protobufCopy)
     {
       v10 = protobufCopy[2];
@@ -315,32 +312,32 @@ LABEL_26:
     }
 
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         v15 = 0;
         do
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * v15);
+          v16 = *(*(&v26 + 1) + 8 * v15);
           v17 = v6->_history;
           v18 = [NRDeviceCollectionHistoryEntry alloc];
-          v19 = [(NRDeviceCollectionHistoryEntry *)v18 initWithProtobuf:v16, v27];
+          v19 = [(NRDeviceCollectionHistoryEntry *)v18 initWithProtobuf:v16, v26];
           [(NSMutableArray *)v17 addObject:v19];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v13);
@@ -368,59 +365,54 @@ LABEL_26:
     [(NRDeviceCollectionHistory *)v6 _truncateHistory];
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)_sanitizeHistory
 {
-  v18 = *MEMORY[0x1E69E9840];
-  history = self->_history;
+  v15 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v4 = nr_framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = nr_framework_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = self->_history;
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v4 = objc_opt_class();
+      v5 = NSStringFromClass(v4);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v7;
-      _os_log_impl(&dword_1E0ADF000, v4, OS_LOG_TYPE_ERROR, "Deserialized history is not a supported type: %@", &buf, 0xCu);
+      *(&buf + 4) = v5;
+      _os_log_impl(&dword_1E0ADF000, v3, OS_LOG_TYPE_ERROR, "Deserialized history is not a supported type: %@", &buf, 0xCu);
     }
 
-    v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v9 = self->_history;
-    self->_history = v8;
+    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    history = self->_history;
+    self->_history = v6;
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__3;
-  v16 = __Block_byref_object_dispose__3;
-  v17 = 0;
-  v10 = self->_history;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __45__NRDeviceCollectionHistory__sanitizeHistory__block_invoke;
-  v12[3] = &unk_1E86DC3F8;
-  v12[4] = &buf;
-  [(NSMutableArray *)v10 enumerateObjectsUsingBlock:v12];
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__3;
+  v13 = __Block_byref_object_dispose__3;
+  v14 = 0;
+  v8 = self->_history;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __45__NRDeviceCollectionHistory__sanitizeHistory__block_invoke;
+  v9[3] = &unk_1E86DC3F8;
+  v9[4] = &buf;
+  [(NSMutableArray *)v8 enumerateObjectsUsingBlock:v9];
   if (*(*(&buf + 1) + 40))
   {
     [(NSMutableArray *)self->_history removeObjectsAtIndexes:?];
   }
 
   _Block_object_dispose(&buf, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __45__NRDeviceCollectionHistory__sanitizeHistory__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -435,11 +427,11 @@ void __45__NRDeviceCollectionHistory__sanitizeHistory__block_invoke(uint64_t a1,
       {
         v9 = objc_opt_class();
         v10 = NSStringFromClass(v9);
-        v16 = 134218242;
-        v17 = a3;
-        v18 = 2112;
-        v19 = v10;
-        _os_log_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_DEFAULT, "History entry at index %lu is not recognized type: %@", &v16, 0x16u);
+        v15 = 134218242;
+        v16 = a3;
+        v17 = 2112;
+        v18 = v10;
+        _os_log_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_DEFAULT, "History entry at index %lu is not recognized type: %@", &v15, 0x16u);
       }
     }
 
@@ -456,13 +448,11 @@ void __45__NRDeviceCollectionHistory__sanitizeHistory__block_invoke(uint64_t a1,
 
     [v11 addIndex:a3];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (NRPBDeviceCollectionHistory)protobuf
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = v3;
   if (v3)
@@ -476,27 +466,27 @@ void __45__NRDeviceCollectionHistory__sanitizeHistory__block_invoke(uint64_t a1,
   [(NRPBDeviceCollectionHistory *)v4 setHistorys:array];
 
   [(NRPBDeviceCollectionHistory *)v4 setSwitchRecords:?];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = self->_history;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
+        v12 = *(*(&v18 + 1) + 8 * v11);
         if (v4)
         {
           v13 = v4[2];
@@ -515,14 +505,12 @@ void __45__NRDeviceCollectionHistory__sanitizeHistory__block_invoke(uint64_t a1,
       }
 
       while (v9 != v11);
-      v16 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       v9 = v16;
     }
 
     while (v16);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -638,7 +626,7 @@ LABEL_7:
 
 - (void)_truncateHistory
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   firstObject = [(NSMutableArray *)self->_history firstObject];
   date2 = [firstObject date];
@@ -648,29 +636,29 @@ LABEL_7:
   if ([(NRDeviceCollectionHistory *)self count]>= 5 && ([(NRDeviceCollectionHistory *)self count]> self->_maxHistoryDepth || v7 > 86400.0))
   {
     v8 = objc_autoreleasePoolPush();
-    v45 = objc_alloc_init(NRMutableDeviceCollection);
+    v44 = objc_alloc_init(NRMutableDeviceCollection);
     context = v8;
     if ([(NSMutableArray *)self->_history count]<= self->_maxHistoryDepth)
     {
-      v46 = 0;
+      v45 = 0;
     }
 
     else
     {
-      v46 = [(NSMutableArray *)self->_history count]- self->_maxHistoryDepth;
+      v45 = [(NSMutableArray *)self->_history count]- self->_maxHistoryDepth;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v9 = self->_history;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v46 objects:v52 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v48;
+      v13 = *v47;
       while (2)
       {
         v14 = 0;
@@ -678,12 +666,12 @@ LABEL_7:
         v12 += v11;
         do
         {
-          if (*v48 != v13)
+          if (*v47 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          date3 = [*(*(&v47 + 1) + 8 * v14) date];
+          date3 = [*(*(&v46 + 1) + 8 * v14) date];
           [date timeIntervalSinceDate:date3];
           v18 = v17;
 
@@ -698,7 +686,7 @@ LABEL_7:
         }
 
         while (v11 != v14);
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v46 objects:v52 count:16];
         if (v11)
         {
           continue;
@@ -715,14 +703,14 @@ LABEL_7:
 
 LABEL_18:
 
-    if (v46 <= v12)
+    if (v45 <= v12)
     {
       v19 = v12;
     }
 
     else
     {
-      v19 = v46;
+      v19 = v45;
     }
 
     v20 = [(NRDeviceCollectionHistory *)self count];
@@ -747,13 +735,13 @@ LABEL_18:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v52 = state;
+        v51 = state;
         _os_log_impl(&dword_1E0ADF000, v26, OS_LOG_TYPE_DEFAULT, "Device collection migrated to most recent history entry %p", buf, 0xCu);
       }
     }
 
-    v43 = v22;
-    v27 = [NRMutableDeviceCollection diffFrom:v45 to:state];
+    v42 = v22;
+    v27 = [NRMutableDeviceCollection diffFrom:v44 to:state];
     v28 = nr_daemon_log();
     v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
@@ -763,13 +751,13 @@ LABEL_18:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v52 = v21;
+        v51 = v21;
         _os_log_impl(&dword_1E0ADF000, v30, OS_LOG_TYPE_DEFAULT, "Deleting %lld items from history", buf, 0xCu);
       }
     }
 
     obj = v27;
-    v42 = state;
+    v41 = state;
     if (v21)
     {
       for (i = 0; i != v21; ++i)
@@ -794,7 +782,7 @@ LABEL_18:
             }
 
             *buf = 134217984;
-            v52 = v36;
+            v51 = v36;
             _os_log_impl(&dword_1E0ADF000, v35, OS_LOG_TYPE_DEFAULT, "Clearing historical device collection %p", buf, 0xCu);
           }
         }
@@ -805,9 +793,9 @@ LABEL_18:
 
     [(NSMutableArray *)self->_history removeObjectsInRange:0, v21];
     self->_startIndex += v21;
-    if (v43)
+    if (v42)
     {
-      objc_storeStrong(v43 + 4, obj);
+      objc_storeStrong(v42 + 4, obj);
     }
 
     if ([(NSMutableArray *)self->_historyStateCacheIndex count])
@@ -836,8 +824,6 @@ LABEL_18:
 
     objc_autoreleasePoolPop(context);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (id)historyEntryAtIndex:(unint64_t)index
@@ -966,31 +952,31 @@ LABEL_18:
 
 - (id)switchDeviceIDFromDiff:(id)diff
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   diffCopy = diff;
-  v4 = [diffCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [diffCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v18 = *v20;
-    v17 = @"isActive";
+    v17 = *v19;
+    v16 = @"isActive";
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v18)
+        if (*v19 != v17)
         {
           objc_enumerationMutation(diffCopy);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
-        v8 = [diffCopy objectForKeyedSubscript:{v7, v17}];
+        v7 = *(*(&v18 + 1) + 8 * i);
+        v8 = [diffCopy objectForKeyedSubscript:{v7, v16}];
         diff = [v8 diff];
-        v10 = [diff objectForKeyedSubscript:v17];
+        v10 = [diff objectForKeyedSubscript:v16];
         diff2 = [v10 diff];
         value = [diff2 value];
         v13 = [value isEqual:MEMORY[0x1E695E118]];
@@ -1003,7 +989,7 @@ LABEL_18:
         }
       }
 
-      v5 = [diffCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [diffCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v5)
       {
         continue;
@@ -1015,8 +1001,6 @@ LABEL_18:
 
   v14 = 0;
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1094,43 +1078,43 @@ LABEL_15:
 
 - (void)notifyHistoryObserversWithEntry:(id)entry
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   os_unfair_lock_lock(&self->_observerLock);
   v5 = [(NSMutableOrderedSet *)self->_observers copy];
   os_unfair_lock_unlock(&self->_observerLock);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         queue = [v11 queue];
 
         if (queue)
         {
           queue2 = [v11 queue];
-          v16[0] = MEMORY[0x1E69E9820];
-          v16[1] = 3221225472;
-          v16[2] = __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_invoke;
-          v16[3] = &unk_1E86DAF10;
-          v16[4] = v11;
-          v17 = entryCopy;
-          dispatch_async(queue2, v16);
+          v15[0] = MEMORY[0x1E69E9820];
+          v15[1] = 3221225472;
+          v15[2] = __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_invoke;
+          v15[3] = &unk_1E86DAF10;
+          v15[4] = v11;
+          v16 = entryCopy;
+          dispatch_async(queue2, v15);
         }
 
         else
@@ -1140,13 +1124,11 @@ LABEL_15:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_invoke(uint64_t a1)
@@ -1171,17 +1153,17 @@ void __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_inv
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = self->_history;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     v6 = &stru_1F5B7BE00;
     do
     {
@@ -1189,12 +1171,12 @@ void __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_inv
       v8 = v6;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = [*(*(&v12 + 1) + 8 * v7) description];
+        v9 = [*(*(&v11 + 1) + 8 * v7) description];
         v6 = [(__CFString *)v8 stringByAppendingString:v9];
 
         ++v7;
@@ -1202,7 +1184,7 @@ void __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_inv
       }
 
       while (v4 != v7);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -1212,8 +1194,6 @@ void __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_inv
   {
     v6 = &stru_1F5B7BE00;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1254,38 +1234,38 @@ void __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_inv
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   *(v5 + 48) = self->_startIndex;
   v6 = [(NSMutableArray *)self->_history mutableCopyWithZone:zone];
   v7 = *(v5 + 56);
   *(v5 + 56) = v6;
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = *(v5 + 56);
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(NRDeviceCollectionHistoryEntry *)*(*(&v22 + 1) + 8 * v12++) setHistoryManager:v5];
+        [(NRDeviceCollectionHistoryEntry *)*(*(&v21 + 1) + 8 * v12++) setHistoryManager:v5];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -1308,7 +1288,6 @@ void __61__NRDeviceCollectionHistory_notifyHistoryObserversWithEntry___block_inv
   }
 
   [v17 setParentDelegate:v5];
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

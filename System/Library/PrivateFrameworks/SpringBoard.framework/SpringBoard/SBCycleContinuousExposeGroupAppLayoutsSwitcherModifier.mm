@@ -92,7 +92,7 @@ LABEL_5:
   if ([v5 count] >= 2 && (-[SBAppLayout continuousExposeIdentifier](self->_appLayout, "continuousExposeIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", identifierCopy), v6, v7) && !-[SBAppLayout isEqual:](self->_appLayout, "isEqual:", self->_behindAppLayout))
   {
     v8 = [v5 mutableCopy];
-    if ([v8 containsObject:self->_appLayout] && objc_msgSend(v8, "containsObject:", self->_behindAppLayout))
+    if (objc_msgSend_containsObject_(v8) && objc_msgSend_containsObject_(v8))
     {
       [v8 removeObject:self->_appLayout];
     }
@@ -110,7 +110,7 @@ LABEL_5:
 {
   eventCopy = event;
   appLayoutsWithRemovalContexts = [eventCopy appLayoutsWithRemovalContexts];
-  v6 = [appLayoutsWithRemovalContexts containsObject:self->_appLayoutToOrderFront];
+  v6 = objc_msgSend_containsObject_(appLayoutsWithRemovalContexts);
 
   if (v6)
   {
@@ -141,7 +141,7 @@ LABEL_5:
       _timeoutReason = [(SBCycleContinuousExposeGroupAppLayoutsSwitcherModifier *)self _timeoutReason];
       v9 = [(SBTimerEventSwitcherEventResponse *)v7 initWithDelay:0 validator:_timeoutReason reason:1.5];
 
-      v10 = SBAppendSwitcherModifierResponse(v9, v5);
+      v10 = SBAppendSwitcherModifierResponse();
 
       v5 = v10;
     }
@@ -176,7 +176,7 @@ LABEL_5:
     }
 
     v20 = [(SBCycleContinuousExposeGroupAppLayoutsSwitcherModifier *)self _completeIfNeededIgnoringHover:1];
-    v21 = SBAppendSwitcherModifierResponse(v20, v5);
+    v21 = SBAppendSwitcherModifierResponse();
 
     v5 = v21;
   }
@@ -203,7 +203,7 @@ LABEL_10:
     self->_isDelayingCompletionForHover = [(SBCycleContinuousExposeGroupAppLayoutsSwitcherModifier *)self anyHighlightedAppLayoutsForContinuousExposeIdentifier:continuousExposeIdentifier];
 
     _completeIfNeeded = [(SBCycleContinuousExposeGroupAppLayoutsSwitcherModifier *)self _completeIfNeeded];
-    v11 = SBAppendSwitcherModifierResponse(_completeIfNeeded, v5);
+    v11 = SBAppendSwitcherModifierResponse();
 
     v5 = v11;
   }
@@ -222,7 +222,7 @@ LABEL_10:
   if (isHoverEvent && self->_isDelayingCompletionForHover)
   {
     _completeIfNeeded = [(SBCycleContinuousExposeGroupAppLayoutsSwitcherModifier *)self _completeIfNeeded];
-    v8 = SBAppendSwitcherModifierResponse(_completeIfNeeded, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }
@@ -246,7 +246,7 @@ LABEL_10:
       v9 = [SBSwitcherTransitionRequest requestForActivatingAppLayout:self->_appLayoutToOrderFront];
       v10 = [(SBPerformTransitionSwitcherEventResponse *)v8 initWithTransitionRequest:v9 gestureInitiated:0];
 
-      v5 = SBAppendSwitcherModifierResponse(v10, 0);
+      v5 = SBAppendSwitcherModifierResponse();
     }
 
     else

@@ -146,32 +146,32 @@ void __52__BRCSharedClientZone_addAcceptOperation_forItemID___block_invoke(uint6
 
 - (void)removeAllShareAcceptationSidefaults
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   shareAcceptationSidefaultEnumerator = [(BRCSharedClientZone *)self shareAcceptationSidefaultEnumerator];
-  v4 = [shareAcceptationSidefaultEnumerator countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [shareAcceptationSidefaultEnumerator countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(shareAcceptationSidefaultEnumerator);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         if (([v8 isShareAcceptationFault] & 1) == 0)
         {
-          [(BRCSharedClientZone *)v19 removeAllShareAcceptationSidefaults];
+          [(BRCSharedClientZone *)v18 removeAllShareAcceptationSidefaults];
         }
 
         itemID = [v8 itemID];
@@ -196,13 +196,11 @@ void __52__BRCSharedClientZone_addAcceptOperation_forItemID___block_invoke(uint6
       }
 
       while (v5 != v7);
-      v5 = [shareAcceptationSidefaultEnumerator countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v5 = [shareAcceptationSidefaultEnumerator countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

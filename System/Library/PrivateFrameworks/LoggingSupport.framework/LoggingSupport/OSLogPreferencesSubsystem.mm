@@ -17,6 +17,10 @@
 - (void)_resetCategory:(id)category;
 - (void)_setEnabledLevel:(int64_t)level forCategory:(id)category;
 - (void)_setPersistedLevel:(int64_t)level forCategory:(id)category;
+- (void)_setSignpostAllowStreaming:(BOOL)streaming forCategory:(id)category;
+- (void)_setSignpostBacktracesEnabled:(BOOL)enabled forCategory:(id)category;
+- (void)_setSignpostEnabled:(BOOL)enabled forCategory:(id)category;
+- (void)_setSignpostPersisted:(BOOL)persisted forCategory:(id)category;
 - (void)reset;
 - (void)resetAll;
 - (void)setEnabledLevel:(int64_t)level;
@@ -45,6 +49,46 @@
 
     _OSLogRemovePreferences(3u, v7);
   }
+}
+
+- (void)_setSignpostAllowStreaming:(BOOL)streaming forCategory:(id)category
+{
+  streamingCopy = streaming;
+  v7 = [(OSLogPreferencesSubsystem *)self _prefsForCategory:category];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:streamingCopy];
+  [v7 setObject:v6 forKey:@"Signpost-Allow-Streaming"];
+
+  _OSLogInstallPreferences(3u, self->_name, self->_prefs);
+}
+
+- (void)_setSignpostBacktracesEnabled:(BOOL)enabled forCategory:(id)category
+{
+  enabledCopy = enabled;
+  v7 = [(OSLogPreferencesSubsystem *)self _prefsForCategory:category];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [v7 setObject:v6 forKey:@"Signpost-Backtraces-Enabled"];
+
+  _OSLogInstallPreferences(3u, self->_name, self->_prefs);
+}
+
+- (void)_setSignpostPersisted:(BOOL)persisted forCategory:(id)category
+{
+  persistedCopy = persisted;
+  v7 = [(OSLogPreferencesSubsystem *)self _prefsForCategory:category];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:persistedCopy];
+  [v7 setObject:v6 forKey:@"Signpost-Persisted"];
+
+  _OSLogInstallPreferences(3u, self->_name, self->_prefs);
+}
+
+- (void)_setSignpostEnabled:(BOOL)enabled forCategory:(id)category
+{
+  enabledCopy = enabled;
+  v7 = [(OSLogPreferencesSubsystem *)self _prefsForCategory:category];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [v7 setObject:v6 forKey:@"Signpost-Enabled"];
+
+  _OSLogInstallPreferences(3u, self->_name, self->_prefs);
 }
 
 - (void)_setPersistedLevel:(int64_t)level forCategory:(id)category

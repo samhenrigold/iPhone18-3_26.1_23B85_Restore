@@ -28,16 +28,14 @@
 - (id)stringFromCoordinate:(CLLocationCoordinate2D)coordinate
 {
   longitude = coordinate.longitude;
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v5 = [(MUCoordinateStringFormatter *)self _coordinatePartStringForValue:1 positiveSymbol:5 negativeSymbol:coordinate.latitude];
   v6 = [(MUCoordinateStringFormatter *)self _coordinatePartStringForValue:7 positiveSymbol:3 negativeSymbol:longitude];
-  v12[0] = v5;
-  v12[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = v5;
+  v11[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v8 = _MULocalizedStringFromThisBundle(@"Coordinates delimeter");
   v9 = [v7 componentsJoinedByString:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

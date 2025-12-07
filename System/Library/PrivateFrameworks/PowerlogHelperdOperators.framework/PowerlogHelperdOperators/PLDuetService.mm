@@ -13,6 +13,7 @@
 - (void)dealloc;
 - (void)handleBatterySaverModeToken:(int)token withNotification:(id)notification;
 - (void)initOperatorDependancies;
+- (void)logEventForwardBatterySaverModeWithState:(BOOL)state fromNotification:(id)notification;
 - (void)setupBatterySaverModeForNotification:(id)notification;
 @end
 
@@ -27,95 +28,89 @@
 
 + (id)entryEventNoneDefinitions
 {
-  v11[5] = *MEMORY[0x277D85DE8];
-  v10[0] = @"DASPoliciesBlockingCriteria";
+  v10[5] = *MEMORY[0x277D85DE8];
+  v9[0] = @"DASPoliciesBlockingCriteria";
   v2 = +[PLDuetServiceDAS entryEventNoneDefinitionsDASPoliciesBlockingCriteria];
-  v11[0] = v2;
-  v10[1] = @"DASActivity";
+  v10[0] = v2;
+  v9[1] = @"DASActivity";
   v3 = +[PLDuetServiceDAS entryEventNoneDefinitionsDASActivity];
-  v11[1] = v3;
-  v10[2] = @"DASDropCount";
+  v10[1] = v3;
+  v9[2] = @"DASDropCount";
   v4 = +[PLDuetServiceDAS entryEventNoneDefinitionsDASActivityDropCount];
-  v11[2] = v4;
-  v10[3] = @"DASInfo";
+  v10[2] = v4;
+  v9[3] = @"DASInfo";
   v5 = +[PLDuetServiceDAS entryEventNoneDefinitionsDASInfo];
-  v11[3] = v5;
-  v10[4] = @"DASActivityLifecycle";
+  v10[3] = v5;
+  v9[4] = @"DASActivityLifecycle";
   v6 = +[PLDuetServiceDAS entryEventNoneDefinitionsDASActivityLifecycle];
-  v11[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v13[7] = *MEMORY[0x277D85DE8];
-  v12[0] = @"BatterySaverMode";
+  v12[7] = *MEMORY[0x277D85DE8];
+  v11[0] = @"BatterySaverMode";
   entryEventForwardDefinitionBatterySaverMode = [self entryEventForwardDefinitionBatterySaverMode];
-  v13[0] = entryEventForwardDefinitionBatterySaverMode;
-  v12[1] = @"DASPrediction";
+  v12[0] = entryEventForwardDefinitionBatterySaverMode;
+  v11[1] = @"DASPrediction";
   v3 = +[PLDuetServiceDAS entryEventForwardDefinitionsDASPrediction];
-  v13[1] = v3;
-  v12[2] = @"DASApplicationUsagePrediction";
+  v12[1] = v3;
+  v11[2] = @"DASApplicationUsagePrediction";
   v4 = +[PLDuetServiceDAS entryEventForwardDefinitionsDASApplicationPrediction];
-  v13[2] = v4;
-  v12[3] = @"LpmSourceInformation";
+  v12[2] = v4;
+  v11[3] = @"LpmSourceInformation";
   v5 = +[PLDuetServiceLpmSource entryEventForwardDefinitionLpmSourceInformation];
-  v13[3] = v5;
-  v12[4] = @"DASEnergyBudgetAvailable";
+  v12[3] = v5;
+  v11[4] = @"DASEnergyBudgetAvailable";
   v6 = +[PLDuetServiceDAS entryEventForwardDefinitionsDASEnergyBudgetAvailable];
-  v13[4] = v6;
-  v12[5] = @"DASDataBudgetAvailable";
+  v12[4] = v6;
+  v11[5] = @"DASDataBudgetAvailable";
   v7 = +[PLDuetServiceDAS entryEventForwardDefinitionsDASDataBudgetAvailable];
-  v13[5] = v7;
-  v12[6] = @"DASTrial";
+  v12[5] = v7;
+  v11[6] = @"DASTrial";
   v8 = +[PLDuetServiceDAS entryEventForwardDefinitionsDASTrial];
-  v13[6] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[6] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:7];
 
   return v9;
 }
 
 + (id)entryEventBackwardDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"DASEnergyBudgetReport";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"DASEnergyBudgetReport";
   v2 = +[PLDuetServiceDAS entryEventBackwardDefinitionsDASEnergyBudgetReport];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventForwardDefinitionBatterySaverMode
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   if (+[PLUtilities hasBattery])
   {
-    v15[0] = *MEMORY[0x277D3F4E8];
-    v13 = *MEMORY[0x277D3F568];
-    v14 = &unk_28714B4F8;
-    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-    v16[0] = v2;
-    v15[1] = *MEMORY[0x277D3F540];
-    v11[0] = @"Mode";
+    v14[0] = *MEMORY[0x277D3F4E8];
+    v12 = *MEMORY[0x277D3F568];
+    v13 = &unk_28714B4F8;
+    v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v15[0] = v2;
+    v14[1] = *MEMORY[0x277D3F540];
+    v10[0] = @"Mode";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-    v11[1] = @"Value";
-    v12[0] = commonTypeDict_IntegerFormat;
+    v10[1] = @"Value";
+    v11[0] = commonTypeDict_IntegerFormat;
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v12[1] = commonTypeDict_IntegerFormat2;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-    v16[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v11[1] = commonTypeDict_IntegerFormat2;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v15[1] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   }
 
   else
@@ -123,60 +118,56 @@
     v8 = MEMORY[0x277CBEC10];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)entryEventIntervalDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"DuetEvents";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"DuetEvents";
   eventIntervalDefinitionDuetEvents = [self eventIntervalDefinitionDuetEvents];
-  v8[1] = @"ComplicationEvents";
-  v9[0] = eventIntervalDefinitionDuetEvents;
+  v7[1] = @"ComplicationEvents";
+  v8[0] = eventIntervalDefinitionDuetEvents;
   eventIntervalDefinitionComplicationEvents = [self eventIntervalDefinitionComplicationEvents];
-  v9[1] = eventIntervalDefinitionComplicationEvents;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = eventIntervalDefinitionComplicationEvents;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)eventIntervalDefinitionDuetEvents
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   if ([self isDebugEnabled])
   {
-    v20[0] = *MEMORY[0x277D3F4E8];
+    v19[0] = *MEMORY[0x277D3F4E8];
     v2 = *MEMORY[0x277D3F4A0];
-    v18[0] = *MEMORY[0x277D3F568];
-    v18[1] = v2;
-    v19[0] = &unk_28714B508;
-    v19[1] = MEMORY[0x277CBEC38];
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-    v21[0] = v15;
-    v20[1] = *MEMORY[0x277D3F540];
-    v16[0] = @"BundleID";
+    v17[0] = *MEMORY[0x277D3F568];
+    v17[1] = v2;
+    v18[0] = &unk_28714B508;
+    v18[1] = MEMORY[0x277CBEC38];
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v20[0] = v14;
+    v19[1] = *MEMORY[0x277D3F540];
+    v15[0] = @"BundleID";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-    v17[0] = commonTypeDict_StringFormat_withBundleID;
-    v16[1] = @"UpdateType";
+    v16[0] = commonTypeDict_StringFormat_withBundleID;
+    v15[1] = @"UpdateType";
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v17[1] = commonTypeDict_IntegerFormat;
-    v16[2] = @"StartDate";
+    v16[1] = commonTypeDict_IntegerFormat;
+    v15[2] = @"StartDate";
     mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_DateFormat = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-    v17[2] = commonTypeDict_DateFormat;
-    v16[3] = @"EndDate";
+    v16[2] = commonTypeDict_DateFormat;
+    v15[3] = @"EndDate";
     mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-    v17[3] = commonTypeDict_DateFormat2;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-    v21[1] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v16[3] = commonTypeDict_DateFormat2;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+    v20[1] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   }
 
   else
@@ -184,65 +175,59 @@
     v12 = MEMORY[0x277CBEC10];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"DuetEnergyAccumulator";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"DuetEnergyAccumulator";
   aggregateNameDuetEnergyAccumulator = [self aggregateNameDuetEnergyAccumulator];
-  v7[0] = aggregateNameDuetEnergyAccumulator;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = aggregateNameDuetEnergyAccumulator;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)aggregateNameDuetEnergyAccumulator
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F590];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_28714B4F8;
-  v23[1] = &unk_287145FA0;
-  v22[2] = *MEMORY[0x277D3F4A0];
-  v23[2] = MEMORY[0x277CBEC38];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v25[0] = v15;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"BundleID";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_28714B4F8;
+  v22[1] = &unk_287145FA0;
+  v21[2] = *MEMORY[0x277D3F4A0];
+  v22[2] = MEMORY[0x277CBEC38];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v24[0] = v14;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"BundleID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v21[0] = commonTypeDict_StringFormat_withBundleID;
-  v20[1] = @"QualificationID";
+  v20[0] = commonTypeDict_StringFormat_withBundleID;
+  v19[1] = @"QualificationID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v21[1] = commonTypeDict_IntegerFormat;
-  v20[2] = @"Energy";
+  v20[1] = commonTypeDict_IntegerFormat;
+  v19[2] = @"Energy";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v21[2] = commonTypeDict_RealFormat;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
-  v25[1] = v9;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_28714B518;
-  v16 = *MEMORY[0x277D3F470];
-  v17 = &unk_28714B528;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v24[3] = *MEMORY[0x277D3F488];
-  v25[2] = v11;
-  v25[3] = &unk_28714CA58;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[2] = commonTypeDict_RealFormat;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v24[1] = v9;
+  v23[2] = *MEMORY[0x277D3F478];
+  v17 = &unk_28714B518;
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_28714B528;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v23[3] = *MEMORY[0x277D3F488];
+  v24[2] = v11;
+  v24[3] = &unk_28714CA58;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
@@ -325,7 +310,7 @@
 - (void)setupBatterySaverModeForNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PLLogCommon();
+  v5 = PLLogCommon(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PLDuetService setupBatterySaverModeForNotification:];
@@ -340,14 +325,14 @@
   handler[3] = &unk_279A5D4B8;
   handler[4] = self;
   v8 = notificationCopy;
-  v15 = v8;
+  v17 = v8;
   v9 = notify_register_dispatch(uTF8String, &out_token, workQueue, handler);
 
-  v10 = PLLogCommon();
-  v11 = v10;
+  v11 = PLLogCommon(v10);
+  v12 = v11;
   if (v9)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PLDuetService setupBatterySaverModeForNotification:];
     }
@@ -355,7 +340,7 @@
 
   else
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [PLDuetService setupBatterySaverModeForNotification:];
     }
@@ -365,16 +350,16 @@
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       isLowPowerModeEnabled = [processInfo isLowPowerModeEnabled];
 
-      [(PLDuetService *)self logEventForwardBatterySaverModeWithState:isLowPowerModeEnabled fromNotification:v8];
+      v15 = [(PLDuetService *)self logEventForwardBatterySaverModeWithState:isLowPowerModeEnabled fromNotification:v8];
     }
 
     else
     {
-      [(PLDuetService *)self handleBatterySaverModeToken:out_token withNotification:v8];
+      v15 = [(PLDuetService *)self handleBatterySaverModeToken:out_token withNotification:v8];
     }
 
-    v11 = PLLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = PLLogCommon(v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [PLDuetService setupBatterySaverModeForNotification:];
     }
@@ -385,10 +370,11 @@
 {
   notificationCopy = notification;
   state64 = 0;
-  if (notify_get_state(token, &state64))
+  state = notify_get_state(token, &state64);
+  if (state)
   {
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PLLogCommon(state);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [PLDuetService handleBatterySaverModeToken:withNotification:];
     }
@@ -396,15 +382,37 @@
 
   else
   {
-    v8 = state64;
-    v9 = PLLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v9 = state64;
+    v10 = PLLogCommon(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [PLDuetService handleBatterySaverModeToken:notificationCopy withNotification:&state64];
+      [PLDuetService handleBatterySaverModeToken:withNotification:];
     }
 
-    [(PLDuetService *)self logEventForwardBatterySaverModeWithState:v8 != 0 fromNotification:notificationCopy];
+    [(PLDuetService *)self logEventForwardBatterySaverModeWithState:v9 != 0 fromNotification:notificationCopy];
   }
+}
+
+- (void)logEventForwardBatterySaverModeWithState:(BOOL)state fromNotification:(id)notification
+{
+  stateCopy = state;
+  notificationCopy = notification;
+  v7 = PLLogCommon(notificationCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [PLDuetService logEventForwardBatterySaverModeWithState:fromNotification:];
+  }
+
+  v8 = [(PLOperator *)PLDuetService entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"BatterySaverMode"];
+  v9 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v8];
+  v10 = [(PLDuetService *)self registrationModeStringToEnum:notificationCopy];
+  v11 = [MEMORY[0x277CCABB0] numberWithInteger:v10];
+  [v9 setObject:v11 forKeyedSubscript:@"Mode"];
+
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+  [v9 setObject:v12 forKeyedSubscript:@"Value"];
+
+  [(PLOperator *)self logEntry:v9];
 }
 
 - (void)dealloc
@@ -428,63 +436,18 @@
   [(PLOperator *)&v7 dealloc];
 }
 
-- (void)setupBatterySaverModeForNotification:.cold.1()
+- (void)handleBatterySaverModeToken:withNotification:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "batterysaver: setting up %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setupBatterySaverModeForNotification:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_8_4(&dword_25EE51000, v0, v1, "batterysaver: failed to register for %@ with status %d");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setupBatterySaverModeForNotification:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "batterysaver: re-syncing %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setupBatterySaverModeForNotification:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25EE51000, v0, v1, "batterysaver: setup complete for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleBatterySaverModeToken:withNotification:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_8_4(&dword_25EE51000, v0, v1, "batterysaver: notify_get_state failed for %@ with status %d");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleBatterySaverModeToken:(uint64_t)a1 withNotification:(uint64_t *)a2 .cold.2(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)logEventForwardBatterySaverModeWithState:fromNotification:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

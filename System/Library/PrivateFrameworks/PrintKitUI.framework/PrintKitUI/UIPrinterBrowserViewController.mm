@@ -224,11 +224,11 @@ uint64_t __53__UIPrinterBrowserViewController_startPrinterBrowser__block_invoke(
   return [MEMORY[0x277D410A8] printerWithiCloudPrinter:a2 discoveryTime:v3 completionHandler:5.0];
 }
 
-uint64_t __53__UIPrinterBrowserViewController_startPrinterBrowser__block_invoke_2(uint64_t result, uint64_t a2)
+id *__53__UIPrinterBrowserViewController_startPrinterBrowser__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addPrinter:a2 moreComing:0];
+    return [result[4] addPrinter:a2 moreComing:0];
   }
 
   return result;

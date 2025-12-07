@@ -129,18 +129,28 @@
   v6 = fromCopy[2];
   if (valueRange)
   {
-    if (v6)
+    if (!v6)
     {
-      [(HDCodableInspectableValueCollection *)valueRange mergeFrom:?];
+      goto LABEL_9;
     }
+
+    valueRange = [(HDCodableInspectableValueCollection *)valueRange mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(HDCodableReferenceRange *)self setValueRange:?];
+    if (!v6)
+    {
+      goto LABEL_9;
+    }
+
+    valueRange = [(HDCodableReferenceRange *)self setValueRange:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v7;
+LABEL_9:
+
+  MEMORY[0x2821F96F8](valueRange, fromCopy);
 }
 
 @end

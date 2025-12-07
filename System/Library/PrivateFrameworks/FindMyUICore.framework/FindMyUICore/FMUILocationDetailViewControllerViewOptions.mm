@@ -33,7 +33,7 @@
 
   v6 = LocationDetailViewController.ViewOptions.isEqual(_:)(v8);
 
-  sub_24AFF8258(v8, &qword_27EFC85B0);
+  sub_24AFF8258(v8, &qword_27EFC85B0, &unk_24B2DF9A0);
   return v6;
 }
 

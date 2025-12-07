@@ -127,12 +127,12 @@
 
 + (id)defaultsKeyForKey:(id)key
 {
-  sub_1D8B15970();
-  sub_1D89AE5D4();
+  v3 = sub_1D8B15970();
+  sub_1D89AE5D4(v3, v4);
 
-  v3 = sub_1D8B15940();
+  v5 = sub_1D8B15940();
 
-  return v3;
+  return v5;
 }
 
 + (BOOL)BOOLForKey:(id)key defaultValue:(BOOL)value
@@ -147,11 +147,12 @@
 
 + (double)doubleForKey:(id)key defaultValue:(double)value
 {
-  sub_1D8B15970();
+  v5 = sub_1D8B15970();
+  v7 = v6;
   swift_getObjCClassMetadata();
-  v5 = sub_1D89AE418(value);
+  v8 = sub_1D89AE418(v5, v7, value);
 
-  return v5;
+  return v8;
 }
 
 @end

@@ -342,13 +342,13 @@ void AUCPMSVolumeV1::~AUCPMSVolumeV1(AUCPMSVolumeV1 *this)
   ausdk::AUBase::~AUBase(this);
 }
 
-uint64_t *BiquadInterpolator::BiquadInterpolator(uint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *BiquadInterpolator::BiquadInterpolator(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
   v28 = *MEMORY[0x1E69E9840];
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
@@ -3580,10 +3580,10 @@ uint64_t AUECRMGS::Initialize(AUECRMGS *this)
       v55 = (v52 * v48);
       *(v37 + 40) = v55;
       LOBYTE(v73[0]) = 1;
-      std::vector<BOOL>::assign((v37 + 96), v55, v73);
+      std::vector<BOOL>::assign(v37 + 96, v55, v73);
       v56 = *(v37 + 24);
       LOBYTE(v73[0]) = 1;
-      std::vector<BOOL>::assign((v37 + 120), v56, v73);
+      std::vector<BOOL>::assign(v37 + 120, v56, v73);
       v57 = *(v37 + 40);
       v73[0] = 0;
       std::vector<float>::assign((v37 + 144), v57, v73, v58);
@@ -3751,7 +3751,7 @@ void AUECRMGS::~AUECRMGS(AUECRMGS *this)
   ausdk::AUBase::~AUBase(this);
 }
 
-_BYTE *audiodsp::espresso::v1::espresso_error_category::message@<X0>(unsigned int a1@<W1>, _BYTE *a2@<X8>)
+void *audiodsp::espresso::v1::espresso_error_category::message@<X0>(unsigned int a1@<W1>, void *a2@<X8>)
 {
   if (a1 != 0 && a1 < 0xFFFFFFF5)
   {
@@ -7874,8 +7874,8 @@ LABEL_21:
           v52 = *(v145 + 16 * v36);
           v53 = vmulq_f32(v52, v48);
           v54 = vextq_s8(v53, v53, 8uLL);
-          *v53.f32 = vadd_f32(*v53.f32, *v54.f32);
-          v53.f32[0] = vaddv_f32(*v53.f32);
+          *v53.i8 = vadd_f32(*v53.i8, *v54.f32);
+          *v53.i32 = vaddv_f32(*v53.i8);
           v54.i64[0] = 0;
           v55 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v53, v54)), 0), vnegq_f32(v48), v48);
           v56 = vsubq_f32(v52, v55);
@@ -8016,7 +8016,7 @@ LABEL_21:
     v110 = vandq_s8(_Q4, vcltzq_s32(vshlq_n_s32(vmovl_u16(*&vmovl_u8(v5)), 0x1FuLL)));
     v111 = vandq_s8(_Q4, vcltzq_s32(vshlq_n_s32(vmovl_u16(*&vmovl_u8(v6)), 0x1FuLL)));
     *(this + 424) = vbslq_s8(vceqq_f32(v110, v111), v110, vmlaq_f32(v110, vsubq_f32(v111, v110), vbicq_s8(v108, vcltzq_f32(v108))));
-    *(this + 56) = vrev64_s32(vbsl_s8(vceq_f32(*(v106 + 172), *(v107 + 172)), *(v106 + 172), vmla_f32(*(v106 + 172), vsub_f32(*(v107 + 172), *(v106 + 172)), vbic_s8(*v108.f32, vcltz_f32(*v108.f32)))));
+    *(this + 56) = vrev64_s32(vbsl_s8(vceq_f32(*(v106 + 172), *(v107 + 172)), *(v106 + 172), vmla_f32(*(v106 + 172), vsub_f32(*(v107 + 172), *(v106 + 172)), vbic_s8(*v108.i8, vcltz_f32(*v108.i8)))));
     if (*(v106 + 169))
     {
       v112 = 1;

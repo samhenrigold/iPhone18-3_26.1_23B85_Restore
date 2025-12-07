@@ -51,7 +51,7 @@
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -252,7 +252,7 @@
 {
   if (self)
   {
-    [(TSDAbstractLayout *)self transform];
+    objc_msgSend_transform(self, a2);
   }
 
   else
@@ -288,7 +288,7 @@
   v7 = 0u;
   if (tracker)
   {
-    [tracker rotateTransform];
+    objc_msgSend_rotateTransform(tracker);
   }
 
   originalGeometry = [(TSDLayout *)self originalGeometry];
@@ -336,7 +336,7 @@
         geometry = [v13 geometry];
         if (geometry)
         {
-          [geometry transform];
+          objc_msgSend_transform(geometry);
         }
 
         else
@@ -354,7 +354,7 @@
         geometry2 = [v13 geometry];
         if (geometry2)
         {
-          [geometry2 transform];
+          objc_msgSend_transform(geometry2);
         }
 
         else
@@ -629,7 +629,7 @@ LABEL_9:
         {
           v12 = v11;
           v13 = [objc_msgSend(v11 "i_wrapPath")];
-          [v12 transform];
+          objc_msgSend_transform(v12);
           [v13 transformUsingAffineTransform:&v15];
           [v5 addObject:v13];
         }

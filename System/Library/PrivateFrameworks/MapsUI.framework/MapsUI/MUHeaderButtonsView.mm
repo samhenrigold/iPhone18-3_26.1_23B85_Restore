@@ -205,7 +205,7 @@ void __42__MUHeaderButtonsView_ETAProviderUpdated___block_invoke(uint64_t a1)
 
 - (void)_createLayout
 {
-  v151 = *MEMORY[0x1E69E9840];
+  v150 = *MEMORY[0x1E69E9840];
   self->_isStackingButtons = [(MUHeaderButtonsView *)self shouldStackForButtons];
   selfCopy = self;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -414,52 +414,52 @@ void __42__MUHeaderButtonsView_ETAProviderUpdated___block_invoke(uint64_t a1)
     else
     {
       trailingAnchor14 = [(MUHeaderButtonsView *)selfCopy trailingAnchor];
-      v137 = [trailingAnchor11 constraintEqualToAnchor:trailingAnchor14 constant:-8.0];
-      [v60 addObject:v137];
+      v136 = [trailingAnchor11 constraintEqualToAnchor:trailingAnchor14 constant:-8.0];
+      [v60 addObject:v136];
 
       v95 = selfCopy->_secondaryButton;
     }
 
     heightAnchor7 = [(MUPlaceHeaderButton *)v95 heightAnchor];
-    v139 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD40]];
-    [v139 _scaledValueForValue:48.0];
-    v140 = [heightAnchor7 constraintEqualToConstant:?];
-    [v60 addObject:v140];
+    v138 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD40]];
+    [v138 _scaledValueForValue:48.0];
+    v139 = [heightAnchor7 constraintEqualToConstant:?];
+    [v60 addObject:v139];
 
-    v141 = [v60 copy];
-    [(MUHeaderButtonsView *)selfCopy _activateNewConstraints:v141];
+    v140 = [v60 copy];
+    [(MUHeaderButtonsView *)selfCopy _activateNewConstraints:v140];
 
     v53 = v60;
   }
 
   else
   {
-    v148 = 0u;
-    v149 = 0u;
-    v146 = 0u;
     v147 = 0u;
+    v148 = 0u;
+    v145 = 0u;
+    v146 = 0u;
     v96 = v56;
     v53 = v4;
-    v145 = [v96 countByEnumeratingWithState:&v146 objects:v150 count:16];
-    if (v145)
+    v144 = [v96 countByEnumeratingWithState:&v145 objects:v149 count:16];
+    if (v144)
     {
-      v142 = v56;
+      v141 = v56;
       v97 = selfCopy;
       v98 = 0;
-      v144 = *v147;
-      v143 = *MEMORY[0x1E69DDD40];
+      v143 = *v146;
+      v142 = *MEMORY[0x1E69DDD40];
       do
       {
         v99 = 0;
         v100 = v98;
         do
         {
-          if (*v147 != v144)
+          if (*v146 != v143)
           {
             objc_enumerationMutation(v96);
           }
 
-          v101 = *(*(&v146 + 1) + 8 * v99);
+          v101 = *(*(&v145 + 1) + 8 * v99);
           firstObject = [v96 firstObject];
 
           if (v101 == firstObject)
@@ -508,7 +508,7 @@ void __42__MUHeaderButtonsView_ETAProviderUpdated___block_invoke(uint64_t a1)
             [v53 addObject:v120];
 
             heightAnchor10 = [(MUPlaceHeaderButton *)v101 heightAnchor];
-            v122 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v143];
+            v122 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v142];
             [v122 _scaledValueForValue:48.0];
             v123 = [heightAnchor10 constraintEqualToConstant:?];
             [v53 addObject:v123];
@@ -530,14 +530,14 @@ void __42__MUHeaderButtonsView_ETAProviderUpdated___block_invoke(uint64_t a1)
           v100 = v98;
         }
 
-        while (v145 != v99);
-        v145 = [v96 countByEnumeratingWithState:&v146 objects:v150 count:16];
+        while (v144 != v99);
+        v144 = [v96 countByEnumeratingWithState:&v145 objects:v149 count:16];
       }
 
-      while (v145);
+      while (v144);
 
       selfCopy = v97;
-      v56 = v142;
+      v56 = v141;
     }
 
     v130 = [v53 copy];
@@ -545,7 +545,6 @@ void __42__MUHeaderButtonsView_ETAProviderUpdated___block_invoke(uint64_t a1)
   }
 
 LABEL_41:
-  v135 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSecondaryButtonController:(id)controller
@@ -727,7 +726,7 @@ LABEL_20:
 
 - (void)_setupSubviews
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   if ([(MUHeaderButtonsViewConfiguration *)self->_configuration showMoreButton])
   {
     v3 = [MUPlaceHeaderButton buttonWithType:0];
@@ -747,12 +746,12 @@ LABEL_20:
     [(MUPlaceHeaderButton *)self->_moreButton setShowsMenuAsPrimaryAction:1];
     objc_initWeak(&location, self);
     v9 = self->_moreButton;
-    v18 = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __37__MUHeaderButtonsView__setupSubviews__block_invoke;
-    v21 = &unk_1E8218DF8;
-    objc_copyWeak(&v22, &location);
-    [(MUPlaceHeaderButton *)v9 _setMenuProvider:&v18];
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __37__MUHeaderButtonsView__setupSubviews__block_invoke;
+    v20 = &unk_1E8218DF8;
+    objc_copyWeak(&v21, &location);
+    [(MUPlaceHeaderButton *)v9 _setMenuProvider:&v17];
     _mapsui_secondaryHeaderActionConfiguration = [MEMORY[0x1E69DC740] _mapsui_secondaryHeaderActionConfiguration];
     v11 = [MEMORY[0x1E69DCAB8] _mapsui_systemImageNamed:@"ellipsis"];
     [_mapsui_secondaryHeaderActionConfiguration setImage:v11];
@@ -762,19 +761,17 @@ LABEL_20:
     [(MUPlaceHeaderButton *)self->_moreButton addTarget:self action:sel__didTapMoreButton forControlEvents:0x4000];
     [(MUHeaderButtonsView *)self addSubview:self->_moreButton];
     v12 = objc_opt_self();
-    v24[0] = v12;
+    v23[0] = v12;
     v13 = objc_opt_self();
-    v24[1] = v13;
+    v23[1] = v13;
     v14 = objc_opt_self();
-    v24[2] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+    v23[2] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
     v16 = [(MUHeaderButtonsView *)self registerForTraitChanges:v15 withAction:sel__updateContent];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 id __37__MUHeaderButtonsView__setupSubviews__block_invoke(uint64_t a1)

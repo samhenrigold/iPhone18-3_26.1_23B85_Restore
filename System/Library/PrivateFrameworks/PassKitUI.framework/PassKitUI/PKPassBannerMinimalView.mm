@@ -25,7 +25,7 @@
       leadingView = v12->_leadingView;
       v12->_leadingView = v13;
 
-      v15 = [[PKPassBannerTrailingView alloc] _initWithStyle:*(v10 + 52) configuration:?];
+      v15 = [[PKPassBannerTrailingView alloc] _initWithStyle:v10[52] configuration:?];
       trailingView = v12->_trailingView;
       v12->_trailingView = v15;
 
@@ -64,141 +64,176 @@
 - (CGSize)_layoutWithBounds:(CGRect)bounds commit:(BOOL)commit
 {
   commitCopy = commit;
-  v6 = *MEMORY[0x1E695F060];
-  v7 = *(MEMORY[0x1E695F060] + 8);
-  [(PKPassBannerLeadingView *)self->_leadingView sizeThatFits:*MEMORY[0x1E695F060], v7];
-  v9 = v8;
+  v5 = *&bounds.size.height;
+  v6 = *&bounds.size.width;
+  v80 = *&bounds.origin.x;
+  v81 = *&bounds.origin.y;
+  v8 = *MEMORY[0x1E695F060];
+  v9 = *(MEMORY[0x1E695F060] + 8);
+  [(PKPassBannerLeadingView *)self->_leadingView sizeThatFits:*MEMORY[0x1E695F060], v9];
   v11 = v10;
-  [(PKPassBannerTrailingView *)self->_trailingView sizeThatFits:v6, v7];
-  v14 = v12;
-  v15 = v13;
-  v16 = v9 > 0.0;
-  if (v11 <= 0.0)
+  v13 = v12;
+  [(PKPassBannerTrailingView *)self->_trailingView sizeThatFits:v8, v9];
+  v21 = v14.n128_f64[0];
+  v22 = v15.n128_f64[0];
+  v23 = v11 > 0.0;
+  if (v13 <= 0.0)
   {
-    v16 = 0;
+    v23 = 0;
   }
 
   trailingView = self->_trailingView;
   if (trailingView)
   {
     image = trailingView->_image;
-    v19 = v12 > 0.0;
-    if (v13 <= 0.0)
+    v26 = v14.n128_f64[0] > 0.0;
+    if (v15.n128_f64[0] <= 0.0)
     {
-      v19 = 0;
+      v26 = 0;
     }
 
     if (image)
     {
-      v20 = v19;
+      v27 = v26;
     }
 
     else
     {
-      v20 = 0;
+      v27 = 0;
     }
 
-    if (v16 && v20)
+    if (v23 && v27)
     {
-      v21 = fmax(v9, v12);
+      v28 = fmax(v11, v14.n128_f64[0]);
       interitemPadding = self->_interitemPadding;
-      v23 = v13 + v11 + interitemPadding;
+      v30 = v15.n128_f64[0] + v13 + interitemPadding;
       if (commitCopy)
       {
-        v39 = v15 + v11 + interitemPadding;
-        v41 = v21;
+        v76 = v22 + v13 + interitemPadding;
+        v78 = v28;
         PKSizeAspectFit();
+        v32 = v31;
+        v34 = v33;
         PKSizeAspectFit();
-        PKSizeAlignedInRect();
+        v36 = v35;
+        v38 = v37;
+        v39.n128_u64[0] = v32;
+        v40.n128_u64[0] = v34;
+        v41.n128_u64[0] = v80;
+        v42.n128_u64[0] = v81;
+        v43.n128_u64[0] = v6;
+        v44.n128_u64[0] = v5;
+        PKSizeAlignedInRect(1, v39, v40, v41, v42, v43, v44, v45);
         leadingView = self->_leadingView;
-        PKRectRoundToPixel(v25, v26, v27, v28, v29);
+        PKRectRoundToPixel(v47, v48, v49, v50, v51);
         [(PKPassBannerLeadingView *)leadingView setFrame:?];
-        PKSizeAlignedInRect();
-        v30 = self->_trailingView;
-        PKRectRoundToPixel(v31, v32, v33, v34, v35);
+        v52.n128_u64[0] = v36;
+        v53.n128_u64[0] = v38;
+        v54.n128_u64[0] = v80;
+        v55.n128_u64[0] = v81;
+        v56.n128_u64[0] = v6;
+        v57.n128_u64[0] = v5;
+        PKSizeAlignedInRect(0x200000001, v52, v53, v54, v55, v56, v57, v58);
+        v59 = self->_trailingView;
+        PKRectRoundToPixel(v60, v61, v62, v63, v64);
 LABEL_30:
-        [(PKPassBannerTrailingView *)v30 setFrame:*&v39, *&v41];
-        v23 = v40;
-        v21 = v42;
+        [(PKPassBannerTrailingView *)v59 setFrame:*&v76, *&v78];
+        v30 = v77;
+        v28 = v79;
         goto LABEL_33;
       }
 
       goto LABEL_33;
     }
 
-    if (v20)
+    if (v27)
     {
-      v36 = v13;
+      v65 = v15.n128_f64[0];
     }
 
     else
     {
-      v36 = 1.0;
+      v65 = 1.0;
     }
 
-    if (v20)
+    if (v27)
     {
-      v37 = v14;
+      v66 = v21;
     }
 
     else
     {
-      v37 = 1.0;
+      v66 = 1.0;
     }
   }
 
   else
   {
-    v20 = 0;
-    v36 = 1.0;
-    v37 = 1.0;
+    v27 = 0;
+    v65 = 1.0;
+    v66 = 1.0;
   }
 
-  if (v16)
+  if (v23)
   {
-    v23 = v11;
-  }
-
-  else
-  {
-    v23 = v36;
-  }
-
-  if (v16)
-  {
-    v21 = v9;
+    v30 = v13;
   }
 
   else
   {
-    v21 = v37;
+    v30 = v65;
+  }
+
+  if (v23)
+  {
+    v28 = v11;
+  }
+
+  else
+  {
+    v28 = v66;
   }
 
   if (commitCopy)
   {
-    v39 = v23;
-    v41 = v21;
-    v38 = self->_leadingView;
-    if (v16)
+    v76 = v30;
+    v78 = v28;
+    v67 = self->_leadingView;
+    v14.n128_f64[0] = v8;
+    v15.n128_f64[0] = v9;
+    if (v23)
     {
       PKSizeAspectFit();
     }
 
-    PKSizeAlignedInRect();
-    [(PKPassBannerLeadingView *)v38 setFrame:?];
-    v30 = self->_trailingView;
-    if (v20)
+    v68 = *MEMORY[0x1E69BB7F8];
+    v16.n128_u64[0] = v80;
+    v17.n128_u64[0] = v81;
+    v18.n128_u64[0] = v6;
+    v19.n128_u64[0] = v5;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v14, v15, v16, v17, v18, v19, v20);
+    [(PKPassBannerLeadingView *)v67 setFrame:?];
+    v59 = self->_trailingView;
+    if (v27)
     {
       PKSizeAspectFit();
+      v8 = v69.n128_f64[0];
+      v9 = v70.n128_f64[0];
     }
 
-    PKSizeAlignedInRect();
+    v69.n128_f64[0] = v8;
+    v70.n128_f64[0] = v9;
+    v71.n128_u64[0] = v80;
+    v72.n128_u64[0] = v81;
+    v73.n128_u64[0] = v6;
+    v74.n128_u64[0] = v5;
+    PKSizeAlignedInRect(v68, v69, v70, v71, v72, v73, v74, v75);
     goto LABEL_30;
   }
 
 LABEL_33:
-  result.height = v23;
-  result.width = v21;
+  result.height = v30;
+  result.width = v28;
   return result;
 }
 

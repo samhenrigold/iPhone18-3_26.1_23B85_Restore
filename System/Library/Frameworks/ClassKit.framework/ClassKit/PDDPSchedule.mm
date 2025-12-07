@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)scheduleActionAsString:(int)string;
+- (id)scheduledEntityTypeAsString:(int)string;
 - (int)StringAsScheduleAction:(id)action;
 - (int)StringAsScheduledEntityType:(id)type;
 - (int)scheduleAction;
@@ -44,6 +46,29 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)scheduledEntityTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"HANDOUT_TYPE";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_TYPE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsScheduledEntityType:(id)type
 {
   typeCopy = type;
@@ -71,6 +96,29 @@
   {
     return 0;
   }
+}
+
+- (id)scheduleActionAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"PUBLISH_ACTION";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_ACTION";
+  }
+
+  return v4;
 }
 
 - (int)StringAsScheduleAction:(id)action
@@ -200,57 +248,55 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_objectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_parentObjectId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_dateCreated)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_dateLastModified)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    scheduledEntityType = self->_scheduledEntityType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    scheduleAction = self->_scheduleAction;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_scheduleDate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_classId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -397,7 +443,6 @@
     }
   }
 
-  v9 = *(equalCopy + 68);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 68) & 2) == 0 || self->_scheduledEntityType != *(equalCopy + 16))
@@ -409,7 +454,7 @@
   else if ((*(equalCopy + 68) & 2) != 0)
   {
 LABEL_24:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_25;
   }
 
@@ -435,17 +480,17 @@ LABEL_24:
   classId = self->_classId;
   if (classId | *(equalCopy + 1))
   {
-    v12 = [(NSString *)classId isEqual:?];
+    v11 = [(NSString *)classId isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_25:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

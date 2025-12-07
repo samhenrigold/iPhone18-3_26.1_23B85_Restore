@@ -2,7 +2,6 @@
 - (BOOL)hasQueuedThreadWithJavaLangThread:(id)thread;
 - (BOOL)hasQueuedThreads;
 - (BOOL)hasWaitersWithJavaUtilConcurrentLocksCondition:(id)condition;
-- (BOOL)isFair;
 - (BOOL)isHeldByCurrentThread;
 - (BOOL)isLocked;
 - (BOOL)tryLock;
@@ -102,7 +101,7 @@
   }
 
   getExclusiveOwnerThread = [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)self->sync_ getExclusiveOwnerThread];
-  if (getExclusiveOwnerThread != JavaLangThread_currentThread())
+  if (getExclusiveOwnerThread != JavaLangThread_currentThread(getExclusiveOwnerThread, v4))
   {
     return 0;
   }
@@ -119,7 +118,7 @@
   }
 
   getExclusiveOwnerThread = [(JavaUtilConcurrentLocksAbstractOwnableSynchronizer *)sync getExclusiveOwnerThread];
-  return getExclusiveOwnerThread == JavaLangThread_currentThread();
+  return getExclusiveOwnerThread == JavaLangThread_currentThread(getExclusiveOwnerThread, v4);
 }
 
 - (BOOL)isLocked
@@ -131,13 +130,6 @@
   }
 
   return [(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)sync getState]!= 0;
-}
-
-- (BOOL)isFair
-{
-  sync = self->sync_;
-  objc_opt_class();
-  return objc_opt_isKindOfClass() & 1;
 }
 
 - (id)getOwner

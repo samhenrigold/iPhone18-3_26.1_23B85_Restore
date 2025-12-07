@@ -163,29 +163,12 @@ LABEL_14:
   }
 }
 
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v0, v1, "[%{public}@] Error when determining biological sex, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)makeIHAGatedEventPayloadWithDataSource:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_228942000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] No error when fetching biological sex but also didn't get object", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)makeIHAGatedEventPayloadWithDataSource:error:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_228942000, v0, v1, "[%{public}@] Error when determining age, continuing daily analytics submission: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_228942000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] No error when fetching biological sex but also didn't get object", &v2, 0xCu);
 }
 
 @end

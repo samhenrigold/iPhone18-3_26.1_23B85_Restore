@@ -13,37 +13,37 @@
 
 - (WBSCloudHistoryConfiguration)init
 {
-  v11.receiver = self;
-  v11.super_class = WBSCloudHistoryConfiguration;
-  v2 = [(WBSCloudHistoryConfiguration *)&v11 init];
-  v3 = v2;
+  v14.receiver = self;
+  v14.super_class = WBSCloudHistoryConfiguration;
+  v2 = [(WBSCloudHistoryConfiguration *)&v14 init];
+  v4 = v2;
   if (v2)
   {
     *&v2->_shouldBatchSaveRecords = 1;
-    v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Applying built-in configuration", v10, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Applying built-in configuration", v13, 2u);
     }
 
-    _builtInConfiguration = [(WBSCloudHistoryConfiguration *)v3 _builtInConfiguration];
-    [(WBSCloudHistoryConfiguration *)v3 _applyBuiltInConfiguration:_builtInConfiguration];
+    _builtInConfiguration = [(WBSCloudHistoryConfiguration *)v4 _builtInConfiguration];
+    [(WBSCloudHistoryConfiguration *)v4 _applyBuiltInConfiguration:_builtInConfiguration];
 
-    v6 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Applying remote configuration", v10, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Applying remote configuration", v13, 2u);
     }
 
-    remoteConfiguration = [(WBSCloudHistoryConfiguration *)v3 remoteConfiguration];
-    [(WBSCloudHistoryConfiguration *)v3 applyRemoteConfiguration:remoteConfiguration];
+    remoteConfiguration = [(WBSCloudHistoryConfiguration *)v4 remoteConfiguration];
+    [(WBSCloudHistoryConfiguration *)v4 applyRemoteConfiguration:remoteConfiguration];
 
-    v8 = v3;
+    v11 = v4;
   }
 
-  return v3;
+  return v4;
 }
 
 - (WBSCloudHistoryConfiguration)initWithDictionary:(id)dictionary
@@ -187,27 +187,27 @@
 
 void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
 
   if (v7)
   {
-    v8 = [*(a1 + 32) safari_stringForKey:v5];
-    if (v8)
+    v11 = [*(a1 + 32) safari_stringForKey:v5];
+    if (v11)
     {
-      if ([MEMORY[0x1E69C8838] policyStringRepresentsValidPolicy:v8])
+      if ([MEMORY[0x1E69C8838] policyStringRepresentsValidPolicy:v11])
       {
-        v9 = [v8 copy];
-        v6[2](v6, v9);
+        v12 = [v11 copy];
+        v6[2](v6, v12);
       }
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXCloudHistory(0, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_cold_1();
       }
@@ -216,19 +216,19 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
   else if (*(a1 + 40))
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = 138543362;
-      v14 = v5;
-      _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Configuration did not contain key: %{public}@", &v13, 0xCu);
+      v16 = 138543362;
+      v17 = v5;
+      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Configuration did not contain key: %{public}@", &v16, 0xCu);
     }
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v8, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_cold_2();
     }
@@ -237,25 +237,25 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
 void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_31(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
 
   if (v7)
   {
-    v8 = [*(a1 + 32) safari_numberForKey:v5];
-    v9 = [v8 unsignedIntegerValue];
+    v10 = [*(a1 + 32) safari_numberForKey:v5];
+    v11 = [v10 unsignedIntegerValue];
 
-    if (v9)
+    if (v11)
     {
-      v6[2](v6, v9);
+      v6[2](v6, v11);
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v12, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_31_cold_1();
       }
@@ -264,19 +264,19 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
   else if (*(a1 + 40))
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v14 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v8, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v13 = 138543362;
-      v14 = v5;
-      _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Configuration did not contain key: %{public}@", &v13, 0xCu);
+      v17 = 138543362;
+      v18 = v5;
+      _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, "Configuration did not contain key: %{public}@", &v17, 0xCu);
     }
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v8, v9);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_cold_2();
     }
@@ -285,16 +285,16 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
 void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_33(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = @"SingleDeviceSaveChangesThrottlingPolicy";
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v5, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = @"SingleDeviceSaveChangesThrottlingPolicy";
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 32) setSingleDeviceSaveChangesThrottlingPolicyString:v3];
@@ -302,16 +302,16 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
 void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_35(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = @"MultipleDeviceSaveChangesThrottlingPolicy";
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v5, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = @"MultipleDeviceSaveChangesThrottlingPolicy";
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 32) setMultipleDeviceSaveChangesThrottlingPolicyString:v3];
@@ -319,16 +319,16 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
 void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_36(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = @"SingleDeviceFetchChangesThrottlingPolicy";
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v5, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = @"SingleDeviceFetchChangesThrottlingPolicy";
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 32) setSingleDeviceFetchChangesThrottlingPolicyString:v3];
@@ -336,16 +336,16 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
 void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_37(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = @"MultipleDeviceFetchChangesThrottlingPolicy";
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v5, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = @"MultipleDeviceFetchChangesThrottlingPolicy";
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 32) setMultipleDeviceFetchChangesThrottlingPolicyString:v3];
@@ -353,16 +353,16 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 
 void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_38(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
-    v6 = v3;
-    v7 = 2114;
-    v8 = @"SyncCircleSizeRetrievalThrottlingPolicy";
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v5, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = @"SyncCircleSizeRetrievalThrottlingPolicy";
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Retrieved value: %{public}@ for key: %{public}@", &v6, 0x16u);
   }
 
   [*(a1 + 32) setSyncCircleSizeRetrievalThrottlingPolicyString:v3];
@@ -371,7 +371,7 @@ void __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___bloc
 uint64_t __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_39(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
+  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = 134218242;
@@ -384,10 +384,10 @@ uint64_t __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___
   return [*(a1 + 32) setMaximumRequestCharacterCount:a2];
 }
 
-uint64_t __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_41(uint64_t a1, unint64_t a2)
+uint64_t __66__WBSCloudHistoryConfiguration__applyConfiguration_withTolerance___block_invoke_41(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
+  v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = 134218242;

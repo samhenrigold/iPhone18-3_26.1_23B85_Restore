@@ -26,15 +26,15 @@ uint64_t __30__BGSystemTaskWorkload_logger__block_invoke()
 
 + (BOOL)reportSystemWorkload:(unint64_t)workload ofCategory:(unint64_t)category error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v8 = +[BGSystemTaskWorkload logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134218240;
+    v14 = 134218240;
     workloadCopy = workload;
-    v17 = 2048;
+    v16 = 2048;
     workloadCopy2 = category;
-    _os_log_impl(&dword_1B236A000, v8, OS_LOG_TYPE_DEFAULT, "Received system workload %lu for category %lu", &v15, 0x16u);
+    _os_log_impl(&dword_1B236A000, v8, OS_LOG_TYPE_DEFAULT, "Received system workload %lu for category %lu", &v14, 0x16u);
   }
 
   mEMORY[0x1E699A4B8] = [MEMORY[0x1E699A4B8] sharedScheduler];
@@ -45,18 +45,17 @@ uint64_t __30__BGSystemTaskWorkload_logger__block_invoke()
     v11 = +[BGSystemTaskWorkload logger];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = *error;
-      v15 = 138412802;
-      workloadCopy = v14;
-      v17 = 2048;
+      v13 = *error;
+      v14 = 138412802;
+      workloadCopy = v13;
+      v16 = 2048;
       workloadCopy2 = workload;
-      v19 = 2048;
+      v18 = 2048;
       categoryCopy2 = category;
-      _os_log_error_impl(&dword_1B236A000, v11, OS_LOG_TYPE_ERROR, "Error:%@ reporting system workload %lu for category %lu", &v15, 0x20u);
+      _os_log_error_impl(&dword_1B236A000, v11, OS_LOG_TYPE_ERROR, "Error:%@ reporting system workload %lu for category %lu", &v14, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

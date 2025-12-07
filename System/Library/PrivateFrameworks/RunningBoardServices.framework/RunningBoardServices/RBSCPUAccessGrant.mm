@@ -6,7 +6,7 @@
 + (id)grantWithUserInteractivityAndFocus;
 - (BOOL)isEqual:(id)equal;
 - (RBSCPUAccessGrant)initWithRBSXPCCoder:(id)coder;
-- (id)_initWithRole:(id)result;
+- (_BYTE)_initWithRole:(_BYTE *)result;
 - (id)description;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 @end
@@ -102,9 +102,9 @@
   return v5;
 }
 
-- (id)_initWithRole:(id)result
+- (_BYTE)_initWithRole:(_BYTE *)result
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -114,24 +114,23 @@
       [currentHandler handleFailureInMethod:sel__initWithRole_ object:v3 file:@"RBSCPUAccessGrant.m" lineNumber:96 description:@"initialized with invalid role"];
     }
 
-    v4 = rbs_assertion_log();
+    v4 = rbs_assertion_log(result);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v9 = a2;
+      v8 = a2;
       _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "RBSCPUAccessGrant with role: %d", buf, 8u);
     }
 
-    v7.receiver = v3;
-    v7.super_class = RBSCPUAccessGrant;
-    result = objc_msgSendSuper2(&v7, sel__init);
+    v6.receiver = v3;
+    v6.super_class = RBSCPUAccessGrant;
+    result = objc_msgSendSuper2(&v6, sel__init);
     if (result)
     {
-      *(result + 8) = a2;
+      result[8] = a2;
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 

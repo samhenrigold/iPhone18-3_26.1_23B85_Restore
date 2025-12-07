@@ -16,7 +16,6 @@
 - (void)dealloc;
 - (void)getThumbnailCacheURLWrappersWithCompletion:(id)completion;
 - (void)getThumbnailURLForItem:(id)item completion:(id)completion;
-- (void)inboxDirectoryURL;
 - (void)storeThumbnailAtURL:(id)l forItem:(id)item completion:(id)completion;
 @end
 
@@ -29,35 +28,13 @@
   v18.super_class = QLExternalThumbnailCache;
   v10 = [(QLExternalThumbnailCache *)&v18 init];
   v11 = v10;
-  if (!v10)
+  if (!v10 || (v10->_maximumCacheSize = size, objc_storeStrong(&v10->_directoryURL, l), [lCopy URLByAppendingPathComponent:@"thumbnails" isDirectory:1], v12 = objc_claimAutoreleasedReturnValue(), thumbnailsDirectoryURL = v11->_thumbnailsDirectoryURL, v11->_thumbnailsDirectoryURL = v12, thumbnailsDirectoryURL, objc_msgSend(lCopy, "URLByAppendingPathComponent:", @"thumbnails.db"), v14 = objc_claimAutoreleasedReturnValue(), databaseURL = v11->_databaseURL, v11->_databaseURL = v14, databaseURL, -[QLExternalThumbnailCache _createDirectoryWithURL:error:](v11, "_createDirectoryWithURL:error:", v11->_thumbnailsDirectoryURL, error)) && -[QLExternalThumbnailCache _createDirectoryWithURL:error:](v11, "_createDirectoryWithURL:error:", v11->_directoryURL, error))
   {
-    goto LABEL_4;
-  }
-
-  v10->_maximumCacheSize = size;
-  objc_storeStrong(&v10->_directoryURL, l);
-  v12 = [lCopy URLByAppendingPathComponent:@"thumbnails" isDirectory:1];
-  thumbnailsDirectoryURL = v11->_thumbnailsDirectoryURL;
-  v11->_thumbnailsDirectoryURL = v12;
-
-  v14 = [lCopy URLByAppendingPathComponent:@"thumbnails.db"];
-  databaseURL = v11->_databaseURL;
-  v11->_databaseURL = v14;
-
-  if (![(QLExternalThumbnailCache *)v11 _createDirectoryWithURL:v11->_thumbnailsDirectoryURL error:error])
-  {
-    goto LABEL_5;
-  }
-
-  if ([(QLExternalThumbnailCache *)v11 _createDirectoryWithURL:v11->_directoryURL error:error])
-  {
-LABEL_4:
     v16 = v11;
   }
 
   else
   {
-LABEL_5:
     v16 = 0;
   }
 
@@ -74,14 +51,14 @@ LABEL_5:
 
 - (id)thumbnailURLForItem:(id)item error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   v7 = [(QLExternalThumbnailCache *)self db];
   if ([v7 open])
   {
-    v15 = 0;
-    v8 = [v7 pathExtensionForItem:itemCopy error:&v15];
-    v9 = v15;
+    v14 = 0;
+    v8 = [v7 pathExtensionForItem:itemCopy error:&v14];
+    v9 = v14;
     v10 = v9;
     if (v8)
     {
@@ -111,7 +88,7 @@ LABEL_5:
         if (os_log_type_enabled(itemIdentifier, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v17 = itemCopy;
+          v16 = itemCopy;
           _os_log_impl(&dword_1CA1E7000, itemIdentifier, OS_LOG_TYPE_INFO, "No path extension found from DB for item: %@.", buf, 0xCu);
         }
       }
@@ -136,8 +113,6 @@ LABEL_5:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
@@ -161,7 +136,7 @@ LABEL_5:
 
 - (BOOL)removeAllThumbnails:(id *)thumbnails
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = [(QLExternalThumbnailCache *)self db];
   if (([v5 open] & 1) == 0)
   {
@@ -181,9 +156,9 @@ LABEL_17:
     goto LABEL_33;
   }
 
-  v33 = 0;
-  v6 = [v5 removeAllThumbnails:&v33];
-  v7 = v33;
+  v32 = 0;
+  v6 = [v5 removeAllThumbnails:&v32];
+  v7 = v32;
   if ((v6 & 1) == 0)
   {
     if (thumbnails)
@@ -198,39 +173,39 @@ LABEL_17:
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   thumbnailsDirectoryURL = self->_thumbnailsDirectoryURL;
-  v32 = v7;
-  v10 = [defaultManager contentsOfDirectoryAtURL:thumbnailsDirectoryURL includingPropertiesForKeys:0 options:0 error:&v32];
-  v11 = v32;
+  v31 = v7;
+  v10 = [defaultManager contentsOfDirectoryAtURL:thumbnailsDirectoryURL includingPropertiesForKeys:0 options:0 error:&v31];
+  v11 = v31;
 
   if (v10)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v13)
     {
       v14 = v13;
       thumbnailsCopy = thumbnails;
-      v26 = v10;
-      v15 = *v29;
+      v25 = v10;
+      v15 = *v28;
       while (2)
       {
         v16 = 0;
         v17 = v11;
         do
         {
-          if (*v29 != v15)
+          if (*v28 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v28 + 1) + 8 * v16);
-          v27 = v17;
-          v19 = [defaultManager removeItemAtURL:v18 error:&v27];
-          v11 = v27;
+          v18 = *(*(&v27 + 1) + 8 * v16);
+          v26 = v17;
+          v19 = [defaultManager removeItemAtURL:v18 error:&v26];
+          v11 = v26;
 
           if ((v19 & 1) == 0)
           {
@@ -259,7 +234,7 @@ LABEL_17:
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v27 objects:v33 count:16];
         if (v14)
         {
           continue;
@@ -270,7 +245,7 @@ LABEL_17:
 
       v20 = 1;
 LABEL_30:
-      v10 = v26;
+      v10 = v25;
     }
 
     else
@@ -302,7 +277,6 @@ LABEL_30:
   v7 = v11;
 LABEL_33:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -317,7 +291,7 @@ LABEL_33:
 
 - (BOOL)_freeDiskSpaceToSaveThumbnailRepresentingFPItem:(id)item withFileAtURL:(id)l error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   lCopy = l;
   v10 = [(QLExternalThumbnailCache *)self db];
@@ -360,85 +334,85 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v19 = longLongValue + totalThumbnailsSize - maximumCacheSize;
-  if (v19 < 1)
+  v18 = longLongValue + totalThumbnailsSize - maximumCacheSize;
+  if (v18 < 1)
   {
     v16 = 1;
     goto LABEL_13;
   }
 
-  v46 = 0;
-  v20 = [v10 deleteOldestThumbnailsToFreeAtLeastSpace:v19 & ~(v19 >> 63) error:&v46];
-  v15 = v46;
-  if (v20)
+  v45 = 0;
+  v19 = [v10 deleteOldestThumbnailsToFreeAtLeastSpace:v18 & ~(v18 >> 63) error:&v45];
+  v15 = v45;
+  if (v19)
   {
-    v21 = itemCopy;
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
+    v20 = itemCopy;
     v43 = 0u;
-    obj = v20;
-    v22 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-    if (v22)
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    obj = v19;
+    v21 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+    if (v21)
     {
-      v23 = v22;
-      v35 = v20;
+      v22 = v21;
+      v34 = v19;
       errorCopy = error;
-      v37 = v10;
-      v38 = lCopy;
-      v39 = v21;
-      v24 = *v43;
+      v36 = v10;
+      v37 = lCopy;
+      v38 = v20;
+      v23 = *v42;
       v16 = 1;
       do
       {
-        v25 = 0;
-        v26 = v15;
+        v24 = 0;
+        v25 = v15;
         do
         {
-          if (*v43 != v24)
+          if (*v42 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v42 + 1) + 8 * v25);
-          itemIdentifier = [v27 itemIdentifier];
-          fileExtension = [v27 fileExtension];
-          v30 = [(QLExternalThumbnailCache *)self _urlForThumbnailWithFPItemIdentifier:itemIdentifier fileExtension:fileExtension];
+          v26 = *(*(&v41 + 1) + 8 * v24);
+          itemIdentifier = [v26 itemIdentifier];
+          fileExtension = [v26 fileExtension];
+          v29 = [(QLExternalThumbnailCache *)self _urlForThumbnailWithFPItemIdentifier:itemIdentifier fileExtension:fileExtension];
 
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-          v41 = v26;
-          v32 = [defaultManager removeItemAtURL:v30 error:&v41];
-          v15 = v41;
+          v40 = v25;
+          v31 = [defaultManager removeItemAtURL:v29 error:&v40];
+          v15 = v40;
 
-          if ((v32 & 1) == 0)
+          if ((v31 & 1) == 0)
           {
-            v33 = _log_1();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v32 = _log_1();
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v49 = v30;
-              v50 = 2112;
-              v51 = v15;
-              _os_log_error_impl(&dword_1CA1E7000, v33, OS_LOG_TYPE_ERROR, "Could not delete cached thumbnail at URL: %@. Error: %@.", buf, 0x16u);
+              v48 = v29;
+              v49 = 2112;
+              v50 = v15;
+              _os_log_error_impl(&dword_1CA1E7000, v32, OS_LOG_TYPE_ERROR, "Could not delete cached thumbnail at URL: %@. Error: %@.", buf, 0x16u);
             }
 
             v16 = 0;
           }
 
-          ++v25;
-          v26 = v15;
+          ++v24;
+          v25 = v15;
         }
 
-        while (v23 != v25);
-        v23 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+        while (v22 != v24);
+        v22 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
-      while (v23);
-      lCopy = v38;
-      itemCopy = v39;
+      while (v22);
+      lCopy = v37;
+      itemCopy = v38;
       error = errorCopy;
-      v10 = v37;
-      v20 = v35;
+      v10 = v36;
+      v19 = v34;
     }
 
     else
@@ -453,11 +427,11 @@ LABEL_11:
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v49 = itemCopy;
-      v50 = 2112;
-      v51 = lCopy;
-      v52 = 2112;
-      v53 = v15;
+      v48 = itemCopy;
+      v49 = 2112;
+      v50 = lCopy;
+      v51 = 2112;
+      v52 = v15;
       _os_log_error_impl(&dword_1CA1E7000, obj, OS_LOG_TYPE_ERROR, "_freeDiskSpaceToSaveThumbnailRepresentingFPItem (item: %@, url: %@) failed. Error: %@", buf, 0x20u);
     }
 
@@ -466,20 +440,19 @@ LABEL_11:
 
   if (error)
   {
-    v34 = v15;
+    v33 = v15;
     *error = v15;
   }
 
 LABEL_12:
 LABEL_13:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16 & 1;
 }
 
 - (BOOL)_updateDatabaseWithCachedThumbnailRepresentingFPItem:(id)item withFileAtURL:(id)l error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   lCopy = l;
   v10 = [(QLExternalThumbnailCache *)self db];
@@ -490,9 +463,9 @@ LABEL_13:
 
     date = [MEMORY[0x1E695DF00] date];
     pathExtension = [lCopy pathExtension];
-    v21 = 0;
-    v15 = [v10 insertOrReplaceThumbnailRepresentingFPItem:itemCopy size:longLongValue modificationDate:date fileExtension:pathExtension error:&v21];
-    v16 = v21;
+    v20 = 0;
+    v15 = [v10 insertOrReplaceThumbnailRepresentingFPItem:itemCopy size:longLongValue modificationDate:date fileExtension:pathExtension error:&v20];
+    v16 = v20;
 
     if ((v15 & 1) == 0)
     {
@@ -506,11 +479,11 @@ LABEL_13:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v23 = itemCopy;
-        v24 = 2112;
-        v25 = lCopy;
-        v26 = 2112;
-        v27 = v16;
+        v22 = itemCopy;
+        v23 = 2112;
+        v24 = lCopy;
+        v25 = 2112;
+        v26 = v16;
         _os_log_error_impl(&dword_1CA1E7000, v18, OS_LOG_TYPE_ERROR, "_updateDatabaseWithCachedThumbnailRepresentingFPItem (item: %@, url: %@) failed. Error: %@", buf, 0x20u);
       }
     }
@@ -532,13 +505,12 @@ LABEL_13:
     v15 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)_saveToDiskCachedThumbnailRepresentingFPItem:(id)item withFileAtURL:(id)l error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v9 = [(QLExternalThumbnailCache *)self _urlForThumbnailWithFPItem:item originalThumbnailURL:lCopy];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -547,9 +519,9 @@ LABEL_13:
 
   if (v12)
   {
-    v26 = 0;
-    v13 = [defaultManager removeItemAtURL:v9 error:&v26];
-    v14 = v26;
+    v25 = 0;
+    v13 = [defaultManager removeItemAtURL:v9 error:&v25];
+    v14 = v25;
     v15 = v14;
     if ((v13 & 1) == 0)
     {
@@ -579,9 +551,9 @@ LABEL_14:
 
   v18 = v15;
   defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-  v25 = v15;
-  v20 = [defaultManager2 moveItemAtURL:lCopy toURL:v9 error:&v25];
-  v15 = v25;
+  v24 = v15;
+  v20 = [defaultManager2 moveItemAtURL:lCopy toURL:v9 error:&v24];
+  v15 = v24;
 
   if ((v20 & 1) == 0)
   {
@@ -595,11 +567,11 @@ LABEL_14:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v28 = lCopy;
-      v29 = 2112;
-      v30 = v9;
-      v31 = 2112;
-      v32 = v15;
+      v27 = lCopy;
+      v28 = 2112;
+      v29 = v9;
+      v30 = 2112;
+      v31 = v15;
       _os_log_error_impl(&dword_1CA1E7000, v17, OS_LOG_TYPE_ERROR, "Could not save thumbnail at url: %@ to external cache url: %@. Error: %@", buf, 0x20u);
     }
 
@@ -609,7 +581,6 @@ LABEL_14:
   v21 = 1;
 LABEL_15:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -764,62 +735,62 @@ LABEL_9:
 
 void __61__QLExternalThumbnailCache_writeThumbnailImage_inInboxAtURL___block_invoke()
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v0 = CGImageDestinationCopyTypeIdentifiers();
   v1 = [*MEMORY[0x1E6982E00] identifier];
-  v31 = v1;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
+  v30 = v1;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
   v2 = getAVFileTypeAVCISymbolLoc_ptr;
-  v29 = getAVFileTypeAVCISymbolLoc_ptr;
+  v28 = getAVFileTypeAVCISymbolLoc_ptr;
   if (!getAVFileTypeAVCISymbolLoc_ptr)
   {
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __getAVFileTypeAVCISymbolLoc_block_invoke;
-    v24 = &unk_1E8369C70;
-    v25 = &v26;
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __getAVFileTypeAVCISymbolLoc_block_invoke;
+    v23 = &unk_1E8369C70;
+    v24 = &v25;
     v3 = AVFoundationLibrary();
-    v27[3] = dlsym(v3, "AVFileTypeAVCI");
-    getAVFileTypeAVCISymbolLoc_ptr = *(v25[1] + 24);
-    v2 = v27[3];
+    v26[3] = dlsym(v3, "AVFileTypeAVCI");
+    getAVFileTypeAVCISymbolLoc_ptr = *(v24[1] + 24);
+    v2 = v26[3];
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v25, 8);
   if (!v2)
   {
     +[QLThumbnailAddition preFPFSDownloadThumbnailAtTaggedURL:completionHandler:];
     __break(1u);
   }
 
-  v32 = *v2;
+  v31 = *v2;
   v4 = *MEMORY[0x1E6982E58];
-  v5 = v32;
+  v5 = v31;
   v6 = [v4 identifier];
-  v33 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:3];
+  v32 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:3];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v29 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        if ([(__CFArray *)v0 containsObject:v12, v17])
+        v12 = *(*(&v16 + 1) + 8 * i);
+        if ([(__CFArray *)v0 containsObject:v12, v16])
         {
           objc_storeStrong(&writeThumbnailImage_inInboxAtURL__encodingUTI, v12);
           v13 = [MEMORY[0x1E6982C40] typeWithIdentifier:writeThumbnailImage_inInboxAtURL__encodingUTI];
@@ -831,7 +802,7 @@ void __61__QLExternalThumbnailCache_writeThumbnailImage_inInboxAtURL___block_inv
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v30 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v29 count:16];
       if (v9)
       {
         continue;
@@ -847,8 +818,6 @@ LABEL_14:
   {
     __61__QLExternalThumbnailCache_writeThumbnailImage_inInboxAtURL___block_invoke_cold_1();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)writeThumbnailImageInInbox:(CGImage *)inbox
@@ -858,94 +827,6 @@ LABEL_14:
   v7 = [v5 writeThumbnailImage:inbox inInboxAtURL:inboxDirectoryURL];
 
   return v7;
-}
-
-- (void)thumbnailURLForItem:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Could not obtain path extension from DB for item: %@ because could not open DB.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)thumbnailURLForItem:error:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could not obtain path extension from DB for item: %@. Error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeAllThumbnails:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could not delete cached thumbnail at URL: %@. Error: %@.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeAllThumbnails:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Could not delete thumbnails from cache because did not obtain the URLs of the thumbnails returned nil. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_freeDiskSpaceToSaveThumbnailRepresentingFPItem:withFileAtURL:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "_freeDiskSpaceToSaveThumbnailRepresentingFPItem for item: %@ failed because could not open DB.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_freeDiskSpaceToSaveThumbnailRepresentingFPItem:withFileAtURL:error:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "_freeDiskSpaceToSaveThumbnailRepresentingFPItem for item: %@ failed because the thumbnails is too large to fit the maximum cache size.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_updateDatabaseWithCachedThumbnailRepresentingFPItem:withFileAtURL:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Can't save thumbnail at url: %@ for FPItem: %@ because could not open database.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_saveToDiskCachedThumbnailRepresentingFPItem:withFileAtURL:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could not remove existing thumbnail from external cache at url: %@. Error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createDirectoryWithURL:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could not create directory at url %@ to store thumbnails on the device (error %@).");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)inboxDirectoryURL
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "could not create inbox directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)writeThumbnailImage:inInboxAtURL:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Failed storing thumbnail as %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

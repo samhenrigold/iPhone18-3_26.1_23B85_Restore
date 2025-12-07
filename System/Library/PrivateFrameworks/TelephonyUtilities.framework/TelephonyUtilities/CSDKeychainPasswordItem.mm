@@ -15,14 +15,14 @@
 
 + (NSString)accessGroupName
 {
-  v2 = sub_100459A24(&qword_1006A0C30, &qword_1006BAA40);
+  v2 = sub_100459A24(&qword_1006A0C30, &qword_1006BAA40, sub_100459954);
 
   return v2;
 }
 
 + (NSString)serviceName
 {
-  v2 = sub_100459A24(&qword_1006A0C38, &qword_1006BAA48);
+  v2 = sub_100459A24(&qword_1006A0C38, &qword_1006BAA48, sub_1004599E0);
 
   return v2;
 }
@@ -65,9 +65,10 @@
 
 - (BOOL)savePassword:(id)password error:(id *)error
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
   selfCopy = self;
-  sub_10045A090();
+  sub_10045A090(v5, v7);
 
   return 1;
 }

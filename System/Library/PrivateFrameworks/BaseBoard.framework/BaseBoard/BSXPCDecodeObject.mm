@@ -3,7 +3,7 @@
 
 @implementation BSXPCDecodeObject
 
-BOOL ___BSXPCDecodeObject_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL ___BSXPCDecodeObject_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v13 = *MEMORY[0x1E69E9840];
   v6 = _BSXPCDecodeObjectFromContext(*(a1 + 32), a3, 0, *(a1 + 48), 0);

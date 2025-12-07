@@ -199,9 +199,9 @@
       [(PKWebService *)v13->_webService resetWebServiceSessionMarker];
       targetDevice = [(PKPaymentWebService *)v13->_webService targetDevice];
       deviceName = [targetDevice deviceName];
-      v20 = [deviceName isEqualToString:@"Apple Watch"];
+      isEqualToString = objc_msgSend_isEqualToString_(deviceName);
 
-      if (v20 && (PKRunningInPassd() & 1) == 0)
+      if (isEqualToString && (PKRunningInPassd() & 1) == 0)
       {
         v23 = [PKProvisioningUtility alloc];
         v24 = v13->_webService;
@@ -2051,7 +2051,7 @@ void __68__PKPaymentProvisioningController_preflightWithRequirements_update___bl
     v11 = [*(*(a1 + 32) + 368) targetDevice];
     v12 = [v11 deviceRegion];
 
-    if (*(*(a1 + 32) + 302) == 1 && ((v13 = v12, v13 == @"PR") || (v14 = v13) != 0 && (v15 = [(__CFString *)v13 isEqualToString:@"PR"], v14, v15)))
+    if (*(*(a1 + 32) + 302) == 1 && ((v13 = v12, v13 == @"PR") || (v14 = v13) != 0 && (isEqualToString = objc_msgSend_isEqualToString_(v13), v14, isEqualToString)))
     {
       v16 = PKIsPhone() ^ 1;
     }
@@ -2103,7 +2103,7 @@ LABEL_20:
 LABEL_21:
 }
 
-uint64_t __68__PKPaymentProvisioningController_preflightWithRequirements_update___block_invoke_3_275(uint64_t a1)
+void *__68__PKPaymentProvisioningController_preflightWithRequirements_update___block_invoke_3_275(uint64_t a1)
 {
   [*(*(a1 + 40) + 216) removeAllObjects];
   v2 = PKLogFacilityTypeGetObject(0x24uLL);
@@ -2421,7 +2421,7 @@ void __61__PKPaymentProvisioningController_retrieveRemoteCredentials___block_inv
   if (!v2)
   {
     v1 = [*(a1 + 32) domain];
-    if ([v1 isEqualToString:*MEMORY[0x1E696A978]])
+    if (objc_msgSend_isEqualToString_(v1))
     {
 
       v3 = v27;
@@ -2441,7 +2441,7 @@ LABEL_9:
   }
 
   v4 = [*(a1 + 32) domain];
-  if ([v4 isEqualToString:@"PKWebServiceErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v4))
   {
     v3 = v27;
     v5 = [*(v27 + 32) code];
@@ -3800,10 +3800,10 @@ void __67__PKPaymentProvisioningController_retrieveAllAvailableCredentials___blo
     v14[2] = __67__PKPaymentProvisioningController_retrieveAllAvailableCredentials___block_invoke_346;
     v14[3] = &unk_1E79D6AC8;
     v14[4] = v6;
-    *v12 = *(a1 + 40);
-    v7 = v12[0];
+    v12 = *(a1 + 40);
+    v7 = v12;
     v8 = *(a1 + 56);
-    v15 = *v12;
+    v15 = v12;
     v16 = v8;
     [v6 _retrieveFPANCredentialsWithCompletion:v14];
   }
@@ -4331,10 +4331,10 @@ LABEL_19:
           }
 
           v14 = [v1 productIdentifier];
-          v15 = [v14 isEqualToString:v53];
+          isEqualToString = objc_msgSend_isEqualToString_(v14);
 
           v3 = v56;
-          if (v15)
+          if (isEqualToString)
           {
             goto LABEL_19;
           }
@@ -4358,7 +4358,7 @@ LABEL_20:
   if (!v18)
   {
     v1 = [*(v51 + 48) domain];
-    if ([v1 isEqualToString:*MEMORY[0x1E696A978]])
+    if (objc_msgSend_isEqualToString_(v1))
     {
 
 LABEL_33:
@@ -4399,7 +4399,7 @@ LABEL_33:
   }
 
   v19 = [*(v51 + 48) domain];
-  if ([v19 isEqualToString:@"PKWebServiceErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v19))
   {
     v20 = [*(v51 + 48) code];
 
@@ -6477,7 +6477,7 @@ id __87__PKPaymentProvisioningController_updatePaymentSetupProductModelWithCompl
   dispatch_resume(v38[5]);
   if (!self->_identityProofingManager)
   {
-    v17 = [objc_alloc(getCIDVUIProofingFlowManagerClass[0]()) initWithDelegate:self];
+    v17 = [objc_alloc(getCIDVUIProofingFlowManagerClass()) initWithDelegate:self];
     identityProofingManager = self->_identityProofingManager;
     self->_identityProofingManager = v17;
   }
@@ -7037,7 +7037,7 @@ void __86__PKPaymentProvisioningController_provisioningExtensionProductsWithComp
   v3 = objc_alloc_init(PKAsyncUnaryOperationComposer);
   v4 = [*(*(a1 + 32) + 368) targetDevice];
   v5 = [v4 deviceName];
-  v6 = [v5 isEqualToString:@"Apple Watch"];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
   v22 = 0u;
   v23 = 0u;
@@ -7065,7 +7065,7 @@ void __86__PKPaymentProvisioningController_provisioningExtensionProductsWithComp
         v18[2] = __86__PKPaymentProvisioningController_provisioningExtensionProductsWithCompletionHandler___block_invoke_2;
         v18[3] = &unk_1E79D70A8;
         v18[4] = v12;
-        v19 = v6;
+        v19 = isEqualToString;
         [(PKAsyncUnaryOperationComposer *)v3 addOperation:v18];
         ++v11;
       }
@@ -7656,9 +7656,9 @@ void __80__PKPaymentProvisioningController_requestPurchasesForProduct_completion
 
                   v20 = [*(*(&v32 + 1) + 8 * i) purchase];
                   v21 = [v20 identifier];
-                  v22 = [v21 isEqualToString:v14];
+                  isEqualToString = objc_msgSend_isEqualToString_(v21);
 
-                  if (v22)
+                  if (isEqualToString)
                   {
 
                     v24 = PKLogFacilityTypeGetObject(7uLL);
@@ -7934,9 +7934,9 @@ void __102__PKPaymentProvisioningController_setupProductForProvisioning_includeP
   {
     v8 = [*(*(a1 + 32) + 368) targetDevice];
     v9 = [v8 deviceName];
-    v10 = [v9 isEqualToString:@"Apple Watch"];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if (v10)
+    if (isEqualToString)
     {
       v24[0] = MEMORY[0x1E69E9820];
       v24[1] = 3221225472;
@@ -8731,7 +8731,7 @@ void __85__PKPaymentProvisioningController__setupAccountCredentialForProvisionin
 
                 v14 = *(*(&v23 + 1) + 8 * j);
                 identifier = [v14 identifier];
-                if (([identifier isEqualToString:@"creditDebit"] & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", @"appExtensions") & 1) == 0)
+                if ((objc_msgSend_isEqualToString_(identifier) & 1) == 0 && (objc_msgSend_isEqualToString_(identifier) & 1) == 0)
                 {
                   [v8 addObject:v14];
                 }
@@ -9611,7 +9611,7 @@ void __111__PKPaymentProvisioningController_resolveLocalEligibilityRequirementsF
   v11 = [*(*(a1 + 32) + 368) targetDevice];
   v12 = [v11 deviceRegion];
 
-  if (([v12 isEqualToString:v10] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
   {
     v13 = PKLogFacilityTypeGetObject(0xFuLL);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -10497,17 +10497,17 @@ void __78__PKPaymentProvisioningController__requestProvisioning_withCompletionHa
   v2 = [*(*(a1 + 32) + 368) targetDevice];
   v3 = [v2 deviceName];
 
-  if ([v3 isEqualToString:@"iPhone"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"PROGRESS_DOWNLOADING_CARD_IPHONE";
   }
 
-  else if ([v3 isEqualToString:@"Apple Watch"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"PROGRESS_DOWNLOADING_CARD_WATCH";
   }
 
-  else if ([v3 isEqualToString:@"iPad"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"PROGRESS_DOWNLOADING_CARD_IPAD";
   }
@@ -10602,7 +10602,7 @@ void __78__PKPaymentProvisioningController__requestProvisioning_withCompletionHa
 
   [*(a1 + 32) _handleProvisioningError:v7 forRequest:*(a1 + 40) pass:v9];
   v11 = [v7 domain];
-  LODWORD(v10) = [v11 isEqualToString:@"PKPaymentWebServiceErrorDomain"];
+  LODWORD(v10) = objc_msgSend_isEqualToString_(v11);
 
   if (v10 && [v7 code] == 40400)
   {
@@ -11134,10 +11134,10 @@ void __80__PKPaymentProvisioningController_provisionHomeKeyCredential_completion
       if (v11)
       {
         v16 = [*(a1 + 48) deviceName];
-        v17 = [v16 isEqualToString:@"Apple Watch"];
+        isEqualToString = objc_msgSend_isEqualToString_(v16);
 
         v18 = [v11 localizedDescription];
-        v19 = PKPaymentSetupMoreInfoItemDictionaryForHomeExpress(v18, v17);
+        v19 = PKPaymentSetupMoreInfoItemDictionaryForHomeExpress(v18, isEqualToString);
 
         v20 = [[PKPaymentSetupMoreInfoItem alloc] initWithMoreInfoDictionary:v19];
         v28 = v20;
@@ -11571,11 +11571,11 @@ void __96__PKPaymentProvisioningController__loadMoreInfoItemForMarket_eligibleMa
   v4 = a2;
   v5 = [v3 targetDevice];
   v6 = [v5 deviceName];
-  v7 = [v6 isEqualToString:@"Apple Watch"];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
   v8 = *(a1 + 48);
   v9 = [PKPaymentSetupMoreInfoItem alloc];
-  v11 = PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket(v4, v7, [*(a1 + 40) expressUpgradeHideDisableAction] == 1, 0, 0);
+  v11 = PKPaymentSetupMoreInfoItemDictionaryForExpressUpgradeMarket(v4, isEqualToString, [*(a1 + 40) expressUpgradeHideDisableAction] == 1, 0, 0);
 
   v10 = [(PKPaymentSetupMoreInfoItem *)v9 initWithMoreInfoDictionary:v11];
   (*(v8 + 16))(v8, v10);
@@ -11895,9 +11895,9 @@ uint64_t __77__PKPaymentProvisioningController_associatedCredentialsForProductId
 {
   v2 = *(a1 + 32);
   v3 = [a2 setupProductIdentifier];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)isPasscodeUpgradeRequired
@@ -12255,9 +12255,9 @@ LABEL_17:
 
 + (id)watchWebServiceForIssuerProvisioning
 {
-  if (PKIsPairedWithWatch() && (v2 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2[0]()), v3 = [v2 isIssuerAppProvisioningSupported], v2, v3))
+  if (PKIsPairedWithWatch() && (v2 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2()), v3 = [v2 isIssuerAppProvisioningSupported], v2, v3))
   {
-    v4 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2[0]());
+    v4 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2());
     watchPaymentWebService = [v4 watchPaymentWebService];
   }
 
@@ -12279,7 +12279,7 @@ LABEL_17:
 
   if ([paymentPass isRemotePass])
   {
-    v10 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2[0]());
+    v10 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2());
     watchPaymentWebService = [v10 watchPaymentWebService];
     targetDevice = [watchPaymentWebService targetDevice];
   }
@@ -12363,7 +12363,7 @@ uint64_t __91__PKPaymentProvisioningController_cleanupTransferredCredentialFromS
 {
   if ([credential isAppleBalanceCredential] && PKIsPairedWithWatch())
   {
-    v3 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2[0]());
+    v3 = objc_alloc_init(getNPKCompanionAgentConnectionClass_2());
     [v3 provisionPassForRemoteCredentialWithType:135 andIdentifier:0 completion:&__block_literal_global_705_0];
   }
 }
@@ -12749,16 +12749,16 @@ void __130__PKPaymentProvisioningController_handleOptionalExpressModeSetupDidFin
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v5 = [domain isEqualToString:*MEMORY[0x1E696A978]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = PKDisplayableErrorForCommonType(2, errorCopy);
     goto LABEL_14;
   }
 
   domain2 = [errorCopy domain];
-  v8 = [domain2 isEqualToString:@"PKWebServiceErrorDomain"];
+  v8 = objc_msgSend_isEqualToString_(domain2);
 
   if (v8)
   {
@@ -12789,7 +12789,7 @@ LABEL_10:
   else
   {
     domain3 = [errorCopy domain];
-    v14 = [domain3 isEqualToString:@"PKPaymentWebServiceErrorDomain"];
+    v14 = objc_msgSend_isEqualToString_(domain3);
 
     if (v14)
     {
@@ -12817,9 +12817,9 @@ LABEL_14:
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v6 = [domain isEqualToString:@"PKDisplayableError"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = errorCopy;
   }
@@ -12845,9 +12845,9 @@ LABEL_6:
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v6 = [domain isEqualToString:@"PKDisplayableError"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = errorCopy;
 LABEL_10:
@@ -12858,7 +12858,7 @@ LABEL_10:
   if (errorCopy)
   {
     domain2 = [errorCopy domain];
-    if ([domain2 isEqualToString:@"PKWebServiceErrorDomain"])
+    if (objc_msgSend_isEqualToString_(domain2))
     {
       code = [errorCopy code];
 
@@ -12930,11 +12930,11 @@ uint64_t __48__PKPaymentProvisioningController_accountAdded___block_invoke(uint6
   [(PKPaymentProvisioningController *)self updatePaymentSetupProductModelWithCompletionHandler:v5];
 }
 
-uint64_t __55__PKPaymentProvisioningController__reloadSetupProducts__block_invoke(uint64_t result, int a2)
+id *__55__PKPaymentProvisioningController__reloadSetupProducts__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _informDelegatesOfAccountsUpdated];
+    return [result[4] _informDelegatesOfAccountsUpdated];
   }
 
   return result;
@@ -13010,9 +13010,9 @@ void __59__PKPaymentProvisioningController_featureApplicationAdded___block_invok
 
                 v16 = [*(*(&v24 + 1) + 8 * i) applicationIdentifier];
                 v17 = [*(a1 + 40) applicationIdentifier];
-                v18 = [v16 isEqualToString:v17];
+                isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-                if (v18)
+                if (isEqualToString)
                 {
                   v19 = v11;
                   goto LABEL_17;
@@ -13120,9 +13120,9 @@ void __61__PKPaymentProvisioningController_featureApplicationRemoved___block_inv
                 v16 = *(*(&v26 + 1) + 8 * i);
                 v17 = [v16 applicationIdentifier];
                 v18 = [*(a1 + 40) applicationIdentifier];
-                v19 = [v17 isEqualToString:v18];
+                isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-                if ((v19 & 1) == 0)
+                if ((isEqualToString & 1) == 0)
                 {
                   [v10 addObject:v16];
                 }
@@ -13231,9 +13231,9 @@ void __61__PKPaymentProvisioningController_featureApplicationChanged___block_inv
                 v16 = *(*(&v26 + 1) + 8 * i);
                 v17 = [v16 applicationIdentifier];
                 v18 = [*(a1 + 40) applicationIdentifier];
-                v19 = [v17 isEqualToString:v18];
+                isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-                if (v19)
+                if (isEqualToString)
                 {
                   v16 = *(a1 + 40);
                 }

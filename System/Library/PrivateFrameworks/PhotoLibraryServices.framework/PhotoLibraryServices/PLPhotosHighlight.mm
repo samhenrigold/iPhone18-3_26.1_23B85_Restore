@@ -543,7 +543,7 @@ LABEL_9:
   v22[2] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DFA0]);
   v6 = [(PLPhotosHighlight *)self _extendedAssetsForSharingConsideration:consideration];
-  if ([v6 count] >= 4)
+  if (objc_msgSend_count(v6) >= 4)
   {
     v7 = [(PLPhotosHighlight *)self _keyAssetForSharingConsideration:consideration];
     if (v7)
@@ -562,7 +562,7 @@ LABEL_9:
     v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
     v12 = [v6 sortedArrayUsingDescriptors:v11];
 
-    v13 = [v12 count];
+    v13 = objc_msgSend_count(v12);
     if (v13)
     {
       v14 = v13;
@@ -827,7 +827,7 @@ LABEL_5:
     else
     {
       v12 = [(PLPhotosHighlight *)self objectIDsForRelationshipNamed:collectionKeyCopy];
-      v11 = [v12 count];
+      v11 = objc_msgSend_count(v12);
     }
 
     if (PLIsAssetsd())
@@ -880,7 +880,7 @@ void __73__PLPhotosHighlight__cachedAssetCountForCountKey_collectionKey_isShared
   changeCopy = change;
   keyCopy = key;
   highlightContainerChanges = [changeCopy highlightContainerChanges];
-  v10 = [highlightContainerChanges count];
+  v10 = objc_msgSend_count(highlightContainerChanges);
 
   if (v10)
   {
@@ -1079,7 +1079,7 @@ LABEL_39:
     [PLManagedObject pl_safeSetValue:"pl_safeSetValue:forKey:valueDidChangeHandler:" forKey:v31 valueDidChangeHandler:?];
 
 LABEL_40:
-    if (([keyCopy isEqualToString:@"assetsCount"] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"dayGroupAssetsCount"))
+    if ((objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || objc_msgSend_isEqualToString_(keyCopy))
     {
       v45 = [objc_opt_class() calculateSharingCompositionForPhotosHighlight:self];
       v46 = [MEMORY[0x1E696AD98] numberWithShort:v45];
@@ -1146,32 +1146,32 @@ uint64_t __86__PLPhotosHighlight_reportSharedAssetContainerIncrementalChange_for
   parentDayGroupPhotosHighlight = [(PLPhotosHighlight *)selfCopy parentDayGroupPhotosHighlight];
   v5 = MEMORY[0x1E696AD98];
   v6 = [(PLPhotosHighlight *)selfCopy objectIDsForRelationshipNamed:@"assets"];
-  v7 = [v5 numberWithInt:{objc_msgSend(v6, "count")}];
+  v7 = [v5 numberWithInt:objc_msgSend_count(v6)];
   [(PLManagedObject *)selfCopy pl_safeSetValue:v7 forKey:@"assetsCount" valueDidChangeHandler:0];
 
   v8 = MEMORY[0x1E696AD98];
   v9 = [(PLPhotosHighlight *)selfCopy objectIDsForRelationshipNamed:@"dayGroupAssets"];
-  v10 = [v8 numberWithInt:{objc_msgSend(v9, "count")}];
+  v10 = [v8 numberWithInt:objc_msgSend_count(v9)];
   [(PLManagedObject *)selfCopy pl_safeSetValue:v10 forKey:@"dayGroupAssetsCount" valueDidChangeHandler:0];
 
   v11 = MEMORY[0x1E696AD98];
   v12 = [(PLPhotosHighlight *)selfCopy objectIDsForRelationshipNamed:@"dayGroupExtendedAssets"];
-  v13 = [v11 numberWithInt:{objc_msgSend(v12, "count")}];
+  v13 = [v11 numberWithInt:objc_msgSend_count(v12)];
   [(PLManagedObject *)selfCopy pl_safeSetValue:v13 forKey:@"dayGroupExtendedAssetsCount" valueDidChangeHandler:0];
 
   v14 = MEMORY[0x1E696AD98];
   v15 = [(PLPhotosHighlight *)selfCopy objectIDsForRelationshipNamed:@"dayGroupSummaryAssets"];
-  v16 = [v14 numberWithInt:{objc_msgSend(v15, "count")}];
+  v16 = [v14 numberWithInt:objc_msgSend_count(v15)];
   [(PLManagedObject *)selfCopy pl_safeSetValue:v16 forKey:@"dayGroupSummaryAssetsCount" valueDidChangeHandler:0];
 
   v17 = MEMORY[0x1E696AD98];
   v18 = [(PLPhotosHighlight *)selfCopy objectIDsForRelationshipNamed:@"extendedAssets"];
-  v19 = [v17 numberWithInt:{objc_msgSend(v18, "count")}];
+  v19 = [v17 numberWithInt:objc_msgSend_count(v18)];
   [(PLManagedObject *)selfCopy pl_safeSetValue:v19 forKey:@"extendedCount" valueDidChangeHandler:0];
 
   v20 = MEMORY[0x1E696AD98];
   v21 = [(PLPhotosHighlight *)selfCopy objectIDsForRelationshipNamed:@"summaryAssets"];
-  v22 = [v20 numberWithInt:{objc_msgSend(v21, "count")}];
+  v22 = [v20 numberWithInt:objc_msgSend_count(v21)];
   [(PLManagedObject *)selfCopy pl_safeSetValue:v22 forKey:@"summaryCount" valueDidChangeHandler:0];
 
   if ([(PLPhotosHighlight *)selfCopy kind])
@@ -1847,7 +1847,7 @@ LABEL_63:
       [(PLDescriptionBuilder *)v3 appendName:@"key asset shared id" object:localID4];
 
       dayGroupAssets = [(PLPhotosHighlight *)self dayGroupAssets];
-      -[PLDescriptionBuilder appendName:unsignedIntegerValue:](v3, "appendName:unsignedIntegerValue:", @"assets count", [dayGroupAssets count]);
+      [(PLDescriptionBuilder *)v3 appendName:@"assets count" unsignedIntegerValue:objc_msgSend_count(dayGroupAssets)];
 
       if ([(PLPhotosHighlight *)self dayGroupAssetsCountShared]> 0)
       {
@@ -1857,7 +1857,7 @@ LABEL_63:
       v77 = dayGroupKeyAssetPrivate;
       v79 = localStartDate;
       dayGroupSummaryAssets = [(PLPhotosHighlight *)self dayGroupSummaryAssets];
-      -[PLDescriptionBuilder appendName:unsignedIntegerValue:](v3, "appendName:unsignedIntegerValue:", @"summary count", [dayGroupSummaryAssets count]);
+      [(PLDescriptionBuilder *)v3 appendName:@"summary count" unsignedIntegerValue:objc_msgSend_count(dayGroupSummaryAssets)];
 
       if ([(PLPhotosHighlight *)self dayGroupSummaryAssetsCountShared]>= 1)
       {
@@ -1867,7 +1867,7 @@ LABEL_63:
       v49 = endDate;
       v50 = startDate;
       dayGroupExtendedAssets = [(PLPhotosHighlight *)self dayGroupExtendedAssets];
-      -[PLDescriptionBuilder appendName:unsignedIntegerValue:](v3, "appendName:unsignedIntegerValue:", @"extended count", [dayGroupExtendedAssets count]);
+      [(PLDescriptionBuilder *)v3 appendName:@"extended count" unsignedIntegerValue:objc_msgSend_count(dayGroupExtendedAssets)];
 
       if ([(PLPhotosHighlight *)self dayGroupExtendedAssetsCountShared]>= 1)
       {
@@ -1901,7 +1901,7 @@ LABEL_63:
       [(PLDescriptionBuilder *)v3 appendName:@"key asset shared id" object:localID6];
 
       assets = [(PLPhotosHighlight *)self assets];
-      -[PLDescriptionBuilder appendName:unsignedIntegerValue:](v3, "appendName:unsignedIntegerValue:", @"assets count", [assets count]);
+      [(PLDescriptionBuilder *)v3 appendName:@"assets count" unsignedIntegerValue:objc_msgSend_count(assets)];
 
       if ([(PLPhotosHighlight *)self assetsCountShared]> 0)
       {
@@ -1909,7 +1909,7 @@ LABEL_63:
       }
 
       summaryAssets = [(PLPhotosHighlight *)self summaryAssets];
-      -[PLDescriptionBuilder appendName:unsignedIntegerValue:](v3, "appendName:unsignedIntegerValue:", @"summary count", [summaryAssets count]);
+      [(PLDescriptionBuilder *)v3 appendName:@"summary count" unsignedIntegerValue:objc_msgSend_count(summaryAssets)];
 
       if ([(PLPhotosHighlight *)self summaryCountShared]>= 1)
       {
@@ -1917,7 +1917,7 @@ LABEL_63:
       }
 
       extendedAssets = [(PLPhotosHighlight *)self extendedAssets];
-      -[PLDescriptionBuilder appendName:unsignedIntegerValue:](v3, "appendName:unsignedIntegerValue:", @"extended count", [extendedAssets count]);
+      [(PLDescriptionBuilder *)v3 appendName:@"extended count" unsignedIntegerValue:objc_msgSend_count(extendedAssets)];
 
       if ([(PLPhotosHighlight *)self extendedCountShared]>= 1)
       {
@@ -1925,7 +1925,7 @@ LABEL_63:
       }
 
       childDayGroupPhotosHighlights = [(PLPhotosHighlight *)self moments];
-      -[PLDescriptionBuilder appendName:unsignedIntegerValue:](v3, "appendName:unsignedIntegerValue:", @"moments count", [childDayGroupPhotosHighlights count]);
+      [(PLDescriptionBuilder *)v3 appendName:@"moments count" unsignedIntegerValue:objc_msgSend_count(childDayGroupPhotosHighlights)];
       goto LABEL_61;
     }
 
@@ -2901,7 +2901,7 @@ LABEL_10:
   [v9 setPropertiesToFetch:v10];
 
   [v9 setIncludesPendingChanges:0];
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v9 setFetchBatchSize:100];
   }
@@ -2909,7 +2909,7 @@ LABEL_10:
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", dsCopy];
   [v9 setPredicate:dsCopy];
 
-  [v9 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+  [v9 setFetchLimit:objc_msgSend_count(dsCopy)];
   v12 = [contextCopy executeFetchRequest:v9 error:error];
 
   return v12;
@@ -2924,7 +2924,7 @@ LABEL_10:
   [v8 setPropertiesToFetch:propertiesToFetch];
 
   [v8 setIncludesPendingChanges:0];
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v8 setFetchBatchSize:100];
   }
@@ -2932,7 +2932,7 @@ LABEL_10:
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid IN %@", dsCopy];
   [v8 setPredicate:dsCopy];
 
-  [v8 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+  [v8 setFetchLimit:objc_msgSend_count(dsCopy)];
   v15 = 0;
   v11 = [contextCopy executeFetchRequest:v8 error:&v15];
 

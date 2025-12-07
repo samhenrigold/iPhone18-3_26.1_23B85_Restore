@@ -146,15 +146,21 @@ LABEL_6:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -165,15 +171,13 @@ LABEL_6:
     v14 = objc_opt_class();
     v15 = 2048;
     Current = CFAbsoluteTimeGetCurrent();
-    LODWORD(v12) = 22;
-    v11 = &v13;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Did finish launching: [%.2f]", &v13, 22);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v13, v12}];
-      free(v9);
-      v11 = v10;
+      v10 = v9;
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+      free(v10);
+      v12 = v11;
       SSFileLog();
     }
   }

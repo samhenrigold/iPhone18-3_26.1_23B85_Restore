@@ -12,7 +12,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29E1C7B48();
+  sub_29E1C7B48(selfCopy, v2);
 }
 
 - (void)cancelButtonTapped:(id)tapped

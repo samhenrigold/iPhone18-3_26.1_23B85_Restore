@@ -151,7 +151,7 @@ uint64_t __79__PKAutomaticPassPresentationSuppressor_requestSuppressionWithRespo
   dispatch_async(suppressorQueue, block);
 }
 
-uint64_t __72__PKAutomaticPassPresentationSuppressor_endSuppressionWithRequestToken___block_invoke(uint64_t a1)
+void *__72__PKAutomaticPassPresentationSuppressor_endSuppressionWithRequestToken___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) removeIndex:*(a1 + 40)];
   result = [*(*(a1 + 32) + 16) count];
@@ -300,7 +300,7 @@ LABEL_11:
   }
 }
 
-uint64_t __92__PKAutomaticPassPresentationSuppressor__acquireSuppressionAssertionIfNeededWithCompletion___block_invoke(uint64_t a1, int a2)
+uint64_t (**__92__PKAutomaticPassPresentationSuppressor__acquireSuppressionAssertionIfNeededWithCompletion___block_invoke(uint64_t a1, int a2))(void *, uint64_t)
 {
   if (!a2)
   {
@@ -310,7 +310,7 @@ uint64_t __92__PKAutomaticPassPresentationSuppressor__acquireSuppressionAssertio
   result = *(a1 + 40);
   if (result)
   {
-    return (*(result + 16))(result, 4);
+    return result[2](result, 4);
   }
 
   return result;

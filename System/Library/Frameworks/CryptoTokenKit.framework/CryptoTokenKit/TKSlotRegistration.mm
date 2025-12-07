@@ -42,30 +42,32 @@
   nameCopy = name;
   typeCopy = type;
   replyCopy = reply;
+  v15 = replyCopy;
   if (!self->_endpoint)
   {
     WeakRetained = objc_loadWeakRetained(&self->_connection);
-    v16 = [WeakRetained valueForEntitlement:@"com.apple.private.ctk.slot-type"];
+    v17 = [WeakRetained valueForEntitlement:@"com.apple.private.ctk.slot-type"];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v16 isEqualToString:typeCopy])
+      isKindOfClass = [v17 isEqualToString:typeCopy];
+      if (isKindOfClass)
       {
 LABEL_22:
         objc_storeStrong(&self->_slotType, type);
         objc_storeStrong(&self->_endpoint, endpoint);
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = sub_10000EE54;
-        v29[3] = &unk_100038710;
-        v29[4] = self;
-        v25 = objc_loadWeakRetained(&self->_connection);
-        [v25 setInvalidationHandler:v29];
+        v31[0] = _NSConcreteStackBlock;
+        v31[1] = 3221225472;
+        v31[2] = sub_10000EE54;
+        v31[3] = &unk_100038710;
+        v31[4] = self;
+        v27 = objc_loadWeakRetained(&self->_connection);
+        [v27 setInvalidationHandler:v31];
 
         [(TKSlotServer *)self->_server addSlotRegistration:self name:nameCopy];
         slotName = [(TKSlotRegistration *)self slotName];
-        replyCopy[2](replyCopy, slotName);
+        (v15)[2](v15, slotName);
 LABEL_23:
 
         goto LABEL_24;
@@ -75,46 +77,47 @@ LABEL_23:
     else
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v26 = replyCopy;
-        v27 = nameCopy;
-        v28 = endpointCopy;
+        v28 = v15;
+        v29 = nameCopy;
+        v30 = endpointCopy;
+        v34 = 0u;
+        v35 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v18 = v16;
-        v19 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
-        if (v19)
+        v20 = v17;
+        v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        if (v21)
         {
-          v20 = v19;
-          v21 = *v31;
+          v22 = v21;
+          v23 = *v33;
           while (2)
           {
-            v22 = 0;
+            v24 = 0;
             do
             {
-              if (*v31 != v21)
+              if (*v33 != v23)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v20);
               }
 
-              if ([typeCopy isEqualToString:{*(*(&v30 + 1) + 8 * v22), v26, v27, v28}])
+              if ([typeCopy isEqualToString:{*(*(&v32 + 1) + 8 * v24), v28, v29, v30}])
               {
 
-                nameCopy = v27;
-                endpointCopy = v28;
-                replyCopy = v26;
+                nameCopy = v29;
+                endpointCopy = v30;
+                v15 = v28;
                 goto LABEL_22;
               }
 
-              v22 = v22 + 1;
+              v24 = v24 + 1;
             }
 
-            while (v20 != v22);
-            v20 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
-            if (v20)
+            while (v22 != v24);
+            v22 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            if (v22)
             {
               continue;
             }
@@ -123,14 +126,14 @@ LABEL_23:
           }
         }
 
-        nameCopy = v27;
-        endpointCopy = v28;
-        replyCopy = v26;
+        nameCopy = v29;
+        endpointCopy = v30;
+        v15 = v28;
       }
     }
 
-    v23 = sub_10000EE10();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = sub_10000EE10(isKindOfClass);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_10001F524(&self->_connection);
     }
@@ -140,14 +143,14 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v15 = sub_10000EE10();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_10000EE10(replyCopy);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    sub_10001F4AC(self);
+    sub_10001F4AC();
   }
 
-  v16 = objc_loadWeakRetained(&self->_connection);
-  [v16 invalidate];
+  v17 = objc_loadWeakRetained(&self->_connection);
+  [v17 invalidate];
 LABEL_24:
 }
 

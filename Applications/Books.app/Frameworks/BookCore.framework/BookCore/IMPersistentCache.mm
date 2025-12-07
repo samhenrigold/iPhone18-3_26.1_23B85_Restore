@@ -41,9 +41,9 @@
 - (IMPersistentCache)initWithPath:(id)path maxSize:(unint64_t)size
 {
   pathCopy = path;
-  v43.receiver = self;
-  v43.super_class = IMPersistentCache;
-  v7 = [(IMPersistentCache *)&v43 init];
+  v44.receiver = self;
+  v44.super_class = IMPersistentCache;
+  v7 = [(IMPersistentCache *)&v44 init];
   v8 = v7;
   if (!v7)
   {
@@ -114,52 +114,51 @@ LABEL_6:
     v29 = v8->_db;
     v8->_db = v28;
 
-    [(IMPersistentCache *)v8 _createStorageForDb:v8->_db];
-    v30 = BCIMLog();
+    v30 = BCIMLog([(IMPersistentCache *)v8 _createStorageForDb:v8->_db]);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v45 = "[IMPersistentCache initWithPath:maxSize:]";
-      v46 = 2080;
-      v47 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Cache/BCPersistentCache.m";
-      v48 = 1024;
-      v49 = 113;
+      v46 = "[IMPersistentCache initWithPath:maxSize:]";
+      v47 = 2080;
+      v48 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Cache/BCPersistentCache.m";
+      v49 = 1024;
+      v50 = 113;
       _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
     }
 
-    v31 = BCIMLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v32 = BCIMLog(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "@Could not create cache structure, reinitialized backing store", buf, 2u);
+      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "@Could not create cache structure, reinitialized backing store", buf, 2u);
     }
   }
 
   v8->_cacheSize = [(IMPersistentCache *)v8 _loadCacheSize];
-  v32 = objc_opt_new();
+  v33 = objc_opt_new();
   unknownKeys = v8->_unknownKeys;
-  v8->_unknownKeys = v32;
+  v8->_unknownKeys = v33;
 
   v8->_accessedIdsLock._os_unfair_lock_opaque = 0;
   v8->_unknownKeysLock._os_unfair_lock_opaque = 0;
   v8->_cacheSizeLock._os_unfair_lock_opaque = 0;
-  v34 = v8->_adminTable;
-  v35 = +[NSDate date];
-  [(IMAdminTable *)v34 setLastAccessDate:v35];
+  v35 = v8->_adminTable;
+  v36 = +[NSDate date];
+  [(IMAdminTable *)v35 setLastAccessDate:v36];
 
   if (size)
   {
-    v36 = [NSTimer alloc];
-    v37 = [NSDate dateWithTimeIntervalSinceNow:2.0];
-    v38 = [v36 initWithFireDate:v37 interval:v8 target:"_updateCaches:" selector:0 userInfo:1 repeats:300.0];
+    v37 = [NSTimer alloc];
+    v38 = [NSDate dateWithTimeIntervalSinceNow:2.0];
+    v39 = [v37 initWithFireDate:v38 interval:v8 target:"_updateCaches:" selector:0 userInfo:1 repeats:300.0];
     scanTimer = v8->_scanTimer;
-    v8->_scanTimer = v38;
+    v8->_scanTimer = v39;
 
-    v40 = +[NSRunLoop currentRunLoop];
-    [v40 addTimer:v8->_scanTimer forMode:NSDefaultRunLoopMode];
+    v41 = +[NSRunLoop currentRunLoop];
+    [v41 addTimer:v8->_scanTimer forMode:NSDefaultRunLoopMode];
   }
 
-  v41 = v8;
+  v42 = v8;
 
 LABEL_18:
   return v8;

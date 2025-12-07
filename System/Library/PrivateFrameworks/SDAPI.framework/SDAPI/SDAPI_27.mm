@@ -38,40 +38,39 @@ uint64_t *PredStruct::getBestPredWithTrace(unsigned __int16 *a1, _DWORD *a2, uin
     v14 = *(v12 + 4);
     do
     {
-      v15 = *(*v11 + 4);
-      v16 = *(*v11 + 8) - v13;
-      if (v16 < 0)
+      v15 = *(*v11 + 8) - v13;
+      if (v15 < 0)
       {
-        v16 = v13 - *(*v11 + 8);
+        v15 = v13 - *(*v11 + 8);
         v7 = *v11;
         v13 = *(*v11 + 8);
-        v17 = *(*v11 + 4);
+        v16 = *(*v11 + 4);
       }
 
       else
       {
         v7 = v10;
-        v17 = v14;
+        v16 = v14;
         v10 = *v11;
         LODWORD(v14) = *(*v11 + 4);
       }
 
-      if (v16 + v13 <= a4)
+      if (v15 + v13 <= a4)
       {
-        v18 = *v10;
-        v23 = 0;
-        v19 = DgnIdFactory<NetNBestTraceNoTime<unsigned int>,1024u>::createRawData(a3, &v23);
-        v20 = v23;
-        *(v23 + 4) = v17;
-        *(v20 + 8) = v14;
-        *v20 = v18;
-        *(v20 + 12) = v16;
-        v14 = v19;
+        v17 = *v10;
+        v22 = 0;
+        v18 = DgnIdFactory<NetNBestTraceNoTime<unsigned int>,1024u>::createRawData(a3, &v22);
+        v19 = v22;
+        *(v22 + 4) = v16;
+        *(v19 + 8) = v14;
+        *v19 = v17;
+        *(v19 + 12) = v15;
+        v14 = v18;
       }
 
       else
       {
-        v14 = v17;
+        v14 = v16;
       }
 
       ++v11;
@@ -103,10 +102,11 @@ void TraceNode::~TraceNode(TraceNode *this)
   JUMPOUT(0x26672B1B0);
 }
 
-unint64_t TraceNode::sizeObject(uint64_t a1, int a2)
+unint64_t TraceNode::sizeObject(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = NodeNetNode::sizeObject(a1, a2);
-  v5 = sizeObject<SeederBlock>(a1 + 64, a2);
+  v5 = sizeObject<SeederBlock>(a1 + 64, v2);
   v6 = 8;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
@@ -115,7 +115,7 @@ unint64_t TraceNode::sizeObject(uint64_t a1, int a2)
 
   if (*(a1 + 88))
   {
-    v7 = (a2 & 0xFFFFFFFE) == 2;
+    v7 = (v2 & 0xFFFFFFFE) == 2;
   }
 
   else
@@ -134,7 +134,7 @@ unint64_t TraceNode::sizeObject(uint64_t a1, int a2)
     v9 = 12;
   }
 
-  if (a2 == 3)
+  if (v2 == 3)
   {
     v8 = 0;
     v10 = 0;
@@ -145,7 +145,7 @@ unint64_t TraceNode::sizeObject(uint64_t a1, int a2)
     v10 = 1;
   }
 
-  if (a2 == 3)
+  if (v2 == 3)
   {
     v6 = 0;
   }
@@ -190,11 +190,11 @@ uint64_t TraceNode::fill(uint64_t this, const NodeNetNode *a2)
   return this;
 }
 
-unint64_t SeederStruct::updateSeederList(unint64_t result, int a2, uint64_t a3)
+uint64_t *SeederStruct::updateSeederList(uint64_t *result, int a2, uint64_t a3)
 {
   v4 = result;
   v5 = a3 - 8;
-  v6 = *(result + 8);
+  v6 = *(result + 2);
   if (!v6)
   {
     v14 = *result;
@@ -203,7 +203,7 @@ unint64_t SeederStruct::updateSeederList(unint64_t result, int a2, uint64_t a3)
     *(v14 + 12) = a2;
     v13 = 1;
 LABEL_13:
-    *(v4 + 8) = v13;
+    *(v4 + 2) = v13;
     return result;
   }
 
@@ -222,11 +222,11 @@ LABEL_13:
 
   if (v10 != a2 || (v11 = v8 + 16 * v7, *v11 != v5))
   {
-    if (*(result + 12) == v6 && v6 >> 1 != -1 && v6 + (v6 >> 1) + 1 >= v6)
+    if (*(result + 3) == v6 && v6 >> 1 != -1 && v6 + (v6 >> 1) + 1 >= v6)
     {
       result = DgnArray<DgnPrimArray<double>>::reallocElts(result, (v6 >> 1) + 1, 0);
       v8 = *v4;
-      v6 = *(v4 + 8);
+      v6 = *(v4 + 2);
     }
 
     v12 = v8 + 16 * v6;
@@ -317,17 +317,17 @@ uint64_t Node::scoreNodeInactiveCurrActiveSeed(uint64_t a1, uint64_t a2, int a3,
   return Node::updateNodeOneBest1(a1, v9 + v8, a3, a4, a5, a8);
 }
 
-unint64_t TraceNode::maybeSeedNode(unint64_t this, int a2, int a3)
+uint64_t *TraceNode::maybeSeedNode(uint64_t *this, int a2, int a3)
 {
-  if (*(this + 18) <= a2)
+  if (*(this + 9) <= a2)
   {
-    return SeederStruct::updateSeederList(this + 64, a3, *(this + 88));
+    return SeederStruct::updateSeederList(this + 8, a3, this[11]);
   }
 
   return this;
 }
 
-void TraceExternalOutPort::seedOutPortForTraceBack2(TraceExternalOutPort *this, int a2, int a3, NetMgr *a4)
+void TraceExternalOutPort::seedOutPortForTraceBack2(_DWORD *this, int a2, int a3, NetMgr *a4)
 {
   v4 = *(this + 4);
   if (v4 <= a2)
@@ -359,8 +359,8 @@ void TraceExternalOutPort::seedOutPortForTraceBack2(TraceExternalOutPort *this, 
       while (v11);
     }
 
-    SeederStruct::updateSeederList(this + 32, a3, v9);
-    v14 = *(this + 10);
+    SeederStruct::updateSeederList(this + 4, a3, v9);
+    v14 = this[10];
     if (!v14 || ((v15 = *(this + 4), v16 = *(v15 + 8), v17 = *(v15 + 16 * (v14 - 1) + 12), v16 != a3) ? (v18 = v17 == v16) : (v18 = 0), v18))
     {
       v19 = -1;
@@ -377,12 +377,12 @@ void TraceExternalOutPort::seedOutPortForTraceBack2(TraceExternalOutPort *this, 
     }
 
     v20 = *(a4 + 124);
-    while (*(this + 14) < v19)
+    while (this[14] < v19)
     {
-      BitArray::add((this + 48), 0);
+      BitArray::add((this + 12), 0);
     }
 
-    BitArray::add((this + 48), v4 <= v20);
+    BitArray::add((this + 12), v4 <= v20);
   }
 }
 
@@ -544,7 +544,7 @@ uint64_t DgnIdFactory<NetNBestTraceNoTime<unsigned int>,1024u>::createRawData(ui
   return result;
 }
 
-unint64_t DgnIdFactory<NetNBestTraceNoTime<unsigned int>,1024u>::addChunk(uint64_t a1)
+uint64_t *DgnIdFactory<NetNBestTraceNoTime<unsigned int>,1024u>::addChunk(uint64_t a1)
 {
   result = MemChunkAlloc(*(a1 + 24), 0);
   v3 = result;
@@ -596,154 +596,154 @@ uint64_t TLattice::TLattice(uint64_t a1, void *a2, uint64_t a3, unint64_t a4, ui
   *(a1 + 256) = a9;
   *(a1 + 16) = a8;
   *(a1 + 248) = a7;
-  std::vector<TState *>::vector[abi:ne200100](v102, a4);
+  std::vector<TState *>::vector[abi:ne200100](v79, a4);
   if (a3)
   {
-    v20 = 0;
+    v17 = 0;
     while (1)
     {
-      v21 = TAllocator::allocate((a1 + 264), 144);
-      v22 = *(*a2 + 8 * v20);
-      v23 = *v22;
-      v24 = *(v22 + 8);
-      v25 = *(v22 + 16);
-      v26 = *(v22 + 40);
-      v27 = *(v22 + 48);
-      v28 = *(v22 + 56);
-      v29 = *(v22 + 112);
-      v98 = *(v22 + 96);
-      v99 = v29;
-      v30 = *(v22 + 144);
-      v100 = *(v22 + 128);
-      v101 = v30;
-      v31 = *(v22 + 80);
-      *__p = *(v22 + 64);
-      *&__p[16] = v31;
-      TLatticeTransData::TLatticeTransData(v21, (a1 + 264), v23, v24, v25, v26, v27, v28, __p);
-      v36 = *(*a2 + 8 * v20);
-      v37 = *(v36 + 24);
-      if (v37 >= a4)
+      v18 = TAllocator::allocate((a1 + 264), 144);
+      v19 = *(*a2 + 8 * v17);
+      v20 = *v19;
+      v21 = *(v19 + 8);
+      v22 = *(v19 + 16);
+      v23 = *(v19 + 40);
+      v24 = *(v19 + 48);
+      v25 = *(v19 + 56);
+      v26 = *(v19 + 112);
+      v75 = *(v19 + 96);
+      v76 = v26;
+      v27 = *(v19 + 144);
+      v77 = *(v19 + 128);
+      v78 = v27;
+      v28 = *(v19 + 80);
+      *__p = *(v19 + 64);
+      *&__p[16] = v28;
+      TLatticeTransData::TLatticeTransData(v18, (a1 + 264), v20, v21, v22, v23, v24, v25, __p);
+      v30 = *(*a2 + 8 * v17);
+      v31 = *(v30 + 24);
+      if (v31 >= a4)
       {
-        tknPrintf("Error: The source index (%llu) is larger than the given state count (%llu)\n", v32, v33, v34, v35, *(v36 + 24), a4);
-        std::string::basic_string[abi:ne200100]<0>(v95, &byte_262899963);
+        tknPrintf("Error: The source index (%llu) is larger than the given state count (%llu)\n", v29, *(v30 + 24), a4);
+        std::string::basic_string[abi:ne200100]<0>(v72, &byte_262899963);
         *__p = byte_287529580;
-        if (SHIBYTE(v96) < 0)
+        if (SHIBYTE(v73) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p[8], v95[0], v95[1]);
+          std::string::__init_copy_ctor_external(&__p[8], v72[0], v72[1]);
         }
 
         else
         {
-          *&__p[8] = *v95;
-          *&__p[24] = v96;
+          *&__p[8] = *v72;
+          *&__p[24] = v73;
         }
 
         *__p = &unk_287528000;
         if (__p[31] >= 0)
         {
-          v64 = &__p[8];
+          v49 = &__p[8];
         }
 
         else
         {
-          v64 = *&__p[8];
+          v49 = *&__p[8];
         }
 
-        conditionalAssert(v64, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 58, v56, v57);
+        conditionalAssert(v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 58);
         *__p = byte_287529580;
         if ((__p[31] & 0x80000000) != 0)
         {
           operator delete(*&__p[8]);
         }
 
-        if (SHIBYTE(v96) < 0)
+        if (SHIBYTE(v73) < 0)
         {
-          operator delete(v95[0]);
+          operator delete(v72[0]);
         }
 
         exception = __cxa_allocate_exception(0x20uLL);
         std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
         *exception = byte_287529580;
-        v66 = (exception + 1);
+        v51 = (exception + 1);
         if ((__p[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v66, *__p, *&__p[8]);
+          std::string::__init_copy_ctor_external(v51, *__p, *&__p[8]);
         }
 
         else
         {
-          v75 = *__p;
+          v54 = *__p;
           exception[3] = *&__p[16];
-          *&v66->__r_.__value_.__l.__data_ = v75;
+          *&v51->__r_.__value_.__l.__data_ = v54;
         }
 
         *exception = &unk_287528000;
       }
 
-      v38 = *(v36 + 32);
-      if (v38 >= a4)
+      v32 = *(v30 + 32);
+      if (v32 >= a4)
       {
-        tknPrintf("Error: The target index (%llu) is larger than the given state count (%llu)\n", v32, v33, v34, v35, v38, a4);
-        std::string::basic_string[abi:ne200100]<0>(v95, &byte_262899963);
+        tknPrintf("Error: The target index (%llu) is larger than the given state count (%llu)\n", v29, v32, a4);
+        std::string::basic_string[abi:ne200100]<0>(v72, &byte_262899963);
         *__p = byte_287529580;
-        if (SHIBYTE(v96) < 0)
+        if (SHIBYTE(v73) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p[8], v95[0], v95[1]);
+          std::string::__init_copy_ctor_external(&__p[8], v72[0], v72[1]);
         }
 
         else
         {
-          *&__p[8] = *v95;
-          *&__p[24] = v96;
+          *&__p[8] = *v72;
+          *&__p[24] = v73;
         }
 
         *__p = &unk_287528000;
         if (__p[31] >= 0)
         {
-          v61 = &__p[8];
+          v46 = &__p[8];
         }
 
         else
         {
-          v61 = *&__p[8];
+          v46 = *&__p[8];
         }
 
-        conditionalAssert(v61, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 65, v54, v55);
+        conditionalAssert(v46, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 65);
         *__p = byte_287529580;
         if ((__p[31] & 0x80000000) != 0)
         {
           operator delete(*&__p[8]);
         }
 
-        if (SHIBYTE(v96) < 0)
+        if (SHIBYTE(v73) < 0)
         {
-          operator delete(v95[0]);
+          operator delete(v72[0]);
         }
 
-        v62 = __cxa_allocate_exception(0x20uLL);
+        v47 = __cxa_allocate_exception(0x20uLL);
         std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-        *v62 = byte_287529580;
-        v63 = (v62 + 1);
+        *v47 = byte_287529580;
+        v48 = (v47 + 1);
         if ((__p[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v63, *__p, *&__p[8]);
+          std::string::__init_copy_ctor_external(v48, *__p, *&__p[8]);
         }
 
         else
         {
-          v74 = *__p;
-          v62[3] = *&__p[16];
-          *&v63->__r_.__value_.__l.__data_ = v74;
+          v53 = *__p;
+          v47[3] = *&__p[16];
+          *&v48->__r_.__value_.__l.__data_ = v53;
         }
 
-        *v62 = &unk_287528000;
+        *v47 = &unk_287528000;
       }
 
-      v39 = *(v102[0] + v37);
-      v40 = *(v102[0] + v38);
-      if (v39)
+      v33 = *(v79[0] + v31);
+      v34 = *(v79[0] + v32);
+      if (v33)
       {
-        if (!v40)
+        if (!v34)
         {
           goto LABEL_9;
         }
@@ -751,18 +751,18 @@ uint64_t TLattice::TLattice(uint64_t a1, void *a2, uint64_t a3, unint64_t a4, ui
 
       else
       {
-        v39 = TFsa::newState((a1 + 24), 0);
-        *(v102[0] + *(*(*a2 + 8 * v20) + 24)) = v39;
-        if (!v40)
+        v33 = TFsa::newState((a1 + 24), 0);
+        *(v79[0] + *(*(*a2 + 8 * v17) + 24)) = v33;
+        if (!v34)
         {
 LABEL_9:
-          v40 = TFsa::newState((a1 + 24), 0);
-          *(v102[0] + *(*(*a2 + 8 * v20) + 32)) = v40;
+          v34 = TFsa::newState((a1 + 24), 0);
+          *(v79[0] + *(*(*a2 + 8 * v17) + 32)) = v34;
         }
       }
 
-      TFsa::newTrans((a1 + 24), v39, v40, v21);
-      if (a3 == ++v20)
+      TFsa::newTrans((a1 + 24), v33, v34, v18);
+      if (a3 == ++v17)
       {
         goto LABEL_14;
       }
@@ -771,323 +771,323 @@ LABEL_9:
 
   if (!a4)
   {
-    tknPrintf("Error: Lattice needs at least one state\n", v16, v17, v18, v19);
-    std::string::basic_string[abi:ne200100]<0>(v95, &byte_262899963);
+    tknPrintf("Error: Lattice needs at least one state\n", v16);
+    std::string::basic_string[abi:ne200100]<0>(v72, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v95[0], v95[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v72[0], v72[1]);
     }
 
     else
     {
-      *&__p[8] = *v95;
-      *&__p[24] = v96;
+      *&__p[8] = *v72;
+      *&__p[24] = v73;
     }
 
     *__p = &unk_287528000;
     if (__p[31] >= 0)
     {
-      v87 = &__p[8];
+      v64 = &__p[8];
     }
 
     else
     {
-      v87 = *&__p[8];
+      v64 = *&__p[8];
     }
 
-    conditionalAssert(v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 92, v76, v77);
+    conditionalAssert(v64, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 92);
     *__p = byte_287529580;
     if ((__p[31] & 0x80000000) != 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      operator delete(v95[0]);
+      operator delete(v72[0]);
     }
 
-    v88 = __cxa_allocate_exception(0x20uLL);
+    v65 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v88 = byte_287529580;
-    v89 = (v88 + 1);
+    *v65 = byte_287529580;
+    v66 = (v65 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v89, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v66, *__p, *&__p[8]);
     }
 
     else
     {
-      v93 = *__p;
-      v88[3] = *&__p[16];
-      *&v89->__r_.__value_.__l.__data_ = v93;
+      v70 = *__p;
+      v65[3] = *&__p[16];
+      *&v66->__r_.__value_.__l.__data_ = v70;
     }
 
-    *v88 = &unk_287528000;
+    *v65 = &unk_287528000;
   }
 
-  v45 = TFsa::newState((a1 + 24), 0);
-  *v102[0] = v45;
+  v36 = TFsa::newState((a1 + 24), 0);
+  *v79[0] = v36;
 LABEL_14:
-  v46 = 0;
+  v37 = 0;
   do
   {
-    v47 = *(v102[0] + v46);
-    if (!v47)
+    v38 = *(v79[0] + v37);
+    if (!v38)
     {
-      tknPrintf("Error: State was not set properly while creating lattice\n", v41, v42, v43, v44);
-      std::string::basic_string[abi:ne200100]<0>(v95, &byte_262899963);
+      tknPrintf("Error: State was not set properly while creating lattice\n", v35);
+      std::string::basic_string[abi:ne200100]<0>(v72, &byte_262899963);
       *__p = byte_287529580;
-      if (SHIBYTE(v96) < 0)
+      if (SHIBYTE(v73) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p[8], v95[0], v95[1]);
+        std::string::__init_copy_ctor_external(&__p[8], v72[0], v72[1]);
       }
 
       else
       {
-        *&__p[8] = *v95;
-        *&__p[24] = v96;
+        *&__p[8] = *v72;
+        *&__p[24] = v73;
       }
 
       *__p = &unk_287528000;
       if (__p[31] >= 0)
       {
-        v58 = &__p[8];
+        v43 = &__p[8];
       }
 
       else
       {
-        v58 = *&__p[8];
+        v43 = *&__p[8];
       }
 
-      conditionalAssert(v58, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 109, v52, v53);
+      conditionalAssert(v43, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 109);
       *__p = byte_287529580;
       if ((__p[31] & 0x80000000) != 0)
       {
         operator delete(*&__p[8]);
       }
 
-      if (SHIBYTE(v96) < 0)
+      if (SHIBYTE(v73) < 0)
       {
-        operator delete(v95[0]);
+        operator delete(v72[0]);
       }
 
-      v59 = __cxa_allocate_exception(0x20uLL);
+      v44 = __cxa_allocate_exception(0x20uLL);
       std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-      *v59 = byte_287529580;
-      v60 = (v59 + 1);
+      *v44 = byte_287529580;
+      v45 = (v44 + 1);
       if ((__p[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v60, *__p, *&__p[8]);
+        std::string::__init_copy_ctor_external(v45, *__p, *&__p[8]);
       }
 
       else
       {
-        v73 = *__p;
-        v59[3] = *&__p[16];
-        *&v60->__r_.__value_.__l.__data_ = v73;
+        v52 = *__p;
+        v44[3] = *&__p[16];
+        *&v45->__r_.__value_.__l.__data_ = v52;
       }
 
-      *v59 = &unk_287528000;
+      *v44 = &unk_287528000;
     }
 
-    if (!*(v47 + 16))
+    if (!*(v38 + 16))
     {
-      TFsa::addExtremity(a1 + 24, v47, 0);
+      TFsa::addExtremity(a1 + 24, v38, 0);
     }
 
-    if (!*(v47 + 24))
+    if (!*(v38 + 24))
     {
-      TFsa::addExtremity(a1 + 24, v47, 1u);
+      TFsa::addExtremity(a1 + 24, v38, 1u);
     }
 
-    ++v46;
+    ++v37;
   }
 
-  while (a4 != v46);
+  while (a4 != v37);
   if (*(a1 + 64) != a4)
   {
-    tknPrintf("Error: Expected state count to be %llu not %llu\n", v41, v42, v43, v44, *(a1 + 64), a4);
-    std::string::basic_string[abi:ne200100]<0>(v95, &byte_262899963);
+    tknPrintf("Error: Expected state count to be %llu not %llu\n", v35, *(a1 + 64), a4);
+    std::string::basic_string[abi:ne200100]<0>(v72, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v95[0], v95[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v72[0], v72[1]);
     }
 
     else
     {
-      *&__p[8] = *v95;
-      *&__p[24] = v96;
+      *&__p[8] = *v72;
+      *&__p[24] = v73;
     }
 
     *__p = &unk_287528000;
     if (__p[31] >= 0)
     {
-      v78 = &__p[8];
+      v55 = &__p[8];
     }
 
     else
     {
-      v78 = *&__p[8];
+      v55 = *&__p[8];
     }
 
-    conditionalAssert(v78, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 117, v67, v68);
+    conditionalAssert(v55, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 117);
     *__p = byte_287529580;
     if ((__p[31] & 0x80000000) != 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      operator delete(v95[0]);
+      operator delete(v72[0]);
     }
 
-    v79 = __cxa_allocate_exception(0x20uLL);
+    v56 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v79 = byte_287529580;
-    v80 = (v79 + 1);
+    *v56 = byte_287529580;
+    v57 = (v56 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v80, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v57, *__p, *&__p[8]);
     }
 
     else
     {
-      v90 = *__p;
-      v79[3] = *&__p[16];
-      *&v80->__r_.__value_.__l.__data_ = v90;
+      v67 = *__p;
+      v56[3] = *&__p[16];
+      *&v57->__r_.__value_.__l.__data_ = v67;
     }
 
-    *v79 = &unk_287528000;
+    *v56 = &unk_287528000;
   }
 
-  v48 = *(a1 + 224);
-  if (v48 != a5)
+  v39 = *(a1 + 224);
+  if (v39 != a5)
   {
-    tknPrintf("Error: Expected starting state count to be %llu not %llu\n", v41, v42, v43, v44, a5, v48);
-    std::string::basic_string[abi:ne200100]<0>(v95, &byte_262899963);
+    tknPrintf("Error: Expected starting state count to be %llu not %llu\n", v35, a5, v39);
+    std::string::basic_string[abi:ne200100]<0>(v72, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v95[0], v95[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v72[0], v72[1]);
     }
 
     else
     {
-      *&__p[8] = *v95;
-      *&__p[24] = v96;
+      *&__p[8] = *v72;
+      *&__p[24] = v73;
     }
 
     *__p = &unk_287528000;
     if (__p[31] >= 0)
     {
-      v81 = &__p[8];
+      v58 = &__p[8];
     }
 
     else
     {
-      v81 = *&__p[8];
+      v58 = *&__p[8];
     }
 
-    conditionalAssert(v81, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 124, v69, v70);
+    conditionalAssert(v58, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 124);
     *__p = byte_287529580;
     if ((__p[31] & 0x80000000) != 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      operator delete(v95[0]);
+      operator delete(v72[0]);
     }
 
-    v82 = __cxa_allocate_exception(0x20uLL);
+    v59 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v82 = byte_287529580;
-    v83 = (v82 + 1);
+    *v59 = byte_287529580;
+    v60 = (v59 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v83, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v60, *__p, *&__p[8]);
     }
 
     else
     {
-      v91 = *__p;
-      v82[3] = *&__p[16];
-      *&v83->__r_.__value_.__l.__data_ = v91;
+      v68 = *__p;
+      v59[3] = *&__p[16];
+      *&v60->__r_.__value_.__l.__data_ = v68;
     }
 
-    *v82 = &unk_287528000;
+    *v59 = &unk_287528000;
   }
 
-  v49 = *(a1 + 232);
-  if (v49 != a6)
+  v40 = *(a1 + 232);
+  if (v40 != a6)
   {
-    tknPrintf("Error: Expected accepting state count to be %llu not %llu\n", v41, v42, v43, v44, a6, v49);
-    std::string::basic_string[abi:ne200100]<0>(v95, &byte_262899963);
+    tknPrintf("Error: Expected accepting state count to be %llu not %llu\n", v35, a6, v40);
+    std::string::basic_string[abi:ne200100]<0>(v72, &byte_262899963);
     *__p = byte_287529580;
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[8], v95[0], v95[1]);
+      std::string::__init_copy_ctor_external(&__p[8], v72[0], v72[1]);
     }
 
     else
     {
-      *&__p[8] = *v95;
-      *&__p[24] = v96;
+      *&__p[8] = *v72;
+      *&__p[24] = v73;
     }
 
     *__p = &unk_287528000;
     if (__p[31] >= 0)
     {
-      v84 = &__p[8];
+      v61 = &__p[8];
     }
 
     else
     {
-      v84 = *&__p[8];
+      v61 = *&__p[8];
     }
 
-    conditionalAssert(v84, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 131, v71, v72);
+    conditionalAssert(v61, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/lattice.cpp", 131);
     *__p = byte_287529580;
     if ((__p[31] & 0x80000000) != 0)
     {
       operator delete(*&__p[8]);
     }
 
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
-      operator delete(v95[0]);
+      operator delete(v72[0]);
     }
 
-    v85 = __cxa_allocate_exception(0x20uLL);
+    v62 = __cxa_allocate_exception(0x20uLL);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v85 = byte_287529580;
-    v86 = (v85 + 1);
+    *v62 = byte_287529580;
+    v63 = (v62 + 1);
     if ((__p[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v86, *__p, *&__p[8]);
+      std::string::__init_copy_ctor_external(v63, *__p, *&__p[8]);
     }
 
     else
     {
-      v92 = *__p;
-      v85[3] = *&__p[16];
-      *&v86->__r_.__value_.__l.__data_ = v92;
+      v69 = *__p;
+      v62[3] = *&__p[16];
+      *&v63->__r_.__value_.__l.__data_ = v69;
     }
 
-    *v85 = &unk_287528000;
+    *v62 = &unk_287528000;
   }
 
   Registry = TRegisterable<TLattice>::getRegistry();
   *(a1 + 8) = TBaseRegistry<TLatticeProcessor *>::registerInstance(Registry, a1);
-  if (v102[0])
+  if (v79[0])
   {
-    v102[1] = v102[0];
-    operator delete(v102[0]);
+    v79[1] = v79[0];
+    operator delete(v79[0]);
   }
 
   return a1;
@@ -1223,29 +1223,17 @@ uint64_t TRegisterable<TLattice>::getRegistry()
   return TRegisterable<TLattice>::getRegistry(void)::s_registry;
 }
 
-void *std::vector<TState *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<TState *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<TState *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<TState *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<TState *>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_2626E80A8(_Unwind_Exception *exception_object)
@@ -1260,7 +1248,7 @@ void sub_2626E80A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TState *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TState *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1270,7 +1258,7 @@ void std::vector<TState *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
 }
 
-void WaveDecoder::saveWaveDecoder(WaveDecoder *this, DFile *a2, DFileChecksums *a3, int a4, int a5)
+void WaveDecoder::saveWaveDecoder(WaveDecoder *this, DFile *a2, DFileChecksums *a3, int a4, _BOOL8 a5)
 {
   if (a4)
   {
@@ -1287,129 +1275,129 @@ void WaveDecoder::saveWaveDecoder(WaveDecoder *this, DFile *a2, DFileChecksums *
     writeObject<short>(v8, this + 32, &v10);
     writeObjectChecksum(v8, &v10);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x6Cu, v10);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 108, v10);
     DgnDelete<DgnStream>(v8);
   }
 }
 
 void WaveDecoder::saveWaveDecoderText(WaveDecoder *this, DFile *a2, int a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v26);
-  DgnTextFileWriter::openDgnTextFileWriter(v26, a2, 0x6Eu, a3);
-  v24 = 0;
-  v25 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v26, sWDT_Versions, &v24, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v26, "WaveDataDecodeTableText", (v24 + 8 * (v25 - 1)));
+  DgnTextFileWriter::DgnTextFileWriter(v21);
+  DgnTextFileWriter::openDgnTextFileWriter(v21, a2, 110, a3);
+  v19 = 0;
+  v20 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v21, sWDT_Versions, &v19);
+  DgnTextFileWriter::setFileType(v21, "WaveDataDecodeTableText", (v19 + 8 * (v20 - 1)));
+  v17 = 0;
+  v18 = 0;
+  *v15 = 0;
+  v6 = realloc_array(0, v15, 0xCuLL, 0, 0, 1);
+  v16 = 0;
+  v17 = *v15;
+  LODWORD(v18) = 3;
+  HIDWORD(v18) = v6 >> 2;
   v22 = 0;
-  v23 = 0;
-  *v20 = 0;
-  v11 = realloc_array(0, v20, 0xCuLL, 0, 0, 1);
-  v21 = 0;
-  v22 = *v20;
-  LODWORD(v23) = 3;
-  HIDWORD(v23) = v11 >> 2;
-  v27 = 0;
-  HIDWORD(v21) = realloc_array(0, &v27, 0x30uLL, 0, 0, 1) >> 4;
-  *v20 = v27;
-  v12 = v21;
-  if (v21 <= 3)
+  HIDWORD(v16) = realloc_array(0, &v22, 0x30uLL, 0, 0, 1) >> 4;
+  *v15 = v22;
+  v7 = v16;
+  if (v16 <= 3)
   {
-    if (v21 != 3)
+    if (v16 != 3)
     {
-      v14 = v21 + 1;
-      v15 = 16 * v21;
+      v9 = v16 + 1;
+      v10 = 16 * v16;
       do
       {
-        DgnString::DgnString((*v20 + v15));
-        v15 += 16;
+        DgnString::DgnString((*v15 + v10));
+        v10 += 16;
       }
 
-      while (v14++ != 3);
+      while (v9++ != 3);
     }
   }
 
-  else if (v21 >= 4)
+  else if (v16 >= 4)
   {
-    v13 = 16 * v21 - 16;
+    v8 = 16 * v16 - 16;
     do
     {
-      --v12;
-      DgnString::~DgnString((*v20 + v13));
-      v13 -= 16;
+      --v7;
+      DgnString::~DgnString(*v15 + v8);
+      v8 -= 16;
     }
 
-    while (v12 > 3);
+    while (v7 > 3);
   }
 
-  LODWORD(v21) = 3;
-  DgnString::operator=(*v20, "Type");
-  *v22 = 0;
-  DgnString::operator=((*v20 + 16), "OneByteFeature");
-  *(v22 + 1) = 3;
-  DgnString::operator=((*v20 + 32), "TwoByteFeature");
-  *(v22 + 2) = 1;
-  DgnTextFileWriter::setLineFieldFormat(v26, &v22, v20);
+  LODWORD(v16) = 3;
+  DgnString::operator=(*v15, "Type");
+  *v17 = 0;
+  DgnString::operator=((*v15 + 16), "OneByteFeature");
+  *(v17 + 1) = 3;
+  DgnString::operator=((*v15 + 32), "TwoByteFeature");
+  *(v17 + 2) = 1;
+  DgnTextFileWriter::setLineFieldFormat(v21, &v17, v15);
   if (*(this + 2))
   {
-    v17 = 0;
+    v12 = 0;
     do
     {
-      DgnTextFileWriter::setLineFieldValue(v26, 0, "Linear");
-      DgnTextFileWriter::setLineFieldUnsignedValue(v26, 1u, v17);
-      DgnTextFileWriter::setLineFieldIntegerValue(v26, 2u, *(*this + 2 * v17));
-      DgnTextFileWriter::writeNextLine(v26);
-      ++v17;
+      DgnTextFileWriter::setLineFieldValue(v21, 0, "Linear");
+      DgnTextFileWriter::setLineFieldUnsignedValue(v21, 1u, v12);
+      DgnTextFileWriter::setLineFieldIntegerValue(v21, 2u, *(*this + 2 * v12));
+      DgnTextFileWriter::writeNextLine(v21);
+      ++v12;
     }
 
-    while (v17 < *(this + 2));
+    while (v12 < *(this + 2));
   }
 
   if (*(this + 6))
   {
-    v18 = 0;
+    v13 = 0;
     do
     {
-      DgnTextFileWriter::setLineFieldValue(v26, 0, "Mu_Law");
-      DgnTextFileWriter::setLineFieldUnsignedValue(v26, 1u, v18);
-      DgnTextFileWriter::setLineFieldIntegerValue(v26, 2u, *(*(this + 2) + 2 * v18));
-      DgnTextFileWriter::writeNextLine(v26);
-      ++v18;
+      DgnTextFileWriter::setLineFieldValue(v21, 0, "Mu_Law");
+      DgnTextFileWriter::setLineFieldUnsignedValue(v21, 1u, v13);
+      DgnTextFileWriter::setLineFieldIntegerValue(v21, 2u, *(*(this + 2) + 2 * v13));
+      DgnTextFileWriter::writeNextLine(v21);
+      ++v13;
     }
 
-    while (v18 < *(this + 6));
+    while (v13 < *(this + 6));
   }
 
   if (*(this + 10))
   {
-    v19 = 0;
+    v14 = 0;
     do
     {
-      DgnTextFileWriter::setLineFieldValue(v26, 0, "A_Law");
-      DgnTextFileWriter::setLineFieldUnsignedValue(v26, 1u, v19);
-      DgnTextFileWriter::setLineFieldIntegerValue(v26, 2u, *(*(this + 4) + 2 * v19));
-      DgnTextFileWriter::writeNextLine(v26);
-      ++v19;
+      DgnTextFileWriter::setLineFieldValue(v21, 0, "A_Law");
+      DgnTextFileWriter::setLineFieldUnsignedValue(v21, 1u, v14);
+      DgnTextFileWriter::setLineFieldIntegerValue(v21, 2u, *(*(this + 4) + 2 * v14));
+      DgnTextFileWriter::writeNextLine(v21);
+      ++v14;
     }
 
-    while (v19 < *(this + 10));
+    while (v14 < *(this + 10));
   }
 
-  DgnArray<DgnString>::releaseAll(v20);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v22);
-  DgnIArray<Utterance *>::~DgnIArray(&v24);
-  DgnTextFileWriter::~DgnTextFileWriter(v26);
+  DgnArray<DgnString>::releaseAll(v15);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v17);
+  DgnIArray<Utterance *>::~DgnIArray(&v19);
+  DgnTextFileWriter::~DgnTextFileWriter(v21);
 }
 
-void sub_2626E8504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2626E8504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
   v9 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnIArray<Utterance *>::~DgnIArray(va1);
   DgnTextFileWriter::~DgnTextFileWriter(va2);
@@ -1641,7 +1629,7 @@ void non-virtual thunk toTFormatter::~TFormatter(TFormatter *this)
 
 uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
 {
-  v45[19] = *MEMORY[0x277D85DE8];
+  v44[19] = *MEMORY[0x277D85DE8];
   v6 = *(this + 4);
   v7 = (v6 + 72);
   if (*(v6 + 95) < 0)
@@ -1649,15 +1637,15 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
     v7 = *v7;
   }
 
-  TOutputModel::TOutputModel(v38, a2, a3, v7, *(this + 3));
+  TOutputModel::TOutputModel(v37, a2, a3, v7, *(this + 3));
   if (a2)
   {
     TDataManager::setIntVar(a2, "ItnVersion", 4);
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v40);
-    TOutputStream::TOutputStream(v37, &v40, "ItnParam", *(this + 4) + 240);
-    TParamManager::save(*(this + 6), v37, 0);
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v39);
+    TOutputStream::TOutputStream(v36, &v39, "ItnParam", *(this + 4) + 240);
+    TParamManager::save(*(this + 6), v36, 0);
     std::stringbuf::str();
-    if (SHIBYTE(v33[0].__locale_) >= 0)
+    if (SHIBYTE(v32[0].__locale_) >= 0)
     {
       p_p = &__p;
     }
@@ -1667,70 +1655,70 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
       p_p = __p;
     }
 
-    if (SHIBYTE(v33[0].__locale_) >= 0)
+    if (SHIBYTE(v32[0].__locale_) >= 0)
     {
-      locale_high = HIBYTE(v33[0].__locale_);
+      locale_high = HIBYTE(v32[0].__locale_);
     }
 
     else
     {
-      locale_high = v32;
+      locale_high = v31;
     }
 
     (*(*a2 + 48))(a2, "ItnParam", p_p, locale_high);
-    if (SHIBYTE(v33[0].__locale_) < 0)
+    if (SHIBYTE(v32[0].__locale_) < 0)
     {
       operator delete(__p);
     }
 
     v10 = MEMORY[0x277D82828];
-    if (v39 == 1 || TItnRuleManager::isCustomized(*(this + 15)))
+    if (v38 == 1 || TItnRuleManager::isCustomized(*(this + 15)))
     {
       std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
-      TOutputStream::TOutputStream(v30, &__p, "ItnRule", *(this + 4) + 240);
-      TItnRuleManager::save(*(this + 15), v30, 0);
+      TOutputStream::TOutputStream(v29, &__p, "ItnRule", *(this + 4) + 240);
+      TItnRuleManager::save(*(this + 15), v29, 0);
       std::stringbuf::str();
-      if ((v29 & 0x80u) == 0)
+      if ((v28 & 0x80u) == 0)
       {
-        v11 = &v27;
+        v11 = &v26;
       }
 
       else
       {
-        v11 = v27;
+        v11 = v26;
       }
 
-      if ((v29 & 0x80u) == 0)
-      {
-        v12 = v29;
-      }
-
-      else
+      if ((v28 & 0x80u) == 0)
       {
         v12 = v28;
       }
 
-      (*(*a2 + 48))(a2, "ItnRule", v11, v12);
-      if (v29 < 0)
+      else
       {
-        operator delete(v27);
+        v12 = v27;
+      }
+
+      (*(*a2 + 48))(a2, "ItnRule", v11, v12);
+      if (v28 < 0)
+      {
+        operator delete(v26);
       }
 
       __p = *v10;
       *(&__p + *(__p - 3)) = *(v10 + 24);
-      v32 = MEMORY[0x277D82878] + 16;
-      if (v35 < 0)
+      v31 = MEMORY[0x277D82878] + 16;
+      if (v34 < 0)
       {
-        operator delete(v34);
+        operator delete(v33);
       }
 
-      v32 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v33);
+      v31 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v32);
       std::ostream::~ostream();
-      MEMORY[0x26672B160](v36);
+      MEMORY[0x26672B160](v35);
     }
 
-    if (v39 == 1)
+    if (v38 == 1)
     {
       v13 = *(this + 7);
       if (v13)
@@ -1739,30 +1727,30 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
       }
     }
 
-    v40 = *v10;
-    *(&v40 + *(v40 - 3)) = *(v10 + 24);
-    v41 = (MEMORY[0x277D82878] + 16);
-    if (v44 < 0)
+    v39 = *v10;
+    *(&v39 + *(v39 - 3)) = *(v10 + 24);
+    v40 = (MEMORY[0x277D82878] + 16);
+    if (v43 < 0)
     {
-      operator delete(v43);
+      operator delete(v42);
     }
 
-    v41 = (MEMORY[0x277D82868] + 16);
-    std::locale::~locale(v42);
+    v40 = (MEMORY[0x277D82868] + 16);
+    std::locale::~locale(v41);
     std::ostream::~ostream();
-    MEMORY[0x26672B160](v45);
+    MEMORY[0x26672B160](v44);
   }
 
   if (a3)
   {
     TDataManager::setIntVar(a3, "ItnVersion", 4);
-    if (v39 >= 2)
+    if (v38 >= 2)
     {
-      std::ostringstream::basic_ostringstream[abi:ne200100](&v40);
-      TOutputStream::TOutputStream(v37, &v40, "ItnParam", *(this + 4) + 240);
-      TParamManager::save(*(this + 6), v37, 1);
+      std::ostringstream::basic_ostringstream[abi:ne200100](&v39);
+      TOutputStream::TOutputStream(v36, &v39, "ItnParam", *(this + 4) + 240);
+      TParamManager::save(*(this + 6), v36, 1);
       std::stringbuf::str();
-      if (SHIBYTE(v33[0].__locale_) >= 0)
+      if (SHIBYTE(v32[0].__locale_) >= 0)
       {
         v14 = &__p;
       }
@@ -1772,50 +1760,50 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
         v14 = __p;
       }
 
-      if (SHIBYTE(v33[0].__locale_) >= 0)
+      if (SHIBYTE(v32[0].__locale_) >= 0)
       {
-        v15 = HIBYTE(v33[0].__locale_);
+        v15 = HIBYTE(v32[0].__locale_);
       }
 
       else
       {
-        v15 = v32;
+        v15 = v31;
       }
 
       (*(*a3 + 48))(a3, "ItnParam", v14, v15);
-      if (SHIBYTE(v33[0].__locale_) < 0)
+      if (SHIBYTE(v32[0].__locale_) < 0)
       {
         operator delete(__p);
       }
 
       std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
-      TOutputStream::TOutputStream(v30, &__p, "ItnRule", *(this + 4) + 240);
-      TItnRuleManager::save(*(this + 15), v30, 1);
+      TOutputStream::TOutputStream(v29, &__p, "ItnRule", *(this + 4) + 240);
+      TItnRuleManager::save(*(this + 15), v29, 1);
       std::stringbuf::str();
-      if ((v29 & 0x80u) == 0)
+      if ((v28 & 0x80u) == 0)
       {
-        v16 = &v27;
+        v16 = &v26;
       }
 
       else
       {
-        v16 = v27;
+        v16 = v26;
       }
 
-      if ((v29 & 0x80u) == 0)
-      {
-        v17 = v29;
-      }
-
-      else
+      if ((v28 & 0x80u) == 0)
       {
         v17 = v28;
       }
 
-      (*(*a3 + 48))(a3, "ItnRule", v16, v17);
-      if (v29 < 0)
+      else
       {
-        operator delete(v27);
+        v17 = v27;
+      }
+
+      (*(*a3 + 48))(a3, "ItnRule", v16, v17);
+      if (v28 < 0)
+      {
+        operator delete(v26);
       }
 
       v18 = *(this + 7);
@@ -1828,49 +1816,49 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
       v19 = __p;
       v20 = *(MEMORY[0x277D82828] + 24);
       *(&__p + *(__p - 3)) = v20;
-      v32 = MEMORY[0x277D82878] + 16;
-      if (v35 < 0)
+      v31 = MEMORY[0x277D82878] + 16;
+      if (v34 < 0)
       {
-        operator delete(v34);
+        operator delete(v33);
       }
 
-      v32 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v33);
+      v31 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v32);
       std::ostream::~ostream();
-      MEMORY[0x26672B160](v36);
-      v40 = v19;
-      *(&v40 + *(v19 - 3)) = v20;
-      v41 = (MEMORY[0x277D82878] + 16);
-      if (v44 < 0)
+      MEMORY[0x26672B160](v35);
+      v39 = v19;
+      *(&v39 + *(v19 - 3)) = v20;
+      v40 = (MEMORY[0x277D82878] + 16);
+      if (v43 < 0)
       {
-        operator delete(v43);
+        operator delete(v42);
       }
 
-      v41 = (MEMORY[0x277D82868] + 16);
-      std::locale::~locale(v42);
+      v40 = (MEMORY[0x277D82868] + 16);
+      std::locale::~locale(v41);
       std::ostream::~ostream();
-      MEMORY[0x26672B160](v45);
+      MEMORY[0x26672B160](v44);
     }
 
     if (!*(this + 7))
     {
       v21 = 0;
       __p = 0;
-      v32 = 0;
-      v40 = "ItnTag";
-      v41 = "ItnGrammar";
-      v42[0].__locale_ = "ItnGrammar2";
-      v42[1].__locale_ = "ItnCompounderFeatureConfig";
-      v42[2].__locale_ = "ItnCompounderWordFlag";
-      v42[3].__locale_ = "ItnCompounderRules";
-      v33[0].__locale_ = 0;
+      v31 = 0;
+      v39 = "ItnTag";
+      v40 = "ItnGrammar";
+      v41[0].__locale_ = "ItnGrammar2";
+      v41[1].__locale_ = "ItnCompounderFeatureConfig";
+      v41[2].__locale_ = "ItnCompounderWordFlag";
+      v41[3].__locale_ = "ItnCompounderRules";
+      v32[0].__locale_ = 0;
       do
       {
-        v22 = (&v40)[v21];
+        v22 = (&v39)[v21];
         if ((*(**(this + 3) + 40))(*(this + 3), v22, 0, 0))
         {
-          TDataManager::getStringVar(*(this + 3));
-          if (SHIBYTE(v33[0].__locale_) >= 0)
+          TDataManager::getStringVar(*(this + 3), v22, &__p);
+          if (SHIBYTE(v32[0].__locale_) >= 0)
           {
             v23 = &__p;
           }
@@ -1880,14 +1868,14 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
             v23 = __p;
           }
 
-          if (SHIBYTE(v33[0].__locale_) >= 0)
+          if (SHIBYTE(v32[0].__locale_) >= 0)
           {
-            v24 = HIBYTE(v33[0].__locale_);
+            v24 = HIBYTE(v32[0].__locale_);
           }
 
           else
           {
-            v24 = v32;
+            v24 = v31;
           }
 
           (*(*a3 + 48))(a3, v22, v23, v24);
@@ -1897,7 +1885,7 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
       }
 
       while (v21 != 6);
-      if (SHIBYTE(v33[0].__locale_) < 0)
+      if (SHIBYTE(v32[0].__locale_) < 0)
       {
         operator delete(__p);
       }
@@ -1907,10 +1895,9 @@ uint64_t TFormatter::save(TFormatter *this, TDataManager *a2, TDataManager *a3)
   result = *(this + 3);
   if (result)
   {
-    result = (*(*result + 24))(result);
+    return (*(*result + 24))(result);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1926,83 +1913,83 @@ void sub_2626EA86C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TFormatter::importChanges(TFormatter *this, const TDataManager *a2, TLexicon *a3, uint64_t a4, uint64_t a5)
+void TFormatter::importChanges(TFormatter *this, const TDataManager *a2, TLexicon *a3)
 {
-  v5 = MEMORY[0x28223BE20](this, a2, a3, a4, a5);
-  v8 = v7;
-  v29 = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v26 = 0;
-  v28 = 0;
-  if (!v7)
+  v3 = MEMORY[0x28223BE20](this, a2);
+  v6 = v5;
+  v22 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v19 = 0;
+  v21 = 0;
+  if (!v5)
   {
-    v8 = *(v5 + 32);
+    v6 = *(v3 + 32);
   }
 
-  v9 = (v8 + 72);
-  if (*(v8 + 95) < 0)
+  v7 = (v6 + 72);
+  if (*(v6 + 95) < 0)
   {
-    v9 = *v9;
+    v7 = *v7;
   }
 
-  TInputModel::TInputModel(&v21, v6, 0, 1, v9);
-  IntVar = TInputModel::getIntVar(&v21, "ItnVersion", 1);
+  TInputModel::TInputModel(&v14, v4, 0, 1, v7);
+  IntVar = TInputModel::getIntVar(&v14, "ItnVersion", 1);
   if ((IntVar - 5) > 0xFFFFFFFB)
   {
     operator new();
   }
 
-  tknPrintf("Error: %llu : Expected %s in range [%llu,%llu]\n", v11, v12, v13, v14, IntVar, "ItnVersion", 1, 4);
+  tknPrintf("Error: %llu : Expected %s in range [%llu,%llu]\n", v9, IntVar, "ItnVersion", 1, 4);
   std::string::basic_string[abi:ne200100]<0>(&__s, &byte_262899963);
-  *v24 = byte_287529580;
-  if (SHIBYTE(v23) < 0)
+  *v17 = byte_287529580;
+  if (SHIBYTE(v16) < 0)
   {
-    std::string::__init_copy_ctor_external(&v24[8], __s, *(&__s + 1));
+    std::string::__init_copy_ctor_external(&v17[8], __s, *(&__s + 1));
   }
 
   else
   {
-    *&v24[8] = __s;
-    v25 = v23;
+    *&v17[8] = __s;
+    v18 = v16;
   }
 
-  *v24 = &unk_287528000;
-  if (SHIBYTE(v25) >= 0)
+  *v17 = &unk_287528000;
+  if (SHIBYTE(v18) >= 0)
   {
-    v17 = &v24[8];
+    v10 = &v17[8];
   }
 
   else
   {
-    v17 = *&v24[8];
+    v10 = *&v17[8];
   }
 
-  conditionalAssert(v17, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/itn/formatter.cpp", 742, v15, v16);
-  *v24 = byte_287529580;
-  if (SHIBYTE(v25) < 0)
+  conditionalAssert(v10, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/itn/formatter.cpp", 742);
+  *v17 = byte_287529580;
+  if (SHIBYTE(v18) < 0)
   {
-    operator delete(*&v24[8]);
+    operator delete(*&v17[8]);
   }
 
-  if (SHIBYTE(v23) < 0)
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__s);
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
-  std::string::basic_string[abi:ne200100]<0>(v24, &byte_262899963);
+  std::string::basic_string[abi:ne200100]<0>(v17, &byte_262899963);
   *exception = byte_287529580;
-  v19 = (exception + 1);
-  if ((v24[23] & 0x80000000) != 0)
+  v12 = (exception + 1);
+  if ((v17[23] & 0x80000000) != 0)
   {
-    std::string::__init_copy_ctor_external(v19, *v24, *&v24[8]);
+    std::string::__init_copy_ctor_external(v12, *v17, *&v17[8]);
   }
 
   else
   {
-    v20 = *v24;
-    exception[3] = *&v24[16];
-    *&v19->__r_.__value_.__l.__data_ = v20;
+    v13 = *v17;
+    exception[3] = *&v17[16];
+    *&v12->__r_.__value_.__l.__data_ = v13;
   }
 
   *exception = &unk_287528000;
@@ -2018,12 +2005,12 @@ void sub_2626EB744(void *a1, int a2)
   JUMPOUT(0x2626EB800);
 }
 
-void sub_2626EB75C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2626EB75C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a11);
+  va_start(va, a19);
   if (LOBYTE(STACK[0x470]) == 1)
   {
-    TSegmenter::findSegmentEnd(va, v11);
+    TSegmenter::findSegmentEnd(va, v19);
   }
 
   JUMPOUT(0x2626EB788);
@@ -2056,43 +2043,30 @@ void sub_2626EB784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void TFormatter::makeBlockForWord(TFormatter *this, const TWord *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void TFormatter::makeBlockForWord(TFormatter *this, const TWord *a2)
 {
-  v5 = MEMORY[0x28223BE20](this, a2, a3, a4, a5);
-  v7 = v6;
-  v8 = v5;
-  v22 = v24;
-  v23 = xmmword_26286B6F0;
-  v24[1024] = 1;
-  TWord::getWrittenForm(v6, &v22);
-  v19 = v21;
-  v20 = xmmword_26286B6F0;
-  v21[1024] = 1;
-  TWord::getSpokenForm(v7, &v19);
-  v9 = *(v8 + 48);
-  ActiveConfigHandle = TParam::getActiveConfigHandle((v9 + 3792));
-  if (*(v9 + TParam::getValidConfig((v9 + 3792), ActiveConfigHandle) + 3944) != 1 || *(&v23 + 1) == 0)
+  v2 = MEMORY[0x28223BE20](this, a2);
+  v4 = v3;
+  v5 = v2;
+  v16 = v18;
+  v17 = xmmword_26286B6F0;
+  v18[1024] = 1;
+  TWord::getWrittenForm(v3, &v16);
+  v13 = v15;
+  v14 = xmmword_26286B6F0;
+  v15[1024] = 1;
+  TWord::getSpokenForm(v4, &v13);
+  v6 = *(v5 + 48);
+  ActiveConfigHandle = TParam::getActiveConfigHandle((v6 + 3792));
+  if (*(v6 + TParam::getValidConfig((v6 + 3792), ActiveConfigHandle) + 3944) != 1 || *(&v17 + 1) == 0)
   {
-    v15 = v17;
-    v16 = xmmword_26286B6F0;
-    v18 = 1;
-    (*(**(v8 + 120) + 48))(*(v8 + 120), *v7, 0, &v15);
-    if (*(&v16 + 1))
+    v9 = v11;
+    v10 = xmmword_26286B6F0;
+    v12 = 1;
+    (*(**(v5 + 120) + 48))(*(v5 + 120), *v4, 0, &v9);
+    if (v12 == 1 && v9 != v11)
     {
-      v12 = *v15;
-      if (*v15)
-      {
-        v13 = *(*(v8 + 120) + 32);
-        if (v12 <= (*(*(v8 + 120) + 40) - v13) >> 3)
-        {
-          v14 = *(v13 + 8 * v12 - 8);
-        }
-      }
-    }
-
-    if (v18 == 1 && v15 != v17)
-    {
-      if (v15)
+      if (v9)
       {
         MEMORY[0x26672B1B0]();
       }
@@ -2102,27 +2076,27 @@ void TFormatter::makeBlockForWord(TFormatter *this, const TWord *a2, uint64_t a3
   operator new();
 }
 
-void sub_2626EBB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2626EBB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   if (LOBYTE(STACK[0x828]) == 1)
   {
-    TFormatter::makeBlockForWord(va, v3);
+    TFormatter::makeBlockForWord(va, v5);
   }
 
   if (LOBYTE(STACK[0xC48]) == 1)
   {
-    v8 = STACK[0x830];
-    if (STACK[0x830] != v6)
+    v10 = STACK[0x830];
+    if (STACK[0x830] != v8)
     {
-      if (v8)
+      if (v10)
       {
-        MEMORY[0x26672B1B0](v8, 0x1000C4052888210);
+        MEMORY[0x26672B1B0](v10, 0x1000C4052888210);
       }
     }
   }
 
-  if (*(v5 + 1048) == 1 && STACK[0xC50] != v4 && STACK[0xC50] != 0)
+  if (*(v7 + 1048) == 1 && STACK[0xC50] != v6 && STACK[0xC50] != 0)
   {
     MEMORY[0x26672B1B0]();
   }
@@ -2130,7 +2104,7 @@ void sub_2626EBB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-void TFormatter::splitPattern(uint64_t *a1, __int32 *a2, void *a3, void *a4)
+void TFormatter::splitPattern(TFormatter *a1, __int32 *a2, uint64_t *a3, uint64_t *a4)
 {
   if (!*a2)
   {
@@ -2148,7 +2122,7 @@ void TFormatter::splitPattern(uint64_t *a1, __int32 *a2, void *a3, void *a4)
     }
 
     std::wstring::basic_string[abi:ne200100]<0>(&__str, a2);
-    std::wstring::basic_string(&v24, &__str, 0, v6 - a2, &v22);
+    std::wstring::basic_string(&v21, &__str, 0, v6 - a2, &v19);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__str.__r_.__value_.__l.__data_);
@@ -2160,7 +2134,7 @@ void TFormatter::splitPattern(uint64_t *a1, __int32 *a2, void *a3, void *a4)
   v7 = a2 + 1;
   v8 = wcsstr(v7, &unk_262888E98);
   std::wstring::basic_string[abi:ne200100]<0>(&__str, v7);
-  std::wstring::basic_string(&v24, &__str, 0, v8 - v7, &v22);
+  std::wstring::basic_string(&v21, &__str, 0, v8 - v7, &v19);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
@@ -2196,33 +2170,33 @@ void TFormatter::splitPattern(uint64_t *a1, __int32 *a2, void *a3, void *a4)
   }
 
   while (v11);
-  std::wstring::basic_string[abi:ne200100]<0>(&v22, v9);
-  std::wstring::basic_string(&__str, &v22, 0, (v10 - v9 - 4) >> 2, &v21);
-  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  std::wstring::basic_string[abi:ne200100]<0>(&v19, v9);
+  std::wstring::basic_string(&__str, &v19, 0, (v10 - v9 - 4) >> 2, &v18);
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v22.__r_.__value_.__l.__data_);
+    operator delete(v19.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    v14 = v24.__r_.__value_.__r.__words[0];
-    if (wcscmp(v24.__r_.__value_.__l.__data_, dword_262888EA8))
+    v14 = v21.__r_.__value_.__r.__words[0];
+    if (wcscmp(v21.__r_.__value_.__l.__data_, dword_262888EA8))
     {
 LABEL_23:
-      v21 = (*(*a1[17] + 16))(a1[17], v14);
-      v22.__r_.__value_.__r.__words[0] = &v22.__r_.__value_.__l.__size_;
-      for (*&v22.__r_.__value_.__r.__words[1] = 0uLL; v21 != -1; v21 = *(TTagManager::getTag(a1[17], v21) + 32))
+      v18 = (*(**(a1 + 17) + 16))(*(a1 + 17), v14);
+      v19.__r_.__value_.__r.__words[0] = &v19.__r_.__value_.__l.__size_;
+      for (*&v19.__r_.__value_.__r.__words[1] = 0uLL; v18 != -1; v18 = *(TTagManager::getTag(*(a1 + 17), v18) + 32))
       {
-        std::__tree<SDhVoc_fake **>::__emplace_unique_key_args<SDhVoc_fake **,SDhVoc_fake ** const&>(&v22, &v21);
+        std::__tree<SDhVoc_fake **>::__emplace_unique_key_args<SDhVoc_fake **,SDhVoc_fake ** const&>(&v19, &v18, &v18);
       }
 
       operator new();
     }
   }
 
-  else if (wcscmp(&v24, dword_262888EA8))
+  else if (wcscmp(&v21, dword_262888EA8))
   {
-    v14 = &v24;
+    v14 = &v21;
     goto LABEL_23;
   }
 
@@ -2236,23 +2210,23 @@ LABEL_23:
     p_str = __str.__r_.__value_.__r.__words[0];
   }
 
-  HeadClone = TLexicon::findHeadClone(a1[4], p_str);
+  HeadClone = TLexicon::findHeadClone(*(a1 + 4), p_str);
   if (!HeadClone)
   {
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v20 = &__str;
+      v17 = &__str;
     }
 
     else
     {
-      v20 = __str.__r_.__value_.__r.__words[0];
+      v17 = __str.__r_.__value_.__r.__words[0];
     }
 
-    HeadClone = TLexicon::addTempWord(a1[4], v20, 0, 0, 0);
+    HeadClone = TLexicon::addTempWord(*(a1 + 4), v17, 0, 0, 0);
   }
 
-  TFormatter::makeBlockForWord(a1, HeadClone, v17, v18, v19);
+  TFormatter::makeBlockForWord(a1, HeadClone);
 }
 
 void sub_2626EC8C4(_Unwind_Exception *a1)
@@ -2642,20 +2616,17 @@ LABEL_10:
   }
 }
 
-void *std::vector<TItnWordData>::reserve(void *result, unint64_t a2)
+void std::vector<TItnWordData>::reserve(void *a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 4) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x24924924924924ALL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TItnWordData>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TItnWordData>>(a1, a2);
     }
 
     std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<TItnWordData>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
@@ -2859,7 +2830,7 @@ uint64_t TFormatter::addWords(uint64_t a1, uint64_t *a2, unint64_t a3, int a4, v
   return v5 & 1;
 }
 
-uint64_t TFormatter::addLeftContext(uint64_t a1, uint64_t *a2, unint64_t a3, void *a4, BOOL *a5)
+uint64_t TFormatter::addLeftContext(uint64_t a1, uint64_t *a2, uint64_t *a3, void **a4, BOOL *a5)
 {
   v10 = *(a1 + 48);
   ActiveConfigHandle = TParam::getActiveConfigHandle((v10 + 1520));
@@ -2890,7 +2861,7 @@ uint64_t TFormatter::addLeftContext(uint64_t a1, uint64_t *a2, unint64_t a3, voi
     v21 = 0;
     v23 = *a4;
     v22 = a4[1];
-    v24 = &v22[-*a4];
+    v24 = v22 - *a4;
     v25 = v24 - 7;
     v26 = 1;
     while (1)
@@ -3002,26 +2973,26 @@ void TFormatter::addRightContext(uint64_t a1, uint64_t *a2, uint64_t *a3, void *
   std::vector<TItnWordData>::resize(a4, v24);
 }
 
-void std::vector<TItnWordData>::resize(void *a1, unint64_t a2)
+void std::vector<TItnWordData>::resize(void *result, unint64_t a2)
 {
-  v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 4);
+  v2 = 0x6DB6DB6DB6DB6DB7 * ((result[1] - *result) >> 4);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<TItnWordData>::__append(a1, v4);
+    std::vector<TItnWordData>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 112 * a2;
+    result[1] = *result + 112 * a2;
   }
 }
 
-uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64_t a4)
+void *TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64_t a4)
 {
-  std::vector<TItnStateData>::vector[abi:ne200100](v238, 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4) + 1);
-  *v238[0] = 0;
+  std::vector<TItnStateData>::vector[abi:ne200100](v214, 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4) + 1);
+  *v214[0] = 0;
   v8 = *(a1 + 6);
   ActiveConfigHandle = TParam::getActiveConfigHandle((v8 + 18008));
   v10 = *(v8 + TParam::getValidConfig((v8 + 18008), ActiveConfigHandle) + 18160);
@@ -3045,12 +3016,12 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
   {
     v25 = *(a1 + 6);
     v26 = TParam::getActiveConfigHandle((v25 + 3792));
-    v210 = *(v25 + TParam::getValidConfig((v25 + 3792), v26) + 3944) ^ 1;
+    v186 = *(v25 + TParam::getValidConfig((v25 + 3792), v26) + 3944) ^ 1;
   }
 
   else
   {
-    v210 = 0;
+    v186 = 0;
   }
 
   if (*(a1 + 19) && (v27 = *(a1 + 6), v28 = TParam::getActiveConfigHandle((v27 + 9512)), *(v27 + TParam::getValidConfig((v27 + 9512), v28) + 9664) == 1))
@@ -3069,25 +3040,25 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
   {
     v34 = *(a1 + 6);
     v35 = TParam::getActiveConfigHandle((v34 + 3792));
-    v213 = *(v34 + TParam::getValidConfig((v34 + 3792), v35) + 3944) ^ 1;
+    v189 = *(v34 + TParam::getValidConfig((v34 + 3792), v35) + 3944) ^ 1;
   }
 
   else
   {
-    v213 = 0;
+    v189 = 0;
   }
 
-  v235 = 0;
-  v236 = 0;
-  v237 = 0;
-  v232 = 0;
-  v233 = 0;
-  v234 = 0;
-  if (v210)
+  v211 = 0;
+  v212 = 0;
+  v213 = 0;
+  v208 = 0;
+  v209 = 0;
+  v210 = 0;
+  if (v186)
   {
     __p[0] = 0;
     __p[1] = 0;
-    *v227 = 0;
+    *v203 = 0;
     v36 = *a2;
     if (a2[1] != *a2)
     {
@@ -3095,8 +3066,8 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
       v38 = 16;
       do
       {
-        v231[0] = *(v36 + v38);
-        std::vector<TWord const*>::push_back[abi:ne200100](__p, v231);
+        v207[0] = *(v36 + v38);
+        std::vector<TWord const*>::push_back[abi:ne200100](__p, v207);
         ++v37;
         v36 = *a2;
         v38 += 112;
@@ -3105,7 +3076,7 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
       while (v37 < 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4));
     }
 
-    TCompounder::apply(*(a1 + 18), __p, a3, a4, 1, &v235);
+    TCompounder::apply(*(a1 + 18), __p, a3, a4, 1, &v211);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -3117,7 +3088,7 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
   {
     __p[0] = 0;
     __p[1] = 0;
-    *v227 = 0;
+    *v203 = 0;
     v39 = *a2;
     if (a2[1] != *a2)
     {
@@ -3125,8 +3096,8 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
       v41 = 16;
       do
       {
-        v231[0] = *(v39 + v41);
-        std::vector<TWord const*>::push_back[abi:ne200100](__p, v231);
+        v207[0] = *(v39 + v41);
+        std::vector<TWord const*>::push_back[abi:ne200100](__p, v207);
         ++v40;
         v39 = *a2;
         v41 += 112;
@@ -3135,14 +3106,14 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
       while (v40 < 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4));
     }
 
-    TRne::apply(*(a1 + 19), __p, a3, a4, 1);
+    TRne::apply(*(a1 + 19), __p, a3, a4, 1, &v211);
   }
 
-  if (v213)
+  if (v189)
   {
     __p[0] = 0;
     __p[1] = 0;
-    *v227 = 0;
+    *v203 = 0;
     v42 = *a2;
     if (a2[1] != *a2)
     {
@@ -3150,8 +3121,8 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
       v44 = 16;
       do
       {
-        v231[0] = *(v42 + v44);
-        std::vector<TWord const*>::push_back[abi:ne200100](__p, v231);
+        v207[0] = *(v42 + v44);
+        std::vector<TWord const*>::push_back[abi:ne200100](__p, v207);
         ++v43;
         v42 = *a2;
         v44 += 112;
@@ -3160,16 +3131,16 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
       while (v43 < 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 4));
     }
 
-    TCliticsProc::apply(*(a1 + 20), __p, a3, a4, 1);
+    TCliticsProc::apply(*(a1 + 20), __p, a3, a4, 1, &v208);
   }
 
-  v216 = a1;
-  v217 = a2;
+  v192 = a1;
+  v193 = a2;
   v45 = *(a1 + 6);
   v46 = TParam::getActiveConfigHandle((v45 + 19000));
-  v218 = *(v45 + TParam::getValidConfig((v45 + 19000), v46) + 19152);
+  v194 = *(v45 + TParam::getValidConfig((v45 + 19000), v46) + 19152);
   v47 = a3;
-  if (v218 == 1)
+  if (v194 == 1)
   {
     v48 = *a2;
     if (a2[1] != *a2)
@@ -3181,382 +3152,382 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
         loggableUnicode(**(v48 + v49 + 16), __p);
         if (v50 >= a4)
         {
-          v55 = "RC";
+          v52 = "RC";
         }
 
         else
         {
-          v55 = "Utt";
+          v52 = "Utt";
         }
 
         if (v50 < a3)
         {
-          v55 = "LC";
+          v52 = "LC";
         }
 
-        if (v227[7] >= 0)
+        if (v203[7] >= 0)
         {
-          v56 = __p;
+          v53 = __p;
         }
 
         else
         {
-          v56 = __p[0];
+          v53 = __p[0];
         }
 
-        tknPrintf("DebugSegmentation: Word %llu: Position=%s, Name=%s PauseDurationAfter=%llu CrossUttBreakBefore=%d\n FirstWordInBlock=%d\n", v51, v52, v53, v54, v50, v55, v56, *(*v217 + v49 + 24), *(*v217 + v49 + 32), *(*v217 + v49 + 105));
-        if ((v227[7] & 0x80000000) != 0)
+        tknPrintf("DebugSegmentation: Word %llu: Position=%s, Name=%s PauseDurationAfter=%llu CrossUttBreakBefore=%d\n FirstWordInBlock=%d\n", v51, v50, v52, v53, *(*v193 + v49 + 24), *(*v193 + v49 + 32), *(*v193 + v49 + 105));
+        if ((v203[7] & 0x80000000) != 0)
         {
           operator delete(__p[0]);
         }
 
         ++v50;
-        v48 = *v217;
+        v48 = *v193;
         v49 += 112;
       }
 
-      while (v50 < 0x6DB6DB6DB6DB6DB7 * ((v217[1] - *v217) >> 4));
+      while (v50 < 0x6DB6DB6DB6DB6DB7 * ((v193[1] - *v193) >> 4));
     }
   }
 
-  TAllocator::TAllocator(v231, 2048);
-  v57 = v217;
-  std::vector<std::vector<TItnGrammarStateData const*>>::vector[abi:ne200100](v230, 0x6DB6DB6DB6DB6DB7 * ((v217[1] - *v217) >> 4));
-  v62 = v216;
-  v63 = 0;
-  v211 = 0;
-  v214 = 0;
-  v215 = v47;
-  v64 = v19 + v22;
-  while (v63 < 0x6DB6DB6DB6DB6DB7 * ((v57[1] - *v57) >> 4))
+  TAllocator::TAllocator(v207, 2048);
+  v54 = v193;
+  std::vector<std::vector<TItnGrammarStateData const*>>::vector[abi:ne200100](v206, 0x6DB6DB6DB6DB6DB7 * ((v193[1] - *v193) >> 4));
+  v56 = v192;
+  v57 = 0;
+  v187 = 0;
+  v190 = 0;
+  v191 = v47;
+  v58 = v19 + v22;
+  while (v57 < 0x6DB6DB6DB6DB6DB7 * ((v54[1] - *v54) >> 4))
   {
-    v65 = *v57 + 112 * v63;
-    if (*(v65 + 33) == 1)
+    v59 = *v54 + 112 * v57;
+    if (*(v59 + 33) == 1)
     {
-      v66 = v63 + 1;
-      v67 = v238[0];
-      v68 = v238[0] + 72 * v63;
-      v69 = *v68;
-      v70 = (*(v65 + 24) + *(v68 + 8));
-      if (v218)
+      v60 = v57 + 1;
+      v61 = v214[0];
+      v62 = v214[0] + 72 * v57;
+      v63 = *v62;
+      v64 = (*(v59 + 24) + *(v62 + 8));
+      if (v194)
       {
-        tknPrintf("DebugSegmentation: EdgeType=Epsilon WordRange=[%llu,%llu) Penalty=0 CumulatedPenalty=%f CumulatedPauseAtTarget=%llu\n", v58, v59, v60, v61, v63, v63 + 1, *&v69, v70);
-        v67 = v238[0];
+        tknPrintf("DebugSegmentation: EdgeType=Epsilon WordRange=[%llu,%llu) Penalty=0 CumulatedPenalty=%f CumulatedPauseAtTarget=%llu\n", v55, v57, v57 + 1, *&v63, v64);
+        v61 = v214[0];
       }
 
-      v71 = v67 + 72 * v66;
-      if (v69 < *v71 || v69 == *v71 && v70 > *(v71 + 8))
+      v65 = v61 + 72 * v60;
+      if (v63 < *v65 || v63 == *v65 && v64 > *(v65 + 8))
       {
-        __p[0] = *&v69;
-        __p[1] = v70;
-        *v227 = v63;
-        *&v227[16] = 0uLL;
-        std::wstring::basic_string[abi:ne200100]<0>(&v228, &dword_262888EC0);
-        v72 = v238[0] + 72 * v66;
-        v73 = *&v227[16];
-        v74 = *__p;
-        *(v72 + 16) = *v227;
-        *(v72 + 32) = v73;
-        *v72 = v74;
-        if (*(v72 + 71) < 0)
+        __p[0] = *&v63;
+        __p[1] = v64;
+        *v203 = v57;
+        *&v203[16] = 0uLL;
+        std::wstring::basic_string[abi:ne200100]<0>(&v204, &dword_262888EC0);
+        v66 = v214[0] + 72 * v60;
+        v67 = *&v203[16];
+        v68 = *__p;
+        *(v66 + 16) = *v203;
+        *(v66 + 32) = v67;
+        *v66 = v68;
+        if (*(v66 + 71) < 0)
         {
-          operator delete(*(v72 + 48));
+          operator delete(*(v66 + 48));
         }
 
-        v75 = v228;
-        *(v72 + 64) = v229;
-        *(v72 + 48) = v75;
+        v69 = v204;
+        *(v66 + 64) = v205;
+        *(v66 + 48) = v69;
       }
     }
 
-    if (((v210 | v31) & (v215 == v63)) == 1)
+    if (((v186 | v31) & (v191 == v57)) == 1)
     {
-      if (v214 >= (v236 - v235) >> 4)
+      if (v190 >= (v212 - v211) >> 4)
       {
-        v215 = v63;
+        v191 = v57;
       }
 
       else
       {
-        v76 = &v235[16 * v214];
-        v77 = *(v76 + 1);
-        if (v77 != 1)
+        v70 = &v211[16 * v190];
+        v71 = *(v70 + 1);
+        if (v71 != 1)
         {
-          v78 = v77 + v63;
-          v79 = v238[0] + 72 * v63;
-          v80 = v19 + *v79;
-          v81 = *(*v57 + 112 * v78 - 88) + *(v79 + 8);
-          if (v218)
+          v72 = v71 + v57;
+          v73 = v214[0] + 72 * v57;
+          v74 = v19 + *v73;
+          v75 = *(*v54 + 112 * v72 - 88) + *(v73 + 8);
+          if (v194)
           {
-            if (v210)
+            if (v186)
             {
-              loggableUnicode(**v76, __p);
-              v86 = v227[7] >= 0 ? __p : __p[0];
-              tknPrintf("DebugSegmentation: EdgeType=Compounder WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v82, v83, v84, v85, v63, v78, *&v19, *&v80, v81, v86);
+              loggableUnicode(**v70, __p);
+              v77 = v203[7] >= 0 ? __p : __p[0];
+              tknPrintf("DebugSegmentation: EdgeType=Compounder WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v76, v57, v72, *&v19, *&v74, v75, v77);
             }
 
             else
             {
-              loggableUnicode(**v76, __p);
-              v91 = v227[7] >= 0 ? __p : __p[0];
-              tknPrintf("DebugSegmentation: EdgeType=RNE WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v87, v88, v89, v90, v63, v78, *&v19, *&v80, v81, v91);
+              loggableUnicode(**v70, __p);
+              v79 = v203[7] >= 0 ? __p : __p[0];
+              tknPrintf("DebugSegmentation: EdgeType=RNE WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v78, v57, v72, *&v19, *&v74, v75, v79);
             }
 
-            if ((v227[7] & 0x80000000) != 0)
+            if ((v203[7] & 0x80000000) != 0)
             {
               operator delete(__p[0]);
             }
           }
 
-          v92 = v238[0] + 72 * v78;
-          if (v80 < *v92 || v80 == *v92 && v81 > *(v92 + 8))
+          v80 = v214[0] + 72 * v72;
+          if (v74 < *v80 || v74 == *v80 && v75 > *(v80 + 8))
           {
-            v93 = *&v235[16 * v214];
-            *v92 = v80;
-            *(v92 + 8) = v81;
-            *(v92 + 16) = v63;
-            *(v92 + 24) = 0;
-            *(v92 + 32) = 0;
-            *(v92 + 40) = v93;
-            if (*(v92 + 71) < 0)
+            v81 = *&v211[16 * v190];
+            *v80 = v74;
+            *(v80 + 8) = v75;
+            *(v80 + 16) = v57;
+            *(v80 + 24) = 0;
+            *(v80 + 32) = 0;
+            *(v80 + 40) = v81;
+            if (*(v80 + 71) < 0)
             {
-              operator delete(*(v92 + 48));
+              operator delete(*(v80 + 48));
             }
 
-            *(v92 + 48) = 0;
-            *(v92 + 56) = 0;
-            *(v92 + 64) = 0;
+            *(v80 + 48) = 0;
+            *(v80 + 56) = 0;
+            *(v80 + 64) = 0;
           }
         }
 
-        v94 = *&v235[16 * v214++ + 8] + v63;
-        v215 = v94;
+        v82 = *&v211[16 * v190++ + 8] + v57;
+        v191 = v82;
       }
     }
 
-    if ((v213 & (v47 == v63)) == 1)
+    if ((v189 & (v47 == v57)) == 1)
     {
-      if (v211 >= (v233 - v232) >> 4)
+      if (v187 >= (v209 - v208) >> 4)
       {
-        v47 = v63;
+        v47 = v57;
       }
 
       else
       {
-        v95 = &v232[16 * v211];
-        v96 = *(v95 + 1);
-        if (v96)
+        v83 = &v208[16 * v187];
+        v84 = *(v83 + 1);
+        if (v84)
         {
-          v97 = *v95;
-          v98 = v96 + v63;
-          v99 = v238[0] + 72 * v63;
-          v100 = v19 + *v99;
-          v101 = *(*v57 + 112 * v98 - 88) + *(v99 + 8);
-          if (v218)
+          v85 = *v83;
+          v86 = v84 + v57;
+          v87 = v214[0] + 72 * v57;
+          v88 = v19 + *v87;
+          v89 = *(*v54 + 112 * v86 - 88) + *(v87 + 8);
+          if (v194)
           {
-            if (v97)
+            if (v85)
             {
-              loggableUnicode(*v97, v224);
-              v102 = v224;
-              if (v225 < 0)
+              loggableUnicode(*v85, v200);
+              v90 = v200;
+              if (v201 < 0)
               {
-                v102 = v224[0];
+                v90 = v200[0];
               }
             }
 
             else
             {
-              v102 = &byte_262899963;
+              v90 = &byte_262899963;
             }
 
-            tknPrintf("DebugSegmentation: EdgeType=Clitic WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu\n Replacement=%s", v58, v59, v60, v61, v63, v98, *&v19, *&v100, v101, v102);
-            if (v97 && v225 < 0)
+            tknPrintf("DebugSegmentation: EdgeType=Clitic WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu\n Replacement=%s", v55, v57, v86, *&v19, *&v88, v89, v90);
+            if (v85 && v201 < 0)
             {
-              operator delete(v224[0]);
+              operator delete(v200[0]);
             }
           }
 
-          v103 = v238[0] + 72 * v98;
-          if (v100 < *v103 || v100 == *v103 && v101 > *(v103 + 8))
+          v91 = v214[0] + 72 * v86;
+          if (v88 < *v91 || v88 == *v91 && v89 > *(v91 + 8))
           {
-            *v103 = v100;
-            *(v103 + 8) = v101;
-            *(v103 + 16) = v63;
-            *(v103 + 24) = 0;
-            *(v103 + 32) = 0;
-            *(v103 + 40) = v97;
-            if (*(v103 + 71) < 0)
+            *v91 = v88;
+            *(v91 + 8) = v89;
+            *(v91 + 16) = v57;
+            *(v91 + 24) = 0;
+            *(v91 + 32) = 0;
+            *(v91 + 40) = v85;
+            if (*(v91 + 71) < 0)
             {
-              operator delete(*(v103 + 48));
+              operator delete(*(v91 + 48));
             }
 
-            *(v103 + 48) = 0;
-            *(v103 + 56) = 0;
-            *(v103 + 64) = 0;
+            *(v91 + 48) = 0;
+            *(v91 + 56) = 0;
+            *(v91 + 64) = 0;
           }
         }
 
-        v47 = *&v232[16 * v211++ + 8] + v63;
-        v62 = v216;
+        v47 = *&v208[16 * v187++ + 8] + v57;
+        v56 = v192;
       }
     }
 
-    v104 = *(v62 + 6);
-    v105 = TParam::getActiveConfigHandle((v104 + 3792));
-    if ((*(v104 + TParam::getValidConfig((v104 + 3792), v105) + 3944) & 1) == 0)
+    v92 = *(v56 + 6);
+    v93 = TParam::getActiveConfigHandle((v92 + 3792));
+    if ((*(v92 + TParam::getValidConfig((v92 + 3792), v93) + 3944) & 1) == 0)
     {
-      v110 = *(v230[0] + 24 * v63);
-      if (*(v230[0] + 24 * v63 + 8) != v110)
+      v95 = *(v206[0] + 24 * v57);
+      if (*(v206[0] + 24 * v57 + 8) != v95)
       {
-        v111 = 0;
+        v96 = 0;
         do
         {
-          v112 = *(v110 + 8 * v111);
-          v113 = *(v112 + 8);
-          v114 = v238[0];
-          v115 = v238[0] + 72 * v63;
-          v116 = *v112;
-          v117 = *v115 + *v112;
-          v118 = (*(*v57 + 112 * v113 - 88) + *(v115 + 8));
-          if (v218)
+          v97 = *(v95 + 8 * v96);
+          v98 = *(v97 + 8);
+          v99 = v214[0];
+          v100 = v214[0] + 72 * v57;
+          v101 = *v97;
+          v102 = *v100 + *v97;
+          v103 = (*(*v54 + 112 * v98 - 88) + *(v100 + 8));
+          if (v194)
           {
-            v119 = *(v112 + 16);
-            loggableUnicode(*(v112 + 32), __p);
-            if (v227[7] >= 0)
+            v104 = *(v97 + 16);
+            loggableUnicode(*(v97 + 32), __p);
+            if (v203[7] >= 0)
             {
-              v124 = __p;
+              v106 = __p;
             }
 
             else
             {
-              v124 = __p[0];
+              v106 = __p[0];
             }
 
-            tknPrintf("DebugSegmentation: EdgeType=Grammar WordRange=[%llu,%llu) LC=%llu Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v120, v121, v122, v123, v63, v113, v119, *&v116, *&v117, v118, v124);
-            if ((v227[7] & 0x80000000) != 0)
+            tknPrintf("DebugSegmentation: EdgeType=Grammar WordRange=[%llu,%llu) LC=%llu Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v105, v57, v98, v104, *&v101, *&v102, v103, v106);
+            if ((v203[7] & 0x80000000) != 0)
             {
               operator delete(__p[0]);
             }
 
-            v114 = v238[0];
+            v99 = v214[0];
           }
 
-          v125 = v114 + 72 * v113;
-          if (v117 < *v125 || v117 == *v125 && ((v126 = *(v125 + 8), v118 > v126) || v118 == v126 && *(*(*(v230[0] + 24 * v63) + 8 * v111) + 16) > *(v125 + 24)))
+          v107 = v99 + 72 * v98;
+          if (v102 < *v107 || v102 == *v107 && ((v108 = *(v107 + 8), v103 > v108) || v103 == v108 && *(*(*(v206[0] + 24 * v57) + 8 * v96) + 16) > *(v107 + 24)))
           {
-            v127 = *(*(v230[0] + 24 * v63) + 8 * v111);
-            v128 = *(v127 + 32);
-            __p[0] = *&v117;
-            __p[1] = v118;
-            *v227 = v63;
-            *&v227[8] = *(v127 + 16);
-            *&v227[24] = 0;
-            std::wstring::basic_string[abi:ne200100]<0>(&v228, v128);
-            v129 = v238[0] + 72 * v113;
-            v130 = *&v227[16];
-            v131 = *__p;
-            *(v129 + 16) = *v227;
-            *(v129 + 32) = v130;
-            *v129 = v131;
-            if (*(v129 + 71) < 0)
+            v109 = *(*(v206[0] + 24 * v57) + 8 * v96);
+            v110 = *(v109 + 32);
+            __p[0] = *&v102;
+            __p[1] = v103;
+            *v203 = v57;
+            *&v203[8] = *(v109 + 16);
+            *&v203[24] = 0;
+            std::wstring::basic_string[abi:ne200100]<0>(&v204, v110);
+            v111 = v214[0] + 72 * v98;
+            v112 = *&v203[16];
+            v113 = *__p;
+            *(v111 + 16) = *v203;
+            *(v111 + 32) = v112;
+            *v111 = v113;
+            if (*(v111 + 71) < 0)
             {
-              operator delete(*(v129 + 48));
+              operator delete(*(v111 + 48));
             }
 
-            v132 = v228;
-            *(v129 + 64) = v229;
-            *(v129 + 48) = v132;
+            v114 = v204;
+            *(v111 + 64) = v205;
+            *(v111 + 48) = v114;
           }
 
-          ++v111;
-          v110 = *(v230[0] + 24 * v63);
+          ++v96;
+          v95 = *(v206[0] + 24 * v57);
         }
 
-        while (v111 < (*(v230[0] + 24 * v63 + 8) - v110) >> 3);
+        while (v96 < (*(v206[0] + 24 * v57 + 8) - v95) >> 3);
       }
 
-      v212 = v47;
-      v133 = *(v216 + 6);
-      v134 = TParam::getActiveConfigHandle((v133 + 1872));
-      ValidConfig = TParam::getValidConfig((v133 + 1872), v134);
-      v136 = *v57;
-      if (0x6DB6DB6DB6DB6DB7 * ((v57[1] - *v57) >> 4) >= v63 + *(v133 + 4 * ValidConfig + 2032))
+      v188 = v47;
+      v115 = *(v192 + 6);
+      v116 = TParam::getActiveConfigHandle((v115 + 1872));
+      ValidConfig = TParam::getValidConfig((v115 + 1872), v116);
+      v118 = *v54;
+      if (0x6DB6DB6DB6DB6DB7 * ((v54[1] - *v54) >> 4) >= v57 + *(v115 + 4 * ValidConfig + 2032))
       {
-        v137 = v63 + *(v133 + 4 * ValidConfig + 2032);
-      }
-
-      else
-      {
-        v137 = 0x6DB6DB6DB6DB6DB7 * ((v57[1] - *v57) >> 4);
-      }
-
-      v221 = 0;
-      v222 = 0;
-      v223 = 0;
-      v138 = v136 + 112 * v63;
-      v139 = *(v138 + 80);
-      v140 = *(v138 + 48);
-      if (v139 != -1)
-      {
-        v140 = v139;
-      }
-
-      v141 = v140 - 7;
-      if (v141 > 2)
-      {
-        v142 = 136;
+        v119 = v57 + *(v115 + 4 * ValidConfig + 2032);
       }
 
       else
       {
-        v142 = qword_262888F78[v141];
+        v119 = 0x6DB6DB6DB6DB6DB7 * ((v54[1] - *v54) >> 4);
       }
 
-      v143 = *(*(v216 + 6) + v142);
-      TGrammarManager::search(*(v216 + 13), v57, v63, v137, v143, &v221);
-      if (*(v216 + 14))
+      v197 = 0;
+      v198 = 0;
+      v199 = 0;
+      v120 = v118 + 112 * v57;
+      v121 = *(v120 + 80);
+      v122 = *(v120 + 48);
+      if (v121 != -1)
       {
-        v144 = *(v216 + 6);
-        v145 = TParam::getActiveConfigHandle((v144 + 19248));
-        if (*(v144 + TParam::getValidConfig((v144 + 19248), v145) + 19400) == 1)
+        v122 = v121;
+      }
+
+      v123 = v122 - 7;
+      if (v123 > 2)
+      {
+        v124 = 136;
+      }
+
+      else
+      {
+        v124 = qword_262888F78[v123];
+      }
+
+      v125 = *(*(v192 + 6) + v124);
+      TGrammarManager::search(*(v192 + 13), v54, v57, v119, v125, &v197);
+      if (*(v192 + 14))
+      {
+        v126 = *(v192 + 6);
+        v127 = TParam::getActiveConfigHandle((v126 + 19248));
+        if (*(v126 + TParam::getValidConfig((v126 + 19248), v127) + 19400) == 1)
         {
           __p[0] = 0;
           __p[1] = 0;
-          *v227 = 0;
-          TGrammarManager2::search(*(v216 + 14), v57, v63, v137, v143, __p);
-          v146 = __p[0];
+          *v203 = 0;
+          TGrammarManager2::search(*(v192 + 14), v54, v57, v119, v125, __p);
+          v128 = __p[0];
           if (__p[1] != __p[0])
           {
-            v147 = 0;
-            v148 = 8;
+            v129 = 0;
+            v130 = 8;
             do
             {
-              loggableUnicode(*&v146[v148], v219);
-              if (v220 >= 0)
+              loggableUnicode(*&v128[v130], v195);
+              if (v196 >= 0)
               {
-                v153 = v219;
+                v132 = v195;
               }
 
               else
               {
-                v153 = v219[0];
+                v132 = v195[0];
               }
 
-              tknPrintf("Adaptation Result[%llx]: %s\n", v149, v150, v151, v152, v147, v153);
-              if (v220 < 0)
+              tknPrintf("Adaptation Result[%llx]: %s\n", v131, v129, v132);
+              if (v196 < 0)
               {
-                operator delete(v219[0]);
+                operator delete(v195[0]);
               }
 
-              ++v147;
-              v146 = __p[0];
-              v148 += 56;
+              ++v129;
+              v128 = __p[0];
+              v130 += 56;
             }
 
-            while (v147 < 0x6DB6DB6DB6DB6DB7 * ((__p[1] - __p[0]) >> 3));
+            while (v129 < 0x6DB6DB6DB6DB6DB7 * ((__p[1] - __p[0]) >> 3));
           }
 
-          TGrammarManager2::clearResult(*(v216 + 14));
+          TGrammarManager2::clearResult(*(v192 + 14));
           if (__p[0])
           {
             __p[1] = __p[0];
@@ -3565,251 +3536,251 @@ uint64_t TFormatter::segment(TFormatter *a1, uint64_t *a2, unint64_t a3, unint64
         }
       }
 
-      v154 = v221;
-      if (v222 != v221)
+      v133 = v197;
+      if (v198 != v197)
       {
-        v155 = 0;
-        v156 = 40;
+        v134 = 0;
+        v135 = 40;
         do
         {
-          v157 = &v154[v156];
-          if (*&v154[v156 - 16])
+          v136 = &v133[v135];
+          if (*&v133[v135 - 16])
           {
-            v158 = wcslen(*(v157 - 4));
-            if ((v158 + 1) >> 62)
+            v137 = wcslen(*(v136 - 4));
+            if ((v137 + 1) >> 62)
             {
-              v159 = -1;
+              v138 = -1;
             }
 
             else
             {
-              v159 = 4 * (v158 + 1);
+              v138 = 4 * (v137 + 1);
             }
 
-            v160 = TAllocator::allocate(v231, v159);
-            wcscpy(v160, *(v221 + v156 - 32));
-            v161 = *(v221 + v156 - 16);
-            v162 = v230[0];
-            v163 = TAllocator::allocate(v231, 40);
-            v164 = v162 + 24 * v63 + 24 * v161;
-            v165 = *(v221 + v156 - 16);
-            v166 = *(v221 + v156 - 8);
-            v167 = *(v221 + v156 - 24) + v63 - v166;
-            *v163 = v19 + *(v221 + v156);
-            *(v163 + 8) = v167;
-            *(v163 + 16) = v165;
-            *(v163 + 24) = v166;
-            *(v163 + 32) = v160;
-            v169 = *(v164 + 8);
-            v168 = *(v164 + 16);
-            if (v169 >= v168)
+            v139 = TAllocator::allocate(v207, v138);
+            wcscpy(v139, *(v197 + v135 - 32));
+            v140 = *(v197 + v135 - 16);
+            v141 = v206[0];
+            v142 = TAllocator::allocate(v207, 40);
+            v143 = v141 + 24 * v57 + 24 * v140;
+            v144 = *(v197 + v135 - 16);
+            v145 = *(v197 + v135 - 8);
+            v146 = *(v197 + v135 - 24) + v57 - v145;
+            *v142 = v19 + *(v197 + v135);
+            *(v142 + 1) = v146;
+            *(v142 + 2) = v144;
+            *(v142 + 3) = v145;
+            *(v142 + 4) = v139;
+            v148 = *(v143 + 8);
+            v147 = *(v143 + 16);
+            if (v148 >= v147)
             {
-              v189 = (v169 - *v164) >> 3;
-              if ((v189 + 1) >> 61)
+              v165 = (v148 - *v143) >> 3;
+              if ((v165 + 1) >> 61)
               {
                 std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
               }
 
-              v190 = v168 - *v164;
-              v191 = v190 >> 2;
-              if (v190 >> 2 <= (v189 + 1))
+              v166 = v147 - *v143;
+              v167 = v166 >> 2;
+              if (v166 >> 2 <= (v165 + 1))
               {
-                v191 = v189 + 1;
+                v167 = v165 + 1;
               }
 
-              if (v190 >= 0x7FFFFFFFFFFFFFF8)
+              if (v166 >= 0x7FFFFFFFFFFFFFF8)
               {
-                v192 = 0x1FFFFFFFFFFFFFFFLL;
+                v168 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v192 = v191;
+                v168 = v167;
               }
 
-              if (v192)
+              if (v168)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(v164, v192);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(v143, v168);
               }
 
-              v193 = (8 * v189);
-              *v193 = v163;
-              v170 = 8 * v189 + 8;
-              v194 = *(v164 + 8) - *v164;
-              v195 = v193 - v194;
-              memcpy(v193 - v194, *v164, v194);
-              v196 = *v164;
-              *v164 = v195;
-              *(v164 + 8) = v170;
-              *(v164 + 16) = 0;
-              if (v196)
+              v169 = (8 * v165);
+              *v169 = v142;
+              v149 = 8 * v165 + 8;
+              v170 = *(v143 + 8) - *v143;
+              v171 = v169 - v170;
+              memcpy(v169 - v170, *v143, v170);
+              v172 = *v143;
+              *v143 = v171;
+              *(v143 + 8) = v149;
+              *(v143 + 16) = 0;
+              if (v172)
               {
-                operator delete(v196);
+                operator delete(v172);
               }
             }
 
             else
             {
-              *v169 = v163;
-              v170 = (v169 + 1);
+              *v148 = v142;
+              v149 = (v148 + 1);
             }
 
-            *(v164 + 8) = v170;
-            v57 = v217;
+            *(v143 + 8) = v149;
+            v54 = v193;
           }
 
           else
           {
-            v171 = *(v157 - 3) + v63 - *(v157 - 1);
-            v172 = v238[0];
-            v173 = v238[0] + 72 * v63;
-            v174 = *v157;
-            v175 = v19 + *v173 + *v157;
-            v176 = (*(*v57 + 112 * v171 - 88) + *(v173 + 8));
-            if (v218)
+            v150 = *(v136 - 3) + v57 - *(v136 - 1);
+            v151 = v214[0];
+            v152 = v214[0] + 72 * v57;
+            v153 = *v136;
+            v154 = v19 + *v152 + *v136;
+            v155 = (*(*v54 + 112 * v150 - 88) + *(v152 + 8));
+            if (v194)
             {
-              loggableUnicode(*&v154[v156 - 32], __p);
-              if (v227[7] >= 0)
+              loggableUnicode(*&v133[v135 - 32], __p);
+              if (v203[7] >= 0)
               {
-                v181 = __p;
+                v157 = __p;
               }
 
               else
               {
-                v181 = __p[0];
+                v157 = __p[0];
               }
 
-              tknPrintf("DebugSegmentation: EdgeType=Grammar WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v177, v178, v179, v180, v63, v171, v19 + v174, *&v175, v176, v181);
-              if ((v227[7] & 0x80000000) != 0)
+              tknPrintf("DebugSegmentation: EdgeType=Grammar WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu Replacement=%s\n", v156, v57, v150, v19 + v153, *&v154, v155, v157);
+              if ((v203[7] & 0x80000000) != 0)
               {
                 operator delete(__p[0]);
               }
 
-              v172 = v238[0];
+              v151 = v214[0];
             }
 
-            v182 = v172 + 72 * v171;
-            if (v175 < *v182 || v175 == *v182 && v176 > *(v182 + 8))
+            v158 = v151 + 72 * v150;
+            if (v154 < *v158 || v154 == *v158 && v155 > *(v158 + 8))
             {
-              v183 = *(v221 + v156 - 32);
-              v184 = *(v221 + v156 - 8);
-              __p[0] = *&v175;
-              __p[1] = v176;
-              *v227 = v63;
-              *&v227[16] = v184;
-              std::wstring::basic_string[abi:ne200100]<0>(&v228, v183);
-              v185 = v238[0] + 72 * v171;
-              v186 = *&v227[16];
-              v187 = *__p;
-              *(v185 + 16) = *v227;
-              *(v185 + 32) = v186;
-              *v185 = v187;
-              if (*(v185 + 71) < 0)
+              v159 = *(v197 + v135 - 32);
+              v160 = *(v197 + v135 - 8);
+              __p[0] = *&v154;
+              __p[1] = v155;
+              *v203 = v57;
+              *&v203[16] = v160;
+              std::wstring::basic_string[abi:ne200100]<0>(&v204, v159);
+              v161 = v214[0] + 72 * v150;
+              v162 = *&v203[16];
+              v163 = *__p;
+              *(v161 + 16) = *v203;
+              *(v161 + 32) = v162;
+              *v161 = v163;
+              if (*(v161 + 71) < 0)
               {
-                operator delete(*(v185 + 48));
+                operator delete(*(v161 + 48));
               }
 
-              v188 = v228;
-              *(v185 + 64) = v229;
-              *(v185 + 48) = v188;
+              v164 = v204;
+              *(v161 + 64) = v205;
+              *(v161 + 48) = v164;
             }
           }
 
-          ++v155;
-          v154 = v221;
-          v156 += 56;
+          ++v134;
+          v133 = v197;
+          v135 += 56;
         }
 
-        while (v155 < 0x6DB6DB6DB6DB6DB7 * ((v222 - v221) >> 3));
+        while (v134 < 0x6DB6DB6DB6DB6DB7 * ((v198 - v197) >> 3));
       }
 
-      TGrammarManager2::clearResult(*(v216 + 13));
-      if (v221)
+      TGrammarManager2::clearResult(*(v192 + 13));
+      if (v197)
       {
-        v222 = v221;
-        operator delete(v221);
+        v198 = v197;
+        operator delete(v197);
       }
 
-      v47 = v212;
+      v47 = v188;
     }
 
-    v197 = v238[0];
-    v198 = v238[0] + 72 * v63;
-    v199 = v64 + *v198;
-    v200 = *(*v57 + 112 * v63 + 24) + *(v198 + 8);
-    if (v218)
+    v173 = v214[0];
+    v174 = v214[0] + 72 * v57;
+    v175 = v58 + *v174;
+    v176 = *(*v54 + 112 * v57 + 24) + *(v174 + 8);
+    if (v194)
     {
-      tknPrintf("DebugSegmentation: EdgeType=Default WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu\n", v106, v107, v108, v109, v63, v63 + 1, *&v64, *&v199, v200);
-      v197 = v238[0];
+      tknPrintf("DebugSegmentation: EdgeType=Default WordRange=[%llu,%llu) Penalty=%f CumulatedPenalty=%f CumulatedPauseAtTarget=%llu\n", v94, v57, v57 + 1, *&v58, *&v175, v176);
+      v173 = v214[0];
     }
 
-    v201 = v197 + 72 * (v63 + 1);
-    if (v199 < *v201 || v199 == *v201 && v200 > *(v201 + 8))
+    v177 = v173 + 72 * (v57 + 1);
+    if (v175 < *v177 || v175 == *v177 && v176 > *(v177 + 8))
     {
-      v202 = *(*v57 + 112 * v63 + 16);
-      *v201 = v199;
-      *(v201 + 8) = v200;
-      *(v201 + 16) = v63;
-      *(v201 + 24) = 0;
-      *(v201 + 32) = 0;
-      *(v201 + 40) = v202;
-      if (*(v201 + 71) < 0)
+      v178 = *(*v54 + 112 * v57 + 16);
+      *v177 = v175;
+      *(v177 + 8) = v176;
+      *(v177 + 16) = v57;
+      *(v177 + 24) = 0;
+      *(v177 + 32) = 0;
+      *(v177 + 40) = v178;
+      if (*(v177 + 71) < 0)
       {
-        operator delete(*(v201 + 48));
+        operator delete(*(v177 + 48));
       }
 
-      *(v201 + 48) = 0;
-      *(v201 + 56) = 0;
-      *(v201 + 64) = 0;
+      *(v177 + 48) = 0;
+      *(v177 + 56) = 0;
+      *(v177 + 64) = 0;
     }
 
-    v62 = v216;
-    v203 = *(v216 + 13);
-    v204 = *(v203 + 16);
-    *(v203 + 24) = 0;
-    (*(v204 + 16))();
-    v205 = *(v216 + 13);
-    v205[8] = 0;
-    (*(*v205 + 16))(v205);
-    ++v63;
+    v56 = v192;
+    v179 = *(v192 + 13);
+    v180 = *(v179 + 16);
+    *(v179 + 24) = 0;
+    (*(v180 + 16))();
+    v181 = *(v192 + 13);
+    v181[8] = 0;
+    (*(*v181 + 16))(v181);
+    ++v57;
   }
 
-  v206 = v238[0] + 72 * (0x8E38E38E38E38E39 * ((v238[1] - v238[0]) >> 3) - 1);
-  if (*(v206 + 16) != -1)
+  v182 = v214[0] + 72 * (0x8E38E38E38E38E39 * ((v214[1] - v214[0]) >> 3) - 1);
+  if (*(v182 + 16) != -1)
   {
     __p[0] = 0;
-    v221 = 0;
-    v207 = *(v206 + 40);
-    if (v207)
+    v197 = 0;
+    v183 = *(v182 + 40);
+    if (v183)
     {
-      TFormatter::makeBlockForWord(v62, v207, v59, v60, v61);
+      TFormatter::makeBlockForWord(v56, v183);
     }
 
-    v208 = (v206 + 48);
-    if (*(v206 + 71) < 0)
+    v184 = (v182 + 48);
+    if (*(v182 + 71) < 0)
     {
-      v208 = *v208;
+      v184 = *v184;
     }
 
-    TFormatter::splitPattern(v62, v208, __p, &v221);
+    TFormatter::splitPattern(v56, v184, __p, &v197);
   }
 
-  __p[0] = v230;
+  __p[0] = v206;
   std::vector<std::vector<TItnGrammarStateData const*>>::__destroy_vector::operator()[abi:ne200100](__p);
-  TAllocator::clear(v231);
-  if (v232)
+  TAllocator::clear(v207);
+  if (v208)
   {
-    v233 = v232;
-    operator delete(v232);
+    v209 = v208;
+    operator delete(v208);
   }
 
-  if (v235)
+  if (v211)
   {
-    v236 = v235;
-    operator delete(v235);
+    v212 = v211;
+    operator delete(v211);
   }
 
-  __p[0] = v238;
+  __p[0] = v214;
   std::vector<TItnStateData>::__destroy_vector::operator()[abi:ne200100](__p);
   return 0;
 }
@@ -3841,36 +3812,36 @@ void sub_2626EE8D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::wstring *TFormatter::applyControls(uint64_t *a1, TBlock *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, char **a7)
+std::wstring *TFormatter::applyControls(uint64_t a1, TBlock *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void **a7)
 {
-  v136 = 0;
-  v137 = 0;
-  v138 = 0;
-  std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v136, *a6, a6[1], 0xAAAAAAAAAAAAAAABLL * ((a6[1] - *a6) >> 3));
   v133 = 0;
   v134 = 0;
   v135 = 0;
-  std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v133, v136, v137, 0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3));
+  std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v133, *a6, *(a6 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a6 + 8) - *a6) >> 3));
   v130 = 0;
   v131 = 0;
   v132 = 0;
+  std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v130, v133, v134, 0xAAAAAAAAAAAAAAABLL * ((v134 - v133) >> 3));
+  v127 = 0;
+  v128 = 0;
+  v129 = 0;
   *&v10 = -1;
   *(&v10 + 1) = -1;
-  v129[2] = v10;
-  v129[3] = v10;
-  v129[0] = v10;
-  v129[1] = v10;
+  v126[2] = v10;
+  v126[3] = v10;
+  v126[0] = v10;
+  v126[1] = v10;
   if (!a2)
   {
-    v102 = 0;
+    v99 = 0;
     goto LABEL_190;
   }
 
   v11 = 0;
   v12 = a2;
   v13 = -1;
-  v105 = a2;
-  v107 = a3;
+  v102 = a2;
+  v104 = a3;
   do
   {
     if (v11)
@@ -3878,9 +3849,9 @@ std::wstring *TFormatter::applyControls(uint64_t *a1, TBlock *a2, uint64_t *a3, 
       goto LABEL_6;
     }
 
-    if (*(v12 + 8) == a5)
+    if (*(v12 + 1) == a5)
     {
-      std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v130, v136, v137, 0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3));
+      std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v127, v133, v134, 0xAAAAAAAAAAAAAAABLL * ((v134 - v133) >> 3));
 LABEL_6:
       v14 = 1;
       goto LABEL_8;
@@ -3891,20 +3862,20 @@ LABEL_8:
     v15 = *(v12 + 71);
     if (v15 < 0)
     {
-      v15 = *(v12 + 56);
+      v15 = *(v12 + 7);
     }
 
-    v109 = v14;
+    v106 = v14;
     if (v15 && (*v12 & 1) == 0)
     {
-      std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v133, v136, v137, 0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3));
+      std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v130, v133, v134, 0xAAAAAAAAAAAAAAABLL * ((v134 - v133) >> 3));
     }
 
-    v16 = *(v12 + 8);
-    v126 = 0;
+    v16 = *(v12 + 1);
+    v123 = 0;
     __dst = 0;
-    v128 = 0;
-    std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v126, v136, v137, 0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3));
+    v125 = 0;
+    std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(&v123, v133, v134, 0xAAAAAAAAAAAAAAABLL * ((v134 - v133) >> 3));
     if (v16 == -1)
     {
       goto LABEL_38;
@@ -3913,8 +3884,8 @@ LABEL_8:
     v17 = *a3;
     if (*(*a3 + 112 * v16 + 32) == 1)
     {
-      v18 = v126;
-      if (__dst == v126)
+      v18 = v123;
+      if (__dst == v123)
       {
         v21 = 0;
       }
@@ -3928,23 +3899,23 @@ LABEL_8:
         {
           if (getItnControlCategory(*&v18[v19]) != 1)
           {
-            v22 = v126 + 24 * v21++;
-            v23 = *(v126 + v19);
-            *(v22 + 2) = *(v126 + v19 + 16);
+            v22 = v123 + 24 * v21++;
+            v23 = *(v123 + v19);
+            *(v22 + 2) = *(v123 + v19 + 16);
             *v22 = v23;
           }
 
           ++v20;
-          v18 = v126;
+          v18 = v123;
           v19 += 24;
         }
 
-        while (v20 < 0xAAAAAAAAAAAAAAABLL * ((__dst - v126) >> 3));
+        while (v20 < 0xAAAAAAAAAAAAAAABLL * ((__dst - v123) >> 3));
       }
 
-      std::vector<TItnControl>::resize(&v126, v21);
-      a3 = v107;
-      v17 = *v107;
+      std::vector<TItnControl>::resize(&v123, v21);
+      a3 = v104;
+      v17 = *v104;
     }
 
     v24 = v17 + 112 * v16;
@@ -3960,7 +3931,7 @@ LABEL_38:
       v26 = v17 + 112 * v13 + 40;
       if (v13 == -1)
       {
-        v27 = v129;
+        v27 = v126;
       }
 
       else
@@ -3968,24 +3939,24 @@ LABEL_38:
         v27 = v26;
       }
 
-      *&v119 = -1;
-      *(&v119 + 1) = -1;
-      *&v120 = 2;
+      *&v116 = -1;
+      *(&v116 + 1) = -1;
+      *&v117 = 2;
       do
       {
         v28 = *(v27 + v25);
         v29 = *(v24 + 40 + v25);
         if (v28 != v29)
         {
-          *&v119 = *(v24 + 40 + v25);
-          *(&v119 + 1) = 1;
+          *&v116 = *(v24 + 40 + v25);
+          *(&v116 + 1) = 1;
           if (v29 == -1)
           {
-            *&v119 = v28;
-            *(&v119 + 1) = 2;
+            *&v116 = v28;
+            *(&v116 + 1) = 2;
           }
 
-          std::vector<TItnControl>::push_back[abi:ne200100](&v126, &v119);
+          std::vector<TItnControl>::push_back[abi:ne200100](&v123, &v116);
         }
 
         v25 += 8;
@@ -3993,15 +3964,15 @@ LABEL_38:
 
       while (v25 != 32);
       v30 = 0;
-      *(&v119 + 1) = 3;
+      *(&v116 + 1) = 3;
       v31 = v24 + 72;
-      a3 = v107;
+      a3 = v104;
       do
       {
         if (*(v31 + v30) != -1)
         {
-          *&v119 = *(v31 + v30);
-          std::vector<TItnControl>::push_back[abi:ne200100](&v126, &v119);
+          *&v116 = *(v31 + v30);
+          std::vector<TItnControl>::push_back[abi:ne200100](&v123, &v116);
         }
 
         v30 += 8;
@@ -4010,12 +3981,12 @@ LABEL_38:
       while (v30 != 32);
     }
 
-    collectControls(&v126, v12, 2, 0);
-    collectControls(&v126, v12, 1, 0);
-    collectControls(&v126, v12, 3, -1);
-    collectControls(&v126, v12, 6, 1);
-    collectControls(&v126, v12, 5, 0);
-    v32 = *(v12 + 144);
+    collectControls(&v123, v12, 2, 0);
+    collectControls(&v123, v12, 1, 0);
+    collectControls(&v123, v12, 3, -1);
+    collectControls(&v123, v12, 6, 1);
+    collectControls(&v123, v12, 5, 0);
+    v32 = *(v12 + 18);
     if (v32)
     {
       LOBYTE(v33) = 0;
@@ -4032,12 +4003,12 @@ LABEL_38:
           v35 = *(*a3 + 112 * v34 + 32);
         }
 
-        collectControls(&v126, v32, 6, -1);
-        collectControls(&v126, v32, 4, -1);
+        collectControls(&v123, v32, 6, -1);
+        collectControls(&v123, v32, 4, -1);
         v33 = v35 | v33 & 1;
         if (!v33)
         {
-          collectControls(&v126, v32, 4, 1);
+          collectControls(&v123, v32, 4, 1);
         }
 
         v36 = *(v32 + 71);
@@ -4051,7 +4022,7 @@ LABEL_38:
           break;
         }
 
-        collectControls(&v126, v32, 2, -1);
+        collectControls(&v123, v32, 2, -1);
         v32 = *(v32 + 144);
         if (!v32)
         {
@@ -4063,20 +4034,20 @@ LABEL_38:
     else
     {
 LABEL_50:
-      std::vector<TItnControl>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TItnControl const*>,std::__wrap_iter<TItnControl const*>>(&v126, __dst, *a7, a7[1], 0xAAAAAAAAAAAAAAABLL * ((a7[1] - *a7) >> 3));
+      std::vector<TItnControl>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TItnControl const*>,std::__wrap_iter<TItnControl const*>>(&v123, __dst, *a7, a7[1], 0xAAAAAAAAAAAAAAABLL * ((a7[1] - *a7) >> 3));
     }
 
-    v123 = 0;
-    v124 = 0;
-    v125 = 0;
+    v120 = 0;
+    v121 = 0;
+    v122 = 0;
     v37 = (v12 + 48);
     if (*(v12 + 71) < 0)
     {
-      v37 = *(v12 + 48);
+      v37 = *(v12 + 6);
     }
 
     v38 = *v37;
-    v110 = v16;
+    v107 = v16;
     if (*v37)
     {
       v39 = v37 + 1;
@@ -4146,11 +4117,11 @@ LABEL_68:
 
     v43 = 0;
 LABEL_75:
-    std::vector<TItnControl>::resize(&v123, 0);
-    std::vector<TItnControl>::resize(&v136, 0);
-    v45 = v126;
+    std::vector<TItnControl>::resize(&v120, 0);
+    std::vector<TItnControl>::resize(&v133, 0);
+    v45 = v123;
     v46 = __dst;
-    if (__dst != v126)
+    if (__dst != v123)
     {
       v47 = 0;
       v48 = 0;
@@ -4158,7 +4129,7 @@ LABEL_75:
       {
         v49 = &v45[24 * v48];
         v50 = *(v49 + 1);
-        v51 = &v123;
+        v51 = &v120;
         if (v50 <= 2)
         {
           if (v50 == 1)
@@ -4166,8 +4137,8 @@ LABEL_75:
             if (v46 == v45)
             {
 LABEL_99:
-              std::vector<TItnControl>::push_back[abi:ne200100](&v136, &v45[24 * v48]);
-              v45 = v126;
+              std::vector<TItnControl>::push_back[abi:ne200100](&v133, &v45[24 * v48]);
+              v45 = v123;
             }
 
             else
@@ -4179,12 +4150,12 @@ LABEL_99:
                 if ((*&v45[v56 + 8] - 1) <= 1)
                 {
                   ItnControlCategory = getItnControlCategory(*&v45[v56]);
-                  v59 = getItnControlCategory(*(v126 + 3 * v48));
-                  v45 = v126;
+                  v59 = getItnControlCategory(*(v123 + 3 * v48));
+                  v45 = v123;
                   if (ItnControlCategory == v59)
                   {
-                    v60 = *(v126 + v56 + 16);
-                    v61 = *(v126 + 3 * v48 + 2);
+                    v60 = *(v123 + v56 + 16);
+                    v61 = *(v123 + 3 * v48 + 2);
                     if (v60 > v61 || v57 > v48 && v60 == v61)
                     {
                       break;
@@ -4201,7 +4172,7 @@ LABEL_99:
               }
             }
 
-            v16 = v110;
+            v16 = v107;
             if (__dst != v45)
             {
               v62 = 0xAAAAAAAAAAAAAAABLL * ((__dst - v45) >> 3);
@@ -4225,7 +4196,7 @@ LABEL_99:
 
 LABEL_107:
             v49 = &v45[24 * v48];
-            v51 = &v123;
+            v51 = &v120;
           }
 
           else if (v50 != 2)
@@ -4248,10 +4219,10 @@ LABEL_107:
 
 LABEL_116:
         ++v48;
-        v45 = v126;
+        v45 = v123;
         v46 = __dst;
         v47 += 24;
-        if (v48 >= 0xAAAAAAAAAAAAAAABLL * ((__dst - v126) >> 3))
+        if (v48 >= 0xAAAAAAAAAAAAAAABLL * ((__dst - v123) >> 3))
         {
           goto LABEL_135;
         }
@@ -4266,9 +4237,9 @@ LABEL_116:
           if (*&v45[v52 + 8] == 2)
           {
             v54 = getItnControlCategory(*&v45[v52]);
-            v55 = getItnControlCategory(*(v126 + 3 * v48));
-            v45 = v126;
-            if (v54 == v55 && *(v126 + v52 + 16) == *(v126 + 3 * v48 + 2))
+            v55 = getItnControlCategory(*(v123 + 3 * v48));
+            v45 = v123;
+            if (v54 == v55 && *(v123 + v52 + 16) == *(v123 + 3 * v48 + 2))
             {
               break;
             }
@@ -4286,8 +4257,8 @@ LABEL_118:
         if (__dst == v45)
         {
 LABEL_125:
-          std::vector<TItnControl>::push_back[abi:ne200100](&v123, &v45[24 * v48]);
-          v45 = v126;
+          std::vector<TItnControl>::push_back[abi:ne200100](&v120, &v45[24 * v48]);
+          v45 = v123;
         }
 
         else
@@ -4299,9 +4270,9 @@ LABEL_125:
             if (*&v45[v66 + 8] == 1)
             {
               v68 = getItnControlCategory(*&v45[v66]);
-              v69 = getItnControlCategory(*(v126 + 3 * v48));
-              v45 = v126;
-              if (v68 == v69 && *(v126 + v66 + 16) == 3 && *(v126 + 3 * v48 + 2) == 2)
+              v69 = getItnControlCategory(*(v123 + 3 * v48));
+              v45 = v123;
+              if (v68 == v69 && *(v123 + v66 + 16) == 3 && *(v123 + 3 * v48 + 2) == 2)
               {
                 break;
               }
@@ -4316,7 +4287,7 @@ LABEL_125:
           }
         }
 
-        v16 = v110;
+        v16 = v107;
         if (__dst == v45)
         {
           goto LABEL_116;
@@ -4339,7 +4310,7 @@ LABEL_125:
           }
         }
 
-        v51 = &v136;
+        v51 = &v133;
 LABEL_115:
         std::vector<TItnControl>::push_back[abi:ne200100](v51, v49);
         goto LABEL_116;
@@ -4348,12 +4319,12 @@ LABEL_115:
 LABEL_88:
       if ((*(v12 + 71) & 0x8000000000000000) != 0)
       {
-        if (!*(v12 + 56))
+        if (!*(v12 + 7))
         {
 LABEL_114:
           v49 = &v45[24 * v48];
-          v51 = &v136;
-          v16 = v110;
+          v51 = &v133;
+          v16 = v107;
           goto LABEL_115;
         }
       }
@@ -4363,7 +4334,7 @@ LABEL_114:
         goto LABEL_114;
       }
 
-      if ((v43 & 1) == 0 || (v64 = getItnControlCategory(*&v45[24 * v48]), v45 = v126, v64 == 2))
+      if ((v43 & 1) == 0 || (v64 = getItnControlCategory(*&v45[24 * v48]), v45 = v123, v64 == 2))
       {
         if (!v38)
         {
@@ -4371,8 +4342,8 @@ LABEL_114:
         }
 
         v65 = getItnControlCategory(*&v45[24 * v48]);
-        v45 = v126;
-        if (v65 || *(v126 + 3 * v48 + 2) != 1)
+        v45 = v123;
+        if (v65 || *(v123 + 3 * v48 + 2) != 1)
         {
           goto LABEL_118;
         }
@@ -4384,7 +4355,7 @@ LABEL_114:
 LABEL_135:
     if (*v12 == 1)
     {
-      if (*(v12 + 16) == -1)
+      if (*(v12 + 2) == -1)
       {
         v72 = a1;
       }
@@ -4392,19 +4363,19 @@ LABEL_135:
       else
       {
         v72 = a1;
-        if (*(v12 + 8) != -1)
+        if (*(v12 + 1) != -1)
         {
           *&v73 = -1;
           *(&v73 + 1) = -1;
-          v121 = v73;
-          v122 = v73;
+          v118 = v73;
           v119 = v73;
-          v120 = v73;
-          TItnControlState::set(&v119, &v123, 1, 1, 1, 1uLL);
-          v74 = *(&v121 + 1);
-          if (*(&v121 + 1) == -1)
+          v116 = v73;
+          v117 = v73;
+          TItnControlState::set(&v116, &v120, 1, 1, 1, 1uLL);
+          v74 = *(&v118 + 1);
+          if (*(&v118 + 1) == -1)
           {
-            v74 = *(&v119 + 1);
+            v74 = *(&v116 + 1);
           }
 
           v75 = v74 - 7;
@@ -4418,7 +4389,7 @@ LABEL_135:
             v76 = qword_262888F78[v75];
           }
 
-          v81 = *v107 + 112 * *(v12 + 8);
+          v81 = *v104 + 112 * *(v12 + 1);
           v82 = *(v81 + 80);
           v83 = *(v81 + 48);
           if (v82 != -1)
@@ -4437,41 +4408,41 @@ LABEL_135:
             v85 = qword_262888F78[v84];
           }
 
-          v86 = a1[6];
+          v86 = *(a1 + 48);
           v87 = *(v86 + v76);
           if (*(v86 + v85) != v87)
           {
-            v117 = 0;
-            v118 = 0;
-            v116 = 0;
-            TGrammarManager::search(a1[13], v107, *(v12 + 8) - *(v12 + 24), *(v12 + 32) + *(v12 + 16), v87, &v116);
-            if (a1[14])
+            v114 = 0;
+            v115 = 0;
+            v113 = 0;
+            TGrammarManager::search(*(a1 + 104), v104, *(v12 + 1) - *(v12 + 3), *(v12 + 4) + *(v12 + 2), v87, &v113);
+            if (*(a1 + 112))
             {
-              v88 = a1[6];
+              v88 = *(a1 + 48);
               ActiveConfigHandle = TParam::getActiveConfigHandle((v88 + 19248));
               if (*(v88 + TParam::getValidConfig((v88 + 19248), ActiveConfigHandle) + 19400) == 1)
               {
-                v114 = 0;
-                v115 = 0;
-                v113 = 0;
-                TGrammarManager2::search(a1[14], v107, *(v12 + 8) - *(v12 + 24), *(v12 + 32) + *(v12 + 16), v87, &v113);
-                if (v113 != v114)
+                v111 = 0;
+                v112 = 0;
+                v110 = 0;
+                TGrammarManager2::search(*(a1 + 112), v104, *(v12 + 1) - *(v12 + 3), *(v12 + 4) + *(v12 + 2), v87, &v110);
+                if (v110 != v111)
                 {
-                  v90 = *(v113 + 3);
-                  if (v90 == *(v12 + 24))
+                  v90 = *(v110 + 3);
+                  if (v90 == *(v12 + 3))
                   {
-                    v91 = *(v113 + 4);
-                    if (v91 == *(v12 + 32) && *(v113 + 2) - (v91 + v90) == *(v12 + 16) - *(v12 + 8))
+                    v91 = *(v110 + 4);
+                    if (v91 == *(v12 + 4) && *(v110 + 2) - (v91 + v90) == *(v12 + 2) - *(v12 + 1))
                     {
-                      loggableUnicode(*(v113 + 1), __p);
-                      v96 = __p;
-                      if (v112 < 0)
+                      loggableUnicode(*(v110 + 1), __p);
+                      v93 = __p;
+                      if (v109 < 0)
                       {
-                        v96 = __p[0];
+                        v93 = __p[0];
                       }
 
-                      tknPrintf("Adaptation Result: %s\n", v92, v93, v94, v95, v96);
-                      if (v112 < 0)
+                      tknPrintf("Adaptation Result: %s\n", v92, v93);
+                      if (v109 < 0)
                       {
                         operator delete(__p[0]);
                       }
@@ -4479,125 +4450,125 @@ LABEL_135:
                   }
                 }
 
-                TGrammarManager2::clearResult(a1[14]);
-                if (v113)
+                TGrammarManager2::clearResult(*(a1 + 112));
+                if (v110)
                 {
-                  v114 = v113;
-                  operator delete(v113);
+                  v111 = v110;
+                  operator delete(v110);
                 }
               }
             }
 
-            if (v117 != v116)
+            if (v114 != v113)
             {
-              v97 = 0;
-              v98 = 0;
+              v94 = 0;
+              v95 = 0;
               do
               {
-                v99 = *(v116 + v97 + 24);
-                v100 = *(v116 + v97 + 32);
-                if (*(v116 + v97 + 16) - (v99 + v100) == *(v12 + 16) - *(v12 + 8) && v99 == *(v12 + 24) && v100 == *(v12 + 32))
+                v96 = *(v113 + v94 + 24);
+                v97 = *(v113 + v94 + 32);
+                if (*(v113 + v94 + 16) - (v96 + v97) == *(v12 + 2) - *(v12 + 1) && v96 == *(v12 + 3) && v97 == *(v12 + 4))
                 {
-                  v113 = 0;
+                  v110 = 0;
                   __p[0] = 0;
-                  TFormatter::splitPattern(a1, *(v116 + v97 + 8), &v113, __p);
+                  TFormatter::splitPattern(a1, *(v113 + v94 + 8), &v110, __p);
                 }
 
-                ++v98;
-                v97 += 56;
+                ++v95;
+                v94 += 56;
               }
 
-              while (v98 < 0x6DB6DB6DB6DB6DB7 * ((v117 - v116) >> 3));
+              while (v95 < 0x6DB6DB6DB6DB6DB7 * ((v114 - v113) >> 3));
               v72 = a1;
             }
 
             TGrammarManager2::clearResult(v72[13]);
-            if (v116)
+            if (v113)
             {
-              v117 = v116;
-              operator delete(v116);
+              v114 = v113;
+              operator delete(v113);
             }
           }
         }
       }
 
-      *&v119 = 0;
-      v116 = 0;
-      v101 = (v12 + 48);
+      *&v116 = 0;
+      v113 = 0;
+      v98 = (v12 + 48);
       if (*(v12 + 71) < 0)
       {
-        v101 = *(v12 + 48);
+        v98 = *(v12 + 6);
       }
 
-      TFormatter::splitPattern(v72, v101, &v119, &v116);
+      TFormatter::splitPattern(v72, v98, &v116, &v113);
     }
 
     v77 = *(v12 + 71);
     if (v77 < 0)
     {
-      v77 = *(v12 + 56);
+      v77 = *(v12 + 7);
     }
 
     if (v77)
     {
-      TBlock::applyControls(v12, &v123, a1[6], *(a1[4] + 336));
+      TBlock::applyControls(v12, &v120, *(a1 + 48), *(*(a1 + 32) + 336));
       *&v78 = -1;
       *(&v78 + 1) = -1;
-      v121 = v78;
-      v122 = v78;
+      v118 = v78;
       v119 = v78;
-      v120 = v78;
-      TItnControlState::set(&v119, &v126, 0, 1, 1, 2uLL);
-      v79 = v120;
-      *(v12 + 160) = v119;
-      *(v12 + 176) = v79;
-      v80 = v122;
-      *(v12 + 192) = v121;
-      *(v12 + 208) = v80;
+      v116 = v78;
+      v117 = v78;
+      TItnControlState::set(&v116, &v123, 0, 1, 1, 2uLL);
+      v79 = v117;
+      *(v12 + 10) = v116;
+      *(v12 + 11) = v79;
+      v80 = v119;
+      *(v12 + 12) = v118;
+      *(v12 + 13) = v80;
     }
 
-    collectControls(&v136, v12, 3, 1);
-    v12 = *(v12 + 144);
+    collectControls(&v133, v12, 3, 1);
+    v12 = *(v12 + 18);
     v13 = v16;
-    a3 = v107;
+    a3 = v104;
+    if (v120)
+    {
+      v121 = v120;
+      operator delete(v120);
+    }
+
     if (v123)
     {
-      v124 = v123;
+      __dst = v123;
       operator delete(v123);
     }
 
-    if (v126)
-    {
-      __dst = v126;
-      operator delete(v126);
-    }
-
-    v11 = v109;
+    v11 = v106;
   }
 
   while (v12);
-  if (v109)
+  if (v106)
   {
-    v102 = v105;
-    if (&v130 != a7)
+    v99 = v102;
+    if (&v127 != a7)
     {
-      std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(a7, v130, v131, 0xAAAAAAAAAAAAAAABLL * ((v131 - v130) >> 3));
+      std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(a7, v127, v128, 0xAAAAAAAAAAAAAAABLL * ((v128 - v127) >> 3));
     }
 
     goto LABEL_192;
   }
 
-  v102 = v105;
+  v99 = v102;
 LABEL_190:
-  if (&v136 != a7)
+  if (&v133 != a7)
   {
-    std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(a7, v136, v137, 0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3));
+    std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(a7, v133, v134, 0xAAAAAAAAAAAAAAABLL * ((v134 - v133) >> 3));
   }
 
 LABEL_192:
-  if (v102)
+  if (v99)
   {
-    data = v102;
+    data = v99;
     do
     {
       TBlock::adjustResult(data);
@@ -4605,6 +4576,12 @@ LABEL_192:
     }
 
     while (data);
+  }
+
+  if (v127)
+  {
+    v128 = v127;
+    operator delete(v127);
   }
 
   if (v130)
@@ -4619,18 +4596,12 @@ LABEL_192:
     operator delete(v133);
   }
 
-  if (v136)
-  {
-    v137 = v136;
-    operator delete(v136);
-  }
-
-  return v102;
+  return v99;
 }
 
-void sub_2626EF9B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
+void sub_2626EF9B8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
 {
-  MEMORY[0x26672B1B0](v44, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v44, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -5012,52 +4983,52 @@ LABEL_20:
   return result;
 }
 
-void TFormatter::formatInternal(TFormatter *a1, uint64_t *a2, unint64_t a3, uint64_t *a4, uint64_t *a5, char **a6, uint64_t a7, int a8, uint64_t a9, unint64_t *a10)
+void TFormatter::formatInternal(TFormatter *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, char **a6, char a7, int a8, uint64_t *a9, uint64_t **a10)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   *a10 = a3;
-  v30 = 0;
   v31 = 0;
   v32 = 0;
-  TFormatter::addLeftContext(a1, a2, a3, &v30, v29);
-  v13 = v30;
-  v14 = v31;
-  std::vector<TItnWordData>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TItnWordData const*>,std::__wrap_iter<TItnWordData const*>>(&v30, v31, *a6, a6[1], 0x6DB6DB6DB6DB6DB7 * ((a6[1] - *a6) >> 4));
-  v16 = v30;
-  v15 = v31;
-  TFormatter::addRightContext(a1, a4, a5, &v30, &v28);
-  v17 = &v14[-v13];
-  v18 = 0x6DB6DB6DB6DB6DB7 * (&v14[-v13] >> 4);
-  v19 = &v15[-v16];
-  v20 = 0x6DB6DB6DB6DB6DB7 * (&v15[-v16] >> 4);
-  v21 = v30;
+  v33 = 0;
+  TFormatter::addLeftContext(a1, a2, a3, &v31, v30);
+  v13 = v31;
+  v14 = v32;
+  std::vector<TItnWordData>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TItnWordData const*>,std::__wrap_iter<TItnWordData const*>>(&v31, v32, *a6, a6[1], 0x6DB6DB6DB6DB6DB7 * ((a6[1] - *a6) >> 4));
+  v16 = v31;
+  v15 = v32;
+  TFormatter::addRightContext(a1, a4, a5, &v31, &v29);
+  v17 = v14 - v13;
+  v18 = 0x6DB6DB6DB6DB6DB7 * ((v14 - v13) >> 4);
+  v19 = (v15 - v16);
+  v20 = 0x6DB6DB6DB6DB6DB7 * ((v15 - v16) >> 4);
+  v21 = v31;
   if (v20 != v18)
   {
-    if (a8 && !v29[1])
+    if (a8 && !v30[1])
     {
       v24 = *(a1 + 6);
       ActiveConfigHandle = TParam::getActiveConfigHandle((v24 + 3792));
       v22 = *(v24 + TParam::getValidConfig((v24 + 3792), ActiveConfigHandle) + 3944);
-      v23 = v30;
+      v23 = v31;
     }
 
     else
     {
       v22 = 1;
-      v23 = v30;
+      v23 = v31;
     }
 
-    v17[v21 + 32] = v22 & 1;
+    *(v21 + v17 + 32) = v22 & 1;
     v21 = v23;
   }
 
-  if (&v31[-v21] != v19)
+  if ((v32 - v21) != v19)
   {
     v19[v21 + 32] = 1;
   }
 
-  TFormatter::segment(a1, &v30, v18, v20);
-  TFormatter::assignWordRules();
+  v26 = TFormatter::segment(a1, &v31, v18, v20);
+  TFormatter::assignWordRules(a1, v26, &v31);
 }
 
 void sub_2626F08C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32)
@@ -5190,13 +5161,13 @@ uint64_t freeBlocks(uint64_t result)
   return result;
 }
 
-void TFormatter::wordSequenceToResult(TFormatter *a1, uint64_t *a2, unint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, unint64_t *a9, uint64_t **a10)
+void TFormatter::wordSequenceToResult(TFormatter *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, char a8, uint64_t **a9, uint64_t **a10)
 {
   memset(__p, 0, sizeof(__p));
   if (*a6 != a6[1])
   {
     TFormatter::addWords(a1, a6, a7, __p);
-    TFormatter::makeUttState(a1, a2, a5 - a2, (a3 - a2) >> 3, (a4 - a3) >> 3, a8, v22);
+    TFormatter::makeUttState(a1, a2, a5 - a2, a3 - a2, a4 - a3, a8, v22);
     v16 = __p[0];
     v17 = v22[1];
     *(__p[0] + 40) = v22[0];
@@ -5225,21 +5196,21 @@ void sub_2626F0C48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TFormatter::generateResultAlternatives(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void TFormatter::generateResultAlternatives(uint64_t a1, uint64_t a2)
 {
-  v5 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v18 = v5;
-  TBuffer<TPItnResultHandle_fake **>::resize(v6, 0);
-  if (v13)
+  v2 = MEMORY[0x28223BE20](a1, a2);
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v15 = v2;
+  TBuffer<TPItnResultHandle_fake **>::resize(v3, 0);
+  if (v10)
   {
-    v19 = *v13;
-    if (v19 == v13[1])
+    v16 = *v10;
+    if (v16 == v10[1])
     {
       return;
     }
@@ -5247,590 +5218,590 @@ void TFormatter::generateResultAlternatives(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    v19 = 0;
+    v16 = 0;
   }
 
-  TResultRelativePosition::TResultRelativePosition(&v240, *(v18 + 128), v17, v15, v19);
-  if (v241)
+  TResultRelativePosition::TResultRelativePosition(&v239, *(v15 + 128), v14, v12, v16);
+  if (v240)
   {
     return;
   }
 
-  v20 = v13 ? v13[1] : -1;
-  TResultRelativePosition::TResultRelativePosition(v239, *(v18 + 128), v17, v15, v20);
-  if (v239[2])
+  v17 = v10 ? v10[1] : -1;
+  TResultRelativePosition::TResultRelativePosition(&v236, *(v15 + 128), v14, v12, v17);
+  if (v238)
   {
     return;
   }
 
-  v193 = v11;
-  v21 = *(v18 + 48);
-  ActiveConfigHandle = TParam::getActiveConfigHandle((v21 + 9760));
-  v23 = *(v21 + 4 * TParam::getValidConfig((v21 + 9760), ActiveConfigHandle) + 9920);
-  v236 = 0;
-  v237 = 0;
-  v238 = 0;
-  if (!v23)
+  v190 = v8;
+  v18 = *(v15 + 48);
+  ActiveConfigHandle = TParam::getActiveConfigHandle((v18 + 9760));
+  v20 = *(v18 + 4 * TParam::getValidConfig((v18 + 9760), ActiveConfigHandle) + 9920);
+  v233 = 0;
+  v234 = 0;
+  v235 = 0;
+  if (!v20)
   {
     return;
   }
 
-  v200 = v9;
-  v24 = 0;
-  v25 = 1;
+  v197 = v6;
+  v21 = 0;
+  v22 = 1;
   do
   {
-    if ((v23 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_60;
     }
 
-    if (v25 > 127)
+    if (v22 > 127)
     {
-      if (v25 <= 1023)
+      if (v22 <= 1023)
       {
-        switch(v25)
+        switch(v22)
         {
           case 128:
-            v50 = *(v18 + 48);
-            v51 = TParam::getActiveConfigHandle((v50 + 12576));
-            v28 = v50 + 4 * TParam::getValidConfig((v50 + 12576), v51);
-            v29 = 12736;
+            v47 = *(v15 + 48);
+            v48 = TParam::getActiveConfigHandle((v47 + 12576));
+            v25 = v47 + 4 * TParam::getValidConfig((v47 + 12576), v48);
+            v26 = 12736;
             break;
           case 256:
-            v54 = *(v18 + 48);
-            v55 = TParam::getActiveConfigHandle((v54 + 12928));
-            v28 = v54 + 4 * TParam::getValidConfig((v54 + 12928), v55);
-            v29 = 13088;
+            v51 = *(v15 + 48);
+            v52 = TParam::getActiveConfigHandle((v51 + 12928));
+            v25 = v51 + 4 * TParam::getValidConfig((v51 + 12928), v52);
+            v26 = 13088;
             break;
           case 512:
-            v34 = *(v18 + 48);
-            v35 = TParam::getActiveConfigHandle((v34 + 13280));
-            v28 = v34 + 4 * TParam::getValidConfig((v34 + 13280), v35);
-            v29 = 13440;
+            v31 = *(v15 + 48);
+            v32 = TParam::getActiveConfigHandle((v31 + 13280));
+            v25 = v31 + 4 * TParam::getValidConfig((v31 + 13280), v32);
+            v26 = 13440;
             break;
           default:
             goto LABEL_60;
         }
       }
 
-      else if (v25 > 4095)
+      else if (v22 > 4095)
       {
-        if (v25 == 4096)
+        if (v22 == 4096)
         {
-          v46 = *(v18 + 48);
-          v47 = TParam::getActiveConfigHandle((v46 + 14336));
-          v28 = v46 + 4 * TParam::getValidConfig((v46 + 14336), v47);
-          v29 = 14496;
+          v43 = *(v15 + 48);
+          v44 = TParam::getActiveConfigHandle((v43 + 14336));
+          v25 = v43 + 4 * TParam::getValidConfig((v43 + 14336), v44);
+          v26 = 14496;
         }
 
         else
         {
-          if (v25 != 0x10000)
+          if (v22 != 0x10000)
           {
             goto LABEL_60;
           }
 
-          v38 = *(v18 + 48);
-          v39 = TParam::getActiveConfigHandle((v38 + 14688));
-          v28 = v38 + 4 * TParam::getValidConfig((v38 + 14688), v39);
-          v29 = 14848;
+          v35 = *(v15 + 48);
+          v36 = TParam::getActiveConfigHandle((v35 + 14688));
+          v25 = v35 + 4 * TParam::getValidConfig((v35 + 14688), v36);
+          v26 = 14848;
         }
       }
 
-      else if (v25 == 1024)
+      else if (v22 == 1024)
       {
-        v42 = *(v18 + 48);
-        v43 = TParam::getActiveConfigHandle((v42 + 13632));
-        v28 = v42 + 4 * TParam::getValidConfig((v42 + 13632), v43);
-        v29 = 13792;
+        v39 = *(v15 + 48);
+        v40 = TParam::getActiveConfigHandle((v39 + 13632));
+        v25 = v39 + 4 * TParam::getValidConfig((v39 + 13632), v40);
+        v26 = 13792;
       }
 
       else
       {
-        if (v25 != 2048)
+        if (v22 != 2048)
         {
           goto LABEL_60;
         }
 
-        v30 = *(v18 + 48);
-        v31 = TParam::getActiveConfigHandle((v30 + 13984));
-        v28 = v30 + 4 * TParam::getValidConfig((v30 + 13984), v31);
-        v29 = 14144;
+        v27 = *(v15 + 48);
+        v28 = TParam::getActiveConfigHandle((v27 + 13984));
+        v25 = v27 + 4 * TParam::getValidConfig((v27 + 13984), v28);
+        v26 = 14144;
       }
     }
 
-    else if (v25 <= 7)
+    else if (v22 <= 7)
     {
-      switch(v25)
+      switch(v22)
       {
         case 1:
-          v48 = *(v18 + 48);
-          v49 = TParam::getActiveConfigHandle((v48 + 10112));
-          v28 = v48 + 4 * TParam::getValidConfig((v48 + 10112), v49);
-          v29 = 10272;
+          v45 = *(v15 + 48);
+          v46 = TParam::getActiveConfigHandle((v45 + 10112));
+          v25 = v45 + 4 * TParam::getValidConfig((v45 + 10112), v46);
+          v26 = 10272;
           break;
         case 2:
-          v52 = *(v18 + 48);
-          v53 = TParam::getActiveConfigHandle((v52 + 10464));
-          v28 = v52 + 4 * TParam::getValidConfig((v52 + 10464), v53);
-          v29 = 10624;
+          v49 = *(v15 + 48);
+          v50 = TParam::getActiveConfigHandle((v49 + 10464));
+          v25 = v49 + 4 * TParam::getValidConfig((v49 + 10464), v50);
+          v26 = 10624;
           break;
         case 4:
-          v32 = *(v18 + 48);
-          v33 = TParam::getActiveConfigHandle((v32 + 10816));
-          v28 = v32 + 4 * TParam::getValidConfig((v32 + 10816), v33);
-          v29 = 10976;
+          v29 = *(v15 + 48);
+          v30 = TParam::getActiveConfigHandle((v29 + 10816));
+          v25 = v29 + 4 * TParam::getValidConfig((v29 + 10816), v30);
+          v26 = 10976;
           break;
         default:
           goto LABEL_60;
       }
     }
 
-    else if (v25 > 31)
+    else if (v22 > 31)
     {
-      if (v25 == 32)
+      if (v22 == 32)
       {
-        v44 = *(v18 + 48);
-        v45 = TParam::getActiveConfigHandle((v44 + 11872));
-        v28 = v44 + 4 * TParam::getValidConfig((v44 + 11872), v45);
-        v29 = 12032;
+        v41 = *(v15 + 48);
+        v42 = TParam::getActiveConfigHandle((v41 + 11872));
+        v25 = v41 + 4 * TParam::getValidConfig((v41 + 11872), v42);
+        v26 = 12032;
       }
 
       else
       {
-        if (v25 != 64)
+        if (v22 != 64)
         {
           goto LABEL_60;
         }
 
-        v36 = *(v18 + 48);
-        v37 = TParam::getActiveConfigHandle((v36 + 12224));
-        v28 = v36 + 4 * TParam::getValidConfig((v36 + 12224), v37);
-        v29 = 12384;
+        v33 = *(v15 + 48);
+        v34 = TParam::getActiveConfigHandle((v33 + 12224));
+        v25 = v33 + 4 * TParam::getValidConfig((v33 + 12224), v34);
+        v26 = 12384;
       }
     }
 
-    else if (v25 == 8)
+    else if (v22 == 8)
     {
-      v40 = *(v18 + 48);
-      v41 = TParam::getActiveConfigHandle((v40 + 11168));
-      v28 = v40 + 4 * TParam::getValidConfig((v40 + 11168), v41);
-      v29 = 11328;
+      v37 = *(v15 + 48);
+      v38 = TParam::getActiveConfigHandle((v37 + 11168));
+      v25 = v37 + 4 * TParam::getValidConfig((v37 + 11168), v38);
+      v26 = 11328;
     }
 
     else
     {
-      if (v25 != 16)
+      if (v22 != 16)
       {
         goto LABEL_60;
       }
 
-      v26 = *(v18 + 48);
-      v27 = TParam::getActiveConfigHandle((v26 + 11520));
-      v28 = v26 + 4 * TParam::getValidConfig((v26 + 11520), v27);
-      v29 = 11680;
+      v23 = *(v15 + 48);
+      v24 = TParam::getActiveConfigHandle((v23 + 11520));
+      v25 = v23 + 4 * TParam::getValidConfig((v23 + 11520), v24);
+      v26 = 11680;
     }
 
-    v56 = *(v28 + v29);
-    v57 = v237;
-    if (v237 >= v238)
+    v53 = *(v25 + v26);
+    v54 = v234;
+    if (v234 >= v235)
     {
-      v58 = v237 - v236;
-      if ((v58 + 1) >> 61)
+      v55 = (v234 - v233) >> 3;
+      if ((v55 + 1) >> 61)
       {
         std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
       }
 
-      v59 = (v238 - v236) >> 2;
-      if (v59 <= v58 + 1)
+      v56 = (v235 - v233) >> 2;
+      if (v56 <= v55 + 1)
       {
-        v59 = v58 + 1;
+        v56 = v55 + 1;
       }
 
-      if (v238 - v236 >= 0x7FFFFFFFFFFFFFF8)
+      if (v235 - v233 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v60 = 0x1FFFFFFFFFFFFFFFLL;
+        v57 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v60 = v59;
+        v57 = v56;
       }
 
+      if (v57)
+      {
+        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&v233, v57);
+      }
+
+      v58 = (8 * v55);
+      *v58 = v22 | (v53 << 32);
+      v21 = (8 * v55 + 8);
+      v59 = (v58 - (v234 - v233));
+      memcpy(v59, v233, v234 - v233);
+      v60 = v233;
+      v233 = v59;
+      v234 = v21;
+      v235 = 0;
       if (v60)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(&v236, v60);
-      }
-
-      v61 = (8 * v58);
-      *v61 = v25 | (v56 << 32);
-      v24 = (8 * v58 + 8);
-      v62 = v61 - (v237 - v236);
-      memcpy(v62, v236, v237 - v236);
-      v63 = v236;
-      v236 = v62;
-      v237 = v24;
-      v238 = 0;
-      if (v63)
-      {
-        operator delete(v63);
+        operator delete(v60);
       }
     }
 
     else
     {
-      *v237 = v25 | (v56 << 32);
-      v24 = v57 + 1;
+      *v234 = v22 | (v53 << 32);
+      v21 = (v54 + 1);
     }
 
-    v237 = v24;
+    v234 = v21;
 LABEL_60:
-    v25 *= 2;
-    v141 = v23 >= 2;
-    v23 >>= 1;
+    v22 *= 2;
+    v138 = v20 >= 2;
+    v20 >>= 1;
   }
 
-  while (v141);
-  v64 = v236;
-  if (v236 != v24)
+  while (v138);
+  v61 = v233;
+  if (v233 != v21)
   {
-    v222 = priorityCompare;
-    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,false>(v236, v24, &v222, 126 - 2 * __clz(v24 - v236), 1);
-    v233 = 0;
-    v234 = 0;
-    v235 = 0;
+    v219 = priorityCompare;
+    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,false>(v233, v21, &v219, 126 - 2 * __clz((v21 - v233) >> 3), 1);
     v230 = 0;
     v231 = 0;
     v232 = 0;
-    std::vector<TPItnTagHandle_fake **>::__assign_with_size[abi:ne200100]<TPItnTagHandle_fake ** const*,TPItnTagHandle_fake ** const*>(&v233, v17, &v17[8 * v240], v240);
-    if (*(&v240 + 1))
-    {
-      TResultManager::copyAlignRange(*(v18 + 128), *&v17[8 * v240]);
-    }
-
-    v66 = v233;
-    v65 = v234;
-    if (v240 == v239[0])
-    {
-      TResultManager::copyAlignRange(*(v18 + 128), *&v17[8 * v240]);
-    }
-
-    std::vector<TPItnResultHandle_fake **>::__insert_with_size[abi:ne200100]<TPItnResultHandle_fake ** const*,TPItnResultHandle_fake ** const*>(&v233, v234, &v17[8 * v240], &v17[8 * v239[0]], (8 * v239[0] - 8 * v240) >> 3);
-    if (v239[1])
-    {
-      TResultManager::copyAlignRange(*(v18 + 128), *&v17[8 * v239[0]]);
-    }
-
-    v68 = v233;
-    v67 = v234;
-    std::vector<TPItnResultHandle_fake **>::__insert_with_size[abi:ne200100]<TPItnResultHandle_fake ** const*,TPItnResultHandle_fake ** const*>(&v233, v234, &v17[8 * v239[0]], v15, (v15 - &v17[8 * v239[0]]) >> 3);
-    v197 = v65 - v66;
-    v196 = v67 - v68;
-    v195 = v240 == 0;
     v227 = 0;
     v228 = 0;
     v229 = 0;
-    memset(&__s1, 0, sizeof(__s1));
-    v190 = (v67 - v68) >> 3;
-    v198 = (v65 - v66) >> 3;
-    if (v198 < v190)
+    std::vector<TPItnTagHandle_fake **>::__assign_with_size[abi:ne200100]<TPItnTagHandle_fake ** const*,TPItnTagHandle_fake ** const*>(&v230, v14, &v14[8 * v239], v239);
+    if (*(&v239 + 1))
     {
-      v69 = (v65 - v66) >> 3;
+      TResultManager::copyAlignRange(*(v15 + 128), *&v14[8 * v239], 0, *(&v239 + 1));
+    }
+
+    v63 = v230;
+    v62 = v231;
+    if (v239 == v236)
+    {
+      TResultManager::copyAlignRange(*(v15 + 128), *&v14[8 * v239], *(&v239 + 1), v237);
+    }
+
+    std::vector<TPItnResultHandle_fake **>::__insert_with_size[abi:ne200100]<TPItnResultHandle_fake ** const*,TPItnResultHandle_fake ** const*>(&v230, v231, &v14[8 * v239], &v14[8 * v236], (8 * v236 - 8 * v239) >> 3);
+    if (v237)
+    {
+      TResultManager::copyAlignRange(*(v15 + 128), *&v14[8 * v236], 0, v237);
+    }
+
+    v65 = v230;
+    v64 = v231;
+    std::vector<TPItnResultHandle_fake **>::__insert_with_size[abi:ne200100]<TPItnResultHandle_fake ** const*,TPItnResultHandle_fake ** const*>(&v230, v231, &v14[8 * v236], v12, (v12 - &v14[8 * v236]) >> 3);
+    v194 = v62 - v63;
+    v193 = v64 - v65;
+    v192 = v239 == 0;
+    v224 = 0;
+    v225 = 0;
+    v226 = 0;
+    memset(&__s1, 0, sizeof(__s1));
+    v187 = (v64 - v65) >> 3;
+    v195 = (v62 - v63) >> 3;
+    if (v195 < v187)
+    {
+      v66 = (v62 - v63) >> 3;
       do
       {
-        Result = TResultManager::getResult(*(v18 + 128), *&v233[8 * v69]);
+        Result = TResultManager::getResult(*(v15 + 128), *&v230[8 * v66]);
         std::string::append(&__s1, *(Result + 16));
-        v71 = *(Result + 32);
-        if (*(Result + 40) != v71)
+        v68 = *(Result + 32);
+        if (*(Result + 40) != v68)
         {
-          v72 = 0;
-          v73 = 0;
+          v69 = 0;
+          v70 = 0;
           do
           {
-            v74 = (v71 + v72);
-            if (*(v71 + v72 + 23) < 0)
+            v71 = (v68 + v69);
+            if (*(v68 + v69 + 23) < 0)
             {
-              v74 = *v74;
+              v71 = *v71;
             }
 
-            v75 = v228;
-            if (v228 >= v229)
+            v72 = v225;
+            if (v225 >= v226)
             {
-              v77 = v228 - v227;
-              if ((v77 + 1) >> 61)
+              v74 = v225 - v224;
+              if ((v74 + 1) >> 61)
               {
                 std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
               }
 
-              v78 = (v229 - v227) >> 2;
-              if (v78 <= v77 + 1)
+              v75 = (v226 - v224) >> 2;
+              if (v75 <= v74 + 1)
               {
-                v78 = v77 + 1;
+                v75 = v74 + 1;
               }
 
-              if (v229 - v227 >= 0x7FFFFFFFFFFFFFF8)
+              if (v226 - v224 >= 0x7FFFFFFFFFFFFFF8)
               {
-                v79 = 0x1FFFFFFFFFFFFFFFLL;
+                v76 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v79 = v78;
+                v76 = v75;
               }
 
+              if (v76)
+              {
+                std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t const*>>(&v224, v76);
+              }
+
+              v77 = (8 * v74);
+              *v77 = v71;
+              v73 = (8 * v74 + 8);
+              v78 = v77 - (v225 - v224);
+              memcpy(v78, v224, v225 - v224);
+              v79 = v224;
+              v224 = v78;
+              v225 = v73;
+              v226 = 0;
               if (v79)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t const*>>(&v227, v79);
-              }
-
-              v80 = (8 * v77);
-              *v80 = v74;
-              v76 = (8 * v77 + 8);
-              v81 = v80 - (v228 - v227);
-              memcpy(v81, v227, v228 - v227);
-              v82 = v227;
-              v227 = v81;
-              v228 = v76;
-              v229 = 0;
-              if (v82)
-              {
-                operator delete(v82);
+                operator delete(v79);
               }
             }
 
             else
             {
-              *v228 = v74;
-              v76 = v75 + 1;
+              *v225 = v71;
+              v73 = v72 + 1;
             }
 
-            v228 = v76;
-            ++v73;
-            v71 = *(Result + 32);
-            v72 += 24;
+            v225 = v73;
+            ++v70;
+            v68 = *(Result + 32);
+            v69 += 24;
           }
 
-          while (v73 < 0xAAAAAAAAAAAAAAABLL * ((*(Result + 40) - v71) >> 3));
+          while (v70 < 0xAAAAAAAAAAAAAAABLL * ((*(Result + 40) - v68) >> 3));
         }
 
-        ++v69;
+        ++v66;
       }
 
-      while (v69 != v190);
+      while (v66 != v187);
     }
 
-    v222 = v224;
-    v223 = xmmword_26286B6F0;
-    v225 = 1;
-    v83 = v236;
-    v84 = v193;
-    if (v237 != v236)
+    v219 = v221;
+    v220 = xmmword_26286B6F0;
+    v222 = 1;
+    v80 = v233;
+    v81 = v190;
+    if (v234 != v233)
     {
-      v191 = 0;
-      v189 = v198 + 1;
+      v188 = 0;
+      v186 = v195 + 1;
       do
       {
-        if (v7[2] >= v200)
+        if (*(v4 + 16) >= v197)
         {
           break;
         }
 
-        v85 = v83[v191];
-        if (v85 == 0x10000)
+        v82 = v80->i32[2 * v188];
+        if (v82 == 0x10000)
         {
-          if (v227 != v228)
+          if (v224 != v225)
           {
-            TParamSetter::TParamSetter(&v220, *(v18 + 48) + 2224, &unk_262888EC4, *(*(v18 + 48) + 136));
-            TParamSetter::TParamSetter(&v213, *(v18 + 48) + 2472, &unk_262888EC4, *(*(v18 + 48) + 136));
-            v209 = v211;
-            v210 = xmmword_26286B6F0;
-            v212 = 1;
-            v204 = 0;
-            __p = v207;
-            v206 = xmmword_26286B6F0;
-            v208 = 1;
-            v218 = 0;
-            v217 = 0;
-            v219 = 0;
-            v202 = 0;
-            v203 = 0;
-            std::vector<wchar_t const*>::__init_with_size[abi:ne200100]<wchar_t const**,wchar_t const**>(&v202, v227, v228, v228 - v227);
-            v106 = v227;
-            if (v228 == v227 || v7[2] >= v200)
+            TParamSetter::TParamSetter(&v217, *(v15 + 48) + 2224, &unk_262888EC4, *(*(v15 + 48) + 136));
+            TParamSetter::TParamSetter(&v210, *(v15 + 48) + 2472, &unk_262888EC4, *(*(v15 + 48) + 136));
+            v206 = v208;
+            v207 = xmmword_26286B6F0;
+            v209 = 1;
+            v201 = 0;
+            __p = v204;
+            v203 = xmmword_26286B6F0;
+            v205 = 1;
+            v215 = 0;
+            v214 = 0;
+            v216 = 0;
+            v199 = 0;
+            v200 = 0;
+            std::vector<wchar_t const*>::__init_with_size[abi:ne200100]<wchar_t const**,wchar_t const**>(&v199, v224, v225, v225 - v224);
+            v103 = v224;
+            if (v225 == v224 || *(v4 + 16) >= v197)
             {
 LABEL_219:
-              if (v202)
+              if (v199)
               {
-                v203 = v202;
-                operator delete(v202);
+                v200 = v199;
+                operator delete(v199);
               }
 
-              if (v217)
+              if (v214)
               {
-                v218 = v217;
-                operator delete(v217);
+                v215 = v214;
+                operator delete(v214);
               }
 
-              if (v208 == 1 && __p != v207 && __p)
-              {
-                MEMORY[0x26672B1B0]();
-              }
-
-              if (v212 == 1 && v209 != v211 && v209)
+              if (v205 == 1 && __p != v204 && __p)
               {
                 MEMORY[0x26672B1B0]();
               }
 
-              TParamSetter::~TParamSetter(&v213);
-              TParamSetter::~TParamSetter(&v220);
+              if (v209 == 1 && v206 != v208 && v206)
+              {
+                MEMORY[0x26672B1B0]();
+              }
+
+              TParamSetter::~TParamSetter(&v210);
+              TParamSetter::~TParamSetter(&v217);
               goto LABEL_328;
             }
 
-            v107 = 0;
+            v104 = 0;
             while (2)
             {
-              (*(**(v18 + 120) + 48))(*(v18 + 120), v106[v107], 0, &v209);
-              if (*(&v210 + 1))
+              (*(**(v15 + 120) + 48))(*(v15 + 120), v103[v104], 0, &v206);
+              if (*(&v207 + 1))
               {
-                TLexicon::getWrittenForm(*(v18 + 32), v227[v107], &__p);
-                if (*(&v206 + 1))
+                TLexicon::getWrittenForm(*(v15 + 32), v224[v104], &__p);
+                if (*(&v203 + 1))
                 {
-                  TBuffer<wchar_t>::insert(&__p, *(&v206 + 1), dword_262888EDC, 0xBuLL);
-                  v108 = *(v18 + 32);
-                  if (*(&v206 + 1) >= v206)
+                  TBuffer<wchar_t>::insert(&__p, *(&v203 + 1), dword_262888EDC, 0xBuLL);
+                  v105 = *(v15 + 32);
+                  if (*(&v203 + 1) >= v203)
                   {
-                    if (v208)
+                    if (v205)
                     {
-                      LODWORD(v242[0]) = 0;
-                      TBuffer<wchar_t>::insert(&__p, *(&v206 + 1), v242, 1uLL);
-                      v109 = __p;
-                      --*(&v206 + 1);
+                      LODWORD(v241[0]) = 0;
+                      TBuffer<wchar_t>::insert(&__p, *(&v203 + 1), v241, 1uLL);
+                      v106 = __p;
+                      --*(&v203 + 1);
                     }
 
                     else
                     {
-                      v109 = __p;
-                      if (v206)
+                      v106 = __p;
+                      if (v203)
                       {
-                        *(__p + v206 - 1) = 0;
+                        *(__p + v203 - 1) = 0;
                       }
                     }
                   }
 
                   else
                   {
-                    v109 = __p;
-                    *(__p + *(&v206 + 1)) = 0;
+                    v106 = __p;
+                    *(__p + *(&v203 + 1)) = 0;
                   }
 
-                  TLexicon::addTempWord(v108, v109, 0, 0, 0);
-                  if (*(&v206 + 1) >= v206)
+                  TLexicon::addTempWord(v105, v106, 0, 0, 0);
+                  if (*(&v203 + 1) >= v203)
                   {
-                    if (v208)
+                    if (v205)
                     {
-                      LODWORD(v242[0]) = 0;
-                      TBuffer<wchar_t>::insert(&__p, *(&v206 + 1), v242, 1uLL);
-                      v110 = __p;
-                      --*(&v206 + 1);
+                      LODWORD(v241[0]) = 0;
+                      TBuffer<wchar_t>::insert(&__p, *(&v203 + 1), v241, 1uLL);
+                      v107 = __p;
+                      --*(&v203 + 1);
                     }
 
                     else
                     {
-                      v110 = __p;
-                      if (v206)
+                      v107 = __p;
+                      if (v203)
                       {
-                        *(__p + v206 - 1) = 0;
+                        *(__p + v203 - 1) = 0;
                       }
                     }
                   }
 
                   else
                   {
-                    v110 = __p;
-                    *(__p + *(&v206 + 1)) = 0;
+                    v107 = __p;
+                    *(__p + *(&v203 + 1)) = 0;
                   }
 
-                  *(v202 + v107) = v110;
-                  v216 = 0;
-                  v201 = 0;
-                  v111 = v7[2];
-                  if (*(&v210 + 1) && v111 < v200)
+                  *(v199 + v104) = v107;
+                  v213 = 0;
+                  v198 = 0;
+                  v108 = *(v4 + 16);
+                  if (*(&v207 + 1) && v108 < v197)
                   {
-                    v112 = 0;
-                    v194 = 0;
-                    v199 = v107;
+                    v109 = 0;
+                    v191 = 0;
+                    v196 = v104;
                     while (1)
                     {
-                      v192 = v112;
-                      v113 = *&v209[8 * v112];
-                      if (v113 && (v114 = *(*(v18 + 120) + 32), v113 <= (*(*(v18 + 120) + 40) - v114) >> 3))
+                      v189 = v109;
+                      v110 = *&v206[8 * v109];
+                      if (v110 && (v111 = *(*(v15 + 120) + 32), v110 <= (*(*(v15 + 120) + 40) - v111) >> 3))
                       {
-                        v115 = *(v114 + 8 * v113 - 8);
+                        v112 = *(v111 + 8 * v110 - 8);
                       }
 
                       else
                       {
-                        v115 = 0;
+                        v112 = 0;
                       }
 
-                      if ((*(v115 + 145) & 1) == 0)
+                      if ((*(v112 + 145) & 1) == 0)
                       {
-                        std::vector<TPItnRuleControl>::resize(&v217, 0xAAAAAAAAAAAAAAABLL * ((*(v115 + 160) - *(v115 + 152)) >> 3));
-                        v117 = *(v115 + 152);
-                        v116 = *(v115 + 160);
-                        if (v116 != v117)
+                        std::vector<TPItnRuleControl>::resize(&v214, 0xAAAAAAAAAAAAAAABLL * ((*(v112 + 160) - *(v112 + 152)) >> 3));
+                        v114 = *(v112 + 152);
+                        v113 = *(v112 + 160);
+                        if (v113 != v114)
                         {
-                          v118 = 0xAAAAAAAAAAAAAAABLL * ((v116 - v117) >> 3);
-                          v119 = v217;
-                          if (v118 <= 1)
+                          v115 = 0xAAAAAAAAAAAAAAABLL * ((v113 - v114) >> 3);
+                          v116 = v214;
+                          if (v115 <= 1)
                           {
-                            v118 = 1;
+                            v115 = 1;
                           }
 
-                          v120 = *(v115 + 152);
+                          v117 = *(v112 + 152);
                           do
                           {
-                            v121 = *v120;
-                            v120 = (v120 + 24);
-                            *v119++ = v121;
-                            --v118;
+                            v118 = *v117;
+                            v117 = (v117 + 24);
+                            *v116++ = v118;
+                            --v115;
                           }
 
-                          while (v118);
+                          while (v115);
                         }
 
-                        v122 = (v115 + 120);
-                        if (*(v115 + 143) < 0)
+                        v119 = (v112 + 120);
+                        if (*(v112 + 143) < 0)
                         {
-                          v122 = *v122;
+                          v119 = *v119;
                         }
 
-                        v123 = v116 == v117 ? 0 : v217;
-                        v111 = v7[2];
-                        if (v111 < v200)
+                        v120 = v113 == v114 ? 0 : v214;
+                        v108 = *(v4 + 16);
+                        if (v108 < v197)
                         {
                           break;
                         }
                       }
 
 LABEL_184:
-                      v112 = v192 + 1;
-                      v107 = v199;
-                      v141 = (v192 + 1) >= *(&v210 + 1) || v111 >= v200;
-                      if (v141)
+                      v109 = v189 + 1;
+                      v104 = v196;
+                      v138 = (v189 + 1) >= *(&v207 + 1) || v108 >= v197;
+                      if (v138)
                       {
                         goto LABEL_191;
                       }
                     }
 
-                    v124 = 0;
-                    v125 = 1;
+                    v121 = 0;
+                    v122 = 1;
                     while (2)
                     {
-                      if ((v125 & 1) == 0)
+                      if ((v122 & 1) == 0)
                       {
-                        if (!*v122)
+                        if (!*v119)
                         {
                           goto LABEL_184;
                         }
@@ -5838,98 +5809,98 @@ LABEL_184:
                         goto LABEL_157;
                       }
 
-                      if ((*(v115 + 144) & 1) == 0)
+                      if ((*(v112 + 144) & 1) == 0)
                       {
-                        if (v194)
+                        if (v191)
                         {
-                          v126 = 1;
+                          v123 = 1;
                           goto LABEL_155;
                         }
 
-                        if (*(v115 + 32) == *(v115 + 24) && *(v115 + 56) == *(v115 + 48))
+                        if (*(v112 + 32) == *(v112 + 24) && *(v112 + 56) == *(v112 + 48))
                         {
-                          v126 = *(v115 + 192) == -1;
+                          v123 = *(v112 + 192) == -1;
 LABEL_155:
-                          v194 = v126;
+                          v191 = v123;
                         }
 
                         else
                         {
-                          v194 = 0;
+                          v191 = 0;
                         }
 
 LABEL_157:
-                        LOBYTE(v188) = 0;
-                        v127 = (*(**(v18 + 120) + 16))(*(v18 + 120), *(v202 + v199), v122, v124 & 1, 0, 0, 0, 0, v123, v123 - 0x5555555555555550 * ((*(v115 + 160) - *(v115 + 152)) >> 3), -1, v188);
-                        v128 = (*(*v18 + 96))(v18, v233, &v233[v197], &v233[v196], v234, &v202, 0, v84 & v195, &v216, &v201);
-                        v129 = *(TResultManager::getResult(*(v18 + 128), v128) + 16);
-                        v130 = strlen(v129);
-                        v131 = v130;
+                        LOBYTE(v185) = 0;
+                        v124 = (*(**(v15 + 120) + 16))(*(v15 + 120), *(v199 + v196), v119, v121 & 1, 0, 0, 0, 0, v120, v120 - 0x5555555555555550 * ((*(v112 + 160) - *(v112 + 152)) >> 3), -1, v185);
+                        v125 = (*(*v15 + 96))(v15, v230, &v230[v194], &v230[v193], v231, &v199, 0, v81 & v192, &v213, &v198);
+                        v126 = *(TResultManager::getResult(*(v15 + 128), v125) + 16);
+                        v127 = strlen(v126);
+                        v128 = v127;
                         if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
                         {
-                          if (v130 != __s1.__r_.__value_.__l.__size_)
+                          if (v127 != __s1.__r_.__value_.__l.__size_)
                           {
                             goto LABEL_164;
                           }
 
-                          if (v130 == -1)
+                          if (v127 == -1)
                           {
                             std::wstring::__throw_out_of_range[abi:ne200100]();
                           }
 
                           p_s1 = __s1.__r_.__value_.__r.__words[0];
 LABEL_163:
-                          v133 = memcmp(p_s1, v129, v131) == 0;
+                          v130 = memcmp(p_s1, v126, v128) == 0;
                         }
 
                         else
                         {
-                          if (v130 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
+                          if (v127 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
                           {
                             p_s1 = &__s1;
                             goto LABEL_163;
                           }
 
 LABEL_164:
-                          v133 = 0;
+                          v130 = 0;
                         }
 
-                        if (v7[2] && !v133)
+                        if (*(v4 + 16) && !v130)
                         {
-                          v134 = 0;
+                          v131 = 0;
                           do
                           {
-                            v135 = TResultManager::getResult(*(v18 + 128), *(*v7 + 8 * v134));
-                            v136 = strcmp(*(v135 + 16), v129);
-                            v133 = v136 == 0;
+                            v132 = TResultManager::getResult(*(v15 + 128), *(*v4 + 8 * v131));
+                            v133 = strcmp(*(v132 + 16), v126);
+                            v130 = v133 == 0;
                           }
 
-                          while (++v134 < v7[2] && v136 != 0);
-                          v84 = v193;
+                          while (++v131 < *(v4 + 16) && v133 != 0);
+                          v81 = v190;
                         }
 
-                        v138 = *(v18 + 128);
-                        if (v133)
+                        v135 = *(v15 + 128);
+                        if (v130)
                         {
-                          TResultManager::destroy(v138, v128);
+                          TResultManager::destroy(v135, v125);
                         }
 
                         else
                         {
-                          v139 = TResultManager::getResult(v138, v128);
-                          MEMORY[0x26672AF30](*(v139 + 32) + 24 * v199, v227[v199]);
-                          v242[0] = v128;
-                          TBuffer<TPItnRuleHandle_fake **>::insert(v7, v7[2], v242, 1uLL);
+                          v136 = TResultManager::getResult(v135, v125);
+                          MEMORY[0x26672AF30](*(v136 + 32) + 24 * v196, v224[v196]);
+                          v241[0] = v125;
+                          TBuffer<TPItnRuleHandle_fake **>::insert(v4, *(v4 + 16), v241, 1uLL);
                         }
 
-                        (*(**(v18 + 120) + 24))(*(v18 + 120), v127);
-                        v111 = v7[2];
+                        (*(**(v15 + 120) + 24))(*(v15 + 120), v124);
+                        v108 = *(v4 + 16);
                       }
 
-                      v140 = v125 & (v111 < v200);
-                      v124 = 1;
-                      v125 = 0;
-                      if ((v140 & 1) == 0)
+                      v137 = v122 & (v108 < v197);
+                      v121 = 1;
+                      v122 = 0;
+                      if ((v137 & 1) == 0)
                       {
                         goto LABEL_184;
                       }
@@ -5938,79 +5909,79 @@ LABEL_164:
                     }
                   }
 
-                  v194 = 0;
+                  v191 = 0;
 LABEL_191:
-                  if (!v194 && v111 < v200)
+                  if (!v191 && v108 < v197)
                   {
-                    v142 = (*(*v18 + 96))(v18, v233, &v233[v197], &v233[v196], v234, &v202, 0, v84 & v195, &v216, &v201);
-                    v143 = *(TResultManager::getResult(*(v18 + 128), v142) + 16);
-                    v144 = strlen(v143);
-                    v145 = v144;
+                    v139 = (*(*v15 + 96))(v15, v230, &v230[v194], &v230[v193], v231, &v199, 0, v81 & v192, &v213, &v198);
+                    v140 = *(TResultManager::getResult(*(v15 + 128), v139) + 16);
+                    v141 = strlen(v140);
+                    v142 = v141;
                     if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
                     {
-                      if (v144 != __s1.__r_.__value_.__l.__size_)
+                      if (v141 != __s1.__r_.__value_.__l.__size_)
                       {
                         goto LABEL_200;
                       }
 
-                      if (v144 == -1)
+                      if (v141 == -1)
                       {
                         std::wstring::__throw_out_of_range[abi:ne200100]();
                       }
 
-                      v146 = __s1.__r_.__value_.__r.__words[0];
+                      v143 = __s1.__r_.__value_.__r.__words[0];
 LABEL_199:
-                      v147 = memcmp(v146, v143, v145) == 0;
+                      v144 = memcmp(v143, v140, v142) == 0;
                     }
 
                     else
                     {
-                      if (v144 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
+                      if (v141 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
                       {
-                        v146 = &__s1;
+                        v143 = &__s1;
                         goto LABEL_199;
                       }
 
 LABEL_200:
-                      v147 = 0;
+                      v144 = 0;
                     }
 
-                    if (v7[2] && !v147)
+                    if (*(v4 + 16) && !v144)
                     {
-                      v148 = 0;
+                      v145 = 0;
                       do
                       {
-                        v149 = TResultManager::getResult(*(v18 + 128), *(*v7 + 8 * v148));
-                        v150 = strcmp(*(v149 + 16), v143);
-                        v147 = v150 == 0;
+                        v146 = TResultManager::getResult(*(v15 + 128), *(*v4 + 8 * v145));
+                        v147 = strcmp(*(v146 + 16), v140);
+                        v144 = v147 == 0;
                       }
 
-                      while (++v148 < v7[2] && v150 != 0);
-                      v84 = v193;
+                      while (++v145 < *(v4 + 16) && v147 != 0);
+                      v81 = v190;
                     }
 
-                    v152 = *(v18 + 128);
-                    if (v147)
+                    v149 = *(v15 + 128);
+                    if (v144)
                     {
-                      TResultManager::destroy(v152, v142);
+                      TResultManager::destroy(v149, v139);
                     }
 
                     else
                     {
-                      v153 = TResultManager::getResult(v152, v142);
-                      MEMORY[0x26672AF30](*(v153 + 32) + 24 * v107, v227[v107]);
-                      v242[0] = v142;
-                      TBuffer<TPItnRuleHandle_fake **>::insert(v7, v7[2], v242, 1uLL);
+                      v150 = TResultManager::getResult(v149, v139);
+                      MEMORY[0x26672AF30](*(v150 + 32) + 24 * v104, v224[v104]);
+                      v241[0] = v139;
+                      TBuffer<TPItnRuleHandle_fake **>::insert(v4, *(v4 + 16), v241, 1uLL);
                     }
                   }
 
-                  *(v202 + v107) = v227[v107];
+                  *(v199 + v104) = v224[v104];
                 }
               }
 
-              ++v107;
-              v106 = v227;
-              if (v107 >= v228 - v227 || v7[2] >= v200)
+              ++v104;
+              v103 = v224;
+              if (v104 >= v225 - v224 || *(v4 + 16) >= v197)
               {
                 goto LABEL_219;
               }
@@ -6020,228 +5991,228 @@ LABEL_200:
           }
         }
 
-        else if (v85 == 1)
+        else if (v82 == 1)
         {
-          if (v228 - v227 == 8)
+          if (v225 - v224 == 8)
           {
-            v86 = *(v18 + 48);
-            v87 = TParam::getActiveConfigHandle((v86 + 16416));
-            v88 = *(v86 + TParam::getValidConfig((v86 + 16416), v87) + 16568);
-            v84 = v193;
-            if (v88 != 1 || (v84 = v193, TLexicon::getPronCount(*(v18 + 32), *v227) == 1))
+            v83 = *(v15 + 48);
+            v84 = TParam::getActiveConfigHandle((v83 + 16416));
+            v85 = *(v83 + TParam::getValidConfig((v83 + 16416), v84) + 16568);
+            v81 = v190;
+            if (v85 != 1 || (v81 = v190, TLexicon::getPronCount(*(v15 + 32), *v224) == 1))
             {
-              v214 = 0;
-              v213 = 0;
-              v215 = 0;
-              v89 = *(v18 + 32);
-              v90 = *v227;
-              v91 = TStringParam::get((*(v18 + 48) + 15040));
-              TLexicon::getHomophones(v89, v90, v91, &v213);
-              v92 = v213;
-              if (v213 != v214)
+              v211 = 0;
+              v210 = 0;
+              v212 = 0;
+              v86 = *(v15 + 32);
+              v87 = *v224;
+              v88 = TStringParam::get((*(v15 + 48) + 15040));
+              TLexicon::getHomophones(v86, v87, v88, &v210);
+              v89 = v210;
+              if (v210 != v211)
               {
                 __p = 0;
-                v206 = 0uLL;
-                std::vector<std::pair<int,TWord const*>>::reserve(&__p, (v214 - v213) >> 3);
-                v93 = v213;
-                if (v214 == v213)
+                v203 = 0uLL;
+                std::vector<std::pair<int,TWord const*>>::reserve(&__p, (v211 - v210) >> 3);
+                v90 = v210;
+                if (v211 == v210)
                 {
-                  v98 = v206;
+                  v95 = v203;
                 }
 
                 else
                 {
-                  v94 = 0;
+                  v91 = 0;
                   do
                   {
-                    UnigramScore = TWord::getUnigramScore(v93[v94]);
-                    v96 = *(v213 + v94);
-                    v97 = v206;
-                    if (v206 >= *(&v206 + 1))
+                    UnigramScore = TWord::getUnigramScore(v90[v91]);
+                    v93 = *(v210 + v91);
+                    v94 = v203;
+                    if (v203 >= *(&v203 + 1))
                     {
-                      v99 = (v206 - __p) >> 4;
-                      v100 = v99 + 1;
-                      if ((v99 + 1) >> 60)
+                      v96 = (v203 - __p) >> 4;
+                      v97 = v96 + 1;
+                      if ((v96 + 1) >> 60)
                       {
                         std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
                       }
 
-                      v101 = *(&v206 + 1) - __p;
-                      if ((*(&v206 + 1) - __p) >> 3 > v100)
+                      v98 = *(&v203 + 1) - __p;
+                      if ((*(&v203 + 1) - __p) >> 3 > v97)
                       {
-                        v100 = v101 >> 3;
+                        v97 = v98 >> 3;
                       }
 
-                      if (v101 >= 0x7FFFFFFFFFFFFFF0)
+                      if (v98 >= 0x7FFFFFFFFFFFFFF0)
                       {
-                        v102 = 0xFFFFFFFFFFFFFFFLL;
+                        v99 = 0xFFFFFFFFFFFFFFFLL;
                       }
 
                       else
                       {
-                        v102 = v100;
+                        v99 = v97;
                       }
 
+                      if (v99)
+                      {
+                        std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<int,TWord const*>>>(&__p, v99);
+                      }
+
+                      v100 = (16 * v96);
+                      *v100 = UnigramScore;
+                      v100[1] = v93;
+                      v95 = (16 * v96 + 16);
+                      v101 = (16 * v96 - (v203 - __p));
+                      memcpy(v101, __p, v203 - __p);
+                      v102 = __p;
+                      __p = v101;
+                      v203 = v95;
                       if (v102)
                       {
-                        std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<int,TWord const*>>>(&__p, v102);
-                      }
-
-                      v103 = (16 * v99);
-                      *v103 = UnigramScore;
-                      v103[1] = v96;
-                      v98 = (16 * v99 + 16);
-                      v104 = (16 * v99 - (v206 - __p));
-                      memcpy(v104, __p, v206 - __p);
-                      v105 = __p;
-                      __p = v104;
-                      v206 = v98;
-                      if (v105)
-                      {
-                        operator delete(v105);
+                        operator delete(v102);
                       }
                     }
 
                     else
                     {
-                      *v206 = UnigramScore;
-                      *(v97 + 8) = v96;
-                      v98 = (v97 + 16);
+                      *v203 = UnigramScore;
+                      *(v94 + 8) = v93;
+                      v95 = (v94 + 16);
                     }
 
-                    *&v206 = v98;
-                    ++v94;
-                    v93 = v213;
+                    *&v203 = v95;
+                    ++v91;
+                    v90 = v210;
                   }
 
-                  while (v94 < (v214 - v213) >> 3);
+                  while (v91 < (v211 - v210) >> 3);
                 }
 
-                v156 = 126 - 2 * __clz((v98 - __p) >> 4);
-                if (v98 == __p)
+                v153 = 126 - 2 * __clz((v95 - __p) >> 4);
+                if (v95 == __p)
                 {
-                  v157 = 0;
+                  v154 = 0;
                 }
 
                 else
                 {
-                  v157 = v156;
+                  v154 = v153;
                 }
 
-                std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,TWord const*> *,false>(__p, v98, &v209, v157, 1);
-                TParamSetter::TParamSetter(&v209, *(v18 + 48) + 2224, &unk_262888EC4, *(*(v18 + 48) + 136));
-                TParamSetter::TParamSetter(&v220, *(v18 + 48) + 2472, &unk_262888EC4, *(*(v18 + 48) + 136));
-                std::vector<wchar_t const*>::vector[abi:ne200100](&v217, 1uLL);
-                v158 = __p;
-                if (v206 != __p && v7[2] < v200)
+                std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,TWord const*> *,false>(__p, v95, &v206, v154, 1);
+                TParamSetter::TParamSetter(&v206, *(v15 + 48) + 2224, &unk_262888EC4, *(*(v15 + 48) + 136));
+                TParamSetter::TParamSetter(&v217, *(v15 + 48) + 2472, &unk_262888EC4, *(*(v15 + 48) + 136));
+                std::vector<wchar_t const*>::vector[abi:ne200100](&v214, 1uLL);
+                v155 = __p;
+                if (v203 != __p && *(v4 + 16) < v197)
                 {
-                  for (i = 0; i < (v206 - __p) >> 4 && v7[2] < v200; ++i)
+                  for (i = 0; i < (v203 - __p) >> 4 && *(v4 + 16) < v197; ++i)
                   {
-                    v242[0] = 0;
-                    v216 = 0;
-                    *v217 = *v158[2 * i + 1];
-                    v160 = (*(*v18 + 96))(v18, v233, &v233[v197], &v233[v196], v234, &v217, 0, v193 & v195, v242, &v216);
-                    v161 = *(TResultManager::getResult(*(v18 + 128), v160) + 16);
-                    v162 = strlen(v161);
-                    v163 = v162;
+                    v241[0] = 0;
+                    v213 = 0;
+                    *v214 = *v155[2 * i + 1];
+                    v157 = (*(*v15 + 96))(v15, v230, &v230[v194], &v230[v193], v231, &v214, 0, v190 & v192, v241, &v213);
+                    v158 = *(TResultManager::getResult(*(v15 + 128), v157) + 16);
+                    v159 = strlen(v158);
+                    v160 = v159;
                     if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
                     {
-                      if (v162 == __s1.__r_.__value_.__l.__size_)
+                      if (v159 == __s1.__r_.__value_.__l.__size_)
                       {
-                        if (v162 == -1)
+                        if (v159 == -1)
                         {
                           std::wstring::__throw_out_of_range[abi:ne200100]();
                         }
 
-                        v164 = __s1.__r_.__value_.__r.__words[0];
+                        v161 = __s1.__r_.__value_.__r.__words[0];
                         goto LABEL_265;
                       }
                     }
 
-                    else if (v162 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
+                    else if (v159 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
                     {
-                      v164 = &__s1;
+                      v161 = &__s1;
 LABEL_265:
-                      v165 = memcmp(v164, v161, v163) == 0;
+                      v162 = memcmp(v161, v158, v160) == 0;
                       goto LABEL_267;
                     }
 
-                    v165 = 0;
+                    v162 = 0;
 LABEL_267:
-                    v166 = v7[2];
-                    if (v166 && !v165)
+                    v163 = *(v4 + 16);
+                    if (v163 && !v162)
                     {
-                      v167 = 0;
+                      v164 = 0;
                       do
                       {
-                        v168 = TResultManager::getResult(*(v18 + 128), *(*v7 + 8 * v167));
-                        v169 = strcmp(*(v168 + 16), v161);
-                        v165 = v169 == 0;
-                        ++v167;
-                        v166 = v7[2];
+                        v165 = TResultManager::getResult(*(v15 + 128), *(*v4 + 8 * v164));
+                        v166 = strcmp(*(v165 + 16), v158);
+                        v162 = v166 == 0;
+                        ++v164;
+                        v163 = *(v4 + 16);
                       }
 
-                      while (v167 < v166 && v169 != 0);
+                      while (v164 < v163 && v166 != 0);
                     }
 
-                    if (v165)
+                    if (v162)
                     {
-                      TResultManager::destroy(*(v18 + 128), v160);
+                      TResultManager::destroy(*(v15 + 128), v157);
                     }
 
                     else
                     {
-                      v202 = v160;
-                      TBuffer<TPItnRuleHandle_fake **>::insert(v7, v166, &v202, 1uLL);
+                      v199 = v157;
+                      TBuffer<TPItnRuleHandle_fake **>::insert(v4, v163, &v199, 1uLL);
                     }
 
-                    v158 = __p;
+                    v155 = __p;
                   }
                 }
 
-                if (v217)
+                if (v214)
                 {
-                  v218 = v217;
-                  operator delete(v217);
+                  v215 = v214;
+                  operator delete(v214);
                 }
 
-                TParamSetter::~TParamSetter(&v220);
-                TParamSetter::~TParamSetter(&v209);
-                v84 = v193;
+                TParamSetter::~TParamSetter(&v217);
+                TParamSetter::~TParamSetter(&v206);
+                v81 = v190;
                 if (__p)
                 {
-                  *&v206 = __p;
+                  *&v203 = __p;
                   operator delete(__p);
                 }
 
-                v92 = v213;
+                v89 = v210;
               }
 
-              if (v92)
+              if (v89)
               {
-                v214 = v92;
-                operator delete(v92);
+                v211 = v89;
+                operator delete(v89);
               }
             }
           }
         }
 
-        else if (v85 <= 0x1000)
+        else if (v82 <= 0x1000)
         {
-          if (v85 > 127)
+          if (v82 > 127)
           {
-            if (v85 > 1023)
+            if (v82 > 1023)
             {
-              switch(v85)
+              switch(v82)
               {
                 case 1024:
-                  v155 = 10;
+                  v152 = 10;
                   break;
                 case 2048:
-                  v155 = 11;
+                  v152 = 11;
                   break;
                 case 4096:
-                  v155 = 12;
+                  v152 = 12;
                   break;
                 default:
                   goto LABEL_328;
@@ -6250,16 +6221,16 @@ LABEL_267:
 
             else
             {
-              switch(v85)
+              switch(v82)
               {
                 case 128:
-                  v155 = 7;
+                  v152 = 7;
                   break;
                 case 256:
-                  v155 = 8;
+                  v152 = 8;
                   break;
                 case 512:
-                  v155 = 9;
+                  v152 = 9;
                   break;
                 default:
                   goto LABEL_328;
@@ -6267,18 +6238,18 @@ LABEL_267:
             }
           }
 
-          else if (v85 > 15)
+          else if (v82 > 15)
           {
-            switch(v85)
+            switch(v82)
             {
               case 16:
-                v155 = 4;
+                v152 = 4;
                 break;
               case 32:
-                v155 = 5;
+                v152 = 5;
                 break;
               case 64:
-                v155 = 6;
+                v152 = 6;
                 break;
               default:
                 goto LABEL_328;
@@ -6287,154 +6258,154 @@ LABEL_267:
 
           else
           {
-            switch(v85)
+            switch(v82)
             {
               case 2:
-                v155 = 1;
+                v152 = 1;
                 break;
               case 4:
-                v155 = 2;
+                v152 = 2;
                 break;
               case 8:
-                v155 = 3;
+                v152 = 3;
                 break;
               default:
                 goto LABEL_328;
             }
           }
 
-          v220 = v155;
-          TBuffer<TPItnResultHandle_fake **>::resize(&v222, 0);
-          (*(*v18 + 120))(v18, v233, &v233[v197], &v233[v196], v234, &v220, &v221, v84 & v195, &v222);
-          v171 = *(&v223 + 1);
-          if (*(&v223 + 1))
+          v217 = v152;
+          TBuffer<TPItnResultHandle_fake **>::resize(&v219, 0);
+          (*(*v15 + 120))(v15, v230, &v230[v194], &v230[v193], v231, &v217, &v218, v81 & v192, &v219);
+          v168 = *(&v220 + 1);
+          if (*(&v220 + 1))
           {
-            if (v190 <= v189)
+            if (v187 <= v186)
             {
-              v173 = *v222;
+              v170 = *v219;
             }
 
             else
             {
-              v172 = *(v18 + 128);
-              if (*(&v223 + 1) >= v223)
+              v169 = *(v15 + 128);
+              if (*(&v220 + 1) >= v220)
               {
-                if (v225)
+                if (v222)
                 {
-                  v209 = 0;
-                  TBuffer<TPItnRuleHandle_fake **>::insert(&v222, *(&v223 + 1), &v209, 1uLL);
-                  v171 = --*(&v223 + 1);
+                  v206 = 0;
+                  TBuffer<TPItnRuleHandle_fake **>::insert(&v219, *(&v220 + 1), &v206, 1uLL);
+                  v168 = --*(&v220 + 1);
                 }
 
-                else if (v223)
+                else if (v220)
                 {
-                  *(v222 + v223 - 1) = 0;
+                  *(v219 + v220 - 1) = 0;
                 }
               }
 
               else
               {
-                *(v222 + *(&v223 + 1)) = 0;
+                *(v219 + *(&v220 + 1)) = 0;
               }
 
-              v173 = TResultManager::merge(v172, v222, v171);
-              if (*(&v223 + 1))
+              v170 = TResultManager::merge(v169, v219, v168);
+              if (*(&v220 + 1))
               {
-                v174 = 0;
+                v171 = 0;
                 do
                 {
-                  TResultManager::destroy(*(v18 + 128), *(v222 + v174++));
+                  TResultManager::destroy(*(v15 + 128), *(v219 + v171++));
                 }
 
-                while (v174 < *(&v223 + 1));
-                v84 = v193;
+                while (v171 < *(&v220 + 1));
+                v81 = v190;
               }
             }
 
-            v175 = *(TResultManager::getResult(*(v18 + 128), v173) + 16);
-            v176 = strlen(v175);
-            v177 = v176;
+            v172 = *(TResultManager::getResult(*(v15 + 128), v170) + 16);
+            v173 = strlen(v172);
+            v174 = v173;
             if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
             {
-              if (v176 != __s1.__r_.__value_.__l.__size_)
+              if (v173 != __s1.__r_.__value_.__l.__size_)
               {
                 goto LABEL_315;
               }
 
-              if (v176 == -1)
+              if (v173 == -1)
               {
                 std::wstring::__throw_out_of_range[abi:ne200100]();
               }
 
-              v178 = __s1.__r_.__value_.__r.__words[0];
+              v175 = __s1.__r_.__value_.__r.__words[0];
 LABEL_314:
-              v179 = memcmp(v178, v175, v177) == 0;
+              v176 = memcmp(v175, v172, v174) == 0;
             }
 
             else
             {
-              if (v176 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
+              if (v173 == SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
               {
-                v178 = &__s1;
+                v175 = &__s1;
                 goto LABEL_314;
               }
 
 LABEL_315:
-              v179 = 0;
+              v176 = 0;
             }
 
-            v180 = v7[2];
-            if (v180 && !v179)
+            v177 = *(v4 + 16);
+            if (v177 && !v176)
             {
-              v181 = 0;
+              v178 = 0;
               do
               {
-                v182 = TResultManager::getResult(*(v18 + 128), *(*v7 + 8 * v181));
-                v183 = strcmp(*(v182 + 16), v175);
-                v179 = v183 == 0;
-                ++v181;
-                v180 = v7[2];
+                v179 = TResultManager::getResult(*(v15 + 128), *(*v4 + 8 * v178));
+                v180 = strcmp(*(v179 + 16), v172);
+                v176 = v180 == 0;
+                ++v178;
+                v177 = *(v4 + 16);
               }
 
-              while (v181 < v180 && v183 != 0);
-              v84 = v193;
+              while (v178 < v177 && v180 != 0);
+              v81 = v190;
             }
 
-            if (v179)
+            if (v176)
             {
-              TResultManager::destroy(*(v18 + 128), v173);
+              TResultManager::destroy(*(v15 + 128), v170);
             }
 
             else
             {
-              v209 = v173;
-              TBuffer<TPItnRuleHandle_fake **>::insert(v7, v180, &v209, 1uLL);
+              v206 = v170;
+              TBuffer<TPItnRuleHandle_fake **>::insert(v4, v177, &v206, 1uLL);
             }
           }
         }
 
 LABEL_328:
-        v83 = v236;
-        ++v191;
+        v80 = v233;
+        ++v188;
       }
 
-      while (v191 < v237 - v236);
+      while (v188 < (v234 - v233) >> 3);
     }
 
-    v185 = v230;
-    if (v231 != v230)
+    v182 = v227;
+    if (v228 != v227)
     {
-      v186 = 0;
+      v183 = 0;
       do
       {
-        TResultManager::destroy(*(v18 + 128), v185[v186++]);
-        v185 = v230;
+        TResultManager::destroy(*(v15 + 128), v182[v183++]);
+        v182 = v227;
       }
 
-      while (v186 < (v231 - v230) >> 3);
+      while (v183 < (v228 - v227) >> 3);
     }
 
-    if (v225 == 1 && v222 != v224 && v222 != 0)
+    if (v222 == 1 && v219 != v221 && v219 != 0)
     {
       MEMORY[0x26672B1B0]();
     }
@@ -6442,6 +6413,12 @@ LABEL_328:
     if (SHIBYTE(__s1.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__s1.__r_.__value_.__l.__data_);
+    }
+
+    if (v224)
+    {
+      v225 = v224;
+      operator delete(v224);
     }
 
     if (v227)
@@ -6456,19 +6433,13 @@ LABEL_328:
       operator delete(v230);
     }
 
-    if (v233)
-    {
-      v234 = v233;
-      operator delete(v233);
-    }
-
-    v64 = v236;
+    v61 = v233;
   }
 
-  if (v64)
+  if (v61)
   {
-    v237 = v64;
-    operator delete(v64);
+    v234 = v61;
+    operator delete(v61);
   }
 }
 
@@ -6533,30 +6504,25 @@ LABEL_10:
   *(a1 + 16) = a2;
 }
 
-void *std::vector<std::pair<int,TWord const*>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<int,TWord const*>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<int,TWord const*>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<int,TWord const*>>>(a1, a2);
     }
 
     std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-TFormatter *TFormatter::reformatResults(TFormatter *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t *a7, unsigned int a8, uint64_t a9)
+void TFormatter::reformatResults(TFormatter *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t *a7, char a8, uint64_t a9)
 {
   if (a4 != a3)
   {
     v9 = a6;
-    v10 = result;
     v37 = a3 - a2;
-    v38 = result;
     v36 = (a5 - a2) >> 3;
     v11 = a7 - a6;
     if (v11 <= 1)
@@ -6566,7 +6532,7 @@ TFormatter *TFormatter::reformatResults(TFormatter *result, uint64_t *a2, uint64
 
     v45 = v11;
     v43 = a4 - a3;
-    v47 = *(TResultManager::getResult(*(result + 16), *a3) + 1);
+    v47 = *(TResultManager::getResult(*(a1 + 16), *a3) + 1);
     v12 = -8;
     v13 = 1;
     do
@@ -6578,17 +6544,17 @@ TFormatter *TFormatter::reformatResults(TFormatter *result, uint64_t *a2, uint64
         break;
       }
 
-      v16 = TResultManager::getResult(*(v10 + 128), a3[v13]);
+      Result = TResultManager::getResult(*(a1 + 16), a3[v13]);
       v12 = v14 - 8;
       v13 = v15 + 1;
     }
 
-    while (*(v16 + 1) == v47);
+    while (*(Result + 1) == v47);
     v55 = 0;
     v56 = 0;
     v42 = v14;
     v57 = 0;
-    TFormatter::addWords(v10, a3, a3 - v14, 0, &v55);
+    TFormatter::addWords(a1, a3, a3 - v14, 0, &v55);
     v17 = v55;
     v18 = v56;
     if (v56 == v55)
@@ -6604,7 +6570,7 @@ LABEL_21:
         v34 = &unk_262888F14;
       }
 
-      TParamSetter::TParamSetter(&v51, *(v38 + 6) + 3792, v34, *(*(v38 + 6) + 136));
+      TParamSetter::TParamSetter(&v51, *(a1 + 6) + 3792, v34, *(*(a1 + 6) + 136));
       v35 = v37 + v15;
       if (v43 == v15)
       {
@@ -6613,7 +6579,7 @@ LABEL_21:
 
       v49 = -1;
       v50 = 0;
-      TFormatter::formatInternal(v38, a2, a3, (a3 - v42), &a2[v35], &v55, a8, 0, &v49, &v50);
+      TFormatter::formatInternal(a1, a2, a3, (a3 - v42), &a2[v35], &v55, a8, 0, &v49, &v50);
     }
 
     v19 = 0;
@@ -6688,8 +6654,6 @@ LABEL_16:
       }
     }
   }
-
-  return result;
 }
 
 void sub_2626F2DC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
@@ -6718,21 +6682,21 @@ uint64_t non-virtual thunk toTFormatter::copyResult(uint64_t a1, uint64_t a2)
   return TResultManager::merge(v2, &v4, 1);
 }
 
-uint64_t TFormatter::getResultText(uint64_t a1, uint64_t a2, uint64_t a3)
+const void **TFormatter::getResultText(uint64_t a1, uint64_t a2, const void **a3)
 {
   v4 = *(TResultManager::getResult(*(a1 + 128), a2) + 16);
 
   return TBuffer<char>::assign(a3, v4);
 }
 
-uint64_t non-virtual thunk toTFormatter::getResultText(uint64_t a1, uint64_t a2, uint64_t a3)
+const void **non-virtual thunk toTFormatter::getResultText(uint64_t a1, uint64_t a2, const void **a3)
 {
   v4 = *(TResultManager::getResult(*(a1 + 88), a2) + 16);
 
   return TBuffer<char>::assign(a3, v4);
 }
 
-uint64_t TFormatter::serializeResultTokenSequence(uint64_t a1, uint64_t a2, uint64_t a3)
+const void **TFormatter::serializeResultTokenSequence(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   TBuffer<char>::resize(a3, 0);
   v6 = TResultManager::getResult(*(a1 + 128), a2);
@@ -7075,7 +7039,7 @@ void TParamSetter::~TParamSetter(TParamSetter *this)
     if (*(this + 1056))
     {
       v9 = 0;
-      TBuffer<wchar_t>::insert(this + 8, v4, &v9, 1uLL);
+      TBuffer<wchar_t>::insert(this + 1, v4, &v9, 1uLL);
       --*(this + 3);
       v6 = *(this + 1);
     }
@@ -7221,20 +7185,20 @@ void std::vector<TItnWordData>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::vector<TItnStateData>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<TItnStateData>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<TItnStateData>::__vallocate[abi:ne200100](result, a2);
+    std::vector<TItnStateData>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<TItnStateData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TItnStateData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x38E38E38E38E38FLL)
   {
@@ -7280,20 +7244,20 @@ void std::vector<TItnStateData>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v2;
 }
 
-void *std::vector<std::vector<TItnGrammarStateData const*>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<TItnGrammarStateData const*>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<TItnGrammarStateData const*>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<TItnGrammarStateData const*>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<TItnGrammarStateData const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<TItnGrammarStateData const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7352,7 +7316,7 @@ void std::vector<std::vector<TItnGrammarStateData const*>>::clear[abi:ne200100](
   a1[1] = v3;
 }
 
-uint64_t std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TItnControl>::__init_with_size[abi:ne200100]<TItnControl*,TItnControl*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7374,7 +7338,7 @@ void sub_2626F3F28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TItnControl>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TItnControl>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7384,7 +7348,7 @@ void std::vector<TItnControl>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TItnControl*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7460,7 +7424,7 @@ void *std::vector<TItnControl>::__assign_with_size[abi:ne200100]<TItnControl*,TI
   return result;
 }
 
-void *std::vector<TItnWordData>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TItnWordData const*>,std::__wrap_iter<TItnWordData const*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<TItnWordData>::__insert_with_size[abi:ne200100]<std::__wrap_iter<TItnWordData const*>,std::__wrap_iter<TItnWordData const*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 >= 1)
@@ -7603,19 +7567,19 @@ void *std::vector<TItnWordData>::__insert_with_size[abi:ne200100]<std::__wrap_it
     do
     {
       v46 = *v7;
-      v47 = v7[2];
-      v45[1] = v7[1];
+      v47 = *(v7 + 2);
+      v45[1] = *(v7 + 1);
       v45[2] = v47;
       *v45 = v46;
-      v48 = v7[3];
-      v49 = v7[4];
-      v50 = v7[6];
-      v45[5] = v7[5];
+      v48 = *(v7 + 3);
+      v49 = *(v7 + 4);
+      v50 = *(v7 + 6);
+      v45[5] = *(v7 + 5);
       v45[6] = v50;
       v45[3] = v48;
       v45[4] = v49;
       v45 += 7;
-      v7 += 7;
+      v7 += 112;
       v43 -= 112;
     }
 
@@ -7642,7 +7606,7 @@ void *std::vector<TItnWordData>::__insert_with_size[abi:ne200100]<std::__wrap_it
   return v5;
 }
 
-uint64_t std::vector<TItnWordData>::__init_with_size[abi:ne200100]<std::__wrap_iter<TItnWordData*>,std::__wrap_iter<TItnWordData*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TItnWordData>::__init_with_size[abi:ne200100]<std::__wrap_iter<TItnWordData*>,std::__wrap_iter<TItnWordData*>>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7664,7 +7628,7 @@ void sub_2626F442C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TItnWordData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TItnWordData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x24924924924924ALL)
   {
@@ -7674,11 +7638,11 @@ void std::vector<TItnWordData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t
   std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,false>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, int a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,false>(uint64_t result, int8x16_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, int a5)
 {
   v8 = result;
 LABEL_2:
-  v85 = a2 - 1;
+  v85 = &a2[-1].i32[3];
   v9 = v8;
 LABEL_3:
   v10 = 1 - a4;
@@ -7687,7 +7651,7 @@ LABEL_3:
   {
     v8 = v9;
     v11 = v10;
-    v12 = a2 - v9;
+    v12 = (a2->i64 - v9) >> 3;
     if (v12 <= 2)
     {
       if (v12 < 2)
@@ -7697,15 +7661,15 @@ LABEL_3:
 
       if (v12 == 2)
       {
-        result = (*a3)(*(a2 - 1), *v9);
+        result = (*a3)(a2[-1].i64[1], *v9);
         if (result)
         {
           v77 = *v9;
-          *v9 = *(a2 - 2);
-          *(a2 - 2) = v77;
-          v78 = *(v9 + 1);
-          *(v9 + 1) = *(a2 - 1);
-          *(a2 - 1) = v78;
+          *v9 = a2[-1].i32[2];
+          a2[-1].i32[2] = v77;
+          v78 = *(v9 + 4);
+          *(v9 + 4) = a2[-1].i32[3];
+          a2[-1].i32[3] = v78;
         }
 
         return result;
@@ -7716,35 +7680,35 @@ LABEL_3:
 
     if (v12 == 3)
     {
-      v72 = (*a3)(v9[1], *v9);
-      result = (*a3)(*(a2 - 1), v9[1]);
+      v72 = (*a3)(*(v9 + 8), *v9);
+      result = (*a3)(a2[-1].i64[1], *(v9 + 8));
       if (v72)
       {
-        v74 = v9 + 1;
+        v74 = (v9 + 4);
         v73 = *v9;
         if (result)
         {
-          *v9 = *(a2 - 2);
+          *v9 = a2[-1].i32[2];
         }
 
         else
         {
-          v82 = v9[1];
-          *(v9 + 3) = *(v9 + 1);
-          v74 = v9 + 3;
-          *(v9 + 2) = v73;
+          v82 = *(v9 + 8);
+          *(v9 + 12) = *(v9 + 4);
+          v74 = (v9 + 12);
+          *(v9 + 8) = v73;
           *v9 = v82;
-          result = (*a3)(*(a2 - 1), v9[1]);
+          result = (*a3)(a2[-1].i64[1], *(v9 + 8));
           if (!result)
           {
             return result;
           }
 
-          v73 = *(v9 + 2);
-          *(v9 + 2) = *(a2 - 2);
+          v73 = *(v9 + 8);
+          *(v9 + 8) = a2[-1].i32[2];
         }
 
-        *(a2 - 2) = v73;
+        a2[-1].i32[2] = v73;
       }
 
       else
@@ -7754,23 +7718,23 @@ LABEL_3:
           return result;
         }
 
-        v79 = *(v9 + 2);
-        *(v9 + 2) = *(a2 - 2);
-        *(a2 - 2) = v79;
-        v80 = *(v9 + 3);
-        v85 = v9 + 3;
-        *(v9 + 3) = *(a2 - 1);
-        *(a2 - 1) = v80;
-        result = (*a3)(v9[1], *v9);
+        v79 = *(v9 + 8);
+        *(v9 + 8) = a2[-1].i32[2];
+        a2[-1].i32[2] = v79;
+        v80 = *(v9 + 12);
+        v85 = (v9 + 12);
+        *(v9 + 12) = a2[-1].i32[3];
+        a2[-1].i32[3] = v80;
+        result = (*a3)(*(v9 + 8), *v9);
         if (!result)
         {
           return result;
         }
 
         v81 = *v9;
-        *v9 = *(v9 + 2);
-        *(v9 + 2) = v81;
-        v74 = v9 + 1;
+        *v9 = *(v9 + 8);
+        *(v9 + 8) = v81;
+        v74 = (v9 + 4);
       }
 
       v83 = *v74;
@@ -7786,25 +7750,25 @@ LABEL_3:
 
     if (v12 == 5)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,0>(v9, v9 + 1, v9 + 2, (v9 + 3), a3);
-      result = (*a3)(*(a2 - 1), v9[3]);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,0>(v9, (v9 + 8), (v9 + 16), v9 + 24, a3);
+      result = (*a3)(a2[-1].i64[1], *(v9 + 24));
       if (result)
       {
-        v75 = *(v9 + 6);
-        *(v9 + 6) = *(a2 - 2);
-        *(a2 - 2) = v75;
-        v76 = *(v9 + 7);
-        *(v9 + 7) = *(a2 - 1);
-        *(a2 - 1) = v76;
-        result = (*a3)(v9[3], v9[2]);
+        v75 = *(v9 + 24);
+        *(v9 + 24) = a2[-1].i32[2];
+        a2[-1].i32[2] = v75;
+        v76 = *(v9 + 28);
+        *(v9 + 28) = a2[-1].i32[3];
+        a2[-1].i32[3] = v76;
+        result = (*a3)(*(v9 + 24), *(v9 + 16));
         if (result)
         {
-          *(v9 + 1) = vextq_s8(*(v9 + 1), *(v9 + 1), 8uLL);
-          result = (*a3)(v9[2], v9[1]);
+          *(v9 + 16) = vextq_s8(*(v9 + 16), *(v9 + 16), 8uLL);
+          result = (*a3)(*(v9 + 16), *(v9 + 8));
           if (result)
           {
-            *(v9 + 1) = vextq_s8(*(v9 + 1), *(v9 + 1), 8uLL);
-            result = (*a3)(v9[1], *v9);
+            *(v9 + 8) = vextq_s8(*(v9 + 8), *(v9 + 8), 8uLL);
+            result = (*a3)(*(v9 + 8), *v9);
             if (result)
             {
               *v9 = vextq_s8(*v9, *v9, 8uLL);
@@ -7822,13 +7786,13 @@ LABEL_11:
       if (a5)
       {
 
-        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(v9, a2, a3);
+        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(v9, a2->i64, a3);
       }
 
       else
       {
 
-        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(v9, a2, a3);
+        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(v9, a2->i64, a3);
       }
     }
 
@@ -7837,26 +7801,26 @@ LABEL_11:
       if (v9 != a2)
       {
 
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,std::pair<unsigned int,unsigned int>*>(v9, a2, a2, a3);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,std::pair<unsigned int,unsigned int>*>(v9, a2->i8, a2->i32, a3);
       }
 
       return result;
     }
 
     v13 = v12 >> 1;
-    v14 = &v9[v12 >> 1];
+    v14 = (v9 + 8 * (v12 >> 1));
     v15 = *a3;
     if (v12 >= 0x81)
     {
       v16 = v15(v14->i64[0], *v8);
-      v17 = (*a3)(*(a2 - 1), v14->i64[0]);
+      v17 = (*a3)(a2[-1].i64[1], v14->i64[0]);
       if (v16)
       {
         v19 = v8 + 1;
         v18 = *v8;
         if (v17)
         {
-          *v8 = *(a2 - 2);
+          *v8 = a2[-1].i32[2];
           goto LABEL_28;
         }
 
@@ -7865,13 +7829,13 @@ LABEL_11:
         v14->i32[1] = v32;
         v19 = &v14->i32[1];
         v14->i32[0] = v18;
-        if ((*a3)(*(a2 - 1), v14->i64[0]))
+        if ((*a3)(a2[-1].i64[1], v14->i64[0]))
         {
           v18 = v14->i32[0];
-          v14->i32[0] = *(a2 - 2);
+          v14->i32[0] = a2[-1].i32[2];
 LABEL_28:
-          *(a2 - 2) = v18;
-          v26 = a2 - 1;
+          a2[-1].i32[2] = v18;
+          v26 = &a2[-1].i32[3];
 LABEL_29:
           v33 = *v19;
           *v19 = *v26;
@@ -7882,12 +7846,12 @@ LABEL_29:
       else if (v17)
       {
         v24 = v14->i32[0];
-        v14->i32[0] = *(a2 - 2);
-        *(a2 - 2) = v24;
+        v14->i32[0] = a2[-1].i32[2];
+        a2[-1].i32[2] = v24;
         v26 = &v14->i32[1];
         v25 = v14->i32[1];
-        v14->i32[1] = *(a2 - 1);
-        *(a2 - 1) = v25;
+        v14->i32[1] = a2[-1].i32[3];
+        a2[-1].i32[3] = v25;
         if ((*a3)(v14->i64[0], *v8))
         {
           v27 = *v8;
@@ -7900,14 +7864,14 @@ LABEL_29:
 
       v34 = &v14[-1].i64[1];
       v35 = (*a3)(v14[-1].i64[1], v8[1]);
-      v36 = (*a3)(*(a2 - 2), v14[-1].i64[1]);
+      v36 = (*a3)(a2[-1].i64[0], v14[-1].i64[1]);
       if (v35)
       {
         v37 = *(v8 + 2);
         if (v36)
         {
           v38 = v8 + 3;
-          *(v8 + 2) = *(a2 - 4);
+          *(v8 + 2) = a2[-1].i32[0];
           goto LABEL_41;
         }
 
@@ -7916,13 +7880,13 @@ LABEL_29:
         v14[-1].i32[3] = v44;
         v38 = &v14[-1].i32[3];
         *v34 = v37;
-        if ((*a3)(*(a2 - 2), *v34))
+        if ((*a3)(a2[-1].i64[0], *v34))
         {
           v37 = *v34;
-          *v34 = *(a2 - 4);
+          *v34 = a2[-1].i32[0];
 LABEL_41:
-          *(a2 - 4) = v37;
-          v41 = a2 - 3;
+          a2[-1].i32[0] = v37;
+          v41 = &a2[-1].i32[1];
 LABEL_42:
           v45 = *v38;
           *v38 = *v41;
@@ -7933,12 +7897,12 @@ LABEL_42:
       else if (v36)
       {
         v39 = *v34;
-        *v34 = *(a2 - 4);
-        *(a2 - 4) = v39;
+        *v34 = a2[-1].i32[0];
+        a2[-1].i32[0] = v39;
         v41 = &v14[-1].i32[3];
         v40 = v14[-1].i32[3];
-        v14[-1].i32[3] = *(a2 - 3);
-        *(a2 - 3) = v40;
+        v14[-1].i32[3] = a2[-1].i32[1];
+        a2[-1].i32[1] = v40;
         if ((*a3)(*v34, v8[1]))
         {
           v42 = *(v8 + 2);
@@ -7953,14 +7917,14 @@ LABEL_42:
       v46 = v13 + 1;
       v47 = &v8[v46];
       v48 = (*a3)(*v47, v8[2]);
-      v49 = (*a3)(*(a2 - 3), *v47);
+      v49 = (*a3)(a2[-2].i64[1], *v47);
       if (v48)
       {
         v50 = *(v8 + 4);
         if (v49)
         {
           v51 = v8 + 5;
-          *(v8 + 4) = *(a2 - 6);
+          *(v8 + 4) = a2[-2].i32[2];
           goto LABEL_51;
         }
 
@@ -7969,13 +7933,13 @@ LABEL_42:
         *(v47 + 1) = v56;
         v51 = v47 + 1;
         *v47 = v50;
-        if ((*a3)(*(a2 - 3), *v47))
+        if ((*a3)(a2[-2].i64[1], *v47))
         {
           v50 = *v47;
-          *v47 = *(a2 - 6);
+          *v47 = a2[-2].i32[2];
 LABEL_51:
-          *(a2 - 6) = v50;
-          v54 = a2 - 5;
+          a2[-2].i32[2] = v50;
+          v54 = &a2[-2].i32[3];
 LABEL_52:
           v57 = *v51;
           *v51 = *v54;
@@ -7986,12 +7950,12 @@ LABEL_52:
       else if (v49)
       {
         v52 = *v47;
-        *v47 = *(a2 - 6);
-        *(a2 - 6) = v52;
+        *v47 = a2[-2].i32[2];
+        a2[-2].i32[2] = v52;
         v54 = v47 + 1;
         v53 = *(v47 + 1);
-        *(v47 + 1) = *(a2 - 5);
-        *(a2 - 5) = v53;
+        *(v47 + 1) = a2[-2].i32[3];
+        a2[-2].i32[3] = v53;
         if ((*a3)(*v47, v8[2]))
         {
           v55 = *(v8 + 4);
@@ -8061,17 +8025,17 @@ LABEL_63:
     }
 
     v20 = v15(*v8, v14->i64[0]);
-    v21 = (*a3)(*(a2 - 1), *v8);
+    v21 = (*a3)(a2[-1].i64[1], *v8);
     if (v20)
     {
       v23 = &v14->i32[1];
       v22 = v14->i32[0];
       if (v21)
       {
-        v14->i32[0] = *(a2 - 2);
+        v14->i32[0] = a2[-1].i32[2];
 LABEL_38:
-        *(a2 - 2) = v22;
-        v31 = a2 - 1;
+        a2[-1].i32[2] = v22;
+        v31 = &a2[-1].i32[3];
         goto LABEL_63;
       }
 
@@ -8080,10 +8044,10 @@ LABEL_38:
       *(v8 + 1) = v43;
       v23 = v8 + 1;
       *v8 = v22;
-      if ((*a3)(*(a2 - 1), *v8))
+      if ((*a3)(a2[-1].i64[1], *v8))
       {
         v22 = *v8;
-        *v8 = *(a2 - 2);
+        *v8 = a2[-1].i32[2];
         goto LABEL_38;
       }
     }
@@ -8091,11 +8055,11 @@ LABEL_38:
     else if (v21)
     {
       v28 = *v8;
-      *v8 = *(a2 - 2);
-      *(a2 - 2) = v28;
+      *v8 = a2[-1].i32[2];
+      a2[-1].i32[2] = v28;
       v29 = *(v8 + 1);
-      *(v8 + 1) = *(a2 - 1);
-      *(a2 - 1) = v29;
+      *(v8 + 1) = a2[-1].i32[3];
+      a2[-1].i32[3] = v29;
       if ((*a3)(*v8, v14->i64[0]))
       {
         v30 = v14->i32[0];
@@ -8115,15 +8079,15 @@ LABEL_64:
       goto LABEL_71;
     }
 
-    v69 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<unsigned int,unsigned int> *,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>)>(v8, a2, a3);
+    v69 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<unsigned int,unsigned int> *,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>)>(v8, a2->i64, a3);
     if ((v70 & 1) == 0)
     {
       goto LABEL_69;
     }
 
-    v71 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(v8, v69, a3);
-    v9 = v69 + 1;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(v69 + 1, a2, a3);
+    v71 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(v8, v69->i64, a3);
+    v9 = &v69->i64[1];
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(&v69->i64[1], a2->i64, a3);
     if (result)
     {
       a4 = -v11;
@@ -8141,7 +8105,7 @@ LABEL_64:
     {
 LABEL_69:
       result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,false>(v8, v69, a3, -v11, a5 & 1);
-      v9 = v69 + 1;
+      v9 = &v69->i64[1];
 LABEL_71:
       a5 = 0;
       a4 = -v11;
@@ -8149,7 +8113,7 @@ LABEL_71:
     }
   }
 
-  return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,0>(v9, v9 + 1, v9 + 2, (a2 - 1), a3);
+  return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,0>(v9, (v9 + 8), (v9 + 16), &a2[-1].i64[1], a3);
 }
 
 uint64_t std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,0>(void *a1, void *a2, void *a3, uint64_t a4, uint64_t (**a5)(void, void))
@@ -8158,20 +8122,20 @@ uint64_t std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<u
   v11 = (*a5)(*a3, *a2);
   if (v10)
   {
-    v13 = a1 + 1;
+    v13 = a1 + 4;
     v12 = *a1;
     if (v11)
     {
       *a1 = *a3;
 LABEL_9:
       *a3 = v12;
-      v16 = a3 + 1;
+      v16 = a3 + 4;
       goto LABEL_10;
     }
 
     *a1 = *a2;
     *a2 = v12;
-    v13 = a2 + 1;
+    v13 = a2 + 4;
     v18 = *(a1 + 1);
     *(a1 + 1) = *(a2 + 1);
     *(a2 + 1) = v18;
@@ -8188,7 +8152,7 @@ LABEL_9:
     v14 = *a2;
     *a2 = *a3;
     *a3 = v14;
-    v16 = a2 + 1;
+    v16 = a2 + 4;
     v15 = *(a2 + 1);
     *(a2 + 1) = *(a3 + 1);
     *(a3 + 1) = v15;
@@ -8196,7 +8160,7 @@ LABEL_9:
     {
       v17 = *a1;
       *a1 = *a2;
-      v13 = a1 + 1;
+      v13 = a1 + 4;
       *a2 = v17;
 LABEL_10:
       v19 = *v13;
@@ -8264,14 +8228,14 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(st
           {
             v14 = v4 + v13;
             v15 = *(v4 + v13 + 4);
-            *(v14 + 2) = *(v4 + v13);
-            *(v14 + 3) = v15;
+            *(v14 + 8) = *(v4 + v13);
+            *(v14 + 12) = v15;
             if (!v13)
             {
               break;
             }
 
-            result = (*a3)(v11, *(v14 - 1));
+            result = (*a3)(v11, *(v14 - 8));
             v13 -= 8;
             if ((result & 1) == 0)
             {
@@ -8305,7 +8269,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
     v5 = (result + 8);
     if ((result + 8) != a2)
     {
-      v7 = result + 12;
+      v7 = (result + 12);
       do
       {
         v9 = *v4;
@@ -8332,7 +8296,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
         }
 
         v5 = v4 + 1;
-        v7 += 8;
+        v7 += 2;
       }
 
       while (v4 + 1 != a2);
@@ -8420,7 +8384,7 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v7;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<unsigned int,unsigned int> *,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>)>(uint64_t *a1, _DWORD *a2, uint64_t (**a3)(uint64_t, uint64_t))
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<unsigned int,unsigned int> *,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>)>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t))
 {
   v6 = 0;
   v7 = *a1;
@@ -8440,8 +8404,7 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
         break;
       }
 
-      v11 = *(a2 - 1);
-      a2 -= 2;
+      v11 = *--a2;
     }
 
     while (((*a3)(v11, v7) & 1) == 0);
@@ -8451,8 +8414,7 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     do
     {
-      v10 = *(a2 - 1);
-      a2 -= 2;
+      v10 = *--a2;
     }
 
     while (!(*a3)(v10, v7));
@@ -8467,20 +8429,19 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
       v14 = *v12;
       *v12 = *v13;
       *v13 = v14;
-      v15 = *(v12 + 4);
-      *(v12 + 4) = v13[1];
-      v13[1] = v15;
+      v15 = *(v12 + 1);
+      *(v12 + 1) = *(v13 + 1);
+      *(v13 + 1) = v15;
       do
       {
-        v16 = *(v12 + 8);
-        v12 += 8;
+        v16 = v12[1];
+        ++v12;
       }
 
       while (((*a3)(v16, v7) & 1) != 0);
       do
       {
-        v17 = *(v13 - 1);
-        v13 -= 2;
+        v17 = *--v13;
       }
 
       while (!(*a3)(v17, v7));
@@ -8489,14 +8450,14 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v12 < v13);
   }
 
-  result = v12 - 8;
-  if ((v12 - 8) != a1)
+  result = v12 - 1;
+  if (v12 - 1 != a1)
   {
-    *a1 = *(v12 - 8);
-    *(a1 + 1) = *(v12 - 4);
+    *a1 = *(v12 - 2);
+    *(a1 + 1) = *(v12 - 1);
   }
 
-  *(v12 - 8) = v7;
+  *(v12 - 1) = v7;
   return result;
 }
 
@@ -8511,7 +8472,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
       v12 = (*a3)(*(a2 - 1), a1[1]);
       if (v11)
       {
-        v14 = a1 + 1;
+        v14 = a1 + 4;
         v13 = *a1;
         if (v12)
         {
@@ -8522,7 +8483,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         {
           v26 = a1[1];
           *(a1 + 3) = *(a1 + 1);
-          v14 = a1 + 3;
+          v14 = a1 + 12;
           *(a1 + 2) = v13;
           *a1 = v26;
           if (!(*a3)(*(a2 - 1), a1[1]))
@@ -8535,7 +8496,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         }
 
         *(a2 - 2) = v13;
-        v22 = a2 - 1;
+        v22 = a2 - 4;
       }
 
       else
@@ -8548,7 +8509,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         v20 = *(a1 + 2);
         *(a1 + 2) = *(a2 - 2);
         *(a2 - 2) = v20;
-        v22 = a1 + 3;
+        v22 = a1 + 12;
         v21 = *(a1 + 3);
         *(a1 + 3) = *(a2 - 1);
         *(a2 - 1) = v21;
@@ -8560,7 +8521,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         v23 = *a1;
         *a1 = *(a1 + 2);
         *(a1 + 2) = v23;
-        v14 = a1 + 1;
+        v14 = a1 + 4;
       }
 
       v27 = *v14;
@@ -8632,7 +8593,7 @@ LABEL_17:
   v17 = (*a3)(a1[2], a1[1]);
   if (v15)
   {
-    v19 = a1 + 1;
+    v19 = a1 + 4;
     v18 = *a1;
     if (v17)
     {
@@ -8643,7 +8604,7 @@ LABEL_17:
     {
       v28 = a1[1];
       *(a1 + 3) = *(a1 + 1);
-      v19 = a1 + 3;
+      v19 = a1 + 12;
       *(a1 + 2) = v18;
       *a1 = v28;
       if (!(*a3)(a1[2], a1[1]))
@@ -8656,7 +8617,7 @@ LABEL_17:
     }
 
     *(a1 + 4) = v18;
-    v24 = a1 + 5;
+    v24 = a1 + 20;
     goto LABEL_34;
   }
 
@@ -8665,11 +8626,11 @@ LABEL_17:
     *(a1 + 1) = vextq_s8(*(a1 + 1), *(a1 + 1), 8uLL);
     if ((*a3)(a1[1], *a1))
     {
-      v24 = a1 + 3;
+      v24 = a1 + 12;
       v25 = *a1;
       *a1 = *(a1 + 2);
       *(a1 + 2) = v25;
-      v19 = a1 + 1;
+      v19 = a1 + 4;
 LABEL_34:
       v29 = *v19;
       *v19 = *v24;
@@ -8731,19 +8692,20 @@ LABEL_43:
   }
 }
 
-void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,std::pair<unsigned int,unsigned int>*>(void *a1, void *a2, void *a3, uint64_t (**a4)(void, uint64_t))
+int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*,std::pair<unsigned int,unsigned int>*>(char *a1, char *a2, int *a3, uint64_t (**a4)(uint64_t, uint64_t))
 {
   if (a1 != a2)
   {
-    v8 = a2 - a1;
+    v8 = (a2 - a1) >> 3;
     if (v8 >= 2)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[v9];
+      v11 = &a1[8 * v9];
       do
       {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(a1, a4, v8, v11--);
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(a1, a4, v8, v11);
+        v11 -= 8;
         --v10;
       }
 
@@ -8761,13 +8723,13 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(st
           v13 = *v12;
           *v12 = *a1;
           *a1 = v13;
-          v14 = *(v12 + 1);
-          *(v12 + 1) = *(a1 + 1);
+          v14 = v12[1];
+          v12[1] = *(a1 + 1);
           *(a1 + 1) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(a1, a4, v8, a1);
         }
 
-        ++v12;
+        v12 += 2;
       }
 
       while (v12 != a3);
@@ -8775,7 +8737,7 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(st
 
     if (v8 >= 2)
     {
-      v15 = a2 - 1;
+      v15 = a2 - 8;
       do
       {
         v17 = *a1;
@@ -8784,19 +8746,19 @@ void *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(st
         if (v15 == v18)
         {
           *v18 = v17;
-          v18[1] = v16;
+          *(v18 + 1) = v16;
         }
 
         else
         {
           *v18 = *v15;
-          v18[1] = v15[1];
+          *(v18 + 1) = *(v15 + 1);
           *v15 = v17;
-          v15[1] = v16;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(a1, (v18 + 2), a4, ((v18 + 2) - a1) >> 3);
+          *(v15 + 1) = v16;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(a1, (v18 + 8), a4, (v18 + 8 - a1) >> 3);
         }
 
-        v15 -= 2;
+        v15 -= 8;
       }
 
       while (v8-- > 2);
@@ -8910,7 +8872,7 @@ _DWORD *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(st
   return v9;
 }
 
-uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(uint64_t result, uint64_t a2, uint64_t (**a3)(void, uint64_t), uint64_t a4)
+uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned int>,std::pair<unsigned int,unsigned int>),std::pair<unsigned int,unsigned int>*>(uint64_t result, uint64_t a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -8929,7 +8891,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair
         v12 = v9;
         v9 = v8;
         *v12 = *v8;
-        v12[1] = *(v8 + 1);
+        *(v12 + 1) = *(v8 + 1);
         if (!v7)
         {
           break;
@@ -8942,7 +8904,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair
 
       while ((result & 1) != 0);
       *v9 = v10;
-      v9[1] = v11;
+      *(v9 + 1) = v11;
     }
   }
 
@@ -8997,7 +8959,8 @@ char *std::vector<TPItnResultHandle_fake **>::__insert_with_size[abi:ne200100]<T
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
@@ -9282,8 +9245,8 @@ LABEL_20:
     }
 
     v20 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,TWord const*> *>(v9, v18);
-    v9 = v18 + 16;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,TWord const*> *>(v18 + 16, a2);
+    v9 = (v18 + 4);
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,TWord const*> *>((v18 + 4), a2);
     if (result)
     {
       a4 = -v11;
@@ -9301,7 +9264,7 @@ LABEL_20:
     {
 LABEL_23:
       result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,TWord const*> *,false>(v8, v18, a3, -v11, a5 & 1);
-      v9 = v18 + 16;
+      v9 = (v18 + 4);
 LABEL_25:
       a5 = 0;
       a4 = -v11;
@@ -9718,7 +9681,7 @@ LABEL_12:
       v5 -= 4;
       v14 = result + v11;
       *v14 = v12;
-      *(v14 + 8) = v13;
+      *(v14 + 1) = v13;
       v11 -= 16;
       if (!v11)
       {
@@ -9807,4 +9770,87 @@ LABEL_6:
   }
 
   return result;
+}
+
+int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,TWord const*> *,std::__less<void,void> &>(int *a1, int *a2)
+{
+  v2 = *a1;
+  v3 = *(a1 + 1);
+  v4 = *(a2 - 4);
+  if (*a1 < v4 || v4 >= v2 && v3 < *(a2 - 1))
+  {
+    i = a1;
+    do
+    {
+      v7 = i[4];
+      i += 4;
+      v6 = v7;
+    }
+
+    while (v2 >= v7 && (v6 < v2 || v3 >= *(i + 1)));
+  }
+
+  else
+  {
+      ;
+    }
+  }
+
+  if (i < a2)
+  {
+    for (a2 -= 4; v2 < v4 || v4 >= v2 && v3 < *(a2 + 1); a2 -= 4)
+    {
+      v8 = *(a2 - 4);
+      v4 = v8;
+    }
+  }
+
+  if (i < a2)
+  {
+    v9 = *i;
+    v10 = *a2;
+    do
+    {
+      *i = v10;
+      *a2 = v9;
+      v11 = i[4];
+      i += 4;
+      v9 = v11;
+      v12 = *(i - 1);
+      *(i - 1) = *(a2 + 1);
+      *(a2 + 1) = v12;
+      while (v2 >= v9 && (v9 < v2 || v3 >= *(i + 1)))
+      {
+        v13 = i[4];
+        i += 4;
+        v9 = v13;
+      }
+
+      do
+      {
+        do
+        {
+          v14 = *(a2 - 4);
+          a2 -= 4;
+          v10 = v14;
+        }
+
+        while (v2 < v14);
+      }
+
+      while (v10 >= v2 && v3 < *(a2 + 1));
+    }
+
+    while (i < a2);
+  }
+
+  if (i - 4 != a1)
+  {
+    *a1 = *(i - 4);
+    *(a1 + 1) = *(i - 1);
+  }
+
+  *(i - 4) = v2;
+  *(i - 1) = v3;
+  return i;
 }

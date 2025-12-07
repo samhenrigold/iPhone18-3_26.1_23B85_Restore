@@ -6,8 +6,10 @@
 - (void)addBlocklistSpecifiers:(id)specifiers;
 - (void)changeVoicemailPassword:(id)password;
 - (void)emitNavigationEvent;
+- (void)systemSettingsSpecifiersProvider:(id)provider presentViewController:(id)controller animated:(BOOL)animated;
 - (void)systemSettingsSpecifiersProviderDidReloadSpecifiers:(id)specifiers;
 - (void)telephonyController:(id)controller didChangeSubscriptions:(id)subscriptions;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PHSettingsRootListController
@@ -69,9 +71,17 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PHSettingsRootListController;
+  [(PHSettingsRootListController *)&v4 viewDidAppear:appear];
+  [(PHSettingsRootListController *)self emitNavigationEvent];
+}
+
 - (void)emitNavigationEvent
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"settings-navigation://com.apple.Settings.Apps/%@/", @"com.apple.mobilephone"];
   v4 = [MEMORY[0x277CBEBC0] URLWithString:v3];
   v5 = TUResolvedPhoneResource();
@@ -81,16 +91,14 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
   bundleURL = [v8 bundleURL];
   v10 = [v6 initWithKey:@"Apps" table:0 locale:currentLocale bundleURL:bundleURL];
 
-  v13[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [(PHSettingsRootListController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilephone" title:v5 localizedNavigationComponents:v11 deepLink:v4];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = *MEMORY[0x277D3FC48];
@@ -110,24 +118,24 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
     }
 
     [(PHSettingsRootListController *)selfCopy loadSpecifiersFromPlistName:@"Phone" target:selfCopy];
+    v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
-    v8 = v23 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v21 = 0u;
+    v8 = v22 = 0u;
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           if ([(PHSettingsRootListController *)selfCopy shouldShowSpecifier:v12])
           {
             [v5 addObject:v12];
@@ -142,7 +150,7 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
@@ -161,14 +169,12 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
   v18 = v4;
   objc_sync_exit(selfCopy);
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (void)systemSettingsSpecifiersProviderDidReloadSpecifiers:(id)specifiers
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -176,6 +182,20 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
   }
 
   [(PHSettingsRootListController *)self reloadSpecifiers];
+}
+
+- (void)systemSettingsSpecifiersProvider:(id)provider presentViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  v8 = PHDefaultLog(controllerCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *v9 = 0;
+    _os_log_impl(&dword_23C144000, v8, OS_LOG_TYPE_DEFAULT, "PHONE SETTINGS > DEFAULT APP: Calling systemSettingsSpecifiersProvider presentViewController", v9, 2u);
+  }
+
+  [(PHSettingsRootListController *)self presentViewController:controllerCopy animated:animatedCopy completion:0];
 }
 
 - (void)changeVoicemailPassword:(id)password
@@ -189,30 +209,30 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
 
 - (BOOL)showVoicemailPassword
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   voicemailManager = [(PHSettingsRootListController *)self voicemailManager];
   accounts = [voicemailManager accounts];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = accounts;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([v10 isProvisioned])
         {
           voicemailManager2 = [(PHSettingsRootListController *)self voicemailManager];
@@ -227,7 +247,7 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -240,22 +260,21 @@ void __36__PHSettingsRootListController_init__block_invoke(uint64_t a1)
   v14 = 0;
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)telephonyController:(id)controller didChangeSubscriptions:(id)subscriptions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   subscriptionsCopy = subscriptions;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(subscriptionsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     subscriptions = [(PHSettingsRootListController *)self subscriptions];
     *buf = 138412546;
-    v12 = subscriptions;
-    v13 = 2112;
-    v14 = subscriptionsCopy;
+    v11 = subscriptions;
+    v12 = 2112;
+    v13 = subscriptionsCopy;
     _os_log_impl(&dword_23C144000, v6, OS_LOG_TYPE_DEFAULT, "Changing telephony subscriptions from\n %@ to\n %@.", buf, 0x16u);
   }
 
@@ -265,12 +284,10 @@ LABEL_12:
   block[1] = 3221225472;
   block[2] = __75__PHSettingsRootListController_telephonyController_didChangeSubscriptions___block_invoke;
   block[3] = &unk_278BB35D0;
-  objc_copyWeak(&v10, buf);
+  objc_copyWeak(&v9, buf);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __75__PHSettingsRootListController_telephonyController_didChangeSubscriptions___block_invoke(uint64_t a1)

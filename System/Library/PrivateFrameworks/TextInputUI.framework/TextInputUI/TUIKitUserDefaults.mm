@@ -3,7 +3,7 @@
 
 @implementation TUIKitUserDefaults
 
-uint64_t ___TUIKitUserDefaults_block_invoke()
+void *___TUIKitUserDefaults_block_invoke()
 {
   v0 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.TextInputUI"];
   v1 = _TUIKitUserDefaults_result;

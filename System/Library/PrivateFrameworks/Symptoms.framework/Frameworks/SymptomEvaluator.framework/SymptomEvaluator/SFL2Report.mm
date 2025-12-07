@@ -7,7 +7,7 @@
 
 - (id)dictionaryReport
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = [MEMORY[0x277CCABB0] numberWithInt:{-[SFL2Report cellularLQM](self, "cellularLQM")}];
   [v3 setObject:v4 forKeyedSubscript:@"cellularLqm"];
@@ -592,32 +592,32 @@ LABEL_163:
   interfaceQueueStats = [(SFL2Report *)self interfaceQueueStats];
   if (interfaceQueueStats && (v41 = interfaceQueueStats, -[SFL2Report interfaceQueueStats](self, "interfaceQueueStats"), v42 = objc_claimAutoreleasedReturnValue(), v43 = [v42 count], v42, v41, v43))
   {
-    v66 = v3;
+    v65 = v3;
     v44 = objc_alloc(MEMORY[0x277CBEB18]);
     interfaceQueueStats2 = [(SFL2Report *)self interfaceQueueStats];
     v46 = [v44 initWithCapacity:{objc_msgSend(interfaceQueueStats2, "count")}];
 
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
     v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
     selfCopy = self;
     obj = [(SFL2Report *)self interfaceQueueStats];
-    v47 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
+    v47 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
     if (v47)
     {
       v48 = v47;
-      v49 = *v70;
+      v49 = *v69;
       do
       {
         for (i = 0; i != v48; ++i)
         {
-          if (*v70 != v49)
+          if (*v69 != v49)
           {
             objc_enumerationMutation(obj);
           }
 
-          v51 = *(*(&v69 + 1) + 8 * i);
+          v51 = *(*(&v68 + 1) + 8 * i);
           v52 = objc_alloc_init(MEMORY[0x277CBEB38]);
           interfaceType = [v51 interfaceType];
           if (interfaceType >= 5)
@@ -660,14 +660,14 @@ LABEL_163:
           [v46 addObject:v52];
         }
 
-        v48 = [obj countByEnumeratingWithState:&v69 objects:v73 count:16];
+        v48 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
       }
 
       while (v48);
     }
 
-    v3 = v66;
-    [v66 setObject:v46 forKeyedSubscript:@"queueStats"];
+    v3 = v65;
+    [v65 setObject:v46 forKeyedSubscript:@"queueStats"];
 
     self = selfCopy;
   }
@@ -684,8 +684,6 @@ LABEL_163:
 
   activeRadio = [(SFL2Report *)self activeRadio];
   [v3 setObject:activeRadio forKeyedSubscript:@"activeRadio"];
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

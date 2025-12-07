@@ -115,29 +115,29 @@
 
 - (void)_encryptMergeableDeltas
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_pendingDeltaUploads(self, a2, v2);
   v7 = objc_msgSend_mutableCopy(v4, v5, v6);
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v10 = objc_msgSend_replacementRequests(self, v8, v9);
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v32, v36, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v31, v35, 16);
   if (v14)
   {
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * i);
+        v17 = *(*(&v31 + 1) + 8 * i);
         v18 = objc_msgSend_replacementDeltas(v17, v12, v13);
         v21 = objc_msgSend_count(v18, v19, v20) == 0;
 
@@ -148,7 +148,7 @@
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v32, v36, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v31, v35, 16);
     }
 
     while (v14);
@@ -158,16 +158,14 @@
   v26 = objc_msgSend_stateTransitionGroup(self, v24, v25);
   dispatch_group_enter(v26);
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_2251CED48;
-  v29[3] = &unk_278549318;
-  objc_copyWeak(&v30, &location);
-  objc_msgSend__encryptMergeableDeltas_completionHandler_(self, v27, v7, v29);
-  objc_destroyWeak(&v30);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = sub_2251CED48;
+  v28[3] = &unk_278549318;
+  objc_copyWeak(&v29, &location);
+  objc_msgSend__encryptMergeableDeltas_completionHandler_(self, v27, v7, v28);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_uploadAndReplaceDeltas
@@ -188,7 +186,7 @@
 
 - (void)_uploadAndReplaceDeltas:(id)deltas
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   deltasCopy = deltas;
   val = self;
   v6 = objc_msgSend_error(self, v4, v5);
@@ -218,35 +216,35 @@ LABEL_3:
   }
 
   v21 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], v15, v16);
-  v116 = objc_msgSend_maximumMergeableDeltaRequestSize(v21, v22, v23);
+  v115 = objc_msgSend_maximumMergeableDeltaRequestSize(v21, v22, v23);
 
   v26 = objc_msgSend_array(MEMORY[0x277CBEB18], v24, v25);
-  v137 = 0u;
-  v138 = 0u;
-  v135 = 0u;
   v136 = 0u;
+  v137 = 0u;
+  v134 = 0u;
+  v135 = 0u;
   v29 = objc_msgSend_pendingDeltaUploads(val, v27, v28);
   v31 = 0;
-  v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v135, v150, 16);
+  v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v134, v149, 16);
   if (v33)
   {
-    v34 = *v136;
+    v34 = *v135;
     v35 = *MEMORY[0x277CBBFA0];
     while (2)
     {
       v36 = 0;
       do
       {
-        if (*v136 != v34)
+        if (*v135 != v34)
         {
           objc_enumerationMutation(v29);
         }
 
-        v37 = *(*(&v135 + 1) + 8 * v36);
-        v133 = 0;
+        v37 = *(*(&v134 + 1) + 8 * v36);
+        v132 = 0;
         location = 0;
-        v38 = objc_msgSend_protobufSize_error_(v37, v32, &location, &v133);
-        v41 = v133;
+        v38 = objc_msgSend_protobufSize_error_(v37, v32, &location, &v132);
+        v41 = v132;
         if ((v38 & 1) == 0)
         {
           if (*MEMORY[0x277CBC880] != -1)
@@ -263,7 +261,7 @@ LABEL_3:
           }
         }
 
-        if ((location + v31 > v116 || objc_msgSend_count(v26, v39, v40) >= v35) && objc_msgSend_count(v26, v39, v40))
+        if ((location + v31 > v115 || objc_msgSend_count(v26, v39, v40) >= v35) && objc_msgSend_count(v26, v39, v40))
         {
 
           goto LABEL_24;
@@ -277,7 +275,7 @@ LABEL_3:
       }
 
       while (v33 != v36);
-      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v135, v150, 16);
+      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v134, v149, 16);
       if (v33)
       {
         continue;
@@ -292,9 +290,9 @@ LABEL_24:
   v46 = objc_msgSend_pendingDeltaUploads(val, v44, v45);
   objc_msgSend_removeObjectsInArray_(v46, v47, v26);
 
-  v114 = objc_msgSend_array(MEMORY[0x277CBEB18], v48, v49);
+  v113 = objc_msgSend_array(MEMORY[0x277CBEB18], v48, v49);
   obj = objc_msgSend_pendingReplacementRequests(val, v50, v51);
-  if (!objc_msgSend_count(obj, v52, v53) || v31 >= v116)
+  if (!objc_msgSend_count(obj, v52, v53) || v31 >= v115)
   {
     goto LABEL_51;
   }
@@ -304,48 +302,48 @@ LABEL_24:
 
   if (v59)
   {
-    v131 = 0u;
-    v132 = 0u;
-    v129 = 0u;
     v130 = 0u;
+    v131 = 0u;
+    v128 = 0u;
+    v129 = 0u;
     obj = objc_msgSend_pendingReplacementRequests(val, v60, v61);
-    v111 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v62, &v129, v149, 16);
-    if (v111)
+    v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v62, &v128, v148, 16);
+    if (v110)
     {
-      v110 = *v130;
-      v109 = *MEMORY[0x277CBBFA0];
+      v109 = *v129;
+      v108 = *MEMORY[0x277CBBFA0];
       *&v65 = 138412290;
-      v108 = v65;
+      v107 = v65;
 LABEL_29:
       v66 = 0;
       while (1)
       {
-        if (*v130 != v110)
+        if (*v129 != v109)
         {
           objc_enumerationMutation(obj);
         }
 
-        v67 = *(*(&v129 + 1) + 8 * v66);
+        v67 = *(*(&v128 + 1) + 8 * v66);
+        v124 = 0u;
         v125 = 0u;
         v126 = 0u;
         v127 = 0u;
-        v128 = 0u;
-        v68 = objc_msgSend_replacementDeltas(v67, v63, v64, v108);
+        v68 = objc_msgSend_replacementDeltas(v67, v63, v64, v107);
         v70 = 0;
-        v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v69, &v125, v148, 16);
+        v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v69, &v124, v147, 16);
         if (v72)
         {
-          v73 = *v126;
+          v73 = *v125;
           do
           {
             for (i = 0; i != v72; ++i)
             {
-              if (*v126 != v73)
+              if (*v125 != v73)
               {
                 objc_enumerationMutation(v68);
               }
 
-              v75 = *(*(&v125 + 1) + 8 * i);
+              v75 = *(*(&v124 + 1) + 8 * i);
               *buf = 0;
               v76 = objc_msgSend_protobufSize_error_(v75, v71, buf, 0);
               v77 = *buf;
@@ -357,13 +355,13 @@ LABEL_29:
               v70 += v77;
             }
 
-            v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v71, &v125, v148, 16);
+            v72 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v71, &v124, v147, 16);
           }
 
           while (v72);
         }
 
-        if ((v70 + v31 > v116 || objc_msgSend_count(v26, v78, v79) >= v109) && (objc_msgSend_count(v26, v78, v79) || objc_msgSend_count(v114, v80, v81)))
+        if ((v70 + v31 > v115 || objc_msgSend_count(v26, v78, v79) >= v108) && (objc_msgSend_count(v26, v78, v79) || objc_msgSend_count(v113, v80, v81)))
         {
           break;
         }
@@ -376,16 +374,16 @@ LABEL_29:
         v82 = *MEMORY[0x277CBC840];
         if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
         {
-          *buf = v108;
+          *buf = v107;
           *&buf[4] = v67;
           _os_log_debug_impl(&dword_22506F000, v82, OS_LOG_TYPE_DEBUG, "Will add replacement request %@", buf, 0xCu);
         }
 
-        objc_msgSend_addObject_(v114, v83, v67);
-        if (++v66 == v111)
+        objc_msgSend_addObject_(v113, v83, v67);
+        if (++v66 == v110)
         {
-          v111 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v63, &v129, v149, 16);
-          if (v111)
+          v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v63, &v128, v148, 16);
+          if (v110)
           {
             goto LABEL_29;
           }
@@ -399,7 +397,7 @@ LABEL_51:
   }
 
   v84 = objc_msgSend_pendingReplacementRequests(val, v60, v61);
-  objc_msgSend_removeObjectsInArray_(v84, v85, v114);
+  objc_msgSend_removeObjectsInArray_(v84, v85, v113);
 
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -416,61 +414,59 @@ LABEL_51:
     v95 = objc_msgSend_ckShortDescription(val, v93, v94);
     *buf = 134219010;
     *&buf[4] = v90;
-    v140 = 2048;
-    v141 = v31;
-    v142 = 2114;
-    v143 = v92;
-    v144 = 2048;
-    v145 = val;
-    v146 = 2114;
-    v147 = v95;
+    v139 = 2048;
+    v140 = v31;
+    v141 = 2114;
+    v142 = v92;
+    v143 = 2048;
+    v144 = val;
+    v145 = 2114;
+    v146 = v95;
     _os_log_impl(&dword_22506F000, v87, OS_LOG_TYPE_INFO, "Starting delta upload request with %tu deltas (%tu bytes) for operation <%{public}@: %p; %{public}@>", buf, 0x34u);
   }
 
   v96 = [CKDUploadMergeableDeltasURLRequest alloc];
-  v98 = objc_msgSend_initWithOperation_deltas_replacementRequests_(v96, v97, val, v26, v114);
+  v98 = objc_msgSend_initWithOperation_deltas_replacementRequests_(v96, v97, val, v26, v113);
   objc_initWeak(buf, val);
-  v123[0] = MEMORY[0x277D85DD0];
-  v123[1] = 3221225472;
-  v123[2] = sub_2251CF808;
-  v123[3] = &unk_278549420;
-  objc_copyWeak(&v124, buf);
-  objc_msgSend_setPerDeltaCompletionBlock_(v98, v99, v123);
-  v121[0] = MEMORY[0x277D85DD0];
-  v121[1] = 3221225472;
-  v121[2] = sub_2251CF880;
-  v121[3] = &unk_2785493F8;
-  objc_copyWeak(&v122, buf);
-  objc_msgSend_setPerReplaceDeltasRequestCompletionBlock_(v98, v100, v121);
+  v122[0] = MEMORY[0x277D85DD0];
+  v122[1] = 3221225472;
+  v122[2] = sub_2251CF808;
+  v122[3] = &unk_278549420;
+  objc_copyWeak(&v123, buf);
+  objc_msgSend_setPerDeltaCompletionBlock_(v98, v99, v122);
+  v120[0] = MEMORY[0x277D85DD0];
+  v120[1] = 3221225472;
+  v120[2] = sub_2251CF880;
+  v120[3] = &unk_2785493F8;
+  objc_copyWeak(&v121, buf);
+  objc_msgSend_setPerReplaceDeltasRequestCompletionBlock_(v98, v100, v120);
   objc_initWeak(&location, v98);
-  v117[0] = MEMORY[0x277D85DD0];
-  v117[1] = 3221225472;
-  v117[2] = sub_2251CF8F8;
-  v117[3] = &unk_278549448;
-  objc_copyWeak(&v119, buf);
-  objc_copyWeak(&v120, &location);
-  v118 = deltasCopy;
-  objc_msgSend_setCompletionBlock_(v98, v101, v117);
+  v116[0] = MEMORY[0x277D85DD0];
+  v116[1] = 3221225472;
+  v116[2] = sub_2251CF8F8;
+  v116[3] = &unk_278549448;
+  objc_copyWeak(&v118, buf);
+  objc_copyWeak(&v119, &location);
+  v117 = deltasCopy;
+  objc_msgSend_setCompletionBlock_(v98, v101, v116);
   objc_msgSend_setRequest_(val, v102, v98);
   v105 = objc_msgSend_container(val, v103, v104);
   objc_msgSend_performRequest_(v105, v106, v98);
 
-  objc_destroyWeak(&v120);
   objc_destroyWeak(&v119);
+  objc_destroyWeak(&v118);
   objc_destroyWeak(&location);
-  objc_destroyWeak(&v122);
-  objc_destroyWeak(&v124);
+  objc_destroyWeak(&v121);
+  objc_destroyWeak(&v123);
   objc_destroyWeak(buf);
 
   v9 = deltasCopy;
 LABEL_57:
-
-  v107 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeltaUploaded:(id)uploaded result:(id)result
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   uploadedCopy = uploaded;
   resultCopy = result;
   if (objc_msgSend_code(resultCopy, v8, v9) == 1)
@@ -483,12 +479,12 @@ LABEL_57:
     v10 = *MEMORY[0x277CBC840];
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
     {
-      v31 = v10;
-      v34 = objc_msgSend_metadata(uploadedCopy, v32, v33);
-      v37 = objc_msgSend_identifier(v34, v35, v36);
+      v30 = v10;
+      v33 = objc_msgSend_metadata(uploadedCopy, v31, v32);
+      v36 = objc_msgSend_identifier(v33, v34, v35);
       *buf = 138412290;
-      v46 = v37;
-      _os_log_debug_impl(&dword_22506F000, v31, OS_LOG_TYPE_DEBUG, "Successfully uploaded delta: %@", buf, 0xCu);
+      v45 = v36;
+      _os_log_debug_impl(&dword_22506F000, v30, OS_LOG_TYPE_DEBUG, "Successfully uploaded delta: %@", buf, 0xCu);
     }
 
     v13 = 0;
@@ -514,26 +510,24 @@ LABEL_57:
     v28 = *MEMORY[0x277CBC840];
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_ERROR))
     {
-      v38 = v28;
-      v41 = objc_msgSend_metadata(uploadedCopy, v39, v40);
-      v44 = objc_msgSend_identifier(v41, v42, v43);
+      v37 = v28;
+      v40 = objc_msgSend_metadata(uploadedCopy, v38, v39);
+      v43 = objc_msgSend_identifier(v40, v41, v42);
       *buf = 138412546;
-      v46 = v44;
-      v47 = 2112;
-      v48 = v13;
-      _os_log_error_impl(&dword_22506F000, v38, OS_LOG_TYPE_ERROR, "Failed to upload delta, %@, with error: %@", buf, 0x16u);
+      v45 = v43;
+      v46 = 2112;
+      v47 = v13;
+      _os_log_error_impl(&dword_22506F000, v37, OS_LOG_TYPE_ERROR, "Failed to upload delta, %@, with error: %@", buf, 0x16u);
     }
   }
 
   v29 = objc_msgSend_uploadDeltaCompletionBlock(self, v11, v12);
   (v29)[2](v29, uploadedCopy, v13);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleReplaceDeltasRequest:(id)request result:(id)result
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   resultCopy = result;
   if (objc_msgSend_code(resultCopy, v8, v9) == 1)
@@ -547,7 +541,7 @@ LABEL_57:
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v35 = requestCopy;
+      v34 = requestCopy;
       _os_log_debug_impl(&dword_22506F000, v10, OS_LOG_TYPE_DEBUG, "Successfully replaced deltas for request: %@", buf, 0xCu);
     }
 
@@ -575,7 +569,7 @@ LABEL_57:
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v35 = v13;
+      v34 = v13;
       _os_log_error_impl(&dword_22506F000, v28, OS_LOG_TYPE_ERROR, "Failed to replace deltas with error: %@", buf, 0xCu);
     }
   }
@@ -587,8 +581,6 @@ LABEL_57:
     v32 = objc_msgSend_replaceDeltasRequestCompletionBlock(self, v30, v31);
     (v32)[2](v32, requestCopy, v13);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

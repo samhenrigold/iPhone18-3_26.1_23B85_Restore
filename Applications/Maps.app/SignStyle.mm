@@ -48,7 +48,7 @@
   height = scale.height;
   width = scale.width;
   v9 = *&size;
-  [a2 _defaultArrowMetricsForStyle:?];
+  objc_msgSend__defaultArrowMetricsForStyle_(a2, style);
   return [a2 _metricsForStyle:v9 scaledToMatchReferenceSize:&v12 contentScale:width baseMetrics:{height, a6}];
 }
 
@@ -57,7 +57,7 @@
   height = scale.height;
   width = scale.width;
   v9 = *&size;
-  [a2 _defaultJunctionArrowMetricsForStyle:?];
+  objc_msgSend__defaultJunctionArrowMetricsForStyle_(a2, style);
   return [a2 _metricsForStyle:v9 scaledToMatchReferenceSize:&v12 contentScale:width baseMetrics:{height, a6}];
 }
 

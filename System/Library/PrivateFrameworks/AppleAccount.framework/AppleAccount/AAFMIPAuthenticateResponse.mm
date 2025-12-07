@@ -60,15 +60,13 @@
 
 void __51__AAFMIPAuthenticateResponse__privacySensitiveKeys__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  v4[0] = @"mmeFMIPWipeToken";
-  v4[1] = @"dsid";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[2] = *MEMORY[0x1E69E9840];
+  v3[0] = @"mmeFMIPWipeToken";
+  v3[1] = @"dsid";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v1 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v0];
   v2 = _privacySensitiveKeys_keysToRedact_348;
   _privacySensitiveKeys_keysToRedact_348 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)privacySensitiveResponseBody

@@ -431,8 +431,8 @@ LABEL_7:
   allKeys = [jSONRepresentation allKeys];
   v5 = [v2 setWithArray:allKeys];
 
-  v6 = SXConditionTypes();
-  [v5 intersectSet:v6];
+  v7 = SXConditionTypes(v6);
+  [v5 intersectSet:v7];
 
   return v5;
 }

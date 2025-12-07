@@ -69,23 +69,21 @@
 
 - (void)_systemControllerDied:(id)died
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   diedCopy = died;
   v5 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSSpeechDetectionDevicePresentMonitor _systemControllerDied:]";
-    v9 = 2114;
-    v10 = diedCopy;
-    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSpeechDetectionDevicePresentMonitor _systemControllerDied:]";
+    v8 = 2114;
+    v9 = diedCopy;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s notification = %{public}@", &v6, 0x16u);
   }
 
   [(CSSpeechDetectionDevicePresentMonitor *)self _startObservingSystemControllerLifecycle];
   [(CSSpeechDetectionDevicePresentMonitor *)self _startObservingSpeechDetectionVADPresence];
   [(CSSpeechDetectionDevicePresentMonitor *)self handleSpeechDetectionVADPresentChange:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingSpeechDetectionVADPresence
@@ -106,22 +104,21 @@
 
 - (void)handleSpeechDetectionVADPresentChange:(id)change
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSSpeechDetectionDevicePresentMonitor handleSpeechDetectionVADPresentChange:]";
+    v7 = "[CSSpeechDetectionDevicePresentMonitor handleSpeechDetectionVADPresentChange:]";
     _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __79__CSSpeechDetectionDevicePresentMonitor_handleSpeechDetectionVADPresentChange___block_invoke;
-  v6[3] = &unk_1E865CB20;
-  v6[4] = self;
-  [(CSEventMonitor *)self enumerateObserversInQueue:v6];
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __79__CSSpeechDetectionDevicePresentMonitor_handleSpeechDetectionVADPresentChange___block_invoke;
+  v5[3] = &unk_1E865CB20;
+  v5[4] = self;
+  [(CSEventMonitor *)self enumerateObserversInQueue:v5];
 }
 
 - (void)_stopMonitoring
@@ -146,9 +143,11 @@
 
 uint64_t __55__CSSpeechDetectionDevicePresentMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_2344 = objc_alloc_init(CSSpeechDetectionDevicePresentMonitor);
+  v0 = objc_alloc_init(CSSpeechDetectionDevicePresentMonitor);
+  v1 = sharedInstance_sharedInstance_2344;
+  sharedInstance_sharedInstance_2344 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

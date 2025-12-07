@@ -4,6 +4,8 @@
 - (void)setStatus:(unint64_t)status;
 - (void)updateLabels;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOiCloudDisabledViewController
@@ -229,6 +231,32 @@
 
   objc_destroyWeak(&v116);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = HOiCloudDisabledViewController;
+  [(HOiCloudDisabledViewController *)&v5 viewWillAppear:appear];
+  v3 = HFLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[HOiCloudDisabledViewController-viewWillAppear]", v4, 2u);
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HOiCloudDisabledViewController;
+  [(HOiCloudDisabledViewController *)&v5 viewWillDisappear:disappear];
+  v3 = HFLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[HOiCloudDisabledViewController-viewWillDisappear]", v4, 2u);
+  }
 }
 
 - (void)setDataSyncState:(unint64_t)state

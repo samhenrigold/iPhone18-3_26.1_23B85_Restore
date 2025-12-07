@@ -1,6 +1,6 @@
 @interface String:
 - (Class)NSObject;
-- (uint64_t)Any;
+- (double)Any;
 - (void)Lyrics.LineTranslationMetadata;
 - (void)String;
 @end
@@ -11,11 +11,11 @@
 {
   if (!lazy cache variable for type metadata for [String : String]?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDyS2SGMd);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : String]?);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : String]?);
     }
   }
 }
@@ -40,12 +40,14 @@
   return v4.super.isa;
 }
 
-- (uint64_t)Any
+- (double)Any
 {
-  v1 = *(self + 32);
-  v2 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v2 = *(self + 32);
+  v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v1(v2);
+  v2(v3);
+
+  return result;
 }
 
 - (void)Lyrics.LineTranslationMetadata

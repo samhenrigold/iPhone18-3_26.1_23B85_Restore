@@ -220,7 +220,7 @@ LABEL_14:
   _Block_object_dispose(&v17, 8);
 }
 
-uint64_t __92__SBExternalHomeGestureFloatingSwitcherModifier__updateForGestureDidBeginOrChangeWithEvent___block_invoke(void *a1)
+void *__92__SBExternalHomeGestureFloatingSwitcherModifier__updateForGestureDidBeginOrChangeWithEvent___block_invoke(void *a1)
 {
   v2 = [*(a1[4] + 152) handleEvent:a1[5]];
   result = [*(a1[4] + 152) adjustedTranslationForTranslation:{*(*(a1[6] + 8) + 32), *(*(a1[6] + 8) + 40)}];

@@ -40,12 +40,11 @@
   if (*(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI34VerificationFinishedViewController_flow))
   {
     v3 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI34VerificationFinishedViewController_flow);
-    v4 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI34VerificationFinishedViewController_flow);
     ObjectType = swift_getObjectType();
-    v6 = *(v3 + 120);
+    v5 = *(v3 + 120);
     selfCopy = self;
     swift_unknownObjectRetain();
-    v6(selfCopy, &protocol witness table for VerificationFinishedViewController, ObjectType, v3);
+    v5(selfCopy, &protocol witness table for VerificationFinishedViewController, ObjectType, v3);
     swift_unknownObjectRelease();
   }
 

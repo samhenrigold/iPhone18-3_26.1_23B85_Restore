@@ -11,7 +11,7 @@
   sub_1BD7F276C();
   sub_1BE052744();
   *(swift_allocObject() + 16) = v7;
-  v8 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD54680));
+  v8 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD54680, qword_1BE0FA9A0));
   valueCopy = value;
   v10 = sub_1BE04F894();
 

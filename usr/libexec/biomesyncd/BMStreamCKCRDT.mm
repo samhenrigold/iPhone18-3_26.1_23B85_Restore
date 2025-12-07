@@ -1,5 +1,6 @@
 @interface BMStreamCKCRDT
 - (BMStreamCKCRDT)initWithStreamConfiguration:(id)configuration locationAssignerPolicy:(id)policy localSiteIdentifier:(id)identifier database:(id)database changeReporter:(id)reporter account:(id)account;
+- (BOOL)addAtomToAtomBatch:(id)batch ifChunkerAllows:(id)allows fromAtomTableRecord:(id)record atomValueData:(id)data version:(unsigned __int8)version atomValueVersion:(int64_t)valueVersion;
 - (BOOL)deleteAtOrBeforeHighestDeletedLocation:(id)location;
 - (BOOL)deleteLocationsUpToTTLAtTombstone:(id)tombstone siteIdentifier:(id)identifier;
 - (BOOL)deletedExpiredBufferedLocationsForSiteIdentifier:(id)identifier;
@@ -519,6 +520,29 @@ LABEL_20:
   }
 
   return v16;
+}
+
+- (BOOL)addAtomToAtomBatch:(id)batch ifChunkerAllows:(id)allows fromAtomTableRecord:(id)record atomValueData:(id)data version:(unsigned __int8)version atomValueVersion:(int64_t)valueVersion
+{
+  versionCopy = version;
+  batchCopy = batch;
+  allowsCopy = allows;
+  recordCopy = record;
+  dataCopy = data;
+  if (allowsCopy)
+  {
+    v18 = [allowsCopy canAddAtomWithData:dataCopy];
+  }
+
+  else
+  {
+    v18 = 1;
+  }
+
+  [(BMStreamCKCRDT *)self addAtomWithValueData:dataCopy toAtomBatch:batchCopy fromAtomTableRecord:recordCopy version:versionCopy atomValueVersion:valueVersion];
+  [allowsCopy didAddAtomWithData:dataCopy];
+
+  return v18;
 }
 
 - (void)addAtomWithValueData:(id)data toAtomBatch:(id)batch fromAtomTableRecord:(id)record version:(unsigned __int8)version atomValueVersion:(int64_t)valueVersion

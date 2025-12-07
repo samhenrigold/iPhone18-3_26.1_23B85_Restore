@@ -65,9 +65,7 @@
   self->_outstandingRequestCount = outstandingRequestCount - 1;
   if (outstandingRequestCount <= 1 && !self->_killTimer)
   {
-    v4 = [NSTimer scheduledTimerWithTimeInterval:self target:"_killTimerFired" selector:0 userInfo:0 repeats:5.0];
-    killTimer = self->_killTimer;
-    self->_killTimer = v4;
+    self->_killTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"_killTimerFired" selector:0 userInfo:0 repeats:5.0];
 
     _objc_release_x1();
   }

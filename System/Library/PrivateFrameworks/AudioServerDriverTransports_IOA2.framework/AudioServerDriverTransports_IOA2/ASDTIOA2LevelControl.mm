@@ -1,6 +1,7 @@
 @interface ASDTIOA2LevelControl
 + (VolumeCurve)volumeCurveFromControlInfo:(SEL)info;
 - (ASDTIOA2Device)ioa2Device;
+- (ASDTIOA2LevelControl)initWithIOA2Device:(id)device userClientID:(unsigned int)d isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope objectClassID:(unsigned int)iD dictionary:(id)dictionary;
 - (BOOL)changeScalarValue:(float)value;
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
@@ -41,12 +42,13 @@
     cf = 0;
   }
 
-  if (!ASDT::IOA2UserClient::SetupVolumeCurve(&cf, retstr, v10))
+  v11 = ASDT::IOA2UserClient::SetupVolumeCurve(&cf, retstr, v10);
+  if (!v11)
   {
-    v11 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = ASDTIOA2LogType(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ASDTIOA2LevelControl *)v7 volumeCurveFromControlInfo:v11];
+      [(ASDTIOA2LevelControl *)v7 volumeCurveFromControlInfo:v13];
     }
   }
 
@@ -56,6 +58,65 @@
   }
 
   return result;
+}
+
+- (ASDTIOA2LevelControl)initWithIOA2Device:(id)device userClientID:(unsigned int)d isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope objectClassID:(unsigned int)iD dictionary:(id)dictionary
+{
+  v9 = *&iD;
+  v10 = *&scope;
+  v11 = *&element;
+  settableCopy = settable;
+  deviceCopy = device;
+  dictionaryCopy = dictionary;
+  objc_msgSend_volumeCurveFromControlInfo_(ASDTIOA2LevelControl);
+  self->_volumeCurve.mTag = v34;
+  p_end_node = &self->_volumeCurve.mCurveMap.__tree_.__end_node_;
+  std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_value_compare<ASDT::RawPoint,std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::less<ASDT::RawPoint>,true>,std::allocator<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>>>::destroy(&self->_volumeCurve.mCurveMap, self->_volumeCurve.mCurveMap.__tree_.__end_node_.__left_);
+  v17 = v36;
+  self->_volumeCurve.mCurveMap.__tree_.__begin_node_ = v35;
+  self->_volumeCurve.mCurveMap.__tree_.__end_node_.__left_ = v17;
+  v18 = v37;
+  self->_volumeCurve.mCurveMap.__tree_.__size_ = v37;
+  if (v18)
+  {
+    v17[2] = p_end_node;
+    v35 = &v36;
+    v36 = 0;
+    v37 = 0;
+    v17 = 0;
+  }
+
+  else
+  {
+    self->_volumeCurve.mCurveMap.__tree_.__begin_node_ = p_end_node;
+  }
+
+  *&self->_volumeCurve.mIsApplyingTransferFunction = v38;
+  std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_value_compare<ASDT::RawPoint,std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::less<ASDT::RawPoint>,true>,std::allocator<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>>>::destroy(&v35, v17);
+  v19 = [dictionaryCopy objectForKeyedSubscript:@"value"];
+  self->_rawValue = [v19 unsignedIntValue];
+
+  ASDT::VolumeCurve::ConvertRawToDB(&self->_volumeCurve);
+  v21 = v20;
+  ASDT::VolumeCurve::GetMinimumDB(&self->_volumeCurve);
+  v23 = v22;
+  ASDT::VolumeCurve::GetMaximumDB(&self->_volumeCurve);
+  v25 = v24;
+  plugin = [deviceCopy plugin];
+  v33.receiver = self;
+  v33.super_class = ASDTIOA2LevelControl;
+  LODWORD(v27) = v21;
+  LODWORD(v28) = v23;
+  LODWORD(v29) = v25;
+  v30 = [(ASDLevelControl *)&v33 initWithDecibelValue:settableCopy minimumValue:v11 maximumValue:v10 isSettable:plugin forElement:v9 inScope:v27 withPlugin:v28 andObjectClassID:v29];
+
+  if (v30)
+  {
+    objc_storeWeak(&v30->_ioa2Device, deviceCopy);
+    v30->_userClientID = d;
+  }
+
+  return v30;
 }
 
 - (void)dealloc
@@ -68,46 +129,44 @@
 
 - (NSArray)propertySelectorInfo
 {
-  v23[6] = *MEMORY[0x277D85DE8];
-  v21[0] = @"selector";
-  v21[1] = @"dataType";
-  v22[0] = &unk_285357A20;
-  v22[1] = &unk_285357A38;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
-  v23[0] = v2;
-  v19[0] = @"selector";
-  v19[1] = @"dataType";
-  v20[0] = &unk_285357A50;
-  v20[1] = &unk_285357A38;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-  v23[1] = v3;
-  v17[0] = @"selector";
-  v17[1] = @"dataType";
-  v18[0] = &unk_285357A68;
-  v18[1] = &unk_285357A38;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v23[2] = v4;
-  v15[0] = @"selector";
-  v15[1] = @"dataType";
-  v16[0] = &unk_285357A80;
-  v16[1] = &unk_285357A38;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-  v23[3] = v5;
-  v13[0] = @"selector";
-  v13[1] = @"dataType";
-  v14[0] = &unk_285357A98;
-  v14[1] = &unk_285357A38;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v23[4] = v6;
-  v11[0] = @"selector";
-  v11[1] = @"dataType";
-  v12[0] = &unk_285357AB0;
-  v12[1] = &unk_285357A38;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v23[5] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:6];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v22[6] = *MEMORY[0x277D85DE8];
+  v20[0] = @"selector";
+  v20[1] = @"dataType";
+  v21[0] = &unk_285357A20;
+  v21[1] = &unk_285357A38;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v22[0] = v2;
+  v18[0] = @"selector";
+  v18[1] = @"dataType";
+  v19[0] = &unk_285357A50;
+  v19[1] = &unk_285357A38;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v22[1] = v3;
+  v16[0] = @"selector";
+  v16[1] = @"dataType";
+  v17[0] = &unk_285357A68;
+  v17[1] = &unk_285357A38;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v22[2] = v4;
+  v14[0] = @"selector";
+  v14[1] = @"dataType";
+  v15[0] = &unk_285357A80;
+  v15[1] = &unk_285357A38;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v22[3] = v5;
+  v12[0] = @"selector";
+  v12[1] = @"dataType";
+  v13[0] = &unk_285357A98;
+  v13[1] = &unk_285357A38;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v22[4] = v6;
+  v10[0] = @"selector";
+  v10[1] = @"dataType";
+  v11[0] = &unk_285357AB0;
+  v11[1] = &unk_285357A38;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v22[5] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:6];
 
   return v8;
 }
@@ -119,16 +178,16 @@
   if (dictionaryCopy)
   {
     std::recursive_mutex::lock(&self->_lock);
-    v5 = [dictionaryCopy objectForKeyedSubscript:@"property selectors"];
-    v6 = [(ASDControl *)self asdtAddControlProperties:v5];
+    v6 = [dictionaryCopy objectForKeyedSubscript:@"property selectors"];
+    v7 = [(ASDControl *)self asdtAddControlProperties:v6];
 
-    if (v6)
+    if (v7)
     {
-      v7 = [dictionaryCopy objectForKeyedSubscript:@"value"];
+      v8 = [dictionaryCopy objectForKeyedSubscript:@"value"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        -[ASDTIOA2LevelControl pushValue:](self, "pushValue:", [v7 unsignedIntValue]);
+        -[ASDTIOA2LevelControl pushValue:](self, "pushValue:", [v8 unsignedIntValue]);
       }
     }
 
@@ -137,26 +196,25 @@
 
   else
   {
-    v8 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = ASDTIOA2LogType(0, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_2416BA000, v8, OS_LOG_TYPE_DEFAULT, "%@: Couldn't synchronize with registry", &v13, 0xCu);
+      v14 = v11;
+      _os_log_impl(&dword_2416BA000, v9, OS_LOG_TYPE_DEFAULT, "%@: Couldn't synchronize with registry", &v13, 0xCu);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (void)doSetValue:(unsigned int)value
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   std::recursive_mutex::lock(&self->_lock);
   if (self->_rawValue != value)
   {
@@ -168,9 +226,9 @@
     [(ASDTIOA2LevelControl *)self willChangeValueForKey:v6];
 
     ASDT::VolumeCurve::ConvertRawToDB(&self->_volumeCurve);
-    v17.receiver = self;
-    v17.super_class = ASDTIOA2LevelControl;
-    [(ASDLevelControl *)&v17 setDecibelValue:?];
+    v18.receiver = self;
+    v18.super_class = ASDTIOA2LevelControl;
+    [(ASDLevelControl *)&v18 setDecibelValue:?];
     [(ASDControl *)self asdtSendControlPropertyChangeNotificationAtIndex:0];
     [(ASDControl *)self asdtSendControlPropertyChangeNotificationAtIndex:1];
     v7 = NSStringFromSelector(sel_decibelValue);
@@ -179,39 +237,39 @@
     v8 = NSStringFromSelector(sel_scalarValue);
     [(ASDTIOA2LevelControl *)self didChangeValueForKey:v8];
 
-    v9 = ASDTIOA2LogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = ASDTIOA2LogType(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained(&self->_ioa2Device);
       deviceUID = [WeakRetained deviceUID];
       if ([(ASDTIOA2LevelControl *)self objectClass]>> 29 && [(ASDTIOA2LevelControl *)self objectClass]>> 24 <= 0x7E)
       {
-        v12 = [(ASDTIOA2LevelControl *)self objectClass]>> 24;
-      }
-
-      else
-      {
-        v12 = 32;
-      }
-
-      if (([(ASDTIOA2LevelControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2LevelControl *)self objectClass]>> 16) <= 0x7Eu)
-      {
-        v13 = ([(ASDTIOA2LevelControl *)self objectClass]>> 16);
-      }
-
-      else
-      {
-        v13 = 32;
-      }
-
-      if (([(ASDTIOA2LevelControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2LevelControl *)self objectClass]>> 8) <= 0x7Eu)
-      {
-        v14 = ([(ASDTIOA2LevelControl *)self objectClass]>> 8);
+        v14 = [(ASDTIOA2LevelControl *)self objectClass]>> 24;
       }
 
       else
       {
         v14 = 32;
+      }
+
+      if (([(ASDTIOA2LevelControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2LevelControl *)self objectClass]>> 16) <= 0x7Eu)
+      {
+        v15 = ([(ASDTIOA2LevelControl *)self objectClass]>> 16);
+      }
+
+      else
+      {
+        v15 = 32;
+      }
+
+      if (([(ASDTIOA2LevelControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2LevelControl *)self objectClass]>> 8) <= 0x7Eu)
+      {
+        v16 = ([(ASDTIOA2LevelControl *)self objectClass]>> 8);
+      }
+
+      else
+      {
+        v16 = 32;
       }
 
       if (([(ASDTIOA2LevelControl *)self objectClass]& 0xE0) != 0 && [(ASDTIOA2LevelControl *)self objectClass]<= 0x7Eu)
@@ -225,23 +283,22 @@
       }
 
       *buf = 138413570;
-      v19 = deviceUID;
-      v20 = 1024;
-      v21 = v12;
-      v22 = 1024;
-      v23 = v13;
-      v24 = 1024;
-      v25 = v14;
-      v26 = 1024;
-      v27 = objectClass;
-      v28 = 1024;
+      v20 = deviceUID;
+      v21 = 1024;
+      v22 = v14;
+      v23 = 1024;
+      v24 = v15;
+      v25 = 1024;
+      v26 = v16;
+      v27 = 1024;
+      v28 = objectClass;
+      v29 = 1024;
       valueCopy = value;
-      _os_log_impl(&dword_2416BA000, v9, OS_LOG_TYPE_DEFAULT, "%@: Control '%c%c%c%c' changed to: %u", buf, 0x2Au);
+      _os_log_impl(&dword_2416BA000, v11, OS_LOG_TYPE_DEFAULT, "%@: Control '%c%c%c%c' changed to: %u", buf, 0x2Au);
     }
   }
 
   std::recursive_mutex::unlock(&self->_lock);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDecibelValue:(float)value
@@ -367,7 +424,6 @@
     v8 = 0;
     if (dataSize >= 4 && andData)
     {
-      v9 = *andData;
       ASDT::VolumeCurve::SetTransferFunction(&self->_volumeCurve);
       return 1;
     }
@@ -375,8 +431,8 @@
 
   else
   {
-    v11.receiver = self;
-    v11.super_class = ASDTIOA2LevelControl;
+    v10.receiver = self;
+    v10.super_class = ASDTIOA2LevelControl;
     return [ASDLevelControl setProperty:sel_setProperty_withQualifierSize_qualifierData_dataSize_andData_forClient_ withQualifierSize:? qualifierData:? dataSize:? andData:? forClient:?];
   }
 
@@ -399,11 +455,10 @@
 
 + (void)volumeCurveFromControlInfo:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2416BA000, a2, OS_LOG_TYPE_ERROR, "ASDTIOA2LevelControl: Bad control info: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2416BA000, a2, OS_LOG_TYPE_ERROR, "ASDTIOA2LevelControl: Bad control info: %@", &v2, 0xCu);
 }
 
 @end

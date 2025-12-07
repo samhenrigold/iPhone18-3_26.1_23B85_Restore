@@ -10,18 +10,18 @@
 
 + (id)errorWithCode:(int64_t)code
 {
-  v5 = descriptionFromErrorCode(code);
-  v6 = recoverySuggestionFromErrorCode(code);
+  v5 = descriptionFromErrorCode(code, a2);
+  v7 = recoverySuggestionFromErrorCode(code, v6);
 
-  return [self errorWithCode:code description:v5 recoverySuggestion:v6];
+  return [self errorWithCode:code description:v5 recoverySuggestion:v7];
 }
 
 + (id)errorWithCode:(int64_t)code underlyingError:(id)error
 {
-  v7 = descriptionFromErrorCode(code);
-  v8 = recoverySuggestionFromErrorCode(code);
+  v7 = descriptionFromErrorCode(code, a2);
+  v9 = recoverySuggestionFromErrorCode(code, v8);
 
-  return [self errorWithCode:code description:v7 recoverySuggestion:v8 underlyingError:error];
+  return [self errorWithCode:code description:v7 recoverySuggestion:v9 underlyingError:error];
 }
 
 + (id)errorWithCode:(int64_t)code description:(id)description recoverySuggestion:(id)suggestion underlyingError:(id)error

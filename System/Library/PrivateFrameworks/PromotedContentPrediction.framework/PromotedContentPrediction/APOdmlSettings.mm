@@ -27,124 +27,108 @@
 
 - (APOdmlSettings)initWithPlacementType:(unint64_t)type assetManagerType:(unint64_t)managerType
 {
-  v15.receiver = self;
-  v15.super_class = APOdmlSettings;
-  v8 = [(APOdmlSettings *)&v15 init];
-  if (v8)
+  v10.receiver = self;
+  v10.super_class = APOdmlSettings;
+  v6 = [(APOdmlSettings *)&v10 init];
+  if (v6)
   {
-    v9 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, v6, v7);
-    objc_msgSend_prewarmModelWithPlacementType_assetManagerType_(APOdmlSettings, v10, type, managerType);
-    v13 = objc_msgSend_sharedInstance(APOdmlAllowList, v11, v12);
-    v8->_assetManagerType = managerType;
-    v8->_placementType = type;
+    v7 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+    [APOdmlSettings prewarmModelWithPlacementType:type assetManagerType:managerType];
+    v8 = +[APOdmlAllowList sharedInstance];
+    v6->_assetManagerType = managerType;
+    v6->_placementType = type;
   }
 
-  return v8;
+  return v6;
 }
 
 - (int)deploymentID
 {
-  v4 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, a2, v2);
-  v7 = objc_msgSend_placementType(self, v5, v6);
-  v10 = objc_msgSend_assetManagerType(self, v8, v9);
-  v12 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v4, v11, v7, v10);
-  LODWORD(v7) = objc_msgSend_deploymentID(v12, v13, v14);
+  v3 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v4 = [v3 assetManagerForPlacementType:-[APOdmlSettings placementType](self assetManagerType:{"placementType"), -[APOdmlSettings assetManagerType](self, "assetManagerType")}];
+  deploymentID = [v4 deploymentID];
 
-  return v7;
+  return deploymentID;
 }
 
 - (NSString)experimentID
 {
-  v4 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, a2, v2);
-  v7 = objc_msgSend_placementType(self, v5, v6);
-  v10 = objc_msgSend_assetManagerType(self, v8, v9);
-  v12 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v4, v11, v7, v10);
-  v15 = objc_msgSend_experimentID(v12, v13, v14);
+  v3 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v4 = [v3 assetManagerForPlacementType:-[APOdmlSettings placementType](self assetManagerType:{"placementType"), -[APOdmlSettings assetManagerType](self, "assetManagerType")}];
+  experimentID = [v4 experimentID];
 
-  return v15;
+  return experimentID;
 }
 
 - (NSString)treatmentID
 {
-  v4 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, a2, v2);
-  v7 = objc_msgSend_placementType(self, v5, v6);
-  v10 = objc_msgSend_assetManagerType(self, v8, v9);
-  v12 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v4, v11, v7, v10);
-  v15 = objc_msgSend_treatmentID(v12, v13, v14);
+  v3 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v4 = [v3 assetManagerForPlacementType:-[APOdmlSettings placementType](self assetManagerType:{"placementType"), -[APOdmlSettings assetManagerType](self, "assetManagerType")}];
+  treatmentID = [v4 treatmentID];
 
-  return v15;
+  return treatmentID;
 }
 
 - (NSString)odmlNamespace
 {
-  v4 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, a2, v2);
-  v7 = objc_msgSend_placementType(self, v5, v6);
-  v10 = objc_msgSend_assetManagerType(self, v8, v9);
-  v12 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v4, v11, v7, v10);
-  v15 = objc_msgSend_odmlNamespace(v12, v13, v14);
+  v3 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v4 = [v3 assetManagerForPlacementType:-[APOdmlSettings placementType](self assetManagerType:{"placementType"), -[APOdmlSettings assetManagerType](self, "assetManagerType")}];
+  odmlNamespace = [v4 odmlNamespace];
 
-  return v15;
+  return odmlNamespace;
 }
 
 - (int)odmlVersion
 {
-  v4 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, a2, v2);
-  v7 = objc_msgSend_placementType(self, v5, v6);
-  v10 = objc_msgSend_assetManagerType(self, v8, v9);
-  v12 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v4, v11, v7, v10);
-  LODWORD(v7) = objc_msgSend_odmlVersion(v12, v13, v14);
+  v3 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v4 = [v3 assetManagerForPlacementType:-[APOdmlSettings placementType](self assetManagerType:{"placementType"), -[APOdmlSettings assetManagerType](self, "assetManagerType")}];
+  odmlVersion = [v4 odmlVersion];
 
-  return v7;
+  return odmlVersion;
 }
 
 - (id)serverRequestDictionary
 {
-  v27[6] = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_experimentID(self, a2, v2);
-  if (v4)
+  v12[6] = *MEMORY[0x277D85DE8];
+  experimentID = [(APOdmlSettings *)self experimentID];
+  if (experimentID)
   {
-    v7 = v4;
+    v4 = experimentID;
   }
 
   else
   {
-    v7 = &stru_2873677E0;
+    v4 = &stru_2873677E0;
   }
 
-  v8 = objc_msgSend_treatmentID(self, v5, v6);
-  if (v8)
+  treatmentID = [(APOdmlSettings *)self treatmentID];
+  if (treatmentID)
   {
-    v11 = v8;
+    v6 = treatmentID;
   }
 
   else
   {
-    v11 = &stru_2873677E0;
+    v6 = &stru_2873677E0;
   }
 
-  v26[0] = @"supportedODMLVersion";
-  v12 = MEMORY[0x277CCABB0];
-  v13 = objc_msgSend_odmlVersion(self, v9, v10);
-  v15 = objc_msgSend_numberWithInt_(v12, v14, v13);
-  v27[0] = v15;
-  v27[1] = v7;
-  v26[1] = @"experimentID";
-  v26[2] = @"treatmentID";
-  v27[2] = v11;
-  v26[3] = @"deploymentID";
-  v16 = MEMORY[0x277CCABB0];
-  v19 = objc_msgSend_deploymentID(self, v17, v18);
-  v21 = objc_msgSend_numberWithInt_(v16, v20, v19);
-  v27[3] = v21;
-  v27[4] = MEMORY[0x277CBEC28];
-  v26[4] = @"inAllocation";
-  v26[5] = @"clientExclusive";
-  v27[5] = MEMORY[0x277CBEC28];
-  v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, v27, v26, 6);
+  v11[0] = @"supportedODMLVersion";
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:{-[APOdmlSettings odmlVersion](self, "odmlVersion")}];
+  v12[0] = v7;
+  v12[1] = v4;
+  v11[1] = @"experimentID";
+  v11[2] = @"treatmentID";
+  v12[2] = v6;
+  v11[3] = @"deploymentID";
+  v8 = [MEMORY[0x277CCABB0] numberWithInt:{-[APOdmlSettings deploymentID](self, "deploymentID")}];
+  v12[3] = v8;
+  v12[4] = MEMORY[0x277CBEC28];
+  v11[4] = @"inAllocation";
+  v11[5] = @"clientExclusive";
+  v12[5] = MEMORY[0x277CBEC28];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v9;
 }
 
 @end

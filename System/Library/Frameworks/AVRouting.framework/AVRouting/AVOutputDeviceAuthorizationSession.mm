@@ -118,6 +118,30 @@ id __42__AVOutputDeviceAuthorizationSession_impl__block_invoke(uint64_t a1)
 
 - (void)outputDeviceAuthorizationSessionImpl:(id)impl didProvideAuthorizationRequest:(id)request
 {
+  v9 = *MEMORY[0x1E69E9840];
+  delegate = [(AVOutputDeviceAuthorizationSession *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    if (dword_1EB46D568)
+    {
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+
+    [(AVOutputDeviceAuthorizationSessionDelegate *)delegate outputDeviceAuthorizationSession:self didProvideAuthorizationRequest:request];
+  }
+
+  else if (dword_1EB46D568)
+  {
+    v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
+}
+
+- (BOOL)outputDeviceAuthorizationSessionImpl:(id)impl shouldRetryAuthorizationRequest:(id)request reason:(id)reason
+{
   v12 = *MEMORY[0x1E69E9840];
   delegate = [(AVOutputDeviceAuthorizationSession *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -129,33 +153,7 @@ id __42__AVOutputDeviceAuthorizationSession_impl__block_invoke(uint64_t a1)
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [(AVOutputDeviceAuthorizationSessionDelegate *)delegate outputDeviceAuthorizationSession:self didProvideAuthorizationRequest:request, v10, v11];
-  }
-
-  else if (dword_1EB46D568)
-  {
-    v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)outputDeviceAuthorizationSessionImpl:(id)impl shouldRetryAuthorizationRequest:(id)request reason:(id)reason
-{
-  v15 = *MEMORY[0x1E69E9840];
-  delegate = [(AVOutputDeviceAuthorizationSession *)self delegate];
-  if (objc_opt_respondsToSelector())
-  {
-    if (dword_1EB46D568)
-    {
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    result = [(AVOutputDeviceAuthorizationSessionDelegate *)delegate outputDeviceAuthorizationSession:self shouldRetryAuthorizationRequest:request reason:reason, v13, v14];
+    return [(AVOutputDeviceAuthorizationSessionDelegate *)delegate outputDeviceAuthorizationSession:self shouldRetryAuthorizationRequest:request reason:reason];
   }
 
   else
@@ -167,11 +165,8 @@ id __42__AVOutputDeviceAuthorizationSession_impl__block_invoke(uint64_t a1)
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    result = 0;
+    return 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)outputDeviceAuthorizationSessionImplDidExpireWithReplacementImpl:(id)impl

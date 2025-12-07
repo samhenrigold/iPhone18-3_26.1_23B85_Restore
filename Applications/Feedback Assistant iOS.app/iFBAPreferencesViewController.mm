@@ -25,6 +25,8 @@
 - (void)resetWarnings;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -246,6 +248,41 @@
   }
 
   return v6;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = iFBAPreferencesViewController;
+  [(iFBAPreferencesViewController *)&v16 viewWillAppear:appear];
+  v4 = +[NSBundle mainBundle];
+  v5 = [v4 localizedStringForKey:@"CELL_FILE_UPLOADS" value:&stru_1000E2210 table:0];
+  allowCellUploadsLabel = [(iFBAPreferencesViewController *)self allowCellUploadsLabel];
+  [allowCellUploadsLabel setText:v5];
+
+  v7 = +[NSUserDefaults standardUserDefaults];
+  v8 = [v7 BOOLForKey:FBKAllowCellularFileUploads];
+
+  allowCellUploads = [(iFBAPreferencesViewController *)self allowCellUploads];
+  [allowCellUploads setOn:v8 animated:0];
+
+  v10 = +[NSUserDefaults standardUserDefaults];
+  v11 = [v10 integerForKey:@"TouchIDTimeoutDuration"];
+
+  v12 = +[NSBundle mainBundle];
+  v13 = [v12 localizedStringForKey:@"After %lu minutes" value:&stru_1000E2210 table:@"Plurals"];
+  v14 = [NSString stringWithFormat:v13, sub_1000337EC(v11)];
+  touchIDTimeoutLabel = [(iFBAPreferencesViewController *)self touchIDTimeoutLabel];
+  [touchIDTimeoutLabel setText:v14];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = iFBAPreferencesViewController;
+  [(iFBAPreferencesViewController *)&v4 viewWillDisappear:disappear];
+  v3 = +[NSUserDefaults standardUserDefaults];
+  [v3 synchronize];
 }
 
 - (void)dealloc

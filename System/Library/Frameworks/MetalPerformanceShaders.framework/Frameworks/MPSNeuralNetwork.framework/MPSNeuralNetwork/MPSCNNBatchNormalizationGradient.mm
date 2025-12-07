@@ -73,7 +73,7 @@
     {
       v17 = objc_opt_class();
       NSStringFromClass(v17);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationGradient.mm", 0x165, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v18, v19, v20, v21);
       self = selfCopy;
       commandBuffer = v14;
       sourceGradient = v13;
@@ -106,7 +106,7 @@
     {
       v16 = objc_opt_class();
       NSStringFromClass(v16);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationGradient.mm", 0x175, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v17, v18, v19, v20);
       self = selfCopy;
       commandBuffer = v13;
       sourceGradient = v12;
@@ -123,11 +123,11 @@
   if ((*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7470]) & 1) != 0 && !*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7478]) && MTLReportFailureTypeEnabled())
   {
     v30 = objc_opt_class();
-    v31 = NSStringFromClass(v30);
-    MTLReportFailure();
+    v35 = NSStringFromClass(v30);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationGradient.mm", 0x186, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v31, v32, v33, v34);
   }
 
-  v14 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceGradients, sourceImages, batchNormalizationState, destinationGradients, v7, v31);
+  v14 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceGradients, sourceImages, batchNormalizationState, destinationGradients, v7, v35);
   if (!v14 || (v17 = v14, (v18 = malloc_type_malloc(8 * v14, 0x80040B8603338uLL)) == 0))
   {
     v24 = 0;
@@ -183,11 +183,11 @@ LABEL_14:
   if ((*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7470]) & 1) != 0 && !*(&batchNormalizationState->super.super.super.isa + *MEMORY[0x277CD7478]) && MTLReportFailureTypeEnabled())
   {
     v29 = objc_opt_class();
-    v31 = NSStringFromClass(v29);
-    MTLReportFailure();
+    v35 = NSStringFromClass(v29);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBatchNormalizationGradient.mm", 0x196, @"[%@ encodeBatchToCommandBuffer:sourceGradients:sourceImages:batchNormalizationState:] Attempting to use statistics from a temporary MPSCNNBatchNormalizationState with readCount of 0.", v30, v31, v32, v33);
   }
 
-  v13 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceGradients, sourceImages, batchNormalizationState, v6, v7, v31);
+  v13 = objc_msgSend_count(sourceImages, a2, commandBuffer, sourceGradients, sourceImages, batchNormalizationState, v6, v7, v35);
   if (!v13 || (v16 = v13, (v17 = malloc_type_malloc(8 * v13, 0x80040B8603338uLL)) == 0))
   {
     v23 = 0;

@@ -830,11 +830,11 @@ void __52__MUPDFContentViewController_setShowsThumbnailView___block_invoke_2(uin
   }
 }
 
-uint64_t __52__MUPDFContentViewController_setShowsThumbnailView___block_invoke_3(uint64_t result)
+id *__52__MUPDFContentViewController_setShowsThumbnailView___block_invoke_3(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _updateThumbnailViewHolderVisibility];
+    return [result[4] _updateThumbnailViewHolderVisibility];
   }
 
   return result;

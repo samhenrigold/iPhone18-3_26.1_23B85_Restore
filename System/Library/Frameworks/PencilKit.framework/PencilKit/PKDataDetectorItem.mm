@@ -61,23 +61,23 @@
 {
   scannerResult = [(PKDataDetectorItem *)self scannerResult];
   coreResult = [scannerResult coreResult];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
   v5 = _MergedGlobals_152;
-  v21 = _MergedGlobals_152;
+  v22 = _MergedGlobals_152;
   if (!_MergedGlobals_152)
   {
-    v13 = MEMORY[0x1E69E9820];
-    v14 = 3221225472;
-    v15 = ___ZL42getDDShouldUseLightLinksForResultSymbolLocv_block_invoke;
-    v16 = &unk_1E82D97A8;
-    v17 = &v18;
-    ___ZL42getDDShouldUseLightLinksForResultSymbolLocv_block_invoke(&v13);
-    v5 = v19[3];
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = ___ZL42getDDShouldUseLightLinksForResultSymbolLocv_block_invoke;
+    v17 = &unk_1E82D97A8;
+    v18 = &v19;
+    ___ZL42getDDShouldUseLightLinksForResultSymbolLocv_block_invoke(&v14);
+    v5 = v20[3];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
   if (v5)
   {
     v6 = v5(coreResult, 0);
@@ -91,24 +91,24 @@
         [(PKDetectionItem *)self _generatePaths];
       }
 
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x2050000000;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2050000000;
       v8 = qword_1ED6A5238;
-      v21 = qword_1ED6A5238;
+      v22 = qword_1ED6A5238;
       if (!qword_1ED6A5238)
       {
-        v13 = MEMORY[0x1E69E9820];
-        v14 = 3221225472;
-        v15 = ___ZL29getDDDetectionControllerClassv_block_invoke;
-        v16 = &unk_1E82D97A8;
-        v17 = &v18;
-        ___ZL29getDDDetectionControllerClassv_block_invoke(&v13);
-        v8 = v19[3];
+        v14 = MEMORY[0x1E69E9820];
+        v15 = 3221225472;
+        v16 = ___ZL29getDDDetectionControllerClassv_block_invoke;
+        v17 = &unk_1E82D97A8;
+        v18 = &v19;
+        ___ZL29getDDDetectionControllerClassv_block_invoke(&v14);
+        v8 = v20[3];
       }
 
       v9 = v8;
-      _Block_object_dispose(&v18, 8);
+      _Block_object_dispose(&v19, 8);
       inkColor2 = [(PKDetectionItem *)self inkColor];
       v11 = [v8 lightUnderlineColorFromTextColor:inkColor2];
     }
@@ -123,8 +123,8 @@
 
   else
   {
-    dlerror();
-    result = abort_report_np();
+    v13 = dlerror();
+    result = abort_report_np("%s", v13);
     __break(1u);
   }
 
@@ -203,20 +203,20 @@
 
   if (v12)
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
     v13 = _MergedGlobals_156;
-    v32 = _MergedGlobals_156;
+    v33 = _MergedGlobals_156;
     if (!_MergedGlobals_156)
     {
       v14 = DataDetectorsUILibrary();
-      v30[3] = dlsym(v14, "kDataDetectorsAllResultsKey");
-      _MergedGlobals_156 = v30[3];
-      v13 = v30[3];
+      v31[3] = dlsym(v14, "kDataDetectorsAllResultsKey");
+      _MergedGlobals_156 = v31[3];
+      v13 = v31[3];
     }
 
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v30, 8);
     if (!v13)
     {
       goto LABEL_16;
@@ -236,37 +236,37 @@
 
   scannerResult2 = [(PKDataDetectorItem *)self scannerResult];
   value2 = [scannerResult2 value];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
   v20 = qword_1ED6A52A0;
-  v32 = qword_1ED6A52A0;
+  v33 = qword_1ED6A52A0;
   if (!qword_1ED6A52A0)
   {
     v21 = DataDetectorsUILibrary();
-    v30[3] = dlsym(v21, "kDataDetectorsMiddleText");
-    qword_1ED6A52A0 = v30[3];
-    v20 = v30[3];
+    v31[3] = dlsym(v21, "kDataDetectorsMiddleText");
+    qword_1ED6A52A0 = v31[3];
+    v20 = v31[3];
   }
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v30, 8);
   if (!v20)
   {
 LABEL_16:
-    dlerror();
-    v28 = abort_report_np();
-    _Block_object_dispose(&v29, 8);
-    _Unwind_Resume(v28);
+    v28 = dlerror();
+    v29 = abort_report_np("%s", v28);
+    _Block_object_dispose(&v30, 8);
+    _Unwind_Resume(v29);
   }
 
   [v10 setObject:value2 forKeyedSubscript:*v20];
 
 LABEL_11:
-  v34.origin.x = x;
-  v34.origin.y = y;
-  v34.size.width = width;
-  v34.size.height = height;
-  if (CGRectIsEmpty(v34))
+  v35.origin.x = x;
+  v35.origin.y = y;
+  v35.size.width = width;
+  v35.size.height = height;
+  if (CGRectIsEmpty(v35))
   {
     [viewCopy bounds];
     x = v22;

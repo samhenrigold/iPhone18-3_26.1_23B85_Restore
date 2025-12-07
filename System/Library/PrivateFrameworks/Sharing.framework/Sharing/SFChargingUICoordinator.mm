@@ -38,10 +38,11 @@
 
 - (void)_activate
 {
-  v1 = charging_log();
-  if (OUTLINED_FUNCTION_1_4(v1))
+  v2 = charging_log(self);
+  if (OUTLINED_FUNCTION_1_4(v2))
   {
-    OUTLINED_FUNCTION_0_4(&dword_1A9662000, v2, v3, "Coordinator already activated", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_0_4(&dword_1A9662000, v3, v4, "Coordinator already activated", v5, v6, v7, v8, v9);
   }
 }
 
@@ -58,17 +59,18 @@
 
 - (void)_invalidate
 {
-  v1 = charging_log();
-  if (OUTLINED_FUNCTION_1_4(v1))
+  v2 = charging_log(self);
+  if (OUTLINED_FUNCTION_1_4(v2))
   {
-    OUTLINED_FUNCTION_0_4(&dword_1A9662000, v2, v3, "Coordinator already invalidated", v4, v5, v6, v7, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_0_4(&dword_1A9662000, v3, v4, "Coordinator already invalidated", v5, v6, v7, v8, v9);
   }
 }
 
 - (void)requestToShowUIWithHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = charging_log();
+  v5 = charging_log(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [SFChargingUICoordinator requestToShowUIWithHandler:v5];
@@ -100,28 +102,26 @@
 
 - (void)_requestToStartAnimationAtDate:(id)date
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  v5 = charging_log();
+  v5 = charging_log(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = dateCopy;
+    v11 = dateCopy;
     _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Client requesting to start animation at %@", buf, 0xCu);
   }
 
   dispatchQueue = [(SFXPCClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __58__SFChargingUICoordinator__requestToStartAnimationAtDate___block_invoke;
-  v9[3] = &unk_1E788B1E8;
-  v10 = dateCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __58__SFChargingUICoordinator__requestToStartAnimationAtDate___block_invoke;
+  v8[3] = &unk_1E788B1E8;
+  v9 = dateCopy;
   v7 = dateCopy;
-  [(SFXPCClient *)self onqueue_getRemoteObjectProxyOnQueue:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [(SFXPCClient *)self onqueue_getRemoteObjectProxyOnQueue:v8];
 }
 
 - (void)requestToDismissUIHandler:(id)handler
@@ -142,7 +142,7 @@ uint64_t __53__SFChargingUICoordinator_requestToDismissUIHandler___block_invoke(
 {
   if ((*(*(a1 + 32) + 34) & 1) == 0)
   {
-    v2 = charging_log();
+    v2 = charging_log(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __53__SFChargingUICoordinator_requestToDismissUIHandler___block_invoke_cold_1(v2);
@@ -165,21 +165,21 @@ uint64_t __53__SFChargingUICoordinator_requestToDismissUIHandler___block_invoke(
 
   if (self->_uiUpdateHandler)
   {
-    [SFChargingUICoordinator _requestToDismissUIHandler:];
+    [SFChargingUICoordinator _requestToDismissUIHandler:v6];
   }
 
   else
   {
-    v6 = _Block_copy(handlerCopy);
+    v7 = _Block_copy(handlerCopy);
     uiUpdateHandler = self->_uiUpdateHandler;
-    self->_uiUpdateHandler = v6;
+    self->_uiUpdateHandler = v7;
 
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke;
-    v8[3] = &unk_1E788B1E8;
-    v8[4] = self;
-    [(SFXPCClient *)self onqueue_getRemoteObjectProxyOnQueue:v8];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke;
+    v9[3] = &unk_1E788B1E8;
+    v9[4] = self;
+    [(SFXPCClient *)self onqueue_getRemoteObjectProxyOnQueue:v9];
     [(SFChargingUICoordinator *)self _timingRestartMinTimer];
   }
 }
@@ -196,20 +196,18 @@ uint64_t __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke
 
 void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = charging_log();
+  v4 = charging_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Ready to dismiss UI (error: %@)", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Ready to dismiss UI (error: %@)", &v5, 0xCu);
   }
 
   *(*(a1 + 32) + 65) = 1;
   [*(a1 + 32) _dismissUI];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendDismissUIWithReason:(int64_t)reason
@@ -226,7 +224,7 @@ void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(u
 
 - (void)_sendDismissUIWithReason:(int64_t)reason
 {
-  v5 = charging_log();
+  v5 = charging_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -251,11 +249,11 @@ void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(u
 
   if (self->_uiUpdateHandler && self->_uiUpdateMinTimeElapsed && self->_uiUpdateShouldDismiss)
   {
-    v4 = charging_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = charging_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Asking client to dismiss UI", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Asking client to dismiss UI", v7, 2u);
     }
 
     self->_uiUpdateMinTimeElapsed = 0;
@@ -281,7 +279,7 @@ void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(u
 
 - (void)_initialViewControllerDidAppear
 {
-  v3 = charging_log();
+  v3 = charging_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -307,7 +305,7 @@ void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(u
 
 - (void)_initialViewControllerDidDisappear
 {
-  v3 = charging_log();
+  v3 = charging_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -323,7 +321,7 @@ void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(u
 - (void)requestAnimationDateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = charging_log();
+  v5 = charging_log(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -344,7 +342,7 @@ void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(u
 
 - (void)_timingRestartMinTimer
 {
-  v3 = charging_log();
+  v3 = charging_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -382,13 +380,13 @@ void __54__SFChargingUICoordinator__requestToDismissUIHandler___block_invoke_2(u
   dispatch_source_set_timer(self->_uiUpdateTimer, v11, 0x1DCD64FFC4653600uLL, 0);
 }
 
-void __49__SFChargingUICoordinator__timingRestartMinTimer__block_invoke(uint64_t a1)
+void __49__SFChargingUICoordinator__timingRestartMinTimer__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = charging_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = charging_log(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A9662000, v2, OS_LOG_TYPE_DEFAULT, "Minimum timer complete", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Minimum timer complete", v5, 2u);
   }
 
   *(*(a1 + 32) + 64) = 1;
@@ -412,7 +410,7 @@ void __49__SFChargingUICoordinator__timingRestartMinTimer__block_invoke(uint64_t
 
 - (void)onqueue_connectionEstablished
 {
-  v2 = charging_log();
+  v2 = charging_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -422,7 +420,7 @@ void __49__SFChargingUICoordinator__timingRestartMinTimer__block_invoke(uint64_t
 
 - (void)onqueue_connectionInterrupted
 {
-  v2 = charging_log();
+  v2 = charging_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -432,7 +430,7 @@ void __49__SFChargingUICoordinator__timingRestartMinTimer__block_invoke(uint64_t
 
 - (void)onqueue_connectionInvalidated
 {
-  v2 = charging_log();
+  v2 = charging_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -440,13 +438,13 @@ void __49__SFChargingUICoordinator__timingRestartMinTimer__block_invoke(uint64_t
   }
 }
 
-- (void)_requestToDismissUIHandler:.cold.1()
+- (void)_requestToDismissUIHandler:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = charging_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = charging_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    *v1 = 0;
-    _os_log_error_impl(&dword_1A9662000, v0, OS_LOG_TYPE_ERROR, "Request to dismiss UI in progress", v1, 2u);
+    *v2 = 0;
+    _os_log_error_impl(&dword_1A9662000, v1, OS_LOG_TYPE_ERROR, "Request to dismiss UI in progress", v2, 2u);
   }
 }
 

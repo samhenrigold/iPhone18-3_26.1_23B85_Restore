@@ -131,8 +131,8 @@
     v22->_errorCode = v26;
 
     v28 = +[HFHomeKitDispatcher sharedDispatcher];
-    home = [(HFAnalyticsAccessCodeEvent *)v22 home];
-    v30 = [v28 pinCodeManagerForHome:home];
+    v29 = objc_msgSend_home(v22);
+    v30 = [v28 pinCodeManagerForHome:v29];
 
     v31 = MEMORY[0x277CBEB58];
     users = [v7 users];
@@ -299,8 +299,8 @@ void __43__HFAnalyticsAccessCodeEvent_initWithData___block_invoke_2(uint64_t a1,
   v26 = [MEMORY[0x277CCABB0] numberWithDouble:v25];
   [v4 na_safeSetObject:v26 forKey:@"countOfAccessoriesEnabled"];
 
-  home = [(HFAnalyticsAccessCodeEvent *)self home];
-  hf_accessoriesSupportingAccessCodes = [home hf_accessoriesSupportingAccessCodes];
+  v27 = objc_msgSend_home(self);
+  hf_accessoriesSupportingAccessCodes = [v27 hf_accessoriesSupportingAccessCodes];
   v29 = [hf_accessoriesSupportingAccessCodes count];
 
   v30 = [MEMORY[0x277CCABB0] numberWithDouble:v25 / v29];

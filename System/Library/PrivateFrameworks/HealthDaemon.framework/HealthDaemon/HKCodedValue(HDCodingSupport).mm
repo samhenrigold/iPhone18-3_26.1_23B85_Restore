@@ -7,7 +7,7 @@
 
 + (id)createWithCodable:()HDCodingSupport
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -29,33 +29,33 @@
 
         if (referenceRanges)
         {
-          v22 = v10;
+          v21 = v10;
           referenceRanges = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
           v25 = 0u;
-          v26 = 0u;
           referenceRanges2 = [v4 referenceRanges];
-          v13 = [referenceRanges2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v13 = [referenceRanges2 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v24;
+            v15 = *v23;
             while (2)
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v24 != v15)
+                if (*v23 != v15)
                 {
                   objc_enumerationMutation(referenceRanges2);
                 }
 
-                v17 = [MEMORY[0x277CCD890] createWithCodable:*(*(&v23 + 1) + 8 * i)];
+                v17 = [MEMORY[0x277CCD890] createWithCodable:*(*(&v22 + 1) + 8 * i)];
                 if (!v17)
                 {
 
                   v19 = 0;
-                  v10 = v22;
+                  v10 = v21;
                   goto LABEL_19;
                 }
 
@@ -63,7 +63,7 @@
                 [referenceRanges addObject:v17];
               }
 
-              v14 = [referenceRanges2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+              v14 = [referenceRanges2 countByEnumeratingWithState:&v22 objects:v26 count:16];
               if (v14)
               {
                 continue;
@@ -73,7 +73,7 @@
             }
           }
 
-          v10 = v22;
+          v10 = v21;
         }
 
         v19 = [MEMORY[0x277CCD1A0] codedValueWithCodings:v7 value:v10 referenceRanges:referenceRanges];
@@ -96,8 +96,6 @@ LABEL_19:
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

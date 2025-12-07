@@ -336,7 +336,7 @@ LABEL_50:
 
     v93 = 0uLL;
     v94 = 0;
-    [(CRCTCCVNLPTextDecoder *)self pruningPolicy];
+    objc_msgSend_pruningPolicy(self);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     shouldUseModernizedDecoder = [(CRCTCCVNLPTextDecoder *)self shouldUseModernizedDecoder];
@@ -568,7 +568,7 @@ LABEL_50:
   {
     if (v8)
     {
-      [v8 output:arrayCopy label:? prob:?map];
+      objc_msgSend_output_label_prob_map(v8, arrayCopy);
       v82 = v113;
       v103 = v116;
       v104 = v117;
@@ -582,7 +582,7 @@ LABEL_50:
       v96 = *(&v113 + 1);
       v97 = v124;
       v95 = v125;
-      [v9 output_topk_indices];
+      objc_msgSend_output_topk_indices(v9);
       v71 = v113;
     }
 
@@ -607,7 +607,7 @@ LABEL_50:
 
   else if (v8)
   {
-    [v8 output:arrayCopy label:? prob:?map];
+    objc_msgSend_output_label_prob_map(v8, arrayCopy);
     v82 = v113;
     v103 = v116;
     v104 = v117;
@@ -1094,14 +1094,14 @@ LABEL_10:
   return v25;
 }
 
-void __72__CRCTCCVNLPTextDecoder__wordLMShouldFilterCandidate_inLocale_lmConfig___block_invoke(uint64_t a1, void *a2)
+void __72__CRCTCCVNLPTextDecoder__wordLMShouldFilterCandidate_inLocale_lmConfig___block_invoke(void *a1, void *a2)
 {
   v4 = a2;
   if ([v4 cvnlpCharacterLanguageModel])
   {
     [v4 cvnlpCharacterLanguageModel];
     CVNLPLanguageModelLogJointProbability();
-    *(*(*(a1 + 40) + 8) + 24) = expf(v3 / *(a1 + 48));
+    *(*(a1[5] + 8) + 24) = expf(v3 / a1[6]);
   }
 }
 
@@ -1689,125 +1689,125 @@ id __81__CRCTCCVNLPTextDecoder__cvnlpGreedyModernizedDecodingResultForActivation
 
 void __122__CRCTCCVNLPTextDecoder__cvnlpModernizedDecodingResultForActivationMatrix_decodingLocale_beamSearchConfig_lmConfig_error___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [*(a1 + 32) model];
-  v5 = [v4 ctcBlankLabelIndex];
+  a2;
+  v3 = [*(a1 + 32) model];
+  v4 = [v3 ctcBlankLabelIndex];
 
-  v6 = [*(a1 + 40) beamWidth];
-  v7 = [*(a1 + 40) pathCount];
+  v5 = [*(a1 + 40) beamWidth];
+  v6 = [*(a1 + 40) pathCount];
+  v45 = 0;
   v46 = 0;
   v47 = 0;
-  v48 = 0;
-  v8 = *(a1 + 32);
-  if (v8)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    [v8 pruningPolicy];
-    v9 = *(&v47 + 1);
-    v19 = v48;
-  }
-
-  else
-  {
-    v19 = 0;
-    v9 = 0.0;
-  }
-
-  v10 = logf(v9);
-  v44[3] = 0uLL;
-  v45 = 0;
-  if ([*(a1 + 32) _shouldUseCharacterDecodingToken])
-  {
-    LOBYTE(v21) = 0;
-    v20 = &unk_1F2BAF840;
-    v11 = *(a1 + 32);
-    if (v11)
-    {
-      [v11 _createBeamScorerWithBundle:v3 beamSearchConfig:*(a1 + 40) lmConfig:*(a1 + 48)];
-      v12 = *(&v44[1] + 8);
-      v13 = *(&v44[2] + 1);
-      v14 = v21;
-    }
-
-    else
-    {
-      v14 = 0;
-      v13 = 0;
-      v12 = 0uLL;
-      memset(v44, 0, 48);
-    }
-
-    v24 = &unk_1F2BAFA68;
-    v25 = v5;
-    v27 = *(v44 + 8);
-    v28 = v12;
-    v26 = &unk_1F2BAF8F0;
-    v29 = v13;
-    memset(&v44[1] + 8, 0, 24);
-    v31 = v14;
-    v30 = &unk_1F2BAF840;
-    __p = v5;
-    v33 = __PAIR64__(v7, v6);
-    v34 = 0xFFF0000000000000;
-    v35 = v10;
-    v36 = v19;
-    LOBYTE(v37) = 1;
-    LOBYTE(v39) = 1;
-    *&v44[0] = &unk_1F2BAF8F0;
-    cf[0] = &v44[1] + 8;
-    std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](cf);
-    memset(cf, 0, 24);
-    CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::CharacterSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::decode();
-  }
-
-  v15 = *(a1 + 32);
-  BYTE8(v44[0]) = 0;
-  *&v44[0] = &unk_1F2BAF988;
-  memset(&v44[1], 0, 24);
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v44[1], *(v15 + 8), *(v15 + 16), (*(v15 + 16) - *(v15 + 8)) >> 3);
-  BYTE8(v44[2]) = 0;
-  v16 = *(a1 + 32);
-  if (v16)
-  {
-    [v16 _createBeamScorerWithBundle:v3 beamSearchConfig:*(a1 + 40) lmConfig:*(a1 + 48)];
-    v17 = *&cf[3];
-    v18 = cf[5];
+    objc_msgSend_pruningPolicy(v7);
+    v8 = *(&v46 + 1);
+    v18 = v47;
   }
 
   else
   {
     v18 = 0;
-    v17 = 0uLL;
+    v8 = 0.0;
+  }
+
+  v9 = logf(v8);
+  v43[3] = 0uLL;
+  v44 = 0;
+  if ([*(a1 + 32) _shouldUseCharacterDecodingToken])
+  {
+    LOBYTE(v20) = 0;
+    v19 = &unk_1F2BAF840;
+    v10 = *(a1 + 32);
+    if (v10)
+    {
+      objc_msgSend__createBeamScorerWithBundle_beamSearchConfig_lmConfig_(v10);
+      v11 = *(&v43[1] + 8);
+      v12 = *(&v43[2] + 1);
+      v13 = v20;
+    }
+
+    else
+    {
+      v13 = 0;
+      v12 = 0;
+      v11 = 0uLL;
+      memset(v43, 0, 48);
+    }
+
+    v23 = &unk_1F2BAFA68;
+    v24 = v4;
+    v26 = *(v43 + 8);
+    v27 = v11;
+    v25 = &unk_1F2BAF8F0;
+    v28 = v12;
+    memset(&v43[1] + 8, 0, 24);
+    v30 = v13;
+    v29 = &unk_1F2BAF840;
+    __p = v4;
+    v32 = __PAIR64__(v6, v5);
+    v33 = 0xFFF0000000000000;
+    v34 = v9;
+    v35 = v18;
+    LOBYTE(v36) = 1;
+    LOBYTE(v38) = 1;
+    *&v43[0] = &unk_1F2BAF8F0;
+    cf[0] = &v43[1] + 8;
+    std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](cf);
+    memset(cf, 0, 24);
+    CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::CharacterSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::decode();
+  }
+
+  v14 = *(a1 + 32);
+  BYTE8(v43[0]) = 0;
+  *&v43[0] = &unk_1F2BAF988;
+  memset(&v43[1], 0, 24);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v43[1], *(v14 + 8), *(v14 + 16), (*(v14 + 16) - *(v14 + 8)) >> 3);
+  BYTE8(v43[2]) = 0;
+  v15 = *(a1 + 32);
+  if (v15)
+  {
+    objc_msgSend__createBeamScorerWithBundle_beamSearchConfig_lmConfig_(v15);
+    v16 = *&cf[3];
+    v17 = cf[5];
+  }
+
+  else
+  {
+    v17 = 0;
+    v16 = 0uLL;
     memset(cf, 0, 48);
   }
 
-  v24 = &unk_1F2BAFA90;
-  v25 = v5;
-  v27 = *&cf[1];
+  v23 = &unk_1F2BAFA90;
+  v24 = v4;
+  v26 = *&cf[1];
+  v27 = v16;
+  v25 = &unk_1F2BAF8F0;
   v28 = v17;
-  v26 = &unk_1F2BAF8F0;
-  v29 = v18;
   memset(&cf[3], 0, 24);
-  v31 = BYTE8(v44[0]);
-  v30 = &unk_1F2BAF988;
+  v30 = BYTE8(v43[0]);
+  v29 = &unk_1F2BAF988;
   __p = 0;
+  v32 = 0;
   v33 = 0;
-  v34 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *&v44[1], *(&v44[1] + 1), (*(&v44[1] + 1) - *&v44[1]) >> 3);
-  LOBYTE(v35) = BYTE8(v44[2]);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, *&v43[1], *(&v43[1] + 1), (*(&v43[1] + 1) - *&v43[1]) >> 3);
+  LOBYTE(v34) = BYTE8(v43[2]);
+  v35 = v4;
   v36 = v5;
   v37 = v6;
-  v38 = v7;
-  v39 = 0xFFF0000000000000;
-  v40 = v10;
-  v41 = v19;
+  v38 = 0xFFF0000000000000;
+  v39 = v9;
+  v40 = v18;
+  v41 = 1;
   v42 = 1;
-  v43 = 1;
   cf[0] = &unk_1F2BAF8F0;
-  v20 = &cf[3];
-  std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v20);
+  v19 = &cf[3];
+  std::vector<std::unique_ptr<CoreRecognition::decoder::BaseBeamScorer>>::__destroy_vector::operator()[abi:ne200100](&v19);
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
   CoreRecognition::decoder::CTCBeamSearchDecoder<CoreRecognition::decoder::AdditiveCombiningBeamScorer<CoreRecognition::decoder::CombinedBeamState>,CoreRecognition::decoder::SpaceSegmentedPathBuilder<CoreRecognition::decoder::CombinedBeamState>>::decode();
 }
 

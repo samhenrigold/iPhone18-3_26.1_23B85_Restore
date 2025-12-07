@@ -292,7 +292,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -312,7 +311,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  fgDuration = self->_fgDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -327,7 +325,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  bgDuration = self->_bgDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -342,7 +339,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  bgEntryCount = self->_bgEntryCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -357,7 +353,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  peerRssi24G = self->_peerRssi24G;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -372,12 +367,10 @@ LABEL_7:
   }
 
 LABEL_26:
-  peerRssi5G = self->_peerRssi5G;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_8:
-    isSDB = self->_isSDB;
     PBDataWriterWriteBOOLField();
   }
 
@@ -392,32 +385,29 @@ LABEL_9:
     PBDataWriterWriteSubmessage();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    dfspState = self->_dfspState;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 0x20) != 0)
+  if ((v5 & 0x20) != 0)
   {
-    infraDisconnectedCount = self->_infraDisconnectedCount;
     PBDataWriterWriteUint32Field();
   }
 
   p_channelSequences = &self->_channelSequences;
   if (p_channelSequences->count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = p_channelSequences->list[v10];
       PBDataWriterWriteUint32Field();
-      ++v10;
+      ++v7;
     }
 
-    while (v10 < p_channelSequences->count);
+    while (v7 < p_channelSequences->count);
   }
 }
 
@@ -767,7 +757,6 @@ LABEL_9:
       return 0;
     }
 
-    v12 = *(equal + 96);
     if (self->_isSDB)
     {
       if ((*(equal + 96) & 1) == 0)

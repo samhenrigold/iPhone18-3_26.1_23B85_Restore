@@ -70,7 +70,7 @@
 
 - (NSArray)autoSharingContacts
 {
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -79,7 +79,7 @@
 
 - (void)setAutoSharingContacts:(id)contacts
 {
-  sub_100014C84(0, &unk_101911D50);
+  sub_100014C84(0, &unk_101911D50, MSPSharedTripContact_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = *(self + OBJC_IVAR____TtC4Maps21MapsRoutePlanningCell_autoSharingContacts);
   *(self + OBJC_IVAR____TtC4Maps21MapsRoutePlanningCell_autoSharingContacts) = v4;

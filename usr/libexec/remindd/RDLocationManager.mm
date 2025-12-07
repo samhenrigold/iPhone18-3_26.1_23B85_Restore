@@ -44,7 +44,7 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  sub_10050A90C();
+  sub_10050A90C(errorCopy);
 }
 
 - (void)locationManager:(id)manager monitoringDidFailForRegion:(id)region withError:(id)error
@@ -53,7 +53,7 @@
   regionCopy = region;
   errorCopy = error;
   selfCopy = self;
-  sub_10050AB54(region);
+  sub_10050AB54(region, errorCopy);
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization

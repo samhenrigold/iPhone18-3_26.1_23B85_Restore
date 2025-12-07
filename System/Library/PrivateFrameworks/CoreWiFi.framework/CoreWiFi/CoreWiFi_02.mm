@@ -1,260 +1,28 @@
-uint64_t sub_1E0BF2A04(uint64_t a1, void *a2, void *a3)
-{
-  v4 = a2;
-  v5 = a3;
-  v6 = [v4 networkOfInterestHomeState] == 1 || objc_msgSend(v4, "networkOfInterestHomeState") == 3;
-  if ([v5 networkOfInterestHomeState] == 1 || (v7 = objc_msgSend(v5, "networkOfInterestHomeState"), v6 = v6 == (v7 == 3), v7 == 3))
-  {
-    v8 = -1;
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  if (v6)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v9 = v8;
-  }
-
-  return v9;
-}
-
-uint64_t sub_1E0BF2AB4(uint64_t a1, void *a2, void *a3)
-{
-  v4 = a2;
-  v5 = a3;
-  v6 = [v4 addReason];
-  v7 = [v5 addReason];
-  if (v6 == 10)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = [v4 isProfileBased];
-  }
-
-  if (v7 == 10)
-  {
-    v9 = v8 == 0;
-    v10 = 1;
-  }
-
-  else
-  {
-    v11 = [v5 isProfileBased] & 1;
-    v10 = -1;
-    if (!v11)
-    {
-      v10 = 1;
-    }
-
-    v9 = v8 == v11;
-  }
-
-  if (v9)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v12 = v10;
-  }
-
-  return v12;
-}
-
-uint64_t sub_1E0BF2B68(uint64_t a1, void *a2, void *a3)
-{
-  v4 = a2;
-  v5 = a3;
-  v6 = [v4 isPersonalHotspot];
-  v7 = [v5 isPersonalHotspot];
-
-  if (v6 == v7)
-  {
-    v8 = 0;
-  }
-
-  else if ([v4 isPersonalHotspot])
-  {
-    v8 = -1;
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  return v8;
-}
-
-uint64_t sub_1E0BF2BE8(uint64_t a1, void *a2, void *a3)
-{
-  v4 = a2;
-  v5 = a3;
-  v6 = [v4 isOpen];
-  v7 = [v5 isOpen];
-
-  if (v6 == v7)
-  {
-    v8 = 0;
-  }
-
-  else if ([v4 isOpen])
-  {
-    v8 = -1;
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  return v8;
-}
-
-uint64_t sub_1E0BF2C68(uint64_t a1, void *a2, void *a3)
-{
-  v4 = a2;
-  v5 = a3;
-  if ([v4 is6GHz])
-  {
-    v6 = [v4 overlapsWithUWB] ^ 1;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if ([v5 is6GHz])
-  {
-    v7 = [v5 overlapsWithUWB] ^ 1;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if (v6 == v7)
-  {
-    if ([v4 is5GHz])
-    {
-      v8 = [v4 isDFS] ^ 1;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    if ([v5 is5GHz])
-    {
-      v10 = [v5 isDFS] ^ 1;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    if (v8 == v10)
-    {
-      v11 = [v4 is6GHz];
-      if (v11 == [v5 is6GHz])
-      {
-        v16 = [v4 is5GHz];
-        if (v16 == [v5 is5GHz])
-        {
-          v15 = 0;
-          goto LABEL_29;
-        }
-
-        v12 = [v5 is5GHz];
-      }
-
-      else
-      {
-        v12 = [v5 is6GHz];
-      }
-
-      v13 = v12 == 0;
-      v14 = -1;
-      goto LABEL_26;
-    }
-
-    if ([v5 is5GHz])
-    {
-      v9 = [v5 isDFS];
-      goto LABEL_21;
-    }
-
-LABEL_22:
-    v15 = 1;
-    goto LABEL_29;
-  }
-
-  if (![v5 is6GHz])
-  {
-    goto LABEL_22;
-  }
-
-  v9 = [v5 overlapsWithUWB];
-LABEL_21:
-  v13 = v9 == 0;
-  v14 = 1;
-LABEL_26:
-  if (v13)
-  {
-    v15 = -v14;
-  }
-
-  else
-  {
-    v15 = v14;
-  }
-
-LABEL_29:
-
-  return v15;
-}
-
 uint64_t sub_1E0BF2DDC(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = [v4 RNRBSSList];
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         v12 = [v11 channel];
         v13 = [v12 is6GHz];
 
@@ -278,7 +46,7 @@ LABEL_14:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
       v15 = 0;
       if (v8)
       {
@@ -296,26 +64,26 @@ LABEL_14:
 
 LABEL_16:
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v16 = [v5 RNRBSSList];
-  v17 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v29;
+    v19 = *v28;
     while (2)
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v28 + 1) + 8 * j);
+        v21 = *(*(&v27 + 1) + 8 * j);
         v22 = [v21 channel];
         v23 = [v22 is6GHz];
 
@@ -339,7 +107,7 @@ LABEL_30:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v18)
       {
         continue;
@@ -360,7 +128,6 @@ LABEL_31:
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -485,7 +252,9 @@ void sub_1E0BF3464(uint64_t a1, uint64_t a2, void *a3)
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    _os_log_send_and_compose_impl();
+    v12[0] = 67109120;
+    v12[1] = a2;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 2, "[corewifi] SCNetworkReachability event: flags=0x%X", v12);
   }
 
   if ([v6 isMonitoringEvents])
@@ -499,7 +268,6 @@ void sub_1E0BF3464(uint64_t a1, uint64_t a2, void *a3)
   }
 
   objc_autoreleasePoolPop(v5);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0BF3678(uint64_t a1)
@@ -536,9 +304,9 @@ void sub_1E0BF3854(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_1E0BF3F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E0BF3F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -564,9 +332,9 @@ id sub_1E0BF3F68()
   return v1;
 }
 
-void sub_1E0BF4054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E0BF4054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -592,57 +360,57 @@ id sub_1E0BF406C()
   return v1;
 }
 
-void sub_1E0BF4158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E0BF4158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1E0BF43A0(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v19 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
-    v20 = 1024;
-    v21 = 210;
-    v22 = 2080;
-    v23 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
+    v18 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
+    v19 = 1024;
+    v20 = 210;
+    v21 = 2080;
+    v22 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
     _os_log_impl(&dword_1E0BBF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Setting assetRootToProcess TRUE", buf, 0x1Cu);
   }
 
   [*(a1 + 32) setAssetRootToProcess:1];
   v3 = [MEMORY[0x1E695DF70] arrayWithArray:*(a1 + 40)];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(a1 + 48);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if (([v3 containsObject:{v9, v13}] & 1) == 0)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (([v3 containsObject:{v9, v12}] & 1) == 0)
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -658,41 +426,37 @@ void sub_1E0BF43A0(uint64_t a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v19 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
-    v20 = 1024;
-    v21 = 230;
-    v22 = 2080;
-    v23 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
+    v18 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
+    v19 = 1024;
+    v20 = 230;
+    v21 = 2080;
+    v22 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
     _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Setting assetRootToProcess FALSE", buf, 0x1Cu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1E0BF461C(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446722;
-    v6 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
-    v7 = 1024;
-    v8 = 234;
-    v9 = 2080;
-    v10 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
-    _os_log_impl(&dword_1E0BBF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Root Removed, freeing rootAsset", &v5, 0x1Cu);
+    v4 = 136446722;
+    v5 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
+    v6 = 1024;
+    v7 = 234;
+    v8 = 2080;
+    v9 = "[CWFAssetSetManager rootMonitorDetectedAdd:deleted:updated:]_block_invoke";
+    _os_log_impl(&dword_1E0BBF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:%s: Root Removed, freeing rootAsset", &v4, 0x1Cu);
   }
 
   [*(a1 + 32) setAssetRootToProcess:0];
-  result = [*(a1 + 32) setAssetFromRoot:0];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setAssetFromRoot:0];
 }
 
 void sub_1E0BF4FB0(id *a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (v2)
   {
@@ -717,12 +481,16 @@ void sub_1E0BF4FB0(id *a1)
 
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          v27 = a1[4];
-          _os_log_send_and_compose_impl();
+          v15 = a1[4];
+          *v33 = 136315394;
+          *&v33[4] = "[CWFAssetSetManager processQueryResults:withError:]_block_invoke";
+          *&v33[12] = 2112;
+          *&v33[14] = v15;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[OTA_SET] %s: Download only platform or firmware. Disabling future a11 checks and proceeding with download-only path. error = %@", v33, 22);
         }
 
         [a1[5] __startAssetTracking];
-        goto LABEL_46;
+        return;
       }
 
       if (v4)
@@ -733,14 +501,17 @@ void sub_1E0BF4FB0(id *a1)
       else
       {
         v11 = MEMORY[0x1E69E9C10];
-        v15 = MEMORY[0x1E69E9C10];
+        v16 = MEMORY[0x1E69E9C10];
       }
 
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-LABEL_45:
-
-        goto LABEL_46;
+        v17 = a1[4];
+        *v33 = 136315394;
+        *&v33[4] = "[CWFAssetSetManager processQueryResults:withError:]_block_invoke";
+        *&v33[12] = 2112;
+        *&v33[14] = v17;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[OTA_SET] %s: Unsupported platform or firmware, disabling future a11 checks. error = %@, ", v33, 22, *v33, *&v33[8]);
       }
     }
 
@@ -755,18 +526,23 @@ LABEL_45:
       else
       {
         v11 = MEMORY[0x1E69E9C10];
-        v18 = MEMORY[0x1E69E9C10];
+        v21 = MEMORY[0x1E69E9C10];
       }
 
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_45;
+        v22 = a1[4];
+        *v33 = 136315394;
+        *&v33[4] = "[CWFAssetSetManager processQueryResults:withError:]_block_invoke";
+        *&v33[12] = 2112;
+        *&v33[14] = v22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[OTA_SET] %s: Supported platform or firmware, transient error = %@", v33, 22, *v33, *&v33[8]);
       }
     }
 
-    v28 = a1[4];
-    _os_log_send_and_compose_impl();
-    goto LABEL_45;
+LABEL_45:
+
+    return;
   }
 
   v7 = a1[6];
@@ -781,14 +557,20 @@ LABEL_45:
     else
     {
       v11 = MEMORY[0x1E69E9C10];
-      v16 = MEMORY[0x1E69E9C10];
+      v18 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = a1[6];
-      v30 = [a1[5] apiMajorVersion];
-      _os_log_send_and_compose_impl();
+      v19 = a1[6];
+      v20 = [a1[5] apiMajorVersion];
+      *v33 = 136315650;
+      *&v33[4] = "[CWFAssetSetManager processQueryResults:withError:]_block_invoke";
+      *&v33[12] = 2112;
+      *&v33[14] = v19;
+      *&v33[22] = 2112;
+      v34 = v20;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 0, "[OTA_SET] %s: Not processing queryResults=%@, existing apiMajorversion=%@", v33, 32);
     }
 
     goto LABEL_45;
@@ -799,13 +581,13 @@ LABEL_45:
   if (!v8)
   {
     v11 = [a1[6] objectForKey:@"PTV_API_MAJOR_VERSION"];
-    v19 = [v11 stringValue];
-    v20 = v19;
-    if (v19 && ([v19 isEqualToString:&stru_1F5B8FC80] & 1) == 0)
+    v23 = [v11 stringValue];
+    v24 = v23;
+    if (v23 && ([v23 isEqualToString:&stru_1F5B8FC80] & 1) == 0)
     {
-      [a1[5] setApiMajorVersion:v20];
-      v24 = [a1[5] assetPowerTable];
-      [v24 setPowerTableAPIMajorVersion:v20];
+      [a1[5] setApiMajorVersion:v24];
+      v30 = [a1[5] assetPowerTable];
+      [v30 setPowerTableAPIMajorVersion:v24];
 
       [a1[5] __stopPeriodicCheckA11];
       [a1[5] __startAssetTracking];
@@ -813,22 +595,28 @@ LABEL_45:
 
     else
     {
-      v21 = CWFGetOTAOSLog();
-      if (v21)
+      v25 = CWFGetOTAOSLog();
+      if (v25)
       {
-        v22 = CWFGetOTAOSLog();
+        v26 = CWFGetOTAOSLog();
       }
 
       else
       {
-        v22 = MEMORY[0x1E69E9C10];
-        v25 = MEMORY[0x1E69E9C10];
+        v26 = MEMORY[0x1E69E9C10];
+        v31 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v32 = a1[6];
-        _os_log_send_and_compose_impl();
+        *v33 = 136315650;
+        *&v33[4] = "[CWFAssetSetManager processQueryResults:withError:]_block_invoke";
+        *&v33[12] = 2112;
+        *&v33[14] = v24;
+        *&v33[22] = 2112;
+        v34 = v32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 16, "[OTA_SET] %s: invalid apiMajorVersion=%@, processing queryResults=%@", v33, 32);
       }
     }
 
@@ -844,24 +632,28 @@ LABEL_45:
   else
   {
     v10 = MEMORY[0x1E69E9C10];
-    v23 = MEMORY[0x1E69E9C10];
+    v27 = MEMORY[0x1E69E9C10];
   }
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v29 = [a1[5] apiMajorVersion];
-    v31 = a1[6];
-    _os_log_send_and_compose_impl();
+    v28 = [a1[5] apiMajorVersion];
+    v29 = a1[6];
+    *v33 = 136315650;
+    *&v33[4] = "[CWFAssetSetManager processQueryResults:withError:]_block_invoke";
+    *&v33[12] = 2112;
+    *&v33[14] = v28;
+    *&v33[22] = 2112;
+    v34 = v29;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[OTA_SET] %s: Existing self.apiMajorVersion=%@, queryResults=%@, disabling future checks.", v33, 32);
   }
 
   [a1[5] __stopPeriodicCheckA11];
-LABEL_46:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0BF5934(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isMobileAssetDaemonReady];
   v3 = CWFGetOTAOSLog();
   v4 = v3;
@@ -880,9 +672,9 @@ void sub_1E0BF5934(uint64_t a1)
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315138;
-      v21 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
-      _os_log_send_and_compose_impl();
+      v19 = 136315138;
+      v20 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[OTA_SET] %s: About to start tracking Assets", &v19);
     }
 
     v7 = +[CWFAssetPowerTable sharedObj];
@@ -898,36 +690,36 @@ void sub_1E0BF5934(uint64_t a1)
       [v10 setAssetSpecifier:v11];
 
       v12 = [*(a1 + 32) makeAutoAssetSetWithEntry:0];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = sub_1E0BF5C48;
-      v18[3] = &unk_1E86E6088;
-      v18[4] = *(a1 + 32);
-      v19 = v12;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = sub_1E0BF5C48;
+      v17[3] = &unk_1E86E6088;
+      v17[4] = *(a1 + 32);
+      v18 = v12;
       v13 = v12;
-      [v13 needForAtomic:@"reason-started-monitoring" withNeedPolicy:0 completion:v18];
-
-      goto LABEL_15;
-    }
-
-    v14 = CWFGetOTAOSLog();
-    if (v14)
-    {
-      v13 = CWFGetOTAOSLog();
+      [v13 needForAtomic:@"reason-started-monitoring" withNeedPolicy:0 completion:v17];
     }
 
     else
     {
-      v13 = MEMORY[0x1E69E9C10];
-      v15 = MEMORY[0x1E69E9C10];
-    }
+      v14 = CWFGetOTAOSLog();
+      if (v14)
+      {
+        v13 = CWFGetOTAOSLog();
+      }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      v20 = 136315138;
-      v21 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
-LABEL_14:
-      _os_log_send_and_compose_impl();
+      else
+      {
+        v13 = MEMORY[0x1E69E9C10];
+        v15 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        v19 = 136315138;
+        v20 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[OTA_SET] %s: Empty or nil wifichipset data", &v19);
+      }
     }
   }
 
@@ -941,25 +733,21 @@ LABEL_14:
     else
     {
       v13 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
+      v16 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315138;
-      v21 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
-      goto LABEL_14;
+      v19 = 136315138;
+      v20 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[OTA_SET] %s: mobileassetd is not ready", &v19);
     }
   }
-
-LABEL_15:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0BF5C48(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -981,9 +769,9 @@ void sub_1E0BF5C48(uint64_t a1, void *a2, void *a3)
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 136315138;
-        v29 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
-        _os_log_send_and_compose_impl();
+        v25 = 136315138;
+        v26 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[OTA_SET] %s: Daemon became unavailable - will retry", &v25);
       }
 
       [*(a1 + 32) scheduleReadinessRetry];
@@ -1003,13 +791,13 @@ void sub_1E0BF5C48(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v28 = 136315650;
-      v29 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
-      v30 = 2112;
-      v31 = v5;
-      v32 = 2112;
-      v33 = v7;
-      _os_log_send_and_compose_impl();
+      v25 = 136315650;
+      v26 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
+      v27 = 2112;
+      v28 = v5;
+      v29 = 2112;
+      v30 = v7;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 16, "[OTA_SET] %s:  Interest registration failed for %@ with error: %@", &v25, 32);
     }
 
     goto LABEL_23;
@@ -1031,13 +819,11 @@ void sub_1E0BF5C48(uint64_t a1, void *a2, void *a3)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [*(a1 + 40) assetSetIdentifier];
-    v28 = 136315394;
-    v29 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
-    v30 = 2112;
-    v31 = v13;
-    LODWORD(v26) = 22;
-    v25 = &v28;
-    _os_log_send_and_compose_impl();
+    v25 = 136315394;
+    v26 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
+    v27 = 2112;
+    v28 = v13;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 0, "[OTA_SET] %s:  Interest registration succeeded for %@", &v25, 22);
   }
 
   v14 = dispatch_time(0, 30000000000);
@@ -1071,8 +857,6 @@ void sub_1E0BF5C48(uint64_t a1, void *a2, void *a3)
     dispatch_activate(v20);
 LABEL_23:
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1E0BF6044(uint64_t a1)
@@ -1083,50 +867,50 @@ uint64_t sub_1E0BF6044(uint64_t a1)
   return [v2 lockAndHandOffCanBlock:1 forcedFetch:0];
 }
 
-void sub_1E0BF608C()
+void sub_1E0BF608C(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = CWFGetOTAOSLog();
-  if (v0)
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = CWFGetOTAOSLog();
+  if (v1)
   {
-    v1 = CWFGetOTAOSLog();
+    v2 = CWFGetOTAOSLog();
   }
 
   else
   {
-    v1 = MEMORY[0x1E69E9C10];
     v2 = MEMORY[0x1E69E9C10];
+    v3 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v4 = 136315138;
+    v5 = "[CWFAssetSetManager __startAssetTracking]_block_invoke_2";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v2, 0, "[OTA_SET] %s:  --- Received asset discovered notificaiton --- ", &v4);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E0BF6174()
+void sub_1E0BF6174(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = CWFGetOTAOSLog();
-  if (v0)
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = CWFGetOTAOSLog();
+  if (v1)
   {
-    v1 = CWFGetOTAOSLog();
+    v2 = CWFGetOTAOSLog();
   }
 
   else
   {
-    v1 = MEMORY[0x1E69E9C10];
     v2 = MEMORY[0x1E69E9C10];
+    v3 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v4 = 136315138;
+    v5 = "[CWFAssetSetManager __startAssetTracking]_block_invoke";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v2, 0, "[OTA_SET] %s:  --- Received asset download notificaiton --- ", &v4);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 id sub_1E0BF67F0()
@@ -1150,16 +934,16 @@ id sub_1E0BF67F0()
   return v1;
 }
 
-void sub_1E0BF68DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E0BF68DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1E0BF68F4(uint64_t a1, int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = CWFGetOTAOSLog();
   if (v4)
   {
@@ -1174,11 +958,9 @@ void sub_1E0BF68F4(uint64_t a1, int a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315138;
-    v15 = "[CWFAssetSetManager _registerForAssetDiscoveredNotification:]_block_invoke";
-    LODWORD(v12) = 12;
-    v11 = &v14;
-    _os_log_send_and_compose_impl();
+    v11 = 136315138;
+    v12 = "[CWFAssetSetManager _registerForAssetDiscoveredNotification:]_block_invoke";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[OTA_SET] %s:  Begin: Asset discovered completion handler", &v11);
   }
 
   state64 = 0;
@@ -1202,17 +984,15 @@ void sub_1E0BF68F4(uint64_t a1, int a2)
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315138;
-    v15 = "[CWFAssetSetManager _registerForAssetDiscoveredNotification:]_block_invoke";
-    _os_log_send_and_compose_impl();
+    v11 = 136315138;
+    v12 = "[CWFAssetSetManager _registerForAssetDiscoveredNotification:]_block_invoke";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 0, "[OTA_SET] %s:  End: Asset discovered completion handler", &v11);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0BF6C90(uint64_t a1, int a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = CWFGetOTAOSLog();
   if (v4)
   {
@@ -1227,11 +1007,9 @@ void sub_1E0BF6C90(uint64_t a1, int a2)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[CWFAssetSetManager _registerForAssetDownloadedNotification:]_block_invoke";
-    LODWORD(v13) = 12;
-    v12 = &v15;
-    _os_log_send_and_compose_impl();
+    v12 = 136315138;
+    v13 = "[CWFAssetSetManager _registerForAssetDownloadedNotification:]_block_invoke";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 0, "[OTA_SET] %s:  Begin: notify_register_dispatch's completion handler", &v12);
   }
 
   state64 = 0;
@@ -1240,7 +1018,7 @@ void sub_1E0BF6C90(uint64_t a1, int a2)
     notify_get_state(a2, &state64);
   }
 
-  v7 = [CWFAssetPowerTableTelemetry sharedObj:v12];
+  v7 = +[CWFAssetPowerTableTelemetry sharedObj];
   [v7 setAssetVersionDownloadNotifcation:*(a1 + 32) reason:state64];
 
   [*(a1 + 40) _handleAssetDownloadedNotification];
@@ -1258,12 +1036,10 @@ void sub_1E0BF6C90(uint64_t a1, int a2)
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[CWFAssetSetManager _registerForAssetDownloadedNotification:]_block_invoke";
-    _os_log_send_and_compose_impl();
+    v12 = 136315138;
+    v13 = "[CWFAssetSetManager _registerForAssetDownloadedNotification:]_block_invoke";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[OTA_SET] %s:  End: notify_register_dispatch's completion handler", &v12);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 id sub_1E0BF730C()
@@ -1287,23 +1063,30 @@ id sub_1E0BF730C()
   return v1;
 }
 
-void sub_1E0BF73F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E0BF73F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E0BF8854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E0BF8854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0BF99EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1E0BF9E30(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = CWFGetOTAOSLog();
@@ -1320,23 +1103,26 @@ void sub_1E0BF9E30(uint64_t a1, void *a2, void *a3)
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v5 localizedDescription];
-    _os_log_send_and_compose_impl();
+    v9 = [v5 localizedDescription];
+    v10 = 136315650;
+    v11 = "+[CWFAssetSetManager endAllPreviousLocks]_block_invoke";
+    v12 = 2112;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[OTA_SET] %s: Completed for assetSetIdentifier: %@ with error: %@", &v10, 32);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E0BFA23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E0BFA23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class sub_1E0BFA4F0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   if (!qword_1ED7E38B8)
   {
     qword_1ED7E38B8 = _sl_dlopen();
@@ -1345,17 +1131,13 @@ Class sub_1E0BFA4F0(uint64_t a1)
   result = objc_getClass("SUCoreRestoreVersion");
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_1ED7E38B0 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t sub_1E0BFA5F4(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1ED7E38B8 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1370,22 +1152,16 @@ Class sub_1E0BFA668(uint64_t a1)
 
 void sub_1E0BFA6B8()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!qword_1ECE81AE0)
   {
     qword_1ECE81AE0 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1E0BFA788(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1ECE81AE0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1464,9 +1240,9 @@ id sub_1E0BFC038()
   return v1;
 }
 
-void sub_1E0BFC124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E0BFC124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1492,9 +1268,9 @@ id sub_1E0BFCECC()
   return v1;
 }
 
-void sub_1E0BFCFB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E0BFCFB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1510,22 +1286,16 @@ Class sub_1E0BFE734(uint64_t a1)
 
 void sub_1E0BFE784()
 {
-  v1 = *MEMORY[0x1E69E9840];
   if (!qword_1ECE86960)
   {
     qword_1ECE86960 = _sl_dlopen();
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1E0BFE854(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1ECE86960 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1547,7 +1317,7 @@ uint64_t sub_1E0BFE96C()
 
 id sub_1E0BFF2C8(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
   [v2 setObject:*(*(a1 + 32) + 24) forKeyedSubscript:@"assetSpecifier"];
   [v2 setObject:*(*(a1 + 32) + 56) forKeyedSubscript:@"assetType"];
@@ -1627,16 +1397,14 @@ id sub_1E0BFF2C8(uint64_t a1)
   v20 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 136446722;
-    v24 = "[CWFAssetPowerTableTelemetry sendTelemetryAndClear]_block_invoke";
-    v25 = 1024;
-    v26 = 269;
-    v27 = 2112;
-    v28 = v2;
-    _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Sent telemetry metricDict: %@", &v23, 0x1Cu);
+    v22 = 136446722;
+    v23 = "[CWFAssetPowerTableTelemetry sendTelemetryAndClear]_block_invoke";
+    v24 = 1024;
+    v25 = 269;
+    v26 = 2112;
+    v27 = v2;
+    _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Sent telemetry metricDict: %@", &v22, 0x1Cu);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -1672,7 +1440,7 @@ void sub_1E0C00A80(uint64_t a1)
 
 void sub_1E0C00C48(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = *(a1 + 32);
   v4 = [v3 _lastSubmissionTimePreAJ];
@@ -1680,57 +1448,57 @@ void sub_1E0C00C48(uint64_t a1)
 
   if ((v3 & 1) == 0)
   {
-    v24 = CWFGetOSLog();
-    if (v24)
+    v23 = CWFGetOSLog();
+    if (v23)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v31 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v30 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_55;
+      *v37 = 136446722;
+      *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFJITTDImpactEstimator.m";
+      *&v37[22] = 1024;
+      *v38 = 197;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] %{public}s (%{public}s:%u) Restricting post to CA once every 24hrs, exiting\n", v37, 28, *v37, *&v37[8], *v38);
     }
 
-    v39 = 136446722;
-    v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-    v41 = 2082;
-    v42 = "CWFJITTDImpactEstimator.m";
-    v43 = 1024;
-    v44 = 197;
     goto LABEL_54;
   }
 
   if ([*(a1 + 32) _activity] == 2)
   {
-    v26 = CWFGetOSLog();
-    if (v26)
+    v25 = CWFGetOSLog();
+    if (v25)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v32 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v31 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_55;
+      *v37 = 136446722;
+      *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFJITTDImpactEstimator.m";
+      *&v37[22] = 1024;
+      *v38 = 201;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] %{public}s (%{public}s:%u) AJ accounting already started, exiting\n", v37, 28, *v37, *&v37[8], *v38);
     }
 
-    v39 = 136446722;
-    v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-    v41 = 2082;
-    v42 = "CWFJITTDImpactEstimator.m";
-    v43 = 1024;
-    v44 = 201;
     goto LABEL_54;
   }
 
@@ -1750,15 +1518,13 @@ void sub_1E0C00C48(uint64_t a1)
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = 136446722;
-      v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-      v41 = 2082;
-      v42 = "CWFJITTDImpactEstimator.m";
-      v43 = 1024;
-      v44 = 205;
-      LODWORD(v38) = 28;
-      v37 = &v39;
-      _os_log_send_and_compose_impl();
+      *v37 = 136446722;
+      *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFJITTDImpactEstimator.m";
+      *&v37[22] = 1024;
+      *v38 = 205;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] %{public}s (%{public}s:%u) We are still in the middle of post TD eval, but RSSI is now good enough for AJ, terminating post TD & starting AJ accounting", v37, 28);
     }
 
     [*(a1 + 32) gatherCellularDataUsageSoFar:0];
@@ -1769,57 +1535,59 @@ void sub_1E0C00C48(uint64_t a1)
 
   if (!v8)
   {
-    v27 = CWFGetOSLog();
-    if (v27)
+    v26 = CWFGetOSLog();
+    if (v26)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v33 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v32 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_55;
+      *v37 = 136446722;
+      *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFJITTDImpactEstimator.m";
+      *&v37[22] = 1024;
+      *v38 = 211;
+      LODWORD(v36) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid cellular callback reference\n", v37, v36, *v37, *&v37[8], *v38);
     }
 
-    v39 = 136446722;
-    v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-    v41 = 2082;
-    v42 = "CWFJITTDImpactEstimator.m";
-    v43 = 1024;
-    v44 = 211;
     goto LABEL_54;
   }
 
   if (!*(a1 + 40))
   {
-    v28 = CWFGetOSLog();
-    if (v28)
+    v27 = CWFGetOSLog();
+    if (v27)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v34 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v33 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_55;
+      *v37 = 136446722;
+      *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFJITTDImpactEstimator.m";
+      *&v37[22] = 1024;
+      *v38 = 215;
+      LODWORD(v36) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid TD network provided\n", v37, v36, *v37, *&v37[8], *v38);
     }
 
-    v39 = 136446722;
-    v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-    v41 = 2082;
-    v42 = "CWFJITTDImpactEstimator.m";
-    v43 = 1024;
-    v44 = 215;
     goto LABEL_54;
   }
 
@@ -1846,60 +1614,60 @@ void sub_1E0C00C48(uint64_t a1)
 
   if ((v14 & 1) == 0)
   {
-    v29 = CWFGetOSLog();
-    if (v29)
+    v28 = CWFGetOSLog();
+    if (v28)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v35 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v34 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_55;
+      *v37 = 136446722;
+      *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFJITTDImpactEstimator.m";
+      *&v37[22] = 1024;
+      *v38 = 229;
+      LODWORD(v36) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to get cellular data usage at init\n", v37, v36, *v37, *&v37[8], *v38);
     }
 
-    v39 = 136446722;
-    v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-    v41 = 2082;
-    v42 = "CWFJITTDImpactEstimator.m";
-    v43 = 1024;
-    v44 = 229;
     goto LABEL_54;
   }
 
   if (([*(a1 + 32) checkCellularDataSanity:v2] & 1) == 0)
   {
-    v30 = CWFGetOSLog();
-    if (v30)
+    v29 = CWFGetOSLog();
+    if (v29)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v36 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v35 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_55;
+      *v37 = 136446722;
+      *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+      *&v37[12] = 2082;
+      *&v37[14] = "CWFJITTDImpactEstimator.m";
+      *&v37[22] = 1024;
+      *v38 = 233;
+      LODWORD(v36) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] %{public}s (%{public}s:%u) Data obtained for cellular stats is invalid, exiting\n", v37, v36, *v37, *&v37[8], *v38);
     }
 
-    v39 = 136446722;
-    v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-    v41 = 2082;
-    v42 = "CWFJITTDImpactEstimator.m";
-    v43 = 1024;
-    v44 = 233;
 LABEL_54:
-    _os_log_send_and_compose_impl();
-LABEL_55:
 
     goto LABEL_23;
   }
@@ -1924,36 +1692,35 @@ LABEL_55:
     v20 = [*(a1 + 32) _totalCellularOutBytes];
     v21 = [*(a1 + 32) _totalCellularInPackets];
     v22 = [*(a1 + 32) _totalCellularOutPackets];
-    v40 = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
-    v41 = 2082;
-    v39 = 136448002;
-    v42 = "CWFJITTDImpactEstimator.m";
-    v43 = 1024;
-    v44 = 238;
-    v45 = 2048;
-    v46 = v18;
-    v47 = 2112;
-    v48 = v19;
-    v49 = 2112;
-    v50 = v20;
-    v51 = 2112;
-    v52 = v21;
-    v53 = 2112;
-    v54 = v22;
-    _os_log_send_and_compose_impl();
+    *&v37[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingDelayedAJ:withMaxRSSI:forNetwork:]_block_invoke";
+    *&v37[12] = 2082;
+    *v37 = 136448002;
+    *&v37[14] = "CWFJITTDImpactEstimator.m";
+    *&v37[22] = 1024;
+    *v38 = 238;
+    *&v38[4] = 2048;
+    *&v38[6] = v18;
+    v39 = 2112;
+    v40 = v19;
+    v41 = 2112;
+    v42 = v20;
+    v43 = 2112;
+    v44 = v21;
+    v45 = 2112;
+    v46 = v22;
+    LODWORD(v36) = 78;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] %{public}s (%{public}s:%u) Starting pre AJ accounting with boundary time %ld initial data stats inBytes[%@] outBytes[%@] inPackets[%@] outPackets[%@]", v37, v36);
   }
 
   [*(a1 + 32) set_activity:2];
   [*(a1 + 32) set_rssi:*(a1 + 56)];
   [*(a1 + 32) set_tdNetwork:*(a1 + 40)];
 LABEL_23:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0C01490(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = [*(a1 + 32) gatherCellularDataStats];
 
@@ -1971,32 +1738,39 @@ void sub_1E0C01490(uint64_t a1)
         {
           v6 = [*(a1 + 32) computeDataUsageInCurrentSession:v2];
           [*(a1 + 32) postCellularDataUsageAccountingPreAJ:v6];
-          goto LABEL_6;
-        }
-
-        v11 = CWFGetOSLog();
-        if (v11)
-        {
-          v6 = CWFGetOSLog();
         }
 
         else
         {
-          v6 = MEMORY[0x1E69E9C10];
-          v15 = MEMORY[0x1E69E9C10];
-        }
+          v10 = CWFGetOSLog();
+          if (v10)
+          {
+            v6 = CWFGetOSLog();
+          }
 
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-        {
-LABEL_26:
-          _os_log_send_and_compose_impl();
+          else
+          {
+            v6 = MEMORY[0x1E69E9C10];
+            v14 = MEMORY[0x1E69E9C10];
+          }
+
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          {
+            *v15 = 136446722;
+            *&v15[4] = "[CWFJITTDImpactEstimator stopCellularDataUsageAccountingDelayedAJ]_block_invoke";
+            *&v15[12] = 2082;
+            *&v15[14] = "CWFJITTDImpactEstimator.m";
+            *&v15[22] = 1024;
+            LODWORD(v16) = 271;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[corewifi] %{public}s (%{public}s:%u) Data obtained for cellular stats is invalid, exiting\n", v15, 28, *v15, *&v15[8], v16);
+          }
         }
       }
 
       else
       {
-        v10 = CWFGetOSLog();
-        if (v10)
+        v9 = CWFGetOSLog();
+        if (v9)
         {
           v6 = CWFGetOSLog();
         }
@@ -2004,20 +1778,26 @@ LABEL_26:
         else
         {
           v6 = MEMORY[0x1E69E9C10];
-          v14 = MEMORY[0x1E69E9C10];
+          v13 = MEMORY[0x1E69E9C10];
         }
 
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_26;
+          *v15 = 136446722;
+          *&v15[4] = "[CWFJITTDImpactEstimator stopCellularDataUsageAccountingDelayedAJ]_block_invoke";
+          *&v15[12] = 2082;
+          *&v15[14] = "CWFJITTDImpactEstimator.m";
+          *&v15[22] = 1024;
+          LODWORD(v16) = 267;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to get cellular data usage at init\n", v15, 28, *v15, *&v15[8], v16);
         }
       }
     }
 
     else
     {
-      v9 = CWFGetOSLog();
-      if (v9)
+      v8 = CWFGetOSLog();
+      if (v8)
       {
         v6 = CWFGetOSLog();
       }
@@ -2025,20 +1805,26 @@ LABEL_26:
       else
       {
         v6 = MEMORY[0x1E69E9C10];
-        v13 = MEMORY[0x1E69E9C10];
+        v12 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_26;
+        *v15 = 136446722;
+        *&v15[4] = "[CWFJITTDImpactEstimator stopCellularDataUsageAccountingDelayedAJ]_block_invoke";
+        *&v15[12] = 2082;
+        *&v15[14] = "CWFJITTDImpactEstimator.m";
+        *&v15[22] = 1024;
+        LODWORD(v16) = 261;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid state we are not in pre AJ data eval zone\n", v15, 28, *v15, *&v15[8], v16);
       }
     }
   }
 
   else
   {
-    v8 = CWFGetOSLog();
-    if (v8)
+    v7 = CWFGetOSLog();
+    if (v7)
     {
       v6 = CWFGetOSLog();
     }
@@ -2046,95 +1832,112 @@ LABEL_26:
     else
     {
       v6 = MEMORY[0x1E69E9C10];
-      v12 = MEMORY[0x1E69E9C10];
+      v11 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_26;
+      *v15 = 136446722;
+      *&v15[4] = "[CWFJITTDImpactEstimator stopCellularDataUsageAccountingDelayedAJ]_block_invoke";
+      *&v15[12] = 2082;
+      *&v15[14] = "CWFJITTDImpactEstimator.m";
+      *&v15[22] = 1024;
+      LODWORD(v16) = 255;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid cellular callback reference\n", v15, 28, *v15, *&v15[8], v16);
     }
   }
 
-LABEL_6:
-
   [*(a1 + 32) resetStores];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0C018BC(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if ([*(a1 + 32) _legacyAccountingComplete])
   {
-    v8 = CWFGetOSLog();
-    if (v8)
+    v7 = CWFGetOSLog();
+    if (v7)
     {
-      v9 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
-      v14 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_33;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator notifyAJDelayedOnlyDueToJITTD]_block_invoke";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 290;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] %{public}s (%{public}s:%u) Legacy accounting already stopped\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-LABEL_32:
-    _os_log_send_and_compose_impl();
-LABEL_33:
-
-    goto LABEL_7;
+    goto LABEL_33;
   }
 
   v3 = [*(a1 + 32) gatherCellularDataStats];
 
   if (!v3)
   {
-    v10 = CWFGetOSLog();
-    if (v10)
+    v9 = CWFGetOSLog();
+    if (v9)
     {
-      v9 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
-      v15 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_33;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator notifyAJDelayedOnlyDueToJITTD]_block_invoke";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 294;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid cellular callback reference\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   if ([*(a1 + 32) _activity] != 2)
   {
-    v11 = CWFGetOSLog();
-    if (v11)
+    v10 = CWFGetOSLog();
+    if (v10)
     {
-      v9 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
-      v16 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_33;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator notifyAJDelayedOnlyDueToJITTD]_block_invoke";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 298;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid state we are not in pre AJ data eval zone\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   v4 = [*(a1 + 32) gatherCellularDataStats];
@@ -2142,46 +1945,60 @@ LABEL_33:
 
   if ((v5 & 1) == 0)
   {
-    v12 = CWFGetOSLog();
-    if (v12)
+    v11 = CWFGetOSLog();
+    if (v11)
     {
-      v9 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
+      v16 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_33;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator notifyAJDelayedOnlyDueToJITTD]_block_invoke";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 304;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to get cellular data usage at init\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   if (([*(a1 + 32) checkCellularDataSanity:v2] & 1) == 0)
   {
-    v13 = CWFGetOSLog();
-    if (v13)
+    v12 = CWFGetOSLog();
+    if (v12)
     {
-      v9 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
-      v18 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
+      v17 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_33;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator notifyAJDelayedOnlyDueToJITTD]_block_invoke";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 308;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] %{public}s (%{public}s:%u) Data obtained for cellular stats is invalid, exiting\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-    goto LABEL_32;
+LABEL_33:
+
+    goto LABEL_7;
   }
 
   v6 = [*(a1 + 32) computeDataUsageInCurrentSession:v2];
@@ -2189,13 +2006,11 @@ LABEL_33:
 
   [*(a1 + 32) set_legacyAccountingComplete:1];
 LABEL_7:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0C01DC8(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = *(a1 + 32);
   v4 = [v3 _lastSubmissionTimePostTD];
@@ -2203,98 +2018,118 @@ void sub_1E0C01DC8(uint64_t a1)
 
   if ((v3 & 1) == 0)
   {
-    v20 = CWFGetOSLog();
-    if (v20)
+    v21 = CWFGetOSLog();
+    if (v21)
     {
-      v21 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v27 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v28 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_44;
+      *v34 = 136446722;
+      *&v34[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingPostTD:withMinRSSI:]_block_invoke";
+      *&v34[12] = 2082;
+      *&v34[14] = "CWFJITTDImpactEstimator.m";
+      *&v34[22] = 1024;
+      *v35 = 332;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) Restricting post to CA once every 24hrs, exiting\n", v34, 28, *v34, *&v34[8], *v35);
     }
 
-LABEL_43:
-    _os_log_send_and_compose_impl();
-LABEL_44:
-
-    goto LABEL_13;
+    goto LABEL_44;
   }
 
   v5 = [*(a1 + 32) gatherCellularDataStats];
 
   if (!v5)
   {
-    v22 = CWFGetOSLog();
-    if (v22)
+    v23 = CWFGetOSLog();
+    if (v23)
     {
-      v21 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v29 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_44;
+      *v34 = 136446722;
+      *&v34[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingPostTD:withMinRSSI:]_block_invoke";
+      *&v34[12] = 2082;
+      *&v34[14] = "CWFJITTDImpactEstimator.m";
+      *&v34[22] = 1024;
+      *v35 = 336;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid cellular callback reference\n", v34, 28, *v34, *&v34[8], *v35);
     }
 
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
   v6 = [*(a1 + 32) scanForNetworkHandler];
 
   if (!v6)
   {
-    v23 = CWFGetOSLog();
-    if (v23)
+    v24 = CWFGetOSLog();
+    if (v24)
     {
-      v21 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v29 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v30 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_44;
+      *v34 = 136446722;
+      *&v34[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingPostTD:withMinRSSI:]_block_invoke";
+      *&v34[12] = 2082;
+      *&v34[14] = "CWFJITTDImpactEstimator.m";
+      *&v34[22] = 1024;
+      *v35 = 340;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid scan reference\n", v34, 28, *v34, *&v34[8], *v35);
     }
 
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
   if (!*(a1 + 40))
   {
-    v24 = CWFGetOSLog();
-    if (v24)
+    v25 = CWFGetOSLog();
+    if (v25)
     {
-      v21 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v30 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v31 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_44;
+      *v34 = 136446722;
+      *&v34[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingPostTD:withMinRSSI:]_block_invoke";
+      *&v34[12] = 2082;
+      *&v34[14] = "CWFJITTDImpactEstimator.m";
+      *&v34[22] = 1024;
+      *v35 = 344;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid TD network provided\n", v34, 28, *v34, *&v34[8], *v35);
     }
 
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
   v7 = [*(a1 + 32) gatherCellularDataStats];
@@ -2302,46 +2137,60 @@ LABEL_44:
 
   if ((v8 & 1) == 0)
   {
-    v25 = CWFGetOSLog();
-    if (v25)
+    v26 = CWFGetOSLog();
+    if (v26)
     {
-      v21 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v31 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v32 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_44;
+      *v34 = 136446722;
+      *&v34[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingPostTD:withMinRSSI:]_block_invoke";
+      *&v34[12] = 2082;
+      *&v34[14] = "CWFJITTDImpactEstimator.m";
+      *&v34[22] = 1024;
+      *v35 = 350;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to get cellular data usage at init\n", v34, 28, *v34, *&v34[8], *v35);
     }
 
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
   if (([*(a1 + 32) checkCellularDataSanity:v2] & 1) == 0)
   {
-    v26 = CWFGetOSLog();
-    if (v26)
+    v27 = CWFGetOSLog();
+    if (v27)
     {
-      v21 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v32 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v33 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_44;
+      *v34 = 136446722;
+      *&v34[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingPostTD:withMinRSSI:]_block_invoke";
+      *&v34[12] = 2082;
+      *&v34[14] = "CWFJITTDImpactEstimator.m";
+      *&v34[22] = 1024;
+      *v35 = 354;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) Data obtained for cellular stats is invalid, exiting\n", v34, 28, *v34, *&v34[8], *v35);
     }
 
-    goto LABEL_43;
+LABEL_44:
+
+    goto LABEL_13;
   }
 
   [*(a1 + 32) storeCellularDataUsage:v2];
@@ -2369,12 +2218,30 @@ LABEL_44:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = *(a1 + 48);
-    [*(a1 + 32) _boundaryTime];
-    v16 = [*(a1 + 32) _totalCellularInBytes];
-    v17 = [*(a1 + 32) _totalCellularOutBytes];
-    v18 = [*(a1 + 32) _totalCellularInPackets];
-    v33 = [*(a1 + 32) _totalCellularOutPackets];
-    _os_log_send_and_compose_impl();
+    v16 = [*(a1 + 32) _boundaryTime];
+    v17 = [*(a1 + 32) _totalCellularInBytes];
+    v18 = [*(a1 + 32) _totalCellularOutBytes];
+    v19 = [*(a1 + 32) _totalCellularInPackets];
+    v20 = [*(a1 + 32) _totalCellularOutPackets];
+    *v34 = 136448258;
+    *&v34[4] = "[CWFJITTDImpactEstimator startCellularDataUsageAccountingPostTD:withMinRSSI:]_block_invoke";
+    *&v34[12] = 2082;
+    *&v34[14] = "CWFJITTDImpactEstimator.m";
+    *&v34[22] = 1024;
+    *v35 = 369;
+    *&v35[4] = 2048;
+    *&v35[6] = v15;
+    v36 = 2048;
+    v37 = v16;
+    v38 = 2112;
+    v39 = v17;
+    v40 = 2112;
+    v41 = v18;
+    v42 = 2112;
+    v43 = v19;
+    v44 = 2112;
+    v45 = v20;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 0, "[corewifi] %{public}s (%{public}s:%u) Starting post TD accounting with stop RSSI[%ld] boundary time %ld initial data stats inBytes[%@] outBytes[%@] inPackets[%@] outPackets[%@]", v34, 88);
   }
 
   [*(a1 + 32) set_activity:1];
@@ -2382,27 +2249,25 @@ LABEL_44:
   [*(a1 + 32) set_tdNetwork:*(a1 + 40)];
   [*(a1 + 32) gatherCellularDataUsageSoFar:v2];
 LABEL_13:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E0C03714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E0C03714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1E0C0404C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E0C0404C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void CWFLog(os_log_type_t a1, void *a2)
+void CWFLog(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = CWFGetOSLog();
   if (v4)
@@ -2418,10 +2283,10 @@ void CWFLog(os_log_type_t a1, void *a2)
 
   if (os_log_type_enabled(v5, a1))
   {
-    _os_log_send_and_compose_impl();
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, a1, "[corewifi] %{public}@", &v7, 12);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 id CWFBootArgs()
@@ -2457,22 +2322,20 @@ LABEL_5:
 
 id CWFGetBootTime()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = 0;
   v4 = 0;
-  v5 = 0;
-  *v6 = 0x1500000001;
-  v3 = 16;
-  if (sysctl(v6, 2u, &v4, &v3, 0, 0) == -1)
+  *v5 = 0x1500000001;
+  v2 = 16;
+  if (sysctl(v5, 2u, &v3, &v2, 0, 0) == -1)
   {
     v0 = 0;
   }
 
   else
   {
-    v0 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v5 / 1000000.0 + v4];
+    v0 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v4 / 1000000.0 + v3];
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 
   return v0;
 }
@@ -2677,25 +2540,23 @@ id CWFDebugDescriptionForLQMSummary(char *a1)
 
 id CWFEthernetAddressDataFromString(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
-  if (v1 && (v3 = [v1 UTF8String]) != 0 && (v9 = 0, v8 = 0, sscanf(v3, "%x:%x:%x:%x:%x:%x", v10, &v10[1], &v10[2], &v10[3], &v10[4], &v10[5]) == 6))
+  if (v1 && (v3 = [v1 UTF8String]) != 0 && (v8 = 0, v7 = 0, sscanf(v3, "%x:%x:%x:%x:%x:%x", v9, &v9[1], &v9[2], &v9[3], &v9[4], &v9[5]) == 6))
   {
     for (i = 0; i != 6; ++i)
     {
-      *(&v8 + i) = v10[i];
+      *(&v7 + i) = v9[i];
     }
 
-    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v8 length:6];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v7 length:6];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -3112,20 +2973,20 @@ LABEL_27:
 
 uint64_t CWFScanResultHas6GHzOnlyBSS(void *a1, void *a2, void *a3)
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v75 = a2;
+  v74 = a2;
   v6 = a3;
   v7 = v6;
   v8 = 0;
-  v76 = v5;
+  v75 = v5;
   if (v5 && v6)
   {
     v9 = [MEMORY[0x1E695DF70] array];
-    v80 = [MEMORY[0x1E695DF70] array];
-    if (v75)
+    v79 = [MEMORY[0x1E695DF70] array];
+    if (v74)
     {
-      v10 = [v75 mutableCopy];
+      v10 = [v74 mutableCopy];
     }
 
     else
@@ -3140,35 +3001,35 @@ uint64_t CWFScanResultHas6GHzOnlyBSS(void *a1, void *a2, void *a3)
     v14 = (v7)[2](v7, v5);
     v15 = [(CWFScanResult *)v13 initWithScanRecord:v14 includeProperties:0];
 
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
     v108 = 0u;
+    v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     obj = v11;
-    v82 = v15;
-    v83 = v7;
-    v87 = [obj countByEnumeratingWithState:&v107 objects:v116 count:16];
-    if (v87)
+    v81 = v15;
+    v82 = v7;
+    v86 = [obj countByEnumeratingWithState:&v106 objects:v115 count:16];
+    if (v86)
     {
-      v84 = *v108;
+      v83 = *v107;
       do
       {
         v16 = 0;
         do
         {
-          if (*v108 != v84)
+          if (*v107 != v83)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v107 + 1) + 8 * v16);
+          v17 = *(*(&v106 + 1) + 8 * v16);
           v18 = objc_autoreleasePoolPush();
           v19 = v7[2](v7, v17);
           v20 = [objc_alloc(*(v12 + 3688)) initWithScanRecord:v19 includeProperties:0];
           v21 = [v20 channel];
           context = v18;
-          v93 = v16;
-          v89 = v19;
+          v92 = v16;
+          v88 = v19;
           if ([v21 is6GHz])
           {
           }
@@ -3180,7 +3041,7 @@ uint64_t CWFScanResultHas6GHzOnlyBSS(void *a1, void *a2, void *a3)
 
             if (v23)
             {
-              [v80 addObject:v20];
+              [v79 addObject:v20];
             }
           }
 
@@ -3243,8 +3104,8 @@ uint64_t CWFScanResultHas6GHzOnlyBSS(void *a1, void *a2, void *a3)
 
                               objc_autoreleasePoolPop(v37);
 LABEL_31:
-                              v15 = v82;
-                              v7 = v83;
+                              v15 = v81;
+                              v7 = v82;
                               v12 = 0x1E86E4000;
                               break;
                             }
@@ -3278,92 +3139,92 @@ LABEL_30:
 LABEL_32:
 
           objc_autoreleasePoolPop(context);
-          v16 = v93 + 1;
+          v16 = v92 + 1;
         }
 
-        while ((v93 + 1) != v87);
-        v47 = [obj countByEnumeratingWithState:&v107 objects:v116 count:16];
-        v87 = v47;
+        while ((v92 + 1) != v86);
+        v47 = [obj countByEnumeratingWithState:&v106 objects:v115 count:16];
+        v86 = v47;
       }
 
       while (v47);
     }
 
-    v105 = 0u;
-    v106 = 0u;
-    v103 = 0u;
     v104 = 0u;
-    v88 = v9;
-    v48 = [v88 countByEnumeratingWithState:&v103 objects:v115 count:16];
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
+    v87 = v9;
+    v48 = [v87 countByEnumeratingWithState:&v102 objects:v114 count:16];
     if (v48)
     {
       v49 = v48;
-      v50 = *v104;
-      v77 = *v104;
+      v50 = *v103;
+      v76 = *v103;
       while (2)
       {
         v51 = 0;
-        v78 = v49;
+        v77 = v49;
         do
         {
-          if (*v104 != v50)
+          if (*v103 != v50)
           {
-            objc_enumerationMutation(v88);
+            objc_enumerationMutation(v87);
           }
 
-          v52 = *(*(&v103 + 1) + 8 * v51);
+          v52 = *(*(&v102 + 1) + 8 * v51);
           if (([v52 hasNon6GHzRNRChannel] & 1) == 0 && objc_msgSend(v52, "RSSI") >= -80)
           {
-            v101 = 0u;
-            v102 = 0u;
-            v99 = 0u;
             v100 = 0u;
-            contexta = v80;
-            v85 = [contexta countByEnumeratingWithState:&v99 objects:v114 count:16];
-            if (v85)
+            v101 = 0u;
+            v98 = 0u;
+            v99 = 0u;
+            contexta = v79;
+            v84 = [contexta countByEnumeratingWithState:&v98 objects:v113 count:16];
+            if (v84)
             {
-              v53 = *v100;
-              v86 = v51;
-              v79 = *v100;
+              v53 = *v99;
+              v85 = v51;
+              v78 = *v99;
               do
               {
                 v54 = 0;
                 do
                 {
-                  if (*v100 != v53)
+                  if (*v99 != v53)
                   {
                     objc_enumerationMutation(contexta);
                   }
 
-                  v90 = v54;
-                  v55 = *(*(&v99 + 1) + 8 * v54);
+                  v89 = v54;
+                  v55 = *(*(&v98 + 1) + 8 * v54);
+                  v94 = 0u;
                   v95 = 0u;
                   v96 = 0u;
                   v97 = 0u;
-                  v98 = 0u;
-                  v94 = v55;
+                  v93 = v55;
                   v56 = [v55 RNRBSSList];
-                  v57 = [v56 countByEnumeratingWithState:&v95 objects:v113 count:16];
+                  v57 = [v56 countByEnumeratingWithState:&v94 objects:v112 count:16];
                   if (v57)
                   {
                     v58 = v57;
-                    v59 = *v96;
+                    v59 = *v95;
                     do
                     {
                       for (i = 0; i != v58; ++i)
                       {
-                        if (*v96 != v59)
+                        if (*v95 != v59)
                         {
                           objc_enumerationMutation(v56);
                         }
 
-                        v61 = *(*(&v95 + 1) + 8 * i);
+                        v61 = *(*(&v94 + 1) + 8 * i);
                         v62 = [v61 shortSSID];
                         if (!v62)
                         {
                           if ([v61 isSameSSID])
                           {
-                            v62 = [v94 shortSSID];
+                            v62 = [v93 shortSSID];
                           }
 
                           else
@@ -3389,11 +3250,11 @@ LABEL_32:
                               if (v69)
                               {
 
-                                v15 = v82;
-                                v7 = v83;
-                                v50 = v77;
-                                v49 = v78;
-                                v51 = v86;
+                                v15 = v81;
+                                v7 = v82;
+                                v50 = v76;
+                                v49 = v77;
+                                v51 = v85;
                                 goto LABEL_72;
                               }
                             }
@@ -3405,23 +3266,23 @@ LABEL_32:
                         }
                       }
 
-                      v58 = [v56 countByEnumeratingWithState:&v95 objects:v113 count:16];
+                      v58 = [v56 countByEnumeratingWithState:&v94 objects:v112 count:16];
                     }
 
                     while (v58);
                   }
 
-                  v54 = v90 + 1;
-                  v7 = v83;
-                  v15 = v82;
-                  v53 = v79;
+                  v54 = v89 + 1;
+                  v7 = v82;
+                  v15 = v81;
+                  v53 = v78;
                 }
 
-                while (v90 + 1 != v85);
-                v85 = [contexta countByEnumeratingWithState:&v99 objects:v114 count:16];
+                while (v89 + 1 != v84);
+                v84 = [contexta countByEnumeratingWithState:&v98 objects:v113 count:16];
               }
 
-              while (v85);
+              while (v84);
             }
 
             v70 = CWFGetOSLog();
@@ -3438,9 +3299,9 @@ LABEL_32:
 
             if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
             {
-              v111 = 138543362;
-              v112 = v52;
-              _os_log_send_and_compose_impl();
+              v110 = 138543362;
+              v111 = v52;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v71, 16, "[corewifi] 6G STAND Alone : (%{public}@)", &v110, 12);
             }
 
             v8 = 1;
@@ -3452,7 +3313,7 @@ LABEL_72:
         }
 
         while (v51 != v49);
-        v49 = [v88 countByEnumeratingWithState:&v103 objects:v115 count:16];
+        v49 = [v87 countByEnumeratingWithState:&v102 objects:v114 count:16];
         if (v49)
         {
           continue;
@@ -3466,7 +3327,6 @@ LABEL_72:
 LABEL_81:
   }
 
-  v73 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -3548,7 +3408,7 @@ id CWFFilteredANQPResults(void *a1, void *a2)
 
 CWFScanResult *sub_1E0C08314(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = v3;
@@ -3601,12 +3461,12 @@ LABEL_26:
     }
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v11 = v11;
-  v15 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v15)
   {
 
@@ -3614,25 +3474,25 @@ LABEL_26:
   }
 
   v16 = 0;
-  v17 = *v29;
+  v17 = *v28;
   do
   {
     for (i = 0; i != v15; i = i + 1)
     {
-      if (*v29 != v17)
+      if (*v28 != v17)
       {
         objc_enumerationMutation(v11);
       }
 
-      v19 = *(*(&v28 + 1) + 8 * i);
-      if (([v14 containsObject:{v19, v28}] & 1) == 0)
+      v19 = *(*(&v27 + 1) + 8 * i);
+      if (([v14 containsObject:{v19, v27}] & 1) == 0)
       {
         [v14 addObject:v19];
         v16 = 1;
       }
     }
 
-    v15 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v15 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
   }
 
   while (v15);
@@ -3674,13 +3534,12 @@ LABEL_22:
 LABEL_23:
   v25 = v24;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 uint64_t CWFKnownNetworkAssociatedDuringAWDLRealTimeMode(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x1E695DF00] date];
@@ -3688,26 +3547,26 @@ uint64_t CWFKnownNetworkAssociatedDuringAWDLRealTimeMode(void *a1, void *a2)
   v7 = 0;
   if (v3 && v6)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v8 = [v3 BSSList];
-    v9 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v29;
+      v11 = *v28;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v28 + 1) + 8 * i);
+          v13 = *(*(&v27 + 1) + 8 * i);
           [v5 timeIntervalSinceReferenceDate];
           v15 = v14;
           v16 = [v13 AWDLRealTimeModeTimestamp];
@@ -3727,7 +3586,7 @@ uint64_t CWFKnownNetworkAssociatedDuringAWDLRealTimeMode(void *a1, void *a2)
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
         v7 = 0;
         if (v10)
         {
@@ -3746,7 +3605,6 @@ uint64_t CWFKnownNetworkAssociatedDuringAWDLRealTimeMode(void *a1, void *a2)
 LABEL_22:
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -3902,22 +3760,22 @@ uint64_t sub_1E0C0883C(void *a1, void *a2, uint64_t a3, unint64_t *a4)
 
 id CWFColocatedNetworksMatchingScanResult(void *a1, void *a2, void *a3)
 {
-  v222 = *MEMORY[0x1E69E9840];
+  v221 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
   if (v5)
   {
-    v161 = v6;
-    v162 = v5;
-    v160 = v7;
+    v160 = v6;
+    v161 = v5;
+    v159 = v7;
     if ([v5 isWiFi6E])
     {
       v8 = v5;
       v9 = v6;
       v10 = v7;
       v11 = [MEMORY[0x1E695DFA8] set];
-      v166 = v9;
+      v165 = v9;
       if (v9)
       {
         v12 = [v8 SSID];
@@ -3930,12 +3788,12 @@ id CWFColocatedNetworksMatchingScanResult(void *a1, void *a2, void *a3)
           {
             if ([v8 isOpen])
             {
-              v179 = 1;
+              v178 = 1;
             }
 
             else
             {
-              v179 = [v8 isOWE];
+              v178 = [v8 isOWE];
             }
 
             if ([v8 isPSK])
@@ -3944,16 +3802,16 @@ id CWFColocatedNetworksMatchingScanResult(void *a1, void *a2, void *a3)
               {
                 v74 = 1;
 LABEL_56:
-                v211 = 0u;
-                v212 = 0u;
-                v209 = 0u;
                 v210 = 0u;
+                v211 = 0u;
+                v208 = 0u;
+                v209 = 0u;
                 v75 = [v8 RNRBSSList];
-                v76 = [v75 countByEnumeratingWithState:&v209 objects:v221 count:16];
-                v186 = v8;
-                v175 = v11;
-                v176 = v10;
-                v184 = v74;
+                v76 = [v75 countByEnumeratingWithState:&v208 objects:v220 count:16];
+                v185 = v8;
+                v174 = v11;
+                v175 = v10;
+                v183 = v74;
                 if (!v76)
                 {
 
@@ -3962,15 +3820,15 @@ LABEL_56:
 
                 v77 = v76;
                 v78 = 0;
-                v167 = *v210;
-                v163 = v75;
+                v166 = *v209;
+                v162 = v75;
                 while (1)
                 {
                   v79 = 0;
-                  v164 = v77;
+                  v163 = v77;
                   do
                   {
-                    if (*v210 != v167)
+                    if (*v209 != v166)
                     {
                       objc_enumerationMutation(v75);
                     }
@@ -3984,38 +3842,38 @@ LABEL_192:
                       goto LABEL_198;
                     }
 
-                    v80 = *(*(&v209 + 1) + 8 * v79);
-                    v181 = [v80 shortSSID];
-                    if (!v181 && (![v80 isSameSSID] || (v181 = objc_msgSend(v14, "shortSSID")) == 0))
+                    v80 = *(*(&v208 + 1) + 8 * v79);
+                    v180 = [v80 shortSSID];
+                    if (!v180 && (![v80 isSameSSID] || (v180 = objc_msgSend(v14, "shortSSID")) == 0))
                     {
                       v78 = 0;
                       goto LABEL_122;
                     }
 
-                    v207 = 0u;
-                    v208 = 0u;
-                    v205 = 0u;
                     v206 = 0u;
-                    v177 = v166;
-                    v191 = [v177 countByEnumeratingWithState:&v205 objects:&v217 count:16];
-                    if (!v191)
+                    v207 = 0u;
+                    v204 = 0u;
+                    v205 = 0u;
+                    v176 = v165;
+                    v190 = [v176 countByEnumeratingWithState:&v204 objects:&v216 count:16];
+                    if (!v190)
                     {
                       v78 = 0;
                       goto LABEL_121;
                     }
 
-                    v169 = v79;
-                    obja = *v206;
+                    v168 = v79;
+                    obja = *v205;
 LABEL_67:
                     v81 = 0;
                     while (1)
                     {
-                      if (*v206 != obja)
+                      if (*v205 != obja)
                       {
-                        objc_enumerationMutation(v177);
+                        objc_enumerationMutation(v176);
                       }
 
-                      v82 = *(*(&v205 + 1) + 8 * v81);
+                      v82 = *(*(&v204 + 1) + 8 * v81);
                       v83 = [v82 SSID];
                       if (v83)
                       {
@@ -4028,7 +3886,7 @@ LABEL_67:
                           v88 = [v14 SSID];
                           v89 = [v87 isEqual:v88];
 
-                          v14 = v186;
+                          v14 = v185;
                           if (v89)
                           {
                             goto LABEL_116;
@@ -4070,10 +3928,10 @@ LABEL_89:
                       }
 
 LABEL_116:
-                      if (v191 == ++v81)
+                      if (v190 == ++v81)
                       {
-                        v191 = [v177 countByEnumeratingWithState:&v205 objects:&v217 count:16];
-                        if (!v191)
+                        v190 = [v176 countByEnumeratingWithState:&v204 objects:&v216 count:16];
+                        if (!v190)
                         {
                           v78 = 0;
                           goto LABEL_119;
@@ -4091,12 +3949,12 @@ LABEL_116:
 
                     v95 = 1;
 LABEL_90:
-                    if (v179 != v94 || ((v184 ^ v95) & 1) != 0)
+                    if (v178 != v94 || ((v183 ^ v95) & 1) != 0)
                     {
                       goto LABEL_116;
                     }
 
-                    if ([v82 shortSSID] == v181)
+                    if ([v82 shortSSID] == v180)
                     {
                       v96 = [v82 BSSID];
                       if (v96)
@@ -4108,13 +3966,13 @@ LABEL_90:
                           v99 = [v80 BSSID];
                           if ([v98 isEqual:v99])
                           {
-                            v173 = [v82 channel];
-                            v100 = [v173 channel];
+                            v172 = [v82 channel];
+                            v100 = [v172 channel];
                             v101 = [v80 channel];
                             if (v100 == [v101 channel])
                             {
-                              v171 = [v82 channel];
-                              v102 = [v171 band];
+                              v170 = [v82 channel];
+                              v102 = [v170 band];
                               v103 = [v80 channel];
                               v104 = v102 == [v103 band] ? objc_msgSend(v80, "isColocatedAP") : 0;
                             }
@@ -4130,8 +3988,8 @@ LABEL_90:
                             v104 = 0;
                           }
 
-                          v11 = v175;
-                          v10 = v176;
+                          v11 = v174;
+                          v10 = v175;
                         }
 
                         else
@@ -4145,7 +4003,7 @@ LABEL_90:
                         v104 = 0;
                       }
 
-                      v14 = v186;
+                      v14 = v185;
                     }
 
                     else
@@ -4179,18 +4037,18 @@ LABEL_90:
 
                     v78 = 1;
 LABEL_119:
-                    v75 = v163;
-                    v77 = v164;
-                    v79 = v169;
+                    v75 = v162;
+                    v77 = v163;
+                    v79 = v168;
 LABEL_121:
 
-                    v74 = v184;
+                    v74 = v183;
 LABEL_122:
                     v79 = v79 + 1;
                   }
 
                   while (v79 != v77);
-                  v108 = [v75 countByEnumeratingWithState:&v209 objects:v221 count:16];
+                  v108 = [v75 countByEnumeratingWithState:&v208 objects:v220 count:16];
                   v77 = v108;
                   if (!v108)
                   {
@@ -4201,26 +4059,26 @@ LABEL_122:
                     }
 
 LABEL_130:
-                    v203 = 0u;
-                    v204 = 0u;
-                    v201 = 0u;
                     v202 = 0u;
-                    v165 = v166;
-                    v170 = [v165 countByEnumeratingWithState:&v201 objects:v216 count:16];
+                    v203 = 0u;
+                    v200 = 0u;
+                    v201 = 0u;
+                    v164 = v165;
+                    v169 = [v164 countByEnumeratingWithState:&v200 objects:v215 count:16];
                     v109 = 0;
-                    if (!v170)
+                    if (!v169)
                     {
                       goto LABEL_194;
                     }
 
-                    v168 = *v202;
+                    v167 = *v201;
 LABEL_132:
                     v110 = 0;
 LABEL_133:
-                    if (*v202 != v168)
+                    if (*v201 != v167)
                     {
                       v111 = v110;
-                      objc_enumerationMutation(v165);
+                      objc_enumerationMutation(v164);
                       v110 = v111;
                     }
 
@@ -4230,10 +4088,10 @@ LABEL_133:
                       goto LABEL_194;
                     }
 
-                    v172 = v110;
-                    v112 = *(*(&v201 + 1) + 8 * v110);
+                    v171 = v110;
+                    v112 = *(*(&v200 + 1) + 8 * v110);
                     v113 = [v112 SSID];
-                    v192 = v112;
+                    v191 = v112;
                     if (v113)
                     {
                       v114 = v113;
@@ -4245,7 +4103,7 @@ LABEL_133:
                         v118 = [v14 SSID];
                         v119 = [v117 isEqual:v118];
 
-                        v112 = v192;
+                        v112 = v191;
                         if (v119)
                         {
                           goto LABEL_139;
@@ -4296,17 +4154,17 @@ LABEL_139:
 
 LABEL_156:
                     v109 = 0;
-                    if (v179 != v124 || ((v74 ^ v125) & 1) != 0)
+                    if (v178 != v124 || ((v74 ^ v125) & 1) != 0)
                     {
                       goto LABEL_186;
                     }
 
-                    v199 = 0u;
-                    v200 = 0u;
-                    v197 = 0u;
                     v198 = 0u;
+                    v199 = 0u;
+                    v196 = 0u;
+                    v197 = 0u;
                     v126 = [v112 RNRBSSList];
-                    v127 = [v126 countByEnumeratingWithState:&v197 objects:v214 count:16];
+                    v127 = [v126 countByEnumeratingWithState:&v196 objects:v213 count:16];
                     if (!v127)
                     {
                       v109 = 0;
@@ -4314,19 +4172,19 @@ LABEL_156:
                     }
 
                     v128 = v127;
-                    v129 = *v198;
+                    v129 = *v197;
                     objb = v126;
-                    v178 = *v198;
+                    v177 = *v197;
                     while (2)
                     {
                       v130 = 0;
 LABEL_161:
-                      if (*v198 != v129)
+                      if (*v197 != v129)
                       {
                         objc_enumerationMutation(v126);
                       }
 
-                      v131 = *(*(&v197 + 1) + 8 * v130);
+                      v131 = *(*(&v196 + 1) + 8 * v130);
                       v132 = [v131 shortSSID];
                       if ((v132 || [v131 isSameSSID] && (v132 = objc_msgSend(v112, "shortSSID")) != 0) && objc_msgSend(v14, "shortSSID") == v132)
                       {
@@ -4348,30 +4206,30 @@ LABEL_161:
                           {
 
                             v126 = objb;
-                            v112 = v192;
+                            v112 = v191;
                             goto LABEL_180;
                           }
 
-                          v182 = v137;
+                          v181 = v137;
                           v139 = [v14 channel];
                           v140 = [v139 channel];
                           v141 = [v131 channel];
                           if (v140 == [v141 channel])
                           {
                             v142 = [v14 channel];
-                            v174 = [v142 band];
+                            v173 = [v142 band];
                             v143 = [v131 channel];
-                            if (v174 == [v143 band])
+                            if (v173 == [v143 band])
                             {
                               v144 = [v131 isColocatedAP];
 
-                              v14 = v186;
+                              v14 = v185;
                               v126 = objb;
-                              v112 = v192;
-                              v129 = v178;
+                              v112 = v191;
+                              v129 = v177;
                               if (v144)
                               {
-                                v145 = sub_1E0BECB78(v192, v176);
+                                v145 = sub_1E0BECB78(v191, v175);
 
                                 if (v145)
                                 {
@@ -4379,13 +4237,13 @@ LABEL_161:
                                   goto LABEL_183;
                                 }
 
-                                [v175 addObject:v192];
+                                [v174 addObject:v191];
                               }
 
                               goto LABEL_180;
                             }
 
-                            v14 = v186;
+                            v14 = v185;
                           }
 
                           else
@@ -4393,15 +4251,15 @@ LABEL_161:
                           }
 
                           v126 = objb;
-                          v112 = v192;
-                          v129 = v178;
+                          v112 = v191;
+                          v129 = v177;
                         }
                       }
 
 LABEL_180:
                       if (v128 == ++v130)
                       {
-                        v128 = [v126 countByEnumeratingWithState:&v197 objects:v214 count:16];
+                        v128 = [v126 countByEnumeratingWithState:&v196 objects:v213 count:16];
                         if (v128)
                         {
                           continue;
@@ -4409,61 +4267,61 @@ LABEL_180:
 
                         v109 = 0;
 LABEL_183:
-                        v10 = v176;
-                        v74 = v184;
+                        v10 = v175;
+                        v74 = v183;
 LABEL_185:
 
 LABEL_186:
-                        v110 = v172 + 1;
-                        if (v172 + 1 == v170)
+                        v110 = v171 + 1;
+                        if (v171 + 1 == v169)
                         {
-                          v146 = [v165 countByEnumeratingWithState:&v201 objects:v216 count:16];
-                          v170 = v146;
+                          v146 = [v164 countByEnumeratingWithState:&v200 objects:v215 count:16];
+                          v169 = v146;
                           if (!v146)
                           {
 LABEL_194:
 
-                            v147 = v175;
-                            if ([v175 count])
+                            v147 = v174;
+                            if ([v174 count])
                             {
                               v148 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"channel" ascending:0 comparator:&unk_1F5B8ABE0];
                               v149 = MEMORY[0x1E696AEB0];
-                              v195[0] = MEMORY[0x1E69E9820];
-                              v195[1] = 3221225472;
-                              v195[2] = sub_1E0C0FCA4;
-                              v195[3] = &unk_1E86E5660;
+                              v194[0] = MEMORY[0x1E69E9820];
+                              v194[1] = 3221225472;
+                              v194[2] = sub_1E0C0FCA4;
+                              v194[3] = &unk_1E86E5660;
                               v150 = v14;
-                              v196 = v150;
-                              v151 = [v149 sortDescriptorWithKey:0 ascending:0 comparator:v195];
+                              v195 = v150;
+                              v151 = [v149 sortDescriptorWithKey:0 ascending:0 comparator:v194];
                               v152 = MEMORY[0x1E696AEB0];
-                              v193[0] = MEMORY[0x1E69E9820];
-                              v193[1] = 3221225472;
-                              v193[2] = sub_1E0C0FECC;
-                              v193[3] = &unk_1E86E5660;
-                              v194 = v150;
-                              v153 = [v152 sortDescriptorWithKey:0 ascending:0 comparator:v193];
+                              v192[0] = MEMORY[0x1E69E9820];
+                              v192[1] = 3221225472;
+                              v192[2] = sub_1E0C0FECC;
+                              v192[3] = &unk_1E86E5660;
+                              v193 = v150;
+                              v153 = [v152 sortDescriptorWithKey:0 ascending:0 comparator:v192];
                               v154 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:0 comparator:&unk_1F5B89350];
                               v155 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:0 selector:sel_compareSupportedSecurityTypes_];
                               v156 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"RSSI" ascending:0];
-                              v213[0] = v148;
-                              v213[1] = v151;
-                              v213[2] = v153;
-                              v213[3] = v154;
-                              v213[4] = v155;
-                              v213[5] = v156;
-                              v157 = [MEMORY[0x1E695DEC8] arrayWithObjects:v213 count:6];
-                              v9 = [v175 sortedArrayUsingDescriptors:v157];
+                              v212[0] = v148;
+                              v212[1] = v151;
+                              v212[2] = v153;
+                              v212[3] = v154;
+                              v212[4] = v155;
+                              v212[5] = v156;
+                              v157 = [MEMORY[0x1E695DEC8] arrayWithObjects:v212 count:6];
+                              v9 = [v174 sortedArrayUsingDescriptors:v157];
 
-                              v10 = v176;
-                              v14 = v186;
+                              v10 = v175;
+                              v14 = v185;
 
                               if ((v109 & 1) == 0)
                               {
 LABEL_199:
 
-                                v6 = v161;
-                                v5 = v162;
-                                v7 = v160;
+                                v6 = v160;
+                                v5 = v161;
+                                v7 = v159;
                                 goto LABEL_200;
                               }
                             }
@@ -4502,7 +4360,7 @@ LABEL_198:
               v74 = 0;
             }
 
-            if ((v179 | v74))
+            if ((v178 | v74))
             {
               goto LABEL_56;
             }
@@ -4521,86 +4379,86 @@ LABEL_209:
       goto LABEL_209;
     }
 
-    v190 = v5;
+    v189 = v5;
     v15 = v6;
-    v183 = v7;
+    v182 = v7;
     v16 = [MEMORY[0x1E695DFA8] set];
     v17 = _os_feature_enabled_impl();
     v9 = 0;
-    v180 = v15;
+    v179 = v15;
     v18 = 0;
     if (!v15 || !v17)
     {
       goto LABEL_53;
     }
 
-    v19 = [v190 SSID];
+    v19 = [v189 SSID];
     v20 = [v19 length];
 
-    if (!v20 || ([v190 isIBSS] & 1) != 0 || (objc_msgSend(v190, "isEAP") & 1) != 0 || (objc_msgSend(v190, "isWAPI") & 1) != 0 || (objc_msgSend(v190, "isWEP") & 1) != 0 || (objc_msgSend(v190, "isWPA") & 1) != 0)
+    if (!v20 || ([v189 isIBSS] & 1) != 0 || (objc_msgSend(v189, "isEAP") & 1) != 0 || (objc_msgSend(v189, "isWAPI") & 1) != 0 || (objc_msgSend(v189, "isWEP") & 1) != 0 || (objc_msgSend(v189, "isWPA") & 1) != 0)
     {
       v9 = 0;
       v18 = 0;
       goto LABEL_53;
     }
 
-    v185 = v16;
-    LODWORD(v205) = 0;
+    v184 = v16;
+    LODWORD(v204) = 0;
     v21 = MEMORY[0x1E696AE88];
-    v22 = [v190 BSSID];
+    v22 = [v189 BSSID];
     v23 = [v22 componentsSeparatedByString:@":"];
     v24 = [v23 lastObject];
     v25 = [v21 scannerWithString:v24];
-    [v25 scanHexInt:&v205];
+    [v25 scanHexInt:&v204];
 
     v18 = [MEMORY[0x1E695DFA8] set];
     v26 = MEMORY[0x1E696AEC0];
-    v27 = [v190 BSSID];
+    v27 = [v189 BSSID];
     v28 = [v27 substringToIndex:14];
-    v29 = [v26 stringWithFormat:@"%@:%02x", v28, (v205 + 1)];
+    v29 = [v26 stringWithFormat:@"%@:%02x", v28, (v204 + 1)];
     [v18 addObject:v29];
 
     v30 = MEMORY[0x1E696AEC0];
-    v31 = [v190 BSSID];
+    v31 = [v189 BSSID];
     v32 = [v31 substringToIndex:14];
-    v33 = [v30 stringWithFormat:@"%@:%02x", v32, (v205 + 2)];
+    v33 = [v30 stringWithFormat:@"%@:%02x", v32, (v204 + 2)];
     [v18 addObject:v33];
 
     v34 = MEMORY[0x1E696AEC0];
-    v35 = [v190 BSSID];
+    v35 = [v189 BSSID];
     v36 = [v35 substringToIndex:14];
-    v37 = [v34 stringWithFormat:@"%@:%02x", v36, (v205 - 1)];
+    v37 = [v34 stringWithFormat:@"%@:%02x", v36, (v204 - 1)];
     [v18 addObject:v37];
 
     v38 = MEMORY[0x1E696AEC0];
-    v39 = [v190 BSSID];
+    v39 = [v189 BSSID];
     v40 = [v39 substringToIndex:14];
-    v41 = [v38 stringWithFormat:@"%@:%02x", v40, (v205 - 2)];
+    v41 = [v38 stringWithFormat:@"%@:%02x", v40, (v204 - 2)];
     [v18 addObject:v41];
 
-    v219 = 0u;
-    v220 = 0u;
-    v217 = 0u;
     v218 = 0u;
-    obj = v180;
-    v42 = [obj countByEnumeratingWithState:&v217 objects:v221 count:16];
+    v219 = 0u;
+    v216 = 0u;
+    v217 = 0u;
+    obj = v179;
+    v42 = [obj countByEnumeratingWithState:&v216 objects:v220 count:16];
     if (!v42)
     {
       goto LABEL_42;
     }
 
     v43 = v42;
-    v44 = *v218;
+    v44 = *v217;
 LABEL_22:
     v45 = 0;
     while (1)
     {
-      if (*v218 != v44)
+      if (*v217 != v44)
       {
         objc_enumerationMutation(obj);
       }
 
-      v46 = *(*(&v217 + 1) + 8 * v45);
+      v46 = *(*(&v216 + 1) + 8 * v45);
       v47 = [v46 SSID];
       if (!v47)
       {
@@ -4609,7 +4467,7 @@ LABEL_22:
 
       v48 = v47;
       v49 = v18;
-      v50 = [v190 SSID];
+      v50 = [v189 SSID];
       if (!v50)
       {
         break;
@@ -4617,7 +4475,7 @@ LABEL_22:
 
       v51 = v50;
       v52 = [v46 SSID];
-      v53 = [v190 SSID];
+      v53 = [v189 SSID];
       v54 = [v52 isEqual:v53];
 
       v18 = v49;
@@ -4629,7 +4487,7 @@ LABEL_22:
 LABEL_40:
       if (v43 == ++v45)
       {
-        v43 = [obj countByEnumeratingWithState:&v217 objects:v221 count:16];
+        v43 = [obj countByEnumeratingWithState:&v216 objects:v220 count:16];
         if (!v43)
         {
 LABEL_42:
@@ -4655,57 +4513,57 @@ LABEL_30:
         if (([v46 isIBSS] & 1) == 0 && (objc_msgSend(v46, "isEAP") & 1) == 0 && (objc_msgSend(v46, "isWAPI") & 1) == 0 && (objc_msgSend(v46, "isWEP") & 1) == 0 && (objc_msgSend(v46, "isWPA") & 1) == 0)
         {
           [v46 isPSK];
-          [v190 isPSK];
+          [v189 isPSK];
           v59 = [v46 BSSID];
           v60 = [v18 containsObject:v59];
 
           if (v60)
           {
-            v61 = sub_1E0BECB78(v46, v183);
+            v61 = sub_1E0BECB78(v46, v182);
 
             if (v61)
             {
               v62 = 1;
 LABEL_43:
-              v16 = v185;
+              v16 = v184;
 
-              if ([v185 count])
+              if ([v184 count])
               {
                 v63 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"channel" ascending:0 comparator:&unk_1F5B8AC00];
                 v64 = MEMORY[0x1E696AEB0];
-                v214[0] = MEMORY[0x1E69E9820];
-                v214[1] = 3221225472;
-                v214[2] = sub_1E0C102FC;
-                v214[3] = &unk_1E86E5660;
-                v65 = v190;
-                v215 = v65;
-                v66 = [v64 sortDescriptorWithKey:0 ascending:0 comparator:v214];
+                v213[0] = MEMORY[0x1E69E9820];
+                v213[1] = 3221225472;
+                v213[2] = sub_1E0C102FC;
+                v213[3] = &unk_1E86E5660;
+                v65 = v189;
+                v214 = v65;
+                v66 = [v64 sortDescriptorWithKey:0 ascending:0 comparator:v213];
                 v67 = MEMORY[0x1E696AEB0];
-                *&v209 = MEMORY[0x1E69E9820];
-                *(&v209 + 1) = 3221225472;
-                *&v210 = sub_1E0C10524;
-                *(&v210 + 1) = &unk_1E86E5660;
-                *&v211 = v65;
-                v68 = [v67 sortDescriptorWithKey:0 ascending:0 comparator:&v209];
+                *&v208 = MEMORY[0x1E69E9820];
+                *(&v208 + 1) = 3221225472;
+                *&v209 = sub_1E0C10524;
+                *(&v209 + 1) = &unk_1E86E5660;
+                *&v210 = v65;
+                v68 = [v67 sortDescriptorWithKey:0 ascending:0 comparator:&v208];
                 [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:0 comparator:&unk_1F5B8AC20];
                 v70 = v69 = v18;
                 v71 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:0 selector:sel_compareSupportedSecurityTypes_];
                 v72 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"RSSI" ascending:0];
-                v216[0] = v63;
-                v216[1] = v66;
-                v216[2] = v68;
-                v216[3] = v70;
-                v216[4] = v71;
-                v216[5] = v72;
-                v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:v216 count:6];
-                v9 = [v185 sortedArrayUsingDescriptors:v73];
+                v215[0] = v63;
+                v215[1] = v66;
+                v215[2] = v68;
+                v215[3] = v70;
+                v215[4] = v71;
+                v215[5] = v72;
+                v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:v215 count:6];
+                v9 = [v184 sortedArrayUsingDescriptors:v73];
 
                 v18 = v69;
-                v16 = v185;
+                v16 = v184;
 
-                v6 = v161;
-                v5 = v162;
-                v7 = v160;
+                v6 = v160;
+                v5 = v161;
+                v7 = v159;
                 if ((v62 & 1) == 0)
                 {
                   goto LABEL_53;
@@ -4718,9 +4576,9 @@ LABEL_52:
               else
               {
                 v9 = 0;
-                v6 = v161;
-                v5 = v162;
-                v7 = v160;
+                v6 = v160;
+                v5 = v161;
+                v7 = v159;
                 if (v62)
                 {
                   goto LABEL_52;
@@ -4732,7 +4590,7 @@ LABEL_53:
               goto LABEL_200;
             }
 
-            [v185 addObject:v46];
+            [v184 addObject:v46];
           }
         }
       }
@@ -4743,8 +4601,6 @@ LABEL_53:
 
   v9 = 0;
 LABEL_200:
-
-  v158 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -4770,66 +4626,62 @@ uint64_t CWFCompareLowDataMode(uint64_t a1, uint64_t a2)
 
 uint64_t CWFKnownNetworkSupportsSeamlessSSIDTransition(void *a1, void *a2)
 {
-  v182[1] = *MEMORY[0x1E69E9840];
+  v180[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
-    v97 = CWFGetOSLog();
-    if (v97)
+    v96 = CWFGetOSLog();
+    if (v96)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v123 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v122 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1934;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) CoreWiFi/SSIDTransition disabled", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1934;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if (!v3)
   {
-    v99 = CWFGetOSLog();
-    if (v99)
+    v98 = CWFGetOSLog();
+    if (v98)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v124 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v123 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1936;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) associatedBSS was NULL", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1936;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
@@ -4837,241 +4689,225 @@ uint64_t CWFKnownNetworkSupportsSeamlessSSIDTransition(void *a1, void *a2)
 
   if (!v5)
   {
-    v100 = CWFGetOSLog();
-    if (v100)
+    v99 = CWFGetOSLog();
+    if (v99)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v125 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v124 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1937;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) associatedBSS.matchingKnownNetworkProfile was NULL", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1937;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if (!v4)
   {
-    v101 = CWFGetOSLog();
-    if (v101)
+    v100 = CWFGetOSLog();
+    if (v100)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v126 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v125 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1938;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) candidateNetwork was NULL", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1938;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v3 isOpen])
   {
-    v102 = CWFGetOSLog();
-    if (v102)
+    v101 = CWFGetOSLog();
+    if (v101)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v127 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v126 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1941;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is Open", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1941;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v3 isEAP])
   {
-    v103 = CWFGetOSLog();
-    if (v103)
+    v102 = CWFGetOSLog();
+    if (v102)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v128 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v127 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1942;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is EAP", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1942;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v3 isWEP])
   {
-    v104 = CWFGetOSLog();
-    if (v104)
+    v103 = CWFGetOSLog();
+    if (v103)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v129 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v128 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1943;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is WEP", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1943;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v3 isWAPI])
   {
-    v105 = CWFGetOSLog();
-    if (v105)
+    v104 = CWFGetOSLog();
+    if (v104)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v130 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v129 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1944;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is WAPI", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1944;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v3 isWPA])
   {
-    v106 = CWFGetOSLog();
-    if (v106)
+    v105 = CWFGetOSLog();
+    if (v105)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v131 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v130 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1945;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is WPA", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1945;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v3 isOWE])
   {
-    v107 = CWFGetOSLog();
-    if (v107)
+    v106 = CWFGetOSLog();
+    if (v106)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v132 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v131 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1946;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is OWE", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1946;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
@@ -5080,426 +4916,398 @@ uint64_t CWFKnownNetworkSupportsSeamlessSSIDTransition(void *a1, void *a2)
 
   if (v7)
   {
-    v108 = CWFGetOSLog();
-    if (v108)
+    v107 = CWFGetOSLog();
+    if (v107)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v133 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v132 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1947;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated known network is captive", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1947;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if (([v3 isPSK] & 1) == 0)
   {
-    v109 = CWFGetOSLog();
-    if (v109)
+    v108 = CWFGetOSLog();
+    if (v108)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v134 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v133 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1948;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is not PSK", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1948;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if (([v3 isWPA2] & 1) == 0 && (objc_msgSend(v3, "isWPA3") & 1) == 0)
   {
-    v121 = CWFGetOSLog();
-    if (v121)
+    v120 = CWFGetOSLog();
+    if (v120)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v146 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v145 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1949;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS is not WPA2 or WPA3", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1949;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isOpen])
   {
-    v110 = CWFGetOSLog();
-    if (v110)
+    v109 = CWFGetOSLog();
+    if (v109)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v135 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v134 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1951;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is Open", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1951;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isEAP])
   {
-    v111 = CWFGetOSLog();
-    if (v111)
+    v110 = CWFGetOSLog();
+    if (v110)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v136 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v135 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1952;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is EAP", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1952;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isWEP])
   {
-    v112 = CWFGetOSLog();
-    if (v112)
+    v111 = CWFGetOSLog();
+    if (v111)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v137 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v136 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1953;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is WEP", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1953;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isWAPI])
   {
-    v113 = CWFGetOSLog();
-    if (v113)
+    v112 = CWFGetOSLog();
+    if (v112)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v138 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v137 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1954;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is WAPI", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1954;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isWPA])
   {
-    v114 = CWFGetOSLog();
-    if (v114)
+    v113 = CWFGetOSLog();
+    if (v113)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v139 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v138 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1955;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is WPA", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1955;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isOWE])
   {
-    v115 = CWFGetOSLog();
-    if (v115)
+    v114 = CWFGetOSLog();
+    if (v114)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v140 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v139 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1956;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is OWE", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1956;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isCaptive])
   {
-    v116 = CWFGetOSLog();
-    if (v116)
+    v115 = CWFGetOSLog();
+    if (v115)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v141 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v140 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1957;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated known network is captive", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1957;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if (([v4 isPSK] & 1) == 0)
   {
-    v117 = CWFGetOSLog();
-    if (v117)
+    v116 = CWFGetOSLog();
+    if (v116)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v142 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v141 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1958;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is not PSK", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1958;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if (([v4 isWPA2] & 1) == 0 && (objc_msgSend(v4, "isWPA3") & 1) == 0)
   {
-    v122 = CWFGetOSLog();
-    if (v122)
+    v121 = CWFGetOSLog();
+    if (v121)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v147 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v146 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1959;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate known network is not WPA2 or WPA3", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1959;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   v8 = [v3 matchingKnownNetworkProfile];
-  v182[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v182 count:1];
+  v180[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v180 count:1];
   v10 = sub_1E0BED85C(v3, v9);
 
   if (!v10)
   {
-    v118 = CWFGetOSLog();
-    if (v118)
+    v117 = CWFGetOSLog();
+    if (v117)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v143 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v142 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1962;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Associated known network does not match associated BSS", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1962;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
   if ([v4 isAutoJoinDisabled])
   {
-    v119 = CWFGetOSLog();
-    if (v119)
+    v118 = CWFGetOSLog();
+    if (v118)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v144 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v143 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446722;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1965;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Auto-join is disabled for candidate known network", &v164, 28);
     }
 
-    v166 = 136446722;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1965;
-    LODWORD(v149) = 28;
-    v148 = &v166;
     goto LABEL_257;
   }
 
@@ -5509,50 +5317,46 @@ uint64_t CWFKnownNetworkSupportsSeamlessSSIDTransition(void *a1, void *a2)
 
   if (v12 != v13)
   {
-    v120 = CWFGetOSLog();
-    if (v120)
+    v119 = CWFGetOSLog();
+    if (v119)
     {
-      v98 = CWFGetOSLog();
+      v97 = CWFGetOSLog();
     }
 
     else
     {
-      v98 = MEMORY[0x1E69E9C10];
-      v145 = MEMORY[0x1E69E9C10];
+      v97 = MEMORY[0x1E69E9C10];
+      v144 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_258;
+      v164 = 136446978;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 1968;
+      v170 = 1024;
+      LODWORD(v171) = [v4 isPrivacyProxyEnabled];
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Privacy proxy setting (%d) for candidate known network does not match associated known network", &v164, 34);
     }
 
-    v166 = 136446978;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 1968;
-    v172 = 1024;
-    LODWORD(v173) = [v4 isPrivacyProxyEnabled];
-    LODWORD(v149) = 34;
-    v148 = &v166;
 LABEL_257:
-    _os_log_send_and_compose_impl();
-LABEL_258:
 
     v88 = 0;
     goto LABEL_123;
   }
 
-  v151 = v4;
-  v164 = 0u;
-  v165 = 0u;
+  v149 = v4;
   v162 = 0u;
   v163 = 0u;
+  v160 = 0u;
+  v161 = 0u;
   v14 = [v3 matchingKnownNetworkProfile];
   v15 = [v14 BSSList];
 
-  v16 = [v15 countByEnumeratingWithState:&v162 objects:v181 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v160 objects:v179 count:16];
   if (!v16)
   {
 LABEL_42:
@@ -5569,20 +5373,18 @@ LABEL_42:
       v71 = MEMORY[0x1E69E9C10];
     }
 
-    v4 = v151;
+    v4 = v149;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v166 = 136446978;
-      v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-      v168 = 2082;
-      v169 = "CWFUtilPrivate.m";
-      v170 = 1024;
-      v171 = 2004;
-      v172 = 2112;
-      v173 = v3;
-      LODWORD(v149) = 38;
-      v148 = &v166;
-      _os_log_send_and_compose_impl();
+      v164 = 136446978;
+      v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+      v166 = 2082;
+      v167 = "CWFUtilPrivate.m";
+      v168 = 1024;
+      v169 = 2004;
+      v170 = 2112;
+      v171 = v3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS has no matching BSS history entry (%@)", &v164, 38);
     }
 
     v68 = 0;
@@ -5590,19 +5392,19 @@ LABEL_42:
   }
 
   v17 = v16;
-  v18 = *v163;
-  v156 = v3;
+  v18 = *v161;
+  v154 = v3;
 LABEL_30:
   v19 = 0;
   while (1)
   {
-    if (*v163 != v18)
+    if (*v161 != v18)
     {
       objc_enumerationMutation(v15);
     }
 
-    v157 = *(*(&v162 + 1) + 8 * v19);
-    v20 = [v157 BSSID];
+    v155 = *(*(&v160 + 1) + 8 * v19);
+    v20 = [v155 BSSID];
     v21 = [v3 BSSID];
     v22 = v21;
     if (v20 == v21)
@@ -5610,7 +5412,7 @@ LABEL_30:
       break;
     }
 
-    v23 = [v157 BSSID];
+    v23 = [v155 BSSID];
     if (v23)
     {
       v24 = v23;
@@ -5618,17 +5420,17 @@ LABEL_30:
       if (v25)
       {
         v26 = v25;
-        v27 = [v157 BSSID];
-        [v156 BSSID];
+        v27 = [v155 BSSID];
+        [v154 BSSID];
         v28 = v18;
         v30 = v29 = v15;
-        v154 = [v27 isEqual:v30];
+        v152 = [v27 isEqual:v30];
 
         v15 = v29;
         v18 = v28;
 
-        v3 = v156;
-        if (v154)
+        v3 = v154;
+        if (v152)
         {
           goto LABEL_45;
         }
@@ -5640,7 +5442,7 @@ LABEL_30:
 LABEL_40:
     if (v17 == ++v19)
     {
-      v17 = [v15 countByEnumeratingWithState:&v162 objects:v181 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v160 objects:v179 count:16];
       if (!v17)
       {
         goto LABEL_42;
@@ -5651,32 +5453,32 @@ LABEL_40:
   }
 
 LABEL_45:
-  v160 = 0u;
-  v161 = 0u;
   v158 = 0u;
   v159 = 0u;
-  v4 = v151;
-  obj = [v151 BSSList];
-  v155 = [obj countByEnumeratingWithState:&v158 objects:v180 count:16];
-  if (!v155)
+  v156 = 0u;
+  v157 = 0u;
+  v4 = v149;
+  obj = [v149 BSSList];
+  v153 = [obj countByEnumeratingWithState:&v156 objects:v178 count:16];
+  if (!v153)
   {
     v68 = 0;
     goto LABEL_102;
   }
 
-  v150 = v15;
-  v32 = *v159;
+  v148 = v15;
+  v32 = *v157;
   while (2)
   {
     v33 = 0;
     while (2)
     {
-      if (*v159 != v32)
+      if (*v157 != v32)
       {
         objc_enumerationMutation(obj);
       }
 
-      v34 = *(*(&v158 + 1) + 8 * v33);
+      v34 = *(*(&v156 + 1) + 8 * v33);
       v35 = [v3 channel];
       if ([v35 is6GHz])
       {
@@ -5696,11 +5498,11 @@ LABEL_45:
       v38 = [v34 IPv4NetworkSignature];
       if (v38)
       {
-        v39 = [v157 IPv4NetworkSignature];
+        v39 = [v155 IPv4NetworkSignature];
         if (v39)
         {
           v40 = [v34 IPv4NetworkSignature];
-          v41 = [v157 IPv4NetworkSignature];
+          v41 = [v155 IPv4NetworkSignature];
           v42 = [v40 isEqual:v41];
         }
 
@@ -5718,11 +5520,11 @@ LABEL_45:
       v43 = [v34 IPv6NetworkSignature];
       if (v43)
       {
-        v44 = [v157 IPv6NetworkSignature];
+        v44 = [v155 IPv6NetworkSignature];
         if (v44)
         {
           v45 = [v34 IPv6NetworkSignature];
-          v46 = [v157 IPv6NetworkSignature];
+          v46 = [v155 IPv6NetworkSignature];
           v47 = [v45 isEqual:v46];
         }
 
@@ -5740,11 +5542,11 @@ LABEL_45:
       v48 = [v34 DHCPServerID];
       if (v48)
       {
-        v49 = [v157 DHCPServerID];
+        v49 = [v155 DHCPServerID];
         if (v49)
         {
           v50 = [v34 DHCPServerID];
-          [v157 DHCPServerID];
+          [v155 DHCPServerID];
           v52 = v51 = v42;
           v53 = [v50 isEqual:v52];
 
@@ -5765,12 +5567,12 @@ LABEL_45:
       v54 = [v34 DHCPv6ServerID];
       if (v54)
       {
-        v55 = [v157 DHCPv6ServerID];
+        v55 = [v155 DHCPv6ServerID];
         if (v55)
         {
           [v34 DHCPv6ServerID];
-          v56 = v152 = v42;
-          [v157 DHCPv6ServerID];
+          v56 = v150 = v42;
+          [v155 DHCPv6ServerID];
           v57 = v34;
           v58 = v47;
           v60 = v59 = v32;
@@ -5780,7 +5582,7 @@ LABEL_45:
           v47 = v58;
           v34 = v57;
 
-          v42 = v152;
+          v42 = v150;
         }
 
         else
@@ -5808,30 +5610,29 @@ LABEL_45:
           v72 = MEMORY[0x1E69E9C10];
         }
 
-        v3 = v156;
-        v4 = v151;
+        v3 = v154;
+        v4 = v149;
 
         if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
         {
-          v73 = [v156 networkName];
-          v74 = [v151 networkName];
-          v166 = 136447746;
-          v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-          v168 = 2082;
-          v169 = "CWFUtilPrivate.m";
-          v170 = 1024;
-          v171 = 1989;
+          v73 = [v154 networkName];
+          v74 = [v149 networkName];
+          v164 = 136447746;
+          v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+          v166 = 2082;
+          v167 = "CWFUtilPrivate.m";
+          v168 = 1024;
+          v169 = 1989;
+          v170 = 2112;
+          v171 = v73;
           v172 = 2112;
-          v173 = v73;
+          v173 = v155;
           v174 = 2112;
-          v175 = v157;
+          v175 = v74;
           v176 = 2112;
-          v177 = v74;
-          v178 = 2112;
-          v179 = v34;
-          LODWORD(v149) = 68;
-          v148 = &v166;
-          _os_log_send_and_compose_impl();
+          v177 = v34;
+          LODWORD(v147) = 68;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v70, 2, "[corewifi] %{public}s (%{public}s:%u) Matched IP config match (%@/%@ --> %@/%@)", &v164, v147);
         }
 
         v68 = 1;
@@ -5839,7 +5640,7 @@ LABEL_45:
       }
 
       v62 = v42 | v47 | v53 | v61;
-      v3 = v156;
+      v3 = v154;
       if (v62)
       {
         v63 = CWFGetOSLog();
@@ -5856,30 +5657,29 @@ LABEL_45:
 
         if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
         {
-          v66 = [v156 networkName];
-          v67 = [v151 networkName];
-          v166 = 136447746;
-          v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-          v168 = 2082;
-          v169 = "CWFUtilPrivate.m";
-          v170 = 1024;
-          v171 = 1995;
+          v66 = [v154 networkName];
+          v67 = [v149 networkName];
+          v164 = 136447746;
+          v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+          v166 = 2082;
+          v167 = "CWFUtilPrivate.m";
+          v168 = 1024;
+          v169 = 1995;
+          v170 = 2112;
+          v171 = v66;
           v172 = 2112;
-          v173 = v66;
+          v173 = v155;
           v174 = 2112;
-          v175 = v157;
+          v175 = v67;
           v176 = 2112;
-          v177 = v67;
-          v178 = 2112;
-          v179 = v34;
-          LODWORD(v149) = 68;
-          v148 = &v166;
-          _os_log_send_and_compose_impl();
+          v177 = v34;
+          LODWORD(v147) = 68;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v64, 2, "[corewifi] %{public}s (%{public}s:%u) Partial IP config match (%@/%@ --> %@/%@)", &v164, v147);
         }
       }
 
 LABEL_87:
-      if (v155 != ++v33)
+      if (v153 != ++v33)
       {
         continue;
       }
@@ -5887,8 +5687,8 @@ LABEL_87:
       break;
     }
 
-    v155 = [obj countByEnumeratingWithState:&v158 objects:v180 count:16];
-    if (v155)
+    v153 = [obj countByEnumeratingWithState:&v156 objects:v178 count:16];
+    if (v153)
     {
       continue;
     }
@@ -5897,9 +5697,9 @@ LABEL_87:
   }
 
   v68 = 0;
-  v4 = v151;
+  v4 = v149;
 LABEL_101:
-  v15 = v150;
+  v15 = v148;
 LABEL_102:
 
 LABEL_103:
@@ -5941,17 +5741,16 @@ LABEL_103:
       v83 = " NOT";
     }
 
-    v166 = 136446978;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 2014;
-    v172 = 2080;
-    v173 = v83;
-    LODWORD(v149) = 38;
-    v148 = &v166;
-    _os_log_send_and_compose_impl();
+    v164 = 136446978;
+    v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+    v166 = 2082;
+    v167 = "CWFUtilPrivate.m";
+    v168 = 1024;
+    v169 = 2014;
+    v170 = 2080;
+    v171 = v83;
+    LODWORD(v147) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v81, 2, "[corewifi] %{public}s (%{public}s:%u) IP config for associated BSS does%s match a previously joined BSS for candidate known network", &v164, v147);
   }
 
   v84 = CWFGetOSLog();
@@ -5978,17 +5777,16 @@ LABEL_103:
       v87 = " NOT";
     }
 
-    v166 = 136446978;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 2016;
-    v172 = 2080;
-    v173 = v87;
-    LODWORD(v149) = 38;
-    v148 = &v166;
-    _os_log_send_and_compose_impl();
+    v164 = 136446978;
+    v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+    v166 = 2082;
+    v167 = "CWFUtilPrivate.m";
+    v168 = 1024;
+    v169 = 2016;
+    v170 = 2080;
+    v171 = v87;
+    LODWORD(v147) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v85, 2, "[corewifi] %{public}s (%{public}s:%u) Seamless SSID list for associated known network does%s contain the candidate known network SSID", &v164, v147);
   }
 
   v88 = v68 | v79;
@@ -6019,221 +5817,221 @@ LABEL_123:
 
     v93 = [v3 networkName];
     v94 = [v4 networkName];
-    v166 = 136447490;
-    v167 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
-    v168 = 2082;
-    v169 = "CWFUtilPrivate.m";
-    v170 = 1024;
-    v171 = 2024;
-    v172 = 2080;
-    v173 = v92;
+    v164 = 136447490;
+    v165 = "CWFKnownNetworkSupportsSeamlessSSIDTransition";
+    v166 = 2082;
+    v167 = "CWFUtilPrivate.m";
+    v168 = 1024;
+    v169 = 2024;
+    v170 = 2080;
+    v171 = v92;
+    v172 = 2112;
+    v173 = v93;
     v174 = 2112;
-    v175 = v93;
-    v176 = 2112;
-    v177 = v94;
-    _os_log_send_and_compose_impl();
+    v175 = v94;
+    LODWORD(v147) = 58;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v90, 2, "[corewifi] %{public}s (%{public}s:%u) Seamless SSID transition %s for known network (%@ --> %@)", &v164, v147);
   }
 
-  v95 = *MEMORY[0x1E69E9840];
   return v88 & 1;
 }
 
 uint64_t CWFScanResultSupportsSeamlessSSIDTransition(void *a1, void *a2)
 {
-  v151[1] = *MEMORY[0x1E69E9840];
+  v152[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
-    v104 = CWFGetOSLog();
-    if (v104)
+    v103 = CWFGetOSLog();
+    if (v103)
     {
-      v105 = CWFGetOSLog();
+      v104 = CWFGetOSLog();
     }
 
     else
     {
-      v105 = MEMORY[0x1E69E9C10];
-      v111 = MEMORY[0x1E69E9C10];
+      v104 = MEMORY[0x1E69E9C10];
+      v110 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_153;
+      goto LABEL_155;
     }
 
-    v135 = 136446722;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2036;
-    LODWORD(v118) = 28;
-    v117 = &v135;
-    goto LABEL_152;
+    v136 = 136446722;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2036;
+    v111 = "[corewifi] %{public}s (%{public}s:%u) CoreWiFi/SSIDTransition disabled";
+LABEL_153:
+    v115 = v104;
+    v116 = 2;
+    goto LABEL_154;
   }
 
   if (!v3)
   {
-    v106 = CWFGetOSLog();
-    if (v106)
+    v105 = CWFGetOSLog();
+    if (v105)
     {
-      v105 = CWFGetOSLog();
+      v104 = CWFGetOSLog();
     }
 
     else
     {
-      v105 = MEMORY[0x1E69E9C10];
+      v104 = MEMORY[0x1E69E9C10];
       v112 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_153;
+      goto LABEL_155;
     }
 
-    v135 = 136446722;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2038;
-    LODWORD(v118) = 28;
-    v117 = &v135;
-    goto LABEL_152;
+    v136 = 136446722;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2038;
+    v111 = "[corewifi] %{public}s (%{public}s:%u) associatedBSS was NULL";
+LABEL_146:
+    v115 = v104;
+    v116 = 0;
+LABEL_154:
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v115, v116, v111, &v136, 28);
+LABEL_155:
+
+    goto LABEL_156;
   }
 
   v5 = [v3 matchingKnownNetworkProfile];
 
   if (!v5)
   {
-    v107 = CWFGetOSLog();
-    if (v107)
+    v106 = CWFGetOSLog();
+    if (v106)
     {
-      v105 = CWFGetOSLog();
+      v104 = CWFGetOSLog();
     }
 
     else
     {
-      v105 = MEMORY[0x1E69E9C10];
+      v104 = MEMORY[0x1E69E9C10];
       v113 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_153;
+      goto LABEL_155;
     }
 
-    v135 = 136446722;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2039;
-    LODWORD(v118) = 28;
-    v117 = &v135;
-    goto LABEL_152;
+    v136 = 136446722;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2039;
+    v111 = "[corewifi] %{public}s (%{public}s:%u) associatedBSS.matchingKnownNetworkProfile was NULL";
+    goto LABEL_153;
   }
 
   if (!v4)
   {
-    v108 = CWFGetOSLog();
-    if (v108)
+    v107 = CWFGetOSLog();
+    if (v107)
     {
-      v105 = CWFGetOSLog();
+      v104 = CWFGetOSLog();
     }
 
     else
     {
-      v105 = MEMORY[0x1E69E9C10];
+      v104 = MEMORY[0x1E69E9C10];
       v114 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_153;
+      goto LABEL_155;
     }
 
-    v135 = 136446722;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2040;
-    LODWORD(v118) = 28;
-    v117 = &v135;
-    goto LABEL_152;
+    v136 = 136446722;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2040;
+    v111 = "[corewifi] %{public}s (%{public}s:%u) candidateBSS was NULL";
+    goto LABEL_146;
   }
 
   v6 = [v4 matchingKnownNetworkProfile];
 
   if (!v6)
   {
-    v109 = CWFGetOSLog();
-    if (v109)
+    v108 = CWFGetOSLog();
+    if (v108)
     {
-      v105 = CWFGetOSLog();
+      v104 = CWFGetOSLog();
     }
 
     else
     {
-      v105 = MEMORY[0x1E69E9C10];
-      v115 = MEMORY[0x1E69E9C10];
+      v104 = MEMORY[0x1E69E9C10];
+      v117 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_153;
+      goto LABEL_155;
     }
 
-    v135 = 136446722;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2041;
-    LODWORD(v118) = 28;
-    v117 = &v135;
-    goto LABEL_152;
+    v136 = 136446722;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2041;
+    v111 = "[corewifi] %{public}s (%{public}s:%u) candidateBSS.matchingKnownNetworkProfile was NULL";
+    goto LABEL_153;
   }
 
   v7 = [v4 matchingKnownNetworkProfile];
-  v151[0] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v151 count:1];
+  v152[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v152 count:1];
   v9 = sub_1E0BED85C(v4, v8);
 
   if (!v9)
   {
-    v110 = CWFGetOSLog();
-    if (v110)
+    v109 = CWFGetOSLog();
+    if (v109)
     {
-      v105 = CWFGetOSLog();
+      v104 = CWFGetOSLog();
     }
 
     else
     {
-      v105 = MEMORY[0x1E69E9C10];
-      v116 = MEMORY[0x1E69E9C10];
+      v104 = MEMORY[0x1E69E9C10];
+      v118 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+    if (!os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_153;
+      goto LABEL_155;
     }
 
-    v135 = 136446722;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2044;
-    LODWORD(v118) = 28;
-    v117 = &v135;
-LABEL_152:
-    _os_log_send_and_compose_impl();
-LABEL_153:
-
-    goto LABEL_154;
+    v136 = 136446722;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2044;
+    v111 = "[corewifi] %{public}s (%{public}s:%u) Candidate known network does not match candidate BSS";
+    goto LABEL_153;
   }
 
   v10 = [v4 matchingKnownNetworkProfile];
@@ -6241,43 +6039,43 @@ LABEL_153:
 
   if (!v11)
   {
-LABEL_154:
+LABEL_156:
     v95 = 0;
     goto LABEL_113;
   }
 
-  v133 = 0u;
   v134 = 0u;
-  v131 = 0u;
+  v135 = 0u;
   v132 = 0u;
+  v133 = 0u;
   v12 = [v3 matchingKnownNetworkProfile];
   v13 = [v12 BSSList];
 
-  v14 = [v13 countByEnumeratingWithState:&v131 objects:v150 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v132 objects:v151 count:16];
   if (!v14)
   {
     goto LABEL_22;
   }
 
   v15 = v14;
-  v124 = *v132;
-  v122 = v4;
+  v125 = *v133;
+  v123 = v4;
   obj = v13;
 LABEL_10:
   v16 = 0;
-  v17 = v124;
+  v17 = v125;
   while (1)
   {
-    if (*v132 != v17)
+    if (*v133 != v17)
     {
       objc_enumerationMutation(obj);
     }
 
-    v18 = *(*(&v131 + 1) + 8 * v16);
+    v18 = *(*(&v132 + 1) + 8 * v16);
     v19 = [v18 BSSID];
     v20 = [v3 BSSID];
     v21 = v20;
-    v126 = v18;
+    v127 = v18;
     if (v19 == v20)
     {
       break;
@@ -6291,15 +6089,15 @@ LABEL_10:
       if (v24)
       {
         v25 = v24;
-        v26 = [v126 BSSID];
+        v26 = [v127 BSSID];
         [v3 BSSID];
         v28 = v27 = v3;
         v29 = [v26 isEqual:v28];
 
         v3 = v27;
-        v17 = v124;
+        v17 = v125;
 
-        v4 = v122;
+        v4 = v123;
         if (v29)
         {
           goto LABEL_25;
@@ -6313,7 +6111,7 @@ LABEL_20:
     if (v15 == ++v16)
     {
       v13 = obj;
-      v15 = [obj countByEnumeratingWithState:&v131 objects:v150 count:16];
+      v15 = [obj countByEnumeratingWithState:&v132 objects:v151 count:16];
       if (!v15)
       {
 LABEL_22:
@@ -6332,17 +6130,15 @@ LABEL_22:
 
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v135 = 136446978;
-          v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-          v137 = 2082;
-          v138 = "CWFUtilPrivate.m";
-          v139 = 1024;
-          v140 = 2089;
-          v141 = 2112;
-          v142 = v3;
-          LODWORD(v118) = 38;
-          v117 = &v135;
-          _os_log_send_and_compose_impl();
+          v136 = 136446978;
+          v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+          v138 = 2082;
+          v139 = "CWFUtilPrivate.m";
+          v140 = 1024;
+          v141 = 2089;
+          v142 = 2112;
+          v143 = v3;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v31, 2, "[corewifi] %{public}s (%{public}s:%u) Associated BSS has no matching BSS history entry (%@)", &v136, 38);
         }
 
         v72 = 0;
@@ -6354,30 +6150,30 @@ LABEL_22:
   }
 
 LABEL_25:
-  v129 = 0u;
   v130 = 0u;
-  v127 = 0u;
+  v131 = 0u;
   v128 = 0u;
+  v129 = 0u;
   v32 = [v4 matchingKnownNetworkProfile];
   v33 = [v32 BSSList];
 
-  v125 = [v33 countByEnumeratingWithState:&v127 objects:v149 count:16];
-  if (v125)
+  v126 = [v33 countByEnumeratingWithState:&v128 objects:v150 count:16];
+  if (v126)
   {
-    v119 = v3;
+    v120 = v3;
     v34 = 0;
-    v123 = *v128;
-    v121 = v33;
+    v124 = *v129;
+    v122 = v33;
 LABEL_27:
     v35 = 0;
     while (1)
     {
-      if (*v128 != v123)
+      if (*v129 != v124)
       {
-        objc_enumerationMutation(v121);
+        objc_enumerationMutation(v122);
       }
 
-      v36 = *(*(&v127 + 1) + 8 * v35);
+      v36 = *(*(&v128 + 1) + 8 * v35);
       v37 = [v36 BSSID];
       v38 = [v4 BSSID];
       v39 = v38;
@@ -6409,7 +6205,7 @@ LABEL_72:
         v45 = [v4 BSSID];
         v46 = [v44 isEqual:v45];
 
-        v4 = v122;
+        v4 = v123;
         if (!v46)
         {
           goto LABEL_73;
@@ -6419,12 +6215,12 @@ LABEL_72:
       v47 = [v36 IPv4NetworkSignature];
       if (v47)
       {
-        v48 = v126;
-        v49 = [v126 IPv4NetworkSignature];
+        v48 = v127;
+        v49 = [v127 IPv4NetworkSignature];
         if (v49)
         {
           v50 = [v36 IPv4NetworkSignature];
-          v51 = [v126 IPv4NetworkSignature];
+          v51 = [v127 IPv4NetworkSignature];
           v52 = [v50 isEqual:v51];
         }
 
@@ -6437,7 +6233,7 @@ LABEL_72:
       else
       {
         v52 = 0;
-        v48 = v126;
+        v48 = v127;
       }
 
       v53 = [v36 IPv6NetworkSignature];
@@ -6494,7 +6290,7 @@ LABEL_72:
           v66 = [v48 DHCPv6ServerID];
           v67 = [v65 isEqual:v66];
 
-          v48 = v126;
+          v48 = v127;
         }
 
         else
@@ -6511,7 +6307,7 @@ LABEL_72:
       if ((v52 & v62 & 1) != 0 || (v57 & v67) != 0)
       {
         v73 = CWFGetOSLog();
-        v4 = v122;
+        v4 = v123;
         if (v73)
         {
           v74 = CWFGetOSLog();
@@ -6524,40 +6320,39 @@ LABEL_72:
         }
 
         v31 = obj;
-        v76 = v121;
+        v76 = v122;
 
         if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
         {
-          v79 = [v119 networkName];
-          v80 = [v122 networkName];
-          v135 = 136447746;
-          v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-          v137 = 2082;
-          v138 = "CWFUtilPrivate.m";
-          v139 = 1024;
-          v140 = 2068;
-          v141 = 2112;
-          v142 = v79;
-          v143 = 2112;
-          v144 = v126;
-          v145 = 2112;
-          v146 = v80;
-          v147 = 2112;
-          v148 = v36;
-          LODWORD(v118) = 68;
-          v117 = &v135;
-          _os_log_send_and_compose_impl();
+          v79 = [v120 networkName];
+          v80 = [v123 networkName];
+          v136 = 136447746;
+          v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+          v138 = 2082;
+          v139 = "CWFUtilPrivate.m";
+          v140 = 1024;
+          v141 = 2068;
+          v142 = 2112;
+          v143 = v79;
+          v144 = 2112;
+          v145 = v127;
+          v146 = 2112;
+          v147 = v80;
+          v148 = 2112;
+          v149 = v36;
+          LODWORD(v119) = 68;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v74, 2, "[corewifi] %{public}s (%{public}s:%u) Matched IP config match (%@/%@ --> %@/%@)", &v136, v119);
         }
 
         v72 = 1;
-        v3 = v119;
+        v3 = v120;
         goto LABEL_94;
       }
 
       if ((v52 | v57 | v62 | v67))
       {
         v68 = CWFGetOSLog();
-        v4 = v122;
+        v4 = v123;
         if (v68)
         {
           v37 = CWFGetOSLog();
@@ -6571,26 +6366,25 @@ LABEL_72:
 
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
-          v70 = [v119 networkName];
-          v71 = [v122 networkName];
-          v135 = 136447746;
-          v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-          v137 = 2082;
-          v138 = "CWFUtilPrivate.m";
-          v139 = 1024;
-          v140 = 2074;
-          v141 = 2112;
-          v142 = v70;
-          v143 = 2112;
-          v144 = v48;
-          v145 = 2112;
-          v146 = v71;
-          v147 = 2112;
-          v148 = v36;
-          LODWORD(v118) = 68;
-          v117 = &v135;
+          v70 = [v120 networkName];
+          v71 = [v123 networkName];
+          v136 = 136447746;
+          v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+          v138 = 2082;
+          v139 = "CWFUtilPrivate.m";
+          v140 = 1024;
+          v141 = 2074;
+          v142 = 2112;
+          v143 = v70;
+          v144 = 2112;
+          v145 = v48;
+          v146 = 2112;
+          v147 = v71;
+          v148 = 2112;
+          v149 = v36;
+          LODWORD(v119) = 68;
           v34 = 1;
-          _os_log_send_and_compose_impl();
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v37, 2, "[corewifi] %{public}s (%{public}s:%u) Partial IP config match (%@/%@ --> %@/%@)", &v136, v119);
         }
 
         else
@@ -6602,17 +6396,17 @@ LABEL_72:
       }
 
       v34 = 1;
-      v4 = v122;
+      v4 = v123;
 LABEL_73:
-      if (v125 == ++v35)
+      if (v126 == ++v35)
       {
-        v125 = [v121 countByEnumeratingWithState:&v127 objects:v149 count:16];
-        if (v125)
+        v126 = [v122 countByEnumeratingWithState:&v128 objects:v150 count:16];
+        if (v126)
         {
           goto LABEL_27;
         }
 
-        v3 = v119;
+        v3 = v120;
         if (v34)
         {
           v72 = 0;
@@ -6641,17 +6435,16 @@ LABEL_80:
 
   if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
   {
-    v135 = 136446978;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2081;
-    v141 = 2112;
-    v142 = v4;
-    LODWORD(v118) = 38;
-    v117 = &v135;
-    _os_log_send_and_compose_impl();
+    v136 = 136446978;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2081;
+    v142 = 2112;
+    v143 = v4;
+    LODWORD(v119) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v76, 2, "[corewifi] %{public}s (%{public}s:%u) Candidate BSS has no matching BSS history entry (%@)", &v136, v119);
   }
 
   v72 = 0;
@@ -6687,22 +6480,21 @@ LABEL_95:
   if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
   {
     v90 = " NOT";
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v135 = 136446978;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v136 = 136446978;
     if (v72)
     {
       v90 = "";
     }
 
-    v139 = 1024;
-    v140 = 2099;
-    v141 = 2080;
-    v142 = v90;
-    LODWORD(v118) = 38;
-    v117 = &v135;
-    _os_log_send_and_compose_impl();
+    v140 = 1024;
+    v141 = 2099;
+    v142 = 2080;
+    v143 = v90;
+    LODWORD(v119) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v88, 2, "[corewifi] %{public}s (%{public}s:%u) IP config for associated BSS does%s match a previously joined BSS for candidate known network", &v136, v119);
   }
 
   v91 = CWFGetOSLog();
@@ -6720,22 +6512,21 @@ LABEL_95:
   if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
   {
     v94 = " NOT";
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v135 = 136446978;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v136 = 136446978;
     if (v86)
     {
       v94 = "";
     }
 
-    v139 = 1024;
-    v140 = 2101;
-    v141 = 2080;
-    v142 = v94;
-    LODWORD(v118) = 38;
-    v117 = &v135;
-    _os_log_send_and_compose_impl();
+    v140 = 1024;
+    v141 = 2101;
+    v142 = 2080;
+    v143 = v94;
+    LODWORD(v119) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v92, 2, "[corewifi] %{public}s (%{public}s:%u) Seamless SSID list for associated known network does%s contain the candidate known network SSID", &v136, v119);
   }
 
   v95 = v72 | v86;
@@ -6766,31 +6557,31 @@ LABEL_113:
 
     v100 = [v3 networkName];
     v101 = [v4 networkName];
-    v135 = 136447490;
-    v136 = "CWFScanResultSupportsSeamlessSSIDTransition";
-    v137 = 2082;
-    v138 = "CWFUtilPrivate.m";
-    v139 = 1024;
-    v140 = 2109;
-    v141 = 2080;
-    v142 = v99;
-    v143 = 2112;
-    v144 = v100;
-    v145 = 2112;
-    v146 = v101;
-    _os_log_send_and_compose_impl();
+    v136 = 136447490;
+    v137 = "CWFScanResultSupportsSeamlessSSIDTransition";
+    v138 = 2082;
+    v139 = "CWFUtilPrivate.m";
+    v140 = 1024;
+    v141 = 2109;
+    v142 = 2080;
+    v143 = v99;
+    v144 = 2112;
+    v145 = v100;
+    v146 = 2112;
+    v147 = v101;
+    LODWORD(v119) = 58;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v97, 2, "[corewifi] %{public}s (%{public}s:%u) Seamless SSID transition %s for BSS (%@ --> %@)", &v136, v119);
   }
 
-  v102 = *MEMORY[0x1E69E9840];
   return v95 & 1;
 }
 
 id CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult(void *a1, void *a2, char a3)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
-  v49 = [MEMORY[0x1E695DFA0] orderedSet];
+  v48 = [MEMORY[0x1E695DFA0] orderedSet];
   if (v5)
   {
     if ([v6 count])
@@ -6799,38 +6590,38 @@ id CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult(void *a1, void 
 
       if (v7)
       {
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
         v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
         v8 = v6;
-        v9 = [v8 countByEnumeratingWithState:&v53 objects:v57 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v52 objects:v56 count:16];
         if (!v9)
         {
           goto LABEL_34;
         }
 
         v10 = v9;
-        v47 = v6;
-        v48 = v5;
-        v52 = *v54;
-        v11 = v49;
-        v50 = v8;
-        v51 = a3;
+        v46 = v6;
+        v47 = v5;
+        v51 = *v53;
+        v11 = v48;
+        v49 = v8;
+        v50 = a3;
         while (1)
         {
           v12 = 0;
           do
           {
-            if (*v54 != v52)
+            if (*v53 != v51)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v53 + 1) + 8 * v12);
+            v13 = *(*(&v52 + 1) + 8 * v12);
             if (a3)
             {
-              if (CWFKnownNetworkSupportsSeamlessSSIDTransition(v5, *(*(&v53 + 1) + 8 * v12)))
+              if (CWFKnownNetworkSupportsSeamlessSSIDTransition(v5, *(*(&v52 + 1) + 8 * v12)))
               {
                 goto LABEL_26;
               }
@@ -6849,7 +6640,7 @@ id CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult(void *a1, void 
               {
 
 LABEL_31:
-                a3 = v51;
+                a3 = v50;
                 goto LABEL_27;
               }
 
@@ -6858,7 +6649,7 @@ LABEL_31:
               if (!v19)
               {
 
-                v8 = v50;
+                v8 = v49;
                 goto LABEL_31;
               }
 
@@ -6867,11 +6658,11 @@ LABEL_31:
               v22 = [v13 SSID];
               v23 = [v21 isEqual:v22];
 
-              v11 = v49;
-              v5 = v48;
+              v11 = v48;
+              v5 = v47;
 
-              v8 = v50;
-              a3 = v51;
+              v8 = v49;
+              a3 = v50;
               if (v23)
               {
                 goto LABEL_26;
@@ -6900,10 +6691,10 @@ LABEL_31:
               if (!v29)
               {
 
-                v8 = v50;
+                v8 = v49;
 LABEL_24:
 
-                a3 = v51;
+                a3 = v50;
 LABEL_25:
                 if ((CWFKnownNetworkSupportsSeamlessSSIDTransition(v5, v13) & 1) == 0)
                 {
@@ -6920,11 +6711,11 @@ LABEL_26:
               v32 = [v13 SSID];
               v33 = [v31 isEqual:v32];
 
-              v11 = v49;
-              v5 = v48;
+              v11 = v48;
+              v5 = v47;
 
-              v8 = v50;
-              a3 = v51;
+              v8 = v49;
+              a3 = v50;
               if ((v33 & 1) == 0)
               {
                 goto LABEL_25;
@@ -6936,104 +6727,99 @@ LABEL_27:
           }
 
           while (v10 != v12);
-          v34 = [v8 countByEnumeratingWithState:&v53 objects:v57 count:16];
+          v34 = [v8 countByEnumeratingWithState:&v52 objects:v56 count:16];
           v10 = v34;
           if (!v34)
           {
-            v6 = v47;
+            v6 = v46;
             goto LABEL_34;
           }
         }
       }
 
-      v42 = CWFGetOSLog();
-      if (v42)
+      v41 = CWFGetOSLog();
+      if (v41)
       {
-        v43 = CWFGetOSLog();
+        v42 = CWFGetOSLog();
       }
 
       else
       {
-        v43 = MEMORY[0x1E69E9C10];
-        v46 = MEMORY[0x1E69E9C10];
+        v42 = MEMORY[0x1E69E9C10];
+        v45 = MEMORY[0x1E69E9C10];
       }
 
-      v8 = v43;
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v8 = v42;
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
-        goto LABEL_34;
+        v57 = 136446722;
+        v58 = "CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult";
+        v59 = 2082;
+        v60 = "CWFUtilPrivate.m";
+        v61 = 1024;
+        v62 = 2121;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v42, 2, "[corewifi] %{public}s (%{public}s:%u) associatedBSS.matchingKnownNetworkProfile was NULL", &v57, 28);
       }
-
-      v58 = 136446722;
-      v59 = "CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult";
-      v60 = 2082;
-      v61 = "CWFUtilPrivate.m";
-      v62 = 1024;
-      v63 = 2121;
     }
 
     else
     {
-      v40 = CWFGetOSLog();
-      if (v40)
+      v39 = CWFGetOSLog();
+      if (v39)
       {
-        v41 = CWFGetOSLog();
+        v40 = CWFGetOSLog();
       }
 
       else
       {
-        v41 = MEMORY[0x1E69E9C10];
-        v45 = MEMORY[0x1E69E9C10];
+        v40 = MEMORY[0x1E69E9C10];
+        v44 = MEMORY[0x1E69E9C10];
       }
 
-      v8 = v41;
-      if (!os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      v8 = v40;
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        goto LABEL_34;
+        v57 = 136446722;
+        v58 = "CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult";
+        v59 = 2082;
+        v60 = "CWFUtilPrivate.m";
+        v61 = 1024;
+        v62 = 2120;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v40, 2, "[corewifi] %{public}s (%{public}s:%u) knownNetworks.count was 0", &v57, 28);
       }
-
-      v58 = 136446722;
-      v59 = "CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult";
-      v60 = 2082;
-      v61 = "CWFUtilPrivate.m";
-      v62 = 1024;
-      v63 = 2120;
     }
   }
 
   else
   {
-    v38 = CWFGetOSLog();
-    if (v38)
+    v37 = CWFGetOSLog();
+    if (v37)
     {
-      v39 = CWFGetOSLog();
+      v38 = CWFGetOSLog();
     }
 
     else
     {
-      v39 = MEMORY[0x1E69E9C10];
-      v44 = MEMORY[0x1E69E9C10];
+      v38 = MEMORY[0x1E69E9C10];
+      v43 = MEMORY[0x1E69E9C10];
     }
 
-    v8 = v39;
-    if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v8 = v38;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_34;
+      v57 = 136446722;
+      v58 = "CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult";
+      v59 = 2082;
+      v60 = "CWFUtilPrivate.m";
+      v61 = 1024;
+      v62 = 2119;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v38, 2, "[corewifi] %{public}s (%{public}s:%u) associatedBSS was NULL", &v57, 28);
     }
-
-    v58 = 136446722;
-    v59 = "CWFKnownNetworksSupportingSeamlessSSIDTransitionForScanResult";
-    v60 = 2082;
-    v61 = "CWFUtilPrivate.m";
-    v62 = 1024;
-    v63 = 2119;
   }
 
-  _os_log_send_and_compose_impl();
 LABEL_34:
 
-  v35 = [v49 copy];
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = [v48 copy];
 
   return v35;
 }
@@ -7145,22 +6931,18 @@ id CWFIPv4AddressesFromDHCPOptionData(void *a1)
 
 BOOL CWFIsIPv4AddressLoopback(void *a1)
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  HIDWORD(v4[0]) = 0;
-  v4[1] = 0;
-  result = inet_pton(2, [a1 UTF8String], v4 + 4) == 1 && BYTE4(v4[0]) == 127;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[2] = *MEMORY[0x1E69E9840];
+  HIDWORD(v3[0]) = 0;
+  v3[1] = 0;
+  return inet_pton(2, [a1 UTF8String], v3 + 4) == 1 && BYTE4(v3[0]) == 127;
 }
 
 BOOL CWFIsIPv4AddressLinkLocal(void *a1)
 {
-  v4[2] = *MEMORY[0x1E69E9840];
-  HIDWORD(v4[0]) = 0;
-  v4[1] = 0;
-  result = inet_pton(2, [a1 UTF8String], v4 + 4) == 1 && WORD2(v4[0]) == 65193;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v3[2] = *MEMORY[0x1E69E9840];
+  HIDWORD(v3[0]) = 0;
+  v3[1] = 0;
+  return inet_pton(2, [a1 UTF8String], v3 + 4) == 1 && WORD2(v3[0]) == 65193;
 }
 
 BOOL CWFIsIPv6AddressLinkLocal(void *a1)
@@ -7341,12 +7123,12 @@ BOOL CWFPrivateMACShouldEnablePrivateMACAddressForEvaluation(void *a1)
 
 unsigned __int8 *CWFNetworkStackMACAddressWithInterfaceName(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   size = 0;
-  *v10 = xmmword_1E0D81890;
-  v11 = 3;
-  v12 = if_nametoindex([a1 UTF8String]);
-  sysctl(v10, 6u, 0, &size, 0, 0);
+  *v9 = xmmword_1E0D81890;
+  v10 = 3;
+  v11 = if_nametoindex([a1 UTF8String]);
+  sysctl(v9, 6u, 0, &size, 0, 0);
   if (size)
   {
     v1 = malloc_type_malloc(size, 0xF7AD663uLL);
@@ -7355,7 +7137,7 @@ unsigned __int8 *CWFNetworkStackMACAddressWithInterfaceName(void *a1)
       goto LABEL_8;
     }
 
-    if (sysctl(v10, 6u, v1, &size, 0, 0) < 0)
+    if (sysctl(v9, 6u, v1, &size, 0, 0) < 0)
     {
       free(v1);
     }
@@ -7364,9 +7146,9 @@ unsigned __int8 *CWFNetworkStackMACAddressWithInterfaceName(void *a1)
     {
       v2 = &v1[v1[117]];
       v3 = *(v2 + 30);
-      *&v8.octet[4] = *(v2 + 62);
-      *v8.octet = v3;
-      v4 = ether_ntoa(&v8);
+      *&v7.octet[4] = *(v2 + 62);
+      *v7.octet = v3;
+      v4 = ether_ntoa(&v7);
       free(v1);
       if (v4)
       {
@@ -7380,7 +7162,6 @@ unsigned __int8 *CWFNetworkStackMACAddressWithInterfaceName(void *a1)
 
   v1 = 0;
 LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v1;
 }
@@ -7444,40 +7225,40 @@ uint64_t sub_1E0C0DFCC()
 
 uint64_t CWFNetworkHas2GHzBSSPresence(void *a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
   v8 = v7;
   v9 = 0;
-  v35 = v5;
+  v34 = v5;
   if (v5 && v7)
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v33 = v6;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v32 = v6;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v36 objects:v48 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v35 objects:v47 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v37;
+      v13 = *v36;
       obj = v10;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v37 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = v8[2](v8, *(*(&v36 + 1) + 8 * i));
+          v15 = v8[2](v8, *(*(&v35 + 1) + 8 * i));
           v16 = [[CWFScanResult alloc] initWithScanRecord:v15 includeProperties:0];
           v17 = [(CWFScanResult *)v16 networkName];
-          v18 = [v35 networkName];
+          v18 = [v34 networkName];
           v19 = [v17 isEqualToString:v18];
 
           if (v19)
@@ -7494,7 +7275,7 @@ uint64_t CWFNetworkHas2GHzBSSPresence(void *a1, void *a2, void *a3)
           else if ([(CWFScanResult *)v16 isPasspoint])
           {
             v22 = [(CWFScanResult *)v16 domainNameList];
-            v23 = [v35 domainName];
+            v23 = [v34 domainName];
             v24 = [v22 containsObject:v23];
 
             if (v24)
@@ -7507,7 +7288,7 @@ uint64_t CWFNetworkHas2GHzBSSPresence(void *a1, void *a2, void *a3)
 LABEL_18:
 
                 v9 = 1;
-                v6 = v33;
+                v6 = v32;
                 v28 = obj;
                 goto LABEL_23;
               }
@@ -7516,7 +7297,7 @@ LABEL_18:
         }
 
         v10 = obj;
-        v12 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+        v12 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
         if (v12)
         {
           continue;
@@ -7538,60 +7319,59 @@ LABEL_18:
       v29 = MEMORY[0x1E69E9C10];
     }
 
-    v6 = v33;
+    v6 = v32;
 
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v30 = [v35 networkName];
-      v40 = 136446978;
-      v41 = "CWFNetworkHas2GHzBSSPresence";
-      v42 = 2082;
-      v43 = "CWFUtilPrivate.m";
-      v44 = 1024;
-      v45 = 2627;
-      v46 = 2112;
-      v47 = v30;
-      _os_log_send_and_compose_impl();
+      v30 = [v34 networkName];
+      v39 = 136446978;
+      v40 = "CWFNetworkHas2GHzBSSPresence";
+      v41 = 2082;
+      v42 = "CWFUtilPrivate.m";
+      v43 = 1024;
+      v44 = 2627;
+      v45 = 2112;
+      v46 = v30;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 16, "[corewifi] %{public}s (%{public}s:%u) No 2GHz present for network [%@]", &v39, 38);
     }
 
     v9 = 0;
 LABEL_23:
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 unint64_t CWFRecentlyJoinedNetworkHasNo2GHzPresence(void *a1, unint64_t a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [MEMORY[0x1E695DF00] now];
   if (a2)
   {
     if ([v3 count])
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v5 = v3;
-      v6 = [v5 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v21 objects:v33 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v23;
+        v8 = *v22;
         v9 = a2;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v23 != v8)
+            if (*v22 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v11 = *(*(&v22 + 1) + 8 * i);
+            v11 = *(*(&v21 + 1) + 8 * i);
             if (([v11 isPersonalHotspot] & 1) == 0)
             {
               v12 = [v11 lastJoinedAt];
@@ -7617,15 +7397,15 @@ unint64_t CWFRecentlyJoinedNetworkHasNo2GHzPresence(void *a1, unint64_t a2)
                   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
                   {
                     v19 = [v11 networkName];
-                    v26 = 136446978;
-                    v27 = "CWFRecentlyJoinedNetworkHasNo2GHzPresence";
-                    v28 = 2082;
-                    v29 = "CWFUtilPrivate.m";
-                    v30 = 1024;
-                    v31 = 2654;
-                    v32 = 2112;
-                    v33 = v19;
-                    _os_log_send_and_compose_impl();
+                    v25 = 136446978;
+                    v26 = "CWFRecentlyJoinedNetworkHasNo2GHzPresence";
+                    v27 = 2082;
+                    v28 = "CWFUtilPrivate.m";
+                    v29 = 1024;
+                    v30 = 2654;
+                    v31 = 2112;
+                    v32 = v19;
+                    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 16, "[corewifi] %{public}s (%{public}s:%u) Network with no 2GHz presence found: [%@]", &v25, 38, v21);
                   }
 
                   a2 = 1;
@@ -7635,7 +7415,7 @@ unint64_t CWFRecentlyJoinedNetworkHasNo2GHzPresence(void *a1, unint64_t a2)
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v22 objects:v34 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v21 objects:v33 count:16];
           if (v7)
           {
             continue;
@@ -7655,13 +7435,12 @@ LABEL_22:
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
 uint64_t CWFShouldPresentPersonalHotspotNotificationForBrokenBackhaulNetworkName(void *a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
@@ -7677,7 +7456,7 @@ uint64_t CWFShouldPresentPersonalHotspotNotificationForBrokenBackhaulNetworkName
   v3 = [MEMORY[0x1E695E000] standardUserDefaults];
   v4 = [v3 objectForKey:@"PHBBHNotificationPresentationTimestamps"];
 
-  v49 = v4;
+  v47 = v4;
   v5 = [v4 objectForKeyedSubscript:v1];
   v6 = [MEMORY[0x1E695E000] standardUserDefaults];
   v7 = [v6 objectForKey:@"PHBBHNotificationResponseTimestamps"];
@@ -7725,7 +7504,7 @@ uint64_t CWFShouldPresentPersonalHotspotNotificationForBrokenBackhaulNetworkName
     LODWORD(v18) = 0;
   }
 
-  v48 = v2;
+  v46 = v2;
   v22 = CWFGetOSLog();
   if (v22)
   {
@@ -7741,7 +7520,7 @@ uint64_t CWFShouldPresentPersonalHotspotNotificationForBrokenBackhaulNetworkName
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     v25 = v18 == 0;
-    v47 = v18;
+    v45 = v18;
     v18 = v11;
     v26 = v12;
     v27 = v9;
@@ -7759,27 +7538,25 @@ uint64_t CWFShouldPresentPersonalHotspotNotificationForBrokenBackhaulNetworkName
     }
 
     v32 = [v1 redactedForWiFi];
-    v53 = 136446466;
-    v54 = v31;
+    v51 = 136446466;
+    v52 = v31;
     v5 = v30;
     v7 = v29;
     v8 = v28;
     v9 = v27;
     v12 = v26;
     v11 = v18;
-    LOBYTE(v18) = v47;
-    v55 = 2114;
-    v56 = v32;
-    LODWORD(v46) = 22;
-    v45 = &v53;
-    _os_log_send_and_compose_impl();
+    LOBYTE(v18) = v45;
+    v53 = 2114;
+    v54 = v32;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 0, "[corewifi] [bbh] PH BBH notification is %{public}sallowed (network=%{public}@)", &v51, 22);
   }
 
   if (v18)
   {
     v33 = 1;
 LABEL_24:
-    v34 = v49;
+    v34 = v47;
     goto LABEL_25;
   }
 
@@ -7789,7 +7566,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v34 = v49;
+  v34 = v47;
   if (!objc_opt_class())
   {
 LABEL_37:
@@ -7797,62 +7574,62 @@ LABEL_37:
     goto LABEL_25;
   }
 
-  v37 = v8;
-  v51[0] = @"user_did_join";
-  v51[1] = @"was_suppressed";
-  v52[0] = MEMORY[0x1E695E110];
-  v52[1] = MEMORY[0x1E695E118];
-  v51[2] = @"suppression_interval";
+  v36 = v8;
+  v49[0] = @"user_did_join";
+  v49[1] = @"was_suppressed";
+  v50[0] = MEMORY[0x1E695E110];
+  v50[1] = MEMORY[0x1E695E118];
+  v49[2] = @"suppression_interval";
   if (v16 > v17)
   {
-    v38 = v48;
+    v37 = v46;
   }
 
   else
   {
-    v38 = v11;
+    v37 = v11;
   }
 
-  v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v38, v45, v46}];
-  v52[2] = v39;
-  v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:3];
+  v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v37];
+  v50[2] = v38;
+  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:3];
 
-  v41 = CWFGetOSLog();
-  if (v41)
+  v40 = CWFGetOSLog();
+  if (v40)
   {
-    v42 = CWFGetOSLog();
+    v41 = CWFGetOSLog();
   }
 
   else
   {
+    v41 = MEMORY[0x1E69E9C10];
     v42 = MEMORY[0x1E69E9C10];
-    v43 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
-    v53 = 138543618;
-    v54 = @"com.apple.wifi.bbh-ph-alert";
-    v55 = 2114;
-    v56 = v40;
-    _os_log_send_and_compose_impl();
+    v51 = 138543618;
+    v52 = @"com.apple.wifi.bbh-ph-alert";
+    v53 = 2114;
+    v54 = v39;
+    LODWORD(v44) = 22;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v41, 0, "[corewifi] [bbh] Sending '%{public}@' CoreAnalytics metric (%{public}@)", &v51, v44);
   }
 
-  v50 = v40;
-  v44 = v40;
+  v48 = v39;
+  v43 = v39;
   AnalyticsSendEventLazy();
 
   v33 = 0;
-  v8 = v37;
+  v8 = v36;
 LABEL_25:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
 void CWFDidPresentPersonalHotspotNotificationForBrokenBackhaulNetworkName(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (v1)
   {
@@ -7873,17 +7650,17 @@ void CWFDidPresentPersonalHotspotNotificationForBrokenBackhaulNetworkName(void *
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v1 redactedForWiFi];
-      _os_log_send_and_compose_impl();
+      v6 = [v1 redactedForWiFi];
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [bbh] PH BBH notification was presented (network=%{public}@), ", &v7, 12);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0C0EBE0(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -7914,16 +7691,18 @@ void sub_1E0C0EBE0(void *a1, void *a2)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = sub_1E0BCC248(v4);
-    v14 = [v3 redactedForWiFi];
-    _os_log_send_and_compose_impl();
+    v13 = [v3 redactedForWiFi];
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2114;
+    v17 = v13;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] [bbh] Updated PH BBH notification presentation timestamp (%{public}@) for network (%{public}@)", &v14, 22);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void CWFDidReceiveResponseToPersonalHotspotNotificationForBrokenBackhaulNetworkName(void *a1, int a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (v3)
@@ -7962,13 +7741,11 @@ void CWFDidReceiveResponseToPersonalHotspotNotificationForBrokenBackhaulNetworkN
         v11 = "yes";
       }
 
-      v25 = 138543618;
-      v26 = v9;
-      v27 = 2082;
-      v28 = v11;
-      LODWORD(v21) = 22;
-      v20 = &v25;
-      _os_log_send_and_compose_impl();
+      v23 = 138543618;
+      v24 = v9;
+      v25 = 2082;
+      v26 = v11;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] [bbh] PH BBH notification was dismissed (network=%{public}@, userDidJoin=%{public}s), ", &v23, 22);
     }
 
     if ((!os_variant_has_internal_content() || !_os_feature_enabled_impl() || (_os_feature_enabled_impl() & 1) == 0) && objc_opt_class())
@@ -7979,14 +7756,14 @@ void CWFDidReceiveResponseToPersonalHotspotNotificationForBrokenBackhaulNetworkN
         v12 = MEMORY[0x1E695E110];
       }
 
-      v23[0] = @"user_did_join";
-      v23[1] = @"was_suppressed";
-      v24[0] = v12;
-      v24[1] = MEMORY[0x1E695E110];
-      v23[2] = @"suppression_interval";
-      v13 = [MEMORY[0x1E696AD98] numberWithInt:{86400, v20, v21}];
-      v24[2] = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+      v21[0] = @"user_did_join";
+      v21[1] = @"was_suppressed";
+      v22[0] = v12;
+      v22[1] = MEMORY[0x1E695E110];
+      v21[2] = @"suppression_interval";
+      v13 = [MEMORY[0x1E696AD98] numberWithInt:86400];
+      v22[2] = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
 
       v15 = CWFGetOSLog();
       if (v15)
@@ -8002,25 +7779,24 @@ void CWFDidReceiveResponseToPersonalHotspotNotificationForBrokenBackhaulNetworkN
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138543618;
-        v26 = @"com.apple.wifi.bbh-ph-alert";
-        v27 = 2114;
-        v28 = v14;
-        _os_log_send_and_compose_impl();
+        v23 = 138543618;
+        v24 = @"com.apple.wifi.bbh-ph-alert";
+        v25 = 2114;
+        v26 = v14;
+        LODWORD(v19) = 22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 0, "[corewifi] [bbh] Sending '%{public}@' CoreAnalytics metric (%{public}@)", &v23, v19);
       }
 
-      v22 = v14;
+      v20 = v14;
       v18 = v14;
       AnalyticsSendEventLazy();
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E0C0F100(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -8051,16 +7827,18 @@ void sub_1E0C0F100(void *a1, void *a2)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v12 = sub_1E0BCC248(v4);
-    v14 = [v3 redactedForWiFi];
-    _os_log_send_and_compose_impl();
+    v13 = [v3 redactedForWiFi];
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2114;
+    v17 = v13;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] [bbh] Updated PH BBH notification response timestamp (%{public}@) for network (%{public}@)", &v14, 22);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void CWFDidReceiveResponseToNearbyCaptiveAssistNotification(void *a1, int a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if (v3)
   {
@@ -8086,13 +7864,11 @@ void CWFDidReceiveResponseToNearbyCaptiveAssistNotification(void *a1, int a2)
         v9 = "yes";
       }
 
-      v22 = 138543618;
-      v23 = v7;
-      v24 = 2082;
-      v25 = v9;
-      LODWORD(v18) = 22;
-      v17 = &v22;
-      _os_log_send_and_compose_impl();
+      v20 = 138543618;
+      v21 = v7;
+      v22 = 2082;
+      v23 = v9;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 1, "[corewifi] Nearby captive assist notification was dismissed (network=%{public}@, userDidJoin=%{public}s), ", &v20, 22);
     }
 
     if (objc_opt_class())
@@ -8107,9 +7883,9 @@ void CWFDidReceiveResponseToNearbyCaptiveAssistNotification(void *a1, int a2)
         v10 = MEMORY[0x1E695E110];
       }
 
-      v20 = @"user_did_join";
-      v21 = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:{1, v17, v18}];
+      v18 = @"user_did_join";
+      v19 = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       v12 = CWFGetOSLog();
       if (v12)
       {
@@ -8124,25 +7900,24 @@ void CWFDidReceiveResponseToNearbyCaptiveAssistNotification(void *a1, int a2)
 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138543618;
-        v23 = @"com.apple.wifi.nearby-captive-assist-alert";
-        v24 = 2114;
-        v25 = v11;
-        _os_log_send_and_compose_impl();
+        v20 = 138543618;
+        v21 = @"com.apple.wifi.nearby-captive-assist-alert";
+        v22 = 2114;
+        v23 = v11;
+        LODWORD(v16) = 22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 0, "[corewifi] [bbh] Sending '%{public}@' CoreAnalytics metric (%{public}@)", &v20, v16);
       }
 
-      v19 = v11;
+      v17 = v11;
       v15 = v11;
       AnalyticsSendEventLazy();
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void CWFResetPersonalHotspotNotificationForBrokenBackhaulNetworkName(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1)
@@ -8163,12 +7938,12 @@ void CWFResetPersonalHotspotNotificationForBrokenBackhaulNetworkName(void *a1)
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v2 redactedForWiFi];
-      _os_log_send_and_compose_impl();
+      v6 = [v2 redactedForWiFi];
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 0, "[corewifi] [bbh] Reset PH BBH notification timestamps (network=%{public}@), ", &v7, 12);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id CWFHashedChipsetName()
@@ -8928,11 +8703,11 @@ void sub_1E0C11680(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_1E0C11830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E0C11830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8981,14 +8756,14 @@ void *sub_1E0C11978(void *result, char a2)
   return result;
 }
 
-void sub_1E0C12240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E0C12240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -9076,4 +8851,184 @@ void sub_1E0C14C48(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v2);
+}
+
+void sub_1E0C14D54(uint64_t a1)
+{
+  v2 = objc_autoreleasePoolPush();
+  *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 64);
+
+  objc_autoreleasePoolPop(v2);
+}
+
+void sub_1E0C1547C(void *a1, io_iterator_t a2, void *a3)
+{
+  v57 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = a3;
+  v7 = objc_autoreleasePoolPush();
+  v31 = v5;
+  if (v5)
+  {
+    v8 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v9 = CWFGetOSLog();
+    if (v9)
+    {
+      v10 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v10 = MEMORY[0x1E69E9C10];
+      v12 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v33 = 134219778;
+      v34 = v8 / 0x3B9ACA00;
+      v35 = 2048;
+      v36 = v8 % 0x3B9ACA00 / 0x3E8;
+      v37 = 2082;
+      v38 = "__IO80211Callback";
+      v39 = 2082;
+      v40 = "CWFIO80211.m";
+      v41 = 1024;
+      v42 = 50;
+      v43 = 2048;
+      v44 = v31;
+      v45 = 1024;
+      *v46 = [v31 isMonitoringEvents];
+      *&v46[4] = 2112;
+      *&v46[6] = v6;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) __IO80211Callback, io80211[%p] monitoring[%u] type(%@)", &v33, 74);
+    }
+
+    if ([v31 isMonitoringEvents])
+    {
+      v27 = v7;
+      v30 = [v31 eventHandler];
+      if (v30)
+      {
+        v13 = IOIteratorNext(a2);
+        if (v13)
+        {
+          v14 = v13;
+          v15 = *MEMORY[0x1E695E480];
+          v29 = a2;
+          v28 = v6;
+          do
+          {
+            CFProperty = IORegistryEntryCreateCFProperty(v14, @"IOClass", v15, 0);
+            v17 = IORegistryEntryCreateCFProperty(v14, @"IOInterfaceName", v15, 0);
+            v18 = IORegistryEntryCreateCFProperty(v14, @"BSD Name", v15, 0);
+            v19 = IORegistryEntryCreateCFProperty(v14, @"IO80211VirtualInterfaceRole", v15, 0);
+            v20 = IORegistryEntryCreateCFProperty(v14, @"IOInterfaceNamePrefix", v15, 0);
+            cf = IORegistryEntryCreateCFProperty(v14, @"IOInterfaceUnit", v15, 0);
+            v21 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+            v22 = CWFGetOSLog();
+            if (v22)
+            {
+              v23 = CWFGetOSLog();
+            }
+
+            else
+            {
+              v23 = MEMORY[0x1E69E9C10];
+              v24 = MEMORY[0x1E69E9C10];
+            }
+
+            v6 = v28;
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            {
+              v33 = 134221058;
+              v34 = v21 / 0x3B9ACA00;
+              v35 = 2048;
+              v36 = v21 % 0x3B9ACA00 / 0x3E8;
+              v37 = 2082;
+              v38 = "__IO80211Callback";
+              v39 = 2082;
+              v40 = "CWFIO80211.m";
+              v41 = 1024;
+              v42 = 68;
+              v43 = 2112;
+              v44 = v17;
+              v45 = 2112;
+              *v46 = v28;
+              *&v46[8] = 2112;
+              *&v46[10] = v18;
+              v47 = 1024;
+              v48 = v14;
+              v49 = 2112;
+              v50 = CFProperty;
+              v51 = 2112;
+              v52 = v19;
+              v53 = 2112;
+              v54 = v20;
+              v55 = 2112;
+              v56 = cf;
+              LODWORD(v26) = 124;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IO80211 event: intf=%@ type=%@, bsdName(%@) ioObject[%u] ioclass(%@) vifRole(%@) ifnamePrefix(%@) ifUnit(%@)", &v33, v26);
+            }
+
+            v25 = [v17 copy];
+            (v30)[2](v30, v31, v25, v28);
+
+            if (v18)
+            {
+              CFRelease(v18);
+            }
+
+            if (v17)
+            {
+              CFRelease(v17);
+            }
+
+            if (CFProperty)
+            {
+              CFRelease(CFProperty);
+            }
+
+            if (v19)
+            {
+              CFRelease(v19);
+            }
+
+            if (v20)
+            {
+              CFRelease(v20);
+            }
+
+            if (cf)
+            {
+              CFRelease(cf);
+            }
+
+            IOObjectRelease(v14);
+            v14 = IOIteratorNext(v29);
+          }
+
+          while (v14);
+        }
+      }
+
+      v7 = v27;
+    }
+  }
+
+  else
+  {
+    while (1)
+    {
+      v11 = IOIteratorNext(a2);
+      if (!v11)
+      {
+        break;
+      }
+
+      IOObjectRelease(v11);
+    }
+  }
+
+  objc_autoreleasePoolPop(v7);
 }

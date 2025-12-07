@@ -76,11 +76,12 @@ uint64_t __47__SWCollaborationCoordinator_sharedCoordinator__block_invoke(uint64
     if (v6)
     {
       applicationIsReadyForActions = [(SWCollaborationCoordinator *)self applicationIsReadyForActions];
-      array = SWFrameworkLogHandle();
-      v9 = os_log_type_enabled(array, OS_LOG_TYPE_DEFAULT);
-      if (applicationIsReadyForActions)
+      v8 = applicationIsReadyForActions;
+      array = SWFrameworkLogHandle(applicationIsReadyForActions);
+      v10 = os_log_type_enabled(array, OS_LOG_TYPE_DEFAULT);
+      if (v8)
       {
-        if (v9)
+        if (v10)
         {
           cachedUUIDs2 = [(SWCollaborationCoordinator *)self cachedUUIDs];
           *buf = 136315394;
@@ -95,48 +96,48 @@ uint64_t __47__SWCollaborationCoordinator_sharedCoordinator__block_invoke(uint64
         v21 = 0u;
         v22 = 0u;
         cachedUUIDs3 = [(SWCollaborationCoordinator *)self cachedUUIDs];
-        v12 = [cachedUUIDs3 countByEnumeratingWithState:&v21 objects:v25 count:16];
-        if (v12)
+        v13 = [cachedUUIDs3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v13)
         {
-          v13 = v12;
-          v14 = *v22;
+          v14 = v13;
+          v15 = *v22;
           do
           {
-            v15 = 0;
+            v16 = 0;
             do
             {
-              if (*v22 != v14)
+              if (*v22 != v15)
               {
                 objc_enumerationMutation(cachedUUIDs3);
               }
 
-              v16 = *(*(&v21 + 1) + 8 * v15);
+              v17 = *(*(&v21 + 1) + 8 * v16);
               actionCache = [(SWCollaborationCoordinator *)self actionCache];
-              v18 = [actionCache objectForKey:v16];
+              v19 = [actionCache objectForKey:v17];
 
               actionCache2 = [(SWCollaborationCoordinator *)self actionCache];
-              [actionCache2 removeObjectForKey:v16];
+              [actionCache2 removeObjectForKey:v17];
 
-              if (v18)
+              if (v19)
               {
-                [(SWCollaborationCoordinator *)self _sendActionToApp:v18];
+                [(SWCollaborationCoordinator *)self _sendActionToApp:v19];
               }
 
-              ++v15;
+              ++v16;
             }
 
-            while (v13 != v15);
-            v13 = [cachedUUIDs3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+            while (v14 != v16);
+            v14 = [cachedUUIDs3 countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
-          while (v13);
+          while (v14);
         }
 
         array = [MEMORY[0x1E695DF70] array];
         [(SWCollaborationCoordinator *)self setCachedUUIDs:array];
       }
 
-      else if (v9)
+      else if (v10)
       {
         *buf = 136315138;
         v27 = "[SWCollaborationCoordinator _sendUndeliveredActionsIfNecessary]";
@@ -144,8 +145,6 @@ uint64_t __47__SWCollaborationCoordinator_sharedCoordinator__block_invoke(uint64
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)actionHandler
@@ -163,57 +162,53 @@ uint64_t __47__SWCollaborationCoordinator_sharedCoordinator__block_invoke(uint64
 
   if (WeakRetained != v4)
   {
-    v6 = SWFrameworkLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SWFrameworkLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 136315394;
       v9 = "[SWCollaborationCoordinator setActionHandler:]";
       v10 = 2112;
       v11 = v4;
-      _os_log_impl(&dword_1D2C1D000, v6, OS_LOG_TYPE_DEFAULT, "%s: %@", &v8, 0x16u);
+      _os_log_impl(&dword_1D2C1D000, v7, OS_LOG_TYPE_DEFAULT, "%s: %@", &v8, 0x16u);
     }
 
     objc_storeWeak(&self->_actionHandler, v4);
     [(SWCollaborationCoordinator *)self _sendUndeliveredActionsIfNecessary];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processIncomingActions:(id)actions
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [actionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        [(SWCollaborationCoordinator *)self processIncomingAction:*(*(&v10 + 1) + 8 * v8++)];
+        [(SWCollaborationCoordinator *)self processIncomingAction:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [actionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processIncomingAction:(id)action
@@ -268,11 +263,11 @@ uint64_t __47__SWCollaborationCoordinator_sharedCoordinator__block_invoke(uint64
 
   if (v6)
   {
-    v7 = SWFrameworkLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SWFrameworkLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1D2C1D000, v7, OS_LOG_TYPE_DEFAULT, "_sendStartCollaborationAction: invoking the action handler", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1D2C1D000, v8, OS_LOG_TYPE_DEFAULT, "_sendStartCollaborationAction: invoking the action handler", v12, 2u);
     }
 
     actionHandler2 = [(SWCollaborationCoordinator *)self actionHandler];
@@ -286,7 +281,7 @@ LABEL_8:
 
   if (actionHandler3)
   {
-    actionHandler2 = SWFrameworkLogHandle();
+    actionHandler2 = SWFrameworkLogHandle(v11);
     if (os_log_type_enabled(actionHandler2, OS_LOG_TYPE_ERROR))
     {
       [SWCollaborationCoordinator _sendStartCollaborationAction:actionCopy];
@@ -306,13 +301,13 @@ LABEL_9:
 
   if (v6)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __73__SWCollaborationCoordinator__sendUpdateCollaborationParticipantsAction___block_invoke;
-    v9[3] = &unk_1E84126A0;
-    v9[4] = self;
-    v10 = actionCopy;
-    dispatch_async(MEMORY[0x1E69E96A0], v9);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __73__SWCollaborationCoordinator__sendUpdateCollaborationParticipantsAction___block_invoke;
+    v10[3] = &unk_1E84126A0;
+    v10[4] = self;
+    v11 = actionCopy;
+    dispatch_async(MEMORY[0x1E69E96A0], v10);
   }
 
   else
@@ -321,8 +316,8 @@ LABEL_9:
 
     if (actionHandler2)
     {
-      v8 = SWFrameworkLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = SWFrameworkLogHandle(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [SWCollaborationCoordinator _sendUpdateCollaborationParticipantsAction:actionCopy];
       }
@@ -332,7 +327,7 @@ LABEL_9:
 
 void __73__SWCollaborationCoordinator__sendUpdateCollaborationParticipantsAction___block_invoke(uint64_t a1)
 {
-  v2 = SWFrameworkLogHandle();
+  v2 = SWFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -345,19 +340,19 @@ void __73__SWCollaborationCoordinator__sendUpdateCollaborationParticipantsAction
 
 - (void)_cacheAction:(id)action
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   actionCopy = action;
-  v5 = SWFrameworkLogHandle();
+  v5 = SWFrameworkLogHandle(actionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [actionCopy uuid];
-    v12 = 136315650;
-    v13 = "[SWCollaborationCoordinator _cacheAction:]";
-    v14 = 2112;
-    v15 = actionCopy;
-    v16 = 2112;
-    v17 = uuid;
-    _os_log_impl(&dword_1D2C1D000, v5, OS_LOG_TYPE_DEFAULT, "[%s] action: %@ uuid: %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SWCollaborationCoordinator _cacheAction:]";
+    v13 = 2112;
+    v14 = actionCopy;
+    v15 = 2112;
+    v16 = uuid;
+    _os_log_impl(&dword_1D2C1D000, v5, OS_LOG_TYPE_DEFAULT, "[%s] action: %@ uuid: %@", &v11, 0x20u);
   }
 
   actionCache = [(SWCollaborationCoordinator *)self actionCache];
@@ -367,8 +362,6 @@ void __73__SWCollaborationCoordinator__sendUpdateCollaborationParticipantsAction
   cachedUUIDs = [(SWCollaborationCoordinator *)self cachedUUIDs];
   uuid3 = [actionCopy uuid];
   [cachedUUIDs addObject:uuid3];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cache:(id)cache willEvictObject:(id)object
@@ -395,28 +388,26 @@ LABEL_6:
     uuid = [actionCache uuid];
     [cachedUUIDs removeObject:uuid];
 
-    v12 = SWFrameworkLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SWFrameworkLogHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       uuid2 = [actionCache uuid];
       v15 = 138412546;
       v16 = actionCache;
       v17 = 2112;
       v18 = uuid2;
-      _os_log_impl(&dword_1D2C1D000, v12, OS_LOG_TYPE_DEFAULT, "We're evicting a cached action not yet sent to app, which means this action will be dropped. action: %@ uuid: %@", &v15, 0x16u);
+      _os_log_impl(&dword_1D2C1D000, v13, OS_LOG_TYPE_DEFAULT, "We're evicting a cached action not yet sent to app, which means this action will be dropped. action: %@ uuid: %@", &v15, 0x16u);
     }
 
     goto LABEL_6;
   }
 
 LABEL_7:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __74___SWCollaborationCoordinator__sendUpdateCollaborationParticipantsAction___block_invoke(uint64_t a1)
 {
-  v2 = SWFrameworkLogHandle();
+  v2 = SWFrameworkLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -429,20 +420,18 @@ void __74___SWCollaborationCoordinator__sendUpdateCollaborationParticipantsActio
 
 - (void)_sendStartCollaborationAction:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 uuid];
-  OUTLINED_FUNCTION_0_0(&dword_1D2C1D000, v2, v3, "SWCollaborationCoordinator's actionHandler doesn't implement handleStartCollaborationAction. Dropping action: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D2C1D000, v2, v3, "SWCollaborationCoordinator's actionHandler doesn't implement handleStartCollaborationAction. Dropping action: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_sendUpdateCollaborationParticipantsAction:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 uuid];
-  OUTLINED_FUNCTION_0_0(&dword_1D2C1D000, v2, v3, "SWCollaborationCoordinator's actionHandler doesn't implement handleUpdateCollaborationParticipantsAction. Dropping action: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D2C1D000, v2, v3, "SWCollaborationCoordinator's actionHandler doesn't implement handleUpdateCollaborationParticipantsAction. Dropping action: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

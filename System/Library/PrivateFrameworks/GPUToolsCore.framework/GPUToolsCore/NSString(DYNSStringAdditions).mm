@@ -2,9 +2,9 @@
 + (uint64_t)dy_timeFormat:()DYNSStringAdditions unit:;
 - (id)dy_removeWhiteSpaceCharacters;
 - (uint64_t)dy_appendComponents:()DYNSStringAdditions usingSeparator:unique:;
-- (uint64_t)dy_appendComponentsString:()DYNSStringAdditions usingSeparator:unique:;
 - (uint64_t)dy_scanBuildPrefix:()DYNSStringAdditions number:;
-- (uint64_t)simplifiedTestFileName:()DYNSStringAdditions;
+- (void)dy_appendComponentsString:()DYNSStringAdditions usingSeparator:unique:;
+- (void)simplifiedTestFileName:()DYNSStringAdditions;
 @end
 
 @implementation NSString(DYNSStringAdditions)
@@ -93,7 +93,7 @@
 
 - (uint64_t)dy_appendComponents:()DYNSStringAdditions usingSeparator:unique:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([self length])
   {
     v9 = [self componentsSeparatedByString:a4];
@@ -117,25 +117,25 @@ LABEL_3:
         v13 = v12;
         if (v9)
         {
-          v24 = 0u;
-          v25 = 0u;
-          v22 = 0u;
           v23 = 0u;
-          v14 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v24 = 0u;
+          v21 = 0u;
+          v22 = 0u;
+          v14 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v23;
+            v16 = *v22;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v23 != v16)
+                if (*v22 != v16)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v18 = *(*(&v22 + 1) + 8 * i);
+                v18 = *(*(&v21 + 1) + 8 * i);
                 if (([v10 containsObject:v18] & 1) == 0)
                 {
                   [v11 addObject:v18];
@@ -143,7 +143,7 @@ LABEL_3:
                 }
               }
 
-              v15 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+              v15 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
             }
 
             while (v15);
@@ -168,12 +168,10 @@ LABEL_19:
     a3 = v19;
   }
 
-  result = [a3 componentsJoinedByString:a4];
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return [a3 componentsJoinedByString:a4];
 }
 
-- (uint64_t)dy_appendComponentsString:()DYNSStringAdditions usingSeparator:unique:
+- (void)dy_appendComponentsString:()DYNSStringAdditions usingSeparator:unique:
 {
   if (![a3 length])
   {
@@ -185,7 +183,7 @@ LABEL_19:
   return [self dy_appendComponents:v9 usingSeparator:a4 unique:a5];
 }
 
-- (uint64_t)simplifiedTestFileName:()DYNSStringAdditions
+- (void)simplifiedTestFileName:()DYNSStringAdditions
 {
   if (![self length])
   {

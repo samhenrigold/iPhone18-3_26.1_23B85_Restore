@@ -34,23 +34,22 @@ void __CMSMNotificationUtility_PostApplicationStateDidChange_block_invoke(uint64
 
 void __CMSMNotificationUtility_PostReporterIDsDidChange_block_invoke(uint64_t a1)
 {
-  v3 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{objc_msgSend(*(a1 + 32), "reporterIDs"), @"ReporterIDs", 0}];
-  v2 = *(a1 + 32);
+  v2 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{objc_msgSend(*(a1 + 32), "reporterIDs"), @"ReporterIDs", 0}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [+[MXSessionManagerSidekick sharedInstance](MXSessionManagerSidekick postNotification:"postNotification:toSession:payload:" toSession:@"ReporterIDsDidChange" payload:*(a1 + 32), v3];
+    [+[MXSessionManagerSidekick sharedInstance](MXSessionManagerSidekick postNotification:"postNotification:toSession:payload:" toSession:@"ReporterIDsDidChange" payload:*(a1 + 32), v2];
   }
 
   else
   {
-    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"ReporterIDsDidChange");
+    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"ReporterIDsDidChange", v2);
   }
 }
 
 void __CMSMNotificationUtility_PostSessionAudioCategoryDidChange_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   Weak = objc_loadWeak((a1 + 40));
   if (Weak)
   {
@@ -63,16 +62,14 @@ void __CMSMNotificationUtility_PostSessionAudioCategoryDidChange_block_invoke(ui
     }
 
     v5 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{objc_msgSend(v3, "audioCategory"), @"AudioCategory", 0}];
-    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"AudioCategoryDidChange");
+    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"AudioCategoryDidChange", v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMNotificationUtility_PostSessionAudioModeDidChange_block_invoke(uint64_t a1)
 {
   v2 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{objc_msgSend(*(a1 + 32), "audioMode"), @"AudioMode", 0}];
-  CMSMUtility_PostNotificationToSession(*(a1 + 32), @"AudioModeDidChange");
+  CMSMUtility_PostNotificationToSession(*(a1 + 32), @"AudioModeDidChange", v2);
 }
 
 void __CMSMNotificationUtility_PostPickableRoutesDidChange_block_invoke(uint64_t a1)
@@ -85,10 +82,10 @@ void __CMSMNotificationUtility_PostPickableRoutesDidChange_block_invoke(uint64_t
   }
 }
 
-void __CMSMNotificationUtility_PostIsRecordingMutedDidChange_block_invoke(void **a1)
+void __CMSMNotificationUtility_PostIsRecordingMutedDidChange_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (objc_loadWeak(a1 + 6))
+  v3 = *MEMORY[0x1E69E9840];
+  if (objc_loadWeak((a1 + 48)))
   {
     if (dword_1EB75DE40)
     {
@@ -97,11 +94,8 @@ void __CMSMNotificationUtility_PostIsRecordingMutedDidChange_block_invoke(void *
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v3 = a1[5];
-    CMSMUtility_PostNotificationToSession(a1[4], @"IsRecordingMutedDidChange");
+    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"IsRecordingMutedDidChange", *(a1 + 40));
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMNotificationUtility_PostVolumeDidChangeToVolumeButtonClientsWithPayload_block_invoke(uint64_t a1)
@@ -121,8 +115,7 @@ void __CMSMNotificationUtility_PostActiveAudioRouteDidChange_block_invoke(uint64
   v2 = *(a1 + 32);
   if (v2)
   {
-    v3 = *(a1 + 40);
-    CMSMUtility_PostNotificationToSession(v2, @"ActiveAudioRouteDidChange");
+    CMSMUtility_PostNotificationToSession(v2, @"ActiveAudioRouteDidChange", *(a1 + 40));
   }
 
   else
@@ -130,17 +123,17 @@ void __CMSMNotificationUtility_PostActiveAudioRouteDidChange_block_invoke(uint64
     CMSMUtility_NotifyEachMatchingSession(0, CMSUtilityPredicate_IsSessionUsingRoutingContext, *(a1 + 48), @"ActiveAudioRouteDidChange", *(a1 + 40), 0);
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
-  v5 = *(a1 + 48);
-  if (v5)
+  v4 = *(a1 + 48);
+  if (v4)
   {
 
-    CFRelease(v5);
+    CFRelease(v4);
   }
 }
 
@@ -235,8 +228,6 @@ void __CMSMNotificationUtility_PostAvailableVirtualFormatsDidChange_block_invoke
   {
     CFRelease(cf);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMNotificationUtility_PostVoicePromptStyleDidChange_block_invoke(uint64_t a1)
@@ -265,7 +256,7 @@ void __CMSMNotificationUtility_PostSomePrimaryAudioCategoryIsPlayingDidChange_bl
 
 void __CMSMNotificationUtility_PostSessionPrefersConcurrentAirPlayAudioDidChange_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -279,13 +270,11 @@ void __CMSMNotificationUtility_PostSessionPrefersConcurrentAirPlayAudioDidChange
   {
     CFRelease(v3);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMNotificationUtility_PostSessionAudioBehaviourDidChange_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -293,15 +282,13 @@ void __CMSMNotificationUtility_PostSessionAudioBehaviourDidChange_block_invoke(u
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  CMSMUtility_PostNotificationToSession(*(a1 + 32), @"AudioBehaviourDidChange");
-
-  v3 = *MEMORY[0x1E69E9840];
+  CMSMUtility_PostNotificationToSession(*(a1 + 32), @"AudioBehaviourDidChange", 0);
 }
 
-void __CMSMNotificationUtility_PostSessionRouteControlFeaturesDidChange_block_invoke(void **a1)
+void __CMSMNotificationUtility_PostSessionRouteControlFeaturesDidChange_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (objc_loadWeak(a1 + 6))
+  v3 = *MEMORY[0x1E69E9840];
+  if (objc_loadWeak((a1 + 48)))
   {
     if (dword_1EB75DE40)
     {
@@ -310,11 +297,8 @@ void __CMSMNotificationUtility_PostSessionRouteControlFeaturesDidChange_block_in
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v3 = a1[5];
-    CMSMUtility_PostNotificationToSession(a1[4], @"RouteControlFeaturesDidChange");
+    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"RouteControlFeaturesDidChange", *(a1 + 40));
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 id __CMSMNotificationUtility_PostSpeechDetectStyleDidChangeIfNeeded_block_invoke()
@@ -326,7 +310,7 @@ id __CMSMNotificationUtility_PostSpeechDetectStyleDidChangeIfNeeded_block_invoke
 
 void __CMSMNotificationUtility_PostSpeechDetectStyleDidChangeIfNeeded_block_invoke_2(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -337,8 +321,6 @@ void __CMSMNotificationUtility_PostSpeechDetectStyleDidChangeIfNeeded_block_invo
   v3 = objc_alloc(MEMORY[0x1E695DF20]);
   v4 = [v3 initWithObjectsAndKeys:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", *(a1 + 32)), @"SpeechDetectStyle", 0}];
   CMSMUtility_NotifyEachSubscribedSession(0, @"SpeechDetectStyleDidChange", v4, 0);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 id __CMSMNotificationUtility_PostSomeSessionIsPlayingDidChange_block_invoke()
@@ -435,8 +417,6 @@ void __CMSMNotificationUtility_PostInputDataSourcesDidChange_block_invoke()
   {
     CFRelease(v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMNotificationUtility_PostOutputDataDestinationsDidChange_block_invoke()
@@ -496,8 +476,6 @@ void __CMSMNotificationUtility_PostOutputDataDestinationsDidChange_block_invoke(
   {
     CFRelease(v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMNotificationUtility_PostInputGainScalarDidChange_block_invoke()
@@ -552,8 +530,6 @@ void __CMSMNotificationUtility_PostInputGainScalarDidChange_block_invoke()
   {
     CFRelease(cf);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __CMSMNotificationUtility_PostCurrentRouteHasInputGainControlDidChange_block_invoke(uint64_t a1)
@@ -609,10 +585,10 @@ void __CMSMNotificationUtility_PostSupportedBufferedAudioCapabilitiesDidChange_b
   }
 }
 
-void __CMSMNotificationUtility_PostIsOutputMutedDidChange_block_invoke(void **a1)
+void __CMSMNotificationUtility_PostIsOutputMutedDidChange_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (objc_loadWeak(a1 + 6))
+  v3 = *MEMORY[0x1E69E9840];
+  if (objc_loadWeak((a1 + 48)))
   {
     if (dword_1EB75DE40)
     {
@@ -621,17 +597,14 @@ void __CMSMNotificationUtility_PostIsOutputMutedDidChange_block_invoke(void **a1
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v3 = a1[5];
-    CMSMUtility_PostNotificationToSession(a1[4], @"IsOutputMutedDidChange");
+    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"IsOutputMutedDidChange", *(a1 + 40));
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __CMSMNotificationUtility_PostUserIntentToUnmuteDidChange_block_invoke(void **a1)
+void __CMSMNotificationUtility_PostUserIntentToUnmuteDidChange_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (objc_loadWeak(a1 + 6))
+  v3 = *MEMORY[0x1E69E9840];
+  if (objc_loadWeak((a1 + 48)))
   {
     if (dword_1EB75DE40)
     {
@@ -640,17 +613,14 @@ void __CMSMNotificationUtility_PostUserIntentToUnmuteDidChange_block_invoke(void
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v3 = a1[5];
-    CMSMUtility_PostNotificationToSession(a1[4], @"UserIntentToUnmuteDidChange");
+    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"UserIntentToUnmuteDidChange", *(a1 + 40));
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __CMSMNotificationUtility_PostAllowEnhancedDialogueDidChange_block_invoke(void **a1)
+void __CMSMNotificationUtility_PostAllowEnhancedDialogueDidChange_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (objc_loadWeak(a1 + 6))
+  v3 = *MEMORY[0x1E69E9840];
+  if (objc_loadWeak((a1 + 48)))
   {
     if (dword_1EB75DE40)
     {
@@ -659,11 +629,8 @@ void __CMSMNotificationUtility_PostAllowEnhancedDialogueDidChange_block_invoke(v
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v3 = a1[5];
-    CMSMUtility_PostNotificationToSession(a1[4], @"AllowEnhancedDialogueDidChange");
+    CMSMUtility_PostNotificationToSession(*(a1 + 32), @"AllowEnhancedDialogueDidChange", *(a1 + 40));
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 id __CMSMNotificationUtility_PostHighestArbitrationPriorityForTipiDidChangeIfNeeded_block_invoke()

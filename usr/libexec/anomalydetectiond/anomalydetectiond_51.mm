@@ -1,343 +1,3 @@
-uint64_t CMMsl::PDRFenceState::readFrom(CMMsl::PDRFenceState *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    v4 = 0;
-    while (1)
-    {
-      v7 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        break;
-      }
-
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
-      v11 = (v7 + v2);
-      v12 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v12;
-        v13 = *v11++;
-        v10 |= (v13 & 0x7F) << v8;
-        if ((v13 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v8 += 7;
-        ++v12;
-        v14 = v9++ > 8;
-        if (v14)
-        {
-          goto LABEL_18;
-        }
-      }
-
-LABEL_21:
-      if (v4 & 1 | ((v10 & 7) == 4))
-      {
-        goto LABEL_90;
-      }
-
-      switch((v10 >> 3))
-      {
-        case 1u:
-          *(this + 34) |= 1u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 1) = *(*a2 + v2);
-          goto LABEL_83;
-        case 2u:
-          *(this + 34) |= 0x200u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 13) = *(*a2 + v2);
-          goto LABEL_64;
-        case 3u:
-          *(this + 34) |= 0x400u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 14) = *(*a2 + v2);
-          goto LABEL_64;
-        case 4u:
-          *(this + 34) |= 0x800u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 15) = *(*a2 + v2);
-          goto LABEL_64;
-        case 5u:
-          *(this + 34) |= 0x40u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 10) = *(*a2 + v2);
-          goto LABEL_64;
-        case 6u:
-          *(this + 34) |= 0x80u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 11) = *(*a2 + v2);
-          goto LABEL_64;
-        case 7u:
-          *(this + 34) |= 0x100u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 12) = *(*a2 + v2);
-          goto LABEL_64;
-        case 8u:
-          *(this + 34) |= 0x1000u;
-          v2 = *(a2 + 1);
-          if (v2 >= *(a2 + 2))
-          {
-            v31 = 0;
-            *(a2 + 24) = 1;
-          }
-
-          else
-          {
-            v30 = *(*a2 + v2++);
-            *(a2 + 1) = v2;
-            v31 = v30 != 0;
-          }
-
-          *(this + 64) = v31;
-          goto LABEL_69;
-        case 9u:
-          *(this + 34) |= 2u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 2) = *(*a2 + v2);
-LABEL_83:
-          v2 = *(a2 + 1) + 8;
-          goto LABEL_65;
-        case 0xAu:
-          *(this + 34) |= 8u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 7) = *(*a2 + v2);
-          goto LABEL_64;
-        case 0xBu:
-          *(this + 34) |= 0x10u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-            goto LABEL_68;
-          }
-
-          *(this + 8) = *(*a2 + v2);
-          goto LABEL_64;
-        case 0xCu:
-          *(this + 34) |= 0x20u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-          {
-LABEL_68:
-            *(a2 + 24) = 1;
-          }
-
-          else
-          {
-            *(this + 9) = *(*a2 + v2);
-LABEL_64:
-            v2 = *(a2 + 1) + 4;
-LABEL_65:
-            *(a2 + 1) = v2;
-          }
-
-          goto LABEL_69;
-        case 0xDu:
-          *(this + 34) |= 4u;
-          v22 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v23 = *a2;
-          if (v22 > 0xFFFFFFFFFFFFFFF5 || v22 + 10 > v2)
-          {
-            v32 = 0;
-            v33 = 0;
-            v26 = 0;
-            if (v2 <= v22)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v34 = v2 - v22;
-            v35 = (v23 + v22);
-            v36 = v22 + 1;
-            while (1)
-            {
-              if (!v34)
-              {
-                LODWORD(v26) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_88;
-              }
-
-              v37 = v36;
-              v38 = *v35;
-              *(a2 + 1) = v37;
-              v26 |= (v38 & 0x7F) << v32;
-              if ((v38 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v32 += 7;
-              --v34;
-              ++v35;
-              v36 = v37 + 1;
-              v14 = v33++ > 8;
-              if (v14)
-              {
-                LODWORD(v26) = 0;
-LABEL_87:
-                v2 = v37;
-                goto LABEL_88;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v26) = 0;
-            }
-
-            goto LABEL_87;
-          }
-
-          v24 = 0;
-          v25 = 0;
-          v26 = 0;
-          v27 = (v23 + v22);
-          v28 = v22 + 1;
-          do
-          {
-            v2 = v28;
-            *(a2 + 1) = v28;
-            v29 = *v27++;
-            v26 |= (v29 & 0x7F) << v24;
-            if ((v29 & 0x80) == 0)
-            {
-              goto LABEL_88;
-            }
-
-            v24 += 7;
-            ++v28;
-            v14 = v25++ > 8;
-          }
-
-          while (!v14);
-          LODWORD(v26) = 0;
-LABEL_88:
-          *(this + 6) = v26;
-          goto LABEL_69;
-        default:
-          if (!PB::Reader::skip(a2, v10 >> 3, v10 & 7, 0))
-          {
-            v39 = 0;
-            return v39 & 1;
-          }
-
-          v2 = *(a2 + 1);
-LABEL_69:
-          v3 = *(a2 + 2);
-          v4 = *(a2 + 24);
-          if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-          {
-            goto LABEL_90;
-          }
-
-          break;
-      }
-    }
-
-    v15 = 0;
-    v16 = 0;
-    v10 = 0;
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
-    {
-      v18 = 0;
-    }
-
-    v19 = (v7 + v2);
-    v20 = v2 + 1;
-    while (v18)
-    {
-      v21 = *v19;
-      *(a2 + 1) = v20;
-      v10 |= (v21 & 0x7F) << v15;
-      if ((v21 & 0x80) == 0)
-      {
-        if (v4)
-        {
-          v10 = 0;
-        }
-
-        goto LABEL_21;
-      }
-
-      v15 += 7;
-      --v18;
-      ++v19;
-      ++v20;
-      v14 = v16++ > 8;
-      if (v14)
-      {
-LABEL_18:
-        v10 = 0;
-        goto LABEL_21;
-      }
-    }
-
-    v4 = 1;
-    *(a2 + 24) = 1;
-  }
-
-LABEL_90:
-  v39 = v4 ^ 1;
-  return v39 & 1;
-}
-
 uint64_t CMMsl::PDRFenceState::writeTo(uint64_t this, PB::Writer *a2)
 {
   v3 = this;
@@ -1879,15 +1539,13 @@ LABEL_3:
 
   v3 = 0;
 LABEL_9:
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v6 = PBHashBytes();
+  v4 = PBHashBytes();
   if ((*(this + 56) & 2) != 0)
   {
-    v7 = *(this + 5);
-    if (v7 == 0.0)
+    v5 = *(this + 5);
+    if (v5 == 0.0)
     {
-      v7 = 0.0;
+      v5 = 0.0;
     }
 
     if ((*(this + 56) & 4) != 0)
@@ -1896,19 +1554,19 @@ LABEL_9:
     }
 
 LABEL_15:
-    v8 = 0;
-    return v3 ^ v2 ^ *&v7 ^ v8 ^ v6;
+    v6 = 0;
+    return v3 ^ v2 ^ *&v5 ^ v6 ^ v4;
   }
 
-  v7 = 0.0;
+  v5 = 0.0;
   if ((*(this + 56) & 4) == 0)
   {
     goto LABEL_15;
   }
 
 LABEL_11:
-  v8 = *(this + 12);
-  return v3 ^ v2 ^ *&v7 ^ v8 ^ v6;
+  v6 = *(this + 12);
+  return v3 ^ v2 ^ *&v5 ^ v6 ^ v4;
 }
 
 void CMMsl::PDRPlacementClassifierState::~PDRPlacementClassifierState(CMMsl::PDRPlacementClassifierState *this)
@@ -2585,24 +2243,22 @@ LABEL_3:
 
   v3 = 0;
 LABEL_9:
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v6 = PBHashBytes();
+  v4 = PBHashBytes();
   if ((*(this + 52) & 2) != 0)
   {
-    v7 = *(this + 5);
-    if (v7 == 0.0)
+    v5 = *(this + 5);
+    if (v5 == 0.0)
     {
-      v7 = 0.0;
+      v5 = 0.0;
     }
   }
 
   else
   {
-    v7 = 0.0;
+    v5 = 0.0;
   }
 
-  return v3 ^ v2 ^ *&v7 ^ v6;
+  return v3 ^ v2 ^ *&v5 ^ v4;
 }
 
 void CMMsl::PDRSpeedEstimatorState::~PDRSpeedEstimatorState(CMMsl::PDRSpeedEstimatorState *this)
@@ -4510,17 +4166,17 @@ void CMMsl::PTSConsumedGNSS::~PTSConsumedGNSS(CMMsl::PTSConsumedGNSS *this)
   operator delete();
 }
 
-void *CMMsl::PTSConsumedGNSS::PTSConsumedGNSS(void *this, const CMMsl::PTSConsumedGNSS *a2)
+CMMsl::PTSConsumedGNSS *CMMsl::PTSConsumedGNSS::PTSConsumedGNSS(CMMsl::PTSConsumedGNSS *this, const CMMsl::LocationOscarEmu **a2)
 {
   *this = off_100420B88;
-  this[1] = 0;
-  this[2] = 0;
-  if (*(a2 + 2))
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  if (a2[2])
   {
     operator new();
   }
 
-  if (*(a2 + 1))
+  if (a2[1])
   {
     operator new();
   }
@@ -4528,15 +4184,15 @@ void *CMMsl::PTSConsumedGNSS::PTSConsumedGNSS(void *this, const CMMsl::PTSConsum
   return this;
 }
 
-uint64_t CMMsl::PTSConsumedGNSS::operator=(uint64_t a1, const CMMsl::PTSConsumedGNSS *a2)
+uint64_t CMMsl::PTSConsumedGNSS::operator=(uint64_t a1, const CMMsl::LocationOscarEmu **a2)
 {
   if (a1 != a2)
   {
-    CMMsl::PTSConsumedGNSS::PTSConsumedGNSS(&v5, a2);
+    CMMsl::PTSConsumedGNSS::PTSConsumedGNSS(v5, a2);
     v3 = *(a1 + 8);
     *(a1 + 8) = v6;
     v6 = v3;
-    CMMsl::PTSConsumedGNSS::~PTSConsumedGNSS(&v5);
+    CMMsl::PTSConsumedGNSS::~PTSConsumedGNSS(v5);
   }
 
   return a1;
@@ -4777,9 +4433,9 @@ unint64_t CMMsl::PTSConsumedGNSS::hash_value(CMMsl::PTSConsumedGNSS *this)
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::PTSConsumedGNSS::makeSuper(uint64_t this)
+void *CMMsl::PTSConsumedGNSS::makeSuper(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -4787,9 +4443,9 @@ uint64_t CMMsl::PTSConsumedGNSS::makeSuper(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::PTSConsumedGNSS::makeSignalEnvironment(uint64_t this)
+void *CMMsl::PTSConsumedGNSS::makeSignalEnvironment(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -4816,18 +4472,18 @@ void CMMsl::PTSForwardPropagation::~PTSForwardPropagation(CMMsl::PTSForwardPropa
   operator delete();
 }
 
-uint64_t CMMsl::PTSForwardPropagation::PTSForwardPropagation(uint64_t this, const CMMsl::PTSForwardPropagation *a2)
+CMMsl::PTSForwardPropagation *CMMsl::PTSForwardPropagation::PTSForwardPropagation(CMMsl::PTSForwardPropagation *this, const CMMsl::PTSForwardPropagation *a2)
 {
   *this = off_100420BC0;
-  *(this + 48) = 0;
-  *(this + 64) = 0;
+  *(this + 6) = 0;
+  *(this + 16) = 0;
   v2 = *(a2 + 64);
   if ((v2 & 0x20) != 0)
   {
     v4 = *(a2 + 7);
     v3 = 32;
     *(this + 64) = 32;
-    *(this + 56) = v4;
+    *(this + 7) = v4;
     v2 = *(a2 + 64);
     if ((v2 & 8) == 0)
     {
@@ -4844,7 +4500,7 @@ LABEL_5:
     v5 = *(a2 + 4);
     v3 |= 8u;
     *(this + 64) = v3;
-    *(this + 32) = v5;
+    *(this + 4) = v5;
     v2 = *(a2 + 64);
   }
 
@@ -4854,7 +4510,7 @@ LABEL_6:
     v7 = *(a2 + 5);
     v3 |= 0x10u;
     *(this + 64) = v3;
-    *(this + 40) = v7;
+    *(this + 5) = v7;
     v2 = *(a2 + 64);
     if ((v2 & 4) == 0)
     {
@@ -4876,7 +4532,7 @@ LABEL_8:
   v8 = *(a2 + 3);
   v3 |= 4u;
   *(this + 64) = v3;
-  *(this + 24) = v8;
+  *(this + 3) = v8;
   v2 = *(a2 + 64);
   if ((v2 & 1) == 0)
   {
@@ -4893,13 +4549,13 @@ LABEL_16:
   v9 = *(a2 + 1);
   v3 |= 1u;
   *(this + 64) = v3;
-  *(this + 8) = v9;
+  *(this + 1) = v9;
   if ((*(a2 + 64) & 2) != 0)
   {
 LABEL_10:
     v6 = *(a2 + 2);
     *(this + 64) = v3 | 2;
-    *(this + 16) = v6;
+    *(this + 2) = v6;
   }
 
 LABEL_11:
@@ -5514,9 +5170,9 @@ LABEL_26:
   return *&v2 ^ *&v1 ^ *&v3 ^ *&v4 ^ *&v5 ^ *&v6 ^ v7;
 }
 
-uint64_t CMMsl::PTSForwardPropagation::makeSignalEnvironment(uint64_t this)
+void *CMMsl::PTSForwardPropagation::makeSignalEnvironment(void *this)
 {
-  if (!*(this + 48))
+  if (!this[6])
   {
     operator new();
   }
@@ -5543,11 +5199,11 @@ void CMMsl::PTSMapMatchedRoute::~PTSMapMatchedRoute(CMMsl::PTSMapMatchedRoute *t
   operator delete();
 }
 
-void *CMMsl::PTSMapMatchedRoute::PTSMapMatchedRoute(void *this, const CMMsl::PTSMapMatchedRoute *a2)
+CMMsl::PTSMapMatchedRoute *CMMsl::PTSMapMatchedRoute::PTSMapMatchedRoute(CMMsl::PTSMapMatchedRoute *this, const CMMsl::PTSForwardPropagation **a2)
 {
   *this = off_100420BF8;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5555,13 +5211,13 @@ void *CMMsl::PTSMapMatchedRoute::PTSMapMatchedRoute(void *this, const CMMsl::PTS
   return this;
 }
 
-const CMMsl::PTSMapMatchedRoute *CMMsl::PTSMapMatchedRoute::operator=(const CMMsl::PTSMapMatchedRoute *a1, const CMMsl::PTSMapMatchedRoute *a2)
+uint64_t CMMsl::PTSMapMatchedRoute::operator=(uint64_t a1, const CMMsl::PTSForwardPropagation **a2)
 {
   if (a1 != a2)
   {
     CMMsl::PTSMapMatchedRoute::PTSMapMatchedRoute(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::PTSMapMatchedRoute::~PTSMapMatchedRoute(&v5);
   }
@@ -5776,9 +5432,9 @@ CMMsl::PTSForwardPropagation *CMMsl::PTSMapMatchedRoute::hash_value(CMMsl::PTSMa
   return result;
 }
 
-uint64_t CMMsl::PTSMapMatchedRoute::makeSuper(uint64_t this)
+void *CMMsl::PTSMapMatchedRoute::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -5805,11 +5461,11 @@ void CMMsl::PTSReconstructedRoute::~PTSReconstructedRoute(CMMsl::PTSReconstructe
   operator delete();
 }
 
-void *CMMsl::PTSReconstructedRoute::PTSReconstructedRoute(void *this, const CMMsl::PTSReconstructedRoute *a2)
+CMMsl::PTSReconstructedRoute *CMMsl::PTSReconstructedRoute::PTSReconstructedRoute(CMMsl::PTSReconstructedRoute *this, const CMMsl::PTSForwardPropagation **a2)
 {
   *this = off_100420C30;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -5817,13 +5473,13 @@ void *CMMsl::PTSReconstructedRoute::PTSReconstructedRoute(void *this, const CMMs
   return this;
 }
 
-const CMMsl::PTSReconstructedRoute *CMMsl::PTSReconstructedRoute::operator=(const CMMsl::PTSReconstructedRoute *a1, const CMMsl::PTSReconstructedRoute *a2)
+uint64_t CMMsl::PTSReconstructedRoute::operator=(uint64_t a1, const CMMsl::PTSForwardPropagation **a2)
 {
   if (a1 != a2)
   {
     CMMsl::PTSReconstructedRoute::PTSReconstructedRoute(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::PTSReconstructedRoute::~PTSReconstructedRoute(&v5);
   }
@@ -6038,9 +5694,9 @@ CMMsl::PTSForwardPropagation *CMMsl::PTSReconstructedRoute::hash_value(CMMsl::PT
   return result;
 }
 
-uint64_t CMMsl::PTSReconstructedRoute::makeSuper(uint64_t this)
+void *CMMsl::PTSReconstructedRoute::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6067,11 +5723,11 @@ void CMMsl::PTSSmoothedRoute::~PTSSmoothedRoute(CMMsl::PTSSmoothedRoute *this)
   operator delete();
 }
 
-void *CMMsl::PTSSmoothedRoute::PTSSmoothedRoute(void *this, const CMMsl::PTSSmoothedRoute *a2)
+CMMsl::PTSSmoothedRoute *CMMsl::PTSSmoothedRoute::PTSSmoothedRoute(CMMsl::PTSSmoothedRoute *this, const CMMsl::PTSForwardPropagation **a2)
 {
   *this = off_100420C68;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -6079,13 +5735,13 @@ void *CMMsl::PTSSmoothedRoute::PTSSmoothedRoute(void *this, const CMMsl::PTSSmoo
   return this;
 }
 
-const CMMsl::PTSSmoothedRoute *CMMsl::PTSSmoothedRoute::operator=(const CMMsl::PTSSmoothedRoute *a1, const CMMsl::PTSSmoothedRoute *a2)
+uint64_t CMMsl::PTSSmoothedRoute::operator=(uint64_t a1, const CMMsl::PTSForwardPropagation **a2)
 {
   if (a1 != a2)
   {
     CMMsl::PTSSmoothedRoute::PTSSmoothedRoute(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::PTSSmoothedRoute::~PTSSmoothedRoute(&v5);
   }
@@ -6300,9 +5956,9 @@ CMMsl::PTSForwardPropagation *CMMsl::PTSSmoothedRoute::hash_value(CMMsl::PTSSmoo
   return result;
 }
 
-uint64_t CMMsl::PTSSmoothedRoute::makeSuper(uint64_t this)
+void *CMMsl::PTSSmoothedRoute::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6800,8 +6456,6 @@ uint64_t CMMsl::PdrMLModelOutput::hash_value(CMMsl::PdrMLModelOutput *this)
     v1 = 0;
   }
 
-  v2 = *(this + 1);
-  v3 = *(this + 2);
   return PBHashBytes() ^ v1;
 }
 
@@ -7101,7 +6755,7 @@ uint64_t CMMsl::PearlAttitude::PearlAttitude(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::PearlAttitude::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::PearlAttitude::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -8348,71 +8002,65 @@ LABEL_20:
 LABEL_30:
   v13 = 0;
 LABEL_31:
-  v14 = *(this + 1);
-  v15 = *(this + 2);
-  v16 = PBHashBytes();
-  v17 = *(this + 62);
-  if ((v17 & 8) != 0)
+  v14 = PBHashBytes();
+  v15 = *(this + 62);
+  if ((v15 & 8) != 0)
   {
-    v23 = *(this + 24);
-    v18 = LODWORD(v23);
-    if (v23 == 0.0)
+    v21 = *(this + 24);
+    v16 = LODWORD(v21);
+    if (v21 == 0.0)
     {
-      v18 = 0;
+      v16 = 0;
     }
 
     if ((*(this + 62) & 0x100) != 0)
     {
 LABEL_33:
-      v19 = *(this + 29);
-      v20 = LODWORD(v19);
-      if (v19 == 0.0)
+      v17 = *(this + 29);
+      v18 = LODWORD(v17);
+      if (v17 == 0.0)
       {
-        v20 = 0;
+        v18 = 0;
       }
 
-      if ((v17 & 4) != 0)
+      if ((v15 & 4) != 0)
       {
         goto LABEL_36;
       }
 
 LABEL_43:
-      v22 = 0;
+      v20 = 0;
       goto LABEL_44;
     }
   }
 
   else
   {
-    v18 = 0;
+    v16 = 0;
     if ((*(this + 62) & 0x100) != 0)
     {
       goto LABEL_33;
     }
   }
 
-  v20 = 0;
-  if ((v17 & 4) == 0)
+  v18 = 0;
+  if ((v15 & 4) == 0)
   {
     goto LABEL_43;
   }
 
 LABEL_36:
-  v21 = *(this + 23);
-  v22 = LODWORD(v21);
-  if (v21 == 0.0)
+  v19 = *(this + 23);
+  v20 = LODWORD(v19);
+  if (v19 == 0.0)
   {
-    v22 = 0;
+    v20 = 0;
   }
 
 LABEL_44:
-  v24 = v5 ^ v3 ^ v7 ^ v9 ^ v11 ^ v12 ^ v13 ^ v18 ^ v20 ^ v22 ^ v16;
-  v25 = *(this + 4);
-  v26 = *(this + 5);
-  v27 = PBHashBytes();
-  v28 = *(this + 7);
-  v29 = *(this + 8);
-  return v24 ^ v27 ^ PBHashBytes();
+  v22 = v5 ^ v3 ^ v7 ^ v9 ^ v11 ^ v12 ^ v13 ^ v16 ^ v18 ^ v20 ^ v14;
+  v23 = PBHashBytes();
+  return v22 ^ v23 ^ PBHashBytes();
 }
 
 void CMMsl::PedOdomFusionExtendedModeSegment::~PedOdomFusionExtendedModeSegment(CMMsl::PedOdomFusionExtendedModeSegment *this)
@@ -9619,7 +9267,7 @@ double CMMsl::PedestrianCalorieModelDebugging::PedestrianCalorieModelDebugging(u
   return result;
 }
 
-CMMsl *CMMsl::PedestrianCalorieModelDebugging::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::PedestrianCalorieModelDebugging::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

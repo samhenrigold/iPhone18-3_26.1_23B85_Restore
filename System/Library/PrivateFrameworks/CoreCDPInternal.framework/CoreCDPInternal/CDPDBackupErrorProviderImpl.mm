@@ -40,7 +40,7 @@
 
 - (id)verficationFailedErrorwithUnderlyingError:(id)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = [MEMORY[0x277CBEC10] mutableCopy];
   v5 = [MEMORY[0x277CFD508] builderForKey:@"REMOTE_SECRET_ENTRY_RECOVERY_ERROR_TITLE"];
@@ -62,13 +62,11 @@
 
   v11 = [MEMORY[0x277CFD508] builderForKey:@"GENERIC_ERROR_DEFAULT_BUTTON"];
   localizedString4 = [v11 localizedString];
-  v17[0] = localizedString4;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = localizedString4;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [v4 setObject:v13 forKeyedSubscript:*MEMORY[0x277CCA480]];
 
   v14 = _CDPStateError();
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

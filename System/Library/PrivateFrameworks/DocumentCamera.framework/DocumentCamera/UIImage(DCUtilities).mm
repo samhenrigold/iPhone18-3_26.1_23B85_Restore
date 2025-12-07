@@ -93,10 +93,10 @@
 + (id)dc_orientedImageFromCGImage:()DCUtilities scale:transform:
 {
   v8 = a5[1];
-  *&v27.a = *a5;
-  *&v27.c = v8;
-  *&v27.tx = a5[2];
-  CGAffineTransformInvert(&transform, &v27);
+  *&v28.a = *a5;
+  *&v28.c = v8;
+  *&v28.tx = a5[2];
+  CGAffineTransformInvert(&transform, &v28);
   v9 = *&transform.c;
   *a5 = *&transform.a;
   a5[1] = v9;
@@ -113,22 +113,22 @@
   *&v14 = v11;
   v16 = Width;
   v17 = Height;
-  v30 = CGRectApplyAffineTransform(*(&v14 - 8), &transform);
-  x = v30.origin.x;
-  y = v30.origin.y;
-  v20 = DCTSUCreateRGBABitmapContext(0, v30.size.width, v30.size.height, self);
-  if (!v20 || (v21 = v20, CGContextTranslateCTM(v20, -x, -y), v22 = a5[1], *&transform.a = *a5, *&transform.c = v22, *&transform.tx = a5[2], CGContextConcatCTM(v21, &transform), v31.origin.x = v10, v31.origin.y = v11, v31.size.width = Width, v31.size.height = Height, CGContextDrawImage(v21, v31, a4), Image = CGBitmapContextCreateImage(v21), CGContextRelease(v21), !Image) || ([MEMORY[0x277D755B8] dc_imageWithCGImage:Image scale:0 orientation:self], v24 = objc_claimAutoreleasedReturnValue(), CGImageRelease(Image), !v24))
+  v31 = CGRectApplyAffineTransform(*(&v14 - 8), &transform);
+  x = v31.origin.x;
+  y = v31.origin.y;
+  v21 = DCTSUCreateRGBABitmapContext(0, v20, v31.size.width, v31.size.height, self);
+  if (!v21 || (v22 = v21, CGContextTranslateCTM(v21, -x, -y), v23 = a5[1], *&transform.a = *a5, *&transform.c = v23, *&transform.tx = a5[2], CGContextConcatCTM(v22, &transform), v32.origin.x = v10, v32.origin.y = v11, v32.size.width = Width, v32.size.height = Height, CGContextDrawImage(v22, v32, a4), Image = CGBitmapContextCreateImage(v22), CGContextRelease(v22), !Image) || ([MEMORY[0x277D755B8] dc_imageWithCGImage:Image scale:0 orientation:self], v25 = objc_claimAutoreleasedReturnValue(), CGImageRelease(Image), !v25))
   {
-    v25 = os_log_create("com.apple.documentcamera", "");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = os_log_create("com.apple.documentcamera", "");
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [UIImage(DCUtilities) dc_orientedImageFromCGImage:v25 scale:? transform:?];
+      [UIImage(DCUtilities) dc_orientedImageFromCGImage:v26 scale:? transform:?];
     }
 
-    v24 = [MEMORY[0x277D755B8] dc_imageWithCGImage:a4];
+    v25 = [MEMORY[0x277D755B8] dc_imageWithCGImage:a4];
   }
 
-  return v24;
+  return v25;
 }
 
 + (id)dc_orientedImageFromImage:()DCUtilities fromOrientation:
@@ -340,7 +340,7 @@ LABEL_11:
 
 + (id)dc_systemImageNamed:()DCUtilities scale:
 {
-  v5 = [self systemImageNamed:?];
+  v5 = [self systemImageNamed:a3];
   v6 = [v5 dc_imageWithScale:a4];
 
   if (!v6)
@@ -451,6 +451,20 @@ LABEL_11:
   v4 = 2112;
   v5 = a1;
   _os_log_error_impl(&dword_249253000, a2, OS_LOG_TYPE_ERROR, "%s -- Failed to finalize image with type '%@'.", &v2, 0x16u);
+}
+
++ (void)dc_systemImageNamed:()DCUtilities textStyle:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "result";
+  OUTLINED_FUNCTION_0(&dword_249253000, a1, a3, "invalid nil value for '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)dc_imageWithFont:()DCUtilities .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "font";
+  OUTLINED_FUNCTION_0(&dword_249253000, a1, a3, "invalid nil value for '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

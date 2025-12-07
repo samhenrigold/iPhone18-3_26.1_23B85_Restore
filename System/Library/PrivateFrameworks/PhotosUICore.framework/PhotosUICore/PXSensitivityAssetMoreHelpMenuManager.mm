@@ -27,7 +27,7 @@
   assetCopy = asset;
   albumCopy = album;
   controllerCopy = controller;
-  v10 = sub_1A47E27B0(assetCopy, albumCopy);
+  v10 = sub_1A47E27B0(assetCopy, albumCopy, controller);
 
   return v10;
 }

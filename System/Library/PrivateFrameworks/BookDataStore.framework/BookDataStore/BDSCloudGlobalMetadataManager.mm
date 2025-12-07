@@ -6,6 +6,7 @@
 - (void)currentCloudSyncVersions:(id)versions;
 - (void)deleteMetadatumForKey:(id)key completion:(id)completion;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
+- (void)fetchMetadataIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)getMetadataChangesSince:(id)since completion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
 - (void)metadataValueForKey:(id)key completion:(id)completion;
@@ -15,6 +16,7 @@
 - (void)removeMetadataForSaltedHashedRecordIDs:(id)ds completion:(id)completion;
 - (void)resolvedMetadataValueForKey:(id)key completion:(id)completion;
 - (void)setConflictResolver:(id)resolver forKey:(id)key;
+- (void)setEnableCloudSync:(BOOL)sync;
 - (void)setMetadata:(id)metadata completion:(id)completion;
 - (void)setMetadataValue:(id)value forKey:(id)key completion:(id)completion;
 - (void)setMetadatum:(id)metadatum completion:(id)completion;
@@ -155,16 +157,14 @@
 
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   dataManager = [(BDSCloudGlobalMetadataManager *)self dataManager];
   changeTokenController = self->_changeTokenController;
-  v9[0] = dataManager;
-  v9[1] = changeTokenController;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[0] = dataManager;
+  v8[1] = changeTokenController;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   [v7 bds_chainSuccessAndErrorCompletionSelectorCallsForSelector:sel_dissociateCloudDataFromSyncWithCompletion_ completion:completionCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncManager:(id)manager startSyncToCKWithCompletion:(id)completion
@@ -202,40 +202,40 @@
 
 - (void)syncManager:(id)manager removeCloudDataForIDs:(id)ds completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
   if ([(BDSCloudGlobalMetadataManager *)self enableCloudSync])
   {
     v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dsCopy, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v10 = dsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          recordName = [*(*(&v19 + 1) + 8 * v14) recordName];
+          recordName = [*(*(&v18 + 1) + 8 * v14) recordName];
           [v9 addObject:recordName];
 
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v12);
@@ -253,8 +253,6 @@
       (*(v16 + 2))(v16, 0, 0);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncManager:(id)manager fetchedAllRecordsInZone:(id)zone
@@ -269,37 +267,37 @@
 
 - (void)syncManager:(id)manager updateSyncGenerationFromCloudData:(id)data completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
   if ([(BDSCloudGlobalMetadataManager *)self enableCloudSync])
   {
     v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(dataCopy, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = dataCopy;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           v16 = [v15 key];
           [v9 setObject:v15 forKey:v16];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -317,8 +315,6 @@
       (*(v17 + 2))(v17, 0, 0);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncManager:(id)manager resolveConflictsForRecords:(id)records completion:(id)completion
@@ -374,6 +370,58 @@
   }
 }
 
+- (void)setEnableCloudSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v19 = *MEMORY[0x1E69E9840];
+  mEMORY[0x1E698F550] = [MEMORY[0x1E698F550] shared];
+  verboseLoggingEnabled = [mEMORY[0x1E698F550] verboseLoggingEnabled];
+
+  if (verboseLoggingEnabled)
+  {
+    v8 = BDSCloudKitDevelopmentLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = @"NO";
+      if (syncCopy)
+      {
+        v9 = @"YES";
+      }
+
+      v17 = 138412290;
+      v18 = v9;
+      _os_log_impl(&dword_1E45E0000, v8, OS_LOG_TYPE_DEFAULT, "\\BDSCloudGlobalMetadataManager #enableCloudSync setEnableCloudSync %@\", &v17, 0xCu);
+    }
+  }
+
+  if (self->_enableCloudSync != syncCopy)
+  {
+    self->_enableCloudSync = syncCopy;
+    changeTokenController = [(BDSCloudGlobalMetadataManager *)self changeTokenController];
+    [changeTokenController setEnableCloudSync:syncCopy];
+
+    v11 = +[BCCloudKitController sharedInstance];
+    privateCloudDatabaseController = [v11 privateCloudDatabaseController];
+    transactionManager = privateCloudDatabaseController;
+    syncManager = self->_syncManager;
+    if (syncCopy)
+    {
+      [privateCloudDatabaseController addObserver:syncManager recordType:@"globalMetadata"];
+
+      v11 = +[BCCloudKitController sharedInstance];
+      transactionManager = [v11 transactionManager];
+      entityName = [(BDSCloudGlobalMetadataManager *)self entityName];
+      syncManager = [(BDSCloudGlobalMetadataManager *)self syncManager];
+      [transactionManager signalSyncToCKTransactionForEntityName:entityName syncManager:syncManager];
+    }
+
+    else
+    {
+      [privateCloudDatabaseController removeObserver:syncManager recordType:@"globalMetadata"];
+    }
+  }
+}
+
 - (void)currentCloudSyncVersions:(id)versions
 {
   versionsCopy = versions;
@@ -416,7 +464,7 @@
 
   else
   {
-    v10 = BDSCloudKitLog();
+    v10 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1E4706010(v10);
@@ -492,6 +540,14 @@
   {
     [(BDSCloudGlobalMetadataManager *)self metadatumForKey:keyCopy completion:completionCopy];
   }
+}
+
+- (void)fetchMetadataIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  dataManager = [(BDSCloudGlobalMetadataManager *)self dataManager];
+  [dataManager fetchCloudDataIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)getMetadataChangesSince:(id)since completion:(id)completion

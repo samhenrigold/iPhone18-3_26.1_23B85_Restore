@@ -12,6 +12,7 @@
 - (void)openMessagesActionWithSender:(id)sender;
 - (void)playSoundActionWithSender:(id)sender;
 - (void)torchActionWithSender:(id)sender;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)appear;
@@ -113,6 +114,25 @@
 {
   selfCopy = self;
   sub_24A5BFBF8(appear);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for FMFindingViewController(0);
+  v4 = v9.receiver;
+  [(FMFindingViewController *)&v9 viewDidAppear:appearCopy];
+  v5 = *&v4[OBJC_IVAR____TtC11FMFindingUI23FMFindingViewController_findingView];
+  v6 = *&v5[OBJC_IVAR____TtC11FMFindingUI8FMPFView_skScene];
+  if (v6)
+  {
+    v7 = v5;
+    v8 = v6;
+    sub_24A5D6718(0, 1.0);
+
+    v4 = v7;
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

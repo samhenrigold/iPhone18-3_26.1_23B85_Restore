@@ -7,7 +7,7 @@ uint64_t sub_2994CB2BC(uint64_t result, uint64_t a2)
 
 void sub_2994CB2D4(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v113 = *MEMORY[0x29EDCA608];
+  v112 = *MEMORY[0x29EDCA608];
   v4 = objc_msgSend_fetchRequest(AppletEntity, a2, a3);
   v7 = sub_2994CFB70(*(a1 + 32), v5, v6);
   v8 = *(*(a1 + 40) + 8);
@@ -55,15 +55,15 @@ void sub_2994CB2D4(uint64_t a1, const char *a2, uint64_t a3)
       v25 = sel_getName(*(a1 + 56));
       v26 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 67110146;
-      v102 = v23;
-      v103 = 2082;
-      v104 = v24;
-      v105 = 2082;
-      v106 = v25;
-      v107 = 1024;
-      v108 = 52;
-      v109 = 2114;
-      v110 = v26;
+      v101 = v23;
+      v102 = 2082;
+      v103 = v24;
+      v104 = 2082;
+      v105 = v25;
+      v106 = 1024;
+      v107 = 52;
+      v108 = 2114;
+      v109 = v26;
       v27 = "%c[%{public}s %{public}s]:%i Failed to execute fetch request: %{public}@";
       v28 = v21;
       v29 = OS_LOG_TYPE_ERROR;
@@ -125,14 +125,14 @@ LABEL_11:
         v67 = class_isMetaClass(v66);
         v68 = object_getClassName(*(a1 + 32));
         v69 = sel_getName(*(a1 + 56));
-        v99 = objc_msgSend_version(v21, v70, v71);
+        v98 = objc_msgSend_version(v21, v70, v71);
         v72 = 45;
         if (v67)
         {
           v72 = 43;
         }
 
-        v65(3, "%c[%{public}s %{public}s]:%i Wrong applet storage version %llu, expecting %d", v72, v68, v69, 63, v99, 4);
+        v65(3, "%c[%{public}s %{public}s]:%i Wrong applet storage version %llu, expecting %d", v72, v68, v69, 63, v98, 4);
       }
 
       dispatch_get_specific(*v63);
@@ -154,17 +154,17 @@ LABEL_11:
         v77 = sel_getName(*(a1 + 56));
         v80 = objc_msgSend_version(v21, v78, v79);
         *buf = 67110402;
-        v102 = v75;
-        v103 = 2082;
-        v104 = v76;
-        v105 = 2082;
-        v106 = v77;
-        v107 = 1024;
-        v108 = 63;
-        v109 = 2048;
-        v110 = v80;
-        v111 = 1024;
-        v112 = 4;
+        v101 = v75;
+        v102 = 2082;
+        v103 = v76;
+        v104 = 2082;
+        v105 = v77;
+        v106 = 1024;
+        v107 = 63;
+        v108 = 2048;
+        v109 = v80;
+        v110 = 1024;
+        v111 = 4;
         _os_log_impl(&dword_2994CA000, v73, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Wrong applet storage version %llu, expecting %d", buf, 0x32u);
       }
 
@@ -183,14 +183,14 @@ LABEL_11:
       v55 = object_getClass(*(a1 + 32));
       v56 = class_isMetaClass(v55);
       v57 = object_getClassName(*(a1 + 32));
-      v98 = sel_getName(*(a1 + 56));
+      v97 = sel_getName(*(a1 + 56));
       v58 = 45;
       if (v56)
       {
         v58 = 43;
       }
 
-      v54(6, "%c[%{public}s %{public}s]:%i No applets found in storage", v58, v57, v98, 58);
+      v54(6, "%c[%{public}s %{public}s]:%i No applets found in storage", v58, v57, v97, 58);
     }
 
     dispatch_get_specific(*v52);
@@ -211,13 +211,13 @@ LABEL_11:
       v61 = object_getClassName(*(a1 + 32));
       v62 = sel_getName(*(a1 + 56));
       *buf = 67109890;
-      v102 = v60;
-      v103 = 2082;
-      v104 = v61;
-      v105 = 2082;
-      v106 = v62;
-      v107 = 1024;
-      v108 = 58;
+      v101 = v60;
+      v102 = 2082;
+      v103 = v61;
+      v104 = 2082;
+      v105 = v62;
+      v106 = 1024;
+      v107 = 58;
       v27 = "%c[%{public}s %{public}s]:%i No applets found in storage";
       v28 = v21;
       v29 = OS_LOG_TYPE_DEFAULT;
@@ -225,20 +225,18 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-  v97 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2994CBF94(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v100 = *MEMORY[0x29EDCA608];
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x3032000000;
-  v85 = sub_2994CB2BC;
-  v86 = sub_2994CB2CC;
-  v87 = objc_msgSend__deleteAllAppletEntities(*(a1 + 32), a2, a3);
-  if (v83[5])
+  v99 = *MEMORY[0x29EDCA608];
+  v81 = 0;
+  v82 = &v81;
+  v83 = 0x3032000000;
+  v84 = sub_2994CB2BC;
+  v85 = sub_2994CB2CC;
+  v86 = objc_msgSend__deleteAllAppletEntities(*(a1 + 32), a2, a3);
+  if (v82[5])
   {
     v5 = MEMORY[0x29EDC9730];
     dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -256,7 +254,7 @@ void sub_2994CBF94(uint64_t a1, const char *a2, uint64_t a3)
         v12 = 43;
       }
 
-      v7(3, "%c[%{public}s %{public}s]:%i Failed to delete all: %{public}@", v12, ClassName, Name, 129, v83[5]);
+      v7(3, "%c[%{public}s %{public}s]:%i Failed to delete all: %{public}@", v12, ClassName, Name, 129, v82[5]);
     }
 
     dispatch_get_specific(*v5);
@@ -276,17 +274,17 @@ void sub_2994CBF94(uint64_t a1, const char *a2, uint64_t a3)
 
       v16 = object_getClassName(*(a1 + 32));
       v17 = sel_getName(*(a1 + 48));
-      v18 = v83[5];
+      v18 = v82[5];
       *buf = 67110146;
       *&buf[4] = v15;
-      *v99 = 2082;
-      *&v99[2] = v16;
-      *&v99[10] = 2082;
-      *&v99[12] = v17;
-      *&v99[20] = 1024;
-      *&v99[22] = 129;
-      *&v99[26] = 2114;
-      *&v99[28] = v18;
+      *v98 = 2082;
+      *&v98[2] = v16;
+      *&v98[10] = 2082;
+      *&v98[12] = v17;
+      *&v98[20] = 1024;
+      *&v98[22] = 129;
+      *&v98[26] = 2114;
+      *&v98[28] = v18;
       _os_log_impl(&dword_2994CA000, v13, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to delete all: %{public}@", buf, 0x2Cu);
     }
 
@@ -297,59 +295,59 @@ void sub_2994CBF94(uint64_t a1, const char *a2, uint64_t a3)
   else
   {
     *buf = 0;
-    *v99 = buf;
-    *&v99[8] = 0x3032000000;
-    *&v99[16] = sub_2994CB2BC;
-    *&v99[24] = sub_2994CB2CC;
-    *&v99[32] = 0;
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x3032000000;
-    v79 = sub_2994CB2BC;
-    v80 = sub_2994CB2CC;
-    v81 = 0;
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x3032000000;
-    v73 = sub_2994CB2BC;
-    v74 = sub_2994CB2CC;
+    *v98 = buf;
+    *&v98[8] = 0x3032000000;
+    *&v98[16] = sub_2994CB2BC;
+    *&v98[24] = sub_2994CB2CC;
+    *&v98[32] = 0;
     v75 = 0;
-    v69[0] = MEMORY[0x29EDCA5F8];
-    v69[1] = 3221225472;
-    v69[2] = sub_2994CC540;
-    v69[3] = &unk_29EF26580;
+    v76 = &v75;
+    v77 = 0x3032000000;
+    v78 = sub_2994CB2BC;
+    v79 = sub_2994CB2CC;
+    v80 = 0;
+    v69 = 0;
+    v70 = &v69;
+    v71 = 0x3032000000;
+    v72 = sub_2994CB2BC;
+    v73 = sub_2994CB2CC;
+    v74 = 0;
+    v68[0] = MEMORY[0x29EDCA5F8];
+    v68[1] = 3221225472;
+    v68[2] = sub_2994CC540;
+    v68[3] = &unk_29EF26580;
     v24 = *(a1 + 40);
     v25 = *(a1 + 48);
-    v69[4] = *(a1 + 32);
-    v69[5] = &v82;
-    v69[6] = buf;
-    v69[7] = &v76;
-    v69[8] = &v70;
-    v69[9] = v25;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v24, v4, v69);
-    if (!v83[5])
+    v68[4] = *(a1 + 32);
+    v68[5] = &v81;
+    v68[6] = buf;
+    v68[7] = &v75;
+    v68[8] = &v69;
+    v68[9] = v25;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v24, v4, v68);
+    if (!v82[5])
     {
       v28 = MEMORY[0x29EDB8C48];
       v29 = sub_2994CFB70(*(a1 + 32), v26, v27);
       v31 = objc_msgSend_insertNewObjectForEntityForName_inManagedObjectContext_(v28, v30, @"AppletEntity", v29);
 
       objc_msgSend_setVersion_(v31, v32, 4);
-      v35 = objc_msgSend_longLongValue(*(*v99 + 40), v33, v34);
+      v35 = objc_msgSend_longLongValue(*(*v98 + 40), v33, v34);
       objc_msgSend_setCrsUpdateCounter_(v31, v36, v35);
-      objc_msgSend_setSeid_(v31, v37, v77[5]);
-      objc_msgSend_setApplets_(v31, v38, v71[5]);
+      objc_msgSend_setSeid_(v31, v37, v76[5]);
+      objc_msgSend_setApplets_(v31, v38, v70[5]);
       v41 = sub_2994CFB70(*(a1 + 32), v39, v40);
       hasChanges = objc_msgSend_hasChanges(v41, v42, v43);
 
       if (hasChanges)
       {
         v47 = sub_2994CFB70(*(a1 + 32), v45, v46);
-        v48 = (v83 + 5);
-        obj = v83[5];
+        v48 = (v82 + 5);
+        obj = v82[5];
         objc_msgSend_save_(v47, v49, &obj);
         objc_storeStrong(v48, obj);
 
-        if (v83[5])
+        if (v82[5])
         {
           v50 = MEMORY[0x29EDC9730];
           dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -367,7 +365,7 @@ void sub_2994CBF94(uint64_t a1, const char *a2, uint64_t a3)
               v57 = 43;
             }
 
-            v52(3, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", v57, v55, v56, 188, v83[5]);
+            v52(3, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", v57, v55, v56, 188, v82[5]);
           }
 
           dispatch_get_specific(*v50);
@@ -387,18 +385,18 @@ void sub_2994CBF94(uint64_t a1, const char *a2, uint64_t a3)
 
             v61 = object_getClassName(*(a1 + 32));
             v62 = sel_getName(*(a1 + 48));
-            v63 = v83[5];
-            *v88 = 67110146;
-            v89 = v60;
-            v90 = 2082;
-            v91 = v61;
-            v92 = 2082;
-            v93 = v62;
-            v94 = 1024;
-            v95 = 188;
-            v96 = 2114;
-            v97 = v63;
-            _os_log_impl(&dword_2994CA000, v58, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", v88, 0x2Cu);
+            v63 = v82[5];
+            *v87 = 67110146;
+            v88 = v60;
+            v89 = 2082;
+            v90 = v61;
+            v91 = 2082;
+            v92 = v62;
+            v93 = 1024;
+            v94 = 188;
+            v95 = 2114;
+            v96 = v63;
+            _os_log_impl(&dword_2994CA000, v58, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", v87, 0x2Cu);
           }
         }
       }
@@ -407,20 +405,18 @@ void sub_2994CBF94(uint64_t a1, const char *a2, uint64_t a3)
     v64 = sub_2994CFB70(*(a1 + 32), v26, v27);
     objc_msgSend_reset(v64, v65, v66);
 
-    _Block_object_dispose(&v70, 8);
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v75, 8);
 
     _Block_object_dispose(buf, 8);
   }
 
-  _Block_object_dispose(&v82, 8);
-
-  v67 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v81, 8);
 }
 
 void sub_2994CC540(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v167 = *MEMORY[0x29EDCA608];
+  v166 = *MEMORY[0x29EDCA608];
   v7 = a2;
   v8 = a3;
   objc_opt_class();
@@ -437,7 +433,7 @@ LABEL_18:
         goto LABEL_53;
       }
 
-      v147 = a4;
+      v146 = a4;
       v50 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
       Logger = NFLogGetLogger();
@@ -482,37 +478,37 @@ LABEL_18:
         v66 = objc_opt_class();
         v67 = NSStringFromClass(v66);
         *buf = 67110146;
-        v158 = v63;
-        v159 = 2082;
-        v160 = v64;
-        v161 = 2082;
-        v162 = v65;
-        v163 = 1024;
-        v164 = 146;
-        v165 = 2114;
-        v166 = v67;
+        v157 = v63;
+        v158 = 2082;
+        v159 = v64;
+        v160 = 2082;
+        v161 = v65;
+        v162 = 1024;
+        v163 = 146;
+        v164 = 2114;
+        v165 = v67;
         _os_log_impl(&dword_2994CA000, v61, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i invalid type (%{public}@) for counter", buf, 0x2Cu);
       }
 
       v68 = objc_alloc(MEMORY[0x29EDB9FA0]);
       v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v69, "nfcd");
-      v153[0] = *MEMORY[0x29EDB9ED8];
+      v152[0] = *MEMORY[0x29EDB9ED8];
       v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v71, "Invalid Parameter");
-      v154[0] = v72;
-      v154[1] = &unk_2A1F86D20;
-      v153[1] = @"Line";
-      v153[2] = @"Method";
+      v153[0] = v72;
+      v153[1] = &unk_2A1F86D20;
+      v152[1] = @"Line";
+      v152[2] = @"Method";
       v73 = objc_alloc(MEMORY[0x29EDBA0F8]);
       v74 = sel_getName(*(a1 + 72));
       v76 = objc_msgSend_initWithFormat_(v73, v75, @"%s", v74);
-      v154[2] = v76;
-      v153[3] = *MEMORY[0x29EDB9E38];
+      v153[2] = v76;
+      v152[3] = *MEMORY[0x29EDB9E38];
       v77 = v8;
       v78 = objc_alloc(MEMORY[0x29EDBA0F8]);
       v79 = sel_getName(*(a1 + 72));
       v81 = objc_msgSend_initWithFormat_(v78, v80, @"%s:%d", v79, 147);
-      v154[3] = v81;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v82, v154, v153, 4);
+      v153[3] = v81;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v82, v153, v152, 4);
     }
 
     else if (objc_msgSend_isEqualToString_(v7, v10, @"seid"))
@@ -524,7 +520,7 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      v147 = a4;
+      v146 = a4;
       v86 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
       v87 = NFLogGetLogger();
@@ -569,37 +565,37 @@ LABEL_18:
         v102 = objc_opt_class();
         v103 = NSStringFromClass(v102);
         *buf = 67110146;
-        v158 = v99;
-        v159 = 2082;
-        v160 = v100;
-        v161 = 2082;
-        v162 = v101;
-        v163 = 1024;
-        v164 = 154;
-        v165 = 2114;
-        v166 = v103;
+        v157 = v99;
+        v158 = 2082;
+        v159 = v100;
+        v160 = 2082;
+        v161 = v101;
+        v162 = 1024;
+        v163 = 154;
+        v164 = 2114;
+        v165 = v103;
         _os_log_impl(&dword_2994CA000, v97, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i invalid type (%{public}@) for seid", buf, 0x2Cu);
       }
 
       v68 = objc_alloc(MEMORY[0x29EDB9FA0]);
       v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v104, "nfcd");
-      v151[0] = *MEMORY[0x29EDB9ED8];
+      v150[0] = *MEMORY[0x29EDB9ED8];
       v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v105, "Invalid Parameter");
-      v152[0] = v72;
-      v152[1] = &unk_2A1F86D38;
-      v151[1] = @"Line";
-      v151[2] = @"Method";
+      v151[0] = v72;
+      v151[1] = &unk_2A1F86D38;
+      v150[1] = @"Line";
+      v150[2] = @"Method";
       v106 = objc_alloc(MEMORY[0x29EDBA0F8]);
       v107 = sel_getName(*(a1 + 72));
       v76 = objc_msgSend_initWithFormat_(v106, v108, @"%s", v107);
-      v152[2] = v76;
-      v151[3] = *MEMORY[0x29EDB9E38];
+      v151[2] = v76;
+      v150[3] = *MEMORY[0x29EDB9E38];
       v77 = v8;
       v109 = objc_alloc(MEMORY[0x29EDBA0F8]);
       v110 = sel_getName(*(a1 + 72));
       v81 = objc_msgSend_initWithFormat_(v109, v111, @"%s:%d", v110, 155);
-      v152[3] = v81;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v112, v152, v151, 4);
+      v151[3] = v81;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v112, v151, v150, 4);
     }
 
     else
@@ -614,18 +610,18 @@ LABEL_18:
       {
         objc_storeStrong((*(*(a1 + 64) + 8) + 40), a3);
         v83 = *(*(*(a1 + 64) + 8) + 40);
-        v148[0] = MEMORY[0x29EDCA5F8];
-        v148[1] = 3221225472;
-        v148[2] = sub_2994CD174;
-        v148[3] = &unk_29EF26558;
+        v147[0] = MEMORY[0x29EDCA5F8];
+        v147[1] = 3221225472;
+        v147[2] = sub_2994CD174;
+        v147[3] = &unk_29EF26558;
         v84 = *(a1 + 72);
-        v148[4] = *(a1 + 40);
-        v148[5] = v84;
-        objc_msgSend_enumerateObjectsUsingBlock_(v83, v85, v148);
+        v147[4] = *(a1 + 40);
+        v147[5] = v84;
+        objc_msgSend_enumerateObjectsUsingBlock_(v83, v85, v147);
         goto LABEL_53;
       }
 
-      v147 = a4;
+      v146 = a4;
       v113 = MEMORY[0x29EDC9730];
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
       v114 = NFLogGetLogger();
@@ -670,37 +666,37 @@ LABEL_18:
         v129 = objc_opt_class();
         v130 = NSStringFromClass(v129);
         *buf = 67110146;
-        v158 = v126;
-        v159 = 2082;
-        v160 = v127;
-        v161 = 2082;
-        v162 = v128;
-        v163 = 1024;
-        v164 = 162;
-        v165 = 2114;
-        v166 = v130;
+        v157 = v126;
+        v158 = 2082;
+        v159 = v127;
+        v160 = 2082;
+        v161 = v128;
+        v162 = 1024;
+        v163 = 162;
+        v164 = 2114;
+        v165 = v130;
         _os_log_impl(&dword_2994CA000, v124, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i invalid type (%{public}@) for applets", buf, 0x2Cu);
       }
 
       v68 = objc_alloc(MEMORY[0x29EDB9FA0]);
       v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v131, "nfcd");
-      v149[0] = *MEMORY[0x29EDB9ED8];
+      v148[0] = *MEMORY[0x29EDB9ED8];
       v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v132, "Invalid Parameter");
-      v150[0] = v72;
-      v150[1] = &unk_2A1F86D50;
-      v149[1] = @"Line";
-      v149[2] = @"Method";
+      v149[0] = v72;
+      v149[1] = &unk_2A1F86D50;
+      v148[1] = @"Line";
+      v148[2] = @"Method";
       v133 = objc_alloc(MEMORY[0x29EDBA0F8]);
       v134 = sel_getName(*(a1 + 72));
       v76 = objc_msgSend_initWithFormat_(v133, v135, @"%s", v134);
-      v150[2] = v76;
-      v149[3] = *MEMORY[0x29EDB9E38];
+      v149[2] = v76;
+      v148[3] = *MEMORY[0x29EDB9E38];
       v77 = v8;
       v136 = objc_alloc(MEMORY[0x29EDBA0F8]);
       v137 = sel_getName(*(a1 + 72));
       v81 = objc_msgSend_initWithFormat_(v136, v138, @"%s:%d", v137, 163);
-      v150[3] = v81;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v139, v150, v149, 4);
+      v149[3] = v81;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v139, v149, v148, 4);
     }
     v140 = ;
     v142 = objc_msgSend_initWithDomain_code_userInfo_(v68, v141, v70, 10, v140);
@@ -709,11 +705,11 @@ LABEL_18:
     *(v143 + 40) = v142;
 
     v8 = v77;
-    *v147 = 1;
+    *v146 = 1;
     goto LABEL_53;
   }
 
-  v146 = v8;
+  v145 = v8;
   v12 = a4;
   v13 = MEMORY[0x29EDC9730];
   dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -756,51 +752,49 @@ LABEL_18:
     v28 = objc_opt_class();
     v29 = NSStringFromClass(v28);
     *buf = 67110146;
-    v158 = v25;
-    v159 = 2082;
-    v160 = v26;
-    v161 = 2082;
-    v162 = v27;
-    v163 = 1024;
-    v164 = 141;
-    v165 = 2114;
-    v166 = v29;
+    v157 = v25;
+    v158 = 2082;
+    v159 = v26;
+    v160 = 2082;
+    v161 = v27;
+    v162 = 1024;
+    v163 = 141;
+    v164 = 2114;
+    v165 = v29;
     _os_log_impl(&dword_2994CA000, v23, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i invalid type (%{public}@) for key", buf, 0x2Cu);
   }
 
   v30 = objc_alloc(MEMORY[0x29EDB9FA0]);
   v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v31, "nfcd");
-  v155[0] = *MEMORY[0x29EDB9ED8];
+  v154[0] = *MEMORY[0x29EDB9ED8];
   v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v33, "Invalid Parameter");
-  v156[0] = v34;
-  v156[1] = &unk_2A1F86D08;
-  v155[1] = @"Line";
-  v155[2] = @"Method";
+  v155[0] = v34;
+  v155[1] = &unk_2A1F86D08;
+  v154[1] = @"Line";
+  v154[2] = @"Method";
   v35 = objc_alloc(MEMORY[0x29EDBA0F8]);
   v36 = sel_getName(*(a1 + 72));
   v38 = objc_msgSend_initWithFormat_(v35, v37, @"%s", v36);
-  v156[2] = v38;
-  v155[3] = *MEMORY[0x29EDB9E38];
+  v155[2] = v38;
+  v154[3] = *MEMORY[0x29EDB9E38];
   v39 = objc_alloc(MEMORY[0x29EDBA0F8]);
   v40 = sel_getName(*(a1 + 72));
   v42 = objc_msgSend_initWithFormat_(v39, v41, @"%s:%d", v40, 142);
-  v156[3] = v42;
-  v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v43, v156, v155, 4);
+  v155[3] = v42;
+  v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v43, v155, v154, 4);
   v46 = objc_msgSend_initWithDomain_code_userInfo_(v30, v45, v32, 10, v44);
   v47 = *(*(a1 + 40) + 8);
   v48 = *(v47 + 40);
   *(v47 + 40) = v46;
 
   *v12 = 1;
-  v8 = v146;
+  v8 = v145;
 LABEL_53:
-
-  v145 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2994CD174(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v29[4] = *MEMORY[0x29EDCA608];
+  v28[4] = *MEMORY[0x29EDCA608];
   v6 = a2;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -810,34 +804,32 @@ void sub_2994CD174(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
     *a4 = 1;
     v8 = objc_alloc(MEMORY[0x29EDB9FA0]);
     v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v9, "nfcd");
-    v28[0] = *MEMORY[0x29EDB9ED8];
+    v27[0] = *MEMORY[0x29EDB9ED8];
     v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v11, "Invalid Parameter");
-    v29[0] = v12;
-    v29[1] = &unk_2A1F86D68;
-    v28[1] = @"Line";
-    v28[2] = @"Method";
+    v28[0] = v12;
+    v28[1] = &unk_2A1F86D68;
+    v27[1] = @"Line";
+    v27[2] = @"Method";
     v13 = objc_alloc(MEMORY[0x29EDBA0F8]);
     Name = sel_getName(*(a1 + 40));
     v16 = objc_msgSend_initWithFormat_(v13, v15, @"%s", Name);
-    v29[2] = v16;
-    v28[3] = *MEMORY[0x29EDB9E38];
+    v28[2] = v16;
+    v27[3] = *MEMORY[0x29EDB9E38];
     v17 = objc_alloc(MEMORY[0x29EDBA0F8]);
     v18 = sel_getName(*(a1 + 40));
     v20 = objc_msgSend_initWithFormat_(v17, v19, @"%s:%d", v18, 170);
-    v29[3] = v20;
-    v22 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v21, v29, v28, 4);
+    v28[3] = v20;
+    v22 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v21, v28, v27, 4);
     v24 = objc_msgSend_initWithDomain_code_userInfo_(v8, v23, v10, 10, v22);
     v25 = *(*(a1 + 32) + 8);
     v26 = *(v25 + 40);
     *(v25 + 40) = v24;
   }
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2994CD554(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   v6 = objc_msgSend__deleteAllAppletEntities(*(a1 + 32), a2, a3);
   if (!v6)
   {
@@ -847,9 +839,9 @@ void sub_2994CD554(uint64_t a1, const char *a2, uint64_t a3)
     if (hasChanges)
     {
       v11 = sub_2994CFB70(*(a1 + 32), v4, v5);
-      v30 = 0;
-      objc_msgSend_save_(v11, v12, &v30);
-      v6 = v30;
+      v29 = 0;
+      objc_msgSend_save_(v11, v12, &v29);
+      v6 = v29;
 
       if (v6)
       {
@@ -890,15 +882,15 @@ void sub_2994CD554(uint64_t a1, const char *a2, uint64_t a3)
           v22 = object_getClassName(*(a1 + 32));
           v23 = sel_getName(*(a1 + 40));
           *buf = 67110146;
-          v32 = v21;
-          v33 = 2082;
-          v34 = v22;
-          v35 = 2082;
-          v36 = v23;
-          v37 = 1024;
-          v38 = 216;
-          v39 = 2114;
-          v40 = v6;
+          v31 = v21;
+          v32 = 2082;
+          v33 = v22;
+          v34 = 2082;
+          v35 = v23;
+          v36 = 1024;
+          v37 = 216;
+          v38 = 2114;
+          v39 = v6;
           _os_log_impl(&dword_2994CA000, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", buf, 0x2Cu);
         }
       }
@@ -912,8 +904,6 @@ void sub_2994CD554(uint64_t a1, const char *a2, uint64_t a3)
 
   v24 = sub_2994CFB70(*(a1 + 32), v4, v5);
   objc_msgSend_reset(v24, v25, v26);
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_2994CDBD8(uint64_t result, uint64_t a2)
@@ -925,7 +915,7 @@ uint64_t sub_2994CDBD8(uint64_t result, uint64_t a2)
 
 void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v255 = *MEMORY[0x29EDCA608];
+  v254 = *MEMORY[0x29EDCA608];
   v4 = objc_msgSend_fetchRequest(ExpressESEEntity, a2, a3);
   v7 = sub_2994CFB70(*(a1 + 32), v5, v6);
   v8 = *(*(a1 + 40) + 8);
@@ -933,7 +923,7 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
   v10 = objc_msgSend_executeFetchRequest_error_(v7, v9, v4, &obj);
   objc_storeStrong((v8 + 40), obj);
 
-  v230 = v10;
+  v229 = v10;
   if (*(*(*(a1 + 40) + 8) + 40))
   {
     v11 = v4;
@@ -975,15 +965,15 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
       v24 = sel_getName(*(a1 + 56));
       v25 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 67110146;
-      v246 = v22;
-      v247 = 2082;
-      v248 = v23;
-      v249 = 2082;
-      v250 = v24;
-      v251 = 1024;
-      v252 = 59;
-      v253 = 2114;
-      v254 = v25;
+      v245 = v22;
+      v246 = 2082;
+      v247 = v23;
+      v248 = 2082;
+      v249 = v24;
+      v250 = 1024;
+      v251 = 59;
+      v252 = 2114;
+      v253 = v25;
       _os_log_impl(&dword_2994CA000, v20, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to execute fetch request: %{public}@", buf, 0x2Cu);
     }
 
@@ -991,7 +981,7 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
     goto LABEL_83;
   }
 
-  v229 = v4;
+  v228 = v4;
   v27 = objc_opt_new();
   v28 = *(*(a1 + 48) + 8);
   v29 = *(v28 + 40);
@@ -999,33 +989,33 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
 
   if (objc_msgSend_count(v10, v30, v31))
   {
-    v239 = 0u;
-    v240 = 0u;
-    v237 = 0u;
     v238 = 0u;
+    v239 = 0u;
+    v236 = 0u;
+    v237 = 0u;
     v32 = v10;
-    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v237, v244, 16);
+    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v236, v243, 16);
     if (v34)
     {
       v37 = v34;
       v38 = 0;
-      v39 = *v238;
-      v232 = *MEMORY[0x29EDB9E38];
-      v233 = *MEMORY[0x29EDB9ED8];
-      v231 = *MEMORY[0x29EDB9EE0];
+      v39 = *v237;
+      v231 = *MEMORY[0x29EDB9E38];
+      v232 = *MEMORY[0x29EDB9ED8];
+      v230 = *MEMORY[0x29EDB9EE0];
       v40 = 0x29EDBA000uLL;
-      v234 = *v238;
-      v235 = a1;
+      v233 = *v237;
+      v234 = a1;
       do
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v238 != v39)
+          if (*v237 != v39)
           {
             objc_enumerationMutation(v32);
           }
 
-          v42 = *(*(&v237 + 1) + 8 * i);
+          v42 = *(*(&v236 + 1) + 8 * i);
           if (objc_msgSend_version(v42, v35, v36) == 1)
           {
             if (objc_msgSend_version(v42, v35, v36) == 1)
@@ -1139,16 +1129,16 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
                 v136 = class_isMetaClass(v135);
                 v137 = object_getClassName(*(a1 + 32));
                 v138 = sel_getName(*(a1 + 56));
-                v228 = objc_msgSend_version(v42, v139, v140);
-                v225 = v138;
-                a1 = v235;
+                v227 = objc_msgSend_version(v42, v139, v140);
+                v224 = v138;
+                a1 = v234;
                 v141 = 45;
                 if (v136)
                 {
                   v141 = 43;
                 }
 
-                v134(3, "%c[%{public}s %{public}s]:%i Unknown version info %d", v141, v137, v225, 101, v228);
+                v134(3, "%c[%{public}s %{public}s]:%i Unknown version info %d", v141, v137, v224, 101, v227);
               }
 
               v142 = v37;
@@ -1171,53 +1161,53 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
                 v147 = sel_getName(*(a1 + 56));
                 v150 = objc_msgSend_version(v42, v148, v149);
                 *buf = 67110146;
-                v246 = v145;
-                v247 = 2082;
-                v248 = v146;
-                v249 = 2082;
-                v250 = v147;
-                v251 = 1024;
-                v252 = 101;
-                v253 = 1024;
-                LODWORD(v254) = v150;
+                v245 = v145;
+                v246 = 2082;
+                v247 = v146;
+                v248 = 2082;
+                v249 = v147;
+                v250 = 1024;
+                v251 = 101;
+                v252 = 1024;
+                LODWORD(v253) = v150;
                 _os_log_impl(&dword_2994CA000, v143, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unknown version info %d", buf, 0x28u);
               }
 
               v151 = objc_alloc(MEMORY[0x29EDB9FA0]);
               v153 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v152, "nfcd");
-              v242[0] = v233;
+              v241[0] = v232;
               v155 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v154, "Decoding Error");
-              v243[0] = v155;
-              v243[1] = &unk_2A1F86D98;
-              v242[1] = @"Line";
-              v242[2] = @"Method";
+              v242[0] = v155;
+              v242[1] = &unk_2A1F86D98;
+              v241[1] = @"Line";
+              v241[2] = @"Method";
               v156 = objc_alloc(MEMORY[0x29EDBA0F8]);
               v157 = sel_getName(*(a1 + 56));
               v159 = objc_msgSend_initWithFormat_(v156, v158, @"%s", v157);
-              v243[2] = v159;
-              v242[3] = v232;
+              v242[2] = v159;
+              v241[3] = v231;
               v160 = objc_alloc(MEMORY[0x29EDBA0F8]);
-              v161 = sel_getName(*(v235 + 56));
+              v161 = sel_getName(*(v234 + 56));
               v163 = objc_msgSend_initWithFormat_(v160, v162, @"%s:%d", v161, 102);
-              v243[3] = v163;
-              v242[4] = v231;
+              v242[3] = v163;
+              v241[4] = v230;
               v164 = objc_alloc(MEMORY[0x29EDBA0F8]);
               v166 = objc_msgSend_initWithFormat_(v164, v165, @"incorrect ESE model version");
-              v243[4] = v166;
-              v168 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v167, v243, v242, 5);
+              v242[4] = v166;
+              v168 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v167, v242, v241, 5);
               v170 = objc_msgSend_initWithDomain_code_userInfo_(v151, v169, v153, 23, v168);
-              v171 = *(*(v235 + 40) + 8);
+              v171 = *(*(v234 + 40) + 8);
               v172 = *(v171 + 40);
               *(v171 + 40) = v170;
 
-              a1 = v235;
-              v173 = *(*(v235 + 48) + 8);
+              a1 = v234;
+              v173 = *(*(v234 + 48) + 8);
               v43 = *(v173 + 40);
               *(v173 + 40) = 0;
               v38 = 1;
               v32 = v132;
               v37 = v142;
-              v39 = v234;
+              v39 = v233;
               v40 = 0x29EDBA000;
             }
           }
@@ -1228,12 +1218,12 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
           }
         }
 
-        v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v35, &v237, v244, 16);
+        v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v35, &v236, v243, 16);
       }
 
       while (v37);
 
-      v26 = v229;
+      v26 = v228;
       if ((v38 & 1) == 0)
       {
         goto LABEL_82;
@@ -1255,14 +1245,14 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
         v182 = object_getClass(*(a1 + 32));
         v183 = class_isMetaClass(v182);
         v184 = object_getClassName(*(a1 + 32));
-        v226 = sel_getName(*(a1 + 56));
+        v225 = sel_getName(*(a1 + 56));
         v185 = 45;
         if (v183)
         {
           v185 = 43;
         }
 
-        v181(6, "%c[%{public}s %{public}s]:%i Update required; remove entities", v185, v184, v226, 110);
+        v181(6, "%c[%{public}s %{public}s]:%i Update required; remove entities", v185, v184, v225, 110);
       }
 
       dispatch_get_specific(*MEMORY[0x29EDC9730]);
@@ -1283,22 +1273,22 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
         v189 = object_getClassName(*(a1 + 32));
         v190 = sel_getName(*(a1 + 56));
         *buf = 67109890;
-        v246 = v188;
-        v247 = 2082;
-        v248 = v189;
-        v249 = 2082;
-        v250 = v190;
-        v251 = 1024;
-        v252 = 110;
+        v245 = v188;
+        v246 = 2082;
+        v247 = v189;
+        v248 = 2082;
+        v249 = v190;
+        v250 = 1024;
+        v251 = 110;
         _os_log_impl(&dword_2994CA000, v186, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Update required; remove entities", buf, 0x22u);
       }
 
       v193 = objc_msgSend__deleteAllESEExpressEntities(*(a1 + 32), v191, v192);
       v196 = sub_2994CFB70(*(a1 + 32), v194, v195);
       v197 = *(*(a1 + 40) + 8);
-      v236 = *(v197 + 40);
-      objc_msgSend_save_(v196, v198, &v236);
-      objc_storeStrong((v197 + 40), v236);
+      v235 = *(v197 + 40);
+      objc_msgSend_save_(v196, v198, &v235);
+      objc_storeStrong((v197 + 40), v235);
 
       if (!*(*(*(a1 + 40) + 8) + 40))
       {
@@ -1342,15 +1332,15 @@ void sub_2994CDBF0(uint64_t a1, const char *a2, uint64_t a3)
         v209 = sel_getName(*(a1 + 56));
         v210 = *(*(*(a1 + 40) + 8) + 40);
         *buf = 67110146;
-        v246 = v207;
-        v247 = 2082;
-        v248 = v208;
-        v249 = 2082;
-        v250 = v209;
-        v251 = 1024;
-        v252 = 115;
-        v253 = 2114;
-        v254 = v210;
+        v245 = v207;
+        v246 = 2082;
+        v247 = v208;
+        v248 = 2082;
+        v249 = v209;
+        v250 = 1024;
+        v251 = 115;
+        v252 = 2114;
+        v253 = v210;
         _os_log_impl(&dword_2994CA000, v32, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", buf, 0x2Cu);
       }
     }
@@ -1375,14 +1365,14 @@ LABEL_82:
     v214 = object_getClass(*(a1 + 32));
     v215 = class_isMetaClass(v214);
     v216 = object_getClassName(*(a1 + 32));
-    v227 = sel_getName(*(a1 + 56));
+    v226 = sel_getName(*(a1 + 56));
     v217 = 45;
     if (v215)
     {
       v217 = 43;
     }
 
-    v213(6, "%c[%{public}s %{public}s]:%i Nothing in DB - return an empty array", v217, v216, v227, 66);
+    v213(6, "%c[%{public}s %{public}s]:%i Nothing in DB - return an empty array", v217, v216, v226, 66);
   }
 
   dispatch_get_specific(*v211);
@@ -1403,26 +1393,24 @@ LABEL_82:
     v220 = object_getClassName(*(a1 + 32));
     v221 = sel_getName(*(a1 + 56));
     *buf = 67109890;
-    v246 = v219;
-    v247 = 2082;
-    v248 = v220;
-    v249 = 2082;
-    v250 = v221;
-    v251 = 1024;
-    v252 = 66;
+    v245 = v219;
+    v246 = 2082;
+    v247 = v220;
+    v248 = 2082;
+    v249 = v221;
+    v250 = 1024;
+    v251 = 66;
     _os_log_impl(&dword_2994CA000, v20, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Nothing in DB - return an empty array", buf, 0x22u);
   }
 
-  v26 = v229;
+  v26 = v228;
 LABEL_83:
-
-  v224 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2994CEE44(uint64_t a1, const char *a2, uint64_t a3)
 {
   v3 = a1;
-  v146 = *MEMORY[0x29EDCA608];
+  v145 = *MEMORY[0x29EDCA608];
   v4 = objc_msgSend__deleteAllESEExpressEntities(*(a1 + 32), a2, a3);
   if (v4)
   {
@@ -1467,15 +1455,15 @@ void sub_2994CEE44(uint64_t a1, const char *a2, uint64_t a3)
     v15 = object_getClassName(*(v3 + 32));
     v16 = sel_getName(*(v3 + 48));
     *buf = 67110146;
-    v137 = v14;
-    v138 = 2082;
-    v139 = v15;
-    v140 = 2082;
-    v141 = v16;
-    v142 = 1024;
-    v143 = 164;
-    v144 = 2114;
-    v145 = v5;
+    v136 = v14;
+    v137 = 2082;
+    v138 = v15;
+    v139 = 2082;
+    v140 = v16;
+    v141 = 1024;
+    v142 = 164;
+    v143 = 2114;
+    v144 = v5;
     v17 = "%c[%{public}s %{public}s]:%i Failed to delete all: %{public}@";
 LABEL_11:
     _os_log_impl(&dword_2994CA000, v12, OS_LOG_TYPE_ERROR, v17, buf, 0x2Cu);
@@ -1484,26 +1472,26 @@ LABEL_12:
     goto LABEL_46;
   }
 
-  v133 = 0u;
-  v134 = 0u;
-  v131 = 0u;
   v132 = 0u;
+  v133 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   obj = *(v3 + 40);
-  v129 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v131, v135, 16);
-  if (v129)
+  v128 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v130, v134, 16);
+  if (v128)
   {
-    v127 = v3;
-    v128 = *v132;
+    v126 = v3;
+    v127 = *v131;
     do
     {
-      for (i = 0; i != v129; ++i)
+      for (i = 0; i != v128; ++i)
       {
-        if (*v132 != v128)
+        if (*v131 != v127)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v131 + 1) + 8 * i);
+        v24 = *(*(&v130 + 1) + 8 * i);
         v25 = MEMORY[0x29EDB8C48];
         v26 = sub_2994CFB70(*(v3 + 32), v21, v22);
         v28 = objc_msgSend_insertNewObjectForEntityForName_inManagedObjectContext_(v25, v27, @"ExpressESEEntity", v26);
@@ -1598,13 +1586,13 @@ LABEL_12:
 
         objc_msgSend_setVersion_(v28, v97, 1);
 
-        v3 = v127;
+        v3 = v126;
       }
 
-      v129 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v131, v135, 16);
+      v128 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v130, v134, 16);
     }
 
-    while (v129);
+    while (v128);
   }
 
   v102 = sub_2994CFB70(*(v3 + 32), v100, v101);
@@ -1617,9 +1605,9 @@ LABEL_12:
   }
 
   v106 = sub_2994CFB70(*(v3 + 32), v18, v19);
-  v130 = 0;
-  objc_msgSend_save_(v106, v107, &v130);
-  v5 = v130;
+  v129 = 0;
+  objc_msgSend_save_(v106, v107, &v129);
+  v5 = v129;
 
   if (v5)
   {
@@ -1631,15 +1619,15 @@ LABEL_12:
       v110 = v109;
       v111 = object_getClass(*(v3 + 32));
       v112 = class_isMetaClass(v111);
-      v123 = object_getClassName(*(v3 + 32));
-      v125 = sel_getName(*(v3 + 48));
+      v122 = object_getClassName(*(v3 + 32));
+      v124 = sel_getName(*(v3 + 48));
       v113 = 45;
       if (v112)
       {
         v113 = 43;
       }
 
-      v110(3, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", v113, v123, v125, 201, v5);
+      v110(3, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", v113, v122, v124, 201, v5);
     }
 
     dispatch_get_specific(*v108);
@@ -1663,15 +1651,15 @@ LABEL_12:
     v116 = object_getClassName(*(v3 + 32));
     v117 = sel_getName(*(v3 + 48));
     *buf = 67110146;
-    v137 = v115;
-    v138 = 2082;
-    v139 = v116;
-    v140 = 2082;
-    v141 = v117;
-    v142 = 1024;
-    v143 = 201;
-    v144 = 2114;
-    v145 = v5;
+    v136 = v115;
+    v137 = 2082;
+    v138 = v116;
+    v139 = 2082;
+    v140 = v117;
+    v141 = 1024;
+    v142 = 201;
+    v143 = 2114;
+    v144 = v5;
     v17 = "%c[%{public}s %{public}s]:%i Failed to save: %{public}@";
     goto LABEL_11;
   }
@@ -1679,13 +1667,11 @@ LABEL_12:
 LABEL_46:
   v118 = sub_2994CFB70(*(v3 + 32), v18, v19);
   objc_msgSend_reset(v118, v119, v120);
-
-  v121 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2994CF7FC(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   v6 = objc_msgSend__deleteAllESEExpressEntities(*(a1 + 32), a2, a3);
   if (!v6)
   {
@@ -1695,9 +1681,9 @@ void sub_2994CF7FC(uint64_t a1, const char *a2, uint64_t a3)
     if (hasChanges)
     {
       v11 = sub_2994CFB70(*(a1 + 32), v4, v5);
-      v30 = 0;
-      objc_msgSend_save_(v11, v12, &v30);
-      v6 = v30;
+      v29 = 0;
+      objc_msgSend_save_(v11, v12, &v29);
+      v6 = v29;
 
       if (v6)
       {
@@ -1738,15 +1724,15 @@ void sub_2994CF7FC(uint64_t a1, const char *a2, uint64_t a3)
           v22 = object_getClassName(*(a1 + 32));
           v23 = sel_getName(*(a1 + 40));
           *buf = 67110146;
-          v32 = v21;
-          v33 = 2082;
-          v34 = v22;
-          v35 = 2082;
-          v36 = v23;
-          v37 = 1024;
-          v38 = 228;
-          v39 = 2114;
-          v40 = v6;
+          v31 = v21;
+          v32 = 2082;
+          v33 = v22;
+          v34 = 2082;
+          v35 = v23;
+          v36 = 1024;
+          v37 = 228;
+          v38 = 2114;
+          v39 = v6;
           _os_log_impl(&dword_2994CA000, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to save: %{public}@", buf, 0x2Cu);
         }
       }
@@ -1760,8 +1746,6 @@ void sub_2994CF7FC(uint64_t a1, const char *a2, uint64_t a3)
 
   v24 = sub_2994CFB70(*(a1 + 32), v4, v5);
   objc_msgSend_reset(v24, v25, v26);
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 id sub_2994CFA10()
@@ -1814,7 +1798,7 @@ id sub_2994CFA8C(id *a1)
 id *sub_2994CFB70(id *a1, const char *a2, uint64_t a3)
 {
   v3 = a1;
-  v142[1] = *MEMORY[0x29EDCA608];
+  v141[1] = *MEMORY[0x29EDCA608];
   if (a1)
   {
     v4 = a1[1];
@@ -1834,12 +1818,12 @@ id *sub_2994CFB70(id *a1, const char *a2, uint64_t a3)
     v7 = objc_msgSend_defaultManager(MEMORY[0x29EDB9FB8], a2, a3);
     v8 = sub_2994CFA10();
     v9 = *MEMORY[0x29EDB8C30];
-    v141 = *MEMORY[0x29EDB8C30];
-    v142[0] = *MEMORY[0x29EDB9E88];
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v10, v142, &v141, 1);
-    v126 = 0;
-    objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v7, v12, v8, 1, v11, &v126);
-    v13 = v126;
+    v140 = *MEMORY[0x29EDB8C30];
+    v141[0] = *MEMORY[0x29EDB9E88];
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v10, v141, &v140, 1);
+    v125 = 0;
+    objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v7, v12, v8, 1, v11, &v125);
+    v13 = v125;
 
     if (v13)
     {
@@ -1882,17 +1866,17 @@ id *sub_2994CFB70(id *a1, const char *a2, uint64_t a3)
         v27 = sel_getName(sel_persistentStoreCoordinator);
         v28 = sub_2994CFA10();
         *buf = 67110402;
-        v130 = v25;
-        v131 = 2082;
-        v132 = v26;
-        v133 = 2082;
-        v134 = v27;
-        v135 = 1024;
-        v136 = 75;
-        v137 = 2114;
-        v138 = v28;
-        v139 = 2114;
-        v140 = v13;
+        v129 = v25;
+        v130 = 2082;
+        v131 = v26;
+        v132 = 2082;
+        v133 = v27;
+        v134 = 1024;
+        v135 = 75;
+        v136 = 2114;
+        v137 = v28;
+        v138 = 2114;
+        v139 = v13;
         _os_log_impl(&dword_2994CA000, v23, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to create home directory %{public}@: %{public}@", buf, 0x36u);
       }
 
@@ -1928,14 +1912,14 @@ LABEL_53:
 
     v40 = MEMORY[0x29EDB8E00];
     v41 = *MEMORY[0x29EDB8C20];
-    v127[0] = *MEMORY[0x29EDB8C28];
-    v127[1] = v41;
-    v128[0] = MEMORY[0x29EDB8EB0];
-    v128[1] = MEMORY[0x29EDB8EB0];
-    v127[2] = v9;
+    v126[0] = *MEMORY[0x29EDB8C28];
+    v126[1] = v41;
+    v127[0] = MEMORY[0x29EDB8EB0];
+    v127[1] = MEMORY[0x29EDB8EB0];
+    v126[2] = v9;
     v44 = objc_msgSend_dbProtectionType(v3, v42, v43);
-    v128[2] = v44;
-    v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v45, v128, v127, 3);
+    v127[2] = v44;
+    v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], v45, v127, v126, 3);
     v48 = objc_msgSend_dictionaryWithDictionary_(v40, v47, v46);
 
     v49 = sub_2994CFA8C(v3);
@@ -1950,9 +1934,9 @@ LABEL_53:
 
       v55 = v3[3];
       v56 = *MEMORY[0x29EDB8C38];
-      v125 = 0;
-      v58 = objc_msgSend_addPersistentStoreWithType_configuration_URL_options_error_(v55, v57, v56, 0, v23, v48, &v125);
-      v59 = v125;
+      v124 = 0;
+      v58 = objc_msgSend_addPersistentStoreWithType_configuration_URL_options_error_(v55, v57, v56, 0, v23, v48, &v124);
+      v59 = v124;
 
       if (v58)
       {
@@ -1970,8 +1954,8 @@ LABEL_50:
         v74 = v73;
         v75 = object_getClass(v3);
         v76 = class_isMetaClass(v75);
-        v117 = object_getClassName(v3);
-        v121 = sel_getName(sel_persistentStoreCoordinator);
+        v116 = object_getClassName(v3);
+        v120 = sel_getName(sel_persistentStoreCoordinator);
         v77 = 45;
         if (v76)
         {
@@ -1979,7 +1963,7 @@ LABEL_50:
         }
 
         v72 = MEMORY[0x29EDC9730];
-        v74(3, "%c[%{public}s %{public}s]:%i Failed to add SQLite store type: %{public}@", v77, v117, v121, 105, v59);
+        v74(3, "%c[%{public}s %{public}s]:%i Failed to add SQLite store type: %{public}@", v77, v116, v120, 105, v59);
       }
 
       dispatch_get_specific(*v72);
@@ -2000,16 +1984,16 @@ LABEL_50:
         v81 = object_getClassName(v3);
         v82 = sel_getName(sel_persistentStoreCoordinator);
         *buf = 67110146;
-        v130 = v80;
+        v129 = v80;
         v72 = MEMORY[0x29EDC9730];
-        v131 = 2082;
-        v132 = v81;
-        v133 = 2082;
-        v134 = v82;
-        v135 = 1024;
-        v136 = 105;
-        v137 = 2114;
-        v138 = v59;
+        v130 = 2082;
+        v131 = v81;
+        v132 = 2082;
+        v133 = v82;
+        v134 = 1024;
+        v135 = 105;
+        v136 = 2114;
+        v137 = v59;
         _os_log_impl(&dword_2994CA000, v78, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to add SQLite store type: %{public}@", buf, 0x2Cu);
       }
 
@@ -2020,8 +2004,8 @@ LABEL_50:
         v84 = v83;
         v85 = object_getClass(v3);
         v86 = class_isMetaClass(v85);
-        v118 = object_getClassName(v3);
-        v122 = sel_getName(sel_persistentStoreCoordinator);
+        v117 = object_getClassName(v3);
+        v121 = sel_getName(sel_persistentStoreCoordinator);
         v87 = 45;
         if (v86)
         {
@@ -2029,7 +2013,7 @@ LABEL_50:
         }
 
         v72 = MEMORY[0x29EDC9730];
-        v84(3, "%c[%{public}s %{public}s]:%i Deleting old DB at %{public}@", v87, v118, v122, 108, v23);
+        v84(3, "%c[%{public}s %{public}s]:%i Deleting old DB at %{public}@", v87, v117, v121, 108, v23);
       }
 
       dispatch_get_specific(*v72);
@@ -2050,16 +2034,16 @@ LABEL_50:
         v91 = object_getClassName(v3);
         v92 = sel_getName(sel_persistentStoreCoordinator);
         *buf = 67110146;
-        v130 = v90;
+        v129 = v90;
         v72 = MEMORY[0x29EDC9730];
-        v131 = 2082;
-        v132 = v91;
-        v133 = 2082;
-        v134 = v92;
-        v135 = 1024;
-        v136 = 108;
-        v137 = 2114;
-        v138 = v23;
+        v130 = 2082;
+        v131 = v91;
+        v132 = 2082;
+        v133 = v92;
+        v134 = 1024;
+        v135 = 108;
+        v136 = 2114;
+        v137 = v23;
         _os_log_impl(&dword_2994CA000, v88, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Deleting old DB at %{public}@", buf, 0x2Cu);
       }
 
@@ -2067,9 +2051,9 @@ LABEL_50:
       objc_msgSend_removeItemAtURL_error_(v95, v96, v23, 0);
 
       v97 = v3[3];
-      v124 = v59;
-      v99 = objc_msgSend_addPersistentStoreWithType_configuration_URL_options_error_(v97, v98, v56, 0, v23, v48, &v124);
-      v13 = v124;
+      v123 = v59;
+      v99 = objc_msgSend_addPersistentStoreWithType_configuration_URL_options_error_(v97, v98, v56, 0, v23, v48, &v123);
+      v13 = v123;
 
       if (v99)
       {
@@ -2077,51 +2061,51 @@ LABEL_50:
       }
 
       dispatch_get_specific(*v72);
-      v107 = NFLogGetLogger();
-      if (v107)
+      v106 = NFLogGetLogger();
+      if (v106)
       {
-        v108 = v107;
-        v109 = object_getClass(v3);
-        v110 = class_isMetaClass(v109);
-        v119 = object_getClassName(v3);
-        v123 = sel_getName(sel_persistentStoreCoordinator);
-        v111 = 45;
-        if (v110)
+        v107 = v106;
+        v108 = object_getClass(v3);
+        v109 = class_isMetaClass(v108);
+        v118 = object_getClassName(v3);
+        v122 = sel_getName(sel_persistentStoreCoordinator);
+        v110 = 45;
+        if (v109)
         {
-          v111 = 43;
+          v110 = 43;
         }
 
-        v108(3, "%c[%{public}s %{public}s]:%i Failed to add SQLite store type after removing: %{public}@", v111, v119, v123, 116, v13);
+        v107(3, "%c[%{public}s %{public}s]:%i Failed to add SQLite store type after removing: %{public}@", v110, v118, v122, 116, v13);
       }
 
       dispatch_get_specific(*v72);
-      v112 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+      v111 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
       {
-        v113 = object_getClass(v3);
-        if (class_isMetaClass(v113))
+        v112 = object_getClass(v3);
+        if (class_isMetaClass(v112))
         {
-          v114 = 43;
+          v113 = 43;
         }
 
         else
         {
-          v114 = 45;
+          v113 = 45;
         }
 
-        v115 = object_getClassName(v3);
-        v116 = sel_getName(sel_persistentStoreCoordinator);
+        v114 = object_getClassName(v3);
+        v115 = sel_getName(sel_persistentStoreCoordinator);
         *buf = 67110146;
-        v130 = v114;
-        v131 = 2082;
-        v132 = v115;
-        v133 = 2082;
-        v134 = v116;
-        v135 = 1024;
-        v136 = 116;
-        v137 = 2114;
-        v138 = v13;
-        _os_log_impl(&dword_2994CA000, v112, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to add SQLite store type after removing: %{public}@", buf, 0x2Cu);
+        v129 = v113;
+        v130 = 2082;
+        v131 = v114;
+        v132 = 2082;
+        v133 = v115;
+        v134 = 1024;
+        v135 = 116;
+        v136 = 2114;
+        v137 = v13;
+        _os_log_impl(&dword_2994CA000, v111, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to add SQLite store type after removing: %{public}@", buf, 0x2Cu);
       }
     }
 
@@ -2136,14 +2120,14 @@ LABEL_50:
         v63 = object_getClass(v3);
         v64 = class_isMetaClass(v63);
         v65 = object_getClassName(v3);
-        v120 = sel_getName(sel_persistentStoreCoordinator);
+        v119 = sel_getName(sel_persistentStoreCoordinator);
         v66 = 45;
         if (v64)
         {
           v66 = 43;
         }
 
-        v62(3, "%c[%{public}s %{public}s]:%i Failed to load model", v66, v65, v120, 95);
+        v62(3, "%c[%{public}s %{public}s]:%i Failed to load model", v66, v65, v119, 95);
       }
 
       dispatch_get_specific(*v60);
@@ -2164,13 +2148,13 @@ LABEL_50:
         v70 = object_getClassName(v3);
         v71 = sel_getName(sel_persistentStoreCoordinator);
         *buf = 67109890;
-        v130 = v69;
-        v131 = 2082;
-        v132 = v70;
-        v133 = 2082;
-        v134 = v71;
-        v135 = 1024;
-        v136 = 95;
+        v129 = v69;
+        v130 = 2082;
+        v131 = v70;
+        v132 = 2082;
+        v133 = v71;
+        v134 = 1024;
+        v135 = 95;
         _os_log_impl(&dword_2994CA000, v67, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to load model", buf, 0x22u);
       }
 
@@ -2184,7 +2168,6 @@ LABEL_51:
   }
 
 LABEL_55:
-  v105 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

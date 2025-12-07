@@ -49,41 +49,42 @@
 
 - (id)urlRequest
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = AALoginOrCreateDelegatesRequest;
-  urlRequest = [(AARequest *)&v18 urlRequest];
+  v22 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = AALoginOrCreateDelegatesRequest;
+  urlRequest = [(AARequest *)&v19 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"POST"];
   parameters = self->_parameters;
-  v17 = 0;
-  v6 = [MEMORY[0x1E696AE40] dataWithPropertyList:parameters format:100 options:0 error:&v17];
-  v7 = v17;
+  v18 = 0;
+  v6 = [MEMORY[0x1E696AE40] dataWithPropertyList:parameters format:100 options:0 error:&v18];
+  v7 = v18;
+  v8 = v7;
   if (v6)
   {
-    [v4 setHTTPBody:v6];
+    v9 = [v4 setHTTPBody:v6];
   }
 
   else
   {
-    v8 = _AALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _AALogSystem(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      localizedDescription = [v7 localizedDescription];
+      localizedDescription = [v8 localizedDescription];
       *buf = 138412290;
-      v20 = localizedDescription;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      v21 = localizedDescription;
+      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
 
-  v10 = _AALogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _AALogSystem(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [(AARequest *)self redactedBodyStringWithPropertyList:self->_parameters];
+    v13 = [(AARequest *)self redactedBodyStringWithPropertyList:self->_parameters];
     *buf = 138412290;
-    v20 = v11;
-    _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "LoginOrCreateAccount request body: \n%@", buf, 0xCu);
+    v21 = v13;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "LoginOrCreateAccount request body: \n%@", buf, 0xCu);
   }
 
   aa_password = [(ACAccount *)self->_account aa_password];
@@ -95,17 +96,14 @@
 
   [v4 aa_signBodyData:v6 withSigningSession:self->_signingSession];
   [v4 aa_addMultiUserDeviceHeaderIfEnabled];
-  [v4 aa_addAltDSIDAndRepairStateWithAccount:self->_account];
-  v13 = _AALogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = _AALogSystem([v4 aa_addAltDSIDAndRepairStateWithAccount:self->_account]);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v4 description];
+    v16 = [v4 description];
     *buf = 138412290;
-    v20 = v14;
-    _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
+    v21 = v16;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "request is: %@", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -77,27 +77,28 @@ LABEL_6:
     self->_name = bundleIdentifier;
 
 LABEL_7:
-    v7 = self->_name;
+    v8 = self->_name;
     goto LABEL_8;
   }
 
   p_pid = &self->_pid;
-  if (proc_name(self->_pid, buffer, 0x20u) >= 1)
+  v6 = proc_name(self->_pid, buffer, 0x20u);
+  if (v6 >= 1)
   {
     bundleIdentifier = [NSString stringWithUTF8String:buffer];
     goto LABEL_6;
   }
 
-  v9 = sub_100002AF4();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = sub_100002AF4(v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_1000094BC(p_pid, v9);
+    sub_1000094BC(p_pid, v10);
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 - (id)clientBundle
@@ -109,30 +110,31 @@ LABEL_8:
   }
 
   p_pid = &self->_pid;
-  if (proc_pidpath(self->_pid, buffer, 0x1000u) >= 1)
+  v5 = proc_pidpath(self->_pid, buffer, 0x1000u);
+  if (v5 >= 1)
   {
-    v5 = [NSString stringWithUTF8String:buffer];
-    stringByDeletingLastPathComponent = [v5 stringByDeletingLastPathComponent];
-    v7 = [NSBundle bundleWithPath:stringByDeletingLastPathComponent];
-    v8 = self->_clientBundle;
-    self->_clientBundle = v7;
+    v6 = [NSString stringWithUTF8String:buffer];
+    stringByDeletingLastPathComponent = [v6 stringByDeletingLastPathComponent];
+    v8 = [NSBundle bundleWithPath:stringByDeletingLastPathComponent];
+    v9 = self->_clientBundle;
+    self->_clientBundle = v8;
 
     clientBundle = self->_clientBundle;
 LABEL_4:
-    v9 = clientBundle;
+    v10 = clientBundle;
     goto LABEL_5;
   }
 
-  v11 = sub_100002AF4();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = sub_100002AF4(v5);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    sub_100009538(p_pid, v11);
+    sub_100009538(p_pid, v12);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_5:
 
-  return v9;
+  return v10;
 }
 
 @end

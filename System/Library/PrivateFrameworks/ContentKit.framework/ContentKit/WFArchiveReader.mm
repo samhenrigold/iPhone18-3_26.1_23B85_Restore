@@ -8,7 +8,7 @@
 
 - (id)enumerateArchiveFilePathsWithError:(id *)error
 {
-  v4 = objc_opt_new();
+  v5 = objc_opt_new();
   while (1)
   {
     next_header = archive_read_next_header();
@@ -17,36 +17,36 @@
       break;
     }
 
-    v6 = WFPathFromArchiveEntry();
-    [v4 addObject:v6];
+    v7 = WFPathFromArchiveEntry(0);
+    [v5 addObject:v7];
   }
 
   if (next_header == 1)
   {
-    v7 = v4;
+    v8 = v5;
   }
 
   else if (error)
   {
-    WFLastArchiveError();
-    *error = v7 = 0;
+    WFLastArchiveError(self->_archive);
+    *error = v8 = 0;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)extractArchiveToDestinationURL:(id)l error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v27 = objc_opt_new();
-  v25 = *MEMORY[0x277CCA050];
-  v24 = *MEMORY[0x277CCA450];
+  v28 = objc_opt_new();
+  v26 = *MEMORY[0x277CCA050];
+  v25 = *MEMORY[0x277CCA450];
   while (1)
   {
     next_header = archive_read_next_header();
@@ -55,53 +55,53 @@
       break;
     }
 
-    v6 = WFPathFromArchiveEntry();
-    lastPathComponent = [v6 lastPathComponent];
-    if (([lastPathComponent hasPrefix:@"__MACOSX"] & 1) != 0 || (objc_msgSend(lastPathComponent, "lastPathComponent"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqualToString:", @".DS_Store"), v8, v9))
+    v7 = WFPathFromArchiveEntry(0);
+    lastPathComponent = [v7 lastPathComponent];
+    if (([lastPathComponent hasPrefix:@"__MACOSX"] & 1) != 0 || (objc_msgSend(lastPathComponent, "lastPathComponent"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", @".DS_Store"), v9, v10))
     {
       archive_read_data_skip();
       goto LABEL_23;
     }
 
-    v10 = getWFLibArchiveLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = getWFLibArchiveLogObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v31 = "[WFArchiveReader extractArchiveToDestinationURL:error:]";
-      v32 = 2112;
-      v33 = v6;
-      _os_log_impl(&dword_21E1BD000, v10, OS_LOG_TYPE_DEFAULT, "%s Reading archive entry for %@", buf, 0x16u);
+      v32 = "[WFArchiveReader extractArchiveToDestinationURL:error:]";
+      v33 = 2112;
+      v34 = v7;
+      _os_log_impl(&dword_21E1BD000, v11, OS_LOG_TYPE_DEFAULT, "%s Reading archive entry for %@", buf, 0x16u);
     }
 
-    if (!v6)
+    if (!v7)
     {
-      v12 = 0;
+      v13 = 0;
 LABEL_31:
       if (error)
       {
-        v20 = MEMORY[0x277CCA9B8];
-        v28 = v24;
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"The item couldn't be extracted because the file path %@ is invalid.", v6];
-        v29 = v21;
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-        *error = [v20 errorWithDomain:v25 code:514 userInfo:v22];
+        v21 = MEMORY[0x277CCA9B8];
+        v29 = v25;
+        v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"The item couldn't be extracted because the file path %@ is invalid.", v7];
+        v30 = v22;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        *error = [v21 errorWithDomain:v26 code:514 userInfo:v23];
       }
 
 LABEL_35:
-      v18 = v27;
+      v19 = v28;
 
-      v19 = 0;
+      v20 = 0;
       goto LABEL_36;
     }
 
-    v11 = [lCopy URLByAppendingPathComponent:v6];
-    v12 = v11;
-    if (!v11 || ([v11 wf_proposedFileIsContainedByDirectoryAtURL:lCopy] & 1) == 0)
+    v12 = [lCopy URLByAppendingPathComponent:v7];
+    v13 = v12;
+    if (!v12 || ([v12 wf_proposedFileIsContainedByDirectoryAtURL:lCopy] & 1) == 0)
     {
       goto LABEL_31;
     }
 
-    path = [v12 path];
+    path = [v13 path];
     [path fileSystemRepresentation];
     archive_entry_set_pathname();
 
@@ -109,13 +109,13 @@ LABEL_35:
     {
       if (error)
       {
-        *error = WFLastArchiveError();
+        *error = WFLastArchiveError(self->_archive);
       }
 
       goto LABEL_35;
     }
 
-    pathComponents = [v6 pathComponents];
+    pathComponents = [v7 pathComponents];
     firstObject = [pathComponents firstObject];
     if ([firstObject isEqualToString:@"/"])
     {
@@ -126,19 +126,19 @@ LABEL_35:
         goto LABEL_21;
       }
 
-      v16 = [pathComponents objectAtIndex:1];
+      v17 = [pathComponents objectAtIndex:1];
 
-      firstObject = v16;
+      firstObject = v17;
     }
 
     if (firstObject)
     {
-      v17 = [lCopy URLByAppendingPathComponent:firstObject];
-      if (v17)
+      v18 = [lCopy URLByAppendingPathComponent:firstObject];
+      if (v18)
       {
-        if (([v27 containsObject:v17] & 1) == 0)
+        if (([v28 containsObject:v18] & 1) == 0)
         {
-          [v27 addObject:v17];
+          [v28 addObject:v18];
         }
       }
 
@@ -146,7 +146,7 @@ LABEL_35:
     }
 
 LABEL_21:
-    v17 = 0;
+    v18 = 0;
 LABEL_22:
 
 LABEL_23:
@@ -154,29 +154,29 @@ LABEL_23:
 
   if (next_header == 1)
   {
-    v18 = v27;
-    v19 = v27;
+    v19 = v28;
+    v20 = v28;
   }
 
   else
   {
     if (error)
     {
-      WFLastArchiveError();
-      *error = v19 = 0;
+      WFLastArchiveError(self->_archive);
+      *error = v20 = 0;
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    v18 = v27;
+    v19 = v28;
   }
 
 LABEL_36:
 
-  return v19;
+  return v20;
 }
 
 - (WFArchiveReader)initWithArchiveFile:(id)file error:(id *)error
@@ -187,7 +187,7 @@ LABEL_36:
   v7 = [(WFArchiveReader *)&v23 init];
   if (v7)
   {
-    v7->_archive = archive_read_new();
+    *(v7 + 1) = archive_read_new();
     archive_read_support_compression_all();
     filename = [fileCopy filename];
     pathExtension = [filename pathExtension];
@@ -231,7 +231,7 @@ LABEL_10:
       {
         if (error)
         {
-          WFLastArchiveError();
+          WFLastArchiveError(*(v7 + 1));
           *error = v16 = 0;
 LABEL_22:
 
@@ -253,7 +253,7 @@ LABEL_19:
       {
         if (error)
         {
-          *error = WFLastArchiveError();
+          *error = WFLastArchiveError(*(v7 + 1));
         }
 
         goto LABEL_19;

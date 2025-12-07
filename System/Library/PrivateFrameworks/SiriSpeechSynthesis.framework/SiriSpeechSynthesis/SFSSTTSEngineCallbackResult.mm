@@ -39,10 +39,9 @@
   switch(callback)
   {
     case 4:
-      chunkCallback = self->_chunkCallback;
-      v8 = (*(self->_chunkCallback + 2))();
+      v7 = (*(self->_chunkCallback + 2))();
       error = self->_error;
-      self->_error = v8;
+      self->_error = v7;
 
       self->_pcmDataBuffer.__end_ = self->_pcmDataBuffer.__begin_;
       return [(NSError *)self->_error code];

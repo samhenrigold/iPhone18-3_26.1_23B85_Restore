@@ -11,12 +11,11 @@
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"friend_uuid";
-  v5[1] = @"snapshot_index";
-  v5[2] = @"source_uuid";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"friend_uuid";
+  v4[1] = @"snapshot_index";
+  v4[2] = @"source_uuid";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }
@@ -34,7 +33,7 @@
 
 + (id)insertDataObject:(id)object withProvenance:(id)provenance inDatabase:(id)database persistentID:(id)d error:(id *)error
 {
-  v28[19] = *MEMORY[0x277D85DE8];
+  v27[19] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   dCopy = d;
   databaseCopy = database;
@@ -45,35 +44,35 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDFitnessFriendActivitySnapshotEntity.m" lineNumber:121 description:{@"Subclasses must override %s", "+[HDFitnessFriendActivitySnapshotEntity insertDataObject:withProvenance:inDatabase:persistentID:error:]"}];
   }
 
-  v28[0] = @"data_id";
-  v28[1] = @"friend_uuid";
-  v28[2] = @"active_hours";
-  v28[3] = @"active_hours_goal";
-  v28[4] = @"brisk_minutes";
-  v28[5] = @"brisk_minutes_goal";
-  v28[6] = @"energy_burned";
-  v28[7] = @"energy_burned_goal";
-  v28[8] = @"move_minutes";
-  v28[9] = @"move_minutes_goal";
-  v28[10] = @"activity_move_mode";
-  v28[11] = @"walk_run_distance";
-  v28[12] = @"steps";
-  v28[13] = @"snapshot_index";
-  v28[14] = @"source_uuid";
-  v28[15] = @"uploaded_date";
-  v28[16] = @"vulcan_count";
-  v28[17] = @"vulcan_condition";
-  v28[18] = @"timezone_offset";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:19];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __103__HDFitnessFriendActivitySnapshotEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
-  v25[3] = &unk_278613DE8;
-  v26 = dCopy;
-  v27 = objectCopy;
+  v27[0] = @"data_id";
+  v27[1] = @"friend_uuid";
+  v27[2] = @"active_hours";
+  v27[3] = @"active_hours_goal";
+  v27[4] = @"brisk_minutes";
+  v27[5] = @"brisk_minutes_goal";
+  v27[6] = @"energy_burned";
+  v27[7] = @"energy_burned_goal";
+  v27[8] = @"move_minutes";
+  v27[9] = @"move_minutes_goal";
+  v27[10] = @"activity_move_mode";
+  v27[11] = @"walk_run_distance";
+  v27[12] = @"steps";
+  v27[13] = @"snapshot_index";
+  v27[14] = @"source_uuid";
+  v27[15] = @"uploaded_date";
+  v27[16] = @"vulcan_count";
+  v27[17] = @"vulcan_condition";
+  v27[18] = @"timezone_offset";
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:19];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __103__HDFitnessFriendActivitySnapshotEntity_insertDataObject_withProvenance_inDatabase_persistentID_error___block_invoke;
+  v24[3] = &unk_278613DE8;
+  v25 = dCopy;
+  v26 = objectCopy;
   v17 = objectCopy;
   v18 = dCopy;
-  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v25];
+  v19 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v16 error:error bindingHandler:v24];
 
   if (v19)
   {
@@ -87,7 +86,6 @@
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -142,14 +140,14 @@ void __103__HDFitnessFriendActivitySnapshotEntity_insertDataObject_withProvenanc
 
 + (id)mergeDataObject:(id)object provenance:(id)provenance profile:(id)profile transaction:(id)transaction error:(id *)error insertHandler:(id)handler
 {
-  v47[3] = *MEMORY[0x277D85DE8];
+  v46[3] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   provenanceCopy = provenance;
   profileCopy = profile;
   transactionCopy = transaction;
   handlerCopy = handler;
   friendUUID = [objectCopy friendUUID];
-  v18 = HDFitnessFriendActivitySnapshotEntityPredicateForFriendUUID();
+  v18 = HDFitnessFriendActivitySnapshotEntityPredicateForFriendUUID(friendUUID);
 
   v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(objectCopy, "snapshotIndex")}];
   v20 = [MEMORY[0x277D10B18] predicateWithProperty:@"snapshot_index" equalToValue:v19];
@@ -160,37 +158,37 @@ void __103__HDFitnessFriendActivitySnapshotEntity_insertDataObject_withProvenanc
   v24 = [v21 predicateWithProperty:@"source_uuid" equalToValue:v23];
 
   v25 = MEMORY[0x277D10B20];
-  v47[0] = v18;
-  v47[1] = v20;
-  v47[2] = v24;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
+  v46[0] = v18;
+  v46[1] = v20;
+  v46[2] = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
   v27 = [v25 predicateMatchingAllPredicates:v26];
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__105;
-  v41 = __Block_byref_object_dispose__105;
   v42 = 0;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __108__HDFitnessFriendActivitySnapshotEntity_mergeDataObject_provenance_profile_transaction_error_insertHandler___block_invoke;
-  v36[3] = &unk_278622358;
-  v36[4] = &v43;
-  v36[5] = &v37;
-  [self deleteSamplesWithPredicate:v27 limit:0 generateDeletedObjects:0 transaction:transactionCopy profile:profileCopy recursiveDeleteAuthorizationBlock:0 completionHandler:v36];
-  if (v44[3])
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__105;
+  v40 = __Block_byref_object_dispose__105;
+  v41 = 0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __108__HDFitnessFriendActivitySnapshotEntity_mergeDataObject_provenance_profile_transaction_error_insertHandler___block_invoke;
+  v35[3] = &unk_278622358;
+  v35[4] = &v42;
+  v35[5] = &v36;
+  [self deleteSamplesWithPredicate:v27 limit:0 generateDeletedObjects:0 transaction:transactionCopy profile:profileCopy recursiveDeleteAuthorizationBlock:0 completionHandler:v35];
+  if (v43[3])
   {
     v28 = handlerCopy[2](handlerCopy, objectCopy, error);
   }
 
   else
   {
-    v29 = v38[5];
+    v29 = v37[5];
     v30 = v29;
     if (v29)
     {
@@ -209,10 +207,9 @@ void __103__HDFitnessFriendActivitySnapshotEntity_insertDataObject_withProvenanc
     v28 = 0;
   }
 
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v36, 8);
 
-  _Block_object_dispose(&v43, 8);
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 
   return v28;
 }
@@ -229,7 +226,7 @@ void __103__HDFitnessFriendActivitySnapshotEntity_insertDataObject_withProvenanc
 
 + (BOOL)enumerateSnapshotsWithPredicate:(id)predicate anchor:(id *)anchor profile:(id)profile error:(id *)error handler:(id)handler
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   profileCopy = profile;
   handlerCopy = handler;
@@ -259,30 +256,29 @@ void __103__HDFitnessFriendActivitySnapshotEntity_insertDataObject_withProvenanc
   v17 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:predicateCopy otherPredicate:v15];
   [v16 setPredicate:v17];
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
   longLongValue = [v13 longLongValue];
   v18 = [MEMORY[0x277D10B68] orderingTermWithProperty:v14 entityClass:objc_opt_class() ascending:1];
-  v32[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v31[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   [v16 setOrderingTerms:v19];
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __102__HDFitnessFriendActivitySnapshotEntity_enumerateSnapshotsWithPredicate_anchor_profile_error_handler___block_invoke;
-  v25[3] = &unk_278622330;
-  v27 = &v28;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __102__HDFitnessFriendActivitySnapshotEntity_enumerateSnapshotsWithPredicate_anchor_profile_error_handler___block_invoke;
+  v24[3] = &unk_278622330;
+  v26 = &v27;
   v20 = handlerCopy;
-  v26 = v20;
-  v21 = [v16 enumerateWithError:error handler:v25];
+  v25 = v20;
+  v21 = [v16 enumerateWithError:error handler:v24];
   if (anchor)
   {
-    *anchor = [MEMORY[0x277CCABB0] numberWithLongLong:v29[3]];
+    *anchor = [MEMORY[0x277CCABB0] numberWithLongLong:v28[3]];
   }
 
-  _Block_object_dispose(&v28, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
   return v21;
 }
 

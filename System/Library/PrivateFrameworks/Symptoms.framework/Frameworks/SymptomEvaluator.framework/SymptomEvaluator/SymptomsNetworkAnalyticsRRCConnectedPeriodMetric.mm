@@ -1,9 +1,25 @@
 @interface SymptomsNetworkAnalyticsRRCConnectedPeriodMetric
+- (SymptomsNetworkAnalyticsRRCConnectedPeriodMetric)initWithPeriodType:(int)type;
 - (id)_eventPayload;
 - (id)_trafficClassString:(unsigned int)string;
 @end
 
 @implementation SymptomsNetworkAnalyticsRRCConnectedPeriodMetric
+
+- (SymptomsNetworkAnalyticsRRCConnectedPeriodMetric)initWithPeriodType:(int)type
+{
+  v3 = *&type;
+  v7.receiver = self;
+  v7.super_class = SymptomsNetworkAnalyticsRRCConnectedPeriodMetric;
+  v4 = [(SymptomsNetworkAnalyticsRRCConnectedPeriodMetric *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(SymptomsNetworkAnalyticsRRCConnectedPeriodMetric *)v4 setPeriodType:v3];
+  }
+
+  return v5;
+}
 
 - (id)_trafficClassString:(unsigned int)string
 {

@@ -10,28 +10,26 @@
 {
   v3 = sub_2560533BC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC17LiveTranscription13AXLiveCaption_timeStamp, v3);
-  v8 = sub_25605339C();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC17LiveTranscription13AXLiveCaption_timeStamp, v3);
+  v7 = sub_25605339C();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (NSAttributedString)textWithConfidence
 {
   v3 = sub_25605335C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_256033338();
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC17LiveTranscription13AXLiveCaption_attributedText, v3);
-  v8 = sub_25605383C();
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC17LiveTranscription13AXLiveCaption_attributedText, v3);
+  v7 = sub_25605383C();
 
-  return v8;
+  return v7;
 }
 
 - (_TtC17LiveTranscription13AXLiveCaption)init

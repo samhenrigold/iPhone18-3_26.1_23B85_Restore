@@ -63,41 +63,41 @@ void __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___bl
 
 void __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_3(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v3 = (a1 + 32);
-  v2 = *(a1 + 32);
-  v4 = [objc_opt_class() springBoardQueue];
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_4;
-  v27 = &unk_1E6A1E108;
-  *&v5 = *(a1 + 40);
-  *(&v5 + 1) = *v3;
-  v23 = v5;
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  *&v8 = v6;
-  *(&v8 + 1) = v7;
-  v28 = v23;
-  v29 = v8;
-  v9 = _LSDispatchWithTimeout(v4, &v24, 10.0);
+  v31 = *MEMORY[0x1E69E9840];
+  v2 = (a1 + 32);
+  v3 = [objc_opt_class() springBoardQueue];
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_4;
+  v26 = &unk_1E6A1E108;
+  *&v4 = *(a1 + 40);
+  *(&v4 + 1) = *v2;
+  v22 = v4;
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  *&v7 = v5;
+  *(&v7 + 1) = v6;
+  v27 = v22;
+  v28 = v7;
+  v8 = _LSDispatchWithTimeout(v3, &v23, 10.0);
 
-  v10 = [v9 result];
-  if (!v10 || ([v9 result], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "BOOLValue"), v11, v10, !v12))
+  v9 = [v8 result];
+  if (!v9 || ([v8 result], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "BOOLValue"), v10, v9, !v11))
   {
-    v13 = [v9 error];
-    if (v13)
+    v12 = [v8 error];
+    v13 = v12;
+    if (v12)
     {
-      v14 = [v9 error];
+      v14 = [v8 error];
       v15 = [v14 domain];
       if ([v15 isEqual:*MEMORY[0x1E696A798]])
       {
-        v16 = [v9 error];
+        v16 = [v8 error];
         v17 = [v16 code] == 60;
 
         if (v17)
         {
-          v18 = _LSDefaultLog();
+          v18 = _LSDefaultLog(v12);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -107,7 +107,7 @@ void __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___bl
 LABEL_12:
 
           v20 = *(a1 + 64);
-          v21 = [v9 error];
+          v21 = [v8 error];
           (*(v20 + 16))(v20, 0, v21);
 
           goto LABEL_13;
@@ -119,12 +119,12 @@ LABEL_12:
       }
     }
 
-    v18 = _LSDefaultLog();
+    v18 = _LSDefaultLog(v12);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v9 error];
+      v19 = [v8 error];
       *buf = 138412290;
-      v31 = v19;
+      v30 = v19;
       _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "application launch failed - received error %@", buf, 0xCu);
     }
 
@@ -133,8 +133,6 @@ LABEL_12:
 
   (*(*(a1 + 64) + 16))();
 LABEL_13:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_4(uint64_t a1, void *a2)
@@ -162,40 +160,40 @@ void __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___bl
   v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _LSDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = [*(a1 + 40) bundleIdentifier];
-      __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_5_cold_1(v8, v6, buf, v7);
+      v9 = [*(a1 + 40) bundleIdentifier];
+      __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_5_cold_1(v9, v7, buf, v8);
     }
 
     v16 = *MEMORY[0x1E696A278];
     v17 = @"Unable to launch. See logs for more detail.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v10 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 115, v9, "[_LSSpringBoardCall(Private) callSpringBoardWithCompletionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSSpringBoardCall.mm", 271);
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v11 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 115, v10, "[_LSSpringBoardCall(Private) callSpringBoardWithCompletionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSSpringBoardCall.mm", 271);
 
-    v6 = v10;
+    v7 = v11;
   }
 
-  v11 = *(a1 + 48);
+  v12 = *(a1 + 48);
   if (v5)
   {
-    v12 = v6 == 0;
+    v13 = v7 == 0;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v13 = v12;
-  v14 = [MEMORY[0x1E696AD98] numberWithBool:v13];
-  (*(v11 + 16))(v11, v14, v6);
+  v14 = v13;
+  v15 = [MEMORY[0x1E696AD98] numberWithBool:v14];
+  (*(v12 + 16))(v12, v15, v7);
 
   MEMORY[0x1865D7C50]();
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __77___LSSpringBoardCall_Private__promptAndCallSpringBoardWithCompletionHandler___block_invoke(uint64_t a1, int a2, void *a3)

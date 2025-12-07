@@ -1,3 +1,175 @@
+uint64_t H16ISP::JasperConfigManagerInternal::apply(H16ISP::JasperConfigManagerInternal *this, H16ISP::H16ISPDevice *a2, uint64_t a3, unsigned __int16 a4, xpc_connection_t *a5)
+{
+  if (*(this + 1) == -1)
+  {
+    return 4294954516;
+  }
+
+  if (*(this + 32) != 1)
+  {
+    H16ISP::setPeridotCalib(a2, a5, a3);
+    if (*(this + 1) == 4)
+    {
+      v11 = 14083;
+      v12 = a3;
+      v13 = 8;
+      v14 = -1;
+      v15 = -1;
+      NSLog(&cfstr_SChDSettingBui.isa, "apply", a3, 8);
+      v9 = H16ISP::H16ISPDevice::ISP_SendCommand(a2, v10, 0x20u, 0, 0xFFFFFFFF);
+      if (!v9)
+      {
+        H16ISP::H16ISPDevice::ISP_SetTimeOfFlightProjectorMode(a2, 1u);
+        return 0;
+      }
+
+      NSLog(&cfstr_SSettingBuiltI.isa, "apply", v9);
+    }
+
+    return 4294954516;
+  }
+
+  return H16ISP::JasperConfigManagerInternal::applyFromDictionary(this, a2, a3);
+}
+
+BOOL H16ISP::JasperConfigManagerInternal::describe(H16ISP::JasperConfigManagerInternal *this, unsigned int *a2, unsigned int *a3, unsigned int *a4)
+{
+  v4 = *this;
+  if (*this)
+  {
+    *a3 = *(this + 3);
+    *a4 = *this - 1;
+    *a2 = *(this + 1);
+  }
+
+  return v4 != 0;
+}
+
+uint64_t H16ISP::JasperConfigManagerInternal::aggregateJasperSpecData(H16ISP::JasperConfigManagerInternal *this, _WORD *a2, unint64_t a3, char a4)
+{
+  H16ISP::JasperConfigManagerInternal::initJasperSpecs(this);
+  v7 = 63104;
+  if (*(a2 + 7) >= 0)
+  {
+    v7 = 31544;
+  }
+
+  v8 = &a2[v7];
+  v9 = HIBYTE(a2[v7 + 1026]);
+  if (v9 <= 3)
+  {
+    v10 = *(this + v9 + 6);
+    if (v10)
+    {
+      v11 = v8 + 77;
+      v12 = a2 + 222;
+      v13 = 144;
+      v14 = (v8 + 77);
+      do
+      {
+        v16 = *v14++;
+        v15 = v16;
+        if (v16)
+        {
+          v17 = *(v11 - 144);
+          v18 = 140 * v15;
+          v19 = (v10 - 560 + 4 * v18 + 4 * v17);
+          *v19 = *(v12 - 3);
+          if ((a4 & 1) == 0)
+          {
+            v19[1] = *(v12 - 1);
+            v20 = (v10 + 4 * v18 + 4 * v17);
+            *v20 = *(v12 - 2);
+            v20[1] = *v12;
+          }
+        }
+
+        v12 += 108;
+        v11 = v14;
+        --v13;
+      }
+
+      while (v13);
+      *(this + 42) = a2[2];
+    }
+  }
+
+  return 0;
+}
+
+__CVBuffer *H16ISP::JasperConfigManagerInternal::RenderToYUV(H16ISP::JasperConfigManagerInternal *this, uint64_t a2, uint64_t a3)
+{
+  LOBYTE(v23) = 0;
+  v4 = H16ISP::H16ISPCreateCVBuffer(0xB4u, 0x8Cu, a2, a3, 0, 1, 0.0, 64, 4096, 0, v23, 0, 0, -1);
+  CVPixelBufferLockBaseAddress(v4, 0);
+  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v4, 0);
+  BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v4, 0);
+  v7 = CVPixelBufferGetBaseAddressOfPlane(v4, 1uLL);
+  HeightOfPlane = CVPixelBufferGetHeightOfPlane(v4, 1uLL);
+  v9 = CVPixelBufferGetBytesPerRowOfPlane(v4, 1uLL);
+  memset(v7, 128, v9 * HeightOfPlane);
+  v10 = 0;
+  v11 = this + 48;
+  do
+  {
+    v12 = *&v11[8 * v10];
+    v13 = v12;
+    v14 = 25200;
+    do
+    {
+      if (v12 && *(this + 20) < *v13)
+      {
+        *(this + 20) = *v13;
+      }
+
+      ++v13;
+      --v14;
+    }
+
+    while (v14);
+    ++v10;
+  }
+
+  while (v10 != 4);
+  for (i = 0; i != 180; ++i)
+  {
+    for (j = 0; j != 140; ++j)
+    {
+      v17 = 0;
+      v18 = 0;
+      do
+      {
+        v19 = *&v11[v17];
+        if (v19)
+        {
+          v20 = *(v19 + 4 * j + 560 * i);
+          if (v18 <= v20)
+          {
+            v18 = v20;
+          }
+        }
+
+        v17 += 8;
+      }
+
+      while (v17 != 32);
+      BaseAddressOfPlane[(139 - j) * BytesPerRowOfPlane - i + 179] = 255 * v18 / *(this + 20);
+    }
+  }
+
+  CVPixelBufferUnlockBaseAddress(v4, 0);
+  v21 = 0;
+  *(this + 20) = 1;
+  do
+  {
+    bzero(*&v11[v21], 0x189C0uLL);
+    v21 += 8;
+  }
+
+  while (v21 != 32);
+  return v4;
+}
+
 uint64_t H16ISP::JasperConfigManagerInternal::getSequenceId(H16ISP::JasperConfigManagerInternal *this)
 {
   v1 = *(this + 12);
@@ -375,14 +547,14 @@ uint64_t H16ISP::JasperConfigManager::setSequenceFromArray(H16ISP::JasperConfigM
   return v8;
 }
 
-void sub_224860E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_224860E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -519,14 +691,14 @@ uint64_t ImageUtils::IntegralImage<double>(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t Matrix<double>::Resize(uint64_t result, int a2, int a3)
+uint64_t Matrix<double>::Resize(uint64_t a1, int a2, int a3)
 {
-  v5 = result;
-  if (*(result + 16) != a2 || *(result + 20) != a3)
+  v5 = a1;
+  if (*(a1 + 16) != a2 || *(a1 + 20) != a3)
   {
-    if (*(result + 8))
+    if (*(a1 + 8))
     {
-      if (*(result + 24) == 1)
+      if (*(a1 + 24) == 1)
       {
         MEMORY[0x22AA55B40]();
       }
@@ -537,32 +709,32 @@ uint64_t Matrix<double>::Resize(uint64_t result, int a2, int a3)
     operator new[]();
   }
 
-  return result;
+  return a1;
 }
 
-void ImageUtils::AdaptiveThreshold<double>(uint64_t a1, unsigned int a2, int a3, uint64_t a4)
+void ImageUtils::AdaptiveThreshold<double>(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5)
 {
   if (a3)
   {
-    AdaptiveThreshold<double,true>(a1, a2, a4);
+    AdaptiveThreshold<double,true>(a1, a2, a4, a5);
   }
 
-  AdaptiveThreshold<double,false>(a1, a2, a4);
+  AdaptiveThreshold<double,false>(a1, a2, a4, a5);
 }
 
-void AdaptiveThreshold<double,true>(uint64_t a1, unsigned int a2, uint64_t a3)
+void AdaptiveThreshold<double,true>(uint64_t a1, unsigned int a2, uint64_t a3, double a4)
 {
-  v3 = *(a1 + 20);
-  if (v3 > a2)
+  v4 = *(a1 + 20);
+  if (v4 > a2)
   {
-    v4 = *(a1 + 16);
-    if (v4 > a2)
+    v5 = *(a1 + 16);
+    if (v5 > a2)
     {
-      Matrix<BOOL>::Resize(a3, v4, v3);
-      v6 = 0;
+      Matrix<BOOL>::Resize(a3, v5, v4);
       v7 = 0;
-      v5 = &unk_283812C58;
       v8 = 0;
+      v6 = &unk_283812C58;
+      v9 = 0;
       ImageUtils::IntegralImage<double>();
     }
   }
@@ -570,26 +742,26 @@ void AdaptiveThreshold<double,true>(uint64_t a1, unsigned int a2, uint64_t a3)
   AdaptiveThreshold<double,true>();
 }
 
-void sub_224861A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_224861A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-void AdaptiveThreshold<double,false>(uint64_t a1, unsigned int a2, uint64_t a3)
+void AdaptiveThreshold<double,false>(uint64_t a1, unsigned int a2, uint64_t a3, double a4)
 {
-  v3 = *(a1 + 20);
-  if (v3 > a2)
+  v4 = *(a1 + 20);
+  if (v4 > a2)
   {
-    v4 = *(a1 + 16);
-    if (v4 > a2)
+    v5 = *(a1 + 16);
+    if (v5 > a2)
     {
-      Matrix<BOOL>::Resize(a3, v4, v3);
-      v6 = 0;
+      Matrix<BOOL>::Resize(a3, v5, v4);
       v7 = 0;
-      v5 = &unk_283812C58;
       v8 = 0;
+      v6 = &unk_283812C58;
+      v9 = 0;
       ImageUtils::IntegralImage<double>();
     }
   }
@@ -597,14 +769,14 @@ void AdaptiveThreshold<double,false>(uint64_t a1, unsigned int a2, uint64_t a3)
   AdaptiveThreshold<double,true>();
 }
 
-void sub_224862208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_224862208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ImageUtils::TraceOuterBoundaries(uint64_t a1, unsigned int a2, uint64_t *a3)
+uint64_t ImageUtils::TraceOuterBoundaries(uint64_t a1, unsigned int a2, unint64_t *a3)
 {
   v69 = *MEMORY[0x277D85DE8];
   v50 = 0;
@@ -795,14 +967,15 @@ LABEL_33:
   return Matrix<unsigned short>::~Matrix(&v49);
 }
 
-void sub_224862588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, char a21)
+void sub_224862588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
   if (__p)
   {
     operator delete(__p);
   }
 
-  Matrix<unsigned short>::~Matrix(&a21);
+  Matrix<unsigned short>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
@@ -839,7 +1012,7 @@ void PadImage1<unsigned short>(uint64_t a1, uint64_t a2)
   bzero(v8, v7);
 }
 
-void std::vector<ImageUtils::Blob>::resize(uint64_t *a1, unint64_t a2, uint64_t *a3)
+void std::vector<ImageUtils::Blob>::resize(unint64_t *a1, unint64_t a2, uint64_t a3)
 {
   v4 = a1[1];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
@@ -878,7 +1051,7 @@ void std::vector<ImageUtils::Blob>::resize(uint64_t *a1, unint64_t a2, uint64_t 
   }
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1031,14 +1204,14 @@ _BYTE *ImageUtils::ErodeRect2x2(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t Matrix<BOOL>::Resize(uint64_t result, int a2, int a3)
+uint64_t Matrix<BOOL>::Resize(uint64_t a1, int a2, int a3)
 {
-  v5 = result;
-  if (*(result + 16) != a2 || *(result + 20) != a3)
+  v5 = a1;
+  if (*(a1 + 16) != a2 || *(a1 + 20) != a3)
   {
-    if (*(result + 8))
+    if (*(a1 + 8))
     {
-      if (*(result + 24) == 1)
+      if (*(a1 + 24) == 1)
       {
         MEMORY[0x22AA55B40]();
       }
@@ -1049,7 +1222,7 @@ uint64_t Matrix<BOOL>::Resize(uint64_t result, int a2, int a3)
     operator new[]();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t ErodeOrDilateRect3x3<false>(uint64_t a1, uint64_t a2)
@@ -1434,8 +1607,9 @@ uint64_t ImageUtils::CloseRect3x3(uint64_t a1, uint64_t a2)
   return Matrix<BOOL>::~Matrix(v4);
 }
 
-uint64_t Scale<double>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
+uint64_t Scale<double>(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
+  v7 = a2;
   v11 = *(a1 + 16);
   v12 = *(a1 + 20);
   v13 = vcvtpd_u64_f64(v11 * a4);
@@ -1445,7 +1619,7 @@ uint64_t Scale<double>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
   v66 = a3;
   v14 = v71;
   v15 = a5 < 1.0;
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v16 = a5;
   }
@@ -1455,7 +1629,7 @@ uint64_t Scale<double>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
     v16 = 1.0;
   }
 
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v17 = 4.0 / a5;
   }
@@ -1467,7 +1641,7 @@ uint64_t Scale<double>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
 
   v18 = vcvtpd_u64_f64(v17);
   v19 = a4 < 1.0;
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v20 = 4.0 / a4;
   }
@@ -1477,7 +1651,7 @@ uint64_t Scale<double>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
     v20 = 4.0;
   }
 
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v21 = a4;
   }
@@ -1683,15 +1857,16 @@ uint64_t Scale<double>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
   return Matrix<double>::~Matrix(v70);
 }
 
-void sub_2248634D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2248634D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Scale<unsigned short>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
+uint64_t Scale<unsigned short>(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
+  v7 = a2;
   v11 = *(a1 + 16);
   v12 = *(a1 + 20);
   v13 = vcvtpd_u64_f64(v11 * a4);
@@ -1701,7 +1876,7 @@ uint64_t Scale<unsigned short>(uint64_t a1, int a2, uint64_t a3, double a4, doub
   v64 = a3;
   v14 = v69;
   v15 = a5 < 1.0;
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v16 = a5;
   }
@@ -1711,7 +1886,7 @@ uint64_t Scale<unsigned short>(uint64_t a1, int a2, uint64_t a3, double a4, doub
     v16 = 1.0;
   }
 
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v17 = 4.0 / a5;
   }
@@ -1723,7 +1898,7 @@ uint64_t Scale<unsigned short>(uint64_t a1, int a2, uint64_t a3, double a4, doub
 
   v18 = vcvtpd_u64_f64(v17);
   v19 = a4 < 1.0;
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v20 = 4.0 / a4;
   }
@@ -1733,7 +1908,7 @@ uint64_t Scale<unsigned short>(uint64_t a1, int a2, uint64_t a3, double a4, doub
     v20 = 4.0;
   }
 
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v21 = a4;
   }
@@ -1942,15 +2117,16 @@ uint64_t Scale<unsigned short>(uint64_t a1, int a2, uint64_t a3, double a4, doub
   return Matrix<double>::~Matrix(v68);
 }
 
-void sub_2248638B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2248638B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Scale<unsigned char>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
+uint64_t Scale<unsigned char>(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
+  v7 = a2;
   v11 = *(a1 + 16);
   v12 = *(a1 + 20);
   v13 = vcvtpd_u64_f64(v11 * a4);
@@ -1960,7 +2136,7 @@ uint64_t Scale<unsigned char>(uint64_t a1, int a2, uint64_t a3, double a4, doubl
   v68 = a3;
   v14 = v73;
   v15 = a5 < 1.0;
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v16 = a5;
   }
@@ -1970,7 +2146,7 @@ uint64_t Scale<unsigned char>(uint64_t a1, int a2, uint64_t a3, double a4, doubl
     v16 = 1.0;
   }
 
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v17 = 4.0 / a5;
   }
@@ -1982,7 +2158,7 @@ uint64_t Scale<unsigned char>(uint64_t a1, int a2, uint64_t a3, double a4, doubl
 
   v18 = vcvtpd_u64_f64(v17);
   v19 = a4 < 1.0;
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v20 = 4.0 / a4;
   }
@@ -1992,7 +2168,7 @@ uint64_t Scale<unsigned char>(uint64_t a1, int a2, uint64_t a3, double a4, doubl
     v20 = 4.0;
   }
 
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v21 = a4;
   }
@@ -2230,15 +2406,16 @@ uint64_t Scale<unsigned char>(uint64_t a1, int a2, uint64_t a3, double a4, doubl
   return Matrix<double>::~Matrix(v72);
 }
 
-void sub_224863CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224863CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Scale<BOOL>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
+uint64_t Scale<BOOL>(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
+  v7 = a2;
   v11 = *(a1 + 16);
   v12 = *(a1 + 20);
   v13 = vcvtpd_u64_f64(v11 * a4);
@@ -2248,7 +2425,7 @@ uint64_t Scale<BOOL>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
   v68 = a3;
   v14 = v73;
   v15 = a5 < 1.0;
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v16 = a5;
   }
@@ -2258,7 +2435,7 @@ uint64_t Scale<BOOL>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
     v16 = 1.0;
   }
 
-  if ((v15 & a2) != 0)
+  if ((v15 & v7) != 0)
   {
     v17 = 4.0 / a5;
   }
@@ -2270,7 +2447,7 @@ uint64_t Scale<BOOL>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
 
   v18 = vcvtpd_u64_f64(v17);
   v19 = a4 < 1.0;
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v20 = 4.0 / a4;
   }
@@ -2280,7 +2457,7 @@ uint64_t Scale<BOOL>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
     v20 = 4.0;
   }
 
-  if ((v19 & a2) != 0)
+  if ((v19 & v7) != 0)
   {
     v21 = a4;
   }
@@ -2510,9 +2687,9 @@ uint64_t Scale<BOOL>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
   return Matrix<double>::~Matrix(v72);
 }
 
-void sub_2248640D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2248640D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -3027,7 +3204,7 @@ void ImageUtils::OtsuThreshold(uint64_t a1)
   }
 }
 
-uint64_t ImageUtils::ExtractPatch<double>(uint64_t a1, unsigned int a2, unsigned int a3, int a4, unsigned int a5, uint64_t a6)
+uint64_t ImageUtils::ExtractPatch<double>(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6)
 {
   v10 = a2;
   v11 = *(a1 + 20);
@@ -3054,12 +3231,12 @@ uint64_t ImageUtils::ExtractPatch<double>(uint64_t a1, unsigned int a2, unsigned
   return result;
 }
 
-void ImageUtils::Conv2<double>()
+void ImageUtils::Conv2<double>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = 0;
-  v2 = 0;
-  v0 = &unk_283812C58;
-  v3 = 0;
+  v4 = 0;
+  v5 = 0;
+  v3 = &unk_283812C58;
+  v6 = 0;
   ImageUtils::Rot90<double>();
 }
 
@@ -3743,21 +3920,21 @@ LABEL_132:
   return v60;
 }
 
-void sub_2248656CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2248656CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DisjointSet::~DisjointSet(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Matrix<unsigned short>::Resize(uint64_t result, int a2, int a3)
+uint64_t Matrix<unsigned short>::Resize(uint64_t a1, int a2, int a3)
 {
-  v5 = result;
-  if (*(result + 16) != a2 || *(result + 20) != a3)
+  v5 = a1;
+  if (*(a1 + 16) != a2 || *(a1 + 20) != a3)
   {
-    if (*(result + 8))
+    if (*(a1 + 8))
     {
-      if (*(result + 24) == 1)
+      if (*(a1 + 24) == 1)
       {
         MEMORY[0x22AA55B40]();
       }
@@ -3768,7 +3945,7 @@ uint64_t Matrix<unsigned short>::Resize(uint64_t result, int a2, int a3)
     operator new[]();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t DisjointSet::Unite(DisjointSet *this, uint64_t a2, unsigned int a3)
@@ -4676,14 +4853,14 @@ LABEL_200:
   return v131;
 }
 
-void sub_2248665C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2248665C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   DisjointSet::~DisjointSet(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::vector<ImageUtils::Blob>::__append(uint64_t *result, unint64_t a2, uint64_t *a3)
+unint64_t *std::vector<ImageUtils::Blob>::__append(unint64_t *result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
   v7 = result[1];
@@ -4699,7 +4876,7 @@ uint64_t *std::vector<ImageUtils::Blob>::__append(uint64_t *result, unint64_t a2
         *v7 = 0;
         v7[1] = 0;
         v7[2] = 0;
-        result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v7, *a3, a3[1], (a3[1] - *a3) >> 2);
+        result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v7, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
         v7 += 3;
         v13 -= 24;
       }
@@ -4763,17 +4940,17 @@ uint64_t *std::vector<ImageUtils::Blob>::__append(uint64_t *result, unint64_t a2
   return result;
 }
 
-void sub_22486678C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22486678C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<ImageUtils::Blob>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__split_buffer<ImageUtils::Blob>::__construct_at_end(uint64_t result, uint64_t a2, uint64_t *a3)
+uint64_t *std::__split_buffer<ImageUtils::Blob>::__construct_at_end(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a2)
   {
     v6 = &v4[3 * a2];
@@ -4783,7 +4960,7 @@ uint64_t std::__split_buffer<ImageUtils::Blob>::__construct_at_end(uint64_t resu
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v4, *a3, a3[1], (a3[1] - *a3) >> 2);
+      result = std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v4, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
       v4 += 3;
       v7 -= 24;
     }
@@ -4792,11 +4969,11 @@ uint64_t std::__split_buffer<ImageUtils::Blob>::__construct_at_end(uint64_t resu
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4818,7 +4995,7 @@ void sub_224866890(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -5099,9 +5276,9 @@ void std::vector<ImageUtils::Blob>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_224866EC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_224866EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<ImageUtils::Blob>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5285,14 +5462,14 @@ uint64_t Matrix<float>::~Matrix(uint64_t a1)
   return a1;
 }
 
-uint64_t Matrix<float>::Resize(uint64_t result, int a2, int a3)
+uint64_t Matrix<float>::Resize(uint64_t a1, int a2, int a3)
 {
-  v5 = result;
-  if (*(result + 16) != a2 || *(result + 20) != a3)
+  v5 = a1;
+  if (*(a1 + 16) != a2 || *(a1 + 20) != a3)
   {
-    if (*(result + 8))
+    if (*(a1 + 8))
     {
-      if (*(result + 24) == 1)
+      if (*(a1 + 24) == 1)
       {
         MEMORY[0x22AA55B40]();
       }
@@ -5303,7 +5480,7 @@ uint64_t Matrix<float>::Resize(uint64_t result, int a2, int a3)
     operator new[]();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t GMC_EssentialMatrix(double *a1, double *a2, uint64_t a3)
@@ -5474,7 +5651,7 @@ void H16ISP::H16ISPGraphExclaveEyeReliefNode::H16ISPGraphExclaveEyeReliefNode(H1
   *(v5 + 96) = a3;
 }
 
-void H16ISP::H16ISPGraphExclaveEyeReliefNode::~H16ISPGraphExclaveEyeReliefNode(H16ISP::H16ISPGraphExclaveEyeReliefNode *this)
+void H16ISP::H16ISPGraphExclaveEyeReliefNode::~H16ISPGraphExclaveEyeReliefNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -5671,7 +5848,7 @@ double H16ISP::H16ISPFusionNode::H16ISPFusionNode(H16ISP::H16ISPFusionNode *this
   return result;
 }
 
-void H16ISP::H16ISPFusionNode::~H16ISPFusionNode(H16ISP::H16ISPFusionNode *this)
+void H16ISP::H16ISPFusionNode::~H16ISPFusionNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -5685,7 +5862,7 @@ uint64_t H16ISP::H16ISPFusionNode::onDeactivate(H16ISP::H16ISPFusionNode *this)
   return 0;
 }
 
-uint64_t H16ISP::H16ISPFusionNode::onMessageProcessing(H16ISP::H16ISPFusionNode *this, H16ISP::H16ISPFilterGraphMessage *a2)
+uint64_t H16ISP::H16ISPFusionNode::onMessageProcessing(float32x2_t *this, H16ISP::H16ISPFilterGraphMessage *a2)
 {
   pthread_mutex_lock((a2 + 8));
   v4 = 0;
@@ -5693,7 +5870,7 @@ uint64_t H16ISP::H16ISPFusionNode::onMessageProcessing(H16ISP::H16ISPFusionNode 
   v6 = 0xFFFF;
   do
   {
-    if (*v5 == *(this + 44))
+    if (*v5 == this[11].u16[0])
     {
       v6 = v4;
     }
@@ -5706,7 +5883,7 @@ uint64_t H16ISP::H16ISPFusionNode::onMessageProcessing(H16ISP::H16ISPFusionNode 
   if (v6 != 0xFFFF)
   {
     v7 = a2 + 344 * v6 + 80;
-    v8 = *(this + 23);
+    v8 = this[11].i32[1];
     if (v8)
     {
       if (v8 != 1)
@@ -5714,7 +5891,7 @@ uint64_t H16ISP::H16ISPFusionNode::onMessageProcessing(H16ISP::H16ISPFusionNode 
         goto LABEL_23;
       }
 
-      if ((*(this + 96) & 1) == 0)
+      if ((this[12].i8[0] & 1) == 0)
       {
         v9 = *(v7 + 5);
         if (v9)
@@ -5769,7 +5946,7 @@ LABEL_23:
   return 0;
 }
 
-size_t H16ISP::H16ISPFusionNode::fuseDXBuffers(size_t this, CVPixelBufferRef pixelBuffer, __CVBuffer *a3, __CVBuffer *a4)
+float32x2_t *H16ISP::H16ISPFusionNode::fuseDXBuffers(float32x2_t *this, CVPixelBufferRef pixelBuffer, __CVBuffer *a3, __CVBuffer *a4)
 {
   v84 = *MEMORY[0x277D85DE8];
   if (pixelBuffer)
@@ -6353,7 +6530,7 @@ uint64_t GMC_Homography(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   while (v37 != 3);
-  MatrixMxN<3u,3u,double>::operator*<3u>(&v57, a2, __src);
+  MatrixMxN<3u,3u,double>::operator*<3u>(__src, &v57, a2);
   Matrix<double>::Resize(a2, v53, SDWORD1(v53));
   memcpy(*(a2 + 8), __src[1], 8 * *(a2 + 16) * *(a2 + 20));
   Matrix<double>::~Matrix(__src);
@@ -6382,9 +6559,9 @@ uint64_t GMC_Homography(uint64_t a1, uint64_t a2, uint64_t a3)
   return 0;
 }
 
-void sub_224868F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_224868F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
@@ -6478,18 +6655,18 @@ uint64_t MatrixMxN<3u,3u,double>::Inverse<3u,void>@<X0>(uint64_t result@<X0>, ui
   return result;
 }
 
-uint64_t MatrixMxN<3u,3u,double>::operator*<3u>@<X0>(const double *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t MatrixMxN<3u,3u,double>::operator*<3u>@<X0>(uint64_t a1@<X8>, const double *a2@<X0>, uint64_t a3@<X1>)
 {
-  MatrixMxN<3u,3u,double>::operator*(a1, a2, &v7);
+  MatrixMxN<3u,3u,double>::operator*(a2, a3, &v7);
   v4 = v8;
   v5 = v9;
-  *(a3 + 24) = v10;
+  *(a1 + 24) = v10;
   v8 = 0;
   v10 = 0;
-  *a3 = &unk_283812E40;
-  *(a3 + 8) = v4;
-  *(a3 + 16) = 3;
-  *(a3 + 20) = v5;
+  *a1 = &unk_283812E40;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = 3;
+  *(a1 + 20) = v5;
   return Matrix<double>::~Matrix(&v7);
 }
 
@@ -6689,8 +6866,9 @@ uint64_t H16ISP::H16ISPFrameReceiverBufferPool::ModifyBufferCount(pthread_mutex_
   return v4;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiverBufferPool::SetCapacity(pthread_mutex_t *this, int a2)
+uint64_t H16ISP::H16ISPFrameReceiverBufferPool::SetCapacity(pthread_mutex_t *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = 3758097084;
   pthread_mutex_lock(this + 4);
   kdebug_trace();
@@ -6699,8 +6877,8 @@ uint64_t H16ISP::H16ISPFrameReceiverBufferPool::SetCapacity(pthread_mutex_t *thi
     if (*&this[2].__opaque[48] || !CVPixelBufferPoolSetMinBufferCount())
     {
       v4 = 0;
-      *&this[1].__opaque[28] = a2;
-      *&this[1].__opaque[32] = a2;
+      *&this[1].__opaque[28] = v2;
+      *&this[1].__opaque[32] = v2;
       this[1].__opaque[52] = 1;
     }
   }
@@ -6776,7 +6954,7 @@ uint64_t H16ISP::H16ISPFrameReceiverSharedBufferPool::FindBuffer(H16ISP::H16ISPF
   if (std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::find<unsigned int>(this + 13, &v5))
   {
     v6 = &v5;
-    v3 = std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 13, &v5)[3];
+    v3 = std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 26, &v5, &std::piecewise_construct, &v6)[3];
   }
 
   else
@@ -6845,7 +7023,7 @@ uint64_t H16ISP::H16ISPFrameReceiverSharedBufferPool::SendStillImageBuffers(H16I
       ID = IOSurfaceGetID(IOSurface);
       v9 = pixelBuffer;
       p_ID = &ID;
-      std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 13, &ID)[3] = v9;
+      std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 26, &ID, &std::piecewise_construct, &p_ID)[3] = v9;
       *(v6 - 2) = *(this + 5);
       *(v6 - 4) = ID;
       v5 = *(this + 9);
@@ -7013,7 +7191,7 @@ uint64_t H16ISP::H16ISPFrameReceiverSharedBufferPool::SendBuffer(H16ISP::H16ISPF
   return v7;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiverDataBufferPool::H16ISPFrameReceiverDataBufferPool(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5)
+uint64_t H16ISP::H16ISPFrameReceiverDataBufferPool::H16ISPFrameReceiverDataBufferPool(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, unsigned int *a5)
 {
   *a1 = a2;
   *(a1 + 8) = a4;
@@ -7185,7 +7363,7 @@ uint64_t H16ISP::H16ISPFrameReceiverDataBufferPool::allocateBuffer(H16ISP::H16IS
   ID = IOSurfaceGetID(IOSurface);
   v6 = v9;
   p_ID = &ID;
-  v7 = std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 5, &ID);
+  v7 = std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 10, &ID, &std::piecewise_construct, &p_ID);
   result = 0;
   v7[3] = v6;
   *a2 = v9;
@@ -7322,7 +7500,7 @@ uint64_t H16ISP::H16ISPFrameReceiverDataBufferPool::FindBuffer(H16ISP::H16ISPFra
   if (std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::find<unsigned int>(this + 5, &v5))
   {
     v6 = &v5;
-    v3 = std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 5, &v5)[3];
+    v3 = std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 10, &v5, &std::piecewise_construct, &v6)[3];
   }
 
   else
@@ -7453,27 +7631,26 @@ uint64_t H16ISP::H16ISPFrameReceiverDataBufferPool::RegisterCompletionCallback(u
   return this;
 }
 
-void *std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(void *result, void *a2)
+void std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](result, v11);
+      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7482,28 +7659,26 @@ void *std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(void *res
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<__CVBuffer **>::emplace_front<__CVBuffer **>(const void **result, void *a2)
+void std::__split_buffer<__CVBuffer **>::emplace_front<__CVBuffer **>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7516,39 +7691,37 @@ const void **std::__split_buffer<__CVBuffer **>::emplace_front<__CVBuffer **>(co
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](result, v9);
+      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-const void **std::__split_buffer<__CVBuffer **>::emplace_front<__CVBuffer **&>(const void **result, void *a2)
+void std::__split_buffer<__CVBuffer **>::emplace_front<__CVBuffer **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7561,29 +7734,28 @@ const void **std::__split_buffer<__CVBuffer **>::emplace_front<__CVBuffer **&>(c
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](result[4], v9);
+      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__erase_unique<unsigned int>(void *a1, unsigned int *a2)
@@ -7739,7 +7911,7 @@ void H16ISP::H16ISPGraphExclaveFaceTrackingNode::H16ISPGraphExclaveFaceTrackingN
   *(v5 + 96) = a3;
 }
 
-void H16ISP::H16ISPGraphExclaveFaceTrackingNode::~H16ISPGraphExclaveFaceTrackingNode(H16ISP::H16ISPGraphExclaveFaceTrackingNode *this)
+void H16ISP::H16ISPGraphExclaveFaceTrackingNode::~H16ISPGraphExclaveFaceTrackingNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -7984,7 +8156,7 @@ uint64_t convertExpressionActivation(uint64_t a1)
   return v1;
 }
 
-uint64_t H16ISP::H16ISPGraphExclaveObjectDetectionNode::H16ISPGraphExclaveObjectDetectionNode(uint64_t a1, H16ISP::H16ISPDevice *this, int a3, const unsigned int *a4, int a5)
+uint64_t H16ISP::H16ISPGraphExclaveObjectDetectionNode::H16ISPGraphExclaveObjectDetectionNode(uint64_t a1, H16ISP::H16ISPDevice *this, uint64_t a3, const unsigned int *a4, int a5)
 {
   v7 = H16ISP::H16ISPExclaveGraphNode::H16ISPExclaveGraphNode(a1, 21, this, a3, a5);
   *v7 = &unk_283812EF0;
@@ -8230,7 +8402,7 @@ LABEL_9:
   }
 }
 
-void *H16ISP::H16ISPGraphExclaveIRObjectDetectionNode::H16ISPGraphExclaveIRObjectDetectionNode(H16ISP::H16ISPGraphExclaveIRObjectDetectionNode *this, H16ISP::H16ISPDevice *a2, int a3, const unsigned int *a4)
+void *H16ISP::H16ISPGraphExclaveIRObjectDetectionNode::H16ISPGraphExclaveIRObjectDetectionNode(H16ISP::H16ISPGraphExclaveIRObjectDetectionNode *this, H16ISP::H16ISPDevice *a2, uint64_t a3, const unsigned int *a4)
 {
   result = H16ISP::H16ISPGraphExclaveObjectDetectionNode::H16ISPGraphExclaveObjectDetectionNode(this, a2, a3, a4, 0);
   *result = &unk_283812F58;
@@ -8287,7 +8459,7 @@ uint64_t H16ISP::H16ISPGraphExclaveIRObjectDetectionNode::InvokeEKRunKit(H16ISP:
   return result;
 }
 
-void *H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode::H16ISPGraphExclaveRGBObjectDetectionNode(H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode *this, H16ISP::H16ISPDevice *a2, int a3, const unsigned int *a4)
+void *H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode::H16ISPGraphExclaveRGBObjectDetectionNode(H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode *this, H16ISP::H16ISPDevice *a2, uint64_t a3, const unsigned int *a4)
 {
   result = H16ISP::H16ISPGraphExclaveObjectDetectionNode::H16ISPGraphExclaveObjectDetectionNode(this, a2, a3, a4, 1);
   *result = &unk_283812FC0;
@@ -8365,7 +8537,7 @@ void H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode::GenerateRGBObjectDictiona
           if (*(v18 + 328) == 1)
           {
             v19 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            v220 = *(v18 + 74);
+            v220 = v18[74];
             v20 = CFNumberCreate(0, kCFNumberSInt32Type, &v220);
             CFDictionarySetValue(v19, key, v20);
             CFRelease(v20);
@@ -8497,7 +8669,7 @@ LABEL_24:
           if (!*(v41 + 328))
           {
             v42 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            v220 = *(v41 + 74);
+            v220 = v41[74];
             v43 = CFNumberCreate(0, kCFNumberSInt32Type, &v220);
             CFDictionarySetValue(v42, keya, v43);
             CFRelease(v43);
@@ -8603,10 +8775,10 @@ LABEL_46:
           v59 = *MEMORY[0x277CF43C8];
           v195 = *MEMORY[0x277CF50B8];
           v60 = *MEMORY[0x277CF43C0];
-          v61 = (a3 + 235);
+          v61 = a3 + 235;
           do
           {
-            if ((*(v61 - 5) - 7) <= 1)
+            if (*(v61 - 5) - 7 <= 1)
             {
               if (v57 >= v49)
               {
@@ -8614,7 +8786,7 @@ LABEL_46:
               }
 
               v62 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              *&v217 = *(v61 - 7);
+              LODWORD(v217) = *(v61 - 7);
               v63 = CFNumberCreate(0, kCFNumberSInt32Type, &v217);
               CFDictionarySetValue(v62, keyb, v63);
               CFRelease(v63);
@@ -8705,7 +8877,7 @@ LABEL_91:
           v96 = *MEMORY[0x277CF4B68];
           v97 = *MEMORY[0x277CF43C8];
           keyd = *MEMORY[0x277CF50B8];
-          v98 = (a3 + 235);
+          v98 = a3 + 235;
           do
           {
             if (*(v98 - 5) == 1)
@@ -8716,7 +8888,7 @@ LABEL_91:
               }
 
               v99 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              *&v217 = *(v98 - 7);
+              LODWORD(v217) = *(v98 - 7);
               v100 = CFNumberCreate(0, kCFNumberSInt32Type, &v217);
               CFDictionarySetValue(v99, v95, v100);
               CFRelease(v100);
@@ -8805,7 +8977,7 @@ LABEL_109:
           v113 = *MEMORY[0x277CF4B68];
           v114 = *MEMORY[0x277CF43C8];
           keye = *MEMORY[0x277CF50B8];
-          v115 = (a3 + 235);
+          v115 = a3 + 235;
           do
           {
             if (*(v115 - 5) == 2)
@@ -8816,7 +8988,7 @@ LABEL_109:
               }
 
               v116 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              *&v217 = *(v115 - 7);
+              LODWORD(v217) = *(v115 - 7);
               v117 = CFNumberCreate(0, kCFNumberSInt32Type, &v217);
               CFDictionarySetValue(v116, v112, v117);
               CFRelease(v117);
@@ -8905,7 +9077,7 @@ LABEL_127:
           v130 = *MEMORY[0x277CF4B68];
           v131 = *MEMORY[0x277CF43C8];
           keyf = *MEMORY[0x277CF50B8];
-          v132 = (a3 + 235);
+          v132 = a3 + 235;
           do
           {
             if (*(v132 - 5) == 3)
@@ -8916,7 +9088,7 @@ LABEL_127:
               }
 
               v133 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              *&v217 = *(v132 - 7);
+              LODWORD(v217) = *(v132 - 7);
               v134 = CFNumberCreate(0, kCFNumberSInt32Type, &v217);
               CFDictionarySetValue(v133, v129, v134);
               CFRelease(v134);
@@ -9005,7 +9177,7 @@ LABEL_145:
           v147 = *MEMORY[0x277CF4B68];
           v148 = *MEMORY[0x277CF43C8];
           keyg = *MEMORY[0x277CF50B8];
-          v149 = (a3 + 235);
+          v149 = a3 + 235;
           do
           {
             if (*(v149 - 5) == 4)
@@ -9016,7 +9188,7 @@ LABEL_145:
               }
 
               v150 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              *&v217 = *(v149 - 7);
+              LODWORD(v217) = *(v149 - 7);
               v151 = CFNumberCreate(0, kCFNumberSInt32Type, &v217);
               CFDictionarySetValue(v150, v146, v151);
               CFRelease(v151);
@@ -9110,7 +9282,7 @@ LABEL_181:
           v164 = *MEMORY[0x277CF4B68];
           v165 = *MEMORY[0x277CF43C8];
           keyh = *MEMORY[0x277CF50B8];
-          v166 = (a3 + 235);
+          v166 = a3 + 235;
           do
           {
             if (*(v166 - 5) == 5)
@@ -9121,7 +9293,7 @@ LABEL_181:
               }
 
               v167 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              *&v217 = *(v166 - 7);
+              LODWORD(v217) = *(v166 - 7);
               v168 = CFNumberCreate(0, kCFNumberSInt32Type, &v217);
               CFDictionarySetValue(v167, v163, v168);
               CFRelease(v168);
@@ -9224,7 +9396,7 @@ LABEL_177:
         v79 = *MEMORY[0x277CF4B68];
         v80 = *MEMORY[0x277CF43C8];
         keyc = *MEMORY[0x277CF50B8];
-        v81 = (a3 + 235);
+        v81 = a3 + 235;
         do
         {
           if (*(v81 - 5) == 6)
@@ -9235,7 +9407,7 @@ LABEL_177:
             }
 
             v82 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            *&v217 = *(v81 - 7);
+            LODWORD(v217) = *(v81 - 7);
             v83 = CFNumberCreate(0, kCFNumberSInt32Type, &v217);
             CFDictionarySetValue(v82, v78, v83);
             CFRelease(v83);
@@ -9393,30 +9565,32 @@ uint64_t H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode::InvokeEKRunKit(H16ISP
   return result;
 }
 
-void H16ISP::H16ISPGraphExclaveIRObjectDetectionNode::~H16ISPGraphExclaveIRObjectDetectionNode(H16ISP::H16ISPGraphExclaveIRObjectDetectionNode *this)
+void H16ISP::H16ISPGraphExclaveIRObjectDetectionNode::~H16ISPGraphExclaveIRObjectDetectionNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
   JUMPOUT(0x22AA55B60);
 }
 
-void H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode::~H16ISPGraphExclaveRGBObjectDetectionNode(H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode *this)
+void H16ISP::H16ISPGraphExclaveRGBObjectDetectionNode::~H16ISPGraphExclaveRGBObjectDetectionNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
   JUMPOUT(0x22AA55B60);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x18u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x18u);
 }
 
 uint64_t H16ISP::H16ISPFilterGraphManager::Deactivate(H16ISP::H16ISPFilterGraphManager *this)
@@ -9788,73 +9962,4 @@ uint64_t H16ISP::ProjectorManager::initializeAEParams(uint64_t this)
   *(this + 288) = v13;
   *(this + 292) = 10240;
   return this;
-}
-
-uint64_t H16ISP::ProjectorManager::setProjectorType(H16ISP::ProjectorManager *this, unsigned int a2)
-{
-  v2 = a2;
-  if (a2 == 47)
-  {
-    if (H16ISP::g_UserDefinedProjectorType)
-    {
-
-      return H16ISP::ProjectorManager::applyUserDefinedType(this);
-    }
-
-    v2 = 0;
-  }
-
-  *(this + 20) = 0x4000000040;
-  v10 = 1572;
-  v11 = *this;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  memset(v20, 0, 128);
-  v5 = H16ISP::ProjectorManager::_projectorSequences[129 * v2];
-  if (v5 >= 1)
-  {
-    v6 = v20;
-    v7 = &H16ISP::ProjectorManager::_projectorSequences[129 * v2 + 2];
-    do
-    {
-      v8 = *v7;
-      *(v6 - 64) = *(v7 - 1);
-      *v6++ = v8;
-      v7 += 2;
-      --v5;
-    }
-
-    while (v5);
-  }
-
-  H16ISP::ProjectorManager::updateOnChange(this, *(this + 2 * v2 + 8), *(this + 2 * v2 + 9));
-  result = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 1), v9, 0x12Cu, 0, 0xFFFFFFFF);
-  *(this + 4) = v2;
-  return result;
-}
-
-uint64_t H16ISP::ProjectorManager::setProjectorType(H16ISP::ProjectorManager *this, CFDictionaryRef theDict)
-{
-  H16ISP::ProjectorManager::setUserDefinedProjectorType(theDict, theDict);
-
-  return H16ISP::ProjectorManager::setProjectorType(this, 0x2Fu);
-}
-
-CFDictionaryRef H16ISP::ProjectorManager::setUserDefinedProjectorType(CFDictionaryRef theDict, const __CFDictionary *a2)
-{
-  if (H16ISP::g_UserDefinedProjectorType)
-  {
-    CFRelease(H16ISP::g_UserDefinedProjectorType);
-    H16ISP::g_UserDefinedProjectorType = 0;
-  }
-
-  result = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], theDict);
-  H16ISP::g_UserDefinedProjectorType = result;
-  return result;
 }

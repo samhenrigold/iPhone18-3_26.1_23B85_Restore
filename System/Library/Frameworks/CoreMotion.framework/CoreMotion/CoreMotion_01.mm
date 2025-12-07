@@ -35,7 +35,7 @@ char *sub_19B4315C8(char *a1, const __CFString *a2, char a3)
 
 void *sub_19B431640(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F0E334A8;
   a1[1] = 0;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -63,26 +63,27 @@ void *sub_19B431640(void *a1)
         dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
       }
 
-      v5 = _os_log_send_and_compose_impl();
+      v8[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C828, 17, "could not create new mutable dictionary", v8, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 0, "CLNameValuePair::CLNameValuePair()", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-BOOL sub_19B431834@<W0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_19B431834@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   result = sub_19B4318A4(a1, a2);
-  if (!result)
+  if ((result & 1) == 0)
   {
     if (*(a2 + 23) < 0)
     {
@@ -110,9 +111,9 @@ void sub_19B431888(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
+uint64_t sub_19B4318A4(const __CFString *cf, std::string *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (cf)
   {
     v4 = CFGetTypeID(cf);
@@ -122,16 +123,15 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
       if (!CStringPtr)
       {
         *bufferSize = 0;
-        v37.length = CFStringGetLength(cf);
-        v37.location = 0;
-        CFStringGetBytes(cf, v37, 0x8000100u, 0, 0, 0, 0, bufferSize);
+        v41.length = CFStringGetLength(cf);
+        v41.location = 0;
+        CFStringGetBytes(cf, v41, 0x8000100u, 0, 0, 0, 0, bufferSize);
         ++*bufferSize;
         operator new[]();
       }
 
       sub_19B43212C(a2, CStringPtr);
-      v6 = 1;
-      goto LABEL_49;
+      return 1;
     }
 
     v7 = CFGetTypeID(cf);
@@ -184,15 +184,16 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
 
                 *bufferSize = 134218498;
                 *&bufferSize[4] = v15;
-                v31 = 1024;
-                v32 = v16;
-                v33 = 2080;
-                v34 = v15;
-                v19 = _os_log_send_and_compose_impl();
+                v35 = 1024;
+                v36 = v16;
+                v37 = 2080;
+                v38 = v15;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C828, 2, "processed %p %d to (%s)", bufferSize, 28, v33);
+                v20 = v19;
                 sub_19B6BB7CC("Generic", 1, 0, 2, "static BOOL CLNameValuePair::encodeBase64(const void *, unsigned long, std::string &)", "CoreLocation: %s\n", v19);
-                if (v19 != buf)
+                if (v20 != buf)
                 {
-                  free(v19);
+                  free(v20);
                 }
               }
 
@@ -231,7 +232,7 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
           }
 
           xmlBufferFree(v11);
-          goto LABEL_49;
+          return v6;
         }
       }
 
@@ -242,16 +243,16 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
           dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
         }
 
-        v27 = off_1ED71C828;
+        v29 = off_1ED71C828;
         if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
         {
           *buf = 67240192;
           *&buf[4] = Length;
-          _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_FAULT, "can't convert %{public}u data bytes", buf, 8u);
+          _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_FAULT, "can't convert %{public}u data bytes", buf, 8u);
         }
 
-        v28 = sub_19B420058();
-        if ((*(v28 + 160) & 0x80000000) == 0 || (*(v28 + 164) & 0x80000000) == 0 || (*(v28 + 168) & 0x80000000) == 0 || *(v28 + 152))
+        v30 = sub_19B420058();
+        if ((*(v30 + 160) & 0x80000000) == 0 || (*(v30 + 164) & 0x80000000) == 0 || (*(v30 + 168) & 0x80000000) == 0 || *(v30 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1ED71C820 != -1)
@@ -261,17 +262,17 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
 
           *bufferSize = 67240192;
           *&bufferSize[4] = Length;
-          v29 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 0, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, std::string &)", "CoreLocation: %s\n", v29);
-          if (v29 != buf)
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C828, 17, "can't convert %{public}u data bytes", bufferSize, 8);
+          v32 = v31;
+          sub_19B6BB7CC("Generic", 1, 0, 0, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, std::string &)", "CoreLocation: %s\n", v31);
+          if (v32 != buf)
           {
-            free(v29);
+            free(v32);
           }
         }
       }
 
-      v6 = 0;
-      goto LABEL_49;
+      return 0;
     }
   }
 
@@ -280,26 +281,26 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
     dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
   }
 
-  v20 = off_1ED71C828;
+  v21 = off_1ED71C828;
   if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_DEFAULT))
   {
     if (cf)
     {
-      v21 = CFGetTypeID(cf);
+      v22 = CFGetTypeID(cf);
     }
 
     else
     {
-      v21 = -1;
+      v22 = -1;
     }
 
     *buf = 134349056;
-    *&buf[4] = v21;
-    _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_DEFAULT, "#Warning type IDs do not match - %{public}lu", buf, 0xCu);
+    *&buf[4] = v22;
+    _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_DEFAULT, "#Warning type IDs do not match - %{public}lu", buf, 0xCu);
   }
 
-  v22 = sub_19B420058();
-  if (*(v22 + 160) > 1 || *(v22 + 164) > 1 || *(v22 + 168) > 1 || *(v22 + 152))
+  v23 = sub_19B420058();
+  if (*(v23 + 160) > 1 || *(v23 + 164) > 1 || *(v23 + 168) > 1 || *(v23 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C820 != -1)
@@ -307,23 +308,25 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
       dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
     }
 
+    v24 = off_1ED71C828;
     if (cf)
     {
-      v23 = CFGetTypeID(cf);
+      v25 = CFGetTypeID(cf);
     }
 
     else
     {
-      v23 = -1;
+      v25 = -1;
     }
 
     *bufferSize = 134349056;
-    *&bufferSize[4] = v23;
-    v24 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, std::string &)", "CoreLocation: %s\n", v24);
-    if (v24 != buf)
+    *&bufferSize[4] = v25;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v24, 0, "#Warning type IDs do not match - %{public}lu", bufferSize, 12);
+    v27 = v26;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, std::string &)", "CoreLocation: %s\n", v26);
+    if (v27 != buf)
     {
-      free(v24);
+      free(v27);
     }
   }
 
@@ -340,8 +343,6 @@ BOOL sub_19B4318A4(const __CFString *cf, std::string *a2)
 
   v6 = 0;
   a2->__r_.__value_.__s.__data_[0] = 0;
-LABEL_49:
-  v25 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -404,7 +405,7 @@ LABEL_6:
 void sub_19B432230(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v2 = a1;
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
@@ -432,14 +433,14 @@ LABEL_8:
   if (sub_19B43242C() && (v6 = getenv("_SET_CLPERSISTENTSTORE_TEST_PATH")) != 0)
   {
     v8 = MEMORY[0x1E696AEC0];
-    v23[0] = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v7, v6);
-    v23[1] = v5;
-    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v9, v23, 2);
+    v22[0] = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v7, v6);
+    v22[1] = v5;
+    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v9, v22, 2);
     v12 = objc_msgSend_pathWithComponents_(v8, v11, v10);
     v15 = objc_msgSend_UTF8String(v12, v13, v14);
-    sub_19B428B50(&v21, v15);
-    *a2 = v21;
-    a2[2] = v22;
+    sub_19B428B50(&v20, v15);
+    *a2 = v20;
+    a2[2] = v21;
   }
 
   else if (v5)
@@ -452,9 +453,9 @@ LABEL_8:
       v19 = v18;
       if (v18)
       {
-        sub_19B431834(v18, &v21);
-        *a2 = v21;
-        a2[2] = v22;
+        sub_19B431834(v18, &v20);
+        *a2 = v20;
+        a2[2] = v21;
         CFRelease(v19);
       }
 
@@ -463,8 +464,6 @@ LABEL_8:
 
     CFRelease(v5);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19B4323AC(_Unwind_Exception *exception_object)
@@ -645,16 +644,16 @@ const __CFString *sub_19B432654@<X0>(void *a1@<X8>)
 
 uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFF8];
   v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], a2, a2);
   isDirectory = objc_msgSend_fileURLWithPath_isDirectory_(v4, v6, v5, 0);
   if (isDirectory)
   {
-    v53 = 0;
+    v52 = 0;
     if (objc_opt_respondsToSelector())
     {
-      v9 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x1E695DEF0], v8, isDirectory, 0, &v53);
+      v9 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x1E695DEF0], v8, isDirectory, 0, &v52);
     }
 
     else
@@ -666,14 +665,14 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
     if (!v9)
     {
       (*(v15 + 872))(a1);
-      result = v53;
-      if (!v53)
+      result = v52;
+      if (!v52)
       {
-        goto LABEL_42;
+        return result;
       }
 
-      v18 = objc_msgSend_domain(v53, v16, v17);
-      if (objc_msgSend_isEqual_(v18, v19, *MEMORY[0x1E696A250]) && objc_msgSend_code(v53, v20, v21) == 260)
+      v18 = objc_msgSend_domain(v52, v16, v17);
+      if (objc_msgSend_isEqual_(v18, v19, *MEMORY[0x1E696A250]) && objc_msgSend_code(v52, v20, v21) == 260)
       {
         if (qword_1ED71C7F8 != -1)
         {
@@ -683,16 +682,16 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
         v22 = qword_1ED71C7F0;
         if (os_log_type_enabled(qword_1ED71C7F0, OS_LOG_TYPE_ERROR))
         {
-          v25 = objc_msgSend_description(v53, v23, v24);
+          v25 = objc_msgSend_description(v52, v23, v24);
           v28 = objc_msgSend_UTF8String(v25, v26, v27);
           *buf = 68289538;
-          v55 = 0;
-          v56 = 2082;
-          v57 = "";
-          v58 = 2082;
-          v59 = a2;
-          v60 = 2082;
-          v61 = v28;
+          v54 = 0;
+          v55 = 2082;
+          v56 = "";
+          v57 = 2082;
+          v58 = a2;
+          v59 = 2082;
+          v60 = v28;
           _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:file does not exist... clearing, file:%{public, location:escape_only}s, error:%{public, location:escape_only}s}", buf, 0x26u);
           if (qword_1ED71C7F8 != -1)
           {
@@ -704,19 +703,19 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
         result = os_signpost_enabled(qword_1ED71C7F0);
         if (!result)
         {
-          goto LABEL_42;
+          return result;
         }
 
-        v32 = objc_msgSend_description(v53, v30, v31);
+        v32 = objc_msgSend_description(v52, v30, v31);
         v35 = objc_msgSend_UTF8String(v32, v33, v34);
         *buf = 68289538;
-        v55 = 0;
-        v56 = 2082;
-        v57 = "";
-        v58 = 2082;
-        v59 = a2;
-        v60 = 2082;
-        v61 = v35;
+        v54 = 0;
+        v55 = 2082;
+        v56 = "";
+        v57 = 2082;
+        v58 = a2;
+        v59 = 2082;
+        v60 = v35;
         v13 = "file does not exist... clearing";
         v14 = "{msg%{public}.0s:file does not exist... clearing, file:%{public, location:escape_only}s, error:%{public, location:escape_only}s}";
       }
@@ -731,16 +730,16 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
         v39 = qword_1ED71C7F0;
         if (os_log_type_enabled(qword_1ED71C7F0, OS_LOG_TYPE_ERROR))
         {
-          v42 = objc_msgSend_description(v53, v40, v41);
+          v42 = objc_msgSend_description(v52, v40, v41);
           v45 = objc_msgSend_UTF8String(v42, v43, v44);
           *buf = 68289538;
-          v55 = 0;
-          v56 = 2082;
-          v57 = "";
-          v58 = 2082;
-          v59 = a2;
-          v60 = 2082;
-          v61 = v45;
+          v54 = 0;
+          v55 = 2082;
+          v56 = "";
+          v57 = 2082;
+          v58 = a2;
+          v59 = 2082;
+          v60 = v45;
           _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#Warning Error reading file, file:%{public, location:escape_only}s, error:%{public, location:escape_only}s}", buf, 0x26u);
           if (qword_1ED71C7F8 != -1)
           {
@@ -752,19 +751,19 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
         result = os_signpost_enabled(qword_1ED71C7F0);
         if (!result)
         {
-          goto LABEL_42;
+          return result;
         }
 
-        v48 = objc_msgSend_description(v53, v46, v47);
+        v48 = objc_msgSend_description(v52, v46, v47);
         v51 = objc_msgSend_UTF8String(v48, v49, v50);
         *buf = 68289538;
-        v55 = 0;
-        v56 = 2082;
-        v57 = "";
-        v58 = 2082;
-        v59 = a2;
-        v60 = 2082;
-        v61 = v51;
+        v54 = 0;
+        v55 = 2082;
+        v56 = "";
+        v57 = 2082;
+        v58 = a2;
+        v59 = 2082;
+        v60 = v51;
         v13 = "#Warning Error reading file";
         v14 = "{msg%{public}.0s:#Warning Error reading file, file:%{public, location:escape_only}s, error:%{public, location:escape_only}s}";
       }
@@ -776,8 +775,7 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
 
     if ((*(v15 + 784))(a1))
     {
-      result = 1;
-      goto LABEL_42;
+      return 1;
     }
 
     if (qword_1ED71C7F8 != -1)
@@ -789,11 +787,11 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
     if (os_log_type_enabled(qword_1ED71C7F0, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289282;
-      v55 = 0;
-      v56 = 2082;
-      v57 = "";
-      v58 = 2082;
-      v59 = a2;
+      v54 = 0;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2082;
+      v58 = a2;
       _os_log_impl(&dword_19B41C000, v36, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:could not deserialize property list, file:%{public, location:escape_only}s}", buf, 0x1Cu);
       if (qword_1ED71C7F8 != -1)
       {
@@ -806,11 +804,11 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
     if (result)
     {
       *buf = 68289282;
-      v55 = 0;
-      v56 = 2082;
-      v57 = "";
-      v58 = 2082;
-      v59 = a2;
+      v54 = 0;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2082;
+      v58 = a2;
       v13 = "could not deserialize property list";
       v14 = "{msg%{public}.0s:could not deserialize property list, file:%{public, location:escape_only}s}";
       goto LABEL_32;
@@ -828,11 +826,11 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
     if (os_log_type_enabled(qword_1ED71C7F0, OS_LOG_TYPE_ERROR))
     {
       *buf = 68289282;
-      v55 = 0;
-      v56 = 2082;
-      v57 = "";
-      v58 = 2082;
-      v59 = a2;
+      v54 = 0;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2082;
+      v58 = a2;
       _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Invalid fileURL, filename:%{public, location:escape_only}s}", buf, 0x1Cu);
       if (qword_1ED71C7F8 != -1)
       {
@@ -845,11 +843,11 @@ uint64_t sub_19B4326E4(uint64_t *a1, const char *a2)
     if (result)
     {
       *buf = 68289282;
-      v55 = 0;
-      v56 = 2082;
-      v57 = "";
-      v58 = 2082;
-      v59 = a2;
+      v54 = 0;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2082;
+      v58 = a2;
       v13 = "Invalid fileURL";
       v14 = "{msg%{public}.0s:Invalid fileURL, filename:%{public, location:escape_only}s}";
 LABEL_32:
@@ -857,12 +855,10 @@ LABEL_32:
       v38 = 28;
 LABEL_41:
       _os_signpost_emit_with_name_impl(&dword_19B41C000, v37, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v13, v14, buf, v38);
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_42:
-  v52 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -955,78 +951,76 @@ void sub_19B432FA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_19B432FD8(uint64_t a1, const char *a2, _DWORD *a3)
+uint64_t sub_19B432FD8(uint64_t a1, const char *a2, _DWORD *a3, uint64_t a4)
 {
-  v5 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
-  v6 = sub_19B43304C(a1, v5, a3);
-  if (v5)
+  v6 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
+  v7 = sub_19B43304C(a1, v6, a3);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t sub_19B43304C(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cf = 0;
-  if ((*(*a1 + 904))(a1, a2, &cf))
+  if (!(*(*a1 + 904))(a1, a2, &cf))
   {
-    v6 = sub_19B5EDC64(cf, a3);
-    if ((v6 & 1) == 0)
+    return 0;
+  }
+
+  v6 = sub_19B5EDC64(cf, a3);
+  if ((v6 & 1) == 0)
+  {
+    if (qword_1ED71C820 != -1)
     {
+      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+    }
+
+    v7 = off_1ED71C828;
+    if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+    {
+      v8 = (*(*a1 + 840))(a1);
+      *buf = 138412546;
+      v21 = v8;
+      v22 = 2112;
+      v23 = a2;
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+    }
+
+    v9 = sub_19B420058();
+    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
+    {
+      bzero(buf, 0x65CuLL);
       if (qword_1ED71C820 != -1)
       {
         dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
       }
 
-      v7 = off_1ED71C828;
-      if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+      v10 = off_1ED71C828;
+      v11 = (*(*a1 + 840))(a1);
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = a2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v10, 17, "Unsupported type at %@:%@ (domain:key)", &v16, 22);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, int &, int) const", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        v8 = (*(*a1 + 840))(a1);
-        *buf = 138412546;
-        v20 = v8;
-        v21 = 2112;
-        v22 = a2;
-        _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+        free(v13);
       }
-
-      v9 = sub_19B420058();
-      if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1ED71C820 != -1)
-        {
-          dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-        }
-
-        v10 = (*(*a1 + 840))(a1);
-        v15 = 138412546;
-        v16 = v10;
-        v17 = 2112;
-        v18 = a2;
-        v11 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, int &, int) const", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
-        {
-          free(v11);
-        }
-      }
-    }
-
-    if (cf)
-    {
-      CFRelease(cf);
     }
   }
 
-  else
+  if (cf)
   {
-    v6 = 0;
+    CFRelease(cf);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1050,14 +1044,14 @@ BOOL sub_19B4332F8(uint64_t a1, const __CFString *a2, void *a3)
   return sub_19B433A44(a1 + 104, a2, a3);
 }
 
-void sub_19B4333C0(uint64_t a1)
+void sub_19B4333C0(char *a1)
 {
   *a1 = &unk_1F0E317E8;
-  *(a1 + 8) = 0;
+  *(a1 + 4) = 0;
   *(a1 + 12) = 0xFFFFFFFF00000000;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  sub_19B4294F0((a1 + 40));
+  *(a1 + 3) = 0;
+  *(a1 + 4) = 0;
+  sub_19B4294F0(a1 + 5, "CLLogBase", 1, 0);
 }
 
 void sub_19B433474(_Unwind_Exception *exception_object)
@@ -1073,182 +1067,181 @@ void sub_19B433474(_Unwind_Exception *exception_object)
 
 uint64_t sub_19B4334F0(uint64_t a1, const __CFString *a2, uint64_t *a3, int a4)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   cf = 0;
   result = (*(*a1 + 912))(a1, a2, &cf);
-  if (!result)
+  if (result)
   {
-    goto LABEL_47;
-  }
-
-  *a3 = 0;
-  v8 = CFGetTypeID(cf);
-  if (v8 == CFArrayGetTypeID())
-  {
-    v9 = a4 & ~(a4 >> 31);
-    if (CFArrayGetCount(cf) > v9)
+    *a3 = 0;
+    v8 = CFGetTypeID(cf);
+    if (v8 == CFArrayGetTypeID())
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(cf, v9);
+      v9 = a4 & ~(a4 >> 31);
+      if (CFArrayGetCount(cf) > v9)
+      {
+        ValueAtIndex = CFArrayGetValueAtIndex(cf, v9);
 LABEL_46:
-      *a3 = ValueAtIndex;
-      CFRetain(ValueAtIndex);
-      CFRelease(cf);
-      result = 1;
-      goto LABEL_47;
-    }
-
-    if (qword_1ED71C820 != -1)
-    {
-      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-    }
-
-    v18 = off_1ED71C828;
-    if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
-    {
-      sub_19B431834(a2, __p);
-      v19 = SBYTE3(v34);
-      v20 = *__p;
-      Count = CFArrayGetCount(cf);
-      v22 = __p;
-      if (v19 < 0)
-      {
-        v22 = v20;
+        *a3 = ValueAtIndex;
+        CFRetain(ValueAtIndex);
+        CFRelease(cf);
+        return 1;
       }
 
-      *buf = 136446722;
-      *v36 = v22;
-      *&v36[8] = 1026;
-      *&v36[10] = v9;
-      v37 = 2050;
-      v38 = Count;
-      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_FAULT, "specified index is out of range for key %{public}s (%{public}d of %{public}ld)", buf, 0x1Cu);
-      if (SBYTE3(v34) < 0)
+      if (qword_1ED71C820 != -1)
       {
-        operator delete(*__p);
+        dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
       }
-    }
 
-    v23 = sub_19B420058();
-    if ((*(v23 + 160) & 0x80000000) != 0 && (*(v23 + 164) & 0x80000000) != 0 && (*(v23 + 168) & 0x80000000) != 0 && !*(v23 + 152))
-    {
-      goto LABEL_43;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1ED71C820 != -1)
-    {
-      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-    }
-
-    sub_19B431834(a2, v29);
-    v24 = v30;
-    v25 = v29[0];
-    v26 = CFArrayGetCount(cf);
-    v27 = v29;
-    if (v24 < 0)
-    {
-      v27 = v25;
-    }
-
-    *__p = 136446722;
-    *&__p[4] = v27;
-    *&__p[12] = 1026;
-    *&__p[14] = v9;
-    v33 = 2050;
-    v34 = v26;
-    v17 = _os_log_send_and_compose_impl();
-    if (v30 < 0)
-    {
-      operator delete(v29[0]);
-    }
-  }
-
-  else
-  {
-    if (a4 < 1)
-    {
-      ValueAtIndex = cf;
-      goto LABEL_46;
-    }
-
-    if (qword_1ED71C820 != -1)
-    {
-      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-    }
-
-    v11 = off_1ED71C828;
-    if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
-    {
-      v12 = CFGetTypeID(cf);
-      sub_19B431834(a2, __p);
-      v13 = (v34 & 0x80000000) == 0 ? __p : *__p;
-      *buf = 67240706;
-      *v36 = a4;
-      *&v36[4] = 2050;
-      *&v36[6] = v12;
-      v37 = 2082;
-      v38 = v13;
-      _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_FAULT, "specified index %{public}d not applicable to type %{public}lu for key %{public}s", buf, 0x1Cu);
-      if (SBYTE3(v34) < 0)
+      v20 = off_1ED71C828;
+      if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
       {
-        operator delete(*__p);
+        sub_19B431834(a2, __p);
+        v21 = SBYTE3(v37);
+        v22 = *__p;
+        Count = CFArrayGetCount(cf);
+        v24 = __p;
+        if (v21 < 0)
+        {
+          v24 = v22;
+        }
+
+        *buf = 136446722;
+        *v39 = v24;
+        *&v39[8] = 1026;
+        *&v39[10] = v9;
+        v40 = 2050;
+        v41 = Count;
+        _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_FAULT, "specified index is out of range for key %{public}s (%{public}d of %{public}ld)", buf, 0x1Cu);
+        if (SBYTE3(v37) < 0)
+        {
+          operator delete(*__p);
+        }
       }
-    }
 
-    v14 = sub_19B420058();
-    if ((*(v14 + 160) & 0x80000000) != 0 && (*(v14 + 164) & 0x80000000) != 0 && (*(v14 + 168) & 0x80000000) != 0 && !*(v14 + 152))
-    {
-      goto LABEL_43;
-    }
+      v25 = sub_19B420058();
+      if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
+      {
+        goto LABEL_43;
+      }
 
-    bzero(buf, 0x65CuLL);
-    if (qword_1ED71C820 != -1)
-    {
-      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-    }
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C820 != -1)
+      {
+        dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+      }
 
-    v15 = CFGetTypeID(cf);
-    sub_19B431834(a2, v29);
-    if (v30 >= 0)
-    {
-      v16 = v29;
+      v26 = off_1ED71C828;
+      sub_19B431834(a2, v32);
+      v27 = v33;
+      v28 = v32[0];
+      v29 = CFArrayGetCount(cf);
+      v30 = v32;
+      if (v27 < 0)
+      {
+        v30 = v28;
+      }
+
+      *__p = 136446722;
+      *&__p[4] = v30;
+      *&__p[12] = 1026;
+      *&__p[14] = v9;
+      v36 = 2050;
+      v37 = v29;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v26, 17, "specified index is out of range for key %{public}s (%{public}d of %{public}ld)", __p, 28);
+      v19 = v31;
+      if (v33 < 0)
+      {
+        operator delete(v32[0]);
+      }
     }
 
     else
     {
-      v16 = v29[0];
+      if (a4 < 1)
+      {
+        ValueAtIndex = cf;
+        goto LABEL_46;
+      }
+
+      if (qword_1ED71C820 != -1)
+      {
+        dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+      }
+
+      v11 = off_1ED71C828;
+      if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+      {
+        v12 = CFGetTypeID(cf);
+        sub_19B431834(a2, __p);
+        v13 = (v37 & 0x80000000) == 0 ? __p : *__p;
+        *buf = 67240706;
+        *v39 = a4;
+        *&v39[4] = 2050;
+        *&v39[6] = v12;
+        v40 = 2082;
+        v41 = v13;
+        _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_FAULT, "specified index %{public}d not applicable to type %{public}lu for key %{public}s", buf, 0x1Cu);
+        if (SBYTE3(v37) < 0)
+        {
+          operator delete(*__p);
+        }
+      }
+
+      v14 = sub_19B420058();
+      if ((*(v14 + 160) & 0x80000000) != 0 && (*(v14 + 164) & 0x80000000) != 0 && (*(v14 + 168) & 0x80000000) != 0 && !*(v14 + 152))
+      {
+        goto LABEL_43;
+      }
+
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C820 != -1)
+      {
+        dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+      }
+
+      v15 = off_1ED71C828;
+      v16 = CFGetTypeID(cf);
+      sub_19B431834(a2, v32);
+      if (v33 >= 0)
+      {
+        v17 = v32;
+      }
+
+      else
+      {
+        v17 = v32[0];
+      }
+
+      *__p = 67240706;
+      *&__p[4] = a4;
+      *&__p[8] = 2050;
+      *&__p[10] = v16;
+      v36 = 2082;
+      v37 = v17;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v15, 17, "specified index %{public}d not applicable to type %{public}lu for key %{public}s", __p, 28);
+      v19 = v18;
+      if (v33 < 0)
+      {
+        operator delete(v32[0]);
+      }
     }
 
-    *__p = 67240706;
-    *&__p[4] = a4;
-    *&__p[8] = 2050;
-    *&__p[10] = v15;
-    v33 = 2082;
-    v34 = v16;
-    v17 = _os_log_send_and_compose_impl();
-    if (v30 < 0)
+    sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::copyInternal(CFStringRef, CFTypeRef &, int) const", "CoreLocation: %s\n", v19);
+    if (v19 != buf)
     {
-      operator delete(v29[0]);
+      free(v19);
     }
-  }
-
-  sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::copyInternal(CFStringRef, CFTypeRef &, int) const", "CoreLocation: %s\n", v17);
-  if (v17 != buf)
-  {
-    free(v17);
-  }
 
 LABEL_43:
-  CFRelease(cf);
-  result = *a3;
-  if (*a3)
-  {
-    CFRelease(result);
-    result = 0;
+    CFRelease(cf);
+    result = *a3;
+    if (*a3)
+    {
+      CFRelease(result);
+      return 0;
+    }
   }
 
-LABEL_47:
-  v28 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1475,2313 +1468,1853 @@ void sub_19B433F54()
 
 uint64_t sub_19B433FE8()
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (MGIsDeviceOfType())
   {
-    result = 2;
+    return 2;
+  }
+
+  v19 = 1244490093;
+  *buf = xmmword_19B7B7F10;
+  if (MGIsDeviceOfType())
+  {
+    return 5;
+  }
+
+  v14 = 1377801277;
+  *v13 = xmmword_19B7B7F24;
+  if (MGIsDeviceOfType())
+  {
+    return 5;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 19;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 20;
+  }
+
+  v19 = 1839812531;
+  *buf = xmmword_19B7B7F38;
+  if (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType())
+  {
+    return 20;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 52;
+  }
+
+  v19 = -435113336;
+  *buf = xmmword_19B7B7F4C;
+  if (MGIsDeviceOfType())
+  {
+    return 53;
+  }
+
+  v19 = -1997581659;
+  *buf = xmmword_19B7B7F60;
+  if (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType())
+  {
+    return 158;
+  }
+
+  v19 = -1441055153;
+  *buf = xmmword_19B7B7F74;
+  if (MGIsDeviceOfType())
+  {
+    return 159;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 160;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 3;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 6;
+  }
+
+  v19 = 1602014129;
+  *buf = xmmword_19B7B7F88;
+  if (MGIsDeviceOfType())
+  {
+    return 7;
+  }
+
+  v19 = -810116762;
+  *buf = xmmword_19B7B7F9C;
+  if (MGIsDeviceOfType())
+  {
+    return 8;
+  }
+
+  v19 = -1195351767;
+  *buf = xmmword_19B7B7FB0;
+  if (MGIsDeviceOfType())
+  {
+    return 9;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 10;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 11;
+  }
+
+  v19 = 1789837692;
+  *buf = xmmword_19B7B7FC4;
+  if (MGIsDeviceOfType())
+  {
+    return 13;
+  }
+
+  v19 = 48355600;
+  *buf = xmmword_19B7B7FD8;
+  if (MGIsDeviceOfType())
+  {
+    return 14;
+  }
+
+  v19 = -1239654590;
+  *buf = xmmword_19B7B7FEC;
+  if (MGIsDeviceOfType())
+  {
+    return 15;
+  }
+
+  v19 = -679691073;
+  *buf = xmmword_19B7B8000;
+  if (MGIsDeviceOfType())
+  {
+    return 16;
+  }
+
+  v19 = -1579092758;
+  *buf = xmmword_19B7B8014;
+  if (MGIsDeviceOfType())
+  {
+    return 17;
+  }
+
+  v19 = 1430379884;
+  *buf = xmmword_19B7B8028;
+  if (MGIsDeviceOfType())
+  {
+    return 18;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 21;
+  }
+
+  v19 = -798153473;
+  *buf = xmmword_19B7B803C;
+  if (MGIsDeviceOfType())
+  {
+    return 22;
+  }
+
+  v19 = -776721724;
+  *buf = xmmword_19B7B8050;
+  if (MGIsDeviceOfType())
+  {
+    return 23;
+  }
+
+  v19 = -1403227947;
+  *buf = xmmword_19B7B8064;
+  if (MGIsDeviceOfType())
+  {
+    return 24;
+  }
+
+  v19 = 729118884;
+  *buf = xmmword_19B7B8078;
+  if (MGIsDeviceOfType())
+  {
+    return 25;
+  }
+
+  v19 = 1046806126;
+  *buf = xmmword_19B7B808C;
+  if (MGIsDeviceOfType())
+  {
+    return 26;
+  }
+
+  v14 = -188760945;
+  *v13 = xmmword_19B7B80A0;
+  if (MGIsDeviceOfType())
+  {
+    return 26;
+  }
+
+  v19 = -489993439;
+  *buf = xmmword_19B7B80B4;
+  if (MGIsDeviceOfType())
+  {
+    return 27;
+  }
+
+  v19 = 886875686;
+  *buf = xmmword_19B7B80C8;
+  if (MGIsDeviceOfType())
+  {
+    return 28;
+  }
+
+  v19 = -1639077591;
+  *buf = xmmword_19B7B80DC;
+  if (MGIsDeviceOfType())
+  {
+    return 29;
+  }
+
+  v19 = 338555555;
+  *buf = xmmword_19B7B80F0;
+  if (MGIsDeviceOneOfType())
+  {
+    return 30;
+  }
+
+  v19 = 1032708406;
+  *buf = xmmword_19B7B8104;
+  if (MGIsDeviceOfType())
+  {
+    return 31;
+  }
+
+  v19 = 729903963;
+  *buf = xmmword_19B7B8118;
+  if (MGIsDeviceOfType())
+  {
+    return 32;
+  }
+
+  v19 = 1278131292;
+  *buf = xmmword_19B7B812C;
+  if (MGIsDeviceOfType())
+  {
+    return 33;
+  }
+
+  v19 = -1841712216;
+  *buf = xmmword_19B7B8140;
+  if (MGIsDeviceOfType())
+  {
+    return 34;
+  }
+
+  v19 = 1275676051;
+  *buf = xmmword_19B7B8154;
+  if (MGIsDeviceOfType())
+  {
+    return 35;
+  }
+
+  v19 = 1908474541;
+  *buf = xmmword_19B7B8168;
+  if (MGIsDeviceOfType())
+  {
+    return 36;
+  }
+
+  v19 = -1022451852;
+  *buf = xmmword_19B7B817C;
+  if (MGIsDeviceOfType())
+  {
+    return 62;
+  }
+
+  v19 = 1729782187;
+  *buf = xmmword_19B7B8190;
+  if (MGIsDeviceOfType())
+  {
+    return 63;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 37;
+  }
+
+  v19 = 368885834;
+  *buf = xmmword_19B7B81A4;
+  if (MGIsDeviceOfType())
+  {
+    return 38;
+  }
+
+  v19 = -414334491;
+  *buf = xmmword_19B7B81B8;
+  if (MGIsDeviceOfType())
+  {
+    return 39;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 40;
+  }
+
+  v19 = -526227167;
+  *buf = xmmword_19B7B81CC;
+  if (MGIsDeviceOfType())
+  {
+    return 41;
+  }
+
+  v19 = -1509831889;
+  *buf = xmmword_19B7B81E0;
+  if (MGIsDeviceOfType())
+  {
+    return 42;
+  }
+
+  v19 = 1960366092;
+  *buf = xmmword_19B7B81F4;
+  if (MGIsDeviceOfType())
+  {
+    return 43;
+  }
+
+  v19 = -2114570942;
+  *buf = xmmword_19B7B8208;
+  if (MGIsDeviceOfType())
+  {
+    return 148;
+  }
+
+  v19 = -1527788847;
+  *buf = xmmword_19B7B821C;
+  if (MGIsDeviceOfType())
+  {
+    return 44;
+  }
+
+  v19 = 1532898719;
+  *buf = xmmword_19B7B8230;
+  if (MGIsDeviceOfType())
+  {
+    return 45;
+  }
+
+  v19 = 996646949;
+  *buf = xmmword_19B7B8244;
+  if (MGIsDeviceOfType())
+  {
+    return 46;
+  }
+
+  v19 = -563086000;
+  *buf = xmmword_19B7B8258;
+  if (MGIsDeviceOfType())
+  {
+    return 47;
+  }
+
+  v19 = 659506830;
+  *buf = xmmword_19B7B826C;
+  if (MGIsDeviceOfType())
+  {
+    return 48;
+  }
+
+  v19 = 213746202;
+  *buf = xmmword_19B7B8280;
+  if (MGIsDeviceOfType())
+  {
+    return 49;
+  }
+
+  v19 = 289690957;
+  *buf = xmmword_19B7B8294;
+  if (MGIsDeviceOfType())
+  {
+    return 50;
+  }
+
+  v19 = 586720268;
+  *buf = xmmword_19B7B82A8;
+  if (MGIsDeviceOfType())
+  {
+    return 51;
+  }
+
+  v19 = -350584140;
+  *buf = xmmword_19B7B82BC;
+  if (MGIsDeviceOfType())
+  {
+    return 54;
+  }
+
+  v19 = 368778837;
+  *buf = xmmword_19B7B82D0;
+  if (MGIsDeviceOfType())
+  {
+    return 55;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 56;
+  }
+
+  v19 = -1418383976;
+  *buf = xmmword_19B7B82E4;
+  if (MGIsDeviceOfType())
+  {
+    return 57;
+  }
+
+  v19 = -1213485500;
+  *buf = xmmword_19B7B82F8;
+  if (MGIsDeviceOfType())
+  {
+    return 58;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 59;
+  }
+
+  v19 = 1425254930;
+  *buf = xmmword_19B7B830C;
+  if (MGIsDeviceOfType())
+  {
+    return 60;
+  }
+
+  v19 = 1899561076;
+  *buf = xmmword_19B7B8320;
+  if (MGIsDeviceOfType())
+  {
+    return 61;
+  }
+
+  v19 = -199226823;
+  *buf = xmmword_19B7B8334;
+  if (MGIsDeviceOfType())
+  {
+    return 64;
+  }
+
+  v14 = 1412427398;
+  *v13 = xmmword_19B7B8348;
+  if (MGIsDeviceOfType())
+  {
+    return 64;
+  }
+
+  v19 = -1283070668;
+  *buf = xmmword_19B7B835C;
+  if (MGIsDeviceOfType())
+  {
+    return 65;
+  }
+
+  v14 = 160260070;
+  *v13 = xmmword_19B7B8370;
+  if (MGIsDeviceOfType())
+  {
+    return 65;
+  }
+
+  v19 = 1711910369;
+  *buf = xmmword_19B7B8384;
+  if (MGIsDeviceOfType())
+  {
+    return 66;
+  }
+
+  v19 = -1282800328;
+  *buf = xmmword_19B7B8398;
+  if (MGIsDeviceOfType())
+  {
+    return 67;
+  }
+
+  v19 = 897736383;
+  *buf = xmmword_19B7B83AC;
+  if (MGIsDeviceOfType())
+  {
+    return 68;
+  }
+
+  v19 = -453987047;
+  *buf = xmmword_19B7B83C0;
+  if (MGIsDeviceOfType())
+  {
+    return 69;
+  }
+
+  v19 = 450980336;
+  *buf = xmmword_19B7B83D4;
+  if (MGIsDeviceOfType())
+  {
+    return 70;
+  }
+
+  v19 = 414393924;
+  *buf = xmmword_19B7B83E8;
+  if (MGIsDeviceOfType())
+  {
+    return 71;
+  }
+
+  v19 = -996295886;
+  *buf = xmmword_19B7B83FC;
+  if (MGIsDeviceOfType())
+  {
+    return 72;
+  }
+
+  v19 = -337121064;
+  *buf = xmmword_19B7B8410;
+  if (MGIsDeviceOfType())
+  {
+    return 73;
+  }
+
+  v19 = -2092955395;
+  *buf = xmmword_19B7B8424;
+  if (MGIsDeviceOfType())
+  {
+    return 74;
+  }
+
+  v19 = 674998600;
+  *buf = xmmword_19B7B8438;
+  if (MGIsDeviceOfType())
+  {
+    return 75;
+  }
+
+  v19 = 317289457;
+  *buf = xmmword_19B7B844C;
+  if (MGIsDeviceOfType())
+  {
+    return 76;
+  }
+
+  v19 = 401945557;
+  *buf = xmmword_19B7B8460;
+  if (MGIsDeviceOfType())
+  {
+    return 77;
+  }
+
+  v19 = -232427879;
+  *buf = xmmword_19B7B8474;
+  if (MGIsDeviceOfType())
+  {
+    return 78;
+  }
+
+  v19 = -427474227;
+  *buf = xmmword_19B7B8488;
+  if (MGIsDeviceOfType())
+  {
+    return 79;
+  }
+
+  v14 = 1477534141;
+  *v13 = xmmword_19B7B849C;
+  if (MGIsDeviceOfType())
+  {
+    return 79;
+  }
+
+  v19 = -1843102369;
+  *buf = xmmword_19B7B84B0;
+  if (MGIsDeviceOfType())
+  {
+    return 80;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 81;
+  }
+
+  v19 = 470738981;
+  *buf = xmmword_19B7B84C4;
+  if (MGIsDeviceOfType())
+  {
+    return 82;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 83;
+  }
+
+  v19 = 710807826;
+  *buf = xmmword_19B7B84D8;
+  if (MGIsDeviceOfType())
+  {
+    return 84;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 85;
+  }
+
+  v19 = 1860682089;
+  *buf = xmmword_19B7B84EC;
+  if (MGIsDeviceOfType())
+  {
+    return 86;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 87;
+  }
+
+  v19 = -2085056298;
+  *buf = xmmword_19B7B8500;
+  if (MGIsDeviceOfType())
+  {
+    return 88;
+  }
+
+  v19 = 2146530832;
+  *buf = xmmword_19B7B8514;
+  if (MGIsDeviceOfType())
+  {
+    return 89;
+  }
+
+  v19 = -1742178852;
+  *buf = xmmword_19B7B8528;
+  if (MGIsDeviceOfType())
+  {
+    return 90;
+  }
+
+  v19 = 617174804;
+  *buf = xmmword_19B7B853C;
+  if (MGIsDeviceOfType())
+  {
+    return 91;
+  }
+
+  v19 = 1330813729;
+  *buf = xmmword_19B7B8550;
+  if (MGIsDeviceOfType())
+  {
+    return 92;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 93;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 94;
+  }
+
+  v19 = 152704997;
+  *buf = xmmword_19B7B8564;
+  if (MGIsDeviceOfType())
+  {
+    return 95;
+  }
+
+  v19 = -338255497;
+  *buf = xmmword_19B7B8578;
+  if (MGIsDeviceOfType())
+  {
+    return 96;
+  }
+
+  v19 = -1040127899;
+  *buf = xmmword_19B7B858C;
+  if (MGIsDeviceOfType())
+  {
+    return 97;
+  }
+
+  v19 = 283967174;
+  *buf = xmmword_19B7B85A0;
+  if (MGIsDeviceOfType())
+  {
+    return 98;
+  }
+
+  v19 = 1530707451;
+  *buf = xmmword_19B7B85B4;
+  if (MGIsDeviceOfType())
+  {
+    return 99;
+  }
+
+  v19 = -871113647;
+  *buf = xmmword_19B7B85C8;
+  if (MGIsDeviceOfType())
+  {
+    return 100;
+  }
+
+  v19 = 483476120;
+  *buf = xmmword_19B7B85DC;
+  if (MGIsDeviceOfType())
+  {
+    return 101;
+  }
+
+  v19 = 1472775220;
+  *buf = xmmword_19B7B85F0;
+  if (MGIsDeviceOfType())
+  {
+    return 102;
+  }
+
+  v19 = 56502976;
+  *buf = xmmword_19B7B8604;
+  if (MGIsDeviceOfType())
+  {
+    return 103;
+  }
+
+  v19 = 282158961;
+  *buf = xmmword_19B7B8618;
+  if (MGIsDeviceOfType())
+  {
+    return 104;
+  }
+
+  v19 = 1282132887;
+  *buf = xmmword_19B7B862C;
+  if (MGIsDeviceOfType())
+  {
+    return 105;
+  }
+
+  v19 = -961843768;
+  *buf = xmmword_19B7B8640;
+  if (MGIsDeviceOfType())
+  {
+    return 106;
+  }
+
+  v19 = 1326690998;
+  *buf = xmmword_19B7B8654;
+  if (MGIsDeviceOfType())
+  {
+    return 107;
+  }
+
+  v19 = -441172408;
+  *buf = xmmword_19B7B8668;
+  if (MGIsDeviceOfType())
+  {
+    return 108;
+  }
+
+  v19 = -126099363;
+  *buf = xmmword_19B7B867C;
+  if (MGIsDeviceOfType())
+  {
+    return 109;
+  }
+
+  v19 = 1756484512;
+  *buf = xmmword_19B7B8690;
+  if (MGIsDeviceOfType())
+  {
+    return 110;
+  }
+
+  v19 = 763775061;
+  *buf = xmmword_19B7B86A4;
+  if (MGIsDeviceOfType())
+  {
+    return 111;
+  }
+
+  v19 = -1092155788;
+  *buf = xmmword_19B7B86B8;
+  if (MGIsDeviceOfType())
+  {
+    return 112;
+  }
+
+  v19 = -557458837;
+  *buf = xmmword_19B7B86CC;
+  if (MGIsDeviceOfType())
+  {
+    return 113;
+  }
+
+  v19 = -63049871;
+  *buf = xmmword_19B7B86E0;
+  if (MGIsDeviceOfType())
+  {
+    return 114;
+  }
+
+  v19 = 1730000236;
+  *buf = xmmword_19B7B86F4;
+  if (MGIsDeviceOfType())
+  {
+    return 115;
+  }
+
+  v19 = 406601745;
+  *buf = xmmword_19B7B8708;
+  if (MGIsDeviceOfType())
+  {
+    return 116;
+  }
+
+  v19 = 1530338216;
+  *buf = xmmword_19B7B871C;
+  if (MGIsDeviceOfType())
+  {
+    return 117;
+  }
+
+  v19 = -1930811061;
+  *buf = xmmword_19B7B8730;
+  if (MGIsDeviceOfType())
+  {
+    return 118;
+  }
+
+  v19 = 1654218604;
+  *buf = xmmword_19B7B8744;
+  if (MGIsDeviceOfType())
+  {
+    return 119;
+  }
+
+  v19 = -182498503;
+  *buf = xmmword_19B7B8758;
+  if (MGIsDeviceOfType())
+  {
+    return 124;
+  }
+
+  v19 = -2030489149;
+  *buf = xmmword_19B7B876C;
+  if (MGIsDeviceOfType())
+  {
+    return 120;
+  }
+
+  v19 = 841005628;
+  *buf = xmmword_19B7B8780;
+  if (MGIsDeviceOfType())
+  {
+    return 121;
+  }
+
+  v19 = 223445260;
+  *buf = xmmword_19B7B8794;
+  if (MGIsDeviceOfType())
+  {
+    return 122;
+  }
+
+  v19 = 1219348060;
+  *buf = xmmword_19B7B87A8;
+  if (MGIsDeviceOfType())
+  {
+    return 123;
+  }
+
+  v19 = -1384522500;
+  *buf = xmmword_19B7B87BC;
+  if (MGIsDeviceOfType())
+  {
+    return 125;
+  }
+
+  v19 = -782763850;
+  *buf = xmmword_19B7B87D0;
+  if (MGIsDeviceOfType())
+  {
+    return 126;
+  }
+
+  v19 = 1815762806;
+  *buf = xmmword_19B7B87E4;
+  if (MGIsDeviceOfType())
+  {
+    return 127;
+  }
+
+  v19 = -1897771119;
+  *buf = xmmword_19B7B87F8;
+  if (MGIsDeviceOfType())
+  {
+    return 128;
+  }
+
+  v19 = -652049476;
+  *buf = xmmword_19B7B880C;
+  if (MGIsDeviceOfType())
+  {
+    return 129;
+  }
+
+  v19 = 373548423;
+  *buf = xmmword_19B7B8820;
+  if (MGIsDeviceOfType())
+  {
+    return 130;
+  }
+
+  v19 = -1921398171;
+  *buf = xmmword_19B7B8834;
+  if (MGIsDeviceOfType())
+  {
+    return 131;
+  }
+
+  v19 = 2140507472;
+  *buf = xmmword_19B7B8848;
+  if (MGIsDeviceOfType())
+  {
+    return 132;
+  }
+
+  v19 = -936391310;
+  *buf = xmmword_19B7B885C;
+  if (MGIsDeviceOfType())
+  {
+    return 133;
+  }
+
+  v19 = 2030516999;
+  *buf = xmmword_19B7B8870;
+  *v13 = xmmword_19B7B8884;
+  v14 = -1276010597;
+  if (MGIsDeviceOneOfType())
+  {
+    return 134;
+  }
+
+  v19 = -762483149;
+  *buf = xmmword_19B7B8898;
+  *v13 = xmmword_19B7B88AC;
+  v14 = -1926937532;
+  if (MGIsDeviceOneOfType())
+  {
+    return 135;
+  }
+
+  v19 = -1902732724;
+  *buf = xmmword_19B7B88C0;
+  *v13 = xmmword_19B7B88D4;
+  v14 = -342357580;
+  if (MGIsDeviceOneOfType())
+  {
+    return 136;
+  }
+
+  v19 = 300442574;
+  *buf = xmmword_19B7B88E8;
+  *v13 = xmmword_19B7B88FC;
+  v14 = -1294188889;
+  if (MGIsDeviceOneOfType())
+  {
+    return 137;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 138;
+  }
+
+  v19 = -61007701;
+  *buf = xmmword_19B7B8910;
+  if (MGIsDeviceOfType())
+  {
+    return 139;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 140;
+  }
+
+  v19 = -235416490;
+  *buf = xmmword_19B7B8924;
+  if (MGIsDeviceOfType())
+  {
+    return 141;
+  }
+
+  v19 = -820493242;
+  *buf = xmmword_19B7B8938;
+  if (MGIsDeviceOfType())
+  {
+    return 143;
+  }
+
+  v19 = -1157300313;
+  *buf = xmmword_19B7B894C;
+  if (MGIsDeviceOfType())
+  {
+    return 144;
+  }
+
+  v19 = -2132668294;
+  *buf = xmmword_19B7B8960;
+  if (MGIsDeviceOfType())
+  {
+    return 145;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 146;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 147;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 149;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 150;
+  }
+
+  v19 = 1737149739;
+  *buf = xmmword_19B7B8974;
+  if (MGIsDeviceOfType())
+  {
+    return 151;
+  }
+
+  v19 = 1577888303;
+  *buf = xmmword_19B7B8988;
+  if (MGIsDeviceOfType())
+  {
+    return 152;
+  }
+
+  v19 = -1918230744;
+  *buf = xmmword_19B7B899C;
+  if (MGIsDeviceOfType())
+  {
+    return 153;
+  }
+
+  v19 = 1126727276;
+  *buf = xmmword_19B7B89B0;
+  if (MGIsDeviceOfType())
+  {
+    return 154;
+  }
+
+  v19 = 300130091;
+  *buf = xmmword_19B7B89C4;
+  if (MGIsDeviceOfType())
+  {
+    return 155;
+  }
+
+  v19 = 343814884;
+  *buf = xmmword_19B7B89D8;
+  if (MGIsDeviceOfType())
+  {
+    return 156;
+  }
+
+  v19 = -1675932945;
+  *buf = xmmword_19B7B89EC;
+  if (MGIsDeviceOfType())
+  {
+    return 157;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 161;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 162;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 166;
+  }
+
+  v19 = -1840391155;
+  *buf = xmmword_19B7B8A00;
+  if (MGIsDeviceOfType())
+  {
+    return 167;
+  }
+
+  v19 = -121925081;
+  *buf = xmmword_19B7B8A14;
+  if (MGIsDeviceOfType())
+  {
+    return 142;
+  }
+
+  v19 = 1071957977;
+  *buf = xmmword_19B7B8A28;
+  if (MGIsDeviceOfType())
+  {
+    return 168;
+  }
+
+  v19 = 438437663;
+  *buf = xmmword_19B7B8A3C;
+  if (MGIsDeviceOfType())
+  {
+    return 169;
+  }
+
+  v19 = 1575123478;
+  *buf = xmmword_19B7B8A50;
+  if (MGIsDeviceOfType())
+  {
+    return 170;
+  }
+
+  v19 = -382792827;
+  *buf = xmmword_19B7B8A64;
+  if (MGIsDeviceOfType())
+  {
+    return 171;
+  }
+
+  v19 = 123138233;
+  *buf = xmmword_19B7B8A78;
+  if (MGIsDeviceOfType())
+  {
+    return 172;
+  }
+
+  v19 = 681511593;
+  *buf = xmmword_19B7B8A8C;
+  if (MGIsDeviceOfType())
+  {
+    return 173;
+  }
+
+  v19 = 169342588;
+  *buf = xmmword_19B7B8AA0;
+  if (MGIsDeviceOfType())
+  {
+    return 174;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 175;
+  }
+
+  v19 = 713503427;
+  *buf = xmmword_19B7B8AB4;
+  if (MGIsDeviceOfType())
+  {
+    return 176;
+  }
+
+  v19 = -1632750650;
+  *buf = xmmword_19B7B8AC8;
+  if (MGIsDeviceOfType())
+  {
+    return 177;
+  }
+
+  v19 = -1820426635;
+  *buf = xmmword_19B7B8ADC;
+  if (MGIsDeviceOfType())
+  {
+    return 178;
+  }
+
+  v19 = -937652876;
+  *buf = xmmword_19B7B8AF0;
+  if (MGIsDeviceOfType())
+  {
+    return 179;
+  }
+
+  v19 = 1874287171;
+  *buf = xmmword_19B7B8B04;
+  if (MGIsDeviceOfType())
+  {
+    return 180;
+  }
+
+  v19 = -781324731;
+  *buf = xmmword_19B7B8B18;
+  if (MGIsDeviceOfType())
+  {
+    return 181;
+  }
+
+  v19 = 1214880059;
+  *buf = xmmword_19B7B8B2C;
+  if (MGIsDeviceOfType())
+  {
+    return 182;
+  }
+
+  v19 = 426359977;
+  *buf = xmmword_19B7B8B40;
+  if (MGIsDeviceOfType())
+  {
+    return 183;
+  }
+
+  v19 = -1354433901;
+  *buf = xmmword_19B7B8B54;
+  if (MGIsDeviceOfType())
+  {
+    return 184;
+  }
+
+  v19 = 1021543808;
+  *buf = xmmword_19B7B8B68;
+  if (MGIsDeviceOfType())
+  {
+    return 185;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 186;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 187;
+  }
+
+  v19 = 1459208360;
+  *buf = xmmword_19B7B8B7C;
+  if (MGIsDeviceOfType())
+  {
+    return 188;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 189;
+  }
+
+  v19 = 431774303;
+  *buf = xmmword_19B7B8B90;
+  if (MGIsDeviceOfType())
+  {
+    return 180;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 190;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 191;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 163;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 192;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 164;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 165;
+  }
+
+  v19 = 345196535;
+  *buf = xmmword_19B7B8BA4;
+  if (MGIsDeviceOfType())
+  {
+    return 193;
+  }
+
+  v19 = 440949464;
+  *buf = xmmword_19B7B8BB8;
+  if (MGIsDeviceOfType())
+  {
+    return 194;
+  }
+
+  v19 = 688565114;
+  *buf = xmmword_19B7B8BCC;
+  if (MGIsDeviceOfType())
+  {
+    return 195;
+  }
+
+  v19 = -493418906;
+  *buf = xmmword_19B7B8BE0;
+  if (MGIsDeviceOfType())
+  {
+    return 196;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 197;
+  }
+
+  v19 = -584398440;
+  *buf = xmmword_19B7B8BF4;
+  if (MGIsDeviceOfType())
+  {
+    return 202;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 203;
+  }
+
+  v19 = -879476163;
+  *buf = xmmword_19B7B8C08;
+  if (MGIsDeviceOfType())
+  {
+    return 204;
+  }
+
+  v19 = -695298128;
+  *buf = xmmword_19B7B8C1C;
+  *v13 = xmmword_19B7B8C30;
+  v14 = 804488105;
+  if (MGIsDeviceOneOfType())
+  {
+    return 205;
+  }
+
+  v19 = 1614584579;
+  *buf = xmmword_19B7B8C44;
+  *v13 = xmmword_19B7B8C58;
+  v14 = 324288768;
+  if (MGIsDeviceOneOfType())
+  {
+    return 206;
+  }
+
+  v19 = 460218192;
+  *buf = xmmword_19B7B8C6C;
+  *v13 = xmmword_19B7B8C80;
+  v14 = 2144905009;
+  if (MGIsDeviceOneOfType())
+  {
+    return 207;
+  }
+
+  v19 = 127894440;
+  *buf = xmmword_19B7B8C94;
+  *v13 = xmmword_19B7B8CA8;
+  v14 = 1070997468;
+  if (MGIsDeviceOneOfType())
+  {
+    return 208;
+  }
+
+  v19 = 372777383;
+  *buf = xmmword_19B7B8CBC;
+  if (MGIsDeviceOfType())
+  {
+    return 209;
+  }
+
+  v19 = -858079590;
+  *buf = xmmword_19B7B8CD0;
+  if (MGIsDeviceOfType())
+  {
+    return 210;
+  }
+
+  v19 = -212523443;
+  *buf = xmmword_19B7B8CE4;
+  if (MGIsDeviceOfType())
+  {
+    return 211;
+  }
+
+  v19 = 646100384;
+  *buf = xmmword_19B7B8CF8;
+  if (MGIsDeviceOfType())
+  {
+    return 212;
+  }
+
+  v19 = -340360463;
+  *buf = xmmword_19B7B8D0C;
+  if (MGIsDeviceOfType())
+  {
+    return 213;
+  }
+
+  v19 = 1605231531;
+  *buf = xmmword_19B7B8D20;
+  if (MGIsDeviceOfType())
+  {
+    return 214;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 215;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 216;
+  }
+
+  v19 = -545612308;
+  *buf = xmmword_19B7B8D34;
+  if (MGIsDeviceOfType())
+  {
+    return 217;
+  }
+
+  v19 = 1178062702;
+  *buf = xmmword_19B7B8D48;
+  if (MGIsDeviceOfType())
+  {
+    return 218;
+  }
+
+  v19 = 958549802;
+  *buf = xmmword_19B7B8D5C;
+  if (MGIsDeviceOfType())
+  {
+    return 219;
+  }
+
+  v19 = 1377540371;
+  *buf = xmmword_19B7B8D70;
+  if (MGIsDeviceOfType())
+  {
+    return 220;
+  }
+
+  v19 = -1047119348;
+  *buf = xmmword_19B7B8D84;
+  if (MGIsDeviceOfType())
+  {
+    return 221;
+  }
+
+  v19 = -1346985080;
+  *buf = xmmword_19B7B8D98;
+  if (MGIsDeviceOfType())
+  {
+    return 222;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 223;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 224;
+  }
+
+  v19 = -1243071412;
+  *buf = xmmword_19B7B8DAC;
+  if (MGIsDeviceOfType())
+  {
+    return 225;
+  }
+
+  v19 = 2017356181;
+  *buf = xmmword_19B7B8DC0;
+  if (MGIsDeviceOfType())
+  {
+    return 226;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 227;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 228;
+  }
+
+  v19 = -1231738393;
+  *buf = xmmword_19B7B8DD4;
+  if (MGIsDeviceOfType())
+  {
+    return 229;
+  }
+
+  v19 = 164967128;
+  *buf = xmmword_19B7B8DE8;
+  if (MGIsDeviceOfType())
+  {
+    return 230;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 231;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 232;
+  }
+
+  v19 = -1431778695;
+  *buf = xmmword_19B7B8DFC;
+  if (MGIsDeviceOfType())
+  {
+    return 233;
+  }
+
+  v19 = 533419158;
+  *buf = xmmword_19B7B8E10;
+  if (MGIsDeviceOfType())
+  {
+    return 234;
+  }
+
+  v19 = 1106979518;
+  *buf = xmmword_19B7B8E24;
+  if (MGIsDeviceOfType())
+  {
+    return 235;
+  }
+
+  v19 = -609570151;
+  *buf = xmmword_19B7B8E38;
+  if (MGIsDeviceOfType())
+  {
+    return 236;
+  }
+
+  v19 = -874769875;
+  *buf = xmmword_19B7B8E4C;
+  if (MGIsDeviceOfType())
+  {
+    return 237;
+  }
+
+  v19 = 1223847566;
+  *buf = xmmword_19B7B8E60;
+  if (MGIsDeviceOfType())
+  {
+    return 238;
+  }
+
+  v19 = 185580364;
+  *buf = xmmword_19B7B8E74;
+  if (MGIsDeviceOfType())
+  {
+    return 239;
+  }
+
+  v19 = -1379821877;
+  *buf = xmmword_19B7B8E88;
+  if (MGIsDeviceOfType())
+  {
+    return 240;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 241;
+  }
+
+  v19 = 1878025452;
+  *buf = xmmword_19B7B8E9C;
+  if (MGIsDeviceOfType())
+  {
+    return 242;
+  }
+
+  v19 = 1725957070;
+  *buf = xmmword_19B7B8EB0;
+  if (MGIsDeviceOfType())
+  {
+    return 243;
+  }
+
+  v19 = 538967431;
+  *buf = xmmword_19B7B8EC4;
+  if (MGIsDeviceOfType())
+  {
+    return 244;
+  }
+
+  v19 = 2060712151;
+  *buf = xmmword_19B7B8ED8;
+  if (MGIsDeviceOfType())
+  {
+    return 245;
+  }
+
+  v19 = 802516499;
+  *buf = xmmword_19B7B8EEC;
+  if (MGIsDeviceOfType())
+  {
+    return 246;
+  }
+
+  v19 = -1919324456;
+  *buf = xmmword_19B7B8F00;
+  if (MGIsDeviceOfType())
+  {
+    return 247;
+  }
+
+  v19 = 1127969586;
+  *buf = xmmword_19B7B8F14;
+  if (MGIsDeviceOfType())
+  {
+    return 248;
+  }
+
+  v19 = 1292009573;
+  *buf = xmmword_19B7B8F28;
+  if (MGIsDeviceOfType())
+  {
+    return 249;
+  }
+
+  v19 = 1656760039;
+  *buf = xmmword_19B7B8F3C;
+  if (MGIsDeviceOfType())
+  {
+    return 250;
+  }
+
+  v19 = -2071977621;
+  *buf = xmmword_19B7B8F50;
+  if (MGIsDeviceOfType())
+  {
+    return 251;
+  }
+
+  v19 = -543210860;
+  *buf = xmmword_19B7B8F64;
+  if (MGIsDeviceOfType())
+  {
+    return 252;
+  }
+
+  v19 = -1597604211;
+  *buf = xmmword_19B7B8F78;
+  if (MGIsDeviceOfType())
+  {
+    return 253;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 142;
+  }
+
+  if (qword_1ED71C988 != -1)
+  {
+    dispatch_once(&qword_1ED71C988, &unk_1F0E28FE0);
+  }
+
+  if (sub_19B5F8330())
+  {
+    return 1;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 254;
+  }
+
+  v19 = -12497897;
+  *buf = xmmword_19B7B8F8C;
+  if (MGIsDeviceOfType())
+  {
+    return 255;
+  }
+
+  v19 = -518121279;
+  *buf = xmmword_19B7B8FA0;
+  if (MGIsDeviceOfType())
+  {
+    return 256;
+  }
+
+  v19 = -773054213;
+  *buf = xmmword_19B7B8FB4;
+  if (MGIsDeviceOfType())
+  {
+    return 257;
+  }
+
+  v19 = -1204420428;
+  *buf = xmmword_19B7B8FC8;
+  if (MGIsDeviceOfType())
+  {
+    return 258;
+  }
+
+  if (MGIsDeviceOfType())
+  {
+    return 280;
+  }
+
+  v1 = MGCopyAnswer();
+  if (v1)
+  {
+    if (qword_1EAFE2B38 != -1)
+    {
+      dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
+    }
+
+    v2 = qword_1EAFE2B40;
+    if (os_log_type_enabled(qword_1EAFE2B40, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138477827;
+      *&buf[4] = v1;
+      _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_ERROR, "unknown HW model %{private}@; file radar to CoreMotion Factory | 1.0", buf, 0xCu);
+    }
+
+    v3 = sub_19B420058();
+    if ((*(v3 + 160) & 0x80000000) == 0 || (*(v3 + 164) & 0x80000000) == 0 || (*(v3 + 168) & 0x80000000) == 0 || *(v3 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2B38 != -1)
+      {
+        dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
+      }
+
+      *v13 = 138477827;
+      *&v13[4] = v1;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2B40, 16, "unknown HW model %{private}@; file radar to CoreMotion Factory | 1.0", v13, 12);
+      v8 = v7;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "static CLPlatformInfo::Hardware CLPlatformInfo::queryEmbeddedSystemHardware()", "CoreLocation: %s\n", v7);
+      if (v8 != buf)
+      {
+        free(v8);
+      }
+    }
+
+    CFRelease(v1);
   }
 
   else
   {
-    v17 = 1244490093;
-    *buf = xmmword_19B7B7F10;
-    if (MGIsDeviceOfType() & 1) != 0 || (v12 = 1377801277, *v11 = xmmword_19B7B7F24, (MGIsDeviceOfType()))
+    if (qword_1EAFE2B38 != -1)
     {
-      result = 5;
+      dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
     }
 
-    else if (MGIsDeviceOfType())
+    v4 = qword_1EAFE2B40;
+    if (os_log_type_enabled(qword_1EAFE2B40, OS_LOG_TYPE_ERROR))
     {
-      result = 19;
+      sub_19B431834(@"HWModelStr", buf);
+      v5 = v20 >= 0 ? buf : *buf;
+      *v13 = 136380675;
+      *&v13[4] = v5;
+      _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_ERROR, "unknown HW model %{private}s; file radar to CoreMotion Factory | 1.0", v13, 0xCu);
+      if (v20 < 0)
+      {
+        operator delete(*buf);
+      }
     }
 
-    else if (MGIsDeviceOfType() & 1) != 0 || (v17 = 1839812531, *buf = xmmword_19B7B7F38, (MGIsDeviceOfType()) || (MGIsDeviceOfType())
+    v6 = sub_19B420058();
+    if ((*(v6 + 160) & 0x80000000) != 0 && (*(v6 + 164) & 0x80000000) != 0 && (*(v6 + 168) & 0x80000000) != 0 && !*(v6 + 152))
     {
-      result = 20;
+      return 0;
     }
 
-    else if (MGIsDeviceOfType())
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE2B38 != -1)
     {
-      result = 52;
+      dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
+    }
+
+    v9 = qword_1EAFE2B40;
+    sub_19B431834(@"HWModelStr", v13);
+    if (v15 >= 0)
+    {
+      v10 = v13;
     }
 
     else
     {
-      v17 = -435113336;
-      *buf = xmmword_19B7B7F4C;
-      if (MGIsDeviceOfType())
-      {
-        result = 53;
-      }
-
-      else
-      {
-        v17 = -1997581659;
-        *buf = xmmword_19B7B7F60;
-        if (MGIsDeviceOfType() & 1) != 0 || (MGIsDeviceOfType())
-        {
-          result = 158;
-        }
-
-        else
-        {
-          v17 = -1441055153;
-          *buf = xmmword_19B7B7F74;
-          if (MGIsDeviceOfType())
-          {
-            result = 159;
-          }
-
-          else if (MGIsDeviceOfType())
-          {
-            result = 160;
-          }
-
-          else if (MGIsDeviceOfType())
-          {
-            result = 3;
-          }
-
-          else if (MGIsDeviceOfType())
-          {
-            result = 6;
-          }
-
-          else
-          {
-            v17 = 1602014129;
-            *buf = xmmword_19B7B7F88;
-            if (MGIsDeviceOfType())
-            {
-              result = 7;
-            }
-
-            else
-            {
-              v17 = -810116762;
-              *buf = xmmword_19B7B7F9C;
-              if (MGIsDeviceOfType())
-              {
-                result = 8;
-              }
-
-              else
-              {
-                v17 = -1195351767;
-                *buf = xmmword_19B7B7FB0;
-                if (MGIsDeviceOfType())
-                {
-                  result = 9;
-                }
-
-                else if (MGIsDeviceOfType())
-                {
-                  result = 10;
-                }
-
-                else if (MGIsDeviceOfType())
-                {
-                  result = 11;
-                }
-
-                else
-                {
-                  v17 = 1789837692;
-                  *buf = xmmword_19B7B7FC4;
-                  if (MGIsDeviceOfType())
-                  {
-                    result = 13;
-                  }
-
-                  else
-                  {
-                    v17 = 48355600;
-                    *buf = xmmword_19B7B7FD8;
-                    if (MGIsDeviceOfType())
-                    {
-                      result = 14;
-                    }
-
-                    else
-                    {
-                      v17 = -1239654590;
-                      *buf = xmmword_19B7B7FEC;
-                      if (MGIsDeviceOfType())
-                      {
-                        result = 15;
-                      }
-
-                      else
-                      {
-                        v17 = -679691073;
-                        *buf = xmmword_19B7B8000;
-                        if (MGIsDeviceOfType())
-                        {
-                          result = 16;
-                        }
-
-                        else
-                        {
-                          v17 = -1579092758;
-                          *buf = xmmword_19B7B8014;
-                          if (MGIsDeviceOfType())
-                          {
-                            result = 17;
-                          }
-
-                          else
-                          {
-                            v17 = 1430379884;
-                            *buf = xmmword_19B7B8028;
-                            if (MGIsDeviceOfType())
-                            {
-                              result = 18;
-                            }
-
-                            else if (MGIsDeviceOfType())
-                            {
-                              result = 21;
-                            }
-
-                            else
-                            {
-                              v17 = -798153473;
-                              *buf = xmmword_19B7B803C;
-                              if (MGIsDeviceOfType())
-                              {
-                                result = 22;
-                              }
-
-                              else
-                              {
-                                v17 = -776721724;
-                                *buf = xmmword_19B7B8050;
-                                if (MGIsDeviceOfType())
-                                {
-                                  result = 23;
-                                }
-
-                                else
-                                {
-                                  v17 = -1403227947;
-                                  *buf = xmmword_19B7B8064;
-                                  if (MGIsDeviceOfType())
-                                  {
-                                    result = 24;
-                                  }
-
-                                  else
-                                  {
-                                    v17 = 729118884;
-                                    *buf = xmmword_19B7B8078;
-                                    if (MGIsDeviceOfType())
-                                    {
-                                      result = 25;
-                                    }
-
-                                    else
-                                    {
-                                      v17 = 1046806126;
-                                      *buf = xmmword_19B7B808C;
-                                      if (MGIsDeviceOfType() & 1) != 0 || (v12 = -188760945, *v11 = xmmword_19B7B80A0, (MGIsDeviceOfType()))
-                                      {
-                                        result = 26;
-                                      }
-
-                                      else
-                                      {
-                                        v17 = -489993439;
-                                        *buf = xmmword_19B7B80B4;
-                                        if (MGIsDeviceOfType())
-                                        {
-                                          result = 27;
-                                        }
-
-                                        else
-                                        {
-                                          v17 = 886875686;
-                                          *buf = xmmword_19B7B80C8;
-                                          if (MGIsDeviceOfType())
-                                          {
-                                            result = 28;
-                                          }
-
-                                          else
-                                          {
-                                            v17 = -1639077591;
-                                            *buf = xmmword_19B7B80DC;
-                                            if (MGIsDeviceOfType())
-                                            {
-                                              result = 29;
-                                            }
-
-                                            else
-                                            {
-                                              v17 = 338555555;
-                                              *buf = xmmword_19B7B80F0;
-                                              if (MGIsDeviceOneOfType())
-                                              {
-                                                result = 30;
-                                              }
-
-                                              else
-                                              {
-                                                v17 = 1032708406;
-                                                *buf = xmmword_19B7B8104;
-                                                if (MGIsDeviceOfType())
-                                                {
-                                                  result = 31;
-                                                }
-
-                                                else
-                                                {
-                                                  v17 = 729903963;
-                                                  *buf = xmmword_19B7B8118;
-                                                  if (MGIsDeviceOfType())
-                                                  {
-                                                    result = 32;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v17 = 1278131292;
-                                                    *buf = xmmword_19B7B812C;
-                                                    if (MGIsDeviceOfType())
-                                                    {
-                                                      result = 33;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v17 = -1841712216;
-                                                      *buf = xmmword_19B7B8140;
-                                                      if (MGIsDeviceOfType())
-                                                      {
-                                                        result = 34;
-                                                      }
-
-                                                      else
-                                                      {
-                                                        v17 = 1275676051;
-                                                        *buf = xmmword_19B7B8154;
-                                                        if (MGIsDeviceOfType())
-                                                        {
-                                                          result = 35;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v17 = 1908474541;
-                                                          *buf = xmmword_19B7B8168;
-                                                          if (MGIsDeviceOfType())
-                                                          {
-                                                            result = 36;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v17 = -1022451852;
-                                                            *buf = xmmword_19B7B817C;
-                                                            if (MGIsDeviceOfType())
-                                                            {
-                                                              result = 62;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v17 = 1729782187;
-                                                              *buf = xmmword_19B7B8190;
-                                                              if (MGIsDeviceOfType())
-                                                              {
-                                                                result = 63;
-                                                              }
-
-                                                              else if (MGIsDeviceOfType())
-                                                              {
-                                                                result = 37;
-                                                              }
-
-                                                              else
-                                                              {
-                                                                v17 = 368885834;
-                                                                *buf = xmmword_19B7B81A4;
-                                                                if (MGIsDeviceOfType())
-                                                                {
-                                                                  result = 38;
-                                                                }
-
-                                                                else
-                                                                {
-                                                                  v17 = -414334491;
-                                                                  *buf = xmmword_19B7B81B8;
-                                                                  if (MGIsDeviceOfType())
-                                                                  {
-                                                                    result = 39;
-                                                                  }
-
-                                                                  else if (MGIsDeviceOfType())
-                                                                  {
-                                                                    result = 40;
-                                                                  }
-
-                                                                  else
-                                                                  {
-                                                                    v17 = -526227167;
-                                                                    *buf = xmmword_19B7B81CC;
-                                                                    if (MGIsDeviceOfType())
-                                                                    {
-                                                                      result = 41;
-                                                                    }
-
-                                                                    else
-                                                                    {
-                                                                      v17 = -1509831889;
-                                                                      *buf = xmmword_19B7B81E0;
-                                                                      if (MGIsDeviceOfType())
-                                                                      {
-                                                                        result = 42;
-                                                                      }
-
-                                                                      else
-                                                                      {
-                                                                        v17 = 1960366092;
-                                                                        *buf = xmmword_19B7B81F4;
-                                                                        if (MGIsDeviceOfType())
-                                                                        {
-                                                                          result = 43;
-                                                                        }
-
-                                                                        else
-                                                                        {
-                                                                          v17 = -2114570942;
-                                                                          *buf = xmmword_19B7B8208;
-                                                                          if (MGIsDeviceOfType())
-                                                                          {
-                                                                            result = 148;
-                                                                          }
-
-                                                                          else
-                                                                          {
-                                                                            v17 = -1527788847;
-                                                                            *buf = xmmword_19B7B821C;
-                                                                            if (MGIsDeviceOfType())
-                                                                            {
-                                                                              result = 44;
-                                                                            }
-
-                                                                            else
-                                                                            {
-                                                                              v17 = 1532898719;
-                                                                              *buf = xmmword_19B7B8230;
-                                                                              if (MGIsDeviceOfType())
-                                                                              {
-                                                                                result = 45;
-                                                                              }
-
-                                                                              else
-                                                                              {
-                                                                                v17 = 996646949;
-                                                                                *buf = xmmword_19B7B8244;
-                                                                                if (MGIsDeviceOfType())
-                                                                                {
-                                                                                  result = 46;
-                                                                                }
-
-                                                                                else
-                                                                                {
-                                                                                  v17 = -563086000;
-                                                                                  *buf = xmmword_19B7B8258;
-                                                                                  if (MGIsDeviceOfType())
-                                                                                  {
-                                                                                    result = 47;
-                                                                                  }
-
-                                                                                  else
-                                                                                  {
-                                                                                    v17 = 659506830;
-                                                                                    *buf = xmmword_19B7B826C;
-                                                                                    if (MGIsDeviceOfType())
-                                                                                    {
-                                                                                      result = 48;
-                                                                                    }
-
-                                                                                    else
-                                                                                    {
-                                                                                      v17 = 213746202;
-                                                                                      *buf = xmmword_19B7B8280;
-                                                                                      if (MGIsDeviceOfType())
-                                                                                      {
-                                                                                        result = 49;
-                                                                                      }
-
-                                                                                      else
-                                                                                      {
-                                                                                        v17 = 289690957;
-                                                                                        *buf = xmmword_19B7B8294;
-                                                                                        if (MGIsDeviceOfType())
-                                                                                        {
-                                                                                          result = 50;
-                                                                                        }
-
-                                                                                        else
-                                                                                        {
-                                                                                          v17 = 586720268;
-                                                                                          *buf = xmmword_19B7B82A8;
-                                                                                          if (MGIsDeviceOfType())
-                                                                                          {
-                                                                                            result = 51;
-                                                                                          }
-
-                                                                                          else
-                                                                                          {
-                                                                                            v17 = -350584140;
-                                                                                            *buf = xmmword_19B7B82BC;
-                                                                                            if (MGIsDeviceOfType())
-                                                                                            {
-                                                                                              result = 54;
-                                                                                            }
-
-                                                                                            else
-                                                                                            {
-                                                                                              v17 = 368778837;
-                                                                                              *buf = xmmword_19B7B82D0;
-                                                                                              if (MGIsDeviceOfType())
-                                                                                              {
-                                                                                                result = 55;
-                                                                                              }
-
-                                                                                              else if (MGIsDeviceOfType())
-                                                                                              {
-                                                                                                result = 56;
-                                                                                              }
-
-                                                                                              else
-                                                                                              {
-                                                                                                v17 = -1418383976;
-                                                                                                *buf = xmmword_19B7B82E4;
-                                                                                                if (MGIsDeviceOfType())
-                                                                                                {
-                                                                                                  result = 57;
-                                                                                                }
-
-                                                                                                else
-                                                                                                {
-                                                                                                  v17 = -1213485500;
-                                                                                                  *buf = xmmword_19B7B82F8;
-                                                                                                  if (MGIsDeviceOfType())
-                                                                                                  {
-                                                                                                    result = 58;
-                                                                                                  }
-
-                                                                                                  else if (MGIsDeviceOfType())
-                                                                                                  {
-                                                                                                    result = 59;
-                                                                                                  }
-
-                                                                                                  else
-                                                                                                  {
-                                                                                                    v17 = 1425254930;
-                                                                                                    *buf = xmmword_19B7B830C;
-                                                                                                    if (MGIsDeviceOfType())
-                                                                                                    {
-                                                                                                      result = 60;
-                                                                                                    }
-
-                                                                                                    else
-                                                                                                    {
-                                                                                                      v17 = 1899561076;
-                                                                                                      *buf = xmmword_19B7B8320;
-                                                                                                      if (MGIsDeviceOfType())
-                                                                                                      {
-                                                                                                        result = 61;
-                                                                                                      }
-
-                                                                                                      else
-                                                                                                      {
-                                                                                                        v17 = -199226823;
-                                                                                                        *buf = xmmword_19B7B8334;
-                                                                                                        if (MGIsDeviceOfType() & 1) != 0 || (v12 = 1412427398, *v11 = xmmword_19B7B8348, (MGIsDeviceOfType()))
-                                                                                                        {
-                                                                                                          result = 64;
-                                                                                                        }
-
-                                                                                                        else
-                                                                                                        {
-                                                                                                          v17 = -1283070668;
-                                                                                                          *buf = xmmword_19B7B835C;
-                                                                                                          if (MGIsDeviceOfType() & 1) != 0 || (v12 = 160260070, *v11 = xmmword_19B7B8370, (MGIsDeviceOfType()))
-                                                                                                          {
-                                                                                                            result = 65;
-                                                                                                          }
-
-                                                                                                          else
-                                                                                                          {
-                                                                                                            v17 = 1711910369;
-                                                                                                            *buf = xmmword_19B7B8384;
-                                                                                                            if (MGIsDeviceOfType())
-                                                                                                            {
-                                                                                                              result = 66;
-                                                                                                            }
-
-                                                                                                            else
-                                                                                                            {
-                                                                                                              v17 = -1282800328;
-                                                                                                              *buf = xmmword_19B7B8398;
-                                                                                                              if (MGIsDeviceOfType())
-                                                                                                              {
-                                                                                                                result = 67;
-                                                                                                              }
-
-                                                                                                              else
-                                                                                                              {
-                                                                                                                v17 = 897736383;
-                                                                                                                *buf = xmmword_19B7B83AC;
-                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                {
-                                                                                                                  result = 68;
-                                                                                                                }
-
-                                                                                                                else
-                                                                                                                {
-                                                                                                                  v17 = -453987047;
-                                                                                                                  *buf = xmmword_19B7B83C0;
-                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                  {
-                                                                                                                    result = 69;
-                                                                                                                  }
-
-                                                                                                                  else
-                                                                                                                  {
-                                                                                                                    v17 = 450980336;
-                                                                                                                    *buf = xmmword_19B7B83D4;
-                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                    {
-                                                                                                                      result = 70;
-                                                                                                                    }
-
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                      v17 = 414393924;
-                                                                                                                      *buf = xmmword_19B7B83E8;
-                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                      {
-                                                                                                                        result = 71;
-                                                                                                                      }
-
-                                                                                                                      else
-                                                                                                                      {
-                                                                                                                        v17 = -996295886;
-                                                                                                                        *buf = xmmword_19B7B83FC;
-                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                        {
-                                                                                                                          result = 72;
-                                                                                                                        }
-
-                                                                                                                        else
-                                                                                                                        {
-                                                                                                                          v17 = -337121064;
-                                                                                                                          *buf = xmmword_19B7B8410;
-                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                          {
-                                                                                                                            result = 73;
-                                                                                                                          }
-
-                                                                                                                          else
-                                                                                                                          {
-                                                                                                                            v17 = -2092955395;
-                                                                                                                            *buf = xmmword_19B7B8424;
-                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                            {
-                                                                                                                              result = 74;
-                                                                                                                            }
-
-                                                                                                                            else
-                                                                                                                            {
-                                                                                                                              v17 = 674998600;
-                                                                                                                              *buf = xmmword_19B7B8438;
-                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                              {
-                                                                                                                                result = 75;
-                                                                                                                              }
-
-                                                                                                                              else
-                                                                                                                              {
-                                                                                                                                v17 = 317289457;
-                                                                                                                                *buf = xmmword_19B7B844C;
-                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                {
-                                                                                                                                  result = 76;
-                                                                                                                                }
-
-                                                                                                                                else
-                                                                                                                                {
-                                                                                                                                  v17 = 401945557;
-                                                                                                                                  *buf = xmmword_19B7B8460;
-                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                  {
-                                                                                                                                    result = 77;
-                                                                                                                                  }
-
-                                                                                                                                  else
-                                                                                                                                  {
-                                                                                                                                    v17 = -232427879;
-                                                                                                                                    *buf = xmmword_19B7B8474;
-                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                    {
-                                                                                                                                      result = 78;
-                                                                                                                                    }
-
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                      v17 = -427474227;
-                                                                                                                                      *buf = xmmword_19B7B8488;
-                                                                                                                                      if (MGIsDeviceOfType() & 1) != 0 || (v12 = 1477534141, *v11 = xmmword_19B7B849C, (MGIsDeviceOfType()))
-                                                                                                                                      {
-                                                                                                                                        result = 79;
-                                                                                                                                      }
-
-                                                                                                                                      else
-                                                                                                                                      {
-                                                                                                                                        v17 = -1843102369;
-                                                                                                                                        *buf = xmmword_19B7B84B0;
-                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                        {
-                                                                                                                                          result = 80;
-                                                                                                                                        }
-
-                                                                                                                                        else if (MGIsDeviceOfType())
-                                                                                                                                        {
-                                                                                                                                          result = 81;
-                                                                                                                                        }
-
-                                                                                                                                        else
-                                                                                                                                        {
-                                                                                                                                          v17 = 470738981;
-                                                                                                                                          *buf = xmmword_19B7B84C4;
-                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                          {
-                                                                                                                                            result = 82;
-                                                                                                                                          }
-
-                                                                                                                                          else if (MGIsDeviceOfType())
-                                                                                                                                          {
-                                                                                                                                            result = 83;
-                                                                                                                                          }
-
-                                                                                                                                          else
-                                                                                                                                          {
-                                                                                                                                            v17 = 710807826;
-                                                                                                                                            *buf = xmmword_19B7B84D8;
-                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                            {
-                                                                                                                                              result = 84;
-                                                                                                                                            }
-
-                                                                                                                                            else if (MGIsDeviceOfType())
-                                                                                                                                            {
-                                                                                                                                              result = 85;
-                                                                                                                                            }
-
-                                                                                                                                            else
-                                                                                                                                            {
-                                                                                                                                              v17 = 1860682089;
-                                                                                                                                              *buf = xmmword_19B7B84EC;
-                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                              {
-                                                                                                                                                result = 86;
-                                                                                                                                              }
-
-                                                                                                                                              else if (MGIsDeviceOfType())
-                                                                                                                                              {
-                                                                                                                                                result = 87;
-                                                                                                                                              }
-
-                                                                                                                                              else
-                                                                                                                                              {
-                                                                                                                                                v17 = -2085056298;
-                                                                                                                                                *buf = xmmword_19B7B8500;
-                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                {
-                                                                                                                                                  result = 88;
-                                                                                                                                                }
-
-                                                                                                                                                else
-                                                                                                                                                {
-                                                                                                                                                  v17 = 2146530832;
-                                                                                                                                                  *buf = xmmword_19B7B8514;
-                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                  {
-                                                                                                                                                    result = 89;
-                                                                                                                                                  }
-
-                                                                                                                                                  else
-                                                                                                                                                  {
-                                                                                                                                                    v17 = -1742178852;
-                                                                                                                                                    *buf = xmmword_19B7B8528;
-                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                    {
-                                                                                                                                                      result = 90;
-                                                                                                                                                    }
-
-                                                                                                                                                    else
-                                                                                                                                                    {
-                                                                                                                                                      v17 = 617174804;
-                                                                                                                                                      *buf = xmmword_19B7B853C;
-                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                      {
-                                                                                                                                                        result = 91;
-                                                                                                                                                      }
-
-                                                                                                                                                      else
-                                                                                                                                                      {
-                                                                                                                                                        v17 = 1330813729;
-                                                                                                                                                        *buf = xmmword_19B7B8550;
-                                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                                        {
-                                                                                                                                                          result = 92;
-                                                                                                                                                        }
-
-                                                                                                                                                        else if (MGIsDeviceOfType())
-                                                                                                                                                        {
-                                                                                                                                                          result = 93;
-                                                                                                                                                        }
-
-                                                                                                                                                        else if (MGIsDeviceOfType())
-                                                                                                                                                        {
-                                                                                                                                                          result = 94;
-                                                                                                                                                        }
-
-                                                                                                                                                        else
-                                                                                                                                                        {
-                                                                                                                                                          v17 = 152704997;
-                                                                                                                                                          *buf = xmmword_19B7B8564;
-                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                          {
-                                                                                                                                                            result = 95;
-                                                                                                                                                          }
-
-                                                                                                                                                          else
-                                                                                                                                                          {
-                                                                                                                                                            v17 = -338255497;
-                                                                                                                                                            *buf = xmmword_19B7B8578;
-                                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                                            {
-                                                                                                                                                              result = 96;
-                                                                                                                                                            }
-
-                                                                                                                                                            else
-                                                                                                                                                            {
-                                                                                                                                                              v17 = -1040127899;
-                                                                                                                                                              *buf = xmmword_19B7B858C;
-                                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                                              {
-                                                                                                                                                                result = 97;
-                                                                                                                                                              }
-
-                                                                                                                                                              else
-                                                                                                                                                              {
-                                                                                                                                                                v17 = 283967174;
-                                                                                                                                                                *buf = xmmword_19B7B85A0;
-                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                {
-                                                                                                                                                                  result = 98;
-                                                                                                                                                                }
-
-                                                                                                                                                                else
-                                                                                                                                                                {
-                                                                                                                                                                  v17 = 1530707451;
-                                                                                                                                                                  *buf = xmmword_19B7B85B4;
-                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                  {
-                                                                                                                                                                    result = 99;
-                                                                                                                                                                  }
-
-                                                                                                                                                                  else
-                                                                                                                                                                  {
-                                                                                                                                                                    v17 = -871113647;
-                                                                                                                                                                    *buf = xmmword_19B7B85C8;
-                                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                                    {
-                                                                                                                                                                      result = 100;
-                                                                                                                                                                    }
-
-                                                                                                                                                                    else
-                                                                                                                                                                    {
-                                                                                                                                                                      v17 = 483476120;
-                                                                                                                                                                      *buf = xmmword_19B7B85DC;
-                                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                                      {
-                                                                                                                                                                        result = 101;
-                                                                                                                                                                      }
-
-                                                                                                                                                                      else
-                                                                                                                                                                      {
-                                                                                                                                                                        v17 = 1472775220;
-                                                                                                                                                                        *buf = xmmword_19B7B85F0;
-                                                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                                                        {
-                                                                                                                                                                          result = 102;
-                                                                                                                                                                        }
-
-                                                                                                                                                                        else
-                                                                                                                                                                        {
-                                                                                                                                                                          v17 = 56502976;
-                                                                                                                                                                          *buf = xmmword_19B7B8604;
-                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                          {
-                                                                                                                                                                            result = 103;
-                                                                                                                                                                          }
-
-                                                                                                                                                                          else
-                                                                                                                                                                          {
-                                                                                                                                                                            v17 = 282158961;
-                                                                                                                                                                            *buf = xmmword_19B7B8618;
-                                                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                                                            {
-                                                                                                                                                                              result = 104;
-                                                                                                                                                                            }
-
-                                                                                                                                                                            else
-                                                                                                                                                                            {
-                                                                                                                                                                              v17 = 1282132887;
-                                                                                                                                                                              *buf = xmmword_19B7B862C;
-                                                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                                                              {
-                                                                                                                                                                                result = 105;
-                                                                                                                                                                              }
-
-                                                                                                                                                                              else
-                                                                                                                                                                              {
-                                                                                                                                                                                v17 = -961843768;
-                                                                                                                                                                                *buf = xmmword_19B7B8640;
-                                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                                {
-                                                                                                                                                                                  result = 106;
-                                                                                                                                                                                }
-
-                                                                                                                                                                                else
-                                                                                                                                                                                {
-                                                                                                                                                                                  v17 = 1326690998;
-                                                                                                                                                                                  *buf = xmmword_19B7B8654;
-                                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                                  {
-                                                                                                                                                                                    result = 107;
-                                                                                                                                                                                  }
-
-                                                                                                                                                                                  else
-                                                                                                                                                                                  {
-                                                                                                                                                                                    v17 = -441172408;
-                                                                                                                                                                                    *buf = xmmword_19B7B8668;
-                                                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                                                    {
-                                                                                                                                                                                      result = 108;
-                                                                                                                                                                                    }
-
-                                                                                                                                                                                    else
-                                                                                                                                                                                    {
-                                                                                                                                                                                      v17 = -126099363;
-                                                                                                                                                                                      *buf = xmmword_19B7B867C;
-                                                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                                                      {
-                                                                                                                                                                                        result = 109;
-                                                                                                                                                                                      }
-
-                                                                                                                                                                                      else
-                                                                                                                                                                                      {
-                                                                                                                                                                                        v17 = 1756484512;
-                                                                                                                                                                                        *buf = xmmword_19B7B8690;
-                                                                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                                                                        {
-                                                                                                                                                                                          result = 110;
-                                                                                                                                                                                        }
-
-                                                                                                                                                                                        else
-                                                                                                                                                                                        {
-                                                                                                                                                                                          v17 = 763775061;
-                                                                                                                                                                                          *buf = xmmword_19B7B86A4;
-                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                          {
-                                                                                                                                                                                            result = 111;
-                                                                                                                                                                                          }
-
-                                                                                                                                                                                          else
-                                                                                                                                                                                          {
-                                                                                                                                                                                            v17 = -1092155788;
-                                                                                                                                                                                            *buf = xmmword_19B7B86B8;
-                                                                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                                                                            {
-                                                                                                                                                                                              result = 112;
-                                                                                                                                                                                            }
-
-                                                                                                                                                                                            else
-                                                                                                                                                                                            {
-                                                                                                                                                                                              v17 = -557458837;
-                                                                                                                                                                                              *buf = xmmword_19B7B86CC;
-                                                                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                                                                              {
-                                                                                                                                                                                                result = 113;
-                                                                                                                                                                                              }
-
-                                                                                                                                                                                              else
-                                                                                                                                                                                              {
-                                                                                                                                                                                                v17 = -63049871;
-                                                                                                                                                                                                *buf = xmmword_19B7B86E0;
-                                                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                                                {
-                                                                                                                                                                                                  result = 114;
-                                                                                                                                                                                                }
-
-                                                                                                                                                                                                else
-                                                                                                                                                                                                {
-                                                                                                                                                                                                  v17 = 1730000236;
-                                                                                                                                                                                                  *buf = xmmword_19B7B86F4;
-                                                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                                                  {
-                                                                                                                                                                                                    result = 115;
-                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                  else
-                                                                                                                                                                                                  {
-                                                                                                                                                                                                    v17 = 406601745;
-                                                                                                                                                                                                    *buf = xmmword_19B7B8708;
-                                                                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      result = 116;
-                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                    else
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                      v17 = 1530338216;
-                                                                                                                                                                                                      *buf = xmmword_19B7B871C;
-                                                                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                                                                      {
-                                                                                                                                                                                                        result = 117;
-                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                      else
-                                                                                                                                                                                                      {
-                                                                                                                                                                                                        v17 = -1930811061;
-                                                                                                                                                                                                        *buf = xmmword_19B7B8730;
-                                                                                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                          result = 118;
-                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                        else
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                          v17 = 1654218604;
-                                                                                                                                                                                                          *buf = xmmword_19B7B8744;
-                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                          {
-                                                                                                                                                                                                            result = 119;
-                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                          else
-                                                                                                                                                                                                          {
-                                                                                                                                                                                                            v17 = -182498503;
-                                                                                                                                                                                                            *buf = xmmword_19B7B8758;
-                                                                                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                              result = 124;
-                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                            else
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                              v17 = -2030489149;
-                                                                                                                                                                                                              *buf = xmmword_19B7B876C;
-                                                                                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                result = 120;
-                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                              else
-                                                                                                                                                                                                              {
-                                                                                                                                                                                                                v17 = 841005628;
-                                                                                                                                                                                                                *buf = xmmword_19B7B8780;
-                                                                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                  result = 121;
-                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                else
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                  v17 = 223445260;
-                                                                                                                                                                                                                  *buf = xmmword_19B7B8794;
-                                                                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                    result = 122;
-                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                  else
-                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                    v17 = 1219348060;
-                                                                                                                                                                                                                    *buf = xmmword_19B7B87A8;
-                                                                                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                      result = 123;
-                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                      v17 = -1384522500;
-                                                                                                                                                                                                                      *buf = xmmword_19B7B87BC;
-                                                                                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                        result = 125;
-                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                      else
-                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                        v17 = -782763850;
-                                                                                                                                                                                                                        *buf = xmmword_19B7B87D0;
-                                                                                                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                          result = 126;
-                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                          v17 = 1815762806;
-                                                                                                                                                                                                                          *buf = xmmword_19B7B87E4;
-                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                            result = 127;
-                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                          else
-                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                            v17 = -1897771119;
-                                                                                                                                                                                                                            *buf = xmmword_19B7B87F8;
-                                                                                                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                              result = 128;
-                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                              v17 = -652049476;
-                                                                                                                                                                                                                              *buf = xmmword_19B7B880C;
-                                                                                                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                result = 129;
-                                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                                              else
-                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                v17 = 373548423;
-                                                                                                                                                                                                                                *buf = xmmword_19B7B8820;
-                                                                                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                  result = 130;
-                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                  v17 = -1921398171;
-                                                                                                                                                                                                                                  *buf = xmmword_19B7B8834;
-                                                                                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                    result = 131;
-                                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                                  else
-                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                    v17 = 2140507472;
-                                                                                                                                                                                                                                    *buf = xmmword_19B7B8848;
-                                                                                                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                      result = 132;
-                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                      v17 = -936391310;
-                                                                                                                                                                                                                                      *buf = xmmword_19B7B885C;
-                                                                                                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                        result = 133;
-                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                      else
-                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                        v17 = 2030516999;
-                                                                                                                                                                                                                                        *buf = xmmword_19B7B8870;
-                                                                                                                                                                                                                                        *v11 = xmmword_19B7B8884;
-                                                                                                                                                                                                                                        v12 = -1276010597;
-                                                                                                                                                                                                                                        if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                          result = 134;
-                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                          v17 = -762483149;
-                                                                                                                                                                                                                                          *buf = xmmword_19B7B8898;
-                                                                                                                                                                                                                                          *v11 = xmmword_19B7B88AC;
-                                                                                                                                                                                                                                          v12 = -1926937532;
-                                                                                                                                                                                                                                          if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                            result = 135;
-                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                          else
-                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                            v17 = -1902732724;
-                                                                                                                                                                                                                                            *buf = xmmword_19B7B88C0;
-                                                                                                                                                                                                                                            *v11 = xmmword_19B7B88D4;
-                                                                                                                                                                                                                                            v12 = -342357580;
-                                                                                                                                                                                                                                            if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                              result = 136;
-                                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                              v17 = 300442574;
-                                                                                                                                                                                                                                              *buf = xmmword_19B7B88E8;
-                                                                                                                                                                                                                                              *v11 = xmmword_19B7B88FC;
-                                                                                                                                                                                                                                              v12 = -1294188889;
-                                                                                                                                                                                                                                              if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                result = 137;
-                                                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                                                              else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                result = 138;
-                                                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                                                              else
-                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                v17 = -61007701;
-                                                                                                                                                                                                                                                *buf = xmmword_19B7B8910;
-                                                                                                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                  result = 139;
-                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                  result = 140;
-                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                  v17 = -235416490;
-                                                                                                                                                                                                                                                  *buf = xmmword_19B7B8924;
-                                                                                                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                                    result = 141;
-                                                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                                                  else
-                                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                                    v17 = -820493242;
-                                                                                                                                                                                                                                                    *buf = xmmword_19B7B8938;
-                                                                                                                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                      result = 143;
-                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                      v17 = -1157300313;
-                                                                                                                                                                                                                                                      *buf = xmmword_19B7B894C;
-                                                                                                                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                        result = 144;
-                                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                                      else
-                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                        v17 = -2132668294;
-                                                                                                                                                                                                                                                        *buf = xmmword_19B7B8960;
-                                                                                                                                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                          result = 145;
-                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                        else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                          result = 146;
-                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                        else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                          result = 147;
-                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                        else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                          result = 149;
-                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                        else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                          result = 150;
-                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                          v17 = 1737149739;
-                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8974;
-                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                            result = 151;
-                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                          else
-                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                            v17 = 1577888303;
-                                                                                                                                                                                                                                                            *buf = xmmword_19B7B8988;
-                                                                                                                                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                              result = 152;
-                                                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                              v17 = -1918230744;
-                                                                                                                                                                                                                                                              *buf = xmmword_19B7B899C;
-                                                                                                                                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                                result = 153;
-                                                                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                                                                              else
-                                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                                v17 = 1126727276;
-                                                                                                                                                                                                                                                                *buf = xmmword_19B7B89B0;
-                                                                                                                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                  result = 154;
-                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                  v17 = 300130091;
-                                                                                                                                                                                                                                                                  *buf = xmmword_19B7B89C4;
-                                                                                                                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                                                    result = 155;
-                                                                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                                                                  else
-                                                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                                                    v17 = 343814884;
-                                                                                                                                                                                                                                                                    *buf = xmmword_19B7B89D8;
-                                                                                                                                                                                                                                                                    if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                      result = 156;
-                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                      v17 = -1675932945;
-                                                                                                                                                                                                                                                                      *buf = xmmword_19B7B89EC;
-                                                                                                                                                                                                                                                                      if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                                        result = 157;
-                                                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                                                      else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                                        result = 161;
-                                                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                                                      else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                                        result = 162;
-                                                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                                                      else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                                        result = 166;
-                                                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                                                      else
-                                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                                        v17 = -1840391155;
-                                                                                                                                                                                                                                                                        *buf = xmmword_19B7B8A00;
-                                                                                                                                                                                                                                                                        if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                          result = 167;
-                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                          v17 = -121925081;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8A14;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            goto LABEL_503;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1071957977;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8A28;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 168;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 438437663;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8A3C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 169;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1575123478;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8A50;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 170;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -382792827;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8A64;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 171;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 123138233;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8A78;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 172;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 681511593;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8A8C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 173;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 169342588;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8AA0;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 174;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 175;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 713503427;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8AB4;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 176;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1632750650;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8AC8;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 177;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1820426635;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8ADC;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 178;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -937652876;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8AF0;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 179;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1874287171;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B04;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            goto LABEL_375;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -781324731;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B18;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 181;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1214880059;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B2C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 182;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 426359977;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B40;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 183;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1354433901;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B54;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 184;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1021543808;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B68;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 185;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 186;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 187;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1459208360;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B7C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 188;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 189;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 431774303;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8B90;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-LABEL_375:
-                                                                                                                                                                                                                                                                            result = 180;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 190;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 191;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 163;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 192;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 164;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 165;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 345196535;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8BA4;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 193;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 440949464;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8BB8;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 194;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 688565114;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8BCC;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 195;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -493418906;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8BE0;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 196;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 197;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -584398440;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8BF4;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 202;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 203;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -879476163;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8C08;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 204;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -695298128;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8C1C;
-                                                                                                                                                                                                                                                                          *v11 = xmmword_19B7B8C30;
-                                                                                                                                                                                                                                                                          v12 = 804488105;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 205;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1614584579;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8C44;
-                                                                                                                                                                                                                                                                          *v11 = xmmword_19B7B8C58;
-                                                                                                                                                                                                                                                                          v12 = 324288768;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 206;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 460218192;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8C6C;
-                                                                                                                                                                                                                                                                          *v11 = xmmword_19B7B8C80;
-                                                                                                                                                                                                                                                                          v12 = 2144905009;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 207;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 127894440;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8C94;
-                                                                                                                                                                                                                                                                          *v11 = xmmword_19B7B8CA8;
-                                                                                                                                                                                                                                                                          v12 = 1070997468;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOneOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 208;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 372777383;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8CBC;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 209;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -858079590;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8CD0;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 210;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -212523443;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8CE4;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 211;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 646100384;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8CF8;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 212;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -340360463;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D0C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 213;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1605231531;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D20;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 214;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 215;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 216;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -545612308;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D34;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 217;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1178062702;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D48;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 218;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 958549802;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D5C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 219;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1377540371;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D70;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 220;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1047119348;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D84;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 221;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1346985080;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8D98;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 222;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 223;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 224;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1243071412;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8DAC;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 225;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 2017356181;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8DC0;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 226;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 227;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 228;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1231738393;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8DD4;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 229;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 164967128;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8DE8;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 230;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 231;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 232;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1431778695;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8DFC;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 233;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 533419158;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E10;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 234;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1106979518;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E24;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 235;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -609570151;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E38;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 236;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -874769875;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E4C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 237;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1223847566;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E60;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 238;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 185580364;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E74;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 239;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1379821877;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E88;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 240;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 241;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1878025452;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8E9C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 242;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1725957070;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8EB0;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 243;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 538967431;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8EC4;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 244;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 2060712151;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8ED8;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 245;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 802516499;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8EEC;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 246;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1919324456;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8F00;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 247;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1127969586;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8F14;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 248;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1292009573;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8F28;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 249;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = 1656760039;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8F3C;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 250;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -2071977621;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8F50;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 251;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -543210860;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8F64;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 252;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          v17 = -1597604211;
-                                                                                                                                                                                                                                                                          *buf = xmmword_19B7B8F78;
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 253;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-LABEL_503:
-                                                                                                                                                                                                                                                                            result = 142;
-                                                                                                                                                                                                                                                                            goto LABEL_6;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (qword_1ED71C988 != -1)
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            dispatch_once(&qword_1ED71C988, &unk_1F0E28FE0);
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          if (sub_19B5F8330())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 1;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          else if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            result = 254;
-                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                          else
-                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                            v17 = -12497897;
-                                                                                                                                                                                                                                                                            *buf = xmmword_19B7B8F8C;
-                                                                                                                                                                                                                                                                            if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                              result = 255;
-                                                                                                                                                                                                                                                                            }
-
-                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                              v17 = -518121279;
-                                                                                                                                                                                                                                                                              *buf = xmmword_19B7B8FA0;
-                                                                                                                                                                                                                                                                              if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                                                result = 256;
-                                                                                                                                                                                                                                                                              }
-
-                                                                                                                                                                                                                                                                              else
-                                                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                                                v17 = -773054213;
-                                                                                                                                                                                                                                                                                *buf = xmmword_19B7B8FB4;
-                                                                                                                                                                                                                                                                                if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                  result = 257;
-                                                                                                                                                                                                                                                                                }
-
-                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                  v17 = -1204420428;
-                                                                                                                                                                                                                                                                                  *buf = xmmword_19B7B8FC8;
-                                                                                                                                                                                                                                                                                  if (MGIsDeviceOfType())
-                                                                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                                                                    result = 258;
-                                                                                                                                                                                                                                                                                  }
-
-                                                                                                                                                                                                                                                                                  else
-                                                                                                                                                                                                                                                                                  {
-                                                                                                                                                                                                                                                                                    if ((MGIsDeviceOfType() & 1) == 0)
-                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                      v2 = MGCopyAnswer();
-                                                                                                                                                                                                                                                                                      if (v2)
-                                                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                                                        if (qword_1EAFE2B38 != -1)
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        v3 = qword_1EAFE2B40;
-                                                                                                                                                                                                                                                                                        if (os_log_type_enabled(qword_1EAFE2B40, OS_LOG_TYPE_ERROR))
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          *buf = 138477827;
-                                                                                                                                                                                                                                                                                          *&buf[4] = v2;
-                                                                                                                                                                                                                                                                                          _os_log_impl(&dword_19B41C000, v3, OS_LOG_TYPE_ERROR, "unknown HW model %{private}@; file radar to CoreMotion Factory | 1.0", buf, 0xCu);
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        v4 = sub_19B420058();
-                                                                                                                                                                                                                                                                                        if ((*(v4 + 160) & 0x80000000) == 0 || (*(v4 + 164) & 0x80000000) == 0 || (*(v4 + 168) & 0x80000000) == 0 || *(v4 + 152))
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          bzero(buf, 0x65CuLL);
-                                                                                                                                                                                                                                                                                          if (qword_1EAFE2B38 != -1)
-                                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                                            dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
-                                                                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                                                                          *v11 = 138477827;
-                                                                                                                                                                                                                                                                                          *&v11[4] = v2;
-                                                                                                                                                                                                                                                                                          v8 = _os_log_send_and_compose_impl();
-                                                                                                                                                                                                                                                                                          sub_19B6BB7CC("Generic", 1, 0, 0, "static CLPlatformInfo::Hardware CLPlatformInfo::queryEmbeddedSystemHardware()", "CoreLocation: %s\n", v8);
-                                                                                                                                                                                                                                                                                          if (v8 != buf)
-                                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                                            free(v8);
-                                                                                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        CFRelease(v2);
-                                                                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                                                                      else
-                                                                                                                                                                                                                                                                                      {
-                                                                                                                                                                                                                                                                                        if (qword_1EAFE2B38 != -1)
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        v5 = qword_1EAFE2B40;
-                                                                                                                                                                                                                                                                                        if (os_log_type_enabled(qword_1EAFE2B40, OS_LOG_TYPE_ERROR))
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          sub_19B431834(@"HWModelStr", buf);
-                                                                                                                                                                                                                                                                                          v6 = v18 >= 0 ? buf : *buf;
-                                                                                                                                                                                                                                                                                          *v11 = 136380675;
-                                                                                                                                                                                                                                                                                          *&v11[4] = v6;
-                                                                                                                                                                                                                                                                                          _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_ERROR, "unknown HW model %{private}s; file radar to CoreMotion Factory | 1.0", v11, 0xCu);
-                                                                                                                                                                                                                                                                                          if (v18 < 0)
-                                                                                                                                                                                                                                                                                          {
-                                                                                                                                                                                                                                                                                            operator delete(*buf);
-                                                                                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        v7 = sub_19B420058();
-                                                                                                                                                                                                                                                                                        if ((*(v7 + 160) & 0x80000000) != 0 && (*(v7 + 164) & 0x80000000) != 0 && (*(v7 + 168) & 0x80000000) != 0 && !*(v7 + 152))
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          result = 0;
-                                                                                                                                                                                                                                                                                          goto LABEL_6;
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        bzero(buf, 0x65CuLL);
-                                                                                                                                                                                                                                                                                        if (qword_1EAFE2B38 != -1)
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        sub_19B431834(@"HWModelStr", v11);
-                                                                                                                                                                                                                                                                                        if (v13 >= 0)
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          v9 = v11;
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          v9 = *v11;
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        v14 = 136380675;
-                                                                                                                                                                                                                                                                                        v15 = v9;
-                                                                                                                                                                                                                                                                                        v10 = _os_log_send_and_compose_impl();
-                                                                                                                                                                                                                                                                                        if (v13 < 0)
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          operator delete(*v11);
-                                                                                                                                                                                                                                                                                        }
-
-                                                                                                                                                                                                                                                                                        sub_19B6BB7CC("Generic", 1, 0, 0, "static CLPlatformInfo::Hardware CLPlatformInfo::queryEmbeddedSystemHardware()", "CoreLocation: %s\n", v10);
-                                                                                                                                                                                                                                                                                        if (v10 != buf)
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                          free(v10);
-                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                      }
-
-                                                                                                                                                                                                                                                                                      result = 0;
-                                                                                                                                                                                                                                                                                      goto LABEL_6;
-                                                                                                                                                                                                                                                                                    }
-
-                                                                                                                                                                                                                                                                                    result = 280;
-                                                                                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                          }
-                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                  }
-                                                                                                                                                                                                                }
-                                                                                                                                                                                                              }
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                          }
-                                                                                                                                                                                                        }
-                                                                                                                                                                                                      }
-                                                                                                                                                                                                    }
-                                                                                                                                                                                                  }
-                                                                                                                                                                                                }
-                                                                                                                                                                                              }
-                                                                                                                                                                                            }
-                                                                                                                                                                                          }
-                                                                                                                                                                                        }
-                                                                                                                                                                                      }
-                                                                                                                                                                                    }
-                                                                                                                                                                                  }
-                                                                                                                                                                                }
-                                                                                                                                                                              }
-                                                                                                                                                                            }
-                                                                                                                                                                          }
-                                                                                                                                                                        }
-                                                                                                                                                                      }
-                                                                                                                                                                    }
-                                                                                                                                                                  }
-                                                                                                                                                                }
-                                                                                                                                                              }
-                                                                                                                                                            }
-                                                                                                                                                          }
-                                                                                                                                                        }
-                                                                                                                                                      }
-                                                                                                                                                    }
-                                                                                                                                                  }
-                                                                                                                                                }
-                                                                                                                                              }
-                                                                                                                                            }
-                                                                                                                                          }
-                                                                                                                                        }
-                                                                                                                                      }
-                                                                                                                                    }
-                                                                                                                                  }
-                                                                                                                                }
-                                                                                                                              }
-                                                                                                                            }
-                                                                                                                          }
-                                                                                                                        }
-                                                                                                                      }
-                                                                                                                    }
-                                                                                                                  }
-                                                                                                                }
-                                                                                                              }
-                                                                                                            }
-                                                                                                          }
-                                                                                                        }
-                                                                                                      }
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      v10 = *v13;
+    }
+
+    v16 = 136380675;
+    v17 = v10;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v9, 16, "unknown HW model %{private}s; file radar to CoreMotion Factory | 1.0", &v16, 12);
+    v12 = v11;
+    if (v15 < 0)
+    {
+      operator delete(*v13);
+    }
+
+    sub_19B6BB7CC("Generic", 1, 0, 0, "static CLPlatformInfo::Hardware CLPlatformInfo::queryEmbeddedSystemHardware()", "CoreLocation: %s\n", v12);
+    if (v12 != buf)
+    {
+      free(v12);
     }
   }
 
-LABEL_6:
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 _BYTE *sub_19B436FAC()
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C988 != -1)
   {
     dispatch_once(&qword_1ED71C988, &unk_1F0E28FE0);
@@ -3803,16 +3336,16 @@ _BYTE *sub_19B436FAC()
         dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
       }
 
-      v19 = qword_1EAFE2B40;
+      v20 = qword_1EAFE2B40;
       if (os_log_type_enabled(qword_1EAFE2B40, OS_LOG_TYPE_ERROR))
       {
         *buf = 67174657;
-        v27 = v1;
-        _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_ERROR, "Unsupported HW type %{private}d; file a radar to CoreMotion Factory | 1.0", buf, 8u);
+        v26 = v1;
+        _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_ERROR, "Unsupported HW type %{private}d; file a radar to CoreMotion Factory | 1.0", buf, 8u);
       }
 
-      v20 = sub_19B420058();
-      if ((*(v20 + 160) & 0x80000000) != 0 && (*(v20 + 164) & 0x80000000) != 0 && (*(v20 + 168) & 0x80000000) != 0 && !*(v20 + 152))
+      v21 = sub_19B420058();
+      if ((*(v21 + 160) & 0x80000000) != 0 && (*(v21 + 164) & 0x80000000) != 0 && (*(v21 + 168) & 0x80000000) != 0 && !*(v21 + 152))
       {
         goto LABEL_18;
       }
@@ -3823,8 +3356,9 @@ _BYTE *sub_19B436FAC()
         dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
       }
 
-      v24 = 67174657;
-      v25 = v1;
+      LODWORD(v24[0]) = 67174657;
+      HIDWORD(v24[0]) = v1;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2B40, 16, "Unsupported HW type %{private}d; file a radar to CoreMotion Factory | 1.0", v24, 8, v24[0]);
       goto LABEL_16;
     case 2:
     case 3:
@@ -3864,7 +3398,7 @@ _BYTE *sub_19B436FAC()
       if (os_log_type_enabled(qword_1EAFE2B40, OS_LOG_TYPE_FAULT))
       {
         *buf = 67109120;
-        v27 = v1;
+        v26 = v1;
         _os_log_impl(&dword_19B41C000, v2, OS_LOG_TYPE_FAULT, "Old hardware,%d is not supported", buf, 8u);
       }
 
@@ -3877,14 +3411,13 @@ _BYTE *sub_19B436FAC()
           dispatch_once(&qword_1EAFE2B38, &unk_1F0E3A5A0);
         }
 
-        v24 = 67109120;
-        v25 = v1;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2B40, 17, "Old hardware,%d is not supported", v24);
 LABEL_16:
-        v4 = _os_log_send_and_compose_impl();
+        v5 = v4;
         sub_19B6BB7CC("Generic", 1, 0, 0, "CLPlatformInfo::MotionCapabilities CLPlatformInfo::queryMotionCaps()", "CoreLocation: %s\n", v4);
-        if (v4 != buf)
+        if (v5 != buf)
         {
-          free(v4);
+          free(v5);
         }
       }
 
@@ -3895,10 +3428,10 @@ LABEL_18:
     case 25:
     case 27:
     case 28:
-      v15 = 1586033086;
+      v16 = 1586033086;
       goto LABEL_58;
     case 26:
-      v9 = 0x134E88F1BELL;
+      v10 = 0x134E88F1BELL;
       goto LABEL_90;
     case 29:
       v0 = 1115734017;
@@ -3906,7 +3439,7 @@ LABEL_18:
     case 30:
     case 31:
     case 32:
-      v18 = 1115734017;
+      v19 = 1115734017;
       goto LABEL_61;
     case 33:
     case 217:
@@ -3930,7 +3463,7 @@ LABEL_18:
     case 253:
     case 255:
     case 256:
-      v5 = 1530;
+      v6 = 1530;
       goto LABEL_22;
     case 34:
     case 195:
@@ -3958,24 +3491,24 @@ LABEL_18:
     case 245:
     case 257:
     case 258:
-      v5 = 13818;
+      v6 = 13818;
 LABEL_22:
-      v6 = v5 & 0xFFFFFFFF0000FFFFLL | 0x628C0000;
+      v7 = v6 & 0xFFFFFFFF0000FFFFLL | 0x628C0000;
       goto LABEL_23;
     case 35:
     case 36:
     case 64:
     case 65:
-      v16 = -3702;
+      v17 = -3702;
       goto LABEL_84;
     case 39:
     case 42:
       v0 = 0x50022CA9C00ELL;
       break;
     case 44:
-      v16 = -15942;
+      v17 = -15942;
 LABEL_84:
-      v0 = v16 | 0x42880000u;
+      v0 = v17 | 0x42880000u;
       break;
     case 45:
       v0 = 1116271034;
@@ -3987,30 +3520,30 @@ LABEL_84:
       break;
     case 47:
     case 63:
-      v18 = 1653129658;
+      v19 = 1653129658;
 LABEL_61:
-      v0 = v18 | 0x3000;
+      v0 = v19 | 0x3000;
       break;
     case 48:
     case 193:
-      v7 = 1088;
-      v8 = 0x26289C1BALL;
+      v8 = 1088;
+      v9 = 0x26289C1BALL;
       goto LABEL_26;
     case 49:
     case 194:
     case 197:
     case 210:
-      v12 = 62970;
+      v13 = 62970;
       goto LABEL_52;
     case 50:
     case 51:
-      v9 = 0x5002ACA9C00ELL;
+      v10 = 0x5002ACA9C00ELL;
       goto LABEL_90;
     case 54:
     case 55:
-      v15 = 2127327678;
+      v16 = 2127327678;
 LABEL_58:
-      v0 = v15 | 0x202005300000000;
+      v0 = v16 | 0x202005300000000;
       break;
     case 56:
     case 57:
@@ -4027,44 +3560,44 @@ LABEL_58:
     case 67:
     case 74:
     case 75:
-      v9 = 0x486ABCA9C00ELL;
+      v10 = 0x486ABCA9C00ELL;
       goto LABEL_90;
     case 68:
     case 69:
     case 71:
     case 72:
-      v14 = 0x24300537E8C35BELL;
+      v15 = 0x24300537E8C35BELL;
       goto LABEL_76;
     case 70:
     case 73:
-      v11 = 0x80537E8C31BELL;
+      v12 = 0x80537E8C31BELL;
       goto LABEL_78;
     case 76:
     case 146:
     case 147:
-      v12 = 49594;
+      v13 = 49594;
 LABEL_52:
-      v6 = v12 & 0xFFFFFFFF0000FFFFLL | 0x62890000;
+      v7 = v13 & 0xFFFFFFFF0000FFFFLL | 0x62890000;
 LABEL_23:
-      v0 = v6 & 0xFFFF0000FFFFFFFFLL | 0x200000000;
+      v0 = v7 & 0xFFFF0000FFFFFFFFLL | 0x200000000;
       break;
     case 77:
     case 145:
-      v14 = 0x26289F5FALL;
+      v15 = 0x26289F5FALL;
 LABEL_76:
-      v0 = v14 - 1024;
+      v0 = v15 - 1024;
       break;
     case 78:
     case 79:
     case 80:
     case 142:
-      v11 = 0x537E8C35BELL;
+      v12 = 0x537E8C35BELL;
 LABEL_78:
-      v0 = v11 & 0xFFFFFFFFFFFFLL | 0x243000000000000;
+      v0 = v12 & 0xFFFFFFFFFFFFLL | 0x243000000000000;
       break;
     case 82:
     case 84:
-      v9 = 0x4F6ABCA9C00ELL;
+      v10 = 0x4F6ABCA9C00ELL;
       goto LABEL_90;
     case 86:
     case 88:
@@ -4076,7 +3609,7 @@ LABEL_78:
     case 92:
     case 93:
     case 94:
-      v9 = 0x496ABCA9C01ELL;
+      v10 = 0x496ABCA9C01ELL;
       goto LABEL_90;
     case 95:
     case 96:
@@ -4100,7 +3633,7 @@ LABEL_78:
     case 108:
     case 109:
     case 110:
-      v10 = 0x496ABCA9C05ELL;
+      v11 = 0x496ABCA9C05ELL;
       goto LABEL_35;
     case 111:
     case 112:
@@ -4108,9 +3641,9 @@ LABEL_78:
     case 114:
     case 115:
     case 280:
-      v10 = 0x696ABCAA005ELL;
+      v11 = 0x696ABCAA005ELL;
 LABEL_35:
-      v0 = v10 & 0xFFFFFFFFFFFFLL | 0xE16000000000000;
+      v0 = v11 & 0xFFFFFFFFFFFFLL | 0xE16000000000000;
       break;
     case 116:
     case 117:
@@ -4136,7 +3669,7 @@ LABEL_35:
     case 135:
     case 136:
     case 137:
-      v13 = 1653208570;
+      v14 = 1653208570;
       goto LABEL_49;
     case 138:
     case 139:
@@ -4153,23 +3686,23 @@ LABEL_35:
       v0 = 0x136E8C408ELL;
       break;
     case 149:
-      v9 = 0x122C8C010ELL;
+      v10 = 0x122C8C010ELL;
       goto LABEL_90;
     case 150:
     case 151:
     case 152:
     case 153:
-      v9 = 0x406ABCA9C00ELL;
+      v10 = 0x406ABCA9C00ELL;
 LABEL_90:
-      v0 = v9 & 0xFFFFFFFFFFFFLL | 0x2000000000000;
+      v0 = v10 & 0xFFFFFFFFFFFFLL | 0x2000000000000;
       break;
     case 154:
     case 155:
     case 156:
     case 157:
-      v13 = 1653356026;
+      v14 = 1653356026;
 LABEL_49:
-      v0 = (v13 & 0xFFFF0000FFFFFFFFLL | 0x200000000) - 64;
+      v0 = (v14 & 0xFFFF0000FFFFFFFFLL | 0x200000000) - 64;
       break;
     case 168:
     case 169:
@@ -4181,7 +3714,7 @@ LABEL_49:
     case 173:
     case 176:
     case 177:
-      v17 = 0x27B00537E8C35BELL;
+      v18 = 0x27B00537E8C35BELL;
       goto LABEL_82;
     case 174:
     case 175:
@@ -4210,10 +3743,10 @@ LABEL_49:
     case 238:
     case 239:
     case 240:
-      v7 = 2560;
-      v8 = 0x27700537E8C35FELL;
+      v8 = 2560;
+      v9 = 0x27700537E8C35FELL;
 LABEL_26:
-      v0 = v8 | v7;
+      v0 = v9 | v8;
       break;
     case 198:
     case 199:
@@ -4243,30 +3776,29 @@ LABEL_26:
       v0 = 554434570;
       break;
     case 233:
-      v17 = 0x24B00537E8C35BELL;
+      v18 = 0x24B00537E8C35BELL;
 LABEL_82:
-      v0 = v17 | 0x40;
+      v0 = v18 | 0x40;
       break;
     default:
       break;
   }
 
-  LOBYTE(v24) = (v0 & 0x200) != 0;
-  result = sub_19B437AE0(buf, "OverrideMotionCapEclipseService", &v24, 0);
-  v22 = 512;
+  LOBYTE(v24[0]) = (v0 & 0x200) != 0;
+  result = sub_19B437AE0(buf, "OverrideMotionCapEclipseService", v24, 0);
+  v23 = 512;
   if (!buf[1])
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  qword_1ED71CA20 = v22 | v0 & 0x2E7FFF7FFFEFFDFFLL;
-  v23 = *MEMORY[0x1E69E9840];
+  qword_1ED71CA20 = v23 | v0 & 0x2E7FFF7FFFEFFDFFLL;
   return result;
 }
 
 _BYTE *sub_19B437AE0(_BYTE *a1, uint64_t a2, _BYTE *a3, char a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *a1 = 0;
   a1[1] = *a3;
   a1[2] = a4;
@@ -4279,7 +3811,7 @@ _BYTE *sub_19B437AE0(_BYTE *a1, uint64_t a2, _BYTE *a3, char a4)
   if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_INFO))
   {
     *buf = 136446210;
-    v12 = a2;
+    v14 = a2;
     _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_INFO, "motion default ignored,'%{public}s'.", buf, 0xCu);
   }
 
@@ -4292,15 +3824,17 @@ _BYTE *sub_19B437AE0(_BYTE *a1, uint64_t a2, _BYTE *a3, char a4)
       dispatch_once(&qword_1ED71C830, &unk_1F0E3A600);
     }
 
-    v8 = _os_log_send_and_compose_impl();
+    v11 = 136446210;
+    v12 = a2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 1, "motion default ignored,'%{public}s'.", &v11, 12);
+    v9 = v8;
     sub_19B6BB7CC("Generic", 1, 0, 2, "CLMotionDefaultsWrite<BOOL>::CLMotionDefaultsWrite(const char *, const T &, const BOOL) [T = BOOL]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    if (v9 != buf)
     {
-      free(v8);
+      free(v9);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -4326,16 +3860,16 @@ uint64_t sub_19B437CF0(uint64_t a1, int a2, uint64_t a3, double a4)
   return v9;
 }
 
-void sub_19B437DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19B437DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_19B437DDC(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 64);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
@@ -4343,7 +3877,7 @@ void sub_19B437DDC(uint64_t a1)
   v6 = (a1 + 56);
   v7 = *(a1 + 56);
   v8 = v7 * v5;
-  v35 = v8;
+  v38 = v8;
   if (v7 == 0.0)
   {
     if (qword_1ED71C830 != -1)
@@ -4351,15 +3885,15 @@ void sub_19B437DDC(uint64_t a1)
       dispatch_once(&qword_1ED71C830, &unk_1F0E29580);
     }
 
-    v10 = off_1ED71C838;
+    v9 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_FAULT, "Requested update interval cannot be == 0.0 and dispatcher cannot be NULL. Use interval < 0.0 for spectator.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_FAULT, "Requested update interval cannot be == 0.0 and dispatcher cannot be NULL. Use interval < 0.0 for spectator.", buf, 2u);
     }
 
-    v11 = sub_19B420058();
-    if ((*(v11 + 160) & 0x80000000) == 0 || (*(v11 + 164) & 0x80000000) == 0 || (*(v11 + 168) & 0x80000000) == 0 || *(v11 + 152))
+    v10 = sub_19B420058();
+    if ((*(v10 + 160) & 0x80000000) == 0 || (*(v10 + 164) & 0x80000000) == 0 || (*(v10 + 168) & 0x80000000) == 0 || *(v10 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C830 != -1)
@@ -4367,9 +3901,10 @@ void sub_19B437DDC(uint64_t a1)
         dispatch_once(&qword_1ED71C830, &unk_1F0E29580);
       }
 
-      LOWORD(v36) = 0;
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL CLMotionNotifier::addDispatcherPrivate(int, Dispatcher *, const CFTimeInterval &)", "CoreLocation: %s\n", v12);
+      LOWORD(v39[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 17, "Requested update interval cannot be == 0.0 and dispatcher cannot be NULL. Use interval < 0.0 for spectator.", v39, 2);
+      v12 = v11;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL CLMotionNotifier::addDispatcherPrivate(int, Dispatcher *, const CFTimeInterval &)", "CoreLocation: %s\n", v11);
       goto LABEL_50;
     }
   }
@@ -4378,7 +3913,6 @@ void sub_19B437DDC(uint64_t a1)
   {
     if (v7 < 0.0)
     {
-      v9 = v3[2] + 80 * v2;
       operator new();
     }
 
@@ -4386,11 +3920,11 @@ void sub_19B437DDC(uint64_t a1)
     if (v8 > 0.0 && ((v14 = v13 + 80 * v2, v16 = *(v14 + 8), v15 = (v14 + 8), v17 = v16, v8 < v16) || v17 <= 0.0))
     {
       *v15 = v8;
-      v19 = (*(*v3 + 24))(v3, v2, &v35);
+      v19 = (*(*v3 + 24))(v3, v2, &v38);
       v13 = v3[2];
       *(v13 + 80 * v2 + 24) = v19;
       v18 = *v6;
-      v8 = v35;
+      v8 = v38;
     }
 
     else
@@ -4402,14 +3936,14 @@ void sub_19B437DDC(uint64_t a1)
     if (v18 < *v20 || *v20 <= 0.0)
     {
       *v20 = v18;
-      v26 = (*(*v3 + 16))(v3, v2, a1 + 56);
-      v27 = v3[2] + 80 * v2;
-      *(v27 + 16) = v26;
+      v27 = (*(*v3 + 16))(v3, v2, a1 + 56);
+      v28 = v3[2] + 80 * v2;
+      *(v28 + 16) = v27;
       *buf = v4;
-      *v43 = 0x100000000;
-      *&v43[8] = v18;
-      *&v43[16] = v8;
-      sub_19B43851C(v27 + 32, v4);
+      *v45 = 0x100000000;
+      *&v45[8] = v18;
+      *&v45[16] = v8;
+      sub_19B43851C(v28 + 32, v4, buf);
       sub_19B423614(v3, v2);
     }
 
@@ -4438,24 +3972,25 @@ void sub_19B437DDC(uint64_t a1)
             dispatch_once(&qword_1ED71C830, &unk_1F0E29580);
           }
 
-          LOWORD(v36) = 0;
-          v23 = _os_log_send_and_compose_impl();
+          LOWORD(v39[0]) = 0;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 17, "CLMotionNotifier::addDispatcherPrivate UpdateInterval is zero!", v39, 2);
+          v24 = v23;
           sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL CLMotionNotifier::addDispatcherPrivate(int, Dispatcher *, const CFTimeInterval &)", "CoreLocation: %s\n", v23);
-          if (v23 != buf)
+          if (v24 != buf)
           {
-            free(v23);
+            free(v24);
           }
         }
       }
 
-      v24 = v3[2] + 80 * v2;
-      v25 = llround(*v6 / *(v24 + 16));
+      v25 = v3[2] + 80 * v2;
+      v26 = llround(*v6 / *(v25 + 16));
       *buf = v4;
-      *v43 = 0;
-      *&v43[4] = v25;
-      *&v43[8] = v18;
-      *&v43[16] = v8;
-      sub_19B43851C(v24 + 32, v4);
+      *v45 = 0;
+      *&v45[4] = v26;
+      *&v45[8] = v18;
+      *&v45[16] = v8;
+      sub_19B43851C(v25 + 32, v4, buf);
     }
 
     (*(*v3 + 40))(v3, v2, *(v3[2] + 80 * v2 + 48) - 1);
@@ -4464,27 +3999,27 @@ void sub_19B437DDC(uint64_t a1)
       dispatch_once(&qword_1ED71C830, &unk_1F0E29580);
     }
 
-    v28 = off_1ED71C838;
+    v29 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *v6;
-      v30 = 0.0;
+      v30 = *v6;
+      v31 = 0.0;
       if (*v6 > 0.0)
       {
-        v30 = 1.0 / v29;
+        v31 = 1.0 / v30;
       }
 
       *buf = 67109632;
       *&buf[4] = v2;
-      *v43 = 2048;
-      *&v43[2] = v29;
-      *&v43[10] = 2048;
-      *&v43[12] = v30;
-      _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_DEBUG, "CLMotionNotifier::addDispatcherPrivate Added dispatcher for notification:%d, Update Interval:%f(%.1fHz)", buf, 0x1Cu);
+      *v45 = 2048;
+      *&v45[2] = v30;
+      *&v45[10] = 2048;
+      *&v45[12] = v31;
+      _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_DEBUG, "CLMotionNotifier::addDispatcherPrivate Added dispatcher for notification:%d, Update Interval:%f(%.1fHz)", buf, 0x1Cu);
     }
 
-    v31 = sub_19B420058();
-    if (*(v31 + 160) > 1 || *(v31 + 164) > 1 || *(v31 + 168) > 1 || *(v31 + 152))
+    v32 = sub_19B420058();
+    if (*(v32 + 160) > 1 || *(v32 + 164) > 1 || *(v32 + 168) > 1 || *(v32 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C830 != -1)
@@ -4492,21 +4027,23 @@ void sub_19B437DDC(uint64_t a1)
         dispatch_once(&qword_1ED71C830, &unk_1F0E29580);
       }
 
-      v32 = *v6;
-      v33 = 0.0;
+      v33 = *v6;
+      v34 = 0.0;
       if (*v6 > 0.0)
       {
-        v33 = 1.0 / v32;
+        v34 = 1.0 / v33;
       }
 
-      v36 = 67109632;
-      v37 = v2;
-      v38 = 2048;
-      v39 = v32;
+      v39[0] = 67109632;
+      v39[1] = v2;
       v40 = 2048;
       v41 = v33;
-      v12 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "BOOL CLMotionNotifier::addDispatcherPrivate(int, Dispatcher *, const CFTimeInterval &)", "CoreLocation: %s\n", v12);
+      v42 = 2048;
+      v43 = v34;
+      LODWORD(v36) = 28;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 2, "CLMotionNotifier::addDispatcherPrivate Added dispatcher for notification:%d, Update Interval:%f(%.1fHz)", v39, v36, v37);
+      v12 = v35;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "BOOL CLMotionNotifier::addDispatcherPrivate(int, Dispatcher *, const CFTimeInterval &)", "CoreLocation: %s\n", v35);
 LABEL_50:
       if (v12 != buf)
       {
@@ -4516,13 +4053,12 @@ LABEL_50:
   }
 
   *(*(*(a1 + 32) + 8) + 24) = v7 != 0.0;
-  v34 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t sub_19B43851C(uint64_t result, unint64_t a2)
+uint64_t sub_19B43851C(uint64_t result, unint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = *(result + 8);
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -4532,27 +4068,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -4567,12 +4103,12 @@ uint64_t *sub_19B4385F8(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4586,22 +4122,22 @@ uint64_t *sub_19B4385F8(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4635,13 +4171,13 @@ uint64_t *sub_19B4385F8(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4683,13 +4219,13 @@ uint64_t *sub_19B4385F8(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_19B438794(uint64_t result, uint64_t a2)
+uint64_t *sub_19B438794(uint64_t *result, uint64_t a2)
 {
   v2 = *(a2 + 448);
   if (v2)
   {
-    v3 = *(result + 8);
-    v4 = *(result + 16);
+    v3 = result[1];
+    v4 = *(result + 4);
     v5 = *result;
     return v2(&v3, *(a2 + 456));
   }
@@ -4699,7 +4235,7 @@ uint64_t sub_19B438794(uint64_t result, uint64_t a2)
 
 uint64_t sub_19B4387E8(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C830 != -1)
   {
     dispatch_once(&qword_1ED71C830, &unk_1F0E3A858);
@@ -4711,9 +4247,9 @@ uint64_t sub_19B4387E8(uint64_t a1, uint64_t a2)
     v5 = *(a2 + 1);
     v6 = *(a2 + 9);
     *buf = 134218240;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
+    v18 = v5;
+    v19 = 2048;
+    v20 = v6;
     _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_INFO, "[CLIspDataVisitor] TimeSync visit machTimestamp,%llu,oscarTimestamp,%llu", buf, 0x16u);
   }
 
@@ -4726,35 +4262,36 @@ uint64_t sub_19B4387E8(uint64_t a1, uint64_t a2)
       dispatch_once(&qword_1ED71C830, &unk_1F0E3A858);
     }
 
-    v11 = *(a2 + 1);
-    v12 = *(a2 + 9);
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLIspDataVisitor::visitTimeSync(const CMMotionCoprocessorReply::TimeSync *)", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    v8 = *(a2 + 1);
+    v9 = *(a2 + 9);
+    v13 = 134218240;
+    v14 = v8;
+    v15 = 2048;
+    v16 = v9;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 1, "[CLIspDataVisitor] TimeSync visit machTimestamp,%llu,oscarTimestamp,%llu", &v13, 22);
+    v11 = v10;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLIspDataVisitor::visitTimeSync(const CMMotionCoprocessorReply::TimeSync *)", "CoreLocation: %s\n", v10);
+    if (v11 != buf)
     {
-      free(v8);
+      free(v11);
     }
   }
 
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))(result, *(a2 + 1), *(a2 + 9));
+    return (*(result + 16))(result, *(a2 + 1), *(a2 + 9));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t sub_19B438A00()
+void sub_19B438A00()
 {
-  result = sub_19B423E34();
-  if ((result & 4) != 0)
+  if ((sub_19B423E34() & 4) != 0)
   {
     operator new();
   }
-
-  return result;
 }
 
 void sub_19B438AE4(_Unwind_Exception *a1)
@@ -4775,13 +4312,11 @@ void sub_19B438AE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_19B438B2C()
+double sub_19B438B2C()
 {
-  result = sub_19B4249E4();
-  if (result)
+  if (sub_19B4249E4())
   {
-    result = sub_19B42AD98();
-    if (result)
+    if (sub_19B42AD98())
     {
       operator new();
     }
@@ -4800,16 +4335,16 @@ void sub_19B438BEC(uint64_t a1, uint64_t a2, int a3)
   operator new[]();
 }
 
-uint64_t sub_19B438CCC(uint64_t a1, const char *a2, BOOL *a3)
+uint64_t sub_19B438CCC(uint64_t a1, const char *a2, BOOL *a3, uint64_t a4)
 {
-  v5 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
-  v6 = sub_19B439A40(a1, v5, a3);
-  if (v5)
+  v6 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
+  v7 = sub_19B439A40(a1, v6, a3);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
-  return v6;
+  return v7;
 }
 
 void sub_19B4399F4(_Unwind_Exception *a1)
@@ -4832,64 +4367,62 @@ void sub_19B4399F4(_Unwind_Exception *a1)
 
 uint64_t sub_19B439A40(uint64_t a1, uint64_t a2, BOOL *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cf = 0;
-  if ((*(*a1 + 904))(a1, a2, &cf))
+  if (!(*(*a1 + 904))(a1, a2, &cf))
   {
-    v6 = sub_19B44525C(cf, a3);
-    if ((v6 & 1) == 0)
+    return 0;
+  }
+
+  v6 = sub_19B44525C(cf, a3);
+  if ((v6 & 1) == 0)
+  {
+    if (qword_1ED71C820 != -1)
     {
+      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+    }
+
+    v7 = off_1ED71C828;
+    if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+    {
+      v8 = (*(*a1 + 840))(a1);
+      *buf = 138412546;
+      v21 = v8;
+      v22 = 2112;
+      v23 = a2;
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+    }
+
+    v9 = sub_19B420058();
+    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
+    {
+      bzero(buf, 0x65CuLL);
       if (qword_1ED71C820 != -1)
       {
         dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
       }
 
-      v7 = off_1ED71C828;
-      if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+      v10 = off_1ED71C828;
+      v11 = (*(*a1 + 840))(a1);
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = a2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v10, 17, "Unsupported type at %@:%@ (domain:key)", &v16, 22);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, BOOL &, int) const", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        v8 = (*(*a1 + 840))(a1);
-        *buf = 138412546;
-        v20 = v8;
-        v21 = 2112;
-        v22 = a2;
-        _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+        free(v13);
       }
-
-      v9 = sub_19B420058();
-      if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1ED71C820 != -1)
-        {
-          dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-        }
-
-        v10 = (*(*a1 + 840))(a1);
-        v15 = 138412546;
-        v16 = v10;
-        v17 = 2112;
-        v18 = a2;
-        v11 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, BOOL &, int) const", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
-        {
-          free(v11);
-        }
-      }
-    }
-
-    if (cf)
-    {
-      CFRelease(cf);
     }
   }
 
-  else
+  if (cf)
   {
-    v6 = 0;
+    CFRelease(cf);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -4992,7 +4525,7 @@ void sub_19B439EF4(uint64_t a1, uint64_t a2, double a3)
 uint64_t sub_19B439F84(uint64_t a1)
 {
   v1 = a1;
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = (*(**(a1 + 40) + 32))(*(a1 + 40));
   if (v3)
@@ -5011,38 +4544,38 @@ uint64_t sub_19B439F84(uint64_t a1)
       dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
     }
 
-    v27 = off_1ED71C808;
+    v28 = off_1ED71C808;
     v4 = "assert";
     v2 = "properties != nullptr";
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      *v33 = 0;
-      *&v33[4] = 2082;
-      *&v33[6] = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "properties != nullptr";
-      _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v34 = 0;
+      *&v34[4] = 2082;
+      *&v34[6] = "";
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "properties != nullptr";
+      _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C800 != -1)
       {
         dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
       }
     }
 
-    v28 = off_1ED71C808;
+    v29 = off_1ED71C808;
     if (os_signpost_enabled(off_1ED71C808))
     {
       *buf = 68289539;
-      *v33 = 0;
-      *&v33[4] = 2082;
-      *&v33[6] = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "properties != nullptr";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Assertion failed", "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v34 = 0;
+      *&v34[4] = 2082;
+      *&v34[6] = "";
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "properties != nullptr";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Assertion failed", "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C800 != -1)
       {
         dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
@@ -5053,20 +4586,17 @@ uint64_t sub_19B439F84(uint64_t a1)
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      *v33 = 0;
-      *&v33[4] = 2082;
-      *&v33[6] = "";
-      v34 = 2082;
-      v35 = "assert";
-      v36 = 2081;
-      v37 = "properties != nullptr";
+      *v34 = 0;
+      *&v34[4] = 2082;
+      *&v34[6] = "";
+      v35 = 2082;
+      v36 = "assert";
+      v37 = 2081;
+      v38 = "properties != nullptr";
       _os_log_impl(&dword_19B41C000, v1, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v30 = 198;
-    v31 = "addDeviceMotionDispatcher_block_invoke";
-    v29 = "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/Notifiers/CLDeviceMotion.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/Notifiers/CLDeviceMotion.mm", 198, "addDeviceMotionDispatcher_block_invoke");
   }
 
   dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
@@ -5077,7 +4607,7 @@ LABEL_3:
     v8 = objc_msgSend_description(v4, v6, v7);
     v11 = objc_msgSend_UTF8String(v8, v9, v10);
     *buf = 136446210;
-    *v33 = v11;
+    *v34 = v11;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_INFO, "CLDeviceMotion::addDeviceMotionDispatcher adding dispatcher with property: %{public}s", buf, 0xCu);
   }
 
@@ -5090,27 +4620,29 @@ LABEL_3:
       dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
     }
 
-    v17 = objc_msgSend_description(v4, v15, v16, v29, v30, v31);
-    objc_msgSend_UTF8String(v17, v18, v19);
+    v17 = off_1ED71C808;
+    v18 = objc_msgSend_description(v4, v15, v16);
+    v31 = 136446210;
+    v32 = objc_msgSend_UTF8String(v18, v19, v20);
     LODWORD(v30) = 12;
-    v20 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::addDeviceMotionDispatcher(CLDeviceMotion::Dispatcher *, CFTimeInterval)_block_invoke", "CoreLocation: %s\n", v20);
-    if (v20 != buf)
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v17, 1, "CLDeviceMotion::addDeviceMotionDispatcher adding dispatcher with property: %{public}s", &v31, v30);
+    v22 = v21;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::addDeviceMotionDispatcher(CLDeviceMotion::Dispatcher *, CFTimeInterval)_block_invoke", "CoreLocation: %s\n", v21);
+    if (v22 != buf)
     {
-      free(v20);
+      free(v22);
     }
   }
 
-  *buf = objc_msgSend_mode(v4, v13, v14, v29, v30);
+  *buf = objc_msgSend_mode(v4, v13, v14);
   result = sub_19B426490(buf);
   if (result)
   {
-    v24 = objc_msgSend_mode(v4, v22, v23);
-    v25 = sub_19B426F5C(v24);
-    result = sub_19B437CF0(v2, v25, *(v1 + 5), *(v1 + 6));
+    v26 = objc_msgSend_mode(v4, v24, v25);
+    v27 = sub_19B426F5C(v26);
+    return sub_19B437CF0(v2, v27, *(v1 + 5), *(v1 + 6));
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5477,13 +5009,13 @@ void sub_19B43B808()
   }
 }
 
-uint64_t sub_19B43B878(uint64_t a1, int *a2)
+uint64_t sub_19B43B878(unsigned __int8 *a1, int *a2)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v4 = *a2;
   if ((*a2 & 4) != 0)
   {
-    *(a1 + 28) = (*a2 & 8) != 0;
+    a1[28] = (*a2 & 8) != 0;
   }
 
   v5 = v4 & 1;
@@ -5500,19 +5032,19 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
   if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *a2;
-    v12 = *(a1 + 28);
+    v12 = a1[28];
     *buf = 67241472;
     *&buf[4] = v11;
-    v60 = 1026;
-    v61 = v5;
-    v62 = 1026;
-    v63 = v6 >> 1;
-    v64 = 1026;
-    v65 = v7 >> 2;
-    v66 = 1026;
-    v67[0] = v12;
-    LOWORD(v67[1]) = 1026;
-    *(&v67[1] + 2) = v10;
+    v61 = 1026;
+    v62 = v5;
+    v63 = 1026;
+    v64 = v6 >> 1;
+    v65 = 1026;
+    v66 = v7 >> 2;
+    v67 = 1026;
+    v68[0] = v12;
+    LOWORD(v68[1]) = 1026;
+    *(&v68[1] + 2) = v10;
     _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEFAULT, "Starting device motion, mode=%{public}#x,useAccelerometer=%{public}d,useGyro=%{public}d,useCompass=%{public}d,fUseNorthRef=%{public}d,buildingGYTT=%{public}d", buf, 0x26u);
   }
 
@@ -5526,48 +5058,49 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
     }
 
     v14 = *a2;
-    v15 = *(a1 + 28);
-    v47 = 67241472;
-    v48 = v14;
-    v49 = 1026;
-    v50 = v5;
-    v51 = 1026;
-    v52 = v6 >> 1;
-    v53 = 1026;
-    v54 = v7 >> 2;
-    v55 = 1026;
-    v56 = v15;
-    v57 = 1026;
-    v58 = v10;
-    v16 = _os_log_send_and_compose_impl();
+    v15 = a1[28];
+    v49[0] = 67241472;
+    v49[1] = v14;
+    v50 = 1026;
+    v51 = v5;
+    v52 = 1026;
+    v53 = v6 >> 1;
+    v54 = 1026;
+    v55 = v7 >> 2;
+    v56 = 1026;
+    v57 = v15;
+    v58 = 1026;
+    v59 = v10;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "Starting device motion, mode=%{public}#x,useAccelerometer=%{public}d,useGyro=%{public}d,useCompass=%{public}d,fUseNorthRef=%{public}d,buildingGYTT=%{public}d", v49, 38);
+    v17 = v16;
     sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v16);
-    if (v16 != buf)
+    if (v17 != buf)
     {
-      free(v16);
+      free(v17);
     }
   }
 
   result = sub_19B426490(a2);
   if (result)
   {
-    v46 = 0;
-    v18 = sub_19B420D84();
-    v19 = *(v18 + 24);
-    v20 = *(v18 + 32);
-    if (v20)
+    v48 = 0;
+    v19 = sub_19B420D84();
+    v20 = *(v19 + 24);
+    v21 = *(v19 + 32);
+    if (v21)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v21 = sub_19B438CCC(v19, "LogSensorFusion", &v46);
-    if (v20)
+    v22 = sub_19B438CCC(v20, "LogSensorFusion", &v48, 0xFFFFFFFFLL);
+    if (v21)
     {
-      sub_19B41FFEC(v20);
+      sub_19B41FFEC(v21);
     }
 
-    if ((v21 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      v46 = 0;
+      v48 = 0;
     }
 
     result = *a2;
@@ -5577,8 +5110,8 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
       {
         if (result == 19)
         {
-          v44 = *(a1 + 32);
-          if (!v44)
+          v46 = *(a1 + 4);
+          if (!v46)
           {
             operator new();
           }
@@ -5588,17 +5121,17 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
         {
           if (result != 34)
           {
-            goto LABEL_116;
+            return result;
           }
 
-          v44 = *(a1 + 48);
-          if (!v44)
+          v46 = *(a1 + 6);
+          if (!v46)
           {
             operator new();
           }
 
-          v44[9] = sub_19B4455C8;
-          v44[10] = a1;
+          v46[9] = sub_19B4455C8;
+          v46[10] = a1;
         }
 
         goto LABEL_113;
@@ -5610,11 +5143,11 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
         {
           if (result != 259)
           {
-            goto LABEL_116;
+            return result;
           }
 
-          v22 = *(a1 + 80);
-          if (!v22)
+          v23 = *(a1 + 10);
+          if (!v23)
           {
             if ((sub_19B421620() & 0x40) == 0)
             {
@@ -5643,12 +5176,14 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
                       dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
                     }
 
-                    LOWORD(v47) = 0;
-                    v30 = _os_log_send_and_compose_impl();
+                    LOWORD(v49[0]) = 0;
+                    LODWORD(v47) = 2;
+                    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "Using CLSensorFusionServiceLegacy backend", v49, v47);
+                    v31 = v30;
                     sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v30);
-                    if (v30 != buf)
+                    if (v31 != buf)
                     {
-                      free(v30);
+                      free(v31);
                     }
                   }
 
@@ -5660,15 +5195,15 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
                   dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
                 }
 
-                v39 = off_1ED71C808;
+                v41 = off_1ED71C808;
                 if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_19B41C000, v39, OS_LOG_TYPE_DEFAULT, "Using CLSensorFusionService6AxisAP backend", buf, 2u);
+                  _os_log_impl(&dword_19B41C000, v41, OS_LOG_TYPE_DEFAULT, "Using CLSensorFusionService6AxisAP backend", buf, 2u);
                 }
 
-                v40 = sub_19B420058();
-                if (*(v40 + 160) > 1 || *(v40 + 164) > 1 || *(v40 + 168) > 1 || *(v40 + 152))
+                v42 = sub_19B420058();
+                if (*(v42 + 160) > 1 || *(v42 + 164) > 1 || *(v42 + 168) > 1 || *(v42 + 152))
                 {
                   bzero(buf, 0x65CuLL);
                   if (qword_1ED71C800 != -1)
@@ -5676,12 +5211,14 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
                     dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
                   }
 
-                  LOWORD(v47) = 0;
-                  v41 = _os_log_send_and_compose_impl();
-                  sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v41);
-                  if (v41 != buf)
+                  LOWORD(v49[0]) = 0;
+                  LODWORD(v47) = 2;
+                  _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "Using CLSensorFusionService6AxisAP backend", v49, v47);
+                  v44 = v43;
+                  sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v43);
+                  if (v44 != buf)
                   {
-                    free(v41);
+                    free(v44);
                   }
                 }
 
@@ -5693,15 +5230,15 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
                 dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
               }
 
-              v36 = off_1ED71C808;
+              v37 = off_1ED71C808;
               if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_19B41C000, v36, OS_LOG_TYPE_DEFAULT, "Using CLSensorFusionService6AxisSPU backend", buf, 2u);
+                _os_log_impl(&dword_19B41C000, v37, OS_LOG_TYPE_DEFAULT, "Using CLSensorFusionService6AxisSPU backend", buf, 2u);
               }
 
-              v37 = sub_19B420058();
-              if (*(v37 + 160) > 1 || *(v37 + 164) > 1 || *(v37 + 168) > 1 || *(v37 + 152))
+              v38 = sub_19B420058();
+              if (*(v38 + 160) > 1 || *(v38 + 164) > 1 || *(v38 + 168) > 1 || *(v38 + 152))
               {
                 bzero(buf, 0x65CuLL);
                 if (qword_1ED71C800 != -1)
@@ -5709,12 +5246,14 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
                   dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
                 }
 
-                LOWORD(v47) = 0;
-                v38 = _os_log_send_and_compose_impl();
-                sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v38);
-                if (v38 != buf)
+                LOWORD(v49[0]) = 0;
+                LODWORD(v47) = 2;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "Using CLSensorFusionService6AxisSPU backend", v49, v47);
+                v40 = v39;
+                sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v39);
+                if (v40 != buf)
                 {
-                  free(v38);
+                  free(v40);
                 }
               }
 
@@ -5726,15 +5265,15 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
               dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
             }
 
-            v31 = off_1ED71C808;
+            v32 = off_1ED71C808;
             if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_DEFAULT, "Using CLSensorFusionService6AxisAlwaysOnSPU backend", buf, 2u);
+              _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_DEFAULT, "Using CLSensorFusionService6AxisAlwaysOnSPU backend", buf, 2u);
             }
 
-            v32 = sub_19B420058();
-            if (*(v32 + 160) > 1 || *(v32 + 164) > 1 || *(v32 + 168) > 1 || *(v32 + 152))
+            v33 = sub_19B420058();
+            if (*(v33 + 160) > 1 || *(v33 + 164) > 1 || *(v33 + 168) > 1 || *(v33 + 152))
             {
               bzero(buf, 0x65CuLL);
               if (qword_1ED71C800 != -1)
@@ -5742,23 +5281,24 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
                 dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
               }
 
-              LOWORD(v47) = 0;
-              v33 = _os_log_send_and_compose_impl();
-              sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v33);
-              if (v33 != buf)
+              LOWORD(v49[0]) = 0;
+              LODWORD(v47) = 2;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "Using CLSensorFusionService6AxisAlwaysOnSPU backend", v49, v47);
+              v35 = v34;
+              sub_19B6BB7CC("Generic", 1, 0, 2, "void CLDeviceMotion::enableSensorFusionWithMode(const CLMotionTypeDeviceMotionMode &)", "CoreLocation: %s\n", v34);
+              if (v35 != buf)
               {
-                free(v33);
+                free(v35);
               }
             }
 
             operator new();
           }
 
-          v42 = sub_19B426F5C(259);
-          sub_19B42753C(a1, v42);
-          *buf = v43;
-          result = (*(*v22 + 16))(v22, buf);
-          v44 = *(a1 + 80);
+          v45 = sub_19B426F5C(259);
+          *buf = sub_19B42753C(a1, v45);
+          result = (*(*v23 + 16))(v23, buf);
+          v46 = *(a1 + 10);
           goto LABEL_113;
         }
 
@@ -5766,8 +5306,8 @@ uint64_t sub_19B43B878(uint64_t a1, int *a2)
       }
 
 LABEL_32:
-      v23 = *(a1 + 64);
-      if (!v23)
+      v24 = *(a1 + 8);
+      if (!v24)
       {
         if ((sub_19B421620() & 8) == 0)
         {
@@ -5782,11 +5322,10 @@ LABEL_32:
         operator new();
       }
 
-      v34 = sub_19B426F5C(result);
-      sub_19B42753C(a1, v34);
-      *buf = v35;
-      result = (*(*v23 + 16))(v23, buf);
-      v44 = *(a1 + 64);
+      v36 = sub_19B426F5C(result);
+      *buf = sub_19B42753C(a1, v36);
+      result = (*(*v24 + 16))(v24, buf);
+      v46 = *(a1 + 8);
       goto LABEL_113;
     }
 
@@ -5794,12 +5333,12 @@ LABEL_32:
     {
       if (result != 7 && result != 15)
       {
-        goto LABEL_116;
+        return result;
       }
 
 LABEL_38:
-      v24 = *(a1 + 72);
-      if (!v24)
+      v25 = *(a1 + 9);
+      if (!v25)
       {
         if ((sub_19B421620() & 0x10) == 0)
         {
@@ -5809,29 +5348,28 @@ LABEL_38:
         operator new();
       }
 
-      (*(*v24 + 24))(v24, *(a1 + 28));
-      v25 = *(a1 + 72);
-      v26 = sub_19B426F5C(*a2);
-      sub_19B42753C(a1, v26);
-      *buf = v27;
-      result = (*(*v25 + 16))(v25, buf);
-      v44 = *(a1 + 72);
+      (*(*v25 + 24))(v25, a1[28]);
+      v26 = *(a1 + 9);
+      v27 = sub_19B426F5C(*a2);
+      *buf = sub_19B42753C(a1, v27);
+      result = (*(*v26 + 16))(v26, buf);
+      v46 = *(a1 + 9);
 LABEL_113:
-      if (v44[7] != sub_19B4205E8 || v44[8] != a1)
+      if (v46[7] != sub_19B4205E8 || v46[8] != a1)
       {
-        v44[7] = sub_19B4205E8;
-        v44[8] = a1;
-        result = (*(*v44 + 48))(v44);
+        v46[7] = sub_19B4205E8;
+        v46[8] = a1;
+        return (*(*v46 + 48))(v46);
       }
 
-      goto LABEL_116;
+      return result;
     }
 
     if (result != 2)
     {
       if (result != 3)
       {
-        goto LABEL_116;
+        return result;
       }
 
       goto LABEL_32;
@@ -5840,20 +5378,18 @@ LABEL_113:
     result = sub_19B421620();
     if ((result & 0x100) != 0)
     {
-      if (!*(a1 + 56))
+      if (!*(a1 + 7))
       {
         operator new();
       }
     }
 
-    else if (!*(a1 + 40))
+    else if (!*(a1 + 5))
     {
       operator new();
     }
   }
 
-LABEL_116:
-  v45 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5882,16 +5418,16 @@ CFRunLoopTimerRef *sub_19B43C87C(CFRunLoopTimerRef *a1, int a2, char a3)
   return a1;
 }
 
-void sub_19B43C954(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19B43C954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_19B783808(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_19B43C96C(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   sub_19B421798();
   v2 = sub_19B43CC3C();
   sub_19B43CCBC(a1, 1);
@@ -5908,18 +5444,36 @@ uint64_t sub_19B43C96C(uint64_t a1)
       dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
     }
 
-    v5 = off_1ED71C808;
+    v4 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "CLPlatformInfo::motionCaps().deviceMotion6Service";
-      _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Device motion service 6 is not supported on this platform!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "CLPlatformInfo::motionCaps().deviceMotion6Service";
+      _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Device motion service 6 is not supported on this platform!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1ED71C800 != -1)
+      {
+        dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
+      }
+    }
+
+    v5 = off_1ED71C808;
+    if (os_signpost_enabled(off_1ED71C808))
+    {
+      *buf = 68289539;
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "CLPlatformInfo::motionCaps().deviceMotion6Service";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Device motion service 6 is not supported on this platform!", "{msg%{public}.0s:Device motion service 6 is not supported on this platform!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C800 != -1)
       {
         dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
@@ -5927,42 +5481,23 @@ uint64_t sub_19B43C96C(uint64_t a1)
     }
 
     v6 = off_1ED71C808;
-    if (os_signpost_enabled(off_1ED71C808))
-    {
-      *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "CLPlatformInfo::motionCaps().deviceMotion6Service";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Device motion service 6 is not supported on this platform!", "{msg%{public}.0s:Device motion service 6 is not supported on this platform!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1ED71C800 != -1)
-      {
-        dispatch_once(&qword_1ED71C800, &unk_1F0E28220);
-      }
-    }
-
-    v7 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "CLPlatformInfo::motionCaps().deviceMotion6Service";
-      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Device motion service 6 is not supported on this platform!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "CLPlatformInfo::motionCaps().deviceMotion6Service";
+      _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Device motion service 6 is not supported on this platform!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/DeviceMotion/CLSensorFusionServiceSPU.h", 57, "CLSensorFusionService6AxisSPU");
     __break(1u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -5988,7 +5523,7 @@ uint64_t sub_19B43CC3C()
 
 uint64_t sub_19B43CCBC(uint64_t a1, int a2)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F0E325E0;
   *(a1 + 8) = 0;
   v3 = (a1 + 8);
@@ -6022,7 +5557,7 @@ uint64_t sub_19B43CCBC(uint64_t a1, int a2)
   {
     v7 = *(a1 + 12);
     *buf = 67240192;
-    LODWORD(v68) = v7;
+    LODWORD(v70) = v7;
     _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_DEBUG, "Starting device motion service %{public}d", buf, 8u);
   }
 
@@ -6036,140 +5571,141 @@ uint64_t sub_19B43CCBC(uint64_t a1, int a2)
     }
 
     v9 = *(a1 + 12);
-    *v74 = 67240192;
-    *&v74[4] = v9;
-    v10 = _os_log_send_and_compose_impl();
+    *v76 = 67240192;
+    *&v76[4] = v9;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Starting device motion service %{public}d", v76, 8);
+    v11 = v10;
     sub_19B6BB7CC("Generic", 1, 0, 2, "CLSensorFusionService::CLSensorFusionService(int)", "CoreLocation: %s\n", v10);
-    if (v10 != buf)
+    if (v11 != buf)
     {
-      free(v10);
+      free(v11);
     }
   }
 
-  v11 = sub_19B420D84();
-  v12 = *(v11 + 24);
-  v13 = *(v11 + 32);
-  if (v13)
+  v12 = sub_19B420D84();
+  v13 = *(v12 + 24);
+  v14 = *(v12 + 32);
+  if (v14)
   {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v14 = sub_19B438CCC(v12, "LogDeviceMotion", v3);
-  if (v13)
+  v15 = sub_19B438CCC(v13, "LogDeviceMotion", v3, 0xFFFFFFFFLL);
+  if (v14)
   {
-    sub_19B41FFEC(v13);
+    sub_19B41FFEC(v14);
   }
 
-  if ((v14 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
     *v3 = 0;
   }
 
   sub_19B420D84();
-  v66 = *(qword_1ED71C908 + 16);
-  v15 = sub_19B420D84();
-  v16 = *(v15 + 24);
-  v17 = *(v15 + 32);
-  if (v17)
+  v68 = *(qword_1ED71C908 + 16);
+  v16 = sub_19B420D84();
+  v17 = *(v16 + 24);
+  v18 = *(v16 + 32);
+  if (v18)
   {
-    atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_19B438CCC(v16, "DeviceMotionUseThrottledInterval", &v66);
-  if (v17)
+  sub_19B438CCC(v17, "DeviceMotionUseThrottledInterval", &v68, 0xFFFFFFFFLL);
+  if (v18)
   {
-    sub_19B41FFEC(v17);
+    sub_19B41FFEC(v18);
   }
 
-  v18 = sub_19B420D84();
-  v19 = *(v18 + 24);
-  v20 = *(v18 + 32);
-  if (v20)
+  v19 = sub_19B420D84();
+  v20 = *(v19 + 24);
+  v21 = *(v19 + 32);
+  if (v21)
   {
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v21 = sub_19B43D468(v19, "DeviceMotionAccelerometerUpdateInterval", v4);
-  if (v20)
+  v22 = sub_19B43D468(v20, "DeviceMotionAccelerometerUpdateInterval", v4, 0xFFFFFFFFLL);
+  if (v21)
   {
-    sub_19B41FFEC(v20);
+    sub_19B41FFEC(v21);
   }
 
-  if ((v21 & 1) == 0)
+  if ((v22 & 1) == 0)
   {
-    v22 = 0.01;
-    if (v66)
+    v23 = 0.01;
+    if (v68)
     {
-      v22 = 0.02;
+      v23 = 0.02;
     }
 
-    *v4 = v22;
+    *v4 = v23;
   }
 
-  v23 = sub_19B420D84();
-  v24 = *(v23 + 24);
-  v25 = *(v23 + 32);
-  if (v25)
+  v24 = sub_19B420D84();
+  v25 = *(v24 + 24);
+  v26 = *(v24 + 32);
+  if (v26)
   {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v26 = sub_19B43D468(v24, "DeviceMotionGyroUpdateInterval", (a1 + 24));
-  if (v25)
+  v27 = sub_19B43D468(v25, "DeviceMotionGyroUpdateInterval", (a1 + 24), 0xFFFFFFFFLL);
+  if (v26)
   {
-    sub_19B41FFEC(v25);
+    sub_19B41FFEC(v26);
   }
 
-  if ((v26 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    v27 = 0.005;
-    if (v66)
+    v28 = 0.005;
+    if (v68)
     {
-      v27 = 0.02;
+      v28 = 0.02;
     }
 
-    *(a1 + 24) = v27;
+    *(a1 + 24) = v28;
   }
 
-  v28 = sub_19B420D84();
-  v29 = *(v28 + 24);
-  v30 = *(v28 + 32);
-  if (v30)
+  v29 = sub_19B420D84();
+  v30 = *(v29 + 24);
+  v31 = *(v29 + 32);
+  if (v31)
   {
-    atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v31 = sub_19B43D468(v29, "DeviceMotionCompassUpdateInterval", v5);
-  if (v30)
+  v32 = sub_19B43D468(v30, "DeviceMotionCompassUpdateInterval", v5, 0xFFFFFFFFLL);
+  if (v31)
   {
-    sub_19B41FFEC(v30);
+    sub_19B41FFEC(v31);
   }
 
-  if ((v31 & 1) == 0)
+  if ((v32 & 1) == 0)
   {
     *v5 = 0x3F847AE147AE147BLL;
   }
 
-  v32 = sub_19B42AD98();
-  v33 = sub_19B43D788(v32, (a1 + 24));
+  v33 = sub_19B42AD98();
+  v34 = sub_19B43D788(v33, (a1 + 24));
   if (qword_1ED71C800 != -1)
   {
     dispatch_once(&qword_1ED71C800, &unk_1F0E2A420);
   }
 
-  v34 = off_1ED71C808;
+  v35 = off_1ED71C808;
   if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
   {
-    v35 = *v4;
+    v36 = *v4;
     *buf = 134349312;
-    v68 = v33;
-    v69 = 2050;
-    v70 = v35;
-    _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_DEBUG, "GyroUpdateInterval,%{public}.4f,AccelerometerUpdateInterval,%{public}.4f", buf, 0x16u);
+    v70 = v34;
+    v71 = 2050;
+    v72 = v36;
+    _os_log_impl(&dword_19B41C000, v35, OS_LOG_TYPE_DEBUG, "GyroUpdateInterval,%{public}.4f,AccelerometerUpdateInterval,%{public}.4f", buf, 0x16u);
   }
 
-  v36 = sub_19B420058();
-  if (*(v36 + 160) > 1 || *(v36 + 164) > 1 || *(v36 + 168) > 1 || *(v36 + 152))
+  v37 = sub_19B420058();
+  if (*(v37 + 160) > 1 || *(v37 + 164) > 1 || *(v37 + 168) > 1 || *(v37 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C800 != -1)
@@ -6177,75 +5713,76 @@ uint64_t sub_19B43CCBC(uint64_t a1, int a2)
       dispatch_once(&qword_1ED71C800, &unk_1F0E2A420);
     }
 
-    v37 = *v4;
-    *v74 = 134349312;
-    *&v74[4] = v33;
-    *&v74[12] = 2050;
-    *&v74[14] = v37;
-    v38 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "CLSensorFusionService::CLSensorFusionService(int)", "CoreLocation: %s\n", v38);
-    if (v38 != buf)
+    v38 = *v4;
+    *v76 = 134349312;
+    *&v76[4] = v34;
+    *&v76[12] = 2050;
+    *&v76[14] = v38;
+    LODWORD(v66) = 22;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "GyroUpdateInterval,%{public}.4f,AccelerometerUpdateInterval,%{public}.4f", v76, v66);
+    v40 = v39;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "CLSensorFusionService::CLSensorFusionService(int)", "CoreLocation: %s\n", v39);
+    if (v40 != buf)
     {
-      free(v38);
+      free(v40);
     }
   }
 
   if (*v3)
   {
-    *v74 = &unk_1F0E311F0;
-    *&v74[8] = CFAbsoluteTimeGetCurrent();
-    v39 = v33;
-    *&v74[20] = v39;
-    v40 = sub_19B720E40();
-    sub_19B7223F8(v40, v74);
+    *v76 = &unk_1F0E311F0;
+    *&v76[8] = CFAbsoluteTimeGetCurrent();
+    v41 = v34;
+    *&v76[20] = v41;
+    v42 = sub_19B720E40();
+    sub_19B7223F8(v42, v76);
     sub_19B517F80(buf);
     sub_19B5325B8(buf);
-    v73 |= 1u;
-    v71 = *&v74[8];
-    v41 = v72;
-    *(v72 + 12) |= 1u;
-    *(v41 + 8) = v39;
+    v75 |= 1u;
+    v73 = *&v76[8];
+    v43 = v74;
+    *(v74 + 12) |= 1u;
+    *(v43 + 8) = v41;
     sub_19B51DBD4(buf);
   }
 
   sub_19B420D84();
   if (*(qword_1ED71C908 + 16) == 1)
   {
-    v42 = sub_19B420D84();
-    v43 = *(v42 + 24);
-    v44 = *(v42 + 32);
-    if (v44)
+    v44 = sub_19B420D84();
+    v45 = *(v44 + 24);
+    v46 = *(v44 + 32);
+    if (v46)
     {
-      atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     buf[0] = 0;
-    v45 = sub_19B438CCC(v43, "DumpGyroCalibrationDatabaseOnDeviceMotionStart", buf);
-    v48 = (v45 & buf[0]);
-    if (v44)
+    v47 = sub_19B438CCC(v45, "DumpGyroCalibrationDatabaseOnDeviceMotionStart", buf, 0xFFFFFFFFLL);
+    v50 = (v47 & buf[0]);
+    if (v46)
     {
-      sub_19B41FFEC(v44);
+      sub_19B41FFEC(v46);
     }
 
-    if (v48)
+    if (v50)
     {
-      v49 = MEMORY[0x1E696AEC0];
-      v50 = objc_msgSend_date(MEMORY[0x1E695DF00], v46, v47);
-      objc_msgSend_timeIntervalSinceReferenceDate(v50, v51, v52);
-      v55 = objc_msgSend_stringWithFormat_(v49, v53, @"%.0f", v54);
-      v56 = sub_19B43D9C4();
-      v59 = objc_msgSend_vendor(v56, v57, v58);
-      v61 = objc_msgSend_proxyForService_(v59, v60, @"CLGyroCalibrationDatabase");
-      v65[0] = MEMORY[0x1E69E9820];
-      v65[1] = 3221225472;
-      v65[2] = sub_19B76029C;
-      v65[3] = &unk_1E7535CA0;
-      v65[4] = v55;
-      objc_msgSend_dumpDatabase_onCompletion_(v61, v62, v55, v65);
+      v51 = MEMORY[0x1E696AEC0];
+      v52 = objc_msgSend_date(MEMORY[0x1E695DF00], v48, v49);
+      objc_msgSend_timeIntervalSinceReferenceDate(v52, v53, v54);
+      v57 = objc_msgSend_stringWithFormat_(v51, v55, @"%.0f", v56);
+      v58 = sub_19B43D9C4();
+      v61 = objc_msgSend_vendor(v58, v59, v60);
+      v63 = objc_msgSend_proxyForService_(v61, v62, @"CLGyroCalibrationDatabase");
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 3221225472;
+      v67[2] = sub_19B76029C;
+      v67[3] = &unk_1E7535CA0;
+      v67[4] = v57;
+      objc_msgSend_dumpDatabase_onCompletion_(v63, v64, v57, v67);
     }
   }
 
-  v63 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -6259,78 +5796,76 @@ void sub_19B43D414(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_19B43D468(uint64_t a1, const char *a2, void *a3)
+uint64_t sub_19B43D468(uint64_t a1, const char *a2, void *a3, uint64_t a4)
 {
-  v5 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
-  v6 = sub_19B43D4DC(a1, v5, a3);
-  if (v5)
+  v6 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
+  v7 = sub_19B43D4DC(a1, v6, a3);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t sub_19B43D4DC(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cf = 0;
-  if ((*(*a1 + 904))(a1, a2, &cf))
+  if (!(*(*a1 + 904))(a1, a2, &cf))
   {
-    v6 = sub_19B444EE4(cf, a3);
-    if ((v6 & 1) == 0)
+    return 0;
+  }
+
+  v6 = sub_19B444EE4(cf, a3);
+  if ((v6 & 1) == 0)
+  {
+    if (qword_1ED71C820 != -1)
     {
+      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+    }
+
+    v7 = off_1ED71C828;
+    if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+    {
+      v8 = (*(*a1 + 840))(a1);
+      *buf = 138412546;
+      v21 = v8;
+      v22 = 2112;
+      v23 = a2;
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+    }
+
+    v9 = sub_19B420058();
+    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
+    {
+      bzero(buf, 0x65CuLL);
       if (qword_1ED71C820 != -1)
       {
         dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
       }
 
-      v7 = off_1ED71C828;
-      if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+      v10 = off_1ED71C828;
+      v11 = (*(*a1 + 840))(a1);
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = a2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v10, 17, "Unsupported type at %@:%@ (domain:key)", &v16, 22);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, double &, int) const", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        v8 = (*(*a1 + 840))(a1);
-        *buf = 138412546;
-        v20 = v8;
-        v21 = 2112;
-        v22 = a2;
-        _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+        free(v13);
       }
-
-      v9 = sub_19B420058();
-      if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1ED71C820 != -1)
-        {
-          dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-        }
-
-        v10 = (*(*a1 + 840))(a1);
-        v15 = 138412546;
-        v16 = v10;
-        v17 = 2112;
-        v18 = a2;
-        v11 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, double &, int) const", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
-        {
-          free(v11);
-        }
-      }
-    }
-
-    if (cf)
-    {
-      CFRelease(cf);
     }
   }
 
-  else
+  if (cf)
   {
-    v6 = 0;
+    CFRelease(cf);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -6357,23 +5892,22 @@ void sub_19B43D7EC(uint64_t a1, double *a2)
   v3 = *(a1 + 208);
   if (!v3)
   {
-    v4 = *(a1 + 200);
     sub_19B42CAAC();
     operator new();
   }
 
-  v5 = rint(*a2 * 1000000.0);
+  v4 = rint(*a2 * 1000000.0);
   if (*a2 < 0.0)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = v5;
+    v5 = v4;
   }
 
-  sub_19B4238F4(v3, v6);
+  sub_19B4238F4(v3, v5);
   sub_19B42D100(*(a1 + 208), sub_19B41F1A0, a1);
 }
 
@@ -6388,7 +5922,7 @@ void sub_19B43D938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_19B43D97C(uint64_t a1, const char *a2)
+void *sub_19B43D97C(uint64_t a1, const char *a2)
 {
   if (*(a1 + 180) == 1)
   {
@@ -6408,7 +5942,7 @@ uint64_t sub_19B43D9C4()
   return qword_1ED71D2D0;
 }
 
-uint64_t sub_19B43DA0C(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_19B43DA0C(uint64_t a1, const char *a2, uint64_t a3)
 {
   v3 = MEMORY[0x1E69AD368];
   v4 = objc_msgSend_main(MEMORY[0x1E69AD380], a2, a3);
@@ -6417,18 +5951,18 @@ uint64_t sub_19B43DA0C(uint64_t a1, const char *a2, uint64_t a3)
   return result;
 }
 
-void sub_19B43DB10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_19B43DB10(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x19EAE76F0](v16, v15);
+  MEMORY[0x19EAE76F0](v16, v15, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_19B43DB40(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_19B43DB40(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6)
 {
   *a1 = &unk_1F0E32D08;
   v12 = [CLNotifierClientAdapter alloc];
@@ -6464,7 +5998,7 @@ uint64_t sub_19B43DB40(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t
 
 void sub_19B43DC6C(uint64_t a1, char *a2, __IOHIDServiceClient *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (a2 == "ADDED")
   {
     v5 = objc_autoreleasePoolPush();
@@ -6488,9 +6022,9 @@ void sub_19B43DC6C(uint64_t a1, char *a2, __IOHIDServiceClient *a3)
       if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67240448;
-        v25 = v9;
-        v26 = 1026;
-        v27 = v13;
+        v28 = v9;
+        v29 = 1026;
+        v30 = v13;
         _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_DEBUG, "[CLIoHidInterface] New IOHIDServiceClientRef for usage pair {%{public}d, %{public}d} just became available.", buf, 0xEu);
       }
 
@@ -6503,50 +6037,50 @@ void sub_19B43DC6C(uint64_t a1, char *a2, __IOHIDServiceClient *a3)
           dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
         }
 
-        v16 = _os_log_send_and_compose_impl();
+        v24[0] = 67240448;
+        v24[1] = v9;
+        v25 = 1026;
+        v26 = v13;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 2, "[CLIoHidInterface] New IOHIDServiceClientRef for usage pair {%{public}d, %{public}d} just became available.", v24, 14);
+        v17 = v16;
         sub_19B6BB7CC("Generic", 1, 0, 2, "void CLIoHidInterface::onServiceRegistration(void *, IOHIDServiceClientRef)", "CoreLocation: %s\n", v16);
-        if (v16 != buf)
+        if (v17 != buf)
         {
-          free(v16);
+          free(v17);
         }
       }
     }
 
-    v17 = *(a1 + 8);
-    for (i = *(a1 + 16); v17 != i; v17 += 16)
+    v18 = *(a1 + 8);
+    for (i = *(a1 + 16); v18 != i; v18 += 16)
     {
-      v19 = *(v17 + 8);
-      if (v19)
+      v20 = *(v18 + 8);
+      if (v20)
       {
-        v20 = *v17;
-        atomic_fetch_add_explicit(&v19->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-        v21 = std::__shared_weak_count::lock(v19);
-        if (v21)
+        v21 = *v18;
+        atomic_fetch_add_explicit(&v20->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        v22 = std::__shared_weak_count::lock(v20);
+        if (v22)
         {
-          v22 = v21;
-          if (v20)
+          v23 = v22;
+          if (v21 && (sub_19B42F570(v21, a3) & 1) != 0)
           {
-            if (sub_19B42F570(v20, a3))
+            sub_19B42F5C8(v21, a3, 1);
+            if (v21[11])
             {
-              sub_19B42F5C8(v20, a3, 1);
-              if (v20[11])
-              {
-                IOHIDServiceClientRegisterRemovalCallback();
-              }
+              IOHIDServiceClientRegisterRemovalCallback();
             }
           }
 
-          sub_19B41FFEC(v22);
+          sub_19B41FFEC(v23);
         }
 
-        std::__shared_weak_count::__release_weak(v19);
+        std::__shared_weak_count::__release_weak(v20);
       }
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_19B43DFB0()
@@ -6560,7 +6094,7 @@ uint64_t sub_19B43DFB0()
   return result;
 }
 
-uint64_t sub_19B43E020()
+void *sub_19B43E020()
 {
   v0 = objc_alloc(MEMORY[0x1E69AD360]);
   result = objc_msgSend_initWithIdentifier_(v0, v1, @"CLGeomagneticModelProviderSilo");
@@ -6585,7 +6119,7 @@ uint64_t sub_19B43E33C(uint64_t a1)
 
 void sub_19B43E464(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   sub_19B43D7EC(a1, (a1 + 40));
   if (*(a1 + 201) == 1)
   {
@@ -6607,11 +6141,11 @@ void sub_19B43E464(uint64_t a1)
         v6 = *(*(a1 + 208) + 16);
         v7 = *(*(a1 + 208) + 20);
         *buf = 134349568;
-        v14 = v5;
-        v15 = 1026;
-        v16 = v7;
-        v17 = 1026;
-        v18 = v6;
+        v22 = v5;
+        v23 = 1026;
+        v24 = v7;
+        v25 = 1026;
+        v26 = v6;
         _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_DEFAULT, "[CLSensorFusionServiceSPU] FastPath opened,serviceRef,%{public}p,usagePage,%{public}d,usage,%{public}d", buf, 0x18u);
       }
 
@@ -6624,20 +6158,26 @@ void sub_19B43E464(uint64_t a1)
           dispatch_once(&qword_1ED71C800, &unk_1F0E29360);
         }
 
-        sub_19B43EE18(*(a1 + 208));
-        v11 = *(*(a1 + 208) + 20);
-        v12 = *(*(a1 + 208) + 16);
-        v9 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionServiceSPU::start()", "CoreLocation: %s\n", v9);
-        if (v9 != buf)
+        v9 = off_1ED71C808;
+        v10 = sub_19B43EE18(*(a1 + 208));
+        v11 = *(*(a1 + 208) + 16);
+        v12 = *(*(a1 + 208) + 20);
+        v15 = 134349568;
+        v16 = v10;
+        v17 = 1026;
+        v18 = v12;
+        v19 = 1026;
+        v20 = v11;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v9, 0, "[CLSensorFusionServiceSPU] FastPath opened,serviceRef,%{public}p,usagePage,%{public}d,usage,%{public}d", &v15, 24);
+        v14 = v13;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionServiceSPU::start()", "CoreLocation: %s\n", v13);
+        if (v14 != buf)
         {
-          free(v9);
+          free(v14);
         }
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_19B43E69C(uint64_t a1, char *a2, void *a3)
@@ -6670,7 +6210,7 @@ void sub_19B43E72C(_Unwind_Exception *exception_object)
 
 uint64_t sub_19B43E748(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   Current = CFRunLoopGetCurrent();
   sub_19B420D84();
   if (Current != *qword_1ED71C908)
@@ -6680,58 +6220,58 @@ uint64_t sub_19B43E748(uint64_t a1)
       dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
     }
 
-    v18 = off_1ED71C838;
+    v20 = off_1ED71C838;
     p_vtable = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      *v23 = 0;
-      *&v23[4] = 2082;
-      *&v23[6] = "";
-      v24 = 2082;
-      v25 = "assert";
-      v26 = 2081;
-      v27 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[FastPathDevice] openFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v27 = 0;
+      *&v27[4] = 2082;
+      *&v27[6] = "";
+      v28 = 2082;
+      v29 = "assert";
+      v30 = 2081;
+      v31 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[FastPathDevice] openFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
       }
     }
 
-    v19 = off_1ED71C838;
+    v21 = off_1ED71C838;
     if (os_signpost_enabled(off_1ED71C838))
     {
       *buf = 68289539;
-      *v23 = 0;
-      *&v23[4] = 2082;
-      *&v23[6] = "";
-      v24 = 2082;
-      v25 = "assert";
-      v26 = 2081;
-      v27 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[FastPathDevice] openFastPathPrivate() should be running on motion thread", "{msg%{public}.0s:[FastPathDevice] openFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v27 = 0;
+      *&v27[4] = 2082;
+      *&v27[6] = "";
+      v28 = 2082;
+      v29 = "assert";
+      v30 = 2081;
+      v31 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[FastPathDevice] openFastPathPrivate() should be running on motion thread", "{msg%{public}.0s:[FastPathDevice] openFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
       }
     }
 
-    v20 = off_1ED71C838;
+    v22 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      *v23 = 0;
-      *&v23[4] = 2082;
-      *&v23[6] = "";
-      v24 = 2082;
-      v25 = "assert";
-      v26 = 2081;
-      v27 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[FastPathDevice] openFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v27 = 0;
+      *&v27[4] = 2082;
+      *&v27[6] = "";
+      v28 = 2082;
+      v29 = "assert";
+      v30 = 2081;
+      v31 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[FastPathDevice] openFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/IO/CLIoHidFastPathDevice.mm", 66, "openFastPathPrivate");
     goto LABEL_59;
   }
 
@@ -6757,16 +6297,19 @@ LABEL_4:
           dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
         }
 
-        v6 = _os_log_send_and_compose_impl();
+        LOWORD(v24) = 0;
+        LODWORD(v23) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 17, "[FastPath] Already opened", &v24, v23);
+        v7 = v6;
         sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL FastPathDevice::openFastPathPrivate()", "CoreLocation: %s\n", v6);
-        if (v6 != buf)
+        if (v7 != buf)
         {
-          free(v6);
+          free(v7);
         }
       }
 
-      v7 = 1;
-      goto LABEL_29;
+      v8 = 1;
+      return v8 & 1;
     }
 
 LABEL_59:
@@ -6777,7 +6320,6 @@ LABEL_59:
   if (*(a1 + 24) || (sub_19B782B40(a1) & 1) != 0)
   {
     os_unfair_lock_lock((a1 + 176));
-    v8 = *(a1 + 24);
     *(a1 + 180) = IOHIDServiceClientFastPathInit() != 0;
     os_unfair_lock_unlock((a1 + 176));
     if ((*(a1 + 180) & 1) == 0)
@@ -6792,7 +6334,7 @@ LABEL_59:
       {
         v10 = *(a1 + 24);
         *buf = 138543362;
-        *v23 = v10;
+        *v27 = v10;
         _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_ERROR, "[FastPath] openFastPathPrivate() failed,serviceRef,%{public}@", buf, 0xCu);
       }
 
@@ -6805,17 +6347,20 @@ LABEL_59:
           dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
         }
 
-        v21 = *(a1 + 24);
-        v12 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL FastPathDevice::openFastPathPrivate()", "CoreLocation: %s\n", v12);
-        if (v12 != buf)
+        v12 = *(a1 + 24);
+        v24 = 138543362;
+        v25 = v12;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "[FastPath] openFastPathPrivate() failed,serviceRef,%{public}@", &v24, 12);
+        v14 = v13;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL FastPathDevice::openFastPathPrivate()", "CoreLocation: %s\n", v13);
+        if (v14 != buf)
         {
-          free(v12);
+          free(v14);
         }
       }
     }
 
-    v7 = *(a1 + 180);
+    v8 = *(a1 + 180);
   }
 
   else
@@ -6825,15 +6370,15 @@ LABEL_59:
       dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
     }
 
-    v15 = off_1ED71C838;
+    v16 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_ERROR, "[FastPath] Failed to open because of null service ref", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_ERROR, "[FastPath] Failed to open because of null service ref", buf, 2u);
     }
 
-    v16 = sub_19B420058();
-    if ((*(v16 + 160) & 0x80000000) == 0 || (*(v16 + 164) & 0x80000000) == 0 || (*(v16 + 168) & 0x80000000) == 0 || (v7 = *(v16 + 152)) != 0)
+    v17 = sub_19B420058();
+    if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || (v8 = *(v17 + 152)) != 0)
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C830 != -1)
@@ -6841,25 +6386,25 @@ LABEL_59:
         dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
       }
 
-      v17 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL FastPathDevice::openFastPathPrivate()", "CoreLocation: %s\n", v17);
-      if (v17 != buf)
+      LOWORD(v24) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "[FastPath] Failed to open because of null service ref", &v24, 2);
+      v19 = v18;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "BOOL FastPathDevice::openFastPathPrivate()", "CoreLocation: %s\n", v18);
+      if (v19 != buf)
       {
-        free(v17);
+        free(v19);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
-LABEL_29:
-  v13 = *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v8 & 1;
 }
 
 uint64_t sub_19B43EE18(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   Current = CFRunLoopGetCurrent();
   sub_19B420D84();
   if (Current != *qword_1ED71C908)
@@ -6869,18 +6414,36 @@ uint64_t sub_19B43EE18(uint64_t a1)
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
     }
 
-    v5 = off_1ED71C838;
+    v4 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[CLIoHidInterface] Should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[CLIoHidInterface] Should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1ED71C830 != -1)
+      {
+        dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
+      }
+    }
+
+    v5 = off_1ED71C838;
+    if (os_signpost_enabled(off_1ED71C838))
+    {
+      *buf = 68289539;
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[CLIoHidInterface] Should be running on motion thread", "{msg%{public}.0s:[CLIoHidInterface] Should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
@@ -6888,46 +6451,26 @@ uint64_t sub_19B43EE18(uint64_t a1)
     }
 
     v6 = off_1ED71C838;
-    if (os_signpost_enabled(off_1ED71C838))
-    {
-      *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[CLIoHidInterface] Should be running on motion thread", "{msg%{public}.0s:[CLIoHidInterface] Should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1ED71C830 != -1)
-      {
-        dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
-      }
-    }
-
-    v7 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = "";
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[CLIoHidInterface] Should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v8 = 0;
+      v9 = 2082;
+      v10 = "";
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[CLIoHidInterface] Should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/IO/CLIoHidInterface.mm", 711, "getServiceRef");
   }
 
-  result = *(a1 + 24);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return *(a1 + 24);
 }
 
-void sub_19B43F0AC(uint64_t a1, double *a2)
+void sub_19B43F0AC(double *result, double *a2)
 {
   v4 = a2[2];
   v5 = a2[3] + a2[3];
@@ -6938,8 +6481,8 @@ void sub_19B43F0AC(uint64_t a1, double *a2)
   if (v9 == 0.0)
   {
     v10 = *(a2 + 1);
-    *a1 = *a2;
-    *(a1 + 16) = v10;
+    *result = *a2;
+    *(result + 1) = v10;
   }
 
   else
@@ -6971,7 +6514,7 @@ void sub_19B43F0AC(uint64_t a1, double *a2)
       v20 = -(v16.__sinval / v13 * v7);
     }
 
-    sub_19B43F1C8(a1, &cosval, a2);
+    sub_19B43F1C8(result, &cosval, a2);
   }
 }
 
@@ -6997,7 +6540,7 @@ double sub_19B43F1C8(double *a1, double *a2, double *a3)
 
 void sub_19B43F5A4(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C800 != -1)
   {
     dispatch_once(&qword_1ED71C800, &unk_1F0E2A700);
@@ -7022,25 +6565,27 @@ void sub_19B43F5A4(uint64_t a1)
       dispatch_once(&qword_1ED71C800, &unk_1F0E2A700);
     }
 
+    v5 = off_1ED71C808;
     sub_19B420D84();
-    v5 = *_CFGetProgname();
-    LODWORD(v10[0]) = 136446210;
-    *(v10 + 4) = v5;
-    v6 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionService3AxisDynamicGyro::start()", "CoreLocation: %s\n", v6);
-    if (v6 != buf)
+    v6 = *_CFGetProgname();
+    *v12 = 136446210;
+    *&v12[4] = v6;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v5, 1, "%{public}s is enabling power conservative device motion for parallax.", v12, 12);
+    v8 = v7;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionService3AxisDynamicGyro::start()", "CoreLocation: %s\n", v7);
+    if (v8 != buf)
     {
-      free(v6);
+      free(v8);
     }
   }
 
   sub_19B43F988(a1 + 296);
   *buf = 0;
-  v9 = 0xBFF0000000000000;
-  v10[0] = 0.0;
-  v7 = mach_absolute_time();
-  v8 = sub_19B41E070(v7);
-  sub_19B440520(a1 + 296, buf, v10, &v9, &v8);
+  v11 = 0xBFF0000000000000;
+  *v12 = 0;
+  v9 = mach_absolute_time();
+  v10 = sub_19B41E070(v9);
+  sub_19B440520(a1 + 296, buf, v12, &v11, &v10);
   operator new();
 }
 
@@ -7112,8 +6657,9 @@ LABEL_7:
   a1[2] = 0;
 }
 
-void sub_19B43FB18(uint64_t a1, char a2, int a3)
+void sub_19B43FB18(uint64_t a1, uint64_t a2, int a3)
 {
+  v3 = a2;
   v5 = sub_19B43CCBC(a1, a3);
   v6 = *(v5 + 8);
   *(v5 + 256) = 0;
@@ -7129,7 +6675,7 @@ void sub_19B43FB18(uint64_t a1, char a2, int a3)
   *(v5 + 288) = 0;
   v7 = sub_19B42AD98();
   v8 = sub_19B43D788(v7, (a1 + 24));
-  sub_19B43FCD0(a1 + 296, &v8, a1 + 16, a2);
+  sub_19B43FCD0(a1 + 296, &v8, (a1 + 16), v3);
 }
 
 void sub_19B43FC24(_Unwind_Exception *a1)
@@ -7176,9 +6722,8 @@ LABEL_7:
   a1[3] = 0;
 }
 
-void sub_19B43FCD0(uint64_t a1, void *a2, uint64_t a3, char a4)
+void sub_19B43FCD0(uint64_t a1, void *a2, double *a3, char a4)
 {
-  v9 = *MEMORY[0x1E69E9840];
   *(a1 + 8) = 0;
   *a1 = &unk_1F0E32A20;
   *(a1 + 10) = 0;
@@ -7239,9 +6784,9 @@ void sub_19B4404F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
+void sub_19B440520(uint64_t a1, float64_t *a2, double *a3, double *a4, void *a5)
 {
-  v205 = *MEMORY[0x1E69E9840];
+  v220 = *MEMORY[0x1E69E9840];
   v10.f64[0] = *a2;
   v11 = *a2;
   *(a1 + 184) = v11;
@@ -7264,7 +6809,7 @@ void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
     *(a1 + 600) = 0;
     sub_19B4425C0((a1 + 576), (a1 + 16));
     *(a1 + 8) = 1;
-    goto LABEL_174;
+    return;
   }
 
   if (*(a1 + 224) == 1)
@@ -7275,24 +6820,24 @@ void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
     v20 = *(a1 + 568) * 0.1 + v14 * 0.9;
     *(a1 + 568) = v20;
     *buf = v19.f32[0];
-    *v174 = v19.f32[1];
-    v194 = v20;
+    *v189 = v19.f32[1];
+    v209 = v20;
     sub_19B66F590(a1 + 320, buf);
-    sub_19B66F590(a1 + 400, v174);
-    sub_19B66F590(a1 + 480, &v194);
+    sub_19B66F590(a1 + 400, v189);
+    sub_19B66F590(a1 + 480, &v209);
   }
 
   v21 = *a5;
   *(a1 + 176) = *a5;
   if (!*(a1 + 148))
   {
-    goto LABEL_174;
+    return;
   }
 
   v22 = *(a1 + 168);
   if (v21 < v22)
   {
-    goto LABEL_174;
+    return;
   }
 
   if (*(a1 + 196) == 1)
@@ -7317,15 +6862,15 @@ void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
       *&buf[12] = 2048;
       *&buf[14] = v25;
       *&buf[22] = 2048;
-      v185 = v26;
-      v186 = 2048;
-      v187 = v27;
-      v188 = 2048;
-      v189 = v28;
-      v190 = 2048;
-      v191 = v29;
-      v192 = 2048;
-      v193 = v30;
+      v200 = v26;
+      v201 = 2048;
+      v202 = v27;
+      v203 = 2048;
+      v204 = v28;
+      v205 = 2048;
+      v206 = v29;
+      v207 = 2048;
+      v208 = v30;
       _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_DEBUG, "[Accelerometer6] x,%.4f,y,%.4f,z,%.4f,lpf, %.4f, %.4f, %.4f, timestamp,%lf", buf, 0x48u);
     }
 
@@ -7345,25 +6890,27 @@ void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
       v36 = *(a1 + 564);
       v37 = *(a1 + 568);
       v38 = *a5;
-      *v174 = 134219520;
-      *&v174[4] = v32;
-      *&v174[12] = 2048;
-      *&v174[14] = v33;
-      *&v174[22] = 2048;
-      v175 = v34;
-      v176 = 2048;
-      v177 = v35;
-      v178 = 2048;
-      v179 = v36;
-      v180 = 2048;
-      v181 = v37;
-      v182 = 2048;
-      v183 = v38;
-      v39 = _os_log_send_and_compose_impl();
+      *v189 = 134219520;
+      *&v189[4] = v32;
+      *&v189[12] = 2048;
+      *&v189[14] = v33;
+      *&v189[22] = 2048;
+      v190 = v34;
+      v191 = 2048;
+      v192 = v35;
+      v193 = 2048;
+      v194 = v36;
+      v195 = 2048;
+      v196 = v37;
+      v197 = 2048;
+      v198 = v38;
+      LODWORD(v179) = 72;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2898, 2, "[Accelerometer6] x,%.4f,y,%.4f,z,%.4f,lpf, %.4f, %.4f, %.4f, timestamp,%lf", COERCE_DOUBLE(v189), v179, v180, v181, v182, v183, v184);
+      v40 = v39;
       sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v39);
-      if (v39 != buf)
+      if (v40 != buf)
       {
-        free(v39);
+        free(v40);
       }
     }
 
@@ -7372,48 +6919,48 @@ void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
       dispatch_once(&qword_1EAFE2890, &unk_1F0E28080);
     }
 
-    v40 = qword_1EAFE2898;
+    v41 = qword_1EAFE2898;
     if (os_log_type_enabled(qword_1EAFE2898, OS_LOG_TYPE_DEBUG))
     {
-      v41 = *(a1 + 156);
-      v42 = *(a1 + 160);
-      v43 = *(a1 + 164);
-      v44 = *(a1 + 296);
-      v45 = 0.0;
-      if (v44)
+      v42 = *(a1 + 156);
+      v43 = *(a1 + 160);
+      v44 = *(a1 + 164);
+      v45 = *(a1 + 296);
+      v46 = 0.0;
+      if (v45)
       {
-        v46 = *(a1 + 248);
-        v47 = (v46 / v44);
-        if (v44 != 1)
+        v47 = *(a1 + 248);
+        v48 = (v47 / v45);
+        if (v45 != 1)
         {
-          v48 = (v44 * *(a1 + 252)) - (v46 * v46);
-          if (v48 >= 0.0)
+          v49 = (v45 * *(a1 + 252)) - (v47 * v47);
+          if (v49 >= 0.0)
           {
-            v45 = (v48 / ((v44 - 1) * v44));
+            v46 = (v49 / ((v45 - 1) * v45));
           }
         }
       }
 
       else
       {
-        v47 = 0.0;
+        v48 = 0.0;
       }
 
       *buf = 134219008;
-      *&buf[4] = v41;
+      *&buf[4] = v42;
       *&buf[12] = 2048;
-      *&buf[14] = v42;
+      *&buf[14] = v43;
       *&buf[22] = 2048;
-      v185 = v43;
-      v186 = 2048;
-      v187 = v47;
-      v188 = 2048;
-      v189 = v45;
-      _os_log_impl(&dword_19B41C000, v40, OS_LOG_TYPE_DEBUG, "[RotationRate6X] %.3f, %.3f, %.3f, %.3f, %.3f", buf, 0x34u);
+      v200 = v44;
+      v201 = 2048;
+      v202 = v48;
+      v203 = 2048;
+      v204 = v46;
+      _os_log_impl(&dword_19B41C000, v41, OS_LOG_TYPE_DEBUG, "[RotationRate6X] %.3f, %.3f, %.3f, %.3f, %.3f", buf, 0x34u);
     }
 
-    v49 = sub_19B420058();
-    if (*(v49 + 160) > 1 || *(v49 + 164) > 1 || *(v49 + 168) > 1 || *(v49 + 152))
+    v50 = sub_19B420058();
+    if (*(v50 + 160) > 1 || *(v50 + 164) > 1 || *(v50 + 168) > 1 || *(v50 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2890 != -1)
@@ -7421,64 +6968,66 @@ void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
         dispatch_once(&qword_1EAFE2890, &unk_1F0E28080);
       }
 
-      v50 = *(a1 + 156);
-      v51 = *(a1 + 160);
-      v52 = *(a1 + 164);
-      v53 = *(a1 + 296);
-      v54 = 0.0;
-      if (v53)
+      v51 = *(a1 + 156);
+      v52 = *(a1 + 160);
+      v53 = *(a1 + 164);
+      v54 = *(a1 + 296);
+      v55 = 0.0;
+      if (v54)
       {
-        v55 = *(a1 + 248);
-        v56 = (v55 / v53);
-        if (v53 != 1)
+        v56 = *(a1 + 248);
+        v57 = (v56 / v54);
+        if (v54 != 1)
         {
-          v57 = (v53 * *(a1 + 252)) - (v55 * v55);
-          if (v57 >= 0.0)
+          v58 = (v54 * *(a1 + 252)) - (v56 * v56);
+          if (v58 >= 0.0)
           {
-            v54 = (v57 / ((v53 - 1) * v53));
+            v55 = (v58 / ((v54 - 1) * v54));
           }
         }
       }
 
       else
       {
-        v56 = 0.0;
+        v57 = 0.0;
       }
 
-      *v174 = 134219008;
-      *&v174[4] = v50;
-      *&v174[12] = 2048;
-      *&v174[14] = v51;
-      *&v174[22] = 2048;
-      v175 = v52;
-      v176 = 2048;
-      v177 = v56;
-      v178 = 2048;
-      v179 = v54;
-      v58 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v58);
-      if (v58 != buf)
+      *v189 = 134219008;
+      *&v189[4] = v51;
+      *&v189[12] = 2048;
+      *&v189[14] = v52;
+      *&v189[22] = 2048;
+      v190 = v53;
+      v191 = 2048;
+      v192 = v57;
+      v193 = 2048;
+      v194 = v55;
+      LODWORD(v179) = 52;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2898, 2, "[RotationRate6X] %.3f, %.3f, %.3f, %.3f, %.3f", COERCE_DOUBLE(v189), v179, v180, v181, v182);
+      v60 = v59;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v59);
+      if (v60 != buf)
       {
-        free(v58);
+        free(v60);
       }
     }
   }
 
-  v59 = *a2;
-  v60 = *a3;
-  v61 = *a4;
+  v61 = *a2;
+  v62 = *a3;
+  v63 = *a4;
   LODWORD(v22) = *(a1 + 136);
   LODWORD(v21) = *(a1 + 140);
-  v170 = *&v21;
-  v171 = *&v22;
-  v62 = *(a1 + 144);
-  v63 = *(a1 + 148);
+  v185 = *&v21;
+  v186 = *&v22;
+  v64 = *(a1 + 144);
+  v65 = *(a1 + 148);
   sub_19B66E618(a1, v21, *&v22);
-  v64 = sqrt(v60 * v60 + v59 * v59 + v61 * v61);
-  v65 = fabs(v64 + -1.0) / v64;
-  if (v65 > 0.1)
+  v66 = sqrt(v62 * v62 + v61 * v61 + v63 * v63);
+  v67 = fabs(v66 + -1.0) / v66;
+  if (v67 > 0.1)
   {
-    goto LABEL_174;
+    return;
   }
 
   if (*(a1 + 224) != 1 || *(a1 + 616))
@@ -7486,128 +7035,36 @@ void sub_19B440520(uint64_t a1, double *a2, double *a3, double *a4, void *a5)
     goto LABEL_45;
   }
 
-  v112 = fabsf(*(a1 + 156));
-  if (v112 > 10.0)
+  v117 = fabsf(*(a1 + 156));
+  if (v117 > 10.0)
   {
     goto LABEL_173;
   }
 
-  v113 = fabsf(*(a1 + 160));
-  if (v113 > 10.0)
+  v118 = fabsf(*(a1 + 160));
+  if (v118 > 10.0)
   {
     goto LABEL_173;
   }
 
-  v114 = fabsf(*(a1 + 164));
-  if (v114 > 10.0)
+  v119 = fabsf(*(a1 + 164));
+  if (v119 > 10.0)
   {
     goto LABEL_173;
   }
 
-  v115 = *(a1 + 296);
-  if (v115)
+  v120 = *(a1 + 296);
+  if (v120)
   {
-    if ((*(a1 + 248) / v115) > 10.0)
+    if ((*(a1 + 248) / v120) > 10.0)
     {
       goto LABEL_173;
     }
   }
 
-  if (v112 > 3.14159265 || v113 > 3.14159265 || v114 > 3.14159265 || v115 && (*(a1 + 248) / v115) > 3.14159265)
+  if (v117 > 3.14159265 || v118 > 3.14159265 || v119 > 3.14159265 || v120 && (*(a1 + 248) / v120) > 3.14159265)
   {
-    if (v115 < 2 || (v116 = (v115 * *(a1 + 252)) - (*(a1 + 248) * *(a1 + 248)), v116 < 0.0) || (v116 / ((v115 - 1) * v115)) < 1.25)
-    {
-      sub_19B4425C0((a1 + 576), (a1 + 16));
-      if (*(a1 + 196) == 1)
-      {
-        if (qword_1ED71C800 != -1)
-        {
-          dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
-        }
-
-        v117 = off_1ED71C808;
-        if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_19B41C000, v117, OS_LOG_TYPE_DEBUG, "rotating and going through.", buf, 2u);
-        }
-
-        v118 = sub_19B420058();
-        if (*(v118 + 160) > 1 || *(v118 + 164) > 1 || *(v118 + 168) > 1 || *(v118 + 152))
-        {
-          bzero(buf, 0x65CuLL);
-          if (qword_1ED71C800 != -1)
-          {
-            dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
-          }
-
-          *v174 = 0;
-          v119 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v119);
-          if (v119 != buf)
-          {
-            free(v119);
-          }
-        }
-      }
-
-      goto LABEL_45;
-    }
-  }
-
-  sub_19B66F0F4(a1 + 304, &v194);
-  v169 = sqrt(v196 * v196 + v195 * v195 + v197 * v197);
-  v120 = *(a1 + 608);
-  if (v120 > 0.0 && *(a1 + 176) - v120 > 15.0 && v169 < 0.3)
-  {
-    sub_19B66F1D4(a1 + 304, buf);
-    if (fabs(sqrt(*&buf[16] * *&buf[16] + *&buf[8] * *&buf[8] + v185 * v185) + -1.0) <= 0.1)
-    {
-      *(a1 + 616) = 10;
-      if (*(a1 + 196) != 1)
-      {
-        goto LABEL_240;
-      }
-
-      if (qword_1ED71C800 != -1)
-      {
-        dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
-      }
-
-      v148 = off_1ED71C808;
-      if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_19B41C000, v148, OS_LOG_TYPE_DEBUG, "it's been too long. go through.", buf, 2u);
-      }
-
-      v149 = sub_19B420058();
-      if (*(v149 + 160) <= 1 && *(v149 + 164) <= 1 && *(v149 + 168) <= 1 && !*(v149 + 152))
-      {
-        goto LABEL_240;
-      }
-
-      bzero(buf, 0x65CuLL);
-      if (qword_1ED71C800 == -1)
-      {
-        goto LABEL_185;
-      }
-
-      goto LABEL_259;
-    }
-  }
-
-  if (*(a1 + 392) <= (*(a1 + 312) * 0.5))
-  {
-LABEL_173:
-    sub_19B4425C0((a1 + 576), (a1 + 16));
-    goto LABEL_174;
-  }
-
-  v121 = *(a1 + 296);
-  if (v121)
-  {
-    if (*(*(*(a1 + 264) + (((v121 + *(a1 + 288) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v121 + *(a1 + 288) - 1) & 0x3FF)) > 0.2)
+    if (v120 < 2 || (v121 = (v120 * *(a1 + 252)) - (*(a1 + 248) * *(a1 + 248)), v121 < 0.0) || (v121 / ((v120 - 1) * v120)) < 1.25)
     {
       sub_19B4425C0((a1 + 576), (a1 + 16));
       if (*(a1 + 196) == 1)
@@ -7620,20 +7077,12 @@ LABEL_173:
         v122 = off_1ED71C808;
         if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
         {
-          v123 = *(a1 + 576);
-          v124 = *(a1 + 584);
-          v125 = *(a1 + 592);
-          *buf = 134218496;
-          *&buf[4] = v123;
-          *&buf[12] = 2048;
-          *&buf[14] = v124;
-          *&buf[22] = 2048;
-          v185 = v125;
-          _os_log_impl(&dword_19B41C000, v122, OS_LOG_TYPE_DEBUG, "grabing gravity, %.4f, %.4f, %.4f", buf, 0x20u);
+          *buf = 0;
+          _os_log_impl(&dword_19B41C000, v122, OS_LOG_TYPE_DEBUG, "rotating and going through.", buf, 2u);
         }
 
-        v126 = sub_19B420058();
-        if (*(v126 + 160) > 1 || *(v126 + 164) > 1 || *(v126 + 168) > 1 || *(v126 + 152))
+        v123 = sub_19B420058();
+        if (*(v123 + 160) > 1 || *(v123 + 164) > 1 || *(v123 + 168) > 1 || *(v123 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1ED71C800 != -1)
@@ -7641,46 +7090,161 @@ LABEL_173:
             dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
           }
 
-          v127 = *(a1 + 576);
-          v128 = *(a1 + 584);
-          v129 = *(a1 + 592);
-          *v174 = 134218496;
-          *&v174[4] = v127;
-          *&v174[12] = 2048;
-          *&v174[14] = v128;
-          *&v174[22] = 2048;
-          v175 = v129;
-          v130 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v130);
-          if (v130 != buf)
+          *v189 = 0;
+          LODWORD(v179) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "rotating and going through.", v189, *&v179);
+          v125 = v124;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v124);
+          if (v125 != buf)
           {
-            free(v130);
+            free(v125);
+          }
+        }
+      }
+
+      goto LABEL_45;
+    }
+  }
+
+  sub_19B66F0F4(a1 + 304, &v209);
+  v184 = sqrt(v211 * v211 + v210 * v210 + v212 * v212);
+  v126 = *(a1 + 608);
+  if (v126 > 0.0 && *(a1 + 176) - v126 > 15.0 && v184 < 0.3)
+  {
+    sub_19B66F1D4(a1 + 304, buf);
+    if (fabs(sqrt(*&buf[16] * *&buf[16] + *&buf[8] * *&buf[8] + v200 * v200) + -1.0) <= 0.1)
+    {
+      *(a1 + 616) = 10;
+      if (*(a1 + 196) != 1)
+      {
+        goto LABEL_243;
+      }
+
+      if (qword_1ED71C800 != -1)
+      {
+        dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
+      }
+
+      v156 = off_1ED71C808;
+      if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_19B41C000, v156, OS_LOG_TYPE_DEBUG, "it's been too long. go through.", buf, 2u);
+      }
+
+      v157 = sub_19B420058();
+      if (*(v157 + 160) <= 1 && *(v157 + 164) <= 1 && *(v157 + 168) <= 1 && !*(v157 + 152))
+      {
+        goto LABEL_243;
+      }
+
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C800 != -1)
+      {
+        dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
+      }
+
+      *v189 = 0;
+      LODWORD(v179) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "it's been too long. go through.", v189, *&v179);
+      v159 = v158;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v158);
+LABEL_187:
+      if (v159 != buf)
+      {
+        free(v159);
+      }
+
+      goto LABEL_243;
+    }
+  }
+
+  if (*(a1 + 392) <= (*(a1 + 312) * 0.5))
+  {
+LABEL_173:
+    sub_19B4425C0((a1 + 576), (a1 + 16));
+    return;
+  }
+
+  v127 = *(a1 + 296);
+  if (v127)
+  {
+    if (*(*(*(a1 + 264) + (((v127 + *(a1 + 288) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v127 + *(a1 + 288) - 1) & 0x3FF)) > 0.2)
+    {
+      sub_19B4425C0((a1 + 576), (a1 + 16));
+      if (*(a1 + 196) == 1)
+      {
+        if (qword_1ED71C800 != -1)
+        {
+          dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
+        }
+
+        v128 = off_1ED71C808;
+        if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
+        {
+          v129 = *(a1 + 576);
+          v130 = *(a1 + 584);
+          v131 = *(a1 + 592);
+          *buf = 134218496;
+          *&buf[4] = v129;
+          *&buf[12] = 2048;
+          *&buf[14] = v130;
+          *&buf[22] = 2048;
+          v200 = v131;
+          _os_log_impl(&dword_19B41C000, v128, OS_LOG_TYPE_DEBUG, "grabing gravity, %.4f, %.4f, %.4f", buf, 0x20u);
+        }
+
+        v132 = sub_19B420058();
+        if (*(v132 + 160) > 1 || *(v132 + 164) > 1 || *(v132 + 168) > 1 || *(v132 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1ED71C800 != -1)
+          {
+            dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
+          }
+
+          v133 = *(a1 + 576);
+          v134 = *(a1 + 584);
+          v135 = *(a1 + 592);
+          *v189 = 134218496;
+          *&v189[4] = v133;
+          *&v189[12] = 2048;
+          *&v189[14] = v134;
+          *&v189[22] = 2048;
+          v190 = v135;
+          LODWORD(v179) = 32;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "grabing gravity, %.4f, %.4f, %.4f", COERCE_DOUBLE(v189), v179, v180);
+          v137 = v136;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v136);
+          if (v137 != buf)
+          {
+            free(v137);
           }
         }
       }
     }
   }
 
-  if (v169 <= *(a1 + 216) * 0.75)
+  if (v184 <= *(a1 + 216) * 0.75)
   {
-    goto LABEL_240;
+    goto LABEL_243;
   }
 
-  v131 = *(a1 + 576);
-  v132 = *(a1 + 584);
-  v133 = *(a1 + 592);
-  v134 = fabs(v196 * v132 + v195 * v131 + v197 * v133);
-  v168 = v169 - v134;
-  v135 = *(a1 + 336);
-  v136 = *(a1 + 416);
-  v137 = *(a1 + 496);
-  v200 = &unk_1F0E33EB0;
-  v138 = v132 * v136 + v135 * v131 + v137 * v133;
-  v201 = v135 - v138 * v131;
-  v202 = v136 - v138 * v132;
-  v203 = v137 - v138 * v133;
-  v166 = v138;
-  v167 = fabs(v203) + fabs(v201) + fabs(v202);
+  v138 = *(a1 + 576);
+  v139 = *(a1 + 584);
+  v140 = *(a1 + 592);
+  v141 = fabs(v211 * v139 + v210 * v138 + v212 * v140);
+  v183 = v184 - v141;
+  v142 = *(a1 + 336);
+  v143 = *(a1 + 416);
+  v144 = *(a1 + 496);
+  v215 = &unk_1F0E33EB0;
+  v145 = v139 * v143 + v142 * v138 + v144 * v140;
+  v216 = v142 - v145 * v138;
+  v217 = v143 - v145 * v139;
+  v218 = v144 - v145 * v140;
+  v181 = v145;
+  v182 = fabs(v218) + fabs(v216) + fabs(v217);
   if (*(a1 + 196) == 1)
   {
     if (qword_1ED71C800 != -1)
@@ -7688,26 +7252,26 @@ LABEL_173:
       dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
     }
 
-    v139 = off_1ED71C808;
+    v146 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134219264;
-      *&buf[4] = v195;
+      *&buf[4] = v210;
       *&buf[12] = 2048;
-      *&buf[14] = v196;
+      *&buf[14] = v211;
       *&buf[22] = 2048;
-      v185 = v197;
-      v186 = 2048;
-      v187 = v169;
-      v188 = 2048;
-      v189 = v134;
-      v190 = 2048;
-      v191 = v169 - v134;
-      _os_log_impl(&dword_19B41C000, v139, OS_LOG_TYPE_DEBUG, "std, %.3f, %.3f, %.3f, mag, %.3f, dot, %.3f, leftover, %.3f", buf, 0x3Eu);
+      v200 = v212;
+      v201 = 2048;
+      v202 = v184;
+      v203 = 2048;
+      v204 = v141;
+      v205 = 2048;
+      v206 = v184 - v141;
+      _os_log_impl(&dword_19B41C000, v146, OS_LOG_TYPE_DEBUG, "std, %.3f, %.3f, %.3f, mag, %.3f, dot, %.3f, leftover, %.3f", buf, 0x3Eu);
     }
 
-    v140 = sub_19B420058();
-    if (*(v140 + 160) > 1 || *(v140 + 164) > 1 || *(v140 + 168) > 1 || *(v140 + 152))
+    v147 = sub_19B420058();
+    if (*(v147 + 160) > 1 || *(v147 + 164) > 1 || *(v147 + 168) > 1 || *(v147 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C800 != -1)
@@ -7715,23 +7279,25 @@ LABEL_173:
         dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
       }
 
-      *v174 = 134219264;
-      *&v174[4] = v195;
-      *&v174[12] = 2048;
-      *&v174[14] = v196;
-      *&v174[22] = 2048;
-      v175 = v197;
-      v176 = 2048;
-      v177 = v169;
-      v178 = 2048;
-      v179 = v134;
-      v180 = 2048;
-      v181 = v169 - v134;
-      v141 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v141);
-      if (v141 != buf)
+      *v189 = 134219264;
+      *&v189[4] = v210;
+      *&v189[12] = 2048;
+      *&v189[14] = v211;
+      *&v189[22] = 2048;
+      v190 = v212;
+      v191 = 2048;
+      v192 = v184;
+      v193 = 2048;
+      v194 = v141;
+      v195 = 2048;
+      v196 = v184 - v141;
+      LODWORD(v179) = 62;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "std, %.3f, %.3f, %.3f, mag, %.3f, dot, %.3f, leftover, %.3f", COERCE_DOUBLE(v189), v179, v180, v181, v182, v183);
+      v149 = v148;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v148);
+      if (v149 != buf)
       {
-        free(v141);
+        free(v149);
       }
     }
 
@@ -7740,24 +7306,24 @@ LABEL_173:
       dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
     }
 
-    v142 = off_1ED71C808;
+    v150 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134219008;
-      *&buf[4] = v201;
+      *&buf[4] = v216;
       *&buf[12] = 2048;
-      *&buf[14] = v202;
+      *&buf[14] = v217;
       *&buf[22] = 2048;
-      v185 = v203;
-      v186 = 2048;
-      v187 = v166;
-      v188 = 2048;
-      v189 = v167;
-      _os_log_impl(&dword_19B41C000, v142, OS_LOG_TYPE_DEBUG, "sum, %.3f, %.3f, %.3f, dot, %.3f, leftover, %.3f", buf, 0x34u);
+      v200 = v218;
+      v201 = 2048;
+      v202 = v181;
+      v203 = 2048;
+      v204 = v182;
+      _os_log_impl(&dword_19B41C000, v150, OS_LOG_TYPE_DEBUG, "sum, %.3f, %.3f, %.3f, dot, %.3f, leftover, %.3f", buf, 0x34u);
     }
 
-    v143 = sub_19B420058();
-    if (*(v143 + 160) > 1 || *(v143 + 164) > 1 || *(v143 + 168) > 1 || *(v143 + 152))
+    v151 = sub_19B420058();
+    if (*(v151 + 160) > 1 || *(v151 + 164) > 1 || *(v151 + 168) > 1 || *(v151 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C800 != -1)
@@ -7765,80 +7331,82 @@ LABEL_173:
         dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
       }
 
-      *v174 = 134219008;
-      *&v174[4] = v201;
-      *&v174[12] = 2048;
-      *&v174[14] = v202;
-      *&v174[22] = 2048;
-      v175 = v203;
-      v176 = 2048;
-      v177 = v166;
-      v178 = 2048;
-      v179 = v167;
-      v144 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v144);
-      if (v144 != buf)
+      *v189 = 134219008;
+      *&v189[4] = v216;
+      *&v189[12] = 2048;
+      *&v189[14] = v217;
+      *&v189[22] = 2048;
+      v190 = v218;
+      v191 = 2048;
+      v192 = v181;
+      v193 = 2048;
+      v194 = v182;
+      LODWORD(v179) = 52;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "sum, %.3f, %.3f, %.3f, dot, %.3f, leftover, %.3f", COERCE_DOUBLE(v189), v179, v180, v181, v182);
+      v153 = v152;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v152);
+      if (v153 != buf)
       {
-        free(v144);
+        free(v153);
       }
     }
   }
 
-  if (v168 > *(a1 + 216))
+  if (v183 > *(a1 + 216))
   {
-    goto LABEL_189;
+    goto LABEL_191;
   }
 
-  v145 = *(a1 + 296);
-  if (v145)
+  v154 = *(a1 + 296);
+  if (v154)
   {
-    v146 = 0.0;
-    if ((*(a1 + 248) / v145) > 1.57079633)
+    v155 = 0.0;
+    if ((*(a1 + 248) / v154) > 1.57079633)
     {
-      v146 = 1.0;
+      v155 = 1.0;
     }
   }
 
   else
   {
-    v146 = 0.0;
+    v155 = 0.0;
   }
 
-  if (v167 > (v146 * 0.5 + 1.0) * 6.0)
+  if (v182 > (v155 * 0.5 + 1.0) * 6.0)
   {
-LABEL_189:
+LABEL_191:
     *(a1 + 600) = 0;
-    goto LABEL_174;
+    return;
   }
 
-  if (v168 >= 0.01 || v167 >= 0.6)
+  if (v183 >= 0.01 || v182 >= 0.6)
   {
-    v154 = *(a1 + 600) + 1;
-    *(a1 + 600) = v154;
-    if (!v145)
+    v164 = *(a1 + 600) + 1;
+    *(a1 + 600) = v164;
+    if (!v154)
     {
-      goto LABEL_227;
+      goto LABEL_230;
     }
 
-    v155 = (a1 + 600);
-    v151 = *(a1 + 248) / v145;
+    v165 = (a1 + 600);
+    v160 = *(a1 + 248) / v154;
   }
 
   else
   {
-    if (!v145)
+    if (!v154)
     {
-      v154 = *(a1 + 600) + 1;
-      *(a1 + 600) = v154;
-      goto LABEL_227;
+      v164 = *(a1 + 600) + 1;
+      *(a1 + 600) = v164;
+      goto LABEL_230;
     }
 
-    v151 = *(a1 + 248) / v145;
-    if (v151 > 0.5)
+    v160 = *(a1 + 248) / v154;
+    if (v160 > 0.5)
     {
       if (*(a1 + 196) != 1)
       {
-        goto LABEL_240;
+        goto LABEL_243;
       }
 
       if (qword_1ED71C800 != -1)
@@ -7846,51 +7414,45 @@ LABEL_189:
         dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
       }
 
-      v152 = off_1ED71C808;
+      v161 = off_1ED71C808;
       if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v152, OS_LOG_TYPE_DEBUG, "===========Skip ahead.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v161, OS_LOG_TYPE_DEBUG, "===========Skip ahead.", buf, 2u);
       }
 
-      v153 = sub_19B420058();
-      if (*(v153 + 160) <= 1 && *(v153 + 164) <= 1 && *(v153 + 168) <= 1 && !*(v153 + 152))
+      v162 = sub_19B420058();
+      if (*(v162 + 160) <= 1 && *(v162 + 164) <= 1 && *(v162 + 168) <= 1 && !*(v162 + 152))
       {
-        goto LABEL_240;
+        goto LABEL_243;
       }
 
       bzero(buf, 0x65CuLL);
-      if (qword_1ED71C800 == -1)
+      if (qword_1ED71C800 != -1)
       {
-        goto LABEL_185;
+        dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
       }
 
-LABEL_259:
-      dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
-LABEL_185:
-      *v174 = 0;
-      v150 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v150);
-      if (v150 != buf)
-      {
-        free(v150);
-      }
-
-      goto LABEL_240;
+      *v189 = 0;
+      LODWORD(v179) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "===========Skip ahead.", v189, *&v179);
+      v159 = v163;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v163);
+      goto LABEL_187;
     }
 
-    v155 = (a1 + 600);
-    v154 = *(a1 + 600) + 1;
-    *(a1 + 600) = v154;
+    v165 = (a1 + 600);
+    v164 = *(a1 + 600) + 1;
+    *(a1 + 600) = v164;
   }
 
-  if (v151 > 1.0 && *(*(*(a1 + 264) + (((v145 + *(a1 + 288) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v145 + *(a1 + 288) - 1) & 0x3FF)) < 0.2)
+  if (v160 > 1.0 && *(*(*(a1 + 264) + (((v154 + *(a1 + 288) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v154 + *(a1 + 288) - 1) & 0x3FF)) < 0.2)
   {
     sub_19B66F1D4(a1 + 304, buf);
-    v156 = sqrt(*&buf[16] * *&buf[16] + *&buf[8] * *&buf[8] + v185 * v185);
-    if (fabs(v156 + -1.0) / v156 >= 0.025)
+    v166 = sqrt(*&buf[16] * *&buf[16] + *&buf[8] * *&buf[8] + v200 * v200);
+    if (fabs(v166 + -1.0) / v166 >= 0.025)
     {
-      v154 = *v155;
+      v164 = *v165;
     }
 
     else
@@ -7902,15 +7464,15 @@ LABEL_185:
           dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
         }
 
-        v157 = off_1ED71C808;
+        v167 = off_1ED71C808;
         if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_19B41C000, v157, OS_LOG_TYPE_DEBUG, "Skip ahead------.", buf, 2u);
+          _os_log_impl(&dword_19B41C000, v167, OS_LOG_TYPE_DEBUG, "Skip ahead------.", buf, 2u);
         }
 
-        v158 = sub_19B420058();
-        if (*(v158 + 160) > 1 || *(v158 + 164) > 1 || *(v158 + 168) > 1 || *(v158 + 152))
+        v168 = sub_19B420058();
+        if (*(v168 + 160) > 1 || *(v168 + 164) > 1 || *(v168 + 168) > 1 || *(v168 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1ED71C800 != -1)
@@ -7918,34 +7480,36 @@ LABEL_185:
             dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
           }
 
-          *v174 = 0;
-          v159 = _os_log_send_and_compose_impl();
-          sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v159);
-          if (v159 != buf)
+          *v189 = 0;
+          LODWORD(v179) = 2;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Skip ahead------.", v189, *&v179);
+          v170 = v169;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v169);
+          if (v170 != buf)
           {
-            free(v159);
+            free(v170);
           }
         }
       }
 
-      v154 = *v155 + 2;
-      *v155 = v154;
+      v164 = *v165 + 2;
+      *v165 = v164;
     }
   }
 
-LABEL_227:
-  if (v154 >= *(a1 + 208))
+LABEL_230:
+  if (v164 >= *(a1 + 208))
   {
-LABEL_240:
-    if (*(a1 + 224) == 1 && v169 > 0.2)
+LABEL_243:
+    if (*(a1 + 224) == 1 && v184 > 0.2)
     {
-      v162 = *(a1 + 296);
-      if (!v162 || *(*(*(a1 + 264) + (((v162 + *(a1 + 288) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v162 + *(a1 + 288) - 1) & 0x3FF)) < 0.75 && (*(a1 + 248) / v162) < 1.0)
+      v174 = *(a1 + 296);
+      if (!v174 || *(*(*(a1 + 264) + (((v174 + *(a1 + 288) - 1) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((v174 + *(a1 + 288) - 1) & 0x3FF)) < 0.75 && (*(a1 + 248) / v174) < 1.0)
       {
-        sub_19B66F1D4(a1 + 304, v174);
-        v60 = *&v174[16];
-        v59 = *&v174[8];
-        v61 = v175;
+        sub_19B66F1D4(a1 + 304, v189);
+        v62 = *&v189[16];
+        v61 = *&v189[8];
+        v63 = v190;
         if (*(a1 + 196) == 1)
         {
           if (qword_1ED71C800 != -1)
@@ -7953,15 +7517,15 @@ LABEL_240:
             dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
           }
 
-          v163 = off_1ED71C808;
+          v175 = off_1ED71C808;
           if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_19B41C000, v163, OS_LOG_TYPE_DEBUG, "using mean accel", buf, 2u);
+            _os_log_impl(&dword_19B41C000, v175, OS_LOG_TYPE_DEBUG, "using mean accel", buf, 2u);
           }
 
-          v164 = sub_19B420058();
-          if (*(v164 + 160) > 1 || *(v164 + 164) > 1 || *(v164 + 168) > 1 || *(v164 + 152))
+          v176 = sub_19B420058();
+          if (*(v176 + 160) > 1 || *(v176 + 164) > 1 || *(v176 + 168) > 1 || *(v176 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1ED71C800 != -1)
@@ -7969,18 +7533,20 @@ LABEL_240:
               dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
             }
 
-            LOWORD(v194) = 0;
-            v165 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v165);
-            if (v165 != buf)
+            LOWORD(v209) = 0;
+            LODWORD(v179) = 2;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "using mean accel", &v209, *&v179);
+            v178 = v177;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v177);
+            if (v178 != buf)
             {
-              free(v165);
+              free(v178);
             }
           }
         }
 
-        v64 = sqrt(v60 * v60 + v59 * v59 + v61 * v61);
-        v65 = fabs(v64 + -1.0) / v64;
+        v66 = sqrt(v62 * v62 + v61 * v61 + v63 * v63);
+        v67 = fabs(v66 + -1.0) / v66;
       }
     }
 
@@ -7993,22 +7559,22 @@ LABEL_45:
         dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
       }
 
-      v66 = off_1ED71C808;
+      v68 = off_1ED71C808;
       if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218752;
-        *&buf[4] = v59;
+        *&buf[4] = v61;
         *&buf[12] = 2048;
-        *&buf[14] = v60;
+        *&buf[14] = v62;
         *&buf[22] = 2048;
-        v185 = v61;
-        v186 = 2048;
-        v187 = v64;
-        _os_log_impl(&dword_19B41C000, v66, OS_LOG_TYPE_DEBUG, "accM, (%.4f, %.4f, %.4f), mag, %.3f", buf, 0x2Au);
+        v200 = v63;
+        v201 = 2048;
+        v202 = v66;
+        _os_log_impl(&dword_19B41C000, v68, OS_LOG_TYPE_DEBUG, "accM, (%.4f, %.4f, %.4f), mag, %.3f", buf, 0x2Au);
       }
 
-      v67 = sub_19B420058();
-      if (*(v67 + 160) > 1 || *(v67 + 164) > 1 || *(v67 + 168) > 1 || *(v67 + 152))
+      v69 = sub_19B420058();
+      if (*(v69 + 160) > 1 || *(v69 + 164) > 1 || *(v69 + 168) > 1 || *(v69 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C800 != -1)
@@ -8016,123 +7582,125 @@ LABEL_45:
           dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
         }
 
-        *v174 = 134218752;
-        *&v174[4] = v59;
-        *&v174[12] = 2048;
-        *&v174[14] = v60;
-        *&v174[22] = 2048;
-        v175 = v61;
-        v176 = 2048;
-        v177 = v64;
-        v68 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v68);
-        if (v68 != buf)
+        *v189 = 134218752;
+        *&v189[4] = v61;
+        *&v189[12] = 2048;
+        *&v189[14] = v62;
+        *&v189[22] = 2048;
+        v190 = v63;
+        v191 = 2048;
+        v192 = v66;
+        LODWORD(v179) = 42;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "accM, (%.4f, %.4f, %.4f), mag, %.3f", COERCE_DOUBLE(v189), v179, v180, v181);
+        v71 = v70;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v70);
+        if (v71 != buf)
         {
-          free(v68);
+          free(v71);
         }
       }
     }
 
-    v69 = v65 * (0.015 / (exp((0.9 - sqrtf((((v170 / v63) * (v170 / v63)) + ((v171 / v63) * (v171 / v63))) + ((v62 / v63) * (v62 / v63)))) / 0.08) + 1.0)) + 0.00000900000032;
+    v72 = v67 * (0.015 / (exp((0.9 - sqrtf((((v185 / v65) * (v185 / v65)) + ((v186 / v65) * (v186 / v65))) + ((v64 / v65) * (v64 / v65)))) / 0.08) + 1.0)) + 0.00000900000032;
     if (*(a1 + 224) == 1 && !*(a1 + 616))
     {
-      v69 = v69 * 0.85;
+      v72 = v72 * 0.85;
     }
 
-    v70 = 0;
-    v71 = 0;
-    v72 = v60 / v64;
-    v73 = *(a1 + 16);
-    v74 = *(a1 + 24);
-    v75 = *(a1 + 32) + *(a1 + 32);
-    v76 = *(a1 + 40);
-    v77 = v76 * (v74 + v74) - v73 * v75;
-    v78 = -(v76 * (v73 + v73)) - v74 * v75;
-    v79 = v73 * (v73 + v73) + -1.0 + v74 * (v74 + v74);
-    *&v73 = v78;
-    *&v75 = v79;
-    LODWORD(v200) = 0;
-    HIDWORD(v200) = LODWORD(v75);
-    *&v201 = -*&v73;
-    *&v74 = v77;
-    *(&v201 + 1) = -*&v75;
-    LODWORD(v202) = 0;
-    HIDWORD(v202) = LODWORD(v74);
-    LODWORD(v203) = LODWORD(v73);
-    *(&v203 + 1) = -*&v74;
-    v204 = 0;
+    v73 = 0;
+    v74 = 0;
+    v75 = v62 / v66;
+    v76 = *(a1 + 16);
+    v77 = *(a1 + 24);
+    v78 = *(a1 + 32) + *(a1 + 32);
+    v79 = *(a1 + 40);
+    v80 = v79 * (v77 + v77) - v76 * v78;
+    v81 = -(v79 * (v76 + v76)) - v77 * v78;
+    v82 = v76 * (v76 + v76) + -1.0 + v77 * (v77 + v77);
+    *&v76 = v81;
+    *&v78 = v82;
+    LODWORD(v215) = 0;
+    HIDWORD(v215) = LODWORD(v78);
+    *&v216 = -*&v76;
+    *&v77 = v80;
+    *(&v216 + 1) = -*&v78;
+    LODWORD(v217) = 0;
+    HIDWORD(v217) = LODWORD(v77);
+    LODWORD(v218) = LODWORD(v76);
+    *(&v218 + 1) = -*&v77;
+    v219 = 0;
     do
     {
-      v80 = v70;
-      v81 = 3;
+      v83 = v73;
+      v84 = 3;
       do
       {
-        *&buf[v80] = *(&v200 + v80);
-        v80 += 12;
-        --v81;
+        *&buf[v83] = *(&v215 + v83);
+        v83 += 12;
+        --v84;
       }
 
-      while (v81);
-      ++v71;
-      v70 += 4;
+      while (v84);
+      ++v74;
+      v73 += 4;
     }
 
-    while (v71 != 3);
-    bzero(&v187 + 2, 0x24uLL);
-    v82 = v69;
-    *v199 = v82;
-    *&v199[1] = v82;
-    *&v199[2] = v82;
-    v83 = v59 / v64 - v77;
-    v84 = v72 - v78;
-    *v198 = v83;
-    *&v198[1] = v84;
-    v85 = v61 / v64 - v79;
-    *&v198[2] = v85;
-    sub_19B66EDDC(v174, (a1 + 112), buf, v199, v198, 6, 3, &v194);
-    v86 = v78 * *&v174[8] + *v174 * v77 + *&v174[16] * v79;
-    *v174 = *v174 - v86 * v77;
-    *&v174[8] = *&v174[8] - v86 * v78;
-    *&v174[16] = *&v174[16] - v86 * v79;
-    sub_19B44793C(v173, v174);
-    sub_19B447A1C(v172, v173, (a1 + 16));
-    v87 = 0;
-    v88 = v172[1];
-    *(a1 + 16) = v172[0];
-    *(a1 + 32) = v88;
+    while (v74 != 3);
+    bzero(&v202 + 2, 0x24uLL);
+    v85 = v72;
+    *v214 = v85;
+    *&v214[1] = v85;
+    *&v214[2] = v85;
+    v86 = v61 / v66 - v80;
+    v87 = v75 - v81;
+    *v213 = v86;
+    *&v213[1] = v87;
+    v88 = v63 / v66 - v82;
+    *&v213[2] = v88;
+    sub_19B66EDDC(v189, (a1 + 112), buf, v214, v213, 6, 3, &v209);
+    v89 = v81 * *&v189[8] + *v189 * v80 + *&v189[16] * v82;
+    *v189 = *v189 - v89 * v80;
+    *&v189[8] = *&v189[8] - v89 * v81;
+    *&v189[16] = *&v189[16] - v89 * v82;
+    sub_19B44793C(v188, v189);
+    sub_19B447A1C(v187, v188, (a1 + 16));
+    v90 = 0;
+    v91 = v187[1];
+    *(a1 + 16) = v187[0];
+    *(a1 + 32) = v91;
     do
     {
-      *(a1 + 88 + v87) = *&v174[v87 + 24] + *(a1 + 88 + v87);
-      v87 += 8;
+      *(a1 + 88 + v90) = *&v189[v90 + 24] + *(a1 + 88 + v90);
+      v90 += 8;
     }
 
-    while (v87 != 24);
+    while (v90 != 24);
     if (*(a1 + 224) == 1)
     {
       sub_19B4425C0((a1 + 576), (a1 + 16));
     }
 
     *(a1 + 608) = *a5;
-    v89 = *(a1 + 616);
-    v90 = __OFSUB__(v89, 1);
-    v91 = v89 - 1;
-    if (v91 < 0 == v90)
+    v92 = *(a1 + 616);
+    v93 = __OFSUB__(v92, 1);
+    v94 = v92 - 1;
+    if (v94 < 0 == v93)
     {
-      *(a1 + 616) = v91;
+      *(a1 + 616) = v94;
       if (qword_1ED71C800 != -1)
       {
         dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
       }
 
-      v92 = off_1ED71C808;
+      v95 = off_1ED71C808;
       if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v92, OS_LOG_TYPE_DEBUG, "Doing some crude updates to catch up.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v95, OS_LOG_TYPE_DEBUG, "Doing some crude updates to catch up.", buf, 2u);
       }
 
-      v93 = sub_19B420058();
-      if (*(v93 + 160) > 1 || *(v93 + 164) > 1 || *(v93 + 168) > 1 || *(v93 + 152))
+      v96 = sub_19B420058();
+      if (*(v96 + 160) > 1 || *(v96 + 164) > 1 || *(v96 + 168) > 1 || *(v96 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C800 != -1)
@@ -8140,12 +7708,14 @@ LABEL_45:
           dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
         }
 
-        *v174 = 0;
-        v94 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v94);
-        if (v94 != buf)
+        *v189 = 0;
+        LODWORD(v179) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Doing some crude updates to catch up.", v189, *&v179);
+        v98 = v97;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v97);
+        if (v98 != buf)
         {
-          free(v94);
+          free(v98);
         }
       }
     }
@@ -8157,35 +7727,35 @@ LABEL_45:
         dispatch_once(&qword_1EAFE2890, &unk_1F0E28080);
       }
 
-      v95 = qword_1EAFE2898;
+      v99 = qword_1EAFE2898;
       if (os_log_type_enabled(qword_1EAFE2898, OS_LOG_TYPE_DEBUG))
       {
-        v96 = *(a1 + 64);
-        v97 = *(a1 + 72);
-        v98 = *(a1 + 80);
-        v99 = *(a1 + 88);
-        v100 = *(a1 + 96);
-        v101 = *(a1 + 104);
-        v102 = *a5;
+        v100 = *(a1 + 64);
+        v101 = *(a1 + 72);
+        v102 = *(a1 + 80);
+        v103 = *(a1 + 88);
+        v104 = *(a1 + 96);
+        v105 = *(a1 + 104);
+        v106 = *a5;
         *buf = 134219520;
-        *&buf[4] = v96;
+        *&buf[4] = v100;
         *&buf[12] = 2048;
-        *&buf[14] = v97;
+        *&buf[14] = v101;
         *&buf[22] = 2048;
-        v185 = v98;
-        v186 = 2048;
-        v187 = v99;
-        v188 = 2048;
-        v189 = v100;
-        v190 = 2048;
-        v191 = v101;
-        v192 = 2048;
-        v193 = v102;
-        _os_log_impl(&dword_19B41C000, v95, OS_LOG_TYPE_DEBUG, "[KalmanFilterStates] %f,%f,%f,%f,%f,%f,%f", buf, 0x48u);
+        v200 = v102;
+        v201 = 2048;
+        v202 = v103;
+        v203 = 2048;
+        v204 = v104;
+        v205 = 2048;
+        v206 = v105;
+        v207 = 2048;
+        v208 = v106;
+        _os_log_impl(&dword_19B41C000, v99, OS_LOG_TYPE_DEBUG, "[KalmanFilterStates] %f,%f,%f,%f,%f,%f,%f", buf, 0x48u);
       }
 
-      v103 = sub_19B420058();
-      if (*(v103 + 160) > 1 || *(v103 + 164) > 1 || *(v103 + 168) > 1 || *(v103 + 152))
+      v107 = sub_19B420058();
+      if (*(v107 + 160) > 1 || *(v107 + 164) > 1 || *(v107 + 168) > 1 || *(v107 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2890 != -1)
@@ -8193,40 +7763,42 @@ LABEL_45:
           dispatch_once(&qword_1EAFE2890, &unk_1F0E28080);
         }
 
-        v104 = *(a1 + 64);
-        v105 = *(a1 + 72);
-        v106 = *(a1 + 80);
-        v107 = *(a1 + 88);
-        v108 = *(a1 + 96);
-        v109 = *(a1 + 104);
-        v110 = *a5;
-        *v174 = 134219520;
-        *&v174[4] = v104;
-        *&v174[12] = 2048;
-        *&v174[14] = v105;
-        *&v174[22] = 2048;
-        v175 = v106;
-        v176 = 2048;
-        v177 = v107;
-        v178 = 2048;
-        v179 = v108;
-        v180 = 2048;
-        v181 = v109;
-        v182 = 2048;
-        v183 = v110;
-        v111 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v111);
+        v108 = *(a1 + 64);
+        v109 = *(a1 + 72);
+        v110 = *(a1 + 80);
+        v111 = *(a1 + 88);
+        v112 = *(a1 + 96);
+        v113 = *(a1 + 104);
+        v114 = *a5;
+        *v189 = 134219520;
+        *&v189[4] = v108;
+        *&v189[12] = 2048;
+        *&v189[14] = v109;
+        *&v189[22] = 2048;
+        v190 = v110;
+        v191 = 2048;
+        v192 = v111;
+        v193 = 2048;
+        v194 = v112;
+        v195 = 2048;
+        v196 = v113;
+        v197 = 2048;
+        v198 = v114;
+        LODWORD(v179) = 72;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2898, 2, "[KalmanFilterStates] %f,%f,%f,%f,%f,%f,%f", COERCE_DOUBLE(v189), v179, v180, v181, v182, v183, v184);
+        v116 = v115;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v115);
 LABEL_94:
-        if (v111 != buf)
+        if (v116 != buf)
         {
-          free(v111);
+          free(v116);
         }
 
-        goto LABEL_174;
+        return;
       }
     }
 
-    goto LABEL_174;
+    return;
   }
 
   if (*(a1 + 196) == 1)
@@ -8236,15 +7808,15 @@ LABEL_94:
       dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
     }
 
-    v160 = off_1ED71C808;
+    v171 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v160, OS_LOG_TYPE_DEBUG, "Taking another look.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v171, OS_LOG_TYPE_DEBUG, "Taking another look.", buf, 2u);
     }
 
-    v161 = sub_19B420058();
-    if (*(v161 + 160) > 1 || *(v161 + 164) > 1 || *(v161 + 168) > 1 || *(v161 + 152))
+    v172 = sub_19B420058();
+    if (*(v172 + 160) > 1 || *(v172 + 164) > 1 || *(v172 + 168) > 1 || *(v172 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C800 != -1)
@@ -8252,15 +7824,14 @@ LABEL_94:
         dispatch_once(&qword_1ED71C800, &unk_1F0E294C0);
       }
 
-      *v174 = 0;
-      v111 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v111);
+      *v189 = 0;
+      LODWORD(v179) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Taking another look.", v189, *&v179);
+      v116 = v173;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedAccelerometerData(const double &, const double &, const double &, const CFTimeInterval &)", "CoreLocation: %s\n", v173);
       goto LABEL_94;
     }
   }
-
-LABEL_174:
-  v147 = *MEMORY[0x1E69E9840];
 }
 
 double sub_19B4425C0(double *a1, double *a2)
@@ -8324,7 +7895,7 @@ uint64_t sub_19B4426E4()
 
 double sub_19B44272C(uint64_t a1, int a2, double *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (a2 == 1)
   {
     if (qword_1ED71C810 != -1)
@@ -8332,17 +7903,17 @@ double sub_19B44272C(uint64_t a1, int a2, double *a3)
       dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
     }
 
-    v15 = qword_1ED71C818;
+    v16 = qword_1ED71C818;
     if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_INFO))
     {
-      v16 = *a3;
+      v17 = *a3;
       *buf = 134349056;
-      v28 = v16;
-      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_INFO, "Setting gyro temperature update interval to %{public}f", buf, 0xCu);
+      v30 = v17;
+      _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_INFO, "Setting gyro temperature update interval to %{public}f", buf, 0xCu);
     }
 
-    v17 = sub_19B420058();
-    if (*(v17 + 160) > 1 || *(v17 + 164) > 1 || *(v17 + 168) > 1 || *(v17 + 152))
+    v18 = sub_19B420058();
+    if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C810 != -1)
@@ -8350,26 +7921,27 @@ double sub_19B44272C(uint64_t a1, int a2, double *a3)
         dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
       }
 
-      v18 = *a3;
-      *v34 = 134349056;
-      *&v34[4] = v18;
-      v19 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual CFTimeInterval CLGyro::minimumUpdateIntervalChanged(int, const CFTimeInterval &)", "CoreLocation: %s\n", v19);
-      if (v19 != buf)
+      v19 = *a3;
+      *v36 = 134349056;
+      *&v36[4] = v19;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 1, "Setting gyro temperature update interval to %{public}f", v36, 12);
+      v21 = v20;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual CFTimeInterval CLGyro::minimumUpdateIntervalChanged(int, const CFTimeInterval &)", "CoreLocation: %s\n", v20);
+      if (v21 != buf)
       {
-        free(v19);
+        free(v21);
       }
     }
 
-    v20 = *a3;
-    if (*a3 < 1.0 && v20 != 0.0)
+    v22 = *a3;
+    if (*a3 < 1.0 && v22 != 0.0)
     {
-      v20 = 1.0;
+      v22 = 1.0;
     }
 
-    *(a1 + 72) = v20;
+    *(a1 + 72) = v22;
     sub_19B42A614(a1, *(a1 + 32));
-    v6 = *(a1 + 72);
+    return *(a1 + 72);
   }
 
   else if (a2)
@@ -8379,16 +7951,16 @@ double sub_19B44272C(uint64_t a1, int a2, double *a3)
       dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
     }
 
-    v22 = qword_1ED71C818;
+    v24 = qword_1ED71C818;
     if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_FAULT))
     {
       *buf = 67240192;
-      LODWORD(v28) = a2;
-      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_FAULT, "Unrecognized gyro notification %{public}d", buf, 8u);
+      LODWORD(v30) = a2;
+      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_FAULT, "Unrecognized gyro notification %{public}d", buf, 8u);
     }
 
-    v23 = sub_19B420058();
-    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || (v6 = 0.0, *(v23 + 152)))
+    v25 = sub_19B420058();
+    if ((*(v25 + 160) & 0x80000000) == 0 || (*(v25 + 164) & 0x80000000) == 0 || (*(v25 + 168) & 0x80000000) == 0 || (v6 = 0.0, *(v25 + 152)))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C810 != -1)
@@ -8396,16 +7968,17 @@ double sub_19B44272C(uint64_t a1, int a2, double *a3)
         dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
       }
 
-      *v34 = 67240192;
-      *&v34[4] = a2;
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "virtual CFTimeInterval CLGyro::minimumUpdateIntervalChanged(int, const CFTimeInterval &)", "CoreLocation: %s\n", v24);
-      if (v24 != buf)
+      *v36 = 67240192;
+      *&v36[4] = a2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 17, "Unrecognized gyro notification %{public}d", v36, 8);
+      v27 = v26;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "virtual CFTimeInterval CLGyro::minimumUpdateIntervalChanged(int, const CFTimeInterval &)", "CoreLocation: %s\n", v26);
+      if (v27 != buf)
       {
-        free(v24);
+        free(v27);
       }
 
-      v6 = 0.0;
+      return 0.0;
     }
   }
 
@@ -8416,18 +7989,18 @@ double sub_19B44272C(uint64_t a1, int a2, double *a3)
     v6 = sub_19B43D788(a1, (a1 + 64));
     if (*(a1 + 96) == 1)
     {
-      *v34 = &unk_1F0E311F0;
-      *&v34[8] = CFAbsoluteTimeGetCurrent();
+      *v36 = &unk_1F0E311F0;
+      *&v36[8] = CFAbsoluteTimeGetCurrent();
       v7 = v6;
-      *&v34[20] = v7;
+      *&v36[20] = v7;
       v8 = sub_19B720E40();
-      sub_19B7223F8(v8, v34);
+      sub_19B7223F8(v8, v36);
       sub_19B517F80(buf);
       sub_19B5325B8(buf);
-      v33 |= 1u;
-      v31 = *&v34[8];
-      v9 = v32;
-      *(v32 + 12) |= 1u;
+      v35 |= 1u;
+      v33 = *&v36[8];
+      v9 = v34;
+      *(v34 + 12) |= 1u;
       *(v9 + 8) = v7;
       sub_19B51DBD4(buf);
     }
@@ -8442,9 +8015,9 @@ double sub_19B44272C(uint64_t a1, int a2, double *a3)
     {
       v11 = *a3;
       *buf = 134349312;
-      v28 = v11;
-      v29 = 2050;
-      v30 = v6;
+      v30 = v11;
+      v31 = 2050;
+      v32 = v6;
       _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_INFO, "Set gyro data update interval to %{public}f,dt,%{public}f", buf, 0x16u);
     }
 
@@ -8458,26 +8031,26 @@ double sub_19B44272C(uint64_t a1, int a2, double *a3)
       }
 
       v13 = *a3;
-      *v34 = 134349312;
-      *&v34[4] = v13;
-      *&v34[12] = 2050;
-      *&v34[14] = v6;
-      v14 = _os_log_send_and_compose_impl();
+      *v36 = 134349312;
+      *&v36[4] = v13;
+      *&v36[12] = 2050;
+      *&v36[14] = v6;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 1, "Set gyro data update interval to %{public}f,dt,%{public}f", v36, 22);
+      v15 = v14;
       sub_19B6BB7CC("Generic", 1, 0, 2, "virtual CFTimeInterval CLGyro::minimumUpdateIntervalChanged(int, const CFTimeInterval &)", "CoreLocation: %s\n", v14);
-      if (v14 != buf)
+      if (v15 != buf)
       {
-        free(v14);
+        free(v15);
       }
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-void sub_19B442CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_19B442CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_19B51DBD4(va);
   _Unwind_Resume(a1);
 }
@@ -8497,7 +8070,7 @@ void sub_19B442D08()
   }
 }
 
-uint64_t sub_19B442D78(uint64_t result)
+uint64_t sub_19B442D78(uint64_t result, double a2)
 {
   if (!*(result + 16))
   {
@@ -8543,7 +8116,7 @@ void sub_19B442F50(uint64_t a1)
 
 void sub_19B442FD8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v8 = _os_activity_create(&dword_19B41C000, "CL: CLGyroBiasEstimatorClientRemote::registerWithGyroBiasEstimatorPrivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v8, &state);
 
@@ -8556,35 +8129,34 @@ void sub_19B442FD8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68290050;
-    v16 = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
-    v20 = "activity";
-    v21 = 1026;
-    v22 = a3;
-    v23 = 2050;
-    v24 = a1;
-    v25 = 2050;
-    v26 = a4;
+    v15 = 0;
+    v16 = 2082;
+    v17 = "";
+    v18 = 2082;
+    v19 = "activity";
+    v20 = 1026;
+    v21 = a3;
+    v22 = 2050;
+    v23 = a1;
+    v24 = 2050;
+    v25 = a4;
     _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLGyroBiasEstimatorClientRemote::registerWithGyroBiasEstimatorPrivate, event:%{public, location:escape_only}s, isBuildingGYTT:%{public}hhd, client:%{public}p, info:%{public}p}", buf, 0x36u);
   }
 
   v10 = *(a1 + 16);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_19B443654;
-  v12[3] = &unk_1E7532EB0;
-  v12[4] = a1;
-  v12[5] = a2;
-  v12[6] = a4;
-  v13 = a3;
-  dispatch_async(v10, v12);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B443654;
+  v11[3] = &unk_1E7532EB0;
+  v11[4] = a1;
+  v11[5] = a2;
+  v11[6] = a4;
+  v12 = a3;
+  dispatch_async(v10, v11);
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t sub_19B4431A8(uint64_t result)
+uint64_t sub_19B4431A8(uint64_t result, double a2)
 {
   if (!*(result + 8))
   {
@@ -8631,92 +8203,83 @@ LABEL_7:
   a1[2] = 0;
 }
 
-uint64_t sub_19B443324(uint64_t a1, const char *a2, _DWORD *a3)
+uint64_t sub_19B443324(uint64_t a1, const char *a2, _DWORD *a3, uint64_t a4)
 {
-  v5 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
-  v6 = sub_19B443398(a1, v5, a3);
-  if (v5)
+  v6 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x8000100u);
+  v7 = sub_19B443398(a1, v6, a3);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t sub_19B443398(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   cf = 0;
-  if ((*(*a1 + 904))(a1, a2, &cf))
+  if (!(*(*a1 + 904))(a1, a2, &cf))
   {
-    *buf = 0;
-    v6 = sub_19B5EDA58(cf, buf);
-    if (v6)
+    return 0;
+  }
+
+  *buf = 0;
+  v6 = sub_19B5EDA58(cf, buf);
+  if (v6)
+  {
+    *a3 = *buf;
+  }
+
+  else
+  {
+    if (qword_1ED71C820 != -1)
     {
-      *a3 = *buf;
+      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
     }
 
-    else
+    v7 = off_1ED71C828;
+    if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
     {
+      v8 = (*(*a1 + 840))(a1);
+      *buf = 138412546;
+      *&buf[4] = v8;
+      v21 = 2112;
+      v22 = a2;
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+    }
+
+    v9 = sub_19B420058();
+    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
+    {
+      bzero(buf, 0x65CuLL);
       if (qword_1ED71C820 != -1)
       {
         dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
       }
 
-      v7 = off_1ED71C828;
-      if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+      v10 = off_1ED71C828;
+      v11 = (*(*a1 + 840))(a1);
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = a2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v10, 17, "Unsupported type at %@:%@ (domain:key)", &v16, 22);
+      v13 = v12;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, uint32_t &, int) const", "CoreLocation: %s\n", v12);
+      if (v13 != buf)
       {
-        v8 = (*(*a1 + 840))(a1);
-        *buf = 138412546;
-        *&buf[4] = v8;
-        v20 = 2112;
-        v21 = a2;
-        _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "Unsupported type at %@:%@ (domain:key)", buf, 0x16u);
+        free(v13);
       }
-
-      v9 = sub_19B420058();
-      if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (qword_1ED71C820 != -1)
-        {
-          dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-        }
-
-        v10 = (*(*a1 + 840))(a1);
-        v15 = 138412546;
-        v16 = v10;
-        v17 = 2112;
-        v18 = a2;
-        v11 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "virtual BOOL CLNameValuePair::get(CFStringRef, uint32_t &, int) const", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
-        {
-          free(v11);
-        }
-      }
-    }
-
-    if (cf)
-    {
-      CFRelease(cf);
     }
   }
 
-  else
+  if (cf)
   {
-    v6 = 0;
+    CFRelease(cf);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
-}
-
-void sub_19B443654(uint64_t a1)
-{
-  v2 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  operator new();
 }
 
 void sub_19B443854(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, std::__shared_weak_count *a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -8731,7 +8294,7 @@ void sub_19B443854(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_19B4438CC(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   Current = CFRunLoopGetCurrent();
   sub_19B420D84();
   if (Current != *qword_1ED71C908)
@@ -8741,37 +8304,37 @@ void sub_19B4438CC(void *a1, void *a2)
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
     }
 
-    v26 = off_1ED71C838;
+    v33 = off_1ED71C838;
     p_vtable = "assert";
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      *v33 = 0;
-      *&v33[4] = 2082;
-      *&v33[6] = "";
-      *&v33[14] = 2082;
-      *&v33[16] = "assert";
-      v34 = 2081;
-      v35 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[CLIoHidInterface] setMatchingProperties should be called from motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v41 = 0;
+      *&v41[4] = 2082;
+      *&v41[6] = "";
+      *&v41[14] = 2082;
+      *&v41[16] = "assert";
+      v42 = 2081;
+      v43 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[CLIoHidInterface] setMatchingProperties should be called from motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
       }
     }
 
-    v27 = off_1ED71C838;
+    v34 = off_1ED71C838;
     if (os_signpost_enabled(off_1ED71C838))
     {
       *buf = 68289539;
-      *v33 = 0;
-      *&v33[4] = 2082;
-      *&v33[6] = "";
-      *&v33[14] = 2082;
-      *&v33[16] = "assert";
-      v34 = 2081;
-      v35 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[CLIoHidInterface] setMatchingProperties should be called from motion thread", "{msg%{public}.0s:[CLIoHidInterface] setMatchingProperties should be called from motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      *v41 = 0;
+      *&v41[4] = 2082;
+      *&v41[6] = "";
+      *&v41[14] = 2082;
+      *&v41[16] = "assert";
+      v42 = 2081;
+      v43 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[CLIoHidInterface] setMatchingProperties should be called from motion thread", "{msg%{public}.0s:[CLIoHidInterface] setMatchingProperties should be called from motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
@@ -8782,17 +8345,17 @@ void sub_19B4438CC(void *a1, void *a2)
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      *v33 = 0;
-      *&v33[4] = 2082;
-      *&v33[6] = "";
-      *&v33[14] = 2082;
-      *&v33[16] = "assert";
-      v34 = 2081;
-      v35 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
+      *v41 = 0;
+      *&v41[4] = 2082;
+      *&v41[6] = "";
+      *&v41[14] = 2082;
+      *&v41[16] = "assert";
+      v42 = 2081;
+      v43 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
       _os_log_impl(&dword_19B41C000, a1, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[CLIoHidInterface] setMatchingProperties should be called from motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/IO/CLIoHidInterface.mm", 652, "setMatchingProperties");
     goto LABEL_68;
   }
 
@@ -8807,7 +8370,7 @@ LABEL_4:
       {
         v8 = *(a1 + 20);
         *buf = 138477827;
-        *v33 = v8;
+        *v41 = v8;
         _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_DEFAULT, "[CLIoHidInterface] setMatchingProperties - Early return for identical properties %{private}@", buf, 0xCu);
       }
 
@@ -8820,16 +8383,20 @@ LABEL_4:
           dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
         }
 
-        v28 = *(a1 + 20);
-        v10 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v10);
-        if (v10 != buf)
+        v10 = *(a1 + 20);
+        v36 = 138477827;
+        v37 = v10;
+        LODWORD(v35) = 12;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[CLIoHidInterface] setMatchingProperties - Early return for identical properties %{private}@", &v36, v35);
+        v12 = v11;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v11);
+        if (v12 != buf)
         {
-          free(v10);
+          free(v12);
         }
       }
 
-      goto LABEL_54;
+      return;
     }
 
 LABEL_68:
@@ -8837,31 +8404,31 @@ LABEL_68:
     goto LABEL_4;
   }
 
-  v11 = a2;
+  v13 = a2;
 
   *(a1 + 20) = a2;
-  v12 = *(a1 + 3);
-  if (v12 && (sub_19B42EF5C(v12, a2) & 1) == 0)
+  v14 = *(a1 + 3);
+  if (v14 && (sub_19B42EF5C(v14, a2) & 1) == 0)
   {
     if (qword_1ED71C830 != -1)
     {
       dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
     }
 
-    v13 = off_1ED71C838;
+    v15 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 3);
-      v15 = *(a1 + 20);
+      v16 = *(a1 + 3);
+      v17 = *(a1 + 20);
       *buf = 134283779;
-      *v33 = v14;
-      *&v33[8] = 2114;
-      *&v33[10] = v15;
-      _os_log_impl(&dword_19B41C000, v13, OS_LOG_TYPE_DEFAULT, "[CLIoHidInterface] setMatchingProperties - Previously matched service ref %{private}p does not match new properties %{public}@. Clearing and refreshing.", buf, 0x16u);
+      *v41 = v16;
+      *&v41[8] = 2114;
+      *&v41[10] = v17;
+      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEFAULT, "[CLIoHidInterface] setMatchingProperties - Previously matched service ref %{private}p does not match new properties %{public}@. Clearing and refreshing.", buf, 0x16u);
     }
 
-    v16 = sub_19B420058();
-    if (*(v16 + 160) > 1 || *(v16 + 164) > 1 || *(v16 + 168) > 1 || *(v16 + 152))
+    v18 = sub_19B420058();
+    if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C830 != -1)
@@ -8869,13 +8436,18 @@ LABEL_68:
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
       }
 
-      v29 = *(a1 + 3);
-      v31 = *(a1 + 20);
-      v17 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v17);
-      if (v17 != buf)
+      v19 = *(a1 + 3);
+      v20 = *(a1 + 20);
+      v36 = 134283779;
+      v37 = v19;
+      v38 = 2114;
+      v39 = v20;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[CLIoHidInterface] setMatchingProperties - Previously matched service ref %{private}p does not match new properties %{public}@. Clearing and refreshing.", &v36, 22);
+      v22 = v21;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v21);
+      if (v22 != buf)
       {
-        free(v17);
+        free(v22);
       }
     }
 
@@ -8886,15 +8458,15 @@ LABEL_68:
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
       }
 
-      v18 = off_1ED71C838;
+      v23 = off_1ED71C838;
       if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_ERROR, "[CLIoHidInterface] setMatchingProperties - Failed to stop streaming from the old service", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_ERROR, "[CLIoHidInterface] setMatchingProperties - Failed to stop streaming from the old service", buf, 2u);
       }
 
-      v19 = sub_19B420058();
-      if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
+      v24 = sub_19B420058();
+      if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C830 != -1)
@@ -8902,11 +8474,14 @@ LABEL_68:
           dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
         }
 
-        v20 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v20);
-        if (v20 != buf)
+        LOWORD(v36) = 0;
+        LODWORD(v35) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "[CLIoHidInterface] setMatchingProperties - Failed to stop streaming from the old service", &v36, v35);
+        v26 = v25;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v25);
+        if (v26 != buf)
         {
-          free(v20);
+          free(v26);
         }
       }
     }
@@ -8920,17 +8495,17 @@ LABEL_68:
         dispatch_once(&qword_1ED71C830, &unk_1F0E3B7A0);
       }
 
-      v21 = off_1ED71C838;
+      v27 = off_1ED71C838;
       if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = *(a1 + 3);
+        v28 = *(a1 + 3);
         *buf = 134283521;
-        *v33 = v22;
-        _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_DEFAULT, "[CLIoHidInterface] setMatchingProperties - successfully switch to new service %{private}p", buf, 0xCu);
+        *v41 = v28;
+        _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_DEFAULT, "[CLIoHidInterface] setMatchingProperties - successfully switch to new service %{private}p", buf, 0xCu);
       }
 
-      v23 = sub_19B420058();
-      if (*(v23 + 160) > 1 || *(v23 + 164) > 1 || *(v23 + 168) > 1 || *(v23 + 152))
+      v29 = sub_19B420058();
+      if (*(v29 + 160) > 1 || *(v29 + 164) > 1 || *(v29 + 168) > 1 || *(v29 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C830 != -1)
@@ -8939,20 +8514,21 @@ LABEL_68:
         }
 
         v30 = *(a1 + 3);
-        v24 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v24);
-        if (v24 != buf)
+        v36 = 134283521;
+        v37 = v30;
+        LODWORD(v35) = 12;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 0, "[CLIoHidInterface] setMatchingProperties - successfully switch to new service %{private}p", &v36, v35);
+        v32 = v31;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "void CLIoHidInterface::Device::setMatchingProperties(NSDictionary<NSString *,id> *)", "CoreLocation: %s\n", v31);
+        if (v32 != buf)
         {
-          free(v24);
+          free(v32);
         }
       }
 
       sub_19B421D14(*(a1 + 5));
     }
   }
-
-LABEL_54:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_19B444174(uint64_t a1, char *a2, void *a3)
@@ -8989,7 +8565,7 @@ void sub_19B4441E8(uint64_t a1)
       dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
     }
 
-    v10 = off_1ED71C838;
+    v8 = off_1ED71C838;
     p_vtable = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_FAULT))
     {
@@ -9001,14 +8577,14 @@ void sub_19B4441E8(uint64_t a1)
       v18 = "assert";
       v19 = 2081;
       v20 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[FastPathDevice] closeFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:[FastPathDevice] closeFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
       }
     }
 
-    v11 = off_1ED71C838;
+    v9 = off_1ED71C838;
     if (os_signpost_enabled(off_1ED71C838))
     {
       *buf = 68289539;
@@ -9019,14 +8595,14 @@ void sub_19B4441E8(uint64_t a1)
       v18 = "assert";
       v19 = 2081;
       v20 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[FastPathDevice] closeFastPathPrivate() should be running on motion thread", "{msg%{public}.0s:[FastPathDevice] closeFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "[FastPathDevice] closeFastPathPrivate() should be running on motion thread", "{msg%{public}.0s:[FastPathDevice] closeFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED71C830 != -1)
       {
         dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
       }
     }
 
-    v12 = off_1ED71C838;
+    v10 = off_1ED71C838;
     if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
@@ -9037,65 +8613,63 @@ void sub_19B4441E8(uint64_t a1)
       v18 = "assert";
       v19 = 2081;
       v20 = "CFRunLoopGetCurrent() == CLMotionCore::instance()->getMotionRunLoop()";
-      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[FastPathDevice] closeFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_INFO, "{msg%{public}.0s:[FastPathDevice] closeFastPathPrivate() should be running on motion thread, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
-    goto LABEL_31;
-  }
-
-  if (*(a1 + 180) != 1)
-  {
-LABEL_17:
-    v9 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (!*(a1 + 24))
-  {
-    p_vtable = CMDeviceOrientationManager.vtable;
-    if (qword_1ED71C830 == -1)
-    {
-LABEL_8:
-      v6 = off_1ED71C838;
-      if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_ERROR, "[FastPath] Failed to close because of null service ref", buf, 2u);
-      }
-
-      v7 = sub_19B420058();
-      if ((*(v7 + 160) & 0x80000000) == 0 || (*(v7 + 164) & 0x80000000) == 0 || (*(v7 + 168) & 0x80000000) == 0 || *(v7 + 152))
-      {
-        bzero(buf, 0x65CuLL);
-        if (p_vtable[262] != -1)
-        {
-          dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
-        }
-
-        v8 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "void FastPathDevice::closeFastPathPrivate()", "CoreLocation: %s\n", v8);
-        if (v8 != buf)
-        {
-          free(v8);
-        }
-      }
-
-      goto LABEL_17;
-    }
-
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Motion/IO/CLIoHidFastPathDevice.mm", 90, "closeFastPathPrivate");
 LABEL_31:
     dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
     goto LABEL_8;
   }
 
-  os_unfair_lock_lock((a1 + 176));
-  v3 = *(a1 + 24);
-  IOHIDServiceClientFastPathInvalidate();
-  *(a1 + 180) = 0;
-  v4 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 180) != 1)
+  {
+    return;
+  }
 
-  os_unfair_lock_unlock((a1 + 176));
+  if (*(a1 + 24))
+  {
+    os_unfair_lock_lock((a1 + 176));
+    IOHIDServiceClientFastPathInvalidate();
+    *(a1 + 180) = 0;
+
+    os_unfair_lock_unlock((a1 + 176));
+    return;
+  }
+
+  p_vtable = CMDeviceOrientationManager.vtable;
+  if (qword_1ED71C830 != -1)
+  {
+    goto LABEL_31;
+  }
+
+LABEL_8:
+  v4 = off_1ED71C838;
+  if (os_log_type_enabled(off_1ED71C838, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_ERROR, "[FastPath] Failed to close because of null service ref", buf, 2u);
+  }
+
+  v5 = sub_19B420058();
+  if ((*(v5 + 160) & 0x80000000) == 0 || (*(v5 + 164) & 0x80000000) == 0 || (*(v5 + 168) & 0x80000000) == 0 || *(v5 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (p_vtable[262] != -1)
+    {
+      dispatch_once(&qword_1ED71C830, &unk_1F0E2A580);
+    }
+
+    v12[0] = 0;
+    LODWORD(v11) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "[FastPath] Failed to close because of null service ref", v12, v11);
+    v7 = v6;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "void FastPathDevice::closeFastPathPrivate()", "CoreLocation: %s\n", v6);
+    if (v7 != buf)
+    {
+      free(v7);
+    }
+  }
 }
 
 void *sub_19B44461C(void *a1, char *a2, void *a3)
@@ -9109,7 +8683,7 @@ void *sub_19B44461C(void *a1, char *a2, void *a3)
 
 void sub_19B4446EC(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = *a2;
   v4 = *(a2 + 8);
   if (v4)
@@ -9120,8 +8694,8 @@ void sub_19B4446EC(uint64_t a1, uint64_t a2)
   v6 = *(a1 + 40);
   v5 = *(a1 + 48);
   Dictionary = CLConnectionMessage::getDictionary(v3);
-  sub_19B444AA4(v17, Dictionary);
-  if ((*(v17[0] + 856))(v17) <= 0)
+  sub_19B444AA4(v19, Dictionary);
+  if ((*(v19[0] + 856))(v19) <= 0)
   {
     if (qword_1ED71C810 != -1)
     {
@@ -9144,8 +8718,9 @@ void sub_19B4446EC(uint64_t a1, uint64_t a2)
         dispatch_once(&qword_1ED71C810, &unk_1F0E28540);
       }
 
-      LOWORD(v14[0]) = 0;
-      v10 = _os_log_send_and_compose_impl();
+      LOWORD(v16[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 17, "Could not get dictionary for message", v16, 2);
+      v11 = v10;
       sub_19B6BB7CC("Generic", 1, 0, 0, "void CLGyroBiasEstimatorClientRemote::onGyroBiasEstimation(std::shared_ptr<CLConnectionMessage>, CLGyroBiasEstimatorClientCallback, void *)", "CoreLocation: %s\n", v10);
       goto LABEL_26;
     }
@@ -9153,9 +8728,9 @@ void sub_19B4446EC(uint64_t a1, uint64_t a2)
 
   else
   {
-    if (sub_19B444D44(v14, &v15, &v16, v17))
+    if (sub_19B444D44(v16, &v17, &v18, v19))
     {
-      v6(v14, v5);
+      v6(v16, v5);
       goto LABEL_28;
     }
 
@@ -9164,15 +8739,15 @@ void sub_19B4446EC(uint64_t a1, uint64_t a2)
       dispatch_once(&qword_1ED71C810, &unk_1F0E28540);
     }
 
-    v11 = qword_1ED71C818;
+    v12 = qword_1ED71C818;
     if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_FAULT, "Message does not contain a valid gyro bias object", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_FAULT, "Message does not contain a valid gyro bias object", buf, 2u);
     }
 
-    v12 = sub_19B420058();
-    if ((*(v12 + 160) & 0x80000000) == 0 || (*(v12 + 164) & 0x80000000) == 0 || (*(v12 + 168) & 0x80000000) == 0 || *(v12 + 152))
+    v13 = sub_19B420058();
+    if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C810 != -1)
@@ -9180,33 +8755,33 @@ void sub_19B4446EC(uint64_t a1, uint64_t a2)
         dispatch_once(&qword_1ED71C810, &unk_1F0E28540);
       }
 
-      v10 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "void CLGyroBiasEstimatorClientRemote::onGyroBiasEstimation(std::shared_ptr<CLConnectionMessage>, CLGyroBiasEstimatorClientCallback, void *)", "CoreLocation: %s\n", v10);
+      v15[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 17, "Message does not contain a valid gyro bias object", v15, 2);
+      v11 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "void CLGyroBiasEstimatorClientRemote::onGyroBiasEstimation(std::shared_ptr<CLConnectionMessage>, CLGyroBiasEstimatorClientCallback, void *)", "CoreLocation: %s\n", v14);
 LABEL_26:
-      if (v10 != buf)
+      if (v11 != buf)
       {
-        free(v10);
+        free(v11);
       }
     }
   }
 
 LABEL_28:
-  sub_19B445384(v17);
+  sub_19B445384(v19);
   if (v4)
   {
     sub_19B41FFEC(v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void sub_19B444A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19B444A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_19B445384(va);
-  if (v9)
+  if (v16)
   {
-    sub_19B41FFEC(v9);
+    sub_19B41FFEC(v16);
   }
 
   _Unwind_Resume(a1);
@@ -9214,7 +8789,7 @@ void sub_19B444A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void *sub_19B444AA4(void *a1, CFDictionaryRef theDict)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F0E334A8;
   a1[1] = 0;
   v3 = *MEMORY[0x1E695E480];
@@ -9252,16 +8827,17 @@ void *sub_19B444AA4(void *a1, CFDictionaryRef theDict)
         dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
       }
 
-      v7 = _os_log_send_and_compose_impl();
+      v10[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C828, 17, "could not create new mutable dictionary", v10, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 0, "CLNameValuePair::CLNameValuePair(CFDictionaryRef)", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -9283,7 +8859,7 @@ uint64_t sub_19B444D44(float *a1, float *a2, BOOL *a3, uint64_t a4)
     return 0;
   }
 
-  return sub_19B438CCC(a4, "KCLDoingBiasEstimationKey", a3);
+  return sub_19B438CCC(a4, "KCLDoingBiasEstimationKey", a3, 0xFFFFFFFFLL);
 }
 
 uint64_t sub_19B444E58(uint64_t a1, const char *a2, float *a3)
@@ -9307,7 +8883,7 @@ uint64_t sub_19B444E58(uint64_t a1, const char *a2, float *a3)
 
 uint64_t sub_19B444EE4(const void *a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = CFGetTypeID(a1);
   if (v4 != CFNumberGetTypeID())
   {
@@ -9320,8 +8896,8 @@ uint64_t sub_19B444EE4(const void *a1, void *a2)
     if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
     {
       *buf = 134349312;
-      v13 = CFGetTypeID(a1);
-      v14 = 2050;
+      v19 = CFGetTypeID(a1);
+      v20 = 2050;
       TypeID = CFNumberGetTypeID();
       _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_FAULT, "type IDs do not match - %{public}lu vs %{public}lu", buf, 0x16u);
     }
@@ -9329,7 +8905,7 @@ uint64_t sub_19B444EE4(const void *a1, void *a2)
     v7 = sub_19B420058();
     if ((*(v7 + 160) & 0x80000000) != 0 && (*(v7 + 164) & 0x80000000) != 0 && (*(v7 + 168) & 0x80000000) != 0 && !*(v7 + 152))
     {
-      goto LABEL_26;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -9338,62 +8914,60 @@ uint64_t sub_19B444EE4(const void *a1, void *a2)
       dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
     }
 
-    CFGetTypeID(a1);
-    CFNumberGetTypeID();
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, double &)", "CoreLocation: %s\n", v8);
-    if (v8 == buf)
+    v8 = off_1ED71C828;
+    v14 = 134349312;
+    v15 = CFGetTypeID(a1);
+    v16 = 2050;
+    v17 = CFNumberGetTypeID();
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v8, 17, "type IDs do not match - %{public}lu vs %{public}lu", &v14, 22);
+    v10 = v9;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, double &)", "CoreLocation: %s\n", v9);
+    if (v10 == buf)
     {
-      goto LABEL_26;
-    }
-
-LABEL_25:
-    free(v8);
-LABEL_26:
-    result = 0;
-    goto LABEL_27;
-  }
-
-  if (!CFNumberGetValue(a1, kCFNumberFloat64Type, a2))
-  {
-    if (qword_1ED71C820 != -1)
-    {
-      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-    }
-
-    v9 = off_1ED71C828;
-    if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_FAULT, "could not get value", buf, 2u);
-    }
-
-    v10 = sub_19B420058();
-    if ((*(v10 + 160) & 0x80000000) != 0 && (*(v10 + 164) & 0x80000000) != 0 && (*(v10 + 168) & 0x80000000) != 0 && !*(v10 + 152))
-    {
-      goto LABEL_26;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1ED71C820 != -1)
-    {
-      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
-    }
-
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, double &)", "CoreLocation: %s\n", v8);
-    if (v8 == buf)
-    {
-      goto LABEL_26;
+      return 0;
     }
 
     goto LABEL_25;
   }
 
-  result = 1;
-LABEL_27:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  if (CFNumberGetValue(a1, kCFNumberFloat64Type, a2))
+  {
+    return 1;
+  }
+
+  if (qword_1ED71C820 != -1)
+  {
+    dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+  }
+
+  v11 = off_1ED71C828;
+  if (os_log_type_enabled(off_1ED71C828, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_FAULT, "could not get value", buf, 2u);
+  }
+
+  v12 = sub_19B420058();
+  if ((*(v12 + 160) & 0x80000000) == 0 || (*(v12 + 164) & 0x80000000) == 0 || (*(v12 + 168) & 0x80000000) == 0 || *(v12 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1ED71C820 != -1)
+    {
+      dispatch_once(&qword_1ED71C820, &unk_1F0E28F60);
+    }
+
+    LOWORD(v14) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C828, 17, "could not get value", &v14, 2);
+    v10 = v13;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "static BOOL CLNameValuePair::fromCfType(const CFTypeRef, double &)", "CoreLocation: %s\n", v13);
+    if (v10 != buf)
+    {
+LABEL_25:
+      free(v10);
+    }
+  }
+
+  return 0;
 }
 
 uint64_t sub_19B44525C(const void *a1, BOOL *a2)
@@ -9442,7 +9016,7 @@ void *sub_19B445384(void *a1)
 
 uint64_t sub_19B4453D4(uint64_t result, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   *(result + 48) = *a2;
   v2 = (result + 48);
   if (*(result + 72))
@@ -9458,7 +9032,7 @@ uint64_t sub_19B4453D4(uint64_t result, void *a2)
     {
       v5 = *v2;
       *buf = 134349056;
-      v11 = v5;
+      v13 = v5;
       _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_INFO, "Set device motion sensor status %{public}ld", buf, 0xCu);
     }
 
@@ -9471,19 +9045,21 @@ uint64_t sub_19B4453D4(uint64_t result, void *a2)
         dispatch_once(&qword_1ED71C800, &unk_1F0E2A420);
       }
 
-      v9 = *v2;
-      v7 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "void CLSensorFusionService::updateSensorStatus(const SensorStatus &)", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      v7 = *v2;
+      v10 = 134349056;
+      v11 = v7;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 1, "Set device motion sensor status %{public}ld", &v10, 12);
+      v9 = v8;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "void CLSensorFusionService::updateSensorStatus(const SensorStatus &)", "CoreLocation: %s\n", v8);
+      if (v9 != buf)
       {
-        free(v7);
+        free(v9);
       }
     }
 
-    result = (*(v3 + 72))(v2, *(v3 + 80));
+    return (*(v3 + 72))(v2, *(v3 + 80));
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9593,7 +9169,7 @@ void sub_19B445814(uint64_t a1)
 
 void sub_19B4458B8(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = _os_activity_create(&dword_19B41C000, "CL: CLGyroBiasEstimatorClientRemote::unregisterWithGyroBiasEstimatorPrivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v2, &state);
 
@@ -9606,13 +9182,13 @@ void sub_19B4458B8(uint64_t a1)
   if (os_log_type_enabled(qword_1ED71C7E0, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289538;
-    v9 = 0;
-    v10 = 2082;
-    v11 = "";
-    v12 = 2082;
-    v13 = "activity";
-    v14 = 2050;
-    v15 = a1;
+    v8 = 0;
+    v9 = 2082;
+    v10 = "";
+    v11 = 2082;
+    v12 = "activity";
+    v13 = 2050;
+    v14 = a1;
     _os_log_impl(&dword_19B41C000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLGyroBiasEstimatorClientRemote::unregisterWithGyroBiasEstimatorPrivate, event:%{public, location:escape_only}s, client:%{public}p}", buf, 0x26u);
   }
 
@@ -9624,7 +9200,6 @@ void sub_19B4458B8(uint64_t a1)
   block[4] = a1;
   dispatch_async(v4, block);
   os_activity_scope_leave(&state);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_19B445A50(uint64_t a1)
@@ -9699,7 +9274,7 @@ uint64_t sub_19B445ACC(void *a1, uint64_t a2)
 
 void sub_19B445C68(uint64_t a1)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   *(v2 + 40) = *(a1 + 52);
@@ -9720,21 +9295,21 @@ void sub_19B445C68(uint64_t a1)
     v10 = *(a1 + 60);
     v11 = *(a1 + 64);
     *buf = 136316930;
-    v38 = "GyroBias";
-    v39 = 2048;
-    v40 = v5;
-    v41 = 2048;
-    v42 = v6;
-    v43 = 2048;
-    v44 = v7;
-    v45 = 2048;
-    v46 = v8;
-    v47 = 2048;
-    v48 = v9;
-    v49 = 2048;
-    v50 = v10;
-    v51 = 1024;
-    v52 = v11;
+    v39 = "GyroBias";
+    v40 = 2048;
+    v41 = v5;
+    v42 = 2048;
+    v43 = v6;
+    v44 = 2048;
+    v45 = v7;
+    v46 = 2048;
+    v47 = v8;
+    v48 = 2048;
+    v49 = v9;
+    v50 = 2048;
+    v51 = v10;
+    v52 = 1024;
+    v53 = v11;
     _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_DEBUG, "Type,%s,bias.x,%20.20f,bias.y,%20.20f,bias.z,%20.20f,variance.x,%20.20f,variance.y,%20.20f,variance.z,%20.20f,doingBiasEstimation,%d", buf, 0x4Eu);
   }
 
@@ -9754,71 +9329,73 @@ void sub_19B445C68(uint64_t a1)
     v17 = *(a1 + 56);
     v18 = *(a1 + 60);
     v19 = *(a1 + 64);
-    *v56 = 136316930;
-    *&v56[4] = "GyroBias";
-    *&v56[12] = 2048;
-    *&v56[14] = v13;
-    *&v56[22] = 2048;
-    *&v56[24] = v14;
-    *&v56[32] = 2048;
-    *&v56[34] = v15;
-    *&v56[42] = 2048;
-    v57 = v16;
-    v58 = 2048;
-    v59 = v17;
-    v60 = 2048;
-    v61 = v18;
-    v62 = 1024;
-    v63 = v19;
-    v20 = _os_log_send_and_compose_impl();
+    *v57 = 136316930;
+    *&v57[4] = "GyroBias";
+    *&v57[12] = 2048;
+    *&v57[14] = v13;
+    *&v57[22] = 2048;
+    *&v57[24] = v14;
+    *&v57[32] = 2048;
+    *&v57[34] = v15;
+    *&v57[42] = 2048;
+    v58 = v16;
+    v59 = 2048;
+    v60 = v17;
+    v61 = 2048;
+    v62 = v18;
+    v63 = 1024;
+    v64 = v19;
+    LODWORD(v37) = 78;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 2, "Type,%s,bias.x,%20.20f,bias.y,%20.20f,bias.z,%20.20f,variance.x,%20.20f,variance.y,%20.20f,variance.z,%20.20f,doingBiasEstimation,%d", v57, v37);
+    v21 = v20;
     sub_19B6BB7CC("Generic", 1, 0, 2, "void CLSensorFusionServiceAP::onBiasAndVariance(const CLMotionTypeGyroBiasAndVariance)_block_invoke", "CoreLocation: %s\n", v20);
-    if (v20 != buf)
+    if (v21 != buf)
     {
-      free(v20);
+      free(v21);
     }
   }
 
   if (*(v2 + 73) == 1)
   {
-    *v56 = &unk_1F0E312B0;
-    *&v56[8] = CFAbsoluteTimeGetCurrent();
-    *&v56[20] = *(a1 + 40);
-    *&v56[36] = *(a1 + 56);
-    LOBYTE(v57) = *(a1 + 64);
-    v21 = sub_19B720E40();
-    sub_19B7223F8(v21, v56);
+    *v57 = &unk_1F0E312B0;
+    *&v57[8] = CFAbsoluteTimeGetCurrent();
+    *&v57[20] = *(a1 + 40);
+    *&v57[36] = *(a1 + 56);
+    LOBYTE(v58) = *(a1 + 64);
+    v22 = sub_19B720E40();
+    sub_19B7223F8(v22, v57);
     sub_19B517F80(buf);
     sub_19B532528(buf);
-    v55 |= 1u;
-    v53 = *&v56[8];
-    v22 = v54;
-    v23 = *(a1 + 40);
-    *(v54 + 36) |= 1u;
-    *(v22 + 8) = v23;
-    v24 = v54;
-    v25 = *(a1 + 44);
-    *(v54 + 36) |= 2u;
-    *(v24 + 12) = v25;
-    v26 = v54;
-    v27 = *(a1 + 48);
-    *(v54 + 36) |= 4u;
-    *(v26 + 16) = v27;
-    v28 = v54;
-    v29 = *(a1 + 52);
-    *(v54 + 36) |= 0x10u;
-    *(v28 + 24) = v29;
-    v30 = v54;
-    v31 = *(a1 + 56);
-    *(v54 + 36) |= 0x20u;
-    *(v30 + 28) = v31;
-    v32 = v54;
-    v33 = *(a1 + 60);
-    *(v54 + 36) |= 0x40u;
-    *(v32 + 32) = v33;
-    v34 = v54;
-    v35 = *(a1 + 64);
-    *(v54 + 36) |= 8u;
-    *(v34 + 20) = v35;
+    v56 |= 1u;
+    v54 = *&v57[8];
+    v23 = v55;
+    v24 = *(a1 + 40);
+    *(v55 + 36) |= 1u;
+    *(v23 + 8) = v24;
+    v25 = v55;
+    v26 = *(a1 + 44);
+    *(v55 + 36) |= 2u;
+    *(v25 + 12) = v26;
+    v27 = v55;
+    v28 = *(a1 + 48);
+    *(v55 + 36) |= 4u;
+    *(v27 + 16) = v28;
+    v29 = v55;
+    v30 = *(a1 + 52);
+    *(v55 + 36) |= 0x10u;
+    *(v29 + 24) = v30;
+    v31 = v55;
+    v32 = *(a1 + 56);
+    *(v55 + 36) |= 0x20u;
+    *(v31 + 28) = v32;
+    v33 = v55;
+    v34 = *(a1 + 60);
+    *(v55 + 36) |= 0x40u;
+    *(v33 + 32) = v34;
+    v35 = v55;
+    v36 = *(a1 + 64);
+    *(v55 + 36) |= 8u;
+    *(v35 + 20) = v36;
     sub_19B51DBD4(buf);
   }
 
@@ -9826,6 +9403,470 @@ void sub_19B445C68(uint64_t a1)
   {
     (*(*v2 + 24))(v2, a1 + 40, a1 + 52);
   }
+}
 
-  v36 = *MEMORY[0x1E69E9840];
+void sub_19B446094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  sub_19B51DBD4(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_19B4460B0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = MEMORY[0x1EEE9AC00](a1, a2, a3);
+  v102 = *MEMORY[0x1E69E9840];
+  result = IOHIDEventGetType();
+  if (result == 20)
+  {
+    IOHIDEventGetFloatValue();
+    v6 = v5;
+    IOHIDEventGetFloatValue();
+    v8 = v7;
+    IOHIDEventGetFloatValue();
+    v10 = v9;
+    TimeStamp = IOHIDEventGetTimeStamp();
+    v12 = sub_19B41E070(TimeStamp);
+    v61 = v12;
+    IntegerValue = IOHIDEventGetIntegerValue();
+    v14 = *(v3 + 72);
+    if (v14 > 0.0 && v12 > v14 + *(v3 + 48))
+    {
+      v62 = v12;
+      if (sub_19B42A90C(v3))
+      {
+        v15 = (*(**(v3 + 80) + 24))(*(v3 + 80), @"AppleVoltageDictionary");
+        v17 = objc_msgSend_objectForKeyedSubscript_(v15, v16, @"GYRO_TEMP");
+        objc_msgSend_floatValue(v17, v18, v19);
+        v63 = v20 / 100.0;
+
+        v21 = v17 != 0;
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      if (qword_1EAFE2890 != -1)
+      {
+        dispatch_once(&qword_1EAFE2890, &unk_1F0E27B20);
+      }
+
+      v22 = qword_1EAFE2898;
+      if (os_log_type_enabled(qword_1EAFE2898, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136446466;
+        v81 = COERCE_DOUBLE("CLGyro");
+        v82 = 1026;
+        LODWORD(v83) = v21;
+        _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_DEBUG, "Type,%{public}s,ret=%{public}d", buf, 0x12u);
+      }
+
+      v23 = sub_19B420058();
+      if (*(v23 + 160) > 1 || *(v23 + 164) > 1 || *(v23 + 168) > 1 || *(v23 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1EAFE2890 != -1)
+        {
+          dispatch_once(&qword_1EAFE2890, &unk_1F0E27B20);
+        }
+
+        *v68 = 136446466;
+        *&v68[4] = "CLGyro";
+        *&v68[12] = 1026;
+        *&v68[14] = v21;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2898, 2, "Type,%{public}s,ret=%{public}d", v68, 18, *&v12, *&v62);
+        v25 = v24;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "void CLGyro::onGyroData(const CLMotionTypeRotationRate &, const CLMotionTypeTimestamp &, unsigned int)", "CoreLocation: %s\n", v24);
+        if (v25 != buf)
+        {
+          free(v25);
+        }
+      }
+
+      if (v21)
+      {
+        if (qword_1EAFE2890 != -1)
+        {
+          dispatch_once(&qword_1EAFE2890, &unk_1F0E27B20);
+        }
+
+        v26 = qword_1EAFE2898;
+        if (os_log_type_enabled(qword_1EAFE2898, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 136446466;
+          v81 = COERCE_DOUBLE("GyroTemperature");
+          v82 = 2050;
+          v83 = v63;
+          _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_DEBUG, "Type,%{public}s,temperature,%{public}f", buf, 0x16u);
+        }
+
+        v27 = sub_19B420058();
+        if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
+        {
+          bzero(buf, 0x65CuLL);
+          if (qword_1EAFE2890 != -1)
+          {
+            dispatch_once(&qword_1EAFE2890, &unk_1F0E27B20);
+          }
+
+          *v68 = 136446466;
+          *&v68[4] = "GyroTemperature";
+          *&v68[12] = 2050;
+          *&v68[14] = v63;
+          LODWORD(v60) = 22;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2898, 2, "Type,%{public}s,temperature,%{public}f", v68, *&v60);
+          v29 = v28;
+          sub_19B6BB7CC("Generic", 1, 0, 2, "void CLGyro::onGyroData(const CLMotionTypeRotationRate &, const CLMotionTypeTimestamp &, unsigned int)", "CoreLocation: %s\n", v28);
+          if (v29 != buf)
+          {
+            free(v29);
+          }
+        }
+
+        if (*(v3 + 96) == 1)
+        {
+          *v68 = &unk_1F0E31370;
+          *&v68[8] = CFAbsoluteTimeGetCurrent();
+          *&v68[20] = v63;
+          v30 = sub_19B720E40();
+          sub_19B7223F8(v30, v68);
+          sub_19B517F80(buf);
+          sub_19B532498(buf);
+          v101 |= 1u;
+          v98 = *&v68[8];
+          v31 = v100;
+          v32 = v63;
+          *(v100 + 16) |= 2u;
+          *(v31 + 12) = v32;
+          sub_19B51DBD4(buf);
+        }
+
+        sub_19B41DF08(v3, 1, &v62, 16);
+      }
+
+      *(v3 + 48) = v12;
+    }
+
+    v33 = v6;
+    v34 = v8;
+    v35 = v10;
+    v62 = v12;
+    v63 = v33;
+    v64 = v34;
+    v65 = v35;
+    v66 = HIWORD(IntegerValue);
+    v67 = (~IntegerValue & 0x300) == 0;
+    if (qword_1ED71C810 != -1)
+    {
+      dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
+    }
+
+    v36 = qword_1ED71C818;
+    if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_DEBUG))
+    {
+      v37 = mach_absolute_time();
+      v38 = sub_19B41E070(v37);
+      *buf = 134220032;
+      v81 = v33;
+      v82 = 2048;
+      v83 = v34;
+      v84 = 2048;
+      v85 = v35;
+      v86 = 2048;
+      v87 = v12;
+      v88 = 1024;
+      v89 = IntegerValue;
+      v90 = 1024;
+      v91 = HIWORD(IntegerValue) % 3u;
+      v92 = 1024;
+      v93 = (IntegerValue >> 8) & 1;
+      v94 = 1024;
+      v95 = (IntegerValue >> 9) & 1;
+      v96 = 2048;
+      v97 = v38;
+      _os_log_impl(&dword_19B41C000, v36, OS_LOG_TYPE_DEBUG, "[CLGyro] x,%20.20f,y,%20.20f,z,%20.20f,timestamp,%20.20f,subType,%d,sampleNum%%3,%d,triggerEnabled,%d,triggerOn,%d,now,%f", buf, 0x4Cu);
+    }
+
+    v39 = sub_19B420058();
+    if (*(v39 + 160) > 1 || *(v39 + 164) > 1 || *(v39 + 168) > 1 || *(v39 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C810 != -1)
+      {
+        dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
+      }
+
+      v40 = qword_1ED71C818;
+      v41 = mach_absolute_time();
+      v42 = sub_19B41E070(v41);
+      *v68 = 134220032;
+      *&v68[4] = v33;
+      *&v68[12] = 2048;
+      *&v68[14] = v34;
+      *&v68[22] = 2048;
+      v69 = v35;
+      *v70 = 2048;
+      *&v70[2] = v12;
+      *&v70[10] = 1024;
+      v71 = IntegerValue;
+      v72 = 1024;
+      v73 = HIWORD(IntegerValue) % 3u;
+      v74 = 1024;
+      v75 = (IntegerValue >> 8) & 1;
+      v76 = 1024;
+      v77 = (IntegerValue >> 9) & 1;
+      v78 = 2048;
+      v79 = v42;
+      LODWORD(v60) = 76;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v40, 2, "[CLGyro] x,%20.20f,y,%20.20f,z,%20.20f,timestamp,%20.20f,subType,%d,sampleNum%%3,%d,triggerEnabled,%d,triggerOn,%d,now,%f", COERCE_DOUBLE(v68), v60, v61, v62, LODWORD(v63), LODWORD(v65));
+      v44 = v43;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "void CLGyro::onGyroData(const CLMotionTypeRotationRate &, const CLMotionTypeTimestamp &, unsigned int)", "CoreLocation: %s\n", v43);
+      if (v44 != buf)
+      {
+        free(v44);
+      }
+    }
+
+    if (v12 < *(v3 + 56))
+    {
+      if (qword_1ED71C810 != -1)
+      {
+        dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
+      }
+
+      v45 = qword_1ED71C818;
+      if (os_log_type_enabled(qword_1ED71C818, OS_LOG_TYPE_ERROR))
+      {
+        v46 = *(v3 + 56);
+        *buf = 134218240;
+        v81 = v46;
+        v82 = 2048;
+        v83 = v12;
+        _os_log_impl(&dword_19B41C000, v45, OS_LOG_TYPE_ERROR, "Gyro time rollback, last timestamp, %f, current timestamp, %f", buf, 0x16u);
+      }
+
+      v47 = sub_19B420058();
+      if ((*(v47 + 160) & 0x80000000) == 0 || (*(v47 + 164) & 0x80000000) == 0 || (*(v47 + 168) & 0x80000000) == 0 || *(v47 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1ED71C810 != -1)
+        {
+          dispatch_once(&qword_1ED71C810, &unk_1F0E27B60);
+        }
+
+        v48 = *(v3 + 56);
+        *v68 = 134218240;
+        *&v68[4] = v48;
+        *&v68[12] = 2048;
+        *&v68[14] = v12;
+        LODWORD(v60) = 22;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C818, 16, "Gyro time rollback, last timestamp, %f, current timestamp, %f", COERCE_DOUBLE(v68), v60);
+        v50 = v49;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "void CLGyro::onGyroData(const CLMotionTypeRotationRate &, const CLMotionTypeTimestamp &, unsigned int)", "CoreLocation: %s\n", v49);
+        if (v50 != buf)
+        {
+          free(v50);
+        }
+      }
+    }
+
+    if (*(v3 + 96) == 1)
+    {
+      *v68 = &unk_1F0E31270;
+      *&v68[8] = CFAbsoluteTimeGetCurrent();
+      v69 = v12;
+      *v70 = v33;
+      *&v70[4] = v34;
+      *&v70[8] = v10;
+      v71 = IntegerValue;
+      LOBYTE(v72) = HIWORD(IntegerValue) % 3u;
+      HIBYTE(v72) = BYTE1(IntegerValue) & 1;
+      LOBYTE(v73) = (IntegerValue & 0x200) != 0;
+      v51 = sub_19B720E40();
+      sub_19B7223F8(v51, v68);
+      sub_19B517F80(buf);
+      sub_19B532408(buf);
+      v101 |= 1u;
+      v98 = *&v68[8];
+      v52 = v99;
+      *(v99 + 44) |= 1u;
+      *(v52 + 8) = v12;
+      v53 = v99;
+      *(v99 + 44) |= 0x10u;
+      *(v53 + 28) = v33;
+      v54 = v99;
+      *(v99 + 44) |= 0x20u;
+      *(v54 + 32) = v34;
+      v55 = v99;
+      *(v99 + 44) |= 0x40u;
+      *(v55 + 36) = v35;
+      v56 = v99;
+      *(v99 + 44) |= 8u;
+      *(v56 + 24) = IntegerValue;
+      v57 = v99;
+      *(v99 + 44) |= 4u;
+      *(v57 + 20) = HIWORD(IntegerValue) % 3u;
+      v58 = v99;
+      *(v99 + 44) |= 0x80u;
+      *(v58 + 40) = BYTE1(IntegerValue) & 1;
+      v59 = v99;
+      *(v99 + 44) |= 0x100u;
+      *(v59 + 41) = (IntegerValue & 0x200) != 0;
+      sub_19B51DBD4(buf);
+    }
+
+    result = sub_19B41DF08(v3, 0, &v62, 24);
+    *(v3 + 56) = v12;
+  }
+
+  return result;
+}
+
+void sub_19B446B80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  sub_19B51DBD4(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_19B446BB0(uint64_t a1, float32x2_t *a2, double *a3)
+{
+  v62 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 196) == 1)
+  {
+    if (qword_1EAFE2890 != -1)
+    {
+      dispatch_once(&qword_1EAFE2890, &unk_1F0E28080);
+    }
+
+    v6 = qword_1EAFE2898;
+    if (os_log_type_enabled(qword_1EAFE2898, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = a2->f32[0];
+      v8 = a2->f32[1];
+      v9 = a2[1].f32[0];
+      v10 = *a3;
+      v11 = *(a3 + 1);
+      v12 = *(a3 + 2);
+      *buf = 134219264;
+      v49 = v7;
+      v50 = 2048;
+      v51 = v8;
+      v52 = 2048;
+      v53 = v9;
+      v54 = 2048;
+      v55 = v10;
+      v56 = 2048;
+      v57 = v11;
+      LOWORD(v58[0]) = 2048;
+      *(v58 + 2) = v12;
+      _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_DEBUG, "[Bias,Var] bias.x,%f,bias.y,%f,bias.z,%f,var.x,%f,var.y,%f,var.z,%f", buf, 0x3Eu);
+    }
+
+    v13 = sub_19B420058();
+    if (*(v13 + 160) > 1 || *(v13 + 164) > 1 || *(v13 + 168) > 1 || *(v13 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE2890 != -1)
+      {
+        dispatch_once(&qword_1EAFE2890, &unk_1F0E28080);
+      }
+
+      v14 = a2->f32[0];
+      v15 = a2->f32[1];
+      v16 = a2[1].f32[0];
+      v17 = *a3;
+      v18 = *(a3 + 1);
+      v19 = *(a3 + 2);
+      v36 = 134219264;
+      v37 = v14;
+      v38 = 2048;
+      v39 = v15;
+      v40 = 2048;
+      v41 = v16;
+      v42 = 2048;
+      v43 = v17;
+      v44 = 2048;
+      v45 = v18;
+      v46 = 2048;
+      v47 = v19;
+      LODWORD(v31) = 62;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2898, 2, "[Bias,Var] bias.x,%f,bias.y,%f,bias.z,%f,var.x,%f,var.y,%f,var.z,%f", COERCE_DOUBLE(&v36), v31, v32, v33, v34, v35);
+      v21 = v20;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "virtual void CLSensorFusionMekf::feedGyroBias(const CLMotionTypeRotationRate &, const CLMotionTypeVector3 &)", "CoreLocation: %s\n", v20);
+      if (v21 != buf)
+      {
+        free(v21);
+      }
+    }
+  }
+
+  if (*(a1 + 10))
+  {
+    v22 = 0;
+    v34 = *a3;
+    LODWORD(v35) = *(a3 + 2);
+    do
+    {
+      v23 = *(&v34 + v22);
+      if (v23 < 0.000001)
+      {
+        v23 = 0.000001;
+      }
+
+      *(&v34 + v22) = v23;
+      v22 += 4;
+    }
+
+    while (v22 != 12);
+    v24 = *(a1 + 152);
+    if (v24 >= 50)
+    {
+      v25 = 50;
+    }
+
+    else
+    {
+      v25 = *(a1 + 152);
+    }
+
+    if (v24 >= 1)
+    {
+      v26 = 0;
+      v27 = v34;
+      v28 = LODWORD(v35);
+      do
+      {
+        v32 = COERCE_DOUBLE(vcvt_f32_f64(vsubq_f64(vcvtq_f64_f32(*a2), *(a1 + 88))));
+        v29 = a2[1].f32[0] - *(a1 + 104);
+        *&v33 = v29;
+        bzero(buf, 0x48uLL);
+        *(&v55 + 2) = 1065353216;
+        v58[0] = 1065353216;
+        v58[4] = 1065353216;
+        v60 = v27;
+        v61 = v28;
+        sub_19B66EDDC(&v36, (a1 + 112), buf, &v60, &v32, 6, 3, v59);
+        for (i = 0; i != 24; i += 8)
+        {
+          *(a1 + i + 88) = *(&v41 + i) + *(a1 + i + 88);
+        }
+
+        ++v26;
+      }
+
+      while (v26 != v25);
+    }
+
+    *(a1 + 152) = 0;
+  }
+
+  else
+  {
+    *(a1 + 88) = vcvtq_f64_f32(*a2);
+    *(a1 + 104) = a2[1].f32[0];
+    *(a1 + 10) = 1;
+  }
 }

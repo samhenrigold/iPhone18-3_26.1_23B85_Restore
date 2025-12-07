@@ -11,6 +11,7 @@
 - (BTVCLinkLayerControl)init;
 - (BTVCLinkLayerControl)initWithDevice:(id)device role:(unsigned __int8)role;
 - (BluetoothKey)getSk;
+- (id)description;
 - (unsigned)_getOpcodeFromCurrentPacket;
 - (void)_activate;
 - (void)_generateRandom:(char *)random size:(unsigned int)size;
@@ -96,6 +97,21 @@
   v2.receiver = self;
   v2.super_class = BTVCLinkLayerControl;
   [(BTVCLinkLayerControl *)&v2 dealloc];
+}
+
+- (id)description
+{
+  if (self->_isPeripheral)
+  {
+    v2 = "Yes";
+  }
+
+  else
+  {
+    v2 = "No";
+  }
+
+  return NSPrintF("BTVCLinkLayerControl %{ptr}@ isPeripheral:%s", a2, self, v2);
 }
 
 - (void)setDispatchQueue:(id)queue

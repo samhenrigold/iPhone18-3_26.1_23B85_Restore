@@ -40,10 +40,10 @@
 
 - (id)messageBody
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = IDSServerMessagingMessage;
-  messageBody = [(IDSMessage *)&v23 messageBody];
+  v24 = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = IDSServerMessagingMessage;
+  messageBody = [(IDSMessage *)&v22 messageBody];
   v4 = [messageBody mutableCopy];
 
   messageID = [(IDSServerMessagingMessage *)self messageID];
@@ -57,7 +57,7 @@
     {
       memset(uu, 170, sizeof(uu));
       uuid_parse(uTF8String, uu);
-      v22 = 0;
+      v21 = 0;
       jw_uuid_to_data();
       v9 = 0;
       if (v9)
@@ -117,8 +117,6 @@
     userDefinedTopLevelFields2 = [(IDSServerMessagingMessage *)self userDefinedTopLevelFields];
     [(__CFDictionary *)v4 addEntriesFromDictionary:userDefinedTopLevelFields2];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

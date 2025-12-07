@@ -4,6 +4,7 @@
 - (int64_t)_labelFilterStyle;
 - (int64_t)_moonFilterStyle;
 - (void)configureWithImageProvider:(id)provider reason:(int64_t)reason;
+- (void)renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)transitionToMonochromeWithFraction:(double)fraction;
 @end
 
@@ -129,6 +130,44 @@
   v24 = v11;
   v25 = v14;
   [dailyViews enumerateObjectsUsingBlock:v26];
+}
+
+- (void)renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  groupCopy = group;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  dailyViews = [(NTKSwissMoonPhaseSevenDayView *)self dailyViews];
+  v8 = [dailyViews countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v14;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v14 != v10)
+        {
+          objc_enumerationMutation(dailyViews);
+        }
+
+        moonView = [*(*(&v13 + 1) + 8 * v11) moonView];
+        [moonView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+
+        v11 = v11 + 1;
+      }
+
+      while (v9 != v11);
+      v9 = [dailyViews countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v9);
+  }
 }
 
 - (int64_t)_moonFilterStyle

@@ -202,7 +202,7 @@ uint64_t __48__AVCaptionRenderer_captionSceneChangesInRange___block_invoke(uint6
 {
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   else
@@ -216,7 +216,7 @@ uint64_t __48__AVCaptionRenderer_captionSceneChangesInRange___block_invoke(uint6
   time1.epoch = v9;
   if (a3)
   {
-    [a3 timeRange];
+    objc_msgSend_timeRange(a3);
   }
 
   else
@@ -244,7 +244,7 @@ uint64_t __48__AVCaptionRenderer_captionSceneChangesInRange___block_invoke_2(uin
   v8 = 0u;
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   *&v6.start.value = *(a1 + 40);
@@ -354,7 +354,7 @@ LABEL_22:
   v15 = [AVCaptionRendererScene alloc];
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   else
@@ -403,7 +403,7 @@ void __83__AVCaptionRenderer_buildFigCaptionArrayFromAVCaptionArrayAndSubmitToRe
   [a2 _figCaptionData];
   if (a2)
   {
-    [a2 timeRange];
+    objc_msgSend_timeRange(a2);
   }
 
   v7 = FigCaptionCreate();

@@ -9,7 +9,7 @@
 {
   itemCopy = item;
   selfCopy = self;
-  v6 = sub_20CF74E80();
+  v6 = sub_20CF74E80(itemCopy);
   v8 = v7;
 
   v9 = v6;

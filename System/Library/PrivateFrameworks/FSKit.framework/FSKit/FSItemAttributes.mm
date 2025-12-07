@@ -361,23 +361,24 @@ LABEL_37:
 {
   dataCopy = data;
   bytes = [dataCopy bytes];
-  if ([dataCopy length] > 0xB7)
+  v6 = [dataCopy length];
+  if (v6 > 0xB7)
   {
-    v7 = [self requestWithLIAttributes:bytes];
+    v8 = [self requestWithLIAttributes:bytes];
   }
 
   else
   {
-    v6 = fskit_std_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = fskit_std_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(FSItemAttributes *)dataCopy requestWithData:v6];
+      [(FSItemAttributes *)dataCopy requestWithData:v7];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)getLIAttributes:(_LIFileAttributes *)attributes
@@ -457,7 +458,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x4000000000000000) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes internalFlags];
@@ -471,7 +472,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 8) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes uid];
@@ -485,7 +486,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x10) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes gid];
@@ -499,7 +500,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 2) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes mode];
@@ -513,7 +514,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 4) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes linkCount];
@@ -527,7 +528,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x20) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes flags];
@@ -556,7 +557,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x40) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes size];
@@ -570,7 +571,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x80) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes allocSize];
@@ -584,7 +585,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x100) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes fileID];
@@ -598,7 +599,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x200) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes parentID];
@@ -612,7 +613,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 1) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes type];
@@ -651,7 +652,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x800) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes modifyTime];
@@ -669,7 +670,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x400) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes accessTime];
@@ -687,7 +688,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x1000) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes changeTime];
@@ -705,7 +706,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x8000) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes addedTime];
@@ -723,7 +724,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x4000) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes backupTime];
@@ -741,7 +742,7 @@ LABEL_37:
 {
   if ((self->attrs.fa_validmask & 0x2000) == 0)
   {
-    v3 = fskit_std_log();
+    v3 = fskit_std_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       [FSItemAttributes birthTime];
@@ -761,7 +762,7 @@ LABEL_37:
   v3 = self->attrs.fa_validmask & 0x4000000000003FE7;
   if (v3 != 0x4000000000003FE7)
   {
-    v4 = fskit_std_log();
+    v4 = fskit_std_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(FSItemAttributes *)p_fa_validmask hasMinimalRequiredAttributes];
@@ -773,23 +774,21 @@ LABEL_37:
 
 + (void)requestWithData:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 length];
-  _os_log_error_impl(&dword_24A929000, a2, OS_LOG_TYPE_ERROR, "requestWithData: passed NSData with only %lu bytes", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 length];
+  _os_log_error_impl(&dword_24A929000, a2, OS_LOG_TYPE_ERROR, "requestWithData: passed NSData with only %lu bytes", &v3, 0xCu);
 }
 
 - (void)hasMinimalRequiredAttributes
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 134218240;
-  v5 = v2;
-  v6 = 2048;
-  v7 = 0x4000000000003FE7;
-  _os_log_error_impl(&dword_24A929000, a2, OS_LOG_TYPE_ERROR, "attributes mask is 0x%llx, expected 0x%llx", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = v2;
+  v5 = 2048;
+  v6 = 0x4000000000003FE7;
+  _os_log_error_impl(&dword_24A929000, a2, OS_LOG_TYPE_ERROR, "attributes mask is 0x%llx, expected 0x%llx", &v3, 0x16u);
 }
 
 @end

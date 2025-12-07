@@ -355,148 +355,153 @@
     v13 = cGColor;
     v14 = ColorSpace;
     v15 = CGColorGetColorSpace([v7 CGColor]);
-    v16 = TSUDeviceGrayColorSpace();
-    v17 = CFEqual(v14, v16);
-    v18 = TSUDeviceRGBColorSpace();
-    v19 = CFEqual(v14, v18);
-    v20 = TSUDeviceCMYKColorSpace();
-    v21 = CFEqual(v14, v20);
-    v22 = TSUDeviceGrayColorSpace();
-    v23 = CFEqual(v15, v22);
-    v24 = TSUDeviceRGBColorSpace();
-    v25 = CFEqual(v15, v24);
-    v26 = TSUDeviceCMYKColorSpace();
-    v27 = CFEqual(v15, v26);
-    v28 = v27;
-    v48 = v21;
-    v49 = v19;
-    if (v25)
+    v17 = TSUDeviceGrayColorSpace(v15, v16);
+    v18 = CFEqual(v14, v17);
+    v19 = v18;
+    v21 = TSUDeviceRGBColorSpace(v18, v20);
+    v22 = CFEqual(v14, v21);
+    v23 = v22;
+    v25 = TSUDeviceCMYKColorSpace(v22, v24);
+    v26 = CFEqual(v14, v25);
+    v27 = v26;
+    v29 = TSUDeviceGrayColorSpace(v26, v28);
+    v30 = CFEqual(v15, v29);
+    v31 = v30;
+    v33 = TSUDeviceRGBColorSpace(v30, v32);
+    v34 = CFEqual(v15, v33);
+    v35 = v34;
+    v37 = TSUDeviceCMYKColorSpace(v34, v36);
+    v38 = CFEqual(v15, v37);
+    v39 = v38;
+    v60 = v27;
+    v61 = v23;
+    if (v35)
     {
-      v29 = v19 == 0;
+      v40 = v23 == 0;
     }
 
     else
     {
-      v29 = 1;
+      v40 = 1;
     }
 
-    v30 = v29;
-    if (v27)
+    v41 = v40;
+    if (v38)
     {
-      v31 = v21 == 0;
-    }
-
-    else
-    {
-      v31 = 1;
-    }
-
-    v32 = v31;
-    if (v17)
-    {
-      v33 = v13;
+      v42 = v27 == 0;
     }
 
     else
     {
-      v33 = v12;
+      v42 = 1;
     }
 
-    v34 = CGColorGetComponents(v33);
-    if (v23)
+    v43 = v42;
+    if (v19)
     {
-      v35 = v17 == 0;
+      v44 = v13;
     }
 
     else
     {
-      v35 = 1;
+      v44 = v12;
     }
 
-    if (v35 && v30 && v32 && v14 != v15)
+    v45 = CGColorGetComponents(v44);
+    if (v31)
     {
-      if (v23)
+      v47 = v19 == 0;
+    }
+
+    else
+    {
+      v47 = 1;
+    }
+
+    if (v47 && v41 && v43 && v14 != v15)
+    {
+      if (v31)
       {
-        v36 = v49 == 0;
+        v48 = v61 == 0;
       }
 
       else
       {
-        v36 = 1;
+        v48 = 1;
       }
 
-      v37 = v36;
-      if (v25)
+      v49 = v48;
+      if (v35)
       {
-        v38 = v17 == 0;
+        v50 = v19 == 0;
       }
 
       else
       {
-        v38 = 1;
+        v50 = 1;
       }
 
-      if (v38 && (v37 & 1) != 0)
+      if (v50 && (v49 & 1) != 0)
       {
-        if (v23)
+        if (v31)
         {
-          v39 = v48 == 0;
+          v51 = v60 == 0;
         }
 
         else
         {
-          v39 = 1;
+          v51 = 1;
         }
 
-        v40 = v39;
-        if (v28)
+        v52 = v51;
+        if (v39)
         {
-          v41 = v17 == 0;
+          v53 = v19 == 0;
         }
 
         else
         {
-          v41 = 1;
+          v53 = 1;
         }
 
-        if (v41 && (v40 & 1) != 0)
+        if (v53 && (v52 & 1) != 0)
         {
-          v42 = 0;
+          v54 = 0;
 LABEL_55:
-          v43 = 0;
+          v55 = 0;
 LABEL_62:
-          CGColorRelease(v43);
-          return v42;
+          CGColorRelease(v55);
+          return v54;
         }
 
         memset(components, 0, 24);
-        components[3] = 1.0 - *v34;
-        components[4] = v34[1];
-        v45 = TSUDeviceCMYKColorSpace();
-        DeviceRGB = CGColorCreate(v45, components);
+        components[3] = 1.0 - *v45;
+        components[4] = v45[1];
+        v57 = TSUDeviceCMYKColorSpace(v45, v46);
+        DeviceRGB = CGColorCreate(v57, components);
       }
 
       else
       {
-        DeviceRGB = TSUCGColorCreateDeviceRGB(*v34, *v34, *v34, v34[1]);
+        DeviceRGB = TSUCGColorCreateDeviceRGB(v45, v46, *v45, *v45, *v45, v45[1]);
       }
 
-      v43 = DeviceRGB;
-      if (v17)
+      v55 = DeviceRGB;
+      if (v19)
       {
-        v46 = v12;
+        v58 = v12;
       }
 
       else
       {
-        v46 = v13;
+        v58 = v13;
       }
 
-      v42 = __20__TSUColor_isEqual___block_invoke(DeviceRGB, DeviceRGB, v46);
+      v54 = __20__TSUColor_isEqual___block_invoke(DeviceRGB, DeviceRGB, v58);
       goto LABEL_62;
     }
 
-    v42 = __20__TSUColor_isEqual___block_invoke(v34, v13, v12);
+    v54 = __20__TSUColor_isEqual___block_invoke(v45, v13, v12);
     goto LABEL_55;
   }
 

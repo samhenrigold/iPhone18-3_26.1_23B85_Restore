@@ -70,7 +70,7 @@
   [(TTRITemplateSharingConfigurationViewController *)&v6 viewWillDisappear:disappearCopy];
   UIViewController.endFirstResponderEditing()();
   [v4 resignFirstResponder];
-  sub_1002962C8(&qword_100777BD8, v5, type metadata accessor for TTRITemplateSharingConfigurationViewController);
+  sub_1002962C8(&qword_100777BD8, v5, type metadata accessor for TTRITemplateSharingConfigurationViewController, "Q}\r");
   TTRKeyboardAvoidance<>.stopAvoidingKeyboard()();
 }
 
@@ -97,7 +97,7 @@
   }
 
   sub_10009F518();
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (_TtC9Reminders46TTRITemplateSharingConfigurationViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -118,8 +118,8 @@
 
   v4 = type metadata accessor for Logger();
   sub_100003E30(v4, qword_10076B0D8);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_10000FD44();
+  v5 = sub_100008E04(_swiftEmptyArrayStorage);
+  sub_10000FD44("Template Sharing User Dismiss", 29, 2, v5);
 
   sub_10009FC2C(1);
 }

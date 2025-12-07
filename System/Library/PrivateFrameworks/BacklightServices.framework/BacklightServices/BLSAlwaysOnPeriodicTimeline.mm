@@ -103,9 +103,9 @@ LABEL_9:
     }
 
     while (v21 != 1);
-    v22 = bls_timelines_log();
+    v23 = bls_timelines_log(v22);
     entryCopy = v30;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       identifier = [(BLSAlwaysOnTimeline *)self identifier];
       v27 = [array count];
@@ -126,7 +126,7 @@ LABEL_9:
       v42 = bls_shortLoggingString;
       v43 = 2112;
       v44 = v26;
-      _os_log_debug_impl(&dword_21FE25000, v22, OS_LOG_TYPE_DEBUG, "%p:%{public}@ -> %d entries(%@) @ %lfs for %{public}@ : %@", buf, 0x44u);
+      _os_log_debug_impl(&dword_21FE25000, v23, OS_LOG_TYPE_DEBUG, "%p:%{public}@ -> %d entries(%@) @ %lfs for %{public}@ : %@", buf, 0x44u);
     }
 
     goto LABEL_14;
@@ -136,7 +136,6 @@ LABEL_9:
 LABEL_14:
 
 LABEL_15:
-  v23 = *MEMORY[0x277D85DE8];
 
   return array;
 }

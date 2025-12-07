@@ -1,7 +1,7 @@
 @interface LSSSampleBuffer
 - (LSSSampleBuffer)init;
 - (__n128)intervalContaining:(double)containing@<D0>;
-- (uint64_t)removeStartingAt:(uint64_t)result;
+- (uint64_t)removeStartingAt:(double)at;
 - (void)append:(void *)result;
 @end
 
@@ -14,41 +14,41 @@
   return [(LSSSampleBuffer *)&v3 init];
 }
 
-- (uint64_t)removeStartingAt:(uint64_t)result
+- (uint64_t)removeStartingAt:(double)at
 {
   if (result)
   {
-    v2 = *(result + 3088);
-    v3 = *(result + 3096);
-    v4 = result + 16;
-    for (i = v2; ; ++i)
+    v3 = *(result + 3088);
+    v4 = *(result + 3096);
+    v5 = result + 16;
+    for (i = v3; ; ++i)
     {
-      v6 = i + 1;
-      if (i + 1 >= v3)
+      v7 = i + 1;
+      if (i + 1 >= v4)
       {
         break;
       }
 
-      v7 = *(v4 + 96 * (i & 0x1F));
-      if (v7 > *(v4 + 96 * (v6 & 0x1F)))
+      v8 = *(v5 + 96 * (i & 0x1F));
+      if (v8 > *(v5 + 96 * (v7 & 0x1F)))
       {
         [LSSSampleBuffer removeStartingAt:];
       }
     }
 
-    if (v2 != v3)
+    if (v3 != v4)
     {
-      while (*(v4 + 96 * (v2 & 0x1F)) < a2)
+      while (*(v5 + 96 * (v3 & 0x1F)) < at)
       {
-        if (v3 == ++v2)
+        if (v4 == ++v3)
         {
-          v2 = *(result + 3096);
+          v3 = *(result + 3096);
           break;
         }
       }
     }
 
-    *(result + 3096) = v2;
+    *(result + 3096) = v3;
   }
 
   return result;
@@ -61,113 +61,113 @@
     goto LABEL_16;
   }
 
-  v3 = *(self + 3088);
-  v4 = *(self + 3096);
-  v5 = self + 16;
-  v6 = v3;
+  v4 = *(self + 3088);
+  v5 = *(self + 3096);
+  v6 = self + 16;
+  v7 = v4;
   while (1)
   {
-    v7 = v6 + 1;
-    if (v6 + 1 >= v4)
+    v8 = v7 + 1;
+    if (v7 + 1 >= v5)
     {
       break;
     }
 
-    v8 = *(v5 + 96 * (v6++ & 0x1F));
-    if (v8 > *(v5 + 96 * (v7 & 0x1F)))
+    v9 = *(v6 + 96 * (v7++ & 0x1F));
+    if (v9 > *(v6 + 96 * (v8 & 0x1F)))
     {
       [LSSSampleBuffer intervalContaining:];
     }
   }
 
-  v9 = *(self + 3088);
+  v10 = *(self + 3088);
   while (1)
   {
-    v10 = v9 + 1;
-    if (v9 + 1 >= v4)
+    v11 = v10 + 1;
+    if (v10 + 1 >= v5)
     {
       break;
     }
 
-    v11 = *(v5 + 96 * (v9++ & 0x1F));
-    if (v11 > *(v5 + 96 * (v10 & 0x1F)))
+    v12 = *(v6 + 96 * (v10++ & 0x1F));
+    if (v12 > *(v6 + 96 * (v11 & 0x1F)))
     {
       [LSSSampleBuffer removeStartingAt:];
     }
   }
 
-  if (v3 == v4)
+  if (v4 == v5)
   {
     goto LABEL_16;
   }
 
-  v12 = *(self + 3088);
-  while (*(v5 + 96 * (v12 & 0x1F)) < containing)
+  v13 = *(self + 3088);
+  while (*(v6 + 96 * (v13 & 0x1F)) < containing)
   {
-    if (v4 == ++v12)
+    if (v5 == ++v13)
     {
-      v12 = *(self + 3096);
+      v13 = *(self + 3096);
       break;
     }
   }
 
-  if (v12 == v3)
+  if (v13 == v4)
   {
 LABEL_16:
     result.n128_u64[0] = 0;
-    a2[11] = 0u;
-    a2[12] = 0u;
-    a2[9] = 0u;
-    a2[10] = 0u;
-    a2[7] = 0u;
-    a2[8] = 0u;
-    a2[5] = 0u;
-    a2[6] = 0u;
-    a2[3] = 0u;
-    a2[4] = 0u;
-    a2[1] = 0u;
-    a2[2] = 0u;
-    *a2 = 0u;
+    a3[11] = 0u;
+    a3[12] = 0u;
+    a3[9] = 0u;
+    a3[10] = 0u;
+    a3[7] = 0u;
+    a3[8] = 0u;
+    a3[5] = 0u;
+    a3[6] = 0u;
+    a3[3] = 0u;
+    a3[4] = 0u;
+    a3[1] = 0u;
+    a3[2] = 0u;
+    *a3 = 0u;
   }
 
   else
   {
-    v14 = (v5 + 96 * ((v12 - 1) & 0x1F));
-    v15 = v14[3];
-    a2[2] = v14[2];
-    a2[3] = v15;
-    v16 = v14[5];
-    a2[4] = v14[4];
-    a2[5] = v16;
-    v17 = v14[1];
-    *a2 = *v14;
-    a2[1] = v17;
-    if (v12 == v4)
+    v15 = (v6 + 96 * ((v13 - 1) & 0x1F));
+    v16 = v15[3];
+    a3[2] = v15[2];
+    a3[3] = v16;
+    v17 = v15[5];
+    a3[4] = v15[4];
+    a3[5] = v17;
+    v18 = v15[1];
+    *a3 = *v15;
+    a3[1] = v18;
+    if (v13 == v5)
     {
       result.n128_u64[0] = 0;
-      a2[10] = 0u;
-      a2[11] = 0u;
-      a2[8] = 0u;
-      a2[9] = 0u;
-      a2[6] = 0u;
-      a2[7] = 0u;
-      *(a2 + 24) = 1;
+      a3[10] = 0u;
+      a3[11] = 0u;
+      a3[8] = 0u;
+      a3[9] = 0u;
+      a3[6] = 0u;
+      a3[7] = 0u;
+      *(a3 + 24) = 1;
     }
 
     else
     {
-      v18 = v5 + 96 * (v12 & 0x1F);
-      v19 = *(v18 + 48);
-      a2[8] = *(v18 + 32);
-      a2[9] = v19;
-      v20 = *(v18 + 80);
-      a2[10] = *(v18 + 64);
-      a2[11] = v20;
-      result = *v18;
-      v21 = *(v18 + 16);
-      a2[6] = *v18;
-      a2[7] = v21;
-      *(a2 + 24) = 2;
+      v19 = v6 + 96 * (v13 & 0x1F);
+      v20 = *(v19 + 48);
+      a3[8] = *(v19 + 32);
+      a3[9] = v20;
+      v21 = *(v19 + 80);
+      a3[10] = *(v19 + 64);
+      a3[11] = v21;
+      result = *v19;
+      v22 = *(v19 + 16);
+      a3[6] = *v19;
+      a3[7] = v22;
+      *(a3 + 24) = 2;
     }
   }
 

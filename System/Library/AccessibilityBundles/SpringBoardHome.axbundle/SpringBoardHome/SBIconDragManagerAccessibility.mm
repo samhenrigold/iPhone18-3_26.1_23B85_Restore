@@ -125,7 +125,7 @@ uint64_t __74__SBIconDragManagerAccessibility_iconDropSessionDidUpdate_inIconLis
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __74__SBIconDragManagerAccessibility_iconDropSessionDidUpdate_inIconListView___block_invoke_2(uint64_t a1)
+void *__74__SBIconDragManagerAccessibility_iconDropSessionDidUpdate_inIconListView___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) coordinateForIcon:*(a1 + 40)];
   v3 = *(*(a1 + 48) + 8);
@@ -225,39 +225,39 @@ uint64_t __81__SBIconDragManagerAccessibility_updatePlaceholderPositionForDragWi
   y = location.y;
   x = location.x;
   viewCopy = view;
-  v9 = AXSBHIconManagerFromSharedIconController();
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
-  v43 = MEMORY[0x29EDCA5F8];
-  v44 = 3221225472;
-  v45 = __71__SBIconDragManagerAccessibility__axDragPauseForLocation_iconListView___block_invoke;
-  v46 = &unk_29F300418;
-  v10 = viewCopy;
-  v47 = v10;
+  v10 = AXSBHIconManagerFromSharedIconController(viewCopy, v9);
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
+  v44 = MEMORY[0x29EDCA5F8];
+  v45 = 3221225472;
+  v46 = __71__SBIconDragManagerAccessibility__axDragPauseForLocation_iconListView___block_invoke;
+  v47 = &unk_29F300418;
+  v11 = viewCopy;
+  v48 = v11;
   AXPerformSafeBlock();
   if ((SBAXPerformingAXDrag & 1) == 0)
   {
-    if (v49[3] == _axDragPauseForLocation_iconListView__previousIconIndex && _axDragPauseForLocation_iconListView__previousIconList == v10)
+    if (v50[3] == _axDragPauseForLocation_iconListView__previousIconIndex && _axDragPauseForLocation_iconListView__previousIconList == v11)
     {
       goto LABEL_26;
     }
 
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], *MEMORY[0x29EDBDAA8]);
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
-    v11 = SBAXIconMoveSpeakTimer;
+    v12 = SBAXIconMoveSpeakTimer;
     if (!SBAXIconMoveSpeakTimer)
     {
-      v12 = [MEMORY[0x29EDB8E68] scheduledTimerWithTimeInterval:self target:sel__accessibilityIconMovedToPosition selector:0 userInfo:1 repeats:{1.0, v43, 3221225472, __71__SBIconDragManagerAccessibility__axDragPauseForLocation_iconListView___block_invoke, &unk_29F300418, v10, &v48, *&x, *&y}];
-      v13 = SBAXIconMoveSpeakTimer;
-      SBAXIconMoveSpeakTimer = v12;
+      v13 = [MEMORY[0x29EDB8E68] scheduledTimerWithTimeInterval:self target:sel__accessibilityIconMovedToPosition selector:0 userInfo:1 repeats:{1.0, v44, 3221225472, __71__SBIconDragManagerAccessibility__axDragPauseForLocation_iconListView___block_invoke, &unk_29F300418, v11, &v49, *&x, *&y}];
+      v14 = SBAXIconMoveSpeakTimer;
+      SBAXIconMoveSpeakTimer = v13;
 
-      v11 = SBAXIconMoveSpeakTimer;
+      v12 = SBAXIconMoveSpeakTimer;
     }
 
-    v14 = [MEMORY[0x29EDB8DB0] dateWithTimeIntervalSinceNow:{0.1, v43, v44, v45, v46}];
-    [v11 setFireDate:v14];
+    v15 = [MEMORY[0x29EDB8DB0] dateWithTimeIntervalSinceNow:{0.1, v44, v45, v46, v47}];
+    [v12 setFireDate:v15];
 
     SBAXIconMovedIntoDock = 0;
     SBAXIconJustMovedIntoDock = 0;
@@ -267,56 +267,56 @@ uint64_t __81__SBIconDragManagerAccessibility_updatePlaceholderPositionForDragWi
 
     if (firstObject)
     {
-      v17 = [v10 safeValueForKey:@"iconRowsForCurrentOrientation"];
-      unsignedIntegerValue = [v17 unsignedIntegerValue];
+      v18 = [v11 safeValueForKey:@"iconRowsForCurrentOrientation"];
+      unsignedIntegerValue = [v18 unsignedIntegerValue];
 
-      v19 = [v10 safeValueForKey:@"iconColumnsForCurrentOrientation"];
-      unsignedIntegerValue2 = [v19 unsignedIntegerValue];
+      v20 = [v11 safeValueForKey:@"iconColumnsForCurrentOrientation"];
+      unsignedIntegerValue2 = [v20 unsignedIntegerValue];
 
-      v21 = [_axDragPauseForLocation_iconListView__previousIconList safeValueForKey:@"iconRowsForCurrentOrientation"];
-      unsignedIntegerValue3 = [v21 unsignedIntegerValue];
+      v22 = [_axDragPauseForLocation_iconListView__previousIconList safeValueForKey:@"iconRowsForCurrentOrientation"];
+      unsignedIntegerValue3 = [v22 unsignedIntegerValue];
 
-      v23 = v49[3];
-      SBAXIconMovedY = v23 / unsignedIntegerValue2 + 1;
-      SBAXIconMovedX = v23 % unsignedIntegerValue2 + 1;
+      v24 = v50[3];
+      SBAXIconMovedY = v24 / unsignedIntegerValue2 + 1;
+      SBAXIconMovedX = v24 % unsignedIntegerValue2 + 1;
       if (unsignedIntegerValue == 1)
       {
         if (unsignedIntegerValue3 == 1)
         {
           SBAXIconMovedIntoDock = 1;
-          v24 = SBAXIconPreItemInDock;
+          v25 = SBAXIconPreItemInDock;
           SBAXIconPreItemInDock = 0;
 
-          v25 = SBAXIconNextItemInDock;
+          v26 = SBAXIconNextItemInDock;
           SBAXIconNextItemInDock = 0;
 
-          v26 = [v10 safeValueForKey:@"icons"];
-          v27 = v26;
-          if (v26 && [v26 count])
+          v27 = [v11 safeValueForKey:@"icons"];
+          v28 = v27;
+          if (v27 && [v27 count])
           {
-            v28 = v49;
-            v29 = v49[3];
-            if (v29)
+            v29 = v50;
+            v30 = v50[3];
+            if (v30)
             {
-              v30 = [v27 count];
-              v28 = v49;
-              if (v29 - 1 < v30)
+              v31 = [v28 count];
+              v29 = v50;
+              if (v30 - 1 < v31)
               {
-                v31 = [v27 objectAtIndex:v49[3] - 1];
-                accessibilityLabel = [v31 accessibilityLabel];
-                v33 = SBAXIconPreItemInDock;
+                v32 = [v28 objectAtIndex:v50[3] - 1];
+                accessibilityLabel = [v32 accessibilityLabel];
+                v34 = SBAXIconPreItemInDock;
                 SBAXIconPreItemInDock = accessibilityLabel;
 
-                v28 = v49;
+                v29 = v50;
               }
             }
 
-            v34 = v28[3];
-            if (v34 < [v27 count] - 1)
+            v35 = v29[3];
+            if (v35 < [v28 count] - 1)
             {
-              v35 = [v27 objectAtIndex:v49[3] + 1];
-              accessibilityLabel2 = [v35 accessibilityLabel];
-              v37 = SBAXIconNextItemInDock;
+              v36 = [v28 objectAtIndex:v50[3] + 1];
+              accessibilityLabel2 = [v36 accessibilityLabel];
+              v38 = SBAXIconNextItemInDock;
               SBAXIconNextItemInDock = accessibilityLabel2;
             }
           }
@@ -336,30 +336,30 @@ uint64_t __81__SBIconDragManagerAccessibility_updatePlaceholderPositionForDragWi
         SBAXIconJustLeftDock = 1;
 LABEL_25:
         _axGrabbedIconsLabel = [(SBIconDragManagerAccessibility *)self _axGrabbedIconsLabel];
-        v42 = SBAXIconMovedIconLabel;
+        v43 = SBAXIconMovedIconLabel;
         SBAXIconMovedIconLabel = _axGrabbedIconsLabel;
 
 LABEL_26:
         objc_storeStrong(&_axDragPauseForLocation_iconListView__previousIconList, view);
-        _axDragPauseForLocation_iconListView__previousIconIndex = v49[3];
+        _axDragPauseForLocation_iconListView__previousIconIndex = v50[3];
         goto LABEL_27;
       }
 
-      v39 = [v9 safeValueForKey:@"hasOpenFolder"];
+      v40 = [v10 safeValueForKey:@"hasOpenFolder"];
 
-      if (!v39)
+      if (!v40)
       {
         goto LABEL_25;
       }
 
-      v40 = [v9 safeValueForKeyPath:@"openedFolder.displayName"];
-      v38 = SBAXIconMovedFolderLabel;
-      SBAXIconMovedFolderLabel = v40;
+      v41 = [v10 safeValueForKeyPath:@"openedFolder.displayName"];
+      v39 = SBAXIconMovedFolderLabel;
+      SBAXIconMovedFolderLabel = v41;
     }
 
     else
     {
-      v38 = SBAXIconMovedFolderLabel;
+      v39 = SBAXIconMovedFolderLabel;
       SBAXIconMovedFolderLabel = 0;
     }
 
@@ -368,7 +368,7 @@ LABEL_26:
 
 LABEL_27:
 
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
 void __71__SBIconDragManagerAccessibility__axDragPauseForLocation_iconListView___block_invoke(uint64_t a1)
@@ -390,13 +390,13 @@ void __71__SBIconDragManagerAccessibility__axDragPauseForLocation_iconListView__
     goto LABEL_29;
   }
 
-  v29 = window;
+  v31 = window;
   mainScreen = [MEMORY[0x29EDC7C40] mainScreen];
   [mainScreen bounds];
   v9 = v8;
   v11 = v10;
 
-  windowScene = [v29 windowScene];
+  windowScene = [v31 windowScene];
   interfaceOrientation = [windowScene interfaceOrientation];
 
   if ((interfaceOrientation - 3) >= 2)
@@ -410,7 +410,7 @@ void __71__SBIconDragManagerAccessibility__axDragPauseForLocation_iconListView__
   else if ((y <= 20.0 || y > 50.0) && (y < v11 + -50.0 || y >= v11 + -20.0))
   {
 LABEL_18:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_21;
   }
 
@@ -419,43 +419,43 @@ LABEL_18:
     goto LABEL_22;
   }
 
-  v17 = *MEMORY[0x29EDC7EA8];
-  v18 = accessibilityLocalizedString(@"nearing.border");
-  UIAccessibilityPostNotification(v17, v18);
+  v19 = *MEMORY[0x29EDC7EA8];
+  v20 = accessibilityLocalizedString(@"nearing.border");
+  UIAccessibilityPostNotification(v19, v20);
 
-  v16 = 1;
+  v18 = 1;
 LABEL_21:
-  _axUpdateDragPauseForLocation_iconListView__WantsNearedBorder = v16;
+  _axUpdateDragPauseForLocation_iconListView__WantsNearedBorder = v18;
 LABEL_22:
-  v19 = _axUpdateDragPauseForLocation_iconListView__previousCloseFolderTimerStatus;
-  v20 = SBAXIconCloseFolderTimerStatus;
-  v21 = AXSBHIconManagerFromSharedIconController();
-  v22 = [v21 safeValueForKey:@"openedFolder"];
+  v21 = _axUpdateDragPauseForLocation_iconListView__previousCloseFolderTimerStatus;
+  v22 = SBAXIconCloseFolderTimerStatus;
+  v23 = AXSBHIconManagerFromSharedIconController(v14, v15);
+  v24 = [v23 safeValueForKey:@"openedFolder"];
 
-  v23 = SBAXIconCloseFolderTimerStatus;
-  if (v22 && v19 != v20 && SBAXIconCloseFolderTimerStatus == 2)
+  v25 = SBAXIconCloseFolderTimerStatus;
+  if (v24 && v21 != v22 && SBAXIconCloseFolderTimerStatus == 2)
   {
     if (SBAXIconOpenedFolderWhileJiggling == 1)
     {
-      v24 = *MEMORY[0x29EDC7EA8];
-      v25 = MEMORY[0x29EDBA0F8];
-      v26 = accessibilityLocalizedString(@"dragged.inside.folder");
-      v27 = [v22 safeValueForKey:@"displayName"];
-      v28 = [v25 stringWithFormat:v26, v27];
-      UIAccessibilityPostNotification(v24, v28);
+      v26 = *MEMORY[0x29EDC7EA8];
+      v27 = MEMORY[0x29EDBA0F8];
+      v28 = accessibilityLocalizedString(@"dragged.inside.folder");
+      v29 = [v24 safeValueForKey:@"displayName"];
+      v30 = [v27 stringWithFormat:v28, v29];
+      UIAccessibilityPostNotification(v26, v30);
 
-      v23 = SBAXIconCloseFolderTimerStatus;
+      v25 = SBAXIconCloseFolderTimerStatus;
     }
 
     else
     {
-      v23 = 2;
+      v25 = 2;
     }
   }
 
-  _axUpdateDragPauseForLocation_iconListView__previousCloseFolderTimerStatus = v23;
+  _axUpdateDragPauseForLocation_iconListView__previousCloseFolderTimerStatus = v25;
 
-  window = v29;
+  window = v31;
 LABEL_29:
 }
 

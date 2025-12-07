@@ -639,7 +639,7 @@ void __58__TCMessageContext_Private__popAffectedObjectPlaceholder___block_invoke
   return v3;
 }
 
-uint64_t __52__TCMessageContext_Private__saveAffectedObjectStack__block_invoke(uint64_t a1)
+void *__52__TCMessageContext_Private__saveAffectedObjectStack__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -658,7 +658,7 @@ uint64_t __52__TCMessageContext_Private__saveAffectedObjectStack__block_invoke(u
   dispatch_sync(mMessageSyncQueue, v4);
 }
 
-unint64_t __56__TCMessageContext_Private__restoreAffectedObjectStack___block_invoke(uint64_t a1)
+void *__56__TCMessageContext_Private__restoreAffectedObjectStack___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 24) count];
   for (result = [*(*(a1 + 32) + 24) count]; result > *(a1 + 40); result = objc_msgSend(*(*(a1 + 32) + 24), "count"))

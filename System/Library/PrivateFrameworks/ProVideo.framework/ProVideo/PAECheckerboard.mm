@@ -388,7 +388,7 @@ LABEL_27:
   v18 = unk_260343E70;
   v19 = xmmword_260343E80;
   v20 = unk_260343E90;
-  *a3 = [-[PAECheckerboard multiplyMatrix:byMatrix:](self multiplyMatrix:-[PAECheckerboard multiplyMatrix:byMatrix:](self byMatrix:{"multiplyMatrix:byMatrix:", -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v13), objc_msgSend(a7, "inversePixelTransform")), -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v21)), "matrix"}];
+  *a3 = [-[PAECheckerboard multiplyMatrix:byMatrix:](self multiplyMatrix:-[PAECheckerboard multiplyMatrix:byMatrix:](self byMatrix:{"multiplyMatrix:byMatrix:", -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v13), objc_msgSend_inversePixelTransform(a7)), -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v21)), "matrix"}];
 }
 
 - (BOOL)canThrowRenderOutput:(id)output withInfo:(id *)info
@@ -413,7 +413,7 @@ LABEL_27:
   versionAtCreation = [v8 versionAtCreation];
   v197 = 0;
   v195 = 0x3FE0000000000000;
-  v196 = 0x3FE0000000000000;
+  v196 = 0.5;
   v193 = 1.0;
   v194 = 1.0;
   v191 = 1.0;

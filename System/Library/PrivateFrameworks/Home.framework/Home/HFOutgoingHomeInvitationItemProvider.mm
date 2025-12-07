@@ -38,16 +38,16 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFOutgoingHomeInvitationItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
 
 - (id)reloadItems
 {
-  home = [(HFOutgoingHomeInvitationItemProvider *)self home];
-  outgoingInvitations = [home outgoingInvitations];
+  v3 = objc_msgSend_home(self, a2);
+  outgoingInvitations = [v3 outgoingInvitations];
 
   objc_initWeak(&location, self);
   filter = [(HFOutgoingHomeInvitationItemProvider *)self filter];

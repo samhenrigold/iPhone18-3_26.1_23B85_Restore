@@ -519,25 +519,25 @@ void __58__HUCameraRecordingOptionsModuleController_didSelectItem___block_invoke
   v24 = [host moduleController:self presentViewControllerForRequest:v22];
 }
 
-void __64__HUCameraRecordingOptionsModuleController_displayAlertForItem___block_invoke(uint64_t a1)
+void __64__HUCameraRecordingOptionsModuleController_displayAlertForItem___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) module];
+  v3 = [*(a1 + 32) module];
   if (objc_opt_isKindOfClass())
   {
-    v3 = v2;
+    v4 = v3;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
-  v6 = [v4 smartDetectionModule];
+  v7 = [v5 smartDetectionModule];
 
-  v5 = [v6 updateMotionDetectionSettingForItem:*(a1 + 40)];
+  v6 = [v7 updateMotionDetectionSettingForItem:*(a1 + 40)];
 }
 
 - (id)alertTitleForEventType:(unint64_t)type

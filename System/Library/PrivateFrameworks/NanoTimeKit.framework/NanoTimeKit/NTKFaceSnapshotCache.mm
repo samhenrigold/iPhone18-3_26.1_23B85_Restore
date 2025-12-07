@@ -522,16 +522,16 @@ void __51__NTKFaceSnapshotCache__attemptSnapshotForRequest___block_invoke_47(uin
 
 void __51__NTKFaceSnapshotCache__attemptSnapshotForRequest___block_invoke_2_48(id *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = _NTKLoggingObjectForDomain(4, "NTKLoggingDomainSnapshot");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
     *buf = 138412546;
-    v29 = v3;
-    v30 = 2112;
-    v31 = v4;
+    v27 = v3;
+    v28 = 2112;
+    v29 = v4;
     _os_log_impl(&dword_22D9C5000, v2, OS_LOG_TYPE_DEFAULT, "Client face snapshotted %@ - %@", buf, 0x16u);
   }
 
@@ -547,7 +547,7 @@ void __51__NTKFaceSnapshotCache__attemptSnapshotForRequest___block_invoke_2_48(i
     v12 = [a1[5] snapshotContext];
     v13 = -[NTKFaceSnapshotResult initWithCachedFile:snapshotKey:rawSnapshotKey:context:blankComplications:snapshot:](v8, "initWithCachedFile:snapshotKey:rawSnapshotKey:context:blankComplications:snapshot:", v9, v10, v11, v12, [a1[5] hasBlankComplications], v7);
 
-    if (NTKInternalBuild(v14, v15, v16, v17) && _os_feature_enabled_impl())
+    if (NTKInternalBuild(v14, v15) && _os_feature_enabled_impl())
     {
       _NTKFaceDebugAPLSnapshotWithBaseImage(v7);
     }
@@ -563,18 +563,18 @@ void __51__NTKFaceSnapshotCache__attemptSnapshotForRequest___block_invoke_2_48(i
   block[1] = 3221225472;
   block[2] = __51__NTKFaceSnapshotCache__attemptSnapshotForRequest___block_invoke_50;
   block[3] = &unk_27877E460;
-  objc_copyWeak(&v27, a1 + 9);
-  v21 = a1[6];
-  v22 = a1[4];
-  v23 = v7;
-  v24 = a1[7];
-  v25 = v13;
-  v26 = a1[8];
-  v18 = v13;
-  v19 = v7;
+  objc_copyWeak(&v25, a1 + 9);
+  v19 = a1[6];
+  v20 = a1[4];
+  v21 = v7;
+  v22 = a1[7];
+  v23 = v13;
+  v24 = a1[8];
+  v16 = v13;
+  v17 = v7;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v25);
 }
 
 void __51__NTKFaceSnapshotCache__attemptSnapshotForRequest___block_invoke_50(uint64_t a1)
@@ -640,7 +640,7 @@ LABEL_16:
     [v20 setObject:*(a1 + 64) forKey:*(a1 + 40)];
 
 LABEL_18:
-    [WeakRetained _invokeCallbacksMatchingRequest:*(a1 + 32) withResult:*(a1 + 64) error:{*(a1 + 72), *v21, *&v21[16], v22}];
+    [WeakRetained _invokeCallbacksMatchingRequest:*(a1 + 32) withResult:*(a1 + 64) error:{*(a1 + 72), *v21, *&v21[8], v22}];
     [WeakRetained setServicingRequest:0];
     goto LABEL_19;
   }

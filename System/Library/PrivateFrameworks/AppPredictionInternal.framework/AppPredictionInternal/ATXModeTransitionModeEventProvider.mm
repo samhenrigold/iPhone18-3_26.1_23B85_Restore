@@ -94,21 +94,19 @@ void __57__ATXModeTransitionModeEventProvider_eventsFromPublisher__block_invoke_
 
 - (id)aggregationEventsFromEvent:(id)event
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([(ATXModeTransitionModeEventProvider *)self isEventFromProvider:eventCopy])
   {
     eventBody = [eventCopy eventBody];
-    v9[0] = eventBody;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = eventBody;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

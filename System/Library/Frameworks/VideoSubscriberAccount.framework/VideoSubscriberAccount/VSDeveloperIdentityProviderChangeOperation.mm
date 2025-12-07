@@ -56,7 +56,7 @@
   v12[3] = &unk_278B732E0;
   v12[4] = self;
   v3 = [(VSDeveloperIdentityProviderChangeOperation *)self _serviceWithErrorHandler:v12];
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -91,7 +91,7 @@
 void __63__VSDeveloperIdentityProviderChangeOperation_executionDidBegin__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__VSDeveloperIdentityProviderChangeOperation_executionDidBegin__block_invoke_cold_1(v3, v4);

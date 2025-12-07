@@ -130,7 +130,7 @@ void *__29__SKGQueryStringBuilder_init__block_invoke(uint64_t a1, void *a2, void
 
 id *__29__SKGQueryStringBuilder_init__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -139,33 +139,33 @@ id *__29__SKGQueryStringBuilder_init__block_invoke_2(uint64_t a1, void *a2, void
   v14 = WeakRetained;
   if (WeakRetained)
   {
-    v31 = v11;
-    v32 = WeakRetained;
+    v30 = v11;
+    v31 = WeakRetained;
     v15 = objc_opt_new();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v30 = v12;
+    v29 = v12;
     obj = v12;
-    v16 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (!v16)
     {
       goto LABEL_17;
     }
 
     v17 = v16;
-    v18 = *v35;
+    v18 = *v34;
     while (1)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v35 != v18)
+        if (*v34 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v34 + 1) + 8 * i);
+        v20 = *(*(&v33 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -197,71 +197,69 @@ LABEL_15:
         [v15 addObject:v23];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v17 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (!v17)
       {
 LABEL_17:
 
         v24 = MEMORY[0x277CCACA8];
-        v11 = v31;
-        v25 = [v15 componentsJoinedByString:v31];
+        v11 = v30;
+        v25 = [v15 componentsJoinedByString:v30];
         v26 = [v24 stringWithFormat:@"(%@)", v25];
 
-        v14 = v32;
-        [v32[1] addObject:v26];
-        v27 = v32;
+        v14 = v31;
+        [v31[1] addObject:v26];
+        v27 = v31;
 
-        v12 = v30;
+        v12 = v29;
         break;
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 void *__29__SKGQueryStringBuilder_init__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v23 = v5;
+    v22 = v5;
     if (![v6 count])
     {
-      v22 = [MEMORY[0x277CBEAD8] exceptionWithName:@"InvalidValueType" reason:@"Values must be non-nil and contain at least 1 string" userInfo:0];
-      objc_exception_throw(v22);
+      v21 = [MEMORY[0x277CBEAD8] exceptionWithName:@"InvalidValueType" reason:@"Values must be non-nil and contain at least 1 string" userInfo:0];
+      objc_exception_throw(v21);
     }
 
     v8 = objc_opt_new();
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v24 + 1) + 8 * i)];
+          v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v23 + 1) + 8 * i)];
           [v8 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v11);
@@ -270,14 +268,12 @@ void *__29__SKGQueryStringBuilder_init__block_invoke_3(uint64_t a1, void *a2, vo
     v15 = WeakRetained[1];
     v16 = MEMORY[0x277CCACA8];
     v17 = [v8 componentsJoinedByString:{@", "}];
-    v5 = v23;
-    v18 = [v16 stringWithFormat:@"FieldMatch(%@, %@)", v23, v17];
+    v5 = v22;
+    v18 = [v16 stringWithFormat:@"FieldMatch(%@, %@)", v22, v17];
     [v15 addObject:v18];
 
     v19 = WeakRetained;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return WeakRetained;
 }

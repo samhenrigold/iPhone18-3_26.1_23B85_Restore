@@ -210,7 +210,7 @@ LABEL_8:
   return v6;
 }
 
-void sub_C04(__uint64_t a1, int a2)
+void sub_C04(int64_t a1, int a2)
 {
   v4 = a1;
   v5 = (&unk_45F0 + 64 * a1);
@@ -261,30 +261,7 @@ void sub_C04(__uint64_t a1, int a2)
           {
             v17 = Mutable;
             v18 = CFStringCreateWithCString(0, v15, 0x8000100u);
-            if (!v18)
-            {
-              goto LABEL_16;
-            }
-
-            v19 = v18;
-            CFDictionarySetValue(v17, @"AssertName", v18);
-            CFRelease(v19);
-            CFDictionarySetValue(v17, @"PlugInBundleID", @"com.apple.alarm");
-            CFDictionarySetValue(v17, @"AssertType", @"PreventUserIdleSystemSleep");
-            CFDictionarySetValue(v17, @"TimeoutAction", @"TimeoutActionTurnOff");
-            LODWORD(valuePtr[0]) = 30;
-            v20 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-            if (!v20)
-            {
-              goto LABEL_16;
-            }
-
-            v21 = v20;
-            CFDictionarySetValue(v17, @"TimeoutSeconds", v20);
-            CFRelease(v21);
-            LODWORD(valuePtr[0]) = 255;
-            v22 = CFNumberCreate(0, kCFNumberIntType, valuePtr);
-            if (v22)
+            if (v18 && (v19 = v18, CFDictionarySetValue(v17, @"AssertName", v18), CFRelease(v19), CFDictionarySetValue(v17, @"PlugInBundleID", @"com.apple.alarm"), CFDictionarySetValue(v17, @"AssertType", @"PreventUserIdleSystemSleep"), CFDictionarySetValue(v17, @"TimeoutAction", @"TimeoutActionTurnOff"), LODWORD(valuePtr[0]) = 30, (v20 = CFNumberCreate(0, kCFNumberIntType, valuePtr)) != 0) && (v21 = v20, CFDictionarySetValue(v17, @"TimeoutSeconds", v20), CFRelease(v21), LODWORD(valuePtr[0]) = 255, (v22 = CFNumberCreate(0, kCFNumberIntType, valuePtr)) != 0))
             {
               v23 = v22;
               CFDictionarySetValue(v17, @"AssertLevel", v22);
@@ -298,7 +275,6 @@ void sub_C04(__uint64_t a1, int a2)
 
             else
             {
-LABEL_16:
               v24 = 0;
             }
 
@@ -481,7 +457,7 @@ LABEL_55:
   }
 }
 
-__uint64_t sub_1484(__uint64_t result)
+int64_t sub_1484(int64_t result)
 {
   switch(result)
   {
@@ -597,15 +573,16 @@ LABEL_13:
   free(v8);
 }
 
-unint64_t *sub_1658(int a1, int a2)
+unint64_t *sub_1658(int a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = qword_45E8;
   if (os_log_type_enabled(qword_45E8, OS_LOG_TYPE_INFO))
   {
     *buf = 67109376;
     LODWORD(v21[0]) = a1;
     WORD2(v21[0]) = 1024;
-    *(v21 + 6) = a2;
+    *(v21 + 6) = v2;
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "power_event, msg: %u caps: %u", buf, 0xEu);
   }
 
@@ -1133,7 +1110,7 @@ void sub_2228(uint64_t a1)
   }
 }
 
-uint64_t sub_250C(__uint64_t a1, unint64_t a2)
+uint64_t sub_250C(int64_t a1, unint64_t a2)
 {
   if ((a1 - 1) <= 1)
   {
@@ -1226,7 +1203,7 @@ uint64_t clock_set_handler(dispatch_queue_t queue, uint64_t a2)
   return result;
 }
 
-double clock_mach_time_dilation()
+double clock_mach_time_dilation(uint64_t a1, uint64_t a2)
 {
   if (qword_46E8 != -1)
   {

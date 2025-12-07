@@ -86,7 +86,7 @@
 {
   v24 = *MEMORY[0x1E69E9840];
   resultCopy = result;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(resultCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -274,8 +274,7 @@ void __74__VUIMPMediaEntitiesDataSource_controller_fetchRequests_didFailWithErro
   v15 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   objc_initWeak(&location, self);
-  [(VUIMPMediaEntitiesDataSource *)self setInFlightArtworkRequests:[(VUIMPMediaEntitiesDataSource *)self inFlightArtworkRequests]+ 1];
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject([(VUIMPMediaEntitiesDataSource *)self setInFlightArtworkRequests:[(VUIMPMediaEntitiesDataSource *)self inFlightArtworkRequests]+ 1]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     inFlightArtworkRequests = [(VUIMPMediaEntitiesDataSource *)self inFlightArtworkRequests];
@@ -303,7 +302,7 @@ void __67__VUIMPMediaEntitiesDataSource__loadImageUrlsByPurchaseHistoryIds___blo
 {
   v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);

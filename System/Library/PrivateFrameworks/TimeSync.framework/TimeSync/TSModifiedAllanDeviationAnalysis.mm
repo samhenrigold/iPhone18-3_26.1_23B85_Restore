@@ -95,8 +95,8 @@
   {
     v5 = [TSMADEVValue alloc];
     [(TSTimeErrorAnalysis *)self averagePeriod];
-    v7 = [(TSMADEVValue *)v5 initWithObservationInterval:v6 * i andMADEV:self->_madev[i]];
-    [array addObject:v7];
+    v6 = [TSMADEVValue initWithObservationInterval:v5 andMADEV:"initWithObservationInterval:andMADEV:"];
+    [array addObject:?];
   }
 
   return array;
@@ -118,40 +118,34 @@
   if (![(TSTimeErrorAnalysis *)self calculated])
   {
     selfCopy2 = self;
-    sizeCopy = size;
-    windowSizeCopy2 = windowSize;
 LABEL_15:
-    [(TSTimeErrorAnalysis *)selfCopy2 performAnalysisFromStartWindowSize:sizeCopy toEndWindowSize:windowSizeCopy2 stepSize:stepSize];
+    [TSTimeErrorAnalysis performAnalysisFromStartWindowSize:selfCopy2 toEndWindowSize:"performAnalysisFromStartWindowSize:toEndWindowSize:stepSize:" stepSize:?];
     goto LABEL_16;
   }
 
   if (size < [(TSTimeErrorAnalysis *)self lowestWindowSize]|| windowSize > [(TSTimeErrorAnalysis *)self highestWindowSize]|| [(TSTimeErrorAnalysis *)self calculatedStepSize]!= stepSize)
   {
-    sizeCopy2 = size;
     if (size >= [(TSTimeErrorAnalysis *)self lowestWindowSize])
     {
-      sizeCopy2 = [(TSTimeErrorAnalysis *)self lowestWindowSize];
+      [(TSTimeErrorAnalysis *)self lowestWindowSize];
     }
 
-    highestWindowSize = [(TSTimeErrorAnalysis *)self highestWindowSize];
-    windowSizeCopy2 = windowSize;
-    if (windowSize <= highestWindowSize)
+    if (windowSize <= [(TSTimeErrorAnalysis *)self highestWindowSize])
     {
-      windowSizeCopy2 = [(TSTimeErrorAnalysis *)self highestWindowSize];
+      [(TSTimeErrorAnalysis *)self highestWindowSize];
     }
 
     selfCopy2 = self;
-    sizeCopy = sizeCopy2;
     goto LABEL_15;
   }
 
 LABEL_16:
   while (size <= windowSize)
   {
-    v15 = [TSMADEVValue alloc];
+    v11 = [TSMADEVValue alloc];
     [(TSTimeErrorAnalysis *)self averagePeriod];
-    v17 = [(TSMADEVValue *)v15 initWithObservationInterval:v16 * size andMADEV:self->_madev[size]];
-    [array addObject:v17];
+    v12 = [TSMADEVValue initWithObservationInterval:v11 andMADEV:"initWithObservationInterval:andMADEV:"];
+    [array addObject:?];
 
     size += stepSize;
   }
@@ -177,11 +171,11 @@ LABEL_16:
 
     if (![(TSTimeErrorAnalysis *)self calculated]|| size < [(TSTimeErrorAnalysis *)self lowestWindowSize]|| windowSize > [(TSTimeErrorAnalysis *)self highestWindowSize]|| [(TSTimeErrorAnalysis *)self calculatedStepSize]!= stepSize)
     {
-      [(TSTimeErrorAnalysis *)self performAnalysisFromStartWindowSize:size toEndWindowSize:windowSize stepSize:stepSize];
+      [TSTimeErrorAnalysis performAnalysisFromStartWindowSize:"performAnalysisFromStartWindowSize:toEndWindowSize:stepSize:" toEndWindowSize:? stepSize:?];
     }
 
     path = [lCopy path];
-    v15 = [path stringByAppendingPathComponent:filenameCopy];
+    v15 = [path stringByAppendingPathComponent:?];
 
     v16 = fopen([v15 UTF8String], "w");
     v17 = v16 != 0;

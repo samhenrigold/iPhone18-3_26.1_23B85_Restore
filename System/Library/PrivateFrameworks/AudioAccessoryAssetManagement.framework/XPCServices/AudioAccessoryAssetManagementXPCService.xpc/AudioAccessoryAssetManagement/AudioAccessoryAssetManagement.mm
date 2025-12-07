@@ -44,14 +44,14 @@ void sub_100001A94(uint64_t a1, void *a2)
 
     else if (dword_100010D38 <= 90 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
     {
-      sub_100004320();
+      sub_100004320(v11);
     }
   }
 }
 
-void sub_100001D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -118,9 +118,9 @@ void sub_100002068(uint64_t a1, void *a2)
   _Block_object_dispose(&v6, 8);
 }
 
-void sub_100002198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -213,7 +213,7 @@ void sub_1000026B8(uint64_t a1)
   {
     if (*(*(a1 + 40) + 144) == 1 && dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _monitorAssetsDownloadProgressWithObservations:completion:]_block_invoke", 30, "Showing download complete is disabled");
     }
 
     v12 = *(a1 + 40);
@@ -262,9 +262,9 @@ void sub_1000026B8(uint64_t a1)
   _Block_object_dispose(&v24, 8);
 }
 
-void sub_100002964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -319,53 +319,57 @@ void sub_100002BDC(uint64_t a1, void *a2)
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
+    if (dword_100010D38 <= 30)
     {
-      sub_100004650();
+      if (dword_100010D38 != -1 || (isKindOfClass = _LogCategory_Initialize(), isKindOfClass))
+      {
+        sub_100004650(isKindOfClass, v5, v6);
+      }
     }
 
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 176);
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 176);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100002E98;
     block[3] = &unk_10000C438;
-    block[4] = v4;
-    v22 = v3;
-    v23 = *(a1 + 40);
-    dispatch_async(v5, block);
+    block[4] = v7;
+    v25 = v3;
+    v26 = *(a1 + 40);
+    dispatch_async(v8, block);
   }
 
   objc_initWeak(&location, v3);
   objc_initWeak(&from, *(a1 + 32));
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100002F34;
+  v17[3] = &unk_10000C488;
+  objc_copyWeak(&v20, &from);
+  v17[4] = *(a1 + 32);
+  objc_copyWeak(&v21, &location);
+  v9 = v3;
+  v18 = v9;
+  v19 = *(a1 + 40);
+  [v9 setExpirationHandler:v17];
+  v11 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v12 = *(v11 + 176);
   v14[0] = _NSConcreteStackBlock;
   v14[1] = 3221225472;
-  v14[2] = sub_100002F34;
-  v14[3] = &unk_10000C488;
-  objc_copyWeak(&v17, &from);
-  v14[4] = *(a1 + 32);
-  objc_copyWeak(&v18, &location);
-  v6 = v3;
-  v15 = v6;
-  v16 = *(a1 + 40);
-  [v6 setExpirationHandler:v14];
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v9 = *(v8 + 176);
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1000031A4;
-  v11[3] = &unk_10000C438;
-  v11[4] = v8;
-  v12 = v6;
-  v13 = v7;
-  v10 = v6;
-  dispatch_async(v9, v11);
+  v14[2] = sub_1000031A4;
+  v14[3] = &unk_10000C438;
+  v14[4] = v11;
+  v15 = v9;
+  v16 = v10;
+  v13 = v9;
+  dispatch_async(v12, v14);
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
 }
@@ -388,7 +392,7 @@ void sub_100002E98(uint64_t a1)
   *(*(a1 + 32) + 24) = 0;
   [*(a1 + 40) setTaskCompletedWithSuccess:0];
   v4 = *(a1 + 48);
-  v5 = NSErrorF();
+  v5 = NSErrorF(NSOSStatusErrorDomain, 4294960596, "Invalid task type");
   (*(v4 + 16))(v4, v5);
 }
 
@@ -445,7 +449,7 @@ void sub_100003020(uint64_t a1)
 
     [v14 setTaskCompletedWithSuccess:0];
     v12 = *(a1 + 48);
-    v13 = NSErrorF();
+    v13 = NSErrorF(NSOSStatusErrorDomain, 4294960574, "Task was asked to expire");
     (*(v12 + 16))(v12, v13);
 
     WeakRetained = v14;
@@ -478,9 +482,9 @@ id sub_1000031A4(uint64_t a1)
   return result;
 }
 
-void sub_100003344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -497,21 +501,22 @@ void sub_10000335C(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10000359C(uint64_t a1, unsigned int a2, void *a3)
+void sub_10000359C(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   if (*(a1 + 32) == *(*(a1 + 40) + 152))
   {
     v8 = v5;
     if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
     {
-      sub_100004758(a2);
+      sub_100004758(v3, v8);
     }
 
-    if (a2 != 5 && a2 != 2)
+    if (v3 != 5 && v3 != 2)
     {
       v5 = v8;
-      if (a2 != 1)
+      if (v3 != 1)
       {
         goto LABEL_10;
       }
@@ -528,116 +533,128 @@ void sub_10000359C(uint64_t a1, unsigned int a2, void *a3)
 LABEL_10:
 }
 
-id sub_1000038E4(void *a1)
+id sub_1000038E4(void *a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_100010D38 <= 30 && (dword_100010D38 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_100010D38 <= 30)
   {
-    sub_1000047F8();
+    if (dword_100010D38 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000047F8(a1, a2, a3);
+    }
   }
 
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v4 = v3[4];
+  v5 = v3[5];
+  v6 = v3[6];
 
-  return [v2 _postProgressUpdate:v3 totalCount:v4];
+  return [v4 _postProgressUpdate:v5 totalCount:v6];
 }
 
 void sub_1000040BC(void *a1)
 {
   v1 = [a1 serviceName];
-  LogPrintF();
+  v2 = v1;
+  v3 = @"nil";
+  if (v1)
+  {
+    v3 = v1;
+  }
+
+  LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementXPCService listener:shouldAcceptNewConnection:]", 30, "XPC connection started: %@", v3);
 }
 
 void sub_100004124(void *a1)
 {
-  v2 = [a1 xpcCnx];
-  v1 = [v2 serviceName];
-  LogPrintF();
+  v4 = [a1 xpcCnx];
+  v1 = [v4 serviceName];
+  v2 = v1;
+  v3 = @"nil";
+  if (v1)
+  {
+    v3 = v1;
+  }
+
+  LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementXPCService _xpcConnectionInvalidated:]", 20, "XPC connection ended: %@", v3);
 }
 
-uint64_t sub_1000042C0(uint64_t a1, uint64_t *a2, void *a3)
+uint64_t sub_1000042C0(uint64_t a1, void *a2, const __CFString **a3)
 {
-  *a3;
-  v5 = *a2;
-  v4 = *(a1 + 88);
-  return LogPrintF();
+  v3 = *a3;
+  if (!*a3)
+  {
+    v3 = @"nil";
+  }
+
+  return LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection downloadTranslationAssets:localeIdentifiers:useCellular:showDownloadCompleteNotification:bundleIdentifier:completion:]", 30, "AudioAccessoryAssetManagementClientXPCConnection downloadTranslationAssets %@ downloadRequestedLanguages %@ for _bundleIdentifier: %@", *(a1 + 88), *a2, v3);
 }
 
 void sub_1000043AC(void *a1)
 {
   v3 = [a1 locale];
   v2 = [v3 localeIdentifier];
-  [a1 downloadSize];
-  LogPrintF();
+  LogPrintF(&dword_100010D38, "-[AudioAccessoryAssetManagementClientXPCConnection getTranslationAssetsDownloadSize:localeIdentifiers:completion:]_block_invoke_2", 30, "getTranslationAssetsDownloadSize succeeded assetsDownloadSize locale: %@ size: %lu", v2, [a1 downloadSize]);
 }
 
 void sub_10000444C(void *a1)
 {
   v2 = [a1 assetStatus];
-  if (v2 <= 3)
+  if (v2 > 3)
+  {
+    v3 = "?";
+  }
+
+  else
   {
     v3 = (&off_10000C548)[v2];
   }
 
-  v7 = [a1 displayName];
-  [a1 isSuggested];
-  v4 = [a1 locale];
+  v8 = [a1 displayName];
+  v4 = [a1 isSuggested];
   v5 = [a1 locale];
-  v6 = [v5 localeIdentifier];
-  LogPrintF();
+  v6 = [a1 locale];
+  v7 = [v6 localeIdentifier];
+  LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection getTranslationAssets:]_block_invoke", 30, "getTranslationAssetsWithCompletion succeeded: AMTranslationAssetInfo: assetStatus %s, displayName %@, isSuggested %d locale %@ localeIdentifier %@\n", v3, v8, v4, v5, v7);
 }
 
 void sub_100004540(void *a1)
 {
-  v3 = [a1 locale];
-  v2 = [v3 description];
-  [a1 status];
+  v5 = [a1 locale];
+  v2 = [v5 description];
+  v3 = [a1 status];
   [a1 progress];
-  [a1 downloadSize];
-  LogPrintF();
+  LogPrintF(&dword_100010D38, "-[AudioAccessoryAssetManagementClientXPCConnection _monitorAssetsDownloadProgressWithObservations:completion:]_block_invoke_2", 30, "Locale %@ status %d Progress %f assetsDownloadSize %lu", v2, v3, v4, [a1 downloadSize]);
 }
 
 void sub_1000045F4(void *a1)
 {
   v1 = [a1 identifier];
-  LogPrintF();
+  LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _registerLaunchHandlerWithCompletion:]_block_invoke", 30, "_registerLaunchHandler task %@", v1);
 }
 
 void sub_10000466C(uint64_t a1)
 {
   v1 = [*(a1 + 40) identifier];
-  LogPrintF();
+  LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _registerLaunchHandlerWithCompletion:]_block_invoke_4", 30, "Task was asked to expire taskidentifier %@", v1);
 }
 
-uint64_t sub_1000046CC(uint64_t a1)
+uint64_t sub_100004758(unsigned int a1, uint64_t a2)
 {
-  v2 = *(*a1 + 88);
-  v3 = *(*a1 + 80);
-  return LogPrintF();
-}
-
-uint64_t sub_100004758(unsigned int a1)
-{
-  if (a1 <= 5)
+  if (a1 > 5)
   {
-    v1 = (&off_10000C568)[a1];
+    v4 = "?";
   }
 
-  return LogPrintF();
-}
+  else
+  {
+    v4 = (&off_10000C568)[a1];
+  }
 
-uint64_t sub_100004814(uint64_t *a1, uint64_t *a2, id *a3)
-{
-  v4 = *a1;
-  v5 = *a2;
-  [*a3 isFinished];
-  [*a3 totalUnitCount];
-  [*a3 completedUnitCount];
-  return LogPrintF();
+  return LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _showAssetManagementNotification]_block_invoke", 30, "AssetManagementUserNotificationBundle UINotificationSession action: %s, %{error}", v4, a2, v2, v3);
 }
 
 void sub_1000048E4(void *a1)
 {
   v1 = [a1 localizedDescription];
-  LogPrintF();
+  LogPrintF(&dword_100010D38, "[AudioAccessoryAssetManagementClientXPCConnection _submitBackgroundTask]", 90, "Failed to submit background task request: %{public}@", v1);
 }

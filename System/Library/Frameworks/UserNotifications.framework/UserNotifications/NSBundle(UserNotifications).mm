@@ -6,7 +6,7 @@
 
 + (id)userNotificationsBundleWithIdentifier:()UserNotifications
 {
-  v38[3] = *MEMORY[0x1E69E9840];
+  v37[3] = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -16,10 +16,10 @@
     {
       v8 = MEMORY[0x1E696AEC0];
       v9 = BSSystemRootDirectory();
-      v38[0] = v9;
-      v38[1] = @"AppleInternal";
-      v38[2] = @"Library";
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:3];
+      v37[0] = v9;
+      v37[1] = @"AppleInternal";
+      v37[2] = @"Library";
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:3];
       v11 = [v8 pathWithComponents:v10];
       v12 = [v6 arrayByAddingObject:v11];
 
@@ -27,42 +27,42 @@
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     obj = v6;
-    v14 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v14 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v33;
+      v16 = *v32;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v33 != v16)
+          if (*v32 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v32 + 1) + 8 * i);
+          v18 = *(*(&v31 + 1) + 8 * i);
           v19 = MEMORY[0x1E695DFF8];
           v20 = BSSystemRootDirectory();
-          v36[0] = v20;
-          v36[1] = v18;
-          v36[2] = @"UserNotifications";
-          v36[3] = @"Bundles";
+          v35[0] = v20;
+          v35[1] = v18;
+          v35[2] = @"UserNotifications";
+          v35[3] = @"Bundles";
           v21 = [v5 stringByAppendingPathExtension:@"bundle"];
-          v36[4] = v21;
+          v35[4] = v21;
           v22 = v7;
-          v23 = [*(v7 + 3784) arrayWithObjects:v36 count:5];
+          v23 = [*(v7 + 3784) arrayWithObjects:v35 count:5];
           v24 = [v19 fileURLWithPathComponents:v23];
 
-          v31 = 0;
+          v30 = 0;
           path = [v24 path];
-          LODWORD(v21) = [defaultManager fileExistsAtPath:path isDirectory:&v31];
-          v26 = v31;
+          LODWORD(v21) = [defaultManager fileExistsAtPath:path isDirectory:&v30];
+          v26 = v30;
 
           if (v21 && (v26 & 1) != 0)
           {
@@ -74,7 +74,7 @@
           v7 = v22;
         }
 
-        v15 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v15 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
         if (v15)
         {
           continue;
@@ -93,8 +93,6 @@ LABEL_15:
     [(NSBundle(UserNotifications) *)a2 userNotificationsBundleWithIdentifier:self];
     v27 = 0;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

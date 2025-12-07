@@ -3,6 +3,7 @@
 - (MTBaseQueryObserver)initWithEntityName:(id)name predicate:(id)predicate managedObjectContext:(id)context;
 - (MTBaseQueryObserver)initWithEntityName:(id)name predicate:(id)predicate sortDescriptors:(id)descriptors limit:(int64_t)limit batchSize:(int64_t)size propertiesToFetch:(id)fetch;
 - (MTBaseQueryObserver)initWithEntityName:(id)name predicate:(id)predicate sortDescriptors:(id)descriptors limit:(int64_t)limit batchSize:(int64_t)size propertiesToFetch:(id)fetch managedObjectContext:(id)context;
+- (MTBaseQueryObserver)initWithEntityName:(id)name predicate:(id)predicate sortDescriptors:(id)descriptors limit:(int64_t)limit returnObjectsAsFaults:(BOOL)faults;
 - (MTBaseQueryObserver)initWithFetchRequest:(id)request;
 - (MTBaseQueryObserver)initWithFetchRequest:(id)request managedObjectContext:(id)context;
 - (NSMutableDictionary)handlers;
@@ -61,7 +62,7 @@
 
 void __37__MTBaseQueryObserver_startObserving__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = _MTLogCategoryDatabaseTelemetry();
   v3 = os_signpost_id_generate(v2);
 
@@ -71,7 +72,7 @@ void __37__MTBaseQueryObserver_startObserving__block_invoke(uint64_t a1)
   {
     v6 = *(a1 + 32);
     *buf = 138412290;
-    v15 = v6;
+    v14 = v6;
     _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "MTBaseQueryObserverStartObserving", "Starting MTBaseQueryObserver id: %{name=MTBaseQueryObserverID}@", buf, 0xCu);
   }
 
@@ -89,8 +90,6 @@ void __37__MTBaseQueryObserver_startObserving__block_invoke(uint64_t a1)
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1D8CEC000, v11, OS_SIGNPOST_INTERVAL_END, v3, "MTBaseQueryObserverStartObserving", "", buf, 2u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSMutableDictionary)handlers
@@ -166,6 +165,23 @@ void __28__MTBaseQueryObserver_uuids__block_invoke(uint64_t a1, void *a2)
   v12 = [(MTBaseQueryObserver *)self initWithFetchRequest:v11 managedObjectContext:contextCopy];
 
   return v12;
+}
+
+- (MTBaseQueryObserver)initWithEntityName:(id)name predicate:(id)predicate sortDescriptors:(id)descriptors limit:(int64_t)limit returnObjectsAsFaults:(BOOL)faults
+{
+  faultsCopy = faults;
+  v12 = MEMORY[0x1E695D5E0];
+  descriptorsCopy = descriptors;
+  predicateCopy = predicate;
+  v15 = [v12 fetchRequestWithEntityName:name];
+  [v15 setPredicate:predicateCopy];
+
+  [v15 setSortDescriptors:descriptorsCopy];
+  [v15 setFetchLimit:limit];
+  [v15 setReturnsObjectsAsFaults:faultsCopy];
+  v16 = [(MTBaseQueryObserver *)self initWithFetchRequest:v15];
+
+  return v16;
 }
 
 - (MTBaseQueryObserver)initWithEntityName:(id)name predicate:(id)predicate sortDescriptors:(id)descriptors limit:(int64_t)limit batchSize:(int64_t)size propertiesToFetch:(id)fetch

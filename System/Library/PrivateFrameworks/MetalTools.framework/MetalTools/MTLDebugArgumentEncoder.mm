@@ -465,13 +465,13 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 5u, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 5u, &v12);
   }
 
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       if (*states)
@@ -499,7 +499,6 @@ LABEL_18:
 
   _MTLMessageContextEnd();
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setComputePipelineState:(id)state atIndex:(unint64_t)index
@@ -554,13 +553,13 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 6u, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 6u, &v12);
   }
 
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       if (*states)
@@ -588,7 +587,6 @@ LABEL_18:
 
   _MTLMessageContextEnd();
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIndirectCommandBuffer:(id)buffer atIndex:(unint64_t)index
@@ -630,14 +628,14 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 7u, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 7u, &v12);
   }
 
   _MTLMessageContextEnd();
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       baseObject = *buffers;
@@ -655,7 +653,6 @@ LABEL_18:
   }
 
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)newArgumentEncoderForBufferAtIndex:(unint64_t)index
@@ -699,7 +696,7 @@ LABEL_18:
 
 - (void)setAccelerationStructure:(id)structure atIndex:(unint64_t)index
 {
-  checkAccelerationStructure(self->super.super._device, structure, 1);
+  checkAccelerationStructure(self->super.super._device, structure, 1, @"Acceleration structure");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
 
@@ -744,14 +741,14 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 8u, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 8u, &v12);
   }
 
   _MTLMessageContextEnd();
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       baseObject = *tables;
@@ -769,7 +766,6 @@ LABEL_18:
   }
 
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIntersectionFunctionTable:(id)table atBufferIndex:(unint64_t)index
@@ -810,14 +806,14 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 9u, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 9u, &v12);
   }
 
   _MTLMessageContextEnd();
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       baseObject = *tables;
@@ -835,7 +831,6 @@ LABEL_18:
   }
 
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVisibleFunctionTable:(id)table atIndex:(unint64_t)index
@@ -876,14 +871,14 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 8u, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 8u, &v12);
   }
 
   _MTLMessageContextEnd();
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       baseObject = *tables;
@@ -901,7 +896,6 @@ LABEL_18:
   }
 
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIntersectionFunctionTable:(id)table atIndex:(unint64_t)index
@@ -942,14 +936,14 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 9u, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 9u, &v12);
   }
 
   _MTLMessageContextEnd();
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       baseObject = *tables;
@@ -967,7 +961,6 @@ LABEL_18:
   }
 
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDepthStencilState:(id)state atIndex:(unint64_t)index
@@ -1003,14 +996,14 @@ LABEL_18:
   reflectionParser = self->_reflectionParser;
   if (reflectionParser)
   {
-    StructType::indexRangeIsValueType(reflectionParser, &v14, 0xCu, &v13);
+    StructType::indexRangeIsValueType(reflectionParser, &v13, 0xCu, &v12);
   }
 
   _MTLMessageContextEnd();
   if (length)
   {
     v9 = length;
-    v10 = (&v13.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v10 = (&v12.var0 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
       baseObject = *states;
@@ -1028,7 +1021,6 @@ LABEL_18:
   }
 
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

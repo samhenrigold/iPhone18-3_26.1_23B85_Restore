@@ -577,50 +577,50 @@ void __80__PKInboxViewController__presentManateeUpgradeForFeatureApplication_com
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __80__PKInboxViewController__presentManateeUpgradeForFeatureApplication_completion___block_invoke_2(uint64_t a1)
+void __80__PKInboxViewController__presentManateeUpgradeForFeatureApplication_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = PKSecurityCapabilitiesErrorToString(*(a1 + 64));
-    v4 = *(a1 + 32);
+    v4 = PKSecurityCapabilitiesErrorToString(*(a1 + 64));
+    v5 = *(a1 + 32);
     *buf = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Finished checking account user invitation security capabilities with upgrade error %@, error %@", buf, 0x16u);
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Finished checking account user invitation security capabilities with upgrade error %@, error %@", buf, 0x16u);
   }
 
-  v5 = *(a1 + 64);
-  if (v5 == 3)
+  v6 = *(a1 + 64);
+  if (v6 == 3)
   {
-    v8 = *(*(a1 + 56) + 16);
+    v9 = *(*(a1 + 56) + 16);
 LABEL_10:
-    v8();
+    v9();
     return;
   }
 
-  if (v5)
+  if (v6)
   {
-    v8 = *(*(a1 + 56) + 16);
+    v9 = *(*(a1 + 56) + 16);
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "User successfully completed. Ensuring that they indeed supportsDeviceToDeviceEncryption", buf, 2u);
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "User successfully completed. Ensuring that they indeed supportsDeviceToDeviceEncryption", buf, 2u);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __80__PKInboxViewController__presentManateeUpgradeForFeatureApplication_completion___block_invoke_77;
-  v9[3] = &unk_1E8010AD8;
-  v10 = *(a1 + 56);
-  [v6 _checkManateeCapabilityForFeatureApplication:v7 completion:v9];
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __80__PKInboxViewController__presentManateeUpgradeForFeatureApplication_completion___block_invoke_77;
+  v10[3] = &unk_1E8010AD8;
+  v11 = *(a1 + 56);
+  [v7 _checkManateeCapabilityForFeatureApplication:v8 completion:v10];
 }
 
 void __80__PKInboxViewController__presentManateeUpgradeForFeatureApplication_completion___block_invoke_77(uint64_t a1, char a2)

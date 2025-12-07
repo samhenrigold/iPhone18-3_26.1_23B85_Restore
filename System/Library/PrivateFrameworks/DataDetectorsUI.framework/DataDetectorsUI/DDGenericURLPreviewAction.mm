@@ -16,7 +16,7 @@
       return 0;
     }
 
-    urlCopy = _DDURLFromResult(result);
+    urlCopy = _DDURLFromResult(result, 1u);
     if (!urlCopy)
     {
       return 0;
@@ -42,7 +42,7 @@
 - (id)menuActions
 {
   v3 = [(DDAction *)self url];
-  if (v3 || [(DDAction *)self result]&& (_DDURLFromResult([(DDAction *)self result]), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v3 || [(DDAction *)self result]&& (_DDURLFromResult([(DDAction *)self result], 1u), (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v4 = v3;
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:4];
@@ -88,7 +88,7 @@
 
   else
   {
-    v3 = _DDURLFromResult(v3);
+    v3 = _DDURLFromResult(v3, 1u);
   }
 
   return v3;

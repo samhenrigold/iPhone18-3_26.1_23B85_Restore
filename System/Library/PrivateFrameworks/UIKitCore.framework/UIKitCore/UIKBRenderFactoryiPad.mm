@@ -332,7 +332,7 @@
   {
     name = [keyCopy name];
     v8 = 0.0;
-    if ([name isEqualToString:@"SelectionBackground"])
+    if (objc_msgSend_isEqualToString_(name))
     {
       [(UIKBRenderFactoryiPad *)self predictiveKeyCornerRadius];
       v8 = v9;
@@ -430,7 +430,7 @@ LABEL_21:
   if ([keyCopy interactionType] == 13)
   {
     overrideDisplayString2 = [keyCopy overrideDisplayString];
-    if (overrideDisplayString2 && (v9 = overrideDisplayString2, [keyCopy overrideDisplayString], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(keyCopy, "displayString"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToString:", v11), v11, v10, v9, (v12 & 1) == 0))
+    if (overrideDisplayString2 && (v9 = overrideDisplayString2, [keyCopy overrideDisplayString], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(keyCopy, "displayString"), v11 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v10), v11, v10, v9, (isEqualToString & 1) == 0))
     {
       [v5 setDisplayStringImage:0];
     }
@@ -767,9 +767,9 @@ LABEL_39:
 
 LABEL_40:
         displayString3 = [keyCopy displayString];
-        v47 = [displayString3 isEqualToString:@"匹配"];
+        isEqualToString = objc_msgSend_isEqualToString_(displayString3);
 
-        if (v47)
+        if (isEqualToString)
         {
           [(UIKBRenderFactoryiPad *)self bottomRowDefaultFontSize];
 LABEL_48:
@@ -778,7 +778,7 @@ LABEL_48:
         }
 
         name = [keyCopy name];
-        v51 = [name isEqualToString:@"Zhuyin-Letter-FIRST_TONE"];
+        v51 = objc_msgSend_isEqualToString_(name);
 
         if (v51)
         {
@@ -787,7 +787,7 @@ LABEL_48:
         }
 
         name2 = [keyCopy name];
-        v53 = [name2 isEqualToString:@"Arabic-Thousands-Separator"];
+        v53 = objc_msgSend_isEqualToString_(name2);
 
         if (v53)
         {
@@ -799,7 +799,7 @@ LABEL_48:
         else
         {
           representedString = [keyCopy representedString];
-          v61 = [representedString isEqualToString:@"‌"];
+          v61 = objc_msgSend_isEqualToString_(representedString);
 
           if (!v61)
           {
@@ -1210,11 +1210,11 @@ LABEL_62:
   traitsCopy = traits;
   keyCopy = key;
   state = [keyCopy state];
-  geometry = [traitsCopy geometry];
-  v11 = geometry;
+  v10 = objc_msgSend_geometry(traitsCopy);
+  v11 = v10;
   if (state == 16)
   {
-    [geometry setDetachedVariants:1];
+    [v10 setDetachedVariants:1];
 
     renderConfig = [(UIKBRenderFactory *)self renderConfig];
     if ([renderConfig lightKeyboard])
@@ -1240,7 +1240,7 @@ LABEL_62:
 
   else
   {
-    [geometry setPopupBias:0];
+    [v10 setPopupBias:0];
 
     [traitsCopy setBlurBlending:1];
     [traitsCopy setRenderFlagsForAboveEffects:2];
@@ -1391,15 +1391,15 @@ LABEL_35:
       }
     }
 
-    geometry2 = [traitsCopy geometry];
+    v54 = objc_msgSend_geometry(traitsCopy);
     if ([keyCopy displayTypeHint] == 10 && objc_msgSend(keyCopy, "state") == 4)
     {
-      [geometry2 displayFrame];
+      [v54 displayFrame];
       v56 = v55;
       v58 = v57;
-      [geometry2 displayFrame];
+      [v54 displayFrame];
       v70 = CGRectInset(v69, v56 * -0.5, v58 * -0.5);
-      [geometry2 setDisplayFrame:{v70.origin.x, v70.origin.y, v70.size.width, v70.size.height}];
+      [v54 setDisplayFrame:{v70.origin.x, v70.origin.y, v70.size.width, v70.size.height}];
     }
   }
 }
@@ -1417,9 +1417,9 @@ LABEL_35:
 {
   keyCopy = key;
   name = [keyCopy name];
-  v5 = [name isEqualToString:@"EmojiPopupKey"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v5)
+  if (isEqualToString)
   {
     subtrees = [keyCopy subtrees];
     v7 = [subtrees count];
@@ -1495,8 +1495,8 @@ LABEL_3:
 
   [(UIKBRenderFactoryiPad *)self keyCornerRadius];
   v14 = v13;
-  geometry = [v8 geometry];
-  [geometry setRoundRectRadius:v14];
+  v15 = objc_msgSend_geometry(v8);
+  [v15 setRoundRectRadius:v14];
 
   if ([(UIKBRenderFactoryiPhone *)self _shouldConfigureSecondarySymbolStyleForSpaceKey:keyCopy])
   {
@@ -1633,9 +1633,9 @@ LABEL_19:
   }
 
   displayString = [keyCopy displayString];
-  v43 = [displayString isEqualToString:@"kr"];
+  isEqualToString = objc_msgSend_isEqualToString_(displayString);
 
-  if (v43)
+  if (isEqualToString)
   {
     lightTextFontName = [(UIKBRenderFactoryiPhone *)self lightTextFontName];
     symbolStyle8 = [v8 symbolStyle];
@@ -1650,7 +1650,7 @@ LABEL_19:
   {
     secondaryDisplayStrings = [keyCopy secondaryDisplayStrings];
     firstObject3 = [secondaryDisplayStrings firstObject];
-    v50 = [firstObject3 isEqualToString:@"kr"];
+    v50 = objc_msgSend_isEqualToString_(firstObject3);
 
     if (!v50)
     {
@@ -1887,8 +1887,8 @@ LABEL_17:
   }
 
 LABEL_18:
-  geometry = [traitsCopy geometry];
-  [geometry setDetachedVariants:1];
+  v35 = objc_msgSend_geometry(traitsCopy);
+  [v35 setDetachedVariants:1];
 
   v36 = [UIKBRenderTraits traitsWithSymbolStyle:0];
   [traitsCopy setVariantTraits:v36];
@@ -1976,8 +1976,8 @@ LABEL_24:
   y = v94.origin.y;
   width = v94.size.width;
   height = v94.size.height;
-  geometry2 = [traitsCopy geometry];
-  [geometry2 displayFrame];
+  v80 = objc_msgSend_geometry(traitsCopy);
+  [v80 displayFrame];
   v97.origin.x = x;
   v97.origin.y = y;
   v97.size.width = width;
@@ -1988,21 +1988,21 @@ LABEL_24:
   v83 = v96.size.width;
   v84 = v96.size.height;
 
-  geometry3 = [traitsCopy geometry];
-  [geometry3 setDisplayFrame:{v81, v82, v83, v84}];
+  v85 = objc_msgSend_geometry(traitsCopy);
+  [v85 setDisplayFrame:{v81, v82, v83, v84}];
 
   height = [UIKBRenderGeometry geometryWithFrame:x paddedFrame:y, width, height, x, y, width, height];
   v92[0] = height;
   v87 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:1];
   [traitsCopy setVariantGeometries:v87];
 
-  geometry4 = [traitsCopy geometry];
-  [geometry4 setPopupBias:40];
+  v88 = objc_msgSend_geometry(traitsCopy);
+  [v88 setPopupBias:40];
 
   [(UIKBRenderFactoryiPad *)self keyCornerRadius];
   v90 = v89;
-  geometry5 = [traitsCopy geometry];
-  [geometry5 setRoundRectRadius:v90];
+  v91 = objc_msgSend_geometry(traitsCopy);
+  [v91 setRoundRectRadius:v90];
 }
 
 @end

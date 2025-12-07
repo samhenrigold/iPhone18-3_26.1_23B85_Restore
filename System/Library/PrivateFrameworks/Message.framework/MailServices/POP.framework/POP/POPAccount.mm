@@ -17,6 +17,7 @@
 - (void)releaseAllConnections;
 - (void)releaseAllForcedConnections;
 - (void)scheduleDisconnect;
+- (void)setDelayedMessageDeletionInterval:(unsigned int)interval;
 - (void)setMessageDeletionPolicy:(int64_t)policy;
 - (void)setNewestKnownMessageUID:(id)d;
 - (void)setOldestKnownMessageUID:(id)d;
@@ -50,7 +51,7 @@
 
 - (int64_t)fetchNumNewMessages:(unint64_t)messages oldMessages:(unint64_t)oldMessages preservingUID:(id)d withStore:(id)store
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   storeCopy = store;
   primaryMailboxUid = [(POPAccount *)self primaryMailboxUid];
@@ -70,14 +71,13 @@
     fetchMonitor = MFLogGeneral();
     if (os_log_type_enabled(fetchMonitor, OS_LOG_TYPE_INFO))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_258B68000, fetchMonitor, OS_LOG_TYPE_INFO, "POP fetch failed because INBOX store could not be created", v18, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_258B68000, fetchMonitor, OS_LOG_TYPE_INFO, "POP fetch failed because INBOX store could not be created", v17, 2u);
     }
 
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -102,19 +102,12 @@
 - (Class)storeClassForMailbox:(id)mailbox
 {
   mailboxCopy = mailbox;
-  primaryMailboxUid = [(POPAccount *)self primaryMailboxUid];
+  [(POPAccount *)self primaryMailboxUid];
 
-  v6 = off_2798AFD10;
-  if (primaryMailboxUid != mailboxCopy)
-  {
-    v6 = 0x277D28228;
-  }
+  v5 = objc_opt_class();
+  v6 = v5;
 
-  v7 = *v6;
-  v8 = objc_opt_class();
-  v9 = v8;
-
-  return v8;
+  return v5;
 }
 
 - (Class)connectionClass
@@ -162,6 +155,15 @@
   [(POPAccount *)self mf_unlock];
 
   [(MFAccount *)self _queueAccountInfoDidChange];
+}
+
+- (void)setDelayedMessageDeletionInterval:(unsigned int)interval
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&interval];
+  [(POPAccount *)self mf_lock];
+  [(MFAccount *)self setAccountProperty:v4 forKey:@"DeleteMessagesOnServerInterval"];
+  _MFUnlockGlobalLock();
+  [(POPAccount *)self mf_unlock];
 }
 
 - (int64_t)messageDeletionPolicy

@@ -16,7 +16,7 @@
 
 - (ISDialogButton)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISDialogButton.m", 65, a2);
   v4.receiver = self;
   v4.super_class = ISDialogButton;
   return [(ISDialogButton *)&v4 init];
@@ -181,7 +181,7 @@ LABEL_18:
 
 - (void)performDefaultActionForDialog:(id)dialog
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   dialogCopy = dialog;
   actionType = [(ISDialogButton *)self actionType];
   if (actionType <= 5)
@@ -216,8 +216,8 @@ LABEL_18:
       if (SSIsDaemon())
       {
         nSClassFromString(&cfstr_Purchasecontro.isa) = [NSClassFromString(&cfstr_Purchasecontro.isa) sharedController];
-        v37[0] = parameter4;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+        v36[0] = parameter4;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
         [nSClassFromString(&cfstr_Purchasecontro.isa) addPurchases:v21];
         goto LABEL_28;
       }
@@ -368,8 +368,6 @@ LABEL_44:
   }
 
 LABEL_45:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActionTypeWithString:(id)string
@@ -553,19 +551,13 @@ LABEL_5:
 {
   v3 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v3, "0", self->_actionType);
-  dictionary = self->_dictionary;
   SSXPCDictionarySetCFObject();
-  subtarget = self->_subtarget;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_BOOL(v3, "6", self->_tidContinue);
-  title = self->_title;
   SSXPCDictionarySetCFObject();
   xpc_dictionary_set_int64(v3, "5", self->_urlType);
-  parameter = self->_parameter;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v9 = self->_parameter;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
     absoluteString = [self->_parameter absoluteString];
     SSXPCDictionarySetCFObject();

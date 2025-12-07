@@ -31,7 +31,7 @@
   return v9;
 }
 
-uint64_t __46__RERelevanceValue_initWithValues_isHistoric___block_invoke(uint64_t a1, unint64_t a2)
+unint64_t __46__RERelevanceValue_initWithValues_isHistoric___block_invoke(uint64_t a1, unint64_t a2)
 {
   result = REFeatureValueHashForTaggedPointer(a2);
   *(*(a1 + 32) + 8) ^= result;

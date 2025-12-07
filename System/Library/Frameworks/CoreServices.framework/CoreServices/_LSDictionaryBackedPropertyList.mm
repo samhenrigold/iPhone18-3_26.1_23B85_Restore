@@ -41,7 +41,7 @@
 {
   coderCopy = coder;
   v5 = objc_opt_class();
-  v6 = XNSGetPropertyListClasses();
+  v6 = XNSGetPropertyListClasses(v5);
   v7 = [coderCopy ls_decodeDictionaryWithKeysOfClass:v5 valuesOfClasses:v6 forKey:@"plist"];
 
   v8 = [(_LSDictionaryBackedPropertyList *)self initWithPropertyList:v7];

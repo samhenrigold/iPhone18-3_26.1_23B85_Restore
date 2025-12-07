@@ -918,7 +918,7 @@ void __17__PXGLayout_init__block_invoke()
     v6 = sublayoutDataStore;
     if (sublayoutDataStore)
     {
-      [sublayoutDataStore geometryForSublayout:self];
+      objc_msgSend_geometryForSublayout_(sublayoutDataStore);
     }
 
     else
@@ -1245,7 +1245,7 @@ LABEL_11:
   return v7 & 1;
 }
 
-uint64_t __50__PXGLayout_PXGPointReference__hasPointReferences__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__50__PXGLayout_PXGPointReference__hasPointReferences__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 hasPointReferences];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1558,7 +1558,7 @@ LABEL_13:
   return v14;
 }
 
-uint64_t __127__PXGLayout_PXGAnchor__createAnchorFromSuperlayoutWithSublayoutIndex_sublayoutPositionEdges_ignoringScrollingAnimationAnchors___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__127__PXGLayout_PXGAnchor__createAnchorFromSuperlayoutWithSublayoutIndex_sublayoutPositionEdges_ignoringScrollingAnimationAnchors___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) sublayoutIndexForSpriteReference:a2 options:a3];
   if (result == *(a1 + 48))
@@ -2352,13 +2352,13 @@ LABEL_9:
   return v10;
 }
 
-uint64_t __60__PXGLayout_AX__axSpriteIndexesInRectDefaultImplementation___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __60__PXGLayout_AX__axSpriteIndexesInRectDefaultImplementation___block_invoke(uint64_t a1, const char *a2)
 {
   v2 = a2;
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 geometryForSpriteAtIndex:{a2, 0, 0}];
+    objc_msgSend_geometryForSpriteAtIndex_(v4, a2, a2, 0, 0);
   }
 
   PXRectWithCenterAndSize();
@@ -3966,7 +3966,7 @@ void __77__PXGLayout__enumerateSpritesInRange_transform_spriteOffset_stop_usingB
   v14 = 0;
   if (optionsCopy)
   {
-    [(PXGLayout *)self orientedContentTransform];
+    objc_msgSend_orientedContentTransform(self);
   }
 
   v9[0] = v11;
@@ -4186,7 +4186,7 @@ void __165__PXGLayout_copyLayoutForSpritesInRange_applySpriteTransforms_parentTr
     memset(v76, 0, sizeof(v76));
     if (*(a1 + 48))
     {
-      [*(a1 + 48) geometryForSublayout:v6];
+      objc_msgSend_geometryForSublayout_(*(a1 + 48));
       v8 = *(&v77 + 1);
       v9 = *&v77;
       v10 = *&v78;
@@ -4642,16 +4642,14 @@ void __50__PXGLayout_navigationObjectReferenceForLocation___block_invoke(uint64_
   }
 }
 
-uint64_t __50__PXGLayout_navigationObjectReferenceForLocation___block_invoke_2(uint64_t a1, int a2)
+void __50__PXGLayout_navigationObjectReferenceForLocation___block_invoke_2(uint64_t a1, int a2)
 {
-  result = PXRectShortestDistanceToPoint();
-  if (v5 < *(*(*(a1 + 32) + 8) + 24))
+  PXRectShortestDistanceToPoint();
+  if (v4 < *(*(*(a1 + 32) + 8) + 24))
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
-    *(*(*(a1 + 32) + 8) + 24) = v5;
+    *(*(*(a1 + 32) + 8) + 24) = v4;
   }
-
-  return result;
 }
 
 - (id)dropTargetObjectReferenceForLocation:(CGPoint)location
@@ -5101,19 +5099,17 @@ void __62__PXGLayout_enumerateVisibleAnchoringSpriteIndexesUsingBlock___block_in
   }
 }
 
-uint64_t __62__PXGLayout_enumerateVisibleAnchoringSpriteIndexesUsingBlock___block_invoke_2(uint64_t a1, int a2)
+void __62__PXGLayout_enumerateVisibleAnchoringSpriteIndexesUsingBlock___block_invoke_2(uint64_t a1, int a2, double *a3, uint64_t a4, double a5, double a6, __n128 a7)
 {
   PXRectWithCenterAndSize();
   PXRectGetCenter();
-  result = PXDistanceBetweenPoints();
-  v6 = *(*(a1 + 32) + 8);
-  if (v5 < *(v6 + 24))
+  PXDistanceBetweenPoints();
+  v10 = *(*(a1 + 32) + 8);
+  if (v9 < *(v10 + 24))
   {
-    *(v6 + 24) = v5;
+    *(v10 + 24) = v9;
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
-
-  return result;
 }
 
 uint64_t __62__PXGLayout_enumerateVisibleAnchoringSpriteIndexesUsingBlock___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -5540,7 +5536,7 @@ uint64_t __85__PXGLayout_applySpriteChangeDetails_countAfterChanges_initialState
     v14 = *(a1 + 32);
     if (v14)
     {
-      [v14 spritesInRange:v8];
+      objc_msgSend_spritesInRange_(v14);
     }
 
     else
@@ -5569,7 +5565,7 @@ uint64_t __85__PXGLayout_applySpriteChangeDetails_countAfterChanges_initialState
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 spritesInRange:v4];
+    objc_msgSend_spritesInRange_(v6);
   }
 
   else
@@ -6402,7 +6398,7 @@ LABEL_14:
   [v7 enumerateRangesUsingBlock:v8];
 }
 
-uint64_t __43__PXGLayout__propagateHiddenSpriteIndexes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__43__PXGLayout__propagateHiddenSpriteIndexes___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
   v4 = a2;
@@ -6418,7 +6414,7 @@ uint64_t __43__PXGLayout__propagateHiddenSpriteIndexes___block_invoke(uint64_t a
   return result;
 }
 
-uint64_t __43__PXGLayout__propagateHiddenSpriteIndexes___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__43__PXGLayout__propagateHiddenSpriteIndexes___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
   v4 = a2;
@@ -6993,7 +6989,7 @@ void __46__PXGLayout_updateStylingForSpritesAtIndexes___block_invoke(uint64_t a1
   [v1 modifySpritesAtIndexes:v2 state:v3];
 }
 
-uint64_t __46__PXGLayout_updateStylingForSpritesAtIndexes___block_invoke_2(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
+id *__46__PXGLayout_updateStylingForSpritesAtIndexes___block_invoke_2(id *result, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = HIDWORD(a2);
   if (HIDWORD(a2))
@@ -7003,7 +6999,7 @@ uint64_t __46__PXGLayout_updateStylingForSpritesAtIndexes___block_invoke_2(uint6
     do
     {
       *(a4 + 52) = 0;
-      result = [*(v6 + 32) containsIndex:v7];
+      result = [v6[4] containsIndex:v7];
       if (result)
       {
         v8 = 0.00000001;
@@ -7206,7 +7202,7 @@ LABEL_9:
       v13 = sublayoutDataStore;
       if (sublayoutDataStore)
       {
-        [sublayoutDataStore geometryForSublayout:v9];
+        objc_msgSend_geometryForSublayout_(sublayoutDataStore);
       }
 
       else
@@ -7913,7 +7909,7 @@ uint64_t __66__PXGLayout_enumerateLayoutsForSpritesInRange_options_usingBlock___
     v8 = spriteDataStore;
     if (spriteDataStore)
     {
-      [spriteDataStore sprites];
+      objc_msgSend_sprites(spriteDataStore);
       v9 = self->_modifiedSpriteDataStore;
       v10[0] = v12;
       v10[1] = v13;
@@ -8027,7 +8023,7 @@ uint64_t __66__PXGLayout_enumerateLayoutsForSpritesInRange_options_usingBlock___
 
 - (void)applySectionedChangeDetailsForSingleSection:(id)section dataSourceBeforeChanges:(id)changes dataSourceAfterChanges:(id)afterChanges changeMediaVersionHandler:(id)handler sectionIndexPathBeforeState:(PXSimpleIndexPath *)state
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   changesCopy = changes;
   afterChangesCopy = afterChanges;
@@ -8049,13 +8045,13 @@ uint64_t __66__PXGLayout_enumerateLayoutsForSpritesInRange_options_usingBlock___
   v19 = MEMORY[0x21CEE40A0](v18);
 
   v20 = [sectionCopy count];
-  v95 = 0u;
   v96 = 0u;
+  v97 = 0u;
   v21 = *&state->var2;
-  v94[0] = *&state->var0;
-  v94[1] = v21;
-  [MEMORY[0x277D3CDD0] indexPathAfterApplyingChanges:sectionCopy toIndexPath:v94 hasIncrementalChanges:0 objectChanged:0];
-  if (v95 == *MEMORY[0x277D3CF78] || state->var0 == *MEMORY[0x277D3CF78])
+  v94 = *&state->var0;
+  v95 = v21;
+  objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
+  if (!*MEMORY[0x277D3CF78] || state->var0 == *MEMORY[0x277D3CF78])
   {
     goto LABEL_31;
   }
@@ -8071,7 +8067,7 @@ uint64_t __66__PXGLayout_enumerateLayoutsForSpritesInRange_options_usingBlock___
   v92 = 0u;
   v93 = 0u;
   v23 = sectionCopy;
-  v24 = [v23 countByEnumeratingWithState:&v90 objects:v98 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v90 objects:v99 count:16];
   if (v24)
   {
     v25 = v24;
@@ -8112,7 +8108,7 @@ LABEL_30:
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v90 objects:v98 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v90 objects:v99 count:16];
       a2 = v63;
       v19 = v65;
       if (v25)
@@ -8127,25 +8123,7 @@ LABEL_30:
   changesCopy = v67;
   sectionCopy = v68;
   afterChangesCopy = v69;
-  if (!v71 || ![v69 numberOfSections])
-  {
-LABEL_31:
-    if ([afterChangesCopy numberOfSections] < 1)
-    {
-      v54 = 0;
-    }
-
-    else
-    {
-      v54 = [afterChangesCopy numberOfItemsInSection:state->var1];
-    }
-
-    changeDetailsWithNoIncrementalChanges = [MEMORY[0x277D3CCC8] changeDetailsWithNoIncrementalChanges];
-    v38 = layoutForItemChanges;
-    [layoutForItemChanges setNumberOfItems:v54 withChangeDetails:changeDetailsWithNoIncrementalChanges];
-  }
-
-  else
+  if (v71 && [v69 numberOfSections])
   {
     v64 = a2;
     v66 = v19;
@@ -8156,7 +8134,7 @@ LABEL_31:
     v88 = 0u;
     v89 = 0u;
     v35 = v23;
-    v36 = [v35 countByEnumeratingWithState:&v86 objects:v97 count:16];
+    v36 = [v35 countByEnumeratingWithState:&v86 objects:v98 count:16];
     if (v36)
     {
       v37 = v36;
@@ -8214,7 +8192,7 @@ LABEL_31:
 
         while (v37 != v39);
         v35 = obj;
-        v37 = [obj countByEnumeratingWithState:&v86 objects:v97 count:16];
+        v37 = [obj countByEnumeratingWithState:&v86 objects:v98 count:16];
       }
 
       while (v37);
@@ -8226,11 +8204,11 @@ LABEL_31:
     }
 
     numberOfItems2 = [v38 numberOfItems];
-    if (numberOfItems2 != [v69 numberOfItemsInSection:*(&v95 + 1)])
+    if (numberOfItems2 != [v69 numberOfItemsInSection:*(&v96 + 1)])
     {
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
       numberOfItems3 = [v38 numberOfItems];
-      [currentHandler2 handleFailureInMethod:v64 object:selfCopy file:@"PXGDataSourceDrivenLayout.m" lineNumber:197 description:{@"Layout item count %ld does not match data source %ld", numberOfItems3, objc_msgSend(v69, "numberOfItemsInSection:", *(&v95 + 1))}];
+      [currentHandler2 handleFailureInMethod:v64 object:selfCopy file:@"PXGDataSourceDrivenLayout.m" lineNumber:197 description:{@"Layout item count %ld does not match data source %ld", numberOfItems3, objc_msgSend(v69, "numberOfItemsInSection:", *(&v96 + 1))}];
     }
 
     v79[0] = MEMORY[0x277D85DD0];
@@ -8261,6 +8239,24 @@ LABEL_31:
     sectionCopy = v68;
     afterChangesCopy = v69;
   }
+
+  else
+  {
+LABEL_31:
+    if ([afterChangesCopy numberOfSections] < 1)
+    {
+      v54 = 0;
+    }
+
+    else
+    {
+      v54 = [afterChangesCopy numberOfItemsInSection:state->var1];
+    }
+
+    changeDetailsWithNoIncrementalChanges = [MEMORY[0x277D3CCC8] changeDetailsWithNoIncrementalChanges];
+    v38 = layoutForItemChanges;
+    [layoutForItemChanges setNumberOfItems:v54 withChangeDetails:changeDetailsWithNoIncrementalChanges];
+  }
 }
 
 void __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForSingleSection_dataSourceBeforeChanges_dataSourceAfterChanges_changeMediaVersionHandler_sectionIndexPathBeforeState___block_invoke_2(uint64_t a1, void *a2)
@@ -8271,7 +8267,7 @@ void __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForS
   [v3 addIndexes:v4];
 }
 
-void __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForSingleSection_dataSourceBeforeChanges_dataSourceAfterChanges_changeMediaVersionHandler_sectionIndexPathBeforeState___block_invoke_3(uint64_t a1, uint64_t a2)
+void __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForSingleSection_dataSourceBeforeChanges_dataSourceAfterChanges_changeMediaVersionHandler_sectionIndexPathBeforeState___block_invoke_3(uint64_t a1, void *a2)
 {
   v4 = [*(a1 + 32) lastObject];
   v5 = [v4 toDataSourceIdentifier];
@@ -8292,7 +8288,7 @@ void __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForS
   {
     v7 = MEMORY[0x277CCAB58];
     v8 = a4;
-    v9 = [v7 indexSet];
+    v9 = objc_msgSend_indexSet(v7);
     v10 = [a1[4] loadedItemsForItems:v8];
 
     v15 = MEMORY[0x277D85DD0];
@@ -8317,32 +8313,30 @@ void __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForS
   }
 }
 
-uint64_t __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForSingleSection_dataSourceBeforeChanges_dataSourceAfterChanges_changeMediaVersionHandler_sectionIndexPathBeforeState___block_invoke_5(uint64_t a1, uint64_t a2)
+uint64_t __185__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetailsForSingleSection_dataSourceBeforeChanges_dataSourceAfterChanges_changeMediaVersionHandler_sectionIndexPathBeforeState___block_invoke_5(uint64_t a1, const char *a2)
 {
   v4 = *(a1 + 64);
   v5 = *(a1 + 72);
-  v21 = 0u;
-  v22 = 0u;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  *&v19 = v4;
-  *(&v19 + 1) = v5;
-  *&v20 = a2;
-  *(&v20 + 1) = 0x7FFFFFFFFFFFFFFFLL;
-  [MEMORY[0x277D3CDD0] indexPathAfterRevertingChanges:v6 fromIndexPath:&v19 hasIncrementalChanges:0 objectChanged:0 changedProperties:v7];
-  if (v21 != *MEMORY[0x277D3CF78])
+  v19 = 0u;
+  v20 = 0u;
+  *&v17 = v4;
+  *(&v17 + 1) = v5;
+  *&v18 = a2;
+  *(&v18 + 1) = 0x7FFFFFFFFFFFFFFFLL;
+  objc_msgSend_indexPathAfterRevertingChanges_fromIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(MEMORY[0x277D3CDD0]);
+  if (*MEMORY[0x277D3CF78])
   {
-    v8 = [*(a1 + 40) containsObject:*MEMORY[0x277D3CF80]];
-    v9 = *(a1 + 56);
-    v10 = *(v9 + 16);
-    v19 = v21;
-    v20 = v22;
-    v18[0] = v4;
-    v18[1] = v5;
-    v18[2] = a2;
-    v18[3] = 0x7FFFFFFFFFFFFFFFLL;
-    v16 = v10(v9, &v19, v18, v11, v12, v13, v14, v15);
-    if ((v8 & 1) != 0 || v16)
+    v6 = [*(a1 + 40) containsObject:*MEMORY[0x277D3CF80]];
+    v7 = *(a1 + 56);
+    v8 = *(v7 + 16);
+    v17 = v19;
+    v18 = v20;
+    v16[0] = v4;
+    v16[1] = v5;
+    v16[2] = a2;
+    v16[3] = 0x7FFFFFFFFFFFFFFFLL;
+    v14 = v8(v7, &v17, v16, v9, v10, v11, v12, v13);
+    if ((v6 & 1) != 0 || v14)
     {
       [*(a1 + 48) addIndex:a2];
     }
@@ -8445,8 +8439,8 @@ LABEL_11:
     v65 = sublayoutDataStore;
     v58 = afterChangesCopy;
     v59 = changesCopy;
-    indexSet = [MEMORY[0x277CCAB58] indexSet];
-    indexSet2 = [MEMORY[0x277CCAB58] indexSet];
+    v32 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
+    v33 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     indexPathSet = [MEMORY[0x277D3CD78] indexPathSet];
     v86 = 0u;
     v87 = 0u;
@@ -8461,7 +8455,7 @@ LABEL_11:
       do
       {
         v35 = 0;
-        v36 = indexSet;
+        v36 = v32;
         do
         {
           v37 = indexPathSet;
@@ -8479,12 +8473,12 @@ LABEL_11:
 
           [(PXGLayout *)selfCopy applySublayoutChangeDetails:sectionChanges2 countAfterChanges:v43 sublayoutProvider:providerCopy];
           v44 = [sectionChanges2 indexSetAfterApplyingChangesToIndexSet:v36];
-          indexSet = [v44 mutableCopy];
+          v32 = [v44 mutableCopy];
 
           changedIndexes = [sectionChanges2 changedIndexes];
-          [indexSet addIndexes:changedIndexes];
+          [v32 addIndexes:changedIndexes];
 
-          v46 = [sectionChanges2 indexSetAfterApplyingChangesToIndexSet:indexSet2];
+          v46 = [sectionChanges2 indexSetAfterApplyingChangesToIndexSet:v33];
           v47 = [v46 mutableCopy];
 
           sectionsWithItemChanges = [v38 sectionsWithItemChanges];
@@ -8504,13 +8498,13 @@ LABEL_11:
           v82 = v38;
           indexPathSet = v50;
           v83 = indexPathSet;
-          indexSet2 = v47;
-          v84 = indexSet2;
+          v33 = v47;
+          v84 = v33;
           v85 = providerCopy;
           [sectionsWithItemChanges2 enumerateIndexesUsingBlock:v79];
 
           ++v35;
-          v36 = indexSet;
+          v36 = v32;
         }
 
         while (v67 != v35);
@@ -8522,7 +8516,7 @@ LABEL_11:
 
     if (sections)
     {
-      *sections = [indexSet copy];
+      *sections = [v32 copy];
     }
 
     changesCopy = v59;
@@ -8530,7 +8524,7 @@ LABEL_11:
     sublayoutDataStore = v65;
     if (itemChanges)
     {
-      *itemChanges = [indexSet2 copy];
+      *itemChanges = [v33 copy];
     }
 
     v74[0] = MEMORY[0x277D85DD0];
@@ -8597,7 +8591,7 @@ void __205__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetails_dat
   }
 }
 
-void __205__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetails_dataSourceBeforeChanges_dataSourceAfterChanges_sublayoutProvider_outChangedSections_outSectionsWithItemChanges_changeMediaVersionHandler___block_invoke_4(uint64_t a1, uint64_t a2)
+void __205__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetails_dataSourceBeforeChanges_dataSourceAfterChanges_sublayoutProvider_outChangedSections_outSectionsWithItemChanges_changeMediaVersionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
   v4 = [*(a1 + 32) lastObject];
   v5 = [v4 toDataSourceIdentifier];
@@ -8620,7 +8614,7 @@ void __205__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetails_dat
 
   if (v9)
   {
-    v10 = [MEMORY[0x277CCAB58] indexSet];
+    v10 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     v11 = [v9 loadedItemsForItems:v7];
     v15 = MEMORY[0x277D85DD0];
     v16 = 3221225472;
@@ -8643,32 +8637,30 @@ void __205__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetails_dat
   }
 }
 
-uint64_t __205__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetails_dataSourceBeforeChanges_dataSourceAfterChanges_sublayoutProvider_outChangedSections_outSectionsWithItemChanges_changeMediaVersionHandler___block_invoke_6(uint64_t a1, uint64_t a2)
+uint64_t __205__PXGLayout_PXGDataSourceDrivenLayout__applySectionedChangeDetails_dataSourceBeforeChanges_dataSourceAfterChanges_sublayoutProvider_outChangedSections_outSectionsWithItemChanges_changeMediaVersionHandler___block_invoke_6(uint64_t a1, const char *a2)
 {
   v4 = *(a1 + 64);
   v5 = *(a1 + 72);
-  v21 = 0u;
-  v22 = 0u;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  *&v19 = v4;
-  *(&v19 + 1) = v5;
-  *&v20 = a2;
-  *(&v20 + 1) = 0x7FFFFFFFFFFFFFFFLL;
-  [MEMORY[0x277D3CDD0] indexPathAfterRevertingChanges:v6 fromIndexPath:&v19 hasIncrementalChanges:0 objectChanged:0 changedProperties:v7];
-  if (v21 != *MEMORY[0x277D3CF78])
+  v19 = 0u;
+  v20 = 0u;
+  *&v17 = v4;
+  *(&v17 + 1) = v5;
+  *&v18 = a2;
+  *(&v18 + 1) = 0x7FFFFFFFFFFFFFFFLL;
+  objc_msgSend_indexPathAfterRevertingChanges_fromIndexPath_hasIncrementalChanges_objectChanged_changedProperties_(MEMORY[0x277D3CDD0]);
+  if (*MEMORY[0x277D3CF78])
   {
-    v8 = [*(a1 + 40) containsObject:*MEMORY[0x277D3CF80]];
-    v9 = *(a1 + 56);
-    v10 = *(v9 + 16);
-    v19 = v21;
-    v20 = v22;
-    v18[0] = v4;
-    v18[1] = v5;
-    v18[2] = a2;
-    v18[3] = 0x7FFFFFFFFFFFFFFFLL;
-    v16 = v10(v9, &v19, v18, v11, v12, v13, v14, v15);
-    if ((v8 & 1) != 0 || v16)
+    v6 = [*(a1 + 40) containsObject:*MEMORY[0x277D3CF80]];
+    v7 = *(a1 + 56);
+    v8 = *(v7 + 16);
+    v17 = v19;
+    v18 = v20;
+    v16[0] = v4;
+    v16[1] = v5;
+    v16[2] = a2;
+    v16[3] = 0x7FFFFFFFFFFFFFFFLL;
+    v14 = v8(v7, &v17, v16, v9, v10, v11, v12, v13);
+    if ((v6 & 1) != 0 || v14)
     {
       [*(a1 + 48) addIndex:a2];
     }

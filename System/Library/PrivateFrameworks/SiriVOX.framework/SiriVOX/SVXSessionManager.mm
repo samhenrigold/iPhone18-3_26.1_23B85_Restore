@@ -95,16 +95,16 @@
 
 - (void)_handleMyriadForActivationContext:(id)context
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v47 = "[SVXSessionManager _handleMyriadForActivationContext:]";
-    v48 = 2112;
-    v49 = contextCopy;
+    v46 = "[SVXSessionManager _handleMyriadForActivationContext:]";
+    v47 = 2112;
+    v48 = contextCopy;
     _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
@@ -141,24 +141,24 @@ LABEL_21:
     v30 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      v35 = v30;
+      v34 = v30;
       source2 = [(__CFString *)contextCopy source];
       if (source2 > 9)
       {
-        v37 = @"(unknown)";
+        v36 = @"(unknown)";
       }
 
       else
       {
-        v37 = off_279C67C58[source2];
+        v36 = off_279C67C58[source2];
       }
 
-      v38 = v37;
+      v37 = v36;
       *buf = 136315394;
-      v47 = "[SVXSessionManager _handleMyriadForActivationContext:]";
-      v48 = 2112;
-      v49 = v38;
-      _os_log_error_impl(&dword_2695B9000, v35, OS_LOG_TYPE_ERROR, "%s Ignored because Myriad behavior undefined for Unspecified Activation Source: %@", buf, 0x16u);
+      v46 = "[SVXSessionManager _handleMyriadForActivationContext:]";
+      v47 = 2112;
+      v48 = v37;
+      _os_log_error_impl(&dword_2695B9000, v34, OS_LOG_TYPE_ERROR, "%s Ignored because Myriad behavior undefined for Unspecified Activation Source: %@", buf, 0x16u);
     }
 
     goto LABEL_22;
@@ -185,9 +185,9 @@ LABEL_7:
     {
       v15 = self->_myriadToken;
       *buf = 136315394;
-      v47 = "[SVXSessionManager _handleMyriadForActivationContext:]";
-      v48 = 2112;
-      v49 = v15;
+      v46 = "[SVXSessionManager _handleMyriadForActivationContext:]";
+      v47 = 2112;
+      v48 = v15;
       _os_log_impl(&dword_2695B9000, v14, OS_LOG_TYPE_INFO, "%s Begin waiting for Myriad token %@.", buf, 0x16u);
     }
 
@@ -203,7 +203,7 @@ LABEL_7:
     alarmSnapshot = [(AFDeviceContext *)self->_localDeviceContext alarmSnapshot];
     timerSnapshot = [(AFDeviceContext *)self->_localDeviceContext timerSnapshot];
     v23 = alarmSnapshot;
-    v45 = timerSnapshot;
+    v44 = timerSnapshot;
     v24 = objc_alloc_init(MEMORY[0x277D55B00]);
     v25 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v26 = v25;
@@ -225,12 +225,12 @@ LABEL_7:
 
     else
     {
-      [v45 notifiedFiringTimerIDs];
-      v32 = v40 = v24;
-      v39 = [v32 count];
+      [v44 notifiedFiringTimerIDs];
+      v32 = v39 = v24;
+      v38 = [v32 count];
 
-      v24 = v40;
-      if (!v39)
+      v24 = v39;
+      if (!v38)
       {
 LABEL_28:
         [(__CFString *)v24 setReasons:v26];
@@ -239,11 +239,11 @@ LABEL_28:
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v47 = "[SVXSessionManager _handleMyriadForActivationContext:]";
-          v48 = 2112;
-          v49 = v24;
-          v50 = 2112;
-          v51 = scdaContext;
+          v46 = "[SVXSessionManager _handleMyriadForActivationContext:]";
+          v47 = 2112;
+          v48 = v24;
+          v49 = 2112;
+          v50 = scdaContext;
           _os_log_impl(&dword_2695B9000, v33, OS_LOG_TYPE_INFO, "%s Myriad configured for Voice Trigger with scdaGoodnessScoreContext: %@ and scdaContext: %@.", buf, 0x20u);
         }
 
@@ -263,9 +263,9 @@ LABEL_18:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v47 = "[SVXSessionManager _handleMyriadForActivationContext:]";
-    v48 = 2112;
-    v49 = scdaContext;
+    v46 = "[SVXSessionManager _handleMyriadForActivationContext:]";
+    v47 = 2112;
+    v48 = scdaContext;
     _os_log_impl(&dword_2695B9000, v29, OS_LOG_TYPE_INFO, "%s Myriad configured for Direct Trigger with scdaContext %@.", buf, 0x16u);
   }
 
@@ -273,23 +273,22 @@ LABEL_18:
   [v11 endWaitingForMyriadDecisionWithToken:beginWaitingForMyriadDecision2 result:1];
 
 LABEL_31:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLocalDeviceContextChanged:(id)changed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v6 = v5;
     identifier = [changedCopy identifier];
-    v12 = 136315394;
-    v13 = "[SVXSessionManager _handleLocalDeviceContextChanged:]";
-    v14 = 2112;
-    v15 = identifier;
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s localDeviceContext = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SVXSessionManager _handleLocalDeviceContextChanged:]";
+    v13 = 2112;
+    v14 = identifier;
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s localDeviceContext = %@", &v11, 0x16u);
   }
 
   v8 = [changedCopy copy];
@@ -298,22 +297,20 @@ LABEL_31:
 
   v10 = [(SVXSessionManager *)self _currentSession:0];
   [v10 updateLocalDeviceContext:changedCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceSetupContextChanged:(id)changed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v13 = 136315394;
-    v14 = "[SVXSessionManager _handleDeviceSetupContextChanged:]";
-    v15 = 2112;
-    v16 = changedCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s deviceSetupContext = %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[SVXSessionManager _handleDeviceSetupContextChanged:]";
+    v14 = 2112;
+    v15 = changedCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s deviceSetupContext = %@", &v12, 0x16u);
   }
 
   v6 = [changedCopy copy];
@@ -328,22 +325,20 @@ LABEL_31:
   [(SVXMyriadDeviceManager *)self->_myriadDeviceManager setupEnabled:v10];
   v11 = [(SVXSessionManager *)self _currentSession:0];
   [v11 updateDeviceSetupContext:changedCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceProblemsStateChanged:(id)changed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[SVXSessionManager _handleDeviceProblemsStateChanged:]";
-    v12 = 2112;
-    v13 = changedCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s deviceProblemsState = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SVXSessionManager _handleDeviceProblemsStateChanged:]";
+    v11 = 2112;
+    v12 = changedCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s deviceProblemsState = %@", &v9, 0x16u);
   }
 
   v6 = [changedCopy copy];
@@ -352,70 +347,65 @@ LABEL_31:
 
   v8 = [(SVXSessionManager *)self _currentSession:0];
   [v8 updateDeviceProblemsState:changedCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSpeechSynthesizerDidFailRequest:(id)request taskTracker:(id)tracker error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v7 = v6;
     v8 = @"idle";
-    v10 = 136315394;
-    v11 = "[SVXSessionManager _handleSpeechSynthesizerDidFailRequest:taskTracker:error:]";
-    v12 = 2112;
-    v13 = @"idle";
-    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SVXSessionManager _handleSpeechSynthesizerDidFailRequest:taskTracker:error:]";
+    v11 = 2112;
+    v12 = @"idle";
+    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v9, 0x16u);
   }
 
   self->_speechSynthesisState = 1;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSpeechSynthesizerDidInterruptRequest:(id)request taskTracker:(id)tracker
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v6 = v5;
     v7 = @"idle";
-    v9 = 136315394;
-    v10 = "[SVXSessionManager _handleSpeechSynthesizerDidInterruptRequest:taskTracker:]";
-    v11 = 2112;
-    v12 = @"idle";
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SVXSessionManager _handleSpeechSynthesizerDidInterruptRequest:taskTracker:]";
+    v10 = 2112;
+    v11 = @"idle";
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v8, 0x16u);
   }
 
   self->_speechSynthesisState = 1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSpeechSynthesizerDidCancelRequest:(id)request taskTracker:(id)tracker
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v6 = v5;
     v7 = @"idle";
-    v9 = 136315394;
-    v10 = "[SVXSessionManager _handleSpeechSynthesizerDidCancelRequest:taskTracker:]";
-    v11 = 2112;
-    v12 = @"idle";
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SVXSessionManager _handleSpeechSynthesizerDidCancelRequest:taskTracker:]";
+    v10 = 2112;
+    v11 = @"idle";
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v8, 0x16u);
   }
 
   self->_speechSynthesisState = 1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSpeechSynthesizerDidFinishRequest:(id)request utteranceInfo:(id)info record:(id)record taskTracker:(id)tracker
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   infoCopy = info;
   recordCopy = record;
@@ -426,35 +416,33 @@ LABEL_31:
   {
     v16 = v15;
     v17 = @"idle";
-    v21 = 136315394;
-    v22 = "[SVXSessionManager _handleSpeechSynthesizerDidFinishRequest:utteranceInfo:record:taskTracker:]";
-    v23 = 2112;
-    v24 = @"idle";
-    _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v21, 0x16u);
+    v20 = 136315394;
+    v21 = "[SVXSessionManager _handleSpeechSynthesizerDidFinishRequest:utteranceInfo:record:taskTracker:]";
+    v22 = 2112;
+    v23 = @"idle";
+    _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v20, 0x16u);
 
     v15 = *v14;
   }
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v21 = 136315394;
-    v22 = "[SVXSessionManager _handleSpeechSynthesizerDidFinishRequest:utteranceInfo:record:taskTracker:]";
-    v23 = 2112;
-    v24 = recordCopy;
-    _os_log_impl(&dword_2695B9000, v15, OS_LOG_TYPE_INFO, "%s speechSynthesisRecord = %@", &v21, 0x16u);
+    v20 = 136315394;
+    v21 = "[SVXSessionManager _handleSpeechSynthesizerDidFinishRequest:utteranceInfo:record:taskTracker:]";
+    v22 = 2112;
+    v23 = recordCopy;
+    _os_log_impl(&dword_2695B9000, v15, OS_LOG_TYPE_INFO, "%s speechSynthesisRecord = %@", &v20, 0x16u);
   }
 
   self->_speechSynthesisState = 1;
   v18 = [(__CFString *)recordCopy copy];
   speechSynthesisRecord = self->_speechSynthesisRecord;
   self->_speechSynthesisRecord = v18;
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSpeechSynthesizerDidStartRequest:(id)request record:(id)record taskTracker:(id)tracker
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   recordCopy = record;
   trackerCopy = tracker;
@@ -464,35 +452,33 @@ LABEL_31:
   {
     v13 = v12;
     v14 = @"speaking";
-    v18 = 136315394;
-    v19 = "[SVXSessionManager _handleSpeechSynthesizerDidStartRequest:record:taskTracker:]";
-    v20 = 2112;
-    v21 = @"speaking";
-    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[SVXSessionManager _handleSpeechSynthesizerDidStartRequest:record:taskTracker:]";
+    v19 = 2112;
+    v20 = @"speaking";
+    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v17, 0x16u);
 
     v12 = *v11;
   }
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v18 = 136315394;
-    v19 = "[SVXSessionManager _handleSpeechSynthesizerDidStartRequest:record:taskTracker:]";
-    v20 = 2112;
-    v21 = recordCopy;
-    _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s speechSynthesisRecord = %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[SVXSessionManager _handleSpeechSynthesizerDidStartRequest:record:taskTracker:]";
+    v19 = 2112;
+    v20 = recordCopy;
+    _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s speechSynthesisRecord = %@", &v17, 0x16u);
   }
 
   self->_speechSynthesisState = 2;
   v15 = [(__CFString *)recordCopy copy];
   speechSynthesisRecord = self->_speechSynthesisRecord;
   self->_speechSynthesisRecord = v15;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSpeechSynthesizerWillStartRequest:(id)request taskTracker:(id)tracker
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   context = [tracker context];
   dialogIdentifier = [context dialogIdentifier];
 
@@ -506,16 +492,14 @@ LABEL_31:
   {
     v8 = v7;
     v9 = @"speaking";
-    v11 = 136315394;
-    v12 = "[SVXSessionManager _handleSpeechSynthesizerWillStartRequest:taskTracker:]";
-    v13 = 2112;
-    v14 = @"speaking";
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[SVXSessionManager _handleSpeechSynthesizerWillStartRequest:taskTracker:]";
+    v12 = 2112;
+    v13 = @"speaking";
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s speechSynthesisState = %@", &v10, 0x16u);
   }
 
   self->_speechSynthesisState = 2;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSessionDidInvalidate:(id)invalidate
@@ -537,7 +521,7 @@ LABEL_31:
 
 - (void)_fetchStereoPairStateWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -552,30 +536,28 @@ LABEL_31:
     performer = [(SVXModule *)self->_module performer];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__9035;
-    v17 = __Block_byref_object_dispose__9036;
-    v18 = objc_alloc_init(MEMORY[0x277CEF3A8]);
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__9035;
+    v16 = __Block_byref_object_dispose__9036;
+    v17 = objc_alloc_init(MEMORY[0x277CEF3A8]);
     v7 = *(*(&buf + 1) + 40);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __57__SVXSessionManager__fetchStereoPairStateWithCompletion___block_invoke;
-    v10[3] = &unk_279C67B80;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __57__SVXSessionManager__fetchStereoPairStateWithCompletion___block_invoke;
+    v9[3] = &unk_279C67B80;
     v8 = performer;
-    v11 = v8;
-    v12 = completionCopy;
+    v10 = v8;
+    v11 = completionCopy;
     p_buf = &buf;
-    [v7 getStereoPairState:v10];
+    [v7 getStereoPairState:v9];
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SVXSessionManager__fetchStereoPairStateWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -583,51 +565,47 @@ void __57__SVXSessionManager__fetchStereoPairStateWithCompletion___block_invoke(
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[SVXSessionManager _fetchStereoPairStateWithCompletion:]_block_invoke";
-      v16 = 2112;
-      v17 = v5;
+      v14 = "[SVXSessionManager _fetchStereoPairStateWithCompletion:]_block_invoke";
+      v15 = 2112;
+      v16 = v5;
       _os_log_error_impl(&dword_2695B9000, v6, OS_LOG_TYPE_ERROR, "%s error = %@", buf, 0x16u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __57__SVXSessionManager__fetchStereoPairStateWithCompletion___block_invoke_56;
-  v11[3] = &unk_279C67B58;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __57__SVXSessionManager__fetchStereoPairStateWithCompletion___block_invoke_56;
+  v10[3] = &unk_279C67B58;
   v7 = *(a1 + 32);
-  v12 = *(a1 + 40);
-  v13 = a2;
-  [v7 performBlock:v11];
+  v11 = *(a1 + 40);
+  v12 = a2;
+  [v7 performBlock:v10];
   v8 = *(*(a1 + 48) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFetchedStereoPartnerLastMyriadWinDate:(id)date
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[SVXSessionManager _handleFetchedStereoPartnerLastMyriadWinDate:]";
-    v10 = 2112;
-    v11 = dateCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s lastWin = %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SVXSessionManager _handleFetchedStereoPartnerLastMyriadWinDate:]";
+    v9 = 2112;
+    v10 = dateCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s lastWin = %@", &v7, 0x16u);
   }
 
   lastStereoPartnerMyriadWin = self->_lastStereoPartnerMyriadWin;
   self->_lastStereoPartnerMyriadWin = dateCopy;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchStereoPartnerLastMyriadWinDate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -639,32 +617,30 @@ void __57__SVXSessionManager__fetchStereoPairStateWithCompletion___block_invoke(
   performer = [(SVXModule *)self->_module performer];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__9035;
-  v16 = __Block_byref_object_dispose__9036;
-  v17 = objc_alloc_init(MEMORY[0x277CEF3A8]);
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__9035;
+  v15 = __Block_byref_object_dispose__9036;
+  v16 = objc_alloc_init(MEMORY[0x277CEF3A8]);
   objc_initWeak(&location, self);
   v5 = *(*(&buf + 1) + 40);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke;
-  v8[3] = &unk_279C67B30;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke;
+  v7[3] = &unk_279C67B30;
   v6 = performer;
-  v9 = v6;
-  objc_copyWeak(&v11, &location);
+  v8 = v6;
+  objc_copyWeak(&v10, &location);
   p_buf = &buf;
-  [v5 getStereoPartnerLastMyriadWinDate:v8];
-  objc_destroyWeak(&v11);
+  [v5 getStereoPartnerLastMyriadWinDate:v7];
+  objc_destroyWeak(&v10);
 
   objc_destroyWeak(&location);
   _Block_object_dispose(&buf, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -673,9 +649,9 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke(
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "[SVXSessionManager _fetchStereoPartnerLastMyriadWinDate]_block_invoke";
-      v17 = 2112;
-      v18 = v6;
+      v15 = "[SVXSessionManager _fetchStereoPartnerLastMyriadWinDate]_block_invoke";
+      v16 = 2112;
+      v17 = v6;
       _os_log_error_impl(&dword_2695B9000, v7, OS_LOG_TYPE_ERROR, "%s error = %@", buf, 0x16u);
     }
   }
@@ -683,22 +659,20 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke(
   else
   {
     v8 = *(a1 + 32);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_54;
-    v12[3] = &unk_279C690B0;
-    objc_copyWeak(&v14, (a1 + 48));
-    v13 = v5;
-    [v8 performBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_54;
+    v11[3] = &unk_279C690B0;
+    objc_copyWeak(&v13, (a1 + 48));
+    v12 = v5;
+    [v8 performBlock:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
   }
 
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_54(uint64_t a1)
@@ -761,8 +735,8 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 
 - (void)_handleSession:(id)session didResignActiveWithDeactivationContext:(id)context activityUUID:(id)d
 {
-  v30[2] = *MEMORY[0x277D85DE8];
-  v29[0] = @"sessionUUID";
+  v28[2] = *MEMORY[0x277D85DE8];
+  v27[0] = @"sessionUUID";
   dCopy = d;
   contextCopy = context;
   sessionUUID = [session sessionUUID];
@@ -778,8 +752,8 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     v13 = @"unknown";
   }
 
-  v29[1] = @"activityUUID";
-  v30[0] = v13;
+  v27[1] = @"activityUUID";
+  v28[0] = v13;
   uUIDString2 = [dCopy UUIDString];
 
   if (uUIDString2)
@@ -792,8 +766,8 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     v15 = @"unknown";
   }
 
-  v30[1] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v28[1] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
   analytics = [(SVXModule *)self->_module analytics];
   [analytics logEventWithType:1409 context:v16];
@@ -803,14 +777,13 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 
   if (isDefault)
   {
-    coreDuetQueue = self->_coreDuetQueue;
     AFRecordCoreDuetEvent();
-    v21 = *MEMORY[0x277CEF098];
+    v20 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v28 = "[SVXSessionManager _handleSession:didResignActiveWithDeactivationContext:activityUUID:]";
-      _os_log_impl(&dword_2695B9000, v21, OS_LOG_TYPE_INFO, "%s Donating Siri UI end event to Biome Library", buf, 0xCu);
+      v26 = "[SVXSessionManager _handleSession:didResignActiveWithDeactivationContext:activityUUID:]";
+      _os_log_impl(&dword_2695B9000, v20, OS_LOG_TYPE_INFO, "%s Donating Siri UI end event to Biome Library", buf, 0xCu);
     }
 
     _recordStartEndBiomeEvent(self->_biomeQueue, @"com.apple.siri.ui.end", v16);
@@ -818,26 +791,24 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   [processInfo systemUptime];
-  self->_lastSessionResignActiveTimestamp = v23;
+  self->_lastSessionResignActiveTimestamp = v22;
 
   [(SVXMyriadDeviceManager *)self->_myriadDeviceManager resetMyriad];
   [(SVXSessionActivityAnnouncer *)self->_activityAnnouncer sessionDidResignActiveWithDeactivationContext:contextCopy];
 
   performer = [(SVXModule *)self->_module performer];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __88__SVXSessionManager__handleSession_didResignActiveWithDeactivationContext_activityUUID___block_invoke;
-  v26[3] = &unk_279C68FC0;
-  v26[4] = self;
-  [performer performBlock:v26 withOptions:0];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __88__SVXSessionManager__handleSession_didResignActiveWithDeactivationContext_activityUUID___block_invoke;
+  v24[3] = &unk_279C68FC0;
+  v24[4] = self;
+  [performer performBlock:v24 withOptions:0];
 }
 
 - (void)_handleSession:(id)session willResignActiveWithOptions:(unint64_t)options duration:(double)duration activityUUID:(id)d
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = @"sessionUUID";
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = @"sessionUUID";
   dCopy = d;
   sessionUUID = [session sessionUUID];
   uUIDString = [sessionUUID UUIDString];
@@ -852,8 +823,8 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     v14 = @"unknown";
   }
 
-  v20[1] = @"activityUUID";
-  v21[0] = v14;
+  v19[1] = @"activityUUID";
+  v20[0] = v14;
   uUIDString2 = [dCopy UUIDString];
 
   if (uUIDString2)
@@ -866,27 +837,26 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     v16 = @"unknown";
   }
 
-  v21[1] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   analytics = [(SVXModule *)self->_module analytics];
   [analytics logEventWithType:1408 context:v17];
 
   [(SVXSessionActivityAnnouncer *)self->_activityAnnouncer sessionWillResignActiveWithOptions:options duration:duration];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSession:(id)session didBecomeActiveWithActivationContext:(id)context activityUUID:(id)d turnID:(id)iD
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   iDCopy = iD;
-  v29[0] = @"sessionUUID";
+  v27[0] = @"sessionUUID";
   dCopy = d;
   sessionUUID = [session sessionUUID];
   uUIDString = [sessionUUID UUIDString];
-  v29[1] = @"activityUUID";
-  v30[0] = uUIDString;
+  v27[1] = @"activityUUID";
+  v28[0] = uUIDString;
   uUIDString2 = [dCopy UUIDString];
 
   v16 = @"unknown";
@@ -895,8 +865,8 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     v16 = uUIDString2;
   }
 
-  v30[1] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v28[1] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
   if (!iDCopy)
   {
@@ -904,7 +874,7 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v28 = "[SVXSessionManager _handleSession:didBecomeActiveWithActivationContext:activityUUID:turnID:]";
+      v26 = "[SVXSessionManager _handleSession:didBecomeActiveWithActivationContext:activityUUID:turnID:]";
       _os_log_fault_impl(&dword_2695B9000, v18, OS_LOG_TYPE_FAULT, "%s turnID is nil", buf, 0xCu);
     }
   }
@@ -917,14 +887,13 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 
   if (isDefault)
   {
-    coreDuetQueue = self->_coreDuetQueue;
     AFRecordCoreDuetEvent();
-    v23 = *MEMORY[0x277CEF098];
+    v22 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v28 = "[SVXSessionManager _handleSession:didBecomeActiveWithActivationContext:activityUUID:turnID:]";
-      _os_log_impl(&dword_2695B9000, v23, OS_LOG_TYPE_INFO, "%s Donating Siri UI begin event to Biome Library", buf, 0xCu);
+      v26 = "[SVXSessionManager _handleSession:didBecomeActiveWithActivationContext:activityUUID:turnID:]";
+      _os_log_impl(&dword_2695B9000, v22, OS_LOG_TYPE_INFO, "%s Donating Siri UI begin event to Biome Library", buf, 0xCu);
     }
 
     _recordStartEndBiomeEvent(self->_biomeQueue, @"com.apple.siri.ui.begin", v17);
@@ -932,27 +901,25 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 
   [(SVXSessionActivityAnnouncer *)self->_activityAnnouncer sessionDidBecomeActiveWithActivationContext:contextCopy turnID:iDCopy];
   performer = [(SVXModule *)self->_module performer];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __93__SVXSessionManager__handleSession_didBecomeActiveWithActivationContext_activityUUID_turnID___block_invoke;
-  v26[3] = &unk_279C68FC0;
-  v26[4] = self;
-  [performer performBlock:v26 withOptions:0];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __93__SVXSessionManager__handleSession_didBecomeActiveWithActivationContext_activityUUID_turnID___block_invoke;
+  v24[3] = &unk_279C68FC0;
+  v24[4] = self;
+  [performer performBlock:v24 withOptions:0];
 }
 
 - (void)_handleSession:(id)session willBecomeActiveWithActivationContext:(id)context activityUUID:(id)d turnID:(id)iD
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   iDCopy = iD;
-  v23[0] = @"sessionUUID";
+  v22[0] = @"sessionUUID";
   dCopy = d;
   sessionUUID = [session sessionUUID];
   uUIDString = [sessionUUID UUIDString];
-  v23[1] = @"activityUUID";
-  v24[0] = uUIDString;
+  v22[1] = @"activityUUID";
+  v23[0] = uUIDString;
   uUIDString2 = [dCopy UUIDString];
 
   v16 = @"unknown";
@@ -961,8 +928,8 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     v16 = uUIDString2;
   }
 
-  v24[1] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v23[1] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
   analytics = [(SVXModule *)self->_module analytics];
   [analytics logEventWithType:1406 context:v17];
@@ -972,15 +939,13 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     v19 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_FAULT))
     {
-      v21 = 136315138;
-      v22 = "[SVXSessionManager _handleSession:willBecomeActiveWithActivationContext:activityUUID:turnID:]";
-      _os_log_fault_impl(&dword_2695B9000, v19, OS_LOG_TYPE_FAULT, "%s turnID is nil", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "[SVXSessionManager _handleSession:willBecomeActiveWithActivationContext:activityUUID:turnID:]";
+      _os_log_fault_impl(&dword_2695B9000, v19, OS_LOG_TYPE_FAULT, "%s turnID is nil", &v20, 0xCu);
     }
   }
 
   [(SVXSessionActivityAnnouncer *)self->_activityAnnouncer sessionWillBecomeActiveWithActivationContext:contextCopy turnID:iDCopy];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchCurrentAudioPowerWithType:(int64_t)type completion:(id)completion
@@ -1051,17 +1016,17 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 
 - (void)_deactivateWithContext:(id)context completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "[SVXSessionManager _deactivateWithContext:completion:]";
-    v14 = 2112;
-    v15 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SVXSessionManager _deactivateWithContext:completion:]";
+    v13 = 2112;
+    v14 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", &v11, 0x16u);
   }
 
   v9 = [(SVXSessionManager *)self _currentSession:0];
@@ -1075,23 +1040,21 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
   {
     completionCopy[2](completionCopy);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateWithContext:(id)context activityState:(int64_t)state completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v10 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[SVXSessionManager _activateWithContext:activityState:completion:]";
-    v20 = 2112;
-    v21 = contextCopy;
-    v22 = 2048;
+    v18 = "[SVXSessionManager _activateWithContext:activityState:completion:]";
+    v19 = 2112;
+    v20 = contextCopy;
+    v21 = 2048;
     stateCopy = state;
     _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s context = %@, activityState = %ld", buf, 0x20u);
   }
@@ -1109,35 +1072,31 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 
   v15 = [(SVXSessionManager *)self _currentSession:1];
   v16 = [v15 activateWithContext:contextCopy options:v14 deviceSetupContext:self->_deviceSetupContext deviceProblemsState:self->_deviceProblemsState localDeviceContext:self->_localDeviceContext speechSynthesisRecord:self->_speechSynthesisRecord speechSynthesisState:self->_speechSynthesisState speechRecordingAlertPolicy:0 completion:completionCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prewarmWithContext:(id)context completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v11 = 136315394;
-    v12 = "[SVXSessionManager _prewarmWithContext:completion:]";
-    v13 = 2112;
-    v14 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[SVXSessionManager _prewarmWithContext:completion:]";
+    v12 = 2112;
+    v13 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", &v10, 0x16u);
   }
 
   [(SVXMyriadDeviceManager *)self->_myriadDeviceManager preheatMyriad];
   v9 = [(SVXSessionManager *)self _currentSession:1];
   [v9 prewarmWithContext:contextCopy completion:completionCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preheatWithActivationSource:(int64_t)source
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -1154,11 +1113,11 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
     }
 
     v9 = v8;
-    v18 = 136315394;
-    v19 = "[SVXSessionManager _preheatWithActivationSource:]";
-    v20 = 2112;
-    v21 = v9;
-    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s activationSource = %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[SVXSessionManager _preheatWithActivationSource:]";
+    v19 = 2112;
+    v20 = v9;
+    _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s activationSource = %@", &v17, 0x16u);
   }
 
   if (source == 6)
@@ -1177,121 +1136,114 @@ void __57__SVXSessionManager__fetchStereoPartnerLastMyriadWinDate__block_invoke_
 LABEL_10:
     [v10 preheatWithStyle:v12];
 
-    goto LABEL_12;
+    return;
   }
 
   v13 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
   {
-    v15 = v13;
+    v14 = v13;
     if (source > 9)
     {
-      v16 = @"(unknown)";
+      v15 = @"(unknown)";
     }
 
     else
     {
-      v16 = off_279C67C58[source];
+      v15 = off_279C67C58[source];
     }
 
-    v17 = v16;
-    v18 = 136315394;
-    v19 = "[SVXSessionManager _preheatWithActivationSource:]";
-    v20 = 2112;
-    v21 = v17;
-    _os_log_error_impl(&dword_2695B9000, v15, OS_LOG_TYPE_ERROR, "%s Ignored because activation source %@ does not support preheat.", &v18, 0x16u);
+    v16 = v15;
+    v17 = 136315394;
+    v18 = "[SVXSessionManager _preheatWithActivationSource:]";
+    v19 = 2112;
+    v20 = v16;
+    _os_log_error_impl(&dword_2695B9000, v14, OS_LOG_TYPE_ERROR, "%s Ignored because activation source %@ does not support preheat.", &v17, 0x16u);
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processNextOperations
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF098];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v16 = "[SVXSessionManager _processNextOperations]";
+    v15 = "[SVXSessionManager _processNextOperations]";
     _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __43__SVXSessionManager__processNextOperations__block_invoke;
-  v14[3] = &unk_279C67CB0;
-  v14[4] = self;
-  v5 = MEMORY[0x26D642680](v14);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __43__SVXSessionManager__processNextOperations__block_invoke;
+  v13[3] = &unk_279C67CB0;
+  v13[4] = self;
+  v5 = MEMORY[0x26D642680](v13);
   v6 = [(SVXSessionManager *)self _currentSession:0];
   v7 = *v3;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v16 = "[SVXSessionManager _processNextOperations]";
-    v17 = 2112;
-    v18 = v6;
+    v15 = "[SVXSessionManager _processNextOperations]";
+    v16 = 2112;
+    v17 = v6;
     _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_INFO, "%s currentSession = %@", buf, 0x16u);
   }
 
   if (v6)
   {
     performer = [(SVXModule *)self->_module performer];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __43__SVXSessionManager__processNextOperations__block_invoke_40;
-    v11[3] = &unk_279C67B08;
-    v12 = performer;
-    v13 = v5;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __43__SVXSessionManager__processNextOperations__block_invoke_40;
+    v10[3] = &unk_279C67B08;
+    v11 = performer;
+    v12 = v5;
     v9 = performer;
-    [v6 getActivityStateWithCompletion:v11];
+    [v6 getActivityStateWithCompletion:v10];
   }
 
   else
   {
     v5[2](v5, 1);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SVXSessionManager__processNextOperations__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [*(*(a1 + 32) + 144) dequeueObject];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXSessionManager _processNextOperations]_block_invoke";
-    v13 = 2112;
-    v14 = v4;
+    v11 = "[SVXSessionManager _processNextOperations]_block_invoke";
+    v12 = 2112;
+    v13 = v4;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s dequeuedOperation = %@", buf, 0x16u);
   }
 
   if (v4)
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __43__SVXSessionManager__processNextOperations__block_invoke_37;
-    v8[3] = &unk_279C67A90;
-    v9 = *(a1 + 32);
-    v10 = a2;
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
-    v7[2] = __43__SVXSessionManager__processNextOperations__block_invoke_2;
-    v7[3] = &unk_279C67AB8;
-    v7[4] = v9;
-    [v4 handleOperationUsingActivationBlock:v8 deactivationBlock:v7];
+    v7[2] = __43__SVXSessionManager__processNextOperations__block_invoke_37;
+    v7[3] = &unk_279C67A90;
+    v8 = *(a1 + 32);
+    v9 = a2;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __43__SVXSessionManager__processNextOperations__block_invoke_2;
+    v6[3] = &unk_279C67AB8;
+    v6[4] = v8;
+    [v4 handleOperationUsingActivationBlock:v7 deactivationBlock:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SVXSessionManager__processNextOperations__block_invoke_40(uint64_t a1, unint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -1308,22 +1260,20 @@ void __43__SVXSessionManager__processNextOperations__block_invoke_40(uint64_t a1
 
     v7 = v6;
     *buf = 136315394;
-    v14 = "[SVXSessionManager _processNextOperations]_block_invoke";
-    v15 = 2112;
-    v16 = v7;
+    v13 = "[SVXSessionManager _processNextOperations]_block_invoke";
+    v14 = 2112;
+    v15 = v7;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s activityState = %@", buf, 0x16u);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __43__SVXSessionManager__processNextOperations__block_invoke_41;
-  v10[3] = &unk_279C67AE0;
-  v12 = a2;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __43__SVXSessionManager__processNextOperations__block_invoke_41;
+  v9[3] = &unk_279C67AE0;
+  v11 = a2;
   v8 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  [v8 performBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *(a1 + 40);
+  [v8 performBlock:v9];
 }
 
 uint64_t __43__SVXSessionManager__processNextOperations__block_invoke_41(uint64_t result)
@@ -1339,22 +1289,21 @@ uint64_t __43__SVXSessionManager__processNextOperations__block_invoke_41(uint64_
 
 - (void)_attachToTether
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ([(SVXSessionManager *)self _deviceSupportsSiriMUX])
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[SVXSessionManager _attachToTether]";
-      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s Setting _needsClearContext to YES for MUX", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[SVXSessionManager _attachToTether]";
+      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s Setting _needsClearContext to YES for MUX", &v4, 0xCu);
     }
 
     self->_needsClearContext = 1;
   }
 
   [(AFSiriTether *)self->_tether attach:0];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateCurrentSession
@@ -1382,7 +1331,7 @@ void __46__SVXSessionManager__invalidateCurrentSession__block_invoke(uint64_t a1
 
 - (id)_currentSession:(BOOL)session
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   currentSession = self->_currentSession;
   if (currentSession)
   {
@@ -1400,7 +1349,7 @@ void __46__SVXSessionManager__invalidateCurrentSession__block_invoke(uint64_t a1
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v35 = "[SVXSessionManager _currentSession:]";
+      v34 = "[SVXSessionManager _currentSession:]";
       _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s Creating new session...", buf, 0xCu);
     }
 
@@ -1427,15 +1376,15 @@ void __46__SVXSessionManager__invalidateCurrentSession__block_invoke(uint64_t a1
       v24 = self->_speechSynthesizer;
       v23 = self->_serviceCommandHandler;
       *buf = 136316162;
-      v35 = "[SVXSessionManager _currentSession:]";
-      v36 = 2112;
-      v37 = v19;
-      v38 = 2112;
-      v39 = performer2;
-      v40 = 2112;
-      v41 = v23;
-      v42 = 2112;
-      v43 = v24;
+      v34 = "[SVXSessionManager _currentSession:]";
+      v35 = 2112;
+      v36 = v19;
+      v37 = 2112;
+      v38 = performer2;
+      v39 = 2112;
+      v40 = v23;
+      v41 = 2112;
+      v42 = v24;
       _os_log_impl(&dword_2695B9000, v21, OS_LOG_TYPE_INFO, "%s New session %@ created with (%@, %@, %@), configuring...", buf, 0x34u);
     }
 
@@ -1452,22 +1401,20 @@ void __46__SVXSessionManager__invalidateCurrentSession__block_invoke(uint64_t a1
       v30 = v25;
       identifier = [(AFDeviceContext *)localDeviceContext identifier];
       *buf = 136316162;
-      v35 = "[SVXSessionManager _currentSession:]";
-      v36 = 2112;
-      v37 = v26;
-      v38 = 2112;
-      v39 = deviceProblemsState;
-      v40 = 2112;
-      v41 = deviceSetupContext;
-      v42 = 2112;
-      v43 = identifier;
+      v34 = "[SVXSessionManager _currentSession:]";
+      v35 = 2112;
+      v36 = v26;
+      v37 = 2112;
+      v38 = deviceProblemsState;
+      v39 = 2112;
+      v40 = deviceSetupContext;
+      v41 = 2112;
+      v42 = identifier;
       _os_log_impl(&dword_2695B9000, v30, OS_LOG_TYPE_INFO, "%s New session %@ configured with (%@, %@, %@) and is ready to go.", buf, 0x34u);
     }
 
     currentSession = self->_currentSession;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return currentSession;
 }
@@ -1503,36 +1450,30 @@ void __46__SVXSessionManager__invalidateCurrentSession__block_invoke(uint64_t a1
 
 uint64_t __45__SVXSessionManager_queue_didEnqueueObjects___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 144) count];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v9 = "[SVXSessionManager queue:didEnqueueObjects:]_block_invoke";
-    v10 = 2048;
-    v11 = v2;
+    v8 = "[SVXSessionManager queue:didEnqueueObjects:]_block_invoke";
+    v9 = 2048;
+    v10 = v2;
     _os_log_debug_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEBUG, "%s numberOfQueuedOperations = %lu", buf, 0x16u);
   }
 
   if (v2 < 2)
   {
-    result = [*(a1 + 32) _processNextOperations];
+    return [*(a1 + 32) _processNextOperations];
   }
 
-  else
-  {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __45__SVXSessionManager_queue_didEnqueueObjects___block_invoke_35;
-    v7[3] = &unk_279C68FC0;
-    v4 = *(a1 + 40);
-    v7[4] = *(a1 + 32);
-    result = [v4 performBlock:v7 withOptions:0];
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __45__SVXSessionManager_queue_didEnqueueObjects___block_invoke_35;
+  v6[3] = &unk_279C68FC0;
+  v4 = *(a1 + 40);
+  v6[4] = *(a1 + 32);
+  return [v4 performBlock:v6 withOptions:0];
 }
 
 - (void)localDeviceContextDidUpdate:(id)update
@@ -1679,46 +1620,44 @@ uint64_t __45__SVXSessionManager_queue_didEnqueueObjects___block_invoke(uint64_t
 
 - (void)deactivateWithContext:(id)context completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "[SVXSessionManager deactivateWithContext:completion:]";
-    v26 = 2112;
-    v27 = contextCopy;
+    v24 = "[SVXSessionManager deactivateWithContext:completion:]";
+    v25 = 2112;
+    v26 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   v9 = objc_alloc(MEMORY[0x277CEF380]);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __54__SVXSessionManager_deactivateWithContext_completion___block_invoke;
-  v22[3] = &unk_279C68BA0;
-  v23 = completionCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __54__SVXSessionManager_deactivateWithContext_completion___block_invoke;
+  v21[3] = &unk_279C68BA0;
+  v22 = completionCopy;
   v10 = completionCopy;
-  v11 = [v9 initWithBlock:v22];
+  v11 = [v9 initWithBlock:v21];
   v12 = [SVXSessionOperation alloc];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __54__SVXSessionManager_deactivateWithContext_completion___block_invoke_2;
-  v20[3] = &unk_279C68FC0;
-  v21 = v11;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __54__SVXSessionManager_deactivateWithContext_completion___block_invoke_2;
+  v19[3] = &unk_279C68FC0;
+  v20 = v11;
   v13 = v11;
-  v14 = [(SVXSessionOperation *)v12 initWithDeactivationContext:contextCopy completion:v20];
+  v14 = [(SVXSessionOperation *)v12 initWithDeactivationContext:contextCopy completion:v19];
   performer = [(SVXModule *)self->_module performer];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __54__SVXSessionManager_deactivateWithContext_completion___block_invoke_3;
-  v18[3] = &unk_279C68FE8;
-  v18[4] = self;
-  v19 = v14;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __54__SVXSessionManager_deactivateWithContext_completion___block_invoke_3;
+  v17[3] = &unk_279C68FE8;
+  v17[4] = self;
+  v18 = v14;
   v16 = v14;
-  [performer performBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [performer performBlock:v17];
 }
 
 uint64_t __54__SVXSessionManager_deactivateWithContext_completion___block_invoke(uint64_t a1)
@@ -1771,7 +1710,7 @@ uint64_t __54__SVXSessionManager_deactivateWithContext_completion___block_invoke
 
 void __52__SVXSessionManager_activateWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
@@ -1779,11 +1718,11 @@ void __52__SVXSessionManager_activateWithContext_completion___block_invoke(uint6
     v5 = *(a1 + 32);
     v6 = v4;
     v7 = MEMORY[0x26D642680](v5);
-    v10 = 136315394;
-    v11 = "[SVXSessionManager activateWithContext:completion:]_block_invoke";
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEFAULT, "%s completion:%@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SVXSessionManager activateWithContext:completion:]_block_invoke";
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEFAULT, "%s completion:%@", &v9, 0x16u);
   }
 
   v8 = *(a1 + 32);
@@ -1791,8 +1730,6 @@ void __52__SVXSessionManager_activateWithContext_completion___block_invoke(uint6
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)continuousVoiceTriggerDetectedWithCompletion:(id)completion
@@ -1825,16 +1762,16 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
 
 - (void)prewarmWithContext:(id)context completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v18 = "[SVXSessionManager prewarmWithContext:completion:]";
-    v19 = 2112;
-    v20 = contextCopy;
+    v17 = "[SVXSessionManager prewarmWithContext:completion:]";
+    v18 = 2112;
+    v19 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
@@ -1847,18 +1784,16 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
   [analytics logEventWithType:1402 context:0];
 
   performer = [(SVXModule *)self->_module performer];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __51__SVXSessionManager_prewarmWithContext_completion___block_invoke;
-  v14[3] = &unk_279C68EA8;
-  v14[4] = self;
-  v15 = contextCopy;
-  v16 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __51__SVXSessionManager_prewarmWithContext_completion___block_invoke;
+  v13[3] = &unk_279C68EA8;
+  v13[4] = self;
+  v14 = contextCopy;
+  v15 = completionCopy;
   v11 = completionCopy;
   v12 = contextCopy;
-  [performer performBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [performer performBlock:v13];
 }
 
 - (void)session:(id)session didFailAppLaunchWithBundleIdentifier:(id)identifier
@@ -2233,18 +2168,18 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
 
 - (void)notifyObserver:(id)observer didChangeStateFrom:(unint64_t)from to:(unint64_t)to
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v19 = "[SVXSessionManager notifyObserver:didChangeStateFrom:to:]";
-    v20 = 2112;
-    v21 = observerCopy;
-    v22 = 2048;
+    v18 = "[SVXSessionManager notifyObserver:didChangeStateFrom:to:]";
+    v19 = 2112;
+    v20 = observerCopy;
+    v21 = 2048;
     fromCopy = from;
-    v24 = 2048;
+    v23 = 2048;
     toCopy = to;
     _os_log_debug_impl(&dword_2695B9000, v9, OS_LOG_TYPE_DEBUG, "%s notifyObserver = %@, fromState = %llu, toState = %llu", buf, 0x2Au);
   }
@@ -2264,17 +2199,15 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
 
     v12 = [(SVXDeviceProblemsState *)v10 initWithIsFixingProblems:(to >> 5) & 1 problems:v11];
     performer = [(SVXModule *)self->_module performer];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __58__SVXSessionManager_notifyObserver_didChangeStateFrom_to___block_invoke;
-    v16[3] = &unk_279C68FE8;
-    v16[4] = self;
-    v17 = v12;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __58__SVXSessionManager_notifyObserver_didChangeStateFrom_to___block_invoke;
+    v15[3] = &unk_279C68FE8;
+    v15[4] = self;
+    v16 = v12;
     v14 = v12;
-    [performer performBlock:v16];
+    [performer performBlock:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopWithModuleInstanceProvider:(id)provider
@@ -2318,7 +2251,7 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
 
 - (void)startWithModuleInstanceProvider:(id)provider platformDependencies:(id)dependencies
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   dependenciesCopy = dependencies;
   [(SVXSessionManager *)self _beginMonitoringAvailability];
@@ -2332,13 +2265,13 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
 
     objc_initWeak(&location, self);
     v11 = self->_tether;
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencies___block_invoke;
-    v55[3] = &unk_279C679A0;
-    objc_copyWeak(&v56, &location);
-    [(AFSiriTether *)v11 setAttachmentStatusChangedHandler:v55];
-    objc_destroyWeak(&v56);
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencies___block_invoke;
+    v54[3] = &unk_279C679A0;
+    objc_copyWeak(&v55, &location);
+    [(AFSiriTether *)v11 setAttachmentStatusChangedHandler:v54];
+    objc_destroyWeak(&v55);
     objc_destroyWeak(&location);
   }
 
@@ -2379,46 +2312,46 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
 
   deviceSetupManager = [providerCopy deviceSetupManager];
   [deviceSetupManager addListener:self];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencies___block_invoke_2;
-  v52[3] = &unk_279C679C8;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencies___block_invoke_2;
+  v51[3] = &unk_279C679C8;
   v31 = performer;
-  v53 = v31;
-  objc_copyWeak(&v54, &location);
-  [deviceSetupManager getContextWithCompletion:v52];
+  v52 = v31;
+  objc_copyWeak(&v53, &location);
+  [deviceSetupManager getContextWithCompletion:v51];
   localDeviceContext = self->_localDeviceContext;
   self->_localDeviceContext = 0;
 
   systemObserver = [providerCopy systemObserver];
   [systemObserver addDeviceContextListener:self];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencies___block_invoke_4;
-  v49[3] = &unk_279C679F0;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencies___block_invoke_4;
+  v48[3] = &unk_279C679F0;
   v34 = v31;
-  v50 = v34;
-  objc_copyWeak(&v51, &location);
-  [systemObserver getLocalDeviceContextWithCompletion:v49];
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
+  v49 = v34;
+  objc_copyWeak(&v50, &location);
+  [systemObserver getLocalDeviceContextWithCompletion:v48];
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v35 = dependenciesCopy;
-  v36 = [v35 countByEnumeratingWithState:&v45 objects:v58 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v44 objects:v57 count:16];
   if (v36)
   {
-    v37 = *v46;
+    v37 = *v45;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v46 != v37)
+        if (*v45 != v37)
         {
           objc_enumerationMutation(v35);
         }
 
-        v39 = *(*(&v45 + 1) + 8 * i);
+        v39 = *(*(&v44 + 1) + 8 * i);
         if ([v39 type] == 2)
         {
           activityAnnouncer = self->_activityAnnouncer;
@@ -2439,17 +2372,16 @@ uint64_t __66__SVXSessionManager_continuousVoiceTriggerDetectedWithCompletion___
         }
       }
 
-      v36 = [v35 countByEnumeratingWithState:&v45 objects:v58 count:16];
+      v36 = [v35 countByEnumeratingWithState:&v44 objects:v57 count:16];
     }
 
     while (v36);
   }
 
-  objc_destroyWeak(&v51);
-  objc_destroyWeak(&v54);
+  objc_destroyWeak(&v50);
+  objc_destroyWeak(&v53);
 
   objc_destroyWeak(&location);
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencies___block_invoke(uint64_t a1, char a2)
@@ -2603,29 +2535,27 @@ void __74__SVXSessionManager_startWithModuleInstanceProvider_platformDependencie
 
 - (void)unduckDevice
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[SVXSessionManager unduckDevice]";
+    v7 = "[SVXSessionManager unduckDevice]";
     _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s BTLE Device should unduck audio", buf, 0xCu);
   }
 
   performer = [(SVXModule *)self->_module performer];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __33__SVXSessionManager_unduckDevice__block_invoke;
-  v6[3] = &unk_279C68FC0;
-  v6[4] = self;
-  [performer performBlock:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __33__SVXSessionManager_unduckDevice__block_invoke;
+  v5[3] = &unk_279C68FC0;
+  v5[4] = self;
+  [performer performBlock:v5];
 }
 
 void __33__SVXSessionManager_unduckDevice__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(v1 + 72);
   if (v2)
@@ -2635,40 +2565,36 @@ void __33__SVXSessionManager_unduckDevice__block_invoke(uint64_t a1)
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[SVXSessionManager unduckDevice]_block_invoke";
-      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s BTLE released audio session tracker", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[SVXSessionManager unduckDevice]_block_invoke";
+      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s BTLE released audio session tracker", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceWonMyriadElection
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[SVXSessionManager deviceWonMyriadElection]";
+    v7 = "[SVXSessionManager deviceWonMyriadElection]";
     _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s BTLE Device continues to interact", buf, 0xCu);
   }
 
   performer = [(SVXModule *)self->_module performer];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __44__SVXSessionManager_deviceWonMyriadElection__block_invoke;
-  v6[3] = &unk_279C68FC0;
-  v6[4] = self;
-  [performer performBlock:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __44__SVXSessionManager_deviceWonMyriadElection__block_invoke;
+  v5[3] = &unk_279C68FC0;
+  v5[4] = self;
+  [performer performBlock:v5];
 }
 
 void __44__SVXSessionManager_deviceWonMyriadElection__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = v1[7];
   if (v2)
@@ -2676,11 +2602,11 @@ void __44__SVXSessionManager_deviceWonMyriadElection__block_invoke(uint64_t a1)
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315394;
-      v10 = "[SVXSessionManager deviceWonMyriadElection]_block_invoke";
-      v11 = 2112;
-      v12 = v2;
-      _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s End waiting for Myriad token %@ as won.", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SVXSessionManager deviceWonMyriadElection]_block_invoke";
+      v10 = 2112;
+      v11 = v2;
+      _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s End waiting for Myriad token %@ as won.", &v8, 0x16u);
       v1 = *(a1 + 32);
     }
 
@@ -2691,19 +2617,17 @@ void __44__SVXSessionManager_deviceWonMyriadElection__block_invoke(uint64_t a1)
     v7 = *(v6 + 56);
     *(v6 + 56) = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceLostMyriadElection
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = mach_absolute_time();
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v13 = "[SVXSessionManager deviceLostMyriadElection]";
+    v12 = "[SVXSessionManager deviceLostMyriadElection]";
     _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s BTLE Device should abort session", buf, 0xCu);
   }
 
@@ -2711,22 +2635,20 @@ void __44__SVXSessionManager_deviceWonMyriadElection__block_invoke(uint64_t a1)
   [analytics logEventWithType:1403 context:0];
 
   performer = [(SVXModule *)self->_module performer];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__SVXSessionManager_deviceLostMyriadElection__block_invoke;
-  v9[3] = &unk_279C68E58;
-  v10 = performer;
-  v11 = v3;
-  v9[4] = self;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__SVXSessionManager_deviceLostMyriadElection__block_invoke;
+  v8[3] = &unk_279C68E58;
+  v9 = performer;
+  v10 = v3;
+  v8[4] = self;
   v7 = performer;
-  [v7 performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v7 performBlock:v8];
 }
 
 void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 56);
   v4 = MEMORY[0x277CEF098];
@@ -2736,9 +2658,9 @@ void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v32 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
-      v33 = 2112;
-      v34 = v3;
+      v31 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
+      v32 = 2112;
+      v33 = v3;
       _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s End waiting for Myriad token %@ as lost.", buf, 0x16u);
       v2 = *(a1 + 32);
     }
@@ -2764,20 +2686,20 @@ void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v32 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
+      v31 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
       _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s BTLE willObtainTracker", buf, 0xCu);
     }
 
     v14 = [*(a1 + 32) _currentSession:1];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __45__SVXSessionManager_deviceLostMyriadElection__block_invoke_13;
-    v28[3] = &unk_279C682E8;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __45__SVXSessionManager_deviceLostMyriadElection__block_invoke_13;
+    v27[3] = &unk_279C682E8;
     v15 = *(a1 + 40);
     v16 = *(a1 + 32);
-    v29 = v15;
-    v30 = v16;
-    v17 = [v14 activateWithContext:v12 completion:v28];
+    v28 = v15;
+    v29 = v16;
+    v17 = [v14 activateWithContext:v12 completion:v27];
     v18 = *(a1 + 32);
     v19 = *(v18 + 72);
     *(v18 + 72) = v17;
@@ -2787,13 +2709,13 @@ void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke(uint64_t a1)
     {
       v21 = *(*(a1 + 32) + 72);
       *buf = 136315394;
-      v32 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
-      v33 = 2112;
-      v34 = v21;
+      v31 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
+      v32 = 2112;
+      v33 = v21;
       _os_log_impl(&dword_2695B9000, v20, OS_LOG_TYPE_INFO, "%s BTLE didObtainTracker = %@", buf, 0x16u);
     }
 
-    v22 = v29;
+    v22 = v28;
   }
 
   else
@@ -2802,7 +2724,7 @@ void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v32 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
+      v31 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke";
       _os_log_impl(&dword_2695B9000, v23, OS_LOG_TYPE_INFO, "%s BTLE deactivate", buf, 0xCu);
       v2 = *(a1 + 32);
     }
@@ -2814,8 +2736,6 @@ void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke(uint64_t a1)
     v26 = [(SVXDeactivationContext *)v24 initWithSource:3 timestamp:v25 buttonEvent:0 clientInfo:v22 userInfo:0 options:0];
     [(SVXActivationContext *)v12 deactivateWithContext:v26 completion:0];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke_13(uint64_t a1, void *a2)
@@ -2835,7 +2755,7 @@ void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke_13(uint64_t 
 
 void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = *(a1 + 40);
@@ -2845,16 +2765,14 @@ void __45__SVXSessionManager_deviceLostMyriadElection__block_invoke_2(uint64_t a
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = 136315394;
-      v8 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke_2";
-      v9 = 2112;
-      v10 = v6;
-      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s BTLE released audio session tracker (error = %@)", &v7, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 136315394;
+      v7 = "[SVXSessionManager deviceLostMyriadElection]_block_invoke_2";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s BTLE released audio session tracker (error = %@)", &v6, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeActivityListener:(id)listener
@@ -3063,7 +2981,7 @@ void __61__SVXSessionManager_fetchCurrentActivityStateWithCompletion___block_inv
 
 - (void)preheatWithActivationSource:(int64_t)source
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -3080,9 +2998,9 @@ void __61__SVXSessionManager_fetchCurrentActivityStateWithCompletion___block_inv
 
     v8 = v7;
     *buf = 136315394;
-    v14 = "[SVXSessionManager preheatWithActivationSource:]";
-    v15 = 2112;
-    v16 = v8;
+    v13 = "[SVXSessionManager preheatWithActivationSource:]";
+    v14 = 2112;
+    v15 = v8;
     _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s activationSource = %@", buf, 0x16u);
   }
 
@@ -3095,15 +3013,13 @@ void __61__SVXSessionManager_fetchCurrentActivityStateWithCompletion___block_inv
   [analytics logEventWithType:1402 context:0];
 
   performer = [(SVXModule *)self->_module performer];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __49__SVXSessionManager_preheatWithActivationSource___block_invoke;
-  v12[3] = &unk_279C68C68;
-  v12[4] = self;
-  v12[5] = source;
-  [performer performBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __49__SVXSessionManager_preheatWithActivationSource___block_invoke;
+  v11[3] = &unk_279C68C68;
+  v11[4] = self;
+  v11[5] = source;
+  [performer performBlock:v11];
 }
 
 @end

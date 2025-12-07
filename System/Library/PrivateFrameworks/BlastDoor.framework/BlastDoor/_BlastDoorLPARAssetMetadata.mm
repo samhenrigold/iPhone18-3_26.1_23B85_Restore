@@ -11,10 +11,10 @@
 
 - (_BlastDoorLPARAssetMetadata)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = _BlastDoorLPARAssetMetadata;
-  v2 = [(_BlastDoorLPARAssetMetadata *)&v7 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = _BlastDoorLPARAssetMetadata;
+  v2 = [(_BlastDoorLPARAssetMetadata *)&v6 init];
   v3 = v2;
   if (v2)
   {
@@ -22,7 +22,6 @@
     v4 = v2;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -67,11 +66,11 @@
 
 - (_BlastDoorLPARAssetMetadata)initWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = _BlastDoorLPARAssetMetadata;
-  v5 = [(_BlastDoorLPARAssetMetadata *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = _BlastDoorLPARAssetMetadata;
+  v5 = [(_BlastDoorLPARAssetMetadata *)&v14 init];
   if (v5)
   {
     v5->_version = [coderCopy decodeInt32ForKey:@"version"];
@@ -90,7 +89,6 @@
     v12 = v5;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -106,11 +104,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v12.receiver = self;
-  v12.super_class = _BlastDoorLPARAssetMetadata;
-  if ([(_BlastDoorLPARAssetMetadata *)&v12 isEqual:equalCopy])
+  v11.receiver = self;
+  v11.super_class = _BlastDoorLPARAssetMetadata;
+  if ([(_BlastDoorLPARAssetMetadata *)&v11 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -148,7 +146,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

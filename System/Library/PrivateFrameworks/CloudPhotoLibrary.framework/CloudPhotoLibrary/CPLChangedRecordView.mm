@@ -32,11 +32,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  baseRecordView = self->_baseRecordView;
-  v5 = [v3 initWithFormat:@"%@+[%@]", baseRecordView, self->_change];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@+[%@]", self->_baseRecordView, self->_change];
 
-  return v5;
+  return v2;
 }
 
 - (id)sharingRecordChangeData
@@ -134,7 +132,7 @@ LABEL_10:
 
 - (id)synthesizedRecord
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   isFullRecord = [(CPLRecordChange *)self->_change isFullRecord];
   change = self->_change;
   if (isFullRecord)
@@ -154,18 +152,18 @@ LABEL_10:
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v13 = __CPLGenericOSLogDomain();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v12 = __CPLGenericOSLogDomain();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v17 = synthesizedRecord;
-            _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "%@ should be a full record", buf, 0xCu);
+            v16 = synthesizedRecord;
+            _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ should be a full record", buf, 0xCu);
           }
         }
 
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLChangedRecordStorageView.m"];
-        [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:63 description:{@"%@ should be a full record", synthesizedRecord}];
+        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLChangedRecordStorageView.m"];
+        [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:63 description:{@"%@ should be a full record", synthesizedRecord}];
 
         abort();
       }
@@ -182,42 +180,40 @@ LABEL_10:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (CPLChangedRecordView)initWithChange:(id)change overRecordView:(id)view
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   viewCopy = view;
   if ([changeCopy isDelete])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v20 = objc_opt_class();
-        v21 = 2112;
-        v22 = changeCopy;
-        v15 = v20;
-        _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Should not create a %@ with %@", buf, 0x16u);
+        v19 = objc_opt_class();
+        v20 = 2112;
+        v21 = changeCopy;
+        v14 = v19;
+        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Should not create a %@ with %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLChangedRecordStorageView.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v17 lineNumber:37 description:{@"Should not create a %@ with %@", objc_opt_class(), changeCopy}];
+    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLChangedRecordStorageView.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:37 description:{@"Should not create a %@ with %@", objc_opt_class(), changeCopy}];
 
     abort();
   }
 
-  v18.receiver = self;
-  v18.super_class = CPLChangedRecordView;
-  v10 = [(CPLChangedRecordView *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CPLChangedRecordView;
+  v10 = [(CPLChangedRecordView *)&v17 init];
   v11 = v10;
   if (v10)
   {
@@ -225,7 +221,6 @@ LABEL_10:
     objc_storeStrong(&v11->_change, change);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -165,9 +165,9 @@
         v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [(NSMapTable *)self->_buttonItemElements objectForKey:v9];
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = v9;
 
@@ -323,36 +323,37 @@ LABEL_4:
 
 uint64_t __82__SKUINavigationBarButtonsController_reloadAfterDocumentUpdateWithNavigationItem___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  IsButton = SKUIIKViewElementTypeIsButton([v8 elementType]);
-  v4 = v8;
+  v10 = a2;
+  v3 = [v10 elementType];
+  IsButton = SKUIIKViewElementTypeIsButton(v3, v4);
+  v6 = v10;
   if (IsButton)
   {
-    v5 = [v8 style];
-    v6 = [v5 elementAlignment];
+    v7 = [v10 style];
+    v8 = [v7 elementAlignment];
 
-    if (v6 == 3)
+    if (v8 == 3)
     {
-      IsButton = [*(a1 + 40) insertObject:v8 atIndex:0];
+      IsButton = [*(a1 + 40) insertObject:v10 atIndex:0];
     }
 
     else
     {
-      v4 = v8;
-      if (v6 != 1)
+      v6 = v10;
+      if (v8 != 1)
       {
         goto LABEL_7;
       }
 
-      IsButton = [*(a1 + 32) addObject:v8];
+      IsButton = [*(a1 + 32) addObject:v10];
     }
 
-    v4 = v8;
+    v6 = v10;
   }
 
 LABEL_7:
 
-  return MEMORY[0x2821F96F8](IsButton, v4);
+  return MEMORY[0x2821F96F8](IsButton, v6);
 }
 
 - (void)_buttonAction:(id)action
@@ -506,9 +507,9 @@ LABEL_12:
   if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v8, *MEMORY[0x277D768C8]), vceqq_f64(v11, *(MEMORY[0x277D768C8] + 16))))))
   {
     resourceName = [elementCopy resourceName];
-    v13 = [resourceName isEqualToString:@"previewHistory"];
+    isEqualToString = objc_msgSend_isEqualToString_(resourceName);
 
-    if (v13)
+    if (isEqualToString)
     {
       context = [(SKUINavigationBarSectionController *)self context];
       clientContext = [context clientContext];
@@ -531,7 +532,7 @@ LABEL_12:
       }
 
       resourceName2 = [elementCopy resourceName];
-      v20 = [resourceName2 isEqualToString:@"share"];
+      v20 = objc_msgSend_isEqualToString_(resourceName2);
 
       if (!v20)
       {

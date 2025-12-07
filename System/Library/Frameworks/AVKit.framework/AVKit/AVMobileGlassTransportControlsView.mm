@@ -194,7 +194,7 @@
     v6 = v5;
     v8 = v7;
     v10 = v9;
-    [(AVMobileGlassTransportControlsView *)self layoutConfiguration];
+    objc_msgSend_layoutConfiguration(self);
     if (!self)
     {
 

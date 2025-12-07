@@ -22,9 +22,10 @@
   if (!cdEntityName)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v3 = String._bridgeToObjectiveC()();
-
-    cdEntityName = v3;
+    v4 = v3;
+    v5 = String._bridgeToObjectiveC()();
+    v4, v6, v7, v8, v9, v10, v11, v12;
+    cdEntityName = v5;
   }
 
   return cdEntityName;

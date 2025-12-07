@@ -106,7 +106,6 @@ LABEL_5:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -126,12 +125,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  modelType = self->_modelType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    expertType = self->_expertType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -235,7 +232,6 @@ LABEL_5:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 32);
     if (*&self->_has)
     {
       if ((*(equal + 32) & 1) == 0 || self->_timestamp != *(equal + 1))

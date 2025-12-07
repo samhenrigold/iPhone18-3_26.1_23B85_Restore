@@ -102,28 +102,26 @@ void __57__SBApplicationRestrictionController_initWithDataSource___block_invoke(
 - (void)addObserver:(id)observer
 {
   observerCopy = observer;
-  v10 = observerCopy;
   if (!observerCopy)
   {
     [(SBApplicationRestrictionController *)a2 addObserver:?];
-    observerCopy = 0;
   }
 
-  if (![(NSHashTable *)self->_observers containsObject:observerCopy])
+  if ((objc_msgSend_containsObject_(self->_observers) & 1) == 0)
   {
     observers = self->_observers;
     if (!observers)
     {
-      v7 = [objc_alloc(MEMORY[0x277CCAA50]) initWithOptions:517 capacity:16];
-      v8 = self->_observers;
-      self->_observers = v7;
+      v6 = [objc_alloc(MEMORY[0x277CCAA50]) initWithOptions:517 capacity:16];
+      v7 = self->_observers;
+      self->_observers = v6;
 
       observers = self->_observers;
     }
 
-    [(NSHashTable *)observers addObject:v10];
-    v9 = [MEMORY[0x277CBEB98] setWithObject:v10];
-    [(SBApplicationRestrictionController *)self _postRestrictionStateToObservers:v9];
+    [(NSHashTable *)observers addObject:observerCopy];
+    v8 = [MEMORY[0x277CBEB98] setWithObject:observerCopy];
+    [(SBApplicationRestrictionController *)self _postRestrictionStateToObservers:v8];
   }
 }
 
@@ -386,7 +384,7 @@ void __57__SBApplicationRestrictionController_initWithDataSource___block_invoke(
 
     [v34 allObjects];
     v40 = MGCopyMultipleAnswers();
-    v41 = SBLogAppLibrary();
+    v41 = SBLogAppLibrary(v40);
     if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
@@ -462,7 +460,7 @@ LABEL_64:
   v53 = v52;
   if ((v62 | v51))
   {
-    v54 = SBLogAppLibrary();
+    v54 = SBLogAppLibrary(v52);
     if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
     {
       *buf = 67109376;
@@ -498,7 +496,7 @@ uint64_t __100__SBApplicationRestrictionController_noteApplicationIdentifiersDid
 
 - (void)carrierBundleInfoDidChangeForStateProvider:(id)provider slot:(int64_t)slot
 {
-  v5 = SBLogAppLibrary();
+  v5 = SBLogAppLibrary(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -572,16 +570,16 @@ void __70__SBApplicationRestrictionController__updateRestrictionsAndForcePost___
 
 - (void)_updateVisibilityPreferences
 {
-  if (self)
+  if (result)
   {
-    v2 = *(self + 80);
-    shouldShowInternalApplications = [*(self + 72) shouldShowInternalApplications];
-    *(self + 80) = shouldShowInternalApplications;
+    v2 = *(result + 80);
+    shouldShowInternalApplications = [result[9] shouldShowInternalApplications];
+    *(result + 80) = shouldShowInternalApplications;
     if (v2 != shouldShowInternalApplications)
     {
-      v4 = *(self + 16);
+      v4 = result[2];
 
-      [(SBApplicationRestrictionController *)self _postRestrictionStateToObservers:v4];
+      [(SBApplicationRestrictionController *)result _postRestrictionStateToObservers:v4];
     }
   }
 }
@@ -723,10 +721,10 @@ void __100__SBApplicationRestrictionController_noteApplicationIdentifiersDidChan
   v15 = *MEMORY[0x277D85DE8];
   v4 = MGCopyAnswer();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = SBLogAppLibrary();
+  v6 = SBLogAppLibrary(WeakRetained);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v7 = [WeakRetained[6] containsObject:a2];
+    v7 = objc_msgSend_containsObject_(WeakRetained[6]);
     v9 = 138412802;
     v10 = a2;
     v11 = 1024;
@@ -844,7 +842,7 @@ LABEL_5:
               }
 
               v24 = *(*(&v86 + 1) + 8 * i);
-              v25 = [v18 containsObject:v24];
+              v25 = objc_msgSend_containsObject_(v18);
               if ((v25 & 1) == 0)
               {
                 v27 = [*(postCopy + 56) objectForKey:v24];

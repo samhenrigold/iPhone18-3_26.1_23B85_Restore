@@ -47,29 +47,29 @@
 
 - (void)showUIWithParams:(id)params reply:(id)reply
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   replyCopy = reply;
   v9 = LALogForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = paramsCopy;
+    v26 = paramsCopy;
     _os_log_impl(&dword_238B95000, v9, OS_LOG_TYPE_DEFAULT, "showing UI: %{public}@", buf, 0xCu);
   }
 
   objc_storeStrong(&self->_pendingRequest, params);
   objc_initWeak(&location, self);
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __43___RemoteUIManager_showUIWithParams_reply___block_invoke;
-  v21 = &unk_278A627B8;
-  objc_copyWeak(&v24, &location);
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __43___RemoteUIManager_showUIWithParams_reply___block_invoke;
+  v20 = &unk_278A627B8;
+  objc_copyWeak(&v23, &location);
   v10 = paramsCopy;
-  v22 = v10;
+  v21 = v10;
   v11 = replyCopy;
-  v23 = v11;
-  v12 = MEMORY[0x23EE73C30](&v18);
+  v22 = v11;
+  v12 = MEMORY[0x23EE73C30](&v17);
   pendingUiActivationBlock = self->_pendingUiActivationBlock;
   self->_pendingUiActivationBlock = v12;
 
@@ -81,22 +81,20 @@
       dismissingUi = self->_dismissingUi;
       dismissUiCounter = self->_dismissUiCounter;
       *buf = 138543618;
-      v27 = dismissingUi;
-      v28 = 1024;
-      v29 = dismissUiCounter;
+      v26 = dismissingUi;
+      v27 = 1024;
+      v28 = dismissUiCounter;
       _os_log_impl(&dword_238B95000, v14, OS_LOG_TYPE_DEFAULT, "Won't activate UI now because %{public}@ is being dismissed (counter:%d)", buf, 0x12u);
     }
   }
 
   else
   {
-    [(_RemoteUIManager *)self _activateUi:v18];
+    [(_RemoteUIManager *)self _activateUi:v17];
   }
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)anonymousListenerForHostedController:(int64_t)controller mechanism:(id)mechanism reply:(id)reply
@@ -113,34 +111,32 @@
 
 - (void)prepareForHostedController:(int64_t)controller mechanism:(id)mechanism reply:(id)reply
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mechanismCopy = mechanism;
   replyCopy = reply;
   v10 = LALogForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = mechanismCopy;
-    _os_log_impl(&dword_238B95000, v10, OS_LOG_TYPE_DEFAULT, "preparing %{public}@ for remote view controller scenario", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = mechanismCopy;
+    _os_log_impl(&dword_238B95000, v10, OS_LOG_TYPE_DEFAULT, "preparing %{public}@ for remote view controller scenario", &v12, 0xCu);
   }
 
   v11 = [[RemoteUIParams alloc] initWithMechanism:mechanismCopy hostedRemoteController:controller];
   [(_RemoteUIManager *)self _assignPendingRequest:v11 reply:replyCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionToViewServiceInvalidatedForIdentifier:(id)identifier reply:(id)reply
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   replyCopy = reply;
   v8 = LALogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_DEFAULT, "connectionToViewServiceInvalidatedForIdentifier: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = identifierCopy;
+    _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_DEFAULT, "connectionToViewServiceInvalidatedForIdentifier: %@", &v16, 0xCu);
   }
 
   v9 = [MEMORY[0x277CD47F0] silentInternalErrorWithMessage:@"UI service connection invalidated."];
@@ -150,11 +146,11 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [(RemoteUIParams *)self->_request identifier];
-      v17 = 138412546;
-      v18 = identifier;
-      v19 = 2112;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_238B95000, v12, OS_LOG_TYPE_DEFAULT, "Current request identifier: %@ is different from the connection identifier: %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = identifier;
+      v18 = 2112;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_238B95000, v12, OS_LOG_TYPE_DEFAULT, "Current request identifier: %@ is different from the connection identifier: %@", &v16, 0x16u);
     }
   }
 
@@ -173,54 +169,52 @@
   }
 
   replyCopy[2](replyCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissRemoteUI:(id)i uiMechanism:(id)mechanism uiDisappeared:(BOOL)disappeared shouldIdle:(BOOL)idle reply:(id)reply
 {
   idleCopy = idle;
   disappearedCopy = disappeared;
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   iCopy = i;
   mechanismCopy = mechanism;
   replyCopy = reply;
   v16 = replyCopy;
-  v41 = mechanismCopy;
+  v40 = mechanismCopy;
   if (iCopy)
   {
     v17 = self->_dismissUiCounter + 1;
     self->_dismissUiCounter = v17;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle_reply___block_invoke;
-    v51[3] = &unk_278A627E0;
-    v51[4] = self;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle_reply___block_invoke;
+    v50[3] = &unk_278A627E0;
+    v50[4] = self;
     v18 = iCopy;
-    v52 = v18;
-    v55 = v17;
+    v51 = v18;
+    v54 = v17;
     v19 = mechanismCopy;
-    v53 = v19;
-    v39 = v16;
-    v54 = v16;
-    v40 = MEMORY[0x23EE73C30](v51);
+    v52 = v19;
+    v38 = v16;
+    v53 = v16;
+    v39 = MEMORY[0x23EE73C30](v50);
     v20 = LALogForCategory();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       uiMechanism = [(RemoteUIParams *)self->_request uiMechanism];
       *buf = 138543874;
-      v57 = v18;
-      v58 = 2114;
-      v59 = uiMechanism;
-      v60 = 1024;
-      v61 = v17;
+      v56 = v18;
+      v57 = 2114;
+      v58 = uiMechanism;
+      v59 = 1024;
+      v60 = v17;
       _os_log_impl(&dword_238B95000, v20, OS_LOG_TYPE_DEFAULT, "Dismissing %{public}@ that belongs to %{public}@, index:%d", buf, 0x1Cu);
     }
 
     objc_storeStrong(&self->_dismissingUi, i);
     if (disappearedCopy)
     {
-      (v40)[2](v40, @"immediate reply, UI is already down");
+      (v39)[2](v39, @"immediate reply, UI is already down");
     }
 
     else
@@ -244,16 +238,16 @@
       activator = [(RemoteUIManagerConfig *)self->_config activator];
       request2 = [v19 request];
       v32 = [activator hasInvalidatedUIForRequest:{objc_msgSend(request2, "identifier")}];
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle_reply___block_invoke_98;
-      v47[3] = &unk_278A62830;
-      objc_copyWeak(&v50, buf);
-      v33 = v40;
-      v49 = v33;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle_reply___block_invoke_98;
+      v46[3] = &unk_278A62830;
+      objc_copyWeak(&v49, buf);
+      v33 = v39;
+      v48 = v33;
       v34 = v18;
-      v48 = v34;
-      [v34 dismissRemoteUIWithIdleEndpoint:endpoint wasInvalidated:v32 completionHandler:v47];
+      v47 = v34;
+      [v34 dismissRemoteUIWithIdleEndpoint:endpoint wasInvalidated:v32 completionHandler:v46];
 
       [(RemoteUIManagerConfig *)self->_config deactivateTimeout];
       v36 = dispatch_time(0, (v35 * 1000000000.0));
@@ -262,19 +256,19 @@
       block[1] = 3221225472;
       block[2] = __79___RemoteUIManager_dismissRemoteUI_uiMechanism_uiDisappeared_shouldIdle_reply___block_invoke_3;
       block[3] = &unk_278A62858;
-      objc_copyWeak(&v45, buf);
-      v46 = v17;
-      v44 = v33;
-      v43 = v34;
+      objc_copyWeak(&v44, buf);
+      v45 = v17;
+      v43 = v33;
+      v42 = v34;
       dispatch_after(v36, queue, block);
 
-      objc_destroyWeak(&v45);
-      objc_destroyWeak(&v50);
+      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v49);
 
       objc_destroyWeak(buf);
     }
 
-    v25 = v39;
+    v25 = v38;
   }
 
   else
@@ -295,8 +289,6 @@
       v22[2](v22);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activatePendingUIIfNeeded
@@ -356,27 +348,26 @@ LABEL_6:
 
 - (void)_activateUi
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[_RemoteUIManager _activateUi]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[_RemoteUIManager _activateUi]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_238B95000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_238B95000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v2, 0x16u);
 }
 
 - (void)_assignPendingRequest:(id)request reply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   replyCopy = reply;
   v8 = LALogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     uiMechanism = [(RemoteUIParams *)requestCopy uiMechanism];
-    v20 = 138543362;
-    v21 = uiMechanism;
-    _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_INFO, "%{public}@ is waiting to connect with the remote UI", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = uiMechanism;
+    _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_INFO, "%{public}@ is waiting to connect with the remote UI", &v19, 0xCu);
   }
 
   v10 = MEMORY[0x277CD47F0];
@@ -405,13 +396,11 @@ LABEL_6:
 
   self->_uiDismissedBeforeConnection = 0;
   ++self->_showUiCounter;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupUiActivationTimeoutForParams:(id)params
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   showUiCounter = self->_showUiCounter;
   objc_initWeak(&location, self);
@@ -421,31 +410,29 @@ LABEL_6:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v17 = v7;
+    v16 = v7;
     _os_log_impl(&dword_238B95000, v8, OS_LOG_TYPE_DEFAULT, "Setting up activation watchdog with %.2f seconds timeout", buf, 0xCu);
   }
 
   v9 = dispatch_time(0, (*&v7 * 1000000000.0));
   queue = [(RemoteUIManagerConfig *)self->_config queue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55___RemoteUIManager__setupUiActivationTimeoutForParams___block_invoke;
-  v12[3] = &unk_278A62880;
-  objc_copyWeak(v13, &location);
-  v14 = showUiCounter;
-  v13[1] = v7;
-  dispatch_after(v9, queue, v12);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __55___RemoteUIManager__setupUiActivationTimeoutForParams___block_invoke;
+  v11[3] = &unk_278A62880;
+  objc_copyWeak(v12, &location);
+  v13 = showUiCounter;
+  v12[1] = v7;
+  dispatch_after(v9, queue, v11);
 
-  objc_destroyWeak(v13);
+  objc_destroyWeak(v12);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_replyOnceToShowUi:(BOOL)ui error:(id)error
 {
   uiCopy = ui;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (self->_pendingShowUiReply && ([MEMORY[0x277D24060] error:errorCopy hasCode:*MEMORY[0x277D23E88] subcode:*MEMORY[0x277D23EC8]] & 1) == 0)
   {
@@ -468,9 +455,9 @@ LABEL_6:
         v9 = errorCopy;
       }
 
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_238B95000, v7, v8, "showUI result: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_238B95000, v7, v8, "showUI result: %{public}@", &v12, 0xCu);
     }
 
     (*(self->_pendingShowUiReply + 2))();
@@ -483,8 +470,6 @@ LABEL_6:
       self->_request = 0;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectRemoteUI:(id)i requestID:(id)d reply:(id)reply
@@ -550,20 +535,18 @@ LABEL_9:
 
 - (void)disconnectRemoteUI
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = LALogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     uiMechanism = [(RemoteUIParams *)self->_request uiMechanism];
-    v7 = 138543362;
-    v8 = uiMechanism;
-    _os_log_impl(&dword_238B95000, v3, OS_LOG_TYPE_DEFAULT, "Disconnecting %{public}@ from remote UI.", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = uiMechanism;
+    _os_log_impl(&dword_238B95000, v3, OS_LOG_TYPE_DEFAULT, "Disconnecting %{public}@ from remote UI.", &v6, 0xCu);
   }
 
   uiMechanism2 = [(RemoteUIParams *)self->_request uiMechanism];
   [uiMechanism2 disconnectRemoteUI];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkHasPendingUIRequestsForRemoteUI:(id)i completion:(id)completion
@@ -606,16 +589,16 @@ LABEL_9:
 
 - (void)didReceiveExpectedError:(id)error
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (self->_ignoreDeactivation)
   {
     v5 = LALogForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = errorCopy;
-      _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring expected deactivation with error: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = errorCopy;
+      _os_log_impl(&dword_238B95000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring expected deactivation with error: %@", &v6, 0xCu);
     }
 
     self->_ignoreDeactivation = 0;
@@ -625,8 +608,6 @@ LABEL_9:
   {
     [(_RemoteUIManager *)self _replyOnceToShowUi:0 error:errorCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveUnexpectedError:(id)error
@@ -648,7 +629,7 @@ LABEL_9:
 
 - (void)didSuccessfullyFinishForRequestIdentifier:(id)identifier
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   ignoreDeactivation = self->_ignoreDeactivation;
   v6 = LALogForCategory();
@@ -657,9 +638,9 @@ LABEL_9:
   {
     if (v7)
     {
-      v13 = 138543362;
-      v14 = identifierCopy;
-      _os_log_impl(&dword_238B95000, v6, OS_LOG_TYPE_DEFAULT, "Activator did successfully finish request identifier: %{public}@ but waiting for UI to be dismissed", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = identifierCopy;
+      _os_log_impl(&dword_238B95000, v6, OS_LOG_TYPE_DEFAULT, "Activator did successfully finish request identifier: %{public}@ but waiting for UI to be dismissed", &v12, 0xCu);
     }
 
     self->_ignoreDeactivation = 0;
@@ -669,9 +650,9 @@ LABEL_9:
   {
     if (v7)
     {
-      v13 = 138543362;
-      v14 = identifierCopy;
-      _os_log_impl(&dword_238B95000, v6, OS_LOG_TYPE_DEFAULT, "Activator did successfully finish request identifier: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = identifierCopy;
+      _os_log_impl(&dword_238B95000, v6, OS_LOG_TYPE_DEFAULT, "Activator did successfully finish request identifier: %{public}@", &v12, 0xCu);
     }
 
     identifier = [(RemoteUIParams *)self->_request identifier];
@@ -688,8 +669,6 @@ LABEL_9:
 
     [(_RemoteUIManager *)self _activatePendingUIIfNeeded];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

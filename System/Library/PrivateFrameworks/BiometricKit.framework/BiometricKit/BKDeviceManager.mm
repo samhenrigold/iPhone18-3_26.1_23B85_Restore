@@ -15,7 +15,7 @@
 
 + (id)availableDevicesWithFailure:(BOOL *)failure
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v4 = MEMORY[0x1E69E9C10];
   if (__osLogTrace)
@@ -36,21 +36,21 @@
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v14 = 0;
-  if ([BKDeviceTouchID deviceAvailableWithFailure:&v14])
+  v13 = 0;
+  if ([BKDeviceTouchID deviceAvailableWithFailure:&v13])
   {
     v7 = [BKDeviceDescriptor deviceDescriptorForType:1];
     [array addObject:v7];
   }
 
-  if (v14)
+  if (v13)
   {
     v8 = 0;
   }
 
   else
   {
-    v8 = &v14;
+    v8 = &v13;
   }
 
   if ([BKDevicePearl deviceAvailableWithFailure:v8])
@@ -61,7 +61,7 @@
 
   if (failure)
   {
-    *failure = v14;
+    *failure = v13;
   }
 
   if (__osLogTrace)
@@ -88,14 +88,13 @@
 
     *buf = 138412546;
     failureCopy = array;
-    v17 = 1024;
-    v18 = v11;
+    v16 = 1024;
+    v17 = v11;
     _os_log_impl(&dword_1C82AD000, v10, OS_LOG_TYPE_DEFAULT, "BKDeviceManager::availableDevicesWithFailure -> %@, failure:%d\n", buf, 0x12u);
   }
 
   [array count];
   kdebug_trace();
-  v12 = *MEMORY[0x1E69E9840];
 
   return array;
 }

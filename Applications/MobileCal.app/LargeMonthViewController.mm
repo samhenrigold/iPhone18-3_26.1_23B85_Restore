@@ -291,7 +291,7 @@
   {
     if (coordinatorCopy)
     {
-      [coordinatorCopy targetTransform];
+      objc_msgSend_targetTransform(coordinatorCopy);
     }
 
     else
@@ -1888,12 +1888,15 @@ LABEL_5:
 - (void)occurrencesWereSpaciallyEditedFromDate:(id)date toDate:(id)toDate
 {
   v5 = [(LargeMonthViewController *)self _weekViewForDate:toDate];
+  v6 = v5;
   if (v5)
   {
-    [(LargeMonthViewController *)self _scrollToWeekView:v5 animated:1 completion:0];
+    v7 = v5;
+    v5 = [(LargeMonthViewController *)self _scrollToWeekView:v5 animated:1 completion:0];
+    v6 = v7;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v5, v6);
 }
 
 - (id)_weekViewForDate:(id)date

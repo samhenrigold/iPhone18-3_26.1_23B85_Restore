@@ -39,7 +39,7 @@
 
 - (id)accessibilityElements
 {
-  v72 = *MEMORY[0x29EDCA608];
+  v71 = *MEMORY[0x29EDCA608];
   v2 = [(PKSpendingSummaryChartViewAccessibility *)self _accessibilityValueForKey:@"accessibilityElements"];
   if (v2)
   {
@@ -48,7 +48,7 @@
 
   else
   {
-    v69 = 0;
+    v68 = 0;
     v4 = [(PKSpendingSummaryChartViewAccessibility *)self safeValueForKey:@"_summary"];
     v5 = __UIAccessibilitySafeClass();
 
@@ -57,28 +57,28 @@
     v8 = [v7 safeArrayForKey:@"spendingsPerCalendarUnit"];
 
     array = [MEMORY[0x29EDB8DE8] array];
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     obj = [(PKSpendingSummaryChartViewAccessibility *)self safeArrayForKey:@"_bars"];
-    v57 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
-    if (v57)
+    v56 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+    if (v56)
     {
       v9 = 0;
-      v55 = *v66;
-      v47 = v6;
-      v48 = v8;
+      v54 = *v65;
+      v46 = v6;
+      v47 = v8;
       do
       {
-        for (i = 0; i != v57; ++i)
+        for (i = 0; i != v56; ++i)
         {
-          if (*v66 != v55)
+          if (*v65 != v54)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v65 + 1) + 8 * i);
+          v11 = *(*(&v64 + 1) + 8 * i);
           if ([v11 _accessibilityViewIsVisible])
           {
             if (v9 >= [v8 count])
@@ -88,11 +88,11 @@
 
             else
             {
-              v69 = 0;
+              v68 = 0;
               v12 = [v8 objectAtIndexedSubscript:v9];
               v13 = __UIAccessibilitySafeClass();
 
-              if (v69 == 1)
+              if (v68 == 1)
               {
                 goto LABEL_40;
               }
@@ -101,33 +101,33 @@
             }
 
             v15 = [[UIAXPKSpendingElement alloc] initWithAccessibilityContainer:self];
-            v64[0] = MEMORY[0x29EDCA5F8];
-            v64[1] = 3221225472;
-            v64[2] = __64__PKSpendingSummaryChartViewAccessibility_accessibilityElements__block_invoke;
-            v64[3] = &unk_29F2E1F40;
-            v64[4] = v11;
-            [(UIAXPKSpendingElement *)v15 _setAccessibilityFrameBlock:v64];
-            v69 = 0;
+            v63[0] = MEMORY[0x29EDCA5F8];
+            v63[1] = 3221225472;
+            v63[2] = __64__PKSpendingSummaryChartViewAccessibility_accessibilityElements__block_invoke;
+            v63[3] = &unk_29F2E1F40;
+            v63[4] = v11;
+            [(UIAXPKSpendingElement *)v15 _setAccessibilityFrameBlock:v63];
+            v68 = 0;
             v16 = [v14 safeValueForKey:@"startDate"];
-            v59 = __UIAccessibilitySafeClass();
+            v58 = __UIAccessibilitySafeClass();
 
-            if (v69 == 1)
+            if (v68 == 1)
             {
               goto LABEL_40;
             }
 
-            v69 = 0;
+            v68 = 0;
             v17 = [v14 safeValueForKey:@"endDate"];
             v18 = __UIAccessibilitySafeClass();
 
-            if (v69 == 1)
+            if (v68 == 1)
             {
               goto LABEL_40;
             }
 
-            [(UIAXPKSpendingElement *)v15 setStartDate:v59];
+            [(UIAXPKSpendingElement *)v15 setStartDate:v58];
             [(UIAXPKSpendingElement *)v15 setEndDate:v18];
-            v58 = v14;
+            v57 = v14;
             if (v6 == 1)
             {
               v19 = MEMORY[0x29EDBA0F8];
@@ -139,7 +139,7 @@
               v24 = [v19 stringWithFormat:v25, v22, v23];
               [(UIAXPKSpendingElement *)v15 setAccessibilityLabel:v24];
 
-              v14 = v58;
+              v14 = v57;
               i = v20;
 
               v18 = v21;
@@ -151,11 +151,11 @@
               [(UIAXPKSpendingElement *)v15 setAccessibilityLabel:v25];
             }
 
-            v69 = 0;
+            v68 = 0;
             v26 = [v14 safeValueForKey:@"totalSpending"];
             v27 = __UIAccessibilitySafeClass();
 
-            if (v69 == 1)
+            if (v68 == 1)
             {
 LABEL_40:
               abort();
@@ -165,34 +165,34 @@ LABEL_40:
             [amount doubleValue];
             [(UIAXPKSpendingElement *)v15 setChartValue:?];
 
-            v51 = v27;
+            v50 = v27;
             currency = [v27 currency];
-            v53 = v15;
+            v52 = v15;
             [(UIAXPKSpendingElement *)v15 setCurrency:currency];
 
             v30 = [v14 safeArrayForKey:@"orderedSpendingCategories"];
+            v59 = 0u;
             v60 = 0u;
             v61 = 0u;
             v62 = 0u;
-            v63 = 0u;
-            v31 = [v30 countByEnumeratingWithState:&v60 objects:v70 count:16];
-            v54 = i;
-            v52 = v18;
+            v31 = [v30 countByEnumeratingWithState:&v59 objects:v69 count:16];
+            v53 = i;
+            v51 = v18;
             if (v31)
             {
               v32 = v31;
               v33 = 0;
-              v34 = *v61;
+              v34 = *v60;
               do
               {
                 for (j = 0; j != v32; ++j)
                 {
-                  if (*v61 != v34)
+                  if (*v60 != v34)
                   {
                     objc_enumerationMutation(v30);
                   }
 
-                  v36 = *(*(&v60 + 1) + 8 * j);
+                  v36 = *(*(&v59 + 1) + 8 * j);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
@@ -209,15 +209,15 @@ LABEL_40:
 
                     [v36 merchantCategory];
                     PKLocalizedStringFromMerchantCategory();
-                    v45 = v38;
-                    v44 = v46 = @"__AXStringForVariablesSentinel";
+                    v44 = v38;
+                    v43 = v45 = @"__AXStringForVariablesSentinel";
                     v39 = __UIAXStringForVariables();
 
                     v33 = v39;
                   }
                 }
 
-                v32 = [v30 countByEnumeratingWithState:&v60 objects:v70 count:16];
+                v32 = [v30 countByEnumeratingWithState:&v59 objects:v69 count:16];
               }
 
               while (v32);
@@ -228,32 +228,30 @@ LABEL_40:
               v33 = 0;
             }
 
-            v40 = [(PKSpendingSummaryChartViewAccessibility *)self _axStringFromCurrency:v51, v44, v45, v46];
-            v44 = v33;
-            v45 = @"__AXStringForVariablesSentinel";
+            v40 = [(PKSpendingSummaryChartViewAccessibility *)self _axStringFromCurrency:v50, v43, v44, v45];
+            v43 = v33;
+            v44 = @"__AXStringForVariablesSentinel";
             v41 = __UIAXStringForVariables();
-            [(UIAXPKSpendingElement *)v53 setAccessibilityValue:v41];
+            [(UIAXPKSpendingElement *)v52 setAccessibilityValue:v41];
 
-            [array addObject:v53];
+            [array addObject:v52];
             ++v9;
 
-            v6 = v47;
-            v8 = v48;
-            i = v54;
+            v6 = v46;
+            v8 = v47;
+            i = v53;
           }
         }
 
-        v57 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
+        v56 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
       }
 
-      while (v57);
+      while (v56);
     }
 
     [(PKSpendingSummaryChartViewAccessibility *)self _accessibilitySetRetainedValue:array forKey:@"accessibilityElements"];
     v3 = array;
   }
-
-  v42 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -284,18 +282,16 @@ uint64_t __60__PKSpendingSummaryChartViewAccessibility__axSpendingValues__block_
 
 - (id)accessibilityChartDescriptor
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc(MEMORY[0x29EDB8050]);
   _accessibilitySeriesTitle = [(PKSpendingSummaryChartViewAccessibility *)self _accessibilitySeriesTitle];
   _accessibilityChartSummary = [(PKSpendingSummaryChartViewAccessibility *)self _accessibilityChartSummary];
   _accessibilityXAxis = [(PKSpendingSummaryChartViewAccessibility *)self _accessibilityXAxis];
   _accessibilityYAxis = [(PKSpendingSummaryChartViewAccessibility *)self _accessibilityYAxis];
   _accessibilityDataSeries = [(PKSpendingSummaryChartViewAccessibility *)self _accessibilityDataSeries];
-  v13[0] = _accessibilityDataSeries;
-  v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
+  v12[0] = _accessibilityDataSeries;
+  v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
   v10 = [v3 initWithTitle:_accessibilitySeriesTitle summary:_accessibilityChartSummary xAxisDescriptor:_accessibilityXAxis yAxisDescriptor:_accessibilityYAxis series:v9];
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10;
 }
@@ -386,33 +382,33 @@ LABEL_9:
 
 - (id)_accessibilityYAxis
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   accessibilityElements = [(PKSpendingSummaryChartViewAccessibility *)self accessibilityElements];
   firstObject = [accessibilityElements firstObject];
   currency = [firstObject currency];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   accessibilityElements2 = [(PKSpendingSummaryChartViewAccessibility *)self accessibilityElements];
-  v7 = [accessibilityElements2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [accessibilityElements2 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     v10 = 0.0;
     v11 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(accessibilityElements2);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         [v13 chartValue];
         if (v11 >= v14)
         {
@@ -426,7 +422,7 @@ LABEL_9:
         }
       }
 
-      v8 = [accessibilityElements2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [accessibilityElements2 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -440,15 +436,13 @@ LABEL_9:
 
   v16 = objc_alloc(MEMORY[0x29EDB8078]);
   _accessibilitySeriesTitle = [(PKSpendingSummaryChartViewAccessibility *)self _accessibilitySeriesTitle];
-  v22[0] = MEMORY[0x29EDCA5F8];
-  v22[1] = 3221225472;
-  v22[2] = __62__PKSpendingSummaryChartViewAccessibility__accessibilityYAxis__block_invoke;
-  v22[3] = &unk_29F2E1F88;
-  v23 = currency;
+  v21[0] = MEMORY[0x29EDCA5F8];
+  v21[1] = 3221225472;
+  v21[2] = __62__PKSpendingSummaryChartViewAccessibility__accessibilityYAxis__block_invoke;
+  v21[3] = &unk_29F2E1F88;
+  v22 = currency;
   v18 = currency;
-  v19 = [v16 initWithTitle:_accessibilitySeriesTitle lowerBound:0 upperBound:v22 gridlinePositions:v11 valueDescriptionProvider:v10];
-
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = [v16 initWithTitle:_accessibilitySeriesTitle lowerBound:0 upperBound:v21 gridlinePositions:v11 valueDescriptionProvider:v10];
 
   return v19;
 }

@@ -18,9 +18,9 @@
   if (type && (v6 = [dictionary objectForKeyedSubscript:@"UBCaptureParameters"]) != 0)
   {
     v7 = v6;
-    v54.receiver = self;
-    v54.super_class = BWUBCaptureParameters;
-    v8 = [(BWUBCaptureParameters *)&v54 init];
+    v53.receiver = self;
+    v53.super_class = BWUBCaptureParameters;
+    v8 = [(BWUBCaptureParameters *)&v53 init];
     if (v8)
     {
       v8->_portType = type;
@@ -102,101 +102,100 @@
         v27 = &unk_1F224A8C0;
       }
 
-      v28 = *off_1E798A0D0;
-      [(NSString *)v8->_portType isEqualToString:*off_1E798A0D0];
+      objc_msgSend_isEqualToString_(v8->_portType);
       [v27 doubleValue];
-      *&v29 = v29;
-      v8->_autoFlashMacroNormalizedSNRThreshold = *&v29;
-      [(NSString *)v8->_portType isEqualToString:v28];
+      *&v28 = v28;
+      v8->_autoFlashMacroNormalizedSNRThreshold = *&v28;
+      objc_msgSend_isEqualToString_(v8->_portType);
       v8->_macroFlashQSubSwitchingEnabled = [objc_msgSend(v7 objectForKeyedSubscript:{@"MacroFlashQSubSwitchingEnabled", "BOOLValue"}];
       [objc_msgSend(v7 objectForKeyedSubscript:{@"RedSaturationMainEffectiveIntegrationTimeThreshold", "doubleValue"}];
-      v8->_redSaturationMainEffectiveIntegrationTimeThreshold = v30;
+      v8->_redSaturationMainEffectiveIntegrationTimeThreshold = v29;
       [objc_msgSend(v7 objectForKeyedSubscript:{@"RedSaturationSIFRGainThreshold", "floatValue"}];
-      v8->_redSaturationSIFRGainThreshold = v31;
+      v8->_redSaturationSIFRGainThreshold = v30;
       v8->_toneCurveBehavior = [objc_msgSend(v7 objectForKeyedSubscript:{@"ToneCurveBehavior", "intValue"}];
       v8->_preserveBlackLevel = [objc_msgSend(v7 objectForKeyedSubscript:{@"PreserveBlackLevel", "BOOLValue"}];
       [objc_msgSend(v7 objectForKeyedSubscript:{@"NightModeMinGainThreshold", "floatValue"}];
-      v8->_nightModeMinGainThreshold = v32;
+      v8->_nightModeMinGainThreshold = v31;
       v8->_alwaysUseAFTimeout = [objc_msgSend(v7 objectForKeyedSubscript:{@"AlwaysUseAFTimeout", "BOOLValue"}];
       v8->_afWindowParams = [objc_msgSend(v7 objectForKeyedSubscript:{@"AFWindowParams", "copy"}];
-      v33 = [v7 objectForKeyedSubscript:@"AdaptiveBracketingParameters"];
-      v34 = [objc_msgSend(v33 objectForKeyedSubscript:{@"FirstGroupMaxNumberOfFramesCount", "intValue"}];
-      if (v34 <= [objc_msgSend(v33 objectForKeyedSubscript:{@"NextGroupMaxNumberOfFramesCount", "intValue"}])
+      v32 = [v7 objectForKeyedSubscript:@"AdaptiveBracketingParameters"];
+      v33 = [objc_msgSend(v32 objectForKeyedSubscript:{@"FirstGroupMaxNumberOfFramesCount", "intValue"}];
+      if (v33 <= [objc_msgSend(v32 objectForKeyedSubscript:{@"NextGroupMaxNumberOfFramesCount", "intValue"}])
       {
-        v35 = @"NextGroupMaxNumberOfFramesCount";
+        v34 = @"NextGroupMaxNumberOfFramesCount";
       }
 
       else
       {
-        v35 = @"FirstGroupMaxNumberOfFramesCount";
+        v34 = @"FirstGroupMaxNumberOfFramesCount";
       }
 
-      v8->_maxNumberOfFramesForAdaptiveBracketing = [objc_msgSend(v33 objectForKeyedSubscript:{v35), "intValue"}];
-      v36 = [v7 objectForKeyedSubscript:@"DigitalFlashAvailableEffectiveIntegrationTimeThreshold"];
-      if (!v36)
+      v8->_maxNumberOfFramesForAdaptiveBracketing = [objc_msgSend(v32 objectForKeyedSubscript:{v34), "intValue"}];
+      v35 = [v7 objectForKeyedSubscript:@"DigitalFlashAvailableEffectiveIntegrationTimeThreshold"];
+      if (!v35)
       {
-        v36 = &unk_1F224A8C0;
+        v35 = &unk_1F224A8C0;
       }
 
-      [v36 doubleValue];
-      v8->_digitalFlashAvailableEffectiveIntegrationTimeThreshold = v37;
+      [v35 doubleValue];
+      v8->_digitalFlashAvailableEffectiveIntegrationTimeThreshold = v36;
       [objc_msgSend(v7 objectForKeyedSubscript:{@"DigitalFlashRecommendedEffectiveIntegrationTimeThreshold", "doubleValue"}];
-      v8->_digitalFlashRecommendedEffectiveIntegrationTimeThreshold = v38;
+      v8->_digitalFlashRecommendedEffectiveIntegrationTimeThreshold = v37;
       [objc_msgSend(v7 objectForKeyedSubscript:{@"StationaryDigitalFlashRecommendedEffectiveIntegrationTimeThreshold", "doubleValue"}];
-      v8->_stationaryDigitalFlashRecommendedEffectiveIntegrationTimeThreshold = v39;
-      v40 = [v7 objectForKeyedSubscript:@"DigitalFlashRecommendRegularFlashSNRThreshold"];
-      if (!v40)
+      v8->_stationaryDigitalFlashRecommendedEffectiveIntegrationTimeThreshold = v38;
+      v39 = [v7 objectForKeyedSubscript:@"DigitalFlashRecommendRegularFlashSNRThreshold"];
+      if (!v39)
       {
-        v40 = &unk_1F224A8C0;
+        v39 = &unk_1F224A8C0;
       }
 
-      [v40 floatValue];
-      v8->_digitalFlashRecommendRegularFlashSNRThreshold = v41;
-      v42 = [v7 objectForKeyedSubscript:@"DigitalFlashBacklitRecommendRegularFlashSNRThreshold"];
-      if (!v42)
+      [v39 floatValue];
+      v8->_digitalFlashRecommendRegularFlashSNRThreshold = v40;
+      v41 = [v7 objectForKeyedSubscript:@"DigitalFlashBacklitRecommendRegularFlashSNRThreshold"];
+      if (!v41)
       {
-        v42 = &unk_1F224A8C0;
+        v41 = &unk_1F224A8C0;
       }
 
-      [v42 floatValue];
-      v8->_digitalFlashBacklitRecommendRegularFlashSNRThreshold = v43;
-      v44 = [v7 objectForKeyedSubscript:@"DigitalFlashBacklitRecommendRegularFlashAERelativeDifferenceThreshold"];
-      if (!v44)
+      [v41 floatValue];
+      v8->_digitalFlashBacklitRecommendRegularFlashSNRThreshold = v42;
+      v43 = [v7 objectForKeyedSubscript:@"DigitalFlashBacklitRecommendRegularFlashAERelativeDifferenceThreshold"];
+      if (!v43)
       {
-        v44 = &unk_1F224A8C0;
+        v43 = &unk_1F224A8C0;
       }
 
-      [v44 floatValue];
-      v8->_digitalFlashBacklitRecommendRegularFlashAERelativeDifferenceThreshold = v45;
+      [v43 floatValue];
+      v8->_digitalFlashBacklitRecommendRegularFlashAERelativeDifferenceThreshold = v44;
       v8->_digitalFlashHighlightRecoveryEnabled = [objc_msgSend(v7 objectForKeyedSubscript:{@"DigitalFlashHighlightRecoveryEnabled", "BOOLValue"}];
-      v46 = [v7 objectForKeyedSubscript:@"StereoPhotoThresholdSNRThreshold"];
-      if (!v46)
+      v45 = [v7 objectForKeyedSubscript:@"StereoPhotoThresholdSNRThreshold"];
+      if (!v45)
       {
-        v46 = &unk_1F224A8C0;
+        v45 = &unk_1F224A8C0;
       }
 
-      [v46 floatValue];
-      v8->_stereoPhotoSNRThreshold = v47;
-      v48 = [v7 objectForKeyedSubscript:@"StereoPhotoSNRDifferenceSecondarySNRThreshold"];
-      if (!v48)
+      [v45 floatValue];
+      v8->_stereoPhotoSNRThreshold = v46;
+      v47 = [v7 objectForKeyedSubscript:@"StereoPhotoSNRDifferenceSecondarySNRThreshold"];
+      if (!v47)
       {
-        v48 = &unk_1F224A8C0;
+        v47 = &unk_1F224A8C0;
       }
 
-      [v48 floatValue];
-      v8->_stereoPhotoSNRDifferenceSecondarySNRThreshold = v49;
-      v50 = [v7 objectForKeyedSubscript:@"StereoPhotoSNRDifferenceThreshold"];
-      if (!v50)
+      [v47 floatValue];
+      v8->_stereoPhotoSNRDifferenceSecondarySNRThreshold = v48;
+      v49 = [v7 objectForKeyedSubscript:@"StereoPhotoSNRDifferenceThreshold"];
+      if (!v49)
       {
-        v50 = &unk_1F224A8C0;
+        v49 = &unk_1F224A8C0;
       }
 
-      [v50 floatValue];
-      v8->_stereoPhotoSNRDifferenceThreshold = v51;
-      v52 = [v7 objectForKeyedSubscript:@"ReferenceFrameSelectionParameters"];
-      v8->_referenceFrameSelectionMethod = [objc_msgSend(v52 objectForKeyedSubscript:{@"Method", "intValue"}];
-      v8->_usePreviousSIFR = [objc_msgSend(v52 objectForKeyedSubscript:{@"UsePreviousSIFR", "BOOLValue"}];
-      v8->_motionAndFocusScoreWeights = [v52 objectForKeyedSubscript:@"MotionAndFocusScoreWeights"];
+      [v49 floatValue];
+      v8->_stereoPhotoSNRDifferenceThreshold = v50;
+      v51 = [v7 objectForKeyedSubscript:@"ReferenceFrameSelectionParameters"];
+      v8->_referenceFrameSelectionMethod = [objc_msgSend(v51 objectForKeyedSubscript:{@"Method", "intValue"}];
+      v8->_usePreviousSIFR = [objc_msgSend(v51 objectForKeyedSubscript:{@"UsePreviousSIFR", "BOOLValue"}];
+      v8->_motionAndFocusScoreWeights = [v51 objectForKeyedSubscript:@"MotionAndFocusScoreWeights"];
     }
   }
 
@@ -248,14 +247,6 @@ LABEL_6:
   v9 = [(NSArray *)self->_deepFusionHDREVZeroCountByEffectiveIntegrationTime objectAtIndexedSubscript:v5 & 0xFFFFFFFE | 1];
 
   return [v9 intValue];
-}
-
-- (void)initWithPortType:(id *)a1 sensorIDDictionary:.cold.1(id *a1)
-{
-  fig_log_get_emitter();
-  FigDebugAssert3();
-
-  *a1 = 0;
 }
 
 @end

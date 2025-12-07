@@ -9,7 +9,7 @@
 - (UICellConfigurationState)_bridgedConfigurationState
 {
   ObjectType = swift_getObjectType();
-  v4 = sub_100058000(&unk_10077C040);
+  v4 = sub_100058000(&unk_10077C040, &unk_10063A210);
   __chkstk_darwin(v4 - 8);
   v6 = &v16 - v5;
   v7 = type metadata accessor for UICellConfigurationState();

@@ -230,7 +230,7 @@ uint64_t __81__CKMediaObjectAssetDataSourceManager__changeDetailsForDataSource_o
     v5 = mediaObjectDataSource;
     if (mediaObjectDataSource)
     {
-      [mediaObjectDataSource assetTypeCounts];
+      objc_msgSend_assetTypeCounts(mediaObjectDataSource);
     }
 
     else

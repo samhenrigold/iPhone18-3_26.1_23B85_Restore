@@ -1,4 +1,4 @@
-void ServerAuthUIInitLogging()
+void ServerAuthUIInitLogging(uint64_t result, uint64_t a2)
 {
   if (qword_10000CF58 != -1)
   {
@@ -37,103 +37,100 @@ void sub_100001C88(uint64_t a1)
   if (!*(a1 + 32))
   {
     v4 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [*(a1 + 56) count]);
+    v31 = 0u;
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
     obj = *(v1 + 56);
-    v5 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v5 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (!v5)
     {
       goto LABEL_23;
     }
 
     v6 = v5;
-    v7 = *v34;
-    v8 = &SecItemAdd_ptr;
-    v27 = v4;
-    v28 = v1;
-    v26 = *v34;
+    v7 = *v32;
+    v25 = v4;
+    v26 = v1;
+    v24 = *v32;
     while (1)
     {
-      v9 = 0;
-      v29 = v6;
+      v8 = 0;
+      v27 = v6;
       do
       {
-        if (*v34 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * v9);
-        v11 = v8[78];
-        v12 = objc_opt_new();
-        [v12 setType:{objc_msgSend(v10, "unsignedIntegerValue")}];
-        if ([v12 type] == 1)
+        v9 = *(*(&v31 + 1) + 8 * v8);
+        v10 = objc_opt_new();
+        [v10 setType:{objc_msgSend(v9, "unsignedIntegerValue")}];
+        if ([v10 type] == 1)
         {
-          v13 = *(v1 + 48);
-          v14 = *(v13 + 32);
-          v31 = 0;
-          v32 = 0;
-          [v14 getUsername:&v32 password:&v31 forServerURL:*(v13 + 24)];
-          v15 = v32;
-          v16 = v31;
-          v17 = [NSURLComponents componentsWithURL:*(*(v1 + 48) + 24) resolvingAgainstBaseURL:0];
-          v18 = [v17 user];
-          v19 = [v18 copy];
+          v11 = *(v1 + 48);
+          v12 = *(v11 + 32);
+          v29 = 0;
+          v30 = 0;
+          [v12 getUsername:&v30 password:&v29 forServerURL:*(v11 + 24)];
+          v13 = v30;
+          v14 = v29;
+          v15 = [NSURLComponents componentsWithURL:*(*(v1 + 48) + 24) resolvingAgainstBaseURL:0];
+          v16 = [v15 user];
+          v17 = [v16 copy];
 
-          if (v15 && v16)
+          if (v13 && v14)
           {
-            if (v19 && ![v19 isEqualToString:v15])
+            if (v17 && ![v17 isEqualToString:v13])
             {
-              v22 = 0;
-              v21 = v19;
-              v20 = v19;
+              v20 = 0;
+              v19 = v17;
+              v18 = v17;
             }
 
             else
             {
-              v20 = v15;
-              v21 = v16;
-              v22 = v16;
+              v18 = v13;
+              v19 = v14;
+              v20 = v14;
             }
 
 LABEL_19:
-            v25 = v21;
-            v23 = v22;
-            v24 = v20;
+            v23 = v19;
+            v21 = v20;
+            v22 = v18;
           }
 
           else
           {
+            v20 = 0;
+            v21 = 0;
             v22 = 0;
-            v23 = 0;
-            v24 = 0;
-            v21 = v19;
-            v20 = v19;
-            if (v19)
+            v19 = v17;
+            v18 = v17;
+            if (v17)
             {
               goto LABEL_19;
             }
           }
 
-          [v12 setUsername:v24];
-          [v12 setPassword:v23];
+          [v10 setUsername:v22];
+          [v10 setPassword:v21];
 
-          v4 = v27;
-          v1 = v28;
-          v7 = v26;
-          v8 = &SecItemAdd_ptr;
-          v6 = v29;
+          v4 = v25;
+          v1 = v26;
+          v7 = v24;
+          v6 = v27;
         }
 
-        [v4 addObject:v12];
+        [v4 addObject:v10];
 
-        v9 = v9 + 1;
+        v8 = v8 + 1;
       }
 
-      while (v6 != v9);
-      v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      while (v6 != v8);
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (!v6)
       {
 LABEL_23:
@@ -281,35 +278,61 @@ void sub_100002744(uint64_t a1)
   }
 }
 
-void sub_100003B60(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003B60(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100003B80(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003B80(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-void sub_100003BB0(void *a1)
+void sub_100003BB0(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  objc_opt_class();
-  sub_100003B60(&_mh_execute_header, v2, v3, "Unexpected item in keychain of type %@", v4, v5, v6, v7, 2u);
+  v2 = a1;
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = objc_opt_class();
+  sub_100003B60(&_mh_execute_header, v3, v4, "Unexpected item in keychain of type %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void sub_100003C3C(void *a1)
+void sub_100003C3C(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  objc_opt_class();
-  sub_100003B60(&_mh_execute_header, v2, v3, "Unexpected type %@ for username", v4, v5, v6, v7, 2u);
+  v2 = a1;
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = objc_opt_class();
+  sub_100003B60(&_mh_execute_header, v3, v4, "Unexpected type %@ for username", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void sub_100003CC8(void *a1)
+void sub_100003CC8(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  objc_opt_class();
-  sub_100003B60(&_mh_execute_header, v2, v3, "Unexpected type %@ for password data", v4, v5, v6, v7, 2u);
+  v2 = a1;
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = objc_opt_class();
+  sub_100003B60(&_mh_execute_header, v3, v4, "Unexpected type %@ for password data", v5, v6, v7, v8, v9, DWORD2(v9));
+}
+
+void sub_100003D98(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_100003B80(&_mh_execute_header, a2, a3, "Failed to update keychain entry (status: %d)", a5, a6, a7, a8, v8);
+}
+
+void sub_100003E04(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_100003B80(&_mh_execute_header, a2, a3, "Failed to add keychain entry (status: %d)", a5, a6, a7, a8, v8);
+}
+
+void sub_100003E70(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_100003B80(&_mh_execute_header, a2, a3, "Failed to delete keychain entry (status: %d)", a5, a6, a7, a8, v8);
 }

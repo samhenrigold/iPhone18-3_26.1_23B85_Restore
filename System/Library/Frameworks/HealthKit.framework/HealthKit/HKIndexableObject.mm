@@ -1,6 +1,7 @@
 @interface HKIndexableObject
 + (id)indexableObjectWithObject:(id)object;
 + (id)indexableObjectWithObject:(id)object compoundIndex:(unint64_t)index;
++ (id)indexableObjectWithObject:(id)object index:(unsigned __int8)index error:(id *)error;
 + (id)indexableObjectsByApplyingOutermostIndex:(id)index expectedCount:(int64_t)count error:(id *)error;
 - (HKIndexableObject)init;
 - (HKIndexableObject)initWithObject:(id)object compoundIndex:(unint64_t)index;
@@ -26,6 +27,24 @@
   v5 = [[self alloc] initWithObject:objectCopy compoundIndex:0];
 
   return v5;
+}
+
++ (id)indexableObjectWithObject:(id)object index:(unsigned __int8)index error:(id *)error
+{
+  indexCopy = index;
+  objectCopy = object;
+  if ((indexCopy & 0x80) != 0)
+  {
+    [MEMORY[0x1E696ABC0] hk_assignError:error code:3 format:{@"Attempt to create an indexable object with an index of %d (maximum allowed index is %ld)", indexCopy, 127}];
+    0x80 = 0;
+  }
+
+  else
+  {
+    0x80 = [[self alloc] initWithObject:objectCopy compoundIndex:indexCopy | 0x80];
+  }
+
+  return 0x80;
 }
 
 + (id)indexableObjectWithObject:(id)object compoundIndex:(unint64_t)index

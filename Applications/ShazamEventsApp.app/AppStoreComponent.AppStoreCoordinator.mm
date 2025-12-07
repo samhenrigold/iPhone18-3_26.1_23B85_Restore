@@ -25,7 +25,7 @@
 
 - (void)lockupViewDidFinishRequest:(id)request
 {
-  v5 = sub_100009F70(&qword_10021F7D0);
+  v5 = sub_100009F70(&qword_10021F7D0, &qword_1001AD340);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = *&self->subtitle[OBJC_IVAR____TtCV15ShazamEventsApp17AppStoreComponent19AppStoreCoordinator_subtitle];

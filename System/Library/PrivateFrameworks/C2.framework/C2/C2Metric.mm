@@ -86,7 +86,7 @@
 
 + (id)generateGenericEventWithName:(id)name genericMetricType:(int64_t)type startTime:(id)time endTime:(id)endTime attributes:(id)attributes
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   timeCopy = time;
   endTimeCopy = endTime;
@@ -116,8 +116,8 @@
     if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v31 = nameCopy;
-      v32 = 2048;
+      v30 = nameCopy;
+      v31 = 2048;
       typeCopy = type;
       _os_log_impl(&dword_242158000, v18, OS_LOG_TYPE_ERROR, "genericMetric with name %{public}@ had unknown metricType %llu", buf, 0x16u);
     }
@@ -151,20 +151,19 @@
   }
 
   [(C2MPGenericEvent *)v15 setTimestampEnd:v20];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __88__C2Metric_generateGenericEventWithName_genericMetricType_startTime_endTime_attributes___block_invoke_12;
-  v27[3] = &unk_278D402B0;
-  v28 = nameCopy;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __88__C2Metric_generateGenericEventWithName_genericMetricType_startTime_endTime_attributes___block_invoke_12;
+  v26[3] = &unk_278D402B0;
+  v27 = nameCopy;
   v21 = v15;
-  v29 = v21;
+  v28 = v21;
   v22 = nameCopy;
-  [attributesCopy enumerateKeysAndObjectsUsingBlock:v27];
+  [attributesCopy enumerateKeysAndObjectsUsingBlock:v26];
 
-  v23 = v29;
+  v23 = v28;
   v24 = v21;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -177,7 +176,7 @@ uint64_t __88__C2Metric_generateGenericEventWithName_genericMetricType_startTime
 
 void __88__C2Metric_generateGenericEventWithName_genericMetricType_startTime_endTime_attributes___block_invoke_12(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(C2MPGenericEventMetric);
@@ -221,13 +220,13 @@ void __88__C2Metric_generateGenericEventWithName_genericMetricType_startTime_end
           v11 = v9;
           v12 = objc_opt_class();
           v13 = NSStringFromClass(v12);
-          v17 = 138543874;
-          v18 = v10;
-          v19 = 2114;
-          v20 = v5;
-          v21 = 2114;
-          v22 = v13;
-          _os_log_impl(&dword_242158000, v11, OS_LOG_TYPE_ERROR, "genericMetric with name %{public}@ had key %{public}@ with unhandled metric type: %{public}@", &v17, 0x20u);
+          v16 = 138543874;
+          v17 = v10;
+          v18 = 2114;
+          v19 = v5;
+          v20 = 2114;
+          v21 = v13;
+          _os_log_impl(&dword_242158000, v11, OS_LOG_TYPE_ERROR, "genericMetric with name %{public}@ had key %{public}@ with unhandled metric type: %{public}@", &v16, 0x20u);
         }
 
         v8 = 0;
@@ -252,15 +251,13 @@ void __88__C2Metric_generateGenericEventWithName_genericMetricType_startTime_end
     if (os_log_type_enabled(C2_DEFAULT_LOG_INTERNAL_0, OS_LOG_TYPE_ERROR))
     {
       v15 = *(a1 + 32);
-      v17 = 138543618;
-      v18 = v15;
-      v19 = 2114;
-      v20 = v5;
-      _os_log_impl(&dword_242158000, v14, OS_LOG_TYPE_ERROR, "genericMetric with name %{public}@ encountered error processing key %{public}@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v15;
+      v18 = 2114;
+      v19 = v5;
+      _os_log_impl(&dword_242158000, v14, OS_LOG_TYPE_ERROR, "genericMetric with name %{public}@ encountered error processing key %{public}@", &v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__C2Metric_generateGenericEventWithName_genericMetricType_startTime_endTime_attributes___block_invoke_2()

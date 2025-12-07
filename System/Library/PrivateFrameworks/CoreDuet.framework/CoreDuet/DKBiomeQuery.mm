@@ -21,7 +21,7 @@ uint64_t __54___DKBiomeQuery_duetExclusiveStreamsFromEventStreams___block_invoke
   return v2 ^ 1;
 }
 
-id __38___DKBiomeQuery__publisherForStreams___block_invoke(uint64_t a1, void *a2)
+_DKEventAdapter *__38___DKBiomeQuery__publisherForStreams___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
@@ -94,31 +94,31 @@ id __38___DKBiomeQuery__publisherForStreams___block_invoke_2_639(uint64_t a1, vo
 
 id __38___DKBiomeQuery__publisherForStreams___block_invoke_3(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v24 = objc_autoreleasePoolPush();
+  v23 = objc_autoreleasePoolPush();
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         v12 = [v3 valueForKeyPath:v11];
         if (v12)
         {
@@ -130,7 +130,7 @@ id __38___DKBiomeQuery__publisherForStreams___block_invoke_3(uint64_t a1, void *
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
@@ -161,9 +161,7 @@ id __38___DKBiomeQuery__publisherForStreams___block_invoke_3(uint64_t a1, void *
   [v4 setObject:v18 forKeyedSubscript:v19];
 
   v21 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v4];
-  objc_autoreleasePoolPop(v24);
-
-  v22 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v23);
 
   return v21;
 }
@@ -257,7 +255,12 @@ id __68___DKBiomeQuery__publisherForQueryReturningIndividualResults_error___bloc
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
-  if (v5[4] || v5[3])
+  if (*(v5 + 24) == 0)
+  {
+    v12 = [v3 sortedArrayUsingDescriptors:*(v5 + 40)];
+  }
+
+  else
   {
     v6 = [v3 count];
     v7 = *(a1 + 32);
@@ -287,11 +290,6 @@ id __68___DKBiomeQuery__publisherForQueryReturningIndividualResults_error___bloc
     {
       v12 = MEMORY[0x1E695E0F0];
     }
-  }
-
-  else
-  {
-    v12 = [v3 sortedArrayUsingDescriptors:v5[5]];
   }
 
   return v12;
@@ -395,11 +393,10 @@ uint64_t __38___DKBiomeQuery_executeDeletionQuery___block_invoke(void *a1, void 
 
 void __40___DKBiomeQuery_executeBiomeQueryError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "_DKBiomeQuery publisher sink completion: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_191750000, a2, OS_LOG_TYPE_DEBUG, "_DKBiomeQuery publisher sink completion: %@", &v2, 0xCu);
 }
 
 @end

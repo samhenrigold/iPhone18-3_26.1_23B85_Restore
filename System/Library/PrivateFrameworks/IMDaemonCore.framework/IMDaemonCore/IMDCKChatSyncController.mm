@@ -337,7 +337,7 @@
 
 - (void)_processModifyPerRecordCallBack:(id)back error:(id)error recordIDtoGUIDmap:(id)dmap
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   backCopy = back;
   errorCopy = error;
   dmapCopy = dmap;
@@ -349,60 +349,58 @@
       recordID = [backCopy recordID];
       recordChangeTag = [backCopy recordChangeTag];
       *buf = 138412802;
-      v25 = recordID;
-      v26 = 2112;
-      v27 = recordChangeTag;
-      v28 = 2112;
-      v29 = errorCopy;
+      v24 = recordID;
+      v25 = 2112;
+      v26 = recordChangeTag;
+      v27 = 2112;
+      v28 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "per record completion block record %@ changeTag %@ error %@", buf, 0x20u);
     }
   }
 
   ckQueue = [(IMDCKChatSyncController *)self ckQueue];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = sub_22B6B0574;
-  v19[3] = &unk_278705748;
-  v20 = errorCopy;
-  v21 = backCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = sub_22B6B0574;
+  v18[3] = &unk_278705748;
+  v19 = errorCopy;
+  v20 = backCopy;
   selfCopy = self;
-  v23 = dmapCopy;
+  v22 = dmapCopy;
   v15 = dmapCopy;
   v16 = backCopy;
   v17 = errorCopy;
-  dispatch_sync(ckQueue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_sync(ckQueue, v18);
 }
 
 - (BOOL)_lockRecordHadConflict:(id)conflict
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   conflictCopy = conflict;
   if ([conflictCopy code] == 2)
   {
     userInfo = [conflictCopy userInfo];
     v5 = [userInfo valueForKey:*MEMORY[0x277CBBFB0]];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     allKeys = [v5 allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v7)
     {
-      v8 = *v19;
+      v8 = *v18;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           recordName = [v10 recordName];
           v12 = [recordName isEqualToString:@"chatLockRecordName"];
 
@@ -417,7 +415,7 @@
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v23 = v10;
+                  v22 = v10;
                   _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Got a conflict while fetching lock record %@", buf, 0xCu);
                 }
               }
@@ -428,7 +426,7 @@
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v17 objects:v23 count:16];
         if (v7)
         {
           continue;
@@ -447,13 +445,12 @@ LABEL_19:
     v14 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)_processModifyRecordCompletion:(id)completion deletedRecordIDs:(id)ds error:(id)error completionBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dsCopy = ds;
   errorCopy = error;
@@ -464,7 +461,7 @@ LABEL_19:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v29 = errorCopy;
+      v28 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "modifyRecordsCompletionBlock error %@", buf, 0xCu);
     }
   }
@@ -476,7 +473,7 @@ LABEL_19:
     {
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(completionCopy, "count")}];
       *buf = 138412290;
-      v29 = v16;
+      v28 = v16;
       _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Number of records saved %@", buf, 0xCu);
     }
   }
@@ -523,45 +520,43 @@ LABEL_19:
   if (blockCopy)
   {
     ckQueue = [(IMDCKChatSyncController *)self ckQueue];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = sub_22B6B0F5C;
-    v25[3] = &unk_2787028B0;
-    v27 = blockCopy;
-    v26 = v20;
-    dispatch_async(ckQueue, v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = sub_22B6B0F5C;
+    v24[3] = &unk_2787028B0;
+    v26 = blockCopy;
+    v25 = v20;
+    dispatch_async(ckQueue, v24);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeCKRecordsToChatZone:(id)zone activity:(id)activity withCompletion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   activityCopy = activity;
   completionCopy = completion;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v8 = zoneCopy;
-  v9 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v9)
   {
     v10 = 0;
-    v11 = *v38;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * i);
+        v13 = *(*(&v36 + 1) + 8 * i);
         recordType = [v13 recordType];
         v15 = [recordType isEqualToString:@"chatLockRecordType"];
 
@@ -589,7 +584,7 @@ LABEL_19:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v9);
@@ -600,20 +595,20 @@ LABEL_19:
       v21 = [cKOperationFactory saveChatsCKOperationUsingRecordsToSave:v8 activity:activityCopy];
 
       [v21 setPerRecordProgressBlock:&unk_283F1B128];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = sub_22B6B14E8;
-      v33[3] = &unk_278707DE0;
-      v33[4] = self;
-      v34 = dictionary;
-      [v21 setPerRecordCompletionBlock:v33];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = sub_22B6B14FC;
-      v31[3] = &unk_278703858;
-      v31[4] = self;
-      v32 = completionCopy;
-      [v21 setModifyRecordsCompletionBlock:v31];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = sub_22B6B14E8;
+      v32[3] = &unk_278707DE0;
+      v32[4] = self;
+      v33 = dictionary;
+      [v21 setPerRecordCompletionBlock:v32];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = sub_22B6B14FC;
+      v30[3] = &unk_278703858;
+      v30[4] = self;
+      v31 = completionCopy;
+      [v21 setModifyRecordsCompletionBlock:v30];
       if (IMOSLoggingEnabled())
       {
         v22 = OSLogHandleForIMFoundationCategory();
@@ -621,7 +616,7 @@ LABEL_19:
         {
           v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "count")}];
           *buf = 138412290;
-          v42 = v23;
+          v41 = v23;
           _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Attempting to write %@ records to truth zone ", buf, 0xCu);
         }
       }
@@ -653,14 +648,12 @@ LABEL_19:
     block[1] = 3221225472;
     block[2] = sub_22B6B146C;
     block[3] = &unk_2787028D8;
-    v36 = completionCopy;
+    v35 = completionCopy;
     dispatch_async(ckQueue, block);
 
-    v21 = v36;
+    v21 = v35;
 LABEL_28:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_numberOfChatsToFetch
@@ -697,7 +690,7 @@ LABEL_28:
 
 - (BOOL)_shouldResyncChatsForError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   if (![domain isEqualToString:*MEMORY[0x277D19CF8]])
@@ -720,28 +713,27 @@ LABEL_9:
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "We failed to sync Chats due to op lock Not doing ABC %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "We failed to sync Chats due to op lock Not doing ABC %@", &v9, 0xCu);
     }
   }
 
   v7 = 1;
 LABEL_10:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)_logGreenTeaLogsForChats:(id)chats
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   chatsCopy = chats;
-  v4 = [chatsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [chatsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v4)
   {
 
@@ -751,18 +743,18 @@ LABEL_10:
   v5 = v4;
   v6 = 0;
   v7 = 0;
-  v8 = *v19;
+  v8 = *v18;
   v9 = MEMORY[0x277D1A610];
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v19 != v8)
+      if (*v18 != v8)
       {
         objc_enumerationMutation(chatsCopy);
       }
 
-      v11 = *(*(&v18 + 1) + 8 * i);
+      v11 = *(*(&v17 + 1) + 8 * i);
       serviceName = [v11 serviceName];
       v13 = [serviceName isEqualToString:*v9];
 
@@ -806,7 +798,7 @@ LABEL_21:
       }
     }
 
-    v5 = [chatsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [chatsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       continue;
@@ -826,13 +818,11 @@ LABEL_21:
   }
 
 LABEL_23:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchChatRecordOperationWithActivity:(id)activity
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   if (IMOSLoggingEnabled())
   {
@@ -842,13 +832,13 @@ LABEL_23:
       latestSyncToken = [(IMDCKChatSyncController *)self latestSyncToken];
       _chatZoneID = [(IMDCKChatSyncController *)self _chatZoneID];
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[IMDCKChatSyncController _numberOfChatsToFetch](self, "_numberOfChatsToFetch")}];
-      v15 = 138412802;
-      v16 = latestSyncToken;
-      v17 = 2112;
-      v18 = _chatZoneID;
-      v19 = 2112;
-      v20 = v8;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Creating a fetch chat record operation using sync token %@ for zone %@ limit %@", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = latestSyncToken;
+      v16 = 2112;
+      v17 = _chatZoneID;
+      v18 = 2112;
+      v19 = v8;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Creating a fetch chat record operation using sync token %@ for zone %@ limit %@", &v14, 0x20u);
     }
   }
 
@@ -856,8 +846,6 @@ LABEL_23:
   latestSyncToken2 = [(IMDCKChatSyncController *)self latestSyncToken];
   _chatZoneID2 = [(IMDCKChatSyncController *)self _chatZoneID];
   v12 = [cKOperationFactory fetchChatZoneChangesCKOperationUsingToken:latestSyncToken2 zone:_chatZoneID2 resultsLimit:-[IMDCKChatSyncController _numberOfChatsToFetch](self activity:{"_numberOfChatsToFetch"), activityCopy}];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -909,7 +897,7 @@ LABEL_23:
 
 - (void)_anyChatExistsOnServerWithResultsLimit:(int)limit changeToken:(id)token activity:(id)activity completion:(id)completion
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   activityCopy = activity;
   completionCopy = completion;
@@ -934,9 +922,9 @@ LABEL_23:
     v14 = objc_alloc_init(MEMORY[0x277CBC3A0]);
     [v14 setResultsLimit:limit];
     [v14 setDesiredKeys:MEMORY[0x277CBEBF8]];
-    v47 = _chatZoneID;
-    v48[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+    v46 = _chatZoneID;
+    v47[0] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
     [v13 setConfigurationsByRecordZoneID:v15];
 
     v16 = objc_alloc_init(MEMORY[0x277CBC4F0]);
@@ -946,32 +934,32 @@ LABEL_23:
     [v13 setConfiguration:v16];
     operationID = [v13 operationID];
     *buf = 0;
-    v44 = buf;
-    v45 = 0x2020000000;
-    v46 = 0;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = sub_22B6B2418;
-    v35[3] = &unk_278707E08;
+    v43 = buf;
+    v44 = 0x2020000000;
+    v45 = 0;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = sub_22B6B2418;
+    v34[3] = &unk_278707E08;
     v18 = _chatZoneID;
-    v36 = v18;
-    v38 = buf;
+    v35 = v18;
+    v37 = buf;
     v19 = completionCopy;
-    v37 = v19;
-    [v13 setRecordChangedBlock:v35];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = sub_22B6B256C;
-    v27[3] = &unk_278707E30;
+    v36 = v19;
+    [v13 setRecordChangedBlock:v34];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_22B6B256C;
+    v26[3] = &unk_278707E30;
     v20 = operationID;
-    v28 = v20;
-    v33 = buf;
-    v29 = v18;
+    v27 = v20;
+    v32 = buf;
+    v28 = v18;
     selfCopy = self;
     limitCopy = limit;
-    v31 = activityCopy;
-    v32 = v19;
-    [v13 setRecordZoneFetchCompletionBlock:v27];
+    v30 = activityCopy;
+    v31 = v19;
+    [v13 setRecordZoneFetchCompletionBlock:v26];
     [(IMDCKChatSyncController *)self _scheduleOperation:v13];
     if (IMOSLoggingEnabled())
     {
@@ -979,11 +967,11 @@ LABEL_23:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         operationID2 = [v13 operationID];
-        *v39 = 138412546;
-        v40 = operationID2;
-        v41 = 1024;
+        *v38 = 138412546;
+        v39 = operationID2;
+        v40 = 1024;
         limitCopy2 = limit;
-        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Scheduled fetch changes operation to check for the existence of a single chat with identifier: %@ (batch size %d)", v39, 0x12u);
+        _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "Scheduled fetch changes operation to check for the existence of a single chat with identifier: %@ (batch size %d)", v38, 0x12u);
       }
     }
 
@@ -997,8 +985,6 @@ LABEL_23:
     (*(completionCopy + 2))(completionCopy, 0, v13);
 LABEL_13:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteChatZone
@@ -1016,11 +1002,11 @@ LABEL_13:
 
 - (BOOL)_eligibleForTruthZone
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   v3 = dispatch_semaphore_create(0);
   if (IMOSLoggingEnabled())
   {
@@ -1033,22 +1019,22 @@ LABEL_13:
   }
 
   ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_22B6B2BA0;
-  v16[3] = &unk_278707E58;
-  v18 = &v19;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_22B6B2BA0;
+  v15[3] = &unk_278707E58;
+  v17 = &v18;
+  v15[4] = self;
   v6 = v3;
-  v17 = v6;
-  [ckUtilities fetchCloudKitAccountStatusAndUpdateEligibilityAndNeedsRepairStatusWithCompletion:v16];
+  v16 = v6;
+  [ckUtilities fetchCloudKitAccountStatusAndUpdateEligibilityAndNeedsRepairStatusWithCompletion:v15];
 
   v7 = dispatch_time(0, 60000000000);
   if (dispatch_semaphore_wait(v6, v7))
   {
     syncState = [(IMDCKAbstractSyncController *)self syncState];
     isEligibleForTruthZone = [syncState isEligibleForTruthZone];
-    *(v20 + 24) = isEligibleForTruthZone;
+    *(v19 + 24) = isEligibleForTruthZone;
 
     if (IMOSLoggingEnabled())
     {
@@ -1065,7 +1051,7 @@ LABEL_13:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        if (*(v20 + 24))
+        if (*(v19 + 24))
         {
           v12 = @"YES";
         }
@@ -1076,16 +1062,15 @@ LABEL_13:
         }
 
         *buf = 138412290;
-        v24 = v12;
+        v23 = v12;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Returning cached value: %@", buf, 0xCu);
       }
     }
   }
 
-  v13 = *(v20 + 24);
+  v13 = *(v19 + 24);
 
-  _Block_object_dispose(&v19, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
   return v13 & 1;
 }
 
@@ -1097,7 +1082,7 @@ LABEL_13:
 
 - (BOOL)_shouldMarkAllChatsAsNeedingSync
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D1ACB8] = [MEMORY[0x277D1ACB8] sharedInstance];
   isUnderFirstDataProtectionLock = [mEMORY[0x277D1ACB8] isUnderFirstDataProtectionLock];
 
@@ -1123,13 +1108,12 @@ LABEL_13:
         v7 = @"YES";
       }
 
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "_shouldMarkAllChatsAsNeedingSync %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "_shouldMarkAllChatsAsNeedingSync %@", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1142,14 +1126,14 @@ LABEL_13:
 - (void)clearLocalSyncState:(unint64_t)state
 {
   stateCopy = state;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v21 = stateCopy;
+      v20 = stateCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Clearing local chat sync state, flags 0x%x", buf, 8u);
     }
   }
@@ -1178,32 +1162,32 @@ LABEL_13:
       }
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = +[IMDChatRegistry sharedInstance];
     chats = [v9 chats];
 
-    v11 = [chats countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v11 = [chats countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v11)
     {
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(chats);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) resetCKSyncState];
+          [*(*(&v14 + 1) + 8 * v13++) resetCKSyncState];
         }
 
         while (v11 != v13);
-        v11 = [chats countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [chats countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
@@ -1214,38 +1198,36 @@ LABEL_13:
   {
     [(IMDCKChatSyncController *)self _needsToMarkAllChatsAsNeedingSync];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_copyRecordIDsToDelete
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   chatRegistry = [(IMDCKChatSyncController *)self chatRegistry];
   copyRecordIDsAndGUIDsPendingCloudKitDelete = [chatRegistry copyRecordIDsAndGUIDsPendingCloudKitDelete];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   obj = copyRecordIDsAndGUIDsPendingCloudKitDelete;
-  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         v11 = objc_alloc(MEMORY[0x277CBC5D0]);
         v12 = [v10 valueForKey:@"recordID"];
         _chatZoneID = [(IMDCKChatSyncController *)self _chatZoneID];
@@ -1260,19 +1242,18 @@ LABEL_13:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)_handleChatDeletionCompletionForRecordIDs:(id)ds error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   errorCopy = error;
   if (IMOSLoggingEnabled())
@@ -1281,7 +1262,7 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = errorCopy;
+      v16 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "_handleChatDeletionCompletionForRecordIDs error %@", buf, 0xCu);
     }
   }
@@ -1291,13 +1272,13 @@ LABEL_13:
 
   if (v10)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_22B6B35EC;
-    v13[3] = &unk_278702FA0;
-    v14 = dsCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_22B6B35EC;
+    v12[3] = &unk_278702FA0;
+    v13 = dsCopy;
     selfCopy = self;
-    dispatch_sync(MEMORY[0x277D85CD0], v13);
+    dispatch_sync(MEMORY[0x277D85CD0], v12);
   }
 
   else if (IMOSLoggingEnabled())
@@ -1306,17 +1287,15 @@ LABEL_13:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = errorCopy;
+      v16 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Error deleteing chats from CloudKit %@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncPendingDeletionWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
   cloudKitSyncingEnabled = [ckUtilities cloudKitSyncingEnabled];
@@ -1333,20 +1312,20 @@ LABEL_13:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
-        v16 = [_copyRecordIDsToDelete count];
-        v17 = 2048;
-        v18 = [v9 count];
+        v15 = [_copyRecordIDsToDelete count];
+        v16 = 2048;
+        v17 = [v9 count];
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Got %lu recordIDs to sync, filtered to %lu unique recordIDs", buf, 0x16u);
       }
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_22B6B3A04;
-    v13[3] = &unk_2787044B0;
-    v13[4] = self;
-    v14 = completionCopy;
-    [(IMDCKChatSyncController *)self _filterRecordIDsToChatsWithNoRecentModifications:v9 completion:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_22B6B3A04;
+    v12[3] = &unk_2787044B0;
+    v12[4] = self;
+    v13 = completionCopy;
+    [(IMDCKChatSyncController *)self _filterRecordIDsToChatsWithNoRecentModifications:v9 completion:v12];
 
     goto LABEL_13;
   }
@@ -1367,8 +1346,6 @@ LABEL_13:
     (*(completionCopy + 2))(completionCopy, _copyRecordIDsToDelete);
 LABEL_13:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteChatRecordsWithRecordIDs:(id)ds completion:(id)completion
@@ -1413,7 +1390,7 @@ LABEL_13:
 
 - (void)_filterRecordIDsToChatsWithNoRecentModifications:(id)modifications completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   modificationsCopy = modifications;
   completionCopy = completion;
   date = [MEMORY[0x277CBEAA8] date];
@@ -1425,7 +1402,7 @@ LABEL_13:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v23 = v9;
+      v22 = v9;
       _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Filtering chat recordIDs to those with modification date after %@", buf, 0xCu);
     }
   }
@@ -1434,18 +1411,16 @@ LABEL_13:
   v12 = [cKOperationFactory fetchChatCKOperationUsingRecordIDs:modificationsCopy];
 
   [v12 setDesiredKeys:MEMORY[0x277CBEBF8]];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = sub_22B6B4038;
-  v19 = &unk_278703830;
-  v20 = v9;
-  v21 = completionCopy;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = sub_22B6B4038;
+  v18 = &unk_278703830;
+  v19 = v9;
+  v20 = completionCopy;
   v13 = completionCopy;
   v14 = v9;
-  [v12 setFetchRecordsCompletionBlock:&v16];
-  [(IMDCKChatSyncController *)self _scheduleOperation:v12, v16, v17, v18, v19];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v12 setFetchRecordsCompletionBlock:&v15];
+  [(IMDCKChatSyncController *)self _scheduleOperation:v12, v15, v16, v17, v18];
 }
 
 @end

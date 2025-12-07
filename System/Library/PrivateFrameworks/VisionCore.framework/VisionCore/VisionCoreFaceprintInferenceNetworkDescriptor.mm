@@ -305,10 +305,10 @@ LABEL_25:
   return v7;
 }
 
-void __88__VisionCoreFaceprintInferenceNetworkDescriptor_faceattributesForDescriptorIndentifier___block_invoke()
+void __88__VisionCoreFaceprintInferenceNetworkDescriptor_faceattributesForDescriptorIndentifier___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"FPrev4_0FArev1_4_MD2";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"FPrev4_0FArev1_4_MD2";
   objc_opt_self();
   objc_opt_self();
   if (faceAttributesV1_3_onceToken != -1)
@@ -316,11 +316,11 @@ void __88__VisionCoreFaceprintInferenceNetworkDescriptor_faceattributesForDescri
     dispatch_once(&faceAttributesV1_3_onceToken, &__block_literal_global_1866);
   }
 
-  v0 = faceAttributesV1_3_faceAttributes;
-  v4[0] = v0;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v2 = faceattributesForDescriptorIndentifier__descriptorIndentifiersToFaceattributes;
-  faceattributesForDescriptorIndentifier__descriptorIndentifiersToFaceattributes = v1;
+  v1 = faceAttributesV1_3_faceAttributes;
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v3 = faceattributesForDescriptorIndentifier__descriptorIndentifiersToFaceattributes;
+  faceattributesForDescriptorIndentifier__descriptorIndentifiersToFaceattributes = v2;
 }
 
 void __67__VisionCoreFaceprintInferenceNetworkDescriptor_faceAttributesV1_3__block_invoke()

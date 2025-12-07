@@ -271,7 +271,6 @@ LABEL_14:
   {
     if (self->_currentClockUUID && (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 4))
     {
-      currentClockUUID = self->_currentClockUUID;
       MOLogWrite();
     }
 

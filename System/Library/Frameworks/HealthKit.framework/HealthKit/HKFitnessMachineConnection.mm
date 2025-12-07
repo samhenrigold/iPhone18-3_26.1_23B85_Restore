@@ -12,29 +12,28 @@ void __51___HKFitnessMachineConnection_initWithHealthStore___block_invoke(uint64
 void __42___HKFitnessMachineConnection_description__block_invoke(uint64_t a1)
 {
   v2 = MEMORY[0x1E696AEC0];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v15 = NSStringFromClass(v4);
-  v5 = *(a1 + 32);
-  v6 = [v5 uuid];
-  v7 = [v6 UUIDString];
-  v8 = _HKStringForFitnessMachineConnectionState(*(*(a1 + 32) + 56));
-  v9 = v8;
-  v10 = *(*(a1 + 32) + 48);
-  if (v10 > 4)
+  v3 = objc_opt_class();
+  v14 = NSStringFromClass(v3);
+  v4 = *(a1 + 32);
+  v5 = [v4 uuid];
+  v6 = [v5 UUIDString];
+  v7 = _HKStringForFitnessMachineConnectionState(*(*(a1 + 32) + 56));
+  v8 = v7;
+  v9 = *(*(a1 + 32) + 48);
+  if (v9 > 4)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11 = off_1E737FA58[v10];
+    v10 = off_1E737FA58[v9];
   }
 
-  v12 = [v2 stringWithFormat:@"<%@ %p> %@ connectionState: %@ machineState: %@ %@", v15, v5, v7, v8, v11, *(*(a1 + 32) + 24)];
-  v13 = *(*(a1 + 40) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  v11 = [v2 stringWithFormat:@"<%@ %p> %@ connectionState: %@ machineState: %@ %@", v14, v4, v6, v7, v10, *(*(a1 + 32) + 24)];
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
 void __58___HKFitnessMachineConnection_currentSessionConfiguration__block_invoke(uint64_t a1)
@@ -84,7 +83,7 @@ uint64_t __52___HKFitnessMachineConnection_deviceForFinalWorkout__block_invoke(u
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v8, v10);
 }
 
 void __63___HKFitnessMachineConnection_clientRemote_deliverDetectedNFC___block_invoke_2(uint64_t a1)
@@ -151,7 +150,8 @@ void __118___HKFitnessMachineConnection_clientRemote_deliverConnectionChangedToS
     goto LABEL_4;
   }
 
-  if ([v4 isEqual:*(a1 + 40)])
+  v5 = [v4 isEqual:*(a1 + 40)];
+  if (v5)
   {
     v3 = *v2;
 LABEL_4:
@@ -159,30 +159,30 @@ LABEL_4:
     goto LABEL_8;
   }
 
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __118___HKFitnessMachineConnection_clientRemote_deliverConnectionChangedToState_fromState_fitnessMachineSessionUUID_error___block_invoke_cold_1(v2, (a1 + 40), v5);
+    __118___HKFitnessMachineConnection_clientRemote_deliverConnectionChangedToState_fromState_fitnessMachineSessionUUID_error___block_invoke_cold_1(v2, (a1 + 40), v7);
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 16);
-  *(v6 + 16) = 0;
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 16);
+  *(v8 + 16) = 0;
 
-  v8 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"SessionID mismatch."];
-  v9 = *(*(a1 + 48) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v10 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"SessionID mismatch."];
+  v11 = *(*(a1 + 48) + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = v10;
 
 LABEL_8:
-  v11 = *v2;
+  v13 = *v2;
   if (*(*v2 + 56) == 5)
   {
-    v12 = *(v11 + 16);
-    *(v11 + 16) = 0;
+    v14 = *(v13 + 16);
+    *(v13 + 16) = 0;
 
-    v13 = *(*v2 + 32);
+    v15 = *(*v2 + 32);
     *(*v2 + 32) = 0;
   }
 }
@@ -219,16 +219,14 @@ void __50___HKFitnessMachineConnection__simulateDisconnect__block_invoke_2(uint6
 {
   v7 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  _HKInitializeLogging();
-  v3 = HKLogWorkouts;
+  _HKInitializeLogging(v2, v3);
+  v4 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
     v6 = v2;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "Failed to simulate disconnect: %{public}@", &v5, 0xCu);
+    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "Failed to simulate disconnect: %{public}@", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __63___HKFitnessMachineConnection__connectionInterruptedWithError___block_invoke(uint64_t a1)
@@ -250,15 +248,14 @@ void __63___HKFitnessMachineConnection__connectionInterruptedWithError___block_i
 
 void __118___HKFitnessMachineConnection_clientRemote_deliverConnectionChangedToState_fromState_fitnessMachineSessionUUID_error___block_invoke_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *(*a1 + 16);
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Error currentSessionID: %@ not equal to machineSessionID: %@", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Error currentSessionID: %@ not equal to machineSessionID: %@", &v5, 0x16u);
 }
 
 @end

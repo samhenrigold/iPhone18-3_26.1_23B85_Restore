@@ -404,7 +404,7 @@
     v66 = 0u;
     if (v5)
     {
-      [(CAReplicatorLayer *)v5 instanceTransform];
+      objc_msgSend_instanceTransform(v5);
     }
 
     v61 = v69;
@@ -427,7 +427,7 @@
     v58 = 0u;
     if (v8)
     {
-      [(CALayer *)v8 transform];
+      objc_msgSend_transform(v8);
     }
 
     v54 = v8;

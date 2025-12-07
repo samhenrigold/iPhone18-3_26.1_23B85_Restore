@@ -55,19 +55,19 @@
 
 - (void)_queue_start
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v32.receiver = self;
-  v32.super_class = HDMCDaySummaryQueryServer;
-  [(HDQueryServer *)&v32 _queue_start];
+  v37 = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = HDMCDaySummaryQueryServer;
+  [(HDQueryServer *)&v31 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
 
   client = [(HDQueryServer *)self client];
   authorizationOracle = [client authorizationOracle];
   objectTypes = [(HDMCDaySummaryQueryServer *)self objectTypes];
-  v31 = 0;
-  v8 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v31];
-  v9 = v31;
+  v30 = 0;
+  v8 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v30];
+  v9 = v30;
 
   if (!v8)
   {
@@ -76,12 +76,12 @@
     goto LABEL_19;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   allValues = [v8 allValues];
-  v11 = [allValues countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v11 = [allValues countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (!v11)
   {
 
@@ -89,34 +89,34 @@ LABEL_18:
     queryUUID = [MEMORY[0x277D106B8] contextForReadingProtectedData];
     profile = [(HDQueryServer *)self profile];
     database = [profile database];
-    v25[4] = self;
-    v26 = v9;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __41__HDMCDaySummaryQueryServer__queue_start__block_invoke;
-    v25[3] = &unk_27865AFD8;
-    [database performTransactionWithContext:queryUUID error:&v26 block:v25 inaccessibilityHandler:0];
-    v23 = v26;
+    v24[4] = self;
+    v25 = v9;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __41__HDMCDaySummaryQueryServer__queue_start__block_invoke;
+    v24[3] = &unk_27865AFD8;
+    [database performTransactionWithContext:queryUUID error:&v25 block:v24 inaccessibilityHandler:0];
+    v23 = v25;
 
     v9 = v23;
     goto LABEL_19;
   }
 
   v12 = v11;
-  v13 = *v28;
+  v13 = *v27;
   canRead = 1;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v28 != v13)
+      if (*v27 != v13)
       {
         objc_enumerationMutation(allValues);
       }
 
       if (canRead)
       {
-        canRead = [*(*(&v27 + 1) + 8 * i) canRead];
+        canRead = [*(*(&v26 + 1) + 8 * i) canRead];
       }
 
       else
@@ -125,7 +125,7 @@ LABEL_18:
       }
     }
 
-    v12 = [allValues countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v12 = [allValues countByEnumeratingWithState:&v26 objects:v36 count:16];
   }
 
   while (v12);
@@ -142,9 +142,9 @@ LABEL_18:
     v17 = v16;
     v18 = objc_opt_class();
     *buf = 138543618;
-    v34 = v18;
-    v35 = 2114;
-    v36 = v8;
+    v33 = v18;
+    v34 = 2114;
+    v35 = v8;
     v19 = v18;
     _os_log_impl(&dword_2293D1000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Avoiding exposing health data due to missing authorization: %{public}@", buf, 0x16u);
   }
@@ -152,31 +152,29 @@ LABEL_18:
   queryUUID = [(HDQueryServer *)self queryUUID];
   [remoteObjectProxy client_deliverDaySummaries:MEMORY[0x277CBEBF8] clearPending:0 isFinalBatch:1 daySummaryAnchor:0 queryUUID:queryUUID];
 LABEL_19:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_surfaceDaySummariesWithError:(id *)error
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__7;
-  v57 = __Block_byref_object_dispose__7;
-  v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 1;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
+  v59 = *MEMORY[0x277D85DE8];
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__7;
+  v56 = __Block_byref_object_dispose__7;
+  v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v48 = 0;
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x2020000000;
-  v44[3] = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 1;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x2020000000;
+  v43[3] = 0;
   limit = [(HKMCDaySummaryQueryConfiguration *)self->_configuration limit];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
@@ -184,9 +182,9 @@ LABEL_19:
   v6 = MEMORY[0x277D10848];
   profile = [(HDQueryServer *)self profile];
   database = [profile database];
-  v43 = 0;
-  v9 = [v6 hdmc_daySummaryAnchorWithHealthDatabase:database error:&v43];
-  v10 = v43;
+  v42 = 0;
+  v9 = [v6 hdmc_daySummaryAnchorWithHealthDatabase:database error:&v42];
+  v10 = v42;
 
   if (!v9 && v10)
   {
@@ -195,7 +193,7 @@ LABEL_19:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = objc_opt_class();
-      [(HDMCDaySummaryQueryServer *)v12 _queue_surfaceDaySummariesWithError:v10, v59, v11];
+      [(HDMCDaySummaryQueryServer *)v12 _queue_surfaceDaySummariesWithError:v10, v58, v11];
     }
   }
 
@@ -203,33 +201,33 @@ LABEL_19:
   v14 = [HDMCDaySummaryEnumerator alloc];
   profile2 = [(HDQueryServer *)self profile];
   dayIndexRange = [(HKMCDaySummaryQueryConfiguration *)self->_configuration dayIndexRange];
-  LOBYTE(v31) = 0;
-  v18 = [(HDMCDaySummaryEnumerator *)v14 initWithProfile:profile2 calendarCache:v13 dayIndexRange:dayIndexRange ascending:v17 includeFactors:[(HKMCDaySummaryQueryConfiguration *)self->_configuration ascending] includeWristTemperature:0, v31];
+  LOBYTE(v30) = 0;
+  v18 = [(HDMCDaySummaryEnumerator *)v14 initWithProfile:profile2 calendarCache:v13 dayIndexRange:dayIndexRange ascending:v17 includeFactors:[(HKMCDaySummaryQueryConfiguration *)self->_configuration ascending] includeWristTemperature:0, v30];
 
-  v42 = v10;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __65__HDMCDaySummaryQueryServer__queue_surfaceDaySummariesWithError___block_invoke;
-  v34[3] = &unk_27865B000;
-  v34[4] = self;
-  v37 = &v45;
-  v38 = &v53;
+  v41 = v10;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __65__HDMCDaySummaryQueryServer__queue_surfaceDaySummariesWithError___block_invoke;
+  v33[3] = &unk_27865B000;
+  v33[4] = self;
+  v36 = &v44;
+  v37 = &v52;
   v19 = remoteObjectProxy;
-  v35 = v19;
-  v39 = &v49;
+  v34 = v19;
+  v38 = &v48;
   v20 = v9;
-  v36 = v20;
-  v40 = v44;
-  v41 = limit;
-  v21 = [(HDMCDaySummaryEnumerator *)v18 enumerateWithError:&v42 handler:v34];
-  v22 = v42;
+  v35 = v20;
+  v39 = v43;
+  v40 = limit;
+  v21 = [(HDMCDaySummaryEnumerator *)v18 enumerateWithError:&v41 handler:v33];
+  v22 = v41;
 
-  if ((v46[3] & 1) == 0)
+  if ((v45[3] & 1) == 0)
   {
     if (v21)
     {
-      v23 = v54[5];
-      v24 = *(v50 + 24);
+      v23 = v53[5];
+      v24 = *(v49 + 24);
       queryUUID = [(HDQueryServer *)self queryUUID];
       [v19 client_deliverDaySummaries:v23 clearPending:v24 isFinalBatch:1 daySummaryAnchor:v20 queryUUID:queryUUID];
     }
@@ -257,12 +255,11 @@ LABEL_19:
     }
   }
 
-  _Block_object_dispose(v44, 8);
-  _Block_object_dispose(&v45, 8);
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
 
-  v29 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

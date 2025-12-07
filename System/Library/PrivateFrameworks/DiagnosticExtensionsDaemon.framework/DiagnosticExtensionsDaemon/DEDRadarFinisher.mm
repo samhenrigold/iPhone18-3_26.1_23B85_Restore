@@ -62,7 +62,7 @@
 
 - (void)finishSession:(id)session withConfiguration:(id)configuration
 {
-  v105[3] = *MEMORY[0x277D85DE8];
+  v104[3] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   configurationCopy = configuration;
   v8 = [(DEDRadarFinisher *)self log];
@@ -77,7 +77,7 @@
   {
     radarProblemID = [configurationCopy radarProblemID];
     *buf = 138543362;
-    v99 = radarProblemID;
+    v98 = radarProblemID;
     _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_DEFAULT, "config.radarProblemID = %{public}@", buf, 0xCu);
   }
 
@@ -86,7 +86,7 @@
   {
     radarAuthToken = [configurationCopy radarAuthToken];
     *buf = 138543362;
-    v99 = radarAuthToken;
+    v98 = radarAuthToken;
     _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "config.radarAuthToken = %{public}@", buf, 0xCu);
   }
 
@@ -111,18 +111,18 @@
 
       [v19 setUpDataUsageWithConfiguration:configurationCopy];
       [v19 setRequestCachePolicy:1];
-      v104[0] = @"Accept";
-      v104[1] = @"Content-Type";
-      v105[0] = @"application/json";
-      v105[1] = @"application/json; charset=utf-8";
-      v104[2] = @"Radar-Authentication";
+      v103[0] = @"Accept";
+      v103[1] = @"Content-Type";
+      v104[0] = @"application/json";
+      v104[1] = @"application/json; charset=utf-8";
+      v103[2] = @"Radar-Authentication";
       radarAuthToken3 = [configurationCopy radarAuthToken];
-      v105[2] = radarAuthToken3;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:3];
+      v104[2] = radarAuthToken3;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:3];
       [v19 setHTTPAdditionalHeaders:v21];
 
-      v77 = v19;
-      v78 = v16;
+      v76 = v19;
+      v77 = v16;
       v22 = [MEMORY[0x277CCAD30] sessionWithConfiguration:v19 delegate:self delegateQueue:v16];
       [(DEDRadarFinisher *)self setUrlSession:v22];
 
@@ -137,66 +137,66 @@
       availableDiagnosticExtensions = [(DEDDiagnosticCollector *)v28 availableDiagnosticExtensions];
 
       v30 = objc_opt_new();
-      v79 = v26;
+      v78 = v26;
       identifier2 = [v26 identifier];
-      v76 = availableDiagnosticExtensions;
+      v75 = availableDiagnosticExtensions;
       v32 = [v30 collectedGroupsWithSessionIdentifier:identifier2 matchingExtensions:availableDiagnosticExtensions];
 
-      v96 = 0u;
-      v97 = 0u;
-      v94 = 0u;
       v95 = 0u;
+      v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
       obj = v32;
-      v82 = [obj countByEnumeratingWithState:&v94 objects:v103 count:16];
-      if (!v82)
+      v81 = [obj countByEnumeratingWithState:&v93 objects:v102 count:16];
+      if (!v81)
       {
         goto LABEL_41;
       }
 
-      v81 = *v95;
-      v84 = configurationCopy;
+      v80 = *v94;
+      v83 = configurationCopy;
       while (1)
       {
         v33 = 0;
         do
         {
-          if (*v95 != v81)
+          if (*v94 != v80)
           {
             objc_enumerationMutation(obj);
           }
 
-          v83 = v33;
-          v34 = *(*(&v94 + 1) + 8 * v33);
-          v88 = [(DEDRadarFinisher *)self folderNameForAttachmentGroup:v34];
+          v82 = v33;
+          v34 = *(*(&v93 + 1) + 8 * v33);
+          v87 = [(DEDRadarFinisher *)self folderNameForAttachmentGroup:v34];
+          v89 = 0u;
           v90 = 0u;
           v91 = 0u;
           v92 = 0u;
-          v93 = 0u;
           v35 = MEMORY[0x277D051E0];
           rootURL = [v34 rootURL];
           v37 = [v35 findAllfiles:rootURL];
 
-          v85 = v37;
-          v87 = [v37 countByEnumeratingWithState:&v90 objects:v102 count:16];
-          if (v87)
+          v84 = v37;
+          v86 = [v37 countByEnumeratingWithState:&v89 objects:v101 count:16];
+          if (v86)
           {
-            v86 = *v91;
+            v85 = *v90;
             do
             {
               v38 = 0;
               do
               {
-                if (*v91 != v86)
+                if (*v90 != v85)
                 {
-                  objc_enumerationMutation(v85);
+                  objc_enumerationMutation(v84);
                 }
 
-                v39 = *(*(&v90 + 1) + 8 * v38);
+                v39 = *(*(&v89 + 1) + 8 * v38);
                 v40 = [(DEDRadarFinisher *)self log];
                 if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v99 = v39;
+                  v98 = v39;
                   _os_log_impl(&dword_248AD7000, v40, OS_LOG_TYPE_DEFAULT, "Starting upload for %{public}@", buf, 0xCu);
                 }
 
@@ -207,20 +207,20 @@
                 v44 = [MEMORY[0x277CBEBC0] URLWithString:@"https://radar-webservices-ext.apple.com"];
                 v45 = MEMORY[0x277CCACA8];
                 radarProblemID4 = [configurationCopy radarProblemID];
-                v47 = [v45 stringWithFormat:@"problems/%@/attachments/%@/%@", radarProblemID4, v88, v43];
+                v47 = [v45 stringWithFormat:@"problems/%@/attachments/%@/%@", radarProblemID4, v87, v43];
                 v48 = [v44 URLByAppendingPathComponent:v47];
 
                 v49 = [(DEDRadarFinisher *)self log];
                 if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v99 = v48;
+                  v98 = v48;
                   _os_log_impl(&dword_248AD7000, v49, OS_LOG_TYPE_DEFAULT, "Calculated Radar API URL: %{public}@", buf, 0xCu);
                 }
 
-                v89 = 0;
-                v50 = [v39 checkResourceIsReachableAndReturnError:&v89];
-                v51 = v89;
+                v88 = 0;
+                v50 = [v39 checkResourceIsReachableAndReturnError:&v88];
+                v51 = v88;
                 if (v50)
                 {
                   selfCopy = self;
@@ -236,7 +236,7 @@
                     v58 = [[DEDRadarUploadItem alloc] initWithUploadTask:v57 andAttachment:v39];
                     v59 = MEMORY[0x277CCACA8];
                     lastPathComponent2 = [v39 lastPathComponent];
-                    v61 = [v59 stringWithFormat:@"%@/%@", v88, lastPathComponent2];
+                    v61 = [v59 stringWithFormat:@"%@/%@", v87, lastPathComponent2];
                     [(DEDRadarUploadItem *)v58 setRadarAttachmentName:v61];
 
                     [(DEDRadarUploadItem *)v58 setRadarURL:v48];
@@ -248,7 +248,7 @@
                     {
                       uploadItems2 = [(DEDRadarFinisher *)selfCopy uploadItems];
                       *buf = 138543362;
-                      v99 = uploadItems2;
+                      v98 = uploadItems2;
                       _os_log_impl(&dword_248AD7000, v63, OS_LOG_TYPE_DEFAULT, "self.uploadItems: %{public}@", buf, 0xCu);
                     }
 
@@ -260,14 +260,14 @@
                   if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v99 = v39;
+                    v98 = v39;
                     _os_log_error_impl(&dword_248AD7000, v57, OS_LOG_TYPE_ERROR, "File at URL %{public}@ is zero bytes in size, skipping", buf, 0xCu);
 LABEL_28:
-                    configurationCopy = v84;
+                    configurationCopy = v83;
                     goto LABEL_35;
                   }
 
-                  configurationCopy = v84;
+                  configurationCopy = v83;
                 }
 
                 else
@@ -284,9 +284,9 @@ LABEL_28:
                       v67 = localizedDescription;
                     }
 
-                    v99 = v39;
-                    v100 = 2114;
-                    v101 = v67;
+                    v98 = v39;
+                    v99 = 2114;
+                    v100 = v67;
                     _os_log_fault_impl(&dword_248AD7000, v57, OS_LOG_TYPE_FAULT, "File at URL %{public}@ encountered reachable error: %{public}@, skipping", buf, 0x16u);
                   }
                 }
@@ -296,27 +296,27 @@ LABEL_35:
                 ++v38;
               }
 
-              while (v87 != v38);
-              v68 = [v85 countByEnumeratingWithState:&v90 objects:v102 count:16];
-              v87 = v68;
+              while (v86 != v38);
+              v68 = [v84 countByEnumeratingWithState:&v89 objects:v101 count:16];
+              v86 = v68;
             }
 
             while (v68);
           }
 
-          v33 = v83 + 1;
+          v33 = v82 + 1;
         }
 
-        while (v83 + 1 != v82);
-        v82 = [obj countByEnumeratingWithState:&v94 objects:v103 count:16];
-        if (!v82)
+        while (v82 + 1 != v81);
+        v81 = [obj countByEnumeratingWithState:&v93 objects:v102 count:16];
+        if (!v81)
         {
 LABEL_41:
 
           uploadItems3 = [(DEDRadarFinisher *)self uploadItems];
           v70 = [uploadItems3 count];
 
-          sessionCopy = v79;
+          sessionCopy = v78;
           if (!v70)
           {
             v71 = [(DEDRadarFinisher *)self log];
@@ -347,13 +347,11 @@ LABEL_41:
 
   [sessionCopy didFinishUploadingWithError:0];
 LABEL_49:
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createUploadTaskForAttachment:(id)attachment atRadarURL:(id)l
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   v7 = [MEMORY[0x277CCAB70] requestWithURL:l cachePolicy:1 timeoutInterval:120.0];
   [v7 setHTTPMethod:@"PUT"];
@@ -364,14 +362,12 @@ LABEL_49:
   v10 = [(DEDRadarFinisher *)self log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543618;
-    v14 = attachmentCopy;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Starting upload for %{public}@ with task: %{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = attachmentCopy;
+    v14 = 2114;
+    v15 = v9;
+    _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Starting upload for %{public}@ with task: %{public}@", &v12, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -442,27 +438,27 @@ LABEL_6:
 
 - (id)getUploadItemForTask:(id)task
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   uploadItems = [(DEDRadarFinisher *)self uploadItems];
-  v6 = [uploadItems countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [uploadItems countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(uploadItems);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         taskIdentifier = [v9 taskIdentifier];
         if (taskIdentifier == [taskCopy taskIdentifier])
         {
@@ -471,7 +467,7 @@ LABEL_6:
         }
       }
 
-      v6 = [uploadItems countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [uploadItems countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -483,41 +479,39 @@ LABEL_6:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (BOOL)allUploadsComplete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   uploadItems = [(DEDRadarFinisher *)self uploadItems];
-  v3 = [uploadItems countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [uploadItems countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(uploadItems);
         }
 
-        if (![*(*(&v10 + 1) + 8 * i) isUploaded])
+        if (![*(*(&v9 + 1) + 8 * i) isUploaded])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [uploadItems countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [uploadItems countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -530,33 +524,32 @@ LABEL_11:
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)getVerificationTaskForDataTask:(id)task
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   verificationTasks = [(DEDRadarFinisher *)self verificationTasks];
-  v6 = [verificationTasks countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [verificationTasks countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(verificationTasks);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         dataTask = [v9 dataTask];
 
         if (dataTask == taskCopy)
@@ -566,7 +559,7 @@ LABEL_11:
         }
       }
 
-      v6 = [verificationTasks countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [verificationTasks countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -578,41 +571,39 @@ LABEL_11:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (BOOL)allVerificationTasksComplete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   verificationTasks = [(DEDRadarFinisher *)self verificationTasks];
-  v3 = [verificationTasks countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [verificationTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(verificationTasks);
         }
 
-        if (![*(*(&v10 + 1) + 8 * i) isFinished])
+        if (![*(*(&v9 + 1) + 8 * i) isFinished])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [verificationTasks countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [verificationTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -625,13 +616,12 @@ LABEL_11:
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)startAttachmentVerificationTasks
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   configuration = [(DEDRadarFinisher *)self configuration];
   radarProblemID = [configuration radarProblemID];
 
@@ -647,37 +637,37 @@ LABEL_11:
         configuration2 = [(DEDRadarFinisher *)self configuration];
         radarProblemID2 = [configuration2 radarProblemID];
         *buf = 138543362;
-        v35 = radarProblemID2;
+        v33 = radarProblemID2;
         _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Starting upload verification tasks for rdar://%{public}@", buf, 0xCu);
       }
 
-      v11 = MEMORY[0x277CBEBC0];
-      v12 = MEMORY[0x277CCACA8];
+      v10 = MEMORY[0x277CBEBC0];
+      v11 = MEMORY[0x277CCACA8];
       configuration3 = [(DEDRadarFinisher *)self configuration];
       radarProblemID3 = [configuration3 radarProblemID];
-      v15 = [v12 stringWithFormat:@"https://radar-webservices.apple.com/problems/%@/attachments", radarProblemID3];
-      v16 = [v11 URLWithString:v15];
+      v14 = [v11 stringWithFormat:@"https://radar-webservices.apple.com/problems/%@/attachments", radarProblemID3];
+      v15 = [v10 URLWithString:v14];
 
-      v17 = MEMORY[0x277CBEBC0];
-      v18 = MEMORY[0x277CCACA8];
+      v16 = MEMORY[0x277CBEBC0];
+      v17 = MEMORY[0x277CCACA8];
       configuration4 = [(DEDRadarFinisher *)self configuration];
       radarProblemID4 = [configuration4 radarProblemID];
-      v21 = [v18 stringWithFormat:@"https://radar-webservices.apple.com/problems/%@/pictures", radarProblemID4];
-      v22 = [v17 URLWithString:v21];
+      v20 = [v17 stringWithFormat:@"https://radar-webservices.apple.com/problems/%@/pictures", radarProblemID4];
+      v21 = [v16 URLWithString:v20];
 
       verificationTasks = [(DEDRadarFinisher *)self verificationTasks];
-      v24 = [DEDDataTask alloc];
+      v23 = [DEDDataTask alloc];
       urlSession = [(DEDRadarFinisher *)self urlSession];
-      v26 = [urlSession dataTaskWithURL:v16];
-      v27 = [(DEDDataTask *)v24 initWithDataTask:v26];
-      [verificationTasks addObject:v27];
+      v25 = [urlSession dataTaskWithURL:v15];
+      v26 = [(DEDDataTask *)v23 initWithDataTask:v25];
+      [verificationTasks addObject:v26];
 
       verificationTasks2 = [(DEDRadarFinisher *)self verificationTasks];
-      v29 = [DEDDataTask alloc];
+      v28 = [DEDDataTask alloc];
       urlSession2 = [(DEDRadarFinisher *)self urlSession];
-      v31 = [urlSession2 dataTaskWithURL:v22];
-      v32 = [(DEDDataTask *)v29 initWithDataTask:v31];
-      [verificationTasks2 addObject:v32];
+      v30 = [urlSession2 dataTaskWithURL:v21];
+      v31 = [(DEDDataTask *)v28 initWithDataTask:v30];
+      [verificationTasks2 addObject:v31];
     }
 
     else
@@ -689,13 +679,10 @@ LABEL_11:
 
       [(DEDRadarFinisher *)self finishRadarUploadSession];
     }
-
-    v33 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     [(DEDRadarFinisher *)self finishRadarUploadSession];
   }
@@ -703,37 +690,37 @@ LABEL_11:
 
 - (void)processVerifyTaskResults
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
   verificationTasks = [(DEDRadarFinisher *)self verificationTasks];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke;
-  v14[3] = &unk_278F65220;
-  v14[4] = self;
-  v14[5] = &v21;
-  v14[6] = &v15;
-  [verificationTasks enumerateObjectsUsingBlock:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke;
+  v13[3] = &unk_278F65220;
+  v13[4] = self;
+  v13[5] = &v20;
+  v13[6] = &v14;
+  [verificationTasks enumerateObjectsUsingBlock:v13];
 
   v4 = [(DEDRadarFinisher *)self log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [v16[5] count];
+    v5 = [v15[5] count];
     *buf = 134349056;
-    v26 = v5;
+    v25 = v5;
     _os_log_impl(&dword_248AD7000, v4, OS_LOG_TYPE_DEFAULT, "Attachments fetch task complete with count: %{public}lu", buf, 0xCu);
   }
 
-  if (*(v22 + 24) == 1)
+  if (*(v21 + 24) == 1)
   {
     v6 = [(DEDRadarFinisher *)self log];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -747,13 +734,13 @@ LABEL_11:
   else
   {
     uploadItems = [(DEDRadarFinisher *)self uploadItems];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_173;
-    v13[3] = &unk_278F65270;
-    v13[4] = self;
-    v13[5] = &v15;
-    [uploadItems enumerateObjectsUsingBlock:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_173;
+    v12[3] = &unk_278F65270;
+    v12[4] = self;
+    v12[5] = &v14;
+    [uploadItems enumerateObjectsUsingBlock:v12];
 
     if ([(DEDRadarFinisher *)self allUploadsComplete])
     {
@@ -774,24 +761,23 @@ LABEL_11:
       [verificationTasks2 removeAllObjects];
 
       uploadItems2 = [(DEDRadarFinisher *)self uploadItems];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176;
-      v12[3] = &unk_278F65298;
-      v12[4] = self;
-      [uploadItems2 enumerateObjectsUsingBlock:v12];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176;
+      v11[3] = &unk_278F65298;
+      v11[4] = self;
+      [uploadItems2 enumerateObjectsUsingBlock:v11];
     }
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v21, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 response];
   if (v6)
@@ -832,9 +818,9 @@ LABEL_12:
   v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v13 = MEMORY[0x277CCAAA0];
   v14 = [v5 data];
-  v30 = 0;
-  v15 = [v13 JSONObjectWithData:v14 options:4 error:&v30];
-  v16 = v30;
+  v29 = 0;
+  v15 = [v13 JSONObjectWithData:v14 options:4 error:&v29];
+  v16 = v29;
 
   if (v16)
   {
@@ -850,28 +836,28 @@ LABEL_12:
 
   else
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v25 = v15;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v24 = v15;
     v18 = v15;
-    v19 = [v18 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v27;
+      v21 = *v26;
       do
       {
         v22 = 0;
         do
         {
-          if (*v27 != v21)
+          if (*v26 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = [[DEDRadarAttachment alloc] initWithDictionary:*(*(&v26 + 1) + 8 * v22)];
+          v23 = [[DEDRadarAttachment alloc] initWithDictionary:*(*(&v25 + 1) + 8 * v22)];
           if (v23)
           {
             [v12 addObject:v23];
@@ -881,41 +867,40 @@ LABEL_12:
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v20);
     }
 
     [*(*(*(a1 + 48) + 8) + 40) unionSet:v12];
-    v15 = v25;
+    v15 = v24;
   }
 
 LABEL_24:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_173(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v27 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = 0;
   v4 = *(*(*(a1 + 40) + 8) + 40);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_2;
-  v19 = &unk_278F65248;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_2;
+  v18 = &unk_278F65248;
   v5 = v3;
-  v20 = v5;
-  v21 = &v22;
-  [v4 enumerateObjectsUsingBlock:&v16];
+  v19 = v5;
+  v20 = &v21;
+  [v4 enumerateObjectsUsingBlock:&v15];
   v6 = *(a1 + 32);
-  if (v23[5])
+  if (v22[5])
   {
     v7 = [v6 log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -924,9 +909,9 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_173(uint64_t 
       v9 = [v8 radarProblemID];
       v10 = [v5 radarAttachmentName];
       *buf = 138543618;
-      v29 = v9;
-      v30 = 2114;
-      v31 = v10;
+      v28 = v9;
+      v29 = 2114;
+      v30 = v10;
       _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Attachment verification (%{public}@): (SUCCESS) %{public}@", buf, 0x16u);
     }
   }
@@ -936,21 +921,20 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_173(uint64_t 
     v11 = [v6 log];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [*(a1 + 32) configuration];
-      v14 = [v13 radarProblemID];
-      v15 = [v5 radarAttachmentName];
+      v12 = [*(a1 + 32) configuration];
+      v13 = [v12 radarProblemID];
+      v14 = [v5 radarAttachmentName];
       *buf = 138543618;
-      v29 = v14;
-      v30 = 2114;
-      v31 = v15;
+      v28 = v13;
+      v29 = 2114;
+      v30 = v14;
       _os_log_error_impl(&dword_248AD7000, v11, OS_LOG_TYPE_ERROR, "Attachment verification (%{public}@): (FAILURE) %{public}@", buf, 0x16u);
     }
 
     [v5 setIsUploaded:0];
   }
 
-  _Block_object_dispose(&v22, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 }
 
 void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
@@ -1004,23 +988,23 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176(uint64_t 
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v7 = [(DEDRadarFinisher *)self log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138543362;
-    v19 = taskCopy;
-    _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "urlSessionTask complete: %{public}@", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = taskCopy;
+    _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "urlSessionTask complete: %{public}@", &v17, 0xCu);
   }
 
   v8 = [(DEDRadarFinisher *)self log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     response = [taskCopy response];
-    v18 = 138543362;
-    v19 = response;
-    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = response;
+    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@", &v17, 0xCu);
   }
 
   v10 = [(DEDRadarFinisher *)self getUploadItemForTask:taskCopy];
@@ -1032,18 +1016,18 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176(uint64_t 
     v13 = [(DEDRadarFinisher *)self log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543362;
-      v19 = v10;
-      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "Finished upload item: %{public}@", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v10;
+      _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "Finished upload item: %{public}@", &v17, 0xCu);
     }
 
     v14 = [(DEDRadarFinisher *)self log];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       uploadItems = [(DEDRadarFinisher *)self uploadItems];
-      v18 = 138543362;
-      v19 = uploadItems;
-      _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_DEFAULT, "self.uploadItems: %{public}@", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = uploadItems;
+      _os_log_impl(&dword_248AD7000, v14, OS_LOG_TYPE_DEFAULT, "self.uploadItems: %{public}@", &v17, 0xCu);
     }
 
     if ([(DEDRadarFinisher *)self allUploadsComplete])
@@ -1058,9 +1042,9 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176(uint64_t 
     v16 = [(DEDRadarFinisher *)self log];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v12;
-      _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Finished verification task: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v12;
+      _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Finished verification task: %@", &v17, 0xCu);
     }
 
     if ([(DEDRadarFinisher *)self allVerificationTasksComplete])
@@ -1068,43 +1052,41 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176(uint64_t 
       [(DEDRadarFinisher *)self processVerifyTaskResults];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpectedToSend:(int64_t)send
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v10 = [(DEDRadarFinisher *)self getUploadItemForTask:task];
   [v10 setTotalBytesSent:sent];
   [v10 setTotalBytesExpectedToSend:send];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   uploadItems = [(DEDRadarFinisher *)self uploadItems];
-  v12 = [uploadItems countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v12 = [uploadItems countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
     v15 = 0;
-    v16 = *v29;
+    v16 = *v28;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(uploadItems);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
+        v18 = *(*(&v27 + 1) + 8 * i);
         v15 += [v18 totalBytesSent];
         v14 += [v18 totalBytesExpectedToSend];
       }
 
-      v13 = [uploadItems countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v13 = [uploadItems countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v13);
@@ -1127,9 +1109,9 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176(uint64_t 
       config = [session config];
       radarProblemID = [config radarProblemID];
       *buf = 138543618;
-      v33 = radarProblemID;
-      v34 = 1026;
-      v35 = ((v15 / v14) * 100.0);
+      v32 = radarProblemID;
+      v33 = 1026;
+      v34 = ((v15 / v14) * 100.0);
       _os_log_impl(&dword_248AD7000, v21, OS_LOG_TYPE_DEFAULT, "DEDRadarFinisher upload percentComplete (%{public}@): %{public}i%%", buf, 0x12u);
     }
 
@@ -1138,8 +1120,6 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176(uint64_t 
     session2 = [(DEDRadarFinisher *)self session];
     [session2 uploadProgress:v15 total:v14];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
@@ -1197,22 +1177,20 @@ void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_176(uint64_t 
 
 void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCAA40];
   v2 = [a1 response];
   v3 = [v1 localizedStringForStatusCode:{objc_msgSend(v2, "statusCode")}];
-  OUTLINED_FUNCTION_2(&dword_248AD7000, v4, v5, "Response headers for verification task indicate an invalid response code: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 138412290;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_2(&dword_248AD7000, v4, v5, "Response headers for verification task indicate an invalid response code: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void __44__DEDRadarFinisher_processVerifyTaskResults__block_invoke_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_2(&dword_248AD7000, v2, v3, "DEDRadarFinisher failed to deserialize attachments response: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_2(&dword_248AD7000, v2, v3, "DEDRadarFinisher failed to deserialize attachments response: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

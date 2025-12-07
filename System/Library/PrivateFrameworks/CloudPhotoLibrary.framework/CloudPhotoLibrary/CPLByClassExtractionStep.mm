@@ -7,7 +7,7 @@
 
 - (BOOL)extractToBatch:(id)batch maximumCount:(unint64_t)count maximumResourceSize:(unint64_t)size error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   storage = [(CPLBatchExtractionStep *)self storage];
   if (self->_maximumCount >= count)
@@ -21,49 +21,49 @@
   }
 
   (self->_query)(self);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v13 = v43 = 0u;
-  v38 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (v38)
+  v13 = v42 = 0u;
+  v37 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v37)
   {
     errorCopy = error;
     v14 = 0;
     v15 = 0;
-    v16 = *v41;
-    v33 = batchCopy;
-    v34 = v13;
-    v36 = storage;
+    v16 = *v40;
+    v32 = batchCopy;
+    v33 = v13;
+    v35 = storage;
     sizeCopy = size;
     while (2)
     {
       v17 = 0;
       v18 = v14 + 1;
-      v32 = v14 + v38;
+      v31 = v14 + v37;
       v19 = v15;
       do
       {
-        if (*v41 != v16)
+        if (*v40 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v40 + 1) + 8 * v17);
+        v20 = *(*(&v39 + 1) + 8 * v17);
         if ([v20 supportsResources] && objc_msgSend(v20, "hasChangeType:", 8))
         {
           v21 = [v20 effectiveResourceSizeToUploadUsingStorage:storage];
           if (v21 > sizeCopy)
           {
             batch = [batchCopy batch];
-            v35 = [batch count];
+            v34 = [batch count];
 
-            batchCopy = v33;
-            v13 = v34;
-            if (v35)
+            batchCopy = v32;
+            v13 = v33;
+            if (v34)
             {
               v15 = v19;
-              storage = v36;
+              storage = v35;
 LABEL_27:
               [batchCopy setFull:1];
               goto LABEL_28;
@@ -77,13 +77,13 @@ LABEL_27:
           }
 
           sizeCopy = v23;
-          storage = v36;
+          storage = v35;
         }
 
         [batchCopy addChange:v20 fromStorage:storage];
-        v39 = v19;
-        v24 = [storage removeChange:v20 error:&v39];
-        v15 = v39;
+        v38 = v19;
+        v24 = [storage removeChange:v20 error:&v38];
+        v15 = v38;
 
         if (!v24)
         {
@@ -100,7 +100,7 @@ LABEL_27:
             v27 = 0;
           }
 
-          v28 = v34;
+          v28 = v33;
           goto LABEL_29;
         }
 
@@ -114,10 +114,10 @@ LABEL_27:
         v19 = v15;
       }
 
-      while (v38 != v17);
-      v25 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
-      v14 = v32;
-      v38 = v25;
+      while (v37 != v17);
+      v25 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v14 = v31;
+      v37 = v25;
       if (v25)
       {
         continue;
@@ -138,7 +138,6 @@ LABEL_28:
   v27 = 1;
 LABEL_29:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

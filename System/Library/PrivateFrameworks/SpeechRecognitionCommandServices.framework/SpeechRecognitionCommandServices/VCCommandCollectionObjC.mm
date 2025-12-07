@@ -24,12 +24,10 @@
 {
   if (*(self + OBJC_IVAR___VCCommandCollectionObjC_representedCollection + 8))
   {
-    v2 = *(self + OBJC_IVAR___VCCommandCollectionObjC_representedCollection);
-    v3 = *(self + OBJC_IVAR___VCCommandCollectionObjC_representedCollection + 8);
 
-    v4 = sub_26B542A74();
+    v2 = sub_26B542A74();
 
-    return v4;
+    return v2;
   }
 
   else

@@ -42,7 +42,7 @@
 
 void __79__LACDTOLocationProviderModeDecorator_checkIsInFamiliarLocationWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -50,14 +50,14 @@ void __79__LACDTOLocationProviderModeDecorator_checkIsInFamiliarLocationWithComp
     if (a2)
     {
       v6 = +[LACDTOLocationState strictLocationState];
-      v7 = LACLogDTOLocation();
+      v7 = LACLogDTOLocation(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138543618;
-        v10 = v5;
-        v11 = 2112;
-        v12 = v6;
-        _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will use strict mode value %@", &v9, 0x16u);
+        v8 = 138543618;
+        v9 = v5;
+        v10 = 2112;
+        v11 = v6;
+        _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will use strict mode value %@", &v8, 0x16u);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -68,8 +68,6 @@ void __79__LACDTOLocationProviderModeDecorator_checkIsInFamiliarLocationWithComp
       [WeakRetained[1] checkIsInFamiliarLocationWithCompletion:*(a1 + 32)];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkIsFeatureStrictModeEnabledWithCompletion:(id)completion

@@ -189,7 +189,7 @@
 
 void __69__GTMTLCaptureServiceXPCProxy_startWithDescriptor_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_opt_new();
@@ -219,11 +219,11 @@ void __69__GTMTLCaptureServiceXPCProxy_startWithDescriptor_completionHandler___b
       }
 
       v27 = *MEMORY[0x277CCA498];
-      v38[0] = *MEMORY[0x277CCA450];
-      v38[1] = v27;
-      v39[0] = @"Capture Service serialization issue";
-      v39[1] = @"Failure to encode data from requested";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+      v37[0] = *MEMORY[0x277CCA450];
+      v37[1] = v27;
+      v38[0] = @"Capture Service serialization issue";
+      v38[1] = @"Failure to encode data from requested";
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
       v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"GTCaptureService" code:54 userInfo:v18];
       [v8 setError:v28];
 
@@ -241,9 +241,9 @@ void __69__GTMTLCaptureServiceXPCProxy_startWithDescriptor_completionHandler___b
       v18 = [v13 initWithObjects:{v14, v15, v16, v17, objc_opt_class(), 0}];
       v19 = MEMORY[0x277CCAAC8];
       v20 = [nsobject data];
-      v35 = v6;
-      v21 = [v19 unarchivedObjectOfClasses:v18 fromData:v20 error:&v35];
-      v22 = v35;
+      v34 = v6;
+      v21 = [v19 unarchivedObjectOfClasses:v18 fromData:v20 error:&v34];
+      v22 = v34;
 
       if (v21)
       {
@@ -276,11 +276,11 @@ void __69__GTMTLCaptureServiceXPCProxy_startWithDescriptor_completionHandler___b
         }
 
         v31 = *MEMORY[0x277CCA498];
-        v36[0] = *MEMORY[0x277CCA450];
-        v36[1] = v31;
-        v37[0] = @"Capture Service deserialization issue";
-        v37[1] = @"Failure to decode data from requested";
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+        v35[0] = *MEMORY[0x277CCA450];
+        v35[1] = v31;
+        v36[0] = @"Capture Service deserialization issue";
+        v36[1] = @"Failure to decode data from requested";
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
         v33 = [MEMORY[0x277CCA9B8] errorWithDomain:@"GTCaptureService" code:54 userInfo:v32];
         [v8 setError:v33];
 
@@ -298,8 +298,6 @@ void __69__GTMTLCaptureServiceXPCProxy_startWithDescriptor_completionHandler___b
     (*(*(a1 + 40) + 16))();
     [*(a1 + 32) completed];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)update:(id)update
@@ -358,11 +356,10 @@ void __69__GTMTLCaptureServiceXPCProxy_startWithDescriptor_completionHandler___b
 
 - (void)startWithDescriptor:(uint64_t)a1 completionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_DEBUG, "StartWithDescriptor: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_DEBUG, "StartWithDescriptor: %@", &v2, 0xCu);
 }
 
 @end

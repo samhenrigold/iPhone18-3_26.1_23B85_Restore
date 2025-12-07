@@ -10,13 +10,13 @@
 
 - (_BlastDoorCKDeviceToDeviceShareInvitationToken)initWithSharingInvitationData:(id)data shareURL:(id)l participantID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
   dCopy = d;
-  v17.receiver = self;
-  v17.super_class = _BlastDoorCKDeviceToDeviceShareInvitationToken;
-  v11 = [(_BlastDoorCKDeviceToDeviceShareInvitationToken *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = _BlastDoorCKDeviceToDeviceShareInvitationToken;
+  v11 = [(_BlastDoorCKDeviceToDeviceShareInvitationToken *)&v16 init];
   if (v11)
   {
     v12 = [dataCopy copy];
@@ -29,7 +29,6 @@
     [(_BlastDoorCKDeviceToDeviceShareInvitationToken *)v11 setParticipantID:v14];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -75,11 +74,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v12.receiver = self;
-  v12.super_class = _BlastDoorCKDeviceToDeviceShareInvitationToken;
-  if ([(_BlastDoorCKDeviceToDeviceShareInvitationToken *)&v12 isEqual:equalCopy])
+  v11.receiver = self;
+  v11.super_class = _BlastDoorCKDeviceToDeviceShareInvitationToken;
+  if ([(_BlastDoorCKDeviceToDeviceShareInvitationToken *)&v11 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -117,7 +116,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

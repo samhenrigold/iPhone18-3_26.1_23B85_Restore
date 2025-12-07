@@ -160,7 +160,7 @@ LABEL_7:
 
 - (void)initializeWithElementFactory:(id)factory
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   dataSourceElement = [(IKDSEBoundItemsImpl *)self dataSourceElement];
   updateType = [dataSourceElement updateType];
@@ -168,7 +168,7 @@ LABEL_7:
   bindingController = [dataSourceElement2 bindingController];
   domElement = [bindingController domElement];
 
-  v37 = domElement;
+  v36 = domElement;
   domib_appDataSet = [domElement domib_appDataSet];
   [(IKDSEBoundItemsImpl *)self setDataSet:domib_appDataSet];
 
@@ -177,27 +177,27 @@ LABEL_7:
   usedPrototypesByIdentifier = [dataSet usedPrototypesByIdentifier];
 
   v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(usedPrototypesByIdentifier, "count")}];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v36 = usedPrototypesByIdentifier;
+  v35 = usedPrototypesByIdentifier;
   allValues = [usedPrototypesByIdentifier allValues];
-  v13 = [allValues countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v13 = [allValues countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v45;
+    v15 = *v44;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v45 != v15)
+        if (*v44 != v15)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v17 = *(*(&v44 + 1) + 8 * i);
+        v17 = *(*(&v43 + 1) + 8 * i);
         usageIndexes = [v17 usageIndexes];
         v19 = [usageIndexes count];
 
@@ -209,7 +209,7 @@ LABEL_7:
         }
       }
 
-      v14 = [allValues countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v14 = [allValues countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v14);
@@ -218,29 +218,29 @@ LABEL_7:
   [(IKDSEBoundItemsImpl *)selfCopy setUsedPrototypeMappingsByIdentifier:v11];
   if ((updateType & 0xFFFFFFFFFFFFFFFBLL) == 0)
   {
-    v35 = dataSourceElement;
+    v34 = dataSourceElement;
     unfilteredChildren = [dataSourceElement unfilteredChildren];
     v23 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(unfilteredChildren, "count")}];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v24 = unfilteredChildren;
-    v25 = [v24 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v39 objects:v47 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v41;
+      v27 = *v40;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v41 != v27)
+          if (*v40 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v40 + 1) + 8 * j);
+          v29 = *(*(&v39 + 1) + 8 * j);
           attributes = [v29 attributes];
           v31 = [attributes objectForKeyedSubscript:@"itemID"];
 
@@ -250,7 +250,7 @@ LABEL_7:
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v39 objects:v47 count:16];
       }
 
       while (v26);
@@ -259,10 +259,8 @@ LABEL_7:
     v32 = [v23 copy];
     [(IKDSEBoundItemsImpl *)selfCopy setChildrenByItemID:v32];
 
-    dataSourceElement = v35;
+    dataSourceElement = v34;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureUpdatesWithImplementation:(id)implementation
@@ -315,7 +313,7 @@ LABEL_7:
 
 - (void)applyUpdatesWithImplementation:(id)implementation usingUpdater:(id)updater
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   implementationCopy = implementation;
   updaterCopy = updater;
   v8 = implementationCopy;
@@ -323,11 +321,11 @@ LABEL_7:
   updateType = [dataSourceElement updateType];
 
   [(IKDSEBoundItemsImpl *)self setPrototypeBundle:0];
-  v74 = objc_opt_new();
+  v73 = objc_opt_new();
   itemsChangeSet = [v8 itemsChangeSet];
   visibleIndexSet = [(IKDSEBoundItemsImpl *)self visibleIndexSet];
   v13 = visibleIndexSet;
-  v75 = itemsChangeSet;
+  v74 = itemsChangeSet;
   selfCopy = self;
   if (itemsChangeSet)
   {
@@ -347,9 +345,9 @@ LABEL_7:
           [indexSet addIndex:v17];
           v19 = [MEMORY[0x277CCABB0] numberWithInteger:firstIndex];
           v20 = [MEMORY[0x277CCABB0] numberWithInteger:v18];
-          [v74 setObject:v19 forKeyedSubscript:v20];
+          [v73 setObject:v19 forKeyedSubscript:v20];
 
-          itemsChangeSet = v75;
+          itemsChangeSet = v74;
         }
 
         visibleIndexSet3 = [(IKDSEBoundItemsImpl *)self visibleIndexSet];
@@ -359,8 +357,8 @@ LABEL_7:
       [(IKDSEBoundItemsImpl *)self setVisibleIndexSet:indexSet];
     }
 
-    removedIndexes = [itemsChangeSet removedIndexes];
-    v23 = [removedIndexes mutableCopy];
+    v22 = objc_msgSend_removedIndexes(itemsChangeSet);
+    v23 = [v22 mutableCopy];
     v24 = v23;
     if (v23)
     {
@@ -374,31 +372,31 @@ LABEL_7:
 
     proxiedItemElementsByItemID2 = indexSet2;
 
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
     v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
     updatedIndexesByNewIndex = [itemsChangeSet updatedIndexesByNewIndex];
     allValues = [updatedIndexesByNewIndex allValues];
 
-    v29 = [allValues countByEnumeratingWithState:&v88 objects:v96 count:16];
+    v29 = [allValues countByEnumeratingWithState:&v87 objects:v95 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v89;
+      v31 = *v88;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v89 != v31)
+          if (*v88 != v31)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [proxiedItemElementsByItemID2 addIndex:{objc_msgSend(*(*(&v88 + 1) + 8 * i), "integerValue")}];
+          [proxiedItemElementsByItemID2 addIndex:{objc_msgSend(*(*(&v87 + 1) + 8 * i), "integerValue")}];
         }
 
-        v30 = [allValues countByEnumeratingWithState:&v88 objects:v96 count:16];
+        v30 = [allValues countByEnumeratingWithState:&v87 objects:v95 count:16];
       }
 
       while (v30);
@@ -431,39 +429,39 @@ LABEL_7:
   v39 = v38;
   if ((updateType & 0xFFFFFFFFFFFFFFFDLL) == 1)
   {
-    v73 = v8;
+    v72 = v8;
     v40 = MEMORY[0x277CBEB38];
     unfilteredChildren = [v38 unfilteredChildren];
-    v78 = [v40 dictionaryWithCapacity:{objc_msgSend(unfilteredChildren, "count")}];
+    v77 = [v40 dictionaryWithCapacity:{objc_msgSend(unfilteredChildren, "count")}];
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v83 = 0u;
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v72 = v39;
+    v71 = v39;
     unfilteredChildren2 = [v39 unfilteredChildren];
-    v43 = [unfilteredChildren2 countByEnumeratingWithState:&v84 objects:v95 count:16];
+    v43 = [unfilteredChildren2 countByEnumeratingWithState:&v83 objects:v94 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v85;
+      v45 = *v84;
       do
       {
         for (j = 0; j != v44; ++j)
         {
-          if (*v85 != v45)
+          if (*v84 != v45)
           {
             objc_enumerationMutation(unfilteredChildren2);
           }
 
-          v47 = *(*(&v84 + 1) + 8 * j);
+          v47 = *(*(&v83 + 1) + 8 * j);
           attributes = [v47 attributes];
           v49 = [attributes objectForKeyedSubscript:@"itemID"];
 
           if ([v49 length])
           {
-            [v78 setObject:v47 forKeyedSubscript:v49];
+            [v77 setObject:v47 forKeyedSubscript:v49];
             if ([v47 updateType])
             {
               dataSet3 = [(IKDSEBoundItemsImpl *)selfCopy dataSet];
@@ -476,7 +474,7 @@ LABEL_7:
                 if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v94 = v49;
+                  v93 = v49;
                   _os_log_error_impl(&dword_2549A4000, v53, OS_LOG_TYPE_ERROR, "child element not found in data set: %@", buf, 0xCu);
                 }
               }
@@ -488,17 +486,17 @@ LABEL_7:
           }
         }
 
-        v44 = [unfilteredChildren2 countByEnumeratingWithState:&v84 objects:v95 count:16];
+        v44 = [unfilteredChildren2 countByEnumeratingWithState:&v83 objects:v94 count:16];
       }
 
       while (v44);
     }
 
-    [(IKDSEBoundItemsImpl *)selfCopy setChildrenByItemID:v78];
+    [(IKDSEBoundItemsImpl *)selfCopy setChildrenByItemID:v77];
     v56 = [[IKChangeSet alloc] initWithAddedIndexes:0 removedIndexes:0 movedIndexesByNewIndex:0 updatedIndexesByNewIndex:dictionary];
-    if (v75)
+    if (v74)
     {
-      v57 = [v75 changeSetByConcatenatingChangeSet:v56];
+      v57 = [v74 changeSetByConcatenatingChangeSet:v56];
       [(IKDSEBoundItemsImpl *)selfCopy setItemsChangeSet:v57];
     }
 
@@ -507,33 +505,33 @@ LABEL_7:
       [(IKDSEBoundItemsImpl *)selfCopy setItemsChangeSet:v56];
     }
 
-    usedPrototypeMappingsByIdentifier = [v73 usedPrototypeMappingsByIdentifier];
+    usedPrototypeMappingsByIdentifier = [v72 usedPrototypeMappingsByIdentifier];
+    v79 = 0u;
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
-    v83 = 0u;
     allValues2 = [usedPrototypeMappingsByIdentifier allValues];
-    v61 = [allValues2 countByEnumeratingWithState:&v80 objects:v92 count:16];
+    v61 = [allValues2 countByEnumeratingWithState:&v79 objects:v91 count:16];
     if (v61)
     {
       v62 = v61;
-      v63 = *v81;
+      v63 = *v80;
       do
       {
         for (k = 0; k != v62; ++k)
         {
-          if (*v81 != v63)
+          if (*v80 != v63)
           {
             objc_enumerationMutation(allValues2);
           }
 
-          v65 = *(*(&v80 + 1) + 8 * k);
+          v65 = *(*(&v79 + 1) + 8 * k);
           dataSourceElement2 = [(IKDSEBoundItemsImpl *)selfCopy dataSourceElement];
           viewElement = [v65 viewElement];
           [dataSourceElement2 adoptElement:viewElement];
         }
 
-        v62 = [allValues2 countByEnumeratingWithState:&v80 objects:v92 count:16];
+        v62 = [allValues2 countByEnumeratingWithState:&v79 objects:v91 count:16];
       }
 
       while (v62);
@@ -545,81 +543,79 @@ LABEL_7:
     allKeys = [childrenByItemID allKeys];
     [proxiedItemElementsByItemID3 removeObjectsForKeys:allKeys];
 
-    v8 = v73;
-    v58 = v75;
-    v39 = v72;
+    v8 = v72;
+    v58 = v74;
+    v39 = v71;
   }
 
   else
   {
-    v58 = v75;
+    v58 = v74;
     if (updateType == 4)
     {
       visibleIndexSet4 = [(IKDSEBoundItemsImpl *)self visibleIndexSet];
       [v8 setVisibleIndexSet:?];
     }
   }
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStylesUsingUpdater:(id)updater
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   updaterCopy = updater;
   [(IKDSEBoundItemsImpl *)self setPrototypeBundle:0];
   updaterCopy[2](updaterCopy);
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   prototypes = [(IKDSEBoundItemsImpl *)self prototypes];
-  v6 = [prototypes countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v6 = [prototypes countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(prototypes);
         }
 
-        [*(*(&v31 + 1) + 8 * i) appDocumentDidMarkStylesDirty];
+        [*(*(&v30 + 1) + 8 * i) appDocumentDidMarkStylesDirty];
       }
 
-      v7 = [prototypes countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v7 = [prototypes countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   proxiedItemElements = [(IKDSEBoundItemsImpl *)self proxiedItemElements];
-  v11 = [proxiedItemElements countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v11 = [proxiedItemElements countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(proxiedItemElements);
         }
 
-        [*(*(&v27 + 1) + 8 * j) appDocumentDidMarkStylesDirty];
+        [*(*(&v26 + 1) + 8 * j) appDocumentDidMarkStylesDirty];
       }
 
-      v12 = [proxiedItemElements countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v12 = [proxiedItemElements countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v12);
@@ -655,41 +651,39 @@ LABEL_7:
   {
     [(IKDSEBoundItemsImpl *)self setItemsChangeSet:v22];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)masterPrototypes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   usedPrototypeMappingsByIdentifier = [(IKDSEBoundItemsImpl *)self usedPrototypeMappingsByIdentifier];
   allValues = [usedPrototypeMappingsByIdentifier allValues];
 
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(allValues, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = allValues;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        viewElement = [*(*(&v14 + 1) + 8 * i) viewElement];
+        viewElement = [*(*(&v13 + 1) + 8 * i) viewElement];
         [v4 addObject:viewElement];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -704,8 +698,6 @@ LABEL_7:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -728,38 +720,36 @@ LABEL_7:
 
 - (void)resetImplicitUpdates
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   proxiedItemElements = [(IKDSEBoundItemsImpl *)self proxiedItemElements];
-  v3 = [proxiedItemElements countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [proxiedItemElements countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(proxiedItemElements);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) resetImplicitUpdates];
+        [*(*(&v7 + 1) + 8 * v6++) resetImplicitUpdates];
       }
 
       while (v4 != v6);
-      v4 = [proxiedItemElements countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [proxiedItemElements countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)proxyElementForLoadedChildElement:(id)element
@@ -994,32 +984,32 @@ void __55__IKDSEBoundItemsImpl__appendVisibleIndexSetWithIndex___block_invoke_2(
 
 void __57__IKDSEBoundItemsImpl__initializePrototypeBundleIfNeeded__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v3 = [*(a1 + 32) usedPrototypeMappingsByIdentifier];
   v4 = [v3 allValues];
 
   obj = v4;
-  v22 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v22)
+  v21 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v21)
   {
-    v21 = *v24;
+    v20 = *v23;
     v5 = 0x277CCA000uLL;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
         v7 = v5;
-        if (*v24 != v21)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [v8 viewElement];
         v10 = [v8 usageIndexes];
         v11 = [v9 style];
@@ -1055,14 +1045,13 @@ void __57__IKDSEBoundItemsImpl__initializePrototypeBundleIfNeeded__block_invoke(
         }
       }
 
-      v22 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   [*(a1 + 32) setPrototypeBundle:v2];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (IKDataSourceElement)dataSourceElement

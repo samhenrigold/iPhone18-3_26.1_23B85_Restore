@@ -1,6 +1,6 @@
-void sub_100000C78()
+void sub_100000C78(uint64_t a1)
 {
-  v14 = DLGetDeviceLinkConnectionContext();
+  v15 = DLGetDeviceLinkConnectionContext();
   if (DLShouldLog())
   {
     _DLLog();
@@ -12,64 +12,64 @@ void sub_100000C78()
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  v1 = 0;
-  v2 = "/Library/Caches/com.apple.xbs/Sources/Sync/SyncAgent/SyncAgent.m";
-  v3 = "incomingConnectionCallback";
-  v4 = @"Running DataMigrator found with pid %d. Sleeping and waiting for it to finish...";
-  while (!v1)
+  v2 = 0;
+  v3 = "/Library/Caches/com.apple.xbs/Sources/Sync/SyncAgent/SyncAgent.m";
+  v4 = "incomingConnectionCallback";
+  v5 = @"Running DataMigrator found with pid %d. Sleeping and waiting for it to finish...";
+  while (!v2)
   {
 LABEL_11:
-    v17 = 0;
-    *v16 = xmmword_1000059E8;
+    v18 = 0;
+    *v17 = xmmword_1000059E8;
     size = 0;
-    v1 = sysctl(v16, 3u, 0, &size, 0, 0);
-    if (!v1)
+    v2 = sysctl(v17, 3u, 0, &size, 0, 0);
+    if (!v2)
     {
-      v5 = malloc_type_malloc(size, 0x10B2040B74D5165uLL);
-      v6 = sysctl(v16, 3u, v5, &size, 0, 0);
-      if (v6)
+      v6 = malloc_type_malloc(size, 0x10B2040B74D5165uLL);
+      v7 = sysctl(v17, 3u, v6, &size, 0, 0);
+      if (v7)
       {
-        v1 = v6;
-        free(v5);
+        v2 = v7;
+        free(v6);
       }
 
       else
       {
-        v7 = v4;
-        v8 = v3;
-        v9 = v2;
+        v8 = v5;
+        v9 = v4;
+        v10 = v3;
         if (size < 0x288)
         {
 LABEL_19:
-          free(v5);
-          v1 = -1;
+          free(v6);
+          v2 = -1;
         }
 
         else
         {
-          v10 = size / 0x288;
-          v11 = v5 + 243;
+          v11 = size / 0x288;
+          v12 = v6 + 243;
           while (1)
           {
-            v1 = *(v11 - 203);
-            if (v1 >= 1 && !strncmp("DataMigrator", v11, 0x10uLL))
+            v2 = *(v12 - 203);
+            if (v2 >= 1 && !strncmp("DataMigrator", v12, 0x10uLL))
             {
               break;
             }
 
-            v11 += 648;
-            if (!--v10)
+            v12 += 648;
+            if (!--v11)
             {
               goto LABEL_19;
             }
           }
 
-          free(v5);
+          free(v6);
         }
 
-        v2 = v9;
-        v3 = v8;
-        v4 = v7;
+        v3 = v10;
+        v4 = v9;
+        v5 = v8;
       }
     }
 
@@ -94,7 +94,7 @@ LABEL_19:
     }
   }
 
-  if (v1 != -1)
+  if (v2 != -1)
   {
     if (DLShouldLog())
     {
@@ -120,7 +120,7 @@ LABEL_19:
 
   else
   {
-    *(v14 + 56) = kCFBooleanTrue;
+    *(v15 + 56) = kCFBooleanTrue;
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSync.SyncAgent.kSyncAgentSyncStarted", 0, 0, 0);
     sub_100003870();
@@ -160,19 +160,29 @@ void sub_1000010E4()
 
 id sub_100001134(uint64_t a1, uint64_t a2)
 {
-  v3 = objc_alloc_init(NSAutoreleasePool);
-  v4 = DLGetDeviceLinkConnectionContext();
+  v4 = objc_alloc_init(NSAutoreleasePool);
+  cf = 0;
+  v5 = DLGetDeviceLinkConnectionContext();
   if (DLShouldLog())
   {
-    v9 = a2;
+    v10 = a2;
     _DLLog();
   }
 
-  if (*(v4 + 48) == kCFBooleanTrue)
+  if (*(v5 + 48) == kCFBooleanTrue)
   {
-    if (j__DLDeleteDeviceLinkConnection() && DLShouldLog())
+    if (j__DLDeleteDeviceLinkConnection(a1, &cf))
     {
-      _DLLog();
+      if (DLShouldLog())
+      {
+        _DLLog();
+      }
+
+      if (cf)
+      {
+        CFRelease(cf);
+        cf = 0;
+      }
     }
 
     Current = CFRunLoopGetCurrent();
@@ -187,8 +197,8 @@ id sub_100001134(uint64_t a1, uint64_t a2)
   {
     if (dword_10000C0D0 == 1)
     {
-      v5 = DLGetDeviceLinkConnectionInfo();
-      MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v5);
+      v6 = DLGetDeviceLinkConnectionInfo();
+      MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v6);
       if (!sub_100003610(MutableCopy, dword_10000C0D0))
       {
         if (DLShouldLog())
@@ -196,7 +206,7 @@ id sub_100001134(uint64_t a1, uint64_t a2)
           _DLLog();
         }
 
-        [v3 drain];
+        [v4 drain];
         exit(0);
       }
     }
@@ -217,11 +227,11 @@ id sub_100001134(uint64_t a1, uint64_t a2)
     }
   }
 
-  sub_100003904(v4);
+  sub_100003904(v5);
   sub_100003D84();
   byte_10000C329 = 0;
   SBSSetStatusBarShowsSyncActivity();
-  return [v3 drain];
+  return [v4 drain];
 }
 
 id sub_100001370(uint64_t a1)
@@ -256,11 +266,11 @@ uint64_t sub_100001430()
   return result;
 }
 
-id sub_100001488(uint64_t a1, const void *a2, NSDictionary *a3, const __CFBoolean *a4, uint64_t a5)
+id sub_100001488(uint64_t a1, const void *a2, NSDictionary *a3, CFBooleanRef a4, uint64_t a5)
 {
   v10 = objc_alloc_init(NSAutoreleasePool);
-  v47[0] = 0;
-  v11 = DLGetDeviceLinkConnectionContext();
+  v46[0] = 0;
+  DLGetDeviceLinkConnectionContext();
   if (!a3)
   {
     a3 = +[NSDictionary dictionary];
@@ -269,29 +279,29 @@ id sub_100001488(uint64_t a1, const void *a2, NSDictionary *a3, const __CFBoolea
   Count = CFDictionaryGetCount(a3);
   if (DLShouldLog())
   {
-    v13 = "s";
+    v12 = "s";
     if (Count == 1)
     {
-      v13 = "";
+      v12 = "";
     }
 
     v43 = a4;
     v44 = a5;
     v40 = a2;
     v41 = Count;
-    v42 = v13;
+    v42 = v12;
     _DLLog();
   }
 
   if (SyncPlaybackEnabled())
   {
     Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-    v15 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-    CFArrayAppendValue(v15, a2);
-    CFArrayAppendValue(Mutable, v15);
-    CFRelease(v15);
+    v14 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+    CFArrayAppendValue(v14, a2);
+    CFArrayAppendValue(Mutable, v14);
+    CFRelease(v14);
     CFDictionaryApplyFunction(a3, sub_100003B80, Mutable);
-    v16 = &selRef_dictionary;
+    v15 = &selRef_dictionary;
     if (!qword_10000C338)
     {
       qword_10000C338 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
@@ -312,100 +322,98 @@ id sub_100001488(uint64_t a1, const void *a2, NSDictionary *a3, const __CFBoolea
           CFArrayInsertValueAtIndex(qword_10000C338, 0, qword_10000C340);
         }
 
-        v47[1] = 0;
+        v46[1] = 0;
         if (DLShouldLog())
         {
           _DLLog();
         }
 
-        v46 = v11;
-        v17 = CFStringCreateWithFormat(0, 0, @"%@/%@", @"/Library/Logs/MobileSync", a2, v42, v43, v44);
+        v16 = CFStringCreateWithFormat(0, 0, @"%@/%@", @"/Library/Logs/MobileSync", a2, v42, v43, v44);
         if (DLShouldLog())
         {
-          v40 = v17;
+          v40 = v16;
           _DLLog();
         }
 
-        v18 = CFStringGetLength(v17) + 24;
-        v19 = malloc_type_malloc(v18, 0x74500D01uLL);
-        if (v19)
+        v17 = CFStringGetLength(v16) + 24;
+        v18 = malloc_type_malloc(v17, 0x74500D01uLL);
+        if (v18)
         {
-          v20 = v19;
-          Length = CFStringGetLength(v17);
-          v22 = malloc_type_malloc(Length + 1, 0xF1D3D613uLL);
-          v23 = CFStringGetLength(v17);
-          if (!CFStringGetCString(v17, v22, v23 + 1, 0x600u) && DLShouldLog())
+          v19 = v18;
+          Length = CFStringGetLength(v16);
+          v21 = malloc_type_malloc(Length + 1, 0xF1D3D613uLL);
+          v22 = CFStringGetLength(v16);
+          if (!CFStringGetCString(v16, v21, v22 + 1, 0x600u) && DLShouldLog())
           {
             _DLLog();
           }
 
           v45 = v10;
           DLEnsureDirectoryExists();
-          if (v17)
+          if (v16)
           {
-            CFRelease(v17);
+            CFRelease(v16);
           }
 
-          v24 = 0;
-          memset(&v48, 0, sizeof(v48));
+          v23 = 0;
+          memset(&v47, 0, sizeof(v47));
           do
           {
-            v25 = v24 + 1;
-            snprintf(v20, v18, "%s/%s.%02d.plist", v22, "SyncPlayback", v24);
-            v26 = stat(v20, &v48);
-            v24 = v25;
+            v24 = v23 + 1;
+            snprintf(v19, v17, "%s/%s.%02d.plist", v21, "SyncPlayback", v23);
+            v25 = stat(v19, &v47);
+            v23 = v24;
           }
 
-          while (!v26);
-          v27 = CFStringCreateWithCString(0, v20, 0x600u);
-          free(v20);
+          while (!v25);
+          v26 = CFStringCreateWithCString(0, v19, 0x600u);
+          free(v19);
           v10 = v45;
-          v16 = &selRef_dictionary;
+          v15 = &selRef_dictionary;
         }
 
         else
         {
-          if (v17)
+          if (v16)
           {
-            CFRelease(v17);
+            CFRelease(v16);
           }
 
           if (DLShouldLog())
           {
-            v40 = v18;
+            v40 = v17;
             _DLLog();
           }
 
-          v27 = 0;
+          v26 = 0;
         }
 
-        v28 = CFStringGetLength(v27);
-        v29 = malloc_type_malloc(v28 + 1, 0x1068515uLL);
-        v30 = CFStringGetLength(v27);
-        v11 = v46;
-        if (!CFStringGetCString(v27, v29, v30 + 1, 0x600u) && DLShouldLog())
+        v27 = CFStringGetLength(v26);
+        v28 = malloc_type_malloc(v27 + 1, 0x1068515uLL);
+        v29 = CFStringGetLength(v26);
+        if (!CFStringGetCString(v26, v28, v29 + 1, 0x600u) && DLShouldLog())
         {
           _DLLog();
         }
 
-        if (v27)
+        if (v26)
         {
-          CFRelease(v27);
+          CFRelease(v26);
         }
 
-        v31 = strlen(v29);
-        v32 = CFURLCreateFromFileSystemRepresentation(0, v29, v31, 0);
+        v30 = strlen(v28);
+        v31 = CFURLCreateFromFileSystemRepresentation(0, v28, v30, 0);
         if (!DLWritePropertyListToFile() && DLShouldLog())
         {
           _DLLog();
         }
 
-        if (v32)
+        if (v31)
         {
-          CFRelease(v32);
+          CFRelease(v31);
         }
 
-        free(v29);
+        free(v28);
       }
 
       else if (DLShouldLog())
@@ -413,11 +421,11 @@ id sub_100001488(uint64_t a1, const void *a2, NSDictionary *a3, const __CFBoolea
         _DLLog();
       }
 
-      v33 = v16[103];
-      if (v33)
+      v32 = v15[103];
+      if (v32)
       {
-        CFRelease(v33);
-        v16[103] = 0;
+        CFRelease(v32);
+        v15[103] = 0;
       }
     }
 
@@ -427,47 +435,46 @@ id sub_100001488(uint64_t a1, const void *a2, NSDictionary *a3, const __CFBoolea
     }
   }
 
-  v34 = *(v11 + 16);
-  v35 = DataSourceProcessChanges();
-  if (v35)
+  v33 = DataSourceProcessChanges();
+  if (v33)
   {
-    v36 = v35;
+    v36 = v33;
     if (DLShouldLog())
     {
       v40 = v36;
-      v41 = v47[0];
+      v41 = v46[0];
       _DLLog();
     }
 
-    if (v47[0])
+    if (v46[0])
     {
-      CFRelease(v47[0]);
-      v47[0] = 0;
+      CFRelease(v46[0]);
+      v46[0] = 0;
     }
   }
 
-  v37 = sub_1000050C4(a1, a2, 0, v47);
+  v37 = sub_1000050C4(a1, a2, 0, v46, v34, v35);
   if (v37)
   {
     v38 = v37;
     if (DLShouldLog())
     {
       v40 = v38;
-      v41 = v47[0];
+      v41 = v46[0];
       _DLLog();
     }
 
-    if (v47[0])
+    if (v46[0])
     {
-      CFRelease(v47[0]);
-      v47[0] = 0;
+      CFRelease(v46[0]);
+      v46[0] = 0;
     }
   }
 
   return [v10 drain];
 }
 
-id sub_100001A9C(uint64_t a1, uint64_t a2, uint64_t a3)
+id sub_100001A9C(uint64_t a1, uint64_t a2, const void *a3)
 {
   v5 = objc_alloc_init(NSAutoreleasePool);
   v6 = DLGetDeviceLinkConnectionContext();
@@ -494,7 +501,7 @@ id sub_100001A9C(uint64_t a1, uint64_t a2, uint64_t a3)
   return [v5 drain];
 }
 
-id sub_100001B94(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, const __CFNumber *a5, const __CFDictionary *a6)
+id sub_100001B94(uint64_t a1, const __CFString *a2, const void *a3, const void *a4, const __CFNumber *a5, const __CFDictionary *a6)
 {
   v10 = objc_alloc_init(NSAutoreleasePool);
   cf = 0;
@@ -503,20 +510,20 @@ id sub_100001B94(uint64_t a1, const __CFString *a2, uint64_t a3, uint64_t a4, co
   {
     if (DLShouldLog())
     {
-      v31 = a2;
+      v33 = a2;
       _DLLog();
     }
 
-    v12 = @"This data class is disabled for tethered syncing on the device.";
+    v14 = @"This data class is disabled for tethered syncing on the device.";
 LABEL_67:
-    v28 = sub_100004F00(a1, a2, v12, &cf);
-    if (v28)
+    v30 = sub_100004F00(a1, a2, v14, &cf, v12, v13);
+    if (v30)
     {
-      v29 = v28;
+      v31 = v30;
       if (DLShouldLog())
       {
-        v31 = v29;
-        v32 = cf;
+        v33 = v31;
+        v34 = cf;
         _DLLog();
       }
 
@@ -537,13 +544,13 @@ LABEL_67:
     CFNumberGetValue(a5, kCFNumberIntType, &valuePtr);
   }
 
-  v13 = objc_opt_new();
+  v15 = objc_opt_new();
   if (a6)
   {
-    [v13 setValue:CFDictionaryGetValue(a6 forKey:{@"HostVersion", @"hostOS"}];
+    [v15 setValue:CFDictionaryGetValue(a6 forKey:{@"HostVersion", @"hostOS"}];
   }
 
-  [v13 setValue:a2 forKey:@"dataClass"];
+  [v15 setValue:a2 forKey:@"dataClass"];
   if (AnalyticsSendEventLazy())
   {
     if (!DLShouldLog())
@@ -559,20 +566,20 @@ LABEL_67:
 
   _DLLog();
 LABEL_14:
-  v14 = 0;
+  v16 = 0;
   if (CFStringCompare(a2, @"com.apple.Calendars", 0) == kCFCompareEqualTo)
   {
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v14 = Mutable;
+    v16 = Mutable;
     if (valuePtr <= 109)
     {
       CFDictionarySetValue(Mutable, kShouldSendAllCalendarsOnFastSyncKey, kCFBooleanTrue);
     }
 
-    CFDictionarySetValue(v14, kShouldSyncCalendarColors, kCFBooleanTrue);
-    CFDictionarySetValue(v14, kShouldSyncAttendeesAndOrganizers, kCFBooleanTrue);
-    CFDictionarySetValue(v14, kIsEventsOnlySource, kCFBooleanTrue);
-    CFDictionarySetValue(v14, kIsTetheredSync, kCFBooleanTrue);
+    CFDictionarySetValue(v16, kShouldSyncCalendarColors, kCFBooleanTrue);
+    CFDictionarySetValue(v16, kShouldSyncAttendeesAndOrganizers, kCFBooleanTrue);
+    CFDictionarySetValue(v16, kIsEventsOnlySource, kCFBooleanTrue);
+    CFDictionarySetValue(v16, kIsTetheredSync, kCFBooleanTrue);
   }
 
   if (CFStringCompare(a2, @"com.apple.Bookmarks", 0))
@@ -581,7 +588,7 @@ LABEL_19:
     dataTypeForDataClassName();
     if (GetTetheredSyncingDisabledForDataType() && DLShouldLog())
     {
-      v31 = a2;
+      v33 = a2;
       _DLLog();
     }
 
@@ -592,17 +599,17 @@ LABEL_19:
     }
 
     DataSourceForDataClassName = CreateDataSourceForDataClassName();
-    if (v14)
+    if (v16)
     {
-      CFRelease(v14);
+      CFRelease(v16);
     }
 
     if (DataSourceForDataClassName)
     {
       if (DLShouldLog())
       {
-        v31 = DataSourceForDataClassName;
-        v32 = cf;
+        v33 = DataSourceForDataClassName;
+        v34 = cf;
         _DLLog();
       }
 
@@ -612,41 +619,39 @@ LABEL_19:
         cf = 0;
       }
 
-      v12 = @"No Data Store available for data class";
+      v14 = @"No Data Store available for data class";
       goto LABEL_67;
     }
 
-    v22 = v11[2];
     Version = DataSourceGetVersion();
     if (Version)
     {
-      v24 = Version;
+      v27 = Version;
       if (!DLShouldLog())
       {
         goto LABEL_62;
       }
 
-      v31 = v24;
-      v32 = cf;
+      v33 = v27;
+      v34 = cf;
     }
 
     else
     {
       if (DLShouldLog())
       {
-        v31 = a2;
-        v32 = a5;
+        v33 = a2;
+        v34 = a5;
         _DLLog();
       }
 
-      v25 = v11[2];
       CanSyncWithVersion = DataSourceCanSyncWithVersion();
       if (!CanSyncWithVersion)
       {
         goto LABEL_64;
       }
 
-      v27 = CanSyncWithVersion;
+      v29 = CanSyncWithVersion;
       if (!DLShouldLog())
       {
 LABEL_62:
@@ -659,17 +664,17 @@ LABEL_62:
 LABEL_64:
         if (DLShouldLog())
         {
-          v31 = a5;
-          v32 = 0;
+          v33 = a5;
+          v34 = 0;
           _DLLog();
         }
 
-        v12 = @"Your computer's software is out of date. Please update and try again";
+        v14 = @"Your computer's software is out of date. Please update and try again";
         goto LABEL_67;
       }
 
-      v31 = v27;
-      v32 = cf;
+      v33 = v29;
+      v34 = cf;
     }
 
     _DLLog();
@@ -680,20 +685,20 @@ LABEL_64:
   ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, a2, @".");
   Count = CFArrayGetCount(ArrayBySeparatingStrings);
   CFArrayGetValueAtIndex(ArrayBySeparatingStrings, Count - 1);
-  v19 = CopyExternalSourcesEnabledForDataType();
+  v21 = CopyExternalSourcesEnabledForDataType();
   if (ArrayBySeparatingStrings)
   {
     CFRelease(ArrayBySeparatingStrings);
   }
 
-  if (v19 || !theArray)
+  if (v21 || !theArray)
   {
-    if (v19)
+    if (v21)
     {
       if (DLShouldLog())
       {
-        v31 = v19;
-        v32 = cf;
+        v33 = v21;
+        v34 = cf;
         _DLLog();
       }
 
@@ -720,18 +725,18 @@ LABEL_64:
 
   if (DLShouldLog())
   {
-    v31 = a2;
+    v33 = a2;
     _DLLog();
   }
 
-  v20 = sub_100004F00(a1, a2, @"This data class is disabled for tethered syncing on the device.", &cf);
-  if (v20)
+  v24 = sub_100004F00(a1, a2, @"This data class is disabled for tethered syncing on the device.", &cf, v22, v23);
+  if (v24)
   {
-    v21 = v20;
+    v25 = v24;
     if (DLShouldLog())
     {
-      v31 = v21;
-      v32 = cf;
+      v33 = v25;
+      v34 = cf;
       _DLLog();
     }
 
@@ -742,9 +747,9 @@ LABEL_64:
     }
   }
 
-  if (v14)
+  if (v16)
   {
-    CFRelease(v14);
+    CFRelease(v16);
   }
 
   return [v10 drain];
@@ -754,68 +759,52 @@ id sub_10000282C(_DWORD *a1, uint64_t a2)
 {
   v4 = objc_alloc_init(NSAutoreleasePool);
   cf = 0;
-  v5 = DLGetDeviceLinkConnectionContext();
+  DLGetDeviceLinkConnectionContext();
   if (DLShouldLog())
   {
-    v17 = a2;
+    v20 = a2;
     _DLLog();
   }
 
-  v6 = *(v5 + 16);
-  v7 = DataSourceClearAllRecords();
-  if (!v7)
+  v5 = DataSourceClearAllRecords();
+  if (!v5)
   {
-    v13 = sub_100004F78(a1, a2, &cf);
-    if (!v13)
+    v16 = sub_100004F78(a1, a2, &cf, v6, v7, v8);
+    if (!v16)
+    {
+      goto LABEL_20;
+    }
+
+    v17 = v16;
+    if (!DLShouldLog())
     {
       goto LABEL_18;
     }
 
-    v14 = v13;
-    if (!DLShouldLog())
-    {
-      goto LABEL_16;
-    }
-
-    v17 = v14;
-    v18 = cf;
-    goto LABEL_15;
+    v20 = v17;
+    v21 = cf;
+    goto LABEL_17;
   }
 
-  v8 = v7;
+  v9 = v5;
   if (DLShouldLog())
   {
-    v17 = v8;
-    v18 = cf;
+    v20 = v9;
+    v21 = cf;
     _DLLog();
   }
 
-  v9 = sub_1000051B8(a1);
-  if (v9)
+  v12 = sub_1000051B8(a1, a2, @"Couldn't clear changes on device", &cf, v10, v11);
+  if (v12)
   {
-    v10 = v9;
+    v13 = v12;
     if (DLShouldLog())
     {
-      v17 = v10;
-      v18 = cf;
+      v20 = v13;
+      v21 = cf;
       _DLLog();
     }
-  }
 
-  v11 = DLWaitForMessage();
-  if (v11)
-  {
-    v12 = v11;
-    if (!DLShouldLog())
-    {
-      goto LABEL_16;
-    }
-
-    v17 = v12;
-    v18 = cf;
-LABEL_15:
-    _DLLog();
-LABEL_16:
     if (cf)
     {
       CFRelease(cf);
@@ -823,7 +812,28 @@ LABEL_16:
     }
   }
 
+  v14 = DLWaitForMessage();
+  if (v14)
+  {
+    v15 = v14;
+    if (!DLShouldLog())
+    {
+      goto LABEL_18;
+    }
+
+    v20 = v15;
+    v21 = cf;
+LABEL_17:
+    _DLLog();
 LABEL_18:
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
+    }
+  }
+
+LABEL_20:
   if (SyncPlaybackEnabled())
   {
     Mutable = qword_10000C340;
@@ -839,48 +849,59 @@ LABEL_18:
   return [v4 drain];
 }
 
-id sub_100002A64(_DWORD *a1, uint64_t a2)
+id sub_100002A64(_DWORD *a1, CFIndex a2)
 {
   v4 = objc_alloc_init(NSAutoreleasePool);
+  cf = 0;
   v5 = DLGetDeviceLinkConnectionContext();
   if (DLShouldLog())
   {
-    v15 = a2;
+    v13 = a2;
     _DLLog();
   }
 
   *(v5 + 24) = kCFBooleanFalse;
   *(v5 + 32) = kCFBooleanFalse;
   v6 = (v5 + 24);
-  v7 = *(v6 - 1);
   Changes = DataSourceGetChanges();
   if (Changes)
   {
-    v9 = Changes;
+    v8 = Changes;
     if (DLShouldLog())
     {
-      v15 = v9;
-      v16 = 0;
+      v13 = v8;
+      v14 = cf;
       _DLLog();
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
     }
   }
 
-  v10 = *v6;
-  v11 = sub_100004FF4(a1);
-  if (v11)
+  v9 = sub_100004FF4(a1, a2, 0, *v6, 0, &cf);
+  if (v9)
   {
-    v12 = v11;
+    v10 = v9;
     if (DLShouldLog())
     {
-      v15 = v12;
-      v16 = 0;
+      v13 = v10;
+      v14 = cf;
       _DLLog();
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
     }
   }
 
   if (DLShouldLog())
   {
-    v15 = 0;
+    v13 = 0;
     _DLLog();
   }
 
@@ -899,48 +920,59 @@ id sub_100002A64(_DWORD *a1, uint64_t a2)
   return [v4 drain];
 }
 
-id sub_100002C6C(_DWORD *a1, uint64_t a2)
+id sub_100002C6C(_DWORD *a1, CFIndex a2)
 {
   v4 = objc_alloc_init(NSAutoreleasePool);
+  cf = 0;
   v5 = DLGetDeviceLinkConnectionContext();
   if (DLShouldLog())
   {
-    v15 = a2;
+    v13 = a2;
     _DLLog();
   }
 
   *(v5 + 24) = kCFBooleanFalse;
   v6 = (v5 + 24);
   v6[1] = kCFBooleanTrue;
-  v7 = *(v6 - 1);
   AllRecords = DataSourceGetAllRecords();
   if (AllRecords)
   {
-    v9 = AllRecords;
+    v8 = AllRecords;
     if (DLShouldLog())
     {
-      v15 = v9;
-      v16 = 0;
+      v13 = v8;
+      v14 = cf;
       _DLLog();
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
     }
   }
 
-  v10 = *v6;
-  v11 = sub_100004FF4(a1);
-  if (v11)
+  v9 = sub_100004FF4(a1, a2, 0, *v6, 0, &cf);
+  if (v9)
   {
-    v12 = v11;
+    v10 = v9;
     if (DLShouldLog())
     {
-      v15 = v12;
-      v16 = 0;
+      v13 = v10;
+      v14 = cf;
       _DLLog();
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
     }
   }
 
   if (DLShouldLog())
   {
-    v15 = 0;
+    v13 = 0;
     _DLLog();
   }
 
@@ -959,21 +991,21 @@ id sub_100002C6C(_DWORD *a1, uint64_t a2)
   return [v4 drain];
 }
 
-id sub_100002E84(_DWORD *a1, uint64_t a2)
+id sub_100002E84(_DWORD *a1, CFIndex a2)
 {
   v4 = objc_alloc_init(NSAutoreleasePool);
   cf = 0;
   v5 = DLGetDeviceLinkConnectionContext();
   if (DLShouldLog())
   {
-    v10 = a2;
+    v13 = a2;
     _DLLog();
   }
 
-  v6 = *(v5 + 24);
-  if (v6 == kCFBooleanTrue)
+  v9 = *(v5 + 24);
+  if (v9 == kCFBooleanTrue)
   {
-    if (*(v5 + 32) == v6)
+    if (*(v5 + 32) == v9)
     {
       sub_100002C6C(a1, a2);
     }
@@ -986,14 +1018,14 @@ id sub_100002E84(_DWORD *a1, uint64_t a2)
 
   else
   {
-    v7 = sub_100005048(a1, a2, &cf);
-    if (v7)
+    v10 = sub_100005048(a1, a2, &cf, v6, v7, v8);
+    if (v10)
     {
-      v8 = v7;
+      v11 = v10;
       if (DLShouldLog())
       {
-        v10 = v8;
-        v11 = cf;
+        v13 = v11;
+        v14 = cf;
         _DLLog();
       }
 
@@ -1019,12 +1051,11 @@ id sub_100002FA8(_DWORD *a1, uint64_t a2)
     _DLLog();
   }
 
-  v6 = *(v5 + 16);
   if (!DataSourceCommit())
   {
-    if (!sub_10000513C(a1, a2, &cf))
+    if (!sub_10000513C(a1, a2, &cf, v6, v7, v8))
     {
-      goto LABEL_25;
+      goto LABEL_29;
     }
 
     if (DLShouldLog())
@@ -1038,7 +1069,7 @@ id sub_100002FA8(_DWORD *a1, uint64_t a2)
       cf = 0;
     }
 
-    goto LABEL_21;
+    goto LABEL_25;
   }
 
   if (DLShouldLog())
@@ -1052,20 +1083,9 @@ id sub_100002FA8(_DWORD *a1, uint64_t a2)
     cf = 0;
   }
 
-  v7 = sub_1000051B8(a1);
-  if (v7 && DLShouldLog())
+  v11 = sub_1000051B8(a1, a2, @"Couldn't commit changes on device", &cf, v9, v10);
+  if (v11)
   {
-    _DLLog();
-  }
-
-  if (DLWaitForMessage() && DLShouldLog())
-  {
-    _DLLog();
-  }
-
-  if (v7)
-  {
-LABEL_21:
     if (DLShouldLog())
     {
       _DLLog();
@@ -1078,13 +1098,43 @@ LABEL_21:
     }
   }
 
+  if (DLWaitForMessage())
+  {
+    if (DLShouldLog())
+    {
+      _DLLog();
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
+    }
+  }
+
+  if (v11)
+  {
 LABEL_25:
+    if (DLShouldLog())
+    {
+      _DLLog();
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
+    }
+  }
+
+LABEL_29:
   sub_100003904(v5);
   return [v4 drain];
 }
 
-void sub_100003224(uint64_t a1, const char *a2, int a3, int a4, uint64_t a5, int a6)
+void sub_100003224(uint64_t a1, const char *a2, int a3, int a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
   observer = 0;
   cf = 0;
   v11 = malloc_type_calloc(0x48uLL, 1uLL, 0x28307D0EuLL);
@@ -1114,7 +1164,7 @@ void sub_100003224(uint64_t a1, const char *a2, int a3, int a4, uint64_t a5, int
     byte_10000C328 = 1;
   }
 
-  if (sub_100003610(Mutable, a6))
+  if (sub_100003610(Mutable, v6))
   {
     v14 = DLShouldLog();
     if (a2)
@@ -1335,16 +1385,14 @@ void sub_100003904(uint64_t a1)
   {
     if (flock(v3, 8) == -1 && DLShouldLog())
     {
-      v4 = *a1;
-      v5 = *__error();
-      v6 = __error();
-      strerror(*v6);
+      __error();
+      v4 = __error();
+      strerror(*v4);
       _DLLog();
     }
 
     if (DLShouldLog())
     {
-      v9 = *a1;
       _DLLog();
     }
 
@@ -1367,7 +1415,6 @@ void sub_100003904(uint64_t a1)
         _DLLog();
       }
 
-      v8 = *(a1 + 16);
       if (DataSourceRollback() && DLShouldLog())
       {
         _DLLog();
@@ -1379,7 +1426,6 @@ void sub_100003904(uint64_t a1)
       *(a1 + 40) = kCFBooleanFalse;
     }
 
-    v7 = *(a1 + 16);
     if (DataSourceDeleteDataSource() && DLShouldLog())
     {
       _DLLog();
@@ -1392,7 +1438,6 @@ void sub_100003904(uint64_t a1)
   {
     if (DLShouldLog())
     {
-      v10 = *(a1 + 8);
       _DLLog();
     }
 
@@ -1545,18 +1590,18 @@ LABEL_3:
     goto LABEL_79;
   }
 
-  v21 = v4;
-  v22 = 0;
-  v28 = 0;
+  v19 = v4;
+  v20 = 0;
   v26 = 0;
-  v29 = 0;
-  v25 = 0;
-  v10 = 0;
-  v23 = 0;
+  v24 = 0;
   v27 = 0;
+  v23 = 0;
+  v10 = 0;
+  v21 = 0;
+  v25 = 0;
   v11 = 0;
   v5 = 0;
-  v24 = 1;
+  v22 = 1;
   v8 = 2;
   while (1)
   {
@@ -1580,12 +1625,12 @@ LABEL_3:
                 v10 = 1;
                 if (optarg)
                 {
-                  v23 = sub_10000465C(optarg);
+                  v21 = sub_10000465C(optarg);
                 }
 
                 break;
               case 'n':
-                v26 = 1;
+                v24 = 1;
                 break;
               case 'o':
 LABEL_23:
@@ -1606,7 +1651,7 @@ LABEL_23:
                 goto LABEL_48;
               }
 
-              LODWORD(v29) = 1;
+              LODWORD(v27) = 1;
               goto LABEL_32;
             }
           }
@@ -1615,7 +1660,7 @@ LABEL_23:
           {
             if (v12 != 114)
             {
-              v25 = optarg;
+              v23 = optarg;
               goto LABEL_23;
             }
 
@@ -1641,8 +1686,8 @@ LABEL_32:
               CopyExternalSourcesEnabledForDataType();
               CFPrintf();
               CopyAccountNamesEnabledForDataType();
-              v19 = v13;
-              v20 = 0;
+              v17 = v13;
+              v18 = 0;
               CFPrintf();
               if (v13)
               {
@@ -1651,7 +1696,6 @@ LABEL_32:
 
               break;
             case 'T':
-              v16 = *optarg;
               SetTetheredSyncingDisabledForDatatype();
               goto LABEL_85;
             default:
@@ -1675,29 +1719,28 @@ LABEL_32:
           switch(v12)
           {
             case 'd':
-              v24 = 0;
+              v22 = 0;
               break;
             case 'X':
-              v17 = *optarg;
               SetExternalSourceEnabledForDataType();
               SetAccountNameEnabledForDataType();
               goto LABEL_85;
             case 'c':
-              v18 = CFStringCreateWithCString(0, optarg, 0x8000100u);
+              v16 = CFStringCreateWithCString(0, optarg, 0x8000100u);
               dataClassNameForDataType();
               CreateDataSourceForDataClassName();
               DataSourceGetCountOfRecords();
               CFPrintf();
-              if (v18)
+              if (v16)
               {
-                CFRelease(v18);
+                CFRelease(v16);
               }
 
 LABEL_85:
               exit(0);
             default:
 LABEL_48:
-              v28 = 1;
+              v26 = 1;
               break;
           }
         }
@@ -1720,11 +1763,11 @@ LABEL_48:
           goto LABEL_48;
         }
 
-        HIDWORD(v29) = 1;
+        HIDWORD(v27) = 1;
         if (optarg)
         {
-          v22 = sub_10000465C(optarg);
-          HIDWORD(v29) = 1;
+          v20 = sub_10000465C(optarg);
+          HIDWORD(v27) = 1;
         }
       }
     }
@@ -1734,7 +1777,7 @@ LABEL_48:
       break;
     }
 
-    v27 = CFStringCreateWithCString(0, optarg, 0x8000100u);
+    v25 = CFStringCreateWithCString(0, optarg, 0x8000100u);
   }
 
   if (v12 != -1)
@@ -1742,35 +1785,35 @@ LABEL_48:
     goto LABEL_48;
   }
 
-  if (!v29)
+  if (!v27)
   {
     DLSetOutputLevel();
   }
 
-  if (v28)
+  if (v26)
   {
     printf("Usage:\n%s --run [--oneshot]\n%s --sync hostname\n%s --playback filename\n", *a2, *a2, *a2);
-    v4 = v21;
+    v4 = v19;
     goto LABEL_79;
   }
 
   if (v10)
   {
-    v14 = v23;
-    if (v23)
+    v14 = v21;
+    if (v21)
     {
-      v14 = [[NSDictionary alloc] initWithObjectsAndKeys:{kCFBooleanTrue, v23, 0}];
+      v14 = [[NSDictionary alloc] initWithObjectsAndKeys:{kCFBooleanTrue, v21, 0}];
     }
 
-    v4 = v21;
+    v4 = v19;
     if (CreateDataSourceForDataClassName())
     {
-      NSLog(@"Couldn't create a data source with the name %@: %@", v27, 0);
+      NSLog(@"Couldn't create a data source with the name %@: %@", v25, 0);
     }
 
     if (CreateDataSourceForDataClassName())
     {
-      NSLog(@"Couldn't create a data source with the name %@: %@", v27, 0);
+      NSLog(@"Couldn't create a data source with the name %@: %@", v25, 0);
     }
 
     if (DataSourceMigrateRecords())
@@ -1785,18 +1828,18 @@ LABEL_48:
 
     if (DataSourceDeleteDataSource())
     {
-      NSLog(@"Couldn't delete the destination data source: %@", 0, v20);
+      NSLog(@"Couldn't delete the destination data source: %@", 0, v18);
     }
 
     goto LABEL_77;
   }
 
-  v4 = v21;
-  if (!HIDWORD(v29))
+  v4 = v19;
+  if (!HIDWORD(v27))
   {
-    v7 = v26;
-    v6 = v25;
-    v9 = v24;
+    v7 = v24;
+    v6 = v23;
+    v9 = v22;
     if (!v11)
     {
       goto LABEL_79;
@@ -1805,15 +1848,15 @@ LABEL_48:
     goto LABEL_3;
   }
 
-  v14 = v22;
-  if (v22)
+  v14 = v20;
+  if (v20)
   {
-    v14 = [[NSDictionary alloc] initWithObjectsAndKeys:{kCFBooleanTrue, v22, 0}];
+    v14 = [[NSDictionary alloc] initWithObjectsAndKeys:{kCFBooleanTrue, v20, 0}];
   }
 
   if (CreateDataSourceForDataClassName())
   {
-    NSLog(@"Couldn't create a data source with the name %@: %@", v27, 0);
+    NSLog(@"Couldn't create a data source with the name %@: %@", v25, 0);
   }
 
   if (DataSourceClearAllRecords())
@@ -1828,7 +1871,7 @@ LABEL_48:
 
   if (DataSourceDeleteDataSource())
   {
-    NSLog(@"Couldn't delete the data source: %@", 0, v20);
+    NSLog(@"Couldn't delete the data source: %@", 0, v18);
   }
 
 LABEL_77:
@@ -2281,7 +2324,7 @@ uint64_t sub_100004E80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   }
 }
 
-uint64_t sub_100004F00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_100004F00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (*(a1 + 48))
   {
@@ -2298,7 +2341,7 @@ uint64_t sub_100004F00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 }
 
-uint64_t sub_100004F78(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_100004F78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (*(a1 + 48))
   {
@@ -2315,7 +2358,7 @@ uint64_t sub_100004F78(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_100004FF4(_DWORD *a1)
+uint64_t sub_100004FF4(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   _DLRequestWrite();
   _DLRequestRead();
@@ -2323,7 +2366,7 @@ uint64_t sub_100004FF4(_DWORD *a1)
   return 0;
 }
 
-uint64_t sub_100005048(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_100005048(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (*(a1 + 48))
   {
@@ -2340,7 +2383,7 @@ uint64_t sub_100005048(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_1000050C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1000050C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (*(a1 + 48))
   {
@@ -2357,7 +2400,7 @@ uint64_t sub_1000050C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 }
 
-uint64_t sub_10000513C(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10000513C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (*(a1 + 48))
   {
@@ -2374,7 +2417,7 @@ uint64_t sub_10000513C(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_1000051B8(_DWORD *a1)
+uint64_t sub_1000051B8(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   _DLRequestWrite();
   *a1 = 19;

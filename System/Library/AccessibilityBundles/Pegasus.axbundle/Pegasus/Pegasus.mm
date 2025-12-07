@@ -25,3 +25,13 @@ void sub_29C0ED3FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x2A1C59BA0](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}

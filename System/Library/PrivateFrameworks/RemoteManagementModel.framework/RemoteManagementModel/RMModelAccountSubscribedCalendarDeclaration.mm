@@ -13,15 +13,13 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"VisibleName";
-  v7[1] = @"CalendarURL";
-  v7[2] = @"AuthenticationCredentialsAssetReference";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[0] = @"VisibleName";
+  v6[1] = @"CalendarURL";
+  v6[2] = @"AuthenticationCredentialsAssetReference";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -40,14 +38,12 @@
 
 void __62__RMModelAccountSubscribedCalendarDeclaration_assetReferences__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = [[RMModelConfigurationSchemaAssetReference alloc] initWithAssetTypes:&unk_287465F78 keyPath:@"$.payloadAuthenticationCredentialsAssetReference"];
-  v4[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   v2 = assetReferences_assetPaths_5;
   assetReferences_assetPaths_5 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildWithIdentifier:(id)identifier visibleName:(id)name calendarURL:(id)l authenticationCredentialsAssetReference:(id)reference
@@ -107,38 +103,36 @@ void __62__RMModelAccountSubscribedCalendarDeclaration_assetReferences__block_in
 
 + (id)supportedOS
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21[0] = &unk_28746ABB0;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465F90];
-  v20[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465FA8];
-  v20[1] = v15;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v22[0] = v14;
-  v21[1] = &unk_28746ABF8;
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20[0] = &unk_28746ABB0;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465F90];
+  v19[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465FA8];
+  v19[1] = v14;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v21[0] = v13;
+  v20[1] = &unk_28746ABF8;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465FC0];
-  v19[0] = v2;
+  v18[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465FD8];
-  v19[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
-  v22[1] = v4;
-  v21[2] = &unk_28746ABC8;
+  v18[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v21[1] = v4;
+  v20[2] = &unk_28746ABC8;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_287465FF0];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466008];
-  v18[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-  v22[2] = v7;
-  v21[3] = &unk_28746AC10;
+  v17[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v21[2] = v7;
+  v20[3] = &unk_28746AC10;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466020];
-  v17[0] = v8;
+  v16[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287466038];
-  v17[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v22[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v16[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v21[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   return v11;
 }

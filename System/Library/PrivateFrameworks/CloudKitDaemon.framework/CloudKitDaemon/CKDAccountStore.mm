@@ -267,7 +267,7 @@
 
 - (id)_accountForKey:(id)key matchBlock:(id)block createBlock:(id)createBlock
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   blockCopy = block;
   createBlockCopy = createBlock;
@@ -282,8 +282,8 @@
 
   else
   {
-    v33 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v12, v13);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v33, v34, a2, self, @"CKDAccountStore.m", 161, @"Invalid parameter not satisfying: %@", @"key");
+    v32 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v12, v13);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v32, v33, a2, self, @"CKDAccountStore.m", 161, @"Invalid parameter not satisfying: %@", @"key");
 
     if (v14)
     {
@@ -291,8 +291,8 @@
     }
   }
 
-  v35 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v12, v13);
-  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v35, v36, a2, self, @"CKDAccountStore.m", 162, @"Invalid parameter not satisfying: %@", @"createBlock");
+  v34 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v12, v13);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v34, v35, a2, self, @"CKDAccountStore.m", 162, @"Invalid parameter not satisfying: %@", @"createBlock");
 
 LABEL_3:
   selfCopy = self;
@@ -327,12 +327,12 @@ LABEL_3:
 
   v21 = v20;
   v24 = objc_msgSend_allObjects(v21, v22, v23);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_225113544;
-  v37[3] = &unk_278545B98;
-  v38 = blockCopy;
-  v19 = objc_msgSend_CKFirstObjectPassingTest_(v24, v25, v37);
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = sub_225113544;
+  v36[3] = &unk_278545B98;
+  v37 = blockCopy;
+  v19 = objc_msgSend_CKFirstObjectPassingTest_(v24, v25, v36);
 
   if (v19)
   {
@@ -345,9 +345,9 @@ LABEL_3:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v40 = keyCopy;
-      v41 = 2112;
-      v42 = v19;
+      v39 = keyCopy;
+      v40 = 2112;
+      v41 = v19;
       goto LABEL_25;
     }
 
@@ -366,9 +366,9 @@ LABEL_3:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v40 = keyCopy;
-      v41 = 2112;
-      v42 = v19;
+      v39 = keyCopy;
+      v40 = 2112;
+      v41 = v19;
 LABEL_25:
       _os_log_debug_impl(&dword_22506F000, v26, OS_LOG_TYPE_DEBUG, v27, buf, 0x16u);
       if (!selfCopy)
@@ -396,8 +396,6 @@ LABEL_19:
 
 LABEL_21:
   objc_sync_exit(selfCopy);
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -436,7 +434,7 @@ LABEL_21:
 
 - (void)cache:(id)cache willEvictObject:(id)object
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v8 = objc_msgSend_identifier(objectCopy, v6, v7);
   if (*MEMORY[0x277CBC880] != -1)
@@ -447,9 +445,9 @@ LABEL_21:
   v9 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
-    v15 = 138412290;
-    v16 = v8;
-    _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Account store will evict cached account: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v8;
+    _os_log_impl(&dword_22506F000, v9, OS_LOG_TYPE_INFO, "Account store will evict cached account: %@", &v14, 0xCu);
   }
 
   v12 = objc_msgSend_delegate(self, v10, v11);
@@ -457,8 +455,6 @@ LABEL_21:
   {
     objc_msgSend_accountStore_willEvictCachedAccount_(v12, v13, self, objectCopy);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDAccountStoreDelegate)delegate

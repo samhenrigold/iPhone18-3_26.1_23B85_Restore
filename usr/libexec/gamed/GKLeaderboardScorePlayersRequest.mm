@@ -26,26 +26,17 @@
 
   else
   {
-    v24 = playerID;
-    v7 = [NSArray arrayWithObjects:&v24 count:1];
+    v20 = playerID;
+    v7 = [NSArray arrayWithObjects:&v20 count:1];
   }
 
-  v22[0] = @"game";
   gameBundleID = [(GKLeaderboardScorePlayersRequest *)self gameBundleID];
-  v21 = gameBundleID;
-  v10 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-  v23[0] = v10;
-  v22[1] = @"time-scope";
+  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   serverTimeScope = [(GKLeaderboardScorePlayersRequest *)self serverTimeScope];
-  v23[1] = serverTimeScope;
-  v22[2] = @"player-scope";
   serverPlayerScope = [(GKLeaderboardScorePlayersRequest *)self serverPlayerScope];
-  v22[3] = @"player-ids";
-  v23[2] = serverPlayerScope;
-  v23[3] = v7;
-  v13 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:4];
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-  v14 = [NSMutableDictionary dictionaryWithDictionary:v13];
+  v10 = [NSMutableDictionary dictionaryWithDictionary:v9];
   identifier = [(GKLeaderboardScorePlayersRequest *)self identifier];
 
   if (identifier)
@@ -65,12 +56,12 @@
     identifier2 = [(GKLeaderboardScorePlayersRequest *)self groupIdentifier];
   }
 
-  v18 = identifier2;
-  [v14 setObject:identifier2 forKeyedSubscript:@"category"];
+  v14 = identifier2;
+  [v10 setObject:identifier2 forKeyedSubscript:@"category"];
 
 LABEL_10:
 
-  return v14;
+  return v10;
 }
 
 - (void)generateScoresFromServerResponse:(id)response service:(id)service context:(id)context timeToLive:(double)live handler:(id)handler

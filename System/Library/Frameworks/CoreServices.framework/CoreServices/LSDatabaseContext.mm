@@ -42,29 +42,12 @@ void __42__LSDatabaseContext_sharedDatabaseContext__block_invoke()
 
 - (NSData)currentPersistentIdentifier
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *LaunchServices::DatabaseContext::getPerThreadStateReference(self);
-  if (!v2)
+  if (!v2 || (memset(v8, 0, 28), -[_LSDatabase store](*v2), CatalogTable = _CSStoreGetCatalogTable(), _LSPersistentIdentifierDataMake(CatalogTable, 0, v8), SequenceNumber = _LSDatabaseGetSequenceNumber(*v2), *v7 = v8[0], *&v7[12] = *(v8 + 12), *&v7[28] = SequenceNumber, (data = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v7 length:36]) == 0))
   {
-    goto LABEL_3;
-  }
-
-  memset(v9, 0, 28);
-  [(_LSDatabase *)*v2 store];
-  CatalogTable = _CSStoreGetCatalogTable();
-  _LSPersistentIdentifierDataMake(v2, CatalogTable, 0, v9);
-  SequenceNumber = _LSDatabaseGetSequenceNumber(*v2);
-  *v8 = v9[0];
-  *&v8[12] = *(v9 + 12);
-  *&v8[28] = SequenceNumber;
-  data = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v8 length:36];
-  if (!data)
-  {
-LABEL_3:
     data = [MEMORY[0x1E695DEF0] data];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return data;
 }
@@ -91,7 +74,7 @@ LABEL_3:
 
     if (v8)
     {
-      v6[2](v6, v5);
+      (v6)[2](v6, v5);
     }
   }
 
@@ -188,7 +171,7 @@ void __81__LSDatabaseContext_WebKitChangeTracking__getSystemContentDatabaseObjec
 
 - (void)observeDatabaseChange4WebKit:(id)kit
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (kit && object_getClass(kit) == MEMORY[0x1E69E9E80])
   {
     string = xpc_dictionary_get_string(kit, "path");
@@ -231,9 +214,9 @@ void __81__LSDatabaseContext_WebKitChangeTracking__getSystemContentDatabaseObjec
 LABEL_19:
 
         v16 = _CFGetEUID();
-        v23 = 0;
-        v17 = _LSDatabaseCreate(string, v16, v6, &v23);
-        v18 = v23;
+        v22 = 0;
+        v17 = _LSDatabaseCreate(string, v16, v6, &v22);
+        v18 = v22;
         v19 = v18;
         if (v17)
         {
@@ -256,7 +239,7 @@ LABEL_29:
         CFRelease(v6);
 LABEL_30:
 
-        goto LABEL_31;
+        return;
       }
     }
 
@@ -296,9 +279,6 @@ LABEL_18:
 
     goto LABEL_29;
   }
-
-LABEL_31:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)startAccessingSystemScopeReturningError:(id *)error

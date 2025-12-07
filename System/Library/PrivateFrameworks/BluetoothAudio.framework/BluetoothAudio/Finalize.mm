@@ -5,7 +5,7 @@
 
 void __endpoint_Finalize_block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *v2;
   *v2 = 0;
@@ -14,9 +14,9 @@ void __endpoint_Finalize_block_invoke(uint64_t a1)
   if (os_log_type_enabled(BluetoothEndpointManagerLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1 + 32) + 40);
-    v22 = 138412290;
-    v23 = v5;
-    _os_log_impl(&dword_241BB7000, v4, OS_LOG_TYPE_DEFAULT, "Finalize %@", &v22, 0xCu);
+    v17 = 138412290;
+    v18 = v5;
+    _os_log_impl(&dword_241BB7000, v4, OS_LOG_TYPE_DEFAULT, "Finalize %@", &v17, 0xCu);
   }
 
   v6 = 0;
@@ -24,23 +24,19 @@ void __endpoint_Finalize_block_invoke(uint64_t a1)
   do
   {
     v8 = v7;
-    v9 = *(a1 + 32) + 8 * v6;
-    v10 = *(v9 + 16);
-    if (v10)
+    v9 = *(*(a1 + 32) + 8 * v6 + 16);
+    if (v9)
     {
-      v11 = *(v9 + 16);
-      VTable = CMBaseObjectGetVTable();
-      v13 = *(*(VTable + 16) + 32);
-      if (v13)
+      v10 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+      if (v10)
       {
-        v14 = *(VTable + 16) + 32;
-        v13(v10);
+        v10(v9);
       }
 
-      v15 = *(*(a1 + 32) + 8 * v6 + 16);
-      if (v15)
+      v11 = *(*(a1 + 32) + 8 * v6 + 16);
+      if (v11)
       {
-        CFRelease(v15);
+        CFRelease(v11);
         *(*(a1 + 32) + 8 * v6 + 16) = 0;
       }
     }
@@ -50,39 +46,37 @@ void __endpoint_Finalize_block_invoke(uint64_t a1)
   }
 
   while ((v8 & 1) != 0);
-  v16 = *(a1 + 32);
-  v17 = v16[9];
-  if (v17)
+  v12 = *(a1 + 32);
+  v13 = v12[9];
+  if (v13)
   {
-    CFRelease(v17);
+    CFRelease(v13);
     *(*(a1 + 32) + 72) = 0;
-    v16 = *(a1 + 32);
+    v12 = *(a1 + 32);
   }
 
-  v18 = v16[4];
-  if (v18)
+  v14 = v12[4];
+  if (v14)
   {
-    CFRelease(v18);
+    CFRelease(v14);
     *(*(a1 + 32) + 32) = 0;
-    v16 = *(a1 + 32);
+    v12 = *(a1 + 32);
   }
 
-  v19 = v16[5];
-  if (v19)
+  v15 = v12[5];
+  if (v15)
   {
-    CFRelease(v19);
+    CFRelease(v15);
     *(*(a1 + 32) + 40) = 0;
-    v16 = *(a1 + 32);
+    v12 = *(a1 + 32);
   }
 
-  v20 = v16[7];
-  if (v20)
+  v16 = v12[7];
+  if (v16)
   {
-    CFRelease(v20);
+    CFRelease(v16);
     *(*(a1 + 32) + 56) = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __audioStream_Finalize_block_invoke(uint64_t a1)

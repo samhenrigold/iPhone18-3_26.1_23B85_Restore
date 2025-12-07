@@ -123,31 +123,31 @@
 
 - (BOOL)_validateCommandsToKeyChords:(id)chords
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   chordsCopy = chords;
-  v4 = [chordsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [chordsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(chordsCopy);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v9 = [chordsCopy objectForKeyedSubscript:{v8, v14}];
+          v9 = [chordsCopy objectForKeyedSubscript:{v8, v13}];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
@@ -161,7 +161,7 @@
         goto LABEL_13;
       }
 
-      v5 = [chordsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [chordsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       v11 = 1;
       if (v5)
       {
@@ -179,7 +179,6 @@
 
 LABEL_13:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -203,16 +202,15 @@ LABEL_13:
 
 - (void)_initializeDictionariesIfNeeded
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Error loading default keyboard commands: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Error loading default keyboard commands: %@", &v2, 0xCu);
 }
 
 - (id)commandForKeyChord:(id)chord
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   chordCopy = chord;
   if ([chordCopy isNull])
   {
@@ -220,26 +218,26 @@ LABEL_13:
   }
 
   [(AXSSKeyboardCommandMap *)self _initializeDictionariesIfNeeded];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   transientCommands = [(AXSSKeyboardCommandMap *)self transientCommands];
-  v7 = [transientCommands countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [transientCommands countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(transientCommands);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         transientCommands2 = [(AXSSKeyboardCommandMap *)self transientCommands];
         v13 = [transientCommands2 objectForKeyedSubscript:v11];
         v5 = [v13 objectForKeyedSubscript:chordCopy];
@@ -251,7 +249,7 @@ LABEL_13:
         }
       }
 
-      v8 = [transientCommands countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [transientCommands countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v8)
       {
         continue;
@@ -280,8 +278,6 @@ LABEL_2:
   }
 
 LABEL_15:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -358,11 +354,10 @@ LABEL_15:
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Ignoring commands to key chords dictionary because of unexpected format: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Ignoring commands to key chords dictionary because of unexpected format: %@", &v2, 0xCu);
 }
 
 @end

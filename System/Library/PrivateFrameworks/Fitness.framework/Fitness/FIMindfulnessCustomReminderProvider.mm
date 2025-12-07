@@ -65,12 +65,12 @@
 
 - (void)updateReminders:(id)reminders
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAAB0];
   allObjects = [reminders allObjects];
-  v15 = 0;
-  v6 = [v4 archivedDataWithRootObject:allObjects requiringSecureCoding:1 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [v4 archivedDataWithRootObject:allObjects requiringSecureCoding:1 error:&v14];
+  v7 = v14;
 
   if (v6)
   {
@@ -88,8 +88,8 @@
     CFPreferencesAppSynchronize(@"com.apple.Mind");
     syncManager = self->_syncManager;
     v11 = MEMORY[0x277CBEB98];
-    v16[0] = @"CustomReminders";
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = @"CustomReminders";
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v13 = [v11 setWithArray:v12];
     [(NPSManager *)syncManager synchronizeUserDefaultsDomain:@"com.apple.Mind" keys:v13];
 
@@ -105,26 +105,22 @@
       [(FIMindfulnessCustomReminderProvider *)v7 updateReminders:v9];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reminders
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Error to unarchiving reminders %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Error to unarchiving reminders %@", &v2, 0xCu);
 }
 
 - (void)updateReminders:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Error to archiving reminders %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Error to archiving reminders %@", &v2, 0xCu);
 }
 
 @end

@@ -29,10 +29,10 @@
 - (id)description;
 - (id)initWithTileIdentifier:(void *)identifier center:(void *)center size:(void *)size alpha:(void *)alpha cornerRadius:(__int128 *)radius cornerCurve:(void *)curve cornerMask:(double)mask borderWidth:(double)self0 borderColor:(double)self1 transform:(double)self2 zPosition:(double)self3 contentsRect:(double)self4 hitTestOutset:(double)self5 coordinateSystem:(double)self6 cropInsets:(void *)self7 normalizedLegibilityInsets:(void *)self8;
 - (id)layoutInfoByInterpolatingWithLayoutInfo:(id)info mixFactor:(double)factor coordinateSystem:(id)system;
-- (uint64_t)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha cornerRadius:(double)radius cornerCurve:(double)curve cornerMask:(uint64_t)mask transform:(uint64_t)self0 zPosition:(uint64_t)self1 contentsRect:(uint64_t)self2 coordinateSystem:(_OWORD *)self3 cropInsets:(uint64_t)self4;
-- (uint64_t)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(uint64_t)position contentsRect:(uint64_t)rect hitTestOutset:(_OWORD *)self0 coordinateSystem:(uint64_t)self1;
 - (unint64_t)hash;
 - (void)_setTransform:(CGAffineTransform *)transform;
+- (void)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha cornerRadius:(double)radius cornerCurve:(double)curve cornerMask:(uint64_t)mask transform:(uint64_t)self0 zPosition:(uint64_t)self1 contentsRect:(uint64_t)self2 coordinateSystem:(_OWORD *)self3 cropInsets:(uint64_t)self4;
+- (void)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(uint64_t)position contentsRect:(uint64_t)rect hitTestOutset:(_OWORD *)self0 coordinateSystem:(uint64_t)self1;
 @end
 
 @implementation PUTileLayoutInfo
@@ -166,7 +166,7 @@
   [(PUTileLayoutInfo *)self borderWidth];
   v14 = v13;
   borderColor = [(PUTileLayoutInfo *)self borderColor];
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   v16 = NSStringFromCGAffineTransform(&transform);
   [(PUTileLayoutInfo *)self zPosition];
   v18 = v17;
@@ -186,7 +186,7 @@
   v6 = v5;
   v7 = *MEMORY[0x1E695EFF8] - v3 * 0.5;
   v8 = *(MEMORY[0x1E695EFF8] + 8) - v5 * 0.5;
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   v20.origin.x = v7;
   v20.origin.y = v8;
   v20.size.width = v4;
@@ -242,10 +242,10 @@
   v36 = v35;
   cornerCurve = [infoCopy cornerCurve];
   cornerMask = [infoCopy cornerMask];
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   if (infoCopy)
   {
-    [infoCopy transform];
+    objc_msgSend_transform(infoCopy);
     v40 = v94;
     v39 = v95;
     v41 = v96;
@@ -498,8 +498,8 @@ LABEL_33:
     }
   }
 
-  [(PUTileLayoutInfo *)self transform];
-  [infoCopy transform];
+  objc_msgSend_transform(self);
+  objc_msgSend_transform(infoCopy);
   if (!CGAffineTransformEqualToTransform(&t1, &v73))
   {
     goto LABEL_33;
@@ -607,7 +607,7 @@ LABEL_34:
   [(PUTileLayoutInfo *)self borderWidth];
   v48 = v13;
   borderColor = [(PUTileLayoutInfo *)self borderColor];
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   [(PUTileLayoutInfo *)self zPosition];
   v47 = v15;
   [(PUTileLayoutInfo *)self contentsRect];
@@ -638,9 +638,9 @@ LABEL_34:
 - (NSIndexPath)indexPath
 {
   tileIdentifier = [(PUTileLayoutInfo *)self tileIdentifier];
-  indexPath = [tileIdentifier indexPath];
+  v3 = objc_msgSend_indexPath(tileIdentifier);
 
-  return indexPath;
+  return v3;
 }
 
 - (NSString)tileKind
@@ -741,7 +741,7 @@ LABEL_34:
   return v51;
 }
 
-- (uint64_t)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha cornerRadius:(double)radius cornerCurve:(double)curve cornerMask:(uint64_t)mask transform:(uint64_t)self0 zPosition:(uint64_t)self1 contentsRect:(uint64_t)self2 coordinateSystem:(_OWORD *)self3 cropInsets:(uint64_t)self4
+- (void)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha cornerRadius:(double)radius cornerCurve:(double)curve cornerMask:(uint64_t)mask transform:(uint64_t)self0 zPosition:(uint64_t)self1 contentsRect:(uint64_t)self2 coordinateSystem:(_OWORD *)self3 cropInsets:(uint64_t)self4
 {
   v21 = system[1];
   v23[0] = *system;
@@ -759,7 +759,7 @@ LABEL_34:
   return [(PUTileLayoutInfo *)self initWithTileIdentifier:identifier center:curve size:mask alpha:0 cornerRadius:v15 cornerCurve:system cornerMask:center.x borderWidth:center.y borderColor:size.width transform:size.height zPosition:alpha contentsRect:radius hitTestOutset:0.0 coordinateSystem:position cropInsets:*&rect.origin.x normalizedLegibilityInsets:*&rect.origin.y, *&rect.size.width, *&rect.size.height, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24), *MEMORY[0x1E69C48A0], *(MEMORY[0x1E69C48A0] + 8), *(MEMORY[0x1E69C48A0] + 16), *(MEMORY[0x1E69C48A0] + 24), *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24)];
 }
 
-- (uint64_t)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(uint64_t)position contentsRect:(uint64_t)rect hitTestOutset:(_OWORD *)self0 coordinateSystem:(uint64_t)self1
+- (void)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(uint64_t)position contentsRect:(uint64_t)rect hitTestOutset:(_OWORD *)self0 coordinateSystem:(uint64_t)self1
 {
   v20 = outset[1];
   v22[0] = *outset;

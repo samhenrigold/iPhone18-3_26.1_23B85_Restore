@@ -26,75 +26,73 @@
 {
   height = size.height;
   width = size.width;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   offsetsCopy = offsets;
   keyCopy = key;
   [(HFCameraImageGenerator *)self setKey:?];
-  v23 = assetCopy;
+  v22 = assetCopy;
   v13 = [MEMORY[0x277CE6408] assetImageGeneratorWithAsset:assetCopy];
-  v33 = **&MEMORY[0x277CC08F0];
-  v25 = *&v33.value;
-  epoch = v33.epoch;
-  [v13 setRequestedTimeToleranceBefore:&v33];
-  *&v33.value = v25;
-  v33.epoch = epoch;
-  [v13 setRequestedTimeToleranceAfter:&v33];
+  v32 = **&MEMORY[0x277CC08F0];
+  v24 = *&v32.value;
+  epoch = v32.epoch;
+  [v13 setRequestedTimeToleranceBefore:&v32];
+  *&v32.value = v24;
+  v32.epoch = epoch;
+  [v13 setRequestedTimeToleranceAfter:&v32];
   [v13 setMaximumSize:{width, height}];
   -[HFCameraImageGenerator setImagesExpected:](self, "setImagesExpected:", [offsetsCopy count]);
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v16 = offsetsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v17)
   {
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       v19 = 0;
       do
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        [*(*(&v29 + 1) + 8 * v19) doubleValue];
-        memset(&v33, 0, sizeof(v33));
-        CMTimeMakeWithSeconds(&v33, v20, 1);
-        v28 = v33;
-        v21 = [MEMORY[0x277CCAE60] valueWithCMTime:&v28];
+        [*(*(&v28 + 1) + 8 * v19) doubleValue];
+        memset(&v32, 0, sizeof(v32));
+        CMTimeMakeWithSeconds(&v32, v20, 1);
+        v27 = v32;
+        v21 = [MEMORY[0x277CCAE60] valueWithCMTime:&v27];
         [v15 addObject:v21];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v17);
   }
 
-  objc_initWeak(&v33, self);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __76__HFCameraImageGenerator_generateImagesFromAsset_forOffsets_atSize_withKey___block_invoke;
-  v26[3] = &unk_277DFD638;
-  objc_copyWeak(&v27, &v33);
-  [v13 generateCGImagesAsynchronouslyForTimes:v15 completionHandler:v26];
-  objc_destroyWeak(&v27);
-  objc_destroyWeak(&v33);
-
-  v22 = *MEMORY[0x277D85DE8];
+  objc_initWeak(&v32, self);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __76__HFCameraImageGenerator_generateImagesFromAsset_forOffsets_atSize_withKey___block_invoke;
+  v25[3] = &unk_277DFD638;
+  objc_copyWeak(&v26, &v32);
+  [v13 generateCGImagesAsynchronouslyForTimes:v15 completionHandler:v25];
+  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v32);
 }
 
 void __76__HFCameraImageGenerator_generateImagesFromAsset_forOffsets_atSize_withKey___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t a5, void *a6)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v11 = a6;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!a3 || a5 || v11)
@@ -110,10 +108,10 @@ void __76__HFCameraImageGenerator_generateImagesFromAsset_forOffsets_atSize_with
     v13 = [WeakRetained delegate];
     v14 = [WeakRetained key];
     *buf = *a2;
-    v23 = *(a2 + 16);
-    v20 = *a4;
-    v21 = *(a4 + 2);
-    [v13 imageGenerator:WeakRetained failedToGenerateImageForRequestedTime:buf actualTime:&v20 forKey:v14];
+    v22 = *(a2 + 16);
+    v19 = *a4;
+    v20 = *(a4 + 2);
+    [v13 imageGenerator:WeakRetained failedToGenerateImageForRequestedTime:buf actualTime:&v19 forKey:v14];
   }
 
   else
@@ -122,10 +120,10 @@ void __76__HFCameraImageGenerator_generateImagesFromAsset_forOffsets_atSize_with
     v14 = [WeakRetained delegate];
     v15 = [WeakRetained key];
     *buf = *a2;
-    v23 = *(a2 + 16);
-    v20 = *a4;
-    v21 = *(a4 + 2);
-    [v14 imageGenerator:WeakRetained didGenerateImage:v13 requestedTime:buf actualTime:&v20 forKey:v15];
+    v22 = *(a2 + 16);
+    v19 = *a4;
+    v20 = *(a4 + 2);
+    [v14 imageGenerator:WeakRetained didGenerateImage:v13 requestedTime:buf actualTime:&v19 forKey:v15];
   }
 
   [WeakRetained setImagesExpected:{objc_msgSend(WeakRetained, "imagesExpected") - 1}];
@@ -135,8 +133,6 @@ void __76__HFCameraImageGenerator_generateImagesFromAsset_forOffsets_atSize_with
     v18 = [WeakRetained key];
     [v17 imageGenerator:WeakRetained finishedGeneratingImagesForKey:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (HFCameraImageGeneratorDelegate)delegate

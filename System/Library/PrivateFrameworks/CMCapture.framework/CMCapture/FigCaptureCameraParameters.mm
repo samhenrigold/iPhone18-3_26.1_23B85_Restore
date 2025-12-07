@@ -83,7 +83,7 @@
 
 + (int)previewMaxLossyCompressionLevel
 {
-  if (BWDeviceIsiPhone())
+  if (BWDeviceIsiPhone(self, a2))
   {
     v2 = 3;
   }
@@ -259,7 +259,7 @@
 
 - (FigCaptureCameraParameters)init
 {
-  ModelSpecificName = FigCaptureGetModelSpecificName();
+  ModelSpecificName = FigCaptureGetModelSpecificName(self, a2);
 
   return [(FigCaptureCameraParameters *)self _initWithModelSpecificName:0 fromFile:?];
 }
@@ -283,7 +283,7 @@
 {
   if (!stream)
   {
-    [FigCaptureCameraParameters sensorIDDictionaryForStream:];
+    [(FigCaptureCameraParameters *)self sensorIDDictionaryForStream:a2];
     return 0;
   }
 
@@ -291,7 +291,7 @@
   v6 = [objc_opt_class() sensorIDStringFromModuleInfo:{objc_msgSend(stream, "getProperty:error:", *off_1E798C078, 0)}];
   if (!portType || !v6)
   {
-    [FigCaptureCameraParameters sensorIDDictionaryForStream:];
+    [FigCaptureCameraParameters sensorIDDictionaryForStream:v6];
     return 0;
   }
 
@@ -302,7 +302,7 @@
 {
   if (!type)
   {
-    [FigCaptureCameraParameters sensorIDDictionaryForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self sensorIDDictionaryForPortType:a2 sensorIDString:0, string];
     stringCopy = 0;
     goto LABEL_18;
   }
@@ -310,7 +310,7 @@
   stringCopy = string;
   if (!string)
   {
-    [FigCaptureCameraParameters sensorIDDictionaryForPortType:sensorIDString:];
+    [FigCaptureCameraParameters sensorIDDictionaryForPortType:a2 sensorIDString:?];
     goto LABEL_18;
   }
 
@@ -378,7 +378,7 @@ LABEL_18:
 {
   if (!stream)
   {
-    [FigCaptureCameraParameters focalLengthCharacterizationForStream:];
+    [(FigCaptureCameraParameters *)self focalLengthCharacterizationForStream:a2];
     return 0;
   }
 
@@ -395,13 +395,13 @@ LABEL_18:
 {
   if (!type)
   {
-    [FigCaptureCameraParameters disparityVersionForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self disparityVersionForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters disparityVersionForPortType:sensorIDString:];
+    [FigCaptureCameraParameters disparityVersionForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -421,13 +421,13 @@ LABEL_18:
 {
   if (!type)
   {
-    [FigCaptureCameraParameters focusPixelDisparityVersionForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self focusPixelDisparityVersionForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters focusPixelDisparityVersionForPortType:sensorIDString:];
+    [FigCaptureCameraParameters focusPixelDisparityVersionForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -586,13 +586,13 @@ uint64_t __103__FigCaptureCameraParameters_focusPixelDisparityTuningParametersFo
 {
   if (!type)
   {
-    [FigCaptureCameraParameters mattingVersionForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self mattingVersionForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters mattingVersionForPortType:sensorIDString:];
+    [FigCaptureCameraParameters mattingVersionForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -632,13 +632,13 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
 {
   if (!type)
   {
-    [FigCaptureCameraParameters depthScalingTuneParametersForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self depthScalingTuneParametersForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters depthScalingTuneParametersForPortType:sensorIDString:];
+    [FigCaptureCameraParameters depthScalingTuneParametersForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -658,13 +658,13 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
 {
   if (!type)
   {
-    [FigCaptureCameraParameters portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:];
+    [(FigCaptureCameraParameters *)self portraitPreviewForegroundBlurEnabledForPortType:a2 sensorIDString:0 zoomFactor:string, factor];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:];
+    [FigCaptureCameraParameters portraitPreviewForegroundBlurEnabledForPortType:a2 sensorIDString:factor zoomFactor:?];
     return 0;
   }
 
@@ -694,48 +694,48 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
   }
 
   v16 = v15;
-  v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%d", v14];
+  v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%d"];
   if (!v17)
   {
-    [FigCaptureCameraParameters portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:];
+    [(FigCaptureCameraParameters *)0 portraitPreviewForegroundBlurEnabledForPortType:v18 sensorIDString:v19 zoomFactor:v20, v21, v22, v23, v24, v14];
     return 0;
   }
 
-  v18 = v17;
-  v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%d_NMP", v14];
-  if (!v19)
+  v25 = v17;
+  v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%d_NMP"];
+  if (!v26)
   {
-    [FigCaptureCameraParameters portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:];
+    [(FigCaptureCameraParameters *)0 portraitPreviewForegroundBlurEnabledForPortType:v27 sensorIDString:v28 zoomFactor:v29, v30, v31, v32, v33, v14];
     return 0;
   }
 
-  v20 = v19;
-  v21 = [objc_msgSend(v16 objectForKeyedSubscript:{v18), "objectForKeyedSubscript:", @"fgNRings"}];
-  v22 = [objc_msgSend(v16 objectForKeyedSubscript:{v20), "objectForKeyedSubscript:", @"fgNRings"}];
-  if (v21 && [v21 unsignedIntValue])
+  v34 = v26;
+  v35 = [objc_msgSend(v16 objectForKeyedSubscript:{v25), "objectForKeyedSubscript:", @"fgNRings"}];
+  v36 = [objc_msgSend(v16 objectForKeyedSubscript:{v34), "objectForKeyedSubscript:", @"fgNRings"}];
+  if (v35 && [v35 unsignedIntValue])
   {
-    LOBYTE(v22) = 1;
+    LOBYTE(v36) = 1;
   }
 
-  else if (v22)
+  else if (v36)
   {
-    LOBYTE(v22) = [v22 unsignedIntValue] != 0;
+    LOBYTE(v36) = [v36 unsignedIntValue] != 0;
   }
 
-  return v22 & ([objc_msgSend(objc_msgSend(v16 objectForKeyedSubscript:{v18), "objectForKeyedSubscript:", @"disablePortraitPreviewForegroundBlur", "BOOLValue"}] ^ 1);
+  return v36 & ([objc_msgSend(objc_msgSend(v16 objectForKeyedSubscript:{v25), "objectForKeyedSubscript:", @"disablePortraitPreviewForegroundBlur", "BOOLValue"}] ^ 1);
 }
 
 - (int)disparityRefinementTypeForPortType:(id)type sensorIDString:(id)string zoomFactor:(float)factor
 {
   if (!type)
   {
-    [FigCaptureCameraParameters disparityRefinementTypeForPortType:sensorIDString:zoomFactor:];
+    [(FigCaptureCameraParameters *)self disparityRefinementTypeForPortType:a2 sensorIDString:0 zoomFactor:string, factor];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters disparityRefinementTypeForPortType:sensorIDString:zoomFactor:];
+    [FigCaptureCameraParameters disparityRefinementTypeForPortType:a2 sensorIDString:factor zoomFactor:?];
     return 0;
   }
 
@@ -777,13 +777,13 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
 {
   if (!type)
   {
-    [FigCaptureCameraParameters actionCameraSceneMonitoringParametersForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self actionCameraSceneMonitoringParametersForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters actionCameraSceneMonitoringParametersForPortType:sensorIDString:];
+    [FigCaptureCameraParameters actionCameraSceneMonitoringParametersForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -801,13 +801,13 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
 {
   if (!type)
   {
-    [FigCaptureCameraParameters stereoVideoCaptureSceneMonitoringParametersForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self stereoVideoCaptureSceneMonitoringParametersForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters stereoVideoCaptureSceneMonitoringParametersForPortType:sensorIDString:];
+    [FigCaptureCameraParameters stereoVideoCaptureSceneMonitoringParametersForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -825,13 +825,13 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
 {
   if (!type)
   {
-    [FigCaptureCameraParameters stereoPhotoCaptureSceneMonitoringParametersForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self stereoPhotoCaptureSceneMonitoringParametersForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters stereoPhotoCaptureSceneMonitoringParametersForPortType:sensorIDString:];
+    [FigCaptureCameraParameters stereoPhotoCaptureSceneMonitoringParametersForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -849,13 +849,13 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
 {
   if (!type)
   {
-    [FigCaptureCameraParameters lensSmudgeDetectionParametersForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self lensSmudgeDetectionParametersForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters lensSmudgeDetectionParametersForPortType:sensorIDString:];
+    [FigCaptureCameraParameters lensSmudgeDetectionParametersForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -880,13 +880,13 @@ uint64_t __123__FigCaptureCameraParameters_portraitSceneMonitoringParametersForP
 {
   if (!type)
   {
-    [FigCaptureCameraParameters panoramaRequiresLTMLockingForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self panoramaRequiresLTMLockingForPortType:a2 sensorIDString:0, string];
     return 1;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters panoramaRequiresLTMLockingForPortType:sensorIDString:];
+    [FigCaptureCameraParameters panoramaRequiresLTMLockingForPortType:a2 sensorIDString:?];
     return 1;
   }
 
@@ -991,13 +991,13 @@ uint64_t __83__FigCaptureCameraParameters_sdofTuningParametersForSensorIDDiction
 {
   if (!type)
   {
-    [FigCaptureCameraParameters quadraSubPixelSwitchingParametersForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self quadraSubPixelSwitchingParametersForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    [FigCaptureCameraParameters quadraSubPixelSwitchingParametersForPortType:sensorIDString:];
+    [FigCaptureCameraParameters quadraSubPixelSwitchingParametersForPortType:a2 sensorIDString:?];
     return 0;
   }
 
@@ -1015,13 +1015,13 @@ uint64_t __83__FigCaptureCameraParameters_sdofTuningParametersForSensorIDDiction
 {
   if (!type)
   {
-    +[FigCaptureCameraParameters cinematicFramingVirtualCameraConfigurationForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self cinematicFramingVirtualCameraConfigurationForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    +[FigCaptureCameraParameters cinematicFramingVirtualCameraConfigurationForPortType:sensorIDString:];
+    [FigCaptureCameraParameters cinematicFramingVirtualCameraConfigurationForPortType:self sensorIDString:a2];
     return 0;
   }
 
@@ -1039,13 +1039,13 @@ uint64_t __83__FigCaptureCameraParameters_sdofTuningParametersForSensorIDDiction
 {
   if (!type)
   {
-    +[FigCaptureCameraParameters temporalFilterSessionConfigurationForPortType:sensorIDString:];
+    [(FigCaptureCameraParameters *)self temporalFilterSessionConfigurationForPortType:a2 sensorIDString:0, string];
     return 0;
   }
 
   if (!string)
   {
-    +[FigCaptureCameraParameters temporalFilterSessionConfigurationForPortType:sensorIDString:];
+    [FigCaptureCameraParameters temporalFilterSessionConfigurationForPortType:self sensorIDString:a2];
     return 0;
   }
 
@@ -1066,168 +1066,168 @@ uint64_t __83__FigCaptureCameraParameters_sdofTuningParametersForSensorIDDiction
     return 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = FigCaptureCameraParameters;
-  v5 = objc_msgSendSuper2(&v11, sel_init);
+  v69.receiver = self;
+  v69.super_class = FigCaptureCameraParameters;
+  v5 = objc_msgSendSuper2(&v69, sel_init);
   v6 = v5;
   if (!v5)
   {
     return v6;
   }
 
-  if ((-[FigCaptureCameraParameters _readAndPreprocessCameraParametersForModelSpecificName:fromFile:](v5, a2, name) & 1) == 0 || (v8 = [v6[1] objectForKeyedSubscript:@"TuningParameters"], objc_opt_class(), (OUTLINED_FUNCTION_19() & 1) == 0))
+  if ((-[FigCaptureCameraParameters _readAndPreprocessCameraParametersForModelSpecificName:fromFile:](v5, a2, name) & 1) == 0 || (v8 = [v6[1] objectForKeyedSubscript:@"TuningParameters"], v9 = objc_opt_class(), (OUTLINED_FUNCTION_19(v9) & 1) == 0))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_5();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 
     return 0;
   }
 
-  v9 = [v8 objectForKeyedSubscript:@"Common"];
+  v10 = [v8 objectForKeyedSubscript:@"Common"];
   objc_opt_class();
   OUTLINED_FUNCTION_10_29();
   if (objc_opt_isKindOfClass())
   {
-    [v9 objectForKeyedSubscript:@"NRFParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v11 = [v10 objectForKeyedSubscript:@"NRFParameters"];
+    v13 = OUTLINED_FUNCTION_4_93(v11, v12);
+    if (OUTLINED_FUNCTION_19(v13))
     {
       v6[2] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"DistortionCorrectionParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v14 = [v10 objectForKeyedSubscript:@"DistortionCorrectionParameters"];
+    v16 = OUTLINED_FUNCTION_4_93(v14, v15);
+    if (OUTLINED_FUNCTION_19(v16))
     {
       v6[3] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"Meteor"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v17 = [v10 objectForKeyedSubscript:@"Meteor"];
+    v19 = OUTLINED_FUNCTION_4_93(v17, v18);
+    if (OUTLINED_FUNCTION_19(v19))
     {
       v6[4] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"MotionAttachments"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v20 = [v10 objectForKeyedSubscript:@"MotionAttachments"];
+    v22 = OUTLINED_FUNCTION_4_93(v20, v21);
+    if (OUTLINED_FUNCTION_19(v22))
     {
       v6[5] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"VideoStabilization"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v23 = [v10 objectForKeyedSubscript:@"VideoStabilization"];
+    v25 = OUTLINED_FUNCTION_4_93(v23, v24);
+    if (OUTLINED_FUNCTION_19(v25))
     {
       v6[6] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"PreviewStabilization"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v26 = [v10 objectForKeyedSubscript:@"PreviewStabilization"];
+    v28 = OUTLINED_FUNCTION_4_93(v26, v27);
+    if (OUTLINED_FUNCTION_19(v28))
     {
       v6[7] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"StereoDisparity"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v29 = [v10 objectForKeyedSubscript:@"StereoDisparity"];
+    v31 = OUTLINED_FUNCTION_4_93(v29, v30);
+    if (OUTLINED_FUNCTION_19(v31))
     {
       v6[8] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"MonocularStreamingDepth"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v32 = [v10 objectForKeyedSubscript:@"MonocularStreamingDepth"];
+    v34 = OUTLINED_FUNCTION_4_93(v32, v33);
+    if (OUTLINED_FUNCTION_19(v34))
     {
       v6[9] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"DepthProcessingParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v35 = [v10 objectForKeyedSubscript:@"DepthProcessingParameters"];
+    v37 = OUTLINED_FUNCTION_4_93(v35, v36);
+    if (OUTLINED_FUNCTION_19(v37))
     {
       v6[10] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"VideoGreenGhostMitigationParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v38 = [v10 objectForKeyedSubscript:@"VideoGreenGhostMitigationParameters"];
+    v40 = OUTLINED_FUNCTION_4_93(v38, v39);
+    if (OUTLINED_FUNCTION_19(v40))
     {
       v6[16] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"Landmarks"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v41 = [v10 objectForKeyedSubscript:@"Landmarks"];
+    v43 = OUTLINED_FUNCTION_4_93(v41, v42);
+    if (OUTLINED_FUNCTION_19(v43))
     {
       v6[11] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"MattingParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v44 = [v10 objectForKeyedSubscript:@"MattingParameters"];
+    v46 = OUTLINED_FUNCTION_4_93(v44, v45);
+    if (OUTLINED_FUNCTION_19(v46))
     {
       v6[12] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"LearnedMattingParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v47 = [v10 objectForKeyedSubscript:@"LearnedMattingParameters"];
+    v49 = OUTLINED_FUNCTION_4_93(v47, v48);
+    if (OUTLINED_FUNCTION_19(v49))
     {
       v6[13] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"PersonSemantics"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v50 = [v10 objectForKeyedSubscript:@"PersonSemantics"];
+    v52 = OUTLINED_FUNCTION_4_93(v50, v51);
+    if (OUTLINED_FUNCTION_19(v52))
     {
       v6[14] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"CoreImagePortraitFilter"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v53 = [v10 objectForKeyedSubscript:@"CoreImagePortraitFilter"];
+    v55 = OUTLINED_FUNCTION_4_93(v53, v54);
+    if (OUTLINED_FUNCTION_19(v55))
     {
       v6[15] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"DeepZoomParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v56 = [v10 objectForKeyedSubscript:@"DeepZoomParameters"];
+    v58 = OUTLINED_FUNCTION_4_93(v56, v57);
+    if (OUTLINED_FUNCTION_19(v58))
     {
       v6[17] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"PhotoEncoderParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v59 = [v10 objectForKeyedSubscript:@"PhotoEncoderParameters"];
+    v61 = OUTLINED_FUNCTION_4_93(v59, v60);
+    if (OUTLINED_FUNCTION_19(v61))
     {
       v6[18] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"PortraitSceneMonitoringParametersByZoomFactor"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v62 = [v10 objectForKeyedSubscript:@"PortraitSceneMonitoringParametersByZoomFactor"];
+    v64 = OUTLINED_FUNCTION_4_93(v62, v63);
+    if (OUTLINED_FUNCTION_19(v64))
     {
       v6[19] = v8;
     }
 
-    [v9 objectForKeyedSubscript:@"CameraDetectionParameters"];
-    OUTLINED_FUNCTION_4_93();
-    if (OUTLINED_FUNCTION_19())
+    v65 = [v10 objectForKeyedSubscript:@"CameraDetectionParameters"];
+    v67 = OUTLINED_FUNCTION_4_93(v65, v66);
+    if (OUTLINED_FUNCTION_19(v67))
     {
       v6[20] = v8;
     }
 
-    v10 = [v9 objectForKeyedSubscript:@"TemporalNoiseReductionParameters"];
+    v68 = [v10 objectForKeyedSubscript:@"TemporalNoiseReductionParameters"];
     objc_opt_class();
     OUTLINED_FUNCTION_10_29();
     if (objc_opt_isKindOfClass())
     {
-      v6[21] = v10;
+      v6[21] = v68;
     }
   }
 
@@ -1251,7 +1251,7 @@ uint64_t __83__FigCaptureCameraParameters_sdofTuningParametersForSensorIDDiction
 
 - (FigCaptureCameraParameters)initWithContentsOfFile:(id)file
 {
-  FigCaptureGetModelSpecificName();
+  FigCaptureGetModelSpecificName(self, a2);
   v4 = OUTLINED_FUNCTION_10_29();
 
   return [(FigCaptureCameraParameters *)v4 _initWithModelSpecificName:v5 fromFile:file];
@@ -1259,7 +1259,7 @@ uint64_t __83__FigCaptureCameraParameters_sdofTuningParametersForSensorIDDiction
 
 - (uint64_t)_readAndPreprocessCameraParametersForModelSpecificName:(void *)name fromFile:
 {
-  v80 = a2;
+  v81 = a2;
   if (!self)
   {
     return 0;
@@ -1287,11 +1287,11 @@ uint64_t __83__FigCaptureCameraParameters_sdofTuningParametersForSensorIDDiction
     }
 
 LABEL_65:
-    v55 = 0;
+    v56 = 0;
     goto LABEL_62;
   }
 
-  v9 = FigCaptureCFCreatePropertyListForModel(@"CameraSetup.plist", v80, 1);
+  v9 = FigCaptureCFCreatePropertyListForModel(@"CameraSetup.plist", v81, 1);
   if (!v9)
   {
     goto LABEL_65;
@@ -1300,7 +1300,7 @@ LABEL_65:
   v7 = v9;
   v10 = 0;
 LABEL_10:
-  v70 = [(FigCaptureFlatPlist *)v7 objectForKeyedSubscript:@"TuningParameters"];
+  v71 = [(FigCaptureFlatPlist *)v7 objectForKeyedSubscript:@"TuningParameters"];
   v11 = *off_1E798A0C0;
   v108[0] = *off_1E798A0D0;
   v108[1] = v11;
@@ -1315,67 +1315,67 @@ LABEL_10:
   v106 = 0u;
   v107 = 0u;
   obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v108 count:6];
-  v68 = [obj countByEnumeratingWithState:&v104 objects:v103 count:16];
-  if (!v68)
+  v69 = [obj countByEnumeratingWithState:&v104 objects:v103 count:16];
+  if (!v69)
   {
-    v56 = *(self + 8);
-    v53 = (self + 8);
+    v57 = *(self + 8);
+    v54 = (self + 8);
 
     goto LABEL_60;
   }
 
   selfCopy = self;
-  v62 = v7;
-  v64 = 0;
+  v63 = v7;
+  v65 = 0;
   context = v5;
-  v63 = 0;
-  v69 = *v105;
+  v64 = 0;
+  v70 = *v105;
   do
   {
     v14 = 0;
     do
     {
-      if (*v105 != v69)
+      if (*v105 != v70)
       {
         v15 = v14;
         objc_enumerationMutation(obj);
         v14 = v15;
       }
 
-      v74 = v14;
-      v66 = *(*(&v104 + 1) + 8 * v14);
-      v16 = [v70 objectForKeyedSubscript:?];
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_19())
+      v75 = v14;
+      v67 = *(*(&v104 + 1) + 8 * v14);
+      v16 = [v71 objectForKeyedSubscript:?];
+      v17 = objc_opt_class();
+      if (OUTLINED_FUNCTION_19(v17))
       {
         v101 = 0u;
         v102 = 0u;
         v99 = 0u;
         v100 = 0u;
         allKeys = [v16 allKeys];
-        v18 = [allKeys countByEnumeratingWithState:&v99 objects:v98 count:16];
-        if (v18)
+        v19 = [allKeys countByEnumeratingWithState:&v99 objects:v98 count:16];
+        if (v19)
         {
-          v19 = v18;
-          v75 = 0;
-          v20 = *v100;
-          v72 = allKeys;
-          v73 = v16;
-          v71 = *v100;
+          v20 = v19;
+          v76 = 0;
+          v21 = *v100;
+          v73 = allKeys;
+          v74 = v16;
+          v72 = *v100;
           while (1)
           {
-            v21 = 0;
-            v76 = v19;
+            v22 = 0;
+            v77 = v20;
             do
             {
-              if (*v100 != v20)
+              if (*v100 != v21)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v77 = *(*(&v99 + 1) + 8 * v21);
-              v79 = v21;
-              v22 = [v16 objectForKeyedSubscript:?];
+              v78 = *(*(&v99 + 1) + 8 * v22);
+              v80 = v22;
+              v23 = [v16 objectForKeyedSubscript:?];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
               if ((isKindOfClass & 1) == 0)
@@ -1383,64 +1383,64 @@ LABEL_10:
                 goto LABEL_45;
               }
 
-              v31 = OUTLINED_FUNCTION_9_62(isKindOfClass, v24, v25, v26, v27, v28, v29, v30, v58, v59, v60, selfCopy, v62, v63, v64, context, v66, obj, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, 0);
-              if (!v31)
+              v32 = OUTLINED_FUNCTION_9_62(isKindOfClass, v25, v26, v27, v28, v29, v30, v31, v59, v60, v61, selfCopy, v63, v64, v65, context, v67, obj, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97);
+              if (!v32)
               {
-                v19 = v76;
+                v20 = v77;
 LABEL_45:
-                v48 = v79;
+                v49 = v80;
                 goto LABEL_46;
               }
 
-              v32 = v31;
-              v33 = 0;
-              v34 = MEMORY[0];
+              v33 = v32;
+              v34 = 0;
+              v35 = MEMORY[0];
               while (2)
               {
-                for (i = 0; i != v32; ++i)
+                for (i = 0; i != v33; ++i)
                 {
-                  if (MEMORY[0] != v34)
+                  if (MEMORY[0] != v35)
                   {
                     objc_enumerationMutation(&unk_1F2249C60);
                   }
 
-                  v36 = *(8 * i);
-                  v37 = [v22 objectForKeyedSubscript:v36];
+                  v37 = *(8 * i);
+                  v38 = [v23 objectForKeyedSubscript:v37];
                   objc_opt_class();
                   OUTLINED_FUNCTION_10_29();
-                  v38 = objc_opt_isKindOfClass();
-                  if (v38)
+                  v39 = objc_opt_isKindOfClass();
+                  if (v39)
                   {
                     if (v10)
                     {
-                      v58 = v10;
-                      v59 = v37;
-                      v46 = +[FigCaptureFlatPlist flatPlistWithContentsOfFile:](FigCaptureFlatPlist, "flatPlistWithContentsOfFile:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@"]);
+                      v59 = v10;
+                      v60 = v38;
+                      v47 = +[FigCaptureFlatPlist flatPlistWithContentsOfFile:](FigCaptureFlatPlist, "flatPlistWithContentsOfFile:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@"]);
                     }
 
                     else
                     {
-                      v46 = FigCaptureCFCreatePropertyListForModel(v37, v80, 1);
+                      v47 = FigCaptureCFCreatePropertyListForModel(v38, v81, 1);
                     }
 
-                    v47 = v46;
-                    if (!v46)
+                    v48 = v47;
+                    if (!v47)
                     {
                       goto LABEL_58;
                     }
 
-                    if (!v33)
+                    if (!v34)
                     {
-                      v33 = [v22 mutableCopy];
+                      v34 = [v23 mutableCopy];
                     }
 
-                    [v33 setObject:0 forKeyedSubscript:v36];
-                    v38 = [v33 addEntriesFromDictionary:v47];
+                    [v34 setObject:0 forKeyedSubscript:v37];
+                    v39 = [v34 addEntriesFromDictionary:v48];
                   }
                 }
 
-                v32 = OUTLINED_FUNCTION_9_62(v38, v39, v40, v41, v42, v43, v44, v45, v58, v59, v60, selfCopy, v62, v63, v64, context, v66, obj, v68, v69, v70, v71, v72, v73, v74, v75, v76, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97);
-                if (v32)
+                v33 = OUTLINED_FUNCTION_9_62(v39, v40, v41, v42, v43, v44, v45, v46, v59, v60, v61, selfCopy, v63, v64, v65, context, v67, obj, v69, v70, v71, v72, v73, v74, v75, v76, v77, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97);
+                if (v33)
                 {
                   continue;
                 }
@@ -1448,63 +1448,63 @@ LABEL_45:
                 break;
               }
 
-              v19 = v76;
-              v48 = v79;
-              if (!v33)
+              v20 = v77;
+              v49 = v80;
+              if (!v34)
               {
-                allKeys = v72;
-                v16 = v73;
-                v20 = v71;
+                allKeys = v73;
+                v16 = v74;
+                v21 = v72;
                 goto LABEL_46;
               }
 
-              allKeys = v72;
-              v16 = v73;
-              v49 = v75;
-              v20 = v71;
-              if (!v75)
+              allKeys = v73;
+              v16 = v74;
+              v50 = v76;
+              v21 = v72;
+              if (!v76)
               {
-                v49 = [v73 mutableCopy];
+                v50 = [v74 mutableCopy];
               }
 
-              v75 = v49;
-              [v49 setObject:v33 forKeyedSubscript:v78];
-              if ([v78 isEqualToString:@"0x0803"])
+              v76 = v50;
+              [v50 setObject:v34 forKeyedSubscript:v79];
+              if (objc_msgSend_isEqualToString_(v79))
               {
-                if (([objc_msgSend(v73 "allKeys")] & 1) == 0)
+                if (([objc_msgSend(v74 "allKeys")] & 1) == 0)
                 {
-                  [v75 setObject:v33 forKeyedSubscript:@"0x0853"];
+                  [v76 setObject:v34 forKeyedSubscript:@"0x0853"];
                   goto LABEL_46;
                 }
 
 LABEL_58:
-                v55 = 0;
+                v56 = 0;
                 v5 = context;
                 goto LABEL_62;
               }
 
 LABEL_46:
-              v21 = v48 + 1;
+              v22 = v49 + 1;
             }
 
-            while (v21 != v19);
-            v50 = [allKeys countByEnumeratingWithState:&v99 objects:v98 count:16];
-            v19 = v50;
-            if (!v50)
+            while (v22 != v20);
+            v51 = [allKeys countByEnumeratingWithState:&v99 objects:v98 count:16];
+            v20 = v51;
+            if (!v51)
             {
-              if (v75)
+              if (v76)
               {
-                v51 = v64;
-                if (!v64)
+                v52 = v65;
+                if (!v65)
                 {
-                  v52 = [v70 mutableCopy];
-                  v63 = [(FigCaptureFlatPlist *)v62 mutableCopy];
-                  [v63 setObject:v52 forKeyedSubscript:@"TuningParameters"];
-                  v51 = v52;
+                  v53 = [v71 mutableCopy];
+                  v64 = [(FigCaptureFlatPlist *)v63 mutableCopy];
+                  [v64 setObject:v53 forKeyedSubscript:@"TuningParameters"];
+                  v52 = v53;
                 }
 
-                v64 = v51;
-                [v51 setObject:? forKeyedSubscript:?];
+                v65 = v52;
+                [v52 setObject:? forKeyedSubscript:?];
               }
 
               break;
@@ -1513,33 +1513,33 @@ LABEL_46:
         }
       }
 
-      v14 = v74 + 1;
+      v14 = v75 + 1;
     }
 
-    while (v74 + 1 != v68);
-    v68 = [obj countByEnumeratingWithState:&v104 objects:v103 count:16];
+    while (v75 + 1 != v69);
+    v69 = [obj countByEnumeratingWithState:&v104 objects:v103 count:16];
   }
 
-  while (v68);
-  v53 = (selfCopy + 8);
+  while (v69);
+  v54 = (selfCopy + 8);
 
-  if (v63)
+  if (v64)
   {
-    v54 = [v63 copy];
+    v55 = [v64 copy];
     v5 = context;
     goto LABEL_61;
   }
 
   v5 = context;
-  v7 = v62;
+  v7 = v63;
 LABEL_60:
-  v54 = v7;
+  v55 = v7;
 LABEL_61:
-  *v53 = v54;
-  v55 = 1;
+  *v54 = v55;
+  v56 = 1;
 LABEL_62:
   objc_autoreleasePoolPop(v5);
-  return v55;
+  return v56;
 }
 
 - (int)videoGreenGhostBrightLightMitigationVersion
@@ -1598,7 +1598,7 @@ LABEL_62:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return -1;
   }
 
@@ -1615,39 +1615,38 @@ LABEL_62:
 {
   if (!type)
   {
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   stringCopy = string;
   if (!string)
   {
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
   v9 = [FigCaptureCameraParameters focusPixelDisparityVersionForPortType:"focusPixelDisparityVersionForPortType:sensorIDString:" sensorIDString:?];
   if (!v9 || (v10 = v9, (v11 = [(FigCaptureCameraParameters *)self sensorIDDictionaryForPortType:type sensorIDString:stringCopy]) == 0))
   {
-LABEL_24:
+LABEL_25:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_4_8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
   stringCopy = [v11 objectForKeyedSubscript:@"FocusPixelDisparityParameters"];
   if (!stringCopy)
   {
-LABEL_23:
+LABEL_24:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_4_8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return stringCopy;
   }
 
   if (v10 >= 2)
   {
-    v39 = v10;
-    stringCopy = [stringCopy objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"FPDisparityV%d"}];
+    stringCopy = [stringCopy objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"FPDisparityV%d", v10)}];
   }
 
   v12 = [stringCopy objectForKeyedSubscript:@"ZoomSpecificParameters"];
@@ -1658,7 +1657,7 @@ LABEL_23:
 
   if (factor == 0.0)
   {
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   v13 = v12;
@@ -1671,7 +1670,7 @@ LABEL_23:
 
   [v14 firstObject];
   stringCopy = [OUTLINED_FUNCTION_4() objectForKeyedSubscript:?];
-  v23 = OUTLINED_FUNCTION_17_0(stringCopy, v16, v17, v18, v19, v20, v21, v22, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, 0);
+  v23 = OUTLINED_FUNCTION_17_0(stringCopy, v16, v17, v18, v19, v20, v21, v22, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73);
   if (v23)
   {
     v24 = v23;
@@ -1697,7 +1696,7 @@ LABEL_13:
       stringCopy = v30;
       if (v24 == ++v27)
       {
-        v24 = OUTLINED_FUNCTION_17_0(v30, v31, v32, v33, v34, v35, v36, v37, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v75);
+        v24 = OUTLINED_FUNCTION_17_0(v30, v31, v32, v33, v34, v35, v36, v37, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74);
         if (v24)
         {
           goto LABEL_13;
@@ -1734,7 +1733,7 @@ LABEL_13:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -1769,7 +1768,7 @@ LABEL_13:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -1786,18 +1785,18 @@ LABEL_13:
 {
   if (!type)
   {
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   if (!string)
   {
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   v7 = [FigCaptureCameraParameters sensorIDDictionaryForPortType:"sensorIDDictionaryForPortType:sensorIDString:" sensorIDString:?];
   if (!v7)
   {
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   v8 = [v7 objectForKeyedSubscript:@"PortraitSceneMonitoringParameters"];
@@ -1814,10 +1813,10 @@ LABEL_13:
 
   if (portType == 0.0)
   {
-LABEL_24:
+LABEL_25:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -1899,7 +1898,7 @@ LABEL_16:
 
 - (int)sdofRenderingVersionForPortType:(id)type sensorIDString:(id)string zoomFactor:(float)factor
 {
-  if (!type || ([type isEqualToString:*off_1E798A0C8] & 1) != 0)
+  if (!type || (objc_msgSend_isEqualToString_(type, a2, *off_1E798A0C8) & 1) != 0)
   {
     return 0;
   }
@@ -1908,7 +1907,7 @@ LABEL_16:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -2096,7 +2095,7 @@ LABEL_15:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_4_8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, v48, v50, v52, v54, v56, v58, v60);
     v12 = 0;
     v7 = 1.0;
     goto LABEL_14;
@@ -2120,7 +2119,7 @@ LABEL_15:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_4_8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, v48, v50, v52, v54, v56, v58, v60);
     goto LABEL_28;
   }
 
@@ -2139,7 +2138,7 @@ LABEL_28:
   v12 = [OUTLINED_FUNCTION_4() objectForKeyedSubscript:?];
   v13 = [objc_msgSend(v10 "firstObject")];
   v7 = v14;
-  v22 = OUTLINED_FUNCTION_17_0(v13, v15, v16, v17, v18, v19, v20, v21, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, 0);
+  v22 = OUTLINED_FUNCTION_17_0(v13, v15, v16, v17, v18, v19, v20, v21, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80);
   if (v22)
   {
     v23 = v22;
@@ -2165,7 +2164,7 @@ LABEL_8:
       v7 = v36;
       if (v23 == ++v25)
       {
-        v23 = OUTLINED_FUNCTION_17_0(floatValue, v29, v30, v31, v32, v33, v34, v35, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v82);
+        v23 = OUTLINED_FUNCTION_17_0(floatValue, v29, v30, v31, v32, v33, v34, v35, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81);
         if (v23)
         {
           goto LABEL_8;
@@ -2207,15 +2206,15 @@ LABEL_14:
           }
 
           v44 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v12];
-          v83[0] = MEMORY[0x1E69E9820];
-          v83[1] = 3221225472;
-          v83[2] = __fccp_fineTuneSDOFTuningParametersForContinuousZoom_block_invoke;
-          v83[3] = &unk_1E799CB00;
-          v83[4] = v12;
-          v83[5] = 0;
-          v84 = v43;
-          v83[6] = v44;
-          [v40 enumerateKeysAndObjectsUsingBlock:v83];
+          v82[0] = MEMORY[0x1E69E9820];
+          v82[1] = 3221225472;
+          v82[2] = __fccp_fineTuneSDOFTuningParametersForContinuousZoom_block_invoke;
+          v82[3] = &unk_1E799CB00;
+          v82[4] = v12;
+          v82[5] = 0;
+          v83 = v43;
+          v82[6] = v44;
+          [v40 enumerateKeysAndObjectsUsingBlock:v82];
           return [MEMORY[0x1E695DF20] dictionaryWithDictionary:v44];
         }
       }
@@ -2225,402 +2224,24 @@ LABEL_14:
   return v12;
 }
 
-- (uint64_t)sensorIDDictionaryForStream:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)sensorIDDictionaryForStream:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)sensorIDDictionaryForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)sensorIDDictionaryForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)sensorIDDictionaryForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)focalLengthCharacterizationForStream:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)disparityVersionForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)disparityVersionForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)disparityVersionForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)focusPixelDisparityVersionForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)focusPixelDisparityVersionForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)focusPixelDisparityVersionForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)mattingVersionForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)mattingVersionForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)mattingVersionForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)depthScalingTuneParametersForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)depthScalingTuneParametersForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)depthScalingTuneParametersForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:.cold.1()
+- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:(uint64_t)a3 sensorIDString:(uint64_t)a4 zoomFactor:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9)
 {
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, vars0, vars8);
+  v10 = OUTLINED_FUNCTION_2();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, 0xFFFFCE14, "<<<< FigCaptureCameraParameters >>>>", 0x530, v9, v11, v12, a9);
 }
 
-- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:.cold.2()
+- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:(uint64_t)a3 sensorIDString:(uint64_t)a4 zoomFactor:(uint64_t)a5 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9)
 {
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, vars0, vars8);
+  v10 = OUTLINED_FUNCTION_2();
 
-  return FigSignalErrorAtGM();
-}
-
-- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)portraitPreviewForegroundBlurEnabledForPortType:sensorIDString:zoomFactor:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)disparityRefinementTypeForPortType:sensorIDString:zoomFactor:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)disparityRefinementTypeForPortType:sensorIDString:zoomFactor:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)disparityRefinementTypeForPortType:sensorIDString:zoomFactor:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)disparityRefinementTypeForPortType:sensorIDString:zoomFactor:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)actionCameraSceneMonitoringParametersForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)actionCameraSceneMonitoringParametersForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)actionCameraSceneMonitoringParametersForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)stereoVideoCaptureSceneMonitoringParametersForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)stereoVideoCaptureSceneMonitoringParametersForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)stereoVideoCaptureSceneMonitoringParametersForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)stereoPhotoCaptureSceneMonitoringParametersForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)stereoPhotoCaptureSceneMonitoringParametersForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)stereoPhotoCaptureSceneMonitoringParametersForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)lensSmudgeDetectionParametersForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)lensSmudgeDetectionParametersForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)lensSmudgeDetectionParametersForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)lensSmudgeDetectionParametersForPortType:sensorIDString:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)panoramaRequiresLTMLockingForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)panoramaRequiresLTMLockingForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)panoramaRequiresLTMLockingForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)chromaticDefringingParametersForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)chromaticDefringingParametersForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)quadraSubPixelSwitchingParametersForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)quadraSubPixelSwitchingParametersForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)quadraSubPixelSwitchingParametersForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)cinematicFramingVirtualCameraConfigurationForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)cinematicFramingVirtualCameraConfigurationForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)cinematicFramingVirtualCameraConfigurationForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)temporalFilterSessionConfigurationForPortType:sensorIDString:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)temporalFilterSessionConfigurationForPortType:sensorIDString:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)temporalFilterSessionConfigurationForPortType:sensorIDString:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, 0xFFFFCE14, "<<<< FigCaptureCameraParameters >>>>", 0x52E, v9, v11, v12, a9);
 }
 
 @end

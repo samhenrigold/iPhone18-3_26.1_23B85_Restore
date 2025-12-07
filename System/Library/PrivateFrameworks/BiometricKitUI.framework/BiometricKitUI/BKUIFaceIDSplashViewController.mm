@@ -2,6 +2,7 @@
 - (id)initInBuddy:(BOOL)buddy bkDevice:(id)device withEndEnrollmentActionPrimary:(id)primary enrollmentActionSecondary:(id)secondary;
 - (void)_didSelectEnroll;
 - (void)_didSelectSkip;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -40,18 +41,18 @@
 
 - (void)viewDidLoad
 {
-  v36[2] = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = BKUIFaceIDSplashViewController;
-  [(OBBaseWelcomeController *)&v35 viewDidLoad];
+  v35[2] = *MEMORY[0x277D85DE8];
+  v34.receiver = self;
+  v34.super_class = BKUIFaceIDSplashViewController;
+  [(OBBaseWelcomeController *)&v34 viewDidLoad];
   buttonTray = [(BKUIFaceIDSplashViewController *)self buttonTray];
   [buttonTray setPrivacyLinkForBundles:&unk_2853CC850];
 
   v4 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"State 1" darkStateName:@"Dark 1" transitionDuration:0.01 transitionSpeed:1.0];
-  v36[0] = v4;
+  v35[0] = v4;
   v5 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"State 2" darkStateName:@"Dark 2" transitionDuration:1.5 transitionSpeed:0.8];
-  v36[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  v35[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
 
   v7 = objc_alloc(MEMORY[0x277D37600]);
   v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -109,8 +110,15 @@
   [linkButton addTarget:self action:sel__didSelectSkip forControlEvents:64];
   buttonTray3 = [(BKUIFaceIDSplashViewController *)self buttonTray];
   [buttonTray3 addButton:linkButton];
+}
 
-  v34 = *MEMORY[0x277D85DE8];
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = BKUIFaceIDSplashViewController;
+  [(OBBaseWelcomeController *)&v5 viewDidAppear:appear];
+  animationController = [(BKUIFaceIDSplashViewController *)self animationController];
+  [animationController startAnimation];
 }
 
 - (void)_didSelectEnroll

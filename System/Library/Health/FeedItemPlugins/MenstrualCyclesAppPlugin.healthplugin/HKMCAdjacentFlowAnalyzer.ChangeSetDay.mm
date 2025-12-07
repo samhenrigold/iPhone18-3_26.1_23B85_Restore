@@ -16,7 +16,7 @@
 - (BOOL)isFetched
 {
   v2 = self + OBJC_IVAR____TtCE24MenstrualCyclesAppPluginCSo24HKMCAdjacentFlowAnalyzer12ChangeSetDay_cycleDay;
-  v3 = *&v2[*(type metadata accessor for CycleDay() + 20)];
+  v3 = *&v2[*(type metadata accessor for CycleDay(0) + 20)];
 
   return [v3 isFetched];
 }

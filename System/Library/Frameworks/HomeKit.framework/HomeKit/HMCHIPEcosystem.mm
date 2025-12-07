@@ -46,7 +46,7 @@
 
 - (HMCHIPEcosystem)initWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDPE.ck.rootPublicKey"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDPE.ck.vendor"];
@@ -88,20 +88,19 @@ LABEL_9:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     v15 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded rootPublicKey: %@ vendor: %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v9;
+    _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded rootPublicKey: %@ vendor: %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
   v12 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

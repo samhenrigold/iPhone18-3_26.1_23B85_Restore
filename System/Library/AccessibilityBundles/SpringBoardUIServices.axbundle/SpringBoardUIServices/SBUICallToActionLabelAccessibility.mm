@@ -40,7 +40,7 @@
 
 - (id)accessibilityAttributedLabel
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v14[1] = *MEMORY[0x29EDCA608];
   v2 = [(SBUICallToActionLabelAccessibility *)self safeValueForKey:@"label"];
   objc_opt_class();
   v3 = [v2 safeValueForKey:@"attributedText"];
@@ -55,9 +55,9 @@
   v9 = v8;
   if (v6)
   {
-    v14 = *MEMORY[0x29EDC7F30];
-    v15[0] = v6;
-    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x29EDC7F30];
+    v14[0] = v6;
+    v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v11 = [v9 initWithString:accessibilityLabel attributes:v10];
   }
 
@@ -65,8 +65,6 @@
   {
     v11 = [v8 initWithString:accessibilityLabel];
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v11;
 }

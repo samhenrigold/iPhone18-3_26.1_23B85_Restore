@@ -22,69 +22,67 @@
 
 - (RDUserData)initWithCoder:(id)coder
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(RDUserData *)self init];
   if (v5)
   {
-    v21 = coderCopy;
+    v20 = coderCopy;
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_language"];
     language = v5->_language;
     v5->_language = v6;
 
-    v19 = coderCopy;
-    v20 = [v19 decodePropertyListForKey:@"_contactsWords"];
+    v18 = coderCopy;
+    v19 = [v18 decodePropertyListForKey:@"_contactsWords"];
     objc_opt_class();
-    v8 = v20;
+    v8 = v19;
     if (objc_opt_isKindOfClass())
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
-      v9 = v20;
-      v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v9 = v19;
+      v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v10)
       {
-        v11 = *v28;
+        v11 = *v27;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v28 != v11)
+            if (*v27 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            v13 = *(*(&v27 + 1) + 8 * i);
+            v13 = *(*(&v26 + 1) + 8 * i);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            if (objc_opt_isKindOfClass())
             {
-              goto LABEL_14;
+              v22 = 0;
+              v23 = &v22;
+              v24 = 0x2020000000;
+              v25 = 0;
+              v21[0] = MEMORY[0x277D85DD0];
+              v21[1] = 3221225472;
+              v21[2] = sub_2723625BC;
+              v21[3] = &unk_279E40710;
+              v21[4] = &v22;
+              [v13 enumerateKeysAndObjectsUsingBlock:v21];
+              v14 = *(v23 + 24);
+              _Block_object_dispose(&v22, 8);
+              if ((v14 & 1) == 0)
+              {
+                continue;
+              }
             }
 
-            v23 = 0;
-            v24 = &v23;
-            v25 = 0x2020000000;
-            v26 = 0;
-            v22[0] = MEMORY[0x277D85DD0];
-            v22[1] = 3221225472;
-            v22[2] = sub_2723625BC;
-            v22[3] = &unk_279E40710;
-            v22[4] = &v23;
-            [v13 enumerateKeysAndObjectsUsingBlock:v22];
-            v14 = *(v24 + 24);
-            _Block_object_dispose(&v23, 8);
-            if (v14)
-            {
-LABEL_14:
-
-              v15 = 0;
-              goto LABEL_15;
-            }
+            v15 = 0;
+            goto LABEL_15;
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
           if (v10)
           {
             continue;
@@ -96,7 +94,7 @@ LABEL_14:
 
       v15 = v9;
 LABEL_15:
-      v8 = v20;
+      v8 = v19;
     }
 
     else
@@ -107,10 +105,9 @@ LABEL_15:
     contactsWords = v5->_contactsWords;
     v5->_contactsWords = v15;
 
-    coderCopy = v21;
+    coderCopy = v20;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -180,85 +177,81 @@ LABEL_15:
 
 - (void)_fetchContactsWithKeepGoing:(id)going
 {
-  v51[4] = *MEMORY[0x277D85DE8];
+  v48[4] = *MEMORY[0x277D85DE8];
   goingCopy = going;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBDAB8]);
   [v6 requestAccessForEntityType:0 completionHandler:&unk_288190678];
   v7 = *MEMORY[0x277CBD058];
-  v51[0] = *MEMORY[0x277CBD000];
-  v51[1] = v7;
+  v48[0] = *MEMORY[0x277CBD000];
+  v48[1] = v7;
   v8 = *MEMORY[0x277CBD078];
-  v51[2] = *MEMORY[0x277CBCFF8];
-  v51[3] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
+  v48[2] = *MEMORY[0x277CBCFF8];
+  v48[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
   v10 = [objc_alloc(MEMORY[0x277CBDA70]) initWithKeysToFetch:v9];
-  v42 = 0;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = sub_272362C20;
-  v37[3] = &unk_279E40588;
+  v39 = 0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = sub_272362C20;
+  v34[3] = &unk_279E40588;
   v11 = goingCopy;
-  v39 = v11;
-  v40 = &v43;
+  v36 = v11;
+  v37 = &v40;
   v12 = v5;
-  v38 = v12;
-  v41 = &v47;
-  v13 = [v6 enumerateContactsWithFetchRequest:v10 error:&v42 usingBlock:v37];
-  v14 = v42;
+  v35 = v12;
+  v38 = &v44;
+  v13 = [v6 enumerateContactsWithFetchRequest:v10 error:&v39 usingBlock:v34];
+  v14 = v39;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
   v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
   v15 = MEMORY[0x277CD43E0];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = sub_272362E30;
-  v24[3] = &unk_279E405B0;
-  v26 = &v43;
-  v27 = &v33;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_272362E30;
+  v21[3] = &unk_279E405B0;
+  v23 = &v40;
+  v24 = &v30;
   v16 = v12;
-  v25 = v16;
-  v28 = &v29;
-  [v15 enumerateVocabularyUsingBlock:v24];
+  v22 = v16;
+  v25 = &v26;
+  [v15 enumerateVocabularyUsingBlock:v21];
   if (v13)
   {
-    v17 = v48[3];
-    printf("Found %lu and added %lu contact(s) for offline recognition\n", v17, v44[3]);
+    printf("Found %lu and added %lu contact(s) for offline recognition\n", v45[3], v41[3]);
   }
 
   else
   {
     localizedFailureReason = [v14 localizedFailureReason];
-    v19 = localizedFailureReason;
+    v18 = localizedFailureReason;
     printf("Could not get contacts for offline recognition: %s\n", [localizedFailureReason UTF8String]);
   }
 
-  v20 = v34[3];
-  printf("Found %lu and added %lu contact(s) from INVocabulary for offline recognition\n", v20, v30[3]);
-  v21 = [v16 copy];
+  printf("Found %lu and added %lu contact(s) from INVocabulary for offline recognition\n", v31[3], v27[3]);
+  v19 = [v16 copy];
   contactsWords = self->_contactsWords;
-  self->_contactsWords = v21;
+  self->_contactsWords = v19;
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v30, 8);
 
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(&v47, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v44, 8);
 }
 
 - (void)dealloc

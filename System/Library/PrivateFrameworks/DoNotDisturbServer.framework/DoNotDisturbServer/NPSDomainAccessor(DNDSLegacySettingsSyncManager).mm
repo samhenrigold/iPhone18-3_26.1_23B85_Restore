@@ -85,14 +85,14 @@
 
 - (void)dnds_setScheduleSettings:()DNDSLegacySettingsSyncManager
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   makeRecord = [a3 makeRecord];
   legacyBehaviorOverride = [makeRecord legacyBehaviorOverride];
   if (legacyBehaviorOverride)
   {
     dnds_secureLegacyArchiver = [MEMORY[0x277CCAAB0] dnds_secureLegacyArchiver];
-    v13[0] = legacyBehaviorOverride;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = legacyBehaviorOverride;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     [dnds_secureLegacyArchiver encodeObject:v7 forKey:*MEMORY[0x277CCA308]];
 
     encodedData = [dnds_secureLegacyArchiver encodedData];
@@ -116,21 +116,18 @@
     v9 = DNDSLogLegacySettingsSync;
     if (os_log_type_enabled(DNDSLogLegacySettingsSync, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring schedule settings with no override", v12, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring schedule settings with no override", v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dnds_scheduleSettingsWithLastUpdated:()DNDSLegacySettingsSyncManager .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Error decoding behavior overrides: error=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Error decoding behavior overrides: error=%{public}@", &v2, 0xCu);
 }
 
 @end

@@ -361,7 +361,6 @@
   }
 
   objc_storeStrong(v8, 0);
-  *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -517,7 +516,6 @@ void __37__AKCDPFactory_walrusStatusLiveValue__block_invoke_55(NSObject *a1, voi
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __37__AKCDPFactory_walrusStatusLiveValue__block_invoke_57(uint64_t a1, void *a2)
@@ -590,7 +588,6 @@ void __37__AKCDPFactory_walrusStatusLiveValue__block_invoke_57(uint64_t a1, void
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -728,7 +725,6 @@ void __40__AKCDPFactory_webAccessStatusLiveValue__block_invoke_2(NSObject *a1, v
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __40__AKCDPFactory_webAccessStatusLiveValue__block_invoke_64(uint64_t a1, void *a2)
@@ -974,7 +970,6 @@ void __40__AKCDPFactory_webAccessStatusLiveValue__block_invoke_64(uint64_t a1, v
   v4 = v8;
   objc_storeStrong(&v9, 0);
   objc_storeStrong(v10, 0);
-  *MEMORY[0x1E69E9840];
   return v4 & 1;
 }
 

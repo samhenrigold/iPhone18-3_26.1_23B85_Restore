@@ -84,16 +84,16 @@
   memset(&v26, 0, sizeof(v26));
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
     CATransform3DScale(&v26, &v25, 0.5, 0.5, 1.0);
     memset(&v25, 0, sizeof(v25));
-    [layer transform];
+    objc_msgSend_transform(layer);
     CATransform3DScale(&v25, &v24, 1.20000005, 1.20000005, 1.0);
     memset(&v24, 0, sizeof(v24));
-    [layer transform];
+    objc_msgSend_transform(layer);
     CATransform3DScale(&v24, &v23, 0.899999976, 0.899999976, 1.0);
     memset(&v23, 0, sizeof(v23));
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else

@@ -1094,7 +1094,7 @@ LABEL_16:
 {
   animationCopy = animation;
   animatedCopy = animated;
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   completionCopy = completion;
   if (IMOSLoggingEnabled())
@@ -1107,41 +1107,42 @@ LABEL_16:
     }
   }
 
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __102__CKQLPreviewController__dismissFullScreenBubbleViewController_animated_withSendAnimation_completion___block_invoke;
-  v21 = &unk_1E72ED1C8;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __102__CKQLPreviewController__dismissFullScreenBubbleViewController_animated_withSendAnimation_completion___block_invoke;
+  v22 = &unk_1E72ED1C8;
   selfCopy = self;
   v13 = completionCopy;
-  v23 = v13;
-  v14 = _Block_copy(&v18);
-  if (IMOSLoggingEnabled())
+  v24 = v13;
+  v14 = _Block_copy(&v19);
+  v15 = IMOSLoggingEnabled();
+  if (v15)
   {
-    v15 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       if (animatedCopy)
       {
-        v16 = @"YES";
+        v17 = @"YES";
       }
 
       else
       {
-        v16 = @"NO";
+        v17 = @"NO";
       }
 
-      v17 = _Block_copy(v13);
+      v18 = _Block_copy(v13);
       *buf = 138412802;
-      v25 = v16;
-      v26 = 1024;
-      v27 = animationCopy;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "_dismissFullScreenBubbleViewControllerAnimated %@:WithSendAnimation: %d, completion %@", buf, 0x1Cu);
+      v26 = v17;
+      v27 = 1024;
+      v28 = animationCopy;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_INFO, "_dismissFullScreenBubbleViewControllerAnimated %@:WithSendAnimation: %d, completion %@", buf, 0x1Cu);
     }
   }
 
-  if (CKIsRunningInMessagesTranscriptExtension())
+  if (CKIsRunningInMessagesTranscriptExtension(v15))
   {
     v14[2](v14);
   }
@@ -1150,12 +1151,12 @@ LABEL_16:
   {
     if (animationCopy)
     {
-      [controllerCopy performSendAndCloseAnimationWithCompletion:{v14, v18, v19, v20, v21, selfCopy}];
+      [controllerCopy performSendAndCloseAnimationWithCompletion:{v14, v19, v20, v21, v22, selfCopy}];
     }
 
     else
     {
-      [controllerCopy performCancelAnimationWithCompletion:{v14, v18, v19, v20, v21, selfCopy}];
+      [controllerCopy performCancelAnimationWithCompletion:{v14, v19, v20, v21, v22, selfCopy}];
     }
   }
 

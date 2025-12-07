@@ -273,7 +273,7 @@ LABEL_20:
       v11 = 1;
       if (v8 && v9)
       {
-        v11 = [v8 isEqual:v9] ^ 1;
+        v11 = objc_msgSend_isEqual_(v8) ^ 1;
       }
     }
 
@@ -294,7 +294,7 @@ LABEL_20:
       v18 = 1;
       if (v15 && v16)
       {
-        v18 = [v15 isEqual:v16] ^ 1;
+        v18 = objc_msgSend_isEqual_(v15) ^ 1;
       }
     }
 

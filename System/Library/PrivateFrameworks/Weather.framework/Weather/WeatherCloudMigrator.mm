@@ -100,7 +100,7 @@ LABEL_11:
 
 void __61__WeatherCloudMigrator_migrateStore_toStore_completionBlock___block_invoke_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = WALogForCategory(14);
   v5 = v4;
@@ -120,25 +120,23 @@ void __61__WeatherCloudMigrator_migrateStore_toStore_completionBlock___block_inv
     {
       v6 = [*(a1 + 32) dictionaryRepresentation];
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Migrating key-value store to encrypted store, contents=%@", buf, 0xCu);
     }
 
     v7 = [*(a1 + 32) dictionaryRepresentation];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __61__WeatherCloudMigrator_migrateStore_toStore_completionBlock___block_invoke_2;
-    v9[3] = &unk_279E67DE0;
-    v10 = *(a1 + 40);
-    [v7 enumerateKeysAndObjectsUsingBlock:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __61__WeatherCloudMigrator_migrateStore_toStore_completionBlock___block_invoke_2;
+    v8[3] = &unk_279E67DE0;
+    v9 = *(a1 + 40);
+    [v7 enumerateKeysAndObjectsUsingBlock:v8];
 
     [*(a1 + 40) setObject:&unk_288235658 forKey:@"version"];
     [*(a1 + 40) synchronize];
     [*(a1 + 48) eraseStoreIfNeeded:*(a1 + 32)];
     (*(*(a1 + 56) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseStoreIfNeeded:(id)needed
@@ -215,20 +213,18 @@ void __43__WeatherCloudMigrator_eraseStoreIfNeeded___block_invoke(uint64_t a1, i
 
 void __61__WeatherCloudMigrator_migrateStore_toStore_completionBlock___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Failed to migrate the store. Could not synchronize the toStore, error=%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Failed to migrate the store. Could not synchronize the toStore, error=%@", &v2, 0xCu);
 }
 
 void __61__WeatherCloudMigrator_migrateStore_toStore_completionBlock___block_invoke_1_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Failed to migrate the store. Could not synchronize the fromStore, error=%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Failed to migrate the store. Could not synchronize the fromStore, error=%@", &v2, 0xCu);
 }
 
 @end

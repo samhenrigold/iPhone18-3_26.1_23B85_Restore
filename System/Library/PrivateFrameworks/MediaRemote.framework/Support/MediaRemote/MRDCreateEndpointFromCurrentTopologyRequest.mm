@@ -110,49 +110,17 @@
   deviceInfo = [v38 deviceInfo];
 
   -[MRDCreateEndpointWithCurrentTopologyAnalytics setAirplayActive:](v21, "setAirplayActive:", [deviceInfo isAirPlayActive]);
-  if (![deviceInfo isAirPlayActive])
+  if ([deviceInfo isAirPlayActive] && (!objc_msgSend(deviceInfo, "groupContainsDiscoverableGroupLeader") || (objc_msgSend(deviceInfo, "leaderDeviceInfo"), (v40 = objc_claimAutoreleasedReturnValue()) != 0) && (v41 = v40, objc_msgSend(deviceInfo, "leaderDeviceInfo"), v59 = v37, v42 = v36, v43 = v31, v44 = v29, v45 = v30, v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "deviceUID"), v47 = objc_claimAutoreleasedReturnValue(), v47, v46, v30 = v45, v29 = v44, v31 = v43, v36 = v42, v37 = v59, v41, !v47)))
   {
-    goto LABEL_7;
-  }
-
-  if (![deviceInfo groupContainsDiscoverableGroupLeader])
-  {
-    goto LABEL_8;
-  }
-
-  leaderDeviceInfo = [deviceInfo leaderDeviceInfo];
-  if (!leaderDeviceInfo)
-  {
-    goto LABEL_7;
-  }
-
-  v41 = leaderDeviceInfo;
-  [deviceInfo leaderDeviceInfo];
-  v59 = v37;
-  v42 = v36;
-  v43 = v31;
-  v44 = v29;
-  v46 = v45 = v30;
-  deviceUID = [v46 deviceUID];
-
-  v30 = v45;
-  v29 = v44;
-  v31 = v43;
-  v36 = v42;
-  v37 = v59;
-
-  if (!deviceUID)
-  {
-LABEL_8:
     v60 = v30;
     [(MRDCreateEndpointWithCurrentTopologyAnalytics *)v21 setUndiscoverableGroupLeader:1];
-    leaderDeviceInfo2 = [deviceInfo leaderDeviceInfo];
-    groupedDevices = [leaderDeviceInfo2 groupedDevices];
+    leaderDeviceInfo = [deviceInfo leaderDeviceInfo];
+    groupedDevices = [leaderDeviceInfo groupedDevices];
 
     if (groupedDevices)
     {
-      leaderDeviceInfo3 = [deviceInfo leaderDeviceInfo];
-      groupedDevices2 = [leaderDeviceInfo3 groupedDevices];
+      leaderDeviceInfo2 = [deviceInfo leaderDeviceInfo];
+      groupedDevices2 = [leaderDeviceInfo2 groupedDevices];
       v49 = [groupedDevices2 msv_map:&stru_1004B7FC0];
 
       [(MRDCreateEndpointWithCurrentTopologyAnalytics *)v21 setContainsLeaderInfo:1];
@@ -200,7 +168,6 @@ LABEL_8:
 
   else
   {
-LABEL_7:
     findMyGroupLeader = [(MRDCreateEndpointWithCurrentTopologyAnalytics *)v21 findMyGroupLeader];
     [findMyGroupLeader start];
 

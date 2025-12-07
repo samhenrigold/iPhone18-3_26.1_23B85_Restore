@@ -15,6 +15,7 @@
 - (void)dispatchThreadgroupsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreads:(id *)threads threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreadsWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset;
+- (void)enableNullBufferBinds:(BOOL)binds;
 - (void)endEncoding;
 - (void)endEncoding_private;
 - (void)endVirtualSubstream;
@@ -24,8 +25,10 @@
 - (void)enumerateThreadgroupMemoryLengthsUsingBlock:(id)block;
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)offset;
 - (void)executeCommandsInBuffer:(id)buffer withRange:(_NSRange)range;
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index;
 - (void)memoryBarrierWithResources:(const void *)resources count:(unint64_t)count;
 - (void)memoryBarrierWithScope:(unint64_t)scope;
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier;
 - (void)setAccelerationStructure:(id)structure atBufferIndex:(unint64_t)index;
 - (void)setBuffer:(id)buffer offset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index;
 - (void)setBufferOffset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index;
@@ -42,11 +45,13 @@
 - (void)setSamplerStates:(const void *)states withRange:(_NSRange)range;
 - (void)setStageInRegion:(id *)region;
 - (void)setStageInRegionWithIndirectBuffer:(id)buffer indirectBufferOffset:(unint64_t)offset;
+- (void)setSubstream:(unsigned int)substream;
 - (void)setTexture:(id)texture atIndex:(unint64_t)index;
 - (void)setTextures:(const void *)textures withRange:(_NSRange)range;
 - (void)setThreadgroupMemoryLength:(unint64_t)length atIndex:(unint64_t)index;
 - (void)setVisibleFunctionTable:(id)table atBufferIndex:(unint64_t)index;
 - (void)setVisibleFunctionTables:(const void *)tables withBufferRange:(_NSRange)range;
+- (void)signalProgress:(unsigned int)progress;
 - (void)updateFence:(id)fence;
 - (void)useHeap:(id)heap;
 - (void)useHeaps:(const void *)heaps count:(unint64_t)count;
@@ -58,6 +63,7 @@
 - (void)validateFunctionTableUseResource:(id)resource selectorName:(id)name;
 - (void)validateStageInRegion:(id *)region;
 - (void)waitForFence:(id)fence;
+- (void)waitForProgress:(unsigned int)progress;
 - (void)waitForVirtualSubstream:(unint64_t)substream;
 @end
 
@@ -208,93 +214,91 @@ LABEL_8:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v30[5] = *MEMORY[0x277D85DE8];
+  v29[5] = *MEMORY[0x277D85DE8];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:226];
   computePipelineState = self->_computePipelineState;
-  v30[0] = v5;
-  v30[1] = @"computePipelineState =";
+  v29[0] = v5;
+  v29[1] = @"computePipelineState =";
   v9 = @"<null>";
   if (computePipelineState)
   {
     v9 = computePipelineState;
   }
 
-  v30[2] = v9;
-  v30[3] = v5;
-  v20 = v5;
-  v30[4] = @"Set Buffers:";
-  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v30, 5)}];
+  v29[2] = v9;
+  v29[3] = v5;
+  v19 = v5;
+  v29[4] = @"Set Buffers:";
+  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v29, 5)}];
   v10 = 0;
   selfCopy = self;
   do
   {
-    v29[0] = v6;
-    v29[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Buffer %lu:", v10];
-    v29[2] = argumentFormattedDescription(description + 8, selfCopy->_buffers);
-    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v29, 3)}];
+    v28[0] = v6;
+    v28[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Buffer %lu:", v10];
+    v28[2] = argumentFormattedDescription(description + 8, selfCopy->_buffers);
+    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v28, 3)}];
     ++v10;
     selfCopy = (selfCopy + 88);
   }
 
   while (v10 != 31);
-  v28[0] = v20;
-  v28[1] = @"Set Textures:";
-  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v28, 2)}];
+  v27[0] = v19;
+  v27[1] = @"Set Textures:";
+  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v27, 2)}];
   v12 = 0;
   selfCopy2 = self;
   do
   {
-    v27[0] = v6;
-    v27[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Texture %lu:", v12];
-    v27[2] = argumentFormattedDescription(description + 8, selfCopy2->_textures);
-    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v27, 3)}];
+    v26[0] = v6;
+    v26[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Texture %lu:", v12];
+    v26[2] = argumentFormattedDescription(description + 8, selfCopy2->_textures);
+    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v26, 3)}];
     ++v12;
     selfCopy2 = (selfCopy2 + 88);
   }
 
   while (v12 != 128);
-  v26[0] = v20;
-  v26[1] = @"Set Samplers:";
-  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v26, 2)}];
+  v25[0] = v19;
+  v25[1] = @"Set Samplers:";
+  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v25, 2)}];
   v14 = 0;
   selfCopy3 = self;
   do
   {
-    v25[0] = v6;
-    v25[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Sampler %lu:", v14];
-    v25[2] = argumentFormattedDescription(description + 8, selfCopy3->_samplers);
-    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v25, 3)}];
+    v24[0] = v6;
+    v24[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Sampler %lu:", v14];
+    v24[2] = argumentFormattedDescription(description + 8, selfCopy3->_samplers);
+    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v24, 3)}];
     ++v14;
     selfCopy3 = (selfCopy3 + 88);
   }
 
   while (v14 != 16);
-  v24[0] = v20;
-  v24[1] = @"Set ThreadgroupMemoryLengths:";
-  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v24, 2)}];
+  v23[0] = v19;
+  v23[1] = @"Set ThreadgroupMemoryLengths:";
+  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v23, 2)}];
   v16 = 0;
   selfCopy4 = self;
   do
   {
-    v23[0] = v6;
-    v23[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Threadgroup %lu:", v16];
-    v23[2] = argumentFormattedDescription(description + 8, selfCopy4->_threadgroupMemoryLengths);
-    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v23, 3)}];
+    v22[0] = v6;
+    v22[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Threadgroup %lu:", v16];
+    v22[2] = argumentFormattedDescription(description + 8, selfCopy4->_threadgroupMemoryLengths);
+    [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v22, 3)}];
     ++v16;
     selfCopy4 = (selfCopy4 + 88);
   }
 
   while (v16 != 31);
-  v22[0] = v20;
-  v22[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Image Block Size: %lu x %lu", self->_imageBlockSize.width, self->_imageBlockSize.height];
-  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v22, 2)}];
-  v21.receiver = self;
-  v21.super_class = MTLDebugComputeCommandEncoder;
-  result = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", -[MTLToolsObject description](&v21, sel_description), objc_msgSend(v7, "componentsJoinedByString:", @" "];
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  v21[0] = v19;
+  v21[1] = [MEMORY[0x277CCACA8] stringWithFormat:@"Image Block Size: %lu x %lu", self->_imageBlockSize.width, self->_imageBlockSize.height];
+  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v21, 2)}];
+  v20.receiver = self;
+  v20.super_class = MTLDebugComputeCommandEncoder;
+  return [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", -[MTLToolsObject description](&v20, sel_description), objc_msgSend(v7, "componentsJoinedByString:", @" "];
 }
 
 - (void)setComputePipelineState:(id)state
@@ -457,7 +461,7 @@ LABEL_14:
   v16 = [buffer length];
   if (MTLReportFailureTypeEnabled() && buffer && !v12->hasLodClamp && v12->bufferAttributeStride == stride && v12->bufferOffset == offset && v12->bufferLength == v16 && v12->object == buffer && !(v12->var0 | v12->type) && *&v12->threadgroupMemoryLength == 0 && !*&v12->lodMinClamp)
   {
-    [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+    [MTLDebugComputeCommandEncoder setBuffer:buffer offset:v17 attributeStride:v18 atIndex:?];
   }
 
   v12->isValid = v16 != 0;
@@ -519,7 +523,7 @@ LABEL_14:
   v15 = [*p_object length];
   if (MTLReportFailureTypeEnabled() && v14 && !v9->hasLodClamp && v9->bufferAttributeStride == -1 && v9->bufferOffset == offset && v9->bufferLength == v15 && v9->object == v14 && !(v9->var0 | v9->type) && *&v9->threadgroupMemoryLength == 0 && !*&v9->lodMinClamp)
   {
-    [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+    [MTLDebugComputeCommandEncoder setBuffer:v14 offset:v16 attributeStride:v17 atIndex:?];
   }
 
   v9->isValid = v15 != 0;
@@ -561,7 +565,7 @@ LABEL_14:
   length = range.length;
   location = range.location;
   selfCopy = self;
-  v39[31] = *MEMORY[0x277D85DE8];
+  v40[31] = *MEMORY[0x277D85DE8];
   if (self->hasEndEncoding)
   {
     [MTLDebugComputeCommandEncoder setBuffers:offsets:attributeStrides:withRange:];
@@ -584,10 +588,10 @@ LABEL_14:
   v11 = 0;
   v12 = 0;
   p_bufferLength = &selfCopy->_buffers[location].bufferLength;
-  v36 = location;
-  v37 = length;
+  v37 = location;
+  v38 = length;
   buffersCopy = buffers;
-  v35 = selfCopy;
+  v36 = selfCopy;
   do
   {
     v14 = buffers[v11];
@@ -613,15 +617,15 @@ LABEL_14:
 
     else if (offsets[v12])
     {
-      v32 = v12;
-      v33 = offsets[v12];
+      v33 = v12;
+      v34 = offsets[v12];
       MTLReportFailure();
     }
 
     v17 = (p_bufferLength + 48);
     validateArg(0, location + v12, (p_bufferLength - 32));
     [(MTLDebugCommandBuffer *)selfCopy->_commandBuffer addObject:buffers[v11] retained:1 purgeable:1];
-    v39[v12] = [buffers[v11] baseObject];
+    v40[v12] = [buffers[v11] baseObject];
     v18 = buffers[v11];
     v19 = [v18 length];
     offsetsCopy = offsets;
@@ -629,14 +633,14 @@ LABEL_14:
     v22 = strides[v12];
     if (MTLReportFailureTypeEnabled() && v18 && (*(p_bufferLength + 40) & 1) == 0)
     {
-      v23 = *(p_bufferLength + 16) == v22 && *(p_bufferLength + 8) == v21;
-      v24 = v23 && *p_bufferLength == v19;
-      v25 = v24 && *(p_bufferLength - 16) == v18;
-      v26 = v25 && (*(p_bufferLength - 8) | *(p_bufferLength - 24)) == 0;
-      v27 = v26 && *(p_bufferLength + 24) == 0;
-      if (v27 && *(p_bufferLength + 44) == 0)
+      v25 = *(p_bufferLength + 16) == v22 && *(p_bufferLength + 8) == v21;
+      v26 = v25 && *p_bufferLength == v19;
+      v27 = v26 && *(p_bufferLength - 16) == v18;
+      v28 = v27 && (*(p_bufferLength - 8) | *(p_bufferLength - 24)) == 0;
+      v29 = v28 && *(p_bufferLength + 24) == 0;
+      if (v29 && *(p_bufferLength + 44) == 0)
       {
-        [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+        [MTLDebugComputeCommandEncoder setBuffer:v18 offset:v23 attributeStride:v24 atIndex:?];
       }
     }
 
@@ -656,28 +660,26 @@ LABEL_14:
     p_bufferLength += 88;
     *(v17 - 1) = 0;
     *v17 = 0;
-    location = v36;
-    length = v37;
+    location = v37;
+    length = v38;
     offsets = offsetsCopy;
     buffers = buffersCopy;
-    selfCopy = v35;
+    selfCopy = v36;
   }
 
-  while (v37 != v12);
+  while (v38 != v12);
 LABEL_41:
-  v29 = [(MTLToolsDevice *)selfCopy->super.super.super._device supportsDynamicAttributeStride:v32];
+  v31 = [(MTLToolsDevice *)selfCopy->super.super.super._device supportsDynamicAttributeStride:v33];
   baseObject = [(MTLToolsObject *)selfCopy baseObject];
-  if (v29)
+  if (v31)
   {
-    [baseObject setBuffers:v39 offsets:offsets attributeStrides:strides withRange:{location, length}];
+    [baseObject setBuffers:v40 offsets:offsets attributeStrides:strides withRange:{location, length}];
   }
 
   else
   {
-    [baseObject setBuffers:v39 offsets:offsets withRange:{location, length}];
+    [baseObject setBuffers:v40 offsets:offsets withRange:{location, length}];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTexture:(id)texture atIndex:(unint64_t)index
@@ -729,7 +731,7 @@ LABEL_13:
   [-[MTLToolsObject baseObject](self "baseObject")];
   if (MTLReportFailureTypeEnabled() && !v8->hasLodClamp && v8->bufferAttributeStride == -1 && v8->type == 1 && v8->object == texture && (v8->bufferLength | v8->var0 | v8->bufferOffset) == 0 && *&v8->threadgroupMemoryLength == 0 && *&v8->lodMinClamp == 0)
   {
-    [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+    [MTLDebugComputeCommandEncoder setBuffer:texture offset:v9 attributeStride:v10 atIndex:?];
   }
 
   v8->isValid = texture != 0;
@@ -751,7 +753,7 @@ LABEL_13:
 {
   length = range.length;
   location = range.location;
-  v20[128] = *MEMORY[0x277D85DE8];
+  v21[128] = *MEMORY[0x277D85DE8];
   if (self->hasEndEncoding)
   {
     [MTLDebugComputeCommandEncoder setTextures:withRange:];
@@ -803,11 +805,11 @@ LABEL_13:
     v12 = p_bufferLength + 347;
     validateArg(2, location + v8, (p_bufferLength + 337));
     [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:textures[v8] retained:1 purgeable:1];
-    v20[v8] = [textures[v8] baseObject];
+    v21[v8] = [textures[v8] baseObject];
     v13 = textures[v8];
     if (MTLReportFailureTypeEnabled() && (p_bufferLength[346] & 1) == 0 && p_bufferLength[343] == -1 && p_bufferLength[338] == 1 && p_bufferLength[339] == v13 && (p_bufferLength[341] | p_bufferLength[340] | p_bufferLength[342]) == 0 && *(p_bufferLength + 172) == 0 && *(p_bufferLength + 2772) == 0)
     {
-      [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+      [MTLDebugComputeCommandEncoder setBuffer:v13 offset:v14 attributeStride:v15 atIndex:?];
     }
 
     *(p_bufferLength + 2696) = v13 != 0;
@@ -830,7 +832,6 @@ LABEL_13:
   while (length != v8);
 LABEL_37:
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSamplerState:(id)state atIndex:(unint64_t)index
@@ -872,7 +873,7 @@ LABEL_9:
   [-[MTLToolsObject baseObject](self "baseObject")];
   if (MTLReportFailureTypeEnabled() && !v8->hasLodClamp && v8->bufferAttributeStride == -1 && v8->type == 2 && v8->object == state && (v8->bufferLength | v8->var0 | v8->bufferOffset) == 0 && *&v8->threadgroupMemoryLength == 0 && *&v8->lodMinClamp == 0)
   {
-    [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+    [MTLDebugComputeCommandEncoder setBuffer:state offset:v9 attributeStride:v10 atIndex:?];
   }
 
   v8->isValid = state != 0;
@@ -894,7 +895,7 @@ LABEL_9:
 {
   length = range.length;
   location = range.location;
-  v20[16] = *MEMORY[0x277D85DE8];
+  v21[16] = *MEMORY[0x277D85DE8];
   if (self->hasEndEncoding)
   {
     [MTLDebugComputeCommandEncoder setSamplerStates:withRange:];
@@ -936,11 +937,11 @@ LABEL_9:
     v12 = p_bufferLength + 1755;
     validateArg(3, location + v8, (p_bufferLength + 1745));
     [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:states[v8] retained:1 purgeable:0];
-    v20[v8] = [states[v8] baseObject];
+    v21[v8] = [states[v8] baseObject];
     v13 = states[v8];
     if (MTLReportFailureTypeEnabled() && (p_bufferLength[1754] & 1) == 0 && p_bufferLength[1751] == -1 && p_bufferLength[1746] == 2 && p_bufferLength[1747] == v13 && (p_bufferLength[1749] | p_bufferLength[1748] | p_bufferLength[1750]) == 0 && *(p_bufferLength + 876) == 0 && *(p_bufferLength + 14036) == 0)
     {
-      [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+      [MTLDebugComputeCommandEncoder setBuffer:v13 offset:v14 attributeStride:v15 atIndex:?];
     }
 
     *(p_bufferLength + 13960) = v13 != 0;
@@ -963,7 +964,6 @@ LABEL_9:
   while (length != v8);
 LABEL_33:
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSamplerState:(id)state lodMinClamp:(float)clamp lodMaxClamp:(float)maxClamp atIndex:(unint64_t)index
@@ -1011,7 +1011,7 @@ LABEL_9:
   {
     if (LODWORD(v12->lodMaxClamp) == LODWORD(maxClamp) && LODWORD(v12->lodMinClamp) == LODWORD(clamp) && v12->hasLodClamp && v12->bufferAttributeStride == -1 && v12->type == 2 && v12->object == state && (v12->bufferLength | v12->var0 | v12->bufferOffset) == 0 && *&v12->threadgroupMemoryLength == 0)
     {
-      [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+      [MTLDebugComputeCommandEncoder setBuffer:state offset:v17 attributeStride:v18 atIndex:?];
     }
   }
 
@@ -1034,7 +1034,7 @@ LABEL_9:
 {
   length = range.length;
   location = range.location;
-  v29[16] = *MEMORY[0x277D85DE8];
+  v30[16] = *MEMORY[0x277D85DE8];
   if (self->hasEndEncoding)
   {
     [MTLDebugComputeCommandEncoder setSamplerStates:lodMinClamps:lodMaxClamps:withRange:];
@@ -1066,7 +1066,7 @@ LABEL_9:
         [MTLDebugComputeCommandEncoder setSamplerStates:lodMinClamps:lodMaxClamps:withRange:];
       }
 
-      v14 = *(&self->super.super.super.super.isa + v27);
+      v14 = *(&self->super.super.super.super.isa + v28);
       if (v14 != [states[v11] device])
       {
         [MTLDebugComputeCommandEncoder setSamplerStates:lodMinClamps:lodMaxClamps:withRange:];
@@ -1076,7 +1076,7 @@ LABEL_9:
     v15 = (p_bufferLength + 1755);
     validateArg(3, location + v11, (p_bufferLength + 1745));
     [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:states[v11] retained:1 purgeable:0];
-    v29[v11] = [states[v11] baseObject];
+    v30[v11] = [states[v11] baseObject];
     v16 = states[v11];
     v17 = clamps[v11];
     v18 = maxClamps[v11];
@@ -1084,7 +1084,7 @@ LABEL_9:
     {
       if (*v15 == LODWORD(v18) && *(p_bufferLength + 3509) == LODWORD(v17) && *(p_bufferLength + 14032) != 0 && p_bufferLength[1751] == -1 && p_bufferLength[1746] == 2 && p_bufferLength[1747] == v16 && (p_bufferLength[1749] | p_bufferLength[1748] | p_bufferLength[1750]) == 0 && *(p_bufferLength + 876) == 0)
       {
-        [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+        [MTLDebugComputeCommandEncoder setBuffer:v16 offset:v19 attributeStride:v20 atIndex:?];
       }
     }
 
@@ -1108,7 +1108,6 @@ LABEL_9:
   while (length != v11);
 LABEL_38:
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setThreadgroupMemoryLength:(unint64_t)length atIndex:(unint64_t)index
@@ -1136,9 +1135,10 @@ LABEL_38:
   v7 = &self->_threadgroupMemoryLengths[index];
   validateArg(1, index, v7);
   [-[MTLToolsObject baseObject](self "baseObject")];
-  if (MTLReportFailureTypeEnabled() && !v7->hasLodClamp && !v7->threadgroupMemoryOffset && v7->threadgroupMemoryLength == length && v7->bufferAttributeStride == -1 && v7->type == 3 && !v7->object && !(v7->bufferLength | v7->var0 | v7->bufferOffset) && !*&v7->lodMinClamp)
+  v8 = MTLReportFailureTypeEnabled();
+  if (v8 && !v7->hasLodClamp && !v7->threadgroupMemoryOffset && v7->threadgroupMemoryLength == length && v7->bufferAttributeStride == -1 && v7->type == 3 && !v7->object && !(v7->bufferLength | v7->var0 | v7->bufferOffset) && !*&v7->lodMinClamp)
   {
-    [MTLDebugComputeCommandEncoder setThreadgroupMemoryLength:atIndex:];
+    [(MTLDebugComputeCommandEncoder *)v8 setThreadgroupMemoryLength:v9 atIndex:v10];
   }
 
   v7->isValid = length != 0;
@@ -1191,28 +1191,22 @@ LABEL_38:
   width = self->stageInRegion.size.width;
   if (!(self->stageInRegion.size.height * width * self->stageInRegion.size.depth))
   {
-    size = self->stageInRegion.size;
     MTLReportFailure();
     width = p_stageInRegion->size.width;
   }
 
   if (width > region->var0)
   {
-    var0 = region->var0;
     MTLReportFailure();
   }
 
   if (p_stageInRegion->size.height > region->var1)
   {
-    height = p_stageInRegion->size.height;
-    var1 = region->var1;
     MTLReportFailure();
   }
 
   if (p_stageInRegion->size.depth > region->var2)
   {
-    depth = p_stageInRegion->size.depth;
-    var2 = region->var2;
     MTLReportFailure();
   }
 }
@@ -1287,140 +1281,139 @@ LABEL_38:
 
 - (void)_validateThreadsPerThreadgroup:(id *)threadgroup
 {
-  device = self->super.super.super._device;
   _MTLMessageContextBegin_();
-  v29 = *threadgroup;
+  v28 = *threadgroup;
   computePipelineState = self->_computePipelineState;
   if (computePipelineState)
   {
-    [(MTLComputePipelineState *)computePipelineState requiredThreadsPerThreadgroup];
+    objc_msgSend_requiredThreadsPerThreadgroup(computePipelineState);
   }
 
   validateDispatchThreadsPerThreadgroupWithRTPTG();
   _MTLMessageContextEnd();
   p_var1 = &threadgroup->var1;
   p_var2 = &threadgroup->var2;
-  v9 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
-  if (!v9)
+  v8 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
+  if (!v8)
   {
     var2 = threadgroup->var2;
-    v28 = 0;
+    v27 = 0;
     var0 = threadgroup->var0;
     var1 = threadgroup->var1;
     MTLReportFailure();
-    v9 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
+    v8 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
   }
 
-  if (v9 > [(MTLToolsDevice *)self->super.super.super._device maxTotalComputeThreadsPerThreadgroup:var0])
+  if (v8 > [(MTLToolsDevice *)self->super.super.super._device maxTotalComputeThreadsPerThreadgroup:var0])
   {
     [(MTLDebugComputeCommandEncoder *)threadgroup _validateThreadsPerThreadgroup:&threadgroup->var2, &self->super.super.super._device];
   }
 
-  v10 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
-  if (v10 > [(MTLComputePipelineState *)self->_computePipelineState maxTotalThreadsPerThreadgroup])
+  v9 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
+  if (v9 > [(MTLComputePipelineState *)self->_computePipelineState maxTotalThreadsPerThreadgroup])
   {
     [(MTLDebugComputeCommandEncoder *)threadgroup _validateThreadsPerThreadgroup:&threadgroup->var2, &self->_computePipelineState];
   }
 
-  v11 = threadgroup->var0;
-  v12 = self->super.super.super._device;
-  if (!v12)
+  v10 = threadgroup->var0;
+  device = self->super.super.super._device;
+  if (!device)
   {
-    if (!v11)
+    if (!v10)
     {
-      v14 = *p_var1;
+      v13 = *p_var1;
       goto LABEL_17;
     }
 
-    v19 = threadgroup->var0;
+    v18 = threadgroup->var0;
 LABEL_34:
-    v20 = 0;
-    memset(&v29, 0, sizeof(v29));
+    v19 = 0;
+    memset(&v28, 0, sizeof(v28));
     goto LABEL_35;
   }
 
-  [(MTLToolsDevice *)v12 maxThreadsPerThreadgroup];
-  v13 = self->super.super.super._device;
-  if (v11 <= v29.var0)
+  objc_msgSend_maxThreadsPerThreadgroup(device);
+  v12 = self->super.super.super._device;
+  if (v10 <= v28.var0)
   {
     goto LABEL_11;
   }
 
-  v19 = threadgroup->var0;
-  if (!v13)
+  v18 = threadgroup->var0;
+  if (!v12)
   {
     goto LABEL_34;
   }
 
-  [(MTLToolsDevice *)v13 maxThreadsPerThreadgroup];
-  v20 = v29.var0;
+  objc_msgSend_maxThreadsPerThreadgroup(v12);
+  v19 = v28.var0;
 LABEL_35:
-  v24 = v19;
-  v26 = v20;
+  v23 = v18;
+  v25 = v19;
   MTLReportFailure();
-  v13 = self->super.super.super._device;
+  v12 = self->super.super.super._device;
 LABEL_11:
-  v14 = *p_var1;
-  if (!v13)
+  v13 = *p_var1;
+  if (!v12)
   {
 LABEL_17:
-    if (!v14)
+    if (!v13)
     {
-      v17 = 0;
-      v16 = *p_var2;
+      v16 = 0;
+      v15 = *p_var2;
       goto LABEL_19;
     }
 
-    v21 = *p_var1;
+    v20 = *p_var1;
     goto LABEL_29;
   }
 
-  [(MTLToolsDevice *)v13 maxThreadsPerThreadgroup];
-  v15 = self->super.super.super._device;
-  if (v14 <= v29.var1)
+  objc_msgSend_maxThreadsPerThreadgroup(v12);
+  v14 = self->super.super.super._device;
+  if (v13 <= v28.var1)
   {
     goto LABEL_13;
   }
 
-  v21 = *p_var1;
-  if (v15)
+  v20 = *p_var1;
+  if (v14)
   {
-    [(MTLToolsDevice *)v15 maxThreadsPerThreadgroup];
-    v22 = v29.var1;
+    objc_msgSend_maxThreadsPerThreadgroup(v14);
+    v21 = v28.var1;
     goto LABEL_32;
   }
 
 LABEL_29:
-  v22 = 0;
-  v29.var2 = 0;
+  v21 = 0;
+  v28.var2 = 0;
 LABEL_32:
-  v24 = v21;
-  v26 = v22;
+  v23 = v20;
+  v25 = v21;
   MTLReportFailure();
-  v15 = self->super.super.super._device;
+  v14 = self->super.super.super._device;
 LABEL_13:
-  v16 = *p_var2;
-  if (v15)
+  v15 = *p_var2;
+  if (v14)
   {
-    [(MTLToolsDevice *)v15 maxThreadsPerThreadgroup];
-    v17 = v29.var2;
+    objc_msgSend_maxThreadsPerThreadgroup(v14);
+    v16 = v28.var2;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
 LABEL_19:
-  if (v16 > v17)
+  if (v15 > v16)
   {
     [(MTLDebugComputeCommandEncoder *)&threadgroup->var2 _validateThreadsPerThreadgroup:?];
   }
 
   if ([-[MTLComputePipelineState descriptor](self->_computePipelineState descriptor])
   {
-    v18 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
-    if (v18 % [(MTLComputePipelineState *)self->_computePipelineState threadExecutionWidth])
+    v17 = threadgroup->var1 * threadgroup->var0 * threadgroup->var2;
+    if (v17 % [(MTLComputePipelineState *)self->_computePipelineState threadExecutionWidth])
     {
       [(MTLDebugComputeCommandEncoder *)threadgroup _validateThreadsPerThreadgroup:&threadgroup->var2, &self->_computePipelineState];
     }
@@ -1429,11 +1422,11 @@ LABEL_19:
 
 - (void)validateComputeFunctionArgumentsCommon
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   protectionOptions = [(MTLToolsRetainingContainer *)[(MTLToolsCommandEncoder *)self commandBuffer] protectionOptions];
   computePipelineState = self->_computePipelineState;
-  v124[0] = self->_imageBlockSize;
-  v98 = [(MTLComputePipelineState *)computePipelineState imageblockMemoryLengthForDimensions:v124];
+  v125[0] = self->_imageBlockSize;
+  v99 = [(MTLComputePipelineState *)computePipelineState imageblockMemoryLengthForDimensions:v125];
   v4 = self->_computePipelineState;
   mtl4Descriptor = [(MTLComputePipelineState *)v4 mtl4Descriptor];
   function = [(MTLComputePipelineState *)v4 function];
@@ -1441,7 +1434,8 @@ LABEL_19:
   {
     if (!function)
     {
-      name = _MTL4DebugFunctionDescriptorName([-[MTLComputePipelineState mtl4Descriptor](v4 "mtl4Descriptor")]);
+      v8 = [-[MTLComputePipelineState mtl4Descriptor](v4 "mtl4Descriptor")];
+      name = _MTL4DebugFunctionDescriptorName(v8, v9);
       goto LABEL_6;
     }
 
@@ -1450,9 +1444,9 @@ LABEL_19:
 
   name = [function name];
 LABEL_6:
-  v100 = name;
+  v101 = name;
   device = self->super.super.super._device;
-  v9 = [-[MTLComputePipelineState validationReflection](v4 "validationReflection")];
+  v11 = [-[MTLComputePipelineState validationReflection](v4 "validationReflection")];
   [(MTLToolsDevice *)self->super.super.super._device maxComputeBuffers];
   [(MTLToolsDevice *)self->super.super.super._device maxComputeTextures];
   [(MTLToolsDevice *)self->super.super.super._device maxComputeSamplers];
@@ -1460,69 +1454,69 @@ LABEL_6:
   staticThreadgroupMemoryLength = [(MTLComputePipelineState *)self->_computePipelineState staticThreadgroupMemoryLength];
   allowsNullBufferBinds = self->allowsNullBufferBinds;
   requiresRaytracingEmulation = [(MTLToolsDevice *)device requiresRaytracingEmulation];
-  v120 = 0u;
   v121 = 0u;
   v122 = 0u;
   v123 = 0u;
-  obj = v9;
-  v108 = [v9 countByEnumeratingWithState:&v120 objects:v124 count:16];
-  if (!v108)
+  v124 = 0u;
+  obj = v11;
+  v109 = [v11 countByEnumeratingWithState:&v121 objects:v125 count:16];
+  if (!v109)
   {
-    v117 = 0;
+    v118 = 0;
     goto LABEL_143;
   }
 
-  v117 = 0;
+  v118 = 0;
   buffers = self->_buffers;
   textures = self->_textures;
   samplers = self->_samplers;
   selfCopy = self;
-  v109 = device;
+  v110 = device;
   threadgroupMemoryLengths = self->_threadgroupMemoryLengths;
-  v107 = *v121;
-  v11 = 5;
+  v108 = *v122;
+  v13 = 5;
   if (requiresRaytracingEmulation)
   {
-    v11 = 6;
+    v13 = 6;
   }
 
-  v105 = v11;
-  v101 = ~protectionOptions;
-  v104 = !requiresRaytracingEmulation;
+  v106 = v13;
+  v102 = ~protectionOptions;
+  v105 = !requiresRaytracingEmulation;
   do
   {
-    v12 = 0;
+    v14 = 0;
     do
     {
-      if (*v121 != v107)
+      if (*v122 != v108)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v120 + 1) + 8 * v12);
-      v115 = v12;
-      if ([v13 isActive])
+      v15 = *(*(&v121 + 1) + 8 * v14);
+      v116 = v14;
+      if ([v15 isActive])
       {
-        type = [v13 type];
-        name2 = [v13 name];
-        arrayLength = [v13 arrayLength];
-        v119 = v13;
-        index = [v13 index];
+        type = [v15 type];
+        name2 = [v15 name];
+        arrayLength = [v15 arrayLength];
+        v120 = v15;
+        index = [v15 index];
         if (arrayLength)
         {
-          v17 = type > 0x1B || ((1 << type) & 0xF03000F) == 0;
-          if (v17)
+          v19 = type > 0x1B || ((1 << type) & 0xF03000F) == 0;
+          if (v19)
           {
             abort();
           }
 
-          v18 = 0;
-          v19 = selfCopy + 88 * index;
-          v114 = arrayLength;
-          v118 = index;
+          v20 = 0;
+          v21 = selfCopy + 88 * index;
+          v115 = arrayLength;
+          v119 = index;
           while (1)
           {
-            v20 = v18 + index;
+            v22 = v20 + index;
             if (type <= 2)
             {
               break;
@@ -1532,41 +1526,41 @@ LABEL_6:
             {
               if (type == 3)
               {
-                if ((v19[14040] & 1) == 0)
+                if ((v21[14040] & 1) == 0)
                 {
                   usage2 = name2;
-                  bufferAlignment2 = v18;
-                  v79 = MTLArgumentTypeToString(3);
-                  protectionOptions2 = v20;
-                  v63 = @"Compute";
-                  v71 = v100;
+                  bufferAlignment2 = v20;
+                  v80 = MTLArgumentTypeToString(3);
+                  protectionOptions2 = v22;
+                  v64 = @"Compute";
+                  v72 = v101;
                   MTLReportFailure();
-                  index = v118;
+                  index = v119;
                 }
 
-                v21 = &samplers[v20];
-                if (*(v19 + 1756) != 2)
+                v23 = &samplers[v22];
+                if (*(v21 + 1756) != 2)
                 {
                   usage2 = name2;
-                  bufferAlignment2 = v18;
-                  v79 = MTLArgumentTypeToString(3);
-                  protectionOptions2 = v20;
-                  v63 = @"Compute";
-                  v71 = v100;
+                  bufferAlignment2 = v20;
+                  v80 = MTLArgumentTypeToString(3);
+                  protectionOptions2 = v22;
+                  v64 = @"Compute";
+                  v72 = v101;
                   MTLReportFailure();
                   goto LABEL_124;
                 }
 
 LABEL_125:
-                v21->hasBeenUsed = 1;
+                v23->hasBeenUsed = 1;
                 goto LABEL_126;
               }
 
 LABEL_79:
-              v21 = (v19 + 48);
-              if (allowsNullBufferBinds || v19[48])
+              v23 = (v21 + 48);
+              if (allowsNullBufferBinds || v21[48])
               {
-                if ((v19[48] & 1) == 0)
+                if ((v21[48] & 1) == 0)
                 {
                   goto LABEL_125;
                 }
@@ -1575,63 +1569,63 @@ LABEL_79:
               else
               {
                 usage2 = name2;
-                bufferAlignment2 = v18;
-                v79 = MTLArgumentTypeToString(type);
-                protectionOptions2 = v20;
-                v63 = @"Compute";
-                v71 = v100;
+                bufferAlignment2 = v20;
+                v80 = MTLArgumentTypeToString(type);
+                protectionOptions2 = v22;
+                v64 = @"Compute";
+                v72 = v101;
                 MTLReportFailure();
-                index = v118;
-                if (!v21->isValid)
+                index = v119;
+                if (!v23->isValid)
                 {
                   goto LABEL_125;
                 }
               }
 
-              v44 = type - 25;
-              v45 = 5;
+              v46 = type - 25;
+              v47 = 5;
               if (type == 27)
               {
-                v45 = 6;
+                v47 = 6;
               }
 
-              v46 = v44 >= 2;
-              v47 = v44 >= 2 && type != 27;
-              v48 = 4;
-              if (v46)
+              v48 = v46 >= 2;
+              v49 = v46 >= 2 && type != 27;
+              v50 = 4;
+              if (v48)
               {
-                v48 = v45;
+                v50 = v47;
               }
 
-              v49 = *(v19 + 7);
-              v17 = !v47 || v49 != 6;
-              v50 = v105;
-              if (v17)
+              v51 = *(v21 + 7);
+              v19 = !v49 || v51 != 6;
+              v52 = v106;
+              if (v19)
               {
-                v50 = v48;
+                v52 = v50;
               }
 
-              if (v49 != v50)
+              if (v51 != v52)
               {
-                v58 = MTLArgumentTypeToString(type);
-                bufferAlignment2 = v18;
-                v90 = MTLDebugFunctionArgumentTypeToString(*(v19 + 7));
-                protectionOptions2 = v20;
+                v60 = MTLArgumentTypeToString(type);
+                bufferAlignment2 = v20;
+                v91 = MTLDebugFunctionArgumentTypeToString(*(v21 + 7));
+                protectionOptions2 = v22;
                 usage2 = name2;
-                v79 = v58;
-                v63 = @"Compute";
-                v71 = v100;
+                v80 = v60;
+                v64 = @"Compute";
+                v72 = v101;
                 MTLReportFailure();
-                index = v118;
+                index = v119;
               }
 
               goto LABEL_125;
             }
 
 LABEL_126:
-            ++v18;
-            v19 += 88;
-            if (arrayLength == v18)
+            ++v20;
+            v21 += 88;
+            if (arrayLength == v20)
             {
               goto LABEL_139;
             }
@@ -1641,46 +1635,46 @@ LABEL_126:
           {
             if (type == 1)
             {
-              if ((v19[15448] & 1) == 0)
+              if ((v21[15448] & 1) == 0)
               {
                 usage2 = name2;
-                bufferAlignment2 = v18;
-                v79 = MTLArgumentTypeToString(1);
-                protectionOptions2 = v20;
-                v63 = @"Compute";
-                v71 = v100;
-                MTLReportFailure();
-              }
-
-              if (*(v19 + 1932) != 3)
-              {
-                usage2 = name2;
-                bufferAlignment2 = v18;
-                v79 = MTLArgumentTypeToString(1);
-                protectionOptions2 = v20;
-                v63 = @"Compute";
-                v71 = v100;
-                MTLReportFailure();
-              }
-
-              v51 = *(v19 + 1938);
-              if (v51 < [v119 threadgroupMemoryDataSize])
-              {
-                v54 = *(v19 + 1938);
-                threadgroupMemoryDataSize = [v119 threadgroupMemoryDataSize];
-                v90 = name2;
-                v91 = v18;
-                usage2 = MTLArgumentTypeToString(1);
                 bufferAlignment2 = v20;
-                v79 = v54;
-                protectionOptions2 = threadgroupMemoryDataSize;
-                v63 = @"Compute";
-                v71 = v100;
+                v80 = MTLArgumentTypeToString(1);
+                protectionOptions2 = v22;
+                v64 = @"Compute";
+                v72 = v101;
                 MTLReportFailure();
               }
 
-              v21 = &threadgroupMemoryLengths[v20];
-              v117 += *(v19 + 1938);
+              if (*(v21 + 1932) != 3)
+              {
+                usage2 = name2;
+                bufferAlignment2 = v20;
+                v80 = MTLArgumentTypeToString(1);
+                protectionOptions2 = v22;
+                v64 = @"Compute";
+                v72 = v101;
+                MTLReportFailure();
+              }
+
+              v53 = *(v21 + 1938);
+              if (v53 < [v120 threadgroupMemoryDataSize])
+              {
+                v56 = *(v21 + 1938);
+                threadgroupMemoryDataSize = [v120 threadgroupMemoryDataSize];
+                v91 = name2;
+                v92 = v20;
+                usage2 = MTLArgumentTypeToString(1);
+                bufferAlignment2 = v22;
+                v80 = v56;
+                protectionOptions2 = threadgroupMemoryDataSize;
+                v64 = @"Compute";
+                v72 = v101;
+                MTLReportFailure();
+              }
+
+              v23 = &threadgroupMemoryLengths[v22];
+              v118 += *(v21 + 1938);
             }
 
             else
@@ -1690,9 +1684,9 @@ LABEL_126:
                 goto LABEL_79;
               }
 
-              v21 = &textures[v20];
-              v22 = (v19 + 2792);
-              if (!*(v19 + 349))
+              v23 = &textures[v22];
+              v24 = (v21 + 2792);
+              if (!*(v21 + 349))
               {
                 goto LABEL_125;
               }
@@ -1703,190 +1697,190 @@ LABEL_126:
                 [MTLDebugComputeCommandEncoder validateComputeFunctionArgumentsCommon];
               }
 
-              v23 = *v22;
-              if ((v19[2776] & 1) == 0)
+              v25 = *v24;
+              if ((v21[2776] & 1) == 0)
               {
                 usage2 = name2;
-                bufferAlignment2 = v18;
-                v79 = MTLArgumentTypeToString(2);
-                protectionOptions2 = v20;
-                v63 = @"Compute";
-                v71 = v100;
+                bufferAlignment2 = v20;
+                v80 = MTLArgumentTypeToString(2);
+                protectionOptions2 = v22;
+                v64 = @"Compute";
+                v72 = v101;
                 MTLReportFailure();
               }
 
-              if (*(v19 + 348) != 1)
+              if (*(v21 + 348) != 1)
               {
                 usage2 = name2;
-                bufferAlignment2 = v18;
-                v79 = MTLArgumentTypeToString(2);
-                protectionOptions2 = v20;
-                v63 = @"Compute";
-                v71 = v100;
+                bufferAlignment2 = v20;
+                v80 = MTLArgumentTypeToString(2);
+                protectionOptions2 = v22;
+                v64 = @"Compute";
+                v72 = v101;
                 MTLReportFailure();
               }
 
-              v24 = v119;
-              textureType = [v119 textureType];
-              textureType2 = [*v22 textureType];
+              v26 = v120;
+              textureType = [v120 textureType];
+              textureType2 = [*v24 textureType];
               if (textureType != textureType2)
               {
-                v27 = textureType2;
-                if (![(MTLToolsDevice *)v109 relaxedTextureArrayBindingsEnabled]|| ([(MTLDebugComputeCommandEncoder *)textureType validateComputeFunctionArgumentsCommon]& 1) != 0)
+                v29 = textureType2;
+                if (![(MTLToolsDevice *)v110 relaxedTextureArrayBindingsEnabled]|| ([(MTLDebugComputeCommandEncoder *)textureType validateComputeFunctionArgumentsCommon]& 1) != 0)
                 {
-                  v28 = MTLTextureTypeString();
-                  v29 = MTLArgumentTypeToString(2);
-                  v90 = name2;
-                  v91 = v18;
-                  usage2 = v20;
+                  v30 = MTLTextureTypeString();
+                  v31 = MTLArgumentTypeToString(2);
+                  v91 = name2;
+                  v92 = v20;
+                  usage2 = v22;
                   bufferAlignment2 = MTLTextureTypeString();
-                  v80 = v28;
-                  protectionOptions2 = v29;
-                  v24 = v119;
-                  v64 = @"Compute";
-                  v72 = v100;
+                  v81 = v30;
+                  protectionOptions2 = v31;
+                  v26 = v120;
+                  v65 = @"Compute";
+                  v73 = v101;
                   MTLReportFailure();
                 }
               }
 
-              usage = [v23 usage];
-              if ([v24 access])
+              usage = [v25 usage];
+              if ([v26 access])
               {
-                v31 = (*&usage & 0x10000) != 0 ? 16 : 2;
-                if ((v23[20] & v31) == 0)
+                v33 = (*&usage & 0x10000) != 0 ? 16 : 2;
+                if ((v25[20] & v33) == 0)
                 {
-                  [(MTLDebugComputeCommandEncoder *)v22 validateComputeFunctionArgumentsCommon];
+                  [(MTLDebugComputeCommandEncoder *)v24 validateComputeFunctionArgumentsCommon];
                 }
               }
 
-              device = v109;
-              if (![(MTLToolsDevice *)v109 supportsFamily:1010])
+              device = v110;
+              if (![(MTLToolsDevice *)v110 supportsFamily:1010])
               {
-                supportsMTL4PlacementSparse = [(MTLToolsDevice *)v109 supportsMTL4PlacementSparse];
-                v33 = v24;
-                v34 = supportsMTL4PlacementSparse;
-                access = [v33 access];
-                if (v34)
+                supportsMTL4PlacementSparse = [(MTLToolsDevice *)v110 supportsMTL4PlacementSparse];
+                v35 = v26;
+                v36 = supportsMTL4PlacementSparse;
+                access = [v35 access];
+                if (v36)
                 {
-                  v24 = v119;
-                  if (access && [v23 isSparse] && objc_msgSend(v23, "sparseTextureTier") != 1)
+                  v26 = v120;
+                  if (access && [v25 isSparse] && objc_msgSend(v25, "sparseTextureTier") != 1)
                   {
-                    v73 = v100;
-                    v81 = v20;
-                    v65 = @"Compute";
+                    v74 = v101;
+                    v82 = v22;
+                    v66 = @"Compute";
                     goto LABEL_138;
                   }
                 }
 
                 else
                 {
-                  v24 = v119;
-                  if (access && [v23 isSparse])
+                  v26 = v120;
+                  if (access && [v25 isSparse])
                   {
-                    v73 = v100;
-                    v81 = v20;
-                    v65 = @"Compute";
+                    v74 = v101;
+                    v82 = v22;
+                    v66 = @"Compute";
 LABEL_138:
                     MTLReportFailure();
                   }
                 }
               }
 
-              [v24 textureDataType];
-              v52 = v24;
+              [v26 textureDataType];
+              v54 = v26;
               if ((_MTLCompatibleTextureDataTypeAndPixelFormatInfo() & 1) == 0)
               {
-                [*v22 pixelFormat];
+                [*v24 pixelFormat];
                 Name = MTLPixelFormatGetName();
-                v95 = MTLArgumentTypeToString(2);
-                label = [*v22 label];
+                v96 = MTLArgumentTypeToString(2);
+                label = [*v24 label];
                 if (!label)
                 {
                   label = [MEMORY[0x277CBEB68] null];
                 }
 
-                v94 = label;
-                v52 = v119;
-                [v119 textureDataType];
-                v93 = MTLDataTypeString();
-                v92 = MTLArgumentTypeToString(2);
+                v95 = label;
+                v54 = v120;
+                [v120 textureDataType];
+                v94 = MTLDataTypeString();
+                v93 = MTLArgumentTypeToString(2);
                 MTLArgumentTypeToString(2);
-                [*v22 pixelFormat];
+                [*v24 pixelFormat];
                 MTLPixelFormatGetName();
-                [*v22 pixelFormat];
+                [*v24 pixelFormat];
                 MTLPixelFormatCompatibilityString();
-                v91 = v92;
-                bufferAlignment2 = v20;
-                v90 = v93;
-                protectionOptions2 = v95;
-                usage2 = v94;
-                v76 = v100;
-                v84 = Name;
-                v68 = @"Compute";
-                MTLReportFailure();
-                device = v109;
-              }
-
-              if ([v52 access] <= 1 && (objc_msgSend(v23, "requireUsage:", 1) & 1) == 0)
-              {
-                usage2 = [v23 usage];
-                bufferAlignment2 = 1;
-                v85 = name2;
-                protectionOptions2 = v20;
+                v92 = v93;
+                bufferAlignment2 = v22;
+                v91 = v94;
+                protectionOptions2 = v96;
+                usage2 = v95;
+                v77 = v101;
+                v85 = Name;
                 v69 = @"Compute";
-                v77 = v100;
                 MTLReportFailure();
+                device = v110;
               }
 
-              arrayLength = v114;
-              if (([v119 access] - 1) <= 1 && (objc_msgSend(v23, "requireUsage:", 2) & 1) == 0)
+              if ([v54 access] <= 1 && (objc_msgSend(v25, "requireUsage:", 1) & 1) == 0)
               {
-                usage2 = [v23 usage];
-                bufferAlignment2 = 2;
+                usage2 = [v25 usage];
+                bufferAlignment2 = 1;
                 v86 = name2;
-                protectionOptions2 = v20;
+                protectionOptions2 = v22;
                 v70 = @"Compute";
-                v78 = v100;
+                v78 = v101;
                 MTLReportFailure();
               }
 
-              if ([v119 access] == 1)
+              arrayLength = v115;
+              if (([v120 access] - 1) <= 1 && (objc_msgSend(v25, "requireUsage:", 2) & 1) == 0)
               {
-                [v23 pixelFormat];
+                usage2 = [v25 usage];
+                bufferAlignment2 = 2;
+                v87 = name2;
+                protectionOptions2 = v22;
+                v71 = @"Compute";
+                v79 = v101;
+                MTLReportFailure();
+              }
+
+              if ([v120 access] == 1)
+              {
+                [v25 pixelFormat];
                 if ((MTLReadWriteTextureIsSupported() & 1) == 0)
                 {
-                  v79 = name2;
-                  protectionOptions2 = v20;
-                  v63 = @"Compute";
-                  v71 = v100;
+                  v80 = name2;
+                  protectionOptions2 = v22;
+                  v64 = @"Compute";
+                  v72 = v101;
                   MTLReportFailure();
                 }
               }
 
-              v53 = *v22;
-              if (*v22)
+              v55 = *v24;
+              if (*v24)
               {
-                if ([v119 access] != 2 && (objc_msgSend(v53, "protectionOptions") & v101) != 0)
+                if ([v120 access] != 2 && (objc_msgSend(v55, "protectionOptions") & v102) != 0)
                 {
-                  protectionOptions2 = [v53 protectionOptions];
+                  protectionOptions2 = [v55 protectionOptions];
                   usage2 = protectionOptions;
-                  v71 = v100;
-                  v79 = v20;
-                  v63 = @"Compute";
+                  v72 = v101;
+                  v80 = v22;
+                  v64 = @"Compute";
                   MTLReportFailure();
                 }
 
-                if ([v119 access])
+                if ([v120 access])
                 {
-                  v43 = *v22;
-                  if ((protectionOptions & ~[*v22 protectionOptions]) != 0)
+                  v45 = *v24;
+                  if ((protectionOptions & ~[*v24 protectionOptions]) != 0)
                   {
 LABEL_123:
-                    protectionOptions2 = [v43 protectionOptions];
+                    protectionOptions2 = [v45 protectionOptions];
                     usage2 = protectionOptions;
-                    v71 = v100;
-                    v79 = v20;
-                    v63 = @"Compute";
+                    v72 = v101;
+                    v80 = v22;
+                    v64 = @"Compute";
                     MTLReportFailure();
                   }
                 }
@@ -1896,10 +1890,10 @@ LABEL_123:
 
           else
           {
-            v21 = &buffers[v20];
-            if (allowsNullBufferBinds || v19[48])
+            v23 = &buffers[v22];
+            if (allowsNullBufferBinds || v21[48])
             {
-              if ((v19[48] & 1) == 0)
+              if ((v21[48] & 1) == 0)
               {
                 goto LABEL_125;
               }
@@ -1908,111 +1902,111 @@ LABEL_123:
             else
             {
               usage2 = name2;
-              bufferAlignment2 = v18;
-              v79 = MTLArgumentTypeToString(0);
-              protectionOptions2 = v20;
-              v63 = @"Compute";
-              v71 = v100;
+              bufferAlignment2 = v20;
+              v80 = MTLArgumentTypeToString(0);
+              protectionOptions2 = v22;
+              v64 = @"Compute";
+              v72 = v101;
               MTLReportFailure();
-              index = v118;
-              if ((v19[48] & 1) == 0)
+              index = v119;
+              if ((v21[48] & 1) == 0)
               {
                 goto LABEL_125;
               }
             }
 
-            v36 = *(v19 + 7);
-            if (v36 == 4)
+            v38 = *(v21 + 7);
+            if (v38 == 4)
             {
-              v37 = v104;
+              v39 = v105;
             }
 
             else
             {
-              v37 = 1;
+              v39 = 1;
             }
 
-            if (v36 && v37)
+            if (v38 && v39)
             {
               usage2 = name2;
-              bufferAlignment2 = v18;
-              v79 = MTLArgumentTypeToString(0);
-              protectionOptions2 = v20;
-              v63 = @"Compute";
-              v71 = v100;
+              bufferAlignment2 = v20;
+              v80 = MTLArgumentTypeToString(0);
+              protectionOptions2 = v22;
+              v64 = @"Compute";
+              v72 = v101;
               MTLReportFailure();
             }
 
-            v38 = *(v19 + 11);
-            bufferAlignment = [v119 bufferAlignment];
+            v40 = *(v21 + 11);
+            bufferAlignment = [v120 bufferAlignment];
             if (bufferAlignment <= 1)
             {
-              v40 = 1;
+              v42 = 1;
             }
 
             else
             {
-              v40 = bufferAlignment;
+              v42 = bufferAlignment;
             }
 
-            if (v38 % v40)
-            {
-              v57 = MTLArgumentTypeToString(0);
-              bufferAlignment2 = [v119 bufferAlignment];
-              v90 = *(v19 + 11);
-              protectionOptions2 = v57;
-              usage2 = v20;
-              v74 = v100;
-              v82 = name2;
-              v66 = @"Compute";
-              MTLReportFailure();
-            }
-
-            v41 = *(v19 + 10) - *(v19 + 11);
-            if (v41 < [v119 bufferDataSize] && objc_msgSend(v119, "bufferDataSize") != -1)
+            if (v40 % v42)
             {
               v59 = MTLArgumentTypeToString(0);
-              v60 = *(v19 + 11);
-              v61 = *(v19 + 10);
-              [v119 bufferDataSize];
-              device = v109;
-              v90 = v60;
-              v91 = v61;
-              usage2 = v59;
-              bufferAlignment2 = v20;
+              bufferAlignment2 = [v120 bufferAlignment];
+              v91 = *(v21 + 11);
+              protectionOptions2 = v59;
+              usage2 = v22;
+              v75 = v101;
               v83 = name2;
-              protectionOptions2 = v18;
               v67 = @"Compute";
-              v75 = v100;
               MTLReportFailure();
             }
 
-            if ([v119 access] && !*(v19 + 8))
+            v43 = *(v21 + 10) - *(v21 + 11);
+            if (v43 < [v120 bufferDataSize] && objc_msgSend(v120, "bufferDataSize") != -1)
             {
-              v71 = v100;
-              v79 = v20;
-              v63 = @"Compute";
+              v61 = MTLArgumentTypeToString(0);
+              v62 = *(v21 + 11);
+              v63 = *(v21 + 10);
+              [v120 bufferDataSize];
+              device = v110;
+              v91 = v62;
+              v92 = v63;
+              usage2 = v61;
+              bufferAlignment2 = v22;
+              v84 = name2;
+              protectionOptions2 = v20;
+              v68 = @"Compute";
+              v76 = v101;
               MTLReportFailure();
             }
 
-            v42 = *(v19 + 8);
-            arrayLength = v114;
-            if (v42)
+            if ([v120 access] && !*(v21 + 8))
             {
-              if ([v119 access] != 2 && (objc_msgSend(v42, "protectionOptions") & v101) != 0)
+              v72 = v101;
+              v80 = v22;
+              v64 = @"Compute";
+              MTLReportFailure();
+            }
+
+            v44 = *(v21 + 8);
+            arrayLength = v115;
+            if (v44)
+            {
+              if ([v120 access] != 2 && (objc_msgSend(v44, "protectionOptions") & v102) != 0)
               {
-                protectionOptions2 = [v42 protectionOptions];
+                protectionOptions2 = [v44 protectionOptions];
                 usage2 = protectionOptions;
-                v71 = v100;
-                v79 = v20;
-                v63 = @"Compute";
+                v72 = v101;
+                v80 = v22;
+                v64 = @"Compute";
                 MTLReportFailure();
               }
 
-              if ([v119 access])
+              if ([v120 access])
               {
-                v43 = *(v19 + 8);
-                if ((protectionOptions & ~[v43 protectionOptions]) != 0)
+                v45 = *(v21 + 8);
+                if ((protectionOptions & ~[v45 protectionOptions]) != 0)
                 {
                   goto LABEL_123;
                 }
@@ -2021,28 +2015,26 @@ LABEL_123:
           }
 
 LABEL_124:
-          index = v118;
+          index = v119;
           goto LABEL_125;
         }
       }
 
 LABEL_139:
-      v12 = v115 + 1;
+      v14 = v116 + 1;
     }
 
-    while (v115 + 1 != v108);
-    v108 = [obj countByEnumeratingWithState:&v120 objects:v124 count:16];
+    while (v116 + 1 != v109);
+    v109 = [obj countByEnumeratingWithState:&v121 objects:v125 count:16];
   }
 
-  while (v108);
+  while (v109);
 LABEL_143:
-  if (staticThreadgroupMemoryLength + v98 + v117 > [(MTLToolsDevice *)device maxThreadgroupMemoryLength:v63])
+  if (staticThreadgroupMemoryLength + v99 + v118 > [(MTLToolsDevice *)device maxThreadgroupMemoryLength:v64])
   {
     [(MTLToolsDevice *)device maxThreadgroupMemoryLength];
     MTLReportFailure();
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchThreadgroups:(id *)threadgroups threadsPerThreadgroup:(id *)threadgroup
@@ -2393,7 +2385,7 @@ LABEL_16:
 - (void)updateFence:(id)fence
 {
   fenceCopy = fence;
-  std::deque<objc_object *>::push_back(&self->updatedFences.__map_.__first_, &fenceCopy);
+  std::deque<objc_object *>::push_back(&self->updatedFences, &fenceCopy);
   self->canEndEncoding = 1;
   [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:fence retained:1 purgeable:0];
   [-[MTLToolsObject baseObject](self "baseObject")];
@@ -2465,6 +2457,23 @@ LABEL_16:
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject endEncodingAndRetrieveProgramAddressTable];
+}
+
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index
+{
+  v5 = *&index;
+  v6 = *&lastBatch;
+  v7 = *&batch;
+  if (batch > lastBatch)
+  {
+    v10 = *&batch;
+    v11 = *&lastBatch;
+    MTLReportFailure();
+  }
+
+  v9 = [(MTLToolsObject *)self baseObject:v10];
+
+  [v9 filterCounterRangeWithFirstBatch:v7 lastBatch:v6 filterIndex:v5];
 }
 
 - (void)enumerateBuffersUsingBlock:(id)block
@@ -2739,6 +2748,63 @@ LABEL_16:
   [(MTLToolsComputeCommandEncoder *)&v9 executeCommandsInBuffer:buffer indirectBuffer:indirectBuffer indirectBufferOffset:offset];
 }
 
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier
+{
+  barrierCopy = barrier;
+  if ([(MTLToolsDevice *)self->super.super.super._device supportsCounterSampling:2])
+  {
+    if (!buffer)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    [MTLDebugComputeCommandEncoder sampleCountersInBuffer:atSampleIndex:withBarrier:];
+    if (!buffer)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  if (([buffer conformsToProtocol:&unk_2842206E8] & 1) == 0)
+  {
+    [MTLDebugComputeCommandEncoder sampleCountersInBuffer:atSampleIndex:withBarrier:];
+  }
+
+  device = self->super.super.super._device;
+  if (device != [buffer device])
+  {
+    [MTLDebugComputeCommandEncoder sampleCountersInBuffer:atSampleIndex:withBarrier:];
+  }
+
+LABEL_7:
+  if ([buffer sampleCount] <= index)
+  {
+    [MTLDebugComputeCommandEncoder sampleCountersInBuffer:buffer atSampleIndex:? withBarrier:?];
+  }
+
+  [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:buffer retained:1 purgeable:0];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject sampleCountersInBuffer:baseObject2 atSampleIndex:index withBarrier:barrierCopy];
+}
+
+- (void)enableNullBufferBinds:(BOOL)binds
+{
+  bindsCopy = binds;
+  self->allowsNullBufferBinds = binds;
+  [(MTLToolsObject *)self baseObject];
+  if (objc_opt_respondsToSelector())
+  {
+    baseObject = [(MTLToolsObject *)self baseObject];
+
+    [baseObject enableNullBufferBinds:bindsCopy];
+  }
+}
+
 - (void)setAccelerationStructure:(id)structure atBufferIndex:(unint64_t)index
 {
   if (self->hasEndEncoding)
@@ -2751,7 +2817,7 @@ LABEL_16:
     [MTLDebugComputeCommandEncoder setAccelerationStructure:? atBufferIndex:?];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 1);
+  checkAccelerationStructure(self->super.super.super._device, structure, 1, @"Acceleration structure");
   v7 = &self->_buffers[index];
   validateArg(25, index, v7);
   [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:structure retained:1 purgeable:1];
@@ -2759,11 +2825,11 @@ LABEL_16:
   v8 = [structure size];
   if (MTLReportFailureTypeEnabled())
   {
-    v9.i64[0] = 0;
-    v9.i64[1] = v8;
-    if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*&v7->var0, v9), vceqq_s64(*&v7->bufferOffset, xmmword_22E27C260))))) & 1) == 0 && v7->type == 4 && *&v7->threadgroupMemoryLength == 0 && v7->object == structure && structure && !*&v7->lodMinClamp && !v7->hasLodClamp)
+    v11.i64[0] = 0;
+    v11.i64[1] = v8;
+    if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*&v7->var0, v11), vceqq_s64(*&v7->bufferOffset, xmmword_22E27C260))))) & 1) == 0 && v7->type == 4 && *&v7->threadgroupMemoryLength == 0 && v7->object == structure && structure && !*&v7->lodMinClamp && !v7->hasLodClamp)
     {
-      [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+      [MTLDebugComputeCommandEncoder setBuffer:structure offset:v9 attributeStride:v10 atIndex:?];
     }
   }
 
@@ -2829,11 +2895,11 @@ LABEL_11:
   functionCount = [table functionCount];
   if (MTLReportFailureTypeEnabled())
   {
-    v10.i64[0] = 0;
-    v10.i64[1] = functionCount;
-    if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*&v8->var0, v10), vceqq_s64(*&v8->bufferOffset, xmmword_22E27C260))))) & 1) == 0 && v8->type == 5 && *&v8->threadgroupMemoryLength == 0 && v8->object == table && table && !*&v8->lodMinClamp && !v8->hasLodClamp)
+    v12.i64[0] = 0;
+    v12.i64[1] = functionCount;
+    if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*&v8->var0, v12), vceqq_s64(*&v8->bufferOffset, xmmword_22E27C260))))) & 1) == 0 && v8->type == 5 && *&v8->threadgroupMemoryLength == 0 && v8->object == table && table && !*&v8->lodMinClamp && !v8->hasLodClamp)
     {
-      [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+      [MTLDebugComputeCommandEncoder setBuffer:table offset:v10 attributeStride:v11 atIndex:?];
     }
   }
 
@@ -2855,7 +2921,7 @@ LABEL_11:
 {
   length = range.length;
   location = range.location;
-  v21[31] = *MEMORY[0x277D85DE8];
+  v22[31] = *MEMORY[0x277D85DE8];
   if (self->hasEndEncoding)
   {
     [MTLDebugComputeCommandEncoder setVisibleFunctionTables:withBufferRange:];
@@ -2905,19 +2971,19 @@ LABEL_11:
     v12 = p_bufferLength + 6;
     validateArg(24, location + v8, (p_bufferLength - 4));
     [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:tables[v8] retained:1 purgeable:1];
-    v21[v8] = [tables[v8] baseObject];
+    v22[v8] = [tables[v8] baseObject];
     v13 = tables[v8];
     functionCount = [v13 functionCount];
     if (MTLReportFailureTypeEnabled())
     {
-      v15.i64[0] = 0;
-      v15.i64[1] = functionCount;
-      if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*(p_bufferLength - 1), v15), vceqq_s64(*(p_bufferLength + 1), xmmword_22E27C260))))) & 1) == 0)
+      v17.i64[0] = 0;
+      v17.i64[1] = functionCount;
+      if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*(p_bufferLength - 1), v17), vceqq_s64(*(p_bufferLength + 1), xmmword_22E27C260))))) & 1) == 0)
       {
-        v19 = *(p_bufferLength - 3) == 5 && *(p_bufferLength + 3) == 0 && *(p_bufferLength - 2) == v13 && v13 != 0 && *(p_bufferLength + 44) == 0;
-        if (v19 && (p_bufferLength[5] & 1) == 0)
+        v21 = *(p_bufferLength - 3) == 5 && *(p_bufferLength + 3) == 0 && *(p_bufferLength - 2) == v13 && v13 != 0 && *(p_bufferLength + 44) == 0;
+        if (v21 && (p_bufferLength[5] & 1) == 0)
         {
-          [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+          [MTLDebugComputeCommandEncoder setBuffer:v13 offset:v15 attributeStride:v16 atIndex:?];
         }
       }
     }
@@ -2941,7 +3007,6 @@ LABEL_11:
   while (length != v8);
 LABEL_34:
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIntersectionFunctionTable:(id)table atBufferIndex:(unint64_t)index
@@ -2984,11 +3049,11 @@ LABEL_9:
   functionCount = [table functionCount];
   if (MTLReportFailureTypeEnabled())
   {
-    v10.i64[0] = 0;
-    v10.i64[1] = functionCount;
-    if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*&v8->var0, v10), vceqq_s64(*&v8->bufferOffset, xmmword_22E27C260))))) & 1) == 0 && v8->type == 6 && *&v8->threadgroupMemoryLength == 0 && v8->object == table && table && !*&v8->lodMinClamp && !v8->hasLodClamp)
+    v12.i64[0] = 0;
+    v12.i64[1] = functionCount;
+    if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*&v8->var0, v12), vceqq_s64(*&v8->bufferOffset, xmmword_22E27C260))))) & 1) == 0 && v8->type == 6 && *&v8->threadgroupMemoryLength == 0 && v8->object == table && table && !*&v8->lodMinClamp && !v8->hasLodClamp)
     {
-      [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+      [MTLDebugComputeCommandEncoder setBuffer:table offset:v10 attributeStride:v11 atIndex:?];
     }
   }
 
@@ -3010,7 +3075,7 @@ LABEL_9:
 {
   length = range.length;
   location = range.location;
-  v21[31] = *MEMORY[0x277D85DE8];
+  v22[31] = *MEMORY[0x277D85DE8];
   if (self->hasEndEncoding)
   {
     [MTLDebugComputeCommandEncoder setIntersectionFunctionTables:withBufferRange:];
@@ -3052,19 +3117,19 @@ LABEL_9:
     v12 = p_bufferLength + 6;
     validateArg(27, location + v8, (p_bufferLength - 4));
     [(MTLDebugCommandBuffer *)self->_commandBuffer addObject:tables[v8] retained:1 purgeable:1];
-    v21[v8] = [tables[v8] baseObject];
+    v22[v8] = [tables[v8] baseObject];
     v13 = tables[v8];
     functionCount = [v13 functionCount];
     if (MTLReportFailureTypeEnabled())
     {
-      v15.i64[0] = 0;
-      v15.i64[1] = functionCount;
-      if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*(p_bufferLength - 1), v15), vceqq_s64(*(p_bufferLength + 1), xmmword_22E27C260))))) & 1) == 0)
+      v17.i64[0] = 0;
+      v17.i64[1] = functionCount;
+      if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_s64(*(p_bufferLength - 1), v17), vceqq_s64(*(p_bufferLength + 1), xmmword_22E27C260))))) & 1) == 0)
       {
-        v19 = *(p_bufferLength - 3) == 6 && *(p_bufferLength + 3) == 0 && *(p_bufferLength - 2) == v13 && v13 != 0 && *(p_bufferLength + 44) == 0;
-        if (v19 && (p_bufferLength[5] & 1) == 0)
+        v21 = *(p_bufferLength - 3) == 6 && *(p_bufferLength + 3) == 0 && *(p_bufferLength - 2) == v13 && v13 != 0 && *(p_bufferLength + 44) == 0;
+        if (v21 && (p_bufferLength[5] & 1) == 0)
         {
-          [MTLDebugComputeCommandEncoder setBuffer:offset:attributeStride:atIndex:];
+          [MTLDebugComputeCommandEncoder setBuffer:v13 offset:v15 attributeStride:v16 atIndex:?];
         }
       }
     }
@@ -3088,7 +3153,132 @@ LABEL_9:
   while (length != v8);
 LABEL_32:
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v20 = *MEMORY[0x277D85DE8];
+}
+
+- (void)setSubstream:(unsigned int)substream
+{
+  v3 = *&substream;
+  numSubstreams = self->_numSubstreams;
+  if (!numSubstreams)
+  {
+    MTLReportFailure();
+    numSubstreams = self->_numSubstreams;
+  }
+
+  if (numSubstreams <= v3)
+  {
+    [MTLDebugComputeCommandEncoder setSubstream:];
+  }
+
+  if (self->_encodingVirtualSubstream && self->_encodedVirtualSubstreamDispatch)
+  {
+    [MTLDebugComputeCommandEncoder setSubstream:];
+  }
+
+  self->_activeSubstream = v3;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setSubstream:v3];
+}
+
+- (void)signalProgress:(unsigned int)progress
+{
+  v3 = *&progress;
+  progressCopy = progress;
+  if (!self->_numSubstreams)
+  {
+    [MTLDebugComputeCommandEncoder signalProgress:];
+  }
+
+  if (self->_encodingVirtualSubstream)
+  {
+    [MTLDebugComputeCommandEncoder signalProgress:];
+  }
+
+  if (self->_progressLabels.__tree_.__size_)
+  {
+    left = self->_progressLabels.__tree_.__end_node_.__left_;
+    if (left)
+    {
+      v6 = self->_progressLabels.__tree_.__end_node_.__left_;
+      do
+      {
+        v7 = v6;
+        v6 = v6[1];
+      }
+
+      while (v6);
+    }
+
+    else
+    {
+      p_end_node = &self->_progressLabels.__tree_.__end_node_;
+      do
+      {
+        v7 = p_end_node[2].__left_;
+        v9 = *v7 == p_end_node;
+        p_end_node = v7;
+      }
+
+      while (v9);
+    }
+
+    if (*(v7 + 7) >= v3)
+    {
+      [(MTLDebugComputeCommandEncoder *)left == 0 signalProgress:v3, left];
+    }
+  }
+
+  std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int &>(&self->_progressLabels, &progressCopy, &progressCopy);
+  baseObject = [(MTLToolsObject *)self baseObject];
+  [baseObject signalProgress:progressCopy];
+}
+
+- (void)waitForProgress:(unsigned int)progress
+{
+  v3 = *&progress;
+  if (!self->_numSubstreams)
+  {
+    [MTLDebugComputeCommandEncoder waitForProgress:];
+  }
+
+  left = self->_progressLabels.__tree_.__end_node_.__left_;
+  if (!left)
+  {
+    goto LABEL_11;
+  }
+
+  p_end_node = &self->_progressLabels.__tree_.__end_node_;
+  do
+  {
+    left_high = HIDWORD(left[3].__left_);
+    v8 = left_high >= v3;
+    v9 = left_high < v3;
+    if (v8)
+    {
+      p_end_node = left;
+    }
+
+    left = left[v9].__left_;
+  }
+
+  while (left);
+  if (p_end_node == &self->_progressLabels.__tree_.__end_node_ || HIDWORD(p_end_node[3].__left_) > v3)
+  {
+LABEL_11:
+    v11 = v3;
+    v12 = v3;
+    MTLReportFailure();
+  }
+
+  if (self->_encodingVirtualSubstream)
+  {
+    [MTLDebugComputeCommandEncoder waitForProgress:];
+  }
+
+  v10 = [(MTLToolsObject *)self baseObject:v11];
+
+  [v10 waitForProgress:v3];
 }
 
 - (void)beginVirtualSubstream
@@ -3294,19 +3484,11 @@ LABEL_32:
   return self;
 }
 
-- (uint64_t)setBuffers:(uint64_t *)a1 offsets:(id *)a2 attributeStrides:withRange:.cold.5(uint64_t *a1, id *a2)
+- (uint64_t)_validateThreadsPerThreadgroup:(uint64_t)a1 .cold.3(uint64_t a1, void **a2)
 {
-  v2 = *a1;
-  [*a2 length];
-  return MTLReportFailure();
-}
-
-- (uint64_t)_validateThreadsPerThreadgroup:(uint64_t *)a1 .cold.3(uint64_t *a1, id *a2)
-{
-  v2 = *a1;
   if (*a2)
   {
-    [*a2 maxThreadsPerThreadgroup];
+    objc_msgSend_maxThreadsPerThreadgroup(*a2);
   }
 
   return MTLReportFailure();
@@ -3326,51 +3508,45 @@ LABEL_32:
     v4 = a2;
     do
     {
-      v5 = *(v4 + 16);
-      v6 = *v5 == v4;
-      v4 = v5;
+      v5 = **(v4 + 16) == v4;
+      v4 = *(v4 + 16);
+    }
+
+    while (v5);
+  }
+
+  else
+  {
+    v6 = a4;
+    do
+    {
+      v6 = *(v6 + 8);
     }
 
     while (v6);
   }
 
-  else
-  {
-    v7 = a4;
-    do
-    {
-      v5 = v7;
-      v7 = *(v7 + 8);
-    }
-
-    while (v7);
-  }
-
-  v8 = *(v5 + 28);
   if (a1)
   {
     do
     {
-      v9 = *(a2 + 16);
-      v6 = *v9 == a2;
-      a2 = v9;
+      v5 = **(a2 + 16) == a2;
+      a2 = *(a2 + 16);
     }
 
-    while (v6);
+    while (v5);
   }
 
   else
   {
     do
     {
-      v9 = a4;
       a4 = *(a4 + 8);
     }
 
     while (a4);
   }
 
-  v11 = *(v9 + 28);
   return MTLReportFailure();
 }
 

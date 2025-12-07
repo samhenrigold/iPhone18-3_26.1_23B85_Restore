@@ -175,11 +175,11 @@ LABEL_14:
 
   else
   {
-    _HKInitializeLogging();
-    v8 = HKLogInfrastructure();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v8, v9);
+    v12 = HKLogInfrastructure(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(HKRegionAvailability *)self initWithCoder:v8];
+      [(HKRegionAvailability *)self initWithCoder:v12];
     }
 
     selfCopy = 0;
@@ -190,14 +190,14 @@ LABEL_14:
 
 - (void)_initWithCategory:(void *)category version:(void *)version allowedCountries:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   versionCopy = version;
   if (self)
   {
-    v24.receiver = self;
-    v24.super_class = HKRegionAvailability;
-    v9 = objc_msgSendSuper2(&v24, sel_init);
+    v28.receiver = self;
+    v28.super_class = HKRegionAvailability;
+    v9 = objc_msgSendSuper2(&v28, sel_init);
     self = v9;
     if (v9)
     {
@@ -206,43 +206,43 @@ LABEL_14:
         if (a2 != 3 || versionCopy)
         {
           v9[1] = a2;
-          v13 = [categoryCopy copy];
-          v14 = self[2];
-          self[2] = v13;
+          v18 = [categoryCopy copy];
+          v19 = self[2];
+          self[2] = v18;
 
-          v15 = [versionCopy copy];
+          v20 = [versionCopy copy];
           selfCopy = self[3];
-          self[3] = v15;
+          self[3] = v20;
           goto LABEL_14;
         }
 
-        _HKInitializeLogging();
-        v11 = HKLogInfrastructure();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v9, v10);
+        v16 = HKLogInfrastructure(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v22 = objc_opt_class();
+          v26 = objc_opt_class();
           *buf = 138543362;
-          v26 = v22;
-          v23 = v22;
-          _os_log_error_impl(&dword_19197B000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] Allowed countries is required when category is HKRegionAvailabilityCategoryAllowedInSomeCountries", buf, 0xCu);
+          v30 = v26;
+          v27 = v26;
+          _os_log_error_impl(&dword_19197B000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Allowed countries is required when category is HKRegionAvailabilityCategoryAllowedInSomeCountries", buf, 0xCu);
         }
       }
 
       else
       {
-        _HKInitializeLogging();
-        v10 = HKLogInfrastructure();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v9, v10);
+        v13 = HKLogInfrastructure(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v18 = objc_opt_class();
-          v19 = MEMORY[0x1E696AD98];
-          v20 = v18;
-          v21 = [v19 numberWithInteger:a2];
+          v22 = objc_opt_class();
+          v23 = MEMORY[0x1E696AD98];
+          v24 = v22;
+          v25 = [v23 numberWithInteger:a2];
           *buf = 138543618;
-          v26 = v18;
-          v27 = 2114;
-          v28 = v21;
-          _os_log_error_impl(&dword_19197B000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Unknown category value: %{public}@", buf, 0x16u);
+          v30 = v22;
+          v31 = 2114;
+          v32 = v25;
+          _os_log_error_impl(&dword_19197B000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Unknown category value: %{public}@", buf, 0x16u);
         }
       }
 
@@ -252,7 +252,6 @@ LABEL_14:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -266,13 +265,11 @@ LABEL_14:
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Version is required", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Version is required", &v4, 0xCu);
 }
 
 @end

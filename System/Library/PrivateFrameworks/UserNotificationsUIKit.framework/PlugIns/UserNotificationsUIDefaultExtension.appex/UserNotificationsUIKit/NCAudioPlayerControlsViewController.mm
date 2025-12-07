@@ -78,7 +78,7 @@
       if ([(NCAudioPlayerController *)self->_playerController status]== 1)
       {
         playerController = [(NCAudioPlayerControlsViewController *)self playerController];
-        [playerController duration];
+        objc_msgSend_duration(playerController);
         v8 = v7;
         playerControlsView = [(NCAudioPlayerControlsViewController *)self playerControlsView];
         timelineSlider = [playerControlsView timelineSlider];
@@ -146,7 +146,7 @@
   playerControlsView = [(NCAudioPlayerControlsViewController *)self playerControlsView];
   timelineSlider = [playerControlsView timelineSlider];
   playerController = [(NCAudioPlayerControlsViewController *)self playerController];
-  [playerController currentTime];
+  objc_msgSend_currentTime(playerController);
   [timelineSlider setValue:0 animated:?];
 }
 
@@ -205,7 +205,7 @@
     timelineSlider = [playerControlsView timelineSlider];
 
     playerController = [(NCAudioPlayerControlsViewController *)self playerController];
-    [playerController duration];
+    objc_msgSend_duration(playerController);
     [timelineSlider setDuration:?];
 
     [timelineSlider setValue:0 animated:0.0];

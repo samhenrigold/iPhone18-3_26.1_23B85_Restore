@@ -405,19 +405,18 @@ LABEL_25:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v19 = toCopy;
+  v7 = toCopy;
   if (self->_selfAttendeeEmail)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    invitationStatus = self->_invitationStatus;
     PBDataWriterWriteUint64Field();
-    toCopy = v19;
+    toCopy = v7;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -436,9 +435,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  entityType = self->_entityType;
   PBDataWriterWriteUint64Field();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -452,9 +450,8 @@ LABEL_6:
   }
 
 LABEL_30:
-  invitationChangedPropertyFlagDate = self->_invitationChangedPropertyFlagDate;
   PBDataWriterWriteBOOLField();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x400) == 0)
   {
@@ -468,9 +465,8 @@ LABEL_7:
   }
 
 LABEL_31:
-  invitationChangedPropertyFlagTime = self->_invitationChangedPropertyFlagTime;
   PBDataWriterWriteBOOLField();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x800) == 0)
   {
@@ -484,9 +480,8 @@ LABEL_8:
   }
 
 LABEL_32:
-  invitationChangedPropertyFlagTitle = self->_invitationChangedPropertyFlagTitle;
   PBDataWriterWriteBOOLField();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -500,9 +495,8 @@ LABEL_9:
   }
 
 LABEL_33:
-  invitationChangedPropertyFlagLocation = self->_invitationChangedPropertyFlagLocation;
   PBDataWriterWriteBOOLField();
-  toCopy = v19;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -516,53 +510,50 @@ LABEL_10:
   }
 
 LABEL_34:
-  invitationChangedPropertyFlagAttendeeComment = self->_invitationChangedPropertyFlagAttendeeComment;
   PBDataWriterWriteBOOLField();
-  toCopy = v19;
+  toCopy = v7;
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_11:
-    invitationChangedPropertyFlagAttendeeStatus = self->_invitationChangedPropertyFlagAttendeeStatus;
     PBDataWriterWriteBOOLField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
 LABEL_12:
   if (self->_selfAttendeeUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_selfOrganizerEmail)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_selfOrganizerUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
   if (self->_externalID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if (v7)
+  v6 = self->_has;
+  if (v6)
   {
-    attendeeStatus = self->_attendeeStatus;
     PBDataWriterWriteUint64Field();
-    toCopy = v19;
-    v7 = self->_has;
-    if ((v7 & 8) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 8) == 0)
     {
 LABEL_22:
-      if ((v7 & 0x10) == 0)
+      if ((v6 & 0x10) == 0)
       {
         goto LABEL_23;
       }
@@ -571,19 +562,18 @@ LABEL_22:
     }
   }
 
-  else if ((v7 & 8) == 0)
+  else if ((v6 & 8) == 0)
   {
     goto LABEL_22;
   }
 
-  locationPredictionState = self->_locationPredictionState;
   PBDataWriterWriteUint64Field();
-  toCopy = v19;
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x10) == 0)
   {
 LABEL_23:
-    if ((v7 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_25;
     }
@@ -592,15 +582,13 @@ LABEL_23:
   }
 
 LABEL_38:
-  properInvitationStatus = self->_properInvitationStatus;
   PBDataWriterWriteUint64Field();
-  toCopy = v19;
+  toCopy = v7;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_24:
-    startDate = self->_startDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v19;
+    toCopy = v7;
   }
 
 LABEL_25:
@@ -1031,7 +1019,6 @@ LABEL_14:
       goto LABEL_90;
     }
 
-    v14 = *(equalCopy + 98);
     if (self->_invitationChangedPropertyFlagDate)
     {
       if ((*(equalCopy + 98) & 1) == 0)
@@ -1058,7 +1045,6 @@ LABEL_14:
       goto LABEL_90;
     }
 
-    v15 = *(equalCopy + 100);
     if (self->_invitationChangedPropertyFlagTime)
     {
       if ((*(equalCopy + 100) & 1) == 0)
@@ -1085,7 +1071,6 @@ LABEL_14:
       goto LABEL_90;
     }
 
-    v16 = *(equalCopy + 101);
     if (self->_invitationChangedPropertyFlagTitle)
     {
       if ((*(equalCopy + 101) & 1) == 0)
@@ -1112,7 +1097,6 @@ LABEL_14:
       goto LABEL_90;
     }
 
-    v17 = *(equalCopy + 99);
     if (self->_invitationChangedPropertyFlagLocation)
     {
       if ((*(equalCopy + 99) & 1) == 0)
@@ -1139,7 +1123,6 @@ LABEL_14:
       goto LABEL_90;
     }
 
-    v18 = *(equalCopy + 96);
     if (self->_invitationChangedPropertyFlagAttendeeComment)
     {
       if ((*(equalCopy + 96) & 1) == 0)
@@ -1167,7 +1150,7 @@ LABEL_14:
     }
 
 LABEL_90:
-    v20 = 0;
+    v14 = 0;
     goto LABEL_91;
   }
 
@@ -1176,7 +1159,6 @@ LABEL_90:
     goto LABEL_90;
   }
 
-  v19 = *(equalCopy + 97);
   if (self->_invitationChangedPropertyFlagAttendeeStatus)
   {
     if ((*(equalCopy + 97) & 1) == 0)
@@ -1272,17 +1254,17 @@ LABEL_26:
       goto LABEL_90;
     }
 
-    v20 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v20 = (v13 & 0x20) == 0;
+    v14 = (v13 & 0x20) == 0;
   }
 
 LABEL_91:
 
-  return v20;
+  return v14;
 }
 
 - (unint64_t)hash

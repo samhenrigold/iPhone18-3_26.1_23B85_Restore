@@ -29,7 +29,7 @@ int main(int argc, const char **argv, const char **envp)
   }
 }
 
-id sub_1000024BC()
+NSMutableArray *sub_1000024BC()
 {
   v0 = objc_opt_new();
   v17 = 0u;

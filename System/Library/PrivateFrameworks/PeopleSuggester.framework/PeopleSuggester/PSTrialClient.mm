@@ -47,10 +47,7 @@ void __24___PSTrialClient_recipe__block_invoke(uint64_t a1, uint64_t a2)
 
 uint64_t __36___PSTrialClient_getTrialExperiment__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a2 + 8) experimentIdentifiersWithNamespaceName:@"COREML_SYSTEMS_PEOPLE_SUGGESTER"];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [*(a2 + 8) experimentIdentifiersWithNamespaceName:@"COREML_SYSTEMS_PEOPLE_SUGGESTER"];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -154,52 +151,46 @@ void __22___PSTrialClient_init__block_invoke(uint64_t a1)
 
 uint64_t __31___PSTrialClient_objectForKey___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a2 + 16) objectForKeyedSubscript:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a2 + 16) objectForKeyedSubscript:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 void __30___PSTrialClient_rankingModel__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_DEBUG, "_PSTrialClient: Using CoreML model from %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_DEBUG, "_PSTrialClient: Using CoreML model from %@", v1, 0xCu);
 }
 
 void __30___PSTrialClient_rankingModel__block_invoke_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = @"psSuggestionsRankingModel.mlmodelc";
-  _os_log_fault_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_FAULT, "_PSTrialClient: Loaded model is nil for %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = @"psSuggestionsRankingModel.mlmodelc";
+  _os_log_fault_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_FAULT, "_PSTrialClient: Loaded model is nil for %@", &v1, 0xCu);
 }
 
 void __30___PSTrialClient_rankingModel__block_invoke_cold_3(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = @"psSuggestionsRankingModel.mlmodelc";
-  _os_log_fault_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_FAULT, "_PSTrialClient: Directory path is nil for Factor %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = @"psSuggestionsRankingModel.mlmodelc";
+  _os_log_fault_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_FAULT, "_PSTrialClient: Directory path is nil for Factor %@", &v1, 0xCu);
 }
 
 void __24___PSTrialClient_recipe__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a1, a3, "_PSTrialClient: File missing for Factor %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"psRecipe";
+  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a1, a3, "_PSTrialClient: File missing for Factor %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __24___PSTrialClient_recipe__block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a1, a3, "_PSTrialClient: File path is nil for Factor %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"psRecipe";
+  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a1, a3, "_PSTrialClient: File path is nil for Factor %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

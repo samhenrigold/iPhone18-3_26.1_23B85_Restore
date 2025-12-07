@@ -21,8 +21,8 @@
 - (void)removeAllValues_from:(os_unfair_lock_s *)values_from;
 - (void)replaceAllValuesWithValues:(uint64_t)values forKeys:(unint64_t)keys count:(uint64_t)count from:;
 - (void)setValue:(uint64_t)value forKey:(uint64_t)key from:;
-- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(int)count copyValues:(uint64_t)copyValues from:;
-- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(int)count copyValues:(uint64_t)copyValues removeValuesForKeys:(unint64_t)forKeys count:(uint64_t)a8 from:;
+- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(uint64_t)count copyValues:(uint64_t)copyValues from:;
+- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(uint64_t)count copyValues:(uint64_t)copyValues removeValuesForKeys:(unint64_t)forKeys count:(uint64_t)a8 from:;
 @end
 
 @implementation CFPrefsSource
@@ -43,7 +43,7 @@
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   dict = self->_dict;
   if (dict)
   {
@@ -52,10 +52,9 @@
 
   self->_dict = 0;
 
-  v5.receiver = self;
-  v5.super_class = CFPrefsSource;
-  [(CFPrefsSource *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CFPrefsSource;
+  [(CFPrefsSource *)&v4 dealloc];
 }
 
 - (os_unfair_lock_s)copyDictionary
@@ -115,19 +114,19 @@
 
 - (__CFArray)alreadylocked_copyKeyList
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   alreadylocked_copyDictionary = [(CFPrefsSource *)self alreadylocked_copyDictionary];
   if (alreadylocked_copyDictionary)
   {
     v3 = alreadylocked_copyDictionary;
     Count = CFDictionaryGetCount(alreadylocked_copyDictionary);
-    v6 = Count;
+    v7 = Count;
     if (Count >> 60)
     {
-      v15 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
-      v16 = [NSException exceptionWithName:@"NSGenericException" reason:v15 userInfo:0];
-      CFRelease(v15);
-      objc_exception_throw(v16);
+      v14 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
+      v15 = [NSException exceptionWithName:@"NSGenericException" reason:v14 userInfo:0];
+      CFRelease(v14);
+      objc_exception_throw(v15);
     }
 
     if (Count <= 1)
@@ -135,31 +134,29 @@
       Count = 1;
     }
 
-    v7 = MEMORY[0x1EEE9AC00](Count, v5);
-    v9 = (v17 - v8);
-    v17[0] = 0;
-    if (v6 >= 0x101)
+    v8 = MEMORY[0x1EEE9AC00](Count, v5, v6);
+    v10 = (v16 - v9);
+    v16[0] = 0;
+    if (v7 >= 0x101)
     {
-      v9 = _CFCreateArrayStorage(v7, 0, v17);
-      v10 = v9;
+      v10 = _CFCreateArrayStorage(v8, 0, v16);
+      v11 = v10;
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    CFDictionaryGetKeysAndValues(v3, v9, 0);
-    v13 = CFArrayCreate(&__kCFAllocatorSystemDefault, v9, v6, &kCFTypeArrayCallBacks);
+    CFDictionaryGetKeysAndValues(v3, v10, 0);
+    v13 = CFArrayCreate(&__kCFAllocatorSystemDefault, v10, v7, &kCFTypeArrayCallBacks);
     CFRelease(v3);
-    free(v10);
-    v14 = *MEMORY[0x1E69E9840];
+    free(v11);
     return v13;
   }
 
   else
   {
-    v11 = *MEMORY[0x1E69E9840];
 
     return CFArrayCreate(&__kCFAllocatorSystemDefault, 0, 0, &kCFTypeArrayCallBacks);
   }
@@ -167,10 +164,10 @@
 
 - (CFPrefsSource)initWithContainingPreferences:(id)preferences
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = CFPrefsSource;
-  result = [(CFPrefsSource *)&v6 init];
+  v6 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CFPrefsSource;
+  result = [(CFPrefsSource *)&v5 init];
   if (result)
   {
     result->_lock._os_unfair_lock_opaque = 0;
@@ -179,7 +176,6 @@
     result->_isSearchList = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -241,61 +237,58 @@
 
 - (void)forEachObserver:(uint64_t)observer
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (!observer)
+  v17 = *MEMORY[0x1E69E9840];
+  if (observer)
   {
-LABEL_15:
-    v14 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  os_unfair_lock_lock((observer + 52));
-  v4 = *(observer + 24);
-  if (v4)
-  {
-    approximateCount = [v4 approximateCount];
-    v7 = approximateCount;
-    if (approximateCount >> 60)
+    os_unfair_lock_lock((observer + 52));
+    v4 = *(observer + 24);
+    if (v4)
     {
-      v15 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", approximateCount);
-      v16 = [NSException exceptionWithName:@"NSGenericException" reason:v15 userInfo:0];
-      CFRelease(v15);
-      objc_exception_throw(v16);
-    }
+      approximateCount = [v4 approximateCount];
+      v8 = approximateCount;
+      if (approximateCount >> 60)
+      {
+        v14 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", approximateCount);
+        v15 = [NSException exceptionWithName:@"NSGenericException" reason:v14 userInfo:0];
+        CFRelease(v14);
+        objc_exception_throw(v15);
+      }
 
-    if (approximateCount <= 1)
-    {
-      approximateCount = 1;
-    }
+      if (approximateCount <= 1)
+      {
+        approximateCount = 1;
+      }
 
-    v8 = MEMORY[0x1EEE9AC00](approximateCount, v6);
-    v10 = (&v17 - v9);
-    v17 = 0;
-    if (v7 >= 0x101)
-    {
-      v10 = _CFCreateArrayStorage(v8, 0, &v17);
-      v11 = v10;
+      v9 = MEMORY[0x1EEE9AC00](approximateCount, v6, v7);
+      v11 = (&v16 - v10);
+      v16 = 0;
+      if (v8 >= 0x101)
+      {
+        v11 = _CFCreateArrayStorage(v9, 0, &v16);
+        v12 = v11;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      v13 = [*(observer + 24) borrowObjects:v11 count:{v8, v16, v17}];
+      os_unfair_lock_unlock((observer + 52));
+      for (; v13; --v13)
+      {
+        (*(a2 + 16))(a2, *v11);
+      }
+
+      free(v12);
     }
 
     else
     {
-      v11 = 0;
-    }
 
-    v13 = [*(observer + 24) borrowObjects:v10 count:{v7, v17, v18}];
-    os_unfair_lock_unlock((observer + 52));
-    for (; v13; --v13)
-    {
-      (*(a2 + 16))(a2, *v10);
+      os_unfair_lock_unlock((observer + 52));
     }
-
-    free(v11);
-    goto LABEL_15;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-
-  os_unfair_lock_unlock((observer + 52));
 }
 
 - (uint64_t)alreadylocked_removePreferencesObserver:(uint64_t)observer
@@ -313,7 +306,7 @@ LABEL_15:
 
 - (void)alreadylocked_setPrecopiedValues:(const void *)values forKeys:(const __CFString *)keys count:(int64_t)count from:(id)from
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (!self->_dict)
   {
@@ -340,24 +333,24 @@ LABEL_15:
           CFDictionaryRemoveValue(dict, v11);
         }
 
-        v14 = _CFPrefsClientLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = _CFPrefsClientLog(v14, v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           copyOSLogDescription = [(CFPrefsSource *)self copyOSLogDescription];
-          _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-          v16 = _CFPrefsClientLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v18 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+          v20 = _CFPrefsClientLog(v18, v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138478339;
-            v19 = v12;
-            v20 = 2113;
-            v21 = v11;
-            v22 = 2114;
-            v23 = copyOSLogDescription;
-            _os_log_debug_impl(&dword_1830E6000, v16, OS_LOG_TYPE_DEBUG, "setting new value %{private}@ for key %{private}@ in %{public}@", buf, 0x20u);
+            v22 = v12;
+            v23 = 2113;
+            v24 = v11;
+            v25 = 2114;
+            v26 = copyOSLogDescription;
+            _os_log_debug_impl(&dword_1830E6000, v20, OS_LOG_TYPE_DEBUG, "setting new value %{private}@ for key %{private}@ in %{public}@", buf, 0x20u);
           }
 
-          _CFSetTSD(0xFu, 0, 0);
+          _CFSetTSD(15, 0, 0);
           CFRelease(copyOSLogDescription);
         }
 
@@ -375,23 +368,19 @@ LABEL_15:
       atomic_fetch_add(&self->_generationCount, 1uLL);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)validateValue:(CFTypeRef)cf1 forKey:(const __CFDictionary *)key inDict:(int)dict forWriting:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_27;
+    return result;
   }
 
   if (!cf1)
   {
-LABEL_19:
-    result = 1;
-    goto LABEL_27;
+    return 1;
   }
 
   v9 = result;
@@ -410,7 +399,7 @@ LABEL_19:
 
     if (!Value)
     {
-      goto LABEL_19;
+      return 1;
     }
 
     v11 = CFGetTypeID(Value);
@@ -440,7 +429,7 @@ LABEL_19:
 
   if (!CFEqual(cf1, @"AppleLocale"))
   {
-    goto LABEL_19;
+    return 1;
   }
 
   if (key && !Value)
@@ -450,74 +439,72 @@ LABEL_19:
 
   if (!Value)
   {
-    goto LABEL_19;
+    return 1;
   }
 
   v17 = CFGetTypeID(Value);
   if (v17 == CFStringGetTypeID())
   {
-    goto LABEL_19;
+    return 1;
   }
 
 LABEL_20:
   copyOSLogDescription = [v9 copyOSLogDescription];
   if (dict)
   {
-    _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-    v19 = _CFPrefsClientLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v19 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+    v21 = _CFPrefsClientLog(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138478339;
-      v23 = a2;
-      v24 = 2114;
-      v25 = cf1;
-      v26 = 2114;
-      v27 = copyOSLogDescription;
-      _os_log_error_impl(&dword_1830E6000, v19, OS_LOG_TYPE_ERROR, "attempted to write invalid value %{private}@ for key %{public}@ in %{public}@. Replacing with NULL.", &v22, 0x20u);
+      v25 = 138478339;
+      v26 = a2;
+      v27 = 2114;
+      v28 = cf1;
+      v29 = 2114;
+      v30 = copyOSLogDescription;
+      _os_log_error_impl(&dword_1830E6000, v21, OS_LOG_TYPE_ERROR, "attempted to write invalid value %{private}@ for key %{public}@ in %{public}@. Replacing with NULL.", &v25, 0x20u);
     }
   }
 
   else
   {
-    _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-    v20 = _CFPrefsClientLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+    v24 = _CFPrefsClientLog(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138478339;
-      v23 = a2;
-      v24 = 2114;
-      v25 = cf1;
-      v26 = 2114;
-      v27 = copyOSLogDescription;
-      _os_log_error_impl(&dword_1830E6000, v20, OS_LOG_TYPE_ERROR, "looked up invalid value %{private}@ for key %{public}@ in %{public}@. Replacing with NULL.", &v22, 0x20u);
+      v25 = 138478339;
+      v26 = a2;
+      v27 = 2114;
+      v28 = cf1;
+      v29 = 2114;
+      v30 = copyOSLogDescription;
+      _os_log_error_impl(&dword_1830E6000, v24, OS_LOG_TYPE_ERROR, "looked up invalid value %{private}@ for key %{public}@ in %{public}@. Replacing with NULL.", &v25, 0x20u);
     }
   }
 
-  _CFSetTSD(0xFu, 0, 0);
+  _CFSetTSD(15, 0, 0);
   CFRelease(copyOSLogDescription);
-  result = 0;
-LABEL_27:
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(int)count copyValues:(uint64_t)copyValues removeValuesForKeys:(unint64_t)forKeys count:(uint64_t)a8 from:
+- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(uint64_t)count copyValues:(uint64_t)copyValues removeValuesForKeys:(unint64_t)forKeys count:(uint64_t)a8 from:
 {
   v40 = a8;
   v43[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_30;
+    return;
   }
 
   if (forKeys >> 60)
   {
-    v32 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", forKeys);
+    v32 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", keys, count, copyValues, forKeys);
     v33 = [NSException exceptionWithName:@"NSGenericException" reason:v32 userInfo:0];
     CFRelease(v32);
     objc_exception_throw(v33);
   }
 
+  countCopy = count;
   v38 = &v36;
   if (forKeys <= 1)
   {
@@ -529,7 +516,7 @@ LABEL_27:
     forKeysCopy = forKeys;
   }
 
-  v16 = MEMORY[0x1EEE9AC00](forKeysCopy, a2);
+  v16 = MEMORY[0x1EEE9AC00](forKeysCopy, a2, values);
   v18 = &v36 - v17;
   if (forKeys > 0x100)
   {
@@ -563,23 +550,23 @@ LABEL_27:
     keysCopy = keys;
   }
 
-  v21 = MEMORY[0x1EEE9AC00](keysCopy, v19);
-  v23 = (&v36 - v22);
+  v22 = MEMORY[0x1EEE9AC00](keysCopy, v19, v20);
+  v24 = (&v36 - v23);
   v42 = 0;
   if (keys >= 0x101)
   {
-    v23 = _CFCreateArrayStorage(v21, 0, &v42);
-    v37 = v23;
+    v24 = _CFCreateArrayStorage(v22, 0, &v42);
+    v37 = v24;
   }
 
   else
   {
     if (!keys)
     {
-      v26 = self + 13;
+      v27 = self + 13;
       os_unfair_lock_lock(self + 13);
-      v29 = 0;
-      v28 = v40;
+      v30 = 0;
+      v29 = v40;
       if (!forKeys)
       {
         goto LABEL_25;
@@ -591,15 +578,15 @@ LABEL_27:
     v37 = 0;
   }
 
-  v24 = 0;
+  v25 = 0;
   do
   {
-    DeepCopyOfValueForKey = *(a2 + 8 * v24);
+    DeepCopyOfValueForKey = *(a2 + 8 * v25);
     if (DeepCopyOfValueForKey)
     {
-      if (count)
+      if (countCopy)
       {
-        DeepCopyOfValueForKey = createDeepCopyOfValueForKey(DeepCopyOfValueForKey, *(values + 8 * v24));
+        DeepCopyOfValueForKey = createDeepCopyOfValueForKey(DeepCopyOfValueForKey, *(values + 8 * v25));
       }
 
       else
@@ -608,46 +595,44 @@ LABEL_27:
       }
     }
 
-    v23[v24++] = DeepCopyOfValueForKey;
+    v24[v25++] = DeepCopyOfValueForKey;
   }
 
-  while (keys != v24);
-  v26 = self + 13;
+  while (keys != v25);
+  v27 = self + 13;
   os_unfair_lock_lock(self + 13);
   valuesCopy = values;
-  v28 = v40;
-  v29 = v37;
-  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v23 forKeys:valuesCopy count:keys from:v40];
+  v29 = v40;
+  v30 = v37;
+  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v24 forKeys:valuesCopy count:keys from:v40];
   if (!forKeys)
   {
     goto LABEL_25;
   }
 
 LABEL_24:
-  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v18 forKeys:copyValues count:forKeys from:v28];
+  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v18 forKeys:copyValues count:forKeys from:v29];
 LABEL_25:
-  os_unfair_lock_unlock(v26);
+  os_unfair_lock_unlock(v27);
   for (i = keys; i; --i)
   {
-    if (*v23)
+    if (*v24)
     {
-      CFRelease(*v23);
+      CFRelease(*v24);
     }
 
-    ++v23;
+    ++v24;
   }
 
   v41[0] = MEMORY[0x1E69E9820];
   v41[1] = 3221225472;
   v41[2] = __83__CFPrefsSource_setValues_forKeys_count_copyValues_removeValuesForKeys_count_from___block_invoke;
   v41[3] = &unk_1E6DCF018;
-  v41[4] = v28;
+  v41[4] = v29;
   v41[5] = self;
   [(CFPrefsSource *)self forEachObserver:v41];
-  free(v29);
+  free(v30);
   free(v39);
-LABEL_30:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __83__CFPrefsSource_setValues_forKeys_count_copyValues_removeValuesForKeys_count_from___block_invoke(uint64_t result, void *a2)
@@ -669,111 +654,110 @@ uint64_t __83__CFPrefsSource_setValues_forKeys_count_copyValues_removeValuesForK
 
 - (void)_notifyObserversOfChangeFromValuesForKeys:(id)keys toValuesForKeys:(id)forKeys
 {
-  v5[6] = *MEMORY[0x1E69E9840];
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __75__CFPrefsSource__notifyObserversOfChangeFromValuesForKeys_toValuesForKeys___block_invoke;
-  v5[3] = &unk_1E6DCF018;
-  v5[4] = keys;
-  v5[5] = forKeys;
-  [(CFPrefsSource *)self forEachObserver:v5];
-  v4 = *MEMORY[0x1E69E9840];
+  v4[6] = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __75__CFPrefsSource__notifyObserversOfChangeFromValuesForKeys_toValuesForKeys___block_invoke;
+  v4[3] = &unk_1E6DCF018;
+  v4[4] = keys;
+  v4[5] = forKeys;
+  [(CFPrefsSource *)self forEachObserver:v4];
 }
 
 - (void)replaceAllValuesWithValues:(uint64_t)values forKeys:(unint64_t)keys count:(uint64_t)count from:
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_36;
+    return;
   }
 
   countCopy = count;
   os_unfair_lock_lock(self + 13);
   alreadylocked_copyKeyList = [(os_unfair_lock_s *)self alreadylocked_copyKeyList];
   os_unfair_lock_unlock(self + 13);
-  v45 = alreadylocked_copyKeyList;
+  v47 = alreadylocked_copyKeyList;
   Count = CFArrayGetCount(alreadylocked_copyKeyList);
-  v12 = Count;
+  v13 = Count;
   if (Count >> 60)
   {
-    v36 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
-    v37 = [NSException exceptionWithName:@"NSGenericException" reason:v36 userInfo:0];
-    CFRelease(v36);
-    objc_exception_throw(v37);
+    v38 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", Count);
+    v39 = [NSException exceptionWithName:@"NSGenericException" reason:v38 userInfo:0];
+    CFRelease(v38);
+    objc_exception_throw(v39);
   }
 
   if (Count <= 1)
-  {
-    v13 = 1;
-  }
-
-  else
-  {
-    v13 = Count;
-  }
-
-  if (Count >= 0x101)
   {
     v14 = 1;
   }
 
   else
   {
-    v14 = v13;
+    v14 = Count;
   }
 
-  v15 = 8 * v14;
-  MEMORY[0x1EEE9AC00](Count, v11);
-  v17 = (&v40 - v16);
-  v48[0] = 0;
-  if (v12 >= 0x101)
+  if (Count >= 0x101)
   {
-    v17 = _CFCreateArrayStorage(v13, 0, v48);
-    v18 = v17;
+    v15 = 1;
   }
 
   else
   {
-    v18 = 0;
+    v15 = v14;
   }
 
-  v49.location = 0;
-  v49.length = v12;
-  CFArrayGetValues(v45, v49, v17);
-  v43 = &v40;
-  MEMORY[0x1EEE9AC00](v19, v20);
-  v21 = &v40 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (v12 > 0x100)
+  v16 = 8 * v15;
+  MEMORY[0x1EEE9AC00](Count, v11, v12);
+  v18 = (&v42 - v17);
+  v50[0] = 0;
+  if (v13 >= 0x101)
   {
-    v47 = 0;
-    v23 = _CFCreateArrayStorage(v13, 1, &v47);
-  }
-
-  else
-  {
-    bzero(v21, 8 * v13);
-    v23 = 0;
-    v47 = 0;
-  }
-
-  if (v12 >= 0x101)
-  {
-    v24 = v23;
+    v18 = _CFCreateArrayStorage(v14, 0, v50);
+    v19 = v18;
   }
 
   else
   {
-    v24 = v21;
+    v19 = 0;
+  }
+
+  v51.location = 0;
+  v51.length = v13;
+  CFArrayGetValues(v47, v51, v18);
+  v45 = &v42;
+  MEMORY[0x1EEE9AC00](v20, v21, v22);
+  v23 = &v42 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v13 > 0x100)
+  {
+    v49 = 0;
+    v26 = _CFCreateArrayStorage(v14, 1, &v49);
+  }
+
+  else
+  {
+    bzero(v23, 8 * v14);
+    v26 = 0;
+    v49 = 0;
+  }
+
+  if (v13 >= 0x101)
+  {
+    v27 = v26;
+  }
+
+  else
+  {
+    v27 = v23;
   }
 
   if (keys >> 60)
   {
-    v41 = v23;
-    v38 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", keys);
-    v39 = [NSException exceptionWithName:@"NSGenericException" reason:v38 userInfo:0];
-    CFRelease(v38);
-    objc_exception_throw(v39);
+    v43 = v26;
+    v40 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", keys);
+    v41 = [NSException exceptionWithName:@"NSGenericException" reason:v40 userInfo:0];
+    CFRelease(v40);
+    objc_exception_throw(v41);
   }
 
   if (keys <= 1)
@@ -786,139 +770,135 @@ uint64_t __83__CFPrefsSource_setValues_forKeys_count_copyValues_removeValuesForK
     keysCopy = keys;
   }
 
-  v26 = MEMORY[0x1EEE9AC00](keysCopy, v22);
-  v28 = (&v40 - v27);
-  v46 = 0;
+  v29 = MEMORY[0x1EEE9AC00](keysCopy, v24, v25);
+  v31 = (&v42 - v30);
+  v48 = 0;
   if (keys >= 0x101)
   {
-    v41 = v23;
-    v28 = _CFCreateArrayStorage(v26, 0, &v46);
-    v29 = v18;
-    v44 = v28;
+    v43 = v26;
+    v31 = _CFCreateArrayStorage(v29, 0, &v48);
+    v32 = v19;
+    v46 = v31;
 LABEL_26:
-    v30 = 0;
+    v33 = 0;
     do
     {
-      v31 = *(a2 + 8 * v30);
-      if (v31)
+      v34 = *(a2 + 8 * v33);
+      if (v34)
       {
-        v28[v30] = createDeepCopyOfValueForKey(v31, *(values + 8 * v30));
+        v31[v33] = createDeepCopyOfValueForKey(v34, *(values + 8 * v33));
       }
 
-      ++v30;
+      ++v33;
     }
 
-    while (keys != v30);
-    v32 = 0;
-    v18 = v29;
-    v23 = v41;
+    while (keys != v33);
+    v35 = 0;
+    v19 = v32;
+    v26 = v43;
     goto LABEL_31;
   }
 
-  v44 = 0;
+  v46 = 0;
   if (keys)
   {
-    v41 = v23;
-    v29 = v18;
+    v43 = v26;
+    v32 = v19;
     goto LABEL_26;
   }
 
-  v32 = 1;
+  v35 = 1;
 LABEL_31:
   os_unfair_lock_lock(self + 13);
-  v33 = v24;
-  v34 = countCopy;
-  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v33 forKeys:v17 count:v12 from:countCopy];
-  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v28 forKeys:values count:keys from:v34];
+  v36 = v27;
+  v37 = countCopy;
+  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v36 forKeys:v18 count:v13 from:countCopy];
+  [(os_unfair_lock_s *)self alreadylocked_setPrecopiedValues:v31 forKeys:values count:keys from:v37];
   os_unfair_lock_unlock(self + 13);
-  CFRelease(v45);
-  if ((v32 & 1) == 0)
+  CFRelease(v47);
+  if ((v35 & 1) == 0)
   {
     do
     {
-      if (*v28)
+      if (*v31)
       {
-        CFRelease(*v28);
+        CFRelease(*v31);
       }
 
-      ++v28;
+      ++v31;
       --keys;
     }
 
     while (keys);
   }
 
-  free(v44);
-  free(v23);
-  free(v18);
-LABEL_36:
-  v35 = *MEMORY[0x1E69E9840];
+  free(v46);
+  free(v26);
+  free(v19);
 }
 
 - (void)alreadylocked_copyValueForKey:(__CFString *)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   dict = self->_dict;
   if (dict)
   {
-    Value = CFDictionaryGetValue(dict, key);
+    dict = CFDictionaryGetValue(dict, key);
+    v7 = dict;
   }
 
   else
   {
-    Value = 0;
+    v7 = 0;
   }
 
-  v7 = _CFPrefsClientLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CFPrefsClientLog(dict, v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     copyOSLogDescription = [(CFPrefsSource *)self copyOSLogDescription];
-    if (Value)
+    if (v7)
     {
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v9 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v12 = _CFPrefsClientLog(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v13 = 138478339;
-        v14 = Value;
-        v15 = 2114;
+        v17 = 138478339;
+        v18 = v7;
+        v19 = 2114;
         keyCopy = key;
-        v17 = 2114;
-        v18 = copyOSLogDescription;
-        _os_log_debug_impl(&dword_1830E6000, v9, OS_LOG_TYPE_DEBUG, "looked up value %{private}@ for key %{public}@ in %{public}@", &v13, 0x20u);
+        v21 = 2114;
+        v22 = copyOSLogDescription;
+        _os_log_debug_impl(&dword_1830E6000, v12, OS_LOG_TYPE_DEBUG, "looked up value %{private}@ for key %{public}@ in %{public}@", &v17, 0x20u);
       }
 
-      _CFSetTSD(0xFu, 0, 0);
+      _CFSetTSD(15, 0, 0);
     }
 
     else
     {
-      _CFSetTSD(0xFu, &__kCFBooleanTrue, 0);
-      v10 = _CFPrefsClientLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = _CFSetTSD(15, &__kCFBooleanTrue, 0);
+      v15 = _CFPrefsClientLog(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [CFPrefsSource alreadylocked_copyValueForKey:];
       }
 
-      _CFSetTSD(0xFu, 0, 0);
+      _CFSetTSD(15, 0, 0);
     }
 
     CFRelease(copyOSLogDescription);
   }
 
-  if (Value)
+  if (v7)
   {
-    result = CFRetain(Value);
+    return CFRetain(v7);
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)copyValueForKey:(__CFString *)key
@@ -931,25 +911,24 @@ LABEL_36:
 
 - (void)mergeIntoDictionary:(__CFDictionary *)dictionary sourceDictionary:(__CFDictionary *)sourceDictionary cloudKeyEvaluator:(id)evaluator
 {
-  v11[7] = *MEMORY[0x1E69E9840];
+  v10[7] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   alreadylocked_copyDictionary = [(CFPrefsSource *)self alreadylocked_copyDictionary];
   if (alreadylocked_copyDictionary)
   {
     v9 = alreadylocked_copyDictionary;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __72__CFPrefsSource_mergeIntoDictionary_sourceDictionary_cloudKeyEvaluator___block_invoke;
-    v11[3] = &unk_1E6DCF040;
-    v11[5] = dictionary;
-    v11[6] = sourceDictionary;
-    v11[4] = self;
-    _CFPrefsDictionaryApplyBlock(alreadylocked_copyDictionary, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __72__CFPrefsSource_mergeIntoDictionary_sourceDictionary_cloudKeyEvaluator___block_invoke;
+    v10[3] = &unk_1E6DCF040;
+    v10[5] = dictionary;
+    v10[6] = sourceDictionary;
+    v10[4] = self;
+    _CFPrefsDictionaryApplyBlock(alreadylocked_copyDictionary, v10);
     CFRelease(v9);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __72__CFPrefsSource_mergeIntoDictionary_sourceDictionary_cloudKeyEvaluator___block_invoke(uint64_t a1, const void *a2, const void *a3)
@@ -987,55 +966,53 @@ void __72__CFPrefsSource_mergeIntoDictionary_sourceDictionary_cloudKeyEvaluator_
   if (dict)
   {
     dict = CFDictionaryGetCount(dict);
-    v10 = dict;
+    v11 = dict;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  MEMORY[0x1EEE9AC00](dict, v8);
-  v13 = (v18 - v12);
-  if (v11 >= 0x200)
+  MEMORY[0x1EEE9AC00](dict, v8, v9);
+  v14 = (v18 - v13);
+  if (v12 >= 0x200)
   {
-    v14 = 512;
+    v15 = 512;
   }
 
   else
   {
-    v14 = v11;
+    v15 = v12;
   }
 
-  bzero(v18 - v12, v14);
-  if (v10 <= 0)
+  bzero(v18 - v13, v15);
+  if (v11 <= 0)
   {
     CFStringAppend(Mutable, @" Keys: [");
   }
 
   else
   {
-    CFDictionaryGetKeysAndValues(self->_dict, v13, 0);
+    CFDictionaryGetKeysAndValues(self->_dict, v14, 0);
     CFStringAppend(Mutable, @" Keys: [");
     do
     {
-      v15 = *v13++;
-      CFStringAppend(Mutable, v15);
+      v16 = *v14++;
+      CFStringAppend(Mutable, v16);
       CFStringAppend(Mutable, @", ");
-      --v10;
+      --v11;
     }
 
-    while (v10);
+    while (v11);
   }
 
   CFStringAppend(Mutable, @"]\n");
   os_unfair_lock_unlock(&self->_lock);
-  result = CFAutorelease(Mutable);
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFAutorelease(Mutable);
 }
 
-- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(int)count copyValues:(uint64_t)copyValues from:
+- (void)setValues:(uint64_t)values forKeys:(unint64_t)keys count:(uint64_t)count copyValues:(uint64_t)copyValues from:
 {
   if (self)
   {
@@ -1045,15 +1022,13 @@ void __72__CFPrefsSource_mergeIntoDictionary_sourceDictionary_cloudKeyEvaluator_
 
 - (void)setValue:(uint64_t)value forKey:(uint64_t)key from:
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     valueCopy = value;
-    v6[0] = a2;
-    [(CFPrefsSource *)self setValues:v6 forKeys:&valueCopy count:1uLL copyValues:1 removeValuesForKeys:0 count:0 from:key];
+    v5[0] = a2;
+    [(CFPrefsSource *)self setValues:v5 forKeys:&valueCopy count:1uLL copyValues:1 removeValuesForKeys:0 count:0 from:key];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllValues_from:(os_unfair_lock_s *)values_from
@@ -1076,10 +1051,9 @@ void __72__CFPrefsSource_mergeIntoDictionary_sourceDictionary_cloudKeyEvaluator_
 
 - (void)alreadylocked_copyValueForKey:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_6();
-  _os_log_debug_impl(&dword_1830E6000, v0, OS_LOG_TYPE_DEBUG, "found no value for key %{public}@ in %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1830E6000, v0, OS_LOG_TYPE_DEBUG, "found no value for key %{public}@ in %{public}@", v1, 0x16u);
 }
 
 @end

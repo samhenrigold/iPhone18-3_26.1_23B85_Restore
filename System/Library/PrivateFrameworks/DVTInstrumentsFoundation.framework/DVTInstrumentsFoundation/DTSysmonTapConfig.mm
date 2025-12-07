@@ -3,9 +3,11 @@
 - (DTSysmonTapConfig)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)sampleInterval;
+- (void)addPid:(int)pid;
 - (void)setCoalitionAttributes:(id)attributes;
 - (void)setPids:(id)pids;
 - (void)setProcessAttributes:(id)attributes;
+- (void)setSampleCPUUsage:(BOOL)usage;
 - (void)setSampleInterval:(unint64_t)interval;
 - (void)setSessionHandler:(id)handler;
 - (void)setSystemAttributes:(id)attributes;
@@ -79,10 +81,30 @@
   return bOOLValue;
 }
 
+- (void)setSampleCPUUsage:(BOOL)usage
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:usage];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"cpuUsage"];
+}
+
 - (void)setPids:(id)pids
 {
   v4 = [pids mutableCopy];
   [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"pids"];
+}
+
+- (void)addPid:(int)pid
+{
+  v3 = *&pid;
+  v6 = [(DTTapConfig *)self _getSerializableObjectForKey:@"pids"];
+  if (!v6)
+  {
+    v6 = objc_opt_new();
+    [DTTapConfig _setSerializableObject:"_setSerializableObject:forKey:" forKey:?];
+  }
+
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  [v6 addObject:v5];
 }
 
 @end

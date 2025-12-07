@@ -31,42 +31,33 @@ void __32__DEDCollectionNotification_log__block_invoke()
 
 + (BOOL)shouldFireNotificationForTransport:(int64_t)transport
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = +[DEDUtils platform];
   v6 = [v5 isEqualToString:@"macos"];
 
-  if (v6)
+  if (!v6)
   {
-    processInfo = [MEMORY[0x277CCAC38] processInfo];
-    environment = [processInfo environment];
-    v9 = [environment objectForKey:@"DED_FORCE_COLLECT_NOTIFY"];
-
-    if (v9)
-    {
-      v10 = [self log];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-      {
-        v13 = 136315138;
-        v14 = "+[DEDCollectionNotification shouldFireNotificationForTransport:]";
-        _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "%s is forced on, notifications will be forcibly delivered.", &v13, 0xCu);
-      }
-
-      result = 1;
-    }
-
-    else
-    {
-      result = transport > 2;
-    }
+    return 0;
   }
 
-  else
+  processInfo = [MEMORY[0x277CCAC38] processInfo];
+  environment = [processInfo environment];
+  v9 = [environment objectForKey:@"DED_FORCE_COLLECT_NOTIFY"];
+
+  if (!v9)
   {
-    result = 0;
+    return transport > 2;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v10 = [self log];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = 136315138;
+    v13 = "+[DEDCollectionNotification shouldFireNotificationForTransport:]";
+    _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "%s is forced on, notifications will be forcibly delivered.", &v12, 0xCu);
+  }
+
+  return 1;
 }
 
 + (void)fireNotificationWithFinishingMove:(int64_t)move

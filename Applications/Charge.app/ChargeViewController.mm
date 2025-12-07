@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100010AC0();
+  sub_100010AC0(selfCopy);
 }
 
 - (_TtC6Charge20ChargeViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (NEDNSOverTLSSettings)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -32,6 +33,24 @@
 LABEL_6:
 
   return v8;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v13.receiver = self;
+  v13.super_class = NEDNSOverTLSSettings;
+  v8 = [(NEDNSSettings *)&v13 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  serverName = [(NEDNSOverTLSSettings *)self serverName];
+  [v9 appendPrettyObject:serverName withName:@"serverName" andIndent:v5 options:options];
+
+  identityReference = [(NEDNSOverTLSSettings *)self identityReference];
+  [v9 appendPrettyObject:identityReference withName:@"identityReference" andIndent:v5 options:options];
+
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -74,12 +93,12 @@ LABEL_6:
     {
       serverName = [(NEDNSOverTLSSettings *)self serverName];
       serverName2 = [v5 serverName];
-      v8 = [serverName isEqualToString:serverName2];
+      isEqualToString = objc_msgSend_isEqualToString_(serverName);
     }
 
     else
     {
-      v8 = 0;
+      isEqualToString = 0;
     }
 
     identityReference = [(NEDNSOverTLSSettings *)self identityReference];
@@ -112,7 +131,7 @@ LABEL_6:
     }
 
 LABEL_15:
-    v9 = (v14 ^ 1) & v8;
+    v9 = (v14 ^ 1) & isEqualToString;
 
     goto LABEL_16;
   }

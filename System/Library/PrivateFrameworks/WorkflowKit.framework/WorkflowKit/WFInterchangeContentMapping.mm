@@ -40,17 +40,7 @@ void __76__WFInterchangeContentMapping_getStringRepresentation_withInput_paramet
     (*(*(a1 + 40) + 16))();
   }
 
-  if ([v7 numberOfItems] != 1)
-  {
-    goto LABEL_6;
-  }
-
-  v10 = [v7 items];
-  v11 = [v10 firstObject];
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-
-  if (isKindOfClass)
+  if ([v7 numberOfItems] == 1 && (objc_msgSend(v7, "items"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "firstObject"), v11 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v11, v10, (isKindOfClass & 1) != 0))
   {
     v13 = [v7 items];
     v14 = [v13 firstObject];
@@ -63,7 +53,6 @@ void __76__WFInterchangeContentMapping_getStringRepresentation_withInput_paramet
 
   else
   {
-LABEL_6:
     v17[0] = MEMORY[0x1E69E9820];
     v17[1] = 3221225472;
     v17[2] = __76__WFInterchangeContentMapping_getStringRepresentation_withInput_parameters___block_invoke_2;
@@ -122,14 +111,14 @@ void __76__WFInterchangeContentMapping_getStringRepresentation_withInput_paramet
 
 - (void)getContentCollection:(id)collection withInput:(id)input parameters:(id)parameters
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   inputCopy = input;
   parametersCopy = parameters;
   sourceType = [(WFInterchangeContentMapping *)self sourceType];
-  if (![sourceType isEqualToString:@"Input"])
+  if (!objc_msgSend_isEqualToString_(sourceType))
   {
-    if (![sourceType isEqualToString:@"Parameter"])
+    if (!objc_msgSend_isEqualToString_(sourceType))
     {
       goto LABEL_20;
     }
@@ -172,8 +161,8 @@ LABEL_17:
     if (objc_opt_isKindOfClass())
     {
       v19 = MEMORY[0x1E6996D40];
-      v27[0] = v15;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v26[0] = v15;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
       v12 = [v19 collectionWithItems:v20];
     }
 
@@ -200,11 +189,11 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v24 = MEMORY[0x1E6996D40];
+      v23 = MEMORY[0x1E6996D40];
       v20 = [MEMORY[0x1E6996D58] itemWithObject:v15];
-      v26 = v20;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
-      v12 = [v24 collectionWithItems:v25];
+      v25 = v20;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+      v12 = [v23 collectionWithItems:v24];
     }
 
     goto LABEL_18;
@@ -222,12 +211,11 @@ LABEL_19:
   [v12 generateCollectionByCoercingToItemClasses:array completionHandler:collectionCopy];
 
 LABEL_21:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (NSOrderedSet)contentItemClasses
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   definition = [(WFInterchangeContentMapping *)self definition];
   v5 = [definition objectForKey:@"ItemClasses"];
@@ -237,33 +225,33 @@ LABEL_21:
 
   if (v5)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = NSClassFromString(*(*(&v20 + 1) + 8 * i));
+          v13 = NSClassFromString(*(*(&v19 + 1) + 8 * i));
           if (v13)
           {
-            [v3 addObject:{v13, v20}];
+            [v3 addObject:{v13, v19}];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -293,8 +281,6 @@ LABEL_15:
 LABEL_16:
   v17 = v16;
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
@@ -305,16 +291,16 @@ LABEL_16:
 
   if (v4)
   {
-    bOOLValue = [v4 BOOLValue];
+    isEqualToString = [v4 BOOLValue];
   }
 
   else
   {
     sourceType = [(WFInterchangeContentMapping *)self sourceType];
-    bOOLValue = [sourceType isEqualToString:@"Input"];
+    isEqualToString = objc_msgSend_isEqualToString_(sourceType);
   }
 
-  return bOOLValue;
+  return isEqualToString;
 }
 
 - (BOOL)supportsMultipleItems

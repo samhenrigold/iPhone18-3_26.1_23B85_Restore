@@ -84,7 +84,7 @@
     v7->_isArtworkControllerEnabled = v20;
     if (v20)
     {
-      v21 = MCLogCategoryDefault();
+      v21 = MCLogCategoryDefault(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v22 = objc_opt_class();
@@ -182,21 +182,21 @@
 
 - (void)setCatalog:(id)catalog
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   catalogCopy = catalog;
   objc_storeStrong(&self->_catalog, catalog);
-  v6 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = MCLogCategoryDefault(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = objc_opt_class();
+    v8 = objc_opt_class();
     isArtworkControllerEnabled = self->_isArtworkControllerEnabled;
     *buf = 138412802;
-    v27 = v7;
-    v28 = 2048;
+    v28 = v8;
+    v29 = 2048;
     selfCopy = self;
-    v30 = 1024;
-    v31 = isArtworkControllerEnabled;
-    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_INFO, "%@<%p> setCatalog isArtworkControllerEnabled:%{BOOL}u", buf, 0x1Cu);
+    v31 = 1024;
+    v32 = isArtworkControllerEnabled;
+    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_INFO, "%@<%p> setCatalog isArtworkControllerEnabled:%{BOOL}u", buf, 0x1Cu);
   }
 
   if (self->_isArtworkControllerEnabled)
@@ -208,46 +208,46 @@
   else
   {
     imageLoader = [(MRUArtworkView *)self imageLoader];
-    v10 = imageLoader == 0;
+    v11 = imageLoader == 0;
 
-    if (v10)
+    if (v11)
     {
       objc_initWeak(buf, self);
-      v11 = [MRUImageLoader alloc];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __29__MRUArtworkView_setCatalog___block_invoke;
-      v24[3] = &unk_1E7663958;
-      objc_copyWeak(&v25, buf);
-      v12 = [(MRUImageLoader *)v11 initWithDestination:self imageHandler:v24];
-      [(MRUArtworkView *)self setImageLoader:v12];
+      v12 = [MRUImageLoader alloc];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __29__MRUArtworkView_setCatalog___block_invoke;
+      v25[3] = &unk_1E7663958;
+      objc_copyWeak(&v26, buf);
+      v13 = [(MRUImageLoader *)v12 initWithDestination:self imageHandler:v25];
+      [(MRUArtworkView *)self setImageLoader:v13];
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(buf);
     }
 
     if (catalogCopy)
     {
       imageLoader2 = [(MRUArtworkView *)self imageLoader];
-      v14 = [imageLoader2 wouldLoadNewImageForCatalog:catalogCopy];
+      v15 = [imageLoader2 wouldLoadNewImageForCatalog:catalogCopy];
 
-      if (v14)
+      if (v15)
       {
         objc_initWeak(buf, self);
-        v15 = MEMORY[0x1E69B14D8];
+        v16 = MEMORY[0x1E69B14D8];
         [(MRUArtworkView *)self artworkLoadingTimeout];
-        v17 = v16;
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __29__MRUArtworkView_setCatalog___block_invoke_15;
-        v21[3] = &unk_1E7663980;
-        objc_copyWeak(&v23, buf);
-        v22 = catalogCopy;
-        v18 = [v15 timerWithInterval:0 repeats:v21 block:v17];
+        v18 = v17;
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __29__MRUArtworkView_setCatalog___block_invoke_15;
+        v22[3] = &unk_1E7663980;
+        objc_copyWeak(&v24, buf);
+        v23 = catalogCopy;
+        v19 = [v16 timerWithInterval:0 repeats:v22 block:v18];
         artworkTimer = self->_artworkTimer;
-        self->_artworkTimer = v18;
+        self->_artworkTimer = v19;
 
-        objc_destroyWeak(&v23);
+        objc_destroyWeak(&v24);
         objc_destroyWeak(buf);
       }
     }
@@ -260,31 +260,32 @@
 
 void __29__MRUArtworkView_setCatalog___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = MCLogCategoryImageLoading();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = MCLogCategoryImageLoading(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138412802;
-        v11 = objc_opt_class();
-        v12 = 2048;
-        v13 = WeakRetained;
-        v14 = 2114;
-        v15 = v6;
-        _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_ERROR, "%@<%p> Image load failed with error: %{public}@.", &v10, 0x20u);
+        v11 = 138412802;
+        v12 = objc_opt_class();
+        v13 = 2048;
+        v14 = v8;
+        v15 = 2114;
+        v16 = v6;
+        _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_ERROR, "%@<%p> Image load failed with error: %{public}@.", &v11, 0x20u);
       }
     }
 
-    v9 = [WeakRetained artworkTimer];
-    [v9 invalidate];
+    v10 = [v8 artworkTimer];
+    [v10 invalidate];
 
-    [WeakRetained setArtworkImage:v5];
+    [v8 setArtworkImage:v5];
   }
 }
 
@@ -292,7 +293,7 @@ void __29__MRUArtworkView_setCatalog___block_invoke_15(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = MCLogCategoryImageLoading();
+  v3 = MCLogCategoryImageLoading(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = objc_opt_class();
@@ -614,7 +615,7 @@ void __33__MRUArtworkView_setHighlighted___block_invoke_3(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   catalogCopy = catalog;
-  v6 = MCLogCategoryDefault();
+  v6 = MCLogCategoryDefault(catalogCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v9 = 138543618;
@@ -637,7 +638,7 @@ void __33__MRUArtworkView_setHighlighted___block_invoke_3(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   imageCopy = image;
-  v6 = MCLogCategoryDefault();
+  v6 = MCLogCategoryDefault(imageCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = 138543618;
@@ -653,7 +654,7 @@ void __33__MRUArtworkView_setHighlighted___block_invoke_3(uint64_t a1)
 - (void)artworkLoadingDidTimeoutInController:(id)controller
 {
   v9 = *MEMORY[0x1E69E9840];
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 138543618;

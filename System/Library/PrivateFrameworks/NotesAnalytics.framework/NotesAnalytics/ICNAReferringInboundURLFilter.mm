@@ -297,30 +297,30 @@ void __64__ICNAReferringInboundURLFilter_allowedTieredPrefixReplacements__block_
 
 + (BOOL)foundMatchingPrefixAmongCandidates:(id)candidates forInputString:(id)string matchingPrefixInplaceResult:(id *)result
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   stringCopy = string;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = candidatesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
-        if ([stringCopy hasPrefix:{v14, v19}])
+        v14 = *(*(&v18 + 1) + 8 * i);
+        if ([stringCopy hasPrefix:{v14, v18}])
         {
           v16 = v14;
           *result = v14;
@@ -329,7 +329,7 @@ void __64__ICNAReferringInboundURLFilter_allowedTieredPrefixReplacements__block_
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         continue;
@@ -342,7 +342,6 @@ void __64__ICNAReferringInboundURLFilter_allowedTieredPrefixReplacements__block_
   v15 = 0;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

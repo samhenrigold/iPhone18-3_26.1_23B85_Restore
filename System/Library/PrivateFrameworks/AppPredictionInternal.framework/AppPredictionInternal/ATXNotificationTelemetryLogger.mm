@@ -61,7 +61,7 @@
   timestampCopy = timestamp;
   endTimestampCopy = endTimestamp;
   taskCopy = task;
-  v11 = __atxlog_handle_metrics();
+  v11 = __atxlog_handle_metrics(taskCopy);
   v12 = os_signpost_id_generate(v11);
 
   [(ATXNotificationAndSuggestionDatastore *)self->_datastore updateDatabase];
@@ -152,17 +152,17 @@ void __99__ATXNotificationTelemetryLogger_logNotificationMetricsFromStartTimesta
     while (v9);
   }
 
-  if ([*(a1 + 40) didDefer])
+  v15 = [*(a1 + 40) didDefer];
+  if (v15)
   {
-    v15 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v16 = __atxlog_handle_metrics(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v16 = *(a1 + 48);
       v17 = objc_opt_class();
       v18 = NSStringFromClass(v17);
       *buf = 138412290;
       v67 = v18;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "%@ - Deferring after notification event metrics logging", buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_INFO, "%@ - Deferring after notification event metrics logging", buf, 0xCu);
     }
 
     v19 = v50;
@@ -175,108 +175,109 @@ void __99__ATXNotificationTelemetryLogger_logNotificationMetricsFromStartTimesta
     v56 = 0u;
     v57 = 0u;
     obj = *(a1 + 32);
-    v21 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
-    if (v21)
+    v20 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+    if (v20)
     {
-      v22 = v21;
-      v23 = *v57;
+      v21 = v20;
+      v22 = *v57;
       do
       {
-        for (j = 0; j != v22; ++j)
+        for (j = 0; j != v21; ++j)
         {
-          if (*v57 != v23)
+          if (*v57 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v56 + 1) + 8 * j);
-          v26 = objc_autoreleasePoolPush();
-          v27 = [v25 receiveModeIdentifier];
-          if (v27)
+          v24 = *(*(&v56 + 1) + 8 * j);
+          v25 = objc_autoreleasePoolPush();
+          v26 = [v24 receiveModeIdentifier];
+          if (v26)
           {
-            v28 = *(*(a1 + 48) + 24);
-            v29 = a1;
-            v30 = objc_alloc(MEMORY[0x277CCAD78]);
-            v31 = [v25 receiveModeIdentifier];
-            v32 = [v30 initWithUUIDString:v31];
-            [v28 atxModeForDNDMode:v32];
-            v33 = ATXActivityTypeFromMode();
+            v27 = *(*(a1 + 48) + 24);
+            v28 = a1;
+            v29 = objc_alloc(MEMORY[0x277CCAD78]);
+            v30 = [v24 receiveModeIdentifier];
+            v31 = [v29 initWithUUIDString:v30];
+            [v27 atxModeForDNDMode:v31];
+            v32 = ATXActivityTypeFromMode();
 
-            a1 = v29;
+            a1 = v28;
           }
 
           else
           {
-            v33 = ATXActivityTypeFromMode();
+            v32 = ATXActivityTypeFromMode();
           }
 
-          v34 = [*(a1 + 48) summaryMetricsForActivityType:v33];
-          [v34 handleTelemetryResult:v25];
+          v33 = [*(a1 + 48) summaryMetricsForActivityType:v32];
+          [v33 handleTelemetryResult:v24];
 
-          objc_autoreleasePoolPop(v26);
+          objc_autoreleasePoolPop(v25);
         }
 
-        v22 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v21 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
       }
 
-      while (v22);
+      while (v21);
     }
 
     v54 = 0u;
     v55 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v35 = [*(*(a1 + 48) + 32) allValues];
-    v36 = [v35 countByEnumeratingWithState:&v52 objects:v64 count:16];
-    if (v36)
+    v34 = [*(*(a1 + 48) + 32) allValues];
+    v35 = [v34 countByEnumeratingWithState:&v52 objects:v64 count:16];
+    if (v35)
     {
-      v37 = v36;
-      v38 = *v53;
+      v36 = v35;
+      v37 = *v53;
       do
       {
-        for (k = 0; k != v37; ++k)
+        for (k = 0; k != v36; ++k)
         {
-          if (*v53 != v38)
+          if (*v53 != v37)
           {
-            objc_enumerationMutation(v35);
+            objc_enumerationMutation(v34);
           }
 
-          v40 = *(*(&v52 + 1) + 8 * k);
-          v41 = objc_autoreleasePoolPush();
-          [v40 logToCoreAnalytics];
-          objc_autoreleasePoolPop(v41);
+          v39 = *(*(&v52 + 1) + 8 * k);
+          v40 = objc_autoreleasePoolPush();
+          [v39 logToCoreAnalytics];
+          objc_autoreleasePoolPop(v40);
         }
 
-        v37 = [v35 countByEnumeratingWithState:&v52 objects:v64 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v52 objects:v64 count:16];
       }
 
-      while (v37);
+      while (v36);
     }
 
-    if ([*(a1 + 40) didDefer])
+    v41 = [*(a1 + 40) didDefer];
+    if (v41)
     {
-      v15 = __atxlog_handle_metrics();
+      v16 = __atxlog_handle_metrics(v41);
       v19 = v50;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v42 = *(a1 + 48);
-        v43 = objc_opt_class();
-        v44 = NSStringFromClass(v43);
+        v42 = objc_opt_class();
+        v43 = NSStringFromClass(v42);
         *buf = 138412290;
-        v67 = v44;
-        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "%@ - Deferring after summary metrics logging", buf, 0xCu);
+        v67 = v43;
+        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_INFO, "%@ - Deferring after summary metrics logging", buf, 0xCu);
       }
     }
 
     else
     {
+      v44 = [MEMORY[0x277CEBC58] isBreakthroughDataCollectionEnabled];
       v19 = v50;
-      if (![MEMORY[0x277CEBC58] isBreakthroughDataCollectionEnabled])
+      if (!v44)
       {
         goto LABEL_19;
       }
 
-      v45 = __atxlog_handle_metrics();
+      v45 = __atxlog_handle_metrics(v44);
       v46 = v45;
       v47 = *(a1 + 72);
       if (v47 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
@@ -285,20 +286,18 @@ void __99__ATXNotificationTelemetryLogger_logNotificationMetricsFromStartTimesta
         _os_signpost_emit_with_name_impl(&dword_2263AA000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v47, "FocusMetricsLogging.NotificationBreakthroughMetrics", " enableTelemetry=YES ", buf, 2u);
       }
 
-      [*(a1 + 48) logNotificationMetricsWithBreakthroughFeaturesFromStartTimestamp:*(a1 + 56) toEndTimestamp:*(a1 + 64) withTelemetryQueryResult:*(a1 + 32) withTask:*(a1 + 40)];
-      v48 = __atxlog_handle_metrics();
-      v15 = v48;
+      v48 = __atxlog_handle_metrics([*(a1 + 48) logNotificationMetricsWithBreakthroughFeaturesFromStartTimestamp:*(a1 + 56) toEndTimestamp:*(a1 + 64) withTelemetryQueryResult:*(a1 + 32) withTask:*(a1 + 40)]);
+      v16 = v48;
       v49 = *(a1 + 72);
       if (v49 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_2263AA000, v15, OS_SIGNPOST_INTERVAL_END, v49, "FocusMetricsLogging.NotificationBreakthroughMetrics", " enableTelemetry=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_2263AA000, v16, OS_SIGNPOST_INTERVAL_END, v49, "FocusMetricsLogging.NotificationBreakthroughMetrics", " enableTelemetry=YES ", buf, 2u);
       }
     }
   }
 
 LABEL_19:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)summaryMetricsForActivityType:(unint64_t)type
@@ -377,16 +376,17 @@ LABEL_19:
           goto LABEL_16;
         }
 
-        if ([taskCopy didDefer])
+        didDefer = [taskCopy didDefer];
+        if (didDefer)
         {
-          v28 = __atxlog_handle_metrics();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v29 = __atxlog_handle_metrics(didDefer);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
-            v29 = objc_opt_class();
-            v30 = NSStringFromClass(v29);
+            v30 = objc_opt_class();
+            v31 = NSStringFromClass(v30);
             *buf = 138412290;
-            v42 = v30;
-            _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_INFO, "%@ - Terminating due to XPC deferral", buf, 0xCu);
+            v42 = v31;
+            _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_INFO, "%@ - Terminating due to XPC deferral", buf, 0xCu);
           }
 
 LABEL_16:
@@ -411,22 +411,20 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logNotificationMetricsWithTask:(id)task
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   taskCopy = task;
-  v5 = __atxlog_handle_metrics();
+  v5 = __atxlog_handle_metrics(taskCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v23 = 138412290;
-    v24 = v7;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "[%@] - Logging notification metrics", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v7;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "[%@] - Logging notification metrics", &v22, 0xCu);
   }
 
   v8 = objc_alloc(MEMORY[0x277CBEBD0]);
@@ -434,7 +432,7 @@ LABEL_17:
   [v9 doubleForKey:@"notificationTelemetryLoggingTimestampKey"];
   v10 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
   v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-604800.0];
-  v12 = __atxlog_handle_metrics();
+  v12 = __atxlog_handle_metrics(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = objc_opt_class();
@@ -442,36 +440,33 @@ LABEL_17:
     [v10 timeIntervalSinceReferenceDate];
     v16 = v15;
     [v11 timeIntervalSinceReferenceDate];
-    v23 = 138412802;
-    v24 = v14;
-    v25 = 2048;
-    v26 = v16;
-    v27 = 2048;
-    v28 = v17;
-    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "[%@] - Start timestamp found: %f, End Timestamp: %f", &v23, 0x20u);
+    v22 = 138412802;
+    v23 = v14;
+    v24 = 2048;
+    v25 = v16;
+    v26 = 2048;
+    v27 = v17;
+    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "[%@] - Start timestamp found: %f, End Timestamp: %f", &v22, 0x20u);
   }
 
   if ([v10 compare:v11] == -1)
   {
-    [(ATXNotificationTelemetryLogger *)self logNotificationMetricsFromStartTimestamp:v10 toEndTimestamp:v11 withTask:taskCopy];
-    v18 = __atxlog_handle_metrics();
+    v18 = __atxlog_handle_metrics([(ATXNotificationTelemetryLogger *)self logNotificationMetricsFromStartTimestamp:v10 toEndTimestamp:v11 withTask:taskCopy]);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = objc_opt_class();
       v20 = NSStringFromClass(v19);
       [v11 timeIntervalSinceReferenceDate];
-      v23 = 138412546;
-      v24 = v20;
-      v25 = 2048;
-      v26 = v21;
-      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_INFO, "[%@] - Finished logging.  Setting stored timestamp to timestamp: %f", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = v20;
+      v24 = 2048;
+      v25 = v21;
+      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_INFO, "[%@] - Finished logging.  Setting stored timestamp to timestamp: %f", &v22, 0x16u);
     }
 
     [v11 timeIntervalSinceReferenceDate];
     [v9 setDouble:@"notificationTelemetryLoggingTimestampKey" forKey:?];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userNotificationWithUUID:(id)d withTimeStamp:(double)stamp urgency:(int64_t)urgency fromNotificationStreamWithStartTime:(id)time endTime:(id)endTime
@@ -516,10 +511,10 @@ void __125__ATXNotificationTelemetryLogger_userNotificationWithUUID_withTimeStam
 
   if (v3)
   {
-    v4 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_metrics(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __125__ATXNotificationTelemetryLogger_userNotificationWithUUID_withTimeStamp_urgency_fromNotificationStreamWithStartTime_endTime___block_invoke_cold_1(v2, v4);
+      __125__ATXNotificationTelemetryLogger_userNotificationWithUUID_withTimeStamp_urgency_fromNotificationStreamWithStartTime_endTime___block_invoke_cold_1(v2, v5);
     }
   }
 }
@@ -558,13 +553,11 @@ uint64_t __125__ATXNotificationTelemetryLogger_userNotificationWithUUID_withTime
 
 void __125__ATXNotificationTelemetryLogger_userNotificationWithUUID_withTimeStamp_urgency_fromNotificationStreamWithStartTime_endTime___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationTelemetryLogger: Error reading Notification.Usage stream: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationTelemetryLogger: Error reading Notification.Usage stream: %@", &v4, 0xCu);
 }
 
 @end

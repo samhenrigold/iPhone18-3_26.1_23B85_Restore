@@ -7,7 +7,7 @@
 
 - (OrgApacheLuceneCodecsCompressingCompressionMode_LZ4FastCompressor)init
 {
-  OrgApacheLuceneCodecsCompressingCompressor_init(self, a2);
+  OrgApacheLuceneCodecsCompressingCompressor_init();
   v3 = new_OrgApacheLuceneCodecsCompressingLZ4_HashTable_init();
   JreStrongAssignAndConsume(&self->ht_, v3);
   return self;

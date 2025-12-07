@@ -239,39 +239,38 @@
 
 - (void)_finishTransaction
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_storages;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) transactionDidFinish];
+        [*(*(&v8 + 1) + 8 * v7++) transactionDidFinish];
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [(CPLEngineStore *)self transactionDidFinish];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transactionDidFinish
@@ -284,10 +283,11 @@
 
 - (void)_dropTransactionClientCacheView
 {
-  if (self->_transactionClientCacheView)
+  transactionClientCacheView = self->_transactionClientCacheView;
+  if (transactionClientCacheView)
   {
     self->_transactionClientCacheView = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, transactionClientCacheView);
   }
 }
 
@@ -373,39 +373,39 @@ void __50__CPLEngineStore_testKey_value_completionHandler___block_invoke_3(void 
 
 uint64_t __50__CPLEngineStore_testKey_value_completionHandler___block_invoke_2(void *a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v4 = *(a1[4] + 8);
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v24;
+    v8 = *v23;
 LABEL_3:
     v9 = 0;
     v10 = v7;
     while (1)
     {
-      if (*v24 != v8)
+      if (*v23 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v11 = *(*(&v23 + 1) + 8 * v9);
+      v11 = *(*(&v22 + 1) + 8 * v9);
       v12 = a1[5];
       v13 = a1[6];
       v14 = *(a1[7] + 8);
       v15 = *(a1[8] + 8);
       v16 = *(v15 + 40);
-      v21 = v10;
+      v20 = v10;
       obj = v16;
-      v17 = [v11 testKey:v12 value:v13 didHandle:v14 + 24 result:&obj error:&v21];
+      v17 = [v11 testKey:v12 value:v13 didHandle:v14 + 24 result:&obj error:&v20];
       objc_storeStrong((v15 + 40), obj);
-      v7 = v21;
+      v7 = v20;
 
       if (*(*(a1[7] + 8) + 24))
       {
@@ -416,7 +416,7 @@ LABEL_3:
       v10 = v7;
       if (v6 == v9)
       {
-        v6 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -447,7 +447,6 @@ LABEL_3:
     v17 = 1;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -466,7 +465,7 @@ LABEL_3:
 
 void __59__CPLEngineStore_getStatusDictionaryWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -480,26 +479,26 @@ void __59__CPLEngineStore_getStatusDictionaryWithCompletionHandler___block_invok
   else
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = *(*(a1 + 32) + 8);
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           v13 = [v12 name];
           v14 = [v12 statusDictionary];
           if (v14)
@@ -508,7 +507,7 @@ void __59__CPLEngineStore_getStatusDictionaryWithCompletionHandler___block_invok
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -522,8 +521,6 @@ void __59__CPLEngineStore_getStatusDictionaryWithCompletionHandler___block_invok
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStatusWithCompletionHandler:(id)handler
@@ -541,53 +538,53 @@ void __59__CPLEngineStore_getStatusDictionaryWithCompletionHandler___block_invok
 
 void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v144 = *MEMORY[0x1E69E9840];
-  v110 = a2;
-  v2 = [v110 error];
+  v141 = *MEMORY[0x1E69E9840];
+  v107 = a2;
+  v2 = [v107 error];
 
   if (v2)
   {
     v3 = *(a1 + 40);
-    v4 = [v110 error];
+    v4 = [v107 error];
     (*(v3 + 16))(v3, 0, v4);
   }
 
   else
   {
-    v106 = [*(a1 + 32) userIdentifier];
+    v103 = [*(a1 + 32) userIdentifier];
     if (objc_opt_respondsToSelector())
     {
-      [v106 cplShareParticipantUserIdentifier];
+      [v103 cplShareParticipantUserIdentifier];
     }
 
     else
     {
-      [v106 description];
+      [v103 description];
     }
-    v105 = ;
-    v109 = [*(a1 + 32) libraryCreationDate];
+    v102 = ;
+    v106 = [*(a1 + 32) libraryCreationDate];
     v5 = [*(a1 + 32) platformObject];
-    v111 = [v5 storedChangeSessionUpdate];
+    v108 = [v5 storedChangeSessionUpdate];
 
-    v112 = [v111 storageForStatusInStore:*(a1 + 32)];
-    if (v111)
+    v109 = [v108 storageForStatusInStore:*(a1 + 32)];
+    if (v108)
     {
       v6 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v7 = [v111 libraryVersion];
-      v104 = [v6 initWithFormat:@" (pending: %@ for %@)", v7, objc_opt_class()];
+      v7 = [v108 libraryVersion];
+      v101 = [v6 initWithFormat:@" (pending: %@ for %@)", v7, objc_opt_class()];
     }
 
     else
     {
-      v104 = &stru_1F57BD298;
+      v101 = &stru_1F57BD298;
     }
 
     v8 = objc_alloc(MEMORY[0x1E696AD60]);
-    v9 = v109;
-    if (v109)
+    v9 = v106;
+    if (v106)
     {
       v10 = [CPLDateFormatter stringFromDate:?];
-      v9 = v109;
+      v9 = v106;
     }
 
     else
@@ -605,7 +602,7 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
       v15 = @"in sync";
     }
 
-    v16 = [v8 initWithFormat:@"creation date: %@\nlibrary version: %@%@\nclient cache id: %@ (%@)\nuser identifier: %@\n", v10, v12, v104, v13, v15, v105];
+    v16 = [v8 initWithFormat:@"creation date: %@\nlibrary version: %@%@\nclient cache id: %@ (%@)\nuser identifier: %@\n", v10, v12, v101, v13, v15, v102];
 
     if (!v11)
     {
@@ -619,7 +616,7 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
 
     v18 = *(a1 + 32);
     v19 = v18[20];
-    v118 = v16;
+    v115 = v16;
     if (!v19)
     {
       v20 = [v18 _storedDisabledFeatures];
@@ -676,19 +673,19 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
       v34 = [v35 initWithFormat:@"Synchronizing %@ with %@", v28, v31];
     }
 
-    [v118 appendFormat:@"\n%@ %@", v34, v25];
+    [v115 appendFormat:@"\n%@ %@", v34, v25];
     if (*(*(a1 + 32) + 16))
     {
-      [v118 appendFormat:@"\nSharing is enabled using %@", *(*(a1 + 32) + 16)];
+      [v115 appendFormat:@"\nSharing is enabled using %@", *(*(a1 + 32) + 16)];
     }
 
-    [v118 appendString:@"\n"];
+    [v115 appendString:@"\n"];
 
-    v108 = [*(a1 + 32) _resetEventsDescriptions];
-    if (v108)
+    v105 = [*(a1 + 32) _resetEventsDescriptions];
+    if (v105)
     {
-      v36 = [v108 componentsJoinedByString:@"\n\t"];
-      [v118 appendFormat:@"\nresets:\n\t%@", v36];
+      v36 = [v105 componentsJoinedByString:@"\n\t"];
+      [v115 appendFormat:@"\nresets:\n\t%@", v36];
     }
 
     v37 = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -700,7 +697,7 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
       if ([v39 count])
       {
         v40 = [v39 componentsJoinedByString:@"\n\t"];
-        [v118 appendFormat:@"\nmight reset soon because:\n\t%@", v40];
+        [v115 appendFormat:@"\nmight reset soon because:\n\t%@", v40];
       }
     }
 
@@ -713,7 +710,7 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
         v45 = [CPLDateFormatter stringFromDateAgo:*(*(a1 + 32) + 104) now:0];
         v46 = [*(*(a1 + 32) + 96) allObjects];
         v47 = [v46 componentsJoinedByString:{@", "}];
-        [v118 appendFormat:@"\nlast invalid records pushed by client %@:\n\t%@", v45, v47, v103];
+        [v115 appendFormat:@"\nlast invalid records pushed by client %@:\n\t%@", v45, v47, v100];
       }
 
       else
@@ -724,54 +721,54 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
 
         v46 = [CPLDateFormatter stringFromDateAgo:*(*(a1 + 32) + 104) now:0];
         v47 = [v45 componentsJoinedByString:{@", "}];
-        [v118 appendFormat:@"\nlast invalid records pushed by client %@:\n\t%@ + %lu more", v46, v47, v43 - 3];
+        [v115 appendFormat:@"\nlast invalid records pushed by client %@:\n\t%@ + %lu more", v46, v47, v43 - 3];
       }
 
       v41 = *(a1 + 32);
     }
 
     v48 = [v41 platformObject];
-    v107 = [v48 status];
+    v104 = [v48 status];
 
-    if (v107)
+    if (v104)
     {
-      v49 = [v107 componentsSeparatedByString:@"\n"];
+      v49 = [v104 componentsSeparatedByString:@"\n"];
       v50 = [v49 componentsJoinedByString:@"\n\t"];
-      [v118 appendFormat:@"\n%@", v50];
+      [v115 appendFormat:@"\n%@", v50];
     }
 
-    v119 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v116 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v129 = 0u;
+    v130 = 0u;
+    v131 = 0u;
     v132 = 0u;
-    v133 = 0u;
-    v134 = 0u;
-    v135 = 0u;
     obj = *(*(a1 + 32) + 8);
-    v51 = [obj countByEnumeratingWithState:&v132 objects:v143 count:16];
+    v51 = [obj countByEnumeratingWithState:&v129 objects:v140 count:16];
     if (v51)
     {
-      v116 = *v133;
+      v113 = *v130;
       do
       {
         v52 = 0;
         do
         {
-          if (*v133 != v116)
+          if (*v130 != v113)
           {
             objc_enumerationMutation(obj);
           }
 
-          v53 = *(*(&v132 + 1) + 8 * v52);
+          v53 = *(*(&v129 + 1) + 8 * v52);
           if ([v53 shouldIncludeInStatus])
           {
             v54 = [v53 name];
             v55 = [v53 status];
             v56 = v55;
-            if (v112 == v53)
+            if (v109 == v53)
             {
-              v136 = 0;
-              v137 = &v136;
-              v138 = 0x2020000000;
-              LOBYTE(v139) = 0;
+              v133 = 0;
+              v134 = &v133;
+              v135 = 0x2020000000;
+              LOBYTE(v136) = 0;
               v63 = *(a1 + 32);
               v64 = *(v63 + 120);
               block[0] = MEMORY[0x1E69E9820];
@@ -779,64 +776,63 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
               block[2] = __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke_2;
               block[3] = &unk_1E861A850;
               block[4] = v63;
-              block[5] = &v136;
+              block[5] = &v133;
               dispatch_sync(v64, block);
-              v65 = [v111 statusDescription];
-              v66 = [v111 queuedDate];
+              v65 = [v108 statusDescription];
+              v66 = [v108 queuedDate];
               v67 = [MEMORY[0x1E695DF00] date];
-              v68 = *(v137 + 24);
               if (v66)
               {
-                if (*(v137 + 24))
+                if (*(v134 + 24))
                 {
-                  v69 = [v66 dateByAddingTimeInterval:30.0];
-                  [v69 timeIntervalSinceDate:v67];
-                  if (v70 >= 0.0)
+                  v68 = [v66 dateByAddingTimeInterval:30.0];
+                  [v68 timeIntervalSinceDate:v67];
+                  if (v69 >= 0.0)
                   {
-                    v75 = objc_alloc(MEMORY[0x1E696AEC0]);
-                    v72 = [CPLDateFormatter stringForTimeIntervalAgo:v69 now:v67];
-                    v73 = [v75 initWithFormat:@"will auto-apply %@", v72];
+                    v74 = objc_alloc(MEMORY[0x1E696AEC0]);
+                    v71 = [CPLDateFormatter stringForTimeIntervalAgo:v68 now:v67];
+                    v72 = [v74 initWithFormat:@"will auto-apply %@", v71];
                   }
 
                   else
                   {
-                    v71 = objc_alloc(MEMORY[0x1E696AEC0]);
-                    v72 = [CPLDateFormatter stringFromDateAgo:v66 now:v67];
-                    v73 = [v71 initWithFormat:@"%@ - auto-apply overdue", v72];
+                    v70 = objc_alloc(MEMORY[0x1E696AEC0]);
+                    v71 = [CPLDateFormatter stringFromDateAgo:v66 now:v67];
+                    v72 = [v70 initWithFormat:@"%@ - auto-apply overdue", v71];
                   }
 
-                  v74 = v73;
+                  v73 = v72;
                 }
 
                 else
                 {
-                  v74 = [CPLDateFormatter stringFromDateAgo:v66 now:0];
+                  v73 = [CPLDateFormatter stringFromDateAgo:v66 now:0];
                 }
               }
 
-              else if (*(v137 + 24))
+              else if (*(v134 + 24))
               {
-                v74 = @"no queued date - waiting for auto-apply";
+                v73 = @"no queued date - waiting for auto-apply";
               }
 
               else
               {
-                v74 = @"no queued date";
+                v73 = @"no queued date";
               }
 
               if (v56)
               {
-                v76 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@\nPending update: %@ - %@", v56, v65, v74];
+                v75 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@\nPending update: %@ - %@", v56, v65, v73];
 
-                v56 = v76;
+                v56 = v75;
               }
 
               else
               {
-                v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Pending update: %@ - %@", v65, v74];
+                v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Pending update: %@ - %@", v65, v73];
               }
 
-              _Block_object_dispose(&v136, 8);
+              _Block_object_dispose(&v133, 8);
             }
 
             else
@@ -864,7 +860,7 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
 
             if (v56)
             {
-              [v119 setObject:v56 forKey:v54];
+              [v116 setObject:v56 forKey:v54];
             }
           }
 
@@ -872,111 +868,108 @@ void __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke(uint64_t
         }
 
         while (v51 != v52);
-        v77 = [obj countByEnumeratingWithState:&v132 objects:v143 count:16];
-        v51 = v77;
+        v76 = [obj countByEnumeratingWithState:&v129 objects:v140 count:16];
+        v51 = v76;
       }
 
-      while (v77);
+      while (v76);
     }
 
-    if ([v119 count])
+    if ([v116 count])
     {
-      [v118 appendString:@"\nstorages:"];
-      v78 = *(a1 + 32);
-      v117 = [objc_opt_class() storageNames];
-      v129 = 0u;
-      v130 = 0u;
-      v128 = 0u;
+      [v115 appendString:@"\nstorages:"];
+      v114 = [objc_opt_class() storageNames];
+      v126 = 0u;
       v127 = 0u;
-      v79 = [v117 countByEnumeratingWithState:&v127 objects:v142 count:16];
-      if (v79)
+      v125 = 0u;
+      v124 = 0u;
+      v77 = [v114 countByEnumeratingWithState:&v124 objects:v139 count:16];
+      if (v77)
       {
-        v80 = *v128;
+        v78 = *v125;
         do
         {
-          for (i = 0; i != v79; ++i)
+          for (i = 0; i != v77; ++i)
           {
-            if (*v128 != v80)
+            if (*v125 != v78)
             {
-              objc_enumerationMutation(v117);
+              objc_enumerationMutation(v114);
             }
 
-            v82 = *(*(&v127 + 1) + 8 * i);
-            v83 = [v119 objectForKeyedSubscript:v82];
-            v84 = v83;
-            if (v83)
+            v80 = *(*(&v124 + 1) + 8 * i);
+            v81 = [v116 objectForKeyedSubscript:v80];
+            v82 = v81;
+            if (v81)
             {
-              v85 = [v83 componentsSeparatedByString:@"\n"];
-              v86 = [v85 componentsJoinedByString:@"\n\t\t"];
-              [v118 appendFormat:@"\n\t%@ = %@", v82, v86];
+              v83 = [v81 componentsSeparatedByString:@"\n"];
+              v84 = [v83 componentsJoinedByString:@"\n\t\t"];
+              [v115 appendFormat:@"\n\t%@ = %@", v80, v84];
 
-              [v119 removeObjectForKey:v82];
+              [v116 removeObjectForKey:v80];
             }
           }
 
-          v79 = [v117 countByEnumeratingWithState:&v127 objects:v142 count:16];
+          v77 = [v114 countByEnumeratingWithState:&v124 objects:v139 count:16];
         }
 
-        while (v79);
+        while (v77);
       }
 
-      v125 = 0u;
-      v126 = 0u;
+      v122 = 0u;
       v123 = 0u;
-      v124 = 0u;
-      v87 = [v119 allKeys];
-      obja = [v87 sortedArrayUsingSelector:sel_compare_];
+      v120 = 0u;
+      v121 = 0u;
+      v85 = [v116 allKeys];
+      obja = [v85 sortedArrayUsingSelector:sel_compare_];
 
-      v88 = [obja countByEnumeratingWithState:&v123 objects:v141 count:16];
-      if (v88)
+      v86 = [obja countByEnumeratingWithState:&v120 objects:v138 count:16];
+      if (v86)
       {
-        v89 = *v124;
+        v87 = *v121;
         do
         {
-          for (j = 0; j != v88; ++j)
+          for (j = 0; j != v86; ++j)
           {
-            if (*v124 != v89)
+            if (*v121 != v87)
             {
               objc_enumerationMutation(obja);
             }
 
-            v91 = *(*(&v123 + 1) + 8 * j);
-            v92 = [v119 objectForKey:v91];
-            v93 = [v92 componentsSeparatedByString:@"\n"];
-            v94 = [v93 componentsJoinedByString:@"\n\t\t"];
-            [v118 appendFormat:@"\n\t%@ = %@", v91, v94];
+            v89 = *(*(&v120 + 1) + 8 * j);
+            v90 = [v116 objectForKey:v89];
+            v91 = [v90 componentsSeparatedByString:@"\n"];
+            v92 = [v91 componentsJoinedByString:@"\n\t\t"];
+            [v115 appendFormat:@"\n\t%@ = %@", v89, v92];
           }
 
-          v88 = [obja countByEnumeratingWithState:&v123 objects:v141 count:16];
+          v86 = [obja countByEnumeratingWithState:&v120 objects:v138 count:16];
         }
 
-        while (v88);
+        while (v86);
       }
     }
 
-    v96 = *(a1 + 32);
-    v95 = *(a1 + 40);
-    v97 = *(v96 + 24);
-    v120[0] = MEMORY[0x1E69E9820];
-    v120[1] = 3221225472;
-    v120[2] = __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke_3;
-    v120[3] = &unk_1E861B3D0;
-    v120[4] = v96;
-    v121 = v118;
-    v122 = v95;
-    v98 = v120;
-    v136 = MEMORY[0x1E69E9820];
-    v137 = 3221225472;
-    v138 = __cpl_dispatch_async_block_invoke_682;
-    v139 = &unk_1E861B4E0;
-    v140 = v98;
-    v99 = v118;
-    v100 = v97;
-    v101 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &v136);
-    dispatch_async(v100, v101);
+    v94 = *(a1 + 32);
+    v93 = *(a1 + 40);
+    v95 = *(v94 + 24);
+    v117[0] = MEMORY[0x1E69E9820];
+    v117[1] = 3221225472;
+    v117[2] = __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke_3;
+    v117[3] = &unk_1E861B3D0;
+    v117[4] = v94;
+    v118 = v115;
+    v119 = v93;
+    v96 = v117;
+    v133 = MEMORY[0x1E69E9820];
+    v134 = 3221225472;
+    v135 = __cpl_dispatch_async_block_invoke_682;
+    v136 = &unk_1E861B4E0;
+    v137 = v96;
+    v97 = v115;
+    v98 = v95;
+    v99 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &v133);
+    dispatch_async(v98, v99);
   }
-
-  v102 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke_3(uint64_t a1)
@@ -987,32 +980,31 @@ uint64_t __49__CPLEngineStore_getStatusWithCompletionHandler___block_invoke_3(ui
     [*(a1 + 40) appendFormat:@"\nlow-priority transactions: %lu pending", v2];
   }
 
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 48) + 16);
+  v3 = *(*(a1 + 48) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (void)assertNoUnacknowledgedChanges
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_unacknowledgedBatch)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         unacknowledgedBatch = self->_unacknowledgedBatch;
         *buf = 138412290;
-        v17 = unacknowledgedBatch;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Store still has an unacknowledged batch %@", buf, 0xCu);
+        v16 = unacknowledgedBatch;
+        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Store still has an unacknowledged batch %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v10 lineNumber:2380 description:{@"Store still has an unacknowledged batch %@", self->_unacknowledgedBatch}];
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v9 lineNumber:2380 description:{@"Store still has an unacknowledged batch %@", self->_unacknowledgedBatch}];
 LABEL_14:
 
     abort();
@@ -1025,95 +1017,89 @@ LABEL_14:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         platformObject2 = [(CPLEngineStore *)self platformObject];
         storedChangeSessionUpdate = [platformObject2 storedChangeSessionUpdate];
         *buf = 138412290;
-        v17 = storedChangeSessionUpdate;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Store still has an un-applied session update: %@", buf, 0xCu);
+        v16 = storedChangeSessionUpdate;
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Store still has an un-applied session update: %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
     platformObject3 = [(CPLEngineStore *)self platformObject];
     storedChangeSessionUpdate2 = [platformObject3 storedChangeSessionUpdate];
-    [currentHandler handleFailureInMethod:a2 object:self file:v10 lineNumber:2381 description:{@"Store still has an un-applied session update: %@", storedChangeSessionUpdate2}];
+    [currentHandler handleFailureInMethod:a2 object:self file:v9 lineNumber:2381 description:{@"Store still has an un-applied session update: %@", storedChangeSessionUpdate2}];
 
     goto LABEL_14;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assertCanRead
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (![(CPLEngineStore *)self _canRead])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         currentThread = [MEMORY[0x1E696AF00] currentThread];
         _currentTransaction = [(CPLEngineStore *)self _currentTransaction];
         *buf = 134218498;
-        v13 = currentThread;
-        v14 = 2112;
+        v12 = currentThread;
+        v13 = 2112;
         selfCopy = self;
-        v16 = 2112;
-        v17 = _currentTransaction;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to read on thread %p in %@ outside of a read transaction (current transaction is %@)", buf, 0x20u);
+        v15 = 2112;
+        v16 = _currentTransaction;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to read on thread %p in %@ outside of a read transaction (current transaction is %@)", buf, 0x20u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
     currentThread2 = [MEMORY[0x1E696AF00] currentThread];
     _currentTransaction2 = [(CPLEngineStore *)self _currentTransaction];
-    [currentHandler handleFailureInMethod:a2 object:self file:v9 lineNumber:2376 description:{@"Trying to read on thread %p in %@ outside of a read transaction (current transaction is %@)", currentThread2, self, _currentTransaction2}];
+    [currentHandler handleFailureInMethod:a2 object:self file:v8 lineNumber:2376 description:{@"Trying to read on thread %p in %@ outside of a read transaction (current transaction is %@)", currentThread2, self, _currentTransaction2}];
 
     abort();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)assertCanWrite
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (![(CPLEngineStore *)self _canWrite])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         currentThread = [MEMORY[0x1E696AF00] currentThread];
         _currentTransaction = [(CPLEngineStore *)self _currentTransaction];
         *buf = 134218498;
-        v13 = currentThread;
-        v14 = 2112;
+        v12 = currentThread;
+        v13 = 2112;
         selfCopy = self;
-        v16 = 2112;
-        v17 = _currentTransaction;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to write on thread %p in %@ outside of a write transaction (current transaction is %@)", buf, 0x20u);
+        v15 = 2112;
+        v16 = _currentTransaction;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to write on thread %p in %@ outside of a write transaction (current transaction is %@)", buf, 0x20u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
     currentThread2 = [MEMORY[0x1E696AF00] currentThread];
     _currentTransaction2 = [(CPLEngineStore *)self _currentTransaction];
-    [currentHandler handleFailureInMethod:a2 object:self file:v9 lineNumber:2372 description:{@"Trying to write on thread %p in %@ outside of a write transaction (current transaction is %@)", currentThread2, self, _currentTransaction2}];
+    [currentHandler handleFailureInMethod:a2 object:self file:v8 lineNumber:2372 description:{@"Trying to write on thread %p in %@ outside of a write transaction (current transaction is %@)", currentThread2, self, _currentTransaction2}];
 
     abort();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_canWrite
@@ -1134,7 +1120,7 @@ LABEL_14:
 
 - (void)_removeTransactionOnCurrentThread:(id)thread
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   [threadCopy _transactionDidFinish];
   currentThread = [MEMORY[0x1E696AF00] currentThread];
@@ -1145,32 +1131,30 @@ LABEL_14:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
+        v9 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
         *buf = 138412290;
-        v16 = v10;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Trying to remove the wrong transaction on thread: %@", buf, 0xCu);
+        v15 = v9;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to remove the wrong transaction on thread: %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
-    v13 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:2355 description:{@"Trying to remove the wrong transaction on thread: %@", v13}];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v12 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:2355 description:{@"Trying to remove the wrong transaction on thread: %@", v12}];
 
     abort();
   }
 
   [threadDictionary removeObjectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setTransactionOnCurrentThread:(id)thread
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   currentThread = [MEMORY[0x1E696AF00] currentThread];
   threadDictionary = [currentThread threadDictionary];
@@ -1180,30 +1164,28 @@ LABEL_14:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
+        v9 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
         *buf = 138412546;
-        v16 = threadCopy;
-        v17 = 2112;
-        v18 = v10;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Trying to setup a transaction %@ on a thread which already has one: %@", buf, 0x16u);
+        v15 = threadCopy;
+        v16 = 2112;
+        v17 = v9;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to setup a transaction %@ on a thread which already has one: %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
-    v13 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:2346 description:{@"Trying to setup a transaction %@ on a thread which already has one: %@", threadCopy, v13}];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v12 = [threadDictionary objectForKey:@"com.apple.cloudphotolibrary.currenttransaction"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:2346 description:{@"Trying to setup a transaction %@ on a thread which already has one: %@", threadCopy, v12}];
 
     abort();
   }
 
   [threadDictionary setObject:threadCopy forKey:@"com.apple.cloudphotolibrary.currenttransaction"];
   [threadCopy _transactionWillBeginOnThread:currentThread];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_currentTransaction
@@ -1279,28 +1261,28 @@ LABEL_7:
 
 - (void)_setSharingScopeIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy && ![(CPLEngineStore *)self mainScopeSupportsSharingScopeWithIdentifier:identifierCopy])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         mainScopeIdentifier = [(CPLEngineStore *)self mainScopeIdentifier];
         *buf = 138412546;
-        v22 = identifierCopy;
-        v23 = 2112;
-        v24 = mainScopeIdentifier;
-        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Trying to bind sharing scope %@ with %@", buf, 0x16u);
+        v21 = identifierCopy;
+        v22 = 2112;
+        v23 = mainScopeIdentifier;
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Trying to bind sharing scope %@ with %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
     mainScopeIdentifier2 = [(CPLEngineStore *)self mainScopeIdentifier];
-    [currentHandler handleFailureInMethod:a2 object:self file:v16 lineNumber:2291 description:{@"Trying to bind sharing scope %@ with %@", identifierCopy, mainScopeIdentifier2}];
+    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:2291 description:{@"Trying to bind sharing scope %@ with %@", identifierCopy, mainScopeIdentifier2}];
 
     abort();
   }
@@ -1312,7 +1294,7 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = identifierCopy;
+      v21 = identifierCopy;
       _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Setting sharing scope identifier to %{public}@", buf, 0xCu);
     }
   }
@@ -1327,21 +1309,19 @@ LABEL_7:
     [engineLibrary setEstimatedCountOfRemainingRecordsDuringSharedLibraryExit:0];
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __45__CPLEngineStore__setSharingScopeIdentifier___block_invoke;
-  v18[3] = &unk_1E86204A0;
-  v19 = v6;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __45__CPLEngineStore__setSharingScopeIdentifier___block_invoke;
+  v17[3] = &unk_1E86204A0;
+  v18 = v6;
   selfCopy = self;
   v11 = v6;
-  [(CPLEngineStore *)self _addCleanupBlock:v18];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CPLEngineStore *)self _addCleanupBlock:v17];
 }
 
 void __45__CPLEngineStore__setSharingScopeIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -1351,16 +1331,14 @@ void __45__CPLEngineStore__setSharingScopeIdentifier___block_invoke(uint64_t a1,
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(a1 + 32);
-        v7 = 138543362;
-        v8 = v5;
-        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Resetting sharing scope identifier to %{public}@", &v7, 0xCu);
+        v6 = 138543362;
+        v7 = v5;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Resetting sharing scope identifier to %{public}@", &v6, 0xCu);
       }
     }
 
     objc_storeStrong((*(a1 + 40) + 16), *(a1 + 32));
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAsCorrupted
@@ -1625,7 +1603,7 @@ LABEL_24:
 
 - (void)predictSyncSessionValue:(id)value ofType:(id)type
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   typeCopy = type;
   if ((_CPLSilentLogging & 1) == 0)
@@ -1633,11 +1611,11 @@ LABEL_24:
     v8 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 138412546;
-      v14 = typeCopy;
-      v15 = 2112;
-      v16 = valueCopy;
-      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updating prediction for %@ to %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = typeCopy;
+      v14 = 2112;
+      v15 = valueCopy;
+      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Updating prediction for %@ to %@", &v12, 0x16u);
     }
   }
 
@@ -1652,8 +1630,6 @@ LABEL_24:
   }
 
   [(NSMutableDictionary *)transactionNewPredictions setObject:valueCopy forKeyedSubscript:typeCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)wipeStoreAtNextOpeningWithReason:(id)reason completionBlock:(id)block
@@ -1776,7 +1752,7 @@ LABEL_24:
 
 - (BOOL)updateDisabledFeatures:(id)features didReset:(BOOL *)reset error:(id *)error
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   resetCopy = reset;
   *reset = 0;
@@ -1796,32 +1772,32 @@ LABEL_24:
     v12 = featuresCopy;
   }
 
-  v58 = v12;
+  v57 = v12;
   v13 = v12;
 
   v14 = [v13 mutableCopy];
   v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   p_disabledFeatures = &self->_disabledFeatures;
   v16 = self->_disabledFeatures;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v83 objects:v91 count:16];
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v82 objects:v90 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v84;
+    v19 = *v83;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v84 != v19)
+        if (*v83 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v83 + 1) + 8 * i);
+        v21 = *(*(&v82 + 1) + 8 * i);
         v22 = [v14 indexOfObject:v21];
         if (v22 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -1834,7 +1810,7 @@ LABEL_24:
         }
       }
 
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v83 objects:v91 count:16];
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v82 objects:v90 count:16];
     }
 
     while (v18);
@@ -1844,8 +1820,8 @@ LABEL_24:
   if (![v15 count] && !objc_msgSend(v14, "count"))
   {
     v27 = 0;
+    v67 = 0;
     v68 = 0;
-    v69 = 0;
     v24 = selfCopy;
     goto LABEL_75;
   }
@@ -1860,7 +1836,7 @@ LABEL_24:
       {
         v26 = [v15 componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v90 = v26;
+        v89 = v26;
         _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_DEFAULT, "Features re-enabled: %@", buf, 0xCu);
 
         v24 = selfCopy;
@@ -1868,37 +1844,37 @@ LABEL_24:
     }
 
     errorCopy2 = error;
-    v61 = v13;
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
+    v60 = v13;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     obj = v15;
-    v66 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
-    if (v66)
+    v65 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+    if (v65)
     {
+      v67 = 0;
       v68 = 0;
-      v69 = 0;
       v27 = 0;
-      v64 = *v80;
+      v63 = *v79;
 LABEL_24:
       v28 = 0;
       while (1)
       {
-        if (*v80 != v64)
+        if (*v79 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v79 + 1) + 8 * v28);
+        v29 = *(*(&v78 + 1) + 8 * v28);
         v30 = objc_autoreleasePoolPush();
         v31 = [CPLFeature featureWithName:v29];
         v32 = v31;
         if (v31)
         {
-          v78 = v27;
-          v33 = [v31 enableFeatureInStore:v24 error:&v78];
-          v34 = v78;
+          v77 = v27;
+          v33 = [v31 enableFeatureInStore:v24 error:&v77];
+          v34 = v77;
 
           v27 = v34;
           if (!v33)
@@ -1907,21 +1883,21 @@ LABEL_24:
           }
         }
 
-        if (v24->_shouldTriggerCompleteResetSyncAfterDisabledFeaturesUpdate && v69 == 0)
-        {
-          v69 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ has been re-enabled", v29];
-        }
-
-        if (v24->_shouldTriggerResetSyncAfterDisabledFeaturesUpdate && !v68)
+        if (v24->_shouldTriggerCompleteResetSyncAfterDisabledFeaturesUpdate && v68 == 0)
         {
           v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ has been re-enabled", v29];
         }
 
-        objc_autoreleasePoolPop(v30);
-        if (v66 == ++v28)
+        if (v24->_shouldTriggerResetSyncAfterDisabledFeaturesUpdate && !v67)
         {
-          v66 = [obj countByEnumeratingWithState:&v79 objects:v88 count:16];
-          if (v66)
+          v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ has been re-enabled", v29];
+        }
+
+        objc_autoreleasePoolPop(v30);
+        if (v65 == ++v28)
+        {
+          v65 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+          if (v65)
           {
             goto LABEL_24;
           }
@@ -1931,21 +1907,21 @@ LABEL_24:
       }
     }
 
+    v67 = 0;
     v68 = 0;
-    v69 = 0;
     v27 = 0;
 LABEL_43:
 
     error = errorCopy2;
-    v13 = v61;
+    v13 = v60;
     v23 = &propertiesForChangeType__facesProperties;
   }
 
   else
   {
     v27 = 0;
+    v67 = 0;
     v68 = 0;
-    v69 = 0;
   }
 
   if ([v14 count])
@@ -1957,20 +1933,20 @@ LABEL_43:
       {
         v37 = [v14 componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v90 = v37;
+        v89 = v37;
         _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_DEFAULT, "Features disabled: %@", buf, 0xCu);
 
         v24 = selfCopy;
       }
     }
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     obj = v14;
-    v67 = [obj countByEnumeratingWithState:&v74 objects:v87 count:16];
-    if (!v67)
+    v66 = [obj countByEnumeratingWithState:&v73 objects:v86 count:16];
+    if (!v66)
     {
       v43 = 1;
 LABEL_70:
@@ -1979,26 +1955,26 @@ LABEL_70:
     }
 
     errorCopy2 = error;
-    v61 = v13;
-    v65 = *v75;
+    v60 = v13;
+    v64 = *v74;
 LABEL_51:
     v38 = 0;
     while (1)
     {
-      if (*v75 != v65)
+      if (*v74 != v64)
       {
         objc_enumerationMutation(obj);
       }
 
-      v39 = *(*(&v74 + 1) + 8 * v38);
+      v39 = *(*(&v73 + 1) + 8 * v38);
       v30 = objc_autoreleasePoolPush();
       v40 = [CPLFeature featureWithName:v39];
       v32 = v40;
       if (v40)
       {
-        v73 = v27;
-        v41 = [v40 disableFeatureInStore:v24 error:&v73];
-        v34 = v73;
+        v72 = v27;
+        v41 = [v40 disableFeatureInStore:v24 error:&v72];
+        v34 = v72;
 
         v27 = v34;
         if (!v41)
@@ -2007,28 +1983,28 @@ LABEL_51:
         }
       }
 
-      if (v24->_shouldTriggerCompleteResetSyncAfterDisabledFeaturesUpdate && v69 == 0)
-      {
-        v69 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ has been disabled", v39];
-      }
-
-      if (v24->_shouldTriggerResetSyncAfterDisabledFeaturesUpdate && !v68)
+      if (v24->_shouldTriggerCompleteResetSyncAfterDisabledFeaturesUpdate && v68 == 0)
       {
         v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ has been disabled", v39];
       }
 
+      if (v24->_shouldTriggerResetSyncAfterDisabledFeaturesUpdate && !v67)
+      {
+        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ has been disabled", v39];
+      }
+
       objc_autoreleasePoolPop(v30);
-      if (v67 == ++v38)
+      if (v66 == ++v38)
       {
         v43 = 1;
-        v67 = [obj countByEnumeratingWithState:&v74 objects:v87 count:16];
-        if (v67)
+        v66 = [obj countByEnumeratingWithState:&v73 objects:v86 count:16];
+        if (v66)
         {
           goto LABEL_51;
         }
 
         error = errorCopy2;
-        v13 = v61;
+        v13 = v60;
         goto LABEL_69;
       }
     }
@@ -2039,7 +2015,7 @@ LABEL_68:
     v43 = 0;
     v27 = v34;
     error = errorCopy2;
-    v13 = v61;
+    v13 = v60;
     v24 = selfCopy;
 LABEL_69:
     v23 = &propertiesForChangeType__facesProperties;
@@ -2059,10 +2035,10 @@ LABEL_72:
 LABEL_75:
   v45 = v27;
   platformObject = [(CPLEngineStore *)v24 platformObject];
-  v72 = v27;
+  v71 = v27;
   v47 = v24;
-  v48 = [platformObject storeDisabledFeatures:v13 error:&v72];
-  v27 = v72;
+  v48 = [platformObject storeDisabledFeatures:v13 error:&v71];
+  v27 = v71;
 
   if (!v48)
   {
@@ -2073,7 +2049,7 @@ LABEL_83:
     goto LABEL_91;
   }
 
-  objc_storeStrong(p_disabledFeatures, v58);
+  objc_storeStrong(p_disabledFeatures, v57);
   v47->_isUpdatingDisabledFeatures = 0;
   if (v47->_shouldTriggerCompleteResetSyncAfterDisabledFeaturesUpdate)
   {
@@ -2083,15 +2059,15 @@ LABEL_83:
       if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v90 = v69;
+        v89 = v68;
         _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_ERROR, "Triggering complete reset sync now because %@", buf, 0xCu);
       }
     }
 
     *resetCopy = 1;
-    v71 = v27;
-    v50 = [(CPLEngineStore *)v47 resetCompleteSyncStateWithCause:v69 error:&v71];
-    v51 = v71;
+    v70 = v27;
+    v50 = [(CPLEngineStore *)v47 resetCompleteSyncStateWithCause:v68 error:&v70];
+    v51 = v70;
   }
 
   else
@@ -2109,15 +2085,15 @@ LABEL_83:
       if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v90 = v69;
+        v89 = v68;
         _os_log_impl(&dword_1DC05A000, v52, OS_LOG_TYPE_ERROR, "Triggering complete reset sync now because %@", buf, 0xCu);
       }
     }
 
     *resetCopy = 1;
-    v70 = v27;
-    v50 = [(CPLEngineStore *)v47 resetLocalSyncStateWithCause:v68 error:&v70];
-    v51 = v70;
+    v69 = v27;
+    v50 = [(CPLEngineStore *)v47 resetLocalSyncStateWithCause:v67 error:&v69];
+    v51 = v69;
   }
 
   v53 = v51;
@@ -2135,7 +2111,6 @@ LABEL_91:
 
 LABEL_94:
 
-  v55 = *MEMORY[0x1E69E9840];
   return v50;
 }
 
@@ -2332,7 +2307,7 @@ LABEL_11:
 
 - (BOOL)beginChangeSession:(id)session withLibraryVersion:(id)version resetTracker:(id)tracker error:(id *)error
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   versionCopy = version;
   trackerCopy = tracker;
@@ -2360,7 +2335,7 @@ LABEL_11:
     }
   }
 
-  v84 = a2;
+  v83 = a2;
   if (versionCopy)
   {
     libraryVersion = [(CPLEngineStore *)self libraryVersion];
@@ -2368,17 +2343,17 @@ LABEL_11:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v74 = __CPLStoreOSLogDomain_3044();
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+        v73 = __CPLStoreOSLogDomain_3044();
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_1DC05A000, v74, OS_LOG_TYPE_ERROR, "Library version should be set here", buf, 2u);
+          _os_log_impl(&dword_1DC05A000, v73, OS_LOG_TYPE_ERROR, "Library version should be set here", buf, 2u);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v76 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v76 lineNumber:1802 description:@"Library version should be set here"];
+      v75 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v75 lineNumber:1802 description:@"Library version should be set here"];
 
       abort();
     }
@@ -2390,11 +2365,11 @@ LABEL_11:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v87 = versionCopy;
-        v88 = 2112;
-        v89 = v21;
-        v90 = 2112;
-        v91 = sessionCopy;
+        v86 = versionCopy;
+        v87 = 2112;
+        v88 = v21;
+        v89 = 2112;
+        v90 = sessionCopy;
         _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEBUG, "Checking client version %@ against our own version %@ during %@", buf, 0x20u);
       }
     }
@@ -2416,9 +2391,9 @@ LABEL_11:
           if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v87 = versionCopy;
-            v88 = 2112;
-            v89 = v23;
+            v86 = versionCopy;
+            v87 = 2112;
+            v88 = v23;
             _os_log_impl(&dword_1DC05A000, v56, OS_LOG_TYPE_DEBUG, "Client has the correct version (%@). Starting %@", buf, 0x16u);
           }
         }
@@ -2442,11 +2417,11 @@ LABEL_11:
         {
           libraryVersion2 = [storedChangeSessionUpdate libraryVersion];
           *buf = 138412802;
-          v87 = versionCopy;
-          v88 = 2112;
-          v89 = libraryVersion2;
-          v90 = 2112;
-          v91 = v23;
+          v86 = versionCopy;
+          v87 = 2112;
+          v88 = libraryVersion2;
+          v89 = 2112;
+          v90 = v23;
           _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_ERROR, "Client has an incorrect version (%@) but it matches the previous version, discarding lost pending update (%@). Recovering %@", buf, 0x20u);
 
           errorCopy3 = error;
@@ -2483,9 +2458,9 @@ LABEL_11:
           if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v87 = versionCopy;
-            v88 = 2112;
-            v89 = v23;
+            v86 = versionCopy;
+            v87 = 2112;
+            v88 = v23;
             _os_log_impl(&dword_1DC05A000, v45, OS_LOG_TYPE_ERROR, "Client has the correct version (%@) after an unfinished session. Recovering %@", buf, 0x16u);
           }
         }
@@ -2522,7 +2497,7 @@ LABEL_77:
             {
               v68 = *errorCopy3;
               *buf = 138412290;
-              v87 = v68;
+              v86 = v68;
               v69 = "Failed to recover mismatched session: %@";
               v70 = v21;
               v71 = 12;
@@ -2565,11 +2540,11 @@ LABEL_86:
         {
           libraryVersion4 = [storedChangeSessionUpdate libraryVersion];
           *buf = 138412802;
-          v87 = versionCopy;
-          v88 = 2112;
-          v89 = v21;
-          v90 = 2112;
-          v91 = libraryVersion4;
+          v86 = versionCopy;
+          v87 = 2112;
+          v88 = v21;
+          v89 = 2112;
+          v90 = libraryVersion4;
           _os_log_impl(&dword_1DC05A000, v58, OS_LOG_TYPE_ERROR, "Client has an incorrect version (%@) - current version is (%@) and pending version is (%@). Client will have to perform a reset sync", buf, 0x20u);
         }
 
@@ -2583,9 +2558,9 @@ LABEL_63:
       if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v87 = versionCopy;
-        v88 = 2112;
-        v89 = v21;
+        v86 = versionCopy;
+        v87 = 2112;
+        v88 = v21;
         _os_log_impl(&dword_1DC05A000, v58, OS_LOG_TYPE_ERROR, "Client has an incorrect version (%@) - current version is (%@). Client will have to perform a reset sync", buf, 0x16u);
       }
 
@@ -2604,7 +2579,7 @@ LABEL_63:
   }
 
   v31 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v83 = sessionCopy;
+  v82 = sessionCopy;
   shortDescription = [objc_opt_class() shortDescription];
   v33 = [v31 initWithFormat:@"client library version reset in a %@ session", shortDescription];
 
@@ -2626,7 +2601,7 @@ LABEL_63:
 
     v40 = 0;
     v41 = 0;
-    v42 = v83;
+    v42 = v82;
     if (!v39)
     {
       goto LABEL_87;
@@ -2647,14 +2622,14 @@ LABEL_63:
         {
           v50 = [trackerCopy likelyResetReasonWithImmediateReason:v33];
           *buf = 138412290;
-          v87 = v50;
+          v86 = v50;
           _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_ERROR, "Client is resetting library version but we are already out of sync - we still need to discard a pending update (%@)", buf, 0xCu);
         }
       }
 
-      v85 = 0;
-      v51 = [storedChangeSessionUpdate2 discardFromStore:self error:&v85];
-      v52 = v85;
+      v84 = 0;
+      v51 = [storedChangeSessionUpdate2 discardFromStore:self error:&v84];
+      v52 = v84;
       if ((v51 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
       {
         v53 = __CPLStoreOSLogDomain_3044();
@@ -2662,10 +2637,10 @@ LABEL_63:
         {
           v54 = objc_opt_class();
           *buf = 138412546;
-          v87 = v54;
-          v88 = 2112;
-          v89 = v52;
-          v82 = v54;
+          v86 = v54;
+          v87 = 2112;
+          v88 = v52;
+          v81 = v54;
           _os_log_impl(&dword_1DC05A000, v53, OS_LOG_TYPE_ERROR, "Failed to cleanly discard pending update (%@): %@", buf, 0x16u);
         }
       }
@@ -2674,7 +2649,7 @@ LABEL_63:
 
       v40 = 0;
       v41 = 0;
-      v42 = v83;
+      v42 = v82;
       if (!v55)
       {
         goto LABEL_87;
@@ -2685,7 +2660,7 @@ LABEL_63:
     {
 
       v40 = 0;
-      v42 = v83;
+      v42 = v82;
     }
   }
 
@@ -2697,20 +2672,20 @@ LABEL_68:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v77 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+      v76 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
         shortDescription2 = [objc_opt_class() shortDescription];
         *buf = 138412290;
-        v87 = shortDescription2;
-        _os_log_impl(&dword_1DC05A000, v77, OS_LOG_TYPE_ERROR, "A %@ session should always start with not pending updates", buf, 0xCu);
+        v86 = shortDescription2;
+        _os_log_impl(&dword_1DC05A000, v76, OS_LOG_TYPE_ERROR, "A %@ session should always start with not pending updates", buf, 0xCu);
       }
     }
 
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v80 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v79 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
     shortDescription3 = [objc_opt_class() shortDescription];
-    [currentHandler2 handleFailureInMethod:v84 object:self file:v80 lineNumber:1872 description:{@"A %@ session should always start with not pending updates", shortDescription3}];
+    [currentHandler2 handleFailureInMethod:v83 object:self file:v79 lineNumber:1872 description:{@"A %@ session should always start with not pending updates", shortDescription3}];
 
     abort();
   }
@@ -2740,13 +2715,12 @@ LABEL_68:
   v41 = 1;
 LABEL_87:
 
-  v72 = *MEMORY[0x1E69E9840];
   return v41;
 }
 
 - (BOOL)storeChangeSessionUpdate:(id)update error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   v8 = updateCopy;
   if (self->_dontDelayChangeSessionUpdate)
@@ -2769,24 +2743,24 @@ LABEL_87:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v15 = __CPLStoreOSLogDomain_3044();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v14 = __CPLStoreOSLogDomain_3044();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           platformObject2 = [(CPLEngineStore *)self platformObject];
           storedChangeSessionUpdate = [platformObject2 storedChangeSessionUpdate];
           *buf = 138412546;
-          v23 = v8;
-          v24 = 2112;
-          v25 = storedChangeSessionUpdate;
-          _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Trying to store %@ while %@ is already stored", buf, 0x16u);
+          v22 = v8;
+          v23 = 2112;
+          v24 = storedChangeSessionUpdate;
+          _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Trying to store %@ while %@ is already stored", buf, 0x16u);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
       platformObject3 = [(CPLEngineStore *)self platformObject];
       storedChangeSessionUpdate2 = [platformObject3 storedChangeSessionUpdate];
-      [currentHandler handleFailureInMethod:a2 object:self file:v19 lineNumber:1782 description:{@"Trying to store %@ while %@ is already stored", v8, storedChangeSessionUpdate2}];
+      [currentHandler handleFailureInMethod:a2 object:self file:v18 lineNumber:1782 description:{@"Trying to store %@ while %@ is already stored", v8, storedChangeSessionUpdate2}];
 
       abort();
     }
@@ -2798,7 +2772,6 @@ LABEL_87:
   v12 = v9;
 LABEL_8:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -2830,7 +2803,7 @@ LABEL_8:
 
 - (BOOL)addPushPullGatekeeper:(id)gatekeeper error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   gatekeeperCopy = gatekeeper;
   platformObject = [(CPLEngineStore *)self platformObject];
   pushPullGatekeepers = [platformObject pushPullGatekeepers];
@@ -2844,14 +2817,13 @@ LABEL_8:
 
   else
   {
-    v16[0] = gatekeeperCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = gatekeeperCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   }
 
   v12 = v11;
 
   v13 = [platformObject2 storePushPullGatekeepers:v12 error:error];
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -2971,12 +2943,12 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_2(uint
 
 void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_3(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
   v6 = *(v5 + 120);
@@ -2985,10 +2957,10 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_3(uint
   block[2] = __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_4;
   block[3] = &unk_1E861F868;
   block[4] = v5;
-  v23 = v4;
-  v24 = &v25;
+  v22 = v4;
+  v23 = &v24;
   dispatch_sync(v6, block);
-  if (*(v26 + 24) == 1)
+  if (*(v25 + 24) == 1)
   {
     v7 = [v3 error];
     v8 = v7 == 0;
@@ -3001,9 +2973,9 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_3(uint
       if (v10)
       {
         v11 = *(a1 + 32);
-        v21 = 0;
-        v12 = [v11 _applyPendingUpdate:v10 error:&v21];
-        v13 = v21;
+        v20 = 0;
+        v12 = [v11 _applyPendingUpdate:v10 error:&v20];
+        v13 = v20;
         if (v12)
         {
           if ((_CPLSilentLogging & 1) == 0)
@@ -3013,7 +2985,7 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_3(uint
             {
               v15 = objc_opt_class();
               *buf = 138412290;
-              v30 = v15;
+              v29 = v15;
               v16 = v15;
               _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_ERROR, "Applied pending update %@ automatically because client did not do it", buf, 0xCu);
             }
@@ -3029,9 +3001,9 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_3(uint
             {
               v18 = objc_opt_class();
               *buf = 138412546;
-              v30 = v18;
-              v31 = 2112;
-              v32 = v13;
+              v29 = v18;
+              v30 = 2112;
+              v31 = v13;
               v19 = v18;
               _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Failed to apply pending update %@ automatically because client did not do it: %@", buf, 0x16u);
             }
@@ -3043,8 +3015,7 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_3(uint
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  v20 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
 }
 
 void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_4(void *a1)
@@ -3219,28 +3190,28 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_4(void
 
 - (BOOL)pushRepositoryIsFull
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = [(CPLEngineScopeStorage *)self->_scopes enumeratorForScopesIncludeInactive:0, 0];
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         pushRepository = self->_pushRepository;
-        scopeIdentifier = [*(*(&v13 + 1) + 8 * i) scopeIdentifier];
+        scopeIdentifier = [*(*(&v12 + 1) + 8 * i) scopeIdentifier];
         LOBYTE(pushRepository) = [(CPLEnginePushRepository *)pushRepository hasChangesInScopeWithIdentifier:scopeIdentifier];
 
         if (pushRepository)
@@ -3250,7 +3221,7 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_4(void
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -3263,7 +3234,6 @@ void __51__CPLEngineStore__reallySchedulePendingUpdateApply__block_invoke_4(void
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -3361,7 +3331,7 @@ uint64_t __45__CPLEngineStore__updateShouldSyncScopeList___block_invoke(uint64_t
 
 - (void)_closeAndDeactivate:(BOOL)deactivate completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ([(CPLEngineStore *)self state]== 2)
   {
@@ -3374,21 +3344,21 @@ uint64_t __45__CPLEngineStore__updateShouldSyncScopeList___block_invoke(uint64_t
       {
         platformObject = [(CPLEngineStore *)self platformObject];
         *buf = 138412290;
-        v18 = platformObject;
+        v17 = platformObject;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Closing concrete store: %@", buf, 0xCu);
       }
     }
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke;
-    v13[3] = &unk_1E861B090;
-    v13[4] = self;
-    v14 = v7;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke;
+    v12[3] = &unk_1E861B090;
+    v12[4] = self;
+    v13 = v7;
     deactivateCopy = deactivate;
-    v15 = handlerCopy;
+    v14 = handlerCopy;
     v10 = v7;
-    [(CPLEngineStore *)self _performBarrierTransaction:v10 withBlock:v13];
+    [(CPLEngineStore *)self _performBarrierTransaction:v10 withBlock:v12];
   }
 
   else
@@ -3396,8 +3366,6 @@ uint64_t __45__CPLEngineStore__updateShouldSyncScopeList___block_invoke(uint64_t
     v11 = [CPLErrors incorrectMachineStateErrorWithReason:@"Library is not open"];
     (*(handlerCopy + 2))(handlerCopy, v11);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke(uint64_t a1)
@@ -3422,7 +3390,7 @@ void __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke(u
 
 uint64_t __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLStoreOSLogDomain_3044();
@@ -3436,28 +3404,26 @@ uint64_t __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invo
 
       v4 = *(*(a1 + 32) + 8);
       *buf = 138412546;
-      v11 = v3;
-      v12 = 2112;
-      v13 = v4;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v4;
       _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ all storages: %@", buf, 0x16u);
     }
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke_328;
-  v8[3] = &unk_1E861B998;
-  v9 = *(a1 + 48);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke_328;
+  v7[3] = &unk_1E861B998;
+  v8 = *(a1 + 48);
   v5 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  result = [v5 do:v8];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[4] = *(a1 + 32);
+  return [v5 do:v7];
 }
 
 uint64_t __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invoke_328(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (*(a1 + 40) == 1)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3479,29 +3445,29 @@ uint64_t __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invo
     v6 = 1;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = *(*(a1 + 32) + 8);
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v6 &= [*(*(&v16 + 1) + 8 * i) closeWithError:{a2, v16}];
+        v6 &= [*(*(&v15 + 1) + 8 * i) closeWithError:{a2, v15}];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v9);
@@ -3510,7 +3476,6 @@ uint64_t __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invo
   v12 = [*(a1 + 32) platformObject];
   v13 = [v12 closeWithError:a2];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13 & v6;
 }
 
@@ -3564,7 +3529,7 @@ uint64_t __56__CPLEngineStore__closeAndDeactivate_completionHandler___block_invo
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __75__CPLEngineStore_performBatchedWriteTransactionBarrierWithCompletionBlock___block_invoke(uint64_t a1)
+void *__75__CPLEngineStore_performBatchedWriteTransactionBarrierWithCompletionBlock___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result == 0;
@@ -3707,35 +3672,35 @@ void __57__CPLEngineStore__reallyPerformBatchedTransactionsLocked__block_invoke(
 
 void __57__CPLEngineStore__reallyPerformBatchedTransactionsLocked__block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = *(*(*(a1 + 40) + 8) + 40);
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [v9 completionHandler];
         (v10)[2](v10, v3);
 
         [v9 _releaseDirty];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
@@ -3743,34 +3708,32 @@ void __57__CPLEngineStore__reallyPerformBatchedTransactionsLocked__block_invoke_
 
   v11 = *(a1 + 32);
   v12 = *(v11 + 24);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __57__CPLEngineStore__reallyPerformBatchedTransactionsLocked__block_invoke_4;
-  v17[3] = &unk_1E861A940;
-  v17[4] = v11;
-  v13 = v17;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __57__CPLEngineStore__reallyPerformBatchedTransactionsLocked__block_invoke_4;
+  v16[3] = &unk_1E861A940;
+  v16[4] = v11;
+  v13 = v16;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __cpl_dispatch_async_block_invoke_682;
   block[3] = &unk_1E861B4E0;
-  v23 = v13;
+  v22 = v13;
   v14 = v12;
   v15 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
   dispatch_async(v14, v15);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __57__CPLEngineStore__reallyPerformBatchedTransactionsLocked__block_invoke_4(uint64_t result)
+void *__57__CPLEngineStore__reallyPerformBatchedTransactionsLocked__block_invoke_4(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 40) & 1) == 0)
   {
     v2 = result;
     result = [*(v1 + 32) count];
     if (result)
     {
-      v3 = *(v2 + 32);
+      v3 = v2[4];
 
       return [v3 _scheduleBatchedTransactionsLocked];
     }
@@ -3825,7 +3788,7 @@ void __52__CPLEngineStore__scheduleBatchedTransactionsLocked__block_invoke(uint6
 
 - (id)_performWriteTransactionByPassBlocker:(id)blocker WithBlock:(id)block completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   blockerCopy = blocker;
   blockCopy = block;
   handlerCopy = handler;
@@ -3847,36 +3810,35 @@ void __52__CPLEngineStore__scheduleBatchedTransactionsLocked__block_invoke(uint6
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v34 = 0x2020000000;
-  v35 = hasChangesToProcess;
+  v33 = 0x2020000000;
+  v34 = hasChangesToProcess;
   platformObject = [(CPLEngineStore *)self platformObject];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_completionHandler___block_invoke;
-  v29[3] = &unk_1E861EAC8;
-  v29[4] = self;
-  v30 = v11;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_completionHandler___block_invoke;
+  v28[3] = &unk_1E861EAC8;
+  v28[4] = self;
+  v29 = v11;
   v16 = blockCopy;
-  v31 = v16;
+  v30 = v16;
   p_buf = &buf;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_completionHandler___block_invoke_302;
-  v23[3] = &unk_1E861B970;
-  v17 = v30;
-  v24 = v17;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_completionHandler___block_invoke_302;
+  v22[3] = &unk_1E861B970;
+  v17 = v29;
+  v23 = v17;
   selfCopy = self;
-  v27 = &buf;
-  v28 = hasChangesToProcess;
+  v26 = &buf;
+  v27 = hasChangesToProcess;
   v18 = handlerCopy;
-  v26 = v18;
-  [platformObject performWriteTransaction:v17 withBlock:v29 completionHandler:v23];
+  v25 = v18;
+  [platformObject performWriteTransaction:v17 withBlock:v28 completionHandler:v22];
 
-  v19 = v26;
+  v19 = v25;
   v20 = v17;
 
   _Block_object_dispose(&buf, 8);
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -3902,7 +3864,7 @@ void __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_comple
 
 void __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_completionHandler___block_invoke_302(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -3910,9 +3872,9 @@ void __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_comple
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Finished writing %@", &v9, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Finished writing %@", &v7, 0xCu);
     }
   }
 
@@ -3923,51 +3885,45 @@ void __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_comple
     [WeakRetained setHasChangesToProcess:*(*(*(a1 + 56) + 8) + 24)];
   }
 
-  v7 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
   [*(a1 + 32) _releaseDirty];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       v3 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Performing %@", &v7, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Performing %@", &v5, 0xCu);
     }
   }
 
-  v4 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-  v5 = [*(a1 + 32) error];
+  v4 = [*(a1 + 32) error];
 
-  if (v5)
+  if (v4)
   {
     *(*(*(a1 + 56) + 8) + 24) = [*(*(a1 + 40) + 216) hasStagedSyncAnchors];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_commitWriteTransaction:(id)transaction commitError:(id)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   errorCopy = error;
   state = self->_state;
   error = [transactionCopy error];
 
-  v36 = transactionCopy;
+  v35 = transactionCopy;
   selfCopy = self;
-  v35 = errorCopy;
+  v34 = errorCopy;
   if (error)
   {
     goto LABEL_27;
@@ -3985,7 +3941,7 @@ void __84__CPLEngineStore__performWriteTransactionByPassBlocker_WithBlock_comple
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v49 = transactionCopy;
+            v48 = transactionCopy;
             v11 = "! %@ commit failed: operation was cancelled";
             v12 = v10;
             v13 = OS_LOG_TYPE_DEBUG;
@@ -4005,9 +3961,9 @@ LABEL_24:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v49 = transactionCopy;
-          v50 = 2112;
-          v51 = errorCopy;
+          v48 = transactionCopy;
+          v49 = 2112;
+          v50 = errorCopy;
           v11 = "! %@ commit failed: %@";
           v12 = v10;
           v13 = OS_LOG_TYPE_ERROR;
@@ -4028,31 +3984,31 @@ LABEL_27:
       {
         error2 = [transactionCopy error];
         *buf = 138412290;
-        v49 = error2;
+        v48 = error2;
         _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Closing transaction did fail: %@", buf, 0xCu);
       }
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v26 = self->_storages;
-    v27 = [(NSHashTable *)v26 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v27 = [(NSHashTable *)v26 countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v43;
+      v29 = *v42;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v43 != v29)
+          if (*v42 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = *(*(&v42 + 1) + 8 * i);
+          v31 = *(*(&v41 + 1) + 8 * i);
           if (state == 3 && (_CPLSilentLogging & 1) == 0)
           {
             v32 = __CPLStoreOSLogDomain_3044();
@@ -4060,7 +4016,7 @@ LABEL_27:
             {
               name = [v31 name];
               *buf = 138543362;
-              v49 = name;
+              v48 = name;
               _os_log_impl(&dword_1DC05A000, v32, OS_LOG_TYPE_DEFAULT, "Closing %{public}@ after failed transaction", buf, 0xCu);
             }
           }
@@ -4068,7 +4024,7 @@ LABEL_27:
           [v31 writeTransactionDidFail];
         }
 
-        v28 = [(NSHashTable *)v26 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v28 = [(NSHashTable *)v26 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v28);
@@ -4079,26 +4035,26 @@ LABEL_27:
     goto LABEL_45;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v15 = self->_storages;
-  v16 = [(NSHashTable *)v15 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v16 = [(NSHashTable *)v15 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v39;
+    v18 = *v38;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v39 != v18)
+        if (*v38 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v38 + 1) + 8 * j);
+        v20 = *(*(&v37 + 1) + 8 * j);
         if (state == 3 && (_CPLSilentLogging & 1) == 0)
         {
           v21 = __CPLStoreOSLogDomain_3044();
@@ -4106,7 +4062,7 @@ LABEL_27:
           {
             name2 = [v20 name];
             *buf = 138543362;
-            v49 = name2;
+            v48 = name2;
             _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "Closing %{public}@", buf, 0xCu);
           }
         }
@@ -4114,7 +4070,7 @@ LABEL_27:
         [v20 writeTransactionDidSucceed];
       }
 
-      v17 = [(NSHashTable *)v15 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v17 = [(NSHashTable *)v15 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v17);
@@ -4124,8 +4080,6 @@ LABEL_27:
   [(CPLEngineStore *)self writeTransactionDidSucceed];
 LABEL_45:
   [(CPLEngineStore *)selfCopy2 _finishTransaction];
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeTransactionDidFail
@@ -4157,7 +4111,7 @@ LABEL_45:
 
 - (id)performReadTransactionWithBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = [[CPLEngineStoreTransaction alloc] initForWrite:0 store:self identifier:@"cpl.store.read" description:@"read store"];
   if ((_CPLSilentLogging & 1) == 0)
@@ -4166,27 +4120,26 @@ LABEL_45:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "Will read store with %@", buf, 0xCu);
     }
   }
 
   platformObject = [(CPLEngineStore *)self platformObject];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __50__CPLEngineStore_performReadTransactionWithBlock___block_invoke;
-  v14[3] = &unk_1E861B3D0;
-  v14[4] = self;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __50__CPLEngineStore_performReadTransactionWithBlock___block_invoke;
+  v13[3] = &unk_1E861B3D0;
+  v13[4] = self;
   v8 = v5;
-  v15 = v8;
-  v16 = blockCopy;
+  v14 = v8;
+  v15 = blockCopy;
   v9 = blockCopy;
-  [platformObject performReadTransaction:v8 withBlock:v14];
+  [platformObject performReadTransaction:v8 withBlock:v13];
 
-  v10 = v16;
+  v10 = v15;
   v11 = v8;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -4206,28 +4159,25 @@ void __50__CPLEngineStore_performReadTransactionWithBlock___block_invoke(uint64_
 
 uint64_t __50__CPLEngineStore_performReadTransactionWithBlock___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       v3 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Performing %@", &v7, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Performing %@", &v5, 0xCu);
     }
   }
 
-  v4 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)openWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ([(CPLEngineStore *)self state])
   {
@@ -4244,39 +4194,37 @@ uint64_t __50__CPLEngineStore_performReadTransactionWithBlock___block_invoke_2(u
       {
         platformObject = [(CPLEngineStore *)self platformObject];
         *buf = 138412290;
-        v15 = platformObject;
+        v14 = platformObject;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "Opening concrete store: %@", buf, 0xCu);
       }
     }
 
     [(CPLEngineStore *)self setState:1];
     v8 = [[CPLEngineStoreTransaction alloc] initForWrite:1 store:self identifier:@"cpl.store.open" description:@"open store"];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke;
-    v11[3] = &unk_1E861B3D0;
-    v11[4] = self;
-    v12 = v8;
-    v13 = handlerCopy;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke;
+    v10[3] = &unk_1E861B3D0;
+    v10[4] = self;
+    v11 = v8;
+    v12 = handlerCopy;
     v9 = v8;
-    [(CPLEngineStore *)self _performBarrierTransaction:v9 withBlock:v11];
+    [(CPLEngineStore *)self _performBarrierTransaction:v9 withBlock:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __44__CPLEngineStore_openWithCompletionHandler___block_invoke(id *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v2 = a1[5];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_2;
-  v14[3] = &unk_1E861B290;
-  v14[4] = v3;
-  v15 = v2;
-  [v3 _performTransaction:v15 withBlock:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_2;
+  v13[3] = &unk_1E861B290;
+  v13[4] = v3;
+  v14 = v2;
+  [v3 _performTransaction:v14 withBlock:v13];
   v4 = [a1[5] error];
   [a1[4] setState:2 * (v4 == 0)];
   [a1[4] _commitWriteTransaction:a1[5] commitError:v4];
@@ -4288,7 +4236,7 @@ void __44__CPLEngineStore_openWithCompletionHandler___block_invoke(id *a1)
     {
       v7 = [v5 componentsJoinedByString:@"\n\t"];
       *buf = 138412290;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Last reset events:\n\t%@", buf, 0xCu);
     }
   }
@@ -4296,14 +4244,14 @@ void __44__CPLEngineStore_openWithCompletionHandler___block_invoke(id *a1)
   if (v4)
   {
     v8 = a1[4];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_288;
-    v10[3] = &unk_1E861AB18;
-    v13 = a1[6];
-    v11 = v4;
-    v12 = a1[5];
-    [v8 _forceCloseWithCompletionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_288;
+    v9[3] = &unk_1E861AB18;
+    v12 = a1[6];
+    v10 = v4;
+    v11 = a1[5];
+    [v8 _forceCloseWithCompletionHandler:v9];
   }
 
   else
@@ -4311,13 +4259,11 @@ void __44__CPLEngineStore_openWithCompletionHandler___block_invoke(id *a1)
     (*(a1[6] + 2))();
     [a1[5] _releaseDirty];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __44__CPLEngineStore_openWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLStoreOSLogDomain_3044();
@@ -4325,58 +4271,56 @@ void __44__CPLEngineStore_openWithCompletionHandler___block_invoke_2(uint64_t a1
     {
       v3 = *(*(a1 + 32) + 8);
       *buf = 138412290;
-      v23 = v3;
+      v22 = v3;
       _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Opening all storages: %@", buf, 0xCu);
     }
   }
 
   [*(*(a1 + 32) + 344) discardCache];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_254;
-  v20[3] = &unk_1E8620478;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_254;
+  v19[3] = &unk_1E8620478;
   v4 = *(a1 + 40);
-  v20[4] = *(a1 + 32);
-  [v4 do:v20];
+  v19[4] = *(a1 + 32);
+  [v4 do:v19];
   v5 = [*(a1 + 32) platformObject];
-  if (![v5 storeVersionHasChanged])
+  if ([v5 storeVersionHasChanged])
   {
-LABEL_15:
+    v6 = [*(a1 + 40) error];
 
-    goto LABEL_16;
-  }
+    if (v6)
+    {
+      return;
+    }
 
-  v6 = [*(a1 + 40) error];
-
-  if (!v6)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = *(*(a1 + 32) + 8);
-    v7 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
 LABEL_9:
       v10 = 0;
       while (1)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = *(a1 + 40);
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_284;
-        v15[3] = &unk_1E8620478;
-        v15[4] = v11;
-        [v12 do:v15];
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_284;
+        v14[3] = &unk_1E8620478;
+        v14[4] = v11;
+        [v12 do:v14];
         v13 = [*(a1 + 40) error];
 
         if (v13)
@@ -4386,27 +4330,22 @@ LABEL_9:
 
         if (v8 == ++v10)
         {
-          v8 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+          v8 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
           if (v8)
           {
             goto LABEL_9;
           }
 
-          goto LABEL_15;
+          break;
         }
       }
     }
-
-    goto LABEL_15;
   }
-
-LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __44__CPLEngineStore_openWithCompletionHandler___block_invoke_288(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -4415,14 +4354,14 @@ void __44__CPLEngineStore_openWithCompletionHandler___block_invoke_288(uint64_t 
       v4 = __CPLStoreOSLogDomain_3044();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138412290;
-        v11 = v3;
+        v9 = 138412290;
+        v10 = v3;
         v5 = "Failed to close database after opening error: %@";
         v6 = v4;
         v7 = OS_LOG_TYPE_ERROR;
         v8 = 12;
 LABEL_8:
-        _os_log_impl(&dword_1DC05A000, v6, v7, v5, &v10, v8);
+        _os_log_impl(&dword_1DC05A000, v6, v7, v5, &v9, v8);
         goto LABEL_9;
       }
 
@@ -4435,7 +4374,7 @@ LABEL_8:
     v4 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       v5 = "Closed database after opening error";
       v6 = v4;
       v7 = OS_LOG_TYPE_DEFAULT;
@@ -4448,13 +4387,11 @@ LABEL_9:
 
   (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 32));
   [*(a1 + 40) _releaseDirty];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__CPLEngineStore_openWithCompletionHandler___block_invoke_254(uint64_t a1, NSObject **a2)
 {
-  v155 = *MEMORY[0x1E69E9840];
+  v154 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) platformObject];
   v4 = [v3 openWithError:a2];
 
@@ -4476,32 +4413,32 @@ uint64_t __44__CPLEngineStore_openWithCompletionHandler___block_invoke_254(uint6
     v7 = *(a1 + 32);
   }
 
-  v144 = 0u;
-  v145 = 0u;
-  v142 = 0u;
   v143 = 0u;
+  v144 = 0u;
+  v141 = 0u;
+  v142 = 0u;
   v9 = *(v7 + 8);
-  v10 = [v9 countByEnumeratingWithState:&v142 objects:v154 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v141 objects:v153 count:16];
   if (v10)
   {
-    v11 = *v143;
+    v11 = *v142;
 LABEL_6:
     v12 = 0;
     while (1)
     {
-      if (*v143 != v11)
+      if (*v142 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      if (![*(*(&v142 + 1) + 8 * v12) openWithError:a2])
+      if (![*(*(&v141 + 1) + 8 * v12) openWithError:a2])
       {
         break;
       }
 
       if (v10 == ++v12)
       {
-        v10 = [v9 countByEnumeratingWithState:&v142 objects:v154 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v141 objects:v153 count:16];
         if (!v10)
         {
           goto LABEL_12;
@@ -4537,35 +4474,35 @@ LABEL_12:
         v17 = [v14 batch];
         v18 = [v15 name];
         *buf = 138412546;
-        v147 = v17;
-        v148 = 2114;
-        v149 = *&v18;
+        v146 = v17;
+        v147 = 2114;
+        v148 = *&v18;
         _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "Reinjecting %@ in %{public}@", buf, 0x16u);
       }
     }
 
-    v140 = 0u;
-    v141 = 0u;
-    v138 = 0u;
     v139 = 0u;
+    v140 = 0u;
+    v137 = 0u;
+    v138 = 0u;
     v19 = [v14 batch];
-    v20 = [v19 countByEnumeratingWithState:&v138 objects:v153 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v137 objects:v152 count:16];
     if (v20)
     {
-      v21 = *v139;
+      v21 = *v138;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v139 != v21)
+          if (*v138 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          [*(*(&v138 + 1) + 8 * i) _setShouldNotTrustCloudCache:1];
+          [*(*(&v137 + 1) + 8 * i) _setShouldNotTrustCloudCache:1];
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v138 objects:v153 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v137 objects:v152 count:16];
       }
 
       while (v20);
@@ -4578,33 +4515,33 @@ LABEL_12:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v40 = __CPLStoreOSLogDomain_3044();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v39 = __CPLStoreOSLogDomain_3044();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_1DC05A000, v40, OS_LOG_TYPE_ERROR, "Found extracted batch but no client cache identifier - triggering a reset sync", buf, 2u);
+          _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_ERROR, "Found extracted batch but no client cache identifier - triggering a reset sync", buf, 2u);
         }
       }
 
       v27 = +[CPLResetTracker currentTracker];
       v26 = [v27 likelyResetReasonWithImmediateReason:@"found extracted batch at launch without a client cache identifier"];
-      v41 = [*(a1 + 32) resetLocalSyncStateWithCause:v26 error:a2];
+      v40 = [*(a1 + 32) resetLocalSyncStateWithCause:v26 error:a2];
       [CPLResetTracker discardTracker:v27];
     }
 
     else
     {
+      v135 = 0;
       v136 = 0;
-      v137 = 0;
-      v25 = [v15 reinjectExtractedBatch:v14 overwrittenRecordIdentifiers:&v137 error:&v136];
-      v26 = v137;
-      v27 = v136;
+      v25 = [v15 reinjectExtractedBatch:v14 overwrittenRecordIdentifiers:&v136 error:&v135];
+      v26 = v136;
+      v27 = v135;
       if (v25)
       {
         v28 = *(*(a1 + 32) + 208);
-        v135 = v27;
-        v29 = [v28 storeExtractedBatch:0 error:&v135];
-        v30 = v135;
+        v134 = v27;
+        v29 = [v28 storeExtractedBatch:0 error:&v134];
+        v30 = v134;
 
         if (v29)
         {
@@ -4617,88 +4554,88 @@ LABEL_12:
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v42 = __CPLStoreOSLogDomain_3044();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v41 = __CPLStoreOSLogDomain_3044();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          v43 = [v14 batch];
+          v42 = [v14 batch];
           *buf = 138412546;
-          v147 = v43;
-          v148 = 2112;
-          v149 = *&v27;
-          _os_log_impl(&dword_1DC05A000, v42, OS_LOG_TYPE_ERROR, "Re-injecting %@ failed: %@", buf, 0x16u);
+          v146 = v42;
+          v147 = 2112;
+          v148 = *&v27;
+          _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_ERROR, "Re-injecting %@ failed: %@", buf, 0x16u);
         }
       }
 
-      v44 = +[CPLResetTracker currentTracker];
-      v45 = [v44 likelyResetReasonWithImmediateReason:@"failed to re-inject extracted batch at launch"];
-      v41 = [*(a1 + 32) resetLocalSyncStateWithCause:v45 error:a2];
-      [CPLResetTracker discardTracker:v44];
+      v43 = +[CPLResetTracker currentTracker];
+      v44 = [v43 likelyResetReasonWithImmediateReason:@"failed to re-inject extracted batch at launch"];
+      v40 = [*(a1 + 32) resetLocalSyncStateWithCause:v44 error:a2];
+      [CPLResetTracker discardTracker:v43];
     }
 
-    if ((v41 & 1) == 0)
+    if ((v40 & 1) == 0)
     {
       goto LABEL_30;
     }
   }
 
 LABEL_61:
-  v46 = [*(a1 + 32) platformObject];
-  v47 = [v46 storedChangeSessionUpdate];
+  v45 = [*(a1 + 32) platformObject];
+  v46 = [v45 storedChangeSessionUpdate];
 
-  if (v47)
+  if (v46)
   {
-    v48 = [v47 queuedDate];
-    [v48 timeIntervalSinceNow];
-    if (v48 && v49 >= -30.0)
+    v47 = [v46 queuedDate];
+    [v47 timeIntervalSinceNow];
+    if (v47 && v48 >= -30.0)
     {
-      v50 = v49 + 30.0;
-      if (v50 <= 30.0)
+      v49 = v48 + 30.0;
+      if (v49 <= 30.0)
       {
-        v51 = v50;
+        v50 = v49;
       }
 
       else
       {
-        v51 = 30.0;
+        v50 = 30.0;
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v52 = __CPLStoreOSLogDomain_3044();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v51 = __CPLStoreOSLogDomain_3044();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
-          v53 = objc_opt_class();
+          v52 = objc_opt_class();
           *buf = 138412546;
-          v147 = v53;
-          v148 = 2048;
-          v149 = v51;
-          _os_log_impl(&dword_1DC05A000, v52, OS_LOG_TYPE_DEFAULT, "Store has some %@ to apply, will apply it in %.1fs", buf, 0x16u);
+          v146 = v52;
+          v147 = 2048;
+          v148 = v50;
+          _os_log_impl(&dword_1DC05A000, v51, OS_LOG_TYPE_DEFAULT, "Store has some %@ to apply, will apply it in %.1fs", buf, 0x16u);
         }
       }
 
-      *(*(a1 + 32) + 128) = v51;
+      *(*(a1 + 32) + 128) = v50;
       [*(a1 + 32) _schedulePendingUpdateApply];
       goto LABEL_78;
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v54 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+      v53 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        v55 = objc_opt_class();
+        v54 = objc_opt_class();
         *buf = 138412290;
-        v147 = v55;
-        _os_log_impl(&dword_1DC05A000, v54, OS_LOG_TYPE_DEFAULT, "Store has some %@ to apply, applying now", buf, 0xCu);
+        v146 = v54;
+        _os_log_impl(&dword_1DC05A000, v53, OS_LOG_TYPE_DEFAULT, "Store has some %@ to apply, applying now", buf, 0xCu);
       }
     }
 
-    v56 = *(a1 + 32);
-    v134 = 0;
-    v57 = [v56 _applyPendingUpdate:v47 error:&v134];
-    v58 = v134;
-    v59 = v58;
-    if (v57)
+    v55 = *(a1 + 32);
+    v133 = 0;
+    v56 = [v55 _applyPendingUpdate:v46 error:&v133];
+    v57 = v133;
+    v58 = v57;
+    if (v56)
     {
 
 LABEL_78:
@@ -4707,26 +4644,26 @@ LABEL_78:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v115 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+      v114 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v147 = v59;
-        _os_log_impl(&dword_1DC05A000, v115, OS_LOG_TYPE_ERROR, "Failed to apply pending update, will trigger a reset sync: %@", buf, 0xCu);
+        v146 = v58;
+        _os_log_impl(&dword_1DC05A000, v114, OS_LOG_TYPE_ERROR, "Failed to apply pending update, will trigger a reset sync: %@", buf, 0xCu);
       }
     }
 
-    v116 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v117 = [v59 domain];
-    v118 = [v116 initWithFormat:@"failed to apply pending update to store (%@/%ld)", v117, objc_msgSend(v59, "code")];
+    v115 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v116 = [v58 domain];
+    v117 = [v115 initWithFormat:@"failed to apply pending update to store (%@/%ld)", v116, objc_msgSend(v58, "code")];
 
-    v119 = +[CPLResetTracker currentTracker];
-    v120 = [v119 likelyResetReasonWithImmediateReason:v118];
+    v118 = +[CPLResetTracker currentTracker];
+    v119 = [v118 likelyResetReasonWithImmediateReason:v117];
 
-    LOBYTE(v118) = [*(a1 + 32) resetLocalSyncStateWithCause:v120 error:a2];
-    [CPLResetTracker discardTracker:v119];
+    LOBYTE(v117) = [*(a1 + 32) resetLocalSyncStateWithCause:v119 error:a2];
+    [CPLResetTracker discardTracker:v118];
 
-    if (v118)
+    if (v117)
     {
       goto LABEL_79;
     }
@@ -4737,80 +4674,80 @@ LABEL_30:
   }
 
 LABEL_79:
-  v60 = +[CPLFingerprintScheme supportsEPP];
-  v61 = 21;
-  if (v60)
+  v59 = +[CPLFingerprintScheme supportsEPP];
+  v60 = 21;
+  if (v59)
   {
-    v61 = 22;
+    v60 = 22;
   }
 
-  v122 = v61;
-  v123 = [*(a1 + 32) libraryOptions];
-  v62 = [*(a1 + 32) engineLibrary];
-  v121 = [v62 transport];
+  v121 = v60;
+  v122 = [*(a1 + 32) libraryOptions];
+  v61 = [*(a1 + 32) engineLibrary];
+  v120 = [v61 transport];
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
   v131 = 0u;
+  v132 = 0u;
+  v129 = 0u;
+  v130 = 0u;
   obj = [*(*(a1 + 32) + 216) enumeratorForScopesIncludeInactive:1];
-  v126 = [obj countByEnumeratingWithState:&v130 objects:v152 count:16];
-  if (v126)
+  v125 = [obj countByEnumeratingWithState:&v129 objects:v151 count:16];
+  if (v125)
   {
-    v125 = *v131;
+    v124 = *v130;
     do
     {
-      v63 = 0;
+      v62 = 0;
       do
       {
-        if (*v131 != v125)
+        if (*v130 != v124)
         {
           objc_enumerationMutation(obj);
         }
 
-        v64 = *(*(&v130 + 1) + 8 * v63);
-        v65 = [*(*(a1 + 32) + 216) flagsForScope:v64];
-        v66 = [v65 valueForFlag:16];
-        v67 = [v65 valueForFlag:4];
-        if ((v66 & 1) == 0)
+        v63 = *(*(&v129 + 1) + 8 * v62);
+        v64 = [*(*(a1 + 32) + 216) flagsForScope:v63];
+        v65 = [v64 valueForFlag:16];
+        v66 = [v64 valueForFlag:4];
+        if ((v65 & 1) == 0)
         {
-          if (!v67 || ([v65 valueForFlag:0x10000] & 1) != 0)
+          if (!v66 || ([v64 valueForFlag:0x10000] & 1) != 0)
           {
-            v72 = *(a1 + 32);
-            v129 = 0;
-            v73 = [v72 _canHaveActivatedScope:v64 libraryOptions:v123 error:&v129];
-            v74 = v129;
-            if ((v73 & 1) == 0)
+            v71 = *(a1 + 32);
+            v128 = 0;
+            v72 = [v71 _canHaveActivatedScope:v63 libraryOptions:v122 error:&v128];
+            v73 = v128;
+            if ((v72 & 1) == 0)
             {
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v106 = __CPLStoreOSLogDomain_3044();
-                if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+                v105 = __CPLStoreOSLogDomain_3044();
+                if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                 {
-                  v107 = [v74 localizedDescription];
+                  v106 = [v73 localizedDescription];
                   *buf = 138412546;
-                  v147 = v64;
-                  v148 = 2112;
-                  v149 = *&v107;
-                  _os_log_impl(&dword_1DC05A000, v106, OS_LOG_TYPE_ERROR, "Opening store with incorrectly activated %@ (%@)", buf, 0x16u);
+                  v146 = v63;
+                  v147 = 2112;
+                  v148 = *&v106;
+                  _os_log_impl(&dword_1DC05A000, v105, OS_LOG_TYPE_ERROR, "Opening store with incorrectly activated %@ (%@)", buf, 0x16u);
                 }
               }
 
-              v108 = objc_alloc(MEMORY[0x1E696AEC0]);
-              v109 = +[CPLScopeChange descriptionForScopeType:](CPLScopeChange, "descriptionForScopeType:", [v64 scopeType]);
-              v78 = [v108 initWithFormat:@"Found scope with type %@ active at opening time", v109];
+              v107 = objc_alloc(MEMORY[0x1E696AEC0]);
+              v108 = +[CPLScopeChange descriptionForScopeType:](CPLScopeChange, "descriptionForScopeType:", [v63 scopeType]);
+              v77 = [v107 initWithFormat:@"Found scope with type %@ active at opening time", v108];
 
-              v110 = *(a1 + 32);
-              v128[0] = MEMORY[0x1E69E9820];
-              v128[1] = 3221225472;
-              v128[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_281;
-              v128[3] = &unk_1E861A940;
-              v128[4] = v110;
-              [v110 wipeStoreAtNextOpeningWithReason:v78 completionBlock:v128];
+              v109 = *(a1 + 32);
+              v127[0] = MEMORY[0x1E69E9820];
+              v127[1] = 3221225472;
+              v127[2] = __44__CPLEngineStore_openWithCompletionHandler___block_invoke_281;
+              v127[3] = &unk_1E861A940;
+              v127[4] = v109;
+              [v109 wipeStoreAtNextOpeningWithReason:v77 completionBlock:v127];
               if (a2)
               {
-                v111 = v74;
-                *a2 = v74;
+                v110 = v73;
+                *a2 = v73;
               }
 
 LABEL_195:
@@ -4821,57 +4758,57 @@ LABEL_197:
               goto LABEL_30;
             }
 
-            v75 = [*(*(a1 + 32) + 216) supportedFeatureVersionInLastSyncForScope:v64];
-            if (v75 >= v122)
+            v74 = [*(*(a1 + 32) + 216) supportedFeatureVersionInLastSyncForScope:v63];
+            if (v74 >= v121)
             {
 
               goto LABEL_119;
             }
 
-            v76 = [*(*(a1 + 32) + 216) scopeChangeForScope:v64];
-            v77 = [v76 libraryInfo];
-            v78 = [v77 featureVersionHistory];
+            v75 = [*(*(a1 + 32) + 216) scopeChangeForScope:v63];
+            v76 = [v75 libraryInfo];
+            v77 = [v76 featureVersionHistory];
 
-            if (v78)
+            if (v77)
             {
-              if (v75 < [v78 currentFeatureVersion])
+              if (v74 < [v77 currentFeatureVersion])
               {
                 if ((_CPLSilentLogging & 1) == 0)
                 {
-                  v79 = __CPLStoreOSLogDomain_3044();
-                  if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+                  v78 = __CPLStoreOSLogDomain_3044();
+                  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
                   {
-                    v80 = [v64 scopeIdentifier];
-                    v81 = [v78 currentFeatureVersion];
+                    v79 = [v63 scopeIdentifier];
+                    v80 = [v77 currentFeatureVersion];
                     *buf = 138543874;
-                    v147 = v80;
-                    v148 = 2048;
-                    v149 = *&v75;
-                    v150 = 2048;
-                    v151 = v81;
-                    _os_log_impl(&dword_1DC05A000, v79, OS_LOG_TYPE_DEFAULT, "Last supported feature version in sync for %{public}@ is %lu while server feature version was at least %lu - will have to catch up some changes though", buf, 0x20u);
+                    v146 = v79;
+                    v147 = 2048;
+                    v148 = *&v74;
+                    v149 = 2048;
+                    v150 = v80;
+                    _os_log_impl(&dword_1DC05A000, v78, OS_LOG_TYPE_DEFAULT, "Last supported feature version in sync for %{public}@ is %lu while server feature version was at least %lu - will have to catch up some changes though", buf, 0x20u);
                   }
 
                   goto LABEL_116;
                 }
 
 LABEL_117:
-                if (![*(*(a1 + 32) + 216) setScopeNeedsUpdateFromTransport:v64 error:a2])
+                if (![*(*(a1 + 32) + 216) setScopeNeedsUpdateFromTransport:v63 error:a2])
                 {
                   goto LABEL_195;
                 }
 
-                v86 = [*(*(a1 + 32) + 216) setScopeHasChangesToPullFromTransport:v64 error:a2];
+                v85 = [*(*(a1 + 32) + 216) setScopeHasChangesToPullFromTransport:v63 error:a2];
 
-                if ((v86 & 1) == 0)
+                if ((v85 & 1) == 0)
                 {
                   goto LABEL_197;
                 }
 
 LABEL_119:
-                if (*(*(a1 + 32) + 16) || ([v64 scopeType] & 0xFFFFFFFFFFFFFFFELL) != 4)
+                if (*(*(a1 + 32) + 16) || ([v63 scopeType] & 0xFFFFFFFFFFFFFFFELL) != 4)
                 {
-                  if (v66)
+                  if (v65)
                   {
                     goto LABEL_158;
                   }
@@ -4879,9 +4816,9 @@ LABEL_119:
 
                 else
                 {
-                  if (overridesSharedLibraryFeatureFlag != 1 || (isSharedLibraryFeatureEnabled) && (v87 = *(a1 + 32), [v64 scopeIdentifier], v88 = objc_claimAutoreleasedReturnValue(), LODWORD(v87) = objc_msgSend(v87, "mainScopeSupportsSharingScopeWithIdentifier:", v88), v88, v87))
+                  if (overridesSharedLibraryFeatureFlag != 1 || (isSharedLibraryFeatureEnabled) && (v86 = *(a1 + 32), [v63 scopeIdentifier], v87 = objc_claimAutoreleasedReturnValue(), LODWORD(v86) = objc_msgSend(v86, "mainScopeSupportsSharingScopeWithIdentifier:", v87), v87, v86))
                   {
-                    if (v66)
+                    if (v65)
                     {
                       if (CPLAllowsInactiveSharedLibraryScope_onceToken != -1)
                       {
@@ -4895,8 +4832,8 @@ LABEL_119:
                           goto LABEL_158;
                         }
 
-                        v74 = __CPLStoreOSLogDomain_3044();
-                        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                        v73 = __CPLStoreOSLogDomain_3044();
+                        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
                         {
                           goto LABEL_141;
                         }
@@ -4904,82 +4841,82 @@ LABEL_119:
                         goto LABEL_157;
                       }
 
-                      v74 = [*(*(a1 + 32) + 216) primaryScope];
-                      if (!v74 || ([*(*(a1 + 32) + 216) valueForFlag:16 forScope:v74] & 1) != 0)
+                      v73 = [*(*(a1 + 32) + 216) primaryScope];
+                      if (!v73 || ([*(*(a1 + 32) + 216) valueForFlag:16 forScope:v73] & 1) != 0)
                       {
                         goto LABEL_157;
                       }
 
                       if ((_CPLSilentLogging & 1) == 0)
                       {
-                        v101 = __CPLStoreOSLogDomain_3044();
-                        if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
+                        v100 = __CPLStoreOSLogDomain_3044();
+                        if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 138412290;
-                          v147 = v64;
-                          _os_log_impl(&dword_1DC05A000, v101, OS_LOG_TYPE_DEFAULT, "Found inactive shared library scope at opening time: %@ - automatically activating it", buf, 0xCu);
+                          v146 = v63;
+                          _os_log_impl(&dword_1DC05A000, v100, OS_LOG_TYPE_DEFAULT, "Found inactive shared library scope at opening time: %@ - automatically activating it", buf, 0xCu);
                         }
                       }
 
-                      if (![*(*(a1 + 32) + 216) setValue:0 forFlag:16 forScope:v64 error:a2])
+                      if (![*(*(a1 + 32) + 216) setValue:0 forFlag:16 forScope:v63 error:a2])
                       {
                         goto LABEL_196;
                       }
 
-                      v102 = [*(*(a1 + 32) + 216) primaryScope];
-                      if (!v102)
+                      v101 = [*(*(a1 + 32) + 216) primaryScope];
+                      if (!v101)
                       {
                         goto LABEL_157;
                       }
 
                       if ((_CPLSilentLogging & 1) == 0)
                       {
-                        v103 = __CPLStoreOSLogDomain_3044();
-                        if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+                        v102 = __CPLStoreOSLogDomain_3044();
+                        if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 138412290;
-                          v147 = v102;
-                          _os_log_impl(&dword_1DC05A000, v103, OS_LOG_TYPE_DEFAULT, "Resetting sync anchor for %@", buf, 0xCu);
+                          v146 = v101;
+                          _os_log_impl(&dword_1DC05A000, v102, OS_LOG_TYPE_DEFAULT, "Resetting sync anchor for %@", buf, 0xCu);
                         }
                       }
 
-                      v93 = [*(*(a1 + 32) + 216) resetSyncAnchorForScope:v102 error:a2];
+                      v92 = [*(*(a1 + 32) + 216) resetSyncAnchorForScope:v101 error:a2];
 
                       goto LABEL_150;
                     }
 
                     if ((_CPLSilentLogging & 1) == 0)
                     {
-                      v99 = __CPLStoreOSLogDomain_3044();
-                      if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
+                      v98 = __CPLStoreOSLogDomain_3044();
+                      if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412290;
-                        v147 = v64;
-                        _os_log_impl(&dword_1DC05A000, v99, OS_LOG_TYPE_DEFAULT, "Setting sharing scope to %@ at opening", buf, 0xCu);
+                        v146 = v63;
+                        _os_log_impl(&dword_1DC05A000, v98, OS_LOG_TYPE_DEFAULT, "Setting sharing scope to %@ at opening", buf, 0xCu);
                       }
                     }
 
-                    v100 = *(a1 + 32);
-                    v97 = [v64 scopeIdentifier];
-                    [v100 _setSharingScopeIdentifier:v97];
+                    v99 = *(a1 + 32);
+                    v96 = [v63 scopeIdentifier];
+                    [v99 _setSharingScopeIdentifier:v96];
                   }
 
                   else
                   {
-                    if (v66)
+                    if (v65)
                     {
                       if (_CPLSilentLogging)
                       {
                         goto LABEL_158;
                       }
 
-                      v74 = __CPLStoreOSLogDomain_3044();
-                      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                      v73 = __CPLStoreOSLogDomain_3044();
+                      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
                       {
 LABEL_141:
                         *buf = 138412290;
-                        v147 = v64;
-                        _os_log_impl(&dword_1DC05A000, v74, OS_LOG_TYPE_DEFAULT, "Found inactive shared library scope at opening time: %@", buf, 0xCu);
+                        v146 = v63;
+                        _os_log_impl(&dword_1DC05A000, v73, OS_LOG_TYPE_DEFAULT, "Found inactive shared library scope at opening time: %@", buf, 0xCu);
                       }
 
 LABEL_157:
@@ -4989,30 +4926,30 @@ LABEL_157:
 
                     if ((_CPLSilentLogging & 1) == 0)
                     {
-                      v96 = __CPLStoreOSLogDomain_3044();
-                      if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+                      v95 = __CPLStoreOSLogDomain_3044();
+                      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412290;
-                        v147 = v64;
-                        _os_log_impl(&dword_1DC05A000, v96, OS_LOG_TYPE_ERROR, "Found an active shared library scope at opening time: %@ - this will need to be cleaned-up first", buf, 0xCu);
+                        v146 = v63;
+                        _os_log_impl(&dword_1DC05A000, v95, OS_LOG_TYPE_ERROR, "Found an active shared library scope at opening time: %@ - this will need to be cleaned-up first", buf, 0xCu);
                       }
                     }
 
-                    v97 = [*(a1 + 32) engineLibrary];
-                    v98 = [v97 syncManager];
-                    [v98 addBrokenScope:v64];
+                    v96 = [*(a1 + 32) engineLibrary];
+                    v97 = [v96 syncManager];
+                    [v97 addBrokenScope:v63];
                   }
                 }
 
-                v89 = [v64 scopeType];
-                if (v89 <= 8)
+                v88 = [v63 scopeType];
+                if (v88 <= 8)
                 {
-                  if (((1 << v89) & 0xE) != 0)
+                  if (((1 << v88) & 0xE) != 0)
                   {
                     goto LABEL_158;
                   }
 
-                  if (((1 << v89) & 0x30) != 0)
+                  if (((1 << v88) & 0x30) != 0)
                   {
                     if (overridesSharedLibraryFeatureFlag != 1 || (isSharedLibraryFeatureEnabled & 1) != 0)
                     {
@@ -5020,50 +4957,50 @@ LABEL_157:
                     }
                   }
 
-                  else if ((1 << v89) & 0x180) != 0 && (CPLIsCollectionShareFeatureEnabled())
+                  else if ((1 << v88) & 0x180) != 0 && (CPLIsCollectionShareFeatureEnabled())
                   {
                     goto LABEL_158;
                   }
                 }
 
-                if (![v65 valueForFlag:4])
+                if (![v64 valueForFlag:4])
                 {
                   if ((_CPLSilentLogging & 1) == 0)
                   {
-                    v94 = __CPLStoreOSLogDomain_3044();
-                    if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+                    v93 = __CPLStoreOSLogDomain_3044();
+                    if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v147 = v64;
-                      _os_log_impl(&dword_1DC05A000, v94, OS_LOG_TYPE_ERROR, "Found broken active scope at opening time: %@ - this will need to be cleaned-up first", buf, 0xCu);
+                      v146 = v63;
+                      _os_log_impl(&dword_1DC05A000, v93, OS_LOG_TYPE_ERROR, "Found broken active scope at opening time: %@ - this will need to be cleaned-up first", buf, 0xCu);
                     }
                   }
 
-                  v74 = [*(a1 + 32) engineLibrary];
-                  v95 = [v74 syncManager];
-                  [v95 addBrokenScope:v64];
+                  v73 = [*(a1 + 32) engineLibrary];
+                  v94 = [v73 syncManager];
+                  [v94 addBrokenScope:v63];
 
                   goto LABEL_157;
                 }
 
                 if ((_CPLSilentLogging & 1) == 0)
                 {
-                  v90 = __CPLStoreOSLogDomain_3044();
-                  if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+                  v89 = __CPLStoreOSLogDomain_3044();
+                  if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v147 = v64;
-                    _os_log_impl(&dword_1DC05A000, v90, OS_LOG_TYPE_ERROR, "Found broken active scope at opening time: %@ - the scope is already known to have ben deleted. Deleting the entry immediately", buf, 0xCu);
+                    v146 = v63;
+                    _os_log_impl(&dword_1DC05A000, v89, OS_LOG_TYPE_ERROR, "Found broken active scope at opening time: %@ - the scope is already known to have ben deleted. Deleting the entry immediately", buf, 0xCu);
                   }
                 }
 
 LABEL_149:
-                v91 = *(*(a1 + 32) + 216);
-                v92 = [v64 scopeIdentifier];
-                v93 = [v91 deleteScopeWithIdentifier:v92 error:a2];
+                v90 = *(*(a1 + 32) + 216);
+                v91 = [v63 scopeIdentifier];
+                v92 = [v90 deleteScopeWithIdentifier:v91 error:a2];
 
 LABEL_150:
-                if ((v93 & 1) == 0)
+                if ((v92 & 1) == 0)
                 {
                   goto LABEL_197;
                 }
@@ -5076,18 +5013,18 @@ LABEL_150:
                 goto LABEL_117;
               }
 
-              v79 = __CPLStoreOSLogDomain_3044();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+              v78 = __CPLStoreOSLogDomain_3044();
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
               {
-                v84 = [v64 scopeIdentifier];
-                v85 = [v78 currentFeatureVersion];
+                v83 = [v63 scopeIdentifier];
+                v84 = [v77 currentFeatureVersion];
                 *buf = 138543874;
-                v147 = v84;
-                v148 = 2048;
-                v149 = *&v75;
-                v150 = 2048;
-                v151 = v85;
-                _os_log_impl(&dword_1DC05A000, v79, OS_LOG_TYPE_DEFAULT, "Last supported feature version in sync for %{public}@ is %lu while server feature version was likely %lu - might have to catch up some changes though", buf, 0x20u);
+                v146 = v83;
+                v147 = 2048;
+                v148 = *&v74;
+                v149 = 2048;
+                v150 = v84;
+                _os_log_impl(&dword_1DC05A000, v78, OS_LOG_TYPE_DEFAULT, "Last supported feature version in sync for %{public}@ is %lu while server feature version was likely %lu - might have to catch up some changes though", buf, 0x20u);
               }
             }
 
@@ -5098,15 +5035,15 @@ LABEL_150:
                 goto LABEL_117;
               }
 
-              v79 = __CPLStoreOSLogDomain_3044();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+              v78 = __CPLStoreOSLogDomain_3044();
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
               {
-                v83 = [v64 scopeIdentifier];
+                v82 = [v63 scopeIdentifier];
                 *buf = 138543618;
-                v147 = v83;
-                v148 = 2048;
-                v149 = *&v75;
-                _os_log_impl(&dword_1DC05A000, v79, OS_LOG_TYPE_DEFAULT, "Last supported feature version in sync for %{public}@ is %lu - will have to confirm server feature version and maybe catch up some changes though", buf, 0x16u);
+                v146 = v82;
+                v147 = 2048;
+                v148 = *&v74;
+                _os_log_impl(&dword_1DC05A000, v78, OS_LOG_TYPE_DEFAULT, "Last supported feature version in sync for %{public}@ is %lu - will have to confirm server feature version and maybe catch up some changes though", buf, 0x16u);
               }
             }
 
@@ -5117,60 +5054,60 @@ LABEL_116:
 
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v82 = __CPLStoreOSLogDomain_3044();
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+            v81 = __CPLStoreOSLogDomain_3044();
+            if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v147 = v64;
-              _os_log_impl(&dword_1DC05A000, v82, OS_LOG_TYPE_ERROR, "Found remaining deleted scope %@ that should have been removed already", buf, 0xCu);
+              v146 = v63;
+              _os_log_impl(&dword_1DC05A000, v81, OS_LOG_TYPE_ERROR, "Found remaining deleted scope %@ that should have been removed already", buf, 0xCu);
             }
           }
 
           goto LABEL_149;
         }
 
-        if (v67)
+        if (v66)
         {
           goto LABEL_119;
         }
 
-        v68 = [v64 scopeIdentifier];
-        v69 = [v121 shouldIgnoreScopeWithIdentifier:v68];
+        v67 = [v63 scopeIdentifier];
+        v68 = [v120 shouldIgnoreScopeWithIdentifier:v67];
 
-        if (!v69)
+        if (!v68)
         {
           goto LABEL_119;
         }
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v70 = __CPLStoreOSLogDomain_3044();
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+          v69 = __CPLStoreOSLogDomain_3044();
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
           {
-            v71 = [v64 scopeIdentifier];
+            v70 = [v63 scopeIdentifier];
             *buf = 138543362;
-            v147 = v71;
-            _os_log_impl(&dword_1DC05A000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@ should be ignored by this engine - removing it", buf, 0xCu);
+            v146 = v70;
+            _os_log_impl(&dword_1DC05A000, v69, OS_LOG_TYPE_DEFAULT, "%{public}@ should be ignored by this engine - removing it", buf, 0xCu);
           }
         }
 
-        [v65 setValue:1 forFlag:4];
-        if (([*(*(a1 + 32) + 216) updateFlags:v65 forScope:v64 error:a2] & 1) == 0)
+        [v64 setValue:1 forFlag:4];
+        if (([*(*(a1 + 32) + 216) updateFlags:v64 forScope:v63 error:a2] & 1) == 0)
         {
           goto LABEL_197;
         }
 
 LABEL_158:
 
-        ++v63;
+        ++v62;
       }
 
-      while (v126 != v63);
-      v104 = [obj countByEnumeratingWithState:&v130 objects:v152 count:16];
-      v126 = v104;
+      while (v125 != v62);
+      v103 = [obj countByEnumeratingWithState:&v129 objects:v151 count:16];
+      v125 = v103;
     }
 
-    while (v104);
+    while (v103);
   }
 
   if (![*(*(a1 + 32) + 272) sizeOfResourcesToUpload] || !objc_msgSend(*(*(a1 + 32) + 208), "isEmpty"))
@@ -5178,8 +5115,8 @@ LABEL_158:
     goto LABEL_199;
   }
 
-  v105 = [*(*(a1 + 32) + 208) storedExtractedBatch];
-  if (v105)
+  v104 = [*(*(a1 + 32) + 208) storedExtractedBatch];
+  if (v104)
   {
 
 LABEL_199:
@@ -5187,21 +5124,21 @@ LABEL_199:
     goto LABEL_31;
   }
 
-  v112 = [*(a1 + 32) platformObject];
-  v113 = [v112 hasStoredChangeSessionUpdate];
+  v111 = [*(a1 + 32) platformObject];
+  v112 = [v111 hasStoredChangeSessionUpdate];
 
-  if (v113)
+  if (v112)
   {
     goto LABEL_199;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v114 = __CPLStoreOSLogDomain_3044();
-    if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+    v113 = __CPLStoreOSLogDomain_3044();
+    if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DC05A000, v114, OS_LOG_TYPE_ERROR, "Resources storage has orphaned resources - clearing", buf, 2u);
+      _os_log_impl(&dword_1DC05A000, v113, OS_LOG_TYPE_ERROR, "Resources storage has orphaned resources - clearing", buf, 2u);
     }
   }
 
@@ -5211,7 +5148,7 @@ LABEL_31:
   {
     if (!v4)
     {
-      goto LABEL_36;
+      return 0;
     }
 
     goto LABEL_38;
@@ -5223,30 +5160,30 @@ LABEL_31:
     v32 = [*(*(a1 + 32) + 216) disabledDateForScope:v31];
     if (!v32)
     {
-      v36 = [MEMORY[0x1E695DF00] date];
-      v37 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:31536000.0];
+      v35 = [MEMORY[0x1E695DF00] date];
+      v36 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:31536000.0];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v38 = __CPLStoreOSLogDomain_3044();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v37 = __CPLStoreOSLogDomain_3044();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1DC05A000, v38, OS_LOG_TYPE_DEFAULT, "Simulating Exit mode for Test Read-only mode", buf, 2u);
+          _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_DEFAULT, "Simulating Exit mode for Test Read-only mode", buf, 2u);
         }
       }
 
-      if (![*(*(a1 + 32) + 216) setDisabledDate:v36 forScope:v31 error:a2])
+      if (![*(*(a1 + 32) + 216) setDisabledDate:v35 forScope:v31 error:a2])
       {
 
         v33 = 0;
         goto LABEL_39;
       }
 
-      v39 = [*(*(a1 + 32) + 216) setDeleteDate:v37 forScope:v31 error:a2];
+      v38 = [*(*(a1 + 32) + 216) setDeleteDate:v36 forScope:v31 error:a2];
 
-      if ((v39 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
-        goto LABEL_36;
+        return 0;
       }
 
 LABEL_38:
@@ -5254,7 +5191,7 @@ LABEL_38:
       v33 = [v31 performPostUpgradeMigrationsWithError:a2];
 LABEL_39:
 
-      goto LABEL_40;
+      return v33;
     }
   }
 
@@ -5263,11 +5200,7 @@ LABEL_39:
     goto LABEL_38;
   }
 
-LABEL_36:
-  v33 = 0;
-LABEL_40:
-  v34 = *MEMORY[0x1E69E9840];
-  return v33;
+  return 0;
 }
 
 void __44__CPLEngineStore_openWithCompletionHandler___block_invoke_281(uint64_t a1)
@@ -5335,11 +5268,11 @@ uint64_t __55__CPLEngineStore__performBarrierTransaction_withBlock___block_invok
 
 - (void)_performTransaction:(id)transaction withBlock:(id)block
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   blockCopy = block;
   [(CPLEngineStore *)self _setTransactionOnCurrentThread:transactionCopy];
-  v31 = blockCopy;
+  v30 = blockCopy;
   if ([transactionCopy canWrite] && -[CPLEngineStore state](self, "state") == 2)
   {
     sizeOfResourcesToUpload = [(CPLEngineOutgoingResources *)self->_outgoingResources sizeOfResourcesToUpload];
@@ -5348,34 +5281,26 @@ uint64_t __55__CPLEngineStore__performBarrierTransaction_withBlock___block_invok
     countOfOriginalVideos = [(CPLEngineOutgoingResources *)self->_outgoingResources countOfOriginalVideos];
     v12 = 1;
     countOfOriginalOthers = [(CPLEngineOutgoingResources *)self->_outgoingResources countOfOriginalOthers];
-    v33 = countOfOriginalVideos;
+    v32 = countOfOriginalVideos;
     v13 = countOfOriginalImages;
     v14 = sizeOfOriginalResourcesToUpload;
     v15 = sizeOfResourcesToUpload;
-    blockCopy = v31;
+    blockCopy = v30;
   }
 
   else
   {
     v12 = 0;
     countOfOriginalOthers = 0;
-    v33 = 0;
+    v32 = 0;
     v13 = 0;
     v14 = 0;
     v15 = 0;
   }
 
   (*(blockCopy + 2))(blockCopy);
-  if (!v12)
+  if (!v12 || ([transactionCopy error], v16 = objc_claimAutoreleasedReturnValue(), v16, v16) || (v17 = -[CPLEngineOutgoingResources sizeOfResourcesToUpload](self->_outgoingResources, "sizeOfResourcesToUpload"), v18 = -[CPLEngineOutgoingResources sizeOfOriginalResourcesToUpload](self->_outgoingResources, "sizeOfOriginalResourcesToUpload"), v19 = -[CPLEngineOutgoingResources countOfOriginalImages](self->_outgoingResources, "countOfOriginalImages"), v20 = -[CPLEngineOutgoingResources countOfOriginalVideos](self->_outgoingResources, "countOfOriginalVideos"), v21 = -[CPLEngineOutgoingResources countOfOriginalOthers](self->_outgoingResources, "countOfOriginalOthers"), v17 == v15) && v18 == v14 && v19 == v13 && v20 == v32 && v21 == countOfOriginalOthers)
   {
-    goto LABEL_12;
-  }
-
-  error = [transactionCopy error];
-
-  if (error || (v17 = [(CPLEngineOutgoingResources *)self->_outgoingResources sizeOfResourcesToUpload], v18 = [(CPLEngineOutgoingResources *)self->_outgoingResources sizeOfOriginalResourcesToUpload], v19 = [(CPLEngineOutgoingResources *)self->_outgoingResources countOfOriginalImages], v20 = [(CPLEngineOutgoingResources *)self->_outgoingResources countOfOriginalVideos], v21 = [(CPLEngineOutgoingResources *)self->_outgoingResources countOfOriginalOthers], v17 == v15) && v18 == v14 && v19 == v13 && v20 == v33 && v21 == countOfOriginalOthers)
-  {
-LABEL_12:
     v22 = 0;
   }
 
@@ -5383,17 +5308,17 @@ LABEL_12:
   {
     v22 = 1;
     countOfOriginalOthers = v21;
-    v33 = v20;
+    v32 = v20;
     v13 = v19;
     v14 = v18;
     v15 = v17;
   }
 
-  error2 = [transactionCopy error];
-  v24 = error2;
-  if (error2)
+  error = [transactionCopy error];
+  v24 = error;
+  if (error)
   {
-    if (![error2 isCPLOperationCancelledError])
+    if (![error isCPLOperationCancelledError])
     {
       if ([v24 isCPLError])
       {
@@ -5405,11 +5330,11 @@ LABEL_12:
         v27 = __CPLTransactionOSLogDomain();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          error3 = [transactionCopy error];
+          error2 = [transactionCopy error];
           *buf = 138412546;
-          v35 = transactionCopy;
-          v36 = 2112;
-          v37 = error3;
+          v34 = transactionCopy;
+          v35 = 2112;
+          v36 = error2;
           _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_DEFAULT, "! %@ failed: %@", buf, 0x16u);
         }
       }
@@ -5424,11 +5349,11 @@ LABEL_12:
         v27 = __CPLTransactionOSLogDomain();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          error4 = [transactionCopy error];
+          error3 = [transactionCopy error];
           *buf = 138412546;
-          v35 = transactionCopy;
-          v36 = 2112;
-          v37 = error4;
+          v34 = transactionCopy;
+          v35 = 2112;
+          v36 = error3;
           _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_ERROR, "! %@ failed: %@", buf, 0x16u);
         }
       }
@@ -5442,7 +5367,7 @@ LABEL_12:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v35 = transactionCopy;
+        v34 = transactionCopy;
         _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_DEBUG, "! %@ failed: transaction was cancelled", buf, 0xCu);
       }
     }
@@ -5451,13 +5376,11 @@ LABEL_12:
   else if (v22)
   {
     WeakRetained = objc_loadWeakRetained(&self->_engineLibrary);
-    [WeakRetained notifyAttachedObjectsSizeOfResourcesToUploadDidChangeToSize:v15 sizeOfOriginalResourcesToUpload:v14 numberOfImages:v13 numberOfVideos:v33 numberOfOtherItems:countOfOriginalOthers];
+    [WeakRetained notifyAttachedObjectsSizeOfResourcesToUploadDidChangeToSize:v15 sizeOfOriginalResourcesToUpload:v14 numberOfImages:v13 numberOfVideos:v32 numberOfOtherItems:countOfOriginalOthers];
   }
 
 LABEL_30:
   [(CPLEngineStore *)self _removeTransactionOnCurrentThread:transactionCopy];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_handleException:(id)exception
@@ -5574,35 +5497,35 @@ LABEL_14:
 
 - (BOOL)resetSyncAnchorWithCause:(id)cause error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = [(CPLEngineScopeStorage *)self->_scopes enumeratorForScopesIncludeInactive:0, 0];
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (![(CPLEngineStore *)self _resetSyncAnchorWithCause:causeCopy scope:*(*(&v15 + 1) + 8 * i) error:error])
+        if (![(CPLEngineStore *)self _resetSyncAnchorWithCause:causeCopy scope:*(*(&v14 + 1) + 8 * i) error:error])
         {
           v12 = 0;
           goto LABEL_11;
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -5615,43 +5538,42 @@ LABEL_14:
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)resetCompleteSyncStateIncludingIDMappingWithCause:(id)cause error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
   if ([(CPLEngineStore *)self _resetGlobalStateWithError:error])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = [(CPLEngineScopeStorage *)self->_scopes enumeratorForScopesIncludeInactive:0, 0];
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          if (![(CPLEngineStore *)self _resetCompleteSyncStateIncludingIDMappingWithCause:causeCopy scope:*(*(&v15 + 1) + 8 * i) error:error])
+          if (![(CPLEngineStore *)self _resetCompleteSyncStateIncludingIDMappingWithCause:causeCopy scope:*(*(&v14 + 1) + 8 * i) error:error])
           {
 
             goto LABEL_12;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -5670,13 +5592,12 @@ LABEL_12:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)resetCompleteSyncStateWithCause:(id)cause error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
   if (self->_isUpdatingDisabledFeatures)
   {
@@ -5686,33 +5607,33 @@ LABEL_12:
 
   else if ([(CPLEngineStore *)self _resetGlobalStateWithError:error])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v8 = [(CPLEngineScopeStorage *)self->_scopes enumeratorForScopesIncludeInactive:0, 0];
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          if (![(CPLEngineStore *)self _resetCompleteSyncStateWithCause:causeCopy scope:*(*(&v15 + 1) + 8 * i) error:error])
+          if (![(CPLEngineStore *)self _resetCompleteSyncStateWithCause:causeCopy scope:*(*(&v14 + 1) + 8 * i) error:error])
           {
 
             goto LABEL_14;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v10)
         {
           continue;
@@ -5731,13 +5652,12 @@ LABEL_14:
     v7 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)resetLocalSyncStateWithCause:(id)cause date:(id)date error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
   dateCopy = date;
   if (self->_isUpdatingDisabledFeatures)
@@ -5751,33 +5671,33 @@ LABEL_14:
     [(CPLEngineStore *)self isClientInSyncWithClientCache];
     if ([(CPLEngineStore *)self _resetGlobalStateWithError:error])
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v11 = [(CPLEngineScopeStorage *)self->_scopes enumeratorForScopesIncludeInactive:0, 0];
-      v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v19;
+        v14 = *v18;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v19 != v14)
+            if (*v18 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            if (![(CPLEngineStore *)self _resetLocalSyncStateWithCause:causeCopy scope:*(*(&v18 + 1) + 8 * i) date:dateCopy error:error])
+            if (![(CPLEngineStore *)self _resetLocalSyncStateWithCause:causeCopy scope:*(*(&v17 + 1) + 8 * i) date:dateCopy error:error])
             {
               v10 = 0;
               goto LABEL_15;
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v13)
           {
             continue;
@@ -5797,13 +5717,12 @@ LABEL_15:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)_resetSyncAnchorWithCause:(id)cause scope:(id)scope error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
   scopeCopy = scope;
   scopeIdentifier = [scopeCopy scopeIdentifier];
@@ -5812,11 +5731,11 @@ LABEL_15:
     v11 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = causeCopy;
-      v19 = 2112;
-      v20 = scopeIdentifier;
-      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Resetting sync anchor (%@) for %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = causeCopy;
+      v18 = 2112;
+      v19 = scopeIdentifier;
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Resetting sync anchor (%@) for %@", &v16, 0x16u);
     }
   }
 
@@ -5830,13 +5749,12 @@ LABEL_15:
 
   v14 = [(CPLEngineScopeStorage *)self->_scopes resetSyncAnchorForScope:scopeCopy error:error];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_resetCompleteSyncStateIncludingIDMappingWithCause:(id)cause scope:(id)scope error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
   scopeCopy = scope;
   scopeIdentifier = [scopeCopy scopeIdentifier];
@@ -5845,11 +5763,11 @@ LABEL_15:
     v11 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = scopeIdentifier;
-      v19 = 2112;
-      v20 = causeCopy;
-      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Resetting complete sync state for %@ (%@)", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = scopeIdentifier;
+      v18 = 2112;
+      v19 = causeCopy;
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Resetting complete sync state for %@ (%@)", &v16, 0x16u);
     }
   }
 
@@ -5863,13 +5781,12 @@ LABEL_15:
 
   v14 = [(CPLEngineScopeStorage *)self->_scopes resetCompleteSyncStateIncludingIDMappingForScope:scopeCopy error:error];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_resetCompleteSyncStateWithCause:(id)cause scope:(id)scope error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
   scopeCopy = scope;
   scopeIdentifier = [scopeCopy scopeIdentifier];
@@ -5878,11 +5795,11 @@ LABEL_15:
     v11 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = scopeIdentifier;
-      v19 = 2112;
-      v20 = causeCopy;
-      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Resetting complete sync state for %@ (%@)", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = scopeIdentifier;
+      v18 = 2112;
+      v19 = causeCopy;
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Resetting complete sync state for %@ (%@)", &v16, 0x16u);
     }
   }
 
@@ -5896,13 +5813,12 @@ LABEL_15:
 
   v14 = [(CPLEngineScopeStorage *)self->_scopes resetCompleteSyncStateForScope:scopeCopy error:error];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_resetLocalSyncStateWithCause:(id)cause scope:(id)scope date:(id)date error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   causeCopy = cause;
   scopeCopy = scope;
   dateCopy = date;
@@ -5912,11 +5828,11 @@ LABEL_15:
     v14 = __CPLStoreOSLogDomain_3044();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412546;
-      v21 = scopeIdentifier;
-      v22 = 2112;
-      v23 = causeCopy;
-      _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Resetting local sync state for %@ (%@)", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = scopeIdentifier;
+      v21 = 2112;
+      v22 = causeCopy;
+      _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Resetting local sync state for %@ (%@)", &v19, 0x16u);
     }
   }
 
@@ -5930,7 +5846,6 @@ LABEL_15:
 
   v17 = [(CPLEngineScopeStorage *)self->_scopes resetLocalSyncStateForScope:scopeCopy error:error];
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -5988,51 +5903,49 @@ LABEL_11:
 
 - (id)_resetEventsJSON
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [(CPLEngineStore *)self _loadResetEvents];
   v3 = [(NSMutableArray *)self->_resetEvents count];
   if (v3)
   {
     v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v3];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v4 = self->_resetEvents;
-    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v16 + 1) + 8 * i);
+          v9 = *(*(&v15 + 1) + 8 * i);
           v10 = [v9 mutableCopy];
-          v14[0] = MEMORY[0x1E69E9820];
-          v14[1] = 3221225472;
-          v14[2] = __34__CPLEngineStore__resetEventsJSON__block_invoke;
-          v14[3] = &unk_1E8620420;
-          v15 = v10;
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = __34__CPLEngineStore__resetEventsJSON__block_invoke;
+          v13[3] = &unk_1E8620420;
+          v14 = v10;
           v11 = v10;
-          [v9 enumerateKeysAndObjectsUsingBlock:v14];
+          [v9 enumerateKeysAndObjectsUsingBlock:v13];
           [v3 addObject:v11];
         }
 
-        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -6053,34 +5966,34 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
 
 - (id)_resetEventsDescriptions
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   [(CPLEngineStore *)self _loadResetEvents];
   v3 = [(NSMutableArray *)self->_resetEvents count];
   if (v3)
   {
-    v27 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v3];
+    v26 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v3];
     date = [MEMORY[0x1E695DF00] date];
     lastObject = [(NSMutableArray *)self->_resetEvents lastObject];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = self->_resetEvents;
-    v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v5)
     {
       v6 = v5;
-      v26 = *v29;
+      v25 = *v28;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v29 != v26)
+          if (*v28 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v28 + 1) + 8 * i);
+          v8 = *(*(&v27 + 1) + 8 * i);
           v9 = [v8 objectForKeyedSubscript:@"date"];
           v10 = [v8 objectForKeyedSubscript:@"endDate"];
           if (v10)
@@ -6091,7 +6004,7 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
             v14 = [CPLDateFormatter stringFromDateAgo:v9 now:date];
             v15 = [CPLDateFormatter stringFromDateAgo:v10 now:date];
             v16 = [v11 stringWithFormat:@"%@ (%@) - %@ finished %@", v12, v13, v14, v15];
-            [v27 addObject:v16];
+            [v26 addObject:v16];
           }
 
           else
@@ -6126,11 +6039,11 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
               [v21 stringWithFormat:@"%@ (%@) - %@", v12, v13, v14];
             }
             v15 = ;
-            [v27 addObject:v15];
+            [v26 addObject:v15];
           }
         }
 
-        v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v6);
@@ -6139,12 +6052,10 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v26;
 }
 
 - (BOOL)hasPendingResetSync
@@ -6224,7 +6135,7 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
 - (void)_storeResetEvent:(id)event scopeIdentifier:(id)identifier date:(id)date pending:(BOOL)pending cause:(id)cause
 {
   pendingCopy = pending;
-  v33[5] = *MEMORY[0x1E69E9840];
+  v32[5] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   identifierCopy = identifier;
   dateCopy = date;
@@ -6256,47 +6167,47 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
     resetEvents = self->_resetEvents;
     if (pendingCopy)
     {
-      v32[0] = @"type";
-      v32[1] = @"cause";
-      v33[0] = eventCopy;
-      v33[1] = causeCopy;
-      v33[2] = uUIDString;
+      v31[0] = @"type";
+      v31[1] = @"cause";
+      v32[0] = eventCopy;
+      v32[1] = causeCopy;
+      v32[2] = uUIDString;
       date = dateCopy;
-      v32[2] = @"uuid";
-      v32[3] = @"date";
+      v31[2] = @"uuid";
+      v31[3] = @"date";
       if (!dateCopy)
       {
         date = [MEMORY[0x1E695DF00] date];
       }
 
-      v32[4] = @"pending";
-      v33[3] = date;
-      v33[4] = MEMORY[0x1E695E118];
+      v31[4] = @"pending";
+      v32[3] = date;
+      v32[4] = MEMORY[0x1E695E118];
       v22 = MEMORY[0x1E695DF20];
-      v23 = v33;
-      v24 = v32;
+      v23 = v32;
+      v24 = v31;
       v25 = 5;
     }
 
     else
     {
-      v30[0] = @"type";
-      v30[1] = @"cause";
-      v31[0] = eventCopy;
-      v31[1] = causeCopy;
-      v31[2] = uUIDString;
+      v29[0] = @"type";
+      v29[1] = @"cause";
+      v30[0] = eventCopy;
+      v30[1] = causeCopy;
+      v30[2] = uUIDString;
       date = dateCopy;
-      v30[2] = @"uuid";
-      v30[3] = @"date";
+      v29[2] = @"uuid";
+      v29[3] = @"date";
       if (!dateCopy)
       {
         date = [MEMORY[0x1E695DF00] date];
       }
 
-      v31[3] = date;
+      v30[3] = date;
       v22 = MEMORY[0x1E695DF20];
-      v23 = v31;
-      v24 = v30;
+      v23 = v30;
+      v24 = v29;
       v25 = 4;
     }
 
@@ -6312,8 +6223,6 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
     feedback = [WeakRetained feedback];
     [feedback reportResetType:eventCopy reason:causeCopy uuid:uUIDString];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadResetEvents
@@ -6330,33 +6239,33 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
       v6 = self->_resetEvents;
       self->_resetEvents = v5;
 
-      MEMORY[0x1EEE66BB8]();
+      MEMORY[0x1EEE66BB8](v5, v6);
     }
   }
 }
 
 - (void)registerStorage:(id)storage
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   if ([(CPLEngineStore *)self state])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v14 = storageCopy;
-        v15 = 2112;
+        v13 = storageCopy;
+        v14 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Trying to register %@ to %@ while the library is already open", buf, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to register %@ to %@ while the library is already open", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:368 description:{@"Trying to register %@ to %@ while the library is already open", storageCopy, self}];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v10 lineNumber:368 description:{@"Trying to register %@ to %@ while the library is already open", storageCopy, self}];
 
     abort();
   }
@@ -6372,49 +6281,47 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
   }
 
   [(NSHashTable *)storages addObject:storageCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_state)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLStoreOSLogDomain_3044();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = __CPLStoreOSLogDomain_3044();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = [objc_opt_class() stateDescriptionForState:self->_state];
+        v5 = [objc_opt_class() stateDescriptionForState:self->_state];
         *buf = 138412546;
         selfCopy = self;
-        v13 = 2112;
-        v14 = v6;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "at dealloc time, %@ should not be in state %@", buf, 0x16u);
+        v12 = 2112;
+        v13 = v5;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "at dealloc time, %@ should not be in state %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
-    v9 = [objc_opt_class() stateDescriptionForState:self->_state];
-    [currentHandler handleFailureInMethod:a2 object:self file:v8 lineNumber:360 description:{@"at dealloc time, %@ should not be in state %@", self, v9}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+    v8 = [objc_opt_class() stateDescriptionForState:self->_state];
+    [currentHandler handleFailureInMethod:a2 object:self file:v7 lineNumber:360 description:{@"at dealloc time, %@ should not be in state %@", self, v8}];
 
     abort();
   }
 
-  v10.receiver = self;
-  v10.super_class = CPLEngineStore;
-  [(CPLEngineStore *)&v10 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = CPLEngineStore;
+  [(CPLEngineStore *)&v9 dealloc];
 }
 
 - (CPLEngineStore)initWithEngineLibrary:(id)library
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  v74.receiver = self;
-  v74.super_class = CPLEngineStore;
-  v6 = [(CPLEngineStore *)&v74 init];
+  v73.receiver = self;
+  v73.super_class = CPLEngineStore;
+  v6 = [(CPLEngineStore *)&v73 init];
   v7 = v6;
   if (v6)
   {
@@ -6527,9 +6434,9 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
       {
         allObjects = [(NSHashTable *)v7->_storages allObjects];
         *buf = 138412546;
-        v76 = v7;
-        v77 = 2112;
-        v78 = allObjects;
+        v75 = v7;
+        v76 = 2112;
+        v77 = allObjects;
         _os_log_impl(&dword_1DC05A000, v62, OS_LOG_TYPE_DEBUG, "Initing store %@ - storages: %@", buf, 0x16u);
       }
     }
@@ -6543,26 +6450,25 @@ void __34__CPLEngineStore__resetEventsJSON__block_invoke(uint64_t a1, void *a2, 
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v69 = __CPLStoreOSLogDomain_3044();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        v68 = __CPLStoreOSLogDomain_3044();
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
-          v70 = objc_opt_class();
+          v69 = objc_opt_class();
           *buf = 138412290;
-          v76 = v70;
-          v71 = v70;
-          _os_log_impl(&dword_1DC05A000, v69, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+          v75 = v69;
+          v70 = v69;
+          _os_log_impl(&dword_1DC05A000, v68, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v73 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
-      [currentHandler handleFailureInMethod:a2 object:v7 file:v73 lineNumber:354 description:{@"No platform object specified for %@", objc_opt_class()}];
+      v72 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStore.m"];
+      [currentHandler handleFailureInMethod:a2 object:v7 file:v72 lineNumber:354 description:{@"No platform object specified for %@", objc_opt_class()}];
 
       abort();
     }
   }
 
-  v67 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

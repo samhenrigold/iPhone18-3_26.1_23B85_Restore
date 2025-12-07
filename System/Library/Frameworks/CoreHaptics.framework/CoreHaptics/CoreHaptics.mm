@@ -140,11 +140,11 @@ void CASmartPreferences::AddHandler<int>(CASmartPreferences *a1, uint64_t a2, ui
   operator new();
 }
 
-void sub_21569B778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_21569B778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v6 + 8);
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](v11 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -197,21 +197,21 @@ uint64_t std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:n
   return a1;
 }
 
-uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v5 = v4 + 1;
   if (v4 + 1 > 0x555555555555555)
   {
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v5)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v5)
   {
-    v5 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v5 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v8 = 0x555555555555555;
   }
@@ -231,14 +231,14 @@ uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFStr
   v16 = 48 * v4;
   std::construct_at[abi:ne200100]<CASmartPreferences::Pref,__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &,CASmartPreferences::Pref*>((48 * v4), a2, a3, a4);
   v17 = 48 * v4 + 48;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 48 * v4 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CASmartPreferences::Pref>,CASmartPreferences::Pref*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -247,9 +247,9 @@ uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFStr
   return v14;
 }
 
-void sub_21569B9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_21569B9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CASmartPreferences::Pref>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -287,21 +287,20 @@ void *CASmartPreferences::instance(CASmartPreferences *this)
 
 void *std::construct_at[abi:ne200100]<CASmartPreferences::Pref,__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &,CASmartPreferences::Pref*>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   v6 = *a3;
-  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100](v9, a4);
+  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100](v8, a4);
   *a1 = v5;
   a1[1] = v6;
-  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100]((a1 + 2), v9);
-  std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](v9);
-  v7 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100]((a1 + 2), v8);
+  std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](v8);
   return a1;
 }
 
-void sub_21569BC88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21569BC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -315,16 +314,16 @@ void CALog::Scope::SetPriorityThresholdFromPreference(CALog::Scope *this, const 
   CASmartPreferences::AddHandler<int>(a3, a2, CALog::PrefValueToPriority, v3);
 }
 
-void sub_21569BD3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21569BD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::__function::__func<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::destroy_deallocate(void *a1)
+void std::__function::__func<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<int>(__CFString const*,__CFString const*,int (*)(void const*,BOOL &),std::function<void ()(int)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100](a1 + 16);
+  std::__function::__value_func<void ()(int)>::~__value_func[abi:ne200100]((a1 + 16));
 
   operator delete(a1);
 }
@@ -341,7 +340,7 @@ void CASmartPreferences::_RegisterFirstHandler(uint64_t a1, const void *a2, __CF
     v8 = *(a1 + 80);
     if (v8 >= *(a1 + 88))
     {
-      v9 = std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(a1 + 72, &v11, &value, a4);
+      v9 = std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>((a1 + 72), &v11, &value, a4);
     }
 
     else
@@ -517,13 +516,13 @@ LABEL_10:
 
 NSURL *FullURLPathFromURL(NSURL *a1, NSURL *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v29 = v3;
-  v31 = v4;
-  v32 = [(NSURL *)v3 relativePath];
-  if ([v32 characterAtIndex:0] == 47)
+  v28 = v3;
+  v30 = v4;
+  v31 = [(NSURL *)v3 relativePath];
+  if ([v31 characterAtIndex:0] == 47)
   {
     v5 = v3;
     goto LABEL_41;
@@ -539,7 +538,7 @@ NSURL *FullURLPathFromURL(NSURL *a1, NSURL *a2)
   v8 = [MEMORY[0x277CCA8D8] mainBundle];
   v9 = [v8 bundleURL];
 
-  v28 = v9;
+  v27 = v9;
   [v7 addObject:v9];
   v10 = [MEMORY[0x277CCAA00] defaultManager];
   for (i = 0; i != 3; ++i)
@@ -562,25 +561,25 @@ NSURL *FullURLPathFromURL(NSURL *a1, NSURL *a2)
     }
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = v7;
-  v15 = [obj countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v15 = [obj countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v15)
   {
-    v16 = *v35;
+    v16 = *v34;
 LABEL_15:
     v17 = 0;
     while (1)
     {
-      if (*v35 != v16)
+      if (*v34 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v34 + 1) + 8 * v17);
+      v18 = *(*(&v33 + 1) + 8 * v17);
       if (kHAPIScope)
       {
         v19 = *kHAPIScope;
@@ -599,30 +598,30 @@ LABEL_15:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 136315906;
-        v39 = "CHHapticPattern.mm";
-        v40 = 1024;
-        v41 = 329;
-        v42 = 2080;
-        v43 = "FullURLPathFromURL";
-        v44 = 2112;
-        v45 = v18;
+        v38 = "CHHapticPattern.mm";
+        v39 = 1024;
+        v40 = 329;
+        v41 = 2080;
+        v42 = "FullURLPathFromURL";
+        v43 = 2112;
+        v44 = v18;
         _os_log_impl(&dword_21569A000, v19, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Searching for resource in '%@'", buf, 0x26u);
       }
 
 LABEL_25:
-      v21 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v32 isDirectory:0 relativeToURL:v18];
+      v21 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v31 isDirectory:0 relativeToURL:v18];
       v5 = v21;
       if (v21)
       {
-        v33 = 0;
-        v22 = [(NSURL *)v21 checkResourceIsReachableAndReturnError:&v33];
-        v23 = v33;
+        v32 = 0;
+        v22 = [(NSURL *)v21 checkResourceIsReachableAndReturnError:&v32];
+        v23 = v32;
         if (v22)
         {
           if (kHAPIScope)
           {
             v24 = *kHAPIScope;
-            v4 = v31;
+            v4 = v30;
             if (!v24)
             {
 LABEL_39:
@@ -635,26 +634,26 @@ LABEL_39:
           {
             v24 = MEMORY[0x277D86220];
             v25 = MEMORY[0x277D86220];
-            v4 = v31;
+            v4 = v30;
           }
 
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
             *buf = 136315906;
-            v39 = "CHHapticPattern.mm";
-            v40 = 1024;
-            v41 = 333;
-            v42 = 2080;
-            v43 = "FullURLPathFromURL";
-            v44 = 2112;
-            v45 = v5;
+            v38 = "CHHapticPattern.mm";
+            v39 = 1024;
+            v40 = 333;
+            v41 = 2080;
+            v42 = "FullURLPathFromURL";
+            v43 = 2112;
+            v44 = v5;
             _os_log_impl(&dword_21569A000, v24, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Found it at '%@'", buf, 0x26u);
           }
 
           goto LABEL_39;
         }
 
-        v4 = v31;
+        v4 = v30;
       }
 
       else
@@ -664,7 +663,7 @@ LABEL_39:
 
       if (v15 == ++v17)
       {
-        v15 = [obj countByEnumeratingWithState:&v34 objects:v46 count:16];
+        v15 = [obj countByEnumeratingWithState:&v33 objects:v45 count:16];
         if (v15)
         {
           goto LABEL_15;
@@ -679,7 +678,6 @@ LABEL_39:
 LABEL_40:
 
 LABEL_41:
-  v26 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -694,13 +692,13 @@ void AudioResource::AudioResource(AudioResource *this, NSURL *a2)
   *this = v3;
 }
 
-uint64_t AudioResource::verifyAudioFile(CFURLRef *this, int a2)
+uint64_t AudioResource::verifyAudioFile(ExtAudioFileRef *this, int a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = AudioResource::open(this);
   if (v4)
   {
-    goto LABEL_21;
+    return v4;
   }
 
   ioPropertyDataSize = 40;
@@ -731,13 +729,13 @@ uint64_t AudioResource::verifyAudioFile(CFURLRef *this, int a2)
 
     v8 = *this;
     *buf = 136315906;
-    v16 = "AudioResource.mm";
-    v17 = 1024;
-    v18 = 79;
-    v19 = 2080;
-    v20 = "verifyAudioFile";
-    v21 = 2112;
-    v22 = v8;
+    v15 = "AudioResource.mm";
+    v16 = 1024;
+    v17 = 79;
+    v18 = 2080;
+    v19 = "verifyAudioFile";
+    v20 = 2112;
+    v21 = v8;
     goto LABEL_16;
   }
 
@@ -767,13 +765,13 @@ uint64_t AudioResource::verifyAudioFile(CFURLRef *this, int a2)
 
     v10 = *this;
     *buf = 136315906;
-    v16 = "AudioResource.mm";
-    v17 = 1024;
-    v18 = 85;
-    v19 = 2080;
-    v20 = "verifyAudioFile";
-    v21 = 2112;
-    v22 = v10;
+    v15 = "AudioResource.mm";
+    v16 = 1024;
+    v17 = 85;
+    v18 = 2080;
+    v19 = "verifyAudioFile";
+    v20 = 2112;
+    v21 = v10;
 LABEL_16:
     _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Failed to get property for audio resource %@", buf, 0x26u);
 LABEL_17:
@@ -790,63 +788,55 @@ LABEL_18:
     }
   }
 
-LABEL_21:
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-uint64_t AudioResource::open(CFURLRef *this)
+uint64_t AudioResource::open(AudioResource *this)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (!this[1])
+  v17 = *MEMORY[0x277D85DE8];
+  if (*(this + 1))
   {
-    v3 = ExtAudioFileOpenURL(*this, this + 1);
-    if (v3)
+    return 0;
+  }
+
+  v3 = ExtAudioFileOpenURL(*this, this + 1);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  if (!kHAPIScope)
+  {
+    v4 = MEMORY[0x277D86220];
+    v5 = MEMORY[0x277D86220];
+    goto LABEL_8;
+  }
+
+  v4 = *kHAPIScope;
+  if (v4)
+  {
+LABEL_8:
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      if (kHAPIScope)
-      {
-        v4 = *kHAPIScope;
-        if (!v4)
-        {
-LABEL_11:
-          result = 4294962472;
-          goto LABEL_12;
-        }
-      }
-
-      else
-      {
-        v4 = MEMORY[0x277D86220];
-        v5 = MEMORY[0x277D86220];
-      }
-
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-      {
-        v6 = *this;
-        v8 = 136316162;
-        v9 = "AudioResource.mm";
-        v10 = 1024;
-        v11 = 54;
-        v12 = 2080;
-        v13 = "open";
-        v14 = 2112;
-        v15 = v6;
-        v16 = 1024;
-        v17 = v3;
-        _os_log_impl(&dword_21569A000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Failed to open audio resource %@: %u", &v8, 0x2Cu);
-      }
-
-      goto LABEL_11;
+      v6 = *this;
+      v7 = 136316162;
+      v8 = "AudioResource.mm";
+      v9 = 1024;
+      v10 = 54;
+      v11 = 2080;
+      v12 = "open";
+      v13 = 2112;
+      v14 = v6;
+      v15 = 1024;
+      v16 = v3;
+      _os_log_impl(&dword_21569A000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Failed to open audio resource %@: %u", &v7, 0x2Cu);
     }
   }
 
-  result = 0;
-LABEL_12:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 4294962472;
 }
 
-void AudioResource::~AudioResource(AudioResource *this)
+void AudioResource::~AudioResource(AudioResource *this, unint64_t a2)
 {
   if (*(this + 72) == 1)
   {
@@ -854,10 +844,10 @@ void AudioResource::~AudioResource(AudioResource *this)
     *(this + 72) = 0;
   }
 
-  v2 = *(this + 1);
-  if (v2)
+  v3 = *(this + 1);
+  if (v3)
   {
-    ExtAudioFileDispose(v2);
+    ExtAudioFileDispose(v3);
     *(this + 1) = 0;
   }
 }
@@ -939,19 +929,19 @@ void AVFASoftLink::AVFASoftLink(AVFASoftLink *this)
   }
 }
 
-void applesauce::xpc::dict::create(xpc_object_t *a1@<X8>)
+void applesauce::xpc::dict::create(xpc_object_t *__return_ptr a1@<X8>)
 {
-  v3 = xpc_dictionary_create(0, 0, 0);
-  v6 = v3;
-  if (!v3)
+  v2 = xpc_dictionary_create(0, 0, 0);
+  v5 = v2;
+  if (!v2)
   {
-    v3 = xpc_null_create();
+    v2 = xpc_null_create();
   }
 
+  v3 = v2;
   v4 = v3;
-  v5 = v4;
-  *a1 = v4;
-  if (!v4 || MEMORY[0x21606F7D0](v4) != MEMORY[0x277D86468])
+  *a1 = v3;
+  if (!v3 || MEMORY[0x21606F7D0](v3) != MEMORY[0x277D86468])
   {
     *a1 = xpc_null_create();
   }
@@ -966,9 +956,10 @@ BOOL applesauce::xpc::operator==(id *a1, void **a2)
   return v4;
 }
 
-void sub_21569D804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id location, char a12)
+void sub_21569D804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id location, ...)
 {
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&a12);
+  va_start(va, location);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -1041,28 +1032,32 @@ void std::allocator<unsigned long>::allocate_at_least[abi:ne200100](uint64_t a1,
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-id caulk::xpc::reply_watchdog_factory::reply_with_timeout<unsigned long>(caulk::xpc::reply_watchdog_factory *a1, void *a2)
+id caulk::xpc::reply_watchdog_factory::reply_with_timeout<unsigned long>(caulk::xpc::reply_watchdog_factory *a1, void *a2, int a3)
 {
-  v3 = a2;
+  v4 = a2;
   if ((*a1 & 1) == 0)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3321888768;
-    v9[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJmEEEU13block_pointerFvDpT_ES6_i_block_invoke;
-    v9[3] = &__block_descriptor_48_ea8_32c100_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJmEEEU13block_pointerFvDpT_ES6_iEUlmE__e8_v16__0Q8l;
-    caulk::xpc::reply_watchdog_factory::make_timer(a1);
-    v8 = MEMORY[0x21606F540](v3);
-    v10 = v7;
-    v11 = MEMORY[0x21606F540](v8);
-    v4 = MEMORY[0x21606F540](v9);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3321888768;
+    v12[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJmEEEU13block_pointerFvDpT_ES6_i_block_invoke;
+    v12[3] = &__block_descriptor_48_ea8_32c100_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJmEEEU13block_pointerFvDpT_ES6_iEUlmE__e8_v16__0Q8l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v10, a1);
+    v5 = MEMORY[0x21606F540](v4);
+    v11 = v5;
+    v13 = v10;
+    v14 = MEMORY[0x21606F540](v5);
+    v6 = MEMORY[0x21606F540](v12);
 
-    v5 = v10;
+    v7 = v13;
+    v13 = 0;
+
+    v8 = v10;
     v10 = 0;
 
-    v3 = v4;
+    v4 = v6;
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t __copy_helper_block_ea8_32c100_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJmEEEU13block_pointerFvDpT_ES6_iEUlmE_(uint64_t a1, uint64_t a2)
@@ -1091,7 +1086,7 @@ void __destroy_helper_block_ea8_32c100_ZTSKZN5caulk3xpc22reply_watchdog_factory1
   v3 = *(a1 + 32);
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1140,7 +1135,7 @@ void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -1277,45 +1272,37 @@ void *std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v5 == v10)
     {
-      v10 = result[1];
-      if (v5 == v10)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1353,45 +1340,37 @@ void *std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1399,7 +1378,7 @@ void *std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__
 
 uint64_t ResourceRegistry::incrementReferenceCountNoCreate(ResourceRegistry *this, unint64_t a2, const void *a3)
 {
-  v15 = a3;
+  v14 = a3;
   v5 = *(this + 1);
   v3 = this + 8;
   v4 = v5;
@@ -1428,7 +1407,7 @@ uint64_t ResourceRegistry::incrementReferenceCountNoCreate(ResourceRegistry *thi
     return 0;
   }
 
-  v12 = std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::find<void const*>(v6 + 9, &v15);
+  v12 = std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::find<void const*>(v6 + 9, &v14);
   if (v12)
   {
     v10 = (*(v12 + 6) + 1);
@@ -1437,10 +1416,10 @@ uint64_t ResourceRegistry::incrementReferenceCountNoCreate(ResourceRegistry *thi
 
   else
   {
-    v13 = v15;
+    *&v13 = v14;
     v10 = 1;
-    v14 = 1;
-    std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(v6 + 9, &v13);
+    DWORD2(v13) = 1;
+    std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(v6 + 9, &v13, &v13);
   }
 
   return v10;
@@ -1586,33 +1565,33 @@ uint64_t ResourceRegistry::getDurationForResource(ResourceRegistry *this, unint6
   return *&v5;
 }
 
-void *std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__emplace_unique_key_args<AVHapticPlayerParameterType,std::pair<AVHapticPlayerParameterType const,float> const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__emplace_unique_key_args<AVHapticPlayerParameterType,std::pair<AVHapticPlayerParameterType const,float> const&>(float *a1, unint64_t *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -1620,44 +1599,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::allocator<AVHapticPlayerFixedParameter>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
@@ -1743,7 +1722,7 @@ uint64_t std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std:
   return v2;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::__erase_unique<AVHapticPlayerParameterType>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float>,std::__unordered_map_hasher<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::hash<AVHapticPlayerParameterType>,std::equal_to<AVHapticPlayerParameterType>,true>,std::__unordered_map_equal<AVHapticPlayerParameterType,std::__hash_value_type<AVHapticPlayerParameterType,float>,std::equal_to<AVHapticPlayerParameterType>,std::hash<AVHapticPlayerParameterType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerParameterType,float>>>::find<AVHapticPlayerParameterType>(a1, a2);
   if (result)
@@ -1786,45 +1765,37 @@ void *std::__hash_table<std::__hash_value_type<AVHapticPlayerParameterType,float
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1965,12 +1936,12 @@ uint64_t std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std:
   return a1;
 }
 
-uint64_t __copy_helper_atomic_property__66(void *a1, uint64_t *a2)
+uint64_t *__copy_helper_atomic_property__66(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
+  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
 }
 
 void std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__do_rehash<true>(uint64_t a1, unint64_t a2)
@@ -2048,7 +2019,7 @@ LABEL_6:
   }
 }
 
-void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2058,7 +2029,7 @@ void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_
   std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2080,49 +2051,49 @@ void sub_21569FCA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __copy_helper_atomic_property_(void *a1, uint64_t *a2)
+uint64_t *__copy_helper_atomic_property_(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
+  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
 }
 
-uint64_t __copy_helper_atomic_property__67(void *a1, uint64_t *a2)
+uint64_t *__copy_helper_atomic_property__67(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
+  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
 }
 
-void *std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__emplace_unique_key_args<AVHapticPlayerEventType,std::pair<AVHapticPlayerEventType const,NSString * {__strong}> const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__emplace_unique_key_args<AVHapticPlayerEventType,std::pair<AVHapticPlayerEventType const,NSString * {__strong}> const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2130,67 +2101,67 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_21569FF7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21569FF7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__assign_unique<std::pair<AVHapticPlayerEventType const,NSString * {__strong}> const*>(uint64_t *a1, unint64_t *a2, unint64_t *a3)
+void std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__assign_unique<std::pair<AVHapticPlayerEventType const,NSString * {__strong}> const*>(uint64_t *result, unint64_t *a2, unint64_t *a3)
 {
   v4 = a2;
-  v6 = a1[1];
+  v6 = result[1];
   if (v6)
   {
     for (i = 0; i != v6; ++i)
     {
-      *(*a1 + 8 * i) = 0;
+      *(*result + 8 * i) = 0;
     }
 
-    v8 = a1[2];
-    a1[2] = 0;
-    a1[3] = 0;
+    v8 = result[2];
+    result[2] = 0;
+    result[3] = 0;
     if (v8)
     {
       v9 = a2 == a3;
@@ -2214,7 +2185,7 @@ void std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString *
         v8[2] = *v4;
         objc_storeStrong(v8 + 3, v11);
         v10 = *v8;
-        std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__node_insert_unique(a1, v8);
+        std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__node_insert_unique(result, v8);
         v4 += 2;
         if (v10)
         {
@@ -2232,12 +2203,12 @@ void std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString *
       while (!v12);
     }
 
-    std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__deallocate_node(a1, v10);
+    std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__deallocate_node(result, v10);
   }
 
   while (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__emplace_unique_key_args<AVHapticPlayerEventType,std::pair<AVHapticPlayerEventType const,NSString * {__strong}> const&>(a1, v4);
+    std::__hash_table<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::__unordered_map_hasher<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::hash<AVHapticPlayerEventType>,std::equal_to<AVHapticPlayerEventType>,true>,std::__unordered_map_equal<AVHapticPlayerEventType,std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>,std::equal_to<AVHapticPlayerEventType>,std::hash<AVHapticPlayerEventType>,true>,std::allocator<std::__hash_value_type<AVHapticPlayerEventType,NSString * {__strong}>>>::__emplace_unique_key_args<AVHapticPlayerEventType,std::pair<AVHapticPlayerEventType const,NSString * {__strong}> const&>(result, v4, v4);
     v4 += 2;
   }
 }
@@ -2285,10 +2256,10 @@ void *std::__shared_ptr_emplace<AudioResource>::__shared_ptr_emplace[abi:ne20010
 
 BOOL _Haptic_Check(uint64_t a1, uint64_t a2, const char *a3, const char *a4, int a5, void *a6)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (!a5)
   {
-    goto LABEL_12;
+    return a5 == 0;
   }
 
   if (!kHAPIScope)
@@ -2305,17 +2276,17 @@ LABEL_6:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v20 = "HapticUtils.h";
-      v21 = 1024;
-      v22 = 61;
-      v23 = 2080;
-      v24 = "_Haptic_Check";
-      v25 = 2080;
-      v26 = a3;
-      v27 = 2080;
-      v28 = a4;
-      v29 = 1024;
-      v30 = a5;
+      v19 = "HapticUtils.h";
+      v20 = 1024;
+      v21 = 61;
+      v22 = 2080;
+      v23 = "_Haptic_Check";
+      v24 = 2080;
+      v25 = a3;
+      v26 = 2080;
+      v27 = a4;
+      v28 = 1024;
+      v29 = a5;
       _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: %s: %s error %d", buf, 0x36u);
     }
   }
@@ -2333,25 +2304,22 @@ LABEL_6:
   v15 = [v13 dictionaryWithObjectsAndKeys:{v14, @"Error ", 0}];
   *a6 = [v12 errorWithDomain:@"com.apple.CoreHaptics" code:a5 userInfo:v15];
 
-LABEL_12:
-  result = a5 == 0;
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return a5 == 0;
 }
 
 uint64_t AudioResource::readAndAllocateRawBuffer(AudioResource *this, char **a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *a2 = 0;
-  v17 = 0;
+  v16 = 0;
   v3 = *(this + 13);
   inPropertyData[0] = *(this + 3);
   inPropertyData[1] = 0x96C70636DLL;
-  v13 = 4 * v3;
-  v14 = 1;
-  v15 = 4 * v3;
-  v16 = v3;
-  LODWORD(v17) = 32;
+  v12 = 4 * v3;
+  v13 = 1;
+  v14 = 4 * v3;
+  v15 = v3;
+  LODWORD(v16) = 32;
   v4 = ExtAudioFileSetProperty(*(this + 1), 0x63666D74u, 0x28u, inPropertyData);
   if (v4)
   {
@@ -2369,7 +2337,7 @@ LABEL_11:
           *(this + 1) = 0;
         }
 
-        goto LABEL_13;
+        return v5;
       }
     }
 
@@ -2383,33 +2351,31 @@ LABEL_11:
     {
       v8 = *this;
       *buf = 136315906;
-      v19 = "AudioResource.mm";
-      v20 = 1024;
-      v21 = 103;
-      v22 = 2080;
-      v23 = "readAndAllocateRawBuffer";
-      v24 = 2112;
-      v25 = v8;
+      v18 = "AudioResource.mm";
+      v19 = 1024;
+      v20 = 103;
+      v21 = 2080;
+      v22 = "readAndAllocateRawBuffer";
+      v23 = 2112;
+      v24 = v8;
       _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: ERROR: Failed to set property on audio resource %@", buf, 0x26u);
     }
 
     goto LABEL_11;
   }
 
-  v5 = AudioResource::incrementAllocatedBytes((4 * *(this + 2) * v16));
+  v5 = AudioResource::incrementAllocatedBytes((4 * *(this + 2) * v15));
   if (!v5)
   {
     operator new[]();
   }
 
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t AudioResource::incrementAllocatedBytes(AudioResource *this)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   std::mutex::lock(&AudioResource::getTotalAllocationLock(void)::sMutex);
   if (kHAPIScope)
   {
@@ -2428,17 +2394,17 @@ uint64_t AudioResource::incrementAllocatedBytes(AudioResource *this)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v12 = 136316162;
-    v13 = "AudioResource.mm";
-    v14 = 1024;
-    v15 = 143;
-    v16 = 2080;
-    v17 = "incrementAllocatedBytes";
-    v18 = 2048;
-    v19 = this;
-    v20 = 2048;
-    v21 = AudioResource::_sTotalAllocatedBytes;
-    _os_log_impl(&dword_21569A000, v2, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Adding %llu bytes to our existing %llu", &v12, 0x30u);
+    v11 = 136316162;
+    v12 = "AudioResource.mm";
+    v13 = 1024;
+    v14 = 143;
+    v15 = 2080;
+    v16 = "incrementAllocatedBytes";
+    v17 = 2048;
+    v18 = this;
+    v19 = 2048;
+    v20 = AudioResource::_sTotalAllocatedBytes;
+    _os_log_impl(&dword_21569A000, v2, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Adding %llu bytes to our existing %llu", &v11, 0x30u);
   }
 
 LABEL_8:
@@ -2465,13 +2431,13 @@ LABEL_20:
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315650;
-      v13 = "AudioResource.mm";
-      v14 = 1024;
-      v15 = 146;
-      v16 = 2080;
-      v17 = "incrementAllocatedBytes";
-      _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Memory limit reached on custom audio resources - unregister others to make space", &v12, 0x1Cu);
+      v11 = 136315650;
+      v12 = "AudioResource.mm";
+      v13 = 1024;
+      v14 = 146;
+      v15 = 2080;
+      v16 = "incrementAllocatedBytes";
+      _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Memory limit reached on custom audio resources - unregister others to make space", &v11, 0x1Cu);
     }
 
     goto LABEL_20;
@@ -2481,7 +2447,6 @@ LABEL_20:
   AudioResource::_sTotalAllocatedBytes = v5;
 LABEL_21:
   std::mutex::unlock(&AudioResource::getTotalAllocationLock(void)::sMutex);
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2494,66 +2459,66 @@ id AVFASoftLink::getAVAudioFormat(AVFASoftLink *this)
 
 uint64_t ResourceRegistry::emplace(uint64_t a1, unint64_t a2, void *a3, void *a4, void *a5, uint64_t a6)
 {
-  v22[5] = *MEMORY[0x277D85DE8];
-  v17 = a2;
-  v16 = a4;
-  v15 = a5;
-  v18 = a6;
-  LODWORD(v19) = 1;
-  std::unordered_map<void const*,unsigned int>::unordered_map(v14, &v18, 1);
-  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2ELm3EEEEJNS_10shared_ptrI13AudioResourceEEU8__strongP5NSURLU8__strongP12NSDictionaryNS_13unordered_mapIPKvjNS_4hashISE_EENS_8equal_toISE_EENS_9allocatorINS_4pairIKSE_jEEEEEEEEC2B8ne200100IJLm0ELm1ELm2ELm3EEJS5_S8_SB_SO_EJEJEJRS5_RS8_RSB_RSO_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSW_IJDpT2_EEEDpOT3_(&v18, a3, &v16, &v15, v14);
-  std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>(a1, &v17);
+  v21[5] = *MEMORY[0x277D85DE8];
+  v16 = a2;
+  v15 = a4;
+  v14 = a5;
+  v17 = a6;
+  LODWORD(v18) = 1;
+  std::unordered_map<void const*,unsigned int>::unordered_map(v13, &v17, 1);
+  _ZNSt3__112__tuple_implINS_15__tuple_indicesIJLm0ELm1ELm2ELm3EEEEJNS_10shared_ptrI13AudioResourceEEU8__strongP5NSURLU8__strongP12NSDictionaryNS_13unordered_mapIPKvjNS_4hashISE_EENS_8equal_toISE_EENS_9allocatorINS_4pairIKSE_jEEEEEEEEC2B8ne200100IJLm0ELm1ELm2ELm3EEJS5_S8_SB_SO_EJEJEJRS5_RS8_RSB_RSO_EEENS1_IJXspT_EEEENS_13__tuple_typesIJDpT0_EEENS1_IJXspT1_EEEENSW_IJDpT2_EEEDpOT3_(&v17, a3, &v15, &v14, v13);
+  std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>(a1, &v16, &v16, &v17);
   v11 = v10;
-  std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(v22);
+  std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(v21);
 
-  if (v19)
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
-  std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(v14);
+  std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(v13);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
-void sub_2156A0DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id a14, id a15, uint64_t a16, char a17)
+void sub_2156A0DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id a14, id a15, uint64_t a16, ...)
 {
-  std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>::~tuple(&a17);
+  va_start(va, a16);
+  std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>::~tuple(va);
   std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(&a9);
 
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(void *a1, void *a2, _OWORD *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2561,44 +2526,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t std::unordered_map<void const*,unsigned int>::unordered_map(uint64_t a1, void *a2, uint64_t a3)
@@ -2611,7 +2576,7 @@ uint64_t std::unordered_map<void const*,unsigned int>::unordered_map(uint64_t a1
     v5 = 16 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(a1, a2, a2);
       a2 += 2;
       v5 -= 16;
     }
@@ -2630,7 +2595,7 @@ uint64_t std::unordered_map<void const*,unsigned int>::unordered_map(uint64_t a1
   std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__emplace_unique_key_args<void const*,std::pair<void const* const,unsigned int> const&>(a1, i + 2, i + 1);
   }
 
   return a1;
@@ -2663,48 +2628,48 @@ void sub_2156A11CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::__construct_node<unsigned long &,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2770,12 +2735,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2789,22 +2754,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2838,13 +2803,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -3092,7 +3057,7 @@ uint64_t *ResourceRegistry::cleanUpRefCountKey@<X0>(uint64_t *this@<X0>, const v
     {
       if (std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::find<void const*>(v4 + 9, &v9) && v4[12] == 1)
       {
-        std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a3, v4 + 4);
+        std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a3, v4 + 4, v4 + 4);
         this = std::__tree<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::tuple<std::shared_ptr<AudioResource>,NSURL * {__strong},NSDictionary * {__strong},std::unordered_map<void const*,unsigned int>>>>>::erase(v6, v4);
       }
 
@@ -3315,31 +3280,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -3348,203 +3312,203 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3552,44 +3516,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::__erase_unique<void const*>(void *a1, void *a2)
@@ -3754,10 +3718,10 @@ void sub_2156ABEB0(_Unwind_Exception *a1)
 
 void AudioResource::decrementAllocatedBytes(unint64_t this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!this)
   {
-    goto LABEL_12;
+    return;
   }
 
   std::mutex::lock(&AudioResource::getTotalAllocationLock(void)::sMutex);
@@ -3774,17 +3738,17 @@ void AudioResource::decrementAllocatedBytes(unint64_t this)
 LABEL_6:
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v5 = 136316162;
-      v6 = "AudioResource.mm";
-      v7 = 1024;
-      v8 = 157;
-      v9 = 2080;
-      v10 = "decrementAllocatedBytes";
-      v11 = 2048;
-      v12 = this;
-      v13 = 2048;
-      v14 = AudioResource::_sTotalAllocatedBytes;
-      _os_log_impl(&dword_21569A000, v2, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Removing %llu bytes from our existing %llu", &v5, 0x30u);
+      v4 = 136316162;
+      v5 = "AudioResource.mm";
+      v6 = 1024;
+      v7 = 157;
+      v8 = 2080;
+      v9 = "decrementAllocatedBytes";
+      v10 = 2048;
+      v11 = this;
+      v12 = 2048;
+      v13 = AudioResource::_sTotalAllocatedBytes;
+      _os_log_impl(&dword_21569A000, v2, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Removing %llu bytes from our existing %llu", &v4, 0x30u);
     }
   }
 
@@ -3795,8 +3759,6 @@ LABEL_6:
 
   AudioResource::_sTotalAllocatedBytes -= this;
   std::mutex::unlock(&AudioResource::getTotalAllocationLock(void)::sMutex);
-LABEL_12:
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 OpaqueExtAudioFile *AudioResource::close(AudioResource *this)
@@ -3813,7 +3775,7 @@ OpaqueExtAudioFile *AudioResource::close(AudioResource *this)
 
 uint64_t CALog::PrefValueToPriority(const __CFString *this, BOOL *a2, BOOL *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   valuePtr = -1;
   v5 = CFGetTypeID(this);
   if (v5 == CFNumberGetTypeID())
@@ -3878,9 +3840,9 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v11 = 0;
-    v7 = sscanf(buffer, "%d", &v11);
-    v6 = v11 + 3;
+    v10 = 0;
+    v7 = sscanf(buffer, "%d", &v10);
+    v6 = v10 + 3;
     if (v7 != 1)
     {
       v6 = -1;
@@ -3889,7 +3851,6 @@ LABEL_22:
 
 LABEL_23:
   *a2 = v6 > 0;
-  v8 = *MEMORY[0x277D85DE8];
   return v6 & ~(v6 >> 31);
 }
 
@@ -4042,7 +4003,7 @@ void sub_2156AEB28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2156AFA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29)
+void sub_2156AFA0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29)
 {
   std::__hash_table<std::__hash_value_type<void const*,unsigned int>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,unsigned int>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,unsigned int>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,unsigned int>>>::~__hash_table(&a23);
 
@@ -4084,14 +4045,14 @@ void sub_2156B647C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_2156B6C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_2156B6C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2156B7ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
+void sub_2156B7ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
 {
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
@@ -4103,7 +4064,7 @@ void sub_2156B7ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156B8758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_2156B8758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
@@ -4112,28 +4073,28 @@ void sub_2156B8758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156B8B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2156B8B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, id);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, id);
   _Block_object_dispose(va, 8);
 
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2156B9964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2156B9964(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CHMetrics;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5736,10 +5697,11 @@ LABEL_14:
   CACFString::~CACFString(&suffix);
 }
 
-void sub_2156C045C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_2156C045C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   CACFString::~CACFString(&a9);
-  CACFString::~CACFString(&a11);
+  CACFString::~CACFString(va);
   _Unwind_Resume(a1);
 }
 
@@ -5859,15 +5821,15 @@ LABEL_17:
   return v7;
 }
 
-void sub_2156C0810(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+void sub_2156C0810(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  va_start(va, a23);
-  if (a7 < 0)
+  va_start(va, a27);
+  if (SHIBYTE(a11) < 0)
   {
-    operator delete(__p);
+    operator delete(a9);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a8, MEMORY[0x277D82818]);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a12, MEMORY[0x277D82818]);
   MEMORY[0x21606EFC0](va);
   _Unwind_Resume(a1);
 }
@@ -5914,110 +5876,110 @@ void sub_2156C0AD0(_Unwind_Exception *a1)
 
 CFStringRef PlatformUtilities_iOS::CopyProductTypeFilePrefix(int a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   __str[0] = 0;
   switch(a1)
   {
     case 1:
-      v22 = 0;
+      v21 = 0;
       v1 = 184;
       goto LABEL_171;
     case 2:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_151;
     case 3:
-      v22 = 97;
+      v21 = 97;
 LABEL_151:
       v1 = 238;
       goto LABEL_171;
     case 4:
-      v22 = 0;
+      v21 = 0;
       v1 = 520;
 LABEL_171:
       v12 = 98;
       goto LABEL_179;
     case 5:
-      v22 = 0;
+      v21 = 0;
       v1 = 10;
       goto LABEL_178;
     case 6:
-      v22 = 0;
+      v21 = 0;
       v1 = 11;
       goto LABEL_178;
     case 7:
-      v22 = 0;
+      v21 = 0;
       v1 = 12;
       goto LABEL_178;
     case 8:
-      v22 = 0;
+      v21 = 0;
       v1 = 16;
       goto LABEL_178;
     case 9:
-      v22 = 0;
+      v21 = 0;
       v1 = 17;
       goto LABEL_178;
     case 10:
-      v22 = 0;
+      v21 = 0;
       v1 = 101;
       goto LABEL_178;
     case 11:
-      v22 = 0;
+      v21 = 0;
       v1 = 111;
       goto LABEL_178;
     case 12:
-      v22 = 0;
+      v21 = 0;
       v1 = 121;
       goto LABEL_178;
     case 13:
-      v22 = 0;
+      v21 = 0;
       v1 = 20;
       goto LABEL_178;
     case 14:
-      v22 = 0;
+      v21 = 0;
       v1 = 21;
       goto LABEL_178;
     case 15:
-      v22 = 0;
+      v21 = 0;
       v1 = 22;
       goto LABEL_178;
     case 16:
-      v22 = 0;
+      v21 = 0;
       v1 = 201;
       goto LABEL_178;
     case 17:
-      v22 = 0;
+      v21 = 0;
       v1 = 211;
       goto LABEL_178;
     case 18:
-      v22 = 0;
+      v21 = 0;
       v1 = 221;
       goto LABEL_178;
     case 19:
-      v22 = 0;
+      v21 = 0;
       v1 = 32;
       goto LABEL_178;
     case 20:
-      v22 = 0;
+      v21 = 0;
       v1 = 33;
       goto LABEL_178;
     case 21:
-      v22 = 0;
+      v21 = 0;
       v1 = 79;
       goto LABEL_178;
     case 22:
-      v22 = 0;
+      v21 = 0;
       v1 = 42;
       goto LABEL_178;
     case 23:
-      v22 = 0;
+      v21 = 0;
       v1 = 43;
       goto LABEL_178;
     case 24:
-      v22 = 0;
+      v21 = 0;
       v1 = 49;
       goto LABEL_178;
     case 25:
-      v22 = 103;
+      v21 = 103;
       v1 = 52;
       goto LABEL_178;
     case 26:
@@ -6026,37 +5988,37 @@ LABEL_171:
     case 27:
       v17 = 112;
 LABEL_122:
-      v22 = v17;
+      v21 = v17;
       v1 = 53;
       goto LABEL_178;
     case 28:
-      v22 = 112;
+      v21 = 112;
       v1 = 54;
       goto LABEL_178;
     case 29:
-      v22 = 0;
+      v21 = 0;
       v1 = 63;
       goto LABEL_178;
     case 30:
-      v22 = 0;
+      v21 = 0;
       v1 = 64;
 LABEL_178:
       v12 = 100;
       goto LABEL_179;
     case 31:
-      v22 = 0;
+      v21 = 0;
       v1 = 104;
       goto LABEL_157;
     case 32:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_120;
     case 33:
-      v22 = 100;
+      v21 = 100;
 LABEL_120:
       v1 = 42;
       goto LABEL_176;
     case 34:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_142;
     case 35:
       v2 = 98;
@@ -6064,262 +6026,262 @@ LABEL_120:
     case 36:
       v2 = 115;
 LABEL_11:
-      v22 = v2;
+      v21 = v2;
 LABEL_142:
       v1 = 71;
       goto LABEL_176;
     case 37:
-      v22 = 0;
+      v21 = 0;
       v1 = 72;
       goto LABEL_176;
     case 38:
-      v22 = 0;
+      v21 = 0;
       v1 = 73;
       goto LABEL_176;
     case 39:
-      v22 = 0;
+      v21 = 0;
       v1 = 81;
       goto LABEL_176;
     case 40:
-      v22 = 0;
+      v21 = 0;
       v1 = 82;
       goto LABEL_176;
     case 41:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_159;
     case 42:
-      v22 = 109;
+      v21 = 109;
 LABEL_159:
       v1 = 85;
       goto LABEL_176;
     case 43:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_162;
     case 44:
-      v22 = 109;
+      v21 = 109;
 LABEL_162:
       v1 = 86;
       goto LABEL_176;
     case 45:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_175;
     case 46:
-      v22 = 109;
+      v21 = 109;
 LABEL_175:
       v1 = 87;
       goto LABEL_176;
     case 47:
-      v22 = 0;
+      v21 = 0;
       v1 = 96;
       goto LABEL_176;
     case 48:
-      v22 = 0;
+      v21 = 0;
       v1 = 97;
       goto LABEL_176;
     case 49:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_165;
     case 50:
-      v22 = 97;
+      v21 = 97;
 LABEL_165:
       v1 = 98;
       goto LABEL_176;
     case 51:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_88;
     case 52:
-      v22 = 97;
+      v21 = 97;
 LABEL_88:
       v1 = 99;
       goto LABEL_176;
     case 53:
-      v22 = 97;
+      v21 = 97;
       v1 = 105;
       goto LABEL_176;
     case 54:
-      v22 = 0;
+      v21 = 0;
       v1 = 120;
       goto LABEL_176;
     case 55:
-      v22 = 0;
+      v21 = 0;
       v1 = 127;
       goto LABEL_176;
     case 56:
-      v22 = 0;
+      v21 = 0;
       v1 = 128;
       goto LABEL_176;
     case 57:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_153;
     case 58:
-      v22 = 97;
+      v21 = 97;
 LABEL_153:
       v1 = 171;
       goto LABEL_176;
     case 59:
-      v22 = 0;
+      v21 = 0;
       v1 = 181;
       goto LABEL_176;
     case 60:
-      v22 = 0;
+      v21 = 0;
       v1 = 182;
       goto LABEL_176;
     case 61:
-      v22 = 0;
+      v21 = 0;
       v1 = 207;
       goto LABEL_176;
     case 62:
-      v22 = 0;
+      v21 = 0;
       v1 = 210;
       goto LABEL_176;
     case 63:
-      v22 = 0;
+      v21 = 0;
       v1 = 217;
       goto LABEL_176;
     case 64:
-      v22 = 0;
+      v21 = 0;
       v1 = 305;
       goto LABEL_176;
     case 65:
-      v22 = 0;
+      v21 = 0;
       v1 = 307;
       goto LABEL_176;
     case 66:
-      v22 = 0;
+      v21 = 0;
       v1 = 308;
       goto LABEL_176;
     case 67:
-      v22 = 0;
+      v21 = 0;
       v1 = 310;
       goto LABEL_176;
     case 68:
-      v22 = 0;
+      v21 = 0;
       v1 = 311;
       goto LABEL_176;
     case 69:
-      v22 = 0;
+      v21 = 0;
       v1 = 317;
       goto LABEL_176;
     case 70:
-      v22 = 0;
+      v21 = 0;
       v1 = 320;
       goto LABEL_176;
     case 71:
-      v22 = 0;
+      v21 = 0;
       v1 = 348;
       goto LABEL_176;
     case 72:
-      v22 = 0;
+      v21 = 0;
       v1 = 407;
       goto LABEL_176;
     case 73:
-      v22 = 0;
+      v21 = 0;
       v1 = 408;
       goto LABEL_176;
     case 74:
-      v22 = 0;
+      v21 = 0;
       v1 = 417;
       goto LABEL_176;
     case 75:
-      v22 = 0;
+      v21 = 0;
       v1 = 420;
       goto LABEL_176;
     case 76:
-      v22 = 0;
+      v21 = 0;
       v1 = 517;
       goto LABEL_176;
     case 77:
-      v22 = 0;
+      v21 = 0;
       v1 = 522;
       goto LABEL_176;
     case 78:
-      v22 = 0;
+      v21 = 0;
       v1 = 617;
       goto LABEL_176;
     case 79:
-      v22 = 0;
+      v21 = 0;
       v1 = 620;
 LABEL_176:
       v12 = 106;
       goto LABEL_179;
     case 80:
-      v22 = 97;
+      v21 = 97;
       v1 = 27;
       goto LABEL_157;
     case 81:
-      v22 = 97;
+      v21 = 97;
       v1 = 28;
       goto LABEL_157;
     case 82:
-      v22 = 0;
+      v21 = 0;
       v1 = 41;
       goto LABEL_157;
     case 83:
-      v22 = 0;
+      v21 = 0;
       v1 = 42;
       goto LABEL_157;
     case 84:
-      v22 = 0;
+      v21 = 0;
       v1 = 48;
       goto LABEL_157;
     case 85:
-      v22 = 0;
+      v21 = 0;
       v1 = 49;
       goto LABEL_157;
     case 86:
-      v22 = 0;
+      v21 = 0;
       v1 = 51;
       goto LABEL_157;
     case 87:
-      v22 = 0;
+      v21 = 0;
       v1 = 53;
       goto LABEL_157;
     case 88:
-      v22 = 0;
+      v21 = 0;
       v1 = 56;
       goto LABEL_157;
     case 89:
-      v22 = 0;
+      v21 = 0;
       v1 = 61;
       goto LABEL_157;
     case 90:
-      v22 = 0;
+      v21 = 0;
       v1 = 64;
       goto LABEL_157;
     case 91:
-      v22 = 0;
+      v21 = 0;
       v1 = 65;
       goto LABEL_157;
     case 92:
-      v22 = 0;
+      v21 = 0;
       v1 = 66;
       goto LABEL_157;
     case 93:
-      v22 = 0;
+      v21 = 0;
       v1 = 69;
       goto LABEL_157;
     case 94:
-      v22 = 0;
+      v21 = 0;
       v1 = 71;
       goto LABEL_157;
     case 95:
-      v22 = 0;
+      v21 = 0;
       v1 = 74;
       goto LABEL_157;
     case 96:
-      v22 = 0;
+      v21 = 0;
       v1 = 75;
       goto LABEL_157;
     case 97:
-      v22 = 0;
+      v21 = 0;
       v1 = 841;
       goto LABEL_157;
     case 98:
-      v22 = 0;
+      v21 = 0;
       v1 = 102;
       goto LABEL_157;
     case 99:
-      v22 = 0;
+      v21 = 0;
       v1 = 112;
       goto LABEL_157;
     case 100:
@@ -6328,7 +6290,7 @@ LABEL_176:
     case 101:
       v7 = 98;
 LABEL_111:
-      v22 = v7;
+      v21 = v7;
       v1 = 111;
       goto LABEL_157;
     case 102:
@@ -6337,7 +6299,7 @@ LABEL_111:
     case 103:
       v3 = 98;
 LABEL_128:
-      v22 = v3;
+      v21 = v3;
       v1 = 121;
       goto LABEL_157;
     case 104:
@@ -6346,7 +6308,7 @@ LABEL_128:
     case 105:
       v10 = 98;
 LABEL_90:
-      v22 = v10;
+      v21 = v10;
       v1 = 131;
       goto LABEL_157;
     case 106:
@@ -6355,7 +6317,7 @@ LABEL_90:
     case 107:
       v18 = 98;
 LABEL_137:
-      v22 = v18;
+      v21 = v18;
       v1 = 140;
       goto LABEL_157;
     case 108:
@@ -6364,7 +6326,7 @@ LABEL_137:
     case 109:
       v4 = 98;
 LABEL_42:
-      v22 = v4;
+      v21 = v4;
       v1 = 141;
       goto LABEL_157;
     case 110:
@@ -6373,7 +6335,7 @@ LABEL_42:
     case 111:
       v5 = 98;
 LABEL_47:
-      v22 = v5;
+      v21 = v5;
       v1 = 142;
       goto LABEL_157;
     case 112:
@@ -6382,7 +6344,7 @@ LABEL_47:
     case 113:
       v9 = 115;
 LABEL_109:
-      v22 = v9;
+      v21 = v9;
       v1 = 143;
       goto LABEL_157;
     case 114:
@@ -6391,7 +6353,7 @@ LABEL_109:
     case 115:
       v13 = 98;
 LABEL_107:
-      v22 = v13;
+      v21 = v13;
       v1 = 144;
       goto LABEL_157;
     case 116:
@@ -6400,7 +6362,7 @@ LABEL_107:
     case 117:
       v19 = 98;
 LABEL_134:
-      v22 = v19;
+      v21 = v19;
       v1 = 146;
       goto LABEL_157;
     case 118:
@@ -6409,7 +6371,7 @@ LABEL_134:
     case 119:
       v6 = 115;
 LABEL_139:
-      v22 = v6;
+      v21 = v6;
       v1 = 149;
       goto LABEL_157;
     case 120:
@@ -6418,7 +6380,7 @@ LABEL_139:
     case 121:
       v11 = 98;
 LABEL_73:
-      v22 = v11;
+      v21 = v11;
       v1 = 157;
       goto LABEL_157;
     case 122:
@@ -6427,7 +6389,7 @@ LABEL_73:
     case 123:
       v16 = 98;
 LABEL_131:
-      v22 = v16;
+      v21 = v16;
       v1 = 158;
       goto LABEL_157;
     case 124:
@@ -6436,7 +6398,7 @@ LABEL_131:
     case 125:
       v14 = 98;
 LABEL_98:
-      v22 = v14;
+      v21 = v14;
       v1 = 187;
       goto LABEL_157;
     case 126:
@@ -6445,19 +6407,19 @@ LABEL_98:
     case 127:
       v15 = 98;
 LABEL_125:
-      v22 = v15;
+      v21 = v15;
       v1 = 188;
       goto LABEL_157;
     case 128:
-      v22 = 0;
+      v21 = 0;
       v1 = 101;
       goto LABEL_86;
     case 129:
-      v22 = 0;
+      v21 = 0;
       v1 = 102;
       goto LABEL_86;
     case 130:
-      v22 = 0;
+      v21 = 0;
       v1 = 103;
 LABEL_86:
       v12 = 112;
@@ -6468,47 +6430,47 @@ LABEL_86:
     case 132:
       v8 = 112;
 LABEL_100:
-      v22 = v8;
+      v21 = v8;
       v1 = 398;
       goto LABEL_105;
     case 133:
-      v22 = 0;
+      v21 = 0;
       v1 = 456;
       goto LABEL_105;
     case 134:
-      v22 = 112;
+      v21 = 112;
       v1 = 698;
       goto LABEL_105;
     case 135:
-      v22 = 0;
+      v21 = 0;
       v1 = 720;
       goto LABEL_105;
     case 136:
-      v22 = 0;
+      v21 = 0;
       v1 = 721;
       goto LABEL_105;
     case 137:
-      v22 = 0;
+      v21 = 0;
       v1 = 734;
       goto LABEL_105;
     case 138:
-      v22 = 0;
+      v21 = 0;
       v1 = 1125;
       goto LABEL_105;
     case 139:
-      v22 = 0;
+      v21 = 0;
       v1 = 1250;
       goto LABEL_105;
     case 140:
-      v22 = 0;
+      v21 = 0;
       v1 = 1251;
       goto LABEL_105;
     case 141:
-      v22 = 0;
+      v21 = 0;
       v1 = 1252;
       goto LABEL_105;
     case 142:
-      v22 = 0;
+      v21 = 0;
       v1 = 1253;
 LABEL_105:
       v12 = 116;
@@ -6517,17 +6479,17 @@ LABEL_105:
       snprintf(__str, 0x18uLL, "%c%d%c", 116, 698, 116);
       goto LABEL_180;
     case 144:
-      v22 = 0;
+      v21 = 0;
       v1 = 100;
       v12 = 113;
       goto LABEL_179;
     case 145:
-      v22 = 0;
+      v21 = 0;
       v1 = 301;
 LABEL_157:
       v12 = 110;
 LABEL_179:
-      snprintf(__str, 0x18uLL, "%c%d%c", v12, v1, v22);
+      snprintf(__str, 0x18uLL, "%c%d%c", v12, v1, v21);
 LABEL_180:
       if (!__str[0])
       {
@@ -6542,7 +6504,6 @@ LABEL_182:
       break;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6596,11 +6557,12 @@ void ___ZL14queryBuildTypev_block_invoke()
   CACFBoolean::~CACFBoolean(&v11);
 }
 
-void sub_2156C13B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_2156C13B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   CACFBoolean::~CACFBoolean(&a9);
   CACFString::~CACFString(&a11);
-  CACFBoolean::~CACFBoolean(&a13);
+  CACFBoolean::~CACFBoolean(va);
   _Unwind_Resume(a1);
 }
 
@@ -6770,16 +6732,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -6802,9 +6764,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2156C194C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2156C194C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x21606EEF0](&a10);
+  MEMORY[0x21606EEF0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -6919,7 +6881,7 @@ double CACFPreferencesGetAppFloatValue(const __CFString *a1, const __CFString *a
 
 double CASmartPreferences::InterpretFloat(const __CFString *this, _BYTE *a2, BOOL *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   valuePtr = 0.0;
   *a2 = 0;
   if (this)
@@ -6930,7 +6892,7 @@ double CASmartPreferences::InterpretFloat(const __CFString *this, _BYTE *a2, BOO
       valuePtr = CFBooleanGetValue(this);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return valuePtr;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -6949,10 +6911,7 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = valuePtr;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return valuePtr;
 }
 
 uint64_t CACFPreferencesGetAppIntegerValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
@@ -6980,7 +6939,7 @@ uint64_t CACFPreferencesGetAppIntegerValue(const __CFString *a1, const __CFStrin
 
 uint64_t CASmartPreferences::InterpretInteger(const __CFString *this, _BYTE *a2, BOOL *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   *a2 = 0;
   if (this)
@@ -6991,7 +6950,7 @@ uint64_t CASmartPreferences::InterpretInteger(const __CFString *this, _BYTE *a2,
       valuePtr = CFBooleanGetValue(this);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return valuePtr;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -7010,10 +6969,7 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = valuePtr;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return valuePtr;
 }
 
 BOOL CACFPreferencesGetAppBooleanValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
@@ -7041,7 +6997,7 @@ BOOL CACFPreferencesGetAppBooleanValue(const __CFString *a1, const __CFString *a
 
 BOOL CASmartPreferences::InterpretBoolean(CASmartPreferences *this, _BYTE *a2, BOOL *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   *a2 = 0;
   if (this)
@@ -7053,7 +7009,7 @@ BOOL CASmartPreferences::InterpretBoolean(CASmartPreferences *this, _BYTE *a2, B
       LODWORD(this) = CFBooleanGetValue(v4);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return this != 0;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -7066,7 +7022,7 @@ LABEL_6:
     if (v5 != CFStringGetTypeID())
     {
       LODWORD(this) = 0;
-      goto LABEL_7;
+      return this != 0;
     }
 
     CFStringGetCString(v4, buffer, 64, 0x600u);
@@ -7074,30 +7030,30 @@ LABEL_6:
     {
       *a2 = 1;
       LODWORD(this) = valuePtr != 0;
-      goto LABEL_7;
+      return this != 0;
     }
 
-    v8 = buffer[0];
+    v7 = buffer[0];
     if (buffer[0])
     {
-      v9 = &buffer[1];
+      v8 = &buffer[1];
       do
       {
-        *(v9 - 1) = __tolower(v8);
-        v10 = *v9++;
-        v8 = v10;
+        *(v8 - 1) = __tolower(v7);
+        v9 = *v8++;
+        v7 = v9;
       }
 
-      while (v10);
+      while (v9);
     }
 
-    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v11 = v14 == 101) : (v11 = 0), v11))
+    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v10 = v13 == 101) : (v10 = 0), v10))
     {
       LODWORD(this) = 0;
       goto LABEL_6;
     }
 
-    if (*buffer == 7562617 || !(*buffer ^ 0x65757274 | v14))
+    if (*buffer == 7562617 || !(*buffer ^ 0x65757274 | v13))
     {
       LODWORD(this) = 1;
       *a2 = 1;
@@ -7109,15 +7065,12 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = this != 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return this != 0;
 }
 
 uint64_t CACFPreferencesGetAppFourCCValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = CFPreferencesCopyAppValue(a1, a2);
   if (!v4)
   {
@@ -7125,7 +7078,7 @@ uint64_t CACFPreferencesGetAppFourCCValue(const __CFString *a1, const __CFString
     v9 = 0;
     if (!a3)
     {
-      goto LABEL_11;
+      return v9;
     }
 
     goto LABEL_10;
@@ -7159,8 +7112,6 @@ LABEL_10:
     *a3 = v8;
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -7206,7 +7157,7 @@ void sub_2156C2A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156C2DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_2156C2DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a15, 8);
   _Block_object_dispose(&a19, 8);
@@ -7214,7 +7165,7 @@ void sub_2156C2DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156C4138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_2156C4138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a15, 8);
   _Block_object_dispose(&a19, 8);
@@ -7222,7 +7173,7 @@ void sub_2156C4138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156C45E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_2156C45E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a15, 8);
   _Block_object_dispose(&a19, 8);
@@ -7230,14 +7181,14 @@ void sub_2156C45E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156C4A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_2156C4A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2156C4F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_2156C4F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -7274,7 +7225,7 @@ void sub_2156C70BC(_Unwind_Exception *a1)
 float applyImmediateParameters(float a1, float a2, uint64_t a3)
 {
   v3 = a3;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a3 > 1012)
   {
     if (a3 == 1013)
@@ -7318,15 +7269,15 @@ LABEL_26:
 
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = 136315906;
-          v18 = "AVHapticClient.mm";
-          v19 = 1024;
-          v20 = 520;
-          v21 = 2080;
-          v22 = "applyImmediateParameters";
-          v23 = 1024;
-          v24 = v3;
-          _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: ImmediateParameter for ID %u is not supported", &v17, 0x22u);
+          v16 = 136315906;
+          v17 = "AVHapticClient.mm";
+          v18 = 1024;
+          v19 = 520;
+          v20 = 2080;
+          v21 = "applyImmediateParameters";
+          v22 = 1024;
+          v23 = v3;
+          _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: ImmediateParameter for ID %u is not supported", &v16, 0x22u);
         }
 
         goto LABEL_26;
@@ -7386,94 +7337,90 @@ LABEL_27:
         v14 = v13;
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v17 = 136316930;
-          v18 = "AVHapticClient.mm";
-          v19 = 1024;
-          v20 = 523;
-          v21 = 2080;
-          v22 = "applyImmediateParameters";
-          v23 = 1024;
-          v24 = v3;
-          v25 = 2048;
-          v26 = a1;
-          v27 = 2048;
-          v28 = a2;
-          v29 = 2048;
-          v30 = v7;
-          v31 = 2080;
-          v32 = v9;
-          _os_log_impl(&dword_21569A000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: fixed param[%u]: source value: %.2f, immediateParameter value: %.2f, result value: %.2f (%s)", &v17, 0x4Au);
+          v16 = 136316930;
+          v17 = "AVHapticClient.mm";
+          v18 = 1024;
+          v19 = 523;
+          v20 = 2080;
+          v21 = "applyImmediateParameters";
+          v22 = 1024;
+          v23 = v3;
+          v24 = 2048;
+          v25 = a1;
+          v26 = 2048;
+          v27 = a2;
+          v28 = 2048;
+          v29 = v7;
+          v30 = 2080;
+          v31 = v9;
+          _os_log_impl(&dword_21569A000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: fixed param[%u]: source value: %.2f, immediateParameter value: %.2f, result value: %.2f (%s)", &v16, 0x4Au);
         }
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void startEventFromEvent(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
-  v43 = v6;
+  v40 = v6;
   v8 = [v6 fixedParamCount];
-  v45 = 0;
-  memset(v44, 0, sizeof(v44));
+  v42 = 0;
+  memset(v41, 0, sizeof(v41));
   if (v8)
   {
     v9 = 0;
-    v39 = v8;
+    v36 = v8;
     v10 = v8;
-    v11 = ([v43 fixedParams] + 8);
-    v12 = v44 + 2;
+    v11 = ([v40 fixedParams] + 8);
+    v12 = v41 + 2;
     do
     {
       v13 = *(v11 - 1);
       *(v12 - 1) = v13;
-      v14 = *v11;
       if (v7)
       {
-        v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v13];
-        v16 = [v7 objectForKey:v15];
+        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v13];
+        v15 = [v7 objectForKey:v14];
 
-        if (v16)
+        if (v15)
         {
-          v17 = *v11;
-          [v16 floatValue];
-          applyImmediateParameters(v17, v18, v13);
+          v16 = *v11;
+          [v15 floatValue];
+          applyImmediateParameters(v16, v17, v13);
         }
-
-        v19 = *(v11 - 2);
       }
 
       clientParamValueToFixedParamValue();
-      v21 = v20;
-      *v12 = v20;
+      v19 = v18;
+      *v12 = v18;
       if (kAVHCScope)
       {
         if (*(kAVHCScope + 8))
         {
-          v22 = *kAVHCScope;
-          if (v22)
+          v20 = *kAVHCScope;
+          if (v20)
           {
-            v23 = v22;
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+            v21 = v20;
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136316418;
-              v47 = "AVHapticClient.mm";
-              v48 = 1024;
-              v49 = 548;
-              v50 = 2080;
-              v51 = "startEventFromEvent";
-              v52 = 1024;
-              *v53 = v9;
-              *&v53[4] = 1024;
-              *&v53[6] = v13;
-              LOWORD(v54[0]) = 2048;
-              *(v54 + 2) = v21;
-              _os_log_impl(&dword_21569A000, v23, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Copied fixed param[%d]: ID %d, normalized value %f, for start event", buf, 0x32u);
+              v44 = "AVHapticClient.mm";
+              v45 = 1024;
+              v46 = 548;
+              v47 = 2080;
+              v48 = "startEventFromEvent";
+              v49 = 1024;
+              *v50 = v9;
+              *&v50[4] = 1024;
+              *&v50[6] = v13;
+              LOWORD(v51[0]) = 2048;
+              *(v51 + 2) = v19;
+              _os_log_impl(&dword_21569A000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Copied fixed param[%d]: ID %d, normalized value %f, for start event", buf, 0x32u);
             }
           }
         }
@@ -7485,84 +7432,82 @@ void startEventFromEvent(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_
     }
 
     while (v10 != v9);
-    LODWORD(v44[0]) = v39;
-    v24 = v44;
+    LODWORD(v41[0]) = v36;
+    v22 = v41;
   }
 
   else
   {
-    v24 = 0;
+    v22 = 0;
   }
 
   if (kAVHCScope)
   {
     if (*(kAVHCScope + 8))
     {
-      v25 = *kAVHCScope;
-      if (v25)
+      v23 = *kAVHCScope;
+      if (v23)
       {
-        v26 = v25;
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v24 = v23;
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          [v43 time];
-          v28 = v27;
-          v29 = [v43 eventType];
+          [v40 time];
+          v26 = v25;
+          v27 = [v40 eventType];
           *buf = 136316162;
-          v47 = "AVHapticClient.mm";
-          v48 = 1024;
-          v49 = 553;
-          v50 = 2080;
-          v51 = "startEventFromEvent";
-          v52 = 2048;
-          *v53 = v28;
-          *&v53[8] = 1024;
-          v54[0] = v29;
-          _os_log_impl(&dword_21569A000, v26, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating start event at relative time %f for eventID: %u", buf, 0x2Cu);
+          v44 = "AVHapticClient.mm";
+          v45 = 1024;
+          v46 = 553;
+          v47 = 2080;
+          v48 = "startEventFromEvent";
+          v49 = 2048;
+          *v50 = v26;
+          *&v50[8] = 1024;
+          v51[0] = v27;
+          _os_log_impl(&dword_21569A000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Creating start event at relative time %f for eventID: %u", buf, 0x2Cu);
         }
       }
     }
   }
 
-  [v43 time];
-  v31 = v30;
-  v32 = [v43 eventType];
-  if (v24)
+  [v40 time];
+  v29 = v28;
+  v30 = [v40 eventType];
+  if (v22)
   {
-    v33 = *v24;
-    v34 = a5;
-    *(a5 + 56) = v24[1];
-    v35 = v24[3];
-    *(a5 + 72) = v24[2];
-    *(a5 + 88) = v35;
-    v36 = 8 * *v24 + 44;
-    *(a5 + 104) = *(v24 + 16);
-    *(a5 + 40) = v33;
-    v37 = v36 & 0xFFFC | 0x10000;
+    v31 = *v22;
+    v32 = a5;
+    *(a5 + 56) = v22[1];
+    v33 = v22[3];
+    *(a5 + 72) = v22[2];
+    *(a5 + 88) = v33;
+    v34 = 8 * *v22 + 44;
+    *(a5 + 104) = *(v22 + 16);
+    *(a5 + 40) = v31;
+    v35 = v34 & 0xFFFC | 0x10000;
   }
 
   else
   {
-    v34 = a5;
+    v32 = a5;
     *(a5 + 104) = 0;
     *(a5 + 88) = 0u;
     *(a5 + 72) = 0u;
     *(a5 + 56) = 0u;
     *(a5 + 40) = 0u;
-    v37 = 65648;
+    v35 = 65648;
   }
 
-  *v34 = v37;
-  *(v34 + 8) = v31;
-  *(v34 + 16) = a3;
-  *(v34 + 24) = v32;
-  *(v34 + 32) = a4;
-
-  v38 = *MEMORY[0x277D85DE8];
+  *v32 = v35;
+  *(v32 + 8) = v29;
+  *(v32 + 16) = a3;
+  *(v32 + 24) = v30;
+  *(v32 + 32) = a4;
 }
 
 unint64_t HapticClientUtil::getIndexOfSplitPoint<AVHapticEvent>(void *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 count];
   v3 = [v1 objectAtIndexedSubscript:0];
@@ -7582,15 +7527,15 @@ LABEL_10:
           v13 = v12;
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
-            v20 = 136315906;
-            v21 = "AVHapticClient.mm";
-            v22 = 1024;
-            v23 = 1555;
-            v24 = 2080;
-            v25 = "getIndexOfSplitPoint";
-            v26 = 1024;
-            v27 = v2 >> 1;
-            _os_log_impl(&dword_21569A000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: No good split point found - returning midpoint %u", &v20, 0x22u);
+            v19 = 136315906;
+            v20 = "AVHapticClient.mm";
+            v21 = 1024;
+            v22 = 1555;
+            v23 = 2080;
+            v24 = "getIndexOfSplitPoint";
+            v25 = 1024;
+            v26 = v2 >> 1;
+            _os_log_impl(&dword_21569A000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: No good split point found - returning midpoint %u", &v19, 0x22u);
           }
         }
       }
@@ -7624,21 +7569,21 @@ LABEL_10:
               v15 = v17;
               if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
               {
-                v20 = 136316418;
-                v21 = "AVHapticClient.mm";
-                v22 = 1024;
-                v23 = 1549;
-                v24 = 2080;
-                v25 = "getIndexOfSplitPoint";
-                v26 = 1024;
-                v27 = v2;
-                v28 = 1024;
-                v29 = v6;
-                v30 = 2048;
-                v31 = v9;
+                v19 = 136316418;
+                v20 = "AVHapticClient.mm";
+                v21 = 1024;
+                v22 = 1549;
+                v23 = 2080;
+                v24 = "getIndexOfSplitPoint";
+                v25 = 1024;
+                v26 = v2;
+                v27 = 1024;
+                v28 = v6;
+                v29 = 2048;
+                v30 = v9;
                 v16 = "%25s:%-5d %s: Force-splitting length-%u array at index %u (delta from previous event: %f seconds)";
 LABEL_27:
-                _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_DEBUG, v16, &v20, 0x32u);
+                _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_DEBUG, v16, &v19, 0x32u);
               }
 
               goto LABEL_28;
@@ -7668,18 +7613,18 @@ LABEL_27:
           v15 = v14;
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
-            v20 = 136316418;
-            v21 = "AVHapticClient.mm";
-            v22 = 1024;
-            v23 = 1542;
-            v24 = 2080;
-            v25 = "getIndexOfSplitPoint";
-            v26 = 1024;
-            v27 = v2;
-            v28 = 1024;
-            v29 = v6;
-            v30 = 2048;
-            v31 = v9;
+            v19 = 136316418;
+            v20 = "AVHapticClient.mm";
+            v21 = 1024;
+            v22 = 1542;
+            v23 = 2080;
+            v24 = "getIndexOfSplitPoint";
+            v25 = 1024;
+            v26 = v2;
+            v27 = 1024;
+            v28 = v6;
+            v29 = 2048;
+            v30 = v9;
             v16 = "%25s:%-5d %s: Splitting length-%u array at index %u (delta from previous event: %f seconds)";
             goto LABEL_27;
           }
@@ -7692,7 +7637,6 @@ LABEL_28:
 LABEL_29:
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -7822,7 +7766,7 @@ void sub_2156CDC20(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2156CE7BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id location)
+void sub_2156CE7BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id location)
 {
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose((v39 - 176), 8);
@@ -7848,14 +7792,14 @@ void sub_2156CEE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156CF568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_2156CF568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2156CF7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_2156CF7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   v21 = v20;
 
@@ -7863,7 +7807,7 @@ void sub_2156CF7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156CFB14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30)
+void sub_2156CFB14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30)
 {
   objc_destroyWeak((v31 + 40));
   objc_destroyWeak(&location);
@@ -7872,7 +7816,7 @@ void sub_2156CFB14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2156CFFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_2156CFFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -7970,41 +7914,41 @@ uint64_t *std::__tree<std::__value_type<unsigned long,AVHapticSequenceEntry * {_
   return v3;
 }
 
-void *std::__tree<std::__value_type<unsigned long,AVHapticSequenceEntry * {__strong}>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,AVHapticSequenceEntry * {__strong}>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,AVHapticSequenceEntry * {__strong}>>>::__emplace_unique_key_args<unsigned long,unsigned long &,AVHapticSequenceEntry * {__strong}>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,AVHapticSequenceEntry * {__strong}>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,AVHapticSequenceEntry * {__strong}>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,AVHapticSequenceEntry * {__strong}>>>::__emplace_unique_key_args<unsigned long,unsigned long &,AVHapticSequenceEntry * {__strong}>(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8052,7 +7996,7 @@ void sub_2156D22C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2156D2660(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
+void sub_2156D2660(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
 {
   if (a2 == 1)
   {
@@ -8087,6 +8031,34 @@ void sub_2156D55D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
+void sub_2156D5CEC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 buf, __int128 a14)
+{
+  if (a2 == 1)
+  {
+    objc_begin_catch(a1);
+    v21 = CALog::LogObjIfEnabled(1, *(v17 + 1984), v20);
+    v22 = v21;
+    if (v21 && os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315650;
+      *(&buf + 4) = "CHHapticEngine.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 561;
+      WORD1(a14) = 2080;
+      *(&a14 + 4) = "[CHHapticEngine handleMediaServerRecovery:]_block_invoke";
+      _os_log_impl(&dword_21569A000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: FATAL ERROR: Unable to reconnect to server", &buf, 0x1Cu);
+    }
+
+    v23 = v14[9];
+    v14[9] = 0;
+
+    objc_end_catch();
+    JUMPOUT(0x2156D5C50);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void sub_2156D655C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id obj)
 {
   objc_sync_exit(obj);
@@ -8094,7 +8066,7 @@ void sub_2156D655C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2156D6C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
+void sub_2156D6C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31)
 {
   objc_destroyWeak((v35 + 32));
 
@@ -8157,14 +8129,14 @@ void sub_2156D9490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156DACBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_2156DACBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2156DB1AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
+void sub_2156DB1AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
 {
   objc_destroyWeak((v29 + 48));
   objc_destroyWeak(&location);
@@ -8173,14 +8145,14 @@ void sub_2156DB1AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2156DC2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_2156DC2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2156DCCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_2156DCCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -8216,7 +8188,7 @@ void sub_2156E0DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2156E1C54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, id location, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
+void sub_2156E1C54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32)
 {
   objc_destroyWeak((v35 + 64));
 
@@ -8246,7 +8218,7 @@ void sub_2156E2B30(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2156E41CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::mutex *a9, uint64_t a10, void *a11, void *a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
+void sub_2156E41CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::mutex *a9, uint64_t a10, void *a11, void *a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
 {
   if (a14)
   {
@@ -8266,7 +8238,7 @@ void sub_2156E41CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2156E4B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_2156E4B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   std::mutex::unlock(v21);
   _Block_object_dispose(&a15, 8);
@@ -8276,7 +8248,7 @@ void sub_2156E4B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t newStateFromOld(int a1, int a2, int a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = 2;
@@ -8364,27 +8336,26 @@ uint64_t newStateFromOld(int a1, int a2, int a3)
         v12 = v11;
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          v15 = 136316674;
-          v16 = "CHHapticEngine.mm";
-          v17 = 1024;
-          v18 = 2298;
-          v19 = 2080;
-          v20 = "newStateFromOld";
-          v21 = 1024;
-          v22 = a1;
-          v23 = 1024;
-          v24 = a2;
-          v25 = 1024;
-          v26 = a3;
-          v27 = 1024;
-          v28 = v7;
-          _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Old: %d mute: %d running: %d => New: %d", &v15, 0x34u);
+          v14 = 136316674;
+          v15 = "CHHapticEngine.mm";
+          v16 = 1024;
+          v17 = 2298;
+          v18 = 2080;
+          v19 = "newStateFromOld";
+          v20 = 1024;
+          v21 = a1;
+          v22 = 1024;
+          v23 = a2;
+          v24 = 1024;
+          v25 = a3;
+          v26 = 1024;
+          v27 = v7;
+          _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Old: %d mute: %d running: %d => New: %d", &v14, 0x34u);
         }
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -8399,41 +8370,41 @@ void std::__tree<std::__value_type<unsigned long,std::pair<NSURL * {__strong},NS
   }
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::pair<NSURL * {__strong},NSDictionary * {__strong}>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<NSURL * {__strong},NSDictionary * {__strong}>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<NSURL * {__strong},NSDictionary * {__strong}>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,std::tuple<NSURL * {__strong},NSDictionary * {__strong}>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long,std::pair<NSURL * {__strong},NSDictionary * {__strong}>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::pair<NSURL * {__strong},NSDictionary * {__strong}>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::pair<NSURL * {__strong},NSDictionary * {__strong}>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,std::tuple<NSURL * {__strong},NSDictionary * {__strong}>>(uint64_t a1, unint64_t *a2, void *a3, __int128 *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8456,10 +8427,11 @@ void std::__shared_ptr_emplace<AudioResource>::~__shared_ptr_emplace(std::__shar
   JUMPOUT(0x21606F010);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void sub_2156E6DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
@@ -8586,21 +8558,21 @@ void sub_2156EB3D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2156EB870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2156EB870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   va_copy(va2, va1);
-  v19 = va_arg(va2, void);
-  v21 = va_arg(va2, void);
-  v22 = va_arg(va2, void);
-  v23 = va_arg(va2, void);
-  _Block_object_dispose((v12 - 112), 8);
+  v26 = va_arg(va2, void);
+  v28 = va_arg(va2, void);
+  v29 = va_arg(va2, void);
+  v30 = va_arg(va2, void);
+  _Block_object_dispose((v19 - 112), 8);
 
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
@@ -8609,21 +8581,21 @@ void sub_2156EB870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156EBD2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2156EBD2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   va_copy(va2, va1);
-  v19 = va_arg(va2, void);
-  v21 = va_arg(va2, void);
-  v22 = va_arg(va2, void);
-  v23 = va_arg(va2, void);
-  _Block_object_dispose((v12 - 112), 8);
+  v26 = va_arg(va2, void);
+  v28 = va_arg(va2, void);
+  v29 = va_arg(va2, void);
+  v30 = va_arg(va2, void);
+  _Block_object_dispose((v19 - 112), 8);
 
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
@@ -8632,7 +8604,7 @@ void sub_2156EBD2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2156EC1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_2156EC1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 

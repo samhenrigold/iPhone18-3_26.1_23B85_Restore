@@ -40,15 +40,12 @@
   dataSource = [(HMIAssociateFaceCropsOperation *)self dataSource];
   faceCropUUIDs = [(HMIAssociateFaceCropsOperation *)self faceCropUUIDs];
   personUUID = [(HMIAssociateFaceCropsOperation *)self personUUID];
-  source = [(HMIAssociateFaceCropsOperation *)self source];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __59__HMIAssociateFaceCropsOperation_mainInsideAutoreleasePool__block_invoke;
-  v7[3] = &unk_2787528E0;
-  objc_copyWeak(&v8, &location);
-  [dataSource associateFaceCropsWithUUIDs:faceCropUUIDs toPersonWithUUID:personUUID forSource:source completion:v7];
+  [(HMIAssociateFaceCropsOperation *)self source];
+  v6 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v7, &location);
+  [dataSource associateFaceCropsWithUUIDs:v6 toPersonWithUUID:3221225472 forSource:__59__HMIAssociateFaceCropsOperation_mainInsideAutoreleasePool__block_invoke completion:&unk_2787528E0];
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
 }
 
@@ -86,7 +83,7 @@ void __59__HMIAssociateFaceCropsOperation_mainInsideAutoreleasePool__block_invok
       }
 
       objc_autoreleasePoolPop(v5);
-      [v6 cancelWithError:v3];
+      [v6 cancelWithError:?];
     }
 
     else

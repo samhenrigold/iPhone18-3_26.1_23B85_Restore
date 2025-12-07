@@ -118,15 +118,13 @@
 
 - (MANodeFilter)uniquelyIdentifyingFilter
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = +[PGGraphAddressNode filter];
   uuid = self->_uuid;
-  v9 = @"uuid";
-  v10[0] = uuid;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"uuid";
+  v9[0] = uuid;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v3 filterBySettingProperties:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -149,7 +147,7 @@
 
 - (id)propertyForKey:(id)key
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"lm"])
   {
@@ -177,29 +175,27 @@ LABEL_7:
 
   if ([keyCopy isEqualToString:@"name"])
   {
-    v11 = 56;
+    v10 = 56;
 LABEL_16:
-    v5 = *(&self->super.super.super.super.super.isa + v11);
+    v5 = *(&self->super.super.super.super.super.isa + v10);
     goto LABEL_8;
   }
 
   if ([keyCopy isEqualToString:@"uuid"])
   {
-    v11 = 64;
+    v10 = 64;
     goto LABEL_16;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    v12 = 138412290;
-    v13 = keyCopy;
-    _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphAddressNode.", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = keyCopy;
+    _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphAddressNode.", &v11, 0xCu);
   }
 
   v8 = 0;
 LABEL_9:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -230,54 +226,34 @@ LABEL_9:
   {
     v6 = [v5 objectForKeyedSubscript:@"lm"];
     v7 = v6;
-    if (v6 && self->_locationMode != [v6 shortValue])
+    v14 = 0;
+    if (!v6 || self->_locationMode == [v6 shortValue])
     {
-      goto LABEL_15;
-    }
 
-    v8 = [v5 objectForKeyedSubscript:@"lat"];
-    v7 = v8;
-    if (v8)
-    {
-      [v8 doubleValue];
-      if (v9 != self->_coordinate.latitude)
+      v8 = [v5 objectForKeyedSubscript:@"lat"];
+      v7 = v8;
+      if (!v8 || ([v8 doubleValue], v9 == self->_coordinate.latitude))
       {
-        goto LABEL_15;
+
+        v10 = [v5 objectForKeyedSubscript:@"lng"];
+        v7 = v10;
+        if (!v10 || ([v10 doubleValue], v11 == self->_coordinate.longitude))
+        {
+
+          v12 = [v5 objectForKeyedSubscript:@"name"];
+          v7 = v12;
+          if (!v12 || [v12 isEqual:self->_name])
+          {
+
+            v13 = [v5 objectForKeyedSubscript:@"uuid"];
+            v7 = v13;
+            if (!v13 || [v13 isEqual:self->_uuid])
+            {
+              v14 = 1;
+            }
+          }
+        }
       }
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"lng"];
-    v7 = v10;
-    if (v10)
-    {
-      [v10 doubleValue];
-      if (v11 != self->_coordinate.longitude)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v12 = [v5 objectForKeyedSubscript:@"name"];
-    v7 = v12;
-    if (v12)
-    {
-      if (![v12 isEqual:self->_name])
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v13 = [v5 objectForKeyedSubscript:@"uuid"];
-    v7 = v13;
-    if (v13 && ![v13 isEqual:self->_uuid])
-    {
-LABEL_15:
-      v14 = 0;
-    }
-
-    else
-    {
-      v14 = 1;
     }
   }
 
@@ -291,7 +267,7 @@ LABEL_15:
 
 - (PGGraphAddressNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v7 = [propertiesCopy objectForKeyedSubscript:@"lm"];
   integerValue = [v7 integerValue];
@@ -326,17 +302,16 @@ LABEL_15:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       uuid = longitude->_uuid;
-      v26 = 138412546;
-      v27 = uuid;
-      v28 = 2112;
-      v29 = v22;
-      _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Address node has a different uuid than expected, '%@' vs '%@'", &v26, 0x16u);
+      v25 = 138412546;
+      v26 = uuid;
+      v27 = 2112;
+      v28 = v22;
+      _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Address node has a different uuid than expected, '%@' vs '%@'", &v25, 0x16u);
     }
 
     objc_storeStrong(&longitude->_uuid, v22);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return longitude;
 }
 
@@ -345,9 +320,9 @@ LABEL_15:
   longitude = coordinate.longitude;
   latitude = coordinate.latitude;
   nameCopy = name;
-  v20.receiver = self;
-  v20.super_class = PGGraphAddressNode;
-  v11 = [(PGGraphLocationNode *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = PGGraphAddressNode;
+  v11 = [(PGGraphLocationNode *)&v19 init];
   v12 = v11;
   if (v11)
   {
@@ -356,21 +331,20 @@ LABEL_15:
     *(v11 + 9) = latitude;
     *(v11 + 10) = longitude;
     objc_storeStrong(v11 + 7, name);
-    name = v12->_name;
     locationMode = v12->_locationMode;
     if (locationMode > 3)
     {
-      v16 = @"Unknown";
+      v15 = @"Unknown";
     }
 
     else
     {
-      v16 = off_278886058[locationMode];
+      v15 = off_278886058[locationMode];
     }
 
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%f, %f>|%@|%@", *v13, *&v12->_coordinate.longitude, v12->_name, v16];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%f, %f>|%@|%@", *v13, *&v12->_coordinate.longitude, v12->_name, v15];
     uuid = v12->_uuid;
-    v12->_uuid = v17;
+    v12->_uuid = v16;
   }
 
   return v12;
@@ -394,225 +368,203 @@ LABEL_15:
 
 + (MARelation)momentOfAddress
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphAddressEdge filter];
   inRelation = [v3 inRelation];
-  v11[0] = inRelation;
+  v10[0] = inRelation;
   v5 = +[PGGraphMomentNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (MARelation)languageOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLanguageEdge filter];
   outRelation2 = [v8 outRelation];
-  v14[2] = outRelation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = outRelation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)continentOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationContinentNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)subcontinentOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationSubcontinentNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (MARelation)countryOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationCountryNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (MARelation)stateOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationStateNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (MARelation)countyOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationCountyNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (MARelation)cityOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationCityNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (MARelation)districtOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationDistrictNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (MARelation)streetOfAddress
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationStreetNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (MARelation)numberOfAddress
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphLocationEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphLocationNumberNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -627,36 +579,32 @@ LABEL_15:
 
 + (MARelation)workOfAddress
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphIsHomeWorkEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphHomeWorkNode workFilter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (MARelation)homeOfAddress
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphIsHomeWorkEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphHomeWorkNode homeFilter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -665,45 +613,39 @@ LABEL_15:
 {
   longitude = coordinate.longitude;
   latitude = coordinate.latitude;
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"lat";
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"lat";
   v8 = MEMORY[0x277CCABB0];
   graphCopy = graph;
   v10 = [v8 numberWithDouble:latitude];
-  v14[1] = @"lng";
-  v15[0] = v10;
+  v13[1] = @"lng";
+  v14[0] = v10;
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:longitude];
-  v15[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   [graphCopy persistModelProperties:v12 forNodeWithIdentifier:identifier clobberExisting:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (MANodeFilter)impreciseFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v7 = @"lm";
-  v8[0] = &unk_2844862A0;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"lm";
+  v7[0] = &unk_2844862A0;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [filter filterBySettingProperties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (MANodeFilter)preciseFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v7 = @"lm";
-  v8[0] = &unk_284486288;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"lm";
+  v7[0] = &unk_284486288;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [filter filterBySettingProperties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

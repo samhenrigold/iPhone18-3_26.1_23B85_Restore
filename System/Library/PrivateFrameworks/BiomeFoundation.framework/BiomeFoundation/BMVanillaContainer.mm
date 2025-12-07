@@ -6,7 +6,7 @@
 
 + (id)containerForPersonaIdentifier:(id)identifier error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!container_query_create())
   {
@@ -70,15 +70,15 @@ LABEL_7:
       v14 = "no error";
     }
 
-    v21 = 138413058;
-    v22 = v13;
-    v23 = 2048;
-    v24 = v10;
-    v25 = 2048;
-    v26 = v11;
-    v27 = 2082;
-    v28 = v14;
-    _os_log_impl(&dword_1AC15D000, v12, OS_LOG_TYPE_DEFAULT, "%@ sandbox_extension_consume(%p) = %lld, %{public}s", &v21, 0x2Au);
+    v20 = 138413058;
+    v21 = v13;
+    v22 = 2048;
+    v23 = v10;
+    v24 = 2048;
+    v25 = v11;
+    v26 = 2082;
+    v27 = v14;
+    _os_log_impl(&dword_1AC15D000, v12, OS_LOG_TYPE_DEFAULT, "%@ sandbox_extension_consume(%p) = %lld, %{public}s", &v20, 0x2Au);
   }
 
   container_query_free();
@@ -86,18 +86,16 @@ LABEL_7:
   v15 = [objc_alloc(objc_opt_class()) initWithURL:v9 personaIdentifier:identifierCopy];
 
 LABEL_15:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 + (void)containerForPersonaIdentifier:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Error executing query: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Error executing query: %s", &v2, 0xCu);
 }
 
 @end

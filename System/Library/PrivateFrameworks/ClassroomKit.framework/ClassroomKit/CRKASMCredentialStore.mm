@@ -261,7 +261,7 @@ LABEL_3:
 
         else
         {
-          dictionaryValue = _CRKLogASM_6();
+          dictionaryValue = _CRKLogASM_6(0);
           if (os_log_type_enabled(dictionaryValue, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
@@ -417,9 +417,10 @@ LABEL_3:
 {
   certificateCopy = certificate;
   identifierCopy = identifier;
+  v7 = identifierCopy;
   if (!identifierCopy)
   {
-    validityDateInterval = _CRKLogASM_6();
+    validityDateInterval = _CRKLogASM_6(0);
     if (os_log_type_enabled(validityDateInterval, OS_LOG_TYPE_ERROR))
     {
       [CRKASMCredentialStore makeEntryWithCertificate:userIdentifier:];
@@ -430,14 +431,14 @@ LABEL_3:
 
   if (!certificateCopy)
   {
-    validityDateInterval = _CRKLogASM_6();
+    validityDateInterval = _CRKLogASM_6(identifierCopy);
     if (os_log_type_enabled(validityDateInterval, OS_LOG_TYPE_ERROR))
     {
       [CRKASMCredentialStore makeEntryWithCertificate:userIdentifier:];
     }
 
 LABEL_13:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_18;
   }
 
@@ -447,30 +448,30 @@ LABEL_13:
     fingerprint = [certificateCopy fingerprint];
     if (!fingerprint)
     {
-      v9 = _CRKLogASM_6();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _CRKLogASM_6(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [CRKASMCredentialStore makeEntryWithCertificate:userIdentifier:];
       }
     }
 
-    v10 = [[CRKASMCredentialManifestEntry alloc] initWithUserIdentifier:identifierCopy validityInterval:validityDateInterval fingerprint:fingerprint];
+    v11 = [[CRKASMCredentialManifestEntry alloc] initWithUserIdentifier:v7 validityInterval:validityDateInterval fingerprint:fingerprint];
   }
 
   else
   {
-    fingerprint = _CRKLogASM_6();
+    fingerprint = _CRKLogASM_6(0);
     if (os_log_type_enabled(fingerprint, OS_LOG_TYPE_ERROR))
     {
       [CRKASMCredentialStore makeEntryWithCertificate:userIdentifier:];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
 LABEL_18:
 
-  return v10;
+  return v11;
 }
 
 - (void)addCertificate:forUserIdentifier:.cold.1()

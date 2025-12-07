@@ -21,27 +21,27 @@
 
 + (id)compactPrivateKeyWithAccessControl:(id)control
 {
-  v36[5] = *MEMORY[0x277D85DE8];
+  v32[5] = *MEMORY[0x277D85DE8];
   controlCopy = control;
   error = 0;
   v4 = *MEMORY[0x277CBECE8];
-  v33 = controlCopy;
+  v29 = controlCopy;
   v5 = SecAccessControlCreateWithFlags(v4, controlCopy, 0x40000000uLL, 0);
   v6 = *MEMORY[0x277CDC040];
   v7 = *MEMORY[0x277CDC018];
-  v35[0] = *MEMORY[0x277CDC028];
-  v35[1] = v7;
-  v36[0] = v6;
-  v36[1] = &unk_283F13BB0;
+  v31[0] = *MEMORY[0x277CDC028];
+  v31[1] = v7;
+  v32[0] = v6;
+  v32[1] = &unk_283F13BB0;
   v8 = *MEMORY[0x277CDBEC0];
-  v35[2] = *MEMORY[0x277CDBFD0];
-  v35[3] = v8;
-  v36[2] = MEMORY[0x277CBEC28];
-  v36[3] = v5;
-  v32 = v5;
-  v35[4] = *MEMORY[0x277CDC158];
-  v36[4] = *MEMORY[0x277CDC160];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:5];
+  v31[2] = *MEMORY[0x277CDBFD0];
+  v31[3] = v8;
+  v32[2] = MEMORY[0x277CBEC28];
+  v32[3] = v5;
+  v28 = v5;
+  v31[4] = *MEMORY[0x277CDC158];
+  v32[4] = *MEMORY[0x277CDC160];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:5];
   v10 = 1000;
   while (1)
   {
@@ -56,10 +56,10 @@
     if (!v13)
     {
       CFRelease(v12);
-      v15 = MessageProtectionLog();
-      v28 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-      v26 = v33;
-      if (v28)
+      v15 = MessageProtectionLog(v24);
+      v25 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+      v22 = v29;
+      if (v25)
       {
         +[SecKeyP256Private compactPrivateKeyWithAccessControl:];
       }
@@ -73,34 +73,30 @@
     if (v15)
     {
       v16 = MEMORY[0x2318925A0]();
-      v17 = (24 * *v16 + 31) & 0xFFFFFFFFFFFFFFF0;
       MEMORY[0x28223BE20](v16);
-      v19 = (&v32 - v18);
+      v18 = (&v28 - v17);
       [v15 length];
       [v15 bytes];
-      v20 = ccec_x963_import_pub();
+      v19 = ccec_x963_import_pub();
       if (ccec_validate_pub())
       {
-        v21 = v20 == 0;
+        v20 = v19 == 0;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      if (v21)
+      if (v20)
       {
-        v22 = **v19;
-        MEMORY[0x28223BE20](*v19);
+        MEMORY[0x28223BE20](*v18);
         cczp_prime();
-        v23 = **v19;
         ccn_sub();
-        v24 = **v19;
         if ((ccn_cmp() & 0x80000000) == 0)
         {
-          v29 = SecKeyCopyAttributes(v12);
-          v25 = [(__CFDictionary *)v29 objectForKeyedSubscript:*MEMORY[0x277CDC178]];
+          v26 = SecKeyCopyAttributes(v12);
+          v21 = [(__CFDictionary *)v26 objectForKeyedSubscript:*MEMORY[0x277CDC178]];
 
           CFRelease(v12);
           goto LABEL_21;
@@ -117,33 +113,32 @@
 
     if (!--v10)
     {
-      v25 = 0;
-      v27 = v32;
-      v26 = v33;
+      v21 = 0;
+      v23 = v28;
+      v22 = v29;
       goto LABEL_23;
     }
   }
 
-  v15 = MessageProtectionLog();
+  v15 = MessageProtectionLog(0);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v26 = v33;
+    v22 = v29;
     +[SecKeyP256Private compactPrivateKeyWithAccessControl:];
 LABEL_19:
-    v25 = 0;
+    v21 = 0;
     goto LABEL_22;
   }
 
-  v25 = 0;
+  v21 = 0;
 LABEL_21:
-  v26 = v33;
+  v22 = v29;
 LABEL_22:
-  v27 = v32;
+  v23 = v28;
 
 LABEL_23:
-  v30 = *MEMORY[0x277D85DE8];
 
-  return v25;
+  return v21;
 }
 
 + (id)generateWithAccessControl:(id)control
@@ -156,15 +151,15 @@ LABEL_23:
 
 - (id)getPrivateKeyRefWithError:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CDC158];
-  v17[0] = *MEMORY[0x277CDC160];
+  v16[0] = *MEMORY[0x277CDC160];
   v6 = *MEMORY[0x277CDC178];
-  v16[0] = v5;
-  v16[1] = v6;
+  v15[0] = v5;
+  v15[1] = v6;
   privateKeyBlob = [(SecKeyP256Private *)self privateKeyBlob];
-  v17[1] = privateKeyBlob;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = privateKeyBlob;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   error = 0;
   privateKeyBlob2 = [(SecKeyP256Private *)self privateKeyBlob];
@@ -178,8 +173,6 @@ LABEL_23:
 
     CFRelease(error);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -226,7 +219,7 @@ LABEL_23:
 
       else
       {
-        v15 = MessageProtectionLog();
+        v15 = MessageProtectionLog(0);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [(SecKeyP256Private *)error keyAgreement:v15 error:v17 isRetry:v18, v19, v20, v21, v22];
@@ -273,7 +266,7 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v9 = MessageProtectionLog();
+  v9 = MessageProtectionLog(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     +[SecKeyP256Private compactPrivateKeyWithAccessControl:];
@@ -319,9 +312,9 @@ LABEL_5:
 - (SecKeyP256Private)initWithData:(id)data error:(id *)error
 {
   dataCopy = data;
-  v19.receiver = self;
-  v19.super_class = SecKeyP256Private;
-  v8 = [(SecKeyP256Private *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = SecKeyP256Private;
+  v8 = [(SecKeyP256Private *)&v20 init];
   v9 = v8;
   if (!v8)
   {
@@ -332,7 +325,7 @@ LABEL_5:
   {
     MPLogAndAssignError(1, error, @"Attempting to initialize a key with missing OID data.");
 LABEL_15:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_16;
   }
 
@@ -343,54 +336,45 @@ LABEL_15:
 
   if (!v9->_privateKey)
   {
-    v12 = MessageProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MessageProtectionLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [SecKeyP256Private initWithData:error error:v12];
+      [SecKeyP256Private initWithData:error error:v13];
     }
 
     goto LABEL_14;
   }
 
-  v12 = [@"Key Validation String" dataUsingEncoding:4];
-  v13 = [(SecKeyP256Private *)v9 signData:v12 error:error];
-  if (!v13)
+  v13 = [@"Key Validation String" dataUsingEncoding:4];
+  v14 = [(SecKeyP256Private *)v9 signData:v13 error:error];
+  if (!v14)
   {
-    v17 = @"Failed to test sign with SecKeyP256 during initialization.";
+    v18 = @"Failed to test sign with SecKeyP256 during initialization.";
 LABEL_13:
-    MPLogAndAssignError(407, error, v17);
+    MPLogAndAssignError(407, error, v18);
 
 LABEL_14:
     goto LABEL_15;
   }
 
   publicKey = [(SecKeyP256Private *)v9 publicKey];
-  v15 = [publicKey verifySignature:v13 data:v12];
+  v16 = [publicKey verifySignature:v14 data:v13];
 
-  if (!v15)
+  if (!v16)
   {
-    v17 = @"Failed to verify signature with SecKeyP256 during initialization.";
+    v18 = @"Failed to verify signature with SecKeyP256 during initialization.";
     goto LABEL_13;
   }
 
 LABEL_7:
-  v16 = v9;
+  v17 = v9;
 LABEL_16:
 
-  return v16;
-}
-
-+ (void)compactPrivateKeyWithAccessControl:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  return v17;
 }
 
 - (void)keyAgreement:(uint64_t)a3 error:(uint64_t)a4 isRetry:(uint64_t)a5 .cold.1(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v9 = [*a1 description];
@@ -401,23 +385,21 @@ LABEL_16:
     v9 = 0;
   }
 
-  OUTLINED_FUNCTION_1_1(&dword_22B404000, a2, a3, "Failed to initialize the public key with error: %@", a5, a6, a7, a8, 2u);
+  LODWORD(v10) = 138412290;
+  HIDWORD(v10) = v9;
+  OUTLINED_FUNCTION_1_1(&dword_22B404000, a2, a3, "Failed to initialize the public key with error: %@", a5, a6, a7, a8, v10, HIDWORD(v9));
   if (a1)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithData:(id *)a1 error:(NSObject *)a2 .cold.1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to get a Private Key Ref with error while initializing SecKeyP256: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22B404000, a2, OS_LOG_TYPE_ERROR, "Failed to get a Private Key Ref with error while initializing SecKeyP256: %@", &v4, 0xCu);
 }
 
 @end

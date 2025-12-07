@@ -9,8 +9,8 @@
 - (id)makeController
 {
   sub_19B334();
-  type metadata accessor for SCATBannersView();
-  sub_196D74(&qword_2BA028, type metadata accessor for SCATBannersView);
+  type metadata accessor for SCATBannersView(0);
+  sub_196D74(&qword_2BA028, type metadata accessor for SCATBannersView, "1r\a");
   v2 = sub_19B344();
 
   return v2;

@@ -340,7 +340,7 @@ LABEL_16:
   }
 }
 
-uint64_t __70__STBlockingViewController_registerForManagedSettingsEffectiveChanges__block_invoke(uint64_t a1, void *a2)
+void *__70__STBlockingViewController_registerForManagedSettingsEffectiveChanges__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*MEMORY[0x277D26518]];
   if (result)
@@ -933,11 +933,11 @@ LABEL_36:
   return v2;
 }
 
-uint64_t __51__STBlockingViewController_closeApplicationHandler__block_invoke()
+uint64_t __51__STBlockingViewController_closeApplicationHandler__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v0 openAppWithBundleIdentifier:@"com.apple.springboard"];
+  return [v1 openAppWithBundleIdentifier:@"com.apple.springboard"];
 }
 
 + (id)openParentAppHandler
@@ -2910,7 +2910,7 @@ void __67__STBlockingViewController__approveOneMoreMinuteWithPreemptiveHide__blo
 
 void __67__STBlockingViewController__approveOneMoreMinuteWithPreemptiveHide__block_invoke_3(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
     v3 = +[STBlockingUILog log];
@@ -4104,10 +4104,10 @@ LABEL_26:
 LABEL_27:
 }
 
-void __72__STBlockingViewController__handleCustomButtonResponse_forAction_error___block_invoke()
+void __72__STBlockingViewController__handleCustomButtonResponse_forAction_error___block_invoke(uint64_t a1)
 {
-  v0 = [objc_opt_class() closeApplicationHandler];
-  v0[2]();
+  v1 = [objc_opt_class() closeApplicationHandler];
+  v1[2]();
 }
 
 void __72__STBlockingViewController__handleCustomButtonResponse_forAction_error___block_invoke_3(uint64_t a1)
@@ -4167,10 +4167,10 @@ void __72__STBlockingViewController__handleCustomButtonResponse_forAction_error_
   v2[2](v2, *(a1 + 40));
 }
 
-void __72__STBlockingViewController__handleCustomButtonResponse_forAction_error___block_invoke_261()
+void __72__STBlockingViewController__handleCustomButtonResponse_forAction_error___block_invoke_261(uint64_t a1)
 {
-  v0 = [objc_opt_class() closeApplicationHandler];
-  v0[2]();
+  v1 = [objc_opt_class() closeApplicationHandler];
+  v1[2]();
 }
 
 void __56__STBlockingViewController_openAppWithBundleIdentifier___block_invoke_cold_1()
@@ -4245,6 +4245,13 @@ void __76__STBlockingViewController__ignoreLimitWithPreemptiveHideForAdditionalT
   *&v3[12] = 2114;
   *&v3[14] = *a2;
   OUTLINED_FUNCTION_2(&dword_21DD93000, a2, a3, "Failed to ignore limit for %f more seconds: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
+}
+
+void __67__STBlockingViewController__approveOneMoreMinuteWithPreemptiveHide__block_invoke_3_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_5(&dword_21DD93000, a2, a3, "Failed to approve one more minute: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_handleCustomButtonResponse:(uint64_t)a1 forAction:(uint64_t)a2 error:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)

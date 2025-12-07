@@ -29,7 +29,7 @@
     if (v12)
     {
       lowercaseString = [v12 lowercaseString];
-      v9->_scrollNewCommentToView = [lowercaseString isEqualToString:@"true"];
+      v9->_scrollNewCommentToView = objc_msgSend_isEqualToString_(lowercaseString);
     }
 
     v15 = [elementCopy getAttribute:@"showKeyboard"];
@@ -37,7 +37,7 @@
     if (v15)
     {
       lowercaseString2 = [v15 lowercaseString];
-      v9->_showKeyboard = [lowercaseString2 isEqualToString:@"true"];
+      v9->_showKeyboard = objc_msgSend_isEqualToString_(lowercaseString2);
     }
 
     v18 = [elementCopy getAttribute:@"asText"];

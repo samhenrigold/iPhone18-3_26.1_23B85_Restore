@@ -378,14 +378,14 @@ void __19__PPSEvent_logLine__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v2 = MEMORY[0x277CCAAA0];
   dictionaryRepresentation = [(PPSEvent *)self dictionaryRepresentation];
-  v8 = 0;
-  v4 = [v2 dataWithJSONObject:dictionaryRepresentation options:1 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [v2 dataWithJSONObject:dictionaryRepresentation options:1 error:&v9];
+  v5 = v9;
 
   if (v5)
   {
-    v6 = PPSReaderLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PPSReaderLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [(PPSTimeSeries *)v5 JSONRepresentation];
     }

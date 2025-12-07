@@ -7,6 +7,7 @@
 - (id)setActiveCredential:(id)credential;
 - (id)setActiveCredentials:(id)credentials;
 - (id)validateCredentials:(id)credentials;
+- (id)waitForControlSessionToBeReady:(int)ready;
 - (void)_tearDownOnQueue:(BOOL)queue completion:(id)completion;
 - (void)clearSessionTimer;
 - (void)dealloc;
@@ -116,25 +117,23 @@
 
 - (id)canStartSession
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase canStartSession]", 137, self, @"Subclass must implement this!", v2, v3, v14);
+  v15[4] = *MEMORY[0x277D85DE8];
+  sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase canStartSession]", 137, self, @"Subclass must implement this!", v2, v3, v13);
   v5 = MEMORY[0x277CCA9B8];
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-  v15[0] = *MEMORY[0x277CCA450];
+  v14[0] = *MEMORY[0x277CCA450];
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Unexpected Result"];
-  v16[0] = v7;
-  v16[1] = &unk_2876ECB70;
-  v15[1] = @"Line";
-  v15[2] = @"Method";
+  v15[0] = v7;
+  v15[1] = &unk_2876ECB70;
+  v14[1] = @"Line";
+  v14[2] = @"Method";
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-  v16[2] = v8;
-  v15[3] = *MEMORY[0x277CCA068];
+  v15[2] = v8;
+  v14[3] = *MEMORY[0x277CCA068];
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 138];
-  v16[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
   v11 = [v5 errorWithDomain:v6 code:10 userInfo:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -166,7 +165,7 @@
 
 - (id)activateChildSession
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   handler = [(STSSessionBase *)self handler];
 
   if (handler)
@@ -176,7 +175,7 @@
 
     if (activeChildSession)
     {
-      sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSessionBase activateChildSession]", 180, self, @"Child session previously activated", v7, v8, v30);
+      sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSessionBase activateChildSession]", 180, self, @"Child session previously activated", v7, v8, v29);
       v9 = 0;
     }
 
@@ -184,9 +183,9 @@
     {
       handler3 = [(STSSessionBase *)self handler];
       masterSESession = [(STSSessionBase *)self masterSESession];
-      v31 = 0;
-      v18 = [handler3 createHandoffTokenFromSession:masterSESession outError:&v31];
-      v19 = v31;
+      v30 = 0;
+      v18 = [handler3 createHandoffTokenFromSession:masterSESession outError:&v30];
+      v19 = v30;
 
       if (v19)
       {
@@ -204,21 +203,21 @@
 
         else
         {
-          sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase activateChildSession]", 192, self, @"Invalid token", v20, v21, v30);
+          sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase activateChildSession]", 192, self, @"Invalid token", v20, v21, v29);
           v23 = MEMORY[0x277CCA9B8];
           handler4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-          v32[0] = *MEMORY[0x277CCA450];
+          v31[0] = *MEMORY[0x277CCA450];
           v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-          v33[0] = v24;
-          v33[1] = &unk_2876ECBA0;
-          v32[1] = @"Line";
-          v32[2] = @"Method";
+          v32[0] = v24;
+          v32[1] = &unk_2876ECBA0;
+          v31[1] = @"Line";
+          v31[2] = @"Method";
           v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-          v33[2] = v25;
-          v32[3] = *MEMORY[0x277CCA068];
+          v32[2] = v25;
+          v31[3] = *MEMORY[0x277CCA068];
           v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 193];
-          v33[3] = v26;
-          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+          v32[3] = v26;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
           v9 = [v23 errorWithDomain:handler4 code:9 userInfo:v27];
         }
       }
@@ -229,29 +228,27 @@
   {
     v10 = MEMORY[0x277CCA9B8];
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v34[0] = *MEMORY[0x277CCA450];
+    v33[0] = *MEMORY[0x277CCA450];
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v35[0] = v12;
-    v35[1] = &unk_2876ECB88;
-    v34[1] = @"Line";
-    v34[2] = @"Method";
+    v34[0] = v12;
+    v34[1] = &unk_2876ECB88;
+    v33[1] = @"Line";
+    v33[2] = @"Method";
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v35[2] = v13;
-    v34[3] = *MEMORY[0x277CCA068];
+    v34[2] = v13;
+    v33[3] = *MEMORY[0x277CCA068];
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 176];
-    v35[3] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
+    v34[3] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
     v9 = [v10 errorWithDomain:v11 code:9 userInfo:v15];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)setActiveCredential:(id)credential
 {
-  v58[4] = *MEMORY[0x277D85DE8];
+  v57[4] = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   v6 = _os_activity_create(&dword_26536F000, "setActiveCredential:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -277,21 +274,21 @@
     v21 = [(STSSessionBase *)self createHandlerForCredential:credentialCopy];
     if (!v21)
     {
-      v47 = MEMORY[0x277CCA9B8];
+      v46 = MEMORY[0x277CCA9B8];
       handler7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-      v57[0] = *MEMORY[0x277CCA450];
-      v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-      v58[0] = v48;
-      v58[1] = &unk_2876ECBB8;
-      v57[1] = @"Line";
-      v57[2] = @"Method";
+      v56[0] = *MEMORY[0x277CCA450];
+      v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
+      v57[0] = v47;
+      v57[1] = &unk_2876ECBB8;
+      v56[1] = @"Line";
+      v56[2] = @"Method";
       credentialCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2), credentialCopy];
-      v58[2] = credentialCopy;
-      v57[3] = *MEMORY[0x277CCA068];
-      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 220];
-      v58[3] = v50;
-      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
-      activateChildSession = [v47 errorWithDomain:handler7 code:11 userInfo:v51];
+      v57[2] = credentialCopy;
+      v56[3] = *MEMORY[0x277CCA068];
+      v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 220];
+      v57[3] = v49;
+      v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:4];
+      activateChildSession = [v46 errorWithDomain:handler7 code:11 userInfo:v50];
 
 LABEL_18:
       goto LABEL_19;
@@ -302,7 +299,7 @@ LABEL_18:
     [handler3 tearDownWithCompletion:0];
 
     [(STSSessionBase *)self setHandler:v16];
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredential:]", 226, self, @"Waiting for Control SE session ready", v23, v24, v53);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredential:]", 226, self, @"Waiting for Control SE session ready", v23, v24, v52);
     v25 = [(STSSessionBase *)self waitForControlSessionToBeReady:1];
     v15 = v25;
     if (v25)
@@ -337,7 +334,7 @@ LABEL_11:
 
       else
       {
-        sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredential:]", 247, self, @" Handoff not ready to be activated yet", v33, v34, v52);
+        sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredential:]", 247, self, @" Handoff not ready to be activated yet", v33, v34, v51);
       }
 
       sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredential:]", 250, self, @"Seting new activeCredential %@ on handler", v36, v37, credentialCopy);
@@ -347,21 +344,21 @@ LABEL_11:
 
     else
     {
-      sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase setActiveCredential:]", 253, self, @"Unable to find a valid handler", v29, v30, v52);
+      sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase setActiveCredential:]", 253, self, @"Unable to find a valid handler", v29, v30, v51);
       v39 = MEMORY[0x277CCA9B8];
       handler7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-      v55[0] = *MEMORY[0x277CCA450];
+      v54[0] = *MEMORY[0x277CCA450];
       v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-      v56[0] = v41;
-      v56[1] = &unk_2876ECBD0;
-      v55[1] = @"Line";
-      v55[2] = @"Method";
+      v55[0] = v41;
+      v55[1] = &unk_2876ECBD0;
+      v54[1] = @"Line";
+      v54[2] = @"Method";
       v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-      v56[2] = v42;
-      v55[3] = *MEMORY[0x277CCA068];
+      v55[2] = v42;
+      v54[3] = *MEMORY[0x277CCA068];
       v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 254];
-      v56[3] = v43;
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:4];
+      v55[3] = v43;
+      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:4];
       activateChildSession = [v39 errorWithDomain:handler7 code:11 userInfo:v44];
     }
 
@@ -370,43 +367,41 @@ LABEL_11:
 
   if (credentialCopy)
   {
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredential:]", 213, self, @"Creating initial handler", v10, v11, v52);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredential:]", 213, self, @"Creating initial handler", v10, v11, v51);
     v16 = [(STSSessionBase *)self createHandlerForCredential:credentialCopy];
     [(STSSessionBase *)self setHandler:v16];
     v15 = 0;
     goto LABEL_10;
   }
 
-  sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSessionBase setActiveCredential:]", 209, self, @"Handler does not exist for deactivation.", v10, v11, v52);
+  sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSessionBase setActiveCredential:]", 209, self, @"Handler does not exist for deactivation.", v10, v11, v51);
   activateChildSession = 0;
 LABEL_19:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return activateChildSession;
 }
 
 - (id)validateCredentials:(id)credentials
 {
-  v46[4] = *MEMORY[0x277D85DE8];
+  v45[4] = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   if (![credentialsCopy count])
   {
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase validateCredentials:]", 262, self, @"Empty credential array provided.", v6, v7, v34);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase validateCredentials:]", 262, self, @"Empty credential array provided.", v6, v7, v33);
     v22 = MEMORY[0x277CCA9B8];
     firstObject = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v45[0] = *MEMORY[0x277CCA450];
+    v44[0] = *MEMORY[0x277CCA450];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-    v46[0] = v13;
-    v46[1] = &unk_2876ECBE8;
-    v45[1] = @"Line";
-    v45[2] = @"Method";
+    v45[0] = v13;
+    v45[1] = &unk_2876ECBE8;
+    v44[1] = @"Line";
+    v44[2] = @"Method";
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v46[2] = v23;
-    v45[3] = *MEMORY[0x277CCA068];
+    v45[2] = v23;
+    v44[3] = *MEMORY[0x277CCA068];
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 263];
-    v46[3] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:4];
+    v45[3] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:4];
     v21 = [v22 errorWithDomain:firstObject code:8 userInfo:v25];
 LABEL_16:
 
@@ -417,21 +412,21 @@ LABEL_16:
   type = [firstObject type];
   if (!type)
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase validateCredentials:]", 270, self, @"Invalid credential type.", v10, v11, v34);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase validateCredentials:]", 270, self, @"Invalid credential type.", v10, v11, v33);
     v31 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v43[0] = *MEMORY[0x277CCA450];
+    v42[0] = *MEMORY[0x277CCA450];
     v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-    v44[0] = v23;
-    v44[1] = &unk_2876ECC00;
-    v43[1] = @"Line";
-    v43[2] = @"Method";
+    v43[0] = v23;
+    v43[1] = &unk_2876ECC00;
+    v42[1] = @"Line";
+    v42[2] = @"Method";
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v44[2] = v24;
-    v43[3] = *MEMORY[0x277CCA068];
+    v43[2] = v24;
+    v42[3] = *MEMORY[0x277CCA068];
     v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 271];
-    v44[3] = v25;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:4];
+    v43[3] = v25;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
     v21 = [v31 errorWithDomain:v13 code:8 userInfo:v29];
 LABEL_15:
 
@@ -439,53 +434,53 @@ LABEL_15:
   }
 
   v12 = type;
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v13 = credentialsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v37;
+    v16 = *v36;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v37 != v16)
+        if (*v36 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        type2 = [*(*(&v36 + 1) + 8 * i) type];
+        type2 = [*(*(&v35 + 1) + 8 * i) type];
         if (v12 != type2)
         {
-          v35 = v12;
+          v34 = v12;
           sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase validateCredentials:]", 279, self, @"Invalid or mismatching credential types; found %d, expects %d", v19, v20, type2);
           v26 = MEMORY[0x277CCA9B8];
           v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-          v40[0] = *MEMORY[0x277CCA450];
+          v39[0] = *MEMORY[0x277CCA450];
           v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid Parameter"];
-          v41[0] = v24;
-          v41[1] = &unk_2876ECC18;
-          v40[1] = @"Line";
-          v40[2] = @"Method";
+          v40[0] = v24;
+          v40[1] = &unk_2876ECC18;
+          v39[1] = @"Line";
+          v39[2] = @"Method";
           v27 = MEMORY[0x277CCACA8];
           Name = sel_getName(a2);
-          v25 = [v27 stringWithFormat:@"%s", Name, v35, v36];
-          v41[2] = v25;
-          v40[3] = *MEMORY[0x277CCA068];
+          v25 = [v27 stringWithFormat:@"%s", Name, v34, v35];
+          v40[2] = v25;
+          v39[3] = *MEMORY[0x277CCA068];
           v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 280];
-          v41[3] = v29;
-          v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
+          v40[3] = v29;
+          v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
           v21 = [v26 errorWithDomain:v23 code:8 userInfo:v30];
 
           goto LABEL_15;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
       if (v15)
       {
         continue;
@@ -498,14 +493,12 @@ LABEL_15:
   v21 = 0;
 LABEL_17:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)setActiveCredentials:(id)credentials
 {
-  v59[4] = *MEMORY[0x277D85DE8];
+  v58[4] = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   v6 = _os_activity_create(&dword_26536F000, "setActiveCredentials:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -549,21 +542,21 @@ LABEL_17:
       v23 = [(STSSessionBase *)self createHandlerForCredential:firstObject];
       if (!v23)
       {
-        v48 = MEMORY[0x277CCA9B8];
+        v47 = MEMORY[0x277CCA9B8];
         handler7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-        v58[0] = *MEMORY[0x277CCA450];
-        v49 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-        v59[0] = v49;
-        v59[1] = &unk_2876ECC30;
-        v58[1] = @"Line";
-        v58[2] = @"Method";
-        v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2), firstObject];
-        v59[2] = v50;
-        v58[3] = *MEMORY[0x277CCA068];
-        v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 324];
-        v59[3] = v51;
-        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
-        activateChildSession = [v48 errorWithDomain:handler7 code:11 userInfo:v52];
+        v57[0] = *MEMORY[0x277CCA450];
+        v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
+        v58[0] = v48;
+        v58[1] = &unk_2876ECC30;
+        v57[1] = @"Line";
+        v57[2] = @"Method";
+        v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2), firstObject];
+        v58[2] = v49;
+        v57[3] = *MEMORY[0x277CCA068];
+        v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 324];
+        v58[3] = v50;
+        v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
+        activateChildSession = [v47 errorWithDomain:handler7 code:11 userInfo:v51];
 
         goto LABEL_24;
       }
@@ -573,7 +566,7 @@ LABEL_17:
       [handler3 tearDownWithCompletion:0];
 
       [(STSSessionBase *)self setHandler:v18];
-      sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 330, self, @"Waiting for Control SE session ready", v25, v26, v54);
+      sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 330, self, @"Waiting for Control SE session ready", v25, v26, v53);
       v27 = [(STSSessionBase *)self waitForControlSessionToBeReady:1];
       v17 = v27;
       if (v27)
@@ -586,12 +579,12 @@ LABEL_17:
     {
       if (!credentialsCopy)
       {
-        sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 313, self, @"Handler does not exist for deactivation.", v12, v13, v53);
+        sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 313, self, @"Handler does not exist for deactivation.", v12, v13, v52);
         activateChildSession = 0;
         goto LABEL_25;
       }
 
-      sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 317, self, @"Creating initial handler", v12, v13, v53);
+      sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 317, self, @"Creating initial handler", v12, v13, v52);
       v18 = [(STSSessionBase *)self createHandlerForCredential:firstObject];
       [(STSSessionBase *)self setHandler:v18];
       v17 = 0;
@@ -622,7 +615,7 @@ LABEL_17:
 
       else
       {
-        sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 350, self, @"Handler not ready to be activated yet", v35, v36, v53);
+        sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 350, self, @"Handler not ready to be activated yet", v35, v36, v52);
       }
 
       sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase setActiveCredentials:]", 353, self, @"Setting new activeCredentials %@ on handler", v37, v38, credentialsCopy);
@@ -632,21 +625,21 @@ LABEL_17:
 
     else
     {
-      sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase setActiveCredentials:]", 356, self, @"Unable to find a valid handler", v31, v32, v53);
+      sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase setActiveCredentials:]", 356, self, @"Unable to find a valid handler", v31, v32, v52);
       v40 = MEMORY[0x277CCA9B8];
       handler7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-      v56[0] = *MEMORY[0x277CCA450];
+      v55[0] = *MEMORY[0x277CCA450];
       v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-      v57[0] = v42;
-      v57[1] = &unk_2876ECC48;
-      v56[1] = @"Line";
-      v56[2] = @"Method";
+      v56[0] = v42;
+      v56[1] = &unk_2876ECC48;
+      v55[1] = @"Line";
+      v55[2] = @"Method";
       v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-      v57[2] = v43;
-      v56[3] = *MEMORY[0x277CCA068];
+      v56[2] = v43;
+      v55[3] = *MEMORY[0x277CCA068];
       v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 357];
-      v57[3] = v44;
-      v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:4];
+      v56[3] = v44;
+      v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:4];
       activateChildSession = [v40 errorWithDomain:handler7 code:11 userInfo:v45];
     }
 
@@ -660,14 +653,13 @@ LABEL_24:
 LABEL_25:
 
 LABEL_26:
-  v46 = *MEMORY[0x277D85DE8];
 
   return activateChildSession;
 }
 
 - (id)createHandoffToken:(id *)token
 {
-  v56[4] = *MEMORY[0x277D85DE8];
+  v55[4] = *MEMORY[0x277D85DE8];
   v6 = _os_activity_create(&dword_26536F000, "createHandoffToken:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -679,7 +671,7 @@ LABEL_26:
 
   if (consumeHandoffToken)
   {
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase createHandoffToken:]", 372, self, @"Consume existing token from handler", v9, v10, v47);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSessionBase createHandoffToken:]", 372, self, @"Consume existing token from handler", v9, v10, v46);
     v11 = consumeHandoffToken;
     v12 = 0;
     v13 = 0;
@@ -700,21 +692,21 @@ LABEL_26:
     }
 
 LABEL_9:
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase createHandoffToken:]", 384, self, @"Fail to create session token; missing active session", v17, v18, v47);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase createHandoffToken:]", 384, self, @"Fail to create session token; missing active session", v17, v18, v46);
     v24 = MEMORY[0x277CCA9B8];
     activeChildSession = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v55[0] = *MEMORY[0x277CCA450];
+    v54[0] = *MEMORY[0x277CCA450];
     v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v56[0] = v25;
-    v56[1] = &unk_2876ECC60;
-    v55[1] = @"Line";
-    v55[2] = @"Method";
+    v55[0] = v25;
+    v55[1] = &unk_2876ECC60;
+    v54[1] = @"Line";
+    v54[2] = @"Method";
     v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v56[2] = v26;
-    v55[3] = *MEMORY[0x277CCA068];
+    v55[2] = v26;
+    v54[3] = *MEMORY[0x277CCA068];
     v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 385];
-    v56[3] = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:4];
+    v55[3] = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:4];
     v13 = [v24 errorWithDomain:activeChildSession code:9 userInfo:v28];
 
 LABEL_10:
@@ -734,9 +726,9 @@ LABEL_5:
   if (handler4)
   {
     handler5 = [(STSSessionBase *)self handler];
-    v49 = 0;
-    v21 = [handler5 createHandoffTokenFromSession:activeChildSession outError:&v49];
-    v22 = v49;
+    v48 = 0;
+    v21 = [handler5 createHandoffTokenFromSession:activeChildSession outError:&v48];
+    v22 = v48;
     v23 = v21;
     *token = v21;
 
@@ -747,9 +739,9 @@ LABEL_7:
     goto LABEL_13;
   }
 
-  v48 = 0;
-  v29 = [activeChildSession createSessionHandoffToken:&v48];
-  v12 = v48;
+  v47 = 0;
+  v29 = [activeChildSession createSessionHandoffToken:&v47];
+  v12 = v47;
   v30 = v29;
   *token = v29;
   if (!v12)
@@ -760,47 +752,46 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase createHandoffToken:]", 397, self, @"Invalid token", v40, v41, v47);
-    v42 = MEMORY[0x277CCA9B8];
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase createHandoffToken:]", 397, self, @"Invalid token", v39, v40, v46);
+    v41 = MEMORY[0x277CCA9B8];
     v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v51[0] = *MEMORY[0x277CCA450];
-    v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v52[0] = v43;
-    v52[1] = &unk_2876ECC90;
-    v51[1] = @"Line";
-    v51[2] = @"Method";
-    v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v52[2] = v44;
-    v51[3] = *MEMORY[0x277CCA068];
-    v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 398];
-    v52[3] = v45;
-    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:4];
-    v13 = [v42 errorWithDomain:v25 code:9 userInfo:v46];
+    v50[0] = *MEMORY[0x277CCA450];
+    v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
+    v51[0] = v42;
+    v51[1] = &unk_2876ECC90;
+    v50[1] = @"Line";
+    v50[2] = @"Method";
+    v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
+    v51[2] = v43;
+    v50[3] = *MEMORY[0x277CCA068];
+    v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 398];
+    v51[3] = v44;
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
+    v13 = [v41 errorWithDomain:v25 code:9 userInfo:v45];
 
     goto LABEL_10;
   }
 
   v31 = MEMORY[0x277CCA9B8];
   v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-  v53[0] = *MEMORY[0x277CCA450];
+  v52[0] = *MEMORY[0x277CCA450];
   v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
   v34 = *MEMORY[0x277CCA7E8];
-  v54[0] = v33;
-  v54[1] = v12;
-  v53[1] = v34;
-  v53[2] = @"Line";
-  v54[2] = &unk_2876ECC78;
-  v53[3] = @"Method";
+  v53[0] = v33;
+  v53[1] = v12;
+  v52[1] = v34;
+  v52[2] = @"Line";
+  v53[2] = &unk_2876ECC78;
+  v52[3] = @"Method";
   v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-  v54[3] = v35;
-  v53[4] = *MEMORY[0x277CCA068];
+  v53[3] = v35;
+  v52[4] = *MEMORY[0x277CCA068];
   v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 395];
-  v54[4] = v36;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:5];
+  v53[4] = v36;
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:5];
   v13 = [v31 errorWithDomain:v32 code:9 userInfo:v37];
 
 LABEL_13:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -978,6 +969,61 @@ LABEL_13:
   }
 
   objc_sync_exit(selfCopy);
+}
+
+- (id)waitForControlSessionToBeReady:(int)ready
+{
+  v3 = *&ready;
+  v25[4] = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  controlSessionSuspended = selfCopy->_controlSessionSuspended;
+  objc_sync_exit(selfCopy);
+
+  if (!controlSessionSuspended)
+  {
+    goto LABEL_6;
+  }
+
+  controlSessionSem = selfCopy->_controlSessionSem;
+  v8 = dispatch_time(0, 1000000000 * v3);
+  if (dispatch_semaphore_wait(controlSessionSem, v8))
+  {
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase waitForControlSessionToBeReady:]", 519, selfCopy, @"Control SE session failed to resume after %d seconds", v9, v10, v3);
+  }
+
+  v11 = selfCopy;
+  objc_sync_enter(v11);
+  v12 = selfCopy->_controlSessionSuspended;
+  objc_sync_exit(v11);
+
+  if (v12)
+  {
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSessionBase waitForControlSessionToBeReady:]", 528, v11, @"Control SE session did not resume", v13, v14, v23);
+    v15 = MEMORY[0x277CCA9B8];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
+    v24[0] = *MEMORY[0x277CCA450];
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
+    v25[0] = v17;
+    v25[1] = &unk_2876ECCA8;
+    v24[1] = @"Line";
+    v24[2] = @"Method";
+    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
+    v25[2] = v18;
+    v24[3] = *MEMORY[0x277CCA068];
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 529];
+    v25[3] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+    v21 = [v15 errorWithDomain:v16 code:9 userInfo:v20];
+  }
+
+  else
+  {
+LABEL_6:
+    v21 = 0;
+  }
+
+  return v21;
 }
 
 - (void)secureElementManagerSessionDidEndUnexpectedly:(id)unexpectedly

@@ -184,8 +184,7 @@ void __74__VUIAppInstallCoordinator__installAppWithChannel_punchoutURL_completio
     }
 
     [v10 setModalPresentationStyle:v14];
-    [WeakRetained setInstallerViewController:v10];
-    v17 = VUIDefaultLogObject();
+    v17 = VUIDefaultLogObject([WeakRetained setInstallerViewController:v10]);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = [*(a1 + 32) channelID];
@@ -210,7 +209,7 @@ void __74__VUIAppInstallCoordinator__installAppWithChannel_punchoutURL_completio
 void __74__VUIAppInstallCoordinator__installAppWithChannel_punchoutURL_completion___block_invoke_8(uint64_t a1)
 {
   v15 = *MEMORY[0x1E69E9840];
-  v2 = VUIDefaultLogObject();
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) channelID];
@@ -239,7 +238,7 @@ void __74__VUIAppInstallCoordinator__installAppWithChannel_punchoutURL_completio
 {
   v22 = *MEMORY[0x1E69E9840];
   v7 = a4;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = [*(a1 + 32) channelID];

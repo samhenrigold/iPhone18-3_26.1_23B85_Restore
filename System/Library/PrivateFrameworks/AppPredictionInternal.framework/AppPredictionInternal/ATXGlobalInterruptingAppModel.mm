@@ -69,15 +69,16 @@
   v2 = [MEMORY[0x277CEB3C0] pathForResource:@"ATXGlobalInterruptingApp_v0" ofType:@"dat" isDirectory:0];
   if (v2)
   {
-    v8 = 0;
-    v3 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v2 options:1 error:&v8];
-    v4 = v8;
+    v9 = 0;
+    v3 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v2 options:1 error:&v9];
+    v4 = v9;
+    v5 = v4;
     if (v4)
     {
-      v5 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_modes(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(ATXGlobalInterruptingAppModel *)v4 loadGlobalPriorsAsset];
+        [(ATXGlobalInterruptingAppModel *)v5 loadGlobalPriorsAsset];
       }
     }
 
@@ -85,82 +86,82 @@
     {
       if (v3)
       {
-        v6 = v3;
+        v7 = v3;
         goto LABEL_11;
       }
 
-      v5 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_modes(0);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(ATXGlobalInterruptingAppModel *)v5 loadGlobalPriorsAsset];
+        [(ATXGlobalInterruptingAppModel *)v6 loadGlobalPriorsAsset];
       }
     }
 
-    v6 = 0;
+    v7 = 0;
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = __atxlog_handle_modes(0);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [(ATXGlobalInterruptingAppModel *)v4 loadGlobalPriorsAsset];
+    [(ATXGlobalInterruptingAppModel *)v5 loadGlobalPriorsAsset];
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_12:
 
-  return v6;
+  return v7;
 }
 
 - (id)_computePriors
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_modes();
+  v24 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v19 = 0;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXGlobalInterruptingAppModel: _computePriors", v19, 2u);
+    *v18 = 0;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXGlobalInterruptingAppModel: _computePriors", v18, 2u);
   }
 
   loadGlobalPriorsAsset = [(ATXGlobalInterruptingAppModel *)self loadGlobalPriorsAsset];
   if (loadGlobalPriorsAsset)
   {
     v5 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v6 = self->_bundleIds;
-    v7 = [(NSSet *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [(NSSet *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [(ATXGlobalInterruptingAppModel *)self indexForBundleId:*(*(&v20 + 1) + 8 * i)];
+          v11 = [(ATXGlobalInterruptingAppModel *)self indexForBundleId:*(*(&v19 + 1) + 8 * i)];
           if (v11)
           {
             v12 = v11;
-            *v19 = 0;
-            [loadGlobalPriorsAsset getBytes:v19 range:{(4 * v11 - 4), 4}];
-            LODWORD(v13) = *v19;
+            *v18 = 0;
+            [loadGlobalPriorsAsset getBytes:v18 range:{(4 * v11 - 4), 4}];
+            LODWORD(v13) = *v18;
             v14 = [MEMORY[0x277CCABB0] numberWithDouble:v13 / 4294967300.0];
             v15 = [MEMORY[0x277CCABB0] numberWithInt:v12];
             [v5 setObject:v14 forKeyedSubscript:v15];
           }
         }
 
-        v8 = [(NSSet *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [(NSSet *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v8);
@@ -173,8 +174,6 @@ LABEL_12:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -194,14 +193,14 @@ LABEL_12:
 {
   idCopy = id;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v8 = objc_sync_enter(selfCopy);
   if (!selfCopy->_priors && selfCopy->_assetOffloadedDueToMemoryPressure)
   {
-    v8 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = __atxlog_handle_modes(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "ATXGlobalInterruptingAppModel: loading global priors after it was previously offloaded due to memory pressure.", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "ATXGlobalInterruptingAppModel: loading global priors after it was previously offloaded due to memory pressure.", v19, 2u);
     }
 
     _computePriors = [(ATXGlobalInterruptingAppModel *)selfCopy _computePriors];
@@ -211,24 +210,23 @@ LABEL_12:
     selfCopy->_assetOffloadedDueToMemoryPressure = 0;
   }
 
-  v11 = [(ATXGlobalInterruptingAppModel *)selfCopy indexForBundleId:idCopy];
-  v12 = selfCopy->_priors;
-  v13 = [MEMORY[0x277CCABB0] numberWithInt:v11];
-  v14 = [(NSDictionary *)v12 objectForKeyedSubscript:v13];
-  [v14 doubleValue];
-  v16 = v15 * factor;
+  v12 = [(ATXGlobalInterruptingAppModel *)selfCopy indexForBundleId:idCopy];
+  v13 = selfCopy->_priors;
+  v14 = [MEMORY[0x277CCABB0] numberWithInt:v12];
+  v15 = [(NSDictionary *)v13 objectForKeyedSubscript:v14];
+  [v15 doubleValue];
+  v17 = v16 * factor;
 
   objc_sync_exit(selfCopy);
-  return v16;
+  return v17;
 }
 
 - (void)loadGlobalPriorsAsset
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"ATXGlobalInterruptingApp_v0";
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXGlobalAppModeAffinityModel: Unable to find path for %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"ATXGlobalInterruptingApp_v0";
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXGlobalAppModeAffinityModel: Unable to find path for %@", &v1, 0xCu);
 }
 
 @end

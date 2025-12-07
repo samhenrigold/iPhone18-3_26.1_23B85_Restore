@@ -281,15 +281,15 @@ LABEL_12:
     {
       if (v6)
       {
-        v8 = [@"promotions" isEqualToString:v6];
+        isEqualToString = objc_msgSend_isEqualToString_(@"promotions");
 
-        if (v8)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
 
         v10 = v7;
-        if (v10 == @"enhancedMerchants" || (v11 = v10, v12 = [@"enhancedMerchants" isEqualToString:v10], v11, v12))
+        if (v10 == @"enhancedMerchants" || (v11 = v10, v12 = objc_msgSend_isEqualToString_(@"enhancedMerchants"), v11, v12))
         {
           v9 = 1;
           goto LABEL_10;

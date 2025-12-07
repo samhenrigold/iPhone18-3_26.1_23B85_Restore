@@ -137,7 +137,7 @@
     {
       stashedAssetPath2 = [recordCopy stashedAssetPath];
       *buf = 138412802;
-      v33 = recordCopy;
+      v29 = recordCopy;
       if ([recordCopy stashedAssetIsDecrypted])
       {
         v9 = "YES";
@@ -148,10 +148,10 @@
         v9 = "NO";
       }
 
-      v34 = 2112;
-      v35 = stashedAssetPath2;
-      v36 = 2080;
-      v37 = v9;
+      v30 = 2112;
+      v31 = stashedAssetPath2;
+      v32 = 2080;
+      v33 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Prefetch: Attempting to prefetch a file(%@) already downloaded, stashedAssetPath:%@, stashedAssetIsDecrypted:%s", buf, 0x20u);
 
       stashedAssetPath3 = [recordCopy stashedAssetPath];
@@ -165,10 +165,7 @@
         v11 = "NO";
       }
 
-      v30 = stashedAssetPath3;
-      v31 = v11;
-      v28 = recordCopy;
-      _MBLog();
+      _MBLog(@"Df", "Prefetch: Attempting to prefetch a file(%@) already downloaded, stashedAssetPath:%@, stashedAssetIsDecrypted:%s", recordCopy, stashedAssetPath3, v11);
     }
   }
 
@@ -176,35 +173,23 @@
   objc_sync_enter(v12);
   if (-[NSMutableArray count](self->_batchRecordIDs, "count") + 1 > self->_maxBatchCount || (batchSize = self->_batchSize, v14 = [recordCopy size], objc_msgSend(recordCopy, "resourcesSize") + v14 + batchSize >= self->_maxBatchAssetSize))
   {
-    [(MBCKRestoreFilePrefetchEngine *)self _prefetchBatch:v28];
+    [(MBCKRestoreFilePrefetchEngine *)self _prefetchBatch];
   }
 
-  if ([recordCopy resourcesSize])
+  if ([recordCopy resourcesSize] || (cache = self->_cache, objc_msgSend(recordCopy, "signature"), v22 = objc_claimAutoreleasedReturnValue(), -[MBCKCache fileAssetMetadataForSignature:volumeType:](cache, "fileAssetMetadataForSignature:volumeType:", v22, objc_msgSend(recordCopy, "volumeType")), v23 = objc_claimAutoreleasedReturnValue(), LOBYTE(cache) = v23 == 0, v23, v22, (cache & 1) != 0))
   {
-    goto LABEL_35;
-  }
-
-  cache = self->_cache;
-  signature = [recordCopy signature];
-  v23 = -[MBCKCache fileAssetMetadataForSignature:volumeType:](cache, "fileAssetMetadataForSignature:volumeType:", signature, [recordCopy volumeType]);
-  LOBYTE(cache) = v23 == 0;
-
-  if (cache)
-  {
-LABEL_35:
     if (_os_feature_enabled_impl())
     {
-      signature2 = [recordCopy signature];
-      if (!signature2 && [recordCopy size])
+      signature = [recordCopy signature];
+      if (!signature && [recordCopy size])
       {
         v16 = MBGetDefaultLog();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v33 = recordCopy;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Prefetch: Found a file with non-zero size and no signature: %@", buf, 0xCu);
           v29 = recordCopy;
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Prefetch: Found a file with non-zero size and no signature: %@", buf, 0xCu);
+          _MBLog(@"F ", "Prefetch: Found a file with non-zero size and no signature: %@", recordCopy);
         }
       }
     }
@@ -223,9 +208,9 @@ LABEL_35:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = recordCopy;
+      v29 = recordCopy;
       _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Prefetch: Skipping prefetch of file(%@) because a previous batch already stashed file contents for this file", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Prefetch: Skipping prefetch of file(%@) because a previous batch already stashed file contents for this file", recordCopy);
     }
 
     [(MBCKRestoreFilePrefetchEngine *)self _updateCacheWithFile:recordCopy];
@@ -380,7 +365,7 @@ LABEL_32:
     }
 
     operationID2 = [v15 operationID];
-    _MBLog();
+    _MBLog(@"I ", "Prefetch: Starting operation:%{public}@, records:%lu, size:%llu", operationID2, v29, batchSize);
   }
 
   dispatch_group_enter(self->_group);

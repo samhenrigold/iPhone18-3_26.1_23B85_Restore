@@ -46,11 +46,11 @@
 
 - (BOOL)insertDataObjects:(const void *)objects forServiceUUID:(const void *)d atLoiUUID:(const void *)iD
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if (*objects != *(objects + 1))
   {
-    v21 = 0;
+    v20 = 0;
     if (*(d + 16) == 1)
     {
       dbStore = [(ULStore *)self dbStore];
@@ -61,9 +61,9 @@
       }
 
       managedObjectContext = [(ULStore *)self managedObjectContext];
-      v21 = [v9 fetchServiceManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+      v20 = [v9 fetchServiceManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
 
-      if (!v21)
+      if (!v20)
       {
         if (onceToken_MicroLocation_Default != -1)
         {
@@ -99,7 +99,7 @@
       }
     }
 
-    v20 = 0;
+    v19 = 0;
     if (*(iD + 16) == 1)
     {
       dbStore2 = [(ULStore *)self dbStore];
@@ -110,9 +110,9 @@
       }
 
       managedObjectContext2 = [(ULStore *)self managedObjectContext];
-      v20 = [v14 fetchLoiManagedObjectWithUUID:iD withManagedObjectContext:managedObjectContext2];
+      v19 = [v14 fetchLoiManagedObjectWithUUID:iD withManagedObjectContext:managedObjectContext2];
 
-      if (!v20)
+      if (!v19)
       {
         if (onceToken_MicroLocation_Default != -1)
         {
@@ -148,17 +148,16 @@
       }
     }
 
-    v23 = 0;
+    v22 = 0;
     operator new();
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)deleteUnneededModelsWithNumNonLslsModeltoKeep:(unsigned int)keep numLSLModelsToKeep:(unsigned int)toKeep
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULModelStore insertDataObjects:forServiceUUID:atLoiUUID:];
@@ -169,7 +168,7 @@
   {
     *buf = 67240448;
     toKeepCopy = toKeep;
-    v29 = 1026;
+    v28 = 1026;
     keepCopy = keep;
     _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEBUG, "Keeping %{public}d models for LSL models, %{public}d models per other types", buf, 0xEu);
   }
@@ -196,16 +195,16 @@
 
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
-    v26 = v7;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = v7;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     v16 = [(ULStore *)self countManagedObjectsWithEntityName:v14 byAndPredicates:array sortDescriptors:v15 andLimit:0];
 
     if ([v16 unsignedIntValue] > keepCopy2)
     {
       v17 = objc_opt_class();
       v18 = NSStringFromClass(v17);
-      v25 = v7;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      v24 = v7;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
       v20 = -[ULStore batchDeleteObjectsWithEntityName:byAndPredicates:sortDescriptors:andLimit:](self, "batchDeleteObjectsWithEntityName:byAndPredicates:sortDescriptors:andLimit:", v18, array, v19, [v16 unsignedIntValue] - keepCopy2);
 
       v9 &= v20;
@@ -217,7 +216,6 @@
   while (v8 != 6);
 
   objc_autoreleasePoolPop(context);
-  v21 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -236,7 +234,7 @@
 
 - (BOOL)deleteModelsForService:(uuid)service
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   array = [MEMORY[0x277CBEB18] array];
   v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&serviceCopy];
@@ -249,7 +247,6 @@
   v9 = NSStringFromClass(v8);
   LOBYTE(self) = [(ULStore *)self batchDeleteObjectsWithEntityName:v9 byAndPredicates:array sortDescriptors:0 andLimit:0];
 
-  v10 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -258,10 +255,10 @@
   v5 = v4;
   v6 = v3;
   v7 = *&id.data[8];
-  v30[1] = *MEMORY[0x277D85DE8];
-  v27 = 0uLL;
-  v28 = 0;
-  std::vector<ULModelDO>::reserve(&v27, 1uLL);
+  v29[1] = *MEMORY[0x277D85DE8];
+  v26 = 0uLL;
+  v27 = 0;
+  std::vector<ULModelDO>::reserve(&v26, 1uLL);
   v10 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K=%d", @"modelType", v7];
@@ -313,19 +310,19 @@ LABEL_9:
   }
 
   v21 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:0];
-  v30[0] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
-  [(ULModelStore *)self _fetchModelsByAndPredicates:array sortDescriptors:v22 andLimit:1];
-  std::vector<ULModelDO>::__vdeallocate(&v27);
+  v29[0] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  objc_msgSend__fetchModelsByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULModelDO>::__vdeallocate(&v26);
+  v26 = v24;
   v27 = v25;
-  v28 = v26;
-  v29 = &v25;
-  v26 = 0;
-  v25 = 0uLL;
-  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v29);
+  v28 = &v24;
+  v25 = 0;
+  v24 = 0uLL;
+  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v28);
 
   objc_autoreleasePoolPop(v10);
-  if (v27 == *(&v27 + 1))
+  if (v26 == *(&v26 + 1))
   {
     retstr->var0.var0 = 0;
     *(&retstr[1].var0.var4 + 96) = 0;
@@ -333,12 +330,11 @@ LABEL_9:
 
   else
   {
-    std::__optional_destruct_base<ULModelDO,false>::__optional_destruct_base[abi:ne200100]<ULModelDO>(retstr, v27);
+    std::__optional_destruct_base<ULModelDO,false>::__optional_destruct_base[abi:ne200100]<ULModelDO>(retstr, v26);
   }
 
-  *&v25 = &v27;
-  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v25);
-  v24 = *MEMORY[0x277D85DE8];
+  *&v24 = &v26;
+  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v24);
   return result;
 }
 
@@ -347,10 +343,10 @@ LABEL_9:
   v5 = v4;
   v6 = v3;
   v7 = *&id.data[8];
-  v30[1] = *MEMORY[0x277D85DE8];
-  v27 = 0uLL;
-  v28 = 0;
-  std::vector<ULModelDO>::reserve(&v27, 1uLL);
+  v29[1] = *MEMORY[0x277D85DE8];
+  v26 = 0uLL;
+  v27 = 0;
+  std::vector<ULModelDO>::reserve(&v26, 1uLL);
   v10 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K=%d", @"modelType", v7];
@@ -387,19 +383,19 @@ LABEL_9:
   }
 
   v21 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:0];
-  v30[0] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
-  [(ULModelStore *)self _fetchModelsByAndPredicates:array sortDescriptors:v22 andLimit:1];
-  std::vector<ULModelDO>::__vdeallocate(&v27);
+  v29[0] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  objc_msgSend__fetchModelsByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULModelDO>::__vdeallocate(&v26);
+  v26 = v24;
   v27 = v25;
-  v28 = v26;
-  v29 = &v25;
-  v26 = 0;
-  v25 = 0uLL;
-  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v29);
+  v28 = &v24;
+  v25 = 0;
+  v24 = 0uLL;
+  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v28);
 
   objc_autoreleasePoolPop(v10);
-  if (v27 == *(&v27 + 1))
+  if (v26 == *(&v26 + 1))
   {
     retstr->var0.var0 = 0;
     *(&retstr[1].var0.var4 + 96) = 0;
@@ -407,113 +403,108 @@ LABEL_9:
 
   else
   {
-    std::__optional_destruct_base<ULModelDO,false>::__optional_destruct_base[abi:ne200100]<ULModelDO>(retstr, v27);
+    std::__optional_destruct_base<ULModelDO,false>::__optional_destruct_base[abi:ne200100]<ULModelDO>(retstr, v26);
   }
 
-  *&v25 = &v27;
-  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v25);
-  v24 = *MEMORY[0x277D85DE8];
+  *&v24 = &v26;
+  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v24);
   return result;
 }
 
 - (vector<ULModelDO,)fetchModelsAtLoiGroupId:(ULModelStore *)self andLimit:(SEL)limit
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v20 = a4;
+  v19 = *MEMORY[0x277D85DE8];
+  v18 = a4;
   retstr->var1 = 0;
   retstr->var2 = 0;
   retstr->var0 = 0;
-  v8 = objc_autoreleasePoolPush();
+  v7 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
-  v10 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v20];
-  uUIDString = [v10 UUIDString];
+  v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v18];
+  uUIDString = [v9 UUIDString];
 
-  v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K=%@", @"loi", @"loiGroupId", uUIDString];
-  [array addObject:v12];
+  v11 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K=%@", @"loi", @"loiGroupId", uUIDString];
+  [array addObject:v11];
 
-  v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:0];
-  v19 = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-  [(ULModelStore *)self _fetchModelsByAndPredicates:array sortDescriptors:v14 andLimit:a5];
-  std::vector<ULModelDO>::__vdeallocate(&retstr->var0);
-  *retstr = v17;
-  memset(&v17, 0, sizeof(v17));
-  v18 = &v17;
-  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v18);
+  v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:0];
+  v17 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  objc_msgSend__fetchModelsByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULModelDO>::__vdeallocate(retstr);
+  *retstr = v15;
+  memset(&v15, 0, sizeof(v15));
+  v16 = &v15;
+  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v16);
 
-  objc_autoreleasePoolPop(v8);
-  v16 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v7);
   return result;
 }
 
 - (optional<ULModelDO>)fetchMostRecentModelOfModelType:(uuid)type atLoiGroupId:
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8[0] = 0;
-  v8[16] = 0;
-  v6 = *v3;
-  v7 = *(v3 + 16);
-  result = [(ULModelStore *)self fetchMostRecentModelOfModelType:*&type.data[8] ForService:v8 atLoiGroupId:&v6];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = *MEMORY[0x277D85DE8];
+  v7[0] = 0;
+  v7[16] = 0;
+  v5 = *v3;
+  v6 = *(v3 + 16);
+  return objc_msgSend_fetchMostRecentModelOfModelType_ForService_atLoiGroupId_(self, *type.data, *&type.data[8], v7, &v5);
 }
 
 - (optional<ULModelDO>)fetchMostRecentMagicalMomentsModelAtLoiGroupId:(uuid)id
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   LOBYTE(__p) = 0;
-  v8 = 0;
-  v9 = *&id.data[8];
-  v10 = v3;
-  v11 = 1;
-  result = [(ULModelStore *)self fetchMostRecentModelOfModelType:0 ForClient:&__p atLoiGroupId:&v9];
-  if (v8 == 1 && v7 < 0)
+  v7 = 0;
+  v8 = *&id.data[8];
+  v9 = v3;
+  v10 = 1;
+  result = objc_msgSend_fetchMostRecentModelOfModelType_ForClient_atLoiGroupId_(self, *id.data, 0, &__p, &v8);
+  if (v7 == 1 && v6 < 0)
   {
     operator delete(__p);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (optional<ULModelDO>)fetchMostRecentModelForServiceUuid:(uuid)uuid atLoiGroupId:
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v28 = *&uuid.data[8];
-  v29 = v3;
-  v26 = v4;
-  v27 = v5;
-  v22 = 0uLL;
-  v23 = 0;
-  std::vector<ULModelDO>::reserve(&v22, 1uLL);
+  v29 = *MEMORY[0x277D85DE8];
+  v27 = *&uuid.data[8];
+  v28 = v3;
+  v25 = v4;
+  v26 = v5;
+  v21 = 0uLL;
+  v22 = 0;
+  std::vector<ULModelDO>::reserve(&v21, 1uLL);
   v8 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
-  v10 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v28];
+  v10 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v27];
   uUIDString = [v10 UUIDString];
 
   v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K=%@", @"service", @"serviceUUID", uUIDString];
   [array addObject:v12];
 
-  v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v26];
+  v13 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v25];
   uUIDString2 = [v13 UUIDString];
 
   v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K=%@", @"loi", @"loiGroupId", uUIDString2];
   [array addObject:v15];
 
   v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:0];
-  v25 = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-  [(ULModelStore *)self _fetchModelsByAndPredicates:array sortDescriptors:v17 andLimit:1];
-  std::vector<ULModelDO>::__vdeallocate(&v22);
+  v24 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  objc_msgSend__fetchModelsByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULModelDO>::__vdeallocate(&v21);
+  v21 = v19;
   v22 = v20;
-  v23 = v21;
-  v24 = &v20;
-  v21 = 0;
-  v20 = 0uLL;
-  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v24);
+  v23 = &v19;
+  v20 = 0;
+  v19 = 0uLL;
+  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v23);
 
   objc_autoreleasePoolPop(v8);
-  if (v22 == *(&v22 + 1))
+  if (v21 == *(&v21 + 1))
   {
     retstr->var0.var0 = 0;
     *(&retstr[1].var0.var4 + 96) = 0;
@@ -521,39 +512,38 @@ LABEL_9:
 
   else
   {
-    std::__optional_destruct_base<ULModelDO,false>::__optional_destruct_base[abi:ne200100]<ULModelDO>(retstr, v22);
+    std::__optional_destruct_base<ULModelDO,false>::__optional_destruct_base[abi:ne200100]<ULModelDO>(retstr, v21);
   }
 
-  *&v20 = &v22;
-  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v20);
-  v19 = *MEMORY[0x277D85DE8];
+  *&v19 = &v21;
+  std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v19);
   return result;
 }
 
 - (vector<ULModelDO,)fetchMostRecentModels
 {
   v5 = 0;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
   do
   {
+    v8 = 0;
     v9 = 0;
-    v10 = 0;
-    v8[0] = 0;
-    result = [(ULModelStore *)self fetchMostRecentModelOfModelType:v5 ForService:&v9 + 1 atLoiGroupId:v8];
-    if (v16 == 1)
+    v7[0] = 0;
+    result = objc_msgSend_fetchMostRecentModelOfModelType_ForService_atLoiGroupId_(self, a3, v5, &v8 + 1, v7);
+    if (v15 == 1)
     {
-      result = std::vector<ULModelDO>::push_back[abi:ne200100](retstr, &v11);
-      if (v16)
+      result = std::vector<ULModelDO>::push_back[abi:ne200100](retstr, &v10);
+      if (v15)
       {
-        if (v15 == 1 && v14 < 0)
+        if (v14 == 1 && v13 < 0)
         {
-          operator delete(v13);
+          operator delete(v12);
         }
 
-        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v12);
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v11);
       }
     }
 
@@ -561,7 +551,6 @@ LABEL_9:
   }
 
   while (v5 != 6);
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -604,26 +593,24 @@ LABEL_9:
 
 void __73__ULModelStore_fetchModelManagedObjectWithUUID_withManagedObjectContext___block_invoke(void *a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = a1[5];
-  v12[0] = a1[6];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = a1[6];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v7 = [v2 fetchManagedObjectsWithEntityName:v4 byAndPredicates:v5 sortDescriptors:v6 andLimit:1 returnObjectsAsFaults:1 withManagedObjectContext:a1[7]];
 
   v8 = [v7 firstObject];
   v9 = *(a1[8] + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateHomeSlamModelForModelUUID:(const uuid *)d modelAsNSData:(id)data
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
@@ -632,9 +619,9 @@ void __73__ULModelStore_fetchModelManagedObjectWithUUID_withManagedObjectContext
     uUIDString = [v8 UUIDString];
     v10 = [v7 predicateWithFormat:@"%K = %@ AND %K = %@", @"modelUUID", uUIDString, @"modelType", &unk_286A71A78];
 
-    v17 = @"model";
-    v18[0] = dataCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = @"model";
+    v17[0] = dataCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
     v14 = [(ULStore *)self batchUpdateObjectsWithEntityName:v13 predicate:v10 propertiesToUpdate:v11];
@@ -645,7 +632,6 @@ void __73__ULModelStore_fetchModelManagedObjectWithUUID_withManagedObjectContext
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -682,18 +668,18 @@ void __73__ULModelStore_fetchModelManagedObjectWithUUID_withManagedObjectContext
 
 - (id)fetchVMKModelFor:(id)for
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   forCopy = for;
-  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(forCopy, &v17);
-  if ((v18 & 1) == 0)
+  CLMicroLocationProtobufHelper::boostUuidFromNSUUID(&v16, forCopy);
+  if ((v17 & 1) == 0)
   {
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-  *buf = v17;
-  v20 = 1;
-  [(ULModelStore *)self fetchMostRecentModelOfModelType:5 atLoiGroupId:buf];
-  if ((v28 & 1) == 0)
+  *buf = v16;
+  v19 = 1;
+  objc_msgSend_fetchMostRecentModelOfModelType_atLoiGroupId_(self);
+  if ((v27 & 1) == 0)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -718,7 +704,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (v24 != 2)
+  if (v23 != 2)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -739,7 +725,7 @@ LABEL_19:
     goto LABEL_18;
   }
 
-  if ((v23 & 1) == 0)
+  if ((v22 & 1) == 0)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -757,103 +743,101 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v15 = v22;
-  v16 = *(v22 + 23);
-  if (v16 < 0)
+  v14 = v21;
+  v15 = *(v21 + 23);
+  if (v15 < 0)
   {
-    v15 = *v22;
-    v16 = v22[1];
+    v14 = *v21;
+    v15 = v21[1];
   }
 
-  data = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:v16];
+  data = [MEMORY[0x277CBEA90] dataWithBytes:v14 length:v15];
 LABEL_20:
   v12 = data;
-  if (v28 == 1)
+  if (v27 == 1)
   {
-    if (v27 == 1 && v26 < 0)
+    if (v26 == 1 && v25 < 0)
     {
-      operator delete(v25);
+      operator delete(v24);
     }
 
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v21);
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v20);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)insertVMKModel:(id)model for:(id)for
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   forCopy = for;
   if ([modelCopy length])
   {
-    CLMicroLocationProto::VMKModel::VMKModel(&v23);
+    CLMicroLocationProto::VMKModel::VMKModel(&v22);
     v8 = modelCopy;
     bytes = [modelCopy bytes];
     v10 = [modelCopy length];
-    v25 |= 1u;
-    if (v24 == MEMORY[0x277D82C30])
+    v24 |= 1u;
+    if (v23 == MEMORY[0x277D82C30])
     {
       operator new();
     }
 
-    std::string::__assign_external(v24, bytes, v10);
-    CLMicroLocationProtobufHelper::boostUuidFromNSUUID(forCopy, &buf);
-    if ((v36 & 1) == 0)
+    std::string::__assign_external(v23, bytes, v10);
+    CLMicroLocationProtobufHelper::boostUuidFromNSUUID(&buf, forCopy);
+    if ((v35 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
     v11 = *buf.var0.data;
     v12 = *&buf.var0.data[8];
-    LODWORD(v26[0]) = 0;
-    boost::uuids::detail::random_provider_base::random_provider_base(v26);
-    v13 = boost::uuids::random_generator_pure::operator()(v26);
+    LODWORD(v25[0]) = 0;
+    boost::uuids::detail::random_provider_base::random_provider_base(v25);
+    v13 = boost::uuids::random_generator_pure::operator()(v25);
     v15 = v14;
     v16 = cl::chrono::CFAbsoluteTimeClock::now();
-    ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(v22, &v23);
-    ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(&v28, v22);
-    v29[44] = 2;
+    ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(v21, &v22);
+    ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(&v27, v21);
+    v28[44] = 2;
     LOBYTE(__p) = 0;
-    v21 = 0;
-    LOBYTE(v33[0]) = 0;
-    v34 = 0;
-    ULModelDO::ULModelDO(&buf, v13, v15, &v28, &__p, v33, v11, v12, v16);
-    if (v21 == 1 && v20 < 0)
+    v20 = 0;
+    LOBYTE(v32) = 0;
+    v33 = 0;
+    ULModelDO::ULModelDO(&buf, v13, v15, &v27, &__p, &v32, v11, v12, v16);
+    if (v20 == 1 && v19 < 0)
     {
       operator delete(__p);
     }
 
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v28.var0.data);
-    CLMicroLocationProto::VMKModel::~VMKModel(v22);
-    boost::uuids::detail::random_provider_base::destroy(v26);
-    ULModelDO::ULModelDO(&v28, &buf);
-    memset(v22, 0, sizeof(v22));
-    std::vector<ULModelDO>::__init_with_size[abi:ne200100]<ULModelDO const*,ULModelDO const*>(v22, &v28, v33, 1uLL);
-    LOBYTE(v33[0]) = 0;
-    v34 = 0;
-    v26[0] = v11;
-    v26[1] = v12;
-    v27 = 1;
-    [(ULModelStore *)self insertDataObjects:v22 forServiceUUID:v33 atLoiUUID:v26];
-    v33[0] = v22;
-    std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](v33);
-    if (v32 == 1 && v31 < 0)
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v27);
+    CLMicroLocationProto::VMKModel::~VMKModel(v21);
+    boost::uuids::detail::random_provider_base::destroy(v25);
+    ULModelDO::ULModelDO(&v27, &buf);
+    memset(v21, 0, sizeof(v21));
+    std::vector<ULModelDO>::__init_with_size[abi:ne200100]<ULModelDO const*,ULModelDO const*>(v21, &v27, &v32, 1uLL);
+    LOBYTE(v32) = 0;
+    v33 = 0;
+    v25[0] = v11;
+    v25[1] = v12;
+    v26 = 1;
+    [(ULModelStore *)self insertDataObjects:v21 forServiceUUID:&v32 atLoiUUID:v25];
+    *&v32 = v21;
+    std::vector<ULModelDO>::__destroy_vector::operator()[abi:ne200100](&v32);
+    if (v31 == 1 && v30 < 0)
     {
-      operator delete(v30);
+      operator delete(v29);
     }
 
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v29);
-    if (v40 == 1 && v39 < 0)
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v28);
+    if (v39 == 1 && v38 < 0)
     {
-      operator delete(v38);
+      operator delete(v37);
     }
 
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v37);
-    CLMicroLocationProto::VMKModel::~VMKModel(&v23);
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v36);
+    CLMicroLocationProto::VMKModel::~VMKModel(&v22);
   }
 
   else
@@ -870,8 +854,6 @@ LABEL_20:
       _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_ERROR, "Trying to insert an empty vmk model, doing nothing", buf.var0.data, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

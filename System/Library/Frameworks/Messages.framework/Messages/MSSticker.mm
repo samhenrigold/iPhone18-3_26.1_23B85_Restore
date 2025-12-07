@@ -290,51 +290,51 @@
 
 + (id)_stickerRepresentationRoleForAdaptiveImageGlyphFrameWithProperties:(id)properties
 {
-  [self _frameSizeFromFrameProperties:properties];
-  v5 = v3;
-  if (v3 == 40.0 && v4 == 40.0)
+  v3 = [self _frameSizeFromFrameProperties:properties];
+  v6 = v4;
+  if (v4 == 40.0 && v5 == 40.0)
   {
-    v9 = MEMORY[0x1E69DEAA0];
+    v10 = MEMORY[0x1E69DEAA0];
     goto LABEL_14;
   }
 
-  v7 = v4;
-  if (v3 == 64.0 && v4 == 64.0)
+  v8 = v5;
+  if (v4 == 64.0 && v5 == 64.0)
   {
-    v9 = MEMORY[0x1E69DEAA8];
+    v10 = MEMORY[0x1E69DEAA8];
     goto LABEL_14;
   }
 
-  if (v3 == 96.0 && v4 == 96.0)
+  if (v4 == 96.0 && v5 == 96.0)
   {
-    v9 = MEMORY[0x1E69DEAB0];
+    v10 = MEMORY[0x1E69DEAB0];
 LABEL_14:
-    v10 = *v9;
+    v11 = *v10;
     goto LABEL_15;
   }
 
-  if (v3 == 160.0 && v4 == 160.0)
+  if (v4 == 160.0 && v5 == 160.0)
   {
-    v9 = MEMORY[0x1E69DEA90];
+    v10 = MEMORY[0x1E69DEA90];
     goto LABEL_14;
   }
 
-  if (v3 == 320.0 && v4 == 320.0)
+  if (v4 == 320.0 && v5 == 320.0)
   {
-    v9 = MEMORY[0x1E69DEA98];
+    v10 = MEMORY[0x1E69DEA98];
     goto LABEL_14;
   }
 
-  v12 = ms_defaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = ms_defaultLog(v3);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    [(MSSticker *)v12 _stickerRepresentationRoleForAdaptiveImageGlyphFrameWithProperties:v5, v7];
+    [(MSSticker *)v13 _stickerRepresentationRoleForAdaptiveImageGlyphFrameWithProperties:v6, v8];
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_15:
 
-  return v10;
+  return v11;
 }
 
 + (id)_stickerRepresentationsForImageFileURL:(id)l
@@ -495,7 +495,7 @@ LABEL_20:
     v32 = [self _stickerRepresentationRoleForAdaptiveImageGlyphFrameWithProperties:v31];
     if (![v32 length])
     {
-      v39 = ms_defaultLog();
+      v39 = ms_defaultLog(0);
       if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_38;
@@ -516,7 +516,7 @@ LABEL_33:
     ImageAtIndex = CGImageSourceCreateImageAtIndex(v29, v26, 0);
     if (!ImageAtIndex)
     {
-      v39 = ms_defaultLog();
+      v39 = ms_defaultLog(0);
       if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_38;
@@ -534,7 +534,7 @@ LABEL_33:
     __ms_HEICData = [v39 __ms_HEICData];
     if (![__ms_HEICData length])
     {
-      v41 = ms_defaultLog();
+      v41 = ms_defaultLog(0);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
@@ -830,10 +830,11 @@ LABEL_19:
 
 - (void)_generateThumbnail
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 + (id)MSStickerPreviewCacheKeyForSticker:(id)sticker
@@ -943,15 +944,16 @@ LABEL_19:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)_generateImageDataFromURL:.cold.2()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)_generateImageDataFromRepresentation:(objc_class *)a1 .cold.1(objc_class *a1)
@@ -960,23 +962,25 @@ LABEL_19:
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_1CADE6000, v2, v3, "Loaded weak linked class: '%@': %s:%i (%s)", v4, v5, v6, v7);
 }
 
 - (void)_generateImageDataFromRepresentation:.cold.2()
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 - (void)animatedImageCacheURL
 {
+  v6 = 138413058;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5(&dword_1CADE6000, v0, v1, "Failed to load weak link class: '%@': %s:%i (%s)", v2, v3, v4, v5, v6);
 }
 
 @end

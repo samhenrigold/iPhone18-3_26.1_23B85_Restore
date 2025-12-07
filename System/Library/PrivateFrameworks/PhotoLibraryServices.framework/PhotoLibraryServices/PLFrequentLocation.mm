@@ -173,7 +173,7 @@ void __47__PLFrequentLocation__invalidateLazyProperties__block_invoke(uint64_t a
 {
   momentsCopy = moments;
   sortedMoments = [(PLFrequentLocation *)self sortedMoments];
-  v5 = [sortedMoments count];
+  v5 = objc_msgSend_count(sortedMoments);
 
   if (v5)
   {
@@ -191,7 +191,7 @@ void __47__PLFrequentLocation__invalidateLazyProperties__block_invoke(uint64_t a
 
   [(PLFrequentLocation *)self setCoordinate:?];
   sortedMoments2 = [(PLFrequentLocation *)self sortedMoments];
-  v13 = [sortedMoments2 count];
+  v13 = objc_msgSend_count(sortedMoments2);
 
   v14 = 0;
   if (v13)
@@ -279,12 +279,12 @@ LABEL_15:
     dateInterval = [(PLFrequentLocation *)self dateInterval];
     dateInterval2 = [locationCopy dateInterval];
     v9 = [dateInterval intersectionWithDateInterval:dateInterval2];
-    [v9 duration];
+    objc_msgSend_duration(v9);
     v11 = v10;
 
-    [dateInterval duration];
+    objc_msgSend_duration(dateInterval);
     v13 = v12;
-    [dateInterval2 duration];
+    objc_msgSend_duration(dateInterval2);
     if (v13 >= v14)
     {
       v14 = v13;
@@ -340,7 +340,7 @@ LABEL_15:
   startDate = [dateInterval startDate];
   dateInterval2 = [(PLFrequentLocation *)self dateInterval];
   endDate = [dateInterval2 endDate];
-  v9 = [v3 stringWithFormat:@"%@ [%@ - %@] <%f, %f> %lu moments", v4, startDate, endDate, *&self->_coordinate.latitude, *&self->_coordinate.longitude, -[NSMutableArray count](self->_sortedMoments, "count")];
+  v9 = [v3 stringWithFormat:@"%@ [%@ - %@] <%f, %f> %lu moments", v4, startDate, endDate, *&self->_coordinate.latitude, *&self->_coordinate.longitude, objc_msgSend_count(self->_sortedMoments)];
 
   return v9;
 }
@@ -357,7 +357,7 @@ LABEL_15:
     sortedMoments = v5->_sortedMoments;
     v5->_sortedMoments = v6;
 
-    if ([momentsCopy count] == 1)
+    if (objc_msgSend_count(momentsCopy) == 1)
     {
       firstObject = [momentsCopy firstObject];
       [firstObject pl_coordinate];
@@ -365,7 +365,7 @@ LABEL_15:
       v5->_coordinate.longitude = v10;
     }
 
-    else if ([momentsCopy count] < 2)
+    else if (objc_msgSend_count(momentsCopy) < 2)
     {
       v5->_coordinate = *MEMORY[0x1E6985CC0];
     }

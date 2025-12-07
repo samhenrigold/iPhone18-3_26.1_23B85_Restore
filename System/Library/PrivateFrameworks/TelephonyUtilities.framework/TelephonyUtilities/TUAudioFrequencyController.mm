@@ -63,8 +63,8 @@
   v7 = [powerSpectrumMeter registerPowerSpectrumForCellularTapType:v5 error:&v11];
   v8 = v11;
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     spectrumCopy = spectrum;
@@ -72,10 +72,8 @@
     v15 = v7;
     v16 = 2112;
     v17 = v8;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Register for cellular power spectrum - type: %lu, success: %d, error: %@", buf, 0x1Cu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Register for cellular power spectrum - type: %lu, success: %d, error: %@", buf, 0x1Cu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterCellularPowerSpectrum:(int64_t)spectrum
@@ -87,8 +85,8 @@
   v7 = [powerSpectrumMeter unregisterPowerSpectrumForCellularTapType:v5 error:&v11];
   v8 = v11;
 
-  v9 = TUDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TUDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     spectrumCopy = spectrum;
@@ -96,10 +94,8 @@
     v15 = v7;
     v16 = 2112;
     v17 = v8;
-    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Unregister for cellular power spectrum - type: %lu, success: %d, error: %@", buf, 0x1Cu);
+    _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Unregister for cellular power spectrum - type: %lu, success: %d, error: %@", buf, 0x1Cu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (float)normalizedPowerLevelForPowerSpectrum:(id)spectrum
@@ -171,7 +167,7 @@
 
 - (void)audioPowerSpectrumMeter:(id)meter didUpdateAudioPowerSpectrums:(id)spectrums
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   spectrumsCopy = spectrums;
   queue = [(TUAudioFrequencyController *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -179,28 +175,28 @@
   delegate = [(TUAudioFrequencyController *)self delegate];
   if (spectrumsCopy && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v29 = spectrumsCopy;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = spectrumsCopy;
     v8 = spectrumsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v9)
     {
       v10 = v9;
-      v30 = *v32;
+      v29 = *v31;
       do
       {
         v11 = 0;
         do
         {
-          if (*v32 != v30)
+          if (*v31 != v29)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * v11);
+          v12 = *(*(&v30 + 1) + 8 * v11);
           v13 = objc_opt_class();
           v14 = [v8 objectForKeyedSubscript:v12];
           [v13 normalizedPowerLevelForPowerSpectrum:v14];
@@ -234,16 +230,14 @@
         }
 
         while (v10 != v11);
-        v10 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v10);
     }
 
-    spectrumsCopy = v29;
+    spectrumsCopy = v28;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)meterServerDidDisconnect:(id)disconnect
@@ -252,10 +246,10 @@
   queue = [(TUAudioFrequencyController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = TUDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = TUDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [(TUAudioFrequencyController *)disconnectCopy meterServerDidDisconnect:v6];
+    [(TUAudioFrequencyController *)disconnectCopy meterServerDidDisconnect:v7];
   }
 }
 
@@ -268,11 +262,10 @@
 
 - (void)meterServerDidDisconnect:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Audio power spectrum meter died: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Audio power spectrum meter died: %@", &v2, 0xCu);
 }
 
 @end

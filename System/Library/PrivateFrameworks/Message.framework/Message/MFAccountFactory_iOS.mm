@@ -7,12 +7,12 @@
 
 - (id)accountWithIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v23 = 0;
-  v4 = [MailAccount activeAccountsWithError:&v23];
-  v5 = v23;
-  v18 = [v4 mutableCopy];
+  v22 = 0;
+  v4 = [MailAccount activeAccountsWithError:&v22];
+  v5 = v22;
+  v17 = [v4 mutableCopy];
 
   if (v5)
   {
@@ -21,26 +21,26 @@
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v7 = v18;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v7 = v17;
     v6 = 0;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v8)
     {
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           identifier = [v11 identifier];
           v13 = [identifier isEqualToString:identifierCopy];
 
@@ -52,7 +52,7 @@
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v8);
@@ -61,7 +61,6 @@
 
   v15 = v6;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

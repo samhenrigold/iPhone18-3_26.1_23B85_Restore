@@ -43,12 +43,12 @@ LABEL_22:
     return v21;
   }
 
-  v43 = deviceCopy;
-  v44 = graphCopy;
+  v46 = deviceCopy;
+  v47 = graphCopy;
   getContext = [writerCopy getContext];
   v23 = malloc_type_calloc(1uLL, 0x30uLL, 0x1020040B9B5DC2EuLL);
   name = [writerCopy name];
-  v25 = ps_task_resources_create(0, 1u, [name UTF8String], manager, 1);
+  v25 = ps_task_resources_create(0, 1, [name UTF8String], manager, 1);
 
   if (v25)
   {
@@ -57,7 +57,7 @@ LABEL_22:
     [streamCopy provider];
     *(v23 + 32) = ps_resource_stream_provider_is_rc();
     *(getContext + 112) = handle;
-    ps_frame_history_writer_buffer_init(handle, v44, writerCopy);
+    ps_frame_history_writer_buffer_init(handle, v47, writerCopy);
     output = [writerCopy output];
     resourceKey = [output resourceKey];
     uTF8String = [resourceKey UTF8String];
@@ -89,8 +89,8 @@ LABEL_22:
     if (*(v23 + 32) == 1)
     {
       v33 = [streamCopy key];
-      deviceCopy = v43;
-      v34 = [v43 propertiesForKey:v33];
+      deviceCopy = v46;
+      v34 = [v46 propertiesForKey:v33];
       rcFrameID = [v34 rcFrameID];
 
       if (rcFrameID)
@@ -107,7 +107,7 @@ LABEL_22:
     else
     {
       *(v23 + 33) = 0;
-      deviceCopy = v43;
+      deviceCopy = v46;
     }
 
     *(v23 + 5) = 0;
@@ -141,12 +141,12 @@ LABEL_22:
     *getContext = 0;
     *(getContext + 8) = v23;
     v40 = v21;
-    graphCopy = v44;
+    graphCopy = v47;
     goto LABEL_22;
   }
 
   v42 = [PSWriterBlock initWithWriter:writerCopy graph:? withStream:? withWriterOptions:? withPRMManager:? withDevice:? withResourceOptions:? withCAWriterDimensions:? withFrameHistoryClientHandle:?];
-  return __165__PSWriterBlock_initWithWriter_graph_withStream_withWriterOptions_withPRMManager_withDevice_withResourceOptions_withCAWriterDimensions_withFrameHistoryClientHandle___block_invoke(v42);
+  return __165__PSWriterBlock_initWithWriter_graph_withStream_withWriterOptions_withPRMManager_withDevice_withResourceOptions_withCAWriterDimensions_withFrameHistoryClientHandle___block_invoke(v42, v43, v44, v45);
 }
 
 - (PSWriterBlock)initWithWriter:(id)writer withSourceBlock:(id)block withPRMManager:(PSResourceManager *)manager
@@ -190,50 +190,50 @@ LABEL_22:
 
   else
   {
-    v4 = *(getContext + 8);
-    ps_task_resources_destroy_inputs(*v4);
-    ps_task_resources_destroy_outputs(*v4);
-    ps_task_resources_destroy(*v4);
-    *v4 = 0;
-    v5 = *(v4 + 8);
-    if (v5 != -1)
+    v5 = *(getContext + 8);
+    ps_task_resources_destroy_inputs(*v5, v4);
+    ps_task_resources_destroy_outputs(*v5, v6);
+    ps_task_resources_destroy(*v5, v7);
+    *v5 = 0;
+    v8 = *(v5 + 8);
+    if (v8 != -1)
     {
-      ps_liveness_node_free(v5);
+      ps_liveness_node_free(v8);
     }
 
-    free(v4);
+    free(v5);
     *(getContext + 8) = 0;
     writer = self->_writer;
     self->_writer = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = PSWriterBlock;
-  [(PSWriterBlock *)&v7 dealloc];
+  v10.receiver = self;
+  v10.super_class = PSWriterBlock;
+  [(PSWriterBlock *)&v10 dealloc];
 }
 
 - (uint64_t)initWithWriter:(char *)a1 graph:(void *)a2 withStream:withWriterOptions:withPRMManager:withDevice:withResourceOptions:withCAWriterDimensions:withFrameHistoryClientHandle:.cold.1(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 name];
   asprintf(a1, "Creating writer resources failed for %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 name];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Creating writer resources failed for %s", v9, v10, v11, v12, v22, v23, 2u);
+    v7 = [a2 name];
+    [v7 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Creating writer resources failed for %s", v10, v11, v12, v13, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v24, v25);
     }
   }
 
@@ -242,8 +242,8 @@ LABEL_22:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return ps_grouped_source_pool_create_cold_1(v20);
+  v22 = OUTLINED_FUNCTION_0();
+  return ps_grouped_source_pool_create_cold_1(v22);
 }
 
 @end

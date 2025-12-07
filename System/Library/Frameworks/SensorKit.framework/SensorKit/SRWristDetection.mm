@@ -7,6 +7,7 @@
 - (SRWristDetection)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp;
 - (SRWristDetection)initWithCFOnWristDate:(double)date CFOffWristDate:(double)wristDate onWrist:(BOOL)wrist wristLocation:(int64_t)location crownOrientation:(int64_t)orientation;
 - (SRWristDetection)initWithCoder:(id)coder;
+- (SRWristDetection)initWithOnWristDate:(id)date offWristDate:(id)wristDate onWrist:(BOOL)wrist wristLocation:(int64_t)location crownOrientation:(int64_t)orientation;
 - (id)binarySampleRepresentation;
 - (id)sr_dictionaryRepresentation;
 - (void)encodeWithCoder:(id)coder;
@@ -78,62 +79,57 @@
 
 - (SRWristDetection)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (![representation length])
   {
 
     v9 = SRLogWristDetection;
-    if (os_log_type_enabled(SRLogWristDetection, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(SRLogWristDetection, OS_LOG_TYPE_ERROR))
     {
-      *buf = 0;
-      v17 = "Failed to unarchive data because binary data length is zero";
-      v18 = v9;
-      v19 = 2;
-      goto LABEL_19;
+      return 0;
     }
 
-LABEL_8:
-    result = 0;
-LABEL_9:
-    v11 = *MEMORY[0x1E69E9840];
-    return result;
+    *buf = 0;
+    v15 = "Failed to unarchive data because binary data length is zero";
+    v16 = v9;
+    v17 = 2;
+LABEL_19:
+    _os_log_error_impl(&dword_1C914D000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
+    return 0;
   }
 
   if ([representation length] != 1)
   {
-    v21.receiver = self;
-    v21.super_class = SRWristDetection;
-    result = [(SRWristDetection *)&v21 init];
+    v19.receiver = self;
+    v19.super_class = SRWristDetection;
+    result = [(SRWristDetection *)&v19 init];
     if (!result)
     {
-      goto LABEL_9;
+      return result;
     }
 
-    v12 = result;
-    v20 = 0;
-    v13 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v20];
-    if (v13)
+    v11 = result;
+    v18 = 0;
+    v12 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v18];
+    if (v12)
     {
-      v14 = v13;
+      v13 = v12;
 
-      result = v14;
-      goto LABEL_9;
+      return v13;
     }
 
-    v16 = SRLogWristDetection;
-    if (os_log_type_enabled(SRLogWristDetection, OS_LOG_TYPE_ERROR))
+    v14 = SRLogWristDetection;
+    if (!os_log_type_enabled(SRLogWristDetection, OS_LOG_TYPE_ERROR))
     {
-      *buf = 138543362;
-      v23 = v20;
-      v17 = "Failed to unarchive data because %{public}@";
-      v18 = v16;
-      v19 = 12;
-LABEL_19:
-      _os_log_error_impl(&dword_1C914D000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
-      goto LABEL_8;
+      return 0;
     }
 
-    goto LABEL_8;
+    *buf = 138543362;
+    v21 = v18;
+    v15 = "Failed to unarchive data because %{public}@";
+    v16 = v14;
+    v17 = 12;
+    goto LABEL_19;
   }
 
   v7 = *[representation bytes];
@@ -143,37 +139,65 @@ LABEL_19:
     if (os_log_type_enabled(SRLogWristDetection, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67240192;
-      LODWORD(v23) = v7;
+      LODWORD(v21) = v7;
       _os_log_impl(&dword_1C914D000, v8, OS_LOG_TYPE_DEFAULT, "Old value reading. Expecting only 3 bits for on wrist detection but got %{public}d", buf, 8u);
     }
 
-    goto LABEL_8;
+    return 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return [(SRWristDetection *)self initWithCFOnWristDate:v7 & 1 CFOffWristDate:(v7 >> 1) & 1 onWrist:v7 >> 2 wristLocation:NAN crownOrientation:NAN];
 }
 
 - (id)binarySampleRepresentation
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
-  v3 = v7;
-  if (v7)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v6];
+  v3 = v6;
+  if (v6)
   {
     v4 = SRLogWristDetection;
     if (os_log_type_enabled(SRLogWristDetection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v9 = v3;
+      v8 = v3;
       _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to archive data because %{public}@", buf, 0xCu);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
+}
+
+- (SRWristDetection)initWithOnWristDate:(id)date offWristDate:(id)wristDate onWrist:(BOOL)wrist wristLocation:(int64_t)location crownOrientation:(int64_t)orientation
+{
+  wristCopy = wrist;
+  if (date)
+  {
+    [date timeIntervalSinceReferenceDate];
+    v13 = v12;
+    if (wristDate)
+    {
+LABEL_3:
+      [wristDate timeIntervalSinceReferenceDate];
+      v15 = v14;
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v13 = NAN;
+    if (wristDate)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v15 = NAN;
+LABEL_6:
+
+  return [(SRWristDetection *)self initWithCFOnWristDate:wristCopy CFOffWristDate:location onWrist:orientation wristLocation:v13 crownOrientation:v15];
 }
 
 - (SRWristDetection)initWithCFOnWristDate:(double)date CFOffWristDate:(double)wristDate onWrist:(BOOL)wrist wristLocation:(int64_t)location crownOrientation:(int64_t)orientation
@@ -213,26 +237,24 @@ LABEL_19:
 
 - (id)sr_dictionaryRepresentation
 {
-  v8[5] = *MEMORY[0x1E69E9840];
-  v7[0] = @"onWrist";
-  v8[0] = [MEMORY[0x1E696AD98] numberWithBool:{-[SRWristDetection onWrist](self, "onWrist")}];
-  v7[1] = @"wristLocation";
-  v8[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRWristDetection wristLocation](self, "wristLocation")}];
-  v7[2] = @"crownOrientation";
-  v8[2] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRWristDetection crownOrientation](self, "crownOrientation")}];
-  v7[3] = @"onWristDate";
+  v7[5] = *MEMORY[0x1E69E9840];
+  v6[0] = @"onWrist";
+  v7[0] = [MEMORY[0x1E696AD98] numberWithBool:{-[SRWristDetection onWrist](self, "onWrist")}];
+  v6[1] = @"wristLocation";
+  v7[1] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRWristDetection wristLocation](self, "wristLocation")}];
+  v6[2] = @"crownOrientation";
+  v7[2] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRWristDetection crownOrientation](self, "crownOrientation")}];
+  v6[3] = @"onWristDate";
   [(SRWristDetection *)self cfOnWristDate];
   v3 = MEMORY[0x1E696AD98];
   [(SRWristDetection *)self cfOnWristDate];
-  v8[3] = [v3 numberWithDouble:?];
-  v7[4] = @"offWristDate";
+  v7[3] = [v3 numberWithDouble:?];
+  v6[4] = @"offWristDate";
   [(SRWristDetection *)self cfOffWristDate];
   v4 = MEMORY[0x1E696AD98];
   [(SRWristDetection *)self cfOffWristDate];
-  v8[4] = [v4 numberWithDouble:?];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[4] = [v4 numberWithDouble:?];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:5];
 }
 
 - (BOOL)isEqual:(id)equal

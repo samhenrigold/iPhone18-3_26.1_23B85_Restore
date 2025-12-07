@@ -123,25 +123,25 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   v2 = MEMORY[0x29EDCA190];
   if (v1)
   {
-    v11 = MEMORY[0x29EDCA190];
+    v10 = MEMORY[0x29EDCA190];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v2 = v11;
-    v4 = (a1 + 32);
+    v2 = v10;
+    v4 = a1 + 32;
     do
     {
-      v5 = *v4++;
-      v6.super.super.isa = Int._bridgeToObjectiveC()().super.super.isa;
-      v8 = *(v11 + 16);
-      v7 = *(v11 + 24);
-      if (v8 >= v7 >> 1)
+      v4 += 8;
+      v5.super.super.isa = Int._bridgeToObjectiveC()().super.super.isa;
+      v7 = *(v10 + 16);
+      v6 = *(v10 + 24);
+      if (v7 >= v6 >> 1)
       {
-        isa = v6.super.super.isa;
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v7 > 1), v8 + 1, 1);
-        v6.super.super.isa = isa;
+        isa = v5.super.super.isa;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v7 + 1, 1);
+        v5.super.super.isa = isa;
       }
 
-      *(v11 + 16) = v8 + 1;
-      *(v11 + 8 * v8 + 32) = v6;
+      *(v10 + 16) = v7 + 1;
+      *(v10 + 8 * v7 + 32) = v5;
       --v1;
     }
 
@@ -320,14 +320,33 @@ MLCLayerNormalizationLayer_optional __swiftcall MLCLayerNormalizationLayer.init(
   return result;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+MLCLayerNormalizationLayer_optional __swiftcall MLCLayerNormalizationLayer.init(normalizedShape:beta:gamma:varianceEpsilon:)(Swift::OpaquePointer normalizedShape, MLCTensor_optional beta, MLCTensor_optional gamma, Swift::Float varianceEpsilon)
+{
+  v5 = *&beta.is_nil;
+  isa = beta.value.super.isa;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  specialized _arrayForceCast<A, B>(_:)(normalizedShape._rawValue);
+
+  type metadata accessor for NSNumber();
+  v9 = Array._bridgeToObjectiveC()().super.isa;
+
+  *&v10 = varianceEpsilon;
+  v11 = [ObjCClassFromMetadata layerWithNormalizedShape:v9 beta:isa gamma:v5 varianceEpsilon:v10];
+
+  v13 = v11;
+  result.value.super.super.isa = v13;
+  result.is_nil = v12;
+  return result;
+}
+
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -554,7 +573,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -576,58 +594,55 @@ uint64_t MLCInferenceGraph.execute(inputsData:lossLabelsData:lossLabelWeightsDat
 
 uint64_t MLCInferenceGraph.execute(inputsData:lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:)()
 {
-  v1 = v0[18];
   isa = v0[19];
   v0[2] = v0;
   v0[7] = v0 + 16;
   v0[3] = MLCInferenceGraph.execute(inputsData:lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:);
-  v14 = swift_continuation_init();
+  v11 = swift_continuation_init();
   type metadata accessor for MLCTensorData();
-  v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   if (isa)
   {
-    v4 = v0[19];
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   if (v0[20])
   {
-    v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
     if (v0[21])
     {
 LABEL_5:
-      v6.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+      v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
       goto LABEL_8;
     }
   }
 
   else
   {
-    v5.super.isa = 0;
+    v3.super.isa = 0;
     if (v0[21])
     {
       goto LABEL_5;
     }
   }
 
-  v6.super.isa = 0;
+  v4.super.isa = 0;
 LABEL_8:
-  v8 = v0[23];
-  v7 = v0[24];
-  v9 = v0[22];
-  v10 = swift_allocObject();
-  *(v10 + 16) = v14;
+  v6 = v0[23];
+  v5 = v0[24];
+  v7 = v0[22];
+  v8 = swift_allocObject();
+  *(v8 + 16) = v11;
   v0[14] = partial apply for closure #1 in closure #1 in MLCInferenceGraph.execute(inputsData:lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:);
-  v0[15] = v10;
+  v0[15] = v8;
   v0[10] = MEMORY[0x29EDCA5F8];
   v0[11] = 1107296256;
   v0[12] = thunk for @escaping @callee_guaranteed (@guaranteed MLCTensor?, @guaranteed Error?, @unowned Double) -> ();
   v0[13] = &block_descriptor;
-  v11 = _Block_copy(v0 + 10);
-  v12 = v0[15];
+  v9 = _Block_copy(v0 + 10);
 
-  [v7 executeWithInputsData:v3.super.isa lossLabelsData:isa lossLabelWeightsData:v5.super.isa outputsData:v6.super.isa batchSize:v9 options:v8 completionHandler:v11];
-  _Block_release(v11);
+  [v5 executeWithInputsData:v2.super.isa lossLabelsData:isa lossLabelWeightsData:v3.super.isa outputsData:v4.super.isa batchSize:v7 options:v6 completionHandler:v9];
+  _Block_release(v9);
 
   return MEMORY[0x2A1C73CC0](v0 + 2);
 }
@@ -638,21 +653,19 @@ uint64_t MLCInferenceGraph.execute(inputsData:lossLabelsData:lossLabelWeightsDat
   v3 = *v1;
   if (*(*v1 + 48))
   {
-    v4 = *(*v1 + 48);
     swift_willThrow();
-    v5 = *(v3 + 8);
+    v4 = *(v3 + 8);
 
-    return v5();
+    return v4();
   }
 
   else
   {
-    v7 = *(v2 + 128);
+    v6 = *(v2 + 128);
     a1.n128_u64[0] = *(v2 + 136);
-    v8 = *(v3 + 8);
-    v9 = *v1;
+    v7 = *(v3 + 8);
 
-    return v8(v7, a1);
+    return v7(v6, a1);
   }
 }
 
@@ -694,12 +707,11 @@ uint64_t closure #1 in closure #1 in MLCInferenceGraph.execute(inputsData:lossLa
 
 void thunk for @escaping @callee_guaranteed (@guaranteed MLCTensor?, @guaranteed Error?, @unowned Double) -> ()(uint64_t a1, void *a2, void *a3, double a4)
 {
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v7 = *(a1 + 32);
 
-  v10 = a2;
-  v9 = a3;
-  v8(a2, a3, a4);
+  v9 = a2;
+  v8 = a3;
+  v7(a2, a3, a4);
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -727,27 +739,25 @@ uint64_t MLCTrainingGraph.executeForward(batchSize:options:outputsData:)()
   v2 = swift_continuation_init();
   if (isa)
   {
-    v3 = v0[20];
     type metadata accessor for MLCTensorData();
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
-  v4 = v0[21];
-  v6 = v0[18];
-  v5 = v0[19];
-  v7 = swift_allocObject();
-  *(v7 + 16) = v2;
+  v3 = v0[21];
+  v5 = v0[18];
+  v4 = v0[19];
+  v6 = swift_allocObject();
+  *(v6 + 16) = v2;
   v0[14] = partial apply for closure #1 in closure #1 in MLCInferenceGraph.execute(inputsData:lossLabelsData:lossLabelWeightsData:outputsData:batchSize:options:);
-  v0[15] = v7;
+  v0[15] = v6;
   v0[10] = MEMORY[0x29EDCA5F8];
   v0[11] = 1107296256;
   v0[12] = thunk for @escaping @callee_guaranteed (@guaranteed MLCTensor?, @guaranteed Error?, @unowned Double) -> ();
   v0[13] = &block_descriptor_0;
-  v8 = _Block_copy(v0 + 10);
-  v9 = v0[15];
+  v7 = _Block_copy(v0 + 10);
 
-  [v4 executeForwardWithBatchSize:v6 options:v5 outputsData:isa completionHandler:v8];
-  _Block_release(v8);
+  [v3 executeForwardWithBatchSize:v5 options:v4 outputsData:isa completionHandler:v7];
+  _Block_release(v7);
 
   return MEMORY[0x2A1C73CC0](v0 + 2);
 }
@@ -777,27 +787,25 @@ uint64_t MLCTrainingGraph.executeGradient(batchSize:options:outputsData:)()
   v2 = swift_continuation_init();
   if (isa)
   {
-    v3 = v0[19];
     type metadata accessor for MLCTensorData();
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
-  v4 = v0[20];
-  v6 = v0[17];
-  v5 = v0[18];
-  v7 = swift_allocObject();
-  *(v7 + 16) = v2;
+  v3 = v0[20];
+  v5 = v0[17];
+  v4 = v0[18];
+  v6 = swift_allocObject();
+  *(v6 + 16) = v2;
   v0[14] = partial apply for closure #1 in closure #1 in MLCTrainingGraph.executeGradient(batchSize:options:outputsData:);
-  v0[15] = v7;
+  v0[15] = v6;
   v0[10] = MEMORY[0x29EDCA5F8];
   v0[11] = 1107296256;
   v0[12] = thunk for @escaping @callee_guaranteed (@guaranteed MLCTensor?, @guaranteed Error?, @unowned Double) -> ();
   v0[13] = &block_descriptor_7;
-  v8 = _Block_copy(v0 + 10);
-  v9 = v0[15];
+  v7 = _Block_copy(v0 + 10);
 
-  [v4 executeGradientWithBatchSize:v6 options:v5 outputsData:isa completionHandler:v8];
-  _Block_release(v8);
+  [v3 executeGradientWithBatchSize:v5 options:v4 outputsData:isa completionHandler:v7];
+  _Block_release(v7);
 
   return MEMORY[0x2A1C73CC0](v0 + 2);
 }
@@ -807,7 +815,6 @@ uint64_t MLCTrainingGraph.executeGradient(batchSize:options:outputsData:)(__n128
   v2 = *v1;
   if (*(*v1 + 48))
   {
-    v3 = *(*v1 + 48);
     swift_willThrow();
   }
 
@@ -816,9 +823,9 @@ uint64_t MLCTrainingGraph.executeGradient(batchSize:options:outputsData:)(__n128
     a1.n128_u64[0] = *(*v1 + 128);
   }
 
-  v4 = *(v2 + 8);
+  v3 = *(v2 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t MLCTrainingGraph.executeOptimizerUpdate(options:)(uint64_t a1)
@@ -851,7 +858,6 @@ uint64_t MLCTrainingGraph.executeOptimizerUpdate(options:)()
   v1[12] = thunk for @escaping @callee_guaranteed (@guaranteed MLCTensor?, @guaranteed Error?, @unowned Double) -> ();
   v1[13] = &block_descriptor_14;
   v11 = _Block_copy(v4);
-  v12 = v1[15];
 
   [v6 executeOptimizerUpdateWithOptions:v7 completionHandler:v11];
   _Block_release(v11);
@@ -879,7 +885,7 @@ uint64_t closure #1 in closure #1 in MLCTrainingGraph.executeGradient(batchSize:
   }
 }
 
-uint64_t MLCSplitLayer.splitSectionLengths.getter()
+id MLCSplitLayer.splitSectionLengths.getter()
 {
   v1 = [v0 splitSectionLengths];
   if (!v1)
@@ -1129,6 +1135,23 @@ MLCUpsampleLayer_optional __swiftcall MLCUpsampleLayer.init(shape:)(Swift::Opaqu
   return result;
 }
 
+MLCUpsampleLayer_optional __swiftcall MLCUpsampleLayer.init(shape:sampleMode:alignsCorners:)(Swift::OpaquePointer shape, MLCSampleMode sampleMode, Swift::Bool alignsCorners)
+{
+  v4 = *&sampleMode;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  specialized _arrayForceCast<A, B>(_:)(shape._rawValue);
+
+  type metadata accessor for NSNumber();
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v8 = [ObjCClassFromMetadata layerWithShape:isa sampleMode:v4 alignsCorners:alignsCorners];
+
+  v10 = v8;
+  result.value.super.super.isa = v10;
+  result.is_nil = v9;
+  return result;
+}
+
 uint64_t MLCSliceLayer.start.getter(SEL *a1)
 {
   v2 = [v1 *a1];
@@ -1239,7 +1262,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t MLCSliceLayer.stride.getter()
+id MLCSliceLayer.stride.getter()
 {
   v1 = [v0 stride];
   if (!v1)
@@ -1573,6 +1596,23 @@ LABEL_21:
   return result;
 }
 
+MLCReductionLayer_optional __swiftcall MLCReductionLayer.init(reductionType:dimensions:)(MLCReductionType reductionType, Swift::OpaquePointer dimensions)
+{
+  v3 = *&reductionType;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  specialized _arrayForceCast<A, B>(_:)(dimensions._rawValue);
+
+  type metadata accessor for NSNumber();
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v6 = [ObjCClassFromMetadata layerWithReductionType:v3 dimensions:isa];
+
+  v8 = v6;
+  result.value.super.super.isa = v8;
+  result.is_nil = v7;
+  return result;
+}
+
 uint64_t MLCTransposeLayer.dimensions.getter()
 {
   v1 = [v0 dimensions];
@@ -1714,21 +1754,18 @@ uint64_t MLCPaddingPolicy.objcPolicy.getter()
 
 uint64_t MLCPaddingPolicy.objcSizes.getter()
 {
-  if (v0[2])
+  if (*(v0 + 16))
   {
     return 0;
   }
 
-  v4 = v0;
-  v3 = *v0;
-  v2 = v4[1];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_299AF7300;
-  *(v5 + 32) = Int._bridgeToObjectiveC()();
+  v2 = swift_allocObject();
+  *(v2 + 16) = xmmword_299AF7300;
+  *(v2 + 32) = Int._bridgeToObjectiveC()();
   isa = Int._bridgeToObjectiveC()().super.super.isa;
-  result = v5;
-  *(v5 + 40) = isa;
+  result = v2;
+  *(v2 + 40) = isa;
   return result;
 }
 
@@ -1750,14 +1787,12 @@ uint64_t MLCPaddingPolicy.debugDescription.getter()
 
   if ((v1 & 1) == 0)
   {
-    v5 = v0[1];
-    v9 = *v0;
-    v6 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x29C2AAFE0](v6);
+    v5 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x29C2AAFE0](v5);
 
     MEMORY[0x29C2AAFE0](0x203A78202CLL, 0xE500000000000000);
-    v7 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x29C2AAFE0](v7);
+    v6 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x29C2AAFE0](v6);
 
     MEMORY[0x29C2AAFE0](41, 0xE100000000000000);
 
@@ -1887,6 +1922,23 @@ id MLCTensor.init(shape:data:dataType:)(uint64_t a1, void *a2, uint64_t a3, SEL 
   return v10;
 }
 
+MLCTensor_optional __swiftcall MLCTensor.init(sequenceLengths:sortedSequences:featureChannelCount:batchSize:randomInitializerType:)(Swift::OpaquePointer sequenceLengths, Swift::Bool sortedSequences, Swift::Int featureChannelCount, Swift::Int batchSize, MLCRandomInitializerType randomInitializerType)
+{
+  v5 = *&randomInitializerType;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  specialized _arrayForceCast<A, B>(_:)(sequenceLengths._rawValue);
+
+  type metadata accessor for NSNumber();
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v12 = [ObjCClassFromMetadata tensorWithSequenceLengths:isa sortedSequences:sortedSequences featureChannelCount:featureChannelCount batchSize:batchSize randomInitializerType:v5];
+
+  v14 = v12;
+  result.value.super.isa = v14;
+  result.is_nil = v13;
+  return result;
+}
+
 MLCTensor_optional __swiftcall MLCTensor.init(sequenceLengths:sortedSequences:featureChannelCount:batchSize:data:)(Swift::OpaquePointer sequenceLengths, Swift::Bool sortedSequences, Swift::Int featureChannelCount, Swift::Int batchSize, MLCTensorData_optional data)
 {
   isa = data.value.super.isa;
@@ -1929,12 +1981,11 @@ Swift::OpaquePointer_optional __swiftcall MLCGraph.split(source:splitSectionLeng
   return result;
 }
 
-uint64_t type metadata accessor for NSNumber(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for NSNumber(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -2096,7 +2147,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t MLCTensorDescriptor.sequenceLengths.getter(SEL *a1)
+id MLCTensorDescriptor.sequenceLengths.getter(SEL *a1)
 {
   v2 = [v1 *a1];
   if (!v2)
@@ -2204,6 +2255,44 @@ LABEL_18:
   __break(1u);
 LABEL_25:
   __break(1u);
+  return result;
+}
+
+MLCTensorDescriptor_optional __swiftcall MLCTensorDescriptor.init(shape:dataType:)(Swift::OpaquePointer shape, MLCDataType dataType)
+{
+  v2 = *&dataType;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  specialized _arrayForceCast<A, B>(_:)(shape._rawValue);
+
+  type metadata accessor for NSNumber();
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v6 = [ObjCClassFromMetadata descriptorWithShape:isa dataType:v2];
+
+  v8 = v6;
+  result.value.super.isa = v8;
+  result.is_nil = v7;
+  return result;
+}
+
+MLCTensorDescriptor_optional __swiftcall MLCTensorDescriptor.init(shape:sequenceLengths:sortedSequences:dataType:)(Swift::OpaquePointer shape, Swift::OpaquePointer sequenceLengths, Swift::Bool sortedSequences, MLCDataType dataType)
+{
+  v4 = *&dataType;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  specialized _arrayForceCast<A, B>(_:)(shape._rawValue);
+
+  type metadata accessor for NSNumber();
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  specialized _arrayForceCast<A, B>(_:)(sequenceLengths._rawValue);
+
+  v10 = Array._bridgeToObjectiveC()().super.isa;
+
+  v11 = [ObjCClassFromMetadata descriptorWithShape:isa sequenceLengths:v10 sortedSequences:sortedSequences dataType:v4];
+
+  v13 = v11;
+  result.value.super.isa = v13;
+  result.is_nil = v12;
   return result;
 }
 
@@ -2364,87 +2453,86 @@ id MLCPoolingDescriptor.init(type:kernelSizes:strides:dilationRates:paddingPolic
   *(v14 + 40) = Int._bridgeToObjectiveC()();
   v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v16 = *(a8 + 16);
   if (v9 != 3)
   {
     if (v9 == 2)
     {
       if (*(a8 + 16))
       {
-        v17 = *a8 != 0;
+        v16 = *a8 != 0;
       }
 
       else
       {
-        v17 = 2;
+        v16 = 2;
       }
 
       if (MLCPaddingPolicy.objcSizes.getter())
       {
-        v20.super.isa = Array._bridgeToObjectiveC()().super.isa;
+        v19.super.isa = Array._bridgeToObjectiveC()().super.isa;
       }
 
       else
       {
-        v20.super.isa = 0;
+        v19.super.isa = 0;
       }
 
-      v21 = [swift_getObjCClassFromMetadata() maxPoolingDescriptorWithKernelSizes:v11.super.isa strides:v13.super.isa dilationRates:v15.super.isa paddingPolicy:v17 paddingSizes:v20.super.isa];
+      v20 = [swift_getObjCClassFromMetadata() maxPoolingDescriptorWithKernelSizes:v11.super.isa strides:v13.super.isa dilationRates:v15.super.isa paddingPolicy:v16 paddingSizes:v19.super.isa];
       goto LABEL_23;
     }
 
     if (*(a8 + 16))
     {
-      v19 = *a8 != 0;
+      v18 = *a8 != 0;
       if (MLCPaddingPolicy.objcSizes.getter())
       {
 LABEL_9:
-        v20.super.isa = Array._bridgeToObjectiveC()().super.isa;
+        v19.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
 LABEL_18:
-        v21 = [swift_getObjCClassFromMetadata() averagePoolingDescriptorWithKernelSizes:v11.super.isa strides:v13.super.isa dilationRates:v15.super.isa paddingPolicy:v19 paddingSizes:v20.super.isa countIncludesPadding:v9 & 1];
+        v20 = [swift_getObjCClassFromMetadata() averagePoolingDescriptorWithKernelSizes:v11.super.isa strides:v13.super.isa dilationRates:v15.super.isa paddingPolicy:v18 paddingSizes:v19.super.isa countIncludesPadding:v9 & 1];
         goto LABEL_23;
       }
     }
 
     else
     {
-      v19 = 2;
+      v18 = 2;
       if (MLCPaddingPolicy.objcSizes.getter())
       {
         goto LABEL_9;
       }
     }
 
-    v20.super.isa = 0;
+    v19.super.isa = 0;
     goto LABEL_18;
   }
 
   if (*(a8 + 16))
   {
-    v18 = *a8 != 0;
+    v17 = *a8 != 0;
   }
 
   else
   {
-    v18 = 2;
+    v17 = 2;
   }
 
   if (MLCPaddingPolicy.objcSizes.getter())
   {
-    v20.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v19.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v20.super.isa = 0;
+    v19.super.isa = 0;
   }
 
-  v21 = [swift_getObjCClassFromMetadata() l2NormPoolingDescriptorWithKernelSizes:v11.super.isa strides:v13.super.isa dilationRates:v15.super.isa paddingPolicy:v18 paddingSizes:v20.super.isa];
+  v20 = [swift_getObjCClassFromMetadata() l2NormPoolingDescriptorWithKernelSizes:v11.super.isa strides:v13.super.isa dilationRates:v15.super.isa paddingPolicy:v17 paddingSizes:v19.super.isa];
 LABEL_23:
-  v22 = v21;
+  v21 = v20;
 
-  return v22;
+  return v21;
 }
 
 uint64_t getEnumTagSinglePayload for MLCPoolingType(unsigned __int8 *a1, unsigned int a2)

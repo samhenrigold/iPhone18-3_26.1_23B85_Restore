@@ -9,29 +9,25 @@
 
 - (id)copyAgentData
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   proxyConfig = [(NERelayNetworkAgent *)self proxyConfig];
 
-  if (proxyConfig)
+  if (!proxyConfig)
   {
-    v10[0] = 0;
-    v10[1] = 0;
-    configurationUUID = [(NENetworkAgent *)self configurationUUID];
-    [configurationUUID getUUIDBytes:v10];
-
-    proxyConfig2 = [(NERelayNetworkAgent *)self proxyConfig];
-    nw_proxy_config_set_identifier();
-
-    proxyConfig3 = [(NERelayNetworkAgent *)self proxyConfig];
-    v7 = nw_proxy_config_copy_agent_data();
+    return 0;
   }
 
-  else
-  {
-    v7 = 0;
-  }
+  v9[0] = 0;
+  v9[1] = 0;
+  configurationUUID = [(NENetworkAgent *)self configurationUUID];
+  [configurationUUID getUUIDBytes:v9];
 
-  v8 = *MEMORY[0x1E69E9840];
+  proxyConfig2 = [(NERelayNetworkAgent *)self proxyConfig];
+  nw_proxy_config_set_identifier();
+
+  proxyConfig3 = [(NERelayNetworkAgent *)self proxyConfig];
+  v7 = nw_proxy_config_copy_agent_data();
+
   return v7;
 }
 

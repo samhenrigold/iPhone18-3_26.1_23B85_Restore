@@ -32,7 +32,6 @@
     return *(self + OBJC_IVAR___SESecureCaptureSceneViewController__presentationMode);
   }
 
-  v4 = *(self + OBJC_IVAR___SESecureCaptureSceneViewController__presentationMode);
   selfCopy = self;
   result = sub_264F13714();
   __break(1u);
@@ -66,19 +65,16 @@
 
 - (LCSExtensionDescribing)extensionProvider
 {
-  v3 = OBJC_IVAR___SESecureCaptureSceneViewController_extensionProvider;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setExtensionProvider:(id)provider
 {
   v5 = OBJC_IVAR___SESecureCaptureSceneViewController_extensionProvider;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = provider;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -123,7 +119,7 @@
   sub_264F13314();
   v4[2] = self;
   selfCopy = self;
-  sub_264F05A8C(sub_264F0E71C, v4);
+  sub_264F05A8C(sub_264F0E71C, v4, "SecureCaptureKit/SecureCaptureSceneViewController.swift", 55, 2u, 173);
   v5.receiver = selfCopy;
   v5.super_class = SESecureCaptureSceneViewController;
   [(SESecureCaptureSceneViewController *)&v5 dealloc];

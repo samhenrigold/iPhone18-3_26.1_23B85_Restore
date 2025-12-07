@@ -9,18 +9,17 @@
 
 - (id)orderedProperties
 {
-  v5[9] = *MEMORY[0x277D85DE8];
-  v5[0] = @"uuid";
-  v5[1] = @"creation_date";
-  v5[2] = @"provenance";
-  v5[3] = @"data_type";
-  v5[4] = @"start_date";
-  v5[5] = @"end_date";
-  v5[6] = @"external_sync_ids.sid";
-  v5[7] = @"external_sync_ids.version";
-  v5[8] = @"external_sync_ids.object_code";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:9];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[9] = *MEMORY[0x277D85DE8];
+  v4[0] = @"uuid";
+  v4[1] = @"creation_date";
+  v4[2] = @"provenance";
+  v4[3] = @"data_type";
+  v4[4] = @"start_date";
+  v4[5] = @"end_date";
+  v4[6] = @"external_sync_ids.sid";
+  v4[7] = @"external_sync_ids.version";
+  v4[8] = @"external_sync_ids.object_code";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:9];
 
   return v2;
 }
@@ -28,7 +27,7 @@
 - (id)codableRepresentationForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
   v6 = objc_alloc_init(HDCodableHealthObject);
-  v7 = +[HDDeletedSampleEntity _externalSyncMetadataForRow:];
+  v7 = [HDDeletedSampleEntity _externalSyncMetadataForRow:row];
   hk_codableMetadata = [v7 hk_codableMetadata];
   [(HDCodableHealthObject *)v6 setMetadataDictionary:hk_codableMetadata];
 
@@ -67,12 +66,12 @@
 
 - (id)objectForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v5 = HDSQLiteColumnWithNameAsUUID();
-  v6 = MEMORY[0x277CCD2E0];
-  v7 = +[HDDeletedSampleEntity _externalSyncMetadataForRow:];
-  v8 = [v6 _deletedObjectWithUUID:v5 metadata:v7];
+  v6 = HDSQLiteColumnWithNameAsUUID();
+  v7 = MEMORY[0x277CCD2E0];
+  v8 = [HDDeletedSampleEntity _externalSyncMetadataForRow:row];
+  v9 = [v7 _deletedObjectWithUUID:v6 metadata:v8];
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)applyPropertiesToObject:(id)object persistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error

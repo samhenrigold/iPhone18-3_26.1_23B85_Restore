@@ -24,7 +24,7 @@
 
   v6 = AssetInfo.isEqual(_:)(v8);
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_sypSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_sypSgMd, &_sypSgMR);
   return v6 & 1;
 }
 

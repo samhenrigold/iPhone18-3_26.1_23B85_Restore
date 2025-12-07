@@ -9,16 +9,16 @@
 {
   screenCopy = screen;
   currentSession = [(CARSessionStatus *)self currentSession];
-  configuration = [currentSession configuration];
+  v6 = objc_msgSend_configuration(currentSession);
 
-  if (!configuration)
+  if (!v6)
   {
     v7 = 0;
     goto LABEL_28;
   }
 
   v7 = objc_opt_new();
-  transportType = [configuration transportType];
+  transportType = [v6 transportType];
   if (transportType == 1)
   {
     v9 = 1;
@@ -160,8 +160,8 @@ LABEL_28:
   v16 = 0u;
   v17 = 0u;
   currentSession = [(CARSessionStatus *)self currentSession];
-  configuration = [currentSession configuration];
-  screens = [configuration screens];
+  v5 = objc_msgSend_configuration(currentSession);
+  screens = [v5 screens];
 
   v7 = [screens countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)

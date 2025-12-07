@@ -134,8 +134,8 @@
 
 - (NSString)description
 {
-  v21[4] = *MEMORY[0x1E69E9840];
-  v20[0] = @"disableReappearPlaceholder";
+  v20[4] = *MEMORY[0x1E69E9840];
+  v19[0] = @"disableReappearPlaceholder";
   if ([(AMSUIWebPageModel *)self disableReappearPlaceholder])
   {
     v3 = @"true";
@@ -146,8 +146,8 @@
     v3 = @"false";
   }
 
-  v21[0] = v3;
-  v20[1] = @"ignoreBottomSafeArea";
+  v20[0] = v3;
+  v19[1] = @"ignoreBottomSafeArea";
   if ([(AMSUIWebPageModel *)self ignoreBottomSafeArea])
   {
     v4 = @"true";
@@ -158,8 +158,8 @@
     v4 = @"false";
   }
 
-  v21[1] = v4;
-  v20[2] = @"ignoreTopSafeArea";
+  v20[1] = v4;
+  v19[2] = @"ignoreTopSafeArea";
   if ([(AMSUIWebPageModel *)self ignoreTopSafeArea])
   {
     v5 = @"true";
@@ -170,12 +170,12 @@
     v5 = @"false";
   }
 
-  v21[2] = v5;
-  v20[3] = @"windowSize";
+  v20[2] = v5;
+  v19[3] = @"windowSize";
   [(AMSUIWebPageModel *)self windowSize];
-  v6 = NSStringFromCGSize(v23);
-  v21[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v6 = NSStringFromCGSize(v22);
+  v20[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
   v8 = [v7 mutableCopy];
 
   backgroundColor = [(AMSUIWebPageModel *)self backgroundColor];
@@ -211,8 +211,6 @@
   }
 
   v17 = [v8 description];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

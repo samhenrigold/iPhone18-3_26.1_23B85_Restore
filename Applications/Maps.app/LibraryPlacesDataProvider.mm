@@ -10,7 +10,7 @@
 {
   swift_beginAccess();
 
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -18,7 +18,7 @@
 
 - (void)setStoreSubscriptionTypes:(id)types
 {
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_beginAccess();
   *(self + 10) = v4;

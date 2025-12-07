@@ -78,7 +78,7 @@
       _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Daemon/Shared/Utilities/CLNotifierClientAdapter.mm", 25, "[CLNotifierClientAdapter init]");
 LABEL_11:
     dispatch_once(&qword_1EAFE27F8, &unk_1F0E2A740);
   }
@@ -101,7 +101,7 @@ LABEL_11:
 
 - (void)onNotification:(int)notification withData:(id)data
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   client = self->_client;
   if (!client)
   {
@@ -110,18 +110,36 @@ LABEL_11:
       dispatch_once(&qword_1EAFE27F8, &unk_1F0E2A740);
     }
 
-    v7 = qword_1EAFE2820;
+    v6 = qword_1EAFE2820;
     if (os_log_type_enabled(qword_1EAFE2820, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "assert";
-      v16 = 2081;
-      v17 = "_client";
-      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "assert";
+      v15 = 2081;
+      v16 = "_client";
+      _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1EAFE27F8 != -1)
+      {
+        dispatch_once(&qword_1EAFE27F8, &unk_1F0E2A740);
+      }
+    }
+
+    v7 = qword_1EAFE2820;
+    if (os_signpost_enabled(qword_1EAFE2820))
+    {
+      *buf = 68289539;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "assert";
+      v15 = 2081;
+      v16 = "_client";
+      _os_signpost_emit_with_name_impl(&dword_19B41C000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Assertion failed", "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1EAFE27F8 != -1)
       {
         dispatch_once(&qword_1EAFE27F8, &unk_1F0E2A740);
@@ -129,42 +147,23 @@ LABEL_11:
     }
 
     v8 = qword_1EAFE2820;
-    if (os_signpost_enabled(qword_1EAFE2820))
-    {
-      *buf = 68289539;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "assert";
-      v16 = 2081;
-      v17 = "_client";
-      _os_signpost_emit_with_name_impl(&dword_19B41C000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Assertion failed", "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1EAFE27F8 != -1)
-      {
-        dispatch_once(&qword_1EAFE27F8, &unk_1F0E2A740);
-      }
-    }
-
-    v9 = qword_1EAFE2820;
     if (os_log_type_enabled(qword_1EAFE2820, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "assert";
-      v16 = 2081;
-      v17 = "_client";
-      _os_log_impl(&dword_19B41C000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "assert";
+      v15 = 2081;
+      v16 = "_client";
+      _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Daemon/Shared/Utilities/CLNotifierClientAdapter.mm", 48, "[CLNotifierClientAdapter onNotification:withData:]");
   }
 
   v5 = *(client->var0 + 2);
-  v6 = *MEMORY[0x1E69E9840];
 
   v5();
 }

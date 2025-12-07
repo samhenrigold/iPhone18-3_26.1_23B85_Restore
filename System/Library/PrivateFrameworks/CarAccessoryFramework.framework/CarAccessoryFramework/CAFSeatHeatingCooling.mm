@@ -22,7 +22,10 @@
 - (NSString)vehicleLayoutKey;
 - (id)name;
 - (int)heatingCoolingLevel;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setHeatingCoolingLevel:(int)level;
+- (void)setOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -121,6 +124,13 @@
   return bOOLValue;
 }
 
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFSeatHeatingCooling *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
+}
+
 - (BOOL)hasOn
 {
   onCharacteristic = [(CAFSeatHeatingCooling *)self onCharacteristic];
@@ -185,6 +195,13 @@
   int32Value = [heatingCoolingLevelCharacteristic int32Value];
 
   return int32Value;
+}
+
+- (void)setHeatingCoolingLevel:(int)level
+{
+  v3 = *&level;
+  heatingCoolingLevelCharacteristic = [(CAFSeatHeatingCooling *)self heatingCoolingLevelCharacteristic];
+  [heatingCoolingLevelCharacteristic setInt32Value:v3];
 }
 
 - (CAFInt32Range)heatingCoolingLevelRange
@@ -293,6 +310,102 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFSeatHeatingCooling *)self onCharacteristic];
+    uniqueIdentifier2 = [onCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers heatingCoolingService:self didUpdateOn:{-[CAFSeatHeatingCooling on](self, "on")}];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000031000021"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    heatingCoolingLevelCharacteristic = [(CAFSeatHeatingCooling *)self heatingCoolingLevelCharacteristic];
+    uniqueIdentifier4 = [heatingCoolingLevelCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers heatingCoolingService:self didUpdateHeatingCoolingLevel:{-[CAFSeatHeatingCooling heatingCoolingLevel](self, "heatingCoolingLevel")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x000000003000005F"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    autoModeCharacteristic = [(CAFSeatHeatingCooling *)self autoModeCharacteristic];
+    uniqueIdentifier6 = [autoModeCharacteristic uniqueIdentifier];
+    v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v22)
+    {
+      observers = [(CAFService *)self observers];
+      [observers heatingCoolingService:self didUpdateAutoMode:{-[CAFSeatHeatingCooling autoMode](self, "autoMode")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_16;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFSeatHeatingCooling *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier8 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v26 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v26)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFSeatHeatingCooling *)self vehicleLayoutKey];
+    [observers2 heatingCoolingService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFSeatHeatingCooling *)self name];
+    [observers heatingCoolingService:self didUpdateName:name];
+
+    goto LABEL_16;
+  }
+
+LABEL_17:
+  v30.receiver = self;
+  v30.super_class = CAFSeatHeatingCooling;
+  [(CAFService *)&v30 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForOn

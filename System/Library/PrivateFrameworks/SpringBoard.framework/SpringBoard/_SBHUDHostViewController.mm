@@ -8,8 +8,8 @@
 - (id)delegate;
 - (id)initWithHUDController:(id *)controller;
 - (id)knownHUDForIdentifier:(id *)identifier;
+- (id)numberOfActiveTransitions;
 - (id)setDelegate:(id *)result;
-- (uint64_t)numberOfActiveTransitions;
 - (uint64_t)presentedHUDs;
 - (uint64_t)presentingHUDs;
 - (void)_executeDismissHUD:(id)d animated:(BOOL)animated completion:(id)completion;
@@ -28,9 +28,10 @@
 
 - (void)dismissHUD:(uint64_t)d animated:(void *)animated completion:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   animatedCopy = animated;
+  v9 = animatedCopy;
   if (self)
   {
     if (!v7)
@@ -38,35 +39,36 @@
       [_SBHUDHostViewController dismissHUD:animated:completion:];
     }
 
-    v9 = SBLogHUD();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogHUD(animatedCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = MEMORY[0x223D6F7F0](animatedCopy);
+      v11 = MEMORY[0x223D6F7F0](v9);
       *buf = 138412802;
-      v20 = v7;
-      v21 = 1024;
+      v23 = v7;
+      v24 = 1024;
       dCopy = d;
-      v23 = 2112;
-      v24 = v10;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "dismissHUD:%@ animated:%{BOOL}d completion:%@", buf, 0x1Cu);
+      v26 = 2112;
+      v27 = v11;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "dismissHUD:%@ animated:%{BOOL}d completion:%@", buf, 0x1Cu);
     }
 
-    v11 = [self _transitionContextMatchingHUD:v7 withinContainer:self[129]];
-    if (v11)
+    v12 = [self _transitionContextMatchingHUD:v7 withinContainer:self[129]];
+    v13 = v12;
+    if (v12)
     {
-      v12 = SBLogHUD();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogHUD(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v20 = v7;
-        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Already dismissing HUD %@; doing nothing.", buf, 0xCu);
+        v23 = v7;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Already dismissing HUD %@; doing nothing.", buf, 0xCu);
       }
     }
 
     else
     {
-      v12 = [self _transitionContextMatchingHUD:v7 withinContainer:self[128]];
-      if (v12)
+      v14 = [self _transitionContextMatchingHUD:v7 withinContainer:self[128]];
+      if (v14)
       {
         [_SBHUDHostViewController dismissHUD:v7 animated:self completion:?];
       }
@@ -74,34 +76,34 @@
       else
       {
         hUDViewController = [v7 HUDViewController];
-        v14 = hUDViewController;
-        if (d && [hUDViewController definesAnimatedDismissal])
+        v16 = hUDViewController;
+        if (d && (v17 = [hUDViewController definesAnimatedDismissal], v17))
         {
-          v15 = SBLogHUD();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v18 = SBLogHUD(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v20 = v7;
-            _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "HUD %@ is defines its own animated dismissal; executing and cleaning up state.", buf, 0xCu);
+            v23 = v7;
+            _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "HUD %@ is defines its own animated dismissal; executing and cleaning up state.", buf, 0xCu);
           }
 
           objc_initWeak(buf, v7);
-          v16[0] = MEMORY[0x277D85DD0];
-          v16[1] = 3221225472;
-          v16[2] = __59___SBHUDHostViewController_dismissHUD_animated_completion___block_invoke;
-          v16[3] = &unk_2783B08A8;
-          objc_copyWeak(&v18, buf);
-          v16[4] = self;
-          v17 = animatedCopy;
-          [v14 dismissAnimatedWithCompletion:v16];
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = __59___SBHUDHostViewController_dismissHUD_animated_completion___block_invoke;
+          v19[3] = &unk_2783B08A8;
+          objc_copyWeak(&v21, buf);
+          v19[4] = self;
+          v20 = v9;
+          [v16 dismissAnimatedWithCompletion:v19];
 
-          objc_destroyWeak(&v18);
+          objc_destroyWeak(&v21);
           objc_destroyWeak(buf);
         }
 
         else
         {
-          [self _executeDismissHUD:v7 animated:d completion:animatedCopy];
+          [self _executeDismissHUD:v7 animated:d completion:v9];
         }
       }
     }
@@ -153,7 +155,7 @@
 {
   p_presentingHUDsTransitionContexts = &self->_presentingHUDsTransitionContexts;
   finishCopy = finish;
-  if (([(NSMutableSet *)*p_presentingHUDsTransitionContexts containsObject:?]& 1) != 0 || (p_presentingHUDsTransitionContexts = &self->_dismissingHUDsTransitionContexts, [(NSMutableSet *)self->_dismissingHUDsTransitionContexts containsObject:finishCopy]))
+  if ((objc_msgSend_containsObject_(*p_presentingHUDsTransitionContexts) & 1) != 0 || (p_presentingHUDsTransitionContexts = &self->_dismissingHUDsTransitionContexts, objc_msgSend_containsObject_(self->_dismissingHUDsTransitionContexts)))
   {
     [(NSMutableSet *)*p_presentingHUDsTransitionContexts removeObject:finishCopy];
   }
@@ -470,9 +472,10 @@ LABEL_3:
   if (dismissal)
   {
     OUTLINED_FUNCTION_4_6();
-    v3 = [v1 _transitionContextMatchingHUD:? withinContainer:?];
-    animator = [v3 animator];
-    if ([OUTLINED_FUNCTION_2_15(1032) containsObject:?])
+    v4 = [v1 _transitionContextMatchingHUD:? withinContainer:?];
+    animator = [v4 animator];
+    v3 = OUTLINED_FUNCTION_2_15(1032);
+    if (objc_msgSend_containsObject_(v3))
     {
       [OUTLINED_FUNCTION_2_15(1032) removeObject:?];
       [OUTLINED_FUNCTION_2_15(1024) addObject:?];
@@ -483,9 +486,10 @@ LABEL_3:
 
 - (void)presentHUD:(uint64_t)d animated:(void *)animated completion:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   animatedCopy = animated;
+  v9 = animatedCopy;
   if (self)
   {
     if (!v7)
@@ -494,28 +498,29 @@ LABEL_3:
       [currentHandler handleFailureInMethod:sel_presentHUD_animated_completion_ object:self file:@"SBHUDController.m" lineNumber:841 description:{@"Invalid parameter not satisfying: %@", @"HUD"}];
     }
 
-    v9 = SBLogHUD();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogHUD(animatedCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = MEMORY[0x223D6F7F0](animatedCopy);
+      v11 = MEMORY[0x223D6F7F0](v9);
       *buf = 138412802;
-      v17 = v7;
-      v18 = 1024;
+      v20 = v7;
+      v21 = 1024;
       dCopy = d;
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "presentHUD:%@ animated:%{BOOL}d completion:%@", buf, 0x1Cu);
+      v23 = 2112;
+      v24 = v11;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "presentHUD:%@ animated:%{BOOL}d completion:%@", buf, 0x1Cu);
     }
 
-    v11 = [self _transitionContextMatchingHUD:v7 withinContainer:self[129]];
-    if (v11)
+    v12 = [self _transitionContextMatchingHUD:v7 withinContainer:self[129]];
+    v13 = v12;
+    if (v12)
     {
-      v14 = SBLogHUD();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v17 = SBLogHUD(v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v17 = v7;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Reversing dismissal for HUD %@", buf, 0xCu);
+        v20 = v7;
+        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Reversing dismissal for HUD %@", buf, 0xCu);
       }
 
       [_SBHUDHostViewController reverseHUDDismissal:self];
@@ -523,21 +528,22 @@ LABEL_3:
 
     else
     {
-      v12 = [self _transitionContextMatchingHUD:v7 withinContainer:self[128]];
-      if (v12)
+      v14 = [self _transitionContextMatchingHUD:v7 withinContainer:self[128]];
+      v15 = v14;
+      if (v14)
       {
-        v13 = SBLogHUD();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = SBLogHUD(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v17 = v7;
-          _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Already presenting HUD %@; doing nothing.", buf, 0xCu);
+          v20 = v7;
+          _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Already presenting HUD %@; doing nothing.", buf, 0xCu);
         }
       }
 
       else
       {
-        [self _executePresentNewHUD:v7 animated:d completion:animatedCopy];
+        [self _executePresentNewHUD:v7 animated:d completion:v9];
       }
     }
   }
@@ -562,9 +568,10 @@ LABEL_3:
   if (presentation)
   {
     OUTLINED_FUNCTION_4_6();
-    v3 = [v1 _transitionContextMatchingHUD:? withinContainer:?];
-    animator = [v3 animator];
-    if ([OUTLINED_FUNCTION_2_15(1024) containsObject:?])
+    v4 = [v1 _transitionContextMatchingHUD:? withinContainer:?];
+    animator = [v4 animator];
+    v3 = OUTLINED_FUNCTION_2_15(1024);
+    if (objc_msgSend_containsObject_(v3))
     {
       [OUTLINED_FUNCTION_2_15(1032) addObject:?];
       [OUTLINED_FUNCTION_2_15(1024) removeObject:?];
@@ -614,13 +621,13 @@ LABEL_3:
   return result;
 }
 
-- (uint64_t)numberOfActiveTransitions
+- (id)numberOfActiveTransitions
 {
   if (result)
   {
     v1 = result;
-    v2 = [*(result + 1024) count];
-    return [*(v1 + 1032) count] + v2;
+    v2 = [result[128] count];
+    return ([v1[129] count] + v2);
   }
 
   return result;
@@ -824,7 +831,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (([(NSMutableSet *)self->_executingDismissalHUDs containsObject:v12]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_executingDismissalHUDs) & 1) == 0)
   {
     [(NSMutableSet *)self->_executingDismissalHUDs addObject:v12];
     hUDViewController = [v12 HUDViewController];
@@ -870,7 +877,7 @@ LABEL_10:
 - (void)dismissHUD:(uint64_t)a1 animated:(uint64_t)a2 completion:.cold.2(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v4 = SBLogHUD();
+  v4 = SBLogHUD(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;

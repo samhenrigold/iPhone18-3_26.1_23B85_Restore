@@ -16,10 +16,11 @@
 - (BOOL)textField:(id)field shouldChangeCharactersInRange:(_NSRange)range replacementString:(id)string
 {
   length = range.length;
-  sub_100753094();
+  v8 = sub_100753094();
+  v10 = v9;
   fieldCopy = field;
   selfCopy = self;
-  LOBYTE(length) = sub_1001C6D38(fieldCopy, v10, length);
+  LOBYTE(length) = sub_1001C6D38(fieldCopy, v13, length, v8, v10);
 
   return length & 1;
 }

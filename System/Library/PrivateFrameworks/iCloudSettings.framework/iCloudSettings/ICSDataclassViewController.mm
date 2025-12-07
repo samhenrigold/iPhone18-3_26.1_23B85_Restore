@@ -22,8 +22,10 @@
 - (void)dealloc;
 - (void)insertSpecifier:(id)specifier afterSpecifierNamed:(id)named animated:(BOOL)animated;
 - (void)operationsHelper:(id)helper didLoadSaveActions:(id)actions forDataclass:(id)dataclass withAccount:(id)account error:(id)error;
+- (void)operationsHelper:(id)helper didSaveAccount:(id)account withSuccess:(BOOL)success error:(id)error;
 - (void)operationsHelper:(id)helper willSaveAccount:(id)account;
 - (void)reloadSpecifierForProvider:(id)provider identifier:(id)identifier;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)setAccountManager:(id)manager;
 - (void)specifierProvider:(id)provider dataclassSwitchStateDidChange:(id)change withSpecifier:(id)specifier;
 - (void)specifierProvider:(id)provider didFinishLoadingSpecifier:(id)specifier;
@@ -68,12 +70,12 @@
       specifier2 = [(ICSDataclassViewController *)self specifier];
       v6 = [specifier2 objectForKeyedSubscript:@"icloudAccountManager"];
 
-      v7 = LogSubsystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = LogSubsystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v13 = v6;
-        _os_log_impl(&dword_275819000, v7, OS_LOG_TYPE_DEFAULT, "specifierAccountManager %@", buf, 0xCu);
+        _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "specifierAccountManager %@", buf, 0xCu);
       }
 
       if (v6)
@@ -85,8 +87,8 @@
     accountManager = self->_accountManager;
     if (!accountManager)
     {
-      v8 = LogSubsystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = LogSubsystem(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         [ICSDataclassViewController accountManager];
       }
@@ -100,8 +102,6 @@
       accountManager = self->_accountManager;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return accountManager;
 }
@@ -148,7 +148,7 @@ void __44__ICSDataclassViewController_accountManager__block_invoke(uint64_t a1)
 
 - (void)cleanupDataclassSpecifiers
 {
-  v2 = LogSubsystem();
+  v2 = LogSubsystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -183,12 +183,12 @@ void __44__ICSDataclassViewController_accountManager__block_invoke(uint64_t a1)
   providerCopy = provider;
   controllerCopy = controller;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v8 = LogSubsystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = LogSubsystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
     v11 = providerCopy;
-    _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "showViewController for provider %@", &v10, 0xCu);
+    _os_log_impl(&dword_275819000, v9, OS_LOG_TYPE_DEFAULT, "showViewController for provider %@", &v10, 0xCu);
   }
 
   objc_opt_class();
@@ -201,30 +201,28 @@ void __44__ICSDataclassViewController_accountManager__block_invoke(uint64_t a1)
   {
     [(ICSDataclassViewController *)self showController:controllerCopy animate:1];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)specifierProvider:(id)provider willBeginLoadingSpecifier:(id)specifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   specifierCopy = specifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v8 = LogSubsystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = LogSubsystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = providerCopy;
-    _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "willBeginLoadingSpecifier for provider %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = providerCopy;
+    _os_log_impl(&dword_275819000, v9, OS_LOG_TYPE_DEFAULT, "willBeginLoadingSpecifier for provider %@", &v12, 0xCu);
   }
 
   if (self->_activeSpecifier)
   {
-    v9 = LogSubsystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = LogSubsystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [ICSDataclassViewController specifierProvider:providerCopy willBeginLoadingSpecifier:v9];
+      [ICSDataclassViewController specifierProvider:providerCopy willBeginLoadingSpecifier:v11];
     }
   }
 
@@ -232,21 +230,19 @@ void __44__ICSDataclassViewController_accountManager__block_invoke(uint64_t a1)
   {
     [(ICSDataclassViewController *)self startSpinnerInSpecifier:specifierCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)specifierProvider:(id)provider didFinishLoadingSpecifier:(id)specifier
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v6 = LogSubsystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = LogSubsystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = providerCopy;
-    _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "didFinishLoadingSpecifier for provider %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = providerCopy;
+    _os_log_impl(&dword_275819000, v7, OS_LOG_TYPE_DEFAULT, "didFinishLoadingSpecifier for provider %@", &v10, 0xCu);
   }
 
   if (self->_activeSpecifier)
@@ -256,65 +252,89 @@ void __44__ICSDataclassViewController_accountManager__block_invoke(uint64_t a1)
 
   else
   {
-    v7 = LogSubsystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = LogSubsystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [ICSDataclassViewController specifierProvider:providerCopy didFinishLoadingSpecifier:v7];
+      [ICSDataclassViewController specifierProvider:providerCopy didFinishLoadingSpecifier:v9];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertSpecifier:(id)specifier afterSpecifierNamed:(id)named animated:(BOOL)animated
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   namedCopy = named;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v9 = LogSubsystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = LogSubsystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [(ICSDataclassViewController *)self specifierForID:namedCopy];
-    v17 = 138412546;
-    v18 = specifierCopy;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_275819000, v9, OS_LOG_TYPE_DEFAULT, "Inserting new specifier %@ after %@", &v17, 0x16u);
+    v11 = [(ICSDataclassViewController *)self specifierForID:namedCopy];
+    v19 = 138412546;
+    v20 = specifierCopy;
+    v21 = 2112;
+    v22 = v11;
+    _os_log_impl(&dword_275819000, v10, OS_LOG_TYPE_DEFAULT, "Inserting new specifier %@ after %@", &v19, 0x16u);
   }
 
-  if ([*(&self->super.super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) containsObject:specifierCopy])
+  v12 = [*(&self->super.super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) containsObject:specifierCopy];
+  if (v12)
   {
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = LogSubsystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      v12 = "Did not insert new specifier because it's already present";
-      v13 = v11;
-      v14 = 2;
+      LOWORD(v19) = 0;
+      v14 = "Did not insert new specifier because it's already present";
+      v15 = v13;
+      v16 = 2;
 LABEL_8:
-      _os_log_impl(&dword_275819000, v13, OS_LOG_TYPE_DEFAULT, v12, &v17, v14);
+      _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, v14, &v19, v16);
     }
   }
 
   else
   {
-    v15 = [(ICSDataclassViewController *)self specifierForID:namedCopy];
-    [(ICSDataclassViewController *)self insertSpecifier:specifierCopy afterSpecifier:v15 animated:1];
+    v17 = [(ICSDataclassViewController *)self specifierForID:namedCopy];
+    [(ICSDataclassViewController *)self insertSpecifier:specifierCopy afterSpecifier:v17 animated:1];
 
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = LogSubsystem(v18);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = specifierCopy;
-      v12 = "Inserted new specifier %@";
-      v13 = v11;
-      v14 = 12;
+      v19 = 138412290;
+      v20 = specifierCopy;
+      v14 = "Inserted new specifier %@";
+      v15 = v13;
+      v16 = 12;
       goto LABEL_8;
     }
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v15 = *MEMORY[0x277D85DE8];
+  providerCopy = provider;
+  specifiersCopy = specifiers;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  v11 = LogSubsystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = 138412290;
+    v14 = providerCopy;
+    _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "Reloading specifiers for provider %@", &v13, 0xCu);
+  }
+
+  if ([specifiersCopy count])
+  {
+    specifiers = [providerCopy specifiers];
+    [(ICSDataclassViewController *)self replaceContiguousSpecifiers:specifiersCopy withSpecifiers:specifiers animated:animatedCopy];
+  }
+
+  else
+  {
+    [(ICSDataclassViewController *)self reloadSpecifiers];
+  }
 }
 
 - (void)reloadSpecifierForProvider:(id)provider identifier:(id)identifier
@@ -322,16 +342,15 @@ LABEL_8:
   v10 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v6 = LogSubsystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = LogSubsystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
     v9 = identifierCopy;
-    _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "Reloading specifier with ID: %@", &v8, 0xCu);
+    _os_log_impl(&dword_275819000, v7, OS_LOG_TYPE_DEFAULT, "Reloading specifier with ID: %@", &v8, 0xCu);
   }
 
   [(ICSDataclassViewController *)self reloadSpecifierID:identifierCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)specifierProvider:(id)provider dataclassSwitchStateDidChange:(id)change withSpecifier:(id)specifier
@@ -344,24 +363,22 @@ LABEL_8:
 
 - (void)validateDataclassAccessForProvider:(id)provider specifier:(id)specifier completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   specifierCopy = specifier;
   completionCopy = completion;
-  v11 = LogSubsystem();
+  v11 = LogSubsystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = providerCopy;
-    v15 = 2112;
-    v16 = specifierCopy;
-    _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "validateDataclassAccessForProvider. provider: %@, specifier: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = providerCopy;
+    v14 = 2112;
+    v15 = specifierCopy;
+    _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "validateDataclassAccessForProvider. provider: %@, specifier: %@", &v12, 0x16u);
   }
 
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   [(ICSDataclassViewController *)self _validateDataclassAccessForSpecifier:specifierCopy completion:completionCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)specifierProvider:(id)provider isDataclassAvailableForSpecifier:(id)specifier
@@ -593,13 +610,13 @@ uint64_t __73__ICSDataclassViewController__shouldContinueDataclassChangeForSpeci
 
 void __78__ICSDataclassViewController__validateDataclassAccessForSpecifier_completion___block_invoke(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = LogSubsystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = LogSubsystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "_validateDataclassAccessForSpecifier shouldContinue: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "_validateDataclassAccessForSpecifier shouldContinue: %d", v6, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -610,16 +627,14 @@ void __78__ICSDataclassViewController__validateDataclassAccessForSpecifier_compl
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_superDataclassSwitchStateDidChange:(id)change withSpecifier:(id)specifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   specifierCopy = specifier;
-  v8 = LogSubsystem();
+  v8 = LogSubsystem(specifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     if ([changeCopy BOOLValue])
@@ -634,17 +649,15 @@ void __78__ICSDataclassViewController__validateDataclassAccessForSpecifier_compl
 
     name = [specifierCopy name];
     *buf = 138412546;
-    v14 = v9;
-    v15 = 2112;
-    v16 = name;
+    v13 = v9;
+    v14 = 2112;
+    v15 = name;
     _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "Dataclass switch state changed to %@: %@", buf, 0x16u);
   }
 
-  v12.receiver = self;
-  v12.super_class = ICSDataclassViewController;
-  [(ACUIDataclassConfigurationViewController *)&v12 dataclassSwitchStateDidChange:changeCopy withSpecifier:specifierCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = ICSDataclassViewController;
+  [(ACUIDataclassConfigurationViewController *)&v11 dataclassSwitchStateDidChange:changeCopy withSpecifier:specifierCopy];
 }
 
 - (BOOL)_isDataclassAvailableForSpecifier:(id)specifier
@@ -660,27 +673,28 @@ void __78__ICSDataclassViewController__validateDataclassAccessForSpecifier_compl
   nameCopy = name;
   bundleCopy = bundle;
   v8 = NSClassFromString(nameCopy);
-  if ([(objc_class *)v8 conformsToProtocol:&unk_2884BC2B8])
+  v9 = [(objc_class *)v8 conformsToProtocol:&unk_2884BC2B8];
+  if (v9)
   {
-    v9 = [v8 alloc];
+    v10 = [v8 alloc];
     accountManager = [(ICSDataclassViewController *)self accountManager];
-    v11 = [v9 initWithAccountManager:accountManager];
+    v12 = [v10 initWithAccountManager:accountManager];
 
-    [v11 setDelegate:self];
+    [v12 setDelegate:self];
   }
 
   else
   {
-    v12 = LogSubsystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = LogSubsystem(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(ICSDataclassViewController *)nameCopy loadSpecifierProviderWithClassName:bundleCopy inBundle:v12];
+      [(ICSDataclassViewController *)nameCopy loadSpecifierProviderWithClassName:bundleCopy inBundle:v13];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)operationsHelper:(id)helper willSaveAccount:(id)account
@@ -690,25 +704,75 @@ void __78__ICSDataclassViewController__validateDataclassAccessForSpecifier_compl
   [(ACUIDataclassConfigurationViewController *)&v4 operationsHelper:helper willSaveAccount:account];
 }
 
+- (void)operationsHelper:(id)helper didSaveAccount:(id)account withSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  v27 = *MEMORY[0x277D85DE8];
+  helperCopy = helper;
+  accountCopy = account;
+  errorCopy = error;
+  v13 = LogSubsystem(errorCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = @"NO";
+    if (successCopy)
+    {
+      v14 = @"YES";
+    }
+
+    *buf = 138412546;
+    v24 = v14;
+    v25 = 2112;
+    v26 = errorCopy;
+    _os_log_impl(&dword_275819000, v13, OS_LOG_TYPE_DEFAULT, "Operations helper did save account with success? %@, error: %@", buf, 0x16u);
+  }
+
+  if (errorCopy)
+  {
+    enabledDataclasses = [accountCopy enabledDataclasses];
+    v16 = [enabledDataclasses mutableCopy];
+
+    accountStore = [(ACUIViewController *)self accountStore];
+    v18 = [accountStore enabledDataclassesForAccount:accountCopy];
+
+    [v16 minusSet:v18];
+    accountSaveErrorHandler = self->_accountSaveErrorHandler;
+    if (!accountSaveErrorHandler)
+    {
+      v20 = [[ICSAccountSaveErrorHandler alloc] initWithPresenter:self];
+      v21 = self->_accountSaveErrorHandler;
+      self->_accountSaveErrorHandler = v20;
+
+      accountSaveErrorHandler = self->_accountSaveErrorHandler;
+    }
+
+    [(ICSAccountSaveErrorHandler *)accountSaveErrorHandler handleAccountSaveError:errorCopy forAccount:accountCopy failedDataclasses:v16];
+  }
+
+  v22.receiver = self;
+  v22.super_class = ICSDataclassViewController;
+  [(ACUIDataclassConfigurationViewController *)&v22 operationsHelper:helperCopy didSaveAccount:accountCopy withSuccess:successCopy error:errorCopy];
+}
+
 - (void)operationsHelper:(id)helper didLoadSaveActions:(id)actions forDataclass:(id)dataclass withAccount:(id)account error:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   dataclassCopy = dataclass;
   accountCopy = account;
   errorCopy = error;
-  v15 = LogSubsystem();
+  v15 = LogSubsystem(errorCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138413058;
-    v22 = actionsCopy;
-    v23 = 2112;
-    v24 = dataclassCopy;
-    v25 = 2112;
-    v26 = accountCopy;
-    v27 = 2112;
-    v28 = errorCopy;
-    _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, "Operations helper did load save actions: %@ forDataclass: %@ withAccount: %@ error: %@", &v21, 0x2Au);
+    v20 = 138413058;
+    v21 = actionsCopy;
+    v22 = 2112;
+    v23 = dataclassCopy;
+    v24 = 2112;
+    v25 = accountCopy;
+    v26 = 2112;
+    v27 = errorCopy;
+    _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, "Operations helper did load save actions: %@ forDataclass: %@ withAccount: %@ error: %@", &v20, 0x2Au);
   }
 
   if (errorCopy)
@@ -726,8 +790,6 @@ void __78__ICSDataclassViewController__validateDataclassAccessForSpecifier_compl
 
     [(ICSAccountSaveErrorHandler *)accountSaveErrorHandler handleAccountSaveError:errorCopy forAccount:accountCopy failedDataclasses:v16];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingAccountStoreChanges
@@ -807,7 +869,7 @@ void __68__ICSDataclassViewController_accountDidChangeFromAccount_toAccount___bl
   v9 = [*(a1 + 32) isPropertyDirty:*MEMORY[0x277CB8E70]];
   if (v2)
   {
-    v10 = LogSubsystem();
+    v10 = LogSubsystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -822,7 +884,7 @@ LABEL_13:
 
   if (v3 != v4)
   {
-    v10 = LogSubsystem();
+    v10 = LogSubsystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -832,11 +894,11 @@ LABEL_13:
 
 LABEL_14:
 
-    v12 = LogSubsystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = LogSubsystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "Account has changed, will reload specifiers.", buf, 2u);
+      _os_log_impl(&dword_275819000, v13, OS_LOG_TYPE_DEFAULT, "Account has changed, will reload specifiers.", buf, 2u);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -850,7 +912,7 @@ LABEL_14:
 
   if (v9)
   {
-    v10 = LogSubsystem();
+    v10 = LogSubsystem(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -863,21 +925,21 @@ LABEL_14:
 
   if (v6 != v8)
   {
-    v13 = LogSubsystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = LogSubsystem(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_275819000, v13, OS_LOG_TYPE_DEFAULT, "Account enabled dataclasses changed. Will reload specifiers if needed.", buf, 2u);
+      _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "Account enabled dataclasses changed. Will reload specifiers if needed.", buf, 2u);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __68__ICSDataclassViewController_accountDidChangeFromAccount_toAccount___block_invoke_139;
-    v14[3] = &unk_27A666728;
-    v14[4] = *(a1 + 48);
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 40);
-    dispatch_async(MEMORY[0x277D85CD0], v14);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __68__ICSDataclassViewController_accountDidChangeFromAccount_toAccount___block_invoke_139;
+    v15[3] = &unk_27A666728;
+    v15[4] = *(a1 + 48);
+    v16 = *(a1 + 32);
+    v17 = *(a1 + 40);
+    dispatch_async(MEMORY[0x277D85CD0], v15);
   }
 }
 
@@ -911,15 +973,16 @@ LABEL_9:
   v8.receiver = *(a1 + 32);
   v8.super_class = ICSDataclassViewController;
   v4 = objc_msgSendSuper2(&v8, sel_dataclassSwitchStateForSpecifier_, WeakRetained);
+  v5 = v4;
   if (v3 != v4)
   {
-    v5 = LogSubsystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogSubsystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [WeakRetained acui_dataclass];
+      v7 = [WeakRetained acui_dataclass];
       *buf = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_275819000, v5, OS_LOG_TYPE_DEFAULT, "Toggle value does not match new account state, refreshing specifier for dataclass %@", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "Toggle value does not match new account state, refreshing specifier for dataclass %@", buf, 0xCu);
     }
 
     [*(a1 + 32) reloadSpecifier:WeakRetained];
@@ -928,7 +991,6 @@ LABEL_9:
   objc_storeWeak((*(a1 + 32) + 1704), 0);
 
 LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkAndReloadSpecifierIfNeededForAccountChangedFrom:(id)from toAccount:(id)account
@@ -937,59 +999,67 @@ LABEL_10:
   accountCopy = account;
   v8 = *MEMORY[0x277CB89C8];
   v9 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89C8]];
-  if (v9 == [accountCopy isEnabledForDataclass:v8])
+  v10 = [accountCopy isEnabledForDataclass:v8];
+  if (v9 == v10)
   {
-    v11 = *MEMORY[0x277CB89D0];
-    v12 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89D0]];
-    if (v12 == [accountCopy isEnabledForDataclass:v11] && (v13 = *MEMORY[0x277CB8A38], v14 = objc_msgSend(fromCopy, "isEnabledForDataclass:", *MEMORY[0x277CB8A38]), v14 == objc_msgSend(accountCopy, "isEnabledForDataclass:", v13)) && (v15 = *MEMORY[0x277CB8A08], v16 = objc_msgSend(fromCopy, "isEnabledForDataclass:", *MEMORY[0x277CB8A08]), v16 == objc_msgSend(accountCopy, "isEnabledForDataclass:", v15)) && (v17 = *MEMORY[0x277CB8960], v18 = objc_msgSend(fromCopy, "isEnabledForDataclass:", *MEMORY[0x277CB8960]), v18 == objc_msgSend(accountCopy, "isEnabledForDataclass:", v17)))
+    v12 = *MEMORY[0x277CB89D0];
+    v13 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89D0]];
+    v14 = [accountCopy isEnabledForDataclass:v12];
+    if (v13 == v14 && (v15 = *MEMORY[0x277CB8A38], v16 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB8A38]], v14 = objc_msgSend(accountCopy, "isEnabledForDataclass:", v15), v16 == v14) && (v17 = *MEMORY[0x277CB8A08], v18 = objc_msgSend(fromCopy, "isEnabledForDataclass:", *MEMORY[0x277CB8A08]), v14 = objc_msgSend(accountCopy, "isEnabledForDataclass:", v17), v18 == v14) && (v19 = *MEMORY[0x277CB8960], v20 = objc_msgSend(fromCopy, "isEnabledForDataclass:", *MEMORY[0x277CB8960]), v14 = objc_msgSend(accountCopy, "isEnabledForDataclass:", v19), v20 == v14))
     {
-      v11 = *MEMORY[0x277CB8A58];
-      v22 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB8A58]];
-      if (v22 == [accountCopy isEnabledForDataclass:v11])
+      v12 = *MEMORY[0x277CB8A58];
+      v24 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB8A58]];
+      v25 = [accountCopy isEnabledForDataclass:v12];
+      if (v24 == v25)
       {
-        v11 = *MEMORY[0x277CB89C0];
-        v23 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89C0]];
-        if (v23 == [accountCopy isEnabledForDataclass:v11])
+        v12 = *MEMORY[0x277CB89C0];
+        v26 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89C0]];
+        v27 = [accountCopy isEnabledForDataclass:v12];
+        if (v26 == v27)
         {
-          v11 = *MEMORY[0x277CB89F8];
-          v24 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89F8]];
-          if (v24 == [accountCopy isEnabledForDataclass:v11])
+          v12 = *MEMORY[0x277CB89F8];
+          v28 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89F8]];
+          v29 = [accountCopy isEnabledForDataclass:v12];
+          if (v28 == v29)
           {
-            v25 = *MEMORY[0x277CB89D8];
-            v26 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89D8]];
-            v27 = [accountCopy isEnabledForDataclass:v25];
-            v28 = MEMORY[0x277CB9160];
-            if (v26 != v27 || (v29 = *MEMORY[0x277CB9160], v30 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB9160]], v30 != objc_msgSend(accountCopy, "isEnabledForDataclass:", v29)))
+            v30 = *MEMORY[0x277CB89D8];
+            v31 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89D8]];
+            v32 = [accountCopy isEnabledForDataclass:v30];
+            v33 = MEMORY[0x277CB9160];
+            if (v31 != v32 || (v34 = *MEMORY[0x277CB9160], v35 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB9160]], v32 = objc_msgSend(accountCopy, "isEnabledForDataclass:", v34), v35 != v32))
             {
-              v31 = LogSubsystem();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+              v36 = LogSubsystem(v32);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
               {
                 [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
               }
 
-              [(ICSDataclassViewController *)self reloadSpecifierID:v25];
-              v21 = *v28;
+              [(ICSDataclassViewController *)self reloadSpecifierID:v30];
+              v23 = *v33;
               selfCopy2 = self;
               goto LABEL_12;
             }
 
-            v11 = *MEMORY[0x277CB89A0];
-            v32 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89A0]];
-            if (v32 == [accountCopy isEnabledForDataclass:v11])
+            v12 = *MEMORY[0x277CB89A0];
+            v37 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB89A0]];
+            v38 = [accountCopy isEnabledForDataclass:v12];
+            if (v37 == v38)
             {
-              v11 = *MEMORY[0x277CB8958];
-              v33 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB8958]];
-              if (v33 == [accountCopy isEnabledForDataclass:v11])
+              v12 = *MEMORY[0x277CB8958];
+              v39 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB8958]];
+              v40 = [accountCopy isEnabledForDataclass:v12];
+              if (v39 == v40)
               {
-                v11 = *MEMORY[0x277CB8980];
-                v34 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB8980]];
-                if (v34 == [accountCopy isEnabledForDataclass:v11])
+                v12 = *MEMORY[0x277CB8980];
+                v41 = [fromCopy isEnabledForDataclass:*MEMORY[0x277CB8980]];
+                v42 = [accountCopy isEnabledForDataclass:v12];
+                if (v41 == v42)
                 {
                   goto LABEL_13;
                 }
 
-                v19 = LogSubsystem();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+                v21 = LogSubsystem(v42);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                 {
                   [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
                 }
@@ -997,8 +1067,8 @@ LABEL_10:
 
               else
               {
-                v19 = LogSubsystem();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+                v21 = LogSubsystem(v40);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
                 {
                   [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
                 }
@@ -1007,8 +1077,8 @@ LABEL_10:
 
             else
             {
-              v19 = LogSubsystem();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+              v21 = LogSubsystem(v38);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
               {
                 [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
               }
@@ -1017,8 +1087,8 @@ LABEL_10:
 
           else
           {
-            v19 = LogSubsystem();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            v21 = LogSubsystem(v29);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
             }
@@ -1027,8 +1097,8 @@ LABEL_10:
 
         else
         {
-          v19 = LogSubsystem();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v21 = LogSubsystem(v27);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
           }
@@ -1037,8 +1107,8 @@ LABEL_10:
 
       else
       {
-        v19 = LogSubsystem();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v21 = LogSubsystem(v25);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
         }
@@ -1047,22 +1117,22 @@ LABEL_10:
 
     else
     {
-      v19 = LogSubsystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v21 = LogSubsystem(v14);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
       }
     }
 
     selfCopy2 = self;
-    v21 = v11;
+    v23 = v12;
 LABEL_12:
-    [(ICSDataclassViewController *)selfCopy2 reloadSpecifierID:v21];
+    [(ICSDataclassViewController *)selfCopy2 reloadSpecifierID:v23];
     goto LABEL_13;
   }
 
-  v10 = LogSubsystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = LogSubsystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [ICSDataclassViewController _checkAndReloadSpecifierIfNeededForAccountChangedFrom:toAccount:];
   }
@@ -1134,31 +1204,28 @@ void __63__ICSDataclassViewController__startObservingRestrictionChanges__block_i
 
 - (void)specifierProvider:(uint64_t)a1 willBeginLoadingSpecifier:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Unbalanced call to -specifierProvider:willBeginLoadingSpecifier:, please file a radar! (provider: %@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Unbalanced call to -specifierProvider:willBeginLoadingSpecifier:, please file a radar! (provider: %@)", &v2, 0xCu);
 }
 
 - (void)specifierProvider:(uint64_t)a1 didFinishLoadingSpecifier:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Unbalanced call to -specifierProvider:didFinishLoadingSpecifier:, please file a radar! (provider: %@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_275819000, a2, OS_LOG_TYPE_ERROR, "Unbalanced call to -specifierProvider:didFinishLoadingSpecifier:, please file a radar! (provider: %@)", &v2, 0xCu);
 }
 
 - (void)loadSpecifierProviderWithClassName:(os_log_t)log inBundle:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_275819000, log, OS_LOG_TYPE_ERROR, "ICSDataclassViewController Failed to load %{public}@ from bundle: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_275819000, log, OS_LOG_TYPE_ERROR, "ICSDataclassViewController Failed to load %{public}@ from bundle: %{public}@", &v3, 0x16u);
 }
 
 @end

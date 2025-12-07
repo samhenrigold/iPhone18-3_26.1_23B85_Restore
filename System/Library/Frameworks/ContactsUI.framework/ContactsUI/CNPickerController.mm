@@ -512,9 +512,9 @@ LABEL_16:
   return v12;
 }
 
-uint64_t __38__CNPickerController_setFilterTokens___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
+void *__38__CNPickerController_setFilterTokens___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  result = [a2 _cn_hasPrefix:*(a1 + 32)];
+  result = [a2 _cn_hasPrefix:{*(a1 + 32), a4, a5, a6}];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -1242,7 +1242,7 @@ uint64_t __37__CNPickerController_viewWillAppear___block_invoke_4(uint64_t a1, v
 
     else
     {
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/OldFramework/Sources/ContactsUI_Internal.m", 126, 4, @"You tried to use Siri localization but SiriUI is not loaded.", v6, v7, v8, v9, v13);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/OldFramework/Sources/ContactsUI_Internal.m", 126, 4u, @"You tried to use Siri localization but SiriUI is not loaded.", v6, v7, v8, v9, v13);
     }
   }
 

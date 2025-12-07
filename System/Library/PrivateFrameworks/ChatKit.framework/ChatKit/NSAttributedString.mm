@@ -204,11 +204,11 @@ void __87__NSAttributedString_RichLinks__ck_attributedStringByPostProcessingURLT
   }
 }
 
-uint64_t __87__NSAttributedString_RichLinks__ck_attributedStringByPostProcessingURLTextForRichLinks__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__87__NSAttributedString_RichLinks__ck_attributedStringByPostProcessingURLTextForRichLinks__block_invoke_2(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) replaceCharactersInRange:a3 withString:{a4, *MEMORY[0x1E69A5F00]}];
+    return [result[4] replaceCharactersInRange:a3 withString:{a4, *MEMORY[0x1E69A5F00]}];
   }
 
   return result;

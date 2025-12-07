@@ -18,6 +18,7 @@
 - (void)migrateLegacyDigitalTouchPreferencesFromBackup:(id)backup device:(id)device;
 - (void)restoreFromBackupID:(id)d backupType:(unint64_t)type forPairingID:(id)iD completionHandler:(id)handler;
 - (void)restoreFromPairingID:(id)d forPairingID:(id)iD completionHandler:(id)handler;
+- (void)setBackupsEnabled:(BOOL)enabled completionHandler:(id)handler;
 @end
 
 @implementation NBServer
@@ -341,6 +342,51 @@ LABEL_12:
     v17 = NBError();
     (v14[2])(v14, v17);
   }
+}
+
+- (void)setBackupsEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  v7 = nb_daemon_log;
+  if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    v9 = objc_retainBlock(handlerCopy);
+    v17 = 134217984;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "replyBlock setBackupsEnabled: (%p)", &v17, 0xCu);
+  }
+
+  v10 = nb_daemon_log;
+  if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = @"NO";
+    if (enabledCopy)
+    {
+      v11 = @"YES";
+    }
+
+    v17 = 138412290;
+    v18 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Updating backup state to: %@", &v17, 0xCu);
+  }
+
+  v12 = iCloudBackupsEnabled;
+  v13 = [NSNumber numberWithBool:enabledCopy];
+  CFPreferencesSetAppValue(v12, v13, NanoBackupDomain);
+  iCloudBackup = self->_iCloudBackup;
+  if (!iCloudBackup)
+  {
+    v15 = objc_opt_new();
+    v16 = self->_iCloudBackup;
+    self->_iCloudBackup = v15;
+
+    iCloudBackup = self->_iCloudBackup;
+  }
+
+  [(NBBackupiCloud *)iCloudBackup startSchedulerIfNecessary];
+  (*(handlerCopy + 2))(handlerCopy, 0);
 }
 
 - (void)createManualBackupWithCompletion:(id)completion

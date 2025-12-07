@@ -195,38 +195,38 @@
     {
       if (!self->_suppressionServiceStarted)
       {
-        objc_initWeak(location, self);
-        v5 = SBLogAmbientIdleTimer();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        inited = objc_initWeak(location, self);
+        v6 = SBLogAmbientIdleTimer(inited);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Starting suppression monitoring", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Starting suppression monitoring", buf, 2u);
         }
 
         _sourcesForMonitoredEvents = [(SBAmbientIdleTimerController *)self _sourcesForMonitoredEvents];
         [(CMSuppressionManager *)self->_suppressionManager startService];
-        v7 = self->_suppressionManager;
+        v8 = self->_suppressionManager;
         mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __57__SBAmbientIdleTimerController__updateSuppressionManager__block_invoke;
-        v11[3] = &unk_2783C1908;
-        objc_copyWeak(&v12, location);
-        [(CMSuppressionManager *)v7 startSuppressionUpdatesToQueue:mainQueue withOptions:_sourcesForMonitoredEvents withHandler:v11];
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __57__SBAmbientIdleTimerController__updateSuppressionManager__block_invoke;
+        v12[3] = &unk_2783C1908;
+        objc_copyWeak(&v13, location);
+        [(CMSuppressionManager *)v8 startSuppressionUpdatesToQueue:mainQueue withOptions:_sourcesForMonitoredEvents withHandler:v12];
 
         self->_suppressionServiceStarted = 1;
-        objc_destroyWeak(&v12);
+        objc_destroyWeak(&v13);
         objc_destroyWeak(location);
       }
     }
 
     else if (self->_suppressionServiceStarted)
     {
-      v9 = SBLogAmbientIdleTimer();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogAmbientIdleTimer(self);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(location[0]) = 0;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Stopping suppression monitoring", location, 2u);
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Stopping suppression monitoring", location, 2u);
       }
 
       [(SBAmbientIdleTimerController *)self _setActiveSuppressionReasons:0];
@@ -243,7 +243,7 @@
       [(SBAmbientIdleTimerController *)self _setActiveSuppressionReasons:0];
       [(CMSuppressionManager *)self->_suppressionManager stopSuppressionUpdates];
       [(CMSuppressionManager *)self->_suppressionManager stopService];
-      v10 = self->_suppressionManager;
+      v11 = self->_suppressionManager;
       self->_suppressionManager = 0;
 
       self->_suppressionServiceStarted = 0;
@@ -260,7 +260,7 @@ void __57__SBAmbientIdleTimerController__updateSuppressionManager__block_invoke(
   v8 = WeakRetained;
   if (!v5 || v6)
   {
-    v13 = SBLogAmbientIdleTimer();
+    v13 = SBLogAmbientIdleTimer(WeakRetained);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       __57__SBAmbientIdleTimerController__updateSuppressionManager__block_invoke_cold_1(v5, v6, v13);
@@ -269,7 +269,7 @@ void __57__SBAmbientIdleTimerController__updateSuppressionManager__block_invoke(
 
   else if (WeakRetained)
   {
-    v9 = SBLogAmbientIdleTimer();
+    v9 = SBLogAmbientIdleTimer(WeakRetained);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
@@ -426,41 +426,40 @@ LABEL_13:
 
 - (void)_updateAmbientSuppressed
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   isAmbientSuppressed = [(SBAmbientIdleTimerController *)self isAmbientSuppressed];
   v4 = self->_idleTimerAllowedForAssertions || self->_idleTimerAllowedForAssertionsForSleepFocus && self->_suppressForSleep || self->_idleTimerAllowedForSuppression;
-  [(SBAmbientIdleTimerController *)self _setAmbientSuppressed:v4];
-  v5 = SBLogAmbientIdleTimer();
+  v5 = SBLogAmbientIdleTimer([(SBAmbientIdleTimerController *)self _setAmbientSuppressed:v4]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     idleTimerAllowedForAssertions = self->_idleTimerAllowedForAssertions;
     idleTimerAllowedForAssertionsForSleepFocus = self->_idleTimerAllowedForAssertionsForSleepFocus;
     suppressForSleep = self->_suppressForSleep;
     idleTimerAllowedForSuppression = self->_idleTimerAllowedForSuppression;
-    v12[0] = 67110400;
-    v12[1] = isAmbientSuppressed;
-    v13 = 1024;
-    v14 = v4;
-    v15 = 1024;
-    v16 = idleTimerAllowedForAssertions;
-    v17 = 1024;
-    v18 = idleTimerAllowedForAssertionsForSleepFocus;
-    v19 = 1024;
-    v20 = suppressForSleep;
-    v21 = 1024;
-    v22 = idleTimerAllowedForSuppression;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Ambient supression state updated. wasAmbientSuppressed = %{BOOL}u  isAmbientSuppressed = %{BOOL}u  [ _idleTimerAllowedForAssertions = %{BOOL}u _idleTimerAllowedForAssertionsForSleepFocus = %{BOOL}u _suppressForSleep = %{BOOL}u _idleTimerAllowedForSuppression = %{BOOL}u ]", v12, 0x26u);
+    v13[0] = 67110400;
+    v13[1] = isAmbientSuppressed;
+    v14 = 1024;
+    v15 = v4;
+    v16 = 1024;
+    v17 = idleTimerAllowedForAssertions;
+    v18 = 1024;
+    v19 = idleTimerAllowedForAssertionsForSleepFocus;
+    v20 = 1024;
+    v21 = suppressForSleep;
+    v22 = 1024;
+    v23 = idleTimerAllowedForSuppression;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Ambient supression state updated. wasAmbientSuppressed = %{BOOL}u  isAmbientSuppressed = %{BOOL}u  [ _idleTimerAllowedForAssertions = %{BOOL}u _idleTimerAllowedForAssertionsForSleepFocus = %{BOOL}u _suppressForSleep = %{BOOL}u _idleTimerAllowedForSuppression = %{BOOL}u ]", v13, 0x26u);
   }
 
   if (isAmbientSuppressed || !v4)
   {
     if (!v4 && isAmbientSuppressed)
     {
-      v10 = SBLogAmbientIdleTimer();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = SBLogAmbientIdleTimer(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v12[0]) = 0;
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Suppression ended", v12, 2u);
+        LOWORD(v13[0]) = 0;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Suppression ended", v13, 2u);
       }
 
       [(SBAmbientIdleTimerController *)self _notifyObserversSuppressionDidEnd];
@@ -469,11 +468,11 @@ LABEL_13:
 
   else
   {
-    v11 = SBLogAmbientIdleTimer();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogAmbientIdleTimer(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12[0]) = 0;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Suppression began", v12, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Suppression began", v13, 2u);
     }
   }
 }
@@ -523,7 +522,7 @@ LABEL_13:
 - (void)_setActiveSuppressionReasons:(unint64_t)reasons
 {
   v8 = *MEMORY[0x277D85DE8];
-  v5 = SBLogAmbientIdleTimer();
+  v5 = SBLogAmbientIdleTimer(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134217984;

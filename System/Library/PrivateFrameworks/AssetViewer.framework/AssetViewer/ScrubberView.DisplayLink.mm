@@ -10,11 +10,12 @@
   v3 = *(&self->super.isa + OBJC_IVAR____TtCC11AssetViewer12ScrubberViewP33_82866A5555A2CDB794CEBCFE6A3F2A7D11DisplayLink_linkFired);
   if (v3)
   {
+    v4 = *&self->linkFired[OBJC_IVAR____TtCC11AssetViewer12ScrubberViewP33_82866A5555A2CDB794CEBCFE6A3F2A7D11DisplayLink_linkFired];
     selfCopy = self;
-    sub_24124AD38(v3);
-    v3(selfCopy);
+    v6 = sub_24124AD38(v3, v4);
+    v3(selfCopy, v6);
 
-    sub_2412186FC(v3);
+    sub_2412186FC(v3, v4);
   }
 }
 

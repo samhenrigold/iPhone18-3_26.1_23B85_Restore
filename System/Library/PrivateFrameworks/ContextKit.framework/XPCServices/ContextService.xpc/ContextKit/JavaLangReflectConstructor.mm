@@ -124,47 +124,48 @@ LABEL_9:
 - (id)description
 {
   v3 = +[NSMutableString string];
-  objc_msgSend(v3, "appendFormat:", @"%@ %@("), JavaLangReflectModifier_toStringWithInt_(-[ExecutableMember getModifiers](self, "getModifiers")), objc_msgSend(-[ExecutableMember getDeclaringClass](self, "getDeclaringClass"), "getName");
+  getModifiers = [(ExecutableMember *)self getModifiers];
+  objc_msgSend(v3, "appendFormat:", @"%@ %@("), JavaLangReflectModifier_toStringWithInt_(getModifiers, v5), objc_msgSend(-[ExecutableMember getDeclaringClass](self, "getDeclaringClass"), "getName");
   getParameterTypes = [(ExecutableMember *)self getParameterTypes];
-  v5 = *(getParameterTypes + 2);
-  if (v5 >= 1)
+  v7 = *(getParameterTypes + 2);
+  if (v7 >= 1)
   {
-    v6 = getParameterTypes;
+    v8 = getParameterTypes;
     [v3 appendString:{objc_msgSend(getParameterTypes[3], "getName")}];
-    if (v5 != 1)
+    if (v7 != 1)
     {
-      v7 = v6 + 1;
-      v8 = v5 - 1;
+      v9 = v8 + 1;
+      v10 = v7 - 1;
       do
       {
-        [v3 appendFormat:@", %@", objc_msgSend(v7[3], "getName")];
-        ++v7;
-        --v8;
+        [v3 appendFormat:@", %@", objc_msgSend(v9[3], "getName")];
+        ++v9;
+        --v10;
       }
 
-      while (v8);
+      while (v10);
     }
   }
 
   [v3 appendString:@""]);
   getExceptionTypes = [(ExecutableMember *)self getExceptionTypes];
-  v10 = *(getExceptionTypes + 2);
-  if (v10 >= 1)
+  v12 = *(getExceptionTypes + 2);
+  if (v12 >= 1)
   {
-    v11 = getExceptionTypes;
+    v13 = getExceptionTypes;
     [v3 appendFormat:@" throws %@", objc_msgSend(getExceptionTypes[3], "getName")];
-    if (v10 != 1)
+    if (v12 != 1)
     {
-      v12 = v11 + 1;
-      v13 = v10 - 1;
+      v14 = v13 + 1;
+      v15 = v12 - 1;
       do
       {
-        [v3 appendFormat:@", %@", objc_msgSend(v12[3], "getName")];
-        ++v12;
-        --v13;
+        [v3 appendFormat:@", %@", objc_msgSend(v14[3], "getName")];
+        ++v14;
+        --v15;
       }
 
-      while (v13);
+      while (v15);
     }
   }
 

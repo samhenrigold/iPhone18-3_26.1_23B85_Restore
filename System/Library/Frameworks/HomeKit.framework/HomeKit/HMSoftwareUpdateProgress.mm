@@ -9,7 +9,7 @@
 
 - (HMSoftwareUpdateProgress)initWithProtoPayload:(id)payload
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if ([payloadCopy hasPercentageComplete] && (objc_msgSend(payloadCopy, "hasEstimatedTimeRemaining") & 1) != 0)
   {
@@ -33,20 +33,19 @@
       [payloadCopy percentageComplete];
       v15 = v14;
       [payloadCopy estimatedTimeRemaining];
-      v19 = 138543874;
-      v20 = v13;
-      v21 = 2048;
-      v22 = v15;
-      v23 = 2048;
-      v24 = v16;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@HMSoftwareUpdateEventProtoSoftwareUpdateProgress proto payload is missing data. percentageComplete: %f, estimatedTimeRemaining: %f", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v13;
+      v20 = 2048;
+      v21 = v15;
+      v22 = 2048;
+      v23 = v16;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@HMSoftwareUpdateEventProtoSoftwareUpdateProgress proto payload is missing data. percentageComplete: %f, estimatedTimeRemaining: %f", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -77,7 +76,7 @@
 
 + (id)progressFromEvent:(id)event
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = [HMSoftwareUpdateEventProtoSoftwareUpdateProgress alloc];
   encodedData = [eventCopy encodedData];
@@ -96,18 +95,16 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = eventCopy;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HMSoftwareUpdateEventProtoSoftwareUpdateProgress from event: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = eventCopy;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HMSoftwareUpdateEventProtoSoftwareUpdateProgress from event: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

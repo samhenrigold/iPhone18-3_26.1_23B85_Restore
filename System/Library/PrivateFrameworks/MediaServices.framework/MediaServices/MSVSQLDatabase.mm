@@ -90,7 +90,7 @@
   {
     v8 = [_MSVSQLConnection alloc];
     path = [lCopy path];
-    v10 = [(_MSVSQLConnection *)v8 initWithDatabaseURI:path options:0 error:error];
+    v10 = [(_MSVSQLConnection *)&v8->super.isa initWithDatabaseURI:path options:0 error:error];
     connection = v7->_connection;
     v7->_connection = v10;
 

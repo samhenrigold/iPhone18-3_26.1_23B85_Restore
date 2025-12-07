@@ -49,9 +49,9 @@
 
 - (void)setMetadata:(id)metadata forComponentIdentifier:(int64_t)identifier
 {
-  metadata;
-  map = self->_map;
-  sub_2769DB7AC();
+  identifierCopy = identifier;
+  obj = metadata;
+  sub_2769DB7AC(self->_map, &identifierCopy, &obj);
 }
 
 - (id)metadataForComponentIdentifier:(int64_t)identifier

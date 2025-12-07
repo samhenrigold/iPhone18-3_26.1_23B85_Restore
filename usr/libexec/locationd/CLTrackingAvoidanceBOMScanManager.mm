@@ -48,7 +48,7 @@
 
     v7->_dailyStartingValue = 5;
     sub_10001CAF4(buf);
-    v10 = sub_1004FB7DC(*buf, "TrackingAvoidanceRemainingBOMScansStartingValue", &v7->_dailyStartingValue);
+    v10 = sub_1004FB7DC(*buf, "TrackingAvoidanceRemainingBOMScansStartingValue", &v7->_dailyStartingValue, 0xFFFFFFFFLL);
     if (*v18)
     {
       sub_100008080(*v18);
@@ -103,32 +103,32 @@
 - (void)setTimeStampLastBeepOnMoveScan:(double)scan
 {
   scanCopy = scan;
-  v3 = sub_1000206B4();
-  sub_100116D68(v3, "TrackingAvoidanceLastBeepOnMoveScanDate", &scanCopy);
-  v4 = *sub_1000206B4();
-  (*(v4 + 944))();
+  v3 = sub_1000206B4(self, a2);
+  v4 = sub_100116D68(v3, "TrackingAvoidanceLastBeepOnMoveScanDate", &scanCopy);
+  v6 = *sub_1000206B4(v4, v5);
+  (*(v6 + 944))();
   if (qword_1025D4700 != -1)
   {
     sub_101883F90();
   }
 
-  v5 = qword_1025D4708;
+  v7 = qword_1025D4708;
   if (os_log_type_enabled(qword_1025D4708, OS_LOG_TYPE_INFO))
   {
     *buf = 68289283;
-    v8 = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2049;
-    v12 = scanCopy;
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#ut BOM setting last BOM timestamp, time:%{private}lu}", buf, 0x1Cu);
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2049;
+    v14 = scanCopy;
+    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#ut BOM setting last BOM timestamp, time:%{private}lu}", buf, 0x1Cu);
   }
 }
 
 - (id)timestampOfLastBeepOnMoveScanDate
 {
   v6 = 0.0;
-  v3 = sub_1000206B4();
+  v3 = sub_1000206B4(self, a2);
   if ((sub_1000B9370(v3, "TrackingAvoidanceLastBeepOnMoveScanDate", &v6) & 1) == 0)
   {
     v6 = 0.0;
@@ -157,32 +157,32 @@
 - (void)setTimestampLastBOMDailyLimitResetDate:(double)date
 {
   dateCopy = date;
-  v3 = sub_1000206B4();
-  sub_100116D68(v3, "TrackingAvoidanceLastBOMDailyLimitReset", &dateCopy);
-  v4 = *sub_1000206B4();
-  (*(v4 + 944))();
+  v3 = sub_1000206B4(self, a2);
+  v4 = sub_100116D68(v3, "TrackingAvoidanceLastBOMDailyLimitReset", &dateCopy);
+  v6 = *sub_1000206B4(v4, v5);
+  (*(v6 + 944))();
   if (qword_1025D4700 != -1)
   {
     sub_101883F90();
   }
 
-  v5 = qword_1025D4708;
+  v7 = qword_1025D4708;
   if (os_log_type_enabled(qword_1025D4708, OS_LOG_TYPE_INFO))
   {
     *buf = 68289283;
-    v8 = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2049;
-    v12 = dateCopy;
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#ut BOM setting last BOM daily limit reset timestamp, time:%{private}lu}", buf, 0x1Cu);
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2049;
+    v14 = dateCopy;
+    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#ut BOM setting last BOM daily limit reset timestamp, time:%{private}lu}", buf, 0x1Cu);
   }
 }
 
 - (id)timestampOfLastBOMDailyLimitResetDate
 {
   v6 = 0.0;
-  v3 = sub_1000206B4();
+  v3 = sub_1000206B4(self, a2);
   if ((sub_1000B9370(v3, "TrackingAvoidanceLastBOMDailyLimitReset", &v6) & 1) == 0)
   {
     v6 = 0.0;
@@ -211,33 +211,33 @@
 - (void)setRemainingBOMScansTo:(unsigned int)to
 {
   toCopy = to;
-  v3 = sub_1000206B4();
-  sub_1001E8460(v3, "TrackingAvoidanceRemainingBOMScans", &toCopy);
-  v4 = *sub_1000206B4();
-  (*(v4 + 944))();
+  v3 = sub_1000206B4(self, a2);
+  v4 = sub_1001E8460(v3, "TrackingAvoidanceRemainingBOMScans", &toCopy);
+  v6 = *sub_1000206B4(v4, v5);
+  (*(v6 + 944))();
   if (qword_1025D4700 != -1)
   {
     sub_101883F90();
   }
 
-  v5 = qword_1025D4708;
+  v7 = qword_1025D4708;
   if (os_log_type_enabled(qword_1025D4708, OS_LOG_TYPE_INFO))
   {
     *buf = 68289283;
-    v8 = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2049;
-    v12 = toCopy;
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#ut BOM setting scans reaming, remainingBOMScans:%{private}lu}", buf, 0x1Cu);
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2049;
+    v14 = toCopy;
+    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#ut BOM setting scans reaming, remainingBOMScans:%{private}lu}", buf, 0x1Cu);
   }
 }
 
 - (unsigned)remainingBOMScans
 {
   v6 = 0;
-  v3 = sub_1000206B4();
-  if ((sub_1004FB7DC(v3, "TrackingAvoidanceRemainingBOMScans", &v6) & 1) == 0)
+  v3 = sub_1000206B4(self, a2);
+  if ((sub_1004FB7DC(v3, "TrackingAvoidanceRemainingBOMScans", &v6, 0xFFFFFFFFLL) & 1) == 0)
   {
     [(CLTrackingAvoidanceBOMScanManager *)self setRemainingBOMScansTo:5];
     v6 = 5;

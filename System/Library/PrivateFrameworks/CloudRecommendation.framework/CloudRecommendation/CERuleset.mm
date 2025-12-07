@@ -22,120 +22,125 @@
 - (CERuleset)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v33.receiver = self;
-  v33.super_class = CERuleset;
-  v5 = [(CERuleset *)&v33 init];
+  v38.receiver = self;
+  v38.super_class = CERuleset;
+  v5 = [(CERuleset *)&v38 init];
   v6 = v5;
   if (v5)
   {
     v5->_lock._os_unfair_lock_opaque = 0;
     v7 = [dictionaryCopy objectForKeyedSubscript:@"sectionID"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = v7;
+      v9 = v7;
       sectionID = v6->_sectionID;
-      v6->_sectionID = v8;
+      v6->_sectionID = v9;
     }
 
     else
     {
-      sectionID = _CELogSystem();
+      sectionID = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(sectionID, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleset initWithDictionary:];
+        [CERuleset initWithDictionary:v6];
       }
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"maxRecommendations"];
+    v11 = [dictionaryCopy objectForKeyedSubscript:@"maxRecommendations"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v12 = objc_opt_isKindOfClass();
+    if (v12)
     {
-      v11 = v10;
+      v13 = v11;
       p_super = &v6->_maxRecommendations->super.super;
-      v6->_maxRecommendations = v11;
+      v6->_maxRecommendations = v13;
     }
 
     else
     {
-      p_super = _CELogSystem();
+      p_super = _CELogSystem(v12);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleset initWithDictionary:];
+        [CERuleset initWithDictionary:v6];
       }
     }
 
-    v13 = [dictionaryCopy objectForKeyedSubscript:@"ignoreClientSectionRank"];
-    bOOLValue = [v13 BOOLValue];
+    v15 = [dictionaryCopy objectForKeyedSubscript:@"ignoreClientSectionRank"];
+    bOOLValue = [v15 BOOLValue];
 
     v6->_ignoreClientSectionRank = bOOLValue;
-    v15 = [dictionaryCopy objectForKeyedSubscript:@"context"];
+    v17 = [dictionaryCopy objectForKeyedSubscript:@"context"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v18 = objc_opt_isKindOfClass();
+    if (v18)
     {
-      v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __32__CERuleset_initWithDictionary___block_invoke;
-      v31[3] = &unk_278DE02C0;
-      v17 = v16;
-      v32 = v17;
-      [v15 enumerateObjectsUsingBlock:v31];
+      v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __32__CERuleset_initWithDictionary___block_invoke;
+      v36[3] = &unk_278DE02C0;
+      v20 = v19;
+      v37 = v20;
+      [v17 enumerateObjectsUsingBlock:v36];
       context = v6->_context;
-      v6->_context = v17;
-      v19 = v17;
+      v6->_context = v20;
+      v22 = v20;
     }
 
     else
     {
-      v19 = _CELogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v22 = _CELogSystem(v18);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleset initWithDictionary:];
+        [CERuleset initWithDictionary:v6];
       }
     }
 
-    v20 = [dictionaryCopy objectForKeyedSubscript:@"recommendations"];
+    v23 = [dictionaryCopy objectForKeyedSubscript:@"recommendations"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v24 = objc_opt_isKindOfClass();
+    if (v24)
     {
-      v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __32__CERuleset_initWithDictionary___block_invoke_20;
-      v29[3] = &unk_278DE02C0;
-      v22 = v21;
-      v30 = v22;
-      [v20 enumerateObjectsUsingBlock:v29];
-      recommendationRules = v6->_recommendationRules;
-      v6->_recommendationRules = v22;
-      v24 = v22;
-    }
-
-    else
-    {
-      v24 = _CELogSystem();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
-      {
-        [CERuleset initWithDictionary:];
-      }
-    }
-
-    v25 = [dictionaryCopy objectForKeyedSubscript:@"userType"];
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
+      v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __32__CERuleset_initWithDictionary___block_invoke_20;
+      v34[3] = &unk_278DE02C0;
       v26 = v25;
-      userType = v6->_userType;
-      v6->_userType = v26;
+      v35 = v26;
+      [v23 enumerateObjectsUsingBlock:v34];
+      recommendationRules = v6->_recommendationRules;
+      v6->_recommendationRules = v26;
+      v28 = v26;
     }
 
     else
     {
-      userType = _CELogSystem();
+      v28 = _CELogSystem(v24);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+      {
+        [CERuleset initWithDictionary:v6];
+      }
+    }
+
+    v29 = [dictionaryCopy objectForKeyedSubscript:@"userType"];
+    objc_opt_class();
+    v30 = objc_opt_isKindOfClass();
+    if (v30)
+    {
+      v31 = v29;
+      userType = v6->_userType;
+      v6->_userType = v31;
+    }
+
+    else
+    {
+      userType = _CELogSystem(v30);
       if (os_log_type_enabled(userType, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleset initWithDictionary:];
+        [CERuleset initWithDictionary:v6];
       }
     }
   }
@@ -186,11 +191,11 @@ void __32__CERuleset_initWithDictionary___block_invoke_20(uint64_t a1, void *a2)
 
 - (CERuleset)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = CERuleset;
-  v5 = [(CERuleset *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = CERuleset;
+  v5 = [(CERuleset *)&v24 init];
   v6 = v5;
   if (v5)
   {
@@ -205,9 +210,9 @@ void __32__CERuleset_initWithDictionary___block_invoke_20(uint64_t a1, void *a2)
 
     v6->_ignoreClientSectionRank = [coderCopy decodeBoolForKey:@"ignoreClientSectionRank"];
     v11 = MEMORY[0x277CBEB98];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v13 = [v11 setWithArray:v12];
 
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"context"];
@@ -215,9 +220,9 @@ void __32__CERuleset_initWithDictionary___block_invoke_20(uint64_t a1, void *a2)
     v6->_context = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     v18 = [v16 setWithArray:v17];
 
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"recommendationRules"];
@@ -229,7 +234,6 @@ void __32__CERuleset_initWithDictionary___block_invoke_20(uint64_t a1, void *a2)
     v6->_userType = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -378,54 +382,39 @@ void __32__CERuleset_initWithDictionary___block_invoke_20(uint64_t a1, void *a2)
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse sectionID from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse sectionID from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse maxRecommendations from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse maxRecommendations from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.3()
+- (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse context from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse context from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.4()
+- (void)initWithDictionary:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse rules from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse rules from dictionary", v5, v6, v7, v8);
 }
 
-- (void)initWithDictionary:.cold.5()
+- (void)initWithDictionary:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ Unable to parse userType from dictionary", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v3, v4, "%@ Unable to parse userType from dictionary", v5, v6, v7, v8);
 }
 
 @end

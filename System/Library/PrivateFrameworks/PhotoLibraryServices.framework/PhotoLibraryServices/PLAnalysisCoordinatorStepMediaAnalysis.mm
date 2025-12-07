@@ -59,7 +59,7 @@
 
   if (v13)
   {
-    v14 = [assetsCopy count];
+    v14 = objc_msgSend_count(assetsCopy);
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __99__PLAnalysisCoordinatorStepMediaAnalysis__performStepForAssets_withProgress_withCompletionHandler___block_invoke;
@@ -154,7 +154,7 @@ void __99__PLAnalysisCoordinatorStepMediaAnalysis__performStepForAssets_withProg
   v17 = v16;
   if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    v18 = [assetsCopy count];
+    v18 = objc_msgSend_count(assetsCopy);
     v19 = self->_processingType;
     parentTaskID2 = [(PLAnalysisCoordinatorStep *)self parentTaskID];
     *buf = 134349570;
@@ -266,18 +266,18 @@ void __98__PLAnalysisCoordinatorStepMediaAnalysis_performStepForAssets_withProgr
 LABEL_5:
 }
 
-void __112__PLAnalysisCoordinatorStepMediaAnalysis__requestProcessingForUUIDS_progress_assetsCount_withCompletionHandler___block_invoke(uint64_t a1, double a2)
+void __112__PLAnalysisCoordinatorStepMediaAnalysis__requestProcessingForUUIDS_progress_assetsCount_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = PLAnalysisCoordinatorGetLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = PLAnalysisCoordinatorGetLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [*(a1 + 32) parentTaskID];
-    v6 = 138543618;
-    v7 = v5;
-    v8 = 2048;
-    v9 = a2;
-    _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Progress update: %f", &v6, 0x16u);
+    v6 = [*(a1 + 32) parentTaskID];
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2048;
+    v10 = a3;
+    _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Progress update: %f", &v7, 0x16u);
   }
 }
 

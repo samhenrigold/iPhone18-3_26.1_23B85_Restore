@@ -354,7 +354,7 @@ LABEL_13:
 {
   kindCopy = kind;
   pathCopy = path;
-  if ([kindCopy isEqualToString:0x286AED1E0])
+  if (objc_msgSend_isEqualToString_(kindCopy))
   {
     v8 = [(SUUIStorePageCollectionViewLayout *)self _itemPinningConfigurationForItemAtIndexPath:pathCopy];
     v9 = [(SUUIStorePageCollectionViewLayout *)self _itemPinningLayoutInformationForItemAtIndexPath:pathCopy];
@@ -368,7 +368,7 @@ LABEL_13:
     goto LABEL_6;
   }
 
-  if (![kindCopy isEqualToString:0x286AFBAC0] || (+[UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:withIndexPath:](SUUIGridViewGradientLayoutAttributes, "layoutAttributesForDecorationViewOfKind:withIndexPath:", 0x286AFBAC0, pathCopy), (v10 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!objc_msgSend_isEqualToString_(kindCopy) || ([(UICollectionViewLayoutAttributes *)SUUIGridViewGradientLayoutAttributes layoutAttributesForDecorationViewOfKind:0x286AFBAC0 withIndexPath:pathCopy], (v10 = objc_claimAutoreleasedReturnValue()) == 0))
   {
 LABEL_6:
     v12.receiver = self;
@@ -999,11 +999,11 @@ LABEL_13:
   if (backdropGroupName != nameCopy)
   {
     v10 = nameCopy;
-    backdropGroupName = [(NSString *)backdropGroupName isEqualToString:nameCopy];
+    backdropGroupName = objc_msgSend_isEqualToString_(backdropGroupName, nameCopy, nameCopy);
     nameCopy = v10;
     if ((backdropGroupName & 1) == 0)
     {
-      v6 = [(NSString *)v10 copy];
+      v6 = [v10 copy];
       v7 = self->_backdropGroupName;
       self->_backdropGroupName = v6;
 
@@ -1217,7 +1217,7 @@ LABEL_17:
   _Block_object_dispose(v34, 8);
 }
 
-void __71__SUUIStorePageCollectionViewLayout__calculatePinningLayoutInformation__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __71__SUUIStorePageCollectionViewLayout__calculatePinningLayoutInformation__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
   v5 = a2;
   v6 = [*(a1 + 32) _itemPinningConfigurationForItemAtIndexPath:v5];

@@ -8,7 +8,7 @@
 
 - (id)nextObject
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   p_remaining = &self->_remaining;
   if (!self->_remaining.length)
   {
@@ -26,25 +26,25 @@ LABEL_5:
   }
 
   v6 = objc_autoreleasePoolPush();
-  bzero(v14, 0x1000uLL);
-  v13 = 0;
+  bzero(v13, 0x1000uLL);
   v12 = 0;
-  if ([(NSString *)self->_string getBytes:v14 maxLength:4096 usedLength:&v13 encoding:self->_encoding options:0 range:p_remaining->location remainingRange:p_remaining->length, &v12])
+  v11 = 0;
+  if ([(NSString *)self->_string getBytes:v13 maxLength:4096 usedLength:&v12 encoding:self->_encoding options:0 range:p_remaining->location remainingRange:p_remaining->length, &v11])
   {
-    if (!v12.length)
+    if (!v11.length)
     {
-      v7 = v13;
-      if (v13 <= 0xFFF && self->_needsNullTermination)
+      v7 = v12;
+      if (v12 <= 0xFFF && self->_needsNullTermination)
       {
         self->_needsNullTermination = 0;
-        v13 = v7 + 1;
-        v14[v7] = 0;
+        v12 = v7 + 1;
+        v13[v7] = 0;
       }
     }
 
-    *p_remaining = v12;
+    *p_remaining = v11;
     v8 = objc_alloc(MEMORY[0x1E695DEF0]);
-    nullTerminationIfNeeded2 = [v8 initWithBytes:v14 length:v13];
+    nullTerminationIfNeeded2 = [v8 initWithBytes:v13 length:v12];
   }
 
   else
@@ -55,7 +55,6 @@ LABEL_5:
   v5 = nullTerminationIfNeeded2;
   objc_autoreleasePoolPop(v6);
 LABEL_14:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

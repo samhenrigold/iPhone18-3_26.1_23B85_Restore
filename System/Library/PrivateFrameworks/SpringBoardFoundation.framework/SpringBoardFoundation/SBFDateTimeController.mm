@@ -52,9 +52,11 @@
 
 uint64_t __39__SBFDateTimeController_sharedInstance__block_invoke()
 {
-  sharedInstance___sharedInstance = objc_alloc_init(SBFDateTimeController);
+  v0 = objc_alloc_init(SBFDateTimeController);
+  v1 = sharedInstance___sharedInstance;
+  sharedInstance___sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)setOverrideDate:(id)date

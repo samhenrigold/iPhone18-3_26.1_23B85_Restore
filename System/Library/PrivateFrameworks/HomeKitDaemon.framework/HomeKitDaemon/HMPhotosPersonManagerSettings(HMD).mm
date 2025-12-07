@@ -9,7 +9,7 @@
   v2 = objc_alloc_init(MEMORY[0x277D14DA0]);
   [v2 setImportingFromPhotoLibraryEnabled:{objc_msgSend(self, "isImportingFromPhotoLibraryEnabled")}];
   [v2 setSharingFaceClassificationsEnabled:{objc_msgSend(self, "isSharingFaceClassificationsEnabled")}];
-  v3 = [v2 copy];
+  v3 = objc_msgSend_copy(v2);
 
   return v3;
 }

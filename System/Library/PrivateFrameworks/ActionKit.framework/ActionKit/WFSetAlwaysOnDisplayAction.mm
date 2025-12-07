@@ -49,30 +49,14 @@ void __53__WFSetAlwaysOnDisplayAction_finishRunningWithError___block_invoke(uint
 
 - (void)resolveSlot:(id)slot withProcessedValue:(id)value parameter:(id)parameter input:(id)input completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   slotCopy = slot;
   valueCopy = value;
   parameterCopy = parameter;
   inputCopy = input;
   completionCopy = completion;
   wf_slotName = [slotCopy wf_slotName];
-  if (![wf_slotName isEqualToString:@"state"])
-  {
-    goto LABEL_6;
-  }
-
-  runningDelegate = [(WFSetAlwaysOnDisplayAction *)self runningDelegate];
-  v19 = objc_opt_respondsToSelector();
-
-  if ((v19 & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  runningDelegate2 = [(WFSetAlwaysOnDisplayAction *)self runningDelegate];
-  v21 = [runningDelegate2 actionReversalStateForAction:self];
-
-  if (v21)
+  if ([wf_slotName isEqualToString:@"state"] && (-[WFSetAlwaysOnDisplayAction runningDelegate](self, "runningDelegate"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_opt_respondsToSelector(), v18, (v19 & 1) != 0) && (-[WFSetAlwaysOnDisplayAction runningDelegate](self, "runningDelegate"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "actionReversalStateForAction:", self), v21 = objc_claimAutoreleasedReturnValue(), v20, v21))
   {
     v22 = [objc_alloc(MEMORY[0x277D7C858]) initWithActionReversalState:v21];
     if (v22)
@@ -82,14 +66,14 @@ void __53__WFSetAlwaysOnDisplayAction_finishRunningWithError___block_invoke(uint
 
     else
     {
-      v24 = getWFActionsLogObject();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v23 = getWFActionsLogObject();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v27 = "[WFSetAlwaysOnDisplayAction resolveSlot:withProcessedValue:parameter:input:completion:]";
-        v28 = 2112;
-        v29 = v21;
-        _os_log_impl(&dword_23DE30000, v24, OS_LOG_TYPE_FAULT, "%s Couldn't turn action reversal state %@ into a settings client bookmark", buf, 0x16u);
+        v26 = "[WFSetAlwaysOnDisplayAction resolveSlot:withProcessedValue:parameter:input:completion:]";
+        v27 = 2112;
+        v28 = v21;
+        _os_log_impl(&dword_23DE30000, v23, OS_LOG_TYPE_FAULT, "%s Couldn't turn action reversal state %@ into a settings client bookmark", buf, 0x16u);
       }
 
       (*(completionCopy + 2))(completionCopy, 0, 0);
@@ -98,13 +82,10 @@ void __53__WFSetAlwaysOnDisplayAction_finishRunningWithError___block_invoke(uint
 
   else
   {
-LABEL_6:
-    v25.receiver = self;
-    v25.super_class = WFSetAlwaysOnDisplayAction;
-    [(WFHandleIntentAction *)&v25 resolveSlot:slotCopy withProcessedValue:valueCopy parameter:parameterCopy input:inputCopy completion:completionCopy];
+    v24.receiver = self;
+    v24.super_class = WFSetAlwaysOnDisplayAction;
+    [(WFHandleIntentAction *)&v24 resolveSlot:slotCopy withProcessedValue:valueCopy parameter:parameterCopy input:inputCopy completion:completionCopy];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runAsynchronouslyWithInput:(id)input

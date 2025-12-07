@@ -11,7 +11,7 @@
   v4 = stringCopy;
   if (stringCopy)
   {
-    stringCopy = [stringCopy ear_toString];
+    stringCopy = objc_msgSend_ear_toString(stringCopy);
   }
 
   else
@@ -86,7 +86,7 @@
         v7 = v6;
         if (v6)
         {
-          [v6 ear_toString];
+          objc_msgSend_ear_toString(v6);
         }
 
         else

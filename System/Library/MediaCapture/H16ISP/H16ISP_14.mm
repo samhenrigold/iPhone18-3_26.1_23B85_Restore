@@ -1,134 +1,3 @@
-uint64_t GetDistortionCenter(const __CFDictionary *a1, int a2, int a3, int a4, int a5, CGPoint *a6)
-{
-  dict = 0;
-  point = *MEMORY[0x277CBF348];
-  v14 = *MEMORY[0x277CBF3A0];
-  v15 = *(MEMORY[0x277CBF3A0] + 16);
-  if (!FigCFDictionaryGetCGRectIfPresent() && !FigCFDictionaryGetCGRectIfPresent() && !FigCFDictionaryGetCGRectIfPresent())
-  {
-    return 3758097084;
-  }
-
-  v11 = (a2 + -1.0) * 0.5;
-  v12 = (a3 + -1.0) * 0.5;
-  if (FigCFDictionaryGetValueIfPresent())
-  {
-    if (CGPointMakeWithDictionaryRepresentation(dict, &point))
-    {
-      v11 = v11 + (point.x - (*&v14 + (*&v15 + -1.0) * 0.5)) * a4;
-      v12 = v12 + (point.y - (*(&v14 + 1) + (*(&v15 + 1) + -1.0) * 0.5)) * a5;
-    }
-  }
-
-  result = 0;
-  a6->x = v11;
-  a6->y = v12;
-  return result;
-}
-
-uint64_t GetGDCPolynomials(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4 = (a2 + 260);
-  v5 = *(a2 + 16);
-  if ((v5 - 49921) >= 5)
-  {
-    if (v5 == 49926)
-    {
-      v35 = (a4 + 32);
-      v36 = (a3 + 32);
-      v37 = 8;
-      do
-      {
-        v38 = *(v4 - 8);
-        *(v35 - 8) = v38;
-        v39 = *(v4 - 24);
-        *v35++ = v39;
-        v40 = *v4;
-        *(v36 - 8) = v40;
-        v41 = *(v4 - 16);
-        *v36++ = v41;
-        ++v4;
-        --v37;
-      }
-
-      while (v37);
-      return 0;
-    }
-
-    else
-    {
-      return 3758097126;
-    }
-  }
-
-  else
-  {
-    result = 0;
-    *a4 = 0;
-    v7 = *(a2 + 436);
-    *(a4 + 4) = v7;
-    v8 = *(a2 + 444);
-    *(a4 + 8) = v8;
-    v9 = *(a2 + 452);
-    *(a4 + 12) = v9;
-    v10 = *(a2 + 460);
-    *(a4 + 16) = v10;
-    v11 = *(a2 + 468);
-    *(a4 + 20) = v11;
-    v12 = *(a2 + 476);
-    *(a4 + 24) = v12;
-    v13 = *(a2 + 484);
-    *(a4 + 28) = v13;
-    *(a4 + 32) = 0;
-    v14 = *(a2 + 308);
-    *(a4 + 36) = v14;
-    v15 = *(a2 + 316);
-    *(a4 + 40) = v15;
-    v16 = *(a2 + 324);
-    *(a4 + 44) = v16;
-    v17 = *(a2 + 332);
-    *(a4 + 48) = v17;
-    v18 = *(a2 + 340);
-    *(a4 + 52) = v18;
-    v19 = *(a2 + 348);
-    *(a4 + 56) = v19;
-    v20 = *(a2 + 356);
-    *(a4 + 60) = v20;
-    *a3 = 0;
-    v21 = *(a2 + 500);
-    *(a3 + 4) = v21;
-    v22 = *(a2 + 508);
-    *(a3 + 8) = v22;
-    v23 = *(a2 + 516);
-    *(a3 + 12) = v23;
-    v24 = *(a2 + 524);
-    *(a3 + 16) = v24;
-    v25 = *(a2 + 532);
-    *(a3 + 20) = v25;
-    v26 = *(a2 + 540);
-    *(a3 + 24) = v26;
-    v27 = *(a2 + 548);
-    *(a3 + 28) = v27;
-    *(a3 + 32) = 0;
-    v28 = *(a2 + 372);
-    *(a3 + 36) = v28;
-    v29 = *(a2 + 380);
-    *(a3 + 40) = v29;
-    v30 = *(a2 + 388);
-    *(a3 + 44) = v30;
-    v31 = *(a2 + 396);
-    *(a3 + 48) = v31;
-    v32 = *(a2 + 404);
-    *(a3 + 52) = v32;
-    v33 = *(a2 + 412);
-    *(a3 + 56) = v33;
-    v34 = *(a2 + 420);
-    *(a3 + 60) = v34;
-  }
-
-  return result;
-}
-
 uint64_t GetDistortionPolynomials(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, unsigned int a6)
 {
   v6 = 0;
@@ -152,11 +21,11 @@ uint64_t GetDistortionPolynomials(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   return 0;
 }
 
-float ComputeLensPSF(int a1, int a2, int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7)
+float ComputeLensPSF(int a1, int a2, int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
   v16 = 1.0;
-  v11 = a3 * a1;
-  v12 = a3 * a2;
+  v11 = (a3 * a1);
+  v12 = (a3 * a2);
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v17.origin.x = a4;
   v17.origin.y = a5;
@@ -170,7 +39,7 @@ float ComputeLensPSF(int a1, int a2, int a3, unsigned int a4, unsigned int a5, u
   return v16;
 }
 
-CGFloat ComputeOpticalCenter(int a1, int a2, int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, float a8, float a9, unsigned int a10, double a11, unsigned int a12, BOOL a13)
+CGFloat ComputeOpticalCenter(int a1, int a2, int a3, unsigned int a4, unsigned int a5, int a6, int a7, float a8, float a9, unsigned int a10, double a11, unsigned int a12, BOOL a13)
 {
   v30 = *MEMORY[0x277CBF348];
   *&v23 = a10;
@@ -246,16 +115,16 @@ double H16ISPMetrics::StopTimer(H16ISPMetrics *this)
   return result;
 }
 
-void H16ISPMetrics::GetMetricsSummary(_DWORD *a1, _DWORD *a2)
+void H16ISPMetrics::GetMetricsSummary(uint64_t *a1, char *a2)
 {
   if (a2)
   {
     bzero(a2, 0x38uLL);
-    v5 = a1[2];
-    v4 = a1[3];
+    v5 = *(a1 + 2);
+    v4 = *(a1 + 3);
     *a2 = v4;
-    a2[1] = v5;
-    a2[2] = a1[4];
+    *(a2 + 1) = v5;
+    *(a2 + 2) = *(a1 + 4);
     if (v4)
     {
       operator new[]();
@@ -374,7 +243,7 @@ H16ISPMetrics *H16ISPMetrics::ClearSamples(H16ISPMetrics *this)
   return this;
 }
 
-void H16ISPMetrics::H16ISPMetrics(H16ISPMetrics *this, int a2)
+void H16ISPMetrics::H16ISPMetrics(H16ISPMetrics *this, unsigned int a2)
 {
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -444,7 +313,7 @@ H16ISP::H16ISPGraphInfoNode *H16ISP::H16ISPGraphInfoNode::H16ISPGraphInfoNode(H1
   return this;
 }
 
-void H16ISP::H16ISPGraphInfoNode::~H16ISPGraphInfoNode(H16ISP::H16ISPGraphInfoNode *this)
+void H16ISP::H16ISPGraphInfoNode::~H16ISPGraphInfoNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -700,29 +569,29 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode::onActivate(H16ISP::H16ISPPearlCalib
   return 0;
 }
 
-uint64_t H16ISP::H16ISPPearlCalibrationNode::onDeactivate(H16ISP::H16ISPPearlCalibrationNode *this, uint64_t a2)
+uint64_t H16ISP::H16ISPPearlCalibrationNode::onDeactivate(H16ISP::H16ISPPearlCalibrationNode *this)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
-  v3 = v2;
-  v22 = *MEMORY[0x277D85DE8];
-  if (*(v2 + 104))
+  v1 = MEMORY[0x28223BE20](this);
+  v2 = v1;
+  v21 = *MEMORY[0x277D85DE8];
+  if (*(v1 + 104))
   {
-    RgbIrCalibration::abort(*(v2 + 152));
-    *(v3 + 160) = 1;
-    v4 = dispatch_time(0, 2000000000);
-    v5 = dispatch_group_wait(*(v3 + 112), v4);
-    dispatch_release(*(v3 + 112));
-    if (v5)
+    RgbIrCalibration::abort(*(v1 + 152));
+    *(v2 + 160) = 1;
+    v3 = dispatch_time(0, 2000000000);
+    v4 = dispatch_group_wait(*(v2 + 112), v3);
+    dispatch_release(*(v2 + 112));
+    if (v4)
     {
-      *(v3 + 104) = 0;
-      v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      *(v2 + 104) = 0;
+      v5 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
       {
-        v6 = os_log_create("com.apple.isp", "general");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+        v5 = os_log_create("com.apple.isp", "general");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v5;
       }
 
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         H16ISP::H16ISPPearlCalibrationNode::onDeactivate();
       }
@@ -730,60 +599,60 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode::onDeactivate(H16ISP::H16ISPPearlCal
       return 0;
     }
 
-    dispatch_release(*(v3 + 104));
-    *(v3 + 104) = 0;
+    dispatch_release(*(v2 + 104));
+    *(v2 + 104) = 0;
   }
 
-  if (H16ISP::getPCECalib(*(v3 + 80), *(v3 + 88)))
+  if (H16ISP::getPCECalib(*(v2 + 80)))
   {
-    v7 = *(v3 + 120);
-    if (v7)
+    v6 = *(v2 + 120);
+    if (v6)
     {
-      v7(v16, v15, *(v3 + 168));
-      memcpy(__dst, v18, sizeof(__dst));
-      PearlIsf::PearlIsf(v14);
-      if (!PearlIsf::updatePCECalib(v14, v16, v18) && memcmp(v18, __dst, 0x3400uLL))
+      v6(v15, v14, *(v2 + 168));
+      memcpy(__dst, v17, sizeof(__dst));
+      PearlIsf::PearlIsf(v13);
+      if (!PearlIsf::updatePCECalib(v13, v15, v17) && memcmp(v17, __dst, 0x3400uLL))
       {
-        v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
         if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
         {
-          v10 = os_log_create("com.apple.isp", "general");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v10;
+          v9 = os_log_create("com.apple.isp", "general");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v9;
         }
 
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v19[0] = 0;
-          _os_log_impl(&dword_2247DB000, v10, OS_LOG_TYPE_DEFAULT, "Pearl Calibration (MI) finalization: updating PCECalib\n", v19, 2u);
+          v18[0] = 0;
+          _os_log_impl(&dword_2247DB000, v9, OS_LOG_TYPE_DEFAULT, "Pearl Calibration (MI) finalization: updating PCECalib\n", v18, 2u);
         }
 
-        v11 = *(v3 + 80);
-        v12 = *(v3 + 88);
-        v19[2] = 24581;
-        v20 = v12;
-        memcpy(v21, v18, sizeof(v21));
-        H16ISP::H16ISPDevice::ISP_SendCommand(v11, v19, 0x340Cu, 0, 0xFFFFFFFF);
-        v13 = *(v3 + 136);
-        if (v13)
+        v10 = *(v2 + 80);
+        v11 = *(v2 + 88);
+        v18[2] = 24581;
+        v19 = v11;
+        memcpy(v20, v17, sizeof(v20));
+        H16ISP::H16ISPDevice::ISP_SendCommand(v10, v18, 0x340Cu, 0, 0xFFFFFFFF);
+        v12 = *(v2 + 136);
+        if (v12)
         {
-          v13(v18, *(v3 + 168));
+          v12(v17, *(v2 + 168));
         }
       }
 
-      PearlIsf::~PearlIsf(v14);
+      PearlIsf::~PearlIsf(v13);
     }
   }
 
   else
   {
-    v8 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v8 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v8;
+      v7 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v7;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       H16ISP::H16ISPPearlCalibrationNode::onDeactivate();
     }
@@ -792,49 +661,49 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode::onDeactivate(H16ISP::H16ISPPearlCal
   return 0;
 }
 
-void sub_2248F41C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2248F41C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PearlIsf::~PearlIsf(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t H16ISP::getPCECalib(uint64_t a1, uint64_t a2)
+uint64_t H16ISP::getPCECalib(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v9 = v2;
-  v24 = *MEMORY[0x277D85DE8];
-  v16 = 24577;
-  v17 = v10;
-  bzero(v18, 0x344CuLL);
-  v11 = H16ISP::H16ISPDevice::ISP_SendCommand(v9, v15, 0x3458u, 0, 0xFFFFFFFF);
-  v12 = 0;
-  if (!v11)
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v8 = v1;
+  v23 = *MEMORY[0x277D85DE8];
+  v15 = 24577;
+  v16 = v9;
+  bzero(v17, 0x344CuLL);
+  v10 = H16ISP::H16ISPDevice::ISP_SendCommand(v8, v14, 0x3458u, 0, 0xFFFFFFFF);
+  v11 = 0;
+  if (!v10)
   {
-    if (v6)
+    if (v5)
     {
-      *v6 = v19;
+      *v5 = v18;
     }
 
-    if (v4)
+    if (v3)
     {
-      v13 = v22;
-      *v4 = v21;
-      *(v4 + 16) = v13;
-      *(v4 + 32) = v23;
+      v12 = v21;
+      *v3 = v20;
+      *(v3 + 16) = v12;
+      *(v3 + 32) = v22;
     }
 
-    memcpy(v8, v20, 0x3400uLL);
-    v12 = v18[0];
+    memcpy(v7, v19, 0x3400uLL);
+    v11 = v17[0];
   }
 
-  return v12 & 1;
+  return v11 & 1;
 }
 
-void H16ISP::H16ISPPearlCalibrationNode::~H16ISPPearlCalibrationNode(H16ISP::H16ISPPearlCalibrationNode *this)
+void H16ISP::H16ISPPearlCalibrationNode::~H16ISPPearlCalibrationNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -1073,7 +942,7 @@ LABEL_13:
                 {
                   if (v30 != 2)
                   {
-                    if (H16ISP::getPCECalib(*(this + 10), *(this + 44)))
+                    if (H16ISP::getPCECalib(*(this + 10)))
                     {
                       cf = 0;
                       v40 = 0;
@@ -1125,9 +994,9 @@ LABEL_13:
   return 0;
 }
 
-void sub_2248F4A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2248F4A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1356,10 +1225,7 @@ void ___ZN6H16ISP26H16ISPPearlCalibrationNode19onMessageProcessingEPNS_24H16ISPF
 
 float H16ISP::H16ISPPearlCalibrationNode::run(H16ISP::H16ISPPearlCalibrationNode *this, __CVBuffer *a2, __CFDictionary *a3, __CVBuffer *a4, const __CFDictionary *a5, __CVBuffer *a6)
 {
-  v6 = a6;
-  v8 = a4;
-  v10 = a2;
-  v49 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
   v13 = MEMORY[0x277D86220];
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
@@ -1408,10 +1274,10 @@ float H16ISP::H16ISPPearlCalibrationNode::run(H16ISP::H16ISPPearlCalibrationNode
     CFNumberGetValue(v17, kCFNumberIntType, &valuePtr);
   }
 
-  v40 = 0;
   v41 = 0;
+  v42 = 0;
   mach_timebase_info(&info);
-  v34 = mach_absolute_time();
+  v37 = mach_absolute_time();
   kdebug_trace();
   v18 = MEMORY[0x277CBED28];
   if (!*(this + 93))
@@ -1419,10 +1285,10 @@ float H16ISP::H16ISPPearlCalibrationNode::run(H16ISP::H16ISPPearlCalibrationNode
     v18 = MEMORY[0x277CBED10];
   }
 
-  v19 = RgbIrCalibration::Calibrate(*(this + 19), v10, a3, v8, a5, v6, (*(this + 92) & 1) == 0, *v18, this + 28, Value, *(this + 6788), this + 13536, &v41, &v35, &v40, v38);
+  v19 = RgbIrCalibration::Calibrate(*(this + 19), a2, a3, a4, a5, a6, (*(this + 92) & 1) == 0, *v18, this + 28, Value, *(this + 6788), this + 13536, &v42, v38, &v41, v39);
   kdebug_trace();
-  v20 = (mach_absolute_time() - v34) * info.numer / info.denom / 0xF4240;
-  reportMutualInformationResults();
+  v20 = (mach_absolute_time() - v37) * info.numer / info.denom / 0xF4240;
+  reportMutualInformationResults(v19, v39, v41, v20);
   v21 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v13)
   {
@@ -1433,9 +1299,9 @@ float H16ISP::H16ISPPearlCalibrationNode::run(H16ISP::H16ISPPearlCalibrationNode
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v46 = v19;
-    v47 = 1024;
-    v48 = v20;
+    v47 = v19;
+    v48 = 1024;
+    v49 = v20;
     _os_log_impl(&dword_2247DB000, v21, OS_LOG_TYPE_DEFAULT, "Pearl Calibration (MI): status 0x%08X (%d msec)\n", buf, 0xEu);
   }
 
@@ -1454,12 +1320,12 @@ float H16ISP::H16ISPPearlCalibrationNode::run(H16ISP::H16ISPPearlCalibrationNode
       goto LABEL_39;
     }
 
-    PearlIsf::PearlIsf(v31);
-    Isf::setStepDetectionMode(v31, *(this + 24) != 0);
+    PearlIsf::PearlIsf(v34);
+    Isf::setStepDetectionMode(v34, *(this + 24) != 0);
     v22 = *(this + 15);
     if (v22)
     {
-      v22(buf, v32, *(this + 21));
+      v22(buf, v35, *(this + 21));
     }
 
     else
@@ -1468,63 +1334,66 @@ float H16ISP::H16ISPPearlCalibrationNode::run(H16ISP::H16ISPPearlCalibrationNode
     }
 
     kdebug_trace();
-    if (v40 == 1)
+    v24.n128_f64[0] = v38[0];
+    v25.n128_f64[0] = v38[1];
+    v26.n128_f64[0] = v38[2];
+    if (v41 == 1)
     {
-      v24 = PearlIsf::RunFromMiFullGrid(v31, buf, &v30, v35, v36, v37, v38[0]);
+      v27 = PearlIsf::RunFromMiFullGrid(v34, buf, &v33, v24, v25, v26, v39[0]);
     }
 
     else
     {
-      v24 = PearlIsf::RunFromLmv(v31, buf, &v30, v35, v36, v37);
+      v27 = PearlIsf::RunFromLmv(v34, buf, &v33, v24, v25, v26);
     }
 
-    v25 = v24;
+    v28 = v27;
     kdebug_trace();
-    v26 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v29 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v13)
     {
-      v26 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v26;
+      v29 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v29;
     }
 
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      *v43 = 67109120;
-      v44 = v25;
-      _os_log_impl(&dword_2247DB000, v26, OS_LOG_TYPE_DEFAULT, "Pearl Calibration (ISF): status 0x%08X\n", v43, 8u);
+      *v44 = 67109120;
+      v45 = v28;
+      _os_log_impl(&dword_2247DB000, v29, OS_LOG_TYPE_DEFAULT, "Pearl Calibration (ISF): status 0x%08X\n", v44, 8u);
     }
 
-    reportIsfResults(v25, v30.i64, v40 == 1, v41, this + 224, v32);
-    v27 = *(this + 16);
-    if (v27)
+    reportIsfResults(v28, v33.i64, v41 == 1, valuePtr, v39[0], v42, this + 224, v35);
+    v30 = *(this + 16);
+    if (v30)
     {
-      v27(buf, v32, *(this + 21));
+      v30(buf, v35, *(this + 21));
     }
 
     *(this + 25) = 4;
-    PearlIsf::~PearlIsf(v31);
+    PearlIsf::~PearlIsf(v34);
     if (*(this + 25) == 4)
     {
 LABEL_39:
       *(this + 184) = 1;
-      v28 = v41;
-      *(this + 52) = v40;
+      v31 = v42;
+      *(this + 52) = v41;
       *(this + 47) = v19;
-      *(this + 48) = v28;
-      v29 = v38[0];
-      *(this + 196) = v38[1];
-      result = v39;
-      *(this + 51) = v39;
-      *(this + 27) = v29;
+      *(this + 48) = v31;
+      v32 = v39[0];
+      *(this + 196) = v39[1];
+      result = v40;
+      *(this + 51) = v40;
+      *(this + 27) = v32;
     }
   }
 
   return result;
 }
 
-void sub_2248F5574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2248F5574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   PearlIsf::~PearlIsf(va);
   _Unwind_Resume(a1);
 }
@@ -1543,49 +1412,49 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode_Remote::H16ISPPearlCalibrationNode_R
   return a1;
 }
 
-uint64_t H16ISP::H16ISPPearlCalibrationNode_Remote::onDeactivate(H16ISP::H16ISPPearlCalibrationNode_Remote *this, uint64_t a2)
+uint64_t H16ISP::H16ISPPearlCalibrationNode_Remote::onDeactivate(H16ISP::H16ISPPearlCalibrationNode_Remote *this)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
-  v13 = *MEMORY[0x277D85DE8];
-  if (*(v2 + 104))
+  v1 = MEMORY[0x28223BE20](this);
+  v12 = *MEMORY[0x277D85DE8];
+  if (*(v1 + 104))
   {
-    v3 = v2;
-    if (H16ISP::getPCECalib(*(v2 + 80), *(v2 + 88)))
+    v2 = v1;
+    if (H16ISP::getPCECalib(*(v1 + 80)))
     {
-      if (!H16ISP::H16ISPServicesRemote::UpdateRgbIrPceCalib(*(v3 + 104), v9))
+      if (!H16ISP::H16ISPServicesRemote::UpdateRgbIrPceCalib(*(v2 + 104), v8))
       {
-        v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        v3 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
         if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
         {
-          v4 = os_log_create("com.apple.isp", "general");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v4;
+          v3 = os_log_create("com.apple.isp", "general");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v3;
         }
 
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
         {
-          v10[0] = 0;
-          _os_log_impl(&dword_2247DB000, v4, OS_LOG_TYPE_DEFAULT, "Pearl Calibration (MI) finalization: Updating PCECalib in FW\n", v10, 2u);
+          v9[0] = 0;
+          _os_log_impl(&dword_2247DB000, v3, OS_LOG_TYPE_DEFAULT, "Pearl Calibration (MI) finalization: Updating PCECalib in FW\n", v9, 2u);
         }
 
-        v5 = *(v3 + 80);
-        v6 = *(v3 + 88);
-        v10[2] = 24581;
-        v11 = v6;
-        memcpy(v12, v9, sizeof(v12));
-        H16ISP::H16ISPDevice::ISP_SendCommand(v5, v10, 0x340Cu, 0, 0xFFFFFFFF);
+        v4 = *(v2 + 80);
+        v5 = *(v2 + 88);
+        v9[2] = 24581;
+        v10 = v5;
+        memcpy(v11, v8, sizeof(v11));
+        H16ISP::H16ISPDevice::ISP_SendCommand(v4, v9, 0x340Cu, 0, 0xFFFFFFFF);
       }
     }
 
     else
     {
-      v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
       {
-        v7 = os_log_create("com.apple.isp", "general");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v7;
+        v6 = os_log_create("com.apple.isp", "general");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
       }
 
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         H16ISP::H16ISPPearlCalibrationNode::onDeactivate();
       }
@@ -2216,9 +2085,9 @@ double H16ISP::getLargestRotation(H16ISP *this, const __CFNumber *a2, const __CF
   return v9;
 }
 
-uint64_t H16ISP::H16ISPPearlCalibrationNode_Remote::callAlgorithm(H16ISP::H16ISPPearlCalibrationNode_Remote *this, __CVBuffer *a2, __CVBuffer *a3, __CVBuffer *a4, __CVBuffer *a5, const __CFDictionary *a6, const __CFDictionary *a7)
+int64_t H16ISP::H16ISPPearlCalibrationNode_Remote::callAlgorithm(H16ISP::H16ISPPearlCalibrationNode_Remote *this, __CVBuffer *a2, __CVBuffer *a3, __CVBuffer *a4, __CVBuffer *a5, const __CFDictionary *a6, const __CFDictionary *a7)
 {
-  v7 = MEMORY[0x28223BE20](this, a2);
+  v7 = MEMORY[0x28223BE20](this);
   v27 = v8;
   v10 = v9;
   v12 = v11;
@@ -2228,7 +2097,7 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode_Remote::callAlgorithm(H16ISP::H16ISP
   v31 = *MEMORY[0x277D85DE8];
   v18 = H16ISP::crcInputs(v15, v13, v11, v11);
   valuePtr = 0;
-  H16ISP::getPCECalib(*(v17 + 80), *(v17 + 88));
+  H16ISP::getPCECalib(*(v17 + 80));
   v19 = *MEMORY[0x277CBECE8];
   v20 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 13312);
   v21 = CFDataCreate(v19, v29, 40);
@@ -2319,9 +2188,9 @@ void H16ISP::H16ISPPearlCalibrationNode_RGBP::~H16ISPPearlCalibrationNode_RGBP(H
   JUMPOUT(0x22AA55B60);
 }
 
-uint64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::callAlgorithm(H16ISP::H16ISPPearlCalibrationNode_RGBP *this, __CVBuffer *a2, __CVBuffer *a3, __CVBuffer *a4, __CVBuffer *a5, const __CFDictionary *a6, const __CFDictionary *a7)
+int64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::callAlgorithm(H16ISP::H16ISPPearlCalibrationNode_RGBP *this, __CVBuffer *a2, __CVBuffer *a3, __CVBuffer *a4, __CVBuffer *a5, const __CFDictionary *a6, const __CFDictionary *a7)
 {
-  v7 = MEMORY[0x28223BE20](this, a2);
+  v7 = MEMORY[0x28223BE20](this);
   v31 = v8;
   v32 = v9;
   v29 = v10;
@@ -2331,7 +2200,7 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::callAlgorithm(H16ISP::H16ISPPe
   v17 = v7;
   v40 = *MEMORY[0x277D85DE8];
   v30 = H16ISP::crcInputs(v15, v13, v11, v11);
-  H16ISP::getPCECalib(*(v17 + 80), *(v17 + 88));
+  H16ISP::getPCECalib(*(v17 + 80));
   v18 = *MEMORY[0x277CBECE8];
   v19 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, 13312);
   Mutable = CFDictionaryCreateMutable(v18, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -2382,16 +2251,16 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::callAlgorithm(H16ISP::H16ISPPe
   return v26;
 }
 
-void sub_2248F6D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2248F6D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   H16ISP::H16ISPFrameMetadata::~H16ISPFrameMetadata(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::algorithmPreconditions(H16ISP::H16ISPPearlCalibrationNode_RGBP *this, __CVBuffer *a2, __CVBuffer *a3, __CVBuffer *a4, const __CFDictionary *a5, const __CFDictionary *a6)
+uint64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::algorithmPreconditions(H16ISP::H16ISPPearlCalibrationNode_RGBP *this, __CVBuffer *a2, __CVBuffer *a3, __CVBuffer *a4, const __CFDictionary *a5, const __CFDictionary *a6, BOOL a7)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (!H16ISPRgbpRunner::validateSession(a2, a3, a4, a5, a6, *(this + 93)))
   {
     return 2;
@@ -2403,7 +2272,7 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::algorithmPreconditions(H16ISP:
     if (a4)
     {
       Height = CVPixelBufferGetHeight(a4);
-      v14 = Height < 0x280;
+      v15 = Height < 0x280;
       if (H16ISP::gBlockCinematic == 1 && Height <= 0x27F)
       {
         if (*(this + 94) != 1)
@@ -2411,91 +2280,91 @@ uint64_t H16ISP::H16ISPPearlCalibrationNode_RGBP::algorithmPreconditions(H16ISP:
           return 2;
         }
 
-        v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        v16 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
         if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
         {
-          v15 = os_log_create("com.apple.isp", "general");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+          v16 = os_log_create("com.apple.isp", "general");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v16;
         }
 
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           return 2;
         }
 
-        v26 = 67110400;
-        v27 = HIBYTE(PixelFormatType);
-        v28 = 1024;
-        v29 = BYTE2(PixelFormatType);
-        v30 = 1024;
-        v31 = BYTE1(PixelFormatType);
-        v32 = 1024;
-        v33 = PixelFormatType;
-        v34 = 2048;
+        v27 = 67110400;
+        v28 = HIBYTE(PixelFormatType);
+        v29 = 1024;
+        v30 = BYTE2(PixelFormatType);
+        v31 = 1024;
+        v32 = BYTE1(PixelFormatType);
+        v33 = 1024;
+        v34 = PixelFormatType;
+        v35 = 2048;
         Width = CVPixelBufferGetWidth(a4);
-        v36 = 2048;
-        v37 = CVPixelBufferGetHeight(a4);
-        v16 = "Pearl Calibration (MI): Blocking cinematic (color format '%c%c%c%c', depth resolution %zux%zu)\n";
+        v37 = 2048;
+        v38 = CVPixelBufferGetHeight(a4);
+        v17 = "Pearl Calibration (MI): Blocking cinematic (color format '%c%c%c%c', depth resolution %zux%zu)\n";
         goto LABEL_34;
       }
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    v17 = H16ISP::gBlockThirdParty != 1 || ((PixelFormatType - 875704422) & 0xFFFFFFEF) == 0;
-    if (!v17 && !v14)
+    v18 = H16ISP::gBlockThirdParty != 1 || ((PixelFormatType - 875704422) & 0xFFFFFFEF) == 0;
+    if (!v18 && !v15)
     {
       if (*(this + 94) != 1)
       {
         return 2;
       }
 
-      v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      v16 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
       {
-        v15 = os_log_create("com.apple.isp", "general");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+        v16 = os_log_create("com.apple.isp", "general");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v16;
       }
 
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         return 2;
       }
 
-      v18 = HIBYTE(PixelFormatType);
-      v19 = BYTE2(PixelFormatType);
-      v20 = PixelFormatType;
-      v21 = BYTE1(PixelFormatType);
+      v19 = HIBYTE(PixelFormatType);
+      v20 = BYTE2(PixelFormatType);
+      v21 = PixelFormatType;
+      v22 = BYTE1(PixelFormatType);
       if (a4)
       {
-        v22 = CVPixelBufferGetWidth(a4);
-        v23 = CVPixelBufferGetHeight(a4);
+        v23 = CVPixelBufferGetWidth(a4);
+        v24 = CVPixelBufferGetHeight(a4);
       }
 
       else
       {
-        v22 = 0;
         v23 = 0;
+        v24 = 0;
       }
 
-      v26 = 67110400;
-      v27 = v18;
-      v28 = 1024;
-      v29 = v19;
-      v30 = 1024;
-      v31 = v21;
-      v32 = 1024;
-      v33 = v20;
-      v34 = 2048;
-      Width = v22;
-      v36 = 2048;
-      v37 = v23;
-      v16 = "Pearl Calibration (MI): Blocking third party API (color format '%c%c%c%c', depth resolution %zux%zu)\n";
+      v27 = 67110400;
+      v28 = v19;
+      v29 = 1024;
+      v30 = v20;
+      v31 = 1024;
+      v32 = v22;
+      v33 = 1024;
+      v34 = v21;
+      v35 = 2048;
+      Width = v23;
+      v37 = 2048;
+      v38 = v24;
+      v17 = "Pearl Calibration (MI): Blocking third party API (color format '%c%c%c%c', depth resolution %zux%zu)\n";
 LABEL_34:
-      _os_log_impl(&dword_2247DB000, v15, OS_LOG_TYPE_DEFAULT, v16, &v26, 0x2Eu);
+      _os_log_impl(&dword_2247DB000, v16, OS_LOG_TYPE_DEFAULT, v17, &v27, 0x2Eu);
       return 2;
     }
   }
@@ -2507,14 +2376,14 @@ LABEL_34:
 
   if (*(this + 94) == 1)
   {
-    v25 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v26 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v25 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v25;
+      v26 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v26;
     }
 
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       H16ISP::H16ISPPearlCalibrationNode_RGBP::algorithmPreconditions();
     }
@@ -2719,7 +2588,7 @@ uint64_t H16ISP::H16ISPFrameReceiver::stopReceive(H16ISP::H16ISPFrameReceiver *t
     goto LABEL_22;
   }
 
-  v2 = H16ISP::H16ISPDevice::StopCamera(*(this + 50), 1 << *(this + 109));
+  v2 = H16ISP::H16ISPDevice::StopCamera(*(this + 50), (1 << *(this + 109)));
   v3 = v2 != 0;
   if (!v2)
   {
@@ -2777,7 +2646,7 @@ LABEL_10:
   }
 
 LABEL_22:
-  v6 = H16ISP::H16ISPDevice::ReturnAllUnusedBuffers(*(this + 50), *(this + 109));
+  v6 = H16ISP::H16ISPDevice::ReturnAllUnusedBuffers(*(this + 50));
   if (!v6)
   {
     goto LABEL_28;
@@ -2869,7 +2738,7 @@ LABEL_28:
   pthread_mutex_unlock((this + 160));
   if (*(this + 532) == 1 && v6 == 0)
   {
-    v6 = H16ISP::H16ISPDevice::StopFaceDetect(*(this + 50), *(this + 109));
+    v6 = H16ISP::H16ISPDevice::StopFaceDetect(*(this + 50));
     if (v6)
     {
       v18 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
@@ -3568,14 +3437,14 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase(int64x2_t *a1, 
     {
       v26 = 510 - v17;
       v19 = &v8[-(v26 >> 9)];
-      v20 = &(*v19)[8 * (~v26 & 0x1FF)];
+      v20 = (*v19 + 8 * (~v26 & 0x1FF));
     }
 
     else
     {
       v18 = v17 + 1;
       v19 = &v8[v18 >> 9];
-      v20 = &(*v19)[8 * (v18 & 0x1FF)];
+      v20 = (*v19 + 8 * (v18 & 0x1FF));
     }
 
     std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,0>(v30, v31, v8, v9, v19, v20, v32);
@@ -3590,14 +3459,14 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase(int64x2_t *a1, 
     {
       v21 = 510 - v13;
       v15 = &v8[-(v21 >> 9)];
-      v16 = &(*v15)[8 * (~v21 & 0x1FF)];
+      v16 = (*v15 + 8 * (~v21 & 0x1FF));
     }
 
     else
     {
       v14 = v13 + 1;
       v15 = &v8[v14 >> 9];
-      v16 = &(*v15)[8 * (v14 & 0x1FF)];
+      v16 = (*v15 + 8 * (v14 & 0x1FF));
     }
 
     v22 = a1[2].i64[0] + v12;
@@ -3610,7 +3479,7 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase(int64x2_t *a1, 
 
     else
     {
-      v25 = &(*v24)[8 * (v22 & 0x1FF)];
+      v25 = (*v24 + 8 * (v22 & 0x1FF));
     }
 
     v32[0].n128_u64[0] = v10;
@@ -3695,10 +3564,11 @@ uint64_t H16ISP::H16ISPFrameReceiver::sendInitialDataBuffersToFirmware(H16ISP::H
   return v9;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::addDataBufferPoolToFrameReceiver(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t H16ISP::H16ISPFrameReceiver::addDataBufferPoolToFrameReceiver(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   pthread_mutex_lock((a1 + 96));
-  if (a4 == 33)
+  if (v4 == 33)
   {
     if (!*(a1 + 864))
     {
@@ -3737,10 +3607,11 @@ uint64_t H16ISP::H16ISPFrameReceiver::addDataBufferPoolToFrameReceiver(uint64_t 
   return 3758097095;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::removeDataBufferPoolFromFrameReceiver(uint64_t a1, int a2)
+uint64_t H16ISP::H16ISPFrameReceiver::removeDataBufferPoolFromFrameReceiver(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   pthread_mutex_lock((a1 + 96));
-  if (a2 == 33)
+  if (v2 == 33)
   {
     v4 = *(a1 + 864);
     if (v4)
@@ -3881,7 +3752,7 @@ uint64_t H16ISP::H16ISPFrameReceiver::StartFaceDetect(H16ISP::H16ISPDevice **thi
 {
   if (*(this + 532) == 1)
   {
-    return H16ISP::H16ISPDevice::StartFaceDetect(this[50], *(this + 109));
+    return H16ISP::H16ISPDevice::StartFaceDetect(this[50]);
   }
 
   else
@@ -4104,9 +3975,9 @@ uint64_t H16ISP::H16ISPFrameReceiver::StopChannels(H16ISP::H16ISPFrameReceiver *
 {
   v3 = a3;
   v4 = a2;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D86220];
-  v25 = a3;
+  v24 = a3;
   if (!a3)
   {
     v12 = H16ISP::H16ISPDevice::StopCamera(this, 0);
@@ -4118,14 +3989,14 @@ uint64_t H16ISP::H16ISPFrameReceiver::StopChannels(H16ISP::H16ISPFrameReceiver *
     goto LABEL_7;
   }
 
-  v7 = 0;
+  LODWORD(v7) = 0;
   v8 = a2;
   v9 = a3;
   do
   {
     H16ISP::H16ISPFrameReceiver::PrepareStopReceive(*v8);
     v10 = *v8++;
-    v7 |= 1 << *(v10 + 109);
+    v7 = (1 << *(v10 + 109)) | v7;
     --v9;
   }
 
@@ -4134,7 +4005,7 @@ uint64_t H16ISP::H16ISPFrameReceiver::StopChannels(H16ISP::H16ISPFrameReceiver *
   if (v11)
   {
     v12 = v11;
-    v3 = v25;
+    v3 = v24;
 LABEL_7:
     v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v6)
@@ -4159,7 +4030,7 @@ LABEL_7:
   }
 
   v14 = 0;
-  v15 = v25;
+  v15 = v24;
   do
   {
     while (1)
@@ -4175,13 +4046,13 @@ LABEL_7:
       {
         v17 = *(*(v4 + v14) + 436);
         *buf = 136315906;
-        v27 = "StopChannels";
-        v28 = 1024;
-        v29 = 2124;
-        v30 = 1024;
-        v31 = v14;
-        v32 = 1024;
-        v33 = v17;
+        v26 = "StopChannels";
+        v27 = 1024;
+        v28 = 2124;
+        v29 = 1024;
+        v30 = v14;
+        v31 = 1024;
+        v32 = v17;
         _os_log_impl(&dword_2247DB000, v16, OS_LOG_TYPE_DEFAULT, "%s - [%d] [CIL] Call ISP_CILRequestPerChannel %d (%u/false)\n", buf, 0x1Eu);
       }
 
@@ -4203,17 +4074,17 @@ LABEL_7:
       {
         v20 = *(*(v4 + v14) + 436);
         *buf = 136315906;
-        v27 = "StopChannels";
-        v28 = 1024;
-        v29 = v12;
-        v30 = 1024;
-        v31 = v14;
-        v32 = 1024;
-        v33 = v20;
+        v26 = "StopChannels";
+        v27 = 1024;
+        v28 = v12;
+        v29 = 1024;
+        v30 = v14;
+        v31 = 1024;
+        v32 = v20;
         _os_log_error_impl(&dword_2247DB000, v19, OS_LOG_TYPE_ERROR, "%s - Calling ISP_CILRequestPerChannel error: 0x%08X (%d/%u/false)\n", buf, 0x1Eu);
       }
 
-      if (++v14 == v25)
+      if (++v14 == v24)
       {
         return v12;
       }
@@ -4222,18 +4093,17 @@ LABEL_7:
     ++v14;
   }
 
-  while (v14 != v25);
-  if (!v25)
+  while (v14 != v24);
+  if (!v24)
   {
     return 0;
   }
 
   while (1)
   {
-    v21 = *v4;
-    *(v21 + 435) = 0;
-    v22 = H16ISP::H16ISPDevice::ReturnAllUnusedBuffers(this, *(v21 + 436));
-    if (v22)
+    *(*v4 + 435) = 0;
+    v21 = H16ISP::H16ISPDevice::ReturnAllUnusedBuffers(this);
+    if (v21)
     {
       break;
     }
@@ -4245,15 +4115,15 @@ LABEL_7:
     }
   }
 
-  v12 = v22;
-  v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  v12 = v21;
+  v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v6)
   {
-    v23 = os_log_create("com.apple.isp", "general");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
+    v22 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v22;
   }
 
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     H16ISP::H16ISPFrameReceiver::StopChannels();
   }
@@ -4678,7 +4548,7 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
         v35 = 0;
         do
         {
-          v36 = v13 + v31;
+          v36 = (v13 + v31);
           v37 = &v11[v32];
           memcpy(v13 + v31, v13, __n);
           memcpy(&v13[3 * v16], &v13[v16], __n);
@@ -4691,7 +4561,7 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
         }
 
         while (v35 < v96);
-        v38 = &v36[8 * v16];
+        v38 = &v36[2 * v16];
         v25 = v92;
         v39 = &v37[4 * v92];
         v33 = 3 * v16;
@@ -4711,8 +4581,8 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
           v44 = v20[v41 / __n];
           v45 = bswap32(v23[v41 / __n]);
           *v43 = v44;
-          *&v43[4 * v16] = v44;
-          v43 += 4;
+          v43[v16] = v44;
+          ++v43;
           *&v39[v42] = v45;
           v42 += 4;
           v41 += 32;
@@ -4721,18 +4591,18 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
         while (v42 < __n);
       }
 
-      v95 = 4 * v16;
+      v95 = v16;
       v46 = v40 + 1;
       if (v34)
       {
         v86 = v40 + 1;
         v47 = 0;
-        v48 = 4 * v33;
+        v48 = v33;
         do
         {
-          v49 = &v38[v31];
+          v49 = v38 + v31;
           v50 = &v39[v32];
-          memcpy(&v38[v31], v38, __n);
+          memcpy(v38 + v31, v38, __n);
           memcpy(&v38[v48], &v38[v95], __n);
           memcpy(&v39[v32], v39, __n);
           v34 = v96;
@@ -4752,7 +4622,7 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
 
       else
       {
-        v51 = &v38[8 * v16];
+        v51 = &v38[2 * v16];
         v52 = &v39[4 * v25];
       }
 
@@ -4793,12 +4663,12 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
       {
         v87 = v53;
         v60 = 0;
-        v61 = 4 * v33;
+        v61 = v33;
         do
         {
-          v62 = &v51[v31];
+          v62 = v51 + v31;
           v63 = &v52[v32];
-          memcpy(&v51[v31], v51, __n);
+          memcpy(v51 + v31, v51, __n);
           memcpy(&v51[v61], &v51[v95], __n);
           memcpy(&v52[v32], v52, __n);
           v31 = 8 * v16;
@@ -4816,7 +4686,7 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
 
       else
       {
-        v64 = &v51[8 * v16];
+        v64 = &v51[2 * v16];
         v65 = &v52[4 * v25];
       }
 
@@ -4875,7 +4745,7 @@ unint64_t H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(H16ISP::
             v82 = &v64[v31];
             v83 = &v65[v32];
             memcpy(&v64[v31], v64, __n);
-            memcpy(&v64[v72], &v64[v95], __n);
+            memcpy(&v64[v72], &v64[v95 * 4], __n);
             memcpy(&v65[v32], v65, __n);
             v31 = v98;
             v65 += v32;
@@ -4945,9 +4815,9 @@ void ___ZN6H16ISP19H16ISPFrameReceiver9FrameDoneEPviPyi_block_invoke(uint64_t a1
 
 void H16ISP::H16ISPFrameReceiver::tailspinTimeout(H16ISP::H16ISPFrameReceiver *this, __CFRunLoopTimer *a2, void *a3)
 {
-  MEMORY[0x28223BE20](this, a2);
-  v5[1665] = *MEMORY[0x277D85DE8];
-  LODWORD(v5[0]) = 213;
+  MEMORY[0x28223BE20](this);
+  v6 = *MEMORY[0x277D85DE8];
+  v5[0] = 213;
   if (H16ISP::H16ISPServicesRemote::SetPropertyAsync(v3, v5))
   {
     v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
@@ -5101,8 +4971,9 @@ uint64_t H16ISP::H16ISPFrameReceiver::AllocateAndSendStillImageBuffersFromShared
   return v6;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::AllocateAndSendStillImageBuffers(uint64_t a1, int a2, uint64_t a3)
+uint64_t H16ISP::H16ISPFrameReceiver::AllocateAndSendStillImageBuffers(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v23 = *MEMORY[0x277D85DE8];
   memset(v21, 0, sizeof(v21));
   pthread_mutex_lock((a1 + 96));
@@ -5140,7 +5011,7 @@ LABEL_6:
       }
 
       v14 = *v11;
-      if (*(*v11 + 16) == a2)
+      if (*(*v11 + 16) == v4)
       {
         break;
       }
@@ -5233,93 +5104,93 @@ LABEL_36:
   return Buffer;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::AllocateAndSendOneShotBuffers(uint64_t a1, uint64_t a2)
+uint64_t H16ISP::H16ISPFrameReceiver::AllocateAndSendOneShotBuffers(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v56 = *MEMORY[0x277D85DE8];
-  v54 = 0u;
-  v55 = 0u;
-  Buffer = 3758097086;
-  v52 = 0u;
+  v1 = MEMORY[0x28223BE20](a1);
+  v55 = *MEMORY[0x277D85DE8];
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
+  Buffer = 3758097086;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v6 = *v2 - 1;
-  *v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  if (v6 > 1)
+  v26 = 0u;
+  v5 = *v1 - 1;
+  *v23 = 0u;
+  v24 = 0u;
+  if (v5 > 1)
   {
     Buffer = 3758097122;
   }
 
-  else if (v4 <= 0x40)
+  else if (v3 <= 0x40)
   {
-    v10 = *(v2 + 728);
-    v11 = *(v2 + 752);
-    v12 = (v10 + 8 * (v11 >> 9));
-    v13 = *(v2 + 736);
-    if (v13 == v10)
+    v9 = *(v1 + 728);
+    v10 = *(v1 + 752);
+    v11 = (v9 + 8 * (v10 >> 9));
+    v12 = *(v1 + 736);
+    if (v12 == v9)
     {
-      v14 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v14 = *v12 + 8 * (*(v2 + 752) & 0x1FFLL);
+      v13 = *v11 + 8 * (*(v1 + 752) & 0x1FFLL);
     }
 
 LABEL_13:
-    v15 = v14 - 4096;
+    v14 = v13 - 4096;
     while (1)
     {
-      v16 = v13 == v10 ? 0 : *(v10 + (((*(v2 + 760) + v11) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v2 + 760) + v11) & 0x1FF);
-      if (v14 == v16)
+      v15 = v12 == v9 ? 0 : *(v9 + (((*(v1 + 760) + v10) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v1 + 760) + v10) & 0x1FF);
+      if (v13 == v15)
       {
         break;
       }
 
-      v17 = *v14;
-      if (*(*v14 + 16) == v3)
+      v16 = *v13;
+      if (*(*v13 + 16) == v2)
       {
-        v19 = *(v17 + 30);
-        if (v4 - v19 >= 1)
+        v18 = *(v16 + 30);
+        if (v3 - v18 >= 1)
         {
-          v20 = v24;
-          v21 = (v4 - v19);
+          v19 = v23;
+          v20 = (v3 - v18);
           while (1)
           {
-            Buffer = H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(v17, v20, (*(v17 + 29) >> 10) & 1);
+            Buffer = H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(v16, v19, (*(v16 + 29) >> 10) & 1);
             if (Buffer)
             {
               break;
             }
 
-            ++v20;
-            if (!--v21)
+            ++v19;
+            if (!--v20)
             {
               operator new();
             }
@@ -5328,32 +5199,32 @@ LABEL_13:
           break;
         }
 
-        v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        v21 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
         if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
         {
-          v22 = os_log_create("com.apple.isp", "general");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v22;
+          v21 = os_log_create("com.apple.isp", "general");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v21;
         }
 
         Buffer = 0;
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          *v23 = 136315138;
-          *&v23[4] = "AllocateAndSendOneShotBuffers";
-          _os_log_impl(&dword_2247DB000, v22, OS_LOG_TYPE_DEFAULT, "%s - Warning: Not queuing any more single shot buffers to firmware\n", v23, 0xCu);
+          *v22 = 136315138;
+          *&v22[4] = "AllocateAndSendOneShotBuffers";
+          _os_log_impl(&dword_2247DB000, v21, OS_LOG_TYPE_DEFAULT, "%s - Warning: Not queuing any more single shot buffers to firmware\n", v22, 0xCu);
           return 0;
         }
 
         return Buffer;
       }
 
+      v13 += 8;
       v14 += 8;
-      v15 += 8;
-      if (*v12 == v15)
+      if (*v11 == v14)
       {
-        v18 = v12[1];
-        ++v12;
-        v14 = v18;
+        v17 = v11[1];
+        ++v11;
+        v13 = v17;
         goto LABEL_13;
       }
     }
@@ -5366,10 +5237,10 @@ LABEL_13:
 
   for (i = 0; i != 64; ++i)
   {
-    v8 = v24[i];
-    if (v8)
+    v7 = v23[i];
+    if (v7)
     {
-      CVPixelBufferRelease(v8);
+      CVPixelBufferRelease(v7);
     }
   }
 
@@ -5434,50 +5305,50 @@ LABEL_6:
   }
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::SendOneShotBuffer(uint64_t a1, int a2)
+uint64_t H16ISP::H16ISPFrameReceiver::SendOneShotBuffer(uint64_t a1, int a2, __CVBuffer *a3)
 {
-  v2 = 3758097086;
+  v3 = 3758097086;
   if ((*a1 - 1) > 1)
   {
     return 3758097122;
   }
 
-  v3 = *(a1 + 728);
-  v4 = *(a1 + 752);
-  v5 = (v3 + 8 * (v4 >> 9));
-  v6 = *(a1 + 736);
-  if (v6 == v3)
+  v4 = *(a1 + 728);
+  v5 = *(a1 + 752);
+  v6 = (v4 + 8 * (v5 >> 9));
+  v7 = *(a1 + 736);
+  if (v7 == v4)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = *v5 + 8 * (*(a1 + 752) & 0x1FFLL);
+    v8 = *v6 + 8 * (*(a1 + 752) & 0x1FFLL);
   }
 
 LABEL_6:
-  v8 = v7 - 4096;
+  v9 = v8 - 4096;
   while (1)
   {
-    v9 = v6 == v3 ? 0 : *(v3 + (((*(a1 + 760) + v4) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(a1 + 760) + v4) & 0x1FF);
-    if (v7 == v9)
+    v10 = v7 == v4 ? 0 : *(v4 + (((*(a1 + 760) + v5) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(a1 + 760) + v5) & 0x1FF);
+    if (v8 == v10)
     {
-      return v2;
+      return v3;
     }
 
-    if (*(*v7 + 16) == a2)
+    if (*(*v8 + 16) == a2)
     {
       operator new();
     }
 
-    v7 += 8;
     v8 += 8;
-    if (*v5 == v8)
+    v9 += 8;
+    if (*v6 == v9)
     {
-      v10 = v5[1];
-      ++v5;
-      v7 = v10;
+      v11 = v6[1];
+      ++v6;
+      v8 = v11;
       goto LABEL_6;
     }
   }
@@ -5853,7 +5724,7 @@ uint64_t std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__maybe_remove_bac
   return v7 ^ 1u;
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,0>@<Q0>(char **a1@<X1>, char *a2@<X2>, char **a3@<X3>, char *a4@<X4>, void *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,0>@<Q0>(uint64_t *a1@<X1>, char *a2@<X2>, char **a3@<X3>, unint64_t a4@<X4>, char *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
 {
   if (a1 == a3)
   {
@@ -5865,7 +5736,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
   else
   {
-    v17 = a3 - 1;
+    v17 = (a3 - 1);
     v16 = *a3;
     v18 = a4;
     v13 = a5;
@@ -5882,10 +5753,10 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
       v19 = *v17--;
       v16 = v19;
-      v18 = v19 + 4096;
+      v18 = (v19 + 4096);
     }
 
-    v12 = *v17 + 4096;
+    v12 = (*v17 + 4096);
     v11 = a2;
   }
 
@@ -5897,7 +5768,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<H16ISP::H16ISPFrameReceiverBufferPool **,std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, void *a3@<X3>, char *a4@<X4>, void *a5@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<H16ISP::H16ISPFrameReceiverBufferPool **,std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool **,H16ISP::H16ISPFrameReceiverBufferPool *&,H16ISP::H16ISPFrameReceiverBufferPool ***,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, char *a3@<X3>, char *a4@<X4>, char **a5@<X8>)
 {
   v6 = a3;
   if (a1 == a2)
@@ -5935,15 +5806,16 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         break;
       }
 
-      v15 = *--v6;
+      v15 = *(v6 - 1);
+      v6 -= 8;
       v10 = v15;
       a4 = (v15 + 4096);
     }
 
     if ((*v6 + 4096) == a4)
     {
-      v16 = v6[1];
-      ++v6;
+      v16 = *(v6 + 1);
+      v6 += 8;
       a4 = v16;
     }
   }
@@ -6054,7 +5926,7 @@ void sub_2248FBCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x22AA55B60](v11, 0x1020C40918A61C1);
+  MEMORY[0x22AA55B60](v11, 0x1020C40918A61C1, a3, a4, a5, a6, a7, a8);
   v13 = *(v10 + 304);
   if (v13)
   {
@@ -6371,7 +6243,7 @@ void H16ISP::H16ISPFirmwareWorkSharedBuffers::~H16ISPFirmwareWorkSharedBuffers(H
   while (v2 != 25);
 }
 
-uint64_t H16ISP::H16ISPFirmwareWorkSharedBuffers::SharedBufferGet(H16ISP::H16ISPFirmwareWorkSharedBuffers *this, unsigned int a2, uint64_t a3, unsigned __int8 **a4)
+uint64_t H16ISP::H16ISPFirmwareWorkSharedBuffers::SharedBufferGet(H16ISP::H16ISPFirmwareWorkSharedBuffers *this, unsigned int a2, unsigned __int8 *a3, unsigned __int8 **a4)
 {
   v4 = 3758097090;
   if (a3 && a4)
@@ -6401,22 +6273,22 @@ LABEL_6:
   return v4;
 }
 
-void H16ISP::CreateH16ISPFirmwareWorkProcessor()
+void H16ISP::CreateH16ISPFirmwareWorkProcessor(void *a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 0uLL;
-  v0 = 0;
-  H16ISP::H16ISPThreadReadySyncer::H16ISPThreadReadySyncer(&v2);
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 0uLL;
+  v1 = 0;
+  H16ISP::H16ISPThreadReadySyncer::H16ISPThreadReadySyncer(&v3);
   _ZNSt3__115allocate_sharedB8ne200100IN6H16ISP31H16ISPFirmwareWorkSharedBuffersENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
 
-void sub_2248FC7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, uint64_t a10, ...)
+void sub_2248FC7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   H16ISP::H16ISPThreadReadySyncer::~H16ISPThreadReadySyncer(va);
-  if (a9)
+  if (a16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
   }
 
   _Unwind_Resume(a1);
@@ -6485,7 +6357,7 @@ void std::__shared_ptr_emplace<H16ISP::H16ISPFirmwareWorkSharedBuffers>::~__shar
   JUMPOUT(0x22AA55B60);
 }
 
-uint64_t AppendMotionMetadata(_OWORD *a1, uint64_t a2, uint64_t a3)
+uint64_t AppendMotionMetadata(_OWORD *a1, const void **a2, uint64_t a3)
 {
   result = 3758097090;
   if (a1 && a2)
@@ -6538,9 +6410,8 @@ uint64_t AppendMotionMetadata(_OWORD *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void *std::deque<MotionMetadataContext *>::push_back(void *result, void *a2)
+void std::deque<MotionMetadataContext *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -6557,15 +6428,14 @@ void *std::deque<MotionMetadataContext *>::push_back(void *result, void *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<MotionMetadataContext *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<MotionMetadataContext *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
 _DWORD *CreateMotionMetadataDebugLogger(const char *a1, int a2, H16ISP::H16ISPDevice *a3)
@@ -7152,19 +7022,19 @@ uint64_t MetadataFileWriterThreadMessageHandler(void *a1)
   return pthread_mutex_unlock(&metadataFileWriterQueueMutex);
 }
 
-void *std::deque<MotionMetadataContext *>::__add_back_capacity(void *a1)
+void std::deque<MotionMetadataContext *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7172,25 +7042,25 @@ void *std::deque<MotionMetadataContext *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v9);
 }
 
 void sub_2248FE87C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7344,13 +7214,13 @@ void ZF::RPC::Process_x1(uint64_t a1, uint64_t a2)
   }
 }
 
-unsigned int *ZF::RPC::anonymous namespace::ShiftMapPostProcess(unsigned int *result)
+float *ZF::RPC::anonymous namespace::ShiftMapPostProcess(float *result)
 {
   v63 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 76);
-  v2 = *(result + 77);
-  v3 = *(result + 183);
-  v4 = *(result + 184);
+  v1 = result[76];
+  v2 = result[77];
+  v3 = result[183];
+  v4 = result[184];
   v5 = fabsf(v1 * v2);
   v6 = v3 * v5;
   v7 = v4 * v5;
@@ -7364,7 +7234,7 @@ unsigned int *ZF::RPC::anonymous namespace::ShiftMapPostProcess(unsigned int *re
   {
     v9 = 0;
     result = &v58;
-    v50 = *(v8 + 32);
+    v50 = *(v8 + 16);
     v11 = v7 == 0.0 && v6 == 0.0;
     v49 = v11;
     v12 = v7 - v6;
@@ -7378,8 +7248,8 @@ LABEL_67:
     }
 
     v13 = 0;
-    v14 = *(v8 + 300);
-    v15 = *(v8 + 716);
+    v14 = *(v8 + 75);
+    v15 = v8[179];
     while (1)
     {
       v16 = 0;
@@ -7556,7 +7426,7 @@ LABEL_45:
 
       v26 = v36;
 LABEL_54:
-      v41 = v8 + 480072 + 52 * (v9 * v50 + v13);
+      v41 = &v8[13 * v9 * v50 + 120018 + 13 * v13];
       if (v28)
       {
         v42 = 0xFFFF;
@@ -8070,7 +7940,7 @@ LABEL_46:
   return result;
 }
 
-void H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(H16ISP::H16ISPFilterGraphNode *this)
+void H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(NSObject **this)
 {
   *this = &unk_283814208;
   H16ISP::H16ISPFilterGraphNode::Deactivate(this);
@@ -8083,13 +7953,13 @@ void H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(H16ISP::H16ISPFilterG
   JUMPOUT(0x22AA55B60);
 }
 
-uint64_t H16ISP::H16ISPFilterGraphNode::Deactivate(H16ISP::H16ISPFilterGraphNode *this)
+uint64_t H16ISP::H16ISPFilterGraphNode::Deactivate(NSObject **this)
 {
   kdebug_trace();
   if (*(this + 16) == 1)
   {
     *(this + 16) = 0;
-    v2 = *(this + 1);
+    v2 = this[1];
     if (v2)
     {
       block[0] = MEMORY[0x277D85DD0];
@@ -8098,11 +7968,11 @@ uint64_t H16ISP::H16ISPFilterGraphNode::Deactivate(H16ISP::H16ISPFilterGraphNode
       block[3] = &__block_descriptor_tmp_2_1;
       block[4] = this;
       dispatch_sync(v2, block);
-      v3 = *(this + 1);
+      v3 = this[1];
       if (v3)
       {
         dispatch_release(v3);
-        *(this + 1) = 0;
+        this[1] = 0;
       }
     }
   }
@@ -8364,55 +8234,55 @@ void H16ISP::H16ISPExclaveGraphNode::GetModuleParams(H16ISP::H16ISPDevice **this
   }
 }
 
-void H16ISP::H16ISPExclaveGraphNode::~H16ISPExclaveGraphNode(H16ISP::H16ISPExclaveGraphNode *this)
+void H16ISP::H16ISPExclaveGraphNode::~H16ISPExclaveGraphNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
   JUMPOUT(0x22AA55B60);
 }
 
-void GMC_RansacFitFundMatrix(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
+void GMC_RansacFitFundMatrix(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int *a8, _BYTE *a9, void *a10)
 {
-  Matrix<double>::Matrix(v20, 3, *(a1 + 20));
-  v20[0] = &unk_283812E40;
-  Matrix<double>::Matrix(v19, 3, *(a2 + 20));
+  Matrix<double>::Matrix(v25, 3, *(a1 + 20));
+  v25[0] = &unk_283812E40;
+  Matrix<double>::Matrix(v24, 3, *(a2 + 20));
+  v23 = 0;
+  v24[0] = &unk_283812E40;
+  memset(v22, 0, sizeof(v22));
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
+  Algo::Normalize2DPts(a1, v25, v22);
+  Algo::Normalize2DPts(a2, v24, v20);
+  Matrix<unsigned int>::Matrix(&v19, 1, *(a1 + 20));
+  v19 = &unk_283814350;
   v18 = 0;
-  v19[0] = &unk_283812E40;
-  memset(v17, 0, sizeof(v17));
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
-  Algo::Normalize2DPts(a1, v20, v17);
-  Algo::Normalize2DPts(a2, v19, v15);
-  Matrix<unsigned int>::Matrix(&v14, 1, *(a1 + 20));
-  v14 = &unk_283814350;
-  v13 = 0;
   if ((a4 & 1) == 0)
   {
-    v9 = *(a5 + 20) * *(a5 + 16);
-    if (v9 >= 1)
+    v14 = *(a5 + 20) * *(a5 + 16);
+    if (v14 >= 1)
     {
-      v10 = *(a5 + 8);
-      v11 = v10 + v9;
-      if (v11 <= v10 + 1)
+      v15 = *(a5 + 8);
+      v16 = v15 + v14;
+      if (v16 <= v15 + 1)
       {
-        v11 = v10 + 1;
+        v16 = v15 + 1;
       }
 
-      memset(v10, 1, v11 - v10);
+      memset(v15, 1, v16 - v15);
     }
   }
 
-  Matrix<BOOL>::Matrix(v12, a5, 0, -1);
+  Matrix<BOOL>::Matrix(v17, a5, 0, -1);
 }
 
-void sub_224900510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_224900510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   Matrix<double>::~Matrix(&a49);
   Matrix<unsigned int>::~Matrix(&a53);
   Matrix<unsigned int>::~Matrix(&a62);
-  Matrix<unsigned int>::~Matrix(&a71);
-  Matrix<double>::~Matrix(v71 - 168);
-  Matrix<double>::~Matrix(v71 - 136);
+  Matrix<unsigned int>::~Matrix(&a65);
+  Matrix<double>::~Matrix(v65 - 168);
+  Matrix<double>::~Matrix(v65 - 136);
   _Unwind_Resume(a1);
 }
 
@@ -8589,6 +8459,21 @@ LABEL_9:
   return result;
 }
 
+uint64_t Matrix<unsigned int>::Matrix(uint64_t a1, int a2, int a3)
+{
+  *a1 = &unk_283813A68;
+  if (a3 * a2)
+  {
+    operator new[]();
+  }
+
+  *(a1 + 8) = 0;
+  *(a1 + 16) = a2;
+  *(a1 + 20) = a3;
+  *(a1 + 24) = 0;
+  return a1;
+}
+
 void MatrixNxPts<1u,unsigned int>::~MatrixNxPts(uint64_t a1)
 {
   Matrix<unsigned int>::~Matrix(a1);
@@ -8624,32 +8509,32 @@ void MatrixNxPts<1u,BOOL>::~MatrixNxPts(uint64_t a1)
   JUMPOUT(0x22AA55B60);
 }
 
-uint64_t Matrix<BOOL>::Matrix(uint64_t result, int a2, int a3)
+uint64_t Matrix<BOOL>::Matrix(uint64_t a1, int a2, int a3)
 {
-  *result = &unk_283812CF0;
+  *a1 = &unk_283812CF0;
   if (a3 * a2)
   {
     operator new[]();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = a2;
-  *(result + 20) = a3;
-  *(result + 24) = 0;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = a2;
+  *(a1 + 20) = a3;
+  *(a1 + 24) = 0;
+  return a1;
 }
 
 uint64_t GMC_Controller(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8)
 {
   v14 = 0;
-  v15 = &v89 + 1;
+  v15 = &v90 + 1;
   v16 = *(a5 + 72) / *(a5 + 80);
   *(a7 + 96) = v16;
-  v93 = 0;
+  v94 = 0;
+  v93 = 0u;
   v92 = 0u;
-  v91 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
   v17 = vdupq_n_s64(2uLL);
   v18 = vdupq_n_s64(3uLL);
   do
@@ -8701,12 +8586,12 @@ uint64_t GMC_Controller(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
   while (v14 != 3);
   v24 = 0;
-  *(a7 + 64) = v93;
-  v25 = v92;
-  *(a7 + 32) = v91;
+  *(a7 + 64) = v94;
+  v25 = v93;
+  *(a7 + 32) = v92;
   *(a7 + 48) = v25;
-  v26 = v90;
-  *a7 = v89;
+  v26 = v91;
+  *a7 = v90;
   *(a7 + 16) = v26;
   *&v26 = *(a5 + 16);
   *(a8 + 88) = v16;
@@ -8766,18 +8651,18 @@ uint64_t GMC_Controller(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
     }
   }
 
-  Matrix<double>::Matrix(&v85, 2, v33);
-  v85 = &unk_283813CF8;
-  Matrix<double>::Matrix(&v81, 2, v33);
+  Matrix<double>::Matrix(&v86, 2, v33);
+  v86 = &unk_283813CF8;
+  Matrix<double>::Matrix(&v82, 2, v33);
   v35 = *(a1 + 20);
-  v81 = &unk_283813CF8;
+  v82 = &unk_283813CF8;
   v36 = v35 / v33;
   if (v36 <= 1.0)
   {
-    Matrix<double>::Resize(&v85, *(a1 + 16), v35);
-    memcpy(v86, *(a1 + 8), 8 * v87 * v88);
-    Matrix<double>::Resize(&v81, *(a2 + 16), *(a2 + 20));
-    memcpy(v82, *(a2 + 8), 8 * v83 * v84);
+    Matrix<double>::Resize(&v86, *(a1 + 16), v35);
+    memcpy(v87, *(a1 + 8), 8 * v88 * v89);
+    Matrix<double>::Resize(&v82, *(a2 + 16), *(a2 + 20));
+    memcpy(v83, *(a2 + 8), 8 * v84 * v85);
   }
 
   else if (v33)
@@ -8789,12 +8674,12 @@ uint64_t GMC_Controller(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
       v39 = *(a2 + 16);
       v40 = *(a2 + 20);
       v51 = v37 >= 2;
-      v41 = v87;
-      v42 = v88;
-      v44 = !v51 || v87 == 1;
-      v45 = v83;
-      v46 = v84;
-      v48 = v39 == 1 || v83 == 1;
+      v41 = v88;
+      v42 = v89;
+      v44 = !v51 || v88 == 1;
+      v45 = v84;
+      v46 = v85;
+      v48 = v39 == 1 || v84 == 1;
       while (1)
       {
         v49 = (v36 * v38);
@@ -8805,13 +8690,13 @@ uint64_t GMC_Controller(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
           break;
         }
 
-        *(v86 + v38) = *(*(a1 + 8) + 8 * v49);
+        *(v87 + v38) = *(*(a1 + 8) + 8 * v49);
         if (v44)
         {
           break;
         }
 
-        *(v86 + v42 + v38) = *(*(a1 + 8) + 8 * v49 + 8 * v35);
+        *(v87 + v42 + v38) = *(*(a1 + 8) + 8 * v49 + 8 * v35);
         if (!v39)
         {
           break;
@@ -8823,13 +8708,13 @@ uint64_t GMC_Controller(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
           break;
         }
 
-        *(v82 + v38) = *(*(a2 + 8) + 8 * v49);
+        *(v83 + v38) = *(*(a2 + 8) + 8 * v49);
         if (v48)
         {
           break;
         }
 
-        *(v82 + v46 + v38++) = *(*(a2 + 8) + 8 * v49 + 8 * v40);
+        *(v83 + v46 + v38++) = *(*(a2 + 8) + 8 * v49 + 8 * v40);
         if (v33 == v38)
         {
           goto LABEL_67;
@@ -8841,34 +8726,34 @@ uint64_t GMC_Controller(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   }
 
 LABEL_67:
-  Matrix<double>::Matrix(v78, 3, v88);
-  v78[0] = &unk_283812E40;
-  Matrix<double>::Matrix(v75, 3, v88);
-  v75[0] = &unk_283812E40;
-  if (GMC_Undistort(&v85, &v81, a5, v78, v75))
+  Matrix<double>::Matrix(v79, 3, v89);
+  v79[0] = &unk_283812E40;
+  Matrix<double>::Matrix(v76, 3, v89);
+  v76[0] = &unk_283812E40;
+  if (GMC_Undistort(&v86, &v82, a5, v79, v76))
   {
     v64 = 166;
     goto LABEL_95;
   }
 
-  v54 = v80;
-  if (v80)
+  v54 = v81;
+  if (v81)
   {
-    if (v79 >= 3)
+    if (v80 >= 3)
     {
       v55 = 0;
-      v56 = v76;
-      v57 = v77;
-      v58 = 16 * v77;
+      v56 = v77;
+      v57 = v78;
+      v58 = 16 * v78;
       while (1)
       {
-        *(v78[1] + 8 * (2 * v54) + 8 * v55) = 0x3FF0000000000000;
+        *(v79[1] + 8 * (2 * v54) + 8 * v55) = 0x3FF0000000000000;
         if (v56 < 3 || v55 >= v57)
         {
           break;
         }
 
-        *(v75[1] + v58 + 8 * v55++) = 0x3FF0000000000000;
+        *(v76[1] + v58 + 8 * v55++) = 0x3FF0000000000000;
         if (v54 == v55)
         {
           goto LABEL_74;
@@ -8880,17 +8765,17 @@ LABEL_67:
   }
 
 LABEL_74:
-  if ((*(a5 + 529) & 1) != 0 && GMC_Homography(v78, v75, a5))
+  if ((*(a5 + 529) & 1) != 0 && GMC_Homography(v79, v76, a5))
   {
     v64 = 182;
 LABEL_95:
     __assert_rtn("GMC_Controller", "GMC_Controller.cpp", v64, "status == 0");
   }
 
-  v74 = 0.0;
-  v59 = GMC_SpatialCoverageTest(v78, a5, &v74);
-  v60 = v74;
-  *a8 = v74;
+  v75 = 0.0;
+  v59 = GMC_SpatialCoverageTest(v79, a5, &v75);
+  v60 = v75;
+  *a8 = v75;
   if (GMC_Verbose == 1)
   {
     printf("GMC_SpatialCoverageTest, coverage: %lf\n", v60);
@@ -8905,45 +8790,46 @@ LABEL_95:
     }
 
     v61 = **(a4 + 8);
-    *&v73 = -1.0;
-    Matrix<BOOL>::Matrix(v72, 1, v80);
-    v72[0] = &unk_283814388;
-    v71 = 0;
+    *&v74 = -1.0;
+    Matrix<BOOL>::Matrix(v73, 1, v81);
+    v73[0] = &unk_283814388;
+    v72 = 0;
     if (v61 >= 0.0)
     {
-      Matrix<double>::Matrix(v70, a4, 0, -1);
+      Matrix<double>::Matrix(v71, a4, 0, -1);
     }
 
-    v62 = *&v73;
-    *(a8 + 16) = *&v73;
+    v62 = *&v74;
+    *(a8 + 16) = *&v74;
     if (GMC_Verbose == 1)
     {
-      printf("GMC_FaceCoverageTest, coverage: %lf, num points: %d\n", v62, v71);
+      printf("GMC_FaceCoverageTest, coverage: %lf, num points: %d\n", v62, v72);
     }
 
     *(a8 + 392) = 1u;
     if ((a6 | 1) == 1)
     {
+      Matrix<double>::Matrix(v70, 3, *(a5 + 532));
+      v70[0] = &unk_283812E40;
       Matrix<double>::Matrix(v69, 3, *(a5 + 532));
       v69[0] = &unk_283812E40;
-      Matrix<double>::Matrix(v68, 3, *(a5 + 532));
+      Matrix<double>::Matrix(v68, 3, v81 - *(a5 + 532));
       v68[0] = &unk_283812E40;
-      Matrix<double>::Matrix(v67, 3, v80 - *(a5 + 532));
+      Matrix<double>::Matrix(v67, 3, v78 - *(a5 + 532));
       v67[0] = &unk_283812E40;
-      Matrix<double>::Matrix(v66, 3, v77 - *(a5 + 532));
-      v66[0] = &unk_283812E40;
-      Matrix<BOOL>::Matrix(v65, 1, v80 - *(a5 + 532));
-      v65[0] = &unk_283814388;
-      if (!GMC_ExtractTestSamples(v78, v75, *(a5 + 532), v61 >= 0.0, v72, v67, v66, v69, v68, v65))
+      Matrix<BOOL>::Matrix(v66, 1, v81 - *(a5 + 532));
+      v66[0] = &unk_283814388;
+      if (!GMC_ExtractTestSamples(v79, v76, *(a5 + 532), v61 >= 0.0, v73, v68, v67, v70, v69, v66))
       {
-        calcProjectionDists(v69, v68, a5);
+        memset(v65, 0, sizeof(v65));
+        calcProjectionDists(v70, v69, a5, v65[0].i64);
       }
 
       __assert_rtn("GMC_Controller", "GMC_Controller.cpp", 250, "status == 0");
     }
 
     v34 = 4294967284;
-    Matrix<BOOL>::~Matrix(v72);
+    Matrix<BOOL>::~Matrix(v73);
   }
 
   else
@@ -8951,10 +8837,10 @@ LABEL_95:
     v34 = 0xFFFFFFFFLL;
   }
 
-  Matrix<double>::~Matrix(v75);
-  Matrix<double>::~Matrix(v78);
-  Matrix<double>::~Matrix(&v81);
-  Matrix<double>::~Matrix(&v85);
+  Matrix<double>::~Matrix(v76);
+  Matrix<double>::~Matrix(v79);
+  Matrix<double>::~Matrix(&v82);
+  Matrix<double>::~Matrix(&v86);
   return v34;
 }
 
@@ -8980,182 +8866,167 @@ void sub_224902638(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void calcProjectionDists(uint64_t a1, uint64_t a2, __int128 *a3)
+void calcProjectionDists(uint64_t a1, uint64_t a2, __int128 *a3, double *a4)
 {
-  v5 = *(a3 + 72);
-  v192 = *(a3 + 56);
-  v193 = v5;
-  v194 = *(a3 + 88);
-  v195 = *(a3 + 13);
-  v6 = a3[1];
-  v188 = *a3;
-  v189 = v6;
-  v190 = a3[2];
-  v191 = *(a3 + 6);
-  v7 = a3[27];
-  v183 = a3[26];
-  v184 = v7;
-  v8 = *(a3 + 56);
-  v9 = a3[24];
-  v182 = a3[25];
-  v181 = v9;
-  v186 = *(a3 + 456);
-  v10 = *(a3 + 59);
+  v6 = *(a3 + 72);
+  v193 = *(a3 + 56);
+  v194 = v6;
+  v195 = *(a3 + 88);
+  v196 = *(a3 + 13);
+  v7 = a3[1];
+  v189 = *a3;
+  v190 = v7;
+  v191 = a3[2];
+  v192 = *(a3 + 6);
+  v8 = a3[27];
+  v184 = a3[26];
   v185 = v8;
-  v187 = v10;
-  v11 = a3[21];
-  v176 = a3[20];
-  v177 = v11;
-  v12 = a3[18];
-  v175 = a3[19];
-  v174 = v12;
-  v13 = *(a3 + 44);
-  v179 = *(a3 + 360);
-  v14 = *(a3 + 47);
-  v178 = v13;
-  v180 = v14;
-  toNonHomg<3u>(a1, v170);
-  toNonHomg<3u>(a2, v166);
-  v15 = 0;
+  v9 = *(a3 + 56);
+  v10 = a3[24];
+  v183 = a3[25];
+  v182 = v10;
+  v187 = *(a3 + 456);
+  v11 = *(a3 + 59);
+  v186 = v9;
+  v188 = v11;
+  v12 = a3[21];
+  v177 = a3[20];
+  v178 = v12;
+  v13 = a3[18];
+  v176 = a3[19];
+  v175 = v13;
+  v14 = *(a3 + 44);
+  v180 = *(a3 + 360);
+  v15 = *(a3 + 47);
+  v179 = v14;
+  v181 = v15;
+  toNonHomg<3u>(a1, v171);
+  toNonHomg<3u>(a2, &v167);
   v16 = 0;
-  v162 = v192;
-  v17 = *(&v193 + 1);
-  v161 = v193;
-  v164 = 0uLL;
-  *&v163 = v193;
-  *(&v163 + 1) = *(&v192 + 1);
-  v165 = *(&v193 + 1);
-  memset(v143, 0, sizeof(v143));
+  v17 = 0;
+  v163 = v193;
+  v18 = *(&v194 + 1);
+  v162 = v194;
+  v165 = 0uLL;
+  *&v164 = v194;
+  *(&v164 + 1) = *(&v193 + 1);
+  v166 = *(&v194 + 1);
+  memset(v144, 0, sizeof(v144));
   do
   {
-    v18 = v15;
-    v19 = 3;
+    v19 = v16;
+    v20 = 3;
     do
     {
-      *&v143[v18] = *(v161.f64 + v18) / v17;
-      v18 += 8;
-      --v19;
+      *&v144[v19] = *(v162.f64 + v19) / v18;
+      v19 += 8;
+      --v20;
     }
 
-    while (v19);
-    ++v16;
-    v15 += 24;
+    while (v20);
+    ++v17;
+    v16 += 24;
   }
 
-  while (v16 != 3);
-  v20 = 0;
+  while (v17 != 3);
   v21 = 0;
-  v164 = *&v143[48];
-  v165 = *&v143[64];
-  v162 = *&v143[16];
-  v163 = *&v143[32];
-  v161 = *v143;
-  v157 = v188;
-  v22 = *(&v189 + 1);
-  v156 = v189;
-  v159 = 0uLL;
-  *&v158 = v189;
-  *(&v158 + 1) = *(&v188 + 1);
-  v160 = *(&v189 + 1);
-  memset(v143, 0, sizeof(v143));
+  v22 = 0;
+  v165 = *&v144[48];
+  v166 = *&v144[64];
+  v163 = *&v144[16];
+  v164 = *&v144[32];
+  v162 = *v144;
+  v158 = v189;
+  v23 = *(&v190 + 1);
+  v157 = v190;
+  v160 = 0uLL;
+  *&v159 = v190;
+  *(&v159 + 1) = *(&v189 + 1);
+  v161 = *(&v190 + 1);
+  memset(v144, 0, sizeof(v144));
   do
   {
-    v23 = v20;
-    v24 = 3;
+    v24 = v21;
+    v25 = 3;
     do
     {
-      *&v143[v23] = *(v156.f64 + v23) / v22;
-      v23 += 8;
-      --v24;
+      *&v144[v24] = *(v157.f64 + v24) / v23;
+      v24 += 8;
+      --v25;
     }
 
-    while (v24);
-    ++v21;
-    v20 += 24;
+    while (v25);
+    ++v22;
+    v21 += 24;
   }
 
-  while (v21 != 3);
-  v25 = 0;
-  v158 = *&v143[32];
-  v159 = *&v143[48];
-  v160 = *&v143[64];
-  v156 = *v143;
-  v157 = *&v143[16];
-  v154[2] = v183;
-  v154[3] = v184;
-  v155 = v185;
-  v154[0] = v181;
-  v154[1] = v182;
-  v152 = 0uLL;
-  v153 = 0.0;
+  while (v22 != 3);
+  v26 = 0;
+  v159 = *&v144[32];
+  v160 = *&v144[48];
+  v161 = *&v144[64];
+  v157 = *v144;
+  v158 = *&v144[16];
+  v155[2] = v184;
+  v155[3] = v185;
+  v156 = v186;
+  v155[0] = v182;
+  v155[1] = v183;
+  v153 = 0uLL;
+  v154 = 0.0;
   do
   {
-    *(&v152 + v25) = *(&v179 + v25) - *(&v190 + v25);
-    v25 += 8;
+    *(&v153 + v26) = *(&v180 + v26) - *(&v191 + v26);
+    v26 += 8;
   }
 
-  while (v25 != 24);
+  while (v26 != 24);
   if ((*(a3 + 529) & 1) == 0)
   {
-    v26 = 0;
-    memset(v143, 0, 24);
+    v27 = 0;
+    memset(v144, 0, 24);
     do
     {
-      *&v143[v26] = *(&v190 + v26) - *(&v194 + v26);
-      v26 += 8;
+      *&v144[v27] = *(&v191 + v27) - *(&v195 + v27);
+      v27 += 8;
     }
 
-    while (v26 != 24);
-    v152 = *v143;
-    v153 = *&v143[16];
+    while (v27 != 24);
+    v153 = *v144;
+    v154 = *&v144[16];
   }
 
-  toHomg(v170, v148);
-  toHomg(v166, v147);
-  GMC_WorldFromPoints(v148, v147, &v161, &v156, v154, &v152, 1, v149);
-  Matrix<double>::~Matrix(v147);
+  toHomg(v171, v149);
+  toHomg(&v167, v148);
+  GMC_WorldFromPoints(v149, v148, &v162, &v157, &v153, 1, v150, v155);
   Matrix<double>::~Matrix(v148);
-  v27 = 0;
-  memset(&v143[40], 0, 32);
-  v144 = 0;
-  memset(&v143[8], 0, 32);
-  *v143 = 0x3FF0000000000000;
-  *&v143[40] = 0x3FF0000000000000;
-  v146 = 0.0;
-  v145 = 0x3FF0000000000000;
-  v141 = 0;
-  v139 = 0u;
+  Matrix<double>::~Matrix(v149);
+  v28 = 0;
+  memset(&v144[40], 0, 32);
+  v145 = 0;
+  memset(&v144[8], 0, 32);
+  *v144 = 0x3FF0000000000000;
+  *&v144[40] = 0x3FF0000000000000;
+  v147 = 0.0;
+  v146 = 0x3FF0000000000000;
+  v142 = 0;
   v140 = 0u;
-  v28 = &v137 + 1;
-  v29 = vdupq_n_s64(2uLL);
-  v137 = 0u;
+  v141 = 0u;
+  v29 = &v138 + 1;
+  v30 = vdupq_n_s64(2uLL);
   v138 = 0u;
-  v30 = vdupq_n_s64(3uLL);
+  v139 = 0u;
+  v31 = vdupq_n_s64(3uLL);
   do
   {
-    v31 = v28;
-    v32 = 4;
-    v33 = xmmword_2249B9820;
+    v32 = v29;
+    v33 = 4;
+    v34 = xmmword_2249B9820;
     do
     {
-      if (vmovn_s64(vcgtq_u64(v30, v33)).u8[0])
+      if (vmovn_s64(vcgtq_u64(v31, v34)).u8[0])
       {
-        if (v27 + v32 == 4)
-        {
-          v34 = 1.0;
-        }
-
-        else
-        {
-          v34 = 0.0;
-        }
-
-        *(v31 - 1) = v34;
-      }
-
-      if (vmovn_s64(vcgtq_u64(vdupq_n_s64(3uLL), *&v33)).i32[1])
-      {
-        if (v27 + v32 == 5)
+        if (v28 + v33 == 4)
         {
           v35 = 1.0;
         }
@@ -9165,329 +9036,344 @@ void calcProjectionDists(uint64_t a1, uint64_t a2, __int128 *a3)
           v35 = 0.0;
         }
 
-        *v31 = v35;
+        *(v32 - 1) = v35;
       }
 
-      v33 = vaddq_s64(v33, v29);
-      v31 += 2;
-      v32 -= 2;
+      if (vmovn_s64(vcgtq_u64(vdupq_n_s64(3uLL), *&v34)).i32[1])
+      {
+        if (v28 + v33 == 5)
+        {
+          v36 = 1.0;
+        }
+
+        else
+        {
+          v36 = 0.0;
+        }
+
+        *v32 = v36;
+      }
+
+      v34 = vaddq_s64(v34, v30);
+      v32 += 2;
+      v33 -= 2;
     }
 
-    while (v32);
-    ++v27;
-    v28 += 3;
+    while (v33);
+    ++v28;
+    v29 += 3;
   }
 
-  while (v27 != 3);
-  v36 = 0;
-  *&v135 = 0;
-  v133 = 0u;
+  while (v28 != 3);
+  v37 = 0;
+  *&v136 = 0;
   v134 = 0u;
-  v131 = 0u;
-  v132 = 0u;
-  v37 = &v161;
-  do
-  {
-    v38 = 0;
-    v39 = &v137;
-    do
-    {
-      v40 = 0;
-      v41 = 0.0;
-      v42 = v39;
-      do
-      {
-        v43 = *v42;
-        v42 += 3;
-        v41 = v41 + v37->f64[v40++] * v43;
-      }
-
-      while (v40 != 3);
-      *(&v131 + 3 * v36 + v38++) = v41;
-      v39 = (v39 + 8);
-    }
-
-    while (v38 != 3);
-    ++v36;
-    v37 = (v37 + 24);
-  }
-
-  while (v36 != 3);
-  v44 = 0;
-  memset(v142, 0, sizeof(v142));
-  v45 = &v131;
-  do
-  {
-    v46 = 0;
-    v47 = v143;
-    do
-    {
-      v48 = 0;
-      v49 = 0.0;
-      v50 = v47;
-      do
-      {
-        v51 = *v50;
-        v50 += 4;
-        v49 = v49 + *(v45 + v48) * v51;
-        v48 += 8;
-      }
-
-      while (v48 != 24);
-      *(&v142[2 * v44] + v46++) = v49;
-      ++v47;
-    }
-
-    while (v46 != 4);
-    ++v44;
-    v45 = (v45 + 24);
-  }
-
-  while (v44 != 3);
-  v52 = 0;
-  *&v143[24] = -*&v152;
-  *&v143[56] = -*(&v152 + 1);
-  v146 = -v153;
-  v130 = 0;
-  v128 = 0u;
-  v129 = 0u;
-  v126 = 0u;
-  v127 = 0u;
-  v53 = &v126;
-  v54 = v154;
-  do
-  {
-    v55 = 0;
-    v56 = v53;
-    do
-    {
-      *v56 = *(v54 + v55);
-      v56 = (v56 + 24);
-      v55 += 8;
-    }
-
-    while (v55 != 24);
-    ++v52;
-    v53 = (v53 + 8);
-    v54 = (v54 + 24);
-  }
-
-  while (v52 != 3);
-  v57 = 0;
-  v141 = 0;
-  v139 = 0u;
-  v140 = 0u;
-  v137 = 0u;
-  v138 = 0u;
-  v58 = &v156;
-  do
-  {
-    v59 = 0;
-    v60 = &v126;
-    do
-    {
-      v61 = 0;
-      v62 = 0.0;
-      v63 = v60;
-      do
-      {
-        v64 = *v63;
-        v63 += 3;
-        v62 = v62 + v58->f64[v61++] * v64;
-      }
-
-      while (v61 != 3);
-      *(&v137 + 3 * v57 + v59++) = v62;
-      v60 = (v60 + 8);
-    }
-
-    while (v59 != 3);
-    ++v57;
-    v58 = (v58 + 24);
-  }
-
-  while (v57 != 3);
-  v65 = 0;
   v135 = 0u;
-  v136 = 0u;
-  v133 = 0u;
-  v134 = 0u;
-  v131 = 0u;
   v132 = 0u;
-  v66 = &v137;
+  v133 = 0u;
+  v38 = &v162;
   do
   {
-    v67 = 0;
-    v68 = v143;
+    v39 = 0;
+    v40 = &v138;
     do
     {
-      v69 = 0;
-      v70 = 0.0;
-      v71 = v68;
+      v41 = 0;
+      v42 = 0.0;
+      v43 = v40;
       do
       {
-        v72 = *v71;
-        v71 += 4;
-        v70 = v70 + *(v66 + v69) * v72;
-        v69 += 8;
+        v44 = *v43;
+        v43 += 3;
+        v42 = v42 + v38->f64[v41++] * v44;
       }
 
-      while (v69 != 24);
-      *(&v131 + 4 * v65 + v67++) = v70;
-      ++v68;
+      while (v41 != 3);
+      *(&v132 + 3 * v37 + v39++) = v42;
+      v40 = (v40 + 8);
     }
 
-    while (v67 != 4);
-    ++v65;
-    v66 = (v66 + 24);
+    while (v39 != 3);
+    ++v37;
+    v38 = (v38 + 24);
   }
 
-  while (v65 != 3);
-  Matrix<double>::Matrix(&v126, 4, v151);
-  *&v126 = &unk_2838143C0;
-  LODWORD(v138) = 1;
-  DWORD1(v138) = v151;
-  v123 = 1;
-  v124 = v151;
-  v125 = 0;
-  *&v137 = &unk_283812C58;
-  *(&v137 + 1) = 0;
-  BYTE8(v138) = 0;
-  v121 = &unk_283812C88;
-  __src = v150;
-  Matrix<double>::~Matrix(&v137);
-  LODWORD(v138) = 1;
-  DWORD1(v138) = DWORD1(v127);
-  v118 = 1;
-  v119 = DWORD1(v127);
-  v120 = 0;
-  *&v137 = &unk_283812C58;
-  *(&v137 + 1) = 0;
-  BYTE8(v138) = 0;
-  v116 = &unk_283812C88;
-  __dst = *(&v126 + 1);
-  Matrix<double>::~Matrix(&v137);
-  Matrix<double>::Resize(&v116, 1, v124);
-  memcpy(__dst, __src, 8 * v118 * v119);
-  Matrix<double>::~Matrix(&v116);
-  Matrix<double>::~Matrix(&v121);
-  LODWORD(v138) = 1;
-  DWORD1(v138) = v151;
-  v123 = 1;
-  v124 = v151;
-  v125 = 0;
-  *&v137 = &unk_283812C58;
-  *(&v137 + 1) = 0;
-  BYTE8(v138) = 0;
-  v121 = &unk_283812C88;
-  __src = &v150[8 * v151];
-  Matrix<double>::~Matrix(&v137);
-  LODWORD(v138) = 1;
-  DWORD1(v138) = DWORD1(v127);
-  v118 = 1;
-  v119 = DWORD1(v127);
-  v120 = 0;
-  *&v137 = &unk_283812C58;
-  *(&v137 + 1) = 0;
-  BYTE8(v138) = 0;
-  v116 = &unk_283812C88;
-  __dst = (*(&v126 + 1) + 8 * DWORD1(v127));
-  Matrix<double>::~Matrix(&v137);
-  Matrix<double>::Resize(&v116, v123, v124);
-  memcpy(__dst, __src, 8 * v118 * v119);
-  Matrix<double>::~Matrix(&v116);
-  Matrix<double>::~Matrix(&v121);
-  LODWORD(v138) = 1;
-  DWORD1(v138) = v151;
-  v123 = 1;
-  v124 = v151;
-  v125 = 0;
-  *&v137 = &unk_283812C58;
-  *(&v137 + 1) = 0;
-  BYTE8(v138) = 0;
-  v121 = &unk_283812C88;
-  __src = &v150[16 * v151];
-  Matrix<double>::~Matrix(&v137);
-  LODWORD(v138) = 1;
-  DWORD1(v138) = DWORD1(v127);
-  v118 = 1;
-  v119 = DWORD1(v127);
-  v120 = 0;
-  *&v137 = &unk_283812C58;
-  *(&v137 + 1) = 0;
-  BYTE8(v138) = 0;
-  v116 = &unk_283812C88;
-  __dst = (*(&v126 + 1) + 8 * (2 * DWORD1(v127)));
-  Matrix<double>::~Matrix(&v137);
-  Matrix<double>::Resize(&v116, v123, v124);
-  memcpy(__dst, __src, 8 * v118 * v119);
-  Matrix<double>::~Matrix(&v116);
-  Matrix<double>::~Matrix(&v121);
-  v73 = DWORD1(v127);
-  if (DWORD1(v127))
+  while (v37 != 3);
+  v45 = 0;
+  memset(v143, 0, sizeof(v143));
+  v46 = &v132;
+  do
   {
-    if (v127 < 4)
+    v47 = 0;
+    v48 = v144;
+    do
+    {
+      v49 = 0;
+      v50 = 0.0;
+      v51 = v48;
+      do
+      {
+        v52 = *v51;
+        v51 += 4;
+        v50 = v50 + *(v46 + v49) * v52;
+        v49 += 8;
+      }
+
+      while (v49 != 24);
+      *(&v143[2 * v45] + v47++) = v50;
+      ++v48;
+    }
+
+    while (v47 != 4);
+    ++v45;
+    v46 = (v46 + 24);
+  }
+
+  while (v45 != 3);
+  v53 = 0;
+  *&v144[24] = -*&v153;
+  *&v144[56] = -*(&v153 + 1);
+  v147 = -v154;
+  v131 = 0;
+  v129 = 0u;
+  v130 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v54 = &v127;
+  v55 = v155;
+  do
+  {
+    v56 = 0;
+    v57 = v54;
+    do
+    {
+      *v57 = *(v55 + v56);
+      v57 = (v57 + 24);
+      v56 += 8;
+    }
+
+    while (v56 != 24);
+    ++v53;
+    v54 = (v54 + 8);
+    v55 = (v55 + 24);
+  }
+
+  while (v53 != 3);
+  v58 = 0;
+  v142 = 0;
+  v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
+  v59 = &v157;
+  do
+  {
+    v60 = 0;
+    v61 = &v127;
+    do
+    {
+      v62 = 0;
+      v63 = 0.0;
+      v64 = v61;
+      do
+      {
+        v65 = *v64;
+        v64 += 3;
+        v63 = v63 + v59->f64[v62++] * v65;
+      }
+
+      while (v62 != 3);
+      *(&v138 + 3 * v58 + v60++) = v63;
+      v61 = (v61 + 8);
+    }
+
+    while (v60 != 3);
+    ++v58;
+    v59 = (v59 + 24);
+  }
+
+  while (v58 != 3);
+  v66 = 0;
+  v136 = 0u;
+  v137 = 0u;
+  v134 = 0u;
+  v135 = 0u;
+  v132 = 0u;
+  v133 = 0u;
+  v67 = &v138;
+  do
+  {
+    v68 = 0;
+    v69 = v144;
+    do
+    {
+      v70 = 0;
+      v71 = 0.0;
+      v72 = v69;
+      do
+      {
+        v73 = *v72;
+        v72 += 4;
+        v71 = v71 + *(v67 + v70) * v73;
+        v70 += 8;
+      }
+
+      while (v70 != 24);
+      *(&v132 + 4 * v66 + v68++) = v71;
+      ++v69;
+    }
+
+    while (v68 != 4);
+    ++v66;
+    v67 = (v67 + 24);
+  }
+
+  while (v66 != 3);
+  Matrix<double>::Matrix(&v127, 4, v152);
+  *&v127 = &unk_2838143C0;
+  LODWORD(v139) = 1;
+  DWORD1(v139) = v152;
+  v124 = 1;
+  v125 = v152;
+  v126 = 0;
+  *&v138 = &unk_283812C58;
+  *(&v138 + 1) = 0;
+  BYTE8(v139) = 0;
+  v122 = &unk_283812C88;
+  __src = v151;
+  Matrix<double>::~Matrix(&v138);
+  LODWORD(v139) = 1;
+  DWORD1(v139) = DWORD1(v128);
+  v119 = 1;
+  v120 = DWORD1(v128);
+  v121 = 0;
+  *&v138 = &unk_283812C58;
+  *(&v138 + 1) = 0;
+  BYTE8(v139) = 0;
+  v117 = &unk_283812C88;
+  __dst = *(&v127 + 1);
+  Matrix<double>::~Matrix(&v138);
+  Matrix<double>::Resize(&v117, 1, v125);
+  memcpy(__dst, __src, 8 * v119 * v120);
+  Matrix<double>::~Matrix(&v117);
+  Matrix<double>::~Matrix(&v122);
+  LODWORD(v139) = 1;
+  DWORD1(v139) = v152;
+  v124 = 1;
+  v125 = v152;
+  v126 = 0;
+  *&v138 = &unk_283812C58;
+  *(&v138 + 1) = 0;
+  BYTE8(v139) = 0;
+  v122 = &unk_283812C88;
+  __src = &v151[8 * v152];
+  Matrix<double>::~Matrix(&v138);
+  LODWORD(v139) = 1;
+  DWORD1(v139) = DWORD1(v128);
+  v119 = 1;
+  v120 = DWORD1(v128);
+  v121 = 0;
+  *&v138 = &unk_283812C58;
+  *(&v138 + 1) = 0;
+  BYTE8(v139) = 0;
+  v117 = &unk_283812C88;
+  __dst = (*(&v127 + 1) + 8 * DWORD1(v128));
+  Matrix<double>::~Matrix(&v138);
+  Matrix<double>::Resize(&v117, v124, v125);
+  memcpy(__dst, __src, 8 * v119 * v120);
+  Matrix<double>::~Matrix(&v117);
+  Matrix<double>::~Matrix(&v122);
+  LODWORD(v139) = 1;
+  DWORD1(v139) = v152;
+  v124 = 1;
+  v125 = v152;
+  v126 = 0;
+  *&v138 = &unk_283812C58;
+  *(&v138 + 1) = 0;
+  BYTE8(v139) = 0;
+  v122 = &unk_283812C88;
+  __src = &v151[16 * v152];
+  Matrix<double>::~Matrix(&v138);
+  LODWORD(v139) = 1;
+  DWORD1(v139) = DWORD1(v128);
+  v119 = 1;
+  v120 = DWORD1(v128);
+  v121 = 0;
+  *&v138 = &unk_283812C58;
+  *(&v138 + 1) = 0;
+  BYTE8(v139) = 0;
+  v117 = &unk_283812C88;
+  __dst = (*(&v127 + 1) + 8 * (2 * DWORD1(v128)));
+  Matrix<double>::~Matrix(&v138);
+  Matrix<double>::Resize(&v117, v124, v125);
+  memcpy(__dst, __src, 8 * v119 * v120);
+  Matrix<double>::~Matrix(&v117);
+  Matrix<double>::~Matrix(&v122);
+  v74 = DWORD1(v128);
+  if (DWORD1(v128))
+  {
+    if (v128 < 4)
     {
       __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
     }
 
-    v74 = 8 * (3 * DWORD1(v127));
+    v75 = 8 * (3 * DWORD1(v128));
     do
     {
-      *(*(&v126 + 1) + v74) = 0x3FF0000000000000;
-      v74 += 8;
-      --v73;
+      *(*(&v127 + 1) + v75) = 0x3FF0000000000000;
+      v75 += 8;
+      --v74;
     }
 
-    while (v73);
+    while (v74);
   }
 
-  MatrixMxN<3u,4u,double>::operator*<4u>(v142, &v126, &v137);
-  toNonHomg<3u>(&v137, &v121);
-  MatrixMxN<3u,4u,double>::operator*<4u>(&v131, &v126, &v116);
-  toNonHomg<3u>(&v116, v112);
-  Matrix<double>::Matrix(v109, 1, v124);
-  v109[0] = &unk_283812C88;
-  Matrix<double>::Matrix(v106, 1, v124);
-  v106[0] = &unk_283812C88;
-  v75 = v111;
-  if (v111)
+  MatrixMxN<3u,4u,double>::operator*<4u>(&v138, v143, &v127);
+  toNonHomg<3u>(&v138, &v122);
+  MatrixMxN<3u,4u,double>::operator*<4u>(&v117, &v132, &v127);
+  toNonHomg<3u>(&v117, &v113);
+  Matrix<double>::Matrix(v110, 1, v125);
+  v110[0] = &unk_283812C88;
+  Matrix<double>::Matrix(v107, 1, v125);
+  v107[0] = &unk_283812C88;
+  v76 = v112;
+  if (v112)
   {
-    if (v123)
+    if (v124)
     {
-      v76 = 0;
-      v77 = v124;
-      v78 = v172;
+      v77 = 0;
+      v78 = v125;
       v79 = v173;
-      v80 = v114;
+      v80 = v174;
       v81 = v115;
-      v82 = v168;
+      v82 = v116;
       v83 = v169;
-      v84 = v107;
-      v87 = v123 == 1 || v172 == 1 || v110 == 0;
-      v88 = 8 * v115;
-      v89 = 8 * v169;
-      while (v77 != v76)
+      v84 = v170;
+      v85 = v108;
+      v88 = v124 == 1 || v173 == 1 || v111 == 0;
+      v89 = 8 * v116;
+      v90 = 8 * v170;
+      while (v78 != v77)
       {
-        v90 = !v78 || v76 >= v79;
-        v91 = v90;
-        if (v91 || v87)
+        v91 = !v79 || v77 >= v80;
+        v92 = v91;
+        if (v92 || v88)
         {
           break;
         }
 
-        v92 = (__src + 8 * v76);
-        v93 = (v171 + 8 * v76);
-        *(v109[1] + 8 * v76) = (*v92 - *v93) * v17 * ((*v92 - *v93) * v17) + v17 * (v92[v77] - v93[v79]) * (v17 * (v92[v77] - v93[v79]));
-        if (!v80 || v76 >= v81 || !v82 || v76 >= v83 || v80 == 1 || v82 == 1 || !v84 || v76 >= v108)
+        v93 = (__src + 8 * v77);
+        v94 = (v172 + 8 * v77);
+        *(v110[1] + 8 * v77) = (*v93 - *v94) * v18 * ((*v93 - *v94) * v18) + v18 * (v93[v78] - v94[v80]) * (v18 * (v93[v78] - v94[v80]));
+        if (!v81 || v77 >= v82 || !v83 || v77 >= v84 || v81 == 1 || v83 == 1 || !v85 || v77 >= v109)
         {
           break;
         }
 
-        v94 = (*(v113 + 8 * v76) - *(v167 + 8 * v76)) * v22;
-        v95 = v22 * (*(v113 + v88 + 8 * v76) - *(v167 + v89 + 8 * v76));
-        *(v106[1] + 8 * v76++) = v94 * v94 + v95 * v95;
-        if (v75 == v76)
+        v95 = (*(v114 + 8 * v77) - *(v168 + 8 * v77)) * v23;
+        v96 = v23 * (*(v114 + v89 + 8 * v77) - *(v168 + v90 + 8 * v77));
+        *(v107[1] + 8 * v77++) = v95 * v95 + v96 * v96;
+        if (v76 == v77)
         {
           goto LABEL_90;
         }
@@ -9498,22 +9384,22 @@ void calcProjectionDists(uint64_t a1, uint64_t a2, __int128 *a3)
   }
 
 LABEL_90:
-  Matrix<double>::ConcatCols(v109, v106, v97);
-  Matrix<double>::Sqrt(v97, v98);
-  v96 = v99;
+  Matrix<double>::ConcatCols(v110, v107, v98);
+  Matrix<double>::Sqrt(v98, &v99);
+  v97 = v100;
+  v106 = v102;
+  v100 = 0;
+  v102 = 0;
+  v103[0] = &unk_283812C88;
+  v103[1] = v97;
+  v104 = 1;
   v105 = v101;
-  v99 = 0;
-  v101 = 0;
-  v102[0] = &unk_283812C88;
-  v102[1] = v96;
-  v103 = 1;
-  v104 = v100;
+  Matrix<double>::~Matrix(&v99);
   Matrix<double>::~Matrix(v98);
-  Matrix<double>::~Matrix(v97);
-  MatrixNxPts<1u,double>::Sort<1u,void>(v102);
+  MatrixNxPts<1u,double>::Sort<1u,void>(v103);
 }
 
-void sub_224903564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_224903564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
 {
   Matrix<double>::~Matrix(&a17);
   Matrix<double>::~Matrix(&a21);
@@ -9584,53 +9470,54 @@ _DWORD *diluteInliers(_DWORD *result, unsigned int a2, unsigned int a3, uint64_t
   return result;
 }
 
-uint64_t GMCAlgorithm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t GMCAlgorithm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (*(a4 + 560) == 1)
   {
-    v6 = 0;
-    v12 = 0uLL;
-    v13 = 0;
+    v7 = 0;
+    v14 = 0uLL;
+    v15 = 0;
     do
     {
-      *(&v12 + v6) = *(a4 + v6 + 360) - *(a4 + v6 + 32);
-      v6 += 8;
+      *(&v14 + v7) = *(a4 + v7 + 360) - *(a4 + v7 + 32);
+      v7 += 8;
     }
 
-    while (v6 != 24);
-    *(a6 + 72) = v12;
-    *(a6 + 88) = v13;
+    while (v7 != 24);
+    *(a6 + 72) = v14;
+    *(a6 + 88) = v15;
     if ((*(a4 + 529) & 1) == 0)
     {
-      v7 = 0;
-      v12 = 0uLL;
-      v13 = 0;
+      v8 = 0;
+      v14 = 0uLL;
+      v15 = 0;
       do
       {
-        *(&v12 + v7) = *(a4 + v7 + 32) - *(a4 + v7 + 88);
-        v7 += 8;
+        *(&v14 + v8) = *(a4 + v8 + 32) - *(a4 + v8 + 88);
+        v8 += 8;
       }
 
-      while (v7 != 24);
-      *(a6 + 72) = v12;
-      *(a6 + 88) = v13;
+      while (v8 != 24);
+      *(a6 + 72) = v14;
+      *(a6 + 88) = v15;
     }
 
-    LODWORD(v12) = 0;
-    GMC_BundleAdjustment(a1);
+    v13 = 0;
+    LODWORD(v14) = 0;
+    GMC_BundleAdjustment(a1, a2, a3, a5, a6 + 72, a4, a6, (a6 + 96), &v14, &v13);
   }
 
   *(a6 + 96) = *(a4 + 72) / *(a4 + 80);
   if (a5 != a6)
   {
     *a6 = *a5;
-    v8 = *(a5 + 16);
-    v9 = *(a5 + 32);
-    v10 = *(a5 + 48);
+    v9 = *(a5 + 16);
+    v10 = *(a5 + 32);
+    v11 = *(a5 + 48);
     *(a6 + 64) = *(a5 + 64);
-    *(a6 + 32) = v9;
-    *(a6 + 48) = v10;
-    *(a6 + 16) = v8;
+    *(a6 + 32) = v10;
+    *(a6 + 48) = v11;
+    *(a6 + 16) = v9;
   }
 
   return 0xFFFFFFFFLL;
@@ -9760,18 +9647,18 @@ LABEL_22:
   return result;
 }
 
-uint64_t MatrixMxN<3u,4u,double>::operator*<4u>@<X0>(const double *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t MatrixMxN<3u,4u,double>::operator*<4u>@<X0>(uint64_t a1@<X8>, const double *a2@<X0>, uint64_t a3@<X1>)
 {
-  MatrixMxN<3u,4u,double>::operator*(a1, a2, &v7);
+  MatrixMxN<3u,4u,double>::operator*(a2, a3, &v7);
   v4 = v8;
   v5 = v9;
-  *(a3 + 24) = v10;
+  *(a1 + 24) = v10;
   v8 = 0;
   v10 = 0;
-  *a3 = &unk_283812E40;
-  *(a3 + 8) = v4;
-  *(a3 + 16) = 3;
-  *(a3 + 20) = v5;
+  *a1 = &unk_283812E40;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = 3;
+  *(a1 + 20) = v5;
   return Matrix<double>::~Matrix(&v7);
 }
 
@@ -9814,4 +9701,90 @@ uint64_t Matrix<double>::ConcatCols@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uin
   }
 
   return result;
+}
+
+double Matrix<double>::Sqrt@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = Matrix<double>::Matrix(a2, *(a1 + 16), *(a1 + 20));
+  v5 = *(a1 + 20) * *(a1 + 16);
+  if (v5)
+  {
+    v6 = *(a1 + 8);
+    v7 = *(v3 + 8);
+    do
+    {
+      v8 = *v6++;
+      result = sqrt(v8);
+      *v7++ = result;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  return result;
+}
+
+uint64_t GMC_UpdateParamsWithResults(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 72) = *(a2 + 96) * *(a1 + 80);
+  if (a2 + 72 != a1 + 456)
+  {
+    v2 = *(a2 + 72);
+    *(a1 + 472) = *(a2 + 88);
+    *(a1 + 456) = v2;
+  }
+
+  return 0;
+}
+
+void MatrixNxPts<4u,double>::~MatrixNxPts(uint64_t a1)
+{
+  Matrix<double>::~Matrix(a1);
+
+  JUMPOUT(0x22AA55B60);
+}
+
+void MatrixMxN<3u,4u,double>::operator*(const double *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  if (*(a2 + 16) == 4)
+  {
+    Matrix<double>::Matrix(a3, 3, *(a2 + 20));
+    LODWORD(v6) = 4;
+    vDSPMmul<double>(a1, 1, *(a2 + 8), 1, *(a3 + 8), 1, 3, *(a2 + 20), v6);
+  }
+
+  else
+  {
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 0;
+    *a3 = &unk_283812C58;
+    *(a3 + 24) = 0;
+  }
+}
+
+void CNeonBlurMAccelerate::CNeonBlurMAccelerate(CNeonBlurMAccelerate *this)
+{
+  *this = &unk_2838143F8;
+}
+
+{
+  *this = &unk_2838143F8;
+}
+
+void H16ISP::H16ISPGraphExclaveFaceTrackingSecondaryNode::H16ISPGraphExclaveFaceTrackingSecondaryNode(H16ISP::H16ISPGraphExclaveFaceTrackingSecondaryNode *this, H16ISP::H16ISPDevice *a2, int a3)
+{
+  H16ISP::H16ISPFilterGraphNode::H16ISPFilterGraphNode(this, 23);
+  *v5 = &unk_283814428;
+  *(v5 + 80) = 0;
+  *(v5 + 88) = a2;
+  *(v5 + 96) = a3;
+}
+
+{
+  H16ISP::H16ISPFilterGraphNode::H16ISPFilterGraphNode(this, 23);
+  *v5 = &unk_283814428;
+  *(v5 + 80) = 0;
+  *(v5 + 88) = a2;
+  *(v5 + 96) = a3;
 }

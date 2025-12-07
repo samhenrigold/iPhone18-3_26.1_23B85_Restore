@@ -102,7 +102,6 @@
   v12 = MEMORY[0x277D82BE0](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -210,7 +209,6 @@ BOOL __67__NLActivityTypeOcurrenceRegistry_endDatesWithinSpecifiedDateRange__blo
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&endDatesWithinSpecifiedDateRange, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMostRecentOccurence

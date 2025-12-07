@@ -26,7 +26,7 @@
   [(QuoteCollectionViewCell *)&v13 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC22SubscribePageExtension23QuoteCollectionViewCell_quoteView];
   contentView = [v2 contentView];
-  sub_100016C60(0, &qword_100922300);
+  sub_100016C60(0, &qword_100922300, UIView_ptr);
   sub_1007477B4();
   v6 = v5;
   v8 = v7;

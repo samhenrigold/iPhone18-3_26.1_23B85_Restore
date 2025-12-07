@@ -1,3 +1,459 @@
+uint64_t vt_Copy_l10r_rgb_444vf(uint64_t a1, int64x2_t *a2, uint64_t a3, void *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
+{
+  v14 = a1;
+  v49 = *MEMORY[0x1E69E9840];
+  v15 = *(a1 + 162);
+  v16 = *a2;
+  v17 = a2[1];
+  v46 = a2[2];
+  v47 = v16;
+  v19 = *a6;
+  v18 = a6[1];
+  v44 = v17;
+  v45 = v19;
+  v43 = v18;
+  v48 = a6[2];
+  if (v15 == 255)
+  {
+    v20 = malloc_type_calloc(1uLL, 0x49CuLL, 0x10B0040FF6A342BuLL);
+    if (!v20)
+    {
+      v21 = 0;
+LABEL_26:
+      free(v20);
+      return v21;
+    }
+  }
+
+  else
+  {
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
+    v20 = &v41 - v22;
+    bzero(&v41 - v22, v23);
+  }
+
+  v24 = a9;
+  v25 = vbslq_s8(vcgtq_s64(vaddq_s64(v46, v44), v47), vsubq_s64(v47, v46), v44);
+  v26 = vbslq_s8(vcgtq_s64(vaddq_s64(v48, v43), v45), vsubq_s64(v45, v48), v43);
+  v27 = vbslq_s8(vcgtq_s64(v26, v25), v25, v26);
+  v25.i64[0] = v27.i64[0];
+  v25.i64[1] = -1;
+  v28 = vaddq_s64(v46, v25);
+  v29 = (*a4 * (v28.i64[1] + v27.i64[1]) + 4 * v28.i64[0]) > *a5;
+  v42 = a9;
+  v44 = v27;
+  if (v29)
+  {
+    v30 = v14;
+    v31 = a8;
+    v32 = a7;
+  }
+
+  else if (*(a3 + 8) && v28.i64[0] + a4[1] * (v28.i64[1] + v27.i64[1]) > a5[1])
+  {
+    v30 = v14;
+    v31 = a8;
+    v32 = a7;
+  }
+
+  else
+  {
+    v33 = vaddq_s64((*&v48 + __PAIR128__(-1, 0)), v27);
+    if (v33.i64[0] + *a8 * v33.i64[1] <= *a9)
+    {
+      if (*(a7 + 8) && (a8[1] * v33.i64[1] + 2 * v33.i64[0]) > a9[1])
+      {
+        v30 = v14;
+        v31 = a8;
+        v32 = a7;
+      }
+
+      else
+      {
+        if (!*(a7 + 16) || v33.i64[0] + a8[2] * v33.i64[1] <= a9[2])
+        {
+          goto LABEL_20;
+        }
+
+        v30 = v14;
+        v31 = a8;
+        v32 = a7;
+      }
+    }
+
+    else
+    {
+      v30 = v14;
+      v31 = a8;
+      v32 = a7;
+    }
+  }
+
+  fig_log_get_emitter();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41, v42, v43.i32[0]);
+  a7 = v32;
+  a8 = v31;
+  v14 = v30;
+  v24 = v42;
+  v27 = v44;
+  if (v34)
+  {
+    v21 = v34;
+    goto LABEL_25;
+  }
+
+LABEL_20:
+  *v20 = v15;
+  v35 = v46;
+  *(v20 + 4) = v47;
+  *(v20 + 20) = v27;
+  *(v20 + 36) = v35;
+  *(v20 + 5) = v45;
+  *(v20 + 6) = v27;
+  *(v20 + 7) = v48;
+  *(v20 + 7) = a3;
+  *(v20 + 8) = a4;
+  *(v20 + 9) = a5;
+  *(v20 + 16) = a7;
+  *(v20 + 17) = a8;
+  *(v20 + 18) = v24;
+  *(v20 + 19) = v14;
+  global_queue = dispatch_get_global_queue(0, 0);
+  dispatch_apply_f(v15, global_queue, v20, vt_Copy_l10r_rgb_444vf_GCD);
+  if (!v15)
+  {
+    return 0;
+  }
+
+  v37 = (v20 + 160);
+  v38 = v15;
+  while (1)
+  {
+    v39 = *v37++;
+    v21 = v39;
+    if (v39)
+    {
+      break;
+    }
+
+    if (!--v38)
+    {
+      v21 = 0;
+      break;
+    }
+  }
+
+LABEL_25:
+  if (v15 == 255)
+  {
+    goto LABEL_26;
+  }
+
+  return v21;
+}
+
+unsigned __int8 *vt_Copy_l10r_rgb_444vf_GCD(unsigned __int8 *result, uint64_t a2, double a3, double a4, float a5, float a6, float a7, float a8, float a9)
+{
+  v9 = *result;
+  v10 = *(result + 13);
+  v11 = v10 * a2 / v9;
+  v12 = (v10 + v10 * a2) / v9 - v11;
+  if (v12 >= 1)
+  {
+    v13 = 0;
+    v14 = *(result + 24);
+    v15 = *(result + 19);
+    v16 = **(result + 8);
+    v17 = *(result + 16);
+    v18 = *(result + 17);
+    v19 = *v18;
+    v20 = v18[1];
+    v21 = v18[2];
+    *&v22 = *(v15 + 136);
+    v23 = *&v22 / *(v15 + 128);
+    LOWORD(v22) = *(v15 + 140);
+    v24 = v22;
+    LOWORD(a5) = *(v15 + 144);
+    v25 = LODWORD(a5);
+    LOWORD(a6) = *(v15 + 146);
+    v26 = LODWORD(a6);
+    LOWORD(a7) = *(v15 + 148);
+    v27 = LODWORD(a7);
+    LOWORD(a8) = *(v15 + 150);
+    v28 = LODWORD(a8);
+    LOWORD(a9) = *(v15 + 152);
+    v29 = LODWORD(a9);
+    v30 = *(v15 + 36);
+    v31 = *(v15 + 40);
+    v32 = *(v15 + 44);
+    v33 = *(v15 + 48);
+    v34 = *(v15 + 52);
+    v35 = *(v15 + 56);
+    v36 = *(v15 + 60);
+    v37 = *(v15 + 64);
+    v38 = *(v15 + 68);
+    v39 = *(result + 14);
+    v40 = v11 + *(result + 15);
+    v41 = *(result + 28) * a2 / v9 + *(result + 44);
+    v42 = v17[2];
+    if (v42)
+    {
+      v43 = (v42 + v21 * v40 + v39);
+    }
+
+    else
+    {
+      v43 = 0;
+    }
+
+    v44 = *v17;
+    v45 = *(*(result + 16) + 8);
+    v46 = v45 == 0;
+    v47 = (v45 + v20 * v40 + v39);
+    if (v46)
+    {
+      v47 = 0;
+    }
+
+    v48 = (v44 + v19 * v40 + v39);
+    v49 = **(result + 7) + v41 * v16 + 4 * *(result + 36);
+    do
+    {
+      if (v14 >= 1)
+      {
+        v50 = v14;
+        v51 = v49;
+        v52 = v43;
+        v53 = v47;
+        v54 = v48;
+        do
+        {
+          v56 = *v51++;
+          v55 = v56;
+          v57 = v23 * ((v56 & 0x3FF) - v24);
+          v58 = v23 * (((v56 >> 10) & 0x3FF) - v24);
+          v59 = v23 * (((v56 >> 20) & 0x3FF) - v24);
+          v60 = (((v31 * v58) + (v30 * v59)) + (v32 * v57)) + v25;
+          v61 = v27;
+          if (v60 <= v27)
+          {
+            v61 = (((v31 * v58) + (v30 * v59)) + (v32 * v57)) + v25;
+            if (v60 < v25)
+            {
+              v61 = v25;
+            }
+          }
+
+          *v54++ = llroundf(v61);
+          if (v53)
+          {
+            v62 = ((v26 + (v59 * v33)) + (v58 * v34)) + (v57 * v35);
+            v63 = v29;
+            if (v62 <= v29)
+            {
+              v63 = ((v26 + (v59 * v33)) + (v58 * v34)) + (v57 * v35);
+              if (v62 < v28)
+              {
+                v63 = v28;
+              }
+            }
+
+            v64 = ((v26 + (v59 * v36)) + (v58 * v37)) + (v57 * v38);
+            *v53 = llroundf(v63);
+            v65 = v29;
+            if (v64 <= v29)
+            {
+              v65 = v64;
+              if (v64 < v28)
+              {
+                v65 = v28;
+              }
+            }
+
+            v53[1] = llroundf(v65);
+            v53 += 2;
+          }
+
+          if (v52)
+          {
+            *v52++ = 85 * (v55 >> 30);
+          }
+
+          --v50;
+        }
+
+        while (v50);
+      }
+
+      v49 += v16;
+      v48 += v19;
+      v47 += v20;
+      v43 += v21;
+      ++v13;
+    }
+
+    while (v13 != v12);
+  }
+
+  *&result[4 * a2 + 160] = 0;
+  return result;
+}
+
+uint64_t vt_Copy_l10r_TRC_Tone_Mat_TRC_xf444(uint64_t a1, int64x2_t *a2, uint64_t a3, void *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
+{
+  v14 = a1;
+  v51 = *MEMORY[0x1E69E9840];
+  v15 = *(a1 + 162);
+  v16 = *a2;
+  v17 = a2[1];
+  v48 = a2[2];
+  v49 = v16;
+  v19 = *a6;
+  v18 = a6[1];
+  v46 = v17;
+  v47 = v19;
+  v45 = v18;
+  v50 = a6[2];
+  if (v15 == 255)
+  {
+    v20 = malloc_type_calloc(1uLL, 0x49CuLL, 0x10B0040FF6A342BuLL);
+    if (!v20)
+    {
+      v21 = 0;
+LABEL_26:
+      free(v20);
+      return v21;
+    }
+  }
+
+  else
+  {
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
+    v20 = &v43 - v22;
+    bzero(&v43 - v22, v23);
+  }
+
+  v24 = a9;
+  v25 = vbslq_s8(vcgtq_s64(vaddq_s64(v48, v46), v49), vsubq_s64(v49, v48), v46);
+  v26 = vbslq_s8(vcgtq_s64(vaddq_s64(v50, v45), v47), vsubq_s64(v47, v50), v45);
+  v27 = vbslq_s8(vcgtq_s64(v26, v25), v25, v26);
+  v28.i64[0] = v27.i64[0];
+  v28.i64[1] = -1;
+  v29 = vaddq_s64(v48, v28);
+  v30 = (*a4 * (v29.i64[1] + v27.i64[1]) + 4 * v29.i64[0]) > *a5;
+  v44 = a9;
+  v46 = v27;
+  if (v30)
+  {
+    v31 = v14;
+    v32 = a8;
+    v33 = a7;
+  }
+
+  else if (*(a3 + 8) && v29.i64[0] + a4[1] * (v29.i64[1] + v27.i64[1]) > a5[1])
+  {
+    v31 = v14;
+    v32 = a8;
+    v33 = a7;
+  }
+
+  else
+  {
+    v34 = vaddq_s64(v50, v28);
+    v35 = v34.i64[1] + v27.i64[1];
+    if ((*a8 * (v34.i64[1] + v27.i64[1]) + 2 * v34.i64[0]) <= *a9)
+    {
+      if (*(a7 + 8) && (a8[1] * v35 + 4 * v34.i64[0]) > a9[1])
+      {
+        v31 = v14;
+        v32 = a8;
+        v33 = a7;
+      }
+
+      else
+      {
+        if (!*(a7 + 16) || (2 * v34.i64[0] + a8[2] * v35) <= a9[2])
+        {
+          goto LABEL_20;
+        }
+
+        v31 = v14;
+        v32 = a8;
+        v33 = a7;
+      }
+    }
+
+    else
+    {
+      v31 = v14;
+      v32 = a8;
+      v33 = a7;
+    }
+  }
+
+  fig_log_get_emitter();
+  v36 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v43, v44, v45.i32[0]);
+  a7 = v33;
+  a8 = v32;
+  v14 = v31;
+  v24 = v44;
+  v27 = v46;
+  if (v36)
+  {
+    v21 = v36;
+    goto LABEL_25;
+  }
+
+LABEL_20:
+  *v20 = v15;
+  v37 = v48;
+  *(v20 + 4) = v49;
+  *(v20 + 20) = v27;
+  *(v20 + 36) = v37;
+  *(v20 + 5) = v47;
+  *(v20 + 6) = v27;
+  *(v20 + 7) = v50;
+  *(v20 + 7) = a3;
+  *(v20 + 8) = a4;
+  *(v20 + 9) = a5;
+  *(v20 + 16) = a7;
+  *(v20 + 17) = a8;
+  *(v20 + 18) = v24;
+  *(v20 + 19) = v14;
+  global_queue = dispatch_get_global_queue(0, 0);
+  dispatch_apply_f(v15, global_queue, v20, vt_Copy_l10r_TRC_Tone_Mat_TRC_xf444_GCD);
+  if (!v15)
+  {
+    return 0;
+  }
+
+  v39 = (v20 + 160);
+  v40 = v15;
+  while (1)
+  {
+    v41 = *v39++;
+    v21 = v41;
+    if (v41)
+    {
+      break;
+    }
+
+    if (!--v40)
+    {
+      v21 = 0;
+      break;
+    }
+  }
+
+LABEL_25:
+  if (v15 == 255)
+  {
+    goto LABEL_26;
+  }
+
+  return v21;
+}
+
 unsigned __int8 *vt_Copy_l10r_TRC_Tone_Mat_TRC_xf444_GCD(unsigned __int8 *result, uint64_t a2, double a3, double a4, double a5)
 {
   v5 = *result;
@@ -302,7 +758,7 @@ LABEL_26:
   }
 
   fig_log_get_emitter();
-  v36 = FigSignalErrorAtGM();
+  v36 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v43, v44, v45.i32[0]);
   a7 = v33;
   a8 = v32;
   v14 = v31;
@@ -645,7 +1101,7 @@ LABEL_26:
   }
 
   fig_log_get_emitter();
-  v36 = FigSignalErrorAtGM();
+  v36 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v43, v44, v45.i32[0]);
   a7 = v33;
   a8 = v32;
   v14 = v31;
@@ -943,7 +1399,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -1275,7 +1731,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -1587,7 +2043,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -1856,7 +2312,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -2227,7 +2683,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -2584,7 +3040,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -2882,7 +3338,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -3192,7 +3648,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -3481,7 +3937,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -3731,7 +4187,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -4039,7 +4495,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -4326,7 +4782,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -4576,7 +5032,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -4848,7 +5304,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -5099,7 +5555,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -5328,7 +5784,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -5605,7 +6061,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -5863,7 +6319,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   a7 = v32;
   a8 = v31;
   v14 = v30;
@@ -6018,18 +6474,26 @@ uint64_t RegisterVTPreprocessingSession()
 
 uint64_t VTPreprocessingSessionCopySupportedPropertyDictionary(uint64_t a1, CFTypeRef *a2)
 {
-  if (a2 && (*a2 = 0, a1) && !*(a1 + 16))
+  if (!a2)
   {
-
-    return vtPreprocessingSessionCopyProperties(a2);
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 227;
+    goto LABEL_6;
   }
 
-  else
+  *a2 = 0;
+  if (!a1 || *(a1 + 16))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 232;
+LABEL_6:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954393, "<<<< VTPreprocessingSession >>>>", v5, v4);
   }
+
+  return vtPreprocessingSessionCopyProperties(a2);
 }
 
 uint64_t vtPreprocessingSessionCopyProperties(CFTypeRef *a1)
@@ -6043,22 +6507,48 @@ uint64_t vtPreprocessingSessionCopyProperties(CFTypeRef *a1)
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954392, "<<<< VTPreprocessingSession >>>>", 215, v1);
   }
 }
 
 uint64_t VTPreprocessingSessionSetProperty(uint64_t a1, const void *a2)
 {
-  if (!a1 || *(a1 + 16) || !vtPreprocessingSessionIsPropertyHandledByVideoToolbox(a2) || (result = CFEqual(@"SourcePixelBufferAttributes", a2), result))
+  if (a1 && !*(a1 + 16))
   {
-    fig_log_get_emitter();
+    if (vtPreprocessingSessionIsPropertyHandledByVideoToolbox(a2))
+    {
+      result = CFEqual(@"SourcePixelBufferAttributes", a2);
+      if (!result)
+      {
+        return result;
+      }
 
-    return FigSignalErrorAtGM();
+      emitter = fig_log_get_emitter();
+      v4 = v2;
+      v5 = 4294954395;
+      v6 = 273;
+    }
+
+    else
+    {
+      emitter = fig_log_get_emitter();
+      v4 = v2;
+      v5 = 4294954396;
+      v6 = 277;
+    }
   }
 
-  return result;
+  else
+  {
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954393;
+    v6 = 267;
+  }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v5, "<<<< VTPreprocessingSession >>>>", v6, v4);
 }
 
 BOOL vtPreprocessingSessionIsPropertyHandledByVideoToolbox(const void *a1)
@@ -6082,40 +6572,50 @@ BOOL vtPreprocessingSessionIsPropertyHandledByVideoToolbox(const void *a1)
 uint64_t VTPreprocessingSessionCopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4)
 {
   *a4 = 0;
-  if (*(a1 + 16) || !vtPreprocessingSessionIsPropertyHandledByVideoToolbox(a2))
+  if (*(a1 + 16))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v6 = v4;
+    v7 = 4294954393;
+    v8 = 295;
+LABEL_3:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v7, "<<<< VTPreprocessingSession >>>>", v8, v6);
   }
 
-  else
+  if (!vtPreprocessingSessionIsPropertyHandledByVideoToolbox(a2))
   {
-    if (CFEqual(@"SourcePixelBufferAttributes", a2))
-    {
-      v8 = *(a1 + 40);
-      if (v8)
-      {
-        v8 = CFRetain(v8);
-      }
+    emitter = fig_log_get_emitter();
+    v6 = v4;
+    v7 = 4294954396;
+    v8 = 306;
+    goto LABEL_3;
+  }
 
-      *a4 = v8;
+  if (CFEqual(@"SourcePixelBufferAttributes", a2))
+  {
+    v13 = *(a1 + 40);
+    if (v13)
+    {
+      v13 = CFRetain(v13);
     }
 
-    return 0;
+    *a4 = v13;
   }
+
+  return 0;
 }
 
 uint64_t VTPreprocessingSessionSetProperties(uint64_t a1, CFDictionaryRef theDict)
 {
-  v3 = a1;
+  v5 = a1;
   if (a1 && !*(a1 + 16))
   {
     if (theDict)
     {
-      v4 = 0;
-      CFDictionaryApplyFunction(theDict, vtCompressionSessionSetOneProperty, &v3);
-      return v4;
+      v6 = 0;
+      CFDictionaryApplyFunction(theDict, vtCompressionSessionSetOneProperty, &v5);
+      return v6;
     }
 
     else
@@ -6126,9 +6626,9 @@ uint64_t VTPreprocessingSessionSetProperties(uint64_t a1, CFDictionaryRef theDic
 
   else
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954393, "<<<< VTPreprocessingSession >>>>", 339, v2);
   }
 }
 
@@ -6151,9 +6651,9 @@ uint64_t VTPreprocessingSessionCopySerializableProperties(uint64_t a1, uint64_t 
     return 0;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954393, "<<<< VTPreprocessingSession >>>>", 359, v3);
 }
 
 uint64_t VTPreprocessingSessionCreate(const __CFAllocator *a1, int a2, int a3, const void *a4, void *a5)
@@ -6524,7 +7024,7 @@ uint64_t RegisterVTMultiPassStorage()
 
 OSStatus VTMultiPassStorageCreate(CFAllocatorRef allocator, CFURLRef fileURL, CMTimeRange *timeRange, CFDictionaryRef options, VTMultiPassStorageRef *multiPassStorageOut)
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   value = 0;
   if (!multiPassStorageOut)
   {
@@ -6546,7 +7046,7 @@ OSStatus VTMultiPassStorageCreate(CFAllocatorRef allocator, CFURLRef fileURL, CM
     *&range1.start.value = *&timeRange->start.value;
     *&range1.start.epoch = v15;
     *&range1.duration.timescale = *&timeRange->duration.timescale;
-    EmptyTable = VTMultiPassStorageRemote_Create(v11, allocator, fileURL, &range1, options, (v11 + 16));
+    EmptyTable = VTMultiPassStorageRemote_Create(v11, allocator, fileURL, &range1.start.value, options, (v11 + 16));
     if (!EmptyTable)
     {
       goto LABEL_76;
@@ -6650,7 +7150,7 @@ LABEL_13:
     }
 
 LABEL_31:
-    EmptyTable = vtMultiPassStorageCreateEmptyTable();
+    EmptyTable = vtMultiPassStorageCreateEmptyTable(v11);
     if (!EmptyTable)
     {
       goto LABEL_76;
@@ -6682,11 +7182,11 @@ LABEL_32:
     goto LABEL_26;
   }
 
-  v25 = bswap32(v76);
-  if (v25 < 0x14 || v24 < v25 || v77 != 1887007846 || v78 != 1936747894 || v79 != 0x1000000)
+  v25 = bswap32(v81);
+  if (v25 < 0x14 || v24 < v25 || v82 != 1887007846 || v83 != 1936747894 || v84 != 0x1000000)
   {
     fig_log_get_emitter();
-    FileInfo = FigSignalErrorAtGM();
+    FileInfo = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v61, v62, v64);
 LABEL_26:
     v14 = FileInfo;
     v26 = 0;
@@ -6695,8 +7195,8 @@ LABEL_26:
     goto LABEL_71;
   }
 
-  v65 = 0;
-  v66 = 0;
+  v70 = 0;
+  v71 = 0;
   allocatora = *MEMORY[0x1E695E480];
   while (1)
   {
@@ -6706,7 +7206,7 @@ LABEL_26:
       goto LABEL_68;
     }
 
-    if (v73 == 0x1000000)
+    if (v78 == 0x1000000)
     {
       v33 = FigFileForkRead();
       if (v33)
@@ -6714,13 +7214,13 @@ LABEL_26:
         goto LABEL_68;
       }
 
-      v34 = bswap64(v75);
+      v34 = bswap64(v80);
       v35 = 16;
     }
 
     else
     {
-      v34 = bswap32(v73);
+      v34 = bswap32(v78);
       v35 = 12;
     }
 
@@ -6735,141 +7235,131 @@ LABEL_87:
       goto LABEL_69;
     }
 
-    if (v74 == 1768975734)
+    if (v79 == 1768975734)
     {
       break;
     }
 
-    if (v74 == 1936747894)
+    if (v79 == 1936747894)
     {
       *&range2.start.value = *MEMORY[0x1E6960CC0];
       range2.start.epoch = *(MEMORY[0x1E6960CC0] + 16);
-      v44 = v34 - v35;
-      v45 = (v34 - v35) / 0x24;
-      if ((v34 - v35) % 0x24)
+      v45 = v34 - v35;
+      v46 = (v34 - v35) / 0x24;
+      if (!((v34 - v35) % 0x24))
       {
-LABEL_67:
-        fig_log_get_emitter();
-        v33 = FigSignalErrorAtGM();
-LABEL_68:
-        v14 = v33;
-        v26 = 0;
-      }
-
-      else
-      {
-        v47 = 512;
-        if (v45 < 0x200)
+        v49 = 512;
+        if (v46 < 0x200)
         {
-          v47 = v45;
+          v49 = v46;
         }
 
-        v62 = v47;
-        v48 = 36 * v47;
-        if (v44 >= 0x24)
+        v67 = v49;
+        v50 = 36 * v49;
+        if (v45 >= 0x24)
         {
-          v49 = v48;
+          v51 = v50;
         }
 
         else
         {
-          v49 = 0;
+          v51 = 0;
         }
 
-        v26 = malloc_type_malloc(v49, 0x100004077774924uLL);
+        v26 = malloc_type_malloc(v51, 0x100004077774924uLL);
         if (v26)
         {
-          if (v44 >= 0x24)
+          if (v45 >= 0x24)
           {
-            v50 = 0;
-            v51 = 0;
-            v52 = v35 + v25;
-            v61 = v45;
+            v52 = 0;
+            v53 = 0;
+            v54 = v35 + v25;
+            v66 = v46;
             while (1)
             {
-              v53 = v45 - v51 >= v62 ? v62 : v45 - v51;
-              allocatorb = (36 * v53);
+              v55 = v46 - v53 >= v67 ? v67 : v46 - v53;
+              allocatorb = (36 * v55);
               v39 = FigFileForkRead();
               if (v39)
               {
                 break;
               }
 
-              if (v53)
+              if (v55)
               {
-                v60 = v52;
-                v54 = 0;
-                v59 = v53 + v51;
+                v65 = v54;
+                v56 = 0;
+                v63 = v55 + v53;
                 while (1)
                 {
-                  v55 = malloc_type_malloc(0x30uLL, 0x10000400B536EFBuLL);
-                  *v55 = *(v54 + v26);
-                  *(v55 + 2) = *(v54 + v26 + 8);
-                  v56 = *(v54 + v26 + 12);
-                  *(v55 + 3) = v56;
-                  *(v55 + 2) = 0;
-                  *(v55 + 6) = *(v54 + v26 + 16);
-                  *(v55 + 4) = *(v54 + v26 + 20);
-                  *(v55 + 5) = *(v54 + v26 + 28);
-                  v57 = (v56 & 0x1D) == 1;
-                  v58 = 168;
-                  if (v57)
+                  v57 = malloc_type_malloc(0x30uLL, 0x10000400B536EFBuLL);
+                  *v57 = *(v56 + v26);
+                  *(v57 + 2) = *(v56 + v26 + 8);
+                  v58 = *(v56 + v26 + 12);
+                  *(v57 + 3) = v58;
+                  *(v57 + 2) = 0;
+                  *(v57 + 6) = *(v56 + v26 + 16);
+                  *(v57 + 4) = *(v56 + v26 + 20);
+                  *(v57 + 5) = *(v56 + v26 + 28);
+                  v59 = (v58 & 0x1D) == 1;
+                  v60 = 168;
+                  if (v59)
                   {
-                    v58 = 160;
+                    v60 = 160;
                   }
 
-                  CFArrayAppendValue(*(v11 + v58), v55);
-                  if (v51 <= 0)
+                  CFArrayAppendValue(*(v11 + v60), v57);
+                  if (v53 <= 0)
                   {
-                    v50 = *(v55 + 6);
+                    v52 = *(v57 + 6);
                   }
 
                   else
                   {
-                    time1 = *v55;
+                    time1 = *v57;
                     time2 = range2.start;
                     if (CMTimeCompare(&time1, &time2) < 0)
                     {
                       goto LABEL_109;
                     }
 
-                    time1 = *v55;
+                    time1 = *v57;
                     time2 = range2.start;
                     if (CMTimeCompare(&time1, &time2))
                     {
-                      v50 = *(v55 + 6);
+                      v52 = *(v57 + 6);
                     }
 
                     else
                     {
-                      v37 = *(v55 + 6) < v50;
-                      v50 = *(v55 + 6);
+                      v37 = *(v57 + 6) < v52;
+                      v52 = *(v57 + 6);
                       if (v37)
                       {
 LABEL_109:
                         fig_log_get_emitter();
-                        v39 = FigSignalErrorAtGM();
+                        v39 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v61, v63, v65);
                         goto LABEL_110;
                       }
                     }
                   }
 
-                  *&range2.start.value = *v55;
-                  range2.start.epoch = *(v55 + 2);
-                  ++v51;
-                  v54 = (v54 + 36);
-                  if (allocatorb == v54)
+                  *&range2.start.value = *v57;
+                  range2.start.epoch = *(v57 + 2);
+                  ++v53;
+                  v56 = (v56 + 36);
+                  if (allocatorb == v56)
                   {
-                    v51 = v59;
-                    v52 = v60;
+                    v53 = v63;
+                    v54 = v65;
                     break;
                   }
                 }
               }
 
-              v52 += allocatorb;
-              v45 = v61;
-              if (v51 >= v61)
+              v54 += allocatorb;
+              v46 = v66;
+              if (v53 >= v66)
               {
                 goto LABEL_85;
               }
@@ -6893,22 +7383,31 @@ LABEL_85:
 LABEL_112:
           v14 = -12904;
         }
-      }
 
 LABEL_69:
-      v28 = v65;
-      goto LABEL_70;
+        v28 = v70;
+        goto LABEL_70;
+      }
+
+      emitter = fig_log_get_emitter();
+      v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294955082, "<<<< VTMultiPassStorage >>>>", 500);
+LABEL_68:
+      v14 = v33;
+      v26 = 0;
+      goto LABEL_69;
     }
 
 LABEL_62:
     v25 = v36;
     if (v36 >= v24)
     {
-      goto LABEL_67;
+      v44 = fig_log_get_emitter();
+      v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, 4294955082, "<<<< VTMultiPassStorage >>>>", 567);
+      goto LABEL_68;
     }
   }
 
-  if (v75)
+  if (v80)
   {
     VTMultiPassStorageCreate_cold_1(&range2);
     goto LABEL_87;
@@ -6932,23 +7431,23 @@ LABEL_62:
     goto LABEL_110;
   }
 
-  if (v66)
+  if (v71)
   {
-    CFRelease(v66);
+    CFRelease(v71);
   }
 
   v40 = CFDataCreate(allocatora, v26, v38);
-  v66 = v40;
+  v71 = v40;
   if (!v40)
   {
     goto LABEL_61;
   }
 
   v41 = v40;
-  if (v65)
+  if (v70)
   {
     v42 = v40;
-    CFRelease(v65);
+    CFRelease(v70);
     v41 = v42;
   }
 
@@ -6956,7 +7455,7 @@ LABEL_62:
   v43 = VTMultiPassStorageSetIdentifier(v11, v28);
   if (!v43)
   {
-    v65 = v28;
+    v70 = v28;
 LABEL_61:
     free(v26);
     goto LABEL_62;
@@ -6964,7 +7463,7 @@ LABEL_61:
 
   v14 = v43;
 LABEL_70:
-  v27 = v66;
+  v27 = v71;
 LABEL_71:
   FigSimpleMutexUnlock();
   free(v26);
@@ -7005,23 +7504,23 @@ BOOL vtMultiPassStorageLocationEqual(uint64_t a1, uint64_t a2)
   return !CMTimeCompare(&time1, &v5) && *(a1 + 24) == *(a2 + 24);
 }
 
-uint64_t VTMultiPassStorageInvalidate(uint64_t a1)
+uint64_t VTMultiPassStorageInvalidate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && !*(a1 + 32))
   {
     *(a1 + 32) = 1;
-    v2 = *(a1 + 24);
-    if (v2)
+    v4 = *(a1 + 24);
+    if (v4)
     {
-      VTParavirtualizationHostEncoderSessionMultipassStorageInvalidate(v2);
+      VTParavirtualizationHostEncoderSessionMultipassStorageInvalidate(v4);
     }
 
     else
     {
-      v3 = *(a1 + 16);
-      if (v3)
+      v5 = *(a1 + 16);
+      if (v5)
       {
-        VTMultiPassStorageRemote_Invalidate(v3);
+        VTMultiPassStorageRemote_Invalidate(v5, a2, a3);
       }
 
       else
@@ -7038,31 +7537,31 @@ uint64_t VTMultiPassStorageInvalidate(uint64_t a1)
         }
 
         *(a1 + 72) = 0;
-        v4 = *(a1 + 160);
-        if (v4)
-        {
-          CFRelease(v4);
-          *(a1 + 160) = 0;
-        }
-
-        v5 = *(a1 + 168);
-        if (v5)
-        {
-          CFRelease(v5);
-          *(a1 + 168) = 0;
-        }
-
-        v6 = *(a1 + 64);
+        v6 = *(a1 + 160);
         if (v6)
         {
           CFRelease(v6);
-          *(a1 + 64) = 0;
+          *(a1 + 160) = 0;
         }
 
-        v7 = *(a1 + 48);
+        v7 = *(a1 + 168);
         if (v7)
         {
           CFRelease(v7);
+          *(a1 + 168) = 0;
+        }
+
+        v8 = *(a1 + 64);
+        if (v8)
+        {
+          CFRelease(v8);
+          *(a1 + 64) = 0;
+        }
+
+        v9 = *(a1 + 48);
+        if (v9)
+        {
+          CFRelease(v9);
           *(a1 + 48) = 0;
         }
 
@@ -7096,7 +7595,7 @@ uint64_t VTMultiPassStorageSetIdentifier(uint64_t a1, const void *a2)
   if (v4)
   {
 
-    return VTParavirtualizationHostEncoderSessionMultipassStorageSetIdentifier(v4);
+    return VTParavirtualizationHostEncoderSessionMultipassStorageSetIdentifier(v4, a2);
   }
 
   v6 = *(a1 + 16);
@@ -7138,10 +7637,10 @@ uint64_t VTMultiPassStorageSetIdentifier(uint64_t a1, const void *a2)
     return v8;
   }
 
-  return VTMultiPassStorageRemote_SetIdentifier(v6);
+  return VTMultiPassStorageRemote_SetIdentifier(v6, a2);
 }
 
-CFStringRef VTMultiPassStorageCopyIdentifier(uint64_t a1)
+CFStringRef VTMultiPassStorageCopyIdentifier(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -7155,21 +7654,21 @@ CFStringRef VTMultiPassStorageCopyIdentifier(uint64_t a1)
     return 0;
   }
 
-  v2 = *(a1 + 24);
-  if (v2)
+  v4 = *(a1 + 24);
+  if (v4)
   {
 
-    return VTParavirtualizationHostEncoderSessionMultipassStorageCopyIdentifier(v2);
+    return VTParavirtualizationHostEncoderSessionMultipassStorageCopyIdentifier(v4);
   }
 
-  v4 = *(a1 + 16);
-  if (!v4)
+  v6 = *(a1 + 16);
+  if (!v6)
   {
     FigSimpleMutexLock();
-    v5 = *(a1 + 48);
-    if (v5)
+    v7 = *(a1 + 48);
+    if (v7)
     {
-      Copy = CFStringCreateCopy(*MEMORY[0x1E695E480], v5);
+      Copy = CFStringCreateCopy(*MEMORY[0x1E695E480], v7);
     }
 
     else
@@ -7181,7 +7680,7 @@ CFStringRef VTMultiPassStorageCopyIdentifier(uint64_t a1)
     return Copy;
   }
 
-  return VTMultiPassStorageRemote_CopyIdentifier(v4);
+  return VTMultiPassStorageRemote_CopyIdentifier(v6, a2, a3);
 }
 
 uint64_t VTMultiPassStorageSetDataAtTimeStamp(uint64_t a1, __int128 *a2, uint64_t a3, CFDataRef theData)
@@ -7230,7 +7729,7 @@ LABEL_5:
     {
       *&range.start.value = *a2;
       range.start.epoch = *(a2 + 2);
-      return VTMultiPassStorageRemote_SetDataAtTimeStamp(v11, &range, a3, theData);
+      return VTMultiPassStorageRemote_SetDataAtTimeStamp(v11, &range.start.value, a3, theData);
     }
 
     if ((*(a1 + 124) & 1) == 0 || (*(a1 + 148) & 1) == 0 || *(a1 + 152) || (v8 & 1) == 0 || (*(a1 + 136) & 0x8000000000000000) != 0 || (v14 = *(a1 + 128), *&range.start.value = *(a1 + 112), *&range.start.epoch = v14, *&range.duration.timescale = *(a1 + 144), time = *a2, CMTimeRangeContainsTime(&range, &time)))
@@ -7389,7 +7888,7 @@ uint64_t vtMultiPassLocationCompareTimeStampAndIndex(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t VTMultiPassStorageGetTimeStamp(uint64_t a1, __int128 *a2, const void *a3, uint64_t a4)
+uint64_t VTMultiPassStorageGetTimeStamp(uint64_t a1, __int128 *a2, const void *a3, CMTime *a4)
 {
   if (!a1)
   {
@@ -7467,8 +7966,8 @@ LABEL_7:
     {
       v12 = 0;
       v17 = MEMORY[0x1E6960C70];
-      *a4 = *MEMORY[0x1E6960C70];
-      *(a4 + 16) = *(v17 + 16);
+      *&a4->value = *MEMORY[0x1E6960C70];
+      a4->epoch = *(v17 + 16);
       return v12;
     }
 
@@ -7479,8 +7978,8 @@ LABEL_7:
       v15 = *a2;
       v16 = *(a2 + 2);
 LABEL_21:
-      *(a4 + 16) = v16;
-      *a4 = v15;
+      a4->epoch = v16;
+      *&a4->value = v15;
 LABEL_30:
       FigSimpleMutexUnlock();
       return v12;
@@ -7501,14 +8000,14 @@ LABEL_30:
       ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 160), v18);
       v12 = 0;
       v20 = ValueAtIndex[2];
-      *a4 = *ValueAtIndex;
+      *&a4->value = *ValueAtIndex;
       goto LABEL_29;
     }
 
     if (!CFEqual(a3, @"GetPreviousTimeStamp") && !CFEqual(a3, @"GetNextTimeStamp"))
     {
       fig_log_get_emitter();
-      v12 = FigSignalErrorAtGM();
+      v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v30.value, v30.timescale, LODWORD(v30.epoch));
       goto LABEL_30;
     }
 
@@ -7587,10 +8086,10 @@ LABEL_52:
 LABEL_51:
     v12 = 0;
     v29 = MEMORY[0x1E6960C70];
-    *a4 = *MEMORY[0x1E6960C70];
+    *&a4->value = *MEMORY[0x1E6960C70];
     v20 = *(v29 + 16);
 LABEL_29:
-    *(a4 + 16) = v20;
+    a4->epoch = v20;
     goto LABEL_30;
   }
 
@@ -7606,7 +8105,7 @@ uint64_t vtMultiPassLocationCompareTimeStampOnly(CMTime *a1, CMTime *a2)
   return CMTimeCompare(&time1, &v3);
 }
 
-uint64_t VTMultiPassStorageGetTimeStampAndDuration(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5)
+uint64_t VTMultiPassStorageGetTimeStampAndDuration(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, CMTime *a5)
 {
   v8 = *(a1 + 24);
   if (v8)
@@ -7634,7 +8133,7 @@ uint64_t VTMultiPassStorageGetTimeStampAndDuration(uint64_t a1, uint64_t a2, con
     {
       v11 = 0;
       v14 = MEMORY[0x1E6960C70];
-      *a5 = *MEMORY[0x1E6960C70];
+      *&a5->value = *MEMORY[0x1E6960C70];
       epoch = *(v14 + 16);
       goto LABEL_21;
     }
@@ -7651,21 +8150,21 @@ LABEL_12:
       *&range.start.value = v19;
       range.start.epoch = v16;
       lhs = *a4;
-      v11 = VTMultiPassStorageGetTimeStamp(a1, &lhs.value, @"GetPreviousTimeStamp", &range);
+      v11 = VTMultiPassStorageGetTimeStamp(a1, &lhs.value, @"GetPreviousTimeStamp", &range.start);
       if (v11 || (range.start.flags & 1) == 0)
       {
-        *a5 = v19;
-        *(a5 + 16) = v16;
+        *&a5->value = v19;
+        a5->epoch = v16;
         return v11;
       }
 
       rhs = *a4;
       start = range.start;
       CMTimeSubtract(&lhs, &rhs, &start);
-      *a5 = *&lhs.value;
+      *&a5->value = *&lhs.value;
       epoch = lhs.epoch;
 LABEL_21:
-      *(a5 + 16) = epoch;
+      a5->epoch = epoch;
       return v11;
     }
 
@@ -7696,7 +8195,7 @@ LABEL_21:
     rhs = *a4;
     CMTimeSubtract(&range.start, &lhs, &rhs);
     v11 = 0;
-    *a5 = *&range.start.value;
+    *&a5->value = *&range.start.value;
     epoch = range.start.epoch;
     goto LABEL_21;
   }
@@ -7950,7 +8449,7 @@ uint64_t OUTLINED_FUNCTION_2_28@<X0>(uint64_t a1@<X8>, __n128 a2@<Q0>, CMTime *t
   return CMTimeCompare(&time1a, &time2a);
 }
 
-uint64_t VTDecompressionSessionRemoteClient_Create(mach_port_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, uint64_t a8, int a9, char *src, _DWORD *a11, void *a12, void *a13, int *a14)
+uint64_t VTDecompressionSessionRemoteClient_Create(mach_port_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, uint64_t a8, int a9, char *src, int *a11, void *a12, uint64_t *a13, int *a14)
 {
   v38 = *MEMORY[0x1E69E9840];
   v36 = 0u;
@@ -8081,65 +8580,66 @@ LABEL_30:
   return v20;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_Invalidate(int a1)
+uint64_t VTDecompressionSessionRemoteClient_Invalidate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9 = 0;
+  v3 = a1;
+  v11 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v3;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x471900000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v5 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v5 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v3, *MEMORY[0x1E695FF48], 0);
-  v5 = v4;
-  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
+  v6 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v5, *MEMORY[0x1E695FF48], 0);
+  v7 = v6;
+  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
   {
-    if (!v4)
+    if (!v6)
     {
       if (*&msg[20] == 71)
       {
-        v5 = 4294966988;
+        v7 = 4294966988;
       }
 
       else if (*&msg[20] == 18301)
       {
-        v5 = 4294966996;
+        v7 = 4294966996;
         if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
         {
-          v5 = *&msg[32];
+          v7 = *&msg[32];
           if (!*&msg[32])
           {
-            return v5;
+            return v7;
           }
         }
       }
 
       else
       {
-        v5 = 4294966995;
+        v7 = 4294966995;
       }
 
 LABEL_23:
       mach_msg_destroy(msg);
-      return v5;
+      return v7;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v5 - 268435459) <= 1)
+  if ((v7 - 268435459) <= 1)
   {
     if ((*msg & 0x1F00) == 0x1100)
     {
@@ -8149,68 +8649,69 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  return v5;
+  return v7;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_Destroy(int a1)
+uint64_t VTDecompressionSessionRemoteClient_Destroy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9 = 0;
+  v3 = a1;
+  v11 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v3;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x471A00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v5 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v5 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v3, *MEMORY[0x1E695FF48], 0);
-  v5 = v4;
-  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
+  v6 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v5, *MEMORY[0x1E695FF48], 0);
+  v7 = v6;
+  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
   {
-    if (!v4)
+    if (!v6)
     {
       if (*&msg[20] == 71)
       {
-        v5 = 4294966988;
+        v7 = 4294966988;
       }
 
       else if (*&msg[20] == 18302)
       {
-        v5 = 4294966996;
+        v7 = 4294966996;
         if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
         {
-          v5 = *&msg[32];
+          v7 = *&msg[32];
           if (!*&msg[32])
           {
-            return v5;
+            return v7;
           }
         }
       }
 
       else
       {
-        v5 = 4294966995;
+        v7 = 4294966995;
       }
 
 LABEL_23:
       mach_msg_destroy(msg);
-      return v5;
+      return v7;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v5 - 268435459) <= 1)
+  if ((v7 - 268435459) <= 1)
   {
     if ((*msg & 0x1F00) == 0x1100)
     {
@@ -8220,18 +8721,19 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  return v5;
+  return v7;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_CopySupportedPropertyDictionary(int a1, void *a2, _DWORD *a3, _DWORD *a4)
+uint64_t VTDecompressionSessionRemoteClient_CopySupportedPropertyDictionary(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
+  v7 = a1;
   v18 = *MEMORY[0x1E69E9840];
   v17 = 0u;
   v16 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v7;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x471B00000000;
@@ -8327,15 +8829,16 @@ LABEL_31:
   return v11;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_CopySerializableProperties(int a1, void *a2, _DWORD *a3, _DWORD *a4)
+uint64_t VTDecompressionSessionRemoteClient_CopySerializableProperties(uint64_t a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
+  v7 = a1;
   v18 = *MEMORY[0x1E69E9840];
   v17 = 0u;
   v16 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v7;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x471C00000000;
@@ -8729,8 +9232,9 @@ LABEL_29:
   return v13;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_SetProperties(mach_port_t a1, uint64_t a2, int a3, int *a4)
+uint64_t VTDecompressionSessionRemoteClient_SetProperties(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
+  v5 = a1;
   v20 = *MEMORY[0x1E69E9840];
   v14 = 1;
   v15 = a2;
@@ -8740,7 +9244,7 @@ uint64_t VTDecompressionSessionRemoteClient_SetProperties(mach_port_t a1, uint64
   v19 = a3;
   special_reply_port = mig_get_special_reply_port();
   *&v13.msgh_bits = 2147489043;
-  v13.msgh_remote_port = a1;
+  v13.msgh_remote_port = v5;
   v13.msgh_local_port = special_reply_port;
   *&v13.msgh_voucher_port = 0x471F00000000;
   if (MEMORY[0x1EEE9AC50])
@@ -8879,8 +9383,9 @@ uint64_t VTDecompressionSessionRemoteClient_DecodeFrame(int a1, int a2, uint64_t
   return v9;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_DequeueNextPendingFrame(int a1, _DWORD *a2, void *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, void *a7, _DWORD *a8, _DWORD *a9, void *a10, _DWORD *a11, void *a12, _DWORD *a13, _DWORD *a14, void *a15, _DWORD *a16, void *a17, _DWORD *a18, _DWORD *a19, void *a20, _DWORD *a21, void *a22, _DWORD *a23, _DWORD *a24, void *a25, _DWORD *a26, void *a27, _DWORD *a28, _DWORD *a29, void *a30, _DWORD *a31, void *a32, _DWORD *a33, uint64_t a34, uint64_t a35, _DWORD *a36, _DWORD *a37)
+uint64_t VTDecompressionSessionRemoteClient_DequeueNextPendingFrame(uint64_t a1, _DWORD *a2, void *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, void *a7, _DWORD *a8, _DWORD *a9, void *a10, _DWORD *a11, void *a12, _DWORD *a13, _DWORD *a14, void *a15, _DWORD *a16, void *a17, _DWORD *a18, _DWORD *a19, void *a20, _DWORD *a21, void *a22, _DWORD *a23, _DWORD *a24, void *a25, _DWORD *a26, void *a27, _DWORD *a28, _DWORD *a29, void *a30, _DWORD *a31, void *a32, _DWORD *a33, uint64_t a34, uint64_t a35, _DWORD *a36, _DWORD *a37)
 {
+  v44 = a1;
   v86 = *MEMORY[0x1E69E9840];
   v85 = 0;
   v83 = 0u;
@@ -8905,7 +9410,7 @@ uint64_t VTDecompressionSessionRemoteClient_DequeueNextPendingFrame(int a1, _DWO
   *&msg[4] = 0;
   *&msg[20] = 0u;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v44;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x472100000000;
@@ -9106,8 +9611,9 @@ uint64_t VTDecompressionSessionRemoteClient_FinishDelayedFrames(mach_port_t a1)
   return v1;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_CanAcceptFormatDescription(mach_port_t a1, uint64_t a2, int a3, int *a4)
+uint64_t VTDecompressionSessionRemoteClient_CanAcceptFormatDescription(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
+  v5 = a1;
   v20 = *MEMORY[0x1E69E9840];
   v14 = 1;
   v15 = a2;
@@ -9117,7 +9623,7 @@ uint64_t VTDecompressionSessionRemoteClient_CanAcceptFormatDescription(mach_port
   v19 = a3;
   special_reply_port = mig_get_special_reply_port();
   *&v13.msgh_bits = 2147489043;
-  v13.msgh_remote_port = a1;
+  v13.msgh_remote_port = v5;
   v13.msgh_local_port = special_reply_port;
   *&v13.msgh_voucher_port = 0x472300000000;
   if (MEMORY[0x1EEE9AC50])
@@ -9216,14 +9722,15 @@ LABEL_29:
   return v9;
 }
 
-uint64_t VTDecompressionSessionRemoteClient_CopyBlackPixelBuffer(int a1, _DWORD *a2, void *a3, _DWORD *a4, _DWORD *a5)
+uint64_t VTDecompressionSessionRemoteClient_CopyBlackPixelBuffer(uint64_t a1, _DWORD *a2, void *a3, _DWORD *a4, _DWORD *a5)
 {
+  v9 = a1;
   memset(v23, 0, sizeof(v23));
   v22 = 0u;
   *&name_12[4] = 0u;
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v9;
   name_8 = special_reply_port;
   v17 = 5395;
   *name_12 = 0x472400000000;
@@ -9318,535 +9825,4 @@ LABEL_32:
   }
 
   return v13;
-}
-
-uint64_t VTDecompressionSessionRemoteClient_FlushPixelBufferPool(int a1)
-{
-  v9 = 0;
-  *&msg[20] = 0u;
-  *&msg[4] = 0;
-  special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
-  *&msg[12] = special_reply_port;
-  *msg = 5395;
-  *&msg[16] = 0x472500000000;
-  if (MEMORY[0x1EEE9AC50])
-  {
-    voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
-  }
-
-  else
-  {
-    v3 = special_reply_port;
-  }
-
-  v4 = mach_msg(msg, 3162387, 0x18u, 0x2Cu, v3, *MEMORY[0x1E695FF48], 0);
-  v5 = v4;
-  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
-  {
-    if (!v4)
-    {
-      if (*&msg[20] == 71)
-      {
-        v5 = 4294966988;
-      }
-
-      else if (*&msg[20] == 18313)
-      {
-        v5 = 4294966996;
-        if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
-        {
-          v5 = *&msg[32];
-          if (!*&msg[32])
-          {
-            return v5;
-          }
-        }
-      }
-
-      else
-      {
-        v5 = 4294966995;
-      }
-
-LABEL_23:
-      mach_msg_destroy(msg);
-      return v5;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-  if ((v5 - 268435459) <= 1)
-  {
-    if ((*msg & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
-    }
-
-    goto LABEL_23;
-  }
-
-  return v5;
-}
-
-uint64_t VTDecompressionSessionRemoteClient_GetMinOutputPresentationTimeStampOfFramesBeingDecoded(int a1, uint64_t a2)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v12 = 0u;
-  *&msg[20] = 0u;
-  *&msg[4] = 0;
-  special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
-  *&msg[12] = special_reply_port;
-  *msg = 5395;
-  *&msg[16] = 0x472600000000;
-  if (MEMORY[0x1EEE9AC50])
-  {
-    voucher_mach_msg_set(msg);
-    v5 = *&msg[12];
-  }
-
-  else
-  {
-    v5 = special_reply_port;
-  }
-
-  v6 = mach_msg(msg, 3162387, 0x18u, 0x44u, v5, *MEMORY[0x1E695FF48], 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
-  {
-    if (!v6)
-    {
-      if (*&msg[20] == 71)
-      {
-        v7 = 4294966988;
-      }
-
-      else if (*&msg[20] == 18314)
-      {
-        if ((*msg & 0x80000000) == 0)
-        {
-          if (*&msg[4] == 60)
-          {
-            if (!*&msg[8])
-            {
-              v7 = *&msg[32];
-              if (!*&msg[32])
-              {
-                *a2 = v12;
-                *(a2 + 16) = v13;
-                return v7;
-              }
-
-              goto LABEL_29;
-            }
-          }
-
-          else if (*&msg[4] == 36)
-          {
-            if (*&msg[8])
-            {
-              v9 = 1;
-            }
-
-            else
-            {
-              v9 = *&msg[32] == 0;
-            }
-
-            if (v9)
-            {
-              v7 = 4294966996;
-            }
-
-            else
-            {
-              v7 = *&msg[32];
-            }
-
-            goto LABEL_29;
-          }
-        }
-
-        v7 = 4294966996;
-      }
-
-      else
-      {
-        v7 = 4294966995;
-      }
-
-LABEL_29:
-      mach_msg_destroy(msg);
-      return v7;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-  if ((v7 - 268435459) <= 1)
-  {
-    if ((*msg & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
-    }
-
-    goto LABEL_29;
-  }
-
-  return v7;
-}
-
-uint64_t VTDecompressionSessionRemoteClient_GetMinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded(int a1, uint64_t a2, uint64_t a3, _DWORD *a4)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  memset(v17, 0, sizeof(v17));
-  v16 = 0u;
-  *&msg[20] = 0u;
-  *&msg[4] = 0;
-  special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
-  *&msg[12] = special_reply_port;
-  *msg = 5395;
-  *&msg[16] = 0x472700000000;
-  if (MEMORY[0x1EEE9AC50])
-  {
-    voucher_mach_msg_set(msg);
-    v9 = *&msg[12];
-  }
-
-  else
-  {
-    v9 = special_reply_port;
-  }
-
-  v10 = mach_msg(msg, 3162387, 0x18u, 0x60u, v9, *MEMORY[0x1E695FF48], 0);
-  v11 = v10;
-  if ((v10 - 268435458) > 0xE || ((1 << (v10 - 2)) & 0x4003) == 0)
-  {
-    if (!v10)
-    {
-      if (*&msg[20] == 71)
-      {
-        v11 = 4294966988;
-      }
-
-      else if (*&msg[20] == 18315)
-      {
-        if ((*msg & 0x80000000) == 0)
-        {
-          if (*&msg[4] == 88)
-          {
-            if (!*&msg[8])
-            {
-              v11 = *&msg[32];
-              if (!*&msg[32])
-              {
-                *a2 = v16;
-                *(a2 + 16) = *v17;
-                *a3 = *&v17[8];
-                *(a3 + 16) = *&v17[24];
-                *a4 = *&v17[32];
-                return v11;
-              }
-
-              goto LABEL_29;
-            }
-          }
-
-          else if (*&msg[4] == 36)
-          {
-            if (*&msg[8])
-            {
-              v13 = 1;
-            }
-
-            else
-            {
-              v13 = *&msg[32] == 0;
-            }
-
-            if (v13)
-            {
-              v11 = 4294966996;
-            }
-
-            else
-            {
-              v11 = *&msg[32];
-            }
-
-            goto LABEL_29;
-          }
-        }
-
-        v11 = 4294966996;
-      }
-
-      else
-      {
-        v11 = 4294966995;
-      }
-
-LABEL_29:
-      mach_msg_destroy(msg);
-      return v11;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-  if ((v11 - 268435459) <= 1)
-  {
-    if ((*msg & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
-    }
-
-    goto LABEL_29;
-  }
-
-  return v11;
-}
-
-uint64_t VTDecompressionSessionRemoteClient_GetNextPendingNotification(int a1, _DWORD *a2, void *a3, char *a4, void *a5, _DWORD *a6)
-{
-  v24 = *MEMORY[0x1E69E9840];
-  memset(v23, 0, 444);
-  v22 = 0u;
-  v21 = 0u;
-  *&msg[20] = 0u;
-  *&msg[4] = 0;
-  special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
-  *&msg[12] = special_reply_port;
-  *msg = 5395;
-  *&msg[16] = 0x472800000000;
-  if (MEMORY[0x1EEE9AC50])
-  {
-    voucher_mach_msg_set(msg);
-    v13 = *&msg[12];
-  }
-
-  else
-  {
-    v13 = special_reply_port;
-  }
-
-  v14 = mach_msg(msg, 3162387, 0x18u, 0x254u, v13, *MEMORY[0x1E695FF48], 0);
-  v15 = v14;
-  if ((v14 - 268435458) > 0xE || ((1 << (v14 - 2)) & 0x4003) == 0)
-  {
-    if (!v14)
-    {
-      if (*&msg[20] == 71)
-      {
-        v15 = 4294966988;
-      }
-
-      else if (*&msg[20] == 18316)
-      {
-        if ((*msg & 0x80000000) == 0)
-        {
-          if (*&msg[4] == 36)
-          {
-            v15 = 4294966996;
-            if (*&msg[32])
-            {
-              if (*&msg[8])
-              {
-                v15 = 4294966996;
-              }
-
-              else
-              {
-                v15 = *&msg[32];
-              }
-            }
-          }
-
-          else
-          {
-            v15 = 4294966996;
-          }
-
-          goto LABEL_31;
-        }
-
-        v15 = 4294966996;
-        if (*&msg[24] == 1 && (*&msg[4] - 76) <= 0x200 && !*&msg[8] && BYTE3(v21) == 1 && LODWORD(v23[0]) <= 0x200 && (*&msg[4] - 76) >= LODWORD(v23[0]))
-        {
-          v16 = (LODWORD(v23[0]) + 3) & 0xFFFFFFFC;
-          if (*&msg[4] == v16 + 76)
-          {
-            v17 = &msg[v16];
-            if (DWORD1(v21) == *(v17 + 18))
-            {
-              v18 = v17 - 512;
-              *a2 = v22;
-              *a3 = *(&v22 + 4);
-              mig_strncpy(a4, v23 + 4, 512);
-              v15 = 0;
-              *a5 = *&msg[28];
-              *a6 = *(v18 + 146);
-              return v15;
-            }
-          }
-        }
-      }
-
-      else
-      {
-        v15 = 4294966995;
-      }
-
-LABEL_31:
-      mach_msg_destroy(msg);
-      return v15;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-  if ((v15 - 268435459) <= 1)
-  {
-    if ((*msg & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
-    }
-
-    goto LABEL_31;
-  }
-
-  return v15;
-}
-
-uint64_t VTDecompressionSessionRemoteClient_TileCreate(mach_port_t a1, int a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, char *src, _DWORD *a9, void *a10, void *a11, int *a12)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  memset(v32, 0, 416);
-  v30 = 0;
-  v31 = 0u;
-  v24 = 0x13000000000000;
-  memset(&name, 0, sizeof(name));
-  v22 = 3;
-  v23 = a2;
-  v25 = a4;
-  LODWORD(v26) = 16777472;
-  HIDWORD(v26) = a5;
-  v27 = a6;
-  v28 = 16777472;
-  v29 = a7;
-  v30 = *MEMORY[0x1E69E99E0];
-  *&v31 = a3;
-  *(&v31 + 1) = __PAIR64__(a7, a5);
-  if (MEMORY[0x1EEE9AC40])
-  {
-    v13 = mig_strncpy_zerofill(v32 + 8, src, 512);
-  }
-
-  else
-  {
-    v13 = mig_strncpy(v32 + 8, src, 512);
-  }
-
-  LODWORD(v32[0]) = 0;
-  DWORD1(v32[0]) = v13;
-  v14 = (v13 + 3) & 0xFFFFFFFC;
-  special_reply_port = mig_get_special_reply_port();
-  name.msgh_remote_port = a1;
-  name.msgh_local_port = special_reply_port;
-  name.msgh_bits = -2147478253;
-  *&name.msgh_voucher_port = 0x472900000000;
-  if (MEMORY[0x1EEE9AC50])
-  {
-    voucher_mach_msg_set(&name);
-    msgh_local_port = name.msgh_local_port;
-  }
-
-  else
-  {
-    msgh_local_port = special_reply_port;
-  }
-
-  v17 = mach_msg(&name, 3162387, v14 + 104, 0x4Cu, msgh_local_port, *MEMORY[0x1E695FF48], 0);
-  v18 = v17;
-  if ((v17 - 268435458) > 0xE || ((1 << (v17 - 2)) & 0x4003) == 0)
-  {
-    if (!v17)
-    {
-      if (name.msgh_id == 71)
-      {
-        v18 = 4294966988;
-      }
-
-      else if (name.msgh_id == 18317)
-      {
-        if ((name.msgh_bits & 0x80000000) == 0)
-        {
-          if (name.msgh_size == 36)
-          {
-            v18 = 4294966996;
-            if (v24)
-            {
-              if (name.msgh_remote_port)
-              {
-                v18 = 4294966996;
-              }
-
-              else
-              {
-                v18 = v24;
-              }
-            }
-          }
-
-          else
-          {
-            v18 = 4294966996;
-          }
-
-          goto LABEL_30;
-        }
-
-        v18 = 4294966996;
-        if (v22 == 1 && name.msgh_size == 68 && !name.msgh_remote_port && HIWORD(v24) << 16 == 1114112)
-        {
-          v18 = 0;
-          *a9 = v23;
-          v19 = v27;
-          *a10 = v26;
-          *a11 = v19;
-          *a12 = v28;
-          return v18;
-        }
-      }
-
-      else
-      {
-        v18 = 4294966995;
-      }
-
-LABEL_30:
-      mach_msg_destroy(&name);
-      return v18;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-  if ((v18 - 268435459) <= 1)
-  {
-    if ((name.msgh_bits & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], name.msgh_local_port);
-    }
-
-    goto LABEL_30;
-  }
-
-  return v18;
 }

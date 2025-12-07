@@ -34,7 +34,7 @@
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1D1081C24(viewCopy);
+  v12 = sub_1D1081C24(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 

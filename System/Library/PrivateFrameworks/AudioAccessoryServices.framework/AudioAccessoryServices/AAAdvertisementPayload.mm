@@ -81,45 +81,51 @@ LABEL_10:
 
 - (id)description
 {
-  v9 = [objc_opt_class() description];
-  NSAppendPrintF_safe();
-  v3 = 0;
+  v15 = 0;
+  v3 = [objc_opt_class() description];
+  NSAppendPrintF_safe(&v15, "%@", v3);
+  v4 = v15;
 
+  v14 = v4;
   describeProperties = [(AAAdvertisementPayload *)self describeProperties];
-  NSAppendPrintF_safe();
-  v4 = v3;
+  NSAppendPrintF_safe(&v14, "%@", describeProperties);
+  v6 = v14;
 
+  v13 = v6;
   payloadData = [(AAAdvertisementPayload *)self payloadData];
   payloadData2 = [(AAAdvertisementPayload *)self payloadData];
   [payloadData2 length];
-  v11 = CUPrintNSDataHex();
-  NSAppendPrintF_safe();
-  v7 = v4;
+  v9 = CUPrintNSDataHex();
+  NSAppendPrintF_safe(&v13, ", Adv Data: <%@>", v9);
+  v10 = v13;
+  v11 = v13;
 
-  return v4;
+  return v10;
 }
 
 - (id)describeProperties
 {
-  if ([(AAAdvertisementPayload *)self type])
+  type = [(AAAdvertisementPayload *)self type];
+  if (type)
   {
-    NSAppendPrintF_safe();
-    v2 = 0;
+    v5 = 0;
+    NSAppendPrintF_safe(&v5, ", PT: %u", type);
+    v3 = v5;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)initLogParseError:(char *)error
 {
   if (gLogCategory_AAManufacturerDataAdvertisement <= 90 && (gLogCategory_AAManufacturerDataAdvertisement != -1 || _LogCategory_Initialize()))
   {
-    [AAAdvertisementPayload initLogParseError:];
+    [AAAdvertisementPayload initLogParseError:?];
   }
 }
 
@@ -173,7 +179,7 @@ LABEL_7:
   return v3;
 }
 
-- (void)initWithData:(uint64_t)a3 .cold.1(uint64_t a1, void *a2, uint64_t a3, void *a4)
+- (void)initWithData:(uint64_t)a3 .cold.1(uint64_t result, void *a2, uint64_t a3, void *a4)
 {
   if (gLogCategory_AAManufacturerDataAdvertisement <= 90 && (gLogCategory_AAManufacturerDataAdvertisement != -1 || _LogCategory_Initialize()))
   {

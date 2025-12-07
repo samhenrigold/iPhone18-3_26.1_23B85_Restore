@@ -2,9 +2,20 @@
 - (void)_addSpinner;
 - (void)_removeSpinner;
 - (void)setLoading:(BOOL)loading;
+- (void)setReallyChecked:(BOOL)checked;
 @end
 
 @implementation PHSpinnerAndCheckmarkCell
+
+- (void)setReallyChecked:(BOOL)checked
+{
+  v4.receiver = self;
+  v4.super_class = PHSpinnerAndCheckmarkCell;
+  [(PSTableCell *)&v4 setChecked:checked];
+  [(PHSpinnerAndCheckmarkCell *)self setLoading:0];
+  [(PHSpinnerAndCheckmarkCell *)self _removeSpinner];
+  [(PHSpinnerAndCheckmarkCell *)self setNeedsDisplay];
+}
 
 - (void)setLoading:(BOOL)loading
 {

@@ -8,17 +8,17 @@
 
 - (id)activityViewControllerPlaceholderItem:(id)item
 {
-  v3 = sub_10010FC20(&qword_101183A20);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v15 - v4;
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v12 = &v15 - v11;
+  sub_10010FC20(&qword_101183A20, &unk_100EBCF80);
+  __chkstk_darwin();
+  v4 = &v13 - v3;
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  __chkstk_darwin();
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v10 = &v13 - v9;
   URL.init(string:)();
-  result = (*(v7 + 48))(v5, 1, v6);
+  result = (*(v6 + 48))(v4, 1, v5);
   if (result == 1)
   {
     __break(1u);
@@ -26,12 +26,12 @@
 
   else
   {
-    (*(v7 + 32))(v12, v5, v6);
-    (*(v7 + 16))(v10, v12, v6);
-    v14 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
-    (*(v7 + 8))(v12, v6);
+    (*(v6 + 32))(v10, v4, v5);
+    (*(v6 + 16))(v8, v10, v5);
+    v12 = _bridgeAnythingNonVerbatimToObjectiveC<A>(_:)();
+    (*(v6 + 8))(v10, v5);
 
-    return v14;
+    return v12;
   }
 
   return result;
@@ -39,29 +39,29 @@
 
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
-  v5 = sub_10010FC20(&qword_101183A20);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v15 - v6;
-  v8 = type metadata accessor for URL();
-  v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000089F8(self + OBJC_IVAR____TtC5Music25ShareActivityItemProvider_url, v7, &qword_101183A20);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  sub_10010FC20(&qword_101183A20, &unk_100EBCF80);
+  __chkstk_darwin();
+  v6 = &v14 - v5;
+  v7 = type metadata accessor for URL();
+  v8 = *(v7 - 8);
+  __chkstk_darwin();
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1000089F8(self + OBJC_IVAR____TtC5Music25ShareActivityItemProvider_url, v6, &qword_101183A20, &unk_100EBCF80);
+  if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    sub_1000095E8(v7, &qword_101183A20);
-    v12 = 0;
+    sub_1000095E8(v6, &qword_101183A20, &unk_100EBCF80);
+    v11 = 0;
   }
 
   else
   {
-    (*(v9 + 32))(v11, v7, v8);
-    v13 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v9 + 8))(v11, v8);
-    v12 = v13;
+    (*(v8 + 32))(v10, v6, v7);
+    v12 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v8 + 8))(v10, v7);
+    v11 = v12;
   }
 
-  return v12;
+  return v11;
 }
 
 - (_TtC5Music25ShareActivityItemProvider)init

@@ -86,11 +86,11 @@ void __67__WFInstapaperAddAction_runAsynchronouslyWithInput_selectedFolder___blo
   v7[2](v7, 0);
 }
 
-uint64_t __67__WFInstapaperAddAction_runAsynchronouslyWithInput_selectedFolder___block_invoke_2(uint64_t result, uint64_t a2)
+id *__67__WFInstapaperAddAction_runAsynchronouslyWithInput_selectedFolder___block_invoke_2(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) finishRunningWithError:0];
+    return [result[4] finishRunningWithError:0];
   }
 
   return result;

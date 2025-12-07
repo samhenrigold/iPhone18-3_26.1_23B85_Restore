@@ -37,14 +37,13 @@
 
 - (id)whitelistedFirstPartyBundleIds
 {
-  v5[5] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.MobileSMS";
-  v5[1] = @"com.apple.iChat";
-  v5[2] = @"com.apple.mobilemail";
-  v5[3] = @"com.apple.mail";
-  v5[4] = @"com.apple.UIKit.activity.AirDrop";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.MobileSMS";
+  v4[1] = @"com.apple.iChat";
+  v4[2] = @"com.apple.mobilemail";
+  v4[3] = @"com.apple.mail";
+  v4[4] = @"com.apple.UIKit.activity.AirDrop";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
 
   return v2;
 }
@@ -133,7 +132,7 @@
 {
   privacyCopy = privacy;
   limitsCopy = limits;
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   policiesCopy = policies;
   v9 = +[_CDSiriLearningSettings sharedInstance];
   allLearningDisabledBundleIDs = [v9 allLearningDisabledBundleIDs];
@@ -153,9 +152,9 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v91 = [v14 count];
-          v92 = 2114;
-          v93 = allLearningDisabledBundleIDs;
+          v90 = [v14 count];
+          v91 = 2114;
+          v92 = allLearningDisabledBundleIDs;
           _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_DEFAULT, "Filtered %tu interactions for bundles with Siri Learning disabled (%{public}@)", buf, 0x16u);
         }
       }
@@ -170,37 +169,37 @@
   v18 = [policiesCopy count];
   if ((limitsCopy || privacyCopy) && v18)
   {
-    v75 = allLearningDisabledBundleIDs;
-    v78 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(policiesCopy, "count")}];
+    v74 = allLearningDisabledBundleIDs;
+    v77 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(policiesCopy, "count")}];
     v19 = [(_CDInteractionPolicies *)self policyForMechanism:1];
-    v85 = [(_CDInteractionPolicies *)self dateOfOldestAllowedInteractionForMechanism:1];
+    v84 = [(_CDInteractionPolicies *)self dateOfOldestAllowedInteractionForMechanism:1];
+    v85 = 0u;
     v86 = 0u;
     v87 = 0u;
     v88 = 0u;
-    v89 = 0u;
-    v76 = policiesCopy;
+    v75 = policiesCopy;
     obj = policiesCopy;
-    v84 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
-    if (!v84)
+    v83 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
+    if (!v83)
     {
       goto LABEL_55;
     }
 
-    v83 = *v87;
-    v79 = 1;
-    v80 = limitsCopy;
-    v81 = privacyCopy;
+    v82 = *v86;
+    v78 = 1;
+    v79 = limitsCopy;
+    v80 = privacyCopy;
     while (1)
     {
       v20 = 0;
       do
       {
-        if (*v87 != v83)
+        if (*v86 != v82)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v86 + 1) + 8 * v20);
+        v21 = *(*(&v85 + 1) + 8 * v20);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -222,29 +221,19 @@
           }
 
           targetBundleId = [v23 targetBundleId];
-          if (!targetBundleId)
-          {
-            goto LABEL_22;
-          }
-
-          v32 = targetBundleId;
-          whitelistedFirstPartyBundleIds2 = [(_CDInteractionPolicies *)self whitelistedFirstPartyBundleIds];
-          targetBundleId2 = [v23 targetBundleId];
-          v35 = [whitelistedFirstPartyBundleIds2 containsObject:targetBundleId2];
-
-          if (v35)
+          if (targetBundleId && (v32 = targetBundleId, -[_CDInteractionPolicies whitelistedFirstPartyBundleIds](self, "whitelistedFirstPartyBundleIds"), v33 = objc_claimAutoreleasedReturnValue(), [v23 targetBundleId], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v33, "containsObject:", v34), v34, v33, v32, v35))
           {
             v36 = self->_specialPoliciesForBundleIds;
-            targetBundleId3 = [v23 targetBundleId];
-            v19 = [(NSDictionary *)v36 objectForKeyedSubscript:targetBundleId3];
+            targetBundleId2 = [v23 targetBundleId];
+            v19 = [(NSDictionary *)v36 objectForKeyedSubscript:targetBundleId2];
 
             dateOfOldestAllowedInteractionForWhitelistedFirstPartyBundleIds = [(_CDInteractionPolicies *)self dateOfOldestAllowedInteractionForWhitelistedFirstPartyBundleIds];
 LABEL_27:
-            limitsCopy = v80;
-            privacyCopy = v81;
+            limitsCopy = v79;
+            privacyCopy = v80;
 LABEL_28:
 
-            v85 = dateOfOldestAllowedInteractionForWhitelistedFirstPartyBundleIds;
+            v84 = dateOfOldestAllowedInteractionForWhitelistedFirstPartyBundleIds;
             if (privacyCopy)
             {
               goto LABEL_29;
@@ -262,29 +251,28 @@ LABEL_35:
 
           else
           {
-LABEL_22:
-            if (mechanism != v79)
+            if (mechanism != v78)
             {
               v19 = [(_CDInteractionPolicies *)self policyForMechanism:mechanism];
 
               dateOfOldestAllowedInteractionForWhitelistedFirstPartyBundleIds = [(_CDInteractionPolicies *)self dateOfOldestAllowedInteractionForMechanism:mechanism];
-              v79 = mechanism;
+              v78 = mechanism;
               goto LABEL_27;
             }
 
-            limitsCopy = v80;
-            privacyCopy = v81;
+            limitsCopy = v79;
+            privacyCopy = v80;
             v19 = v22;
-            if (!v81)
+            if (!v80)
             {
               goto LABEL_24;
             }
 
 LABEL_29:
             startDate = [v23 startDate];
-            v40 = [v85 earlierDate:startDate];
+            v40 = [v84 earlierDate:startDate];
 
-            if (v40 == v85)
+            if (v40 == v84)
             {
               v38 = 0;
               if (!limitsCopy)
@@ -300,11 +288,11 @@ LABEL_29:
               {
                 startDate2 = [v23 startDate];
                 *buf = 138412802;
-                v91 = startDate2;
-                v92 = 2112;
-                v93 = v85;
-                v94 = 2112;
-                v95 = v23;
+                v90 = startDate2;
+                v91 = 2112;
+                v92 = v84;
+                v93 = 2112;
+                v94 = v23;
                 _os_log_debug_impl(&dword_191750000, v41, OS_LOG_TYPE_DEBUG, "Incoming interaction fails retention policy. %@ (oldest allowed is %@). %@", buf, 0x20u);
               }
 
@@ -356,12 +344,12 @@ LABEL_36:
 
             if ([v23 mechanism] == 13)
             {
-              targetBundleId4 = [v23 targetBundleId];
-              v61 = [targetBundleId4 isEqualToString:@"com.apple.UIKit.activity.Mail"];
+              targetBundleId3 = [v23 targetBundleId];
+              v61 = [targetBundleId3 isEqualToString:@"com.apple.UIKit.activity.Mail"];
 
               if (v61)
               {
-                v77 = v19;
+                v76 = v19;
                 recipients2 = [v23 recipients];
                 v63 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(recipients2, "count")}];
                 if ([recipients2 count])
@@ -402,28 +390,28 @@ LABEL_36:
 
                 [v23 setRecipients:v63];
 
-                limitsCopy = v80;
-                privacyCopy = v81;
-                v19 = v77;
+                limitsCopy = v79;
+                privacyCopy = v80;
+                v19 = v76;
               }
             }
 
-            [v78 addObject:v23];
+            [v77 addObject:v23];
           }
         }
 
         ++v20;
       }
 
-      while (v20 != v84);
-      v84 = [obj countByEnumeratingWithState:&v86 objects:v96 count:16];
-      if (!v84)
+      while (v20 != v83);
+      v83 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
+      if (!v83)
       {
 LABEL_55:
 
-        v72 = [v78 copy];
-        allLearningDisabledBundleIDs = v75;
-        policiesCopy = v76;
+        v72 = [v77 copy];
+        allLearningDisabledBundleIDs = v74;
+        policiesCopy = v75;
         goto LABEL_57;
       }
     }
@@ -432,14 +420,12 @@ LABEL_55:
   v72 = policiesCopy;
 LABEL_57:
 
-  v73 = *MEMORY[0x1E69E9840];
-
   return v72;
 }
 
 - (id)description
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
@@ -456,62 +442,62 @@ LABEL_57:
 
   [v3 appendFormat:@"     defaultPolicy: %@\n", self->_defaultPolicy];
   [v3 appendFormat:@"   specialPolicies: {\n"];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v9 = self->_specialPoliciesForMechanisms;
-  v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v10 = [(NSDictionary *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         v15 = mechanismToString([v14 integerValue]);
         v16 = [(NSDictionary *)self->_specialPoliciesForMechanisms objectForKeyedSubscript:v14];
         [v3 appendFormat:@" %@  : %@\n", v15, v16];
       }
 
-      v11 = [(NSDictionary *)v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v11 = [(NSDictionary *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v11);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v17 = self->_specialPoliciesForBundleIds;
-  v18 = [(NSDictionary *)v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v18 = [(NSDictionary *)v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v27;
+    v20 = *v26;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v27 != v20)
+        if (*v26 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v26 + 1) + 8 * j);
+        v22 = *(*(&v25 + 1) + 8 * j);
         v23 = [(NSDictionary *)self->_specialPoliciesForBundleIds objectForKeyedSubscript:v22];
-        [v3 appendFormat:@" %@  : %@\n", v22, v23, v26];
+        [v3 appendFormat:@" %@  : %@\n", v22, v23, v25];
       }
 
-      v19 = [(NSDictionary *)v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v19 = [(NSDictionary *)v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v19);
@@ -519,70 +505,65 @@ LABEL_57:
 
   [v3 appendFormat:@"}\n"];
   [v3 appendString:@"}\n"];
-  v24 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (void)setupDefaultHardcodedPolicies
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   *&self->_maxNumberOfInteractions = xmmword_19190EEB0;
   self->_maxLifespanInSeconds = 14515200.0;
   v3 = +[_CDInteractionPolicy defaultPolicy];
   defaultPolicy = self->_defaultPolicy;
   self->_defaultPolicy = v3;
 
-  v22[0] = &unk_1F05EEBB0;
+  v21[0] = &unk_1F05EEBB0;
   v5 = +[_CDInteractionPolicy defaultPolicyForEmail];
-  v23[0] = v5;
-  v22[1] = &unk_1F05EEBC8;
+  v22[0] = v5;
+  v21[1] = &unk_1F05EEBC8;
   v6 = +[_CDInteractionPolicy defaultPolicyForMessages];
-  v23[1] = v6;
-  v22[2] = &unk_1F05EEBE0;
+  v22[1] = v6;
+  v21[2] = &unk_1F05EEBE0;
   v7 = +[_CDInteractionPolicy defaultPolicyForMessages];
-  v23[2] = v7;
-  v22[3] = &unk_1F05EEBF8;
+  v22[2] = v7;
+  v21[3] = &unk_1F05EEBF8;
   v8 = +[_CDInteractionPolicy defaultPolicyForMessages];
-  v23[3] = v8;
-  v22[4] = &unk_1F05EEC10;
+  v22[3] = v8;
+  v21[4] = &unk_1F05EEC10;
   v9 = +[_CDInteractionPolicy defaultPolicyForMeetings];
-  v23[4] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:5];
+  v22[4] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:5];
   specialPoliciesForMechanisms = self->_specialPoliciesForMechanisms;
   self->_specialPoliciesForMechanisms = v10;
 
-  v20[0] = @"com.apple.MobileSMS";
+  v19[0] = @"com.apple.MobileSMS";
   v12 = +[_CDInteractionPolicy specialPolicyForFirstPartyApps];
-  v21[0] = v12;
-  v20[1] = @"com.apple.iChat";
+  v20[0] = v12;
+  v19[1] = @"com.apple.iChat";
   v13 = +[_CDInteractionPolicy specialPolicyForFirstPartyApps];
-  v21[1] = v13;
-  v20[2] = @"com.apple.mobilemail";
+  v20[1] = v13;
+  v19[2] = @"com.apple.mobilemail";
   v14 = +[_CDInteractionPolicy specialPolicyForFirstPartyApps];
-  v21[2] = v14;
-  v20[3] = @"com.apple.mail";
+  v20[2] = v14;
+  v19[3] = @"com.apple.mail";
   v15 = +[_CDInteractionPolicy specialPolicyForFirstPartyApps];
-  v21[3] = v15;
-  v20[4] = @"com.apple.UIKit.activity.AirDrop";
+  v20[3] = v15;
+  v19[4] = @"com.apple.UIKit.activity.AirDrop";
   v16 = +[_CDInteractionPolicy specialPolicyForFirstPartyApps];
-  v21[4] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:5];
+  v20[4] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:5];
   specialPoliciesForBundleIds = self->_specialPoliciesForBundleIds;
   self->_specialPoliciesForBundleIds = v17;
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)readConfigurationPlist
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = +[_CDPaths policiesConfigPath];
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_191750000, self, OS_LOG_TYPE_ERROR, "Failed to read %@", &v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_191750000, self, OS_LOG_TYPE_ERROR, "Failed to read %@", &v3, 0xCu);
 }
 
 @end

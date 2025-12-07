@@ -27,7 +27,7 @@
 
 - (id)knownFields
 {
-  v11[6] = *MEMORY[0x277D85DE8];
+  v10[6] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -39,20 +39,18 @@
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = MTPageEventHandler;
-    delegate2 = [(MTEventHandler *)&v10 knownFields];
-    v11[0] = @"extRefUrl";
-    v11[1] = @"refApp";
-    v11[2] = @"pageHistory";
-    v11[3] = @"refUrl";
-    v11[4] = @"searchFilters";
-    v11[5] = @"searchTerm";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:6];
+    v9.receiver = self;
+    v9.super_class = MTPageEventHandler;
+    delegate2 = [(MTEventHandler *)&v9 knownFields];
+    v10[0] = @"extRefUrl";
+    v10[1] = @"refApp";
+    v10[2] = @"pageHistory";
+    v10[3] = @"refUrl";
+    v10[4] = @"searchFilters";
+    v10[5] = @"searchTerm";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:6];
     knownFields = [delegate2 arrayByAddingObjectsFromArray:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return knownFields;
 }

@@ -48,9 +48,7 @@
   {
     CVPixelBufferRelease(pixelBuffer);
     self->_pixelBuffer = CVPixelBufferRetain(buffer);
-    v6 = [[SIIOSurface alloc] initFromPixelBuffer:self->_pixelBuffer];
-    surface = self->_surface;
-    self->_surface = v6;
+    self->_surface = [[SIIOSurface alloc] initFromPixelBuffer:self->_pixelBuffer];
 
     MEMORY[0x2821F96F8]();
   }
@@ -78,13 +76,13 @@
 {
   height = resolution.height;
   width = resolution.width;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v8 = SICreateCVPixelBufferWithCustomStride(resolution.width, resolution.height, pixelformat, 0, 1);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v15 = __48__SIPixelBuffer_initWithResolution_pixelformat___block_invoke;
-  v16 = &__block_descriptor_40_e5_v8__0l;
-  v17 = v8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v14 = __48__SIPixelBuffer_initWithResolution_pixelformat___block_invoke;
+  v15 = &__block_descriptor_40_e5_v8__0l;
+  v16 = v8;
   if (v8)
   {
     self = [(SIPixelBuffer *)self initWithCVPixelBuffer:v8];
@@ -93,29 +91,28 @@
 
   else
   {
-    v10 = __SceneIntelligenceLogSharedInstance();
+    v10 = __SceneIntelligenceLogSharedInstance(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = SIPixelFormatToStr(pixelformat);
       *buf = 136381699;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Pixelbuffer/SIPixelBuffer.mm";
-      v20 = 1025;
-      v21 = 81;
-      v22 = 2048;
-      v23 = width;
-      v24 = 2048;
-      v25 = height;
-      v26 = 2112;
-      v27 = v11;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Pixelbuffer/SIPixelBuffer.mm";
+      v19 = 1025;
+      v20 = 81;
+      v21 = 2048;
+      v22 = width;
+      v23 = 2048;
+      v24 = height;
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_21DE0D000, v10, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to create the buffer - (%f, %f), formate=%@ ***", buf, 0x30u);
     }
 
     selfCopy = 0;
   }
 
-  v15(v14);
+  v14(v13);
 
-  v12 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -25,6 +25,8 @@
 - (void)_enumerateViewElementsForRowOfIndexPath:(id)path usingBlock:(id)block;
 - (void)_reloadCellPaddingIfNeeded;
 - (void)collectionViewWillApplyLayoutAttributes:(id)attributes;
+- (void)columnContentWidth;
+- (void)columnWidth;
 - (void)configureCell:(id)cell forViewElement:(id)element indexPath:(id)path;
 - (void)registerReusableClassesForCollectionView:(id)view;
 - (void)reloadCellWithIndexPath:(id)path forViewElement:(id)element reason:(int64_t)reason;
@@ -1013,7 +1015,7 @@ LABEL_16:
 
 - (void)updateLayoutPropertiesForGridViewElement:(id)element
 {
-  *(&v53[1] + 4) = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   if (os_variant_has_internal_content())
   {
@@ -1116,7 +1118,7 @@ LABEL_15:
       v31 = *(*(&v47 + 1) + 8 * v29);
       if (os_variant_has_internal_content() && _os_feature_enabled_impl() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        [(SKUIGridViewElementPageSectionConfiguration *)buf updateLayoutPropertiesForGridViewElement:v53];
+        [(SKUIGridViewElementPageSectionConfiguration *)buf updateLayoutPropertiesForGridViewElement:?];
       }
 
       elementType = [v31 elementType];
@@ -1209,7 +1211,7 @@ LABEL_45:
 
 - (void)updateStylePropertiesForGridViewElement:(id)element gridItemViewElements:(id)elements numberOfGridItems:(unint64_t)items
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   elementsCopy = elements;
   if (os_variant_has_internal_content())
@@ -1298,80 +1300,81 @@ LABEL_17:
   {
     if (CGColorGetAlpha([color CGColor]) <= 0.00000011920929)
     {
-      v80 = 0;
+      v82 = 0;
       v46 = 0;
       goto LABEL_47;
     }
 
-    v80 = color;
+    v82 = color;
   }
 
   else
   {
-    v80 = separatorColor;
+    v82 = separatorColor;
   }
 
   separatorColor = [style dividerType];
-  if ([separatorColor isEqualToString:@"grid-full"])
+  if (objc_msgSend_isEqualToString_(separatorColor))
   {
     v46 = 2;
   }
 
-  else if ([separatorColor isEqualToString:@"grid-top"])
+  else if (objc_msgSend_isEqualToString_(separatorColor))
   {
     v46 = 3;
   }
 
-  else if ([separatorColor isEqualToString:@"full"])
+  else if (objc_msgSend_isEqualToString_(separatorColor))
   {
     v46 = 4;
   }
 
-  else if ([separatorColor isEqualToString:@"grid-vertical"])
+  else if (objc_msgSend_isEqualToString_(separatorColor))
   {
     v46 = 6;
   }
 
-  else if ([separatorColor isEqualToString:@"none"])
+  else if (objc_msgSend_isEqualToString_(separatorColor))
   {
     v46 = 0;
   }
 
-  else if (*p_gridIsEdgeToEdge || ([separatorColor isEqualToString:@"edge-to-edge"] & 1) != 0)
+  else if (*p_gridIsEdgeToEdge || (objc_msgSend_isEqualToString_(separatorColor) & 1) != 0)
   {
     v46 = 7;
   }
 
   else
   {
+    v86 = 0u;
+    v87 = 0u;
     v84 = 0u;
     v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
     obj = elementsCopy;
-    v47 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v86 count:16];
+    v47 = [(NSArray *)obj countByEnumeratingWithState:&v84 objects:v88 count:16];
     if (v47)
     {
       v48 = v47;
-      v79 = *v83;
+      v81 = *v85;
       v46 = 1;
 LABEL_37:
       v49 = 0;
       while (1)
       {
-        if (*v83 != v79)
+        if (*v85 != v81)
         {
           objc_enumerationMutation(obj);
         }
 
-        if (!SKUIIKViewElementTypeIsButton([*(*(&v82 + 1) + 8 * v49) elementType]))
+        elementType = [*(*(&v84 + 1) + 8 * v49) elementType];
+        if (!SKUIIKViewElementTypeIsButton(elementType, v51))
         {
           break;
         }
 
         if (v48 == ++v49)
         {
-          v48 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v86 count:16];
+          v48 = [(NSArray *)obj countByEnumeratingWithState:&v84 objects:v88 count:16];
           if (v48)
           {
             goto LABEL_37;
@@ -1389,63 +1392,63 @@ LABEL_43:
     }
   }
 
-  v50 = [style valueForStyle:*MEMORY[0x277D1AFB8]];
+  v52 = [style valueForStyle:*MEMORY[0x277D1AFB8]];
 
-  if (v50)
+  if (v52)
   {
     [style borderWidths];
-    v52 = v51;
     v54 = v53;
     v56 = v55;
-    v43 = v57;
+    v58 = v57;
+    v43 = v59;
     goto LABEL_48;
   }
 
 LABEL_47:
+  v58 = v43;
   v56 = v43;
   v54 = v43;
-  v52 = v43;
 LABEL_48:
-  v58 = elementsCopy;
+  v60 = elementsCopy;
 
-  v59 = [style valueForStyle:*MEMORY[0x277D1AFB0]];
+  v61 = [style valueForStyle:*MEMORY[0x277D1AFB0]];
 
-  if (v59)
+  if (v61)
   {
     [style borderMargins];
-    v40 = v60;
-    v39 = v61;
-    v41 = v62;
-    v42 = v63;
+    v40 = v62;
+    v39 = v63;
+    v41 = v64;
+    v42 = v65;
   }
 
-  v64 = [style valueForStyle:*MEMORY[0x277D1AFF0]];
-  v65 = 1;
-  if (!v64)
+  v66 = [style valueForStyle:*MEMORY[0x277D1AFF0]];
+  v67 = 1;
+  if (!v66)
   {
-    v66 = [style valueForStyle:@"itml-padding"];
-    v65 = v66 != 0;
+    v68 = [style valueForStyle:@"itml-padding"];
+    v67 = v68 != 0;
   }
 
-  self->_hasGridViewElementStyle = style != 0 && v65;
+  self->_hasGridViewElementStyle = style != 0 && v67;
   [style elementPadding];
-  self->_gridViewElementStyleElementPadding.top = v67;
-  self->_gridViewElementStyleElementPadding.left = v68;
-  self->_gridViewElementStyleElementPadding.bottom = v69;
-  self->_gridViewElementStyleElementPadding.right = v70;
+  self->_gridViewElementStyleElementPadding.top = v69;
+  self->_gridViewElementStyleElementPadding.left = v70;
+  self->_gridViewElementStyleElementPadding.bottom = v71;
+  self->_gridViewElementStyleElementPadding.right = v72;
   self->_numberOfGridItems = items;
   self->_separatorStyle = v46;
-  objc_storeStrong(&self->_separatorColor, v80);
+  objc_storeStrong(&self->_separatorColor, v82);
   self->_separatorMargins.top = v40;
   self->_separatorMargins.left = v39;
   self->_separatorMargins.bottom = v41;
   self->_separatorMargins.right = v42;
-  self->_separatorWidths.top = v52;
-  self->_separatorWidths.left = v54;
-  self->_separatorWidths.bottom = v56;
+  self->_separatorWidths.top = v54;
+  self->_separatorWidths.left = v56;
+  self->_separatorWidths.bottom = v58;
   self->_separatorWidths.right = v43;
   viewElements = self->_viewElements;
-  self->_viewElements = v58;
+  self->_viewElements = v60;
 
   self->_cellContentWidth = 0.0;
   self->_cellPaddingNeedsReloading = 1;
@@ -1457,21 +1460,21 @@ LABEL_48:
 
   if (lockupType)
   {
-    v74 = SKUILockupViewTypeForString(lockupType);
+    v76 = SKUILockupViewTypeForString(lockupType);
   }
 
   else
   {
-    v74 = -1;
+    v76 = -1;
   }
 
-  self->_lockupType = v74;
+  self->_lockupType = v76;
   itemHeight = [style itemHeight];
   if (itemHeight || ([style rowHeight], (itemHeight = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v76 = itemHeight;
+    v78 = itemHeight;
     [itemHeight floatValue];
-    self->_minimumCellHeight = v77;
+    self->_minimumCellHeight = v79;
   }
 
   else
@@ -2029,7 +2032,7 @@ LABEL_25:
 
 - (void)_enumerateViewElementsForRowOfIndexPath:(id)path usingBlock:(id)block
 {
-  *&v20[5] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   blockCopy = block;
   v8 = [pathCopy item] / self->_numberOfColumns * self->_numberOfColumns;
@@ -2053,7 +2056,7 @@ LABEL_25:
     {
       if (os_variant_has_internal_content() && _os_feature_enabled_impl() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        [(SKUIGridViewElementPageSectionConfiguration *)buf updateLayoutPropertiesForGridViewElement:v20];
+        [(SKUIGridViewElementPageSectionConfiguration *)buf updateLayoutPropertiesForGridViewElement:?];
       }
 
       if ([v16 elementType] != 48)
@@ -2177,13 +2180,13 @@ LABEL_25:
   return result;
 }
 
-uint64_t __95__SKUIGridViewElementPageSectionConfiguration__normalizedContentInsetForViewElement_indexPath___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__95__SKUIGridViewElementPageSectionConfiguration__normalizedContentInsetForViewElement_indexPath___block_invoke(id *result, id a2, uint64_t a3)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
     v3 = result;
-    result = [*(result + 40) _cellInsetsForViewElement:a2 indexPath:a3];
-    v6 = *(*(v3 + 48) + 8);
+    result = [result[5] _cellInsetsForViewElement:a2 indexPath:a3];
+    v6 = *(v3[6] + 1);
     v7 = *(v6 + 48);
     if (v7 < v5)
     {
@@ -2191,7 +2194,7 @@ uint64_t __95__SKUIGridViewElementPageSectionConfiguration__normalizedContentIns
     }
 
     *(v6 + 48) = v7;
-    v8 = *(*(v3 + 48) + 8);
+    v8 = *(v3[6] + 1);
     if (*(v8 + 32) >= v4)
     {
       v4 = *(v8 + 32);
@@ -2418,7 +2421,7 @@ LABEL_25:
   return v9;
 }
 
-uint64_t __65__SKUIGridViewElementPageSectionConfiguration__useOrdinalPadding__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__65__SKUIGridViewElementPageSectionConfiguration__useOrdinalPadding__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 elementType];
   *(*(*(a1 + 32) + 8) + 24) = result == 80;
@@ -2433,10 +2436,136 @@ uint64_t __65__SKUIGridViewElementPageSectionConfiguration__useOrdinalPadding__b
   return WeakRetained;
 }
 
+- (void)columnContentWidth
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration columnContentWidth]";
+}
+
+- (void)columnWidth
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration columnWidth]";
+}
+
+- (void)setDataSource:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration setDataSource:]";
+}
+
+- (void)setNumberOfColumns:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration setNumberOfColumns:]";
+}
+
+- (void)backgroundColorForViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration backgroundColorForViewElement:]";
+}
+
+- (void)cellClassForViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration cellClassForViewElement:]";
+}
+
+- (void)cellForViewElement:(uint64_t)a3 indexPath:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration cellForViewElement:indexPath:]";
+}
+
+- (void)cellSizeForViewElement:(uint64_t)a3 indexPath:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration cellSizeForViewElement:indexPath:]";
+}
+
+- (void)cellSizeForViewElement:(uint64_t)a3 indexPath:(uint64_t)a4 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "SKUIGridViewElementIsFullWidth";
+}
+
+- (void)collectionViewWillApplyLayoutAttributes:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration collectionViewWillApplyLayoutAttributes:]";
+}
+
+- (void)configureCell:(uint64_t)a3 forViewElement:(uint64_t)a4 indexPath:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration configureCell:forViewElement:indexPath:]";
+}
+
+- (void)lockupCellClassWithLockup:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration lockupCellClassWithLockup:]";
+}
+
+- (void)positionForIndexPath:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration positionForIndexPath:]";
+}
+
+- (void)registerReusableClassesForCollectionView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration registerReusableClassesForCollectionView:]";
+}
+
+- (void)reloadCellWithIndexPath:(uint64_t)a3 forViewElement:(uint64_t)a4 reason:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration reloadCellWithIndexPath:forViewElement:reason:]";
+}
+
+- (void)requestCellLayoutForViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration requestCellLayoutForViewElement:]";
+}
+
+- (void)sectionContentInsetAdjustedFromValue:(uint64_t)a3 forGridViewElement:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration sectionContentInsetAdjustedFromValue:forGridViewElement:]";
+}
+
+- (void)updateLayoutPropertiesForGridViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration updateLayoutPropertiesForGridViewElement:]";
+}
+
 - (void)updateLayoutPropertiesForGridViewElement:(uint8_t *)buf .cold.2(uint8_t *buf, void *a2)
 {
   *buf = 136446210;
   *a2 = "SKUIGridViewElementIsFullWidth";
+}
+
+- (void)updateStylePropertiesForGridViewElement:(uint64_t)a3 gridItemViewElements:(uint64_t)a4 numberOfGridItems:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration updateStylePropertiesForGridViewElement:gridItemViewElements:numberOfGridItems:]";
+}
+
+- (void)updateStylePropertiesForGridViewElement:(uint64_t)a3 gridItemViewElements:(uint64_t)a4 numberOfGridItems:(uint64_t)a5 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "_SKUIGridViewDefaultSeparatorInsets";
+}
+
+- (void)viewElementIsStandardCard:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGridViewElementPageSectionConfiguration viewElementIsStandardCard:]";
 }
 
 @end

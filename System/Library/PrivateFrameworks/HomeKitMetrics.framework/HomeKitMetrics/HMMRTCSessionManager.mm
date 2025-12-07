@@ -1,11 +1,26 @@
 @interface HMMRTCSessionManager
 + (id)sharedManager;
+- (id)sessionWithUUID:(id)d serviceName:(id)name uploadImmediately:(BOOL)immediately;
 - (void)addCommonField:(id)field withValue:(id)value;
 - (void)removeCommonField:(id)field;
 - (void)setSessionFactory:(id)factory;
+- (void)submitEventWithName:(id)name serviceName:(id)serviceName uploadImmediately:(BOOL)immediately payload:(id)payload;
 @end
 
 @implementation HMMRTCSessionManager
+
+- (void)submitEventWithName:(id)name serviceName:(id)serviceName uploadImmediately:(BOOL)immediately payload:(id)payload
+{
+  immediatelyCopy = immediately;
+  v10 = MEMORY[0x277CCAD78];
+  payloadCopy = payload;
+  serviceNameCopy = serviceName;
+  nameCopy = name;
+  uUID = [v10 UUID];
+  v15 = [(HMMRTCSessionManager *)self sessionWithUUID:uUID serviceName:serviceNameCopy uploadImmediately:immediatelyCopy];
+
+  [v15 submitEventWithName:nameCopy payload:payloadCopy];
+}
 
 - (void)removeCommonField:(id)field
 {
@@ -41,6 +56,30 @@
   self->_commonFields = v8;
 
   os_unfair_lock_unlock(&self->_lock);
+}
+
+- (id)sessionWithUUID:(id)d serviceName:(id)name uploadImmediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  dCopy = d;
+  nameCopy = name;
+  os_unfair_lock_lock_with_options();
+  sessionFactory = self->_sessionFactory;
+  if (!sessionFactory)
+  {
+    v11 = objc_alloc_init(HMMRTCSessionFactory);
+    v12 = self->_sessionFactory;
+    self->_sessionFactory = v11;
+
+    sessionFactory = self->_sessionFactory;
+  }
+
+  v13 = self->_commonFields;
+  v14 = sessionFactory;
+  os_unfair_lock_unlock(&self->_lock);
+  v15 = [(HMMRTCSessionFactory *)v14 sessionWithUUID:dCopy serviceName:nameCopy uploadImmediately:immediatelyCopy commonFields:v13];
+
+  return v15;
 }
 
 - (void)setSessionFactory:(id)factory

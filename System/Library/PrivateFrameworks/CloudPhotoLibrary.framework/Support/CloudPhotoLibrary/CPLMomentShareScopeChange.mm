@@ -215,7 +215,7 @@ LABEL_20:
 
   if (v8)
   {
-    [(CPLMomentShareScopeChange *)self setExpiryDate:v8];
+    objc_msgSend_setExpiryDate_(self);
   }
 
   else if ((_CPLSilentLogging & 1) == 0)

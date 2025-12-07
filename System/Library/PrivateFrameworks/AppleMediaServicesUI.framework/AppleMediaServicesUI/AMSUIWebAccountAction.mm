@@ -40,10 +40,10 @@
 
 - (id)runAction
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = AMSUIWebAccountAction;
-  runAction = [(AMSUIWebAction *)&v29 runAction];
+  v35 = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = AMSUIWebAccountAction;
+  runAction = [(AMSUIWebAction *)&v28 runAction];
   account = [(AMSUIWebAccountAction *)self account];
   accountObject = [(AMSUIWebAccountAction *)self accountObject];
   v6 = [accountObject objectForKeyedSubscript:@"accountFlags"];
@@ -58,13 +58,13 @@
     v7 = 0;
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __34__AMSUIWebAccountAction_runAction__block_invoke;
-  v27[3] = &unk_1E7F25A18;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __34__AMSUIWebAccountAction_runAction__block_invoke;
+  v26[3] = &unk_1E7F25A18;
   v8 = account;
-  v28 = v8;
-  [v7 enumerateKeysAndObjectsUsingBlock:v27];
+  v27 = v8;
+  [v7 enumerateKeysAndObjectsUsingBlock:v26];
   v9 = [accountObject objectForKeyedSubscript:@"active"];
   if (objc_opt_respondsToSelector())
   {
@@ -103,11 +103,11 @@
     v16 = AMSLogKey();
     dirtyProperties = [v8 dirtyProperties];
     *buf = 138543874;
-    v31 = v15;
-    v32 = 2114;
-    v33 = v16;
-    v34 = 2114;
-    v35 = dirtyProperties;
+    v30 = v15;
+    v31 = 2114;
+    v32 = v16;
+    v33 = 2114;
+    v34 = dirtyProperties;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Updating account keys: %{public}@", buf, 0x20u);
   }
 
@@ -119,8 +119,6 @@
 
   v23 = [v22 ams_saveAccount:v8 verifyCredentials:0];
   promiseAdapter = [v23 promiseAdapter];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return promiseAdapter;
 }

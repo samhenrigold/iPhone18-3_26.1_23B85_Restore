@@ -44,11 +44,11 @@ LABEL_5:
   return v6;
 }
 
-uint64_t __69___UIStatusBarCellularCondensedItem_prepareAnimation_forDisplayItem___block_invoke(uint64_t result, uint64_t a2)
+id *__69___UIStatusBarCellularCondensedItem_prepareAnimation_forDisplayItem___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) setMarqueeRunning:1];
+    return [result[4] setMarqueeRunning:1];
   }
 
   return result;

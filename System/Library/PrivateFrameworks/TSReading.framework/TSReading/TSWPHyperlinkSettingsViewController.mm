@@ -39,7 +39,7 @@
   v3 = +[TSWPHyperlinkUIController defaultTableView];
   [v3 setDataSource:self];
   [v3 setDelegate:self];
-  [(TSWPHyperlinkSettingsViewController *)self setView:v3];
+  v4 = [(TSWPHyperlinkSettingsViewController *)self setView:v3];
   [-[TSWPHyperlinkSettingsViewController navigationItem](self "navigationItem")];
   [(TSWPHyperlinkSettingsViewController *)self setEdgesForExtendedLayout:0];
   [TSKPopoverBasedViewController preferredContentSizeForTableView:v3];
@@ -86,10 +86,10 @@
       v10 = [objc_alloc(MEMORY[0x277D75B48]) initWithStyle:0 reuseIdentifier:0];
       [-[TSWPTextFieldTableViewCell textLabel](v10 "textLabel")];
       [-[TSWPTextFieldTableViewCell textLabel](v10 "textLabel")];
-      v11 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
+      v12 = [MEMORY[0x277D75348] colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
       textLabel = [(TSWPTextFieldTableViewCell *)v10 textLabel];
 LABEL_4:
-      [(UITextField *)textLabel setTextColor:v11];
+      [(UITextField *)textLabel setTextColor:v12];
       goto LABEL_5;
     }
 
@@ -107,7 +107,7 @@ LABEL_4:
         if (self->_readOnly)
         {
           [(UITextField *)[(TSWPTextFieldTableViewCell *)v10 textField] setEnabled:0];
-          v11 = [MEMORY[0x277D75348] colorWithRed:0.219999999 green:0.330000013 blue:0.529999971 alpha:0.5];
+          v12 = [MEMORY[0x277D75348] colorWithRed:0.219999999 green:0.330000013 blue:0.529999971 alpha:0.5];
           textLabel = [(TSWPTextFieldTableViewCell *)v10 textField];
           goto LABEL_4;
         }
@@ -116,35 +116,35 @@ LABEL_4:
 
     else
     {
-      v15 = TSWPBundle();
+      v18 = TSWPBundle(0, v16);
       if (v8)
       {
-        v16 = @"To";
+        v19 = @"To";
       }
 
       else
       {
-        v16 = @"Link";
+        v19 = @"Link";
       }
 
       if (v8)
       {
-        v17 = 7;
+        v20 = 7;
       }
 
       else
       {
-        v17 = 3;
+        v20 = 3;
       }
 
       [-[TSWPTextFieldTableViewCell textLabel](v10 "textLabel")];
-      [(UITextField *)[(TSWPTextFieldTableViewCell *)v10 textField] setKeyboardType:v17];
+      [(UITextField *)[(TSWPTextFieldTableViewCell *)v10 textField] setKeyboardType:v20];
       objc_opt_class();
       [objc_msgSend(v7 "interactiveCanvasController")];
-      v18 = TSUDynamicCast();
-      if ((objc_opt_respondsToSelector() & 1) != 0 && (v19 = [v18 performSelector:sel_hyperlinkUICustomStringForURLString_ withObject:{objc_msgSend(v7, "stringForURL")}]) != 0)
+      v21 = TSUDynamicCast();
+      if ((objc_opt_respondsToSelector() & 1) != 0 && (v22 = [v21 performSelector:sel_hyperlinkUICustomStringForURLString_ withObject:{objc_msgSend(v7, "stringForURL")}]) != 0)
       {
-        [(UITextField *)[(TSWPTextFieldTableViewCell *)v10 textField] setText:v19];
+        [(UITextField *)[(TSWPTextFieldTableViewCell *)v10 textField] setText:v22];
         [(UITextField *)[(TSWPTextFieldTableViewCell *)v10 textField] setEnabled:0];
         -[UITextField setTextColor:](-[TSWPTextFieldTableViewCell textField](v10, "textField"), "setTextColor:", [MEMORY[0x277D75348] colorWithRed:0.219999999 green:0.330000013 blue:0.529999971 alpha:0.5]);
       }

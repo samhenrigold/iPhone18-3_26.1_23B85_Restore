@@ -42,127 +42,127 @@
 
 - (void)forwardPredictions:(id)predictions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(predictionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Forwarding the following predictions:", buf, 2u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = predictionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v10 = 0;
+      do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        v12 = __atxlog_handle_anchor();
+        v11 = *(*(&v13 + 1) + 8 * v10);
+        v12 = __atxlog_handle_anchor(v7);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v19 = v11;
+          v18 = v11;
           _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
         }
+
+        ++v10;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      while (v8 != v10);
+      v7 = [v6 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   [(ATXAnchorModelPredictionForwarder *)self forwardNonModePredictions:v6];
   [(ATXAnchorModelPredictionForwarder *)self forwardModePredictions:v6];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forwardNonModePredictions:(id)predictions
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   v5 = [(ATXAnchorModelPredictionForwarder *)self actionAnchorModelPredictionTuplesForBlendingLayerFromPredictions:predictionsCopy];
   v6 = [(ATXAnchorModelPredictionForwarder *)self appAnchorModelPredictionTuplesForBlendingLayerFromPredictions:predictionsCopy];
   v7 = [(ATXAnchorModelPredictionForwarder *)self linkActionAnchorModelPredictionTuplesForBlendingLayerFromPredictions:predictionsCopy];
 
-  v8 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v17 = 134217984;
-    v18 = [v5 count];
-    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Forwarding %lu actions", &v17, 0xCu);
-  }
-
-  v9 = __atxlog_handle_anchor();
+  v9 = __atxlog_handle_anchor(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v6 count];
-    v17 = 134217984;
-    v18 = v10;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Forwarding %lu apps", &v17, 0xCu);
+    v19 = 134217984;
+    v20 = [v5 count];
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Forwarding %lu actions", &v19, 0xCu);
   }
 
-  v11 = __atxlog_handle_anchor();
+  v11 = __atxlog_handle_anchor(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [v7 count];
-    v17 = 134217984;
-    v18 = v12;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Forwarding %lu Link actions", &v17, 0xCu);
+    v12 = [v6 count];
+    v19 = 134217984;
+    v20 = v12;
+    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Forwarding %lu apps", &v19, 0xCu);
   }
 
-  v13 = [v5 arrayByAddingObjectsFromArray:v6];
-  v14 = [v13 arrayByAddingObjectsFromArray:v7];
+  v14 = __atxlog_handle_anchor(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = [v7 count];
+    v19 = 134217984;
+    v20 = v15;
+    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Forwarding %lu Link actions", &v19, 0xCu);
+  }
 
-  v15 = [[ATXAnchorModelFeedbackMetadata alloc] initWithAnchorSuggestionTuples:v14];
-  [(ATXAnchorModelPredictionForwarder *)self forwardPredictionTuplesToBlendingLayer:v14 feedbackMetadata:v15];
+  v16 = [v5 arrayByAddingObjectsFromArray:v6];
+  v17 = [v16 arrayByAddingObjectsFromArray:v7];
 
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = [[ATXAnchorModelFeedbackMetadata alloc] initWithAnchorSuggestionTuples:v17];
+  [(ATXAnchorModelPredictionForwarder *)self forwardPredictionTuplesToBlendingLayer:v17 feedbackMetadata:v18];
 }
 
 - (void)forwardModePredictions:(id)predictions
 {
   v12 = *MEMORY[0x277D85DE8];
   v4 = [(ATXAnchorModelPredictionForwarder *)self modeAnchorModelSuggestionsFromPredictions:predictions];
-  if ([v4 count])
+  v5 = [v4 count];
+  if (v5)
   {
-    v5 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_anchor(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
       v11 = [v4 count];
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Forwarding %lu mode suggestions", &v10, 0xCu);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Forwarding %lu mode suggestions", &v10, 0xCu);
     }
 
     modeSuggestionClient = self->_modeSuggestionClient;
     if (!modeSuggestionClient)
     {
-      v7 = +[ATXModeAnchorModelSuggestionClient sharedInstance];
-      v8 = self->_modeSuggestionClient;
-      self->_modeSuggestionClient = v7;
+      v8 = +[ATXModeAnchorModelSuggestionClient sharedInstance];
+      v9 = self->_modeSuggestionClient;
+      self->_modeSuggestionClient = v8;
 
       modeSuggestionClient = self->_modeSuggestionClient;
     }
 
     [(ATXModeAnchorModelSuggestionClient *)modeSuggestionClient anchorModelDidProvideModeSuggestions:v4];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forwardPredictionTuplesToBlendingLayer:(id)layer feedbackMetadata:(id)metadata
@@ -187,15 +187,13 @@
   v15 = [ATXAnchorModelFeedbackMetadata archivedDataForAnchorFeedbackMetadata:metadataCopy];
   [(ATXProactiveSuggestionClientModel *)anchorModelClientModel updateSuggestions:v7 feedbackMetadata:v15];
 
-  v16 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = __atxlog_handle_anchor(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = 134217984;
     v19 = [v7 count];
-    _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Done forwarding %lu predictions to the blending layer.", &v18, 0xCu);
+    _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Done forwarding %lu predictions to the blending layer.", &v18, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientModelSpec
@@ -401,32 +399,32 @@ id __99__ATXAnchorModelPredictionForwarder_appAnchorModelPredictionTuplesForBlen
 
 - (id)modeAnchorModelSuggestionsFromPredictions:(id)predictions
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  v29 = objc_opt_new();
+  v28 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = predictionsCopy;
-  v4 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v4 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v33;
+    v6 = *v32;
     v7 = 0x278592000uLL;
     do
     {
       v8 = 0;
-      v30 = v5;
+      v29 = v5;
       do
       {
-        if (*v33 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v32 + 1) + 8 * v8);
+        v9 = *(*(&v31 + 1) + 8 * v8);
         v10 = [objc_alloc(*(v7 + 3840)) initWithAnchorModelPrediction:v9];
         if ([v10 shouldPredictAnchorModelModePrediction])
         {
@@ -448,26 +446,24 @@ id __99__ATXAnchorModelPredictionForwarder_appAnchorModelPredictionTuplesForBlen
           serializedTriggers = [v10 serializedTriggers];
           v26 = [v13 initWithModeUUID:modeUUID isStart:isStart anchorType:anchorType score:numUniqueOccurrencesAfterAnchor numUniqueOccurrencesAfterAnchor:serializedTriggers posteriorProbability:v18 classConditionalProbability:v22 serializedTriggers:v24];
 
-          [v29 addObject:v26];
+          [v28 addObject:v26];
           v6 = v19;
           v7 = 0x278592000;
 
-          v5 = v30;
+          v5 = v29;
         }
 
         ++v8;
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v5 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v5);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v29;
+  return v28;
 }
 
 @end

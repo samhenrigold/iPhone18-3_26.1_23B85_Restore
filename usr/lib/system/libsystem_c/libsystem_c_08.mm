@@ -229,7 +229,7 @@ uint64_t _GB2312_init(void *a1)
   return 0;
 }
 
-uint64_t _GB2312_mbrtowc(int *a1, char **a2, unint64_t a3, unsigned int *a4)
+uint64_t _GB2312_mbrtowc(int *a1, char **a2, unint64_t a3, const char *a4)
 {
   v4 = *a4;
   if (v4 >= 3)
@@ -280,8 +280,8 @@ uint64_t _GB2312_mbrtowc(int *a1, char **a2, unint64_t a3, unsigned int *a4)
     v11 = v10;
   }
 
-  v12 = (a4 + 1);
-  j__strtod(a4 + v4 + 4, a2);
+  v12 = (a4 + 4);
+  j__strtod(&a4[v4 + 4], a2);
   v13 = *a4;
   *a4 += v11;
   if (!(v13 + v11))
@@ -318,7 +318,7 @@ LABEL_24:
   v18 = 4;
   do
   {
-    v16 = *(a4 + v18) | (v16 << 8);
+    v16 = a4[v18] | (v16 << 8);
     --v17;
     ++v18;
   }
@@ -1306,7 +1306,7 @@ int mblen_l(const char *a1, size_t a2, locale_t a3)
 
   else
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
   }
 
   if (a1)
@@ -1391,7 +1391,7 @@ size_t mbrlen_l(const char *a1, size_t a2, mbstate_t *a3, locale_t a4)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   if (a3)
@@ -1454,7 +1454,7 @@ int mbsinit_l(const mbstate_t *a1, locale_t a2)
 
   else
   {
-    v3 = &__c_locale;
+    v3 = __c_locale;
   }
 
   return (*(*(v3 + 166) + 80))(a1);
@@ -1497,7 +1497,7 @@ size_t mbsnrtowcs_l(__int32 *a1, const char **a2, size_t a3, size_t a4, mbstate_
 
   else
   {
-    v7 = &__c_locale;
+    v7 = __c_locale;
   }
 
   if (!a5)
@@ -1630,7 +1630,7 @@ size_t mbstowcs_l(__int32 *a1, const char *a2, size_t a3, locale_t a4)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   memset(v8, 0, sizeof(v8));
@@ -1677,7 +1677,7 @@ int mbtowc_l(__int32 *a1, const char *a2, size_t a3, locale_t a4)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   if (a2)
@@ -2575,7 +2575,7 @@ LABEL_20:
   }
 }
 
-uint64_t currentlocale()
+char *currentlocale()
 {
   v0 = currentlocale_current_locale_string;
   if (!currentlocale_current_locale_string)
@@ -2637,13 +2637,13 @@ char *__get_locale_env(int a1)
 const char *loadlocale(int a1)
 {
   v2 = a1;
-  v3 = &new_categories + 32 * a1;
+  v3 = &new_categories[32 * a1];
   if (*v3 == 46 && (!v3[1] || v3[1] == 46 && !v3[2]))
   {
     goto LABEL_6;
   }
 
-  j__strmode(&new_categories + 32 * a1, 0x2F);
+  j__strmode(&new_categories[32 * a1], 0x2F);
   if (v4)
   {
     goto LABEL_6;
@@ -3036,7 +3036,7 @@ __darwin_ct_rune_t ___toupper_l(__darwin_ct_rune_t result, locale_t a2)
 {
   if ((result & 0x80000000) == 0)
   {
-    v2 = &__c_locale;
+    v2 = __c_locale;
     v3 = &__global_locale;
     if (a2 != -1)
     {
@@ -3353,7 +3353,7 @@ size_t wcsnrtombs_l(char *a1, const __int32 **a2, size_t a3, size_t a4, mbstate_
 
   else
   {
-    v7 = &__c_locale;
+    v7 = __c_locale;
   }
 
   if (!a5)
@@ -3535,7 +3535,7 @@ size_t wcsrtombs_l(char *a1, const __int32 **a2, size_t a3, mbstate_t *a4, local
 
   else
   {
-    v6 = &__c_locale;
+    v6 = __c_locale;
   }
 
   if (a4)
@@ -3583,7 +3583,7 @@ size_t wcsrtombs(char *a1, const __int32 **a2, size_t a3, mbstate_t *a4)
   return (*(*(v6 + 166) + 104))(a1, a2, -1, a3, v7);
 }
 
-size_t __wcs_end_offset(const char *a1, uint64_t a2, locale_t a3)
+uint64_t __wcs_end_offset(const char *a1, uint64_t a2, locale_t a3)
 {
   decimal_point = localeconv_l(a3)->decimal_point;
   v6 = a2 - a1;
@@ -4801,7 +4801,7 @@ size_t wcstombs_l(char *a1, const __int32 *a2, size_t a3, locale_t a4)
 
   else
   {
-    v5 = &__c_locale;
+    v5 = __c_locale;
   }
 
   memset(v8, 0, sizeof(v8));
@@ -5571,7 +5571,7 @@ int wctob_l(int result, locale_t a2)
 
     else
     {
-      v3 = &__c_locale;
+      v3 = __c_locale;
     }
 
     if ((*(*(v3 + 166) + 96))(v4, *&result, v5) == 1)
@@ -5620,7 +5620,7 @@ int wctomb_l(char *a1, __int32 a2, locale_t a3)
 
   else
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
   }
 
   if (a1)
@@ -5809,7 +5809,7 @@ LABEL_8:
   result = *(v11 + 2);
   if (!result)
   {
-    v14 = &__c_locale;
+    v14 = __c_locale;
     v15 = &__global_locale;
     if (a2 != -1)
     {
@@ -6081,16 +6081,16 @@ in_addr_t inet_addr(const char *a1)
   }
 }
 
-uint64_t memstream_seek(uint64_t a1, int64_t a2, int a3)
+uint64_t memstream_seek(uint64_t a1, unint64_t a2, int a3)
 {
   switch(a3)
   {
     case 2:
       v4 = *(a1 + 16);
-      if (a2 < 0)
+      if ((a2 & 0x8000000000000000) != 0)
       {
         a2 += v4;
-        if (a2 < 0)
+        if ((a2 & 0x8000000000000000) != 0)
         {
           v5 = __error();
           v6 = 22;
@@ -6123,7 +6123,7 @@ LABEL_15:
 
       break;
     case 0:
-      if (a2 < 0)
+      if ((a2 & 0x8000000000000000) != 0)
       {
         memstream_seek_cold_2();
       }
@@ -6131,7 +6131,7 @@ LABEL_15:
       goto LABEL_15;
   }
 
-  memstream_update(a1);
+  memstream_update(a1, a2);
   return *(a1 + 24);
 }
 
@@ -7808,7 +7808,14 @@ LABEL_16:
   }
 
   v12 = v11;
-  memset(&v22, 0, 128);
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0;
+  v23 = 0u;
   *&v22.sa_len = 528;
   *&v22.sa_data[2] = a3;
   if (!a5 && !a6)
@@ -8003,7 +8010,14 @@ LABEL_8:
   }
 
   v17 = v16;
-  memset(&v24, 0, 128);
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0;
+  v25 = 0u;
   *&v24.sa_len = 528;
   *&v24.sa_data[2] = a3;
   if (!v10 && !v9)
@@ -8135,7 +8149,7 @@ LABEL_8:
   if (v4)
   {
 
-    return loadCat();
+    return loadCat(a1);
   }
 
   if (a2 == 1)
@@ -8321,57 +8335,57 @@ LABEL_45:
 
   free(v15);
   free(v24);
-  return loadCat();
+  return loadCat(v38);
 }
 
-uint64_t loadCat()
+FILE **loadCat(uint64_t a1)
 {
-  v0 = malloc_type_malloc(0x20uLL, 0x1020040DE3E3027uLL);
-  if (!v0)
+  v1 = malloc_type_malloc(0x20uLL, 0x1020040DE3E3027uLL);
+  if (!v1)
   {
     return -1;
   }
 
-  v1 = v0;
-  v2 = open_NOCANCEL();
-  if (v2 == -1)
+  v2 = v1;
+  v3 = open_NOCANCEL();
+  if (v3 == -1)
   {
-    v10 = *__error();
+    v11 = *__error();
 LABEL_20:
-    free(v1);
+    free(v2);
 LABEL_30:
-    *__error() = v10;
+    *__error() = v11;
     return -1;
   }
 
-  v3 = fdopen(v2, "r");
-  *v1 = v3;
-  if (!v3)
+  v4 = fdopen(v3, "r");
+  *v2 = v4;
+  if (!v4)
   {
-    v10 = *__error();
+    v11 = *__error();
     close_NOCANCEL();
     goto LABEL_20;
   }
 
   __ptr = 0u;
-  v13 = 0u;
-  if (fread(&__ptr, 0x20uLL, 1uLL, v3) != 1 || __ptr != 0x2A6C75677A616E2ALL)
+  v14 = 0u;
+  if (fread(&__ptr, 0x20uLL, 1uLL, v4) != 1 || __ptr != 0x2A6C75677A616E2ALL)
   {
 LABEL_28:
-    fclose(*v1);
+    fclose(*v2);
     fprintf(__stderrp, "%s: corrupt file.", "Message Catalog System");
-    free(v1);
+    free(v2);
 LABEL_29:
-    v10 = 79;
+    v11 = 79;
     goto LABEL_30;
   }
 
-  v4 = DWORD2(__ptr);
+  v5 = DWORD2(__ptr);
   if (DWORD2(__ptr) != 0x1000000)
   {
-    fclose(*v1);
-    free(v1);
-    if (v4 == 1)
+    fclose(*v2);
+    free(v2);
+    if (v5 == 1)
     {
       fprintf(__stderrp, "%s: %s is the wrong byte ordering.\n");
     }
@@ -8384,61 +8398,61 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (!DWORD1(v13))
+  if (!DWORD1(v14))
   {
-    fclose(*v1);
-    free(v1);
+    fclose(*v2);
+    free(v2);
     fprintf(__stderrp, "%s: %s has %d sets!\n");
     goto LABEL_29;
   }
 
-  v5 = bswap32(DWORD1(v13));
-  *(v1 + 2) = v5;
-  v6 = malloc_type_malloc(40 * v5, 0x10B2040D468A13DuLL);
-  v1[2] = v6;
-  if (!v6)
+  v6 = bswap32(DWORD1(v14));
+  *(v2 + 2) = v6;
+  v7 = malloc_type_malloc(40 * v6, 0x10B2040D468A13DuLL);
+  v2[2] = v7;
+  if (!v7)
   {
-    v10 = *__error();
-    fclose(*v1);
+    v11 = *__error();
+    fclose(*v2);
     fprintf(__stderrp, "%s: no more memory.", "Message Catalog System");
     goto LABEL_20;
   }
 
-  if (*(v1 + 2) >= 1)
+  if (*(v2 + 2) >= 1)
   {
-    v7 = 0;
-    v8 = bswap64(*(&v13 + 1));
-    while (fseeko(*v1, v8, 0) != -1)
+    v8 = 0;
+    v9 = bswap64(*(&v14 + 1));
+    while (fseeko(*v2, v9, 0) != -1)
     {
-      v9 = v1[2] + 40 * v7;
-      if (fread(v9, 0x28uLL, 1uLL, *v1) != 1)
+      v10 = v2[2] + 40 * v8;
+      if (fread(v10, 0x28uLL, 1uLL, *v2) != 1)
       {
         break;
       }
 
-      if (*(v9 + 36))
+      if (*(v10 + 36))
       {
-        v8 = bswap64(*(v9 + 4));
+        v9 = bswap64(*(v10 + 4));
       }
 
       else
       {
-        *(v9 + 36) = 1;
-        v8 = bswap64(*(v9 + 4));
-        ++v7;
+        *(v10 + 36) = 1;
+        v9 = bswap64(*(v10 + 4));
+        ++v8;
       }
 
-      if (v7 >= *(v1 + 2))
+      if (v8 >= *(v2 + 2))
       {
-        return v1;
+        return v2;
       }
     }
 
-    __nls_free_resources(v1, v7);
+    __nls_free_resources(v2, v8);
     goto LABEL_28;
   }
 
-  return v1;
+  return v2;
 }
 
 char *__cdecl catgets(nl_catd a1, int a2, int a3, const char *a4)
@@ -8669,7 +8683,7 @@ int catclose(nl_catd a1)
   }
 }
 
-void __nls_free_resources(uint64_t a1, int a2)
+void __nls_free_resources(uint64_t a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -9191,7 +9205,7 @@ __int32 *__cdecl fgetws(__int32 *a1, int a2, FILE *a3)
   return fgetws_l(a1, a2, a3, v5);
 }
 
-uint64_t f_prealloc()
+uint64_t *f_prealloc()
 {
   v0 = &__sglue;
   LODWORD(result) = getdtablesize();
@@ -9774,34 +9788,4 @@ int fscanf(FILE *a1, const char *a2, ...)
   v7 = __svfscanf_l(a1, v6, a2, va);
   funlockfile(a1);
   return v7;
-}
-
-int fscanf_l(FILE *a1, locale_t a2, const char *a3, ...)
-{
-  va_start(va, a3);
-  if (off_1EAC9EA90)
-  {
-    (off_1EAC9EA90)(a1, 152);
-  }
-
-  v6 = &__global_locale;
-  if (a2 != -1)
-  {
-    v6 = a2;
-  }
-
-  if (a2)
-  {
-    v7 = v6;
-  }
-
-  else
-  {
-    v7 = __c_locale;
-  }
-
-  flockfile(a1);
-  v8 = __svfscanf_l(a1, v7, a3, va);
-  funlockfile(a1);
-  return v8;
 }

@@ -26,7 +26,7 @@
 
 - (void)startPrewarmingRequest:(id)request
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = [FCFeedPrewarmOperation alloc];
   contentContext = [(FCFeedPrewarmer *)self contentContext];
@@ -44,22 +44,20 @@
     v11 = v10;
     requestKey2 = [requestCopy requestKey];
     operationID = [(FCOperation *)v7 operationID];
-    v16 = 138543618;
-    v17 = requestKey2;
-    v18 = 2114;
-    v19 = operationID;
-    _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "will prewarm feeds for key=%{public}@, operationID=%{public}@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = requestKey2;
+    v17 = 2114;
+    v18 = operationID;
+    _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "will prewarm feeds for key=%{public}@, operationID=%{public}@", &v15, 0x16u);
   }
 
   fc_prewarmQueue = [MEMORY[0x1E696ADC8] fc_prewarmQueue];
   [fc_prewarmQueue addOperation:v7];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishPrewarmingRequestForKey:(id)key completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   completionCopy = completion;
   prewarmOperations = [(FCFeedPrewarmer *)self prewarmOperations];
@@ -74,48 +72,46 @@
       v12 = v11;
       operationID = [v10 operationID];
       *buf = 138543618;
-      v22 = keyCopy;
-      v23 = 2114;
-      v24 = operationID;
+      v21 = keyCopy;
+      v22 = 2114;
+      v23 = operationID;
       _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "will finish prewarm operation for key=%{public}@, operationID=%{public}@", buf, 0x16u);
     }
 
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invoke_4;
-    v16[3] = &unk_1E7C43DB0;
-    v17 = completionCopy;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invoke_4;
+    v15[3] = &unk_1E7C43DB0;
+    v16 = completionCopy;
     v14 = completionCopy;
-    [v10 commitResultsOnceWithCompletionHandler:v16];
+    [v10 commitResultsOnceWithCompletionHandler:v15];
   }
 
   else
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invoke;
-    v18[3] = &unk_1E7C37BC0;
-    v19 = keyCopy;
-    v20 = completionCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invoke;
+    v17[3] = &unk_1E7C37BC0;
+    v18 = keyCopy;
+    v19 = completionCopy;
     v10 = completionCopy;
-    __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invoke(v18);
+    __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invoke(v17);
 
-    v14 = v19;
+    v14 = v18;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCFeedPrewarmLog;
   if (os_log_type_enabled(FCFeedPrewarmLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "found no prewarm operation for key=%{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "found no prewarm operation for key=%{public}@", &v7, 0xCu);
   }
 
   v4 = *(a1 + 40);
@@ -125,8 +121,6 @@ void __60__FCFeedPrewarmer_finishPrewarmingRequestForKey_completion___block_invo
     v6 = [(FCFeedPrewarmResult *)v5 initWithSuccessfulRequests:MEMORY[0x1E695E0F0] failedRequests:MEMORY[0x1E695E0F0] networkEvents:MEMORY[0x1E695E0F0]];
     (*(v4 + 16))(v4, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

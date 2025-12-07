@@ -93,11 +93,11 @@
 - (id)createMultiPlayerViewControllerWithPlayerViewControllers:(id)controllers showingDetails:(BOOL)details
 {
   sub_1E3D529CC();
-  sub_1E42062B4();
+  v5 = sub_1E42062B4();
   selfCopy = self;
-  v6 = sub_1E3D51F14();
+  v7 = sub_1E3D51F14(v5);
 
-  return v6;
+  return v7;
 }
 
 - (id)timedMetadataDebuggerViewController
@@ -146,7 +146,7 @@
 
 - (id)URLForResource:(id)resource
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0, &unk_1E42A9420);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v13 - v5;
   sub_1E4205F14();

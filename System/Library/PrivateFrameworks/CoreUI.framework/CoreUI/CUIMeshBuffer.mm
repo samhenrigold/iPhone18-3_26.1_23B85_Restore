@@ -66,7 +66,7 @@
 
 - (id)map
 {
-  v2 = [objc_alloc(getMDLMeshBufferMapClass[0]()) initWithBytes:-[NSMutableData bytes](self->_data deallocator:{"bytes"), 0}];
+  v2 = [objc_alloc(getMDLMeshBufferMapClass(self a2))];
 
   return v2;
 }

@@ -19,68 +19,69 @@
 {
   lCopy = l;
   configurationCopy = configuration;
-  v36.receiver = self;
-  v36.super_class = OspreyChannel;
-  v10 = [(OspreyChannel *)&v36 init];
+  v38.receiver = self;
+  v38.super_class = OspreyChannel;
+  v10 = [(OspreyChannel *)&v38 init];
+  v12 = v10;
   if (v10)
   {
-    OspreyLoggingInit();
-    v11 = OspreyLogContextChannel;
+    OspreyLoggingInit(v10, v11);
+    v13 = OspreyLogContextChannel;
     if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_DEBUG))
     {
-      [OspreyChannel initWithURL:v11 configuration:? useCache:?];
+      [OspreyChannel initWithURL:v13 configuration:? useCache:?];
     }
 
-    v12 = [lCopy copy];
-    url = v10->_url;
-    v10->_url = v12;
+    v14 = [lCopy copy];
+    url = v12->_url;
+    v12->_url = v14;
 
-    host = [(NSURL *)v10->_url host];
-    v15 = [configurationCopy copy];
-    configuration = v10->_configuration;
-    v10->_configuration = v15;
+    host = [(NSURL *)v12->_url host];
+    v17 = [configurationCopy copy];
+    configuration = v12->_configuration;
+    v12->_configuration = v17;
 
-    v17 = [@"OspreyChannel." stringByAppendingString:host];
-    uTF8String = [v17 UTF8String];
-    v19 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v20 = dispatch_queue_create(uTF8String, v19);
-    queue = v10->_queue;
-    v10->_queue = v20;
+    v19 = [@"OspreyChannel." stringByAppendingString:host];
+    uTF8String = [v19 UTF8String];
+    v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v22 = dispatch_queue_create(uTF8String, v21);
+    queue = v12->_queue;
+    v12->_queue = v22;
 
-    v22 = [OspreyPreferences alloc];
-    v23 = objc_alloc_init(OspreyKeychain);
-    v24 = [(OspreyPreferences *)v22 initWithKeychain:v23];
-    preferences = v10->_preferences;
-    v10->_preferences = v24;
+    v24 = [OspreyPreferences alloc];
+    v25 = objc_alloc_init(OspreyKeychain);
+    v26 = [(OspreyPreferences *)v24 initWithKeychain:v25];
+    preferences = v12->_preferences;
+    v12->_preferences = v26;
 
-    v26 = [(OspreyPreferences *)v10->_preferences connectionPreferencesForHost:host];
-    connectionPreferences = v10->_connectionPreferences;
-    v10->_connectionPreferences = v26;
+    v28 = [(OspreyPreferences *)v12->_preferences connectionPreferencesForHost:host];
+    connectionPreferences = v12->_connectionPreferences;
+    v12->_connectionPreferences = v28;
 
-    v28 = objc_alloc_init(OspreyChannelRequestOptions);
-    defaultRequestOptions = v10->_defaultRequestOptions;
-    v10->_defaultRequestOptions = v28;
+    v30 = objc_alloc_init(OspreyChannelRequestOptions);
+    defaultRequestOptions = v12->_defaultRequestOptions;
+    v12->_defaultRequestOptions = v30;
 
-    v10->_enableDeviceAuthentication = 1;
-    v30 = dispatch_group_create();
-    validationGroup = v10->_validationGroup;
-    v10->_validationGroup = v30;
+    v12->_enableDeviceAuthentication = 1;
+    v32 = dispatch_group_create();
+    validationGroup = v12->_validationGroup;
+    v12->_validationGroup = v32;
 
-    v10->_waitingForSignature = 0;
-    signatureError = v10->_signatureError;
-    v10->_signatureError = 0;
+    v12->_waitingForSignature = 0;
+    signatureError = v12->_signatureError;
+    v12->_signatureError = 0;
 
     if (!cache)
     {
       [configurationCopy setRequestCachePolicy:4];
     }
 
-    v33 = [[OspreyGRPCChannel alloc] initWithURL:lCopy configuration:configurationCopy queue:v10->_queue];
-    channel = v10->_channel;
-    v10->_channel = v33;
+    v35 = [[OspreyGRPCChannel alloc] initWithURL:lCopy configuration:configurationCopy queue:v12->_queue];
+    channel = v12->_channel;
+    v12->_channel = v35;
   }
 
-  return v10;
+  return v12;
 }
 
 - (void)dealloc
@@ -288,30 +289,31 @@ uint64_t __112__OspreyChannel_bidirectionalStreamingRequestWithMethodName_reques
 - (void)initializeDeviceAuthenticationSessionWithCompletion:(id)completion
 {
   completionCopy = completion;
+  v6 = completionCopy;
   if (self->_enableDeviceAuthentication)
   {
     queue = self->_queue;
-    v6 = qos_class_self();
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___block_invoke;
-    v9[3] = &unk_2799F2188;
-    v9[4] = self;
-    v10 = completionCopy;
-    v7 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v6, 0, v9);
-    dispatch_async(queue, v7);
+    v8 = qos_class_self();
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___block_invoke;
+    v11[3] = &unk_2799F2188;
+    v11[4] = self;
+    v12 = v6;
+    v9 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, v8, 0, v11);
+    dispatch_async(queue, v9);
   }
 
   else
   {
-    OspreyLoggingInit();
-    v8 = OspreyLogContextChannel;
+    OspreyLoggingInit(completionCopy, v5);
+    v10 = OspreyLogContextChannel;
     if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_ERROR))
     {
-      [OspreyChannel initializeDeviceAuthenticationSessionWithCompletion:v8];
+      [OspreyChannel initializeDeviceAuthenticationSessionWithCompletion:v10];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0);
+    v6[2](v6, 0);
   }
 }
 
@@ -329,19 +331,19 @@ void __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___b
 void __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  OspreyLoggingInit();
-  v5 = OspreyLogContextChannel;
+  OspreyLoggingInit(v4, v5);
+  v6 = OspreyLogContextChannel;
   if (v4)
   {
     if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_ERROR))
     {
-      __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___block_invoke_2_cold_1(v5, v4);
+      __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___block_invoke_2_cold_1(v6, v4);
     }
   }
 
   else if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_DEBUG))
   {
-    __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___block_invoke_2_cold_2(v5);
+    __69__OspreyChannel_initializeDeviceAuthenticationSessionWithCompletion___block_invoke_2_cold_2(v6);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -426,7 +428,7 @@ void __57__OspreyChannel__prepareChannelWithRequest_continueWith___block_invoke_
 
 - (void)_prepareDeviceAuthenticationWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_deviceAuthenticator)
@@ -437,18 +439,19 @@ void __57__OspreyChannel__prepareChannelWithRequest_continueWith___block_invoke_
   }
 
   deviceAttestationData = [(OspreyConnectionPreferences *)self->_connectionPreferences deviceAttestationData];
+  v9 = deviceAttestationData;
   if (deviceAttestationData)
   {
-    OspreyLoggingInit();
-    v8 = OspreyLogContextChannel;
+    OspreyLoggingInit(deviceAttestationData, v8);
+    v10 = OspreyLogContextChannel;
     if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v21 = "[OspreyChannel _prepareDeviceAuthenticationWithCompletion:]";
-      _os_log_impl(&dword_25DDE6000, v8, OS_LOG_TYPE_INFO, "%s Reusing existing session info", buf, 0xCu);
+      v23 = "[OspreyChannel _prepareDeviceAuthenticationWithCompletion:]";
+      _os_log_impl(&dword_25DDE6000, v10, OS_LOG_TYPE_INFO, "%s Reusing existing session info", buf, 0xCu);
     }
 
-    completionCopy[2](completionCopy, deviceAttestationData, 0);
+    completionCopy[2](completionCopy, v9, 0);
   }
 
   else
@@ -462,32 +465,32 @@ void __57__OspreyChannel__prepareChannelWithRequest_continueWith___block_invoke_
       block[2] = __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invoke;
       block[3] = &unk_2799F1F48;
       block[4] = self;
-      v19 = completionCopy;
+      v21 = completionCopy;
       dispatch_group_notify(validationGroup, queue, block);
-      v11 = v19;
+      v13 = v21;
     }
 
     else
     {
       self->_waitingForSignature = 1;
       dispatch_group_enter(self->_validationGroup);
-      v12 = self->_deviceAuthenticator;
-      v13 = objc_alloc_init(MEMORY[0x277CBEA90]);
+      v14 = self->_deviceAuthenticator;
+      v15 = objc_alloc_init(MEMORY[0x277CBEA90]);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invoke_2;
+      v18[3] = &unk_2799F2228;
+      v18[4] = self;
+      v19 = completionCopy;
       v16[0] = MEMORY[0x277D85DD0];
       v16[1] = 3221225472;
-      v16[2] = __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invoke_2;
-      v16[3] = &unk_2799F2228;
+      v16[2] = __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invoke_16;
+      v16[3] = &unk_2799F1E80;
       v16[4] = self;
-      v17 = completionCopy;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invoke_16;
-      v14[3] = &unk_2799F1E80;
-      v14[4] = self;
-      v15 = v17;
-      [(OspreyDeviceAuthentication *)v12 signData:v13 success:v16 failure:v14];
+      v17 = v19;
+      [(OspreyDeviceAuthentication *)v14 signData:v15 success:v18 failure:v16];
 
-      v11 = v17;
+      v13 = v19;
     }
   }
 }
@@ -519,30 +522,30 @@ void __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invo
   dispatch_async(v9, v12);
 }
 
-void __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invoke_3(uint64_t a1)
+void __60__OspreyChannel__prepareDeviceAuthenticationWithCompletion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  OspreyLoggingInit();
-  v2 = OspreyLogContextChannel;
+  v15 = *MEMORY[0x277D85DE8];
+  OspreyLoggingInit(a1, a2);
+  v3 = OspreyLogContextChannel;
   if (os_log_type_enabled(OspreyLogContextChannel, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [v3 base64EncodedStringWithOptions:0];
-    v10 = 136315394;
-    v11 = "[OspreyChannel _prepareDeviceAuthenticationWithCompletion:]_block_invoke_3";
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_25DDE6000, v4, OS_LOG_TYPE_INFO, "%s Signed validation header data: %@", &v10, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v6 = [v4 base64EncodedStringWithOptions:0];
+    v11 = 136315394;
+    v12 = "[OspreyChannel _prepareDeviceAuthenticationWithCompletion:]_block_invoke_3";
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_25DDE6000, v5, OS_LOG_TYPE_INFO, "%s Signed validation header data: %@", &v11, 0x16u);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(v6 + 64);
-  *(v6 + 64) = 0;
+  v7 = *(a1 + 40);
+  v8 = *(v7 + 64);
+  *(v7 + 64) = 0;
 
-  v8 = *(*(a1 + 40) + 80);
-  v9 = [*(a1 + 32) copy];
-  [v8 setDeviceAttestationData:v9 withExpiration:*(a1 + 48)];
+  v9 = *(*(a1 + 40) + 80);
+  v10 = [*(a1 + 32) copy];
+  [v9 setDeviceAttestationData:v10 withExpiration:*(a1 + 48)];
 
   [*(*(a1 + 40) + 72) setConnectionPreferences:*(*(a1 + 40) + 80)];
   [*(*(a1 + 40) + 72) synchronize];

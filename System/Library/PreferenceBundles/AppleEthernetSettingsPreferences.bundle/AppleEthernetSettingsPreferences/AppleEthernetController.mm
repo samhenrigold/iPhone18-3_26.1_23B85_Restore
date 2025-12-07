@@ -8,6 +8,7 @@
 - (void)renameInterfaces:(id)interfaces;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AppleEthernetController
@@ -63,6 +64,15 @@
 
   v11 = +[NSNotificationCenter defaultCenter];
   [v11 addObserver:self selector:"refresh" name:PSEthernetChangedNotification object:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = AppleEthernetController;
+  [(AppleEthernetController *)&v5 viewWillAppear:appear];
+  settingsController = self->_settingsController;
+  self->_settingsController = 0;
 }
 
 - (void)refresh

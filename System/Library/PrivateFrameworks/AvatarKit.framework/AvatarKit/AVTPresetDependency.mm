@@ -12,31 +12,31 @@
   v3 = objc_alloc(MEMORY[0x1E696AD60]);
   v4 = objc_opt_class();
   v5 = AVTPresetCategoryToString(self->_category);
-  v6 = [v3 initWithFormat:@"<%@ %p | %@ →", v4, self, v5];
+  v6 = [v3 initWithFormat:v4, self, v5];
 
   preset = self->_preset;
   if (preset)
   {
     identifier = [(AVTPreset *)preset identifier];
-    [v6 appendFormat:@" preset: %@", identifier];
+    [v6 appendFormat:identifier];
   }
 
   if (self->_morphVariant)
   {
-    [v6 appendFormat:@" morph variant: %@", self->_morphVariant];
+    [v6 appendFormat:self->_morphVariant];
   }
 
   if (self->_imageVariant)
   {
-    [v6 appendFormat:@" image variant: %@", self->_imageVariant];
+    [v6 appendFormat:self->_imageVariant];
   }
 
   if (self->_materialVariant)
   {
-    [v6 appendFormat:@" material variant: %@", self->_materialVariant];
+    [v6 appendFormat:self->_materialVariant];
   }
 
-  [v6 appendString:@">"];
+  [v6 appendString:?];
 
   return v6;
 }

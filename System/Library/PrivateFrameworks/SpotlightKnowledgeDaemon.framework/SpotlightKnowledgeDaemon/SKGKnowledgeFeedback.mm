@@ -19,6 +19,7 @@
 - (id)defaultValueWithKey:(id)key;
 - (id)defaultValueWithKey:(id)key versionName:(id)name;
 - (id)defaults;
+- (id)getCleanupItemCountsForListenerType:(int)type;
 - (id)getDefaultWithIdentifier:(id)identifier protectionClass:(id)class key:(id)key;
 - (id)getEmbeddingDonationItemCounts;
 - (id)getEmbeddingGenCompletenessForBundle:(id)bundle;
@@ -62,6 +63,7 @@
 - (void)logArchiveSize:(unint64_t)size;
 - (void)logArchiveWithIdentifier:(id)identifier protectionClass:(id)class;
 - (void)logArchivedQueryItemCount:(unint64_t)count bundleIdentifier:(id)identifier;
+- (void)logCleanupItemCounts:(unint64_t)counts bundleId:(id)id listenerType:(int)type;
 - (void)logDefaultWithIdentifier:(id)identifier protectionClass:(id)class key:(id)key value:(id)value;
 - (void)logDeletesCount:(unint64_t)count;
 - (void)logEmbeddingDonationItemCounts:(unint64_t)counts bundleId:(id)id;
@@ -88,12 +90,14 @@
 - (void)removeDefaults;
 - (void)removeKey:(id)key;
 - (void)resetCleanupItemCountsForAllListenerTypes;
+- (void)resetCleanupItemCountsForListenerType:(int)type;
 - (void)resetEmbeddingDonationItemCounts;
 - (void)resetReindexRequestItemCounts;
 - (void)setDefaultWithKey:(id)key value:(id)value;
 - (void)setEmbeddingGenCompleteness:(id)completeness forBundle:(id)bundle;
 - (void)setGenCompleteDayString:(id)string forBundle:(id)bundle day:(int64_t)day;
 - (void)setIndexWithKey:(id)key value:(unint64_t)value;
+- (void)setModeWithKey:(id)key value:(BOOL)value;
 - (void)setTimeWithKey:(id)key value:(double)value;
 - (void)updateDefaults;
 - (void)updateFeedback;
@@ -104,7 +108,7 @@
 
 - (void)commonInitWithVersionName:(id)name graphVersion:(id)version stats:(id)stats
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   versionCopy = version;
   statsCopy = stats;
@@ -114,7 +118,7 @@
   currentCalendar = self->_currentCalendar;
   self->_currentCalendar = v11;
 
-  v62 = v10;
+  v61 = v10;
   [(NSCalendar *)self->_currentCalendar setTimeZone:v10];
   v13 = objc_alloc_init(MEMORY[0x277CBEAB8]);
   v14 = self->_currentCalendar;
@@ -129,7 +133,7 @@
   date3 = [MEMORY[0x277CBEAA8] date];
   [v13 setYear:{-[NSCalendar component:fromDate:](v18, "component:fromDate:", 4, date3)}];
 
-  v61 = v13;
+  v60 = v13;
   v20 = [(NSCalendar *)self->_currentCalendar dateFromComponents:v13];
   currentDate = self->_currentDate;
   self->_currentDate = v20;
@@ -137,7 +141,7 @@
   v22 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v22 setCalendar:self->_currentCalendar];
   [v22 setDateStyle:1];
-  v60 = v22;
+  v59 = v22;
   v23 = [v22 stringFromDate:self->_currentDate];
   currentDateKey = self->_currentDateKey;
   self->_currentDateKey = v23;
@@ -179,26 +183,26 @@
   self->_embeddingGenCompleteness = v37;
 
   self->_embeddingGenCompletenessLock._os_unfair_lock_opaque = 0;
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   v39 = statsCopy;
-  v40 = [v39 countByEnumeratingWithState:&v65 objects:v69 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v64 objects:v68 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v66;
+    v42 = *v65;
     do
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v66 != v42)
+        if (*v65 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = *(*(&v65 + 1) + 8 * i);
+        v44 = *(*(&v64 + 1) + 8 * i);
         if ([v44 hasPrefix:self->_currentDateKey])
         {
           v45 = [v44 componentsSeparatedByString:@":"];
@@ -215,7 +219,7 @@
         }
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v65 objects:v69 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v64 objects:v68 count:16];
     }
 
     while (v41);
@@ -244,7 +248,6 @@
   self->_flags = v57;
 
   self->_graphVersion = [versionCopy integerValue];
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (SKGKnowledgeFeedback)init
@@ -310,7 +313,7 @@
 
 - (void)clear
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (clear_onceToken != -1)
   {
     [SKGKnowledgeFeedback clear];
@@ -320,42 +323,42 @@
   v4 = v3;
   if (v3)
   {
-    v28 = v3;
+    v27 = v3;
   }
 
   else
   {
     v5 = MEMORY[0x277CCABB0];
     mEMORY[0x277D657A0] = [MEMORY[0x277D657A0] sharedContext];
-    v28 = [v5 numberWithInteger:{objc_msgSend(mEMORY[0x277D657A0], "graphVersion")}];
+    v27 = [v5 numberWithInteger:{objc_msgSend(mEMORY[0x277D657A0], "graphVersion")}];
   }
 
   [(SKGKnowledgeFeedback *)self versionName];
-  v27 = v29 = self;
+  v26 = v28 = self;
   v7 = [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:?];
   v8 = objc_opt_new();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v35;
     v13 = &requiredAttributes_onceKeyReqToken;
-    v30 = *v36;
+    v29 = *v35;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         if ([v13[21] containsObject:v15])
         {
 LABEL_22:
@@ -365,38 +368,38 @@ LABEL_22:
 
         else
         {
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           v16 = clear_prefixesToPreserve;
-          v17 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
           if (v17)
           {
             v18 = v17;
             v19 = v8;
             v20 = v13;
-            v21 = *v32;
+            v21 = *v31;
             while (2)
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v32 != v21)
+                if (*v31 != v21)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                if ([v15 hasPrefix:*(*(&v31 + 1) + 8 * j)])
+                if ([v15 hasPrefix:*(*(&v30 + 1) + 8 * j)])
                 {
 
                   v13 = v20;
                   v8 = v19;
-                  v12 = v30;
+                  v12 = v29;
                   goto LABEL_22;
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v31 objects:v39 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
               if (v18)
               {
                 continue;
@@ -407,30 +410,29 @@ LABEL_22:
 
             v13 = v20;
             v8 = v19;
-            v12 = v30;
+            v12 = v29;
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v11);
   }
 
-  [(SKGKnowledgeFeedback *)v29 removeDefaults];
+  [(SKGKnowledgeFeedback *)v28 removeDefaults];
   os_unfair_lock_lock(&gFeedbackLock_0);
-  [(SKGKnowledgeFeedback *)v29 commonInitWithVersionName:v27 graphVersion:v28 stats:MEMORY[0x277CBEBF8]];
+  [(SKGKnowledgeFeedback *)v28 commonInitWithVersionName:v26 graphVersion:v27 stats:MEMORY[0x277CBEBF8]];
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v23 = [(SKGKnowledgeFeedback *)v29 defaultPropertiesForVersionName:v27];
+  v23 = [(SKGKnowledgeFeedback *)v28 defaultPropertiesForVersionName:v26];
   v24 = [v23 mutableCopy];
 
   [v24 addEntriesFromDictionary:v8];
-  defaults = [(SKGKnowledgeFeedback *)v29 defaults];
-  [defaults setObject:v24 forKey:v27];
+  defaults = [(SKGKnowledgeFeedback *)v28 defaults];
+  [defaults setObject:v24 forKey:v26];
 
-  [(SKGKnowledgeFeedback *)v29 updateDefaults];
-  v26 = *MEMORY[0x277D85DE8];
+  [(SKGKnowledgeFeedback *)v28 updateDefaults];
 }
 
 void __29__SKGKnowledgeFeedback_clear__block_invoke()
@@ -543,39 +545,39 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
 - (void)clearEmbeddingDefaults
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   versionName = [(SKGKnowledgeFeedback *)self versionName];
   v4 = [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   defaults = [(SKGKnowledgeFeedback *)self defaults];
   v6 = [v4 mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        if (([v12 hasPrefix:{@"embeddingGenCompleteDay", v14}] & 1) != 0 || objc_msgSend(v12, "isEqual:", @"embeddingModelVersion"))
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if (([v12 hasPrefix:{@"embeddingGenCompleteDay", v13}] & 1) != 0 || objc_msgSend(v12, "isEqual:", @"embeddingModelVersion"))
         {
           [v6 removeObjectForKey:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -583,45 +585,43 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
   [defaults setObject:v6 forKey:versionName];
   os_unfair_lock_unlock(&gFeedbackLock_0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearEmbeddingGenCompleteDay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   versionName = [(SKGKnowledgeFeedback *)self versionName];
   v4 = [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   defaults = [(SKGKnowledgeFeedback *)self defaults];
   v6 = [v4 mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        if ([v12 hasPrefix:{@"embeddingGenCompleteDay", v14}])
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if ([v12 hasPrefix:{@"embeddingGenCompleteDay", v13}])
         {
           [v6 removeObjectForKey:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -629,45 +629,43 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
   [defaults setObject:v6 forKey:versionName];
   os_unfair_lock_unlock(&gFeedbackLock_0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearSuggestedEventsGenCompleteDay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   versionName = [(SKGKnowledgeFeedback *)self versionName];
   v4 = [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   defaults = [(SKGKnowledgeFeedback *)self defaults];
   v6 = [v4 mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        if ([v12 hasPrefix:{@"suggestedEventsGenCompleteDay", v14}])
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if ([v12 hasPrefix:{@"suggestedEventsGenCompleteDay", v13}])
         {
           [v6 removeObjectForKey:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -675,45 +673,43 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
   [defaults setObject:v6 forKey:versionName];
   os_unfair_lock_unlock(&gFeedbackLock_0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDocumentUnderstandingGenCompleteDay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   versionName = [(SKGKnowledgeFeedback *)self versionName];
   v4 = [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   defaults = [(SKGKnowledgeFeedback *)self defaults];
   v6 = [v4 mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        if ([v12 hasPrefix:{@"documentUnderstandingGenCompleteDay", v14}])
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if ([v12 hasPrefix:{@"documentUnderstandingGenCompleteDay", v13}])
         {
           [v6 removeObjectForKey:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -721,45 +717,43 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
   [defaults setObject:v6 forKey:versionName];
   os_unfair_lock_unlock(&gFeedbackLock_0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearKeyphraseGenCompleteDay
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   versionName = [(SKGKnowledgeFeedback *)self versionName];
   v4 = [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   defaults = [(SKGKnowledgeFeedback *)self defaults];
   v6 = [v4 mutableCopy];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        if ([v12 hasPrefix:{@"keyphraseGenCompleteDay", v14}])
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if ([v12 hasPrefix:{@"keyphraseGenCompleteDay", v13}])
         {
           [v6 removeObjectForKey:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -767,39 +761,37 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
   [defaults setObject:v6 forKey:versionName];
   os_unfair_lock_unlock(&gFeedbackLock_0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDefaults
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   versionName = [(SKGKnowledgeFeedback *)self versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   feedback = self->_feedback;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:CFAbsoluteTimeGetCurrent() - self->_startTime];
   [(NSMutableDictionary *)feedback setObject:v5 forKey:@"timeSinceStart"];
 
-  v124 = 0u;
-  v125 = 0u;
-  v122 = 0u;
   v123 = 0u;
+  v124 = 0u;
+  v121 = 0u;
+  v122 = 0u;
   v6 = self->_events;
-  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v122 objects:v130 count:16];
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v121 objects:v129 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v123;
+    v9 = *v122;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v123 != v9)
+        if (*v122 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v122 + 1) + 8 * i);
+        v11 = *(*(&v121 + 1) + 8 * i);
         if ([v11 intValue] != 7 && objc_msgSend(v11, "intValue") != 6)
         {
           if (self->_numQueryItemsExtracted)
@@ -923,7 +915,7 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
         }
       }
 
-      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v122 objects:v130 count:16];
+      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v121 objects:v129 count:16];
     }
 
     while (v8);
@@ -935,28 +927,28 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
   if ([(NSMutableDictionary *)self->_stats count])
   {
-    v112 = versionName;
+    v111 = versionName;
     v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v117 = 0u;
     v118 = 0u;
     v119 = 0u;
     v120 = 0u;
-    v121 = 0u;
     obj = self->_stats;
-    v57 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v118 objects:v129 count:16];
+    v57 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v117 objects:v128 count:16];
     if (v57)
     {
       v58 = v57;
-      v59 = *v119;
+      v59 = *v118;
       do
       {
         for (j = 0; j != v58; ++j)
         {
-          if (*v119 != v59)
+          if (*v118 != v59)
           {
             objc_enumerationMutation(obj);
           }
 
-          v61 = *(*(&v118 + 1) + 8 * j);
+          v61 = *(*(&v117 + 1) + 8 * j);
           v62 = MEMORY[0x277CCACA8];
           currentDateKey = self->_currentDateKey;
           v64 = [(NSMutableDictionary *)self->_stats objectForKeyedSubscript:v61];
@@ -965,13 +957,13 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
           [v56 addObject:v65];
         }
 
-        v58 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v118 objects:v129 count:16];
+        v58 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v117 objects:v128 count:16];
       }
 
       while (v58);
     }
 
-    versionName = v112;
+    versionName = v111;
     v66 = v56;
   }
 
@@ -1013,7 +1005,7 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
         if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v128 = v76;
+          v127 = v76;
           _os_log_impl(&dword_231B25000, v77, OS_LOG_TYPE_DEFAULT, "SKG: updated embedding model version to %@", buf, 0xCu);
         }
       }
@@ -1120,39 +1112,38 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
   v102 = [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   [(NSMutableDictionary *)self->_defaults removeAllObjects];
-  v116 = 0u;
-  v117 = 0u;
-  v114 = 0u;
   v115 = 0u;
+  v116 = 0u;
+  v113 = 0u;
+  v114 = 0u;
   v103 = v102;
-  v104 = [v103 countByEnumeratingWithState:&v114 objects:v126 count:16];
+  v104 = [v103 countByEnumeratingWithState:&v113 objects:v125 count:16];
   if (v104)
   {
     v105 = v104;
-    v106 = *v115;
+    v106 = *v114;
     do
     {
       for (k = 0; k != v105; ++k)
       {
-        if (*v115 != v106)
+        if (*v114 != v106)
         {
           objc_enumerationMutation(v103);
         }
 
-        v108 = *(*(&v114 + 1) + 8 * k);
+        v108 = *(*(&v113 + 1) + 8 * k);
         defaults = self->_defaults;
         v110 = [v103 objectForKeyedSubscript:v108];
         [(NSMutableDictionary *)defaults setObject:v110 forKey:v108];
       }
 
-      v105 = [v103 countByEnumeratingWithState:&v114 objects:v126 count:16];
+      v105 = [v103 countByEnumeratingWithState:&v113 objects:v125 count:16];
     }
 
     while (v105);
   }
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v111 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFeedback
@@ -1447,42 +1438,42 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 
 - (void)logEnd
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   [(SKGKnowledgeFeedback *)self updateDefaults];
   versionName = [(SKGKnowledgeFeedback *)self versionName];
   os_unfair_lock_lock(&gFeedbackLock_0);
   if (self->_sessions)
   {
-    v41 = versionName;
-    v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v40 = versionName;
+    v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
     allKeys = [(NSMutableDictionary *)self->_sessions allKeys];
     v5 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v7)
     {
       v8 = v7;
-      v46 = *v52;
+      v45 = *v51;
       v9 = @"start";
       v10 = @"end";
       allocator = *MEMORY[0x277CBECE8];
       do
       {
         v11 = 0;
-        v43 = v8;
+        v42 = v8;
         do
         {
-          if (*v52 != v46)
+          if (*v51 != v45)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v51 + 1) + 8 * v11);
+          v12 = *(*(&v50 + 1) + 8 * v11);
           v13 = [(NSMutableDictionary *)self->_sessions objectForKeyedSubscript:v12];
           v14 = [v13 objectForKey:v9];
 
@@ -1495,64 +1486,64 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
           if (v19 <= 4 && v18 != 0 && v16 != 0)
           {
             v22 = off_27893EDF8[v19];
-            v44 = MEMORY[0x277CCACA8];
+            v43 = MEMORY[0x277CCACA8];
             v23 = v10;
             v24 = v9;
             v25 = v6;
             currentDateKey = self->_currentDateKey;
             [v16 doubleValue];
-            v40 = v22;
-            v8 = v43;
-            v39 = currentDateKey;
+            v39 = v22;
+            v8 = v42;
+            v38 = currentDateKey;
             v6 = v25;
             v9 = v24;
             v10 = v23;
-            v28 = [v44 stringWithFormat:@"%@ - %@ (%@): %5.0f", v39, v40, v18, v27];
-            [v42 addObject:v28];
+            v28 = [v43 stringWithFormat:@"%@ - %@ (%@): %5.0f", v38, v39, v18, v27];
+            [v41 addObject:v28];
           }
 
           ++v11;
         }
 
         while (v8 != v11);
-        v8 = [v6 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v8);
     }
 
     os_unfair_lock_unlock(&gFeedbackLock_0);
-    versionName = v41;
-    if (v42)
+    versionName = v40;
+    if (v41)
     {
-      v29 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:@"sessions" versionName:v41];
+      v29 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:@"sessions" versionName:v40];
       v30 = v29;
       if (v29)
       {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
         v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
         v31 = v29;
-        v32 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (v32)
         {
           v33 = v32;
           v34 = 0;
-          v35 = *v48;
+          v35 = *v47;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v48 != v35)
+              if (*v47 != v35)
               {
                 objc_enumerationMutation(v31);
               }
 
-              v37 = *(*(&v47 + 1) + 8 * i);
+              v37 = *(*(&v46 + 1) + 8 * i);
               if ([v37 hasPrefix:self->_currentDateKey])
               {
-                [v42 addObject:v37];
+                [v41 addObject:v37];
               }
 
               else
@@ -1562,12 +1553,12 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
                   goto LABEL_30;
                 }
 
-                [v42 addObject:v37];
+                [v41 addObject:v37];
                 ++v34;
               }
             }
 
-            v33 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
+            v33 = [v31 countByEnumeratingWithState:&v46 objects:v54 count:16];
           }
 
           while (v33);
@@ -1576,7 +1567,7 @@ void __29__SKGKnowledgeFeedback_clear__block_invoke()
 LABEL_30:
       }
 
-      [(SKGKnowledgeFeedback *)self setDefaultWithKey:@"sessions" value:v42];
+      [(SKGKnowledgeFeedback *)self setDefaultWithKey:@"sessions" value:v41];
     }
   }
 
@@ -1584,8 +1575,6 @@ LABEL_30:
   {
     os_unfair_lock_unlock(&gFeedbackLock_0);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logGraphVersion:(int64_t)version
@@ -1599,17 +1588,17 @@ LABEL_30:
 
 - (void)logFlag:(int64_t)flag message:(id)message
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (messageCopy)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v13 = 134218242;
+      v12 = 134218242;
       flagCopy = flag;
-      v15 = 2112;
-      v16 = messageCopy;
-      _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "SKG: flag (%lu) %@", &v13, 0x16u);
+      v14 = 2112;
+      v15 = messageCopy;
+      _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "SKG: flag (%lu) %@", &v12, 0x16u);
     }
 
     os_unfair_lock_lock(&gFeedbackLock_0);
@@ -1631,20 +1620,19 @@ LABEL_30:
   }
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEvent:(int64_t)event message:(id)message
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (messageCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134218242;
+    v9 = 134218242;
     eventCopy = event;
-    v12 = 2112;
-    v13 = messageCopy;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: event (%lu) %@", &v10, 0x16u);
+    v11 = 2112;
+    v12 = messageCopy;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: event (%lu) %@", &v9, 0x16u);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
@@ -1653,7 +1641,6 @@ LABEL_30:
   [(NSMutableSet *)events addObject:v8];
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logError:(int64_t)error message:(id)message
@@ -1675,7 +1662,7 @@ LABEL_30:
 
 - (void)logSignpost:(int64_t)signpost message:(id)message
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   os_unfair_lock_lock(&gFeedbackLock_0);
   v7 = SKGLogInit();
@@ -1699,192 +1686,180 @@ LABEL_30:
       goto LABEL_10;
     }
 
-    v23 = 138412290;
-    v24 = messageCopy;
+    v22 = 138412290;
+    v23 = messageCopy;
     v15 = "SKG start";
     v16 = v14;
     v17 = OS_SIGNPOST_INTERVAL_BEGIN;
     goto LABEL_9;
   }
 
-  v19 = [(NSMutableDictionary *)self->_signposts objectForKeyedSubscript:messageCopy];
+  v18 = [(NSMutableDictionary *)self->_signposts objectForKeyedSubscript:messageCopy];
 
-  if (v19)
+  if (v18)
   {
-    v20 = [(NSMutableDictionary *)self->_signposts objectForKeyedSubscript:messageCopy];
-    unsignedLongLongValue = [v20 unsignedLongLongValue];
+    v19 = [(NSMutableDictionary *)self->_signposts objectForKeyedSubscript:messageCopy];
+    unsignedLongLongValue = [v19 unsignedLongLongValue];
 
-    v21 = v8;
+    v20 = v8;
     if ((unsignedLongLongValue - 1) > 0xFFFFFFFFFFFFFFFDLL)
     {
       goto LABEL_10;
     }
 
-    v22 = v21;
-    if (!os_signpost_enabled(v21))
+    v21 = v20;
+    if (!os_signpost_enabled(v20))
     {
       goto LABEL_10;
     }
 
-    v23 = 138412290;
-    v24 = messageCopy;
+    v22 = 138412290;
+    v23 = messageCopy;
     v15 = "SKG end";
-    v16 = v22;
+    v16 = v21;
     v17 = OS_SIGNPOST_INTERVAL_END;
 LABEL_9:
-    _os_signpost_emit_with_name_impl(&dword_231B25000, v16, v17, unsignedLongLongValue, v15, "%@", &v23, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_231B25000, v16, v17, unsignedLongLongValue, v15, "%@", &v22, 0xCu);
 LABEL_10:
   }
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logGraphSize:(unint64_t)size
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     sizeCopy = size;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: graph size %lu", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: graph size %lu", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_currentGraphSize = size;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logArchiveSize:(unint64_t)size
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     sizeCopy = size;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: archive size %lu", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: archive size %lu", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_currentArchiveSize = size;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logJournalSize:(unint64_t)size
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     sizeCopy = size;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: journal size %lu", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: journal size %lu", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_currentJournalSize = size;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logArchiveCount:(unint64_t)count
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     countCopy = count;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: archive count %lu", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: archive count %lu", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_currentArchiveCount = count;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logJournalCount:(unint64_t)count
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     countCopy = count;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: journal count %lu", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: journal count %lu", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_currentJournalCount = count;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDeletesCount:(unint64_t)count
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     countCopy = count;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: deletes journal count %lu", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: deletes journal count %lu", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_currentDeletesCount = count;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logMarkedPurgeableAtPath:(id)path
+{
+  v6 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 138412290;
+    pathCopy = path;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: purgeable %@", &v4, 0xCu);
+  }
+}
+
+- (void)logProcessedJournalWithName:(id)name
 {
   v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
-    pathCopy = path;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: purgeable %@", &v5, 0xCu);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)logProcessedJournalWithName:(id)name
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 138412290;
     nameCopy = name;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: processed journal %@", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: processed journal %@", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   ++self->_numJournalsProcessed;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logProcessedArchiveWithName:(id)name
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     nameCopy = name;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: processed archive %@", &v6, 0xCu);
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: processed archive %@", &v5, 0xCu);
   }
 
   os_unfair_lock_lock(&gFeedbackLock_0);
   ++self->_numArchivesProcessed;
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logExtractedQueryItemCount:(unint64_t)count bundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock(&gFeedbackLock_0);
   v7 = self->_numQueryItemsExtracted + count;
@@ -1892,9 +1867,9 @@ LABEL_10:
   if (__ROR8__(0x8F5C28F5C28F5C29 * v7, 2) <= 0x28F5C28F5C28F5CuLL && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     numQueryItemsExtracted = self->_numQueryItemsExtracted;
-    v15 = 134217984;
-    v16 = numQueryItemsExtracted;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu items extracted", &v15, 0xCu);
+    v14 = 134217984;
+    v15 = numQueryItemsExtracted;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu items extracted", &v14, 0xCu);
   }
 
   v9 = [(NSMutableDictionary *)self->_bundles objectForKeyedSubscript:identifierCopy];
@@ -1912,21 +1887,20 @@ LABEL_10:
   [(NSMutableDictionary *)bundles setObject:v13 forKey:identifierCopy];
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logUpdatedQueryItemCount:(unint64_t)count bundleIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_numQueryItemsUpdated += count;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     numQueryItemsUpdated = self->_numQueryItemsUpdated;
-    v14 = 134217984;
-    v15 = numQueryItemsUpdated;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu query items updated", &v14, 0xCu);
+    v13 = 134217984;
+    v14 = numQueryItemsUpdated;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu query items updated", &v13, 0xCu);
   }
 
   v8 = [(NSMutableDictionary *)self->_bundles objectForKeyedSubscript:identifierCopy];
@@ -1944,21 +1918,20 @@ LABEL_10:
   [(NSMutableDictionary *)bundles setObject:v12 forKey:identifierCopy];
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logArchivedQueryItemCount:(unint64_t)count bundleIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock(&gFeedbackLock_0);
   self->_numQueryItemsArchived += count;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     numQueryItemsArchived = self->_numQueryItemsArchived;
-    v14 = 134217984;
-    v15 = numQueryItemsArchived;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu query items archived", &v14, 0xCu);
+    v13 = 134217984;
+    v14 = numQueryItemsArchived;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu query items archived", &v13, 0xCu);
   }
 
   v8 = [(NSMutableDictionary *)self->_bundles objectForKeyedSubscript:identifierCopy];
@@ -1976,12 +1949,11 @@ LABEL_10:
   [(NSMutableDictionary *)bundles setObject:v12 forKey:identifierCopy];
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logExtractedJournalItemCount:(unint64_t)count bundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock(&gFeedbackLock_0);
   v7 = self->_numJournalItemsExtracted + count;
@@ -1989,9 +1961,9 @@ LABEL_10:
   if (__ROR8__(0x8F5C28F5C28F5C29 * v7, 2) <= 0x28F5C28F5C28F5CuLL && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     numJournalItemsExtracted = self->_numJournalItemsExtracted;
-    v15 = 134217984;
-    v16 = numJournalItemsExtracted;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu journal items extracted", &v15, 0xCu);
+    v14 = 134217984;
+    v15 = numJournalItemsExtracted;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu journal items extracted", &v14, 0xCu);
   }
 
   v9 = [(NSMutableDictionary *)self->_bundles objectForKeyedSubscript:identifierCopy];
@@ -2009,12 +1981,11 @@ LABEL_10:
   [(NSMutableDictionary *)bundles setObject:v13 forKey:identifierCopy];
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logExtractedArchiveItemCount:(unint64_t)count bundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock(&gFeedbackLock_0);
   v7 = self->_numArchiveItemsExtracted + count;
@@ -2022,9 +1993,9 @@ LABEL_10:
   if (__ROR8__(0x8F5C28F5C28F5C29 * v7, 2) <= 0x28F5C28F5C28F5CuLL && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     numArchiveItemsExtracted = self->_numArchiveItemsExtracted;
-    v15 = 134217984;
-    v16 = numArchiveItemsExtracted;
-    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu archive items extracted", &v15, 0xCu);
+    v14 = 134217984;
+    v15 = numArchiveItemsExtracted;
+    _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SKG: %lu archive items extracted", &v14, 0xCu);
   }
 
   v9 = [(NSMutableDictionary *)self->_bundles objectForKeyedSubscript:identifierCopy];
@@ -2042,34 +2013,33 @@ LABEL_10:
   [(NSMutableDictionary *)bundles setObject:v13 forKey:identifierCopy];
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)getCurrentExtractedQueryItemCount
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&gFeedbackLock_0);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v3 = self->_events;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = -1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if ([v9 intValue] != 7 && objc_msgSend(v9, "intValue") != 6)
         {
           v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]queryItemExtractedCount", v9];
@@ -2088,7 +2058,7 @@ LABEL_10:
         }
       }
 
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -2100,35 +2070,34 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (int64_t)getCurrentExtractedJournalItemCount
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&gFeedbackLock_0);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v3 = self->_events;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = -1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if ([v9 intValue] != 7 && objc_msgSend(v9, "intValue") != 6)
         {
           v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]journalItemExtractedCount", v9];
@@ -2147,7 +2116,7 @@ LABEL_10:
         }
       }
 
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -2159,35 +2128,34 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (int64_t)getCurrentExtractedArchiveItemCount
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&gFeedbackLock_0);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v3 = self->_events;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = -1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if ([v9 intValue] != 7 && objc_msgSend(v9, "intValue") != 6)
         {
           v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]archiveItemExtractedCount", v9];
@@ -2206,7 +2174,7 @@ LABEL_10:
         }
       }
 
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -2218,7 +2186,6 @@ LABEL_10:
   }
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2460,43 +2427,43 @@ LABEL_10:
 
 - (BOOL)generateReportUsingBlock:(id)block
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v52 = 0;
+  v49 = 0;
   feedbackData = [(SKGKnowledgeFeedback *)self feedbackData];
-  v38 = feedbackData;
+  v35 = feedbackData;
   if ([feedbackData count])
   {
     selfCopy = self;
-    v50 = 0u;
-    v51 = 0u;
+    v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     obj = feedbackData;
-    v6 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+    v6 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v49;
+      v9 = *v46;
       while (2)
       {
         v10 = 0;
         v11 = v8;
         do
         {
-          if (*v49 != v9)
+          if (*v46 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v48 + 1) + 8 * v10);
+          v12 = *(*(&v45 + 1) + 8 * v10);
           v13 = MEMORY[0x277CCACA8];
           v14 = [obj objectForKeyedSubscript:v12];
           v8 = [v13 stringWithFormat:@"%@: %@", v12, v14];
 
-          blockCopy[2](blockCopy, v8, &v52);
-          if (v52)
+          blockCopy[2](blockCopy, v8, &v49);
+          if (v49)
           {
             v15 = 0;
             goto LABEL_38;
@@ -2507,7 +2474,7 @@ LABEL_10:
         }
 
         while (v7 != v10);
-        v7 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+        v7 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
         if (v7)
         {
           continue;
@@ -2532,73 +2499,71 @@ LABEL_10:
 
   obj = [(SKGKnowledgeFeedback *)self versionName];
   [(SKGKnowledgeFeedback *)self defaultPropertiesForVersionName:?];
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v16 = v47 = 0u;
-  v37 = [v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
-  if (v37)
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v16 = v44 = 0u;
+  v34 = [v16 countByEnumeratingWithState:&v41 objects:v51 count:16];
+  if (v34)
   {
-    v17 = *v45;
-    v18 = 0x277CBE000uLL;
-    v33 = *v45;
-    v34 = v16;
+    v17 = *v42;
+    v30 = *v42;
+    v31 = v16;
     while (2)
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v34; ++i)
       {
-        if (*v45 != v17)
+        if (*v42 != v17)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v44 + 1) + 8 * i);
-        v21 = [v16 objectForKeyedSubscript:v20];
-        v22 = *(v18 + 2656);
+        v19 = *(*(&v41 + 1) + 8 * i);
+        v20 = [v16 objectForKeyedSubscript:v19];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v42 = 0u;
-          v43 = 0u;
+          v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
-          v35 = v21;
-          v23 = v21;
-          v24 = [v23 countByEnumeratingWithState:&v40 objects:v53 count:16];
-          if (v24)
+          v37 = 0u;
+          v38 = 0u;
+          v32 = v20;
+          v21 = v20;
+          v22 = [v21 countByEnumeratingWithState:&v37 objects:v50 count:16];
+          if (v22)
           {
-            v25 = v24;
-            v26 = *v41;
+            v23 = v22;
+            v24 = *v38;
             while (2)
             {
-              v27 = 0;
-              v28 = v8;
+              v25 = 0;
+              v26 = v8;
               do
               {
-                if (*v41 != v26)
+                if (*v38 != v24)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v21);
                 }
 
-                v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v40 + 1) + 8 * v27)];
+                v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v37 + 1) + 8 * v25)];
 
-                blockCopy[2](blockCopy, v8, &v52);
-                if (v52)
+                blockCopy[2](blockCopy, v8, &v49);
+                if (v49)
                 {
 
-                  v30 = v8;
-                  v16 = v34;
-                  v29 = v35;
+                  v28 = v8;
+                  v16 = v31;
+                  v27 = v32;
                   goto LABEL_35;
                 }
 
-                ++v27;
-                v28 = v8;
+                ++v25;
+                v26 = v8;
               }
 
-              while (v25 != v27);
-              v25 = [v23 countByEnumeratingWithState:&v40 objects:v53 count:16];
-              if (v25)
+              while (v23 != v25);
+              v23 = [v21 countByEnumeratingWithState:&v37 objects:v50 count:16];
+              if (v23)
               {
                 continue;
               }
@@ -2607,33 +2572,32 @@ LABEL_10:
             }
           }
 
-          v17 = v33;
-          v16 = v34;
-          v18 = 0x277CBE000;
-          v29 = v35;
+          v17 = v30;
+          v16 = v31;
+          v27 = v32;
         }
 
         else
         {
-          [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %@", v20, v21];
-          v30 = v29 = v21;
+          [MEMORY[0x277CCACA8] stringWithFormat:@"%@: %@", v19, v20];
+          v28 = v27 = v20;
 
-          blockCopy[2](blockCopy, v30, &v52);
-          v8 = v30;
-          if (v52 == 1)
+          blockCopy[2](blockCopy, v28, &v49);
+          v8 = v28;
+          if (v49 == 1)
           {
 LABEL_35:
 
             v15 = 0;
-            v8 = v30;
+            v8 = v28;
             goto LABEL_37;
           }
         }
       }
 
       v15 = 1;
-      v37 = [v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
-      if (v37)
+      v34 = [v16 countByEnumeratingWithState:&v41 objects:v51 count:16];
+      if (v34)
       {
         continue;
       }
@@ -2650,13 +2614,12 @@ LABEL_35:
 LABEL_37:
 
 LABEL_38:
-  v31 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)logUpdateTaskReindexCount:(unint64_t)count taskName:(id)name
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy length])
   {
@@ -2687,7 +2650,7 @@ LABEL_17:
     date = [MEMORY[0x277CBEAA8] date];
     v11 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:nameCopy];
     v12 = v11;
-    v27 = date;
+    v26 = date;
     if (v11)
     {
       v13 = [v11 mutableCopy];
@@ -2711,10 +2674,10 @@ LABEL_17:
         while (v16 != -1);
       }
 
-      v30[0] = v27;
+      v29[0] = v26;
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:count];
-      v30[1] = v19;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+      v29[1] = v19;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
       [v13 addObject:v20];
 
       [(SKGKnowledgeFeedback *)self setDefaultWithKey:nameCopy value:v13];
@@ -2722,12 +2685,12 @@ LABEL_17:
 
     else
     {
-      v28[0] = date;
+      v27[0] = date;
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:count];
-      v28[1] = v13;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-      v29 = v14;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+      v27[1] = v13;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v28 = v14;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
       [(SKGKnowledgeFeedback *)self setDefaultWithKey:nameCopy value:v21];
     }
 
@@ -2746,8 +2709,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)getUpdateTaskReindexCount
@@ -2786,33 +2747,33 @@ LABEL_18:
 
 - (unint64_t)getReindexCountForTask:(id)task
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   if ([taskCopy length])
   {
     date = [MEMORY[0x277CBEAA8] date];
     v6 = [date dateByAddingTimeInterval:-86400.0];
     v7 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:taskCopy];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           v14 = [v13 objectAtIndexedSubscript:0];
           if ([v14 compare:v6] == 1)
           {
@@ -2821,7 +2782,7 @@ LABEL_18:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
@@ -2838,7 +2799,6 @@ LABEL_18:
     v10 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2875,7 +2835,7 @@ LABEL_18:
 
 - (id)getEmbeddingDonationItemCounts
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:@"embeddingDonationCount"];
   if (v2)
   {
@@ -2888,30 +2848,30 @@ LABEL_18:
     v4 = objc_opt_new();
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [v4 allValues];
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 += [*(*(&v14 + 1) + 8 * i) unsignedIntegerValue];
+        v8 += [*(*(&v13 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -2925,8 +2885,6 @@ LABEL_18:
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
   [v4 setObject:v11 forKeyedSubscript:@"Total"];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -2937,6 +2895,146 @@ LABEL_18:
   [(SKGKnowledgeFeedback *)self setDefaultWithKey:@"embeddingDonationCount" value:v3];
 
   os_unfair_lock_unlock(&gEmbeddingDonationCountLock);
+}
+
+- (void)logCleanupItemCounts:(unint64_t)counts bundleId:(id)id listenerType:(int)type
+{
+  v5 = *&type;
+  idCopy = id;
+  os_unfair_lock_lock(&gCleanupCountLock);
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", v5];
+  v9 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:@"cleanupPerBundleCount"];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = [v9 mutableCopy];
+  }
+
+  else
+  {
+    v11 = objc_opt_new();
+  }
+
+  v12 = [v11 objectForKey:v8];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = [v12 mutableCopy];
+  }
+
+  else
+  {
+    v14 = objc_opt_new();
+  }
+
+  v15 = [v14 objectForKey:idCopy];
+  v16 = v15;
+  v17 = MEMORY[0x277CCABB0];
+  if (v15)
+  {
+    counts += [v15 unsignedIntegerValue];
+  }
+
+  v18 = [v17 numberWithUnsignedInteger:counts];
+  [v14 setObject:v18 forKey:idCopy];
+
+  [v11 setObject:v14 forKey:v8];
+  [(SKGKnowledgeFeedback *)self setDefaultWithKey:@"cleanupPerBundleCount" value:v11];
+  os_unfair_lock_unlock(&gCleanupCountLock);
+}
+
+- (id)getCleanupItemCountsForListenerType:(int)type
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", *&type];
+  v5 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:@"cleanupPerBundleCount"];
+  v6 = v5;
+  if (v5)
+  {
+    v7 = v5;
+  }
+
+  else
+  {
+    v7 = objc_opt_new();
+  }
+
+  v8 = v7;
+
+  v9 = [v8 objectForKeyedSubscript:v4];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = [v9 mutableCopy];
+  }
+
+  else
+  {
+    v11 = objc_opt_new();
+  }
+
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  allValues = [v11 allValues];
+  v13 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = 0;
+    v16 = *v21;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v21 != v16)
+        {
+          objc_enumerationMutation(allValues);
+        }
+
+        v15 += [*(*(&v20 + 1) + 8 * i) unsignedIntegerValue];
+      }
+
+      v14 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v14);
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v15];
+  [v11 setObject:v18 forKeyedSubscript:@"Total"];
+
+  return v11;
+}
+
+- (void)resetCleanupItemCountsForListenerType:(int)type
+{
+  v3 = *&type;
+  os_unfair_lock_lock(&gCleanupCountLock);
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", v3];
+  v5 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:@"cleanupPerBundleCount"];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = [v5 mutableCopy];
+  }
+
+  else
+  {
+    v7 = objc_opt_new();
+  }
+
+  v8 = objc_opt_new();
+  [v7 setObject:v8 forKeyedSubscript:v9];
+
+  [(SKGKnowledgeFeedback *)self setDefaultWithKey:@"cleanupPerBundleCount" value:v7];
+  os_unfair_lock_unlock(&gCleanupCountLock);
 }
 
 - (void)resetCleanupItemCountsForAllListenerTypes
@@ -2981,7 +3079,7 @@ LABEL_18:
 
 - (id)getReindexRequestItemCounts
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [(SKGKnowledgeFeedback *)self defaultValueWithKey:@"reindexRequestPerBundleCount"];
   if (v2)
   {
@@ -2994,30 +3092,30 @@ LABEL_18:
     v4 = objc_opt_new();
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [v4 allValues];
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 += [*(*(&v14 + 1) + 8 * i) unsignedIntegerValue];
+        v8 += [*(*(&v13 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -3030,8 +3128,6 @@ LABEL_18:
 
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
   [v4 setObject:v11 forKeyedSubscript:@"Total"];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -3145,6 +3241,15 @@ LABEL_18:
   [MEMORY[0x277CBEBD0] resetStandardUserDefaults];
 
   os_unfair_lock_unlock(&gFeedbackLock_0);
+}
+
+- (void)setModeWithKey:(id)key value:(BOOL)value
+{
+  valueCopy = value;
+  v6 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:valueCopy];
+  [(SKGKnowledgeFeedback *)self setDefaultWithKey:keyCopy value:v8];
 }
 
 - (BOOL)modeWithKey:(id)key
@@ -3265,13 +3370,12 @@ LABEL_18:
 
 - (void)logError:(uint64_t)a1 message:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218242;
-  v4 = a2;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SKG: error (%lu) %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218242;
+  v3 = a2;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "SKG: error (%lu) %@", &v2, 0x16u);
 }
 
 @end

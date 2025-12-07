@@ -620,7 +620,7 @@ LABEL_11:
   return defaultParagraphStyle_paraStyle;
 }
 
-uint64_t __41__NSParagraphStyle_defaultParagraphStyle__block_invoke()
+void *__41__NSParagraphStyle_defaultParagraphStyle__block_invoke()
 {
   result = [objc_allocWithZone(NSParagraphStyle) init];
   defaultParagraphStyle_paraStyle = result;

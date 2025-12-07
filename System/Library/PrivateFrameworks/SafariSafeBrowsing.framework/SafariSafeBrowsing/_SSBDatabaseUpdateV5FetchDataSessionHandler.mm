@@ -13,10 +13,10 @@
 
 - (_SSBDatabaseUpdateV5FetchDataSessionHandler)initWithCompletionHandler:(void *)handler provider:(int)provider
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = _SSBDatabaseUpdateV5FetchDataSessionHandler;
-  v6 = [(_SSBDatabaseUpdateV5FetchDataSessionHandler *)&v17 init];
+  v25 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = _SSBDatabaseUpdateV5FetchDataSessionHandler;
+  v6 = [(_SSBDatabaseUpdateV5FetchDataSessionHandler *)&v16 init];
   if (v6)
   {
     _ZNSt3__115allocate_sharedB8sn200100I12ByteProviderNS_9allocatorIS1_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(from);
@@ -34,41 +34,41 @@
     }
 
     objc_initWeak(&location, v6);
-    std::allocate_shared[abi:sn200100]<ReadStream,std::allocator<ReadStream>,std::shared_ptr<ByteProvider> &,0>(v6 + 2, &v15);
+    std::allocate_shared[abi:sn200100]<ReadStream,std::allocator<ReadStream>,std::shared_ptr<ByteProvider> &,0>(v6 + 2, &v14);
     objc_copyWeak(&to, &location);
-    std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&,NSError *)>::__value_func[abi:sn200100](v20, handler);
+    std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&,NSError *)>::__value_func[abi:sn200100](v19, handler);
     v8 = operator new(8uLL);
-    v18 = v15;
-    v15 = 0uLL;
+    v17 = v14;
+    v14 = 0uLL;
     objc_moveWeak(from, &to);
-    if (v21)
+    if (v20)
     {
-      if (v21 == v20)
+      if (v20 == v19)
       {
-        v23 = &from[1];
-        (*(*v21 + 3))();
+        v22 = &from[1];
+        (*(*v20 + 3))();
       }
 
       else
       {
-        v23 = v21;
-        v21 = 0;
+        v22 = v20;
+        v20 = 0;
       }
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    v25 = 0;
+    v24 = 0;
     v9 = operator new(0x30uLL);
     *v9 = &unk_2838CE010;
     objc_moveWeak(v9 + 1, from);
-    v10 = v23;
-    if (v23)
+    v10 = v22;
+    if (v22)
     {
-      if (v23 == &from[1])
+      if (v22 == &from[1])
       {
         v9[5] = v9 + 2;
         (*(*v10 + 3))(v10);
@@ -76,8 +76,8 @@
 
       else
       {
-        v9[5] = v23;
-        v23 = 0;
+        v9[5] = v22;
+        v22 = 0;
       }
     }
 
@@ -86,14 +86,14 @@
       v9[5] = 0;
     }
 
-    v25 = v9;
-    Backend::Google::HashListsBatchGetResponseParser::HashListsBatchGetResponseParser(v8, &v18, v24);
-    std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&)>::~__value_func[abi:sn200100](v24);
+    v24 = v9;
+    Backend::Google::HashListsBatchGetResponseParser::HashListsBatchGetResponseParser(v8, &v17, v23);
+    std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&)>::~__value_func[abi:sn200100](v23);
     std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&,NSError *)>::~__value_func[abi:sn200100](&from[1]);
     objc_destroyWeak(from);
-    if (*(&v18 + 1))
+    if (*(&v17 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](*(&v18 + 1));
+      std::__shared_weak_count::__release_shared[abi:sn200100](*(&v17 + 1));
     }
 
     v11 = *(v6 + 1);
@@ -108,11 +108,11 @@
       operator delete(v11);
     }
 
-    std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&,NSError *)>::~__value_func[abi:sn200100](v20);
+    std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&,NSError *)>::~__value_func[abi:sn200100](v19);
     objc_destroyWeak(&to);
-    if (*(&v15 + 1))
+    if (*(&v14 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](*(&v15 + 1));
+      std::__shared_weak_count::__release_shared[abi:sn200100](*(&v14 + 1));
     }
 
     *(v6 + 12) = provider;
@@ -120,7 +120,6 @@
     objc_destroyWeak(&location);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -48,7 +48,7 @@
 
   v7 = v6;
   v8 = v7;
-  if (v7 && (self->_requestedSize.width == *(v7 + 3) ? (v9 = self->_requestedSize.height == *(v7 + 4)) : (v9 = 0), v9 && ((type = self->_type, type == v8[1]) || [(NSString *)type isEqualToString:?])))
+  if (v7 && (self->_requestedSize.width == *(v7 + 3) ? (v9 = self->_requestedSize.height == *(v7 + 4)) : (v9 = 0), v9 && ((type = self->_type, type == v8[1]) || objc_msgSend_isEqualToString_(type))))
   {
     identifier = self->_identifier;
     if (identifier == v8[2])
@@ -58,7 +58,7 @@
 
     else
     {
-      v12 = [(NSString *)identifier isEqualToString:?];
+      v12 = objc_msgSend_isEqualToString_(identifier);
     }
   }
 

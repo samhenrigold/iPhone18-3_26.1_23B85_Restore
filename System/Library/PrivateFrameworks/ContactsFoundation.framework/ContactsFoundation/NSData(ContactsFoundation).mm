@@ -371,13 +371,13 @@ LABEL_28:
 
 - (id)_cn_SHA256HashDataWithSalt:()ContactsFoundation
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = [a3 dataUsingEncoding:4];
   v5 = [MEMORY[0x1E695DF88] dataWithData:v4];
   [v5 appendData:self];
   CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), md);
   v6 = 0;
-  v7 = v13;
+  v7 = v12;
   do
   {
     v8 = md[v6];
@@ -388,24 +388,20 @@ LABEL_28:
   }
 
   while (v6 != 32);
-  v9 = [MEMORY[0x1E695DEF0] dataWithBytes:&v12 length:64];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = [MEMORY[0x1E695DEF0] dataWithBytes:&v11 length:64];
 
   return v9;
 }
 
 - (id)_cn_SHA1String
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   CC_SHA1([self bytes], objc_msgSend(self, "length"), md);
   string = [MEMORY[0x1E696AD60] string];
   for (i = 0; i != 20; ++i)
   {
     [string appendFormat:@"%x", md[i]];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return string;
 }

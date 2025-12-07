@@ -12,7 +12,7 @@
   operationID = [(PDURLResponse *)self operationID];
   v3 = [NSString stringWithFormat:@"%@-response.data", operationID];
 
-  v4 = sub_1000E0594();
+  v4 = sub_1000E0594(PDFileManager);
   v5 = sub_1000E0C78(v4);
   v6 = [v5 URLByAppendingPathComponent:v3 isDirectory:0];
 

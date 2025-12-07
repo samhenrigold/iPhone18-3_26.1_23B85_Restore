@@ -22,7 +22,7 @@
 
 - (BOOL)hasSecondaryContent
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE913F0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE913F0, &qword_24839E948);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v14 - v4;
   v6 = sub_248381B00();
@@ -35,7 +35,7 @@
   (*(v7 + 8))(v10, v6);
   v12 = sub_248381AB0();
   LOBYTE(self) = (*(*(v12 - 8) + 48))(v5, 1, v12) != 1;
-  sub_24822D578(v5, &qword_27EE913F0);
+  sub_24822D578(v5, &qword_27EE913F0, &qword_24839E948);
 
   return self;
 }
@@ -53,9 +53,9 @@
 - (NSNumber)persistentElements
 {
   selfCopy = self;
-  v3 = sub_2482936B8();
+  v4 = sub_2482936B8(v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)hasDefrostPersistentElement

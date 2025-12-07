@@ -2,6 +2,8 @@
 + (BOOL)isValidPackageAtURL:(id)l;
 + (BOOL)isZeroLengthFileOrEmptyDirectory:(id)directory isDirectory:(BOOL *)isDirectory;
 + (id)dataEntryPathForFilename:(id)filename;
++ (id)newLazyPackageWithURL:(id)l packageIdentifier:(unsigned __int8)identifier decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate;
++ (id)newPackageWithURL:(id)l options:(unint64_t)options packageIdentifier:(unsigned __int8)identifier decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate error:(id *)error;
 + (id)objectArchiveEntryPathForPackageLocator:(id)locator;
 + (id)zipArchiveURLFromPackageURL:(id)l;
 + (unint64_t)zipArchiveOptions;
@@ -14,14 +16,17 @@
 - (TSPFileCoordinatorDelegate)fileCoordinatorDelegate;
 - (TSPPackage)init;
 - (TSPPackage)initWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate isLazyLoading:(BOOL)loading;
+- (TSPPackage)initWithURL:(id)l zipArchiveOrNil:(id)nil zipArchiveOptions:(unint64_t)options packageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate error:(id *)self0;
 - (TSUZipFileArchive)zipArchive;
 - (id)componentLocators;
+- (id)dataAtRelativePath:(id)path allowDecryption:(BOOL)decryption error:(id *)error;
 - (id)keyFromPassword:(id)password;
 - (id)keyFromPassword:(id)password passwordVerifier:(id)verifier;
 - (id)newCompressionReadChannelWithReadChannel:(id)channel compressionAlgorithm:(int64_t)algorithm;
 - (id)newDocumentPropertiesWithURL:(id)l zipProvider:(id)provider error:(id *)error;
 - (id)newRawDataReadChannelAtRelativePath:(id)path;
 - (id)newRawReadChannelForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive error:(id *)error;
+- (id)newReadChannelForComponentLocator:(id)locator compressionAlgorithm:(int64_t)algorithm isStoredOutsideObjectArchive:(BOOL)archive error:(id *)error;
 - (id)newZipArchiveFromPackageURL:(id)l isLazyLoading:(BOOL)loading error:(id *)error;
 - (id)packageEntryInfoAtRelativePath:(id)path error:(id *)error;
 - (id)packageEntryInfoForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive;
@@ -95,6 +100,186 @@
   return v3;
 }
 
++ (id)newPackageWithURL:(id)l options:(unint64_t)options packageIdentifier:(unsigned __int8)identifier decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate error:(id *)error
+{
+  identifierCopy = identifier;
+  lCopy = l;
+  keyCopy = key;
+  delegateCopy = delegate;
+  if (![TSPDirectoryPackage isValidPackageAtURL:lCopy])
+  {
+    v42 = 0;
+    v35 = keyCopy;
+    v20 = +[NSFileManager defaultManager];
+    path = [lCopy path];
+    v22 = [v20 fileExistsAtPath:path isDirectory:&v42];
+
+    v41 = 0;
+    v16 = [TSUZipFileArchive zipArchiveFromURL:lCopy options:options | 5 error:&v41];
+    v17 = v41;
+    if (v16)
+    {
+      if ([TSPFilePackage isValidPackageAtZipArchive:v16])
+      {
+        v40 = v17;
+        v23 = [[TSPDocumentProperties alloc] initWithFilePackageURL:lCopy zipArchive:v16 allowMissingPropertyList:1 error:&v40];
+        v24 = v40;
+
+        if (v23)
+        {
+          v39 = v24;
+          v18 = [(TSPPackage *)[TSPFilePackage alloc] initWithURL:lCopy zipArchiveOrNil:v16 zipArchiveOptions:options packageIdentifier:identifierCopy documentProperties:v23 decryptionKey:v35 fileCoordinatorDelegate:delegateCopy error:&v39];
+          v25 = v39;
+LABEL_11:
+          v26 = v25;
+
+          v24 = v26;
+LABEL_21:
+
+          v17 = v24;
+          goto LABEL_22;
+        }
+
+        goto LABEL_20;
+      }
+
+      keyCopy = v35;
+      if (([(TSPDocumentProperties *)v16 hasNonEmptyEntries]& 1) != 0)
+      {
+        goto LABEL_13;
+      }
+
+      v23 = [NSError tsp_readCorruptZipOfPackageErrorWithUserInfo:0];
+
+      v27 = [NSError tsp_errorWithError:v23 hints:&off_1001D7100];
+    }
+
+    else
+    {
+      if ([TSPExpandedDirectoryPackage isValidPackageAtURL:lCopy])
+      {
+        v38 = v17;
+        v23 = [[TSPDocumentProperties alloc] initWithDocumentURL:lCopy allowMissingPropertyList:1 error:&v38];
+        v24 = v38;
+
+        if (v23)
+        {
+          v37 = v24;
+          v18 = [(TSPPackage *)[TSPExpandedDirectoryPackage alloc] initWithURL:lCopy zipArchiveOrNil:0 zipArchiveOptions:options packageIdentifier:identifierCopy documentProperties:v23 decryptionKey:v35 fileCoordinatorDelegate:delegateCopy error:&v37];
+          v25 = v37;
+          goto LABEL_11;
+        }
+
+LABEL_20:
+        v18 = 0;
+        goto LABEL_21;
+      }
+
+      if (([v17 tsu_isReadError] & v22) != 1 || (v42 & 1) != 0 || +[TSUZipFileArchive isZipArchiveAtURL:error:](TSUZipFileArchive, "isZipArchiveAtURL:error:", lCopy, 0))
+      {
+        v18 = 0;
+LABEL_22:
+        keyCopy = v35;
+        goto LABEL_23;
+      }
+
+      keyCopy = v35;
+      if (![TSUZipFileArchive isZipSignatureAllZerosAtURL:lCopy])
+      {
+        goto LABEL_13;
+      }
+
+      userInfo = [v17 userInfo];
+      v23 = [NSError tsp_readCorruptZipOfPackageErrorWithUserInfo:userInfo];
+
+      v27 = [NSError tsp_errorWithError:v23 hints:&off_1001D7118];
+    }
+
+    v24 = v27;
+    goto LABEL_20;
+  }
+
+  v44 = 0;
+  v16 = [[TSPDocumentProperties alloc] initWithDocumentURL:lCopy allowMissingPropertyList:1 error:&v44];
+  v17 = v44;
+  if (!v16)
+  {
+LABEL_13:
+    v18 = 0;
+    goto LABEL_23;
+  }
+
+  v43 = v17;
+  v18 = [(TSPPackage *)[TSPDirectoryPackage alloc] initWithURL:lCopy zipArchiveOrNil:0 zipArchiveOptions:options packageIdentifier:identifierCopy documentProperties:v16 decryptionKey:keyCopy fileCoordinatorDelegate:delegateCopy error:&v43];
+  v19 = v43;
+
+  v17 = v19;
+LABEL_23:
+
+  if (error && !v18)
+  {
+    v42 = 0;
+    if (([v17 tsp_isCorruptZipOfPackageError] & 1) != 0 || !+[TSPPackage isZeroLengthFileOrEmptyDirectory:isDirectory:](TSPPackage, "isZeroLengthFileOrEmptyDirectory:isDirectory:", lCopy, &v42))
+    {
+      if (v17)
+      {
+        goto LABEL_35;
+      }
+
+      v36 = 0;
+      v31 = [lCopy checkResourceIsReachableAndReturnError:&v36];
+      v17 = v36;
+      if (!v31)
+      {
+        goto LABEL_35;
+      }
+
+      v30 = [NSError tsp_unknownReadErrorWithUserInfo:0];
+      v28 = v17;
+    }
+
+    else
+    {
+      v28 = [NSError tsp_readCorruptZipOfPackageErrorWithUserInfo:0];
+
+      if (v42)
+      {
+        v29 = &off_1001D7130;
+      }
+
+      else
+      {
+        v29 = &off_1001D7148;
+      }
+
+      v30 = [NSError tsp_errorWithError:v28 hints:v29];
+    }
+
+    v17 = v30;
+LABEL_35:
+    v32 = v17;
+    *error = v17;
+  }
+
+  return v18;
+}
+
++ (id)newLazyPackageWithURL:(id)l packageIdentifier:(unsigned __int8)identifier decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate
+{
+  identifierCopy = identifier;
+  lCopy = l;
+  keyCopy = key;
+  delegateCopy = delegate;
+  if (![TSPDirectoryPackage isValidPackageAtURL:lCopy])
+  {
+    [TSPExpandedDirectoryPackage isValidPackageAtURL:lCopy];
+  }
+
+  v12 = [objc_alloc(objc_opt_class()) initWithPackageIdentifier:identifierCopy documentProperties:0 fileFormatVersion:0 decryptionKey:keyCopy fileCoordinatorDelegate:delegateCopy isLazyLoading:1];
+
+  return v12;
+}
+
 - (TSPPackage)init
 {
   v2 = +[TSUAssertionHandler _atomicIncrementAssertCount];
@@ -127,6 +312,34 @@
   v8 = v7;
 
   objc_exception_throw(v7);
+}
+
+- (TSPPackage)initWithURL:(id)l zipArchiveOrNil:(id)nil zipArchiveOptions:(unint64_t)options packageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate error:(id *)self0
+{
+  identifierCopy = identifier;
+  lCopy = l;
+  nilCopy = nil;
+  propertiesCopy = properties;
+  keyCopy = key;
+  delegateCopy = delegate;
+  v21 = [(TSPPackage *)self initWithPackageIdentifier:identifierCopy documentProperties:propertiesCopy fileFormatVersion:0 decryptionKey:keyCopy fileCoordinatorDelegate:delegateCopy isLazyLoading:0];
+  v22 = v21;
+  v23 = v21;
+  if (v21)
+  {
+    objc_storeStrong(&v21->_zipArchive, nil);
+    v23->_additionalZipArchiveOptions = options;
+    if ([objc_opt_class() hasZipArchive])
+    {
+      if ((zipArchive = v22->_zipArchive) == 0 && (v25 = [(TSPPackage *)v23 newZipArchiveFromPackageURL:lCopy isLazyLoading:0 error:error], v26 = v22->_zipArchive, v22->_zipArchive = v25, v26, (zipArchive = v22->_zipArchive) == 0) || ![(TSPPackage *)v23 didReloadZipArchive:zipArchive packageURL:lCopy error:error])
+      {
+
+        v23 = 0;
+      }
+    }
+  }
+
+  return v23;
 }
 
 - (TSPPackage)initWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate isLazyLoading:(BOOL)loading
@@ -792,6 +1005,74 @@ LABEL_16:
   return v7;
 }
 
+- (id)newReadChannelForComponentLocator:(id)locator compressionAlgorithm:(int64_t)algorithm isStoredOutsideObjectArchive:(BOOL)archive error:(id *)error
+{
+  archiveCopy = archive;
+  locatorCopy = locator;
+  if (!locatorCopy)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_1001542E4();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001542F8();
+    }
+
+    v11 = [NSString stringWithUTF8String:"[TSPPackage newReadChannelForComponentLocator:compressionAlgorithm:isStoredOutsideObjectArchive:error:]"];
+    v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackage.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:540 isFatal:0 description:"Invalid parameter not satisfying: %{public}s", "locator"];
+
+    +[TSUAssertionHandler logBacktraceThrottled];
+  }
+
+  v24 = 0;
+  v13 = [(TSPPackage *)self newRawReadChannelForComponentLocator:locatorCopy isStoredOutsideObjectArchive:archiveCopy error:&v24];
+  v14 = v24;
+  if (!v13 || self->_decryptionKey && (v15 = [[TSPCryptoReadChannel alloc] initWithReadChannel:v13 decryptionKey:self->_decryptionKey blockInfos:0], v13, (v13 = v15) == 0) || (v16 = [(TSPPackage *)self newCompressionReadChannelWithReadChannel:v13 compressionAlgorithm:algorithm], v13, !v16))
+  {
+    if (TSUDefaultCat_init_token != -1)
+    {
+      sub_100154394();
+    }
+
+    v17 = TSUDefaultCat_log_t;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
+      domain = [v14 domain];
+      code = [v14 code];
+      *buf = 138544130;
+      v26 = v21;
+      v27 = 2114;
+      v28 = domain;
+      v29 = 2048;
+      v30 = code;
+      v31 = 2112;
+      v32 = v14;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Error getting raw read channel errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x2Au);
+    }
+
+    if (error)
+    {
+      v18 = v14;
+      v16 = 0;
+      *error = v14;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+  }
+
+  return v16;
+}
+
 - (id)newRawReadChannelForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive error:(id *)error
 {
   archiveCopy = archive;
@@ -1137,6 +1418,36 @@ LABEL_4:
   v17 = v16;
 
   objc_exception_throw(v16);
+}
+
+- (id)dataAtRelativePath:(id)path allowDecryption:(BOOL)decryption error:(id *)error
+{
+  decryptionCopy = decryption;
+  error = [(TSPPackage *)self newRawDataReadChannelAtRelativePath:path, decryption, error];
+  if (error && decryptionCopy)
+  {
+    if (!self->_decryptionKey)
+    {
+LABEL_6:
+      v9 = [TSPReadChannelUtils dataFromReadChannel:error];
+      goto LABEL_8;
+    }
+
+    v8 = [[TSPCryptoTranscodeReadChannel alloc] initWithReadChannel:error decryptionInfo:self->_decryptionKey encryptionInfo:0];
+
+    error = v8;
+  }
+
+  if (error)
+  {
+    goto LABEL_6;
+  }
+
+  v9 = 0;
+LABEL_8:
+  [(TSPCryptoTranscodeReadChannel *)error close];
+
+  return v9;
 }
 
 - (BOOL)hasDataAtRelativePath:(id)path

@@ -1,17 +1,1365 @@
-uint64_t sub_1AF3A830C(uint64_t a1, CFX::RG::RenderGraphBuilder *a2, uint64_t *a3)
+unint64_t CFX::RG::DeduceStoreAction(_DWORD *a1, CFX::RG::Pass *this, CFX::RG::Resource *a3, unsigned int *a4, unint64_t a5)
+{
+  v10 = CFX::RG::Pass::renderTargetInfo(this, a3);
+  CStackAllocatorPushFrame(a4);
+  if ((*v10 & 4) != 0 || !*(this + 58))
+  {
+    goto LABEL_9;
+  }
+
+  v11 = 0;
+  while (1)
+  {
+    v12 = *(*(this + 30) + 8 * v11);
+    v13 = CFX::RG::Pass::renderTargetInfo(this, v12);
+    if (v13)
+    {
+      if (*(v10 + 4) == *(v13 + 4) && *(v10 + 8) == *(v13 + 8) && (*v13 & 4) != 0)
+      {
+        break;
+      }
+    }
+
+    if (++v11 >= *(this + 58))
+    {
+      goto LABEL_9;
+    }
+  }
+
+  if (v12)
+  {
+    CFX::RG::RenderGraph::directSuccessorsReadingResource(a1, this, a3, a4, v19);
+    v18 = CFX::RG::Resource::type(a3) == 2;
+    if ((HIBYTE(a5) | v18) & 1 | (v20 != 0))
+    {
+      v16 = 3;
+    }
+
+    else
+    {
+      v16 = 2;
+    }
+  }
+
+  else
+  {
+LABEL_9:
+    CFX::RG::RenderGraph::directSuccessorsReadingResource(a1, this, a3, a4, v19);
+    v14 = v20 != 0;
+    v15 = CFX::RG::Resource::type(a3) == 2;
+    v16 = (HIBYTE(a5) | v15 | CFX::RG::Resource::isManaged(a3) | v14) & 1;
+  }
+
+  CStackAllocatorPopFrame(a4);
+  return v16;
+}
+
+_DWORD *CFX::RG::IncrementTemporal(_DWORD *this, CFX::RG::RenderGraph *a2, CFX::RG::RenderGraphContext *a3)
+{
+  if (this[16] + this[8] + this[24])
+  {
+    v4 = this;
+    v5 = *(a2 + 2);
+    CStackAllocatorPushFrame(v5);
+    v6 = v4[8];
+    v7 = v4[16];
+    v8 = v4[24];
+    v21[0] = v5;
+    v9 = (v6 + v7 + v8 - 1) | ((v6 + v7 + v8 - 1) >> 1);
+    v10 = v9 | (v9 >> 2) | ((v9 | (v9 >> 2)) >> 4);
+    sub_1AF234CC4(v21, (v10 | (v10 >> 8) | ((v10 | (v10 >> 8)) >> 16)) + 1);
+    v11 = v4[40];
+    if (v11)
+    {
+      v12 = *(v4 + 21);
+      v13 = v12 + 8 * v11;
+      do
+      {
+        v14 = *(*v12 + 232);
+        if (v14)
+        {
+          v15 = *(*v12 + 240);
+          v16 = 8 * v14;
+          do
+          {
+            v17 = *v15;
+            if (CFX::RG::Resource::isManaged(*v15) && CFX::RG::Resource::frameCount(v17) >= 2)
+            {
+              v18 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v17) ^ ((0x9DDFEA08EB382D69 * v17) >> 47));
+              v23 = v17;
+              sub_1AF3A2014(v21, 0x9DDFEA08EB382D69 * (v18 ^ (v18 >> 47)), &v23);
+            }
+
+            ++v15;
+            v16 -= 8;
+          }
+
+          while (v16);
+        }
+
+        v12 += 8;
+      }
+
+      while (v12 != v13);
+    }
+
+    v19 = v22;
+    if (v22 != -15)
+    {
+      v20 = 0;
+      do
+      {
+        if (*(v21[3] + 2 * v20))
+        {
+          CFX::GPUResourceManager::incrementLastWriteIndexForResource(*(a2 + 3), *(v21[2] + 8 * v20));
+          v19 = v22;
+        }
+
+        ++v20;
+      }
+
+      while (v20 < (v19 + 15));
+    }
+
+    return CStackAllocatorPopFrame(v5);
+  }
+
+  return this;
+}
+
+uint64_t sub_1AF3A6CDC(uint64_t a1, _DWORD *a2, CFX::RG::Pass *a3, CFX::RG::Resource *a4)
+{
+  if (*(CFX::RG::RenderGraphContext::optimisationParameters(a1) + 6) == 1)
+  {
+    prof_beginFlame("_DeduceResourcesUsage", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/RenderGraphProcessing.mm", 906);
+    if (CFX::RG::Resource::isTexture(a4))
+    {
+      v8 = *(a1 + 16);
+      CStackAllocatorPushFrame(v8);
+      CFX::RG::RenderGraph::passesWritingResource(a2, a4, v8, v27);
+      if (v28)
+      {
+        v9 = 0;
+        v10 = 0;
+        v11 = v29;
+        v12 = 8 * v28;
+        while (1)
+        {
+          isRenderTarget = CFX::RG::Pass::isRenderTarget(*v11, a4);
+          v9 |= !isRenderTarget;
+          v10 |= isRenderTarget;
+          if (v9 & 1) != 0 && (v10)
+          {
+            break;
+          }
+
+          ++v11;
+          v12 -= 8;
+          if (!v12)
+          {
+            goto LABEL_11;
+          }
+        }
+
+        v10 = 1;
+        v9 = 1;
+      }
+
+      else
+      {
+        v10 = 0;
+        v9 = 0;
+      }
+
+LABEL_11:
+      CFX::RG::RenderGraph::passesReadingResource(a2, a4, v8, 0, v26);
+      v14 = v26[2];
+      v15 = *(CFX::RG::RenderGraphContext::resolvedTextureDescriptor(a1, a4) + 16);
+      v16 = v15 | (v14 != 0);
+      if (v9)
+      {
+        v16 |= 2uLL;
+      }
+
+      if (v10)
+      {
+        v17 = v16 | 4;
+      }
+
+      else
+      {
+        v17 = v16;
+      }
+
+      if (v15 != v17)
+      {
+        v18 = CFX::RG::Resource::textureDesc(a4);
+        *(v18 + 72) = v17;
+        *(v18 + 80) = 1;
+        CFX::RG::RenderGraphContext::updateResourceDescriptor(a1, a4);
+      }
+
+      CStackAllocatorPopFrame(v8);
+    }
+
+    prof_endFlame();
+  }
+
+  result = CFX::RG::RenderGraphContext::optimisationParameters(a1);
+  if (*(result + 5) == 1 && *(a3 + 408) == 3)
+  {
+    v20 = CFX::GPUResourceManager::gpuDevice(*(a1 + 24));
+    result = CFXGPUDeviceSupportsMemoryLess(v20, v21, v22);
+    if (result)
+    {
+      result = CFX::RG::Resource::isManaged(a4);
+      if ((result & 1) == 0)
+      {
+        result = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(a1, a4);
+        if ((*(result + 12) & 0x700000000000) == 0x200000000000)
+        {
+          result = CFX::RG::Pass::isRenderTarget(a3, a4);
+          if (result)
+          {
+            v23 = *(a1 + 16);
+            CStackAllocatorPushFrame(v23);
+            CFX::RG::RenderGraph::directSuccessorsReadingResource(a2, a3, a4, v23, v27);
+            if (!v28 && (*CFX::RG::Pass::renderTargetInfo(a3, a4) & 4) == 0)
+            {
+              v24 = (*(CFX::RG::RenderGraphContext::resolvedTextureDescriptor(a1, a4) + 12) >> 40) & 0xF;
+              if (v24 <= 8 && ((1 << v24) & 0x11C) != 0)
+              {
+                v25 = CFX::RG::Resource::textureDesc(a4);
+                *(v25 + 56) = 3;
+                *(v25 + 64) = 1;
+                CFX::RG::RenderGraphContext::updateResourceDescriptor(a1, a4);
+              }
+            }
+
+            return CStackAllocatorPopFrame(v23);
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1AF3A6F84(__int128 *a1, CFX::RG::RenderGraphBuilder *a2, uint64_t a3, char a4)
+{
+  v76 = 0x800000000;
+  v77 = v78;
+  sub_1AF24BECC(&v76, 8u);
+  v6 = *(a1 + 72);
+  if (!v6)
+  {
+LABEL_86:
+    v55 = 0;
+    goto LABEL_88;
+  }
+
+  v57 = *(a1 + 37) + 32 * v6;
+  v7 = *(a1 + 37);
+  v65 = a1;
+  while (1)
+  {
+    v58 = v7;
+    v8 = *(v7 + 16);
+    if (v8)
+    {
+      break;
+    }
+
+LABEL_85:
+    v7 = v58 + 32;
+    if (v58 + 32 == v57)
+    {
+      goto LABEL_86;
+    }
+  }
+
+  v62 = *(v58 + 24) + 8 * v8;
+  v9 = *(v58 + 24);
+  while (1)
+  {
+    v63 = v9;
+    v75 = *v9;
+    if (*(v75 + 408) == 3 && ((a4 & 1) != 0 || !CFX::RG::isCopyPass(v75, v5)))
+    {
+      break;
+    }
+
+LABEL_84:
+    v9 = v63 + 1;
+    if (v63 + 1 == v62)
+    {
+      goto LABEL_85;
+    }
+  }
+
+  v72 = *a1;
+  v73 = 0;
+  v74 = &v75;
+  sub_1AF2348E0(&v72, 8, 1);
+  sub_1AF235000(&v72, &v75);
+  v10 = 0;
+  do
+  {
+    for (i = 0; i != 64; i += 8)
+    {
+      *&v77[i] = 0;
+    }
+
+    v12 = v75;
+    if (*(v75 + 58))
+    {
+      v13 = 0;
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      do
+      {
+        v17 = *(*(v12 + 30) + 8 * v13);
+        v18 = CFX::RG::Pass::renderTargetInfo(v12, v17);
+        if (v18)
+        {
+          ++v16;
+          v19 = *(v18 + 4);
+          switch(v19)
+          {
+            case 3:
+              v15 = v17;
+              break;
+            case 2:
+              v14 = v17;
+              break;
+            case 1:
+              *&v77[8 * *(v18 + 8)] = v17;
+              break;
+          }
+        }
+
+        ++v13;
+        v12 = v75;
+      }
+
+      while (v13 < *(v75 + 58));
+    }
+
+    else
+    {
+      v16 = 0;
+      v15 = 0;
+      v14 = 0;
+    }
+
+    v68 = *a1;
+    v69 = 0x800000000;
+    v70 = v71;
+    v20 = CFX::RG::RenderGraph::successors(a1, v12);
+    v21 = *(v20 + 16);
+    if (v21)
+    {
+      v22 = *(v20 + 24);
+      v23 = 24 * v21;
+      while (1)
+      {
+        v24 = *(v22 + 16);
+        *v66 = *v22;
+        v67 = v24;
+        if (LOBYTE(v66[1]) != 3)
+        {
+          sub_1AF396F40(&v68, v66);
+        }
+
+        v25 = v69;
+        if (v69 >= 2)
+        {
+          break;
+        }
+
+        v22 += 24;
+        v23 -= 24;
+        if (!v23)
+        {
+          goto LABEL_31;
+        }
+      }
+
+LABEL_64:
+      v49 = 1;
+      goto LABEL_67;
+    }
+
+    v25 = v69;
+LABEL_31:
+    if (v25 != 1)
+    {
+      goto LABEL_64;
+    }
+
+    v26 = *v70;
+    v66[0] = v26;
+    if (*(v26 + 408) != 3)
+    {
+      goto LABEL_65;
+    }
+
+    v27 = *(v26 + 40);
+    if ((atomic_load_explicit(byte_1ED73AB30, memory_order_acquire) & 1) == 0)
+    {
+      sub_1AFDFB754();
+    }
+
+    v28 = 0x646F94B6FAFEAA7CLL;
+    if (!byte_1ED73AB28)
+    {
+      v28 = 0;
+    }
+
+    if (v27 == v28)
+    {
+      goto LABEL_65;
+    }
+
+    v29 = CFX::RG::RenderGraph::stageIndexForPass(a1, v75);
+    v30 = CFX::RG::RenderGraph::predecessors(a1, v66[0]);
+    v31 = *(v30 + 16);
+    if (v31)
+    {
+      v32 = (*(v30 + 24) + 8);
+      v33 = 24 * v31;
+      while (1)
+      {
+        if (*v32 != 3)
+        {
+          v34 = *(v32 - 1);
+          if (v34 != v75 && CFX::RG::RenderGraph::stageIndexForPass(a1, v34) >= v29)
+          {
+            break;
+          }
+        }
+
+        v32 += 24;
+        v33 -= 24;
+        if (!v33)
+        {
+          goto LABEL_44;
+        }
+      }
+
+LABEL_65:
+      v47 = v10;
+      v49 = 1;
+      goto LABEL_66;
+    }
+
+LABEL_44:
+    v35 = (*(*v75 + 32))(v75);
+    v36 = (*(*v66[0] + 32))(v66[0]);
+    v37 = v36;
+    if (*(v35 + 268) != *(v36 + 268))
+    {
+      goto LABEL_65;
+    }
+
+    v38 = *(v66[0] + 58);
+    if (v38)
+    {
+      v39 = 0;
+      v40 = *(v66[0] + 30);
+      v64 = (v36 + 274);
+      v41 = 8 * v38;
+      while (1)
+      {
+        v42 = *v40;
+        v43 = CFX::RG::Pass::renderTargetInfo(v66[0], *v40);
+        v46 = v43;
+        if (!v43 || (*v43 & 4) != 0)
+        {
+          goto LABEL_62;
+        }
+
+        v47 = 0;
+        v44.i32[0] = *(v35 + 274);
+        v45.i32[0] = *v64;
+        if ((vmaxv_u16(vmvn_s8(vceq_s16((vmovl_u8(v44).u64[0] & 0xFF00FF00FF00FFLL), (vmovl_u8(v45).u64[0] & 0xFF00FF00FF00FFLL)))) & 1) != 0 || *(v35 + 278) != *(v37 + 278))
+        {
+          v49 = 0;
+          goto LABEL_66;
+        }
+
+        v48 = v39;
+        v49 = 0;
+        if (*(v35 + 279) != *(v37 + 279))
+        {
+          goto LABEL_66;
+        }
+
+        v39 = v48 + 1;
+        v50 = *(v43 + 4);
+        switch(v50)
+        {
+          case 3:
+            v51 = operator==((v35 + 264), (v37 + 264));
+            v52 = v15 == v42;
+            break;
+          case 2:
+            v51 = operator==((v35 + 256), (v37 + 256));
+            v52 = v14 == v42;
+            break;
+          case 1:
+            v51 = operator==((v35 + 32 * *(v43 + 8)), (v37 + 32 * *(v43 + 8)));
+            v52 = v42 == *&v77[8 * *(v46 + 8)];
+            break;
+          default:
+            goto LABEL_62;
+        }
+
+        if (!v52 || !v51)
+        {
+          goto LABEL_76;
+        }
+
+LABEL_62:
+        ++v40;
+        v41 -= 8;
+        if (!v41)
+        {
+          goto LABEL_74;
+        }
+      }
+    }
+
+    v39 = 0;
+LABEL_74:
+    if (v16 == v39)
+    {
+      sub_1AF396F40(&v72, v66);
+      v49 = 0;
+      v75 = v66[0];
+      v47 = 1;
+    }
+
+    else
+    {
+LABEL_76:
+      v47 = 0;
+      v49 = 0;
+    }
+
+LABEL_66:
+    a1 = v65;
+    v10 = v47;
+LABEL_67:
+    if (HIDWORD(v69))
+    {
+      if (v70 != v71)
+      {
+        v66[0] = v70;
+        if (*(&v68 + 1))
+        {
+          sub_1AF234C8C(*(&v68 + 1), v66);
+        }
+      }
+    }
+  }
+
+  while (!(v49 & 1 | ((v10 & 1) == 0)));
+  v54 = v73;
+  if (v73 >= 2)
+  {
+    sub_1AF3A8578(a1, a2, a3, &v72, 3);
+  }
+
+  if (HIDWORD(v73))
+  {
+    *&v68 = v74;
+    if (*(&v72 + 1))
+    {
+      sub_1AF234C8C(*(&v72 + 1), &v68);
+    }
+  }
+
+  if (v54 <= 1)
+  {
+    goto LABEL_84;
+  }
+
+  v55 = 1;
+LABEL_88:
+  if (HIDWORD(v76) && v77 != v78)
+  {
+    free(v77);
+  }
+
+  return v55;
+}
+
+void sub_1AF3A754C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, int a29, int a30, uint64_t a31)
+{
+  if (*(v31 - 180))
+  {
+    v33 = *(v31 - 176);
+    if (v33 != a10)
+    {
+      free(v33);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_1AF3A7610(char **a1, CFX::RG::RenderGraphBuilder *a2, uint64_t a3, uint64_t (*a4)(char *, CFX::RG::RenderGraphBuilder *, uint64_t))
+{
+  v8 = (a4)(*a1);
+  if (v8)
+  {
+    do
+    {
+      __p[0] = 0;
+      __p[1] = 0;
+      v12 = 0;
+      v9 = CFX::RG::RenderGraphBuilder::build(a2, a3, __p);
+      *a1 = v9;
+      if (!v9)
+      {
+        abort();
+      }
+
+      if (SHIBYTE(v12) < 0)
+      {
+        operator delete(__p[0]);
+        v9 = *a1;
+      }
+    }
+
+    while ((a4(v9, a2, a3) & 1) != 0);
+  }
+
+  return v8;
+}
+
+void sub_1AF3A76B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_1AF3A76CC(__int128 *a1, CFX::RG::RenderGraphBuilder *a2, uint64_t a3)
 {
   v23 = *a1;
   v24 = 0;
   v25 = &v26;
   sub_1AF2348E0(&v23, 8, 1);
-  v20[0] = a3[2];
+  v20[0] = *(a3 + 16);
   sub_1AF3A1EF8(v20, 32);
-  v17[0] = a3[2];
+  v17[0] = *(a3 + 16);
   sub_1AF3A1EF8(v17, 32);
-  v6 = *(a1 + 288);
+  v6 = *(a1 + 72);
   if (v6)
   {
-    v7 = *(a1 + 296);
+    v7 = *(a1 + 37);
+    v8 = v7 + 32 * v6;
+    while (1)
+    {
+      v9 = *(v7 + 16);
+      if (v9)
+      {
+        break;
+      }
+
+LABEL_17:
+      v7 += 32;
+      if (v7 == v8)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    v10 = *(v7 + 24);
+    v11 = 8 * v9;
+    while (1)
+    {
+      v12 = *v10;
+      v16 = v12;
+      if (*(v12 + 408) == 4)
+      {
+        if (sub_1AF3A8D8C(v12))
+        {
+          v13 = v16;
+          if (!sub_1AF3A8B7C(v16, v17))
+          {
+            sub_1AF3A8CA4(v13, v20);
+            sub_1AF235000(&v23, &v16);
+            goto LABEL_16;
+          }
+        }
+
+        if (v24 > 1)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      else
+      {
+        if (!sub_1AF3A8B7C(v12, v20))
+        {
+          if (v24)
+          {
+            sub_1AF3A8CA4(v12, v17);
+          }
+
+          goto LABEL_16;
+        }
+
+        if (v24 >= 2)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      LODWORD(v24) = 0;
+      memset(v20[1], 255, 8 * (v22 + 15));
+      bzero(v20[3], 2 * (v22 + 15));
+      v21 = 0;
+      memset(v17[1], 255, 8 * (v19 + 15));
+      bzero(v17[3], 2 * (v19 + 15));
+      v18 = 0;
+LABEL_16:
+      ++v10;
+      v11 -= 8;
+      if (!v11)
+      {
+        goto LABEL_17;
+      }
+    }
+  }
+
+LABEL_18:
+  if (v24 < 2)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+LABEL_19:
+    sub_1AF3A8578(a1, a2, a3, &v23, 4);
+    v14 = 1;
+  }
+
+  if (HIDWORD(v24))
+  {
+    v20[0] = v25;
+    if (*(&v23 + 1))
+    {
+      sub_1AF234C8C(*(&v23 + 1), v20);
+    }
+  }
+
+  return v14;
+}
+
+void sub_1AF3A78FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, int a23, int a24, uint64_t a25)
+{
+  if (a24)
+  {
+    a16 = a25;
+    if (a22)
+    {
+      sub_1AF234C8C(a22, &a16);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_1AF3A7938(CFX::RG::RenderGraph *a1, CFX::RG::RenderGraphBuilder *a2, uint64_t a3)
+{
+  v6 = *(a3 + 16);
+  CStackAllocatorPushFrame(v6);
+  v7 = *(a1 + 40);
+  if (!v7)
+  {
+    goto LABEL_125;
+  }
+
+  v97 = a3;
+  v93 = a2;
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  v96 = 0;
+  LOBYTE(v102) = 0;
+  v11 = *(a1 + 21);
+  v101 = &v11[v7];
+  v94 = v6;
+  while (1)
+  {
+    v103 = v11;
+    v12 = *v11;
+    v13 = *(*v11 + 40);
+    if ((atomic_load_explicit(byte_1ED73AB30, memory_order_acquire) & 1) == 0)
+    {
+      sub_1AFDFB754();
+    }
+
+    v14 = 0x646F94B6FAFEAA7CLL;
+    if (!byte_1ED73AB28)
+    {
+      v14 = 0;
+    }
+
+    if (v13 != v14)
+    {
+      goto LABEL_31;
+    }
+
+    v15 = v97;
+    v8 = CFX::GPUResourceManager::remappedResource(v97[3], *(v12 + 432));
+    v16 = CFX::GPUResourceManager::remappedResource(v97[3], *(v12 + 448));
+    v102 = CFX::RG::Resource::isExternal(v8) || CFX::RG::Resource::isManaged(v8);
+    v17 = CFX::RG::Resource::isExternal(v16) || CFX::RG::Resource::isManaged(v16);
+    if (v102 && v17)
+    {
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v96 = 0;
+      LOBYTE(v102) = 1;
+      goto LABEL_31;
+    }
+
+    v18 = CFX::RG::RenderGraph::predecessors(a1, v12);
+    v19 = *(v18 + 16);
+    if (v19)
+    {
+      v20 = (*(v18 + 24) + 16);
+      v21 = 24 * v19;
+      while (*v20 != v8)
+      {
+        v20 += 3;
+        v21 -= 24;
+        if (!v21)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      v22 = *(v20 - 2);
+    }
+
+    else
+    {
+LABEL_20:
+      v22 = 0;
+    }
+
+    if (!CFX::RG::Resource::isTexture(v8) || !CFX::RG::Resource::isTexture(v16))
+    {
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v96 = 0;
+      goto LABEL_31;
+    }
+
+    v23 = CFX::RG::RenderGraph::successors(a1, v12);
+    v24 = *(v23 + 16);
+    if (v24)
+    {
+      v25 = (*(v23 + 24) + 8);
+      v26 = 24 * v24;
+      while (*v25 == 3 || *(v25 - 1) == v12)
+      {
+        v25 += 24;
+        v26 -= 24;
+        if (!v26)
+        {
+          goto LABEL_29;
+        }
+      }
+
+      v96 = 0;
+    }
+
+    else
+    {
+LABEL_29:
+      v96 = 1;
+    }
+
+    v99 = v12;
+    v100 = v16;
+    if (v22)
+    {
+      v27 = CFX::RG::RenderGraph::stageIndexForPass(a1, v12);
+      v28 = CFX::RG::RenderGraph::successors(a1, v22);
+      v95 = v27;
+      v29 = *(v28 + 16);
+      if (v29)
+      {
+        v30 = *(v28 + 24);
+        v98 = v30 + 24 * v29;
+        v31 = -1;
+        do
+        {
+          if (*(v30 + 8) != 3)
+          {
+            v32 = *v30;
+            if (*v30 != v12)
+            {
+              v33 = *(v32 + 58);
+              if (v33)
+              {
+                v34 = *(v32 + 30);
+                v35 = &v34[v33];
+                do
+                {
+                  if (*v34 == v8)
+                  {
+                    v36 = a1;
+                    v37 = *v30;
+                    if (*(*v30 + 408) == 3 && (v38 = CFX::RG::Pass::renderTargetInfo(*v30, *v34), (v39 = v38) != 0) && (*v38 & 1) != 0 && (v40 = *(v37 + 58), v40))
+                    {
+                      v41 = *(v37 + 30);
+                      v42 = 8 * v40;
+                      while (1)
+                      {
+                        v43 = CFX::RG::Pass::renderTargetInfo(v37, *v41);
+                        if (v43)
+                        {
+                          if ((*v43 & 4) != 0 && *(v43 + 8) == *(v39 + 2))
+                          {
+                            break;
+                          }
+                        }
+
+                        ++v41;
+                        v42 -= 8;
+                        if (!v42)
+                        {
+                          goto LABEL_51;
+                        }
+                      }
+
+                      a1 = v36;
+                    }
+
+                    else
+                    {
+LABEL_51:
+                      a1 = v36;
+                      v44 = CFX::RG::RenderGraph::stageIndexForPass(v36, *v30);
+                      if (v44 < v31)
+                      {
+                        v31 = v44;
+                      }
+                    }
+                  }
+
+                  ++v34;
+                }
+
+                while (v34 != v35);
+              }
+            }
+          }
+
+          v30 += 24;
+          v12 = v99;
+          v16 = v100;
+        }
+
+        while (v30 != v98);
+      }
+
+      else
+      {
+        v31 = -1;
+      }
+
+      v6 = v94;
+      v15 = v97;
+      if (v31 <= v95)
+      {
+        v8 = 0;
+        v9 = 0;
+LABEL_80:
+        v10 = 0;
+        goto LABEL_31;
+      }
+    }
+
+    CFX::RG::RenderGraph::passesWritingResource(a1, v16, v6, &v107);
+    if (v108 != 1)
+    {
+      CFX::RG::RenderGraph::passesReadingResource(a1, v8, v6, 0, v104);
+      if (v105)
+      {
+        v45 = v106;
+        v46 = 8 * v105;
+        do
+        {
+          if (*v45 != v12)
+          {
+            CFX::RG::RenderGraph::stageIndexForPass(a1, *v45);
+          }
+
+          ++v45;
+          v46 -= 8;
+        }
+
+        while (v46);
+      }
+
+      if (v108)
+      {
+        v47 = v109;
+        v48 = 8 * v108;
+        do
+        {
+          if (*v47 != v12)
+          {
+            CFX::RG::RenderGraph::stageIndexForPass(a1, *v47);
+          }
+
+          ++v47;
+          v48 -= 8;
+        }
+
+        while (v48);
+      }
+    }
+
+    v49 = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(v15, v8);
+    v9 = v100;
+    v50 = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(v15, v100);
+    v53 = v50;
+    if (*(v49 + 4) != *(v50 + 4))
+    {
+      goto LABEL_78;
+    }
+
+    v51.i32[0] = *v50;
+    v52.i32[0] = *v49;
+    v54 = vand_s8(vceq_s16((vmovl_u8(v52).u64[0] & 0xFF00FF00FF00FFLL), (vmovl_u8(v51).u64[0] & 0xFF00FF00FF00FFLL)), 0x8000400020001);
+    v54.i16[0] = vaddv_s16(v54);
+    v55 = (*(v50 + 12) & 0xFF00000FFFFFFLL | *(v49 + 12) & 0xFFFFF000000) == (*(v49 + 12) & 0xFFFFFFFFFFFFFLL) && (~v54.i32[0] & 0xF) == 0;
+    if (!v55 || CFX::RG::Resource::isManaged(v8))
+    {
+      goto LABEL_78;
+    }
+
+    v56 = *(v49 + 12);
+    v57 = v56 >> 24;
+    v58 = *(v53 + 12);
+    if (v57 <= v58 >> 24)
+    {
+      break;
+    }
+
+    CFX::RG::RenderGraph::directPredecessorsWritingResource(a1, v12, v8, v6, v104);
+    v10 = *v106;
+    if (!*v106)
+    {
+      goto LABEL_95;
+    }
+
+    if (*(v10 + 408) == 3 && !v102)
+    {
+      v59 = CFX::RG::Pass::renderTargetInfo(*v106, v8);
+      if (!*(v10 + 58))
+      {
+        v74 = 0;
+LABEL_151:
+        v12 = v99;
+        goto LABEL_121;
+      }
+
+      v60 = 0;
+      v61 = *(v59 + 8);
+      v62 = *(v59 + 4);
+      while (1)
+      {
+        v63 = *(v10 + 30);
+        v74 = *(v63 + 8 * v60);
+        if (v74 != v8)
+        {
+          v64 = CFX::RG::Pass::renderTargetInfo(v10, *(v63 + 8 * v60));
+          if (v64)
+          {
+            if (*(v64 + 8) == v61 && *(v64 + 4) == v62 && (*v64 & 4) != 0)
+            {
+              break;
+            }
+          }
+        }
+
+        if (++v60 >= *(v10 + 58))
+        {
+          v74 = 0;
+          v9 = v100;
+          goto LABEL_151;
+        }
+      }
+
+      v9 = v100;
+      if (!CFX::RG::Resource::isManaged(v74) && !CFX::RG::Resource::isExternal(v74))
+      {
+        goto LABEL_151;
+      }
+    }
+
+LABEL_31:
+    v11 = v103 + 1;
+    if (v103 + 1 == v101)
+    {
+      v12 = 0;
+      v74 = 0;
+      goto LABEL_121;
+    }
+  }
+
+  if (v57 != v58 >> 24 || v58 != v56)
+  {
+LABEL_78:
+    v10 = 0;
+    v9 = 0;
+    v8 = 0;
+    goto LABEL_31;
+  }
+
+LABEL_95:
+  v65 = *(CFX::RG::RenderGraphContext::resolvedTextureDescriptor(v97, v100) + 12);
+  v66 = BYTE4(v65);
+  if (BYTE4(v65))
+  {
+    v67 = BYTE4(v65) & 1;
+  }
+
+  else
+  {
+    v67 = 1;
+  }
+
+  if ((v65 & 0x200000000) == 0)
+  {
+    CFX::RG::RenderGraph::passesWritingResource(a1, v8, v6, v104);
+    if (v105)
+    {
+      v68 = v106;
+      v69 = 8 * v105;
+      while (1)
+      {
+        v70 = *v68;
+        if (*v68 != v99 && (*(v70 + 408) != 3 || !CFX::RG::Pass::isRenderTarget(v70, v8)))
+        {
+          break;
+        }
+
+        ++v68;
+        v69 -= 8;
+        if (!v69)
+        {
+          goto LABEL_109;
+        }
+      }
+
+      if (CFX::RG::Resource::isExternal(v100))
+      {
+        v10 = 0;
+        v9 = v100;
+        goto LABEL_31;
+      }
+
+      v71 = CFX::RG::Resource::textureDesc(v100);
+      *(v71 + 72) = v66 | 2;
+      *(v71 + 80) = 1;
+      CFX::RG::RenderGraphContext::updateResourceDescriptor(v97, v100);
+    }
+
+LABEL_109:
+    v12 = v99;
+  }
+
+  if (v67)
+  {
+    v74 = 0;
+    v10 = 0;
+    v9 = v100;
+    goto LABEL_121;
+  }
+
+  CFX::RG::RenderGraph::passesReadingResource(a1, v8, v6, 0, v104);
+  v9 = v100;
+  if (!v105)
+  {
+    goto LABEL_154;
+  }
+
+  v72 = v106;
+  v73 = 8 * v105;
+  while (*v72 == v12)
+  {
+    ++v72;
+    v73 -= 8;
+    if (!v73)
+    {
+      goto LABEL_154;
+    }
+  }
+
+  if (CFX::RG::Resource::isExternal(v100))
+  {
+    goto LABEL_80;
+  }
+
+  v92 = CFX::RG::Resource::textureDesc(v100);
+  *(v92 + 72) = v66 | 1;
+  *(v92 + 80) = 1;
+  CFX::RG::RenderGraphContext::updateResourceDescriptor(v97, v100);
+LABEL_154:
+  v74 = 0;
+  v10 = 0;
+LABEL_121:
+  if (!v12)
+  {
+LABEL_125:
+    v75 = 0;
+    goto LABEL_150;
+  }
+
+  if (v10)
+  {
+    if (v74)
+    {
+      CFX::RG::RenderGraphBuilder::replaceResource(v93, v97, v74, v9, 1);
+    }
+
+    else
+    {
+      v78 = CFX::RG::Pass::renderTargetInfo(v10, v8);
+      v79 = *(v78 + 8);
+      v80 = *(v78 + 4);
+      if ((v96 & 1) == 0 || CFX::RG::Resource::isExternal(v9) || CFX::RG::Resource::isManaged(v9))
+      {
+        CFX::RG::Pass::renderTo(v10, v9, (v80 << 32) | 4, v79);
+      }
+    }
+  }
+
+  else
+  {
+    if (v102)
+    {
+      v76 = v9;
+    }
+
+    else
+    {
+      v76 = v8;
+    }
+
+    if (v102)
+    {
+      v77 = v8;
+    }
+
+    else
+    {
+      v77 = v9;
+    }
+
+    CFX::RG::RenderGraphBuilder::replaceResource(v93, v97, v76, v77, 1);
+  }
+
+  v107 = v6;
+  v108 = 0x800000000;
+  v109 = &v110;
+  CFX::RG::RenderGraph::directPredecessorsWritingResource(a1, v12, v8, v6, v104);
+  if (v105)
+  {
+    v81 = v106;
+    v82 = 8 * v105;
+    do
+    {
+      sub_1AF39B00C(&v107, v81++);
+      v82 -= 8;
+    }
+
+    while (v82);
+  }
+
+  v83 = *(v12 + 328);
+  if (v83)
+  {
+    v84 = *(v12 + 336);
+    v85 = 8 * v83;
+    do
+    {
+      sub_1AF39B00C(&v107, v84++);
+      v85 -= 8;
+    }
+
+    while (v85);
+  }
+
+  v86 = v12;
+  CFX::RG::RenderGraph::directSuccessorsReadingResource(a1, v12, v9, v6, v104);
+  if (v105)
+  {
+    v87 = v106;
+    v88 = &v106[v105];
+    do
+    {
+      if (v108)
+      {
+        v89 = v109;
+        v90 = 8 * v108;
+        do
+        {
+          CFX::RG::Pass::dependsOn(*v87, *v89++);
+          v90 -= 8;
+        }
+
+        while (v90);
+      }
+
+      ++v87;
+    }
+
+    while (v87 != v88);
+  }
+
+  CFX::RG::RenderGraphBuilder::removePass(v93, v86, 1);
+  v75 = 1;
+LABEL_150:
+  CStackAllocatorPopFrame(v6);
+  return v75;
+}
+
+uint64_t sub_1AF3A830C(__int128 *a1, CFX::RG::RenderGraphBuilder *a2, uint64_t a3)
+{
+  v23 = *a1;
+  v24 = 0;
+  v25 = &v26;
+  sub_1AF2348E0(&v23, 8, 1);
+  v20[0] = *(a3 + 16);
+  sub_1AF3A1EF8(v20, 32);
+  v17[0] = *(a3 + 16);
+  sub_1AF3A1EF8(v17, 32);
+  v6 = *(a1 + 72);
+  if (v6)
+  {
+    v7 = *(a1 + 37);
     v8 = v7 + 32 * v6;
     while (1)
     {
@@ -98,7 +1446,7 @@ LABEL_18:
   else
   {
 LABEL_19:
-    sub_1AF3A8578(a1, a2, a3, &v23, 2u);
+    sub_1AF3A8578(a1, a2, a3, &v23, 2);
     v14 = 1;
   }
 
@@ -128,10 +1476,10 @@ void sub_1AF3A853C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1AF3A8578(uint64_t a1, CFX::RG::RenderGraphBuilder *this, uint64_t *a3, uint64_t a4, unsigned __int8 a5)
+void sub_1AF3A8578(uint64_t *a1, CFX::RG::RenderGraphBuilder *this, uint64_t a3, uint64_t a4, char a5)
 {
   v72[0] = a5;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v67 = *a1;
   v68 = v9;
   v69 = 0x800000000;
@@ -151,10 +1499,10 @@ void sub_1AF3A8578(uint64_t a1, CFX::RG::RenderGraphBuilder *this, uint64_t *a3,
       v13 = *v11;
       v14 = 0x9DDFEA08EB382D69 * (*(*v11 + 48) ^ v61);
       v61 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v61 ^ (v14 >> 47) ^ v14)) ^ ((0x9DDFEA08EB382D69 * (v61 ^ (v14 >> 47) ^ v14)) >> 47));
-      v15 = *(a1 + 160);
+      v15 = *(a1 + 40);
       if (v15)
       {
-        v16 = *(a1 + 168);
+        v16 = a1[21];
         v17 = &v16[v15];
         do
         {
@@ -241,7 +1589,7 @@ LABEL_20:
     while (v11 != v12);
   }
 
-  *&v57 = a3[2];
+  *&v57 = *(a3 + 16);
   v28 = sub_1AF3A8AA4(this, &v57, a4, &v61, v72);
   if (v69)
   {
@@ -299,8 +1647,8 @@ LABEL_20:
   {
     *v56 = *v37;
     v39 = !CFX::RG::Resource::isExternal(v56[0]) && !CFX::RG::Resource::isManaged(v56[0]);
-    CFX::RG::RenderGraph::passesReadingResource(a1, v56[0], a3[2], 0, &v53);
-    CFX::RG::RenderGraph::passesWritingResource(a1, v56[0], a3[2], v50);
+    CFX::RG::RenderGraph::passesReadingResource(a1, v56[0], *(a3 + 16), 0, &v53);
+    CFX::RG::RenderGraph::passesWritingResource(a1, v56[0], *(a3 + 16), v50);
     if (!v39)
     {
       goto LABEL_65;
@@ -436,15 +1784,16 @@ LABEL_73:
   }
 }
 
-void sub_1AF3A8A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_1AF3A8A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   sub_1AF3A1094(&a35);
-  sub_1AF3A1094(&a57);
-  sub_1AF3A1094(v57 - 208);
+  sub_1AF3A1094(va);
+  sub_1AF3A1094(v56 - 208);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1AF3A8AA4(uint64_t *a1, void *a2, uint64_t a3, void *a4, unsigned __int8 *a5)
+uint64_t sub_1AF3A8AA4(uint64_t *a1, uint64_t *a2, void *a3, uint64_t *a4, char *a5)
 {
   v8 = a1[1];
   v10[0] = *a1;
@@ -454,11 +1803,11 @@ uint64_t sub_1AF3A8AA4(uint64_t *a1, void *a2, uint64_t a3, void *a4, unsigned _
   return v10[0];
 }
 
-uint64_t sub_1AF3A8B04(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, void *a6, unsigned __int8 *a7)
+CFX::RG::Pass *sub_1AF3A8B04(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5, uint64_t *a6, char *a7)
 {
   v14[0] = a1;
   v14[1] = a2;
-  v12 = sub_1AF23498C(v14, 0x1C8u, 8u);
+  v12 = sub_1AF23498C(v14, 0x1C8u, 8u, 2);
   return CFX::RG::AggregatePass::AggregatePass(v12, *a3, a3[1], *a4, a5, *a6, *a7);
 }
 
@@ -950,7 +2299,7 @@ void sub_1AF3A9228(uint64_t a1)
       }
 
       ++v3;
-      v2 += 16;
+      ++v2;
       --v6;
     }
 
@@ -958,151 +2307,158 @@ void sub_1AF3A9228(uint64_t a1)
   }
 }
 
-uint64_t sub_1AF3A929C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1AF3A929C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v120 = *(a1 + 12);
-  v117 = objc_msgSend_pixelFormat(a2, a2, a3, a4);
-  v118 = *(a1 + 12);
-  v119 = objc_msgSend_textureType(a2, v6, v7, v8);
-  v121 = *(a1 + 10);
-  v12 = objc_msgSend_arrayLength(a2, v9, v10, v11);
-  v116 = *(a1 + 12);
-  v16 = objc_msgSend_sampleCount(a2, v13, v14, v15);
-  v17 = *(a1 + 4);
-  v21 = objc_msgSend_width(a2, v18, v19, v20);
-  v114 = *(a1 + 4);
-  v25 = objc_msgSend_height(a2, v22, v23, v24);
-  v26 = *(a1 + 4);
-  v30 = objc_msgSend_depth(a2, v27, v28, v29);
-  v31 = *(a1 + 12);
-  v35 = objc_msgSend_mipmapLevelCount(a2, v32, v33, v34);
-  v36 = v114 >> 16;
-  v38 = v120 == v117 && ((v118 >> 40) & 0xF) == v119 && v121 == v12;
-  v115 = v17;
-  v40 = v38 && v116 >> 24 == v16 && v17 == v21;
-  v113 = v30;
-  v42 = v40 && v36 == v25 && v26 << 16 >> 48 == v30;
-  v43 = v35;
-  v44 = v42 && v31 << 40 >> 56 == v35;
-  result = v44;
-  if (!v44)
+  v104 = *(a1 + 12);
+  v101 = objc_msgSend_pixelFormat(a2, a2, a3);
+  v102 = *(a1 + 12);
+  v103 = objc_msgSend_textureType(a2, v5, v6);
+  v105 = *(a1 + 10);
+  v9 = objc_msgSend_arrayLength(a2, v7, v8);
+  v100 = *(a1 + 12);
+  v12 = objc_msgSend_sampleCount(a2, v10, v11);
+  v13 = *(a1 + 4);
+  v16 = objc_msgSend_width(a2, v14, v15);
+  v98 = *(a1 + 4);
+  v19 = objc_msgSend_height(a2, v17, v18);
+  v20 = *(a1 + 4);
+  v23 = objc_msgSend_depth(a2, v21, v22);
+  v24 = *(a1 + 12);
+  v27 = objc_msgSend_mipmapLevelCount(a2, v25, v26);
+  v28 = v98 >> 16;
+  v30 = v104 == v101 && ((v102 >> 40) & 0xF) == v103 && v105 == v9;
+  v99 = v13;
+  v32 = v30 && v100 >> 24 == v12 && v13 == v16;
+  v97 = v23;
+  v34 = v32 && v28 == v19 && v20 << 16 >> 48 == v23;
+  v35 = v27;
+  v36 = v34 && v24 << 40 >> 56 == v27;
+  result = v36;
+  if (!v36)
   {
-    v111 = v36;
-    v110 = result;
-    sub_1AF273380(&v124);
-    if (v120 != v117)
+    v95 = v28;
+    v94 = result;
+    sub_1AF273380(&v108);
+    if (v104 != v101)
     {
-      v46 = sub_1AF17C688(&v124, "wrong pixelFormat expected ", 27);
-      v47 = MEMORY[0x1B271C570](v46, *(a1 + 12));
-      v48 = sub_1AF17C688(v47, "got ", 4);
-      v52 = objc_msgSend_pixelFormat(a2, v49, v50, v51);
-      v53 = MEMORY[0x1B271C570](v48, v52);
-      sub_1AF17C688(v53, "\n", 1);
+      v38 = sub_1AF17C688(&v108, "wrong pixelFormat expected ", 27);
+      v39 = MEMORY[0x1B271C570](v38, *(a1 + 12));
+      v40 = sub_1AF17C688(v39, "got ", 4);
+      v43 = objc_msgSend_pixelFormat(a2, v41, v42);
+      v44 = MEMORY[0x1B271C570](v40, v43);
+      sub_1AF17C688(v44, "\n", 1);
     }
 
-    if (((v118 >> 40) & 0xF) != v119)
+    if (((v102 >> 40) & 0xF) != v103)
     {
-      v54 = sub_1AF17C688(&v124, "wrong textureType expected ", 27);
-      v55 = MEMORY[0x1B271C570](v54, (*(a1 + 12) >> 40) & 0xFLL);
-      v56 = sub_1AF17C688(v55, "got ", 4);
-      v60 = objc_msgSend_textureType(a2, v57, v58, v59);
-      v61 = MEMORY[0x1B271C570](v56, v60);
-      sub_1AF17C688(v61, "\n", 1);
+      v45 = sub_1AF17C688(&v108, "wrong textureType expected ", 27);
+      v46 = MEMORY[0x1B271C570](v45, (*(a1 + 12) >> 40) & 0xFLL);
+      v47 = sub_1AF17C688(v46, "got ", 4);
+      v50 = objc_msgSend_textureType(a2, v48, v49);
+      v51 = MEMORY[0x1B271C570](v47, v50);
+      sub_1AF17C688(v51, "\n", 1);
     }
 
-    if (v121 != v12)
+    if (v105 != v9)
     {
-      v62 = sub_1AF17C688(&v124, "wrong arrayLength expected ", 27);
-      v63 = MEMORY[0x1B271C560](v62, *(a1 + 10));
-      v64 = sub_1AF17C688(v63, "got ", 4);
-      v68 = objc_msgSend_arrayLength(a2, v65, v66, v67);
-      v69 = MEMORY[0x1B271C570](v64, v68);
-      sub_1AF17C688(v69, "\n", 1);
+      v52 = sub_1AF17C688(&v108, "wrong arrayLength expected ", 27);
+      v53 = MEMORY[0x1B271C560](v52, *(a1 + 10));
+      v54 = sub_1AF17C688(v53, "got ", 4);
+      v57 = objc_msgSend_arrayLength(a2, v55, v56);
+      v58 = MEMORY[0x1B271C570](v54, v57);
+      sub_1AF17C688(v58, "\n", 1);
     }
 
-    if (v116 >> 24 != v16)
+    if (v100 >> 24 != v12)
     {
-      v70 = sub_1AF17C688(&v124, "wrong sampleCount expected ", 27);
-      v71 = MEMORY[0x1B271C560](v70, *(a1 + 12) >> 24);
-      v72 = sub_1AF17C688(v71, "got ", 4);
-      v76 = objc_msgSend_sampleCount(a2, v73, v74, v75);
-      v77 = MEMORY[0x1B271C570](v72, v76);
-      sub_1AF17C688(v77, "\n", 1);
+      v59 = sub_1AF17C688(&v108, "wrong sampleCount expected ", 27);
+      v60 = MEMORY[0x1B271C560](v59, *(a1 + 12) >> 24);
+      v61 = sub_1AF17C688(v60, "got ", 4);
+      v64 = objc_msgSend_sampleCount(a2, v62, v63);
+      v65 = MEMORY[0x1B271C570](v61, v64);
+      sub_1AF17C688(v65, "\n", 1);
     }
 
-    if (v115 != v21)
+    if (v99 != v16)
     {
-      v78 = sub_1AF17C688(&v124, "wrong width expected ", 21);
-      v79 = MEMORY[0x1B271C560](v78, *(a1 + 4));
-      v80 = sub_1AF17C688(v79, "got ", 4);
-      v84 = objc_msgSend_width(a2, v81, v82, v83);
-      v85 = MEMORY[0x1B271C570](v80, v84);
-      sub_1AF17C688(v85, "\n", 1);
+      v66 = sub_1AF17C688(&v108, "wrong width expected ", 21);
+      v67 = MEMORY[0x1B271C560](v66, *(a1 + 4));
+      v68 = sub_1AF17C688(v67, "got ", 4);
+      v71 = objc_msgSend_width(a2, v69, v70);
+      v72 = MEMORY[0x1B271C570](v68, v71);
+      sub_1AF17C688(v72, "\n", 1);
     }
 
-    if (v111 != v25)
+    if (v95 != v19)
     {
-      v86 = sub_1AF17C688(&v124, "wrong height expected ", 22);
-      v87 = MEMORY[0x1B271C560](v86, *(a1 + 4) >> 16);
-      v88 = sub_1AF17C688(v87, "got ", 4);
-      v92 = objc_msgSend_height(a2, v89, v90, v91);
-      v93 = MEMORY[0x1B271C570](v88, v92);
+      v73 = sub_1AF17C688(&v108, "wrong height expected ", 22);
+      v74 = MEMORY[0x1B271C560](v73, *(a1 + 4) >> 16);
+      v75 = sub_1AF17C688(v74, "got ", 4);
+      v78 = objc_msgSend_height(a2, v76, v77);
+      v79 = MEMORY[0x1B271C570](v75, v78);
+      sub_1AF17C688(v79, "\n", 1);
+    }
+
+    if (v20 << 16 >> 48 != v97)
+    {
+      v80 = sub_1AF17C688(&v108, "wrong depth expected ", 21);
+      v81 = MEMORY[0x1B271C560](v80, (*(a1 + 4) << 16) >> 48);
+      v82 = sub_1AF17C688(v81, "got ", 4);
+      v85 = objc_msgSend_depth(a2, v83, v84);
+      v86 = MEMORY[0x1B271C570](v82, v85);
+      sub_1AF17C688(v86, "\n", 1);
+    }
+
+    if (v24 << 40 >> 56 != v35)
+    {
+      v87 = sub_1AF17C688(&v108, "wrong mipmapLevelCount expected ", 32);
+      v88 = MEMORY[0x1B271C560](v87, (*(a1 + 12) << 40) >> 56);
+      v89 = sub_1AF17C688(v88, "got ", 4);
+      v92 = objc_msgSend_mipmapLevelCount(a2, v90, v91);
+      v93 = MEMORY[0x1B271C570](v89, v92);
       sub_1AF17C688(v93, "\n", 1);
     }
 
-    if (v26 << 16 >> 48 != v113)
-    {
-      v94 = sub_1AF17C688(&v124, "wrong depth expected ", 21);
-      v95 = MEMORY[0x1B271C560](v94, (*(a1 + 4) << 16) >> 48);
-      v96 = sub_1AF17C688(v95, "got ", 4);
-      v100 = objc_msgSend_depth(a2, v97, v98, v99);
-      v101 = MEMORY[0x1B271C570](v96, v100);
-      sub_1AF17C688(v101, "\n", 1);
-    }
-
-    if (v31 << 40 >> 56 != v43)
-    {
-      v102 = sub_1AF17C688(&v124, "wrong mipmapLevelCount expected ", 32);
-      v103 = MEMORY[0x1B271C560](v102, (*(a1 + 12) << 40) >> 56);
-      v104 = sub_1AF17C688(v103, "got ", 4);
-      v108 = objc_msgSend_mipmapLevelCount(a2, v105, v106, v107);
-      v109 = MEMORY[0x1B271C570](v104, v108);
-      sub_1AF17C688(v109, "\n", 1);
-    }
-
-    sub_1AF2734EC(&v124, &v122);
+    sub_1AF2734EC(&v108, &v106);
     if (*(a3 + 23) < 0)
     {
       operator delete(*a3);
     }
 
-    *a3 = v122;
-    *(a3 + 16) = v123;
-    v124 = *MEMORY[0x1E69E54E8];
-    *(&v124 + *(v124 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-    v125 = MEMORY[0x1E69E5548] + 16;
-    if (v127 < 0)
+    *a3 = v106;
+    *(a3 + 16) = v107;
+    v108 = *MEMORY[0x1E69E54E8];
+    *(&v108 + *(v108 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+    v109 = MEMORY[0x1E69E5548] + 16;
+    if (v111 < 0)
     {
-      operator delete(v126[7].__locale_);
+      operator delete(v110[7].__locale_);
     }
 
-    v125 = MEMORY[0x1E69E5538] + 16;
-    std::locale::~locale(v126);
+    v109 = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(v110);
     std::ostream::~ostream();
-    MEMORY[0x1B271C650](&v128);
-    return v110;
+    MEMORY[0x1B271C650](&v112);
+    return v94;
   }
 
   return result;
 }
 
-uint64_t sub_1AF3A98C0(uint64_t a1, uint64_t a2, _BYTE *a3)
+void sub_1AF3A9850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  sub_1AF273594(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_1AF3A98C0(uint64_t *a1, uint64_t a2, _BYTE *a3)
 {
   while (1)
   {
-    v6 = *(a1 + 28);
+    v6 = *(a1 + 7);
     v7 = (v6 - 1) & a2;
-    v8 = *(a1 + 16);
+    v8 = a1[2];
     v9 = *(v8 + 2 * v7);
     if (v9 >= 2)
     {
@@ -1140,7 +2496,7 @@ LABEL_6:
       {
         v30 = v14;
         v27 = *a1;
-        v28 = *(a1 + 8);
+        v28 = a1[1];
         LOBYTE(v21) = v14;
       }
 
@@ -1216,7 +2572,7 @@ LABEL_31:
           }
 
           v27 = *a1;
-          v28 = *(a1 + 8);
+          v28 = a1[1];
           *(*a1 + 8 * v14) = *(*a1 + 8 * v21);
           *(v28 + v14) = *(v28 + v21);
           *(v8 + 2 * v25) = (v26 | (1 << (v14 - v25 + 1))) ^ (1 << v23);
@@ -1238,7 +2594,7 @@ LABEL_31:
       *(v8 + 2 * v30) = v16;
       result = 1;
       *(v8 + 2 * v7) |= 1 << (v21 - v7 + 1);
-      ++*(a1 + 24);
+      ++*(a1 + 6);
       return result;
     }
 
@@ -1259,7 +2615,7 @@ LABEL_32:
   }
 
   result = 0;
-  *(*(a1 + 8) + v10) = *a3;
+  *(a1[1] + v10) = *a3;
   return result;
 }
 
@@ -1412,13 +2768,13 @@ void sub_1AF3A9CD4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CFX::RG::RenderGraphProvider::resolve(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t CFX::RG::RenderGraphProvider::resolve(uint64_t a1)
 {
   prof_beginFlame("resolve", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/RenderGraphProvider.mm", 101);
-  v6 = CFX::RG::sortSubgraphDependencies(a2, a1 + 8, a3);
-  *(a1 + 24) = v6;
+  v2 = CFX::RG::sortSubgraphDependencies();
+  *(a1 + 24) = v2;
   prof_endFlame();
-  return v6;
+  return v2;
 }
 
 unint64_t CFX::RG::RenderGraphProvider::hash(CFX::RG::RenderGraphProvider *this, CFX::RG::RenderGraphContext *a2)
@@ -1475,7 +2831,7 @@ uint64_t CFX::RG::RenderGraphProvider::showImGui(uint64_t this)
 
 BOOL sub_1AF3A9F0C(uint64_t a1)
 {
-  if ((atomic_load_explicit(&qword_1ED73AB48, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED73AB48, memory_order_acquire) & 1) == 0)
   {
     v2 = a1;
     sub_1AFDFB78C();
@@ -1485,18 +2841,18 @@ BOOL sub_1AF3A9F0C(uint64_t a1)
   return *(a1 + 408) == 3 && *(a1 + 40) == qword_1ED73AB40;
 }
 
-uint64_t CFX::RG::RenderGraphProvider::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t CFX::RG::RenderGraphProvider::build(uint64_t a1, uint64_t a2, unsigned int **a3, uint64_t a4, uint64_t a5)
 {
   CFX::RG::RenderGraphContext::setCurrentBuilder(a3, a2);
-  v9 = *(a3 + 16);
+  v9 = a3[2];
   v76 = a3;
   CStackAllocatorPushFrame(v9);
-  v99 = *(a3 + 16);
+  v99 = a3[2];
   v100 = 0x1000000000;
   v101 = &v102;
   v94 = v99;
   sub_1AF3A2C74(&v94, 32);
-  v90 = *(a3 + 16);
+  v90 = a3[2];
   v91 = 0x1000000000;
   v92 = v93;
   memset(v93, 0, sizeof(v93));
@@ -1549,7 +2905,7 @@ uint64_t CFX::RG::RenderGraphProvider::build(uint64_t a1, uint64_t a2, uint64_t 
 
           sub_1AF273380(&v79);
           v17 = sub_1AF17C688(&v79, "Missing expected published resource ", 36);
-          CFX::RG::ResourceIdentifier::pathName(&v85, __p);
+          CFX::RG::ResourceIdentifier::pathName(__p, &v85);
           if (v78 >= 0)
           {
             v18 = __p;
@@ -1852,7 +3208,7 @@ LABEL_84:
   return v64;
 }
 
-void sub_1AF3AA7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, int a63)
+void sub_1AF3AA7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, int a63)
 {
   sub_1AF273594(&a25);
   if (a64)
@@ -1864,7 +3220,7 @@ void sub_1AF3AA7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-CFX::RG *CFX::RG::RenderGraphProvider::encodeIfNeeded(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+CFX::RG *CFX::RG::RenderGraphProvider::encodeIfNeeded(uint64_t a1, unsigned int **a2, CFX::RG::RenderGraphBuilder *a3, uint64_t a4, uint64_t a5)
 {
   prof_beginFlame("encodeIfNeeded", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/RenderGraphProvider.mm", 277);
   if (*(a1 + 24) != 1 || (CFX::RG::RenderGraphProvider::build(a1, a3, a2, a4, a5) & 1) == 0)
@@ -1880,15 +3236,15 @@ CFX::RG *CFX::RG::RenderGraphProvider::encodeIfNeeded(uint64_t a1, uint64_t a2, 
     v13 = 8 * v10;
     do
     {
-      v16 = (*(**v12 + 48))();
-      if (v16)
+      v15 = (*(**v12 + 48))();
+      if (v15)
       {
         if (!v11)
         {
           v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
         }
 
-        objc_msgSend_addObjectsFromArray_(v11, v14, v16, v15);
+        objc_msgSend_addObjectsFromArray_(v11, v14, v15);
       }
 
       v12 += 8;
@@ -1905,105 +3261,105 @@ CFX::RG *CFX::RG::RenderGraphProvider::encodeIfNeeded(uint64_t a1, uint64_t a2, 
 
   if (*(a1 + 40))
   {
-    v17 = *(a2 + 16);
-    CStackAllocatorPushFrame(v17);
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x5812000000;
-    v39 = sub_1AF3B0244;
-    v40 = nullsub_207;
-    v41 = "";
-    v42[0] = *(a2 + 16);
-    sub_1AF3B0744(v42, 32);
-    v33 = v17;
-    v34 = a5;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = sub_1AF3B0278;
-    v35[3] = &unk_1E7A7FC80;
-    v35[5] = a1;
-    v35[6] = a2;
-    v35[4] = &v36;
-    CFX::RG::RenderGraphBuilder::enumeratePublishedResource(a3, v35);
-    v18 = v37;
-    v19 = *(v37 + 21);
-    if (v19 != -15)
+    v16 = a2[2];
+    CStackAllocatorPushFrame(v16);
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x5812000000;
+    v38 = sub_1AF3B0244;
+    v39 = nullsub_207;
+    v40 = "";
+    v41[0] = a2[2];
+    sub_1AF3B0744(v41, 32);
+    v32 = v16;
+    v33 = a5;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = sub_1AF3B0278;
+    v34[3] = &unk_1E7A7FC80;
+    v34[5] = a1;
+    v34[6] = a2;
+    v34[4] = &v35;
+    CFX::RG::RenderGraphBuilder::enumeratePublishedResource(a3, v34);
+    v17 = v36;
+    v18 = *(v36 + 21);
+    if (v18 != -15)
     {
+      v19 = 0;
       v20 = 0;
-      v21 = 0;
       do
       {
-        if (*(v18[9] + 2 * v21))
+        if (*(v17[9] + 2 * v20))
         {
-          v22 = v18[8];
-          v23 = *(v22 + v20);
-          v24 = *(v22 + v20 + 16);
-          v49 = *(v22 + v20 + 32);
-          v48 = v24;
-          CFX::RG::TextureDescriptorReference::TextureDescriptorReference(v43, &v48);
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = sub_1AF3B0864;
-          v44[3] = &unk_1E7A7FCA0;
-          v44[4] = a1;
-          v44[5] = v23;
+          v21 = v17[8];
+          v22 = *(v21 + v19);
+          v23 = *(v21 + v19 + 16);
+          v48 = *(v21 + v19 + 32);
+          v47 = v23;
+          CFX::RG::TextureDescriptorReference::TextureDescriptorReference(v42, &v47);
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = sub_1AF3B0864;
+          v43[3] = &unk_1E7A7FCA0;
+          v43[4] = a1;
+          v43[5] = v22;
+          v44 = v47;
           v45 = v48;
-          v46 = v49;
-          CFX::RG::ExternalResourceDesc::ExternalResourceDesc(v47, v43, v44, 0);
-          v25 = (***(a1 + 40))(*(a1 + 40), *(v22 + v20)) == 1;
-          CFX::RG::ExternalResourceDesc::setRequireLoad(v47, v25);
-          CFX::RG::ExternalResourceDesc::ExternalResourceDesc(v43, v47);
-          v26 = sub_1AF24BF34(a3, "Client resource", v43);
-          CFX::RG::ExternalResourceDesc::~ExternalResourceDesc(v43);
-          CFX::RG::RenderGraphBuilder::replaceResource(a3, a2, *(v22 + v20 + 8), v26, 1);
-          CFX::RG::ExternalResourceDesc::~ExternalResourceDesc(v47);
-          v19 = *(v18 + 21);
+          CFX::RG::ExternalResourceDesc::ExternalResourceDesc(v46, v42, v43, 0);
+          v24 = (***(a1 + 40))(*(a1 + 40), *(v21 + v19)) == 1;
+          CFX::RG::ExternalResourceDesc::setRequireLoad(v46, v24);
+          CFX::RG::ExternalResourceDesc::ExternalResourceDesc(v42, v46);
+          v25 = sub_1AF24BF34(a3, "Client resource", v42);
+          CFX::RG::ExternalResourceDesc::~ExternalResourceDesc(v42);
+          CFX::RG::RenderGraphBuilder::replaceResource(a3, a2, *(v21 + v19 + 8), v25, 1);
+          CFX::RG::ExternalResourceDesc::~ExternalResourceDesc(v46);
+          v18 = *(v17 + 21);
         }
 
-        ++v21;
-        v20 += 48;
+        ++v20;
+        v19 += 48;
       }
 
-      while (v21 < (v19 + 15));
+      while (v20 < (v18 + 15));
     }
 
-    _Block_object_dispose(&v36, 8);
-    CStackAllocatorPopFrame(v33);
-    a5 = v34;
+    _Block_object_dispose(&v35, 8);
+    CStackAllocatorPopFrame(v32);
+    a5 = v33;
   }
 
-  v27 = CFX::RG::RenderGraphBuilder::build(a3, a2, a5);
-  if (v27)
+  v26 = CFX::RG::RenderGraphBuilder::build(a3, a2, a5);
+  if (v26)
   {
-    v28 = *(a2 + 16);
-    CStackAllocatorPushFrame(v28);
-    v30 = CFX::RG::OptimiseRenderGraph(v27, a3, a2, v29);
-    CStackAllocatorPopFrame(v28);
-    if (v30)
+    v27 = a2[2];
+    CStackAllocatorPushFrame(v27);
+    v29 = CFX::RG::OptimiseRenderGraph(v26, a3, a2, v28);
+    CStackAllocatorPopFrame(v27);
+    if (v29)
     {
-      CFX::RG::FreezeRenderGraph(a3, v30, v31);
+      CFX::RG::FreezeRenderGraph(a3, v29, v30);
     }
   }
 
   else
   {
 LABEL_22:
-    v30 = 0;
+    v29 = 0;
   }
 
   prof_endFlame();
-  return v30;
+  return v29;
 }
 
 void CFX::RG::RenderGraphProvider::logNonOptimisedGraph(CFX::RG::RenderGraphProvider *this, __CFXGPUDevice *a2)
 {
-  v4[35] = *MEMORY[0x1E69E9840];
-  sub_1AF273380(v4);
-  CFX::RG::RenderGraphContext::RenderGraphContext(v3, a2, 3u);
-  CScratchAllocatorCreate();
+  v5[35] = *MEMORY[0x1E69E9840];
+  sub_1AF273380(v5);
+  CFX::RG::RenderGraphContext::RenderGraphContext(v4, a2, 3);
+  CScratchAllocatorCreate(1024);
 }
 
-void sub_1AF3AAF38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_1AF3AAF38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
 {
   if (v49 < 0)
   {
@@ -2015,14 +3371,14 @@ void sub_1AF3AAF38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void CFX::RG::RenderGraphProvider::generateTest(CFX::RG::RenderGraphProvider *this, __CFXGPUDevice *a2, CFX::RG::RenderGraphProviderParameters *a3)
+void CFX::RG::RenderGraphProvider::generateTest(CFX::RG::RenderGraphProvider *this, __CFXGPUDevice *a2)
 {
-  sub_1AF273380(&v5);
-  CFX::RG::RenderGraphContext::RenderGraphContext(v4, a2, 3u);
-  CScratchAllocatorCreate();
+  sub_1AF273380(&v6);
+  CFX::RG::RenderGraphContext::RenderGraphContext(v5, a2, 3);
+  CScratchAllocatorCreate(1024);
 }
 
-void sub_1AF3ADAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1AF3ADAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   sub_1AF3B08C4(&a27);
   sub_1AF3B08C4(&a33);
@@ -2032,7 +3388,7 @@ void sub_1AF3ADAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   CFX::RG::RenderGraphContext::~RenderGraphContext(&a45);
-  sub_1AF273594(&a72);
+  sub_1AF273594(&a65);
   _Unwind_Resume(a1);
 }
 
@@ -2176,7 +3532,7 @@ void sub_1AF3AE164(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_1AF3AE1C0(void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+void *sub_1AF3AE1C0(void *a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
 {
   v10 = 8;
   do
@@ -2205,7 +3561,7 @@ void *sub_1AF3AE1C0(void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 
   else
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
   }
 
   v15 = sub_1AF17C688(v11, v13, v14);
@@ -2249,7 +3605,7 @@ void *sub_1AF3AE1C0(void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 
   else
   {
-    v22 = *(a2 + 8);
+    v22 = a2[1];
   }
 
   v23 = sub_1AF17C688(v19, v21, v22);
@@ -2257,7 +3613,7 @@ void *sub_1AF3AE1C0(void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
   v24 = *(a2 + 23);
   if ((v24 & 0x80u) != 0)
   {
-    v24 = *(a2 + 8);
+    v24 = *(a2 + 2);
   }
 
   v25 = v24 + 41;
@@ -2556,7 +3912,7 @@ LABEL_84:
   return sub_1AF17C688(v85, v86, v87);
 }
 
-void *sub_1AF3AEA3C(void *a1, uint64_t a2, CFX::RG::ExternalResourceDesc *a3, int a4, uint64_t a5)
+void *sub_1AF3AEA3C(void *a1, uint64_t **a2, CFX::RG::ExternalResourceDesc *a3, int a4, uint64_t a5)
 {
   v10 = 8;
   do
@@ -2585,7 +3941,7 @@ void *sub_1AF3AEA3C(void *a1, uint64_t a2, CFX::RG::ExternalResourceDesc *a3, in
 
   else
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
   }
 
   v15 = sub_1AF17C688(v11, v13, v14);
@@ -2629,7 +3985,7 @@ void *sub_1AF3AEA3C(void *a1, uint64_t a2, CFX::RG::ExternalResourceDesc *a3, in
 
   else
   {
-    v22 = *(a2 + 8);
+    v22 = a2[1];
   }
 
   v23 = sub_1AF17C688(v19, v21, v22);
@@ -2637,7 +3993,7 @@ void *sub_1AF3AEA3C(void *a1, uint64_t a2, CFX::RG::ExternalResourceDesc *a3, in
   LODWORD(v24) = *(a2 + 23);
   if ((v24 & 0x80u) != 0)
   {
-    v24 = *(a2 + 8);
+    v24 = a2[1];
   }
 
   v25 = v24 + 41;
@@ -3101,7 +4457,7 @@ void *sub_1AF3AEA3C(void *a1, uint64_t a2, CFX::RG::ExternalResourceDesc *a3, in
   return result;
 }
 
-void *sub_1AF3AF6B4(void *a1, uint64_t a2, void *a3, int a4, uint64_t a5)
+void *sub_1AF3AF6B4(void *a1, uint64_t *a2, void *a3, int a4, uint64_t a5)
 {
   v10 = 8;
   do
@@ -3130,7 +4486,7 @@ void *sub_1AF3AF6B4(void *a1, uint64_t a2, void *a3, int a4, uint64_t a5)
 
   else
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
   }
 
   v15 = sub_1AF17C688(v11, v13, v14);
@@ -3174,7 +4530,7 @@ void *sub_1AF3AF6B4(void *a1, uint64_t a2, void *a3, int a4, uint64_t a5)
 
   else
   {
-    v22 = *(a2 + 8);
+    v22 = a2[1];
   }
 
   v23 = sub_1AF17C688(v19, v21, v22);
@@ -3182,7 +4538,7 @@ void *sub_1AF3AF6B4(void *a1, uint64_t a2, void *a3, int a4, uint64_t a5)
   v24 = *(a2 + 23);
   if ((v24 & 0x80u) != 0)
   {
-    v24 = *(a2 + 8);
+    v24 = *(a2 + 2);
   }
 
   v25 = v24 + 41;
@@ -3270,7 +4626,7 @@ void *sub_1AF3AF6B4(void *a1, uint64_t a2, void *a3, int a4, uint64_t a5)
   return sub_1AF17C688(v34, v35, v36);
 }
 
-uint64_t sub_1AF3AF968(void *a1, uint64_t a2, CFX::RG::Resource *this, uint64_t **a4)
+uint64_t sub_1AF3AF968(void *a1, uint64_t **a2, CFX::RG::Resource *this, uint64_t **a4)
 {
   if (CFX::RG::Resource::isExternal(this))
   {
@@ -3305,8 +4661,7 @@ uint64_t sub_1AF3AF968(void *a1, uint64_t a2, CFX::RG::Resource *this, uint64_t 
 
 void sub_1AF3AFA9C(char *a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v3 = a1[23];
   if (v3 >= 0)
@@ -3711,7 +5066,7 @@ void sub_1AF3B01D0(uint64_t a1)
       }
 
       ++v3;
-      v2 += 16;
+      ++v2;
       --v6;
     }
 
@@ -3733,63 +5088,63 @@ double sub_1AF3B0244(uint64_t a1, uint64_t a2)
 
 void sub_1AF3B0278(uint64_t a1, uint64_t a2, CFX::RG::Resource *this, uint64_t a4)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v27 = a2;
+  v30 = *MEMORY[0x1E69E9840];
+  v26 = a2;
   v8 = *(a1 + 40);
   if (CFX::RG::Resource::isTexture(this))
   {
     v9 = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(*(a1 + 48), this);
-    v26 = *(v9 + 16);
-    v25 = *v9;
+    v25 = v9[2];
+    v24 = *v9;
     v10 = *(v8 + 40);
-    *buf = v25;
-    *&buf[16] = v26;
-    v12 = (*(*v10 + 8))(v10, a2, buf);
-    if (v12)
+    *buf = v24;
+    *&buf[16] = v25;
+    v11 = (*(*v10 + 8))(v10, a2, buf);
+    if (v11)
     {
       __p[0] = 0;
       __p[1] = 0;
-      v24 = 0;
-      *buf = v25;
-      *&buf[16] = v26;
-      if (sub_1AF3A929C(buf, v12, __p, v11))
+      v23 = 0;
+      *buf = v24;
+      *&buf[16] = v25;
+      if (sub_1AF3A929C(buf, v11, __p))
       {
-        v13 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (this ^ 1)) ^ ((0x9DDFEA08EB382D69 * (this ^ 1)) >> 47) ^ 1);
-        v14 = 0x9DDFEA08EB382D69 * (v13 ^ (v13 >> 47));
-        v15 = *(*(a1 + 32) + 8);
+        v12 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (this ^ 1)) ^ ((0x9DDFEA08EB382D69 * (this ^ 1)) >> 47) ^ 1);
+        v13 = 0x9DDFEA08EB382D69 * (v12 ^ (v12 >> 47));
+        v14 = *(*(a1 + 32) + 8);
         *buf = a2;
         *&buf[8] = this;
-        *&buf[16] = v25;
-        v29 = v26;
-        v30 = v12;
-        sub_1AF3B04EC(v15 + 48, v14, buf);
+        *&buf[16] = v24;
+        v28 = v25;
+        v29 = v11;
+        sub_1AF3B04EC(v14 + 48, v13, buf);
       }
 
       else
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          CFX::RG::ResourceIdentifier::pathName(&v27, v21);
-          v16 = v22;
-          v17 = v21[0];
-          v18 = *(a4 + 24);
-          v19 = CFX::RG::Resource::name(this);
-          v20 = v21;
+          CFX::RG::ResourceIdentifier::pathName(v20, &v26);
+          v15 = v21;
+          v16 = v20[0];
+          v17 = *(a4 + 24);
+          v18 = CFX::RG::Resource::name(this);
+          v19 = v20;
           *buf = 136315650;
-          if (v16 < 0)
+          if (v15 < 0)
           {
-            v20 = v17;
+            v19 = v16;
           }
 
-          *&buf[4] = v20;
+          *&buf[4] = v19;
           *&buf[12] = 2080;
-          *&buf[14] = v18;
+          *&buf[14] = v17;
           *&buf[22] = 2080;
-          *&buf[24] = v19;
+          *&buf[24] = v18;
           _os_log_error_impl(&dword_1AF0CE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Resource attachment %s for pass %s resource name %s\n", buf, 0x20u);
-          if (v22 < 0)
+          if (v21 < 0)
           {
-            operator delete(v21[0]);
+            operator delete(v20[0]);
           }
         }
 
@@ -3799,7 +5154,7 @@ void sub_1AF3B0278(uint64_t a1, uint64_t a2, CFX::RG::Resource *this, uint64_t a
         }
       }
 
-      if (SHIBYTE(v24) < 0)
+      if (SHIBYTE(v23) < 0)
       {
         operator delete(__p[0]);
       }
@@ -4049,9 +5404,9 @@ uint64_t sub_1AF3B0864(uint64_t a1)
   return (*(*v2 + 8))(v2, v1, &v4);
 }
 
-uint64_t sub_1AF3B08C4(uint64_t a1)
+void **sub_1AF3B08C4(void **a1)
 {
-  sub_1AF3B0900(a1, *(a1 + 16));
+  sub_1AF3B0900(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -4114,77 +5469,69 @@ void *sub_1AF3B094C(void *a1, unint64_t *a2)
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *sub_1AF3B0A00(void *a1, unint64_t *a2)
+void *sub_1AF3B0A00(void *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4192,44 +5539,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t sub_1AF3B0C50(uint64_t a1, void *a2)
@@ -4286,7 +5633,7 @@ void *sub_1AF3B0CC8(uint64_t a1, int a2, int a3)
   return result;
 }
 
-char *sub_1AF3B0D88(char *result, char *a2, unint64_t a3, uint64_t *a4, uint64_t a5)
+uint64_t *sub_1AF3B0D88(uint64_t *result, uint64_t *a2, unint64_t a3, uint64_t *a4, int64_t a5)
 {
   if (a3 < 2)
   {
@@ -4322,8 +5669,8 @@ char *sub_1AF3B0D88(char *result, char *a2, unint64_t a3, uint64_t *a4, uint64_t
       return result;
     }
 
-    v13 = result + 8;
-    if (result + 8 == a2)
+    v13 = result + 1;
+    if (result + 1 == a2)
     {
       return result;
     }
@@ -4335,7 +5682,7 @@ char *sub_1AF3B0D88(char *result, char *a2, unint64_t a3, uint64_t *a4, uint64_t
       v16 = v15;
       v15 = v13;
       v18 = *v16;
-      v17 = *(v16 + 1);
+      v17 = v16[1];
       v19 = *(v17 + 40);
       v20 = *(*v16 + 40);
       v21 = v19 >= v20;
@@ -4349,7 +5696,7 @@ char *sub_1AF3B0D88(char *result, char *a2, unint64_t a3, uint64_t *a4, uint64_t
         goto LABEL_25;
       }
 
-      *(v16 + 1) = v18;
+      v16[1] = v18;
       v22 = result;
       if (v16 == result)
       {
@@ -4359,13 +5706,13 @@ char *sub_1AF3B0D88(char *result, char *a2, unint64_t a3, uint64_t *a4, uint64_t
       v23 = v14;
       while (1)
       {
-        v24 = *&result[v23 - 8];
+        v24 = *(result + v23 - 8);
         v25 = *(v24 + 40);
         if (v19 == v25)
         {
           if (*(v17 + 48) >= *(v24 + 48))
           {
-            v22 = &result[v23];
+            v22 = (result + v23);
             goto LABEL_24;
           }
 
@@ -4378,8 +5725,8 @@ char *sub_1AF3B0D88(char *result, char *a2, unint64_t a3, uint64_t *a4, uint64_t
         }
 
 LABEL_21:
-        v16 -= 8;
-        *&result[v23] = v24;
+        --v16;
+        *(result + v23) = v24;
         v23 -= 8;
         if (!v23)
         {
@@ -4392,9 +5739,9 @@ LABEL_21:
 LABEL_24:
       *v22 = v17;
 LABEL_25:
-      v13 = v15 + 8;
+      v13 = v15 + 1;
       v14 += 8;
-      if (v15 + 8 == a2)
+      if (v15 + 1 == a2)
       {
         return result;
       }
@@ -4403,14 +5750,14 @@ LABEL_25:
 
   v27 = a4;
   v28 = a3 >> 1;
-  v29 = &result[8 * (a3 >> 1)];
+  v29 = &result[a3 >> 1];
   v30 = a3 >> 1;
   if (a3 <= a5)
   {
     sub_1AF3B1000(result, v29, v30, a4);
-    v31 = (v27 + 8 * v28);
+    v31 = &v27[v28];
     result = sub_1AF3B1000(&v6[8 * (a3 >> 1)], a2, a3 - (a3 >> 1), v31);
-    v32 = v27 + 8 * a3;
+    v32 = &v27[a3];
     v33 = v31;
     while (v33 != v32)
     {
@@ -4427,7 +5774,7 @@ LABEL_25:
       if (v38)
       {
         *v6 = v35;
-        v27 += 8;
+        ++v27;
       }
 
       else
@@ -4452,8 +5799,7 @@ LABEL_25:
 
     while (v27 != v31)
     {
-      v39 = *v27;
-      v27 += 8;
+      v39 = *v27++;
       *v6 = v39;
       v6 += 8;
     }
@@ -4470,7 +5816,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t sub_1AF3B1000(uint64_t result, uint64_t a2, unint64_t a3, uint64_t *a4)
+uint64_t *sub_1AF3B1000(uint64_t *result, uint64_t *a2, unint64_t a3, uint64_t *a4)
 {
   if (!a3)
   {
@@ -4488,7 +5834,7 @@ LABEL_10:
 
   if (a3 == 2)
   {
-    v8 = *(a2 - 8);
+    v8 = *(a2 - 1);
     v9 = *(v8 + 40);
     v10 = *(*result + 40);
     v11 = v9 >= v10;
@@ -4500,7 +5846,7 @@ LABEL_10:
     if (v11)
     {
       v8 = *result;
-      v6 = a2 - 8;
+      v6 = a2 - 1;
     }
 
     *a4 = v8;
@@ -4515,9 +5861,9 @@ LABEL_10:
       return result;
     }
 
-    v12 = result + 8;
+    v12 = result + 1;
     *a4 = *result;
-    if (result + 8 == a2)
+    if (result + 1 == a2)
     {
       return result;
     }
@@ -4588,7 +5934,7 @@ LABEL_25:
 LABEL_29:
       *v22 = *v12;
 LABEL_30:
-      v12 += 8;
+      ++v12;
       v13 += 8;
       v14 = v15;
       if (v12 == a2)
@@ -4598,10 +5944,10 @@ LABEL_30:
     }
   }
 
-  v27 = result + 8 * (a3 >> 1);
+  v27 = &result[a3 >> 1];
   sub_1AF3B0D88(result, v27, a3 >> 1, a4, a3 >> 1);
-  result = sub_1AF3B0D88(v6 + 8 * (a3 >> 1), a2, a3 - (a3 >> 1), &v4[a3 >> 1], a3 - (a3 >> 1));
-  v28 = v6 + 8 * (a3 >> 1);
+  result = sub_1AF3B0D88(&v6[a3 >> 1], a2, a3 - (a3 >> 1), &v4[a3 >> 1], a3 - (a3 >> 1));
+  v28 = &v6[a3 >> 1];
   while (v28 != a2)
   {
     v29 = *v28;
@@ -4617,13 +5963,13 @@ LABEL_30:
     if (v33)
     {
       *v4 = v30;
-      v6 += 8;
+      ++v6;
     }
 
     else
     {
       *v4 = v29;
-      v28 += 8;
+      ++v28;
     }
 
     ++v4;
@@ -4631,8 +5977,7 @@ LABEL_30:
     {
       while (v28 != a2)
       {
-        v35 = *v28;
-        v28 += 8;
+        v35 = *v28++;
         *v4++ = v35;
       }
 
@@ -4642,8 +5987,7 @@ LABEL_30:
 
   while (v6 != v27)
   {
-    v34 = *v6;
-    v6 += 8;
+    v34 = *v6++;
     *v4++ = v34;
   }
 
@@ -5031,162 +6375,161 @@ char *sub_1AF3B16A8(char *a1, char *a2, char *a3)
   return a2;
 }
 
-uint64_t RGMTLComputeCommandEncoderDispatchOnGrid1D(void *a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t RGMTLComputeCommandEncoderDispatchOnGrid1D(void *a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_maxTotalThreadsPerThreadgroup(a2, a2, a3, a4);
-  v11 = objc_msgSend_device(a2, v8, v9, v10);
-  if (objc_msgSend_supportsFamily_(v11, v12, 3003, v13))
+  v6 = objc_msgSend_maxTotalThreadsPerThreadgroup(a2, a2, a3);
+  v9 = objc_msgSend_device(a2, v7, v8);
+  if (objc_msgSend_supportsFamily_(v9, v10, 3003))
   {
-    v18 = a3;
-    v19 = vdupq_n_s64(1uLL);
-    v16 = v7;
-    v17 = v19;
-    return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(a1, v14, &v18, &v16);
+    v15 = a3;
+    v16 = vdupq_n_s64(1uLL);
+    v13 = v6;
+    v14 = v16;
+    return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(a1, v11, &v15, &v13);
   }
 
   else
   {
-    v18 = (a3 + v7 - 1) / v7;
-    v19 = vdupq_n_s64(1uLL);
-    v16 = v7;
-    v17 = v19;
-    return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a1, v14, &v18, &v16);
+    v15 = (a3 + v6 - 1) / v6;
+    v16 = vdupq_n_s64(1uLL);
+    v13 = v6;
+    v14 = v16;
+    return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a1, v11, &v15, &v13);
   }
 }
 
-uint64_t RGMTLComputeCommandEncoderDispatchOnGrid2D(void *a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t RGMTLComputeCommandEncoderDispatchOnGrid2D(void *a1, void *a2, __int128 *a3, int a4)
 {
-  v4 = a4;
-  v8 = objc_msgSend_threadExecutionWidth(a2, a2, a3, a4);
-  v15 = objc_msgSend_maxTotalThreadsPerThreadgroup(a2, v9, v10, v11);
-  if (v4 && (v16 = objc_msgSend_device(a2, v12, v13, v14), objc_msgSend_supportsFamily_(v16, v17, 3003, v18)))
+  v8 = objc_msgSend_threadExecutionWidth(a2, a2, a3);
+  v13 = objc_msgSend_maxTotalThreadsPerThreadgroup(a2, v9, v10);
+  if (a4 && (v14 = objc_msgSend_device(a2, v11, v12), objc_msgSend_supportsFamily_(v14, v15, 3003)))
   {
-    v28 = *a3;
-    v29 = *(a3 + 16);
-    v25 = v8;
-    v26 = v15 / v8;
-    v27 = 1;
-    return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(a1, v12, &v28, &v25);
+    v25 = *a3;
+    v26 = *(a3 + 2);
+    v22 = v8;
+    v23 = v13 / v8;
+    v24 = 1;
+    return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(a1, v11, &v25, &v22);
   }
 
   else
   {
-    v20 = *(a3 + 8);
+    v17 = *(a3 + 1);
     if (v8 >= *a3)
     {
-      v21 = *a3;
+      v18 = *a3;
     }
 
     else
     {
-      v21 = v8;
+      v18 = v8;
     }
 
-    if (v8 >= v20)
+    if (v8 >= v17)
     {
-      v22 = *(a3 + 8);
+      v19 = *(a3 + 1);
     }
 
     else
     {
-      v22 = v8;
+      v19 = v8;
     }
 
     do
     {
-      v23 = v22;
-      v24 = v22 * v21;
-      v22 >>= 1;
+      v20 = v19;
+      v21 = v19 * v18;
+      v19 >>= 1;
     }
 
-    while (v24 > v15);
-    *&v28 = (*a3 + v21 - 1) / v21;
-    *(&v28 + 1) = (v20 + v23 - 1) / v23;
-    v29 = 1;
-    v25 = v21;
-    v26 = v23;
-    v27 = 1;
-    return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a1, v12, &v28, &v25);
+    while (v21 > v13);
+    *&v25 = (*a3 + v18 - 1) / v18;
+    *(&v25 + 1) = (v17 + v20 - 1) / v20;
+    v26 = 1;
+    v22 = v18;
+    v23 = v20;
+    v24 = 1;
+    return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a1, v11, &v25, &v22);
   }
 }
 
-uint64_t RGMTLComputeCommandEncoderDispatchOnGrid3D(void *a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t RGMTLComputeCommandEncoderDispatchOnGrid3D(void *a1, void *a2, unint64_t *a3)
 {
-  v7 = objc_msgSend_threadExecutionWidth(a2, a2, a3, a4);
-  v11 = objc_msgSend_maxTotalThreadsPerThreadgroup(a2, v8, v9, v10);
-  v15 = objc_msgSend_device(a2, v12, v13, v14);
-  if (objc_msgSend_supportsFamily_(v15, v16, 3003, v17))
+  v6 = objc_msgSend_threadExecutionWidth(a2, a2, a3);
+  v9 = objc_msgSend_maxTotalThreadsPerThreadgroup(a2, v7, v8);
+  v12 = objc_msgSend_device(a2, v10, v11);
+  if (objc_msgSend_supportsFamily_(v12, v13, 3003))
   {
-    v28 = *a3;
-    v29 = *(a3 + 16);
-    v25 = v7;
-    v26 = v11 / v7;
-    v27 = 1;
-    return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(a1, v18, &v28, &v25);
+    v24 = *a3;
+    v25 = a3[2];
+    v21 = v6;
+    v22 = v9 / v6;
+    v23 = 1;
+    return objc_msgSend_dispatchThreads_threadsPerThreadgroup_(a1, v14, &v24, &v21);
   }
 
   else
   {
-    v20 = *(a3 + 8);
-    if (v7 >= *a3)
+    v16 = a3[1];
+    if (v6 >= *a3)
     {
-      v21 = *a3;
+      v17 = *a3;
     }
 
     else
     {
-      v21 = v7;
+      v17 = v6;
     }
 
-    if (v7 >= v20)
+    if (v6 >= v16)
     {
-      v22 = *(a3 + 8);
-    }
-
-    else
-    {
-      v22 = v7;
-    }
-
-    v23 = *(a3 + 16);
-    if (v7 >= v23)
-    {
-      v24 = *(a3 + 16);
+      v18 = a3[1];
     }
 
     else
     {
-      v24 = v7;
+      v18 = v6;
     }
 
-    while (v22 * v24 * v21 > v11)
+    v19 = a3[2];
+    if (v6 >= v19)
     {
-      if (v21 <= v22 || v21 <= v24)
+      v20 = a3[2];
+    }
+
+    else
+    {
+      v20 = v6;
+    }
+
+    while (v18 * v20 * v17 > v9)
+    {
+      if (v17 <= v18 || v17 <= v20)
       {
-        if (v22 > v24)
+        if (v18 > v20)
         {
-          v22 >>= 1;
+          v18 >>= 1;
         }
 
         else
         {
-          v24 >>= 1;
+          v20 >>= 1;
         }
       }
 
       else
       {
-        v21 >>= 1;
+        v17 >>= 1;
       }
     }
 
-    *&v28 = (*a3 + v21 - 1) / v21;
-    *(&v28 + 1) = (v20 + v22 - 1) / v22;
-    v29 = (v23 + v24 - 1) / v24;
-    v25 = v21;
-    v26 = v22;
-    v27 = v24;
-    return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a1, v18, &v28, &v25);
+    *&v24 = (*a3 + v17 - 1) / v17;
+    *(&v24 + 1) = (v16 + v18 - 1) / v18;
+    v25 = (v19 + v20 - 1) / v20;
+    v21 = v17;
+    v22 = v18;
+    v23 = v20;
+    return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a1, v14, &v24, &v21);
   }
 }
 
@@ -5405,92 +6748,92 @@ void sub_1AF3B4330(uint64_t a1)
   }
 }
 
-void sub_1AF3B45B8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void sub_1AF3B45B8(uint64_t a1, void *a2, uint64_t a3)
 {
-  objc_msgSend_asset(a2, a2, a3, a4);
+  objc_msgSend_asset(a2, a2, a3);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = objc_msgSend_asset(a2, v6, v7, v8);
-    if (objc_msgSend_isHeader(v9, v10, v11, v12))
+    v7 = objc_msgSend_asset(a2, v5, v6);
+    if (objc_msgSend_isHeader(v7, v8, v9))
     {
-      v26 = objc_msgSend_copy(a2, v13, v14, v15);
-      v19 = objc_msgSend_assetRegistry(*(a1 + 32), v16, v17, v18);
-      v23 = objc_msgSend_rootNode(v19, v20, v21, v22);
-      objc_msgSend_addChildNode_(v23, v24, v26, v25);
+      v19 = objc_msgSend_copy(a2, v10, v11);
+      v14 = objc_msgSend_assetRegistry(*(a1 + 32), v12, v13);
+      v17 = objc_msgSend_rootNode(v14, v15, v16);
+      objc_msgSend_addChildNode_(v17, v18, v19);
     }
   }
 }
 
-uint64_t sub_1AF3B466C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *sub_1AF3B466C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v5 = objc_msgSend_model(a2, a2, a3, a4);
-  obj = objc_msgSend_materials(v5, v6, v7, v8);
-  result = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v39, v44, 16);
-  v33 = result;
+  v40 = *MEMORY[0x1E69E9840];
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v4 = objc_msgSend_model(a2, a2, a3);
+  obj = objc_msgSend_materials(v4, v5, v6);
+  result = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v34, v39, 16);
+  v28 = result;
   if (result)
   {
-    v32 = *v40;
+    v27 = *v35;
     do
     {
-      v14 = 0;
+      v11 = 0;
       do
       {
-        if (*v40 != v32)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = v14;
-        v15 = *(*(&v39 + 1) + 8 * v14);
-        v35 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v38 = 0u;
-        v16 = objc_msgSend_properties(v15, v11, v12, v13);
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v35, v43, 16);
-        if (v18)
+        v29 = v11;
+        v12 = *(*(&v34 + 1) + 8 * v11);
+        v30 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v33 = 0u;
+        v13 = objc_msgSend_properties(v12, v9, v10);
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v30, v38, 16);
+        if (v15)
         {
-          v19 = v18;
-          v20 = *v36;
+          v16 = v15;
+          v17 = *v31;
           do
           {
-            for (i = 0; i != v19; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v36 != v20)
+              if (*v31 != v17)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v13);
               }
 
-              v22 = *(*(&v35 + 1) + 8 * i);
-              v23 = objc_msgSend_contents(v22, v11, v12, v13);
+              v19 = *(*(&v30 + 1) + 8 * i);
+              v20 = objc_msgSend_contents(v19, v9, v10);
               objc_opt_class();
               if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_respondsToSelector())
               {
-                v24 = *(a1 + 32);
-                v25 = objc_msgSend_filename(v23, v11, v12, v13);
-                v28 = objc_msgSend_absoluteURLForAssetPath_(v24, v26, v25, v27);
-                objc_msgSend_setContents_(v22, v29, v28, v30);
+                v21 = *(a1 + 32);
+                v22 = objc_msgSend_filename(v20, v9, v10);
+                v24 = objc_msgSend_absoluteURLForAssetPath_(v21, v23, v22);
+                objc_msgSend_setContents_(v19, v25, v24);
               }
             }
 
-            v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v11, &v35, v43, 16);
+            v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v9, &v30, v38, 16);
           }
 
-          while (v19);
+          while (v16);
         }
 
-        v14 = v34 + 1;
+        v11 = v29 + 1;
       }
 
-      while (v34 + 1 != v33);
-      result = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v39, v44, 16);
-      v33 = result;
+      while ((v29 + 1) != v28);
+      result = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v34, v39, 16);
+      v28 = result;
     }
 
     while (result);
@@ -5499,16 +6842,16 @@ uint64_t sub_1AF3B466C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-void sub_1AF3B4C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AF3B4C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1AF3B4C58(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4)
+void *sub_1AF3B4C58(uint64_t a1, void *a2, _BYTE *a3)
 {
-  result = objc_msgSend_camera(a2, a2, a3, a4);
+  result = objc_msgSend_camera(a2, a2, a3);
   if (result == *(a1 + 32))
   {
     *(*(*(a1 + 40) + 8) + 40) = a2;
@@ -5537,24 +6880,24 @@ void sub_1AF3B52DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AF3B5310(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+void sub_1AF3B5310(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v5 = objc_msgSend_currentRunLoop(MEMORY[0x1E695DFD0], a2, a3, a4);
+  v4 = objc_msgSend_currentRunLoop(MEMORY[0x1E695DFD0], a2, a3);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v10 = objc_msgSend_vfx_backingLayer(WeakRetained, v7, v8, v9);
-  v11 = v10;
-  if (WeakRetained && v10)
+  v8 = objc_msgSend_vfx_backingLayer(WeakRetained, v6, v7);
+  v9 = v8;
+  if (WeakRetained && v8)
   {
-    v12 = [VFXDisplayLink alloc];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = sub_1AF3B54F8;
-    v29[3] = &unk_1E7A7FCE8;
-    objc_copyWeak(&v30, (a1 + 40));
-    v14 = objc_msgSend_initWithLayer_runLoop_block_(v12, v13, v11, v5, v29);
+    v10 = [VFXDisplayLink alloc];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_1AF3B54F8;
+    v25[3] = &unk_1E7A7FCE8;
+    objc_copyWeak(&v26, (a1 + 40));
+    v12 = objc_msgSend_initWithLayer_runLoop_block_(v10, v11, v9, v4, v25);
     (*(*(a1 + 32) + 16))();
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v26);
   }
 
   else
@@ -5564,30 +6907,30 @@ void sub_1AF3B5310(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 
   pthread_setname_np("com.apple.VFXView-displaylink");
   pthread_set_fixedpriority_self();
-  v15 = objc_loadWeakRetained((a1 + 40));
-  if (v15)
+  v13 = objc_loadWeakRetained((a1 + 40));
+  if (v13)
   {
-    v16 = v15;
-    v17 = *MEMORY[0x1E695D918];
+    v14 = v13;
+    v15 = *MEMORY[0x1E695D918];
     do
     {
-      v18 = objc_loadWeakRetained((a1 + 40));
-      v22 = objc_msgSend__legacyView(v18, v19, v20, v21);
+      v16 = objc_loadWeakRetained((a1 + 40));
+      v19 = objc_msgSend__legacyView(v16, v17, v18);
 
-      if (v22)
+      if (v19)
       {
         break;
       }
 
-      v23 = objc_autoreleasePoolPush();
-      v27 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x1E695DF00], v24, v25, v26, 1.0);
-      objc_msgSend_runMode_beforeDate_(v5, v28, v17, v27);
+      v20 = objc_autoreleasePoolPush();
+      v23 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x1E695DF00], v21, v22, 1.0);
+      objc_msgSend_runMode_beforeDate_(v4, v24, v15, v23);
 
-      objc_autoreleasePoolPop(v23);
-      v16 = objc_loadWeakRetained((a1 + 40));
+      objc_autoreleasePoolPop(v20);
+      v14 = objc_loadWeakRetained((a1 + 40));
     }
 
-    while (v16);
+    while (v14);
   }
 }
 
@@ -5650,16 +6993,16 @@ void sub_1AF3B6420(uint64_t a1)
   }
 }
 
-unint64_t sub_1AF3B64F4(void *a1)
+void *sub_1AF3B64F4(void *a1)
 {
   v2 = sub_1AF1F2C50(0);
-  objc_msgSend_setPixelFormat_(a1, v3, v2, v4);
-  objc_msgSend_setFramebufferOnly_(a1, v5, 1, v6);
-  result = objc_msgSend_maximumDrawableCount(a1, v7, v8, v9);
+  objc_msgSend_setPixelFormat_(a1, v3, v2);
+  objc_msgSend_setFramebufferOnly_(a1, v4, 1);
+  result = objc_msgSend_maximumDrawableCount(a1, v5, v6);
   if (result >= 3)
   {
 
-    return MEMORY[0x1EEE66B58](a1, sel_setFenceEnabled_, 1, v11);
+    return MEMORY[0x1EEE66B58](a1, sel_setFenceEnabled_, 1);
   }
 
   return result;
@@ -5678,15 +7021,15 @@ void sub_1AF3B7914(uint64_t a1)
   Weak = objc_loadWeak((a1 + 40));
   if (Weak)
   {
-    v7 = objc_msgSend__renderingQueue(Weak, v4, v5, v6);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = sub_1AF3B79D4;
-    v8[3] = &unk_1E7A7FD48;
-    objc_copyWeak(&v9, (a1 + 40));
-    v8[4] = *(a1 + 32);
-    dispatch_sync(v7, v8);
-    objc_destroyWeak(&v9);
+    v6 = objc_msgSend__renderingQueue(Weak, v4, v5);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1AF3B79D4;
+    v7[3] = &unk_1E7A7FD48;
+    objc_copyWeak(&v8, (a1 + 40));
+    v7[4] = *(a1 + 32);
+    dispatch_sync(v6, v7);
+    objc_destroyWeak(&v8);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -5695,39 +7038,39 @@ void sub_1AF3B7914(uint64_t a1)
 uint64_t sub_1AF3B79D4(uint64_t a1)
 {
   Weak = objc_loadWeak((a1 + 40));
-  v4 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return MEMORY[0x1EEE66B58](Weak, sel__drawWithUpdate_, v4, v3);
+  return MEMORY[0x1EEE66B58](Weak, sel__drawWithUpdate_, v3);
 }
 
-uint64_t sub_1AF3B8C8C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1AF3B8C8C(uint64_t a1, const char *a2)
 {
-  v5 = *(a1 + 32);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1AF3B8D14;
-  v10[3] = &unk_1E7A7E198;
-  v11 = *(a1 + 40);
-  objc_msgSend_performAsCurrentTraitCollection_(v5, a2, v10, a4);
-  return objc_msgSend__setNeedsDisplay(*(a1 + 40), v6, v7, v8);
+  v3 = *(a1 + 32);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1AF3B8D14;
+  v7[3] = &unk_1E7A7E198;
+  v8 = *(a1 + 40);
+  objc_msgSend_performAsCurrentTraitCollection_(v3, a2, v7);
+  return objc_msgSend__setNeedsDisplay(*(a1 + 40), v4, v5);
 }
 
-uint64_t sub_1AF3B8E08(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_1AF3B8E08(uint64_t a1, const char *a2)
 {
-  v5 = *(a1 + 32);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1AF3B8EA8;
-  v10[3] = &unk_1E7A7A770;
-  v10[4] = *(a1 + 40);
-  objc_msgSend_performAsCurrentTraitCollection_(v5, a2, v10, a4);
+  v3 = *(a1 + 32);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1AF3B8EA8;
+  v7[3] = &unk_1E7A7A770;
+  v7[4] = *(a1 + 40);
+  objc_msgSend_performAsCurrentTraitCollection_(v3, a2, v7);
   *(*(a1 + 40) + 424) |= 0x40u;
-  return objc_msgSend__setNeedsDisplay(*(a1 + 40), v6, v7, v8);
+  return objc_msgSend__setNeedsDisplay(*(a1 + 40), v4, v5);
 }
 
-void sub_1AF3B91D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AF3B91D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5745,23 +7088,23 @@ void sub_1AF3B9204(uint64_t a1, uint64_t a2)
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void sub_1AF3B9284(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, double a5)
+void sub_1AF3B9284(uint64_t a1, double a2, const char *a3, uint64_t a4)
 {
-  v6 = *(*(*(a1 + 40) + 8) + 40);
-  if (v6)
+  v5 = *(*(*(a1 + 40) + 8) + 40);
+  if (v5)
   {
-    *&a5 = *(v6 + 472);
-    objc_msgSend_setPreferredFrameRate_(*(a1 + 32), a2, a3, a4, a5);
-    objc_msgSend_setLowLatency_(*(a1 + 32), v8, *(a1 + 48), v9);
-    objc_msgSend_setDisplayLink_(*(*(*(a1 + 40) + 8) + 40), v10, *(a1 + 32), v11);
-    objc_msgSend__setNeedsDisplay(*(*(*(a1 + 40) + 8) + 40), v12, v13, v14);
+    *&a2 = *(v5 + 472);
+    objc_msgSend_setPreferredFrameRate_(*(a1 + 32), a3, a4, a2);
+    objc_msgSend_setLowLatency_(*(a1 + 32), v7, *(a1 + 48));
+    objc_msgSend_setDisplayLink_(*(*(*(a1 + 40) + 8) + 40), v8, *(a1 + 32));
+    objc_msgSend__setNeedsDisplay(*(*(*(a1 + 40) + 8) + 40), v9, v10);
     *(*(*(*(a1 + 40) + 8) + 40) + 456) = 0;
-    v15 = *(*(*(a1 + 40) + 8) + 40);
+    v11 = *(*(*(a1 + 40) + 8) + 40);
   }
 
   else
   {
-    v15 = 0;
+    v11 = 0;
   }
 }
 
@@ -7000,30 +8343,30 @@ uint64_t sub_1AF3BC620(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_1AF3BC6A8()
+uint64_t sub_1AF3BC6A8(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(byte_1AFE4C05C, a3);
 
   return sub_1AFDFC358();
 }
 
 uint64_t sub_1AF3BC714(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637D88, type metadata accessor for MTLLibraryError);
+  v2 = sub_1AF0D4E2C(&qword_1EB637D88, type metadata accessor for MTLLibraryError, byte_1AFE4BC8C);
 
   return MEMORY[0x1EEDC6AD0](a1, v2);
 }
 
 uint64_t sub_1AF3BC780(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637D88, type metadata accessor for MTLLibraryError);
+  v2 = sub_1AF0D4E2C(&qword_1EB637D88, type metadata accessor for MTLLibraryError, byte_1AFE4BC8C);
 
   return MEMORY[0x1EEDC6AC0](a1, v2);
 }
 
 uint64_t sub_1AF3BC7EC(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError);
+  v2 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError, byte_1AFE4BD30);
 
   return MEMORY[0x1EEDC3B70](a1, v2);
 }
@@ -7042,12 +8385,12 @@ uint64_t sub_1AF3BC8D8(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_1AF3BC958@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1AF3BC958@<X0>(uint64_t *a2@<X8>)
 {
   sub_1AFDFCEF8();
-  v2 = sub_1AFDFCEC8();
+  v3 = sub_1AFDFCEC8();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -7059,11 +8402,11 @@ uint64_t sub_1AF3BC99C()
   return sub_1AFDFF2F8();
 }
 
-uint64_t sub_1AF3BC9E4()
+uint64_t sub_1AF3BC9E4(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1AFDFF288();
-  MEMORY[0x1B271ACB0](v1);
+  MEMORY[0x1B271ACB0](v2);
   return sub_1AFDFF2F8();
 }
 
@@ -7101,21 +8444,21 @@ uint64_t sub_1AF3BCA28@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_1AF3BCA90(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError);
+  v2 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError, byte_1AFE4BD30);
 
   return MEMORY[0x1EEDC3BE0](a1, v2);
 }
 
 uint64_t sub_1AF3BCAFC(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError);
+  v2 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError, byte_1AFE4BD30);
 
   return MEMORY[0x1EEDC3B98](a1, v2);
 }
 
 uint64_t sub_1AF3BCB68(void *a1, uint64_t a2)
 {
-  v4 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError);
+  v4 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError, byte_1AFE4BD30);
   v5 = a1;
 
   return MEMORY[0x1EEDC3B88](v5, a2, v4);
@@ -7123,12 +8466,12 @@ uint64_t sub_1AF3BCB68(void *a1, uint64_t a2)
 
 uint64_t sub_1AF3BCC1C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError);
+  v4 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError, byte_1AFE4BD30);
 
   return MEMORY[0x1EEDC3BC8](a1, a2, v4);
 }
 
-uint64_t sub_1AF3BCC98()
+uint64_t sub_1AF3BCC98(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1AFDFF288();
   sub_1AFDFCD08();
@@ -7144,8 +8487,8 @@ _DWORD *sub_1AF3BCCF8@<X0>(_DWORD *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1AF3BCD08(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&unk_1ED730820, type metadata accessor for FileAttributeKey);
-  v3 = sub_1AF0D4E2C(&qword_1EB637E28, type metadata accessor for FileAttributeKey);
+  v2 = sub_1AF0D4E2C(&unk_1ED730820, type metadata accessor for FileAttributeKey, aQ_26);
+  v3 = sub_1AF0D4E2C(&qword_1EB637E28, type metadata accessor for FileAttributeKey, aI_14);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -7153,25 +8496,25 @@ uint64_t sub_1AF3BCD08(uint64_t a1)
 
 uint64_t sub_1AF3BCDC4(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637E40, type metadata accessor for Key);
-  v3 = sub_1AF0D4E2C(&qword_1EB637E48, type metadata accessor for Key);
+  v2 = sub_1AF0D4E2C(&qword_1EB637E40, type metadata accessor for Key, byte_1AFE4BF50);
+  v3 = sub_1AF0D4E2C(&qword_1EB637E48, type metadata accessor for Key, asc_1AFE4B5EC);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t sub_1AF3BCF24()
+uint64_t sub_1AF3BCF24(uint64_t a1, uint64_t a2)
 {
   sub_1AFDFF288();
-  swift_getWitnessTable();
+  swift_getWitnessTable(byte_1AFE4C05C, a2);
   sub_1AFDFC368();
   return sub_1AFDFF2F8();
 }
 
 uint64_t sub_1AF3BCF8C(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB638280, type metadata accessor for VFXWorldLoaderOption);
-  v3 = sub_1AF0D4E2C(&qword_1EB6379B0, type metadata accessor for VFXWorldLoaderOption);
+  v2 = sub_1AF0D4E2C(&qword_1EB638280, type metadata accessor for VFXWorldLoaderOption, a1_15);
+  v3 = sub_1AF0D4E2C(&qword_1EB6379B0, type metadata accessor for VFXWorldLoaderOption, byte_1AFE48DA8);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -7179,8 +8522,8 @@ uint64_t sub_1AF3BCF8C(uint64_t a1)
 
 uint64_t sub_1AF3BD480(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637E50, type metadata accessor for VFXMeshSourceSemantic);
-  v3 = sub_1AF0D4E2C(&qword_1EB637E58, type metadata accessor for VFXMeshSourceSemantic);
+  v2 = sub_1AF0D4E2C(&qword_1EB637E50, type metadata accessor for VFXMeshSourceSemantic, aY_30);
+  v3 = sub_1AF0D4E2C(&qword_1EB637E58, type metadata accessor for VFXMeshSourceSemantic, byte_1AFE4B380);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -7188,8 +8531,8 @@ uint64_t sub_1AF3BD480(uint64_t a1)
 
 uint64_t sub_1AF3BD53C(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637E30, type metadata accessor for Option);
-  v3 = sub_1AF0D4E2C(&qword_1EB637E38, type metadata accessor for Option);
+  v2 = sub_1AF0D4E2C(&qword_1EB637E30, type metadata accessor for Option, asc_1AFE4BF0C);
+  v3 = sub_1AF0D4E2C(&qword_1EB637E38, type metadata accessor for Option, asc_1AFE4B70C);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -7197,8 +8540,8 @@ uint64_t sub_1AF3BD53C(uint64_t a1)
 
 uint64_t sub_1AF3BD5F8(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637E10, type metadata accessor for LoadingOption);
-  v3 = sub_1AF0D4E2C(&unk_1EB637E18, type metadata accessor for LoadingOption);
+  v2 = sub_1AF0D4E2C(&qword_1EB637E10, type metadata accessor for LoadingOption, byte_1AFE4BE84);
+  v3 = sub_1AF0D4E2C(&unk_1EB637E18, type metadata accessor for LoadingOption, asc_1AFE4B940);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -7206,8 +8549,8 @@ uint64_t sub_1AF3BD5F8(uint64_t a1)
 
 uint64_t sub_1AF3BD6B4(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB630D10, type metadata accessor for VFXTriggerType);
-  v3 = sub_1AF0D4E2C(&unk_1EB6379A0, type metadata accessor for VFXTriggerType);
+  v2 = sub_1AF0D4E2C(&qword_1EB630D10, type metadata accessor for VFXTriggerType, asc_1AFE49A2C);
+  v3 = sub_1AF0D4E2C(&unk_1EB6379A0, type metadata accessor for VFXTriggerType, byte_1AFE499D4);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -7215,15 +8558,15 @@ uint64_t sub_1AF3BD6B4(uint64_t a1)
 
 uint64_t sub_1AF3BD9B0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError);
+  v6 = sub_1AF0D4E2C(&qword_1EB637DC0, type metadata accessor for MTLLibraryError, byte_1AFE4BD30);
 
   return MEMORY[0x1EEDC3BA8](a1, a2, a3, v6);
 }
 
 uint64_t sub_1AF3BDA34(uint64_t a1)
 {
-  v2 = sub_1AF0D4E2C(&qword_1EB637E00, type metadata accessor for VFXHitTestOption);
-  v3 = sub_1AF0D4E2C(&qword_1EB637E08, type metadata accessor for VFXHitTestOption);
+  v2 = sub_1AF0D4E2C(&qword_1EB637E00, type metadata accessor for VFXHitTestOption, byte_1AFE4BE40);
+  v3 = sub_1AF0D4E2C(&qword_1EB637E08, type metadata accessor for VFXHitTestOption, byte_1AFE4BA54);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -9621,235 +10964,6 @@ uint64_t sub_1AF3BDD24(uint64_t result, unsigned int a2, unsigned int a3)
     v4 = a2 + 1;
 LABEL_8:
     *(result + v3) = v4;
-  }
-
-  return result;
-}
-
-__n128 initializeWithTake for RenderGraph.RenderTargetDesc(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  result = *(a2 + 16);
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 64);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 64) = v4;
-  *(a1 + 16) = result;
-  *(a1 + 32) = v3;
-  return result;
-}
-
-uint64_t sub_1AF3C025C(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 144))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 136);
-  v4 = v3 >= 2;
-  v5 = (v3 + 2147483646) & 0x7FFFFFFF;
-  if (!v4)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t sub_1AF3C02B0(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 136) = 0;
-    *(result + 120) = 0u;
-    *(result + 104) = 0u;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 144) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 144) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 136) = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-__n128 initializeWithTake for Navigation(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  v3 = a2[2];
-  *(a1 + 16) = a2[1];
-  *(a1 + 32) = v3;
-  *a1 = v2;
-  result = a2[3];
-  v5 = a2[4];
-  v6 = a2[6];
-  *(a1 + 80) = a2[5];
-  *(a1 + 96) = v6;
-  *(a1 + 48) = result;
-  *(a1 + 64) = v5;
-  return result;
-}
-
-uint64_t sub_1AF3C03DC(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 80))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 65);
-  v4 = v3 >= 2;
-  v5 = (v3 + 2147483646) & 0x7FFFFFFF;
-  if (!v4)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t sub_1AF3C0430(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 72) = 0;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 80) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 80) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 65) = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-__n128 initializeWithTake for MeshPart(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  v3 = a2[2];
-  *(a1 + 16) = a2[1];
-  *(a1 + 32) = v3;
-  *a1 = v2;
-  v4 = a2[3];
-  v5 = a2[4];
-  v6 = a2[6];
-  *(a1 + 80) = a2[5];
-  *(a1 + 96) = v6;
-  *(a1 + 48) = v4;
-  *(a1 + 64) = v5;
-  result = a2[7];
-  v8 = a2[8];
-  v9 = a2[10];
-  *(a1 + 144) = a2[9];
-  *(a1 + 160) = v9;
-  *(a1 + 112) = result;
-  *(a1 + 128) = v8;
-  return result;
-}
-
-uint64_t sub_1AF3C04D0(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 176))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 160);
-  v4 = v3 >= 2;
-  v5 = (v3 + 2147483646) & 0x7FFFFFFF;
-  if (!v4)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-uint64_t sub_1AF3C0524(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 168) = 0;
-    *(result + 152) = 0u;
-    *(result + 136) = 0u;
-    *(result + 120) = 0u;
-    *(result + 104) = 0u;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 176) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 176) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 160) = a2 + 1;
-    }
   }
 
   return result;

@@ -108,10 +108,7 @@ void __56__PINKeypadAccessibility__accessibilityInternalChildren__block_invoke(u
 
 uint64_t __56__PINKeypadAccessibility__accessibilityInternalChildren__block_invoke_329(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _buttonForKeyAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _buttonForKeyAtIndex:*(a1 + 48)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -119,27 +116,21 @@ uint64_t __56__PINKeypadAccessibility__accessibilityInternalChildren__block_invo
 double __56__PINKeypadAccessibility__accessibilityInternalChildren__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x4010000000;
-  v15 = &unk_29C1B616F;
-  v16 = 0u;
-  v17 = 0u;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 48);
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x4010000000;
+  v5[3] = &unk_29C1B616F;
+  v6 = 0u;
+  v7 = 0u;
   AXPerformSafeBlock();
-  v3 = v13[4];
-  v4 = v13[5];
-  v5 = v13[6];
-  v6 = v13[7];
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(v5, 8);
   UIAccessibilityFrameForBounds();
-  v8 = v7;
+  v3 = v2;
 
-  return v8;
+  return v3;
 }
 
-uint64_t __56__PINKeypadAccessibility__accessibilityInternalChildren__block_invoke_3(uint64_t a1)
+void *__56__PINKeypadAccessibility__accessibilityInternalChildren__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _rectForKey:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 8);

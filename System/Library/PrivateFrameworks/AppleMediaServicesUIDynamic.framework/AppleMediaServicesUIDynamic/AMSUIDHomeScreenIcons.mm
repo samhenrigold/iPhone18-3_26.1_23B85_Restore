@@ -52,7 +52,7 @@
   return _MergedGlobals;
 }
 
-uint64_t __32__AMSUIDHomeScreenIcons_variant__block_invoke()
+void *__32__AMSUIDHomeScreenIcons_variant__block_invoke()
 {
   v0 = [MEMORY[0x1E69DCEB0] mainScreen];
   [v0 scale];

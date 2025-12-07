@@ -394,12 +394,12 @@ void __111__DOCDocumentSource_SearchInternal__defaultSourceForBundleIdentifier_s
   }
 }
 
-uint64_t __111__DOCDocumentSource_SearchInternal__defaultSourceForBundleIdentifier_selectedSourceIdentifier_completionBlock___block_invoke_54(void *a1)
+void *__111__DOCDocumentSource_SearchInternal__defaultSourceForBundleIdentifier_selectedSourceIdentifier_completionBlock___block_invoke_54(void *a1)
 {
   result = a1[4];
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1[5] + 8) + 40), *(*(a1[6] + 8) + 40));
+    result = (*(result + 2))(result, *(*(a1[5] + 8) + 40), *(*(a1[6] + 8) + 40));
   }
 
   if (*(*(a1[7] + 8) + 40))
@@ -1067,17 +1067,17 @@ LABEL_22:
 
 - (id)loadIconForSize:(int64_t)size
 {
-  v3 = MEMORY[0x1E699A478];
-  v4 = *MEMORY[0x1E699A478];
+  v4 = MEMORY[0x1E699A478];
+  v5 = *MEMORY[0x1E699A478];
   if (!*MEMORY[0x1E699A478])
   {
     DOCInitLogging();
-    v4 = *v3;
+    v5 = *v4;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    [DOCDocumentSource loadIconForSize:v4];
+    [(DOCDocumentSource *)v5 loadIconForSize:?];
   }
 
   return 0;
@@ -1148,13 +1148,13 @@ void __111__DOCDocumentSource_SearchInternal__defaultSourceForBundleIdentifier_s
   _os_log_error_impl(&dword_1E57D8000, log, OS_LOG_TYPE_ERROR, "Error: could not find a valid source for %@ (sourcesByID: %@)", &v4, 0x16u);
 }
 
-- (void)loadIconForSize:(void *)a1 .cold.1(void *a1)
+- (void)loadIconForSize:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = 138412290;
-  v3 = objc_opt_class();
-  _os_log_fault_impl(&dword_1E57D8000, v1, OS_LOG_TYPE_FAULT, "%@ must implement -loadIconForSize:", &v2, 0xCu);
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  _os_log_fault_impl(&dword_1E57D8000, v2, OS_LOG_TYPE_FAULT, "%@ must implement -loadIconForSize:", &v3, 0xCu);
 }
 
 @end

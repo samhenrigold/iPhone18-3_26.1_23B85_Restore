@@ -1,5 +1,6 @@
 @interface AXStickyKeysUIServer
 - (id)processMessage:(id)message withIdentifier:(unint64_t)identifier fromClientWithIdentifier:(id)withIdentifier error:(id *)error;
+- (void)_handleStickyKeyUpdatedWithKeycode:(unsigned __int16)keycode usagePage:(unsigned int)page state:(int64_t)state;
 - (void)_handleStickyKeysDisabled;
 - (void)_playSoundForState:(int64_t)state;
 - (void)_showUIIfNeeded;
@@ -83,6 +84,27 @@
   else
   {
     AudioServicesPlaySystemSound(0x450u);
+  }
+}
+
+- (void)_handleStickyKeyUpdatedWithKeycode:(unsigned __int16)keycode usagePage:(unsigned int)page state:(int64_t)state
+{
+  v6 = *&page;
+  keycodeCopy = keycode;
+  [(AXStickyKeysUIServer *)self _showUIIfNeeded];
+  stickyKeysViewController = [(AXStickyKeysUIServer *)self stickyKeysViewController];
+  LODWORD(v6) = [stickyKeysViewController updateWithKeycode:keycodeCopy usagePage:v6 state:state];
+
+  if (v6)
+  {
+    v10 = +[AXSettings sharedInstance];
+    stickyKeysBeepEnabled = [v10 stickyKeysBeepEnabled];
+
+    if (stickyKeysBeepEnabled)
+    {
+
+      [(AXStickyKeysUIServer *)self _playSoundForState:state];
+    }
   }
 }
 

@@ -66,7 +66,7 @@
         v75 = 0;
         v71 = 8;
         v11 = *(selfCopy->_tile.__ptr_ + 3);
-        v12 = v11[1];
+        v12 = *(v11 + 8);
         v69 = *v11;
         v70 = v12;
         if (v12)
@@ -103,7 +103,7 @@ LABEL_26:
           {
             while (v17 != v23)
             {
-              v17 -= 32;
+              v17 = (v17 - 32);
               std::__destroy_at[abi:nn200100]<md::LabelShieldEntry,0>(v17);
             }
 
@@ -118,8 +118,8 @@ LABEL_26:
           v18 = v73;
           while (1)
           {
-            v19 = v18 + 32;
-            if (v18 + 32 == v17)
+            v19 = v18 + 2;
+            if (v18 + 2 == v17)
             {
               break;
             }
@@ -128,15 +128,15 @@ LABEL_26:
             v18 = v19;
             if (v20)
             {
-              v21 = v19 - 32;
+              v21 = (v19 - 2);
               v22 = (v21 + 64);
-              if (v21 + 64 != v17)
+              if ((v21 + 64) != v17)
               {
                 do
                 {
                   if (!std::equal_to<std::string>::operator()[abi:nn200100](v21, v22))
                   {
-                    v21 += 32;
+                    v21 = (v21 + 32);
                     std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::operator=[abi:nn200100](v21, v22);
                   }
 
@@ -169,7 +169,7 @@ LABEL_32:
             }
 
 LABEL_52:
-            v16 += 32;
+            v16 += 2;
             if (v16 == v23)
             {
               goto LABEL_68;

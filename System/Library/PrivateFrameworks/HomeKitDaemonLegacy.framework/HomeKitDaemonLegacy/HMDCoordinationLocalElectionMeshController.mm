@@ -189,7 +189,7 @@ uint64_t __56__HMDCoordinationLocalElectionMeshController_leaderNode__block_invo
 
 - (void)sendPingRequestToNode:(id)node withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   completionCopy = completion;
   dispatchQueue = [(COMeshController *)self dispatchQueue];
@@ -199,12 +199,12 @@ uint64_t __56__HMDCoordinationLocalElectionMeshController_leaderNode__block_invo
   if (v9)
   {
     v10 = objc_alloc_init(HMDCoordinationPingRequest);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __83__HMDCoordinationLocalElectionMeshController_sendPingRequestToNode_withCompletion___block_invoke;
-    v16[3] = &unk_27972CB68;
-    v17 = completionCopy;
-    [(COMeshController *)self sendRequest:v10 toPeer:v9 withCompletionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __83__HMDCoordinationLocalElectionMeshController_sendPingRequestToNode_withCompletion___block_invoke;
+    v15[3] = &unk_27972CB68;
+    v16 = completionCopy;
+    [(COMeshController *)self sendRequest:v10 toPeer:v9 withCompletionHandler:v15];
   }
 
   else
@@ -216,14 +216,12 @@ uint64_t __56__HMDCoordinationLocalElectionMeshController_leaderNode__block_invo
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v14;
+      v18 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not find the destination node to send the ping request", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)meshNodeFor:(id)for
@@ -358,7 +356,7 @@ void __72__HMDCoordinationLocalElectionMeshController__setupMessageRegistrations
 
 void __72__HMDCoordinationLocalElectionMeshController__setupMessageRegistrations__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -370,17 +368,15 @@ void __72__HMDCoordinationLocalElectionMeshController__setupMessageRegistrations
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Responding to ping request", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Responding to ping request", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v12 = objc_alloc_init(HMDCoordinationPingResponse);
     v6[2](v6, v12, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCoordinationLocalElectionMeshController)initWithQueue:(id)queue
@@ -427,12 +423,11 @@ void __72__HMDCoordinationLocalElectionMeshController__setupMessageRegistrations
 
 uint64_t __57__HMDCoordinationLocalElectionMeshController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_129083;
-  logCategory__hmf_once_v4_129083 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_129083;
+  logCategory__hmf_once_v4_129083 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

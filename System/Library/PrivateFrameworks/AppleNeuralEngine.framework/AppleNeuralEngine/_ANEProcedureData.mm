@@ -94,33 +94,24 @@
 
 - (void)encodeWithCoder:(const char *)a1 .cold.1(const char *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromSelector(a1);
-  v10 = [a2 procedureSymbol];
+  v9 = [a2 procedureSymbol];
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyWithZone:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

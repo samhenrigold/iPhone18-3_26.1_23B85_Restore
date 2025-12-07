@@ -64,11 +64,11 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v7 = toCopy;
   if (self->_hashedAccessPoint)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v7;
   }
 
   p_muids = &self->_muids;
@@ -77,9 +77,8 @@
     v6 = 0;
     do
     {
-      v7 = p_muids->list[v6];
       PBDataWriterWriteUint64Field();
-      toCopy = v8;
+      toCopy = v7;
       ++v6;
     }
 

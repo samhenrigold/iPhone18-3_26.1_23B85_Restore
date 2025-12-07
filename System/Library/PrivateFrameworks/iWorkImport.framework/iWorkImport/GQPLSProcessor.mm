@@ -1,8 +1,50 @@
 @interface GQPLSProcessor
 - (BOOL)go;
+- (GQPLSProcessor)initWithURL:(__CFURL *)l indexFileName:(id)name outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper generator:(Class)generator zipArchive:(id)self0 cryptoKey:(id)self1;
+- (GQPLSProcessor)initWithURL:(__CFURL *)l zipArchive:(id)archive indexFileName:(id)name outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper generator:(Class)self0 cryptoKey:(id)self1;
 @end
 
 @implementation GQPLSProcessor
+
+- (GQPLSProcessor)initWithURL:(__CFURL *)l indexFileName:(id)name outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper generator:(Class)generator zipArchive:(id)self0 cryptoKey:(id)self1
+{
+  v13 = *&type;
+  v21.receiver = self;
+  v21.super_class = GQPLSProcessor;
+  v15 = [(GQPProcessor *)&v21 initWithPath:[(__CFURL *)l path] indexFileName:name previewRequest:request cryptoKey:key];
+  v16 = v15;
+  if (v15)
+  {
+    v15->mGenerator = generator;
+    v17 = objc_alloc_init(GQDLSDocument);
+    v18 = [GQUOutputBundleFactory createOutputBundleForType:v13 outputPath:path progressiveHelper:helper];
+    v19 = [[GQSDocument alloc] initWithRoot:v17 processor:v16 bundleUrl:l archive:archive outputBundle:v18];
+    v16->super.mDocumentState = v19;
+    [(GQSDocument *)v19 pushObject:v17];
+  }
+
+  return v16;
+}
+
+- (GQPLSProcessor)initWithURL:(__CFURL *)l zipArchive:(id)archive indexFileName:(id)name outputType:(int)type outputPath:(__CFString *)path previewRequest:(__QLPreviewRequest *)request progressiveHelper:(id)helper generator:(Class)self0 cryptoKey:(id)self1
+{
+  v12 = *&type;
+  v21.receiver = self;
+  v21.super_class = GQPLSProcessor;
+  v15 = [(GQPProcessor *)&v21 initWithZipArchive:archive indexFileName:name previewRequest:request cryptoKey:key];
+  v16 = v15;
+  if (v15)
+  {
+    v15->mGenerator = generator;
+    v17 = objc_alloc_init(GQDLSDocument);
+    v18 = [GQUOutputBundleFactory createOutputBundleForType:v12 outputPath:path progressiveHelper:helper];
+    v19 = [[GQSDocument alloc] initWithRoot:v17 processor:v16 archive:archive outputBundle:v18 fileURL:l];
+    v16->super.mDocumentState = v19;
+    [(GQSDocument *)v19 pushObject:v17];
+  }
+
+  return v16;
+}
 
 - (BOOL)go
 {

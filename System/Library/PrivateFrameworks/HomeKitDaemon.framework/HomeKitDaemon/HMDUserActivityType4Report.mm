@@ -12,21 +12,20 @@
 
 - (id)attributeDescriptions
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = HMDUserActivityType4Report;
-  attributeDescriptions = [(HMDUserActivityReport *)&v12 attributeDescriptions];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HMDUserActivityType4Report;
+  attributeDescriptions = [(HMDUserActivityReport *)&v11 attributeDescriptions];
   v4 = [attributeDescriptions mutableCopy];
 
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   v6 = HMDUserVacationStateAsString([(HMDUserActivityType4Report *)self state]);
   v7 = [v5 initWithName:@"State" value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [v4 addObjectsFromArray:v8];
 
-  v9 = [v4 copy];
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = objc_msgSend_copy(v4);
 
   return v9;
 }
@@ -66,7 +65,7 @@
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUserActivityType4Report state](self, "state")}];
   [v4 setObject:v5 forKeyedSubscript:@"HAS.V.UV"];
 
-  v6 = [v4 copy];
+  v6 = objc_msgSend_copy(v4);
 
   return v6;
 }
@@ -102,15 +101,15 @@
 
 - (id)initFromMessagePayload:(id)payload withUser:(id)user
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   userCopy = user;
   v8 = [payloadCopy hmf_numberForKey:@"HAS.V.UV"];
   if (v8)
   {
-    v17.receiver = self;
-    v17.super_class = HMDUserActivityType4Report;
-    v9 = [(HMDUserActivityReport *)&v17 initFromMessagePayload:payloadCopy withUser:userCopy];
+    v16.receiver = self;
+    v16.super_class = HMDUserActivityType4Report;
+    v9 = [(HMDUserActivityReport *)&v16 initFromMessagePayload:payloadCopy withUser:userCopy];
     if (v9)
     {
       v9[5] = [v8 integerValue];
@@ -129,7 +128,7 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v14;
+      v18 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@User activity state or region state not found. Could not initialize the metadata from message payload.", buf, 0xCu);
     }
 
@@ -137,7 +136,6 @@
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

@@ -8,25 +8,25 @@
 
 - (void)configureWithMessageID:(id)d senderEmailAddress:(id)address dateSent:(id)sent title:(id)title subject:(id)subject subtitle:(id)subtitle deeplinkURL:(id)l
 {
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD3CF70);
-  MEMORY[0x1EEE9AC00](v12 - 8, v13);
-  v15 = v40 - v14;
-  v16 = sub_1BE04AF64();
-  v48 = *(v16 - 8);
-  v49 = v16;
-  MEMORY[0x1EEE9AC00](v16, v17);
-  v19 = v40 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = sub_1BE052434();
-  v47 = v21;
-  v43 = sub_1BE052434();
-  v46 = v22;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD3CF70, &qword_1BE0BA000);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = v74 - v13;
+  v15 = sub_1BE04AF64();
+  v82 = *(v15 - 8);
+  v83 = v15;
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = v74 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = sub_1BE052434();
+  v81 = v19;
+  v77 = sub_1BE052434();
+  v80 = v20;
   sub_1BE04AEE4();
-  v42 = sub_1BE052434();
-  v45 = v23;
+  v76 = sub_1BE052434();
+  v79 = v21;
   if (subject)
   {
     subject = sub_1BE052434();
-    v44 = v24;
+    v78 = v22;
     lCopy2 = l;
     if (subtitle)
     {
@@ -34,21 +34,21 @@
     }
 
 LABEL_6:
-    v41 = 0;
-    v27 = 0;
+    v75 = 0;
+    v25 = 0;
     if (lCopy2)
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    v34 = sub_1BE04AA64();
-    (*(*(v34 - 8) + 56))(v15, 1, 1, v34);
+    v31 = sub_1BE04AA64();
+    (*(*(v31 - 8) + 56))(v14, 1, 1, v31);
     selfCopy = self;
     goto LABEL_8;
   }
 
-  v44 = 0;
+  v78 = 0;
   lCopy2 = l;
   if (!subtitle)
   {
@@ -56,8 +56,8 @@ LABEL_7:
   }
 
 LABEL_3:
-  v41 = sub_1BE052434();
-  v27 = v26;
+  v75 = sub_1BE052434();
+  v25 = v24;
   if (!lCopy2)
   {
     goto LABEL_7;
@@ -65,45 +65,51 @@ LABEL_3:
 
 LABEL_4:
   sub_1BE04A9F4();
-  v28 = sub_1BE04AA64();
-  v29 = v20;
-  v30 = *(*(v28 - 8) + 56);
+  v26 = sub_1BE04AA64();
+  v27 = v18;
+  v28 = *(*(v26 - 8) + 56);
   selfCopy2 = self;
-  selfCopy = v30(v15, 0, 1, v28);
-  v20 = v29;
+  selfCopy = v28(v14, 0, 1, v26);
+  v18 = v27;
 LABEL_8:
-  v40[1] = v40;
-  MEMORY[0x1EEE9AC00](selfCopy, v33);
-  v36 = v46;
-  v35 = v47;
-  v40[-12] = v20;
-  v40[-11] = v35;
-  v37 = v42;
-  v40[-10] = v43;
-  v40[-9] = v36;
-  v40[-8] = v19;
-  v40[-7] = v37;
-  v38 = v44;
-  v40[-6] = v45;
-  v40[-5] = subject;
-  v39 = v41;
-  v40[-4] = v38;
-  v40[-3] = v39;
-  v43 = v19;
-  v40[-2] = v27;
-  v40[-1] = v15;
-  v50[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B2B8);
-  v50[4] = sub_1BD9DD8F4();
-  __swift_allocate_boxed_opaque_existential_1(v50);
-  type metadata accessor for FinanceKitFoundInMailRowView();
+  selfCopy3 = self;
+  v74[1] = v74;
+  MEMORY[0x1EEE9AC00](selfCopy);
+  v34 = v80;
+  v33 = v81;
+  v74[-12] = v18;
+  v74[-11] = v33;
+  v35 = v76;
+  v74[-10] = v77;
+  v74[-9] = v34;
+  v74[-8] = v17;
+  v74[-7] = v35;
+  v37 = v78;
+  v36 = v79;
+  v74[-6] = v79;
+  v74[-5] = subject;
+  v38 = v75;
+  v74[-4] = v37;
+  v74[-3] = v38;
+  v77 = v17;
+  v74[-2] = v25;
+  v74[-1] = v14;
+  v84[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B2B8, &unk_1BE10BC80);
+  v84[4] = sub_1BD9DD8F4();
+  __swift_allocate_boxed_opaque_existential_1(v84);
+  type metadata accessor for FinanceKitFoundInMailRowView(0);
   sub_1BD9DD958();
   sub_1BE04FCE4();
+  v33, v39, v40, v41, v42, v43, v44, v45;
+  v34, v46, v47, v48, v49, v50, v51, v52;
+  v36, v53, v54, v55, v56, v57, v58, v59;
+  v25, v60, v61, v62, v63, v64, v65, v66;
+  v37, v67, v68, v69, v70, v71, v72, v73;
+  MEMORY[0x1BFB3FD10](v84);
+  [(PKPaymentTransactionFoundInMailViewCell *)selfCopy3 setNeedsUpdateConfiguration];
 
-  MEMORY[0x1BFB3FD10](v50);
-  [(PKPaymentTransactionFoundInMailViewCell *)self setNeedsUpdateConfiguration];
-
-  sub_1BD226BBC(v15);
-  (*(v48 + 8))(v43, v49);
+  sub_1BD226BBC(v14);
+  (*(v82 + 8))(v77, v83);
 }
 
 - (_TtC9PassKitUI39PKPaymentTransactionFoundInMailViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -112,14 +118,16 @@ LABEL_8:
   if (identifier)
   {
     sub_1BE052434();
+    v9 = v8;
     identifier = sub_1BE052404();
+    v9, v10, v11, v12, v13, v14, v15, v16;
   }
 
-  v10.receiver = self;
-  v10.super_class = ObjectType;
-  v8 = [(PKPaymentTransactionFoundInMailViewCell *)&v10 initWithStyle:style reuseIdentifier:identifier];
+  v19.receiver = self;
+  v19.super_class = ObjectType;
+  v17 = [(PKPaymentTransactionFoundInMailViewCell *)&v19 initWithStyle:style reuseIdentifier:identifier];
 
-  return v8;
+  return v17;
 }
 
 - (_TtC9PassKitUI39PKPaymentTransactionFoundInMailViewCell)initWithCoder:(id)coder

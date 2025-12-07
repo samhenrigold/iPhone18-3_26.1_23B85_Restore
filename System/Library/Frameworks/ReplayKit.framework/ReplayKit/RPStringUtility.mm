@@ -75,31 +75,29 @@
 
 + (void)rotatingDeviceUniqueID
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = 136446466;
-    v4 = "+[RPStringUtility rotatingDeviceUniqueID]";
-    v5 = 1024;
-    v6 = 33;
-    _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d Could not get NSUserDefaults shared defaults object", &v3, 0x12u);
+    v2 = 136446466;
+    v3 = "+[RPStringUtility rotatingDeviceUniqueID]";
+    v4 = 1024;
+    v5 = 33;
+    _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d Could not get NSUserDefaults shared defaults object", &v2, 0x12u);
   }
 
   *self = 0;
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isInvalidBundleId:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = 136446722;
-  v3 = "+[RPStringUtility isInvalidBundleId:]";
-  v4 = 1024;
-  v5 = 54;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d bundleID=%@ is invalid", &v2, 0x1Cu);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = 136446722;
+  v2 = "+[RPStringUtility isInvalidBundleId:]";
+  v3 = 1024;
+  v4 = 54;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d bundleID=%@ is invalid", &v1, 0x1Cu);
 }
 
 @end

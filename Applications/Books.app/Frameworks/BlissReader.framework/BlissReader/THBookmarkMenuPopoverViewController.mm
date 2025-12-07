@@ -515,55 +515,55 @@ LABEL_7:
   {
     bookmarkFetchedResultsController = [(THBookmarkMenuPopoverViewController *)self bookmarkFetchedResultsController];
     sections = [(__CFString *)bookmarkFetchedResultsController sections];
-    v22 = [sections objectAtIndex:0];
+    v26 = [sections objectAtIndex:0];
 
-    v71 = v22;
-    if ([v22 numberOfObjects])
+    v76 = v26;
+    if ([v26 numberOfObjects])
     {
-      v73 = pathCopy;
+      v78 = pathCopy;
       theme2 = [(THBookmarkMenuPopoverViewController *)self p_tableViewBookmarkIndexPathToFetchedResultsControllerBookmarkIndexPath:pathCopy];
       delegate = [(THBookmarkMenuPopoverViewController *)self delegate];
-      v25 = [(__CFString *)bookmarkFetchedResultsController objectAtIndexPath:theme2];
-      v26 = [delegate cachedAnnotationForFetchedObject:v25];
+      v30 = [(__CFString *)bookmarkFetchedResultsController objectAtIndexPath:theme2];
+      v31 = [delegate cachedAnnotationForFetchedObject:v30];
 
-      v27 = [THPageLocation pageLocationWithAnnotation:v26];
-      annotationAbsolutePhysicalPageIndex = [v26 annotationAbsolutePhysicalPageIndex];
+      v32 = [THPageLocation pageLocationWithAnnotation:v31];
+      annotationAbsolutePhysicalPageIndex = [v31 annotationAbsolutePhysicalPageIndex];
       delegate2 = [(THBookmarkMenuPopoverViewController *)self delegate];
-      v30 = [delegate2 hasThumbnailImageForAbsolutePageIndex:annotationAbsolutePhysicalPageIndex];
+      v35 = [delegate2 hasThumbnailImageForAbsolutePageIndex:annotationAbsolutePhysicalPageIndex];
 
-      if (v30 && (-[THBookmarkMenuPopoverViewController delegate](self, "delegate"), v31 = objc_claimAutoreleasedReturnValue(), v32 = [v31 thumbnailImageForAbsolutePageIndex:annotationAbsolutePhysicalPageIndex], v31, v32))
+      if (v35 && (-[THBookmarkMenuPopoverViewController delegate](self, "delegate"), v36 = objc_claimAutoreleasedReturnValue(), v37 = [v36 thumbnailImageForAbsolutePageIndex:annotationAbsolutePhysicalPageIndex], v36, v37))
       {
-        v33 = [UIImage imageWithCGImage:v32];
+        v38 = [UIImage imageWithCGImage:v37];
       }
 
       else
       {
-        v33 = 0;
+        v38 = 0;
       }
 
-      v16 = [(THBookmarkMenuPopoverViewController *)self p_bookmarkTitleStringForLocation:v27];
+      v20 = [(THBookmarkMenuPopoverViewController *)self p_bookmarkTitleStringForLocation:v32];
       theme = [(THBookmarkMenuPopoverViewController *)self theme];
       bookmarkLabelColor = [theme bookmarkLabelColor];
 
       buttonTitleColorDisabled = bookmarkLabelColor;
       delegate3 = [(THBookmarkMenuPopoverViewController *)self delegate];
-      v40 = [delegate3 pageNumberStringForLocation:v27];
+      v45 = [delegate3 pageNumberStringForLocation:v32];
 
-      v34 = v40;
-      v35 = 3;
-      pathCopy = v73;
+      v39 = v45;
+      v40 = 3;
+      pathCopy = v78;
     }
 
     else
     {
-      v41 = THBundle();
-      v16 = [v41 localizedStringForKey:@"No Bookmarks" value:&stru_471858 table:0];
+      v46 = THBundle(0, v27);
+      v20 = [v46 localizedStringForKey:@"No Bookmarks" value:&stru_471858 table:0];
 
       theme2 = [(THBookmarkMenuPopoverViewController *)self theme];
       buttonTitleColorDisabled = [theme2 buttonTitleColorDisabled];
-      v34 = 0;
-      v33 = 0;
-      v35 = 0;
+      v39 = 0;
+      v38 = 0;
+      v40 = 0;
     }
   }
 
@@ -571,11 +571,11 @@ LABEL_7:
   {
     if (section)
     {
-      v34 = 0;
+      v39 = 0;
       buttonTitleColorDisabled = 0;
-      v16 = 0;
+      v20 = 0;
       theme2 = 0;
-      v35 = 3;
+      v40 = 3;
       goto LABEL_28;
     }
 
@@ -583,8 +583,8 @@ LABEL_7:
     delegate4 = [(THBookmarkMenuPopoverViewController *)self delegate];
     isBookPortraitOnly = [delegate4 isBookPortraitOnly];
 
-    v12 = THBundle();
-    v71 = [v12 localizedStringForKey:@"Add Bookmark" value:&stru_471858 table:0];
+    v14 = THBundle(v12, v13);
+    v76 = [v14 localizedStringForKey:@"Add Bookmark" value:&stru_471858 table:0];
 
     delegate5 = [(THBookmarkMenuPopoverViewController *)self delegate];
     isBookmarkApplicable = [delegate5 isBookmarkApplicable];
@@ -593,124 +593,124 @@ LABEL_7:
     {
       if (isCurrentPageBookmarked)
       {
-        v15 = THBundle();
-        v16 = [v15 localizedStringForKey:@"Remove Bookmark" value:&stru_471858 table:0];
+        v19 = THBundle(v17, v18);
+        v20 = [v19 localizedStringForKey:@"Remove Bookmark" value:&stru_471858 table:0];
 
         buttonTitleColorDisabled = [UIColor colorWithRed:1.0 green:0.231372549 blue:0.188235294 alpha:1.0];
-        v18 = 0;
-        v19 = @"ib_bookmarks_thumb_remove";
+        v22 = 0;
+        v23 = @"ib_bookmarks_thumb_remove";
         if (isBookPortraitOnly)
         {
-          v19 = @"ib_bookmarks_thumb_remove_portrait";
+          v23 = @"ib_bookmarks_thumb_remove_portrait";
         }
       }
 
       else
       {
-        v16 = v71;
+        v20 = v76;
         theme3 = [(THBookmarkMenuPopoverViewController *)self theme];
         buttonTitleColorDisabled = [theme3 keyColor];
 
-        v19 = @"ib_bookmarks_thumb_add";
+        v23 = @"ib_bookmarks_thumb_add";
         if (isBookPortraitOnly)
         {
-          v19 = @"ib_bookmarks_thumb_add_portrait";
+          v23 = @"ib_bookmarks_thumb_add_portrait";
         }
 
-        v18 = 1;
+        v22 = 1;
       }
 
-      v36 = 3;
+      v41 = 3;
     }
 
     else
     {
-      v16 = v71;
+      v20 = v76;
       buttonTitleColorDisabled = [UIColor colorWithWhite:0.678431373 alpha:1.0];
-      v36 = 0;
-      v19 = @"ib_bookmarks_thumb_add-D";
+      v41 = 0;
+      v23 = @"ib_bookmarks_thumb_add-D";
       if (isBookPortraitOnly)
       {
-        v19 = @"ib_bookmarks_thumb_add_portrait-D";
+        v23 = @"ib_bookmarks_thumb_add_portrait-D";
       }
 
-      v18 = 1;
+      v22 = 1;
     }
 
-    bookmarkFetchedResultsController = v19;
-    v43 = [UIImage th_imageNamed:bookmarkFetchedResultsController];
-    theme2 = v43;
-    if (!v18)
+    bookmarkFetchedResultsController = v23;
+    v48 = [UIImage th_imageNamed:bookmarkFetchedResultsController];
+    theme2 = v48;
+    if (!v22)
     {
-      v34 = 0;
-      v35 = v36;
+      v39 = 0;
+      v40 = v41;
       goto LABEL_27;
     }
 
-    v33 = [v43 imageWithRenderingMode:2];
-    v34 = 0;
-    v35 = v36;
+    v38 = [v48 imageWithRenderingMode:2];
+    v39 = 0;
+    v40 = v41;
   }
 
-  theme2 = v33;
+  theme2 = v38;
 LABEL_27:
 
 LABEL_28:
   themePage = [(THBookmarkMenuPopoverViewController *)self themePage];
   objc_opt_class();
-  v45 = TSUDynamicCast();
-  v46 = v45;
-  if (v45)
+  v50 = TSUDynamicCast();
+  v51 = v50;
+  if (v50)
   {
-    thumbnail = [v45 thumbnail];
+    thumbnail = [v50 thumbnail];
     [thumbnail setImage:theme2];
 
     tableViewSeparatorColor = [themePage tableViewSeparatorColor];
-    v70 = v34;
-    v74 = pathCopy;
+    v75 = v39;
+    v79 = pathCopy;
     cGColor = [tableViewSeparatorColor CGColor];
-    [v46 thumbnail];
-    v50 = v72 = v35;
-    [v50 layer];
-    v51 = v46;
-    v52 = themePage;
-    v53 = theme2;
+    [v51 thumbnail];
+    v55 = v77 = v40;
+    [v55 layer];
+    v56 = v51;
+    v57 = themePage;
+    v58 = theme2;
     selfCopy = self;
-    v55 = buttonTitleColorDisabled;
-    v57 = v56 = v16;
-    v58 = cGColor;
-    pathCopy = v74;
-    [v57 setBorderColor:v58];
+    v60 = buttonTitleColorDisabled;
+    v62 = v61 = v20;
+    v63 = cGColor;
+    pathCopy = v79;
+    [v62 setBorderColor:v63];
 
-    v16 = v56;
-    buttonTitleColorDisabled = v55;
+    v20 = v61;
+    buttonTitleColorDisabled = v60;
     self = selfCopy;
-    theme2 = v53;
-    themePage = v52;
-    v46 = v51;
+    theme2 = v58;
+    themePage = v57;
+    v51 = v56;
 
-    bookmarkTitleLabel = [v51 bookmarkTitleLabel];
-    [bookmarkTitleLabel setText:v16];
+    bookmarkTitleLabel = [v56 bookmarkTitleLabel];
+    [bookmarkTitleLabel setText:v20];
 
-    bookmarkTitleLabel2 = [v51 bookmarkTitleLabel];
+    bookmarkTitleLabel2 = [v56 bookmarkTitleLabel];
     [bookmarkTitleLabel2 setTextColor:buttonTitleColorDisabled];
 
-    pageNumberLabel = [v51 pageNumberLabel];
-    v34 = v70;
+    pageNumberLabel = [v56 pageNumberLabel];
+    v39 = v75;
     [pageNumberLabel setText:?];
 
     bookmarkPageNumberColor = [themePage bookmarkPageNumberColor];
-    pageNumberLabel2 = [v46 pageNumberLabel];
+    pageNumberLabel2 = [v51 pageNumberLabel];
     [pageNumberLabel2 setTextColor:bookmarkPageNumberColor];
 
-    v35 = v72;
+    v40 = v77;
   }
 
-  [cellCopy setSelectionStyle:v35];
-  v64 = [UIView alloc];
+  [cellCopy setSelectionStyle:v40];
+  v69 = [UIView alloc];
   [cellCopy bounds];
-  v65 = [v64 initWithFrame:?];
-  [cellCopy setSelectedBackgroundView:v65];
+  v70 = [v69 initWithFrame:?];
+  [cellCopy setSelectedBackgroundView:v70];
 
   tableViewCellSelectedColor = [themePage tableViewCellSelectedColor];
   selectedBackgroundView = [cellCopy selectedBackgroundView];

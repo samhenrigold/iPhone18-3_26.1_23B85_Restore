@@ -17,7 +17,7 @@ void ___UIApplicationIsMessagesExtension_block_invoke()
     {
       v2 = v0;
       v1 = [v0 identifier];
-      byte_1EA992DB1 = [v1 isEqualToString:@"com.apple.message-payload-provider"];
+      byte_1EA992DB1 = objc_msgSend_isEqualToString_(v1);
 
       v0 = v2;
     }

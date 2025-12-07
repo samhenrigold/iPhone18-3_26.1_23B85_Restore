@@ -18,13 +18,13 @@
 
 - (void)_catalogDownloadFinishedWithResult:(int64_t)result
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = GEOGetMetroRegionLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v12 = 134217984;
+    v11 = 134217984;
     resultCopy = result;
-    _os_log_impl(&dword_1AB634000, v5, OS_LOG_TYPE_INFO, "catalog download reply: %ld", &v12, 0xCu);
+    _os_log_impl(&dword_1AB634000, v5, OS_LOG_TYPE_INFO, "catalog download reply: %ld", &v11, 0xCu);
   }
 
   if (result)
@@ -48,7 +48,6 @@
   countryCode = [mEMORY[0x1E69A1CD8] countryCode];
 
   v10 = [(GEOMetroRegionAssetProvider *)self urlForInstalledCountryCode:countryCode];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCatalogAfterDelay:(double)delay
@@ -65,26 +64,25 @@
 
 uint64_t __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invoke_2;
-  v5[3] = &unk_1E7953DB0;
-  v5[4] = *(a1 + 32);
-  return [v3 _updateCatalogWithResult:v5];
+  v2 = objc_opt_class();
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invoke_2;
+  v4[3] = &unk_1E7953DB0;
+  v4[4] = *(a1 + 32);
+  return [v2 _updateCatalogWithResult:v4];
 }
 
 - (id)_acceptListForCountryCode:(id)code name:(id)name
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v7 = [(GEOMetroRegionAssetProvider *)self urlForInstalledCountryCode:code];
   v8 = MEMORY[0x1E695DF20];
   v9 = [v7 URLByAppendingPathComponent:@"AcceptLists.plist"];
-  v16 = 0;
-  v10 = [v8 dictionaryWithContentsOfURL:v9 error:&v16];
-  v11 = v16;
+  v15 = 0;
+  v10 = [v8 dictionaryWithContentsOfURL:v9 error:&v15];
+  v11 = v15;
 
   if (v11)
   {
@@ -92,7 +90,7 @@ uint64_t __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_1AB634000, v12, OS_LOG_TYPE_ERROR, "query result : %@", buf, 0xCu);
     }
 
@@ -103,8 +101,6 @@ uint64_t __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invo
   {
     v13 = [v10 objectForKeyedSubscript:nameCopy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -135,7 +131,7 @@ uint64_t __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invo
 
 - (id)_bestAvailableAssetForAssetCode:(id)code
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   v4 = [objc_opt_class() _maQueryForAssetCode:codeCopy];
   queryMetaDataSync = [v4 queryMetaDataSync];
@@ -143,7 +139,7 @@ uint64_t __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v25 = queryMetaDataSync;
+    v24 = queryMetaDataSync;
     _os_log_impl(&dword_1AB634000, v6, OS_LOG_TYPE_INFO, "query result : %ld", buf, 0xCu);
   }
 
@@ -155,19 +151,19 @@ uint64_t __56__GEOMetroRegionAssetProvider__updateCatalogAfterDelay___block_invo
     if (os_log_type_enabled(results2, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = codeCopy;
+      v24 = codeCopy;
       _os_log_impl(&dword_1AB634000, results2, OS_LOG_TYPE_INFO, "query for '%@' has no results", buf, 0xCu);
     }
 
     goto LABEL_19;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   results2 = [v4 results];
-  v9 = [results2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [results2 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v9)
   {
 LABEL_19:
@@ -177,17 +173,17 @@ LABEL_19:
 
   v10 = v9;
   v11 = 0;
-  v12 = *v20;
+  v12 = *v19;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v20 != v12)
+      if (*v19 != v12)
       {
         objc_enumerationMutation(results2);
       }
 
-      v14 = *(*(&v19 + 1) + 8 * i);
+      v14 = *(*(&v18 + 1) + 8 * i);
       [v14 logAsset];
       if ([v14 state] == 1)
       {
@@ -213,7 +209,7 @@ LABEL_19:
       }
     }
 
-    v10 = [results2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [results2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       continue;
@@ -223,8 +219,6 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -282,50 +276,48 @@ LABEL_21:
 
 void __82__GEOMetroRegionAssetProvider_preloadAssetForCountryCode_preloadQueue_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{*(a1 + 32), @"CCALLOW", 0}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         dispatch_group_enter(*(a1 + 40));
         v9 = *(a1 + 56);
-        v11[0] = MEMORY[0x1E69E9820];
-        v11[1] = 3221225472;
-        v11[2] = __82__GEOMetroRegionAssetProvider_preloadAssetForCountryCode_preloadQueue_completion___block_invoke_2;
-        v11[3] = &unk_1E7953E00;
-        v12 = *(a1 + 40);
-        v13 = *(a1 + 48);
-        [v9 _unavailableAssetForAssetCode:v8 completion:v11];
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 3221225472;
+        v10[2] = __82__GEOMetroRegionAssetProvider_preloadAssetForCountryCode_preloadQueue_completion___block_invoke_2;
+        v10[3] = &unk_1E7953E00;
+        v11 = *(a1 + 40);
+        v12 = *(a1 + 48);
+        [v9 _unavailableAssetForAssetCode:v8 completion:v10];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__GEOMetroRegionAssetProvider_preloadAssetForCountryCode_preloadQueue_completion___block_invoke_4(uint64_t a1)
@@ -424,7 +416,7 @@ void __82__GEOMetroRegionAssetProvider_preloadAssetForCountryCode_preloadQueue_c
 
 void __72__GEOMetroRegionAssetProvider__unavailableAssetForAssetCode_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -432,34 +424,34 @@ void __72__GEOMetroRegionAssetProvider__unavailableAssetForAssetCode_completion_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_1AB634000, v6, OS_LOG_TYPE_ERROR, "MA query error : (%@)", buf, 0xCu);
     }
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = [*(a1 + 32) results];
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          if ([*(*(&v12 + 1) + 8 * v10) state] == 1)
+          if ([*(*(&v11 + 1) + 8 * v10) state] == 1)
           {
             (*(*(a1 + 40) + 16))();
 
@@ -470,7 +462,7 @@ void __72__GEOMetroRegionAssetProvider__unavailableAssetForAssetCode_completion_
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v8)
         {
           continue;
@@ -483,8 +475,6 @@ void __72__GEOMetroRegionAssetProvider__unavailableAssetForAssetCode_completion_
 
   (*(*(a1 + 40) + 16))();
 LABEL_14:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_maQueryForAssetCode:(id)code
@@ -540,25 +530,24 @@ LABEL_14:
 
 uint64_t __57__GEOMetroRegionAssetProvider__downloadAsset_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = GEOGetMetroRegionLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) getLocalUrl];
-    v8 = 134218242;
-    v9 = a2;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_1AB634000, v4, OS_LOG_TYPE_INFO, "Got the asset download reply: %ld, and %@", &v8, 0x16u);
+    v7 = 134218242;
+    v8 = a2;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1AB634000, v4, OS_LOG_TYPE_INFO, "Got the asset download reply: %ld, and %@", &v7, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 

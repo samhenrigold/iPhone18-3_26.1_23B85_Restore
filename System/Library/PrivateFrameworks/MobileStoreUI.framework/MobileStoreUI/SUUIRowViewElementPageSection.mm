@@ -52,9 +52,9 @@
   pageComponent = [(SUUIStorePageSection *)self pageComponent];
   viewElement = [pageComponent viewElement];
   type = [viewElement type];
-  v6 = [type isEqualToString:@"modern"];
+  isEqualToString = objc_msgSend_isEqualToString_(type);
 
-  if (v6 && (-[SUUIStorePageSection pageComponent](self, "pageComponent"), v7 = objc_claimAutoreleasedReturnValue(), [v7 viewElement], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "style"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "valueForStyle:", *MEMORY[0x277D1AFE8]), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v10))
+  if (isEqualToString && (-[SUUIStorePageSection pageComponent](self, "pageComponent"), v7 = objc_claimAutoreleasedReturnValue(), [v7 viewElement], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "style"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "valueForStyle:", *MEMORY[0x277D1AFE8]), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v10))
   {
     [v10 edgeInsetsValue];
     v12 = v11;
@@ -160,7 +160,7 @@
   v28 = floorf(v27);
   style = [v9 style];
   visibility = [style visibility];
-  LODWORD(collectionView) = [visibility isEqualToString:@"hidden"];
+  LODWORD(collectionView) = objc_msgSend_isEqualToString_(visibility);
 
   if (collectionView)
   {

@@ -3,6 +3,8 @@
 - (BRCSharingModifyShareOperation)initWithName:(id)name zone:(id)zone share:(id)share sessionContext:(id)context;
 - (id)createActivity;
 - (void)_performAfterCopyingPublicSharingKeyWithRecordID:(id)d completion:(id)completion;
+- (void)_performAfterFetchingSharingIdentityOnDirectoryItem:(id)item wantRoutingKey:(BOOL)key completion:(id)completion;
+- (void)_performAfterFetchingSharingIdentityOnDocumentItem:(id)item wantRoutingKey:(BOOL)key completion:(id)completion;
 - (void)_performAfterFetchingiWorkRoutingTokenIfNecessary:(id)necessary completion:(id)completion;
 - (void)_performAfterFetchingiWorkSharingIdentityOnItem:(id)item wantRoutingKey:(BOOL)key completion:(id)completion;
 - (void)_performAfterGettingPublicSharingKeyForRecord:(id)record completion:(id)completion;
@@ -83,7 +85,7 @@
 
 void __93__BRCSharingModifyShareOperation__updateDBAndSyncDownIfNeededWithShare_recordsToLearnCKInfo___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) learnCKInfosFromSavedRecords:*(a1 + 40) isOutOfBandModifyRecords:1];
   v2 = [*(a1 + 32) itemByItemID:*(*(a1 + 48) + 536)];
   v3 = [v2 asShareableItem];
@@ -122,25 +124,25 @@ void __93__BRCSharingModifyShareOperation__updateDBAndSyncDownIfNeededWithShare_
       v7 = v6 ^ 8;
     }
 
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v8 = [*(a1 + 56) participants];
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v33 count:16];
     if (v9)
     {
-      v10 = *v25;
+      v10 = *v24;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * i);
+          v12 = *(*(&v23 + 1) + 8 * i);
           if ([v12 role] != 1 && objc_msgSend(v12, "permission") > 1)
           {
             LODWORD(v9) = 1;
@@ -148,7 +150,7 @@ void __93__BRCSharingModifyShareOperation__updateDBAndSyncDownIfNeededWithShare_
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v23 objects:v33 count:16];
         if (v9)
         {
           continue;
@@ -199,11 +201,11 @@ LABEL_27:
       v15 = *(*(a1 + 48) + 536);
       v16 = *(a1 + 32);
       *buf = 138412802;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v16;
-      v32 = 2112;
-      v33 = v13;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v16;
+      v31 = 2112;
+      v32 = v13;
       _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't find item %@ in zone %@%@", buf, 0x20u);
     }
   }
@@ -214,45 +216,42 @@ LABEL_27:
   {
     [*(a1 + 32) scheduleSyncDownFirst];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performAfterCopyingPublicSharingKeyWithRecordID:(id)d completion:(id)completion
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   v8 = objc_alloc(MEMORY[0x277CBC3E0]);
-  v19[0] = dCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = dCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v10 = [v8 initWithRecordIDs:v9];
 
   [v10 setShouldFetchAssetContent:0];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __94__BRCSharingModifyShareOperation__performAfterCopyingPublicSharingKeyWithRecordID_completion___block_invoke;
-  v15[3] = &unk_278503E90;
-  v16 = dCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __94__BRCSharingModifyShareOperation__performAfterCopyingPublicSharingKeyWithRecordID_completion___block_invoke;
+  v14[3] = &unk_278503E90;
+  v15 = dCopy;
   selfCopy = self;
-  v18 = completionCopy;
+  v17 = completionCopy;
   v11 = completionCopy;
   v12 = dCopy;
-  [v10 setFetchRecordsCompletionBlock:v15];
+  [v10 setFetchRecordsCompletionBlock:v14];
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   [v10 setCallbackQueue:callbackQueue];
 
   [(_BRCOperation *)self addSubOperation:v10];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __94__BRCSharingModifyShareOperation__performAfterCopyingPublicSharingKeyWithRecordID_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v14 = a3;
+  v13 = a3;
   v5 = [a2 objectForKeyedSubscript:a1[4]];
-  v6 = v14;
+  v6 = v13;
   v7 = v5;
-  if (!v14)
+  if (!v13)
   {
     v8 = [v5 encryptedPublicSharingKey];
 
@@ -277,14 +276,13 @@ void __94__BRCSharingModifyShareOperation__performAfterCopyingPublicSharingKeyWi
     }
   }
 
-  v13 = a1[5];
-  v15 = v6;
+  v14 = v6;
   (*(a1[6] + 16))();
 }
 
 - (void)_performAfterGettingPublicSharingKeyForRecord:(id)record completion:(id)completion
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   completionCopy = completion;
   v8 = brc_bread_crumbs();
@@ -302,32 +300,31 @@ void __94__BRCSharingModifyShareOperation__performAfterCopyingPublicSharingKeyWi
   recordID = [recordCopy recordID];
   [recordCopy setWantsPublicSharingKey:1];
   v11 = objc_alloc(MEMORY[0x277CBC4A0]);
-  v21[0] = recordCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = recordCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v13 = [v11 initWithRecordsToSave:v12 recordIDsToDelete:0];
 
   [v13 setAtomic:1];
   [v13 setSavePolicy:0];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyForRecord_completion___block_invoke;
-  v18[3] = &unk_2785067F8;
-  v19 = recordID;
-  v20 = completionCopy;
-  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyForRecord_completion___block_invoke;
+  v17[3] = &unk_2785067F8;
+  v18 = recordID;
+  v19 = completionCopy;
+  v17[4] = self;
   v14 = recordID;
   v15 = completionCopy;
-  [v13 setModifyRecordsCompletionBlock:v18];
+  [v13 setModifyRecordsCompletionBlock:v17];
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   [v13 setCallbackQueue:callbackQueue];
 
   [(_BRCOperation *)self addSubOperation:v13];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyForRecord_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   if ([v6 count])
@@ -375,17 +372,17 @@ void __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyFo
 
     else
     {
-      v23 = brc_bread_crumbs();
-      v24 = brc_default_log();
-      if (os_log_type_enabled(v24, 0x90u))
+      v22 = brc_bread_crumbs();
+      v23 = brc_default_log();
+      if (os_log_type_enabled(v23, 0x90u))
       {
         __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyForRecord_completion___block_invoke_cold_3();
       }
 
-      v25 = *(a1 + 48);
-      v26 = *(a1 + 32);
-      v27 = [v7 brc_cloudKitErrorForRecordID:*(a1 + 40)];
-      (*(v25 + 16))(v25, v26, v27);
+      v24 = *(a1 + 48);
+      v25 = *(a1 + 32);
+      v26 = [v7 brc_cloudKitErrorForRecordID:*(a1 + 40)];
+      (*(v24 + 16))(v24, v25, v26);
     }
   }
 
@@ -393,13 +390,13 @@ void __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyFo
   {
     v15 = [*(*(a1 + 32) + 520) clientZone];
     v16 = [v15 db];
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyForRecord_completion___block_invoke_14;
-    v33 = &unk_2784FF788;
-    v34 = *(a1 + 32);
-    v35 = v6;
-    [v16 groupInBatch:&v30];
+    v28 = MEMORY[0x277D85DD0];
+    v29 = 3221225472;
+    v30 = __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyForRecord_completion___block_invoke_14;
+    v31 = &unk_2784FF788;
+    v32 = *(a1 + 32);
+    v33 = v6;
+    [v16 groupInBatch:&v28];
 
     objc_storeStrong((*(a1 + 32) + 544), v8);
     v17 = [v8 encryptedPublicSharingKey];
@@ -415,19 +412,16 @@ void __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyFo
     v21 = brc_default_log();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *(*(a1 + 32) + 528);
+      v27 = *(*(a1 + 32) + 528);
       *buf = 138412546;
-      v37 = v29;
-      v38 = 2112;
-      v39 = v20;
+      v35 = v27;
+      v36 = 2112;
+      v37 = v20;
       _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] Got sharing identity for share - %@%@", buf, 0x16u);
     }
 
-    v22 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyForRecord_completion___block_invoke_14(uint64_t a1)
@@ -458,6 +452,71 @@ void __91__BRCSharingModifyShareOperation__performAfterGettingPublicSharingKeyFo
   }
 
   return !v6;
+}
+
+- (void)_performAfterFetchingSharingIdentityOnDocumentItem:(id)item wantRoutingKey:(BOOL)key completion:(id)completion
+{
+  keyCopy = key;
+  itemCopy = item;
+  completionCopy = completion;
+  if ([(BRCSharingModifyShareOperation *)self _shouldFetchSharingIdentity:keyCopy])
+  {
+    if (([itemCopy sharingOptions] & 4) != 0)
+    {
+      documentRecordID = [itemCopy documentRecordID];
+      [(BRCSharingModifyShareOperation *)self _performAfterCopyingPublicSharingKeyWithRecordID:documentRecordID completion:completionCopy];
+    }
+
+    else
+    {
+      documentRecordID = [itemCopy baseRecord];
+      currentVersion = [itemCopy currentVersion];
+      ckInfo = [currentVersion ckInfo];
+      [documentRecordID serializeSystemFields:ckInfo];
+
+      [(BRCSharingModifyShareOperation *)self _performAfterGettingPublicSharingKeyForRecord:documentRecordID completion:completionCopy];
+    }
+  }
+
+  else
+  {
+    completionCopy[2](completionCopy, self, 0);
+  }
+}
+
+- (void)_performAfterFetchingSharingIdentityOnDirectoryItem:(id)item wantRoutingKey:(BOOL)key completion:(id)completion
+{
+  keyCopy = key;
+  itemCopy = item;
+  completionCopy = completion;
+  if ([(BRCSharingModifyShareOperation *)self _shouldFetchSharingIdentity:keyCopy])
+  {
+    if (([itemCopy sharingOptions] & 4) != 0)
+    {
+      itemID = [itemCopy itemID];
+      v13 = [itemCopy st];
+      type = [v13 type];
+      serverZone = [itemCopy serverZone];
+      v16 = [itemID structureRecordIDForItemType:type zone:serverZone aliasTargetZoneIsShared:1];
+
+      [(BRCSharingModifyShareOperation *)self _performAfterCopyingPublicSharingKeyWithRecordID:v16 completion:completionCopy];
+    }
+
+    else
+    {
+      folderRootStructureRecord = [itemCopy folderRootStructureRecord];
+      v10 = [itemCopy st];
+      ckInfo = [v10 ckInfo];
+      [folderRootStructureRecord serializeSystemFields:ckInfo];
+
+      [(BRCSharingModifyShareOperation *)self _performAfterGettingPublicSharingKeyForRecord:folderRootStructureRecord completion:completionCopy];
+    }
+  }
+
+  else
+  {
+    completionCopy[2](completionCopy, self, 0);
+  }
 }
 
 - (void)_performAfterFetchingiWorkRoutingTokenIfNecessary:(id)necessary completion:(id)completion
@@ -549,13 +608,12 @@ void __95__BRCSharingModifyShareOperation__performAfterFetchingiWorkRoutingToken
     __95__BRCSharingModifyShareOperation__performAfterFetchingiWorkRoutingTokenIfNecessary_completion___block_invoke_cold_2();
   }
 
-  v11 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 - (void)_performAfterFetchingiWorkSharingIdentityOnItem:(id)item wantRoutingKey:(BOOL)key completion:(id)completion
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
   baseToken = [(CKShare *)self->_share baseToken];
@@ -597,39 +655,37 @@ LABEL_7:
 
   documentRecordID = [itemCopy documentRecordID];
   v18 = objc_alloc(MEMORY[0x277CBC3E0]);
-  v33[0] = documentRecordID;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = documentRecordID;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   v20 = [v18 initWithRecordIDs:v19];
 
   v21 = *MEMORY[0x277CBC150];
-  v32[0] = *MEMORY[0x277CBC138];
-  v32[1] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[0] = *MEMORY[0x277CBC138];
+  v31[1] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
   [v20 setDesiredKeys:v22];
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __108__BRCSharingModifyShareOperation__performAfterFetchingiWorkSharingIdentityOnItem_wantRoutingKey_completion___block_invoke;
-  v26[3] = &unk_278506848;
-  v27 = documentRecordID;
-  v28 = itemCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __108__BRCSharingModifyShareOperation__performAfterFetchingiWorkSharingIdentityOnItem_wantRoutingKey_completion___block_invoke;
+  v25[3] = &unk_278506848;
+  v26 = documentRecordID;
+  v27 = itemCopy;
   selfCopy = self;
   keyCopy = key;
-  v30 = completionCopy;
+  v29 = completionCopy;
   v23 = documentRecordID;
-  [v20 setFetchRecordsCompletionBlock:v26];
+  [v20 setFetchRecordsCompletionBlock:v25];
   callbackQueue = [(_BRCOperation *)self callbackQueue];
   [v20 setCallbackQueue:callbackQueue];
 
   [(_BRCOperation *)self addSubOperation:v20];
 LABEL_12:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __108__BRCSharingModifyShareOperation__performAfterFetchingiWorkSharingIdentityOnItem_wantRoutingKey_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 objectForKeyedSubscript:*(a1 + 32)];
   v7 = [v6 objectForKeyedSubscript:*MEMORY[0x277CBC138]];
@@ -703,11 +759,11 @@ LABEL_8:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
-      v41 = v7;
-      v42 = 2112;
-      v43 = v9;
-      v44 = 2112;
-      v45 = v18;
+      v40 = v7;
+      v41 = 2112;
+      v42 = v9;
+      v43 = 2112;
+      v44 = v18;
       _os_log_fault_impl(&dword_223E7A000, v19, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: no base token %@ or sharing identity %@ and no error%@", buf, 0x20u);
     }
 
@@ -748,11 +804,11 @@ LABEL_39:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
-      v41 = v9;
-      v42 = 2112;
-      v43 = v23;
-      v44 = 2112;
-      v45 = v27;
+      v40 = v9;
+      v41 = 2112;
+      v42 = v23;
+      v43 = 2112;
+      v44 = v27;
       _os_log_fault_impl(&dword_223E7A000, v28, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Sharing identities don't match (%@ vs %@)! Trying to fix up the identities%@", buf, 0x20u);
     }
 
@@ -788,11 +844,11 @@ LABEL_39:
   v35 = brc_default_log();
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
-    v39 = *(*(a1 + 48) + 528);
+    v38 = *(*(a1 + 48) + 528);
     *buf = 138412546;
-    v41 = v39;
-    v42 = 2112;
-    v43 = v34;
+    v40 = v38;
+    v41 = 2112;
+    v42 = v34;
     _os_log_debug_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEBUG, "[DEBUG] Got iWork sharing identify for share - %@%@", buf, 0x16u);
   }
 
@@ -803,8 +859,6 @@ LABEL_39:
 
   [*(a1 + 48) _performAfterFetchingiWorkRoutingTokenIfNecessary:v6 completion:*(a1 + 56)];
 LABEL_40:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performAfterPreparingSharingIdentityIfNecessaryWhenWantRoutingKey:(BOOL)key completion:(id)completion

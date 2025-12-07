@@ -19,6 +19,7 @@
 - (BOOL)_allowedToSendTypingIndicators;
 - (BOOL)_chatHasValidUnreadMessageToLoad;
 - (BOOL)_contactsForVisualIdentityHaveKeys:(id)keys;
+- (BOOL)_earlyReturnHistoryLoad;
 - (BOOL)_handleIsForThisConversation:(id)conversation;
 - (BOOL)_isOTPChatBotRelayChat;
 - (BOOL)_isSendButtonDisabledForCarrierMessaging;
@@ -382,7 +383,7 @@
   selfCopy = self;
   v3 = CKConversation.isPlaceholder.getter();
 
-  return v3 & 1;
+  return v3;
 }
 
 - (NSString)conversationListCollectionViewListItemIdentifier
@@ -448,11 +449,12 @@
 - (NSString)displayName
 {
   shouldDisplayGroupIdentity = [(CKConversation *)self shouldDisplayGroupIdentity];
-  chat = CKConversationGroupPhoto();
-  v5 = os_log_type_enabled(chat, OS_LOG_TYPE_DEFAULT);
-  if (shouldDisplayGroupIdentity)
+  v4 = shouldDisplayGroupIdentity;
+  chat = CKConversationGroupPhoto(shouldDisplayGroupIdentity);
+  v6 = os_log_type_enabled(chat, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
       _os_log_impl(&dword_19020E000, chat, OS_LOG_TYPE_DEFAULT, "Using chat display name.", buf, 2u);
@@ -464,10 +466,10 @@
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      *v20 = 0;
-      _os_log_impl(&dword_19020E000, chat, OS_LOG_TYPE_DEFAULT, "Withholding chat display name because shouldDisplayGroupIdentity == false.", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_19020E000, chat, OS_LOG_TYPE_DEFAULT, "Withholding chat display name because shouldDisplayGroupIdentity == false.", v22, 2u);
     }
 
     displayName = 0;
@@ -483,16 +485,16 @@
 
     if (isStewieSharingChat)
     {
-      v11 = MEMORY[0x1E696AEC0];
-      v12 = CKFrameworkBundle();
-      v13 = [v12 localizedStringForKey:@"TS_CONVERSATION_NAME" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+      v13 = MEMORY[0x1E696AEC0];
+      v14 = CKFrameworkBundle(v12);
+      v15 = [v14 localizedStringForKey:@"TS_CONVERSATION_NAME" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
       chat3 = [(CKConversation *)self chat];
       emergencyUserHandle = [chat3 emergencyUserHandle];
       chat4 = [(CKConversation *)self chat];
-      v17 = [emergencyUserHandle displayNameForChat:chat4];
-      v18 = [v11 localizedStringWithFormat:v13, v17];
+      v19 = [emergencyUserHandle displayNameForChat:chat4];
+      v20 = [v13 localizedStringWithFormat:v15, v19];
 
-      displayName = v18;
+      displayName = v20;
     }
   }
 
@@ -809,28 +811,29 @@ LABEL_12:
 
 - (id)groupPhotoData
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (![(CKConversation *)self isGroupConversation])
   {
-    v7 = 0;
+    v8 = 0;
     goto LABEL_38;
   }
 
-  if ([(CKConversation *)self shouldDisplayGroupIdentity])
+  shouldDisplayGroupIdentity = [(CKConversation *)self shouldDisplayGroupIdentity];
+  if (shouldDisplayGroupIdentity)
   {
     _groupPhotoFileURL = [(CKConversation *)self _groupPhotoFileURL];
-    v4 = _groupPhotoFileURL;
+    v5 = _groupPhotoFileURL;
     if (_groupPhotoFileURL)
     {
       path = [_groupPhotoFileURL path];
       if (IMOSLoggingEnabled())
       {
-        v6 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v18 = path;
-          _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "groupPhotoFilePath is: %@", buf, 0xCu);
+          v19 = path;
+          _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "groupPhotoFilePath is: %@", buf, 0xCu);
         }
       }
 
@@ -838,35 +841,35 @@ LABEL_12:
       {
         if (IMOSLoggingEnabled())
         {
-          v14 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          v15 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v18 = path;
-            _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "groupPhotoFilePath is nil: %@", buf, 0xCu);
+            v19 = path;
+            _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "groupPhotoFilePath is nil: %@", buf, 0xCu);
           }
         }
 
-        v7 = 0;
+        v8 = 0;
         goto LABEL_36;
       }
 
-      v16 = 0;
-      v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:path options:8 error:&v16];
-      v8 = v16;
-      v9 = IMOSLoggingEnabled();
-      if (v8)
+      v17 = 0;
+      v8 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:path options:8 error:&v17];
+      v9 = v17;
+      v10 = IMOSLoggingEnabled();
+      if (v9)
       {
-        if (v9)
+        if (v10)
         {
-          v10 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          v11 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v18 = path;
-            v19 = 2112;
-            v20 = v8;
-            _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_INFO, "Error loading group photo at path %@ error: %@", buf, 0x16u);
+            v19 = path;
+            v20 = 2112;
+            v21 = v9;
+            _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_INFO, "Error loading group photo at path %@ error: %@", buf, 0x16u);
           }
         }
 
@@ -875,18 +878,18 @@ LABEL_12:
           goto LABEL_35;
         }
 
-        v11 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v18 = path;
-          _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_INFO, "Error loading group photo: %@", buf, 0xCu);
+          v19 = path;
+          _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "Error loading group photo: %@", buf, 0xCu);
         }
       }
 
       else
       {
-        if (!v9)
+        if (!v10)
         {
 LABEL_35:
 
@@ -894,12 +897,12 @@ LABEL_36:
           goto LABEL_37;
         }
 
-        v11 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v12 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v18 = path;
-          _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_INFO, "no error in loading group photo data at path: %@", buf, 0xCu);
+          v19 = path;
+          _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "no error in loading group photo data at path: %@", buf, 0xCu);
         }
       }
 
@@ -908,34 +911,34 @@ LABEL_36:
 
     if (IMOSLoggingEnabled())
     {
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v18 = 0;
-        _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_INFO, "groupPhotoFileURL is nil: %@", buf, 0xCu);
+        v19 = 0;
+        _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "groupPhotoFileURL is nil: %@", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v4 = CKConversationGroupPhoto();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CKConversationGroupPhoto(shouldDisplayGroupIdentity);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       chatIdentifier = [(IMChat *)self->_chat chatIdentifier];
       *buf = 138412290;
-      v18 = chatIdentifier;
-      _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_DEFAULT, "Not returning group photo because shouldDisplayGroupIdentity == NO, for chat with identifier: %@", buf, 0xCu);
+      v19 = chatIdentifier;
+      _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_DEFAULT, "Not returning group photo because shouldDisplayGroupIdentity == NO, for chat with identifier: %@", buf, 0xCu);
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_37:
 
 LABEL_38:
 
-  return v7;
+  return v8;
 }
 
 - (id)_groupPhotoFileURL
@@ -1221,7 +1224,7 @@ LABEL_10:
     if ([lastFinishedMessageItem isCorrupt])
     {
       v6 = objc_alloc(MEMORY[0x1E696AAB0]);
-      lastFinishedMessage = CKFrameworkBundle();
+      lastFinishedMessage = CKFrameworkBundle(v6);
       v8 = [lastFinishedMessage localizedStringForKey:@"CORRUPT_MESSAGE_FALLBACK_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
       v9 = [v6 initWithString:v8];
       v10 = self->_previewText;
@@ -2270,7 +2273,7 @@ LABEL_12:
 
   v3 = IMSharedHelperGroupNameAndPhotoRequiresParticipantContact();
   chat = [(CKConversation *)self chat];
-  v5 = chat;
+  v6 = chat;
   if (v3)
   {
     if ([chat hasKnownParticipantsCache])
@@ -2287,7 +2290,7 @@ LABEL_12:
 
   else
   {
-    containsMessageFromContact = [chat isKnownSenderWithUnknownFilteringEnabled:CKMessageUnknownFilteringEnabled() != 0];
+    containsMessageFromContact = [chat isKnownSenderWithUnknownFilteringEnabled:{CKMessageUnknownFilteringEnabled(chat, v5) != 0}];
   }
 
   return containsMessageFromContact;
@@ -2544,19 +2547,24 @@ void __69__CKConversation_generateMissingWatchAssetIfNecessaryWithCompletion___b
 - (void)didBecomeActive
 {
   chat = [(CKConversation *)self chat];
-  if (!chat && IMOSLoggingEnabled())
+  v3 = chat;
+  if (!chat)
   {
-    v3 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    chat = IMOSLoggingEnabled();
+    if (chat)
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "No chat found, bailing", v4, 2u);
+      v4 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      {
+        *v5 = 0;
+        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "No chat found, bailing", v5, 2u);
+      }
     }
   }
 
-  if (!CKIsRunningInMessagesNotificationExtension() && !CKIsRunningInMessagesViewService() && (IMSharedHelperIsOlderDevice() & 1) == 0)
+  if (!CKIsRunningInMessagesNotificationExtension(chat) && !CKIsRunningInMessagesViewService() && (IMSharedHelperIsOlderDevice() & 1) == 0)
   {
-    [chat beginListeningToAttributionChanges];
+    [v3 beginListeningToAttributionChanges];
   }
 }
 
@@ -2852,7 +2860,7 @@ LABEL_11:
 
 - (void)acceptTransfer:(id)transfer
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
   if (IMOSLoggingEnabled())
   {
@@ -2861,15 +2869,14 @@ LABEL_11:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v8 = transferCopy;
+      v13 = transferCopy;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Accept transfer %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    v6 = transferCopy;
-    _CKLogExternal();
+    _CKLogExternal(0x13u, @"Accept transfer %@", v5, v6, v7, v8, v9, v10, transferCopy);
   }
 
   mEMORY[0x1E69A5B80] = [MEMORY[0x1E69A5B80] sharedInstance];
@@ -2878,7 +2885,7 @@ LABEL_11:
 
 - (void)acceptTransferAndUpdateReasonForTapped:(id)tapped
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   tappedCopy = tapped;
   if (IMOSLoggingEnabled())
   {
@@ -2887,15 +2894,14 @@ LABEL_11:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v8 = tappedCopy;
+      v13 = tappedCopy;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Accept transfer %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    v6 = tappedCopy;
-    _CKLogExternal();
+    _CKLogExternal(0x13u, @"Accept transfer %@", v5, v6, v7, v8, v9, v10, tappedCopy);
   }
 
   mEMORY[0x1E69A5B80] = [MEMORY[0x1E69A5B80] sharedInstance];
@@ -2904,7 +2910,7 @@ LABEL_11:
 
 - (void)retrieveLocalFileURLForTransferGUID:(id)d
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (IMOSLoggingEnabled())
   {
@@ -2913,15 +2919,14 @@ LABEL_11:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v8 = dCopy;
+      v13 = dCopy;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Retrieve local file URL for transfer %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    v6 = dCopy;
-    _CKLogExternal();
+    _CKLogExternal(0x13u, @"Retrieve local file URL for transfer %@", v5, v6, v7, v8, v9, v10, dCopy);
   }
 
   mEMORY[0x1E69A5B80] = [MEMORY[0x1E69A5B80] sharedInstance];
@@ -3089,11 +3094,12 @@ void __63__CKConversation__handleLazuliCapabilitiesUpdatedNotification___block_i
 
 - (NSString)fallbackSendString
 {
-  if ([(CKConversation *)self isToEmailAddress])
+  isToEmailAddress = [(CKConversation *)self isToEmailAddress];
+  if (isToEmailAddress)
   {
-    v3 = CKFrameworkBundle();
-    v4 = v3;
-    v5 = @"MADRID_SEND_TO_EMAIL";
+    v4 = CKFrameworkBundle(isToEmailAddress);
+    v5 = v4;
+    v6 = @"MADRID_SEND_TO_EMAIL";
   }
 
   else
@@ -3101,22 +3107,22 @@ void __63__CKConversation__handleLazuliCapabilitiesUpdatedNotification___block_i
     chat = [(CKConversation *)self chat];
     isRCS = [chat isRCS];
 
-    v3 = CKFrameworkBundle();
-    v4 = v3;
+    v4 = CKFrameworkBundle(v9);
+    v5 = v4;
     if (isRCS)
     {
-      v5 = @"LAZULI_SEND_AS_TEXT_MESSAGE";
+      v6 = @"LAZULI_SEND_AS_TEXT_MESSAGE";
     }
 
     else
     {
-      v5 = @"MADRID_SEND_AS_TEXT_MESSAGE";
+      v6 = @"MADRID_SEND_AS_TEXT_MESSAGE";
     }
   }
 
-  v8 = [v3 localizedStringForKey:v5 value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v4 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v8;
+  return v10;
 }
 
 - (BOOL)canLeave
@@ -3162,7 +3168,7 @@ void __63__CKConversation__handleLazuliCapabilitiesUpdatedNotification___block_i
 
 - (BOOL)supportsMutatingGroupMembers
 {
-  if ((CKIsRunningUITests() || CKIsRunningForDevelopmentOnSimulator()) && [(CKConversation *)self isGroupConversation])
+  if ((CKIsRunningUITests(self, a2) || CKIsRunningForDevelopmentOnSimulator()) && [(CKConversation *)self isGroupConversation])
   {
     return 1;
   }
@@ -4037,7 +4043,7 @@ void __58__CKConversation_orderedContactsWithMaxCount_keysToFetch___block_invoke
 
 - (void)refreshServiceForSending
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(38);
@@ -4045,15 +4051,14 @@ void __58__CKConversation_orderedContactsWithMaxCount_keysToFetch___block_invoke
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v7 = "[CKConversation refreshServiceForSending]";
+      v12 = "[CKConversation refreshServiceForSending]";
       _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v5 = "[CKConversation refreshServiceForSending]";
-    _CKLog();
+    _CKLog(0x26u, @"%s", v4, v5, v6, v7, v8, v9, "[CKConversation refreshServiceForSending]");
   }
 
   chat = [(CKConversation *)self chat];
@@ -4128,7 +4133,7 @@ LABEL_12:
 
 - (void)_handlePreferredServiceChangedNotification:(id)notification
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   if (IMOSLoggingEnabled())
   {
@@ -4137,15 +4142,14 @@ LABEL_12:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v9 = "[CKConversation _handlePreferredServiceChangedNotification:]";
+      v14 = "[CKConversation _handlePreferredServiceChangedNotification:]";
       _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v7 = "[CKConversation _handlePreferredServiceChangedNotification:]";
-    _CKLog();
+    _CKLog(0x26u, @"%s", v6, v7, v8, v9, v10, v11, "[CKConversation _handlePreferredServiceChangedNotification:]");
   }
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -4314,7 +4318,7 @@ LABEL_11:
 - (void)_deleteAllMessagesAndRemoveGroup:(BOOL)group
 {
   groupCopy = group;
-  v26 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(27);
@@ -4323,84 +4327,89 @@ LABEL_11:
     {
       *buf = 138412546;
       selfCopy = self;
-      v24 = 1024;
-      v25 = groupCopy;
+      v28 = 1024;
+      v29 = groupCopy;
       _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_DEBUG, "deleting all messages involving conversation %@ and removing group: %d", buf, 0x12u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    selfCopy2 = self;
-    v21 = groupCopy;
-    _CKLog();
+    _CKLog(0x1Bu, @"deleting all messages involving conversation %@ and removing group: %d", v6, v7, v8, v9, v10, v11, self);
   }
 
-  v6 = [(CKConversation *)self chat:selfCopy2];
-  isBusinessChat = [v6 isBusinessChat];
+  chat = [(CKConversation *)self chat];
+  isBusinessChat = [chat isBusinessChat];
   mEMORY[0x1E69A7FC8] = [MEMORY[0x1E69A7FC8] sharedManager];
   if ([mEMORY[0x1E69A7FC8] isFeatureEnabled])
   {
-    hasCommSafetySensitiveMessage = [v6 hasCommSafetySensitiveMessage];
+    hasCommSafetySensitiveMessage = [chat hasCommSafetySensitiveMessage];
 
     if (!hasCommSafetySensitiveMessage)
     {
       goto LABEL_12;
     }
 
-    v10 = MEMORY[0x1E69A5B30];
+    v16 = MEMORY[0x1E69A5B30];
     mEMORY[0x1E69A7FC8] = [(CKConversation *)self chat];
-    [v10 registerEvent:2 eventType:3 messageGUID:0 chat:mEMORY[0x1E69A7FC8] forImages:0];
+    [v16 registerEvent:2 eventType:3 messageGUID:0 chat:mEMORY[0x1E69A7FC8] forImages:0];
   }
 
 LABEL_12:
   if (groupCopy)
   {
-    [v6 remove];
+    [chat remove];
   }
 
   else
   {
-    [v6 deleteAllHistory];
+    [chat deleteAllHistory];
   }
 
   if (isBusinessChat)
   {
-    [v6 deleteExtensionPayloadData];
+    [chat deleteExtensionPayloadData];
   }
 
   if (![(CKConversation *)self isGroupConversation])
   {
     recipient = [(CKConversation *)self recipient];
     rawAddress = [recipient rawAddress];
-    v13 = rawAddress == 0;
+    v19 = rawAddress == 0;
 
-    if (!v13)
+    if (!v19)
     {
-      v14 = objc_alloc_init(CKDetailsContactsManager);
+      v20 = objc_alloc_init(CKDetailsContactsManager);
       recipient2 = [(CKConversation *)self recipient];
       rawAddress2 = [recipient2 rawAddress];
-      [(CKDetailsContactsManager *)v14 setPreferredCallService:0 forID:rawAddress2];
+      [(CKDetailsContactsManager *)v20 setPreferredCallService:0 forID:rawAddress2];
     }
   }
 
-  v17 = +[CKDraftManager sharedInstance];
-  [v17 setDraft:0 forConversation:self];
+  v23 = +[CKDraftManager sharedInstance];
+  [v23 setDraft:0 forConversation:self];
 
   if (IMOSLoggingEnabled())
   {
-    v18 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v24 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       selfCopy = "[CKConversation _deleteAllMessagesAndRemoveGroup:]";
-      _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "%s requesting purge of default snapshot", buf, 0xCu);
+      _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "%s requesting purge of default snapshot", buf, 0xCu);
     }
   }
 
-  v19 = objc_alloc_init(MEMORY[0x1E69D41A0]);
-  [v19 deleteSnapshotsForApplicationIdentifier:@"com.apple.MobileSMS"];
-  [v19 invalidate];
+  v25 = objc_alloc_init(MEMORY[0x1E69D41A0]);
+  [v25 deleteSnapshotsForApplicationIdentifier:@"com.apple.MobileSMS"];
+  [v25 invalidate];
+}
+
+- (BOOL)_earlyReturnHistoryLoad
+{
+  v2 = CKIsRunningInPreferences(self, a2);
+  result = !v2 && (v2 = CKIsRunningInNanoSettings(v2, v3), !v2) && (v2 = CKIsRunningInMessagesOrSpringBoard(v2), !v2) && (v2 = IMIsRunningInMessagesComposeViewService(), (v2 & 1) == 0) && (v2 = CKIsRunningInMessagesNotificationExtension(v2), !v2) && (v2 = CKIsRunningInMessagesAssistantUIExtension(v2), !v2) && (v2 = CKIsRunningInMessagesTranscriptExtension(v2), !v2) || CKIsRunningUnitTests(v2, v3) != 0;
+  return result;
 }
 
 - (void)loadAllMessages
@@ -4645,21 +4654,21 @@ uint64_t __35__CKConversation_fetchAllMessages___block_invoke(uint64_t a1)
 
 - (void)loadFrequentReplies
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (CKIsRunningInMessagesOrSpringBoard() || (IMIsRunningInMessagesComposeViewService() & 1) != 0 || CKIsRunningInMessagesNotificationExtension())
+  v19 = *MEMORY[0x1E69E9840];
+  if (CKIsRunningInMessagesOrSpringBoard(self) || (v3 = IMIsRunningInMessagesComposeViewService(), (v3 & 1) != 0) || CKIsRunningInMessagesNotificationExtension(v3))
   {
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(21);
-      v3 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v4 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         chat = self->_chat;
         *buf = 138412546;
-        v11 = chat;
-        v12 = 2112;
+        v16 = chat;
+        v17 = 2112;
         selfCopy = self;
-        _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_DEBUG, "Loading common replies for imchat %@ on conversation %@", buf, 0x16u);
+        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_DEBUG, "Loading common replies for imchat %@ on conversation %@", buf, 0x16u);
       }
     }
 
@@ -4667,16 +4676,14 @@ uint64_t __35__CKConversation_fetchAllMessages___block_invoke(uint64_t a1)
     {
       if (_CKShouldLog())
       {
-        v8 = self->_chat;
-        selfCopy2 = self;
-        _CKLog();
+        _CKLog(0x15u, @"Loading common replies for imchat %@ on conversation %@", v6, v7, v8, v9, v10, v11, self->_chat);
       }
     }
 
-    v5 = [CKUIBehavior sharedBehaviors:v8];
-    commonRepliesLoadLimit = [v5 commonRepliesLoadLimit];
+    v12 = +[CKUIBehavior sharedBehaviors];
+    commonRepliesLoadLimit = [v12 commonRepliesLoadLimit];
 
-    v7 = [(IMChat *)self->_chat loadFrequentRepliesLimit:commonRepliesLoadLimit loadImmediately:1];
+    v14 = [(IMChat *)self->_chat loadFrequentRepliesLimit:commonRepliesLoadLimit loadImmediately:1];
   }
 }
 
@@ -4712,7 +4719,7 @@ uint64_t __35__CKConversation_fetchAllMessages___block_invoke(uint64_t a1)
 - (void)setLoadedMessageCount:(unint64_t)count loadImmediately:(BOOL)immediately
 {
   immediatelyCopy = immediately;
-  v23 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(27);
@@ -4722,11 +4729,11 @@ uint64_t __35__CKConversation_fetchAllMessages___block_invoke(uint64_t a1)
       limitToLoad = self->_limitToLoad;
       shortDescription = [(CKConversation *)self shortDescription];
       *buf = 67109634;
-      v18 = limitToLoad;
-      v19 = 2048;
+      v22 = limitToLoad;
+      v23 = 2048;
       countCopy = count;
-      v21 = 2112;
-      v22 = shortDescription;
+      v25 = 2112;
+      v26 = shortDescription;
       _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Setting limit to load (old: %d   new: %lu) for conversation: %@", buf, 0x1Cu);
     }
   }
@@ -4734,10 +4741,8 @@ uint64_t __35__CKConversation_fetchAllMessages___block_invoke(uint64_t a1)
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
     v10 = self->_limitToLoad;
-    [(CKConversation *)self shortDescription];
-    v16 = v15 = count;
-    v14 = v10;
-    _CKLogExternal();
+    shortDescription2 = [(CKConversation *)self shortDescription];
+    _CKLogExternal(0x1Bu, @"Setting limit to load (old: %d   new: %lu) for conversation: %@", v11, v12, v13, v14, v15, v16, v10);
   }
 
   if (self->_limitToLoad == count)
@@ -4748,15 +4753,15 @@ uint64_t __35__CKConversation_fetchAllMessages___block_invoke(uint64_t a1)
       {
         chat = [(CKConversation *)self chat];
         _items = [chat _items];
-        v13 = [_items count] == 0;
+        v19 = [_items count] == 0;
 
-        if (v13)
+        if (v19)
         {
           [(CKConversation *)self setNeedsReload];
         }
       }
 
-      [(CKConversation *)self reloadIfNeeded:v14];
+      [(CKConversation *)self reloadIfNeeded];
     }
   }
 
@@ -5413,7 +5418,7 @@ LABEL_5:
 - (void)sendMessage:(id)message onService:(id)service newComposition:(BOOL)composition
 {
   compositionCopy = composition;
-  v61 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   serviceCopy = service;
   if (IMOSLoggingEnabled())
@@ -5424,55 +5429,41 @@ LABEL_5:
     {
       v10 = @"NO";
       *buf = 138412802;
-      v56 = messageCopy;
-      v57 = 2112;
+      v111 = messageCopy;
+      v112 = 2112;
       if (compositionCopy)
       {
         v10 = @"YES";
       }
 
-      v58 = serviceCopy;
-      v59 = 2112;
-      v60 = v10;
+      v113 = serviceCopy;
+      v114 = 2112;
+      v115 = v10;
       _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "sendMessage:onService:newComposition: [%@] [%@] [%@]", buf, 0x20u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    if (compositionCopy)
-    {
-      v11 = @"YES";
-    }
-
-    else
-    {
-      v11 = @"NO";
-    }
-
-    v46 = serviceCopy;
-    v47 = v11;
-    v44 = messageCopy;
-    _CKLogExternal();
+    _CKLogExternal(0x1Bu, @"sendMessage:onService:newComposition: [%@] [%@] [%@]", v11, v12, v13, v14, v15, v16, messageCopy);
   }
 
-  if ([(CKConversation *)self hasLeftGroupChat:v44])
+  if ([(CKConversation *)self hasLeftGroupChat])
   {
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(27);
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_DEBUG, "Failing to send message on a group chat we've left before", buf, 2u);
+        _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_DEBUG, "Failing to send message on a group chat we've left before", buf, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-LABEL_20:
-      _CKLog();
+      _CKLog(0x1Bu, @"Failing to send message on a group chat we've left before", v18, v19, v20, v21, v22, v23, v102);
     }
   }
 
@@ -5481,17 +5472,17 @@ LABEL_20:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(27);
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v24 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_DEBUG, "Failing to send message on a read only chat", buf, 2u);
+        _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_DEBUG, "Failing to send message on a read only chat", buf, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      goto LABEL_20;
+      _CKLog(0x1Bu, @"Failing to send message on a read only chat", v25, v26, v27, v28, v29, v30, v102);
     }
   }
 
@@ -5509,155 +5500,154 @@ LABEL_20:
       account = [chat account];
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
+    v107 = 0u;
+    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
     fileTransferGUIDs = [messageCopy fileTransferGUIDs];
-    v17 = [fileTransferGUIDs countByEnumeratingWithState:&v50 objects:v54 count:16];
-    if (v17)
+    v34 = [fileTransferGUIDs countByEnumeratingWithState:&v105 objects:v109 count:16];
+    if (v34)
     {
-      v18 = *v51;
+      v35 = *v106;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v51 != v18)
+          if (*v106 != v35)
           {
             objc_enumerationMutation(fileTransferGUIDs);
           }
 
-          v20 = *(*(&v50 + 1) + 8 * i);
+          v37 = *(*(&v105 + 1) + 8 * i);
           mEMORY[0x1E69A5B80] = [MEMORY[0x1E69A5B80] sharedInstance];
-          [mEMORY[0x1E69A5B80] assignTransfer:v20 toMessage:messageCopy account:account];
+          [mEMORY[0x1E69A5B80] assignTransfer:v37 toMessage:messageCopy account:account];
         }
 
-        v17 = [fileTransferGUIDs countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v34 = [fileTransferGUIDs countByEnumeratingWithState:&v105 objects:v109 count:16];
       }
 
-      while (v17);
+      while (v34);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(19);
-      v22 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v39 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         guid = [messageCopy guid];
         *buf = 138412290;
-        v56 = guid;
-        _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "Sending message with guid: %@", buf, 0xCu);
+        v111 = guid;
+        _os_log_impl(&dword_19020E000, v39, OS_LOG_TYPE_INFO, "Sending message with guid: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
       guid2 = [messageCopy guid];
-      _CKLogExternal();
+      _CKLogExternal(0x13u, @"Sending message with guid: %@", v42, v43, v44, v45, v46, v47, guid2);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(19);
-      v24 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v48 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v56 = chat;
-        _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "  => Chat: %@", buf, 0xCu);
+        v111 = chat;
+        _os_log_impl(&dword_19020E000, v48, OS_LOG_TYPE_INFO, "  => Chat: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      guid2 = chat;
-      _CKLogExternal();
+      _CKLogExternal(0x13u, @"  => Chat: %@", v49, v50, v51, v52, v53, v54, chat);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(19);
-      v25 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v55 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         account2 = [chat account];
         *buf = 138412290;
-        v56 = account2;
-        _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "  => Sending account: %@", buf, 0xCu);
+        v111 = account2;
+        _os_log_impl(&dword_19020E000, v55, OS_LOG_TYPE_INFO, "  => Sending account: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      guid2 = [chat account];
-      _CKLogExternal();
+      account3 = [chat account];
+      _CKLogExternal(0x13u, @"  => Sending account: %@", v58, v59, v60, v61, v62, v63, account3);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(19);
-      v27 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v64 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
       {
-        account3 = [chat account];
-        displayName = [account3 displayName];
+        account4 = [chat account];
+        displayName = [account4 displayName];
         *buf = 138412290;
-        v56 = displayName;
-        _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "  => Display name: %@", buf, 0xCu);
+        v111 = displayName;
+        _os_log_impl(&dword_19020E000, v64, OS_LOG_TYPE_INFO, "  => Display name: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      account4 = [chat account];
-      guid2 = [account4 displayName];
-      _CKLogExternal();
+      account5 = [chat account];
+      displayName2 = [account5 displayName];
+      _CKLogExternal(0x13u, @"  => Display name: %@", v69, v70, v71, v72, v73, v74, displayName2);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(19);
-      v31 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v75 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
       {
         participants = [chat participants];
-        v33 = [participants componentsJoinedByString:{@", "}];
+        v77 = [participants componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v56 = v33;
-        _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_INFO, "  => Recipients: [%@]", buf, 0xCu);
+        v111 = v77;
+        _os_log_impl(&dword_19020E000, v75, OS_LOG_TYPE_INFO, "  => Recipients: [%@]", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
       participants2 = [chat participants];
-      guid2 = [participants2 componentsJoinedByString:{@", "}];
-      _CKLogExternal();
+      v79 = [participants2 componentsJoinedByString:{@", "}];
+      _CKLogExternal(0x13u, @"  => Recipients: [%@]", v80, v81, v82, v83, v84, v85, v79);
     }
 
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(19);
-      v35 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v86 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
       {
         fileTransferGUIDs2 = [messageCopy fileTransferGUIDs];
-        v37 = [fileTransferGUIDs2 componentsJoinedByString:{@", "}];
+        v88 = [fileTransferGUIDs2 componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v56 = v37;
-        _os_log_impl(&dword_19020E000, v35, OS_LOG_TYPE_INFO, "  => Transfers: [%@]", buf, 0xCu);
+        v111 = v88;
+        _os_log_impl(&dword_19020E000, v86, OS_LOG_TYPE_INFO, "  => Transfers: [%@]", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
       fileTransferGUIDs3 = [messageCopy fileTransferGUIDs];
-      guid2 = [fileTransferGUIDs3 componentsJoinedByString:{@", "}];
-      _CKLogExternal();
+      v90 = [fileTransferGUIDs3 componentsJoinedByString:{@", "}];
+      _CKLogExternal(0x13u, @"  => Transfers: [%@]", v91, v92, v93, v94, v95, v96, v90);
     }
 
-    [chat sendMessage:messageCopy onService:{serviceCopy, guid2}];
+    [chat sendMessage:messageCopy onService:serviceCopy];
     chat2 = [(CKConversation *)self chat];
     if ([chat2 unreadMessageCount] && CKIsRunningInMessages())
     {
@@ -5667,14 +5657,14 @@ LABEL_20:
       {
         if (IMOSLoggingEnabled())
         {
-          v41 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          v99 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
           {
             chat3 = [(CKConversation *)self chat];
             chatIdentifier = [chat3 chatIdentifier];
             *buf = 138412290;
-            v56 = chatIdentifier;
-            _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_INFO, "Marking chat %@ as read on message send ", buf, 0xCu);
+            v111 = chatIdentifier;
+            _os_log_impl(&dword_19020E000, v99, OS_LOG_TYPE_INFO, "Marking chat %@ as read on message send ", buf, 0xCu);
           }
         }
 
@@ -5807,7 +5797,7 @@ LABEL_20:
 - (void)sendMessage:(id)message newComposition:(BOOL)composition
 {
   compositionCopy = composition;
-  v12 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   if (IMOSLoggingEnabled())
   {
@@ -5816,15 +5806,14 @@ LABEL_20:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v11 = compositionCopy;
+      v16 = compositionCopy;
       _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_DEBUG, "sending message on preferred service (newComposition: %d)", buf, 8u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v9 = compositionCopy;
-    _CKLog();
+    _CKLog(0x1Bu, @"sending message on preferred service (newComposition: %d)", v8, v9, v10, v11, v12, v13, compositionCopy);
   }
 
   sendingService = [(CKConversation *)self sendingService];
@@ -6077,13 +6066,13 @@ LABEL_10:
 
 - (BOOL)supportsPolls
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
   isPollsEnabled = [mEMORY[0x1E69A8070] isPollsEnabled];
 
   if (!isPollsEnabled)
   {
-    goto LABEL_20;
+    goto LABEL_22;
   }
 
   recipient = [(CKConversation *)self recipient];
@@ -6105,53 +6094,59 @@ LABEL_10:
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x1Bu, @"[Polls] Cannot send to self", v9, v10, v11, v12, v13, v14, v28);
     }
 
-    goto LABEL_20;
+    goto LABEL_22;
   }
 
   chat = [(CKConversation *)self chat];
 
   if (!chat)
   {
-LABEL_20:
-    LOBYTE(v11) = 0;
-    return v11;
+LABEL_22:
+    LOBYTE(v17) = 0;
+    return v17;
   }
 
   chat2 = [(CKConversation *)self chat];
-  v11 = [chat2 supportsCapabilities:0x2000000];
+  v17 = [chat2 supportsCapabilities:0x2000000];
 
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(27);
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v13 = @"NO";
-      if (v11)
+      v19 = @"NO";
+      if (v17)
       {
-        v13 = @"YES";
+        v19 = @"YES";
       }
 
       *buf = 138412290;
-      v16 = v13;
-      _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_DEBUG, "[Polls] Supported? %@", buf, 0xCu);
+      v30 = v19;
+      _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_DEBUG, "[Polls] Supported? %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    v26 = @"NO";
+    if (v17)
+    {
+      v26 = @"YES";
+    }
+
+    _CKLog(0x1Bu, @"[Polls] Supported? %@", v20, v21, v22, v23, v24, v25, v26);
   }
 
-  return v11;
+  return v17;
 }
 
 - (void)repositionSticker:(id)sticker associatedChatItem:(id)item
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   stickerCopy = sticker;
   itemCopy = item;
   if (IMOSLoggingEnabled())
@@ -6161,15 +6156,14 @@ LABEL_20:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = stickerCopy;
+      v31 = stickerCopy;
       _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "repositionSticker: [%@]", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    v11 = stickerCopy;
-    _CKLogExternal();
+    _CKLogExternal(0x1Bu, @"repositionSticker: [%@]", v9, v10, v11, v12, v13, v14, stickerCopy);
   }
 
   if ([(CKConversation *)self hasLeftGroupChat])
@@ -6177,54 +6171,61 @@ LABEL_20:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(27);
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_DEBUG, "Failing to send message on a group chat we've left before", buf, 2u);
+        _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_DEBUG, "Failing to send message on a group chat we've left before", buf, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-LABEL_15:
-      _CKLog();
+      _CKLog(0x1Bu, @"Failing to send message on a group chat we've left before", v16, v17, v18, v19, v20, v21, v29);
+    }
+  }
+
+  else if ([(CKConversation *)self isReadOnlyChat])
+  {
+    if (IMOSLoggingEnabled())
+    {
+      CKLogCStringForType(27);
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_DEBUG, "Failing to send message on a read only chat", buf, 2u);
+      }
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
+    {
+      _CKLog(0x1Bu, @"Failing to send message on a read only chat", v23, v24, v25, v26, v27, v28, v29);
     }
   }
 
   else
   {
-    if (![(CKConversation *)self isReadOnlyChat])
-    {
-      [(IMChat *)self->_chat repositionSticker:stickerCopy associatedChatItem:itemCopy];
-      goto LABEL_25;
-    }
-
-    if (IMOSLoggingEnabled())
-    {
-      CKLogCStringForType(27);
-      v10 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_DEBUG, "Failing to send message on a read only chat", buf, 2u);
-      }
-    }
-
-    if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
-    {
-      goto LABEL_15;
-    }
+    [(IMChat *)self->_chat repositionSticker:stickerCopy associatedChatItem:itemCopy];
   }
-
-LABEL_25:
 }
 
 - (BOOL)_allowedToSendTypingIndicators
 {
-  if ([(CKConversation *)self isIgnoringTypingUpdates]|| !CKIsRunningInMessagesOrSpringBoard() && !CKIsRunningInMessagesNotificationViewService() && (IMIsRunningInMessagesComposeViewService() & 1) == 0 && !CKIsRunningInMessagesNotificationExtension())
+  isIgnoringTypingUpdates = [(CKConversation *)self isIgnoringTypingUpdates];
+  if (isIgnoringTypingUpdates)
   {
     return 0;
+  }
+
+  v5 = CKIsRunningInMessagesOrSpringBoard(isIgnoringTypingUpdates);
+  if (!v5 && !CKIsRunningInMessagesNotificationViewService(v5, v6))
+  {
+    v7 = IMIsRunningInMessagesComposeViewService();
+    if ((v7 & 1) == 0 && !CKIsRunningInMessagesNotificationExtension(v7))
+    {
+      return 0;
+    }
   }
 
   chat = [(CKConversation *)self chat];
@@ -6388,7 +6389,7 @@ LABEL_10:
 
   chat = self->_chat;
   v7 = +[CKConversation isSMSSpamFilteringEnabled];
-  v8 = CKBlockedIndicatorAttachment();
+  v8 = CKBlockedIndicatorAttachment(v7);
   v9 = [(IMChat *)chat attributedDisplayNameWithIsSpamFilteringEnabled:v7 withBlockingAttachment:v8];
   v10 = [v9 copy];
 
@@ -6635,29 +6636,30 @@ LABEL_9:
 - (id)_nameForHandle:(id)handle
 {
   handleCopy = handle;
-  if ([handleCopy isLoginIMHandle])
+  isLoginIMHandle = [handleCopy isLoginIMHandle];
+  if (isLoginIMHandle)
   {
-    _displayNameWithAbbreviation = CKFrameworkBundle();
-    v5 = [_displayNameWithAbbreviation localizedStringForKey:@"ME" value:&stru_1F04268F8 table:@"ChatKit"];
+    _displayNameWithAbbreviation = CKFrameworkBundle(isLoginIMHandle);
+    v6 = [_displayNameWithAbbreviation localizedStringForKey:@"ME" value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_5:
-    v6 = v5;
+    v7 = v6;
     goto LABEL_6;
   }
 
   _displayNameWithAbbreviation = [handleCopy _displayNameWithAbbreviation];
   if ([_displayNameWithAbbreviation length])
   {
-    v5 = _displayNameWithAbbreviation;
-    _displayNameWithAbbreviation = v5;
+    v6 = _displayNameWithAbbreviation;
+    _displayNameWithAbbreviation = v6;
     goto LABEL_5;
   }
 
-  v8 = CKFrameworkBundle();
-  v6 = [v8 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
+  v9 = CKFrameworkBundle(0);
+  v7 = [v9 localizedStringForKey:@"Unknown" value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_6:
 
-  return v6;
+  return v7;
 }
 
 - (id)_headerTitleForService:(id)service shouldListParticipants:(BOOL)participants
@@ -6689,78 +6691,80 @@ LABEL_6:
     else
     {
       displayName = [(CKConversation *)self displayName];
-      if ([(CKConversation *)self hasDisplayName])
+      hasDisplayName = [(CKConversation *)self hasDisplayName];
+      if (hasDisplayName)
       {
         goto LABEL_23;
       }
 
       if (!participants)
       {
-        v19 = MEMORY[0x1E696AEC0];
-        v20 = CKFrameworkBundle();
-        v21 = [v20 localizedStringForKey:@"GROUP_PEOPLE_COUNT" value:&stru_1F04268F8 table:@"ChatKit"];
-        lastAddressedSIMID = [v19 localizedStringWithFormat:v21, v8];
+        v22 = MEMORY[0x1E696AEC0];
+        v23 = CKFrameworkBundle(hasDisplayName);
+        v24 = [v23 localizedStringForKey:@"GROUP_PEOPLE_COUNT" value:&stru_1F04268F8 table:@"ChatKit"];
+        lastAddressedSIMID = [v22 localizedStringWithFormat:v24, v8];
 
         mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection == 1)
         {
-          v24 = @"\u200F";
+          v27 = @"\u200F";
         }
 
         else
         {
-          v24 = @"\u200E";
+          v27 = @"\u200E";
         }
 
-        name2 = [(__CFString *)v24 stringByAppendingString:lastAddressedSIMID];
+        name2 = [(__CFString *)v27 stringByAppendingString:lastAddressedSIMID];
         goto LABEL_30;
       }
 
       name = [(CKConversation *)self name];
     }
 
-    v17 = name;
+    v20 = name;
     goto LABEL_22;
   }
 
   displayName = [(CKConversation *)self lastAddressedHandle];
   lastAddressedSIMID = [(CKConversation *)self lastAddressedSIMID];
-  if ([MEMORY[0x1E69A5CA0] mmsEnabledforPhoneNumber:displayName simID:lastAddressedSIMID] && objc_msgSend(handles, "count") >= 2 && objc_msgSend(MEMORY[0x1E69A7F58], "IMMMSGroupTextOnlyMessagesSendAsMMSForPhoneNumber:simID:", displayName, lastAddressedSIMID))
+  if ([MEMORY[0x1E69A5CA0] mmsEnabledforPhoneNumber:displayName simID:lastAddressedSIMID] && objc_msgSend(handles, "count") >= 2 && (v12 = objc_msgSend(MEMORY[0x1E69A7F58], "IMMMSGroupTextOnlyMessagesSendAsMMSForPhoneNumber:simID:", displayName, lastAddressedSIMID), v12))
   {
     if (participants)
     {
       name2 = [(CKConversation *)self name];
 LABEL_30:
-      v17 = name2;
+      v20 = name2;
       goto LABEL_18;
     }
 
-    v25 = MEMORY[0x1E696AEC0];
-    v26 = CKFrameworkBundle();
-    v27 = [v26 localizedStringForKey:@"GROUP_PEOPLE_COUNT" value:&stru_1F04268F8 table:@"ChatKit"];
-    lastObject = [v25 localizedStringWithFormat:v27, v8];
+    v28 = MEMORY[0x1E696AEC0];
+    v29 = CKFrameworkBundle(v12);
+    v30 = [v29 localizedStringForKey:@"GROUP_PEOPLE_COUNT" value:&stru_1F04268F8 table:@"ChatKit"];
+    lastObject = [v28 localizedStringWithFormat:v30, v8];
 
     mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection2 == 1)
     {
-      v30 = @"\u200F";
+      v33 = @"\u200F";
     }
 
     else
     {
-      v30 = @"\u200E";
+      v33 = @"\u200E";
     }
 
-    v15 = [(__CFString *)v30 stringByAppendingString:lastObject];
+    v18 = [(__CFString *)v33 stringByAppendingString:lastObject];
   }
 
   else
   {
-    if ([handles count] < 2)
+    v16 = [handles count];
+    if (v16 < 2)
     {
       lastObject = [handles lastObject];
       [(CKConversation *)self _nameForHandle:lastObject];
@@ -6768,18 +6772,18 @@ LABEL_30:
 
     else
     {
-      lastObject = CKFrameworkBundle();
+      lastObject = CKFrameworkBundle(v16);
       [lastObject localizedStringForKey:@"OUTGOING" value:&stru_1F04268F8 table:@"ChatKit"];
     }
-    v15 = ;
+    v18 = ;
   }
 
-  v17 = v15;
+  v20 = v18;
 
 LABEL_18:
 LABEL_22:
 
-  displayName = v17;
+  displayName = v20;
 LABEL_23:
 
   return displayName;
@@ -6793,13 +6797,14 @@ LABEL_23:
     businessHandle = [(CKConversation *)self businessHandle];
     name = [businessHandle name];
 LABEL_5:
-    v9 = name;
+    v10 = name;
     goto LABEL_18;
   }
 
-  if ([serviceCopy __ck_isiMessage])
+  __ck_isiMessage = [serviceCopy __ck_isiMessage];
+  if (__ck_isiMessage)
   {
-    businessHandle = CKFrameworkBundle();
+    businessHandle = CKFrameworkBundle(__ck_isiMessage);
     name = [businessHandle localizedStringForKey:@"NEW_MADRID_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
     goto LABEL_5;
   }
@@ -6810,39 +6815,49 @@ LABEL_5:
   if ([serviceCopy __ck_isRCS] && objc_msgSend(businessHandle, "count") >= 2)
   {
     mEMORY[0x1E69A7F50] = [MEMORY[0x1E69A7F50] sharedManager];
-    v13 = [mEMORY[0x1E69A7F50] groupMessagingEnabledForPhoneNumber:lastAddressedHandle simID:lastAddressedSIMID];
+    v14 = [mEMORY[0x1E69A7F50] groupMessagingEnabledForPhoneNumber:lastAddressedHandle simID:lastAddressedSIMID];
 
     goto LABEL_13;
   }
 
-  if ([serviceCopy __ck_isSMS] && objc_msgSend(MEMORY[0x1E69A5CA0], "mmsEnabledforPhoneNumber:simID:", lastAddressedHandle, lastAddressedSIMID) && objc_msgSend(businessHandle, "count") >= 2)
+  __ck_isSMS = [serviceCopy __ck_isSMS];
+  if (__ck_isSMS)
   {
-    v13 = [MEMORY[0x1E69A7F58] IMMMSGroupTextOnlyMessagesSendAsMMSForPhoneNumber:lastAddressedHandle simID:lastAddressedSIMID];
+    __ck_isSMS = [MEMORY[0x1E69A5CA0] mmsEnabledforPhoneNumber:lastAddressedHandle simID:lastAddressedSIMID];
+    if (__ck_isSMS)
+    {
+      __ck_isSMS = [businessHandle count];
+      if (__ck_isSMS >= 2)
+      {
+        v15 = [MEMORY[0x1E69A7F58] IMMMSGroupTextOnlyMessagesSendAsMMSForPhoneNumber:lastAddressedHandle simID:lastAddressedSIMID];
+        v14 = v15;
 LABEL_13:
-    v14 = CKFrameworkBundle();
-    v15 = v14;
-    if (v13)
-    {
-      v16 = @"NEW_GROUP_MESSAGE";
-    }
+        v17 = CKFrameworkBundle(v15);
+        v18 = v17;
+        if (v14)
+        {
+          v19 = @"NEW_GROUP_MESSAGE";
+        }
 
-    else
-    {
-      v16 = @"NEW_BROADCAST_MESSAGE";
-    }
+        else
+        {
+          v19 = @"NEW_BROADCAST_MESSAGE";
+        }
 
-    goto LABEL_17;
+        goto LABEL_17;
+      }
+    }
   }
 
-  v14 = CKFrameworkBundle();
-  v15 = v14;
-  v16 = @"NEW_MESSAGE";
+  v17 = CKFrameworkBundle(__ck_isSMS);
+  v18 = v17;
+  v19 = @"NEW_MESSAGE";
 LABEL_17:
-  v9 = [v14 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v17 localizedStringForKey:v19 value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_18:
 
-  return v9;
+  return v10;
 }
 
 - (id)displayNameForMediaObjects:(id)objects subject:(id)subject shouldListParticipants:(BOOL)participants
@@ -7340,7 +7355,7 @@ void __62__CKConversation_recoverableDeleteAllMessagesGivenDeleteDate___block_in
 {
   v5 = 0;
   v6 = 0;
-  v25 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   do
   {
     v6 += types[v5++];
@@ -7381,71 +7396,83 @@ void __62__CKConversation_recoverableDeleteAllMessagesGivenDeleteDate___block_in
           v12 = @"YES";
         }
 
-        v20 = v12;
-        v21 = 2048;
-        v22 = v6;
-        v23 = 2048;
-        v24 = v10;
+        v47 = v12;
+        v48 = 2048;
+        v49 = v6;
+        v50 = 2048;
+        v51 = v10;
         _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_DEBUG, "(iMessage) Accept: %@: total count: %ld, max attachment count: %ld", buf, 0x20u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      v19 = @"NO";
+      if (v6 <= v10)
+      {
+        v19 = @"YES";
+      }
+
+      _CKLog(0x18u, @"(iMessage) Accept: %@: total count: %ld, max attachment count: %ld", v13, v14, v15, v16, v17, v18, v19);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v20 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v14 = @"NO";
+      v21 = @"NO";
       if (v9)
       {
-        v14 = @"YES";
+        v21 = @"YES";
       }
 
       *buf = 138412290;
-      v20 = v14;
-      _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_DEBUG, "(iMessage) Accept: %@", buf, 0xCu);
+      v47 = v21;
+      _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_DEBUG, "(iMessage) Accept: %@", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    v28 = @"NO";
+    if (v9)
+    {
+      v28 = @"YES";
+    }
+
+    _CKLog(0x18u, @"(iMessage) Accept: %@", v22, v23, v24, v25, v26, v27, v28);
   }
 
   if (code)
   {
-    v15 = v9;
+    v29 = v9;
   }
 
   else
   {
-    v15 = 1;
+    v29 = 1;
   }
 
-  if ((v15 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(24);
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v30 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
-        v20 = v8;
-        _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "(iMessage) Error code: %ld", buf, 0xCu);
+        v47 = v8;
+        _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_DEBUG, "(iMessage) Error code: %ld", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x18u, @"(iMessage) Error code: %ld", v31, v32, v33, v34, v35, v36, v8);
     }
 
     *code = v8;
@@ -7454,17 +7481,17 @@ void __62__CKConversation_recoverableDeleteAllMessagesGivenDeleteDate___block_in
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
-    v17 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v37 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_DEBUG, "---------", buf, 2u);
+      _os_log_impl(&dword_19020E000, v37, OS_LOG_TYPE_DEBUG, "---------", buf, 2u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    _CKLog(0x18u, @"---------", v38, v39, v40, v41, v42, v43, v45);
   }
 
   return v9;
@@ -7472,107 +7499,112 @@ void __62__CKConversation_recoverableDeleteAllMessagesGivenDeleteDate___block_in
 
 + (BOOL)_iMessage_canSendComposition:(id)composition reachabilityContext:(id)context forceSMS:(BOOL)s error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   compositionCopy = composition;
   contextCopy = context;
-  if (CKIsRunningInFullCKClient() && !CKIsRunningUnitTests() && !CKIsRunningUITests() && !CKIsRunningForDevelopmentOnSimulator())
+  v11 = CKIsRunningInFullCKClient();
+  if (v11)
   {
-    mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-    if ([mEMORY[0x1E69DC668] isRunningTest])
+    v13 = CKIsRunningUnitTests(v11, v12);
+    if (!v13 && !CKIsRunningUITests(v13, v14) && !CKIsRunningForDevelopmentOnSimulator())
     {
-    }
-
-    else
-    {
-      v12 = [MEMORY[0x1E69A5CA0] iMessageEnabledForReachabilityContext:contextCopy];
-
-      if (!v12)
+      mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
+      if ([mEMORY[0x1E69DC668] isRunningTest])
       {
-        v19 = 3001;
-        if (!error)
-        {
-          goto LABEL_25;
-        }
+      }
 
-        goto LABEL_21;
+      else
+      {
+        v16 = [MEMORY[0x1E69A5CA0] iMessageEnabledForReachabilityContext:contextCopy];
+
+        if (!v16)
+        {
+          v23 = 3001;
+          if (!error)
+          {
+            goto LABEL_25;
+          }
+
+          goto LABEL_21;
+        }
       }
     }
   }
 
-  memset(v28, 0, 44);
+  memset(v32, 0, 44);
   mediaObjects = [compositionCopy mediaObjects];
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v14 = [mediaObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v14)
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v18 = [mediaObjects countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v18)
   {
-    v15 = v14;
-    v16 = *v24;
+    v19 = v18;
+    v20 = *v28;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v24 != v16)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(mediaObjects);
         }
 
-        mediaType = [*(*(&v23 + 1) + 8 * i) mediaType];
-        ++v28[mediaType];
+        mediaType = [*(*(&v27 + 1) + 8 * i) mediaType];
+        ++v32[mediaType];
       }
 
-      v15 = [mediaObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v19 = [mediaObjects countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v15);
+    while (v19);
   }
 
   if ([mediaObjects count])
   {
-    v22 = 0;
-    v12 = [self _iMessage_canSendMessageWithMediaObjectTypes:v28 errorCode:&v22];
-    if (v12)
+    v26 = 0;
+    v16 = [self _iMessage_canSendMessageWithMediaObjectTypes:v32 errorCode:&v26];
+    if (v16)
     {
-      v19 = 0;
+      v23 = 0;
     }
 
     else
     {
-      v19 = v22;
+      v23 = v26;
     }
   }
 
   else
   {
-    v19 = 0;
-    LOBYTE(v12) = 1;
+    v23 = 0;
+    LOBYTE(v16) = 1;
   }
 
   if (error)
   {
 LABEL_21:
-    if ((v12 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
-      v20 = [self _iMessage_localizedErrorForReason:v19];
-      if (v20)
+      v24 = [self _iMessage_localizedErrorForReason:v23];
+      if (v24)
       {
-        v20 = v20;
-        *error = v20;
+        v24 = v24;
+        *error = v24;
       }
     }
   }
 
 LABEL_25:
 
-  return v12;
+  return v16;
 }
 
 + (id)_iMessage_localizedErrorForReason:(int64_t)reason
 {
   reasonCopy = reason;
-  v16 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   switch(reason)
   {
     case 0:
@@ -7585,20 +7617,19 @@ LABEL_25:
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          v15 = 2001;
+          v26 = 2001;
           _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_DEBUG, "iMessage: Not handing back error for too many attachments: %ld", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v13 = 2001;
-        _CKLog();
+        _CKLog(0x2Cu, @"iMessage: Not handing back error for too many attachments: %ld", v7, v8, v9, v10, v11, v12, 2001);
       }
 
       break;
     case 3001:
-      v4 = CKFrameworkBundle();
+      v4 = CKFrameworkBundle(self);
       v5 = [v4 localizedStringForKey:@"ERR_NEED_IMESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
       goto LABEL_20;
@@ -7606,19 +7637,18 @@ LABEL_25:
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(44);
-        v7 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v13 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          v15 = reasonCopy;
-          _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_DEBUG, "iMessage: Not handing back error with: %ld", buf, 0xCu);
+          v26 = reasonCopy;
+          _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_DEBUG, "iMessage: Not handing back error with: %ld", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v13 = reasonCopy;
-        _CKLog();
+        _CKLog(0x2Cu, @"iMessage: Not handing back error with: %ld", v14, v15, v16, v17, v18, v19, reasonCopy);
       }
 
       break;
@@ -7626,21 +7656,21 @@ LABEL_25:
 
   v5 = 0;
 LABEL_20:
-  v8 = CKShowInternalErrors();
-  v9 = v8;
-  if (v5 || v8)
+  v20 = CKShowInternalErrors();
+  v21 = v20;
+  if (v5 || v20)
   {
-    v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
     if (v5)
     {
-      if (v9)
+      if (v21)
       {
         reasonCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n\n[INTERNAL]\niMessage Content Error: %ld", v5, reasonCopy];
 
         v5 = reasonCopy;
       }
 
-      [v10 setObject:v5 forKey:{*MEMORY[0x1E696A578], v13}];
+      [v22 setObject:v5 forKey:*MEMORY[0x1E696A578]];
     }
 
     else
@@ -7648,7 +7678,7 @@ LABEL_20:
       v5 = 0;
     }
 
-    reasonCopy = [MEMORY[0x1E696ABC0] errorWithDomain:@"CKMessageContentErrorDomain" code:reasonCopy userInfo:{v10, v13}];
+    reasonCopy = [MEMORY[0x1E696ABC0] errorWithDomain:@"CKMessageContentErrorDomain" code:reasonCopy userInfo:v22];
   }
 
   else
@@ -7665,34 +7695,34 @@ LABEL_30:
 + (unint64_t)_iMessage_maxTransferFileSizeForWiFi:(BOOL)fi
 {
   fiCopy = fi;
-  v9 = 0;
-  v10 = 0;
-  if (!CKIsRunningInMessages() && (IMIsRunningInMessagesComposeViewService() & 1) == 0 && !CKIsRunningInMessagesNotificationViewService() && !CKIsRunningInMessagesNotificationExtension() || (v4 = MEMORY[0x1E69A7F58], [MEMORY[0x1E699BEA8] sharedInstanceForBagType:{1, v9}], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "IMiMessageMaxTransferFileSizeForWifiForPhoneNumber:cellSize:serverConfigurationBag:phoneNumber:simID:", &v10, &v9, v5, 0, 0), v5, (v6 = v10) == 0))
+  v12 = 0;
+  v13 = 0;
+  if (!CKIsRunningInMessages() && (v4 = IMIsRunningInMessagesComposeViewService(), (v4 & 1) == 0) && (v6 = CKIsRunningInMessagesNotificationViewService(v4, v5), !v6) && !CKIsRunningInMessagesNotificationExtension(v6) || (v7 = MEMORY[0x1E69A7F58], [MEMORY[0x1E699BEA8] sharedInstanceForBagType:{1, v12}], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "IMiMessageMaxTransferFileSizeForWifiForPhoneNumber:cellSize:serverConfigurationBag:phoneNumber:simID:", &v13, &v12, v8, 0, 0), v8, (v9 = v13) == 0))
   {
-    v6 = 10485760;
+    v9 = 10485760;
   }
 
-  v7 = v9;
-  if (!v9)
+  v10 = v12;
+  if (!v12)
   {
-    v7 = 0x200000;
+    v10 = 0x200000;
   }
 
   if (fiCopy)
   {
-    return v6;
+    return v9;
   }
 
   else
   {
-    return v7;
+    return v10;
   }
 }
 
 + (double)_iMessage_maxTrimDurationForMediaType:(int)type
 {
   v3 = *&type;
-  v21 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   if (_iMessage_maxTrimDurationForMediaType___pred_CMTimeGetSecondsCoreMedia != -1)
   {
     +[CKConversation(Content_Utilities) _iMessage_maxTrimDurationForMediaType:];
@@ -7709,15 +7739,14 @@ LABEL_30:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      LODWORD(v20) = v3;
+      LODWORD(v50) = v3;
       _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_DEBUG, "maxTrimDurationForMediaType: %d", buf, 8u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v18 = v3;
-    _CKLog();
+    _CKLog(0x13u, @"maxTrimDurationForMediaType: %d", v9, v10, v11, v12, v13, v14, v3);
   }
 
   if ((v3 - 3) >= 9 && v3)
@@ -7727,27 +7756,27 @@ LABEL_30:
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(19);
-        v16 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v40 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "video!", buf, 2u);
+          _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_DEBUG, "video!", buf, 2u);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        _CKLog();
+        _CKLog(0x13u, @"video!", v41, v42, v43, v44, v45, v46, v48);
       }
 
-      v17 = _iMessage_maxTrimDurationForMediaType___CMTimeGetSeconds;
-      [MEMORY[0x1E6987E60] maximumDurationForPreset:*MEMORY[0x1E6987328] properties:{v7, v18}];
-      v15 = v17(buf);
+      v47 = _iMessage_maxTrimDurationForMediaType___CMTimeGetSeconds;
+      objc_msgSend_maximumDurationForPreset_properties_(MEMORY[0x1E6987E60]);
+      v39 = v47(buf);
     }
 
     else
     {
-      v10 = 0.0;
+      v22 = 0;
       if (v3 != 1)
       {
         goto LABEL_19;
@@ -7756,25 +7785,25 @@ LABEL_30:
       if (IMOSLoggingEnabled())
       {
         CKLogCStringForType(19);
-        v13 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v31 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_DEBUG, "audio!", buf, 2u);
+          _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_DEBUG, "audio!", buf, 2u);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        _CKLog();
+        _CKLog(0x13u, @"audio!", v32, v33, v34, v35, v36, v37, v48);
       }
 
-      v14 = _iMessage_maxTrimDurationForMediaType___CMTimeGetSeconds;
-      [MEMORY[0x1E6987E60] maximumDurationForPreset:*MEMORY[0x1E6987330] properties:{v7, v18}];
-      v14(buf);
+      v38 = _iMessage_maxTrimDurationForMediaType___CMTimeGetSeconds;
+      objc_msgSend_maximumDurationForPreset_properties_(MEMORY[0x1E6987E60]);
+      v38(buf);
     }
 
-    v10 = v15;
+    v22 = *&v39;
   }
 
   else
@@ -7782,41 +7811,41 @@ LABEL_30:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(19);
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_DEBUG, "default/unsupported mediaType!", buf, 2u);
+        _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_DEBUG, "default/unsupported mediaType!", buf, 2u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x13u, @"default/unsupported mediaType!", v16, v17, v18, v19, v20, v21, v48);
     }
 
-    v10 = 9.22337204e18;
+    v22 = 0x43E0000000000000;
   }
 
 LABEL_19:
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(19);
-    v11 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v23 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v20 = v10;
-      _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_DEBUG, "Max trim answer: %f", buf, 0xCu);
+      v50 = v22;
+      _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_DEBUG, "Max trim answer: %f", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    _CKLog(0x13u, @"Max trim answer: %f", v24, v25, v26, v27, v28, v29, v22);
   }
 
-  return v10;
+  return *&v22;
 }
 
 void *__75__CKConversation_Content_Utilities___iMessage_maxTrimDurationForMediaType___block_invoke()
@@ -7828,7 +7857,7 @@ void *__75__CKConversation_Content_Utilities___iMessage_maxTrimDurationForMediaT
 
 + (BOOL)_sms_mediaObjectPassesRestriction:(id)restriction
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   restrictionCopy = restriction;
   data = [restrictionCopy data];
   v5 = [data length];
@@ -7870,28 +7899,38 @@ void *__75__CKConversation_Content_Utilities___iMessage_maxTrimDurationForMediaT
       }
 
       mimeType2 = [restrictionCopy mimeType];
-      v31.width = v10;
-      v31.height = v12;
-      v18 = NSStringFromCGSize(v31);
+      v38.width = v10;
+      v38.height = v12;
+      v18 = NSStringFromCGSize(v38);
       *buf = 138413058;
-      v23 = v16;
-      v24 = 2112;
-      v25 = mimeType2;
-      v26 = 2048;
-      v27 = v5;
-      v28 = 2112;
-      v29 = v18;
+      v30 = v16;
+      v31 = 2112;
+      v32 = mimeType2;
+      v33 = 2048;
+      v34 = v5;
+      v35 = 2112;
+      v36 = v18;
       _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@ (MIME Type: %@, length %lu, sz %@)", buf, 0x2Au);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
+    if (CanBeSent)
+    {
+      v19 = @"YES";
+    }
+
+    else
+    {
+      v19 = @"NO";
+    }
+
     mimeType3 = [restrictionCopy mimeType];
-    v32.width = v10;
-    v32.height = v12;
-    v21 = NSStringFromCGSize(v32);
-    _CKLog();
+    v39.width = v10;
+    v39.height = v12;
+    v28 = NSStringFromCGSize(v39);
+    _CKLog(0x18u, @"(MMS) Accept: %@ (MIME Type: %@, length %lu, sz %@)", v21, v22, v23, v24, v25, v26, v19);
   }
 
   return CanBeSent;
@@ -7931,7 +7970,7 @@ void *__75__CKConversation_Content_Utilities___iMessage_maxTrimDurationForMediaT
 
 + (BOOL)_sms_canSendMessageWithMediaObjectTypes:(int *)types phoneNumber:(id)number simID:(id)d errorCode:(int64_t *)code
 {
-  *&v51[13] = *MEMORY[0x1E69E9840];
+  *&v92[13] = *MEMORY[0x1E69E9840];
   numberCopy = number;
   dCopy = d;
   v12 = 0;
@@ -7955,18 +7994,18 @@ void *__75__CKConversation_Content_Utilities___iMessage_maxTrimDurationForMediaT
     v16 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      *&v17 = COERCE_DOUBLE(@"YES");
+      v17 = @"YES";
       *buf = 138412802;
       if (v15 < v13)
       {
-        *&v17 = COERCE_DOUBLE(@"NO");
+        v17 = @"NO";
       }
 
-      v49 = *&v17;
-      v50 = 1024;
-      *v51 = v13;
-      v51[2] = 2048;
-      *&v51[3] = v15;
+      v90 = *&v17;
+      v91 = 1024;
+      *v92 = v13;
+      v92[2] = 2048;
+      *&v92[3] = v15;
       _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@: total count: %d, max attachment count: %ld", buf, 0x1Cu);
     }
   }
@@ -7979,21 +8018,18 @@ void *__75__CKConversation_Content_Utilities___iMessage_maxTrimDurationForMediaT
     }
 
 LABEL_19:
-    v21 = 0;
-    v19 = 2001;
-    goto LABEL_63;
+    v27 = 0;
+    v25 = 2001;
+    goto LABEL_65;
   }
 
-  v18 = @"YES";
+  v24 = @"YES";
   if (v15 < v13)
   {
-    v18 = @"NO";
+    v24 = @"NO";
   }
 
-  v44 = v13;
-  v47 = v15;
-  v43 = v18;
-  _CKLog();
+  _CKLog(0x18u, @"(MMS) Accept: %@: total count: %d, max attachment count: %ld", v18, v19, v20, v21, v22, v23, v24);
   if (v15 < v13)
   {
     goto LABEL_19;
@@ -8004,218 +8040,231 @@ LABEL_15:
   {
     if (v13 <= 1)
     {
-      *&v19 = 0.0;
-      v20 = 1;
+      v25 = 0;
+      v26 = 1;
       goto LABEL_23;
     }
 
     goto LABEL_22;
   }
 
-  *&v19 = 0.0;
-  v20 = 1;
+  v25 = 0;
+  v26 = 1;
   if (types[2] >= 1 && v13 > 1)
   {
 LABEL_22:
-    v20 = 0;
-    v19 = 2004;
+    v26 = 0;
+    v25 = 2004;
   }
 
 LABEL_23:
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
-    v22 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v28 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      *&v23 = COERCE_DOUBLE(@"NO");
-      if (v20)
+      v29 = @"NO";
+      if (v26)
       {
-        *&v23 = COERCE_DOUBLE(@"YES");
+        v29 = @"YES";
       }
 
-      v24 = types[1];
-      v25 = types[2];
+      v30 = types[1];
+      v31 = types[2];
       *buf = 138412802;
-      v49 = *&v23;
-      v50 = 1024;
-      *v51 = v13;
-      v51[2] = 1024;
-      *&v51[3] = v25 + v24;
-      _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@: total count: %d, avCount: %d", buf, 0x18u);
+      v90 = *&v29;
+      v91 = 1024;
+      *v92 = v13;
+      v92[2] = 1024;
+      *&v92[3] = v31 + v30;
+      _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@: total count: %d, avCount: %d", buf, 0x18u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v26 = @"NO";
-    if (v20)
+    v38 = @"NO";
+    if (v26)
     {
-      v26 = @"YES";
+      v38 = @"YES";
     }
 
-    v44 = v13;
-    v47 = (types[2] + types[1]);
-    v43 = v26;
-    _CKLog();
-    if ((v20 & 1) == 0)
+    _CKLog(0x18u, @"(MMS) Accept: %@: total count: %d, avCount: %d", v32, v33, v34, v35, v36, v37, v38);
+    if ((v26 & 1) == 0)
     {
       goto LABEL_34;
     }
   }
 
-  else if (!v20)
+  else if (!v26)
   {
 LABEL_34:
-    v21 = 0;
-    goto LABEL_63;
+    v27 = 0;
+    goto LABEL_65;
   }
 
-  *&v27 = [MEMORY[0x1E69A7F58] IMMMSMaximumMessageByteCountForPhoneNumber:numberCopy simID:{dCopy, v43, v44, v47}];
+  v39 = [MEMORY[0x1E69A7F58] IMMMSMaximumMessageByteCountForPhoneNumber:numberCopy simID:dCopy];
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
-    v28 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v40 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v49 = v27;
-      _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_DEBUG, "(MMS) Max Message Byte Count: %lld", buf, 0xCu);
+      v90 = *&v39;
+      _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_DEBUG, "(MMS) Max Message Byte Count: %lld", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    _CKLog(0x18u, @"(MMS) Max Message Byte Count: %lld", v41, v42, v43, v44, v45, v46, v39);
   }
 
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
-    v29 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v47 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v49 = SLODWORD(v27) * 0.95;
-      _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_DEBUG, "(MMS) Max Message Byte Count (less backoff): %f", buf, 0xCu);
+      v90 = v39 * 0.95;
+      _os_log_impl(&dword_19020E000, v47, OS_LOG_TYPE_DEBUG, "(MMS) Max Message Byte Count (less backoff): %f", buf, 0xCu);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    _CKLog(0x18u, @"(MMS) Max Message Byte Count (less backoff): %f", v48, v49, v50, v51, v52, v53, COERCE__INT64(v39 * 0.95));
   }
 
-  v30 = SLODWORD(v27) * 0.95 / 10240.0;
-  v31 = floorf(v30);
-  if (v31 < 1.0)
+  v54 = v39 * 0.95 / 10240.0;
+  v55 = floorf(v54);
+  if (v55 < 1.0)
   {
-    v31 = 1.0;
+    v55 = 1.0;
   }
 
-  v32 = v31;
-  v33 = types[3];
-  v21 = v33 <= v31;
-  if (v33 > v31)
+  v56 = v55;
+  v57 = types[3];
+  v27 = v57 <= v55;
+  if (v57 > v55)
   {
-    v19 = 2002;
+    v25 = 2002;
   }
 
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
-    v34 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v58 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
     {
-      *&v35 = COERCE_DOUBLE(@"NO");
+      v59 = @"NO";
       *buf = 138412802;
-      if (v33 <= v32)
+      if (v57 <= v56)
       {
-        *&v35 = COERCE_DOUBLE(@"YES");
+        v59 = @"YES";
       }
 
-      v49 = *&v35;
-      v50 = 1024;
-      *v51 = v32;
-      v51[2] = 1024;
-      *&v51[3] = v33;
-      _os_log_impl(&dword_19020E000, v34, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@: maximumImageCount: %d, asked for %d", buf, 0x18u);
+      v90 = *&v59;
+      v91 = 1024;
+      *v92 = v56;
+      v92[2] = 1024;
+      *&v92[3] = v57;
+      _os_log_impl(&dword_19020E000, v58, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@: maximumImageCount: %d, asked for %d", buf, 0x18u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    _CKLog();
+    v66 = @"NO";
+    if (v57 <= v56)
+    {
+      v66 = @"YES";
+    }
+
+    _CKLog(0x18u, @"(MMS) Accept: %@: maximumImageCount: %d, asked for %d", v60, v61, v62, v63, v64, v65, v66);
   }
 
-LABEL_63:
+LABEL_65:
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
-    v36 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v67 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
     {
-      if (v21)
+      if (v27)
       {
-        *&v37 = COERCE_DOUBLE(@"YES");
+        v68 = @"YES";
       }
 
       else
       {
-        *&v37 = COERCE_DOUBLE(@"NO");
+        v68 = @"NO";
       }
 
-      v38 = CKErrorStringForCKMessageContentError(v19);
+      v69 = CKErrorStringForCKMessageContentError(v25);
       *buf = 138412546;
-      v49 = *&v37;
-      v50 = 2112;
-      *v51 = v38;
-      _os_log_impl(&dword_19020E000, v36, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@ reason [%@]", buf, 0x16u);
+      v90 = *&v68;
+      v91 = 2112;
+      *v92 = v69;
+      _os_log_impl(&dword_19020E000, v67, OS_LOG_TYPE_DEBUG, "(MMS) Accept: %@ reason [%@]", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v45 = CKErrorStringForCKMessageContentError(v19);
-    _CKLog();
+    if (v27)
+    {
+      v70 = @"YES";
+    }
+
+    else
+    {
+      v70 = @"NO";
+    }
+
+    v87 = CKErrorStringForCKMessageContentError(v25);
+    _CKLog(0x18u, @"(MMS) Accept: %@ reason [%@]", v71, v72, v73, v74, v75, v76, v70);
   }
 
   if (code)
   {
-    v39 = v21;
+    v77 = v27;
   }
 
   else
   {
-    v39 = 1;
+    v77 = 1;
   }
 
-  if ((v39 & 1) == 0)
+  if ((v77 & 1) == 0)
   {
-    *code = v19;
+    *code = v25;
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(24);
-      v40 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v78 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
       {
-        v41 = CKErrorStringForCKMessageContentError(v19);
+        v79 = CKErrorStringForCKMessageContentError(v25);
         *buf = 134218242;
-        v49 = *&v19;
-        v50 = 2112;
-        *v51 = v41;
-        _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_DEBUG, "Error code: %ld description: %@", buf, 0x16u);
+        v90 = *&v25;
+        v91 = 2112;
+        *v92 = v79;
+        _os_log_impl(&dword_19020E000, v78, OS_LOG_TYPE_DEBUG, "Error code: %ld description: %@", buf, 0x16u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v46 = CKErrorStringForCKMessageContentError(v19);
-      _CKLog();
+      v88 = CKErrorStringForCKMessageContentError(v25);
+      _CKLog(0x18u, @"Error code: %ld description: %@", v80, v81, v82, v83, v84, v85, v25);
     }
   }
 
-  return v21;
+  return v27;
 }
 
 + (BOOL)_sms_canAcceptMediaObjectType:(int)type givenMediaObjects:(id)objects phoneNumber:(id)number simID:(id)d
@@ -8262,15 +8311,15 @@ LABEL_63:
 + (BOOL)_sms_canSendComposition:(id)composition lastAddressedHandle:(id)handle lastAddressedSIMID:(id)d recipientsContainEmail:(BOOL)email skipMMSCheck:(BOOL)check error:(id *)error
 {
   emailCopy = email;
-  v75 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   compositionCopy = composition;
   handleCopy = handle;
   dCopy = d;
-  v49 = [MEMORY[0x1E69A5CA0] mmsEnabledforPhoneNumber:handleCopy simID:dCopy];
-  v53 = handleCopy;
-  v54 = dCopy;
+  v54 = [MEMORY[0x1E69A5CA0] mmsEnabledforPhoneNumber:handleCopy simID:dCopy];
+  v58 = handleCopy;
+  v59 = dCopy;
   v14 = [MEMORY[0x1E69A7F58] IMMMSRestrictedModeEnabledForPhoneNumber:handleCopy simID:dCopy];
-  memset(v74, 0, 44);
+  memset(v79, 0, 44);
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(24);
@@ -8291,164 +8340,163 @@ LABEL_63:
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
   {
-    v17 = @"NO";
+    v23 = @"NO";
     if (v14)
     {
-      v17 = @"YES";
+      v23 = @"YES";
     }
 
-    v48 = v17;
-    _CKLog();
+    _CKLog(0x18u, @"(MMS) Restricted Mode Enabled [%@]", v17, v18, v19, v20, v21, v22, v23);
   }
 
   shelfPluginPayload = [compositionCopy shelfPluginPayload];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v19 = shelfPluginPayload;
+  v25 = shelfPluginPayload;
   if ((isKindOfClass & 1) == 0)
   {
-    v19 = 0;
+    v25 = 0;
   }
 
-  v56 = v19;
-  shouldSendAsMediaObject = [v56 shouldSendAsMediaObject];
+  v61 = v25;
+  shouldSendAsMediaObject = [v61 shouldSendAsMediaObject];
   if (shouldSendAsMediaObject)
   {
-    mediaObjectFromPayload = [v56 mediaObjectFromPayload];
-    v22 = [compositionCopy compositionByAppendingMediaObject:mediaObjectFromPayload];
+    mediaObjectFromPayload = [v61 mediaObjectFromPayload];
+    v28 = [compositionCopy compositionByAppendingMediaObject:mediaObjectFromPayload];
 
-    v23 = v22;
+    v29 = v28;
   }
 
   else
   {
-    v23 = compositionCopy;
+    v29 = compositionCopy;
   }
 
-  v55 = v23;
-  mediaObjects = [v23 mediaObjects];
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v25 = 0;
-  v26 = 0;
-  v27 = [mediaObjects countByEnumeratingWithState:&v66 objects:v72 count:16];
-  if (v27)
+  v60 = v29;
+  mediaObjects = [v29 mediaObjects];
+  v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v31 = 0;
+  v32 = 0;
+  v33 = [mediaObjects countByEnumeratingWithState:&v71 objects:v77 count:16];
+  if (v33)
   {
-    v28 = *v67;
+    v34 = *v72;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v67 != v28)
+        if (*v72 != v34)
         {
           objc_enumerationMutation(mediaObjects);
         }
 
-        mediaType = [*(*(&v66 + 1) + 8 * i) mediaType];
-        ++*(v74 + mediaType);
-        v26 |= mediaType == 2;
-        v25 |= mediaType == 7;
+        mediaType = [*(*(&v71 + 1) + 8 * i) mediaType];
+        ++*(v79 + mediaType);
+        v32 |= mediaType == 2;
+        v31 |= mediaType == 7;
       }
 
-      v27 = [mediaObjects countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v33 = [mediaObjects countByEnumeratingWithState:&v71 objects:v77 count:16];
     }
 
-    while (v27);
+    while (v33);
   }
 
   if ([mediaObjects count])
   {
-    v31 = 1;
+    v37 = 1;
   }
 
   else
   {
-    v31 = shouldSendAsMediaObject;
+    v37 = shouldSendAsMediaObject;
+  }
+
+  if (v37)
+  {
+    v38 = 1;
+  }
+
+  else
+  {
+    subject = [v60 subject];
+    v38 = [subject length] != 0;
   }
 
   if (v31)
   {
-    v32 = 1;
+    LOBYTE(v40) = 0;
+    v41 = 2003;
   }
 
   else
   {
-    subject = [v55 subject];
-    v32 = [subject length] != 0;
-  }
-
-  if (v25)
-  {
-    LOBYTE(v34) = 0;
-    v35 = 2003;
-  }
-
-  else
-  {
-    LOBYTE(v34) = 1;
-    if (!emailCopy && !v32 || check)
+    LOBYTE(v40) = 1;
+    if (!emailCopy && !v38 || check)
     {
       goto LABEL_56;
     }
 
-    v34 = v49;
-    if (v49)
+    v40 = v54;
+    if (v54)
     {
-      v35 = 0;
+      v41 = 0;
     }
 
     else
     {
-      v35 = 3000;
+      v41 = 3000;
     }
 
-    if ((v49 & v31) == 1)
+    if ((v54 & v37) == 1)
     {
       *buf = 0;
-      v34 = [self _sms_canSendMessageWithMediaObjectTypes:v74 phoneNumber:v53 simID:v54 errorCode:buf];
-      if (v34)
+      v40 = [self _sms_canSendMessageWithMediaObjectTypes:v79 phoneNumber:v58 simID:v59 errorCode:buf];
+      if (v40)
       {
-        v35 = 0;
+        v41 = 0;
       }
 
       else
       {
-        v35 = *buf;
+        v41 = *buf;
       }
     }
 
-    if ((v31 & v34 & v14) == 1)
+    if ((v37 & v40 & v14) == 1)
     {
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
-      v63 = 0u;
-      v37 = mediaObjects;
-      v38 = [v37 countByEnumeratingWithState:&v62 objects:v71 count:16];
-      if (v38)
+      v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v43 = mediaObjects;
+      v44 = [v43 countByEnumeratingWithState:&v67 objects:v76 count:16];
+      if (v44)
       {
-        v39 = *v63;
+        v45 = *v68;
         while (2)
         {
-          for (j = 0; j != v38; ++j)
+          for (j = 0; j != v44; ++j)
           {
-            if (*v63 != v39)
+            if (*v68 != v45)
             {
-              objc_enumerationMutation(v37);
+              objc_enumerationMutation(v43);
             }
 
-            if (![self _sms_mediaObjectPassesRestriction:*(*(&v62 + 1) + 8 * j)])
+            if (![self _sms_mediaObjectPassesRestriction:*(*(&v67 + 1) + 8 * j)])
             {
-              v34 = 0;
-              v35 = 2003;
+              v40 = 0;
+              v41 = 2003;
               goto LABEL_58;
             }
           }
 
-          v38 = [v37 countByEnumeratingWithState:&v62 objects:v71 count:16];
-          if (v38)
+          v44 = [v43 countByEnumeratingWithState:&v67 objects:v76 count:16];
+          if (v44)
           {
             continue;
           }
@@ -8457,78 +8505,78 @@ LABEL_63:
         }
       }
 
-      v34 = 1;
+      v40 = 1;
 LABEL_58:
     }
 
-    if ((v34 & v26) == 1)
+    if ((v40 & v32) == 1)
     {
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
-      v59 = 0u;
-      v42 = mediaObjects;
-      v43 = [v42 countByEnumeratingWithState:&v58 objects:v70 count:16];
-      if (v43)
+      v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v48 = mediaObjects;
+      v49 = [v48 countByEnumeratingWithState:&v63 objects:v75 count:16];
+      if (v49)
       {
-        v44 = *v59;
-        LOBYTE(v34) = 1;
+        v50 = *v64;
+        LOBYTE(v40) = 1;
         do
         {
-          for (k = 0; k != v43; ++k)
+          for (k = 0; k != v49; ++k)
           {
-            if (*v59 != v44)
+            if (*v64 != v50)
             {
-              objc_enumerationMutation(v42);
+              objc_enumerationMutation(v48);
             }
 
-            v46 = *(*(&v58 + 1) + 8 * k);
-            if ([v46 mediaType] - 1 <= 1)
+            v52 = *(*(&v63 + 1) + 8 * k);
+            if ([v52 mediaType] - 1 <= 1)
             {
-              v47 = [self _sms_mediaObjectPassesDurationCheck:v46];
-              if (!v47)
+              v53 = [self _sms_mediaObjectPassesDurationCheck:v52];
+              if (!v53)
               {
-                v35 = 2005;
+                v41 = 2005;
               }
 
-              LOBYTE(v34) = v47 & v34;
+              LOBYTE(v40) = v53 & v40;
             }
           }
 
-          v43 = [v42 countByEnumeratingWithState:&v58 objects:v70 count:16];
+          v49 = [v48 countByEnumeratingWithState:&v63 objects:v75 count:16];
         }
 
-        while (v43);
+        while (v49);
       }
 
       else
       {
-        LOBYTE(v34) = 1;
+        LOBYTE(v40) = 1;
       }
     }
   }
 
-  if (error && (v34 & 1) == 0)
+  if (error && (v40 & 1) == 0)
   {
-    v36 = [self _sms_localizedErrorForReason:v35];
-    if (v36)
+    v42 = [self _sms_localizedErrorForReason:v41];
+    if (v42)
     {
-      v36 = v36;
-      *error = v36;
+      v42 = v42;
+      *error = v42;
     }
 
-    LOBYTE(v34) = 0;
+    LOBYTE(v40) = 0;
   }
 
 LABEL_56:
 
-  return v34 & 1;
+  return v40 & 1;
 }
 
 + (id)_sms_localizedErrorForReason:(int64_t)reason
 {
   reasonCopy = reason;
-  v16 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ((reason - 2001) >= 5)
   {
     if (!reason)
@@ -8545,28 +8593,27 @@ LABEL_56:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          v15 = reasonCopy;
+          v20 = reasonCopy;
           _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_DEBUG, "SMS: Not generating NSError for message content error: %ld", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        v13 = reasonCopy;
-        _CKLog();
+        _CKLog(0x2Cu, @"SMS: Not generating NSError for message content error: %ld", v13, v14, v15, v16, v17, v18, reasonCopy);
       }
 
       v6 = 0;
       goto LABEL_4;
     }
 
-    v4 = CKFrameworkBundle();
+    v4 = CKFrameworkBundle(self);
     v5 = [v4 localizedStringForKey:@"ERR_NEED_MMS" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
   else
   {
-    v4 = CKFrameworkBundle();
+    v4 = CKFrameworkBundle(self);
     v5 = [v4 localizedStringForKey:@"ERR_NEED_IMESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
@@ -8587,7 +8634,7 @@ LABEL_4:
         v6 = reasonCopy;
       }
 
-      [v9 setObject:v6 forKey:{*MEMORY[0x1E696A578], v13}];
+      [v9 setObject:v6 forKey:*MEMORY[0x1E696A578]];
     }
 
     else
@@ -8595,7 +8642,7 @@ LABEL_4:
       v6 = 0;
     }
 
-    reasonCopy = [MEMORY[0x1E696ABC0] errorWithDomain:@"CKMessageContentErrorDomain" code:reasonCopy userInfo:{v9, v13}];
+    reasonCopy = [MEMORY[0x1E696ABC0] errorWithDomain:@"CKMessageContentErrorDomain" code:reasonCopy userInfo:v9];
   }
 
   else
@@ -8626,9 +8673,9 @@ LABEL_17:
 
 + (BOOL)_sms_mediaObjectPassesDurationCheck:(id)check
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   checkCopy = check;
-  if (checkCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([checkCopy duration], v6 = v5, objc_msgSend(self, "_sms_maxTrimDurationForMediaType:", objc_msgSend(checkCopy, "mediaType")), v8 = v7, v6 >= v7 + 0.00000011920929))
+  if (checkCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_msgSend_duration(checkCopy), v6 = v5, [self _sms_maxTrimDurationForMediaType:{objc_msgSend(checkCopy, "mediaType")}], v8 = v7, *&v6 >= v7 + 0.00000011920929))
   {
     if (IMOSLoggingEnabled())
     {
@@ -8637,16 +8684,16 @@ LABEL_17:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v13 = v6;
-        v14 = 2048;
-        v15 = v8;
+        v19 = v6;
+        v20 = 2048;
+        v21 = v8;
         _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_DEBUG, "SMS: Media has duration:%f   max: %f", buf, 0x16u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x2Cu, @"SMS: Media has duration:%f   max: %f", v12, v13, v14, v15, v16, v17, v6);
     }
 
     v9 = 0;
@@ -8663,59 +8710,59 @@ LABEL_17:
 - (BOOL)_sms_canSendToRecipients:(id)recipients alertIfUnable:(BOOL)unable
 {
   LODWORD(v4) = unable;
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   recipientsCopy = recipients;
   v7 = MEMORY[0x1E69A5CA0];
   lastAddressedHandle = [(CKConversation *)self lastAddressedHandle];
   lastAddressedSIMID = [(CKConversation *)self lastAddressedSIMID];
   v10 = [v7 mmsEnabledforPhoneNumber:lastAddressedHandle simID:lastAddressedSIMID];
 
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   v11 = recipientsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
+    v14 = *v32;
     v15 = *MEMORY[0x1E695C208];
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
         if ((v10 & 1) == 0)
         {
-          propertyType = [*(*(&v29 + 1) + 8 * i) propertyType];
+          propertyType = [*(*(&v31 + 1) + 8 * i) propertyType];
 
           if (propertyType == v15)
           {
             if (v4)
             {
-              v18 = CKFrameworkBundle();
-              v4 = [v18 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+              v19 = CKFrameworkBundle(v18);
+              v4 = [v19 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-              v19 = CKFrameworkBundle();
-              v20 = [v19 localizedStringForKey:@"ERR_NEED_MMS_TO_EMAIL" value:&stru_1F04268F8 table:@"ChatKit"];
+              v21 = CKFrameworkBundle(v20);
+              v22 = [v21 localizedStringForKey:@"ERR_NEED_MMS_TO_EMAIL" value:&stru_1F04268F8 table:@"ChatKit"];
 
-              v21 = [CKAlertController alertControllerWithTitle:v4 message:v20 preferredStyle:1];
-              v22 = CKFrameworkBundle();
-              v23 = [v22 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-              v24 = [CKAlertAction actionWithTitle:v23 style:0 handler:0];
+              v23 = [CKAlertController alertControllerWithTitle:v4 message:v22 preferredStyle:1];
+              v24 = CKFrameworkBundle(v23);
+              v25 = [v24 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+              v26 = [CKAlertAction actionWithTitle:v25 style:0 handler:0];
 
-              [v21 addAction:v24];
+              [v23 addAction:v26];
               block[0] = MEMORY[0x1E69E9820];
               block[1] = 3221225472;
               block[2] = __80__CKConversation_SMS_Content_Utilities___sms_canSendToRecipients_alertIfUnable___block_invoke;
               block[3] = &unk_1E72EBA18;
-              v28 = v21;
-              v25 = v21;
+              v30 = v23;
+              v27 = v23;
               dispatch_async(MEMORY[0x1E69E96A0], block);
 
               LOBYTE(v4) = 0;
@@ -8726,7 +8773,7 @@ LABEL_17:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v13)
       {
         continue;
@@ -8784,7 +8831,7 @@ void __80__CKConversation_SMS_Content_Utilities___sms_canSendToRecipients_alertI
   return __ck_isiMessage;
 }
 
-void *__48__CKConversation_Plugin_Utilities__supportsSurf__block_invoke()
+uint64_t (*__48__CKConversation_Plugin_Utilities__supportsSurf__block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("PKCashGroupsEnabled", @"PassKitCore");
   supportsSurf__PKCashGroupsEnabled = result;

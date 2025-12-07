@@ -1,8 +1,24 @@
 @interface DDRTaskClearTelephonySettings
+- (DDRTaskClearTelephonySettings)initWithEraseDataPlan:(BOOL)plan;
 - (void)run;
 @end
 
 @implementation DDRTaskClearTelephonySettings
+
+- (DDRTaskClearTelephonySettings)initWithEraseDataPlan:(BOOL)plan
+{
+  planCopy = plan;
+  v7.receiver = self;
+  v7.super_class = DDRTaskClearTelephonySettings;
+  v4 = [(DDRTaskClearTelephonySettings *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(DDRTaskClearTelephonySettings *)v4 setEraseDataPlan:planCopy];
+  }
+
+  return v5;
+}
 
 - (void)run
 {

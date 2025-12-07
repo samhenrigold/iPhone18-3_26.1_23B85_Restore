@@ -330,10 +330,10 @@ id __55__NURenderPipelineFunction_grainInputSeedFromFrameTime__block_invoke(uint
   v3 = v2;
   if (v2)
   {
-    [v2 time];
+    objc_msgSend_time(v2);
     if ((v9 & 0x100000000) != 0)
     {
-      [v3 time];
+      objc_msgSend_time(v3);
       Seconds = CMTimeGetSeconds(&v7);
       v4 = [MEMORY[0x1E696AD98] numberWithDouble:{modf(Seconds / 10.0, &v7.value)}];
     }

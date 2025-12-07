@@ -27,7 +27,7 @@ void AWDMetricsHandlers_handle_restore_daemon_reset(void)
   v3 = 18;
   strcpy(__p, "num_daemon_restart");
   v4 = __p;
-  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v4);
   v1 = (v0 + 7);
   if ((*(v0 + 79) & 0x80000000) == 0)
   {
@@ -65,7 +65,7 @@ void AWDMetricsHandlers_handle_reset_daemon(void)
   BYTE7(v3[2]) = 18;
   strcpy(v3, "num_daemon_restanum_daemon_restart");
   v4 = &v3[1];
-  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v3[1]);
+  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v3[1], &std::piecewise_construct, &v4);
   std::string::assign((v0 + 7), "0");
   if (SBYTE7(v3[2]) < 0)
   {
@@ -76,7 +76,7 @@ void AWDMetricsHandlers_handle_reset_daemon(void)
   strcpy(&v3[2], "rt");
   v3[1] = v3[0];
   v4 = &v3[1];
-  v1 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v3[1]);
+  v1 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v3[1], &std::piecewise_construct, &v4);
   v2 = (v1 + 7);
   if (*(v1 + 79) < 0)
   {
@@ -885,12 +885,14 @@ void _GLOBAL__sub_I_AWDMetricsHandlers_mm()
   *&dword_10052B0B0 = 0;
   xmmword_10052B0A0 = 0uLL;
   word_10052B0B8 = 0;
-  unk_1004E56F8 = 0;
-  m_daemonVersionString = 0uLL;
-  __cxa_atexit(&std::string::~string, &m_daemonVersionString, &_mh_execute_header);
-  unk_1004E5710 = 0;
-  m_vendorVersionString = 0uLL;
-  __cxa_atexit(&std::string::~string, &m_vendorVersionString, &_mh_execute_header);
+  *&m_daemonVersionString[8] = 0;
+  *&m_daemonVersionString[16] = 0;
+  *m_daemonVersionString = 0;
+  __cxa_atexit(&std::string::~string, m_daemonVersionString, &_mh_execute_header);
+  *&m_vendorVersionString[8] = 0;
+  *&m_vendorVersionString[16] = 0;
+  *m_vendorVersionString = 0;
+  __cxa_atexit(&std::string::~string, m_vendorVersionString, &_mh_execute_header);
 
   objc_autoreleasePoolPop(v0);
 }
@@ -1505,7 +1507,7 @@ void _GLOBAL__sub_I_ne_tunnel_mm()
   objc_autoreleasePoolPop(v0);
 }
 
-uint64_t create_new_crash_dump_file(void *a1, uint64_t a2, uint64_t *a3)
+uint64_t create_new_crash_dump_file(void *a1, uint64_t a2, uint64_t **a3)
 {
   v5 = +[NSDate date];
   [v5 timeIntervalSince1970];
@@ -1778,7 +1780,7 @@ void backup_current_sniffer_file(void)
   }
 
   v9.__pn_.__r_.__value_.__s.__data_[v7] = 0;
-  boost::filesystem::detail::status(&__dst, 0, buf);
+  boost::filesystem::detail::status(buf, &__dst, 0);
   if (*buf < 2u)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
@@ -2230,13 +2232,13 @@ unsigned __int8 *ot::MeshCoP::SecureTransport::HandleReceive(unsigned __int8 *th
 LABEL_13:
       if (v8 == 3)
       {
-        v12 = mbedtls_ssl_set_client_transport_id(v10 + 6, v10 + 872, 16);
+        v12 = mbedtls_ssl_set_client_transport_id(v10 + 6, (v10 + 109), 16);
         ot::Crypto::MbedTls::MapError(v12);
       }
 
-      *(v10 + 101) = a2;
+      v10[101] = a2;
       this = ot::MeshCoP::SecureTransport::Process(v10);
-      *(v10 + 101) = 0;
+      v10[101] = 0;
     }
   }
 
@@ -2345,7 +2347,7 @@ ot::MeshCoP::SecureTransport *ot::MeshCoP::SecureTransport::SecureTransport(ot::
   return this;
 }
 
-void **ot::MeshCoP::SecureTransport::FreeMbedtls(ot::MeshCoP::SecureTransport *this)
+void **ot::MeshCoP::SecureTransport::FreeMbedtls(void **this)
 {
   if ((*(this + 780) & 4) != 0)
   {
@@ -2357,14 +2359,13 @@ void **ot::MeshCoP::SecureTransport::FreeMbedtls(ot::MeshCoP::SecureTransport *t
   return mbedtls_ssl_free(this + 6);
 }
 
-void ot::MeshCoP::SecureTransport::SetState(_BYTE *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::MeshCoP::SecureTransport::SetState(unsigned __int8 *result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (*a1 != a2)
+  if (*result != a2)
   {
-    v10 = ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[a2];
     v9 = a2;
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[*a1]);
-    *a1 = v9;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[*result], ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[a2]);
+    *result = v9;
   }
 }
 
@@ -2391,7 +2392,7 @@ uint64_t ot::MeshCoP::SecureTransport::Open(ot::MeshCoP::SecureTransport *this, 
 
     else
     {
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v9, v10, v11, v12, v13, v14, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v15]);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v9, v10, v11, v12, v13, v14, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v15], "Open");
       result = 0;
       *this = 1;
     }
@@ -2431,9 +2432,9 @@ uint64_t ot::MeshCoP::SecureTransport::Connect(ot::MeshCoP::SecureTransport *thi
   return ot::MeshCoP::SecureTransport::Setup(this, 1, a3, a4, a5, a6, a7, a8);
 }
 
-uint64_t ot::MeshCoP::SecureTransport::Setup(ot::MeshCoP::SecureTransport *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ot::MeshCoP::SecureTransport::Setup(int32x2_t *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *this;
+  v9 = this->u8[0];
   if (v9 != 1)
   {
     v12 = 4294940672;
@@ -2447,79 +2448,79 @@ LABEL_13:
     goto LABEL_17;
   }
 
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, "Open");
-  *this = 2;
-  mbedtls_ssl_init();
-  mbedtls_ssl_config_init();
-  v11 = *(this + 780);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, "Open", "Initializing");
+  this->i8[0] = 2;
+  mbedtls_ssl_init(&this[6]);
+  mbedtls_ssl_config_init(&this[63]);
+  v11 = this[97].i8[4];
   if ((v11 & 4) != 0)
   {
-    mbedtls_ssl_cookie_init(this + 704);
-    v11 = *(this + 780);
+    mbedtls_ssl_cookie_init(&this[88]);
+    v11 = this[97].i8[4];
   }
 
-  v12 = mbedtls_ssl_config_defaults(this + 504, a2 ^ 1u, (v11 & 4) != 0, 0);
+  v12 = mbedtls_ssl_config_defaults(&this[63], a2 ^ 1u, (v11 & 4) != 0, 0);
   if (!v12)
   {
-    mbedtls_ssl_conf_rng(this + 504, ot::Crypto::MbedTls::CryptoSecurePrng, 0);
-    *(this + 63) = vdup_n_s32(0x303u);
-    mbedtls_ssl_conf_ciphersuites(this + 504, this + 4);
-    if (*(this + 1) == 49407)
+    mbedtls_ssl_conf_rng(&this[63], ot::Crypto::MbedTls::CryptoSecurePrng, 0);
+    this[63] = vdup_n_s32(0x303u);
+    mbedtls_ssl_conf_ciphersuites(&this[63], this + 4);
+    if (this->i32[1] == 49407)
     {
-      mbedtls_ssl_conf_groups(this + 504, &ot::MeshCoP::SecureTransport::sGroups);
+      mbedtls_ssl_conf_groups(&this[63], &ot::MeshCoP::SecureTransport::sGroups);
     }
 
-    mbedtls_ssl_set_export_keys_cb(this + 48, ot::MeshCoP::SecureTransport::HandleMbedtlsExportKeys, this);
-    mbedtls_ssl_conf_handshake_timeout(this + 504, 8000, 60000);
-    mbedtls_ssl_conf_dbg(this + 504, ot::MeshCoP::SecureTransport::HandleMbedtlsDebug, this);
-    if ((a2 & 1) == 0 && (*(this + 780) & 4) != 0)
+    mbedtls_ssl_set_export_keys_cb(&this[6], ot::MeshCoP::SecureTransport::HandleMbedtlsExportKeys, this);
+    mbedtls_ssl_conf_handshake_timeout(&this[63], 8000, 60000);
+    mbedtls_ssl_conf_dbg(&this[63], ot::MeshCoP::SecureTransport::HandleMbedtlsDebug, this);
+    if ((a2 & 1) == 0 && (this[97].i8[4] & 4) != 0)
     {
-      v12 = mbedtls_ssl_cookie_setup(this + 704, ot::Crypto::MbedTls::CryptoSecurePrng, 0);
+      v12 = mbedtls_ssl_cookie_setup(&this[88], ot::Crypto::MbedTls::CryptoSecurePrng, 0);
       if (v12)
       {
         goto LABEL_12;
       }
 
-      mbedtls_ssl_conf_dtls_cookies(this + 63, mbedtls_ssl_cookie_write, mbedtls_ssl_cookie_check, this + 704);
+      mbedtls_ssl_conf_dtls_cookies(&this[63], mbedtls_ssl_cookie_write, mbedtls_ssl_cookie_check, &this[88]);
     }
 
-    v12 = mbedtls_ssl_setup(this + 6, this + 126);
+    v12 = mbedtls_ssl_setup(&this[6], &this[63]);
     if (!v12)
     {
-      mbedtls_ssl_set_bio(this + 6, this, ot::MeshCoP::SecureTransport::HandleMbedtlsTransmit, ot::MeshCoP::SecureTransport::HandleMbedtlsReceive, 0);
-      if ((*(this + 780) & 4) != 0)
+      mbedtls_ssl_set_bio(&this[6], this, ot::MeshCoP::SecureTransport::HandleMbedtlsTransmit, ot::MeshCoP::SecureTransport::HandleMbedtlsReceive, 0);
+      if ((this[97].i8[4] & 4) != 0)
       {
-        mbedtls_ssl_set_timer_cb(this + 6, this, ot::MeshCoP::SecureTransport::HandleMbedtlsSetTimer, ot::MeshCoP::SecureTransport::HandleMbedtlsGetTimer);
+        mbedtls_ssl_set_timer_cb(&this[6], this, ot::MeshCoP::SecureTransport::HandleMbedtlsSetTimer, ot::MeshCoP::SecureTransport::HandleMbedtlsGetTimer);
       }
 
-      if (*(this + 1) == 49407)
+      if (this->i32[1] == 49407)
       {
-        v12 = mbedtls_ssl_set_hs_ecjpake_password(this + 6, this + 12, *(this + 44));
+        v12 = mbedtls_ssl_set_hs_ecjpake_password(&this[6], &this[1] + 4, this[5].u8[4]);
         if (v12)
         {
           goto LABEL_12;
         }
 
-        v22 = *(this + 1);
-        *(this + 101) = 0;
-        *(this + 992) = 0;
+        v22 = this->i32[1];
+        this[101] = 0;
+        this[124].i8[0] = 0;
         if (v22 == 49407)
         {
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "DTLS started", a3, a4, a5, a6, a7, a8, v24);
+          ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "DTLS started", a3, a4, a5, a6, a7, a8);
         }
       }
 
       else
       {
-        *(this + 101) = 0;
-        *(this + 992) = 0;
+        this[101] = 0;
+        this[124].i8[0] = 0;
       }
 
-      v23 = *this;
+      v23 = this->u8[0];
       if (v23 != 3)
       {
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v23]);
-        *this = 3;
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v23], "Connecting");
+        this->i8[0] = 3;
       }
 
       ot::MeshCoP::SecureTransport::Process(this);
@@ -2530,24 +2531,24 @@ LABEL_13:
   }
 
 LABEL_12:
-  if (*this != 2)
+  if (this->i8[0] != 2)
   {
     goto LABEL_13;
   }
 
 LABEL_17:
   v14 = v12;
-  if (!*(this + 391) || *(this + 392))
+  if (!this[97].i16[3] || this[98].i16[0])
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, "Initializing");
-    *this = 1;
-    if ((*(this + 780) & 4) != 0)
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, "Initializing", "Open");
+    this->i8[0] = 1;
+    if ((this[97].i8[4] & 4) != 0)
     {
-      mbedtls_ssl_cookie_free(this + 88);
+      mbedtls_ssl_cookie_free(&this[88]);
     }
 
-    mbedtls_ssl_config_free(this + 63);
-    mbedtls_ssl_free(this + 6);
+    mbedtls_ssl_config_free(&this[63]);
+    mbedtls_ssl_free(&this[6]);
 LABEL_22:
     v12 = v14;
 
@@ -2555,23 +2556,23 @@ LABEL_22:
   }
 
   ot::MeshCoP::SecureTransport::Disconnect(this);
-  if (*this)
+  if (this->i8[0])
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v15, v16, v17, v18, v19, v20, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[*this]);
-    *this = 0;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v15, v16, v17, v18, v19, v20, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[this->u8[0]], "Closed");
+    this->i8[0] = 0;
   }
 
-  *(this + 780) &= ~1u;
-  *(this + 121) = 0;
-  ot::Ip6::Udp::Socket::Close((this + 896));
-  ot::TimerMilli::Stop((this + 744));
-  v21 = *(this + 99);
+  this[97].i8[4] &= ~1u;
+  this[121] = 0;
+  ot::Ip6::Udp::Socket::Close(&this[112]);
+  ot::TimerMilli::Stop(&this[93]);
+  v21 = this[99];
   if (!v21)
   {
     goto LABEL_22;
   }
 
-  v21(*(this + 100));
+  v21(*&this[100]);
   v12 = v14;
 
   return ot::Crypto::MbedTls::MapError(v12);
@@ -2592,7 +2593,7 @@ void **ot::MeshCoP::SecureTransport::Receive(ot::MeshCoP::SecureTransport *this,
   return result;
 }
 
-uint64_t ot::MeshCoP::SecureTransport::Bind(ot::MeshCoP::SecureTransport *this, __int16 a2)
+uint64_t ot::MeshCoP::SecureTransport::Bind(ot::MeshCoP::SecureTransport *this, uint64_t a2)
 {
   if (*this != 1)
   {
@@ -2630,18 +2631,18 @@ uint64_t ot::MeshCoP::SecureTransport::Bind(uint64_t a1, uint64_t a2, uint64_t a
   return result;
 }
 
-void ot::MeshCoP::SecureTransport::HandleMbedtlsDebug(ot::MeshCoP::SecureTransport *this, void *a2, uint64_t a3, const char *a4, uint64_t a5, const char *a6, uint64_t a7, uint64_t a8)
+void ot::MeshCoP::SecureTransport::HandleMbedtlsDebug(uint64_t this, void *a2, uint64_t a3, const char *a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8)
 {
   switch(a2)
   {
     case 3:
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 456));
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 912), a5);
       break;
     case 2:
-      ot::Logger::LogAtLevel<(ot::LogLevel)2>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 456));
+      ot::Logger::LogAtLevel<(ot::LogLevel)2>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 912), a5);
       break;
     case 1:
-      ot::Logger::LogAtLevel<(ot::LogLevel)1>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 456));
+      ot::Logger::LogAtLevel<(ot::LogLevel)1>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 912), a5);
       break;
   }
 }
@@ -2741,7 +2742,7 @@ void **ot::MeshCoP::SecureTransport::Process(ot::MeshCoP::SecureTransport *this)
   v3 = result;
   while (1)
   {
-    v4 = (v3 + 48);
+    v4 = v3 + 6;
     if (v2 == 3)
     {
       result = mbedtls_ssl_handshake(v4);
@@ -2751,16 +2752,16 @@ void **ot::MeshCoP::SecureTransport::Process(ot::MeshCoP::SecureTransport *this)
         if (v11 != 4)
         {
           v12 = result;
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v5, v6, v7, v8, v9, v10, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v11]);
+          ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v5, v6, v7, v8, v9, v10, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v11], "Connected");
           result = v12;
           *v3 = 4;
         }
 
-        v13 = *(v3 + 102);
+        v13 = v3[102];
         if (v13)
         {
           v14 = result;
-          v13(*(v3 + 103), 1);
+          v13(v3[103], 1);
           result = v14;
         }
       }
@@ -2776,10 +2777,10 @@ void **ot::MeshCoP::SecureTransport::Process(ot::MeshCoP::SecureTransport *this)
       break;
     }
 
-    v15 = *(v3 + 104);
+    v15 = v3[104];
     if (v15)
     {
-      result = v15(*(v3 + 105), v16, result);
+      result = v15(v3[105], v16, result);
     }
 
     v2 = *v3;
@@ -2808,7 +2809,7 @@ void **ot::MeshCoP::SecureTransport::Process(ot::MeshCoP::SecureTransport *this)
         goto LABEL_27;
       }
 
-      mbedtls_ssl_send_alert_message((v3 + 48), 2, 20);
+      mbedtls_ssl_send_alert_message((v3 + 6), 2, 20);
     }
 
     return ot::MeshCoP::SecureTransport::Disconnect(v3);
@@ -2838,15 +2839,15 @@ void **ot::MeshCoP::SecureTransport::Process(ot::MeshCoP::SecureTransport *this)
 LABEL_26:
   if (*(v3 + 14) != 27)
   {
-    mbedtls_ssl_send_alert_message((v3 + 48), 2, 40);
+    mbedtls_ssl_send_alert_message((v3 + 6), 2, 40);
     return ot::MeshCoP::SecureTransport::Disconnect(v3);
   }
 
 LABEL_27:
-  result = mbedtls_ssl_session_reset((v3 + 48));
+  result = mbedtls_ssl_session_reset((v3 + 6));
   if (*(v3 + 1) == 49407)
   {
-    return mbedtls_ssl_set_hs_ecjpake_password(v3 + 6, (v3 + 12), v3[44]);
+    return mbedtls_ssl_set_hs_ecjpake_password(v3 + 6, v3 + 12, *(v3 + 44));
   }
 
   return result;
@@ -2857,7 +2858,7 @@ uint64_t ot::MeshCoP::SecureTransport::Close(void **this)
   ot::MeshCoP::SecureTransport::Disconnect(this);
   if (*this)
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v2, v3, v4, v5, v6, v7, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[*this]);
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v2, v3, v4, v5, v6, v7, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[*this], "Closed");
     *this = 0;
   }
 
@@ -2877,15 +2878,15 @@ void **ot::MeshCoP::SecureTransport::Disconnect(void **this)
     v9 = *v2;
     if (v9 != 5)
     {
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v3, v4, v5, v6, v7, v8, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v9]);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v3, v4, v5, v6, v7, v8, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[v9], "CloseNotify");
       *v2 = 5;
     }
 
-    ot::TimerMilli::Start((v2 + 744), 0x7D0u);
+    ot::TimerMilli::Start((v2 + 93), 0x7D0u);
     *(v2 + 886) = 0;
-    *(v2 + 856) = 0u;
-    *(v2 + 872) = 0u;
-    if ((v2[780] & 4) != 0)
+    *(v2 + 107) = 0u;
+    *(v2 + 109) = 0u;
+    if ((*(v2 + 780) & 4) != 0)
     {
       mbedtls_ssl_cookie_free(v2 + 88);
     }
@@ -3067,8 +3068,9 @@ unint64_t ot::MeshCoP::SecureTransport::HandleMbedtlsSetTimer(ot::MeshCoP::Secur
   return result;
 }
 
-void ot::MeshCoP::SecureTransport::HandleMbedtlsExportKeys(uint64_t a1, int a2, _BYTE *a3, unint64_t a4, __int128 *a5, _OWORD *a6, int a7)
+void ot::MeshCoP::SecureTransport::HandleMbedtlsExportKeys(uint64_t a1, int a2, _BYTE *a3, unint64_t a4, __int128 *a5, _OWORD *a6, uint64_t a7)
 {
+  v7 = a7;
   ot::Crypto::Sha256::Sha256(v17);
   if (!a2 && *(a1 + 4) == 49407)
   {
@@ -3079,7 +3081,7 @@ void ot::MeshCoP::SecureTransport::HandleMbedtlsExportKeys(uint64_t a1, int a2, 
     v18[1] = v14;
     v18[2] = v15;
     v18[3] = v16;
-    mbedtls_ssl_tls_prf(a7, a3, a4, "key expansion", v18, 64, v19, 0x28uLL);
+    mbedtls_ssl_tls_prf(v7, a3, a4, "key expansion", v18, 64, v19, 0x28uLL);
     ot::Crypto::Sha256::Start(v17);
     ot::Crypto::Sha256::Update(v17, v19, 0x28u);
     ot::Crypto::Sha256::Finish(v17, v20);
@@ -3089,9 +3091,9 @@ void ot::MeshCoP::SecureTransport::HandleMbedtlsExportKeys(uint64_t a1, int a2, 
   ot::Crypto::Sha256::~Sha256(v17);
 }
 
-void sub_10009AFF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10009AFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ot::Crypto::Sha256::~Sha256(va);
   _Unwind_Resume(a1);
 }
@@ -3110,7 +3112,7 @@ void **ot::MeshCoP::SecureTransport::HandleTimer(void **this, uint64_t a2, uint6
         v18 = v9;
         if (*v9)
         {
-          ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v12, v13, v14, v15, v16, v17, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[*v9]);
+          ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", v12, v13, v14, v15, v16, v17, ot::MeshCoP::SecureTransport::StateToString(ot::MeshCoP::SecureTransport::State)::kStateStrings[*v9], "Closed");
           v18 = v9;
           *v9 = 0;
         }
@@ -3138,7 +3140,7 @@ void **ot::MeshCoP::SecureTransport::HandleTimer(void **this, uint64_t a2, uint6
 
       else
       {
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, "CloseNotify");
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "State: %s -> %s", a3, a4, a5, a6, a7, a8, "CloseNotify", "Open");
         *v9 = 1;
         this = ot::TimerMilli::Stop((v9 + 93));
         v10 = v9[102];
@@ -3161,18 +3163,18 @@ void **ot::MeshCoP::SecureTransport::HandleTimer(void **this, uint64_t a2, uint6
   return this;
 }
 
-void ot::MeshCoP::SecureTransport::HandleMbedtlsDebug(ot::MeshCoP::SecureTransport *this, int a2, const char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ot::MeshCoP::SecureTransport::HandleMbedtlsDebug(uint64_t this, int a2, const char *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   switch(a2)
   {
     case 3:
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 456));
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 912), a5);
       break;
     case 2:
-      ot::Logger::LogAtLevel<(ot::LogLevel)2>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 456));
+      ot::Logger::LogAtLevel<(ot::LogLevel)2>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 912), a5);
       break;
     case 1:
-      ot::Logger::LogAtLevel<(ot::LogLevel)1>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 456));
+      ot::Logger::LogAtLevel<(ot::LogLevel)1>("SecTransport", "[%u] %s", a3, a4, a5, a6, a7, a8, *(this + 912), a5);
       break;
   }
 }
@@ -3503,7 +3505,7 @@ LABEL_59:
         }
 
         v55 = [NSString stringWithUTF8String:v54];
-        any_to_string(v53 + 7, &v65);
+        any_to_string(&v65, v53 + 7);
         if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v56 = &v65;
@@ -3620,17 +3622,17 @@ LABEL_62:
   return v39;
 }
 
-void sub_10009BCD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10009BCD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   std::list<std::map<std::string,boost::any>>::~list(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10009BCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_10009BCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::list<std::map<std::string,boost::any>>::~list(va);
 
   _Unwind_Resume(a1);
@@ -3643,30 +3645,30 @@ void sub_10009BD18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10009BEB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, char *a17)
+void sub_10009BEB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char *a17)
 {
   std::__tree<std::string>::destroy(&a16, a17);
 
   _Unwind_Resume(a1);
 }
 
-void sub_10009BEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, char *a17)
+void sub_10009BEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char *a17)
 {
   std::__tree<std::string>::destroy(&a16, a17);
 
   _Unwind_Resume(a1);
 }
 
-void sub_10009BEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, void *a17)
+void sub_10009BEF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
 {
   std::__tree<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,std::__map_value_compare<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>,boost::signals2::detail::group_key_less<int,std::less<int>>,false>,std::allocator<std::__value_type<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,std::__list_iterator<boost::shared_ptr<boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(std::string const&,boost::any const&),boost::function<void ()(std::string const&,boost::any const&)>>,boost::signals2::mutex>>,void *>>>>::destroy(&a16, a17);
 
   _Unwind_Resume(a1);
 }
 
-void sub_10009BF20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10009BF20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  va_start(va, a7);
+  va_start(va, a14);
 
   std::list<std::string>::~list(va);
   JUMPOUT(0x10009BFD8);
@@ -3701,7 +3703,7 @@ BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void *boost::any_cast<std::list<std::string>>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t *boost::any_cast<std::list<std::string>>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *a1;
   if (v4)
@@ -3719,7 +3721,7 @@ void *boost::any_cast<std::list<std::string>>@<X0>(uint64_t *a1@<X0>, void *a2@<
     v9.__vftable = 0;
     std::bad_cast::bad_cast(&v9);
     v9.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v9);
   }
 
   v7 = *a1 + 8;
@@ -3727,7 +3729,7 @@ void *boost::any_cast<std::list<std::string>>@<X0>(uint64_t *a1@<X0>, void *a2@<
   return std::list<std::string>::list(a2, v7);
 }
 
-uint64_t boost::any_cast<std::set<std::string>>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t boost::any_cast<std::set<std::string>>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   if (v4)
@@ -3748,21 +3750,21 @@ uint64_t boost::any_cast<std::set<std::string>>@<X0>(uint64_t *a1@<X0>, uint64_t
       v13.__vftable = 0;
       std::bad_cast::bad_cast(&v13);
       v13.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v13);
     }
   }
 
-  *(a2 + 8) = 0;
+  a2[1] = 0;
   v7 = *a1;
-  *(a2 + 16) = 0;
-  *a2 = a2 + 8;
+  a2[2] = 0;
+  *a2 = a2 + 1;
   v8 = *(v7 + 8);
   v9 = (v7 + 16);
   if (v8 != (v7 + 16))
   {
     do
     {
-      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a2, (a2 + 8), v8 + 4);
+      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(a2, a2 + 1, v8 + 4, (v8 + 4));
       v10 = v8[1];
       if (v10)
       {
@@ -3817,7 +3819,7 @@ uint64_t boost::any_cast<nl::Data>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
       v10.__vftable = 0;
       std::bad_cast::bad_cast(&v10);
       v10.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v10);
     }
   }
 
@@ -3861,7 +3863,7 @@ uint64_t boost::any_cast<std::vector<unsigned char>>@<X0>(uint64_t *a1@<X0>, voi
       v10.__vftable = 0;
       std::bad_cast::bad_cast(&v10);
       v10.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v10);
     }
   }
 
@@ -3884,7 +3886,7 @@ uint64_t boost::any_cast<std::vector<unsigned char>>@<X0>(uint64_t *a1@<X0>, voi
   return result;
 }
 
-uint64_t boost::any_cast<std::set<int>>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t boost::any_cast<std::set<int>>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *a1;
   if (v4)
@@ -3905,14 +3907,14 @@ uint64_t boost::any_cast<std::set<int>>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
       v14.__vftable = 0;
       std::bad_cast::bad_cast(&v14);
       v14.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v14);
     }
   }
 
   a2[1] = 0;
   v7 = *a1;
   a2[2] = 0;
-  *a2 = a2 + 1;
+  *a2 = (a2 + 1);
   v8 = *(v7 + 8);
   v9 = (v7 + 16);
   if (v8 != (v7 + 16))
@@ -3958,7 +3960,7 @@ uint64_t boost::any_cast<std::set<int>>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t boost::any_cast<std::map<std::string,boost::any>>@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+void **boost::any_cast<std::map<std::string,boost::any>>@<X0>(uint64_t *a1@<X0>, void **a2@<X8>)
 {
   v4 = *a1;
   if (v4)
@@ -3976,7 +3978,7 @@ uint64_t boost::any_cast<std::map<std::string,boost::any>>@<X0>(void *a1@<X0>, u
     v9.__vftable = 0;
     std::bad_cast::bad_cast(&v9);
     v9.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v9);
   }
 
   v7 = (*a1 + 8);
@@ -3984,7 +3986,7 @@ uint64_t boost::any_cast<std::map<std::string,boost::any>>@<X0>(void *a1@<X0>, u
   return std::map<std::string,boost::any>::map[abi:ne200100](a2, v7);
 }
 
-uint64_t boost::any_cast<std::list<std::map<std::string,boost::any>>>@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t boost::any_cast<std::list<std::map<std::string,boost::any>>>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *a1;
   if (v4)
@@ -4005,7 +4007,7 @@ uint64_t boost::any_cast<std::list<std::map<std::string,boost::any>>>@<X0>(uint6
       v9.__vftable = 0;
       std::bad_cast::bad_cast(&v9);
       v9.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v9);
     }
   }
 
@@ -4141,23 +4143,23 @@ void std::__list_imp<std::map<std::string,boost::any>>::clear(uint64_t *a1)
   }
 }
 
-void boost::throw_exception<boost::bad_any_cast>()
+void boost::throw_exception<boost::bad_any_cast>(uint64_t a1)
 {
   exception = __cxa_allocate_exception(0x38uLL);
   boost::wrapexcept<boost::bad_any_cast>::wrapexcept(exception);
 }
 
-void *std::list<std::string>::list(void *result, uint64_t a2)
+uint64_t *std::list<std::string>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_10009CC9C(_Unwind_Exception *a1)
@@ -4303,20 +4305,20 @@ __n128 boost::wrapexcept<boost::bad_any_cast>::wrapexcept(__n128 *a1, __n128 *a2
   return result;
 }
 
-uint64_t std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t *a2, const void **a3)
+uint64_t *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t *a2, const void **a3, uint64_t a4)
 {
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!*v3)
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!*v4)
   {
     operator new();
   }
 
-  return *v3;
+  return *v4;
 }
 
-void sub_10009D540(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10009D540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::string,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::string,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4364,12 +4366,12 @@ void std::__tree<std::string>::destroy(uint64_t a1, char *a2)
   }
 }
 
-uint64_t std::map<std::string,boost::any>::map[abi:ne200100](uint64_t a1, const void ***a2)
+void **std::map<std::string,boost::any>::map[abi:ne200100](void **a1, const void ***a2)
 {
-  *(a1 + 8) = 0;
-  v3 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v3 = (a1 + 1);
+  a1[2] = 0;
+  *a1 = a1 + 1;
   v4 = a2 + 1;
   v5 = *a2;
   if (*a2 != (a2 + 1))
@@ -4948,8 +4950,9 @@ BOOL dskeychainRcp::DeleteKeychainItem(CFDictionaryRef *this, __CFDictionary **a
   return v3 == 0;
 }
 
-uint64_t dskeychainRcp::AddDataSet(unsigned int a1, const UInt8 *a2, unsigned int a3)
+uint64_t dskeychainRcp::AddDataSet(uint64_t a1, const UInt8 *a2, unsigned int a3)
 {
+  v3 = a1;
   if (a1 < 2)
   {
     if (a3)
@@ -4985,7 +4988,7 @@ uint64_t dskeychainRcp::AddDataSet(unsigned int a1, const UInt8 *a2, unsigned in
       CFDictionaryAddValue(Mutable, kSecValueData, v6);
       v17 = log_get_logging_obg("com.apple.threadradiod", "default");
       v18 = v17;
-      if (!a1)
+      if (!v3)
       {
         if (v17)
         {
@@ -5162,7 +5165,7 @@ LABEL_16:
     if (result)
     {
       *buf = 67109120;
-      *&buf[4] = a1;
+      *&buf[4] = v3;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "dskeychain::AddDataSet: Invalid add request on datasetType: %d", buf, 8u);
       return 0;
     }
@@ -5387,7 +5390,7 @@ LABEL_33:
   return 0;
 }
 
-uint64_t dskeychainRcp::FindAndGetDataSet(unsigned int a1, ot::MeshCoP::Dataset::Info *a2)
+uint64_t dskeychainRcp::FindAndGetDataSet(uint64_t a1, ot::MeshCoP::Dataset::Info *a2)
 {
   if (a1 < 2)
   {
@@ -5513,7 +5516,7 @@ LABEL_24:
   return 0;
 }
 
-void XPCIPCAPI_v1_rcp::to_upper(uint64_t a1@<X1>, std::string *a2@<X8>)
+void XPCIPCAPI_v1_rcp::to_upper(uint64_t a1@<X1>, unint64_t a2@<X8>)
 {
   v3 = a2;
   LODWORD(a2) = *(a1 + 23);
@@ -5523,7 +5526,7 @@ void XPCIPCAPI_v1_rcp::to_upper(uint64_t a1@<X1>, std::string *a2@<X8>)
     v4 = *(a1 + 8);
     v3->__r_.__value_.__r.__words[2] = *(a1 + 16);
     a2 = a2;
-    if (a2 < 0)
+    if ((a2 & 0x80u) != 0)
     {
       a2 = v4;
     }
@@ -5591,18 +5594,18 @@ void sub_10009F968(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void XPCIPCAPI_v1_rcp::XPCIPCAPI_v1_rcp(XPCIPCAPI_v1_rcp *this, void *a2)
+void XPCIPCAPI_v1_rcp::XPCIPCAPI_v1_rcp(XPCIPCAPI_v1_rcp *this, void *a2, NSObject **a3)
 {
   *(this + 1) = 0;
   *this = this + 8;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  v3 = a2[1];
+  v4 = a2[1];
   *(this + 4) = *a2;
-  *(this + 5) = v3;
-  if (v3)
+  *(this + 5) = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
   *(this + 7) = 0;
@@ -5626,12 +5629,12 @@ void sub_10009FAC8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
+void XPCIPCAPI_v1_rcp::init_callback_tables(uint64_t **this)
 {
   v23 = 8;
   strcpy(__p, "RouteAdd");
   v24 = __p;
-  v2 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v2 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5650,7 +5653,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 11;
   strcpy(__p, "RouteRemove");
   v24 = __p;
-  v3 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v3 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5669,7 +5672,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 10;
   strcpy(__p, "ServiceAdd");
   v24 = __p;
-  v4 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v4 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5688,7 +5691,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 13;
   strcpy(__p, "ServiceRemove");
   v24 = __p;
-  v5 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v5 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5707,7 +5710,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 13;
   strcpy(__p, "ConfigGateway");
   v24 = __p;
-  v6 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v6 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5726,7 +5729,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 19;
   strcpy(__p, "UpdateAccessoryData");
   v24 = __p;
-  v7 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v7 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5745,7 +5748,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 7;
   strcpy(__p, "PropGet");
   v24 = __p;
-  v8 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v8 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5764,7 +5767,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 7;
   strcpy(__p, "PropSet");
   v24 = __p;
-  v9 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v9 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5783,7 +5786,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 11;
   strcpy(__p, "ThreadStart");
   v24 = __p;
-  v10 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v10 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5802,7 +5805,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 10;
   strcpy(__p, "ThreadStop");
   v24 = __p;
-  v11 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v11 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5821,7 +5824,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 4;
   strcpy(__p, "Join");
   v24 = __p;
-  v12 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v12 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5840,7 +5843,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 4;
   strcpy(__p, "Form");
   v24 = __p;
-  v13 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v13 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5859,7 +5862,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 5;
   strcpy(__p, "Leave");
   v24 = __p;
-  v14 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v14 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5878,7 +5881,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 9;
   strcpy(__p, "HardReset");
   v24 = __p;
-  v15 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v15 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5897,7 +5900,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 6;
   strcpy(__p, "Status");
   v24 = __p;
-  v16 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v16 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5916,7 +5919,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 12;
   strcpy(__p, "NetScanStart");
   v24 = __p;
-  v17 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v17 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5935,7 +5938,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 15;
   strcpy(__p, "EnergyScanStart");
   v24 = __p;
-  v18 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v18 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5954,7 +5957,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 17;
   strcpy(__p, "DiscoverScanStart");
   v24 = __p;
-  v19 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v19 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5973,7 +5976,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 8;
   strcpy(__p, "OtCtlCmd");
   v24 = __p;
-  v20 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v20 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -5992,7 +5995,7 @@ void XPCIPCAPI_v1_rcp::init_callback_tables(XPCIPCAPI_v1_rcp *this)
   v23 = 4;
   strcpy(__p, "Peek");
   v24 = __p;
-  v21 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p);
+  v21 = std::__tree<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::function<void ()(void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this, __p, &std::piecewise_construct, &v24);
   v26 = 0;
   v27 = this;
   v24 = boost::function3<void,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>::assign_to<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>>(boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,void *,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::arg<3>>>)::stored_vtable + 1;
@@ -6088,27 +6091,27 @@ LABEL_13:
 
 __n128 XPCIPCAPI_v1_rcp::get_case_corrected_property@<Q0>(uint64_t a1@<X0>, std::string *a2@<X1>, uint64_t a3@<X8>)
 {
-  p_p = &__p;
-  XPCIPCAPI_v1_rcp::to_upper(a2, &__p);
+  v6 = __p;
+  XPCIPCAPI_v1_rcp::to_upper(a2, __p);
   v9 = *(a1 + 56);
   v7 = a1 + 56;
   v8 = v9;
-  v10 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v10 = v29;
   if (v9)
   {
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v29 & 0x80u) == 0)
     {
-      size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v11 = v29;
     }
 
     else
     {
-      size = __p.__r_.__value_.__l.__size_;
+      v11 = __p[1];
     }
 
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    if ((v29 & 0x80u) != 0)
     {
-      p_p = __p.__r_.__value_.__r.__words[0];
+      v6 = __p[0];
     }
 
     v12 = v7;
@@ -6135,18 +6138,18 @@ __n128 XPCIPCAPI_v1_rcp::get_case_corrected_property@<Q0>(uint64_t a1@<X0>, std:
         v15 = *(v8 + 32);
       }
 
-      if (size >= v14)
+      if (v11 >= v14)
       {
         v16 = v14;
       }
 
       else
       {
-        v16 = size;
+        v16 = v11;
       }
 
-      v17 = memcmp(v15, p_p, v16);
-      v18 = v14 < size;
+      v17 = memcmp(v15, v6, v16);
+      v18 = v14 < v11;
       if (v17)
       {
         v18 = v17 < 0;
@@ -6177,9 +6180,9 @@ __n128 XPCIPCAPI_v1_rcp::get_case_corrected_property@<Q0>(uint64_t a1@<X0>, std:
       v21 = *(v12 + 55);
       v22 = v21 >= 0 ? *(v12 + 55) : *(v12 + 40);
       v23 = v21 >= 0 ? (v12 + 32) : *(v12 + 32);
-      v24 = v22 >= size ? size : v22;
-      v25 = memcmp(p_p, v23, v24);
-      v26 = size < v22;
+      v24 = v22 >= v11 ? v11 : v22;
+      v25 = memcmp(v6, v23, v24);
+      v26 = v11 < v22;
       if (v25)
       {
         v26 = v25 < 0;
@@ -6193,7 +6196,7 @@ __n128 XPCIPCAPI_v1_rcp::get_case_corrected_property@<Q0>(uint64_t a1@<X0>, std:
         }
 
 LABEL_44:
-        operator delete(__p.__r_.__value_.__l.__data_);
+        operator delete(__p[0]);
         if (v12 == v7)
         {
           goto LABEL_42;
@@ -6205,7 +6208,7 @@ LABEL_44:
   }
 
   v12 = v7;
-  if (v10 < 0)
+  if ((v10 & 0x80) != 0)
   {
     goto LABEL_44;
   }
@@ -6227,15 +6230,15 @@ LABEL_42:
   return result;
 }
 
-void XPCIPCAPI_v1_rcp::property_changed(uint64_t a1, char *a2, any *a3)
+void XPCIPCAPI_v1_rcp::property_changed(uint64_t a1, const std::string::value_type *a2, any *a3)
 {
-  memset(&v41, 0, sizeof(v41));
+  memset(&v39, 0, sizeof(v39));
   __p[0] = 0;
   __p[1] = 0;
-  v40 = 0;
+  v38 = 0;
   v6 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v6, "method", "property_changed");
-  v7 = a2[23];
+  v7 = *(a2 + 23);
   v8 = v7;
   if ((v7 & 0x80u) != 0)
   {
@@ -6244,78 +6247,77 @@ void XPCIPCAPI_v1_rcp::property_changed(uint64_t a1, char *a2, any *a3)
 
   if (v7)
   {
-    v9 = *a2;
     if (v8 >= 0)
     {
-      v10 = a2;
+      v9 = a2;
     }
 
     else
     {
-      v10 = *a2;
+      v9 = *a2;
     }
 
     do
     {
-      v11 = *v10;
-      if (v11 < 0)
+      v10 = *v9;
+      if (v10 < 0)
       {
-        v14 = __maskrune(*v10, 0x500uLL);
+        v13 = __maskrune(*v9, 0x500uLL);
       }
 
       else
       {
-        v14 = _DefaultRuneLocale.__runetype[v11] & 0x500;
+        v13 = _DefaultRuneLocale.__runetype[v10] & 0x500;
       }
 
-      if (v11 != 95 && v14 == 0)
+      if (v10 != 95 && v13 == 0)
       {
-        if (v11 == 58)
+        if (v10 == 58)
         {
-          LOBYTE(v11) = 47;
+          LOBYTE(v10) = 47;
         }
 
         else
         {
-          if (v11 != 46)
+          if (v10 != 46)
           {
             goto LABEL_9;
           }
 
-          LOBYTE(v11) = 95;
+          LOBYTE(v10) = 95;
         }
       }
 
-      std::string::push_back(&v41, v11);
+      std::string::push_back(&v39, v10);
 LABEL_9:
-      ++v10;
-      v12 = a2[23];
-      if ((v12 & 0x80u) == 0)
+      ++v9;
+      v11 = *(a2 + 23);
+      if ((v11 & 0x80u) == 0)
       {
-        v13 = a2;
+        v12 = a2;
       }
 
       else
       {
-        v13 = *a2;
+        v12 = *a2;
       }
 
-      if ((v12 & 0x80u) != 0)
+      if ((v11 & 0x80u) != 0)
       {
-        v12 = *(a2 + 1);
+        v11 = *(a2 + 1);
       }
     }
 
-    while (v10 != &v13[v12]);
+    while (v9 != &v12[v11]);
   }
 
   std::operator+<char>();
-  if (SHIBYTE(v40) < 0)
+  if (SHIBYTE(v38) < 0)
   {
     operator delete(__p[0]);
     *__p = *buf;
-    v40 = *&buf[16];
-    v16.var0 = a3->var0;
+    v38 = *&buf[16];
+    var0 = a3->var0;
     if (a3->var0)
     {
       goto LABEL_28;
@@ -6326,65 +6328,65 @@ LABEL_30:
   }
 
   *__p = *buf;
-  v40 = *&buf[16];
-  v16.var0 = a3->var0;
+  v38 = *&buf[16];
+  var0 = a3->var0;
   if (!a3->var0)
   {
     goto LABEL_30;
   }
 
 LABEL_28:
-  v17 = (*(*v16.var0 + 16))(v16);
+  v16 = (*(*var0 + 16))(var0);
 LABEL_31:
-  v18 = v17[1];
-  if (v18 != 0x80000001004441B3 && (((v18 & 0x80000001004441B3 & 0x8000000000000000) != 0) == __OFSUB__(v18, 0x80000001004441B3) || strcmp((v18 & 0x7FFFFFFFFFFFFFFFLL), (0x80000001004441B3 & 0x7FFFFFFFFFFFFFFFLL))))
+  v17 = v16[1];
+  if (v17 != 0x80000001004441B3 && (((v17 & 0x80000001004441B3 & 0x8000000000000000) != 0) == __OFSUB__(v17, 0x80000001004441B3) || strcmp((v17 & 0x7FFFFFFFFFFFFFFFLL), (0x80000001004441B3 & 0x7FFFFFFFFFFFFFFFLL))))
   {
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
     if (logging_obg)
     {
       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
       {
-        v21 = a2[23];
-        v22 = *a2;
-        v23 = SHIBYTE(v40);
-        v24 = __p[0];
-        any_to_string(a3, v37);
-        v25 = __p;
-        if (v23 < 0)
+        v20 = a2[23];
+        v21 = *a2;
+        v22 = SHIBYTE(v38);
+        v23 = __p[0];
+        any_to_string(&v36, a3);
+        v24 = __p;
+        if (v22 < 0)
         {
-          v25 = v24;
+          v24 = v23;
         }
 
-        if (v21 >= 0)
+        if (v20 >= 0)
         {
-          v26 = a2;
+          v25 = a2;
         }
 
         else
         {
-          v26 = v22;
+          v25 = v21;
         }
 
         *buf = 136315650;
-        if (v38 >= 0)
+        if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v27 = v37;
+          v26 = &v36;
         }
 
         else
         {
-          v27 = v37[0];
+          v26 = v36.__r_.__value_.__r.__words[0];
         }
 
-        *&buf[4] = v26;
+        *&buf[4] = v25;
         *&buf[12] = 2080;
-        *&buf[14] = v25;
+        *&buf[14] = v24;
         *&buf[22] = 2080;
-        v43 = v27;
+        v41 = v26;
         _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "XPCIPCAPI_v1_rcp:PropChanged: Key %s, Path: %s - value: %s", buf, 0x20u);
-        if (v38 < 0)
+        if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v37[0]);
+          operator delete(v36.__r_.__value_.__l.__data_);
         }
       }
 
@@ -6401,8 +6403,8 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  v19 = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (!v19)
+  v18 = log_get_logging_obg("com.apple.threadradiod", "default");
+  if (!v18)
   {
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
@@ -6412,70 +6414,70 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "valMap Received", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "valMap Received", buf, 2u);
   }
 
 LABEL_56:
-  if (v40 >= 0)
+  if (v38 >= 0)
   {
-    v28 = __p;
+    v27 = __p;
   }
 
   else
   {
-    v28 = __p[0];
+    v27 = __p[0];
   }
 
-  xpc_dictionary_set_string(v6, "path", v28);
+  xpc_dictionary_set_string(v6, "path", v27);
   if (a2[23] >= 0)
   {
-    v29 = a2;
+    v28 = a2;
   }
 
   else
   {
-    v29 = *a2;
+    v28 = *a2;
   }
 
-  xpc_dictionary_set_string(v6, "key", v29);
+  xpc_dictionary_set_string(v6, "key", v28);
   append_to_xpc_object_by_value_type(v6, a3);
-  v30 = _Block_copy(&__block_literal_global_4);
-  v31 = *(a1 + 24);
-  if (v31)
+  v29 = _Block_copy(&__block_literal_global_4);
+  v30 = *(a1 + 24);
+  if (v30)
   {
     dispatch_retain(*(a1 + 24));
   }
 
-  *buf = v30;
-  *&buf[8] = v31;
-  v32 = *(a1 + 32);
+  *buf = v29;
+  *&buf[8] = v30;
+  v31 = *(a1 + 32);
   if (a2[23] < 0)
   {
-    std::string::__init_copy_ctor_external(&v36, *a2, *(a2 + 1));
+    std::string::__init_copy_ctor_external(&v35, *a2, *(a2 + 1));
   }
 
   else
   {
-    v36 = *a2;
+    v35 = *a2;
   }
 
   if (v6)
   {
-    v35 = v6;
+    v34 = v6;
   }
 
   else
   {
     v6 = xpc_null_create();
-    v35 = v6;
+    v34 = v6;
     if (!v6)
     {
       v6 = 0;
-      v35 = xpc_null_create();
-      if (v30)
+      v34 = xpc_null_create();
+      if (v29)
       {
         goto LABEL_75;
       }
@@ -6486,16 +6488,16 @@ LABEL_56:
 
   if (xpc_get_type(v6) != &_xpc_type_dictionary)
   {
-    v35 = xpc_null_create();
-    if (!v30)
+    v34 = xpc_null_create();
+    if (!v29)
     {
       goto LABEL_72;
     }
 
 LABEL_75:
-    aBlock = _Block_copy(v30);
-    object = v31;
-    if (!v31)
+    aBlock = _Block_copy(v29);
+    object = v30;
+    if (!v30)
     {
       goto LABEL_77;
     }
@@ -6504,22 +6506,22 @@ LABEL_75:
   }
 
   xpc_retain(v6);
-  if (v30)
+  if (v29)
   {
     goto LABEL_75;
   }
 
 LABEL_72:
   aBlock = 0;
-  object = v31;
-  if (v31)
+  object = v30;
+  if (v30)
   {
 LABEL_76:
-    dispatch_retain(v31);
+    dispatch_retain(v30);
   }
 
 LABEL_77:
-  CtrXPC::Server::broadcastEvent(v32, &v36, &v35, &aBlock);
+  CtrXPC::Server::broadcastEvent(v31, &v35, &v34, &aBlock);
   if (object)
   {
     dispatch_release(object);
@@ -6530,12 +6532,12 @@ LABEL_77:
     _Block_release(aBlock);
   }
 
-  xpc_release(v35);
-  v35 = 0;
+  xpc_release(v34);
+  v34 = 0;
   xpc_release(v6);
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
 
   if (*&buf[8])
@@ -6548,20 +6550,20 @@ LABEL_77:
     _Block_release(*buf);
   }
 
-  if ((SHIBYTE(v40) & 0x80000000) == 0)
+  if ((SHIBYTE(v38) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v39.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
 
 LABEL_91:
-    operator delete(v41.__r_.__value_.__l.__data_);
+    operator delete(v39.__r_.__value_.__l.__data_);
     return;
   }
 
   operator delete(__p[0]);
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_91;
   }
@@ -6812,7 +6814,7 @@ LABEL_9:
   }
 }
 
-void sub_1000A6C60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, xpc_object_t object, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1000A6C60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a10);
   xpc_release(object);
@@ -6893,7 +6895,7 @@ LABEL_12:
   }
 }
 
-void sub_1000A6E08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, xpc_object_t object, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1000A6E08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a10);
   xpc_release(object);
@@ -7370,7 +7372,7 @@ LABEL_6:
   _Unwind_Resume(exception_object);
 }
 
-void XPCIPCAPI_v1_rcp::CallbackOtctl_Helper(uint64_t a1, const char *a2, uint64_t **a3, const char *a4, uint64_t a5)
+void XPCIPCAPI_v1_rcp::CallbackOtctl_Helper(uint64_t a1, const char *a2, uint64_t ***a3, const char *a4, uint64_t a5)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -7504,8 +7506,7 @@ void boost::function3<void,void *,std::string,dispatch::callback<void({block_poi
   v4 = *((*a1 & 0xFFFFFFFFFFFFFFFELL) + 8);
   v5 = *a3;
   v9 = *(a3 + 2);
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   *object = *a4;
   *__p = v5;
@@ -7539,7 +7540,7 @@ void sub_1000A8258(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void XPCIPCAPI_v1_rcp::CallbackWithStatus_Helper(uint64_t a1, int a2, uint64_t **a3, const char *a4, uint64_t a5)
+void XPCIPCAPI_v1_rcp::CallbackWithStatus_Helper(uint64_t a1, int a2, uint64_t ***a3, const char *a4, uint64_t a5)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -7667,7 +7668,7 @@ void sub_1000A84FC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void XPCIPCAPI_v1_rcp::CallbackWithStatus2_Helper(uint64_t a1, int a2, uint64_t **a3, const char *a4, const char *a5, uint64_t a6)
+void XPCIPCAPI_v1_rcp::CallbackWithStatus2_Helper(uint64_t a1, int a2, uint64_t ***a3, const char *a4, const char *a5, uint64_t a6)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -7981,7 +7982,7 @@ void sub_1000A8B80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void XPCIPCAPI_v1_rcp::CallbackWithStatusArg2_Helper(uint64_t a1, int a2, any *a3, uint64_t **a4, const char *a5, uint64_t a6)
+void XPCIPCAPI_v1_rcp::CallbackWithStatusArg2_Helper(uint64_t a1, int a2, any *a3, uint64_t ***a4, const char *a5, uint64_t a6)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
@@ -8150,7 +8151,7 @@ LABEL_5:
       v9 = ctime(&v17);
       v9[strcspn(v9, "\n")] = 0;
       XPCHelpers::xpc_append_dictionary(v8, "Status at Time", 0xA, v9, v10);
-      RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, &block);
+      RcpHostContext::get_rcp_state(&block, RcpHostContext::sRcpHostContext);
       if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
       {
         if (block.__r_.__value_.__l.__size_)
@@ -8270,7 +8271,7 @@ LABEL_5:
       v9 = ctime(&v17);
       v9[strcspn(v9, "\n")] = 0;
       XPCHelpers::xpc_append_dictionary(v8, "Status at Time", 0xA, v9, v10);
-      RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, &block);
+      RcpHostContext::get_rcp_state(&block, RcpHostContext::sRcpHostContext);
       if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
       {
         if (block.__r_.__value_.__l.__size_)
@@ -8368,36 +8369,36 @@ LABEL_23:
   xpc_release(v13);
 }
 
-void XPCIPCAPI_v1_rcp::interface_otctl_cmd_handler(int a1, xpc_object_t xdict)
+void XPCIPCAPI_v1_rcp::interface_otctl_cmd_handler(uint64_t a1, xpc_object_t xdict, uint64_t a3, uint64_t a4)
 {
   string = xpc_dictionary_get_string(xdict, "method");
-  v4 = strlen(string);
-  if (v4 <= 0x7FFFFFFFFFFFFFF7)
+  v6 = strlen(string);
+  if (v6 <= 0x7FFFFFFFFFFFFFF7)
   {
-    v5 = v4;
-    if (v4 < 0x17)
+    v7 = v6;
+    if (v6 < 0x17)
     {
-      v12 = v4;
-      if (v4)
+      v14 = v6;
+      if (v6)
       {
-        memmove(&__dst, string, v4);
+        memmove(&__dst, string, v6);
       }
 
-      *(&__dst + v5) = 0;
-      v6 = xpc_dictionary_get_string(xdict, "otctl_cmd");
-      v7 = strlen(v6);
-      if (v7 <= 0x7FFFFFFFFFFFFFF7)
+      *(&__dst + v7) = 0;
+      v8 = xpc_dictionary_get_string(xdict, "otctl_cmd");
+      v9 = strlen(v8);
+      if (v9 <= 0x7FFFFFFFFFFFFFF7)
       {
-        v8 = v7;
-        if (v7 < 0x17)
+        v10 = v9;
+        if (v9 < 0x17)
         {
-          v10 = v7;
-          if (v7)
+          v12 = v9;
+          if (v9)
           {
-            memmove(&v9, v6, v7);
+            memmove(&v11, v8, v9);
           }
 
-          *(&v9 + v8) = 0;
+          *(&v11 + v10) = 0;
           operator new();
         }
 
@@ -8630,7 +8631,7 @@ void boost::function<void ()(char const*)>::operator=<boost::_bi::bind_t<void,bo
 {
   v2 = *a2;
   boost::_bi::storage5<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage5(&v3, (a2 + 1));
-  boost::function<void ()(char const*)>::function<boost::_bi::bind_t<void,boost::_mfi::mf4<void,XPCIPCAPI_v1_rcp,char const*,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list5<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(v4, &v2);
+  boost::function<void ()(char const*)>::function<boost::_bi::bind_t<void,boost::_mfi::mf4<void,XPCIPCAPI_v1_rcp,char const*,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list5<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(&v4, &v2);
 }
 
 void sub_1000AB780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -8672,7 +8673,7 @@ uint64_t boost::_bi::bind_t<void,boost::_mfi::mf4<void,XPCIPCAPI_v1_rcp,char con
   return a1;
 }
 
-void XPCIPCAPI_v1_rcp::interface_status_handler(int a1, xpc_object_t xdict, uint64_t **a3, uint64_t a4)
+void XPCIPCAPI_v1_rcp::interface_status_handler(uint64_t a1, xpc_object_t xdict, uint64_t ***a3, uint64_t a4)
 {
   string = xpc_dictionary_get_string(xdict, "method");
   v7 = strlen(string);
@@ -8717,7 +8718,7 @@ void XPCIPCAPI_v1_rcp::interface_status_handler(int a1, xpc_object_t xdict, uint
     [PowerEventHandler_Rcp init:];
   }
 
-  RcpHostContext::get_rcp_state(RcpHostContext::sRcpHostContext, buf);
+  RcpHostContext::get_rcp_state(buf, RcpHostContext::sRcpHostContext);
   if (v25 < 0)
   {
     if (*&buf[8] == 13 && **buf == 0x616974696E696E75 && *(*buf + 5) == 0x64657A696C616974)
@@ -8982,7 +8983,7 @@ LABEL_6:
         dispatch_retain(v4);
       }
 
-      boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,int,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(v10, &v5);
+      boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf3<void,XPCIPCAPI_v1_rcp,int,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list4<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(&v10, &v5);
     }
   }
 
@@ -9044,7 +9045,7 @@ void boost::function<void ()(int)>::operator=<boost::_bi::bind_t<void,boost::_mf
 {
   v2 = *a2;
   boost::_bi::storage5<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage5(&v3, (a2 + 1));
-  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf4<void,XPCIPCAPI_v1_rcp,int,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list5<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(v4, &v2);
+  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf4<void,XPCIPCAPI_v1_rcp,int,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list5<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(&v4, &v2);
 }
 
 void sub_1000AC7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -9127,31 +9128,6 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void XPCIPCAPI_v1_rcp::interface_update_accessory_addr()
-{
-  operator new();
-}
-
-{
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-{
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
 void sub_1000AEFC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
   if (a23 < 0)
@@ -9171,17 +9147,6 @@ LABEL_6:
 
   operator delete(a36);
   goto LABEL_6;
-}
-
-void XPCIPCAPI_v1_rcp::interface_prop_get_handler()
-{
-  memset(&v0, 0, sizeof(v0));
-  operator new();
-}
-
-{
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1000AFD38(_Unwind_Exception *a1, int a2)
@@ -9358,7 +9323,7 @@ void boost::function<void ()(int,boost::any const&)>::operator=<boost::_bi::bind
 {
   v2 = *a2;
   boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v3, (a2 + 1));
-  boost::function<void ()(int,boost::any const&)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(v4, &v2);
+  boost::function<void ()(int,boost::any const&)>::function<boost::_bi::bind_t<void,boost::_mfi::mf6<void,XPCIPCAPI_v1_rcp,int,boost::any const&,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list7<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(&v4, &v2);
 }
 
 void sub_1000B0364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -9430,7 +9395,7 @@ void boost::function<void ()(int)>::operator=<boost::_bi::bind_t<void,boost::_mf
 {
   v2 = *a2;
   boost::_bi::storage7<boost::_bi::value<XPCIPCAPI_v1_rcp *>,boost::arg<1>,boost::arg<2>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>::storage7(&v3, (a2 + 1));
-  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,XPCIPCAPI_v1_rcp,int,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list6<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(v4, &v2);
+  boost::function<void ()(int)>::function<boost::_bi::bind_t<void,boost::_mfi::mf5<void,XPCIPCAPI_v1_rcp,int,std::string,std::string,std::string,dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>,boost::_bi::list6<boost::_bi::value<XPCIPCAPI_v1_rcp*>,boost::arg<1>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<std::string>,boost::_bi::value<dispatch::callback<void({block_pointer})(unsigned char,xpc::dict)>>>>>(&v4, &v2);
 }
 
 void sub_1000B0E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -9440,37 +9405,37 @@ void sub_1000B0E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void XPCIPCAPI_v1_rcp::interface_thread_start_handler(int a1, xpc_object_t xdict, uint64_t *a3)
+void XPCIPCAPI_v1_rcp::interface_thread_start_handler(uint64_t a1, xpc_object_t xdict, uint64_t a3, uint64_t a4)
 {
   string = xpc_dictionary_get_string(xdict, "method");
-  v5 = strlen(string);
-  if (v5 < 0x7FFFFFFFFFFFFFF8)
+  v6 = strlen(string);
+  if (v6 < 0x7FFFFFFFFFFFFFF8)
   {
-    v6 = v5;
-    if (v5 < 0x17)
+    v7 = v6;
+    if (v6 < 0x17)
     {
-      v10 = v5;
-      if (v5)
+      v11 = v6;
+      if (v6)
       {
-        memmove(&__dst, string, v5);
+        memmove(&__dst, string, v6);
       }
 
-      *(&__dst + v6) = 0;
+      *(&__dst + v7) = 0;
       logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
       if (logging_obg)
       {
         if (syslog_is_the_mask_enabled(5) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
         {
-          v8 = a3;
+          v9 = a3;
           if (*(a3 + 23) < 0)
           {
-            v8 = *a3;
+            v9 = *a3;
           }
 
           *buf = 136315394;
-          v12 = string;
-          v13 = 2080;
-          v14 = v8;
+          v13 = string;
+          v14 = 2080;
+          v15 = v9;
           _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "interface_thread_start_handler: method %s from %s", buf, 0x16u);
         }
       }
@@ -9510,37 +9475,37 @@ LABEL_3:
   _Unwind_Resume(exception_object);
 }
 
-void XPCIPCAPI_v1_rcp::interface_thread_stop_handler(int a1, xpc_object_t xdict, uint64_t *a3)
+void XPCIPCAPI_v1_rcp::interface_thread_stop_handler(uint64_t a1, xpc_object_t xdict, uint64_t a3, uint64_t a4)
 {
   string = xpc_dictionary_get_string(xdict, "method");
-  v5 = strlen(string);
-  if (v5 < 0x7FFFFFFFFFFFFFF8)
+  v6 = strlen(string);
+  if (v6 < 0x7FFFFFFFFFFFFFF8)
   {
-    v6 = v5;
-    if (v5 < 0x17)
+    v7 = v6;
+    if (v6 < 0x17)
     {
-      v10 = v5;
-      if (v5)
+      v11 = v6;
+      if (v6)
       {
-        memmove(&__dst, string, v5);
+        memmove(&__dst, string, v6);
       }
 
-      *(&__dst + v6) = 0;
+      *(&__dst + v7) = 0;
       logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
       if (logging_obg)
       {
         if (syslog_is_the_mask_enabled(5) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
         {
-          v8 = a3;
+          v9 = a3;
           if (*(a3 + 23) < 0)
           {
-            v8 = *a3;
+            v9 = *a3;
           }
 
           *buf = 136315394;
-          v12 = string;
-          v13 = 2080;
-          v14 = v8;
+          v13 = string;
+          v14 = 2080;
+          v15 = v9;
           _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "interface_thread_start_handler: method %s from %s", buf, 0x16u);
         }
       }

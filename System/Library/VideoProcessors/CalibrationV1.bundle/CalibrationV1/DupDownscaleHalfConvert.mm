@@ -98,18 +98,20 @@ LABEL_7:
 - (int)GenerateImageYUVA:(__CVBuffer *)a outYuvaWidth:(unsigned int)width outYuvaHeight:(unsigned int)height outY:(__CVBuffer *)y inYuv420:(__CVBuffer *)yuv420 gainToApplyToOutputs:(float)outputs waitForCompletion:(BOOL)completion
 {
   completionCopy = completion;
+  selfCopy = self;
   outputsCopy = outputs;
-  if (!width || (Height = height, Width = width, !height))
+  if (!width || (selfCopy2 = height, Width = width, !height))
   {
     Width = CVPixelBufferGetWidth(a);
-    Height = CVPixelBufferGetHeight(a);
+    self = CVPixelBufferGetHeight(a);
+    selfCopy2 = self;
   }
 
   v115 = 0;
   v116 = 0;
-  if (!self->_ContextAvailable)
+  if (!selfCopy->_ContextAvailable)
   {
-    sub_295701F78();
+    sub_295701F78(self, a2);
 LABEL_20:
     y = 0;
     v25 = 0;
@@ -121,13 +123,13 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  if (!self->_ResourcesAvailable)
+  if (!selfCopy->_ResourcesAvailable)
   {
-    sub_295701FF0();
+    sub_295701FF0(self, a2);
     goto LABEL_20;
   }
 
-  v17 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, a2, yuv420, 10, 17, 0);
+  v17 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_MetalContext, a2, yuv420, 10, 17, 0);
   if (!v17)
   {
     sub_2957022C0();
@@ -140,7 +142,7 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v16, yuv420, 30, 17, 1);
+  v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_MetalContext, v16, yuv420, 30, 17, 1);
   if (!v19)
   {
     sub_295702248();
@@ -149,7 +151,7 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v25 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_MetalContext, v18, a, 80, 22, 0, Width, Height);
+  v25 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(selfCopy->_MetalContext, v18, a, 80, 22, 0, Width, selfCopy2);
   if (!v25)
   {
     sub_2957021D0();
@@ -159,7 +161,7 @@ LABEL_27:
 
   if (y)
   {
-    y = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_MetalContext, v20, y, 10, 22, 0, Width, Height);
+    y = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(selfCopy->_MetalContext, v20, y, 10, 22, 0, Width, selfCopy2);
     if (!y)
     {
       sub_295702068();
@@ -167,10 +169,10 @@ LABEL_27:
     }
   }
 
-  v26 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_KernelYUVA, v20, v21, v22, v23, v24);
-  v32 = objc_msgSend_threadExecutionWidth(self->_KernelYUVA, v27, v28, v29, v30, v31);
-  sub_2956F342C(v26, v32, &v116, &v115, Width, Height);
-  v38 = objc_msgSend_commandQueue(self->_MetalContext, v33, v34, v35, v36, v37);
+  v26 = objc_msgSend_maxTotalThreadsPerThreadgroup(selfCopy->_KernelYUVA, v20, v21, v22, v23, v24);
+  v32 = objc_msgSend_threadExecutionWidth(selfCopy->_KernelYUVA, v27, v28, v29, v30, v31);
+  sub_2956F342C(v26, v32, &v116, &v115, Width, selfCopy2);
+  v38 = objc_msgSend_commandQueue(selfCopy->_MetalContext, v33, v34, v35, v36, v37);
   v44 = objc_msgSend_commandBuffer(v38, v39, v40, v41, v42, v43);
 
   if (!v44)
@@ -190,14 +192,14 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  objc_msgSend_setComputePipelineState_(v50, v51, self->_KernelYUVA, v52, v53, v54);
+  objc_msgSend_setComputePipelineState_(v50, v51, selfCopy->_KernelYUVA, v52, v53, v54);
   objc_msgSend_setTexture_atIndex_(v55, v56, v17, 0, v57, v58);
   objc_msgSend_setTexture_atIndex_(v55, v59, v19, 1, v60, v61);
   objc_msgSend_setTexture_atIndex_(v55, v62, v25, 2, v63, v64);
   objc_msgSend_setTexture_atIndex_(v55, v65, y, 3, v66, v67);
   objc_msgSend_setBytes_length_atIndex_(v55, v68, &outputsCopy, 4, 0, v69);
   v114[0] = Width / v116;
-  v114[1] = Height / v115;
+  v114[1] = selfCopy2 / v115;
   v114[2] = 1;
   v113[0] = v116;
   v113[1] = v115;
@@ -239,7 +241,7 @@ LABEL_17:
   v131 = 0;
   if (!self->_ContextAvailable)
   {
-    sub_295702338();
+    sub_295702338(v33);
 LABEL_23:
     v79 = 0;
     v68 = 0;
@@ -249,13 +251,13 @@ LABEL_23:
 
   if (!self->_ResourcesAvailable)
   {
-    sub_2957023B0();
+    sub_2957023B0(v33);
     goto LABEL_23;
   }
 
   if (!yuv420Copy)
   {
-    sub_2957026F8();
+    sub_2957026F8(v33);
     goto LABEL_23;
   }
 
@@ -345,99 +347,99 @@ LABEL_15:
 {
   Width = CVPixelBufferGetWidth(crop);
   Height = CVPixelBufferGetHeight(crop);
-  v111 = 0;
+  v117 = 0;
   if (!self->_ContextAvailable)
   {
-    sub_295702770();
+    sub_295702770(Height);
     return -12780;
   }
 
   if (!self->_ResourcesAvailable)
   {
-    sub_2957027E8();
+    sub_2957027E8(Height);
     return -12780;
   }
 
-  v12 = Height;
-  v13 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v11, yuv420, 10, 17, 0);
-  if (!v13)
+  v13 = Height;
+  v14 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v12, yuv420, 10, 17, 0);
+  if (!v14)
   {
     sub_295702AD8();
     return -12786;
   }
 
-  v15 = v13;
-  v16 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v14, yuv420, 30, 17, 1);
-  if (!v16)
+  v16 = v14;
+  v17 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v15, yuv420, 30, 17, 1);
+  if (!v17)
   {
-    sub_295702A48(v15);
+    sub_295702A48(v16);
     return -12786;
   }
 
-  v18 = v16;
-  v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v17, crop, 80, 22, 0);
-  if (!v19)
+  v19 = v17;
+  v20 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v18, crop, 80, 22, 0);
+  if (!v20)
   {
-    sub_2957029B0(v18, v15);
+    sub_2957029B0(v19, v16);
     return -12786;
   }
 
-  v21 = v19;
-  v22 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v20, luma, 10, 22, 0);
-  if (!v22)
+  v22 = v20;
+  v23 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_MetalContext, v21, luma, 10, 22, 0);
+  if (!v23)
   {
-    sub_295702908(v21, v18, v15);
+    sub_295702908(v22, v19, v16);
     return -12786;
   }
 
-  v28 = v22;
-  v29 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_KernelDownscaleConvertAndCenterCrop, v23, v24, v25, v26, v27);
-  v35 = objc_msgSend_threadExecutionWidth(self->_KernelDownscaleConvertAndCenterCrop, v30, v31, v32, v33, v34);
-  sub_2956F342C(v29, v35, &v111 + 1, &v111, Width, v12);
-  v41 = objc_msgSend_commandQueue(self->_MetalContext, v36, v37, v38, v39, v40);
-  v47 = objc_msgSend_commandBuffer(v41, v42, v43, v44, v45, v46);
+  v29 = v23;
+  v30 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_KernelDownscaleConvertAndCenterCrop, v24, v25, v26, v27, v28);
+  v36 = objc_msgSend_threadExecutionWidth(self->_KernelDownscaleConvertAndCenterCrop, v31, v32, v33, v34, v35);
+  sub_2956F342C(v30, v36, &v117 + 1, &v117, Width, v13);
+  v42 = objc_msgSend_commandQueue(self->_MetalContext, v37, v38, v39, v40, v41);
+  v48 = objc_msgSend_commandBuffer(v42, v43, v44, v45, v46, v47);
 
-  if (!v47)
+  if (!v48)
   {
-    sub_295702860(v28, v21, v18, v15);
+    sub_295702860(v29, v22, v19, v16);
     return -12786;
   }
 
-  v53 = objc_msgSend_computeCommandEncoder(v47, v48, v49, v50, v51, v52);
-  if (!v53)
+  v54 = objc_msgSend_computeCommandEncoder(v48, v49, v50, v51, v52, v53);
+  if (!v54)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v110, v111, v112, v113, v114, v115);
 
     return -12786;
   }
 
-  v58 = v53;
-  objc_msgSend_setComputePipelineState_(v53, v54, self->_KernelDownscaleConvertAndCenterCrop, v55, v56, v57);
-  objc_msgSend_setTexture_atIndex_(v58, v59, v15, 0, v60, v61);
-  objc_msgSend_setTexture_atIndex_(v58, v62, v18, 1, v63, v64);
-  objc_msgSend_setTexture_atIndex_(v58, v65, v21, 2, v66, v67);
-  objc_msgSend_setTexture_atIndex_(v58, v68, v28, 3, v69, v70);
-  v110[0] = Width / HIDWORD(v111);
-  v110[1] = v12 / v111;
-  v110[2] = 1;
-  v109[0] = HIDWORD(v111);
-  v109[1] = v111;
-  v109[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v58, v71, v110, v109, v72, v73);
-  objc_msgSend_endEncoding(v58, v74, v75, v76, v77, v78);
+  v59 = v54;
+  objc_msgSend_setComputePipelineState_(v54, v55, self->_KernelDownscaleConvertAndCenterCrop, v56, v57, v58);
+  objc_msgSend_setTexture_atIndex_(v59, v60, v16, 0, v61, v62);
+  objc_msgSend_setTexture_atIndex_(v59, v63, v19, 1, v64, v65);
+  objc_msgSend_setTexture_atIndex_(v59, v66, v22, 2, v67, v68);
+  objc_msgSend_setTexture_atIndex_(v59, v69, v29, 3, v70, v71);
+  v114 = Width / HIDWORD(v117);
+  v115 = v13 / v117;
+  v116 = 1;
+  v111 = HIDWORD(v117);
+  v112 = v117;
+  v113 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v59, v72, &v114, &v111, v73, v74);
+  objc_msgSend_endEncoding(v59, v75, v76, v77, v78, v79);
   if (*MEMORY[0x29EDB9270])
   {
-    v84 = objc_msgSend_commandQueue(v47, v79, v80, v81, v82, v83);
-    v90 = objc_msgSend_commandBuffer(v84, v85, v86, v87, v88, v89);
+    v85 = objc_msgSend_commandQueue(v48, v80, v81, v82, v83, v84);
+    v91 = objc_msgSend_commandBuffer(v85, v86, v87, v88, v89, v90);
 
-    objc_msgSend_setLabel_(v90, v91, @"KTRACE_MTLCMDBUF", v92, v93, v94);
-    objc_msgSend_addCompletedHandler_(v90, v95, &unk_2A1C95928, v96, v97, v98);
-    objc_msgSend_commit(v90, v99, v100, v101, v102, v103);
-    objc_msgSend_addCompletedHandler_(v47, v104, &unk_2A1C95948, v105, v106, v107);
+    objc_msgSend_setLabel_(v91, v92, @"KTRACE_MTLCMDBUF", v93, v94, v95);
+    objc_msgSend_addCompletedHandler_(v91, v96, &unk_2A1C95928, v97, v98, v99);
+    objc_msgSend_commit(v91, v100, v101, v102, v103, v104);
+    objc_msgSend_addCompletedHandler_(v48, v105, &unk_2A1C95948, v106, v107, v108);
   }
 
-  objc_msgSend_commit(v47, v79, v80, v81, v82, v83);
+  objc_msgSend_commit(v48, v80, v81, v82, v83, v84);
 
   return 0;
 }
@@ -446,25 +448,25 @@ LABEL_15:
 {
   if (!self->_ContextAvailable)
   {
-    sub_295702B50();
+    sub_295702B50(crop);
     return -12780;
   }
 
   if (!self->_ResourcesAvailable)
   {
-    sub_295702BC8();
+    sub_295702BC8(crop);
     return -12780;
   }
 
   if (!yuv420)
   {
-    sub_295702FD8();
+    sub_295702FD8(crop);
     return -12780;
   }
 
   if (!y)
   {
-    sub_295702F60();
+    sub_295702F60(crop);
     return -12780;
   }
 

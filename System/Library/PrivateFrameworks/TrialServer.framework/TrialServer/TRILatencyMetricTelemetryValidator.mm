@@ -39,7 +39,7 @@
 
 - (BOOL)_isRecordContainingAllowedLoggingNamespace:(id)namespace
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB58];
   artifact = [namespace artifact];
   namespaceNames = [artifact namespaceNames];
@@ -49,18 +49,17 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     namespacesAllowedForLogging = [(TRILatencyMetricTelemetryValidator *)self namespacesAllowedForLogging];
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
-    v16 = namespacesAllowedForLogging;
-    _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Intersecting artifact namespaces: %@ with relevant namespaces: %@ for telemetry", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
+    v15 = namespacesAllowedForLogging;
+    _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Intersecting artifact namespaces: %@ with relevant namespaces: %@ for telemetry", &v12, 0x16u);
   }
 
   namespacesAllowedForLogging2 = [(TRILatencyMetricTelemetryValidator *)self namespacesAllowedForLogging];
   [v7 intersectSet:namespacesAllowedForLogging2];
 
   LOBYTE(namespacesAllowedForLogging2) = [v7 count] != 0;
-  v11 = *MEMORY[0x277D85DE8];
   return namespacesAllowedForLogging2;
 }
 
@@ -105,7 +104,7 @@ LABEL_7:
 
 - (id)validateAndReturnTelemetryForDeployment:(id)deployment factorPackSetId:(id)id
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   deploymentCopy = deployment;
   idCopy = id;
   rolloutDb = [(TRILatencyMetricTelemetryValidator *)self rolloutDb];
@@ -125,16 +124,14 @@ LABEL_7:
     v11 = TRILogCategory_Server();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138543362;
-      v15 = deploymentCopy;
-      _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Unexpected failure to find record for rollout deployment %{public}@.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = deploymentCopy;
+      _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Unexpected failure to find record for rollout deployment %{public}@.", &v13, 0xCu);
     }
   }
 
   v10 = 0;
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

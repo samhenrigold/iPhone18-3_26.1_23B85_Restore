@@ -54,20 +54,20 @@ LABEL_7:
 
 - (id)preEncode:(id)encode
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   encodeCopy = encode;
   if (encodeCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [encodeCopy count] == 4)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v5 = encodeCopy;
-    v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v23;
+      v8 = *v22;
       v9 = &stru_285E0CF98;
       while (2)
       {
@@ -75,15 +75,15 @@ LABEL_7:
         v11 = v9;
         do
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v22 + 1) + 8 * v10)];
-          v21 = -1;
+          v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", *(*(&v21 + 1) + 8 * v10)];
+          v20 = -1;
           v13 = [MEMORY[0x277CCAC80] scannerWithString:v12];
-          v14 = [v13 scanUnsignedInteger:&v21];
+          v14 = [v13 scanUnsignedInteger:&v20];
 
           if (!v14)
           {
@@ -92,7 +92,7 @@ LABEL_7:
             goto LABEL_20;
           }
 
-          v15 = [FedStatsUtils intToBitString:v21 withLength:8];
+          v15 = [FedStatsUtils intToBitString:v20 withLength:8];
           v9 = [(__CFString *)v11 stringByAppendingString:v15];
 
           ++v10;
@@ -100,7 +100,7 @@ LABEL_7:
         }
 
         while (v7 != v10);
-        v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v7)
         {
           continue;
@@ -115,10 +115,10 @@ LABEL_7:
       v9 = &stru_285E0CF98;
     }
 
-    v19 = [(__CFString *)v9 substringToIndex:[(FedStatsCategoricalTypeIPv4Encoder *)self significantBitCount]];
-    v20 = [v19 stringByPaddingToLength:-[__CFString length](v9 withString:"length") startingAtIndex:{@"0", 0}];
+    v18 = [(__CFString *)v9 substringToIndex:[(FedStatsCategoricalTypeIPv4Encoder *)self significantBitCount]];
+    v19 = [v18 stringByPaddingToLength:-[__CFString length](v9 withString:"length") startingAtIndex:{@"0", 0}];
 
-    v11 = v20;
+    v11 = v19;
     v16 = v11;
 LABEL_20:
   }
@@ -127,8 +127,6 @@ LABEL_20:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

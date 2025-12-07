@@ -152,7 +152,7 @@
   return result;
 }
 
-uint64_t __109__PXMemoriesFeedViewControllerHelper_memoriesFeedTilingLayout_contentsRectForItemAtIndexPath_forAspectRatio___block_invoke()
+void *__109__PXMemoriesFeedViewControllerHelper_memoriesFeedTilingLayout_contentsRectForItemAtIndexPath_forAspectRatio___block_invoke()
 {
   result = [MEMORY[0x1E6978630] instancesRespondToSelector:sel_bestCropRectForAspectRatio_verticalContentMode_cropMode_];
   memoriesFeedTilingLayout_contentsRectForItemAtIndexPath_forAspectRatio__PHAssetRespondsToBestCropRect = result;
@@ -274,7 +274,7 @@ LABEL_5:
     {
       if (dataSourceSnapshot)
       {
-        [dataSourceSnapshot indexPathForFirstPastMemorySection];
+        objc_msgSend_indexPathForFirstPastMemorySection(dataSourceSnapshot);
       }
 
       v13 = section == 0;
@@ -418,7 +418,7 @@ LABEL_10:
       v11 = dataSource;
       if (dataSource)
       {
-        [dataSource indexPathForObjectReference:v9];
+        objc_msgSend_indexPathForObjectReference_(dataSource);
       }
 
       else
@@ -583,7 +583,7 @@ void __61__PXMemoriesFeedViewControllerHelper__handleDataSourceChange__block_inv
   PXEdgeInsetsInsetRect();
 }
 
-void __54__PXMemoriesFeedViewControllerHelper_saveAnchorMemory__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+void __54__PXMemoriesFeedViewControllerHelper_saveAnchorMemory__block_invoke(uint64_t a1, uint64_t a2, double *a3, uint64_t a4, void *a5)
 {
   v6 = a5;
   if ((*(a2 + 8) | 2) == 3)
@@ -610,14 +610,14 @@ void __54__PXMemoriesFeedViewControllerHelper_saveAnchorMemory__block_invoke(uin
     v56 = 0u;
     if (dataSource)
     {
-      [dataSource indexPathForObjectReference:visibleCopy];
+      objc_msgSend_indexPathForObjectReference_(dataSource);
       if (v55 != *off_1E7721F68)
       {
         v12 = *MEMORY[0x1E695F050];
         v13 = *(MEMORY[0x1E695F050] + 8);
         v14 = *(MEMORY[0x1E695F050] + 16);
         v15 = *(MEMORY[0x1E695F050] + 24);
-        [v11 firstItemIndexPath];
+        objc_msgSend_firstItemIndexPath(v11);
         v16 = *(&v43 + 1);
         v17 = v43;
         v18 = v44;
@@ -1251,7 +1251,7 @@ void __61__PXMemoriesFeedViewControllerHelper__startRefreshForReason___block_inv
     v10 = dataSource;
     if (dataSource)
     {
-      [dataSource indexPathForObjectReference:v6];
+      objc_msgSend_indexPathForObjectReference_(dataSource);
     }
 
     else
@@ -1324,7 +1324,7 @@ void __61__PXMemoriesFeedViewControllerHelper__startRefreshForReason___block_inv
 
     if (v9)
     {
-      [v9 indexPath];
+      objc_msgSend_indexPath(v9);
       referenceCopy = [dataSource2 objectAtIndexPath:&v12];
     }
 
@@ -1358,7 +1358,7 @@ void __61__PXMemoriesFeedViewControllerHelper__startRefreshForReason___block_inv
   dataSource = [currentLayout dataSource];
   v11 = 0u;
   v12 = 0u;
-  [(PXMemoriesFeedViewControllerHelper *)self indexPathForMemoryInScrollViewAtPoint:x, y];
+  objc_msgSend_indexPathForMemoryInScrollViewAtPoint_(self, x, y);
   if (dataSource && v11 != *off_1E7721F68)
   {
     v10[0] = v11;

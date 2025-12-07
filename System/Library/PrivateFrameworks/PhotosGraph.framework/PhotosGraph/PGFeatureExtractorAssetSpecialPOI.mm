@@ -10,16 +10,14 @@
 
 - (id)_generateErrorWithErrorCode:(int64_t)code andMessage:(id)message
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = message;
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = message;
   v6 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureExtractorSpecialPOIDomain" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -75,11 +73,11 @@ LABEL_10:
 
 - (id)floatVectorWithMoment:(id)moment error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   momentCopy = moment;
   v6 = [PGSpecialPOIResolver alloc];
-  v14[0] = momentCopy;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = momentCopy;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v8 = [(PGSpecialPOIResolver *)v6 initWithMomentNodes:v7];
 
   v9 = [MEMORY[0x277D22C68] zerosOfCount:{-[PGFeatureExtractorAssetSpecialPOI featureLength](self, "featureLength")}];
@@ -96,18 +94,15 @@ LABEL_10:
     [v9 setFloat:1 atIndex:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)featureNames
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"Disney";
-  v5[1] = @"Universal";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"Disney";
+  v4[1] = @"Universal";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

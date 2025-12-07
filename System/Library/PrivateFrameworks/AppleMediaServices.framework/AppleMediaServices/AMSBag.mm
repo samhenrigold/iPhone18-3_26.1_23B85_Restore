@@ -391,7 +391,7 @@ void __38__AMSBag__configureDataSourceHandlers__block_invoke_125(uint64_t a1)
   return processInfo;
 }
 
-void __28__AMSBag__loadAndPersistBag__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __28__AMSBag__loadAndPersistBag__block_invoke(void *a1, void *a2, uint64_t a3)
 {
   v46 = *MEMORY[0x1E69E9840];
   v7 = a2;
@@ -521,7 +521,7 @@ void __28__AMSBag__loadAndPersistBag__block_invoke(uint64_t a1, void *a2, uint64
         }
       }
 
-      v41 = *(a1 + 32);
+      v41 = a1[4];
       v14 = [v7 data];
       v15 = [v7 loadedBagIdentifier];
       v32 = [v7 loadedBagPartialIdentifier];
@@ -1291,7 +1291,7 @@ void __61__AMSBag_cachedValuesForKeys_observationToken_updateHandler___block_inv
   }
 }
 
-void __61__AMSBag_cachedValuesForKeys_observationToken_updateHandler___block_invoke_91(uint64_t a1, void *a2, uint64_t a3)
+void __61__AMSBag_cachedValuesForKeys_observationToken_updateHandler___block_invoke_91(id *a1, void *a2, uint64_t a3)
 {
   v33 = *MEMORY[0x1E69E9840];
   v6 = a2;
@@ -1378,7 +1378,7 @@ void __61__AMSBag_cachedValuesForKeys_observationToken_updateHandler___block_inv
       }
     }
 
-    v8 = [*(a1 + 32) updateHandlers];
+    v8 = [a1[4] updateHandlers];
     v9 = [v6 data];
     v25 = MEMORY[0x1E695DFD8];
     v26 = [v6 data];

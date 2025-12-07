@@ -143,7 +143,7 @@
 
 - (void)addScanState:(id)state
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([stateCopy state] == 1)
   {
@@ -183,24 +183,22 @@ LABEL_9:
 
       v14 = v13;
       v12 = [stateCopy description];
-      v17 = 136380931;
+      v16 = 136380931;
       uTF8String = [v12 UTF8String];
-      v19 = 2114;
-      v20 = v8;
-      _os_log_impl(&dword_26F2E2000, v14, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot Scan completed: %{private}s not in valid time range %{public}@", &v17, 0x16u);
+      v18 = 2114;
+      v19 = v8;
+      _os_log_impl(&dword_26F2E2000, v14, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot Scan completed: %{private}s not in valid time range %{public}@", &v16, 0x16u);
     }
 
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUTAdvertisement:(id)advertisement
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
   v5 = MEMORY[0x277CCA970];
   arrivalDate = [(TACLVisit *)self->_representativeVisit arrivalDate];
@@ -269,7 +267,7 @@ LABEL_20:
     {
       v17 = v21;
       address = [advertisementCopy description];
-      v24 = 136380675;
+      v23 = 136380675;
       uTF8String = [address UTF8String];
       v18 = "#TAVisitSnapshot Advertisement %{private}s not added to snapshot due to latest location not inside visit";
       v19 = v17;
@@ -285,26 +283,24 @@ LABEL_20:
     {
       v17 = v16;
       address = [advertisementCopy description];
-      v24 = 136380931;
+      v23 = 136380931;
       uTF8String = [address UTF8String];
-      v26 = 2114;
-      v27 = v8;
+      v25 = 2114;
+      v26 = v8;
       v18 = "#TAVisitSnapshot Advertisement %{private}s not in valid time range %{public}@";
       v19 = v17;
       v20 = 22;
 LABEL_16:
-      _os_log_impl(&dword_26F2E2000, v19, OS_LOG_TYPE_DEFAULT, v18, &v24, v20);
+      _os_log_impl(&dword_26F2E2000, v19, OS_LOG_TYPE_DEFAULT, v18, &v23, v20);
 
 LABEL_22:
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSystemState:(id)state
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([stateCopy systemStateType] == 2)
   {
@@ -331,11 +327,11 @@ LABEL_22:
       if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEFAULT))
       {
         v20 = v19;
-        v23 = 67240450;
+        v22 = 67240450;
         isOn = [stateCopy isOn];
-        v25 = 2114;
-        v26 = v8;
-        _os_log_impl(&dword_26F2E2000, v20, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot System display state isOn: %{public}d not in valid time range %{public}@", &v23, 0x12u);
+        v24 = 2114;
+        v25 = v8;
+        _os_log_impl(&dword_26F2E2000, v20, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot System display state isOn: %{public}d not in valid time range %{public}@", &v22, 0x12u);
       }
 
       goto LABEL_16;
@@ -357,11 +353,11 @@ LABEL_22:
           v16 = v15;
           isOn2 = [stateCopy isOn];
           getDate4 = [v11 getDate];
-          v23 = 67240450;
+          v22 = 67240450;
           isOn = isOn2;
-          v25 = 2114;
-          v26 = getDate4;
-          _os_log_impl(&dword_26F2E2000, v16, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot System display state isOn: %{public}d received out of order, after %{public}@", &v23, 0x12u);
+          v24 = 2114;
+          v25 = getDate4;
+          _os_log_impl(&dword_26F2E2000, v16, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot System display state isOn: %{public}d received out of order, after %{public}@", &v22, 0x12u);
         }
 
         goto LABEL_15;
@@ -387,8 +383,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setDepartureVisit:(id)visit
@@ -440,27 +434,27 @@ LABEL_12:
 
 - (void)closeSnapshotCleanup
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_earliestUtAdvertisements allKeys];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v4 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [(NSMutableDictionary *)self->_earliestUtAdvertisements objectForKeyedSubscript:v8];
         getDate = [v9 getDate];
         departureDate = [(TACLVisit *)self->_representativeVisit departureDate];
@@ -474,7 +468,7 @@ LABEL_12:
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -506,8 +500,6 @@ LABEL_12:
   }
 
 LABEL_16:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calculateExitIntervalWithDisplayOnBudget:(double)budget
@@ -855,7 +847,7 @@ void __60__TAVisitSnapshot_getExitAdvertisementsWithDisplayOnBudget___block_invo
 
 - (void)updateLoiType:(id)type
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = [TALocationLite alloc];
   getDate = [(TACLVisit *)self->_representativeVisit getDate];
@@ -920,9 +912,9 @@ LABEL_14:
     {
       v35 = v34;
       v36 = TALocationOfInterestTypeToString([typeCopy type]);
-      v42 = 138477827;
-      v43 = *&v36;
-      _os_log_impl(&dword_26F2E2000, v35, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot update visit snapshot with LOI type %{private}@", &v42, 0xCu);
+      v41 = 138477827;
+      v42 = *&v36;
+      _os_log_impl(&dword_26F2E2000, v35, OS_LOG_TYPE_DEFAULT, "#TAVisitSnapshot update visit snapshot with LOI type %{private}@", &v41, 0xCu);
     }
 
     self->_loiType = [typeCopy type];
@@ -941,57 +933,31 @@ LABEL_14:
   if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_DEBUG))
   {
     v30 = v29;
-    v42 = 134284033;
-    v43 = v22;
-    v44 = 2049;
+    v41 = 134284033;
+    v42 = v22;
+    v43 = 2049;
     type = [typeCopy type];
-    v46 = 2049;
-    v47 = v22 - 250.0;
-    _os_log_debug_impl(&dword_26F2E2000, v30, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot the visit snapshot located %{private}f meters away from %{private}lu LOI type with %{private}f residual", &v42, 0x20u);
+    v45 = 2049;
+    v46 = v22 - 250.0;
+    _os_log_debug_impl(&dword_26F2E2000, v30, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot the visit snapshot located %{private}f meters away from %{private}lu LOI type with %{private}f residual", &v41, 0x20u);
   }
 
 LABEL_17:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getArrivalDelay
 {
   representativeVisit = self->_representativeVisit;
-  if (!representativeVisit)
-  {
-    goto LABEL_5;
-  }
-
-  detectionDate = [(TACLVisit *)representativeVisit detectionDate];
-  if (!detectionDate)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = detectionDate;
-  arrivalDate = [(TACLVisit *)self->_representativeVisit arrivalDate];
-
-  if (!arrivalDate)
-  {
-    goto LABEL_5;
-  }
-
-  arrivalDate2 = [(TACLVisit *)self->_representativeVisit arrivalDate];
-  detectionDate2 = [(TACLVisit *)self->_representativeVisit detectionDate];
-  v9 = [arrivalDate2 compare:detectionDate2];
-
-  if (v9 != 1)
+  if (representativeVisit && (-[TACLVisit detectionDate](representativeVisit, "detectionDate"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, -[TACLVisit arrivalDate](self->_representativeVisit, "arrivalDate"), v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v6) && (-[TACLVisit arrivalDate](self->_representativeVisit, "arrivalDate"), v7 = objc_claimAutoreleasedReturnValue(), -[TACLVisit detectionDate](self->_representativeVisit, "detectionDate"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 compare:v8], v8, v7, v9 != 1))
   {
     v12 = MEMORY[0x277CCA970];
-    arrivalDate3 = [(TACLVisit *)self->_representativeVisit arrivalDate];
-    detectionDate3 = [(TACLVisit *)self->_representativeVisit detectionDate];
-    v10 = [v12 createIntervalSafelyWithStartDate:arrivalDate3 endDate:detectionDate3];
+    arrivalDate = [(TACLVisit *)self->_representativeVisit arrivalDate];
+    detectionDate = [(TACLVisit *)self->_representativeVisit detectionDate];
+    v10 = [v12 createIntervalSafelyWithStartDate:arrivalDate endDate:detectionDate];
   }
 
   else
   {
-LABEL_5:
     v10 = 0;
   }
 
@@ -1001,40 +967,16 @@ LABEL_5:
 - (id)getDepartureDelay
 {
   representativeVisit = self->_representativeVisit;
-  if (!representativeVisit)
-  {
-    goto LABEL_5;
-  }
-
-  detectionDate = [(TACLVisit *)representativeVisit detectionDate];
-  if (!detectionDate)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = detectionDate;
-  departureDate = [(TACLVisit *)self->_representativeVisit departureDate];
-
-  if (!departureDate)
-  {
-    goto LABEL_5;
-  }
-
-  departureDate2 = [(TACLVisit *)self->_representativeVisit departureDate];
-  detectionDate2 = [(TACLVisit *)self->_representativeVisit detectionDate];
-  v9 = [departureDate2 compare:detectionDate2];
-
-  if (v9 != 1)
+  if (representativeVisit && (-[TACLVisit detectionDate](representativeVisit, "detectionDate"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, -[TACLVisit departureDate](self->_representativeVisit, "departureDate"), v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v6) && (-[TACLVisit departureDate](self->_representativeVisit, "departureDate"), v7 = objc_claimAutoreleasedReturnValue(), -[TACLVisit detectionDate](self->_representativeVisit, "detectionDate"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 compare:v8], v8, v7, v9 != 1))
   {
     v12 = MEMORY[0x277CCA970];
-    departureDate3 = [(TACLVisit *)self->_representativeVisit departureDate];
-    detectionDate3 = [(TACLVisit *)self->_representativeVisit detectionDate];
-    v10 = [v12 createIntervalSafelyWithStartDate:departureDate3 endDate:detectionDate3];
+    departureDate = [(TACLVisit *)self->_representativeVisit departureDate];
+    detectionDate = [(TACLVisit *)self->_representativeVisit detectionDate];
+    v10 = [v12 createIntervalSafelyWithStartDate:departureDate endDate:detectionDate];
   }
 
   else
   {
-LABEL_5:
     v10 = 0;
   }
 
@@ -1580,55 +1522,49 @@ LABEL_79:
 
 - (void)setRepresentativeVisit:(id *)a3 .cold.1(void *a1, void *a2, id *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 description];
   v7 = [*a3 description];
-  v9 = 138740227;
-  v10 = v6;
-  v11 = 2117;
-  v12 = v7;
-  _os_log_debug_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot _setRepresentativeVisit with input %{sensitive}@ and adjusted representativeVisit to %{sensitive}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138740227;
+  v9 = v6;
+  v10 = 2117;
+  v11 = v7;
+  _os_log_debug_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot _setRepresentativeVisit with input %{sensitive}@ and adjusted representativeVisit to %{sensitive}@", &v8, 0x16u);
 }
 
 - (void)setDepartureVisit:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138739971;
-  v4 = a1;
-  _os_log_error_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_ERROR, "#TAVisitSnapshot dropping departure POI b/c there is no departure date: %{sensitive}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138739971;
+  v3 = a1;
+  _os_log_error_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_ERROR, "#TAVisitSnapshot dropping departure POI b/c there is no departure date: %{sensitive}@", &v2, 0xCu);
 }
 
 - (void)setDepartureVisit:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 departureDate];
   v5 = [a2 arrivalDate];
-  v7 = 138478083;
-  v8 = v4;
-  v9 = 2113;
-  v10 = v5;
-  _os_log_error_impl(&dword_26F2E2000, v3, OS_LOG_TYPE_ERROR, "#TAVisitSnapshot dropping departure POI b/c the departure date %{private}@ is earlier than the arrival date %{private}@ of the current snapshot", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138478083;
+  v7 = v4;
+  v8 = 2113;
+  v9 = v5;
+  _os_log_error_impl(&dword_26F2E2000, v3, OS_LOG_TYPE_ERROR, "#TAVisitSnapshot dropping departure POI b/c the departure date %{private}@ is earlier than the arrival date %{private}@ of the current snapshot", &v6, 0x16u);
 }
 
 - (void)setDepartureVisit:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138739971;
-  v4 = a1;
-  _os_log_error_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_ERROR, "#TAVisitSnapshot departure POI populated already; drop TACLVisit %{sensitive}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138739971;
+  v3 = a1;
+  _os_log_error_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_ERROR, "#TAVisitSnapshot departure POI populated already; drop TACLVisit %{sensitive}@", &v2, 0xCu);
 }
 
 - (void)updateLatestLocation:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (*(a1 + 9))
   {
     v2 = "is";
@@ -1639,29 +1575,26 @@ LABEL_79:
     v2 = "not";
   }
 
-  v4 = 136446210;
-  v5 = v2;
-  _os_log_debug_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot latestLocation %{public}s inside visit", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136446210;
+  v4 = v2;
+  _os_log_debug_impl(&dword_26F2E2000, a2, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot latestLocation %{public}s inside visit", &v3, 0xCu);
 }
 
 - (void)updateLoiType:(id *)a3 .cold.1(void *a1, void *a2, id *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 type];
   v7 = [a2 date];
   v8 = [v7 getDateString];
   v9 = [*a3 getDateString];
-  v11 = 134284035;
-  v12 = v6;
-  v13 = 2113;
-  v14 = v8;
-  v15 = 2113;
-  v16 = v9;
-  _os_log_debug_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot skip updating LOI type %{private}lu as it was too old: incoming loi date %{private}@, current loiType update date, %{private}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 134284035;
+  v11 = v6;
+  v12 = 2113;
+  v13 = v8;
+  v14 = 2113;
+  v15 = v9;
+  _os_log_debug_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_DEBUG, "#TAVisitSnapshot skip updating LOI type %{private}lu as it was too old: incoming loi date %{private}@, current loiType update date, %{private}@", &v10, 0x20u);
 }
 
 @end

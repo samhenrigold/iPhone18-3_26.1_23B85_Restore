@@ -52,37 +52,37 @@ void __37__WBSManagedBookmarksController_init__block_invoke(uint64_t a1, void *a
 
 - (id)managedBookmarks
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   safari = [v2 safari];
   managedBookmarks = [safari managedBookmarks];
 
   if ([managedBookmarks count])
   {
-    v28 = v2;
+    v27 = v2;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v27 = managedBookmarks;
+    v26 = managedBookmarks;
     obj = managedBookmarks;
-    v31 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (v31)
+    v30 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v30)
     {
-      v30 = *v34;
+      v29 = *v33;
       do
       {
         v6 = 0;
         do
         {
-          if (*v34 != v30)
+          if (*v33 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = v6;
-          v7 = *(*(&v33 + 1) + 8 * v6);
+          v31 = v6;
+          v7 = *(*(&v32 + 1) + 8 * v6);
           title = [v7 title];
           v9 = [dictionary objectForKey:title];
 
@@ -128,27 +128,25 @@ void __37__WBSManagedBookmarksController_init__block_invoke(uint64_t a1, void *a
           v23 = dictionaryArrayFromBookmarkArray(children);
           [dictionary setObject:v23 forKeyedSubscript:v20];
 
-          v6 = v32 + 1;
+          v6 = v31 + 1;
         }
 
-        while (v32 + 1 != v31);
-        v31 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        while (v31 + 1 != v30);
+        v30 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
     v24 = [dictionary copy];
-    managedBookmarks = v27;
-    v2 = v28;
+    managedBookmarks = v26;
+    v2 = v27;
   }
 
   else
   {
     v24 = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }

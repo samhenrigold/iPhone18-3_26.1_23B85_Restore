@@ -26,7 +26,7 @@
 
 - (void)_setState:(int64_t)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   state = self->_state;
   if (state != state)
   {
@@ -57,20 +57,18 @@
       }
 
       v11 = v10;
-      v14 = 136315650;
-      v15 = "[AFBluetoothWirelessSplitterSessionStateObserver _setState:]";
-      v16 = 2112;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s state: %@ -> %@", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[AFBluetoothWirelessSplitterSessionStateObserver _setState:]";
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s state: %@ -> %@", &v13, 0x20u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained bluetoothWirelessSplitterSessionStateObserver:self didChangeStateFrom:state to:state];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -100,11 +98,11 @@
   dispatch_async(queue, v11);
 }
 
-uint64_t __88__AFBluetoothWirelessSplitterSessionStateObserver_notifyObserver_didChangeStateFrom_to___block_invoke(uint64_t result)
+void *__88__AFBluetoothWirelessSplitterSessionStateObserver_notifyObserver_didChangeStateFrom_to___block_invoke(void *result)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
-  if (v1[3] == *(result + 40))
+  v13 = *MEMORY[0x1E69E9840];
+  v1 = result[4];
+  if (v1[3] == result[5])
   {
     v2 = result;
     v3 = AFSiriLogContextUtility;
@@ -112,13 +110,13 @@ uint64_t __88__AFBluetoothWirelessSplitterSessionStateObserver_notifyObserver_di
     {
       v4 = v2[6];
       v5 = v2[7];
-      v8 = 136315650;
-      v9 = "[AFBluetoothWirelessSplitterSessionStateObserver notifyObserver:didChangeStateFrom:to:]_block_invoke";
-      v10 = 2048;
-      v11 = v4;
-      v12 = 2048;
-      v13 = v5;
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s fromState = %llu, toState = %llu", &v8, 0x20u);
+      v7 = 136315650;
+      v8 = "[AFBluetoothWirelessSplitterSessionStateObserver notifyObserver:didChangeStateFrom:to:]_block_invoke";
+      v9 = 2048;
+      v10 = v4;
+      v11 = 2048;
+      v12 = v5;
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s fromState = %llu, toState = %llu", &v7, 0x20u);
       v1 = v2[4];
     }
 
@@ -132,10 +130,9 @@ uint64_t __88__AFBluetoothWirelessSplitterSessionStateObserver_notifyObserver_di
       v6 = 1;
     }
 
-    result = [v1 _setState:v6];
+    return [v1 _setState:v6];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -156,22 +153,20 @@ uint64_t __88__AFBluetoothWirelessSplitterSessionStateObserver_notifyObserver_di
 
 void __98__AFBluetoothWirelessSplitterSessionStateObserver_notifyObserver_didReceiveNotificationWithToken___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 24) == *(a1 + 40))
   {
     v2 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
     {
       v3 = *(a1 + 48);
-      v5 = 136315394;
-      v6 = "[AFBluetoothWirelessSplitterSessionStateObserver notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
-      v7 = 1024;
-      v8 = v3;
-      _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s token = %d", &v5, 0x12u);
+      v4 = 136315394;
+      v5 = "[AFBluetoothWirelessSplitterSessionStateObserver notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
+      v6 = 1024;
+      v7 = v3;
+      _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s token = %d", &v4, 0x12u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStateWithCompletion:(id)completion
@@ -249,15 +244,15 @@ void __98__AFBluetoothWirelessSplitterSessionStateObserver_notifyObserver_didRec
 
 uint64_t __74__AFBluetoothWirelessSplitterSessionStateObserver_initWithQueue_delegate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[AFBluetoothWirelessSplitterSessionStateObserver initWithQueue:delegate:]_block_invoke";
-    v10 = 2048;
-    v11 = a2;
-    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s initialState = %llu", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[AFBluetoothWirelessSplitterSessionStateObserver initWithQueue:delegate:]_block_invoke";
+    v9 = 2048;
+    v10 = a2;
+    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s initialState = %llu", &v7, 0x16u);
   }
 
   if (a2)
@@ -270,9 +265,7 @@ uint64_t __74__AFBluetoothWirelessSplitterSessionStateObserver_initWithQueue_del
     v5 = 1;
   }
 
-  result = [*(a1 + 32) _setState:v5];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _setState:v5];
 }
 
 @end

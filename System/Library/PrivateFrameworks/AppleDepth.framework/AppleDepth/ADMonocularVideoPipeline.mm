@@ -224,7 +224,7 @@ LABEL_36:
   return v2;
 }
 
-uint64_t __47__ADMonocularVideoPipeline_supportedDimensions__block_invoke()
+void *__47__ADMonocularVideoPipeline_supportedDimensions__block_invoke()
 {
   v11 = *MEMORY[0x277D85DE8];
   v6 = 0u;
@@ -250,7 +250,7 @@ uint64_t __47__ADMonocularVideoPipeline_supportedDimensions__block_invoke()
         v5 = [ADMonocularVideoPipeline supportedDimensionsForNetwork:*(*(&v6 + 1) + 8 * v3)];
         [v4 addObjectsFromArray:v5];
 
-        ++v3;
+        v3 = v3 + 1;
       }
 
       while (v1 != v3);

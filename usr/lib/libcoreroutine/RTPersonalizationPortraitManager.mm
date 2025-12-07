@@ -293,25 +293,25 @@ id __80__RTPersonalizationPortraitManager_fetchLocationNamesStartDate_endDate_ha
   }
 }
 
-void __62__RTPersonalizationPortraitManager_feedbackUsedNamedEntities___block_invoke(uint64_t a1)
+void __62__RTPersonalizationPortraitManager_feedbackUsedNamedEntities___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__80;
-  v9 = __Block_byref_object_dispose__80;
-  v10 = objc_opt_new();
-  [v6[5] setClientIdentifier:@"rt-lbl"];
-  v2 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithExplicitlyEngagedStrings:*(a1 + 32) explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0];
-  v3 = v6[5];
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __62__RTPersonalizationPortraitManager_feedbackUsedNamedEntities___block_invoke_39;
-  v4[3] = &unk_2788CB490;
-  v4[4] = &v5;
-  [v3 registerFeedback:v2 completion:v4];
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__80;
+  v10 = __Block_byref_object_dispose__80;
+  v11 = objc_opt_new();
+  [v7[5] setClientIdentifier:@"rt-lbl"];
+  v3 = [objc_alloc(MEMORY[0x277D3A3B8]) initWithExplicitlyEngagedStrings:*(a1 + 32) explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0];
+  v4 = v7[5];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __62__RTPersonalizationPortraitManager_feedbackUsedNamedEntities___block_invoke_39;
+  v5[3] = &unk_2788CB490;
+  v5[4] = &v6;
+  [v4 registerFeedback:v3 completion:v5];
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
 }
 
 void __62__RTPersonalizationPortraitManager_feedbackUsedNamedEntities___block_invoke_39(uint64_t a1)

@@ -7,11 +7,11 @@
 
 - (_LTTranslationCandidate)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v35.receiver = self;
-  v35.super_class = _LTTranslationCandidate;
-  v5 = [(_LTTranslationCandidate *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = _LTTranslationCandidate;
+  v5 = [(_LTTranslationCandidate *)&v34 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"formattedString"];
@@ -26,9 +26,9 @@
     v5->_confidence = v10;
     v5->_lowConfidence = [coderCopy decodeBoolForKey:@"lowConfidence"];
     v11 = MEMORY[0x277CBEB98];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
     v13 = [v11 setWithArray:v12];
 
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"tokens"];
@@ -36,9 +36,9 @@
     v5->_tokens = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v37[0] = objc_opt_class();
-    v37[1] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v36[0] = objc_opt_class();
+    v36[1] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
     v18 = [v16 setWithArray:v17];
 
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"senses"];
@@ -46,9 +46,9 @@
     v5->_senses = v19;
 
     v21 = MEMORY[0x277CBEB98];
-    v36[0] = objc_opt_class();
-    v36[1] = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+    v35[0] = objc_opt_class();
+    v35[1] = objc_opt_class();
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
     v23 = [v21 setWithArray:v22];
 
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"genders"];
@@ -70,7 +70,6 @@
     v32 = v5;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

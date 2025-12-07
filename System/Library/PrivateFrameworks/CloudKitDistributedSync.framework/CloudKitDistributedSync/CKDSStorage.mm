@@ -67,10 +67,10 @@
 
 - (BOOL)size:(unint64_t *)size error:(id *)error
 {
-  v69[2] = *MEMORY[0x277D85DE8];
+  v68[2] = *MEMORY[0x277D85DE8];
   if (!size)
   {
-    goto LABEL_4;
+    return 1;
   }
 
   v10 = objc_msgSend_data(self, a2, size, error, v4, v5, v6);
@@ -80,64 +80,60 @@
     v17 = objc_msgSend_data(self, v11, v12, v13, v14, v15, v16);
     *size = objc_msgSend_length(v17, v18, v19, v20, v21, v22, v23);
 
-LABEL_4:
-    ResourceValue_forKey_error = 1;
-    goto LABEL_5;
+    return 1;
   }
 
-  v27 = objc_msgSend_fileURL(self, v11, v12, v13, v14, v15, v16);
+  v26 = objc_msgSend_fileURL(self, v11, v12, v13, v14, v15, v16);
 
-  if (!v27)
+  if (!v26)
   {
     *size = 0;
-    goto LABEL_4;
+    return 1;
   }
 
-  v34 = objc_msgSend_fileURL(self, v28, v29, v30, v31, v32, v33);
-  v67 = 0;
-  v35 = *MEMORY[0x277CBE838];
+  v33 = objc_msgSend_fileURL(self, v27, v28, v29, v30, v31, v32);
   v66 = 0;
-  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v34, v36, &v67, v35, &v66, v37, v38);
-  v39 = v67;
-  v40 = v66;
+  v34 = *MEMORY[0x277CBE838];
+  v65 = 0;
+  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v33, v35, &v66, v34, &v65, v36, v37);
+  v38 = v66;
+  v39 = v65;
 
   if (ResourceValue_forKey_error)
   {
-    v47 = objc_msgSend_unsignedIntegerValue(v39, v41, v42, v43, v44, v45, v46);
+    v46 = objc_msgSend_unsignedIntegerValue(v38, v40, v41, v42, v43, v44, v45);
   }
 
   else
   {
     if (error)
     {
-      v48 = MEMORY[0x277CCA9B8];
-      v68[0] = *MEMORY[0x277CCA450];
-      v49 = MEMORY[0x277CCACA8];
-      v50 = objc_msgSend_fileURL(self, v41, v42, v43, v44, v45, v46);
-      v56 = objc_msgSend_stringWithFormat_(v49, v51, @"Error reading file %@", v52, v53, v54, v55, v50);
-      v68[1] = *MEMORY[0x277CCA7E8];
-      v69[0] = v56;
-      v69[1] = v40;
-      v60 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v57, v69, v68, 2, v58, v59);
-      v64 = objc_msgSend_errorWithDomain_code_userInfo_(v48, v61, @"CKDSErrorDomain", 5, v60, v62, v63);
+      v47 = MEMORY[0x277CCA9B8];
+      v67[0] = *MEMORY[0x277CCA450];
+      v48 = MEMORY[0x277CCACA8];
+      v49 = objc_msgSend_fileURL(self, v40, v41, v42, v43, v44, v45);
+      v55 = objc_msgSend_stringWithFormat_(v48, v50, @"Error reading file %@", v51, v52, v53, v54, v49);
+      v67[1] = *MEMORY[0x277CCA7E8];
+      v68[0] = v55;
+      v68[1] = v39;
+      v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v56, v68, v67, 2, v57, v58);
+      v63 = objc_msgSend_errorWithDomain_code_userInfo_(v47, v60, @"CKDSErrorDomain", 5, v59, v61, v62);
 
-      v65 = v64;
-      *error = v64;
+      v64 = v63;
+      *error = v63;
     }
 
-    v47 = 0;
+    v46 = 0;
   }
 
-  *size = v47;
+  *size = v46;
 
-LABEL_5:
-  v25 = *MEMORY[0x277D85DE8];
   return ResourceValue_forKey_error;
 }
 
 - (id)dataWithError:(id *)error
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   v9 = objc_msgSend_data(self, a2, error, v3, v4, v5, v6);
 
   if (v9)
@@ -152,13 +148,13 @@ LABEL_5:
 
 LABEL_6:
     v24 = MEMORY[0x277CCA9B8];
-    v45 = *MEMORY[0x277CCA450];
+    v44 = *MEMORY[0x277CCA450];
     v25 = MEMORY[0x277CCACA8];
     v26 = objc_opt_class();
     v27 = NSStringFromClass(v26);
     v33 = objc_msgSend_stringWithFormat_(v25, v28, @"%@ was improperly initialized", v29, v30, v31, v32, v27);
-    v46[0] = v33;
-    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, v46, &v45, 1, v35, v36);
+    v45[0] = v33;
+    v37 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, v45, &v44, 1, v35, v36);
     v18 = objc_msgSend_errorWithDomain_code_userInfo_(v24, v38, @"CKDSErrorDomain", 1, v37, v39, v40);
 
     goto LABEL_7;
@@ -166,9 +162,9 @@ LABEL_6:
 
   v19 = MEMORY[0x277CBEA90];
   v20 = objc_msgSend_fileURL(self, v10, v11, v12, v13, v14, v15);
-  v44 = 0;
-  v17 = objc_msgSend_dataWithContentsOfURL_options_error_(v19, v21, v20, 0, &v44, v22, v23);
-  v18 = v44;
+  v43 = 0;
+  v17 = objc_msgSend_dataWithContentsOfURL_options_error_(v19, v21, v20, 0, &v43, v22, v23);
+  v18 = v43;
 
   if (v17)
   {
@@ -194,8 +190,6 @@ LABEL_7:
   }
 
 LABEL_10:
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

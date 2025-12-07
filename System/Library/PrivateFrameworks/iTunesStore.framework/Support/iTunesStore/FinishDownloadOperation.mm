@@ -146,10 +146,10 @@
 
   [*&self->ISOperation_opaque[v6] setCurrentValue:0];
   [*&self->ISOperation_opaque[v6] setMaxValue:1000000];
-  v56[0] = SSDownloadPhaseProcessing;
-  v56[1] = SSDownloadPhaseDataRestore;
-  v56[2] = SSDownloadPhaseInstalling;
-  v8 = [NSArray arrayWithObjects:v56 count:3];
+  v55[0] = SSDownloadPhaseProcessing;
+  v55[1] = SSDownloadPhaseDataRestore;
+  v55[2] = SSDownloadPhaseInstalling;
+  v8 = [NSArray arrayWithObjects:v55 count:3];
   handlerReleasedDownloadPhase = [(FinishDownloadOperation *)self handlerReleasedDownloadPhase];
   if (handlerReleasedDownloadPhase)
   {
@@ -174,40 +174,40 @@
 
   v12 = +[DownloadsDatabase downloadsDatabase];
   v13 = [(FinishDownloadMemoryEntity *)self->_download valueForProperty:@"kind"];
-  v51[0] = 0;
-  v51[1] = v51;
-  v51[2] = 0x2020000000;
-  v51[3] = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = sub_1001EDE98;
-  v49 = sub_1001EDEA8;
-  v50 = 0;
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_1001EDEB0;
-  v34[3] = &unk_10032BFE0;
-  v42 = v11;
-  v43 = v10;
-  v30 = v8;
-  v35 = v30;
+  v50[0] = 0;
+  v50[1] = v50;
+  v50[2] = 0x2020000000;
+  v50[3] = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = sub_1001EDE98;
+  v48 = sub_1001EDEA8;
+  v49 = 0;
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_1001EDEB0;
+  v33[3] = &unk_10032BFE0;
+  v41 = v11;
+  v42 = v10;
+  v29 = v8;
+  v34 = v29;
   selfCopy = self;
-  v40 = &v45;
-  v29 = v4;
-  v37 = v29;
-  v44 = databaseID;
+  v39 = &v44;
+  v28 = v4;
+  v36 = v28;
+  v43 = databaseID;
   v14 = v12;
-  v38 = v14;
+  v37 = v14;
   v15 = v13;
-  v39 = v15;
-  v41 = v51;
-  [_stepOperations enumerateObjectsUsingBlock:v34];
+  v38 = v15;
+  v40 = v50;
+  [_stepOperations enumerateObjectsUsingBlock:v33];
   outputBlock = [(FinishDownloadOperation *)self outputBlock];
   v17 = outputBlock;
   if (outputBlock)
   {
-    (*(outputBlock + 16))(outputBlock, self, v46[5]);
+    (*(outputBlock + 16))(outputBlock, self, v45[5]);
     [(FinishDownloadOperation *)self setOutputBlock:0];
   }
 
@@ -246,28 +246,27 @@
     goto LABEL_20;
   }
 
-  v25 = -[FinishDownloadOperation _finishResult:](self, "_finishResult:", [v46[5] result]);
-  v52 = 134218242;
-  v53 = databaseID;
-  v54 = 2112;
-  v55 = v25;
-  LODWORD(v27) = 22;
-  v26 = _os_log_send_and_compose_impl();
+  v25 = -[FinishDownloadOperation _finishResult:](self, "_finishResult:", [v45[5] result]);
+  v51 = 134218242;
+  v52 = databaseID;
+  v53 = 2112;
+  v54 = v25;
+  v26 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, v22, 0, "[ApplicationWorkspace] Install complete for download: %lld result: %@", &v51, 22);
 
   if (v26)
   {
-    v22 = [NSString stringWithCString:v26 encoding:4, &v52, v27];
+    v22 = [NSString stringWithCString:v26 encoding:4];
     free(v26);
     SSFileLog();
 LABEL_20:
   }
 
   objc_opt_class();
-  v28 = -[FinishDownloadOperation _finishResult:](self, "_finishResult:", [v46[5] result]);
+  v27 = -[FinishDownloadOperation _finishResult:](self, "_finishResult:", [v45[5] result]);
   SSDebugLog();
 
-  _Block_object_dispose(&v45, 8);
-  _Block_object_dispose(v51, 8);
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(v50, 8);
 }
 
 - (void)operation:(id)operation updatedProgress:(id)progress
@@ -531,17 +530,17 @@ LABEL_33:
   if (v26)
   {
     downloadIdentifier = [(FinishDownloadOperation *)self downloadIdentifier];
-    [v8 componentsJoinedByString:{@", "}];
+    v28 = [v8 componentsJoinedByString:{@", "}];
     v36 = 134218242;
     v37 = downloadIdentifier;
-    v39 = v38 = 2112;
-    LODWORD(v31) = 22;
-    v28 = _os_log_send_and_compose_impl();
+    v38 = 2112;
+    v39 = v28;
+    v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[ApplicationWorkspace] Installing download: %lld with step(s): %@", &v36, 22);
 
-    if (v28)
+    if (v29)
     {
-      v29 = [NSString stringWithCString:v28 encoding:4, &v36, v31];
-      free(v28);
+      v30 = [NSString stringWithCString:v29 encoding:4];
+      free(v29);
       SSFileLog();
     }
   }

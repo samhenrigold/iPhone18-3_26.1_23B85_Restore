@@ -12,49 +12,50 @@
 
 + (void)loadBundleAtURL:(id)l completionBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   lCopy = l;
   lastPathComponent = [lCopy lastPathComponent];
-  v8 = *DMCLogObjects();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = *DMCLogObjects(lastPathComponent, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v16 = lastPathComponent;
-    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_INFO, "Lazy loading %{public}@", buf, 0xCu);
+    v20 = lastPathComponent;
+    _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_INFO, "Lazy loading %{public}@", buf, 0xCu);
   }
 
-  v9 = CFBundleCreate(0, lCopy);
+  v10 = CFBundleCreate(0, lCopy);
 
-  if (v9)
+  if (v10)
   {
     error = 0;
-    v10 = CFBundleLoadExecutableAndReturnError(v9, &error);
-    v11 = *DMCLogObjects();
-    if (v10)
+    v13 = CFBundleLoadExecutableAndReturnError(v10, &error);
+    v14 = v13;
+    v16 = *DMCLogObjects(v13, v15);
+    if (v14)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v16 = lastPathComponent;
-        _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_DEFAULT, "Loaded %{public}@", buf, 0xCu);
+        v20 = lastPathComponent;
+        _os_log_impl(&dword_1B1630000, v16, OS_LOG_TYPE_DEFAULT, "Loaded %{public}@", buf, 0xCu);
       }
 
       if (blockCopy)
       {
-        blockCopy[2](blockCopy, 1, v9);
+        blockCopy[2](blockCopy, 1, v10);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v16 = lastPathComponent;
-        v17 = 2114;
-        v18 = error;
-        _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_ERROR, "Could not load %{public}@: %{public}@", buf, 0x16u);
+        v20 = lastPathComponent;
+        v21 = 2114;
+        v22 = error;
+        _os_log_impl(&dword_1B1630000, v16, OS_LOG_TYPE_ERROR, "Could not load %{public}@: %{public}@", buf, 0x16u);
       }
 
       if (blockCopy)
@@ -63,7 +64,7 @@
       }
     }
 
-    CFRelease(v9);
+    CFRelease(v10);
     if (error)
     {
       CFRelease(error);
@@ -72,12 +73,12 @@
 
   else
   {
-    v12 = *DMCLogObjects();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v17 = *DMCLogObjects(v11, v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = lastPathComponent;
-      _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_ERROR, "Could not load %{public}@", buf, 0xCu);
+      v20 = lastPathComponent;
+      _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_ERROR, "Could not load %{public}@", buf, 0xCu);
     }
 
     if (blockCopy)
@@ -85,70 +86,66 @@
       blockCopy[2](blockCopy, 0, 0);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)loadNSBundleAtURL:(id)l completionBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   lCopy = l;
   lastPathComponent = [lCopy lastPathComponent];
-  v8 = *DMCLogObjects();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = *DMCLogObjects(lastPathComponent, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v20 = lastPathComponent;
-    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_INFO, "Lazy loading NSBundle %{public}@", buf, 0xCu);
+    v21 = lastPathComponent;
+    _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_INFO, "Lazy loading NSBundle %{public}@", buf, 0xCu);
   }
 
-  v9 = [MEMORY[0x1E696AAE8] bundleWithURL:lCopy];
+  v10 = [MEMORY[0x1E696AAE8] bundleWithURL:lCopy];
 
-  v18 = 0;
-  v10 = [v9 loadAndReturnError:&v18];
-  v11 = v18;
-  v12 = *DMCLogObjects();
-  if (v10)
+  v19 = 0;
+  v11 = [v10 loadAndReturnError:&v19];
+  v12 = v19;
+  v14 = *DMCLogObjects(v12, v13);
+  if (v11)
   {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
     *buf = 138543362;
-    v20 = lastPathComponent;
-    v13 = "Loaded %{public}@";
-    v14 = v12;
-    v15 = OS_LOG_TYPE_DEFAULT;
-    v16 = 12;
+    v21 = lastPathComponent;
+    v15 = "Loaded %{public}@";
+    v16 = v14;
+    v17 = OS_LOG_TYPE_DEFAULT;
+    v18 = 12;
   }
 
   else
   {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
     *buf = 138543618;
-    v20 = lastPathComponent;
-    v21 = 2114;
-    v22 = v11;
-    v13 = "Could not load %{public}@: %{public}@";
-    v14 = v12;
-    v15 = OS_LOG_TYPE_ERROR;
-    v16 = 22;
+    v21 = lastPathComponent;
+    v22 = 2114;
+    v23 = v12;
+    v15 = "Could not load %{public}@: %{public}@";
+    v16 = v14;
+    v17 = OS_LOG_TYPE_ERROR;
+    v18 = 22;
   }
 
-  _os_log_impl(&dword_1B1630000, v14, v15, v13, buf, v16);
+  _os_log_impl(&dword_1B1630000, v16, v17, v15, buf, v18);
 LABEL_9:
   if (blockCopy)
   {
-    blockCopy[2](blockCopy, v10, v9);
+    blockCopy[2](blockCopy, v11, v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initSpringBoardServices

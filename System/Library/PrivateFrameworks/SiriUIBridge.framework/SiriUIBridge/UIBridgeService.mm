@@ -35,13 +35,13 @@
 - (void)stopAttendingWithReason:(unint64_t)reason
 {
   selfCopy = self;
-  sub_222DFB8A8();
+  sub_222DFB8A8(reason);
 }
 
 - (void)stopAttendingForReason:(unint64_t)reason
 {
   selfCopy = self;
-  sub_222DFB924();
+  sub_222DFB924(reason);
 }
 
 - (void)siriWillPrompt
@@ -71,7 +71,7 @@
 {
   withCopy = with;
   selfCopy = self;
-  sub_222DFC660();
+  sub_222DFC660(withCopy);
 }
 
 - (void)connectionInterrupted

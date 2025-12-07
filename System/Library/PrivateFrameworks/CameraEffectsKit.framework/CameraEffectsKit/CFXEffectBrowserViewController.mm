@@ -224,7 +224,7 @@ LABEL_12:
         v68 = 0u;
         v65 = 0u;
         v66 = 0u;
-        [MEMORY[0x277D3D080] cameraBottomBarGeometryForReferenceBounds:v5 withOrientation:{v33, v35, v37, v39}];
+        objc_msgSend_cameraBottomBarGeometryForReferenceBounds_withOrientation_(MEMORY[0x277D3D080], v33, v35, v37, v39);
         [MEMORY[0x277D3D080] cameraBottomBarFrameForReferenceBounds:{v33, v35, v37, v39}];
         Width = CGRectGetWidth(v72);
         messagesAppsDockViewController = [(CFXEffectBrowserViewController *)self messagesAppsDockViewController];

@@ -7,7 +7,7 @@
 
 - (void)retrieveRecordsFor:(HKWorkout *)for completionHandler:(id)handler
 {
-  v7 = sub_100140278(&qword_1008E1760);
+  v7 = sub_100140278(&qword_1008E1760, &qword_1006D4490);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

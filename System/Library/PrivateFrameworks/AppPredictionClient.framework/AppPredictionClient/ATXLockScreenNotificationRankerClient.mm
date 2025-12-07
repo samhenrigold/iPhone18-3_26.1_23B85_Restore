@@ -39,8 +39,7 @@
     v13[3] = &unk_1E80C10D8;
     objc_copyWeak(&v14, &location);
     [(NSXPCConnection *)v8 setInvalidationHandler:v13];
-    [(NSXPCConnection *)v2->_xpcConnection resume];
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management([(NSXPCConnection *)v2->_xpcConnection resume]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = objc_loadWeakRetained(&location);
@@ -56,26 +55,26 @@
   return v2;
 }
 
-void __45__ATXLockScreenNotificationRankerClient_init__block_invoke(uint64_t a1)
+void __45__ATXLockScreenNotificationRankerClient_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __45__ATXLockScreenNotificationRankerClient_init__block_invoke_cold_1(a1);
   }
 }
 
-void __45__ATXLockScreenNotificationRankerClient_init__block_invoke_67(uint64_t a1)
+void __45__ATXLockScreenNotificationRankerClient_init__block_invoke_67(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v5 = 138412290;
-    v6 = objc_opt_class();
-    v4 = v6;
-    _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_INFO, "[%@] Connection invalidated", &v5, 0xCu);
+    v6 = 138412290;
+    v7 = objc_opt_class();
+    v5 = v7;
+    _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_INFO, "[%@] Connection invalidated", &v6, 0xCu);
   }
 }
 
@@ -107,7 +106,7 @@ void __45__ATXLockScreenNotificationRankerClient_init__block_invoke_67(uint64_t 
 void __70__ATXLockScreenNotificationRankerClient_rankNotificationArrays_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__ATXLockScreenNotificationRankerClient_rankNotificationArrays_reply___block_invoke_cold_1(a1);
@@ -137,7 +136,7 @@ void __70__ATXLockScreenNotificationRankerClient_rankNotificationArrays_reply___
 void __128__ATXLockScreenNotificationRankerClient_rankNewNotificationIntoNotificationArrays_newNotification_notificationArrayIndex_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__ATXLockScreenNotificationRankerClient_rankNotificationArrays_reply___block_invoke_cold_1(a1);

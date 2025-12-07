@@ -56,7 +56,7 @@
       v9 = _INLogSystem();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_10003610C(v8, &self->_pushMessageInfo);
+        sub_10003610C();
       }
     }
 

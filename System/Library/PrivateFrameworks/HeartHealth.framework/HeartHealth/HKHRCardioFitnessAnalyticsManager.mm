@@ -50,10 +50,8 @@
 
 void __93__HKHRCardioFitnessAnalyticsManager_submitOnboardingEventForStep_acceptDefaults_countryCode___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v5 = *(a1 + 56);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 48);
   AnalyticsSendEventLazy();
 }
 
@@ -95,7 +93,7 @@ id __93__HKHRCardioFitnessAnalyticsManager_submitOnboardingEventForStep_acceptDe
 
 - (id)submitClassificationChartOverlaySelectedEventCurrentOverlay:(id)overlay previousOverlay:(id)previousOverlay
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   overlayCopy = overlay;
   previousOverlayCopy = previousOverlay;
   if ([(HKHRCardioFitnessAnalyticsSignalSource *)self->_signalSource isImproveHealthAndActivityAllowed])
@@ -106,8 +104,8 @@ id __93__HKHRCardioFitnessAnalyticsManager_submitOnboardingEventForStep_acceptDe
     block[2] = __113__HKHRCardioFitnessAnalyticsManager_submitClassificationChartOverlaySelectedEventCurrentOverlay_previousOverlay___block_invoke;
     block[3] = &unk_27860AA48;
     block[4] = self;
-    v14 = overlayCopy;
-    v15 = previousOverlayCopy;
+    v13 = overlayCopy;
+    v14 = previousOverlayCopy;
     dispatch_async(queue, block);
     v9 = [[HKHRCardioFitnessAnalyticsResult alloc] initWithStatus:0 error:0];
   }
@@ -126,16 +124,13 @@ id __93__HKHRCardioFitnessAnalyticsManager_submitOnboardingEventForStep_acceptDe
     v9 = [[HKHRCardioFitnessAnalyticsResult alloc] initWithStatus:2 error:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __113__HKHRCardioFitnessAnalyticsManager_submitClassificationChartOverlaySelectedEventCurrentOverlay_previousOverlay___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
+  v2 = *(a1 + 40);
+  v3 = *(a1 + 48);
   AnalyticsSendEventLazy();
 }
 

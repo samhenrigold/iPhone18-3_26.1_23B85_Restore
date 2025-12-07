@@ -1,4 +1,5 @@
 @interface PBAProtectedOptionsViewController
+- (id)lockScreenActionTitleWithHomeButton:(BOOL)button;
 - (id)lockScreenIconSystemName;
 - (id)lockScreenMessage;
 - (id)lockScreenTitle;
@@ -67,6 +68,15 @@
   message = [v2 message];
 
   return message;
+}
+
+- (id)lockScreenActionTitleWithHomeButton:(BOOL)button
+{
+  buttonCopy = button;
+  v4 = +[LAPreboard sharedInstance];
+  v5 = [v4 actionTitleWithHomeButton:buttonCopy];
+
+  return v5;
 }
 
 - (void)confirmTransitionToPasscodeWithCompletion:(id)completion

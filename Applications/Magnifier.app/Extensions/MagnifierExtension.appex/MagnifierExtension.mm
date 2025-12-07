@@ -1,29 +1,29 @@
-uint64_t sub_1000014C8@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1000014C8@<X0>(uint64_t a2@<X8>)
 {
   sub_100001944(&qword_100008068, &qword_100002260);
   sub_100001BC0();
   sub_100001FEC();
   KeyPath = swift_getKeyPath();
-  v3 = (a1 + *(sub_100001944(&qword_100008030, &qword_100002240) + 36));
-  v4 = *(sub_100001944(&qword_100008050, &qword_100002250) + 28);
-  v5 = enum case for ColorScheme.dark(_:);
-  v6 = sub_100001FDC();
-  (*(*(v6 - 8) + 104))(v3 + v4, v5, v6);
-  *v3 = KeyPath;
-  v7 = sub_1000020FC();
-  v8 = swift_getKeyPath();
+  v4 = (a2 + *(sub_100001944(&qword_100008030, &qword_100002240) + 36));
+  v5 = *(sub_100001944(&qword_100008050, &qword_100002250) + 28);
+  v6 = enum case for ColorScheme.dark(_:);
+  v7 = sub_100001FDC();
+  (*(*(v7 - 8) + 104))(v4 + v5, v6, v7);
+  *v4 = KeyPath;
+  v8 = sub_1000020FC();
+  v9 = swift_getKeyPath();
   result = sub_100001944(&qword_100008018, &qword_100002238);
-  v10 = (a1 + *(result + 36));
-  *v10 = v8;
-  v10[1] = v7;
+  v11 = (a2 + *(result + 36));
+  *v11 = v9;
+  v11[1] = v8;
   return result;
 }
 
 uint64_t sub_10000162C(uint64_t a1)
 {
-  v2 = *(*(sub_100001FDC() - 8) + 64);
+  sub_100001FDC();
   __chkstk_darwin();
-  (*(v4 + 16))(&v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
+  (*(v3 + 16))(&v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
   return sub_10000201C();
 }
 
@@ -91,7 +91,6 @@ uint64_t sub_100001944(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -106,7 +105,7 @@ unint64_t sub_10000198C()
   {
     sub_100001A44(&qword_100008018, &qword_100002238);
     sub_100001A8C();
-    sub_100001D3C(&qword_100008058, &qword_100008060, &qword_100002258);
+    sub_100001D3C(&qword_100008058, &qword_100008060, &qword_100002258, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100008020);
   }
@@ -119,7 +118,6 @@ uint64_t sub_100001A44(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -133,8 +131,8 @@ unint64_t sub_100001A8C()
   if (!qword_100008028)
   {
     sub_100001A44(&qword_100008030, &qword_100002240);
-    sub_100001D3C(&qword_100008038, &qword_100008040, &qword_100002248);
-    sub_100001D3C(&qword_100008048, &qword_100008050, &qword_100002250);
+    sub_100001D3C(&qword_100008038, &qword_100008040, &qword_100002248, &protocol conformance descriptor for NavigationStack<A, B>);
+    sub_100001D3C(&qword_100008048, &qword_100008050, &qword_100002250, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100008028);
   }
@@ -184,14 +182,7 @@ uint64_t sub_100001CA0@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_100001CCC(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return sub_10000203C();
-}
-
-uint64_t sub_100001D3C(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_100001D3C(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -206,11 +197,10 @@ uint64_t sub_100001D3C(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t sub_100001D98()
 {
-  v1 = *v0;
 
-  v2 = sub_100001F9C();
+  v0 = sub_100001F9C();
 
-  return static CompositionRoot.magnifierExtensionViewController.getter(v2);
+  return static CompositionRoot.magnifierExtensionViewController.getter(v0);
 }
 
 uint64_t sub_100001E1C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -227,7 +217,7 @@ uint64_t sub_100001E80(uint64_t a1, uint64_t a2, uint64_t a3)
   return static UIViewControllerRepresentable._makeViewList(view:inputs:)(a1, a2, a3, v6);
 }
 
-void sub_100001F00()
+void sub_100001F00(uint64_t a1)
 {
   sub_100001F28();
   sub_1000020AC();

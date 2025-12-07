@@ -31,61 +31,63 @@
 
 - (ARParentImageSensor)initWithSettings:(id)settings
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
-  v23.receiver = self;
-  v23.super_class = ARParentImageSensor;
-  v5 = [(ARParentImageSensor *)&v23 init];
+  v26.receiver = self;
+  v26.super_class = ARParentImageSensor;
+  v5 = [(ARParentImageSensor *)&v26 init];
   if (v5)
   {
-    if (!ARDeviceSupportsMulticamMode() || (ARUserDefaultsMulticamModeEnabled() & 1) == 0)
+    v6 = ARDeviceSupportsMulticamMode();
+    if (!v6 || (v6 = ARUserDefaultsMulticamModeEnabled(v6, v7), (v6 & 1) == 0))
     {
-      ARDeviceSupportsJasper();
+      ARDeviceSupportsJasper(v6, v7);
     }
 
-    v6 = objc_opt_new();
-    v7 = *(v5 + 10);
-    *(v5 + 10) = v6;
-
     v8 = objc_opt_new();
-    v9 = *(v5 + 1);
-    *(v5 + 1) = v8;
+    v9 = *(v5 + 10);
+    *(v5 + 10) = v8;
 
     v10 = objc_opt_new();
-    v11 = *(v5 + 7);
-    *(v5 + 7) = v10;
+    v11 = *(v5 + 1);
+    *(v5 + 1) = v10;
 
-    v12 = [settingsCopy copy];
-    v13 = *(v5 + 6);
-    *(v5 + 6) = v12;
+    v12 = objc_opt_new();
+    v13 = *(v5 + 7);
+    *(v5 + 7) = v12;
+
+    v14 = [settingsCopy copy];
+    v15 = *(v5 + 6);
+    *(v5 + 6) = v14;
 
     *(v5 + 40) = 0;
     *(v5 + 43) = 0;
-    if ([settingsCopy allowCameraInMultipleForegroundAppLayout])
+    allowCameraInMultipleForegroundAppLayout = [settingsCopy allowCameraInMultipleForegroundAppLayout];
+    if (allowCameraInMultipleForegroundAppLayout)
     {
-      v14 = _ARLogSensor_4();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v17 = _ARLogSensor_4(allowCameraInMultipleForegroundAppLayout);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
         *buf = 138543618;
-        v25 = v16;
-        v26 = 2048;
-        v27 = v5;
-        _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Setting authorization to use camera in multiple foreground apps.", buf, 0x16u);
+        v28 = v19;
+        v29 = 2048;
+        v30 = v5;
+        _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Setting authorization to use camera in multiple foreground apps.", buf, 0x16u);
       }
 
       AVCaptureSessionSetAuthorizedToUseCameraInMultipleForegroundAppLayout();
     }
 
-    v17 = ARCreateFixedPriorityDispatchQueueWithPropagatedQOS("com.apple.arkit.capture", QOS_CLASS_USER_INTERACTIVE, 0);
-    v18 = *(v5 + 2);
-    *(v5 + 2) = v17;
+    v20 = ARCreateFixedPriorityDispatchQueueWithPropagatedQOS("com.apple.arkit.capture", 33, 0);
+    v21 = *(v5 + 2);
+    *(v5 + 2) = v20;
 
-    v19 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v20 = dispatch_queue_create_with_target_V2("com.apple.arkit.ARParentImageSensor.captureSessionNotificationsQueue", v19, *(v5 + 2));
-    v21 = *(v5 + 4);
-    *(v5 + 4) = v20;
+    v22 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v23 = dispatch_queue_create_with_target_V2("com.apple.arkit.ARParentImageSensor.captureSessionNotificationsQueue", v22, *(v5 + 2));
+    v24 = *(v5 + 4);
+    *(v5 + 4) = v23;
 
     *(v5 + 6) = 0;
     [v5 _addSensors];
@@ -124,7 +126,7 @@
 
 - (BOOL)_addSensorForSettings:(id)settings
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   videoFormat = [settingsCopy videoFormat];
   if ([videoFormat captureDevicePosition] == 2)
@@ -152,19 +154,19 @@ LABEL_4:
     {
       videoFormat3 = [settingsCopy videoFormat];
       captureDeviceType = [videoFormat3 captureDeviceType];
-      v15 = [captureDeviceType isEqualToString:*MEMORY[0x1E6986930]];
+      v16 = [captureDeviceType isEqualToString:*MEMORY[0x1E6986930]];
 
-      if (v15)
+      if (v16)
       {
-        v16 = ARDepthSensor;
+        v17 = ARDepthSensor;
       }
 
       else
       {
-        v16 = ARImageSensor;
+        v17 = ARImageSensor;
       }
 
-      v7 = [[v16 alloc] initWithSettings:settingsCopy captureSession:self->_captureSession captureQueue:self->_captureQueue];
+      v7 = [[v17 alloc] initWithSettings:settingsCopy captureSession:self->_captureSession captureQueue:self->_captureQueue];
       if (v7)
       {
         goto LABEL_6;
@@ -180,42 +182,42 @@ LABEL_19:
       [ARParentImageSensor _addSensorForSettings:];
     }
 
-    v17 = ARShouldUseLogTypeError_internalOSVersion_3;
-    v18 = _ARLogGeneral_0();
-    v7 = v18;
-    if (v17 == 1)
+    v18 = ARShouldUseLogTypeError_internalOSVersion_3;
+    v19 = _ARLogGeneral_0(v13);
+    v7 = v19;
+    if (v18 == 1)
     {
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        v26 = 138543874;
-        v27 = v20;
-        v28 = 2048;
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v27 = 138543874;
+        v28 = v21;
+        v29 = 2048;
         selfCopy2 = self;
-        v30 = 2114;
-        v31 = settingsCopy;
-        v21 = "%{public}@ <%p>: Failed to create image sensor for settings: %{public}@";
+        v31 = 2114;
+        v32 = settingsCopy;
+        v22 = "%{public}@ <%p>: Failed to create image sensor for settings: %{public}@";
         p_super = &v7->super.super;
-        v23 = OS_LOG_TYPE_ERROR;
+        v24 = OS_LOG_TYPE_ERROR;
 LABEL_23:
-        _os_log_impl(&dword_1C241C000, p_super, v23, v21, &v26, 0x20u);
+        _os_log_impl(&dword_1C241C000, p_super, v24, v22, &v27, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v25 = objc_opt_class();
-      v20 = NSStringFromClass(v25);
-      v26 = 138543874;
-      v27 = v20;
-      v28 = 2048;
+      v26 = objc_opt_class();
+      v21 = NSStringFromClass(v26);
+      v27 = 138543874;
+      v28 = v21;
+      v29 = 2048;
       selfCopy2 = self;
-      v30 = 2114;
-      v31 = settingsCopy;
-      v21 = "Error: %{public}@ <%p>: Failed to create image sensor for settings: %{public}@";
+      v31 = 2114;
+      v32 = settingsCopy;
+      v22 = "Error: %{public}@ <%p>: Failed to create image sensor for settings: %{public}@";
       p_super = &v7->super.super;
-      v23 = OS_LOG_TYPE_INFO;
+      v24 = OS_LOG_TYPE_INFO;
       goto LABEL_23;
     }
 
@@ -559,13 +561,13 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
 
 - (void)start
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([(ARParentImageSensor *)self _validateCameraAuthorization])
   {
     os_unfair_lock_lock(&self->_stateLock);
-    if ([(ARParentImageSensorSettings *)self->_settings audioCaptureEnabled]&& (v16 = 0, ![(ARParentImageSensor *)self _validateMicrophoneAuthorizationWithError:&v16]))
+    if ([(ARParentImageSensorSettings *)self->_settings audioCaptureEnabled]&& (v17 = 0, ![(ARParentImageSensor *)self _validateMicrophoneAuthorizationWithError:&v17]))
     {
-      v5 = v16;
+      v5 = v17;
       os_unfair_lock_unlock(&self->_stateLock);
       delegate = [(ARParentImageSensor *)self delegate];
       [delegate sensor:self didFailWithError:v5];
@@ -577,9 +579,9 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
       [delegate addObserver:self selector:sel_captureSessionStateChanged_ name:*MEMORY[0x1E6986B28] object:self->_captureSession];
       [delegate addObserver:self selector:sel_captureSessionStateChanged_ name:*MEMORY[0x1E6986AA8] object:self->_captureSession];
       [delegate addObserver:self selector:sel_captureSessionStateChanged_ name:*MEMORY[0x1E6986B20] object:self->_captureSession];
-      v15 = 0;
-      v4 = [(ARParentImageSensor *)self _startWithError:&v15];
-      v5 = v15;
+      v16 = 0;
+      v4 = [(ARParentImageSensor *)self _startWithError:&v16];
+      v5 = v16;
       os_unfair_lock_unlock(&self->_stateLock);
       delegate2 = [(ARParentImageSensor *)self delegate];
       v7 = delegate2;
@@ -593,26 +595,27 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
           [delegate3 sensorDidStart:self];
         }
 
-        if ([(ARParentImageSensor *)self interrupted])
+        interrupted = [(ARParentImageSensor *)self interrupted];
+        if (interrupted)
         {
           delegate4 = [(ARParentImageSensor *)self delegate];
-          v11 = objc_opt_respondsToSelector();
+          v12 = objc_opt_respondsToSelector();
 
-          if (v11)
+          if (v12)
           {
             delegate5 = [(ARParentImageSensor *)self delegate];
             [delegate5 sensorDidPause:self];
           }
         }
 
-        v7 = _ARLogSensor_4();
+        v7 = _ARLogSensor_4(interrupted);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          v13 = objc_opt_class();
-          v14 = NSStringFromClass(v13);
+          v14 = objc_opt_class();
+          v15 = NSStringFromClass(v14);
           *buf = 138543618;
-          v18 = v14;
-          v19 = 2048;
+          v19 = v15;
+          v20 = 2048;
           selfCopy = self;
           _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: started", buf, 0x16u);
         }
@@ -628,45 +631,45 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
 
 - (BOOL)_startWithError:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_stateLock);
   [(AVCaptureSession *)self->_captureSession setSessionPreset:*MEMORY[0x1E6986AF0]];
   [(AVCaptureSession *)self->_captureSession beginConfiguration];
-  v39 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v41 = 0u;
   v5 = self->_sensors;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v38;
+    v8 = *v41;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v38 != v8)
+        if (*v41 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        prepareToStart = [*(*(&v37 + 1) + 8 * i) prepareToStart];
+        prepareToStart = [*(*(&v40 + 1) + 8 * i) prepareToStart];
         if (prepareToStart)
         {
-          v31 = prepareToStart;
+          v33 = prepareToStart;
           [(AVCaptureSession *)self->_captureSession commitConfiguration];
           if (error)
           {
-            v32 = v31;
-            *error = v31;
+            v34 = v33;
+            *error = v33;
           }
 
           return 0;
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v40 objects:v48 count:16];
       if (v7)
       {
         continue;
@@ -684,7 +687,7 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
     v13 = 0;
     do
     {
-      v14 = [(NSMutableArray *)self->_sensors objectAtIndexedSubscript:v13, v37];
+      v14 = [(NSMutableArray *)self->_sensors objectAtIndexedSubscript:v13, v40];
       settings2 = [(ARParentImageSensorSettings *)self->_settings settings];
       v16 = [settings2 objectAtIndexedSubscript:v13];
       [v14 enableSensor:{objc_msgSend(v16, "isEnabled")}];
@@ -706,68 +709,70 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
     (beforeRunningAVCaptureSession2)[2](beforeRunningAVCaptureSession2, self->_captureSession);
   }
 
-  [(AVCaptureSession *)self->_captureSession commitConfiguration];
-  v21 = _ARLogSensor_4();
+  v21 = _ARLogSensor_4([(AVCaptureSession *)self->_captureSession commitConfiguration]);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     v22 = objc_opt_class();
     v23 = NSStringFromClass(v22);
     *buf = 138543618;
-    v42 = v23;
-    v43 = 2048;
+    v45 = v23;
+    v46 = 2048;
     selfCopy4 = self;
     _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "%{public}@ <%p>: startRunning capture session", buf, 0x16u);
   }
 
   [(AVCaptureSession *)self->_captureSession startRunning];
-  if (![(AVCaptureSession *)self->_captureSession isRunning])
+  isRunning = [(AVCaptureSession *)self->_captureSession isRunning];
+  if ((isRunning & 1) == 0)
   {
-    v24 = _ARLogSensor_4();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v25 = _ARLogSensor_4(isRunning);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
       *buf = 138543618;
-      v42 = v26;
-      v43 = 2048;
+      v45 = v27;
+      v46 = 2048;
       selfCopy4 = self;
-      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_INFO, "%{public}@ <%p>: was started but the AVCaptureSession hasn't started running yet", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_INFO, "%{public}@ <%p>: was started but the AVCaptureSession hasn't started running yet", buf, 0x16u);
     }
   }
 
   [(ARParentImageSensor *)self setRunning:1];
-  if ([(AVCaptureSession *)self->_captureSession isInterrupted])
+  isInterrupted = [(AVCaptureSession *)self->_captureSession isInterrupted];
+  if (isInterrupted)
   {
-    v27 = _ARLogSensor_4();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = _ARLogSensor_4(isInterrupted);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       *buf = 138543618;
-      v42 = v29;
-      v43 = 2048;
+      v45 = v31;
+      v46 = 2048;
       selfCopy4 = self;
-      _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: starting interrupted", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: starting interrupted", buf, 0x16u);
     }
 
-    v30 = 1;
+    v32 = 1;
     [(ARParentImageSensor *)self setInterrupted:1];
   }
 
   else
   {
-    if ([(ARParentImageSensor *)self interrupted])
+    interrupted = [(ARParentImageSensor *)self interrupted];
+    if (interrupted)
     {
-      v33 = _ARLogSensor_4();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v36 = _ARLogSensor_4(interrupted);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = objc_opt_class();
-        v35 = NSStringFromClass(v34);
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
         *buf = 138543618;
-        v42 = v35;
-        v43 = 2048;
+        v45 = v38;
+        v46 = 2048;
         selfCopy4 = self;
-        _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Starting sensor and forcing interrupted to NO", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Starting sensor and forcing interrupted to NO", buf, 0x16u);
       }
 
       [(ARParentImageSensor *)self setInterrupted:0];
@@ -776,25 +781,26 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
     return 1;
   }
 
-  return v30;
+  return v32;
 }
 
 - (void)stop
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_stateLock);
-  if ([(ARParentImageSensor *)self running])
+  running = [(ARParentImageSensor *)self running];
+  if (running)
   {
-    v3 = _ARLogSensor_4();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = _ARLogSensor_4(running);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
+      v5 = objc_opt_class();
+      v6 = NSStringFromClass(v5);
       *buf = 138543618;
-      v20 = v5;
-      v21 = 2048;
+      v22 = v6;
+      v23 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: ARImageSensor stopping", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: ARImageSensor stopping", buf, 0x16u);
     }
 
     [(ARParentImageSensor *)self setRunning:0];
@@ -802,34 +808,34 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
     [defaultCenter removeObserver:self name:*MEMORY[0x1E6986B28] object:self->_captureSession];
     [defaultCenter removeObserver:self name:*MEMORY[0x1E6986AA8] object:self->_captureSession];
     [defaultCenter removeObserver:self name:*MEMORY[0x1E6986B20] object:self->_captureSession];
+    v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v7 = self->_sensors;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v8)
+    v8 = self->_sensors;
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v15;
+      v10 = v9;
+      v11 = *v17;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v17 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * v11++) stop];
+          [*(*(&v16 + 1) + 8 * v12++) stop];
         }
 
-        while (v9 != v11);
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        while (v10 != v12);
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     [(AVCaptureSession *)self->_captureSession stopRunning];
@@ -839,14 +845,14 @@ void __35__ARParentImageSensor_reconfigure___block_invoke(uint64_t a1, void *a2,
   else
   {
     os_unfair_lock_unlock(&self->_stateLock);
-    defaultCenter = _ARLogSensor_4();
+    defaultCenter = _ARLogSensor_4(v13);
     if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_DEBUG))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543618;
-      v20 = v13;
-      v21 = 2048;
+      v22 = v15;
+      v23 = 2048;
       selfCopy2 = self;
       _os_log_impl(&dword_1C241C000, defaultCenter, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Skipping the request to stop the sensor as it is not running.", buf, 0x16u);
     }
@@ -927,7 +933,7 @@ void __67__ARParentImageSensor_captureHighResolutionFrameWithPhotoSettings___blo
 
 - (void)_configureAudioCapture
 {
-  v97[1] = *MEMORY[0x1E69E9840];
+  v103[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_stateLock);
   if ([(ARParentImageSensorSettings *)self->_settings audioCaptureEnabled]|| self->_audioOutput)
   {
@@ -943,14 +949,14 @@ void __67__ARParentImageSensor_captureHighResolutionFrameWithPhotoSettings___blo
 
     else if (audioOutput)
     {
-      v5 = _ARLogSensor_4();
+      v5 = _ARLogSensor_4(audioCaptureEnabled);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = objc_opt_class();
         v7 = NSStringFromClass(v6);
         *buf = 138543618;
-        v92 = v7;
-        v93 = 2048;
+        v98 = v7;
+        v99 = 2048;
         selfCopy13 = self;
         _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Removing audio output", buf, 0x16u);
       }
@@ -960,18 +966,19 @@ void __67__ARParentImageSensor_captureHighResolutionFrameWithPhotoSettings___blo
       self->_audioOutput = 0;
     }
 
-    if ([(ARParentImageSensorSettings *)self->_settings audioCaptureEnabled])
+    audioCaptureEnabled2 = [(ARParentImageSensorSettings *)self->_settings audioCaptureEnabled];
+    if (audioCaptureEnabled2)
     {
-      v9 = _ARLogSensor_4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _ARLogSensor_4(audioCaptureEnabled2);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
         *buf = 138543618;
-        v92 = v11;
-        v93 = 2048;
+        v98 = v12;
+        v99 = 2048;
         selfCopy13 = self;
-        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Starting audio capture configuration", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Starting audio capture configuration", buf, 0x16u);
       }
 
       settings = [(ARParentImageSensorSettings *)self->_settings settings];
@@ -982,26 +989,26 @@ void __67__ARParentImageSensor_captureHighResolutionFrameWithPhotoSettings___blo
       if (self->_audioInput)
       {
 LABEL_36:
-        v45 = objc_opt_new();
-        v46 = self->_audioOutput;
-        self->_audioOutput = v45;
+        v47 = objc_opt_new();
+        v48 = self->_audioOutput;
+        self->_audioOutput = v47;
 
         [(AVCaptureAudioDataOutput *)self->_audioOutput setSampleBufferDelegate:self queue:self->_captureQueue];
         captureSession = [(ARParentImageSensor *)self captureSession];
-        v48 = [captureSession canAddOutput:self->_audioOutput];
+        v50 = [captureSession canAddOutput:self->_audioOutput];
 
-        if (v48)
+        if (v50)
         {
-          v49 = _ARLogSensor_4();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          v52 = _ARLogSensor_4(v51);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
-            v50 = objc_opt_class();
-            v51 = NSStringFromClass(v50);
+            v53 = objc_opt_class();
+            v54 = NSStringFromClass(v53);
             *buf = 138543618;
-            v92 = v51;
-            v93 = 2048;
+            v98 = v54;
+            v99 = 2048;
             selfCopy13 = self;
-            _os_log_impl(&dword_1C241C000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Adding audio output", buf, 0x16u);
+            _os_log_impl(&dword_1C241C000, v52, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Adding audio output", buf, 0x16u);
           }
 
           captureSession2 = [(ARParentImageSensor *)self captureSession];
@@ -1015,46 +1022,46 @@ LABEL_36:
             [ARParentImageSensor _configureAudioCapture];
           }
 
-          v53 = ARShouldUseLogTypeError_internalOSVersion_3;
-          v54 = _ARLogSensor_4();
-          captureSession2 = v54;
-          if (v53 == 1)
+          v56 = ARShouldUseLogTypeError_internalOSVersion_3;
+          v57 = _ARLogSensor_4(v51);
+          captureSession2 = v57;
+          if (v56 == 1)
           {
-            if (!os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+            if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_48;
             }
 
-            v55 = objc_opt_class();
-            v56 = NSStringFromClass(v55);
+            v58 = objc_opt_class();
+            v59 = NSStringFromClass(v58);
             *buf = 138543618;
-            v92 = v56;
-            v93 = 2048;
+            v98 = v59;
+            v99 = 2048;
             selfCopy13 = self;
-            v57 = "%{public}@ <%p>: Error adding audio output";
-            v58 = captureSession2;
-            v59 = OS_LOG_TYPE_ERROR;
+            v60 = "%{public}@ <%p>: Error adding audio output";
+            v61 = captureSession2;
+            v62 = OS_LOG_TYPE_ERROR;
           }
 
           else
           {
-            if (!os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+            if (!os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
             {
               goto LABEL_48;
             }
 
-            v60 = objc_opt_class();
-            v56 = NSStringFromClass(v60);
+            v63 = objc_opt_class();
+            v59 = NSStringFromClass(v63);
             *buf = 138543618;
-            v92 = v56;
-            v93 = 2048;
+            v98 = v59;
+            v99 = 2048;
             selfCopy13 = self;
-            v57 = "Error: %{public}@ <%p>: Error adding audio output";
-            v58 = captureSession2;
-            v59 = OS_LOG_TYPE_INFO;
+            v60 = "Error: %{public}@ <%p>: Error adding audio output";
+            v61 = captureSession2;
+            v62 = OS_LOG_TYPE_INFO;
           }
 
-          _os_log_impl(&dword_1C241C000, v58, v59, v57, buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v61, v62, v60, buf, 0x16u);
         }
 
 LABEL_48:
@@ -1065,58 +1072,58 @@ LABEL_48:
         }
 
         audioInput = self->_audioInput;
-        v62 = *MEMORY[0x1E69875A0];
+        v65 = *MEMORY[0x1E69875A0];
         device = [(AVCaptureDeviceInput *)audioInput device];
         deviceType = [device deviceType];
-        v65 = [(AVCaptureDeviceInput *)audioInput portsWithMediaType:v62 sourceDeviceType:deviceType sourceDevicePosition:captureDevicePosition];
-        p_super = [v65 firstObject];
+        v68 = [(AVCaptureDeviceInput *)audioInput portsWithMediaType:v65 sourceDeviceType:deviceType sourceDevicePosition:captureDevicePosition];
+        p_super = [v68 firstObject];
 
         if (p_super)
         {
           goto LABEL_53;
         }
 
-        v66 = self->_audioInput;
-        device2 = [(AVCaptureDeviceInput *)v66 device];
+        v69 = self->_audioInput;
+        device2 = [(AVCaptureDeviceInput *)v69 device];
         deviceType2 = [device2 deviceType];
-        v69 = [(AVCaptureDeviceInput *)v66 portsWithMediaType:v62 sourceDeviceType:deviceType2 sourceDevicePosition:0];
-        p_super = [v69 firstObject];
+        v72 = [(AVCaptureDeviceInput *)v69 portsWithMediaType:v65 sourceDeviceType:deviceType2 sourceDevicePosition:0];
+        p_super = [v72 firstObject];
 
-        v70 = _ARLogSensor_4();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+        v74 = _ARLogSensor_4(v73);
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
         {
-          v71 = objc_opt_class();
-          v72 = NSStringFromClass(v71);
+          v75 = objc_opt_class();
+          v76 = NSStringFromClass(v75);
           *buf = 138543618;
-          v92 = v72;
-          v93 = 2048;
+          v98 = v76;
+          v99 = 2048;
           selfCopy13 = self;
-          _os_log_impl(&dword_1C241C000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Falling back to AVCaptureDevicePositionUnspecified.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v74, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Falling back to AVCaptureDevicePositionUnspecified.", buf, 0x16u);
         }
 
         if (p_super)
         {
 LABEL_53:
-          v73 = MEMORY[0x1E6987070];
-          v90 = p_super;
-          v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v90 count:1];
-          v75 = [v73 connectionWithInputPorts:v74 output:self->_audioOutput];
+          v78 = MEMORY[0x1E6987070];
+          v96 = p_super;
+          v79 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v96 count:1];
+          v80 = [v78 connectionWithInputPorts:v79 output:self->_audioOutput];
           audioConnection = self->_audioConnection;
-          self->_audioConnection = v75;
+          self->_audioConnection = v80;
 
-          v77 = _ARLogSensor_4();
-          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+          v83 = _ARLogSensor_4(v82);
+          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
           {
-            v78 = objc_opt_class();
-            v79 = NSStringFromClass(v78);
-            v80 = NSStringFromAVCaptureDevicePosition([p_super sourceDevicePosition]);
+            v84 = objc_opt_class();
+            v85 = NSStringFromClass(v84);
+            v86 = NSStringFromAVCaptureDevicePosition([p_super sourceDevicePosition]);
             *buf = 138543874;
-            v92 = v79;
-            v93 = 2048;
+            v98 = v85;
+            v99 = 2048;
             selfCopy13 = self;
-            v95 = 2112;
-            v96 = v80;
-            _os_log_impl(&dword_1C241C000, v77, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Adding audio connection. Position: %@", buf, 0x20u);
+            v101 = 2112;
+            v102 = v86;
+            _os_log_impl(&dword_1C241C000, v83, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Adding audio connection. Position: %@", buf, 0x20u);
           }
 
           [(AVCaptureSession *)self->_captureSession addConnection:self->_audioConnection];
@@ -1128,38 +1135,38 @@ LABEL_53:
           [ARParentImageSensor _configureAudioCapture];
         }
 
-        v81 = ARShouldUseLogTypeError_internalOSVersion_3;
-        v82 = _ARLogSensor_4();
-        p_super = v82;
-        if (v81 == 1)
+        v87 = ARShouldUseLogTypeError_internalOSVersion_3;
+        v88 = _ARLogSensor_4(v77);
+        p_super = v88;
+        if (v87 == 1)
         {
-          if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
           {
-            v83 = objc_opt_class();
-            v84 = NSStringFromClass(v83);
+            v89 = objc_opt_class();
+            v90 = NSStringFromClass(v89);
             *buf = 138543618;
-            v92 = v84;
-            v93 = 2048;
+            v98 = v90;
+            v99 = 2048;
             selfCopy13 = self;
-            v85 = "%{public}@ <%p>: Error finding audio port";
-            v86 = p_super;
-            v87 = OS_LOG_TYPE_ERROR;
+            v91 = "%{public}@ <%p>: Error finding audio port";
+            v92 = p_super;
+            v93 = OS_LOG_TYPE_ERROR;
 LABEL_65:
-            _os_log_impl(&dword_1C241C000, v86, v87, v85, buf, 0x16u);
+            _os_log_impl(&dword_1C241C000, v92, v93, v91, buf, 0x16u);
           }
         }
 
-        else if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
         {
-          v88 = objc_opt_class();
-          v84 = NSStringFromClass(v88);
+          v94 = objc_opt_class();
+          v90 = NSStringFromClass(v94);
           *buf = 138543618;
-          v92 = v84;
-          v93 = 2048;
+          v98 = v90;
+          v99 = 2048;
           selfCopy13 = self;
-          v85 = "Error: %{public}@ <%p>: Error finding audio port";
-          v86 = p_super;
-          v87 = OS_LOG_TYPE_INFO;
+          v91 = "Error: %{public}@ <%p>: Error finding audio port";
+          v92 = p_super;
+          v93 = OS_LOG_TYPE_INFO;
           goto LABEL_65;
         }
 
@@ -1168,32 +1175,32 @@ LABEL_56:
         return;
       }
 
-      v16 = MEMORY[0x1E69870A8];
-      v97[0] = *MEMORY[0x1E6986920];
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:1];
-      v18 = *MEMORY[0x1E69875A0];
-      v19 = [v16 discoverySessionWithDeviceTypes:v17 mediaType:*MEMORY[0x1E69875A0] position:captureDevicePosition];
+      v17 = MEMORY[0x1E69870A8];
+      v103[0] = *MEMORY[0x1E6986920];
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v103 count:1];
+      v19 = *MEMORY[0x1E69875A0];
+      v20 = [v17 discoverySessionWithDeviceTypes:v18 mediaType:*MEMORY[0x1E69875A0] position:captureDevicePosition];
 
-      devices = [v19 devices];
+      devices = [v20 devices];
       firstObject2 = [devices firstObject];
 
       if (!firstObject2)
       {
-        firstObject2 = [MEMORY[0x1E69870A0] defaultDeviceWithMediaType:v18];
+        firstObject2 = [MEMORY[0x1E69870A0] defaultDeviceWithMediaType:v19];
       }
 
-      v89 = 0;
-      v22 = [MEMORY[0x1E69870B0] deviceInputWithDevice:firstObject2 error:&v89];
-      v23 = v89;
-      v24 = self->_audioInput;
-      self->_audioInput = v22;
+      v95 = 0;
+      v23 = [MEMORY[0x1E69870B0] deviceInputWithDevice:firstObject2 error:&v95];
+      v24 = v95;
+      v25 = self->_audioInput;
+      self->_audioInput = v23;
 
       if (self->_audioInput)
       {
         captureSession3 = [(ARParentImageSensor *)self captureSession];
-        v26 = [captureSession3 canAddInput:self->_audioInput];
+        v28 = [captureSession3 canAddInput:self->_audioInput];
 
-        if (v26)
+        if (v28)
         {
           captureSession4 = [(ARParentImageSensor *)self captureSession];
           [captureSession4 addInputWithNoConnections:self->_audioInput];
@@ -1208,87 +1215,87 @@ LABEL_35:
         [ARParentImageSensor _configureAudioCapture];
       }
 
-      v36 = ARShouldUseLogTypeError_internalOSVersion_3;
-      v37 = _ARLogSensor_4();
-      captureSession4 = v37;
-      if (v36 == 1)
+      v38 = ARShouldUseLogTypeError_internalOSVersion_3;
+      v39 = _ARLogSensor_4(v26);
+      captureSession4 = v39;
+      if (v38 == 1)
       {
-        if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_35;
         }
 
-        v38 = objc_opt_class();
-        v39 = NSStringFromClass(v38);
-        v40 = [v23 description];
+        v40 = objc_opt_class();
+        v41 = NSStringFromClass(v40);
+        v42 = [v24 description];
         *buf = 138543874;
-        v92 = v39;
-        v93 = 2048;
+        v98 = v41;
+        v99 = 2048;
         selfCopy13 = self;
-        v95 = 2112;
-        v96 = v40;
-        v41 = "%{public}@ <%p>: Error creating audio input: %@";
-        v42 = captureSession4;
-        v43 = OS_LOG_TYPE_ERROR;
+        v101 = 2112;
+        v102 = v42;
+        v43 = "%{public}@ <%p>: Error creating audio input: %@";
+        v44 = captureSession4;
+        v45 = OS_LOG_TYPE_ERROR;
       }
 
       else
       {
-        if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           goto LABEL_35;
         }
 
-        v44 = objc_opt_class();
-        v39 = NSStringFromClass(v44);
-        v40 = [v23 description];
+        v46 = objc_opt_class();
+        v41 = NSStringFromClass(v46);
+        v42 = [v24 description];
         *buf = 138543874;
-        v92 = v39;
-        v93 = 2048;
+        v98 = v41;
+        v99 = 2048;
         selfCopy13 = self;
-        v95 = 2112;
-        v96 = v40;
-        v41 = "Error: %{public}@ <%p>: Error creating audio input: %@";
-        v42 = captureSession4;
-        v43 = OS_LOG_TYPE_INFO;
+        v101 = 2112;
+        v102 = v42;
+        v43 = "Error: %{public}@ <%p>: Error creating audio input: %@";
+        v44 = captureSession4;
+        v45 = OS_LOG_TYPE_INFO;
       }
 
-      _os_log_impl(&dword_1C241C000, v42, v43, v41, buf, 0x20u);
+      _os_log_impl(&dword_1C241C000, v44, v45, v43, buf, 0x20u);
 
       goto LABEL_35;
     }
 
     if (self->_audioInput)
     {
-      v28 = _ARLogSensor_4();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v30 = _ARLogSensor_4(audioCaptureEnabled2);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
         *buf = 138543618;
-        v92 = v30;
-        v93 = 2048;
+        v98 = v32;
+        v99 = 2048;
         selfCopy13 = self;
-        _os_log_impl(&dword_1C241C000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Removing audio input", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Removing audio input", buf, 0x16u);
       }
 
       [(AVCaptureSession *)self->_captureSession removeInput:self->_audioInput];
-      v31 = self->_audioInput;
+      v33 = self->_audioInput;
       self->_audioInput = 0;
     }
 
     if (self->_audioConnection)
     {
-      v32 = _ARLogSensor_4();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v34 = _ARLogSensor_4(audioCaptureEnabled2);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
         *buf = 138543618;
-        v92 = v34;
-        v93 = 2048;
+        v98 = v36;
+        v99 = 2048;
         selfCopy13 = self;
-        _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Removing audio connection", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Removing audio connection", buf, 0x16u);
       }
 
       p_super = &self->_audioConnection->super;
@@ -1316,7 +1323,7 @@ LABEL_35:
     if (v4 == 1)
     {
       delegate = [MEMORY[0x1E695DF90] dictionary];
-      v6 = ARKitCoreBundle();
+      v6 = ARKitCoreBundle(delegate);
       v7 = [v6 localizedStringForKey:@"Camera use is restricted on this device." value:&stru_1F4208A80 table:@"Localizable"];
       [delegate setObject:v7 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
@@ -1392,7 +1399,7 @@ void __51__ARParentImageSensor__validateCameraAuthorization__block_invoke(uint64
     if (v6 == 1)
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v8 = ARKitCoreBundle();
+      v8 = ARKitCoreBundle(dictionary);
       v9 = [v8 localizedStringForKey:@"Microphone use is restricted on this device." value:&stru_1F4208A80 table:@"Localizable"];
       [dictionary setObject:v9 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
@@ -1448,7 +1455,7 @@ void __65__ARParentImageSensor__validateMicrophoneAuthorizationWithError___block
 - (void)dealloc
 {
   v11 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_4();
+  v3 = _ARLogSensor_4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
@@ -1562,34 +1569,35 @@ void __65__ARParentImageSensor__validateMicrophoneAuthorizationWithError___block
 
 - (void)_captureSessionStateChanged:(id)changed
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   os_unfair_lock_lock(&self->_stateLock);
-  if (![(ARParentImageSensor *)self running])
+  running = [(ARParentImageSensor *)self running];
+  if ((running & 1) == 0)
   {
 LABEL_11:
     os_unfair_lock_unlock(&self->_stateLock);
     goto LABEL_23;
   }
 
-  v5 = _ARLogSensor_4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _ARLogSensor_4(running);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     *buf = 138543874;
-    v40 = v7;
-    v41 = 2048;
+    v42 = v8;
+    v43 = 2048;
     selfCopy3 = self;
-    v43 = 2114;
-    v44 = changedCopy;
-    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: capture state changed (%{public}@)", buf, 0x20u);
+    v45 = 2114;
+    v46 = changedCopy;
+    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: capture state changed (%{public}@)", buf, 0x20u);
   }
 
   name = [changedCopy name];
-  v9 = [name isEqualToString:*MEMORY[0x1E6986B20]];
+  v10 = [name isEqualToString:*MEMORY[0x1E6986B20]];
 
-  if (v9)
+  if (v10)
   {
     userInfo = [changedCopy userInfo];
     delegate5 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E6986AA0]];
@@ -1600,16 +1608,18 @@ LABEL_11:
       goto LABEL_7;
     }
 
-    v16 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imagesensor.attemptfailurerecovery"];
-    if ([ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imagesensor.attemptfailurerecoveryafterbackground"])
+    v17 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imagesensor.attemptfailurerecovery"];
+    interrupted = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.imagesensor.attemptfailurerecoveryafterbackground"];
+    if (interrupted)
     {
-      if (![(ARParentImageSensor *)self interrupted]&& !v16)
+      interrupted = [(ARParentImageSensor *)self interrupted];
+      if (((interrupted | v17) & 1) == 0)
       {
         goto LABEL_7;
       }
     }
 
-    else if (!v16)
+    else if (!v17)
     {
       goto LABEL_7;
     }
@@ -1619,66 +1629,66 @@ LABEL_11:
       [ARParentImageSensor _configureAudioCapture];
     }
 
-    v25 = ARShouldUseLogTypeError_internalOSVersion_3;
-    v26 = _ARLogSensor_4();
-    v27 = v26;
-    if (v25 == 1)
+    v27 = ARShouldUseLogTypeError_internalOSVersion_3;
+    v28 = _ARLogSensor_4(interrupted);
+    v29 = v28;
+    if (v27 == 1)
     {
-      if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_35;
       }
 
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       *buf = 138543874;
-      v40 = v29;
-      v41 = 2048;
+      v42 = v31;
+      v43 = 2048;
       selfCopy3 = self;
-      v43 = 2112;
-      v44 = delegate5;
-      v30 = "%{public}@ <%p>: Recovering capture session due to AVCaptureSessionRuntimeErrorNotification. (%@)";
-      v31 = v27;
-      v32 = OS_LOG_TYPE_ERROR;
+      v45 = 2112;
+      v46 = delegate5;
+      v32 = "%{public}@ <%p>: Recovering capture session due to AVCaptureSessionRuntimeErrorNotification. (%@)";
+      v33 = v29;
+      v34 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         goto LABEL_35;
       }
 
-      v33 = objc_opt_class();
-      v29 = NSStringFromClass(v33);
+      v35 = objc_opt_class();
+      v31 = NSStringFromClass(v35);
       *buf = 138543874;
-      v40 = v29;
-      v41 = 2048;
+      v42 = v31;
+      v43 = 2048;
       selfCopy3 = self;
-      v43 = 2112;
-      v44 = delegate5;
-      v30 = "Error: %{public}@ <%p>: Recovering capture session due to AVCaptureSessionRuntimeErrorNotification. (%@)";
-      v31 = v27;
-      v32 = OS_LOG_TYPE_INFO;
+      v45 = 2112;
+      v46 = delegate5;
+      v32 = "Error: %{public}@ <%p>: Recovering capture session due to AVCaptureSessionRuntimeErrorNotification. (%@)";
+      v33 = v29;
+      v34 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v31, v32, v30, buf, 0x20u);
+    _os_log_impl(&dword_1C241C000, v33, v34, v32, buf, 0x20u);
 
 LABEL_35:
-    interrupted = [(ARParentImageSensor *)self interrupted];
+    interrupted2 = [(ARParentImageSensor *)self interrupted];
     if ([(ARParentImageSensor *)self _startWithError:0])
     {
       [(ARParentImageSensor *)self setInterrupted:0];
       os_unfair_lock_unlock(&self->_stateLock);
-      if (!interrupted)
+      if (!interrupted2)
       {
         goto LABEL_22;
       }
 
       delegate = [(ARParentImageSensor *)self delegate];
-      v36 = objc_opt_respondsToSelector();
+      v38 = objc_opt_respondsToSelector();
 
-      if ((v36 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
         goto LABEL_22;
       }
@@ -1692,10 +1702,10 @@ LABEL_7:
     os_unfair_lock_unlock(&self->_stateLock);
     if (delegate5)
     {
-      v37 = *MEMORY[0x1E696AA08];
-      v38 = delegate5;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      delegate2 = ARErrorWithCodeAndUserInfo(102, v12);
+      v39 = *MEMORY[0x1E696AA08];
+      v40 = delegate5;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      delegate2 = ARErrorWithCodeAndUserInfo(102, v13);
     }
 
     else
@@ -1711,18 +1721,18 @@ LABEL_21:
   }
 
   name2 = [changedCopy name];
-  v15 = [name2 isEqualToString:*MEMORY[0x1E6986B28]];
+  v16 = [name2 isEqualToString:*MEMORY[0x1E6986B28]];
 
-  if (v15)
+  if (v16)
   {
     if (![(ARParentImageSensor *)self interrupted])
     {
       [(ARParentImageSensor *)self setInterrupted:1];
       os_unfair_lock_unlock(&self->_stateLock);
       delegate4 = [(ARParentImageSensor *)self delegate];
-      v24 = objc_opt_respondsToSelector();
+      v26 = objc_opt_respondsToSelector();
 
-      if ((v24 & 1) == 0)
+      if ((v26 & 1) == 0)
       {
         goto LABEL_23;
       }
@@ -1736,19 +1746,19 @@ LABEL_21:
   }
 
   name3 = [changedCopy name];
-  v18 = [name3 isEqualToString:*MEMORY[0x1E6986AA8]];
+  v20 = [name3 isEqualToString:*MEMORY[0x1E6986AA8]];
 
-  if (v18)
+  if (v20)
   {
-    interrupted2 = [(ARParentImageSensor *)self interrupted];
+    interrupted3 = [(ARParentImageSensor *)self interrupted];
     [(ARParentImageSensor *)self setInterrupted:0];
     os_unfair_lock_unlock(&self->_stateLock);
-    if (interrupted2)
+    if (interrupted3)
     {
       delegate6 = [(ARParentImageSensor *)self delegate];
-      v21 = objc_opt_respondsToSelector();
+      v23 = objc_opt_respondsToSelector();
 
-      if (v21)
+      if (v23)
       {
         delegate5 = [(ARParentImageSensor *)self delegate];
         [delegate5 sensorDidRestart:self];

@@ -5,6 +5,7 @@
 - (id)birthdayCalendarsCreateIfNeeded:(BOOL)needed inStore:(id)store originalIdentifier:(id)identifier originalAlarms:(id)alarms ignoreAlarms:(BOOL)ignoreAlarms;
 - (id)birthdayCalendarsInStore:(id)store;
 - (id)eventStoreProviderWithReset:(BOOL)reset;
+- (id)eventStoreWithReset:(BOOL)reset;
 - (id)initSingleton;
 - (void)_insertEventsForContact:(id)contact intoCalendar:(id)calendar inStore:(id)store;
 - (void)_localeChanged;
@@ -39,9 +40,11 @@
 
 uint64_t __36__EKBirthdayListener_sharedListener__block_invoke()
 {
-  sharedListener_listener = [[EKBirthdayListener alloc] initSingleton];
+  v0 = [[EKBirthdayListener alloc] initSingleton];
+  v1 = sharedListener_listener;
+  sharedListener_listener = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)initSingleton
@@ -90,15 +93,19 @@ void __35__EKBirthdayListener_initSingleton__block_invoke(uint64_t a1, uint64_t 
     }
   }
 
-  else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  else
   {
-    __35__EKBirthdayListener_initSingleton__block_invoke_cold_1();
+    v7 = EKLogHandle;
+    if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      __35__EKBirthdayListener_initSingleton__block_invoke_cold_1(v7, v8, v9);
+    }
   }
 }
 
 - (void)_performUpdateWithContext:(id)context
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if ((_os_feature_enabled_impl() & 1) == 0 && (_os_feature_enabled_impl() & 1) == 0)
   {
@@ -129,16 +136,14 @@ void __35__EKBirthdayListener_initSingleton__block_invoke(uint64_t a1, uint64_t 
       v11 = EKLogHandle;
       if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v13[0] = 67109376;
-        v13[1] = needsReset;
-        v14 = 1024;
-        v15 = 0;
-        _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_DEFAULT, "Not updating birthday events -- need reset? [%{BOOL}d] birthdays enabled? [%{BOOL}d]", v13, 0xEu);
+        v12[0] = 67109376;
+        v12[1] = needsReset;
+        v13 = 1024;
+        v14 = 0;
+        _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_DEFAULT, "Not updating birthday events -- need reset? [%{BOOL}d] birthdays enabled? [%{BOOL}d]", v12, 0xEu);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
@@ -152,7 +157,7 @@ void __35__EKBirthdayListener_initSingleton__block_invoke(uint64_t a1, uint64_t 
 
 - (void)_start
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   updateJobQueue = self->_updateJobQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -185,9 +190,9 @@ void __35__EKBirthdayListener_initSingleton__block_invoke(uint64_t a1, uint64_t 
       currentLocale3 = [v14 currentLocale];
       localeIdentifier3 = [currentLocale3 localeIdentifier];
       *buf = 138412546;
-      v25 = v6;
-      v26 = 2112;
-      v27 = localeIdentifier3;
+      v24 = v6;
+      v25 = 2112;
+      v26 = localeIdentifier3;
       _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_DEFAULT, "BirthdayEventsGenerationLocale (%@) does not match current (%@). Forcing regeneration.", buf, 0x16u);
     }
 
@@ -210,13 +215,11 @@ void __35__EKBirthdayListener_initSingleton__block_invoke(uint64_t a1, uint64_t 
   [(CalAccumulatingQueue *)selfCopy2->_updateQueue updateTagsAndExecuteBlock:0 withContext:&unk_1F1B6B260];
   defaultProvider = [MEMORY[0x1E6992F50] defaultProvider];
   [defaultProvider registerForContactChangeNotifications:selfCopy2];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __28__EKBirthdayListener__start__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 33) = 0;
   v2 = [*(a1 + 32) eventStore];
   v3 = [v2 birthdayCalendarVersion];
@@ -227,11 +230,11 @@ void __28__EKBirthdayListener__start__block_invoke(uint64_t a1)
     v5 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109376;
-      v8[1] = v4;
-      v9 = 1024;
-      v10 = 13;
-      _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_DEFAULT, "birthdayCalendarVersion (%d) does not match current version (%d). Forcing regeneration.", v8, 0xEu);
+      v7[0] = 67109376;
+      v7[1] = v4;
+      v8 = 1024;
+      v9 = 13;
+      _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_DEFAULT, "birthdayCalendarVersion (%d) does not match current version (%d). Forcing regeneration.", v7, 0xEu);
     }
 
     v6 = *(a1 + 32);
@@ -239,8 +242,6 @@ void __28__EKBirthdayListener__start__block_invoke(uint64_t a1)
     *(*(a1 + 32) + 32) = 1;
     objc_sync_exit(v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop
@@ -351,6 +352,14 @@ EKEventStore *__50__EKBirthdayListener_eventStoreProviderWithReset___block_invok
   return v0;
 }
 
+- (id)eventStoreWithReset:(BOOL)reset
+{
+  v3 = [(EKBirthdayListener *)self eventStoreProviderWithReset:reset];
+  eventStore = [v3 eventStore];
+
+  return eventStore;
+}
+
 + (BOOL)areBirthdaysEnabled
 {
   mEMORY[0x1E6992F80] = [MEMORY[0x1E6992F80] shared];
@@ -368,7 +377,7 @@ EKEventStore *__50__EKBirthdayListener_eventStoreProviderWithReset___block_invok
 
 - (void)_localeChanged
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E6992F80] = [MEMORY[0x1E6992F80] shared];
   v4 = [mEMORY[0x1E6992F80] objectForKey:@"BirthdayEventsGenerationLastLocale"];
 
@@ -381,9 +390,9 @@ EKEventStore *__50__EKBirthdayListener_eventStoreProviderWithReset___block_invok
     v8 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v4;
-      _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "BirthdayEventsGenerationLocale ignoring locale change because locale identifier has not changed (%@)", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v4;
+      _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "BirthdayEventsGenerationLocale ignoring locale change because locale identifier has not changed (%@)", &v17, 0xCu);
     }
   }
 
@@ -401,59 +410,55 @@ EKEventStore *__50__EKBirthdayListener_eventStoreProviderWithReset___block_invok
       v14 = v12;
       currentLocale3 = [v13 currentLocale];
       localeIdentifier3 = [currentLocale3 localeIdentifier];
-      v18 = 138412546;
-      v19 = v4;
-      v20 = 2112;
-      v21 = localeIdentifier3;
-      _os_log_impl(&dword_1A805E000, v14, OS_LOG_TYPE_DEFAULT, "BirthdayEventsGenerationLocale (%@) does not match current (%@). Forcing regeneration.", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v4;
+      v19 = 2112;
+      v20 = localeIdentifier3;
+      _os_log_impl(&dword_1A805E000, v14, OS_LOG_TYPE_DEFAULT, "BirthdayEventsGenerationLocale (%@) does not match current (%@). Forcing regeneration.", &v17, 0x16u);
     }
 
     [(EKBirthdayListener *)self reset];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)birthdayCalendarsInStore:(id)store
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   v4 = objc_opt_new();
   v5 = [storeCopy calendarsForEntityType:0];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 type] == 4)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [MEMORY[0x1E695DEC8] arrayWithArray:v4];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -483,51 +488,51 @@ void __46__EKBirthdayListener_disableBirthdayCalendars__block_invoke(uint64_t a1
 
 - (void)disableBirthdayCalendarsInStore:(id)store
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   storeCopy = store;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = [(EKBirthdayListener *)self birthdayCalendarsInStore:storeCopy];
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v6)
   {
     v8 = v6;
     v9 = 0;
-    v10 = *v23;
+    v10 = *v22;
     *&v7 = 138412546;
-    v19 = v7;
+    v18 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
         v12 = v9;
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
-        v21 = v9;
-        v14 = [storeCopy removeCalendar:v13 commit:0 error:{&v21, v19}];
-        v9 = v21;
+        v13 = *(*(&v21 + 1) + 8 * i);
+        v20 = v9;
+        v14 = [storeCopy removeCalendar:v13 commit:0 error:{&v20, v18}];
+        v9 = v20;
 
         if ((v14 & 1) == 0)
         {
           v15 = EKLogHandle;
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
           {
-            *buf = v19;
-            v27 = v13;
-            v28 = 2112;
-            v29 = v9;
+            *buf = v18;
+            v26 = v13;
+            v27 = 2112;
+            v28 = v9;
             _os_log_error_impl(&dword_1A805E000, v15, OS_LOG_TYPE_ERROR, "EKBirthdayListener unable to delete birthday calendar %@, %@", buf, 0x16u);
           }
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v8);
@@ -538,22 +543,20 @@ void __46__EKBirthdayListener_disableBirthdayCalendars__block_invoke(uint64_t a1
     v9 = 0;
   }
 
-  v20 = v9;
-  v16 = [storeCopy commitWithRollback:&v20];
-  v17 = v20;
+  v19 = v9;
+  v16 = [storeCopy commitWithRollback:&v19];
+  v17 = v19;
 
   if ((v16 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
     [EKBirthdayListener disableBirthdayCalendarsInStore:];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)birthdayCalendarsCreateIfNeeded:(BOOL)needed inStore:(id)store originalIdentifier:(id)identifier originalAlarms:(id)alarms ignoreAlarms:(BOOL)ignoreAlarms
 {
   neededCopy = needed;
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   identifierCopy = identifier;
   v12 = [(EKBirthdayListener *)self birthdayCalendarsInStore:storeCopy];
@@ -564,33 +567,33 @@ void __46__EKBirthdayListener_disableBirthdayCalendars__block_invoke(uint64_t a1
     goto LABEL_4;
   }
 
-  v17 = EKLogHandle;
+  v16 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A805E000, v17, OS_LOG_TYPE_DEFAULT, "Creating Birthday Calendar", buf, 2u);
+    _os_log_impl(&dword_1A805E000, v16, OS_LOG_TYPE_DEFAULT, "Creating Birthday Calendar", buf, 2u);
   }
 
-  v18 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v25 = 0;
-  v19 = [storeCopy localBirthdayCalendarCreateIfNeededWithError:&v25];
-  v20 = v25;
+  v17 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v24 = 0;
+  v18 = [storeCopy localBirthdayCalendarCreateIfNeededWithError:&v24];
+  v19 = v24;
   if (identifierCopy)
   {
-    [v19 setCalendarIdentifier:identifierCopy];
+    [v18 setCalendarIdentifier:identifierCopy];
   }
 
-  v21 = [v18 localizedStringForKey:@"Birthdays" value:@"Birthdays" table:0];
-  [v19 setTitle:v21];
+  v20 = [v17 localizedStringForKey:@"Birthdays" value:@"Birthdays" table:0];
+  [v18 setTitle:v20];
 
-  v24 = v20;
-  v22 = [storeCopy saveCalendar:v19 commit:1 error:&v24];
-  v23 = v24;
+  v23 = v19;
+  v21 = [storeCopy saveCalendar:v18 commit:1 error:&v23];
+  v22 = v23;
 
-  if ((v22 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  if ((v21 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
     [EKBirthdayListener birthdayCalendarsCreateIfNeeded:inStore:originalIdentifier:originalAlarms:ignoreAlarms:];
-    if (v19)
+    if (v18)
     {
       goto LABEL_14;
     }
@@ -600,18 +603,17 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (!v19)
+  if (!v18)
   {
     goto LABEL_16;
   }
 
 LABEL_14:
-  v27[0] = v19;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v26[0] = v18;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
 LABEL_17:
 
 LABEL_4:
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -663,13 +665,13 @@ LABEL_5:
 
 - (void)insertEventWithContact:(id)contact forDateComponents:(id)components intoCalendar:(id)calendar inStore:(id)store
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   componentsCopy = components;
   calendarCopy = calendar;
   storeCopy = store;
   context = objc_autoreleasePoolPush();
-  v39 = storeCopy;
+  v38 = storeCopy;
   v13 = [EKEvent eventWithEventStore:storeCopy];
   [v13 setCalendar:calendarCopy];
   v14 = [MEMORY[0x1E695DEE8] CalDateFromBirthdayComponents:componentsCopy];
@@ -681,7 +683,7 @@ LABEL_5:
   v19 = [v16 birthdayStringForContactName:calDisplayName eventDate:0 birthDate:v14 lunarCalendar:calendarIdentifier];
 
   [v13 setAlarms:0];
-  v38 = calendarCopy;
+  v37 = calendarCopy;
   source = [calendarCopy source];
   defaultAlarmOffset = [source defaultAlarmOffset];
 
@@ -716,22 +718,21 @@ LABEL_5:
     v32 = v31;
     identifier2 = [contactCopy identifier];
     *buf = 138412546;
-    v42 = v19;
-    v43 = 2112;
-    v44 = identifier2;
+    v41 = v19;
+    v42 = 2112;
+    v43 = identifier2;
     _os_log_impl(&dword_1A805E000, v32, OS_LOG_TYPE_DEFAULT, "EKBirthdayListener inserting birthday for %@ (%@)", buf, 0x16u);
   }
 
-  v40 = 0;
-  v34 = [v39 saveEvent:v13 span:1 commit:0 error:&v40];
-  v35 = v40;
+  v39 = 0;
+  v34 = [v38 saveEvent:v13 span:1 commit:0 error:&v39];
+  v35 = v39;
   if ((v34 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
     [EKBirthdayListener insertEventWithContact:forDateComponents:intoCalendar:inStore:];
   }
 
   objc_autoreleasePoolPop(context);
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_insertEventsForContact:(id)contact intoCalendar:(id)calendar inStore:(id)store
@@ -758,7 +759,7 @@ LABEL_5:
 
 - (void)resetAllBirthdaysInStore:(id)store
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   mEMORY[0x1E6992F80] = [MEMORY[0x1E6992F80] shared];
   date = [MEMORY[0x1E695DF00] date];
@@ -796,38 +797,38 @@ LABEL_5:
   {
     v15 = [v14 objectAtIndexedSubscript:0];
     allContactsWithBirthdays = [(EKBirthdayListener *)self allContactsWithBirthdays];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v17 = [allContactsWithBirthdays countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v17 = [allContactsWithBirthdays countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         v20 = 0;
         do
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(allContactsWithBirthdays);
           }
 
-          [(EKBirthdayListener *)self _insertEventsForContact:*(*(&v28 + 1) + 8 * v20++) intoCalendar:v15 inStore:storeCopy];
+          [(EKBirthdayListener *)self _insertEventsForContact:*(*(&v27 + 1) + 8 * v20++) intoCalendar:v15 inStore:storeCopy];
         }
 
         while (v18 != v20);
-        v18 = [allContactsWithBirthdays countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v18 = [allContactsWithBirthdays countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v18);
     }
 
-    v27 = 0;
-    v21 = [storeCopy commitWithRollback:&v27];
-    v22 = v27;
+    v26 = 0;
+    v21 = [storeCopy commitWithRollback:&v26];
+    v22 = v26;
     if ((v21 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
       [EKBirthdayListener resetAllBirthdaysInStore:];
@@ -848,13 +849,11 @@ LABEL_5:
       [(EKBirthdayListener *)v25 resetAllBirthdaysInStore:v14];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)incrementalUpdateWithContext:(id)context
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = [contextCopy objectForKeyedSubscript:@"inserts"];
   v6 = [contextCopy objectForKeyedSubscript:@"updates"];
@@ -866,11 +865,11 @@ LABEL_5:
     {
       v9 = v8;
       *buf = 134218496;
-      v46 = [v5 count];
-      v47 = 2048;
-      v48 = [v6 count];
+      v48 = [v5 count];
       v49 = 2048;
-      v50 = [v7 count];
+      v50 = [v6 count];
+      v51 = 2048;
+      v52 = [v7 count];
       _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "EKBirthdayListener handling a total of %ld inserted, %ld updated, %ld deleted contacts", buf, 0x20u);
     }
 
@@ -878,54 +877,54 @@ LABEL_5:
     v11 = [(EKBirthdayListener *)self birthdayCalendarsCreateIfNeeded:0 inStore:eventStore originalIdentifier:0 originalAlarms:0 ignoreAlarms:0];
     if ([v11 count])
     {
-      v30 = contextCopy;
+      v32 = contextCopy;
       v12 = [v11 objectAtIndexedSubscript:0];
       v13 = [v6 valueForKeyPath:@"identifier"];
       v14 = [v5 valueForKey:@"identifier"];
-      v32 = v13;
+      v34 = v13;
       v15 = [MEMORY[0x1E695DFA8] setWithArray:v13];
-      v31 = v14;
+      v33 = v14;
       [v15 addObjectsFromArray:v14];
-      v33 = v7;
+      v35 = v7;
       [v15 addObjectsFromArray:v7];
       v16 = [eventStore predicateForMasterEventsInCalendar:v12];
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke;
-      v41[3] = &unk_1E77FE598;
-      v28 = v15;
-      v42 = v28;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke;
+      v43[3] = &unk_1E77FE598;
+      v30 = v15;
+      v44 = v30;
       v17 = eventStore;
-      v43 = v17;
-      v29 = v16;
-      [v17 enumerateEventsMatchingPredicate:v16 usingBlock:v41];
-      v34 = v6;
-      v35 = v5;
+      v45 = v17;
+      v31 = v16;
+      [v17 enumerateEventsMatchingPredicate:v16 usingBlock:v43];
+      v36 = v6;
+      v37 = v5;
       v18 = [v5 arrayByAddingObjectsFromArray:v6];
-      v37 = 0u;
-      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v19 = [v18 countByEnumeratingWithState:&v37 objects:v44 count:16];
+      v41 = 0u;
+      v42 = 0u;
+      v19 = [v18 countByEnumeratingWithState:&v39 objects:v46 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v38;
+        v21 = *v40;
         do
         {
           v22 = 0;
           do
           {
-            if (*v38 != v21)
+            if (*v40 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            [(EKBirthdayListener *)self _insertEventsForContact:*(*(&v37 + 1) + 8 * v22++) intoCalendar:v12 inStore:v17];
+            [(EKBirthdayListener *)self _insertEventsForContact:*(*(&v39 + 1) + 8 * v22++) intoCalendar:v12 inStore:v17];
           }
 
           while (v20 != v22);
-          v20 = [v18 countByEnumeratingWithState:&v37 objects:v44 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v39 objects:v46 count:16];
         }
 
         while (v20);
@@ -938,42 +937,44 @@ LABEL_5:
         _os_log_impl(&dword_1A805E000, v23, OS_LOG_TYPE_DEFAULT, "EKBirthdayListener committing changes", buf, 2u);
       }
 
-      v36 = 0;
-      v24 = [v17 commitWithRollback:&v36];
-      v25 = v36;
-      v6 = v34;
-      contextCopy = v30;
+      v38 = 0;
+      v24 = [v17 commitWithRollback:&v38];
+      v25 = v38;
+      v6 = v36;
+      contextCopy = v32;
       if ((v24 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
       {
         [EKBirthdayListener resetAllBirthdaysInStore:];
       }
 
-      v5 = v35;
-      v7 = v33;
+      v5 = v37;
+      v7 = v35;
     }
 
-    else if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+    else
     {
-      [EKBirthdayListener incrementalUpdateWithContext:];
+      v26 = EKLogHandle;
+      if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        [(EKBirthdayListener *)v26 incrementalUpdateWithContext:v27, v28];
+      }
     }
   }
 
   else
   {
-    v27 = EKLogHandle;
+    v29 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A805E000, v27, OS_LOG_TYPE_DEFAULT, "EKBirthdayListener has nothing to do; skipping this update.", buf, 2u);
+      _os_log_impl(&dword_1A805E000, v29, OS_LOG_TYPE_DEFAULT, "EKBirthdayListener has nothing to do; skipping this update.", buf, 2u);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 birthdayContactIdentifier];
   if (v4 && (v5 = v4, v6 = *(a1 + 32), [v3 birthdayContactIdentifier], v7 = objc_claimAutoreleasedReturnValue(), LODWORD(v6) = objc_msgSend(v6, "containsObject:", v7), v7, v5, v6))
@@ -985,16 +986,16 @@ void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke(uint64
       v10 = [v3 title];
       v11 = [v3 birthdayContactIdentifier];
       *buf = 138412546;
-      v30 = v10;
-      v31 = 2112;
-      v32 = v11;
+      v29 = v10;
+      v30 = 2112;
+      v31 = v11;
       _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_DEFAULT, "EKBirthdayListener removing birthday for %@ (%@)", buf, 0x16u);
     }
 
     v12 = *(a1 + 40);
-    v28 = 0;
-    v13 = [v12 removeEvent:v3 span:4 commit:0 error:&v28];
-    v14 = v28;
+    v27 = 0;
+    v13 = [v12 removeEvent:v3 span:4 commit:0 error:&v27];
+    v14 = v27;
     if ((v13 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
       __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke_cold_1();
@@ -1025,9 +1026,9 @@ void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke(uint64
         }
 
         v23 = *(a1 + 40);
-        v26 = 0;
-        v24 = [v23 removeEvent:v3 span:4 commit:0 error:&v26];
-        v14 = v26;
+        v25 = 0;
+        v24 = [v23 removeEvent:v3 span:4 commit:0 error:&v25];
+        v14 = v25;
         if ((v24 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
         {
           __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke_cold_1();
@@ -1044,22 +1045,20 @@ void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke(uint64
       }
 
       v20 = *(a1 + 40);
-      v27 = 0;
-      v21 = [v20 removeEvent:v3 span:4 commit:0 error:&v27];
-      v14 = v27;
+      v26 = 0;
+      v21 = [v20 removeEvent:v3 span:4 commit:0 error:&v26];
+      v14 = v26;
       if ((v21 & 1) == 0 && os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
       {
         __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke_cold_1();
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)contactsInserted:(id)inserted updated:(id)updated deleted:(id)deleted
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   insertedCopy = inserted;
   updatedCopy = updated;
   deletedCopy = deleted;
@@ -1068,25 +1067,23 @@ void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke(uint64
   {
     v12 = v11;
     *buf = 134218496;
-    v19 = [insertedCopy count];
-    v20 = 2048;
-    v21 = [updatedCopy count];
-    v22 = 2048;
-    v23 = [deletedCopy count];
+    v18 = [insertedCopy count];
+    v19 = 2048;
+    v20 = [updatedCopy count];
+    v21 = 2048;
+    v22 = [deletedCopy count];
     _os_log_impl(&dword_1A805E000, v12, OS_LOG_TYPE_DEFAULT, "EKBirthdayListener received %ld inserted, %ld updated, %ld deleted contacts", buf, 0x20u);
   }
 
   updateQueue = self->_updateQueue;
-  v16[0] = @"inserts";
-  v16[1] = @"updates";
-  v17[0] = insertedCopy;
-  v17[1] = updatedCopy;
-  v16[2] = @"deletes";
-  v17[2] = deletedCopy;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v15[0] = @"inserts";
+  v15[1] = @"updates";
+  v16[0] = insertedCopy;
+  v16[1] = updatedCopy;
+  v15[2] = @"deletes";
+  v16[2] = deletedCopy;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
   [(CalAccumulatingQueue *)updateQueue updateTagsAndExecuteBlock:0 withContext:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reset
@@ -1100,83 +1097,52 @@ void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke(uint64
 
 - (void)disableBirthdayCalendarsInStore:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "EKBirthdayListener unable to commit birthday calendar deletion %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)birthdayCalendarsCreateIfNeeded:inStore:originalIdentifier:originalAlarms:ignoreAlarms:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)insertEventWithContact:forDateComponents:intoCalendar:inStore:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "EKBirthdayListener unable to save event %@, %@");
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "EKBirthdayListenerFailed to save calendar to event store with error: %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)resetAllBirthdaysInStore:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v3 = a1;
   [a2 count];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetAllBirthdaysInStore:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_9(&dword_1A805E000, v0, v1, "EKBirthdayListener unable to remove event %@ %@");
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1A805E000, v0, v1, "EKBirthdayListener unable to commit to store %@");
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke_cold_2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 title];
   v5 = [a2 birthdayContactIdentifier];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __51__EKBirthdayListener_incrementalUpdateWithContext___block_invoke_cold_4(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 title];
   v5 = [a2 birthdayContactIdentifier];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

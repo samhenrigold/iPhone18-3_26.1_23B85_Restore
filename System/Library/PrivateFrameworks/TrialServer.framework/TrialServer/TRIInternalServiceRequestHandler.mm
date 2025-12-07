@@ -80,7 +80,7 @@
 
 void __62__TRIInternalServiceRequestHandler_taskRecordsWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -90,23 +90,21 @@ void __62__TRIInternalServiceRequestHandler_taskRecordsWithCompletion___block_in
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s taskRecordsWithCompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s taskRecordsWithCompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __62__TRIInternalServiceRequestHandler_taskRecordsWithCompletion___block_invoke_46(uint64_t a1, void *a2, void *a3)
@@ -190,7 +188,7 @@ LABEL_7:
 
 void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperimentId_cloudKitContainer_teamId_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -211,22 +209,20 @@ void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperime
     v10 = *(a1 + 40);
     v11 = TRICloudKitSupport_Container_EnumDescriptor();
     v12 = [v11 textFormatNameForValue:*(a1 + 48)];
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v9;
-    v19 = 2080;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v10;
-    v23 = 2112;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentNotificationsWithExperimentId:%@ cloudKitContainer:%@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2080;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentNotificationsWithExperimentId:%@ cloudKitContainer:%@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperimentId_cloudKitContainer_teamId_completion___block_invoke_54(uint64_t a1, void *a2, void *a3)
@@ -324,42 +320,40 @@ void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperime
 
 void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperimentId_cloudKitContainer_teamId_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperimentId_cloudKitContainer_teamId_completion___block_invoke_82(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   v9 = TRILogCategory_Server();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = [v7 experiment];
+    v12 = [v7 experiment];
     *buf = 138543362;
-    v16 = v13;
+    v15 = v12;
     _os_log_debug_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEBUG, "got artifact from CloudKit with experiment %{public}@", buf, 0xCu);
   }
 
   v10 = *(a1 + 32);
   if (v7)
   {
-    v14 = v7;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+    v13 = v7;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     (*(v10 + 16))(v10, v11, v8);
   }
 
@@ -369,8 +363,6 @@ void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperime
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rolloutNotificationWithLatestDeploymentForRolloutId:(id)id cloudKitContainer:(int)container teamId:(id)teamId completion:(id)completion
@@ -416,7 +408,7 @@ void __112__TRIInternalServiceRequestHandler_experimentNotificationsWithExperime
 
 void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -437,27 +429,25 @@ void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploy
     v10 = *(a1 + 40);
     v11 = TRICloudKitSupport_Container_EnumDescriptor();
     v12 = [v11 textFormatNameForValue:*(a1 + 48)];
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v9;
-    v19 = 2080;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v10;
-    v23 = 2112;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s rolloutNotificationsWithLatestDeploymentForRolloutId:%@ cloudKitContainer:%@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2080;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s rolloutNotificationsWithLatestDeploymentForRolloutId:%@ cloudKitContainer:%@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke_85(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -467,39 +457,39 @@ void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploy
 
     if (!v8)
     {
-      v31 = [MEMORY[0x277CCA890] currentHandler];
-      v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
-      [v31 handleFailureInFunction:v32 file:@"TRIXPCInternalService.m" lineNumber:186 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
+      v30 = [MEMORY[0x277CCA890] currentHandler];
+      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
+      [v30 handleFailureInFunction:v31 file:@"TRIXPCInternalService.m" lineNumber:186 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
     }
 
     v9 = [v5 keyValueStore];
 
     if (!v9)
     {
-      v33 = [MEMORY[0x277CCA890] currentHandler];
-      v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
-      [v33 handleFailureInFunction:v34 file:@"TRIXPCInternalService.m" lineNumber:187 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v32 = [MEMORY[0x277CCA890] currentHandler];
+      v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
+      [v32 handleFailureInFunction:v33 file:@"TRIXPCInternalService.m" lineNumber:187 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     v10 = [v5 namespaceDatabase];
 
     if (!v10)
     {
-      v35 = [MEMORY[0x277CCA890] currentHandler];
-      v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
-      [v35 handleFailureInFunction:v36 file:@"TRIXPCInternalService.m" lineNumber:188 description:{@"Invalid parameter not satisfying: %@", @"serverContext.namespaceDatabase"}];
+      v34 = [MEMORY[0x277CCA890] currentHandler];
+      v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
+      [v34 handleFailureInFunction:v35 file:@"TRIXPCInternalService.m" lineNumber:188 description:{@"Invalid parameter not satisfying: %@", @"serverContext.namespaceDatabase"}];
     }
 
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke_2;
-    v45[3] = &unk_279DE0548;
-    v46 = *(a1 + 56);
-    v11 = MEMORY[0x2743948D0](v45);
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke_2;
+    v44[3] = &unk_279DE0548;
+    v45 = *(a1 + 56);
+    v11 = MEMORY[0x2743948D0](v44);
     v12 = v11;
     if (*(a1 + 32))
     {
-      v40 = v11;
+      v39 = v11;
       v13 = [v5 keyValueStore];
       v14 = [TRIFetchDateManager managerWithKeyValueStore:v13];
 
@@ -508,15 +498,15 @@ void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploy
 
       if (!v16)
       {
-        v37 = [MEMORY[0x277CCA890] currentHandler];
-        v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
-        [v37 handleFailureInFunction:v38 file:@"TRIXPCInternalService.m" lineNumber:206 description:{@"Expression was unexpectedly nil/false: %@", @"[serverContext.paths namespaceDescriptorsDefaultDir]"}];
+        v36 = [MEMORY[0x277CCA890] currentHandler];
+        v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler rolloutNotificationWithLatestDeploymentForRolloutId:cloudKitContainer:teamId:completion:]_block_invoke"];
+        [v36 handleFailureInFunction:v37 file:@"TRIXPCInternalService.m" lineNumber:206 description:{@"Expression was unexpectedly nil/false: %@", @"[serverContext.paths namespaceDescriptorsDefaultDir]"}];
       }
 
       v17 = [v5 namespaceDatabase];
       v18 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:v17 defaultDescriptorDirectoryPath:v16];
 
-      v39 = v14;
+      v38 = v14;
       v19 = [TRICKNativeArtifactProvider providerForContainer:*(a1 + 72) teamId:*(a1 + 40) bundleId:*(a1 + 48) dateProvider:v14 namespaceDescriptorProvider:v18 serverContext:v5];
       v20 = [objc_alloc(MEMORY[0x277D736A0]) initWithAllowsCellular:0 discretionaryBehavior:0];
       v21 = [[TRIFetchOptions alloc] initWithDownloadOptions:v20 cacheDeleteAvailableSpaceClass:&unk_287FC46A8];
@@ -529,21 +519,21 @@ void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploy
       {
         v26 = *(a1 + 32);
         *buf = 138543362;
-        v48 = v26;
+        v47 = v26;
         _os_signpost_emit_with_name_impl(&dword_26F567000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "FetchRolloutNotificationWithLatestDeployment", "r: %{public}@", buf, 0xCu);
       }
 
       v27 = *(a1 + 32);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke_91;
-      v41[3] = &unk_279DE05C0;
-      v42 = *(a1 + 56);
-      v43 = *(a1 + 64);
-      v44 = v23;
-      [v19 fetchRolloutNotificationWithLatestDeploymentForRolloutId:v27 options:v21 completion:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke_91;
+      v40[3] = &unk_279DE05C0;
+      v41 = *(a1 + 56);
+      v42 = *(a1 + 64);
+      v43 = v23;
+      [v19 fetchRolloutNotificationWithLatestDeploymentForRolloutId:v27 options:v21 completion:v40];
 
-      v12 = v40;
+      v12 = v39;
     }
 
     else
@@ -562,42 +552,38 @@ void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploy
       (*(v28 + 16))(v28, 0, v29);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v5 = MEMORY[0x277CCA9B8];
     v6 = a3;
     v7 = [v5 alloc];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_completion___block_invoke_91(void *a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   v9 = TRILogCategory_Server();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v16 = [v7 deployment];
-    v17 = [v16 shortDesc];
-    v18 = 138543362;
-    v19 = v17;
-    _os_log_debug_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEBUG, "Downloaded artifact from CloudKit for rollout %{public}@", &v18, 0xCu);
+    v15 = [v7 deployment];
+    v16 = [v15 shortDesc];
+    v17 = 138543362;
+    v18 = v16;
+    _os_log_debug_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEBUG, "Downloaded artifact from CloudKit for rollout %{public}@", &v17, 0xCu);
   }
 
   (*(a1[4] + 16))();
@@ -609,12 +595,10 @@ void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploy
   {
     v13 = [v7 deployment];
     v14 = [v13 shortDesc];
-    v18 = 138543362;
-    v19 = v14;
-    _os_signpost_emit_with_name_impl(&dword_26F567000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchRolloutNotificationWithLatestDeployment", "r: %{public}@", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v14;
+    _os_signpost_emit_with_name_impl(&dword_26F567000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchRolloutNotificationWithLatestDeployment", "r: %{public}@", &v17, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitTask:(id)task options:(id)options completion:(id)completion
@@ -651,7 +635,7 @@ void __124__TRIInternalServiceRequestHandler_rolloutNotificationWithLatestDeploy
 
 void __66__TRIInternalServiceRequestHandler_submitTask_options_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -668,51 +652,49 @@ void __66__TRIInternalServiceRequestHandler_submitTask_options_completion___bloc
       v9 = "begin";
     }
 
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s submitTask:%@ options:%@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s submitTask:%@ options:%@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __66__TRIInternalServiceRequestHandler_submitTask_options_completion___block_invoke_93(uint64_t a1, void *a2, void *a3)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && v6)
   {
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __66__TRIInternalServiceRequestHandler_submitTask_options_completion___block_invoke_2;
-    v25 = &unk_279DE0398;
-    v26 = *(a1 + 56);
-    v8 = MEMORY[0x2743948D0](&v22);
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __66__TRIInternalServiceRequestHandler_submitTask_options_completion___block_invoke_2;
+    v24 = &unk_279DE0398;
+    v25 = *(a1 + 56);
+    v8 = MEMORY[0x2743948D0](&v21);
     v9 = *(a1 + 32);
     if (v9)
     {
-      v10 = [v7 addTask:v9 options:{*(a1 + 40), v22, v23, v24, v25}];
+      v10 = [v7 addTask:v9 options:{*(a1 + 40), v21, v22, v23, v24}];
       v11 = [[TRIRunningXPCActivityDescriptor alloc] initForImmediateWorkWithCapabilities:11];
       [v7 resumeWithXPCActivityDescriptor:v11 executeWhenSuspended:0];
 
       if (v10 == 2)
       {
         v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v27 = *MEMORY[0x277CCA450];
-        v28 = @"Unable to add task.";
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        v26 = *MEMORY[0x277CCA450];
+        v27 = @"Unable to add task.";
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
         v14 = [v12 initWithDomain:@"TRIGeneralErrorDomain" code:13 userInfo:v13];
       }
 
@@ -731,9 +713,9 @@ void __66__TRIInternalServiceRequestHandler_submitTask_options_completion___bloc
     else
     {
       v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v29 = *MEMORY[0x277CCA450];
-      v30[0] = @"Task parameter cannot be nil.";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:{1, v22, v23, v24, v25}];
+      v28 = *MEMORY[0x277CCA450];
+      v29[0] = @"Task parameter cannot be nil.";
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:{1, v21, v22, v23, v24}];
       v14 = [v17 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v18];
 
       v19 = *(a1 + 48);
@@ -758,8 +740,6 @@ void __66__TRIInternalServiceRequestHandler_submitTask_options_completion___bloc
       (*(v15 + 16))(v15, 0, v16);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWithoutRunningForTask:(id)task options:(id)options completion:(id)completion
@@ -818,7 +798,7 @@ LABEL_3:
 
 void __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -835,39 +815,37 @@ void __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_com
       v9 = "begin";
     }
 
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s addWithoutRunningForTask:%@ options:%@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s addWithoutRunningForTask:%@ options:%@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_completion___block_invoke_107(uint64_t a1, void *a2, void *a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && v6)
   {
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_completion___block_invoke_2;
-    v18 = &unk_279DE0398;
-    v19 = *(a1 + 48);
-    v8 = MEMORY[0x2743948D0](&v15);
-    if ([v7 addTaskAfterOperationsFinish:{*(a1 + 32), v15, v16, v17, v18}])
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_completion___block_invoke_2;
+    v17 = &unk_279DE0398;
+    v18 = *(a1 + 48);
+    v8 = MEMORY[0x2743948D0](&v14);
+    if ([v7 addTaskAfterOperationsFinish:{*(a1 + 32), v14, v15, v16, v17}])
     {
       v9 = 0;
     }
@@ -875,9 +853,9 @@ void __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_com
     else
     {
       v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v20 = *MEMORY[0x277CCA450];
-      v21[0] = @"Unable to add task.";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x277CCA450];
+      v20[0] = @"Unable to add task.";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v9 = [v12 initWithDomain:@"TRIGeneralErrorDomain" code:13 userInfo:v13];
     }
 
@@ -895,8 +873,6 @@ void __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_com
     v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
     (*(v10 + 16))(v10, 0, v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeTaskQueueWithCompletion:(id)completion
@@ -929,7 +905,7 @@ void __80__TRIInternalServiceRequestHandler_addWithoutRunningForTask_options_com
 
 void __66__TRIInternalServiceRequestHandler_resumeTaskQueueWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -939,23 +915,21 @@ void __66__TRIInternalServiceRequestHandler_resumeTaskQueueWithCompletion___bloc
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s resumeTaskQueueWithCompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s resumeTaskQueueWithCompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __66__TRIInternalServiceRequestHandler_resumeTaskQueueWithCompletion___block_invoke_108(uint64_t a1, void *a2, void *a3)
@@ -1020,7 +994,7 @@ void __66__TRIInternalServiceRequestHandler_resumeTaskQueueWithCompletion___bloc
 
 void __80__TRIInternalServiceRequestHandler_lastFetchDateForContainer_teamId_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1041,67 +1015,64 @@ void __80__TRIInternalServiceRequestHandler_lastFetchDateForContainer_teamId_com
     v10 = TRICloudKitSupport_Container_EnumDescriptor();
     v11 = [v10 enumNameForValue:*(a1 + 48)];
     v12 = *(a1 + 40);
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v8;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s lastFetchDateForContainer:%@ teamId:%@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v8;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s lastFetchDateForContainer:%@ teamId:%@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __80__TRIInternalServiceRequestHandler_lastFetchDateForContainer_teamId_completion___block_invoke_109(uint64_t a1, void *a2, void *a3)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && v6)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __80__TRIInternalServiceRequestHandler_lastFetchDateForContainer_teamId_completion___block_invoke_2;
-    v22[3] = &unk_279DE0398;
-    v23 = *(a1 + 48);
-    v8 = MEMORY[0x2743948D0](v22);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __80__TRIInternalServiceRequestHandler_lastFetchDateForContainer_teamId_completion___block_invoke_2;
+    v20[3] = &unk_279DE0398;
+    v21 = *(a1 + 48);
+    v8 = MEMORY[0x2743948D0](v20);
     v9 = [v5 keyValueStore];
     v10 = v9 == 0;
 
     if (v10)
     {
-      v20 = [MEMORY[0x277CCA890] currentHandler];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler lastFetchDateForContainer:teamId:completion:]_block_invoke"];
-      [v20 handleFailureInFunction:v21 file:@"TRIXPCInternalService.m" lineNumber:344 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v18 = [MEMORY[0x277CCA890] currentHandler];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler lastFetchDateForContainer:teamId:completion:]_block_invoke"];
+      [v18 handleFailureInFunction:v19 file:@"TRIXPCInternalService.m" lineNumber:344 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     if (*(a1 + 40))
     {
-      v11 = *(a1 + 56);
       if (TRICloudKitSupport_Container_IsValidValue() && *(a1 + 56))
       {
-        v12 = [v5 keyValueStore];
-        v13 = [TRIFetchDateManager managerWithKeyValueStore:v12];
+        v11 = [v5 keyValueStore];
+        v12 = [TRIFetchDateManager managerWithKeyValueStore:v11];
 
-        v14 = [v13 lastFetchDateWithType:0 container:*(a1 + 56) teamId:*(a1 + 32)];
+        v13 = [v12 lastFetchDateWithType:0 container:*(a1 + 56) teamId:*(a1 + 32)];
         (*(*(a1 + 40) + 16))();
       }
 
       else
       {
-        v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v24 = *MEMORY[0x277CCA450];
-        v25[0] = @"Container value is unsupported.";
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-        v13 = [v17 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v18];
+        v16 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v22 = *MEMORY[0x277CCA450];
+        v23[0] = @"Container value is unsupported.";
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v12 = [v16 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v17];
 
         (*(*(a1 + 40) + 16))();
       }
@@ -1115,15 +1086,13 @@ void __80__TRIInternalServiceRequestHandler_lastFetchDateForContainer_teamId_com
 
   else
   {
-    v15 = *(a1 + 40);
-    if (v15)
+    v14 = *(a1 + 40);
+    if (v14)
     {
-      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-      (*(v15 + 16))(v15, 0, v16);
+      v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+      (*(v14 + 16))(v14, 0, v15);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastFetchDate:(id)date forContainer:(int)container teamId:(id)id completion:(id)completion
@@ -1162,7 +1131,7 @@ void __80__TRIInternalServiceRequestHandler_lastFetchDateForContainer_teamId_com
 
 void __84__TRIInternalServiceRequestHandler_setLastFetchDate_forContainer_teamId_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1184,76 +1153,73 @@ void __84__TRIInternalServiceRequestHandler_setLastFetchDate_forContainer_teamId
     v11 = TRICloudKitSupport_Container_EnumDescriptor();
     v12 = [v11 enumNameForValue:*(a1 + 56)];
     v13 = *(a1 + 48);
-    v15[0] = 67110658;
-    v15[1] = v5;
-    v16 = 2114;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v9;
-    v20 = 2080;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v12;
-    v26 = 2114;
-    v27 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setLastFetchDate:%@ forContainer:%@ teamId:%{public}@ completion:", v15, 0x44u);
+    v14[0] = 67110658;
+    v14[1] = v5;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v9;
+    v19 = 2080;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v12;
+    v25 = 2114;
+    v26 = v13;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setLastFetchDate:%@ forContainer:%@ teamId:%{public}@ completion:", v14, 0x44u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __84__TRIInternalServiceRequestHandler_setLastFetchDate_forContainer_teamId_completion___block_invoke_113(uint64_t a1, void *a2, void *a3)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && v6)
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __84__TRIInternalServiceRequestHandler_setLastFetchDate_forContainer_teamId_completion___block_invoke_2;
-    v25[3] = &unk_279DE0398;
-    v26 = *(a1 + 56);
-    v8 = MEMORY[0x2743948D0](v25);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __84__TRIInternalServiceRequestHandler_setLastFetchDate_forContainer_teamId_completion___block_invoke_2;
+    v23[3] = &unk_279DE0398;
+    v24 = *(a1 + 56);
+    v8 = MEMORY[0x2743948D0](v23);
     v9 = [v5 keyValueStore];
     v10 = v9 == 0;
 
     if (v10)
     {
-      v23 = [MEMORY[0x277CCA890] currentHandler];
-      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler setLastFetchDate:forContainer:teamId:completion:]_block_invoke"];
-      [v23 handleFailureInFunction:v24 file:@"TRIXPCInternalService.m" lineNumber:381 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v21 = [MEMORY[0x277CCA890] currentHandler];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler setLastFetchDate:forContainer:teamId:completion:]_block_invoke"];
+      [v21 handleFailureInFunction:v22 file:@"TRIXPCInternalService.m" lineNumber:381 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     if (*(a1 + 32))
     {
-      v11 = *(a1 + 64);
       if (TRICloudKitSupport_Container_IsValidValue() && *(a1 + 64))
       {
-        v12 = [v5 keyValueStore];
-        v13 = [TRIFetchDateManager managerWithKeyValueStore:v12];
+        v11 = [v5 keyValueStore];
+        v12 = [TRIFetchDateManager managerWithKeyValueStore:v11];
 
-        [v13 setLastFetchDate:*(a1 + 32) type:0 container:*(a1 + 64) teamId:*(a1 + 40)];
-        v14 = *(a1 + 48);
-        if (v14)
+        [v12 setLastFetchDate:*(a1 + 32) type:0 container:*(a1 + 64) teamId:*(a1 + 40)];
+        v13 = *(a1 + 48);
+        if (v13)
         {
-          (*(v14 + 16))(v14, 1, 0);
+          (*(v13 + 16))(v13, 1, 0);
         }
 
         goto LABEL_16;
       }
 
-      v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v27 = *MEMORY[0x277CCA450];
-      v28 = @"Container value is unsupported.";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-      v13 = [v17 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v18];
+      v16 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v25 = *MEMORY[0x277CCA450];
+      v26 = @"Container value is unsupported.";
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v12 = [v16 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v17];
 
-      v19 = *(a1 + 48);
-      if (v19)
+      v18 = *(a1 + 48);
+      if (v18)
       {
         goto LABEL_15;
       }
@@ -1261,17 +1227,17 @@ void __84__TRIInternalServiceRequestHandler_setLastFetchDate_forContainer_teamId
 
     else
     {
-      v20 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v29 = *MEMORY[0x277CCA450];
-      v30[0] = @"Date parameter must be non-nil.";
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-      v13 = [v20 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v21];
+      v19 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v27 = *MEMORY[0x277CCA450];
+      v28[0] = @"Date parameter must be non-nil.";
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v12 = [v19 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v20];
 
-      v19 = *(a1 + 48);
-      if (v19)
+      v18 = *(a1 + 48);
+      if (v18)
       {
 LABEL_15:
-        (*(v19 + 16))(v19, 0, v13);
+        (*(v18 + 16))(v18, 0, v12);
       }
     }
 
@@ -1285,16 +1251,14 @@ LABEL_16:
     goto LABEL_19;
   }
 
-  v15 = *(a1 + 48);
-  if (v15)
+  v14 = *(a1 + 48);
+  if (v14)
   {
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
-    (*(v15 + 16))(v15, 0, v16);
+    v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:0];
+    (*(v14 + 16))(v14, 0, v15);
   }
 
 LABEL_19:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFailureInjectionDelegate:(id)delegate
@@ -1323,7 +1287,7 @@ LABEL_19:
 
 void __64__TRIInternalServiceRequestHandler_setFailureInjectionDelegate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1334,25 +1298,23 @@ void __64__TRIInternalServiceRequestHandler_setFailureInjectionDelegate___block_
     v9 = "end";
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v13[0] = 67110146;
+    v12[0] = 67110146;
     if (!a2)
     {
       v9 = "begin";
     }
 
-    v13[1] = v5;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 2048;
-    v17 = v10;
-    v18 = 2080;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setFailureInjectionDelegate: %@", v13, 0x30u);
+    v12[1] = v5;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2048;
+    v16 = v10;
+    v17 = 2080;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s setFailureInjectionDelegate: %@", v12, 0x30u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __64__TRIInternalServiceRequestHandler_setFailureInjectionDelegate___block_invoke_117(uint64_t a1, void *a2, void *a3)
@@ -1400,7 +1362,7 @@ void __64__TRIInternalServiceRequestHandler_setFailureInjectionDelegate___block_
 
 void __79__TRIInternalServiceRequestHandler_suspendSQLiteCKDatabaseQueueWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1410,23 +1372,21 @@ void __79__TRIInternalServiceRequestHandler_suspendSQLiteCKDatabaseQueueWithComp
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s suspendSQLiteCKDatabaseQueueWithCompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s suspendSQLiteCKDatabaseQueueWithCompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __79__TRIInternalServiceRequestHandler_suspendSQLiteCKDatabaseQueueWithCompletion___block_invoke_118(uint64_t a1, void *a2, void *a3)
@@ -1491,7 +1451,7 @@ void __79__TRIInternalServiceRequestHandler_suspendSQLiteCKDatabaseQueueWithComp
 
 void __78__TRIInternalServiceRequestHandler_resumeSQLiteCKDatabaseQueueWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1501,23 +1461,21 @@ void __78__TRIInternalServiceRequestHandler_resumeSQLiteCKDatabaseQueueWithCompl
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s resumeSQLiteCKDatabaseQueueWithCompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s resumeSQLiteCKDatabaseQueueWithCompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __78__TRIInternalServiceRequestHandler_resumeSQLiteCKDatabaseQueueWithCompletion___block_invoke_120(uint64_t a1, void *a2, void *a3)
@@ -1582,7 +1540,7 @@ void __78__TRIInternalServiceRequestHandler_resumeSQLiteCKDatabaseQueueWithCompl
 
 void __71__TRIInternalServiceRequestHandler_removeUnusedChannelsWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1592,23 +1550,21 @@ void __71__TRIInternalServiceRequestHandler_removeUnusedChannelsWithCompletion__
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s removeUnusedChannelsWithCompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s removeUnusedChannelsWithCompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __71__TRIInternalServiceRequestHandler_removeUnusedChannelsWithCompletion___block_invoke_121(uint64_t a1, void *a2, void *a3)
@@ -1730,11 +1686,11 @@ void __71__TRIInternalServiceRequestHandler_removeUnusedChannelsWithCompletion__
 
 void __178__TRIInternalServiceRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_teamId_appContainerId_appContainerType_cloudKitContainerId_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(*(a1 + 32) + 44);
+    v16 = *(*(a1 + 32) + 44);
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     if (a2)
@@ -1752,36 +1708,34 @@ void __178__TRIInternalServiceRequestHandler_registerNamespaceWithNamespaceName_
     v10 = *(a1 + 80);
     v12 = *(a1 + 48);
     v11 = *(a1 + 56);
-    v16 = *(a1 + 64);
-    v18 = *(a1 + 72);
+    v15 = *(a1 + 64);
+    v17 = *(a1 + 72);
     v13 = TRICloudKitSupport_Container_EnumDescriptor();
     v14 = [v13 enumNameForValue:*(a1 + 84)];
     *buf = 67111682;
-    v20 = v17;
-    v21 = 2114;
-    v22 = v6;
-    v23 = 2048;
-    v24 = v8;
-    v25 = 2080;
-    v26 = v7;
-    v27 = 2114;
-    v28 = v9;
-    v29 = 1024;
-    v30 = v10;
-    v31 = 2112;
-    v32 = v12;
-    v33 = 2114;
-    v34 = v11;
-    v35 = 2112;
-    v36 = v16;
-    v37 = 1024;
-    v38 = v18;
-    v39 = 2112;
-    v40 = v14;
+    v19 = v16;
+    v20 = 2114;
+    v21 = v6;
+    v22 = 2048;
+    v23 = v8;
+    v24 = 2080;
+    v25 = v7;
+    v26 = 2114;
+    v27 = v9;
+    v28 = 1024;
+    v29 = v10;
+    v30 = 2112;
+    v31 = v12;
+    v32 = 2114;
+    v33 = v11;
+    v34 = 2112;
+    v35 = v15;
+    v36 = 1024;
+    v37 = v17;
+    v38 = 2112;
+    v39 = v14;
     _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s registerNamespaceWithNamespaceName:%{public}@ compatibilityVersion:%u defaultsFileURL:%@ teamId:%{public}@ appContainerId:%@ appContainerType:%u cloudKitContainerId:%@", buf, 0x64u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __178__TRIInternalServiceRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_teamId_appContainerId_appContainerType_cloudKitContainerId_completion___block_invoke_125(uint64_t a1, void *a2, void *a3)
@@ -1866,31 +1820,29 @@ LABEL_21:
 
 void __178__TRIInternalServiceRequestHandler_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_teamId_appContainerId_appContainerType_cloudKitContainerId_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (*(a1 + 40))
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v5;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
       _os_log_debug_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEBUG, "failed to register namespace %{public}@: %{public}@", buf, 0x16u);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v12 = *MEMORY[0x277CCA450];
-    v13 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterNamespaceWithNamespaceName:(id)name teamId:(id)id completion:(id)completion
@@ -1927,7 +1879,7 @@ void __178__TRIInternalServiceRequestHandler_registerNamespaceWithNamespaceName_
 
 void __91__TRIInternalServiceRequestHandler_deregisterNamespaceWithNamespaceName_teamId_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1944,22 +1896,20 @@ void __91__TRIInternalServiceRequestHandler_deregisterNamespaceWithNamespaceName
       v9 = "begin";
     }
 
-    v14[0] = 67110402;
-    v14[1] = v5;
-    v15 = 2114;
-    v16 = v7;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2080;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s deregisterNamespaceWithNamespaceName:%{public}@ teamId:%{public}@ completion:", v14, 0x3Au);
+    v13[0] = 67110402;
+    v13[1] = v5;
+    v14 = 2114;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v10;
+    v18 = 2080;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v11;
+    v22 = 2114;
+    v23 = v12;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s deregisterNamespaceWithNamespaceName:%{public}@ teamId:%{public}@ completion:", v13, 0x3Au);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __91__TRIInternalServiceRequestHandler_deregisterNamespaceWithNamespaceName_teamId_completion___block_invoke_146(id *a1, void *a2, void *a3)
@@ -2037,31 +1987,29 @@ LABEL_17:
 
 void __91__TRIInternalServiceRequestHandler_deregisterNamespaceWithNamespaceName_teamId_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (*(a1 + 40))
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v5;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
       _os_log_debug_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEBUG, "failed to deregister namespace %{public}@: %{public}@", buf, 0x16u);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v12 = *MEMORY[0x277CCA450];
-    v13 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDownloadNamespaceWithName:(id)name teamId:(id)id options:(id)options completion:(id)completion
@@ -2103,7 +2051,7 @@ void __91__TRIInternalServiceRequestHandler_deregisterNamespaceWithNamespaceName
 
 void __93__TRIInternalServiceRequestHandler_startDownloadNamespaceWithName_teamId_options_completion___block_invoke(void *a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2121,24 +2069,22 @@ void __93__TRIInternalServiceRequestHandler_startDownloadNamespaceWithName_teamI
 
     v12 = a1[6];
     v13 = a1[7];
-    v15[0] = 67110658;
-    v15[1] = v5;
-    v16 = 2114;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v10;
-    v20 = 2080;
-    v21 = v9;
-    v22 = 2114;
-    v23 = v11;
-    v24 = 2114;
-    v25 = v12;
-    v26 = 2112;
-    v27 = v13;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s startDownloadNamespaceWithName:%{public}@ teamId:%{public}@ options:%@ completion:", v15, 0x44u);
+    v14[0] = 67110658;
+    v14[1] = v5;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v10;
+    v19 = 2080;
+    v20 = v9;
+    v21 = 2114;
+    v22 = v11;
+    v23 = 2114;
+    v24 = v12;
+    v25 = 2112;
+    v26 = v13;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s startDownloadNamespaceWithName:%{public}@ teamId:%{public}@ options:%@ completion:", v14, 0x44u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __93__TRIInternalServiceRequestHandler_startDownloadNamespaceWithName_teamId_options_completion___block_invoke_156(uint64_t a1, void *a2, void *a3)
@@ -2203,31 +2149,29 @@ LABEL_14:
 
 void __93__TRIInternalServiceRequestHandler_startDownloadNamespaceWithName_teamId_options_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (*(a1 + 40))
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v5;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v5;
       _os_log_debug_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEBUG, "failed to deregister namespace %{public}@: %{public}@", buf, 0x16u);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v12 = *MEMORY[0x277CCA450];
-    v13 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA450];
+    v12 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dynamicNamespaceRecordsWithCompletion:(id)completion
@@ -2254,7 +2198,7 @@ void __93__TRIInternalServiceRequestHandler_startDownloadNamespaceWithName_teamI
 
 void __74__TRIInternalServiceRequestHandler_dynamicNamespaceRecordsWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2264,23 +2208,21 @@ void __74__TRIInternalServiceRequestHandler_dynamicNamespaceRecordsWithCompletio
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s dynamicNamespaceRecordsWithCompletion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s dynamicNamespaceRecordsWithCompletion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __74__TRIInternalServiceRequestHandler_dynamicNamespaceRecordsWithCompletion___block_invoke_159(uint64_t a1, void *a2, void *a3)
@@ -2472,103 +2414,103 @@ LABEL_10:
 
 void __75__TRIInternalServiceRequestHandler_activeRolloutInformationWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v150 = *MEMORY[0x277D85DE8];
+  v149 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v93 = v4;
-  v91 = v5;
+  v92 = v4;
+  v90 = v5;
   if (v4 && v5)
   {
     v6 = [v4 paths];
 
     if (!v6)
     {
-      v75 = [MEMORY[0x277CCA890] currentHandler];
-      v76 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler activeRolloutInformationWithCompletion:]_block_invoke"];
-      [v75 handleFailureInFunction:v76 file:@"TRIXPCInternalService.m" lineNumber:740 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
+      v74 = [MEMORY[0x277CCA890] currentHandler];
+      v75 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler activeRolloutInformationWithCompletion:]_block_invoke"];
+      [v74 handleFailureInFunction:v75 file:@"TRIXPCInternalService.m" lineNumber:740 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
     }
 
-    v128 = 0;
-    v129 = &v128;
-    v130 = 0x3032000000;
-    v131 = __Block_byref_object_copy__9;
-    v132 = __Block_byref_object_dispose__9;
-    v133 = objc_opt_new();
-    v7 = [v93 rolloutDatabase];
-    v127[0] = MEMORY[0x277D85DD0];
-    v127[1] = 3221225472;
-    v127[2] = __75__TRIInternalServiceRequestHandler_activeRolloutInformationWithCompletion___block_invoke_162;
-    v127[3] = &unk_279DE0818;
-    v127[4] = &v128;
-    v8 = [v7 enumerateRecordsUsingTransaction:0 block:v127];
+    v127 = 0;
+    v128 = &v127;
+    v129 = 0x3032000000;
+    v130 = __Block_byref_object_copy__9;
+    v131 = __Block_byref_object_dispose__9;
+    v132 = objc_opt_new();
+    v7 = [v92 rolloutDatabase];
+    v126[0] = MEMORY[0x277D85DD0];
+    v126[1] = 3221225472;
+    v126[2] = __75__TRIInternalServiceRequestHandler_activeRolloutInformationWithCompletion___block_invoke_162;
+    v126[3] = &unk_279DE0818;
+    v126[4] = &v127;
+    v8 = [v7 enumerateRecordsUsingTransaction:0 block:v126];
 
     if (v8)
     {
       v9 = objc_alloc(MEMORY[0x277CBEB18]);
-      v10 = [v129[5] sortedArrayUsingComparator:&__block_literal_global_9];
+      v10 = [v128[5] sortedArrayUsingComparator:&__block_literal_global_9];
       v11 = [v9 initWithArray:v10];
-      v12 = v129[5];
-      v129[5] = v11;
+      v12 = v128[5];
+      v128[5] = v11;
 
       v13 = objc_alloc(MEMORY[0x277D73690]);
-      v14 = [v93 paths];
-      v101 = [v13 initWithPaths:v14 factorsState:0];
+      v14 = [v92 paths];
+      v100 = [v13 initWithPaths:v14 factorsState:0];
 
-      v87 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v125 = 0u;
-      v126 = 0u;
-      v123 = 0u;
+      v86 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v124 = 0u;
-      obj = v129[5];
-      v15 = [obj countByEnumeratingWithState:&v123 objects:v148 count:16];
+      v125 = 0u;
+      v122 = 0u;
+      v123 = 0u;
+      obj = v128[5];
+      v15 = [obj countByEnumeratingWithState:&v122 objects:v147 count:16];
       if (v15)
       {
-        v86 = *v124;
-        v83 = *MEMORY[0x277D73A68];
-        v82 = *MEMORY[0x277D73A10];
-        v81 = *MEMORY[0x277D73A78];
-        v80 = *MEMORY[0x277D73A60];
-        v79 = *MEMORY[0x277D739F0];
-        v78 = *MEMORY[0x277D73A80];
-        v77 = *MEMORY[0x277D73A48];
-        v113 = *MEMORY[0x277D73A40];
-        v97 = *MEMORY[0x277D73A20];
-        v96 = *MEMORY[0x277D73A50];
-        v95 = *MEMORY[0x277D73A28];
-        v111 = *MEMORY[0x277D73A90];
-        v110 = *MEMORY[0x277D73A38];
-        v106 = *MEMORY[0x277D73A58];
-        v107 = *MEMORY[0x277D739F8];
-        v105 = *MEMORY[0x277D73A70];
-        v109 = *MEMORY[0x277D73A30];
+        v85 = *v123;
+        v82 = *MEMORY[0x277D73A68];
+        v81 = *MEMORY[0x277D73A10];
+        v80 = *MEMORY[0x277D73A78];
+        v79 = *MEMORY[0x277D73A60];
+        v78 = *MEMORY[0x277D739F0];
+        v77 = *MEMORY[0x277D73A80];
+        v76 = *MEMORY[0x277D73A48];
+        v112 = *MEMORY[0x277D73A40];
+        v96 = *MEMORY[0x277D73A20];
+        v95 = *MEMORY[0x277D73A50];
+        v94 = *MEMORY[0x277D73A28];
+        v110 = *MEMORY[0x277D73A90];
+        v109 = *MEMORY[0x277D73A38];
+        v105 = *MEMORY[0x277D73A58];
+        v106 = *MEMORY[0x277D739F8];
+        v104 = *MEMORY[0x277D73A70];
+        v108 = *MEMORY[0x277D73A30];
         do
         {
-          v89 = 0;
-          v84 = v15;
+          v88 = 0;
+          v83 = v15;
           do
           {
-            if (*v124 != v86)
+            if (*v123 != v85)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v123 + 1) + 8 * v89);
+            v16 = *(*(&v122 + 1) + 8 * v88);
             context = objc_autoreleasePoolPush();
             v17 = [v16 activeFactorPackSetId];
             v18 = v17 == 0;
 
             if (!v18)
             {
-              v146[0] = v83;
+              v145[0] = v82;
               v19 = [v16 deployment];
               v20 = [v19 rolloutId];
-              v147[0] = v20;
-              v146[1] = v82;
+              v146[0] = v20;
+              v145[1] = v81;
               v21 = MEMORY[0x277CCABB0];
               v22 = [v16 deployment];
               v23 = [v21 numberWithInt:{objc_msgSend(v22, "deploymentId")}];
-              v147[1] = v23;
-              v146[2] = v81;
+              v146[1] = v23;
+              v145[2] = v80;
               v24 = [v16 status] - 1;
               v25 = @"inactive  ";
               if (v24 <= 3)
@@ -2577,103 +2519,103 @@ void __75__TRIInternalServiceRequestHandler_activeRolloutInformationWithCompleti
               }
 
               v26 = [(__CFString *)v25 triTrim];
-              v147[2] = v26;
-              v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:3];
-              v90 = [v27 mutableCopy];
+              v146[2] = v26;
+              v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:3];
+              v89 = [v27 mutableCopy];
 
-              [v87 addObject:v90];
+              [v86 addObject:v89];
               v28 = [v16 rampId];
-              [v90 setObject:v28 forKeyedSubscript:v80];
+              [v89 setObject:v28 forKeyedSubscript:v79];
 
               v29 = [v16 activeFactorPackSetId];
-              [v90 setObject:v29 forKeyedSubscript:v79];
+              [v89 setObject:v29 forKeyedSubscript:v78];
 
               v30 = [v16 targetedFactorPackSetId];
-              [v90 setObject:v30 forKeyedSubscript:v78];
+              [v89 setObject:v30 forKeyedSubscript:v77];
 
               v31 = objc_opt_new();
-              [v90 setObject:v31 forKeyedSubscript:v77];
-              v99 = v31;
+              [v89 setObject:v31 forKeyedSubscript:v76];
+              v98 = v31;
               v32 = [v16 artifact];
               v33 = [v32 rollout];
               v34 = [v33 selectedNamespaceArray];
               v35 = [(__CFString *)v34 sortedArrayUsingComparator:&__block_literal_global_186];
 
-              v121 = 0u;
-              v122 = 0u;
-              v119 = 0u;
               v120 = 0u;
-              v94 = v35;
-              v100 = [v94 countByEnumeratingWithState:&v119 objects:v145 count:16];
-              if (v100)
+              v121 = 0u;
+              v118 = 0u;
+              v119 = 0u;
+              v93 = v35;
+              v99 = [v93 countByEnumeratingWithState:&v118 objects:v144 count:16];
+              if (v99)
               {
-                v98 = *v120;
+                v97 = *v119;
                 do
                 {
-                  for (i = 0; i != v100; ++i)
+                  for (i = 0; i != v99; ++i)
                   {
-                    if (*v120 != v98)
+                    if (*v119 != v97)
                     {
-                      objc_enumerationMutation(v94);
+                      objc_enumerationMutation(v93);
                     }
 
-                    v116 = *(*(&v119 + 1) + 8 * i);
-                    v102 = v101;
-                    v104 = [MEMORY[0x277CBEB38] dictionary];
-                    v36 = [v116 name];
-                    [v104 setObject:v36 forKeyedSubscript:v113];
+                    v115 = *(*(&v118 + 1) + 8 * i);
+                    v101 = v100;
+                    v103 = [MEMORY[0x277CBEB38] dictionary];
+                    v36 = [v115 name];
+                    [v103 setObject:v36 forKeyedSubscript:v112];
 
-                    v37 = [v116 name];
-                    v38 = [v102 factorPackIdForRolloutWithNamespaceName:v37];
-                    [v104 setObject:v38 forKeyedSubscript:v97];
+                    v37 = [v115 name];
+                    v38 = [v101 factorPackIdForRolloutWithNamespaceName:v37];
+                    [v103 setObject:v38 forKeyedSubscript:v96];
 
-                    v139 = 0;
-                    v140 = &v139;
-                    v141 = 0x3032000000;
-                    v142 = __Block_byref_object_copy__9;
-                    v143 = __Block_byref_object_dispose__9;
-                    v144 = objc_opt_new();
-                    v39 = [v116 compatibilityVersionArray];
-                    v138[0] = MEMORY[0x277D85DD0];
-                    v138[1] = 3221225472;
-                    v138[2] = ___namespaceDictionaryForClientSelectedNamespace_block_invoke;
-                    v138[3] = &unk_279DE0990;
-                    v138[4] = &v139;
-                    [v39 enumerateValuesWithBlock:v138];
+                    v138 = 0;
+                    v139 = &v138;
+                    v140 = 0x3032000000;
+                    v141 = __Block_byref_object_copy__9;
+                    v142 = __Block_byref_object_dispose__9;
+                    v143 = objc_opt_new();
+                    v39 = [v115 compatibilityVersionArray];
+                    v137[0] = MEMORY[0x277D85DD0];
+                    v137[1] = 3221225472;
+                    v137[2] = ___namespaceDictionaryForClientSelectedNamespace_block_invoke;
+                    v137[3] = &unk_279DE0990;
+                    v137[4] = &v138;
+                    [v39 enumerateValuesWithBlock:v137];
 
-                    [v104 setObject:v140[5] forKeyedSubscript:v96];
+                    [v103 setObject:v139[5] forKeyedSubscript:v95];
                     v40 = objc_opt_new();
-                    [v104 setObject:v40 forKeyedSubscript:v95];
-                    v114 = v40;
-                    v115 = [MEMORY[0x277D73660] client];
-                    v41 = [v116 name];
-                    v42 = [v115 factorLevelsWithNamespaceName:v41];
+                    [v103 setObject:v40 forKeyedSubscript:v94];
+                    v113 = v40;
+                    v114 = [MEMORY[0x277D73660] client];
+                    v41 = [v115 name];
+                    v42 = [v114 factorLevelsWithNamespaceName:v41];
                     v43 = [v42 sortedArrayUsingComparator:&__block_literal_global_384];
 
-                    v136 = 0u;
-                    v137 = 0u;
-                    v134 = 0u;
                     v135 = 0u;
-                    v108 = v43;
-                    v44 = [v108 countByEnumeratingWithState:&v134 objects:v149 count:16];
+                    v136 = 0u;
+                    v133 = 0u;
+                    v134 = 0u;
+                    v107 = v43;
+                    v44 = [v107 countByEnumeratingWithState:&v133 objects:v148 count:16];
                     if (v44)
                     {
-                      v112 = *v135;
+                      v111 = *v134;
                       do
                       {
-                        v117 = v44;
-                        for (j = 0; j != v117; ++j)
+                        v116 = v44;
+                        for (j = 0; j != v116; ++j)
                         {
-                          if (*v135 != v112)
+                          if (*v134 != v111)
                           {
-                            objc_enumerationMutation(v108);
+                            objc_enumerationMutation(v107);
                           }
 
-                          v46 = *(*(&v134 + 1) + 8 * j);
+                          v46 = *(*(&v133 + 1) + 8 * j);
                           v47 = [v46 factor];
                           v48 = [v47 name];
-                          v49 = [v116 name];
-                          v50 = [v115 levelForFactor:v48 withNamespaceName:v49];
+                          v49 = [v115 name];
+                          v50 = [v114 levelForFactor:v48 withNamespaceName:v49];
 
                           if ([v50 levelOneOfCase] == 101)
                           {
@@ -2717,26 +2659,26 @@ LABEL_30:
                           v63 = [MEMORY[0x277CBEB38] dictionary];
                           v64 = [v46 factor];
                           v65 = [v64 name];
-                          [v63 setObject:v65 forKeyedSubscript:v113];
+                          [v63 setObject:v65 forKeyedSubscript:v112];
 
                           v66 = [v46 factor];
                           v67 = [v66 typeString];
-                          [v63 setObject:v67 forKeyedSubscript:v111];
+                          [v63 setObject:v67 forKeyedSubscript:v110];
 
                           v68 = [v50 metadata];
-                          [v63 setObject:v68 forKeyedSubscript:v110];
+                          [v63 setObject:v68 forKeyedSubscript:v109];
 
                           if (v52 && [(__CFString *)v52 length])
                           {
-                            [v63 setObject:v62 forKeyedSubscript:v107];
-                            [v63 setObject:v52 forKeyedSubscript:v106];
+                            [v63 setObject:v62 forKeyedSubscript:v106];
+                            [v63 setObject:v52 forKeyedSubscript:v105];
                             if (!v55)
                             {
                               goto LABEL_40;
                             }
 
                             v69 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v55];
-                            [v63 setObject:v69 forKeyedSubscript:v105];
+                            [v63 setObject:v69 forKeyedSubscript:v104];
                           }
 
                           else
@@ -2745,8 +2687,8 @@ LABEL_30:
                             if (v69)
                             {
                               v70 = MEMORY[0x277CCACA8];
-                              v118 = [v50 object];
-                              v34 = [v70 stringWithFormat:@"%@", v118];
+                              v117 = [v50 object];
+                              v34 = [v70 stringWithFormat:@"%@", v117];
                               v71 = v34;
                             }
 
@@ -2755,39 +2697,39 @@ LABEL_30:
                               v71 = &stru_287FA0430;
                             }
 
-                            [v63 setObject:v71 forKeyedSubscript:v109];
+                            [v63 setObject:v71 forKeyedSubscript:v108];
                             if (v69)
                             {
                             }
                           }
 
 LABEL_40:
-                          [v114 addObject:v63];
+                          [v113 addObject:v63];
                         }
 
-                        v44 = [v108 countByEnumeratingWithState:&v134 objects:v149 count:16];
+                        v44 = [v107 countByEnumeratingWithState:&v133 objects:v148 count:16];
                       }
 
                       while (v44);
                     }
 
-                    _Block_object_dispose(&v139, 8);
-                    [v99 addObject:v104];
+                    _Block_object_dispose(&v138, 8);
+                    [v98 addObject:v103];
                   }
 
-                  v100 = [v94 countByEnumeratingWithState:&v119 objects:v145 count:16];
+                  v99 = [v93 countByEnumeratingWithState:&v118 objects:v144 count:16];
                 }
 
-                while (v100);
+                while (v99);
               }
             }
 
             objc_autoreleasePoolPop(context);
-            ++v89;
+            ++v88;
           }
 
-          while (v89 != v84);
-          v15 = [obj countByEnumeratingWithState:&v123 objects:v148 count:16];
+          while (v88 != v83);
+          v15 = [obj countByEnumeratingWithState:&v122 objects:v147 count:16];
         }
 
         while (v15);
@@ -2801,7 +2743,7 @@ LABEL_40:
       (*(*(a1 + 32) + 16))();
     }
 
-    _Block_object_dispose(&v128, 8);
+    _Block_object_dispose(&v127, 8);
   }
 
   else
@@ -2813,8 +2755,6 @@ LABEL_40:
       (*(v72 + 16))(v72, 0, v73);
     }
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__TRIInternalServiceRequestHandler_activeRolloutInformationWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2927,7 +2867,7 @@ uint64_t __75__TRIInternalServiceRequestHandler_activeRolloutInformationWithComp
 
 void __106__TRIInternalServiceRequestHandler__experimentRecordsWithDeploymentEnvironments_serverContext_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2937,28 +2877,26 @@ void __106__TRIInternalServiceRequestHandler__experimentRecordsWithDeploymentEnv
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentRecordsWithDeploymentEnvironments:completion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentRecordsWithDeploymentEnvironments:completion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __106__TRIInternalServiceRequestHandler__experimentRecordsWithDeploymentEnvironments_serverContext_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (*(a1 + 32))
   {
@@ -2966,20 +2904,18 @@ void __106__TRIInternalServiceRequestHandler__experimentRecordsWithDeploymentEnv
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_debug_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEBUG, "experimentRecordsWithDeploymentEnvironments: %{public}@", buf, 0xCu);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v11 = *MEMORY[0x277CCA450];
-    v12 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __106__TRIInternalServiceRequestHandler__experimentRecordsWithDeploymentEnvironments_serverContext_completion___block_invoke_204(uint64_t a1, void *a2)
@@ -3037,7 +2973,7 @@ void __106__TRIInternalServiceRequestHandler__experimentRecordsWithDeploymentEnv
 
 void __72__TRIInternalServiceRequestHandler_experimentHasMatchingNCV_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -3052,9 +2988,9 @@ void __72__TRIInternalServiceRequestHandler_experimentHasMatchingNCV_completion_
       v10 = [v5 namespaceDatabase];
       if (!v10)
       {
-        v21 = [MEMORY[0x277CCA890] currentHandler];
-        v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler experimentHasMatchingNCV:completion:]_block_invoke"];
-        [v21 handleFailureInFunction:v22 file:@"TRIXPCInternalService.m" lineNumber:956 description:{@"Expression was unexpectedly nil/false: %@", @"serverContext.namespaceDatabase"}];
+        v20 = [MEMORY[0x277CCA890] currentHandler];
+        v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler experimentHasMatchingNCV:completion:]_block_invoke"];
+        [v20 handleFailureInFunction:v21 file:@"TRIXPCInternalService.m" lineNumber:956 description:{@"Expression was unexpectedly nil/false: %@", @"serverContext.namespaceDatabase"}];
       }
 
       v11 = [v5 paths];
@@ -3062,9 +2998,9 @@ void __72__TRIInternalServiceRequestHandler_experimentHasMatchingNCV_completion_
 
       if (!v12)
       {
-        v23 = [MEMORY[0x277CCA890] currentHandler];
-        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler experimentHasMatchingNCV:completion:]_block_invoke"];
-        [v23 handleFailureInFunction:v24 file:@"TRIXPCInternalService.m" lineNumber:957 description:{@"Expression was unexpectedly nil/false: %@", @"[serverContext.paths namespaceDescriptorsDefaultDir]"}];
+        v22 = [MEMORY[0x277CCA890] currentHandler];
+        v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler experimentHasMatchingNCV:completion:]_block_invoke"];
+        [v22 handleFailureInFunction:v23 file:@"TRIXPCInternalService.m" lineNumber:957 description:{@"Expression was unexpectedly nil/false: %@", @"[serverContext.paths namespaceDescriptorsDefaultDir]"}];
       }
 
       v13 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:v10 defaultDescriptorDirectoryPath:v12];
@@ -3080,16 +3016,16 @@ void __72__TRIInternalServiceRequestHandler_experimentHasMatchingNCV_completion_
       v16 = TRILogCategory_Server();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v20 = *(a1 + 32);
+        v19 = *(a1 + 32);
         *buf = 138412290;
-        *&buf[4] = v20;
+        *&buf[4] = v19;
         _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Asked to check for matching NCVs for deployment %@, but a record couldn't be found!", buf, 0xCu);
       }
 
       v17 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v25 = *MEMORY[0x277CCA450];
-      v26 = @"NCV check couldn't be performed because requested experiment record wasn't found";
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v24 = *MEMORY[0x277CCA450];
+      v25 = @"NCV check couldn't be performed because requested experiment record wasn't found";
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       v9 = [v17 initWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v18];
 
       (*(*(a1 + 40) + 16))();
@@ -3104,8 +3040,6 @@ void __72__TRIInternalServiceRequestHandler_experimentHasMatchingNCV_completion_
       (*(v15 + 16))(v15, 0, 0);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)treatmentValidForExperimentWithId:(id)id treatmentId:(id)treatmentId completion:(id)completion
@@ -3175,7 +3109,7 @@ void __93__TRIInternalServiceRequestHandler_treatmentValidForExperimentWithId_tr
 
 void __93__TRIInternalServiceRequestHandler_treatmentValidForExperimentWithId_treatmentId_completion___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -3194,40 +3128,40 @@ void __93__TRIInternalServiceRequestHandler_treatmentValidForExperimentWithId_tr
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v20 = a1[4];
-      v21 = [v7 localizedDescription];
+      v19 = a1[4];
+      v20 = [v7 localizedDescription];
       *buf = 67109634;
-      v28 = v18;
-      v29 = 2112;
-      v30 = v20;
-      v31 = 2112;
-      v32 = v21;
+      v27 = v18;
+      v28 = 2112;
+      v29 = v19;
+      v30 = 2112;
+      v31 = v20;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Discovered %i experiment records for experiment with Id: %@ and error: %@", buf, 0x1Cu);
     }
   }
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * i);
           v14 = [v13 treatmentId];
           if ([v14 isEqualToString:a1[5]])
           {
@@ -3247,7 +3181,7 @@ void __93__TRIInternalServiceRequestHandler_treatmentValidForExperimentWithId_tr
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v10);
@@ -3255,8 +3189,6 @@ LABEL_17:
       v7 = 0;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activeExperimentInformationWithEnvironments:(id)environments completion:(id)completion
@@ -3278,159 +3210,159 @@ LABEL_17:
 
 void __91__TRIInternalServiceRequestHandler_activeExperimentInformationWithEnvironments_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v68 = v4;
-  v66 = v5;
+  v67 = v4;
+  v65 = v5;
   if (v4 && v5)
   {
-    v6 = &v111;
-    v111 = 0;
-    v112 = &v111;
-    v113 = 0x3032000000;
-    v114 = __Block_byref_object_copy__9;
-    v115 = __Block_byref_object_dispose__9;
-    v116 = 0;
-    v105 = 0;
-    v106 = &v105;
-    v107 = 0x3032000000;
-    v108 = __Block_byref_object_copy__9;
-    v109 = __Block_byref_object_dispose__9;
-    v110 = objc_opt_new();
+    v6 = &v110;
+    v110 = 0;
+    v111 = &v110;
+    v112 = 0x3032000000;
+    v113 = __Block_byref_object_copy__9;
+    v114 = __Block_byref_object_dispose__9;
+    v115 = 0;
+    v104 = 0;
+    v105 = &v104;
+    v106 = 0x3032000000;
+    v107 = __Block_byref_object_copy__9;
+    v108 = __Block_byref_object_dispose__9;
+    v109 = objc_opt_new();
     v7 = a1[4];
     v8 = a1[5];
-    v104[0] = MEMORY[0x277D85DD0];
-    v104[1] = 3221225472;
-    v104[2] = __91__TRIInternalServiceRequestHandler_activeExperimentInformationWithEnvironments_completion___block_invoke_2;
-    v104[3] = &unk_279DE0920;
-    v104[4] = &v111;
-    v104[5] = &v105;
-    [v7 _experimentRecordsWithDeploymentEnvironments:v8 serverContext:v4 completion:v104];
-    v64 = objc_opt_new();
-    v85 = [MEMORY[0x277D73660] client];
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
+    v103[0] = MEMORY[0x277D85DD0];
+    v103[1] = 3221225472;
+    v103[2] = __91__TRIInternalServiceRequestHandler_activeExperimentInformationWithEnvironments_completion___block_invoke_2;
+    v103[3] = &unk_279DE0920;
+    v103[4] = &v110;
+    v103[5] = &v104;
+    [v7 _experimentRecordsWithDeploymentEnvironments:v8 serverContext:v4 completion:v103];
+    v63 = objc_opt_new();
+    v84 = [MEMORY[0x277D73660] client];
     v101 = 0u;
-    obj = v112[5];
-    v56 = [obj countByEnumeratingWithState:&v100 objects:v121 count:16];
-    if (!v56)
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    obj = v111[5];
+    v55 = [obj countByEnumeratingWithState:&v99 objects:v120 count:16];
+    if (!v55)
     {
       goto LABEL_42;
     }
 
-    v61 = *v101;
-    v59 = *MEMORY[0x277D73A10];
-    v60 = *MEMORY[0x277D73A18];
-    v58 = *MEMORY[0x277D73A88];
-    v55 = *MEMORY[0x277D73A08];
-    v57 = *MEMORY[0x277D73A48];
-    v87 = *MEMORY[0x277D73A40];
-    v71 = *MEMORY[0x277D73A28];
-    v72 = *MEMORY[0x277D73A00];
-    v83 = *MEMORY[0x277D73A90];
-    v84 = *MEMORY[0x277D73A38];
-    v79 = *MEMORY[0x277D73A58];
-    v80 = *MEMORY[0x277D739F8];
-    v78 = *MEMORY[0x277D73A70];
-    v82 = *MEMORY[0x277D73A30];
+    v60 = *v100;
+    v58 = *MEMORY[0x277D73A10];
+    v59 = *MEMORY[0x277D73A18];
+    v57 = *MEMORY[0x277D73A88];
+    v54 = *MEMORY[0x277D73A08];
+    v56 = *MEMORY[0x277D73A48];
+    v86 = *MEMORY[0x277D73A40];
+    v70 = *MEMORY[0x277D73A28];
+    v71 = *MEMORY[0x277D73A00];
+    v82 = *MEMORY[0x277D73A90];
+    v83 = *MEMORY[0x277D73A38];
+    v78 = *MEMORY[0x277D73A58];
+    v79 = *MEMORY[0x277D739F8];
+    v77 = *MEMORY[0x277D73A70];
+    v81 = *MEMORY[0x277D73A30];
     while (1)
     {
-      for (i = 0; i != v56; ++i)
+      for (i = 0; i != v55; ++i)
       {
-        if (*v101 != v61)
+        if (*v100 != v60)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v100 + 1) + 8 * i);
-        v119[0] = v60;
+        v9 = *(*(&v99 + 1) + 8 * i);
+        v118[0] = v59;
         v10 = [v9 experimentId];
-        v120[0] = v10;
-        v119[1] = v59;
+        v119[0] = v10;
+        v118[1] = v58;
         v11 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v9, "deploymentId")}];
-        v120[1] = v11;
-        v119[2] = v58;
+        v119[1] = v11;
+        v118[2] = v57;
         v12 = [v9 treatmentId];
-        v120[2] = v12;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:3];
-        v67 = [v13 mutableCopy];
+        v119[2] = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:v118 count:3];
+        v66 = [v13 mutableCopy];
 
-        [v64 addObject:v67];
+        [v63 addObject:v66];
         v14 = MEMORY[0x277D736C0];
         v15 = [v9 experimentId];
-        v65 = [v14 deploymentWithExperimentId:v15 deploymentId:{objc_msgSend(v9, "deploymentId")}];
+        v64 = [v14 deploymentWithExperimentId:v15 deploymentId:{objc_msgSend(v9, "deploymentId")}];
 
-        v16 = [v106[5] objectForKeyedSubscript:v65];
+        v16 = [v105[5] objectForKeyedSubscript:v64];
 
         if (v16)
         {
-          v17 = [v106[5] objectForKeyedSubscript:v65];
-          [v67 setObject:v17 forKeyedSubscript:v55];
+          v17 = [v105[5] objectForKeyedSubscript:v64];
+          [v66 setObject:v17 forKeyedSubscript:v54];
         }
 
         v18 = objc_opt_new();
-        [v67 setObject:v18 forKeyedSubscript:v57];
-        v75 = v18;
-        v98 = 0u;
-        v99 = 0u;
-        v96 = 0u;
+        [v66 setObject:v18 forKeyedSubscript:v56];
+        v74 = v18;
         v97 = 0u;
-        v70 = [v9 namespaces];
-        v74 = [v70 countByEnumeratingWithState:&v96 objects:v118 count:16];
-        if (v74)
+        v98 = 0u;
+        v95 = 0u;
+        v96 = 0u;
+        v69 = [v9 namespaces];
+        v73 = [v69 countByEnumeratingWithState:&v95 objects:v117 count:16];
+        if (v73)
         {
-          v73 = *v97;
+          v72 = *v96;
           do
           {
-            for (j = 0; j != v74; ++j)
+            for (j = 0; j != v73; ++j)
             {
-              if (*v97 != v73)
+              if (*v96 != v72)
               {
-                objc_enumerationMutation(v70);
+                objc_enumerationMutation(v69);
               }
 
-              v89 = *(*(&v96 + 1) + 8 * j);
-              v77 = [MEMORY[0x277CBEB38] dictionary];
-              [v75 addObject:v77];
-              v19 = [v89 name];
-              [v77 setObject:v19 forKeyedSubscript:v87];
+              v88 = *(*(&v95 + 1) + 8 * j);
+              v76 = [MEMORY[0x277CBEB38] dictionary];
+              [v74 addObject:v76];
+              v19 = [v88 name];
+              [v76 setObject:v19 forKeyedSubscript:v86];
 
-              v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v89, "compatibilityVersion")}];
-              [v77 setObject:v20 forKeyedSubscript:v72];
+              v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v88, "compatibilityVersion")}];
+              [v76 setObject:v20 forKeyedSubscript:v71];
 
               v21 = objc_opt_new();
-              [v77 setObject:v21 forKeyedSubscript:v71];
-              v88 = v21;
+              [v76 setObject:v21 forKeyedSubscript:v70];
+              v87 = v21;
               v22 = objc_opt_new();
-              v23 = [v89 name];
+              v23 = [v88 name];
               v24 = [v22 factorLevelsForNamespaceName:v23];
 
-              v94 = 0u;
-              v95 = 0u;
-              v92 = 0u;
               v93 = 0u;
-              v81 = v24;
-              v25 = [v81 countByEnumeratingWithState:&v92 objects:v117 count:16];
+              v94 = 0u;
+              v91 = 0u;
+              v92 = 0u;
+              v80 = v24;
+              v25 = [v80 countByEnumeratingWithState:&v91 objects:v116 count:16];
               if (v25)
               {
-                v86 = *v93;
+                v85 = *v92;
                 do
                 {
-                  v90 = v25;
-                  for (k = 0; k != v90; ++k)
+                  v89 = v25;
+                  for (k = 0; k != v89; ++k)
                   {
-                    if (*v93 != v86)
+                    if (*v92 != v85)
                     {
-                      objc_enumerationMutation(v81);
+                      objc_enumerationMutation(v80);
                     }
 
-                    v27 = *(*(&v92 + 1) + 8 * k);
+                    v27 = *(*(&v91 + 1) + 8 * k);
                     v28 = [v27 factor];
                     v29 = [v28 name];
-                    v30 = [v89 name];
-                    v31 = [v85 levelForFactor:v29 withNamespaceName:v30];
+                    v30 = [v88 name];
+                    v31 = [v84 levelForFactor:v29 withNamespaceName:v30];
 
                     if ([v31 levelOneOfCase] == 101)
                     {
@@ -3474,26 +3406,26 @@ LABEL_26:
                     v44 = [MEMORY[0x277CBEB38] dictionary];
                     v45 = [v27 factor];
                     v46 = [v45 name];
-                    [v44 setObject:v46 forKeyedSubscript:v87];
+                    [v44 setObject:v46 forKeyedSubscript:v86];
 
                     v47 = [v31 metadata];
-                    [v44 setObject:v47 forKeyedSubscript:v84];
+                    [v44 setObject:v47 forKeyedSubscript:v83];
 
                     v48 = [v27 factor];
                     v49 = [v48 typeString];
-                    [v44 setObject:v49 forKeyedSubscript:v83];
+                    [v44 setObject:v49 forKeyedSubscript:v82];
 
                     if (v33 && [(__CFString *)v33 length])
                     {
-                      [v44 setObject:v43 forKeyedSubscript:v80];
-                      [v44 setObject:v33 forKeyedSubscript:v79];
+                      [v44 setObject:v43 forKeyedSubscript:v79];
+                      [v44 setObject:v33 forKeyedSubscript:v78];
                       if (!v36)
                       {
                         goto LABEL_36;
                       }
 
                       v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v36];
-                      [v44 setObject:v50 forKeyedSubscript:v78];
+                      [v44 setObject:v50 forKeyedSubscript:v77];
                     }
 
                     else
@@ -3502,8 +3434,8 @@ LABEL_26:
                       if (v50)
                       {
                         v51 = MEMORY[0x277CCACA8];
-                        v91 = [v31 object];
-                        v6 = [v51 stringWithFormat:@"%@", v91];
+                        v90 = [v31 object];
+                        v6 = [v51 stringWithFormat:@"%@", v90];
                         v52 = v6;
                       }
 
@@ -3512,39 +3444,39 @@ LABEL_26:
                         v52 = &stru_287FA0430;
                       }
 
-                      [v44 setObject:v52 forKeyedSubscript:v82];
+                      [v44 setObject:v52 forKeyedSubscript:v81];
                       if (v50)
                       {
                       }
                     }
 
 LABEL_36:
-                    [v88 addObject:v44];
+                    [v87 addObject:v44];
                   }
 
-                  v25 = [v81 countByEnumeratingWithState:&v92 objects:v117 count:16];
+                  v25 = [v80 countByEnumeratingWithState:&v91 objects:v116 count:16];
                 }
 
                 while (v25);
               }
             }
 
-            v74 = [v70 countByEnumeratingWithState:&v96 objects:v118 count:16];
+            v73 = [v69 countByEnumeratingWithState:&v95 objects:v117 count:16];
           }
 
-          while (v74);
+          while (v73);
         }
       }
 
-      v56 = [obj countByEnumeratingWithState:&v100 objects:v121 count:16];
-      if (!v56)
+      v55 = [obj countByEnumeratingWithState:&v99 objects:v120 count:16];
+      if (!v55)
       {
 LABEL_42:
 
         (*(a1[6] + 16))();
-        _Block_object_dispose(&v105, 8);
+        _Block_object_dispose(&v104, 8);
 
-        _Block_object_dispose(&v111, 8);
+        _Block_object_dispose(&v110, 8);
         goto LABEL_45;
       }
     }
@@ -3557,13 +3489,11 @@ LABEL_42:
   }
 
 LABEL_45:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 void __91__TRIInternalServiceRequestHandler_activeExperimentInformationWithEnvironments_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -3574,31 +3504,31 @@ void __91__TRIInternalServiceRequestHandler_activeExperimentInformationWithEnvir
     v10 = *(v9 + 40);
     *(v9 + 40) = v8;
 
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     obj = v5;
-    v11 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v11 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v11)
     {
       v12 = v11;
-      v41 = v7;
-      v42 = v5;
-      v13 = *v56;
-      v44 = *v56;
+      v40 = v7;
+      v41 = v5;
+      v13 = *v55;
+      v43 = *v55;
       do
       {
         v14 = 0;
-        v45 = v12;
+        v44 = v12;
         do
         {
-          if (*v56 != v13)
+          if (*v55 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v55 + 1) + 8 * v14);
+          v15 = *(*(&v54 + 1) + 8 * v14);
           if ([v15 status] == 1)
           {
             v16 = [v15 treatmentId];
@@ -3606,74 +3536,74 @@ void __91__TRIInternalServiceRequestHandler_activeExperimentInformationWithEnvir
             if (v16)
             {
               v17 = objc_opt_new();
+              v50 = 0u;
               v51 = 0u;
               v52 = 0u;
               v53 = 0u;
-              v54 = 0u;
-              v50 = v15;
+              v49 = v15;
               v18 = [v15 namespaces];
-              v19 = [v18 countByEnumeratingWithState:&v51 objects:v59 count:16];
+              v19 = [v18 countByEnumeratingWithState:&v50 objects:v58 count:16];
               if (v19)
               {
                 v20 = v19;
-                v21 = *v52;
+                v21 = *v51;
                 do
                 {
                   for (i = 0; i != v20; ++i)
                   {
-                    if (*v52 != v21)
+                    if (*v51 != v21)
                     {
                       objc_enumerationMutation(v18);
                     }
 
-                    v23 = *(*(&v51 + 1) + 8 * i);
+                    v23 = *(*(&v50 + 1) + 8 * i);
                     v24 = objc_alloc(MEMORY[0x277D73808]);
                     v25 = [v23 name];
                     v26 = [v24 initWithName:v25 compatibilityVersion:{objc_msgSend(v23, "compatibilityVersion")}];
                     [v17 addObject:v26];
                   }
 
-                  v20 = [v18 countByEnumeratingWithState:&v51 objects:v59 count:16];
+                  v20 = [v18 countByEnumeratingWithState:&v50 objects:v58 count:16];
                 }
 
                 while (v20);
               }
 
-              v49 = *(*(*(a1 + 32) + 8) + 40);
-              v47 = objc_alloc(MEMORY[0x277D736B8]);
-              v27 = [v50 startDate];
+              v48 = *(*(*(a1 + 32) + 8) + 40);
+              v46 = objc_alloc(MEMORY[0x277D736B8]);
+              v27 = [v49 startDate];
               v28 = v27;
               if (!v27)
               {
                 v28 = objc_opt_new();
-                v43 = v28;
+                v42 = v28;
               }
 
-              v48 = [v50 experimentDeployment];
-              v29 = [v48 experimentId];
-              v30 = [v50 experimentDeployment];
+              v47 = [v49 experimentDeployment];
+              v29 = [v47 experimentId];
+              v30 = [v49 experimentDeployment];
               v31 = [v30 deploymentId];
-              v32 = [v50 treatmentId];
-              v33 = [v47 initWithType:2 date:v28 experimentId:v29 deploymentId:v31 treatmentId:v32 namespaces:v17];
-              [v49 addObject:v33];
+              v32 = [v49 treatmentId];
+              v33 = [v46 initWithType:2 date:v28 experimentId:v29 deploymentId:v31 treatmentId:v32 namespaces:v17];
+              [v48 addObject:v33];
 
               if (!v27)
               {
               }
 
-              v34 = [v50 counterfactualTreatmentIds];
+              v34 = [v49 counterfactualTreatmentIds];
               v35 = [v34 count];
 
-              v12 = v45;
+              v12 = v44;
               if (v35)
               {
-                v36 = [v50 counterfactualTreatmentIds];
+                v36 = [v49 counterfactualTreatmentIds];
                 v37 = *(*(*(a1 + 40) + 8) + 40);
-                v38 = [v50 experimentDeployment];
+                v38 = [v49 experimentDeployment];
                 [v37 setObject:v36 forKeyedSubscript:v38];
               }
 
-              v13 = v44;
+              v13 = v43;
             }
           }
 
@@ -3681,12 +3611,12 @@ void __91__TRIInternalServiceRequestHandler_activeExperimentInformationWithEnvir
         }
 
         while (v14 != v12);
-        v12 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v12 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
       }
 
       while (v12);
-      v7 = v41;
-      v5 = v42;
+      v7 = v40;
+      v5 = v41;
     }
 
 LABEL_29:
@@ -3699,9 +3629,9 @@ LABEL_29:
     obj = TRILogCategory_Server();
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
-      v40 = [v7 localizedDescription];
+      v39 = [v7 localizedDescription];
       *buf = 138543362;
-      v62 = v40;
+      v61 = v39;
       _os_log_error_impl(&dword_26F567000, obj, OS_LOG_TYPE_ERROR, "activeExperimentInformationWithEnvironments: %{public}@", buf, 0xCu);
     }
 
@@ -3709,8 +3639,6 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)immediatelySchedulePostUpgradeActivityWithCompletion:(id)completion
@@ -3728,44 +3656,40 @@ LABEL_30:
 
 void __89__TRIInternalServiceRequestHandler_immediatelySchedulePostUpgradeActivityWithCompletion___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  if (([MEMORY[0x277D42590] isInternalBuild] & 1) == 0)
+  v10[1] = *MEMORY[0x277D85DE8];
+  if ([MEMORY[0x277D42590] isInternalBuild])
   {
-    v6 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = @"Permission denied.";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    v8 = [v6 initWithDomain:@"TRIGeneralErrorDomain" code:3 userInfo:v7];
+    v2 = +[TRILaunchDaemonActivityDescriptor postUpgradeDescriptor];
+    [TRIXPCActivitySupport unsafe_immediatelyScheduleActivityWithLaunchDaemonDescriptor:v2];
 
-    v9 = *(a1 + 32);
-    if (v9)
+    v3 = *(a1 + 32);
+    if (v3)
     {
-      (*(v9 + 16))(v9, 0, v8);
+      v4 = *(v3 + 16);
+
+      v4();
     }
-
-    goto LABEL_9;
   }
 
-  v2 = +[TRILaunchDaemonActivityDescriptor postUpgradeDescriptor];
-  [TRIXPCActivitySupport unsafe_immediatelyScheduleActivityWithLaunchDaemonDescriptor:v2];
-
-  v3 = *(a1 + 32);
-  if (!v3)
+  else
   {
-LABEL_9:
-    v10 = *MEMORY[0x277D85DE8];
-    return;
+    v5 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v9 = *MEMORY[0x277CCA450];
+    v10[0] = @"Permission denied.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v7 = [v5 initWithDomain:@"TRIGeneralErrorDomain" code:3 userInfo:v6];
+
+    v8 = *(a1 + 32);
+    if (v8)
+    {
+      (*(v8 + 16))(v8, 0, v7);
+    }
   }
-
-  v4 = *(v3 + 16);
-  v5 = *MEMORY[0x277D85DE8];
-
-  v4();
 }
 
 void __55__TRIInternalServiceRequestHandler_logSystemCovariates__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = v4;
   if (v4 && a3)
@@ -3774,9 +3698,9 @@ void __55__TRIInternalServiceRequestHandler_logSystemCovariates__block_invoke(ui
 
     if (!v6)
     {
-      v13 = [MEMORY[0x277CCA890] currentHandler];
-      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler logSystemCovariates]_block_invoke"];
-      [v13 handleFailureInFunction:v14 file:@"TRIXPCInternalService.m" lineNumber:1139 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
+      v12 = [MEMORY[0x277CCA890] currentHandler];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIInternalServiceRequestHandler logSystemCovariates]_block_invoke"];
+      [v12 handleFailureInFunction:v13 file:@"TRIXPCInternalService.m" lineNumber:1139 description:{@"Invalid parameter not satisfying: %@", @"serverContext.paths"}];
     }
 
     v7 = [TRISystemCovariates alloc];
@@ -3788,7 +3712,7 @@ void __55__TRIInternalServiceRequestHandler_logSystemCovariates__block_invoke(ui
     {
       v11 = [v9 dictionary];
       *buf = 138412290;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, "System covariates at the time of sysdiagnose: %@", buf, 0xCu);
     }
   }
@@ -3802,8 +3726,6 @@ void __55__TRIInternalServiceRequestHandler_logSystemCovariates__block_invoke(ui
       _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "server context not full initialised before logging system covariates", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)experimentIdsWithActiveStateAndNamespaceName:(id)name completion:(id)completion
@@ -3832,7 +3754,7 @@ void __55__TRIInternalServiceRequestHandler_logSystemCovariates__block_invoke(ui
 
 void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNamespaceName_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_Server();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -3842,23 +3764,21 @@ void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNames
     v8 = v7;
     v9 = *(a1 + 32);
     v10 = "end";
-    v12[0] = 67109890;
-    v12[1] = v5;
+    v11[0] = 67109890;
+    v11[1] = v5;
     if (!a2)
     {
       v10 = "begin";
     }
 
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2080;
-    v18 = v10;
-    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentIdsWithActiveStateAndNamespaceName:completion:", v12, 0x26u);
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2080;
+    v17 = v10;
+    _os_log_impl(&dword_26F567000, v4, OS_LOG_TYPE_DEFAULT, "(%d) %{public}@ %p: %s experimentIdsWithActiveStateAndNamespaceName:completion:", v11, 0x26u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNamespaceName_completion___block_invoke_237(uint64_t a1, void *a2, void *a3)
@@ -3920,7 +3840,7 @@ void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNames
 
 void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNamespaceName_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (*(a1 + 32))
   {
@@ -3928,20 +3848,18 @@ void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNames
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_debug_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEBUG, "_experimentIdsWithActiveStateAndNamespaceName: %{public}@", buf, 0xCu);
     }
 
     v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v11 = *MEMORY[0x277CCA450];
-    v12 = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11 = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v9 = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:a2 userInfo:v8];
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNamespaceName_completion___block_invoke_241(uint64_t a1, void *a2)
@@ -3971,35 +3889,32 @@ void __92__TRIInternalServiceRequestHandler_experimentIdsWithActiveStateAndNames
 
 void __78__TRIInternalServiceRequestHandler_isOptedOutOfExperimentationWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (a2 && a3)
   {
     v4 = *(a1 + 32);
     v5 = [TRIUserAdjustableSettings getExperimentOptOut:a2];
     v6 = *(v4 + 16);
-    v7 = *MEMORY[0x277D85DE8];
 
     v6(v4, v5, 0);
   }
 
   else
   {
-    v8 = TRILogCategory_Server();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = TRILogCategory_Server();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 0;
-      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "server context not fully initialised", v14, 2u);
+      *v12 = 0;
+      _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "server context not fully initialised", v12, 2u);
     }
 
-    v9 = *(a1 + 32);
-    v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"server context not fully initialised";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v12 = [v10 errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v11];
-    (*(v9 + 16))(v9, 0, v12);
-
-    v13 = *MEMORY[0x277D85DE8];
+    v8 = *(a1 + 32);
+    v9 = MEMORY[0x277CCA9B8];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"server context not fully initialised";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v11 = [v9 errorWithDomain:@"TRIGeneralErrorDomain" code:12 userInfo:v10];
+    (*(v8 + 16))(v8, 0, v11);
   }
 }
 

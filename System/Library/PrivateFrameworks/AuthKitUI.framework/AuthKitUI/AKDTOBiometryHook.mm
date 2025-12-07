@@ -170,7 +170,6 @@
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __74__AKDTOBiometryHook__performDTOBiometricsWithServerAttributes_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -237,7 +236,6 @@ void __74__AKDTOBiometryHook__performDTOBiometricsWithServerAttributes_completio
   *&v2 = MEMORY[0x277D82BD8](v3).n128_u64[0];
   [(AKDTOBiometryHook *)selfCopy setServerHookResponse:v4[0], v2];
   objc_storeStrong(v4, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (RUIServerHookDelegate)delegate

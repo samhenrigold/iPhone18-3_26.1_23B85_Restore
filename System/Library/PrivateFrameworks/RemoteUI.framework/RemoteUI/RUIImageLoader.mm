@@ -223,9 +223,11 @@ void __47__RUIImageLoader_imageForURL_scale_completion___block_invoke(uint64_t a
 {
   if (!self->_loadStatusNotificationTimer)
   {
-    self->_loadStatusNotificationTimer = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__postLoadingStatusChanged selector:0 userInfo:0 repeats:0.0];
+    v4 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel__postLoadingStatusChanged selector:0 userInfo:0 repeats:0.0];
+    loadStatusNotificationTimer = self->_loadStatusNotificationTimer;
+    self->_loadStatusNotificationTimer = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, loadStatusNotificationTimer);
   }
 }
 
@@ -400,20 +402,21 @@ void __53__RUIImageLoader__callCompletionsForURL_image_error___block_invoke(uint
 
 - (void)_setImageData:(id)data forURL:(id)l error:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
   errorCopy = error;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(errorCopy, v12);
+  if (isInternalInstall)
   {
-    v12 = _RUILoggingFacility();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v23 = lCopy;
-      v24 = 2112;
-      v25 = errorCopy;
-      _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Image load for %@ complete, error %@", buf, 0x16u);
+      v25 = lCopy;
+      v26 = 2112;
+      v27 = errorCopy;
+      _os_log_impl(&dword_21B93D000, v14, OS_LOG_TYPE_DEFAULT, "Image load for %@ complete, error %@", buf, 0x16u);
     }
   }
 
@@ -423,21 +426,21 @@ void __53__RUIImageLoader__callCompletionsForURL_image_error___block_invoke(uint
     goto LABEL_11;
   }
 
-  v13 = CGImageSourceCreateWithData(dataCopy, 0);
-  if (!v13)
+  v15 = CGImageSourceCreateWithData(dataCopy, 0);
+  if (!v15)
   {
-    v15 = @"%@, no image source";
+    v17 = @"%@, no image source";
     goto LABEL_10;
   }
 
-  v14 = v13;
-  if (CGImageSourceGetStatus(v13))
+  v16 = v15;
+  if (CGImageSourceGetStatus(v15))
   {
-    CFRelease(v14);
-    v15 = @"%@, invalid image source";
+    CFRelease(v16);
+    v17 = @"%@, invalid image source";
 LABEL_10:
-    v16 = NSStringFromSelector(a2);
-    NSLog(&v15->isa, v16);
+    v18 = NSStringFromSelector(a2);
+    NSLog(&v17->isa, v18);
 
 LABEL_11:
     [(RUIImageLoader *)self _callCompletionsForURL:lCopy image:0 error:errorCopy];
@@ -445,26 +448,26 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  ImageAtIndex = CGImageSourceCreateImageAtIndex(v14, 0, 0);
-  CFRelease(v14);
+  ImageAtIndex = CGImageSourceCreateImageAtIndex(v16, 0, 0);
+  CFRelease(v16);
   [(NSMutableDictionary *)self->_imageCache setObject:ImageAtIndex forKey:lCopy];
   [(NSMutableArray *)self->_imageCacheLRU addObject:lCopy];
   CGImageRelease(ImageAtIndex);
-  v18 = [(NSMutableArray *)self->_imageCacheLRU count];
-  if (v18 >= 0x65)
+  v20 = [(NSMutableArray *)self->_imageCacheLRU count];
+  if (v20 >= 0x65)
   {
-    v19 = 0;
-    v20 = v18 - 100;
+    v21 = 0;
+    v22 = v20 - 100;
     do
     {
-      v21 = [(NSMutableArray *)self->_imageCacheLRU objectAtIndex:v19];
-      [(NSMutableDictionary *)self->_imageCache removeObjectForKey:v21];
+      v23 = [(NSMutableArray *)self->_imageCacheLRU objectAtIndex:v21];
+      [(NSMutableDictionary *)self->_imageCache removeObjectForKey:v23];
 
-      ++v19;
+      ++v21;
     }
 
-    while (v20 != v19);
-    [(NSMutableArray *)self->_imageCacheLRU removeObjectsInRange:0, v20];
+    while (v22 != v21);
+    [(NSMutableArray *)self->_imageCacheLRU removeObjectsInRange:0, v22];
   }
 
   [(RUIImageLoader *)self _callCompletionsForURL:lCopy image:ImageAtIndex error:0];

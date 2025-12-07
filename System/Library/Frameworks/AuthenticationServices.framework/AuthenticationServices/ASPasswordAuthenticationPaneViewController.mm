@@ -20,6 +20,7 @@
 - (void)_signInButtonTapped;
 - (void)_textFieldChanged:(id)changed;
 - (void)updateWithConfiguration:(id)configuration;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -56,6 +57,19 @@
   [defaultCenter2 addObserver:self selector:sel__keyboardWillHide_ name:*MEMORY[0x1E69DE078] object:0];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = ASPasswordAuthenticationPaneViewController;
+  [(ASPasswordAuthenticationPaneViewController *)&v5 viewDidDisappear:disappear];
+  if (self->_didForceSoftwareKeyboardOn)
+  {
+    self->_didForceSoftwareKeyboardOn = 0;
+    activeInstance = [MEMORY[0x1E69DCBE0] activeInstance];
+    [activeInstance hardwareKeyboardAvailabilityChanged];
+  }
+}
+
 - (void)updateWithConfiguration:(id)configuration
 {
   headerConfiguration = [configuration headerConfiguration];
@@ -72,7 +86,7 @@
 
 - (void)_createViews
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   clearColor = [MEMORY[0x1E69DC888] clearColor];
   view = [(ASPasswordAuthenticationPaneViewController *)self view];
   [view setBackgroundColor:clearColor];
@@ -153,15 +167,13 @@
   +[ASViewServiceInterfaceUtilities continueButtonHeight];
   [(ASPasswordAuthenticationPaneViewController *)self _addCenteredHeaderView:signInButton margins:v24 height:v25 customSpacingAfter:32.0];
   cancelBarButtonItem = [(ASCredentialRequestPaneViewController *)self cancelBarButtonItem];
-  v31[0] = cancelBarButtonItem;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+  v30[0] = cancelBarButtonItem;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
   as_navigationItem = [(UIViewController *)self as_navigationItem];
   [as_navigationItem setRightBarButtonItems:v27];
 
   headerPaneContext = [(ASCredentialRequestPaneViewController *)self headerPaneContext];
   [headerPaneContext addEmptyViewWithSpacing:0.0];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setConstraints
@@ -184,36 +196,36 @@
 
 - (void)_addCenteredHeaderView:(id)view margins:(double)margins height:(double)height customSpacingAfter:(double)after
 {
-  v33[5] = *MEMORY[0x1E69E9840];
+  v32[5] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   paneHeaderStackView = [(ASCredentialRequestPaneViewController *)self paneHeaderStackView];
   v11 = objc_alloc_init(MEMORY[0x1E69DD250]);
   [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v11 addSubview:viewCopy];
   [paneHeaderStackView addArrangedSubview:v11];
-  v25 = MEMORY[0x1E696ACD8];
+  v24 = MEMORY[0x1E696ACD8];
   centerXAnchor = [viewCopy centerXAnchor];
   centerXAnchor2 = [v11 centerXAnchor];
-  v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v33[0] = v29;
+  v28 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v32[0] = v28;
   centerYAnchor = [viewCopy centerYAnchor];
   centerYAnchor2 = [v11 centerYAnchor];
-  v26 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v33[1] = v26;
+  v25 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v32[1] = v25;
   widthAnchor = [v11 widthAnchor];
   widthAnchor2 = [viewCopy widthAnchor];
   margins = [widthAnchor constraintEqualToAnchor:widthAnchor2 constant:margins + margins];
-  v33[2] = margins;
+  v32[2] = margins;
   heightAnchor = [v11 heightAnchor];
   heightAnchor2 = [viewCopy heightAnchor];
   v17 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-  v33[3] = v17;
+  v32[3] = v17;
   heightAnchor3 = [viewCopy heightAnchor];
 
   v19 = [heightAnchor3 constraintEqualToConstant:height];
-  v33[4] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:5];
-  [v25 activateConstraints:v20];
+  v32[4] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:5];
+  [v24 activateConstraints:v20];
 
   widthAnchor3 = [v11 widthAnchor];
   widthAnchor4 = [paneHeaderStackView widthAnchor];
@@ -221,7 +233,6 @@
   [v23 setActive:1];
 
   [paneHeaderStackView setCustomSpacing:v11 afterView:after];
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setUpHeader

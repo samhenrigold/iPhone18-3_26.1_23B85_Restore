@@ -8,9 +8,9 @@
 
 - (HTFenceAssertion)initWithFenceName:(unint64_t)name
 {
-  v16.receiver = self;
-  v16.super_class = HTFenceAssertion;
-  v4 = [(HTFenceAssertion *)&v16 init];
+  v19.receiver = self;
+  v19.super_class = HTFenceAssertion;
+  v4 = [(HTFenceAssertion *)&v19 init];
   v5 = v4;
   if (!v4)
   {
@@ -29,8 +29,8 @@
 
   if ((hangtracerDaemonEnabled & 1) == 0)
   {
-    v12 = shared_ht_log_handle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v15 = shared_ht_log_handle(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_100014128();
     }
@@ -38,43 +38,43 @@
     goto LABEL_12;
   }
 
-  v8 = +[HTPrefs sharedPrefs];
-  fenceTrackingEnabled = [v8 fenceTrackingEnabled];
+  v9 = +[HTPrefs sharedPrefs];
+  fenceTrackingEnabled = [v9 fenceTrackingEnabled];
 
   if ((fenceTrackingEnabled & 1) == 0)
   {
-    v12 = shared_ht_log_handle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v15 = shared_ht_log_handle(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       sub_10001415C();
     }
 
 LABEL_12:
 
-    v11 = 0;
+    v14 = 0;
     goto LABEL_13;
   }
 
-  sub_10000D800();
-  v10 = HTConnectionQueue();
+  sub_10000D800(v11);
+  v13 = HTConnectionQueue(v12);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000D848;
   block[3] = &unk_100024828;
-  v15 = v5;
-  dispatch_async(v10, block);
+  v18 = v5;
+  dispatch_async(v13, block);
 
 LABEL_7:
-  v11 = v5;
+  v14 = v5;
 LABEL_13:
 
-  return v11;
+  return v14;
 }
 
 - (void)invalidate
 {
   v3 = mach_absolute_time();
-  v4 = HTConnectionQueue();
+  v4 = HTConnectionQueue(v3);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_10000D9FC;
@@ -87,7 +87,7 @@ LABEL_13:
 - (void)blown
 {
   v3 = mach_absolute_time();
-  v4 = HTConnectionQueue();
+  v4 = HTConnectionQueue(v3);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_10000DBBC;

@@ -31,12 +31,13 @@
 void __95__WBSBrowsingDataImportService_parseChromeExtensionsFromFileHandle_delegate_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXImport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __95__WBSBrowsingDataImportService_parseChromeExtensionsFromFileHandle_delegate_completionHandler___block_invoke_cold_1(v4);
+      __95__WBSBrowsingDataImportService_parseChromeExtensionsFromFileHandle_delegate_completionHandler___block_invoke_cold_1(v6);
     }
   }
 
@@ -95,16 +96,16 @@ void __95__WBSBrowsingDataImportService_parseChromeExtensionsFromFileHandle_dele
 void __95__WBSBrowsingDataImportService_parseNetscapeBookmarkFromFileHandle_delegate_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXImport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __95__WBSBrowsingDataImportService_parseNetscapeBookmarkFromFileHandle_delegate_completionHandler___block_invoke_cold_1(v4);
+      __95__WBSBrowsingDataImportService_parseNetscapeBookmarkFromFileHandle_delegate_completionHandler___block_invoke_cold_1(v6);
     }
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -129,12 +130,13 @@ void __95__WBSBrowsingDataImportService_parseNetscapeBookmarkFromFileHandle_dele
 void __89__WBSBrowsingDataImportService_parseExtensionsFromFileHandle_delegate_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXImport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __89__WBSBrowsingDataImportService_parseExtensionsFromFileHandle_delegate_completionHandler___block_invoke_cold_1(v4);
+      __89__WBSBrowsingDataImportService_parseExtensionsFromFileHandle_delegate_completionHandler___block_invoke_cold_1(v6);
     }
   }
 
@@ -179,110 +181,98 @@ id __83__WBSBrowsingDataImportService_scanImportURLs_sandboxExtensions_completio
   v2 = sandbox_extension_consume();
   if (v2 == -1)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXImport(-1, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __83__WBSBrowsingDataImportService_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_1(v4);
+      __83__WBSBrowsingDataImportService_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_1(v5);
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v3 = [MEMORY[0x1E696AD98] numberWithLongLong:v2];
+    v4 = [MEMORY[0x1E696AD98] numberWithLongLong:v2];
   }
 
-  return v3;
+  return v4;
 }
 
 void __83__WBSBrowsingDataImportService_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_9(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11) unsignedLongLongValue];
+        [*(*(&v12 + 1) + 8 * v11) unsignedLongLongValue];
         sandbox_extension_release();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __95__WBSBrowsingDataImportService_parseChromeExtensionsFromFileHandle_delegate_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __95__WBSBrowsingDataImportService_parseNetscapeBookmarkFromFileHandle_delegate_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __89__WBSBrowsingDataImportService_parseExtensionsFromFileHandle_delegate_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __83__WBSBrowsingDataImportService_scanImportURLs_sandboxExtensions_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_1B8447000, v1, OS_LOG_TYPE_ERROR, "Failed to consume extension: %{errno}i", v4, 8u);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_1B8447000, v1, OS_LOG_TYPE_ERROR, "Failed to consume extension: %{errno}i", v3, 8u);
 }
 
 @end

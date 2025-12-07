@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    blacklistingTimestamp = self->_blacklistingTimestamp;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  blacklistingReason = self->_blacklistingReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if (has)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  reservedInfo = self->_reservedInfo;
 
   PBDataWriterWriteUint32Field();
 }

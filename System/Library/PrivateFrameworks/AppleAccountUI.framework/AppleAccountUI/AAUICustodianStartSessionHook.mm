@@ -72,7 +72,7 @@
 
   v13 = [attributesCopy objectForKeyedSubscript:@"appleId"];
   v14 = [attributesCopy objectForKeyedSubscript:@"sessionId"];
-  v15 = _AAUILogSystem();
+  v15 = _AAUILogSystem(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -116,52 +116,53 @@
 
 void __78__AAUICustodianStartSessionHook__startSessionWithServerAttributes_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  if (v6 || ![v5 length])
+  v7 = v6;
+  if (v6 || (v6 = [v5 length]) == 0)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __78__AAUICustodianStartSessionHook__startSessionWithServerAttributes_completion___block_invoke_cold_1(a1, v6, v7);
+      __78__AAUICustodianStartSessionHook__startSessionWithServerAttributes_completion___block_invoke_cold_1(a1, v7, v8);
     }
 
-    v8 = a1[6];
-    if (v6)
+    v9 = a1[6];
+    if (v7)
     {
-      (*(v8 + 16))(a1[6], 0, v6);
+      (*(v9 + 16))(a1[6], 0, v7);
     }
 
     else
     {
-      v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-9004 userInfo:0];
-      (*(v8 + 16))(v8, 0, v12);
+      v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-9004 userInfo:0];
+      (*(v9 + 16))(v9, 0, v13);
     }
   }
 
   else
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = a1[4];
-      v10 = a1[5];
-      v15 = 138412802;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Custodian recovery session started for Apple ID: %@, Session ID: %@, IDMS Session ID: %@", &v15, 0x20u);
+      v12 = a1[4];
+      v11 = a1[5];
+      v16 = 138412802;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      v20 = 2112;
+      v21 = v5;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Custodian recovery session started for Apple ID: %@, Session ID: %@, IDMS Session ID: %@", &v16, 0x20u);
     }
 
     (*(a1[6] + 16))();
   }
 
-  v13 = *(a1[7] + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = 0;
+  v14 = *(a1[7] + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = 0;
 }
 
 - (RUIServerHookDelegate)delegate

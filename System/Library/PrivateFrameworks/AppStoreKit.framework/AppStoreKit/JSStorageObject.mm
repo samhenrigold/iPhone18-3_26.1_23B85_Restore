@@ -15,7 +15,7 @@
 
 - (id)retrieveString:(id)string
 {
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   stringCopy = string;
   selfCopy = self;
   v7 = sub_1E1AF6D4C();

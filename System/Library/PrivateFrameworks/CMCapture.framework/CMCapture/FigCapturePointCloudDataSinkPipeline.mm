@@ -1,7 +1,7 @@
 @interface FigCapturePointCloudDataSinkPipeline
 - (id)_buildPointCloudDataSinkPipelineWithConfiguration:(uint64_t)configuration sourceOutput:(void *)output graph:(_OWORD *)graph clientAuditToken:(uint64_t)token delegate:;
 - (void)dealloc;
-- (void)initWithConfiguration:(uint64_t)configuration sourceOutput:(void *)output graph:(uint64_t)graph name:(_OWORD *)name clientAuditToken:(uint64_t)token delegate:;
+- (void)initWithConfiguration:(uint64_t)configuration sourceOutput:(void *)output graph:(uint64_t)graph name:(__int128 *)name clientAuditToken:(uint64_t)token delegate:;
 @end
 
 @implementation FigCapturePointCloudDataSinkPipeline
@@ -13,32 +13,35 @@
   [(FigCaptureRemoteQueueSinkPipeline *)&v3 dealloc];
 }
 
-- (void)initWithConfiguration:(uint64_t)configuration sourceOutput:(void *)output graph:(uint64_t)graph name:(_OWORD *)name clientAuditToken:(uint64_t)token delegate:
+- (void)initWithConfiguration:(uint64_t)configuration sourceOutput:(void *)output graph:(uint64_t)graph name:(__int128 *)name clientAuditToken:(uint64_t)token delegate:
 {
   if (!self)
   {
     return 0;
   }
 
-  v16.receiver = self;
-  v16.super_class = FigCapturePointCloudDataSinkPipeline;
-  v12 = objc_msgSendSuper2(&v16, sel_initWithGraph_name_sinkID_, output, graph, [objc_msgSend(a2 "sinkConfiguration")]);
-  if (v12)
+  v21.receiver = self;
+  v21.super_class = FigCapturePointCloudDataSinkPipeline;
+  v13 = objc_msgSendSuper2(&v21, sel_initWithGraph_name_sinkID_, output, graph, [objc_msgSend(a2 "sinkConfiguration")]);
+  if (v13)
   {
-    v12[7] = [objc_msgSend(a2 "sourceConfiguration")];
-    v14 = name[1];
-    v15[0] = *name;
-    v15[1] = v14;
-    if ([(FigCapturePointCloudDataSinkPipeline *)v12 _buildPointCloudDataSinkPipelineWithConfiguration:a2 sourceOutput:configuration graph:output clientAuditToken:v15 delegate:token])
+    v13[7] = [objc_msgSend(a2 "sourceConfiguration")];
+    v15 = name[1];
+    v19 = *name;
+    v20 = v15;
+    v16 = [(FigCapturePointCloudDataSinkPipeline *)v13 _buildPointCloudDataSinkPipelineWithConfiguration:a2 sourceOutput:configuration graph:output clientAuditToken:&v19 delegate:token];
+    if (v16)
     {
+      v17 = v16;
       fig_log_get_emitter();
-      FigDebugAssert3();
+      v18 = v17;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v7, v19, *(&v19 + 1), v20, *(&v20 + 1), v21.receiver, LODWORD(v21.super_class));
 
       return 0;
     }
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)_buildPointCloudDataSinkPipelineWithConfiguration:(uint64_t)configuration sourceOutput:(void *)output graph:(_OWORD *)graph clientAuditToken:(uint64_t)token delegate:
@@ -73,22 +76,23 @@
         {
           [output enableDeferredPrepareForNodesNotInPathOfSinkNode:v15];
         }
-
-        goto LABEL_7;
       }
 
-      fig_log_get_emitter();
-      OUTLINED_FUNCTION_0_5();
+      else
+      {
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_0_5();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      }
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_5();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
-    FigDebugAssert3();
-LABEL_7:
     result = v20;
     if (v20)
     {

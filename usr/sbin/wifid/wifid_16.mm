@@ -1,429 +1,19 @@
-uint64_t _NETRBClientDestroy(uint64_t a1)
-{
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2000000000;
-  v12 = 0;
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2000000000;
-  v8 = 2000;
-  if (!a1)
-  {
-    goto LABEL_7;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0C90();
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_10012F754;
-    block[3] = &unk_100264F70;
-    block[4] = &v9;
-    block[5] = &v5;
-    block[6] = a1;
-    dispatch_sync(qword_100298BA8, block);
-    if (*(v10 + 24) == 1)
-    {
-      *(v10 + 24) = v6[3] == 2001;
-    }
-  }
-
-  else
-  {
-LABEL_7:
-    sub_100136B00();
-  }
-
-  v2 = *(v10 + 24);
-  _Block_object_dispose(&v5, 8);
-  _Block_object_dispose(&v9, 8);
-  return v2;
-}
-
-void sub_10012F754(uint64_t a1)
-{
-  if (sub_10012F8BC(*(a1 + 48)))
-  {
-    v4 = *(a1 + 48);
-    sub_100136B00();
-LABEL_3:
-    *(*(*(a1 + 32) + 8) + 24) = 0;
-    return;
-  }
-
-  *(*(a1 + 48) + 288) = 0;
-  v2 = xpc_dictionary_create(0, 0, 0);
-  if (!v2)
-  {
-    sub_100136B00();
-    sub_10012F458(*(a1 + 48));
-    CFRelease(*(a1 + 48));
-    goto LABEL_3;
-  }
-
-  v3 = v2;
-  xpc_dictionary_set_uint64(v2, off_100298248, 0x3F4uLL);
-  xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 48) + 32));
-  v5 = *(a1 + 48);
-  sub_100136B44();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 0x40000000;
-  v6[2] = sub_10012F988;
-  v6[3] = &unk_100264F48;
-  v7 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v6);
-  xpc_release(v3);
-  if ((*(*(*(a1 + 32) + 8) + 24) & 1) == 0)
-  {
-    sub_10012F458(*(a1 + 48));
-    CFRelease(*(a1 + 48));
-  }
-}
-
-uint64_t sub_10012F8BC(_BYTE *a1)
-{
-  if (!a1)
-  {
-    goto LABEL_9;
-  }
-
-  if (!a1[288])
-  {
-    return 22;
-  }
-
-  if (!qword_100298B80 || (Count = CFArrayGetCount(qword_100298B80)) == 0 || (v3 = Count, Count < 1))
-  {
-LABEL_9:
-    sub_100136B00();
-    return 22;
-  }
-
-  v4 = 0;
-  while (CFArrayGetValueAtIndex(qword_100298B80, v4) != a1)
-  {
-    if (v3 == ++v4)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  return 0;
-}
-
-void sub_10012F988(uint64_t a1, void *a2)
-{
-  v5 = *(a1 + 40);
-  sub_100136B44();
-  if (a2)
-  {
-    *(*(*(a1 + 32) + 8) + 24) = xpc_dictionary_get_uint64(a2, off_1002982B8);
-  }
-
-  sub_10012F458(*(a1 + 40));
-  v4 = *(a1 + 40);
-
-  CFRelease(v4);
-}
-
-uint64_t _NETRBClientStartService(uint64_t a1, char *__s1, int a3, int a4, void *a5)
-{
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x2000000000;
-  v66 = 0;
-  if (!a1 || (a3 - 205) <= 0xFFFFFFFA || (a4 - 304) <= 0xFFFFFFFB || __s1 && *__s1 && strncmp(__s1, netrbClientAnyExternal, 0x10uLL) && !if_nametoindex(__s1) || (v10 = xpc_dictionary_create(0, 0, 0)) == 0)
-  {
-    sub_100136B00();
-    goto LABEL_22;
-  }
-
-  v11 = v10;
-  if (!a5)
-  {
-    goto LABEL_18;
-  }
-
-  if (xpc_get_type(a5) != &_xpc_type_dictionary)
-  {
-    goto LABEL_18;
-  }
-
-  value = xpc_dictionary_get_value(a5, netrbClientDeviceType);
-  if (!value)
-  {
-    goto LABEL_18;
-  }
-
-  v13 = value;
-  if (xpc_get_type(value) != &_xpc_type_uint64)
-  {
-    goto LABEL_18;
-  }
-
-  v14 = xpc_uint64_get_value(v13);
-  if (v14 >= 7)
-  {
-    goto LABEL_18;
-  }
-
-  v18 = v14;
-  xpc_dictionary_set_uint64(v11, off_100298330, v14);
-  if (v18 != 1)
-  {
-    v21 = xpc_dictionary_get_value(a5, netrbClientInterfaceName);
-    if (!v21)
-    {
-      goto LABEL_18;
-    }
-
-    v22 = v21;
-    if (xpc_get_type(v21) != &_xpc_type_string)
-    {
-      goto LABEL_18;
-    }
-
-    string_ptr = xpc_string_get_string_ptr(v22);
-    if (!if_nametoindex(string_ptr))
-    {
-      goto LABEL_18;
-    }
-
-    v28 = off_100298328;
-    v29 = xpc_string_get_string_ptr(v22);
-    xpc_dictionary_set_string(v11, v28, v29);
-  }
-
-  v19 = xpc_dictionary_get_value(a5, netrbClientInterfaceMTU);
-  if (v19)
-  {
-    v20 = v19;
-    if (xpc_get_type(v19) != &_xpc_type_uint64)
-    {
-      goto LABEL_18;
-    }
-
-    v23 = off_100298340;
-    v24 = xpc_uint64_get_value(v20);
-    xpc_dictionary_set_uint64(v11, v23, v24);
-  }
-
-  v25 = xpc_dictionary_get_value(a5, netrbClientInterfaceInstance);
-  if (v25)
-  {
-    v26 = v25;
-    if (xpc_get_type(v25) != &_xpc_type_uint64)
-    {
-      goto LABEL_18;
-    }
-
-    v30 = off_100298348;
-    v31 = xpc_uint64_get_value(v26);
-    xpc_dictionary_set_uint64(v11, v30, v31);
-  }
-
-  v32 = xpc_dictionary_get_value(a5, netrbClientInterfaceStartAddress);
-  if (v32)
-  {
-    v33 = v32;
-    if (xpc_get_type(v32) != &_xpc_type_string)
-    {
-      goto LABEL_18;
-    }
-
-    v34 = off_100298350;
-    v35 = xpc_string_get_string_ptr(v33);
-    xpc_dictionary_set_string(v11, v34, v35);
-  }
-
-  v36 = xpc_dictionary_get_value(a5, netrbClientInterfaceEndAddress);
-  if (v36)
-  {
-    v37 = v36;
-    if (xpc_get_type(v36) != &_xpc_type_string)
-    {
-      goto LABEL_18;
-    }
-
-    v38 = off_100298358;
-    v39 = xpc_string_get_string_ptr(v37);
-    xpc_dictionary_set_string(v11, v38, v39);
-  }
-
-  v40 = xpc_dictionary_get_value(a5, netrbClientInterfaceNetworkMask);
-  if (!v40)
-  {
-    goto LABEL_46;
-  }
-
-  v41 = v40;
-  if (xpc_get_type(v40) != &_xpc_type_string)
-  {
-LABEL_18:
-    sub_100136B00();
-LABEL_19:
-    v15 = v11;
-LABEL_20:
-    xpc_release(v15);
-    goto LABEL_22;
-  }
-
-  v42 = off_100298360;
-  v43 = xpc_string_get_string_ptr(v41);
-  xpc_dictionary_set_string(v11, v42, v43);
-LABEL_46:
-  v44 = xpc_dictionary_get_value(a5, netrbClientNatType);
-  if (!v44)
-  {
-    if (a3 != 201)
-    {
-      xpc_dictionary_set_uint64(v11, off_100298378, 0x1F5uLL);
-LABEL_56:
-      v48 = 0;
-      goto LABEL_57;
-    }
-
-    xpc_dictionary_set_uint64(v11, off_100298378, 0x1F4uLL);
-LABEL_51:
-    if (!sub_1001300A4(a5, v11))
-    {
-      goto LABEL_19;
-    }
-
-    goto LABEL_56;
-  }
-
-  v45 = v44;
-  if (xpc_get_type(v44) != &_xpc_type_uint64)
-  {
-    goto LABEL_18;
-  }
-
-  v46 = xpc_uint64_get_value(v45);
-  v47 = v46;
-  if (v46 - 503 <= 0xFFFFFFFC)
-  {
-    goto LABEL_18;
-  }
-
-  xpc_dictionary_set_uint64(v11, off_100298378, v46);
-  if (v47 == 500)
-  {
-    goto LABEL_51;
-  }
-
-  if (v47 != 502)
-  {
-    goto LABEL_56;
-  }
-
-  v49 = xpc_dictionary_get_value(a5, netrbClientNat64Param);
-  if (!v49)
-  {
-    goto LABEL_56;
-  }
-
-  v50 = v49;
-  if (xpc_get_type(v49) != &_xpc_type_dictionary)
-  {
-    goto LABEL_18;
-  }
-
-  v51 = xpc_dictionary_create(0, 0, 0);
-  if (!v51)
-  {
-    goto LABEL_18;
-  }
-
-  v48 = v51;
-  v52 = xpc_dictionary_get_value(v50, netrbClientDns64Prefix);
-  if (v52)
-  {
-    v53 = v52;
-    if (xpc_get_type(v52) != &_xpc_type_string)
-    {
-      goto LABEL_76;
-    }
-
-    v54 = off_100298390;
-    v55 = xpc_string_get_string_ptr(v53);
-    xpc_dictionary_set_string(v48, v54, v55);
-  }
-
-  v56 = xpc_dictionary_get_value(v50, netrbClientRaPrefix);
-  if (v56)
-  {
-    v57 = v56;
-    if (xpc_get_type(v56) != &_xpc_type_string)
-    {
-LABEL_76:
-      sub_100136B00();
-      xpc_release(v11);
-LABEL_63:
-      v15 = v48;
-      goto LABEL_20;
-    }
-
-    v58 = off_100298398;
-    v59 = xpc_string_get_string_ptr(v57);
-    xpc_dictionary_set_string(v48, v58, v59);
-  }
-
-  xpc_dictionary_set_value(v11, off_100298380, v48);
-LABEL_57:
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0CB8();
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100130170;
-    block[3] = &unk_100264FB8;
-    block[4] = &v63;
-    block[5] = a1;
-    v61 = a3;
-    v62 = a4;
-    block[6] = v11;
-    block[7] = __s1;
-    block[8] = qword_100298BA8;
-    dispatch_sync(qword_100298BA8, block);
-  }
-
-  else
-  {
-    sub_100136B00();
-  }
-
-  xpc_release(v11);
-  if (v48)
-  {
-    goto LABEL_63;
-  }
-
-LABEL_22:
-  v16 = *(v64 + 24);
-  _Block_object_dispose(&v63, 8);
-  return v16;
-}
-
 uint64_t sub_1001300A4(void *a1, void *a2)
 {
   value = xpc_dictionary_get_value(a1, netrbClientNat66Param);
   if (value)
   {
     v4 = value;
-    if (xpc_get_type(value) != &_xpc_type_dictionary || (string = xpc_dictionary_get_string(v4, netrbClientRaPrefix)) == 0)
+    if (xpc_get_type(value) != &_xpc_type_dictionary)
     {
-      sub_100136B00();
+      sub_100136B00("incorrect format for nat66 param dictionary");
+      return 0;
+    }
+
+    string = xpc_dictionary_get_string(v4, netrbClientRaPrefix);
+    if (!string)
+    {
+      sub_100136B00("NAT66 RA prefix is invalid/missing");
       return 0;
     }
 
@@ -440,22 +30,23 @@ double sub_100130170(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 40)))
   {
-    v10 = *(a1 + 40);
-LABEL_4:
-    sub_100136B00();
+    sub_100136B00("invalid client %p");
+LABEL_5:
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return result;
   }
 
   if (*(*(a1 + 40) + 289))
   {
-    goto LABEL_4;
+    sub_100136B00("client already started a service");
+    goto LABEL_5;
   }
 
   v3 = xpc_dictionary_create(0, 0, 0);
   if (!v3)
   {
-    goto LABEL_4;
+    sub_100136B00("xpc_dictionary_create() failed");
+    goto LABEL_5;
   }
 
   v4 = v3;
@@ -482,17 +73,16 @@ LABEL_4:
     xpc_dictionary_set_string(v6, off_1002982E0, v7);
   }
 
-  v11 = *(a1 + 40);
-  sub_100136B44();
+  sub_100136B44("client %p xpc send -> start service", *(a1 + 40));
   snprintf((*(a1 + 40) + 289), 0x100uLL, "%s-%p-%u", "com.apple.netrb", *(a1 + 40), dword_100298B78);
   ++dword_100298B78;
   v8 = *(a1 + 64);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 0x40000000;
-  v12[2] = sub_1001303D8;
-  v12[3] = &unk_100264F90;
-  v12[4] = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(v8, v4, v12);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 0x40000000;
+  v10[2] = sub_1001303D8;
+  v10[3] = &unk_100264F90;
+  v10[4] = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(v8, v4, v10);
   xpc_release(v4);
   v9 = *(a1 + 40);
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
@@ -524,96 +114,103 @@ LABEL_4:
   return result;
 }
 
-void sub_1001303EC(uint64_t a1, int a2, void *a3, uint64_t a4)
+void sub_1001303EC(void *a1, int a2, void *a3, uint64_t a4)
 {
-  v17 = (&off_100265A60)[a2 - 1001];
-  sub_100136B44();
-  if (sub_10012F8BC(a1) || !*(a1 + 16) || !*(a1 + 24))
+  sub_100136B44("client %p %s xpc response received", a1, (&off_100265A60)[a2 - 1001]);
+  if (!sub_10012F8BC(a1))
   {
-    goto LABEL_6;
-  }
-
-  if (!a3)
-  {
-    v8 = xpc_dictionary_create(0, 0, 0);
-    if (v8)
+    if (!a1[2] || !a1[3])
     {
-      goto LABEL_14;
+      v15 = "no queue or handler block to send response";
+      goto LABEL_9;
     }
 
-    goto LABEL_17;
-  }
-
-  if (xpc_dictionary_get_uint64(a3, off_1002982B8) != 2003)
-  {
-    v9 = xpc_dictionary_create(0, 0, 0);
-    if (v9)
+    if (a3)
     {
-      v8 = v9;
-      if (xpc_dictionary_get_uint64(a3, off_1002982B8) != 2002)
+      if (xpc_dictionary_get_uint64(a3, off_1002982B8) == 2003)
       {
-        uint64 = xpc_dictionary_get_uint64(a3, off_1002982B8);
-        if (uint64 == 2001)
-        {
-          v15 = 5002;
-        }
-
-        else
-        {
-          v15 = 5003;
-        }
-
-        xpc_dictionary_set_uint64(v8, netrbClientNotificationKey, v15);
-        if (a2 != 1014 || uint64 != 2000)
-        {
-          if (a2 == 1014 && uint64 == 2001)
-          {
-            sub_10013603C(v8, a3);
-          }
-
-          goto LABEL_16;
-        }
-
-        v16 = xpc_dictionary_get_uint64(a3, off_1002982A8);
-        if (!v16)
-        {
-LABEL_16:
-          v13 = *(a1 + 16);
-          block[0] = _NSConcreteStackBlock;
-          block[1] = 0x40000000;
-          block[2] = sub_100136224;
-          block[3] = &unk_100265748;
-          v19 = a2;
-          block[4] = a1;
-          block[5] = a4;
-          block[6] = v8;
-          dispatch_async(v13, block);
-          return;
-        }
-
-        v12 = v16;
-        v10 = netrbClientErrorCode;
-        v11 = v8;
-LABEL_15:
-        xpc_dictionary_set_uint64(v11, v10, v12);
-        goto LABEL_16;
+        v15 = "service object destroyed before service completed";
+        goto LABEL_9;
       }
 
-LABEL_14:
-      v10 = netrbClientNotificationKey;
-      v11 = v8;
-      v12 = 5003;
-      goto LABEL_15;
-    }
+      v17 = xpc_dictionary_create(0, 0, 0);
+      if (v17)
+      {
+        v16 = v17;
+        if (xpc_dictionary_get_uint64(a3, off_1002982B8) != 2002)
+        {
+          uint64 = xpc_dictionary_get_uint64(a3, off_1002982B8);
+          if (uint64 == 2001)
+          {
+            v23 = 5002;
+          }
+
+          else
+          {
+            v23 = 5003;
+          }
+
+          xpc_dictionary_set_uint64(v16, netrbClientNotificationKey, v23);
+          if (a2 != 1014 || uint64 != 2000)
+          {
+            if (a2 == 1014 && uint64 == 2001)
+            {
+              sub_10013603C(v16, a3);
+            }
+
+            goto LABEL_19;
+          }
+
+          v24 = xpc_dictionary_get_uint64(a3, off_1002982A8);
+          if (!v24)
+          {
+LABEL_19:
+            v21 = a1[2];
+            block[0] = _NSConcreteStackBlock;
+            block[1] = 0x40000000;
+            block[2] = sub_100136224;
+            block[3] = &unk_100265748;
+            v27 = a2;
+            block[4] = a1;
+            block[5] = a4;
+            block[6] = v16;
+            dispatch_async(v21, block);
+            return;
+          }
+
+          v20 = v24;
+          v18 = netrbClientErrorCode;
+          v19 = v16;
+LABEL_18:
+          xpc_dictionary_set_uint64(v19, v18, v20);
+          goto LABEL_19;
+        }
 
 LABEL_17:
-    sub_100136B00();
-    goto LABEL_7;
+        v18 = netrbClientNotificationKey;
+        v19 = v16;
+        v20 = 5003;
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v16 = xpc_dictionary_create(0, 0, 0);
+      if (v16)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    sub_100136B00("xpc_dictionary_create() failed");
+    goto LABEL_10;
   }
 
-LABEL_6:
-  sub_100136B88();
-LABEL_7:
+  v15 = "client already destroyed";
+LABEL_9:
+  sub_100136B88(v15, v8, v9, v10, v11, v12, v13, v14, v25);
+LABEL_10:
 
   CFRelease(a1);
 }
@@ -624,32 +221,34 @@ uint64_t _NETRBClientStopService(uint64_t a1)
   v6 = &v5;
   v7 = 0x2000000000;
   v8 = 0;
-  if (!a1)
+  if (a1)
   {
-    goto LABEL_6;
-  }
+    if (qword_100298BA0 != -1)
+    {
+      sub_1001B0CE0();
+    }
 
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0CE0();
-  }
+    if (qword_100298BA8)
+    {
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 0x40000000;
+      block[2] = sub_100130724;
+      block[3] = &unk_100265000;
+      block[4] = &v5;
+      block[5] = a1;
+      block[6] = qword_100298BA8;
+      dispatch_sync(qword_100298BA8, block);
+    }
 
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100130724;
-    block[3] = &unk_100265000;
-    block[4] = &v5;
-    block[5] = a1;
-    block[6] = qword_100298BA8;
-    dispatch_sync(qword_100298BA8, block);
+    else
+    {
+      sub_100136B00("unable to create framework queue");
+    }
   }
 
   else
   {
-LABEL_6:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL");
   }
 
   v2 = *(v6 + 24);
@@ -661,29 +260,29 @@ void sub_100130724(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 40)))
   {
-    v6 = *(a1 + 40);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
 
   if (!*(*(a1 + 40) + 289))
   {
+    sub_100136B00("no service to stop");
     goto LABEL_3;
   }
 
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
   v3 = v2;
   xpc_dictionary_set_uint64(v2, off_100298248, 0x3EAuLL);
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 40) + 32));
-  v7 = *(a1 + 40);
-  sub_100136B44();
+  sub_100136B44("client %p xpc send -> stop service", *(a1 + 40));
   v4 = (*(a1 + 40) + 289);
   v4[14] = 0u;
   v4[15] = 0u;
@@ -701,13 +300,13 @@ LABEL_3:
   v4[3] = 0u;
   *v4 = 0u;
   v4[1] = 0u;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 0x40000000;
-  v8[2] = sub_1001308AC;
-  v8[3] = &unk_100264FD8;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 0x40000000;
+  v6[2] = sub_1001308AC;
+  v6[3] = &unk_100264FD8;
   v5 = *(a1 + 48);
-  v8[4] = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(v5, v3, v8);
+  v6[4] = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(v5, v3, v6);
   xpc_release(v3);
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {
@@ -721,35 +320,45 @@ uint64_t _NETRBClientGetDynamicStoreKey(uint64_t a1, char *a2)
   v8 = &v7;
   v9 = 0x2000000000;
   v10 = 0;
-  if (!a1 || !a2)
+  if (a1)
   {
-    goto LABEL_8;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0D08();
-  }
-
-  if (qword_100298BA8)
-  {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 0x40000000;
-    v6[2] = sub_1001309E4;
-    v6[3] = &unk_100265028;
-    v6[4] = &v7;
-    v6[5] = a1;
-    dispatch_sync(qword_100298BA8, v6);
-    if (*(v8 + 24) == 1)
+    if (a2)
     {
-      strcpy(a2, "com.apple.MobileInternetSharing");
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0D08();
+      }
+
+      if (qword_100298BA8)
+      {
+        v6[0] = _NSConcreteStackBlock;
+        v6[1] = 0x40000000;
+        v6[2] = sub_1001309E4;
+        v6[3] = &unk_100265028;
+        v6[4] = &v7;
+        v6[5] = a1;
+        dispatch_sync(qword_100298BA8, v6);
+        if (*(v8 + 24) == 1)
+        {
+          strcpy(a2, "com.apple.MobileInternetSharing");
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue", a2);
+      }
+    }
+
+    else
+    {
+      sub_100136B00("key cannot be NULL", 0);
     }
   }
 
   else
   {
-LABEL_8:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL", a2);
   }
 
   v4 = *(v8 + 24);
@@ -762,15 +371,10 @@ uint64_t sub_1001309E4(uint64_t a1)
   result = sub_10012F8BC(*(a1 + 40));
   if (result)
   {
-    v3 = *(a1 + 40);
-    return sub_100136B00();
+    return sub_100136B00("invalid client %p", *(a1 + 40));
   }
 
-  else
-  {
-    *(*(*(a1 + 32) + 8) + 24) = 1;
-  }
-
+  *(*(*(a1 + 32) + 8) + 24) = 1;
   return result;
 }
 
@@ -792,42 +396,60 @@ uint64_t _NETRBClientGetGlobalServiceState(uint64_t a1, _DWORD *a2, _DWORD *a3)
   v10 = &v9;
   v11 = 0x2000000000;
   v12 = 2000;
-  if (!a1 || !a2 || !a3)
+  if (a1)
   {
-    goto LABEL_9;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    v7 = a1;
-    sub_1001B0D30();
-    a1 = v7;
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100130C08;
-    block[3] = &unk_100265078;
-    block[4] = &v13;
-    block[5] = &v9;
-    block[6] = &v21;
-    block[7] = &v17;
-    block[8] = a1;
-    dispatch_sync(qword_100298BA8, block);
-    if (*(v14 + 24) == 1)
+    if (a2)
     {
-      *(v14 + 24) = v10[3] == 2001;
-      *a2 = *(v22 + 6);
-      *a3 = *(v18 + 6);
+      if (a3)
+      {
+        if (qword_100298BA0 != -1)
+        {
+          v7 = a1;
+          sub_1001B0D30();
+          a1 = v7;
+        }
+
+        if (qword_100298BA8)
+        {
+          block[0] = _NSConcreteStackBlock;
+          block[1] = 0x40000000;
+          block[2] = sub_100130C08;
+          block[3] = &unk_100265078;
+          block[4] = &v13;
+          block[5] = &v9;
+          block[6] = &v21;
+          block[7] = &v17;
+          block[8] = a1;
+          dispatch_sync(qword_100298BA8, block);
+          if (*(v14 + 24) == 1)
+          {
+            *(v14 + 24) = v10[3] == 2001;
+            *a2 = *(v22 + 6);
+            *a3 = *(v18 + 6);
+          }
+        }
+
+        else
+        {
+          sub_100136B00("unable to create framework queue", a2, a3, v7);
+        }
+      }
+
+      else
+      {
+        sub_100136B00("reason cannot be NULL", a2, 0);
+      }
+    }
+
+    else
+    {
+      sub_100136B00("state cannot be NULL", 0, a3);
     }
   }
 
   else
   {
-LABEL_9:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL", a2, a3);
   }
 
   v5 = *(v14 + 24);
@@ -842,9 +464,8 @@ void sub_100130C08(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 64)))
   {
-    v5 = *(a1 + 64);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -852,38 +473,37 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
   v3 = v2;
   xpc_dictionary_set_uint64(v2, off_100298248, 0x3EBuLL);
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 64) + 32));
-  v6 = *(a1 + 64);
-  sub_100136B44();
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 0x40000000;
-  v7[2] = sub_100130D3C;
-  v7[3] = &unk_100265050;
+  sub_100136B44("client %p xpc send -> get state", *(a1 + 64));
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 0x40000000;
+  v5[2] = sub_100130D3C;
+  v5[3] = &unk_100265050;
   v4 = *(a1 + 56);
-  v8 = *(a1 + 40);
-  v9 = v4;
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v7);
+  v6 = *(a1 + 40);
+  v7 = v4;
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v5);
   xpc_release(v3);
 }
 
-uint64_t sub_100130D3C(void *a1, void *a2)
+uint64_t sub_100130D3C(uint64_t a1, void *a2)
 {
-  v5 = a1[7];
-  result = sub_100136B44();
+  result = sub_100136B44("client %p get state xpc response received", *(a1 + 56));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
-    *(*(a1[4] + 8) + 24) = result;
-    if (*(*(a1[4] + 8) + 24) == 2001)
+    *(*(*(a1 + 32) + 8) + 24) = result;
+    if (*(*(*(a1 + 32) + 8) + 24) == 2001)
     {
-      *(*(a1[5] + 8) + 24) = xpc_dictionary_get_uint64(a2, off_1002982D8);
+      *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(a2, off_1002982D8);
       result = xpc_dictionary_get_uint64(a2, off_1002982E8);
-      *(*(a1[6] + 8) + 24) = result;
+      *(*(*(a1 + 48) + 8) + 24) = result;
     }
   }
 
@@ -900,37 +520,47 @@ uint64_t _NETRBClientSetGlobalServiceState(uint64_t a1, int a2)
   v9 = &v8;
   v10 = 0x2000000000;
   v11 = 2000;
-  if (!a1 || (a2 - 1024) <= 0xFFFFFFFB)
+  if (a1)
   {
-    goto LABEL_10;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0D58();
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100130F54;
-    block[3] = &unk_1002650C8;
-    v7 = a2;
-    block[4] = &v12;
-    block[5] = &v8;
-    block[6] = a1;
-    dispatch_sync(qword_100298BA8, block);
-    if (*(v13 + 24) == 1)
+    if ((a2 - 1024) > 0xFFFFFFFB)
     {
-      *(v13 + 24) = v9[3] == 2001;
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0D58();
+      }
+
+      if (qword_100298BA8)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = sub_100130F54;
+        block[3] = &unk_1002650C8;
+        v7 = a2;
+        block[4] = &v12;
+        block[5] = &v8;
+        block[6] = a1;
+        dispatch_sync(qword_100298BA8, block);
+        if (*(v13 + 24) == 1)
+        {
+          *(v13 + 24) = v9[3] == 2001;
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
+      }
+    }
+
+    else
+    {
+      sub_100136B00("incorrect state %d");
     }
   }
 
   else
   {
-LABEL_10:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL");
   }
 
   v4 = *(v13 + 24);
@@ -943,9 +573,8 @@ void sub_100130F54(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v4 = *(a1 + 48);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -953,6 +582,7 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
@@ -960,21 +590,19 @@ LABEL_3:
   xpc_dictionary_set_uint64(v2, off_100298248, 0x3ECuLL);
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 48) + 32));
   xpc_dictionary_set_uint64(v3, off_1002982D8, *(a1 + 56));
-  v5 = *(a1 + 48);
-  sub_100136B44();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 0x40000000;
-  v6[2] = sub_10013109C;
-  v6[3] = &unk_1002650A0;
-  v7 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v6);
+  sub_100136B44("client %p xpc send -> set state", *(a1 + 48));
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 0x40000000;
+  v4[2] = sub_10013109C;
+  v4[3] = &unk_1002650A0;
+  v5 = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v4);
   xpc_release(v3);
 }
 
 uint64_t sub_10013109C(uint64_t a1, void *a2)
 {
-  v5 = *(a1 + 40);
-  result = sub_100136B44();
+  result = sub_100136B44("client %p set state xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
@@ -994,37 +622,47 @@ uint64_t _NETRBClientGetExtName(uint64_t a1, uint64_t a2)
   v8 = &v7;
   v9 = 0x2000000000;
   v10 = 2000;
-  if (!a1 || !a2)
+  if (a1)
   {
-    goto LABEL_8;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0D80();
-  }
-
-  if (qword_100298BA8)
-  {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 0x40000000;
-    v6[2] = sub_100131250;
-    v6[3] = &unk_100265118;
-    v6[4] = &v11;
-    v6[5] = &v7;
-    v6[6] = a1;
-    v6[7] = a2;
-    dispatch_sync(qword_100298BA8, v6);
-    if (*(v12 + 24) == 1)
+    if (a2)
     {
-      *(v12 + 24) = v8[3] == 2001;
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0D80();
+      }
+
+      if (qword_100298BA8)
+      {
+        v6[0] = _NSConcreteStackBlock;
+        v6[1] = 0x40000000;
+        v6[2] = sub_100131250;
+        v6[3] = &unk_100265118;
+        v6[4] = &v11;
+        v6[5] = &v7;
+        v6[6] = a1;
+        v6[7] = a2;
+        dispatch_sync(qword_100298BA8, v6);
+        if (*(v12 + 24) == 1)
+        {
+          *(v12 + 24) = v8[3] == 2001;
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue", a2);
+      }
+    }
+
+    else
+    {
+      sub_100136B00("external name cannot be NULL", 0);
     }
   }
 
   else
   {
-LABEL_8:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL", a2);
   }
 
   v4 = *(v12 + 24);
@@ -1037,9 +675,8 @@ void sub_100131250(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v4 = *(a1 + 48);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1047,35 +684,34 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
   v3 = v2;
   xpc_dictionary_set_uint64(v2, off_100298248, 0x3F5uLL);
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 48) + 32));
-  v5 = *(a1 + 48);
-  sub_100136B44();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 0x40000000;
-  v6[2] = sub_100131388;
-  v6[3] = &unk_1002650F0;
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 56);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v6);
+  sub_100136B44("client %p xpc send -> get external name", *(a1 + 48));
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 0x40000000;
+  v4[2] = sub_100131388;
+  v4[3] = &unk_1002650F0;
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 56);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v4);
   xpc_release(v3);
 }
 
-uint64_t sub_100131388(void *a1, void *a2)
+uint64_t sub_100131388(uint64_t a1, void *a2)
 {
-  v7 = a1[5];
-  result = sub_100136B44();
+  result = sub_100136B44("client %p get external name xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
-    *(*(a1[4] + 8) + 24) = result;
-    if (*(*(a1[4] + 8) + 24) == 2001)
+    *(*(*(a1 + 32) + 8) + 24) = result;
+    if (*(*(*(a1 + 32) + 8) + 24) == 2001)
     {
-      v5 = a1[6];
+      v5 = *(a1 + 48);
       string = xpc_dictionary_get_string(a2, off_1002982E0);
       return snprintf(v5, 0x10uLL, "%s", string);
     }
@@ -1105,7 +741,7 @@ void *_NETRBClientCopyFixtureForwardedPorts(void *a1)
   v8 = 2000;
   if (!a1)
   {
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL");
     goto LABEL_12;
   }
 
@@ -1116,7 +752,7 @@ void *_NETRBClientCopyFixtureForwardedPorts(void *a1)
 
   if (!qword_100298BA8)
   {
-    sub_100136B00();
+    sub_100136B00("unable to create framework queue");
 LABEL_11:
     v1 = 0;
     goto LABEL_12;
@@ -1147,7 +783,7 @@ LABEL_11:
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("xpc_dictionary_create() failed");
     *(v10 + 24) = 0;
   }
 
@@ -1163,9 +799,8 @@ void sub_10013160C(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 64)))
   {
-    v5 = *(a1 + 64);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1173,38 +808,37 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
   v3 = v2;
   xpc_dictionary_set_uint64(v2, off_100298248, 0x3EDuLL);
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 64) + 32));
-  v6 = *(a1 + 64);
-  sub_100136B44();
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 0x40000000;
-  v7[2] = sub_100131740;
-  v7[3] = &unk_100265140;
+  sub_100136B44("client %p xpc send -> get forwarded ports", *(a1 + 64));
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 0x40000000;
+  v5[2] = sub_100131740;
+  v5[3] = &unk_100265140;
   v4 = *(a1 + 56);
-  v8 = *(a1 + 40);
-  v9 = v4;
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v7);
+  v6 = *(a1 + 40);
+  v7 = v4;
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v5);
   xpc_release(v3);
 }
 
-uint64_t sub_100131740(void *a1, void *a2)
+uint64_t sub_100131740(uint64_t a1, void *a2)
 {
-  v5 = a1[7];
-  result = sub_100136B44();
+  result = sub_100136B44("client %p get forwarded ports xpc response received", *(a1 + 56));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
-    *(*(a1[4] + 8) + 24) = result;
-    if (*(*(a1[4] + 8) + 24) == 2001)
+    *(*(*(a1 + 32) + 8) + 24) = result;
+    if (*(*(*(a1 + 32) + 8) + 24) == 2001)
     {
-      *(*(a1[5] + 8) + 24) = xpc_dictionary_get_uint64(a2, off_1002982F0);
+      *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(a2, off_1002982F0);
       result = xpc_dictionary_get_uint64(a2, off_1002982F8);
-      *(*(a1[6] + 8) + 24) = result;
+      *(*(*(a1 + 48) + 8) + 24) = result;
     }
   }
 
@@ -1221,37 +855,47 @@ uint64_t _NETRBClientSetFixtureForwardedPorts(uint64_t a1, xpc_object_t object)
   v8 = &v7;
   v9 = 0x2000000000;
   v10 = 2000;
-  if (!a1 || !object || xpc_get_type(object) != &_xpc_type_dictionary)
+  if (a1)
   {
-    goto LABEL_4;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0DD0();
-  }
-
-  if (qword_100298BA8)
-  {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 0x40000000;
-    v6[2] = sub_100131960;
-    v6[3] = &unk_1002651B8;
-    v6[6] = a1;
-    v6[7] = object;
-    v6[4] = &v11;
-    v6[5] = &v7;
-    dispatch_sync(qword_100298BA8, v6);
-    if (*(v12 + 24) == 1)
+    if (object && xpc_get_type(object) == &_xpc_type_dictionary)
     {
-      *(v12 + 24) = v8[3] == 2001;
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0DD0();
+      }
+
+      if (qword_100298BA8)
+      {
+        v6[0] = _NSConcreteStackBlock;
+        v6[1] = 0x40000000;
+        v6[2] = sub_100131960;
+        v6[3] = &unk_1002651B8;
+        v6[6] = a1;
+        v6[7] = object;
+        v6[4] = &v11;
+        v6[5] = &v7;
+        dispatch_sync(qword_100298BA8, v6);
+        if (*(v12 + 24) == 1)
+        {
+          *(v12 + 24) = v8[3] == 2001;
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
+      }
+    }
+
+    else
+    {
+      sub_100136B00("forwarded ports should be a xpc dictionary");
     }
   }
 
   else
   {
-LABEL_4:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL");
   }
 
   v4 = *(v12 + 24);
@@ -1264,9 +908,8 @@ void sub_100131960(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v8 = *(a1 + 48);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1274,6 +917,7 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
@@ -1286,21 +930,19 @@ LABEL_3:
   v6 = off_1002982F8;
   v7 = xpc_dictionary_get_uint64(*(a1 + 56), netrbClientForwardedHighPort);
   xpc_dictionary_set_uint64(v3, v6, v7);
-  v9 = *(a1 + 48);
-  sub_100136B44();
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 0x40000000;
-  v10[2] = sub_100131AF0;
-  v10[3] = &unk_100265190;
-  v11 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v10);
+  sub_100136B44("client %p xpc send -> set forwarded ports", *(a1 + 48));
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 0x40000000;
+  v8[2] = sub_100131AF0;
+  v8[3] = &unk_100265190;
+  v9 = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v8);
   xpc_release(v3);
 }
 
 uint64_t sub_100131AF0(uint64_t a1, void *a2)
 {
-  v5 = *(a1 + 40);
-  result = sub_100136B44();
+  result = sub_100136B44("client %p set forwarded ports xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
@@ -1320,36 +962,38 @@ uint64_t _NETRBClientIsAllowedMoreHost(uint64_t a1)
   v6 = &v5;
   v7 = 0x2000000000;
   v8 = 2000;
-  if (!a1)
+  if (a1)
   {
-    goto LABEL_7;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0DF8();
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100131C90;
-    block[3] = &unk_100265208;
-    block[4] = &v9;
-    block[5] = &v5;
-    block[6] = a1;
-    dispatch_sync(qword_100298BA8, block);
-    if (*(v10 + 24) == 1)
+    if (qword_100298BA0 != -1)
     {
-      *(v10 + 24) = v6[3] == 2001;
+      sub_1001B0DF8();
+    }
+
+    if (qword_100298BA8)
+    {
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 0x40000000;
+      block[2] = sub_100131C90;
+      block[3] = &unk_100265208;
+      block[4] = &v9;
+      block[5] = &v5;
+      block[6] = a1;
+      dispatch_sync(qword_100298BA8, block);
+      if (*(v10 + 24) == 1)
+      {
+        *(v10 + 24) = v6[3] == 2001;
+      }
+    }
+
+    else
+    {
+      sub_100136B00("unable to create framework queue");
     }
   }
 
   else
   {
-LABEL_7:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL");
   }
 
   v2 = *(v10 + 24);
@@ -1362,9 +1006,8 @@ void sub_100131C90(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v4 = *(a1 + 48);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1372,27 +1015,26 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
   v3 = v2;
   xpc_dictionary_set_uint64(v2, off_100298248, 0x3EFuLL);
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 48) + 32));
-  v5 = *(a1 + 48);
-  sub_100136B44();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 0x40000000;
-  v6[2] = sub_100131DC0;
-  v6[3] = &unk_1002651E0;
-  v7 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v6);
+  sub_100136B44("client %p xpc send -> allowed more host", *(a1 + 48));
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 0x40000000;
+  v4[2] = sub_100131DC0;
+  v4[3] = &unk_1002651E0;
+  v5 = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v4);
   xpc_release(v3);
 }
 
 uint64_t sub_100131DC0(uint64_t a1, void *a2)
 {
-  v5 = *(a1 + 40);
-  result = sub_100136B44();
+  result = sub_100136B44("client %p allowed more host xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
@@ -1417,7 +1059,7 @@ uint64_t _NETRBClientAddHost(uint64_t a1, unsigned int a2)
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("failed to create xpc dictionary for add host.");
     return 0;
   }
 }
@@ -1432,51 +1074,76 @@ uint64_t _NETRBClientAddHostExt(uint64_t a1, xpc_object_t object)
   v16 = &v15;
   v17 = 0x2000000000;
   v18 = 2000;
-  if (object && xpc_get_type(object) == &_xpc_type_dictionary && (v6 = xpc_dictionary_get_value(object, netrbClientHostIftype)) != 0 && (v7 = v6, xpc_get_type(v6) == &_xpc_type_uint64) && (v8 = xpc_uint64_get_value(v7), (v9 = xpc_dictionary_get_value(object, netrbClientHostDeviceId)) != 0) && (v10 = v9, xpc_get_type(v9) == &_xpc_type_uint64))
+  if (!object || xpc_get_type(object) != &_xpc_type_dictionary)
   {
-    value = xpc_uint64_get_value(v10);
-    if (!a1 || (v8 - 7) <= 0xFFFFFFFA)
-    {
-      goto LABEL_20;
-    }
+    sub_100136B00("request is not dictionary object");
+LABEL_4:
+    *(v20 + 24) = 0;
+    goto LABEL_5;
+  }
 
-    v12 = value;
-    if (qword_100298BA0 != -1)
-    {
-      sub_1001B0E20();
-    }
+  value = xpc_dictionary_get_value(object, netrbClientHostIftype);
+  if (!value || (v7 = value, xpc_get_type(value) != &_xpc_type_uint64))
+  {
+    sub_100136B00("netrbIftype does not exist in request.");
+    goto LABEL_4;
+  }
 
-    if (qword_100298BA8)
+  v8 = xpc_uint64_get_value(v7);
+  v9 = xpc_dictionary_get_value(object, netrbClientHostDeviceId);
+  if (!v9 || (v10 = v9, xpc_get_type(v9) != &_xpc_type_uint64))
+  {
+    sub_100136B00("device ID does not exist in request.");
+    goto LABEL_4;
+  }
+
+  v11 = xpc_uint64_get_value(v10);
+  if (a1)
+  {
+    if ((v8 - 7) > 0xFFFFFFFA)
     {
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 0x40000000;
-      block[2] = sub_1001320D8;
-      block[3] = &unk_100265258;
-      v14 = v8;
-      block[6] = a1;
-      block[7] = v12;
-      block[4] = &v19;
-      block[5] = &v15;
-      dispatch_sync(qword_100298BA8, block);
-      if (*(v20 + 24) == 1)
+      v12 = v11;
+      if (qword_100298BA0 != -1)
       {
-        *(v20 + 24) = v16[3] == 2001;
+        sub_1001B0E20();
+      }
+
+      if (qword_100298BA8)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = sub_1001320D8;
+        block[3] = &unk_100265258;
+        v14 = v8;
+        block[6] = a1;
+        block[7] = v12;
+        block[4] = &v19;
+        block[5] = &v15;
+        dispatch_sync(qword_100298BA8, block);
+        if (*(v20 + 24) == 1)
+        {
+          *(v20 + 24) = v16[3] == 2001;
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
       }
     }
 
     else
     {
-LABEL_20:
-      sub_100136B00();
+      sub_100136B00("incorrect device type value %d");
     }
   }
 
   else
   {
-    sub_100136B00();
-    *(v20 + 24) = 0;
+    sub_100136B00("client handle cannot be NULL");
   }
 
+LABEL_5:
   v4 = *(v20 + 24);
   _Block_object_dispose(&v15, 8);
   _Block_object_dispose(&v19, 8);
@@ -1487,9 +1154,8 @@ void sub_1001320D8(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v4 = *(a1 + 48);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1497,6 +1163,7 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
@@ -1505,21 +1172,19 @@ LABEL_3:
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 48) + 32));
   xpc_dictionary_set_uint64(v3, off_100298300, *(a1 + 64));
   xpc_dictionary_set_uint64(v3, off_100298338, *(a1 + 56));
-  v5 = *(a1 + 48);
-  sub_100136B44();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 0x40000000;
-  v6[2] = sub_100132238;
-  v6[3] = &unk_100265230;
-  v7 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v6);
+  sub_100136B44("client %p xpc send -> add host", *(a1 + 48));
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 0x40000000;
+  v4[2] = sub_100132238;
+  v4[3] = &unk_100265230;
+  v5 = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v4);
   xpc_release(v3);
 }
 
 uint64_t sub_100132238(uint64_t a1, void *a2)
 {
-  v5 = *(a1 + 40);
-  result = sub_100136B44();
+  result = sub_100136B44("client %p add host xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
@@ -1539,51 +1204,76 @@ uint64_t _NETRBClientRemoveHostExt(uint64_t a1, xpc_object_t object)
   v16 = &v15;
   v17 = 0x2000000000;
   v18 = 2000;
-  if (object && xpc_get_type(object) == &_xpc_type_dictionary && (v6 = xpc_dictionary_get_value(object, netrbClientHostIftype)) != 0 && (v7 = v6, xpc_get_type(v6) == &_xpc_type_uint64) && (v8 = xpc_uint64_get_value(v7), (v9 = xpc_dictionary_get_value(object, netrbClientHostDeviceId)) != 0) && (v10 = v9, xpc_get_type(v9) == &_xpc_type_uint64))
+  if (!object || xpc_get_type(object) != &_xpc_type_dictionary)
   {
-    value = xpc_uint64_get_value(v10);
-    if (!a1 || (v8 - 7) <= 0xFFFFFFFA)
-    {
-      goto LABEL_20;
-    }
+    sub_100136B00("request is not dictionary object");
+LABEL_4:
+    *(v20 + 24) = 0;
+    goto LABEL_5;
+  }
 
-    v12 = value;
-    if (qword_100298BA0 != -1)
-    {
-      sub_1001B0E48();
-    }
+  value = xpc_dictionary_get_value(object, netrbClientHostIftype);
+  if (!value || (v7 = value, xpc_get_type(value) != &_xpc_type_uint64))
+  {
+    sub_100136B00("netrbIftype does not exist in request.");
+    goto LABEL_4;
+  }
 
-    if (qword_100298BA8)
+  v8 = xpc_uint64_get_value(v7);
+  v9 = xpc_dictionary_get_value(object, netrbClientHostDeviceId);
+  if (!v9 || (v10 = v9, xpc_get_type(v9) != &_xpc_type_uint64))
+  {
+    sub_100136B00("device ID does not exist in request.");
+    goto LABEL_4;
+  }
+
+  v11 = xpc_uint64_get_value(v10);
+  if (a1)
+  {
+    if ((v8 - 7) > 0xFFFFFFFA)
     {
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 0x40000000;
-      block[2] = sub_1001324B8;
-      block[3] = &unk_1002652A8;
-      v14 = v8;
-      block[6] = a1;
-      block[7] = v12;
-      block[4] = &v19;
-      block[5] = &v15;
-      dispatch_sync(qword_100298BA8, block);
-      if (*(v20 + 24) == 1)
+      v12 = v11;
+      if (qword_100298BA0 != -1)
       {
-        *(v20 + 24) = v16[3] == 2001;
+        sub_1001B0E48();
+      }
+
+      if (qword_100298BA8)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = sub_1001324B8;
+        block[3] = &unk_1002652A8;
+        v14 = v8;
+        block[6] = a1;
+        block[7] = v12;
+        block[4] = &v19;
+        block[5] = &v15;
+        dispatch_sync(qword_100298BA8, block);
+        if (*(v20 + 24) == 1)
+        {
+          *(v20 + 24) = v16[3] == 2001;
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
       }
     }
 
     else
     {
-LABEL_20:
-      sub_100136B00();
+      sub_100136B00("incorrect device type value %d");
     }
   }
 
   else
   {
-    sub_100136B00();
-    *(v20 + 24) = 0;
+    sub_100136B00("client handle cannot be NULL");
   }
 
+LABEL_5:
   v4 = *(v20 + 24);
   _Block_object_dispose(&v15, 8);
   _Block_object_dispose(&v19, 8);
@@ -1594,9 +1284,8 @@ void sub_1001324B8(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v4 = *(a1 + 48);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1604,6 +1293,7 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
@@ -1612,21 +1302,19 @@ LABEL_3:
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 48) + 32));
   xpc_dictionary_set_uint64(v3, off_100298300, *(a1 + 64));
   xpc_dictionary_set_uint64(v3, off_100298330, *(a1 + 56));
-  v5 = *(a1 + 48);
-  sub_100136B44();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 0x40000000;
-  v6[2] = sub_100132618;
-  v6[3] = &unk_100265280;
-  v7 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v6);
+  sub_100136B44("client %p xpc send -> remove host", *(a1 + 48));
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 0x40000000;
+  v4[2] = sub_100132618;
+  v4[3] = &unk_100265280;
+  v5 = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v4);
   xpc_release(v3);
 }
 
 uint64_t sub_100132618(uint64_t a1, void *a2)
 {
-  v5 = *(a1 + 40);
-  result = sub_100136B44();
+  result = sub_100136B44("client %p remove host xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
@@ -1651,7 +1339,7 @@ uint64_t _NETRBClientRemoveHost(uint64_t a1, unsigned int a2)
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("failed to create xpc dictionary for remove host.");
     return 0;
   }
 }
@@ -1674,42 +1362,60 @@ uint64_t _NETRBClientGetHostCount(uint64_t a1, _DWORD *a2, _DWORD *a3)
   v10 = &v9;
   v11 = 0x2000000000;
   v12 = 2000;
-  if (!a1 || !a2 || !a3)
+  if (a1)
   {
-    goto LABEL_9;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    v7 = a1;
-    sub_1001B0E70();
-    a1 = v7;
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_1001328DC;
-    block[3] = &unk_1002652F8;
-    block[4] = &v13;
-    block[5] = &v9;
-    block[6] = &v21;
-    block[7] = &v17;
-    block[8] = a1;
-    dispatch_sync(qword_100298BA8, block);
-    if (*(v14 + 24) == 1)
+    if (a2)
     {
-      *(v14 + 24) = v10[3] == 2001;
-      *a2 = *(v22 + 6);
-      *a3 = *(v18 + 6);
+      if (a3)
+      {
+        if (qword_100298BA0 != -1)
+        {
+          v7 = a1;
+          sub_1001B0E70();
+          a1 = v7;
+        }
+
+        if (qword_100298BA8)
+        {
+          block[0] = _NSConcreteStackBlock;
+          block[1] = 0x40000000;
+          block[2] = sub_1001328DC;
+          block[3] = &unk_1002652F8;
+          block[4] = &v13;
+          block[5] = &v9;
+          block[6] = &v21;
+          block[7] = &v17;
+          block[8] = a1;
+          dispatch_sync(qword_100298BA8, block);
+          if (*(v14 + 24) == 1)
+          {
+            *(v14 + 24) = v10[3] == 2001;
+            *a2 = *(v22 + 6);
+            *a3 = *(v18 + 6);
+          }
+        }
+
+        else
+        {
+          sub_100136B00("unable to create framework queue", a2, a3, v7);
+        }
+      }
+
+      else
+      {
+        sub_100136B00("current cannot be NULL", a2, 0);
+      }
+    }
+
+    else
+    {
+      sub_100136B00("max cannot be NULL", 0, a3);
     }
   }
 
   else
   {
-LABEL_9:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL", a2, a3);
   }
 
   v5 = *(v14 + 24);
@@ -1724,9 +1430,8 @@ void sub_1001328DC(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 64)))
   {
-    v5 = *(a1 + 64);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1734,38 +1439,37 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
   v3 = v2;
   xpc_dictionary_set_uint64(v2, off_100298248, 0x3F2uLL);
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 64) + 32));
-  v6 = *(a1 + 64);
-  sub_100136B44();
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 0x40000000;
-  v7[2] = sub_100132A10;
-  v7[3] = &unk_1002652D0;
+  sub_100136B44("client %p xpc send -> get host count", *(a1 + 64));
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 0x40000000;
+  v5[2] = sub_100132A10;
+  v5[3] = &unk_1002652D0;
   v4 = *(a1 + 56);
-  v8 = *(a1 + 40);
-  v9 = v4;
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v7);
+  v6 = *(a1 + 40);
+  v7 = v4;
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v5);
   xpc_release(v3);
 }
 
-uint64_t sub_100132A10(void *a1, void *a2)
+uint64_t sub_100132A10(uint64_t a1, void *a2)
 {
-  v5 = a1[7];
-  result = sub_100136B44();
+  result = sub_100136B44("client %p get host count xpc response received", *(a1 + 56));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
-    *(*(a1[4] + 8) + 24) = result;
-    if (*(*(a1[4] + 8) + 24) == 2001)
+    *(*(*(a1 + 32) + 8) + 24) = result;
+    if (*(*(*(a1 + 32) + 8) + 24) == 2001)
     {
-      *(*(a1[5] + 8) + 24) = xpc_dictionary_get_uint64(a2, off_100298308);
+      *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_uint64(a2, off_100298308);
       result = xpc_dictionary_get_uint64(a2, off_100298310);
-      *(*(a1[6] + 8) + 24) = result;
+      *(*(*(a1 + 48) + 8) + 24) = result;
     }
   }
 
@@ -1782,38 +1486,48 @@ uint64_t _NETRBClientSetHostCount(uint64_t a1, int a2, int a3)
   v12 = &v11;
   v13 = 0x2000000000;
   v14 = 2000;
-  if (!a1 || (a2 - 7) <= 0xFFFFFFFA)
+  if (a1)
   {
-    goto LABEL_10;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0E98();
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100132C34;
-    block[3] = &unk_100265348;
-    v9 = a2;
-    v10 = a3;
-    block[4] = &v15;
-    block[5] = &v11;
-    block[6] = a1;
-    dispatch_sync(qword_100298BA8, block);
-    if (*(v16 + 24) == 1)
+    if ((a2 - 7) > 0xFFFFFFFA)
     {
-      *(v16 + 24) = v12[3] == 2001;
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0E98();
+      }
+
+      if (qword_100298BA8)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = sub_100132C34;
+        block[3] = &unk_100265348;
+        v9 = a2;
+        v10 = a3;
+        block[4] = &v15;
+        block[5] = &v11;
+        block[6] = a1;
+        dispatch_sync(qword_100298BA8, block);
+        if (*(v16 + 24) == 1)
+        {
+          *(v16 + 24) = v12[3] == 2001;
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
+      }
+    }
+
+    else
+    {
+      sub_100136B00("incorrect device type value %d");
     }
   }
 
   else
   {
-LABEL_10:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL");
   }
 
   v6 = *(v16 + 24);
@@ -1826,9 +1540,8 @@ void sub_100132C34(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v4 = *(a1 + 48);
+    sub_100136B00("invalid client %p");
 LABEL_3:
-    sub_100136B00();
     *(*(*(a1 + 32) + 8) + 24) = 0;
     return;
   }
@@ -1836,6 +1549,7 @@ LABEL_3:
   v2 = xpc_dictionary_create(0, 0, 0);
   if (!v2)
   {
+    sub_100136B00("xpc_dictionary_create() failed");
     goto LABEL_3;
   }
 
@@ -1844,21 +1558,19 @@ LABEL_3:
   xpc_dictionary_set_string(v3, off_100298250, (*(a1 + 48) + 32));
   xpc_dictionary_set_uint64(v3, off_100298300, *(a1 + 56));
   xpc_dictionary_set_uint64(v3, off_100298318, *(a1 + 60));
-  v5 = *(a1 + 48);
-  sub_100136B44();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 0x40000000;
-  v6[2] = sub_100132D94;
-  v6[3] = &unk_100265320;
-  v7 = *(a1 + 40);
-  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v6);
+  sub_100136B44("client %p xpc send -> set host count", *(a1 + 48));
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 0x40000000;
+  v4[2] = sub_100132D94;
+  v4[3] = &unk_100265320;
+  v5 = *(a1 + 40);
+  *(*(*(a1 + 32) + 8) + 24) = sub_1001370C0(0, v3, v4);
   xpc_release(v3);
 }
 
 uint64_t sub_100132D94(uint64_t a1, void *a2)
 {
-  v5 = *(a1 + 40);
-  result = sub_100136B44();
+  result = sub_100136B44("client %p set host count xpc response received", *(a1 + 40));
   if (a2)
   {
     result = xpc_dictionary_get_uint64(a2, off_1002982B8);
@@ -1868,25 +1580,28 @@ uint64_t sub_100132D94(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t _NETRBClientNewInterface(uint64_t a1, int a2, uint64_t a3, void *a4)
+uint64_t _NETRBClientNewInterface(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2000000000;
-  v47 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2000000000;
-  v43 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2000000000;
+  v55 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2000000000;
+  v51 = 0;
   if (!a1)
   {
-    goto LABEL_40;
+    sub_100136B00("client handle cannot be NULL", a2, a3, a4);
+    goto LABEL_43;
   }
 
-  v41[3] = xpc_dictionary_create(0, 0, 0);
-  if (a4)
+  v4 = a4;
+  v6 = a2;
+  v49[3] = xpc_dictionary_create(0, 0, 0);
+  if (v4)
   {
-    string = xpc_dictionary_get_string(a4, netrbClientExternalInterface);
+    string = xpc_dictionary_get_string(v4, netrbClientExternalInterface);
   }
 
   else
@@ -1894,174 +1609,185 @@ uint64_t _NETRBClientNewInterface(uint64_t a1, int a2, uint64_t a3, void *a4)
     string = 0;
   }
 
-  if ((a2 - 201) >= 3)
+  if ((v6 - 201) < 3)
   {
-    if (a2 != 204 || !string || !*string)
+    if (string)
     {
-      goto LABEL_40;
+      sub_100136B00("specifying external interface not supported", v8, v9, v10);
+      goto LABEL_43;
     }
 
-    if (a4)
+    if (v4)
     {
-      uint64 = 0;
+      uint64 = xpc_dictionary_get_uint64(v4, netrbClientInterfaceMTU);
       goto LABEL_16;
     }
 
 LABEL_22:
-    v14 = 0;
-    v15 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 1;
-    goto LABEL_36;
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v23 = 0;
+    v24 = 0;
+    v25 = 1;
+LABEL_38:
+    if (qword_100298BA0 != -1)
+    {
+      v38 = v20;
+      sub_1001B0EC0();
+      v20 = v38;
+    }
+
+    if (qword_100298BA8)
+    {
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 0x40000000;
+      block[2] = sub_10013328C;
+      block[3] = &unk_100265390;
+      block[6] = a1;
+      block[7] = string;
+      v42 = v25;
+      v43 = v23;
+      v44 = v4;
+      v45 = v24;
+      v46 = v22;
+      v47 = v21;
+      v40 = v6;
+      v41 = v20;
+      block[4] = &v48;
+      block[5] = &v52;
+      block[8] = a3;
+      block[9] = qword_100298BA8;
+      dispatch_sync(qword_100298BA8, block);
+    }
+
+    else
+    {
+      sub_100136B00("unable to create framework queue");
+    }
+
+    goto LABEL_43;
   }
 
-  if (string)
+  if (v6 != 204)
   {
-    goto LABEL_40;
+    sub_100136B00("incorrect operation mode %d", v8, v9, v10);
+    goto LABEL_43;
   }
 
-  if (!a4)
+  if (!string || !*string)
+  {
+    sub_100136B00("interface must be specified", v8, v9, v10);
+    goto LABEL_43;
+  }
+
+  if (!v4)
   {
     goto LABEL_22;
   }
 
-  uint64 = xpc_dictionary_get_uint64(a4, netrbClientInterfaceMTU);
+  uint64 = 0;
 LABEL_16:
-  v9 = v41[3];
-  v10 = xpc_dictionary_get_string(a4, netrbClientInterfaceStartAddress);
-  v11 = xpc_dictionary_get_string(a4, netrbClientInterfaceEndAddress);
-  v12 = xpc_dictionary_get_string(a4, netrbClientInterfaceNetworkMask);
-  if (v10 && v11 && (v13 = v12) != 0)
+  v12 = v49[3];
+  v13 = xpc_dictionary_get_string(v4, netrbClientInterfaceStartAddress);
+  v14 = xpc_dictionary_get_string(v4, netrbClientInterfaceEndAddress);
+  v15 = xpc_dictionary_get_string(v4, netrbClientInterfaceNetworkMask);
+  if (v13 && v14 && (v19 = v15) != 0)
   {
-    xpc_dictionary_set_string(v9, off_100298350, v10);
-    xpc_dictionary_set_string(v9, off_100298358, v11);
-    xpc_dictionary_set_string(v9, off_100298360, v13);
+    xpc_dictionary_set_string(v12, off_100298350, v13);
+    xpc_dictionary_set_string(v12, off_100298358, v14);
+    xpc_dictionary_set_string(v12, off_100298360, v19);
   }
 
-  else if (v10 | v11)
+  else if (v13 | v14)
   {
-    goto LABEL_40;
+    sub_100136B00("All of %s, %s, and %s must be specified", v16, v17, v18);
+    goto LABEL_43;
   }
 
-  if (!sub_1001300A4(a4, v41[3]))
+  if (sub_1001300A4(v4, v49[3]))
   {
-    goto LABEL_41;
-  }
-
-  v20 = v41[3];
-  uuid = xpc_dictionary_get_uuid(a4, netrbClientNetworkIdentifier);
-  if (uuid)
-  {
-    xpc_dictionary_set_uuid(v20, off_1002983A8, uuid);
-    v22 = xpc_dictionary_get_string(a4, netrbClientInterfaceIPv4Address);
-    v23 = xpc_dictionary_get_string(a4, netrbClientInterfaceNetworkMask);
-    v24 = v23;
-    if (v22 && v23)
+    v26 = v49[3];
+    uuid = xpc_dictionary_get_uuid(v4, netrbClientNetworkIdentifier);
+    if (uuid)
     {
-      xpc_dictionary_set_string(v20, off_1002983B0, v22);
-      xpc_dictionary_set_string(v20, off_100298360, v24);
+      xpc_dictionary_set_uuid(v26, off_1002983A8, uuid);
+      v28 = xpc_dictionary_get_string(v4, netrbClientInterfaceIPv4Address);
+      v29 = xpc_dictionary_get_string(v4, netrbClientInterfaceNetworkMask);
+      v32 = v29;
+      if (v28 && v29)
+      {
+        xpc_dictionary_set_string(v26, off_1002983B0, v28);
+        xpc_dictionary_set_string(v26, off_100298360, v32);
+      }
+
+      else if (v28 | v29)
+      {
+        sub_100136B00("%s, and %s must be specified", v30, v31);
+        goto LABEL_43;
+      }
+
+      v33 = xpc_dictionary_get_string(v4, netrbClientInterfaceIPv6Address);
+      if (v33)
+      {
+        xpc_dictionary_set_string(v26, off_1002983B8, v33);
+      }
     }
 
-    else if (v22 | v23)
+    if (xpc_dictionary_get_value(v4, netrbClientAllocateMACAddress))
     {
-      goto LABEL_40;
+      v25 = xpc_dictionary_get_BOOL(v4, netrbClientAllocateMACAddress);
     }
 
-    v25 = xpc_dictionary_get_string(a4, netrbClientInterfaceIPv6Address);
-    if (v25)
+    else
     {
-      xpc_dictionary_set_string(v20, off_1002983B8, v25);
+      v25 = 1;
     }
+
+    v23 = xpc_dictionary_get_BOOL(v4, netrbClientEnableTSO);
+    v22 = xpc_dictionary_get_BOOL(v4, netrbClientEnableIsolation);
+    v21 = xpc_dictionary_get_BOOL(v4, netrbClientEnableChecksumOffload);
+    v24 = xpc_dictionary_get_BOOL(v4, netrbClientEnableMACNAT);
+    LOBYTE(v4) = xpc_dictionary_get_BOOL(v4, netrbClientEnableVirtIOHeader);
+    v20 = uint64;
+    goto LABEL_38;
   }
 
-  if (xpc_dictionary_get_value(a4, netrbClientAllocateMACAddress))
+LABEL_43:
+  v34 = v49[3];
+  if (v34)
   {
-    v19 = xpc_dictionary_get_BOOL(a4, netrbClientAllocateMACAddress);
+    xpc_release(v34);
   }
 
-  else
-  {
-    v19 = 1;
-  }
-
-  v17 = xpc_dictionary_get_BOOL(a4, netrbClientEnableTSO);
-  v16 = xpc_dictionary_get_BOOL(a4, netrbClientEnableIsolation);
-  v15 = xpc_dictionary_get_BOOL(a4, netrbClientEnableChecksumOffload);
-  v18 = xpc_dictionary_get_BOOL(a4, netrbClientEnableMACNAT);
-  LOBYTE(a4) = xpc_dictionary_get_BOOL(a4, netrbClientEnableVirtIOHeader);
-  v14 = uint64;
-LABEL_36:
-  if (qword_100298BA0 != -1)
-  {
-    v30 = v14;
-    sub_1001B0EC0();
-    v14 = v30;
-  }
-
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_10013328C;
-    block[3] = &unk_100265390;
-    block[6] = a1;
-    block[7] = string;
-    v34 = v19;
-    v35 = v17;
-    v36 = a4;
-    v37 = v18;
-    v38 = v16;
-    v39 = v15;
-    v32 = a2;
-    v33 = v14;
-    block[4] = &v40;
-    block[5] = &v44;
-    block[8] = a3;
-    block[9] = qword_100298BA8;
-    dispatch_sync(qword_100298BA8, block);
-    goto LABEL_41;
-  }
-
-LABEL_40:
-  sub_100136B00();
-LABEL_41:
-  v26 = v41[3];
-  if (v26)
-  {
-    xpc_release(v26);
-  }
-
-  v27 = *(v45 + 24);
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v44, 8);
-  return v27;
+  v35 = *(v53 + 24);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
+  return v35;
 }
 
 _BYTE *sub_10013328C(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v9 = *(a1 + 48);
-    return sub_100136B00();
+    return sub_100136B00("invalid client %p", *(a1 + 48));
   }
 
-  else if (*(*(a1 + 48) + 545) == 1)
+  if (*(*(a1 + 48) + 545) == 1)
   {
 
-    return sub_100136B00();
+    return sub_100136B00("client already requested interface");
   }
 
   else
   {
-    sub_100136B88();
+    sub_100136B88("building xpc request", v2, v3, v4, v5, v6, v7, v8, v20);
     xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), off_100298248, 0x3F6uLL);
     xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), off_1002982C0, *(a1 + 80));
-    v3 = *(a1 + 56);
-    if (v3)
+    v10 = *(a1 + 56);
+    if (v10)
     {
-      xpc_dictionary_set_string(*(*(*(a1 + 32) + 8) + 24), off_1002982E0, v3);
+      xpc_dictionary_set_string(*(*(*(a1 + 32) + 8) + 24), off_1002982E0, v10);
     }
 
     xpc_dictionary_set_string(*(*(*(a1 + 32) + 8) + 24), off_100298250, (*(a1 + 48) + 32));
@@ -2103,30 +1829,57 @@ _BYTE *sub_10013328C(uint64_t a1)
       xpc_dictionary_set_BOOL(*(*(*(a1 + 32) + 8) + 24), off_100298298, 1);
     }
 
-    v4 = *(a1 + 84);
-    if (v4)
+    v11 = *(a1 + 84);
+    if (v11)
     {
-      xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), off_100298340, v4);
+      xpc_dictionary_set_uint64(*(*(*(a1 + 32) + 8) + 24), off_100298340, v11);
     }
 
-    *(a1 + 89);
-    *(a1 + 92);
-    *(a1 + 93);
-    *(a1 + 91);
-    v10 = *(a1 + 48);
-    sub_100136B44();
-    v5 = *(a1 + 48);
-    *(v5 + 545) = 1;
-    v6 = *(a1 + 72);
-    v7 = *(*(*(a1 + 32) + 8) + 24);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 0x40000000;
-    v11[2] = sub_10013360C;
-    v11[3] = &unk_100265368;
-    v11[4] = v5;
-    v8 = sub_1001370C0(v6, v7, v11);
+    v12 = "";
+    v13 = " TSO";
+    if (!*(a1 + 89))
+    {
+      v13 = "";
+    }
+
+    if (*(a1 + 92))
+    {
+      v14 = " Isolated";
+    }
+
+    else
+    {
+      v14 = "";
+    }
+
+    if (*(a1 + 93))
+    {
+      v15 = " CSUM";
+    }
+
+    else
+    {
+      v15 = "";
+    }
+
+    if (*(a1 + 91))
+    {
+      v12 = " MAC-NAT";
+    }
+
+    sub_100136B44("client %p xpc send -> create interface [%s%s%s%s ]", *(a1 + 48), v13, v14, v15, v12);
+    v16 = *(a1 + 48);
+    *(v16 + 545) = 1;
+    v17 = *(a1 + 72);
+    v18 = *(*(*(a1 + 32) + 8) + 24);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 0x40000000;
+    v21[2] = sub_10013360C;
+    v21[3] = &unk_100265368;
+    v21[4] = v16;
+    v19 = sub_1001370C0(v17, v18, v21);
     result = *(a1 + 48);
-    *(*(*(a1 + 40) + 8) + 24) = v8;
+    *(*(*(a1 + 40) + 8) + 24) = v19;
     if (*(*(*(a1 + 40) + 8) + 24) == 1)
     {
       return CFRetain(result);
@@ -2141,56 +1894,64 @@ _BYTE *sub_10013328C(uint64_t a1)
   return result;
 }
 
-uint64_t _NETRBClientAddIPPortForwardingRule(CFTypeRef cf, char a2, __int16 a3, int a4, uint64_t a5, __int16 a6, uint64_t a7)
+uint64_t _NETRBClientAddIPPortForwardingRule(CFTypeRef cf, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v22 = 0;
   v23 = &v22;
   v24 = 0x2000000000;
   v25 = 0;
-  if (!cf)
+  if (cf)
   {
-    goto LABEL_9;
-  }
-
-  v10 = a4;
-  if (a4 != 2 && a4 != 30)
-  {
-    goto LABEL_9;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0EE8();
-  }
-
-  v14 = qword_100298BA8;
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100133798;
-    block[3] = &unk_100265408;
-    v20 = a2;
-    v18 = a3;
-    v21 = v10;
-    block[6] = cf;
-    block[7] = a5;
-    v19 = a6;
-    block[4] = a7;
-    block[5] = &v22;
-    block[8] = qword_100298BA8;
-    CFRetain(cf);
-    dispatch_sync(v14, block);
-    if ((v23[3] & 1) == 0)
+    v8 = a6;
+    v10 = a4;
+    v11 = a3;
+    v12 = a2;
+    if (a4 == 2 || a4 == 30)
     {
-      CFRelease(cf);
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0EE8();
+      }
+
+      v14 = qword_100298BA8;
+      if (qword_100298BA8)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = sub_100133798;
+        block[3] = &unk_100265408;
+        v20 = v12;
+        v18 = v11;
+        v21 = v10;
+        block[6] = cf;
+        block[7] = a5;
+        v19 = v8;
+        block[4] = a7;
+        block[5] = &v22;
+        block[8] = qword_100298BA8;
+        CFRetain(cf);
+        dispatch_sync(v14, block);
+        if ((v23[3] & 1) == 0)
+        {
+          CFRelease(cf);
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
+      }
+    }
+
+    else
+    {
+      sub_100136B00("invalid address family %d", a2, a3, a4, a5, a6, a7);
     }
   }
 
   else
   {
-LABEL_9:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL", a2, a3, a4, a5, a6, a7);
   }
 
   v15 = *(v23 + 24);
@@ -2202,8 +1963,7 @@ void sub_100133798(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v5 = *(a1 + 48);
-    sub_100136B00();
+    sub_100136B00("invalid client %p", *(a1 + 48));
   }
 
   else
@@ -2214,20 +1974,20 @@ void sub_100133798(uint64_t a1)
     v3 = sub_1001338F0(*(a1 + 76), *(a1 + 72), *(a1 + 77), *(a1 + 56), *(a1 + 74));
     xpc_dictionary_set_value(v2, off_1002983C0, v3);
     xpc_release(v3);
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 0x40000000;
-    v6[2] = sub_100133A48;
-    v6[3] = &unk_1002653E0;
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 0x40000000;
+    v5[2] = sub_100133A48;
+    v5[3] = &unk_1002653E0;
     v4 = *(a1 + 48);
-    v6[4] = *(a1 + 32);
-    v6[5] = v4;
-    sub_100136B44();
-    *(*(*(a1 + 40) + 8) + 24) = sub_1001370C0(*(a1 + 64), v2, v6);
+    v5[4] = *(a1 + 32);
+    v5[5] = v4;
+    sub_100136B44("client %p xpc send -> add port forwarding rule", v4);
+    *(*(*(a1 + 40) + 8) + 24) = sub_1001370C0(*(a1 + 64), v2, v5);
     xpc_release(v2);
   }
 }
 
-void *sub_1001338F0(unsigned int a1, unsigned int a2, unsigned int a3, void *a4, unsigned int a5)
+void *sub_1001338F0(unsigned int a1, unsigned int a2, int a3, void *a4, unsigned int a5)
 {
   if (a3 != 30 && a3 != 2 || !a4 && a5 || a4 && !a5 || a4 && !inet_ntop(a3, a4, string, 0x2Eu))
   {
@@ -2283,54 +2043,61 @@ void sub_100133A48(uint64_t a1, void *a2)
   }
 }
 
-uint64_t _NETRBClientRemoveIPPortForwardingRule(CFTypeRef cf, char a2, __int16 a3, int a4, uint64_t a5)
+uint64_t _NETRBClientRemoveIPPortForwardingRule(CFTypeRef cf, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v17 = 0;
   v18 = &v17;
   v19 = 0x2000000000;
   v20 = 0;
-  if (!cf)
+  if (cf)
   {
-    goto LABEL_9;
-  }
-
-  v6 = a4;
-  if (a4 != 2 && a4 != 30)
-  {
-    goto LABEL_9;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0F10();
-  }
-
-  v10 = qword_100298BA8;
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100133C88;
-    block[3] = &unk_100265480;
-    v15 = a2;
-    v14 = a3;
-    v16 = v6;
-    block[4] = a5;
-    block[5] = &v17;
-    block[6] = cf;
-    block[7] = qword_100298BA8;
-    CFRetain(cf);
-    dispatch_sync(v10, block);
-    if ((v18[3] & 1) == 0)
+    v6 = a4;
+    v7 = a3;
+    v8 = a2;
+    if (a4 == 2 || a4 == 30)
     {
-      CFRelease(cf);
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0F10();
+      }
+
+      v10 = qword_100298BA8;
+      if (qword_100298BA8)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = sub_100133C88;
+        block[3] = &unk_100265480;
+        v15 = v8;
+        v14 = v7;
+        v16 = v6;
+        block[4] = a5;
+        block[5] = &v17;
+        block[6] = cf;
+        block[7] = qword_100298BA8;
+        CFRetain(cf);
+        dispatch_sync(v10, block);
+        if ((v18[3] & 1) == 0)
+        {
+          CFRelease(cf);
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
+      }
+    }
+
+    else
+    {
+      sub_100136B00("invalid address family %d", a2, a3, a4, a5);
     }
   }
 
   else
   {
-LABEL_9:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL", a2, a3, a4, a5);
   }
 
   v11 = *(v18 + 24);
@@ -2342,8 +2109,7 @@ void sub_100133C88(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v10 = *(a1 + 48);
-    sub_100136B00();
+    sub_100136B00("invalid client %p", *(a1 + 48));
   }
 
   else
@@ -2378,15 +2144,15 @@ void sub_100133C88(uint64_t a1)
 
     xpc_dictionary_set_value(v2, off_1002983C0, v8);
     xpc_release(v8);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 0x40000000;
-    v11[2] = sub_100133E50;
-    v11[3] = &unk_100265458;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 0x40000000;
+    v10[2] = sub_100133E50;
+    v10[3] = &unk_100265458;
     v9 = *(a1 + 48);
-    v11[4] = *(a1 + 32);
-    v11[5] = v9;
-    sub_100136B44();
-    *(*(*(a1 + 40) + 8) + 24) = sub_1001370C0(*(a1 + 56), v2, v11);
+    v10[4] = *(a1 + 32);
+    v10[5] = v9;
+    sub_100136B44("client %p xpc send -> remove port forwarding rule", v9);
+    *(*(*(a1 + 40) + 8) + 24) = sub_1001370C0(*(a1 + 56), v2, v10);
     xpc_release(v2);
   }
 }
@@ -2414,52 +2180,57 @@ void sub_100133E50(uint64_t a1, void *a2)
   }
 }
 
-uint64_t _NETRBClientGetIPPortForwardingRules(CFTypeRef cf, int a2, uint64_t a3)
+uint64_t _NETRBClientGetIPPortForwardingRules(CFTypeRef cf, uint64_t a2, uint64_t a3)
 {
   v11 = 0;
   v12 = &v11;
   v13 = 0x2000000000;
   v14 = 0;
-  if (!cf)
+  if (cf)
   {
-    goto LABEL_9;
-  }
-
-  v4 = a2;
-  if (a2 != 2 && a2 != 30)
-  {
-    goto LABEL_9;
-  }
-
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0F38();
-  }
-
-  v6 = qword_100298BA8;
-  if (qword_100298BA8)
-  {
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 0x40000000;
-    block[2] = sub_100134078;
-    block[3] = &unk_1002654F8;
-    v10 = v4;
-    block[4] = a3;
-    block[5] = &v11;
-    block[6] = cf;
-    block[7] = qword_100298BA8;
-    CFRetain(cf);
-    dispatch_sync(v6, block);
-    if ((v12[3] & 1) == 0)
+    v4 = a2;
+    if (a2 == 2 || a2 == 30)
     {
-      CFRelease(cf);
+      if (qword_100298BA0 != -1)
+      {
+        sub_1001B0F38();
+      }
+
+      v6 = qword_100298BA8;
+      if (qword_100298BA8)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = sub_100134078;
+        block[3] = &unk_1002654F8;
+        v10 = v4;
+        block[4] = a3;
+        block[5] = &v11;
+        block[6] = cf;
+        block[7] = qword_100298BA8;
+        CFRetain(cf);
+        dispatch_sync(v6, block);
+        if ((v12[3] & 1) == 0)
+        {
+          CFRelease(cf);
+        }
+      }
+
+      else
+      {
+        sub_100136B00("unable to create framework queue");
+      }
+    }
+
+    else
+    {
+      sub_100136B00("invalid address family %d", a2, a3);
     }
   }
 
   else
   {
-LABEL_9:
-    sub_100136B00();
+    sub_100136B00("client handle cannot be NULL", a2, a3);
   }
 
   v7 = *(v12 + 24);
@@ -2471,8 +2242,7 @@ void sub_100134078(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 48)))
   {
-    v7 = *(a1 + 48);
-    sub_100136B00();
+    sub_100136B00("invalid client %p", *(a1 + 48));
   }
 
   else
@@ -2494,15 +2264,15 @@ void sub_100134078(uint64_t a1)
 
     xpc_dictionary_set_value(v2, off_1002983C0, v5);
     xpc_release(v5);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 0x40000000;
-    v8[2] = sub_1001341F4;
-    v8[3] = &unk_1002654D0;
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 0x40000000;
+    v7[2] = sub_1001341F4;
+    v7[3] = &unk_1002654D0;
     v6 = *(a1 + 48);
-    v8[4] = *(a1 + 32);
-    v8[5] = v6;
-    sub_100136B44();
-    *(*(*(a1 + 40) + 8) + 24) = sub_1001370C0(*(a1 + 56), v2, v8);
+    v7[4] = *(a1 + 32);
+    v7[5] = v6;
+    sub_100136B44("client %p xpc send -> get port forwarding rules", v6);
+    *(*(*(a1 + 40) + 8) + 24) = sub_1001370C0(*(a1 + 56), v2, v7);
     xpc_release(v2);
   }
 }
@@ -2532,21 +2302,28 @@ void sub_1001341F4(uint64_t a1, void *a2)
 
 void sub_1001342B0(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
-  if (v3)
+  v2 = *(a1 + 40);
+  if (v2)
   {
 
-    xpc_release(v3);
+    xpc_release(v2);
   }
 }
 
-const char *_NETRBIPPortForwardingDictGetDetails(xpc_object_t xdict, _BYTE *a2, _WORD *a3, int a4, void *a5, _WORD *a6)
+const char *_NETRBIPPortForwardingDictGetDetails(xpc_object_t xdict, _BYTE *a2, _WORD *a3, uint64_t a4, void *a5, _WORD *a6)
 {
-  if (!xdict || a4 != 2 && a4 != 30)
+  if (!xdict)
   {
-    goto LABEL_10;
+    sub_100136B00("rule is NULL", a2, a3, a4, a5, a6);
+    return 0;
+  }
+
+  v8 = a4;
+  if (a4 != 2 && a4 != 30)
+  {
+    sub_100136B00("invalid address family %d", a2, a3, a4, a5, a6);
+    return 0;
   }
 
   uint64 = xpc_dictionary_get_uint64(xdict, off_1002983D0);
@@ -2570,17 +2347,16 @@ const char *_NETRBIPPortForwardingDictGetDetails(xpc_object_t xdict, _BYTE *a2, 
     return 0;
   }
 
-  if (xpc_dictionary_get_uint64(xdict, off_1002983E8) != a4)
+  if (xpc_dictionary_get_uint64(xdict, off_1002983E8) != v8)
   {
-LABEL_10:
-    sub_100136B00();
+    sub_100136B00("returned address family %d != %d", v15, v16, v17, v18, v19);
     return 0;
   }
 
   result = xpc_dictionary_get_string(xdict, off_1002983E0);
   if (result)
   {
-    return (inet_pton(a4, result, a5) != 0);
+    return (inet_pton(v8, result, a5) != 0);
   }
 
   return result;
@@ -2588,49 +2364,54 @@ LABEL_10:
 
 uint64_t sub_10013444C(void *a1)
 {
-  if (qword_100298B80 && (Count = CFArrayGetCount(qword_100298B80)) != 0 && (v3 = Count, (v4 = xpc_dictionary_create(0, 0, 0)) != 0))
+  if (!qword_100298B80 || (Count = CFArrayGetCount(qword_100298B80)) == 0)
   {
-    v5 = v4;
-    v6 = netrbClientNotificationKey;
-    uint64 = xpc_dictionary_get_uint64(a1, off_100298368);
-    xpc_dictionary_set_uint64(v5, v6, uint64);
-    if (v3 >= 1)
+    sub_100136B00("received notification but no clients");
+    return 0;
+  }
+
+  v3 = Count;
+  v4 = xpc_dictionary_create(0, 0, 0);
+  if (!v4)
+  {
+    sub_100136B00("xpc_dictionary_create() failed");
+    return 0;
+  }
+
+  v5 = v4;
+  v6 = netrbClientNotificationKey;
+  uint64 = xpc_dictionary_get_uint64(a1, off_100298368);
+  xpc_dictionary_set_uint64(v5, v6, uint64);
+  if (v3 >= 1)
+  {
+    for (i = 0; i != v3; ++i)
     {
-      for (i = 0; i != v3; ++i)
+      ValueAtIndex = CFArrayGetValueAtIndex(qword_100298B80, i);
+      if (ValueAtIndex)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(qword_100298B80, i);
-        if (ValueAtIndex)
+        v10 = ValueAtIndex;
+        if (ValueAtIndex[2])
         {
-          v10 = ValueAtIndex;
-          if (ValueAtIndex[2])
+          if (ValueAtIndex[3])
           {
-            if (ValueAtIndex[3])
-            {
-              xpc_retain(v5);
-              CFRetain(v10);
-              v11 = v10[2];
-              v13[0] = _NSConcreteStackBlock;
-              v13[1] = 0x40000000;
-              v13[2] = sub_1001345BC;
-              v13[3] = &unk_100265540;
-              v13[4] = v10;
-              v13[5] = v5;
-              dispatch_async(v11, v13);
-            }
+            xpc_retain(v5);
+            CFRetain(v10);
+            v11 = v10[2];
+            v13[0] = _NSConcreteStackBlock;
+            v13[1] = 0x40000000;
+            v13[2] = sub_1001345BC;
+            v13[3] = &unk_100265540;
+            v13[4] = v10;
+            v13[5] = v5;
+            dispatch_async(v11, v13);
           }
         }
       }
     }
-
-    xpc_release(v5);
-    return 1;
   }
 
-  else
-  {
-    sub_100136B00();
-    return 0;
-  }
+  xpc_release(v5);
+  return 1;
 }
 
 void sub_1001345BC(uint64_t a1)
@@ -2662,10 +2443,9 @@ uint64_t sub_100134694(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!result)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(*(a1 + 40) + 24) + 16);
+    v3 = *(*(*(a1 + 40) + 24) + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -2679,33 +2459,35 @@ uint64_t sub_100134704(uint64_t a1, void *a2, char a3)
   v14 = 0;
   v6 = sub_10012EA74(a2, 0);
   *(v12 + 24) = v6;
-  if ((v6 & 1) == 0)
+  if (v6)
   {
-    goto LABEL_6;
-  }
+    if (qword_100298BA0 != -1)
+    {
+      sub_1001B0F88();
+    }
 
-  if (qword_100298BA0 != -1)
-  {
-    sub_1001B0F88();
-  }
+    if (qword_100298BA8)
+    {
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 0x40000000;
+      v9[2] = sub_100136410;
+      v9[3] = &unk_100265798;
+      v9[4] = &v11;
+      v9[5] = a1;
+      v9[6] = a2;
+      v10 = a3;
+      dispatch_sync(qword_100298BA8, v9);
+    }
 
-  if (qword_100298BA8)
-  {
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 0x40000000;
-    v9[2] = sub_100136410;
-    v9[3] = &unk_100265798;
-    v9[4] = &v11;
-    v9[5] = a1;
-    v9[6] = a2;
-    v10 = a3;
-    dispatch_sync(qword_100298BA8, v9);
+    else
+    {
+      sub_100136B00("unable to create framework queue");
+    }
   }
 
   else
   {
-LABEL_6:
-    sub_100136B00();
+    sub_100136B00("input xpc dictionary is malformed.");
   }
 
   v7 = *(v12 + 24);
@@ -2735,7 +2517,16 @@ uint64_t _NETRBCreateNetworkConfiguration(unsigned int a1, void *a2)
     *(Instance + 32) = 0u;
     if (a1 >= 2)
     {
-      sub_100136B00();
+      if (a1 == 2)
+      {
+        sub_100136B00("%s SPI doesn't support bridged mode");
+      }
+
+      else
+      {
+        sub_100136B00("%s: invalid operation mode");
+      }
+
       CFRelease(v5);
       v5 = 0;
       result = 6002;
@@ -2755,7 +2546,7 @@ uint64_t _NETRBCreateNetworkConfiguration(unsigned int a1, void *a2)
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("%s: _CFRuntimeCreateInstance", "_NETRBCreateNetworkConfiguration");
     result = 6003;
   }
 
@@ -2763,35 +2554,35 @@ uint64_t _NETRBCreateNetworkConfiguration(unsigned int a1, void *a2)
   return result;
 }
 
-uint64_t _NETRBCreateNetwork(void *a1)
+uint64_t _NETRBCreateNetwork(void *a1, uint64_t a2)
 {
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2000000000;
   v12 = 0;
-  v13 = &v12;
-  v14 = 0x2000000000;
-  v15 = 0;
   v8 = 0;
-  v9 = &v8;
-  v10 = 0x2000000000;
-  v11 = 0;
-  v7 = 0;
-  if (sub_100136A60())
+  if (sub_100136A60(a1, a2))
   {
-    *(v13 + 6) = 6003;
+    *(v14 + 6) = 6003;
   }
 
   else
   {
-    v2 = sub_100134B3C();
-    *(v13 + 6) = v2;
-    if (v2)
+    v3 = sub_100134B3C();
+    *(v14 + 6) = v3;
+    if (v3)
     {
-      sub_100136B00();
+      sub_100136B00("%s: __NETRBNetworkCreateGlobalClient", "_NETRBCreateNetwork");
     }
 
     else
     {
-      _NETRBSerializeNetwork(a1, &v7);
-      *(v13 + 6) = 0;
+      _NETRBSerializeNetwork(a1, &v8);
+      *(v14 + 6) = 0;
       if (qword_100298BA0 != -1)
       {
         sub_1001B0FB0();
@@ -2803,37 +2594,37 @@ uint64_t _NETRBCreateNetwork(void *a1)
         block[1] = 0x40000000;
         block[2] = sub_100134D50;
         block[3] = &unk_100265590;
-        v3 = v7;
+        v4 = v8;
         block[6] = a1;
-        block[7] = v7;
-        block[4] = &v12;
-        block[5] = &v8;
+        block[7] = v8;
+        block[4] = &v13;
+        block[5] = &v9;
         dispatch_sync(qword_100298BA8, block);
-        if ((v9[3] & 1) == 0)
+        if ((v10[3] & 1) == 0)
         {
-          sub_100136B00();
-          *(v13 + 6) = 1;
+          sub_100136B00("%s: failed", "_NETRBCreateNetwork");
+          *(v14 + 6) = 1;
         }
       }
 
       else
       {
-        sub_100136B00();
-        *(v13 + 6) = 6003;
-        v3 = v7;
+        sub_100136B00("%s: unable to create framework queue", "_NETRBCreateNetwork");
+        *(v14 + 6) = 6003;
+        v4 = v8;
       }
 
-      if (v3)
+      if (v4)
       {
-        xpc_release(v3);
+        xpc_release(v4);
       }
     }
   }
 
-  v4 = *(v13 + 6);
-  _Block_object_dispose(&v8, 8);
-  _Block_object_dispose(&v12, 8);
-  return v4;
+  v5 = *(v14 + 6);
+  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v13, 8);
+  return v5;
 }
 
 uint64_t sub_100134B3C()
@@ -2937,7 +2728,7 @@ void sub_100134D50(uint64_t a1)
   v2 = *(a1 + 48);
   if (sub_10012F8BC(qword_100298B88))
   {
-    sub_100136B00();
+    sub_100136B00("%s: invalid network global client", "_NETRBCreateNetwork_block_invoke");
     *(*(*(a1 + 32) + 8) + 24) = 6002;
   }
 
@@ -2968,20 +2759,21 @@ void sub_100134EA0(void *a1, xpc_object_t xdict)
 {
   if (!xdict)
   {
-    goto LABEL_16;
+    sub_100136B00("%s: no response from daemon");
+    goto LABEL_17;
   }
 
   if (xpc_dictionary_get_uint64(xdict, off_1002982B8) != 2001)
   {
     *(*(a1[5] + 8) + 24) = 1;
-    goto LABEL_18;
+    sub_100136B00("%s: interface creation failed");
+    return;
   }
 
   uuid = xpc_dictionary_get_uuid(xdict, off_100298408);
   if (!uuid)
   {
-LABEL_18:
-    sub_100136B00();
+    sub_100136B00("%s: network handle not returned");
     return;
   }
 
@@ -2995,8 +2787,8 @@ LABEL_18:
       goto LABEL_6;
     }
 
-LABEL_16:
-    sub_100136B00();
+    sub_100136B00("%s: network handle mismatch");
+LABEL_17:
     *(*(a1[4] + 8) + 24) = 0;
     return;
   }
@@ -3038,7 +2830,7 @@ uint64_t _NETRBNetworkStartVirtualMachineInterface(void *a1, void *a2, void *a3)
   v30 = 0x2000000000;
   v31 = 0;
   v27 = 0;
-  if (sub_100136A60())
+  if (sub_100136A60(a1, a2))
   {
     goto LABEL_2;
   }
@@ -3047,7 +2839,7 @@ uint64_t _NETRBNetworkStartVirtualMachineInterface(void *a1, void *a2, void *a3)
   *(v33 + 6) = v6;
   if (v6)
   {
-    sub_100136B00();
+    sub_100136B00("%s: __NETRBNetworkCreateGlobalClient", "_NETRBNetworkStartVirtualMachineInterface");
     goto LABEL_5;
   }
 
@@ -3059,7 +2851,7 @@ uint64_t _NETRBNetworkStartVirtualMachineInterface(void *a1, void *a2, void *a3)
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    sub_100136B00();
+    sub_100136B00("%s: _CFRuntimeCreateInstance", "_NETRBNetworkStartVirtualMachineInterface");
 LABEL_2:
     *(v33 + 6) = 6003;
     goto LABEL_5;
@@ -3067,7 +2859,7 @@ LABEL_2:
 
   v10 = Instance;
   *(Instance + 48) = 0;
-  sub_100136B44();
+  sub_100136B44("%s: adding virtual interface to network %p", "_NETRBNetworkStartVirtualMachineInterface", a1);
   if (qword_100298BA0 != -1)
   {
     sub_1001B1028();
@@ -3078,8 +2870,8 @@ LABEL_2:
   {
     v13 = 0;
     v14 = 6003;
+    sub_100136B00("%s: unable to create framework queue");
 LABEL_25:
-    sub_100136B00();
     *(v33 + 6) = v14;
 LABEL_26:
     CFRelease(v10);
@@ -3138,6 +2930,7 @@ LABEL_26:
   if (!*(v29 + 24))
   {
     v14 = 1;
+    sub_100136B00("%s: _NETRBClientNewInterface");
     goto LABEL_25;
   }
 
@@ -3171,7 +2964,7 @@ void sub_100135408(uint64_t a1)
   v2 = *(a1 + 48);
   if (sub_10012F8BC(qword_100298B88))
   {
-    sub_100136B00();
+    sub_100136B00("%s: invalid network global client", "_NETRBNetworkStartVirtualMachineInterface_block_invoke");
     *(*(*(a1 + 32) + 8) + 24) = 6002;
   }
 
@@ -3234,64 +3027,73 @@ void sub_100135408(uint64_t a1)
 
 uint64_t sub_100135678(void *a1, xpc_object_t xdict)
 {
-  if (!xdict)
+  if (xdict)
   {
-    result = sub_100136B00();
+    if (xpc_dictionary_get_uint64(xdict, off_1002982B8) == 2001)
+    {
+      uuid = xpc_dictionary_get_uuid(xdict, off_100298408);
+      if (uuid)
+      {
+        *src = *uuid;
+        is_null = uuid_is_null((a1[6] + 4));
+        v6 = a1[6];
+        if (is_null)
+        {
+          uuid_copy((v6 + 4), src);
+        }
+
+        else if (uuid_compare(src, (v6 + 4)))
+        {
+          sub_100136B00("%s: network handle mismatch", "_NETRBNetworkStartVirtualMachineInterface_block_invoke_2");
+          *(*(a1[4] + 8) + 24) = 0;
+        }
+
+        string = xpc_dictionary_get_string(xdict, off_100298260);
+        if (string)
+        {
+          v9 = a1[7];
+          v15 = 0;
+          v14 = 0;
+          sscanf(string, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx", &v14, &v14 + 1, &v14 + 2, &v14 + 3, &v15, &v15 + 1);
+          v10 = v14;
+          *(v9 + 24) = v15;
+          *(v9 + 20) = v10;
+        }
+
+        v11 = xpc_dictionary_get_uuid(xdict, off_100298258);
+        if (v11)
+        {
+          *(a1[7] + 27) = *v11;
+          *(a1[7] + 26) = 1;
+        }
+
+        *(a1[7] + 16) = xpc_dictionary_dup_fd(xdict, off_100298268);
+        result = xpc_dictionary_get_uint64(xdict, off_100298418);
+        v12 = a1[7];
+        v13 = a1[8];
+        *(v12 + 48) = result;
+        *(v12 + 56) = v13;
+      }
+
+      else
+      {
+        return sub_100136B00("%s: network handle not returned");
+      }
+    }
+
+    else
+    {
+      *(*(a1[5] + 8) + 24) = 1;
+      return sub_100136B00("%s: interface creation failed");
+    }
+  }
+
+  else
+  {
+    result = sub_100136B00("%s: no response from daemon", "_NETRBNetworkStartVirtualMachineInterface_block_invoke_2");
     *(*(a1[4] + 8) + 24) = 0;
-    return result;
   }
 
-  if (xpc_dictionary_get_uint64(xdict, off_1002982B8) != 2001)
-  {
-    *(*(a1[5] + 8) + 24) = 1;
-    return sub_100136B00();
-  }
-
-  uuid = xpc_dictionary_get_uuid(xdict, off_100298408);
-  if (!uuid)
-  {
-    return sub_100136B00();
-  }
-
-  *src = *uuid;
-  is_null = uuid_is_null((a1[6] + 4));
-  v6 = a1[6];
-  if (is_null)
-  {
-    uuid_copy((v6 + 4), src);
-  }
-
-  else if (uuid_compare(src, (v6 + 4)))
-  {
-    sub_100136B00();
-    *(*(a1[4] + 8) + 24) = 0;
-  }
-
-  string = xpc_dictionary_get_string(xdict, off_100298260);
-  if (string)
-  {
-    v9 = a1[7];
-    v15 = 0;
-    v14 = 0;
-    sscanf(string, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx", &v14, &v14 + 1, &v14 + 2, &v14 + 3, &v15, &v15 + 1);
-    v10 = v14;
-    *(v9 + 24) = v15;
-    *(v9 + 20) = v10;
-  }
-
-  v11 = xpc_dictionary_get_uuid(xdict, off_100298258);
-  if (v11)
-  {
-    *(a1[7] + 27) = *v11;
-    *(a1[7] + 26) = 1;
-  }
-
-  *(a1[7] + 16) = xpc_dictionary_dup_fd(xdict, off_100298268);
-  result = xpc_dictionary_get_uint64(xdict, off_100298418);
-  v12 = a1[7];
-  v13 = a1[8];
-  *(v12 + 48) = result;
-  *(v12 + 56) = v13;
   return result;
 }
 
@@ -3317,36 +3119,36 @@ uint64_t _NETRBNetworkSetIPv6Prefix(uint64_t a1, _OWORD *a2, int a3)
   return 0;
 }
 
-uint64_t _NETRBNetworkAddPortForwardingRule(uint64_t a1, char a2, int a3, __int16 a4, __int16 a5)
+uint64_t _NETRBNetworkAddPortForwardingRule(uint64_t a1, char a2, int a3, __int16 a4, __int16 a5, uint64_t a6)
 {
-  v10 = malloc_type_malloc(0x20uLL, 0x10200401B9196EFuLL);
-  v11 = v10;
-  *v10 = 0u;
-  *(v10 + 1) = 0u;
-  *(v10 + 8) = a2;
+  v11 = malloc_type_malloc(0x20uLL, 0x10200401B9196EFuLL);
+  v12 = v11;
+  *v11 = 0u;
+  *(v11 + 1) = 0u;
+  *(v11 + 8) = a2;
   if (a3 == 2 || a3 == 30)
   {
-    *(v10 + 9) = a3;
-    *(v10 + 5) = a4;
-    *(v10 + 6) = a5;
+    *(v11 + 9) = a3;
+    *(v11 + 5) = a4;
+    *(v11 + 6) = a5;
     __memcpy_chk();
-    v12 = 0;
-    *v11 = *(a1 + 144);
-    *(a1 + 144) = v11;
+    v13 = 0;
+    *v12 = *(a1 + 144);
+    *(a1 + 144) = v12;
   }
 
   else
   {
-    sub_100136B00();
-    v12 = 6002;
+    sub_100136B00("%s: invalid address family %u", "_NETRBNetworkAddPortForwardingRule", a3);
+    v13 = 6002;
   }
 
   if (a3 != 2 && a3 != 30)
   {
-    free(v11);
+    free(v12);
   }
 
-  return v12;
+  return v13;
 }
 
 uint64_t _NETRBNetworkAddDHCPReservation(uint64_t a1, int *a2, _DWORD *a3)
@@ -3441,7 +3243,7 @@ uint64_t _NETRBDeserializeNetworkConfig(void *a1, uint64_t a2)
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("%s: invalid serialized network", "_NETRBDeserializeNetworkConfig");
     return 6002;
   }
 
@@ -3469,7 +3271,7 @@ uint64_t _NETRBDeserializeNetwork(void *a1, void *a2)
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("%s: _CFRuntimeCreateInstance", "_NETRBDeserializeNetwork");
     v6 = 6003;
   }
 
@@ -3492,23 +3294,23 @@ __n128 _NETRBNetworkGetIPv6Prefix(uint64_t a1, __n128 *a2, _BYTE *a3)
   return result;
 }
 
-uint64_t sub_100135EA4(uint64_t a1)
+uint64_t sub_100135EA4(void *a1)
 {
-  v2 = *(a1 + 24);
+  v2 = a1[3];
   if (v2)
   {
     _Block_release(v2);
-    *(a1 + 24) = 0;
+    a1[3] = 0;
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
     dispatch_release(v3);
-    *(a1 + 16) = 0;
+    a1[2] = 0;
   }
 
-  return sub_100136B44();
+  return sub_100136B44("releasing client %p", a1);
 }
 
 void sub_100135EFC(id a1)
@@ -3519,8 +3321,8 @@ void sub_100135EFC(id a1)
   if (!qword_100298BA8)
   {
     v1 = __error();
-    strerror(*v1);
-    sub_100136B00();
+    v2 = strerror(*v1);
+    sub_100136B00("creating framework queue failed %s", v2);
   }
 }
 
@@ -3532,8 +3334,8 @@ void sub_100135F9C(id a1)
   if (!qword_100298BB8)
   {
     v1 = __error();
-    strerror(*v1);
-    sub_100136B00();
+    v2 = strerror(*v1);
+    sub_100136B00("creating client XPC queue failed %s", v2);
   }
 }
 
@@ -3545,7 +3347,8 @@ void sub_10013603C(void *a1, xpc_object_t xdict)
     xpc_dictionary_set_string(a1, netrbClientMACAddress, string);
   }
 
-  *v15 = 0uLL;
+  *v15 = 0;
+  *&v15[8] = 0;
   uuid = xpc_dictionary_get_uuid(xdict, off_100298258);
   if (uuid)
   {
@@ -3595,10 +3398,10 @@ void sub_10013603C(void *a1, xpc_object_t xdict)
 
 void sub_100136224(uint64_t a1)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2000000000;
-  v11 = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2000000000;
+  v10 = 0;
   if (qword_100298BA0 != -1)
   {
     sub_1001B1050();
@@ -3608,26 +3411,24 @@ void sub_100136224(uint64_t a1)
   block[1] = 0x40000000;
   block[2] = sub_100136354;
   block[3] = &unk_100265728;
-  block[4] = &v8;
-  v7 = *(a1 + 56);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
+  block[4] = &v7;
+  v6 = *(a1 + 56);
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 48);
   dispatch_sync(qword_100298BA8, block);
-  if (!*(v9 + 6))
+  if (!*(v8 + 6))
   {
-    *(a1 + 56);
-    v2 = *(a1 + 48);
     (*(*(*(a1 + 32) + 24) + 16))();
   }
 
-  v3 = *(a1 + 48);
-  if (v3)
+  v2 = *(a1 + 48);
+  if (v2)
   {
-    xpc_release(v3);
+    xpc_release(v2);
   }
 
   CFRelease(*(a1 + 32));
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v7, 8);
 }
 
 double sub_100136354(uint64_t a1)
@@ -3669,8 +3470,7 @@ uint64_t sub_100136410(uint64_t a1)
 {
   if (sub_10012F8BC(*(a1 + 40)))
   {
-    v5 = *(a1 + 40);
-    result = sub_100136B00();
+    result = sub_100136B00("invalid client %p", *(a1 + 40));
     *(*(*(a1 + 32) + 8) + 24) = 0;
   }
 
@@ -3687,18 +3487,26 @@ uint64_t sub_100136410(uint64_t a1)
       v3 = 1018;
     }
 
-    *(a1 + 56);
+    if (*(a1 + 56))
+    {
+      v4 = "client %p xpc send -> remove low latency flow";
+    }
+
+    else
+    {
+      v4 = "client %p xpc send -> add low latency flow";
+    }
+
     xpc_dictionary_set_uint64(*(a1 + 48), off_100298248, v3);
-    v6 = *(a1 + 40);
-    sub_100136B44();
+    sub_100136B44(v4, *(a1 + 40));
     *(*(*(a1 + 32) + 8) + 24) = 0;
-    v4 = *(a1 + 48);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 0x40000000;
-    v7[2] = sub_100136530;
-    v7[3] = &unk_100265770;
-    v8 = *(a1 + 32);
-    return sub_1001370C0(0, v4, v7);
+    v5 = *(a1 + 48);
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 0x40000000;
+    v6[2] = sub_100136530;
+    v6[3] = &unk_100265770;
+    v7 = *(a1 + 32);
+    return sub_1001370C0(0, v5, v6);
   }
 
   return result;
@@ -3706,22 +3514,29 @@ uint64_t sub_100136410(uint64_t a1)
 
 uint64_t sub_100136530(uint64_t a1, xpc_object_t object)
 {
-  if (object && xpc_get_type(object) == &_xpc_type_dictionary && (value = xpc_dictionary_get_value(object, off_1002982B8)) != 0 && (v6 = value, xpc_get_type(value) == &_xpc_type_uint64))
+  if (object && xpc_get_type(object) == &_xpc_type_dictionary)
   {
-    if (xpc_uint64_get_value(v6) == 2001)
+    value = xpc_dictionary_get_value(object, off_1002982B8);
+    if (value && (v6 = value, xpc_get_type(value) == &_xpc_type_uint64))
     {
-      *(*(*(a1 + 32) + 8) + 24) = 1;
+      if (xpc_uint64_get_value(v6) == 2001)
+      {
+        *(*(*(a1 + 32) + 8) + 24) = 1;
+      }
+    }
+
+    else
+    {
+      sub_100136B00("response does not contain the success status");
     }
   }
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("response is not a dictionary type");
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(*(*(a1 + 32) + 8) + 24);
-  return sub_100136B44();
+  return sub_100136B44("client %p set low latency flow reponse received, result %u", *(a1 + 40), *(*(*(a1 + 32) + 8) + 24));
 }
 
 void *sub_100136628(uint64_t a1)
@@ -3731,7 +3546,7 @@ void *sub_100136628(uint64_t a1)
     value = 0;
     if (sub_10012F8BC(qword_100298B88))
     {
-      sub_100136B00();
+      sub_100136B00("%s: invalid network global client", "__NETRBNetworkRelease");
     }
 
     else
@@ -3809,7 +3624,7 @@ uint64_t sub_100136760(uint64_t a1, uint64_t a2, uint64_t a3)
   if (!result)
   {
     *(*(*(a1 + 32) + 8) + 24) = 6003;
-    return sub_100136B00();
+    return sub_100136B00("%s: _NETRBClientCreate", "__NETRBNetworkCreateGlobalClient_block_invoke");
   }
 
   p_class_meths = (&OBJC_PROTOCOL___CXCallObserverDelegate + 32);
@@ -3822,12 +3637,12 @@ LABEL_10:
 void sub_10013688C(uint64_t a1)
 {
   value = 0;
-  if (sub_10012F8BC(qword_100298B88) || !*(a1 + 56))
+  if (sub_10012F8BC(qword_100298B88))
   {
-    sub_100136B00();
+    sub_100136B00("%s: invalid network global client");
   }
 
-  else
+  else if (*(a1 + 56))
   {
     v2 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_uint64(v2, off_100298248, 0x3FFuLL);
@@ -3857,6 +3672,11 @@ void sub_10013688C(uint64_t a1)
 
     CFRelease(v4);
   }
+
+  else
+  {
+    sub_100136B00("%s: no associated network");
+  }
 }
 
 void sub_100136A10(id a1)
@@ -3875,7 +3695,7 @@ void sub_100136A10(id a1)
   }
 }
 
-uint64_t sub_100136A60()
+uint64_t sub_100136A60(uint64_t a1, uint64_t a2)
 {
   if (qword_100298BF8 != -1)
   {
@@ -3906,32 +3726,32 @@ void sub_100136AA4(id a1)
   }
 }
 
-uint64_t sub_100136BCC(dispatch_queue_t targetq)
+uint64_t sub_100136BCC(dispatch_queue_t targetq, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (qword_100298C10)
   {
-    sub_100136B88();
+    sub_100136B88("xpc endpoint connection already exists", a2, a3, a4, a5, a6, a7, a8, v12);
   }
 
   else
   {
-    v2 = xpc_connection_create(0, targetq);
-    qword_100298C10 = v2;
-    if (!v2)
+    v9 = xpc_connection_create(0, targetq);
+    qword_100298C10 = v9;
+    if (!v9)
     {
-      sub_100136B00();
+      sub_100136B00("unable to create xpc endpoint connection");
       return 0;
     }
 
-    v3 = v2;
-    sub_100136B44();
+    v10 = v9;
+    sub_100136B44("listener connection %p created", v9);
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 0x40000000;
     handler[2] = sub_100136CB4;
     handler[3] = &unk_100265B10;
-    handler[4] = v3;
+    handler[4] = v10;
     handler[5] = targetq;
-    xpc_connection_set_event_handler(v3, handler);
+    xpc_connection_set_event_handler(v10, handler);
     xpc_connection_resume(qword_100298C10);
   }
 
@@ -3944,16 +3764,21 @@ void sub_100136CB4(uint64_t a1, xpc_object_t object)
   v5 = *(a1 + 32);
   if (v5 && (v5 == qword_100298C10 ? (v6 = type == &_xpc_type_error) : (v6 = 0), v6))
   {
-    if (object == &_xpc_error_termination_imminent || object == &_xpc_error_connection_invalid)
+    if (object == &_xpc_error_termination_imminent)
     {
-      sub_100136B44();
+      sub_100136B44("received XPC_ERROR_TERMINATION_IMMINENT for %p");
+    }
+
+    else if (object == &_xpc_error_connection_invalid)
+    {
+      sub_100136B44("XPC_ERROR_CONNECTION_INVALID for %p");
     }
   }
 
   else if (type == &_xpc_type_connection)
   {
     v7 = *(a1 + 40);
-    sub_100136B44();
+    sub_100136B44("new notification connection %p from daemon", object);
     if (qword_100298C20)
     {
       xpc_connection_cancel(qword_100298C20);
@@ -3973,11 +3798,11 @@ void sub_100136CB4(uint64_t a1, xpc_object_t object)
   }
 }
 
-BOOL sub_100136E0C(dispatch_queue_t targetq, uint64_t a2)
+BOOL sub_100136E0C(dispatch_queue_t targetq, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (qword_100298C18)
   {
-    sub_100136B88();
+    sub_100136B88("xpc connection %p to daemon already exists", a2, a3, a4, a5, a6, a7, a8, qword_100298C18);
     return 1;
   }
 
@@ -4000,7 +3825,7 @@ LABEL_8:
     }
 
 LABEL_7:
-    sub_100136B00();
+    sub_100136B00("unable to create connection to daemon %s", off_100298240);
     goto LABEL_8;
   }
 
@@ -4011,7 +3836,7 @@ LABEL_7:
   handler[4] = qword_100298C18;
   handler[5] = a2;
   xpc_connection_set_event_handler(qword_100298C18, handler);
-  sub_100136B44();
+  sub_100136B44("connection %p to daemon created", qword_100298C18);
   xpc_connection_resume(qword_100298C18);
   return qword_100298C18 != 0;
 }
@@ -4033,23 +3858,23 @@ void sub_100136FC4(uint64_t a1)
 {
   if (xpc_get_type(*(a1 + 32)) == &_xpc_type_error)
   {
-    if (*(a1 + 40) == qword_100298C18)
+    v2 = *(a1 + 40);
+    if (v2 == qword_100298C18)
     {
-      v3 = *(a1 + 40);
-      xpc_dictionary_get_string(*(a1 + 32), _xpc_error_key_description);
-      sub_100136B00();
+      string = xpc_dictionary_get_string(*(a1 + 32), _xpc_error_key_description);
+      sub_100136B00("xpc connection %p to daemon error: %s", v2, string);
       sub_100137064();
     }
   }
 
   else
   {
-    sub_100136B00();
+    sub_100136B00("unrecognized event");
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(a1 + 32);
 
-  xpc_release(v2);
+  xpc_release(v4);
 }
 
 BOOL sub_100137064()
@@ -4057,7 +3882,7 @@ BOOL sub_100137064()
   v0 = qword_100298C18;
   if (qword_100298C18)
   {
-    sub_100136B44();
+    sub_100136B44("cleaning up connection %p to daemon", qword_100298C18);
     xpc_connection_cancel(qword_100298C18);
     xpc_release(qword_100298C18);
     qword_100298C18 = 0;
@@ -4066,7 +3891,7 @@ BOOL sub_100137064()
   return v0 != 0;
 }
 
-BOOL sub_1001370C0(NSObject *a1, xpc_object_t xdict, uint64_t a3)
+uint64_t sub_1001370C0(NSObject *a1, xpc_object_t xdict, uint64_t a3)
 {
   if (xpc_dictionary_get_uint64(xdict, off_100298248) == 1000)
   {
@@ -4080,7 +3905,7 @@ BOOL sub_1001370C0(NSObject *a1, xpc_object_t xdict, uint64_t a3)
 
   if (a1)
   {
-    v6 = qword_100298C18 != 0;
+    v13 = qword_100298C18 != 0;
     if (qword_100298C18)
     {
       handler[0] = _NSConcreteStackBlock;
@@ -4093,73 +3918,73 @@ BOOL sub_1001370C0(NSObject *a1, xpc_object_t xdict, uint64_t a3)
 
     else
     {
-      sub_100136B88();
+      sub_100136B88("connection to daemon does not exist", v6, v7, v8, v9, v10, v11, v12, v21);
     }
 
-    return v6;
+    return v13;
   }
 
   if (!qword_100298C18)
   {
-    sub_100136B88();
+    sub_100136B88("connection to daemon does not exist", v6, v7, v8, v9, v10, v11, v12, v21);
     return 0;
   }
 
-  v7 = xpc_connection_send_message_with_reply_sync(qword_100298C18, xdict);
-  v8 = v7;
-  if (v7)
+  v14 = xpc_connection_send_message_with_reply_sync(qword_100298C18, xdict);
+  v15 = v14;
+  if (v14)
   {
-    type = xpc_get_type(v7);
+    type = xpc_get_type(v14);
     if (type != &_xpc_type_error)
     {
-      v10 = type;
+      v17 = type;
       if (type == &_xpc_type_dictionary)
       {
-        if (xpc_dictionary_get_uint64(v8, off_1002982B8) == 2002)
+        if (xpc_dictionary_get_uint64(v15, off_1002982B8) == 2002)
         {
-          sub_100136B00();
+          sub_100136B00("error: aborting XPC connection to daemon");
           sub_100137064();
         }
 
-        v10 = &_xpc_type_dictionary;
+        v17 = &_xpc_type_dictionary;
       }
 
       else
       {
-        sub_100136B00();
+        sub_100136B00("unknown response");
         sub_100137064();
       }
 
       goto LABEL_18;
     }
 
-    xpc_dictionary_get_string(v8, _xpc_error_key_description);
-    sub_100136B00();
+    string = xpc_dictionary_get_string(v15, _xpc_error_key_description);
+    sub_100136B00("xpc_connection_send_message_with_reply_sync() received %s", string);
     sub_100137064();
   }
 
   else
   {
     sub_100137064();
-    sub_100136B00();
+    sub_100136B00("NULL response from xpc_connection_send_message_with_reply_sync");
   }
 
-  v10 = &_xpc_type_error;
+  v17 = &_xpc_type_error;
 LABEL_18:
-  if (v10 == &_xpc_type_dictionary)
+  if (v17 == &_xpc_type_dictionary)
   {
-    v11 = v8;
+    v19 = v15;
   }
 
   else
   {
-    v11 = 0;
+    v19 = 0;
   }
 
-  (*(a3 + 16))(a3, v11);
-  if (v8)
+  (*(a3 + 16))(a3, v19);
+  if (v15)
   {
-    xpc_release(v8);
+    xpc_release(v15);
   }
 
   return 1;
@@ -4170,7 +3995,7 @@ BOOL sub_1001372C0()
   v0 = qword_100298C10;
   if (qword_100298C10)
   {
-    sub_100136B44();
+    sub_100136B44("cleaning up listener connection %p", qword_100298C10);
     xpc_connection_cancel(qword_100298C10);
     xpc_release(qword_100298C10);
     qword_100298C10 = 0;
@@ -4186,7 +4011,7 @@ void sub_10013731C(uint64_t a1, xpc_object_t object)
   if (v5)
   {
     v6 = v5;
-    sub_100136B44();
+    sub_100136B44("received event on notification connection %s", v5);
     free(v6);
   }
 
@@ -4203,9 +4028,8 @@ void sub_10013731C(uint64_t a1, xpc_object_t object)
 
   if (v8 && type == &_xpc_type_error)
   {
-    v11 = *(a1 + 32);
-    xpc_dictionary_get_string(object, _xpc_error_key_description);
-    sub_100136B44();
+    string = xpc_dictionary_get_string(object, _xpc_error_key_description);
+    sub_100136B44("error %p:%s", v7, string);
     xpc_connection_cancel(*(a1 + 32));
     xpc_release(*(a1 + 32));
     qword_100298C20 = 0;
@@ -4232,7 +4056,7 @@ void sub_10013731C(uint64_t a1, xpc_object_t object)
     else
     {
 
-      sub_100136B00();
+      sub_100136B00("unknown event");
     }
   }
 }
@@ -4242,7 +4066,7 @@ uint64_t sub_100137458(uint64_t a1, xpc_object_t object)
   if (!object)
   {
     sub_100137064();
-    sub_100136B00();
+    sub_100136B00("NULL response from xpc_connection_send_message_with_reply()");
     goto LABEL_10;
   }
 
@@ -4253,14 +4077,21 @@ uint64_t sub_100137458(uint64_t a1, xpc_object_t object)
     {
       goto LABEL_10;
     }
+
+    sub_100136B00("error: aborting XPC connection to daemon");
   }
 
   else if (type == &_xpc_type_error)
   {
     xpc_dictionary_get_string(object, _xpc_error_key_description);
+    sub_100136B00("error: %s");
   }
 
-  sub_100136B00();
+  else
+  {
+    sub_100136B00("unknown response");
+  }
+
   sub_100137064();
 LABEL_10:
   v5 = *(*(a1 + 32) + 16);
@@ -6530,7 +6361,7 @@ void sub_10013CDF8(uint64_t a1)
     goto LABEL_24;
   }
 
-  sub_100010974(a1);
+  sub_100010974();
   if (!v2)
   {
     v7 = objc_autoreleasePoolPush();
@@ -6640,7 +6471,7 @@ LABEL_29:
   }
 
   CFDictionarySetValue(MutableCopy, @"LQM_UPDATE_INTERVAL", v8);
-  v9 = sub_100063814(*(a1 + 32));
+  v9 = sub_100063814(*(a1 + 32), MutableCopy);
   v10 = v9;
   if (a2 >= 1.0 && !v9)
   {
@@ -6719,7 +6550,7 @@ void sub_10013D1C4(uint64_t a1)
     return;
   }
 
-  sub_100010974(a1);
+  sub_100010974();
   if (!v3)
   {
     v15 = objc_autoreleasePoolPush();
@@ -6945,7 +6776,7 @@ void sub_10013D628(uint64_t a1)
   v14 = 3;
   if (a1)
   {
-    sub_100010974(a1);
+    sub_100010974();
     if (v2)
     {
       if (*(v1 + 16) == 2)
@@ -7144,7 +6975,7 @@ void sub_10013DAA0(uint64_t a1)
 {
   if (a1)
   {
-    sub_100010974(a1);
+    sub_100010974();
     if (v4)
     {
       v5 = v2;
@@ -7294,7 +7125,7 @@ void sub_10013DD6C(uint64_t a1, unint64_t a2)
 
           objc_autoreleasePoolPop(v5);
           v6 = sub_100008BAC(8);
-          sub_100140BCC(v6, v7);
+          sub_100140BCC(v6, v7, 1);
           [+[WiFiUsageMonitor sharedInstance](WiFiUsageMonitor addFaultEvent:"addFaultEvent:forInterface:" forInterface:18, *(a1 + 40)];
         }
       }
@@ -7350,43 +7181,43 @@ void sub_10013DED0()
     if (v1)
     {
       *(v0 + 48) = CFRetain(v1);
-      v7 = *(v0 + 576);
-      if (v7)
+      v8 = *(v0 + 576);
+      if (v8)
       {
-        v8 = v7(v0, v1, *(v0 + 584));
+        v9 = v8(v0, v1, *(v0 + 584));
       }
 
       else
       {
-        v8 = 0;
+        v9 = 0;
       }
 
-      *(v0 + 230) = v8;
-      v10 = sub_100014000(v1);
-      if (v10)
+      *(v0 + 230) = v9;
+      v11 = sub_100014000(v1, v7);
+      if (v11)
       {
-        CFNumberGetValue(v10, kCFNumberSInt32Type, &valuePtr);
+        CFNumberGetValue(v11, kCFNumberSInt32Type, &valuePtr);
       }
 
-      v11 = sub_100018030(v1);
-      v12 = v11;
+      v12 = sub_100018030(v1);
+      v13 = v12;
       if (v3)
       {
-        [v3 setLinkUpWithBSSEnvironment:*(v0 + 230) band:v11 roam:v6 inCharging:*(v0 + 2800) != 0 motionState:*(v0 + 2784)];
+        [v3 setLinkUpWithBSSEnvironment:*(v0 + 230) band:v12 roam:v6 inCharging:*(v0 + 2800) != 0 motionState:*(v0 + 2784)];
       }
 
-      if (v12 == 1 && *(v0 + 230) > 2)
+      if (v13 == 1 && *(v0 + 230) > 2)
       {
         *(v0 + 2852) = 1;
         *(v0 + 2848) |= 1u;
         *(v0 + 2844) = sub_1000333E8(v1, @"RSSI");
-        v13 = objc_autoreleasePoolPush();
+        v14 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
-          [off_100298C40 WFLog:3 message:{"Reassoc Needed. linkUpRssi (%d) Current band (%d) Env (%d) ", *(v0 + 2844), v12, *(v0 + 230)}];
+          [off_100298C40 WFLog:3 message:{"Reassoc Needed. linkUpRssi (%d) Current band (%d) Env (%d) ", *(v0 + 2844), v13, *(v0 + 230)}];
         }
 
-        objc_autoreleasePoolPop(v13);
+        objc_autoreleasePoolPop(v14);
       }
 
       else
@@ -7394,19 +7225,19 @@ void sub_10013DED0()
         *(v0 + 2852) = 0;
       }
 
-      v14 = objc_autoreleasePoolPush();
+      v15 = objc_autoreleasePoolPush();
       *(v0 + 56) = 0;
-      v15 = *(v0 + 48);
-      if (v15)
+      v16 = *(v0 + 48);
+      if (v16)
       {
-        v16 = sub_10000A540(v15, @"BSSID");
+        v17 = sub_10000A540(v16, @"BSSID");
         if (+[WiFiAnalyticsManager sharedWiFiAnalyticsManager](WiFiAnalyticsManager, "sharedWiFiAnalyticsManager") && [+[WiFiAnalyticsManager sharedWiFiAnalyticsManager](WiFiAnalyticsManager "sharedWiFiAnalyticsManager")])
         {
           *(v0 + 56) = [objc_msgSend(objc_msgSend(+[WiFiAnalyticsManager sharedWiFiAnalyticsManager](WiFiAnalyticsManager "sharedWiFiAnalyticsManager")];
         }
 
         Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
-        v18 = Mutable;
+        v19 = Mutable;
         if (Mutable)
         {
           if (*(v0 + 56))
@@ -7416,66 +7247,66 @@ void sub_10013DED0()
 
           if (*(v0 + 616))
           {
-            CFStringAppendFormat(v18, 0, @" colocatedScope networks %lu ", *(v0 + 616));
+            CFStringAppendFormat(v19, 0, @" colocatedScope networks %lu ", *(v0 + 616));
           }
         }
       }
 
       else
       {
-        v18 = 0;
+        v19 = 0;
       }
 
-      objc_autoreleasePoolPop(v14);
-      v19 = CWFGetLinkQualityOSLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      objc_autoreleasePoolPop(v15);
+      v20 = CWFGetLinkQualityOSLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         if (v6)
         {
-          v20 = "Roamed";
+          v21 = "Roamed";
         }
 
         else
         {
-          v20 = "Joined";
+          v21 = "Joined";
         }
 
-        v21 = sub_1001784B0(v1);
-        v22 = sub_10017850C(v1);
-        v23 = sub_100034EEC(v1, @"RSSI");
-        v24 = valuePtr;
-        v25 = sub_10000F2A0(*(v0 + 230));
-        v26 = *(v0 + 230);
-        v27 = &stru_1002680F8;
+        v22 = sub_1001784B0(v1);
+        v23 = sub_10017850C(v1);
+        v24 = sub_100034EEC(v1, @"RSSI");
+        v25 = valuePtr;
+        v26 = sub_10000F2A0(*(v0 + 230));
+        v27 = *(v0 + 230);
+        v28 = &stru_1002680F8;
         *buf = 136317186;
-        v30 = "__WiFiLQAMgrSetCurrentNetwork";
-        if (v18)
+        v31 = "__WiFiLQAMgrSetCurrentNetwork";
+        if (v19)
         {
-          v27 = v18;
+          v28 = v19;
         }
 
-        v31 = 2080;
-        v32 = v20;
-        v33 = 2114;
-        v34 = v21;
-        v35 = 2114;
-        v36 = v22;
-        v37 = 2048;
-        v38 = v23;
-        v39 = 1024;
-        v40 = v24;
-        v41 = 2112;
-        v42 = v25;
-        v43 = 1024;
-        v44 = v26;
-        v45 = 2112;
-        v46 = v27;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s: %s SSID: %{public}@ BSSID: %{public}@ RSSI: %ld Chan: %d ApEnv: %@(%d) %@", buf, 0x54u);
+        v32 = 2080;
+        v33 = v21;
+        v34 = 2114;
+        v35 = v22;
+        v36 = 2114;
+        v37 = v23;
+        v38 = 2048;
+        v39 = v24;
+        v40 = 1024;
+        v41 = v25;
+        v42 = 2112;
+        v43 = v26;
+        v44 = 1024;
+        v45 = v27;
+        v46 = 2112;
+        v47 = v28;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s: %s SSID: %{public}@ BSSID: %{public}@ RSSI: %ld Chan: %d ApEnv: %@(%d) %@", buf, 0x54u);
       }
 
-      if (v18)
+      if (v19)
       {
-        CFRelease(v18);
+        CFRelease(v19);
       }
     }
 
@@ -7493,10 +7324,10 @@ void sub_10013DED0()
       }
 
       *(v0 + 616) = 0;
-      v9 = *(v0 + 624);
-      if (v9)
+      v10 = *(v0 + 624);
+      if (v10)
       {
-        CFRelease(v9);
+        CFRelease(v10);
         *(v0 + 624) = 0;
       }
     }
@@ -7626,31 +7457,31 @@ void sub_10013E4AC(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4, int a5)
         a4 = CWFGetLinkQualityOSLog();
         if (os_log_type_enabled(a4, OS_LOG_TYPE_DEFAULT))
         {
-          v56 = sub_100058CA4(a5);
-          v55 = sub_1001784B0(*(a1 + 48));
-          v37 = sub_10017850C(*(a1 + 48));
-          v53 = *(a1 + 2804);
-          v54 = *(a1 + 2856);
-          v38 = sub_10000F2A0(*(a1 + 230));
-          v39 = *(a1 + 230);
+          v54 = sub_100058CA4(a5);
+          v53 = sub_1001784B0(*(a1 + 48));
+          v36 = sub_10017850C(*(a1 + 48));
+          v51 = *(a1 + 2804);
+          v52 = *(a1 + 2856);
+          v37 = sub_10000F2A0(*(a1 + 230));
+          v38 = *(a1 + 230);
           valuePtr = 136317186;
-          v58 = "WiFiLQAMgrLinkStateNotify";
-          v59 = 2112;
-          v60 = v56;
-          v61 = 1024;
-          v62 = a5;
+          v56 = "WiFiLQAMgrLinkStateNotify";
+          v57 = 2112;
+          v58 = v54;
+          v59 = 1024;
+          v60 = a5;
+          v61 = 2114;
+          v62 = v53;
           v63 = 2114;
-          v64 = v55;
-          v65 = 2114;
-          v66 = v37;
+          v64 = v36;
+          v65 = 1024;
+          v66 = v51;
           v67 = 1024;
-          v68 = v53;
-          v69 = 1024;
-          v70 = v54;
-          v71 = 2112;
+          v68 = v52;
+          v69 = 2112;
+          v70 = v37;
+          v71 = 1024;
           v72 = v38;
-          v73 = 1024;
-          v74 = v39;
           _os_log_impl(&_mh_execute_header, a4, OS_LOG_TYPE_DEFAULT, "%s: Disconnected (%@:code=%d) SSID: %{public}@ BSSID: %{public}@ RSSI: %d Chan: %d ApEnv: %@(%d)", &valuePtr, 0x4Cu);
         }
       }
@@ -7658,11 +7489,11 @@ void sub_10013E4AC(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4, int a5)
       if (*(a1 + 1312))
       {
         sub_100053F70((a1 + 1312));
-        v40 = objc_autoreleasePoolPush();
-        v41 = sub_1000038E8();
-        if (v41)
+        v39 = objc_autoreleasePoolPush();
+        v40 = sub_1000038E8();
+        if (v40)
         {
-          [v41 WFLog:4 message:{"%s: submittotalRecords %d", "WiFiLQAMgrLinkStateNotify", *(a1 + 1312)}];
+          [v40 WFLog:4 message:{"%s: submittotalRecords %d", "WiFiLQAMgrLinkStateNotify", *(a1 + 1312)}];
         }
 
         objc_autoreleasePoolPop(a4);
@@ -7680,32 +7511,32 @@ void sub_10013E4AC(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4, int a5)
       *(a1 + 3264) = 0;
       *(a1 + 288) = 0;
       *(a1 + 20) = 0;
-      v42 = objc_autoreleasePoolPush();
+      v41 = objc_autoreleasePoolPush();
       if (sub_1000038E8())
       {
         sub_10002AC9C();
         if (!v18 & v17)
         {
-          v45 = @"Bogus";
+          v44 = @"Bogus";
         }
 
         else
         {
-          v45 = *(&off_10025F018 + v44);
+          v44 = *(&off_10025F018 + v43);
         }
 
-        [v43 WFLog:3 message:{"%s: %@", "__WiFiLQAMgrSetState", v45}];
+        [v42 WFLog:3 message:{"%s: %@", "__WiFiLQAMgrSetState", v44}];
       }
 
       objc_autoreleasePoolPop(a4);
-      v46 = sub_10004B86C();
+      v45 = sub_10004B86C();
       if (!v18)
       {
         +[WiFiUsageMonitor sharedInstance];
         sub_100034F84();
         if (!v18)
         {
-          v47 = CFAbsoluteTimeGetCurrent() - *(a1 + 144);
+          CFAbsoluteTimeGetCurrent();
         }
 
         [sub_10001DB70() setTdLogic_end:13 evalTime:? rssi:? roamTime:? forInterface:?];
@@ -7715,28 +7546,28 @@ void sub_10013E4AC(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4, int a5)
       *(a1 + 400) = 0;
       sub_100024EBC(*(a1 + 344));
       sub_100024EBC(*(a1 + 552));
-      v48 = *(a1 + 2912);
-      if (v48)
+      v46 = *(a1 + 2912);
+      if (v46)
       {
-        sub_100024EBC(v48);
+        sub_100024EBC(v46);
       }
 
       *(a1 + 2920) = 0;
       *(a1 + 364) = 0;
       sub_10013E2D4(a1, *(a1 + 384));
-      v49 = *(a1 + 384);
-      if (v49)
+      v47 = *(a1 + 384);
+      if (v47)
       {
-        CFRelease(v49);
+        CFRelease(v47);
         *(a1 + 384) = 0;
       }
 
       *(a1 + 365) = 0;
       sub_10013E2D4(a1, *(a1 + 392));
-      v50 = *(a1 + 392);
-      if (v50)
+      v48 = *(a1 + 392);
+      if (v48)
       {
-        CFRelease(v50);
+        CFRelease(v48);
         *(a1 + 392) = 0;
       }
 
@@ -7745,10 +7576,10 @@ void sub_10013E4AC(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4, int a5)
       sub_100008684();
       sub_10013DED0();
       *(a1 + 1304) = 0;
-      v51 = sub_10004B878();
+      v49 = sub_10004B878();
       if (!v18)
       {
-        *(a1 + 200) = v11 - v51;
+        *(a1 + 200) = v11 - v49;
       }
 
       *(a1 + 192) = 0;
@@ -7845,7 +7676,7 @@ LABEL_24:
           sub_100034F84();
           if (!v18)
           {
-            v30 = CFAbsoluteTimeGetCurrent() - *(a1 + 144);
+            CFAbsoluteTimeGetCurrent();
           }
 
           [sub_10001DB70() setTdLogic_end:14 evalTime:? rssi:? roamTime:? forInterface:?];
@@ -7869,10 +7700,10 @@ LABEL_24:
       sub_100024EBC(*(a1 + 552));
       *(a1 + 364) = 0;
       sub_10013E2D4(a1, *(a1 + 384));
-      v31 = *(a1 + 384);
-      if (v31)
+      v30 = *(a1 + 384);
+      if (v30)
       {
-        CFRelease(v31);
+        CFRelease(v30);
         *(a1 + 384) = 0;
       }
 
@@ -7883,10 +7714,10 @@ LABEL_24:
         *(a1 + 72) = CFAbsoluteTimeGetCurrent();
       }
 
-      v32 = sub_10004B878();
+      v31 = sub_10004B878();
       if (!v18)
       {
-        *(a1 + 200) = v11 - v32;
+        *(a1 + 200) = v11 - v31;
       }
 
       *(a1 + 192) = 0;
@@ -7912,46 +7743,46 @@ LABEL_48:
         }
 
         valuePtr = -1431655766;
-        v33 = sub_10000A540(a2, @"WiFiNetworkTDOverrideCount");
-        if (!v33)
+        v32 = sub_10000A540(a2, @"WiFiNetworkTDOverrideCount");
+        if (!v32)
         {
           goto LABEL_56;
         }
 
-        CFNumberGetValue(v33, kCFNumberSInt32Type, &valuePtr);
+        CFNumberGetValue(v32, kCFNumberSInt32Type, &valuePtr);
         if (valuePtr < 3)
         {
           goto LABEL_56;
         }
 
-        v34 = objc_autoreleasePoolPush();
+        v33 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
           [off_100298C40 WFLog:3 message:{"%s: Turning off asserive TD, user override count %u\n", "WiFiLQAMgrLinkStateNotify", valuePtr}];
         }
 
-        objc_autoreleasePoolPop(v34);
+        objc_autoreleasePoolPop(v33);
       }
 
       *(a1 + 3257) = 0;
 LABEL_56:
-      v35 = objc_autoreleasePoolPush();
+      v34 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
         if (*(a1 + 3257))
         {
-          v36 = "enabled";
+          v35 = "enabled";
         }
 
         else
         {
-          v36 = "disabled";
+          v35 = "disabled";
         }
 
-        [off_100298C40 WFLog:2 message:{"%s: Assertive TD %s\n", "WiFiLQAMgrLinkStateNotify", v36}];
+        [off_100298C40 WFLog:2 message:{"%s: Assertive TD %s\n", "WiFiLQAMgrLinkStateNotify", v35}];
       }
 
-      objc_autoreleasePoolPop(v35);
+      objc_autoreleasePoolPop(v34);
       return;
     }
 
@@ -7976,13 +7807,13 @@ LABEL_56:
     goto LABEL_19;
   }
 
-  v52 = objc_autoreleasePoolPush();
+  v50 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
     [off_100298C40 WFLog:4 message:{"%s: curNetwork is NULL in Event %d", "WiFiLQAMgrLinkStateNotify", a3}];
   }
 
-  objc_autoreleasePoolPop(v52);
+  objc_autoreleasePoolPop(v50);
 }
 
 void sub_10013EC1C(uint64_t a1, uint64_t a2)
@@ -8037,7 +7868,7 @@ void sub_10013EC1C(uint64_t a1, uint64_t a2)
   }
 }
 
-_WORD *sub_10013ED7C(_WORD *result, const __CFDictionary *a2, unsigned int a3, int a4, int a5, int a6, int a7, int a8)
+_WORD *sub_10013ED7C(_WORD *result, const __CFDictionary *a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
   value = 0;
   number = 0;
@@ -8305,7 +8136,7 @@ BOOL sub_10013F1C0(_BOOL8 result)
     else
     {
       v9 = sub_100008BAC(7);
-      sub_100140BCC(v9, v10);
+      sub_100140BCC(v9, v10, 1);
     }
 
     v5 = v1[128];
@@ -8323,9 +8154,9 @@ BOOL sub_10013F1C0(_BOOL8 result)
   return result;
 }
 
-void sub_10013F2CC(uint64_t a1)
+void sub_10013F2CC(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     v2 = objc_autoreleasePoolPush();
     if (off_100298C40)
@@ -8334,15 +8165,15 @@ void sub_10013F2CC(uint64_t a1)
     }
 
     objc_autoreleasePoolPop(v2);
-    *(a1 + 512) = 50;
-    *(a1 + 532) = 0xFFFF;
-    sub_10013F368(a1);
+    *(result + 512) = 50;
+    *(result + 532) = 0xFFFF;
+    sub_10013F368(result);
 
-    sub_10013F5B4(a1, 0);
+    sub_10013F5B4(result, 0);
   }
 }
 
-void sub_10013F368(uint64_t a1)
+void sub_10013F368(uint64_t *a1)
 {
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!Mutable)
@@ -8351,7 +8182,7 @@ void sub_10013F368(uint64_t a1)
   }
 
   v4 = Mutable;
-  v5 = sub_10001EC30(Mutable, v3, (a1 + 520));
+  v5 = sub_10001EC30(Mutable, v3, a1 + 65);
   if (!v5)
   {
     v22 = v4;
@@ -8362,7 +8193,7 @@ LABEL_23:
   }
 
   v7 = v5;
-  v8 = sub_10001EC30(v5, v6, (a1 + 524));
+  v8 = sub_10001EC30(v5, v6, a1 + 524);
   v10 = v8;
   if (!v8)
   {
@@ -8370,7 +8201,7 @@ LABEL_23:
     goto LABEL_29;
   }
 
-  v11 = sub_10001EC30(v8, v9, (a1 + 528));
+  v11 = sub_10001EC30(v8, v9, a1 + 66);
   v13 = v11;
   if (!v11)
   {
@@ -8379,7 +8210,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v14 = sub_10001EC30(v11, v12, (a1 + 500));
+  v14 = sub_10001EC30(v11, v12, a1 + 500);
   v16 = v14;
   if (!v14)
   {
@@ -8388,7 +8219,7 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v17 = sub_10001EC30(v14, v15, (a1 + 532));
+  v17 = sub_10001EC30(v14, v15, a1 + 532);
   v19 = v17;
   if (!v17)
   {
@@ -8397,7 +8228,7 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v20 = sub_10001EC30(v17, v18, (a1 + 508));
+  v20 = sub_10001EC30(v17, v18, a1 + 508);
   v22 = v20;
   if (!v20)
   {
@@ -8406,7 +8237,7 @@ LABEL_32:
     goto LABEL_12;
   }
 
-  v23 = sub_10001EC30(v20, v21, (a1 + 512));
+  v23 = sub_10001EC30(v20, v21, a1 + 64);
   if (v23)
   {
     CFDictionarySetValue(v4, @"IO80211DPSSymptomsInputARPFail", v7);
@@ -8424,7 +8255,7 @@ LABEL_32:
     }
 
     objc_autoreleasePoolPop(v27);
-    sub_100006F94(*(a1 + 32), *(a1 + 40), 487, 0, v4);
+    sub_100006F94(a1[4], a1[5], 487, 0, v4);
   }
 
 LABEL_12:
@@ -8484,10 +8315,10 @@ void sub_10013F5B4(uint64_t a1, int a2)
 
 uint64_t sub_10013F648(uint64_t a1, const __CFDictionary *a2)
 {
-  v144 = 0;
-  v145 = 0;
+  v119 = 0;
+  v120 = 0;
   result = 4294963396;
-  v143 = 0;
+  v118 = 0;
   if (!a1 || !a2)
   {
     return result;
@@ -8496,128 +8327,128 @@ uint64_t sub_10013F648(uint64_t a1, const __CFDictionary *a2)
   v5 = sub_10001ED70(4294963396, @"trgDiscEnable");
   if (v5)
   {
-    v5 = v144;
+    v5 = v119;
   }
 
   v6 = sub_10001ED70(v5, @"trgDiscMonitorOnlyMode");
   if (v6)
   {
-    v6 = v144;
+    v6 = v119;
   }
 
   v7 = sub_1000114EC(v6, @"trgDiscPoorRssiThres");
   if (v7)
   {
-    v7 = v145;
+    v7 = v120;
   }
 
   v8 = sub_1000114EC(v7, @"trgDiscRssiHysterisis");
   if (v8)
   {
-    v8 = v145;
+    v8 = v120;
   }
 
   v9 = sub_1000114EC(v8, @"trgDiscAjoinRssiHysterisis");
   if (v9)
   {
-    v9 = v145;
+    v9 = v120;
   }
 
   v10 = sub_1000114EC(v9, @"trgDiscNumActiveProbes");
   if (v10)
   {
-    v10 = v145;
+    v10 = v120;
   }
 
   v11 = sub_1000114EC(v10, @"trgDiscActiveProbePer");
   if (v11)
   {
-    v11 = v145;
+    v11 = v120;
   }
 
   v12 = sub_10001ED70(v11, @"trgDiscCcaSigEnable");
   if (v12)
   {
-    v12 = v144;
+    v12 = v119;
   }
 
   v13 = sub_1000114EC(v12, @"trgDiscCcaThres");
   if (v13)
   {
-    v13 = v145;
+    v13 = v120;
   }
 
   v14 = sub_1000114EC(v13, @"trgDiscRapidLqmEnable");
   if (v14)
   {
-    v14 = v145;
+    v14 = v120;
   }
 
   v15 = sub_10001ED70(v14, @"trgDiscGwArpSigEnable");
   if (v15)
   {
-    v15 = v144;
+    v15 = v119;
   }
 
   v16 = sub_10001ED70(v15, @"trgDiscActProbeSigEnable");
   if (v16)
   {
-    v16 = v144;
+    v16 = v119;
   }
 
   v17 = sub_10001ED70(v16, @"trgDiscSympSigEnable");
   if (v17)
   {
-    v17 = v144;
+    v17 = v119;
   }
 
   v18 = sub_1000114EC(v17, @"trgDiscSympFailCreditThres");
   if (v18)
   {
-    v18 = v145;
+    v18 = v120;
   }
 
   v19 = sub_1000114EC(v18, @"trgDiscMode");
   if (v19)
   {
-    v19 = v145;
+    v19 = v120;
   }
 
   v20 = sub_10001ED70(v19, @"trgDiscLoggingEnable");
   if (v20)
   {
-    v20 = v144;
+    v20 = v119;
   }
 
   v21 = sub_10001ED70(v20, @"trgDiscTxPerSigEnable");
   if (v21)
   {
-    v21 = v144;
+    v21 = v119;
   }
 
   ValueIfPresent = sub_10001ED70(v21, @"trgDiscFwTxPerSigEnable");
   if (ValueIfPresent)
   {
-    ValueIfPresent = v144;
-    if (v144)
+    ValueIfPresent = v119;
+    if (v119)
     {
-      v23 = CFEqual(v144, kCFBooleanTrue);
-      v141 = 0;
+      v23 = CFEqual(v119, kCFBooleanTrue);
+      v116 = 0;
       value = 0;
-      v140 = 0;
+      v115 = 0;
       number = 0;
       valuePtr = 0;
-      v139 = 0;
-      v135 = 0;
-      v136 = 0;
-      if (!CFDictionaryGetValueIfPresent(a2, @"trgDiscTblIndex", &value) || !CFDictionaryGetValueIfPresent(a2, @"trgDiscFwTxPerThres", &v141) || !CFDictionaryGetValueIfPresent(a2, @"trgDiscMinFwTxFrames", &v140) || !value || !v141 || !v140)
+      v114 = 0;
+      v110 = 0;
+      v111 = 0;
+      if (!CFDictionaryGetValueIfPresent(a2, @"trgDiscTblIndex", &value) || !CFDictionaryGetValueIfPresent(a2, @"trgDiscFwTxPerThres", &v116) || !CFDictionaryGetValueIfPresent(a2, @"trgDiscMinFwTxFrames", &v115) || !value || !v116 || !v115)
       {
 LABEL_129:
-        v99 = objc_autoreleasePoolPush();
-        v100 = sub_10001D1AC();
-        if (v100)
+        v93 = objc_autoreleasePoolPush();
+        v94 = sub_10001D1AC();
+        if (v94)
         {
-          [v100 WFLog:4 message:{"%s: TrgDiscTxPerThres - Missing Params\n", "WiFiLQAMgrSetTrgDiscParams", v102}];
+          [v94 WFLog:4 message:{"%s: TrgDiscTxPerThres - Missing Params\n", "WiFiLQAMgrSetTrgDiscParams", v96}];
         }
 
 LABEL_131:
@@ -8625,12 +8456,12 @@ LABEL_131:
         return 0;
       }
 
-      CFNumberGetValue(value, kCFNumberIntType, &v139);
-      CFNumberGetValue(v141, kCFNumberIntType, &v136 + 4);
-      CFNumberGetValue(v140, kCFNumberIntType, &v136);
+      CFNumberGetValue(value, kCFNumberIntType, &v114);
+      CFNumberGetValue(v116, kCFNumberIntType, &v111 + 4);
+      CFNumberGetValue(v115, kCFNumberIntType, &v111);
       if (CFDictionaryGetValueIfPresent(a2, @"trgDiscTxPerThres", &number) && number)
       {
-        CFNumberGetValue(number, kCFNumberIntType, &v135 + 4);
+        CFNumberGetValue(number, kCFNumberIntType, &v110 + 4);
       }
 
       ValueIfPresent = CFDictionaryGetValueIfPresent(a2, @"trgDiscMinTxFrames", &valuePtr);
@@ -8639,20 +8470,20 @@ LABEL_131:
         ValueIfPresent = valuePtr;
         if (valuePtr)
         {
-          ValueIfPresent = CFNumberGetValue(valuePtr, kCFNumberIntType, &v135);
+          ValueIfPresent = CFNumberGetValue(valuePtr, kCFNumberIntType, &v110);
         }
       }
 
-      if (v139 == 2)
+      if (v114 == 2)
       {
         *(a1 + 1168) = v23;
-        v36 = SHIDWORD(v136);
-        *(a1 + 1172) = v136;
+        v36 = SHIDWORD(v111);
+        *(a1 + 1172) = v111;
         *&v36 = v36 * 0.01;
         *(a1 + 1176) = LODWORD(v36);
         if (number)
         {
-          *(a1 + 1184) = sub_10004B810(0.01, ValueIfPresent, v24, v25, v26, v27, v28, v29, v30, v101, v102, v103, v104, v105, v108, v111, v114, v117, v120, v123, v126, v129, v131, v133, v135, SHIDWORD(v135));
+          *(a1 + 1184) = sub_10004B810(0.01, ValueIfPresent, v24, v25, v26, v27, v28, v29, v30, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, SHIDWORD(v110));
         }
 
         if (valuePtr)
@@ -8662,16 +8493,16 @@ LABEL_131:
         }
       }
 
-      else if (v139 == 1)
+      else if (v114 == 1)
       {
         *(a1 + 1004) = v23;
-        v35 = SHIDWORD(v136);
-        *(a1 + 1008) = v136;
+        v35 = SHIDWORD(v111);
+        *(a1 + 1008) = v111;
         *&v35 = v35 * 0.01;
         *(a1 + 1012) = LODWORD(v35);
         if (number)
         {
-          *(a1 + 1020) = sub_10004B810(0.01, ValueIfPresent, v24, v25, v26, v27, v28, v29, v30, v101, v102, v103, v104, v105, v108, v111, v114, v117, v120, v123, v126, v129, v131, v133, v135, SHIDWORD(v135));
+          *(a1 + 1020) = sub_10004B810(0.01, ValueIfPresent, v24, v25, v26, v27, v28, v29, v30, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, SHIDWORD(v110));
         }
 
         if (valuePtr)
@@ -8683,7 +8514,7 @@ LABEL_131:
 
       else
       {
-        if (v139)
+        if (v114)
         {
           v33 = objc_autoreleasePoolPush();
           v34 = sub_10001D1AC();
@@ -8696,20 +8527,20 @@ LABEL_131:
         }
 
         *(a1 + 796) = v23;
-        v31 = SHIDWORD(v136);
-        *(a1 + 800) = v136;
+        v31 = SHIDWORD(v111);
+        *(a1 + 800) = v111;
         *&v31 = v31 * 0.01;
         *(a1 + 804) = LODWORD(v31);
         if (number)
         {
-          *(a1 + 812) = sub_10004B810(0.01, ValueIfPresent, v24, v25, v26, v27, v28, v29, v30, v101, v102, v103, v104, v105, v108, v111, v114, v117, v120, v123, v126, v129, v131, v133, v135, SHIDWORD(v135));
+          *(a1 + 812) = sub_10004B810(0.01, ValueIfPresent, v24, v25, v26, v27, v28, v29, v30, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, SHIDWORD(v110));
         }
 
         if (valuePtr)
         {
           v32 = 808;
 LABEL_68:
-          *(a1 + v32) = v135;
+          *(a1 + v32) = v110;
         }
       }
     }
@@ -8718,34 +8549,34 @@ LABEL_68:
   v37 = sub_10001ED70(ValueIfPresent, @"trgDiscBcnPerSigEnable");
   if (v37)
   {
-    if (v144)
+    if (v119)
     {
-      v38 = CFEqual(v144, kCFBooleanTrue);
-      v141 = 0;
+      v38 = CFEqual(v119, kCFBooleanTrue);
+      v116 = 0;
       value = 0;
-      LODWORD(v140) = 0;
+      LODWORD(v115) = 0;
       LODWORD(valuePtr) = 0;
       if (CFDictionaryGetValueIfPresent(a2, @"trgDiscBcnPerThres", &value))
       {
-        if (CFDictionaryGetValueIfPresent(a2, @"trgDiscMinBcnSched", &v141))
+        if (CFDictionaryGetValueIfPresent(a2, @"trgDiscMinBcnSched", &v116))
         {
           v37 = value;
-          if (value && v141)
+          if (value && v116)
           {
-            CFNumberGetValue(value, kCFNumberIntType, &v140);
-            v39 = CFNumberGetValue(v141, kCFNumberIntType, &valuePtr);
+            CFNumberGetValue(value, kCFNumberIntType, &v115);
+            v39 = CFNumberGetValue(v116, kCFNumberIntType, &valuePtr);
             *(a1 + 876) = v38;
             *(a1 + 880) = valuePtr;
-            v40 = v140 * 0.01;
+            v40 = v115 * 0.01;
             *(a1 + 884) = v40;
             v41 = sub_1000114EC(v39, @"trgDiscTxPerThres");
             if (v41)
             {
-              v41 = v145;
-              if (v145)
+              v41 = v120;
+              if (v120)
               {
-                v41 = sub_10004B824(v145);
-                v42 = v143 * 0.01;
+                v41 = sub_10004B824(v120);
+                v42 = v118 * 0.01;
                 *(a1 + 892) = v42;
               }
             }
@@ -8753,11 +8584,11 @@ LABEL_68:
             v37 = sub_1000114EC(v41, @"trgDiscMinTxFrames");
             if (v37)
             {
-              v37 = v145;
-              if (v145)
+              v37 = v120;
+              if (v120)
               {
-                v37 = sub_10004B824(v145);
-                *(a1 + 888) = v143;
+                v37 = sub_10004B824(v120);
+                *(a1 + 888) = v118;
               }
             }
           }
@@ -8771,9 +8602,9 @@ LABEL_68:
   }
 
 LABEL_81:
-  if (sub_10001ED70(v37, @"simulateProbeFailureState") && v144)
+  if (sub_10001ED70(v37, @"simulateProbeFailureState") && v119)
   {
-    CFEqual(v144, kCFBooleanTrue);
+    CFEqual(v119, kCFBooleanTrue);
     sub_100011300();
     *(a1 + 651) = v43;
   }
@@ -8833,16 +8664,6 @@ LABEL_81:
     v59 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v60 = *(a1 + v56 + 732);
-      v61 = (*(a1 + v56 + 740) * 100.0);
-      v124 = *(a1 + v56 + 952);
-      v127 = *(a1 + v56 + 1116);
-      v118 = *(a1 + v56 + 1108);
-      v121 = *(a1 + v56 + 744);
-      v112 = *(a1 + v56 + 736);
-      v115 = *(a1 + v56 + 944);
-      v106 = (*(a1 + v56 + 948) * 100.0);
-      v109 = (*(a1 + v56 + 1112) * 100.0);
       sub_10001E79C(off_100298C40, v58);
     }
 
@@ -8852,11 +8673,19 @@ LABEL_81:
   }
 
   while (v56 != 64);
+  v60 = objc_autoreleasePoolPush();
+  v61 = sub_100008340();
+  if (v61)
+  {
+    [v61 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
+  }
+
+  objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d TxPer: {%2.1f %2.1f %2.1f} MinTxFrms: {%2u %2u %2u} RetryFactor: {%2u %2u %2u}\n");
   v62 = objc_autoreleasePoolPush();
   v63 = sub_100008340();
   if (v63)
   {
-    [v63 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
+    [v63 WFLog:4 message:{"%s: TrgDiscConfig - FW Tx PER Sig\n", "WiFiLQAMgrSetTrgDiscParams"}];
   }
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d TxPer: {%2.1f %2.1f %2.1f} MinTxFrms: {%2u %2u %2u} RetryFactor: {%2u %2u %2u}\n");
@@ -8864,47 +8693,42 @@ LABEL_81:
   v65 = sub_100008340();
   if (v65)
   {
-    [v65 WFLog:4 message:{"%s: TrgDiscConfig - FW Tx PER Sig\n", "WiFiLQAMgrSetTrgDiscParams"}];
+    [v65 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
   }
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d TxPer: {%2.1f %2.1f %2.1f} MinTxFrms: {%2u %2u %2u} RetryFactor: {%2u %2u %2u}\n");
-  v66 = objc_autoreleasePoolPush();
-  v67 = sub_100008340();
-  if (v67)
-  {
-    [v67 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
-  }
-
-  objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d TxPer: {%2.1f %2.1f %2.1f} MinTxFrms: {%2u %2u %2u} RetryFactor: {%2u %2u %2u}\n");
-  v68 = 0;
-  v69 = 0;
+  v66 = 0;
+  v67 = 0;
   do
   {
-    v71 = objc_autoreleasePoolPush();
+    v69 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v72 = *(a1 + v68 + 796);
-      v73 = (*(a1 + v68 + 804) * 100.0);
-      v132 = *(a1 + v68 + 1016);
-      v134 = *(a1 + v68 + 1180);
-      v130 = *(a1 + v68 + 808);
-      v125 = (*(a1 + v68 + 1020) * 100.0);
-      v128 = (*(a1 + v68 + 1184) * 100.0);
-      v122 = (*(a1 + v68 + 812) * 100.0);
-      v116 = *(a1 + v68 + 1008);
-      v119 = *(a1 + v68 + 1172);
-      v113 = *(a1 + v68 + 800);
-      v107 = (*(a1 + v68 + 1012) * 100.0);
-      v110 = (*(a1 + v68 + 1176) * 100.0);
-      sub_10001E79C(off_100298C40, v70);
+      sub_10001E79C(off_100298C40, v68);
     }
 
-    objc_autoreleasePoolPop(v71);
-    ++v69;
-    v68 += 20;
+    objc_autoreleasePoolPop(v69);
+    ++v67;
+    v66 += 20;
   }
 
-  while (v68 != 80);
+  while (v66 != 80);
+  v70 = objc_autoreleasePoolPush();
+  v71 = sub_100008340();
+  if (v71)
+  {
+    [v71 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
+  }
+
+  objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
+  v72 = objc_autoreleasePoolPush();
+  v73 = sub_100008340();
+  if (v73)
+  {
+    [v73 WFLog:4 message:{"%s: TrgDiscConfig - BCN PER Sig\n", "WiFiLQAMgrSetTrgDiscParams"}];
+  }
+
+  objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
   v74 = objc_autoreleasePoolPush();
   v75 = sub_100008340();
   if (v75)
@@ -8914,68 +8738,50 @@ LABEL_81:
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
   v76 = objc_autoreleasePoolPush();
-  v77 = sub_100008340();
-  if (v77)
-  {
-    [v77 WFLog:4 message:{"%s: TrgDiscConfig - BCN PER Sig\n", "WiFiLQAMgrSetTrgDiscParams"}];
-  }
-
-  objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
-  v78 = objc_autoreleasePoolPush();
-  v79 = sub_100008340();
-  if (v79)
-  {
-    [v79 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
-  }
-
-  objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
-  v80 = objc_autoreleasePoolPush();
   if (sub_100008340())
   {
-    v81 = *(a1 + 876);
-    v82 = sub_10002A180(*(a1 + 884));
-    [v84 WFLog:4 message:{"%s: Enable: %1d BcnTxPer: {%2.1f %2.1f %2.1f} MinBcnSched: {%2d %2d %2d} TxPer: {%2.1f %2.1f %2.1f} minHostFrames: {%2u %2u %2u}\n", "WiFiLQAMgrSetTrgDiscParams", v85, *&v82, (*(a1 + 1092) * v83), (*(a1 + 1256) * v83), *(a1 + 880), *(a1 + 1088), *(a1 + 1252), (*(a1 + 892) * v83), (*(a1 + 1100) * v83), (*(a1 + 1264) * v83), *(a1 + 888), *(a1 + 1096), *(a1 + 1260)}];
+    v77 = sub_10002A180(*(a1 + 884));
+    [v79 WFLog:4 message:{"%s: Enable: %1d BcnTxPer: {%2.1f %2.1f %2.1f} MinBcnSched: {%2d %2d %2d} TxPer: {%2.1f %2.1f %2.1f} minHostFrames: {%2u %2u %2u}\n", "WiFiLQAMgrSetTrgDiscParams", v80, *&v77, (*(a1 + 1092) * v78), (*(a1 + 1256) * v78), *(a1 + 880), *(a1 + 1088), *(a1 + 1252), (*(a1 + 892) * v78), (*(a1 + 1100) * v78), (*(a1 + 1264) * v78), *(a1 + 888), *(a1 + 1096), *(a1 + 1260)}];
   }
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
-  v86 = objc_autoreleasePoolPush();
-  v87 = sub_100008340();
-  if (v87)
+  v81 = objc_autoreleasePoolPush();
+  v82 = sub_100008340();
+  if (v82)
   {
-    [v87 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
+    [v82 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
   }
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
-  v88 = objc_autoreleasePoolPush();
-  v89 = sub_100008340();
-  if (v89)
+  v83 = objc_autoreleasePoolPush();
+  v84 = sub_100008340();
+  if (v84)
   {
-    [v89 WFLog:4 message:{"%s: TrgDiscConfig - Misc Sig\n", "WiFiLQAMgrSetTrgDiscParams"}];
+    [v84 WFLog:4 message:{"%s: TrgDiscConfig - Misc Sig\n", "WiFiLQAMgrSetTrgDiscParams"}];
   }
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
-  v90 = objc_autoreleasePoolPush();
-  v91 = sub_100008340();
-  if (v91)
+  v85 = objc_autoreleasePoolPush();
+  v86 = sub_100008340();
+  if (v86)
   {
-    [v91 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
+    [v86 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
   }
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
-  v92 = objc_autoreleasePoolPush();
+  v87 = objc_autoreleasePoolPush();
   if (sub_100008340())
   {
-    v93 = *(a1 + 896);
-    v94 = sub_10002A180(*(a1 + 904));
-    [v95 WFLog:4 message:{"%s: ActPrEnable: %1d NumActProbes: %3d ActPrTxPer: %2.1f simulateProbeFailureState: %1d sympSigEnable: %1d sympThres: %3d GwArpSigEnable: %1d gwArpTime: %f ccaSigEnable: %1d ccaThres: %3d\n", "WiFiLQAMgrSetTrgDiscParams", v96, *(a1 + 900), *&v94, *(a1 + 651), *(a1 + 928), *(a1 + 932), *(a1 + 912), *(a1 + 920), *(a1 + 936), *(a1 + 937)}];
+    v88 = sub_10002A180(*(a1 + 904));
+    [v89 WFLog:4 message:{"%s: ActPrEnable: %1d NumActProbes: %3d ActPrTxPer: %2.1f simulateProbeFailureState: %1d sympSigEnable: %1d sympThres: %3d GwArpSigEnable: %1d gwArpTime: %f ccaSigEnable: %1d ccaThres: %3d\n", "WiFiLQAMgrSetTrgDiscParams", v90, *(a1 + 900), *&v88, *(a1 + 651), *(a1 + 928), *(a1 + 932), *(a1 + 912), *(a1 + 920), *(a1 + 936), *(a1 + 937)}];
   }
 
   objc_autoreleasePoolPop("%s:Indx: %1d Enable: %1d FwTxPer: {%2.1f %2.1f %2.1f} FwMinTxFrms: {%2u %2u %2u} TxPer: {%02.1f %02.1f %02.1f} minHostFrames: {%2u %2u %2u}\n");
-  v97 = objc_autoreleasePoolPush();
-  v98 = sub_10001D1AC();
-  if (v98)
+  v91 = objc_autoreleasePoolPush();
+  v92 = sub_10001D1AC();
+  if (v92)
   {
-    [v98 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
+    [v92 WFLog:4 message:{"%s:--------------------------------------------------\n", "WiFiLQAMgrSetTrgDiscParams"}];
   }
 
   objc_autoreleasePoolPop(a1);
@@ -8996,67 +8802,7 @@ __CFDictionary *sub_100140368(const UInt8 *a1)
       CFDictionaryAddValue(v9, v10, v11);
       CFRelease(v8);
       v12 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, a1 + 2880);
-      if (!v12)
-      {
-        goto LABEL_12;
-      }
-
-      v13 = v12;
-      v14 = sub_100007514();
-      CFDictionarySetValue(v14, v15, v16);
-      CFRelease(v13);
-      v17 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, a1 + 2888);
-      if (!v17)
-      {
-        goto LABEL_12;
-      }
-
-      v18 = v17;
-      v19 = sub_100007514();
-      CFDictionarySetValue(v19, v20, v21);
-      CFRelease(v18);
-      v22 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt16Type, a1 + 2892);
-      if (!v22)
-      {
-        goto LABEL_12;
-      }
-
-      v23 = v22;
-      v24 = sub_100007514();
-      CFDictionarySetValue(v24, v25, v26);
-      CFRelease(v23);
-      v27 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, a1 + 2901);
-      if (!v27)
-      {
-        goto LABEL_12;
-      }
-
-      v28 = v27;
-      v29 = sub_100007514();
-      CFDictionarySetValue(v29, v30, v31);
-      CFRelease(v28);
-      v32 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, a1 + 2902);
-      if (!v32)
-      {
-        goto LABEL_12;
-      }
-
-      v33 = v32;
-      v34 = sub_100007514();
-      CFDictionarySetValue(v34, v35, v36);
-      CFRelease(v33);
-      v37 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, a1 + 2903);
-      if (!v37)
-      {
-        goto LABEL_12;
-      }
-
-      v38 = v37;
-      v39 = sub_100007514();
-      CFDictionarySetValue(v39, v40, v41);
-      CFRelease(v38);
-      v42 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, a1 + 2896);
-      if (v42)
+      if (v12 && (v13 = v12, v14 = sub_100007514(), CFDictionarySetValue(v14, v15, v16), CFRelease(v13), (v17 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, a1 + 2888)) != 0) && (v18 = v17, v19 = sub_100007514(), CFDictionarySetValue(v19, v20, v21), CFRelease(v18), (v22 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt16Type, a1 + 2892)) != 0) && (v23 = v22, v24 = sub_100007514(), CFDictionarySetValue(v24, v25, v26), CFRelease(v23), (v27 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, a1 + 2901)) != 0) && (v28 = v27, v29 = sub_100007514(), CFDictionarySetValue(v29, v30, v31), CFRelease(v28), (v32 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, a1 + 2902)) != 0) && (v33 = v32, v34 = sub_100007514(), CFDictionarySetValue(v34, v35, v36), CFRelease(v33), (v37 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, a1 + 2903)) != 0) && (v38 = v37, v39 = sub_100007514(), CFDictionarySetValue(v39, v40, v41), CFRelease(v38), (v42 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, a1 + 2896)) != 0))
       {
         v43 = v42;
         CFDictionarySetValue(Mutable, @"RSSI", v42);
@@ -9065,7 +8811,6 @@ __CFDictionary *sub_100140368(const UInt8 *a1)
 
       else
       {
-LABEL_12:
         CFRelease(Mutable);
         return 0;
       }
@@ -9090,81 +8835,7 @@ __CFDictionary *sub_1001405E0(uint64_t *a1)
     v3 = sub_10000A540(a1[6], @"BSSID");
     CFDictionaryAddValue(Mutable, @"BSSID", v3);
     v4 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, a1 + 360);
-    if (!v4)
-    {
-      goto LABEL_14;
-    }
-
-    v5 = v4;
-    v6 = sub_100007514();
-    CFDictionarySetValue(v6, v7, v8);
-    CFRelease(v5);
-    v11 = sub_1000305A0(v9, v10, a1 + 2908);
-    if (!v11)
-    {
-      goto LABEL_14;
-    }
-
-    v12 = v11;
-    v13 = sub_100007514();
-    CFDictionarySetValue(v13, v14, v15);
-    CFRelease(v12);
-    v18 = sub_1000305A0(v16, v17, a1 + 2909);
-    if (!v18)
-    {
-      goto LABEL_14;
-    }
-
-    v19 = v18;
-    v20 = sub_100007514();
-    CFDictionarySetValue(v20, v21, v22);
-    CFRelease(v19);
-    valuePtr = sub_1000333E8(a1[6], @"CHANNEL");
-    v23 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
-    if (!v23)
-    {
-      goto LABEL_14;
-    }
-
-    v24 = v23;
-    v25 = sub_100007514();
-    CFDictionarySetValue(v25, v26, v27);
-    CFRelease(v24);
-    v28 = sub_10000A540(a1[6], @"CHANNEL_WIDTH");
-    CFDictionarySetValue(Mutable, @"CHANNEL_WIDTH", v28);
-    v31 = sub_1000305A0(v29, v30, a1 + 2901);
-    if (!v31)
-    {
-      goto LABEL_14;
-    }
-
-    v32 = v31;
-    v33 = sub_100007514();
-    CFDictionarySetValue(v33, v34, v35);
-    CFRelease(v32);
-    v38 = sub_1000305A0(v36, v37, a1 + 2902);
-    if (!v38)
-    {
-      goto LABEL_14;
-    }
-
-    v39 = v38;
-    v40 = sub_100007514();
-    CFDictionarySetValue(v40, v41, v42);
-    CFRelease(v39);
-    v45 = sub_1000305A0(v43, v44, a1 + 2903);
-    if (!v45)
-    {
-      goto LABEL_14;
-    }
-
-    v46 = v45;
-    v47 = sub_100007514();
-    CFDictionarySetValue(v47, v48, v49);
-    CFRelease(v46);
-    v54 = sub_1000333E8(a1[6], @"RSSI");
-    v50 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &v54);
-    if (v50)
+    if (v4 && (v5 = v4, v6 = sub_100007514(), CFDictionarySetValue(v6, v7, v8), CFRelease(v5), (v11 = sub_1000305A0(v9, v10, a1 + 2908)) != 0) && (v12 = v11, v13 = sub_100007514(), CFDictionarySetValue(v13, v14, v15), CFRelease(v12), (v18 = sub_1000305A0(v16, v17, a1 + 2909)) != 0) && (v19 = v18, v20 = sub_100007514(), CFDictionarySetValue(v20, v21, v22), CFRelease(v19), valuePtr = sub_1000333E8(a1[6], @"CHANNEL"), (v23 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr)) != 0) && (v24 = v23, v25 = sub_100007514(), CFDictionarySetValue(v25, v26, v27), CFRelease(v24), v28 = sub_10000A540(a1[6], @"CHANNEL_WIDTH"), CFDictionarySetValue(Mutable, @"CHANNEL_WIDTH", v28), (v31 = sub_1000305A0(v29, v30, a1 + 2901)) != 0) && (v32 = v31, v33 = sub_100007514(), CFDictionarySetValue(v33, v34, v35), CFRelease(v32), (v38 = sub_1000305A0(v36, v37, a1 + 2902)) != 0) && (v39 = v38, v40 = sub_100007514(), CFDictionarySetValue(v40, v41, v42), CFRelease(v39), (v45 = sub_1000305A0(v43, v44, a1 + 2903)) != 0) && (v46 = v45, v47 = sub_100007514(), CFDictionarySetValue(v47, v48, v49), CFRelease(v46), v54 = sub_1000333E8(a1[6], @"RSSI"), (v50 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &v54)) != 0))
     {
       v51 = v50;
       CFDictionarySetValue(Mutable, @"RSSI", v50);
@@ -9180,7 +8851,6 @@ __CFDictionary *sub_1001405E0(uint64_t *a1)
 
     else
     {
-LABEL_14:
       CFRelease(Mutable);
       return 0;
     }
@@ -9360,40 +9030,40 @@ LABEL_23:
   return v7;
 }
 
-uint64_t sub_100140BCC(CFTypeRef cf, void *a2)
+uint64_t sub_100140BCC(CFTypeRef cf, void *a2, char a3)
 {
   if (&_managed_event_fetch)
   {
     if (cf)
     {
-      v3 = a2;
+      v4 = a2;
       CFRetain(cf);
       sub_10000834C();
-      v4 = managed_event_fetch();
+      v5 = managed_event_fetch();
       goto LABEL_4;
     }
 
-    v8 = objc_autoreleasePoolPush();
-    v9 = sub_10001D1AC();
-    if (v9)
+    v9 = objc_autoreleasePoolPush();
+    v10 = sub_10001D1AC();
+    if (v10)
     {
-      [v9 WFLog:4 message:{"%s: LQAMgr is NULL", "__WiFiLQAMgrFetchSymptomsViewOfLink"}];
+      [v10 WFLog:4 message:{"%s: LQAMgr is NULL", "__WiFiLQAMgrFetchSymptomsViewOfLink"}];
     }
 
-    objc_autoreleasePoolPop(v2);
+    objc_autoreleasePoolPop(v3);
   }
 
-  v4 = 0;
+  v5 = 0;
 LABEL_4:
-  v5 = objc_autoreleasePoolPush();
-  v6 = sub_100008340();
-  if (v6)
+  v6 = objc_autoreleasePoolPush();
+  v7 = sub_100008340();
+  if (v7)
   {
-    [v6 WFLog:3 message:{"%s Symptom's view of the link query completed\n", "__WiFiLQAMgrFetchSymptomsViewOfLink"}];
+    [v7 WFLog:3 message:{"%s Symptom's view of the link query completed\n", "__WiFiLQAMgrFetchSymptomsViewOfLink"}];
   }
 
-  objc_autoreleasePoolPop(v3);
-  return v4;
+  objc_autoreleasePoolPop(v4);
+  return v5;
 }
 
 void sub_100140CD8(uint64_t a1)
@@ -9401,13 +9071,13 @@ void sub_100140CD8(uint64_t a1)
   v3 = "__WiFiLQAMgrSymptomsInputCallBack";
   if (!a1)
   {
-    v109 = objc_autoreleasePoolPush();
+    v107 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
       [off_100298C40 WFLog:4 message:{"%s: LQAMgr is NULL", "__WiFiLQAMgrSymptomsInputCallBack"}];
     }
 
-    goto LABEL_190;
+    goto LABEL_188;
   }
 
   if (*(a1 + 545) && (*(a1 + 546) || !*(a1 + 547)))
@@ -9419,23 +9089,23 @@ void sub_100140CD8(uint64_t a1)
   {
     if (!*(a1 + 544))
     {
-LABEL_191:
+LABEL_189:
       Mutable = 0;
-      v120 = 0;
-      v121 = 0;
+      v118 = 0;
+      v119 = 0;
       LODWORD(v7) = 0;
-      v122 = 0;
-      v34 = 0;
+      v120 = 0;
+      v32 = 0;
       v15 = 0;
       v13 = 0;
       v1 = 0;
-      goto LABEL_111;
+      goto LABEL_109;
     }
 
     v4 = *(a1 + 20);
     if (v4 == 1)
     {
-      v109 = objc_autoreleasePoolPush();
+      v107 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
         [off_100298C40 WFLog:4 message:{"%s: Trigger Disconnect in GoodLinkState", "__WiFiLQAMgrSymptomsInputCallBack"}];
@@ -9492,11 +9162,11 @@ LABEL_191:
 
                 else
                 {
-                  v107 = objc_autoreleasePoolPush();
-                  v108 = sub_1000113E0();
-                  if (v108)
+                  v105 = objc_autoreleasePoolPush();
+                  v106 = sub_1000113E0();
+                  if (v106)
                   {
-                    [v108 WFLog:4 message:{"%s Not overriding TD for default data stall score %d", "__WiFiLQAMgrSymptomsInputCallBack", *(a1 + 504)}];
+                    [v106 WFLog:4 message:{"%s Not overriding TD for default data stall score %d", "__WiFiLQAMgrSymptomsInputCallBack", *(a1 + 504)}];
                   }
 
                   v16 = 0;
@@ -9506,7 +9176,7 @@ LABEL_191:
               }
             }
 
-            v122 = v16;
+            v120 = v16;
             v22 = sub_100011548();
             v13 = 1;
             if (v22 >= 0.51 && v22 <= 1.01)
@@ -9537,14 +9207,14 @@ LABEL_191:
           else
           {
             v13 = 0;
-            v122 = 0;
+            v120 = 0;
             v14 = 0;
             v15 = 1;
           }
 
           if (*(a1 + 653))
           {
-            v121 = v14;
+            v119 = v14;
             v26 = *(a1 + 654);
             v27 = *(a1 + 654) != 0;
             goto LABEL_52;
@@ -9554,68 +9224,61 @@ LABEL_191:
         else
         {
           v14 = 0;
-          v122 = 0;
+          v120 = 0;
           v13 = 0;
           v15 = 1;
         }
 
-        v121 = v14;
+        v119 = v14;
         v27 = 0;
         v26 = *(a1 + 654);
 LABEL_52:
-        LOBYTE(v120) = v26 != 0;
-        v28 = *(a1 + 2816);
+        LOBYTE(v118) = v26 != 0;
         sub_1000487BC(a1);
-        if (*(a1 + 653))
+        v29 = sub_100011548();
+        if (v29 > 1.01 || v29 < 0.01)
         {
-          v29 = (*(a1 + 654) != 0) << 13;
-        }
-
-        *(a1 + 504);
-        v31 = sub_100011548();
-        if (v31 > 1.01 || v31 < 0.01)
-        {
-          v1 = v30;
+          v1 = v28;
         }
 
         else
         {
-          v1 = v30 & 0xFFFFEFFF;
+          v1 = v28 & 0xFFFFEFFF;
         }
 
         if ([+[WiFiUserInteractionMonitor isCellularDataUsable] sharedInstance]
         {
-          v33 = v1;
+          v31 = v1;
         }
 
         else
         {
-          v33 = v1 & 0xFFFF7FFE;
+          v31 = v1 & 0xFFFF7FFE;
         }
 
-        HIDWORD(v120) = v27;
+        HIDWORD(v118) = v27;
         if (*(a1 + 655) && *(a1 + 653) && *(a1 + 654) && ![+[WiFiUserInteractionMonitor isCellularDataUsable] sharedInstance]
         {
-          v41 = objc_autoreleasePoolPush();
-          v42 = sub_1000113E0();
-          if (v42)
+          v39 = objc_autoreleasePoolPush();
+          v40 = sub_1000113E0();
+          if (v40)
           {
-            [v42 WFLog:4 message:{"%s CellData setting overriding TrgDisc decision", "__WiFiLQAMgrSymptomsInputCallBack"}];
+            [v40 WFLog:4 message:{"%s CellData setting overriding TrgDisc decision", "__WiFiLQAMgrSymptomsInputCallBack"}];
           }
 
           objc_autoreleasePoolPop(v1);
           v15 = 0;
-          v34 = 1;
+          v32 = 1;
         }
 
         else
         {
-          v34 = 0;
+          v32 = 0;
         }
 
         if (sub_1000648B8(*(a1 + 32)) == 1 && (*(a1 + 224) == 1 || !*(a1 + 653) || !*(a1 + 654)))
         {
-          v117 = v33;
+          v115 = v31;
           p_cache = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
@@ -9628,39 +9291,39 @@ LABEL_52:
 
         else
         {
-          v35 = v13 ^ 1;
+          v33 = v13 ^ 1;
           if (!v15)
           {
-            v35 = 1;
+            v33 = 1;
           }
 
-          if (v35)
+          if (v33)
           {
             if (v7 || !v15)
             {
               if (!v15)
               {
                 sub_10000DAD8();
-                goto LABEL_108;
+                goto LABEL_106;
               }
             }
 
             else if (*(a1 + 2804) > *(a1 + 664) - 2)
             {
               sub_10000DAD8();
-              v39 = 1;
+              v37 = 1;
               v15 = 1;
-              goto LABEL_109;
+              goto LABEL_107;
             }
           }
 
           else
           {
-            v36 = objc_autoreleasePoolPush();
+            v34 = objc_autoreleasePoolPush();
             if (sub_1000113E0())
             {
-              v37 = sub_100011548();
-              [v38 WFLog:4 message:{"%s Proceeding with Trigger Discconect - DataStallScore %d AppPolicyScore %f", "__WiFiLQAMgrSymptomsInputCallBack", *(a1 + 504), *&v37}];
+              v35 = sub_100011548();
+              [v36 WFLog:4 message:{"%s Proceeding with Trigger Discconect - DataStallScore %d AppPolicyScore %f", "__WiFiLQAMgrSymptomsInputCallBack", *(a1 + 504), *&v35}];
             }
 
             objc_autoreleasePoolPop(v1);
@@ -9671,113 +9334,113 @@ LABEL_52:
             if (*(a1 + 649))
             {
               sub_10000DAD8();
-LABEL_107:
+LABEL_105:
               v15 = 0;
-LABEL_108:
-              v39 = 1;
-              goto LABEL_109;
+LABEL_106:
+              v37 = 1;
+              goto LABEL_107;
             }
 
             if (!*(a1 + 652))
             {
-              v117 = v33;
-              v39 = 0;
+              v115 = v31;
+              v37 = 0;
               v1 = 0;
               v13 = 0;
               v15 = 0;
               LODWORD(p_cache) = 1;
               LOBYTE(v3) = 1;
-              goto LABEL_109;
+              goto LABEL_107;
             }
 
             if (!*(a1 + 1304))
             {
               if (*(a1 + 1296))
               {
-                v39 = 0;
+                v37 = 0;
                 Mutable = 0;
                 v15 = 0;
                 v13 = 0;
                 v1 = 0;
-LABEL_112:
-                v44 = +[WiFiUsageMonitor sharedInstance];
-                v45 = 256;
-                if ((v120 & 1) == 0)
+LABEL_110:
+                v42 = +[WiFiUsageMonitor sharedInstance];
+                v43 = 256;
+                if ((v118 & 1) == 0)
                 {
-                  v45 = 0;
+                  v43 = 0;
                 }
 
-                [(WiFiUsageMonitor *)v44 setTdLogic_execState:(v15 << 48) | (v13 << 56) | (v34 << 40) | (v121 << 32) | (v122 << 24) | (v7 << 16) | v45 | HIDWORD(v120) forInterface:v1, *(a1 + 40)];
+                [(WiFiUsageMonitor *)v42 setTdLogic_execState:(v15 << 48) | (v13 << 56) | (v32 << 40) | (v119 << 32) | (v120 << 24) | (v7 << 16) | v43 | HIDWORD(v118) forInterface:v1, *(a1 + 40)];
                 if (Mutable)
                 {
                   CFRelease(Mutable);
                 }
 
-                v46 = v39 ^ 1;
+                v44 = v37 ^ 1;
                 if (!a1)
                 {
-                  v46 = 1;
+                  v44 = 1;
                 }
 
-                if ((v46 & 1) == 0)
+                if ((v44 & 1) == 0)
                 {
                   *(a1 + 169) = 0;
                 }
 
-                goto LABEL_120;
+                goto LABEL_118;
               }
 
-              v117 = v33;
+              v115 = v31;
               v1 = 0;
-              v39 = 0;
+              v37 = 0;
               if (!sub_1001418B8(a1))
               {
                 Mutable = 0;
                 v15 = 0;
                 v13 = 0;
-                goto LABEL_112;
+                goto LABEL_110;
               }
 
               LODWORD(p_cache) = 1;
               LOBYTE(v3) = 1;
               v13 = 0;
               v15 = 0;
-LABEL_109:
-              v43 = sub_100141ADC(a1);
-              if (v43 == 255)
+LABEL_107:
+              v41 = sub_100141ADC(a1);
+              if (v41 == 255)
               {
                 Mutable = 0;
-                if (v39)
+                if (v37)
                 {
-LABEL_111:
-                  v39 = 1;
-                  goto LABEL_112;
+LABEL_109:
+                  v37 = 1;
+                  goto LABEL_110;
                 }
               }
 
               else
               {
-                v116 = v43;
-                v57 = a1 + 144 * v43;
-                *(v57 + 1357) = v3;
-                *(v57 + 1368) = *(a1 + 500);
-                *(v57 + 1376) = *(a1 + 520);
-                *(v57 + 1384) = *(a1 + 524);
-                *(v57 + 1380) = *(a1 + 528);
-                *(v57 + 1408) = sub_100011548();
-                *(v57 + 1424) = *(a1 + 504);
-                *(v57 + 1364) = v58;
-                v59 = p_cache | v117 & 0xFFFFFFFE;
-                *(v57 + 1400) = v59;
+                v114 = v41;
+                v55 = a1 + 144 * v41;
+                *(v55 + 1357) = v3;
+                *(v55 + 1368) = *(a1 + 500);
+                *(v55 + 1376) = *(a1 + 520);
+                *(v55 + 1384) = *(a1 + 524);
+                *(v55 + 1380) = *(a1 + 528);
+                *(v55 + 1408) = sub_100011548();
+                *(v55 + 1424) = *(a1 + 504);
+                *(v55 + 1364) = v56;
+                v57 = p_cache | v115 & 0xFFFFFFFE;
+                *(v55 + 1400) = v57;
                 Current = CFAbsoluteTimeGetCurrent();
-                v61 = 0.0;
+                v59 = 0.0;
                 if (*(a1 + 2768) == 1)
                 {
-                  v61 = Current - *(a1 + 2776);
+                  v59 = Current - *(a1 + 2776);
                 }
 
-                v114 = v59;
-                if (v39)
+                v112 = v57;
+                if (v37)
                 {
                   Mutable = 0;
                 }
@@ -9787,131 +9450,131 @@ LABEL_111:
                   sub_10004B86C();
                   if (!v18)
                   {
-                    *(v57 + 1440) = (CFAbsoluteTimeGetCurrent() - *(a1 + 144));
+                    *(v55 + 1440) = (CFAbsoluteTimeGetCurrent() - *(a1 + 144));
                   }
 
                   if (*(a1 + 128) != 0.0)
                   {
-                    *(v57 + 1432) = (CFAbsoluteTimeGetCurrent() - *(a1 + 128));
+                    *(v55 + 1432) = (CFAbsoluteTimeGetCurrent() - *(a1 + 128));
                   }
 
-                  v62 = sub_1000113AC();
-                  Mutable = CFStringCreateMutable(v62, v63);
-                  v64 = sub_10000A878(*(a1 + 48));
-                  CFStringAppendFormat(Mutable, 0, @"Your WiFi %@ was automatically disconnected due to poor connectivity\n", v64);
-                  v65 = sub_1000113AC();
-                  v67 = CFStringCreateMutable(v65, v66);
-                  if (v67)
+                  v60 = sub_1000113AC();
+                  Mutable = CFStringCreateMutable(v60, v61);
+                  v62 = sub_10000A878(*(a1 + 48));
+                  CFStringAppendFormat(Mutable, 0, @"Your WiFi %@ was automatically disconnected due to poor connectivity\n", v62);
+                  v63 = sub_1000113AC();
+                  v65 = CFStringCreateMutable(v63, v64);
+                  if (v65)
                   {
-                    v68 = v67;
-                    CFStringAppendFormat(v67, 0, @"Trigger Disconnect with signatures - ");
-                    if ((v117 & 2) != 0)
+                    v66 = v65;
+                    CFStringAppendFormat(v65, 0, @"Trigger Disconnect with signatures - ");
+                    if ((v115 & 2) != 0)
                     {
-                      v69 = sub_1000113AC();
-                      CFStringAppendFormat(v69, v70, v71);
+                      v67 = sub_1000113AC();
+                      CFStringAppendFormat(v67, v68, v69);
                     }
 
-                    if ((v117 & 4) != 0)
+                    if ((v115 & 4) != 0)
                     {
-                      v72 = sub_1000113AC();
-                      CFStringAppendFormat(v72, v73, v74);
+                      v70 = sub_1000113AC();
+                      CFStringAppendFormat(v70, v71, v72);
                     }
 
-                    if ((v117 & 8) != 0)
+                    if ((v115 & 8) != 0)
                     {
-                      v75 = sub_1000113AC();
-                      CFStringAppendFormat(v75, v76, v77);
+                      v73 = sub_1000113AC();
+                      CFStringAppendFormat(v73, v74, v75);
                     }
 
-                    if ((v117 & 0x10) != 0)
+                    if ((v115 & 0x10) != 0)
                     {
-                      v78 = sub_1000113AC();
-                      CFStringAppendFormat(v78, v79, v80);
+                      v76 = sub_1000113AC();
+                      CFStringAppendFormat(v76, v77, v78);
                     }
 
-                    if ((v117 & 0x40) != 0)
+                    if ((v115 & 0x40) != 0)
                     {
-                      v81 = sub_1000113AC();
-                      CFStringAppendFormat(v81, v82, v83);
+                      v79 = sub_1000113AC();
+                      CFStringAppendFormat(v79, v80, v81);
                     }
 
-                    if ((v117 & 0x80) != 0)
+                    if ((v115 & 0x80) != 0)
                     {
-                      v84 = sub_1000113AC();
-                      CFStringAppendFormat(v84, v85, v86);
+                      v82 = sub_1000113AC();
+                      CFStringAppendFormat(v82, v83, v84);
                     }
 
-                    if ((v117 & 0x100) != 0)
+                    if ((v115 & 0x100) != 0)
                     {
-                      v87 = sub_1000113AC();
-                      CFStringAppendFormat(v87, v88, v89);
+                      v85 = sub_1000113AC();
+                      CFStringAppendFormat(v85, v86, v87);
                     }
 
-                    if ((v117 & 0x200) != 0)
+                    if ((v115 & 0x200) != 0)
                     {
-                      v90 = sub_1000113AC();
-                      CFStringAppendFormat(v90, v91, v92);
+                      v88 = sub_1000113AC();
+                      CFStringAppendFormat(v88, v89, v90);
                     }
 
-                    if ((v117 & 0x400) != 0)
+                    if ((v115 & 0x400) != 0)
                     {
-                      v93 = sub_1000113AC();
-                      CFStringAppendFormat(v93, v94, v95);
+                      v91 = sub_1000113AC();
+                      CFStringAppendFormat(v91, v92, v93);
                     }
 
-                    if ((v117 & 0x20) != 0)
+                    if ((v115 & 0x20) != 0)
                     {
-                      v96 = sub_1000113AC();
-                      CFStringAppendFormat(v96, v97, v98);
+                      v94 = sub_1000113AC();
+                      CFStringAppendFormat(v94, v95, v96);
                     }
 
-                    if ((v117 & 0x200000) != 0)
+                    if ((v115 & 0x200000) != 0)
                     {
-                      v99 = sub_1000113AC();
-                      CFStringAppendFormat(v99, v100, v101);
+                      v97 = sub_1000113AC();
+                      CFStringAppendFormat(v97, v98, v99);
                     }
 
-                    if ((v117 & 0x800000) != 0)
+                    if ((v115 & 0x800000) != 0)
                     {
-                      v102 = sub_1000113AC();
-                      CFStringAppendFormat(v102, v103, v104);
+                      v100 = sub_1000113AC();
+                      CFStringAppendFormat(v100, v101, v102);
                     }
 
-                    v105 = objc_autoreleasePoolPush();
+                    v103 = objc_autoreleasePoolPush();
                     if (off_100298C40)
                     {
-                      v118 = v105;
-                      [off_100298C40 WFLog:3 message:{"%@", v68}];
-                      v105 = v118;
+                      v116 = v103;
+                      [off_100298C40 WFLog:3 message:{"%@", v66}];
+                      v103 = v116;
                     }
 
-                    objc_autoreleasePoolPop(v105);
-                    CFRelease(v68);
+                    objc_autoreleasePoolPop(v103);
+                    CFRelease(v66);
                   }
                 }
 
-                v106 = objc_autoreleasePoolPush();
+                v104 = objc_autoreleasePoolPush();
                 if (off_100298C40)
                 {
-                  v119 = v106;
-                  v115 = (v57 + 1320);
-                  [off_100298C40 WFLog:4 message:{"%s: TrgDiscStatus %u [Rssi %d TxFrms %ld TxFail %ld TxRet %ld fwFrms %ld fwFail %ld fwRtry %ld RxFrms %ld BcnSch %ld BcnRx %ld Awd %ld UnGw %f FgApp %ld Walkout %d possibleRoam %d DataStallScore %ld DeltaTime %fsecs TD1 %d FastDisconnect %d]", "__WiFiLQAMgrSymptomsInputCallBack", v114, *(v115 + 36), *v115, v115[1], v115[2], v115[5], v115[6], v115[7], v115[8], v115[3], v115[4], *(v115 + 52), *&v61, v115[11], *(a1 + 273), *(a1 + 272), *(a1 + 504), *(a1 + 280), *(a1 + 2832), v7}];
-                  v106 = v119;
+                  v117 = v104;
+                  v113 = (v55 + 1320);
+                  [off_100298C40 WFLog:4 message:{"%s: TrgDiscStatus %u [Rssi %d TxFrms %ld TxFail %ld TxRet %ld fwFrms %ld fwFail %ld fwRtry %ld RxFrms %ld BcnSch %ld BcnRx %ld Awd %ld UnGw %f FgApp %ld Walkout %d possibleRoam %d DataStallScore %ld DeltaTime %fsecs TD1 %d FastDisconnect %d]", "__WiFiLQAMgrSymptomsInputCallBack", v112, *(v113 + 36), *v113, v113[1], v113[2], v113[5], v113[6], v113[7], v113[8], v113[3], v113[4], *(v113 + 52), *&v59, v113[11], *(a1 + 273), *(a1 + 272), *(a1 + 504), *(a1 + 280), *(a1 + 2832), v7}];
+                  v104 = v117;
                 }
 
-                objc_autoreleasePoolPop(v106);
-                sub_100141BA4(a1, v116);
-                if (v39)
+                objc_autoreleasePoolPop(v104);
+                sub_100141BA4(a1, v114);
+                if (v37)
                 {
-                  goto LABEL_111;
+                  goto LABEL_109;
                 }
               }
 
               sub_10013D1C4(a1);
-              goto LABEL_111;
+              goto LABEL_109;
             }
 
-            v117 = v33;
+            v115 = v31;
             p_cache = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
@@ -9924,7 +9587,7 @@ LABEL_111:
 
           else
           {
-            v117 = v33;
+            v115 = v31;
             p_cache = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
@@ -9939,96 +9602,187 @@ LABEL_111:
         objc_autoreleasePoolPop(p_cache);
         LODWORD(p_cache) = 0;
         LOBYTE(v3) = 0;
-        goto LABEL_107;
+        goto LABEL_105;
       }
 
-      v109 = objc_autoreleasePoolPush();
+      v107 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
         [off_100298C40 WFLog:4 message:{"%s: Trigger Disconnect in UnassociatedState", "__WiFiLQAMgrSymptomsInputCallBack"}];
       }
     }
 
-LABEL_190:
-    objc_autoreleasePoolPop(v109);
-    goto LABEL_191;
+LABEL_188:
+    objc_autoreleasePoolPop(v107);
+    goto LABEL_189;
   }
 
-LABEL_120:
+LABEL_118:
   if (!*(a1 + 208))
   {
-    goto LABEL_128;
+    goto LABEL_126;
   }
 
   *(a1 + 208) = 0;
   if (*(a1 + 2804) > -66)
   {
-    goto LABEL_128;
+    goto LABEL_126;
   }
 
   if (!*(a1 + 2842))
   {
     if (!*(a1 + 504))
     {
-      v49 = sub_1000487BC(a1);
-      v50 = objc_autoreleasePoolPush();
-      v51 = sub_1000113E0();
-      if (v51)
+      v47 = sub_1000487BC(a1);
+      v48 = objc_autoreleasePoolPush();
+      v49 = sub_1000113E0();
+      if (v49)
       {
-        v52 = "Yes";
-        if (!v49)
+        v50 = "Yes";
+        if (!v47)
         {
-          v52 = "No";
+          v50 = "No";
         }
 
-        [v51 WFLog:4 message:{"%s: SymptomsScore indicates WiFi data stall. FG app:%s", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased", v52}];
+        [v49 WFLog:4 message:{"%s: SymptomsScore indicates WiFi data stall. FG app:%s", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased", v50}];
       }
 
       objc_autoreleasePoolPop(v1);
-      if (v49)
+      if (v47)
       {
-        v53 = objc_autoreleasePoolPush();
-        v54 = sub_1000113EC();
-        if (v54)
+        v51 = objc_autoreleasePoolPush();
+        v52 = sub_1000113EC();
+        if (v52)
         {
-          [v54 WFLog:3 message:{"%s: Attempting host triggered roam based on SymptomsScore", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased"}];
+          [v52 WFLog:3 message:{"%s: Attempting host triggered roam based on SymptomsScore", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased"}];
         }
 
-        goto LABEL_136;
+        goto LABEL_134;
       }
     }
 
     if (sub_10004928C(a1))
     {
-      v47 = objc_autoreleasePoolPush();
-      v48 = sub_1000113EC();
-      if (v48)
+      v45 = objc_autoreleasePoolPush();
+      v46 = sub_1000113EC();
+      if (v46)
       {
-        [v48 WFLog:4 message:{"%s: Attempting host triggered roam based on MacStats", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased"}];
+        [v46 WFLog:4 message:{"%s: Attempting host triggered roam based on MacStats", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased"}];
       }
 
-LABEL_136:
+LABEL_134:
       objc_autoreleasePoolPop(a1);
       +[WiFiRoamManager sharedWiFiRoamManager];
       sub_10004B84C();
 
-      [v55 roamWithReason:? bandPreference:?];
+      [v53 roamWithReason:? bandPreference:?];
       return;
     }
 
-LABEL_128:
+LABEL_126:
     sub_10004B84C();
     return;
   }
 
-  v110 = objc_autoreleasePoolPush();
-  v111 = sub_1000113EC();
-  if (v111)
+  v108 = objc_autoreleasePoolPush();
+  v109 = sub_1000113EC();
+  if (v109)
   {
-    [v111 WFLog:4 message:{"%s: isAwdlRealTimeModeActive", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased"}];
+    [v109 WFLog:4 message:{"%s: isAwdlRealTimeModeActive", "__WiFiLQAMgrCheckReassocRequiredSymptomsScoreBased"}];
   }
 
   sub_10004B84C();
 
-  objc_autoreleasePoolPop(v112);
+  objc_autoreleasePoolPop(v110);
+}
+
+uint64_t sub_1001418B8(uint64_t a1)
+{
+  if (a1)
+  {
+    if (*(a1 + 1296))
+    {
+      v2 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        [off_100298C40 WFLog:4 message:{"%s: Notification already pending. Ignoring it", "__WiFiLQAMgrCheckUsrInput"}];
+      }
+
+      objc_autoreleasePoolPop(v2);
+      v3 = 0;
+    }
+
+    else
+    {
+      v4 = sub_10000836C();
+      Mutable = CFDictionaryCreateMutable(v4, v5, v6, v7);
+      v3 = Mutable;
+      if (Mutable)
+      {
+        CFDictionarySetValue(Mutable, kCFUserNotificationAlertHeaderKey, @"WiFi Trigger Disconnect");
+        CFDictionarySetValue(v3, kCFUserNotificationDefaultButtonTitleKey, @"Accept");
+        CFDictionarySetValue(v3, kCFUserNotificationAlternateButtonTitleKey, @"Tap To Radar");
+        if (SBUserNotificationDismissOnLock)
+        {
+          CFDictionarySetValue(v3, SBUserNotificationDismissOnLock, kCFBooleanTrue);
+          CFDictionarySetValue(v3, SBUserNotificationAlertMessageDelimiterKey, &stru_1002680F8);
+        }
+
+        v9 = sub_10000836C();
+        *(a1 + 1296) = CFUserNotificationCreate(v9, v12, v10, v11, v3);
+      }
+    }
+
+    if (!*(a1 + 1280))
+    {
+      v13 = *(a1 + 1296);
+      if (v13)
+      {
+        CFRelease(v13);
+        *(a1 + 1296) = 0;
+      }
+    }
+
+    if (v3)
+    {
+      CFRelease(v3);
+    }
+  }
+
+  return 1;
+}
+
+uint64_t sub_100141ADC(uint64_t a1)
+{
+  if (!a1)
+  {
+    return 255;
+  }
+
+  result = *(a1 + 2760);
+  if (result >= 0xA)
+  {
+    v3 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:4 message:{"%s: Invalid curRecord %d", "__WiFiLQAMgrGetCurrentLQAMetricsRecordIdx", *(a1 + 2760)}];
+    }
+
+    goto LABEL_10;
+  }
+
+  if (!*(a1 + 2761))
+  {
+    v3 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:4 message:{"%s: curRecord %d is not busy", "__WiFiLQAMgrGetCurrentLQAMetricsRecordIdx", *(a1 + 2760)}];
+    }
+
+LABEL_10:
+    objc_autoreleasePoolPop(v3);
+    return 255;
+  }
+
+  return result;
 }

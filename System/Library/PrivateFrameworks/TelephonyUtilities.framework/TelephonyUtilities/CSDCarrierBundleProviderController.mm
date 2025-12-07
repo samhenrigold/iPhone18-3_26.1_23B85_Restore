@@ -108,44 +108,43 @@
 {
   v3 = objc_alloc_init(NSMutableArray);
   telephonyClient = [(CSDCarrierBundleProviderController *)self telephonyClient];
-  v34 = 0;
-  v5 = [telephonyClient getSubscriptionInfoWithError:&v34];
-  v6 = v34;
+  v35 = 0;
+  v5 = [telephonyClient getSubscriptionInfoWithError:&v35];
+  v6 = v35;
   subscriptionsInUse = [v5 subscriptionsInUse];
 
   if (subscriptionsInUse || ([v6 domain], v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
   {
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
+    v32 = 0u;
     obj = subscriptionsInUse;
-    v8 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v8 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
     if (v8)
     {
       v9 = v8;
-      v26 = subscriptionsInUse;
-      v27 = v6;
-      v10 = *v31;
+      v27 = subscriptionsInUse;
+      v28 = v6;
+      v10 = *v32;
       p_vtable = &OBJC_METACLASS___CSDOrientationMonitor.vtable;
       selfCopy = self;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v31 != v10)
+          if (*v32 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v30 + 1) + 8 * i);
+          v13 = *(*(&v31 + 1) + 8 * i);
           uuid = [v13 uuid];
           v15 = objc_alloc((p_vtable + 262));
           v16 = [(CSDCarrierBundleProviderController *)self carrierNumbersForSubscriptionContext:v13];
           v17 = [v15 initWithUUID:uuid carrierPhoneNumbers:v16];
 
-          [v3 addObject:v17];
-          v18 = sub_100004778();
+          v18 = sub_100004778([v3 addObject:v17]);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             [v17 uuid];
@@ -154,9 +153,9 @@
             [v17 carrierPhoneNumbers];
             v23 = v22 = v10;
             *buf = 138412546;
-            v36 = v21;
-            v37 = 2112;
-            v38 = v23;
+            v37 = v21;
+            v38 = 2112;
+            v39 = v23;
             _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "added service provider uuid=%@ carrierPhoneNumbers=%@", buf, 0x16u);
 
             v10 = v22;
@@ -166,18 +165,18 @@
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v9 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
       while (v9);
-      subscriptionsInUse = v26;
-      v6 = v27;
+      subscriptionsInUse = v27;
+      v6 = v28;
     }
   }
 
   else
   {
-    obj = sub_100004778();
+    obj = sub_100004778(v25);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       sub_100473A7C(v6, self, obj);
@@ -191,31 +190,31 @@
 {
   dCopy = d;
   telephonyClient = [(CSDCarrierBundleProviderController *)self telephonyClient];
-  v28 = 0;
-  v6 = [telephonyClient getSubscriptionInfoWithError:&v28];
-  v7 = v28;
+  v29 = 0;
+  v6 = [telephonyClient getSubscriptionInfoWithError:&v29];
+  v7 = v29;
   subscriptionsInUse = [v6 subscriptionsInUse];
 
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v9 = subscriptionsInUse;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v26;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v25 != v12)
+      if (*v26 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v24 + 1) + 8 * v13);
+      v14 = *(*(&v25 + 1) + 8 * v13);
       uuid = [v14 uuid];
       v16 = [uuid isEqual:dCopy];
 
@@ -226,7 +225,7 @@ LABEL_3:
 
       if (v11 == ++v13)
       {
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v34 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -244,14 +243,14 @@ LABEL_3:
       goto LABEL_21;
     }
 
-    v23 = v7;
-    v17 = [(CSDCarrierBundleProviderController *)self arrayOfStringsForKeyHierarchy:&off_10063EE48 subscriptionContext:v18 error:&v23];
-    v19 = v23;
+    v24 = v7;
+    v17 = [(CSDCarrierBundleProviderController *)self arrayOfStringsForKeyHierarchy:&off_10063EE48 subscriptionContext:v18 error:&v24];
+    v19 = v24;
 
     if (v17)
     {
-      v20 = sub_100004778();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_100004778(v20);
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_19:
 
@@ -259,10 +258,10 @@ LABEL_19:
       }
 
       *buf = 138412546;
-      v30 = v17;
-      v31 = 2112;
-      v32 = v18;
-      v21 = "Retrieved spamIdentifiersForSubscriptionContext '%@' for subscription %@";
+      v31 = v17;
+      v32 = 2112;
+      v33 = v18;
+      v22 = "Retrieved spamIdentifiersForSubscriptionContext '%@' for subscription %@";
     }
 
     else
@@ -272,20 +271,20 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v20 = sub_100004778();
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_100004778(v20);
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_19;
       }
 
       *buf = 138412546;
-      v30 = v18;
-      v31 = 2112;
-      v32 = v19;
-      v21 = "Retrieving spamIdentifiersForSubscriptionContext for subscription %@ failed with error %@";
+      v31 = v18;
+      v32 = 2112;
+      v33 = v19;
+      v22 = "Retrieving spamIdentifiersForSubscriptionContext for subscription %@ failed with error %@";
     }
 
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v22, buf, 0x16u);
     goto LABEL_19;
   }
 
@@ -310,7 +309,7 @@ LABEL_21:
   v7 = v6;
   if (v5)
   {
-    v8 = sub_100004778();
+    v8 = sub_100004778(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -330,7 +329,7 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v8 = sub_100004778();
+    v8 = sub_100004778(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -378,7 +377,7 @@ LABEL_9:
 - (void)carrierBundleChange:(id)change
 {
   changeCopy = change;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -397,7 +396,7 @@ LABEL_9:
 
 - (void)subscriptionInfoDidChange
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

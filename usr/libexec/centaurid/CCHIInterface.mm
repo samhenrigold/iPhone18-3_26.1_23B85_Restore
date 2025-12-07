@@ -34,7 +34,7 @@
 {
   if (self->_started)
   {
-    v2 = sub_10002E68C(self);
+    sub_10002E68C(self);
     [(CCHIInterface *)v2 stop];
   }
 
@@ -48,7 +48,7 @@
 
 - (void)stop
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
@@ -77,7 +77,7 @@
   {
     sub_10002EA80();
 LABEL_17:
-    v20 = 0;
+    v21 = 0;
     v14 = 0;
     v16 = 0;
     goto LABEL_14;
@@ -118,7 +118,7 @@ LABEL_19:
   if (!v15)
   {
 LABEL_31:
-    v20 = 0;
+    v21 = 0;
     goto LABEL_13;
   }
 
@@ -130,103 +130,104 @@ LABEL_31:
 
   bytes = [v16 bytes];
   v18 = *bytes;
-  if ([v16 length] != v18)
+  v19 = [v16 length];
+  if (v19 != v18)
   {
-    v23 = sub_100025204();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = sub_100025204(v19);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
 LABEL_26:
 
       goto LABEL_31;
     }
 
-    v24 = [objc_opt_class() description];
-    v25 = NSStringFromSelector(a2);
-    v26 = *bytes;
-    v39 = 138544130;
-    v40 = v24;
-    v41 = 2114;
-    v42 = v25;
-    v43 = 1024;
-    v44 = v26;
-    v45 = 2048;
-    v46 = [v16 length];
-    v27 = "%{public}@::%{public}@: response length mismatch: %hu != %lu";
-    v28 = v23;
-    v29 = 38;
+    v25 = [objc_opt_class() description];
+    v26 = NSStringFromSelector(a2);
+    v27 = *bytes;
+    v40 = 138544130;
+    v41 = v25;
+    v42 = 2114;
+    v43 = v26;
+    v44 = 1024;
+    v45 = v27;
+    v46 = 2048;
+    v47 = [v16 length];
+    v28 = "%{public}@::%{public}@: response length mismatch: %hu != %lu";
+    v29 = v24;
+    v30 = 38;
 LABEL_33:
-    _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, v27, &v39, v29);
+    _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, v28, &v40, v30);
 
     goto LABEL_26;
   }
 
-  v19 = bytes[4];
-  if (v19 != self->_rxSeq)
+  v20 = bytes[4];
+  if (v20 != self->_rxSeq)
   {
-    v23 = sub_100025204();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = sub_100025204(v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v30 = [objc_opt_class() description];
-      v31 = NSStringFromSelector(a2);
-      v32 = bytes[4];
+      v31 = [objc_opt_class() description];
+      v32 = NSStringFromSelector(a2);
+      v33 = bytes[4];
       rxSeq = self->_rxSeq;
-      v39 = 138544130;
-      v40 = v30;
-      v41 = 2114;
-      v42 = v31;
-      v43 = 1024;
-      v44 = v32;
-      v45 = 1024;
-      LODWORD(v46) = rxSeq;
-      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: received sequence num %u, expected %u", &v39, 0x22u);
+      v40 = 138544130;
+      v41 = v31;
+      v42 = 2114;
+      v43 = v32;
+      v44 = 1024;
+      v45 = v33;
+      v46 = 1024;
+      LODWORD(v47) = rxSeq;
+      _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: received sequence num %u, expected %u", &v40, 0x22u);
     }
 
     goto LABEL_26;
   }
 
-  self->_rxSeq = v19 + 1;
+  self->_rxSeq = v20 + 1;
   if (bytes[2] != gidCopy)
   {
-    v23 = sub_100025204();
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = sub_100025204(v19);
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_26;
     }
 
-    v24 = [objc_opt_class() description];
-    v25 = NSStringFromSelector(a2);
-    v35 = bytes[2];
-    v39 = 138544130;
-    v40 = v24;
-    v41 = 2114;
-    v42 = v25;
-    v43 = 1024;
-    v44 = v35;
-    v45 = 1024;
-    LODWORD(v46) = gidCopy;
-    v27 = "%{public}@::%{public}@: received gid %u, expected %u";
-    v28 = v23;
-    v29 = 34;
+    v25 = [objc_opt_class() description];
+    v26 = NSStringFromSelector(a2);
+    v36 = bytes[2];
+    v40 = 138544130;
+    v41 = v25;
+    v42 = 2114;
+    v43 = v26;
+    v44 = 1024;
+    v45 = v36;
+    v46 = 1024;
+    LODWORD(v47) = gidCopy;
+    v28 = "%{public}@::%{public}@: received gid %u, expected %u";
+    v29 = v24;
+    v30 = 34;
     goto LABEL_33;
   }
 
   if (bytes[3] != oidCopy)
   {
-    v34 = sub_100025204();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v35 = sub_100025204(v19);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v36 = [objc_opt_class() description];
-      v37 = NSStringFromSelector(a2);
-      v38 = bytes[3];
-      v39 = 138544130;
-      v40 = v36;
-      v41 = 2114;
-      v42 = v37;
-      v43 = 1024;
-      v44 = v38;
-      v45 = 1024;
-      LODWORD(v46) = oidCopy;
-      _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: received oid %u, expected %u", &v39, 0x22u);
+      v37 = [objc_opt_class() description];
+      v38 = NSStringFromSelector(a2);
+      v39 = bytes[3];
+      v40 = 138544130;
+      v41 = v37;
+      v42 = 2114;
+      v43 = v38;
+      v44 = 1024;
+      v45 = v39;
+      v46 = 1024;
+      LODWORD(v47) = oidCopy;
+      _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: received oid %u, expected %u", &v40, 0x22u);
     }
 
     goto LABEL_31;
@@ -238,18 +239,18 @@ LABEL_33:
     goto LABEL_31;
   }
 
-  v20 = [v16 subdataWithRange:{8, objc_msgSend(v16, "length") - 8}];
+  v21 = [v16 subdataWithRange:{8, objc_msgSend(v16, "length") - 8}];
 LABEL_13:
   free(v12);
 LABEL_14:
-  v21 = v20;
+  v22 = v21;
 
-  return v20;
+  return v21;
 }
 
 - (void)log
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
@@ -288,199 +289,199 @@ LABEL_14:
 
 - (id)getBootPerformanceStats
 {
-  v136[0] = &off_10006D908;
-  v101 = [NSString stringWithUTF8String:"bootFromROM"];
-  v137[0] = v101;
-  v136[1] = &off_10006D920;
-  v124 = [NSString stringWithUTF8String:"clockDone"];
-  v137[1] = v124;
-  v136[2] = &off_10006D938;
-  v122 = [NSString stringWithUTF8String:"endOfResource"];
-  v137[2] = v122;
-  v136[3] = &off_10006D950;
-  v120 = [NSString stringWithUTF8String:"irqEnable"];
-  v137[3] = v120;
-  v136[4] = &off_10006D968;
-  v118 = [NSString stringWithUTF8String:"beforeScheduler"];
-  v137[4] = v118;
-  v136[5] = &off_10006D980;
-  v117 = [NSString stringWithUTF8String:"afterScheduler"];
-  v137[5] = v117;
-  v136[6] = &off_10006D998;
-  v116 = [NSString stringWithUTF8String:"validFilesystemPresent"];
-  v137[6] = v116;
-  v136[7] = &off_10006D9B0;
-  v115 = [NSString stringWithUTF8String:"nvramPresent"];
-  v137[7] = v115;
-  v136[8] = &off_10006D9C8;
-  v114 = [NSString stringWithUTF8String:"logInfrastructureUp"];
-  v137[8] = v114;
-  v136[9] = &off_10006D9E0;
-  v113 = [NSString stringWithUTF8String:"preparingForNewCrashHandling"];
-  v137[9] = v113;
-  v136[10] = &off_10006D9F8;
-  v112 = [NSString stringWithUTF8String:"ftabAvailable"];
-  v137[10] = v112;
-  v136[11] = &off_10006DA10;
-  v111 = [NSString stringWithUTF8String:"appStart"];
-  v137[11] = v111;
-  v136[12] = &off_10006DA28;
-  v110 = [NSString stringWithUTF8String:"appEnd"];
-  v137[12] = v110;
-  v136[13] = &off_10006DA40;
-  v109 = [NSString stringWithUTF8String:"aopStart"];
-  v137[13] = v109;
-  v136[14] = &off_10006DA58;
-  v108 = [NSString stringWithUTF8String:"aopFWLoad"];
-  v137[14] = v108;
-  v136[15] = &off_10006DA70;
-  v107 = [NSString stringWithUTF8String:"aopAppLoad"];
-  v137[15] = v107;
-  v136[16] = &off_10006DA88;
-  v106 = [NSString stringWithUTF8String:"btStart"];
-  v137[16] = v106;
-  v136[17] = &off_10006DAA0;
-  v105 = [NSString stringWithUTF8String:"btFWLoad"];
-  v137[17] = v105;
-  v136[18] = &off_10006DAB8;
-  v104 = [NSString stringWithUTF8String:"hostAppLoad"];
-  v137[18] = v104;
-  v136[19] = &off_10006DAD0;
-  v103 = [NSString stringWithUTF8String:"dspFWLoad"];
-  v137[19] = v103;
-  v136[20] = &off_10006DAE8;
-  v102 = [NSString stringWithUTF8String:"filesystemNotPresent"];
-  v137[20] = v102;
-  v136[21] = &off_10006DB00;
-  v100 = [NSString stringWithUTF8String:"iopLoadStart"];
-  v137[21] = v100;
-  v136[22] = &off_10006DB18;
-  v99 = [NSString stringWithUTF8String:"iopLoadDone"];
-  v137[22] = v99;
-  v136[23] = &off_10006DB30;
-  v98 = [NSString stringWithUTF8String:"beforePTM"];
-  v137[23] = v98;
-  v136[24] = &off_10006DB48;
-  v97 = [NSString stringWithUTF8String:"ptmDone"];
-  v137[24] = v97;
-  v136[25] = &off_10006DB60;
-  v96 = [NSString stringWithUTF8String:"manifestValidated"];
-  v137[25] = v96;
-  v136[26] = &off_10006DB78;
-  v95 = [NSString stringWithUTF8String:"bt2GFetchValidateBegin"];
-  v137[26] = v95;
-  v136[27] = &off_10006DB90;
-  v94 = [NSString stringWithUTF8String:"bt2GFetchValidateDone"];
-  v137[27] = v94;
-  v136[28] = &off_10006DBA8;
-  v93 = [NSString stringWithUTF8String:"bt5GFetchValidateBegin"];
-  v137[28] = v93;
-  v136[29] = &off_10006DBC0;
-  v92 = [NSString stringWithUTF8String:"bt5GFetchValidateDone"];
-  v137[29] = v92;
-  v136[30] = &off_10006DBD8;
-  v91 = [NSString stringWithUTF8String:"btLPSFetchValidateBegin"];
-  v137[30] = v91;
-  v136[31] = &off_10006DBF0;
-  v90 = [NSString stringWithUTF8String:"btLPSFetchValidateDone"];
-  v137[31] = v90;
-  v136[32] = &off_10006DC08;
-  v89 = [NSString stringWithUTF8String:"btMainFetchValidateBegin"];
-  v137[32] = v89;
-  v136[33] = &off_10006DC20;
-  v88 = [NSString stringWithUTF8String:"btMainFetchValidateDone"];
-  v137[33] = v88;
-  v136[34] = &off_10006DC38;
-  v87 = [NSString stringWithUTF8String:"btSecFetchValidateBegin"];
-  v137[34] = v87;
-  v136[35] = &off_10006DC50;
-  v86 = [NSString stringWithUTF8String:"btSecFetchValidateDone"];
-  v137[35] = v86;
-  v136[36] = &off_10006DC68;
-  v85 = [NSString stringWithUTF8String:"wifiLM2GFetchValidateBegin"];
-  v137[36] = v85;
-  v136[37] = &off_10006DC80;
-  v84 = [NSString stringWithUTF8String:"wifiLM2GFetchValidateDone"];
-  v137[37] = v84;
-  v136[38] = &off_10006DC98;
-  v83 = [NSString stringWithUTF8String:"wifiLM5GFetchValidateBegin"];
-  v137[38] = v83;
-  v136[39] = &off_10006DCB0;
-  v82 = [NSString stringWithUTF8String:"wifiLM5GFetchValidateDone"];
-  v137[39] = v82;
-  v136[40] = &off_10006DCC8;
-  v81 = [NSString stringWithUTF8String:"wifiMainFetchValidateBegin"];
-  v137[40] = v81;
-  v136[41] = &off_10006DCE0;
-  v80 = [NSString stringWithUTF8String:"wifiMainFetchValidateDone"];
-  v137[41] = v80;
-  v136[42] = &off_10006DCF8;
-  v79 = [NSString stringWithUTF8String:"wifiP2GFetchValidateBegin"];
-  v137[42] = v79;
-  v136[43] = &off_10006DD10;
-  v78 = [NSString stringWithUTF8String:"wifiP2GFetchValidateDone"];
-  v137[43] = v78;
-  v136[44] = &off_10006DD28;
-  v77 = [NSString stringWithUTF8String:"wifiP5GFetchValidateBegin"];
-  v137[44] = v77;
-  v136[45] = &off_10006DD40;
-  v76 = [NSString stringWithUTF8String:"wifiP5GFetchValidateDone"];
-  v137[45] = v76;
-  v136[46] = &off_10006DD58;
-  v75 = [NSString stringWithUTF8String:"wifiRXFetchValidateBegin"];
-  v137[46] = v75;
-  v136[47] = &off_10006DD70;
-  v74 = [NSString stringWithUTF8String:"wifiRXFetchValidateDone"];
-  v137[47] = v74;
-  v136[48] = &off_10006DD88;
-  v73 = [NSString stringWithUTF8String:"wifiTXFetchValidateBegin"];
-  v137[48] = v73;
-  v136[49] = &off_10006DDA0;
-  v72 = [NSString stringWithUTF8String:"wifiTXFetchValidateDone"];
-  v137[49] = v72;
-  v136[50] = &off_10006DDB8;
-  v71 = [NSString stringWithUTF8String:"wifiScanFetchValidateBegin"];
-  v137[50] = v71;
-  v136[51] = &off_10006DDD0;
-  v70 = [NSString stringWithUTF8String:"wifiScanFetchValidateDone"];
-  v137[51] = v70;
-  v136[52] = &off_10006DDE8;
+  v140[0] = &off_10006D908;
+  v105 = [NSString stringWithUTF8String:"bootFromROM"];
+  v141[0] = v105;
+  v140[1] = &off_10006D920;
+  v128 = [NSString stringWithUTF8String:"clockDone"];
+  v141[1] = v128;
+  v140[2] = &off_10006D938;
+  v126 = [NSString stringWithUTF8String:"endOfResource"];
+  v141[2] = v126;
+  v140[3] = &off_10006D950;
+  v124 = [NSString stringWithUTF8String:"irqEnable"];
+  v141[3] = v124;
+  v140[4] = &off_10006D968;
+  v122 = [NSString stringWithUTF8String:"beforeScheduler"];
+  v141[4] = v122;
+  v140[5] = &off_10006D980;
+  v121 = [NSString stringWithUTF8String:"afterScheduler"];
+  v141[5] = v121;
+  v140[6] = &off_10006D998;
+  v120 = [NSString stringWithUTF8String:"validFilesystemPresent"];
+  v141[6] = v120;
+  v140[7] = &off_10006D9B0;
+  v119 = [NSString stringWithUTF8String:"nvramPresent"];
+  v141[7] = v119;
+  v140[8] = &off_10006D9C8;
+  v118 = [NSString stringWithUTF8String:"logInfrastructureUp"];
+  v141[8] = v118;
+  v140[9] = &off_10006D9E0;
+  v117 = [NSString stringWithUTF8String:"preparingForNewCrashHandling"];
+  v141[9] = v117;
+  v140[10] = &off_10006D9F8;
+  v116 = [NSString stringWithUTF8String:"ftabAvailable"];
+  v141[10] = v116;
+  v140[11] = &off_10006DA10;
+  v115 = [NSString stringWithUTF8String:"appStart"];
+  v141[11] = v115;
+  v140[12] = &off_10006DA28;
+  v114 = [NSString stringWithUTF8String:"appEnd"];
+  v141[12] = v114;
+  v140[13] = &off_10006DA40;
+  v113 = [NSString stringWithUTF8String:"aopStart"];
+  v141[13] = v113;
+  v140[14] = &off_10006DA58;
+  v112 = [NSString stringWithUTF8String:"aopFWLoad"];
+  v141[14] = v112;
+  v140[15] = &off_10006DA70;
+  v111 = [NSString stringWithUTF8String:"aopAppLoad"];
+  v141[15] = v111;
+  v140[16] = &off_10006DA88;
+  v110 = [NSString stringWithUTF8String:"btStart"];
+  v141[16] = v110;
+  v140[17] = &off_10006DAA0;
+  v109 = [NSString stringWithUTF8String:"btFWLoad"];
+  v141[17] = v109;
+  v140[18] = &off_10006DAB8;
+  v108 = [NSString stringWithUTF8String:"hostAppLoad"];
+  v141[18] = v108;
+  v140[19] = &off_10006DAD0;
+  v107 = [NSString stringWithUTF8String:"dspFWLoad"];
+  v141[19] = v107;
+  v140[20] = &off_10006DAE8;
+  v106 = [NSString stringWithUTF8String:"filesystemNotPresent"];
+  v141[20] = v106;
+  v140[21] = &off_10006DB00;
+  v104 = [NSString stringWithUTF8String:"iopLoadStart"];
+  v141[21] = v104;
+  v140[22] = &off_10006DB18;
+  v103 = [NSString stringWithUTF8String:"iopLoadDone"];
+  v141[22] = v103;
+  v140[23] = &off_10006DB30;
+  v102 = [NSString stringWithUTF8String:"beforePTM"];
+  v141[23] = v102;
+  v140[24] = &off_10006DB48;
+  v101 = [NSString stringWithUTF8String:"ptmDone"];
+  v141[24] = v101;
+  v140[25] = &off_10006DB60;
+  v100 = [NSString stringWithUTF8String:"manifestValidated"];
+  v141[25] = v100;
+  v140[26] = &off_10006DB78;
+  v99 = [NSString stringWithUTF8String:"bt2GFetchValidateBegin"];
+  v141[26] = v99;
+  v140[27] = &off_10006DB90;
+  v98 = [NSString stringWithUTF8String:"bt2GFetchValidateDone"];
+  v141[27] = v98;
+  v140[28] = &off_10006DBA8;
+  v97 = [NSString stringWithUTF8String:"bt5GFetchValidateBegin"];
+  v141[28] = v97;
+  v140[29] = &off_10006DBC0;
+  v96 = [NSString stringWithUTF8String:"bt5GFetchValidateDone"];
+  v141[29] = v96;
+  v140[30] = &off_10006DBD8;
+  v95 = [NSString stringWithUTF8String:"btLPSFetchValidateBegin"];
+  v141[30] = v95;
+  v140[31] = &off_10006DBF0;
+  v94 = [NSString stringWithUTF8String:"btLPSFetchValidateDone"];
+  v141[31] = v94;
+  v140[32] = &off_10006DC08;
+  v93 = [NSString stringWithUTF8String:"btMainFetchValidateBegin"];
+  v141[32] = v93;
+  v140[33] = &off_10006DC20;
+  v92 = [NSString stringWithUTF8String:"btMainFetchValidateDone"];
+  v141[33] = v92;
+  v140[34] = &off_10006DC38;
+  v91 = [NSString stringWithUTF8String:"btSecFetchValidateBegin"];
+  v141[34] = v91;
+  v140[35] = &off_10006DC50;
+  v90 = [NSString stringWithUTF8String:"btSecFetchValidateDone"];
+  v141[35] = v90;
+  v140[36] = &off_10006DC68;
+  v89 = [NSString stringWithUTF8String:"wifiLM2GFetchValidateBegin"];
+  v141[36] = v89;
+  v140[37] = &off_10006DC80;
+  v88 = [NSString stringWithUTF8String:"wifiLM2GFetchValidateDone"];
+  v141[37] = v88;
+  v140[38] = &off_10006DC98;
+  v87 = [NSString stringWithUTF8String:"wifiLM5GFetchValidateBegin"];
+  v141[38] = v87;
+  v140[39] = &off_10006DCB0;
+  v86 = [NSString stringWithUTF8String:"wifiLM5GFetchValidateDone"];
+  v141[39] = v86;
+  v140[40] = &off_10006DCC8;
+  v85 = [NSString stringWithUTF8String:"wifiMainFetchValidateBegin"];
+  v141[40] = v85;
+  v140[41] = &off_10006DCE0;
+  v84 = [NSString stringWithUTF8String:"wifiMainFetchValidateDone"];
+  v141[41] = v84;
+  v140[42] = &off_10006DCF8;
+  v83 = [NSString stringWithUTF8String:"wifiP2GFetchValidateBegin"];
+  v141[42] = v83;
+  v140[43] = &off_10006DD10;
+  v82 = [NSString stringWithUTF8String:"wifiP2GFetchValidateDone"];
+  v141[43] = v82;
+  v140[44] = &off_10006DD28;
+  v81 = [NSString stringWithUTF8String:"wifiP5GFetchValidateBegin"];
+  v141[44] = v81;
+  v140[45] = &off_10006DD40;
+  v80 = [NSString stringWithUTF8String:"wifiP5GFetchValidateDone"];
+  v141[45] = v80;
+  v140[46] = &off_10006DD58;
+  v79 = [NSString stringWithUTF8String:"wifiRXFetchValidateBegin"];
+  v141[46] = v79;
+  v140[47] = &off_10006DD70;
+  v78 = [NSString stringWithUTF8String:"wifiRXFetchValidateDone"];
+  v141[47] = v78;
+  v140[48] = &off_10006DD88;
+  v77 = [NSString stringWithUTF8String:"wifiTXFetchValidateBegin"];
+  v141[48] = v77;
+  v140[49] = &off_10006DDA0;
+  v76 = [NSString stringWithUTF8String:"wifiTXFetchValidateDone"];
+  v141[49] = v76;
+  v140[50] = &off_10006DDB8;
+  v75 = [NSString stringWithUTF8String:"wifiScanFetchValidateBegin"];
+  v141[50] = v75;
+  v140[51] = &off_10006DDD0;
+  v74 = [NSString stringWithUTF8String:"wifiScanFetchValidateDone"];
+  v141[51] = v74;
+  v140[52] = &off_10006DDE8;
   v2 = [NSString stringWithUTF8String:"btFLRSequencePrepared"];
-  v137[52] = v2;
-  v136[53] = &off_10006DE00;
+  v141[52] = v2;
+  v140[53] = &off_10006DE00;
   v3 = [NSString stringWithUTF8String:"wifiFLRSequencePrepared"];
-  v137[53] = v3;
-  v136[54] = &off_10006DE18;
+  v141[53] = v3;
+  v140[54] = &off_10006DE18;
   v4 = [NSString stringWithUTF8String:"controlAppInitBegin"];
-  v137[54] = v4;
-  v136[55] = &off_10006DE30;
+  v141[54] = v4;
+  v140[55] = &off_10006DE30;
   v5 = [NSString stringWithUTF8String:"controlAppInitDone"];
-  v137[55] = v5;
-  v136[56] = &off_10006DE48;
+  v141[55] = v5;
+  v140[56] = &off_10006DE48;
   v6 = [NSString stringWithUTF8String:"fdrCalBegin"];
-  v137[56] = v6;
-  v136[57] = &off_10006DE60;
+  v141[56] = v6;
+  v140[57] = &off_10006DE60;
   v7 = [NSString stringWithUTF8String:"fdrCalDone"];
-  v137[57] = v7;
-  v136[58] = &off_10006DE78;
+  v141[57] = v7;
+  v140[58] = &off_10006DE78;
   v8 = [NSString stringWithUTF8String:"imageResponseSent"];
-  v137[58] = v8;
-  v136[59] = &off_10006DE90;
+  v141[58] = v8;
+  v140[59] = &off_10006DE90;
   v9 = [NSString stringWithUTF8String:"bootStageOS"];
-  v137[59] = v9;
-  v136[60] = &off_10006DEA8;
+  v141[59] = v9;
+  v140[60] = &off_10006DEA8;
   v10 = [NSString stringWithUTF8String:"postAllFWLoad"];
-  v137[60] = v10;
-  v11 = [NSDictionary dictionaryWithObjects:v137 forKeys:v136 count:61];
+  v141[60] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v141 forKeys:v140 count:61];
 
-  v126 = 0;
+  v130 = 0;
   v12 = +[NSMutableDictionary dictionary];
-  v123 = +[NSMutableSet set];
-  v125 = +[NSMutableSet set];
+  v127 = +[NSMutableSet set];
+  v129 = +[NSMutableSet set];
   v13 = 0;
   do
   {
-    v14 = [NSData dataWithBytes:&v126 length:2];
+    v14 = [NSData dataWithBytes:&v130 length:2];
     v15 = [(CCHIInterface *)self sendCommand:v14 gid:0 oid:8];
     v16 = v15;
     if (!v15)
@@ -488,154 +489,156 @@ LABEL_14:
       goto LABEL_68;
     }
 
-    if ([v15 length] <= 7)
+    v17 = [v15 length];
+    if (v17 <= 7)
     {
-      v43 = sub_100025204();
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v47 = sub_100025204(v17);
+      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_67;
       }
 
-      v44 = [objc_opt_class() description];
-      v45 = NSStringFromSelector(a2);
-      v46 = [v16 length];
+      v48 = [objc_opt_class() description];
+      v49 = NSStringFromSelector(a2);
+      v50 = [v16 length];
       *buf = 138543874;
-      v128 = v44;
-      v129 = 2114;
-      v130 = v45;
-      v131 = 2048;
-      *v132 = v46;
-      v47 = "%{public}@::%{public}@: response too small %lu";
+      v132 = v48;
+      v133 = 2114;
+      v134 = v49;
+      v135 = 2048;
+      *v136 = v50;
+      v51 = "%{public}@::%{public}@: response too small %lu";
 LABEL_44:
-      _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, v47, buf, 0x20u);
+      _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, v51, buf, 0x20u);
 
 LABEL_50:
       goto LABEL_67;
     }
 
-    v17 = [v16 length] - 8;
-    v18 = v17 / 0xC;
-    if ((12 * (v17 / 0xC) + 8) != [v16 length])
+    v18 = [v16 length] - 8;
+    v19 = v18 / 0xC;
+    v20 = [v16 length];
+    if ((12 * (v18 / 0xC) + 8) != v20)
     {
-      v43 = sub_100025204();
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v47 = sub_100025204(v20);
+      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_67;
       }
 
-      v44 = [objc_opt_class() description];
-      v45 = NSStringFromSelector(a2);
-      v48 = [v16 length];
+      v48 = [objc_opt_class() description];
+      v49 = NSStringFromSelector(a2);
+      v52 = [v16 length];
       *buf = 138543874;
-      v128 = v44;
-      v129 = 2114;
-      v130 = v45;
-      v131 = 2048;
-      *v132 = v48;
-      v47 = "%{public}@::%{public}@: invalid response size %lu";
+      v132 = v48;
+      v133 = 2114;
+      v134 = v49;
+      v135 = 2048;
+      *v136 = v52;
+      v51 = "%{public}@::%{public}@: invalid response size %lu";
       goto LABEL_44;
     }
 
     bytes = [v16 bytes];
-    v20 = bytes;
-    v21 = *bytes;
-    if (v21 != v126)
+    v22 = bytes;
+    v23 = *bytes;
+    if (v23 != v130)
     {
-      v43 = sub_100025204();
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v47 = sub_100025204(bytes);
+      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_67;
       }
 
-      v44 = [objc_opt_class() description];
-      v49 = NSStringFromSelector(a2);
-      v50 = *v20;
+      v48 = [objc_opt_class() description];
+      v53 = NSStringFromSelector(a2);
+      v54 = *v22;
       *buf = 138544130;
-      v128 = v44;
-      v129 = 2114;
-      v130 = v49;
-      v131 = 1024;
-      *v132 = v50;
-      *&v132[4] = 1024;
-      *&v132[6] = v126;
-      v51 = "%{public}@::%{public}@: received start index %u, requested %u";
+      v132 = v48;
+      v133 = 2114;
+      v134 = v53;
+      v135 = 1024;
+      *v136 = v54;
+      *&v136[4] = 1024;
+      *&v136[6] = v130;
+      v55 = "%{public}@::%{public}@: received start index %u, requested %u";
 LABEL_49:
-      _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, v51, buf, 0x22u);
+      _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, v55, buf, 0x22u);
 
       goto LABEL_50;
     }
 
-    v22 = bytes[1];
-    if (v22 < v21)
+    v24 = bytes[1];
+    if (v24 < v23)
     {
-      v43 = sub_100025204();
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v47 = sub_100025204(bytes);
+      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_67;
       }
 
-      v44 = [objc_opt_class() description];
-      v49 = NSStringFromSelector(a2);
-      v52 = v20[1];
-      v53 = *v20;
+      v48 = [objc_opt_class() description];
+      v53 = NSStringFromSelector(a2);
+      v56 = v22[1];
+      v57 = *v22;
       *buf = 138544130;
-      v128 = v44;
-      v129 = 2114;
-      v130 = v49;
-      v131 = 1024;
-      *v132 = v52;
-      *&v132[4] = 1024;
-      *&v132[6] = v53;
-      v51 = "%{public}@::%{public}@: end index %u less than start index %u";
+      v132 = v48;
+      v133 = 2114;
+      v134 = v53;
+      v135 = 1024;
+      *v136 = v56;
+      *&v136[4] = 1024;
+      *&v136[6] = v57;
+      v55 = "%{public}@::%{public}@: end index %u less than start index %u";
       goto LABEL_49;
     }
 
-    v121 = v14;
-    v23 = bytes[2];
-    if (v23 < v22)
+    v125 = v14;
+    v25 = bytes[2];
+    if (v25 < v24)
     {
-      v43 = sub_100025204();
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v47 = sub_100025204(bytes);
+      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_66;
       }
 
-      v54 = [objc_opt_class() description];
-      v55 = NSStringFromSelector(a2);
-      v56 = v20[2];
-      v57 = v20[1];
+      v58 = [objc_opt_class() description];
+      v59 = NSStringFromSelector(a2);
+      v60 = v22[2];
+      v61 = v22[1];
       *buf = 138544130;
-      v128 = v54;
-      v129 = 2114;
-      v130 = v55;
-      v131 = 1024;
-      *v132 = v56;
-      *&v132[4] = 1024;
-      *&v132[6] = v57;
-      v58 = "%{public}@::%{public}@: max index %u less than end index %u";
+      v132 = v58;
+      v133 = 2114;
+      v134 = v59;
+      v135 = 1024;
+      *v136 = v60;
+      *&v136[4] = 1024;
+      *&v136[6] = v61;
+      v62 = "%{public}@::%{public}@: max index %u less than end index %u";
       goto LABEL_64;
     }
 
-    if (v17 < 0xC)
+    if (v18 < 0xC)
     {
       if (*bytes)
       {
-        v43 = sub_100025204();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v47 = sub_100025204(bytes);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v54 = [objc_opt_class() description];
-          v55 = NSStringFromSelector(a2);
-          v59 = *v20;
+          v58 = [objc_opt_class() description];
+          v59 = NSStringFromSelector(a2);
+          v63 = *v22;
           *buf = 138543874;
-          v128 = v54;
-          v129 = 2114;
-          v130 = v55;
-          v131 = 1024;
-          *v132 = v59;
-          v58 = "%{public}@::%{public}@: start index %u but no stats present";
+          v132 = v58;
+          v133 = 2114;
+          v134 = v59;
+          v135 = 1024;
+          *v136 = v63;
+          v62 = "%{public}@::%{public}@: start index %u but no stats present";
 LABEL_61:
-          v63 = v43;
-          v64 = 28;
+          v67 = v47;
+          v68 = 28;
           goto LABEL_65;
         }
       }
@@ -646,82 +649,82 @@ LABEL_61:
         {
           if (!bytes[2])
           {
-            v24 = 0;
+            v26 = 0;
             goto LABEL_27;
           }
 
-          v43 = sub_100025204();
-          if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v47 = sub_100025204(bytes);
+          if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_66;
           }
 
-          v54 = [objc_opt_class() description];
-          v55 = NSStringFromSelector(a2);
-          v66 = v20[2];
+          v58 = [objc_opt_class() description];
+          v59 = NSStringFromSelector(a2);
+          v70 = v22[2];
           *buf = 138543874;
-          v128 = v54;
-          v129 = 2114;
-          v130 = v55;
-          v131 = 1024;
-          *v132 = v66;
-          v58 = "%{public}@::%{public}@: max index %u but no stats present";
+          v132 = v58;
+          v133 = 2114;
+          v134 = v59;
+          v135 = 1024;
+          *v136 = v70;
+          v62 = "%{public}@::%{public}@: max index %u but no stats present";
           goto LABEL_61;
         }
 
-        v43 = sub_100025204();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v47 = sub_100025204(bytes);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v54 = [objc_opt_class() description];
-          v55 = NSStringFromSelector(a2);
-          v65 = v20[1];
+          v58 = [objc_opt_class() description];
+          v59 = NSStringFromSelector(a2);
+          v69 = v22[1];
           *buf = 138543874;
-          v128 = v54;
-          v129 = 2114;
-          v130 = v55;
-          v131 = 1024;
-          *v132 = v65;
-          v58 = "%{public}@::%{public}@: end index %u but no stats present";
+          v132 = v58;
+          v133 = 2114;
+          v134 = v59;
+          v135 = 1024;
+          *v136 = v69;
+          v62 = "%{public}@::%{public}@: end index %u but no stats present";
           goto LABEL_61;
         }
       }
 
 LABEL_66:
-      v14 = v121;
+      v14 = v125;
 LABEL_67:
 
 LABEL_68:
-      v36 = 0;
+      v40 = 0;
 LABEL_36:
 
       goto LABEL_37;
     }
 
-    if (v22 - v21 + 1 != v18)
+    if (v24 - v23 + 1 != v19)
     {
-      v43 = sub_100025204();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v47 = sub_100025204(bytes);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        v54 = [objc_opt_class() description];
-        v55 = NSStringFromSelector(a2);
-        v60 = [v16 length];
-        v61 = *v20;
-        v62 = v20[1];
+        v58 = [objc_opt_class() description];
+        v59 = NSStringFromSelector(a2);
+        v64 = [v16 length];
+        v65 = *v22;
+        v66 = v22[1];
         *buf = 138544386;
-        v128 = v54;
-        v129 = 2114;
-        v130 = v55;
-        v131 = 2048;
-        *v132 = v60;
-        *&v132[8] = 1024;
-        v133 = v61;
-        v134 = 1024;
-        v135 = v62;
-        v58 = "%{public}@::%{public}@: response size %lu doesn't match indexes (%u,%u)";
-        v63 = v43;
-        v64 = 44;
+        v132 = v58;
+        v133 = 2114;
+        v134 = v59;
+        v135 = 2048;
+        *v136 = v64;
+        *&v136[8] = 1024;
+        v137 = v65;
+        v138 = 1024;
+        v139 = v66;
+        v62 = "%{public}@::%{public}@: response size %lu doesn't match indexes (%u,%u)";
+        v67 = v47;
+        v68 = 44;
 LABEL_65:
-        _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, v58, buf, v64);
+        _os_log_error_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, v62, buf, v68);
 
         goto LABEL_66;
       }
@@ -731,176 +734,178 @@ LABEL_65:
 
     if (*bytes)
     {
-      if (v23 >= v13)
+      if (v25 >= v13)
       {
-        v23 = v13;
+        v25 = v13;
         goto LABEL_17;
       }
 
-      v43 = sub_100025204();
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v47 = sub_100025204(bytes);
+      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_66;
       }
 
-      v67 = v13;
-      v54 = [objc_opt_class() description];
-      v55 = NSStringFromSelector(a2);
-      v68 = v20[2];
+      v71 = v13;
+      v58 = [objc_opt_class() description];
+      v59 = NSStringFromSelector(a2);
+      v72 = v22[2];
       *buf = 138544130;
-      v128 = v54;
-      v129 = 2114;
-      v130 = v55;
-      v131 = 1024;
-      *v132 = v68;
-      *&v132[4] = 1024;
-      *&v132[6] = v67;
-      v58 = "%{public}@::%{public}@: max index %u less than previous max index %u";
+      v132 = v58;
+      v133 = 2114;
+      v134 = v59;
+      v135 = 1024;
+      *v136 = v72;
+      *&v136[4] = 1024;
+      *&v136[6] = v71;
+      v62 = "%{public}@::%{public}@: max index %u less than previous max index %u";
 LABEL_64:
-      v63 = v43;
-      v64 = 34;
+      v67 = v47;
+      v68 = 34;
       goto LABEL_65;
     }
 
 LABEL_17:
-    v25 = (bytes + 4);
-    if (v18 <= 1)
+    v27 = (bytes + 4);
+    if (v19 <= 1)
     {
-      v26 = 1;
+      v28 = 1;
     }
 
     else
     {
-      v26 = v18;
+      v28 = v19;
     }
 
     do
     {
-      v27 = [NSNumber numberWithUnsignedInt:*v25];
-      v28 = [v11 objectForKeyedSubscript:v27];
+      v29 = [NSNumber numberWithUnsignedInt:*v27];
+      v30 = [v11 objectForKeyedSubscript:v29];
 
-      if (v28)
+      if (v30)
       {
-        v29 = [v12 objectForKey:v28];
+        v31 = [v12 objectForKey:v30];
 
-        if (v29)
+        if (v31)
         {
-          [v125 addObject:v28];
+          [v129 addObject:v30];
         }
 
-        v30 = [NSNumber numberWithUnsignedLongLong:*(v25 + 1)];
-        [v12 setObject:v30 forKey:v28];
+        v32 = [NSNumber numberWithUnsignedLongLong:*(v27 + 1)];
+        [v12 setObject:v32 forKey:v30];
       }
 
       else
       {
-        v30 = [NSNumber numberWithUnsignedInt:*v25];
-        [v123 addObject:v30];
+        v32 = [NSNumber numberWithUnsignedInt:*v27];
+        [v127 addObject:v32];
       }
 
-      v25 += 3;
-      --v26;
+      v27 += 3;
+      --v28;
     }
 
-    while (v26);
-    v24 = v20[1];
+    while (v28);
+    v26 = v22[1];
 LABEL_27:
-    v126 = v24 + 1;
+    v130 = v26 + 1;
 
-    v13 = v23;
+    v13 = v25;
   }
 
-  while (v24 < v23);
-  if ([v125 count])
+  while (v26 < v25);
+  v33 = [v129 count];
+  if (v33)
   {
-    v31 = sub_100025204();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100025204(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = [objc_opt_class() description];
-      v33 = NSStringFromSelector(a2);
-      allObjects = [v125 allObjects];
-      v35 = [allObjects componentsJoinedByString:{@", "}];
+      v35 = [objc_opt_class() description];
+      v36 = NSStringFromSelector(a2);
+      allObjects = [v129 allObjects];
+      v38 = [allObjects componentsJoinedByString:{@", "}];
       *buf = 138543874;
-      v128 = v32;
-      v129 = 2114;
-      v130 = v33;
-      v131 = 2112;
-      *v132 = v35;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: duplicated events: {%@}", buf, 0x20u);
+      v132 = v35;
+      v133 = 2114;
+      v134 = v36;
+      v135 = 2112;
+      *v136 = v38;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: duplicated events: {%@}", buf, 0x20u);
     }
   }
 
-  v36 = v12;
-  if ([v123 count])
+  v39 = [v127 count];
+  v40 = v12;
+  if (v39)
   {
-    v14 = sub_100025204();
+    v14 = sub_100025204(v39);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = [objc_opt_class() description];
-      v38 = NSStringFromSelector(a2);
-      allObjects2 = [v123 allObjects];
-      v40 = [allObjects2 componentsJoinedByString:{@", "}];
+      v41 = [objc_opt_class() description];
+      v42 = NSStringFromSelector(a2);
+      allObjects2 = [v127 allObjects];
+      v44 = [allObjects2 componentsJoinedByString:{@", "}];
       *buf = 138543874;
-      v128 = v37;
-      v129 = 2114;
-      v130 = v38;
-      v131 = 2112;
-      *v132 = v40;
+      v132 = v41;
+      v133 = 2114;
+      v134 = v42;
+      v135 = 2112;
+      *v136 = v44;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ignoring unrecognized events: {%@}", buf, 0x20u);
     }
 
-    v36 = v12;
+    v40 = v12;
     goto LABEL_36;
   }
 
 LABEL_37:
-  v41 = v36;
+  v45 = v40;
 
-  return v41;
+  return v45;
 }
 
 - (BOOL)start:(id *)start
 {
-  v6 = sub_100025204();
+  v6 = sub_100025204(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [objc_opt_class() description];
     v8 = NSStringFromSelector(a2);
-    v14 = 138543618;
-    v15 = v7;
+    v15 = 138543618;
+    v16 = v7;
     sub_100016B20();
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v14, 0x16u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v15, 0x16u);
   }
 
   if (self->_started)
   {
     *start = @"alreadyStarted";
-    v10 = sub_100025204();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100025204(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = [objc_opt_class() description];
-      v12 = NSStringFromSelector(a2);
-      v14 = 138543618;
-      v15 = v11;
+      v12 = [objc_opt_class() description];
+      v13 = NSStringFromSelector(a2);
+      v15 = 138543618;
+      v16 = v12;
       sub_100016B20();
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: already started", &v14, 0x16u);
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: already started", &v15, 0x16u);
     }
 
-    LOBYTE(v9) = 0;
+    LOBYTE(v10) = 0;
   }
 
   else
   {
-    v9 = [(AirshipInterface *)self->_airshipInterface start:start];
-    if (v9)
+    v10 = [(AirshipInterface *)self->_airshipInterface start:start];
+    if (v10)
     {
       self->_rxSeq = 0;
-      LOBYTE(v9) = 1;
+      LOBYTE(v10) = 1;
       *&self->_started = 1;
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)hello
@@ -917,7 +922,7 @@ LABEL_37:
       goto LABEL_4;
     }
 
-    v8 = sub_100025204();
+    v8 = sub_100025204(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = [objc_opt_class() description];
@@ -959,42 +964,43 @@ LABEL_4:
   if (!v3)
   {
 LABEL_28:
-    v12 = 0;
-    v7 = 0;
+    v13 = 0;
+    v8 = 0;
     goto LABEL_22;
   }
 
-  if ([v3 length] != 1)
+  v5 = [v3 length];
+  if (v5 != 1)
   {
-    v14 = sub_100025204();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100025204(v5);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
-      v15 = sub_100004654();
-      v16 = NSStringFromSelector(v15);
+      v16 = sub_100004654();
+      v17 = NSStringFromSelector(v16);
       [v4 length];
       *buf = 138543874;
       selfCopy = self;
       sub_10001D058();
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected response size %lu", buf, 0x20u);
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected response size %lu", buf, 0x20u);
     }
 
     goto LABEL_28;
   }
 
   bytes = [v4 bytes];
-  v6 = objc_alloc_init(NSMutableString);
-  v7 = v6;
-  v8 = *bytes;
+  v7 = objc_alloc_init(NSMutableString);
+  v8 = v7;
+  v9 = *bytes;
   if (*bytes)
   {
-    [v6 appendFormat:@"%@UnderVoltageShutdown", @"|"];
-    v8 = *bytes;
+    [v7 appendFormat:@"%@UnderVoltageShutdown", @"|"];
+    v9 = *bytes;
     if ((*bytes & 2) == 0)
     {
 LABEL_5:
-      if ((v8 & 4) == 0)
+      if ((v9 & 4) == 0)
       {
         goto LABEL_6;
       }
@@ -1008,12 +1014,12 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  [v7 appendFormat:@"%@OverTempShutdown", @"|"];
-  v8 = *bytes;
+  [v8 appendFormat:@"%@OverTempShutdown", @"|"];
+  v9 = *bytes;
   if ((*bytes & 4) == 0)
   {
 LABEL_6:
-    if ((v8 & 8) == 0)
+    if ((v9 & 8) == 0)
     {
       goto LABEL_7;
     }
@@ -1022,12 +1028,12 @@ LABEL_6:
   }
 
 LABEL_15:
-  [v7 appendFormat:@"%@PowerOnReset", @"|"];
-  v8 = *bytes;
+  [v8 appendFormat:@"%@PowerOnReset", @"|"];
+  v9 = *bytes;
   if ((*bytes & 8) == 0)
   {
 LABEL_7:
-    if ((v8 & 0x10) == 0)
+    if ((v9 & 0x10) == 0)
     {
       goto LABEL_8;
     }
@@ -1036,12 +1042,12 @@ LABEL_7:
   }
 
 LABEL_16:
-  [v7 appendFormat:@"%@SystemReset", @"|"];
-  v8 = *bytes;
+  [v8 appendFormat:@"%@SystemReset", @"|"];
+  v9 = *bytes;
   if ((*bytes & 0x10) == 0)
   {
 LABEL_8:
-    if ((v8 & 0x20) == 0)
+    if ((v9 & 0x20) == 0)
     {
       goto LABEL_9;
     }
@@ -1050,18 +1056,18 @@ LABEL_8:
   }
 
 LABEL_17:
-  [v7 appendFormat:@"%@NACKTimeout", @"|"];
-  v8 = *bytes;
+  [v8 appendFormat:@"%@NACKTimeout", @"|"];
+  v9 = *bytes;
   if ((*bytes & 0x20) == 0)
   {
 LABEL_9:
-    if ((v8 & 0x40) == 0)
+    if ((v9 & 0x40) == 0)
     {
       goto LABEL_10;
     }
 
 LABEL_19:
-    [v7 appendFormat:@"%@ShortResetPulse", @"|"];
+    [v8 appendFormat:@"%@ShortResetPulse", @"|"];
     if ((*bytes & 0x80) == 0)
     {
       goto LABEL_11;
@@ -1071,38 +1077,38 @@ LABEL_19:
   }
 
 LABEL_18:
-  [v7 appendFormat:@"%@SPMITargetCommandOff", @"|"];
-  v8 = *bytes;
+  [v8 appendFormat:@"%@SPMITargetCommandOff", @"|"];
+  v9 = *bytes;
   if ((*bytes & 0x40) != 0)
   {
     goto LABEL_19;
   }
 
 LABEL_10:
-  if ((v8 & 0x80) == 0)
+  if ((v9 & 0x80) == 0)
   {
     goto LABEL_11;
   }
 
 LABEL_20:
-  [v7 appendFormat:@"%@SOCWatchdog", @"|"];
+  [v8 appendFormat:@"%@SOCWatchdog", @"|"];
 LABEL_11:
-  v9 = [v7 length];
-  v10 = *bytes;
-  if (v9)
+  v10 = [v8 length];
+  v11 = *bytes;
+  if (v10)
   {
-    v11 = [v7 substringFromIndex:{objc_msgSend(@"|", "length")}];
-    v12 = [NSString stringWithFormat:@"0x%02x-%@", v10, v11];
+    v12 = [v8 substringFromIndex:{objc_msgSend(@"|", "length")}];
+    v13 = [NSString stringWithFormat:@"0x%02x-%@", v11, v12];
   }
 
   else
   {
-    v12 = [NSString stringWithFormat:@"0x%02x-NoFaults", v10];
+    v13 = [NSString stringWithFormat:@"0x%02x-NoFaults", v11];
   }
 
 LABEL_22:
 
-  return v12;
+  return v13;
 }
 
 - (id)getPowerStats:(BOOL)stats
@@ -1114,135 +1120,136 @@ LABEL_22:
   v6 = v5;
   if (v5)
   {
-    if ([v5 length] == 1016)
+    v7 = [v5 length];
+    if (v7 == 1016)
     {
       bytes = [v6 bytes];
-      v8 = +[NSMutableDictionary dictionary];
-      v9 = [NSNumber numberWithUnsignedLongLong:*bytes];
+      v9 = +[NSMutableDictionary dictionary];
+      v10 = [NSNumber numberWithUnsignedLongLong:*bytes];
       sub_10001D040();
 
-      v10 = [NSNumber numberWithUnsignedLongLong:bytes[1]];
+      v11 = [NSNumber numberWithUnsignedLongLong:bytes[1]];
       sub_10001D040();
 
-      v11 = [NSNumber numberWithUnsignedLongLong:bytes[2]];
+      v12 = [NSNumber numberWithUnsignedLongLong:bytes[2]];
       sub_10001D040();
 
-      v12 = [NSNumber numberWithUnsignedLongLong:bytes[3]];
+      v13 = [NSNumber numberWithUnsignedLongLong:bytes[3]];
       sub_10001D040();
 
-      v13 = [NSNumber numberWithUnsignedLongLong:bytes[4]];
+      v14 = [NSNumber numberWithUnsignedLongLong:bytes[4]];
       sub_10001D040();
 
-      v14 = [NSNumber numberWithUnsignedLongLong:bytes[5]];
+      v15 = [NSNumber numberWithUnsignedLongLong:bytes[5]];
       sub_10001D040();
 
-      v15 = [NSNumber numberWithUnsignedLongLong:bytes[6]];
+      v16 = [NSNumber numberWithUnsignedLongLong:bytes[6]];
       sub_10001D040();
 
-      v16 = [NSNumber numberWithUnsignedLongLong:bytes[7]];
+      v17 = [NSNumber numberWithUnsignedLongLong:bytes[7]];
       sub_10001D040();
 
-      v17 = [NSNumber numberWithUnsignedLongLong:bytes[8]];
+      v18 = [NSNumber numberWithUnsignedLongLong:bytes[8]];
       sub_10001D040();
 
-      v18 = [NSNumber numberWithUnsignedLongLong:bytes[9]];
+      v19 = [NSNumber numberWithUnsignedLongLong:bytes[9]];
       sub_10001D040();
 
-      v19 = [NSNumber numberWithUnsignedLongLong:bytes[10]];
+      v20 = [NSNumber numberWithUnsignedLongLong:bytes[10]];
       sub_10001D040();
 
-      v20 = [NSNumber numberWithUnsignedLongLong:bytes[11]];
+      v21 = [NSNumber numberWithUnsignedLongLong:bytes[11]];
       sub_10001D040();
 
-      v21 = [NSNumber numberWithUnsignedLongLong:bytes[12]];
+      v22 = [NSNumber numberWithUnsignedLongLong:bytes[12]];
       sub_10001D040();
 
-      v22 = [NSNumber numberWithUnsignedLongLong:bytes[13]];
+      v23 = [NSNumber numberWithUnsignedLongLong:bytes[13]];
       sub_10001D040();
 
-      v23 = [NSNumber numberWithUnsignedLongLong:bytes[14]];
+      v24 = [NSNumber numberWithUnsignedLongLong:bytes[14]];
       sub_10001D040();
 
-      v24 = [NSNumber numberWithUnsignedLongLong:bytes[15]];
+      v25 = [NSNumber numberWithUnsignedLongLong:bytes[15]];
       sub_10001D040();
 
-      v25 = [NSNumber numberWithUnsignedLongLong:bytes[16]];
+      v26 = [NSNumber numberWithUnsignedLongLong:bytes[16]];
       sub_10001D040();
 
-      v26 = [NSNumber numberWithUnsignedLongLong:bytes[17]];
+      v27 = [NSNumber numberWithUnsignedLongLong:bytes[17]];
       sub_10001D040();
 
-      v27 = [NSNumber numberWithUnsignedLongLong:bytes[18]];
+      v28 = [NSNumber numberWithUnsignedLongLong:bytes[18]];
       sub_10001D040();
 
-      v28 = [NSNumber numberWithUnsignedLongLong:bytes[19]];
+      v29 = [NSNumber numberWithUnsignedLongLong:bytes[19]];
       sub_10001D040();
 
-      v29 = [NSNumber numberWithUnsignedLongLong:bytes[20]];
+      v30 = [NSNumber numberWithUnsignedLongLong:bytes[20]];
       sub_10001D040();
 
-      v30 = [NSNumber numberWithUnsignedLongLong:bytes[21]];
+      v31 = [NSNumber numberWithUnsignedLongLong:bytes[21]];
       sub_10001D040();
 
-      v31 = [NSNumber numberWithUnsignedLongLong:bytes[22]];
+      v32 = [NSNumber numberWithUnsignedLongLong:bytes[22]];
       sub_10001D040();
 
-      v32 = [NSNumber numberWithUnsignedLongLong:bytes[23]];
+      v33 = [NSNumber numberWithUnsignedLongLong:bytes[23]];
       sub_10001D040();
 
-      v33 = [NSNumber numberWithUnsignedLongLong:bytes[24]];
+      v34 = [NSNumber numberWithUnsignedLongLong:bytes[24]];
       sub_10001D040();
 
-      v34 = [NSNumber numberWithUnsignedLongLong:bytes[25]];
+      v35 = [NSNumber numberWithUnsignedLongLong:bytes[25]];
       sub_10001D040();
 
-      v35 = [NSNumber numberWithUnsignedLongLong:bytes[26]];
+      v36 = [NSNumber numberWithUnsignedLongLong:bytes[26]];
       sub_10001D040();
 
-      v36 = [NSNumber numberWithUnsignedLongLong:bytes[27]];
+      v37 = [NSNumber numberWithUnsignedLongLong:bytes[27]];
       sub_10001D040();
 
-      v37 = [NSNumber numberWithUnsignedLongLong:bytes[28]];
+      v38 = [NSNumber numberWithUnsignedLongLong:bytes[28]];
       sub_10001D040();
 
-      v38 = [NSNumber numberWithUnsignedLongLong:bytes[29]];
+      v39 = [NSNumber numberWithUnsignedLongLong:bytes[29]];
       sub_10001D040();
 
-      v39 = [NSNumber numberWithUnsignedLongLong:bytes[30]];
+      v40 = [NSNumber numberWithUnsignedLongLong:bytes[30]];
       sub_10001D040();
 
-      v40 = [NSNumber numberWithUnsignedLongLong:bytes[31]];
+      v41 = [NSNumber numberWithUnsignedLongLong:bytes[31]];
       sub_10001D040();
 
-      v41 = [NSNumber numberWithUnsignedLongLong:bytes[32]];
-      [v8 setObject:v41 forKey:@"PCIeL3Duration"];
+      v42 = [NSNumber numberWithUnsignedLongLong:bytes[32]];
+      [v9 setObject:v42 forKey:@"PCIeL3Duration"];
     }
 
     else
     {
-      v41 = sub_100025204();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v42 = sub_100025204(v7);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        v43 = [objc_opt_class() description];
+        v44 = [objc_opt_class() description];
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
         [sub_100004684() length];
         *buf = 138543874;
-        v46 = v43;
+        v47 = v44;
         sub_10001D058();
-        _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected response size %lu", buf, 0x20u);
+        _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected response size %lu", buf, 0x20u);
       }
 
-      v8 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 @end

@@ -132,7 +132,7 @@ void __77__PRUISInlinePosterEditingViewController__getEditingViewControllerIfPos
   v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = PRUISLogRemoteEditing();
+    v3 = PRUISLogRemoteEditing(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __77__PRUISInlinePosterEditingViewController__getEditingViewControllerIfPossible__block_invoke_3_cold_1(v2, v3);
@@ -158,15 +158,19 @@ void __77__PRUISInlinePosterEditingViewController__getEditingViewControllerIfPos
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
-  if (WeakRetained && ([WeakRetained _isPresentingRemoteOrLocalEditingUI] & 1) == 0)
+  if (WeakRetained)
   {
-    v4 = PRUISLogRemoteEditing();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = [WeakRetained _isPresentingRemoteOrLocalEditingUI];
+    if ((v4 & 1) == 0)
     {
-      __77__PRUISInlinePosterEditingViewController__getEditingViewControllerIfPossible__block_invoke_5_cold_1(v4);
-    }
+      v5 = PRUISLogRemoteEditing(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        __77__PRUISInlinePosterEditingViewController__getEditingViewControllerIfPossible__block_invoke_5_cold_1(v5);
+      }
 
-    (*(*(a1 + 32) + 16))();
+      (*(*(a1 + 32) + 16))();
+    }
   }
 }
 

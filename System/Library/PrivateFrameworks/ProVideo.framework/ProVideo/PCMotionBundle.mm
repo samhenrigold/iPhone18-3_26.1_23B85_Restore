@@ -865,7 +865,7 @@ void *__33__PCMotionBundle_projectFileUTIs__block_invoke()
   return v7;
 }
 
-uint64_t __45__PCMotionBundle_bundleURLForProjectFileURL___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__45__PCMotionBundle_bundleURLForProjectFileURL___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v6 = [*(*(*(a1 + 40) + 8) + 40) URLByDeletingLastPathComponent];
 

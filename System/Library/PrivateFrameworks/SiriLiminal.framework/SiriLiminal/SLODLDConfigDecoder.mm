@@ -151,11 +151,11 @@
 
 - (SLODLDConfigDecoder)initWithConfigFile:(id)file
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v24.receiver = self;
-  v24.super_class = SLODLDConfigDecoder;
-  v5 = [(SLODLDConfigDecoder *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SLODLDConfigDecoder;
+  v5 = [(SLODLDConfigDecoder *)&v23 init];
   if (!v5)
   {
 LABEL_12:
@@ -181,9 +181,9 @@ LABEL_9:
       {
         v18 = v5->_resourcePath;
         *buf = 136315394;
-        v26 = "[SLODLDConfigDecoder initWithConfigFile:]";
-        v27 = 2112;
-        v28 = v18;
+        v25 = "[SLODLDConfigDecoder initWithConfigFile:]";
+        v26 = 2112;
+        v27 = v18;
         _os_log_impl(&dword_26754E000, v17, OS_LOG_TYPE_DEFAULT, "%s Decoded config at path: %@", buf, 0x16u);
       }
 
@@ -196,9 +196,9 @@ LABEL_9:
 
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing config for regex matcher %@", v7];
   v10 = MEMORY[0x277CCA9B8];
-  v29 = @"reason";
-  v30[0] = v9;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v28 = @"reason";
+  v29[0] = v9;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
   v12 = [v10 errorWithDomain:@"com.apple.sl" code:115 userInfo:v11];
 
   if (!v12)
@@ -210,19 +210,18 @@ LABEL_9:
   v13 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v22 = v13;
+    v21 = v13;
     localizedDescription = [v12 localizedDescription];
     *buf = 136315394;
-    v26 = "[SLODLDConfigDecoder initWithConfigFile:]";
-    v27 = 2112;
-    v28 = localizedDescription;
-    _os_log_error_impl(&dword_26754E000, v22, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
+    v25 = "[SLODLDConfigDecoder initWithConfigFile:]";
+    v26 = 2112;
+    v27 = localizedDescription;
+    _os_log_error_impl(&dword_26754E000, v21, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
   }
 
   v14 = 0;
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

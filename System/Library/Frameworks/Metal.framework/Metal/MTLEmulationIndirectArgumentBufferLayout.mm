@@ -112,7 +112,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_bufferIndices, &bufferCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForBuffer:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForBuffer:];
   }
 
   return self->_bufferOffset + 24 * v4[3];
@@ -124,7 +124,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_textureIndices, &textureCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForTexture:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForTexture:];
   }
 
   return self->_textureOffset + 8 * v4[3];
@@ -136,7 +136,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_samplerIndices, &samplerCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForSampler:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForSampler:];
   }
 
   return self->_samplerOffset + 8 * v4[3];
@@ -148,7 +148,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_constantIndices, &constantCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForConstant:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForConstant:];
   }
 
   return *(*self->_constantOffsets + 8 * v4[3]);
@@ -160,7 +160,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_visibleFunctionTableIndices, &tableCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForVisibleFunctionTable:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForVisibleFunctionTable:];
   }
 
   return self->_visibleFunctionTableOffset + 8 * v4[3];
@@ -172,7 +172,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_intersectionFunctionTableIndices, &tableCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForIntersectionFunctionTable:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForIntersectionFunctionTable:];
   }
 
   return self->_intersectionFunctionTableOffset + 8 * v4[3];
@@ -184,7 +184,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_primitiveAccelerationStructureIndices, &structureCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForPrimitiveAccelerationStructure:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForPrimitiveAccelerationStructure:];
   }
 
   return self->_primitiveAccelerationStructureOffset + 8 * v4[3];
@@ -196,7 +196,7 @@
   v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>(self->_instanceAccelerationStructureIndices, &structureCopy);
   if (!v4)
   {
-    [MTLEmulationIndirectArgumentBufferLayout offsetForInstanceAccelerationStructure:?];
+    [MTLEmulationIndirectArgumentBufferLayout offsetForInstanceAccelerationStructure:];
   }
 
   return self->_instanceAccelerationStructureOffset + 8 * v4[3];

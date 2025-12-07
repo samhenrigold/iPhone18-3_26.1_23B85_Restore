@@ -56,30 +56,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    packetId = self->_packetId;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_encryptedPacket)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_channelTopicCommitment)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_initializationVector)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -145,7 +144,6 @@
     goto LABEL_13;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_packetId != *(equalCopy + 1))
@@ -157,7 +155,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -179,17 +177,17 @@ LABEL_13:
   initializationVector = self->_initializationVector;
   if (initializationVector | *(equalCopy + 4))
   {
-    v9 = [(NSData *)initializationVector isEqual:?];
+    v8 = [(NSData *)initializationVector isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

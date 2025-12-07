@@ -38,50 +38,46 @@
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[UARPPersonalizationEventManager activateDaemonMode]";
-    v14 = 2112;
-    v15 = @"com.apple.uarp.personalization";
+    v9 = "[UARPPersonalizationEventManager activateDaemonMode]";
+    v10 = 2112;
+    v11 = @"com.apple.uarp.personalization";
     _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "%s: %@ create publisher", buf, 0x16u);
   }
 
   [@"com.apple.uarp.personalization" UTF8String];
-  queue = self->_queue;
-  v5 = xpc_event_publisher_create();
+  v4 = xpc_event_publisher_create();
   publisher = self->_publisher;
-  self->_publisher = v5;
+  self->_publisher = v4;
 
-  v7 = self->_log;
+  v6 = self->_log;
   if (self->_publisher)
   {
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      v9 = "[UARPPersonalizationEventManager activateDaemonMode]";
+      v10 = 2112;
+      v11 = @"com.apple.uarp.personalization";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s: %@ publisher created", buf, 0x16u);
+    }
+
+    xpc_event_publisher_set_handler();
+    xpc_event_publisher_set_error_handler();
+    xpc_event_publisher_activate();
+    v7 = self->_log;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v13 = "[UARPPersonalizationEventManager activateDaemonMode]";
-      v14 = 2112;
-      v15 = @"com.apple.uarp.personalization";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: %@ publisher created", buf, 0x16u);
-    }
-
-    v8 = self->_publisher;
-    xpc_event_publisher_set_handler();
-    v9 = self->_publisher;
-    xpc_event_publisher_set_error_handler();
-    v10 = self->_publisher;
-    xpc_event_publisher_activate();
-    v11 = self->_log;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-    {
-      *buf = 136315394;
-      v13 = "[UARPPersonalizationEventManager activateDaemonMode]";
-      v14 = 2112;
-      v15 = @"com.apple.uarp.personalization";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s: %@ publisher activated", buf, 0x16u);
+      v9 = "[UARPPersonalizationEventManager activateDaemonMode]";
+      v10 = 2112;
+      v11 = @"com.apple.uarp.personalization";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: %@ publisher activated", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_10007ABC4(@"com.apple.uarp.personalization", v7);
+    sub_10007ABC4(@"com.apple.uarp.personalization", v6);
   }
 }
 
@@ -91,9 +87,7 @@
   xpcListener = self->_xpcListener;
   self->_xpcListener = personalizationCompleteListener;
 
-  v5 = [[UARPHostPersonalizationManager alloc] initWithListener:self->_xpcListener];
-  tssManager = self->_tssManager;
-  self->_tssManager = v5;
+  self->_tssManager = [[UARPHostPersonalizationManager alloc] initWithListener:self->_xpcListener];
 
   _objc_release_x1();
 }

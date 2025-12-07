@@ -25,11 +25,10 @@
 
   [v3 appendString:v5 withName:@"service"];
 
-  options = self->_options;
-  v7 = CUPrintFlags64();
-  [v3 appendString:v7 withName:@"options"];
+  v6 = CUPrintFlags64();
+  [v3 appendString:v6 withName:@"options"];
 
-  v8 = [v3 appendObject:self->_appleAccountAltDSID withName:@"appleAccountAltDSID"];
+  v7 = [v3 appendObject:self->_appleAccountAltDSID withName:@"appleAccountAltDSID"];
   build = [v3 build];
 
   return build;

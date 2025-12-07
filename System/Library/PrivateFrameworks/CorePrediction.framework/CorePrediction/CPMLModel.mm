@@ -149,10 +149,7 @@
 
 uint64_t __24__CPMLModel_evalString___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 64) evalString:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 64) evalString:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -185,10 +182,7 @@ uint64_t __24__CPMLModel_evalString___block_invoke(void *a1)
 
 uint64_t __27__CPMLModel_evalNSObjectV___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 64) evalNSObjectV:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 64) evalNSObjectV:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -221,10 +215,7 @@ uint64_t __27__CPMLModel_evalNSObjectV___block_invoke(void *a1)
 
 uint64_t __23__CPMLModel_evalArray___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 64) evalArray:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 64) evalArray:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -257,10 +248,7 @@ uint64_t __23__CPMLModel_evalArray___block_invoke(void *a1)
 
 uint64_t __22__CPMLModel_evalDict___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 64) evalDict:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 64) evalDict:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -331,7 +319,7 @@ void __31__CPMLModel_updateModelWithDB___block_invoke(void *a1)
   return dispatch_queue;
 }
 
-uint64_t __33__CPMLModel_updateModelWithCPDB___block_invoke(void *a1)
+void *__33__CPMLModel_updateModelWithCPDB___block_invoke(void *a1)
 {
   result = [*(a1[4] + 64) updateModel:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

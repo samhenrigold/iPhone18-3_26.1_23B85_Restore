@@ -320,9 +320,12 @@ void __58__CAMKeepAliveController__handleHeartbeatConnectionReply___block_invoke
 
 uint64_t __53__CAMKeepAliveController__handleHeartbeatSourceEvent__block_invoke_11(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connection];
+  v2 = [*(a1 + 32) _connection];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 void __53__CAMKeepAliveController__handleHeartbeatSourceEvent__block_invoke_2(uint64_t a1, void *a2)

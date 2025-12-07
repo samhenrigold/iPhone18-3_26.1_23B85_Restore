@@ -240,7 +240,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    mbuf256BTotal = self->_mbuf256BTotal;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -260,7 +259,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mbuf2KBTotal = self->_mbuf2KBTotal;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -275,7 +273,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  mbuf4KBTotal = self->_mbuf4KBTotal;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -290,7 +287,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  mbuf16KBTotal = self->_mbuf16KBTotal;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -305,7 +301,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  sockMBcnt = self->_sockMBcnt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -317,7 +312,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    mbufMemReleased = self->_mbufMemReleased;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -328,7 +322,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  sockAtMBLimit = self->_sockAtMBLimit;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -343,7 +336,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  mbufDrainCount = self->_mbufDrainCount;
 
   PBDataWriterWriteUint64Field();
 }

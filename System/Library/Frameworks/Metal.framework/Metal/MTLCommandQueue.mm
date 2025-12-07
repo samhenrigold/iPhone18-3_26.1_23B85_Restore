@@ -10,7 +10,7 @@ uint64_t __46___MTLCommandQueue_initWithDevice_descriptor___block_invoke_2()
   return result;
 }
 
-uint64_t __40___MTLCommandQueue_submitCommandBuffer___block_invoke(uint64_t a1)
+void *__40___MTLCommandQueue_submitCommandBuffer___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _submitAvailableCommandBuffers];
   *(*(*(a1 + 40) + 8) + 24) = result;

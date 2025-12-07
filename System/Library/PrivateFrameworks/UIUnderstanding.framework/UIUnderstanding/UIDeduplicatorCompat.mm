@@ -50,9 +50,10 @@
   v9 = v8;
   imageCopy = image;
   selfCopy = self;
-  v12 = sub_2702733A8(v7, v9, imageCopy);
+  sub_2702733A8(v7, v9, imageCopy);
+  v13 = v12;
 
-  return v12;
+  return v13;
 }
 
 - (UIDeduplicatorCompat)init

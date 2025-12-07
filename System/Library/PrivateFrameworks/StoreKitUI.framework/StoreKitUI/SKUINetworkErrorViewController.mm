@@ -49,26 +49,17 @@
   code = [errorCopy code];
   domain = [errorCopy domain];
 
-  if (code == -1009)
+  if (code == -1009 || code == 110)
   {
-    v6 = MEMORY[0x277CCA738];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
   }
 
   else
   {
-    if (code != 110)
-    {
-      v7 = 0;
-      goto LABEL_7;
-    }
-
-    v6 = MEMORY[0x277D6A110];
+    isEqualToString = 0;
   }
 
-  v7 = [domain isEqualToString:*v6];
-LABEL_7:
-
-  return v7;
+  return isEqualToString;
 }
 
 - (void)loadView

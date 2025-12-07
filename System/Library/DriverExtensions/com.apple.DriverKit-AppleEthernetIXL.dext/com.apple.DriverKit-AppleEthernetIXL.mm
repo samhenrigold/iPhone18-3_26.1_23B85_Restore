@@ -1,4 +1,4 @@
-void ixl::ixl_pf_qmgr::init(ixl::ixl_pf_qmgr *this, int a2)
+void ixl::ixl_pf_qmgr::init(ixl::ixl_pf_qmgr *this, unsigned int a2)
 {
   if (a2)
   {
@@ -666,23 +666,22 @@ void DriverKit_AppleEthernetIXL_IVars::update_link_status(DriverKit_AppleEtherne
     v3 = *(v2 + 206);
     if (v3 > 0x31)
     {
-      v5 = 1048608;
+      v4 = 1048608;
     }
 
     else
     {
-      v4 = qword_10001C878[v3];
-      v5 = dword_10001CA08[v3];
+      v4 = dword_10001CA08[v3];
     }
 
     if ((v2[833] & 0x40) != 0)
     {
-      v7 = 0x400000;
+      v6 = 0x400000;
     }
 
     else
     {
-      v7 = (v2[833] & 0x20) << 17;
+      v6 = (v2[833] & 0x20) << 17;
     }
 
     if ((pcindkll & 4) != 0)
@@ -690,8 +689,8 @@ void DriverKit_AppleEthernetIXL_IVars::update_link_status(DriverKit_AppleEtherne
       DriverKit_AppleEthernetIXL_IVars::update_link_status();
     }
 
-    (*(**this + 128))(*this, 3, v7 | v5);
-    v6 = 100;
+    (*(**this + 128))(*this, 3, v6 | v4);
+    v5 = 100;
   }
 
   else
@@ -702,10 +701,10 @@ void DriverKit_AppleEthernetIXL_IVars::update_link_status(DriverKit_AppleEtherne
     }
 
     (*(**this + 128))(*this, 1, 34);
-    v6 = 4294967294;
+    v5 = 4294967294;
   }
 
-  (*(**this + 136))(*this, v6);
+  (*(**this + 136))(*this, v5);
   if ((pcindkll & 4) != 0)
   {
     DriverKit_AppleEthernetIXL_IVars::update_link_status();
@@ -1025,7 +1024,7 @@ LABEL_40:
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::selMed(DriverKit_AppleEthernetIXL_NetIf_IVars *this)
+uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::selMed(DriverKit_AppleEthernetIXL_NetIf_IVars *this, uint64_t a2)
 {
   if ((pcindkll & 4) != 0)
   {
@@ -1035,14 +1034,14 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::selMed(DriverKit_AppleEthernetI
   return 1;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::handleChosenMedia(DriverKit_AppleEthernetIXL_NetIf_IVars *this)
+uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::handleChosenMedia(DriverKit_AppleEthernetIXL_NetIf_IVars *this, uint64_t a2)
 {
   if ((pcindkll & 4) != 0)
   {
     DriverKit_AppleEthernetIXL_NetIf_IVars::handleChosenMedia();
   }
 
-  DriverKit_AppleEthernetIXL_NetIf_IVars::selMed(this);
+  DriverKit_AppleEthernetIXL_NetIf_IVars::selMed(this, a2);
   if ((pcindkll & 4) != 0)
   {
     DriverKit_AppleEthernetIXL_NetIf_IVars::handleChosenMedia();
@@ -1071,8 +1070,9 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::promisc_set(DriverKit_AppleEthe
   return v4;
 }
 
-void DriverKit_AppleEthernetIXL_IVars::setLink(DriverKit_AppleEthernetIXL_IVars *this, int a2)
+void DriverKit_AppleEthernetIXL_IVars::setLink(DriverKit_AppleEthernetIXL_IVars *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = this + 0x8000;
   phy_capabilities = i40e_aq_get_phy_capabilities(this + 33576, 0, 1, &v35, 0);
   if (phy_capabilities)
@@ -1154,7 +1154,7 @@ void DriverKit_AppleEthernetIXL_IVars::setLink(DriverKit_AppleEthernetIXL_IVars 
   }
 
   BYTE5(v24) = v17;
-  if (a2)
+  if (v2)
   {
     LODWORD(v24) = v9;
     BYTE13(v24) = v10;
@@ -1184,7 +1184,7 @@ void DriverKit_AppleEthernetIXL_IVars::setLink(DriverKit_AppleEthernetIXL_IVars 
     goto LABEL_22;
   }
 
-  restarted = i40e_aq_set_link_restart_an(this + 33576, a2, 0);
+  restarted = i40e_aq_set_link_restart_an(this + 33576, v2, 0);
   if (restarted)
   {
     v22 = restarted;
@@ -1303,188 +1303,187 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::txSubmit(IOPCIDevice ***this, u
 {
   v2 = &this[37 * a2];
   v3 = *(v2 + 45);
-  v4 = *(v2 + 44) + ~v3;
   if (!((*(v2 + 176) + ~v3) >> 1))
   {
     return 0;
   }
 
-  memset(v44, 0, 512);
-  v7 = ((*v2[41])[1].ivars)(v2[41], v44);
-  v8 = v7;
-  if (v7)
+  memset(v43, 0, 512);
+  v6 = ((*v2[41])[1].ivars)(v2[41], v43);
+  v7 = v6;
+  if (v6)
   {
-    v9 = (v7 - 1);
-    v10 = v44;
-    v11 = v7;
+    v8 = (v6 - 1);
+    v9 = v43;
+    v10 = v6;
     do
     {
-      v12 = *(*v10 + 48);
-      v13 = *(v12 + 24);
-      v14 = *(v12 + 72);
-      v15 = *(v12 + 76);
-      if (v9)
+      v11 = *(*v9 + 48);
+      v12 = *(v11 + 24);
+      v13 = *(v11 + 72);
+      v14 = *(v11 + 76);
+      if (v8)
       {
-        v16 = 5;
+        v15 = 5;
       }
 
       else
       {
-        v16 = 7;
+        v15 = 7;
       }
 
-      v17 = *(v12 + 82);
-      if (v17)
+      v16 = *(v11 + 82);
+      if (v16)
       {
-        v18 = *(v12 + 16) + v15;
-        v19 = *(v18 + 12);
-        if (v19 == 129)
+        v17 = *(v11 + 16) + v14;
+        v18 = *(v17 + 12);
+        if (v18 == 129)
         {
-          v20 = -18;
+          v19 = -18;
         }
 
         else
         {
-          v20 = -14;
+          v19 = -14;
         }
 
-        if (v19 == 129)
+        if (v18 == 129)
         {
-          v21 = 18;
+          v20 = 18;
         }
 
         else
         {
-          v21 = 14;
+          v20 = 14;
         }
 
-        if ((v17 & 0x100018) != 0)
+        if ((v16 & 0x100018) != 0)
         {
-          v22 = v18 + v21;
-          v23 = 4 * (*v22 & 0xF);
-          if ((v17 & 0x100008) != 0)
+          v21 = v17 + v20;
+          v22 = 4 * (*v21 & 0xF);
+          if ((v16 & 0x100008) != 0)
           {
-            v24 = v22 + v23;
-            v25 = (*(v22 + v23 + 12) >> 2) & 0x3C;
-            if ((v17 & 0x100000) != 0)
+            v23 = v21 + v22;
+            v24 = (*(v21 + v22 + 12) >> 2) & 0x3C;
+            if ((v16 & 0x100000) != 0)
             {
-              v16 |= 0x160uLL;
-              *(v22 + 10) = 0;
-              *(v22 + 2) = 0;
-              v31 = *(v22 + 12) + *(v22 + 16) + 1536;
-              LODWORD(v31) = ((WORD1(v31) + v31 + HIDWORD(v31)) >> 16) + (WORD1(v31) + v31 + WORD2(v31));
-              *(v24 + 16) = v31 + WORD1(v31);
-              v32 = &v2[6][2 * v3];
-              v33 = ((v20 + v14 - (v23 + v25)) << 30) | (*(v12 + 94) << 50) | 0x11;
-              *v32 = 0;
-              v32[1] = v33;
+              v15 |= 0x160uLL;
+              *(v21 + 10) = 0;
+              *(v21 + 2) = 0;
+              v30 = *(v21 + 12) + *(v21 + 16) + 1536;
+              LODWORD(v30) = ((WORD1(v30) + v30 + HIDWORD(v30)) >> 16) + (WORD1(v30) + v30 + WORD2(v30));
+              *(v23 + 16) = v30 + WORD1(v30);
+              v31 = &v2[6][2 * v3];
+              v32 = ((v19 + v13 - (v22 + v24)) << 30) | (*(v11 + 94) << 50) | 0x11;
+              *v31 = 0;
+              v31[1] = v32;
               v2[39][v3] = 0;
               v3 = (v3 + 1);
             }
 
             else
             {
-              v16 |= 0x140uLL;
-              v26 = (bswap32(v20 + v14 - v23) >> 16) + *(v22 + 12) + *(v22 + 16) + 1536;
-              *(v24 + 16) = ((WORD1(v26) + v26 + HIDWORD(v26)) >> 16) + WORD1(v26) + v26 + WORD2(v26) + ((((WORD1(v26) + v26 + HIDWORD(v26)) >> 16) + (WORD1(v26) + v26 + WORD2(v26))) >> 16);
+              v15 |= 0x140uLL;
+              v25 = (bswap32(v19 + v13 - v22) >> 16) + *(v21 + 12) + *(v21 + 16) + 1536;
+              *(v23 + 16) = ((WORD1(v25) + v25 + HIDWORD(v25)) >> 16) + WORD1(v25) + v25 + WORD2(v25) + ((((WORD1(v25) + v25 + HIDWORD(v25)) >> 16) + (WORD1(v25) + v25 + WORD2(v25))) >> 16);
             }
           }
 
-          else if ((v17 & 0x10) != 0)
+          else if ((v16 & 0x10) != 0)
           {
-            v16 |= 0x340uLL;
-            v35 = (bswap32(v20 + v14 - v23) >> 16) + *(v22 + 12) + *(v22 + 16) + 4352;
-            *(v22 + v23 + 6) = ((WORD1(v35) + v35 + HIDWORD(v35)) >> 16) + WORD1(v35) + v35 + WORD2(v35) + ((((WORD1(v35) + v35 + HIDWORD(v35)) >> 16) + (WORD1(v35) + v35 + WORD2(v35))) >> 16);
-            v25 = 8;
+            v15 |= 0x340uLL;
+            v34 = (bswap32(v19 + v13 - v22) >> 16) + *(v21 + 12) + *(v21 + 16) + 4352;
+            *(v21 + v22 + 6) = ((WORD1(v34) + v34 + HIDWORD(v34)) >> 16) + WORD1(v34) + v34 + WORD2(v34) + ((((WORD1(v34) + v34 + HIDWORD(v34)) >> 16) + (WORD1(v34) + v34 + WORD2(v34))) >> 16);
+            v24 = 8;
           }
 
           else
           {
-            v25 = 0;
-            v16 |= 0x40uLL;
+            v24 = 0;
+            v15 |= 0x40uLL;
           }
 
-          v34 = (32 * v23);
+          v33 = (32 * v22);
         }
 
-        else if ((v17 & 0x200060) != 0)
+        else if ((v16 & 0x200060) != 0)
         {
-          v28 = (v18 + v21);
-          if ((v17 & 0x200020) != 0)
+          v27 = (v17 + v20);
+          if ((v16 & 0x200020) != 0)
           {
-            v25 = (v28[6].u8[4] >> 2) & 0x3C;
-            if ((v17 & 0x200000) != 0)
+            v24 = (v27[6].u8[4] >> 2) & 0x3C;
+            if ((v16 & 0x200000) != 0)
             {
-              v16 |= 0x160uLL;
-              v36 = vaddvq_s32(vaddq_s32(vaddl_u16(v28[1], v28[3]), vaddl_high_u16(*v28[1].i8, *v28[3].i8)));
-              v37 = ((v36 + 1536) >> 16) + (v36 + 1536);
-              v28[7].i16[0] = v37 + HIWORD(v37);
-              v38 = &v2[6][2 * v3];
-              v39 = ((v14 + v20 - v25 - 40) << 30) | (*(v12 + 94) << 50) | 0x11;
-              *v38 = 0;
-              v38[1] = v39;
+              v15 |= 0x160uLL;
+              v35 = vaddvq_s32(vaddq_s32(vaddl_u16(v27[1], v27[3]), vaddl_high_u16(*v27[1].i8, *v27[3].i8)));
+              v36 = ((v35 + 1536) >> 16) + (v35 + 1536);
+              v27[7].i16[0] = v36 + HIWORD(v36);
+              v37 = &v2[6][2 * v3];
+              v38 = ((v13 + v19 - v24 - 40) << 30) | (*(v11 + 94) << 50) | 0x11;
+              *v37 = 0;
+              v37[1] = v38;
               v2[39][v3] = 0;
               v3 = (v3 + 1);
             }
 
             else
             {
-              v16 |= 0x120uLL;
-              v29 = bswap32(v14 + v20 - 40);
-              v30 = v29 + vaddvq_s32(vaddq_s32(vaddl_u16(v28[1], v28[3]), vaddl_high_u16(*v28[1].i8, *v28[3].i8))) - 0xFFFF * HIWORD(v29) + 1536;
-              v28[7].i16[0] = HIWORD(v30) + v30 + ((HIWORD(v30) + v30) >> 16);
+              v15 |= 0x120uLL;
+              v28 = bswap32(v13 + v19 - 40);
+              v29 = v28 + vaddvq_s32(vaddq_s32(vaddl_u16(v27[1], v27[3]), vaddl_high_u16(*v27[1].i8, *v27[3].i8))) - 0xFFFF * HIWORD(v28) + 1536;
+              v27[7].i16[0] = HIWORD(v29) + v29 + ((HIWORD(v29) + v29) >> 16);
             }
           }
 
-          else if ((v17 & 0x40) != 0)
+          else if ((v16 & 0x40) != 0)
           {
-            v16 |= 0x320uLL;
-            v40 = bswap32(v14 + v20 - 40);
-            v41 = v40 + 4352 + vaddvq_s32(vaddq_s32(vaddl_u16(v28[1], v28[3]), vaddl_high_u16(*v28[1].i8, *v28[3].i8))) - 0xFFFF * HIWORD(v40);
-            v28[5].i16[3] = HIWORD(v41) + v41 + ((HIWORD(v41) + v41) >> 16);
-            v25 = 8;
+            v15 |= 0x320uLL;
+            v39 = bswap32(v13 + v19 - 40);
+            v40 = v39 + 4352 + vaddvq_s32(vaddq_s32(vaddl_u16(v27[1], v27[3]), vaddl_high_u16(*v27[1].i8, *v27[3].i8))) - 0xFFFF * HIWORD(v39);
+            v27[5].i16[3] = HIWORD(v40) + v40 + ((HIWORD(v40) + v40) >> 16);
+            v24 = 8;
           }
 
           else
           {
-            v25 = 0;
-            v16 |= 0x20uLL;
+            v24 = 0;
+            v15 |= 0x20uLL;
           }
 
-          v34 = 1280;
+          v33 = 1280;
         }
 
         else
         {
-          v25 = 0;
-          v34 = 0;
+          v24 = 0;
+          v33 = 0;
         }
 
-        v27 = (v34 | (v25 << 12) & 0x3C000 | (v21 >> 1)) << 16;
+        v26 = (v33 | (v24 << 12) & 0x3C000 | (v20 >> 1)) << 16;
       }
 
       else
       {
-        v27 = 0;
+        v26 = 0;
       }
 
-      v42 = &v2[6][2 * v3];
-      v2[39][v3] = (v12 + 8);
-      *v42 = (v13 + v15);
-      v42[1] = (v27 | (v14 << 34) | (16 * v16));
+      v41 = &v2[6][2 * v3];
+      v2[39][v3] = (v11 + 8);
+      *v41 = (v12 + v14);
+      v41[1] = (v26 | (v13 << 34) | (16 * v15));
       v3 = (v3 + 1);
-      --v9;
-      v10 = (v10 + 8);
-      --v11;
+      --v8;
+      v9 = (v9 + 8);
+      --v10;
     }
 
-    while (v11);
+    while (v10);
     *(v2 + 45) = v3;
     __dmb(2u);
     IOPCIDevice::MemoryWrite32(*this[2], 0, 4 * a2 + 1081344, v3);
   }
 
-  return v8;
+  return v7;
 }
 
 void DriverKit_AppleEthernetIXL_IVars::i2cBusClear(IOPCIDevice **this)
@@ -1832,7 +1831,7 @@ uint64_t DriverKit_AppleEthernetIXL_IVars::i2cWriteByte_reg(IOPCIDevice **this, 
   return v11;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::i2cReadByte_aq(DriverKit_AppleEthernetIXL_IVars *this, int a2, char a3, unsigned __int8 *a4)
+uint64_t DriverKit_AppleEthernetIXL_IVars::i2cReadByte_aq(DriverKit_AppleEthernetIXL_IVars *this, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
   v21 = 0;
   phy_register_ext = i40e_aq_get_phy_register_ext(this + 33576, 2, a3, 0, 0, 0, a2, &v21, 0);
@@ -1865,7 +1864,7 @@ uint64_t DriverKit_AppleEthernetIXL_IVars::i2cReadByte_aq(DriverKit_AppleEtherne
   return phy_register_ext;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::i2cWriteByte_aq(DriverKit_AppleEthernetIXL_IVars *this, int a2, char a3, int a4)
+uint64_t DriverKit_AppleEthernetIXL_IVars::i2cWriteByte_aq(DriverKit_AppleEthernetIXL_IVars *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = i40e_aq_set_phy_register_ext(this + 33576, 2, a3, 0, 0, 0, a2, a4, 0);
   if (v5 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -1889,7 +1888,7 @@ uint64_t DriverKit_AppleEthernetIXL_IVars::i2cWriteByte_aq(DriverKit_AppleEthern
   return v5;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::i2cReadByte(DriverKit_AppleEthernetIXL_IVars *this, unsigned int a2, char a3, unsigned __int8 *a4)
+uint64_t DriverKit_AppleEthernetIXL_IVars::i2cReadByte(DriverKit_AppleEthernetIXL_IVars *this, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
   v6 = *(this + 8866);
   if (v6 > 1)
@@ -2108,7 +2107,7 @@ LABEL_27:
   return v11;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::i2cWriteByte(DriverKit_AppleEthernetIXL_IVars *this, unsigned int a2, char a3, unsigned int a4)
+uint64_t DriverKit_AppleEthernetIXL_IVars::i2cWriteByte(DriverKit_AppleEthernetIXL_IVars *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = *(this + 8866);
   if (v6 > 1)
@@ -2410,18 +2409,18 @@ uint64_t DriverKit_AppleEthernetIXL::Start_Impl(DriverKit_AppleEthernetIXL *this
   return result;
 }
 
-uint64_t DriverKit_AppleEthernetIXL::Stop_Impl(DriverKit_AppleEthernetIXL *this, IOService *a2)
+uint64_t DriverKit_AppleEthernetIXL::Stop_Impl(IOService ***this, IOService *a2)
 {
   if ((pcindkll & 0x40) != 0)
   {
     DriverKit_AppleEthernetIXL::Stop_Impl();
   }
 
-  *(*(this + 6) + 35376) = 3;
-  IOService::Terminate(**(this + 6), 0, 0);
+  *(this[6] + 8844) = 3;
+  IOService::Terminate(*this[6], 0, 0);
   atomic_store(3u, &cancelCount);
-  IODispatchSource::Cancel(*(*(this + 6) + 35352), &__block_literal_global, 0);
-  IODispatchSource::Cancel(*(*(this + 6) + 35360), &__block_literal_global, 0);
+  IODispatchSource::Cancel(this[6][4419], &__block_literal_global, 0);
+  IODispatchSource::Cancel(this[6][4420], &__block_literal_global, 0);
   return 0;
 }
 
@@ -2481,17 +2480,18 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf::Stop_Impl(IOService *this, IOService 
   return IOService::Stop(this, a2, &IOUserNetworkEthernet::_Dispatch);
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl(DriverKit_AppleEthernetIXL_NetIf *this, char a2)
+uint64_t DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl(DriverKit_AppleEthernetIXL_NetIf *this, uint64_t a2)
 {
+  v2 = a2;
   if ((pcindkll & 0x40) != 0)
   {
     DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl();
   }
 
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x2000000000;
-  v11 = -1;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = -1;
   if (*(*(*(this + 8) + 24) + 35376) == 1)
   {
     v4 = *(*(*(this + 8) + 24) + 35344);
@@ -2500,17 +2500,17 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl(DriverKit_App
     block[2] = ___ZN32DriverKit_AppleEthernetIXL_NetIf23SetInterfaceEnable_ImplEb_block_invoke;
     block[4] = &v9;
     block[5] = this;
-    v8 = a2;
+    v8 = v2;
     block[3] = &__block_descriptor_tmp_28;
     IODispatchQueue::DispatchSync(v4, block);
   }
 
   if ((pcindkll & 0x40) != 0)
   {
-    DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl(v10);
+    DriverKit_AppleEthernetIXL_NetIf::SetInterfaceEnable_Impl();
   }
 
-  v5 = *(v10[0] + 24);
+  v5 = *(v10 + 6);
   _Block_object_dispose(&v9, 8);
   return v5;
 }
@@ -2538,17 +2538,18 @@ uint64_t ___ZN32DriverKit_AppleEthernetIXL_NetIf23SetInterfaceEnable_ImplEb_bloc
   return result;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf::SetAllMulticastModeEnable_Impl(DriverKit_AppleEthernetIXL_NetIf_IVars **this, int a2)
+uint64_t DriverKit_AppleEthernetIXL_NetIf::SetAllMulticastModeEnable_Impl(DriverKit_AppleEthernetIXL_NetIf_IVars **this, _BOOL8 a2)
 {
+  v2 = a2;
   if ((pcindkll & 0x40) != 0)
   {
     DriverKit_AppleEthernetIXL_NetIf::SetAllMulticastModeEnable_Impl();
   }
 
-  return DriverKit_AppleEthernetIXL_NetIf_IVars::setAllMulticastModeEnable(this[8], a2);
+  return DriverKit_AppleEthernetIXL_NetIf_IVars::setAllMulticastModeEnable(this[8], v2);
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf::SelectMediaType_Impl(DriverKit_AppleEthernetIXL_NetIf *this)
+uint64_t DriverKit_AppleEthernetIXL_NetIf::SelectMediaType_Impl(DriverKit_AppleEthernetIXL_NetIf *this, uint64_t a2)
 {
   if ((pcindkll & 0x40) != 0)
   {
@@ -2558,7 +2559,7 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf::SelectMediaType_Impl(DriverKit_AppleE
   return 0;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf::SetWakeOnMagicPacketEnable_Impl(DriverKit_AppleEthernetIXL_NetIf *this)
+uint64_t DriverKit_AppleEthernetIXL_NetIf::SetWakeOnMagicPacketEnable_Impl(DriverKit_AppleEthernetIXL_NetIf *this, uint64_t a2)
 {
   if ((pcindkll & 0x40) != 0)
   {
@@ -2642,37 +2643,37 @@ LABEL_20:
 
       if (a4 == 1)
       {
-        v10 = 5;
+        v11 = 5;
       }
 
       else
       {
-        v10 = 7;
+        v11 = 7;
       }
 
       if (a4 == 1)
       {
-        v11 = 4096;
+        v12 = 4096;
       }
 
       else
       {
-        v11 = a5;
+        v12 = a5;
       }
 
-      dma_mem = i40e_allocate_dma_mem(a1, v16, v10, v11);
+      dma_mem = i40e_allocate_dma_mem(a1, v17, v11, v12);
       if (!dma_mem)
       {
         if (a4 == 1)
         {
-          i40e_allocate_virt_mem();
+          i40e_allocate_virt_mem(a1, (v8 + 56), 0x8000u);
         }
 
-        v13 = v16[0];
-        v14 = v16[1];
-        *(v8 + 48) = v17;
-        *(v8 + 16) = v13;
-        *(v8 + 32) = v14;
+        v14 = v17[0];
+        v15 = v17[1];
+        *(v8 + 48) = v18;
+        *(v8 + 16) = v14;
+        *(v8 + 32) = v15;
         *(v8 + 56) = a3;
         *(*(a2 + 56) + 80 * a3) = a4;
         ++*(a2 + 52);
@@ -3239,13 +3240,6 @@ LABEL_18:
   return v4;
 }
 
-void DriverKit_AppleEthernetIXL_IVars::setup_hmc(DriverKit_AppleEthernetIXL_IVars *this)
-{
-  v1 = *(this + 8537);
-  v2 = *(this + 8536);
-  i40e_init_lan_hmc(this + 33576);
-}
-
 void DriverKit_AppleEthernetIXL_IVars::configure_intr0_msix(IOPCIDevice **this)
 {
   __dmb(2u);
@@ -3269,7 +3263,7 @@ uint64_t DriverKit_AppleEthernetIXL_IVars::switch_config(DriverKit_AppleEthernet
 {
   memset(v33, 0, 512);
   v32 = 0;
-  switch_config = i40e_aq_get_switch_config(this + 33576, v33, 0x200u, &v32, 0);
+  switch_config = i40e_aq_get_switch_config(this + 33576, v33, 512, &v32, 0);
   v3 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
   if (switch_config)
   {
@@ -3364,32 +3358,31 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::init_filters(DriverKit_AppleEtherne
   *(this + 329) = 0;
   i40e_aq_set_vsi_broadcast(*(this + 2), *(this + 21), 1, 0);
   DriverKit_AppleEthernetIXL_NetIf_IVars::del_default_hw_filters(this);
-  DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, (*(this + 2) + 84), -1);
+  DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, (*(this + 2) + 84), 0xFFFFFFFFLL);
   v2 = *(this + 2);
   v3 = *(this + 21);
 
   i40e_add_filter_to_drop_tx_flow_control_frames(v2, v3);
 }
 
-uint64_t *DriverKit_AppleEthernetIXL_IVars::unload(uint64_t **this)
+void *DriverKit_AppleEthernetIXL_IVars::unload(DriverKit_AppleEthernetIXL_IVars *this)
 {
   DriverKit_AppleEthernetIXL_IVars::shutdown_hmc(this);
   DriverKit_AppleEthernetIXL_IVars::disable_intr0(this);
-  v2 = i40e_shutdown_adminq((this + 4197));
+  v2 = i40e_shutdown_adminq(this + 33576);
   if (v2 && (pcindkll & 1) != 0)
   {
-    DriverKit_AppleEthernetIXL_IVars::unload((this + 4197), v2);
+    DriverKit_AppleEthernetIXL_IVars::unload(this + 33576, v2);
   }
 
-  ixl::ixl_pf_qmgr::release((this + 4423), (this + 4425));
-  result = this[81];
+  ixl::ixl_pf_qmgr::release(this + 35384, this + 35400);
+  result = *(this + 81);
   if (result)
   {
-    v4 = *result;
     operator delete();
   }
 
-  this[81] = 0;
+  *(this + 81) = 0;
   return result;
 }
 
@@ -3426,12 +3419,11 @@ void DriverKit_AppleEthernetIXL_IVars::disable_intr0(IOPCIDevice **this)
   __dmb(1u);
 }
 
-uint64_t *DriverKit_AppleEthernetIXL_NetIf_IVars::free_filters(uint64_t **a1)
+void *DriverKit_AppleEthernetIXL_NetIf_IVars::free_filters(void **a1)
 {
   result = *a1;
   if (result)
   {
-    v3 = *result;
     operator delete();
   }
 
@@ -3514,7 +3506,7 @@ LABEL_21:
   {
     if (pcindkll)
     {
-      DriverKit_AppleEthernetIXL_NetIf_IVars::up(&v52, (&v52 | 0xC));
+      DriverKit_AppleEthernetIXL_NetIf_IVars::up();
     }
 
     LOWORD(v53) = 64;
@@ -3905,7 +3897,7 @@ void DriverKit_AppleEthernetIXL_IVars::configure_legacy(IOPCIDevice **this)
   IOPCIDevice::MemoryWrite32(v2, 0, 0x3C000uLL, 0x47FF0800u);
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::enableTxRing(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t DriverKit_AppleEthernetIXL_IVars::enableTxRing(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 44) <= a3)
   {
@@ -3970,7 +3962,7 @@ uint64_t DriverKit_AppleEthernetIXL_IVars::enableTxRing(uint64_t a1, uint64_t a2
   return v10;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::enableRxRing(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t DriverKit_AppleEthernetIXL_IVars::enableRxRing(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 44) <= a3)
   {
@@ -4058,7 +4050,7 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::reconfigure_filters(DriverKit_Apple
   v3 = *(this + 329);
   *(this + 329) = 0;
   DriverKit_AppleEthernetIXL_NetIf_IVars::add_hw_filters(this, &v4, v3);
-  DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, (*(this + 2) + 84), -1);
+  DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, (*(this + 2) + 84), 0xFFFFFFFFLL);
   DriverKit_AppleEthernetIXL_NetIf_IVars::add_vlan_filters(this, (*(this + 2) + 84));
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
@@ -4072,7 +4064,7 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::reconfigure_filters(DriverKit_Apple
   }
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::disableTxRing(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t DriverKit_AppleEthernetIXL_IVars::disableTxRing(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 44) <= a3)
   {
@@ -4138,7 +4130,7 @@ uint64_t DriverKit_AppleEthernetIXL_IVars::disableTxRing(uint64_t a1, uint64_t a
   return v10;
 }
 
-uint64_t DriverKit_AppleEthernetIXL_IVars::disableRxRing(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t DriverKit_AppleEthernetIXL_IVars::disableRxRing(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 44) <= a3)
   {
@@ -4636,7 +4628,7 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::setAllMulticastModeEnable(Drive
   return DriverKit_AppleEthernetIXL_NetIf_IVars::promisc_set(this, v2);
 }
 
-uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::setMcastAddresses(DriverKit_AppleEthernetIXL_NetIf_IVars *this, unsigned __int8 *a2)
+uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::setMcastAddresses(DriverKit_AppleEthernetIXL_NetIf_IVars *this, unsigned __int8 *a2, uint64_t a3)
 {
   if (pcindkll)
   {
@@ -4661,10 +4653,10 @@ uint64_t DriverKit_AppleEthernetIXL_NetIf_IVars::setMcastAddresses(DriverKit_App
   return 0;
 }
 
-void DriverKit_AppleEthernetIXL_NetIf_IVars::del_multi(DriverKit_AppleEthernetIXL_NetIf_IVars *this, int a2)
+void DriverKit_AppleEthernetIXL_NetIf_IVars::del_multi(uint64_t this, int a2)
 {
   v7 = 0;
-  v2 = *(this + 81);
+  v2 = *(this + 648);
   if (v2)
   {
     v3 = 0;
@@ -4702,17 +4694,17 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_multi(DriverKit_AppleEthernetIX
   }
 }
 
-void DriverKit_AppleEthernetIXL_NetIf_IVars::add_multi(uint64_t **this)
+void DriverKit_AppleEthernetIXL_NetIf_IVars::add_multi(uint64_t this)
 {
-  v1 = (this + 4096);
+  v1 = this + 0x8000;
   v6 = 0;
-  v2 = *(this + 8392);
+  v2 = *(this + 33568);
   if (v2)
   {
     v4 = 0;
     for (i = 0; i < v2; ++i)
     {
-      if (DriverKit_AppleEthernetIXL_NetIf_IVars::find_filter(this + 81, *(v1 + 99) + v4, 0xFFFFu))
+      if (DriverKit_AppleEthernetIXL_NetIf_IVars::find_filter((this + 648), *(v1 + 792) + v4, 0xFFFFu))
       {
         operator new();
       }
@@ -4910,7 +4902,7 @@ LABEL_46:
     return;
   }
 
-  v33 = i40e_aq_set_rss_lut(this + 33576, *(this + 20), 1, v38, 0x200u);
+  v33 = i40e_aq_set_rss_lut(this + 33576, *(this + 20), 1, v38, 512);
   if (v33)
   {
     v34 = v33;
@@ -4973,8 +4965,9 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_default_hw_filters(DriverKit_Ap
   }
 }
 
-uint64_t *DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(uint64_t **this, const unsigned __int8 *a2, int a3)
+uint64_t *DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(uint64_t **this, const unsigned __int8 *a2, uint64_t a3)
 {
+  v3 = a3;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *a2;
@@ -5002,11 +4995,11 @@ uint64_t *DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(uint64_t **this, co
     v28 = 1024;
     v29 = v11;
     v30 = 1024;
-    v31 = a3;
+    v31 = v3;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): %02x:%02x:%02x:%02x:%02x:%02x, vlan %4d\n", buf, 0x46u);
   }
 
-  result = DriverKit_AppleEthernetIXL_NetIf_IVars::find_filter(this + 81, a2, a3);
+  result = DriverKit_AppleEthernetIXL_NetIf_IVars::find_filter(this + 81, a2, v3);
   if (!result)
   {
     operator new();
@@ -5015,28 +5008,28 @@ uint64_t *DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(uint64_t **this, co
   return result;
 }
 
-void DriverKit_AppleEthernetIXL_NetIf_IVars::add_hw_filters(uint64_t a1, uint64_t *a2, int a3)
+void DriverKit_AppleEthernetIXL_NetIf_IVars::add_hw_filters(uint64_t a1, uint64_t *a2, unsigned int a3)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v59 = pcindkid;
-    v60 = 2080;
-    v61 = "add_hw_filters";
-    v62 = 1024;
-    v63 = 1669;
-    v64 = 1024;
-    v65 = a3;
+    v58 = pcindkid;
+    v59 = 2080;
+    v60 = "add_hw_filters";
+    v61 = 1024;
+    v62 = 1669;
+    v63 = 1024;
+    v64 = a3;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): cnt: %d\n", buf, 0x22u);
   }
 
   if (a3 >= 1)
   {
     v6 = 0;
-    v40 = a3;
+    v39 = a3;
     v7 = a3;
-    v8 = &v59 + 2;
-    v41 = a2;
+    v8 = &v58 + 2;
+    v40 = a2;
     while (1)
     {
       a2 = *a2;
@@ -5070,25 +5063,25 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::add_hw_filters(uint64_t a1, uint64_
         v15 = *(a2 + 19);
         v16 = *(a2 + 20);
         v17 = *(a2 + 21);
-        *v42 = 136317186;
-        v43 = pcindkid;
-        v44 = 2080;
-        v45 = "add_hw_filters";
-        v46 = 1024;
-        v47 = 1686;
-        v48 = 1024;
-        *v49 = v12;
-        *&v49[4] = 1024;
-        *&v49[6] = v13;
-        LOWORD(v50) = 1024;
-        *(&v50 + 2) = v14;
-        HIWORD(v50) = 1024;
-        v51 = v15;
-        v52 = 1024;
-        v53 = v16;
-        v54 = 1024;
-        v55 = v17;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): %02x:%02x:%02x:%02x:%02x:%02x\n", v42, 0x40u);
+        *v41 = 136317186;
+        v42 = pcindkid;
+        v43 = 2080;
+        v44 = "add_hw_filters";
+        v45 = 1024;
+        v46 = 1686;
+        v47 = 1024;
+        *v48 = v12;
+        *&v48[4] = 1024;
+        *&v48[6] = v13;
+        LOWORD(v49) = 1024;
+        *(&v49 + 2) = v14;
+        HIWORD(v49) = 1024;
+        v50 = v15;
+        v51 = 1024;
+        v52 = v16;
+        v53 = 1024;
+        v54 = v17;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): %02x:%02x:%02x:%02x:%02x:%02x\n", v41, 0x40u);
       }
 
       ++v6;
@@ -5102,7 +5095,7 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::add_hw_filters(uint64_t a1, uint64_
     if (v7 == v6)
     {
 LABEL_14:
-      v18 = i40e_aq_add_macvlan(*(a1 + 16), *(a1 + 42), buf, v40, 0);
+      v18 = i40e_aq_add_macvlan(*(a1 + 16), *(a1 + 42), buf, v39, 0);
       if (v18)
       {
         v19 = v18;
@@ -5111,31 +5104,31 @@ LABEL_14:
           v20 = pcindkid;
           v21 = i40e_stat_str(*(a1 + 16), v19);
           v22 = i40e_aq_str(*(a1 + 16), *(*(a1 + 16) + 908));
-          *v42 = 136316162;
-          v43 = v20;
-          v44 = 2080;
-          v45 = "add_hw_filters";
-          v46 = 1024;
-          v47 = 1705;
-          v48 = 2080;
-          *v49 = v21;
-          *&v49[8] = 2080;
-          v50 = v22;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): i40e_aq_add_macvlan status %s, error %s\n", v42, 0x30u);
+          *v41 = 136316162;
+          v42 = v20;
+          v43 = 2080;
+          v44 = "add_hw_filters";
+          v45 = 1024;
+          v46 = 1705;
+          v47 = 2080;
+          *v48 = v21;
+          *&v48[8] = 2080;
+          v49 = v22;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): i40e_aq_add_macvlan status %s, error %s\n", v41, 0x30u);
         }
 
-        v23 = *v41;
-        if (*v41)
+        v23 = *v40;
+        if (*v40)
         {
           v24 = (a1 + 648);
-          v25 = &v60;
+          v25 = &v59;
           do
           {
             v27 = *v23;
-            v26 = v23[1];
+            v26 = *(v23 + 8);
             if (*v23)
             {
-              v27[1] = v26;
+              *(v27 + 8) = v26;
             }
 
             *v26 = v27;
@@ -5149,28 +5142,28 @@ LABEL_14:
                 v32 = *(v23 + 19);
                 v33 = *(v23 + 20);
                 v34 = *(v23 + 21);
-                v35 = *(v23 + 11);
-                *v42 = 136317442;
-                v43 = pcindkid;
-                v44 = 2080;
-                v45 = "add_hw_filters";
-                v46 = 1024;
-                v47 = 1713;
-                v48 = 1024;
-                *v49 = v29;
-                *&v49[4] = 1024;
-                *&v49[6] = v30;
-                LOWORD(v50) = 1024;
-                *(&v50 + 2) = v31;
-                HIWORD(v50) = 1024;
-                v51 = v32;
-                v52 = 1024;
-                v53 = v33;
-                v54 = 1024;
-                v55 = v34;
-                v56 = 1024;
-                v57 = v35;
-                _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): filter %02x:%02x:%02x:%02x:%02x:%02x VTAG: %d not added\n", v42, 0x46u);
+                v35 = *(v23 + 22);
+                *v41 = 136317442;
+                v42 = pcindkid;
+                v43 = 2080;
+                v44 = "add_hw_filters";
+                v45 = 1024;
+                v46 = 1713;
+                v47 = 1024;
+                *v48 = v29;
+                *&v48[4] = 1024;
+                *&v48[6] = v30;
+                LOWORD(v49) = 1024;
+                *(&v49 + 2) = v31;
+                HIWORD(v49) = 1024;
+                v50 = v32;
+                v51 = 1024;
+                v52 = v33;
+                v53 = 1024;
+                v54 = v34;
+                v55 = 1024;
+                v56 = v35;
+                _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): filter %02x:%02x:%02x:%02x:%02x:%02x VTAG: %d not added\n", v41, 0x46u);
               }
 
               operator delete();
@@ -5184,7 +5177,7 @@ LABEL_14:
             }
 
             *(a1 + 648) = v23;
-            v23[1] = v24;
+            *(v23 + 8) = v24;
             ++*(a1 + 658);
             v25 += 8;
             v23 = v27;
@@ -5197,7 +5190,7 @@ LABEL_14:
       }
 
       v36 = *(a1 + 648);
-      v37 = *v41;
+      v37 = *v40;
       if (v36)
       {
         if (v37)
@@ -5221,37 +5214,36 @@ LABEL_14:
         if (v37)
         {
 LABEL_40:
-          v37[1] = v38;
-          *v41 = 0;
+          *(v37 + 8) = v38;
+          *v40 = 0;
         }
       }
 
-      *(a1 + 658) += v40;
+      *(a1 + 658) += v39;
       return;
     }
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      *v42 = 136316162;
-      v43 = pcindkid;
-      v44 = 2080;
-      v45 = "add_hw_filters";
-      v46 = 1024;
-      v47 = 1692;
-      v48 = 1024;
-      *v49 = v7;
-      *&v49[4] = 1024;
-      *&v49[6] = v6;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): ERROR: list of filters to short expected: %d, found: %d\n", v42, 0x28u);
+      *v41 = 136316162;
+      v42 = pcindkid;
+      v43 = 2080;
+      v44 = "add_hw_filters";
+      v45 = 1024;
+      v46 = 1692;
+      v47 = 1024;
+      *v48 = v7;
+      *&v48[4] = 1024;
+      *&v48[6] = v6;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): ERROR: list of filters to short expected: %d, found: %d\n", v41, 0x28u);
     }
 
-    if (*v41)
+    if (*v40)
     {
-      v39 = **v41;
       operator delete();
     }
 
-    *v41 = 0;
+    *v40 = 0;
   }
 }
 
@@ -5367,7 +5359,7 @@ LABEL_22:
     goto LABEL_32;
   }
 
-  DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, a2, -1);
+  DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, a2, 0xFFFFFFFFLL);
 }
 
 uint64_t *DriverKit_AppleEthernetIXL_NetIf_IVars::find_filter(uint64_t **a1, uint64_t a2, unsigned __int16 a3)
@@ -5390,25 +5382,25 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_hw_filters(uint64_t a1, uint64_
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v54 = pcindkid;
-    v55 = 2080;
-    v56 = "del_hw_filters";
-    v57 = 1024;
-    v58 = 1734;
-    v59 = 1024;
-    v60 = a3;
+    v53 = pcindkid;
+    v54 = 2080;
+    v55 = "del_hw_filters";
+    v56 = 1024;
+    v57 = 1734;
+    v58 = 1024;
+    v59 = a3;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): cnt: %d\n", buf, 0x22u);
   }
 
-  v36 = a3;
+  v35 = a3;
   v6 = *a2;
   if (*a2)
   {
     v7 = *v6;
     v8 = *(v6 + 4);
-    LOWORD(v54) = *(v6 + 10);
+    LOWORD(v53) = *(v6 + 10);
     *buf = v8;
-    BYTE4(v54) = 1;
+    BYTE4(v53) = 1;
     v9 = *(v6 + 11);
     if (v9 == 0xFFFF)
     {
@@ -5420,13 +5412,13 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_hw_filters(uint64_t a1, uint64_
       v10 = 1;
     }
 
-    BYTE4(v54) = v10;
+    BYTE4(v53) = v10;
     if (v9 == 0xFFFF)
     {
       LOWORD(v9) = 0;
     }
 
-    WORD1(v54) = v9;
+    WORD1(v53) = v9;
     v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
     v12 = v7;
     if (v11)
@@ -5437,25 +5429,25 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_hw_filters(uint64_t a1, uint64_
       v16 = *(v6 + 19);
       v17 = *(v6 + 20);
       v18 = *(v6 + 21);
-      *v37 = 136317186;
-      v38 = pcindkid;
-      v39 = 2080;
-      v40 = "del_hw_filters";
-      v41 = 1024;
-      v42 = 1749;
-      v43 = 1024;
-      *v44 = v13;
-      *&v44[4] = 1024;
-      *&v44[6] = v14;
-      LOWORD(v45) = 1024;
-      *(&v45 + 2) = v15;
-      HIWORD(v45) = 1024;
-      v46 = v16;
-      v47 = 1024;
-      v48 = v17;
-      v49 = 1024;
-      v50 = v18;
-      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): %02x:%02x:%02x:%02x:%02x:%02x\n", v37, 0x40u);
+      *v36 = 136317186;
+      v37 = pcindkid;
+      v38 = 2080;
+      v39 = "del_hw_filters";
+      v40 = 1024;
+      v41 = 1749;
+      v42 = 1024;
+      *v43 = v13;
+      *&v43[4] = 1024;
+      *&v43[6] = v14;
+      LOWORD(v44) = 1024;
+      *(&v44 + 2) = v15;
+      HIWORD(v44) = 1024;
+      v45 = v16;
+      v46 = 1024;
+      v47 = v17;
+      v48 = 1024;
+      v49 = v18;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): %02x:%02x:%02x:%02x:%02x:%02x\n", v36, 0x40u);
       v12 = *v6;
     }
 
@@ -5488,22 +5480,22 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_hw_filters(uint64_t a1, uint64_
           v23 = pcindkid;
           v24 = i40e_stat_str(*(a1 + 16), v22);
           v25 = i40e_aq_str(*(a1 + 16), *(*(a1 + 16) + 908));
-          *v37 = 136316162;
-          v38 = v23;
-          v39 = 2080;
-          v40 = "del_hw_filters";
-          v41 = 1024;
-          v42 = 1765;
-          v43 = 2080;
-          *v44 = v24;
-          *&v44[8] = 2080;
-          v45 = v25;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): i40e_aq_remove_macvlan status %s, error %s\n", v37, 0x30u);
+          *v36 = 136316162;
+          v37 = v23;
+          v38 = 2080;
+          v39 = "del_hw_filters";
+          v40 = 1024;
+          v41 = 1765;
+          v42 = 2080;
+          *v43 = v24;
+          *&v43[8] = 2080;
+          v44 = v25;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): i40e_aq_remove_macvlan status %s, error %s\n", v36, 0x30u);
         }
 
-        if (v36 >= 1)
+        if (v35 >= 1)
         {
-          v26 = &v54 + 1;
+          v26 = &v53 + 1;
           do
           {
             if (*(v26 + 6) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -5515,27 +5507,27 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_hw_filters(uint64_t a1, uint64_
               v31 = *(v26 - 2);
               v32 = *(v26 - 1);
               v33 = *v26;
-              *v37 = 136317442;
-              v38 = pcindkid;
-              v39 = 2080;
-              v40 = "del_hw_filters";
-              v41 = 1024;
-              v42 = 1769;
-              v43 = 1024;
-              *v44 = v27;
-              *&v44[4] = 1024;
-              *&v44[6] = v28;
-              LOWORD(v45) = 1024;
-              *(&v45 + 2) = v29;
-              HIWORD(v45) = 1024;
-              v46 = v30;
-              v47 = 1024;
-              v48 = v31;
-              v49 = 1024;
-              v50 = v32;
-              v51 = 1024;
-              v52 = v33;
-              _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): Filter does not exist %02x:%02x:%02x:%02x:%02x:%02x VTAG: %d\n", v37, 0x46u);
+              *v36 = 136317442;
+              v37 = pcindkid;
+              v38 = 2080;
+              v39 = "del_hw_filters";
+              v40 = 1024;
+              v41 = 1769;
+              v42 = 1024;
+              *v43 = v27;
+              *&v43[4] = 1024;
+              *&v43[6] = v28;
+              LOWORD(v44) = 1024;
+              *(&v44 + 2) = v29;
+              HIWORD(v44) = 1024;
+              v45 = v30;
+              v46 = 1024;
+              v47 = v31;
+              v48 = 1024;
+              v49 = v32;
+              v50 = 1024;
+              v51 = v33;
+              _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): Filter does not exist %02x:%02x:%02x:%02x:%02x:%02x VTAG: %d\n", v36, 0x46u);
             }
 
             v26 += 8;
@@ -5546,29 +5538,28 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_hw_filters(uint64_t a1, uint64_
         }
       }
 
-      *(a1 + 658) -= v36;
+      *(a1 + 658) -= v35;
       return;
     }
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    *v37 = 136316162;
-    v38 = pcindkid;
-    v39 = 2080;
-    v40 = "del_hw_filters";
-    v41 = 1024;
-    v42 = 1758;
-    v43 = 1024;
-    *v44 = v20;
-    *&v44[4] = 1024;
-    *&v44[6] = 0;
-    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): ERROR: wrong size of list of filters, expected: %d, found: %d\n", v37, 0x28u);
+    *v36 = 136316162;
+    v37 = pcindkid;
+    v38 = 2080;
+    v39 = "del_hw_filters";
+    v40 = 1024;
+    v41 = 1758;
+    v42 = 1024;
+    *v43 = v20;
+    *&v43[4] = 1024;
+    *&v43[6] = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ixl:(%s): %s(%d): ERROR: wrong size of list of filters, expected: %d, found: %d\n", v36, 0x28u);
   }
 
   if (*a2)
   {
-    v34 = **a2;
     operator delete();
   }
 
@@ -5664,7 +5655,7 @@ void DriverKit_AppleEthernetIXL_NetIf_IVars::del_filter(uint64_t **this, const u
       }
 
       DriverKit_AppleEthernetIXL_NetIf_IVars::del_hw_filters(this, v21, v20);
-      DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, a2, -1);
+      DriverKit_AppleEthernetIXL_NetIf_IVars::add_filter(this, a2, 0xFFFFFFFFLL);
     }
   }
 }
@@ -5846,11 +5837,11 @@ uint64_t i40e_free_dma_mem(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void i40e_init_lan_hmc(uint64_t a1)
+void i40e_init_lan_hmc(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
   *(a1 + 1016) = 1213027143;
   *(a1 + 1020) = *(a1 + 642);
-  i40e_allocate_virt_mem();
+  i40e_allocate_virt_mem(a1, (a1 + 1032), 0x78u);
 }
 
 uint64_t i40e_create_lan_hmc_object(IOService **a1, uint64_t a2)
@@ -6400,7 +6391,7 @@ uint64_t i40e_shutdown_lan_hmc(uint64_t a1)
   return v2;
 }
 
-uint64_t i40e_get_lan_tx_queue_context(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t i40e_get_lan_tx_queue_context(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   object_va = i40e_hmc_get_object_va(a1, &v6, 1u, a2);
@@ -6993,7 +6984,7 @@ LABEL_25:
 
   if (v4 == 33)
   {
-    result = i40e_aq_get_cee_dcb_config(a1, &v31, 0x18u, 0);
+    result = i40e_aq_get_cee_dcb_config(a1, &v31, 24, 0);
     if (!result)
     {
       *(a1 + 1084) = 1;
@@ -7075,7 +7066,7 @@ LABEL_25:
   }
 
 LABEL_28:
-  result = i40e_aq_get_cee_dcb_config(a1, &v31, 0x20u, 0);
+  result = i40e_aq_get_cee_dcb_config(a1, &v31, 32, 0);
   if (!result)
   {
     *(a1 + 1084) = 1;
@@ -7180,7 +7171,7 @@ LABEL_53:
 
   if (!result)
   {
-    i40e_aq_get_dcb_config();
+    i40e_aq_get_dcb_config(a1, 0, 0, a1 + 1484);
   }
 
   return result;
@@ -7213,7 +7204,7 @@ uint64_t i40e_init_dcb(uint64_t a1, int a2)
       v8 = 49;
     }
 
-    if (i40e_read_nvm_module_data(a1, 0x48u, v8, 1, 1, v11))
+    if (i40e_read_nvm_module_data(a1, 72, v8, 1, 1, v11))
     {
       return 4294967233;
     }
@@ -7270,7 +7261,7 @@ uint64_t i40e_read_lldp_cfg(uint64_t a1, void *a2)
   if (!v4)
   {
     v9 = 0;
-    v5 = i40e_aq_read_nvm(a1, 0, 0, 4u, &v9, 1, 0);
+    v5 = i40e_aq_read_nvm(a1, 0, 0, 4, &v9, 1, 0);
     i40e_release_nvm(a1);
     if (v5)
     {
@@ -7295,11 +7286,11 @@ uint64_t i40e_read_lldp_cfg(uint64_t a1, void *a2)
   return v4;
 }
 
-uint64_t i40e_get_fw_lldp_status(uint64_t a1, uint64_t a2)
+uint64_t i40e_get_fw_lldp_status(uint64_t a1, int *a2)
 {
   if (a2)
   {
-    i40e_allocate_virt_mem();
+    i40e_allocate_virt_mem(a1, &v3, 0x5DCu);
   }
 
   return 4294967291;
@@ -7441,13 +7432,14 @@ LABEL_33:
   return 0;
 }
 
-uint64_t _i40e_read_lldp_cfg(uint64_t a1, void *a2, int a3, int a4)
+uint64_t _i40e_read_lldp_cfg(uint64_t a1, void *a2, uint64_t a3, int a4)
 {
+  v5 = a3;
   v8 = i40e_acquire_nvm(a1, 1);
   if (!v8)
   {
     v13 = 0;
-    nvm = i40e_aq_read_nvm(a1, 0, 2 * a3, 2u, &v13, 1, 0);
+    nvm = i40e_aq_read_nvm(a1, 0, 2 * v5, 2, &v13, 1, 0);
     i40e_release_nvm(a1);
     if (nvm)
     {
@@ -7467,7 +7459,7 @@ uint64_t _i40e_read_lldp_cfg(uint64_t a1, void *a2, int a3, int a4)
     v8 = i40e_acquire_nvm(a1, 1);
     if (!v8)
     {
-      nvm = i40e_aq_read_nvm(a1, a3, 2 * a4, 2u, &v13, 1, 0);
+      nvm = i40e_aq_read_nvm(a1, v5, 2 * a4, 2, &v13, 1, 0);
       i40e_release_nvm(a1);
       if (nvm)
       {
@@ -7478,7 +7470,7 @@ uint64_t _i40e_read_lldp_cfg(uint64_t a1, void *a2, int a3, int a4)
       v8 = i40e_acquire_nvm(a1, 1);
       if (!v8)
       {
-        nvm = i40e_aq_read_nvm(a1, 0, v11 + 2 * (v12 + a4), 0xEu, a2, 1, 0);
+        nvm = i40e_aq_read_nvm(a1, 0, v11 + 2 * (v12 + a4), 14, a2, 1, 0);
         i40e_release_nvm(a1);
         return nvm;
       }
@@ -7723,8 +7715,7 @@ uint64_t i40e_alloc_adminq_asq_ring(uint64_t a1)
   dma_mem = i40e_allocate_dma_mem(a1, a1 + 784, 4, 32 * *(a1 + 886));
   if (!dma_mem)
   {
-    v3 = *(a1 + 886);
-    i40e_allocate_virt_mem();
+    i40e_allocate_virt_mem(a1, (a1 + 824), 32 * *(a1 + 886));
   }
 
   return dma_mem;
@@ -7753,8 +7744,7 @@ uint64_t i40e_init_asq(uint64_t a1)
   v1 = i40e_alloc_adminq_asq_ring(a1);
   if (!v1)
   {
-    v3 = 5 * *(a1 + 886);
-    i40e_allocate_virt_mem();
+    i40e_allocate_virt_mem(a1, (a1 + 768), 40 * *(a1 + 886));
   }
 
   return v1;
@@ -7846,8 +7836,7 @@ uint64_t i40e_init_arq(uint64_t a1)
   dma_mem = i40e_allocate_dma_mem(a1, a1 + 672, 3, 32 * v3);
   if (!dma_mem)
   {
-    v4 = 5 * *(a1 + 884);
-    i40e_allocate_virt_mem();
+    i40e_allocate_virt_mem(a1, (a1 + 656), 40 * *(a1 + 884));
   }
 
   return dma_mem;
@@ -7895,7 +7884,7 @@ uint64_t i40e_config_arq_regs(uint64_t a1)
 
 uint64_t i40e_shutdown_asq(uint64_t a1)
 {
-  i40e_acquire_spinlock(a1 + 904);
+  i40e_acquire_spinlock();
   if (*(a1 + 848))
   {
     __dmb(2u);
@@ -7918,13 +7907,13 @@ uint64_t i40e_shutdown_asq(uint64_t a1)
     v2 = 4294967233;
   }
 
-  i40e_release_spinlock(a1 + 904);
+  i40e_release_spinlock();
   return v2;
 }
 
 uint64_t i40e_shutdown_arq(uint64_t a1)
 {
-  i40e_acquire_spinlock(a1 + 905);
+  i40e_acquire_spinlock();
   if (*(a1 + 736))
   {
     __dmb(2u);
@@ -7962,7 +7951,7 @@ uint64_t i40e_shutdown_arq(uint64_t a1)
     v4 = 4294967233;
   }
 
-  i40e_release_spinlock(a1 + 905);
+  i40e_release_spinlock();
   return v4;
 }
 
@@ -7976,8 +7965,8 @@ uint64_t i40e_init_adminq(uint64_t a1)
     return 4294967292;
   }
 
-  i40e_init_spinlock(a1 + 904);
-  i40e_init_spinlock(a1 + 905);
+  i40e_init_spinlock();
+  i40e_init_spinlock();
   v2 = xmmword_10001CB70;
   v3 = xmmword_10001CB80;
   v4 = *(a1 + 80);
@@ -8008,8 +7997,8 @@ uint64_t i40e_init_adminq(uint64_t a1)
 LABEL_10:
     i40e_shutdown_asq(a1);
 LABEL_11:
-    i40e_destroy_spinlock(a1 + 904);
-    i40e_destroy_spinlock(a1 + 905);
+    i40e_destroy_spinlock();
+    i40e_destroy_spinlock();
     return inited;
   }
 
@@ -8046,11 +8035,11 @@ LABEL_23:
     }
 
     i40e_set_hw_flags(a1);
-    i40e_read_nvm_word(a1, 0x18u, (a1 + 152));
-    i40e_read_nvm_word(a1, 0x2Du, &v13);
-    i40e_read_nvm_word(a1, 0x2Eu, &v13 + 1);
+    i40e_read_nvm_word(a1, 24, (a1 + 152));
+    i40e_read_nvm_word(a1, 45, &v13);
+    i40e_read_nvm_word(a1, 46, &v13 + 1);
     *(a1 + 156) = v13 | (HIWORD(v13) << 16);
-    i40e_read_nvm_word(a1, 0x17u, &v12);
+    i40e_read_nvm_word(a1, 23, &v12);
     i40e_read_nvm_word(a1, (v12 + 131), &v14 + 1);
     i40e_read_nvm_word(a1, (v12 + 132), &v14);
     *(a1 + 160) = v14 | (HIWORD(v14) << 16);
@@ -8183,8 +8172,8 @@ uint64_t i40e_shutdown_adminq(uint64_t a1)
 
   i40e_shutdown_asq(a1);
   i40e_shutdown_arq(a1);
-  i40e_destroy_spinlock(a1 + 904);
-  i40e_destroy_spinlock(a1 + 905);
+  i40e_destroy_spinlock();
+  i40e_destroy_spinlock();
   if (*(a1 + 992))
   {
     i40e_free_virt_mem(a1, (a1 + 992));
@@ -8273,9 +8262,10 @@ BOOL i40e_asq_done(uint64_t a1)
   return readData == *(a1 + 852);
 }
 
-uint64_t i40e_asq_send_command(uint64_t a1, uint64_t a2, void *a3, unsigned int a4, _OWORD *a5)
+uint64_t i40e_asq_send_command(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _OWORD *a5)
 {
-  i40e_acquire_spinlock(a1 + 904);
+  v6 = a4;
+  i40e_acquire_spinlock();
   *(a1 + 908) = 0;
   if (*(a1 + 848))
   {
@@ -8312,11 +8302,11 @@ uint64_t i40e_asq_send_command(uint64_t a1, uint64_t a2, void *a3, unsigned int 
     }
 
     *a2 = *(v10 + 16) | *a2 & ~*(v10 + 18);
-    if (*(a1 + 890) < a4)
+    if (*(a1 + 890) < v6)
     {
       if ((pcindkll & 0x100000) != 0)
       {
-        IOLog("ixl:%s(%d): AQTX: Invalid buffer size: %d.\n\n", "i40e_asq_send_command", 872, a4);
+        IOLog("ixl:%s(%d): AQTX: Invalid buffer size: %d.\n\n", "i40e_asq_send_command", 872, v6);
       }
 
       v13 = 4294967270;
@@ -8334,8 +8324,8 @@ uint64_t i40e_asq_send_command(uint64_t a1, uint64_t a2, void *a3, unsigned int 
         if (a3)
         {
           v17 = *(a1 + 840) + 40 * *(a1 + 852);
-          memcpy(*v17, a3, a4);
-          *(v15 + 4) = a4;
+          memcpy(*v17, a3, v6);
+          *(v15 + 4) = v6;
           *(v15 + 24) = *(v17 + 12);
           *(v15 + 28) = *(v17 + 8);
         }
@@ -8350,7 +8340,7 @@ uint64_t i40e_asq_send_command(uint64_t a1, uint64_t a2, void *a3, unsigned int 
           IOLog("ixl:%s(%d): AQTX: desc and buffer:\n\n", "i40e_asq_send_command", 925);
         }
 
-        i40e_debug_aq(a1, 100663296, v15, a3, a4);
+        i40e_debug_aq(a1, 100663296, v15, a3, v6);
         v18 = *(a1 + 852);
         if (*(a1 + 848) == (v18 + 1))
         {
@@ -8405,7 +8395,7 @@ uint64_t i40e_asq_send_command(uint64_t a1, uint64_t a2, void *a3, unsigned int 
         *(a2 + 16) = v23;
         if (a3)
         {
-          memcpy(a3, *v17, a4);
+          memcpy(a3, *v17, v6);
         }
 
         v24 = *(a2 + 6);
@@ -8447,7 +8437,7 @@ LABEL_55:
           IOLog("ixl:%s(%d): AQTX: desc and buffer writeback:\n\n", "i40e_asq_send_command", 979);
         }
 
-        i40e_debug_aq(a1, 100663296, a2, a3, a4);
+        i40e_debug_aq(a1, 100663296, a2, a3, v6);
         v26 = *(v10 + 24);
         if (v26)
         {
@@ -8514,7 +8504,7 @@ LABEL_11:
   }
 
 LABEL_17:
-  i40e_release_spinlock(a1 + 904);
+  i40e_release_spinlock();
   return v13;
 }
 
@@ -8534,7 +8524,7 @@ uint64_t i40e_clean_arq_element(uint64_t a1, uint64_t a2, _WORD *a3)
   v6 = *(a1 + 742);
   *a2 = 0u;
   *(a2 + 16) = 0u;
-  i40e_acquire_spinlock(a1 + 905);
+  i40e_acquire_spinlock();
   if (*(a1 + 736))
   {
     v7 = *(a1 + 80);
@@ -8672,7 +8662,7 @@ LABEL_34:
   }
 
 LABEL_38:
-  i40e_release_spinlock(a1 + 905);
+  i40e_release_spinlock();
   return v9;
 }
 
@@ -9086,7 +9076,7 @@ uint64_t i40e_aq_queue_shutdown(uint64_t a1, int a2)
   return i40e_asq_send_command(a1, v5, 0, 0, 0);
 }
 
-uint64_t i40e_aq_get_set_rss_lut(uint64_t a1, __int16 a2, int a3, void *a4, unsigned int a5, int a6)
+uint64_t i40e_aq_get_set_rss_lut(uint64_t a1, __int16 a2, int a3, void *a4, uint64_t a5, int a6)
 {
   if (a6)
   {
@@ -9124,7 +9114,7 @@ uint64_t i40e_aq_get_set_rss_key(uint64_t a1, __int16 a2, void *a3, int a4)
   i40e_fill_default_direct_cmd_desc(v9, v7);
   v9[0] |= 0x1400u;
   v9[8] = a2 & 0x3FF | 0x8000;
-  return i40e_asq_send_command(a1, v9, a3, 0x34u, 0);
+  return i40e_asq_send_command(a1, v9, a3, 52, 0);
 }
 
 uint64_t i40e_validate_mac_addr(unsigned __int8 *a1)
@@ -9196,7 +9186,7 @@ uint64_t i40e_get_mac_addr(uint64_t a1, uint64_t a2)
 {
   i40e_fill_default_direct_cmd_desc(v7, 263);
   v7[0] |= 0x1000u;
-  result = i40e_asq_send_command(a1, v7, &v5, 0x18u, 0);
+  result = i40e_asq_send_command(a1, v7, &v5, 24, 0);
   if ((v8 & 0x10) != 0)
   {
     *a2 = v5;
@@ -9210,7 +9200,7 @@ uint64_t i40e_get_port_mac_addr(uint64_t a1, uint64_t a2)
 {
   i40e_fill_default_direct_cmd_desc(v8, 263);
   v8[0] |= 0x1000u;
-  result = i40e_asq_send_command(a1, v8, v5, 0x18u, 0);
+  result = i40e_asq_send_command(a1, v8, v5, 24, 0);
   if (!result)
   {
     if ((v9 & 0x40) != 0)
@@ -9264,7 +9254,7 @@ uint64_t i40e_read_pba_string(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v17 = 0;
   v16 = 0;
-  nvm_word = i40e_read_nvm_word(a1, 0x15u, &v17 + 1);
+  nvm_word = i40e_read_nvm_word(a1, 21, &v17 + 1);
   if (nvm_word || HIWORD(v17) != 64250)
   {
     if ((pcindkll & 0x100000) != 0)
@@ -9276,7 +9266,7 @@ LABEL_7:
 
   else
   {
-    v7 = i40e_read_nvm_word(a1, 0x16u, &v16);
+    v7 = i40e_read_nvm_word(a1, 22, &v16);
     if (v7)
     {
       nvm_word = v7;
@@ -9817,7 +9807,7 @@ uint64_t i40e_aq_get_phy_capabilities(uint64_t a1, int a2, int a3, unsigned __in
       v15 |= 2u;
     }
 
-    result = i40e_asq_send_command(a1, v14, a4, 0x218u, a5);
+    result = i40e_asq_send_command(a1, v14, a4, 536, a5);
     v12 = *(a1 + 908);
     if (v12 != 8)
     {

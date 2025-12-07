@@ -54,28 +54,28 @@
 
 - (id)attributeDescriptions
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v19.receiver = self;
   v19.super_class = HMIVideoAnalyzerEventFace;
   attributeDescriptions = [(HMIVideoAnalyzerEvent *)&v19 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   faceRecognition = [(HMIVideoAnalyzerEventFace *)self faceRecognition];
-  v5 = [v4 initWithName:@"Face Recognition" value:faceRecognition];
-  v20[0] = v5;
+  v5 = [v4 initWithName:? value:?];
+  v20 = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   torsoAnnotation = [(HMIVideoAnalyzerEventFace *)self torsoAnnotation];
-  v8 = [v6 initWithName:@"Torso Annotation" value:torsoAnnotation];
-  v20[1] = v8;
+  v8 = [v6 initWithName:? value:?];
+  v21 = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = [(HMIVideoAnalyzerEventFace *)self yaw];
-  v11 = [v9 initWithName:@"Face Yaw" value:v10];
-  v20[2] = v11;
+  v11 = [v9 initWithName:? value:?];
+  v22 = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   roll = [(HMIVideoAnalyzerEventFace *)self roll];
-  v14 = [v12 initWithName:@"Face Roll" value:roll];
-  v20[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
-  v16 = [attributeDescriptions arrayByAddingObjectsFromArray:v15];
+  v14 = [v12 initWithName:? value:?];
+  v23 = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v16 = [attributeDescriptions arrayByAddingObjectsFromArray:?];
 
   return v16;
 }
@@ -90,7 +90,7 @@
   v6 = HMIFormatNumber(roll, 2);
   v7 = [(HMIVideoAnalyzerEventFace *)self yaw];
   v8 = HMIFormatNumber(v7, 2);
-  v9 = [v3 stringWithFormat:@"%@@(%@, %@)", shortDescription, v6, v8];
+  v9 = [v3 stringWithFormat:shortDescription, v6, v8];
 
   return v9;
 }
@@ -142,36 +142,36 @@
   coderCopy = coder;
   [(HMIVideoAnalyzerEvent *)&v9 encodeWithCoder:coderCopy];
   v5 = [(HMIVideoAnalyzerEventFace *)self faceRecognition:v9.receiver];
-  [coderCopy encodeObject:v5 forKey:@"HMIVAEF.fr"];
+  [coderCopy encodeObject:? forKey:?];
 
   torsoAnnotation = [(HMIVideoAnalyzerEventFace *)self torsoAnnotation];
-  [coderCopy encodeObject:torsoAnnotation forKey:@"HMIVAEF.ta"];
+  [coderCopy encodeObject:? forKey:?];
 
   v7 = [(HMIVideoAnalyzerEventFace *)self yaw];
-  [coderCopy encodeObject:v7 forKey:@"HMIVAEF.ya"];
+  [coderCopy encodeObject:? forKey:?];
 
   roll = [(HMIVideoAnalyzerEventFace *)self roll];
-  [coderCopy encodeObject:roll forKey:@"HMIVAEF.ro"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMIVideoAnalyzerEventFace)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:coderCopy];
+  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:?];
   if (v5)
   {
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAEF.fr"];
-    v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAEF.ta"];
-    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAEF.ya"];
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAEF.ro"];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v8 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v9 = [coderCopy decodeObjectOfClass:? forKey:?];
     confidence = [(HMIVideoAnalyzerEvent *)v5 confidence];
     [(HMIVideoAnalyzerEvent *)v5 boundingBox];
-    v12 = v11;
-    v14 = v13;
-    v16 = v15;
-    v18 = v17;
     userInfo = [(HMIVideoAnalyzerEvent *)v5 userInfo];
-    self = [(HMIVideoAnalyzerEventFace *)self initWithConfidence:confidence boundingBox:v8 yaw:v9 roll:v6 faceRecognition:v7 torsoAnnotation:userInfo userInfo:v12, v14, v16, v18];
+    self = [HMIVideoAnalyzerEventFace initWithConfidence:"initWithConfidence:boundingBox:yaw:roll:faceRecognition:torsoAnnotation:userInfo:" boundingBox:? yaw:? roll:? faceRecognition:? torsoAnnotation:? userInfo:?];
 
     selfCopy = self;
   }

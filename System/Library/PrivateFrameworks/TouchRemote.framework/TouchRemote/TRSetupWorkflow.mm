@@ -82,19 +82,20 @@ void __24__TRSetupWorkflow_start__block_invoke_2(uint64_t a1, int a2, void *a3)
   v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if ([WeakRetained state] != 2)
+  v7 = [WeakRetained state];
+  if (v7 != 2)
   {
     if (_TRLogEnabled != 1)
     {
       goto LABEL_16;
     }
 
-    v9 = TRLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = TRLogHandle(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v20 = "[TRSetupWorkflow start]_block_invoke_2";
-      _os_log_impl(&dword_26F2A2000, v9, OS_LOG_TYPE_DEFAULT, "%s Workflow stopped", buf, 0xCu);
+      _os_log_impl(&dword_26F2A2000, v10, OS_LOG_TYPE_DEFAULT, "%s Workflow stopped", buf, 0xCu);
     }
 
 LABEL_15:
@@ -105,20 +106,20 @@ LABEL_15:
   if (!a2)
   {
     [*(a1 + 32) setSession:0];
-    v10 = [v5 domain];
-    if ([v10 isEqualToString:@"TRNearbyDeviceErrorDomain"])
+    v11 = [v5 domain];
+    if ([v11 isEqualToString:@"TRNearbyDeviceErrorDomain"])
     {
-      v11 = [v5 code];
+      v12 = [v5 code];
 
-      if (v11 == -9100)
+      if (v12 == -9100)
       {
         v17 = *MEMORY[0x277CCA7E8];
         v18 = v5;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-        v12 = WeakRetained;
-        v13 = -9100;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v13 = WeakRetained;
+        v14 = -9100;
 LABEL_14:
-        [v12 _abortSetupWithErrorCode:v13 userInfo:v9];
+        [v13 _abortSetupWithErrorCode:v14 userInfo:v10];
         goto LABEL_15;
       }
     }
@@ -129,44 +130,40 @@ LABEL_14:
 
     v15 = *MEMORY[0x277CCA7E8];
     v16 = v5;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v12 = WeakRetained;
-    v13 = -9104;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v13 = WeakRetained;
+    v14 = -9104;
     goto LABEL_14;
   }
 
-  v7 = [WeakRetained startedHandler];
+  v8 = [WeakRetained startedHandler];
 
-  if (v7)
+  if (v8)
   {
-    v8 = [WeakRetained startedHandler];
-    v8[2]();
+    v9 = [WeakRetained startedHandler];
+    v9[2]();
   }
 
   [WeakRetained _performHandshakeOperation];
 LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (_TRLogEnabled == 1)
   {
-    v3 = TRLogHandle();
+    v3 = TRLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[TRSetupWorkflow cancel]";
-      _os_log_impl(&dword_26F2A2000, v3, OS_LOG_TYPE_DEFAULT, "%s Cancelling setup workflow", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[TRSetupWorkflow cancel]";
+      _os_log_impl(&dword_26F2A2000, v3, OS_LOG_TYPE_DEFAULT, "%s Cancelling setup workflow", &v5, 0xCu);
     }
   }
 
   operationQueue = [(TRSetupWorkflow *)self operationQueue];
   [operationQueue invalidate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performHandshakeOperation
@@ -398,14 +395,14 @@ void __50__TRSetupWorkflow__performAuthenticationOperation__block_invoke(uint64_
 
 - (void)_performCompletionOperation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (_TRLogEnabled == 1)
   {
-    v3 = TRLogHandle();
+    v3 = TRLogHandle(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "[TRSetupWorkflow _performCompletionOperation]";
+      v11 = "[TRSetupWorkflow _performCompletionOperation]";
       _os_log_impl(&dword_26F2A2000, v3, OS_LOG_TYPE_DEFAULT, "%s Send Completion Request", buf, 0xCu);
     }
   }
@@ -416,19 +413,17 @@ void __50__TRSetupWorkflow__performAuthenticationOperation__block_invoke(uint64_
 
   [(TRCompletionOperation *)v6 setSuccess:1];
   objc_initWeak(buf, self);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __46__TRSetupWorkflow__performCompletionOperation__block_invoke;
-  v9[3] = &unk_279DCEF68;
-  objc_copyWeak(&v10, buf);
-  [(TRCompletionOperation *)v6 setCompletionBlock:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __46__TRSetupWorkflow__performCompletionOperation__block_invoke;
+  v8[3] = &unk_279DCEF68;
+  objc_copyWeak(&v9, buf);
+  [(TRCompletionOperation *)v6 setCompletionBlock:v8];
   operationQueue = [(TRSetupWorkflow *)self operationQueue];
   [operationQueue addOperation:v6];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__TRSetupWorkflow__performCompletionOperation__block_invoke(uint64_t a1)
@@ -458,17 +453,17 @@ void __46__TRSetupWorkflow__performCompletionOperation__block_invoke(uint64_t a1
   infoCopy = info;
   if ([(TRSetupWorkflow *)self state]== 2)
   {
-    [(TRSetupWorkflow *)self setState:3];
+    v7 = [(TRSetupWorkflow *)self setState:3];
     if (_TRLogEnabled == 1)
     {
-      v7 = TRLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = TRLogHandle(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
         v22 = "[TRSetupWorkflow _abortSetupWithErrorCode:userInfo:]";
         v23 = 2048;
         codeCopy = code;
-        _os_log_impl(&dword_26F2A2000, v7, OS_LOG_TYPE_DEFAULT, "%s Aborting setup with error code: %ld", buf, 0x16u);
+        _os_log_impl(&dword_26F2A2000, v8, OS_LOG_TYPE_DEFAULT, "%s Aborting setup with error code: %ld", buf, 0x16u);
       }
     }
 
@@ -477,12 +472,12 @@ void __46__TRSetupWorkflow__performCompletionOperation__block_invoke(uint64_t a1
       [(TRSetupWorkflow *)self _releaseHandlers];
       codeCopy2 = -10001;
 LABEL_15:
-      v12 = [TRCompletionOperation alloc];
+      v13 = [TRCompletionOperation alloc];
       session = [(TRSetupWorkflow *)self session];
-      v14 = [(TROperation *)v12 initWithSession:session];
+      v15 = [(TROperation *)v13 initWithSession:session];
 
-      [(TRCompletionOperation *)v14 setSuccess:0];
-      [(TRCompletionOperation *)v14 setErrorCode:codeCopy2];
+      [(TRCompletionOperation *)v15 setSuccess:0];
+      [(TRCompletionOperation *)v15 setErrorCode:codeCopy2];
       session2 = [(TRSetupWorkflow *)self session];
       [session2 setDisconnectHandler:0];
       [(TRSetupWorkflow *)self setSession:0];
@@ -491,10 +486,10 @@ LABEL_15:
       v19[2] = __53__TRSetupWorkflow__abortSetupWithErrorCode_userInfo___block_invoke;
       v19[3] = &unk_279DCEBF8;
       v20 = session2;
-      v16 = session2;
-      [(TRCompletionOperation *)v14 setCompletionBlock:v19];
+      v17 = session2;
+      [(TRCompletionOperation *)v15 setCompletionBlock:v19];
       operationQueue = [(TRSetupWorkflow *)self operationQueue];
-      [operationQueue addOperation:v14];
+      [operationQueue addOperation:v15];
 
       goto LABEL_16;
     }
@@ -509,13 +504,13 @@ LABEL_15:
       codeCopy2 = code;
     }
 
-    v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:codeCopy2 userInfo:infoCopy];
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:codeCopy2 userInfo:infoCopy];
     failureHandler = [(TRSetupWorkflow *)self failureHandler];
 
     if (failureHandler)
     {
       failureHandler2 = [(TRSetupWorkflow *)self failureHandler];
-      (failureHandler2)[2](failureHandler2, v9);
+      (failureHandler2)[2](failureHandler2, v10);
     }
 
     [(TRSetupWorkflow *)self _releaseHandlers];
@@ -528,8 +523,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_releaseHandlers

@@ -485,9 +485,9 @@ LABEL_12:
     [ICAttachment(LinkPresentation) filePreviewGenerationQueue];
   }
 
-  v1 = filePreviewGenerationQueue_queue;
+  v2 = filePreviewGenerationQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 - (id)webPreviewGenerationQueue
@@ -497,9 +497,9 @@ LABEL_12:
     [ICAttachment(LinkPresentation) webPreviewGenerationQueue];
   }
 
-  v1 = webPreviewGenerationQueue_queue;
+  v2 = webPreviewGenerationQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 - (id)mapPreviewGenerationQueue
@@ -509,9 +509,9 @@ LABEL_12:
     [ICAttachment(LinkPresentation) mapPreviewGenerationQueue];
   }
 
-  v1 = mapPreviewGenerationQueue_queue;
+  v2 = mapPreviewGenerationQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 - (id)fallbackWebMetadata

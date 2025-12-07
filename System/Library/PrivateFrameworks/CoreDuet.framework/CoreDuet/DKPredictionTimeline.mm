@@ -46,7 +46,7 @@ void __36___DKPredictionTimeline_description__block_invoke()
 
 void __46___DKPredictionTimeline_predictionUnavailable__block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = objc_alloc(*(a1 + 32));
   v2 = [MEMORY[0x1E695DF00] distantFuture];
   v3 = [(_DKPredictionTimeline *)v1 initWithValues:MEMORY[0x1E695E0F0] forDurations:v2 startingAt:?];
@@ -54,11 +54,9 @@ void __46___DKPredictionTimeline_predictionUnavailable__block_invoke(uint64_t a1
   predictionUnavailable_prediction = v3;
 
   v5 = [MEMORY[0x1E695DF00] distantFuture];
-  v8[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   [(_DKSyncWindow *)predictionUnavailable_prediction setStartDate:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

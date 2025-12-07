@@ -260,11 +260,11 @@ void __34__AAURLConfiguration_remoteServer__block_invoke()
 
 + (id)itemForKey:(id)key error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v19 = 0;
-  v7 = [self _urlConfigurationWithError:&v19];
-  v8 = v19;
+  v18 = 0;
+  v7 = [self _urlConfigurationWithError:&v18];
+  v8 = v18;
   v9 = v8;
   if (error && v8)
   {
@@ -280,16 +280,14 @@ void __34__AAURLConfiguration_remoteServer__block_invoke()
     if (error && !v12)
     {
       v13 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A578];
+      v19 = *MEMORY[0x1E696A578];
       v14 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleAccount"];
       v15 = [v14 localizedStringForKey:@"ICLOUD_CONFIG_ERROR" value:0 table:@"Localizable"];
-      v21[0] = v15;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v20[0] = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       *error = [v13 errorWithDomain:@"com.apple.appleaccount" code:-2 userInfo:v16];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -455,7 +453,7 @@ void __61__AAURLConfiguration_Deprecated___urlConfigurationWithError___block_inv
 
   else
   {
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[(AAURLConfiguration(Deprecated) *)v8];
@@ -490,7 +488,7 @@ void __61__AAURLConfiguration_Deprecated___urlConfigurationWithError___block_inv
 
   else
   {
-    v8 = _AALogSystem();
+    v8 = _AALogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[(AAURLConfiguration(Deprecated) *)v8];

@@ -14,21 +14,21 @@
     missingField = [(MACPAssetCache *)self missingField];
     v7 = missingField != 0;
 
-    v23 = v7;
+    v21 = v7;
     name = self->_name;
     storeFields = [(MACPAssetCache *)self storeFields];
     missingField2 = [(MACPAssetCache *)self missingField];
-    v22 = 0;
-    v11 = [dbInClassC upgradeTable:name fields:storeFields attributes:0 missingNewColumn:missingField2 hasDeletedColumn:0 migrateData:&v23 error:&v22];
-    v12 = v22;
+    v20 = 0;
+    v11 = [dbInClassC upgradeTable:name fields:storeFields attributes:0 missingNewColumn:missingField2 hasDeletedColumn:0 migrateData:&v21 error:&v20];
+    v12 = v20;
 
     if (v11)
     {
       v13 = [MAKVStore alloc];
       v14 = self->_name;
-      v21 = v12;
-      v15 = [(MAKVStore *)v13 initWithName:v14 identifier:v14 profile:0 db:dbInClassC attributes:0 error:&v21];
-      v16 = v21;
+      v19 = v12;
+      v15 = [(MAKVStore *)v13 initWithName:v14 identifier:v14 profile:0 db:dbInClassC attributes:0 error:&v19];
+      v16 = v19;
 
       v12 = v16;
       if (v15)
@@ -40,13 +40,11 @@
 
   else
   {
-    v19 = self->_name;
     v12 = createManagedAssetError();
   }
 
   if (!v12)
   {
-    v20 = self->_name;
     v12 = createManagedAssetError();
   }
 

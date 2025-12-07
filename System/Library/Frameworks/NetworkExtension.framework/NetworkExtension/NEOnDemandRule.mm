@@ -6,6 +6,7 @@
 - (NEOnDemandRule)initWithCoder:(id)coder;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -26,7 +27,7 @@
   v6 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69827E0]];
   if (isa_nsstring(v6))
   {
-    if ([v6 isEqualToString:*MEMORY[0x1E6982988]])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 4;
 LABEL_12:
@@ -34,19 +35,19 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    if ([v6 isEqualToString:*MEMORY[0x1E6982970]])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 1;
       goto LABEL_12;
     }
 
-    if ([v6 isEqualToString:*MEMORY[0x1E6982978]])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 2;
       goto LABEL_12;
     }
 
-    if (([v6 isEqualToString:*MEMORY[0x1E6982980]] & 1) != 0 || objc_msgSend(v6, "isEqualToString:", *MEMORY[0x1E6982968]))
+    if ((objc_msgSend_isEqualToString_(v6) & 1) != 0 || objc_msgSend_isEqualToString_(v6))
     {
       v7 = 3;
       goto LABEL_12;
@@ -84,14 +85,14 @@ LABEL_13:
     goto LABEL_24;
   }
 
-  if ([v20 isEqualToString:@"Cellular"])
+  if (objc_msgSend_isEqualToString_(v20))
   {
     v21 = 3;
   }
 
   else
   {
-    if (([v20 isEqualToString:*MEMORY[0x1E69829A0]] & 1) != 0 || !objc_msgSend(v20, "isEqualToString:", *MEMORY[0x1E69829A8]))
+    if ((objc_msgSend_isEqualToString_(v20) & 1) != 0 || !objc_msgSend_isEqualToString_(v20))
     {
       goto LABEL_24;
     }
@@ -197,9 +198,61 @@ LABEL_12:
   return v3;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  v8 = [(NEOnDemandRule *)self action]- 1;
+  if (v8 <= 3)
+  {
+    [v7 appendPrettyObject:off_1E7F09818[v8] withName:@"action" andIndent:v5 options:options];
+  }
+
+  dNSSearchDomainMatch = [(NEOnDemandRule *)self DNSSearchDomainMatch];
+  [v7 appendPrettyObject:dNSSearchDomainMatch withName:@"DNSSearchDomainMatch" andIndent:v5 options:options | 1];
+
+  dNSServerAddressMatch = [(NEOnDemandRule *)self DNSServerAddressMatch];
+  [v7 appendPrettyObject:dNSServerAddressMatch withName:@"DNSServerAddressMatch" andIndent:v5 options:options | 1];
+
+  interfaceTypeMatch = [(NEOnDemandRule *)self interfaceTypeMatch];
+  if (interfaceTypeMatch)
+  {
+    if (interfaceTypeMatch == NEOnDemandRuleInterfaceTypeWiFi)
+    {
+      v12 = @"WiFi";
+    }
+
+    else
+    {
+      if (interfaceTypeMatch != NEOnDemandRuleInterfaceTypeCellular)
+      {
+        goto LABEL_10;
+      }
+
+      v12 = @"cellular";
+    }
+  }
+
+  else
+  {
+    v12 = @"any";
+  }
+
+  [v7 appendPrettyObject:v12 withName:@"interfaceTypeMatch" andIndent:v5 options:options];
+LABEL_10:
+  sSIDMatch = [(NEOnDemandRule *)self SSIDMatch];
+  [v7 appendPrettyObject:sSIDMatch withName:@"SSIDMatch" andIndent:v5 options:options | 1];
+
+  probeURL = [(NEOnDemandRule *)self probeURL];
+  absoluteString = [probeURL absoluteString];
+  [v7 appendPrettyObject:absoluteString withName:@"probeURL" andIndent:v5 options:options | 1];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   if ([(NEOnDemandRule *)self action]>= NEOnDemandRuleActionConnect && [(NEOnDemandRule *)self action]< (NEOnDemandRuleActionIgnore|NEOnDemandRuleActionConnect))
   {
@@ -216,27 +269,27 @@ LABEL_12:
 
   if (dNSSearchDomainMatch)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     dNSSearchDomainMatch2 = [(NEOnDemandRule *)self DNSSearchDomainMatch];
-    v8 = [dNSSearchDomainMatch2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v8 = [dNSSearchDomainMatch2 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v24;
       do
       {
         v11 = 0;
         do
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(dNSSearchDomainMatch2);
           }
 
-          if ((isa_nsstring(*(*(&v24 + 1) + 8 * v11)) & 1) == 0)
+          if ((isa_nsstring(*(*(&v23 + 1) + 8 * v11)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v5 = 0;
@@ -246,7 +299,7 @@ LABEL_12:
         }
 
         while (v9 != v11);
-        v9 = [dNSSearchDomainMatch2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v9 = [dNSSearchDomainMatch2 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v9);
@@ -257,27 +310,27 @@ LABEL_12:
 
   if (dNSServerAddressMatch)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     dNSServerAddressMatch2 = [(NEOnDemandRule *)self DNSServerAddressMatch];
-    v14 = [dNSServerAddressMatch2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v14 = [dNSServerAddressMatch2 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(dNSServerAddressMatch2);
           }
 
-          if ((isa_nsstring(*(*(&v20 + 1) + 8 * v17)) & 1) == 0)
+          if ((isa_nsstring(*(*(&v19 + 1) + 8 * v17)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v5 = 0;
@@ -287,14 +340,13 @@ LABEL_12:
         }
 
         while (v15 != v17);
-        v15 = [dNSServerAddressMatch2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v15 = [dNSServerAddressMatch2 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v15);
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
@@ -523,7 +575,7 @@ LABEL_29:
 
 + (id)createOnDemandRulesFromLegacyDictionary:(uint64_t)dictionary
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x1E69827D0]];
@@ -580,69 +632,65 @@ LABEL_54:
         v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
       }
 
-      [v14 addObject:{v31, v34, v35}];
+      [v14 addObject:{v31, v33, v34}];
     }
 
     goto LABEL_58;
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v12)
   {
     v13 = v12;
-    v34 = v10;
-    v35 = v2;
-    v38 = v5;
+    v33 = v10;
+    v34 = v2;
+    v37 = v5;
     v14 = 0;
-    v37 = 0;
-    v15 = *v46;
+    v36 = 0;
+    v15 = *v41;
     v16 = *MEMORY[0x1E69827E0];
     v17 = *MEMORY[0x1E6982988];
-    v44 = *MEMORY[0x1E6982970];
-    v43 = *MEMORY[0x1E6982978];
-    v40 = *MEMORY[0x1E6982980];
-    v39 = *MEMORY[0x1E6982968];
-    v42 = *MEMORY[0x1E69827E0];
+    v39 = *MEMORY[0x1E69827E0];
     while (1)
     {
       v18 = 0;
       do
       {
-        if (*v46 != v15)
+        if (*v41 != v15)
         {
           objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v45 + 1) + 8 * v18);
+        v19 = *(*(&v40 + 1) + 8 * v18);
         if (isa_nsdictionary(v19))
         {
           v20 = [v19 objectForKeyedSubscript:v16];
           if (isa_nsstring(v20))
           {
-            if ([v20 isEqualToString:v17])
+            if (objc_msgSend_isEqualToString_(v20))
             {
               v21 = NEOnDemandRuleIgnore;
               goto LABEL_31;
             }
 
-            if ([v20 isEqualToString:v44])
+            if (objc_msgSend_isEqualToString_(v20))
             {
               v21 = NEOnDemandRuleConnect;
               goto LABEL_31;
             }
 
-            if ([v20 isEqualToString:v43])
+            if (objc_msgSend_isEqualToString_(v20))
             {
               v21 = NEOnDemandRuleDisconnect;
               goto LABEL_31;
             }
 
-            if ([v20 isEqualToString:v40])
+            if (objc_msgSend_isEqualToString_(v20))
             {
               v21 = NEOnDemandRuleEvaluateConnection;
 LABEL_31:
@@ -658,22 +706,22 @@ LABEL_32:
                   dNSServerAddressMatch = [v22 DNSServerAddressMatch];
                   if (!dNSServerAddressMatch)
                   {
-                    v41 = v14;
+                    v38 = v14;
                     sSIDMatch = [v22 SSIDMatch];
                     if (!sSIDMatch && ![v22 interfaceTypeMatch])
                     {
                       probeURL = [v22 probeURL];
-                      v36 = probeURL == 0;
+                      v35 = probeURL == 0;
 
-                      v37 |= v36;
+                      v36 |= v35;
                     }
 
-                    v14 = v41;
+                    v14 = v38;
                   }
 
                   v17 = v25;
                   v11 = v24;
-                  v16 = v42;
+                  v16 = v39;
                 }
 
                 if (!v14)
@@ -685,12 +733,12 @@ LABEL_32:
               }
             }
 
-            else if ([v20 isEqualToString:v39])
+            else if (objc_msgSend_isEqualToString_(v20))
             {
-              if (v38)
+              if (v37)
               {
                 v22 = [[NEOnDemandRuleEvaluateConnection alloc] initFromLegacyDictionary:v19];
-                [v22 setConnectionRules:v38];
+                [v22 setConnectionRules:v37];
                 if (v22)
                 {
                   goto LABEL_32;
@@ -704,14 +752,14 @@ LABEL_32:
       }
 
       while (v13 != v18);
-      v29 = [v11 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v29 = [v11 countByEnumeratingWithState:&v40 objects:v44 count:16];
       v13 = v29;
       if (!v29)
       {
-        v30 = v37 ^ 1;
-        v10 = v34;
-        v2 = v35;
-        v5 = v38;
+        v30 = v36 ^ 1;
+        v10 = v33;
+        v2 = v34;
+        v5 = v37;
         goto LABEL_53;
       }
     }
@@ -727,8 +775,6 @@ LABEL_53:
   }
 
 LABEL_58:
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

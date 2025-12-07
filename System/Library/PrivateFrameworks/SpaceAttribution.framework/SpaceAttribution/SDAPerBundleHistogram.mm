@@ -1,5 +1,6 @@
 @interface SDAPerBundleHistogram
 - (SDAPerBundleHistogram)init;
+- (id)getElemForVolType:(int)type residency:(unsigned int)residency urgency:(int)urgency state:(int)state age:(unint64_t)age size:(unint64_t)size;
 - (void)getNumAndSizeOfEventsFor:(int)for residency:(unsigned int)residency reply:(id)reply;
 - (void)updateVolType:(int)type residency:(unsigned int)residency urgency:(int)urgency state:(int)state age:(unint64_t)age size:(unint64_t)size nanoSecSinceUpdate:(unint64_t)update;
 @end
@@ -19,6 +20,52 @@
   }
 
   return v2;
+}
+
+- (id)getElemForVolType:(int)type residency:(unsigned int)residency urgency:(int)urgency state:(int)state age:(unint64_t)age size:(unint64_t)size
+{
+  v12 = [NSNumber numberWithUnsignedLong:type, *&residency, *&urgency, *&state, age, size];
+  v13 = [NSNumber numberWithUnsignedLong:residency];
+  v14 = [NSNumber numberWithUnsignedLong:urgency];
+  v15 = [NSNumber numberWithUnsignedLong:state];
+  v16 = [(NSMutableDictionary *)self->_perBundle objectForKey:v12];
+  v17 = v16;
+  if (v16)
+  {
+    v18 = [v16 objectForKey:v13];
+    v19 = v18;
+    if (v18)
+    {
+      v20 = [v18 objectForKey:v14];
+      v21 = v20;
+      if (v20)
+      {
+        v22 = [v20 objectForKey:v15];
+        v23 = v22;
+        if (v22)
+        {
+          v24 = v22;
+        }
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  return v23;
 }
 
 - (void)updateVolType:(int)type residency:(unsigned int)residency urgency:(int)urgency state:(int)state age:(unint64_t)age size:(unint64_t)size nanoSecSinceUpdate:(unint64_t)update

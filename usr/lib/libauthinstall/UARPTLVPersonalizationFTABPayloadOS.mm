@@ -67,35 +67,35 @@
 
 - (id)description
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v3 = +[UARPTLVPersonalizationFTABPayloadOS metaDataTableEntry];
   v4 = objc_opt_new();
   v5 = [v3 objectForKeyedSubscript:@"Name"];
   [v4 appendFormat:@"<%@: \r", v5];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_tlvs;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v4 appendFormat:@"        <%@>\r", *(*(&v14 + 1) + 8 * i)];
+        [v4 appendFormat:@"        <%@>\r", *(*(&v13 + 1) + 8 * i)];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -104,22 +104,18 @@
   [v4 appendFormat:@"    >"];
   v11 = [MEMORY[0x29EDBA0F8] stringWithString:v4];
 
-  v12 = *MEMORY[0x29EDCA608];
-
   return v11;
 }
 
 + (id)metaDataTableEntry
 {
-  v7[2] = *MEMORY[0x29EDCA608];
-  v7[0] = @"Personalization FTAB Payload";
-  v6[0] = @"Name";
-  v6[1] = @"Value";
+  v6[2] = *MEMORY[0x29EDCA608];
+  v6[0] = @"Personalization FTAB Payload";
+  v5[0] = @"Name";
+  v5[1] = @"Value";
   v2 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:{+[UARPTLVPersonalizationFTABPayloadOS tlvType](UARPTLVPersonalizationFTABPayloadOS, "tlvType")}];
-  v7[1] = v2;
-  v3 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x29EDCA608];
+  v6[1] = v2;
+  v3 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

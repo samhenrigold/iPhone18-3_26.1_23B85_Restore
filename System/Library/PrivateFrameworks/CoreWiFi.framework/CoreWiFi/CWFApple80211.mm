@@ -107,17 +107,17 @@
 
 - (unsigned)__apple80211FindServiceWithInterfaceName:(id)name
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = nameCopy;
   if (nameCopy)
   {
-    v10 = nameCopy;
-    v11 = @"IOPropertyMatch";
-    v9 = @"IOInterfaceName";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-    v12[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v9 = nameCopy;
+    v10 = @"IOPropertyMatch";
+    v8 = @"IOInterfaceName";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+    v11[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
     if (v6)
     {
@@ -130,7 +130,6 @@
     LODWORD(v6) = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -187,56 +186,8 @@ LABEL_9:
   v21.receiver = self;
   v21.super_class = CWFApple80211;
   v5 = [(CWFApple80211 *)&v21 init];
-  if (!v5)
+  if (!v5 || (v6 = [nameCopy copy], interfaceName = v5->_interfaceName, v5->_interfaceName = v6, interfaceName, dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v8 = objc_claimAutoreleasedReturnValue(), v9 = dispatch_queue_create("com.apple.corewifi.apple80211-mutex", v8), mutexQueue = v5->_mutexQueue, v5->_mutexQueue = v9, mutexQueue, v8, !v5->_mutexQueue) || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v11 = objc_claimAutoreleasedReturnValue(), v12 = dispatch_queue_create("com.apple.corewifi.apple80211-event", v11), eventQueue = v5->_eventQueue, v5->_eventQueue = v12, eventQueue, v11, !v5->_eventQueue) || (v14 = -[CWFApple80211 __apple80211RefWithInterfaceName:](v5, "__apple80211RefWithInterfaceName:", nameCopy), (v5->_a11Ref = v14) == 0) || (-[CWFApple80211 virtualInterfaceRole:](v5, "virtualInterfaceRole:", 0), v15 = objc_claimAutoreleasedReturnValue(), v5->_virtualInterfaceRole = objc_msgSend(v15, "unsignedIntValue"), v15, -[CWFApple80211 virtualInterfaceParent:](v5, "virtualInterfaceParent:", 0), v16 = objc_claimAutoreleasedReturnValue(), virtualInterfaceParent = v5->_virtualInterfaceParent, v5->_virtualInterfaceParent = v16, virtualInterfaceParent, v18 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableInterfaceNameEventMap = v5->_mutableInterfaceNameEventMap, v5->_mutableInterfaceNameEventMap = v18, mutableInterfaceNameEventMap, !v5->_mutableInterfaceNameEventMap))
   {
-    goto LABEL_6;
-  }
-
-  v6 = [nameCopy copy];
-  interfaceName = v5->_interfaceName;
-  v5->_interfaceName = v6;
-
-  v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v9 = dispatch_queue_create("com.apple.corewifi.apple80211-mutex", v8);
-  mutexQueue = v5->_mutexQueue;
-  v5->_mutexQueue = v9;
-
-  if (!v5->_mutexQueue)
-  {
-    goto LABEL_6;
-  }
-
-  v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v12 = dispatch_queue_create("com.apple.corewifi.apple80211-event", v11);
-  eventQueue = v5->_eventQueue;
-  v5->_eventQueue = v12;
-
-  if (!v5->_eventQueue)
-  {
-    goto LABEL_6;
-  }
-
-  v14 = [(CWFApple80211 *)v5 __apple80211RefWithInterfaceName:nameCopy];
-  v5->_a11Ref = v14;
-  if (!v14)
-  {
-    goto LABEL_6;
-  }
-
-  v15 = [(CWFApple80211 *)v5 virtualInterfaceRole:0];
-  v5->_virtualInterfaceRole = [v15 unsignedIntValue];
-
-  v16 = [(CWFApple80211 *)v5 virtualInterfaceParent:0];
-  virtualInterfaceParent = v5->_virtualInterfaceParent;
-  v5->_virtualInterfaceParent = v16;
-
-  v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableInterfaceNameEventMap = v5->_mutableInterfaceNameEventMap;
-  v5->_mutableInterfaceNameEventMap = v18;
-
-  if (!v5->_mutableInterfaceNameEventMap)
-  {
-LABEL_6:
 
     v5 = 0;
   }
@@ -276,64 +227,71 @@ LABEL_6:
 
 - (BOOL)__setupEventMonitoring
 {
-  v14 = *MEMORY[0x1E69E9840];
-  a11Ref = self->_a11Ref;
-  eventQueue = self->_eventQueue;
-  if (Apple80211RawEventMonitoringInit())
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = Apple80211RawEventMonitoringInit();
+  if (v3)
   {
-    v8 = CWFGetOSLog();
-    if (v8)
+    v6 = v3;
+    v7 = CWFGetOSLog();
+    if (v7)
     {
-      v9 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
       v11 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
-LABEL_14:
     interfaceName = [(CWFApple80211 *)self interfaceName];
-    _os_log_send_and_compose_impl();
-
-LABEL_15:
-    result = 0;
-    goto LABEL_4;
+    v14 = 138543618;
+    v15 = interfaceName;
+    v16 = 1024;
+    v17 = v6;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] FAILED to setup Apple80211 event monitoring (intf=%{public}@), Apple80211RawEventMonitoringInit() returned %d", &v14, 18);
+    goto LABEL_15;
   }
 
-  v5 = self->_a11Ref;
-  if (Apple80211RawStartMonitoringEventAll())
+  started = Apple80211RawStartMonitoringEventAll();
+  if (started)
   {
+    v9 = started;
     v10 = CWFGetOSLog();
     if (v10)
     {
-      v9 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v9 = MEMORY[0x1E69E9C10];
-      v12 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
-    goto LABEL_14;
+    interfaceName = [(CWFApple80211 *)self interfaceName];
+    v14 = 138543618;
+    v15 = interfaceName;
+    v16 = 1024;
+    v17 = v9;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] FAILED to setup Apple80211 event monitoring (intf=%{public}@), Apple80211RawStartMonitoringEventAll() returned %d", &v14, 18);
+LABEL_15:
+
+LABEL_16:
+    return 0;
   }
 
-  result = 1;
-LABEL_4:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (void)startMonitoringEventWithType:(unsigned int)type interfaceName:(id)name
@@ -392,15 +350,14 @@ LABEL_4:
 
 - (id)interfaceNames:(id *)names
 {
-  a11Ref = self->_a11Ref;
   IfListCopy = Apple80211GetIfListCopy();
   if (IfListCopy)
   {
     if (names)
     {
-      v7 = IfListCopy;
-      v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", IfListCopy);
-      *names = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v7, v8);
+      v6 = IfListCopy;
+      v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", IfListCopy);
+      *names = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v6, v7);
 
       names = 0;
     }
@@ -416,16 +373,14 @@ LABEL_4:
 
 - (id)virtualInterfaceNames:(id *)names
 {
-  a11Ref = self->_a11Ref;
-  interfaceName = self->_interfaceName;
   VirtualIfListCopy = Apple80211GetVirtualIfListCopy();
   if (VirtualIfListCopy)
   {
     if (names)
     {
-      v8 = VirtualIfListCopy;
-      v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", VirtualIfListCopy);
-      *names = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v9);
+      v6 = VirtualIfListCopy;
+      v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", VirtualIfListCopy);
+      *names = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v6, v7);
 
       names = 0;
     }
@@ -441,49 +396,47 @@ LABEL_4:
 
 - (id)powerOn:(id *)on
 {
-  a11Ref = self->_a11Ref;
   Power = Apple80211GetPower();
   if (Power)
   {
     if (on)
     {
-      v8 = Power;
-      v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", Power);
-      *on = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v9);
+      v7 = Power;
+      v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", Power);
+      *on = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v7, v8);
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:0];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:0];
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)__MCSIndex:(id *)index
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (index && v5)
+  if (index && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *index = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *index = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)MCSIndex:(id *)index
@@ -505,79 +458,69 @@ LABEL_4:
 
 - (id)DTIMInterval:(id *)interval
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v14 = 1;
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  a11Ref = self->_a11Ref;
+  v14 = *MEMORY[0x1E69E9840];
+  v10 = 1;
+  v11 = 0u;
+  v12 = 0u;
   __strlcpy_chk();
-  LODWORD(v16) = 41;
-  DWORD2(v16) = 8;
-  v17 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  LODWORD(v12) = 41;
+  DWORD2(v12) = 8;
+  v13 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (interval)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *interval = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *interval = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v14)];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v10)];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)perAntennaRSSI:(id *)i
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0u;
-  v17 = 0u;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
+  v13 = 0u;
+  v11 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  a11Ref = self->_a11Ref;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v19) = 16;
-  DWORD2(v19) = 52;
-  v20 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v15) = 16;
+  DWORD2(v15) = 52;
+  v16 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (i)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *i = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *i = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:52];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:52];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)RSSI:(id *)i
@@ -601,217 +544,201 @@ LABEL_4:
 
 - (id)noise:(id *)noise
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 objectForKeyedSubscript:@"NOISE_CTL_AGR"];
+    v5 = [0 objectForKeyedSubscript:@"NOISE_CTL_AGR"];
   }
 
-  if (noise && v5)
+  if (noise && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *noise = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *noise = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)authType:(id *)type
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v15 = 0;
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  a11Ref = self->_a11Ref;
+  v16 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v11 = 0;
+  v13 = 0u;
+  v14 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v18) = 2;
-  DWORD2(v18) = 16;
-  v19 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v14) = 2;
+  DWORD2(v14) = 16;
+  v15 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (type)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *type = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *type = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:16];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:16];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)activePHYMode:(id *)mode
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 objectForKeyedSubscript:@"PHYMODE_ACTIVE"];
+    v5 = [0 objectForKeyedSubscript:@"PHYMODE_ACTIVE"];
   }
 
-  if (mode && v5)
+  if (mode && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *mode = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *mode = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)supportedPHYModes:(id *)modes
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 objectForKeyedSubscript:@"PHYMODE_SUPPORTED"];
+    v5 = [0 objectForKeyedSubscript:@"PHYMODE_SUPPORTED"];
   }
 
-  if (modes && v5)
+  if (modes && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *modes = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *modes = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)txRate:(id *)rate
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (rate && v5)
+  if (rate && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *rate = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *rate = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)txPower:(id *)power
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v18 = 0;
-  v16 = 0u;
-  v17 = 0u;
-  a11Ref = self->_a11Ref;
+  v15 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12 = 0u;
+  v13 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v17) = 7;
-  DWORD2(v17) = 12;
-  v18 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v13) = 7;
+  DWORD2(v13) = 12;
+  v14 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (power)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *power = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *power = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E696AD98] numberWithInt:HIDWORD(v15)];
+    v5 = [MEMORY[0x1E696AD98] numberWithInt:HIDWORD(v11)];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)opMode:(id *)mode
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (mode && v5)
+  if (mode && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *mode = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *mode = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)__guardInterval:(id *)interval
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (interval && v5)
+  if (interval && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *interval = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *interval = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)guardInterval:(id *)interval
@@ -833,25 +760,24 @@ LABEL_4:
 
 - (id)__numberOfSpatialStreams:(id *)streams
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (streams && v5)
+  if (streams && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *streams = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *streams = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)numberOfSpatialStreams:(id *)streams
@@ -876,20 +802,19 @@ LABEL_4:
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   if (Mutable)
   {
-    v6 = Mutable;
-    a11Ref = self->_a11Ref;
-    v8 = Apple80211Get();
-    if (v8)
+    v5 = Mutable;
+    v6 = Apple80211Get();
+    if (v6)
     {
-      v9 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v9 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v6];
+      v7 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v5];
     }
 
-    CFRelease(v6);
+    CFRelease(v5);
     if (!capabilities)
     {
       goto LABEL_7;
@@ -898,228 +823,216 @@ LABEL_4:
 
   else
   {
-    v9 = 0;
-    v8 = -3901;
+    v7 = 0;
+    v6 = -3901;
     if (!capabilities)
     {
       goto LABEL_7;
     }
   }
 
-  if (v8)
+  if (v6)
   {
-    v10 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v8);
-    *capabilities = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v10);
+    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v6);
+    *capabilities = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v6, v8);
   }
 
 LABEL_7:
 
-  return v9;
+  return v7;
 }
 
 - (id)SSID:(id *)d
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (d && v5)
+  if (d && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *d = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *d = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)BSSID:(id *)d
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
-    v7 = CWFCorrectEthernetAddressString(v6);
+    v5 = [0 copy];
+    v6 = CWFCorrectEthernetAddressString(v5);
   }
 
-  if (d && v5)
+  if (d && v4)
   {
-    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *d = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v8);
+    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *d = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)countryCode:(id *)code
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (code && v5)
+  if (code && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *code = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *code = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)virtualInterfaceParent:(id *)parent
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (parent && v5)
+  if (parent && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *parent = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *parent = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)virtualInterfaceRole:(id *)role
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211Get();
-  if (v5)
+  v4 = Apple80211Get();
+  if (v4)
   {
     if (role)
     {
-      v8 = v5;
-      v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-      *role = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v9);
+      v7 = v4;
+      v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+      *role = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v7, v8);
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithInt:0];
+    v5 = [MEMORY[0x1E696AD98] numberWithInt:0];
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)wowEnabled:(id *)enabled
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211Get();
-  if (v5)
+  v4 = Apple80211Get();
+  if (v4)
   {
     if (enabled)
     {
-      v8 = v5;
-      v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-      *enabled = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v9);
+      v7 = v4;
+      v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+      *enabled = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v7, v8);
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithInt:0];
+    v5 = [MEMORY[0x1E696AD98] numberWithInt:0];
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)linkChangedEventData:(id *)data
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v14, 0, sizeof(v14));
-  v16 = 0;
-  v15 = 0u;
-  a11Ref = self->_a11Ref;
+  v13 = *MEMORY[0x1E69E9840];
+  memset(v10, 0, sizeof(v10));
+  v11 = 0u;
   __strlcpy_chk();
-  LODWORD(v15) = 156;
-  DWORD2(v15) = 32;
-  v16 = v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  LODWORD(v11) = 156;
+  DWORD2(v11) = 32;
+  v12 = v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (data)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *data = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *data = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 length:32];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v10 length:32];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)channel:(id *)channel
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = objc_alloc_init(CWFChannel);
-    v7 = [0 objectForKeyedSubscript:@"CHANNEL"];
-    -[CWFChannel setChannel:](v6, "setChannel:", [v7 unsignedIntegerValue]);
+    v5 = objc_alloc_init(CWFChannel);
+    v6 = [0 objectForKeyedSubscript:@"CHANNEL"];
+    -[CWFChannel setChannel:](v5, "setChannel:", [v6 unsignedIntegerValue]);
 
-    v8 = [0 objectForKeyedSubscript:@"CHANNEL_FLAGS"];
-    -[CWFChannel setFlags:](v6, "setFlags:", [v8 intValue]);
+    v7 = [0 objectForKeyedSubscript:@"CHANNEL_FLAGS"];
+    -[CWFChannel setFlags:](v5, "setFlags:", [v7 intValue]);
   }
 
-  if (channel && v5)
+  if (channel && v4)
   {
-    v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *channel = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v9);
+    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *channel = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v8);
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)setChannel:(id)channel error:(id *)error
@@ -1149,31 +1062,29 @@ LABEL_7:
 
 - (id)__supportedChannelsWithCountryCode:(id)code error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   codeCopy = code;
-  bzero(v27 + 4, 0x12D4uLL);
-  LODWORD(v27[0]) = 1;
-  v28[1198] = -1;
+  bzero(v23 + 4, 0x12D4uLL);
+  LODWORD(v23[0]) = 1;
+  v24[1198] = -1;
   if (codeCopy)
   {
-    v29 = 1;
+    v25 = 1;
     uTF8String = [codeCopy UTF8String];
-    v8 = *uTF8String;
-    v31 = *(uTF8String + 2);
-    v30 = v8;
+    v7 = *uTF8String;
+    v27 = *(uTF8String + 2);
+    v26 = v7;
   }
 
-  v36 = 0;
-  v34 = 0u;
-  v35 = 0u;
-  a11Ref = self->_a11Ref;
+  v32 = 0;
+  v30 = 0u;
+  v31 = 0u;
   __strlcpy_chk();
-  LODWORD(v35) = 27;
-  DWORD2(v35) = 4824;
-  v36 = v27;
-  v10 = self->_a11Ref;
-  v11 = Apple80211RawGet();
-  if (v11)
+  LODWORD(v31) = 27;
+  DWORD2(v31) = 4824;
+  v32 = v23;
+  v8 = Apple80211RawGet();
+  if (v8)
   {
     array = 0;
     if (!error)
@@ -1185,63 +1096,61 @@ LABEL_7:
   else
   {
     array = [MEMORY[0x1E695DF70] array];
-    if (!HIDWORD(v27[0]))
+    if (!HIDWORD(v23[0]))
     {
       goto LABEL_10;
     }
 
-    v24 = v11;
+    v20 = v8;
     errorCopy = error;
-    v26 = codeCopy;
-    v13 = 0;
-    v14 = v28;
+    v22 = codeCopy;
+    v10 = 0;
+    v11 = v24;
     do
     {
-      v32[0] = @"SUP_CHANNEL";
-      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{*(v14 - 1), v24, errorCopy, v26, v27[0]}];
-      v32[1] = @"SUP_CHANNEL_FLAGS";
-      v33[0] = v15;
-      v16 = *v14;
-      v14 += 3;
-      v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v16];
-      v33[1] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+      v28[0] = @"SUP_CHANNEL";
+      v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{*(v11 - 1), v20, errorCopy, v22, v23[0]}];
+      v28[1] = @"SUP_CHANNEL_FLAGS";
+      v29[0] = v12;
+      v13 = *v11;
+      v11 += 3;
+      v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v13];
+      v29[1] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
-      [array addObject:v18];
-      ++v13;
+      [array addObject:v15];
+      ++v10;
     }
 
-    while (v13 < HIDWORD(v27[0]));
+    while (v10 < HIDWORD(v23[0]));
     error = errorCopy;
-    codeCopy = v26;
-    LODWORD(v11) = v24;
+    codeCopy = v22;
+    LODWORD(v8) = v20;
     if (!errorCopy)
     {
       goto LABEL_10;
     }
   }
 
-  if (v11)
+  if (v8)
   {
-    v19 = *MEMORY[0x1E696A798];
-    v20 = CWFErrorDescription(*MEMORY[0x1E696A798], v11);
-    *error = CWFErrorWithDescription(v19, v11, v20);
+    v16 = *MEMORY[0x1E696A798];
+    v17 = CWFErrorDescription(*MEMORY[0x1E696A798], v8);
+    *error = CWFErrorWithDescription(v16, v8, v17);
   }
 
 LABEL_10:
-  v21 = [array copy];
+  v18 = [array copy];
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v18;
 }
 
 - (id)supportedChannelsWithCountryCode:(id)code error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v5 = [(CWFApple80211 *)self __supportedChannelsWithCountryCode:code error:&v32];
-  v6 = v32;
+  v33 = *MEMORY[0x1E69E9840];
+  v31 = 0;
+  v5 = [(CWFApple80211 *)self __supportedChannelsWithCountryCode:code error:&v31];
+  v6 = v31;
   if (v6)
   {
     array = 0;
@@ -1255,31 +1164,31 @@ LABEL_10:
 
   errorCopy = error;
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v26 = v5;
+  v25 = v5;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (!v9)
   {
     goto LABEL_19;
   }
 
   v10 = v9;
-  v11 = *v29;
+  v11 = *v28;
   do
   {
     v12 = 0;
     do
     {
-      if (*v29 != v11)
+      if (*v28 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v28 + 1) + 8 * v12);
+      v13 = *(*(&v27 + 1) + 8 * v12);
       v14 = [v13 objectForKeyedSubscript:@"SUP_CHANNEL"];
       v15 = [v13 objectForKeyedSubscript:@"SUP_CHANNEL_FLAGS"];
       unsignedIntValue = [v15 unsignedIntValue];
@@ -1347,14 +1256,14 @@ LABEL_12:
     }
 
     while (v10 != v12);
-    v22 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v22 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
     v10 = v22;
   }
 
   while (v22);
 LABEL_19:
 
-  v5 = v26;
+  v5 = v25;
   error = errorCopy;
   v6 = 0;
   if (errorCopy)
@@ -1369,29 +1278,25 @@ LABEL_20:
 
 LABEL_22:
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)__hardwareSupportedChannels:(id *)channels
 {
-  v30 = *MEMORY[0x1E69E9840];
-  bzero(v22, 0x12D4uLL);
-  v24 = 1;
-  v21 = 1;
-  v23[1198] = -1;
-  v29 = 0;
-  v27 = 0u;
-  v28 = 0u;
-  a11Ref = self->_a11Ref;
+  v26 = *MEMORY[0x1E69E9840];
+  bzero(v18, 0x12D4uLL);
+  v20 = 1;
+  v17 = 1;
+  v19[1198] = -1;
+  v25 = 0;
+  v23 = 0u;
+  v24 = 0u;
   __strlcpy_chk();
-  LODWORD(v28) = 27;
-  DWORD2(v28) = 4824;
-  v29 = &v21;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  LODWORD(v24) = 27;
+  DWORD2(v24) = 4824;
+  v25 = &v17;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     array = 0;
     if (!channels)
@@ -1403,31 +1308,31 @@ LABEL_22:
   else
   {
     array = [MEMORY[0x1E695DF70] array];
-    if (!v22[0])
+    if (!v18[0])
     {
       goto LABEL_8;
     }
 
     channelsCopy = channels;
-    v9 = 0;
-    v10 = v23;
+    v6 = 0;
+    v7 = v19;
     do
     {
-      v25[0] = @"SUP_CHANNEL";
-      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v10 - 1)];
-      v25[1] = @"SUP_CHANNEL_FLAGS";
-      v26[0] = v11;
-      v12 = *v10;
-      v10 += 3;
-      v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v12];
-      v26[1] = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+      v21[0] = @"SUP_CHANNEL";
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v7 - 1)];
+      v21[1] = @"SUP_CHANNEL_FLAGS";
+      v22[0] = v8;
+      v9 = *v7;
+      v7 += 3;
+      v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v9];
+      v22[1] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
-      [array addObject:v14];
-      ++v9;
+      [array addObject:v11];
+      ++v6;
     }
 
-    while (v9 < v22[0]);
+    while (v6 < v18[0]);
     channels = channelsCopy;
     if (!channelsCopy)
     {
@@ -1435,27 +1340,25 @@ LABEL_22:
     }
   }
 
-  if (v7)
+  if (v4)
   {
-    v15 = *MEMORY[0x1E696A798];
-    v16 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *channels = CWFErrorWithDescription(v15, v7, v16);
+    v12 = *MEMORY[0x1E696A798];
+    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *channels = CWFErrorWithDescription(v12, v4, v13);
   }
 
 LABEL_8:
-  v17 = [array copy];
+  v14 = [array copy];
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v14;
 }
 
 - (id)hardwareSupportedChannels:(id *)channels
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v31 = 0;
-  v4 = [(CWFApple80211 *)self __hardwareSupportedChannels:&v31];
-  v5 = v31;
+  v32 = *MEMORY[0x1E69E9840];
+  v30 = 0;
+  v4 = [(CWFApple80211 *)self __hardwareSupportedChannels:&v30];
+  v5 = v30;
   if (v5)
   {
     array = 0;
@@ -1469,31 +1372,31 @@ LABEL_8:
 
   channelsCopy = channels;
   array = [MEMORY[0x1E695DF70] array];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v25 = v4;
+  v24 = v4;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (!v8)
   {
     goto LABEL_19;
   }
 
   v9 = v8;
-  v10 = *v28;
+  v10 = *v27;
   do
   {
     v11 = 0;
     do
     {
-      if (*v28 != v10)
+      if (*v27 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v27 + 1) + 8 * v11);
+      v12 = *(*(&v26 + 1) + 8 * v11);
       v13 = [v12 objectForKeyedSubscript:@"SUP_CHANNEL"];
       v14 = [v12 objectForKeyedSubscript:@"SUP_CHANNEL_FLAGS"];
       unsignedIntValue = [v14 unsignedIntValue];
@@ -1561,14 +1464,14 @@ LABEL_12:
     }
 
     while (v9 != v11);
-    v21 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v21 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
     v9 = v21;
   }
 
   while (v21);
 LABEL_19:
 
-  v4 = v25;
+  v4 = v24;
   channels = channelsCopy;
   v5 = 0;
   if (channelsCopy)
@@ -1582,8 +1485,6 @@ LABEL_20:
   }
 
 LABEL_22:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -1607,59 +1508,50 @@ LABEL_22:
 
 - (id)AWDLSyncEnabled:(id *)enabled
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  v18 = 0;
-  v16 = 0u;
-  v17 = 0u;
-  a11Ref = self->_a11Ref;
+  v15 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12 = 0u;
+  v13 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v17) = 117;
-  DWORD2(v17) = 12;
-  v18 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v13) = 117;
+  DWORD2(v13) = 12;
+  v14 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (enabled)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *enabled = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *enabled = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:12];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:12];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)AWDLSyncChannelSequence:(id *)sequence
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v37 = 0u;
-    memset(v38, 0, sizeof(v38));
-    v35 = 0u;
-    v36 = 0u;
     v33 = 0u;
-    v34 = 0u;
+    memset(v34, 0, sizeof(v34));
     v31 = 0u;
     v32 = 0u;
-    v30 = 0u;
     v29 = 0u;
-    v28 = 0u;
+    v30 = 0u;
     v27 = 0u;
+    v28 = 0u;
     v26 = 0u;
     v25 = 0u;
     v24 = 0u;
@@ -1672,897 +1564,815 @@ LABEL_22:
     v17 = 0u;
     v16 = 0u;
     v15 = 0u;
-    v41 = 0;
-    v39 = 0u;
-    v40 = 0u;
-    a11Ref = self->_a11Ref;
+    v14 = 0u;
+    v13 = 0u;
+    v12 = 0u;
+    v11 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v40) = 129;
-    DWORD2(v40) = 400;
-    v41 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v36) = 129;
+    DWORD2(v36) = 400;
+    v37 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:400];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:400];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (sequence)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *sequence = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *sequence = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLSyncState:(id *)state
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v16 = 0;
-    v15 = 0;
-    v17 = 0;
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0;
-    a11Ref = self->_a11Ref;
+    v12 = 0;
+    v11 = 0;
+    v13 = 0;
+    v14 = 0u;
+    v15 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v19) = 134;
-    DWORD2(v19) = 24;
-    v20 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v15) = 134;
+    DWORD2(v15) = 24;
+    v16 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:24];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:24];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (state)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *state = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *state = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLSyncParameters:(id *)parameters
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v16 = 0;
-    v15 = 0;
-    v17 = 0;
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0;
-    a11Ref = self->_a11Ref;
+    v12 = 0;
+    v11 = 0;
+    v13 = 0;
+    v14 = 0u;
+    v15 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v19) = 116;
-    DWORD2(v19) = 24;
-    v20 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v15) = 116;
+    DWORD2(v15) = 24;
+    v16 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:24];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:24];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (parameters)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *parameters = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *parameters = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLElectionID:(id *)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 122;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 122;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (d)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *d = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *d = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLElectionParameters:(id *)parameters
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v18 = 0;
-    v17 = 0u;
-    v16 = 0u;
+    v14 = 0;
+    v13 = 0u;
+    v12 = 0u;
+    v11 = 0u;
     v15 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0;
-    a11Ref = self->_a11Ref;
+    v16 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v20) = 155;
-    DWORD2(v20) = 56;
-    v21 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v16) = 155;
+    DWORD2(v16) = 56;
+    v17 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:56];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:56];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (parameters)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *parameters = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *parameters = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLElectionRSSIThresholds:(id *)thresholds
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v15 = 0;
-    v16 = 0;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0;
-    a11Ref = self->_a11Ref;
+    v11 = 0;
+    v12 = 0;
+    v13 = 0u;
+    v14 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v18) = 135;
-    DWORD2(v18) = 20;
-    v19 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v14) = 135;
+    DWORD2(v14) = 20;
+    v15 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:20];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:20];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (thresholds)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *thresholds = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *thresholds = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLSocialTimeSlots:(id *)slots
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 163;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 163;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (slots)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *slots = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *slots = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLPeerDatabase:(id *)database
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    bzero(v15, 0x32E60uLL);
-    v14 = 0u;
-    a11Ref = self->_a11Ref;
+    bzero(v11, 0x32E60uLL);
+    v10 = 0u;
     __strlcpy_chk();
-    v15[0] = 1;
-    LODWORD(v14) = 203;
-    DWORD2(v14) = 208480;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v11[0] = 1;
+    LODWORD(v10) = 203;
+    DWORD2(v10) = 208480;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v15 length:{208480, 0, 0, v14, v15}];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v11 length:{208480, 0, 0, v10, v11}];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (database)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *database = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *database = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLStatistics:(id *)statistics
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    bzero(v14, 0xE88uLL);
-    v17 = 0;
-    v15 = 0u;
-    v16 = 0u;
-    a11Ref = self->_a11Ref;
+    bzero(v10, 0xE88uLL);
+    v13 = 0;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    v14[0] = 1;
-    LODWORD(v16) = 223;
-    DWORD2(v16) = 3720;
-    v17 = v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10[0] = 1;
+    LODWORD(v12) = 223;
+    DWORD2(v12) = 3720;
+    v13 = v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 length:3720];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v10 length:3720];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (statistics)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *statistics = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *statistics = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLMasterChannel:(id *)channel
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 132;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 132;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (channel)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *channel = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *channel = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLSecondaryMasterChannel:(id *)channel
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 205;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 205;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (channel)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *channel = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *channel = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLPreferredChannels:(id *)channels
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v15 = 0;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0;
-    a11Ref = self->_a11Ref;
+    v11 = 0;
+    v12 = 0u;
+    v13 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v17) = 244;
-    DWORD2(v17) = 12;
-    v18 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v13) = 244;
+    DWORD2(v13) = 12;
+    v14 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:12];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:12];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (channels)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *channels = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *channels = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLOpMode:(id *)mode
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 217;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 217;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (mode)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *mode = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *mode = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLStrategy:(id *)strategy
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    memset(v14, 0, sizeof(v14));
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10[1] = 0;
+    v10[2] = 0;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v14[0]) = 1;
-    LODWORD(v16) = 148;
-    DWORD2(v16) = 24;
-    v17 = v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10[0] = 1;
+    LODWORD(v12) = 148;
+    DWORD2(v12) = 24;
+    v13 = v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 length:24];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v10 length:24];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (strategy)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *strategy = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *strategy = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)rangingCapabilities:(id *)capabilities
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v15 = 0;
-  v17 = 0;
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  a11Ref = self->_a11Ref;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v11 = 0;
+  v13 = 0;
+  v14 = 0u;
+  v15 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v19) = 266;
-  DWORD2(v19) = 24;
-  v20 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v15) = 266;
+  DWORD2(v15) = 24;
+  v16 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (capabilities)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *capabilities = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *capabilities = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:24];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:24];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)AWDLSidecarDiagnostics:(id *)diagnostics
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    memset(v19, 0, sizeof(v19));
-    v18 = 0u;
-    v17 = 0u;
-    v16 = 0u;
+    memset(v15, 0, sizeof(v15));
     v14 = 0u;
-    a11Ref = self->_a11Ref;
+    v13 = 0u;
+    v12 = 0u;
+    v10 = 0u;
     __strlcpy_chk();
-    v15 = 1;
-    LODWORD(v14) = 351;
-    DWORD2(v14) = 80;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v11 = 1;
+    LODWORD(v10) = 351;
+    DWORD2(v10) = 80;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v15 length:{80, 0, 0, v14, &v15}];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v11 length:{80, 0, 0, v10, &v11}];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (diagnostics)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *diagnostics = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *diagnostics = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)powerState:(id *)state
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v15 = 0;
-  v17 = 0;
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  a11Ref = self->_a11Ref;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v11 = 0;
+  v13 = 0;
+  v14 = 0u;
+  v15 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v19) = 19;
-  DWORD2(v19) = 24;
-  v20 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v15) = 19;
+  DWORD2(v15) = 24;
+  v16 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (state)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *state = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *state = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:24];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:24];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)chainAck:(id *)ack
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v15 = 0;
-  v17 = 0;
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  a11Ref = self->_a11Ref;
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v11 = 0;
+  v13 = 0;
+  v14 = 0u;
+  v15 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v19) = 174;
-  DWORD2(v19) = 24;
-  v20 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v15) = 174;
+  DWORD2(v15) = 24;
+  v16 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (ack)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *ack = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *ack = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:24];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:24];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)txChainPower:(id *)power
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v19 = 0u;
-  v18 = 0u;
-  v17 = 0u;
-  v16 = 0u;
+  v20 = *MEMORY[0x1E69E9840];
+  v16 = 0;
   v15 = 0u;
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  a11Ref = self->_a11Ref;
+  v14 = 0u;
+  v13 = 0u;
+  v12 = 0u;
+  v11 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v22) = 108;
-  DWORD2(v22) = 88;
-  v23 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v18) = 108;
+  DWORD2(v18) = 88;
+  v19 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (power)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *power = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *power = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:88];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:88];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)desense:(id *)desense
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v15 = 0;
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  a11Ref = self->_a11Ref;
+  v16 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v11 = 0;
+  v13 = 0u;
+  v14 = 0u;
   __strlcpy_chk();
-  v14 = 1;
-  LODWORD(v18) = 175;
-  DWORD2(v18) = 16;
-  v19 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v10 = 1;
+  LODWORD(v14) = 175;
+  DWORD2(v14) = 16;
+  v15 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (desense)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *desense = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *desense = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:16];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:16];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)desenseLevel:(id *)level
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v14 = 1;
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  a11Ref = self->_a11Ref;
+  v14 = *MEMORY[0x1E69E9840];
+  v10 = 1;
+  v11 = 0u;
+  v12 = 0u;
   __strlcpy_chk();
-  LODWORD(v16) = 194;
-  DWORD2(v16) = 8;
-  v17 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  LODWORD(v12) = 194;
+  DWORD2(v12) = 8;
+  v13 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (level)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *level = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *level = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)bluetoothCoexistenceConfig:(id *)config
@@ -2603,429 +2413,384 @@ LABEL_4:
 
 - (id)bluetoothCoexistenceMode:(id *)mode
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v14 = 1;
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  a11Ref = self->_a11Ref;
+  v14 = *MEMORY[0x1E69E9840];
+  v10 = 1;
+  v11 = 0u;
+  v12 = 0u;
   __strlcpy_chk();
-  LODWORD(v16) = 87;
-  DWORD2(v16) = 8;
-  v17 = &v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  LODWORD(v12) = 87;
+  DWORD2(v12) = 8;
+  v13 = &v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (mode)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *mode = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *mode = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v14)];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:HIDWORD(v10)];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)leakyAPStats:(id *)stats
 {
-  *&v16[9044] = *MEMORY[0x1E69E9840];
-  bzero(v16, 0x2354uLL);
-  v14 = 0u;
-  a11Ref = self->_a11Ref;
+  *&v12[9044] = *MEMORY[0x1E69E9840];
+  bzero(v12, 0x2354uLL);
+  v10 = 0u;
   __strlcpy_chk();
-  v15 = 1;
-  LODWORD(v14) = 232;
-  DWORD2(v14) = 9048;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  v11 = 1;
+  LODWORD(v10) = 232;
+  DWORD2(v10) = 9048;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (stats)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *stats = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *stats = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v15 length:{9048, 0, 0, v14, &v15}];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v11 length:{9048, 0, 0, v10, &v11}];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)LQMSummary:(id *)summary
 {
-  v17 = *MEMORY[0x1E69E9840];
-  bzero(v14, 0x15A0uLL);
-  v16 = 0;
-  v14[346] = 0u;
-  v15 = 0u;
-  a11Ref = self->_a11Ref;
+  v13 = *MEMORY[0x1E69E9840];
+  bzero(v10, 0x15A0uLL);
+  v12 = 0;
+  v10[346] = 0u;
+  v11 = 0u;
   __strlcpy_chk();
-  LODWORD(v15) = 386;
-  DWORD2(v15) = 5536;
-  v16 = v14;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
+  LODWORD(v11) = 386;
+  DWORD2(v11) = 5536;
+  v12 = v10;
+  v4 = Apple80211RawGet();
+  if (v4)
   {
     if (summary)
     {
-      v11 = *MEMORY[0x1E696A798];
-      v12 = v7;
-      v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *summary = CWFErrorWithDescription(v11, v12, v13);
+      v7 = *MEMORY[0x1E696A798];
+      v8 = v4;
+      v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *summary = CWFErrorWithDescription(v7, v8, v9);
     }
 
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 length:5536];
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:v10 length:5536];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v5;
 }
 
 - (id)AWDLExtensionStateMachineParameters:(id *)parameters
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v15 = 0;
-    v16 = 0;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0;
-    a11Ref = self->_a11Ref;
+    v11 = 0;
+    v12 = 0;
+    v13 = 0u;
+    v14 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v18) = 118;
-    DWORD2(v18) = 20;
-    v19 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v14) = 118;
+    DWORD2(v14) = 20;
+    v15 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:20];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:20];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (parameters)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *parameters = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *parameters = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLElectionMetric:(id *)metric
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v15 = 0;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0;
-    a11Ref = self->_a11Ref;
+    v11 = 0;
+    v12 = 0u;
+    v13 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v17) = 126;
-    DWORD2(v17) = 12;
-    v18 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v13) = 126;
+    DWORD2(v13) = 12;
+    v14 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:12];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:12];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (metric)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *metric = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *metric = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLPresenceMode:(id *)mode
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 136;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 136;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (mode)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *mode = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *mode = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLGuardTime:(id *)time
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 124;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 124;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (time)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *time = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *time = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLAvailabilityWindowAPAlignment:(id *)alignment
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v16 = 0;
-    v15 = 0;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0;
-    a11Ref = self->_a11Ref;
+    v12 = 0;
+    v11 = 0;
+    v13 = 0u;
+    v14 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v18) = 127;
-    DWORD2(v18) = 16;
-    v19 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v14) = 127;
+    DWORD2(v14) = 16;
+    v15 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:16];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:16];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (alignment)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *alignment = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *alignment = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLContinuousElectionAlgorithmEnabled:(id *)enabled
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 121;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 121;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (enabled)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *enabled = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *enabled = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLAFTxMode:(id *)mode
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 208;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 208;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (mode)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *mode = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *mode = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLPeerTrafficRegistration:(id *)registration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v27 = 0;
-    v26 = 0u;
-    v25 = 0u;
-    v24 = 0u;
-    v23 = 0u;
+    v23 = 0;
     v22 = 0u;
     v21 = 0u;
     v20 = 0u;
@@ -3033,128 +2798,121 @@ LABEL_4:
     v18 = 0u;
     v17 = 0u;
     v16 = 0u;
+    v15 = 0u;
     v14 = 0u;
-    a11Ref = self->_a11Ref;
+    v13 = 0u;
+    v12 = 0u;
+    v10 = 0u;
     __strlcpy_chk();
-    v15 = 1;
-    LODWORD(v14) = 164;
-    DWORD2(v14) = 184;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v11 = 1;
+    LODWORD(v10) = 164;
+    DWORD2(v10) = 184;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v15 length:{184, 0, 0, v14, &v15}];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v11 length:{184, 0, 0, v10, &v11}];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (registration)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *registration = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *registration = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLEncryptionType:(id *)type
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v14 = 1;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0;
-    a11Ref = self->_a11Ref;
+    v10 = 1;
+    v11 = 0u;
+    v12 = 0u;
     __strlcpy_chk();
-    LODWORD(v16) = 220;
-    DWORD2(v16) = 8;
-    v17 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    LODWORD(v12) = 220;
+    DWORD2(v12) = 8;
+    v13 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:8];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:8];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (type)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *type = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *type = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)AWDLBTLEStateParameters:(id *)parameters
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(CWFApple80211 *)self isAWDLEnabled])
   {
-    v15 = 0;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0;
-    a11Ref = self->_a11Ref;
+    v11 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0u;
+    v15 = 0u;
     __strlcpy_chk();
-    v14 = 1;
-    LODWORD(v19) = 202;
-    DWORD2(v19) = 28;
-    v20 = &v14;
-    v6 = self->_a11Ref;
-    v7 = Apple80211RawGet();
-    if (!v7)
+    v10 = 1;
+    LODWORD(v15) = 202;
+    DWORD2(v15) = 28;
+    v16 = &v10;
+    v4 = Apple80211RawGet();
+    if (!v4)
     {
-      v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v14 length:28];
+      v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v10 length:28];
       goto LABEL_4;
     }
   }
 
   else
   {
-    v7 = 6;
+    v4 = 6;
   }
 
   if (parameters)
   {
-    v11 = *MEMORY[0x1E696A798];
-    v12 = v7;
-    v13 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-    *parameters = CWFErrorWithDescription(v11, v12, v13);
+    v7 = *MEMORY[0x1E696A798];
+    v8 = v4;
+    v9 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+    *parameters = CWFErrorWithDescription(v7, v8, v9);
   }
 
-  v8 = 0;
+  v5 = 0;
 LABEL_4:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v5;
 }
 
 - (id)powerDebugInfo:(id *)info
@@ -3162,20 +2920,19 @@ LABEL_4:
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (Mutable)
   {
-    v6 = Mutable;
-    a11Ref = self->_a11Ref;
-    v8 = Apple80211Get();
-    if (v8)
+    v5 = Mutable;
+    v6 = Apple80211Get();
+    if (v6)
     {
-      v9 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v9 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v6];
+      v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v5];
     }
 
-    CFRelease(v6);
+    CFRelease(v5);
     if (!info)
     {
       goto LABEL_7;
@@ -3184,210 +2941,202 @@ LABEL_4:
 
   else
   {
-    v9 = 0;
-    v8 = -3901;
+    v7 = 0;
+    v6 = -3901;
     if (!info)
     {
       goto LABEL_7;
     }
   }
 
-  if (v8)
+  if (v6)
   {
-    v10 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v8);
-    *info = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v10);
+    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v6);
+    *info = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v6, v8);
   }
 
 LABEL_7:
 
-  return v9;
+  return v7;
 }
 
 - (id)cca:(id *)cca
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (cca && v5)
+  if (cca && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *cca = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *cca = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)rxRate:(id *)rate
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (rate && v5)
+  if (rate && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *rate = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *rate = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)maxLinkSpeed:(id *)speed
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211MaxLinkSpeed();
-  if (v5)
+  v4 = Apple80211MaxLinkSpeed();
+  if (v4)
   {
     if (speed)
     {
-      v8 = v5;
-      v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-      *speed = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v9);
+      v7 = v4;
+      v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+      *speed = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v7, v8);
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:0];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:0];
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)state:(id *)state
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (state && v5)
+  if (state && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *state = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *state = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)powersave:(id *)powersave
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (powersave && v5)
+  if (powersave && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *powersave = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *powersave = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)maxNSSForAP:(id *)p
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyValue();
-  if (v5)
+  v4 = Apple80211CopyValue();
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [0 copy];
+    v5 = [0 copy];
   }
 
-  if (p && v5)
+  if (p && v4)
   {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *p = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *p = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)txNSS:(id *)s
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211Get();
-  if (v5)
+  v4 = Apple80211Get();
+  if (v4)
   {
     if (s)
     {
-      v8 = v5;
-      v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-      *s = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v9);
+      v7 = v4;
+      v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+      *s = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v7, v8);
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:0];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:0];
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)countryBandSupport:(id *)support
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211Get();
-  if (v5)
+  v4 = Apple80211Get();
+  if (v4)
   {
     if (support)
     {
-      v8 = v5;
-      v9 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-      *support = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v9);
+      v7 = v4;
+      v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+      *support = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v7, v8);
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:0];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:0];
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)beaconCache:(id *)cache
@@ -3396,7 +3145,7 @@ LABEL_7:
   if (!Mutable)
   {
     array = 0;
-    v12 = -3901;
+    v10 = -3901;
     if (!cache)
     {
       goto LABEL_12;
@@ -3405,178 +3154,174 @@ LABEL_7:
     goto LABEL_10;
   }
 
-  v6 = Mutable;
-  a11Ref = self->_a11Ref;
-  v8 = Apple80211Get();
-  if (v8)
+  v5 = Mutable;
+  v6 = Apple80211Get();
+  if (v6)
   {
-    v12 = v8;
+    v10 = v6;
     array = 0;
   }
 
   else
   {
     array = [MEMORY[0x1E695DF70] array];
-    if (CFArrayGetCount(v6) >= 1)
+    if (CFArrayGetCount(v5) >= 1)
     {
-      v10 = 0;
+      v8 = 0;
       do
       {
-        v11 = [[CWFScanResult alloc] initWithScanRecord:CFArrayGetValueAtIndex(v6 includeProperties:v10), 0];
-        if (v11)
+        v9 = [[CWFScanResult alloc] initWithScanRecord:CFArrayGetValueAtIndex(v5 includeProperties:v8), 0];
+        if (v9)
         {
-          [array addObject:v11];
+          [array addObject:v9];
         }
 
-        ++v10;
+        ++v8;
       }
 
-      while (CFArrayGetCount(v6) > v10);
+      while (CFArrayGetCount(v5) > v8);
     }
 
-    v12 = 0;
+    v10 = 0;
   }
 
-  CFRelease(v6);
+  CFRelease(v5);
   if (cache)
   {
 LABEL_10:
-    if (v12)
+    if (v10)
     {
-      v13 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v12);
-      *cache = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v12, v13);
+      v11 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v10);
+      *cache = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v10, v11);
     }
   }
 
 LABEL_12:
-  v14 = [array copy];
+  v12 = [array copy];
 
-  return v14;
+  return v12;
 }
 
 - (id)backgroundScanCache:(id *)cache
 {
-  v51 = *MEMORY[0x1E69E9840];
-  bzero(v37, 0x1910uLL);
-  v50 = 0;
-  v48 = 0u;
-  v49 = 0u;
-  a11Ref = self->_a11Ref;
+  v46 = *MEMORY[0x1E69E9840];
+  bzero(v32, 0x1910uLL);
+  v45 = 0;
+  v43 = 0u;
+  v44 = 0u;
   __strlcpy_chk();
-  LODWORD(v49) = 215;
-  DWORD2(v49) = 6416;
-  v50 = v37;
-  v5 = self->_a11Ref;
+  LODWORD(v44) = 215;
+  DWORD2(v44) = 6416;
+  v45 = v32;
   array = 0;
-  v33 = Apple80211RawGet();
-  if (v33)
+  v28 = Apple80211RawGet();
+  if (v28)
   {
-    v7 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v7 = v37[0] == 0;
+    v4 = v32[0] == 0;
   }
 
-  if (!v7)
+  if (!v4)
   {
-    v12 = 0;
+    v8 = 0;
     array = 0;
-    v13 = 1;
+    v9 = 1;
     while (1)
     {
-      v35 = *&v37[v13];
-      v36 = v37[v13 + 4];
+      v30 = *&v32[v9];
+      v31 = v32[v9 + 4];
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      if (snprintf(__str, 0x12uLL, "%02x:%02x:%02x:%02x:%02x:%02x", v35, BYTE1(v35), BYTE2(v35), BYTE3(v35), BYTE4(v35), BYTE5(v35)) != 17)
+      if (snprintf(__str, 0x12uLL, "%02x:%02x:%02x:%02x:%02x:%02x", v30, BYTE1(v30), BYTE2(v30), BYTE3(v30), BYTE4(v30), BYTE5(v30)) != 17)
       {
         break;
       }
 
-      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:__str];
-      v16 = CWFCorrectEthernetAddressString(v15);
-      [dictionary setObject:v16 forKeyedSubscript:@"BSSID"];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:__str];
+      v12 = CWFCorrectEthernetAddressString(v11);
+      [dictionary setObject:v12 forKeyedSubscript:@"BSSID"];
 
-      v17 = [MEMORY[0x1E696AD98] numberWithShort:v36];
-      [dictionary setObject:v17 forKeyedSubscript:@"RSSI"];
+      v13 = [MEMORY[0x1E696AD98] numberWithShort:v31];
+      [dictionary setObject:v13 forKeyedSubscript:@"RSSI"];
 
-      if (HIDWORD(v35))
+      if (HIDWORD(v30))
       {
-        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-        [dictionary setObject:v18 forKeyedSubscript:@"CHANNEL"];
+        v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+        [dictionary setObject:v14 forKeyedSubscript:@"CHANNEL"];
 
-        if (HIDWORD(v35) <= 0xE)
+        if (HIDWORD(v30) <= 0xE)
         {
-          v19 = 10;
+          v15 = 10;
         }
 
         else
         {
-          v19 = 18;
+          v15 = 18;
         }
 
-        v20 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:BYTE6(v35) & 1];
-        [dictionary setObject:v20 forKeyedSubscript:@"CONNECTED_BSSID"];
+        v16 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:BYTE6(v30) & 1];
+        [dictionary setObject:v16 forKeyedSubscript:@"CONNECTED_BSSID"];
 
-        v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v19];
-        [dictionary setObject:v21 forKeyedSubscript:@"CHANNEL_FLAGS"];
+        v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v15];
+        [dictionary setObject:v17 forKeyedSubscript:@"CHANNEL_FLAGS"];
 
-        v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:1000 * DWORD2(v35)];
-        [dictionary setObject:v22 forKeyedSubscript:@"AGE"];
+        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:1000 * DWORD2(v30)];
+        [dictionary setObject:v18 forKeyedSubscript:@"AGE"];
 
-        v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v38 - 1000000000 * DWORD2(v35)];
-        [dictionary setObject:v23 forKeyedSubscript:@"TIMESTAMP"];
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v33 - 1000000000 * DWORD2(v30)];
+        [dictionary setObject:v19 forKeyedSubscript:@"TIMESTAMP"];
 
         [dictionary setObject:&unk_1F5BB9AF0 forKeyedSubscript:@"SCAN_RESULT_NET_FLAGS"];
         [dictionary setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"SCAN_RESULT_FROM_BG_SCAN"];
-        v24 = [CWFScanResult alloc];
-        v25 = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F5BBB830, &unk_1F5BBB848, &unk_1F5BBB860, &unk_1F5BBB878, &unk_1F5BBB890, &unk_1F5BBB8A8, 0}];
-        v26 = [(CWFScanResult *)v24 initWithScanRecord:dictionary includeProperties:v25];
+        v20 = [CWFScanResult alloc];
+        v21 = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F5BBB830, &unk_1F5BBB848, &unk_1F5BBB860, &unk_1F5BBB878, &unk_1F5BBB890, &unk_1F5BBB8A8, 0}];
+        v22 = [(CWFScanResult *)v20 initWithScanRecord:dictionary includeProperties:v21];
 
         if (!array)
         {
           array = [MEMORY[0x1E695DF70] array];
         }
 
-        [array addObject:v26];
+        [array addObject:v22];
       }
 
       else
       {
-        v27 = CWFGetOSLog();
-        if (v27)
+        v23 = CWFGetOSLog();
+        if (v23)
         {
-          v26 = CWFGetOSLog();
+          v22 = CWFGetOSLog();
         }
 
         else
         {
-          v26 = MEMORY[0x1E69E9C10];
-          v28 = MEMORY[0x1E69E9C10];
+          v22 = MEMORY[0x1E69E9C10];
+          v24 = MEMORY[0x1E69E9C10];
         }
 
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v32 = [MEMORY[0x1E695DEF0] dataWithBytes:&v35 length:20];
-          v29 = CWFHexadecimalStringFromData(v32);
-          v39 = 136446978;
-          v40 = "[CWFApple80211 backgroundScanCache:]";
-          v41 = 2082;
-          v42 = "CWFApple80211.m";
-          v43 = 1024;
-          v44 = 2472;
-          v45 = 2112;
-          v46 = v29;
-          LODWORD(v31) = 38;
-          v30 = &v39;
-          _os_log_send_and_compose_impl();
+          v27 = [MEMORY[0x1E695DEF0] dataWithBytes:&v30 length:20];
+          v25 = CWFHexadecimalStringFromData(v27);
+          v34 = 136446978;
+          v35 = "[CWFApple80211 backgroundScanCache:]";
+          v36 = 2082;
+          v37 = "CWFApple80211.m";
+          v38 = 1024;
+          v39 = 2472;
+          v40 = 2112;
+          v41 = v25;
+          LODWORD(v26) = 38;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[corewifi] %{public}s (%{public}s:%u) Background scan result is missing channel, skipping (0x%@)", &v34, v26);
         }
       }
 
-      ++v12;
-      v13 += 5;
-      if (v12 >= v37[0])
+      ++v8;
+      v9 += 5;
+      if (v8 >= v32[0])
       {
         goto LABEL_6;
       }
@@ -3584,17 +3329,15 @@ LABEL_12:
   }
 
 LABEL_6:
-  if (cache && v33)
+  if (cache && v28)
   {
-    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v33);
-    *cache = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v33, v8);
+    v5 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v28);
+    *cache = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v28, v5);
   }
 
-  v9 = [array copy];
+  v6 = [array copy];
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v9;
+  return v6;
 }
 
 - (id)blockedBands:(id *)bands
@@ -3602,20 +3345,19 @@ LABEL_6:
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   if (Mutable)
   {
-    v6 = Mutable;
-    a11Ref = self->_a11Ref;
-    v8 = Apple80211Get();
-    if (v8)
+    v5 = Mutable;
+    v6 = Apple80211Get();
+    if (v6)
     {
-      v9 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v9 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v6];
+      v7 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v5];
     }
 
-    CFRelease(v6);
+    CFRelease(v5);
     if (!bands)
     {
       goto LABEL_7;
@@ -3624,33 +3366,33 @@ LABEL_6:
 
   else
   {
-    v9 = 0;
-    v8 = -3901;
+    v7 = 0;
+    v6 = -3901;
     if (!bands)
     {
       goto LABEL_7;
     }
   }
 
-  if (v8)
+  if (v6)
   {
-    v10 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v8);
-    *bands = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v10);
+    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v6);
+    *bands = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v6, v8);
   }
 
 LABEL_7:
 
-  return v9;
+  return v7;
 }
 
 - (id)hostAPStationList:(id *)list
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   if (!Mutable)
   {
     array = 0;
-    v19 = -3901;
+    v17 = -3901;
     if (!list)
     {
       goto LABEL_14;
@@ -3659,74 +3401,71 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v6 = Mutable;
-  a11Ref = self->_a11Ref;
-  v8 = Apple80211Get();
-  if (v8)
+  v5 = Mutable;
+  v6 = Apple80211Get();
+  if (v6)
   {
-    v19 = v8;
+    v17 = v6;
     array = 0;
   }
 
   else
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v24 = v6;
-    v10 = v6;
-    v11 = [(__CFArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (v11)
+    v21 = v5;
+    v8 = v5;
+    v9 = [(__CFArray *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v9)
     {
-      v12 = v11;
-      v13 = *v26;
+      v10 = v9;
+      v11 = *v23;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v13)
+          if (*v23 != v11)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
-          v16 = objc_alloc_init(CWFHostAPStation);
-          v17 = [v15 objectForKeyedSubscript:@"STATION_MAC"];
-          v18 = CWFCorrectEthernetAddressString(v17);
-          [(CWFHostAPStation *)v16 setBSSID:v18];
+          v13 = *(*(&v22 + 1) + 8 * i);
+          v14 = objc_alloc_init(CWFHostAPStation);
+          v15 = [v13 objectForKeyedSubscript:@"STATION_MAC"];
+          v16 = CWFCorrectEthernetAddressString(v15);
+          [(CWFHostAPStation *)v14 setBSSID:v16];
 
-          [array addObject:v16];
+          [array addObject:v14];
         }
 
-        v12 = [(__CFArray *)v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [(__CFArray *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v12);
+      while (v10);
     }
 
-    v19 = 0;
-    v6 = v24;
+    v17 = 0;
+    v5 = v21;
   }
 
-  CFRelease(v6);
+  CFRelease(v5);
   if (list)
   {
 LABEL_12:
-    if (v19)
+    if (v17)
     {
-      v20 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v19);
-      *list = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v19, v20);
+      v18 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v17);
+      *list = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v17, v18);
     }
   }
 
 LABEL_14:
-  v21 = [array copy];
+  v19 = [array copy];
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v19;
 }
 
 - (id)LQMConfig:(id *)config
@@ -3734,20 +3473,19 @@ LABEL_14:
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (Mutable)
   {
-    v6 = Mutable;
-    a11Ref = self->_a11Ref;
-    v8 = Apple80211Get();
-    if (v8)
+    v5 = Mutable;
+    v6 = Apple80211Get();
+    if (v6)
     {
-      v9 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v9 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v6];
+      v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v5];
     }
 
-    CFRelease(v6);
+    CFRelease(v5);
     if (!config)
     {
       goto LABEL_7;
@@ -3756,23 +3494,23 @@ LABEL_14:
 
   else
   {
-    v9 = 0;
-    v8 = -3901;
+    v7 = 0;
+    v6 = -3901;
     if (!config)
     {
       goto LABEL_7;
     }
   }
 
-  if (v8)
+  if (v6)
   {
-    v10 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v8);
-    *config = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v10);
+    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v6);
+    *config = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v6, v8);
   }
 
 LABEL_7:
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)setLQMConfig:(id)config error:(id *)error
@@ -3790,64 +3528,60 @@ LABEL_7:
 
 - (id)currentNetwork:(id *)network
 {
-  a11Ref = self->_a11Ref;
-  v5 = Apple80211CopyCurrentNetwork();
-  if (v5)
+  v4 = Apple80211CopyCurrentNetwork();
+  if (v4)
   {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = [[CWFScanResult alloc] initWithScanRecord:0 includeProperties:0];
+  }
+
+  if (network && v4)
+  {
+    v6 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v4);
+    *network = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v4, v6);
+  }
+
+  return v5;
+}
+
+- (id)hardwareMACAddress:(id *)address
+{
+  v16 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = 0u;
+  v14 = 0u;
+  __strlcpy_chk();
+  v11 = 1;
+  LODWORD(v14) = 359;
+  DWORD2(v14) = 12;
+  v15 = &v11;
+  v4 = Apple80211RawGet();
+  if (v4)
+  {
+    if (address)
+    {
+      v8 = *MEMORY[0x1E696A798];
+      v9 = v4;
+      v10 = CWFErrorDescription(*MEMORY[0x1E696A798], v4);
+      *address = CWFErrorWithDescription(v8, v9, v10);
+
+      address = 0;
+    }
+
     v6 = 0;
   }
 
   else
   {
-    v6 = [[CWFScanResult alloc] initWithScanRecord:0 includeProperties:0];
-  }
-
-  if (network && v5)
-  {
-    v7 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v5);
-    *network = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v5, v7);
-  }
-
-  return v6;
-}
-
-- (id)hardwareMACAddress:(id *)address
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  a11Ref = self->_a11Ref;
-  __strlcpy_chk();
-  v15 = 1;
-  LODWORD(v18) = 359;
-  DWORD2(v18) = 12;
-  v19 = &v15;
-  v6 = self->_a11Ref;
-  v7 = Apple80211RawGet();
-  if (v7)
-  {
-    if (address)
+    v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v12 length:6];
+    v6 = v5;
+    if (v5)
     {
-      v12 = *MEMORY[0x1E696A798];
-      v13 = v7;
-      v14 = CWFErrorDescription(*MEMORY[0x1E696A798], v7);
-      *address = CWFErrorWithDescription(v12, v13, v14);
-
-      address = 0;
-    }
-
-    v9 = 0;
-  }
-
-  else
-  {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:&v16 length:6];
-    v9 = v8;
-    if (v8)
-    {
-      address = CWFEthernetAddressStringFromData(v8);
+      address = CWFEthernetAddressStringFromData(v5);
     }
 
     else
@@ -3855,8 +3589,6 @@ LABEL_7:
       address = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return address;
 }
@@ -3866,20 +3598,19 @@ LABEL_7:
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (Mutable)
   {
-    v6 = Mutable;
-    a11Ref = self->_a11Ref;
-    v8 = Apple80211Get();
-    if (v8)
+    v5 = Mutable;
+    v6 = Apple80211Get();
+    if (v6)
     {
-      v9 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v9 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v6];
+      v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v5];
     }
 
-    CFRelease(v6);
+    CFRelease(v5);
     if (!info)
     {
       goto LABEL_7;
@@ -3888,23 +3619,23 @@ LABEL_7:
 
   else
   {
-    v9 = 0;
-    v8 = -3901;
+    v7 = 0;
+    v6 = -3901;
     if (!info)
     {
       goto LABEL_7;
     }
   }
 
-  if (v8)
+  if (v6)
   {
-    v10 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v8);
-    *info = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v8, v10);
+    v8 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", v6);
+    *info = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", v6, v8);
   }
 
 LABEL_7:
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)setUCMExtProfile:(id)profile error:(id *)error

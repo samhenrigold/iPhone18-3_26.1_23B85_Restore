@@ -1,7 +1,7 @@
 @interface PKNavigationItemController
 - (_BYTE)initWithDelegate:(_BYTE *)delegate;
+- (_BYTE)isActiveVoucher:(_BOOL8)voucher;
 - (id)_redeemVoucher:(void *)voucher forProvider:(void *)provider usingHandle:;
-- (id)isActiveVoucher:(_BOOL8)voucher;
 - (void)_activate;
 - (void)_consumeHandle:(uint64_t)handle;
 - (void)_disconnectHandle:(uint64_t)handle;
@@ -194,7 +194,7 @@ LABEL_14:
   }
 }
 
-- (id)isActiveVoucher:(_BOOL8)voucher
+- (_BYTE)isActiveVoucher:(_BOOL8)voucher
 {
   result = a2;
   v4 = result;
@@ -203,7 +203,7 @@ LABEL_14:
     goto LABEL_5;
   }
 
-  if (result && *(result + 16) != 1)
+  if (result && result[16] != 1)
   {
     WeakRetained = objc_loadWeakRetained((voucher + 48));
     voucher = WeakRetained == v4;
@@ -364,7 +364,7 @@ LABEL_10:
     goto LABEL_35;
   }
 
-  if (!v7 || providerCopy && *(providerCopy + 24) == 1)
+  if (!v7 || providerCopy && providerCopy[24] == 1)
   {
     goto LABEL_36;
   }

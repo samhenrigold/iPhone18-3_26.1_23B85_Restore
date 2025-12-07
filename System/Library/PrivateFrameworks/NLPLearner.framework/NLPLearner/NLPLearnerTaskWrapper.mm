@@ -75,20 +75,18 @@
 
 + (void)taskFromRecipe:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "Unexpected recipe parameter '%@'", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "Unexpected recipe parameter '%@'", &v2, 0xCu);
 }
 
 + (void)privacyIdentifierForTask:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "Task %ld doesn't have an associated privacy identifier", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "Task %ld doesn't have an associated privacy identifier", &v2, 0xCu);
 }
 
 @end

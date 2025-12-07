@@ -79,7 +79,7 @@
   if (v8)
   {
     [(CAShapeLayer *)self->_textLayer bounds];
-    [SBCursiveTextPath transformForRect:v8 pointSize:"transformForRect:pointSize:flipped:" flipped:1];
+    objc_msgSend_transformForRect_pointSize_flipped_(v8);
     *&self->_textTransform.a = v9;
     *&self->_textTransform.c = v10;
     *&self->_textTransform.tx = v11;

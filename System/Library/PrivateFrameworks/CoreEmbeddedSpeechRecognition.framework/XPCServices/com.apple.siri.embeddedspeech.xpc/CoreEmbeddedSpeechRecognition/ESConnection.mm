@@ -1,6 +1,7 @@
 @interface ESConnection
 + (id)_bestGuessTaskStringsFromPreheatSource:(id)source;
 + (id)_languagesToCompileForAssetType:(unint64_t)type assetManager:(id)manager;
++ (id)_speechRecognizerWithAssetConfig:(id)config enableITN:(BOOL)n isHighPriority:(BOOL)priority error:(id *)error;
 + (id)_speechRecognizerWithAssetConfig:(id)config geoLMRegionId:(id)id enableITN:(BOOL)n overrides:(id)overrides modelOverrideURL:(id)l preloadModels:(BOOL)models requestSource:(id)source enableParallelLoading:(BOOL)self0 isHighPriority:(BOOL)self1 geoLMLoadedOut:(id *)self2 error:(id *)self3;
 + (unint64_t)_cooldownTimerTimeoutSeconds;
 + (void)_addPendingAnalyticsEvent:(id)event;
@@ -31,6 +32,7 @@
 - (id)_recordedTimestampFromAudioTime:(float)time;
 - (id)_redecodeQueue;
 - (id)_sLowPrioritySerialQueue;
+- (id)_userProfileWithAssetConfig:(id)config modelOverridePath:(id)path overrides:(id)overrides isJit:(BOOL)jit returningFoundPath:(id *)foundPath error:(id *)error;
 - (id)dummyResultPackage:(id)package;
 - (id)geoLMRegionIdWithLanguage:(id)language location:(id)location;
 - (id)personalizedLMWithTask:(id)task applicationName:(id)name recognizer:(id)recognizer weightOut:(float *)out ageOut:(double *)ageOut;
@@ -47,9 +49,11 @@
 - (void)createSpeechProfileWithLanguage:(id)language modelOverridePath:(id)path JSONData:(id)data completion:(id)completion;
 - (void)dealloc;
 - (void)deleteAllDESRecordsForDictationPersonalizationWithCompletion:(id)completion;
+- (void)fetchModelInfoForAssetConfig:(id)config triggerDownload:(BOOL)download completion:(id)completion;
 - (void)fetchModelPropertiesForAssetConfig:(id)config completion:(id)completion;
 - (void)finishAudio;
 - (void)forceCooldownIfIdleWithCompletion:(id)completion;
+- (void)getOfflineAssetStatusIgnoringCache:(BOOL)cache assetType:(unint64_t)type withDetailedStatus:(BOOL)status withCompletion:(id)completion;
 - (void)invalidatePersonalizedLM;
 - (void)invalidateUaapLm;
 - (void)pauseRecognition;
@@ -1238,6 +1242,34 @@ LABEL_27:
   }
 
   return v13;
+}
+
+- (id)_userProfileWithAssetConfig:(id)config modelOverridePath:(id)path overrides:(id)overrides isJit:(BOOL)jit returningFoundPath:(id *)foundPath error:(id *)error
+{
+  jitCopy = jit;
+  configCopy = config;
+  pathCopy = path;
+  overridesCopy = overrides;
+  language = [configCopy language];
+  v17 = [qword_100061700 isEqualToString:language];
+  if (overridesCopy || (v17 ? (v18 = qword_100061708 == 0) : (v18 = 1), v18 || jitCopy))
+  {
+    v19 = [ESSpeechProfileBuilderConnection userProfileWithAssetConfig:configCopy modelOverridePath:pathCopy overrides:overridesCopy isJit:jitCopy returningFoundPath:foundPath error:error];
+    if (!overridesCopy && !jitCopy)
+    {
+      objc_storeStrong(&qword_100061708, v19);
+      v20 = [language copy];
+      v21 = qword_100061700;
+      qword_100061700 = v20;
+    }
+  }
+
+  else
+  {
+    v19 = qword_100061708;
+  }
+
+  return v19;
 }
 
 - (void)runCorrectedTextEvaluationWithAudioDatas:(id)datas recordDatas:(id)recordDatas language:(id)language samplingRate:(unint64_t)rate caseSensitive:(BOOL)sensitive skipLME:(BOOL)e wordSenseAccessListSet:(id)set completion:(id)self0
@@ -3736,6 +3768,32 @@ LABEL_17:
   [(ESConnection *)self preheatSpeechRecognitionWithAssetConfig:v8 preheatSource:0 modelOverrideURL:lCopy];
 }
 
+- (void)getOfflineAssetStatusIgnoringCache:(BOOL)cache assetType:(unint64_t)type withDetailedStatus:(BOOL)status withCompletion:(id)completion
+{
+  statusCopy = status;
+  cacheCopy = cache;
+  completionCopy = completion;
+  v10 = +[ESAssetManager sharedInstance];
+  v14 = 0;
+  v11 = [v10 installationStatusForLanguagesIgnoringCache:cacheCopy assetType:type withDetailedStatus:statusCopy withError:&v14];
+  v12 = v14;
+
+  if (!v11)
+  {
+    v13 = AFSiriLogContextSpeech;
+    if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v16 = "[ESConnection getOfflineAssetStatusIgnoringCache:assetType:withDetailedStatus:withCompletion:]";
+      v17 = 2114;
+      v18 = v12;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%s Could not get installed offline language statuses: %{public}@", buf, 0x16u);
+    }
+  }
+
+  completionCopy[2](completionCopy, v11, v12);
+}
+
 - (void)writeUaapOovsForLanguage:(id)language bundleId:(id)id customProns:(id)prons newOovs:(id)oovs completion:(id)completion
 {
   v13 = 0;
@@ -3754,6 +3812,146 @@ LABEL_17:
   completionCopy = completion;
   v6 = completionCopy;
   [(ESConnection *)self fetchModelInfoForAssetConfig:config triggerDownload:0 completion:v7];
+}
+
+- (void)fetchModelInfoForAssetConfig:(id)config triggerDownload:(BOOL)download completion:(id)completion
+{
+  downloadCopy = download;
+  configCopy = config;
+  completionCopy = completion;
+  language = [configCopy language];
+  if (language)
+  {
+    v10 = +[ESAssetManager sharedInstance];
+    v36 = 0;
+    v11 = [v10 installedModelInfoForAssetConfig:configCopy error:&v36 triggerDownload:downloadCopy];
+    v12 = v36;
+
+    v13 = [v11 objectForKey:@"quasarModelPath"];
+    if (v13)
+    {
+      v14 = v13;
+LABEL_17:
+      if (completionCopy)
+      {
+        if (v11)
+        {
+          v31 = 0;
+        }
+
+        else
+        {
+          v31 = v12;
+        }
+
+        (completionCopy)[2](completionCopy, v11, v31);
+      }
+
+      goto LABEL_23;
+    }
+
+    v16 = +[ESAssetManager sharedInstance];
+    v35 = v12;
+    v17 = [v16 installationStatusForLanguagesIgnoringCache:0 assetType:objc_msgSend(configCopy withDetailedStatus:"assetType") withError:{0, &v35}];
+    v18 = v35;
+
+    if (!v17)
+    {
+      v30 = AFSiriLogContextSpeech;
+      if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v38 = "[ESConnection fetchModelInfoForAssetConfig:triggerDownload:completion:]";
+        v39 = 2114;
+        v40 = v18;
+        _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%s Could not get offline language for fetch fallback: %{public}@", buf, 0x16u);
+      }
+
+      v12 = v18;
+      goto LABEL_16;
+    }
+
+    allKeys = [v17 allKeys];
+    v20 = [NSSet setWithArray:allKeys];
+
+    v33 = v20;
+    v32 = AFOfflineDictationLanguageForKeyboardLanguage();
+    v21 = [[SFEntitledAssetConfig alloc] initWithLanguage:v32 assetType:{objc_msgSend(configCopy, "assetType")}];
+    v22 = +[ESAssetManager sharedInstance];
+    v34 = v18;
+    v23 = [v22 installedModelInfoForAssetConfig:v21 error:&v34 triggerDownload:downloadCopy];
+    v12 = v34;
+
+    v14 = [v23 objectForKey:@"quasarModelPath"];
+    v24 = AFSiriLogContextSpeech;
+    v25 = os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR);
+    if (v14)
+    {
+      v26 = v32;
+      if (!v25)
+      {
+        goto LABEL_15;
+      }
+
+      *buf = 136315650;
+      v38 = "[ESConnection fetchModelInfoForAssetConfig:triggerDownload:completion:]";
+      v39 = 2114;
+      v40 = language;
+      v41 = 2114;
+      v42 = v32;
+      v27 = "%s Fell back asset fetch from %{public}@ to %{public}@";
+      v28 = v24;
+      v29 = 32;
+    }
+
+    else
+    {
+      v26 = v32;
+      if (!v25)
+      {
+        goto LABEL_15;
+      }
+
+      *buf = 136315906;
+      v38 = "[ESConnection fetchModelInfoForAssetConfig:triggerDownload:completion:]";
+      v39 = 2114;
+      v40 = language;
+      v41 = 2114;
+      v42 = v32;
+      v43 = 2114;
+      v44 = v12;
+      v27 = "%s Failed to fall back asset fetch from %{public}@ to %{public}@, got %{public}@";
+      v28 = v24;
+      v29 = 42;
+    }
+
+    _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, v27, buf, v29);
+LABEL_15:
+
+    v11 = v23;
+    if (v14)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_16:
+
+    v14 = 0;
+    v11 = 0;
+    goto LABEL_17;
+  }
+
+  v15 = AFSiriLogContextSpeech;
+  if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315138;
+    v38 = "[ESConnection fetchModelInfoForAssetConfig:triggerDownload:completion:]";
+    _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s Failing to fetch assets for nil language", buf, 0xCu);
+  }
+
+  v12 = [NSError errorWithDomain:kAFAssistantErrorDomain code:1104 userInfo:0];
+  (completionCopy)[2](completionCopy, 0, v12);
+LABEL_23:
 }
 
 - (void)startRequestActivityWithCompletion:(id)completion
@@ -4998,29 +5196,8 @@ LABEL_69:
 
       v113 = v78;
       p_info = (&OBJC_METACLASS___ESUserDataContactWord + 32);
-      if (!v125)
+      if (!v125 || (v82 = [[EARVoiceCommandSuite alloc] initWithPlistJSONDictionary:v125]) == 0 || (v83 = v82, +[NSSet setWithObject:](NSSet, "setWithObject:", v82), v84 = objc_claimAutoreleasedReturnValue(), +[NSURL fileURLWithPath:isDirectory:](NSURL, "fileURLWithPath:isDirectory:", v77, 1), v85 = v77, v86 = objc_claimAutoreleasedReturnValue(), v87 = objc_msgSend([EARVoiceCommandActiveSet alloc], "initWithSuites:resourceBaseURL:", v84, v86), v86, v77 = v85, v84, p_info = (&OBJC_METACLASS___ESUserDataContactWord + 32), v83, !v87))
       {
-        goto LABEL_63;
-      }
-
-      v82 = [[EARVoiceCommandSuite alloc] initWithPlistJSONDictionary:v125];
-      if (!v82)
-      {
-        goto LABEL_63;
-      }
-
-      v83 = v82;
-      v84 = [NSSet setWithObject:v82];
-      [NSURL fileURLWithPath:v77 isDirectory:1];
-      v86 = v85 = v77;
-      v87 = [[EARVoiceCommandActiveSet alloc] initWithSuites:v84 resourceBaseURL:v86];
-
-      v77 = v85;
-      p_info = (&OBJC_METACLASS___ESUserDataContactWord + 32);
-
-      if (!v87)
-      {
-LABEL_63:
         v88 = AFSiriLogContextSpeech;
         if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
         {
@@ -5074,6 +5251,13 @@ LABEL_63:
 LABEL_84:
 
   return v30;
+}
+
++ (id)_speechRecognizerWithAssetConfig:(id)config enableITN:(BOOL)n isHighPriority:(BOOL)priority error:(id *)error
+{
+  BYTE1(v7) = priority;
+  LOBYTE(v7) = 0;
+  return [self _speechRecognizerWithAssetConfig:config geoLMRegionId:0 enableITN:n overrides:0 modelOverrideURL:0 preloadModels:1 requestSource:0 enableParallelLoading:v7 isHighPriority:0 geoLMLoadedOut:error error:?];
 }
 
 + (void)captureESStartTimeInTicks

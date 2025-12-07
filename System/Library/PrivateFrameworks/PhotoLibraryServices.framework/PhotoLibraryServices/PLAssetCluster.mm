@@ -16,7 +16,7 @@
   v11.receiver = self;
   v11.super_class = PLAssetCluster;
   v8 = [(PLAssetCluster *)&v11 description];
-  v9 = [v7 stringWithFormat:@"%@ start: %@, end %@, location {%.8f, %.8f}, assets %lu", v8, self->_startDate, self->_endDate, v4, v6, -[NSArray count](self->_assets, "count")];
+  v9 = [v7 stringWithFormat:@"%@ start: %@, end %@, location {%.8f, %.8f}, assets %lu", v8, self->_startDate, self->_endDate, v4, v6, objc_msgSend_count(self->_assets)];
 
   return v9;
 }
@@ -69,7 +69,7 @@
   v31 = *MEMORY[0x1E69E9840];
   clusterCopy = cluster;
   firstObject = [clusterCopy firstObject];
-  if ([clusterCopy count] > 1)
+  if (objc_msgSend_count(clusterCopy) > 1)
   {
     assets = [firstObject assets];
     v7 = [assets mutableCopy];

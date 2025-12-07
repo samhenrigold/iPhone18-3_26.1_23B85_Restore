@@ -12,7 +12,6 @@
 - (NSString)description;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)crCodableDataRepresentation;
-- (id)initWithPoints:(void *)points;
 - (id)polylineByAppendingPoint:(CGPoint)point;
 - (id)polylineByAppendingPolyline:(id)polyline;
 - (id)rotated180;
@@ -23,6 +22,7 @@
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)enumeratePointsWithTransformer:(void *)transformer block:;
+- (void)initWithPoints:(void *)points;
 @end
 
 @implementation CRImageSpacePolyline
@@ -46,7 +46,7 @@
   [coderCopy encodeInteger:objc_msgSend(crCodableDataRepresentation forKey:{"length"), @"CRPolylineUncompressedDataSize"}];
 }
 
-- (id)initWithPoints:(void *)points
+- (void)initWithPoints:(void *)points
 {
   if (!points)
   {
@@ -402,7 +402,7 @@ void __50__CRImageSpacePolyline_createPathWithTransformer___block_invoke(uint64_
   v6 = *(a1 + 32);
   if (v6)
   {
-    (*(v6 + 16))();
+    (*(v6 + 16))(a3, a4);
   }
 
   v7 = *(a1 + 40);
@@ -620,7 +620,7 @@ LABEL_8:
     __p = 0;
     v30 = 0;
     v31 = 0;
-    std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&__p, *points, points[1], (points[1] - *points) >> 4);
+    std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&__p, *points, *(points + 1), (*(points + 1) - *points) >> 4);
     v4 = __p;
     pointCount = [(CRImageSpacePolyline *)self pointCount];
     v6 = (8 * pointCount) & 0x7FFFFFFFFFFFFFF0;
@@ -838,7 +838,7 @@ unint64_t __62__CRImageSpacePolyline_estimatedLineSizeForPairedPointPolygon__blo
     result = [*(result + 32) pointCount];
     if (a2 != result >> 1)
     {
-      v8 = *(v7 + 32);
+      v8 = v7[4];
       v9 = *v8[1];
       if (a2 - 1 >= (v8[1][1] - v9) >> 4)
       {
@@ -864,13 +864,13 @@ unint64_t __62__CRImageSpacePolyline_estimatedLineSizeForPairedPointPolygon__blo
       v15 = vbslq_s8(vdupq_n_s64(v14), v13, v10);
       v16 = sqrt((v12 - *&v15.i64[1]) * (v12 - *&v15.i64[1]) + (v11 - *v15.i64) * (v11 - *v15.i64));
       result = [v8 pointCount];
-      v17 = 48;
+      v17 = 6;
       if (a2 < result >> 1)
       {
-        v17 = 40;
+        v17 = 5;
       }
 
-      *(*(*(v7 + v17) + 8) + 24) = v16 + *(*(*(v7 + v17) + 8) + 24);
+      *(*(v7[v17] + 1) + 24) = v16 + *(*(v7[v17] + 1) + 24);
     }
   }
 

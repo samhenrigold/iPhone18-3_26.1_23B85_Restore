@@ -149,23 +149,23 @@
   secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
   [(UILabel *)v29 setTextColor:secondaryLabelColor];
 
-  [(UILabel *)selfCopy->_instructionsLabel setTextAlignment:1];
-  v31 = selfCopy->_instructionsLabel;
-  v32 = PRBundle();
-  v33 = [v32 localizedStringForKey:@"COMPLICATION_GALLERY_DETAIL_FOOTER_TEXT" value:&stru_1F1C13D90 table:@"PosterKit"];
-  [(UILabel *)v31 setText:v33];
+  v31 = [(UILabel *)selfCopy->_instructionsLabel setTextAlignment:1];
+  v32 = selfCopy->_instructionsLabel;
+  v33 = PRBundle(v31);
+  v34 = [v33 localizedStringForKey:@"COMPLICATION_GALLERY_DETAIL_FOOTER_TEXT" value:&stru_1F1C13D90 table:@"PosterKit"];
+  [(UILabel *)v32 setText:v34];
 
   [(UILabel *)selfCopy->_instructionsLabel setNumberOfLines:0];
   [(UIStackView *)selfCopy->_contentStackView addArrangedSubview:selfCopy->_instructionsLabel];
-  v34 = objc_alloc_init(MEMORY[0x1E69DD250]);
+  v35 = objc_alloc_init(MEMORY[0x1E69DD250]);
   footerStackSpacerView = selfCopy->_footerStackSpacerView;
-  selfCopy->_footerStackSpacerView = v34;
+  selfCopy->_footerStackSpacerView = v35;
 
   [(UIView *)selfCopy->_footerStackSpacerView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v36 = selfCopy->_contentStackView;
-  v37 = selfCopy->_footerStackSpacerView;
+  v37 = selfCopy->_contentStackView;
+  v38 = selfCopy->_footerStackSpacerView;
 
-  [(UIStackView *)v36 addArrangedSubview:v37];
+  [(UIStackView *)v37 addArrangedSubview:v38];
 }
 
 - (void)_createPageControlIfNecessary
@@ -536,10 +536,10 @@ BOOL __85__PRComplicationGalleryDetailView__updatePageViewControllerAppearanceFo
 
   if (v8 <= index)
   {
-    v11 = PRLogEditing();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PRLogEditing(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(PRComplicationGalleryDetailView *)v8 _scrollToPageIndex:index animated:v11];
+      [(PRComplicationGalleryDetailView *)v8 _scrollToPageIndex:index animated:v12];
     }
   }
 
@@ -552,10 +552,10 @@ BOOL __85__PRComplicationGalleryDetailView__updatePageViewControllerAppearanceFo
     }
 
     [(BSUIScrollView *)self->_complicationGalleryScrollView bounds];
-    v10 = v9 * index;
-    [(BSUIScrollView *)self->_complicationGalleryScrollView setContentOffset:animatedCopy animated:v10, 0.0];
+    v11 = v10 * index;
+    [(BSUIScrollView *)self->_complicationGalleryScrollView setContentOffset:animatedCopy animated:v11, 0.0];
 
-    [(PRComplicationGalleryDetailView *)self _updatePageControlForContentOffset:animatedCopy animated:v10, 0.0];
+    [(PRComplicationGalleryDetailView *)self _updatePageControlForContentOffset:animatedCopy animated:v11, 0.0];
   }
 }
 

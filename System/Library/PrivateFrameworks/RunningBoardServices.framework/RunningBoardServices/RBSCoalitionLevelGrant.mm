@@ -2,8 +2,8 @@
 + (id)grantWithCoalitionLevel:(unint64_t)level;
 - (BOOL)isEqual:(id)equal;
 - (RBSCoalitionLevelGrant)initWithRBSXPCCoder:(id)coder;
-- (id)_initWithCoalitionLevel:(id)result;
 - (id)description;
+- (void)_initWithCoalitionLevel:(void *)result;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 @end
 
@@ -65,7 +65,7 @@
   return v7;
 }
 
-- (id)_initWithCoalitionLevel:(id)result
+- (void)_initWithCoalitionLevel:(void *)result
 {
   if (result)
   {
@@ -101,7 +101,7 @@ LABEL_4:
     result = objc_msgSendSuper2(&v9, sel__init);
     if (result)
     {
-      *(result + 1) = a2;
+      result[1] = a2;
     }
   }
 

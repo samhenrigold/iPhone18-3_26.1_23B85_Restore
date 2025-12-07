@@ -106,78 +106,77 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_manufacturer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_model)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_hardwareVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_firmwareVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_softwareVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_localIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_fDAUDI)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    creationDate = self->_creationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_bluetoothIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -403,7 +402,6 @@
     }
   }
 
-  v14 = *(equalCopy + 104);
   if (*&self->_has)
   {
     if ((*(equalCopy + 104) & 1) == 0 || self->_creationDate != *(equalCopy + 1))
@@ -415,7 +413,7 @@
   else if (*(equalCopy + 104))
   {
 LABEL_29:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_30;
   }
 
@@ -428,17 +426,17 @@ LABEL_29:
   bluetoothIdentifier = self->_bluetoothIdentifier;
   if (bluetoothIdentifier | *(equalCopy + 2))
   {
-    v17 = [(NSString *)bluetoothIdentifier isEqual:?];
+    v16 = [(NSString *)bluetoothIdentifier isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v16 = 1;
   }
 
 LABEL_30:
 
-  return v17;
+  return v16;
 }
 
 - (unint64_t)hash

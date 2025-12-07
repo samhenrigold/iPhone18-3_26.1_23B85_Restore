@@ -6,9 +6,9 @@
 
 - (uint64_t)isSecureRenderingEnabled
 {
-  v1 = [self valueForNSIntegerTrait:objc_opt_class()];
+  v2 = [self valueForNSIntegerTrait:objc_opt_class()];
 
-  return MEMORY[0x1EEDF0330](v1);
+  return MEMORY[0x1EEDF0330](v2);
 }
 
 @end

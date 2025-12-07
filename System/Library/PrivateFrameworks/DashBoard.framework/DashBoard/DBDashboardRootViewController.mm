@@ -178,7 +178,7 @@
 
     if (!primaryDockVariant)
     {
-      [(DBDashboardRootViewController *)self primaryDockWindowFrameWithCornerMask];
+      objc_msgSend_primaryDockWindowFrameWithCornerMask(self);
       stackedPrimaryDockBackgroundView2 = [(DBDashboardRootViewController *)self stackedPrimaryDockBackgroundView];
       [stackedPrimaryDockBackgroundView2 setFrame:{0, 0}];
 
@@ -194,7 +194,7 @@
 
     if (!secondaryDockVariant)
     {
-      [(DBDashboardRootViewController *)self secondaryDockWindowFrameWithCornerMask];
+      objc_msgSend_secondaryDockWindowFrameWithCornerMask(self);
       stackedSecondaryDockBackgroundView2 = [(DBDashboardRootViewController *)self stackedSecondaryDockBackgroundView];
       [stackedSecondaryDockBackgroundView2 setFrame:{0, 0}];
 
@@ -2596,6 +2596,48 @@ uint64_t __82__DBDashboardRootViewController__dismissStackedViewControllerAnimat
   [layer5 setAllowsHitTesting:0];
 
   return v3;
+}
+
+- (void)_presentBaseViewController:(uint64_t)a3 animated:(uint64_t)a4 launchSource:(uint64_t)a5 completion:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"kCARHomeToAppAnimationIdentifier";
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a1, a3, "Got a nil TO presentation view for identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_dismissViewController:(uint64_t)a3 andPresentBaseViewController:(uint64_t)a4 animated:(uint64_t)a5 completion:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"kCARAppToAppAnimationIdentifier";
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a1, a3, "Got a nil FROM presentation view for identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_dismissViewController:(uint64_t)a3 andPresentBaseViewController:(uint64_t)a4 animated:(uint64_t)a5 completion:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"kCARAppToAppAnimationIdentifier";
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a1, a3, "Got a nil TO presentation view for identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_dismissBaseViewControllerAnimated:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"kCARAppToHomeAnimationIdentifier";
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a1, a3, "Got a nil FROM presentation view for identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_presentStackedViewController:(uint64_t)a3 animated:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"kCARToStackedAppAnimationIdentifier";
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a1, a3, "Got a nil TO presentation view for identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_dismissStackedViewControllerAnimated:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"kCARFromStackedAppAnimationIdentifier";
+  OUTLINED_FUNCTION_0_6(&dword_248146000, a1, a3, "Got a nil FROM presentation view for identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

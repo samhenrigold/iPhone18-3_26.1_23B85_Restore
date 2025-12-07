@@ -43,7 +43,7 @@
     v15 = _NDOLogSystem();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      [NDOSupportAppTableViewCell initWithStyle:? reuseIdentifier:? specifier:?];
+      [NDOSupportAppTableViewCell initWithStyle:reuseIdentifier:specifier:];
     }
   }
 
@@ -52,20 +52,18 @@
 
 - (void)layoutSubviews
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   lockupView = [self lockupView];
   [lockupView frame];
-  v4 = NSStringFromRect(v8);
-  v6[0] = 136446466;
+  v4 = NSStringFromRect(v7);
+  v5[0] = 136446466;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_25BD8D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: lockupView frame: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25BD8D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: lockupView frame: %@", v5, 0x16u);
 }
 
 - (void)_setupAppSuportCell
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CEC298]);
   v4 = [v3 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   [(NDOSupportAppTableViewCell *)self setLockupView:v4];
@@ -89,7 +87,7 @@
     v12 = objc_alloc(MEMORY[0x277CEC2B8]);
     titleBackgroundColor = [primaryTheme titleBackgroundColor];
     [MEMORY[0x277D75348] orangeColor];
-    v13 = v32 = bundleIdentifier;
+    v13 = v31 = bundleIdentifier;
     orangeColor = [MEMORY[0x277D75348] orangeColor];
     v15 = [orangeColor colorWithAlphaComponent:0.3];
     subtitleTextColor = [primaryTheme subtitleTextColor];
@@ -99,7 +97,7 @@
     lockupView4 = [(NDOSupportAppTableViewCell *)self lockupView];
     [lockupView4 setOfferTheme:v19];
 
-    bundleIdentifier = v32;
+    bundleIdentifier = v31;
   }
 
   v21 = [objc_alloc(MEMORY[0x277CEC258]) initWithStringValue:@"1130498044"];
@@ -113,44 +111,41 @@
   [contentView addSubview:lockupView6];
 
   [(NDOSupportAppTableViewCell *)self layoutSubviews];
-  v33[0] = objc_opt_class();
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = objc_opt_class();
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   v28 = [(NDOSupportAppTableViewCell *)self registerForTraitChanges:v27 withAction:sel_didChangeTraitPreferredContentSizeCategory];
   traitRegistration = self->_traitRegistration;
   self->_traitRegistration = v28;
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateConstraints
 {
-  v22[3] = *MEMORY[0x277D85DE8];
-  v14 = MEMORY[0x277CCAAD0];
+  v21[3] = *MEMORY[0x277D85DE8];
+  v13 = MEMORY[0x277CCAAD0];
   contentView = [(NDOSupportAppTableViewCell *)self contentView];
   leadingAnchor = [contentView leadingAnchor];
   lockupView = [(NDOSupportAppTableViewCell *)self lockupView];
   leadingAnchor2 = [lockupView leadingAnchor];
-  v16 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v22[0] = v16;
+  v15 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v21[0] = v15;
   contentView2 = [(NDOSupportAppTableViewCell *)self contentView];
   trailingAnchor = [contentView2 trailingAnchor];
   lockupView2 = [(NDOSupportAppTableViewCell *)self lockupView];
   trailingAnchor2 = [lockupView2 trailingAnchor];
   v5 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v22[1] = v5;
+  v21[1] = v5;
   contentView3 = [(NDOSupportAppTableViewCell *)self contentView];
   topAnchor = [contentView3 topAnchor];
   lockupView3 = [(NDOSupportAppTableViewCell *)self lockupView];
   topAnchor2 = [lockupView3 topAnchor];
   v10 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v22[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
-  [v14 activateConstraints:v11];
+  v21[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  [v13 activateConstraints:v11];
 
-  v21.receiver = self;
-  v21.super_class = NDOSupportAppTableViewCell;
-  [(NDOSupportAppTableViewCell *)&v21 updateConstraints];
-  v12 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = NDOSupportAppTableViewCell;
+  [(NDOSupportAppTableViewCell *)&v20 updateConstraints];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -292,10 +287,10 @@ void __46__NDOSupportAppTableViewCell_openButtonAction__block_invoke(uint64_t a1
   }
 }
 
-uint64_t __59__NDOSupportAppTableViewCell_lockupView_appStateDidChange___block_invoke(uint64_t a1)
+uint64_t __59__NDOSupportAppTableViewCell_lockupView_appStateDidChange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _NDOLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = _NDOLogSystem();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __59__NDOSupportAppTableViewCell_lockupView_appStateDidChange___block_invoke_cold_1();
   }
@@ -303,73 +298,28 @@ uint64_t __59__NDOSupportAppTableViewCell_lockupView_appStateDidChange___block_i
   return [*(a1 + 32) openButtonAction];
 }
 
-- (void)initWithStyle:(uint64_t *)a1 reuseIdentifier:specifier:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __46__NDOSupportAppTableViewCell_openButtonAction__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_25BD8D000, a2, OS_LOG_TYPE_ERROR, "Could not open URL %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)presentingViewControllerForLockupView:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lockupViewDidBeginRequest:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lockupViewDidFinishRequest:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_25BD8D000, a2, OS_LOG_TYPE_ERROR, "Could not open URL %@", &v3, 0xCu);
 }
 
 - (void)lockupView:didFailRequestWithError:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136446466;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136446466;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_25BD8D000, v0, OS_LOG_TYPE_ERROR, "%{public}s: Failed with error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25BD8D000, v0, OS_LOG_TYPE_ERROR, "%{public}s: Failed with error: %@", v1, 0x16u);
 }
 
 - (void)lockupView:appStateDidChange:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __59__NDOSupportAppTableViewCell_lockupView_appStateDidChange___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,62 +1,56 @@
 uint64_t ALWiFiNotification.init(pb:)(uint64_t a1)
 {
   v2 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes16ALWiFiScanResultVSgMd, &_s11ALDataTypes16ALWiFiScanResultVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v31 - v12;
-  v14 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v15 = *(*(v14 - 8) + 64);
+  v4 = &v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult(0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes16ALWiFiScanResultVSgMd, &_s11ALDataTypes16ALWiFiScanResultVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v25 - v9;
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes11ALTimeStampVSgMd, &_s11ALDataTypes11ALTimeStampVSgMR);
   MEMORY[0x28223BE20](v14 - 8);
-  v17 = &v31 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes11ALTimeStampVSgMd, &_s11ALDataTypes11ALTimeStampVSgMR);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v18 - 8);
-  v21 = &v31 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes18ALWiFiNotificationV8NotiTypeOSgMd, &_s11ALDataTypes18ALWiFiNotificationV8NotiTypeOSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  MEMORY[0x28223BE20](v22 - 8);
-  v25 = &v31 - v24;
+  v16 = &v25 - v15;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes18ALWiFiNotificationV8NotiTypeOSgMd, &_s11ALDataTypes18ALWiFiNotificationV8NotiTypeOSgMR);
+  MEMORY[0x28223BE20](v17 - 8);
+  v19 = &v25 - v18;
   ALWiFiNotification.init()();
   if (CLP_LogEntry_PrivateData_WifiNotification.hasType.getter())
   {
-    v26 = CLP_LogEntry_PrivateData_WifiNotification.type.getter();
-    ALWiFiNotification.NotiType.init(_:)(v26, v25);
-    v27 = type metadata accessor for ALWiFiNotification.NotiType();
-    (*(*(v27 - 8) + 56))(v25, 0, 1, v27);
+    v20 = CLP_LogEntry_PrivateData_WifiNotification.type.getter();
+    ALWiFiNotification.NotiType.init(_:)(v20, v19);
+    v21 = type metadata accessor for ALWiFiNotification.NotiType();
+    (*(*(v21 - 8) + 56))(v19, 0, 1, v21);
     ALWiFiNotification._type.setter();
   }
 
   if (CLP_LogEntry_PrivateData_WifiNotification.hasEventReceiptTime.getter())
   {
-    CLP_LogEntry_PrivateData_WifiNotification.eventReceiptTime.getter(v17);
-    ALTimeStamp.init(pb:)(v17);
-    v28 = type metadata accessor for ALTimeStamp();
-    (*(*(v28 - 8) + 56))(v21, 0, 1, v28);
+    CLP_LogEntry_PrivateData_WifiNotification.eventReceiptTime.getter(v13);
+    ALTimeStamp.init(pb:)(v13);
+    v22 = type metadata accessor for ALTimeStamp();
+    (*(*(v22 - 8) + 56))(v16, 0, 1, v22);
     ALWiFiNotification._timestamp.setter();
   }
 
   if (CLP_LogEntry_PrivateData_WifiNotification.hasScan.getter())
   {
-    CLP_LogEntry_PrivateData_WifiNotification.scan.getter(v9);
-    ALWiFiScanResult.init(pb:)(v9, v13);
-    v29 = type metadata accessor for ALWiFiScanResult();
-    (*(*(v29 - 8) + 56))(v13, 0, 1, v29);
+    CLP_LogEntry_PrivateData_WifiNotification.scan.getter(v7);
+    ALWiFiScanResult.init(pb:)(v7, v10);
+    v23 = type metadata accessor for ALWiFiScanResult();
+    (*(*(v23 - 8) + 56))(v10, 0, 1, v23);
     ALWiFiNotification._scanResult.setter();
   }
 
   if (CLP_LogEntry_PrivateData_WifiNotification.hasAssociatedState.getter())
   {
-    CLP_LogEntry_PrivateData_WifiNotification.associatedState.getter(v5);
+    CLP_LogEntry_PrivateData_WifiNotification.associatedState.getter(v4);
     CLP_LogEntry_PrivateData_WifiAssociationState.mac.getter();
-    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v5, type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState);
+    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v4, type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState);
     ALWiFiNotification._associatedMac.setter();
   }
 
@@ -83,8 +77,8 @@ uint64_t ALWiFiNotification.init(pb:)(uint64_t a1)
 
 BOOL CLP_LogEntry_PrivateData_WifiNotification.hasEventReceiptTime.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v9 - v2;
   v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20));
   v5 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
@@ -96,7 +90,7 @@ BOOL CLP_LogEntry_PrivateData_WifiNotification.hasEventReceiptTime.getter()
   return v7;
 }
 
-uint64_t type metadata accessor for CLP_LogEntry_AONLoc_Request(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for CLP_LogEntry_AONLoc_Request(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -131,8 +125,8 @@ uint64_t outlined destroy of Any?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t CLP_LogEntry_PrivateData_Location.eventReceiptTime.getter@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v18 - v8;
   v10 = *(v3 + *(a1(0) + 20));
   v11 = *a2;
@@ -240,8 +234,8 @@ uint64_t outlined destroy of CLP_LogEntry_PrivateData_TimeStamp(uint64_t a1)
 
 BOOL CLP_LogEntry_PrivateData_WifiNotification.hasScan.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v9 - v2;
   v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20));
   v5 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__scan;
@@ -253,7 +247,7 @@ BOOL CLP_LogEntry_PrivateData_WifiNotification.hasScan.getter()
   return v7;
 }
 
-uint64_t __swift_get_extra_inhabitant_index_502Tm(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t __swift_get_extra_inhabitant_index_502Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -292,9 +286,9 @@ uint64_t __swift_get_extra_inhabitant_index_502Tm(uint64_t *a1, uint64_t a2, uin
 
 uint64_t CLP_LogEntry_PrivateData_WifiNotification.scan.getter@<X0>(char *a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v14 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v13 - v4;
   v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20));
   v7 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__scan;
   swift_beginAccess();
@@ -307,11 +301,10 @@ uint64_t CLP_LogEntry_PrivateData_WifiNotification.scan.getter@<X0>(char *a1@<X8
   }
 
   *a1 = MEMORY[0x277D84F90];
-  v10 = &a1[*(v8 + 20)];
   UnknownStorage.init()();
-  v11 = *(v8 + 24);
-  v12 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  (*(*(v12 - 8) + 56))(&a1[v11], 1, 1, v12);
+  v10 = *(v8 + 24);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  (*(*(v11 - 8) + 56))(&a1[v10], 1, 1, v11);
   result = (v9)(v5, 1, v8);
   if (result != 1)
   {
@@ -323,102 +316,99 @@ uint64_t CLP_LogEntry_PrivateData_WifiNotification.scan.getter@<X0>(char *a1@<X8
 
 uint64_t ALWiFiScanResult.init(pb:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) - 8);
-  v5 = *(v4 + 64);
-  (MEMORY[0x28223BE20])();
-  v46 = &v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4 - 8);
+  v44 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for ALWiFiScanSingleAccessPoint();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = (MEMORY[0x28223BE20])();
-  v48 = &v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v13 = &v39 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes11ALTimeStampVSgMd, &_s11ALDataTypes11ALTimeStampVSgMR);
-  v15 = (*(*(v14 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v14 - 8);
-  v17 = &v39 - v16;
-  v18 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v18 - 8);
-  v21 = &v39 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = a2;
+  v9 = MEMORY[0x28223BE20](v7);
+  v46 = &v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v37 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes11ALTimeStampVSgMd, &_s11ALDataTypes11ALTimeStampVSgMR);
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v37 - v14;
+  v16 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  MEMORY[0x28223BE20](v16 - 8);
+  v18 = &v37 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = a2;
   ALWiFiScanResult.init()();
   if (CLP_LogEntry_PrivateData_WifiScanResult.hasScanTimestamp.getter())
   {
-    CLP_LogEntry_PrivateData_WifiScanResult.scanTimestamp.getter(v21);
-    v22 = CLP_LogEntry_PrivateData_TimeStamp.hasMachContinuousTimeS.getter();
-    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v21, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
-    if (v22)
+    CLP_LogEntry_PrivateData_WifiScanResult.scanTimestamp.getter(v18);
+    v19 = CLP_LogEntry_PrivateData_TimeStamp.hasMachContinuousTimeS.getter();
+    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v18, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+    if (v19)
     {
-      CLP_LogEntry_PrivateData_WifiScanResult.scanTimestamp.getter(v21);
-      ALTimeStamp.init(pb:)(v21);
-      v23 = type metadata accessor for ALTimeStamp();
-      (*(*(v23 - 8) + 56))(v17, 0, 1, v23);
+      CLP_LogEntry_PrivateData_WifiScanResult.scanTimestamp.getter(v18);
+      ALTimeStamp.init(pb:)(v18);
+      v20 = type metadata accessor for ALTimeStamp();
+      (*(*(v20 - 8) + 56))(v15, 0, 1, v20);
       ALWiFiScanResult._scanTimestamp.setter();
     }
   }
 
-  v40 = a1;
-  v24 = *(*a1 + 16);
-  v25 = v48;
-  if (v24)
+  v38 = a1;
+  v21 = *(*a1 + 16);
+  v22 = v46;
+  if (v21)
   {
-    v26 = *a1 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-    v27 = *(v4 + 72);
-    v43 = v8 + 32;
-    v44 = v27;
-    v41 = (v8 + 16);
-    v42 = v8 + 8;
-    v45 = v7;
+    v23 = *a1 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
+    v24 = *(v5 + 72);
+    v41 = v8 + 32;
+    v42 = v24;
+    v39 = (v8 + 16);
+    v40 = v8 + 8;
+    v43 = v7;
     do
     {
-      v28 = v46;
-      _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOcTm_0(v26, v46, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
-      v29 = ALWiFiScanResult._scanTimestamp.modify();
-      ALWiFiScanSingleAccessPoint.init(pb:ts:)(v28);
-      v29(v49, 0);
-      (*v41)(v25, v13, v7);
-      v30 = ALWiFiScanResult._accessPoints.modify();
-      v32 = v31;
-      v33 = *v31;
+      v25 = v44;
+      _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOcTm_0(v23, v44, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
+      v26 = ALWiFiScanResult._scanTimestamp.modify();
+      ALWiFiScanSingleAccessPoint.init(pb:ts:)(v25, v27);
+      v26(v47, 0);
+      (*v39)(v22, v12, v7);
+      v28 = ALWiFiScanResult._accessPoints.modify();
+      v30 = v29;
+      v31 = *v29;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      *v32 = v33;
+      *v30 = v31;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v33[2] + 1, 1, v33, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMR, MEMORY[0x277CE49B0]);
-        *v32 = v33;
+        v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v31[2] + 1, 1, v31, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMR, MEMORY[0x277CE49B0]);
+        *v30 = v31;
       }
 
-      v36 = v33[2];
-      v35 = v33[3];
-      if (v36 >= v35 >> 1)
+      v34 = v31[2];
+      v33 = v31[3];
+      if (v34 >= v33 >> 1)
       {
-        v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v35 > 1, v36 + 1, 1, v33, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMR, MEMORY[0x277CE49B0]);
-        *v32 = v33;
+        v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v31, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes27ALWiFiScanSingleAccessPointVGMR, MEMORY[0x277CE49B0]);
+        *v30 = v31;
       }
 
-      v33[2] = v36 + 1;
-      v37 = v33 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v36;
-      v25 = v48;
-      v7 = v45;
-      (*(v8 + 32))(v37, v48, v45);
-      v30(v49, 0);
-      (*(v8 + 8))(v13, v7);
-      v26 += v44;
-      --v24;
+      v31[2] = v34 + 1;
+      v35 = v31 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v34;
+      v22 = v46;
+      v7 = v43;
+      (*(v8 + 32))(v35, v46, v43);
+      v28(v47, 0);
+      (*(v8 + 8))(v12, v7);
+      v23 += v42;
+      --v21;
     }
 
-    while (v24);
+    while (v21);
   }
 
-  return _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v40, type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult);
+  return _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v38, type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult);
 }
 
 BOOL CLP_LogEntry_PrivateData_Accel.hasEventReceiptTime.getter(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(a1, a2) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v16 - v10;
   v12 = a3(0);
   outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + *(v12 + 24), v11, a1, a2);
@@ -430,8 +420,8 @@ BOOL CLP_LogEntry_PrivateData_Accel.hasEventReceiptTime.getter(uint64_t *a1, uin
 
 uint64_t CLP_LogEntry_PrivateData_Accel.eventReceiptTime.getter@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   v8 = a1(0);
   outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v2 + *(v8 + 24), v7, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
@@ -489,24 +479,22 @@ uint64_t _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOcTm_0(uin
   return a2;
 }
 
-uint64_t ALWiFiScanSingleAccessPoint.init(pb:ts:)(uint64_t a1)
+uint64_t ALWiFiScanSingleAccessPoint.init(pb:ts:)(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for ALWiFiScanSingleAccessPoint.Mode();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20]();
-  v22 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes27ALWiFiScanSingleAccessPointV4ModeOSgMd, &_s11ALDataTypes27ALWiFiScanSingleAccessPointV4ModeOSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v8 = &v21 - v7;
+  v3 = type metadata accessor for ALWiFiScanSingleAccessPoint.Mode();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v21 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes27ALWiFiScanSingleAccessPointV4ModeOSgMd, &_s11ALDataTypes27ALWiFiScanSingleAccessPointV4ModeOSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v20 - v7;
   v9 = type metadata accessor for ALWiFiScanSingleAccessPoint.Band();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20]();
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes27ALWiFiScanSingleAccessPointV4BandOSgMd, &_s11ALDataTypes27ALWiFiScanSingleAccessPointV4BandOSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v16 = &v21 - v15;
+  MEMORY[0x28223BE20](v9);
+  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes27ALWiFiScanSingleAccessPointV4BandOSgMd, &_s11ALDataTypes27ALWiFiScanSingleAccessPointV4BandOSgMR);
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v20 - v14;
   ALWiFiScanSingleAccessPoint.init(_:)();
   if (CLP_LogEntry_PrivateData_WifiAccessPoint.hasMac.getter())
   {
@@ -523,21 +511,21 @@ uint64_t ALWiFiScanSingleAccessPoint.init(pb:ts:)(uint64_t a1)
   if (CLP_LogEntry_PrivateData_WifiAccessPoint.hasRssiDb.getter())
   {
     CLP_LogEntry_PrivateData_WifiAccessPoint.rssiDb.getter();
-    v23 = 0;
+    v22 = 0;
     ALWiFiScanSingleAccessPoint._rssidB.setter();
   }
 
   if (CLP_LogEntry_PrivateData_WifiAccessPoint.hasChannel.getter())
   {
     CLP_LogEntry_PrivateData_WifiAccessPoint.channel.getter();
-    v24 = 0;
+    v23 = 0;
     ALWiFiScanSingleAccessPoint._channel.setter();
   }
 
   if (CLP_LogEntry_PrivateData_WifiAccessPoint.hasAgeS.getter())
   {
     CLP_LogEntry_PrivateData_WifiAccessPoint.ageS.getter();
-    v25 = 0;
+    v24 = 0;
     ALWiFiScanSingleAccessPoint._ageSec.setter();
   }
 
@@ -550,26 +538,26 @@ uint64_t ALWiFiScanSingleAccessPoint.init(pb:ts:)(uint64_t a1)
   if (CLP_LogEntry_PrivateData_WifiAccessPoint.hasFrequencyKhz.getter())
   {
     CLP_LogEntry_PrivateData_WifiAccessPoint.frequencyKhz.getter();
-    v26 = 0;
+    v25 = 0;
     ALWiFiScanSingleAccessPoint._frequencyKhz.setter();
   }
 
   if (CLP_LogEntry_PrivateData_WifiAccessPoint.hasBand.getter())
   {
-    v17 = CLP_LogEntry_PrivateData_WifiAccessPoint.band.getter();
-    (*(v10 + 104))(v13, **(&unk_278BC4C48 + v17), v9);
-    (*(v10 + 32))(v16, v13, v9);
-    (*(v10 + 56))(v16, 0, 1, v9);
+    v16 = CLP_LogEntry_PrivateData_WifiAccessPoint.band.getter();
+    (*(v10 + 104))(v12, **(&unk_278BC4C48 + v16), v9);
+    (*(v10 + 32))(v15, v12, v9);
+    (*(v10 + 56))(v15, 0, 1, v9);
     ALWiFiScanSingleAccessPoint._band.setter();
   }
 
   if (CLP_LogEntry_PrivateData_WifiAccessPoint.hasMode.getter())
   {
-    v18 = CLP_LogEntry_PrivateData_WifiAccessPoint.mode.getter();
-    v19 = v22;
-    (*(v3 + 104))(v22, **(&unk_278BC4C68 + v18), v2);
-    (*(v3 + 32))(v8, v19, v2);
-    (*(v3 + 56))(v8, 0, 1, v2);
+    v17 = CLP_LogEntry_PrivateData_WifiAccessPoint.mode.getter();
+    v18 = v21;
+    (*(v4 + 104))(v21, **(&unk_278BC4C68 + v17), v3);
+    (*(v4 + 32))(v8, v18, v3);
+    (*(v4 + 56))(v8, 0, 1, v3);
     ALWiFiScanSingleAccessPoint._mode.setter();
   }
 
@@ -650,7 +638,7 @@ uint64_t CLP_LogEntry_PrivateData_WifiAccessPoint.band.getter()
   }
 }
 
-size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -710,7 +698,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -801,7 +789,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -836,17 +824,16 @@ LABEL_19:
 BOOL CLP_LogEntry_PrivateData_WifiNotification.hasAssociatedState.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__associatedState;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__associatedState;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
+  return v7;
 }
 
 uint64_t sub_23CEB0CE0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -951,29 +938,28 @@ uint64_t sub_23CEB0F38(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 uint64_t CLP_LogEntry_PrivateData_WifiNotification.associatedState.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__associatedState;
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__associatedState;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState);
   }
 
   UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = 2;
-  v11 = *(v9 + 24);
-  v12 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
-  (*(*(v12 - 8) + 56))(a1 + v11, 1, 1, v12);
-  result = (v10)(v6, 1, v9);
+  *(a1 + *(v8 + 20)) = 2;
+  v10 = *(v8 + 24);
+  v11 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
+  (*(*(v11 - 8) + 56))(a1 + v10, 1, 1, v11);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
   }
 
   return result;
@@ -982,9 +968,8 @@ uint64_t CLP_LogEntry_PrivateData_WifiNotification.associatedState.getter@<X0>(u
 uint64_t CLP_LogEntry_PrivateData_WifiAssociationState.mac.getter()
 {
   v0 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = &v6 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (!CLP_LogEntry_PrivateData_WifiAssociationState.hasIsAssociated.getter())
   {
     return 0;
@@ -995,62 +980,61 @@ uint64_t CLP_LogEntry_PrivateData_WifiAssociationState.mac.getter()
     return 0;
   }
 
-  CLP_LogEntry_PrivateData_WifiAssociationState.ap.getter(v3);
-  v4 = CLP_LogEntry_PrivateData_WifiAccessPoint.hasMac.getter();
-  _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v3, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
-  if (!v4)
+  CLP_LogEntry_PrivateData_WifiAssociationState.ap.getter(v2);
+  v3 = CLP_LogEntry_PrivateData_WifiAccessPoint.hasMac.getter();
+  _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v2, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
+  if (!v3)
   {
     return 0;
   }
 
-  CLP_LogEntry_PrivateData_WifiAssociationState.ap.getter(v3);
-  v5 = CLP_LogEntry_PrivateData_WifiAccessPoint.mac.getter();
-  _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v3, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
-  return v5;
+  CLP_LogEntry_PrivateData_WifiAssociationState.ap.getter(v2);
+  v4 = CLP_LogEntry_PrivateData_WifiAccessPoint.mac.getter();
+  _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v2, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
+  return v4;
 }
 
 uint64_t CLP_LogEntry_PrivateData_WifiAssociationState.ap.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v17 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 24), v6, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
-  v9 = *(*(v8 - 1) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v16 - v4;
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 24), v5, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMR);
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
+    return outlined init with take of CLP_LogEntry_PrivateData_TimeStamp(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
   }
 
   UnknownStorage.init()();
-  v10 = a1 + v8[5];
+  v9 = a1 + v7[5];
+  *v9 = 0;
+  *(v9 + 8) = 1;
+  v10 = (a1 + v7[6]);
   *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = (a1 + v8[6]);
+  v10[1] = 0;
+  v11 = a1 + v7[7];
   *v11 = 0;
-  v11[1] = 0;
-  v12 = a1 + v8[7];
+  *(v11 + 4) = 1;
+  *(a1 + v7[8]) = 4;
+  v12 = a1 + v7[9];
   *v12 = 0;
   *(v12 + 4) = 1;
-  *(a1 + v8[8]) = 4;
-  v13 = a1 + v8[9];
+  v13 = a1 + v7[10];
   *v13 = 0;
   *(v13 + 4) = 1;
-  v14 = a1 + v8[10];
+  *(a1 + v7[11]) = 2;
+  *(a1 + v7[12]) = 2;
+  *(a1 + v7[13]) = 4;
+  v14 = a1 + v7[14];
   *v14 = 0;
   *(v14 + 4) = 1;
-  *(a1 + v8[11]) = 2;
-  *(a1 + v8[12]) = 2;
-  *(a1 + v8[13]) = 4;
-  v15 = a1 + v8[14];
-  *v15 = 0;
-  *(v15 + 4) = 1;
-  result = (v9)(v6, 1, v8);
+  result = (v8)(v5, 1, v7);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMd, &_s10ALProtobuf40CLP_LogEntry_PrivateData_WifiAccessPointVSgMR);
   }
 
   return result;
@@ -1076,118 +1060,116 @@ uint64_t ALWiFiNotifications.init(pb:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v8 = &v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = type metadata accessor for ALWiFiNotification();
-  v9 = *(v35 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v35);
-  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v16 = (&v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v36 = a2;
+  v7 = &v27 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v32 = type metadata accessor for ALWiFiNotification();
+  v8 = *(v32 - 8);
+  MEMORY[0x28223BE20](v32);
+  v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = (&v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v33 = a2;
   ALWiFiNotifications.init()();
-  if (CLP_LogEntry_AONLoc_Indication.hasType.getter() && (v37[0] = CLP_LogEntry_AONLoc_Indication.type.getter(), v37[39] = 4, lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Indication.TypeEnum and conformance CLP_LogEntry_AONLoc_Indication.TypeEnum(), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0) && CLP_LogEntry_AONLoc_Indication.hasWifiIndication.getter())
+  if (CLP_LogEntry_AONLoc_Indication.hasType.getter() && (v34[0] = CLP_LogEntry_AONLoc_Indication.type.getter(), v34[39] = 4, lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Indication.TypeEnum and conformance CLP_LogEntry_AONLoc_Indication.TypeEnum(), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0) && CLP_LogEntry_AONLoc_Indication.hasWifiIndication.getter())
   {
-    v32 = a1;
-    CLP_LogEntry_AONLoc_Indication.wifiIndication.getter(v16);
-    v31 = v16;
-    v17 = *v16;
-    v18 = *(*v16 + 16);
-    if (v18)
+    v29 = a1;
+    CLP_LogEntry_AONLoc_Indication.wifiIndication.getter(v13);
+    v28 = v13;
+    v14 = *v13;
+    v15 = *(*v13 + 16);
+    if (v15)
     {
-      v19 = v17 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
-      v20 = *(v5 + 72);
-      v33 = v9 + 32;
-      v34 = v20;
+      v16 = v14 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
+      v17 = *(v5 + 72);
+      v30 = v8 + 32;
+      v31 = v17;
       do
       {
-        _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOcTm_0(v19, v8, type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification);
-        ALWiFiNotification.init(pb:)(v8);
-        v21 = ALWiFiNotifications._results.modify();
-        v23 = v22;
-        v24 = *v22;
+        _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOcTm_0(v16, v7, type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification);
+        ALWiFiNotification.init(pb:)(v7);
+        v18 = ALWiFiNotifications._results.modify();
+        v20 = v19;
+        v21 = *v19;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        *v23 = v24;
+        *v20 = v21;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v24[2] + 1, 1, v24, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMR, MEMORY[0x277CE4968]);
-          *v23 = v24;
+          v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21[2] + 1, 1, v21, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMR, MEMORY[0x277CE4968]);
+          *v20 = v21;
         }
 
-        v27 = v24[2];
-        v26 = v24[3];
-        if (v27 >= v26 >> 1)
+        v24 = v21[2];
+        v23 = v21[3];
+        if (v24 >= v23 >> 1)
         {
-          v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v26 > 1, v27 + 1, 1, v24, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMR, MEMORY[0x277CE4968]);
-          *v23 = v24;
+          v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v21, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes18ALWiFiNotificationVGMR, MEMORY[0x277CE4968]);
+          *v20 = v21;
         }
 
-        v24[2] = v27 + 1;
-        (*(v9 + 32))(v24 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v27, v12, v35);
-        v21(v37, 0);
-        v19 += v34;
-        --v18;
+        v21[2] = v24 + 1;
+        (*(v8 + 32))(v21 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v24, v10, v32);
+        v18(v34, 0);
+        v16 += v31;
+        --v15;
       }
 
-      while (v18);
+      while (v15);
     }
 
-    a1 = v31;
+    a1 = v28;
     CLP_LogEntry_AONLoc_WiFiIndication.isLastBatch.getter();
     ALWiFiNotifications._isLastBatch.setter();
-    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v32, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
-    v28 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication;
+    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v29, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+    v25 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication;
   }
 
   else
   {
-    v28 = type metadata accessor for CLP_LogEntry_AONLoc_Indication;
+    v25 = type metadata accessor for CLP_LogEntry_AONLoc_Indication;
   }
 
-  return _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(a1, v28);
+  return _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(a1, v25);
 }
 
-uint64_t ALWiFiNotifications.init(data:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void ALWiFiNotifications.init(data:)(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v7 = type metadata accessor for BinaryDecodingOptions();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_Indication(0);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v9);
-  v13 = v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = v17 - v14;
-  v19 = a1;
-  v20 = a2;
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
+  v8 = type metadata accessor for CLP_LogEntry_AONLoc_Indication(0);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v14 - v12;
+  v16 = a1;
+  v17 = a2;
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
   outlined copy of Data._Representation(a1, a2);
   BinaryDecodingOptions.init()();
-  lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_Indication and conformance CLP_LogEntry_AONLoc_Indication, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+  lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_Indication and conformance CLP_LogEntry_AONLoc_Indication, type metadata accessor for CLP_LogEntry_AONLoc_Indication, &protocol conformance descriptor for CLP_LogEntry_AONLoc_Indication);
   Message.init<A>(serializedBytes:extensions:partial:options:)();
   if (v3)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    outlined consume of Data._Representation(a1, a2);
   }
 
-  _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOcTm_0(v15, v13, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
-  ALWiFiNotifications.init(pb:)(v13, a3);
-  outlined consume of Data._Representation(a1, a2);
-  return _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v15, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+  else
+  {
+    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOcTm_0(v13, v11, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+    ALWiFiNotifications.init(pb:)(v11, a3);
+    outlined consume of Data._Representation(a1, a2);
+    _s10ALProtobuf27CLP_LogEntry_AONLoc_RequestV13ResultOptionsVWOhTm_0(v13, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+  }
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+void outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -1303,7 +1285,7 @@ uint64_t sub_23CEB2090(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t __swift_get_extra_inhabitant_index_35Tm(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t __swift_get_extra_inhabitant_index_35Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1337,80 +1319,76 @@ uint64_t CLP_LogEntry_PrivateData_WifiNotification._StorageClass.__deallocating_
   return MEMORY[0x2821FE8D8](v0, v1, v2);
 }
 
-uint64_t closure #2 in ALFWiFiScanResultsRequester.register(callback:intervalSec:)(uint64_t a1, unint64_t a2, void (*a3)(uint64_t, void), uint64_t a4)
+void closure #2 in ALFWiFiScanResultsRequester.register(callback:intervalSec:)(uint64_t a1, unint64_t a2, void (*a3)(uint64_t, void), uint64_t a4)
 {
-  v44 = a4;
-  v45 = a3;
+  v41 = a4;
+  v42 = a3;
   v7 = type metadata accessor for Logger();
-  v43 = *(v7 - 8);
-  v8 = *(v43 + 64);
+  v40 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v36[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v42 = type metadata accessor for ALWiFiNotifications();
-  v11 = *(v42 - 8);
-  v12 = v11[8];
-  v13 = MEMORY[0x28223BE20](v42);
-  v15 = &v36[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = &v36[-v17];
-  MEMORY[0x28223BE20](v16);
-  v20 = &v36[-v19];
+  v9 = &v33[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v39 = type metadata accessor for ALWiFiNotifications();
+  v10 = *(v39 - 8);
+  v11 = MEMORY[0x28223BE20](v39);
+  v13 = &v33[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = MEMORY[0x28223BE20](v11);
+  v16 = &v33[-v15];
+  MEMORY[0x28223BE20](v14);
+  v18 = &v33[-v17];
   outlined copy of Data._Representation(a1, a2);
-  result = ALWiFiNotifications.init(data:)(a1, a2, v20);
+  ALWiFiNotifications.init(data:)(a1, a2, v18);
   if (!v4)
   {
-    v40 = v7;
-    v41 = 0;
-    wifilog.getter(v10);
-    v22 = v11[2];
-    v23 = v42;
-    v22(v18, v20, v42);
-    v22(v15, v20, v23);
-    v39 = v10;
-    v24 = Logger.logObject.getter();
-    v25 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v24, v25))
+    v37 = v7;
+    v38 = 0;
+    wifilog.getter(v9);
+    v19 = *(v10 + 16);
+    v20 = v39;
+    v19(v16, v18, v39);
+    v19(v13, v18, v20);
+    v36 = v9;
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v21, v22))
     {
-      v26 = swift_slowAlloc();
-      v37 = v25;
-      v27 = v26;
-      *v26 = 134349312;
-      v28 = *(ALWiFiNotifications.results.getter() + 16);
+      v23 = swift_slowAlloc();
+      v34 = v22;
+      v24 = v23;
+      *v23 = 134349312;
+      v25 = *(ALWiFiNotifications.results.getter() + 16);
 
-      v38 = v24;
-      v29 = v11[1];
-      v29(v18, v23);
-      *(v27 + 1) = v28;
-      *(v27 + 6) = 1026;
-      LODWORD(v28) = ALWiFiNotifications.isLastBatch.getter() & 1;
-      v29(v15, v23);
-      v30 = v29;
-      v24 = v38;
-      *(v27 + 14) = v28;
-      _os_log_impl(&dword_23CEAD000, v24, v37, "#WiFi,dataCallback,results,%{public}ld,last,%{BOOL,public}d", v27, 0x12u);
-      MEMORY[0x23EEDAF70](v27, -1, -1);
+      v35 = v21;
+      v26 = *(v10 + 8);
+      v26(v16, v20);
+      *(v24 + 1) = v25;
+      *(v24 + 6) = 1026;
+      LODWORD(v25) = ALWiFiNotifications.isLastBatch.getter() & 1;
+      v26(v13, v20);
+      v27 = v26;
+      v21 = v35;
+      *(v24 + 14) = v25;
+      _os_log_impl(&dword_23CEAD000, v21, v34, "#WiFi,dataCallback,results,%{public}ld,last,%{BOOL,public}d", v24, 0x12u);
+      MEMORY[0x23EEDAF70](v24, -1, -1);
     }
 
     else
     {
-      v31 = v11[1];
-      v31(v15, v23);
-      v31(v18, v23);
-      v30 = v31;
+      v28 = *(v10 + 8);
+      v28(v13, v20);
+      v28(v16, v20);
+      v27 = v28;
     }
 
-    v32 = v40;
-    v33 = v43;
+    v29 = v37;
+    v30 = v40;
 
-    (*(v33 + 8))(v39, v32);
-    v34 = ALWiFiNotifications.results.getter();
-    v35 = ALWiFiNotifications.isLastBatch.getter();
-    v45(v34, v35 & 1);
+    (*(v30 + 8))(v36, v29);
+    v31 = ALWiFiNotifications.results.getter();
+    v32 = ALWiFiNotifications.isLastBatch.getter();
+    v42(v31, v32 & 1);
 
-    return v30(v20, v23);
+    v27(v18, v20);
   }
-
-  return result;
 }
 
 uint64_t static ALLogger.core.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -1442,168 +1420,158 @@ uint64_t ALXPCClient.onData(_:)(uint64_t a1, unint64_t a2)
   v3 = v2;
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20]();
-  v10 = &v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  xpclog.getter(v10);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  xpclog.getter(v9);
   outlined copy of Data._Representation(a1, a2);
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.debug.getter();
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.debug.getter();
   outlined consume of Data._Representation(a1, a2);
-  if (os_log_type_enabled(v11, v12))
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    v26 = v7;
-    v14 = v13;
-    v15 = swift_slowAlloc();
-    v27 = v15;
-    *v14 = 136315138;
-    v16 = Data.description.getter();
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v27);
-    v25 = v6;
-    v19 = a2;
-    v20 = v3;
-    v21 = v18;
+    v12 = swift_slowAlloc();
+    v24 = v7;
+    v13 = v12;
+    v14 = swift_slowAlloc();
+    v25 = v14;
+    *v13 = 136315138;
+    v15 = Data.description.getter();
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v25);
+    v23 = v6;
+    v18 = a2;
+    v19 = v3;
+    v20 = v17;
 
-    *(v14 + 4) = v21;
-    v3 = v20;
-    a2 = v19;
-    _os_log_impl(&dword_23CEAD000, v11, v12, "XPC %s", v14, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v15);
-    MEMORY[0x23EEDAF70](v15, -1, -1);
+    *(v13 + 4) = v20;
+    v3 = v19;
+    a2 = v18;
+    _os_log_impl(&dword_23CEAD000, v10, v11, "XPC %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
     MEMORY[0x23EEDAF70](v14, -1, -1);
+    MEMORY[0x23EEDAF70](v13, -1, -1);
 
-    (*(v26 + 8))(v10, v25);
+    (*(v24 + 8))(v9, v23);
   }
 
   else
   {
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
   }
 
-  v22 = *(v3 + 32);
   return (*(v3 + 24))(a1, a2);
 }
 
 uint64_t closure #1 in ALFResultsRequesterData.register(payload:dataCallback:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t))
 {
   v6 = type metadata accessor for Logger();
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6);
   return a3(a1, a2);
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t closure #2 in ALFBtAdvResultsRequester.register(callback:intervalSec:)(uint64_t a1, unint64_t a2, void (*a3)(uint64_t, void), uint64_t a4)
+void closure #2 in ALFBtAdvResultsRequester.register(callback:intervalSec:)(uint64_t a1, unint64_t a2, void (*a3)(uint64_t, void), uint64_t a4)
 {
-  v44 = a4;
-  v45 = a3;
+  v41 = a4;
+  v42 = a3;
   v7 = type metadata accessor for Logger();
-  v43 = *(v7 - 8);
-  v8 = *(v43 + 64);
+  v40 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v36[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v42 = type metadata accessor for ALBtNotifications();
-  v11 = *(v42 - 8);
-  v12 = v11[8];
-  v13 = MEMORY[0x28223BE20](v42);
-  v15 = &v36[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = &v36[-v17];
-  MEMORY[0x28223BE20](v16);
-  v20 = &v36[-v19];
+  v9 = &v33[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v39 = type metadata accessor for ALBtNotifications();
+  v10 = *(v39 - 8);
+  v11 = MEMORY[0x28223BE20](v39);
+  v13 = &v33[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = MEMORY[0x28223BE20](v11);
+  v16 = &v33[-v15];
+  MEMORY[0x28223BE20](v14);
+  v18 = &v33[-v17];
   outlined copy of Data._Representation(a1, a2);
-  result = ALBtNotifications.init(data:)(a1, a2, v20);
+  ALBtNotifications.init(data:)(a1, a2, v18);
   if (!v4)
   {
-    v40 = v7;
-    v41 = 0;
-    leechlog.getter(v10);
-    v22 = v11[2];
-    v23 = v42;
-    v22(v18, v20, v42);
-    v22(v15, v20, v23);
-    v39 = v10;
-    v24 = Logger.logObject.getter();
-    v25 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v24, v25))
+    v37 = v7;
+    v38 = 0;
+    leechlog.getter(v9);
+    v19 = *(v10 + 16);
+    v20 = v39;
+    v19(v16, v18, v39);
+    v19(v13, v18, v20);
+    v36 = v9;
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v21, v22))
     {
-      v26 = swift_slowAlloc();
-      v37 = v25;
-      v27 = v26;
-      *v26 = 134349312;
-      v28 = *(ALBtNotifications.results.getter() + 16);
+      v23 = swift_slowAlloc();
+      v34 = v22;
+      v24 = v23;
+      *v23 = 134349312;
+      v25 = *(ALBtNotifications.results.getter() + 16);
 
-      v38 = v24;
-      v29 = v11[1];
-      v29(v18, v23);
-      *(v27 + 1) = v28;
-      *(v27 + 6) = 1026;
-      LODWORD(v28) = ALBtNotifications.isLastBatch.getter() & 1;
-      v29(v15, v23);
-      v30 = v29;
-      v24 = v38;
-      *(v27 + 14) = v28;
-      _os_log_impl(&dword_23CEAD000, v24, v37, "#BT,dataCallback,results,%{public}ld,last,%{BOOL,public}d", v27, 0x12u);
-      MEMORY[0x23EEDAF70](v27, -1, -1);
+      v35 = v21;
+      v26 = *(v10 + 8);
+      v26(v16, v20);
+      *(v24 + 1) = v25;
+      *(v24 + 6) = 1026;
+      LODWORD(v25) = ALBtNotifications.isLastBatch.getter() & 1;
+      v26(v13, v20);
+      v27 = v26;
+      v21 = v35;
+      *(v24 + 14) = v25;
+      _os_log_impl(&dword_23CEAD000, v21, v34, "#BT,dataCallback,results,%{public}ld,last,%{BOOL,public}d", v24, 0x12u);
+      MEMORY[0x23EEDAF70](v24, -1, -1);
     }
 
     else
     {
-      v31 = v11[1];
-      v31(v15, v23);
-      v31(v18, v23);
-      v30 = v31;
+      v28 = *(v10 + 8);
+      v28(v13, v20);
+      v28(v16, v20);
+      v27 = v28;
     }
 
-    v32 = v40;
-    v33 = v43;
+    v29 = v37;
+    v30 = v40;
 
-    (*(v33 + 8))(v39, v32);
-    v34 = ALBtNotifications.results.getter();
-    v35 = ALBtNotifications.isLastBatch.getter();
-    v45(v34, v35 & 1);
+    (*(v30 + 8))(v36, v29);
+    v31 = ALBtNotifications.results.getter();
+    v32 = ALBtNotifications.isLastBatch.getter();
+    v42(v31, v32 & 1);
 
-    return v30(v20, v23);
+    v27(v18, v20);
   }
-
-  return result;
 }
 
-uint64_t CLP_LogEntry_AONLoc_Indication.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_AONLoc_Indication.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = v0;
-  v3 = *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20);
-  v4 = *(v0 + v3);
+  v5 = v3;
+  v6 = *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
+  v8 = *(v3 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v7 = type metadata accessor for CLP_LogEntry_AONLoc_Indication._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    CLP_LogEntry_AONLoc_Indication._StorageClass.init(copying:)(v6);
-    *(v2 + v3) = v10;
+    type metadata accessor for CLP_LogEntry_AONLoc_Indication._StorageClass(0);
+    v9 = swift_allocObject();
+    CLP_LogEntry_AONLoc_Indication._StorageClass.init(copying:)(v8);
+    *(v5 + v6) = v9;
   }
 
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
+  if (!v4)
   {
     while (1)
     {
-      if (v12)
+      if (v11)
       {
         return result;
       }
@@ -1642,10 +1610,11 @@ uint64_t CLP_LogEntry_AONLoc_Indication.decodeMessage<A>(decoder:)()
           goto LABEL_29;
         }
 
-        v13 = v1;
+        v12 = v4;
         swift_beginAccess();
         type metadata accessor for Proto_Gpsd_Response(0);
-        v14 = type metadata accessor for Proto_Gpsd_Response;
+        v13 = type metadata accessor for Proto_Gpsd_Response;
+        v14 = &protocol conformance descriptor for Proto_Gpsd_Response;
         v15 = &lazy protocol witness table cache variable for type Proto_Gpsd_Response and conformance Proto_Gpsd_Response;
         goto LABEL_27;
       }
@@ -1669,18 +1638,20 @@ LABEL_29:
         }
 
 LABEL_26:
-        v13 = v1;
+        v12 = v4;
         swift_beginAccess();
         type metadata accessor for CLP_LogEntry_AONLoc_Response(0);
-        v14 = type metadata accessor for CLP_LogEntry_AONLoc_Response;
+        v13 = type metadata accessor for CLP_LogEntry_AONLoc_Response;
+        v14 = &protocol conformance descriptor for CLP_LogEntry_AONLoc_Response;
         v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_Response and conformance CLP_LogEntry_AONLoc_Response;
         goto LABEL_27;
       }
 
-      v13 = v1;
+      v12 = v4;
       swift_beginAccess();
       type metadata accessor for Proto_Gpsd_Indication(0);
-      v14 = type metadata accessor for Proto_Gpsd_Indication;
+      v13 = type metadata accessor for Proto_Gpsd_Indication;
+      v14 = &protocol conformance descriptor for Proto_Gpsd_Indication;
       v15 = &lazy protocol witness table cache variable for type Proto_Gpsd_Indication and conformance Proto_Gpsd_Indication;
     }
 
@@ -1695,10 +1666,11 @@ LABEL_26:
             goto LABEL_29;
           }
 
-          v13 = v1;
+          v12 = v4;
           swift_beginAccess();
           type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0);
-          v14 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication;
+          v13 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication;
+          v14 = &protocol conformance descriptor for CLP_LogEntry_AONLoc_BtIndication;
           v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_BtIndication and conformance CLP_LogEntry_AONLoc_BtIndication;
           goto LABEL_27;
         }
@@ -1706,16 +1678,17 @@ LABEL_26:
         goto LABEL_26;
       }
 
-      v13 = v1;
+      v12 = v4;
       swift_beginAccess();
       type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0);
-      v14 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication;
+      v13 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication;
+      v14 = &protocol conformance descriptor for CLP_LogEntry_AONLoc_WiFiIndication;
       v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_WiFiIndication and conformance CLP_LogEntry_AONLoc_WiFiIndication;
     }
 
 LABEL_27:
-    lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(v15, v14);
-    v1 = v13;
+    lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(v15, v13, v14);
+    v4 = v12;
     dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
     goto LABEL_28;
   }
@@ -1723,7 +1696,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1748,34 +1721,35 @@ uint64_t lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdv
   return result;
 }
 
-uint64_t ALBtNotifications.init(data:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void ALBtNotifications.init(data:)(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v7 = type metadata accessor for BinaryDecodingOptions();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_Indication(0);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v9);
-  v13 = v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = v17 - v14;
-  v19 = a1;
-  v20 = a2;
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
+  v8 = type metadata accessor for CLP_LogEntry_AONLoc_Indication(0);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v14 - v12;
+  v16 = a1;
+  v17 = a2;
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
   outlined copy of Data._Representation(a1, a2);
   BinaryDecodingOptions.init()();
-  lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_Indication and conformance CLP_LogEntry_AONLoc_Indication, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+  lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_Indication and conformance CLP_LogEntry_AONLoc_Indication, type metadata accessor for CLP_LogEntry_AONLoc_Indication, &protocol conformance descriptor for CLP_LogEntry_AONLoc_Indication);
   Message.init<A>(serializedBytes:extensions:partial:options:)();
   if (v3)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    outlined consume of Data._Representation(a1, a2);
   }
 
-  outlined init with copy of CLP_LogEntry_AONLoc_BtAdvertisement(v15, v13, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
-  ALBtNotifications.init(pb:)(v13, a3);
-  outlined consume of Data._Representation(a1, a2);
-  return outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(v15, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+  else
+  {
+    outlined init with copy of CLP_LogEntry_AONLoc_BtAdvertisement(v13, v11, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+    ALBtNotifications.init(pb:)(v11, a3);
+    outlined consume of Data._Representation(a1, a2);
+    outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(v13, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+  }
 }
 
 uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_AONLoc_Indication@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -1793,23 +1767,22 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_AONLoc_
 uint64_t CLP_LogEntry_AONLoc_BtNotification.eventReceiptTime.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v11 - v5;
-  v7 = type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v7 + 24), v6, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v8 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v9 = *(*(v8 - 8) + 48);
-  if (v9(v6, 1, v8) != 1)
+  v5 = &v10 - v4;
+  v6 = type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v1 + *(v6 + 24), v5, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  v7 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  v8 = *(*(v7 - 8) + 48);
+  if (v8(v5, 1, v7) != 1)
   {
-    return outlined init with take of CLP_LogEntry_AONLoc_Type7Info(v6, a1, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+    return outlined init with take of CLP_LogEntry_AONLoc_Type7Info(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
   }
 
   CLP_LogEntry_PrivateData_TimeStamp.init()(a1);
-  result = (v9)(v6, 1, v8);
+  result = (v8)(v5, 1, v7);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
   }
 
   return result;
@@ -1817,20 +1790,20 @@ uint64_t CLP_LogEntry_AONLoc_BtNotification.eventReceiptTime.getter@<X0>(uint64_
 
 uint64_t CLP_LogEntry_AONLoc_Indication._StorageClass.init(copying:)(uint64_t a1)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMd, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMd, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
   v51 = &v42 - v4;
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMd, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMd, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
   v50 = &v42 - v6;
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf28CLP_LogEntry_AONLoc_ResponseVSgMd, &_s10ALProtobuf28CLP_LogEntry_AONLoc_ResponseVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf28CLP_LogEntry_AONLoc_ResponseVSgMd, &_s10ALProtobuf28CLP_LogEntry_AONLoc_ResponseVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
   v49 = &v42 - v8;
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf21Proto_Gpsd_IndicationVSgMd, &_s10ALProtobuf21Proto_Gpsd_IndicationVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf21Proto_Gpsd_IndicationVSgMd, &_s10ALProtobuf21Proto_Gpsd_IndicationVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
   v48 = &v42 - v10;
-  v11 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gpsd_ResponseVSgMd, &_s10ALProtobuf19Proto_Gpsd_ResponseVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf19Proto_Gpsd_ResponseVSgMd, &_s10ALProtobuf19Proto_Gpsd_ResponseVSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
   v43 = &v42 - v12;
   *(v1 + 16) = 0;
   *(v1 + 24) = 1;
@@ -2001,7 +1974,7 @@ void *__swift_store_extra_inhabitant_index_36Tm(void *result, uint64_t a2, int a
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2026,26 +1999,26 @@ uint64_t lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Reque
   return result;
 }
 
-uint64_t CLP_LogEntry_AONLoc_WiFiIndication.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_AONLoc_WiFiIndication.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       switch(result)
       {
         case 11:
           type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0);
-          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiNotification and conformance CLP_LogEntry_PrivateData_WifiNotification, type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification);
+          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiNotification and conformance CLP_LogEntry_PrivateData_WifiNotification, type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification, &protocol conformance descriptor for CLP_LogEntry_PrivateData_WifiNotification);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
           break;
         case 2:
-          v3 = *(type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0) + 28);
+          type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0);
           dispatch thunk of Decoder.decodeSingularBoolField(value:)();
           break;
         case 1:
-          v4 = *(type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0) + 24);
+          type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0);
           dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
           break;
       }
@@ -2057,42 +2030,39 @@ uint64_t CLP_LogEntry_AONLoc_WiFiIndication.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_SyncState@<X0>(uint64_t a1@<X0>, void *a2@<X2>, void *a3@<X3>, uint64_t a4@<X8>)
+uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_SyncState@<X0>(uint64_t a1@<X0>, void *a2@<X2>, uint64_t *a3@<X3>, uint64_t a5@<X8>)
 {
   UnknownStorage.init()();
-  v8 = *(a1 + 20);
+  v9 = *(a1 + 20);
   if (*a2 != -1)
   {
     swift_once();
   }
 
-  *(a4 + v8) = *a3;
+  *(a5 + v9) = *a3;
 }
 
-uint64_t CLP_LogEntry_PrivateData_WifiNotification.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_WifiNotification.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = v0;
-  v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20);
-  v4 = *(v0 + v3);
+  v5 = v3;
+  v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
+  v8 = *(v3 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v7 = type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    specialized CLP_LogEntry_PrivateData_WifiNotification._StorageClass.init(copying:)(v6);
+    type metadata accessor for CLP_LogEntry_PrivateData_WifiNotification._StorageClass(0);
+    v9 = swift_allocObject();
+    specialized CLP_LogEntry_PrivateData_WifiNotification._StorageClass.init(copying:)(v8);
 
-    *(v2 + v3) = v10;
+    *(v5 + v6) = v9;
   }
 
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
+  if (!v4)
   {
     while (1)
     {
-      if (v12)
+      if (v11)
       {
         return result;
       }
@@ -2106,10 +2076,11 @@ uint64_t CLP_LogEntry_PrivateData_WifiNotification.decodeMessage<A>(decoder:)()
       {
         if (result == 6)
         {
-          v13 = v1;
+          v12 = v4;
           swift_beginAccess();
           type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
-          v14 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState;
+          v13 = type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState;
+          v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_WifiAssociationState;
           v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiAssociationState and conformance CLP_LogEntry_PrivateData_WifiAssociationState;
         }
 
@@ -2120,16 +2091,17 @@ uint64_t CLP_LogEntry_PrivateData_WifiNotification.decodeMessage<A>(decoder:)()
             goto LABEL_30;
           }
 
-          v13 = v1;
+          v12 = v4;
           swift_beginAccess();
           type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult(0);
-          v14 = type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult;
+          v13 = type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult;
+          v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_WifiScanResult;
           v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiScanResult and conformance CLP_LogEntry_PrivateData_WifiScanResult;
         }
 
 LABEL_29:
-        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(v15, v14);
-        v1 = v13;
+        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(v15, v13, v14);
+        v4 = v12;
         dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
         goto LABEL_31;
       }
@@ -2147,10 +2119,11 @@ LABEL_32:
     {
       if (result == 1)
       {
-        v13 = v1;
+        v12 = v4;
         swift_beginAccess();
         type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-        v14 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp;
+        v13 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp;
+        v14 = &protocol conformance descriptor for CLP_LogEntry_PrivateData_TimeStamp;
         v15 = &lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp;
         goto LABEL_29;
       }
@@ -2168,7 +2141,7 @@ LABEL_32:
     {
       if (result == 3)
       {
-        v16 = v1;
+        v16 = v4;
         swift_beginAccess();
         lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiNotificationType and conformance CLP_LogEntry_PrivateData_WifiNotificationType();
       }
@@ -2183,12 +2156,12 @@ LABEL_30:
           goto LABEL_31;
         }
 
-        v16 = v1;
+        v16 = v4;
         swift_beginAccess();
         lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiScanType and conformance CLP_LogEntry_PrivateData_WifiScanType();
       }
 
-      v1 = v16;
+      v4 = v16;
       dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
     }
 
@@ -2202,14 +2175,14 @@ LABEL_31:
 
 uint64_t specialized CLP_LogEntry_PrivateData_WifiNotification._StorageClass.init(copying:)(uint64_t a1)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMd, &_s10ALProtobuf39CLP_LogEntry_PrivateData_WifiScanResultVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
   v49 = &v40 - v4;
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMd, &_s10ALProtobuf45CLP_LogEntry_PrivateData_WifiAssociationStateVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
   v46 = &v40 - v6;
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v40 - v8;
   v10 = OBJC_IVAR____TtCV10ALProtobuf41CLP_LogEntry_PrivateData_WifiNotificationP33_993346AF53650622B255AB1E3C41340D13_StorageClass__eventReceiptTime;
   v11 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
@@ -2379,10 +2352,10 @@ unint64_t lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Indi
   return result;
 }
 
-uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_AONLoc_Indication.TypeEnum@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_AONLoc_Indication.TypeEnum@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = specialized CLP_LogEntry_AONLoc_Indication.TypeEnum.init(rawValue:)(a1);
-  *a2 = result;
+  result = specialized CLP_LogEntry_AONLoc_Indication.TypeEnum.init(rawValue:)(a2);
+  *a1 = result;
   return result;
 }
 
@@ -2601,16 +2574,15 @@ LABEL_20:
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_AONLoc_WiFiIndication@<X0>(int *a1@<X0>, void *a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_AONLoc_WiFiIndication@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = MEMORY[0x277D84F90];
-  v4 = a2 + a1[5];
   result = UnknownStorage.init()();
-  v6 = a1[7];
-  v7 = a2 + a1[6];
-  *v7 = 0;
-  v7[8] = 1;
-  *(a2 + v6) = 2;
+  v5 = *(a1 + 28);
+  v6 = a2 + *(a1 + 24);
+  *v6 = 0;
+  v6[8] = 1;
+  *(a2 + v5) = 2;
   return result;
 }
 
@@ -2622,56 +2594,35 @@ uint64_t __swift_store_extra_inhabitant_index_379Tm(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t CLP_LogEntry_AONLoc_BtNotification.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_AONLoc_BtNotification.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while (1)
+    while ((v5 & 1) == 0)
     {
-      if (v2)
-      {
-        return result;
-      }
-
       if (result <= 3)
       {
         if (result == 1)
         {
-          v7 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0) + 24);
+          type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
           type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp, &protocol conformance descriptor for CLP_LogEntry_PrivateData_TimeStamp);
           dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
         }
 
         else if (result == 2)
         {
           type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0);
-          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement, type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement);
+          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement, type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement, &protocol conformance descriptor for CLP_LogEntry_AONLoc_BtAdvertisement);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
         }
       }
 
-      else
+      else if (result == 4 || result == 5 || result == 6)
       {
-        switch(result)
-        {
-          case 4:
-            v3 = v0;
-            v4 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0) + 28);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-            break;
-          case 5:
-            v3 = v0;
-            v6 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0) + 32);
-            goto LABEL_5;
-          case 6:
-            v3 = v0;
-            v5 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0) + 36);
-            goto LABEL_5;
-        }
+        type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
+        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
       }
 
       result = dispatch thunk of Decoder.nextFieldNumber()();
@@ -2681,26 +2632,26 @@ LABEL_5:
   return result;
 }
 
-uint64_t CLP_LogEntry_AONLoc_BtIndication.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_AONLoc_BtIndication.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       switch(result)
       {
         case 11:
           type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
-          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_BtNotification and conformance CLP_LogEntry_AONLoc_BtNotification, type metadata accessor for CLP_LogEntry_AONLoc_BtNotification);
+          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Request and conformance CLP_LogEntry_AONLoc_Request(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_BtNotification and conformance CLP_LogEntry_AONLoc_BtNotification, type metadata accessor for CLP_LogEntry_AONLoc_BtNotification, &protocol conformance descriptor for CLP_LogEntry_AONLoc_BtNotification);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
           break;
         case 2:
-          v3 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0) + 28);
+          type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0);
           dispatch thunk of Decoder.decodeSingularBoolField(value:)();
           break;
         case 1:
-          v4 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0) + 24);
+          type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0);
           dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
           break;
       }
@@ -2715,14 +2666,13 @@ uint64_t CLP_LogEntry_AONLoc_BtIndication.decodeMessage<A>(decoder:)()
 uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_AONLoc_BtNotification@<X0>(int *a1@<X0>, char *a2@<X8>)
 {
   *a2 = MEMORY[0x277D84F90];
-  v4 = &a2[a1[5]];
   UnknownStorage.init()();
-  v5 = a1[6];
-  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  result = (*(*(v6 - 8) + 56))(&a2[v5], 1, 1, v6);
-  v8 = a1[8];
+  v4 = a1[6];
+  v5 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  result = (*(*(v5 - 8) + 56))(&a2[v4], 1, 1, v5);
+  v7 = a1[8];
   a2[a1[7]] = 2;
-  a2[v8] = 2;
+  a2[v7] = 2;
   a2[a1[9]] = 2;
   return result;
 }
@@ -2732,27 +2682,19 @@ uint64_t CLP_LogEntry_PrivateData_TimeStamp.decodeMessage<A>(decoder:)(uint64_t 
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v4 || (v8 & 1) != 0)
+    if (v4 || (v7 & 1) != 0)
     {
-      return result;
+      break;
     }
 
-    switch(result)
+    if (result == 3 || result == 2 || result == 1)
     {
-      case 3:
-        v10 = *(a4(0) + 28);
-LABEL_3:
-        v4 = 0;
-        dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
-        break;
-      case 2:
-        v6 = *(a4(0) + 24);
-        goto LABEL_3;
-      case 1:
-        v9 = *(a4(0) + 20);
-        goto LABEL_3;
+      a4(0);
+      dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
     }
   }
+
+  return result;
 }
 
 BOOL CLP_LogEntry_AONLoc_Indication.hasType.getter()
@@ -2784,28 +2726,24 @@ uint64_t outlined init with take of CLP_LogEntry_AONLoc_Request.ResultOptions(ui
   return a2;
 }
 
-uint64_t CLP_LogEntry_AONLoc_BtAdvertisement.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_AONLoc_BtAdvertisement.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = v0;
-  v3 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0) + 20);
-  v4 = *(v0 + v3);
+  v5 = v3;
+  v6 = *(type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v6 = *(v0 + v3);
+  v8 = *(v3 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v7 = type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
-    v10 = swift_allocObject();
-    CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass.init(copying:)(v6);
-    *(v2 + v3) = v10;
+    type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass(0);
+    v9 = swift_allocObject();
+    CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass.init(copying:)(v8);
+    *(v5 + v6) = v9;
   }
 
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v1)
+  if (!v4)
   {
-    v13 = &OBJC_IVAR____TtCV10ALProtobuf39CLP_LogEntry_PrivateData_BeidouTimeInfoP33_DB890547D1206BC2212117D0A5F8672013_StorageClass__gpsTimeConversion;
-    while ((v12 & 1) == 0)
+    while ((v11 & 1) == 0)
     {
       switch(result)
       {
@@ -2814,49 +2752,46 @@ uint64_t CLP_LogEntry_AONLoc_BtAdvertisement.decodeMessage<A>(decoder:)()
         case 10:
           swift_beginAccess();
           dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
-          goto LABEL_17;
+          goto LABEL_16;
         case 2:
           swift_beginAccess();
           dispatch thunk of Decoder.decodeSingularFixed64Field(value:)();
-          goto LABEL_17;
+          goto LABEL_16;
         case 3:
           swift_beginAccess();
           dispatch thunk of Decoder.decodeSingularSInt32Field(value:)();
-          goto LABEL_17;
+          goto LABEL_16;
         case 4:
         case 5:
           swift_beginAccess();
           dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
-          goto LABEL_17;
+          goto LABEL_16;
         case 6:
           swift_beginAccess();
           dispatch thunk of Decoder.decodeSingularBytesField(value:)();
-          goto LABEL_17;
+          goto LABEL_16;
         case 8:
           swift_beginAccess();
           lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement.BtType and conformance CLP_LogEntry_AONLoc_BtAdvertisement.BtType();
           dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-          goto LABEL_17;
+          goto LABEL_16;
         case 11:
           swift_beginAccess();
           dispatch thunk of Decoder.decodeSingularUInt32Field(value:)();
-          goto LABEL_17;
+          goto LABEL_16;
         case 12:
         case 13:
           swift_beginAccess();
           dispatch thunk of Decoder.decodeSingularStringField(value:)();
-LABEL_17:
+LABEL_16:
           swift_endAccess();
           break;
         case 31:
-          v14 = v13;
-          v15 = v13[94];
           swift_beginAccess();
           type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
-          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_Type7Info and conformance CLP_LogEntry_AONLoc_Type7Info, type metadata accessor for CLP_LogEntry_AONLoc_Type7Info);
+          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_BtAdvertisement and conformance CLP_LogEntry_AONLoc_BtAdvertisement(&lazy protocol witness table cache variable for type CLP_LogEntry_AONLoc_Type7Info and conformance CLP_LogEntry_AONLoc_Type7Info, type metadata accessor for CLP_LogEntry_AONLoc_Type7Info, &protocol conformance descriptor for CLP_LogEntry_AONLoc_Type7Info);
           dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
           swift_endAccess();
-          v13 = v14;
           break;
         default:
           break;
@@ -2869,60 +2804,42 @@ LABEL_17:
   return result;
 }
 
-uint64_t CLP_LogEntry_AONLoc_Type7Info.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_AONLoc_Type7Info.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
 
       if (result > 3)
       {
-        switch(result)
+        if (result == 4 || result == 5)
         {
-          case 4:
-            v3 = v0;
-            v4 = *(type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0) + 32);
-LABEL_5:
-            v0 = v3;
-            dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-            break;
-          case 5:
-            v3 = v0;
-            v9 = *(type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0) + 36);
-            goto LABEL_5;
-          case 6:
-            v6 = *(type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0) + 40);
-            lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Type7Info.Placement and conformance CLP_LogEntry_AONLoc_Type7Info.Placement();
-            dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-            break;
+LABEL_4:
+          type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
+          dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+          goto LABEL_5;
+        }
+
+        if (result == 6)
+        {
+          type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
+          lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Type7Info.Placement and conformance CLP_LogEntry_AONLoc_Type7Info.Placement();
+          dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
         }
       }
 
-      else
+      else if (result == 1 || result == 2 || result == 3)
       {
-        switch(result)
-        {
-          case 1:
-            v3 = v0;
-            v7 = *(type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0) + 20);
-            goto LABEL_5;
-          case 2:
-            v3 = v0;
-            v8 = *(type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0) + 24);
-            goto LABEL_5;
-          case 3:
-            v3 = v0;
-            v5 = *(type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0) + 28);
-            goto LABEL_5;
-        }
+        goto LABEL_4;
       }
 
+LABEL_5:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -3030,87 +2947,83 @@ uint64_t ALBtNotification.init(pb:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v43 = v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for ALBtAdvertisement();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x28223BE20](v8);
-  v44 = v40 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v14 = v40 - v13;
-  v15 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15 - 8);
-  v18 = v40 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes11ALTimeStampVSgMd, &_s11ALDataTypes11ALTimeStampVSgMR);
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8);
-  v22 = v40 - v21;
-  v45 = a2;
+  v39 = v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for ALBtAdvertisement();
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x28223BE20](v7);
+  v40 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v12 = v36 - v11;
+  v13 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes11ALTimeStampVSgMd, &_s11ALDataTypes11ALTimeStampVSgMR);
+  MEMORY[0x28223BE20](v16 - 8);
+  v18 = v36 - v17;
+  v41 = a2;
   ALBtNotification.init()();
   if (CLP_LogEntry_AONLoc_BtNotification.hasEventReceiptTime.getter())
   {
-    CLP_LogEntry_AONLoc_BtNotification.eventReceiptTime.getter(v18);
-    ALTimeStamp.init(pb:)(v18);
-    v23 = type metadata accessor for ALTimeStamp();
-    (*(*(v23 - 8) + 56))(v22, 0, 1, v23);
+    CLP_LogEntry_AONLoc_BtNotification.eventReceiptTime.getter(v15);
+    ALTimeStamp.init(pb:)(v15);
+    v19 = type metadata accessor for ALTimeStamp();
+    (*(*(v19 - 8) + 56))(v18, 0, 1, v19);
     ALBtNotification._timestamp.setter();
   }
 
-  v40[0] = a1;
-  v24 = *a1;
-  v25 = *(*a1 + 16);
-  v26 = v44;
-  if (v25)
+  v36[0] = a1;
+  v20 = *a1;
+  v21 = *(*a1 + 16);
+  v22 = v40;
+  if (v21)
   {
-    v27 = v24 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
-    v28 = *(v5 + 72);
-    v40[2] = v9 + 32;
-    v41 = v28;
-    v40[1] = v9 + 8;
-    v42 = v8;
+    v23 = v20 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
+    v24 = *(v5 + 72);
+    v36[2] = v8 + 32;
+    v37 = v24;
+    v36[1] = v8 + 8;
+    v38 = v7;
     do
     {
-      v29 = v43;
-      outlined init with copy of CLP_LogEntry_AONLoc_BtAdvertisement(v27, v43, type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement);
-      ALBtAdvertisement.init(pb:)(v29);
-      (*(v9 + 16))(v26, v14, v8);
-      v30 = ALBtNotification._advertisements.modify();
-      v32 = v31;
-      v33 = *v31;
+      v25 = v39;
+      outlined init with copy of CLP_LogEntry_AONLoc_BtAdvertisement(v23, v39, type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement);
+      ALBtAdvertisement.init(pb:)(v25);
+      (*(v8 + 16))(v22, v12, v7);
+      v26 = ALBtNotification._advertisements.modify();
+      v28 = v27;
+      v29 = *v27;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      *v32 = v33;
+      *v28 = v29;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v33[2] + 1, 1, v33, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMR, MEMORY[0x277CE48E8]);
-        *v32 = v33;
+        v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v29[2] + 1, 1, v29, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMR, MEMORY[0x277CE48E8]);
+        *v28 = v29;
       }
 
-      v36 = v33[2];
-      v35 = v33[3];
-      if (v36 >= v35 >> 1)
+      v32 = v29[2];
+      v31 = v29[3];
+      if (v32 >= v31 >> 1)
       {
-        v33 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v35 > 1, v36 + 1, 1, v33, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMR, MEMORY[0x277CE48E8]);
-        *v32 = v33;
+        v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v32 + 1, 1, v29, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes17ALBtAdvertisementVGMR, MEMORY[0x277CE48E8]);
+        *v28 = v29;
       }
 
-      v33[2] = v36 + 1;
-      v37 = v33 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v36;
-      v26 = v44;
-      v8 = v42;
-      (*(v9 + 32))(v37, v44, v42);
-      v30(v46, 0);
-      (*(v9 + 8))(v14, v8);
-      v27 += v41;
-      --v25;
+      v29[2] = v32 + 1;
+      v33 = v29 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v32;
+      v22 = v40;
+      v7 = v38;
+      (*(v8 + 32))(v33, v40, v38);
+      v26(v42, 0);
+      (*(v8 + 8))(v12, v7);
+      v23 += v37;
+      --v21;
     }
 
-    while (v25);
+    while (v21);
   }
 
-  v38 = v40[0];
+  v34 = v36[0];
   if (CLP_LogEntry_AONLoc_BtNotification.hasIsSimulated.getter())
   {
     CLP_LogEntry_AONLoc_BtNotification.isSimulated.getter();
@@ -3129,21 +3042,20 @@ uint64_t ALBtNotification.init(pb:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     ALBtNotification._isScreenOn.setter();
   }
 
-  return outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(v38, type metadata accessor for CLP_LogEntry_AONLoc_BtNotification);
+  return outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(v34, type metadata accessor for CLP_LogEntry_AONLoc_BtNotification);
 }
 
 BOOL CLP_LogEntry_AONLoc_BtNotification.hasEventReceiptTime.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v9 - v3;
-  v5 = type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v0 + *(v5 + 24), v4, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v7 = (*(*(v6 - 8) + 48))(v4, 1, v6) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
-  return v7;
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v0 + *(v4 + 24), v3, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  v5 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMd, &_s10ALProtobuf34CLP_LogEntry_PrivateData_TimeStampVSgMR);
+  return v6;
 }
 
 uint64_t specialized Proto_Gpsd_SuplInitDecodeResult.init(rawValue:)(unint64_t a1)
@@ -3230,9 +3142,9 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_AONLoc_
 
 uint64_t CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass.init(copying:)(uint64_t a1)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v43 = &v35 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v41 = &v33 - v4;
   *(v1 + 16) = 0;
   *(v1 + 24) = 1;
   *(v1 + 32) = 0;
@@ -3242,26 +3154,26 @@ uint64_t CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass.init(copying:)(uint64
   *(v1 + 48) = 1;
   *(v1 + 56) = 1;
   *(v1 + 60) = 0;
-  v35 = (v1 + 60);
+  v33 = (v1 + 60);
   *(v1 + 64) = 1;
   *(v1 + 72) = xmmword_23D1B1460;
   *(v1 + 88) = 3;
   *(v1 + 96) = 0;
-  v36 = (v1 + 88);
-  v37 = (v1 + 96);
+  v34 = (v1 + 88);
+  v35 = (v1 + 96);
   *(v1 + 104) = 1;
   *(v1 + 112) = 0;
-  v38 = (v1 + 112);
+  v36 = (v1 + 112);
   *(v1 + 120) = 1;
   *(v1 + 124) = 0;
-  v39 = (v1 + 124);
+  v37 = (v1 + 124);
   *(v1 + 152) = 0u;
   *(v1 + 128) = 1;
   *(v1 + 136) = 0u;
-  v40 = (v1 + 136);
-  v41 = (v1 + 152);
+  v38 = (v1 + 136);
+  v39 = (v1 + 152);
   v5 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
-  v42 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
+  v40 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
   v6 = type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
   (*(*(v6 - 8) + 56))(v1 + v5, 1, 1, v6);
   swift_beginAccess();
@@ -3291,7 +3203,7 @@ uint64_t CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass.init(copying:)(uint64
   swift_beginAccess();
   LODWORD(v9) = *(a1 + 60);
   LOBYTE(v7) = *(a1 + 64);
-  v10 = v35;
+  v10 = v33;
   swift_beginAccess();
   *v10 = v9;
   *(v1 + 64) = v7;
@@ -3307,57 +3219,55 @@ uint64_t CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass.init(copying:)(uint64
   outlined consume of Data?(v13, v14);
   swift_beginAccess();
   v15 = *(a1 + 88);
-  v16 = v36;
+  v16 = v34;
   swift_beginAccess();
   *v16 = v15;
   swift_beginAccess();
   v17 = *(a1 + 96);
   LOBYTE(v16) = *(a1 + 104);
-  v18 = v37;
+  v18 = v35;
   swift_beginAccess();
   *v18 = v17;
   *(v1 + 104) = v16;
   swift_beginAccess();
   v19 = *(a1 + 112);
   LOBYTE(v16) = *(a1 + 120);
-  v20 = v38;
+  v20 = v36;
   swift_beginAccess();
   *v20 = v19;
   *(v1 + 120) = v16;
   swift_beginAccess();
   LODWORD(v19) = *(a1 + 124);
   LOBYTE(v16) = *(a1 + 128);
-  v21 = v39;
+  v21 = v37;
   swift_beginAccess();
   *v21 = v19;
   *(v1 + 128) = v16;
   swift_beginAccess();
   v23 = *(a1 + 136);
   v22 = *(a1 + 144);
-  v24 = v40;
+  v24 = v38;
   swift_beginAccess();
-  v25 = *(v1 + 144);
   *v24 = v23;
   *(v1 + 144) = v22;
 
   swift_beginAccess();
-  v27 = *(a1 + 152);
-  v26 = *(a1 + 160);
-  v28 = v41;
+  v26 = *(a1 + 152);
+  v25 = *(a1 + 160);
+  v27 = v39;
   swift_beginAccess();
-  v29 = *(v1 + 160);
-  *v28 = v27;
-  *(v1 + 160) = v26;
+  *v27 = v26;
+  *(v1 + 160) = v25;
 
-  v30 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
+  v28 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
   swift_beginAccess();
-  v31 = a1 + v30;
-  v32 = v43;
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v31, v43, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
+  v29 = a1 + v28;
+  v30 = v41;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v29, v41, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
 
-  v33 = v42;
+  v31 = v40;
   swift_beginAccess();
-  outlined assign with take of CLP_LogEntry_AONLoc_Type7Info?(v32, v1 + v33);
+  outlined assign with take of CLP_LogEntry_AONLoc_Type7Info?(v30, v1 + v31);
   swift_endAccess();
   return v1;
 }
@@ -3381,24 +3291,22 @@ uint64_t sub_23CEB6E74(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t outlined copy of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined copy of Data._Representation(a1, a2);
+    return outlined copy of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+void outlined consume of Data?(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    outlined consume of Data._Representation(a1, a2);
   }
-
-  return a1;
 }
 
 uint64_t outlined assign with take of CLP_LogEntry_AONLoc_Type7Info?(uint64_t a1, uint64_t a2)
@@ -3577,113 +3485,108 @@ uint64_t outlined init with copy of CLP_LogEntry_AONLoc_BtAdvertisement(uint64_t
   return a2;
 }
 
-uint64_t ALBtNotifications.init(pb:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t ALBtNotifications.init(pb:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for CLP_LogEntry_AONLoc_BtNotification(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v8 = (&v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v35 = type metadata accessor for ALBtNotification();
-  v9 = *(v35 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v35);
-  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v16 = (&v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v36 = a2;
+  v7 = (&v27 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v32 = type metadata accessor for ALBtNotification();
+  v8 = *(v32 - 8);
+  MEMORY[0x28223BE20](v32);
+  v10 = &v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = a2;
   ALBtNotifications.init()();
-  if (CLP_LogEntry_AONLoc_Indication.hasType.getter() && (v37[0] = CLP_LogEntry_AONLoc_Indication.type.getter(), v37[39] = 6, lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Indication.TypeEnum and conformance CLP_LogEntry_AONLoc_Indication.TypeEnum(), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0))
+  if (CLP_LogEntry_AONLoc_Indication.hasType.getter() && (v34[0] = CLP_LogEntry_AONLoc_Indication.type.getter(), v34[39] = 6, lazy protocol witness table accessor for type CLP_LogEntry_AONLoc_Indication.TypeEnum and conformance CLP_LogEntry_AONLoc_Indication.TypeEnum(), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0))
   {
-    v32 = a1;
-    CLP_LogEntry_AONLoc_Indication.btIndication.getter(v16);
-    v31 = v16;
-    v17 = *v16;
-    v18 = *(*v16 + 16);
-    if (v18)
+    v29 = a1;
+    CLP_LogEntry_AONLoc_Indication.btIndication.getter(v13);
+    v28 = v13;
+    v14 = *v13;
+    v15 = *(*v13 + 16);
+    if (v15)
     {
-      v19 = v17 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
-      v20 = *(v5 + 72);
-      v33 = v9 + 32;
-      v34 = v20;
+      v16 = v14 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
+      v17 = *(v5 + 72);
+      v30 = v8 + 32;
+      v31 = v17;
       do
       {
-        outlined init with copy of CLP_LogEntry_AONLoc_BtAdvertisement(v19, v8, type metadata accessor for CLP_LogEntry_AONLoc_BtNotification);
-        ALBtNotification.init(pb:)(v8, v12);
-        v21 = ALBtNotifications._results.modify();
-        v23 = v22;
-        v24 = *v22;
+        outlined init with copy of CLP_LogEntry_AONLoc_BtAdvertisement(v16, v7, type metadata accessor for CLP_LogEntry_AONLoc_BtNotification);
+        ALBtNotification.init(pb:)(v7, v10);
+        v18 = ALBtNotifications._results.modify();
+        v20 = v19;
+        v21 = *v19;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        *v23 = v24;
+        *v20 = v21;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v24[2] + 1, 1, v24, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMR, MEMORY[0x277CE48C8]);
-          *v23 = v24;
+          v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21[2] + 1, 1, v21, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMR, MEMORY[0x277CE48C8]);
+          *v20 = v21;
         }
 
-        v27 = v24[2];
-        v26 = v24[3];
-        if (v27 >= v26 >> 1)
+        v24 = v21[2];
+        v23 = v21[3];
+        if (v24 >= v23 >> 1)
         {
-          v24 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v26 > 1, v27 + 1, 1, v24, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMR, MEMORY[0x277CE48C8]);
-          *v23 = v24;
+          v21 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1, v21, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMd, &_ss23_ContiguousArrayStorageCy11ALDataTypes16ALBtNotificationVGMR, MEMORY[0x277CE48C8]);
+          *v20 = v21;
         }
 
-        v24[2] = v27 + 1;
-        (*(v9 + 32))(v24 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v27, v12, v35);
-        v21(v37, 0);
-        v19 += v34;
-        --v18;
+        v21[2] = v24 + 1;
+        (*(v8 + 32))(v21 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v24, v10, v32);
+        v18(v34, 0);
+        v16 += v31;
+        --v15;
       }
 
-      while (v18);
+      while (v15);
     }
 
-    a1 = v31;
+    a1 = v28;
     CLP_LogEntry_AONLoc_BtIndication.isLastBatch.getter();
     ALBtNotifications._isLastBatch.setter();
-    outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(v32, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
-    v28 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication;
+    outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(v29, type metadata accessor for CLP_LogEntry_AONLoc_Indication);
+    v25 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication;
   }
 
   else
   {
-    v28 = type metadata accessor for CLP_LogEntry_AONLoc_Indication;
+    v25 = type metadata accessor for CLP_LogEntry_AONLoc_Indication;
   }
 
-  return outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(a1, v28);
+  return outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(a1, v25);
 }
 
 uint64_t CLP_LogEntry_AONLoc_Indication.btIndication.getter@<X0>(void *a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMd, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf30CLP_LogEntry_AONLoc_IndicationP33_D216972680E803847292720624A2662713_StorageClass__btIndication;
+  v5 = &v12 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf30CLP_LogEntry_AONLoc_IndicationP33_D216972680E803847292720624A2662713_StorageClass__btIndication;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMd, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMd, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_AONLoc_BtIndication(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_AONLoc_Request.ResultOptions(v6, a1, type metadata accessor for CLP_LogEntry_AONLoc_BtIndication);
+    return outlined init with take of CLP_LogEntry_AONLoc_Request.ResultOptions(v5, a1, type metadata accessor for CLP_LogEntry_AONLoc_BtIndication);
   }
 
   *a1 = MEMORY[0x277D84F90];
-  v11 = a1 + v9[5];
   UnknownStorage.init()();
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  v12[8] = 1;
-  *(a1 + v9[7]) = 2;
-  result = (v10)(v6, 1, v9);
+  v10 = a1 + *(v8 + 24);
+  *v10 = 0;
+  v10[8] = 1;
+  *(a1 + *(v8 + 28)) = 2;
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMd, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMd, &_s10ALProtobuf32CLP_LogEntry_AONLoc_BtIndicationVSgMR);
   }
 
   return result;
@@ -3699,22 +3602,18 @@ uint64_t outlined init with take of CLP_LogEntry_AONLoc_Type7Info(uint64_t a1, u
 uint64_t ALBtAdvertisement.init(pb:)(uint64_t a1)
 {
   v2 = type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v22[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes16ALBtAdvInfoType7VSgMd, &_s11ALDataTypes16ALBtAdvInfoType7VSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v22[-v8];
-  v10 = type metadata accessor for ALBtAdvertisement.BtType();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v22[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes17ALBtAdvertisementV6BtTypeOSgMd, &_s11ALDataTypes17ALBtAdvertisementV6BtTypeOSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15 - 8);
-  v18 = &v22[-v17];
+  v4 = &v18[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes16ALBtAdvInfoType7VSgMd, &_s11ALDataTypes16ALBtAdvInfoType7VSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v18[-v6];
+  v8 = type metadata accessor for ALBtAdvertisement.BtType();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v18[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes17ALBtAdvertisementV6BtTypeOSgMd, &_s11ALDataTypes17ALBtAdvertisementV6BtTypeOSgMR);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = &v18[-v13];
   ALBtAdvertisement.init()();
   if (CLP_LogEntry_AONLoc_BtAdvertisement.hasMachContTimeNs.getter())
   {
@@ -3731,14 +3630,14 @@ uint64_t ALBtAdvertisement.init(pb:)(uint64_t a1)
   if (CLP_LogEntry_AONLoc_BtAdvertisement.hasRssiDb.getter())
   {
     CLP_LogEntry_AONLoc_BtAdvertisement.rssiDb.getter();
-    v22[0] = 0;
+    v18[0] = 0;
     ALBtAdvertisement._rssidB.setter();
   }
 
   if (CLP_LogEntry_AONLoc_BtAdvertisement.hasAntennaIndex.getter())
   {
     CLP_LogEntry_AONLoc_BtAdvertisement.antennaIndex.getter();
-    v22[4] = 0;
+    v18[4] = 0;
     ALBtAdvertisement._antennaIndex.setter();
   }
 
@@ -3751,14 +3650,14 @@ uint64_t ALBtAdvertisement.init(pb:)(uint64_t a1)
   if (CLP_LogEntry_AONLoc_BtAdvertisement.hasChannel.getter())
   {
     CLP_LogEntry_AONLoc_BtAdvertisement.channel.getter();
-    v22[8] = 0;
+    v18[8] = 0;
     ALBtAdvertisement._channel.setter();
   }
 
   if (CLP_LogEntry_AONLoc_BtAdvertisement.hasProductID.getter())
   {
     CLP_LogEntry_AONLoc_BtAdvertisement.productID.getter();
-    v22[12] = 0;
+    v18[12] = 0;
     ALBtAdvertisement._productID.setter();
   }
 
@@ -3788,19 +3687,19 @@ uint64_t ALBtAdvertisement.init(pb:)(uint64_t a1)
 
   if (CLP_LogEntry_AONLoc_BtAdvertisement.hasBtType.getter())
   {
-    v19 = CLP_LogEntry_AONLoc_BtAdvertisement.btType.getter();
-    (*(v11 + 104))(v14, **(&unk_278BC48C0 + v19), v10);
-    (*(v11 + 32))(v18, v14, v10);
-    (*(v11 + 56))(v18, 0, 1, v10);
+    v15 = CLP_LogEntry_AONLoc_BtAdvertisement.btType.getter();
+    (*(v9 + 104))(v11, **(&unk_278BC48C0 + v15), v8);
+    (*(v9 + 32))(v14, v11, v8);
+    (*(v9 + 56))(v14, 0, 1, v8);
     ALBtAdvertisement._type.setter();
   }
 
   if (CLP_LogEntry_AONLoc_BtAdvertisement.hasType7Info.getter())
   {
-    CLP_LogEntry_AONLoc_BtAdvertisement.type7Info.getter(v5);
-    ALBtAdvInfoType7.init(pb:)(v5);
-    v20 = type metadata accessor for ALBtAdvInfoType7();
-    (*(*(v20 - 8) + 56))(v9, 0, 1, v20);
+    CLP_LogEntry_AONLoc_BtAdvertisement.type7Info.getter(v4);
+    ALBtAdvInfoType7.init(pb:)(v4);
+    v16 = type metadata accessor for ALBtAdvInfoType7();
+    (*(*(v16 - 8) + 56))(v7, 0, 1, v16);
     ALBtAdvertisement._type7Info.setter();
   }
 
@@ -4184,24 +4083,24 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
   return v7(a2 + v5, 1, 1, v6);
 }
 
-uint64_t CLP_LogEntry_PrivateData_WifiAssociationState.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_WifiAssociationState.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
-        v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0) + 20);
+        type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
         dispatch thunk of Decoder.decodeSingularBoolField(value:)();
       }
 
       else if (result == 2)
       {
-        v4 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0) + 24);
+        type metadata accessor for CLP_LogEntry_PrivateData_WifiAssociationState(0);
         type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
-        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiAccessPoint and conformance CLP_LogEntry_PrivateData_WifiAccessPoint, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
+        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiAccessPoint and conformance CLP_LogEntry_PrivateData_WifiAccessPoint, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint, &protocol conformance descriptor for CLP_LogEntry_PrivateData_WifiAccessPoint);
         dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
       }
 
@@ -4212,7 +4111,7 @@ uint64_t CLP_LogEntry_PrivateData_WifiAssociationState.decodeMessage<A>(decoder:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4258,14 +4157,14 @@ uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_Private
   return result;
 }
 
-uint64_t CLP_LogEntry_PrivateData_WifiAccessPoint.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_WifiAccessPoint.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -4279,39 +4178,34 @@ uint64_t CLP_LogEntry_PrivateData_WifiAccessPoint.decodeMessage<A>(decoder:)()
       {
         if (result == 3)
         {
-          v11 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 28);
+          type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
           dispatch thunk of Decoder.decodeSingularSInt32Field(value:)();
           goto LABEL_5;
         }
 
         if (result != 4)
         {
-          v4 = v0;
-          v5 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 36);
-LABEL_17:
-          v0 = v4;
-          dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
-          goto LABEL_5;
+          goto LABEL_16;
         }
 
-        v13 = v0;
-        v14 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 32);
+        v6 = v3;
+        type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
         lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiAccessPointMode and conformance CLP_LogEntry_PrivateData_WifiAccessPointMode();
-LABEL_29:
-        v0 = v13;
+LABEL_26:
+        v3 = v6;
         dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
         goto LABEL_5;
       }
 
       if (result == 1)
       {
-        v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 20);
+        type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
         dispatch thunk of Decoder.decodeSingularFixed64Field(value:)();
       }
 
       else if (result == 2)
       {
-        v7 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 24);
+        type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
         dispatch thunk of Decoder.decodeSingularStringField(value:)();
       }
 
@@ -4323,24 +4217,20 @@ LABEL_5:
     {
       if (result == 6)
       {
-        v10 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 40);
+        type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
         dispatch thunk of Decoder.decodeSingularFloatField(value:)();
         goto LABEL_5;
       }
 
-      v8 = v0;
-      v9 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 44);
-      goto LABEL_26;
+LABEL_23:
+      type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
+      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
+      goto LABEL_5;
     }
 
     if (result == 8)
     {
-      v8 = v0;
-      v12 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 48);
-LABEL_26:
-      v0 = v8;
-      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-      goto LABEL_5;
+      goto LABEL_23;
     }
 
     if (result != 9)
@@ -4350,15 +4240,16 @@ LABEL_26:
         goto LABEL_5;
       }
 
-      v4 = v0;
-      v6 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 56);
-      goto LABEL_17;
+LABEL_16:
+      type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
+      dispatch thunk of Decoder.decodeSingularInt32Field(value:)();
+      goto LABEL_5;
     }
 
-    v13 = v0;
-    v15 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0) + 52);
+    v6 = v3;
+    type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
     lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_WifiRfBand and conformance CLP_LogEntry_PrivateData_WifiRfBand();
-    goto LABEL_29;
+    goto LABEL_26;
   }
 
   return result;
@@ -4367,34 +4258,33 @@ LABEL_26:
 uint64_t protocol witness for Message.init() in conformance CLP_LogEntry_PrivateData_Accel@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = MEMORY[0x277D84F90];
-  v4 = &a2[*(a1 + 20)];
   UnknownStorage.init()();
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 24);
+  v5 = type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a2[v5], 1, 1, v6);
+  return v6(&a2[v4], 1, 1, v5);
 }
 
-uint64_t CLP_LogEntry_PrivateData_WifiScanResult.decodeMessage<A>(decoder:)()
+uint64_t CLP_LogEntry_PrivateData_WifiScanResult.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
-        v3 = *(type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult(0) + 24);
+        type metadata accessor for CLP_LogEntry_PrivateData_WifiScanResult(0);
         type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp(0);
-        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp);
+        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp, type metadata accessor for CLP_LogEntry_PrivateData_TimeStamp, &protocol conformance descriptor for CLP_LogEntry_PrivateData_TimeStamp);
         dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
       }
 
       else if (result == 2)
       {
         type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint(0);
-        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiAccessPoint and conformance CLP_LogEntry_PrivateData_WifiAccessPoint, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint);
+        lazy protocol witness table accessor for type CLP_LogEntry_PrivateData_TimeStamp and conformance CLP_LogEntry_PrivateData_TimeStamp(&lazy protocol witness table cache variable for type CLP_LogEntry_PrivateData_WifiAccessPoint and conformance CLP_LogEntry_PrivateData_WifiAccessPoint, type metadata accessor for CLP_LogEntry_PrivateData_WifiAccessPoint, &protocol conformance descriptor for CLP_LogEntry_PrivateData_WifiAccessPoint);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -4641,10 +4531,10 @@ uint64_t __swift_store_extra_inhabitant_index_692Tm(uint64_t a1, uint64_t a2, in
   return result;
 }
 
-unint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_WifiScanType@<X0>(unint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_PrivateData_WifiScanType@<X0>(_BYTE *a1@<X8>, unint64_t a2@<X0>)
 {
-  result = _s10ALProtobuf37CLP_LogEntry_PrivateData_WifiScanTypeO8rawValueACSgSi_tcfC_0(a1);
-  *a2 = result;
+  result = _s10ALProtobuf37CLP_LogEntry_PrivateData_WifiScanTypeO8rawValueACSgSi_tcfC_0(a2);
+  *a1 = result;
   return result;
 }
 
@@ -4668,31 +4558,29 @@ unint64_t protocol witness for Enum.init(rawValue:) in conformance CLP_LogEntry_
 uint64_t CLP_LogEntry_AONLoc_Indication.wifiIndication.getter@<X0>(void *a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMd, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf30CLP_LogEntry_AONLoc_IndicationP33_D216972680E803847292720624A2662713_StorageClass__wifiIndication;
+  v5 = &v12 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf30CLP_LogEntry_AONLoc_IndicationP33_D216972680E803847292720624A2662713_StorageClass__wifiIndication;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMd, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMd, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_AONLoc_Request.ResultOptions(v6, a1, type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication);
+    return outlined init with take of CLP_LogEntry_AONLoc_Request.ResultOptions(v5, a1, type metadata accessor for CLP_LogEntry_AONLoc_WiFiIndication);
   }
 
   *a1 = MEMORY[0x277D84F90];
-  v11 = a1 + v9[5];
   UnknownStorage.init()();
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  v12[8] = 1;
-  *(a1 + v9[7]) = 2;
-  result = (v10)(v6, 1, v9);
+  v10 = a1 + *(v8 + 24);
+  *v10 = 0;
+  v10[8] = 1;
+  *(a1 + *(v8 + 28)) = 2;
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMd, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMd, &_s10ALProtobuf34CLP_LogEntry_AONLoc_WiFiIndicationVSgMR);
   }
 
   return result;
@@ -4701,17 +4589,16 @@ uint64_t CLP_LogEntry_AONLoc_Indication.wifiIndication.getter@<X0>(void *a1@<X8>
 BOOL CLP_LogEntry_AONLoc_Indication.hasGpsdResponse.getter(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(void))
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v18 - v11;
-  v13 = *(v4 + *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20));
-  v14 = *a3;
+  v11 = &v17 - v10;
+  v12 = *(v4 + *(type metadata accessor for CLP_LogEntry_AONLoc_Indication(0) + 20));
+  v13 = *a3;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v13 + v14, v12, a1, a2);
-  v15 = a4(0);
-  v16 = (*(*(v15 - 8) + 48))(v12, 1, v15) != 1;
-  outlined destroy of Any?(v12, a1, a2);
-  return v16;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v12 + v13, v11, a1, a2);
+  v14 = a4(0);
+  v15 = (*(*(v14 - 8) + 48))(v11, 1, v14) != 1;
+  outlined destroy of Any?(v11, a1, a2);
+  return v15;
 }
 
 BOOL CLP_LogEntry_AONLoc_BtAdvertisement.hasDeviceFlags.getter()
@@ -4823,47 +4710,45 @@ uint64_t ALWiFiNotification.NotiType.init(_:)@<X0>(char a1@<W0>, uint64_t a2@<X8
 BOOL CLP_LogEntry_AONLoc_BtAdvertisement.hasType7Info.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v5 + v6, v4, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
-  v7 = type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  outlined destroy of Any?(v4, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
-  return v8;
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v4 + v5, v3, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
+  v6 = type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  outlined destroy of Any?(v3, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
+  return v7;
 }
 
 uint64_t CLP_LogEntry_AONLoc_BtAdvertisement.type7Info.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for CLP_LogEntry_AONLoc_BtAdvertisement(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info;
   swift_beginAccess();
-  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v7 + v8, v6, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
-  v9 = type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
+  outlined init with copy of CLP_LogEntry_AONLoc_Request.ResultOptions?(v6 + v7, v5, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
+  v8 = type metadata accessor for CLP_LogEntry_AONLoc_Type7Info(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return outlined init with take of CLP_LogEntry_AONLoc_Type7Info(v6, a1, type metadata accessor for CLP_LogEntry_AONLoc_Type7Info);
+    return outlined init with take of CLP_LogEntry_AONLoc_Type7Info(v5, a1, type metadata accessor for CLP_LogEntry_AONLoc_Type7Info);
   }
 
   UnknownStorage.init()();
-  *(a1 + v9[5]) = 2;
-  *(a1 + v9[6]) = 2;
-  *(a1 + v9[7]) = 2;
-  *(a1 + v9[8]) = 2;
-  *(a1 + v9[9]) = 2;
-  *(a1 + v9[10]) = 8;
-  result = (v10)(v6, 1, v9);
+  *(a1 + v8[5]) = 2;
+  *(a1 + v8[6]) = 2;
+  *(a1 + v8[7]) = 2;
+  *(a1 + v8[8]) = 2;
+  *(a1 + v8[9]) = 2;
+  *(a1 + v8[10]) = 8;
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return outlined destroy of Any?(v6, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
+    return outlined destroy of Any?(v5, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
   }
 
   return result;
@@ -4873,13 +4758,11 @@ uint64_t ALBtAdvInfoType7.init(pb:)(uint64_t a1)
 {
   v2 = type metadata accessor for ALBtAdvInfoType7.Placement();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes16ALBtAdvInfoType7V9PlacementOSgMd, &_s11ALDataTypes16ALBtAdvInfoType7V9PlacementOSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v13 - v9;
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ALDataTypes16ALBtAdvInfoType7V9PlacementOSgMd, &_s11ALDataTypes16ALBtAdvInfoType7V9PlacementOSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v11 - v7;
   ALBtAdvInfoType7.init()();
   if (CLP_LogEntry_AONLoc_Type7Info.hasIsSameAccount.getter())
   {
@@ -4913,10 +4796,10 @@ uint64_t ALBtAdvInfoType7.init(pb:)(uint64_t a1)
 
   if (CLP_LogEntry_AONLoc_Type7Info.hasPlacement.getter())
   {
-    v11 = CLP_LogEntry_AONLoc_Type7Info.placement.getter();
-    (*(v3 + 104))(v6, **(&unk_278BC48D8 + v11), v2);
-    (*(v3 + 32))(v10, v6, v2);
-    (*(v3 + 56))(v10, 0, 1, v2);
+    v9 = CLP_LogEntry_AONLoc_Type7Info.placement.getter();
+    (*(v3 + 104))(v5, **(&unk_278BC48D8 + v9), v2);
+    (*(v3 + 32))(v8, v5, v2);
+    (*(v3 + 56))(v8, 0, 1, v2);
     ALBtAdvInfoType7._placement.setter();
   }
 
@@ -4932,35 +4815,29 @@ uint64_t outlined destroy of CLP_LogEntry_AONLoc_BtAdvertisement(uint64_t a1, ui
 
 uint64_t CLP_LogEntry_AONLoc_BtAdvertisement._StorageClass.__deallocating_deinit()
 {
-  outlined consume of Data?(v0[9], v0[10]);
-  v1 = v0[18];
-
-  v2 = v0[20];
+  outlined consume of Data?(*(v0 + 72), *(v0 + 80));
 
   outlined destroy of Any?(v0 + OBJC_IVAR____TtCV10ALProtobuf35CLP_LogEntry_AONLoc_BtAdvertisementP33_E9587737FC1639A911680431159314D113_StorageClass__type7Info, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMd, &_s10ALProtobuf29CLP_LogEntry_AONLoc_Type7InfoVSgMR);
-  v3 = *(*v0 + 48);
-  v4 = *(*v0 + 52);
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
 
-  return MEMORY[0x2821FE8D8](v0, v3, v4);
+  return MEMORY[0x2821FE8D8](v0, v1, v2);
 }
 
 uint64_t sub_23CEB9D70()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_23CEB9DA8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_23CEB9DE0()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -4980,7 +4857,6 @@ uint64_t sub_23CEB9E50()
 
 uint64_t sub_23CEB9E90()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
@@ -4989,7 +4865,6 @@ uint64_t sub_23CEB9EC8()
 {
   if (*(v0 + 16))
   {
-    v1 = *(v0 + 24);
   }
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
@@ -5091,7 +4966,7 @@ LABEL_3:
   return v16(v17, a2, a2, v15);
 }
 
-uint64_t sub_23CEBA220(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_23CEBA220(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -5582,7 +5457,7 @@ uint64_t sub_23CEBB324(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_23CEBB404(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_23CEBB404(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -6182,7 +6057,7 @@ uint64_t sub_23CEBCCE8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_23CEBCDA0(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_23CEBCDA0(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -6647,7 +6522,7 @@ uint64_t sub_23CEBDB60(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return v11(v12, a2, a2, v10);
 }
 
-uint64_t sub_23CEBDCC4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_23CEBDCC4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -7643,7 +7518,7 @@ uint64_t sub_23CEBFFD0(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_23CEC008C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_23CEC008C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -8860,7 +8735,7 @@ uint64_t sub_23CEC2A88(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_23CEC2B40(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_23CEC2B40(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -9441,7 +9316,7 @@ uint64_t sub_23CEC3F0C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_23CEC3FD4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_23CEC3FD4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -9833,6 +9708,118 @@ uint64_t sub_23CEC4CF8(uint64_t a1, uint64_t a2, uint64_t a3)
     else
     {
       return 0;
+    }
+  }
+}
+
+uint64_t sub_23CEC4DBC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+{
+  result = type metadata accessor for UnknownStorage();
+  v9 = *(result - 8);
+  if (*(v9 + 84) == a3)
+  {
+    v10 = *(v9 + 56);
+
+    return v10(a1, a2, a2, result);
+  }
+
+  else
+  {
+    *(a1 + *(a4 + 24)) = a2 + 4;
+  }
+
+  return result;
+}
+
+uint64_t sub_23CEC4E74(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for UnknownStorage();
+  v7 = *(v6 - 8);
+  if (*(v7 + 84) == a2)
+  {
+    v8 = *(v7 + 48);
+
+    return v8(a1, a2, v6);
+  }
+
+  else
+  {
+    v10 = *(a1 + *(a3 + 20));
+    if (v10 <= 8)
+    {
+      v11 = 8;
+    }
+
+    else
+    {
+      v11 = *(a1 + *(a3 + 20));
+    }
+
+    v12 = v11 - 8;
+    if (v10 >= 8)
+    {
+      return v12;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+}
+
+uint64_t sub_23CEC4F38(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+{
+  result = type metadata accessor for UnknownStorage();
+  v9 = *(result - 8);
+  if (*(v9 + 84) == a3)
+  {
+    v10 = *(v9 + 56);
+
+    return v10(a1, a2, a2, result);
+  }
+
+  else
+  {
+    *(a1 + *(a4 + 20)) = a2 + 8;
+  }
+
+  return result;
+}
+
+uint64_t sub_23CEC4FF8(unint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 == 0x7FFFFFFF)
+  {
+    v4 = *a1;
+    if (*a1 >= 0xFFFFFFFF)
+    {
+      LODWORD(v4) = -1;
+    }
+
+    return (v4 + 1);
+  }
+
+  else
+  {
+    v8 = type metadata accessor for UnknownStorage();
+    v9 = *(v8 - 8);
+    if (*(v9 + 84) == a2)
+    {
+      v10 = v8;
+      v11 = *(v9 + 48);
+      v12 = a1 + *(a3 + 20);
+
+      return v11(v12, a2, v10);
+    }
+
+    else
+    {
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10ALProtobuf29Proto_Gpsd_RecoveryStatisticsV0D6StatusVSgMd, &_s10ALProtobuf29Proto_Gpsd_RecoveryStatisticsV0D6StatusVSgMR);
+      v14 = *(*(v13 - 8) + 48);
+      v15 = a1 + *(a3 + 24);
+
+      return v14(v15, a2, v13);
     }
   }
 }

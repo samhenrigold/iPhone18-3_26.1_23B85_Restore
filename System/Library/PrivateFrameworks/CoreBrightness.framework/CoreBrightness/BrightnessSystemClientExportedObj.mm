@@ -82,23 +82,24 @@
     selfCopy->queue = dispatch_queue_create(0, 0);
   }
 
-  if (selfCopy->clientBlock && selfCopy->queue)
+  if (selfCopy->clientBlock)
   {
-    MEMORY[0x1E69E5928](propertyCopy);
-    MEMORY[0x1E69E5928](valueCopy);
-    queue = selfCopy->queue;
-    block = MEMORY[0x1E69E9820];
-    v7 = -1073741824;
-    v8 = 0;
-    v9 = __65__BrightnessSystemClientExportedObj_notifyChangedProperty_value___block_invoke;
-    v10 = &unk_1E867B750;
-    v11 = selfCopy;
-    v12 = propertyCopy;
-    v13 = valueCopy;
-    dispatch_async(queue, &block);
+    if (selfCopy->queue)
+    {
+      MEMORY[0x1E69E5928](propertyCopy);
+      MEMORY[0x1E69E5928](valueCopy);
+      queue = selfCopy->queue;
+      block = MEMORY[0x1E69E9820];
+      v7 = -1073741824;
+      v8 = 0;
+      v9 = __65__BrightnessSystemClientExportedObj_notifyChangedProperty_value___block_invoke;
+      v10 = &unk_1E867B750;
+      v11 = selfCopy;
+      v12 = propertyCopy;
+      v13 = valueCopy;
+      dispatch_async(queue, &block);
+    }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 double __65__BrightnessSystemClientExportedObj_notifyChangedProperty_value___block_invoke(void *a1)
@@ -107,8 +108,6 @@ double __65__BrightnessSystemClientExportedObj_notifyChangedProperty_value___blo
   objc_sync_enter(obj);
   if (*(a1[4] + 8))
   {
-    v1 = a1[5];
-    v2 = a1[6];
     (*(*(a1[4] + 8) + 16))();
   }
 

@@ -41,7 +41,7 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_invalidationBlock)
   {
     v3 = *MEMORY[0x1E698D0A0];
@@ -50,19 +50,18 @@
       identifier = self->_identifier;
       reason = self->_reason;
       *buf = 136315650;
-      v9 = "[SiriActivityAssertion dealloc]";
-      v10 = 2112;
-      v11 = identifier;
-      v12 = 2112;
-      v13 = reason;
+      v8 = "[SiriActivityAssertion dealloc]";
+      v9 = 2112;
+      v10 = identifier;
+      v11 = 2112;
+      v12 = reason;
       _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s Deallocated SiriActivityAssertion (identifier=%@, reason=%@) before it was properly invalidated.", buf, 0x20u);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = SiriActivityAssertion;
-  [(SiriActivityAssertion *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = SiriActivityAssertion;
+  [(SiriActivityAssertion *)&v6 dealloc];
 }
 
 - (void)invalidate

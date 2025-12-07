@@ -235,12 +235,11 @@ LABEL_9:
 {
   toCopy = to;
   has = self->_has;
-  v13 = toCopy;
+  v6 = toCopy;
   if ((has & 8) != 0)
   {
-    latitude = self->_latitude;
     PBDataWriterWriteDoubleField();
-    toCopy = v13;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -259,9 +258,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  longitude = self->_longitude;
   PBDataWriterWriteDoubleField();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -275,9 +273,8 @@ LABEL_4:
   }
 
 LABEL_16:
-  horizontalAccuracy = self->_horizontalAccuracy;
   PBDataWriterWriteDoubleField();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -291,9 +288,8 @@ LABEL_5:
   }
 
 LABEL_17:
-  altitude = self->_altitude;
   PBDataWriterWriteDoubleField();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -307,9 +303,8 @@ LABEL_6:
   }
 
 LABEL_18:
-  verticalAccuracy = self->_verticalAccuracy;
   PBDataWriterWriteDoubleField();
-  toCopy = v13;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -323,22 +318,20 @@ LABEL_7:
   }
 
 LABEL_19:
-  course = self->_course;
   PBDataWriterWriteDoubleField();
-  toCopy = v13;
+  toCopy = v6;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    speed = self->_speed;
     PBDataWriterWriteDoubleField();
-    toCopy = v13;
+    toCopy = v6;
   }
 
 LABEL_9:
   if (self->_timestamp)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v13;
+    toCopy = v6;
   }
 }
 
@@ -562,7 +555,6 @@ LABEL_9:
     goto LABEL_39;
   }
 
-  v8 = *(equalCopy + 72);
   if ((*&self->_has & 8) != 0)
   {
     if ((equalCopy[9] & 8) == 0 || self->_latitude != *(equalCopy + 4))
@@ -657,10 +649,10 @@ LABEL_39:
   }
 
   timestamp = self->_timestamp;
-  v10 = equalCopy[8];
-  if (timestamp | v10)
+  v9 = equalCopy[8];
+  if (timestamp | v9)
   {
-    isEqual = objc_msgSend_isEqual_(timestamp, v7, v10);
+    isEqual = objc_msgSend_isEqual_(timestamp, v7, v9);
   }
 
   else

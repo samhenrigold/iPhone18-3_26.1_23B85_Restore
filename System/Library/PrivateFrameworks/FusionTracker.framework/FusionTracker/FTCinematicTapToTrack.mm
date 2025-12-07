@@ -81,14 +81,14 @@ LABEL_6:
 
 - (void)_setupNetworksWithEngine:(const void *)engine
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = +[FTCinematicTracker highPriorityExemplarNetworkDescriptor];
+  v4 = +[FTCinematicTracker highPriorityExemplarNetworkDescriptor];
   exemplarNetDesc = self->_exemplarNetDesc;
-  self->_exemplarNetDesc = v5;
+  self->_exemplarNetDesc = v4;
 
   [(FTNetworkDescriptor *)self->_exemplarNetDesc name];
-  [(FTCinematicTapToTrack *)self _resolveNetworkPath:objc_claimAutoreleasedReturnValue()];
-  [(FTCinematicTapToTrack *)self _espressoConfigFromDescriptor:self->_exemplarNetDesc engine:engine];
+  objc_claimAutoreleasedReturnValue();
+  objc_msgSend__resolveNetworkPath_(self);
+  objc_msgSend__espressoConfigFromDescriptor_engine_(self);
   operator new();
 }
 
@@ -221,7 +221,7 @@ LABEL_6:
     result = [(FTTapToTrackPreprocessor *)self->_preprocessor bgraPixelBuffer];
     if (tapToBox)
     {
-      return [(FTTapToBox *)tapToBox predictionForTap:result inBuffer:self->_scaler scaler:x, y];
+      return objc_msgSend_predictionForTap_inBuffer_scaler_(tapToBox, x, y);
     }
 
     else
@@ -428,7 +428,7 @@ LABEL_12:
 
   memset(v46, 0, sizeof(v46));
   v47 = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::Tensor> const&>(v46, &v49);
+  std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::Tensor> const&>(v46, &v49.value, &v49);
   v28 = *(ptr + 1);
   v30 = *(v28 + 56);
   v31 = *(v28 + 64);
@@ -545,7 +545,7 @@ LABEL_21:
   *(&__dst.value + v14) = 0;
 
   p_dst = &__dst;
-  v16 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84, &__dst);
+  v16 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84, &__dst.value, &std::piecewise_construct, &p_dst);
   v17 = v16;
   *(v16 + 12) = self->_instanceCrop.type_;
   if (v16 + 5 != &self->_instanceCrop)
@@ -657,7 +657,7 @@ LABEL_17:
 
       v15 = v70;
       p_p = &__p;
-      v37 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84, &__p);
+      v37 = std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84, &__p, &std::piecewise_construct, &p_p);
       v38 = v37;
       *(v37 + 12) = __dst.timescale;
       if (v37 + 5 != &__dst)

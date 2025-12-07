@@ -15,67 +15,72 @@
   classCopy = class;
   valueCopy = value;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = sub_1000031A4();
-    if (os_signpost_enabled(v11))
+    v14 = sub_1000031A4(isKindOfClass);
+    if (os_signpost_enabled(v14))
     {
-      LOWORD(v19) = 0;
-      v12 = "InvalidDefaultsKey";
-      v13 = "Defaults contain non-string key";
-      v14 = v11;
-      v15 = 2;
+      LOWORD(v22) = 0;
+      v15 = "InvalidDefaultsKey";
+      v16 = "Defaults contain non-string key";
+      v17 = v14;
+      v18 = 2;
 LABEL_10:
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v12, v13, &v19, v15);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v15, v16, &v22, v18);
     }
 
 LABEL_11:
 
-    v10 = 0;
+    v13 = 0;
     goto LABEL_12;
   }
 
   keyToExpectedClass = [(PTPCDefaultsManager *)self keyToExpectedClass];
-  v9 = [keyToExpectedClass objectForKeyedSubscript:classCopy];
+  v10 = [keyToExpectedClass objectForKeyedSubscript:classCopy];
 
-  if (!v9)
+  if (!v10)
   {
-    v11 = sub_1000031A4();
-    if (os_signpost_enabled(v11))
+    v14 = sub_1000031A4(v11);
+    if (os_signpost_enabled(v14))
     {
-      v19 = 138543362;
-      v20 = classCopy;
-      v12 = "UnknownDefaultsKey";
-      v13 = "Defaults contain unknown key: %{public}@";
-      v14 = v11;
-      v15 = 12;
+      v22 = 138543362;
+      v23 = classCopy;
+      v15 = "UnknownDefaultsKey";
+      v16 = "Defaults contain unknown key: %{public}@";
+      v17 = v14;
+      v18 = 12;
       goto LABEL_10;
     }
 
     goto LABEL_11;
   }
 
-  if (valueCopy && (objc_opt_isKindOfClass() & 1) == 0)
+  if (valueCopy)
   {
-    v11 = sub_1000031A4();
-    if (os_signpost_enabled(v11))
+    v12 = objc_opt_isKindOfClass();
+    if ((v12 & 1) == 0)
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = 138543618;
-      v20 = classCopy;
-      v21 = 2114;
-      v22 = v18;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnexpectedClassForKey", "Key '%{public}@' has unexpected class '%{public}@'", &v19, 0x16u);
-    }
+      v14 = sub_1000031A4(v12);
+      if (os_signpost_enabled(v14))
+      {
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v22 = 138543618;
+        v23 = classCopy;
+        v24 = 2114;
+        v25 = v21;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnexpectedClassForKey", "Key '%{public}@' has unexpected class '%{public}@'", &v22, 0x16u);
+      }
 
-    goto LABEL_11;
+      goto LABEL_11;
+    }
   }
 
-  v10 = 1;
+  v13 = 1;
 LABEL_12:
 
-  return v10;
+  return v13;
 }
 
 - (BOOL)_validateInstrumentationConfigDict:(id)dict
@@ -83,7 +88,7 @@ LABEL_12:
   dictCopy = dict;
   if (!dictCopy)
   {
-    allKeys = sub_100003420();
+    allKeys = sub_100003420(0);
     if (os_signpost_enabled(allKeys))
     {
       *buf = 0;
@@ -94,60 +99,61 @@ LABEL_12:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    allKeys = sub_1000031A4();
+    allKeys = sub_1000031A4(isKindOfClass);
     if (os_signpost_enabled(allKeys))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543362;
-      v22 = v14;
+      v23 = v15;
       _os_signpost_emit_with_name_impl(&_mh_execute_header, allKeys, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnexpectedClassForConfigurationDict", "Expected dictionary, got unexpected class '%{public}@'", buf, 0xCu);
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(v13) = 0;
     goto LABEL_18;
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
   allKeys = [dictCopy allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (!v6)
+  v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (!v7)
   {
 LABEL_14:
-    LOBYTE(v12) = 1;
+    LOBYTE(v13) = 1;
     goto LABEL_18;
   }
 
-  v7 = v6;
-  v8 = *v17;
+  v8 = v7;
+  v9 = *v18;
 LABEL_5:
-  v9 = 0;
+  v10 = 0;
   while (1)
   {
-    if (*v17 != v8)
+    if (*v18 != v9)
     {
       objc_enumerationMutation(allKeys);
     }
 
-    v10 = *(*(&v16 + 1) + 8 * v9);
-    v11 = [dictCopy objectForKeyedSubscript:v10];
-    v12 = [(PTPCDefaultsManager *)self _valueHasExpectedClass:v10 value:v11];
+    v11 = *(*(&v17 + 1) + 8 * v10);
+    v12 = [dictCopy objectForKeyedSubscript:v11];
+    v13 = [(PTPCDefaultsManager *)self _valueHasExpectedClass:v11 value:v12];
 
-    if (!v12)
+    if (!v13)
     {
       break;
     }
 
-    if (v7 == ++v9)
+    if (v8 == ++v10)
     {
-      v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
-      LOBYTE(v12) = 1;
-      if (v7)
+      v8 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+      LOBYTE(v13) = 1;
+      if (v8)
       {
         goto LABEL_5;
       }
@@ -158,7 +164,7 @@ LABEL_5:
 
 LABEL_18:
 
-  return v12;
+  return v13;
 }
 
 - (NSDictionary)configurationDict
@@ -176,13 +182,13 @@ LABEL_18:
   configurationDictKey = [(PTPCDefaultsManager *)self configurationDictKey];
   [defaults removeObjectForKey:configurationDictKey];
 
-  v5 = sub_100003420();
-  if (os_signpost_enabled(v5))
+  v6 = sub_100003420(v5);
+  if (os_signpost_enabled(v6))
   {
     defaultsDomain = [(PTPCDefaultsManager *)self defaultsDomain];
-    v7 = 138543362;
-    v8 = defaultsDomain;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HardResetSuccess", "Reset of collection configuration for domain %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = defaultsDomain;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HardResetSuccess", "Reset of collection configuration for domain %{public}@", &v8, 0xCu);
   }
 }
 
@@ -192,6 +198,7 @@ LABEL_18:
   keyCopy = key;
   dictCopy = dict;
   v14 = [[NSUserDefaults alloc] initWithSuiteName:domainCopy];
+  v15 = v14;
   if (!v14)
   {
     if (out)
@@ -200,37 +207,38 @@ LABEL_18:
       *out = [NSError passiveTraceError:1 description:domainCopy];
     }
 
-    configurationDict = sub_1000031A4();
+    configurationDict = sub_1000031A4(v14);
     if (os_signpost_enabled(configurationDict))
     {
       *buf = 138543362;
-      v26 = domainCopy;
+      v28 = domainCopy;
       _os_signpost_emit_with_name_impl(&_mh_execute_header, configurationDict, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CouldNotReadDefaults", "Could not read defaults for domain %{public}@", buf, 0xCu);
     }
 
     goto LABEL_17;
   }
 
-  v24.receiver = self;
-  v24.super_class = PTPCDefaultsManager;
-  v15 = [(PTPCDefaultsManager *)&v24 init];
-  self = v15;
-  if (v15)
+  v26.receiver = self;
+  v26.super_class = PTPCDefaultsManager;
+  v16 = [(PTPCDefaultsManager *)&v26 init];
+  self = v16;
+  if (v16)
   {
-    objc_storeStrong(&v15->_defaults, v14);
+    objc_storeStrong(&v16->_defaults, v15);
     objc_storeStrong(&self->_defaultsDomain, domain);
     objc_storeStrong(&self->_configurationDictKey, key);
     objc_storeStrong(&self->_keyToExpectedClass, dict);
     configurationDict = [(PTPCDefaultsManager *)self configurationDict];
-    if ([(PTPCDefaultsManager *)self _validateInstrumentationConfigDict:configurationDict])
+    v18 = [(PTPCDefaultsManager *)self _validateInstrumentationConfigDict:configurationDict];
+    if (v18)
     {
-      v17 = sub_100003420();
-      if (os_signpost_enabled(v17))
+      v19 = sub_100003420(v18);
+      if (os_signpost_enabled(v19))
       {
-        v18 = [configurationDict description];
+        v20 = [configurationDict description];
         *buf = 138543362;
-        v26 = v18;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InitializedDefaultsManager", "Initialized with current config:\n%{public}@", buf, 0xCu);
+        v28 = v20;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InitializedDefaultsManager", "Initialized with current config:\n%{public}@", buf, 0xCu);
       }
 
       goto LABEL_7;
@@ -242,12 +250,12 @@ LABEL_18:
       *out = [NSError passiveTraceError:1 description:domainCopy2];
     }
 
-    v22 = sub_1000031A4();
-    if (os_signpost_enabled(v22))
+    v24 = sub_1000031A4(v18);
+    if (os_signpost_enabled(v24))
     {
       *buf = 138543362;
-      v26 = domainCopy;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MalformedDefaults", "Could not read defaults for domain %{public}@", buf, 0xCu);
+      v28 = domainCopy;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MalformedDefaults", "Could not read defaults for domain %{public}@", buf, 0xCu);
     }
 
 LABEL_17:
@@ -269,8 +277,7 @@ LABEL_18:
   configurationDict = [(PTPCDefaultsManager *)self configurationDict];
   if (![(PTPCDefaultsManager *)self _validateInstrumentationConfigDict:configurationDict])
   {
-    [(PTPCDefaultsManager *)self resetPersistedDefaults];
-    v6 = sub_1000031A4();
+    v6 = sub_1000031A4([(PTPCDefaultsManager *)self resetPersistedDefaults]);
     if (os_signpost_enabled(v6))
     {
       LOWORD(v10) = 0;
@@ -281,7 +288,7 @@ LABEL_18:
   }
 
   v7 = [configurationDict objectForKeyedSubscript:keyCopy];
-  v8 = sub_100003420();
+  v8 = sub_100003420(v7);
   if (os_signpost_enabled(v8))
   {
     v10 = 138543618;
@@ -298,52 +305,54 @@ LABEL_18:
 {
   keyCopy = key;
   valueCopy = value;
-  if ([(PTPCDefaultsManager *)self _valueHasExpectedClass:keyCopy value:valueCopy])
+  v8 = [(PTPCDefaultsManager *)self _valueHasExpectedClass:keyCopy value:valueCopy];
+  if (v8)
   {
     configurationDict = [(PTPCDefaultsManager *)self configurationDict];
     if (configurationDict)
     {
-      v9 = configurationDict;
+      v10 = configurationDict;
     }
 
     else
     {
-      v9 = &__NSDictionary0__struct;
+      v10 = &__NSDictionary0__struct;
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v10 = sub_1000031A4();
-      if (os_signpost_enabled(v10))
+      v12 = sub_1000031A4(isKindOfClass);
+      if (os_signpost_enabled(v12))
       {
         configurationDictKey = [(PTPCDefaultsManager *)self configurationDictKey];
-        v21 = 138543362;
-        v22 = configurationDictKey;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigNotDict", "Object for key '%{public}@' was unexpected class. Clearing and starting over.", &v21, 0xCu);
+        v24 = 138543362;
+        v25 = configurationDictKey;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigNotDict", "Object for key '%{public}@' was unexpected class. Clearing and starting over.", &v24, 0xCu);
       }
 
-      v9 = &__NSDictionary0__struct;
+      v10 = &__NSDictionary0__struct;
     }
 
-    v12 = [v9 mutableCopy];
-    v13 = v12;
+    v14 = [v10 mutableCopy];
+    v15 = v14;
     if (valueCopy)
     {
-      [v12 setObject:valueCopy forKeyedSubscript:keyCopy];
+      [v14 setObject:valueCopy forKeyedSubscript:keyCopy];
     }
 
     else
     {
-      [v12 removeObjectForKey:keyCopy];
+      [v14 removeObjectForKey:keyCopy];
     }
 
-    v16 = [v13 count];
+    v18 = [v15 count];
     defaults = [(PTPCDefaultsManager *)self defaults];
     configurationDictKey2 = [(PTPCDefaultsManager *)self configurationDictKey];
-    if (v16)
+    if (v18)
     {
-      [defaults setValue:v13 forKey:configurationDictKey2];
+      [defaults setValue:v15 forKey:configurationDictKey2];
     }
 
     else
@@ -351,35 +360,35 @@ LABEL_18:
       [defaults removeObjectForKey:configurationDictKey2];
     }
 
-    v19 = sub_100003420();
-    if (os_signpost_enabled(v19))
+    v22 = sub_100003420(v21);
+    if (os_signpost_enabled(v22))
     {
-      v21 = 138543618;
-      v22 = keyCopy;
-      v23 = 2114;
-      v24 = valueCopy;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SetKeyValue", "Set key-value pair: '%{public}@' -> '%{public}@'", &v21, 0x16u);
+      v24 = 138543618;
+      v25 = keyCopy;
+      v26 = 2114;
+      v27 = valueCopy;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SetKeyValue", "Set key-value pair: '%{public}@' -> '%{public}@'", &v24, 0x16u);
     }
 
-    v15 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v14 = sub_1000031A4();
-    if (os_signpost_enabled(v14))
+    v16 = sub_1000031A4(v8);
+    if (os_signpost_enabled(v16))
     {
-      v21 = 138543618;
-      v22 = keyCopy;
-      v23 = 2114;
-      v24 = valueCopy;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidKeyValueSetting", "Attempted to set invalid key-value pair: '%{public}@' -> '%{public}@'", &v21, 0x16u);
+      v24 = 138543618;
+      v25 = keyCopy;
+      v26 = 2114;
+      v27 = valueCopy;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidKeyValueSetting", "Attempted to set invalid key-value pair: '%{public}@' -> '%{public}@'", &v24, 0x16u);
     }
 
-    v15 = [NSError passiveTraceError:1 description:@"Attempted to set invalid value for key"];
+    v17 = [NSError passiveTraceError:1 description:@"Attempted to set invalid value for key"];
   }
 
-  return v15;
+  return v17;
 }
 
 @end

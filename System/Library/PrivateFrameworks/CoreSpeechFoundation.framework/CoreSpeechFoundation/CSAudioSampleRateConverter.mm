@@ -11,7 +11,7 @@
 
 - (id)convertSampleRateOfBuffer:(id)buffer
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   bufferCopy = buffer;
   v5 = bufferCopy;
   if (!self->_sampleRateConverter || ![bufferCopy length])
@@ -20,10 +20,10 @@
     goto LABEL_18;
   }
 
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
-  v27 = 0;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
+  v26 = 0;
   v6 = [MEMORY[0x1E695DF88] dataWithLength:{(self->_outBufferScaleFactor * objc_msgSend(v5, "length"))}];
   v7 = 0;
   while (1)
@@ -43,8 +43,8 @@
     inInputDataProcUserData[3] = &unk_1E865A7F0;
     v11 = v5;
     selfCopy = self;
-    v23 = v26;
-    v21 = v11;
+    v22 = v25;
+    v20 = v11;
     v12 = AudioConverterFillComplexBuffer(sampleRateConverter, AudioConverterFillComplexBuffer_BlockInvoke, inInputDataProcUserData, &ioOutputDataPacketSize, &outOutputData, 0);
     v13 = v12;
     v7 += self->_outASBD.mBytesPerFrame * ioOutputDataPacketSize;
@@ -63,7 +63,7 @@
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v29 = "[CSAudioSampleRateConverter convertSampleRateOfBuffer:]";
+        v28 = "[CSAudioSampleRateConverter convertSampleRateOfBuffer:]";
         _os_log_debug_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEBUG, "%s Override result as 'mpty'", buf, 0xCu);
       }
     }
@@ -84,9 +84,9 @@ LABEL_11:
 
   v16 = self->_outASBD.mBytesPerFrame * ioOutputDataPacketSize;
   *buf = 136315394;
-  v29 = "[CSAudioSampleRateConverter convertSampleRateOfBuffer:]";
-  v30 = 2048;
-  v31 = v16;
+  v28 = "[CSAudioSampleRateConverter convertSampleRateOfBuffer:]";
+  v29 = 2048;
+  v30 = v16;
   _os_log_debug_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEBUG, "%s Audio resampling done : %lu", buf, 0x16u);
   if (!v13)
   {
@@ -104,19 +104,17 @@ LABEL_14:
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v29 = "[CSAudioSampleRateConverter convertSampleRateOfBuffer:]";
-    v30 = 1026;
-    LODWORD(v31) = v13;
+    v28 = "[CSAudioSampleRateConverter convertSampleRateOfBuffer:]";
+    v29 = 1026;
+    LODWORD(v30) = v13;
     _os_log_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_DEFAULT, "%s AudioConverter is sad: 0x%{public}xd", buf, 0x12u);
   }
 
 LABEL_16:
 
   [v6 setLength:v7];
-  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(v25, 8);
 LABEL_18:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -165,7 +163,7 @@ uint64_t __56__CSAudioSampleRateConverter_convertSampleRateOfBuffer___block_invo
 
 - (OpaqueAudioConverter)_createSampleRateConverterWithInASBD:(AudioStreamBasicDescription *)d outASBD:(AudioStreamBasicDescription *)bD
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   outAudioConverter = 0;
   v7 = AudioConverterNew(d, bD, &outAudioConverter);
   if (!v7)
@@ -177,11 +175,11 @@ uint64_t __56__CSAudioSampleRateConverter_convertSampleRateOfBuffer___block_invo
       v13 = CSLogCategoryAudio;
       if (!os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_12;
+        return 0;
       }
 
       *buf = 136315138;
-      v20 = "[CSAudioSampleRateConverter _createSampleRateConverterWithInASBD:outASBD:]";
+      v19 = "[CSAudioSampleRateConverter _createSampleRateConverterWithInASBD:outASBD:]";
       v10 = "%s Cannot set Quality property to audioConverter";
     }
 
@@ -190,21 +188,20 @@ uint64_t __56__CSAudioSampleRateConverter_convertSampleRateOfBuffer___block_invo
       inPropertyData = 1852797549;
       if (!AudioConverterSetProperty(outAudioConverter, 0x73726361u, 4u, &inPropertyData))
       {
-        v16 = bD->mSampleRate / d->mSampleRate;
-        self->_outBufferScaleFactor = v16;
-        result = outAudioConverter;
-        goto LABEL_13;
+        v15 = bD->mSampleRate / d->mSampleRate;
+        self->_outBufferScaleFactor = v15;
+        return outAudioConverter;
       }
 
       AudioConverterDispose(outAudioConverter);
       v13 = CSLogCategoryAudio;
       if (!os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_12;
+        return 0;
       }
 
       *buf = 136315138;
-      v20 = "[CSAudioSampleRateConverter _createSampleRateConverterWithInASBD:outASBD:]";
+      v19 = "[CSAudioSampleRateConverter _createSampleRateConverterWithInASBD:outASBD:]";
       v10 = "%s Cannot set Complexity property to audioConverter";
     }
 
@@ -218,9 +215,9 @@ uint64_t __56__CSAudioSampleRateConverter_convertSampleRateOfBuffer___block_invo
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "[CSAudioSampleRateConverter _createSampleRateConverterWithInASBD:outASBD:]";
-    v21 = 1026;
-    v22 = v8;
+    v19 = "[CSAudioSampleRateConverter _createSampleRateConverterWithInASBD:outASBD:]";
+    v20 = 1026;
+    v21 = v8;
     v10 = "%s Cannot create SampleRateConverter using AudioConverterNew : %{public}d";
     v11 = v9;
     v12 = 18;
@@ -228,11 +225,7 @@ LABEL_11:
     _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, v10, buf, v12);
   }
 
-LABEL_12:
-  result = 0;
-LABEL_13:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (void)dealloc
@@ -284,8 +277,8 @@ LABEL_13:
 + (id)downsampler
 {
   v2 = [CSAudioSampleRateConverter alloc];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmASBD];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmNarrowBandASBD];
+  objc_msgSend_lpcmASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_lpcmNarrowBandASBD(CSFAudioStreamBasicDescriptionFactory);
   v3 = [(CSAudioSampleRateConverter *)v2 initWithInASBD:v6 outASBD:&v5];
 
   return v3;
@@ -294,8 +287,8 @@ LABEL_13:
 + (id)upsampler
 {
   v2 = [CSAudioSampleRateConverter alloc];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmNarrowBandASBD];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmASBD];
+  objc_msgSend_lpcmNarrowBandASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_lpcmASBD(CSFAudioStreamBasicDescriptionFactory);
   v3 = [(CSAudioSampleRateConverter *)v2 initWithInASBD:v6 outASBD:&v5];
 
   return v3;

@@ -63,13 +63,13 @@
   sub_10000533C(57, (v4 * 0.37 + 113.9 + v10 * 0.58 + v22 * 4.99));
   sub_10000533C(56, (v4 * 0.39 + -103.38 + v7 * 0.4 + v9 * 0.19));
   sub_10000533C(59, (v4 * 0.12 + -10.06 + v10 * 0.83));
-  v24 = SHIDWORD(qword_1000AB904);
+  v24 = xmmword_1000AB908;
   v25 = [(CommonProduct *)self findComponent:21];
   *&v26 = v24 / 100.0;
   [v25 calculateControlEffort:v26];
   sub_10000533C(60, (v6 * 0.59 + 91.72 + v7 * 0.35));
   sub_10000533C(58, (v6 * 0.75 + -39.61 + v30 * 0.25));
-  v27 = qword_1000AB90C;
+  v27 = SDWORD1(xmmword_1000AB908);
   v28 = [(CommonProduct *)self findComponent:22];
 
   *&v29 = v27 / 100.0;
@@ -78,14 +78,14 @@
 
 - (int)computeMaxCGTemp
 {
-  if (qword_1000AB904 <= SHIDWORD(qword_1000AB904))
+  if (dword_1000AB904 <= xmmword_1000AB908)
   {
-    return HIDWORD(qword_1000AB904);
+    return xmmword_1000AB908;
   }
 
   else
   {
-    return qword_1000AB904;
+    return dword_1000AB904;
   }
 }
 

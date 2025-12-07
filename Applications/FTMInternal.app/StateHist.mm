@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rrcStateAsString:(int)string;
 - (int)StringAsRrcState:(id)state;
 - (int)rrcState;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)rrcStateAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318E50[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRrcState:(id)state
@@ -168,12 +184,11 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    rrcState = self->_rrcState;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -192,15 +207,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  inStateCount = self->_inStateCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    inStateMs = self->_inStateMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

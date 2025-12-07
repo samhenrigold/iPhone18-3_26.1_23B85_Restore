@@ -1,7 +1,10 @@
 @interface CBEDR
 + (float)animatedHeadroomForOrigin:(float)origin target:(float)target andProgress:(float)progress;
+- (BOOL)shouldUpdateEDRForRequestedHeadroom:(float)headroom targetHeadroom:(float *)targetHeadroom;
+- (BOOL)shouldUpdateEDRForRequestedHeadroom:(float)headroom targetHeadroom:(float *)targetHeadroom rampTime:(double *)time durationPerStop:(float)stop;
 - (CBEDR)initWithRampPolicy:(unint64_t)policy potentialHeadroom:(float)headroom andReferenceHeadroom:(float)referenceHeadroom;
 - (float)availableHeadroom;
+- (float)cappedHeadroomFromUncapped:(float)uncapped;
 - (id)copyStatusInfo;
 - (id)description;
 - (void)dealloc;
@@ -57,7 +60,6 @@
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -187,6 +189,120 @@
   selfCopy = self;
   v3 = a2;
   return [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: r.policy: %lu | h.max: %f | h.ref=%f | h.req: %f | SDR: %f | cap: %f | p.max: %f | sec.per.stop: %f | sec.per.stop.exit: %f", "CBEDR", self->_rampPolicy, self->_maxHeadroom, self->_referenceHeadroom, self->_requestedHeadroom, self->_sdrBrightness, self->_brightnessCap, self->_panelMax, self->_secondsPerStop, self->_secondsPerStopExit, a2, self];
+}
+
+- (BOOL)shouldUpdateEDRForRequestedHeadroom:(float)headroom targetHeadroom:(float *)targetHeadroom rampTime:(double *)time durationPerStop:(float)stop
+{
+  if (!targetHeadroom)
+  {
+    __assert_rtn("[CBEDR shouldUpdateEDRForRequestedHeadroom:targetHeadroom:rampTime:durationPerStop:]", "CBEDR.m", 270, "target");
+  }
+
+  if (!time)
+  {
+    __assert_rtn("[CBEDR shouldUpdateEDRForRequestedHeadroom:targetHeadroom:rampTime:durationPerStop:]", "CBEDR.m", 271, "time");
+  }
+
+  v13 = 0;
+  [(CBEDR *)self clampHeadroom:*&headroom];
+  v17 = v6;
+  [(CBEDR *)self sanityCheck];
+  sdrBrightness = self->_sdrBrightness;
+  if (sdrBrightness > 0.0 && v17 != self->_requestedHeadroom)
+  {
+    self->_requestedHeadroom = v17;
+    if (v17 == self->_currentHeadroom)
+    {
+      v13 = 1;
+      *targetHeadroom = v17;
+      *time = 0.0;
+    }
+
+    else
+    {
+      v13 = 1;
+      *targetHeadroom = v17;
+      if (self->_rampPolicy == 1)
+      {
+        *time = 0.0;
+      }
+
+      else
+      {
+        if (stop < 0.0)
+        {
+          secondsPerStop = self->_secondsPerStop;
+        }
+
+        else
+        {
+          secondsPerStop = stop;
+        }
+
+        *&sdrBrightness = self->_currentHeadroom;
+        *&v7 = v17;
+        *&v8 = secondsPerStop;
+        [CBEDR overallRampDuration:sdrBrightness target:v7 durationPerStop:v8];
+        *time = v10;
+      }
+    }
+  }
+
+  return v13;
+}
+
+- (BOOL)shouldUpdateEDRForRequestedHeadroom:(float)headroom targetHeadroom:(float *)targetHeadroom
+{
+  [(CBEDR *)self clampHeadroom:*&headroom];
+  v7 = v4;
+  [(CBEDR *)self sanityCheck];
+  if (self->_sdrBrightness <= 0.0 || v7 == self->_requestedHeadroom)
+  {
+    return 0;
+  }
+
+  self->_requestedHeadroom = v7;
+  *targetHeadroom = v7;
+  return 1;
+}
+
+- (float)cappedHeadroomFromUncapped:(float)uncapped
+{
+  selfCopy = self;
+  v11 = a2;
+  uncappedCopy = uncapped;
+  [(CBEDR *)self clampHeadroom:*&uncapped];
+  v9 = v3;
+  [(CBEDR *)selfCopy sanityCheck];
+  selfCopy->_currentHeadroom = uncappedCopy;
+  if (selfCopy->_sdrBrightness > 0.0)
+  {
+    if ((selfCopy->_sdrBrightness * uncappedCopy) > selfCopy->_currentMaxBrightness)
+    {
+      v9 = selfCopy->_currentMaxBrightness / selfCopy->_sdrBrightness;
+    }
+  }
+
+  else
+  {
+    v9 = uncappedCopy;
+  }
+
+  v8 = 0.0;
+  v7 = 0.0;
+  if ([(CBEDRModulator *)selfCopy->_headroomModulator isConfigured]&& (*&v4 = v9, *&v5 = selfCopy->_sdrBrightness, [(CBEDRModulator *)selfCopy->_headroomModulator modulatedHeadroom:&v7 forHeadroom:v4 forSDRNits:v5]))
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = v9;
+  }
+
+  *&v4 = v8;
+  [(CBEDR *)selfCopy clampHeadroom:v4];
+  return result;
 }
 
 @end

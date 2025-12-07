@@ -80,7 +80,7 @@ uint64_t __54__MTRPluginProtobufOverModernTransport_sharedInstance__block_invoke
 
 - (void)_sendMessageToPrimaryHomeHub:(id)hub timeout:(double)timeout
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   hubCopy = hub;
   v9 = hubCopy;
   if (hubCopy)
@@ -95,23 +95,23 @@ uint64_t __54__MTRPluginProtobufOverModernTransport_sharedInstance__block_invoke
         messageHeader = [v9 messageHeader];
         responseHandler5 = [MTRPluginRemoteMessageMetric remoteOutgoingRequestMessageMetric:messageHeader];
 
-        v32 = @"HMDHomeMatterRequestProtobufPayloadKey";
+        v31 = @"HMDHomeMatterRequestProtobufPayloadKey";
         messageData2 = [v9 messageData];
-        v33[0] = messageData2;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v32[0] = messageData2;
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
         responseHandler = [v9 responseHandler];
         if (responseHandler)
         {
-          v17 = v29;
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __77__MTRPluginProtobufOverModernTransport__sendMessageToPrimaryHomeHub_timeout___block_invoke;
-          v29[3] = &unk_2798943C0;
-          v4 = v30;
-          v30[0] = responseHandler5;
-          v30[1] = self;
-          v5 = &v31;
-          v31 = v9;
+          v17 = v28;
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __77__MTRPluginProtobufOverModernTransport__sendMessageToPrimaryHomeHub_timeout___block_invoke;
+          v28[3] = &unk_2798943C0;
+          v4 = v29;
+          v29[0] = responseHandler5;
+          v29[1] = self;
+          v5 = &v30;
+          v30 = v9;
         }
 
         else
@@ -188,8 +188,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __77__MTRPluginProtobufOverModernTransport__sendMessageToPrimaryHomeHub_timeout___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -204,7 +202,7 @@ void __77__MTRPluginProtobufOverModernTransport__sendMessageToPrimaryHomeHub_tim
 
 - (void)_sendMessageToRemotePeer:(id)peer peerDestination:(id)destination timeout:(double)timeout
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   destinationCopy = destination;
   if (peerCopy && ([peerCopy messageData], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
@@ -213,31 +211,31 @@ void __77__MTRPluginProtobufOverModernTransport__sendMessageToPrimaryHomeHub_tim
     v12 = [MTRPluginRemoteMessageMetric remoteOutgoingRequestMessageMetric:messageHeader];
 
     v13 = MEMORY[0x277D0F818];
-    v37 = @"HMDHomeMatterRequestProtobufPayloadKey";
+    v36 = @"HMDHomeMatterRequestProtobufPayloadKey";
     messageData = [peerCopy messageData];
-    v38[0] = messageData;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v37[0] = messageData;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
     v16 = [v13 messageWithName:@"HMDHomeMatterRequestKey" destination:destinationCopy payload:v15];
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDestination_timeout___block_invoke;
-    v27[3] = &unk_2798943C0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDestination_timeout___block_invoke;
+    v26[3] = &unk_2798943C0;
     v17 = v12;
-    v28 = v17;
+    v27 = v17;
     selfCopy = self;
     v18 = peerCopy;
-    v30 = v18;
-    [v16 setResponseHandler:v27];
+    v29 = v18;
+    [v16 setResponseHandler:v26];
     v19 = matterPluginLog_default;
     if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       selfCopy2 = self;
-      v33 = 2112;
-      v34 = v18;
-      v35 = 2112;
-      v36 = destinationCopy;
+      v32 = 2112;
+      v33 = v18;
+      v34 = 2112;
+      v35 = destinationCopy;
       _os_log_impl(&dword_25830F000, v19, OS_LOG_TYPE_DEFAULT, "%@ <= Sending message: %@ to remote peer: %@", buf, 0x20u);
     }
 
@@ -263,8 +261,6 @@ void __77__MTRPluginProtobufOverModernTransport__sendMessageToPrimaryHomeHub_tim
       (responseHandler2)[2](responseHandler2, v25, 0);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDestination_timeout___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -341,31 +337,29 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
 
 - (BOOL)start
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "%@ Starting Matter remote message transport over HomeKit Modern Transport", &v6, 0xCu);
+    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "%@ Starting Matter remote message transport over HomeKit Modern Transport", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)stop
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "%@ Stopping Matter remote message transport over HomeKit Modern Transport", &v6, 0xCu);
+    _os_log_impl(&dword_25830F000, v3, OS_LOG_TYPE_DEFAULT, "%@ Stopping Matter remote message transport over HomeKit Modern Transport", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -381,7 +375,7 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
 
 - (BOOL)dispatchIncomingMessage:(id)message
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -401,13 +395,13 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
         name = [messageCopy name];
         identifier = [messageCopy identifier];
         *buf = 138413058;
-        v34 = selfCopy;
-        v35 = 2112;
-        v36 = v9;
-        v37 = 2112;
-        v38 = name;
-        v39 = 2112;
-        v40 = identifier;
+        v33 = selfCopy;
+        v34 = 2112;
+        v35 = v9;
+        v36 = 2112;
+        v37 = name;
+        v38 = 2112;
+        v39 = identifier;
         _os_log_impl(&dword_25830F000, v12, OS_LOG_TYPE_DEFAULT, "%@ => Received incoming protobuf message: %@ from HMFMessage (%@: %@)", buf, 0x2Au);
       }
 
@@ -418,13 +412,13 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
       messageDispatcher = [(MTRPluginProtobufOverModernTransport *)selfCopy messageDispatcher];
       if (v15)
       {
-        v18 = v31;
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __64__MTRPluginProtobufOverModernTransport_dispatchIncomingMessage___block_invoke;
-        v31[3] = &unk_279893AA0;
-        v3 = &v32;
-        v32 = messageCopy;
+        v18 = v30;
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __64__MTRPluginProtobufOverModernTransport_dispatchIncomingMessage___block_invoke;
+        v30[3] = &unk_279893AA0;
+        v3 = &v31;
+        v31 = messageCopy;
       }
 
       else
@@ -446,9 +440,9 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
           if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v34 = selfCopy;
-            v35 = 2112;
-            v36 = v9;
+            v33 = selfCopy;
+            v34 = 2112;
+            v35 = v9;
             _os_log_impl(&dword_25830F000, v24, OS_LOG_TYPE_DEFAULT, "%@ => Received new incoming protobuf message: %@ without checkin, requesting piggyback checkin as part of response", buf, 0x16u);
           }
         }
@@ -470,11 +464,11 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
         name2 = [messageCopy name];
         identifier2 = [messageCopy identifier];
         *buf = 138412802;
-        v34 = selfCopy;
-        v35 = 2112;
-        v36 = name2;
-        v37 = 2112;
-        v38 = identifier2;
+        v33 = selfCopy;
+        v34 = 2112;
+        v35 = name2;
+        v36 = 2112;
+        v37 = identifier2;
         _os_log_error_impl(&dword_25830F000, v12, OS_LOG_TYPE_ERROR, "%@ => Received invalid HMFMessage (%@ : %@), failed to unpack protobuf data", buf, 0x20u);
       }
 
@@ -491,11 +485,11 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
       name3 = [messageCopy name];
       identifier3 = [messageCopy identifier];
       *buf = 138412802;
-      v34 = selfCopy;
-      v35 = 2112;
-      v36 = name3;
-      v37 = 2112;
-      v38 = identifier3;
+      v33 = selfCopy;
+      v34 = 2112;
+      v35 = name3;
+      v36 = 2112;
+      v37 = identifier3;
       _os_log_error_impl(&dword_25830F000, v19, OS_LOG_TYPE_ERROR, "%@ => Received invalid incoming HMFMessage (%@: %@) to dispatch as it is missing protobuf payload", buf, 0x20u);
     }
 
@@ -507,7 +501,6 @@ void __89__MTRPluginProtobufOverModernTransport__sendMessageToRemotePeer_peerDes
 LABEL_22:
 
   objc_sync_exit(selfCopy);
-  v25 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -556,7 +549,7 @@ void __64__MTRPluginProtobufOverModernTransport_dispatchIncomingMessage___block_
 
 void __101__MTRPluginProtobufOverModernTransport__installResponseHandlerForIncomingProtobufMessage_hmfMessage___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[MTRPluginMetricsCollector sharedInstance];
@@ -659,17 +652,17 @@ LABEL_20:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v35 = *buf;
+            v34 = *buf;
             *buf = 138413314;
             *&buf[4] = v21;
             *&buf[12] = 2112;
             *&buf[14] = v22;
-            v40 = 1040;
-            *v41 = 16;
-            *&v41[4] = 2096;
-            *&v41[6] = &v35;
-            v42 = 2112;
-            v43 = v5;
+            v39 = 1040;
+            *v40 = 16;
+            *&v40[4] = 2096;
+            *&v40[6] = &v34;
+            v41 = 2112;
+            v42 = v5;
             _os_log_impl(&dword_25830F000, v20, OS_LOG_TYPE_DEFAULT, "%@ <= Sending response for incoming request HMFMessage (%@ : %{uuid_t}.16P) with error: %@", buf, 0x30u);
           }
 
@@ -701,24 +694,24 @@ LABEL_25:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v38 = *buf;
+          v37 = *buf;
           *buf = 138413314;
           *&buf[4] = v26;
           *&buf[12] = 2112;
           *&buf[14] = v27;
-          v40 = 2112;
-          *v41 = v28;
-          *&v41[8] = 1040;
-          *&v41[10] = 16;
-          v42 = 2096;
-          v43 = &v38;
+          v39 = 2112;
+          *v40 = v28;
+          *&v40[8] = 1040;
+          *&v40[10] = 16;
+          v41 = 2096;
+          v42 = &v37;
           _os_log_impl(&dword_25830F000, v25, OS_LOG_TYPE_DEFAULT, "%@ <= Sending response %@ for incoming request HMFMessage (%@ : %{uuid_t}.16P)", buf, 0x30u);
         }
 
         v32 = *(a1 + 40);
-        v36 = @"HMDHomeMatterRequestProtobufPayloadKey";
-        v37 = v11;
-        v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v35 = @"HMDHomeMatterRequestProtobufPayloadKey";
+        v36 = v11;
+        v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
         [v32 respondWithPayload:v33];
 
         v5 = 0;
@@ -747,13 +740,11 @@ LABEL_25:
 
   v5 = 0;
 LABEL_38:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleResponseWithPayload:(id)payload error:(id)error forMessage:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   errorCopy = error;
   messageCopy = message;
@@ -771,11 +762,11 @@ LABEL_38:
         {
           if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
           {
-            v24 = 138412546;
+            v23 = 138412546;
             selfCopy3 = self;
-            v26 = 2112;
-            v27 = responseHandler5;
-            _os_log_impl(&dword_25830F000, v16, OS_LOG_TYPE_DEFAULT, "%@ => Received responseValue in response for protobuf message %@", &v24, 0x16u);
+            v25 = 2112;
+            v26 = responseHandler5;
+            _os_log_impl(&dword_25830F000, v16, OS_LOG_TYPE_DEFAULT, "%@ => Received responseValue in response for protobuf message %@", &v23, 0x16u);
           }
 
           errorCopy = [(MTRPluginPBMVariableValueResponseMessage *)v15 error];
@@ -802,11 +793,11 @@ LABEL_38:
             v21 = matterPluginLog_default;
             if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = 138412546;
+              v23 = 138412546;
               selfCopy3 = self;
-              v26 = 2112;
-              v27 = messageCopy;
-              _os_log_impl(&dword_25830F000, v21, OS_LOG_TYPE_DEFAULT, "%@ => Received responseValue for message %@ that is requesting a checkin, scheduling a checkin", &v24, 0x16u);
+              v25 = 2112;
+              v26 = messageCopy;
+              _os_log_impl(&dword_25830F000, v21, OS_LOG_TYPE_DEFAULT, "%@ => Received responseValue for message %@ that is requesting a checkin, scheduling a checkin", &v23, 0x16u);
             }
 
             v22 = clientConnectionForMessage(messageCopy);
@@ -875,13 +866,13 @@ LABEL_34:
   v11 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_ERROR))
   {
-    v24 = 138412802;
+    v23 = 138412802;
     selfCopy3 = self;
-    v26 = 2112;
-    v27 = errorCopy;
-    v28 = 2112;
-    v29 = messageCopy;
-    _os_log_error_impl(&dword_25830F000, v11, OS_LOG_TYPE_ERROR, "%@ Received error %@ in response for message: %@", &v24, 0x20u);
+    v25 = 2112;
+    v26 = errorCopy;
+    v27 = 2112;
+    v28 = messageCopy;
+    _os_log_error_impl(&dword_25830F000, v11, OS_LOG_TYPE_ERROR, "%@ Received error %@ in response for message: %@", &v23, 0x20u);
   }
 
   responseHandler6 = [messageCopy responseHandler];
@@ -892,81 +883,35 @@ LABEL_34:
     (responseHandler7)[2](responseHandler7, errorCopy, 0);
 LABEL_35:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sendMessageToPrimaryHomeHub:timeout:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25830F000, v0, v1, "%@ Failed to _deliverMessagePayloadToPrimaryResident for connection: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_sendMessageToPrimaryHomeHub:timeout:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25830F000, v0, v1, "%@ No connection found to _deliverMessagePayloadToPrimaryResident for message: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessageToPrimaryHomeHub:(uint64_t)a1 timeout:(NSObject *)a2 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, "%@ Unable to send message over to home hub since message is nil", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, "%@ Unable to send message over to home hub since message is nil", &v2, 0xCu);
 }
 
 - (void)_sendMessageToRemotePeer:(uint64_t)a1 peerDestination:(NSObject *)a2 timeout:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, "%@ Unable to send message over to remote peer since message is nil", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, "%@ Unable to send message over to remote peer since message is nil", &v2, 0xCu);
 }
 
 void __101__MTRPluginProtobufOverModernTransport__installResponseHandlerForIncomingProtobufMessage_hmfMessage___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 56);
   v4 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v7 = 138412546;
-  v8 = v3;
-  v9 = 2112;
-  v10 = WeakRetained;
-  _os_log_error_impl(&dword_25830F000, v4, OS_LOG_TYPE_ERROR, "%@ Failed to respond to incoming protobuf message %@ due to malformed response", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleResponseWithPayload:error:forMessage:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25830F000, v0, v1, "%@ => Received invalid responseValue in response for protobuf message %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleResponseWithPayload:error:forMessage:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25830F000, v0, v1, "%@ => Received invalid HMFMessage payload in response for message %@, failed to unpack protobuf data");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleResponseWithPayload:error:forMessage:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25830F000, v0, v1, "%@ => Received invalid HMFMessage payload in response for message %@ as it is missing protobuf payload");
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v3;
+  v8 = 2112;
+  v9 = WeakRetained;
+  _os_log_error_impl(&dword_25830F000, v4, OS_LOG_TYPE_ERROR, "%@ Failed to respond to incoming protobuf message %@ due to malformed response", &v6, 0x16u);
 }
 
 @end

@@ -26,72 +26,72 @@
 
 - (void)setDictionary:(id)dictionary
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   dictionary = [(MTDictionaryDiff *)self dictionary];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   selfCopy = self;
   obj = [(MTDictionaryDiff *)self properties];
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
-    v21 = *v30;
-    v22 = dictionaryCopy;
+    v8 = *v29;
+    v20 = *v29;
+    v21 = dictionaryCopy;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
-        v11 = [dictionary objectForKeyedSubscript:{v10, v21, v22}];
+        v10 = *(*(&v28 + 1) + 8 * i);
+        v11 = [dictionary objectForKeyedSubscript:{v10, v20, v21}];
         v12 = [(NSDictionary *)dictionaryCopy objectForKeyedSubscript:v10];
         if (v11 != v12 && ([v11 isEqual:v12] & 1) == 0)
         {
           v13 = dictionary;
-          v27 = 0u;
-          v28 = 0u;
-          v25 = 0u;
           v26 = 0u;
+          v27 = 0u;
+          v24 = 0u;
+          v25 = 0u;
           callbacks = [(MTDictionaryDiff *)selfCopy callbacks];
-          v15 = [callbacks countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v15 = [callbacks countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v26;
+            v17 = *v25;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v26 != v17)
+                if (*v25 != v17)
                 {
                   objc_enumerationMutation(callbacks);
                 }
 
-                (*(*(*(&v25 + 1) + 8 * j) + 16))();
+                (*(*(*(&v24 + 1) + 8 * j) + 16))();
               }
 
-              v16 = [callbacks countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v16 = [callbacks countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v16);
           }
 
           dictionary = v13;
-          v8 = v21;
-          dictionaryCopy = v22;
+          v8 = v20;
+          dictionaryCopy = v21;
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v7);
@@ -99,8 +99,6 @@
 
   dictionary = selfCopy->_dictionary;
   selfCopy->_dictionary = dictionaryCopy;
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCallback:(id)callback

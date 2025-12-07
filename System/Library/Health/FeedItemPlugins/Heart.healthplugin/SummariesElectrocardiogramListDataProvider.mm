@@ -28,7 +28,7 @@
   v14 = *&v11[OBJC_IVAR____TtC5Heart37SummariesElectrocardiogramDataFetcher_resultsHandler + 8];
   *v12 = sub_29D7CB5E4;
   v12[1] = v9;
-  sub_29D694784(v13);
+  sub_29D694784(v13, v14);
 
   v15 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5Heart42SummariesElectrocardiogramListDataProvider____lazy_storage___dataFetcher);
   v16 = v15;
@@ -40,21 +40,20 @@
 {
   selfCopy = self;
   v3 = sub_29D836654();
-  v4 = *&v3[OBJC_IVAR____TtC5Heart37SummariesElectrocardiogramDataFetcher_activeAlgorithmVersion];
-  v5 = v3[OBJC_IVAR____TtC5Heart37SummariesElectrocardiogramDataFetcher_activeAlgorithmVersion + 8];
+  v4 = v3[OBJC_IVAR____TtC5Heart37SummariesElectrocardiogramDataFetcher_activeAlgorithmVersion + 8];
 
-  if (v5)
+  if (v4)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
     sub_29D69567C(0, &qword_2A17B4FE0, 0x29EDBA070);
-    v6 = sub_29D93A6E8();
+    v5 = sub_29D93A6E8();
   }
 
-  return v6;
+  return v5;
 }
 
 - (_TtC5Heart42SummariesElectrocardiogramListDataProvider)initWithDisplayType:(id)type profile:(id)profile mode:(int64_t)mode

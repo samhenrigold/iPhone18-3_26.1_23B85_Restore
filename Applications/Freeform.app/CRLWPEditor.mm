@@ -1071,12 +1071,12 @@ LABEL_14:
         sub_10130DA10(v17);
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to calculate charIndex with nil rep", v18, v19, v20, v21, v22, v23, v24, "[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:isAtEndOfLine:]");
-      v25 = [NSString stringWithUTF8String:"[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:isAtEndOfLine:]"];
-      v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/Gestures/CRLWPEditor+Gestures.m"];
-      [CRLAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:712 isFatal:1 description:"Unable to calculate charIndex with nil rep"];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to calculate charIndex with nil rep", "[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:isAtEndOfLine:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/Gestures/CRLWPEditor+Gestures.m", 712);
+      v18 = [NSString stringWithUTF8String:"[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:isAtEndOfLine:]"];
+      v19 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/Gestures/CRLWPEditor+Gestures.m"];
+      [CRLAssertionHandler handleFailureInFunction:v18 file:v19 lineNumber:712 isFatal:1 description:"Unable to calculate charIndex with nil rep"];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v27, v28);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v20, v21);
       abort();
     }
 
@@ -1127,12 +1127,12 @@ LABEL_14:
         sub_10130DA10(v19);
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to calculate charIndex with nil rep", v20, v21, v22, v23, v24, v25, v26, "[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:pastCenterGoesToNextChar:isAtEndOfLine:]");
-      v27 = [NSString stringWithUTF8String:"[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:pastCenterGoesToNextChar:isAtEndOfLine:]"];
-      v28 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/Gestures/CRLWPEditor+Gestures.m"];
-      [CRLAssertionHandler handleFailureInFunction:v27 file:v28 lineNumber:723 isFatal:1 description:"Unable to calculate charIndex with nil rep"];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to calculate charIndex with nil rep", "[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:pastCenterGoesToNextChar:isAtEndOfLine:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/Gestures/CRLWPEditor+Gestures.m", 723);
+      v20 = [NSString stringWithUTF8String:"[CRLWPEditor(GestureInterfaces) charIndexInRep:fromPoint:allowPastBreak:allowNotFound:pastCenterGoesToNextChar:isAtEndOfLine:]"];
+      v21 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLWP/Gestures/CRLWPEditor+Gestures.m"];
+      [CRLAssertionHandler handleFailureInFunction:v20 file:v21 lineNumber:723 isFatal:1 description:"Unable to calculate charIndex with nil rep"];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v29, v30);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v22, v23);
       abort();
     }
 
@@ -3413,15 +3413,15 @@ LABEL_19:
   }
 
   v12 = [(CRLWPEditor *)self icc];
-  [v5 unscaledLocationForICC:v12];
-  v15 = sub_100122154(v13, v14);
-  v17 = v16;
+  v13 = [v5 unscaledLocationForICC:v12];
+  v16 = sub_100122154(v13, v14, v15);
+  v18 = v17;
 
   [(CRLWPEditor *)self knobToTouchOffset];
-  v19 = sub_10011F334(v15, v17, v18);
-  v21 = v20;
+  v20 = sub_10011F334(v16, v18, v19);
+  v22 = v21;
   knobTracker3 = [(CRLWPEditor *)self knobTracker];
-  [knobTracker3 setCurrentPosition:{v19, v21}];
+  [knobTracker3 setCurrentPosition:{v20, v22}];
 
   if ([(CRLWPEditor *)self readyToEnd])
   {
@@ -3430,7 +3430,7 @@ LABEL_19:
 
   else
   {
-    [CRLCanvasAutoscroll startAutoscroll:self unscaledPoint:v15, v17];
+    [CRLCanvasAutoscroll startAutoscroll:self unscaledPoint:v16, v18];
   }
 
   interactiveCanvasController = [(CRLWPEditor *)self interactiveCanvasController];
@@ -3601,7 +3601,7 @@ LABEL_19:
   selfCopy = self;
   sub_1009380EC();
 
-  sub_10000CAAC(v3, &unk_1019F4D00);
+  sub_10000CAAC(v3, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)setWantsVisibleKeyboard:(BOOL)keyboard
@@ -3733,7 +3733,7 @@ LABEL_5:
   v12 = sub_100962DFC(source);
   swift_unknownObjectRelease();
 
-  sub_10000CAAC(v14, &unk_1019F4D00);
+  sub_10000CAAC(v14, &unk_1019F4D00, &unk_10146E7F0);
   return v12 & 1;
 }
 
@@ -3772,7 +3772,7 @@ LABEL_5:
   _Block_release(v12);
   swift_unknownObjectRelease();
 
-  sub_10000CAAC(v17, &unk_1019F4D00);
+  sub_10000CAAC(v17, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)cutTo:(id)to nativeOnly:(BOOL)only sender:(id)sender
@@ -3795,7 +3795,7 @@ LABEL_5:
 
   sub_10093C2F4(to, only);
 
-  sub_10000CAAC(v12, &unk_1019F4D00);
+  sub_10000CAAC(v12, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (int64_t)canPerformEditorAction:(SEL)action withSender:(id)sender
@@ -3816,7 +3816,7 @@ LABEL_5:
 
   v8 = sub_10093CC50(action);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
   return v8;
 }
 
@@ -3886,7 +3886,7 @@ LABEL_5:
 
   [*(self + OBJC_IVAR____TtC8Freeform11CRLWPEditor_editorHelper) selectWordWithFlags:{16, v6, v7}];
 
-  sub_10000CAAC(&v6, &unk_1019F4D00);
+  sub_10000CAAC(&v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)selectAll
@@ -3913,7 +3913,7 @@ LABEL_5:
 
   sub_10093EE84();
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)lookUp:(id)up
@@ -3946,7 +3946,7 @@ LABEL_3:
 
 LABEL_4:
 
-  sub_10000CAAC(&v9, &unk_1019F4D00);
+  sub_10000CAAC(&v9, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)lookUpTextAtRange:(_NSRange)range
@@ -3976,7 +3976,7 @@ LABEL_4:
 
   [(CRLWPEditor *)self deleteCurrentSelection:v6];
 
-  sub_10000CAAC(&v6, &unk_1019F4D00);
+  sub_10000CAAC(&v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)showEditMenu
@@ -4067,7 +4067,7 @@ LABEL_4:
 
   else
   {
-    memset(v12, 0, sizeof(v12));
+    memset(v13, 0, sizeof(v13));
     selfCopy2 = self;
   }
 
@@ -4087,9 +4087,9 @@ LABEL_4:
 
   v10 = v9;
   v11 = swift_getKeyPath();
-  sub_100947328(v11, v10);
+  sub_100947328(v11, v10, v12);
 
-  sub_10000CAAC(v12, &unk_1019F4D00);
+  sub_10000CAAC(v13, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (BOOL)canSetWritingDirection:(int64_t)direction
@@ -4165,7 +4165,7 @@ LABEL_4:
 - (void)didBecomeTextInputEditor
 {
   selfCopy = self;
-  sub_100948AF4();
+  sub_100948AF4(selfCopy);
 }
 
 - (void)setMostRecentGestureKind:(id)kind
@@ -4301,8 +4301,8 @@ LABEL_4:
   selfCopy = self;
   sub_10094946C();
 
-  sub_100006370(0, &qword_1019FB7A0);
-  sub_10000FDE0(&qword_1019F5048, &qword_1019FB7A0);
+  sub_100006370(0, &qword_1019FB7A0, off_10182F798);
+  sub_10000FDE0(&qword_1019F5048, &qword_1019FB7A0, off_10182F798, &protocol conformance descriptor for NSObject);
   v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -4507,7 +4507,7 @@ LABEL_4:
 
   sub_10094A648(self, v6);
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (_NSRange)availableSelectionRangeForCharIndex:(int64_t)index
@@ -4535,7 +4535,7 @@ LABEL_4:
 
 - (NSArray)validAttributesForMarkedText
 {
-  sub_1005B981C(&unk_101A09700);
+  sub_1005B981C(&unk_101A09700, &unk_101489168);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_10146CA70;
   *(v2 + 32) = NSBackgroundColorAttributeName;
@@ -4583,7 +4583,7 @@ LABEL_4:
 - (void)deleteCurrentSelection
 {
   selfCopy = self;
-  sub_10094F9F8();
+  sub_10094F9F8(selfCopy);
 }
 
 - (void)updateStateForCommand:(id)command
@@ -4670,8 +4670,10 @@ LABEL_4:
 
 - (void)setMarkedText:(id)text selectedRange:(_NSRange)range replacementRange:(_NSRange)replacementRange
 {
-  length = range.length;
-  location = range.location;
+  length = replacementRange.length;
+  location = replacementRange.location;
+  v7 = range.length;
+  v8 = range.location;
   if (text)
   {
     selfCopy = self;
@@ -4682,13 +4684,13 @@ LABEL_4:
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v12, 0, sizeof(v12));
     selfCopy2 = self;
   }
 
-  sub_100951E20(v10, location, length);
+  sub_100951E20(v12, v8, v7, location, length);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v12, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)setMarkedText:(id)text selectedRange:(_NSRange)range
@@ -4714,7 +4716,7 @@ LABEL_4:
     swift_once();
   }
 
-  sub_1005B981C(&unk_1019F6C70);
+  sub_1005B981C(&unk_1019F6C70, &unk_101488FF0);
   type metadata accessor for _NSRange(0);
 
   sub_10095260C(v7, v9, selfCopy, location, length);
@@ -4733,7 +4735,7 @@ LABEL_4:
     swift_once();
   }
 
-  sub_1005B981C(&qword_101A012B8);
+  sub_1005B981C(&qword_101A012B8, &qword_10147D200);
   type metadata accessor for _NSRange(0);
   v10 = textCopy;
   sub_100952848(textCopy, selfCopy, location, length);
@@ -4772,7 +4774,7 @@ LABEL_4:
     if (*(v2 + OBJC_IVAR____TtC8Freeform12CRLWPStorage_markedTextStyle))
     {
       type metadata accessor for Key(0);
-      sub_1009624F8(&qword_1019F34A0, type metadata accessor for Key);
+      sub_1009624F8(&qword_1019F34A0, type metadata accessor for Key, byte_101467F70);
 
       v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
     }
@@ -4798,7 +4800,7 @@ LABEL_4:
   if (style)
   {
     type metadata accessor for Key(0);
-    sub_1009624F8(&qword_1019F34A0, type metadata accessor for Key);
+    sub_1009624F8(&qword_1019F34A0, type metadata accessor for Key, byte_101467F70);
     v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -4813,9 +4815,9 @@ LABEL_4:
 
 - (int64_t)writingToolsBehavior
 {
-  v5 = &type metadata for CRLFeatureFlags;
-  v6 = sub_100004D60();
-  v4[0] = 4;
+  v4[3] = &type metadata for CRLFeatureFlags;
+  v4[4] = sub_100004D60();
+  LOBYTE(v4[0]) = 4;
   v2 = isFeatureEnabled(_:)();
   sub_100005070(v4);
   if (v2)
@@ -4866,7 +4868,7 @@ LABEL_4:
     selfCopy2 = self;
   }
 
-  sub_100D712CC();
+  sub_100D712CC(v6);
 
   sub_1005E09AC(v6);
 }
@@ -4875,7 +4877,7 @@ LABEL_4:
 {
   keysCopy = keys;
   selfCopy = self;
-  sub_100D72744(direction);
+  sub_100D72744(direction, keysCopy);
 }
 
 @end

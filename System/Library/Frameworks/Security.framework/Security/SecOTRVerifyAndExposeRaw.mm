@@ -37,7 +37,7 @@ void __SecOTRVerifyAndExposeRaw_locked_block_invoke_2(void *a1, uint64_t a2)
 
 void __SecOTRVerifyAndExposeRaw_locked_block_invoke_3(void *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = secLogObjForScope("OTR");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -47,21 +47,21 @@ void __SecOTRVerifyAndExposeRaw_locked_block_invoke_3(void *a1, uint64_t a2)
     v8 = v5[11];
     v9 = v5[13];
     v10 = v5[14];
-    v17 = 134219522;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = v10;
-    v29 = 2112;
-    v30 = v6;
-    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "session[%p] failed to decrypt, session: %@, mk: %@, mpk: %@, tpk: %@, tk: %@, chose tktu: %@", &v17, 0x48u);
+    v16 = 134219522;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v9;
+    v26 = 2112;
+    v27 = v10;
+    v28 = 2112;
+    v29 = v6;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "session[%p] failed to decrypt, session: %@, mk: %@, mpk: %@, tpk: %@, tk: %@, chose tktu: %@", &v16, 0x48u);
   }
 
   v11 = secLogObjForScope("OTR");
@@ -71,20 +71,18 @@ void __SecOTRVerifyAndExposeRaw_locked_block_invoke_3(void *a1, uint64_t a2)
     v13 = a1[6];
     v14 = a1[7];
     v15 = a1[8];
-    v17 = 134219010;
-    v18 = v12;
-    v19 = 2112;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = a2;
-    v25 = 2112;
-    v26 = v15;
-    _os_log_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEFAULT, "session[%p] failed to decrypt, mktu: %@, mpi: %@, tpi: %@, m: %@", &v17, 0x34u);
+    v16 = 134219010;
+    v17 = v12;
+    v18 = 2112;
+    v19 = v13;
+    v20 = 2112;
+    v21 = v14;
+    v22 = 2112;
+    v23 = a2;
+    v24 = 2112;
+    v25 = v15;
+    _os_log_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEFAULT, "session[%p] failed to decrypt, mktu: %@, mpi: %@, tpi: %@, m: %@", &v16, 0x34u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -228,7 +228,7 @@ void __55__MIBUNWClientListener_initWithConfiguration_delegate___block_invoke_17
 
 - (void)_start
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
   {
@@ -238,13 +238,12 @@ void __55__MIBUNWClientListener_initWithConfiguration_delegate___block_invoke_17
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting client listener.", &v5, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting client listener.", &v4, 0xCu);
   }
 
   nw_listener_start(self->_listener);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __30__MIBUNWClientListener__start__block_invoke()
@@ -265,7 +264,7 @@ void __30__MIBUNWClientListener__start__block_invoke()
 
 - (void)_stopWithReason:(id)reason
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
@@ -276,11 +275,11 @@ void __30__MIBUNWClientListener__start__block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
+    v7 = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = reasonCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping client listener due to: %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = reasonCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping client listener due to: %{public}@", &v7, 0x16u);
   }
 
   nw_listener_cancel(self->_listener);
@@ -289,8 +288,6 @@ void __30__MIBUNWClientListener__start__block_invoke()
   {
     [(MIBUNWClientListenerDelegate *)delegate clientListenerDidStop:self withError:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__MIBUNWClientListener__stopWithReason___block_invoke()
@@ -311,7 +308,7 @@ void __40__MIBUNWClientListener__stopWithReason___block_invoke()
 
 - (void)_handleNewListenerState:(int)state error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
@@ -324,13 +321,13 @@ void __40__MIBUNWClientListener__stopWithReason___block_invoke()
   {
     v8 = v7;
     v9 = NSStringFromNWListenerState(state);
-    v15 = 138543874;
+    v14 = 138543874;
     selfCopy = self;
-    v17 = 2114;
-    v18 = v9;
-    v19 = 2114;
-    v20 = errorCopy;
-    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Handle new listener state: %{public}@, error: %{public}@", &v15, 0x20u);
+    v16 = 2114;
+    v17 = v9;
+    v18 = 2114;
+    v19 = errorCopy;
+    _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Handle new listener state: %{public}@, error: %{public}@", &v14, 0x20u);
   }
 
   if (state <= 2)
@@ -374,8 +371,6 @@ LABEL_13:
   }
 
 LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __54__MIBUNWClientListener__handleNewListenerState_error___block_invoke()
@@ -396,7 +391,7 @@ void __54__MIBUNWClientListener__handleNewListenerState_error___block_invoke()
 
 - (void)_handleNewNetworkConnection:(id)connection
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dispatch_assert_queue_V2(self->_queue);
   if (MIBUOnceToken != -1)
@@ -407,11 +402,11 @@ void __54__MIBUNWClientListener__handleNewListenerState_error___block_invoke()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = connectionCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Handle new network connection: %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = connectionCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Handle new network connection: %{public}@", &v8, 0x16u);
   }
 
   v6 = [[MIBUNWClientDevice alloc] initWithNWConnection:connectionCopy];
@@ -420,8 +415,6 @@ void __54__MIBUNWClientListener__handleNewListenerState_error___block_invoke()
   {
     [(MIBUNWClientListenerDelegate *)delegate clientListener:self didReceiveNewClientDevice:v6];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MIBUNWClientListener__handleNewNetworkConnection___block_invoke()
@@ -442,31 +435,28 @@ void __52__MIBUNWClientListener__handleNewNetworkConnection___block_invoke()
 
 - (void)initWithConfiguration:(uint64_t)a1 delegate:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "%{public}@: No host address or port specified.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "%{public}@: No host address or port specified.", &v2, 0xCu);
 }
 
 - (void)initWithConfiguration:(uint64_t)a1 delegate:(NSObject *)a2 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create network listener.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_259B04000, a2, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create network listener.", &v2, 0xCu);
 }
 
 - (void)initWithConfiguration:(os_log_t)log delegate:.cold.6(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: Invalid listener protocol type specified: %lu", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_error_impl(&dword_259B04000, log, OS_LOG_TYPE_ERROR, "%{public}@: Invalid listener protocol type specified: %lu", &v3, 0x16u);
 }
 
 @end

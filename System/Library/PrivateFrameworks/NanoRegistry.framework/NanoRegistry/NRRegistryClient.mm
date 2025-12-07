@@ -85,32 +85,32 @@
 
 - (void)_fireAllQueryCompletionBlocks
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(self + 136);
   v3 = *(self + 136);
   *(self + 136) = 0;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         if (v9)
         {
           v10 = *(v9 + 8);
@@ -126,14 +126,12 @@
       }
 
       while (v6 != v8);
-      v11 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v11 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v6 = v11;
     }
 
     while (v11);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NRNSXPCConnectionProtocol)rawConnection
@@ -219,27 +217,25 @@ void __33__NRRegistryClient_rawConnection__block_invoke(uint64_t a1)
   return v6;
 }
 
-void __39__NRRegistryClient_initWithParameters___block_invoke(uint64_t a1)
+void __39__NRRegistryClient_initWithParameters___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = [*(a1 + 32) managementQueue];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __39__NRRegistryClient_initWithParameters___block_invoke_2;
-  v7[3] = &unk_1E86DB808;
-  objc_copyWeak(&v8, (a1 + 40));
-  *(*(a1 + 32) + 92) = [v3 registerNotifyTokenWithName:@"com.apple.nanoregistry.NRDevicesUpdateCounterNotifyNotification" withQueue:v4 withBlock:v7];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __39__NRRegistryClient_initWithParameters___block_invoke_2;
+  v6[3] = &unk_1E86DB808;
+  objc_copyWeak(&v7, (a1 + 40));
+  *(*(a1 + 32) + 92) = [v3 registerNotifyTokenWithName:@"com.apple.nanoregistry.NRDevicesUpdateCounterNotifyNotification" withQueue:v4 withBlock:v6];
 
+  *(*(a1 + 32) + 96) = [objc_opt_class() registerNotifyTokenWithName:@"com.apple.nanoregistry.NRDevicesUpdateCounterNotifyNotification" withQueue:0 withBlock:0];
   v5 = *(a1 + 32);
-  *(v5 + 96) = [objc_opt_class() registerNotifyTokenWithName:@"com.apple.nanoregistry.NRDevicesUpdateCounterNotifyNotification" withQueue:0 withBlock:0];
-  v6 = *(a1 + 32);
-  if (v6)
+  if (v5)
   {
-    [(NRRegistryClient *)v6 _queryDataAsyncForce:&__block_literal_global_32 ifNeededWithBlock:?];
+    [(NRRegistryClient *)v5 _queryDataAsyncForce:&__block_literal_global_32 ifNeededWithBlock:?];
   }
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
 }
 
 void __39__NRRegistryClient_initWithParameters___block_invoke_2(uint64_t a1)
@@ -472,31 +468,30 @@ void __53__NRRegistryClient__grabRegistryWithWriteBlockAsync___block_invoke_2(ui
   v2 = *(a1 + 40);
   v3 = [*(a1 + 32) collection];
   v4 = [*(a1 + 32) secureProperties];
-  v16 = (*(v2 + 16))(v2, v3, v4);
+  v15 = (*(v2 + 16))(v2, v3, v4);
 
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = [*(a1 + 32) secureProperties];
-  v8 = [v6 getReferencedSecureProperties:v7 fromDiff:v16];
+  v5 = objc_opt_class();
+  v6 = [*(a1 + 32) secureProperties];
+  v7 = [v5 getReferencedSecureProperties:v6 fromDiff:v15];
 
-  v9 = [*(a1 + 32) supportsWatch];
-  v10 = *(a1 + 32);
-  if (v9)
+  v8 = [*(a1 + 32) supportsWatch];
+  v9 = *(a1 + 32);
+  if (v8)
   {
-    v11 = [v10 rawConnection];
-    v12 = [v11 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_40];
-    [v12 xpcApplyDiff:v16 withSecureProperties:v8 block:&__block_literal_global_42];
+    v10 = [v9 rawConnection];
+    v11 = [v10 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_40];
+    [v11 xpcApplyDiff:v15 withSecureProperties:v7 block:&__block_literal_global_42];
   }
 
   else
   {
-    v11 = [v10 collection];
-    v13 = [v11 applyDiff:v16];
+    v10 = [v9 collection];
+    v12 = [v10 applyDiff:v15];
   }
 
-  v14 = *(*(a1 + 48) + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = 0;
+  v13 = *(*(a1 + 48) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = 0;
 }
 
 - (id)addDiffIndexObserverWithWriteBlock:(id)block
@@ -524,9 +519,8 @@ void __53__NRRegistryClient__grabRegistryWithWriteBlockAsync___block_invoke_2(ui
   return v6;
 }
 
-void __55__NRRegistryClient_addDiffIndexObserverWithWriteBlock___block_invoke(void *a1)
+void __55__NRRegistryClient_addDiffIndexObserverWithWriteBlock___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v3 = [objc_opt_class() _nextToken];
   v4 = *(a1[6] + 8);
   v5 = *(v4 + 40);
@@ -696,18 +690,16 @@ LABEL_22:
 
 - (void)_finishQueryWithStaringToken:(uint64_t)token replacementToken:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-LABEL_39:
-    v28 = *MEMORY[0x1E69E9840];
     return;
   }
 
   managementQueue = [self managementQueue];
   dispatch_assert_queue_V2(managementQueue);
 
-  v29 = a2;
+  v26 = a2;
   if ([self supportsWatch])
   {
     DevicesUpdateCounterNotifyToken = [(NRRegistryClient *)self _getDevicesUpdateCounterNotifyTokenValue];
@@ -724,27 +716,27 @@ LABEL_39:
   v10 = *(self + 136);
   *(self + 136) = 0;
 
-  v33 = 0u;
-  v34 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:buf count:16];
+  v12 = [v11 countByEnumeratingWithState:&v28 objects:buf count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v29;
     do
     {
       v15 = 0;
       do
       {
-        if (*v32 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v31 + 1) + 8 * v15);
+        v16 = *(*(&v28 + 1) + 8 * v15);
         if (v16)
         {
           if (*(v16 + 16) > (token & 0x3FFFFFFFFFFFFFFFuLL))
@@ -767,7 +759,7 @@ LABEL_15:
       }
 
       while (v13 != v15);
-      v18 = [v11 countByEnumeratingWithState:&v31 objects:buf count:16];
+      v18 = [v11 countByEnumeratingWithState:&v28 objects:buf count:16];
       v13 = v18;
     }
 
@@ -783,62 +775,60 @@ LABEL_15:
   {
     *(self + 128) = 0;
     *(self + 89) = 0;
-    v19 = *MEMORY[0x1E69E9840];
 
     [(NRRegistryClient *)self _fireAllQueryCompletionBlocks];
     return;
   }
 
-  if (v29 == token)
+  if (v26 == token)
   {
-    v20 = *(self + 128);
-    if (v20)
+    v19 = *(self + 128);
+    if (v19)
     {
-      if (v20 > 0xFF)
+      if (v19 > 0xFF)
       {
 LABEL_34:
-        v22 = v20 * 0.1;
-        v23 = nr_framework_log();
-        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+        v20 = v19 * 0.1;
+        v21 = nr_framework_log();
+        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-        if (v24)
+        if (v22)
         {
-          v25 = nr_framework_log();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v23 = nr_framework_log();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 134217984;
-            v36 = v22;
-            _os_log_error_impl(&dword_1E0ADF000, v25, OS_LOG_TYPE_ERROR, "_queryDataAsyncIfNeededWithBlock/finishQueryWithTokenValues: Failure to query daemon, backing off interval = %0.1f", buf, 0xCu);
+            v33 = v20;
+            _os_log_error_impl(&dword_1E0ADF000, v23, OS_LOG_TYPE_ERROR, "_queryDataAsyncIfNeededWithBlock/finishQueryWithTokenValues: Failure to query daemon, backing off interval = %0.1f", buf, 0xCu);
           }
         }
 
         *(self + 88) = 0;
-        v26 = dispatch_time(0, (v22 * 1000000000.0));
+        v24 = dispatch_time(0, (v20 * 1000000000.0));
         managementQueue2 = [self managementQueue];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __66__NRRegistryClient__finishQueryWithStaringToken_replacementToken___block_invoke;
         block[3] = &unk_1E86DAE98;
         block[4] = self;
-        dispatch_after(v26, managementQueue2, block);
+        dispatch_after(v24, managementQueue2, block);
 
-        goto LABEL_39;
+        return;
       }
 
-      v20 *= 2;
+      v19 *= 2;
     }
 
     else
     {
-      v20 = 1;
+      v19 = 1;
     }
 
-    *(self + 128) = v20;
+    *(self + 128) = v19;
     goto LABEL_34;
   }
 
   *(self + 128) = 0;
-  v21 = *MEMORY[0x1E69E9840];
 
   [(NRRegistryClient *)self _queryDataAsyncForce:0 ifNeededWithBlock:?];
 }
@@ -1058,7 +1048,7 @@ void __44__NRRegistryClient__wipeRegistryWith_block___block_invoke_2(uint64_t a1
 
 void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *MEMORY[0x1E696A250];
   v5 = [v3 domain];
@@ -1084,18 +1074,15 @@ void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue
     v9 = nr_daemon_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = [v3 nr_safeDescription];
-      v13 = 138543362;
-      v14 = v12;
-      _os_log_error_impl(&dword_1E0ADF000, v9, OS_LOG_TYPE_ERROR, "_queryDaemonWithStartingTokenValueSync/xpcGetDeviceCollectionWithBlock: XPC error %{public}@", &v13, 0xCu);
+      v10 = [v3 nr_safeDescription];
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_error_impl(&dword_1E0ADF000, v9, OS_LOG_TYPE_ERROR, "_queryDaemonWithStartingTokenValueSync/xpcGetDeviceCollectionWithBlock: XPC error %{public}@", &v11, 0xCu);
     }
   }
 
 LABEL_9:
-  v10 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_47(uint64_t a1, void *a2, void *a3, uint64_t a4, char a5)
@@ -1191,7 +1178,7 @@ void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue
 
 uint64_t __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_5(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E696A250];
   v3 = [*(a1 + 32) domain];
   if ([v2 isEqual:v3])
@@ -1200,7 +1187,7 @@ uint64_t __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenV
 
     if (v4 == 4097)
     {
-      goto LABEL_9;
+      return (*(*(a1 + 40) + 16))();
     }
   }
 
@@ -1216,18 +1203,14 @@ uint64_t __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenV
     v7 = nr_daemon_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 32) nr_safeDescription];
-      v12 = 138543362;
-      v13 = v11;
-      _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "_queryDaemonWithStartingTokenValue/xpcGetDeviceCollectionWithBlock: XPC error %{public}@", &v12, 0xCu);
+      v9 = [*(a1 + 32) nr_safeDescription];
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "_queryDaemonWithStartingTokenValue/xpcGetDeviceCollectionWithBlock: XPC error %{public}@", &v10, 0xCu);
     }
   }
 
-LABEL_9:
-  v8 = *(a1 + 48);
-  result = (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_49(uint64_t a1, void *a2, void *a3, uint64_t a4, char a5)
@@ -1289,7 +1272,7 @@ void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue
 
 void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_4_52(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *MEMORY[0x1E696A250];
   v5 = [v3 domain];
@@ -1315,26 +1298,24 @@ void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue
     v9 = nr_daemon_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = [v3 nr_safeDescription];
+      v13 = [v3 nr_safeDescription];
       *buf = 138543362;
-      v19 = v14;
+      v18 = v13;
       _os_log_error_impl(&dword_1E0ADF000, v9, OS_LOG_TYPE_ERROR, "_queryDaemonWithStartingTokenValue/xpcRetrieveSecureProperties: XPC error %{public}@", buf, 0xCu);
     }
   }
 
 LABEL_9:
   v10 = [*(a1 + 32) managementQueue];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_53;
-  v15[3] = &unk_1E86DB9B8;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_53;
+  v14[3] = &unk_1E86DB9B8;
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
-  v16 = v11;
-  v17 = v12;
-  dispatch_async(v10, v15);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = v11;
+  v16 = v12;
+  dispatch_async(v10, v14);
 }
 
 void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_2_54(void *a1, void *a2)
@@ -1418,7 +1399,7 @@ void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue
 
 void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_6(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E696A250];
   v3 = [*(a1 + 32) domain];
   if ([v2 isEqual:v3])
@@ -1443,26 +1424,24 @@ void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue
     v7 = nr_daemon_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = [*(a1 + 32) nr_safeDescription];
+      v11 = [*(a1 + 32) nr_safeDescription];
       *buf = 138543362;
-      v17 = v12;
+      v16 = v11;
       _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "_queryDaemonWithStartingTokenValue/xpcGetDiffSinceIndex: XPC error %{public}@", buf, 0xCu);
     }
   }
 
 LABEL_9:
   v8 = [*(a1 + 40) managementQueue];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_59;
-  v13[3] = &unk_1E86DB9B8;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_59;
+  v12[3] = &unk_1E86DB9B8;
   v9 = *(a1 + 48);
   v10 = *(a1 + 56);
-  v14 = v9;
-  v15 = v10;
-  dispatch_async(v8, v13);
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = v9;
+  v14 = v10;
+  dispatch_async(v8, v12);
 }
 
 void __91__NRRegistryClient__queryDaemonWithStartingTokenValue_currentTokenValue_syncXPC_withBlock___block_invoke_2_60(uint64_t a1, void *a2, void *a3, int a4, uint64_t a5)
@@ -1607,7 +1586,7 @@ uint64_t __34__NRRegistryClient_setCollection___block_invoke(uint64_t a1)
 
 void __34__NRRegistryClient_setCollection___block_invoke_2(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = (a1 + 32);
   v2 = *(a1 + 32);
   v4 = a2;
@@ -1616,56 +1595,54 @@ void __34__NRRegistryClient_setCollection___block_invoke_2(uint64_t a1, void *a2
   v7 = [*v3 collection];
   v8 = [*v3 secureProperties];
   v9 = v4;
-  v18 = v7;
+  v17 = v7;
   v10 = v8;
   if (v6)
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__0;
-    v28 = __Block_byref_object_dispose__0;
-    v29 = 0;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __94__NRRegistryClient__notifyDiffIndexObserversWithDiff_deviceCollection_secureProperties_index___block_invoke;
-    v23[3] = &unk_1E86DB8F0;
-    v23[4] = v6;
-    v23[5] = &v24;
-    [v6 performUnderCollectionLock:v23];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__0;
+    v27 = __Block_byref_object_dispose__0;
+    v28 = 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __94__NRRegistryClient__notifyDiffIndexObserversWithDiff_deviceCollection_secureProperties_index___block_invoke;
+    v22[3] = &unk_1E86DB8F0;
+    v22[4] = v6;
+    v22[5] = &v23;
+    [v6 performUnderCollectionLock:v22];
     v20 = 0u;
-    v11 = v25[5];
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v30 count:16];
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v11 = v24[5];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
     if (v12)
     {
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          v16 = [v25[5] objectForKeyedSubscript:v15];
-          (v16)[2](v16, v9, v18, v10, v15, v5);
+          v15 = *(*(&v18 + 1) + 8 * i);
+          v16 = [v24[5] objectForKeyedSubscript:v15];
+          (v16)[2](v16, v9, v17, v10, v15, v5);
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v30 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
       }
 
       while (v12);
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate

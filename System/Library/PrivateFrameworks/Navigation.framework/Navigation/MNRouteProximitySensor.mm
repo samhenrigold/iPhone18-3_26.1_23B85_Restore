@@ -80,17 +80,22 @@
   if (bestLatLng)
   {
     [bestLatLng coordinate];
-    [(GEOLocation *)v5 coordinate];
-    GEOCalculateDistance();
     v9 = v8;
+    v11 = v10;
+    coordinate = [(GEOLocation *)v5 coordinate];
+    v18.var2 = v13;
+    v19.var0 = v14;
+    v18.var0 = v9;
+    v18.var1 = v11;
+    v16 = GEOCalculateDistance(coordinate, v15, v18, v19);
   }
 
   else
   {
-    v9 = -1.79769313e308;
+    v16 = -1.79769313e308;
   }
 
-  return v9;
+  return v16;
 }
 
 - (double)distanceFromRoute
@@ -121,17 +126,22 @@
   if (bestLatLng)
   {
     [bestLatLng coordinate];
-    [(GEOLocation *)v5 coordinate];
-    GEOCalculateDistance();
     v9 = v8;
+    v11 = v10;
+    coordinate = [(GEOLocation *)v5 coordinate];
+    v18.var2 = v13;
+    v19.var0 = v14;
+    v18.var0 = v9;
+    v18.var1 = v11;
+    v16 = GEOCalculateDistance(coordinate, v15, v18, v19);
   }
 
   else
   {
-    v9 = -1.79769313e308;
+    v16 = -1.79769313e308;
   }
 
-  return v9;
+  return v16;
 }
 
 - (double)courseOnRoute
@@ -186,7 +196,7 @@
 
 - (void)updateForLocation:(id)location
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   if (locationCopy)
   {
@@ -197,25 +207,23 @@
 
   else
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Location is nil"];
-    v8 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Location is nil"];
+    v7 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136316162;
-      v10 = "[MNRouteProximitySensor updateForLocation:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Misc/MNRouteProximitySensor.m";
-      v13 = 1024;
-      v14 = 62;
-      v15 = 2080;
-      v16 = "location";
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v9, 0x30u);
+      v8 = 136316162;
+      v9 = "[MNRouteProximitySensor updateForLocation:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Misc/MNRouteProximitySensor.m";
+      v12 = 1024;
+      v13 = 62;
+      v14 = 2080;
+      v15 = "location";
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (MNRouteProximitySensor)initWithRoute:(id)route

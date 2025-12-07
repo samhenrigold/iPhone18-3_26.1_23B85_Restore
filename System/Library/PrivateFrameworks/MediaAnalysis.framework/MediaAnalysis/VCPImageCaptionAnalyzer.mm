@@ -419,17 +419,17 @@ id __67__VCPImageCaptionAnalyzer_sharedCSUCaptionerWithConfig_identifier___block
   return v9;
 }
 
-id __75__VCPImageCaptionAnalyzer_sharedCVNLPCaptionHandlerWithOptions_identifier___block_invoke()
+id __75__VCPImageCaptionAnalyzer_sharedCVNLPCaptionHandlerWithOptions_identifier___block_invoke(uint64_t a1)
 {
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[ImageCaption] Initiating CVNLPCaptionHandler", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[ImageCaption] Initiating CVNLPCaptionHandler", v3, 2u);
   }
 
-  v0 = CVNLPCaptionHandlerCreate();
+  v1 = CVNLPCaptionHandlerCreate();
 
-  return v0;
+  return v1;
 }
 
 - (BOOL)containPotentialUnsafeContent:(__CVBuffer *)content
@@ -685,7 +685,7 @@ LABEL_48:
 
 - (int)analyzePixelBuffer:(__CVBuffer *)buffer flags:(unint64_t *)flags results:(id *)results cancel:(id)cancel
 {
-  v155[1] = *MEMORY[0x1E69E9840];
+  v160[1] = *MEMORY[0x1E69E9840];
   cancelCopy = cancel;
   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
@@ -695,20 +695,21 @@ LABEL_48:
 
   if (!cancelCopy || !cancelCopy[2](cancelCopy))
   {
-    if ([(VCPImageCaptionAnalyzer *)self containPotentialUnsafeContent:buffer])
+    v11 = [(VCPImageCaptionAnalyzer *)self containPotentialUnsafeContent:buffer];
+    if (v11)
     {
-      v154 = @"ImageCaptionResults";
-      v151 = @"attributes";
-      v149 = @"imageCaptionUnsafeContent";
-      v11 = [MEMORY[0x1E696AD98] numberWithBool:1];
-      v150 = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v150 forKeys:&v149 count:1];
-      v152 = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v152 forKeys:&v151 count:1];
-      v153 = v13;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v153 count:1];
-      v155[0] = v14;
-      *results = [MEMORY[0x1E695DF20] dictionaryWithObjects:v155 forKeys:&v154 count:1];
+      v159 = @"ImageCaptionResults";
+      v156 = @"attributes";
+      v154 = @"imageCaptionUnsafeContent";
+      v12 = [MEMORY[0x1E696AD98] numberWithBool:1];
+      v155 = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v155 forKeys:&v154 count:1];
+      v157 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v157 forKeys:&v156 count:1];
+      v158 = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v158 count:1];
+      v160[0] = v15;
+      *results = [MEMORY[0x1E695DF20] dictionaryWithObjects:v160 forKeys:&v159 count:1];
 
       v10 = 0;
       goto LABEL_117;
@@ -723,95 +724,95 @@ LABEL_48:
         {
           resultsCopy3 = results;
           *buf = 0;
-          v22 = VCPSignPostLog();
-          v23 = os_signpost_id_generate(v22);
+          v23 = VCPSignPostLog(v11);
+          v24 = os_signpost_id_generate(v23);
 
-          v24 = VCPSignPostLog();
-          v25 = v24;
-          v26 = v23 - 1;
-          if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+          v26 = VCPSignPostLog(v25);
+          v27 = v26;
+          v28 = v24 - 1;
+          if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
           {
-            *v124 = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "VCPImageCaptionAnalyzer_AX_CVNLP_Inference", "", v124, 2u);
+            *v129 = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v24, "VCPImageCaptionAnalyzer_AX_CVNLP_Inference", "", v129, 2u);
           }
 
-          v27 = CVNLPCaptionCopyForCVPixelBuffer();
-          v28 = [v27 objectForKeyedSubscript:*MEMORY[0x1E6991F90]];
-          firstObject = [v28 firstObject];
+          v29 = CVNLPCaptionCopyForCVPixelBuffer();
+          v30 = [v29 objectForKeyedSubscript:*MEMORY[0x1E6991F90]];
+          firstObject = [v30 firstObject];
 
           if (!firstObject)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              *v124 = 0;
-              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ImageCaption] No image caption result generated", v124, 2u);
+              *v129 = 0;
+              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ImageCaption] No image caption result generated", v129, 2u);
             }
 
+            v35 = 0;
             v33 = 0;
-            v31 = 0;
             goto LABEL_81;
           }
 
-          spid = v23;
+          spid = v24;
           caption = [firstObject objectForKeyedSubscript:*MEMORY[0x1E6991F98]];
-          v31 = [firstObject objectForKeyedSubscript:*MEMORY[0x1E6991FA8]];
-          v32 = [firstObject objectForKeyedSubscript:*MEMORY[0x1E6991FA0]];
-          bOOLValue = [v32 BOOLValue];
+          v33 = [firstObject objectForKeyedSubscript:*MEMORY[0x1E6991FA8]];
+          v34 = [firstObject objectForKeyedSubscript:*MEMORY[0x1E6991FA0]];
+          bOOLValue = [v34 BOOLValue];
 
-          v33 = [v27 objectForKeyedSubscript:*MEMORY[0x1E6991FB0]];
-          v34 = VCPSignPostLog();
-          v35 = v34;
-          if (v26 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+          v35 = [v29 objectForKeyedSubscript:*MEMORY[0x1E6991FB0]];
+          v36 = VCPSignPostLog(v35);
+          v37 = v36;
+          if (v28 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
           {
-            *v124 = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, spid, "VCPImageCaptionAnalyzer_AX_CVNLP_Inference", "", v124, 2u);
+            *v129 = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_END, spid, "VCPImageCaptionAnalyzer_AX_CVNLP_Inference", "", v129, 2u);
           }
 
 LABEL_28:
           if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
-            v36 = self->_modelType;
+            v38 = self->_modelType;
             *buf = 134218498;
-            *&buf[4] = v36;
-            v143 = 2112;
-            v144 = caption;
-            v145 = 2112;
-            v146 = v31;
+            *&buf[4] = v38;
+            v148 = 2112;
+            v149 = caption;
+            v150 = 2112;
+            v151 = v33;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[ImageCaption] image caption modelType:%lu, text:%@, score:%@", buf, 0x20u);
           }
 
           if (caption)
           {
-            if (v31)
+            if (v33)
             {
-              v140[0] = @"imageCaptionText";
-              v140[1] = @"imageCaptionConfidence";
-              v141[0] = caption;
-              v141[1] = v31;
-              v140[2] = @"imageCaptionUnsafeContent";
-              v37 = [MEMORY[0x1E696AD98] numberWithBool:0];
-              v141[2] = v37;
-              v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v141 forKeys:v140 count:3];
-              v39 = [v38 mutableCopy];
+              v145[0] = @"imageCaptionText";
+              v145[1] = @"imageCaptionConfidence";
+              v146[0] = caption;
+              v146[1] = v33;
+              v145[2] = @"imageCaptionUnsafeContent";
+              v39 = [MEMORY[0x1E696AD98] numberWithBool:0];
+              v146[2] = v39;
+              v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v146 forKeys:v145 count:3];
+              v41 = [v40 mutableCopy];
 
-              v40 = self->_modelType;
-              if ((v40 - 3) >= 3)
+              v42 = self->_modelType;
+              if ((v42 - 3) >= 3)
               {
-                if (v40 == 2)
+                if (v42 == 2)
                 {
-                  v133 = @"ImageCaptionResults";
-                  v130 = @"attributes";
-                  v131 = v39;
-                  v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
-                  v132 = v41;
-                  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v132 count:1];
-                  v134 = v42;
-                  v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+                  v138 = @"ImageCaptionResults";
+                  v135 = @"attributes";
+                  v136 = v41;
+                  v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+                  v137 = v43;
+                  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:1];
+                  v139 = v44;
+                  v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
                 }
 
                 else
                 {
-                  if (v40 != 1)
+                  if (v42 != 1)
                   {
 LABEL_138:
 
@@ -819,34 +820,34 @@ LABEL_138:
                     goto LABEL_116;
                   }
 
-                  v86 = [MEMORY[0x1E696AD98] numberWithBool:bOOLValue];
-                  [v39 setObject:v86 forKeyedSubscript:@"imageCaptionLowConfidence"];
+                  v90 = [MEMORY[0x1E696AD98] numberWithBool:bOOLValue];
+                  [v41 setObject:v90 forKeyedSubscript:@"imageCaptionLowConfidence"];
 
-                  [v39 setObject:v33 forKeyedSubscript:@"classificationIdentifiers"];
-                  v138 = @"ImageCaptionResults";
-                  v135 = @"attributes";
-                  v136 = v39;
-                  v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
-                  v137 = v41;
-                  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v137 count:1];
-                  v139 = v42;
-                  v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+                  [v41 setObject:v35 forKeyedSubscript:@"classificationIdentifiers"];
+                  v143 = @"ImageCaptionResults";
+                  v140 = @"attributes";
+                  v141 = v41;
+                  v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
+                  v142 = v43;
+                  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v142 count:1];
+                  v144 = v44;
+                  v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
                 }
               }
 
               else
               {
-                v128 = @"MiCaImageCaptionResults";
-                v125 = @"attributes";
-                v126 = v39;
-                v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
-                v127 = v41;
-                v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v127 count:1];
-                v129 = v42;
-                v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
+                v133 = @"MiCaImageCaptionResults";
+                v130 = @"attributes";
+                v131 = v41;
+                v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
+                v132 = v43;
+                v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v132 count:1];
+                v134 = v44;
+                v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
               }
 
-              *resultsCopy3 = v43;
+              *resultsCopy3 = v45;
 
               goto LABEL_138;
             }
@@ -857,7 +858,7 @@ LABEL_138:
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ImageCaption] No caption confidence score text generated", buf, 2u);
             }
 
-            v31 = 0;
+            v33 = 0;
 LABEL_90:
             v10 = -18;
 LABEL_116:
@@ -876,8 +877,8 @@ LABEL_81:
           goto LABEL_90;
         }
 
+        v22 = 0;
         v21 = 0;
-        v20 = 0;
         goto LABEL_52;
       }
 
@@ -896,20 +897,20 @@ LABEL_81:
       LODWORD(captioningEncoderConfiguration) = [inputPixelBufferDescriptor pixelFormat];
       bytesPerRowAlignment = [inputPixelBufferDescriptor bytesPerRowAlignment];
       [inputPixelBufferDescriptor isIOSurfaceBacked];
-      v57 = *MEMORY[0x1E6966020];
-      v147[0] = *MEMORY[0x1E69660D8];
-      v147[1] = v57;
-      v148[0] = MEMORY[0x1E695E0F8];
-      v58 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:bytesPerRowAlignment];
-      v148[1] = v58;
-      v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v148 forKeys:v147 count:2];
+      v60 = *MEMORY[0x1E6966020];
+      v152[0] = *MEMORY[0x1E69660D8];
+      v152[1] = v60;
+      v153[0] = MEMORY[0x1E695E0F8];
+      v61 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:bytesPerRowAlignment];
+      v153[1] = v61;
+      v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v153 forKeys:v152 count:2];
 
-      if (CVPixelBufferCreate(0, width, height, captioningEncoderConfiguration, v59, &self->_rescaledImageBuffer))
+      if (CVPixelBufferCreate(0, width, height, captioningEncoderConfiguration, v62, &self->_rescaledImageBuffer))
       {
-        v60 = self->_rescaledImageBuffer;
-        if (v60)
+        v63 = self->_rescaledImageBuffer;
+        if (v63)
         {
-          CFRelease(v60);
+          CFRelease(v63);
           self->_rescaledImageBuffer = 0;
         }
       }
@@ -919,87 +920,91 @@ LABEL_81:
       {
 LABEL_46:
         imageCaptioner = self->_imageCaptioner;
-        v123 = 0;
-        [(CSUImageCaptioner *)imageCaptioner resampleImage:buffer intoInputImage:rescaledImageBuffer error:&v123];
-        v62 = v123;
-        if (v62)
+        v128 = 0;
+        [(CSUImageCaptioner *)imageCaptioner resampleImage:buffer intoInputImage:rescaledImageBuffer error:&v128];
+        v65 = v128;
+        if (v65)
         {
-          v21 = v62;
+          v22 = v65;
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v63 = [v21 description];
-            v64 = v63;
-            uTF8String = [v63 UTF8String];
+            v66 = [v22 description];
+            v67 = v66;
+            uTF8String = [v66 UTF8String];
             *buf = 136315138;
             *&buf[4] = uTF8String;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ImageCaption] Failed to resample input pixelBuffer: (%s)", buf, 0xCu);
           }
 
-          v20 = 0;
+          v21 = 0;
           goto LABEL_96;
         }
 
-        if (cancelCopy && (cancelCopy[2](cancelCopy) & 1) != 0)
+        if (cancelCopy)
         {
+          v65 = cancelCopy[2](cancelCopy);
+          if (v65)
+          {
 LABEL_17:
-          v20 = 0;
-          v21 = 0;
-          v10 = -128;
+            v21 = 0;
+            v22 = 0;
+            v10 = -128;
 LABEL_115:
 
-          v33 = 0;
-          v31 = 0;
-          caption = 0;
-          goto LABEL_116;
+            v35 = 0;
+            v33 = 0;
+            caption = 0;
+            goto LABEL_116;
+          }
         }
 
-        v79 = VCPSignPostLog();
-        v80 = os_signpost_id_generate(v79);
+        v82 = VCPSignPostLog(v65);
+        v83 = os_signpost_id_generate(v82);
 
-        v81 = VCPSignPostLog();
-        v82 = v81;
-        if (v80 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v81))
+        v85 = VCPSignPostLog(v84);
+        v86 = v85;
+        if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v85))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v82, OS_SIGNPOST_INTERVAL_BEGIN, v80, "VCPImageCaptionAnalyzer_AX_CSU_Inference", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v86, OS_SIGNPOST_INTERVAL_BEGIN, v83, "VCPImageCaptionAnalyzer_AX_CSU_Inference", "", buf, 2u);
         }
 
-        v83 = self->_imageCaptioner;
-        v84 = self->_rescaledImageBuffer;
-        v122 = 0;
-        v20 = [(CSUImageCaptioner *)v83 computeCaptionForImage:v84 withDecodingMethod:1 error:&v122];
-        v21 = v122;
-        v85 = VCPSignPostLog();
-        v50 = v85;
-        if (v80 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v85))
+        v87 = self->_imageCaptioner;
+        v88 = self->_rescaledImageBuffer;
+        v127 = 0;
+        v21 = [(CSUImageCaptioner *)v87 computeCaptionForImage:v88 withDecodingMethod:1 error:&v127];
+        v22 = v127;
+        v89 = VCPSignPostLog(v22);
+        v53 = v89;
+        if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v89))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v50, OS_SIGNPOST_INTERVAL_END, v80, "VCPImageCaptionAnalyzer_AX_CSU_Inference", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v53, OS_SIGNPOST_INTERVAL_END, v83, "VCPImageCaptionAnalyzer_AX_CSU_Inference", "", buf, 2u);
         }
 
 LABEL_128:
 
-        if (v20 && !v21)
+        if (v21 && !v22)
         {
-          results = [v20 results];
+          results = [v21 results];
           if (results)
           {
-            results2 = [v20 results];
-            v108 = [results2 count] == 0;
+            results2 = [v21 results];
+            v113 = [results2 count] == 0;
 
-            if (!v108)
+            if (!v113)
             {
-              results3 = [v20 results];
-              v110 = [results3 objectAtIndexedSubscript:0];
-              caption = [v110 caption];
+              results3 = [v21 results];
+              v115 = [results3 objectAtIndexedSubscript:0];
+              caption = [v115 caption];
 
-              v111 = MEMORY[0x1E696AD98];
-              results4 = [v20 results];
-              v113 = [results4 objectAtIndexedSubscript:0];
-              [v113 score];
-              v31 = [v111 numberWithFloat:?];
+              v116 = MEMORY[0x1E696AD98];
+              results4 = [v21 results];
+              v118 = [results4 objectAtIndexedSubscript:0];
+              [v118 score];
+              v33 = [v116 numberWithFloat:?];
 
-              v33 = 0;
+              v35 = 0;
               bOOLValue = 0;
               goto LABEL_28;
             }
@@ -1017,9 +1022,9 @@ LABEL_128:
 LABEL_52:
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v66 = [v21 description];
-          v67 = v66;
-          uTF8String2 = [v66 UTF8String];
+          v69 = [v22 description];
+          v70 = v69;
+          uTF8String2 = [v69 UTF8String];
           *buf = 136315138;
           *&buf[4] = uTF8String2;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ImageCaption] Failed to generate CSUCaptionResults: (%s)", buf, 0xCu);
@@ -1031,8 +1036,8 @@ LABEL_52:
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v69 = MEMORY[0x1E69E9C10];
-        v70 = "[ImageCaption] Failed to create rescaledImageBuffer";
+        v72 = MEMORY[0x1E69E9C10];
+        v73 = "[ImageCaption] Failed to create rescaledImageBuffer";
         goto LABEL_58;
       }
     }
@@ -1041,53 +1046,57 @@ LABEL_52:
     {
       if (!self->_imageBackboneAnalyzer)
       {
-        v16 = [VCPImageBackboneAnalyzer alloc];
-        v17 = [MEMORY[0x1E696AD98] numberWithInteger:self->_backboneRevision];
-        v18 = [(VCPImageBackboneAnalyzer *)v16 initWithRequestedAnalyses:0x1000000000000 andRevision:v17 useSharedModel:self->_useSharedModel];
+        v17 = [VCPImageBackboneAnalyzer alloc];
+        v18 = [MEMORY[0x1E696AD98] numberWithInteger:self->_backboneRevision];
+        v19 = [(VCPImageBackboneAnalyzer *)v17 initWithRequestedAnalyses:0x1000000000000 andRevision:v18 useSharedModel:self->_useSharedModel];
         imageBackboneAnalyzer = self->_imageBackboneAnalyzer;
-        self->_imageBackboneAnalyzer = v18;
+        self->_imageBackboneAnalyzer = v19;
       }
 
-      if (cancelCopy && (cancelCopy[2](cancelCopy) & 1) != 0)
+      if (cancelCopy)
       {
-        goto LABEL_17;
+        v11 = cancelCopy[2](cancelCopy);
+        if (v11)
+        {
+          goto LABEL_17;
+        }
       }
 
       if (self->_imageBackboneAnalyzer)
       {
         resultsCopy3 = results;
-        v44 = VCPSignPostLog();
-        v45 = os_signpost_id_generate(v44);
+        v46 = VCPSignPostLog(v11);
+        v47 = os_signpost_id_generate(v46);
 
-        v46 = VCPSignPostLog();
-        v47 = v46;
-        if (v45 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
+        v49 = VCPSignPostLog(v48);
+        v50 = v49;
+        if (v47 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v47, OS_SIGNPOST_INTERVAL_BEGIN, v45, "VCPImageCaptionAnalyzer_MiCa_EmbeddingInference", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v50, OS_SIGNPOST_INTERVAL_BEGIN, v47, "VCPImageCaptionAnalyzer_MiCa_EmbeddingInference", "", buf, 2u);
         }
 
-        v48 = self->_imageBackboneAnalyzer;
-        v121 = 0;
-        v10 = [(VCPImageBackboneAnalyzer *)v48 analyzePixelBuffer:buffer flags:0 results:&v121 cancel:cancelCopy];
-        v49 = v121;
-        v50 = v49;
+        v51 = self->_imageBackboneAnalyzer;
+        v126 = 0;
+        v10 = [(VCPImageBackboneAnalyzer *)v51 analyzePixelBuffer:buffer flags:0 results:&v126 cancel:cancelCopy];
+        v52 = v126;
+        v53 = v52;
         if (v10)
         {
 
 LABEL_114:
-          v20 = 0;
           v21 = 0;
+          v22 = 0;
           goto LABEL_115;
         }
 
         spatialEmbedding = [(VCPImageBackboneAnalyzer *)self->_imageBackboneAnalyzer spatialEmbedding];
-        v72 = VCPSignPostLog();
-        v73 = v72;
-        if (v45 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v72))
+        v75 = VCPSignPostLog(spatialEmbedding);
+        v76 = v75;
+        if (v47 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v73, OS_SIGNPOST_INTERVAL_END, v45, "VCPImageCaptionAnalyzer_MiCa_EmbeddingInference", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v76, OS_SIGNPOST_INTERVAL_END, v47, "VCPImageCaptionAnalyzer_MiCa_EmbeddingInference", "", buf, 2u);
         }
 
         if (!spatialEmbedding)
@@ -1105,52 +1114,52 @@ LABEL_114:
         if ([objc_opt_class() writeSpatialEmbeddingToFile])
         {
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-          v75 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/tmp/com.apple.mediaanalysisd/" isDirectory:1];
-          path = [v75 path];
-          v77 = [defaultManager fileExistsAtPath:path];
+          v78 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/tmp/com.apple.mediaanalysisd/" isDirectory:1];
+          path = [v78 path];
+          v80 = [defaultManager fileExistsAtPath:path];
 
-          if (v77)
+          if (v80)
           {
-            v78 = 0;
+            v81 = 0;
           }
 
           else
           {
-            path2 = [v75 path];
-            v120 = 0;
-            v88 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v120];
-            v78 = v120;
+            path2 = [v78 path];
+            v125 = 0;
+            v92 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v125];
+            v81 = v125;
 
-            if ((v88 & 1) == 0)
+            if ((v92 & 1) == 0)
             {
-              localizedDescription = [v78 localizedDescription];
-              NSLog(&cfstr_ImagecaptionFa.isa, v75, localizedDescription);
+              localizedDescription = [v81 localizedDescription];
+              NSLog(&cfstr_ImagecaptionFa.isa, v78, localizedDescription);
             }
           }
 
-          v90 = [v75 URLByAppendingPathComponent:@"imageSpatialEmbedding.dat" isDirectory:0];
+          v94 = [v78 URLByAppendingPathComponent:@"imageSpatialEmbedding.dat" isDirectory:0];
 
-          v119 = v78;
-          v91 = [spatialEmbedding writeToURL:v90 options:1 error:&v119];
-          v92 = v119;
+          v124 = v81;
+          v95 = [spatialEmbedding writeToURL:v94 options:1 error:&v124];
+          v96 = v124;
 
-          if (v91)
+          if (v95)
           {
             if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *&buf[4] = v90;
+              *&buf[4] = v94;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[ImageCaption] Image spatial embedding successfully saved to %@", buf, 0xCu);
             }
           }
 
           else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            localizedDescription2 = [v92 localizedDescription];
+            localizedDescription2 = [v96 localizedDescription];
             *buf = 138412546;
-            *&buf[4] = v90;
-            v143 = 2112;
-            v144 = localizedDescription2;
+            *&buf[4] = v94;
+            v148 = 2112;
+            v149 = localizedDescription2;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ImageCaption] Failed to save image spatial embedding to %@ with error: %@", buf, 0x16u);
           }
         }
@@ -1163,61 +1172,61 @@ LABEL_113:
           goto LABEL_114;
         }
 
-        v95 = objc_autoreleasePoolPush();
-        v96 = VCPSignPostLog();
-        v97 = os_signpost_id_generate(v96);
+        v99 = objc_autoreleasePoolPush();
+        v100 = VCPSignPostLog(v99);
+        v101 = os_signpost_id_generate(v100);
 
-        v98 = VCPSignPostLog();
-        v99 = v98;
-        if (v97 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v98))
+        v103 = VCPSignPostLog(v102);
+        v104 = v103;
+        if (v101 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v103))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v99, OS_SIGNPOST_INTERVAL_BEGIN, v97, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v104, OS_SIGNPOST_INTERVAL_BEGIN, v101, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
         }
 
         greedySearchEnabled = [objc_opt_class() greedySearchEnabled];
-        v101 = self->_imageCaptioner;
+        v106 = self->_imageCaptioner;
         if (greedySearchEnabled)
         {
-          v117 = 0;
-          v102 = &v117;
-          v103 = [(CSUImageCaptioner *)v101 computeCaptionForEmbedding:spatialEmbedding withDecodingMethod:0 error:&v117];
+          v122 = 0;
+          v107 = &v122;
+          v108 = [(CSUImageCaptioner *)v106 computeCaptionForEmbedding:spatialEmbedding withDecodingMethod:0 error:&v122];
         }
 
         else
         {
-          v118 = 0;
-          v102 = &v118;
-          v103 = [(CSUImageCaptioner *)v101 computeCaptionForEmbedding:spatialEmbedding withDecodingMethod:1 error:&v118];
+          v123 = 0;
+          v107 = &v123;
+          v108 = [(CSUImageCaptioner *)v106 computeCaptionForEmbedding:spatialEmbedding withDecodingMethod:1 error:&v123];
         }
 
-        v20 = v103;
-        v21 = *v102;
-        v104 = VCPSignPostLog();
-        v105 = v104;
-        if (v97 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v104))
+        v21 = v108;
+        v22 = *v107;
+        v109 = VCPSignPostLog(v22);
+        v110 = v109;
+        if (v101 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v109))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v105, OS_SIGNPOST_INTERVAL_END, v97, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v110, OS_SIGNPOST_INTERVAL_END, v101, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
         }
 
-        objc_autoreleasePoolPop(v95);
+        objc_autoreleasePoolPop(v99);
         goto LABEL_128;
       }
 
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v69 = MEMORY[0x1E69E9C10];
-        v70 = "[ImageCaption] Failed to init VCPImageBackboneAnalyzer";
+        v72 = MEMORY[0x1E69E9C10];
+        v73 = "[ImageCaption] Failed to init VCPImageBackboneAnalyzer";
 LABEL_58:
-        _os_log_impl(&dword_1C9B70000, v69, OS_LOG_TYPE_ERROR, v70, buf, 2u);
+        _os_log_impl(&dword_1C9B70000, v72, OS_LOG_TYPE_ERROR, v73, buf, 2u);
       }
     }
 
-    v20 = 0;
-LABEL_95:
     v21 = 0;
+LABEL_95:
+    v22 = 0;
 LABEL_96:
     v10 = -18;
     goto LABEL_115;
@@ -1237,7 +1246,7 @@ LABEL_117:
 
 - (int)analyzeEmbedding:(id)embedding flags:(unint64_t *)flags results:(id *)results cancel:(id)cancel
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   embeddingCopy = embedding;
   cancelCopy = cancel;
   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
@@ -1266,10 +1275,10 @@ LABEL_117:
     }
 
     *buf = 0;
-    v20 = MEMORY[0x1E69E9C10];
-    v21 = "[ImageCaption] Image embedding for caption generation is nil";
+    v21 = MEMORY[0x1E69E9C10];
+    v22 = "[ImageCaption] Image embedding for caption generation is nil";
 LABEL_24:
-    v22 = 2;
+    v23 = 2;
     goto LABEL_25;
   }
 
@@ -1281,8 +1290,8 @@ LABEL_24:
     }
 
     *buf = 0;
-    v20 = MEMORY[0x1E69E9C10];
-    v21 = "analyzeEmbedding only support MADImageCaptionModelType_Mica";
+    v21 = MEMORY[0x1E69E9C10];
+    v22 = "analyzeEmbedding only support MADImageCaptionModelType_Mica";
     goto LABEL_24;
   }
 
@@ -1293,76 +1302,76 @@ LABEL_24:
       goto LABEL_29;
     }
 
-    v23 = [embeddingCopy length];
+    v24 = [embeddingCopy length];
     *buf = 134218240;
-    v58 = v23;
-    v59 = 2048;
-    v60 = 374784;
-    v20 = MEMORY[0x1E69E9C10];
-    v21 = "Embedding size mismatch (current embedding size in byte: %lu, expected size in byte with float: %lu) analyzeEmbedding only supports VCPMUBBRevision_V4 and VCPMUBBRevision_V5";
-    v22 = 22;
+    v59 = v24;
+    v60 = 2048;
+    v61 = 374784;
+    v21 = MEMORY[0x1E69E9C10];
+    v22 = "Embedding size mismatch (current embedding size in byte: %lu, expected size in byte with float: %lu) analyzeEmbedding only supports VCPMUBBRevision_V4 and VCPMUBBRevision_V5";
+    v23 = 22;
 LABEL_25:
-    _os_log_impl(&dword_1C9B70000, v20, OS_LOG_TYPE_ERROR, v21, buf, v22);
+    _os_log_impl(&dword_1C9B70000, v21, OS_LOG_TYPE_ERROR, v22, buf, v23);
 LABEL_29:
     v11 = -18;
     goto LABEL_30;
   }
 
   context = objc_autoreleasePoolPush();
-  v12 = VCPSignPostLog();
+  v12 = VCPSignPostLog(context);
   v13 = os_signpost_id_generate(v12);
 
-  v14 = VCPSignPostLog();
-  v15 = v14;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v15 = VCPSignPostLog(v14);
+  v16 = v15;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
   }
 
   greedySearchEnabled = [objc_opt_class() greedySearchEnabled];
   imageCaptioner = self->_imageCaptioner;
   if (greedySearchEnabled)
   {
-    v48 = 0;
-    v18 = &v48;
-    v19 = [(CSUImageCaptioner *)imageCaptioner computeCaptionForEmbedding:embeddingCopy withDecodingMethod:0 error:&v48];
+    v49 = 0;
+    v19 = &v49;
+    v20 = [(CSUImageCaptioner *)imageCaptioner computeCaptionForEmbedding:embeddingCopy withDecodingMethod:0 error:&v49];
   }
 
   else
   {
-    v49 = 0;
-    v18 = &v49;
-    v19 = [(CSUImageCaptioner *)imageCaptioner computeCaptionForEmbedding:embeddingCopy withDecodingMethod:1 error:&v49];
+    v50 = 0;
+    v19 = &v50;
+    v20 = [(CSUImageCaptioner *)imageCaptioner computeCaptionForEmbedding:embeddingCopy withDecodingMethod:1 error:&v50];
   }
 
-  v25 = v19;
-  v47 = *v18;
-  v26 = VCPSignPostLog();
-  v27 = v26;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  v26 = v20;
+  v48 = *v19;
+  v27 = VCPSignPostLog(v48);
+  v28 = v27;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v13, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v13, "VCPImageCaptionAnalyzer_MiCa_CaptionInference", "", buf, 2u);
   }
 
-  if (!v25 || v47)
+  if (!v26 || v48)
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v39 = [v47 description];
-      v40 = v39;
-      uTF8String = [v39 UTF8String];
+      v40 = [v48 description];
+      v41 = v40;
+      uTF8String = [v40 UTF8String];
       *buf = 136315138;
-      v58 = uTF8String;
+      v59 = uTF8String;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[ERROR] Failed to generate CSUCaptionResults: (%s)", buf, 0xCu);
     }
 
     goto LABEL_46;
   }
 
-  results = [v25 results];
-  if (!results || ([v25 results], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count") == 0, v29, results, v30))
+  results = [v26 results];
+  if (!results || ([v26 results], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "count") == 0, v30, results, v31))
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -1371,55 +1380,55 @@ LABEL_29:
     }
 
 LABEL_46:
-    v37 = 0;
-    caption = 0;
     v38 = 0;
+    caption = 0;
+    v39 = 0;
     goto LABEL_47;
   }
 
-  results2 = [v25 results];
-  v32 = [results2 objectAtIndexedSubscript:0];
-  caption = [v32 caption];
+  results2 = [v26 results];
+  v33 = [results2 objectAtIndexedSubscript:0];
+  caption = [v33 caption];
 
-  v34 = MEMORY[0x1E696AD98];
-  results3 = [v25 results];
-  v36 = [results3 objectAtIndexedSubscript:0];
-  [v36 score];
-  v37 = [v34 numberWithFloat:?];
+  v35 = MEMORY[0x1E696AD98];
+  results3 = [v26 results];
+  v37 = [results3 objectAtIndexedSubscript:0];
+  [v37 score];
+  v38 = [v35 numberWithFloat:?];
 
-  v38 = 1;
+  v39 = 1;
 LABEL_47:
 
   objc_autoreleasePoolPop(context);
-  if (v38)
+  if (v39)
   {
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       modelType = self->_modelType;
       *buf = 134218498;
-      v58 = modelType;
-      v59 = 2112;
-      v60 = caption;
-      v61 = 2112;
-      v62 = v37;
+      v59 = modelType;
+      v60 = 2112;
+      v61 = caption;
+      v62 = 2112;
+      v63 = v38;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[ImageCaption] image caption modelType:%lu, text:%@, score:%@", buf, 0x20u);
     }
 
-    v55 = @"MiCaImageCaptionResults";
-    v52 = @"attributes";
-    v50[0] = @"imageCaptionText";
-    v50[1] = @"imageCaptionConfidence";
-    v51[0] = caption;
-    v51[1] = v37;
-    v50[2] = @"imageCaptionUnsafeContent";
-    v51[2] = MEMORY[0x1E695E110];
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:3];
-    v53 = v43;
-    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+    v56 = @"MiCaImageCaptionResults";
+    v53 = @"attributes";
+    v51[0] = @"imageCaptionText";
+    v51[1] = @"imageCaptionConfidence";
+    v52[0] = caption;
+    v52[1] = v38;
+    v51[2] = @"imageCaptionUnsafeContent";
+    v52[2] = MEMORY[0x1E695E110];
+    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:3];
     v54 = v44;
-    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
-    v56 = v45;
-    *results = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+    v55 = v45;
+    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
+    v57 = v46;
+    *results = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
 
     v11 = 0;
   }

@@ -6,7 +6,7 @@
 
 - (void)sg_decodeEncodedWords
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   if ([self length] >= 9)
   {
@@ -17,38 +17,38 @@
     block[4] = self;
     block[5] = a2;
     selfCopy = self;
-    v28 = v4;
+    v27 = v4;
     if (sg_decodeEncodedWords__pasOnceToken8 != -1)
     {
       dispatch_once(&sg_decodeEncodedWords__pasOnceToken8, block);
     }
 
     selfCopy2 = self;
-    v27 = sg_decodeEncodedWords__pasExprOnceResult;
-    [v27 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
+    v26 = sg_decodeEncodedWords__pasExprOnceResult;
+    [v26 matchesInString:self options:0 range:{0, objc_msgSend(self, "length")}];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v26 = v36 = 0u;
-    reverseObjectEnumerator = [v26 reverseObjectEnumerator];
-    v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v25 = v35 = 0u;
+    reverseObjectEnumerator = [v25 reverseObjectEnumerator];
+    v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v34;
-      v29 = reverseObjectEnumerator;
-      v30 = 0x7FFFFFFFFFFFFFFFLL;
+      v9 = *v33;
+      v28 = reverseObjectEnumerator;
+      v29 = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
         v10 = 0;
         do
         {
-          if (*v34 != v9)
+          if (*v33 != v9)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          range = [*(*(&v33 + 1) + 8 * v10) range];
+          range = [*(*(&v32 + 1) + 8 * v10) range];
           v13 = v12;
           v14 = [selfCopy2 substringWithRange:{range, v12}];
           v15 = [v14 dataUsingEncoding:1];
@@ -69,20 +69,20 @@
 
                 if (v21)
                 {
-                  v22 = v30;
+                  v22 = v29;
                   selfCopy2 = selfCopy;
-                  if (v30 != 0x7FFFFFFFFFFFFFFFLL)
+                  if (v29 != 0x7FFFFFFFFFFFFFFFLL)
                   {
                     if (sg_decodeEncodedWords__pasOnceToken9 != -1)
                     {
                       dispatch_once(&sg_decodeEncodedWords__pasOnceToken9, &__block_literal_global_11672);
-                      v22 = v30;
+                      v22 = v29;
                     }
 
-                    v31 = v22 - (range + v13);
+                    v30 = v22 - (range + v13);
                     selfCopy2 = selfCopy;
                     v23 = [selfCopy rangeOfCharacterFromSet:sg_decodeEncodedWords__pasExprOnceResult_18 options:2 range:?];
-                    v24 = v31;
+                    v24 = v30;
                     if (v23 != 0x7FFFFFFFFFFFFFFFLL)
                     {
                       v24 = 0;
@@ -92,7 +92,7 @@
                   }
 
                   [selfCopy2 replaceCharactersInRange:range withString:{v13, v21}];
-                  v30 = range;
+                  v29 = range;
                 }
 
                 else
@@ -100,7 +100,7 @@
                   selfCopy2 = selfCopy;
                 }
 
-                reverseObjectEnumerator = v29;
+                reverseObjectEnumerator = v28;
               }
             }
           }
@@ -109,17 +109,16 @@
         }
 
         while (v8 != v10);
-        v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v8);
     }
 
-    v4 = v28;
+    v4 = v27;
   }
 
   objc_autoreleasePoolPop(v4);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

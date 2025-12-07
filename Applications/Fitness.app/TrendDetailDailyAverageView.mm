@@ -87,17 +87,17 @@
 - (id)accessibiliytQuantity90ForIndex:(int64_t)index
 {
   selfCopy = self;
-  v5 = sub_10023ECEC(index);
+  v12 = sub_10023ECEC(index, v5, v6, v7, v8, v9, v10, v11);
 
-  return v5;
+  return v12;
 }
 
 - (id)accessibiliytQuantity365ForIndex:(int64_t)index
 {
   selfCopy = self;
-  v5 = sub_10023EE34(index);
+  v12 = sub_10023EE34(index, v5, v6, v7, v8, v9, v10, v11);
 
-  return v5;
+  return v12;
 }
 
 @end

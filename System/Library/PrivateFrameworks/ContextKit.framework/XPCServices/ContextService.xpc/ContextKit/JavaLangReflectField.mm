@@ -56,26 +56,27 @@
   metadata = self->metadata_;
   if (metadata)
   {
-    v4 = JavaLangReflectModifier_toStringWithInt_([(JavaFieldMetadata *)metadata modifiers]);
+    modifiers = [(JavaFieldMetadata *)metadata modifiers];
+    v6 = JavaLangReflectModifier_toStringWithInt_(modifiers, v5);
   }
 
   else
   {
-    v4 = &stru_100484358;
+    v6 = &stru_100484358;
   }
 
-  v5 = [(__CFString *)v4 length];
+  v7 = [(__CFString *)v6 length];
   getType = [(JavaLangReflectField *)self getType];
-  v7 = [-[JavaLangReflectField getDeclaringClass](self "getDeclaringClass")];
+  v9 = [-[JavaLangReflectField getDeclaringClass](self "getDeclaringClass")];
   propertyName = [(JavaLangReflectField *)self propertyName];
-  if (v5)
+  if (v7)
   {
-    return [NSString stringWithFormat:@"%@ %@ %@.%@", v4, getType, v7, propertyName];
+    return [NSString stringWithFormat:@"%@ %@ %@.%@", v6, getType, v9, propertyName];
   }
 
   else
   {
-    return [NSString stringWithFormat:@"%@ %@.%@", getType, v7, propertyName, v10];
+    return [NSString stringWithFormat:@"%@ %@.%@", getType, v9, propertyName, v12];
   }
 }
 
@@ -203,9 +204,10 @@
     if (genericSignature)
     {
       v6 = genericSignature;
-      v7 = [[LibcoreReflectGenericSignatureParser alloc] initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader()];
-      [(LibcoreReflectGenericSignatureParser *)v7 parseForFieldWithJavaLangReflectGenericDeclaration:self->declaringClass_ withNSString:v6];
-      fieldType = v7->fieldType_;
+      v7 = [LibcoreReflectGenericSignatureParser alloc];
+      v9 = [(LibcoreReflectGenericSignatureParser *)v7 initWithJavaLangClassLoader:JavaLangClassLoader_getSystemClassLoader(v7, v8)];
+      [(LibcoreReflectGenericSignatureParser *)v9 parseForFieldWithJavaLangReflectGenericDeclaration:self->declaringClass_ withNSString:v6];
+      fieldType = v9->fieldType_;
       if (fieldType)
       {
         getType = fieldType;
@@ -305,17 +307,18 @@
   metadata = self->metadata_;
   if (metadata)
   {
-    v4 = JavaLangReflectModifier_toStringWithInt_([(JavaFieldMetadata *)metadata modifiers]);
+    modifiers = [(JavaFieldMetadata *)metadata modifiers];
+    v6 = JavaLangReflectModifier_toStringWithInt_(modifiers, v5);
   }
 
   else
   {
-    v4 = &stru_100484358;
+    v6 = &stru_100484358;
   }
 
-  if ([(__CFString *)v4 length])
+  if ([(__CFString *)v6 length])
   {
-    v4 = [(__CFString *)v4 stringByAppendingString:@" "];
+    v6 = [(__CFString *)v6 stringByAppendingString:@" "];
   }
 
   getGenericType = [(JavaLangReflectField *)self getGenericType];
@@ -329,13 +332,13 @@
     getName = [getGenericType description];
   }
 
-  return +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@%@ %@.%@", v4, getName, [-[JavaLangReflectField getDeclaringClass](self "getDeclaringClass")], -[JavaLangReflectField propertyName](self, "propertyName"));
+  return +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@%@ %@.%@", v6, getName, [-[JavaLangReflectField getDeclaringClass](self "getDeclaringClass")], -[JavaLangReflectField propertyName](self, "propertyName"));
 }
 
 - (id)getDeclaredAnnotations
 {
-  objcClass = [(IOSClass *)self->declaringClass_ objcClass];
-  if (objcClass && JreFindClassMethod(objcClass, [[NSString stringWithFormat:?])
+  ClassMethod = [(IOSClass *)self->declaringClass_ objcClass];
+  if (ClassMethod && (ClassMethod = JreFindClassMethod(ClassMethod, [[NSString stringWithFormat:?]) != 0)
   {
 
     method_invoke();
@@ -343,9 +346,9 @@
 
   else
   {
-    v5 = JavaLangAnnotationAnnotation_class_();
+    v6 = JavaLangAnnotationAnnotation_class_(ClassMethod, v4);
 
-    return [IOSObjectArray arrayWithLength:0 type:v5];
+    return [IOSObjectArray arrayWithLength:0 type:v6];
   }
 
   return result;

@@ -274,7 +274,7 @@
     countdownLabel = self->__countdownLabel;
     if (countdownLabel)
     {
-      [(UILabel *)countdownLabel transform];
+      objc_msgSend_transform(countdownLabel);
     }
 
     v25 = MEMORY[0x1E69DD250];
@@ -475,8 +475,7 @@ uint64_t __59__CAMTimerIndicatorView__updateFromChangeToStyle_animated___block_i
     v5 = 1.0;
   }
 
-  [(UILabel *)countdownLabel setAlpha:v5];
-  v8 = CAMTimerCountdownFormatter();
+  v8 = CAMTimerCountdownFormatter([(UILabel *)countdownLabel setAlpha:v5]);
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->__remainingTicks];
   v7 = [v8 stringFromNumber:v6];
 

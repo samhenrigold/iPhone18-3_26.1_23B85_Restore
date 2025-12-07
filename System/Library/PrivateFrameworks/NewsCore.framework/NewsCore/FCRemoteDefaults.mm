@@ -56,29 +56,27 @@
 
 - (FCRemoteDefaults)init
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
-    v6 = 136315906;
-    v7 = "[FCRemoteDefaults init]";
-    v8 = 2080;
-    v9 = "FCRemoteDefaults.m";
-    v10 = 1024;
-    v11 = 58;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Case unsupported"];
+    v5 = 136315906;
+    v6 = "[FCRemoteDefaults init]";
+    v7 = 2080;
+    v8 = "FCRemoteDefaults.m";
+    v9 = 1024;
+    v10 = 58;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
-  result = [(FCRemoteDefaults *)self initWithBackgroundTaskable:0];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(FCRemoteDefaults *)self initWithBackgroundTaskable:0];
 }
 
 - (id)objectForKey:(id)key
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   remoteDefaults = self->_remoteDefaults;
   keyCopy = key;
   v5 = [(FCThreadSafeMutableDictionary *)remoteDefaults objectForKey:@"FCRemoteDefaults"];
@@ -86,19 +84,17 @@
 
   if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "object"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "object"];
     *buf = 136315906;
-    v11 = "[FCRemoteDefaults objectForKey:]";
-    v12 = 2080;
-    v13 = "FCRemoteDefaults.m";
-    v14 = 1024;
-    v15 = 68;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCRemoteDefaults objectForKey:]";
+    v11 = 2080;
+    v12 = "FCRemoteDefaults.m";
+    v13 = 1024;
+    v14 = 68;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -299,7 +295,7 @@ void __40__FCRemoteDefaults_updateRemoteDefaults__block_invoke_2(uint64_t a1, vo
 
 - (void)processResponse:(id)response data:(id)data error:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   dataCopy = data;
   errorCopy = error;
@@ -313,9 +309,9 @@ void __40__FCRemoteDefaults_updateRemoteDefaults__block_invoke_2(uint64_t a1, vo
 
     if (v12 == 200 && [dataCopy length])
     {
-      v22 = 0;
-      v15 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:0 format:0 error:&v22];
-      v16 = v22;
+      v21 = 0;
+      v15 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:0 format:0 error:&v21];
+      v16 = v21;
 
       if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
@@ -325,7 +321,7 @@ void __40__FCRemoteDefaults_updateRemoteDefaults__block_invoke_2(uint64_t a1, vo
         if (os_log_type_enabled(FCAppConfigurationLog, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v24 = v15;
+          v23 = v15;
           _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_INFO, "Received configuration file: %@", buf, 0xCu);
         }
 
@@ -341,7 +337,7 @@ void __40__FCRemoteDefaults_updateRemoteDefaults__block_invoke_2(uint64_t a1, vo
         if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v24 = v16;
+          v23 = v16;
           _os_log_error_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_ERROR, "Could not create property list from data. Error: %{public}@", buf, 0xCu);
         }
       }
@@ -354,8 +350,6 @@ void __40__FCRemoteDefaults_updateRemoteDefaults__block_invoke_2(uint64_t a1, vo
 
     errorCopy = v16;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (FCBackgroundTaskable)backgroundTaskable

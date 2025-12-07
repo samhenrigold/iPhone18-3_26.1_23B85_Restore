@@ -732,7 +732,7 @@
       v62 = ACHLogDefault();
       if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
       {
-        [AAUIMetalBadgeRenderer _loadBadgeModelWithConfiguration:configurationCopy];
+        [(AAUIMetalBadgeRenderer *)configurationCopy _loadBadgeModelWithConfiguration:v51];
       }
     }
 
@@ -1316,17 +1316,25 @@ LABEL_27:
   _os_log_error_impl(&dword_23E4A3000, a2, OS_LOG_TYPE_ERROR, "Failed to load glyph texture image from URL:%{public}@", &v2, 0xCu);
 }
 
-- (void)_loadBadgeModelWithConfiguration:(void *)a1 .cold.2(void *a1)
+- (void)_loadBadgeModelWithConfiguration:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
-  v1 = [a1 badgeTexturePaths];
-  OUTLINED_FUNCTION_0(&dword_23E4A3000, v2, v3, "Failed to load color texture image from URL:%{public}@ error:%{public}@", v4, v5, v6, v7, 2u);
+  v3 = [a1 badgeTexturePaths];
+  *v10 = 138543618;
+  *&v10[4] = v3;
+  *&v10[12] = 2114;
+  *&v10[14] = a2;
+  OUTLINED_FUNCTION_0(&dword_23E4A3000, v4, v5, "Failed to load color texture image from URL:%{public}@ error:%{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_loadBadgeModelWithConfiguration:(void *)a1 .cold.3(void *a1)
 {
   v2 = [a1 badgeModelPaths];
-  v9 = [a1 shapeName];
-  OUTLINED_FUNCTION_0(&dword_23E4A3000, v3, v4, "Failed to load badge texture path for configuration badgeModelPath:%{public}@ shapeName:%{public}@", v5, v6, v7, v8, 2u);
+  v3 = [a1 shapeName];
+  *v10 = 138543618;
+  *&v10[4] = v2;
+  *&v10[12] = 2114;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_0(&dword_23E4A3000, v4, v5, "Failed to load badge texture path for configuration badgeModelPath:%{public}@ shapeName:%{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_drawFrameWithDrawable:(void *)a1 .cold.1(void *a1, NSObject *a2)

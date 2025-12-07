@@ -123,43 +123,42 @@
 
 - (REMNSPersistentHistoryTransaction)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"storage"];
   v6 = [(REMNSPersistentHistoryTransaction *)self initWithStorage:v5];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   storage = [(REMNSPersistentHistoryTransaction *)v6 storage];
   changes = [storage changes];
 
-  v9 = [changes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [changes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(changes);
         }
 
-        [*(*(&v15 + 1) + 8 * v12++) setInternal_ChangeTransaction:v6];
+        [*(*(&v14 + 1) + 8 * v12++) setInternal_ChangeTransaction:v6];
       }
 
       while (v10 != v12);
-      v10 = [changes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [changes countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

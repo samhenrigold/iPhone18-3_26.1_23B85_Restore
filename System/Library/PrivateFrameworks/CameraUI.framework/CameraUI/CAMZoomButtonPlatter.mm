@@ -121,13 +121,13 @@
   [_allButtons2 enumerateObjectsUsingBlock:v27];
 }
 
-void __38__CAMZoomButtonPlatter_layoutSubviews__block_invoke(uint64_t a1, void *a2)
+void __38__CAMZoomButtonPlatter_layoutSubviews__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
-  v6 = a2;
-  [v6 intrinsicContentSize];
+  v7 = a2;
+  [v7 intrinsicContentSize];
   UIRectCenteredAboutPointScale();
-  [v6 frameForAlignmentRect:?];
-  CAMViewSetBoundsAndCenterForFrame(v6, v2, v3, v4, v5);
+  [v7 frameForAlignmentRect:?];
+  CAMViewSetBoundsAndCenterForFrame(v7, v3, v4, v5, v6);
 }
 
 - (void)_updateButtonAlphas
@@ -523,7 +523,7 @@ LABEL_34:
               [_createZoomButton setBounds:?];
               if (v31)
               {
-                [v31 transform];
+                objc_msgSend_transform(v31);
               }
 
               else
@@ -1251,7 +1251,7 @@ LABEL_12:
   }
 }
 
-uint64_t __49__CAMZoomButtonPlatter__flashFocalLengthIfNeeded__block_invoke(uint64_t a1)
+void *__49__CAMZoomButtonPlatter__flashFocalLengthIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _focalLengthFlashID];
   if (result == *(a1 + 48))

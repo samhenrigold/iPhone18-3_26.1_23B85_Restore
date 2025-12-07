@@ -6,7 +6,7 @@
 
 - (void)moveAppLibraryTransfers:(id)transfers toAppLibrary:(id)library
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   transfersCopy = transfers;
   libraryCopy = library;
   clientDB = [(BRCAccountSession *)self->super._session clientDB];
@@ -37,22 +37,20 @@
       appLibraryID = [transfersCopy appLibraryID];
       appLibraryID2 = [libraryCopy appLibraryID];
       *buf = 138413314;
-      v29 = name;
-      v30 = 2048;
-      v31 = v19;
-      v32 = 2112;
-      v33 = appLibraryID;
-      v34 = 2112;
-      v35 = appLibraryID2;
-      v36 = 2112;
-      v37 = v20;
+      v28 = name;
+      v29 = 2048;
+      v30 = v19;
+      v31 = 2112;
+      v32 = appLibraryID;
+      v33 = 2112;
+      v34 = appLibraryID2;
+      v35 = 2112;
+      v36 = v20;
       _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: moved %lld throttles from %@ to %@%@", buf, 0x34u);
     }
 
     [(BRCFSSchedulerBase *)selfCopy signal];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

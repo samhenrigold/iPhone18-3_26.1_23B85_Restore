@@ -60,9 +60,10 @@
 {
   completionCopy = completion;
   v5 = completionCopy;
-  if (gLogCategory_RPRemoteXPC > 30 || gLogCategory_RPRemoteXPC == -1 && (v4 = _LogCategory_Initialize(), completionCopy = v5, !v4))
+  v6 = completionCopy;
+  if (gLogCategory_RPRemoteXPC > 30 || gLogCategory_RPRemoteXPC == -1 && (completionCopy = _LogCategory_Initialize(), v5 = v6, !completionCopy))
   {
-    if (!completionCopy)
+    if (!v5)
     {
       goto LABEL_6;
     }
@@ -70,13 +71,13 @@
     goto LABEL_5;
   }
 
-  [RPRemoteXPCConnection _activateWithCompletion:];
-  completionCopy = v5;
-  if (v5)
+  [(RPRemoteXPCConnection *)completionCopy _activateWithCompletion:v5, v4];
+  v5 = v6;
+  if (v6)
   {
 LABEL_5:
-    completionCopy[2](completionCopy, 0);
-    completionCopy = v5;
+    v5[2](v5, 0);
+    v5 = v6;
   }
 
 LABEL_6:
@@ -97,13 +98,17 @@ LABEL_6:
 {
   if (!self->_invalidateCalled)
   {
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (gLogCategory_RPRemoteXPC <= 30 && (gLogCategory_RPRemoteXPC != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPRemoteXPC <= 30)
     {
-      [RPRemoteXPCConnection _invalidate];
+      if (gLogCategory_RPRemoteXPC != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(RPRemoteXPCConnection *)self _invalidate];
+      }
     }
 
-    [(RPRemoteXPCConnection *)self _invalidated];
+    [(RPRemoteXPCConnection *)selfCopy _invalidated];
   }
 }
 
@@ -126,9 +131,12 @@ LABEL_6:
     self->_invalidationHandler = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_RPRemoteXPC <= 30 && (gLogCategory_RPRemoteXPC != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPRemoteXPC <= 30)
     {
-      [RPRemoteXPCConnection _invalidated];
+      if (gLogCategory_RPRemoteXPC != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        [(RPRemoteXPCConnection *)v7 _invalidated];
+      }
     }
   }
 }

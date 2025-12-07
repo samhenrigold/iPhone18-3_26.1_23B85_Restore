@@ -1,73 +1,3 @@
-uint64_t MatrixNxPts<1u,double>::DotDiv@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  Matrix<double>::DotDiv(a1, a2, &v7);
-  v4 = v8;
-  v5 = v9;
-  *(a3 + 24) = v10;
-  v8 = 0;
-  v10 = 0;
-  *a3 = &unk_283812C88;
-  *(a3 + 8) = v4;
-  *(a3 + 16) = 1;
-  *(a3 + 20) = v5;
-  return Matrix<double>::~Matrix(&v7);
-}
-
-uint64_t Interp1SortedWithExtrap<double,LinearInterpolator<double>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (*(a1 + 20) != *(a2 + 20))
-  {
-    Interp1SortedWithExtrap<double,LinearInterpolator<double>>();
-  }
-
-  v5 = *(a3 + 20);
-  if (v5 <= 1)
-  {
-    Interp1SortedWithExtrap<double,LinearInterpolator<double>>();
-  }
-
-  Matrix<double>::Resize(a4, 1, v5);
-  v9 = *(a3 + 20);
-  if (v9)
-  {
-    v10 = 0;
-    v11 = 0;
-    v12 = *(a1 + 20);
-    v13 = *(*(a1 + 8) + 8 * (v12 - 1));
-    do
-    {
-      v14 = *(*(a3 + 8) + 8 * v10);
-      v18 = 0;
-      if (v14 >= v13)
-      {
-        v15 = v12 - 2;
-        v11 = v12 - 2;
-      }
-
-      else
-      {
-        Algo::BinSearchNearestLowest<double>(a1, v11, &v18, v14);
-        v12 = *(a1 + 20);
-        v11 = v18;
-        v9 = *(a3 + 20);
-        v15 = v12 - 2;
-      }
-
-      if (v12 - 1 > v11)
-      {
-        v15 = v11;
-      }
-
-      v16 = *(a2 + 8);
-      *(*(a4 + 8) + 8 * v10++) = *(v16 + 8 * v15) + (*(v16 + 8 * (v15 + 1)) - *(v16 + 8 * v15)) * ((v14 - *(*(a1 + 8) + 8 * v15)) / (*(*(a1 + 8) + 8 * (v15 + 1)) - *(*(a1 + 8) + 8 * v15)));
-    }
-
-    while (v10 < v9);
-  }
-
-  return 0;
-}
-
 uint64_t Algo::BinSearchNearestLowest<double>(uint64_t a1, int a2, int *a3, double a4)
 {
   v4 = *(a1 + 20);
@@ -492,7 +422,7 @@ void H16ISP::H16ISPGraphExclaveISPManagerNode::H16ISPGraphExclaveISPManagerNode(
   *(v5 + 96) = a3;
 }
 
-void H16ISP::H16ISPGraphExclaveISPManagerNode::~H16ISPGraphExclaveISPManagerNode(H16ISP::H16ISPGraphExclaveISPManagerNode *this)
+void H16ISP::H16ISPGraphExclaveISPManagerNode::~H16ISPGraphExclaveISPManagerNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -1402,7 +1332,7 @@ void BlurM::calcNoiseMAD_Mean(BlurM *this, __int16 *a2, int a3, __int16 *a4, __i
   }
 }
 
-void BlurM::calcNoiseFilter(BlurM *this, __int16 *a2, int a3, __int16 *a4, __int16 *a5, __int16 *a6, __int16 *a7, BlurM *a8, __int16 *a9, unsigned __int8 a10)
+void BlurM::calcNoiseFilter(BlurM *this, __int16 *a2, int a3, __int16 *a4, __int16 *a5, __int16 *a6, __int16 *a7, int8x16_t *a8, __int16 *a9, unsigned __int8 a10)
 {
   v49 = *MEMORY[0x277D85DE8];
   v12 = (a3 * a2);
@@ -1490,7 +1420,7 @@ void BlurM::calcNoiseFilter(BlurM *this, __int16 *a2, int a3, __int16 *a4, __int
     if (v32 < v12)
     {
       v42 = v12 - v32;
-      v43 = (a8 + 2 * v32);
+      v43 = &a8->i16[v32];
       v44 = (this + 2 * v32);
       do
       {
@@ -1557,7 +1487,7 @@ void BlurM::calcNoiseFilter(BlurM *this, __int16 *a2, int a3, __int16 *a4, __int
     if (v15 < v12)
     {
       v37 = v12 - v15;
-      v38 = (a8 + 2 * v15);
+      v38 = &a8->i16[v15];
       v39 = (this + 2 * v15);
       do
       {
@@ -1629,7 +1559,8 @@ void BlurM::calcEmax(BlurM *this, __int16 *a2, int a3, int *a4, int *a5, __int16
             v28 = a7;
             do
             {
-              v29 = *v28++;
+              v29 = *v28;
+              v28 += 8;
               v26 = vmaxq_s16(v29, v26);
               v27 += 8;
             }
@@ -1945,7 +1876,7 @@ float32x2_t BlurM::detectBlur(BlurM *this, __int16 *a2, __int16 *a3, int a4, flo
   return result;
 }
 
-void BlurM::calcEmap(BlurM *this, __int16 *a2, __int16 *a3, __int16 *a4, int a5, BlurM *a6, __int16 *a7)
+void BlurM::calcEmap(BlurM *this, __int16 *a2, __int16 *a3, __int16 *a4, int a5, int16x8_t *a6, __int16 *a7)
 {
   v9 = a4;
   v42 = *MEMORY[0x277D85DE8];
@@ -1991,7 +1922,7 @@ void BlurM::calcEmap(BlurM *this, __int16 *a2, __int16 *a3, __int16 *a4, int a5,
   if (v12 < v10)
   {
     v30 = v10 - v12;
-    v31 = (a6 + 2 * v12);
+    v31 = &a6->i16[v12];
     v32 = &a3[v12];
     v33 = &a2[v12];
     v34 = (this + 2 * v12);
@@ -2111,7 +2042,7 @@ void BlurM::hlwt2(BlurM *this, __int16 *a2, int a3, BlurM *a4, BlurM *a5, BlurM 
             v128 = vld2_s16(v32);
             v32 += 8;
             *(v29 + v31) = v128.val[0];
-            *(v30 + v31) = v128.val[1];
+            *(v30->i64 + v31) = v128.val[1];
             v31 += 8;
           }
 
@@ -2133,7 +2064,7 @@ void BlurM::hlwt2(BlurM *this, __int16 *a2, int a3, BlurM *a4, BlurM *a5, BlurM 
               v33 = v11;
             }
 
-            v33[v26 * v14 / 2 + (v31 >> 1)] = *(this + v31);
+            v33->i16[v26 * v14 / 2 + (v31 >> 1)] = *(this + v31);
             ++v31;
           }
 
@@ -2204,7 +2135,7 @@ void BlurM::hlwt2(BlurM *this, __int16 *a2, int a3, BlurM *a4, BlurM *a5, BlurM 
           v127 = vld2_s16(v24);
           v24 += 8;
           *(v21 + v23) = v127.val[0];
-          *(v22 + v23) = v127.val[1];
+          *(v22->i64 + v23) = v127.val[1];
           v23 += 8;
         }
 
@@ -2226,7 +2157,7 @@ void BlurM::hlwt2(BlurM *this, __int16 *a2, int a3, BlurM *a4, BlurM *a5, BlurM 
             v25 = __src;
           }
 
-          v25[v18 * a2 / 2 + (v23 >> 1)] = *(this + v23);
+          *(v25 + (v18 * a2 / 2 + (v23 >> 1))) = *(this + v23);
           ++v23;
         }
 
@@ -2539,7 +2470,8 @@ LABEL_54:
     v71 = a4;
     do
     {
-      v72 = *v71++;
+      v72 = *v71;
+      v71 = (v71 + 16);
       *v70 = vsubq_s16(*v70, v72);
       ++v70;
       v69 += 8;
@@ -2732,7 +2664,7 @@ LABEL_54:
       }
 
       ++v93;
-      v16 += v34;
+      v16 = (v16 + 2 * v34);
     }
 
     while (v65 != v93);
@@ -3755,7 +3687,7 @@ void BlurM::Process(int *a1, uint64_t a2)
   }
 
   v2 = a1;
-  v3 = (a1 + 1144);
+  v3 = a1 + 1144;
   v4 = *a1;
   if (*a1 == 1)
   {
@@ -4308,7 +4240,7 @@ void BlurM::Process(int *a1, uint64_t a2)
                 *buf = 0;
                 BlurM::calcSharpness((v2 + 145901), v112, v72, buf, v46);
                 v43 = v111;
-                v131 = v111[368 * *v3 + 364 + v121];
+                LODWORD(v131) = v111[368 * *v3 + 364 + v121];
                 v130 = 0;
                 v44 = v121;
                 BlurM::detectBlur((v2 + 133613), v2 + 291802, v112, v72, &v131, &v130 + 1, &v130, v46, v100);
@@ -4338,7 +4270,7 @@ void BlurM::Process(int *a1, uint64_t a2)
     }
 
     while (v44 != 4);
-    if (v3[32])
+    if (v3[8])
     {
       v76 = 0;
       v77 = (v2 + 1175);
@@ -5267,7 +5199,7 @@ uint64_t H16ISP::H16ISPVerifyFirmwareDigest(H16ISP *this, unint64_t a2, void *a3
   }
 }
 
-uint64_t H16ISP::H16ISPInflateFirmwareBuffer(H16ISP *this, unint64_t a2, unint64_t a3, unsigned __int8 **a4, unint64_t *a5)
+uint64_t H16ISP::H16ISPInflateFirmwareBuffer(Bytef *this, unint64_t a2, Bytef **a3, unsigned __int8 **a4, unint64_t *a5)
 {
   memset(&strm.zalloc, 0, 24);
   strm.avail_in = a2;
@@ -5289,7 +5221,7 @@ uint64_t H16ISP::H16ISPInflateFirmwareBuffer(H16ISP *this, unint64_t a2, unint64
 
     else
     {
-      v11 = *(this + a2 - 4);
+      v11 = *&this[a2 - 4];
       *a4 = v11;
       if (!(v11 >> 25))
       {
@@ -5439,7 +5371,7 @@ void __destroy_helper_block_e8_32c66_ZTSNSt3__112basic_stringIcNS_11char_traitsI
   }
 }
 
-void H16ISP::dictionaryValueEnumerator(const __CFString *this, H16ISP *a2, void *a3, void *a4)
+void H16ISP::dictionaryValueEnumerator(const __CFString *this, const __CFString *a2, void *a3, void *a4)
 {
   v12 = *MEMORY[0x277D85DE8];
   CStringPtr = CFStringGetCStringPtr(this, 0x8000100u);
@@ -5463,7 +5395,7 @@ void H16ISP::dictionaryValueEnumerator(const __CFString *this, H16ISP *a2, void 
   }
 }
 
-void H16ISP::arrayValueEnumerator(H16ISP *this, void *a2, void *a3)
+void H16ISP::arrayValueEnumerator(const __CFString *this, void *a2, void *a3)
 {
   XpcFromType = H16ISP::createXpcFromType(this, a2);
   xpc_array_append_value(a2, XpcFromType);
@@ -5539,9 +5471,9 @@ double MatrixNxPts<3u,double>::SetColumn(uint64_t a1, unsigned int a2, uint64_t 
   return result;
 }
 
-uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_t *a3@<X2>, float64x2_t *a4@<X3>, const double *a5@<X4>, uint64_t a6@<X5>, int a7@<W6>, uint64_t a8@<X8>)
+uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_t *a3@<X2>, float64x2_t *a4@<X3>, uint64_t a5@<X5>, int a6@<W6>, uint64_t a7@<X8>, const double *a8@<X4>)
 {
-  v43 = Matrix<double>::Matrix(a8, 3, *(a1 + 20));
+  v43 = Matrix<double>::Matrix(a7, 3, *(a1 + 20));
   *v43 = &unk_283812E40;
   v66 = 3;
   v67 = 0;
@@ -5551,7 +5483,7 @@ uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_
   v63 = 0;
   v60 = &unk_283812E40;
   v61 = 0;
-  if (a7)
+  if (a6)
   {
     normalizeCoords(a1, a3, &v57);
     if (v67 == 1 && v65)
@@ -5565,7 +5497,7 @@ uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_
     v59 = 0;
     Matrix<double>::~Matrix(&v57);
     normalizeCoords(a2, a4, &v55);
-    MatrixMxN<3u,3u,double>::operator*<3u>(a5, &v55, &v57);
+    MatrixMxN<3u,3u,double>::operator*<3u>(&v57, a8, &v55);
     if (v63 == 1 && v61)
     {
       MEMORY[0x22AA55B40](v61, 0x1000C8000313F17);
@@ -5584,7 +5516,7 @@ uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_
     v66 = *(a1 + 16);
     v65 = *(a1 + 8);
     v67 = 0;
-    MatrixMxN<3u,3u,double>::operator*<3u>(a5, a2, &v57);
+    MatrixMxN<3u,3u,double>::operator*<3u>(&v57, a8, a2);
     if (v63 == 1 && v61)
     {
       MEMORY[0x22AA55B40](v61, 0x1000C8000313F17);
@@ -5672,7 +5604,7 @@ uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_
       v28 = 0.0;
       do
       {
-        v28 = v28 + *(&v53 + v27) * *(a6 + v27);
+        v28 = v28 + *(&v53 + v27) * *(a5 + v27);
         v27 += 8;
       }
 
@@ -5690,7 +5622,7 @@ uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_
       v32 = 0.0;
       do
       {
-        v32 = v32 + *(&v57 + v31) * *(a6 + v31);
+        v32 = v32 + *(&v57 + v31) * *(a5 + v31);
         v31 += 8;
       }
 
@@ -5737,7 +5669,7 @@ uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_
       memset(v48, 0, sizeof(v48));
       do
       {
-        *&v48[v40] = *&v47[v40] + *(a6 + v40 * 8);
+        *&v48[v40] = *&v47[v40] + *(a5 + v40 * 8);
         ++v40;
       }
 
@@ -5762,11 +5694,12 @@ uint64_t GMC_WorldFromPoints@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float64x2_
   return Matrix<double>::~Matrix(&v64);
 }
 
-void sub_2248EA660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_2248EA660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  Matrix<double>::~Matrix(&a37);
-  Matrix<double>::~Matrix(v37 - 176);
-  Matrix<double>::~Matrix(v37 - 144);
+  va_start(va, a36);
+  Matrix<double>::~Matrix(va);
+  Matrix<double>::~Matrix(v36 - 176);
+  Matrix<double>::~Matrix(v36 - 144);
   Matrix<double>::~Matrix(a10);
   _Unwind_Resume(a1);
 }
@@ -5957,7 +5890,7 @@ uint64_t H16ISP::DCSAudioAccelManager::DestroyStreamSession(H16ISP::DCSAudioAcce
   return v4;
 }
 
-void *H16ISP::DCSAudioAccelManager::SetTestMode(void *this, uint64_t a2)
+H16ISP::H16ISPDevice **H16ISP::DCSAudioAccelManager::SetTestMode(H16ISP::H16ISPDevice **this, H16ISP::H16ISPDevice *a2)
 {
   if (this[1] != a2)
   {
@@ -5979,7 +5912,7 @@ void *H16ISP::DCSAudioAccelManager::SetTestMode(void *this, uint64_t a2)
 
       this = H16ISP::DCSAudioAccelManager::StopStreaming(v3);
       v13 = *v3;
-      *(v3 + 8) = a2;
+      v3[1] = a2;
       if (v13 == 1)
       {
         v14 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
@@ -6417,10 +6350,11 @@ uint64_t H16ISP::DestroyAudioAccelManager(H16ISP::H16ISPDevice ***this, H16ISP::
   return 0;
 }
 
-void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t GMC_ExtractTestSamples(uint64_t a1, uint64_t a2, unsigned int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -6790,7 +6724,7 @@ void std::vector<unsigned int>::__append(std::vector<unsigned int> *this, std::v
   }
 }
 
-__n128 SPD::Init(uint64_t a1)
+__n128 SPD::Init(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -6809,7 +6743,7 @@ __n128 SPD::Init(uint64_t a1)
   return result;
 }
 
-uint64_t SPD::Prepare(uint64_t result)
+uint64_t SPD::Prepare(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -6990,12 +6924,12 @@ void SPD::Process(int *a1, uint64_t a2)
           v46 = vmovl_high_u16(*v129.val[1].i8);
           v47 = vmovl_u16(*v44.i8);
           v48 = vmovl_high_u16(v44);
-          v21[9] = v45;
-          v21[10] = v46;
+          *(v21 + 9) = v45;
+          *(v21 + 10) = v46;
           v49 = &a1[v17 + 64];
-          v21[11] = v47;
-          v21[12] = v48;
-          v50 = (a1 + 64);
+          *(v21 + 11) = v47;
+          *(v21 + 12) = v48;
+          v50 = a1 + 64;
           v51 = v33;
           v52 = v27;
           if (v25 >= 2)
@@ -7016,9 +6950,9 @@ void SPD::Process(int *a1, uint64_t a2)
               v39 = vaddw_high_u16(v39, *v131.val[0].i8);
               v40 = vaddw_u16(v40, v131.val[1]);
               v41 = vaddw_high_u16(v41, *v131.val[1].i8);
-              v50[-3] = v38;
-              v50[-2] = v39;
-              v50[-1] = v40;
+              *(v50 - 3) = v38;
+              *(v50 - 2) = v39;
+              *(v50 - 1) = v40;
               *v50 = v41;
               *v131.val[0].i8 = vmovl_u8(v132.val[0]);
               *v131.val[2].i8 = vmovl_u8(v132.val[2]);
@@ -7029,12 +6963,12 @@ void SPD::Process(int *a1, uint64_t a2)
               v46 = vaddw_high_u16(v46, *v131.val[2].i8);
               v47 = vaddw_u16(v47, v132.val[0]);
               v48 = vaddw_high_u16(v48, *v132.val[0].i8);
-              v49[-3] = v45;
-              v49[-2] = v46;
-              v49[-1] = v47;
+              *(v49 - 3) = v45;
+              *(v49 - 2) = v46;
+              *(v49 - 1) = v47;
               *v49 = v48;
-              v50 += 4;
-              v49 += 4;
+              v50 += 16;
+              v49 += 16;
               v51 = v53;
               --v52;
             }
@@ -7100,8 +7034,8 @@ void SPD::Process(int *a1, uint64_t a2)
           v80 = v79 & 0xF | (16 * v69[v18]);
           v81 = (v79 >> 4) | (16 * v69[v18 + 1]);
           v82 = a1 + 39;
-          v21[9].i32[0] = v80;
-          v21[9].i32[1] = v81;
+          v21[36] = v80;
+          v21[37] = v81;
           v83 = v71;
           v84 = 2 * v18;
           v85 = v118 - 2;
@@ -7572,36 +7506,37 @@ uint64_t H16ISP::MOVReader::storeFrameTimestampSurfaceId(H16ISP::MOVReader *this
   return 0;
 }
 
-void sub_2248ED1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_2248ED1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   Matrix<double>::~Matrix(&a11);
   Matrix<double>::~Matrix(&a15);
-  CGMC_BundleAdjustment::~CGMC_BundleAdjustment(&a32);
+  CGMC_BundleAdjustment::~CGMC_BundleAdjustment(va);
   _Unwind_Resume(a1);
 }
 
-void CGMC_BundleAdjustment::CalcBA(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, __int128 *a5)
+void CGMC_BundleAdjustment::CalcBA(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, __int128 *a5, uint64_t a6, uint64_t a7, void *a8, _DWORD *a9)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a5 != a1)
   {
-    v7 = *a5;
+    v11 = *a5;
     *(a1 + 16) = *(a5 + 2);
-    *a1 = v7;
+    *a1 = v11;
   }
 
-  CGMC_BundleAdjustment::rotationMatrixToAngleAxis(a4, &v10);
-  v8 = a3[3];
-  v14 = a3[2];
-  v15 = v8;
-  v16 = *(a3 + 8);
-  v9 = a3[1];
-  v12 = *a3;
-  v13 = v9;
-  Matrix<double>::Matrix(&v11, a2, 0, -1);
+  CGMC_BundleAdjustment::rotationMatrixToAngleAxis(a4, &v14);
+  v12 = a3[3];
+  v18 = a3[2];
+  v19 = v12;
+  v20 = *(a3 + 8);
+  v13 = a3[1];
+  v16 = *a3;
+  v17 = v13;
+  Matrix<double>::Matrix(&v15, a2, 0, -1);
 }
 
-void sub_2248EDF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_2248EDF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   Matrix<double>::~Matrix(&a46);
   Matrix<double>::~Matrix(&a50);
@@ -7609,16 +7544,16 @@ void sub_2248EDF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   Matrix<double>::~Matrix(&a58);
   Matrix<double>::~Matrix(&a62);
   Matrix<double>::~Matrix(&STACK[0x200]);
-  SparseMatrix::~SparseMatrix(&a66);
+  SparseMatrix::~SparseMatrix(&a65);
   Matrix<double>::~Matrix(a16);
   _Unwind_Resume(a1);
 }
 
-void CGMC_BundleAdjustment::rotationMatrixToAngleAxis(uint64_t a1@<X0>, double *a2@<X8>)
+void CGMC_BundleAdjustment::rotationMatrixToAngleAxis(uint64_t a1@<X0>, float64x2_t *a2@<X8>)
 {
-  *a2 = 0.0;
-  a2[1] = 0.0;
-  a2[2] = 0.0;
+  a2->f64[0] = 0.0;
+  a2->f64[1] = 0.0;
+  a2[1].f64[0] = 0.0;
   v4 = (*a1 + 0.0 + *(a1 + 32) + *(a1 + 64) + -1.0) * 0.5;
   v5 = 1.0;
   if (v4 <= 1.0)
@@ -7631,125 +7566,123 @@ void CGMC_BundleAdjustment::rotationMatrixToAngleAxis(uint64_t a1@<X0>, double *
   }
 
   v6 = acos(v5);
-  v7 = sin(v6);
-  v8 = v7 + v7;
-  v9 = 0;
-  if (v8 <= 0.0000001)
+  v11 = sin(v6);
+  v12 = v11 + v11;
+  v13 = 0;
+  if (v12 <= 0.0000001)
   {
-    v40 = 0;
-    memset(v39, 0, sizeof(v39));
-    v38 = 0.0;
+    v42 = 0;
+    memset(v41, 0, sizeof(v41));
+    v40 = 0.0;
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v31 = 0;
+    memset(v35, 0, sizeof(v35));
     v32 = 0;
-    v33 = 0;
-    v28 = 0;
-    v14 = v27 + 1;
-    v15 = vdupq_n_s64(2uLL);
-    memset(v27, 0, sizeof(v27));
-    v16 = vdupq_n_s64(3uLL);
+    v18 = v31 + 1;
+    v19 = vdupq_n_s64(2uLL);
+    memset(v31, 0, sizeof(v31));
+    v20 = vdupq_n_s64(3uLL);
     do
     {
-      v17 = v14;
-      v18 = 4;
-      v19 = xmmword_2249B9820;
+      v21 = v18;
+      v22 = 4;
+      v23 = xmmword_2249B9820;
       do
       {
-        if (vmovn_s64(vcgtq_u64(v16, v19)).u8[0])
+        if (vmovn_s64(vcgtq_u64(v20, v23)).u8[0])
         {
-          if (v9 + v18 == 4)
+          if (v13 + v22 == 4)
           {
-            v20 = 1.0;
+            v24 = 1.0;
           }
 
           else
           {
-            v20 = 0.0;
+            v24 = 0.0;
           }
 
-          *(v17 - 1) = v20;
+          *(v21 - 1) = v24;
         }
 
-        if (vmovn_s64(vcgtq_u64(vdupq_n_s64(3uLL), *&v19)).i32[1])
+        if (vmovn_s64(vcgtq_u64(vdupq_n_s64(3uLL), *&v23)).i32[1])
         {
-          if (v9 + v18 == 5)
+          if (v13 + v22 == 5)
           {
-            v21 = 1.0;
+            v25 = 1.0;
           }
 
           else
           {
-            v21 = 0.0;
+            v25 = 0.0;
           }
 
-          *v17 = v21;
+          *v21 = v25;
         }
 
-        v19 = vaddq_s64(v19, v15);
-        v17 += 2;
-        v18 -= 2;
+        v23 = vaddq_s64(v23, v19);
+        v21 += 2;
+        v22 -= 2;
       }
 
-      while (v18);
-      ++v9;
-      v14 += 3;
+      while (v22);
+      ++v13;
+      v18 += 3;
     }
 
-    while (v9 != 3);
-    v22 = 0;
-    v23 = 0;
-    v30 = 0;
-    memset(v29, 0, sizeof(v29));
+    while (v13 != 3);
+    v26 = 0;
+    v27 = 0;
+    v34 = 0;
+    memset(v33, 0, sizeof(v33));
     do
     {
-      v24 = v22;
-      v25 = 3;
+      v28 = v26;
+      v29 = 3;
       do
       {
-        *(v29 + v24) = *(a1 + v24) - *(v27 + v24);
-        v24 += 8;
-        --v25;
+        *(v33 + v28) = *(a1 + v28) - *(v31 + v28);
+        v28 += 8;
+        --v29;
       }
 
-      while (v25);
-      ++v23;
-      v22 += 24;
+      while (v29);
+      ++v27;
+      v26 += 24;
     }
 
-    while (v23 != 3);
-    MatrixMxN<3u,3u,double>::SVDMxN<3u,void>(v29, v39);
-    v26 = v6 * *(&v36 + 1);
-    *a2 = v6 * *&v35;
-    a2[1] = v26;
-    a2[2] = v6 * v38;
+    while (v27 != 3);
+    MatrixMxN<3u,3u,double>::SVDMxN<3u,void>(v33, v41, v35, &v36, v7, v8, v9, v10);
+    v30 = v6 * *(&v38 + 1);
+    a2->f64[0] = v6 * *&v37;
+    a2->f64[1] = v30;
+    a2[1].f64[0] = v6 * v40;
   }
 
   else
   {
-    v10 = *(a1 + 56);
-    v10.f64[1] = *(a1 + 16);
-    *a2 = vdivq_f64(vsubq_f64(v10, *(a1 + 40)), vdupq_lane_s64(*&v8, 0));
-    a2[2] = (*(a1 + 24) - *(a1 + 8)) / v8;
-    v11 = 0.0;
+    v14 = *(a1 + 56);
+    v14.f64[1] = *(a1 + 16);
+    *a2 = vdivq_f64(vsubq_f64(v14, *(a1 + 40)), vdupq_lane_s64(*&v12, 0));
+    a2[1].f64[0] = (*(a1 + 24) - *(a1 + 8)) / v12;
+    v15 = 0.0;
     do
     {
-      v11 = v11 + *(a2 + v9) * *(a2 + v9);
-      v9 += 8;
+      v15 = v15 + *(a2->f64 + v13) * *(a2->f64 + v13);
+      v13 += 8;
     }
 
-    while (v9 != 24);
-    v12 = 0;
-    v13 = v6 / sqrt(v11);
+    while (v13 != 24);
+    v16 = 0;
+    v17 = v6 / sqrt(v15);
     do
     {
-      a2[v12] = v13 * a2[v12];
-      ++v12;
+      a2->f64[v16] = v17 * a2->f64[v16];
+      ++v16;
     }
 
-    while (v12 != 3);
+    while (v16 != 3);
   }
 }
 
@@ -7835,7 +7768,7 @@ uint64_t CGMC_BundleAdjustment::calculateCostFunctionResiduals@<X0>(uint64_t a1@
   v67 = v65;
   v66[0] = v63;
   v66[1] = v64[0];
-  MatrixMxN<3u,3u,double>::operator*<3u>(a2 + 3, (a2 + 6), &v61);
+  MatrixMxN<3u,3u,double>::operator*<3u>(&v61, a2 + 3, (a2 + 6));
   if (HIDWORD(v62))
   {
     v12 = 0;
@@ -7857,7 +7790,7 @@ uint64_t CGMC_BundleAdjustment::calculateCostFunctionResiduals@<X0>(uint64_t a1@
     while (v12 < HIDWORD(v62));
   }
 
-  MatrixMxN<3u,3u,double>::operator*<3u>(v66, (a2 + 6), v58);
+  MatrixMxN<3u,3u,double>::operator*<3u>(v58, v66, (a2 + 6));
   v15 = 0;
   v55 = 0.0;
   v56 = 0.0;
@@ -7954,7 +7887,7 @@ uint64_t CGMC_BundleAdjustment::calculateCostFunctionResiduals@<X0>(uint64_t a1@
   v43 = &unk_283812C88;
   v44 = *(&v61 + 1);
   Matrix<double>::~Matrix(&v63);
-  MatrixNxPts<1u,double>::operator-(v48, &v43, &v50);
+  MatrixNxPts<1u,double>::operator-(&v50, v48, &v43);
   Matrix<double>::~Matrix(&v43);
   Matrix<double>::~Matrix(v48);
   Matrix<double>::Row(a1 + 88, 1, &v43);
@@ -7969,7 +7902,7 @@ uint64_t CGMC_BundleAdjustment::calculateCostFunctionResiduals@<X0>(uint64_t a1@
   v38 = &unk_283812C88;
   v39 = *(&v61 + 1) + 8 * HIDWORD(v62);
   Matrix<double>::~Matrix(&v63);
-  MatrixNxPts<1u,double>::operator-(&v43, &v38, v48);
+  MatrixNxPts<1u,double>::operator-(v48, &v43, &v38);
   Matrix<double>::~Matrix(&v38);
   Matrix<double>::~Matrix(&v43);
   Matrix<double>::Row(a1 + 120, 0, &v38);
@@ -7984,7 +7917,7 @@ uint64_t CGMC_BundleAdjustment::calculateCostFunctionResiduals@<X0>(uint64_t a1@
   v34[0] = &unk_283812C88;
   v34[1] = v59;
   Matrix<double>::~Matrix(&v63);
-  MatrixNxPts<1u,double>::operator-(&v38, v34, &v43);
+  MatrixNxPts<1u,double>::operator-(&v43, &v38, v34);
   Matrix<double>::~Matrix(v34);
   Matrix<double>::~Matrix(&v38);
   Matrix<double>::Row(a1 + 120, 1, v34);
@@ -7999,7 +7932,7 @@ uint64_t CGMC_BundleAdjustment::calculateCostFunctionResiduals@<X0>(uint64_t a1@
   v30[0] = &unk_283812C88;
   v30[1] = &v59[v60];
   Matrix<double>::~Matrix(&v63);
-  MatrixNxPts<1u,double>::operator-(v34, v30, &v38);
+  MatrixNxPts<1u,double>::operator-(&v38, v34, v30);
   Matrix<double>::~Matrix(v30);
   Matrix<double>::~Matrix(v34);
   v25 = *(a2 + 29);
@@ -8029,16 +7962,17 @@ uint64_t CGMC_BundleAdjustment::calculateCostFunctionResiduals@<X0>(uint64_t a1@
   return Matrix<double>::~Matrix(&v61);
 }
 
-void sub_2248EEA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_2248EEA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   Matrix<double>::~Matrix(&a10);
   Matrix<double>::~Matrix(&a14);
   Matrix<double>::~Matrix(&a22);
   Matrix<double>::~Matrix(&a26);
   Matrix<double>::~Matrix(&a30);
   Matrix<double>::~Matrix(&a37);
-  Matrix<double>::~Matrix(&a41);
-  Matrix<double>::~Matrix(v41);
+  Matrix<double>::~Matrix(va);
+  Matrix<double>::~Matrix(v40);
   _Unwind_Resume(a1);
 }
 
@@ -8062,12 +7996,12 @@ uint64_t CGMC_BundleAdjustment::calcJacobian(double *a1, __int128 *a2, void **a3
   v9 = v175;
   Matrix<double>::operator*(v173, &v140, v175);
   v10 = v178;
-  Matrix<double>::operator*(v171, v136, v178);
-  Matrix<double>::operator+(&v140, v136, &v144);
+  Matrix<double>::operator*(v171, &v136, v178);
+  Matrix<double>::operator+(&v140, &v136, &v144);
   v11 = v181;
   Matrix<double>::operator*(v169, &v132, v181);
-  Matrix<double>::operator+(&v144, &v132, v148);
-  Matrix<double>::operator-(v148, &v150, v9 * *a1);
+  Matrix<double>::operator+(&v144, &v132, &v148);
+  Matrix<double>::operator-(&v148, &v150, v9 * *a1);
   Matrix<double>::operator-(&v150, &v155, v10 * a1[1]);
   Matrix<double>::operator-(&v155, &v184, v11 * a1[2]);
   v12 = *(&v184 + 1);
@@ -8081,21 +8015,21 @@ uint64_t CGMC_BundleAdjustment::calcJacobian(double *a1, __int128 *a2, void **a3
   Matrix<double>::~Matrix(&v184);
   Matrix<double>::~Matrix(&v155);
   Matrix<double>::~Matrix(&v150);
-  Matrix<double>::~Matrix(v148);
+  Matrix<double>::~Matrix(&v148);
   Matrix<double>::~Matrix(&v132);
   Matrix<double>::~Matrix(&v144);
-  Matrix<double>::~Matrix(v136);
+  Matrix<double>::~Matrix(&v136);
   Matrix<double>::~Matrix(&v140);
   v13 = v176;
-  Matrix<double>::operator*(v173, v136, v176);
+  Matrix<double>::operator*(v173, &v136, v176);
   v14 = v179;
   Matrix<double>::operator*(v171, &v132, v179);
-  Matrix<double>::operator+(v136, &v132, &v140);
+  Matrix<double>::operator+(&v136, &v132, &v140);
   v15 = v182;
   Matrix<double>::operator*(v169, v130, v182);
   Matrix<double>::operator+(&v140, v130, &v144);
-  Matrix<double>::operator-(&v144, v148, v13 * *a1);
-  Matrix<double>::operator-(v148, &v150, v14 * a1[1]);
+  Matrix<double>::operator-(&v144, &v148, v13 * *a1);
+  Matrix<double>::operator-(&v148, &v150, v14 * a1[1]);
   Matrix<double>::operator-(&v150, &v184, v15 * a1[2]);
   v16 = *(&v184 + 1);
   v158 = HIDWORD(v185);
@@ -8107,23 +8041,23 @@ uint64_t CGMC_BundleAdjustment::calcJacobian(double *a1, __int128 *a2, void **a3
   v157 = 1;
   Matrix<double>::~Matrix(&v184);
   Matrix<double>::~Matrix(&v150);
-  Matrix<double>::~Matrix(v148);
+  Matrix<double>::~Matrix(&v148);
   Matrix<double>::~Matrix(&v144);
   Matrix<double>::~Matrix(v130);
   Matrix<double>::~Matrix(&v140);
   Matrix<double>::~Matrix(&v132);
-  Matrix<double>::~Matrix(v136);
+  Matrix<double>::~Matrix(&v136);
   v17 = v177;
   Matrix<double>::operator*(v173, &v132, v177);
   v18 = v180;
   Matrix<double>::operator*(v171, v130, v180);
-  Matrix<double>::operator+(&v132, v130, v136);
+  Matrix<double>::operator+(&v132, v130, &v136);
   v19 = v183;
   Matrix<double>::operator*(v169, v128, v183);
-  Matrix<double>::operator+(v136, v128, &v140);
+  Matrix<double>::operator+(&v136, v128, &v140);
   Matrix<double>::operator-(&v140, &v144, v17 * *a1);
-  Matrix<double>::operator-(&v144, v148, v18 * a1[1]);
-  Matrix<double>::operator-(v148, &v184, v19 * a1[2]);
+  Matrix<double>::operator-(&v144, &v148, v18 * a1[1]);
+  Matrix<double>::operator-(&v148, &v184, v19 * a1[2]);
   v20 = *(&v184 + 1);
   v153 = HIDWORD(v185);
   v154 = v186;
@@ -8133,14 +8067,14 @@ uint64_t CGMC_BundleAdjustment::calcJacobian(double *a1, __int128 *a2, void **a3
   v151 = v20;
   v152 = 1;
   Matrix<double>::~Matrix(&v184);
-  Matrix<double>::~Matrix(v148);
+  Matrix<double>::~Matrix(&v148);
   Matrix<double>::~Matrix(&v144);
   Matrix<double>::~Matrix(&v140);
   Matrix<double>::~Matrix(v128);
-  Matrix<double>::~Matrix(v136);
+  Matrix<double>::~Matrix(&v136);
   Matrix<double>::~Matrix(v130);
   Matrix<double>::~Matrix(&v132);
-  MatrixNxPts<1u,double>::DotMult(&v150, &v150, v148);
+  MatrixNxPts<1u,double>::DotMult(&v150, &v150, &v148);
   v21 = 0;
   v22 = 0.0;
   do
@@ -8173,7 +8107,7 @@ uint64_t CGMC_BundleAdjustment::calcJacobian(double *a1, __int128 *a2, void **a3
   v143 = 0;
   v140 = &unk_283812C88;
   v141 = 0;
-  Matrix<double>::Matrix(v136, 2, v27);
+  Matrix<double>::Matrix(&v136, 2, v27);
   v28 = 8 * v27;
   if (*(a2 + 128) == 1)
   {
@@ -8510,10 +8444,10 @@ uint64_t CGMC_BundleAdjustment::calcJacobian(double *a1, __int128 *a2, void **a3
   Matrix<double>::~Matrix(v128);
   Matrix<double>::~Matrix(v130);
   Matrix<double>::~Matrix(&v132);
-  Matrix<double>::~Matrix(v136);
+  Matrix<double>::~Matrix(&v136);
   Matrix<double>::~Matrix(&v140);
   Matrix<double>::~Matrix(&v144);
-  Matrix<double>::~Matrix(v148);
+  Matrix<double>::~Matrix(&v148);
   Matrix<double>::~Matrix(&v150);
   Matrix<double>::~Matrix(&v155);
   Matrix<double>::~Matrix(&v160);
@@ -8526,17 +8460,17 @@ uint64_t CGMC_BundleAdjustment::calcJacobian(double *a1, __int128 *a2, void **a3
   return Matrix<double>::~Matrix(v173);
 }
 
-void sub_2248EFC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_2248EFC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v71 = &STACK[0x310];
-  v72 = -96;
+  v67 = &STACK[0x310];
+  v68 = -96;
   do
   {
-    v71 = (Matrix<double>::~Matrix(v71) - 32);
-    v72 += 32;
+    v67 = (Matrix<double>::~Matrix(v67) - 32);
+    v68 += 32;
   }
 
-  while (v72);
+  while (v68);
   Matrix<double>::~Matrix(&a22);
   Matrix<double>::~Matrix(&a26);
   Matrix<double>::~Matrix(&a30);
@@ -8548,8 +8482,8 @@ void sub_2248EFC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   Matrix<double>::~Matrix(&a54);
   Matrix<double>::~Matrix(&a58);
   Matrix<double>::~Matrix(&a62);
+  Matrix<double>::~Matrix(&a65);
   Matrix<double>::~Matrix(&a66);
-  Matrix<double>::~Matrix(&a70);
   Matrix<double>::~Matrix(&STACK[0x208]);
   Matrix<double>::~Matrix(&STACK[0x228]);
   Matrix<double>::~Matrix(&STACK[0x248]);
@@ -8557,50 +8491,50 @@ void sub_2248EFC10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void CGMC_BundleAdjustment::solveLinearEq(int a1, SparseMatrix *this, double a3, uint64_t a4, uint64_t a5, int a6)
+void CGMC_BundleAdjustment::solveLinearEq(double a6, void a2, SparseMatrix *this, uint64_t a3, uint64_t a4, int a5)
 {
   MatrixHeight = SparseMatrix::GetMatrixHeight(this);
-  SparseMatrix::Expand(this, a6, 1uLL);
-  if (a6 >= 1)
+  SparseMatrix::Expand(this, a5, 1uLL);
+  if (a5 >= 1)
   {
     v12 = 0;
-    v13 = sqrt(a3);
+    v13 = sqrt(a6);
     do
     {
-      SparseMatrix::AddValue(this, MatrixHeight + v12, v12, v13 * *(*(a5 + 8) + 8 * v12));
+      SparseMatrix::AddValue(this, MatrixHeight + v12, v12, v13 * *(*(a4 + 8) + 8 * v12));
       ++v12;
     }
 
-    while (a6 != v12);
+    while (a5 != v12);
   }
 
-  Matrix<double>::Matrix(&v15, 1, *(a4 + 20) + a6);
+  Matrix<double>::Matrix(&v15, 1, *(a3 + 20) + a5);
   v15 = &unk_283812C88;
   bzero(__dst, 8 * (v18 * v17));
-  memcpy(__dst, *(a4 + 8), 8 * *(a4 + 20));
+  memcpy(__dst, *(a3 + 8), 8 * *(a3 + 20));
   JacobianMatrix::Solve(this, v14);
 }
 
-void sub_2248F0074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2248F0074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  Matrix<double>::~Matrix(v9);
+  va_start(va, a16);
+  Matrix<double>::~Matrix(v16);
   Matrix<double>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MatrixNxPts<1u,double>::operator/@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, double a3@<D0>)
+uint64_t MatrixNxPts<1u,double>::operator/@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>, double a3@<D0>)
 {
-  Matrix<double>::operator/(a1, &v7, a3);
+  Matrix<double>::operator/(a2, &v7, a3);
   v4 = v8;
   v5 = v9;
-  *(a2 + 24) = v10;
+  *(a1 + 24) = v10;
   v8 = 0;
   v10 = 0;
-  *a2 = &unk_283812C88;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = 1;
-  *(a2 + 20) = v5;
+  *a1 = &unk_283812C88;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = 1;
+  *(a1 + 20) = v5;
   return Matrix<double>::~Matrix(&v7);
 }
 
@@ -8993,18 +8927,18 @@ uint64_t MatrixNxPts<1u,double>::operator-@<X0>(uint64_t a1@<X0>, uint64_t a2@<X
   return Matrix<double>::~Matrix(&v7);
 }
 
-uint64_t MatrixNxPts<1u,double>::operator-@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t MatrixNxPts<1u,double>::operator-@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  Matrix<double>::operator-(a1, a2, &v7);
+  Matrix<double>::operator-(a2, a3, &v7);
   v4 = v8;
   v5 = v9;
-  *(a3 + 24) = v10;
+  *(a1 + 24) = v10;
   v8 = 0;
   v10 = 0;
-  *a3 = &unk_283812C88;
-  *(a3 + 8) = v4;
-  *(a3 + 16) = 1;
-  *(a3 + 20) = v5;
+  *a1 = &unk_283812C88;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = 1;
+  *(a1 + 20) = v5;
   return Matrix<double>::~Matrix(&v7);
 }
 
@@ -9051,73 +8985,73 @@ uint64_t CGMC_BundleAdjustment::getResidualsStats(uint64_t a1, uint64_t a2, void
   return Matrix<double>::~Matrix(v20);
 }
 
-void sub_2248F0B9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2248F0B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   Matrix<double>::~Matrix(va);
   Matrix<double>::~Matrix(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t MatrixMxN<3u,3u,double>::SVDMxN<3u,void>(__int128 *a1, uint64_t a2)
+uint64_t MatrixMxN<3u,3u,double>::SVDMxN<3u,void>(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = a1[3];
-  v19[1] = a1[2];
-  v19[2] = v3;
-  v20 = *(a1 + 8);
-  v4 = a1[1];
-  v18 = *a1;
-  v19[0] = v4;
-  v5 = &v18 + 8;
-  v6 = v19 + 8;
+  v9 = a1[3];
+  v25[1] = a1[2];
+  v25[2] = v9;
+  v26 = *(a1 + 8);
+  v10 = a1[1];
+  v24 = *a1;
+  v25[0] = v10;
+  v11 = &v24 + 8;
+  v12 = v25 + 8;
   for (i = 1; i != 3; ++i)
-  {
-    v8 = 0;
-    v9 = v5;
-    do
-    {
-      v10 = *&v6[8 * v8];
-      *&v6[8 * v8] = *v9;
-      *v9 = v10;
-      v9 += 3;
-      ++v8;
-    }
-
-    while (i != v8);
-    v5 += 8;
-    v6 += 24;
-  }
-
-  MatrixMxN<3u,3u,double>::svdLapack();
-  v11 = (a2 + 8);
-  v12 = a2 + 24;
-  for (j = 1; j != 3; ++j)
   {
     v14 = 0;
     v15 = v11;
     do
     {
-      v16 = *(v12 + 8 * v14);
-      *(v12 + 8 * v14) = *v15;
+      v16 = *&v12[8 * v14];
+      *&v12[8 * v14] = *v15;
       *v15 = v16;
       v15 += 3;
       ++v14;
     }
 
-    while (j != v14);
-    ++v11;
+    while (i != v14);
+    v11 += 8;
     v12 += 24;
+  }
+
+  MatrixMxN<3u,3u,double>::svdLapack(a1, &v24, 3, 3, a2, a3, a4);
+  v17 = (a2 + 8);
+  v18 = a2 + 24;
+  for (j = 1; j != 3; ++j)
+  {
+    v20 = 0;
+    v21 = v17;
+    do
+    {
+      v22 = *(v18 + 8 * v20);
+      *(v18 + 8 * v20) = *v21;
+      *v21 = v22;
+      v21 += 3;
+      ++v20;
+    }
+
+    while (j != v20);
+    ++v17;
+    v18 += 24;
   }
 
   return 0;
 }
 
-void CGMC_BundleAdjustment::CGMC_BundleAdjustment(uint64_t a1, uint64_t a2)
+void CGMC_BundleAdjustment::CGMC_BundleAdjustment(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 32) = 0;
@@ -9138,7 +9072,7 @@ void CGMC_BundleAdjustment::CGMC_BundleAdjustment(uint64_t a1, uint64_t a2)
   *(a1 + 120) = &unk_283813CF8;
   *(a1 + 128) = 0;
   *(a1 + 152) = 0;
-  Matrix<double>::Matrix(&v2, a2, 0, -1);
+  Matrix<double>::Matrix(&v3, a2, 0, -1);
 }
 
 void sub_2248F1078(_Unwind_Exception *a1)
@@ -9259,12 +9193,12 @@ void Matrix<double>::operator-(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
   vDSPVsub<double>(*(a1 + 8), 1, *(a2 + 8), 1, *(a3 + 8), 1, *(a1 + 20) * *(a1 + 16));
 }
 
-uint64_t MatrixMxN<3u,3u,double>::svdLapack()
+uint64_t MatrixMxN<3u,3u,double>::svdLapack(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   dgesvd_NEWLAPACK();
-  v0 = malloc_type_malloc(8 * 0.0, 0x100004000313F17uLL);
+  v7 = malloc_type_malloc(8 * 0.0, 0x100004000313F17uLL);
   dgesvd_NEWLAPACK();
-  free(v0);
+  free(v7);
   return 0;
 }
 
@@ -9300,7 +9234,7 @@ void ___ZN6H16ISP24H16ISPGraphFrameSyncNode10onActivateEv_block_invoke(uint64_t 
 
 void H16ISP::H16ISPGraphFrameSyncNode::CheckForSynchronization(uint64_t a1, int a2)
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v34[3] = *MEMORY[0x277D85DE8];
   v4 = mach_absolute_time();
   v5 = 0;
   v6 = 0;
@@ -9312,7 +9246,7 @@ void H16ISP::H16ISPGraphFrameSyncNode::CheckForSynchronization(uint64_t a1, int 
     v9 = 320;
   }
 
-  memset(v33, 0, 24);
+  memset(v34, 0, 24);
   v10 = *(a1 + v9);
   do
   {
@@ -9343,7 +9277,7 @@ void H16ISP::H16ISPGraphFrameSyncNode::CheckForSynchronization(uint64_t a1, int 
 
     if (*(v11 + 8) == v10)
     {
-      v33[v7++] = v11;
+      v34[v7++] = v11;
       v8 = *(v11 + 12);
     }
 
@@ -9355,7 +9289,7 @@ LABEL_13:
   while (v5 != 216);
   if (v7 && v8 == v7)
   {
-    H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(a1);
+    H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(a1, v8, v34);
   }
 
   v12 = 0;
@@ -9386,7 +9320,8 @@ LABEL_13:
 
       v15 = 8;
 LABEL_28:
-      if (((v4 - *(a1 + v12 + v15 + 80)) * *(a1 + 296) / *(a1 + 300)) / 1000000.0 <= v14)
+      v29 = (a1 + v12 + v15 + 80);
+      if (((v4 - *v29) * *(a1 + 296) / *(a1 + 300)) / 1000000.0 <= v14)
       {
         v20 = a1 + v15 + v12;
         if (*(v20 + 88) >= v10)
@@ -9407,9 +9342,9 @@ LABEL_28:
           {
             v22 = *(*(a1 + v15 + v12 + 104) + 16);
             *buf = 67109376;
-            v30 = v22;
-            v31 = 1024;
-            v32 = a2;
+            v31 = v22;
+            v32 = 1024;
+            v33 = a2;
             v18 = v21;
             v19 = "H16ISPGraphFrameSyncNode::CheckForSynchronization - Newer frame on another channel detected, ejecting without synchronization (channel=%d, frameCategory = %d)\n\n";
             goto LABEL_33;
@@ -9430,9 +9365,9 @@ LABEL_28:
         {
           v17 = *(*(a1 + v15 + v12 + 104) + 16);
           *buf = 67109376;
-          v30 = v17;
-          v31 = 1024;
-          v32 = a2;
+          v31 = v17;
+          v32 = 1024;
+          v33 = a2;
           v18 = v16;
           v19 = "H16ISPGraphFrameSyncNode::CheckForSynchronization - Ejecting expired frame without synchronization (channel=%d, frameCategory=%d)\n\n";
 LABEL_33:
@@ -9440,7 +9375,7 @@ LABEL_33:
         }
       }
 
-      H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(a1);
+      H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(a1, 1u, &v29);
     }
 
     if (a2 == 1 && *(a1 + v12 + 144))
@@ -9693,7 +9628,7 @@ mach_timebase_info *H16ISP::H16ISPGraphFrameSyncNode::H16ISPGraphFrameSyncNode(m
   return this;
 }
 
-void H16ISP::H16ISPGraphFrameSyncNode::~H16ISPGraphFrameSyncNode(H16ISP::H16ISPGraphFrameSyncNode *this)
+void H16ISP::H16ISPGraphFrameSyncNode::~H16ISPGraphFrameSyncNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -9792,8 +9727,9 @@ uint64_t ___ZN6H16ISP24H16ISPGraphFrameSyncNode13EnableChannelEj_block_invoke(ui
   return result;
 }
 
-uint64_t H16ISP::H16ISPGraphFrameSyncNode::DisableChannel(H16ISP::H16ISPGraphFrameSyncNode *this, unsigned int a2)
+uint64_t H16ISP::H16ISPGraphFrameSyncNode::DisableChannel(H16ISP::H16ISPGraphFrameSyncNode *this, uint64_t a2)
 {
+  v2 = a2;
   v10 = 0;
   v11 = &v10;
   v12 = 0x2000000000;
@@ -9812,7 +9748,7 @@ uint64_t H16ISP::H16ISPGraphFrameSyncNode::DisableChannel(H16ISP::H16ISPGraphFra
       block[1] = 0x40000000;
       block[2] = ___ZN6H16ISP24H16ISPGraphFrameSyncNode14DisableChannelEj_block_invoke;
       block[3] = &unk_2785317D0;
-      v9 = a2;
+      v9 = v2;
       block[4] = &v10;
       block[5] = this;
       dispatch_sync(v5, block);
@@ -9829,7 +9765,7 @@ uint64_t H16ISP::H16ISPGraphFrameSyncNode::DisableChannel(H16ISP::H16ISPGraphFra
 
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        H16ISP::H16ISPGraphFrameSyncNode::DisableChannel(a2, v6);
+        H16ISP::H16ISPGraphFrameSyncNode::DisableChannel(v2, v6);
       }
     }
 
@@ -9840,18 +9776,18 @@ uint64_t H16ISP::H16ISPGraphFrameSyncNode::DisableChannel(H16ISP::H16ISPGraphFra
   return v4;
 }
 
-void sub_2248F28BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2248F28BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN6H16ISP24H16ISPGraphFrameSyncNode14DisableChannelEj_block_invoke(uint64_t result)
+H16ISP::H16ISPFilterGraphMessage *___ZN6H16ISP24H16ISPGraphFrameSyncNode14DisableChannelEj_block_invoke(H16ISP::H16ISPFilterGraphMessage *result)
 {
   v1 = 0;
-  v2 = *(result + 40);
-  while (*(v2 + v1 + 80) != 1 || *(v2 + v1 + 84) != *(result + 48))
+  v2 = *(result + 5);
+  while (*(v2 + v1 + 80) != 1 || *(v2 + v1 + 84) != *(result + 12))
   {
     v1 += 72;
     if (v1 == 216)
@@ -9860,17 +9796,151 @@ uint64_t ___ZN6H16ISP24H16ISPGraphFrameSyncNode14DisableChannelEj_block_invoke(u
     }
   }
 
+  v3 = v2 + v1;
   *(v2 + v1 + 80) = 0;
   if (*(v2 + v1 + 112))
   {
-    H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(v2);
+    v4 = v3 + 88;
+    H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(v2, 1u, &v4);
   }
 
-  if (*(v2 + v1 + 144))
+  if (*(v3 + 18))
   {
-    H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(v2);
+    v4 = v2 + v1 + 120;
+    H16ISP::H16ISPGraphFrameSyncNode::AllocateAndSendGraphMessage(v2, 1u, &v4);
   }
 
-  *(*(*(result + 32) + 8) + 24) = 0;
+  *(*(*(result + 4) + 8) + 24) = 0;
+  return result;
+}
+
+uint64_t GetDistortionCenter(const __CFDictionary *a1, int a2, int a3, int a4, int a5, CGPoint *a6)
+{
+  dict = 0;
+  point = *MEMORY[0x277CBF348];
+  v14 = *MEMORY[0x277CBF3A0];
+  v15 = *(MEMORY[0x277CBF3A0] + 16);
+  if (!FigCFDictionaryGetCGRectIfPresent() && !FigCFDictionaryGetCGRectIfPresent() && !FigCFDictionaryGetCGRectIfPresent())
+  {
+    return 3758097084;
+  }
+
+  v11 = (a2 + -1.0) * 0.5;
+  v12 = (a3 + -1.0) * 0.5;
+  if (FigCFDictionaryGetValueIfPresent())
+  {
+    if (CGPointMakeWithDictionaryRepresentation(dict, &point))
+    {
+      v11 = v11 + (point.x - (*&v14 + (*&v15 + -1.0) * 0.5)) * a4;
+      v12 = v12 + (point.y - (*(&v14 + 1) + (*(&v15 + 1) + -1.0) * 0.5)) * a5;
+    }
+  }
+
+  result = 0;
+  a6->x = v11;
+  a6->y = v12;
+  return result;
+}
+
+uint64_t GetGDCPolynomials(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = (a2 + 260);
+  v5 = *(a2 + 16);
+  if ((v5 - 49921) >= 5)
+  {
+    if (v5 == 49926)
+    {
+      v35 = (a4 + 32);
+      v36 = (a3 + 32);
+      v37 = 8;
+      do
+      {
+        v38 = *(v4 - 8);
+        *(v35 - 8) = v38;
+        v39 = *(v4 - 24);
+        *v35++ = v39;
+        v40 = *v4;
+        *(v36 - 8) = v40;
+        v41 = *(v4 - 16);
+        *v36++ = v41;
+        ++v4;
+        --v37;
+      }
+
+      while (v37);
+      return 0;
+    }
+
+    else
+    {
+      return 3758097126;
+    }
+  }
+
+  else
+  {
+    result = 0;
+    *a4 = 0;
+    v7 = *(a2 + 436);
+    *(a4 + 4) = v7;
+    v8 = *(a2 + 444);
+    *(a4 + 8) = v8;
+    v9 = *(a2 + 452);
+    *(a4 + 12) = v9;
+    v10 = *(a2 + 460);
+    *(a4 + 16) = v10;
+    v11 = *(a2 + 468);
+    *(a4 + 20) = v11;
+    v12 = *(a2 + 476);
+    *(a4 + 24) = v12;
+    v13 = *(a2 + 484);
+    *(a4 + 28) = v13;
+    *(a4 + 32) = 0;
+    v14 = *(a2 + 308);
+    *(a4 + 36) = v14;
+    v15 = *(a2 + 316);
+    *(a4 + 40) = v15;
+    v16 = *(a2 + 324);
+    *(a4 + 44) = v16;
+    v17 = *(a2 + 332);
+    *(a4 + 48) = v17;
+    v18 = *(a2 + 340);
+    *(a4 + 52) = v18;
+    v19 = *(a2 + 348);
+    *(a4 + 56) = v19;
+    v20 = *(a2 + 356);
+    *(a4 + 60) = v20;
+    *a3 = 0;
+    v21 = *(a2 + 500);
+    *(a3 + 4) = v21;
+    v22 = *(a2 + 508);
+    *(a3 + 8) = v22;
+    v23 = *(a2 + 516);
+    *(a3 + 12) = v23;
+    v24 = *(a2 + 524);
+    *(a3 + 16) = v24;
+    v25 = *(a2 + 532);
+    *(a3 + 20) = v25;
+    v26 = *(a2 + 540);
+    *(a3 + 24) = v26;
+    v27 = *(a2 + 548);
+    *(a3 + 28) = v27;
+    *(a3 + 32) = 0;
+    v28 = *(a2 + 372);
+    *(a3 + 36) = v28;
+    v29 = *(a2 + 380);
+    *(a3 + 40) = v29;
+    v30 = *(a2 + 388);
+    *(a3 + 44) = v30;
+    v31 = *(a2 + 396);
+    *(a3 + 48) = v31;
+    v32 = *(a2 + 404);
+    *(a3 + 52) = v32;
+    v33 = *(a2 + 412);
+    *(a3 + 56) = v33;
+    v34 = *(a2 + 420);
+    *(a3 + 60) = v34;
+  }
+
   return result;
 }

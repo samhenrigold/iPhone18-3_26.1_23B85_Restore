@@ -432,7 +432,7 @@ LABEL_26:
   }
 }
 
-uint64_t __54__CAMFocusIndicatorView_setStyle_animated_completion___block_invoke(uint64_t a1)
+void *__54__CAMFocusIndicatorView_setStyle_animated_completion___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _createRectViewAndUpdateBounds];
   [*(a1 + 32) setNeedsLayout];

@@ -101,14 +101,14 @@
 
 - (NSArray)UTIs
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   type = [(INCodableFileAttributeMetadata *)self type];
   if ([type isEqualToString:@"PlainText"])
   {
     identifier = [*MEMORY[0x1E6982F40] identifier];
-    v28[0] = identifier;
+    v27[0] = identifier;
     v5 = MEMORY[0x1E695DEC8];
-    v6 = v28;
+    v6 = v27;
 LABEL_7:
     v7 = [v5 arrayWithObjects:v6 count:1];
 LABEL_8:
@@ -119,106 +119,104 @@ LABEL_8:
   if ([type isEqualToString:@"RichText"])
   {
     identifier = [*MEMORY[0x1E6982F90] identifier];
-    v27 = identifier;
-    v5 = MEMORY[0x1E695DEC8];
-    v6 = &v27;
-    goto LABEL_7;
-  }
-
-  if ([type isEqualToString:@"Image"])
-  {
-    identifier = [*MEMORY[0x1E6982E30] identifier];
     v26 = identifier;
     v5 = MEMORY[0x1E695DEC8];
     v6 = &v26;
     goto LABEL_7;
   }
 
+  if ([type isEqualToString:@"Image"])
+  {
+    identifier = [*MEMORY[0x1E6982E30] identifier];
+    v25 = identifier;
+    v5 = MEMORY[0x1E695DEC8];
+    v6 = &v25;
+    goto LABEL_7;
+  }
+
   if ([type isEqualToString:@"Custom"])
   {
-    v20 = type;
+    v19 = type;
     customUTIs = [(INCodableFileAttributeMetadata *)self customUTIs];
-    v11 = objc_opt_new();
+    v10 = objc_opt_new();
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     identifier = customUTIs;
-    v12 = [identifier countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v12)
+    v11 = [identifier countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v22;
+      v12 = v11;
+      v13 = *v21;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(identifier);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
-          if (v16)
+          v15 = *(*(&v20 + 1) + 8 * i);
+          if (v15)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v17 = v16;
+              v16 = v15;
             }
 
             else
             {
-              v17 = 0;
+              v16 = 0;
             }
           }
 
           else
           {
-            v17 = 0;
+            v16 = 0;
           }
 
-          v18 = v17;
+          v17 = v16;
 
-          v19 = [v18 objectForKey:@"UTI"];
+          v18 = [v17 objectForKey:@"UTI"];
 
-          if (v19)
+          if (v18)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v11 addObject:v19];
+              [v10 addObject:v18];
             }
           }
         }
 
-        v13 = [identifier countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [identifier countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
 
-    v7 = [v11 copy];
-    type = v20;
+    v7 = [v10 copy];
+    type = v19;
     goto LABEL_8;
   }
 
   v7 = MEMORY[0x1E695E0F0];
 LABEL_9:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v18[2] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = INCodableFileAttributeMetadata;
-  v4 = [(INCodableAttributeMetadata *)&v16 dictionaryRepresentationWithLocalizer:localizer];
+  v17[2] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = INCodableFileAttributeMetadata;
+  v4 = [(INCodableAttributeMetadata *)&v15 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionTypeKey = [(INCodableFileAttributeMetadata *)self __INCodableDescriptionTypeKey];
-  v17[0] = __INCodableDescriptionTypeKey;
+  v16[0] = __INCodableDescriptionTypeKey;
   type = [(INCodableFileAttributeMetadata *)self type];
   null = type;
   if (!type)
@@ -226,9 +224,9 @@ LABEL_9:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
+  v17[0] = null;
   __INCodableDescriptionCustomUTIsKey = [(INCodableFileAttributeMetadata *)self __INCodableDescriptionCustomUTIsKey];
-  v17[1] = __INCodableDescriptionCustomUTIsKey;
+  v16[1] = __INCodableDescriptionCustomUTIsKey;
   customUTIs = [(INCodableFileAttributeMetadata *)self customUTIs];
   null2 = customUTIs;
   if (!customUTIs)
@@ -236,8 +234,8 @@ LABEL_9:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = null2;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v12 = [v4 if_dictionaryByAddingEntriesFromDictionary:v11];
 
   if (!customUTIs)
@@ -249,8 +247,6 @@ LABEL_9:
   }
 
   if_dictionaryWithNonEmptyValues = [v12 if_dictionaryWithNonEmptyValues];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

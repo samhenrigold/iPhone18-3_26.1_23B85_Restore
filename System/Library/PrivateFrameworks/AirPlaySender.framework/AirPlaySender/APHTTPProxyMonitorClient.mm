@@ -74,7 +74,7 @@ uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke(ui
 {
   if (a2)
   {
-    return __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_cold_1();
+    return __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_cold_1(a2);
   }
 
   return result;
@@ -154,7 +154,7 @@ uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke(ui
                   CFDictionarySetValue(Mutable, @"proxyAuthorization", [MEMORY[0x277CCACA8] stringWithFormat:@"Basic %@", v16]);
                   if (gLogCategory_APHTTPProxyMonitorClient <= 30 && (gLogCategory_APHTTPProxyMonitorClient != -1 || _LogCategory_Initialize()))
                   {
-                    [APHTTPProxyMonitorClient deviceInfoDidChange:deviceInfo:];
+                    [APHTTPProxyMonitorClient deviceInfoDidChange:? deviceInfo:?];
                   }
 
                   (*(self->_handleProxyParametersChanged + 2))();
@@ -175,7 +175,7 @@ uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke(ui
 
         if (gLogCategory_APHTTPProxyMonitorClient <= 90 && (gLogCategory_APHTTPProxyMonitorClient != -1 || _LogCategory_Initialize()))
         {
-          [APHTTPProxyMonitorClient deviceInfoDidChange:deviceInfo:];
+          [APHTTPProxyMonitorClient deviceInfoDidChange:? deviceInfo:?];
         }
       }
 
@@ -223,7 +223,7 @@ LABEL_4:
     selfCopy->_handleProxyParametersChanged = _Block_copy(callback);
     selfCopy->_hasDesiredSockAddr = APSCFStringToSockAddr() == 0;
     selfCopy->_isWireless = link;
-    SNPrintF();
+    SNPrintF(label, 64, "APHTTPProxyMonitorClient-%{ptr}.monitorCallback", selfCopy);
     selfCopy->_dispatchQueue = dispatch_queue_create(label, 0);
     if ([(APHTTPProxyMonitorClient *)selfCopy registerToDeviceManager])
     {
@@ -247,25 +247,25 @@ LABEL_4:
     else if (gLogCategory_APHTTPProxyMonitorClient <= 50 && (gLogCategory_APHTTPProxyMonitorClient != -1 || _LogCategory_Initialize()))
     {
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_APHTTPProxyMonitorClient, "[APHTTPProxyMonitorClient deviceIsRegisteredDidChange:isRegistered:]", 33554482, "terminusd reset, re-registration successful");
     }
   }
 }
 
-uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_cold_1()
+uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_cold_1(uint64_t a1)
 {
   result = APSLogErrorAt();
   if (gLogCategory_APHTTPProxyMonitorClient <= 90)
   {
     if (gLogCategory_APHTTPProxyMonitorClient != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APHTTPProxyMonitorClient, "[APHTTPProxyMonitorClient registerToDeviceManager]_block_invoke", 33554522, "NRDeviceManager registerDevice completion callback with error: %#m", a1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APHTTPProxyMonitorClient, "[APHTTPProxyMonitorClient registerToDeviceManager]_block_invoke", 33554522, "NRDeviceManager registerDevice completion callback with error: %#m", a1);
     }
   }
 
@@ -276,7 +276,7 @@ uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_co
 {
   if (gLogCategory_APHTTPProxyMonitorClient <= 90 && (gLogCategory_APHTTPProxyMonitorClient != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_8();
+    OUTLINED_FUNCTION_1_8(&gLogCategory_APHTTPProxyMonitorClient, "[APHTTPProxyMonitorClient deviceInfoDidChange:deviceInfo:]", 0x5Au, "couldn't create proxyParameters dictionary");
   }
 }
 
@@ -284,7 +284,7 @@ uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_co
 {
   if (gLogCategory_APHTTPProxyMonitorClient <= 60 && (gLogCategory_APHTTPProxyMonitorClient != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_8();
+    OUTLINED_FUNCTION_1_8(&gLogCategory_APHTTPProxyMonitorClient, "[APHTTPProxyMonitorClient deviceInfoDidChange:deviceInfo:]", 0x3Cu, "proxyInfo contains no URLs");
   }
 }
 
@@ -292,7 +292,7 @@ uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_co
 {
   if (gLogCategory_APHTTPProxyMonitorClient <= 60 && (gLogCategory_APHTTPProxyMonitorClient != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_8();
+    OUTLINED_FUNCTION_1_8(&gLogCategory_APHTTPProxyMonitorClient, "[APHTTPProxyMonitorClient deviceInfoDidChange:deviceInfo:]", 0x3Cu, "proxyInfo argument is NULL");
   }
 }
 
@@ -300,7 +300,7 @@ uint64_t __51__APHTTPProxyMonitorClient_registerToDeviceManager__block_invoke_co
 {
   if (gLogCategory_APHTTPProxyMonitorClient <= 60 && (gLogCategory_APHTTPProxyMonitorClient != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_8();
+    OUTLINED_FUNCTION_1_8(&gLogCategory_APHTTPProxyMonitorClient, "[APHTTPProxyMonitorClient deviceInfoDidChange:deviceInfo:]", 0x3Cu, "deviceInfo argument is NULL");
   }
 }
 

@@ -135,16 +135,6 @@
   return v18;
 }
 
-double __41__CHUISWidgetVisibilitySettings_isEqual___block_invoke_3(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  result = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v4 = *(v1 + 32);
-  v5 = *(v1 + 40);
-  return result;
-}
-
 - (unint64_t)hash
 {
   builder = [MEMORY[0x1E698E6B8] builder];
@@ -200,10 +190,6 @@ id __71__CHUISWidgetVisibilitySettings_descriptionBuilderWithMultilinePrefix___b
   xdict = dictionary;
   xpc_dictionary_set_BOOL(xdict, "settled", self->_settled);
   xpc_dictionary_set_BOOL(xdict, "focal", self->_focal);
-  x = self->_visibleBounds.origin.x;
-  y = self->_visibleBounds.origin.y;
-  width = self->_visibleBounds.size.width;
-  height = self->_visibleBounds.size.height;
   BSSerializeCGRectToXPCDictionaryWithKey();
 }
 

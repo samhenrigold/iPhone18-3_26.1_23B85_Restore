@@ -19,7 +19,7 @@
 - (void)prepareLayout
 {
   selfCopy = self;
-  sub_100022690();
+  sub_100022690(selfCopy, v2);
 }
 
 - (id)layoutAttributesForElementsInRect:(CGRect)rect
@@ -50,18 +50,17 @@
 {
   v5 = sub_1000412F0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_100041B20();
-  v12 = v11;
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_100041B20();
+  v11 = v10;
   sub_1000412D0();
   selfCopy = self;
-  v14 = sub_1000232C8(v10, v12, v9);
+  v13 = sub_1000232C8(v9, v11, v8);
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
-  return v14;
+  return v13;
 }
 
 @end

@@ -6,7 +6,7 @@
 
 + (id)fetchCharacteristicRegistrationForAccessoryUUID:(id)d serviceInstanceID:(id)iD characteristicInstanceID:(id)instanceID managedObjectContext:(id)context
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   instanceIDCopy = instanceID;
@@ -41,9 +41,9 @@ LABEL_14:
   v21 = [v16 predicateWithFormat:@"(%K == %@) AND (%K == %@ OR %@ == %@) AND (%K == %@ OR %@ == %@)", @"accessoryModelID", dCopy, @"serviceInstanceID", v17, @"serviceInstanceID", v18, @"characteristicInstanceID", v19, @"characteristicInstanceID", v20];
   [v15 setPredicate:v21];
 
-  v33 = 0;
-  v22 = [v14 executeFetchRequest:v15 error:&v33];
-  v23 = v33;
+  v32 = 0;
+  v22 = [v14 executeFetchRequest:v15 error:&v32];
+  v23 = v32;
   if (v22)
   {
     firstObject = [v22 firstObject];
@@ -57,27 +57,25 @@ LABEL_14:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v28 = v32 = v25;
+      v28 = v31 = v25;
       *buf = 138544386;
-      v35 = v28;
-      v36 = 2112;
-      v37 = dCopy;
-      v38 = 2112;
-      v39 = iDCopy;
-      v40 = 2112;
-      v41 = instanceIDCopy;
-      v42 = 2112;
-      v43 = v23;
+      v34 = v28;
+      v35 = 2112;
+      v36 = dCopy;
+      v37 = 2112;
+      v38 = iDCopy;
+      v39 = 2112;
+      v40 = instanceIDCopy;
+      v41 = 2112;
+      v42 = v23;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local characteristic bulletin registration with accessoryUUID %@: serviceInstanceID: %@ characteristicInstanceID: %@ error: %@", buf, 0x34u);
 
-      v25 = v32;
+      v25 = v31;
     }
 
     objc_autoreleasePoolPop(v25);
     firstObject = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

@@ -55,7 +55,7 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v5 = objectCopy;
   if (self->_accept)
@@ -87,53 +87,117 @@
   {
     xpc_dictionary_set_BOOL(v5, "btPC", 1);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)descriptionWithLevel:(int)level
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
   }
 
-  bluetoothIdentifier = self->_bluetoothIdentifier;
-  CUAppendF();
-  v5 = v4;
-
-  self->_pairingType;
-  CUAppendF();
-  v6 = v5;
-
-  passkey = self->_passkey;
-  CUAppendF();
-  v7 = v6;
-
-  self->_accept;
-  CUAppendF();
-  v8 = v7;
-
-  self->_pairedWithCTKD;
-  CUAppendF();
-  v9 = v8;
-
-  v10 = &stru_285B4C350;
-  if (v9)
+  v25 = v4;
+  if ((level & 0x8000000) != 0)
   {
-    v10 = v9;
+    v6 = 0;
   }
 
-  v11 = v10;
+  else
+  {
+    v24 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v24, &v25, "%@", v5);
+    v6 = v24;
+  }
 
-  return v11;
+  v23 = v6;
+  CUAppendF(&v23, &v25, "Bluetooth identifier %@", self->_bluetoothIdentifier);
+  v7 = v23;
+
+  v22 = v7;
+  pairingType = self->_pairingType;
+  if (pairingType <= 19)
+  {
+    if (!pairingType)
+    {
+      v9 = @"DABluetoothPairingTypeInvalid";
+      goto LABEL_19;
+    }
+
+    if (pairingType == 10)
+    {
+      v9 = @"DABluetoothPairingTypeJustWorks";
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    switch(pairingType)
+    {
+      case 20:
+        v9 = @"DABluetoothPairingTypePasskeyDisplay";
+        goto LABEL_19;
+      case 30:
+        v9 = @"DABluetoothPairingTypePasskeyEntry";
+        goto LABEL_19;
+      case 40:
+        v9 = @"DABluetoothPairingTypeNumericComparison";
+        goto LABEL_19;
+    }
+  }
+
+  v9 = @"?";
+LABEL_19:
+  CUAppendF(&v22, &v25, "pairingType %@", v9);
+  v10 = v22;
+
+  v21 = v10;
+  CUAppendF(&v21, &v25, "pairingPasskey %@", self->_passkey);
+  v11 = v21;
+
+  v20 = v11;
+  if (self->_accept)
+  {
+    v12 = "yes";
+  }
+
+  else
+  {
+    v12 = "no";
+  }
+
+  CUAppendF(&v20, &v25, "accept %s", v12);
+  v13 = v20;
+
+  if (self->_pairedWithCTKD)
+  {
+    v14 = "yes";
+  }
+
+  else
+  {
+    v14 = "no";
+  }
+
+  v19 = v13;
+  CUAppendF(&v19, &v25, "pairedWithCTKD %s", v14);
+  v15 = v19;
+
+  v16 = &stru_285B4C350;
+  if (v15)
+  {
+    v16 = v15;
+  }
+
+  v17 = v16;
+
+  return v17;
 }
 
 - (DABluetoothPairingInfo)initWithXPCObject:(id)object error:(id *)error

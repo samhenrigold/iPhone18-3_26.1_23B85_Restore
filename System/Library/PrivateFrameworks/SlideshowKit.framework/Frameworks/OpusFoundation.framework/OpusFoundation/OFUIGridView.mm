@@ -1667,7 +1667,7 @@ LABEL_3:
   _Block_object_dispose(&v24, 8);
 }
 
-uint64_t __46__OFUIGridView_insertCellsAtIndexes_animated___block_invoke(uint64_t a1)
+void *__46__OFUIGridView_insertCellsAtIndexes_animated___block_invoke(uint64_t a1)
 {
   v25 = *MEMORY[0x277D85DE8];
   v20 = 0u;
@@ -1721,7 +1721,7 @@ uint64_t __46__OFUIGridView_insertCellsAtIndexes_animated___block_invoke(uint64_
           [v16 addSubview:v7];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -2179,7 +2179,7 @@ LABEL_19:
   }
 }
 
-uint64_t __54__OFUIGridView_moveCellsAtIndexes_toIndexes_animated___block_invoke(uint64_t a1)
+void *__54__OFUIGridView_moveCellsAtIndexes_toIndexes_animated___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 2336) addObject:*(a1 + 40)];
   [*(a1 + 32) _cellPositionAtIndex:{objc_msgSend(*(a1 + 40), "index")}];
@@ -2252,7 +2252,7 @@ uint64_t __54__OFUIGridView_moveCellsAtIndexes_toIndexes_animated___block_invoke
       [v3 setCenter:{MidX, CGRectGetMidY(v47)}];
       if (v3)
       {
-        [v3 transform];
+        objc_msgSend_transform(v3);
       }
 
       else

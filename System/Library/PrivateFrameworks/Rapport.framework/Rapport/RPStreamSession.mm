@@ -18,6 +18,7 @@
 - (void)_clientUDPSocketStartWithCompletion:(id)completion;
 - (void)_invalidate;
 - (void)_invalidated;
+- (void)_serverRPConnectionHandleConnectionAccepted:(int)accepted;
 - (void)_serverRPConnectionHandleConnectionStarted:(id)started;
 - (void)_serverRPConnectionStartRequest:(id)request options:(id)options responseHandler:(id)handler;
 - (void)_serverUDPNWPathNextWithEndpoint:(id)endpoint nwInterface:(id)interface selfMACData:(id)data peerIP:(id *)p peerMACData:(id)cData usb:(BOOL)usb responseHandler:(id)handler;
@@ -36,6 +37,7 @@
 - (void)sendEventID:(id)d event:(id)event options:(id)options completion:(id)completion;
 - (void)sendRequestID:(id)d request:(id)request options:(id)options responseHandler:(id)handler;
 - (void)setStreamQoS:(int)s;
+- (void)setStreamQoSOnSocket:(int)socket;
 - (void)setTrafficFlags:(unsigned int)flags;
 - (void)startServerConnectionWithCompletion:(id)completion;
 @end
@@ -267,21 +269,26 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  streamID = self->_streamID;
-  NSAppendPrintF();
-  v4 = 0;
+  v25 = 0;
+  NSAppendPrintF(&v25, "Stream ID %@", *&level, self->_streamID);
+  v4 = v25;
   v5 = v4;
   streamType = self->_streamType;
   if (streamType)
   {
-    v20 = v4;
-    if (streamType <= 3)
+    v24 = v4;
+    if (streamType > 3)
+    {
+      v7 = "?";
+    }
+
+    else
     {
       v7 = off_1E7C95228[streamType - 1];
     }
 
-    NSAppendPrintF();
-    v8 = v20;
+    NSAppendPrintF(&v24, ", Type %s", v7);
+    v8 = v24;
 
     v5 = v8;
   }
@@ -289,37 +296,92 @@
   serviceType = self->_serviceType;
   if (serviceType)
   {
-    v17 = serviceType;
-    NSAppendPrintF();
-    v10 = v5;
+    v23 = v5;
+    v10 = serviceType;
+    NSAppendPrintF(&v23, ", ST %@,", v10);
+    v11 = v23;
 
-    v5 = v10;
+    v5 = v11;
   }
 
-  if (self->_streamQoS)
+  streamQoS = self->_streamQoS;
+  if (streamQoS)
   {
-    NSAppendPrintF();
-    v12 = v5;
+    v22 = v5;
+    if (streamQoS <= 9)
+    {
+      switch(streamQoS)
+      {
+        case 1:
+          v13 = "Background";
+          goto LABEL_25;
+        case 2:
+          v13 = "Video";
+          goto LABEL_25;
+        case 3:
+          v13 = "Voice";
+LABEL_25:
+          NSAppendPrintF(&v22, ", QoS %s", v13);
+          v14 = v22;
 
-    v5 = v12;
+          v5 = v14;
+          goto LABEL_26;
+      }
+    }
+
+    else
+    {
+      if (streamQoS <= 11)
+      {
+        if (streamQoS == 10)
+        {
+          v13 = "AirPlayAudio";
+        }
+
+        else
+        {
+          v13 = "AirPlayScreenAudio";
+        }
+
+        goto LABEL_25;
+      }
+
+      if (streamQoS == 12)
+      {
+        v13 = "AirPlayScreenVideo";
+        goto LABEL_25;
+      }
+
+      if (streamQoS == 20)
+      {
+        v13 = "NTP";
+        goto LABEL_25;
+      }
+    }
+
+    v13 = "?";
+    goto LABEL_25;
   }
 
-  if (self->_statusFlags)
+LABEL_26:
+  statusFlags = self->_statusFlags;
+  if (statusFlags)
   {
-    statusFlags = self->_statusFlags;
-    NSAppendPrintF();
-    v13 = v5;
+    v21 = v5;
+    NSAppendPrintF(&v21, ", SF %#ll{flags}", statusFlags, &unk_1B6F2F118);
+    v16 = v21;
 
-    v5 = v13;
+    v5 = v16;
   }
 
-  if (self->_trafficFlags)
+  trafficFlags = self->_trafficFlags;
+  if (trafficFlags)
   {
-    trafficFlags = self->_trafficFlags;
-    NSAppendPrintF();
-    v14 = v5;
+    v20 = v5;
+    NSAppendPrintF(&v20, ", TF %#{flags}", trafficFlags, &unk_1B6F2F2E7);
+    v18 = v20;
 
-    v5 = v14;
+    v5 = v18;
   }
 
   return v5;
@@ -327,15 +389,16 @@
 
 - (void)setTrafficFlags:(unsigned int)flags
 {
+  v3 = *&flags;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (self->_trafficFlags != flags)
+  if (self->_trafficFlags != v3)
   {
-    self->_trafficFlags = flags;
+    self->_trafficFlags = v3;
     if (self->_trafficRegistrationCalled)
     {
       if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
       {
-        [RPStreamSession setTrafficFlags:];
+        [RPStreamSession setTrafficFlags:v3];
       }
 
       dispatchQueue = self->_dispatchQueue;
@@ -441,9 +504,7 @@ LABEL_26:
             {
               v7 = "Background";
 LABEL_45:
-              v12 = v6;
-              v13 = v7;
-              LogPrintF();
+              LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession setStreamQoS:]", 30, "Stream QoS changed %s -> %s\n", v6, v7);
               goto LABEL_46;
             }
           }
@@ -502,8 +563,8 @@ LABEL_45:
 
 LABEL_46:
   self->_streamQoS = s;
-  v8 = [(RPConnection *)self->_rpCnx tcpConnection:v12];
-  socketFD = [v8 socketFD];
+  tcpConnection = [(RPConnection *)self->_rpCnx tcpConnection];
+  socketFD = [tcpConnection socketFD];
 
   if (socketFD < 0)
   {
@@ -516,8 +577,8 @@ LABEL_46:
 
   else
   {
-    tcpConnection = [(RPConnection *)self->_rpCnx tcpConnection];
-    streamSocket = [tcpConnection socketFD];
+    tcpConnection2 = [(RPConnection *)self->_rpCnx tcpConnection];
+    streamSocket = [tcpConnection2 socketFD];
 
     if ((streamSocket & 0x80000000) != 0)
     {
@@ -526,6 +587,84 @@ LABEL_46:
   }
 
   [(RPStreamSession *)self setStreamQoSOnSocket:streamSocket];
+}
+
+- (void)setStreamQoSOnSocket:(int)socket
+{
+  v3 = *&socket;
+  if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+  {
+    streamQoS = self->_streamQoS;
+    if (streamQoS > 9)
+    {
+      if (streamQoS <= 11)
+      {
+        if (streamQoS == 10)
+        {
+          v6 = "AirPlayAudio";
+        }
+
+        else
+        {
+          v6 = "AirPlayScreenAudio";
+        }
+
+        goto LABEL_24;
+      }
+
+      if (streamQoS == 12)
+      {
+        v6 = "AirPlayScreenVideo";
+        goto LABEL_24;
+      }
+
+      if (streamQoS == 20)
+      {
+        v6 = "NTP";
+        goto LABEL_24;
+      }
+    }
+
+    else if (streamQoS > 1)
+    {
+      if (streamQoS == 2)
+      {
+        v6 = "Video";
+        goto LABEL_24;
+      }
+
+      if (streamQoS == 3)
+      {
+        v6 = "Voice";
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+      if (!streamQoS)
+      {
+        v6 = "Default";
+        goto LABEL_24;
+      }
+
+      if (streamQoS == 1)
+      {
+        v6 = "Background";
+LABEL_24:
+        LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession setStreamQoSOnSocket:]", 30, "Setting QoS to %s on socket fd %d\n", v6, v3);
+        goto LABEL_25;
+      }
+    }
+
+    v6 = "?";
+    goto LABEL_24;
+  }
+
+LABEL_25:
+  v7 = self->_streamQoS;
+
+  MEMORY[0x1EEE015B0](v3, v7);
 }
 
 - (void)acceptedByServer
@@ -562,107 +701,139 @@ LABEL_46:
   dispatch_async(v7, v9);
 }
 
-void __42__RPStreamSession_activateWithCompletion___block_invoke(uint64_t a1)
+void __42__RPStreamSession_activateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 32);
-  if ((*(v2 + 144) & 0x80000000) == 0 || *(v2 + 288) && *(v2 + 296) || *(v2 + 208))
+  v9 = *(a1 + 32);
+  if ((*(v9 + 144) & 0x80000000) == 0 || *(v9 + 288) && *(v9 + 296) || *(v9 + 208))
   {
-    v3 = 1;
+    v10 = 1;
   }
 
   else
   {
-    if (!*(v2 + 200))
+    if (!*(v9 + 200))
     {
-      v11 = RPErrorF();
-      if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
+      v20 = RPErrorF(4294960591, "No messenger", a3, a4, a5, a6, a7, a8, v27);
+      v28 = v20;
+      if (gLogCategory_RPStreamSession > 90)
       {
         goto LABEL_29;
+      }
+
+      if (gLogCategory_RPStreamSession == -1)
+      {
+        v26 = _LogCategory_Initialize();
+        v20 = v28;
+        if (!v26)
+        {
+          goto LABEL_29;
+        }
       }
 
       goto LABEL_45;
     }
 
-    v3 = 0;
+    v10 = 0;
   }
 
-  if (!*(v2 + 264))
+  if (!*(v9 + 264))
   {
-    v11 = RPErrorF();
-    if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
+    v20 = RPErrorF(4294960591, "No streamID", a3, a4, a5, a6, a7, a8, v27);
+    v28 = v20;
+    if (gLogCategory_RPStreamSession > 90)
     {
       goto LABEL_29;
+    }
+
+    if (gLogCategory_RPStreamSession == -1)
+    {
+      v21 = _LogCategory_Initialize();
+      v20 = v28;
+      if (!v21)
+      {
+        goto LABEL_29;
+      }
     }
 
     goto LABEL_45;
   }
 
-  [*(v2 + 200) setServiceType:*(v2 + 240)];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 148);
-  switch(v5)
+  [*(v9 + 200) setServiceType:{*(v9 + 240), a4, a5, a6, a7, a8}];
+  v17 = *(a1 + 32);
+  v18 = *(v17 + 148);
+  switch(v18)
   {
     case 3:
-      v6 = *(a1 + 40);
-      if (v3)
+      v19 = *(a1 + 40);
+      if (v10)
       {
 LABEL_23:
-        v8 = *(v6 + 16);
+        v23 = *(v19 + 16);
 
-        v8(v6, 0);
+        v23(v19, 0);
         return;
       }
 
-      [v4 _clientUDPNWPathStartWithCompletion:v6];
+      [v17 _clientUDPNWPathStartWithCompletion:v19];
       break;
     case 2:
-      if (*(v4 + 136) == 1)
+      if (*(v17 + 136) == 1)
       {
-        v12 = 0;
-        [v4 _startServerConnectionAndReturnError:&v12];
-        v7 = v12;
+        v29 = 0;
+        [v17 _startServerConnectionAndReturnError:&v29];
+        v22 = v29;
         (*(*(a1 + 40) + 16))();
       }
 
       else
       {
-        v9 = *(a1 + 40);
-        if (v3)
+        v25 = *(a1 + 40);
+        if (v10)
         {
 
-          [v4 _clientRPConnectionStartWithCompletion:v9];
+          [v17 _clientRPConnectionStartWithCompletion:v25];
         }
 
         else
         {
 
-          [v4 _clientRPConnectionPrepareWithCompletion:v9];
+          [v17 _clientRPConnectionPrepareWithCompletion:v25];
         }
       }
 
       break;
     case 1:
-      v6 = *(a1 + 40);
-      if (!v3)
+      v19 = *(a1 + 40);
+      if (!v10)
       {
 
-        [v4 _clientUDPSocketStartWithCompletion:v6];
+        [v17 _clientUDPSocketStartWithCompletion:v19];
         return;
       }
 
       goto LABEL_23;
     default:
-      v10 = *(v4 + 148);
-      v11 = RPErrorF();
-      if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
+      v20 = RPErrorF(4294960564, "Unsupported streamType: %d", v11, v12, v13, v14, v15, v16, *(v17 + 148));
+      v28 = v20;
+      if (gLogCategory_RPStreamSession > 90)
       {
         goto LABEL_29;
       }
 
+      if (gLogCategory_RPStreamSession == -1)
+      {
+        v24 = _LogCategory_Initialize();
+        v20 = v28;
+        if (!v24)
+        {
+          goto LABEL_29;
+        }
+      }
+
 LABEL_45:
-      __42__RPStreamSession_activateWithCompletion___block_invoke_cold_1();
+      __42__RPStreamSession_activateWithCompletion___block_invoke_cold_1(v20);
 LABEL_29:
-      (*(*(a1 + 40) + 16))(*(a1 + 40));
+      (*(*(a1 + 40) + 16))();
 
       return;
   }
@@ -701,40 +872,43 @@ void __68__RPStreamSession_activateForServerRequest_options_responseHandler___bl
 {
   *(a1[4] + 136) = 1;
   [*(a1[4] + 200) setServiceType:*(a1[4] + 240)];
-  v2 = a1[4];
-  v3 = v2[37];
-  switch(v3)
+  v8 = a1[4];
+  v9 = v8[37];
+  switch(v9)
   {
     case 3:
+      v16 = a1[5];
+      v17 = a1[6];
+      v18 = a1[7];
+
+      [v8 _serverUDPNWPathStartRequest:v16 options:v17 responseHandler:v18];
+      break;
+    case 2:
+      v13 = a1[5];
+      v14 = a1[6];
+      v15 = a1[7];
+
+      [v8 _serverRPConnectionStartRequest:v13 options:v14 responseHandler:v15];
+      break;
+    case 1:
       v10 = a1[5];
       v11 = a1[6];
       v12 = a1[7];
 
-      [v2 _serverUDPNWPathStartRequest:v10 options:v11 responseHandler:v12];
-      break;
-    case 2:
-      v7 = a1[5];
-      v8 = a1[6];
-      v9 = a1[7];
-
-      [v2 _serverRPConnectionStartRequest:v7 options:v8 responseHandler:v9];
-      break;
-    case 1:
-      v4 = a1[5];
-      v5 = a1[6];
-      v6 = a1[7];
-
-      [v2 _serverUDPSocketStartRequest:v4 options:v5 responseHandler:v6];
+      [v8 _serverUDPSocketStartRequest:v10 options:v11 responseHandler:v12];
       break;
     default:
-      v13 = v2[37];
-      v14 = RPErrorF();
-      if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+      v19 = RPErrorF(4294960564, "Unsupported streamType: %d", v2, v3, v4, v5, v6, v7, v8[37]);
+      v21 = v19;
+      if (gLogCategory_RPStreamSession <= 90)
       {
-        __68__RPStreamSession_activateForServerRequest_options_responseHandler___block_invoke_cold_1();
+        if (gLogCategory_RPStreamSession != -1 || (v20 = _LogCategory_Initialize(), v19 = v21, v20))
+        {
+          __68__RPStreamSession_activateForServerRequest_options_responseHandler___block_invoke_cold_1(v19);
+        }
       }
 
-      (*(a1[7] + 16))(a1[7]);
+      (*(a1[7] + 16))();
 
       break;
   }
@@ -754,63 +928,95 @@ void __68__RPStreamSession_activateForServerRequest_options_responseHandler___bl
   dispatch_async(dispatchQueue, v7);
 }
 
-void __41__RPStreamSession_prepareWithCompletion___block_invoke(uint64_t a1)
+void __41__RPStreamSession_prepareWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 32);
-  if (!*(v2 + 200))
+  v9 = *(a1 + 32);
+  if (!*(v9 + 200))
   {
-    v9 = RPErrorF();
-    if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
+    v12 = RPErrorF(4294960591, "No messenger", a3, a4, a5, a6, a7, a8, v19);
+    v20 = v12;
+    if (gLogCategory_RPStreamSession > 90)
     {
       goto LABEL_27;
+    }
+
+    if (gLogCategory_RPStreamSession == -1)
+    {
+      v13 = _LogCategory_Initialize();
+      v12 = v20;
+      if (!v13)
+      {
+        goto LABEL_27;
+      }
     }
 
     goto LABEL_26;
   }
 
-  if (!*(v2 + 264))
+  if (!*(v9 + 264))
   {
-    v9 = RPErrorF();
-    if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
+    v12 = RPErrorF(4294960591, "No streamID", a3, a4, a5, a6, a7, a8, v19);
+    v20 = v12;
+    if (gLogCategory_RPStreamSession > 90)
     {
       goto LABEL_27;
+    }
+
+    if (gLogCategory_RPStreamSession == -1)
+    {
+      v14 = _LogCategory_Initialize();
+      v12 = v20;
+      if (!v14)
+      {
+        goto LABEL_27;
+      }
     }
 
     goto LABEL_26;
   }
 
-  v3 = *(v2 + 148);
-  switch(v3)
+  v10 = *(v9 + 148);
+  switch(v10)
   {
     case 3:
-      v7 = *(a1 + 40);
+      v17 = *(a1 + 40);
 
-      [v2 _clientUDPNWPathStartWithCompletion:v7];
+      [v9 _clientUDPNWPathStartWithCompletion:{v17, a4, a5, a6, a7, a8}];
       break;
     case 2:
-      *(v2 + 96) = 1;
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
+      *(v9 + 96) = 1;
+      v15 = *(a1 + 32);
+      v16 = *(a1 + 40);
 
-      [v5 _clientRPConnectionPrepareWithCompletion:v6];
+      [v15 _clientRPConnectionPrepareWithCompletion:{v16, a4, a5, a6, a7, a8}];
       break;
     case 1:
-      v4 = *(a1 + 40);
+      v11 = *(a1 + 40);
 
-      [v2 _clientUDPSocketStartWithCompletion:v4];
+      [v9 _clientUDPSocketStartWithCompletion:{v11, a4, a5, a6, a7, a8}];
       return;
     default:
-      v8 = *(v2 + 148);
-      v9 = RPErrorF();
-      if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
+      v12 = RPErrorF(4294960564, "Unsupported streamType: %d", a3, a4, a5, a6, a7, a8, *(v9 + 148));
+      v20 = v12;
+      if (gLogCategory_RPStreamSession > 90)
       {
         goto LABEL_27;
       }
 
+      if (gLogCategory_RPStreamSession == -1)
+      {
+        v18 = _LogCategory_Initialize();
+        v12 = v20;
+        if (!v18)
+        {
+          goto LABEL_27;
+        }
+      }
+
 LABEL_26:
-      __41__RPStreamSession_prepareWithCompletion___block_invoke_cold_1();
+      __41__RPStreamSession_prepareWithCompletion___block_invoke_cold_1(v12);
 LABEL_27:
-      (*(*(a1 + 40) + 16))(*(a1 + 40));
+      (*(*(a1 + 40) + 16))();
 
       return;
   }
@@ -849,10 +1055,10 @@ void __55__RPStreamSession_startServerConnectionWithCompletion___block_invoke(ui
   streamSocket = self->_streamSocket;
   if ((streamSocket & 0x80000000) != 0)
   {
-    v13 = RPErrorF();
+    v25 = RPErrorF(4294960551, "No socket", error, v3, v4, v5, v6, v7, v33);
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      [RPStreamSession _startServerConnectionAndReturnError:];
+      [RPStreamSession _startServerConnectionAndReturnError:v25];
       if (!error)
       {
         goto LABEL_18;
@@ -866,104 +1072,106 @@ LABEL_18:
       return 0;
     }
 
-    v14 = v13;
-    *error = v13;
+    v26 = v25;
+    *error = v25;
     goto LABEL_18;
   }
 
-  *&v28.sa_len = 0;
-  *&v28.sa_data[6] = 0;
-  v30 = 0;
-  v29 = 0;
-  v27 = 28;
-  getsockname(streamSocket, &v28, &v27);
-  v6 = objc_alloc_init(MEMORY[0x1E6999548]);
-  [v6 setDispatchQueue:self->_dispatchQueue];
-  [v6 setFlags:137];
-  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Stream-%u", SockAddrGetPort()];
-  [v6 setLabel:v7];
+  *&v42.sa_len = 0;
+  *&v42.sa_data[6] = 0;
+  v44 = 0;
+  v43 = 0;
+  v41 = 28;
+  getsockname(streamSocket, &v42, &v41);
+  v11 = objc_alloc_init(MEMORY[0x1E6999548]);
+  [v11 setDispatchQueue:self->_dispatchQueue];
+  [v11 setFlags:137];
+  v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+  Port = SockAddrGetPort();
+  v13 = [v12 initWithFormat:@"Stream-%u"];
+  [v11 setLabel:v13];
 
-  [v6 setSocketFD:streamSocket];
+  [v11 setSocketFD:streamSocket];
   self->_streamSocket = -1;
   if (self->_streamQoS >= 1)
   {
     [(RPStreamSession *)self setStreamQoSOnSocket:streamSocket];
   }
 
-  v26 = 0;
-  [v6 activateDirectAndReturnError:&v26];
-  v8 = v26;
-  v9 = v8 == 0;
-  if (v8)
+  v40 = 0;
+  [v11 activateDirectAndReturnError:&v40];
+  v14 = v40;
+  v21 = v14 == 0;
+  if (v14)
   {
-    v10 = v8;
-    v11 = RPErrorF();
+    v22 = v14;
+    v23 = RPErrorF(4294960551, "Activate TCP failed", v15, v16, v17, v18, v19, v20, Port);
 
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      [RPStreamSession _startServerConnectionAndReturnError:];
+      [RPStreamSession _startServerConnectionAndReturnError:v23];
     }
 
-    [v6 invalidate];
+    [v11 invalidate];
     if (error)
     {
-      v12 = v11;
-      *error = v11;
+      v24 = v23;
+      *error = v23;
     }
   }
 
   else
   {
-    v15 = objc_alloc_init(RPConnection);
-    [(RPConnection *)v15 setDispatchQueue:self->_dispatchQueue];
-    [(RPConnection *)v15 setFlags:[(RPConnection *)v15 flags]| 0x80000];
-    label = [v6 label];
-    [(RPConnection *)v15 setLabel:label];
+    v27 = objc_alloc_init(RPConnection);
+    [(RPConnection *)v27 setDispatchQueue:self->_dispatchQueue];
+    [(RPConnection *)v27 setFlags:[(RPConnection *)v27 flags]| 0x80000];
+    label = [v11 label];
+    [(RPConnection *)v27 setLabel:label];
 
-    [(RPConnection *)v15 setPskData:self->_pskData];
+    [(RPConnection *)v27 setPskData:self->_pskData];
     pskData = self->_pskData;
     self->_pskData = 0;
 
-    [(RPConnection *)v15 setTcpConnection:v6];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke;
-    v25[3] = &unk_1E7C92CE8;
-    v25[4] = self;
-    [(RPConnection *)v15 setInvalidationHandler:v25];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_2;
-    v24[3] = &unk_1E7C94408;
-    v24[4] = self;
-    [(RPConnection *)v15 setReceivedEventHandler:v24];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_3;
-    v23[3] = &unk_1E7C94430;
-    v23[4] = self;
-    [(RPConnection *)v15 setReceivedRequestHandler:v23];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_4;
-    v22[3] = &unk_1E7C942A8;
-    v22[4] = self;
-    [(RPConnection *)v15 setStateChangedHandler:v22];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_5;
-    v21[3] = &unk_1E7C92D58;
-    v21[4] = self;
-    [(RPConnection *)v15 setReadErrorHandler:v21];
+    [(RPConnection *)v27 setTcpConnection:v11];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke;
+    v39[3] = &unk_1E7C92CE8;
+    v39[4] = self;
+    [(RPConnection *)v27 setInvalidationHandler:v39];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_2;
+    v38[3] = &unk_1E7C94408;
+    v38[4] = self;
+    [(RPConnection *)v27 setReceivedEventHandler:v38];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_3;
+    v37[3] = &unk_1E7C94430;
+    v37[4] = self;
+    [(RPConnection *)v27 setReceivedRequestHandler:v37];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_4;
+    v36[3] = &unk_1E7C942A8;
+    v36[4] = self;
+    [(RPConnection *)v27 setStateChangedHandler:v36];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_5;
+    v35[3] = &unk_1E7C92D58;
+    v35[4] = self;
+    [(RPConnection *)v27 setReadErrorHandler:v35];
     rpCnx = self->_rpCnx;
-    self->_rpCnx = v15;
-    v19 = v15;
+    self->_rpCnx = v27;
+    v31 = v27;
 
-    [(RPConnection *)v19 activate];
-    v11 = 0;
+    [(RPConnection *)v31 activate];
+    v23 = 0;
   }
 
-  return v9;
+  return v21;
 }
 
 uint64_t __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke(uint64_t a1)
@@ -1143,155 +1351,160 @@ void __56__RPStreamSession__startServerConnectionAndReturnError___block_invoke_5
 - (void)_clientUDPNWPathStartWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__7;
-  v42 = __Block_byref_object_dispose__7;
-  v43 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__7;
+  v56 = __Block_byref_object_dispose__7;
+  v57 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7C94FA8;
-  v37 = &v38;
+  v51 = &v52;
   v5 = completionCopy;
-  v36 = v5;
+  v50 = v5;
   v6 = _Block_copy(aBlock);
   if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
-    streamID = self->_streamID;
     streamType = self->_streamType;
-    if (streamType <= 3)
+    if (streamType > 3)
     {
-      v9 = off_1E7C95240[streamType];
+      v8 = "?";
     }
 
-    trafficFlags = self->_trafficFlags;
-    streamFlags = self->_streamFlags;
-    LogPrintF();
+    else
+    {
+      v8 = off_1E7C95240[streamType];
+    }
+
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartWithCompletion:]", 30, "Activate: Client, Prepare, ID '%@', Type %s, Flags %#{flags}, TF %#{flags}\n", self->_streamID, v8, self->_streamFlags, &unk_1B6F2F36D, self->_trafficFlags, &unk_1B6F2F2E7);
   }
 
-  messenger = self->_messenger;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = self->_messenger;
-    v12 = [(RPMessageable *)v11 linkType]== 4;
+    v9 = self->_messenger;
+    v10 = [(RPMessageable *)v9 linkType]== 4;
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
   secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
   if (!secure_udp)
   {
-    v22 = RPErrorF();
-    v14 = v39[5];
-    v39[5] = v22;
-    goto LABEL_30;
+    v37 = RPErrorF(4294960596, "Create nw_parameters failed", v11, v12, v13, v14, v15, v16, v41);
+    v18 = v53[5];
+    v53[5] = v37;
+    goto LABEL_32;
   }
 
   nw_parameters_set_allow_duplicate_state_updates();
-  v34 = 0;
-  if (!v12 || (self->_streamFlags & 2) == 0)
+  v48 = 0;
+  if (!v10 || (self->_streamFlags & 2) == 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v15 = [(RPStreamSession *)self _lowLatencySelfAddressString:&v34];
-  if (!v15)
+  v19 = [(RPStreamSession *)self _lowLatencySelfAddressString:&v48];
+  if (!v19)
   {
     if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartWithCompletion:]", 30, "Client ignoring low latency without local llw0\n");
     }
 
-LABEL_14:
-    v14 = 0;
-    v15 = 0;
 LABEL_15:
-    v16 = self->_nwListener;
-    v17 = v16;
-    if (v16)
+    v18 = 0;
+    v19 = 0;
+LABEL_16:
+    v20 = self->_nwListener;
+    v21 = v20;
+    if (v20)
     {
-      nw_listener_cancel(v16);
+      nw_listener_cancel(v20);
     }
 
-    v18 = nw_listener_create(secure_udp);
-    objc_storeStrong(&self->_nwListener, v18);
-    if (v18)
+    v22 = nw_listener_create(secure_udp);
+    objc_storeStrong(&self->_nwListener, v22);
+    if (v22)
     {
-      nw_listener_set_queue(v18, self->_dispatchQueue);
-      v32[0] = 0;
-      v32[1] = v32;
-      v32[2] = 0x3032000000;
-      v32[3] = __Block_byref_object_copy__84;
-      v32[4] = __Block_byref_object_dispose__85;
-      v33 = _Block_copy(v5);
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86;
-      v28[3] = &unk_1E7C95100;
-      v28[4] = v18;
-      v28[5] = self;
-      v31 = v32;
-      v14 = v14;
-      v29 = v14;
-      v30 = v34;
-      MEMORY[0x1B8C9E950](v18, v28);
-      nw_listener_set_new_connection_handler(v18, &__block_literal_global_18);
+      nw_listener_set_queue(v22, self->_dispatchQueue);
+      v46[0] = 0;
+      v46[1] = v46;
+      v46[2] = 0x3032000000;
+      v46[3] = __Block_byref_object_copy__84;
+      v46[4] = __Block_byref_object_dispose__85;
+      v47 = _Block_copy(v5);
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86;
+      v42[3] = &unk_1E7C95100;
+      v42[4] = v22;
+      v42[5] = self;
+      v45 = v46;
+      v18 = v18;
+      v43 = v18;
+      v44 = v48;
+      MEMORY[0x1B8C9E950](v22, v42);
+      nw_listener_set_new_connection_handler(v22, &__block_literal_global_18);
       if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
       {
-        v19 = self->_streamID;
-        v20 = self->_streamType;
-        if (v20 <= 3)
+        v29 = self->_streamType;
+        if (v29 > 3)
         {
-          v21 = off_1E7C95240[v20];
+          v30 = "?";
         }
 
-        LogPrintF();
+        else
+        {
+          v30 = off_1E7C95240[v29];
+        }
+
+        LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartWithCompletion:]", 30, "Activate: Client, Start, ID '%@', Type %s, OurAddr %@, OurMAC %@\n", self->_streamID, v30, v19, v48);
       }
 
-      nw_listener_start(v18);
+      nw_listener_start(v22);
 
-      _Block_object_dispose(v32, 8);
+      _Block_object_dispose(v46, 8);
     }
 
     else
     {
-      v23 = RPErrorF();
-      v24 = v39[5];
-      v39[5] = v23;
+      v38 = RPErrorF(4294960596, "Create nw_listener failed", v23, v24, v25, v26, v27, v28, v41);
+      v39 = v53[5];
+      v53[5] = v38;
     }
 
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
-  v14 = nw_interface_create_with_name();
-  if (v14)
+  v18 = nw_interface_create_with_name();
+  if (v18)
   {
-    nw_parameters_require_interface(secure_udp, v14);
-    goto LABEL_15;
+    nw_parameters_require_interface(secure_udp, v18);
+    goto LABEL_16;
   }
 
-  v25 = RPErrorF();
-  v14 = 0;
-  v18 = v39[5];
-  v39[5] = v25;
-LABEL_29:
+  v40 = RPErrorF(4294960596, "Create nw_interface failed", v31, v32, v33, v34, v35, v36, v41);
+  v18 = 0;
+  v22 = v53[5];
+  v53[5] = v40;
+LABEL_31:
 
-LABEL_30:
+LABEL_32:
   v6[2](v6);
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v52, 8);
 }
 
 uint64_t __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1301,95 +1514,92 @@ uint64_t __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invok
   {
     if (gLogCategory_RPStreamSession == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartWithCompletion:]_block_invoke", 90, "### Client start request failed: UDP NWPath, %{error}\n", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
-void __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86(uint64_t a1, int a2, void *a3)
+void __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
-  v6 = v5;
+  v11 = v5;
   if (gLogCategory_RPStreamSession <= 30)
   {
-    v13 = v5;
-    if (gLogCategory_RPStreamSession != -1 || (v7 = _LogCategory_Initialize(), v6 = v13, v7))
+    v18 = v5;
+    if (gLogCategory_RPStreamSession != -1 || (v12 = _LogCategory_Initialize(), v11 = v18, v12))
     {
-      __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86_cold_1();
-      v6 = v13;
+      __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86_cold_1(v3);
+      v11 = v18;
     }
   }
 
   if (*(a1 + 32) == *(*(a1 + 40) + 16))
   {
-    if (a2 == 3 || v6)
+    if (v3 == 3 || v11)
     {
-      v14 = v6;
-      if (v6)
+      v19 = v11;
+      if (v11)
       {
-        v8 = nw_error_copy_cf_error(v6);
+        v13 = nw_error_copy_cf_error(v11);
       }
 
       else
       {
-        v8 = 0;
+        v13 = 0;
       }
 
       if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
       {
-        __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86_cold_3();
+        __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86_cold_3(v13);
       }
 
-      v9 = *(*(a1 + 64) + 8);
-      v10 = *(v9 + 40);
-      if (!v10)
+      v14 = *(*(a1 + 64) + 8);
+      v15 = *(v14 + 40);
+      if (!v15)
       {
-        v12 = 0;
+        v17 = 0;
         goto LABEL_21;
       }
 
-      v11 = RPNestedErrorF();
-      (*(v10 + 16))(v10, v11);
+      v16 = RPNestedErrorF(v13, 4294960596, "nw_listener failed", v6, v7, v8, v9, v10, v19);
+      (*(v15 + 16))(v15, v16);
 
 LABEL_19:
-      v9 = *(*(a1 + 64) + 8);
-      v12 = *(v9 + 40);
+      v14 = *(*(a1 + 64) + 8);
+      v17 = *(v14 + 40);
 LABEL_21:
-      *(v9 + 40) = 0;
+      *(v14 + 40) = 0;
 
 LABEL_22:
-      v6 = v14;
+      v11 = v19;
       goto LABEL_23;
     }
 
-    if ((a2 - 1) <= 1 && *(*(*(a1 + 64) + 8) + 40))
+    if ((v3 - 1) <= 1 && *(*(*(a1 + 64) + 8) + 40))
     {
-      v14 = 0;
-      v8 = nw_listener_copy_local_endpoint();
-      if (!v8)
+      v19 = 0;
+      v13 = nw_listener_copy_local_endpoint();
+      if (!v13)
       {
-        __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86_cold_2(0, &v15);
-        v8 = v15;
+        __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86_cold_2(0, &v20);
+        v13 = v20;
         goto LABEL_22;
       }
 
-      [*(a1 + 40) _clientUDPNWPathNextWithEndpoint:v8 nwInterface:*(a1 + 48) selfMACData:*(a1 + 56) usb:0 completion:*(*(*(a1 + 64) + 8) + 40)];
+      [*(a1 + 40) _clientUDPNWPathNextWithEndpoint:v13 nwInterface:*(a1 + 48) selfMACData:*(a1 + 56) usb:0 completion:*(*(*(a1 + 64) + 8) + 40)];
       goto LABEL_19;
     }
   }
@@ -1405,7 +1615,7 @@ void __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_2(
   {
     if (gLogCategory_RPStreamSession != -1 || (v3 = _LogCategory_Initialize(), v2 = v4, v3))
     {
-      __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_2_cold_1();
+      __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_2_cold_1(v2);
       v2 = v4;
     }
   }
@@ -1415,7 +1625,7 @@ void __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_2(
 
 - (void)_clientUDPNWPathNextWithEndpoint:(id)endpoint nwInterface:(id)interface selfMACData:(id)data usb:(BOOL)usb completion:(id)completion
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   interfaceCopy = interface;
   dataCopy = data;
@@ -1435,13 +1645,13 @@ void __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_2(
     else if (sa_family == 2 && !*&address->sa_data[2])
     {
 LABEL_5:
-      v17 = 0;
+      v23 = 0;
       goto LABEL_15;
     }
 
-    v48[0] = 0;
+    v46[0] = 0;
     SockAddrToString();
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v48];
+    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v46];
 LABEL_15:
     Port = SockAddrGetPort();
     if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
@@ -1449,89 +1659,79 @@ LABEL_15:
       streamType = self->_streamType;
       if (streamType > 3)
       {
-        v22 = "?";
+        v28 = "?";
       }
 
       else
       {
-        v22 = off_1E7C95240[streamType];
+        v28 = off_1E7C95240[streamType];
       }
 
-      v39 = endpointCopy;
-      v40 = Port;
-      v37 = v17;
-      v38 = dataCopy;
-      streamFlags = self->_streamFlags;
-      v36 = &unk_1B6F2F36D;
-      streamID = self->_streamID;
-      v34 = v22;
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathNextWithEndpoint:nwInterface:selfMACData:usb:completion:]", 30, "Activate: Client, Next, ID '%@', Type %s, Flags %#{flags}, OurIP %@, OurMAC %@, OurEP %@, OurPort %d\n", self->_streamID, v28, self->_streamFlags, &unk_1B6F2F36D, v23, dataCopy, endpointCopy, Port);
     }
 
-    v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v24 = v23;
-    if (v17)
+    v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v30 = v29;
+    if (v23)
     {
-      [v23 setObject:v17 forKeyedSubscript:@"_streamAddr"];
+      [v29 setObject:v23 forKeyedSubscript:@"_streamAddr"];
     }
 
     if (dataCopy)
     {
-      [v24 setObject:dataCopy forKeyedSubscript:@"_streamMACAddr"];
+      [v30 setObject:dataCopy forKeyedSubscript:@"_streamMACAddr"];
     }
 
     if (self->_streamFlags)
     {
-      v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-      [v24 setObject:v25 forKeyedSubscript:@"_streamFlags"];
+      v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+      [v30 setObject:v31 forKeyedSubscript:@"_streamFlags"];
     }
 
-    [v24 setObject:self->_streamID forKeyedSubscript:{@"_streamID", streamID, v34, streamFlags, v36, v37, v38, v39, v40}];
-    v26 = [MEMORY[0x1E696AD98] numberWithInt:Port];
-    [v24 setObject:v26 forKeyedSubscript:@"_streamPort"];
+    [v30 setObject:self->_streamID forKeyedSubscript:@"_streamID"];
+    v32 = [MEMORY[0x1E696AD98] numberWithInt:Port];
+    [v30 setObject:v32 forKeyedSubscript:@"_streamPort"];
 
-    v27 = [MEMORY[0x1E696AD98] numberWithInt:self->_streamType];
-    [v24 setObject:v27 forKeyedSubscript:@"_streamType"];
+    v33 = [MEMORY[0x1E696AD98] numberWithInt:self->_streamType];
+    [v30 setObject:v33 forKeyedSubscript:@"_streamType"];
 
-    v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_trafficFlags];
-    [v24 setObject:v28 forKeyedSubscript:@"_tf"];
+    v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_trafficFlags];
+    [v30 setObject:v34 forKeyedSubscript:@"_tf"];
 
     serviceType = self->_serviceType;
     if (serviceType)
     {
-      [v24 setObject:serviceType forKeyedSubscript:@"_streamSrv"];
+      [v30 setObject:serviceType forKeyedSubscript:@"_streamSrv"];
     }
 
     messenger = self->_messenger;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACData_usb_completion___block_invoke;
-    v42[3] = &unk_1E7C95148;
-    v46 = completionCopy;
-    v42[4] = self;
-    v43 = endpointCopy;
-    v19 = interfaceCopy;
-    v44 = interfaceCopy;
-    v45 = v17;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACData_usb_completion___block_invoke;
+    v40[3] = &unk_1E7C95148;
+    v44 = completionCopy;
+    v40[4] = self;
+    v41 = endpointCopy;
+    v25 = interfaceCopy;
+    v42 = interfaceCopy;
+    v43 = v23;
     usbCopy = usb;
-    v31 = v17;
-    [(RPMessageable *)messenger sendRequestID:@"_streamStart" request:v24 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v42];
+    v37 = v23;
+    [(RPMessageable *)messenger sendRequestID:@"_streamStart" request:v30 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v40];
 
     goto LABEL_32;
   }
 
-  v18 = RPErrorF();
+  v24 = RPErrorF(4294960596, "nw_endpoint_get_address failed", v16, v17, v18, v19, v20, v21, v38);
   if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
-    [RPStreamSession _clientUDPNWPathNextWithEndpoint:nwInterface:selfMACData:usb:completion:];
+    [RPStreamSession _clientUDPNWPathNextWithEndpoint:v24 nwInterface:? selfMACData:? usb:? completion:?];
   }
 
-  (*(completionCopy + 2))(completionCopy, v18);
+  (*(completionCopy + 2))(completionCopy, v24);
 
-  v19 = interfaceCopy;
+  v25 = interfaceCopy;
 LABEL_32:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACData_usb_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1540,24 +1740,24 @@ void __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACD
   v8 = a3;
   v9 = a4;
   v10 = v7;
-  v13 = v10;
+  v20 = v10;
   if (!v10 || v9)
   {
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACData_usb_completion___block_invoke_cold_1();
+      __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACData_usb_completion___block_invoke_cold_1(v9);
     }
 
-    v11 = *(a1 + 64);
+    v17 = *(a1 + 64);
     if (v9)
     {
-      (*(v11 + 16))(v11, v9);
+      (*(v17 + 16))(v17, v9);
     }
 
     else
     {
-      v12 = RPErrorF();
-      (*(v11 + 16))(v11, v12);
+      v18 = RPErrorF(4294960584, "No response, but no error", v11, v12, v13, v14, v15, v16, v19);
+      (*(v17 + 16))(v17, v18);
     }
   }
 
@@ -1570,109 +1770,113 @@ void __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACD
 - (void)_clientUDPNWPathStartResponse:(id)response options:(id)options localEndpoint:(id)endpoint nwInterface:(id)interface selfIPString:(id)string usb:(BOOL)usb completion:(id)completion
 {
   usbCopy = usb;
-  v73[2] = *MEMORY[0x1E69E9840];
+  v126[2] = *MEMORY[0x1E69E9840];
   responseCopy = response;
   optionsCopy = options;
   local_endpoint = endpoint;
   interface = interface;
   stringCopy = string;
   completionCopy = completion;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__7;
-  v71 = __Block_byref_object_dispose__7;
-  v72 = 0;
+  v120 = 0;
+  v121 = &v120;
+  v122 = 0x3032000000;
+  v123 = __Block_byref_object_copy__7;
+  v124 = __Block_byref_object_dispose__7;
+  v125 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __111__RPStreamSession__clientUDPNWPathStartResponse_options_localEndpoint_nwInterface_selfIPString_usb_completion___block_invoke;
   aBlock[3] = &unk_1E7C94FA8;
-  v66 = &v67;
+  v119 = &v120;
   v17 = completionCopy;
-  v65 = v17;
+  v118 = v17;
   v18 = _Block_copy(aBlock);
   CFStringGetTypeID();
-  if (![CFDictionaryGetTypedValue() UTF8String])
+  uTF8String = [CFDictionaryGetTypedValue() UTF8String];
+  uTF8String2 = uTF8String;
+  if (!uTF8String)
   {
-    v47 = RPErrorF();
-    v20 = v68[5];
-    v68[5] = v47;
-    goto LABEL_43;
+    v98 = RPErrorF(4294960591, "No peer address", v20, v21, v22, v23, v24, v25, v108);
+    v28 = v121[5];
+    v121[5] = v98;
+    goto LABEL_44;
   }
 
-  if (stristr() || stristr())
+  if (stristr(uTF8String, "%awdl0", *&v108) || stristr(uTF8String2, "%llw0"))
   {
     StringToSockAddr();
     CFStringGetTypeID();
-    v19 = CFDictionaryGetTypedValue();
-    v20 = v19;
-    if (v19)
+    v27 = CFDictionaryGetTypedValue();
+    v28 = v27;
+    if (v27)
     {
       if (stringCopy)
       {
-        v21 = @"%llw0";
+        v29 = @"%llw0";
       }
 
       else
       {
-        v21 = @"%awdl0";
+        v29 = @"%awdl0";
       }
 
-      v22 = [v19 stringByAppendingString:v21];
-      v23 = v22;
-      uTF8String = [v22 UTF8String];
+      v30 = [v27 stringByAppendingString:v29];
+      v31 = v30;
+      uTF8String2 = [v30 UTF8String];
 
-      if (!uTF8String)
+      if (!uTF8String2)
       {
-        v50 = RPErrorF();
-        v51 = v68[5];
-        v68[5] = v50;
+        v101 = RPErrorF(4294960591, "Bad stream address", v32, v33, v34, v35, v36, v37, v109);
+        v102 = v121[5];
+        v121[5] = v101;
 
-        goto LABEL_43;
+        goto LABEL_44;
       }
     }
 
     else if (stringCopy && gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartResponse:options:localEndpoint:nwInterface:selfIPString:usb:completion:]", 30, "Client no peer stream address to use llw0: OurAddr %@\n", stringCopy);
     }
   }
 
   CFDataGetTypeID();
-  v20 = CFDictionaryGetTypedValue();
-  if ([v20 length] >= 0x20)
+  v28 = CFDictionaryGetTypedValue();
+  if ([v28 length] >= 0x20)
   {
-    objc_storeStrong(&self->_streamKey, v20);
+    objc_storeStrong(&self->_streamKey, v28);
   }
 
-  v25 = CFDictionaryGetCFDataOfLength();
+  v38 = CFDictionaryGetCFDataOfLength();
   if (!CFDictionaryGetInt64Ranged())
   {
-    v48 = RPErrorF();
-    v49 = v68[5];
-    v68[5] = v48;
+    v99 = RPErrorF(4294960591, "No stream port", v39, v40, v41, v42, v43, v44, v109);
+    v100 = v121[5];
+    v121[5] = v99;
 
-    goto LABEL_42;
+    goto LABEL_43;
   }
 
   *&address.sa_len = 0;
   *&address.sa_data[6] = 0;
-  v63 = 0;
-  v62 = 0;
-  if (!StringToSockAddr())
+  v116 = 0;
+  v115 = 0;
+  v45 = StringToSockAddr();
+  if (!v45)
   {
     SockAddrSetPort();
-    if (!SockAddrConvertToIPv6())
+    v45 = SockAddrConvertToIPv6();
+    if (!v45)
     {
-      if (v25)
+      if (v38)
       {
-        WORD2(v73[0]) = 0;
-        LODWORD(v73[0]) = 0;
-        v28 = v25;
-        bytes = [v25 bytes];
-        v30 = *bytes;
-        WORD2(v73[0]) = *(bytes + 4);
-        LODWORD(v73[0]) = v30;
+        WORD2(v126[0]) = 0;
+        LODWORD(v126[0]) = 0;
+        v54 = v38;
+        bytes = [v38 bytes];
+        v56 = *bytes;
+        WORD2(v126[0]) = *(bytes + 4);
+        LODWORD(v126[0]) = v56;
         address_with_ethernet = nw_endpoint_create_address_with_ethernet();
       }
 
@@ -1681,77 +1885,83 @@ void __91__RPStreamSession__clientUDPNWPathNextWithEndpoint_nwInterface_selfMACD
         address_with_ethernet = nw_endpoint_create_address(&address);
       }
 
-      v27 = address_with_ethernet;
+      v53 = address_with_ethernet;
       if (address_with_ethernet)
       {
         [(RPStreamSession *)self _updateTrafficRegistrationForIP:&address];
         if (usbCopy)
         {
-          v32 = *MEMORY[0x1E6977EB8];
           legacy_tcp_socket = nw_parameters_create_legacy_tcp_socket();
           secure_udp = legacy_tcp_socket;
           if (legacy_tcp_socket)
           {
-            v35 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
-            v36 = v35;
-            if (!v35)
+            v78 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
+            if (v78)
             {
-LABEL_50:
-              v52 = RPErrorF();
-              v53 = v68[5];
-              v68[5] = v52;
+              v79 = MEMORY[0x1B8C9EA50]();
+              MEMORY[0x1B8C9EA60](v79, 1);
+              nw_protocol_stack_set_transport_protocol(v78, v79);
 
-LABEL_40:
+LABEL_29:
+              nw_parameters_set_delegated_unique_pid();
+              nw_parameters_set_reuse_local_address(secure_udp, 1);
+              if (interface)
+              {
+                nw_parameters_require_interface(secure_udp, interface);
+              }
+
+              nw_parameters_set_local_endpoint(secure_udp, local_endpoint);
+              evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
+              nwPathEvaluator = self->_nwPathEvaluator;
+              self->_nwPathEvaluator = evaluator_for_endpoint;
+
+              if (self->_nwPathEvaluator)
+              {
+                v126[0] = 0;
+                v126[1] = 0;
+                nw_path_evaluator_get_client_id();
+                v94 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v126];
+                nwClientID = self->_nwClientID;
+                self->_nwClientID = v94;
+
+                if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+                {
+                  streamType = self->_streamType;
+                  if (streamType > 3)
+                  {
+                    v97 = "?";
+                  }
+
+                  else
+                  {
+                    v97 = off_1E7C95240[streamType];
+                  }
+
+                  LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartResponse:options:localEndpoint:nwInterface:selfIPString:usb:completion:]", 30, "Session started: Client, ID '%@', Type %s, Flags %#{flags}, NWClientID %@, %@ (%@) -> PeerAddr %##a, PeerMAC %@\n", self->_streamID, v97, self->_streamFlags, &unk_1B6F2F36D, self->_nwClientID, local_endpoint, stringCopy, &address, v38);
+                }
+
+                (*(v17 + 2))(v17, 0);
+              }
+
+              else
+              {
+                v104 = RPErrorF(4294960596, "Create path evaluator failed", v88, v89, v90, v91, v92, v93, v109);
+                v105 = v121[5];
+                v121[5] = v104;
+              }
+
               goto LABEL_41;
             }
 
-            v37 = MEMORY[0x1B8C9EA50](v35);
-            MEMORY[0x1B8C9EA60](v37, 1);
-            nw_protocol_stack_set_transport_protocol(v36, v37);
+            v106 = RPErrorF(4294960596, "Copy protocol stack USB failed", v72, v73, v74, v75, v76, v77, v109);
+            v107 = v121[5];
+            v121[5] = v106;
 
-LABEL_29:
-            delegatedProcessUPID = self->_delegatedProcessUPID;
-            nw_parameters_set_delegated_unique_pid();
-            nw_parameters_set_reuse_local_address(secure_udp, 1);
-            if (interface)
-            {
-              nw_parameters_require_interface(secure_udp, interface);
-            }
-
-            nw_parameters_set_local_endpoint(secure_udp, local_endpoint);
-            evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
-            nwPathEvaluator = self->_nwPathEvaluator;
-            self->_nwPathEvaluator = evaluator_for_endpoint;
-
-            if (self->_nwPathEvaluator)
-            {
-              v73[0] = 0;
-              v73[1] = 0;
-              nw_path_evaluator_get_client_id();
-              v41 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v73];
-              nwClientID = self->_nwClientID;
-              self->_nwClientID = v41;
-
-              if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
-              {
-                streamID = self->_streamID;
-                streamType = self->_streamType;
-                if (streamType <= 3)
-                {
-                  v45 = off_1E7C95240[streamType];
-                }
-
-                v56 = self->_nwClientID;
-                streamFlags = self->_streamFlags;
-                LogPrintF();
-              }
-
-              (*(v17 + 2))(v17, 0);
-              goto LABEL_40;
-            }
-
-            goto LABEL_50;
+LABEL_41:
+            goto LABEL_42;
           }
+
+          v103 = RPErrorF(4294960596, "Create nw_parameters USB failed", v65, v66, v67, v68, v69, v70, v109);
         }
 
         else
@@ -1761,34 +1971,38 @@ LABEL_29:
           {
             goto LABEL_29;
           }
+
+          v103 = RPErrorF(4294960596, "Create nw_parameters failed", v80, v81, v82, v83, v84, v85, v109);
         }
       }
 
-      v54 = RPErrorF();
-      secure_udp = v68[5];
-      v68[5] = v54;
-      goto LABEL_40;
+      else
+      {
+        v103 = RPErrorF(4294960596, "Create remote endpoint failed", v58, v59, v60, v61, v62, v63, v109);
+      }
+
+      secure_udp = v121[5];
+      v121[5] = v103;
+      goto LABEL_41;
     }
   }
 
-  v26 = RPErrorF();
-  v27 = v68[5];
-  v68[5] = v26;
-LABEL_41:
-
+  v52 = RPErrorF(v45, "Bad peer address string '%s'", v46, v47, v48, v49, v50, v51, uTF8String2);
+  v53 = v121[5];
+  v121[5] = v52;
 LABEL_42:
+
 LABEL_43:
+LABEL_44:
 
   v18[2](v18);
-  _Block_object_dispose(&v67, 8);
-
-  v46 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v120, 8);
 }
 
 uint64_t __111__RPStreamSession__clientUDPNWPathStartResponse_options_localEndpoint_nwInterface_selfIPString_usb_completion___block_invoke(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1798,25 +2012,21 @@ uint64_t __111__RPStreamSession__clientUDPNWPathStartResponse_options_localEndpo
   {
     if (gLogCategory_RPStreamSession == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartResponse:options:localEndpoint:nwInterface:selfIPString:usb:completion:]_block_invoke", 90, "### Client start response failed: UDP NWPath, %{error}\n", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)_serverUDPNWPathStartRequest:(id)request options:(id)options responseHandler:(id)handler
@@ -1824,19 +2034,19 @@ LABEL_7:
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x3032000000;
-  v74 = __Block_byref_object_copy__7;
-  v75 = __Block_byref_object_dispose__7;
-  v76 = 0;
+  v122 = 0;
+  v123 = &v122;
+  v124 = 0x3032000000;
+  v125 = __Block_byref_object_copy__7;
+  v126 = __Block_byref_object_dispose__7;
+  v127 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke;
   aBlock[3] = &unk_1E7C94FA8;
-  v70 = &v71;
-  v51 = handlerCopy;
-  v69 = v51;
+  v121 = &v122;
+  v102 = handlerCopy;
+  v120 = v102;
   v11 = _Block_copy(aBlock);
   if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
@@ -1851,237 +2061,246 @@ LABEL_7:
       v13 = off_1E7C95240[streamType];
     }
 
-    trafficFlags = self->_trafficFlags;
-    v48 = &unk_1B6F2F2E7;
-    streamFlags = self->_streamFlags;
-    v46 = &unk_1B6F2F36D;
-    streamID = self->_streamID;
-    v43 = v13;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathStartRequest:options:responseHandler:]", 30, "Server start request: ID '%@', Type %s, Flags %#{flags}, TF %#{flags}\n", self->_streamID, v13, self->_streamFlags, &unk_1B6F2F36D, self->_trafficFlags, &unk_1B6F2F2E7);
   }
 
-  v67 = 0;
+  v118 = 0;
   CFStringGetTypeID();
-  if (![CFDictionaryGetTypedValue() UTF8String])
+  uTF8String = [CFDictionaryGetTypedValue() UTF8String];
+  uTF8String2 = uTF8String;
+  if (!uTF8String)
   {
-    v32 = RPErrorF();
-    v14 = v72[5];
-    v72[5] = v32;
-    goto LABEL_56;
+    v89 = RPErrorF(4294960591, "No peer address", v15, v16, v17, v18, v19, v20, v98);
+    v22 = v123[5];
+    v123[5] = v89;
+    goto LABEL_57;
   }
 
-  if (!stristr() && !stristr())
+  if (!stristr(uTF8String, "%awdl0", *&v98) && !stristr(uTF8String2, "%llw0"))
   {
-    v14 = 0;
+    v22 = 0;
     goto LABEL_21;
   }
 
   StringToSockAddr();
   if ((self->_streamFlags & 2) != 0)
   {
-    v14 = [(RPStreamSession *)self _lowLatencySelfAddressString:&v67];
-    if (v14)
+    v22 = [(RPStreamSession *)self _lowLatencySelfAddressString:&v118];
+    if (v22)
     {
       goto LABEL_15;
     }
 
     if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathStartRequest:options:responseHandler:]", 30, "Server ignoring low latency without local llw0\n");
     }
   }
 
-  v14 = 0;
+  v22 = 0;
 LABEL_15:
   CFStringGetTypeID();
-  v15 = CFDictionaryGetTypedValue();
-  v16 = v15;
-  if (v15)
+  v23 = CFDictionaryGetTypedValue();
+  v24 = v23;
+  if (v23)
   {
-    if (v14)
+    if (v22)
     {
-      v17 = @"%llw0";
+      v25 = @"%llw0";
     }
 
     else
     {
-      v17 = @"%awdl0";
+      v25 = @"%awdl0";
     }
 
-    v18 = [v15 stringByAppendingString:{v17, streamID, v43, streamFlags, v46, trafficFlags, v48}];
-    uTF8String = [v18 UTF8String];
+    v26 = [v23 stringByAppendingString:v25];
+    uTF8String2 = [v26 UTF8String];
 
-    if (!uTF8String)
+    if (!uTF8String2)
     {
-      v39 = RPErrorF();
-      v40 = v72[5];
-      v72[5] = v39;
+      v96 = RPErrorF(4294960591, "Bad stream address", v27, v28, v29, v30, v31, v32, v99);
+      v97 = v123[5];
+      v123[5] = v96;
 
-      goto LABEL_56;
+      goto LABEL_57;
     }
   }
 
-  else if (v14 && gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+  else if (v22 && gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
-    streamID = v14;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathStartRequest:options:responseHandler:]", 30, "Server no peer stream address to use llw0: OurAddr %@\n", v22);
   }
 
 LABEL_21:
-  memset(v66, 0, 28);
-  v65 = 0;
-  v64 = StringToSockAddr();
-  if (v64)
+  memset(v117, 0, 28);
+  v116 = 0;
+  v33 = StringToSockAddr();
+  v115 = v33;
+  if (v33)
   {
-    v33 = RPErrorF();
-    v50 = v72[5];
-    v72[5] = v33;
+    v90 = RPErrorF(v33, "Bad peer address string '%s'", v34, v35, v36, v37, v38, v39, uTF8String2);
+    v101 = v123[5];
+    v123[5] = v90;
 
-    goto LABEL_56;
+    goto LABEL_57;
   }
 
-  v49 = CFDictionaryGetCFDataOfLength();
+  v100 = CFDictionaryGetCFDataOfLength();
   if (!CFDictionaryGetInt64Ranged())
   {
-    goto LABEL_64;
+    v88 = RPErrorF(4294960591, "No peer port", v40, v41, v42, v43, v44, v45, v99);
+    goto LABEL_66;
   }
 
   SockAddrSetPort();
   Int64Ranged = CFDictionaryGetInt64Ranged();
   self->_trafficFlags = Int64Ranged;
-  if (v14)
+  if (v22)
   {
-    streamID = [(NSString *)v14 stringByAppendingString:@"%llw0", streamID];
-    uTF8String2 = [streamID UTF8String];
+    v47 = [v22 stringByAppendingString:@"%llw0"];
+    uTF8String3 = [v47 UTF8String];
 
-    if (!uTF8String2)
+    if (!uTF8String3)
     {
-LABEL_64:
-      v34 = RPErrorF();
-      v35 = v72[5];
-      v72[5] = v34;
+LABEL_40:
+      v88 = RPErrorF(4294960591, "No self address", v49, v50, v51, v52, v53, v54, v99);
+LABEL_66:
+      v91 = v123[5];
+      v123[5] = v88;
 
-      goto LABEL_55;
+      goto LABEL_56;
     }
   }
 
   else
   {
     CFStringGetTypeID();
-    if (![CFDictionaryGetTypedValue() UTF8String])
+    uTF8String3 = [CFDictionaryGetTypedValue() UTF8String];
+    if (!uTF8String3)
     {
-      goto LABEL_64;
+      goto LABEL_40;
     }
   }
 
-  v60 = 0;
-  v61 = 0;
-  v63 = 0;
-  v62 = 0;
-  LODWORD(v64) = StringToSockAddr();
-  if (v64)
+  v111 = 0;
+  v112 = 0;
+  v114 = 0;
+  v113 = 0;
+  v55 = StringToSockAddr();
+  v115 = v55;
+  if (v55)
   {
-    v36 = RPErrorF();
-    secure_udp = v72[5];
-    v72[5] = v36;
-    goto LABEL_54;
+    v92 = RPErrorF(v55, "Bad self address string '%s'", v56, v57, v58, v59, v60, v61, uTF8String3);
+    secure_udp = v123[5];
+    v123[5] = v92;
+    goto LABEL_55;
   }
 
   secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], *MEMORY[0x1E6977EB8]);
   if (secure_udp)
   {
     nw_parameters_set_allow_duplicate_state_updates();
-    v24 = 0;
-    if (!v14 || (self->_streamFlags & 2) == 0)
+    v69 = 0;
+    if (!v22 || (self->_streamFlags & 2) == 0)
     {
       goto LABEL_31;
     }
 
-    v24 = nw_interface_create_with_name();
-    if (v24)
+    v69 = nw_interface_create_with_name();
+    if (v69)
     {
-      nw_parameters_require_interface(secure_udp, v24);
+      nw_parameters_require_interface(secure_udp, v69);
 LABEL_31:
-      v25 = self->_nwListener;
-      v26 = v25;
-      if (v25)
+      v76 = self->_nwListener;
+      v77 = v76;
+      if (v76)
       {
-        nw_listener_cancel(v25);
+        nw_listener_cancel(v76);
       }
 
-      v27 = nw_listener_create(secure_udp);
-      objc_storeStrong(&self->_nwListener, v27);
-      if (v27)
+      v78 = nw_listener_create(secure_udp);
+      objc_storeStrong(&self->_nwListener, v78);
+      if (v78)
       {
-        nw_listener_set_queue(v27, self->_dispatchQueue);
-        v58[0] = 0;
-        v58[1] = v58;
-        v58[2] = 0x3032000000;
-        v58[3] = __Block_byref_object_copy__84;
-        v58[4] = __Block_byref_object_dispose__85;
-        v59 = _Block_copy(v51);
-        v52[0] = MEMORY[0x1E69E9820];
-        v52[1] = 3221225472;
-        v52[2] = __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2;
-        v52[3] = &unk_1E7C95190;
-        v52[4] = v27;
-        v52[5] = self;
-        v56 = v58;
-        v53 = v24;
-        v28 = v67;
-        v57[0] = v66[0];
-        *(v57 + 12) = *(v66 + 12);
-        v54 = v28;
-        v55 = v49;
-        MEMORY[0x1B8C9E950](v27, v52);
-        nw_listener_set_new_connection_handler(v27, &__block_literal_global_167);
+        nw_listener_set_queue(v78, self->_dispatchQueue);
+        v109[0] = 0;
+        v109[1] = v109;
+        v109[2] = 0x3032000000;
+        v109[3] = __Block_byref_object_copy__84;
+        v109[4] = __Block_byref_object_dispose__85;
+        v110 = _Block_copy(v102);
+        v103[0] = MEMORY[0x1E69E9820];
+        v103[1] = 3221225472;
+        v103[2] = __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2;
+        v103[3] = &unk_1E7C95190;
+        v103[4] = v78;
+        v103[5] = self;
+        v107 = v109;
+        v104 = v69;
+        v85 = v118;
+        v108[0] = v117[0];
+        *(v108 + 12) = *(v117 + 12);
+        v105 = v85;
+        v106 = v100;
+        MEMORY[0x1B8C9E950](v78, v103);
+        nw_listener_set_new_connection_handler(v78, &__block_literal_global_167);
         if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
         {
-          v29 = self->_streamID;
-          v30 = self->_streamType;
-          if (v30 <= 3)
+          v86 = self->_streamType;
+          if (v86 > 3)
           {
-            v31 = off_1E7C95240[v30];
+            v87 = "?";
           }
 
-          v45 = self->_streamFlags;
-          LogPrintF();
+          else
+          {
+            v87 = off_1E7C95240[v86];
+          }
+
+          LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathStartRequest:options:responseHandler:]", 30, "Activate: Server, Start, ID '%@', Type %s, Flags %#{flags}, OurAddr %@, OurMAC %@\n", self->_streamID, v87, self->_streamFlags, &unk_1B6F2F36D, v22, v118);
         }
 
-        nw_listener_start(v27);
+        nw_listener_start(v78);
 
-        _Block_object_dispose(v58, 8);
+        _Block_object_dispose(v109, 8);
       }
 
       else
       {
-        v37 = RPErrorF();
-        v38 = v72[5];
-        v72[5] = v37;
+        v94 = RPErrorF(4294960596, "Create nw_listener failed", v79, v80, v81, v82, v83, v84, v99);
+        v95 = v123[5];
+        v123[5] = v94;
       }
 
-      goto LABEL_53;
+      goto LABEL_54;
     }
+
+    v93 = RPErrorF(4294960596, "Create nw_interface failed", v70, v71, v72, v73, v74, v75, v99);
   }
 
-  v41 = RPErrorF();
-  v24 = v72[5];
-  v72[5] = v41;
-LABEL_53:
+  else
+  {
+    v93 = RPErrorF(4294960596, "Create nw_parameters failed", v62, v63, v64, v65, v66, v67, v99);
+  }
 
+  v69 = v123[5];
+  v123[5] = v93;
 LABEL_54:
-LABEL_55:
 
+LABEL_55:
 LABEL_56:
+
+LABEL_57:
   v11[2](v11);
 
-  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v122, 8);
 }
 
 uint64_t __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2091,92 +2310,89 @@ uint64_t __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHand
   {
     if (gLogCategory_RPStreamSession == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathStartRequest:options:responseHandler:]_block_invoke", 90, "### Server start failed: UDP NWPath, %{error}\n", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
-void __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = a3;
+  v3 = a2;
+  v10 = a3;
   if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
-    __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2_cold_1();
+    __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2_cold_1(v3);
   }
 
   if (*(a1 + 32) == *(*(a1 + 40) + 16))
   {
-    if (a2 == 3 || v5)
+    if (v3 == 3 || v10)
     {
-      if (v5)
+      if (v10)
       {
-        v6 = nw_error_copy_cf_error(v5);
+        v11 = nw_error_copy_cf_error(v10);
       }
 
       else
       {
-        v6 = 0;
+        v11 = 0;
       }
 
       if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
       {
-        __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2_cold_3();
+        __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2_cold_3(v11);
       }
 
-      v12 = *(*(a1 + 72) + 8);
-      v13 = *(v12 + 40);
-      if (!v13)
+      v17 = *(*(a1 + 72) + 8);
+      v18 = *(v17 + 40);
+      if (!v18)
       {
-        v15 = 0;
+        v20 = 0;
         goto LABEL_21;
       }
 
-      v14 = RPNestedErrorF();
-      (*(v13 + 16))(v13, 0, 0, v14);
+      v19 = RPNestedErrorF(v11, 4294960596, "nw_listener failed", v5, v6, v7, v8, v9, v21);
+      (*(v18 + 16))(v18, 0, 0, v19);
 
 LABEL_19:
-      v12 = *(*(a1 + 72) + 8);
-      v15 = *(v12 + 40);
+      v17 = *(*(a1 + 72) + 8);
+      v20 = *(v17 + 40);
 LABEL_21:
-      *(v12 + 40) = 0;
+      *(v17 + 40) = 0;
 
 LABEL_22:
       goto LABEL_23;
     }
 
-    if ((a2 - 1) <= 1 && *(*(*(a1 + 72) + 8) + 40))
+    if ((v3 - 1) <= 1 && *(*(*(a1 + 72) + 8) + 40))
     {
-      v6 = nw_listener_copy_local_endpoint();
-      if (!v6)
+      v11 = nw_listener_copy_local_endpoint();
+      if (!v11)
       {
         __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_2_cold_2();
         goto LABEL_22;
       }
 
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 56);
-      v10 = *(a1 + 64);
-      v11 = *(*(*(a1 + 72) + 8) + 40);
-      v16[0] = *(a1 + 80);
-      *(v16 + 12) = *(a1 + 92);
-      [v7 _serverUDPNWPathNextWithEndpoint:v6 nwInterface:v8 selfMACData:v9 peerIP:v16 peerMACData:v10 usb:0 responseHandler:v11];
+      v12 = *(a1 + 40);
+      v13 = *(a1 + 48);
+      v14 = *(a1 + 56);
+      v15 = *(a1 + 64);
+      v16 = *(*(*(a1 + 72) + 8) + 40);
+      v22[0] = *(a1 + 80);
+      *(v22 + 12) = *(a1 + 92);
+      [v12 _serverUDPNWPathNextWithEndpoint:v11 nwInterface:v13 selfMACData:v14 peerIP:v22 peerMACData:v15 usb:0 responseHandler:v16];
       goto LABEL_19;
     }
   }
@@ -2192,7 +2408,7 @@ void __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler_
   {
     if (gLogCategory_RPStreamSession != -1 || (v3 = _LogCategory_Initialize(), v2 = v4, v3))
     {
-      __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_3_cold_1();
+      __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler___block_invoke_3_cold_1(v2);
       v2 = v4;
     }
   }
@@ -2203,49 +2419,49 @@ void __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler_
 - (void)_serverUDPNWPathNextWithEndpoint:(id)endpoint nwInterface:(id)interface selfMACData:(id)data peerIP:(id *)p peerMACData:(id)cData usb:(BOOL)usb responseHandler:(id)handler
 {
   usbCopy = usb;
-  v73[16] = *MEMORY[0x1E69E9840];
+  v98[16] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   interface = interface;
   dataCopy = data;
   cDataCopy = cData;
   handlerCopy = handler;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__7;
-  v71 = __Block_byref_object_dispose__7;
-  v72 = 0;
+  v92 = 0;
+  v93 = &v92;
+  v94 = 0x3032000000;
+  v95 = __Block_byref_object_copy__7;
+  v96 = __Block_byref_object_dispose__7;
+  v97 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __115__RPStreamSession__serverUDPNWPathNextWithEndpoint_nwInterface_selfMACData_peerIP_peerMACData_usb_responseHandler___block_invoke;
   aBlock[3] = &unk_1E7C94FA8;
-  v66 = &v67;
+  v91 = &v92;
   v17 = handlerCopy;
-  v65 = v17;
+  v90 = v17;
   v18 = _Block_copy(aBlock);
-  v19 = nw_endpoint_get_address(endpointCopy);
-  if (!v19)
+  v25 = nw_endpoint_get_address(endpointCopy);
+  if (!v25)
   {
-    v45 = RPErrorF();
-    v22 = v68[5];
-    v68[5] = v45;
+    v78 = RPErrorF(4294960596, "nw_endpoint_get_address failed", v19, v20, v21, v22, v23, v24, v84);
+    v28 = v93[5];
+    v93[5] = v78;
     goto LABEL_36;
   }
 
   Port = SockAddrGetPort();
-  sa_family = v19->sa_family;
-  v60 = Port;
+  sa_family = v25->sa_family;
+  v85 = Port;
   if (sa_family != 30)
   {
-    if (sa_family == 2 && !*&v19->sa_data[2])
+    if (sa_family == 2 && !*&v25->sa_data[2])
     {
       goto LABEL_5;
     }
 
 LABEL_11:
-    LOBYTE(v73[0]) = 0;
+    LOBYTE(v98[0]) = 0;
     SockAddrToString();
-    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v73];
+    v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v98];
     if (!cDataCopy)
     {
       goto LABEL_6;
@@ -2254,13 +2470,13 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if (*&v19->sa_data[6] || *&v19->sa_data[10] || *&v19[1].sa_len || *&v19[1].sa_data[2])
+  if (*&v25->sa_data[6] || *&v25->sa_data[10] || *&v25[1].sa_len || *&v25[1].sa_data[2])
   {
     goto LABEL_11;
   }
 
 LABEL_5:
-  v22 = 0;
+  v28 = 0;
   if (!cDataCopy)
   {
 LABEL_6:
@@ -2269,19 +2485,23 @@ LABEL_6:
   }
 
 LABEL_12:
-  WORD2(v73[0]) = 0;
-  LODWORD(v73[0]) = 0;
-  v24 = cDataCopy;
+  WORD2(v98[0]) = 0;
+  LODWORD(v98[0]) = 0;
+  v36 = cDataCopy;
   bytes = [cDataCopy bytes];
-  v26 = *bytes;
-  WORD2(v73[0]) = *(bytes + 4);
-  LODWORD(v73[0]) = v26;
+  v38 = *bytes;
+  WORD2(v98[0]) = *(bytes + 4);
+  LODWORD(v98[0]) = v38;
   address_with_ethernet = nw_endpoint_create_address_with_ethernet();
 LABEL_13:
-  v27 = address_with_ethernet;
+  v39 = address_with_ethernet;
   if (!address_with_ethernet)
   {
-    goto LABEL_40;
+    v79 = RPErrorF(4294960596, "Create remote endpoint failed", v30, v31, v32, v33, v34, v35, v84);
+LABEL_42:
+    secure_udp = v93[5];
+    v93[5] = v79;
+    goto LABEL_35;
   }
 
   if (!usbCopy)
@@ -2289,124 +2509,112 @@ LABEL_13:
     secure_udp = nw_parameters_create_secure_udp(*MEMORY[0x1E6977EC0], &__block_literal_global_172);
     if (secure_udp)
     {
-LABEL_19:
-      delegatedProcessUPID = self->_delegatedProcessUPID;
-      nw_parameters_set_delegated_unique_pid();
-      nw_parameters_set_reuse_local_address(secure_udp, 1);
-      if (interface)
-      {
-        nw_parameters_require_interface(secure_udp, interface);
-      }
-
-      nw_parameters_set_local_endpoint(secure_udp, endpointCopy);
-      evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
-      nwPathEvaluator = self->_nwPathEvaluator;
-      self->_nwPathEvaluator = evaluator_for_endpoint;
-
-      if (self->_nwPathEvaluator)
-      {
-        v73[0] = 0;
-        v73[1] = 0;
-        nw_path_evaluator_get_client_id();
-        v36 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v73];
-        nwClientID = self->_nwClientID;
-        self->_nwClientID = v36;
-
-        v38 = NSRandomData();
-        objc_storeStrong(&self->_streamKey, v38);
-        if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
-        {
-          streamType = self->_streamType;
-          if (streamType > 3)
-          {
-            v40 = "?";
-          }
-
-          else
-          {
-            v40 = off_1E7C95240[streamType];
-          }
-
-          pCopy = p;
-          v59 = cDataCopy;
-          v56 = endpointCopy;
-          v57 = v22;
-          v55 = self->_nwClientID;
-          trafficFlags = self->_trafficFlags;
-          v54 = &unk_1B6F2F2E7;
-          streamFlags = self->_streamFlags;
-          v52 = &unk_1B6F2F36D;
-          streamID = self->_streamID;
-          v50 = v40;
-          LogPrintF();
-        }
-
-        v41 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v42 = v41;
-        if (v22)
-        {
-          [v41 setObject:v22 forKeyedSubscript:@"_streamAddr"];
-        }
-
-        if (dataCopy)
-        {
-          [v42 setObject:dataCopy forKeyedSubscript:@"_streamMACAddr"];
-        }
-
-        [v42 setObject:v38 forKeyedSubscript:{@"_streamKey", streamID, v50, streamFlags, v52, trafficFlags, v54, v55, v56, v57, pCopy, v59}];
-        v43 = [MEMORY[0x1E696AD98] numberWithInt:v60];
-        [v42 setObject:v43 forKeyedSubscript:@"_streamPort"];
-
-        (*(v17 + 2))(v17, v42, 0, 0);
-        goto LABEL_35;
-      }
-
-      goto LABEL_39;
+      goto LABEL_19;
     }
 
-LABEL_40:
-    v48 = RPErrorF();
-    secure_udp = v68[5];
-    v68[5] = v48;
-    goto LABEL_35;
+    v79 = RPErrorF(4294960596, "Create nw_parameters failed", v56, v57, v58, v59, v60, v61, v84);
+    goto LABEL_42;
   }
 
-  v28 = *MEMORY[0x1E6977EB8];
   legacy_tcp_socket = nw_parameters_create_legacy_tcp_socket();
   secure_udp = legacy_tcp_socket;
   if (!legacy_tcp_socket)
   {
-    goto LABEL_40;
+    v79 = RPErrorF(4294960596, "Create nw_parameters USB failed", v41, v42, v43, v44, v45, v46, v84);
+    goto LABEL_42;
   }
 
-  v31 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
-  if (v31)
+  v54 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
+  if (v54)
   {
-    v32 = MEMORY[0x1B8C9EA50]();
-    MEMORY[0x1B8C9EA60](v32, 1);
-    nw_protocol_stack_set_transport_protocol(v31, v32);
+    v55 = MEMORY[0x1B8C9EA50]();
+    MEMORY[0x1B8C9EA60](v55, 1);
+    nw_protocol_stack_set_transport_protocol(v54, v55);
 
-    goto LABEL_19;
+LABEL_19:
+    nw_parameters_set_delegated_unique_pid();
+    nw_parameters_set_reuse_local_address(secure_udp, 1);
+    if (interface)
+    {
+      nw_parameters_require_interface(secure_udp, interface);
+    }
+
+    nw_parameters_set_local_endpoint(secure_udp, endpointCopy);
+    evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
+    nwPathEvaluator = self->_nwPathEvaluator;
+    self->_nwPathEvaluator = evaluator_for_endpoint;
+
+    if (self->_nwPathEvaluator)
+    {
+      v98[0] = 0;
+      v98[1] = 0;
+      nw_path_evaluator_get_client_id();
+      v70 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v98];
+      nwClientID = self->_nwClientID;
+      self->_nwClientID = v70;
+
+      v72 = NSRandomData();
+      objc_storeStrong(&self->_streamKey, v72);
+      if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+      {
+        streamType = self->_streamType;
+        if (streamType > 3)
+        {
+          v74 = "?";
+        }
+
+        else
+        {
+          v74 = off_1E7C95240[streamType];
+        }
+
+        LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathNextWithEndpoint:nwInterface:selfMACData:peerIP:peerMACData:usb:responseHandler:]", 30, "Session started: Server, ID '%@', Type %s, Flags %#{flags}, TF %#{flags}, NWClientID %@, %@ (%@) -> PeerAddr %##a, PeerMAC %@\n", self->_streamID, v74, self->_streamFlags, &unk_1B6F2F36D, self->_trafficFlags, &unk_1B6F2F2E7, self->_nwClientID, endpointCopy, v28, p, cDataCopy);
+      }
+
+      v75 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v76 = v75;
+      if (v28)
+      {
+        [v75 setObject:v28 forKeyedSubscript:@"_streamAddr"];
+      }
+
+      if (dataCopy)
+      {
+        [v76 setObject:dataCopy forKeyedSubscript:@"_streamMACAddr"];
+      }
+
+      [v76 setObject:v72 forKeyedSubscript:@"_streamKey"];
+      v77 = [MEMORY[0x1E696AD98] numberWithInt:v85];
+      [v76 setObject:v77 forKeyedSubscript:@"_streamPort"];
+
+      (*(v17 + 2))(v17, v76, 0, 0);
+    }
+
+    else
+    {
+      v80 = RPErrorF(4294960596, "Create path evaluator failed", v64, v65, v66, v67, v68, v69, v84);
+      v81 = v93[5];
+      v93[5] = v80;
+    }
+
+    goto LABEL_35;
   }
 
-LABEL_39:
-  v46 = RPErrorF();
-  v47 = v68[5];
-  v68[5] = v46;
+  v82 = RPErrorF(4294960596, "Copy protocol stack USB failed", v48, v49, v50, v51, v52, v53, v84);
+  v83 = v93[5];
+  v93[5] = v82;
 
 LABEL_35:
 LABEL_36:
 
   v18[2](v18);
-  _Block_object_dispose(&v67, 8);
-
-  v44 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v92, 8);
 }
 
 uint64_t __115__RPStreamSession__serverUDPNWPathNextWithEndpoint_nwInterface_selfMACData_peerIP_peerMACData_usb_responseHandler___block_invoke(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2416,25 +2624,21 @@ uint64_t __115__RPStreamSession__serverUDPNWPathNextWithEndpoint_nwInterface_sel
   {
     if (gLogCategory_RPStreamSession == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathNextWithEndpoint:nwInterface:selfMACData:peerIP:peerMACData:usb:responseHandler:]_block_invoke", 90, "### Server next failed: UDP NWPath, %{error}\n", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)_clientUDPSocketStartWithCompletion:(id)completion
@@ -2451,24 +2655,25 @@ LABEL_7:
     self->_streamSocket = -1;
   }
 
-  v15 = 0;
-  LODWORD(v12) = 3;
-  if (ServerSocketOpenEx2())
+  v22 = 0;
+  LODWORD(v19) = 3;
+  v6 = ServerSocketOpenEx2();
+  if (v6)
   {
-    v6 = RPErrorF();
+    v13 = RPErrorF(v6, "Open socket failed", v7, v8, v9, v10, v11, v12, v19);
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      [RPStreamSession _clientUDPSocketStartWithCompletion:];
+      [RPStreamSession _clientUDPSocketStartWithCompletion:v13];
     }
 
-    completionCopy[2](completionCopy, v6);
+    completionCopy[2](completionCopy, v13);
   }
 
   else
   {
     if (self->_streamQoS >= 1)
     {
-      [(RPStreamSession *)self setStreamQoSOnSocket:self->_streamSocket, v12, &self->_streamSocket];
+      [(RPStreamSession *)self setStreamQoSOnSocket:self->_streamSocket, v19, &self->_streamSocket];
     }
 
     if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
@@ -2476,31 +2681,31 @@ LABEL_7:
       [(RPStreamSession *)self _clientUDPSocketStartWithCompletion:&self->_streamQoS];
     }
 
-    v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v6 setObject:self->_streamID forKeyedSubscript:@"_streamID"];
-    v7 = [MEMORY[0x1E696AD98] numberWithInt:v15];
-    [v6 setObject:v7 forKeyedSubscript:@"_streamPort"];
+    v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    [v13 setObject:self->_streamID forKeyedSubscript:@"_streamID"];
+    v14 = [MEMORY[0x1E696AD98] numberWithInt:v22];
+    [v13 setObject:v14 forKeyedSubscript:@"_streamPort"];
 
-    v8 = [MEMORY[0x1E696AD98] numberWithInt:self->_streamType];
-    [v6 setObject:v8 forKeyedSubscript:@"_streamType"];
+    v15 = [MEMORY[0x1E696AD98] numberWithInt:self->_streamType];
+    [v13 setObject:v15 forKeyedSubscript:@"_streamType"];
 
-    v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_trafficFlags];
-    [v6 setObject:v9 forKeyedSubscript:@"_tf"];
+    v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_trafficFlags];
+    [v13 setObject:v16 forKeyedSubscript:@"_tf"];
 
     serviceType = self->_serviceType;
     if (serviceType)
     {
-      [v6 setObject:serviceType forKeyedSubscript:@"_streamSrv"];
+      [v13 setObject:serviceType forKeyedSubscript:@"_streamSrv"];
     }
 
     messenger = self->_messenger;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __55__RPStreamSession__clientUDPSocketStartWithCompletion___block_invoke;
-    v13[3] = &unk_1E7C94750;
-    v13[4] = self;
-    v14 = completionCopy;
-    [(RPMessageable *)messenger sendRequestID:@"_streamStart" request:v6 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v13];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __55__RPStreamSession__clientUDPSocketStartWithCompletion___block_invoke;
+    v20[3] = &unk_1E7C94750;
+    v20[4] = self;
+    v21 = completionCopy;
+    [(RPMessageable *)messenger sendRequestID:@"_streamStart" request:v13 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v20];
   }
 }
 
@@ -2510,24 +2715,24 @@ void __55__RPStreamSession__clientUDPSocketStartWithCompletion___block_invoke(ui
   v8 = a3;
   v9 = a4;
   v10 = v7;
-  v13 = v10;
+  v20 = v10;
   if (!v10 || v9)
   {
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      __55__RPStreamSession__clientUDPSocketStartWithCompletion___block_invoke_cold_1();
+      __55__RPStreamSession__clientUDPSocketStartWithCompletion___block_invoke_cold_1(v9);
     }
 
-    v11 = *(a1 + 40);
+    v17 = *(a1 + 40);
     if (v9)
     {
-      (*(v11 + 16))(v11, v9);
+      (*(v17 + 16))(v17, v9);
     }
 
     else
     {
-      v12 = RPErrorF();
-      (*(v11 + 16))(v11, v12);
+      v18 = RPErrorF(4294960584, "No response, but no error", v11, v12, v13, v14, v15, v16, v19);
+      (*(v17 + 16))(v17, v18);
     }
   }
 
@@ -2551,24 +2756,25 @@ void __55__RPStreamSession__clientUDPSocketStartWithCompletion___block_invoke(ui
 
   if (!CFDictionaryGetInt64Ranged())
   {
-    v12 = RPErrorF();
+    v33 = RPErrorF(4294960591, "No stream port", v12, v13, v14, v15, v16, v17, v43);
     if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
     {
       goto LABEL_18;
     }
 
 LABEL_10:
-    [RPStreamSession _clientUDPSocketStartResponse:options:completion:];
+    [RPStreamSession _clientUDPSocketStartResponse:v33 options:? completion:?];
 LABEL_18:
-    completionCopy[2](completionCopy, v12);
+    completionCopy[2](completionCopy, v33);
 
     goto LABEL_19;
   }
 
   CFStringGetTypeID();
-  if (![CFDictionaryGetTypedValue() UTF8String])
+  uTF8String = [CFDictionaryGetTypedValue() UTF8String];
+  if (!uTF8String)
   {
-    v12 = RPErrorF();
+    v33 = RPErrorF(4294960591, "No peer address", v19, v20, v21, v22, v23, v24, v43);
     if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
     {
       goto LABEL_18;
@@ -2577,13 +2783,15 @@ LABEL_18:
     goto LABEL_10;
   }
 
-  *&v19.sa_len = 0;
-  *&v19.sa_data[6] = 0;
-  v21 = 0;
-  v20 = 0;
-  if (StringToSockAddr() || (SockAddrSetPort(), SockAddrConvertToIPv6()))
+  v25 = uTF8String;
+  *&v48.sa_len = 0;
+  *&v48.sa_data[6] = 0;
+  v50 = 0;
+  v49 = 0;
+  v26 = StringToSockAddr();
+  if (v26 || (SockAddrSetPort(), v26 = SockAddrConvertToIPv6(), v26))
   {
-    v12 = RPErrorF();
+    v33 = RPErrorF(v26, "Bad peer address string '%s'", v27, v28, v29, v30, v31, v32, v25);
     if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
     {
       goto LABEL_18;
@@ -2594,26 +2802,41 @@ LABEL_18:
 
   streamSocket = self->_streamSocket;
   Size = SockAddrGetSize();
-  if (connect(streamSocket, &v19, Size) && (!*__error() || *__error()))
+  if (connect(streamSocket, &v48, Size))
   {
-    v12 = RPErrorF();
+    if (*__error())
+    {
+      v42 = *__error();
+      if (!v42)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    else
+    {
+      v42 = 4294960596;
+    }
+
+    v33 = RPErrorF(v42, "Connect UDP failed: %##a", v36, v37, v38, v39, v40, v41, &v48);
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      [RPStreamSession _clientUDPSocketStartResponse:options:completion:];
+      [RPStreamSession _clientUDPSocketStartResponse:v33 options:? completion:?];
     }
 
     goto LABEL_18;
   }
 
-  *&v16.sa_len = 0;
-  *&v16.sa_data[6] = 0;
-  v18 = 0;
-  v17 = 0;
-  v15 = 28;
-  getsockname(self->_streamSocket, &v16, &v15);
+LABEL_23:
+  *&v45.sa_len = 0;
+  *&v45.sa_data[6] = 0;
+  v47 = 0;
+  v46 = 0;
+  v44 = 28;
+  getsockname(self->_streamSocket, &v45, &v44);
   if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
-    [RPStreamSession _clientUDPSocketStartResponse:? options:? completion:?];
+    [RPStreamSession _clientUDPSocketStartResponse:&v45 options:&v48 completion:?];
   }
 
   completionCopy[2](completionCopy, 0);
@@ -2622,21 +2845,25 @@ LABEL_19:
 
 - (void)_serverUDPSocketStartRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v75[2] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
   CFStringGetTypeID();
-  if ([CFDictionaryGetTypedValue() UTF8String])
+  uTF8String = [CFDictionaryGetTypedValue() UTF8String];
+  if (uTF8String)
   {
-    *&v20.sa_len = 0;
-    *&v20.sa_data[6] = 0;
-    v22 = 0;
-    v21 = 0;
+    v18 = uTF8String;
+    *&v71.sa_len = 0;
+    *&v71.sa_data[6] = 0;
+    v73 = 0;
+    v72 = 0;
+    *v70 = 0;
     v19 = StringToSockAddr();
+    v69 = v19;
     if (v19)
     {
-      v11 = RPErrorF();
+      v26 = RPErrorF(v19, "Bad peer address string '%s'", v20, v21, v22, v23, v24, v25, v18);
       if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_10;
@@ -2650,11 +2877,17 @@ LABEL_19:
       SockAddrSetPort();
       self->_trafficFlags = CFDictionaryGetInt64Ranged();
       CFStringGetTypeID();
-      if ([CFDictionaryGetTypedValue() UTF8String])
+      uTF8String2 = [CFDictionaryGetTypedValue() UTF8String];
+      if (uTF8String2)
       {
-        if (StringToSockAddr())
+        v40 = uTF8String2;
+        memset(v67, 0, sizeof(v67));
+        v68 = 0;
+        v41 = StringToSockAddr();
+        v69 = v41;
+        if (v41)
         {
-          v11 = RPErrorF();
+          v26 = RPErrorF(v41, "Bad self address string '%s'", v42, v43, v44, v45, v46, v47, v40);
           if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
           {
             goto LABEL_10;
@@ -2674,58 +2907,79 @@ LABEL_19:
           *p_streamSocket = -1;
         }
 
-        LODWORD(v18) = 1;
-        if (ServerSocketOpenEx2())
+        LODWORD(v66) = 1;
+        v49 = ServerSocketOpenEx2();
+        v69 = v49;
+        if (v49)
         {
-          v15 = RPErrorF();
+          v56 = RPErrorF(v49, "Open socket failed: %##a", v50, v51, v52, v53, v54, v55, v67);
           if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
           {
-            [RPStreamSession _serverUDPSocketStartRequest:options:responseHandler:];
+            [RPStreamSession _serverUDPSocketStartRequest:v56 options:? responseHandler:?];
           }
+
+LABEL_54:
+          (*(handlerCopy + 2))(handlerCopy, 0, 0, v56);
+LABEL_55:
+
+          goto LABEL_11;
         }
 
-        else
+        SockAddrSetPort();
+        if (self->_streamQoS >= 1)
         {
-          SockAddrSetPort();
-          if (self->_streamQoS >= 1)
-          {
-            [(RPStreamSession *)self setStreamQoSOnSocket:self->_streamSocket, v18, &self->_streamSocket];
-          }
+          [(RPStreamSession *)self setStreamQoSOnSocket:self->_streamSocket, v66, &self->_streamSocket];
+        }
 
-          if (!connect(*p_streamSocket, &v20, HIDWORD(v19)) || *__error() && !*__error())
+        v69 = connect(*p_streamSocket, &v71, v70[0]);
+        if (v69)
+        {
+          if (*__error())
           {
-            v15 = NSRandomData();
-            objc_storeStrong(&self->_streamKey, v15);
-            if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+            v63 = *__error();
+            v69 = v63;
+            if (!v63)
             {
-              [RPStreamSession _serverUDPSocketStartRequest:? options:? responseHandler:?];
+LABEL_46:
+              v56 = NSRandomData();
+              objc_storeStrong(&self->_streamKey, v56);
+              if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+              {
+                [RPStreamSession _serverUDPSocketStartRequest:v67 options:&v71 responseHandler:?];
+              }
+
+              v75[0] = v56;
+              v74[0] = @"_streamKey";
+              v74[1] = @"_streamPort";
+              v64 = [MEMORY[0x1E696AD98] numberWithInt:{0, v66}];
+              v75[1] = v64;
+              v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:2];
+
+              (*(handlerCopy + 2))(handlerCopy, v65, 0, 0);
+              goto LABEL_55;
             }
-
-            v24[0] = v15;
-            v23[0] = @"_streamKey";
-            v23[1] = @"_streamPort";
-            v16 = [MEMORY[0x1E696AD98] numberWithInt:{0, v18}];
-            v24[1] = v16;
-            v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
-
-            (*(handlerCopy + 2))(handlerCopy, v17, 0, 0);
-            goto LABEL_52;
           }
 
-          v15 = RPErrorF();
+          else
+          {
+            v63 = 4294960596;
+            v69 = -6700;
+          }
+
+          v56 = RPErrorF(v63, "Connect UDP failed: %##a", v57, v58, v59, v60, v61, v62, &v71);
           if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
           {
-            [RPStreamSession _serverUDPSocketStartRequest:options:responseHandler:];
+            [RPStreamSession _serverUDPSocketStartRequest:v56 options:? responseHandler:?];
           }
+
+          goto LABEL_54;
         }
 
-        (*(handlerCopy + 2))(handlerCopy, 0, 0, v15);
-LABEL_52:
-
-        goto LABEL_11;
+        v69 = 0;
+        goto LABEL_46;
       }
 
-      v11 = RPErrorF();
+      v26 = RPErrorF(4294960591, "No self address", v34, v35, v36, v37, v38, v39, v66);
       if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_10;
@@ -2734,7 +2988,7 @@ LABEL_52:
 
     else
     {
-      v11 = RPErrorF();
+      v26 = RPErrorF(4294960591, "No peer port", v27, v28, v29, v30, v31, v32, v66);
       if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_10;
@@ -2744,7 +2998,7 @@ LABEL_52:
 
   else
   {
-    v11 = RPErrorF();
+    v26 = RPErrorF(4294960591, "No peer address", v12, v13, v14, v15, v16, v17, v66);
     if (gLogCategory_RPStreamSession > 90 || gLogCategory_RPStreamSession == -1 && !_LogCategory_Initialize())
     {
       goto LABEL_10;
@@ -2752,51 +3006,54 @@ LABEL_52:
   }
 
 LABEL_26:
-  [RPStreamSession _serverUDPSocketStartRequest:options:responseHandler:];
+  [RPStreamSession _serverUDPSocketStartRequest:v26 options:? responseHandler:?];
 LABEL_10:
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v11);
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v26);
 
 LABEL_11:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientRPConnectionPrepareWithCompletion:(id)completion
 {
   v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+  v5 = completionCopy;
+  if (gLogCategory_RPStreamSession <= 30)
   {
-    [RPStreamSession _clientRPConnectionPrepareWithCompletion:?];
+    if (gLogCategory_RPStreamSession != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      completionCopy = [RPStreamSession _clientRPConnectionPrepareWithCompletion:?];
+    }
   }
 
-  v5 = RPStreamSessionLog();
-  v6 = RPStreamSessionLog();
-  v7 = os_signpost_id_make_with_pointer(v6, self->_streamID);
+  v6 = RPStreamSessionLog(completionCopy);
+  v7 = RPStreamSessionLog(v6);
+  v8 = os_signpost_id_make_with_pointer(v7, self->_streamID);
 
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     streamID = self->_streamID;
     *buf = 138412290;
     v20 = streamID;
-    _os_signpost_emit_with_name_impl(&dword_1B6E85000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "RPStreamBringUpTime", " enableTelemetry=YES {streamID:%@, signpost.description:begin_time}", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1B6E85000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v8, "RPStreamBringUpTime", " enableTelemetry=YES {streamID:%@, signpost.description:begin_time}", buf, 0xCu);
   }
 
   Curve25519MakeKeyPair();
-  v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v9 setObject:self->_streamID forKeyedSubscript:@"_streamID"];
-  v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:32];
-  [v9 setObject:v10 forKeyedSubscript:@"_streamKey"];
+  v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  [v10 setObject:self->_streamID forKeyedSubscript:@"_streamID"];
+  v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:32];
+  [v10 setObject:v11 forKeyedSubscript:@"_streamKey"];
 
-  v11 = [MEMORY[0x1E696AD98] numberWithInt:self->_streamType];
-  [v9 setObject:v11 forKeyedSubscript:@"_streamType"];
+  v12 = [MEMORY[0x1E696AD98] numberWithInt:self->_streamType];
+  [v10 setObject:v12 forKeyedSubscript:@"_streamType"];
 
-  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_trafficFlags];
-  [v9 setObject:v12 forKeyedSubscript:@"_tf"];
+  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_trafficFlags];
+  [v10 setObject:v13 forKeyedSubscript:@"_tf"];
 
   serviceType = self->_serviceType;
   if (serviceType)
   {
-    [v9 setObject:serviceType forKeyedSubscript:@"_streamSrv"];
+    [v10 setObject:serviceType forKeyedSubscript:@"_streamSrv"];
   }
 
   messenger = self->_messenger;
@@ -2805,11 +3062,9 @@ LABEL_11:
   v17[2] = __60__RPStreamSession__clientRPConnectionPrepareWithCompletion___block_invoke;
   v17[3] = &unk_1E7C94750;
   v17[4] = self;
-  v18 = completionCopy;
-  v15 = completionCopy;
-  [(RPMessageable *)messenger sendRequestID:@"_streamStart" request:v9 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = v5;
+  v16 = v5;
+  [(RPMessageable *)messenger sendRequestID:@"_streamStart" request:v10 destinationID:@"rapport:rdid:DirectPeer" options:0 responseHandler:v17];
 }
 
 void __60__RPStreamSession__clientRPConnectionPrepareWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -2818,24 +3073,24 @@ void __60__RPStreamSession__clientRPConnectionPrepareWithCompletion___block_invo
   v8 = a3;
   v9 = a4;
   v10 = v7;
-  v13 = v10;
+  v20 = v10;
   if (!v10 || v9)
   {
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      __60__RPStreamSession__clientRPConnectionPrepareWithCompletion___block_invoke_cold_1();
+      __60__RPStreamSession__clientRPConnectionPrepareWithCompletion___block_invoke_cold_1(v9);
     }
 
-    v11 = *(a1 + 40);
+    v17 = *(a1 + 40);
     if (v9)
     {
-      (*(v11 + 16))(v11, v9);
+      (*(v17 + 16))(v17, v9);
     }
 
     else
     {
-      v12 = RPErrorF();
-      (*(v11 + 16))(v11, v12);
+      v18 = RPErrorF(4294960584, "No response, but no error", v11, v12, v13, v14, v15, v16, v19);
+      (*(v17 + 16))(v17, v18);
     }
   }
 
@@ -2847,128 +3102,144 @@ void __60__RPStreamSession__clientRPConnectionPrepareWithCompletion___block_invo
 
 - (void)_clientRPConnectionPrepareResponse:(id)response options:(id)options completion:(id)completion
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   optionsCopy = options;
   completionCopy = completion;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__7;
-  v46 = __Block_byref_object_dispose__7;
-  v47 = 0;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = __Block_byref_object_copy__7;
+  v76 = __Block_byref_object_dispose__7;
+  v77 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __73__RPStreamSession__clientRPConnectionPrepareResponse_options_completion___block_invoke;
   aBlock[3] = &unk_1E7C94FA8;
-  v41 = &v42;
+  v71 = &v72;
   v11 = completionCopy;
-  v40 = v11;
+  v70 = v11;
   v12 = _Block_copy(aBlock);
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  if (Int64Ranged && (self->_peerPort = Int64Ranged, CFStringGetTypeID(), [CFDictionaryGetTypedValue() UTF8String]))
+  if (Int64Ranged)
   {
-    v35 = 0;
-    v36 = 0;
-    v38 = 0;
-    v37 = 0;
-    v34 = StringToSockAddr();
-    if (v34)
+    self->_peerPort = Int64Ranged;
+    CFStringGetTypeID();
+    uTF8String = [CFDictionaryGetTypedValue() UTF8String];
+    if (uTF8String)
     {
-      v30 = RPErrorF();
-      v17 = v43[5];
-      v43[5] = v30;
-    }
-
-    else
-    {
-      SockAddrSetPort();
-      v14 = NSPrintF();
-      destinationString = self->_destinationString;
-      self->_destinationString = v14;
-
-      v16 = CFDictionaryGetCFDataOfLength();
-      v17 = v16;
-      if (!v16)
+      memset(v67, 0, sizeof(v67));
+      v68 = 0;
+      v27 = StringToSockAddr();
+      if (v27)
       {
-        goto LABEL_24;
-      }
-
-      v18 = v16;
-      if ([v17 bytes])
-      {
-        v19 = v17;
-        [v17 bytes];
-        cccurve25519();
+        v61 = RPErrorF(v27, "Bad peer address string '%s'", v28, v29, v30, v31, v32, v33, uTF8String);
+        v43 = v73[5];
+        v73[5] = v61;
       }
 
       else
       {
-        cccurve25519_make_pub();
-      }
+        SockAddrSetPort();
+        v34 = NSPrintF("%##a");
+        destinationString = self->_destinationString;
+        self->_destinationString = v34;
 
-      memset_s(self->_ourCurveSK, 0x20uLL, 0, 0x20uLL);
-      v20 = vorrq_s8(__s[1], __s[0]);
-      if (vorr_s8(*v20.i8, *&vextq_s8(v20, v20, 8uLL)))
-      {
-        v21 = *MEMORY[0x1E69995A8];
-        CryptoHKDF();
-        v22 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:__s length:{32, __s}];
-        pskData = self->_pskData;
-        self->_pskData = v22;
-
-        memset_s(__s, 0x20uLL, 0, 0x20uLL);
-        if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+        v36 = CFDictionaryGetCFDataOfLength();
+        v43 = v36;
+        if (v36)
         {
-          streamID = self->_streamID;
-          streamType = self->_streamType;
-          if (streamType <= 3)
+          v44 = v36;
+          if ([v43 bytes])
           {
-            v26 = off_1E7C95240[streamType];
+            v45 = v43;
+            [v43 bytes];
+            cccurve25519();
           }
 
-          v33 = self->_streamID;
-          LogPrintF();
-        }
+          else
+          {
+            cccurve25519_make_pub();
+          }
 
-        if (self->_prepareOnly)
-        {
-          (*(v11 + 2))(v11, 0);
+          memset_s(self->_ourCurveSK, 0x20uLL, 0, 0x20uLL);
+          v52 = vorrq_s8(__s[1], __s[0]);
+          if (vorr_s8(*v52.i8, *&vextq_s8(v52, v52, 8uLL)))
+          {
+            CryptoHKDF();
+            v53 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:__s length:{32, __s}];
+            pskData = self->_pskData;
+            self->_pskData = v53;
+
+            memset_s(__s, 0x20uLL, 0, 0x20uLL);
+            if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+            {
+              streamType = self->_streamType;
+              if (streamType > 3)
+              {
+                v56 = "?";
+              }
+
+              else
+              {
+                v56 = off_1E7C95240[streamType];
+              }
+
+              LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientRPConnectionPrepareResponse:options:completion:]", 30, "Prepare completed: ID '%@', Type %s\n", self->_streamID, v56);
+            }
+
+            if (self->_prepareOnly)
+            {
+              (*(v11 + 2))(v11, 0);
+            }
+
+            else
+            {
+              [(RPStreamSession *)self _clientRPConnectionStartWithCompletion:v11];
+            }
+          }
+
+          else
+          {
+            v64 = RPErrorF(0, "Bad shared key", v46, v47, v48, v49, v50, v51, v67);
+            v65 = v73[5];
+            v73[5] = v64;
+          }
         }
 
         else
         {
-          [(RPStreamSession *)self _clientRPConnectionStartWithCompletion:v11];
+          v62 = RPErrorF(0, "No self address", v37, v38, v39, v40, v41, v42, v67);
+          v63 = v73[5];
+          v73[5] = v62;
         }
       }
+    }
 
-      else
-      {
-LABEL_24:
-        v31 = RPErrorF();
-        v32 = v43[5];
-        v43[5] = v31;
-      }
+    else
+    {
+      v59 = RPErrorF(4294960591, "No peer address", v20, v21, v22, v23, v24, v25, v66);
+      v60 = v73[5];
+      v73[5] = v59;
     }
   }
 
   else
   {
-    v28 = RPErrorF();
-    v29 = v43[5];
-    v43[5] = v28;
+    v57 = RPErrorF(4294960591, "No stream port", v14, v15, v16, v17, v18, v19, v66);
+    v58 = v73[5];
+    v73[5] = v57;
   }
 
   v12[2](v12);
 
-  _Block_object_dispose(&v42, 8);
-  v27 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v72, 8);
 }
 
 uint64_t __73__RPStreamSession__clientRPConnectionPrepareResponse_options_completion___block_invoke(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2978,25 +3249,21 @@ uint64_t __73__RPStreamSession__clientRPConnectionPrepareResponse_options_comple
   {
     if (gLogCategory_RPStreamSession == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientRPConnectionPrepareResponse:options:completion:]_block_invoke", 90, "### Prepare failed: %{error}\n", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)_clientRPConnectionStartWithCompletion:(id)completion
@@ -3121,51 +3388,49 @@ void __58__RPStreamSession__clientRPConnectionStartWithCompletion___block_invoke
     v3 = [MEMORY[0x1E696AE30] processInfo];
     v4 = [v3 processName];
 
-    v5 = RPStreamSessionLog();
-    v6 = RPStreamSessionLog();
-    v7 = os_signpost_id_make_with_pointer(v6, *(*(a1 + 32) + 264));
+    v6 = RPStreamSessionLog(v5);
+    v7 = RPStreamSessionLog(v6);
+    v8 = os_signpost_id_make_with_pointer(v7, *(*(a1 + 32) + 264));
 
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
-      v8 = *(*(a1 + 32) + 264);
-      v9 = [*(a1 + 40) linkType];
-      if (v9 > 0xB)
+      v9 = *(*(a1 + 32) + 264);
+      v10 = [*(a1 + 40) linkType];
+      if (v10 > 0xB)
       {
-        v10 = "?";
+        v11 = "?";
       }
 
       else
       {
-        v10 = off_1E7C95260[v9];
+        v11 = off_1E7C95260[v10];
       }
 
       v16 = 138412802;
-      v17 = v8;
+      v17 = v9;
       v18 = 2080;
-      v19 = v10;
+      v19 = v11;
       v20 = 2080;
       v21 = [v4 UTF8String];
-      _os_signpost_emit_with_name_impl(&dword_1B6E85000, v5, OS_SIGNPOST_INTERVAL_END, v7, "RPStreamBringUpTime", " enableTelemetry=YES {streamID:%@, linkType=%{signpost.telemetry:string1}s, process=%{signpost.telemetry:string2}s, signpost.description:end_time}", &v16, 0x20u);
+      _os_signpost_emit_with_name_impl(&dword_1B6E85000, v6, OS_SIGNPOST_INTERVAL_END, v8, "RPStreamBringUpTime", " enableTelemetry=YES {streamID:%@, linkType=%{signpost.telemetry:string1}s, process=%{signpost.telemetry:string2}s, signpost.description:end_time}", &v16, 0x20u);
     }
 
-    v11 = *(a1 + 32);
-    if (v11[38] >= 1)
+    v12 = *(a1 + 32);
+    if (v12[38] >= 1)
     {
-      v12 = [*(a1 + 40) tcpConnection];
-      [v11 setStreamQoSOnSocket:{objc_msgSend(v12, "socketFD")}];
+      v13 = [*(a1 + 40) tcpConnection];
+      [v12 setStreamQoSOnSocket:{objc_msgSend(v13, "socketFD")}];
 
-      v11 = *(a1 + 32);
+      v12 = *(a1 + 32);
     }
 
-    v13 = [v11 connectionReadyHandler];
-    v14 = v13;
-    if (v13)
+    v14 = [v12 connectionReadyHandler];
+    v15 = v14;
+    if (v14)
     {
-      (*(v13 + 16))(v13);
+      (*(v14 + 16))(v14);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __58__RPStreamSession__clientRPConnectionStartWithCompletion___block_invoke_201(uint64_t a1, void *a2)
@@ -3189,147 +3454,171 @@ void __58__RPStreamSession__clientRPConnectionStartWithCompletion___block_invoke
 
 - (void)_serverRPConnectionStartRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__7;
-  v47 = __Block_byref_object_dispose__7;
-  v48 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = __Block_byref_object_copy__7;
+  v83 = __Block_byref_object_dispose__7;
+  v84 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke;
   aBlock[3] = &unk_1E7C951B8;
-  v42 = &v43;
+  v78 = &v79;
   aBlock[4] = self;
   v11 = handlerCopy;
-  v41 = v11;
+  v77 = v11;
   v12 = _Block_copy(aBlock);
-  v39 = 0;
-  v13 = CFDictionaryGetCFDataOfLength();
-  if (v13 && (self->_trafficFlags = CFDictionaryGetInt64Ranged(), CFStringGetTypeID(), [CFDictionaryGetTypedValue() UTF8String]) && (memset(&v38[10], 0, 28), (v39 = StringToSockAddr()) == 0))
+  v75 = 0;
+  v19 = CFDictionaryGetCFDataOfLength();
+  if (v19)
   {
-    v14 = objc_alloc_init(MEMORY[0x1E6999550]);
-    tcpServer = self->_tcpServer;
-    self->_tcpServer = v14;
-
-    [(CUTCPServer *)self->_tcpServer setDispatchQueue:self->_dispatchQueue];
-    [(CUTCPServer *)self->_tcpServer setFlags:201];
-    *v53 = *&v38[10];
-    *&v53[12] = *&v38[13];
-    [(CUTCPServer *)self->_tcpServer setInterfaceAddress:v53];
-    if ((self->_streamFlags & 5) != 0)
+    Int64Ranged = CFDictionaryGetInt64Ranged();
+    self->_trafficFlags = Int64Ranged;
+    CFStringGetTypeID();
+    uTF8String = [CFDictionaryGetTypedValue() UTF8String];
+    if (uTF8String)
     {
-      *v38 = MEMORY[0x1E69E9820];
-      *&v38[2] = 3221225472;
-      *&v38[4] = __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke_2;
-      *&v38[6] = &unk_1E7C942A8;
-      *&v38[8] = self;
-      [(CUTCPServer *)self->_tcpServer setConnectionAcceptHandler:v38];
-    }
-
-    else
-    {
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke_3;
-      v37[3] = &unk_1E7C951E0;
-      v37[4] = self;
-      [(CUTCPServer *)self->_tcpServer setConnectionStartedHandler:v37];
-    }
-
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke_4;
-    v36[3] = &unk_1E7C92CE8;
-    v36[4] = self;
-    [(CUTCPServer *)self->_tcpServer setInvalidationHandler:v36];
-    v16 = self->_tcpServer;
-    v17 = (v44 + 5);
-    obj = v44[5];
-    [(CUTCPServer *)v16 activateDirectAndReturnError:&obj];
-    objc_storeStrong(v17, obj);
-    if (v44[5])
-    {
-      v31 = RPNestedErrorF();
-      v32 = v44[5];
-      v44[5] = v31;
-    }
-
-    else
-    {
-      tcpListeningPort = [(CUTCPServer *)self->_tcpServer tcpListeningPort];
-      SockAddrSetPort();
-      Curve25519MakeKeyPair();
-      v19 = v13;
-      if ([v13 bytes])
+      memset(v74, 0, sizeof(v74));
+      v28 = StringToSockAddr();
+      v75 = v28;
+      if (v28)
       {
-        v20 = v13;
-        [v13 bytes];
-        cccurve25519();
+        v64 = RPErrorF(v28, "Bad self address string '%s'", v29, v30, v31, v32, v33, v34, uTF8String);
+        v65 = v80[5];
+        v80[5] = v64;
       }
 
       else
       {
-        cccurve25519_make_pub();
-      }
+        v35 = objc_alloc_init(MEMORY[0x1E6999550]);
+        tcpServer = self->_tcpServer;
+        self->_tcpServer = v35;
 
-      memset_s(__s, 0x20uLL, 0, 0x20uLL);
-      v21 = vorrq_s8(v51[1], v51[0]);
-      if (vorr_s8(*v21.i8, *&vextq_s8(v21, v21, 8uLL)))
-      {
-        v22 = *MEMORY[0x1E69995A8];
-        CryptoHKDF();
-        v23 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:v51 length:{32, v51}];
-        pskData = self->_pskData;
-        self->_pskData = v23;
-
-        memset_s(v51, 0x20uLL, 0, 0x20uLL);
-        if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+        [(CUTCPServer *)self->_tcpServer setDispatchQueue:self->_dispatchQueue];
+        [(CUTCPServer *)self->_tcpServer setFlags:201];
+        *v89 = *v74;
+        *&v89[12] = *&v74[12];
+        [(CUTCPServer *)self->_tcpServer setInterfaceAddress:v89];
+        if ((self->_streamFlags & 5) != 0)
         {
-          streamID = self->_streamID;
-          LogPrintF();
+          v73[0] = MEMORY[0x1E69E9820];
+          v73[1] = 3221225472;
+          v73[2] = __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke_2;
+          v73[3] = &unk_1E7C942A8;
+          v73[4] = self;
+          [(CUTCPServer *)self->_tcpServer setConnectionAcceptHandler:v73];
         }
 
-        v49[0] = @"_streamKey";
-        v25 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v53 length:32];
-        v49[1] = @"_streamPort";
-        v50[0] = v25;
-        v26 = [MEMORY[0x1E696AD98] numberWithInt:tcpListeningPort];
-        v50[1] = v26;
-        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
+        else
+        {
+          v72[0] = MEMORY[0x1E69E9820];
+          v72[1] = 3221225472;
+          v72[2] = __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke_3;
+          v72[3] = &unk_1E7C951E0;
+          v72[4] = self;
+          [(CUTCPServer *)self->_tcpServer setConnectionStartedHandler:v72];
+        }
 
-        (*(v11 + 2))(v11, v27, 0, 0);
-      }
+        v71[0] = MEMORY[0x1E69E9820];
+        v71[1] = 3221225472;
+        v71[2] = __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke_4;
+        v71[3] = &unk_1E7C92CE8;
+        v71[4] = self;
+        [(CUTCPServer *)self->_tcpServer setInvalidationHandler:v71];
+        v37 = self->_tcpServer;
+        v38 = (v80 + 5);
+        obj = v80[5];
+        [(CUTCPServer *)v37 activateDirectAndReturnError:&obj];
+        objc_storeStrong(v38, obj);
+        v44 = v80[5];
+        if (v44)
+        {
+          v66 = RPNestedErrorF(v44, 4294960567, "Start TCP server failed", v39, v40, v41, v42, v43, v69);
+          v67 = v80[5];
+          v80[5] = v66;
+        }
 
-      else
-      {
-        v33 = RPErrorF();
-        v27 = v44[5];
-        v44[5] = v33;
+        else
+        {
+          tcpListeningPort = [(CUTCPServer *)self->_tcpServer tcpListeningPort];
+          SockAddrSetPort();
+          Curve25519MakeKeyPair();
+          v46 = v19;
+          if ([v19 bytes])
+          {
+            v47 = v19;
+            [v19 bytes];
+            cccurve25519();
+          }
+
+          else
+          {
+            cccurve25519_make_pub();
+          }
+
+          memset_s(__s, 0x20uLL, 0, 0x20uLL);
+          v54 = vorrq_s8(v87[1], v87[0]);
+          if (vorr_s8(*v54.i8, *&vextq_s8(v54, v54, 8uLL)))
+          {
+            CryptoHKDF();
+            v55 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:v87 length:{32, v87}];
+            pskData = self->_pskData;
+            self->_pskData = v55;
+
+            memset_s(v87, 0x20uLL, 0, 0x20uLL);
+            if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverRPConnectionStartRequest:options:responseHandler:]", 30, "Session prepared: ID '%@', %##a\n", self->_streamID, v74);
+            }
+
+            v85[0] = @"_streamKey";
+            v57 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v89 length:32];
+            v85[1] = @"_streamPort";
+            v86[0] = v57;
+            v58 = [MEMORY[0x1E696AD98] numberWithInt:tcpListeningPort];
+            v86[1] = v58;
+            v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:2];
+
+            (*(v11 + 2))(v11, v59, 0, 0);
+          }
+
+          else
+          {
+            v68 = RPErrorF(v75, "Bad shared key", v48, v49, v50, v51, v52, v53, v69);
+            v59 = v80[5];
+            v80[5] = v68;
+          }
+        }
       }
+    }
+
+    else
+    {
+      v62 = RPErrorF(4294960591, "No self address", v21, v22, v23, v24, v25, v26, v69);
+      v63 = v80[5];
+      v80[5] = v62;
     }
   }
 
   else
   {
-    v29 = RPErrorF();
-    v30 = v44[5];
-    v44[5] = v29;
+    v60 = RPErrorF(v75, "No public key", v13, v14, v15, v16, v17, v18, v69);
+    v61 = v80[5];
+    v80[5] = v60;
   }
 
   v12[2](v12);
-  _Block_object_dispose(&v43, 8);
-
-  v28 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v79, 8);
 }
 
-uint64_t __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke(uint64_t result)
+void *__75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke(void *result)
 {
-  v1 = *(*(*(result + 48) + 8) + 40);
+  v1 = *(*(result[6] + 8) + 40);
   if (!v1)
   {
     return result;
@@ -3348,8 +3637,7 @@ uint64_t __75__RPStreamSession__serverRPConnectionStartRequest_options_responseH
       v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v1;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverRPConnectionStartRequest:options:responseHandler:]_block_invoke", 90, "### Start failed: %{error}\n", v1);
   }
 
 LABEL_7:
@@ -3358,10 +3646,9 @@ LABEL_7:
   v4 = *(v3 + 112);
   *(v3 + 112) = 0;
 
-  v5 = *(*(v2[6] + 8) + 40);
-  v6 = *(v2[5] + 16);
+  v5 = *(v2[5] + 16);
 
-  return v6();
+  return v5();
 }
 
 void __75__RPStreamSession__serverRPConnectionStartRequest_options_responseHandler___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -3401,13 +3688,52 @@ uint64_t __75__RPStreamSession__serverRPConnectionStartRequest_options_responseH
   return [v4 _invalidated];
 }
 
+- (void)_serverRPConnectionHandleConnectionAccepted:(int)accepted
+{
+  v3 = *&accepted;
+  if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverRPConnectionHandleConnectionAccepted:]", 30, "Session connection accepted: ID '%@', FD %d\n", self->_streamID, v3);
+  }
+
+  v7 = _Block_copy(self->_streamAcceptHandler);
+  if (v7)
+  {
+    streamAcceptHandler = self->_streamAcceptHandler;
+    self->_streamAcceptHandler = 0;
+
+    streamSocket = self->_streamSocket;
+    if ((streamSocket & 0x80000000) == 0 && close(streamSocket) && *__error())
+    {
+      __error();
+    }
+
+    self->_streamSocket = v3;
+    if (self->_streamQoS >= 1)
+    {
+      [(RPStreamSession *)self setStreamQoSOnSocket:v3];
+    }
+
+    v7[2]();
+  }
+
+  else
+  {
+    if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverRPConnectionHandleConnectionAccepted:]", 90, "### Session connection with no accept handler: ID '%@', FD %d\n", self->_streamID, v3);
+    }
+
+    close(v3);
+  }
+}
+
 - (void)_serverRPConnectionHandleConnectionStarted:(id)started
 {
   startedCopy = started;
   if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
-    streamID = self->_streamID;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverRPConnectionHandleConnectionStarted:]", 30, "Session connection started: ID '%@', %@\n", self->_streamID, startedCopy);
   }
 
   v5 = objc_alloc_init(RPConnection);
@@ -3429,42 +3755,42 @@ uint64_t __75__RPStreamSession__serverRPConnectionStartRequest_options_responseH
     -[RPStreamSession setStreamQoSOnSocket:](self, "setStreamQoSOnSocket:", [startedCopy socketFD]);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke;
-  v17[3] = &unk_1E7C92CE8;
-  v17[4] = self;
-  [(RPConnection *)v5 setInvalidationHandler:v17];
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
-  v16[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_2;
-  v16[3] = &unk_1E7C94408;
+  v16[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke;
+  v16[3] = &unk_1E7C92CE8;
   v16[4] = self;
-  [(RPConnection *)v5 setReceivedEventHandler:v16];
+  [(RPConnection *)v5 setInvalidationHandler:v16];
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
-  v15[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_3;
-  v15[3] = &unk_1E7C94430;
+  v15[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_2;
+  v15[3] = &unk_1E7C94408;
   v15[4] = self;
-  [(RPConnection *)v5 setReceivedRequestHandler:v15];
+  [(RPConnection *)v5 setReceivedEventHandler:v15];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_4;
-  v14[3] = &unk_1E7C92CE8;
+  v14[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_3;
+  v14[3] = &unk_1E7C94430;
   v14[4] = self;
-  [(RPConnection *)v5 setFlowControlWriteChangedHandler:v14];
+  [(RPConnection *)v5 setReceivedRequestHandler:v14];
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
-  v13[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_5;
-  v13[3] = &unk_1E7C942A8;
+  v13[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_4;
+  v13[3] = &unk_1E7C92CE8;
   v13[4] = self;
-  [(RPConnection *)v5 setStateChangedHandler:v13];
+  [(RPConnection *)v5 setFlowControlWriteChangedHandler:v13];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_6;
-  v12[3] = &unk_1E7C92D58;
+  v12[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_5;
+  v12[3] = &unk_1E7C942A8;
   v12[4] = self;
-  [(RPConnection *)v5 setReadErrorHandler:v12];
+  [(RPConnection *)v5 setStateChangedHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_invoke_6;
+  v11[3] = &unk_1E7C92D58;
+  v11[4] = self;
+  [(RPConnection *)v5 setReadErrorHandler:v11];
   rpCnx = self->_rpCnx;
   self->_rpCnx = v5;
   v10 = v5;
@@ -3556,73 +3882,79 @@ void __62__RPStreamSession__serverRPConnectionHandleConnectionStarted___block_in
 
 - (unsigned)_getSockAddrInterfaceType:(const void *)type
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   v10 = 0;
+  memset(v8, 0, sizeof(v8));
   v9 = 0;
   if (!SockAddrSimplify())
   {
-    if (getifaddrs(&v9) && *__error())
+    v4 = getifaddrs(&v10);
+    if (v4)
     {
-      v4 = *__error();
+      if (*__error())
+      {
+        v4 = *__error();
+      }
+
+      else
+      {
+        v4 = 4294960596;
+      }
     }
 
-    v5 = v9;
-    if (v9)
+    v5 = v10;
+    if (v10)
     {
-      v11 = 0;
+      v12 = 0;
       while (!v5->ifa_addr || !v5->ifa_name || SockAddrCompareAddr())
       {
         v5 = v5->ifa_next;
         if (!v5)
         {
-          goto LABEL_13;
+          goto LABEL_14;
         }
       }
 
-      ifa_name = v5->ifa_name;
       __strlcpy_chk();
-LABEL_13:
-      if (v11)
+LABEL_14:
+      if (v12)
       {
-        if (SocketGetInterfaceInfo())
+        InterfaceInfo = SocketGetInterfaceInfo();
+        if (InterfaceInfo)
         {
-          [RPStreamSession _getSockAddrInterfaceType:];
+          [(RPStreamSession *)v8 _getSockAddrInterfaceType:?];
         }
 
-        else if (!v10)
+        else if (!v11)
         {
-          [RPStreamSession _getSockAddrInterfaceType:];
+          [RPStreamSession _getSockAddrInterfaceType:v8];
         }
       }
 
       else
       {
-        [RPStreamSession _getSockAddrInterfaceType:];
+        [RPStreamSession _getSockAddrInterfaceType:v8];
       }
     }
 
-    else if (([RPStreamSession _getSockAddrInterfaceType:]& 1) != 0)
+    else if (([RPStreamSession _getSockAddrInterfaceType:v4]& 1) != 0)
     {
-      goto LABEL_19;
+      return v11;
     }
   }
 
-  if (v9)
+  if (v10)
   {
-    MEMORY[0x1B8C9E660](v9, v3);
+    MEMORY[0x1B8C9E660](v10, v3);
   }
 
-LABEL_19:
-  result = v10;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return v11;
 }
 
 - (id)_lowLatencySelfAddressString:(id *)string
 {
-  v5 = *MEMORY[0x1E69E9840];
   CUGetInterfaceAddresses();
-  v3 = *MEMORY[0x1E69E9840];
 
   return 0;
 }
@@ -3641,22 +3973,22 @@ LABEL_19:
     block[2] = __56__RPStreamSession_sendEventID_event_options_completion___block_invoke;
     block[3] = &unk_1E7C95208;
     block[4] = self;
-    v17 = dCopy;
-    v18 = eventCopy;
-    v19 = optionsCopy;
-    v20 = completionCopy;
+    v24 = dCopy;
+    v25 = eventCopy;
+    v26 = optionsCopy;
+    v27 = completionCopy;
     dispatch_async(dispatchQueue, block);
   }
 
   else
   {
-    v15 = RPErrorF();
+    v21 = RPErrorF(4294960591, "No connection", v13, v14, v15, v16, v17, v18, v22);
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession sendEventID:event:options:completion:]", 90, "### Send event failed: ID '%@', %{error}\n", dCopy, v21);
     }
 
-    (*(completionCopy + 2))(completionCopy, v15);
+    (*(completionCopy + 2))(completionCopy, v21);
   }
 }
 
@@ -3674,22 +4006,22 @@ LABEL_19:
     block[2] = __65__RPStreamSession_sendRequestID_request_options_responseHandler___block_invoke;
     block[3] = &unk_1E7C95208;
     block[4] = self;
-    v17 = dCopy;
-    v18 = requestCopy;
-    v19 = optionsCopy;
-    v20 = handlerCopy;
+    v24 = dCopy;
+    v25 = requestCopy;
+    v26 = optionsCopy;
+    v27 = handlerCopy;
     dispatch_async(dispatchQueue, block);
   }
 
   else
   {
-    v15 = RPErrorF();
+    v21 = RPErrorF(4294960591, "No connection", v13, v14, v15, v16, v17, v18, v22);
     if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession sendRequestID:request:options:responseHandler:]", 90, "### Send request failed: ID '%@', %{error}\n", dCopy, v21);
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v15);
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v21);
   }
 }
 
@@ -3729,7 +4061,7 @@ LABEL_19:
 
 - (void)_updateTrafficRegistrationForIP:(id *)p
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (!self->_trafficSessionID)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -3740,11 +4072,7 @@ LABEL_19:
 
   if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
-    v18 = &unk_1B6F2F2E7;
-    v19 = self->_trafficSessionID;
-    pCopy = p;
-    trafficFlags = self->_trafficFlags;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _updateTrafficRegistrationForIP:]", 30, "Register traffic: %##a, %#{flags}, ID %@\n", p, self->_trafficFlags, &unk_1B6F2F2E7, self->_trafficSessionID);
   }
 
   self->_trafficRegistrationCalled = 1;
@@ -3758,32 +4086,29 @@ LABEL_19:
     v11 = dispatch_queue_create("com.apple.rapport.traffic_registration", v10);
     [(CUWiFiManager *)self->_wifiManager setDispatchQueue:v11];
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __51__RPStreamSession__updateTrafficRegistrationForIP___block_invoke;
-    v21[3] = &unk_1E7C92CE8;
-    v21[4] = self;
-    [(CUWiFiManager *)self->_wifiManager setWifiStateChangedHandler:v21];
-    v12 = self->_wifiManager;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __51__RPStreamSession__updateTrafficRegistrationForIP___block_invoke;
+    v15[3] = &unk_1E7C92CE8;
+    v15[4] = self;
+    [(CUWiFiManager *)self->_wifiManager setWifiStateChangedHandler:v15];
     if (objc_opt_respondsToSelector())
     {
       [(CUWiFiManager *)self->_wifiManager setValue:MEMORY[0x1E695E118] forKey:@"degradeOnAnyTrafficUnavailable"];
     }
 
-    [(CUWiFiManager *)self->_wifiManager activateWithCompletion:0, pCopy, trafficFlags, v18, v19];
+    [(CUWiFiManager *)self->_wifiManager activateWithCompletion:0];
   }
 
-  v13 = objc_alloc_init(MEMORY[0x1E6999568]);
-  v20[0] = p->var0;
-  *(v20 + 12) = *(&p->var2.sin6_addr + 4);
-  [v13 setPeerIP:v20];
-  [v13 setSessionID:self->_trafficSessionID];
-  [v13 setTrafficFlags:self->_trafficFlags];
-  v22[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-  [(CUWiFiManager *)self->_wifiManager setTrafficPeers:v14];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = objc_alloc_init(MEMORY[0x1E6999568]);
+  v14[0] = p->var0;
+  *(v14 + 12) = *(&p->var2.sin6_addr + 4);
+  [v12 setPeerIP:v14];
+  [v12 setSessionID:self->_trafficSessionID];
+  [v12 setTrafficFlags:self->_trafficFlags];
+  v16[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  [(CUWiFiManager *)self->_wifiManager setTrafficPeers:v13];
 }
 
 void __51__RPStreamSession__updateTrafficRegistrationForIP___block_invoke(uint64_t a1)
@@ -3809,15 +4134,15 @@ void __51__RPStreamSession__updateTrafficRegistrationForIP___block_invoke_2(uint
     *(*(a1 + 32) + 256) = v5;
     if (gLogCategory_RPStreamSession <= 30 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _updateTrafficRegistrationForIP:]_block_invoke_2", 30, "Status changed: %#ll{flags} -> %#ll{flags}\n", v3, &unk_1B6F2F118, v5, &unk_1B6F2F118);
     }
 
     v6 = _Block_copy(*(*(a1 + 32) + 248));
     if (v6)
     {
-      v10 = v6;
-      (*(v6 + 2))(v6, v7, v8, v9);
-      v6 = v10;
+      v7 = v6;
+      v6[2]();
+      v6 = v7;
     }
   }
 }
@@ -3825,20 +4150,25 @@ void __51__RPStreamSession__updateTrafficRegistrationForIP___block_invoke_2(uint
 - (void)_updateTrafficRegistrationForDestination:(id)destination
 {
   destinationCopy = destination;
-  memset(v5, 0, 28);
+  memset(v7, 0, 28);
   [destinationCopy UTF8String];
-  if (StringToSockAddr())
+  v5 = StringToSockAddr();
+  if (v5)
   {
-    if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPStreamSession <= 90)
     {
-      LogPrintF();
+      v6 = v5;
+      if (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize())
+      {
+        LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _updateTrafficRegistrationForDestination:]", 90, " ### Failed to convert destination address (%@) to sockaddr: %d \n", destinationCopy, v6);
+      }
     }
   }
 
   else
   {
-    self->_peerIP.sa = v5[0];
-    *(&self->_peerIP.v6.sin6_addr + 4) = *(v5 + 12);
+    self->_peerIP.sa = v7[0];
+    *(&self->_peerIP.v6.sin6_addr + 4) = *(v7 + 12);
     [(RPStreamSession *)self _updateTrafficRegistration];
   }
 }
@@ -3865,40 +4195,56 @@ void __51__RPStreamSession__updateTrafficRegistrationForIP___block_invoke_2(uint
 
 - (uint64_t)_startServerConnectionAndReturnError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = *(a1 + 148);
-  if (v1 <= 3)
+  v3 = *(a1 + 148);
+  if (v3 > 3)
   {
-    v2 = off_1E7C95240[v1];
+    v4 = "?";
   }
 
-  *(a1 + 296);
-  v5 = *(a1 + 144);
-  v4 = *(a1 + 264);
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E7C95240[v3];
+  }
+
+  v5 = "yes";
+  if (!*(a1 + 296))
+  {
+    v5 = "no";
+  }
+
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _startServerConnectionAndReturnError:]", 30, "Start server connection: ID '%@', Type %s, FD %d, PSK %s\n", *(a1 + 264), v4, *(a1 + 144), v5, v1, v2);
 }
 
 - (uint64_t)_invalidate
 {
-  v1 = *(self + 148);
-  if (v1 <= 3)
+  v3 = *(self + 148);
+  if (v3 > 3)
   {
-    v2 = off_1E7C95240[v1];
+    v4 = "?";
   }
 
-  v4 = *(self + 264);
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E7C95240[v3];
+  }
+
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _invalidate]", 30, "Invalidate: ID '%@', Type %s\n", *(self + 264), v4, v1, v2);
 }
 
 - (uint64_t)_invalidated
 {
-  v1 = *(self + 148);
-  if (v1 <= 3)
+  v3 = *(self + 148);
+  if (v3 > 3)
   {
-    v2 = off_1E7C95240[v1];
+    v4 = "?";
   }
 
-  v4 = *(self + 264);
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E7C95240[v3];
+  }
+
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _invalidated]", 30, "Invalidated: ID '%@', Type %s\n", *(self + 264), v4, v1, v2);
 }
 
 uint64_t __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invoke_86_cold_2(uint64_t result, uint64_t *a2)
@@ -3908,7 +4254,7 @@ uint64_t __55__RPStreamSession__clientUDPNWPathStartWithCompletion___block_invok
   {
     if (gLogCategory_RPStreamSession != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPNWPathStartWithCompletion:]_block_invoke", 90, "### Client nw_listener no endpoint\n");
     }
   }
 
@@ -3921,153 +4267,196 @@ void __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler_
   if (gLogCategory_RPStreamSession <= 90 && (gLogCategory_RPStreamSession != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPNWPathStartRequest:options:responseHandler:]_block_invoke_2", 90, "### nw_listener no endpoint\n");
   }
 }
 
 - (uint64_t)_clientUDPSocketStartWithCompletion:(_DWORD *)a3 .cold.2(uint64_t a1, unsigned int *a2, _DWORD *a3)
 {
-  v3 = *(a1 + 148);
-  if (v3 <= 3)
+  v5 = *(a1 + 148);
+  if (v5 > 3)
   {
-    v4 = off_1E7C95240[v3];
+    v6 = "?";
   }
 
+  else
+  {
+    v6 = off_1E7C95240[v5];
+  }
+
+  v7 = "Default";
   switch(*a3)
   {
     case 0:
+      return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPSocketStartWithCompletion:]", 30, "Activate: ID '%@', Type %s, Port %d QoS %s\n", *(a1 + 264), v6, *a2, v7, v3, v4);
     case 1:
+      v7 = "Background";
+      break;
     case 2:
+      v7 = "Video";
+      break;
     case 3:
+      v7 = "Voice";
+      break;
     case 4:
     case 5:
     case 6:
     case 7:
     case 8:
     case 9:
+      goto LABEL_8;
     case 0xA:
+      v7 = "AirPlayAudio";
+      break;
     case 0xB:
+      v7 = "AirPlayScreenAudio";
+      break;
     case 0xC:
+      v7 = "AirPlayScreenVideo";
       break;
     default:
-      *a3;
+      if (*a3 == 20)
+      {
+        v7 = "NTP";
+      }
+
+      else
+      {
+LABEL_8:
+        v7 = "?";
+      }
+
       break;
   }
 
-  v7 = *a2;
-  v6 = *(a1 + 264);
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPSocketStartWithCompletion:]", 30, "Activate: ID '%@', Type %s, Port %d QoS %s\n", *(a1 + 264), v6, *a2, v7, v3, v4);
 }
 
-- (uint64_t)_clientUDPSocketStartResponse:(uint64_t)a1 options:completion:.cold.3(uint64_t a1)
+- (uint64_t)_clientUDPSocketStartResponse:(uint64_t)a1 options:(uint64_t)a2 completion:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 148);
-  if (v1 <= 3)
+  v5 = *(a1 + 148);
+  if (v5 > 3)
   {
-    v2 = off_1E7C95240[v1];
+    v6 = "?";
   }
 
-  v4 = *(a1 + 264);
-  return LogPrintF();
+  else
+  {
+    v6 = off_1E7C95240[v5];
+  }
+
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientUDPSocketStartResponse:options:completion:]", 30, "Session started: ID '%@', Type %s, %##a -> %##a\n", *(a1 + 264), v6, a2, a3, v3, v4);
 }
 
-- (uint64_t)_serverUDPSocketStartRequest:(uint64_t)a1 options:responseHandler:.cold.5(uint64_t a1)
+- (uint64_t)_serverUDPSocketStartRequest:(uint64_t)a1 options:(uint64_t)a2 responseHandler:(uint64_t)a3 .cold.5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 148);
-  if (v1 <= 3)
+  v3 = *(a1 + 148);
+  if (v3 > 3)
   {
-    v2 = off_1E7C95240[v1];
+    v4 = "?";
   }
 
-  v5 = *(a1 + 240);
-  v4 = *(a1 + 264);
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E7C95240[v3];
+  }
+
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _serverUDPSocketStartRequest:options:responseHandler:]", 30, "Session started: ID '%@', Type %s, %##a -> %##a, service %@\n", *(a1 + 264), v4, a2, a3, *(a1 + 240));
 }
 
 - (uint64_t)_clientRPConnectionPrepareWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = *(a1 + 148);
-  if (v1 <= 3)
+  v3 = *(a1 + 148);
+  if (v3 > 3)
   {
-    v2 = off_1E7C95240[v1];
+    v4 = "?";
   }
 
-  v4 = *(a1 + 264);
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E7C95240[v3];
+  }
+
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientRPConnectionPrepareWithCompletion:]", 30, "Prepare start: ID '%@', Type %s\n", *(a1 + 264), v4, v1, v2);
 }
 
 - (uint64_t)_clientRPConnectionStartWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v1 = *(a1 + 148);
-  if (v1 <= 3)
+  v3 = *(a1 + 148);
+  if (v3 > 3)
   {
-    v2 = off_1E7C95240[v1];
+    v4 = "?";
   }
 
-  v5 = *(a1 + 288);
-  v6 = *(a1 + 92);
-  v4 = *(a1 + 264);
-  return LogPrintF();
+  else
+  {
+    v4 = off_1E7C95240[v3];
+  }
+
+  return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _clientRPConnectionStartWithCompletion:]", 30, "Activate: ID '%@', Type %s, IP %@ Port %d\n", *(a1 + 264), v4, *(a1 + 288), *(a1 + 92), v1, v2);
 }
 
-- (uint64_t)_getSockAddrInterfaceType:.cold.1()
+- (uint64_t)_getSockAddrInterfaceType:(uint64_t)result .cold.1(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_RPStreamSession <= 90)
   {
+    v3 = result;
     if (gLogCategory_RPStreamSession != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _getSockAddrInterfaceType:]", 90, "### GetIfType info failed: %##a, %#m\n", v3, a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _getSockAddrInterfaceType:]", 90, "### GetIfType info failed: %##a, %#m\n", v3, a2);
     }
   }
 
   return result;
 }
 
-- (uint64_t)_getSockAddrInterfaceType:.cold.2()
+- (uint64_t)_getSockAddrInterfaceType:(uint64_t)result .cold.2(uint64_t result)
 {
   if (gLogCategory_RPStreamSession <= 90)
   {
+    v1 = result;
     if (gLogCategory_RPStreamSession != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _getSockAddrInterfaceType:]", 90, "### GetIfType no type: %##a\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _getSockAddrInterfaceType:]", 90, "### GetIfType no type: %##a\n", v1);
     }
   }
 
   return result;
 }
 
-- (uint64_t)_getSockAddrInterfaceType:.cold.3()
+- (uint64_t)_getSockAddrInterfaceType:(uint64_t)result .cold.3(uint64_t result)
 {
   if (gLogCategory_RPStreamSession <= 90)
   {
+    v1 = result;
     if (gLogCategory_RPStreamSession != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _getSockAddrInterfaceType:]", 90, "### GetIfType not found: %##a\n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _getSockAddrInterfaceType:]", 90, "### GetIfType not found: %##a\n", v1);
     }
   }
 
   return result;
 }
 
-- (uint64_t)_getSockAddrInterfaceType:.cold.4()
+- (uint64_t)_getSockAddrInterfaceType:(uint64_t)a1 .cold.4(uint64_t a1)
 {
   if (gLogCategory_RPStreamSession > 90)
   {
@@ -4076,7 +4465,7 @@ void __72__RPStreamSession__serverUDPNWPathStartRequest_options_responseHandler_
 
   if (gLogCategory_RPStreamSession != -1 || (result = _LogCategory_Initialize(), result))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPStreamSession, "[RPStreamSession _getSockAddrInterfaceType:]", 90, "### GetIfType addrs failed: %#m\n", a1);
     return 0;
   }
 

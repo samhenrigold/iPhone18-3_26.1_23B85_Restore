@@ -202,29 +202,29 @@ MRCommandInfo *__38__MRNowPlayingState_initWithProtobuf___block_invoke(uint64_t 
 
 - (BOOL)containsArtwork
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   playbackQueue = [(MRNowPlayingState *)self playbackQueue];
   contentItems = [playbackQueue contentItems];
 
-  v4 = [contentItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [contentItems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(contentItems);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         artwork = [v8 artwork];
         if (artwork)
         {
@@ -243,7 +243,7 @@ LABEL_13:
         }
       }
 
-      v5 = [contentItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [contentItems countByEnumeratingWithState:&v14 objects:v18 count:16];
       v12 = 0;
       if (v5)
       {
@@ -261,49 +261,47 @@ LABEL_13:
 
 LABEL_14:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)copyWithoutArtwork
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [(MRNowPlayingState *)self copy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   playbackQueue = [v2 playbackQueue];
   contentItems = [playbackQueue contentItems];
 
-  v5 = [contentItems countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [contentItems countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(contentItems);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         [v9 setArtwork:0];
         [v9 setArtworks:0];
         [v9 setRemoteArtworks:0];
         [v9 setAnimatedArtworks:0];
       }
 
-      v6 = [contentItems countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [contentItems countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

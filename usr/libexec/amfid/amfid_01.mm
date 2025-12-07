@@ -1,164 +1,10 @@
-_BYTE *sub_100017AAC(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = *(a1 + 2);
-  v4 = v3;
-LABEL_2:
-  v5 = v4;
-  v6 = *(v2 + v4);
-  while (v6 == 10)
-  {
-    ++*(a1 + 3);
-LABEL_8:
-    v6 = 0;
-    if (a1[7] - 1 > v5)
-    {
-      v4 = v5 + 1;
-      *(a1 + 2) = v5 + 1;
-      goto LABEL_2;
-    }
-  }
-
-  if (!v6)
-  {
-    return 0;
-  }
-
-  if (v6 != 60)
-  {
-    goto LABEL_8;
-  }
-
-  v7 = v5 - v3;
-  result = malloc_type_malloc(v5 - v3 + 1, 0x100004077774924uLL);
-  if (!result)
-  {
-    puts("AMFIUnserializeXML: can't alloc temp memory");
-    return 0;
-  }
-
-  if (v7 < 1)
-  {
-    v21 = 0;
-LABEL_47:
-    result[v21] = 0;
-    return result;
-  }
-
-  v9 = 0;
-  LODWORD(v10) = 0;
-  v11 = v3 + 3;
-  v12 = result;
-  while (2)
-  {
-    v13 = *a1;
-    v14 = v10;
-    v15 = v10 + 1;
-    v16 = *(*a1 + v3 + v10);
-    if (v16 != 38)
-    {
-      goto LABEL_40;
-    }
-
-    v10 = v10 + 4;
-    if (v14 + 4 > v7)
-    {
-      goto LABEL_44;
-    }
-
-    v17 = v14 + 2;
-    v18 = *(v13 + v15 + v3);
-    if (v18 != 103)
-    {
-      if (v18 == 108)
-      {
-        if (*(v13 + v17 + v3) != 116 || *(v13 + v11 + v14) != 59)
-        {
-          goto LABEL_44;
-        }
-
-        LOBYTE(v16) = 60;
-        goto LABEL_41;
-      }
-
-      v15 = v14 + 5;
-      if (v14 + 5 > v7)
-      {
-        goto LABEL_44;
-      }
-
-      if (v18 == 113)
-      {
-        if (*(v13 + v3 + v17) != 117 || *(v13 + v11 + v14) != 111 || *(v13 + v3 + v10) != 116 || *(v13 + v15 + v3) != 59)
-        {
-          goto LABEL_44;
-        }
-
-        LODWORD(v10) = v14 + 6;
-        LOBYTE(v16) = 34;
-        goto LABEL_41;
-      }
-
-      if (v18 != 97)
-      {
-        goto LABEL_44;
-      }
-
-      v19 = v14 + 3;
-      v20 = *(v13 + v3 + v17);
-      if (v20 != 109)
-      {
-        if (v20 != 112 || *(v13 + v19 + v3) != 111 || *(v13 + v10 + v3) != 115 || *(v13 + v15 + v3) != 59)
-        {
-          goto LABEL_44;
-        }
-
-        LODWORD(v10) = v14 + 6;
-        LOBYTE(v16) = 39;
-        goto LABEL_41;
-      }
-
-      if (*(v13 + v19 + v3) != 112 || *(v13 + v3 + v10) != 59)
-      {
-        goto LABEL_44;
-      }
-
-      LOBYTE(v16) = 38;
-LABEL_40:
-      LODWORD(v10) = v15;
-LABEL_41:
-      *v12++ = v16;
-      v9 += &_mh_execute_header;
-      if (v10 >= v7)
-      {
-        v21 = v9 >> 32;
-        goto LABEL_47;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  if (*(v13 + v3 + v17) == 116 && *(v13 + v11 + v14) == 59)
-  {
-    LOBYTE(v16) = 62;
-    goto LABEL_41;
-  }
-
-LABEL_44:
-  free(result);
-  return 0;
-}
-
 void *sub_100017DBC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7[0] = a2;
+  v7 = a2;
   sub_100007D18(a3);
   sub_100007D18(a2);
-  v7[2] = v7;
-  result = sub_1000180B8((a1 + 16), v7);
+  v8 = &v7;
+  result = sub_1000180B8((a1 + 16), &v7, &std::piecewise_construct, &v8);
   result[3] = a3;
   return result;
 }
@@ -178,21 +24,21 @@ void sub_100017E74(void *a1)
   operator delete();
 }
 
-uint64_t sub_100017ED8(uint64_t a1, int a2)
+void *sub_100017ED8(uint64_t a1, int a2)
 {
   if (a2 >= 1)
   {
     v4 = a2;
     do
     {
-      sub_1000088E4(&std::cout);
+      sub_1000088E4(&std::cout, "\t", 1);
       --v4;
     }
 
     while (v4);
   }
 
-  result = sub_1000088E4(&std::cout);
+  result = sub_1000088E4(&std::cout, "OSDictionary\n", 13);
   for (i = *(a1 + 32); i; i = *i)
   {
     v7 = i[3];
@@ -253,33 +99,33 @@ void *sub_10001804C(void *result)
   return result;
 }
 
-void *sub_1000180B8(void *a1, void *a2)
+void *sub_1000180B8(void *a1, uint64_t a2, uint64_t a3, void **a4)
 {
-  v4 = sub_100007E50(&v12, *a2 + 16);
-  v5 = a1[1];
-  if (!*&v5)
+  v6 = sub_100007E50(&v14, (*a2 + 16));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = v4;
-    if (v4 >= *&v5)
+    v9 = v6;
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v9 = (*&v7 - 1) & v6;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -287,44 +133,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t sub_100018380(uint64_t a1, unint64_t a2)
@@ -350,20 +196,17 @@ void sub_1000183E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_100018400(void *result, unint64_t a2)
+void sub_100018400(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      sub_1000186A4(result, a2);
+      sub_1000186A4(a1, a2);
     }
 
     sub_100009560();
   }
-
-  return result;
 }
 
 void *sub_1000184A0(void *a1)
@@ -392,21 +235,21 @@ void sub_1000184F0(void *a1)
   operator delete();
 }
 
-uint64_t sub_100018560(uint64_t a1, int a2)
+void *sub_100018560(uint64_t a1, int a2)
 {
   if (a2 >= 1)
   {
     v4 = a2;
     do
     {
-      sub_1000088E4(&std::cout);
+      sub_1000088E4(&std::cout, "\t", 1);
       --v4;
     }
 
     while (v4);
   }
 
-  result = sub_1000088E4(&std::cout);
+  result = sub_1000088E4(&std::cout, "OSArray\n", 8);
   v7 = *(a1 + 16);
   v6 = *(a1 + 24);
   while (v7 != v6)
@@ -451,25 +294,24 @@ void sub_1000186A4(uint64_t a1, unint64_t a2)
   sub_10000841C();
 }
 
-uint64_t sub_100018714(uint64_t a1, int a2)
+void *sub_100018714(uint64_t a1, int a2)
 {
   if (a2 >= 1)
   {
-    v3 = a2;
+    v2 = a2;
     do
     {
-      sub_1000088E4(&std::cout);
-      --v3;
+      sub_1000088E4(&std::cout, "\t", 1);
+      --v2;
     }
 
-    while (v3);
+    while (v2);
   }
 
-  sub_1000088E4(&std::cout);
-  v4 = *(a1 + 16);
-  v5 = std::ostream::operator<<();
+  sub_1000088E4(&std::cout, "OSNumber(", 9);
+  v3 = std::ostream::operator<<();
 
-  return sub_1000088E4(v5);
+  return sub_1000088E4(v3, ")\n", 2);
 }
 
 void sub_1000187AC()
@@ -500,8 +342,9 @@ void sub_10001893C(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 description];
   [v4 UTF8String];
+  v11 = 136315394;
   sub_100002938();
-  sub_10000294C(&_mh_execute_header, v5, v6, "%s: unable to authenticate user: %s", v7, v8, v9, v10, 2u);
+  sub_10000294C(&_mh_execute_header, v5, v6, "%s: unable to authenticate user: %s", v7, v8, v9, v10, v11);
 }
 
 void sub_1000189E4(void *a1, void *a2)
@@ -509,8 +352,9 @@ void sub_1000189E4(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 description];
   [v4 UTF8String];
+  v11 = 136315394;
   sub_100002938();
-  sub_10000294C(&_mh_execute_header, v5, v6, "%s: unable to set SEP developer mode state: %s", v7, v8, v9, v10, 2u);
+  sub_10000294C(&_mh_execute_header, v5, v6, "%s: unable to set SEP developer mode state: %s", v7, v8, v9, v10, v11);
 }
 
 void sub_100018D4C()
@@ -546,11 +390,12 @@ void sub_100019070()
 
 void sub_100019160()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  v7 = 136315650;
   sub_100004534();
-  sub_100004570(&_mh_execute_header, v2, v3, "unable to read %s: %d (%s)", v4, v5, v6, v7, 2u);
+  sub_100004570(&_mh_execute_header, v1, v2, "unable to read %s: %d (%s)", v3, v4, v5, v6, v7);
 }
 
 void sub_1000191F4()
@@ -562,20 +407,22 @@ void sub_1000191F4()
 
 void sub_100019264()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  v7 = 136315650;
   sub_100004534();
-  sub_100004570(&_mh_execute_header, v2, v3, "unable to open %s for reading: %d (%s)", v4, v5, v6, v7, 2u);
+  sub_100004570(&_mh_execute_header, v1, v2, "unable to open %s for reading: %d (%s)", v3, v4, v5, v6, v7);
 }
 
 void sub_1000192F8()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  v7 = 136315650;
   sub_100004534();
-  sub_100004570(&_mh_execute_header, v2, v3, "unable to write %s: %d (%s)", v4, v5, v6, v7, 2u);
+  sub_100004570(&_mh_execute_header, v1, v2, "unable to write %s: %d (%s)", v3, v4, v5, v6, v7);
 }
 
 void sub_10001938C()
@@ -587,16 +434,17 @@ void sub_10001938C()
 
 void sub_1000193FC()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  v7 = 136315650;
   sub_100004534();
-  sub_100004570(&_mh_execute_header, v2, v3, "unable to open %s for writing: %d (%s)", v4, v5, v6, v7, 2u);
+  sub_100004570(&_mh_execute_header, v1, v2, "unable to open %s for writing: %d (%s)", v3, v4, v5, v6, v7);
 }
 
 void sub_100019490()
 {
-  v0 = *__error();
+  __error();
   _os_assert_log();
   _os_crash();
   __break(1u);
@@ -604,29 +452,32 @@ void sub_100019490()
 
 void sub_1000194B0()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  v7 = 136315650;
   sub_100004534();
-  sub_100004570(&_mh_execute_header, v2, v3, "unable to open %s: %d (%s)", v4, v5, v6, v7, 2u);
+  sub_100004570(&_mh_execute_header, v1, v2, "unable to open %s: %d (%s)", v3, v4, v5, v6, v7);
 }
 
 void sub_100019544()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  v7 = 136315650;
   sub_100004534();
-  sub_100004570(&_mh_execute_header, v2, v3, "unable to stat %s: %d (%s)", v4, v5, v6, v7, 2u);
+  sub_100004570(&_mh_execute_header, v1, v2, "unable to stat %s: %d (%s)", v3, v4, v5, v6, v7);
 }
 
 void sub_1000195D8()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
+  v7 = 136315650;
   sub_100004534();
-  sub_100004570(&_mh_execute_header, v2, v3, "unable to create %s: %d (%s)", v4, v5, v6, v7, 2u);
+  sub_100004570(&_mh_execute_header, v1, v2, "unable to create %s: %d (%s)", v3, v4, v5, v6, v7);
 }
 
 void sub_10001966C()
@@ -745,16 +596,165 @@ void sub_10001A080(void *a1)
 {
   v1 = a1;
   v2 = __error();
-  strerror(*v2);
-  sub_100006DEC(&_mh_execute_header, v3, v4, "unable to read security.codesigning.monitor: %s", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 136315138;
+  *(&v9 + 4) = strerror(*v2);
+  sub_100006DEC(&_mh_execute_header, v3, v4, "unable to read security.codesigning.monitor: %s", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void sub_10001A10C(void *a1)
 {
   v1 = a1;
   v2 = __error();
-  strerror(*v2);
-  sub_100006DEC(&_mh_execute_header, v3, v4, "unable to read security.codesigning.config: %s", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 136315138;
+  *(&v9 + 4) = strerror(*v2);
+  sub_100006DEC(&_mh_execute_header, v3, v4, "unable to read security.codesigning.config: %s", v5, v6, v7, v8, v9, DWORD2(v9));
+}
+
+void sub_10001A198()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A220()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A2A8()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A330()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A3B8()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A440()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A4C8()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A550()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A5D8()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A660()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A6E8()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A770()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A7F8()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A880()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A908()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001A990()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001AA18()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001AAA0()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001AB28()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001ABB0()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
+}
+
+void sub_10001AC38()
+{
+  v5 = 136315394;
+  sub_10000965C();
+  sub_10000966C(&_mh_execute_header, &_os_log_default, v0, "Couldn't enforce %s in %s", v1, v2, v3, v4, v5);
 }
 
 void sub_10001ACC0()
@@ -782,12 +782,11 @@ void sub_10001AE50()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s: [%@] error sending reply: %d", v2, 0x1Cu);
 }
 
-void sub_10001AEE0(unsigned int *a1)
+void sub_10001AEE0()
 {
-  v1 = *a1;
   sub_10000AAF0();
   sub_10000292C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_10001AF60()
@@ -797,12 +796,11 @@ void sub_10001AF60()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10001AFDC(unsigned int *a1)
+void sub_10001AFDC()
 {
-  v1 = *a1;
   sub_10000AAF0();
   sub_10000292C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_10001B250(uint64_t a1, int a2, os_log_t log)

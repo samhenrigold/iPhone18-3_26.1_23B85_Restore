@@ -12,7 +12,7 @@
 
 - (id)writeMessageToWriter:(id)writer error:(id *)error
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   writerCopy = writer;
   v5 = objc_opt_new();
   runRequestIdentifier = [(WFRemoteExecutionRunRequestResponse *)self runRequestIdentifier];
@@ -20,42 +20,42 @@
 
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
   variables = [(WFRemoteExecutionRunRequestResponse *)self variables];
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __66__WFRemoteExecutionRunRequestResponse_writeMessageToWriter_error___block_invoke;
-  v56[3] = &unk_1E8376C20;
-  v56[4] = self;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __66__WFRemoteExecutionRunRequestResponse_writeMessageToWriter_error___block_invoke;
+  v55[3] = &unk_1E8376C20;
+  v55[4] = self;
   v9 = v7;
-  v57 = v9;
-  [variables enumerateKeysAndObjectsUsingBlock:v56];
+  v56 = v9;
+  [variables enumerateKeysAndObjectsUsingBlock:v55];
 
-  v47 = v9;
-  v48 = v5;
+  v46 = v9;
+  v47 = v5;
   [v5 setVariablesDatas:v9];
-  v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   output = [(WFRemoteExecutionRunRequestResponse *)self output];
   items = [output items];
 
   obj = items;
-  v12 = [items countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v12 = [items countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v53;
+    v14 = *v52;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v53 != v14)
+        if (*v52 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v52 + 1) + 8 * i);
+        v16 = *(*(&v51 + 1) + 8 * i);
         v17 = [WFRemoteExecutionFileCoder alloc];
         coordinator = [(WFRemoteExecutionRunRequestResponse *)self coordinator];
         identifier = [(WFRemoteExecutionRequest *)self identifier];
@@ -67,16 +67,16 @@
 
         [v21 setEncodingType:2];
         data = [v21 data];
-        [v51 addObject:data];
+        [v50 addObject:data];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v13 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v13);
   }
 
-  [v48 setOutputDatas:v51];
+  [v47 setOutputDatas:v50];
   error = [(WFRemoteExecutionRunRequestResponse *)self error];
 
   if (error)
@@ -116,45 +116,43 @@
     }
 
     data2 = [v25 data];
-    [v48 setErrorData:data2];
+    [v47 setErrorData:data2];
   }
 
-  [v48 writeTo:writerCopy];
+  [v47 writeTo:writerCopy];
   immutableData = [writerCopy immutableData];
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return immutableData;
 }
 
 void __66__WFRemoteExecutionRunRequestResponse_writeMessageToWriter_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_opt_new();
-  v22 = v5;
+  v21 = v5;
   [v7 setKey:v5];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = [v6 items];
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         v13 = [WFRemoteExecutionFileCoder alloc];
         v14 = [*(a1 + 32) coordinator];
         v15 = [*(a1 + 32) identifier];
@@ -168,7 +166,7 @@ void __66__WFRemoteExecutionRunRequestResponse_writeMessageToWriter_error___bloc
         [v7 addItems:v17];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
@@ -177,21 +175,19 @@ void __66__WFRemoteExecutionRunRequestResponse_writeMessageToWriter_error___bloc
   v19 = *(a1 + 40);
   v20 = [v7 data];
   [v19 addObject:v20];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)readMessageFromData:(id)data error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69C65B8];
   dataCopy = data;
   v7 = [[v5 alloc] initWithData:dataCopy];
 
   v8 = objc_alloc_init(WFREPBRunRequestResponse);
-  v21 = 0;
-  v9 = [(PBCodable *)v8 readFrom:v7 error:&v21];
-  v10 = v21;
+  v20 = 0;
+  v9 = [(PBCodable *)v8 readFrom:v7 error:&v20];
+  v10 = v20;
   if (v9)
   {
     runRequestIdentifier = [(WFREPBRunRequestResponse *)v8 runRequestIdentifier];
@@ -217,14 +213,13 @@ void __66__WFRemoteExecutionRunRequestResponse_writeMessageToWriter_error___bloc
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v23 = "[WFRemoteExecutionRunRequestResponse readMessageFromData:error:]";
-      v24 = 2114;
-      v25 = v10;
+      v22 = "[WFRemoteExecutionRunRequestResponse readMessageFromData:error:]";
+      v23 = 2114;
+      v24 = v10;
       _os_log_impl(&dword_1CA256000, p_super, OS_LOG_TYPE_FAULT, "%s Failed to read run request response protobuf, %{public}@", buf, 0x16u);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -279,31 +274,26 @@ void __84__WFRemoteExecutionRunRequestResponse_inflateOutputData_fileCoordinator
 
 uint64_t __84__WFRemoteExecutionRunRequestResponse_inflateOutputData_fileCoordinator_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = *(*(a1 + 32) + 16);
 
-    return v4();
+    return v3();
   }
 
   else
   {
-    v7 = getWFRemoteExecutionLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v5 = getWFRemoteExecutionLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v9 = 136315138;
-      v10 = "[WFRemoteExecutionRunRequestResponse inflateOutputData:fileCoordinator:completion:]_block_invoke_3";
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s No content item", &v9, 0xCu);
+      v6 = 136315138;
+      v7 = "[WFRemoteExecutionRunRequestResponse inflateOutputData:fileCoordinator:completion:]_block_invoke_3";
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s No content item", &v6, 0xCu);
     }
 
-    result = (*(*(a1 + 32) + 16))();
-    v8 = *MEMORY[0x1E69E9840];
+    return (*(*(a1 + 32) + 16))();
   }
-
-  return result;
 }
 
 WFREPBContentItem *__84__WFRemoteExecutionRunRequestResponse_inflateOutputData_fileCoordinator_completion___block_invoke(uint64_t a1, void *a2)
@@ -364,43 +354,42 @@ void __87__WFRemoteExecutionRunRequestResponse_inflateVariablesData_fileCoordina
 
 void __87__WFRemoteExecutionRunRequestResponse_inflateVariablesData_fileCoordinator_completion___block_invoke_2_189(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         v14 = [v13 value];
         v15 = [v13 key];
         [v7 setObject:v14 forKey:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 32) + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __87__WFRemoteExecutionRunRequestResponse_inflateVariablesData_fileCoordinator_completion___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -438,31 +427,26 @@ void __87__WFRemoteExecutionRunRequestResponse_inflateVariablesData_fileCoordina
 
 uint64_t __87__WFRemoteExecutionRunRequestResponse_inflateVariablesData_fileCoordinator_completion___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = *(*(a1 + 32) + 16);
 
-    return v4();
+    return v3();
   }
 
   else
   {
-    v7 = getWFRemoteExecutionLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v5 = getWFRemoteExecutionLogObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v9 = 136315138;
-      v10 = "[WFRemoteExecutionRunRequestResponse inflateVariablesData:fileCoordinator:completion:]_block_invoke_4";
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s No content item", &v9, 0xCu);
+      v6 = 136315138;
+      v7 = "[WFRemoteExecutionRunRequestResponse inflateVariablesData:fileCoordinator:completion:]_block_invoke_4";
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s No content item", &v6, 0xCu);
     }
 
-    result = (*(*(a1 + 32) + 16))();
-    v8 = *MEMORY[0x1E69E9840];
+    return (*(*(a1 + 32) + 16))();
   }
-
-  return result;
 }
 
 WFREPBVariable *__87__WFRemoteExecutionRunRequestResponse_inflateVariablesData_fileCoordinator_completion___block_invoke(uint64_t a1, void *a2)

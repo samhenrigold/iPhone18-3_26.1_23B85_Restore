@@ -1,8 +1,20 @@
 @interface MRDeviceInfoOutputDevice
 - (MRDeviceInfoOutputDevice)initWithDeviceInfo:(id)info fallbackOutputDevice:(id)device forExporting:(BOOL)exporting;
+- (MRDeviceInfoOutputDevice)initWithDeviceInfo:(id)info forExporting:(BOOL)exporting;
 @end
 
 @implementation MRDeviceInfoOutputDevice
+
+- (MRDeviceInfoOutputDevice)initWithDeviceInfo:(id)info forExporting:(BOOL)exporting
+{
+  exportingCopy = exporting;
+  infoCopy = info;
+  v7 = objc_alloc_init(_MRAVOutputDeviceDescriptorProtobuf);
+  v8 = [[MRAVDistantOutputDevice alloc] initWithDescriptor:v7];
+  v9 = [(MRDeviceInfoOutputDevice *)self initWithDeviceInfo:infoCopy fallbackOutputDevice:v8 forExporting:exportingCopy];
+
+  return v9;
+}
 
 - (MRDeviceInfoOutputDevice)initWithDeviceInfo:(id)info fallbackOutputDevice:(id)device forExporting:(BOOL)exporting
 {
@@ -65,7 +77,7 @@
   {
     deviceUID3 = [infoCopy deviceUID];
     v21 = MRMediaRemoteCopyDeviceUID();
-    [v10 setIsLocalDevice:{objc_msgSend(deviceUID3, "isEqualToString:", v21)}];
+    [v10 setIsLocalDevice:objc_msgSend_isEqualToString_(deviceUID3)];
   }
 
   v24.receiver = self;

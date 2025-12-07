@@ -73,77 +73,73 @@
 
 - (void)updateMetricsFromFeatures:(id)features prediction:(id)prediction truth:(id)truth
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   predictionCopy = prediction;
   truthCopy = truth;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v11 = self->metricsSet;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v17 + 1) + 8 * v15++) updateMetricsFromFeatures:featuresCopy prediction:predictionCopy truth:{truthCopy, v17}];
+        [*(*(&v16 + 1) + 8 * v15++) updateMetricsFromFeatures:featuresCopy prediction:predictionCopy truth:{truthCopy, v16}];
       }
 
       while (v13 != v15);
-      v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->metricsSet;
-  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) reset];
+        [*(*(&v7 + 1) + 8 * v6++) reset];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSMutableSet *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

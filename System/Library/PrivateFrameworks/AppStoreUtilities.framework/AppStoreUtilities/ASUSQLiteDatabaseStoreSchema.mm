@@ -110,7 +110,7 @@ void __53__ASUSQLiteDatabaseStoreSchema_column_existsInTable___block_invoke(uint
   [a2 enumerateRowsUsingBlock:v5];
 }
 
-void __53__ASUSQLiteDatabaseStoreSchema_column_existsInTable___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __53__ASUSQLiteDatabaseStoreSchema_column_existsInTable___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, unsigned __int8 *a4)
 {
   v7 = [a2 stringForColumnName:@"name"];
   v6 = [v7 isEqualToString:*(a1 + 32)];
@@ -171,7 +171,7 @@ void __60__ASUSQLiteDatabaseStoreSchema_migrateToVersion_usingBlock___block_invo
 
 - (uint64_t)_migrateToVersion:(void *)version usingMapping:(int)mapping isReattempt:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   if (self)
   {
@@ -180,16 +180,16 @@ void __60__ASUSQLiteDatabaseStoreSchema_migrateToVersion_usingBlock___block_invo
     {
       while (1)
       {
-        v22 = 0;
-        v23 = -1;
-        versionCopy[2](versionCopy, currentSchemaVersion, &v23, &v22);
-        v9 = v23;
-        if (v23 <= currentSchemaVersion || v23 > a2)
+        v21 = 0;
+        v22 = -1;
+        versionCopy[2](versionCopy, currentSchemaVersion, &v22, &v21);
+        v9 = v22;
+        if (v22 <= currentSchemaVersion || v22 > a2)
         {
           break;
         }
 
-        if (!v22)
+        if (!v21)
         {
           v13 = ASULogHandleForCategory(1);
           if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -198,14 +198,14 @@ void __60__ASUSQLiteDatabaseStoreSchema_migrateToVersion_usingBlock___block_invo
           }
 
           *buf = 134218240;
-          v25 = currentSchemaVersion;
-          v26 = 2048;
-          v27 = v23;
+          v24 = currentSchemaVersion;
+          v25 = 2048;
+          v26 = v22;
           v15 = "No migration block provided to migrate schema version %lli -> %lli";
           goto LABEL_32;
         }
 
-        v11 = [self migrateToVersion:v23 usingBlock:?];
+        v11 = [self migrateToVersion:v22 usingBlock:?];
         v12 = ASULogHandleForCategory(1);
         v13 = v12;
         if ((v11 & 1) == 0)
@@ -216,9 +216,9 @@ void __60__ASUSQLiteDatabaseStoreSchema_migrateToVersion_usingBlock___block_invo
           }
 
           *buf = 134218240;
-          v25 = currentSchemaVersion;
-          v26 = 2048;
-          v27 = v23;
+          v24 = currentSchemaVersion;
+          v25 = 2048;
+          v26 = v22;
           v15 = "Database migration function failed for %lli => %lli";
           goto LABEL_32;
         }
@@ -226,13 +226,13 @@ void __60__ASUSQLiteDatabaseStoreSchema_migrateToVersion_usingBlock___block_invo
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          v25 = currentSchemaVersion;
-          v26 = 2048;
-          v27 = v23;
+          v24 = currentSchemaVersion;
+          v25 = 2048;
+          v26 = v22;
           _os_log_impl(&dword_2400F8000, v13, OS_LOG_TYPE_DEFAULT, "Database migration function succeeded for %lli => %lli", buf, 0x16u);
         }
 
-        currentSchemaVersion = v23;
+        currentSchemaVersion = v22;
         if (currentSchemaVersion >= a2)
         {
           goto LABEL_21;
@@ -249,9 +249,9 @@ void __60__ASUSQLiteDatabaseStoreSchema_migrateToVersion_usingBlock___block_invo
         }
 
         *buf = 134218240;
-        v25 = v23;
-        v26 = 2048;
-        v27 = currentSchemaVersion;
+        v24 = v22;
+        v25 = 2048;
+        v26 = currentSchemaVersion;
         v15 = "Invalid version %lli provided; currentVersion: %lli";
 LABEL_32:
         _os_log_error_impl(&dword_2400F8000, v13, OS_LOG_TYPE_ERROR, v15, buf, 0x16u);
@@ -261,7 +261,7 @@ LABEL_32:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v25 = v23;
+        v24 = v22;
         _os_log_impl(&dword_2400F8000, v13, OS_LOG_TYPE_DEFAULT, "Version mapping not provided for %lli", buf, 0xCu);
       }
 
@@ -289,66 +289,65 @@ LABEL_21:
     else
     {
       v17 = *(self + 8);
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __75__ASUSQLiteDatabaseStoreSchema__migrateToVersion_usingMapping_isReattempt___block_invoke;
-      v20[3] = &unk_278C97F10;
-      v20[4] = self;
-      v21 = versionCopy;
-      self = [v17 performTransaction:v20 error:0];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __75__ASUSQLiteDatabaseStoreSchema__migrateToVersion_usingMapping_isReattempt___block_invoke;
+      v19[3] = &unk_278C97F10;
+      v19[4] = self;
+      v20 = versionCopy;
+      self = [v17 performTransaction:v19 error:0];
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 uint64_t __75__ASUSQLiteDatabaseStoreSchema__migrateToVersion_usingMapping_isReattempt___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) migrateToVersion:0 usingBlock:&__block_literal_global_0])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v2 = *(*(a1 + 32) + 24);
-    v3 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v16;
+      v5 = *v15;
       while (2)
       {
         v6 = 0;
         do
         {
-          if (*v16 != v5)
+          if (*v15 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v15 + 1) + 8 * v6);
-          v14 = 0;
+          v7 = *(*(&v14 + 1) + 8 * v6);
+          v13 = 0;
           v8 = [@"DROP TABLE IF EXISTS " stringByAppendingString:v7];
-          if (([*(*(a1 + 32) + 8) executeStatement:v8 error:&v14] & 1) == 0)
+          if (([*(*(a1 + 32) + 8) executeStatement:v8 error:&v13] & 1) == 0)
           {
             v12 = ASULogHandleForCategory(1);
             if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v20 = v14;
+              v19 = v13;
               _os_log_error_impl(&dword_2400F8000, v12, OS_LOG_TYPE_ERROR, "Failed to drop table: %{public}@", buf, 0xCu);
             }
 
-            goto LABEL_19;
+            return 0;
           }
 
           ++v6;
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
         if (v4)
         {
           continue;
@@ -365,7 +364,7 @@ uint64_t __75__ASUSQLiteDatabaseStoreSchema__migrateToVersion_usingMapping_isRea
       _os_log_impl(&dword_2400F8000, v9, OS_LOG_TYPE_DEFAULT, "Successfully reset schema; requesting migration from version 0", buf, 2u);
     }
 
-    result = [(ASUSQLiteDatabaseStoreSchema *)*(a1 + 32) _migrateToVersion:*(a1 + 40) usingMapping:1 isReattempt:?];
+    return [(ASUSQLiteDatabaseStoreSchema *)*(a1 + 32) _migrateToVersion:*(a1 + 40) usingMapping:1 isReattempt:?];
   }
 
   else
@@ -377,12 +376,8 @@ uint64_t __75__ASUSQLiteDatabaseStoreSchema__migrateToVersion_usingMapping_isRea
       _os_log_error_impl(&dword_2400F8000, v11, OS_LOG_TYPE_ERROR, "Failed to set schema version back to 0; rolling back transaction", buf, 2u);
     }
 
-LABEL_19:
-    result = 0;
+    return 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)tableExists:(id)exists

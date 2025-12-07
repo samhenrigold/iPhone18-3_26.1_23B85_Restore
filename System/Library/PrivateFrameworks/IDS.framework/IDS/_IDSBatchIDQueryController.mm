@@ -164,49 +164,45 @@ LABEL_25:
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Client request to invalidate: %@", &v6, 0xCu);
+    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Client request to invalidate: %@", &v5, 0xCu);
   }
 
   [(_IDSBatchIDQueryController *)self _invalidateNextQueryTimer];
   v4 = +[IDSIDQueryController sharedInstance];
   [v4 removeDelegate:self forService:self->_serviceName listenerID:self->_listenerID];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleNextQuery:(double)query
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     queryCopy = query;
-    _os_log_impl(&dword_1959FF000, v5, OS_LOG_TYPE_DEFAULT, "Scheduling next batch in %f", &v9, 0xCu);
+    _os_log_impl(&dword_1959FF000, v5, OS_LOG_TYPE_DEFAULT, "Scheduling next batch in %f", &v8, 0xCu);
   }
 
   v6 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:self target:sel__nextQuery_ selector:0 userInfo:0 repeats:query];
   nextQueryTimer = self->_nextQueryTimer;
   self->_nextQueryTimer = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDestinations:(id)destinations
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   v5 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = destinationsCopy;
+    v31 = destinationsCopy;
     _os_log_impl(&dword_1959FF000, v5, OS_LOG_TYPE_DEFAULT, "setDestinations %@", buf, 0xCu);
   }
 
@@ -275,7 +271,7 @@ LABEL_21:
       {
         v20 = self->_timeOfDeath;
         *buf = 138412290;
-        v32 = v20;
+        v31 = v20;
         _os_log_impl(&dword_1959FF000, v19, OS_LOG_TYPE_DEFAULT, "Setting time of death to %@", buf, 0xCu);
       }
     }
@@ -290,27 +286,25 @@ LABEL_21:
     serviceName = self->_serviceName;
     listenerID = self->_listenerID;
     v25 = self->_destinations;
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = sub_195B21458;
-    v28[3] = &unk_1E7443600;
-    v28[4] = self;
-    v29 = v22;
-    v30 = v11;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_195B21458;
+    v27[3] = &unk_1E7443600;
+    v27[4] = self;
+    v28 = v22;
+    v29 = v11;
     v6 = v22;
-    [v23 currentIDStatusForDestinations:v25 service:serviceName listenerID:listenerID queue:MEMORY[0x1E69E96A0] completionBlock:v28];
+    [v23 currentIDStatusForDestinations:v25 service:serviceName listenerID:listenerID queue:MEMORY[0x1E69E96A0] completionBlock:v27];
 
     goto LABEL_21;
   }
 
 LABEL_22:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_nextQuery:(id)query
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v4 = 0x1E743D000uLL;
   v5 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -352,12 +346,12 @@ LABEL_22:
 
   v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
   os_unfair_lock_lock(&self->_destinationsToQuerylock);
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v13 = self->_destinationsToQuery;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (!v14)
   {
     goto LABEL_30;
@@ -365,9 +359,9 @@ LABEL_22:
 
   v15 = v14;
   v16 = 0;
-  v17 = *v39;
-  v36 = date;
-  v35 = intValue;
+  v17 = *v38;
+  v35 = date;
+  v34 = intValue;
   while (2)
   {
     v18 = 0;
@@ -385,12 +379,12 @@ LABEL_22:
     v16 += v15;
     do
     {
-      if (*v39 != v17)
+      if (*v38 != v17)
       {
         objc_enumerationMutation(v13);
       }
 
-      v21 = *(*(&v38 + 1) + 8 * v18);
+      v21 = *(*(&v37 + 1) + 8 * v18);
       if (![(_IDSBatchIDQueryController *)self underLimit])
       {
         v4 = 0x1E743D000uLL;
@@ -405,7 +399,7 @@ LABEL_28:
         }
 
 LABEL_29:
-        date = v36;
+        date = v35;
 
         goto LABEL_30;
       }
@@ -432,10 +426,10 @@ LABEL_29:
     }
 
     while (v15 != v18);
-    v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v38 objects:v46 count:16];
-    date = v36;
+    v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    date = v35;
     v4 = 0x1E743D000;
-    intValue = v35;
+    intValue = v34;
     if (v15)
     {
       continue;
@@ -452,12 +446,12 @@ LABEL_30:
     v24 = +[IDSIDQueryController sharedInstance];
     serviceName = self->_serviceName;
     listenerID = self->_listenerID;
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = sub_195B21CE0;
-    v37[3] = &unk_1E7443628;
-    v37[4] = self;
-    [v24 refreshIDStatusForDestinations:v12 service:serviceName listenerID:listenerID queue:MEMORY[0x1E69E96A0] errorCompletionBlock:v37];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = sub_195B21CE0;
+    v36[3] = &unk_1E7443628;
+    v36[4] = self;
+    [v24 refreshIDStatusForDestinations:v12 service:serviceName listenerID:listenerID queue:MEMORY[0x1E69E96A0] errorCompletionBlock:v36];
 
     os_unfair_lock_lock(&self->_destinationsToQuerylock);
     [(NSMutableArray *)self->_destinationsToQuery removeObjectsInArray:v12];
@@ -481,7 +475,7 @@ LABEL_30:
 
         *buf = 138412546;
         selfCopy4 = v29;
-        v44 = 2112;
+        v43 = 2112;
         selfCopy5 = self;
         _os_log_impl(&dword_1959FF000, iDQuery, OS_LOG_TYPE_DEFAULT, "We've reached the max number of queries, possibly deferring queries: %@ %@", buf, 0x16u);
       }
@@ -505,47 +499,44 @@ LABEL_30:
   }
 
 LABEL_43:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateNextQueryTimer
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = +[IDSLogging IDQuery];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating next query timer: %@", &v6, 0xCu);
+    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating next query timer: %@", &v5, 0xCu);
   }
 
   [(NSTimer *)self->_nextQueryTimer invalidate];
   nextQueryTimer = self->_nextQueryTimer;
   self->_nextQueryTimer = 0;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_calloutToDelegateWithResult:(id)result error:(id)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   object = [(CUTWeakReference *)self->_delegate object];
   v9 = object;
   if (object && (v10 = self->_queue) != 0)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = sub_195B22048;
-    v14[3] = &unk_1E743EEE8;
-    v15 = object;
-    v16 = resultCopy;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_195B22048;
+    v13[3] = &unk_1E743EEE8;
+    v14 = object;
+    v15 = resultCopy;
     selfCopy = self;
-    v18 = errorCopy;
-    dispatch_async(v10, v14);
+    v17 = errorCopy;
+    dispatch_async(v10, v13);
 
-    v11 = v15;
+    v11 = v14;
   }
 
   else
@@ -555,14 +546,12 @@ LABEL_43:
     {
       queue = self->_queue;
       *buf = 134218240;
-      v20 = v9;
-      v21 = 2048;
-      v22 = queue;
+      v19 = v9;
+      v20 = 2048;
+      v21 = queue;
       _os_log_impl(&dword_1959FF000, v11, OS_LOG_TYPE_DEFAULT, "No delegate %p or queue %p", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)underLimit

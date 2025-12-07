@@ -16,9 +16,9 @@
 
 + (id)columns
 {
-  v17[12] = *MEMORY[0x1E69E9840];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"accountId" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"messageId" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
+  v16[12] = *MEMORY[0x1E69E9840];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"accountId" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"messageId" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"senderId" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:2 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"receivingAccountDomain" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:2 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"metadataPrimaryKey" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
@@ -26,58 +26,54 @@
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"currCategoryView" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:2 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"reasonCodes" dataType:2 requestOnly:0 fieldNumber:8 protoDataType:13 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"receiveTimestamp" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:2 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isAllInboxesCategoriesEnabled" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:12 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isAllInboxesCategoriesEnabled" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:12 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMailAccountPersonalAccount" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:12 convertedType:0];
   v10 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isMailAccountCategoriesEnabled" dataType:0 requestOnly:0 fieldNumber:12 protoDataType:12 convertedType:0];
-  v17[0] = v16;
-  v17[1] = v15;
-  v17[2] = v2;
-  v17[3] = v3;
-  v17[4] = v4;
-  v17[5] = v5;
-  v17[6] = v6;
-  v17[7] = v7;
-  v17[8] = v8;
-  v17[9] = v14;
-  v17[10] = v9;
-  v17[11] = v10;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
+  v16[0] = v15;
+  v16[1] = v14;
+  v16[2] = v2;
+  v16[3] = v3;
+  v16[4] = v4;
+  v16[5] = v5;
+  v16[6] = v6;
+  v16[7] = v7;
+  v16[8] = v8;
+  v16[9] = v13;
+  v16[10] = v9;
+  v16[11] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:12];
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 + (id)protoFields
 {
-  v17[12] = *MEMORY[0x1E69E9840];
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"accountId" number:1 type:13 subMessageClass:0];
-  v17[0] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"messageId" number:2 type:2 subMessageClass:0];
-  v17[1] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"senderId" number:3 type:2 subMessageClass:0];
-  v17[2] = v14;
+  v16[12] = *MEMORY[0x1E69E9840];
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"accountId" number:1 type:13 subMessageClass:0];
+  v16[0] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"messageId" number:2 type:2 subMessageClass:0];
+  v16[1] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"senderId" number:3 type:2 subMessageClass:0];
+  v16[2] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"receivingAccountDomain" number:4 type:2 subMessageClass:0];
-  v17[3] = v2;
+  v16[3] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"metadataPrimaryKey" number:5 type:13 subMessageClass:0];
-  v17[4] = v3;
+  v16[4] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predictedCategory" number:6 type:2 subMessageClass:0];
-  v17[5] = v4;
+  v16[5] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"currCategoryView" number:7 type:2 subMessageClass:0];
-  v17[6] = v5;
+  v16[6] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"reasonCodes" number:8 type:13 subMessageClass:0];
-  v17[7] = v6;
+  v16[7] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"receiveTimestamp" number:9 type:2 subMessageClass:0];
-  v17[8] = v7;
+  v16[8] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isAllInboxesCategoriesEnabled" number:10 type:12 subMessageClass:0];
-  v17[9] = v8;
+  v16[9] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMailAccountPersonalAccount" number:11 type:12 subMessageClass:0];
-  v17[10] = v9;
+  v16[10] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isMailAccountCategoriesEnabled" number:12 type:12 subMessageClass:0];
-  v17[11] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v16[11] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:12];
 
   return v11;
 }
@@ -278,7 +274,7 @@ LABEL_62:
 
 - (id)jsonDictionary
 {
-  v39[12] = *MEMORY[0x1E69E9840];
+  v38[12] = *MEMORY[0x1E69E9840];
   accountId = [(BMMailCategorizationAnalyticsReceive *)self accountId];
   if ([(BMMailCategorizationAnalyticsReceive *)self hasMessageId])
   {
@@ -313,17 +309,7 @@ LABEL_62:
   metadataPrimaryKey = [(BMMailCategorizationAnalyticsReceive *)self metadataPrimaryKey];
   if ([(BMMailCategorizationAnalyticsReceive *)self hasPredictedCategory])
   {
-    v36 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMailCategorizationAnalyticsReceive predictedCategory](self, "predictedCategory")}];
-  }
-
-  else
-  {
-    v36 = 0;
-  }
-
-  if ([(BMMailCategorizationAnalyticsReceive *)self hasCurrCategoryView])
-  {
-    v35 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMailCategorizationAnalyticsReceive currCategoryView](self, "currCategoryView")}];
+    v35 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMailCategorizationAnalyticsReceive predictedCategory](self, "predictedCategory")}];
   }
 
   else
@@ -331,25 +317,35 @@ LABEL_62:
     v35 = 0;
   }
 
-  reasonCodes = [(BMMailCategorizationAnalyticsReceive *)self reasonCodes];
-  if ([(BMMailCategorizationAnalyticsReceive *)self hasReceiveTimestamp])
+  if ([(BMMailCategorizationAnalyticsReceive *)self hasCurrCategoryView])
   {
-    v33 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMailCategorizationAnalyticsReceive receiveTimestamp](self, "receiveTimestamp")}];
+    v34 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMailCategorizationAnalyticsReceive currCategoryView](self, "currCategoryView")}];
   }
 
   else
   {
-    v33 = 0;
+    v34 = 0;
   }
 
-  if ([(BMMailCategorizationAnalyticsReceive *)self hasIsAllInboxesCategoriesEnabled])
+  reasonCodes = [(BMMailCategorizationAnalyticsReceive *)self reasonCodes];
+  if ([(BMMailCategorizationAnalyticsReceive *)self hasReceiveTimestamp])
   {
-    v32 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMMailCategorizationAnalyticsReceive isAllInboxesCategoriesEnabled](self, "isAllInboxesCategoriesEnabled")}];
+    v32 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMailCategorizationAnalyticsReceive receiveTimestamp](self, "receiveTimestamp")}];
   }
 
   else
   {
     v32 = 0;
+  }
+
+  if ([(BMMailCategorizationAnalyticsReceive *)self hasIsAllInboxesCategoriesEnabled])
+  {
+    v31 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMMailCategorizationAnalyticsReceive isAllInboxesCategoriesEnabled](self, "isAllInboxesCategoriesEnabled")}];
+  }
+
+  else
+  {
+    v31 = 0;
   }
 
   if ([(BMMailCategorizationAnalyticsReceive *)self hasIsMailAccountPersonalAccount])
@@ -372,111 +368,111 @@ LABEL_62:
     v8 = 0;
   }
 
-  v38[0] = @"accountId";
+  v37[0] = @"accountId";
   null = accountId;
   if (!accountId)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = null;
-  v39[0] = null;
-  v38[1] = @"messageId";
+  v26 = null;
+  v38[0] = null;
+  v37[1] = @"messageId";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = null2;
-  v39[1] = null2;
-  v38[2] = @"senderId";
+  v25 = null2;
+  v38[1] = null2;
+  v37[2] = @"senderId";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = null3;
-  v39[2] = null3;
-  v38[3] = @"receivingAccountDomain";
+  v24 = null3;
+  v38[2] = null3;
+  v37[3] = @"receivingAccountDomain";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = accountId;
-  v24 = null4;
-  v39[3] = null4;
-  v38[4] = @"metadataPrimaryKey";
+  v30 = accountId;
+  v23 = null4;
+  v38[3] = null4;
+  v37[4] = @"metadataPrimaryKey";
   null5 = metadataPrimaryKey;
   if (!metadataPrimaryKey)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = v4;
-  v39[4] = null5;
-  v38[5] = @"predictedCategory";
-  null6 = v36;
-  if (!v36)
+  v29 = v4;
+  v38[4] = null5;
+  v37[5] = @"predictedCategory";
+  null6 = v35;
+  if (!v35)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[5] = null6;
-  v38[6] = @"currCategoryView";
-  null7 = v35;
-  if (!v35)
+  v38[5] = null6;
+  v37[6] = @"currCategoryView";
+  null7 = v34;
+  if (!v34)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = v5;
-  v39[6] = null7;
-  v38[7] = @"reasonCodes";
+  v28 = v5;
+  v38[6] = null7;
+  v37[7] = @"reasonCodes";
   null8 = reasonCodes;
   if (!reasonCodes)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[7] = null8;
-  v38[8] = @"receiveTimestamp";
-  null9 = v33;
-  if (!v33)
+  v38[7] = null8;
+  v37[8] = @"receiveTimestamp";
+  null9 = v32;
+  if (!v32)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[8] = null9;
-  v38[9] = @"isAllInboxesCategoriesEnabled";
-  null10 = v32;
-  if (!v32)
+  v38[8] = null9;
+  v37[9] = @"isAllInboxesCategoriesEnabled";
+  null10 = v31;
+  if (!v31)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null5;
-  v39[9] = null10;
-  v38[10] = @"isMailAccountPersonalAccount";
+  v22 = null5;
+  v38[9] = null10;
+  v37[10] = @"isMailAccountPersonalAccount";
   null11 = v7;
   if (!v7)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[10] = null11;
-  v38[11] = @"isMailAccountCategoriesEnabled";
+  v38[10] = null11;
+  v37[11] = @"isMailAccountCategoriesEnabled";
   null12 = v8;
   if (!v8)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[11] = null12;
-  v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:12];
+  v38[11] = null12;
+  v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:12];
   if (v8)
   {
     if (v7)
@@ -495,11 +491,11 @@ LABEL_62:
   }
 
 LABEL_54:
-  if (!v32)
+  if (!v31)
   {
   }
 
-  if (!v33)
+  if (!v32)
   {
   }
 
@@ -507,11 +503,11 @@ LABEL_54:
   {
   }
 
-  if (!v35)
+  if (!v34)
   {
   }
 
-  if (!v36)
+  if (!v35)
   {
   }
 
@@ -521,7 +517,7 @@ LABEL_54:
 
   if (v6)
   {
-    if (v29)
+    if (v28)
     {
       goto LABEL_68;
     }
@@ -530,17 +526,17 @@ LABEL_54:
   else
   {
 
-    if (v29)
+    if (v28)
     {
 LABEL_68:
-      if (v30)
+      if (v29)
       {
         goto LABEL_69;
       }
 
 LABEL_77:
 
-      if (v31)
+      if (v30)
       {
         goto LABEL_70;
       }
@@ -549,13 +545,13 @@ LABEL_77:
     }
   }
 
-  if (!v30)
+  if (!v29)
   {
     goto LABEL_77;
   }
 
 LABEL_69:
-  if (v31)
+  if (v30)
   {
     goto LABEL_70;
   }
@@ -563,14 +559,13 @@ LABEL_69:
 LABEL_78:
 
 LABEL_70:
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v28;
+  return v27;
 }
 
 - (BMMailCategorizationAnalyticsReceive)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v140[1] = *MEMORY[0x1E69E9840];
+  v139[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"accountId"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -596,26 +591,26 @@ LABEL_4:
     {
       v10 = v9;
 LABEL_7:
-      v116 = [dictionaryCopy objectForKeyedSubscript:@"senderId"];
-      v113 = v10;
+      v115 = [dictionaryCopy objectForKeyedSubscript:@"senderId"];
+      v112 = v10;
       selfCopy = self;
-      if (!v116 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      if (!v115 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v115 = 0;
+        v114 = 0;
         goto LABEL_10;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v115 = v116;
+        v114 = v115;
 LABEL_10:
         v11 = [dictionaryCopy objectForKeyedSubscript:@"receivingAccountDomain"];
-        v112 = v11;
+        v111 = v11;
         if (!v11 || (v12 = v11, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           errorCopy2 = error;
-          v110 = 0;
+          v109 = 0;
           goto LABEL_13;
         }
 
@@ -623,12 +618,12 @@ LABEL_10:
         if (objc_opt_isKindOfClass())
         {
           errorCopy2 = error;
-          v110 = v12;
+          v109 = v12;
 LABEL_13:
           v14 = [dictionaryCopy objectForKeyedSubscript:@"metadataPrimaryKey"];
           if (!v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v107 = v14;
+            v106 = v14;
             v15 = 0;
             goto LABEL_16;
           }
@@ -636,41 +631,41 @@ LABEL_13:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v107 = v14;
+            v106 = v14;
             v15 = v14;
 LABEL_16:
             v16 = [dictionaryCopy objectForKeyedSubscript:@"predictedCategory"];
-            v109 = v16;
+            v108 = v16;
             if (!v16 || (v17 = v16, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v111 = 0;
+              v110 = 0;
               goto LABEL_19;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v111 = v17;
+              v110 = v17;
 LABEL_19:
               [dictionaryCopy objectForKeyedSubscript:@"currCategoryView"];
               v19 = v18 = errorCopy2;
               if (!v19 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v97 = v18;
-                v108 = 0;
+                v96 = v18;
+                v107 = 0;
                 goto LABEL_22;
               }
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v97 = v18;
-                v108 = v19;
+                v96 = v18;
+                v107 = v19;
 LABEL_22:
                 v20 = [dictionaryCopy objectForKeyedSubscript:@"reasonCodes"];
-                v102 = v15;
-                v99 = v19;
-                v105 = v20;
+                v101 = v15;
+                v98 = v19;
+                v104 = v20;
                 if (v20)
                 {
                   objc_opt_class();
@@ -686,32 +681,32 @@ LABEL_22:
                     objc_opt_class();
                     if ((objc_opt_isKindOfClass() & 1) == 0)
                     {
-                      if (!v97)
+                      if (!v96)
                       {
-                        v104 = 0;
+                        v103 = 0;
                         v26 = 0;
-                        error = v110;
-                        v52 = v107;
+                        error = v109;
+                        v52 = v106;
                         goto LABEL_100;
                       }
 
                       v74 = objc_alloc(MEMORY[0x1E696ABC0]);
                       v75 = v8;
                       v76 = *MEMORY[0x1E698F240];
-                      v125 = *MEMORY[0x1E696A578];
-                      v106 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"reasonCodes"];
-                      v126 = v106;
-                      v77 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+                      v124 = *MEMORY[0x1E696A578];
+                      v105 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"reasonCodes"];
+                      v125 = v105;
+                      v77 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
                       v78 = v76;
                       v8 = v75;
-                      v10 = v113;
-                      v100 = v77;
+                      v10 = v112;
+                      v99 = v77;
                       v79 = [v74 initWithDomain:v78 code:2 userInfo:?];
-                      v104 = 0;
+                      v103 = 0;
                       v26 = 0;
-                      *v97 = v79;
-                      error = v110;
-                      v52 = v107;
+                      *v96 = v79;
+                      error = v109;
+                      v52 = v106;
                       goto LABEL_99;
                     }
 
@@ -728,120 +723,120 @@ LABEL_22:
                 }
 
                 v40 = [dictionaryCopy objectForKeyedSubscript:@"receiveTimestamp"];
-                v104 = v20;
-                v100 = v40;
+                v103 = v20;
+                v99 = v40;
                 if (v40 && (v41 = v40, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                 {
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    if (!v97)
+                    if (!v96)
                     {
-                      v106 = 0;
+                      v105 = 0;
                       v26 = 0;
-                      error = v110;
-                      v52 = v107;
+                      error = v109;
+                      v52 = v106;
                       v15 = v22;
                       v8 = v21;
-                      v10 = v113;
+                      v10 = v112;
                       goto LABEL_99;
                     }
 
                     v80 = objc_alloc(MEMORY[0x1E696ABC0]);
                     v81 = *MEMORY[0x1E698F240];
-                    v123 = *MEMORY[0x1E696A578];
+                    v122 = *MEMORY[0x1E696A578];
                     v15 = v22;
-                    v101 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"receiveTimestamp"];
-                    v124 = v101;
-                    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+                    v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"receiveTimestamp"];
+                    v123 = v100;
+                    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
                     v8 = v21;
-                    v95 = v10 = v113;
+                    v94 = v10 = v112;
                     v82 = [v80 initWithDomain:v81 code:2 userInfo:?];
-                    v106 = 0;
+                    v105 = 0;
                     v26 = 0;
-                    *v97 = v82;
-                    error = v110;
+                    *v96 = v82;
+                    error = v109;
                     goto LABEL_97;
                   }
 
-                  v106 = v41;
+                  v105 = v41;
                 }
 
                 else
                 {
-                  v106 = 0;
+                  v105 = 0;
                 }
 
                 v42 = [dictionaryCopy objectForKeyedSubscript:@"isAllInboxesCategoriesEnabled"];
-                v98 = v21;
-                v95 = v42;
+                v97 = v21;
+                v94 = v42;
                 if (v42 && (v43 = v42, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                 {
                   v8 = v21;
                   objc_opt_class();
-                  v10 = v113;
+                  v10 = v112;
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    if (!v97)
+                    if (!v96)
                     {
-                      v101 = 0;
+                      v100 = 0;
                       v26 = 0;
-                      error = v110;
-                      v52 = v107;
-                      v15 = v102;
+                      error = v109;
+                      v52 = v106;
+                      v15 = v101;
                       goto LABEL_98;
                     }
 
                     v83 = objc_alloc(MEMORY[0x1E696ABC0]);
                     v84 = *MEMORY[0x1E698F240];
-                    v121 = *MEMORY[0x1E696A578];
+                    v120 = *MEMORY[0x1E696A578];
                     v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isAllInboxesCategoriesEnabled"];
-                    v122 = v45;
-                    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+                    v121 = v45;
+                    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
                     v85 = v84;
-                    v19 = v99;
+                    v19 = v98;
                     v86 = [v83 initWithDomain:v85 code:2 userInfo:v44];
-                    v101 = 0;
+                    v100 = 0;
                     v26 = 0;
-                    *v97 = v86;
-                    error = v110;
-                    v15 = v102;
+                    *v96 = v86;
+                    error = v109;
+                    v15 = v101;
                     goto LABEL_96;
                   }
 
-                  v101 = v43;
+                  v100 = v43;
                 }
 
                 else
                 {
-                  v101 = 0;
+                  v100 = 0;
                 }
 
                 v44 = [dictionaryCopy objectForKeyedSubscript:@"isMailAccountPersonalAccount"];
-                v15 = v102;
+                v15 = v101;
                 if (v44 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                 {
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    if (!v97)
+                    if (!v96)
                     {
                       v45 = 0;
                       v26 = 0;
-                      error = v110;
+                      error = v109;
                       goto LABEL_96;
                     }
 
                     v87 = objc_alloc(MEMORY[0x1E696ABC0]);
                     v88 = *MEMORY[0x1E698F240];
-                    v119 = *MEMORY[0x1E696A578];
+                    v118 = *MEMORY[0x1E696A578];
                     v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isMailAccountPersonalAccount"];
-                    v120 = v47;
-                    v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+                    v119 = v47;
+                    v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
                     v89 = [v87 initWithDomain:v88 code:2 userInfo:v46];
                     v45 = 0;
                     v26 = 0;
-                    *v97 = v89;
+                    *v96 = v89;
                     goto LABEL_94;
                   }
 
@@ -858,19 +853,19 @@ LABEL_22:
                 {
                   v47 = 0;
 LABEL_60:
-                  v94 = v20;
-                  error = v110;
-                  v26 = [(BMMailCategorizationAnalyticsReceive *)selfCopy initWithAccountId:v98 messageId:v113 senderId:v115 receivingAccountDomain:v110 metadataPrimaryKey:v102 predictedCategory:v111 currCategoryView:v108 reasonCodes:v94 receiveTimestamp:v106 isAllInboxesCategoriesEnabled:v101 isMailAccountPersonalAccount:v45 isMailAccountCategoriesEnabled:v47];
+                  v93 = v20;
+                  error = v109;
+                  v26 = [(BMMailCategorizationAnalyticsReceive *)selfCopy initWithAccountId:v97 messageId:v112 senderId:v114 receivingAccountDomain:v109 metadataPrimaryKey:v101 predictedCategory:v110 currCategoryView:v107 reasonCodes:v93 receiveTimestamp:v105 isAllInboxesCategoriesEnabled:v100 isMailAccountPersonalAccount:v45 isMailAccountCategoriesEnabled:v47];
                   selfCopy = v26;
 LABEL_95:
 
-                  v19 = v99;
+                  v19 = v98;
 LABEL_96:
 
-                  v8 = v98;
-                  v10 = v113;
+                  v8 = v97;
+                  v10 = v112;
 LABEL_97:
-                  v52 = v107;
+                  v52 = v106;
 LABEL_98:
 
 LABEL_99:
@@ -884,21 +879,21 @@ LABEL_99:
                   goto LABEL_60;
                 }
 
-                if (v97)
+                if (v96)
                 {
-                  v103 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v96 = *MEMORY[0x1E698F240];
-                  v117 = *MEMORY[0x1E696A578];
+                  v102 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v95 = *MEMORY[0x1E698F240];
+                  v116 = *MEMORY[0x1E696A578];
                   v90 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isMailAccountCategoriesEnabled"];
-                  v118 = v90;
-                  v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
-                  *v97 = [v103 initWithDomain:v96 code:2 userInfo:v91];
+                  v117 = v90;
+                  v91 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
+                  *v96 = [v102 initWithDomain:v95 code:2 userInfo:v91];
                 }
 
                 v47 = 0;
                 v26 = 0;
 LABEL_94:
-                error = v110;
+                error = v109;
                 goto LABEL_95;
               }
 
@@ -907,31 +902,31 @@ LABEL_94:
                 v68 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v69 = v8;
                 v70 = *MEMORY[0x1E698F240];
-                v127 = *MEMORY[0x1E696A578];
-                v104 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"currCategoryView"];
-                v128 = v104;
-                v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+                v126 = *MEMORY[0x1E696A578];
+                v103 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"currCategoryView"];
+                v127 = v103;
+                v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
                 v72 = v70;
                 v8 = v69;
-                v10 = v113;
-                v105 = v71;
+                v10 = v112;
+                v104 = v71;
                 v73 = [v68 initWithDomain:v72 code:2 userInfo:?];
-                v108 = 0;
+                v107 = 0;
                 v26 = 0;
                 *v18 = v73;
-                error = v110;
-                v52 = v107;
+                error = v109;
+                v52 = v106;
 LABEL_100:
 
 LABEL_101:
                 goto LABEL_102;
               }
 
-              v108 = 0;
+              v107 = 0;
               v26 = 0;
 LABEL_109:
-              error = v110;
-              v52 = v107;
+              error = v109;
+              v52 = v106;
               goto LABEL_101;
             }
 
@@ -940,25 +935,25 @@ LABEL_109:
               v62 = objc_alloc(MEMORY[0x1E696ABC0]);
               v63 = v8;
               v64 = *MEMORY[0x1E698F240];
-              v129 = *MEMORY[0x1E696A578];
-              v108 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"predictedCategory"];
-              v130 = v108;
-              v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+              v128 = *MEMORY[0x1E696A578];
+              v107 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"predictedCategory"];
+              v129 = v107;
+              v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
               v66 = v64;
               v8 = v63;
-              v10 = v113;
+              v10 = v112;
               v67 = [v62 initWithDomain:v66 code:2 userInfo:v65];
-              v111 = 0;
+              v110 = 0;
               v26 = 0;
               *errorCopy2 = v67;
               v19 = v65;
               goto LABEL_109;
             }
 
-            v111 = 0;
+            v110 = 0;
             v26 = 0;
-            error = v110;
-            v52 = v107;
+            error = v109;
+            v52 = v106;
 LABEL_102:
 
             goto LABEL_103;
@@ -970,30 +965,30 @@ LABEL_102:
             v56 = objc_alloc(MEMORY[0x1E696ABC0]);
             v57 = v8;
             v58 = *MEMORY[0x1E698F240];
-            v131 = *MEMORY[0x1E696A578];
+            v130 = *MEMORY[0x1E696A578];
             v52 = v14;
-            v111 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"metadataPrimaryKey"];
-            v132 = v111;
-            v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+            v110 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"metadataPrimaryKey"];
+            v131 = v110;
+            v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
             v60 = v58;
             v8 = v57;
-            v10 = v113;
-            v109 = v59;
+            v10 = v112;
+            v108 = v59;
             v61 = [v56 initWithDomain:v60 code:2 userInfo:?];
             v15 = 0;
             v26 = 0;
             *errorCopy2 = v61;
-            error = v110;
+            error = v109;
             goto LABEL_102;
           }
 
           v26 = 0;
-          error = v110;
+          error = v109;
           v52 = v55;
           v15 = 0;
 LABEL_103:
 
-          v12 = v112;
+          v12 = v111;
           goto LABEL_104;
         }
 
@@ -1002,14 +997,14 @@ LABEL_103:
           v48 = objc_alloc(MEMORY[0x1E696ABC0]);
           v49 = v8;
           v50 = *MEMORY[0x1E698F240];
-          v133 = *MEMORY[0x1E696A578];
+          v132 = *MEMORY[0x1E696A578];
           errorCopy3 = error;
           v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"receivingAccountDomain"];
-          v134 = v15;
-          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+          v133 = v15;
+          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
           v53 = v50;
           v8 = v49;
-          v10 = v113;
+          v10 = v112;
           v54 = [v48 initWithDomain:v53 code:2 userInfo:v52];
           error = 0;
           v26 = 0;
@@ -1029,23 +1024,23 @@ LABEL_104:
         v33 = objc_alloc(MEMORY[0x1E696ABC0]);
         v34 = v8;
         v35 = *MEMORY[0x1E698F240];
-        v135 = *MEMORY[0x1E696A578];
+        v134 = *MEMORY[0x1E696A578];
         errorCopy4 = error;
         error = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"senderId"];
         errorCopy5 = error;
-        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy5 forKeys:&v135 count:1];
+        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy5 forKeys:&v134 count:1];
         v38 = v35;
         v8 = v34;
-        v10 = v113;
+        v10 = v112;
         v39 = [v33 initWithDomain:v38 code:2 userInfo:v37];
-        v115 = 0;
+        v114 = 0;
         v26 = 0;
         *errorCopy4 = v39;
         v12 = v37;
         goto LABEL_104;
       }
 
-      v115 = 0;
+      v114 = 0;
       v26 = 0;
 LABEL_105:
 
@@ -1057,13 +1052,13 @@ LABEL_105:
       v27 = objc_alloc(MEMORY[0x1E696ABC0]);
       v28 = v8;
       v29 = *MEMORY[0x1E698F240];
-      v137 = *MEMORY[0x1E696A578];
-      v115 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"messageId"];
-      v138 = v115;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+      v136 = *MEMORY[0x1E696A578];
+      v114 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"messageId"];
+      v137 = v114;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
       v31 = v29;
       v8 = v28;
-      v116 = v30;
+      v115 = v30;
       v32 = [v27 initWithDomain:v31 code:2 userInfo:?];
       v10 = 0;
       v26 = 0;
@@ -1082,10 +1077,10 @@ LABEL_106:
   {
     v23 = objc_alloc(MEMORY[0x1E696ABC0]);
     v24 = *MEMORY[0x1E698F240];
-    v139 = *MEMORY[0x1E696A578];
+    v138 = *MEMORY[0x1E696A578];
     v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"accountId"];
-    v140[0] = v10;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v140 forKeys:&v139 count:1];
+    v139[0] = v10;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v139 forKeys:&v138 count:1];
     v25 = [v23 initWithDomain:v24 code:2 userInfo:v9];
     v8 = 0;
     v26 = 0;
@@ -1097,7 +1092,6 @@ LABEL_106:
   v26 = 0;
 LABEL_107:
 
-  v92 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -1113,86 +1107,77 @@ LABEL_107:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v14 = toCopy;
+  v5 = toCopy;
   if (self->_accountId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasMessageId)
   {
-    messageId = self->_messageId;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasSenderId)
   {
-    senderId = self->_senderId;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasReceivingAccountDomain)
   {
-    receivingAccountDomain = self->_receivingAccountDomain;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_metadataPrimaryKey)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasPredictedCategory)
   {
-    predictedCategory = self->_predictedCategory;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasCurrCategoryView)
   {
-    currCategoryView = self->_currCategoryView;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_reasonCodes)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasReceiveTimestamp)
   {
-    receiveTimestamp = self->_receiveTimestamp;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasIsAllInboxesCategoriesEnabled)
   {
-    isAllInboxesCategoriesEnabled = self->_isAllInboxesCategoriesEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasIsMailAccountPersonalAccount)
   {
-    isMailAccountPersonalAccount = self->_isMailAccountPersonalAccount;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v5;
   }
 
   if (self->_hasIsMailAccountCategoriesEnabled)
   {
-    isMailAccountCategoriesEnabled = self->_isMailAccountCategoriesEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v5;
   }
 }
 

@@ -30,6 +30,9 @@
 - (void)removeFromSuperview;
 - (void)setButton:(id)button forKeyAtIndex:(unint64_t)index;
 - (void)setDelegate:(id)delegate;
+- (void)setHighlighted:(BOOL)highlighted;
+- (void)setNeedsDisplayForKey:(int)key;
+- (void)setPlaysSounds:(BOOL)sounds;
 @end
 
 @implementation TPPhonePad
@@ -115,18 +118,17 @@
 
 - (void)highlightKeyAtIndex:(int64_t)index
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = TPDefaultLog();
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = TPDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     indexCopy = index;
-    _os_log_impl(&dword_1B4894000, v5, OS_LOG_TYPE_DEFAULT, "highlightKeyAtIndex: %ld", &v7, 0xCu);
+    _os_log_impl(&dword_1B4894000, v5, OS_LOG_TYPE_DEFAULT, "highlightKeyAtIndex: %ld", &v6, 0xCu);
   }
 
   self->_highlightKey = index;
   [(TPPhonePad *)self setNeedsDisplayForKey:index];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)shouldStringAutoDial:(id)dial givenLastChar:(char)char
@@ -262,19 +264,17 @@ LABEL_25:
   if (!__SystemSoundActivationCount)
   {
     inPropertyData = 0;
-    AudioServicesSetProperty(0x61637421u, 4u, &kSoundIDs, 4u, &inPropertyData);
-    v2 = TPDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = AudioServicesSetProperty(0x61637421u, 4u, kSoundIDs, 4u, &inPropertyData);
+    v3 = TPDefaultLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       v6 = inPropertyData;
-      _os_log_impl(&dword_1B4894000, v2, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
+      _os_log_impl(&dword_1B4894000, v3, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
     }
 
     __PendingDeactivate = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activateSounds:(BOOL)sounds
@@ -310,13 +310,13 @@ LABEL_25:
       if ((__PendingDeactivate & 1) == 0)
       {
         inPropertyData = 1;
-        AudioServicesSetProperty(0x61637421u, 4u, &kSoundIDs, 4u, &inPropertyData);
-        v9 = TPDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v9 = AudioServicesSetProperty(0x61637421u, 4u, kSoundIDs, 4u, &inPropertyData);
+        v10 = TPDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
           v14 = inPropertyData;
-          _os_log_impl(&dword_1B4894000, v9, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
+          _os_log_impl(&dword_1B4894000, v10, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
         }
       }
     }
@@ -329,18 +329,16 @@ LABEL_25:
 
     if (soundsCopy)
     {
-      v10 = 2;
+      v11 = 2;
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    *(self + 556) = *(self + 556) & 0xFD | v10;
+    *(self + 556) = *(self + 556) & 0xFD | v11;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFromSuperview
@@ -384,23 +382,59 @@ LABEL_25:
   delegateCopy = delegate;
   if (self->_delegate != delegateCopy)
   {
-    v9 = delegateCopy;
+    v7 = delegateCopy;
     objc_storeStrong(&self->_delegate, delegate);
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
-      v7 = self->_delegate;
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
 
-    *(self + 556) = *(self + 556) & 0xFE | v8 & 1;
+    *(self + 556) = *(self + 556) & 0xFE | v6 & 1;
     self->_incompleteSounds = 0;
-    delegateCopy = v9;
+    delegateCopy = v7;
+  }
+}
+
+- (void)setPlaysSounds:(BOOL)sounds
+{
+  if (self->_playsSounds != sounds)
+  {
+    v12 = v4;
+    v13 = v3;
+    soundsCopy = sounds;
+    self->_playsSounds = sounds;
+    if (sounds)
+    {
+      self->_inflightSounds = CFSetCreateMutable(0, 12, 0);
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter addObserver:self selector:sel__appSuspended name:*MEMORY[0x1E69DDBA0] object:0];
+      [defaultCenter addObserver:self selector:sel__appSuspended name:*MEMORY[0x1E69DDB98] object:0];
+      [defaultCenter addObserver:self selector:sel__appResumed name:*MEMORY[0x1E69DDB80] object:0];
+      [defaultCenter addObserver:self selector:sel__appResumed name:*MEMORY[0x1E69DDB78] object:0];
+    }
+
+    else
+    {
+      if (self->_inflightSounds)
+      {
+        [(TPPhonePad *)self _stopAllSoundsForcingCallbacks:1];
+        CFRelease(self->_inflightSounds);
+        self->_inflightSounds = 0;
+      }
+
+      defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+      [defaultCenter removeObserver:self name:*MEMORY[0x1E69DDBA0] object:0];
+      [defaultCenter removeObserver:self name:*MEMORY[0x1E69DDB98] object:0];
+      [defaultCenter removeObserver:self name:*MEMORY[0x1E69DDB80] object:0];
+      [defaultCenter removeObserver:self name:*MEMORY[0x1E69DDB78] object:0];
+    }
+
+    [(TPPhonePad *)self _activateSounds:soundsCopy];
   }
 }
 
@@ -438,6 +472,13 @@ LABEL_25:
   }
 
   return keyToButtonMap;
+}
+
+- (void)setNeedsDisplayForKey:(int)key
+{
+  [(TPPhonePad *)self bounds];
+
+  [(TPPhonePad *)self setNeedsDisplayInRect:?];
 }
 
 - (CGPoint)_keypadOrigin
@@ -562,22 +603,8 @@ LABEL_25:
     }
   }
 
-  if (self->_downKey < 0)
+  if (self->_downKey < 0 || (v46.origin.x = v21, v46.origin.y = v23, v46.size.width = v25, v46.size.height = v27, v48.origin.x = x, v48.origin.y = y, v48.size.width = width, v48.size.height = height, !CGRectEqualToRect(v46, v48)))
   {
-    goto LABEL_9;
-  }
-
-  v46.origin.x = v21;
-  v46.origin.y = v23;
-  v46.size.width = v25;
-  v46.size.height = v27;
-  v48.origin.x = x;
-  v48.origin.y = y;
-  v48.size.width = width;
-  v48.size.height = height;
-  if (!CGRectEqualToRect(v46, v48))
-  {
-LABEL_9:
     height = [(TPPhonePad *)self _imageByCroppingImage:_keypadImage toRect:x - v43, y - v42, width, height];
     [height drawInRect:17 blendMode:x alpha:{y, width, height, 1.0}];
   }
@@ -623,6 +650,39 @@ LABEL_10:
   }
 
   return v5;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  if (((self->_downKey & 0x8000000000000000) == 0 || (self->_highlightKey & 0x8000000000000000) == 0 || !highlighted) && [(TPPhonePad *)self isHighlighted]!= highlighted)
+  {
+    v7.receiver = self;
+    v7.super_class = TPPhonePad;
+    [(TPPhonePad *)&v7 setHighlighted:highlightedCopy];
+    if ((self->_downKey & 0x8000000000000000) == 0)
+    {
+      [(TPPhonePad *)self setNeedsDisplayForKey:?];
+    }
+
+    if ((self->_highlightKey & 0x8000000000000000) == 0)
+    {
+      [(TPPhonePad *)self setNeedsDisplayForKey:?];
+    }
+
+    keyToButtonMap = self->_keyToButtonMap;
+    if (keyToButtonMap)
+    {
+      v6 = CFDictionaryGetValue(keyToButtonMap, self->_downKey);
+      [v6 setSelected:highlightedCopy];
+    }
+
+    if (!highlightedCopy)
+    {
+      self->_downKey = -1;
+      [(TPPhonePad *)self _stopAllSoundsForcingCallbacks:0];
+    }
+  }
 }
 
 - (BOOL)cancelTouchTracking

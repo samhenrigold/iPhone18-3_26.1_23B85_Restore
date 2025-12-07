@@ -19,19 +19,19 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_100005D98();
+  sub_100005D98(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100005E70();
+  sub_100005E70(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_100005EF0();
+  sub_100005EF0(selfCopy);
 }
 
 - (_TtC24AMSEngagementViewService19ErrorViewController)initWithNibName:(id)name bundle:(id)bundle

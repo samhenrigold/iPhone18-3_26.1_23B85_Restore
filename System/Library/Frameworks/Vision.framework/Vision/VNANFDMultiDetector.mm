@@ -241,32 +241,32 @@ void __62__VNANFDMultiDetector_recognizedAnimalObjectClassToAnimalName__block_in
   return v3;
 }
 
-void __60__VNANFDMultiDetector_detectedObjectRequestKeyToRequestInfo__block_invoke()
+void __60__VNANFDMultiDetector_detectedObjectRequestKeyToRequestInfo__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17[4] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_HumanFaceDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:0];
-  v17[0] = v2;
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_HumanHeadDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:1];
-  v17[1] = v5;
-  v6 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = [v6 initWithFormat:@"%@%@%@", v8, @"_", MEMORY[0x1E695E118], v1, v4];
-  v16[2] = v9;
-  v10 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_HumanDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:2];
-  v17[2] = v10;
-  v11 = objc_opt_class();
-  v12 = NSStringFromClass(v11);
-  v16[3] = v12;
-  v13 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_AnimalRecognitionOriginatingRequestSpecifier" originalRequestResultsIndex:3];
-  v17[3] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v15 = +[VNANFDMultiDetector detectedObjectRequestKeyToRequestInfo]::detectedObjectRequestKeyToRequestInfo;
-  +[VNANFDMultiDetector detectedObjectRequestKeyToRequestInfo]::detectedObjectRequestKeyToRequestInfo = v14;
+  v19[4] = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_HumanFaceDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:0];
+  v19[0] = v4;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_HumanHeadDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:1];
+  v19[1] = v7;
+  v8 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v9 = objc_opt_class();
+  v10 = NSStringFromClass(v9);
+  v11 = [v8 initWithFormat:@"%@%@%@", v10, @"_", MEMORY[0x1E695E118], v3, v6];
+  v18[2] = v11;
+  v12 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_HumanDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:2];
+  v19[2] = v12;
+  v13 = objc_opt_class();
+  v14 = NSStringFromClass(v13);
+  v18[3] = v14;
+  v15 = [(VNMultiDetectorOriginalRequestInfo *)[VNANFDMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNANFDMultiDetectorProcessingOption_AnimalRecognitionOriginatingRequestSpecifier" originalRequestResultsIndex:3];
+  v19[3] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v17 = +[VNANFDMultiDetector detectedObjectRequestKeyToRequestInfo]::detectedObjectRequestKeyToRequestInfo;
+  +[VNANFDMultiDetector detectedObjectRequestKeyToRequestInfo]::detectedObjectRequestKeyToRequestInfo = v16;
 }
 
 + (NSDictionary)detectedObjectClassToRequestKey
@@ -281,31 +281,31 @@ void __60__VNANFDMultiDetector_detectedObjectRequestKeyToRequestInfo__block_invo
   return v3;
 }
 
-void __54__VNANFDMultiDetector_detectedObjectClassToRequestKey__block_invoke()
+void __54__VNANFDMultiDetector_detectedObjectClassToRequestKey__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v15[0] = v1;
+  v17[5] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v15[1] = v3;
-  v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = [v4 initWithFormat:@"%@%@%@", v6, @"_", MEMORY[0x1E695E118], &unk_1F19C1A68, &unk_1F19C1A80, &unk_1F19C1A98];
-  v15[2] = v7;
-  v14[3] = &unk_1F19C1AB0;
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  v15[3] = v9;
-  v14[4] = &unk_1F19C1AC8;
+  v17[0] = v3;
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v17[1] = v5;
+  v6 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v6 initWithFormat:@"%@%@%@", v8, @"_", MEMORY[0x1E695E118], &unk_1F19C1A68, &unk_1F19C1A80, &unk_1F19C1A98];
+  v17[2] = v9;
+  v16[3] = &unk_1F19C1AB0;
   v10 = objc_opt_class();
   v11 = NSStringFromClass(v10);
-  v15[4] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
-  v13 = +[VNANFDMultiDetector detectedObjectClassToRequestKey]::detectedObjectClassToRequestKey;
-  +[VNANFDMultiDetector detectedObjectClassToRequestKey]::detectedObjectClassToRequestKey = v12;
+  v17[3] = v11;
+  v16[4] = &unk_1F19C1AC8;
+  v12 = objc_opt_class();
+  v13 = NSStringFromClass(v12);
+  v17[4] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
+  v15 = +[VNANFDMultiDetector detectedObjectClassToRequestKey]::detectedObjectClassToRequestKey;
+  +[VNANFDMultiDetector detectedObjectClassToRequestKey]::detectedObjectClassToRequestKey = v14;
 }
 
 + (id)requestInfoForRequest:(id)request

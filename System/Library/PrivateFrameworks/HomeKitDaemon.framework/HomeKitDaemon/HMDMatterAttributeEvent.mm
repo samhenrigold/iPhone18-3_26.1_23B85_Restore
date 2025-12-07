@@ -33,7 +33,7 @@
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -43,9 +43,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v14;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v14;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v25, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -94,8 +94,6 @@
       [messageCopy respondWithSuccess];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type
@@ -166,7 +164,7 @@
   eventValue = [(HMDMatterAttributeEvent *)self eventValue];
   [v5 setObject:eventValue forKeyedSubscript:*MEMORY[0x277CCF2E8]];
 
-  v7 = [v5 copy];
+  v7 = objc_msgSend_copy(v5);
 
   return v7;
 }
@@ -188,7 +186,7 @@
 
 - (BOOL)_compareEventValue:(id)value
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   eventValue = [(HMDMatterAttributeEvent *)self eventValue];
 
@@ -208,24 +206,23 @@
     {
       v12 = HMFGetLogIdentifier();
       matterPath = [(HMDMatterAttributeEventBase *)selfCopy matterPath];
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = matterPath;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Matter path %@ changed value due to any change, evaluating trigger", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = matterPath;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Matter path %@ changed value due to any change, evaluating trigger", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     bOOLValue = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)_evaluateNewValue:(id)value
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = [valueCopy valueForKey:@"HMDMatterAttributeChangedNotificationDecodedValueKey"];
   if (v5)
@@ -246,19 +243,18 @@
     v10 = HMFGetLogIdentifier();
     v11 = HMFBooleanToString();
     eventValue = [(HMDMatterAttributeEvent *)selfCopy eventValue];
-    v15 = 138544130;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v5;
-    v21 = 2112;
-    v22 = eventValue;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Evaluated event, should fire: %@, current value: %@, event monitor value: %@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v5;
+    v20 = 2112;
+    v21 = eventValue;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Evaluated event, should fire: %@, current value: %@, event monitor value: %@", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v7);
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -329,10 +325,9 @@
 
 void __38__HMDMatterAttributeEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_105386;
-  logCategory__hmf_once_v1_105386 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_105386;
+  logCategory__hmf_once_v1_105386 = v0;
 }
 
 @end

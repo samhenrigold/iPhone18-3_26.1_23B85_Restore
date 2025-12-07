@@ -20,19 +20,19 @@
 
 - (BLSHEngineRenderFlipbookSession)initWithDelegate:(id)delegate flipbook:(id)flipbook presentation:(id)presentation osInterfaceProvider:(id)provider
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   flipbookCopy = flipbook;
   presentationCopy = presentation;
   providerCopy = provider;
-  v35.receiver = self;
-  v35.super_class = BLSHEngineRenderFlipbookSession;
-  v14 = [(BLSHEngineRenderFlipbookSession *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = BLSHEngineRenderFlipbookSession;
+  v14 = [(BLSHEngineRenderFlipbookSession *)&v34 init];
   v15 = v14;
   if (v14)
   {
-    v27 = providerCopy;
-    v28 = flipbookCopy;
+    v26 = providerCopy;
+    v27 = flipbookCopy;
     objc_storeStrong(&v14->_flipbook, flipbook);
     objc_storeStrong(&v15->_presentation, presentation);
     v15->_lock._os_unfair_lock_opaque = 0;
@@ -44,71 +44,69 @@
 
     BSContinuousMachTimeNow();
     v15->_sessionStartTime = v18;
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     presentationEntries = [presentationCopy presentationEntries];
-    v20 = [presentationEntries countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v20 = [presentationEntries countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v32;
+      v22 = *v31;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v32 != v22)
+          if (*v31 != v22)
           {
             objc_enumerationMutation(presentationEntries);
           }
 
-          environment = [*(*(&v31 + 1) + 8 * i) environment];
+          environment = [*(*(&v30 + 1) + 8 * i) environment];
           if (objc_opt_respondsToSelector())
           {
             [environment willBeginRenderSession:v15];
           }
         }
 
-        v21 = [presentationEntries countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v21 = [presentationEntries countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v21);
     }
 
     objc_initWeak(&location, v15);
-    objc_copyWeak(&v29, &location);
+    objc_copyWeak(&v28, &location);
     v15->_stateHandler = os_state_add_handler();
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&location);
-    providerCopy = v27;
-    flipbookCopy = v28;
+    providerCopy = v26;
+    flipbookCopy = v27;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-uint64_t __94__BLSHEngineRenderFlipbookSession_initWithDelegate_flipbook_presentation_osInterfaceProvider___block_invoke(uint64_t a1)
+uint64_t __94__BLSHEngineRenderFlipbookSession_initWithDelegate_flipbook_presentation_osInterfaceProvider___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [WeakRetained debugDescription];
-  v3 = BLSStateDataWithTitleDescriptionAndHints();
+  v3 = [WeakRetained debugDescription];
+  v4 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v3;
+  return v4;
 }
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_invalidated", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -181,7 +179,7 @@ uint64_t __94__BLSHEngineRenderFlipbookSession_initWithDelegate_flipbook_present
 
 - (void)invalidate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   self->_lock_invalidated = 1;
   if (self->_lock_didDisableFlipbookPowerSavings)
@@ -198,27 +196,27 @@ uint64_t __94__BLSHEngineRenderFlipbookSession_initWithDelegate_flipbook_present
 
   objc_storeWeak(&self->_lock_delegate, 0);
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   presentationEntries = [(BLSHBacklightEnvironmentPresentation *)self->_presentation presentationEntries];
-  v6 = [presentationEntries countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [presentationEntries countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(presentationEntries);
         }
 
-        environment = [*(*(&v12 + 1) + 8 * v9) environment];
+        environment = [*(*(&v11 + 1) + 8 * v9) environment];
         if (objc_opt_respondsToSelector())
         {
           [environment willEndRenderSession:self];
@@ -228,18 +226,16 @@ uint64_t __94__BLSHEngineRenderFlipbookSession_initWithDelegate_flipbook_present
       }
 
       while (v7 != v9);
-      v7 = [presentationEntries countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [presentationEntries countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareAndRenderFrameSpecifier:(id)specifier
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   if (!specifierCopy)
   {
@@ -273,30 +269,30 @@ uint64_t __94__BLSHEngineRenderFlipbookSession_initWithDelegate_flipbook_present
   self->_lock_pendingEnvironments = v10;
 
   [v7 specifiers];
+  v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v12 = v38 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v36 = 0u;
+  v12 = v37 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v13)
   {
-    v14 = *v38;
+    v14 = *v37;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
         v16 = self->_lock_pendingEnvironments;
-        environment = [*(*(&v37 + 1) + 8 * i) environment];
+        environment = [*(*(&v36 + 1) + 8 * i) environment];
         identifier = [environment identifier];
         [(NSMutableSet *)v16 addObject:identifier];
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v13);
@@ -310,48 +306,47 @@ uint64_t __94__BLSHEngineRenderFlipbookSession_initWithDelegate_flipbook_present
   [(BLSHEngineRenderFlipbookSession *)self _lock_scheduleTimeoutForSpecifier:v7];
   os_unfair_lock_unlock(&self->_lock);
   objc_initWeak(&location, self);
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v19 = v12;
-  v20 = [v19 countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v20)
   {
-    v21 = *v33;
+    v21 = *v32;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v33 != v21)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v32 + 1) + 8 * j);
+        v23 = *(*(&v31 + 1) + 8 * j);
         environment2 = [v23 environment];
         dateSpecifier = [v23 dateSpecifier];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __66__BLSHEngineRenderFlipbookSession_prepareAndRenderFrameSpecifier___block_invoke;
-        v28[3] = &unk_27841EE88;
-        objc_copyWeak(&v31, &location);
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __66__BLSHEngineRenderFlipbookSession_prepareAndRenderFrameSpecifier___block_invoke;
+        v27[3] = &unk_27841EE88;
+        objc_copyWeak(&v30, &location);
         v26 = environment2;
-        v29 = v26;
-        v30 = v7;
-        [v26 updateToDateSpecifier:dateSpecifier sceneContentsUpdated:v28];
+        v28 = v26;
+        v29 = v7;
+        [v26 updateToDateSpecifier:dateSpecifier sceneContentsUpdated:v27];
 
-        objc_destroyWeak(&v31);
+        objc_destroyWeak(&v30);
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v20);
   }
 
   objc_destroyWeak(&location);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_scheduleTimeoutForSpecifier:(uint64_t)specifier
@@ -418,7 +413,7 @@ void __69__BLSHEngineRenderFlipbookSession__lock_scheduleTimeoutForSpecifier___b
 
 - (void)timeoutTimerFiredForSpecifier:(uint64_t)specifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (specifier)
   {
@@ -466,18 +461,16 @@ void __69__BLSHEngineRenderFlipbookSession__lock_scheduleTimeoutForSpecifier___b
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = 134218242;
+        v11 = 134218242;
         specifierCopy = specifier;
-        v14 = 2114;
-        v15 = allObjects;
-        _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_INFO, "%p prepare frame operation did not complete after ~1 second (+leeway), (but it is being debugged), pending environments:%{public}@ ", &v12, 0x16u);
+        v13 = 2114;
+        v14 = allObjects;
+        _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_INFO, "%p prepare frame operation did not complete after ~1 second (+leeway), (but it is being debugged), pending environments:%{public}@ ", &v11, 0x16u);
       }
     }
 
 LABEL_10:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke(void *a1)
@@ -490,39 +483,36 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
 
 - (uint64_t)lock_memoryUsage
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (self)
+  v12 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    OUTLINED_FUNCTION_28();
-    v2 = *(v1 + 40);
-    v3 = [v2 countByEnumeratingWithState:v10 objects:v12 count:16];
-    if (v3)
-    {
-      v4 = v3;
-      v5 = 0;
-      v6 = *v11;
-      do
-      {
-        for (i = 0; i != v4; ++i)
-        {
-          if (*v11 != v6)
-          {
-            objc_enumerationMutation(v2);
-          }
+    return 0;
+  }
 
-          v5 += [*(v10[1] + 8 * i) memoryUsage];
+  OUTLINED_FUNCTION_28();
+  v2 = *(v1 + 40);
+  v3 = [v2 countByEnumeratingWithState:v9 objects:v11 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = 0;
+    v6 = *v10;
+    do
+    {
+      for (i = 0; i != v4; ++i)
+      {
+        if (*v10 != v6)
+        {
+          objc_enumerationMutation(v2);
         }
 
-        v4 = [v2 countByEnumeratingWithState:v10 objects:v12 count:16];
+        v5 += [*(v9[1] + 8 * i) memoryUsage];
       }
 
-      while (v4);
+      v4 = [v2 countByEnumeratingWithState:v9 objects:v11 count:16];
     }
 
-    else
-    {
-      v5 = 0;
-    }
+    while (v4);
   }
 
   else
@@ -530,7 +520,6 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -605,115 +594,111 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
 
 void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v161 = *MEMORY[0x277D85DE8];
+  v155 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 56);
   [v5 frameId];
-  v9 = *(a1 + 40);
   kdebug_trace();
   BSContinuousMachTimeNow();
-  v11 = v10 - *(a1 + 64);
-  v12 = OUTLINED_FUNCTION_25();
-  os_unfair_lock_lock(v12);
-  *(*(a1 + 40) + 104) = v11 + *(*(a1 + 40) + 104);
-  v13 = *(a1 + 40);
-  v14 = *(v13 + 118);
-  WeakRetained = objc_loadWeakRetained((v13 + 56));
+  v8 = v7 - *(a1 + 64);
+  v9 = OUTLINED_FUNCTION_25();
+  os_unfair_lock_lock(v9);
+  *(*(a1 + 40) + 104) = v8 + *(*(a1 + 40) + 104);
+  v10 = *(a1 + 40);
+  v11 = *(v10 + 118);
+  WeakRetained = objc_loadWeakRetained((v10 + 56));
   if (v5)
   {
     [*(*(a1 + 40) + 40) addObject:v5];
   }
 
-  v16 = [*(*(a1 + 40) + 40) count];
-  v17 = [(BLSHEngineRenderFlipbookSession *)*(a1 + 40) lock_memoryUsage];
+  v13 = [*(*(a1 + 40) + 40) count];
+  v14 = [(BLSHEngineRenderFlipbookSession *)*(a1 + 40) lock_memoryUsage];
   if (v6)
   {
-    v18 = [v6 domain];
-    v19 = [v18 isEqual:*MEMORY[0x277CD9DC8]];
+    v15 = [v6 domain];
+    v16 = [v15 isEqual:*MEMORY[0x277CD9DC8]];
 
-    if (v19)
+    if (v16)
     {
-      v20 = [v6 code];
-      if (v20 == 5)
+      v17 = [v6 code];
+      if (v17 == 5)
       {
         ++*(*(a1 + 40) + 112);
-        v51 = OUTLINED_FUNCTION_25();
-        os_unfair_lock_unlock(v51);
-        v52 = bls_flipbook_log();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+        v47 = OUTLINED_FUNCTION_25();
+        os_unfair_lock_unlock(v47);
+        v48 = bls_flipbook_log();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
         {
           [OUTLINED_FUNCTION_29() bls_loggingString];
           objc_claimAutoreleasedReturnValue();
-          v53 = [OUTLINED_FUNCTION_37() bls_loggingString];
-          v54 = [MEMORY[0x277CF0978] sharedFormatter];
-          v55 = [v54 stringFromByteCount:v17];
-          OUTLINED_FUNCTION_5_1(3.8524e-34, v55, v56, v57, v58, v59, v60, v61, v62, v133, v134, v135, v136, v137, v138, v140);
-          *v158 = v53;
-          OUTLINED_FUNCTION_6_0(v63, v64);
+          v49 = [OUTLINED_FUNCTION_37() bls_loggingString];
+          v50 = [MEMORY[0x277CF0978] sharedFormatter];
+          v51 = [v50 stringFromByteCount:v14];
+          OUTLINED_FUNCTION_5_1(3.8524e-34, v51, v52, v53, v54, v55, v56, v57, v58, v127, v128, v129, v130, v131, v132, v134);
+          *v152 = v49;
+          OUTLINED_FUNCTION_6_0(v59, v60);
           OUTLINED_FUNCTION_21();
-          _os_log_impl(v65, v66, OS_LOG_TYPE_INFO, v67, v68, 0x30u);
+          _os_log_impl(v61, v62, OS_LOG_TYPE_INFO, v63, v64, 0x30u);
         }
 
         objc_initWeak(location, *(a1 + 40));
-        v69 = dispatch_time(0, 10000000);
-        v70 = block;
+        v65 = dispatch_time(0, 10000000);
+        v66 = block;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_619;
         block[3] = &unk_27841EE88;
-        objc_copyWeak(&v149, location);
-        v147 = *(a1 + 32);
-        v148 = *(a1 + 48);
-        dispatch_after(v69, MEMORY[0x277D85CD0], block);
+        objc_copyWeak(&v143, location);
+        v141 = *(a1 + 32);
+        v142 = *(a1 + 48);
+        dispatch_after(v65, MEMORY[0x277D85CD0], block);
 
-        v71 = v147;
+        v67 = v141;
         goto LABEL_24;
       }
 
-      if (v20 == 2)
+      if (v17 == 2)
       {
-        v21 = *(*(a1 + 40) + 64);
         if (objc_opt_respondsToSelector())
         {
-          v22 = [*(*(a1 + 40) + 64) isFlipbookTransparent];
+          v18 = [*(*(a1 + 40) + 64) isFlipbookTransparent];
         }
 
         else
         {
-          v22 = 0;
+          v18 = 0;
         }
 
-        v19 = v22 & ([WeakRetained isUsingPseudoFlipbook] ^ 1);
-        v72 = *(a1 + 40);
-        if (v72[28]._os_unfair_lock_opaque >= 1)
+        v16 = v18 & ([WeakRetained isUsingPseudoFlipbook] ^ 1);
+        v68 = *(a1 + 40);
+        if (v68[28]._os_unfair_lock_opaque >= 1)
         {
-          v73 = bls_flipbook_log();
-          if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+          v69 = bls_flipbook_log();
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
           {
-            v136 = *(a1 + 40);
-            v140 = [v6 bls_loggingString];
-            v138 = [*(a1 + 32) bls_loggingString];
-            v137 = [MEMORY[0x277CF0978] sharedFormatter];
-            v135 = [v137 stringFromByteCount:v17];
+            v130 = *(a1 + 40);
+            v134 = [v6 bls_loggingString];
+            v132 = [*(a1 + 32) bls_loggingString];
+            v131 = [MEMORY[0x277CF0978] sharedFormatter];
+            v129 = [v131 stringFromByteCount:v14];
             *location = 134219010;
-            *&location[4] = v136;
+            *&location[4] = v130;
             OUTLINED_FUNCTION_22();
-            *(v88 + 14) = v140;
-            v157 = v89;
-            *v158 = v138;
-            *&v158[8] = 1024;
-            *(v88 + 34) = v16;
-            *&v158[14] = v89;
-            *&v158[16] = v90;
+            *(v83 + 14) = v134;
+            v151 = v84;
+            *v152 = v132;
+            *&v152[8] = 1024;
+            *(v83 + 34) = v13;
+            *&v152[14] = v84;
+            *&v152[16] = v85;
             OUTLINED_FUNCTION_21();
-            _os_log_error_impl(v91, v92, OS_LOG_TYPE_ERROR, v93, v94, 0x30u);
+            _os_log_error_impl(v86, v87, OS_LOG_TYPE_ERROR, v88, v89, 0x30u);
           }
 
-          v74 = OUTLINED_FUNCTION_25();
-          os_unfair_lock_unlock(v74);
-          if (v19)
+          v70 = OUTLINED_FUNCTION_25();
+          os_unfair_lock_unlock(v70);
+          if (v16)
           {
             goto LABEL_33;
           }
@@ -721,25 +706,25 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
           goto LABEL_10;
         }
 
-        if ((v19 | v14))
+        if ((v16 | v11))
         {
-          os_unfair_lock_unlock(v72 + 4);
-          if (v19)
+          os_unfair_lock_unlock(v68 + 4);
+          if (v16)
           {
 LABEL_33:
-            v27 = bls_flipbook_log();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v23 = bls_flipbook_log();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               [OUTLINED_FUNCTION_29() bls_loggingString];
               objc_claimAutoreleasedReturnValue();
-              v95 = [OUTLINED_FUNCTION_37() bls_loggingString];
-              v96 = [MEMORY[0x277CF0978] sharedFormatter];
-              v97 = [v96 stringFromByteCount:v17];
-              OUTLINED_FUNCTION_5_1(3.8524e-34, v97, v98, v99, v100, v101, v102, v103, v104, v133, v134, v135, v136, v137, v138, v140);
-              *v158 = v95;
-              OUTLINED_FUNCTION_6_0(v105, v106);
+              v90 = [OUTLINED_FUNCTION_37() bls_loggingString];
+              v91 = [MEMORY[0x277CF0978] sharedFormatter];
+              v92 = [v91 stringFromByteCount:v14];
+              OUTLINED_FUNCTION_5_1(3.8524e-34, v92, v93, v94, v95, v96, v97, v98, v99, v127, v128, v129, v130, v131, v132, v134);
+              *v152 = v90;
+              OUTLINED_FUNCTION_6_0(v100, v101);
               OUTLINED_FUNCTION_21();
-              _os_log_error_impl(v107, v108, OS_LOG_TYPE_ERROR, v109, v110, 0x30u);
+              _os_log_error_impl(v102, v103, OS_LOG_TYPE_ERROR, v104, v105, 0x30u);
             }
 
 LABEL_35:
@@ -750,100 +735,100 @@ LABEL_35:
           goto LABEL_10;
         }
 
-        v72[28]._os_unfair_lock_opaque = 1;
-        v85 = OUTLINED_FUNCTION_25();
-        os_unfair_lock_unlock(v85);
-        v86 = bls_flipbook_log();
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+        v68[28]._os_unfair_lock_opaque = 1;
+        v80 = OUTLINED_FUNCTION_25();
+        os_unfair_lock_unlock(v80);
+        v81 = bls_flipbook_log();
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
         {
           [OUTLINED_FUNCTION_29() bls_loggingString];
           objc_claimAutoreleasedReturnValue();
-          v111 = [OUTLINED_FUNCTION_37() bls_loggingString];
-          v112 = [MEMORY[0x277CF0978] sharedFormatter];
-          v113 = [v112 stringFromByteCount:v17];
-          OUTLINED_FUNCTION_5_1(3.8524e-34, v113, v114, v115, v116, v117, v118, v119, v120, v133, v134, v135, v136, v137, v138, v140);
-          *v158 = v111;
-          OUTLINED_FUNCTION_6_0(v121, v122);
+          v106 = [OUTLINED_FUNCTION_37() bls_loggingString];
+          v107 = [MEMORY[0x277CF0978] sharedFormatter];
+          v108 = [v107 stringFromByteCount:v14];
+          OUTLINED_FUNCTION_5_1(3.8524e-34, v108, v109, v110, v111, v112, v113, v114, v115, v127, v128, v129, v130, v131, v132, v134);
+          *v152 = v106;
+          OUTLINED_FUNCTION_6_0(v116, v117);
           OUTLINED_FUNCTION_21();
-          _os_log_error_impl(v123, v124, OS_LOG_TYPE_ERROR, v125, v126, 0x30u);
+          _os_log_error_impl(v118, v119, OS_LOG_TYPE_ERROR, v120, v121, 0x30u);
         }
 
         objc_initWeak(location, *(a1 + 40));
-        v87 = dispatch_time(0, 50000000);
-        v70 = v150;
-        v150[0] = MEMORY[0x277D85DD0];
-        v150[1] = 3221225472;
-        v150[2] = __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_618;
-        v150[3] = &unk_27841EE88;
-        objc_copyWeak(&v153, location);
-        v151 = *(a1 + 32);
-        v152 = *(a1 + 48);
-        dispatch_after(v87, MEMORY[0x277D85CD0], v150);
+        v82 = dispatch_time(0, 50000000);
+        v66 = v144;
+        v144[0] = MEMORY[0x277D85DD0];
+        v144[1] = 3221225472;
+        v144[2] = __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_618;
+        v144[3] = &unk_27841EE88;
+        objc_copyWeak(&v147, location);
+        v145 = *(a1 + 32);
+        v146 = *(a1 + 48);
+        dispatch_after(v82, MEMORY[0x277D85CD0], v144);
 
-        v71 = v151;
+        v67 = v145;
 LABEL_24:
 
-        objc_destroyWeak(v70 + 6);
+        objc_destroyWeak(v66 + 6);
         objc_destroyWeak(location);
         goto LABEL_36;
       }
     }
 
-    v23 = OUTLINED_FUNCTION_25();
-    os_unfair_lock_unlock(v23);
+    v19 = OUTLINED_FUNCTION_25();
+    os_unfair_lock_unlock(v19);
 LABEL_10:
-    v24 = bls_flipbook_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v20 = bls_flipbook_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      v139 = *(a1 + 40);
+      v133 = *(a1 + 40);
       [v6 bls_loggingString];
       objc_claimAutoreleasedReturnValue();
-      v76 = [OUTLINED_FUNCTION_37() bls_loggingString];
-      v142 = [MEMORY[0x277CF0978] sharedFormatter];
-      v77 = [v142 stringFromByteCount:v17];
+      v71 = [OUTLINED_FUNCTION_37() bls_loggingString];
+      v136 = [MEMORY[0x277CF0978] sharedFormatter];
+      v72 = [v136 stringFromByteCount:v14];
       *location = 134219010;
-      *&location[4] = v139;
+      *&location[4] = v133;
       OUTLINED_FUNCTION_22();
-      *(v78 + 14) = v19;
-      v157 = v79;
-      *v158 = v76;
-      OUTLINED_FUNCTION_6_0(v80, v79);
+      *(v73 + 14) = v16;
+      v151 = v74;
+      *v152 = v71;
+      OUTLINED_FUNCTION_6_0(v75, v74);
       OUTLINED_FUNCTION_21();
-      _os_log_fault_impl(v81, v82, OS_LOG_TYPE_FAULT, v83, v84, 0x30u);
+      _os_log_fault_impl(v76, v77, OS_LOG_TYPE_FAULT, v78, v79, 0x30u);
     }
 
-    if ((v14 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v143 = WeakRetained;
-      v141 = *(a1 + 32);
-      v25 = v141.i64[0];
-      v144 = v6;
-      v145 = *(a1 + 48);
+      v137 = WeakRetained;
+      v135 = *(a1 + 32);
+      v21 = v135.i64[0];
+      v138 = v6;
+      v139 = *(a1 + 48);
       BSDispatchMain();
     }
 
     goto LABEL_36;
   }
 
-  v26 = OUTLINED_FUNCTION_25();
-  os_unfair_lock_unlock(v26);
-  if (v14)
+  v22 = OUTLINED_FUNCTION_25();
+  os_unfair_lock_unlock(v22);
+  if (v11)
   {
-    v27 = bls_flipbook_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v23 = bls_flipbook_log();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v28 = *(a1 + 40);
-      v29 = [v5 bls_loggingString];
-      v30 = [MEMORY[0x277CF0978] sharedFormatter];
-      v31 = [v30 stringFromByteCount:v17];
+      v24 = *(a1 + 40);
+      v25 = [v5 bls_loggingString];
+      v26 = [MEMORY[0x277CF0978] sharedFormatter];
+      v27 = [v26 stringFromByteCount:v14];
       *location = 134218754;
-      *&location[4] = v28;
+      *&location[4] = v24;
       OUTLINED_FUNCTION_22();
-      v156 = v29;
-      OUTLINED_FUNCTION_36(v32);
-      *&v158[6] = v33;
+      v150 = v25;
+      OUTLINED_FUNCTION_36(v28);
+      *&v152[6] = v29;
       OUTLINED_FUNCTION_21();
-      _os_log_impl(v34, v35, OS_LOG_TYPE_INFO, v36, v37, 0x26u);
+      _os_log_impl(v30, v31, OS_LOG_TYPE_INFO, v32, v33, 0x26u);
     }
 
     goto LABEL_35;
@@ -851,85 +836,80 @@ LABEL_10:
 
   if (!v5)
   {
-    v127 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"renderedFrame != nil"];
+    v122 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"renderedFrame != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v128 = NSStringFromSelector(*(a1 + 72));
-      v129 = *(a1 + 40);
-      v130 = objc_opt_class();
-      v131 = NSStringFromClass(v130);
-      v132 = *(a1 + 40);
+      v123 = NSStringFromSelector(*(a1 + 72));
+      v124 = objc_opt_class();
+      v125 = NSStringFromClass(v124);
+      v126 = *(a1 + 40);
       *location = 138544642;
-      *&location[4] = v128;
-      v155 = 2114;
-      v156 = v131;
-      v157 = 2048;
-      *v158 = v132;
-      *&v158[8] = 2114;
-      *&v158[10] = @"BLSHAlwaysOnPresentationEngine.m";
-      *&v158[18] = 1024;
-      *&v158[20] = 2406;
-      v159 = 2114;
-      v160 = v127;
+      *&location[4] = v123;
+      v149 = 2114;
+      v150 = v125;
+      v151 = 2048;
+      *v152 = v126;
+      *&v152[8] = 2114;
+      *&v152[10] = @"BLSHAlwaysOnPresentationEngine.m";
+      *&v152[18] = 1024;
+      *&v152[20] = 2406;
+      v153 = 2114;
+      v154 = v122;
       _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
     }
 
-    [v127 UTF8String];
+    [v122 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x21FD7FCACLL);
   }
 
-  v38 = bls_flipbook_log();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+  v34 = bls_flipbook_log();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
-    v39 = *(a1 + 40);
-    v40 = [v5 bls_loggingString];
-    v41 = [MEMORY[0x277CF0978] sharedFormatter];
-    v42 = [v41 stringFromByteCount:v17];
+    v35 = *(a1 + 40);
+    v36 = [v5 bls_loggingString];
+    v37 = [MEMORY[0x277CF0978] sharedFormatter];
+    v38 = [v37 stringFromByteCount:v14];
     *location = 134218754;
-    *&location[4] = v39;
+    *&location[4] = v35;
     OUTLINED_FUNCTION_22();
-    *(v43 + 14) = v40;
-    OUTLINED_FUNCTION_36(v44);
-    *(v46 + 30) = v45;
+    *(v39 + 14) = v36;
+    OUTLINED_FUNCTION_36(v40);
+    *(v42 + 30) = v41;
     OUTLINED_FUNCTION_21();
-    _os_log_impl(v47, v48, OS_LOG_TYPE_INFO, v49, v50, 0x26u);
+    _os_log_impl(v43, v44, OS_LOG_TYPE_INFO, v45, v46, 0x26u);
   }
 
   [WeakRetained renderFramesSession:*(a1 + 40) didRenderFrame:v5 timedOutEnvironments:*(a1 + 48)];
 LABEL_36:
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
-void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_618(uint64_t a1)
+void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_618(void **a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
-  [(BLSHEngineRenderFlipbookSession *)WeakRetained renderFrameSpecifier:*(a1 + 40) timedOutEnvironments:?];
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
+  [(BLSHEngineRenderFlipbookSession *)WeakRetained renderFrameSpecifier:a1[5] timedOutEnvironments:?];
 }
 
-void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_619(uint64_t a1)
+void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironments___block_invoke_619(void **a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
-  [(BLSHEngineRenderFlipbookSession *)WeakRetained renderFrameSpecifier:*(a1 + 40) timedOutEnvironments:?];
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
+  [(BLSHEngineRenderFlipbookSession *)WeakRetained renderFrameSpecifier:a1[5] timedOutEnvironments:?];
 }
 
 - (void)prepareAndRenderFrameSpecifier:(char *)a1 .cold.1(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_preparingSpecifier == nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_preparingSpecifier == nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -937,19 +917,17 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
 
 - (void)prepareAndRenderFrameSpecifier:(char *)a1 .cold.2(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_lock_pendingEnvironments count] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_lock_pendingEnvironments count] > 0", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -957,19 +935,17 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
 
 - (void)prepareAndRenderFrameSpecifier:(char *)a1 .cold.3(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_invalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"!_lock_invalidated", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -977,19 +953,17 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
 
 - (void)prepareAndRenderFrameSpecifier:(char *)a1 .cold.4(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"specifier != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"specifier != nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -997,15 +971,14 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
 
 - (void)timeoutTimerFiredForSpecifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_preparingSpecifier == specifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_preparingSpecifier == specifier", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1015,22 +988,19 @@ void __77__BLSHEngineRenderFlipbookSession_renderFrameSpecifier_timedOutEnvironm
 
 - (void)timeoutTimerFiredForSpecifier:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_30();
-  v4 = v0;
-  _os_log_error_impl(&dword_21FD11000, v1, OS_LOG_TYPE_ERROR, "%p prepare frame operation did not complete after ~1 second (+leeway), pending environments:%{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_21FD11000, v1, OS_LOG_TYPE_ERROR, "%p prepare frame operation did not complete after ~1 second (+leeway), pending environments:%{public}@", v2, 0x16u);
 }
 
 - (void)timeoutTimerFiredForSpecifier:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_14();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

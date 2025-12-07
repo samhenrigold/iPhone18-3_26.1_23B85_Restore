@@ -167,123 +167,123 @@ uint64_t __198__PXGDecorationTextureProvider__requestTextureForDecorationInfo_dr
 
 - (_NSRange)requestTexturesForSpritesInRange:(_PXGSpriteIndexRange)range geometries:(id *)geometries styles:(id *)styles infos:(id *)infos inLayout:(id)layout
 {
-  v197 = *MEMORY[0x277D85DE8];
+  v192 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
-  v191.receiver = self;
-  v191.super_class = PXGDecorationTextureProvider;
+  v186.receiver = self;
+  v186.super_class = PXGDecorationTextureProvider;
   infosCopy = infos;
-  v70 = [(PXGTextureProvider *)&v191 requestTexturesForSpritesInRange:range geometries:geometries styles:styles infos:infos inLayout:layoutCopy];
-  v68 = v13;
-  v100 = layoutCopy;
-  numberOfDecoratingSpritesPerDecoratedSprite = [v100 numberOfDecoratingSpritesPerDecoratedSprite];
+  v67 = [(PXGTextureProvider *)&v186 requestTexturesForSpritesInRange:range geometries:geometries styles:styles infos:infos inLayout:layoutCopy];
+  v65 = v13;
+  v97 = layoutCopy;
+  numberOfDecoratingSpritesPerDecoratedSprite = [v97 numberOfDecoratingSpritesPerDecoratedSprite];
   if (numberOfDecoratingSpritesPerDecoratedSprite)
   {
-    decoratedLayout = [v100 decoratedLayout];
+    decoratedLayout = [v97 decoratedLayout];
     displayAssetSource = [decoratedLayout displayAssetSource];
-    v97 = HIDWORD(*&range);
-    v98 = [displayAssetSource displayAssetFetchResultForSpritesInRange:(range.location / numberOfDecoratingSpritesPerDecoratedSprite) | (((range.location + range.length - 1) / numberOfDecoratingSpritesPerDecoratedSprite - range.location / numberOfDecoratingSpritesPerDecoratedSprite + 1) << 32) inLayout:decoratedLayout];
+    v94 = HIDWORD(*&range);
+    v95 = [displayAssetSource displayAssetFetchResultForSpritesInRange:(range.location / numberOfDecoratingSpritesPerDecoratedSprite) | (((range.location + range.length - 1) / numberOfDecoratingSpritesPerDecoratedSprite - range.location / numberOfDecoratingSpritesPerDecoratedSprite + 1) << 32) inLayout:decoratedLayout];
 
-    assetBadgeDecorationSource = [v100 assetBadgeDecorationSource];
-    assetProgressDecorationSource = [v100 assetProgressDecorationSource];
-    selectionDecorationSource = [v100 selectionDecorationSource];
-    highlightDecorationSource = [v100 highlightDecorationSource];
-    solidColorOverlayDecorationSource = [v100 solidColorOverlayDecorationSource];
-    dragDecorationSource = [v100 dragDecorationSource];
-    queuea = [v100 debugDecorationSource];
-    viewDecorationSource = [v100 viewDecorationSource];
+    assetBadgeDecorationSource = [v97 assetBadgeDecorationSource];
+    assetProgressDecorationSource = [v97 assetProgressDecorationSource];
+    selectionDecorationSource = [v97 selectionDecorationSource];
+    highlightDecorationSource = [v97 highlightDecorationSource];
+    solidColorOverlayDecorationSource = [v97 solidColorOverlayDecorationSource];
+    dragDecorationSource = [v97 dragDecorationSource];
+    queuea = [v97 debugDecorationSource];
+    viewDecorationSource = [v97 viewDecorationSource];
     overlayViewSource = [(PXGDecorationTextureProvider *)self overlayViewSource];
-    v87 = [selectionDecorationSource selectedSpriteIndexesInLayout:decoratedLayout];
-    v86 = [highlightDecorationSource highlightedSpriteIndexesInLayout:decoratedLayout];
-    v84 = [dragDecorationSource draggingSpriteIndexesInLayout:decoratedLayout];
-    v81 = [solidColorOverlayDecorationSource solidColorOverlayForLayout:decoratedLayout];
-    debugDecorationIndex = [v100 debugDecorationIndex];
-    v76 = objc_opt_respondsToSelector();
-    v74 = objc_opt_respondsToSelector();
-    v187 = 0;
-    v188 = &v187;
-    v189 = 0x2020000000;
-    v190 = -1;
+    v84 = [selectionDecorationSource selectedSpriteIndexesInLayout:decoratedLayout];
+    v83 = [highlightDecorationSource highlightedSpriteIndexesInLayout:decoratedLayout];
+    v81 = [dragDecorationSource draggingSpriteIndexesInLayout:decoratedLayout];
+    v78 = [solidColorOverlayDecorationSource solidColorOverlayForLayout:decoratedLayout];
+    debugDecorationIndex = [v97 debugDecorationIndex];
+    v73 = objc_opt_respondsToSelector();
+    v71 = objc_opt_respondsToSelector();
+    v182 = 0;
+    v183 = &v182;
+    v184 = 0x2020000000;
+    v185 = -1;
     *buf = 0;
-    *&v193 = buf;
-    *(&v193 + 1) = 0x4010000000;
-    v194 = "";
-    v195 = 0u;
-    v196 = 0u;
-    v181 = 0;
-    v182 = &v181;
-    v183 = 0x3032000000;
-    v184 = __Block_byref_object_copy__19254;
-    v185 = __Block_byref_object_dispose__19255;
-    v186 = 0;
-    v180[0] = MEMORY[0x277D85DD0];
-    v180[1] = 3221225472;
-    v180[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke;
-    v180[3] = &unk_2782AC4C0;
-    v180[4] = &v181;
-    v18 = MEMORY[0x21CEE40A0](v180);
+    *&v188 = buf;
+    *(&v188 + 1) = 0x4010000000;
+    v189 = "";
+    v190 = 0u;
+    v191 = 0u;
     v176 = 0;
     v177 = &v176;
-    v178 = 0x2020000000;
-    v179 = 0x7FFFFFFFFFFFFFFFLL;
-    v172 = 0;
-    v173 = &v172;
-    v174 = 0x2020000000;
-    v175 = 0;
-    v168 = 0;
-    v169 = &v168;
-    v170 = 0x2020000000;
-    v171 = 0;
-    v164 = 0;
-    v165 = &v164;
-    v166 = 0x2020000000;
-    v167 = 0;
-    v162[0] = 0;
-    v162[1] = v162;
-    v162[2] = 0x3032000000;
-    v162[3] = __Block_byref_object_copy__19254;
-    v162[4] = __Block_byref_object_dispose__19255;
-    v163 = 0;
-    v144[0] = MEMORY[0x277D85DD0];
-    v144[1] = 3221225472;
-    v144[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_2;
-    v144[3] = &unk_2782AC4E8;
-    v155 = &v187;
-    v77 = v98;
-    v145 = v77;
-    v95 = assetBadgeDecorationSource;
-    v146 = v95;
-    v156 = buf;
-    v96 = decoratedLayout;
-    v147 = v96;
-    v61 = assetProgressDecorationSource;
-    v148 = v61;
-    v67 = v18;
-    v154 = v67;
-    v157 = v162;
-    v63 = queuea;
-    v149 = v63;
-    v158 = &v176;
-    v62 = selectionDecorationSource;
+    v178 = 0x3032000000;
+    v179 = __Block_byref_object_copy__19254;
+    v180 = __Block_byref_object_dispose__19255;
+    v181 = 0;
+    v175[0] = MEMORY[0x277D85DD0];
+    v175[1] = 3221225472;
+    v175[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke;
+    v175[3] = &unk_2782AC4C0;
+    v175[4] = &v176;
+    v18 = MEMORY[0x21CEE40A0](v175);
+    v174[0] = 0;
+    v174[1] = v174;
+    v174[2] = 0x2020000000;
+    v174[3] = 0x7FFFFFFFFFFFFFFFLL;
+    v170 = 0;
+    v171 = &v170;
+    v172 = 0x2020000000;
+    v173 = 0;
+    v166 = 0;
+    v167 = &v166;
+    v168 = 0x2020000000;
+    v169 = 0;
+    v162 = 0;
+    v163 = &v162;
+    v164 = 0x2020000000;
+    v165 = 0;
+    v160[0] = 0;
+    v160[1] = v160;
+    v160[2] = 0x3032000000;
+    v160[3] = __Block_byref_object_copy__19254;
+    v160[4] = __Block_byref_object_dispose__19255;
+    v161 = 0;
+    v142[0] = MEMORY[0x277D85DD0];
+    v142[1] = 3221225472;
+    v142[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_2;
+    v142[3] = &unk_2782AC4E8;
+    v153 = &v182;
+    v74 = v95;
+    v143 = v74;
+    v92 = assetBadgeDecorationSource;
+    v144 = v92;
+    v154 = buf;
+    v93 = decoratedLayout;
+    v145 = v93;
+    v58 = assetProgressDecorationSource;
+    v146 = v58;
+    v64 = v18;
+    v152 = v64;
+    v155 = v160;
+    v60 = queuea;
+    v147 = v60;
+    v156 = v174;
+    v59 = selectionDecorationSource;
+    v148 = v59;
+    v157 = &v170;
+    v61 = v84;
+    v149 = v61;
+    v158 = &v166;
+    v62 = v83;
     v150 = v62;
-    v159 = &v172;
-    v64 = v87;
-    v151 = v64;
-    v160 = &v168;
-    v65 = v86;
-    v152 = v65;
-    v161 = &v164;
-    v66 = v84;
-    v153 = v66;
-    v93 = MEMORY[0x21CEE40A0](v144);
+    v159 = &v162;
+    v63 = v81;
+    v151 = v63;
+    v90 = MEMORY[0x21CEE40A0](v142);
     objc_initWeak(&location, self);
     queue = [(PXGTextureProvider *)self requestQueue];
-    [v100 displayScale];
+    [v97 displayScale];
     v20 = v19;
-    [v100 textureScale];
+    [v97 textureScale];
     v22 = v21;
-    viewEnvironment = [v100 viewEnvironment];
-    userInterfaceDirection = [v100 userInterfaceDirection];
-    decorationSizeClass = [v100 decorationSizeClass];
+    viewEnvironment = [v97 viewEnvironment];
+    userInterfaceDirection = [v97 userInterfaceDirection];
+    decorationSizeClass = [v97 decorationSizeClass];
     badgeDrawingHelper = [(PXGDecorationTextureProvider *)self badgeDrawingHelper];
     if (HIDWORD(*&range))
     {
@@ -294,235 +294,232 @@ uint64_t __198__PXGDecorationTextureProvider__requestTextureForDecorationInfo_dr
         v24 = overlayViewSource;
       }
 
-      v78 = v24;
-      v75 = v74 & (v77 != 0);
-      v25 = v70;
+      v75 = v24;
+      v72 = v71 & (v74 != 0);
+      v25 = v67;
       do
       {
         v26 = (infosCopy + 40 * range.location);
         v27 = v26[1];
-        v28 = [v100 decoratingTypeForSpriteIndex:range];
-        v93[2](v93, range.location / numberOfDecoratingSpritesPerDecoratedSprite);
-        v141 = 0u;
-        v142 = 0u;
+        v28 = [v97 decoratingTypeForSpriteIndex:range];
+        v90[2](v90, range.location / numberOfDecoratingSpritesPerDecoratedSprite);
+        v139 = 0u;
         v140 = 0u;
+        v138 = 0u;
         if (badgeDrawingHelper)
         {
-          v29 = *(v165 + 24);
-          v30 = *(v169 + 24);
-          v31 = *(v173 + 24);
-          v32 = v177[3];
-          v33 = *(v188 + 6);
-          v34 = *(v193 + 48);
-          v139[0] = *(v193 + 32);
-          v139[1] = v34;
-          BYTE1(v60) = v29;
-          LOBYTE(v60) = v30;
-          [badgeDrawingHelper decorationSpriteInfoForDecoratedSpriteIndex:v33 decorationType:v28 decoratingLayout:v100 assetDecorationInfo:v139 overallSelectionOrder:v32 isItemSelected:v31 isItemHighlighted:v60 isItemDragged:?];
+          v29 = *(v163 + 24);
+          v30 = *(v167 + 24);
+          v31 = *(v188 + 48);
+          v136 = *(v188 + 32);
+          v137 = v31;
+          BYTE1(v57) = v29;
+          LOBYTE(v57) = v30;
+          objc_msgSend_decorationSpriteInfoForDecoratedSpriteIndex_decorationType_decoratingLayout_assetDecorationInfo_overallSelectionOrder_isItemSelected_isItemHighlighted_isItemDragged_(badgeDrawingHelper, v57);
         }
 
-        spriteDataStore = [v96 spriteDataStore];
-        v36 = spriteDataStore;
+        spriteDataStore = [v93 spriteDataStore];
+        v33 = spriteDataStore;
         styles = [spriteDataStore styles];
-        v139[0] = *(styles + 160 * *(v188 + 6) + 36);
+        v136 = *(styles + 160 * *(v183 + 6) + 36);
 
-        *(&v140 + 1) = decorationSizeClass;
+        *(&v138 + 1) = decorationSizeClass;
         if (v26->i8[0] == 1)
         {
-          v38 = viewDecorationSource;
+          v35 = viewDecorationSource;
           if (v28 == 3)
           {
-            v38 = v78;
+            v35 = v75;
           }
 
-          v39 = v38;
-          v40 = [v39 viewClassForSpriteAtIndex:range inLayout:v100];
-          if (v40)
+          v36 = v35;
+          v37 = [v36 viewClassForSpriteAtIndex:range inLayout:v97];
+          if (v37)
           {
-            captionDecorationSource = [v100 captionDecorationSource];
-            v41 = [captionDecorationSource wantsCaptionDecorationsInLayout:v96];
-            v42 = [v95 wantsInteractiveFavoriteBadgesInLayout:v96];
-            v43 = [v95 wantsFileSizeBadgesInLayout:v96];
-            v44 = *(v173 + 24);
-            v45 = [v95 hidesTopLeadingBadgesInLayout:v96];
-            v46 = v41;
+            captionDecorationSource = [v97 captionDecorationSource];
+            v38 = [captionDecorationSource wantsCaptionDecorationsInLayout:v93];
+            v39 = [v92 wantsInteractiveFavoriteBadgesInLayout:v93];
+            v40 = [v92 wantsFileSizeBadgesInLayout:v93];
+            v41 = *(v171 + 24);
+            v42 = [v92 hidesTopLeadingBadgesInLayout:v93];
+            v43 = v38;
+            if (v39)
+            {
+              v43 = v38 | 2;
+            }
+
+            if (v40)
+            {
+              v43 |= 8uLL;
+            }
+
+            if (v41)
+            {
+              v43 |= 4uLL;
+            }
+
             if (v42)
             {
-              v46 = v41 | 2;
-            }
-
-            if (v43)
-            {
-              v46 |= 8uLL;
-            }
-
-            if (v44)
-            {
-              v46 |= 4uLL;
-            }
-
-            if (v45)
-            {
-              v47 = v46 | 0x20;
+              v44 = v43 | 0x20;
             }
 
             else
             {
-              v47 = v46;
+              v44 = v43;
             }
 
-            if (v75)
+            if (v72)
             {
-              v48 = [v77 objectAtIndex:*(v188 + 6)];
-              v49 = [v95 wantsSensitiveWarningBadgesInLayout:v96];
-              if (v48)
+              v45 = [v74 objectAtIndex:*(v183 + 6)];
+              v46 = [v92 wantsSensitiveWarningBadgesInLayout:v93];
+              if (v45)
               {
-                v50 = v49;
+                v47 = v46;
               }
 
               else
               {
-                v50 = 0;
+                v47 = 0;
               }
 
-              if (v50 == 1)
+              if (v47 == 1)
               {
-                [v95 assetDecorationInfoForAsset:v48 atSpriteIndex:*(v188 + 6) inLayout:v96];
-                v51 = v193;
-                v52 = v138;
-                *(v193 + 32) = v137;
-                *(v51 + 48) = v52;
-                v47 |= (2 * *(v51 + 32)) & 0x40;
+                objc_msgSend_assetDecorationInfoForAsset_atSpriteIndex_inLayout_(v92);
+                v48 = v188;
+                v49 = v135;
+                *(v188 + 32) = v134;
+                *(v48 + 48) = v49;
+                v44 |= (2 * *(v48 + 32)) & 0x40;
               }
             }
 
-            if (v76)
+            if (v73)
             {
-              v53 = [v77 objectAtIndex:*(v188 + 6)];
-              if (v53 && [v95 shouldShowSavedToLibraryBadgeForAsset:v53 inLayout:v100])
+              v50 = [v74 objectAtIndex:*(v183 + 6)];
+              if (v50 && [v92 shouldShowSavedToLibraryBadgeForAsset:v50 inLayout:v97])
               {
-                v47 |= 0x10uLL;
+                v44 |= 0x10uLL;
               }
             }
 
-            v54 = [v39 viewUserDataForSpriteAtIndex:range inLayout:v100];
-            v55 = [v54 copyWithZone:0];
+            v51 = [v36 viewUserDataForSpriteAtIndex:range inLayout:v97];
+            v52 = [v51 copyWithZone:0];
 
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_3;
             block[3] = &unk_2782AC510;
-            v129 = v55;
-            v56 = v55;
-            objc_copyWeak(&v130, &location);
-            v131 = v140;
-            v132 = v141;
-            v133 = v142;
-            v134 = v40;
-            v135 = v47;
-            v136 = v25;
+            v126 = v52;
+            v53 = v52;
+            objc_copyWeak(&v127, &location);
+            v128 = v138;
+            v129 = v139;
+            v130 = v140;
+            v131 = v37;
+            v132 = v44;
+            v133 = v25;
             dispatch_async(queue, block);
-            objc_destroyWeak(&v130);
+            objc_destroyWeak(&v127);
           }
 
-          else if ([PXGAssetDecorationView wantsDecorationViewForConfiguration:v182[5]])
+          else if ([PXGAssetDecorationView wantsDecorationViewForConfiguration:v177[5]])
           {
-            v122[0] = MEMORY[0x277D85DD0];
-            v122[1] = 3221225472;
-            v122[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_4;
-            v122[3] = &unk_2782AC538;
-            objc_copyWeak(&v123, &location);
-            v124 = v140;
-            v125 = v141;
-            v126 = v142;
-            v122[4] = &v181;
-            v127 = v25;
-            dispatch_async(queue, v122);
-            objc_destroyWeak(&v123);
+            v119[0] = MEMORY[0x277D85DD0];
+            v119[1] = 3221225472;
+            v119[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_4;
+            v119[3] = &unk_2782AC538;
+            objc_copyWeak(&v120, &location);
+            v121 = v138;
+            v122 = v139;
+            v123 = v140;
+            v119[4] = &v176;
+            v124 = v25;
+            dispatch_async(queue, v119);
+            objc_destroyWeak(&v120);
           }
 
           else
           {
-            *&v140 = 0;
-            v116[0] = MEMORY[0x277D85DD0];
-            v116[1] = 3221225472;
-            v116[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_5;
-            v116[3] = &unk_2782AC560;
-            objc_copyWeak(&v117, &location);
-            v118 = v140;
-            v119 = v141;
-            v120 = v142;
-            v121 = v25;
-            dispatch_async(queue, v116);
-            objc_destroyWeak(&v117);
+            *&v138 = 0;
+            v113[0] = MEMORY[0x277D85DD0];
+            v113[1] = 3221225472;
+            v113[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_5;
+            v113[3] = &unk_2782AC560;
+            objc_copyWeak(&v114, &location);
+            v115 = v138;
+            v116 = v139;
+            v117 = v140;
+            v118 = v25;
+            dispatch_async(queue, v113);
+            objc_destroyWeak(&v114);
           }
         }
 
         else
         {
-          v101[0] = MEMORY[0x277D85DD0];
-          v101[1] = 3221225472;
-          v101[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_6;
-          v101[3] = &unk_2782AC588;
-          v105 = v162;
-          v106[1] = v28;
-          v113 = debugDecorationIndex;
-          objc_copyWeak(v106, &location);
-          v107 = v140;
-          v108 = v141;
-          v109 = v142;
-          v102 = badgeDrawingHelper;
-          v103 = v81;
-          v110 = vcvtq_f64_f32(v27);
-          v114 = v139[0];
-          v111 = v23;
-          v115 = v25;
-          v104 = viewEnvironment;
-          v112 = userInterfaceDirection;
-          dispatch_async(queue, v101);
+          v98[0] = MEMORY[0x277D85DD0];
+          v98[1] = 3221225472;
+          v98[2] = __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_6;
+          v98[3] = &unk_2782AC588;
+          v102 = v160;
+          v103[1] = v28;
+          v110 = debugDecorationIndex;
+          objc_copyWeak(v103, &location);
+          v104 = v138;
+          v105 = v139;
+          v106 = v140;
+          v99 = badgeDrawingHelper;
+          v100 = v78;
+          v107 = vcvtq_f64_f32(v27);
+          v111 = v136;
+          v108 = v23;
+          v112 = v25;
+          v101 = viewEnvironment;
+          v109 = userInterfaceDirection;
+          dispatch_async(queue, v98);
 
-          objc_destroyWeak(v106);
+          objc_destroyWeak(v103);
         }
 
         ++v25;
         range = (range.location + 1);
-        --v97;
+        --v94;
       }
 
-      while (v97);
+      while (v94);
     }
 
     objc_destroyWeak(&location);
-    _Block_object_dispose(v162, 8);
+    _Block_object_dispose(v160, 8);
 
-    _Block_object_dispose(&v164, 8);
-    _Block_object_dispose(&v168, 8);
-    _Block_object_dispose(&v172, 8);
+    _Block_object_dispose(&v162, 8);
+    _Block_object_dispose(&v166, 8);
+    _Block_object_dispose(&v170, 8);
+    _Block_object_dispose(v174, 8);
+
     _Block_object_dispose(&v176, 8);
-
-    _Block_object_dispose(&v181, 8);
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v187, 8);
+    _Block_object_dispose(&v182, 8);
 
-    v57 = v96;
+    v54 = v93;
   }
 
   else
   {
-    v57 = PXAssertGetLog();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+    v54 = PXAssertGetLog();
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109378;
-      LOWORD(v193) = 2112;
-      *(&v193 + 2) = v100;
-      _os_log_fault_impl(&dword_21AD38000, v57, OS_LOG_TYPE_FAULT, "unexpected numberOfDecoratingSpritesPerDecoratedSprite %i for decoratingLayout %@, failing gracefully", buf, 0x12u);
+      LOWORD(v188) = 2112;
+      *(&v188 + 2) = v97;
+      _os_log_fault_impl(&dword_21AD38000, v54, OS_LOG_TYPE_FAULT, "unexpected numberOfDecoratingSpritesPerDecoratedSprite %i for decoratingLayout %@, failing gracefully", buf, 0x12u);
     }
   }
 
-  v58 = v70;
-  v59 = v68;
-  result.length = v59;
-  result.location = v58;
+  v55 = v67;
+  v56 = v65;
+  result.length = v56;
+  result.location = v55;
   return result;
 }
 
@@ -542,45 +539,45 @@ id __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometrie
   return v2;
 }
 
-uint64_t __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_2(uint64_t result, int a2)
+void *__98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geometries_styles_infos_inLayout___block_invoke_2(void *result, int a2)
 {
-  v2 = *(*(result + 112) + 8);
+  v2 = *(*(result + 14) + 8);
   if (*(v2 + 24) != a2)
   {
     v3 = result;
     *(v2 + 24) = a2;
-    v4 = *(*(*(result + 112) + 8) + 24);
-    if ([*(result + 32) count] > v4)
+    v4 = *(*(*(result + 14) + 8) + 24);
+    if ([*(result + 4) count] > v4)
     {
-      v5 = [*(v3 + 32) objectAtIndex:*(*(*(v3 + 112) + 8) + 24)];
-      v6 = *(v3 + 40);
+      v5 = [v3[4] objectAtIndex:*(*(v3[14] + 1) + 24)];
+      v6 = v3[5];
       if (v6)
       {
-        [v6 assetDecorationInfoForAsset:v5 atSpriteIndex:*(*(*(v3 + 112) + 8) + 24) inLayout:*(v3 + 48)];
-        v7 = *(*(v3 + 120) + 8);
+        objc_msgSend_assetDecorationInfoForAsset_atSpriteIndex_inLayout_(v6);
+        v7 = *(v3[15] + 1);
         *(v7 + 32) = v17;
         *(v7 + 48) = v18;
       }
 
-      v8 = *(v3 + 56);
+      v8 = v3[7];
       if (v8)
       {
-        v9 = [v8 loadStatusForAsset:v5 atSpriteIndex:*(*(*(v3 + 112) + 8) + 24) inLayout:*(v3 + 48)];
-        v10 = (*(*(v3 + 104) + 16))();
+        v9 = [v8 loadStatusForAsset:v5 atSpriteIndex:*(*(v3[14] + 1) + 24) inLayout:v3[6]];
+        v10 = (*(v3[13] + 2))();
         [v10 setLoadStatus:v9];
       }
 
-      v11 = [*(v3 + 64) debugDecorationAtSpriteIndex:*(*(*(v3 + 112) + 8) + 24) asset:v5 inLayout:*(v3 + 48)];
+      v11 = [v3[8] debugDecorationAtSpriteIndex:*(*(v3[14] + 1) + 24) asset:v5 inLayout:v3[6]];
       v12 = [v11 copy];
-      v13 = *(*(v3 + 128) + 8);
+      v13 = *(v3[16] + 1);
       v14 = *(v13 + 40);
       *(v13 + 40) = v12;
     }
 
-    v15 = *(v3 + 72);
+    v15 = v3[9];
     if (v15)
     {
-      v16 = [v15 overallSelectionOrderAtSpriteIndex:*(*(*(v3 + 112) + 8) + 24) inLayout:*(v3 + 48)];
+      v16 = [v15 overallSelectionOrderAtSpriteIndex:*(*(v3[14] + 1) + 24) inLayout:v3[6]];
     }
 
     else
@@ -588,11 +585,11 @@ uint64_t __98__PXGDecorationTextureProvider_requestTexturesForSpritesInRange_geo
       v16 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    *(*(*(v3 + 136) + 8) + 24) = v16;
-    *(*(*(v3 + 144) + 8) + 24) = [*(v3 + 80) containsIndex:*(*(*(v3 + 112) + 8) + 24)];
-    *(*(*(v3 + 152) + 8) + 24) = [*(v3 + 88) containsIndex:*(*(*(v3 + 112) + 8) + 24)];
-    result = [*(v3 + 96) containsIndex:*(*(*(v3 + 112) + 8) + 24)];
-    *(*(*(v3 + 160) + 8) + 24) = result;
+    *(*(v3[17] + 1) + 24) = v16;
+    *(*(v3[18] + 1) + 24) = [v3[10] containsIndex:*(*(v3[14] + 1) + 24)];
+    *(*(v3[19] + 1) + 24) = [v3[11] containsIndex:*(*(v3[14] + 1) + 24)];
+    result = [v3[12] containsIndex:*(*(v3[14] + 1) + 24)];
+    *(*(v3[20] + 1) + 24) = result;
   }
 
   return result;

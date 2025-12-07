@@ -64,42 +64,42 @@ LABEL_10:
 
 - (id)getVolumeName:(id)name withError:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy_;
-  v47 = __Block_byref_object_dispose_;
-  v48 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy_;
-  v41 = __Block_byref_object_dispose_;
   v42 = 0;
-  v5 = dispatch_semaphore_create(0);
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy_;
-  v35 = __Block_byref_object_dispose_;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy_;
+  v46 = __Block_byref_object_dispose_;
+  v47 = 0;
   v36 = 0;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke;
-  v30[3] = &unk_279E0D048;
-  v30[4] = &v43;
-  v6 = [nameCopy remoteObjectProxyWithErrorHandler:v30];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_4;
-  v26[3] = &unk_279E0D070;
-  v28 = &v43;
-  v29 = &v37;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy_;
+  v40 = __Block_byref_object_dispose_;
+  v41 = 0;
+  v5 = dispatch_semaphore_create(0);
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy_;
+  v34 = __Block_byref_object_dispose_;
+  v35 = 0;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke;
+  v29[3] = &unk_279E0D048;
+  v29[4] = &v42;
+  v6 = [nameCopy remoteObjectProxyWithErrorHandler:v29];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_4;
+  v25[3] = &unk_279E0D070;
+  v27 = &v42;
+  v28 = &v36;
   v7 = v5;
-  v27 = v7;
-  [v6 getRootFileHandleWithError:v26];
+  v26 = v7;
+  [v6 getRootFileHandleWithError:v25];
   v8 = dispatch_time(0, 5000000000);
   if (dispatch_semaphore_wait(v7, v8))
   {
@@ -109,40 +109,40 @@ LABEL_10:
     }
 
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
-    v10 = v44[5];
-    v44[5] = v9;
+    v10 = v43[5];
+    v43[5] = v9;
   }
 
-  if (v44[5])
+  if (v43[5])
   {
-    v11 = v32[5];
-    v32[5] = @"Untitled";
+    v11 = v31[5];
+    v31[5] = @"Untitled";
 
-    v12 = v32[5];
+    v12 = v31[5];
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v38[5];
+      v13 = v37[5];
       *buf = 136315394;
-      v50 = "[LiveFSUSBLocalStorageClient getVolumeName:withError:]";
-      v51 = 2112;
-      v52 = v13;
+      v49 = "[LiveFSUSBLocalStorageClient getVolumeName:withError:]";
+      v50 = 2112;
+      v51 = v13;
       _os_log_impl(&dword_270A2D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: got rootFH(%@), about to get volume name", buf, 0x16u);
     }
 
-    v14 = v38[5];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_13;
-    v22[3] = &unk_279E0D098;
-    v24 = &v43;
-    v25 = &v31;
+    v14 = v37[5];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_13;
+    v21[3] = &unk_279E0D098;
+    v23 = &v42;
+    v24 = &v30;
     v15 = v7;
-    v23 = v15;
-    [v6 otherAttributeOf:v14 named:@"_S_f_vol_name" requestID:-1 reply:v22];
+    v22 = v15;
+    [v6 otherAttributeOf:v14 named:@"_S_f_vol_name" requestID:-1 reply:v21];
     v16 = dispatch_time(0, 5000000000);
     if (dispatch_semaphore_wait(v15, v16))
     {
@@ -152,24 +152,23 @@ LABEL_10:
       }
 
       v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
-      v18 = v44[5];
-      v44[5] = v17;
+      v18 = v43[5];
+      v43[5] = v17;
     }
 
-    if (v44[5])
+    if (v43[5])
     {
-      v19 = v32[5];
-      v32[5] = @"Untitled";
+      v19 = v31[5];
+      v31[5] = @"Untitled";
     }
 
-    v12 = v32[5];
+    v12 = v31[5];
   }
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v36, 8);
 
-  _Block_object_dispose(&v43, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 
   return v12;
 }
@@ -217,11 +216,12 @@ void __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_4(
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_13(uint64_t a1, int a2, void *a3)
+void __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_13(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
-  if (!a2 && v5 && [v5 bytes])
+  if (!v3 && v5 && [v5 bytes])
   {
     v7 = [v6 bytes];
     v8 = *(*(a1 + 40) + 8);
@@ -242,14 +242,14 @@ LABEL_9:
   v13 = *(v12 + 40);
   *(v12 + 40) = @"Untitled";
 
-  if (a2 != 2)
+  if (v3 != 2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_13_cold_1();
     }
 
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:a2 userInfo:0];
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v3 userInfo:0];
     v11 = *(a1 + 40);
     goto LABEL_9;
   }
@@ -260,21 +260,21 @@ LABEL_10:
 
 - (id)loadVolumes:(id)volumes ofType:(id)type withError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   volumesCopy = volumes;
   typeCopy = type;
-  v29 = 0;
-  v30[0] = &v29;
-  v30[1] = 0x3032000000;
-  v30[2] = __Block_byref_object_copy_;
-  v30[3] = __Block_byref_object_dispose_;
-  v31 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = 0;
   v10 = livefs_std_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
@@ -282,33 +282,33 @@ LABEL_10:
   }
 
   v11 = *(&self->super.super.isa + *MEMORY[0x277D23DC8]);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __60__LiveFSUSBLocalStorageClient_loadVolumes_ofType_withError___block_invoke;
-  v22[3] = &unk_279E0D048;
-  v22[4] = &v29;
-  v12 = [v11 synchronousRemoteObjectProxyWithErrorHandler:v22];
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
-  v21[2] = __60__LiveFSUSBLocalStorageClient_loadVolumes_ofType_withError___block_invoke_2;
-  v21[3] = &unk_279E0D0C0;
-  v21[4] = &v29;
-  v21[5] = &v23;
-  [v12 addDisk:volumesCopy fileSystemType:typeCopy reply:v21];
-  if (error && *(v30[0] + 40))
+  v21[2] = __60__LiveFSUSBLocalStorageClient_loadVolumes_ofType_withError___block_invoke;
+  v21[3] = &unk_279E0D048;
+  v21[4] = &v28;
+  v12 = [v11 synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __60__LiveFSUSBLocalStorageClient_loadVolumes_ofType_withError___block_invoke_2;
+  v20[3] = &unk_279E0D0C0;
+  v20[4] = &v28;
+  v20[5] = &v22;
+  [v12 addDisk:volumesCopy fileSystemType:typeCopy reply:v20];
+  if (error && v29[5])
   {
     v13 = livefs_std_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [LiveFSUSBLocalStorageClient loadVolumes:v30 ofType:? withError:?];
+      [LiveFSUSBLocalStorageClient loadVolumes:ofType:withError:];
     }
 
-    *error = *(v30[0] + 40);
-    v14 = v24[5];
-    v24[5] = 0;
+    *error = v29[5];
+    v14 = v23[5];
+    v23[5] = 0;
   }
 
-  else if (![v24[5] count])
+  else if (![v23[5] count])
   {
     v15 = livefs_std_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -322,23 +322,22 @@ LABEL_10:
   v16 = livefs_std_log();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v20 = v24[5];
+    v19 = v23[5];
     *buf = 136315906;
-    v33 = "[LiveFSUSBLocalStorageClient loadVolumes:ofType:withError:]";
-    v34 = 2112;
-    v35 = volumesCopy;
+    v35 = "[LiveFSUSBLocalStorageClient loadVolumes:ofType:withError:]";
     v36 = 2112;
-    v37 = typeCopy;
+    v37 = volumesCopy;
     v38 = 2112;
-    v39 = v20;
+    v39 = typeCopy;
+    v40 = 2112;
+    v41 = v19;
     _os_log_debug_impl(&dword_270A2D000, v16, OS_LOG_TYPE_DEBUG, "%s:finish:%@:%@:%@", buf, 0x2Au);
   }
 
-  v17 = v24[5];
-  _Block_object_dispose(&v23, 8);
+  v17 = v23[5];
+  _Block_object_dispose(&v22, 8);
 
-  _Block_object_dispose(&v29, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 
   return v17;
 }
@@ -446,16 +445,16 @@ void __52__LiveFSUSBLocalStorageClient_removeAllVirtualDisks__block_invoke_3(uin
 
 void __52__LiveFSUSBLocalStorageClient_removeAllVirtualDisks__block_invoke_4(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = livefs_std_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[LiveFSUSBLocalStorageClient removeAllVirtualDisks]_block_invoke_4";
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_270A2D000, v5, OS_LOG_TYPE_DEFAULT, "%s: eject got %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[LiveFSUSBLocalStorageClient removeAllVirtualDisks]_block_invoke_4";
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_270A2D000, v5, OS_LOG_TYPE_DEFAULT, "%s: eject got %@", &v6, 0x16u);
   }
 
   if (v4)
@@ -463,79 +462,38 @@ void __52__LiveFSUSBLocalStorageClient_removeAllVirtualDisks__block_invoke_4(uin
     **(a1 + 40) = 1;
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getConnectionForVolume:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getVolumeName:withError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getVolumeName:withError:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_4_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "[LiveFSUSBLocalStorageClient getVolumeName:withError:]_block_invoke";
-  _os_log_fault_impl(&dword_270A2D000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s: no error but also no fh", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
-}
-
-void __55__LiveFSUSBLocalStorageClient_getVolumeName_withError___block_invoke_13_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "[LiveFSUSBLocalStorageClient getVolumeName:withError:]_block_invoke";
+  _os_log_fault_impl(&dword_270A2D000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%s: no error but also no fh", &v0, 0xCu);
 }
 
 - (void)loadVolumes:ofType:withError:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
-  OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_270A2D000, v2, OS_LOG_TYPE_DEBUG, "%s:start:%@:%@", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)loadVolumes:(uint64_t)a1 ofType:withError:.cold.3(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
   v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
+  OUTLINED_FUNCTION_0();
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_270A2D000, v2, OS_LOG_TYPE_DEBUG, "%s:start:%@:%@", v3, 0x20u);
 }
 
 @end

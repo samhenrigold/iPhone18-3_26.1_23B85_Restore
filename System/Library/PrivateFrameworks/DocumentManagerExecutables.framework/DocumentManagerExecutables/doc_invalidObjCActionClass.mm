@@ -19,7 +19,7 @@
     memset(v3, 0, sizeof(v3));
   }
 
-  outlined destroy of CharacterSet?(v3, &_sypSgMd);
+  outlined destroy of CharacterSet?(v3, &_sypSgMd, &_sypSgMR);
 }
 
 - (_TtC26DocumentManagerExecutablesP33_75D41E1192F6C0DF7173E05F3862C05026doc_invalidObjCActionClass)init

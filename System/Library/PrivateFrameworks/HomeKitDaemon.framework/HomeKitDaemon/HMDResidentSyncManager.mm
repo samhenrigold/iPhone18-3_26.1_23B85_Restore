@@ -163,10 +163,9 @@
 
 void __37__HMDResidentSyncManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_175367;
-  logCategory__hmf_once_v1_175367 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_175367;
+  logCategory__hmf_once_v1_175367 = v0;
 }
 
 @end

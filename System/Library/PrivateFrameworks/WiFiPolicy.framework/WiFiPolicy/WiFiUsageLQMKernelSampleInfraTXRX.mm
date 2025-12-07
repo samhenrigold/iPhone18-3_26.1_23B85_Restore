@@ -36,7 +36,7 @@
 
   v28 = 0u;
   v29 = 0u;
-  [WiFiUsageLQMTransformations decodingAttemptsWithRxCrsGlitch:struct->var7 rxBadPLCP:struct->var6 RxBphyCrsGlitch:struct->var21 rxBphyBadPLCP:struct->var22 rxStart:struct->var5];
+  objc_msgSend_decodingAttemptsWithRxCrsGlitch_rxBadPLCP_RxBphyCrsGlitch_rxBphyBadPLCP_rxStart_(WiFiUsageLQMTransformations);
   *(v8 + 3) = v28;
   *(v8 + 4) = *(&v29 + 1);
   *(v8 + 5) = v29;
@@ -46,7 +46,7 @@
   v26 = 0u;
   v23 = 0u;
   v24 = 0u;
-  [WiFiUsageLQMTransformations rxDecodingErrorsPercentagesWithRxFrmTooLong:HIDWORD(struct->var1) rxFrmTooShrt:struct->var2 rxBadFCS:struct->var4 rxResponseTimeout:struct->var14 rxNoDelim:struct->var15 rxAnyErr:struct->var3 rxFifo0Ovfl:struct->var16 rxFifo1Ovfl:struct->var17];
+  objc_msgSend_rxDecodingErrorsPercentagesWithRxFrmTooLong_rxFrmTooShrt_rxBadFCS_rxResponseTimeout_rxNoDelim_rxAnyErr_rxFifo0Ovfl_rxFifo1Ovfl_(WiFiUsageLQMTransformations, struct->var16, struct->var17);
   *(v8 + 7) = +[WiFiUsageLQMTransformations ratioWithValue:Over:WithScale:](WiFiUsageLQMTransformations, "ratioWithValue:Over:WithScale:", v23, struct->var5, +[WiFiUsageLQMTransformations ratioScale]);
   *(v8 + 10) = v24;
   *(v8 + 11) = *(&v23 + 1);
@@ -56,14 +56,14 @@
   *(v8 + 8) = v26;
   v21 = 0u;
   v22 = 0u;
-  [WiFiUsageLQMTransformations rxUcastPercentagesWithRxData:struct->var8 rxMgmt:struct->var9 rxCtrl:struct->var10];
+  objc_msgSend_rxUcastPercentagesWithRxData_rxMgmt_rxCtrl_(WiFiUsageLQMTransformations);
   *(v8 + 8) = +[WiFiUsageLQMTransformations ratioWithValue:Over:WithScale:](WiFiUsageLQMTransformations, "ratioWithValue:Over:WithScale:", v21, struct->var5, +[WiFiUsageLQMTransformations ratioScale]);
   *(v8 + 18) = *(&v21 + 1);
   *(v8 + 152) = v22;
   v20 = 0;
   v18 = 0u;
   v19 = 0u;
-  [WiFiUsageLQMTransformations ctrlFrmsPercentagesWithRxCtrlUcast:struct->var10 RTS:struct->var11 CTS:struct->var12 BACK:struct->var13 ACK:struct->var18];
+  objc_msgSend_ctrlFrmsPercentagesWithRxCtrlUcast_RTS_CTS_BACK_ACK_(WiFiUsageLQMTransformations);
   *(v8 + 21) = *(&v18 + 1);
   *(v8 + 22) = v19;
   *(v8 + 24) = v20;
@@ -76,7 +76,7 @@
   v17 = 0;
   v15 = 0u;
   v16 = 0u;
-  [WiFiUsageLQMTransformations ctrlFrmsPercentagesWithRxCtrlUcast:"ctrlFrmsPercentagesWithRxCtrlUcast:RTS:CTS:BACK:ACK:" RTS:struct->var25 + struct->var24 + struct->var32 + struct->var26 CTS:? BACK:? ACK:?];
+  objc_msgSend_ctrlFrmsPercentagesWithRxCtrlUcast_RTS_CTS_BACK_ACK_(WiFiUsageLQMTransformations);
   *(v8 + 248) = v15;
   *(v8 + 33) = v16;
   *(v8 + 35) = v17;

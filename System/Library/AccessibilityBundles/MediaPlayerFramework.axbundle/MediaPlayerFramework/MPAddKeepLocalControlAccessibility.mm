@@ -7,6 +7,7 @@
 - (id)accessibilityLabel;
 - (id)accessibilityValue;
 - (unint64_t)accessibilityTraits;
+- (void)setControlStatus:(MPAddKeepLocalControlStatus)status animated:(BOOL)animated;
 @end
 
 @implementation MPAddKeepLocalControlAccessibility
@@ -122,6 +123,16 @@ LABEL_5:
   }
 
   return v3 | v5;
+}
+
+- (void)setControlStatus:(MPAddKeepLocalControlStatus)status animated:(BOOL)animated
+{
+  var0 = status.var0;
+  v7.receiver = self;
+  v7.super_class = MPAddKeepLocalControlAccessibility;
+  [(MPAddKeepLocalControlAccessibility *)&v7 setControlStatus:status.var0 animated:*&status.var1, animated];
+  v6 = [(MPAddKeepLocalControlAccessibility *)self _accessibilityCustomActionLabelForControlStatus:var0];
+  [(MPAddKeepLocalControlAccessibility *)self _accessibilitySetCustomActionLabel:v6];
 }
 
 @end

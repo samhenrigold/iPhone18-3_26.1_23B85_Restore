@@ -7,6 +7,7 @@
 - (void)checkInAndHandleAuthStatus;
 - (void)clearNSUserDefaults;
 - (void)clearRepairFollowUp;
+- (void)createFinishRepairFollowUpWithNotification:(BOOL)notification;
 - (void)createRepairFollowUp;
 - (void)mainNonAuthRepairFlow;
 - (void)popUpNotificationNowWithMessage;
@@ -109,6 +110,45 @@
     v11 = 2112;
     v12 = v8;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
+  }
+}
+
+- (void)createFinishRepairFollowUpWithNotification:(BOOL)notification
+{
+  if (self->displayFollowup)
+  {
+    notificationCopy = notification;
+    v5 = [NSURL URLWithString:@"prefs:root=General&path=About/MAIN_PARTS_AND_SERVICE"];
+    v6 = handleForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      componentName = [(MRBaseComponentHandler *)self componentName];
+      *buf = 138412546;
+      v14 = componentName;
+      v15 = 2080;
+      v16 = "[MRBaseComponentHandler createFinishRepairFollowUpWithNotification:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%@][%s]", buf, 0x16u);
+    }
+
+    v8 = +[MRUINotificationHelper sharedSingleton];
+    finishRepairTitle = [(MRBaseComponentHandler *)self finishRepairTitle];
+    finishRepairMessage = [(MRBaseComponentHandler *)self finishRepairMessage];
+    [v8 createRepairFollowUpWithNotification:notificationCopy actionURL:v5 repairTitle:finishRepairTitle infoText:finishRepairMessage itemID:self->finishRepairKey timeInterval:self->componentName componentName:0.0];
+  }
+
+  else
+  {
+    v5 = handleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      componentName2 = [(MRBaseComponentHandler *)self componentName];
+      v12 = [NSString stringWithFormat:@"[%s] followup skipped", "[MRBaseComponentHandler createFinishRepairFollowUpWithNotification:]"];
+      *buf = 138412546;
+      v14 = componentName2;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%@][%@]", buf, 0x16u);
+    }
   }
 }
 

@@ -119,23 +119,21 @@ void __56__EFAutoBugCaptureReporter_reportIssueType_description___block_invoke(u
 
 - (void)reportIssueType:(uint64_t)a1 description:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1C6152000, a2, OS_LOG_TYPE_FAULT, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1C6152000, a2, OS_LOG_TYPE_FAULT, "%@", &v2, 0xCu);
 }
 
 void __56__EFAutoBugCaptureReporter_reportIssueType_description___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 32);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1C6152000, log, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter response = %@, issue = %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_1C6152000, log, OS_LOG_TYPE_ERROR, "SDRDiagnosticReporter response = %@, issue = %@", &v4, 0x16u);
 }
 
 @end

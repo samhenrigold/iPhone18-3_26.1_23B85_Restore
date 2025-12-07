@@ -1,7 +1,7 @@
 @interface SAIOEvent
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length;
 + (id)typeString:(unsigned int)string;
-+ (void)parseKTrace:findingIOEvents:;
++ (void)parseKTrace:(uint64_t)trace findingIOEvents:;
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary;
 - (BOOL)isRead;
 - (NSString)debugDescription;
@@ -73,34 +73,33 @@
   return self;
 }
 
-+ (void)parseKTrace:findingIOEvents:
++ (void)parseKTrace:(uint64_t)trace findingIOEvents:
 {
   objc_opt_self();
-  v1 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   ktrace_events_range();
-  v0 = v1;
+  v3 = v4;
   ktrace_events_single();
 }
 
 void __41__SAIOEvent_parseKTrace_findingIOEvents___block_invoke(void *a1, uint64_t a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 8);
-  v5 = a1[6];
-  v6 = [SATimestamp timestampWithKTraceEvent:a2 fromSession:?];
-  v7 = *(a2 + 48);
-  if ((v7 & 4) != 0)
+  v5 = [SATimestamp timestampWithKTraceEvent:a2 fromSession:a1[6]];
+  v6 = *(a2 + 48);
+  if ((v6 & 4) != 0)
   {
-    v15 = a1[4];
-    v16 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
-    v8 = [v15 objectForKeyedSubscript:v16];
+    v14 = a1[4];
+    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
+    v7 = [v14 objectForKeyedSubscript:v15];
 
-    if (v8)
+    if (v7)
     {
-      [(SAIOEvent *)v8 setEndTimestamp:v6];
-      v17 = a1[4];
-      v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
-      [v17 removeObjectForKey:v18];
+      [(SAIOEvent *)v7 setEndTimestamp:v5];
+      v16 = a1[4];
+      v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
+      [v16 removeObjectForKey:v17];
 
       (*(a1[5] + 16))();
     }
@@ -108,43 +107,41 @@ void __41__SAIOEvent_parseKTrace_findingIOEvents___block_invoke(void *a1, uint64
 
   else
   {
-    v8 = [[SAIOEvent alloc] initWithStartTime:v6 threadID:*(a2 + 40) blockNumber:*(a2 + 24) size:*(a2 + 32) type:v7 & 0xFFFFFFF8 tier:(v7 >> 10) & 0xF];
-    v9 = a1[4];
-    v10 = 0x1E696A000uLL;
-    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
-    v12 = [v9 objectForKeyedSubscript:v11];
+    v7 = [[SAIOEvent alloc] initWithStartTime:v5 threadID:*(a2 + 40) blockNumber:*(a2 + 24) size:*(a2 + 32) type:v6 & 0xFFFFFFF8 tier:(v6 >> 10) & 0xF];
+    v8 = a1[4];
+    v9 = 0x1E696A000uLL;
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
+    v11 = [v8 objectForKeyedSubscript:v10];
 
-    if (v12)
+    if (v11)
     {
-      v20 = *__error();
-      v21 = _sa_logt();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v18 = *__error();
+      v19 = _sa_logt();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        v22 = a1[4];
+        v20 = a1[4];
         [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v4];
-        v23 = v27 = v20;
-        v24 = [v22 objectForKeyedSubscript:v23];
-        v25 = [v24 debugDescription];
-        v26 = [(SAIOEvent *)v8 debugDescription];
+        v21 = v25 = v18;
+        v22 = [v20 objectForKeyedSubscript:v21];
+        v23 = [v22 debugDescription];
+        v24 = [(SAIOEvent *)v7 debugDescription];
         *buf = 138412546;
-        v29 = v25;
-        v30 = 2112;
-        v31 = v26;
-        _os_log_fault_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_FAULT, "Existing IOEvent %@ when adding new event %@", buf, 0x16u);
+        v27 = v23;
+        v28 = 2112;
+        v29 = v24;
+        _os_log_fault_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_FAULT, "Existing IOEvent %@ when adding new event %@", buf, 0x16u);
 
-        v10 = 0x1E696A000;
-        v20 = v27;
+        v9 = 0x1E696A000;
+        v18 = v25;
       }
 
-      *__error() = v20;
+      *__error() = v18;
     }
 
-    v13 = a1[4];
-    v14 = [*(v10 + 3480) numberWithUnsignedLongLong:v4];
-    [v13 setObject:v8 forKeyedSubscript:v14];
+    v12 = a1[4];
+    v13 = [*(v9 + 3480) numberWithUnsignedLongLong:v4];
+    [v12 setObject:v7 forKeyedSubscript:v13];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (SAIOEvent)initWithStartTime:(id)time threadID:(unint64_t)d blockNumber:(unint64_t)number size:(unint64_t)size type:(unint64_t)type tier:(unsigned int)tier
@@ -272,28 +269,26 @@ void __41__SAIOEvent_parseKTrace_findingIOEvents___block_invoke(void *a1, uint64
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(SAIOEvent *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v11 = *__error();
-    v12 = _sa_logt();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(SAIOEvent *)self debugDescription];
+      v12 = [(SAIOEvent *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v13 UTF8String];
-      v24 = 2048;
+      uTF8String = [v12 UTF8String];
+      v16 = 2048;
       sizeInBytesForSerializedVersion = [(SAIOEvent *)self sizeInBytesForSerializedVersion];
-      v26 = 2048;
+      v18 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v11;
-    v14 = [(SAIOEvent *)self debugDescription];
-    uTF8String2 = [v14 UTF8String];
-    [(SAIOEvent *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(224, "%s: size %lu != buffer length %lu", v16, v17, v18, v19, v20, v21, uTF8String2);
+    *__error() = v10;
+    v13 = [(SAIOEvent *)self debugDescription];
+    _SASetCrashLogMessage(224, "%s: size %lu != buffer length %lu", [v13 UTF8String], -[SAIOEvent sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -308,7 +303,6 @@ void __41__SAIOEvent_parseKTrace_findingIOEvents___block_invoke(void *a1, uint64
   *(&buffer->var6 + 2) = self->_rawType;
   *(&buffer->var6 + 6) = self->_tier;
   *(&buffer->var4 + 2) = 0;
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -328,7 +322,7 @@ void __41__SAIOEvent_parseKTrace_findingIOEvents___block_invoke(void *a1, uint64
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (*buffer >= 3u)
   {
     goto LABEL_13;
@@ -336,40 +330,40 @@ void __41__SAIOEvent_parseKTrace_findingIOEvents___block_invoke(void *a1, uint64
 
   if (length <= 0x31)
   {
-    v8 = *__error();
-    v9 = _sa_logt();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = *__error();
+    v8 = _sa_logt();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v27 = 2048;
-      v28 = 50;
-      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent struct %lu", buf, 0x16u);
+      v14 = 2048;
+      v15 = 50;
+      _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(256, "bufferLength %lu < serialized SAIOEvent struct %lu", v10, v11, v12, v13, v14, v15, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(256, "bufferLength %lu < serialized SAIOEvent struct %lu", length, 50);
     _os_crash();
     __break(1u);
 LABEL_10:
-    v16 = *__error();
-    v17 = _sa_logt();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v9 = *__error();
+    v10 = _sa_logt();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v27 = 2048;
-      v28 = 58;
-      _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent_v2 struct %lu", buf, 0x16u);
+      v14 = 2048;
+      v15 = 58;
+      _os_log_error_impl(&dword_1E0E2F000, v10, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent_v2 struct %lu", buf, 0x16u);
     }
 
-    *__error() = v16;
-    _SASetCrashLogMessage(266, "bufferLength %lu < serialized SAIOEvent_v2 struct %lu", v18, v19, v20, v21, v22, v23, length);
+    *__error() = v9;
+    _SASetCrashLogMessage(266, "bufferLength %lu < serialized SAIOEvent_v2 struct %lu", length, 58);
     _os_crash();
     __break(1u);
 LABEL_13:
-    v24 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAIOEvent version" userInfo:0];
-    objc_exception_throw(v24);
+    v11 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAIOEvent version" userInfo:0];
+    objc_exception_throw(v11);
   }
 
   result = objc_alloc_init(SAIOEvent);
@@ -377,25 +371,23 @@ LABEL_13:
   *(result + 4) = *(buffer + 18);
   *(result + 3) = *(buffer + 42);
   *(result + 2) = *(buffer + 46);
-  if (*(buffer + 1) >= 2u)
+  if (*(buffer + 1) < 2u)
   {
-    if (length > 0x39)
-    {
-      *(result + 5) = *(buffer + 50);
-      goto LABEL_6;
-    }
+    return result;
+  }
 
+  if (length <= 0x39)
+  {
     goto LABEL_10;
   }
 
-LABEL_6:
-  v7 = *MEMORY[0x1E69E9840];
+  *(result + 5) = *(buffer + 50);
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*buffer >= 3u)
   {
     goto LABEL_9;
@@ -403,24 +395,24 @@ LABEL_6:
 
   if (length <= 0x31)
   {
-    v20 = *__error();
-    v21 = _sa_logt();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v19 = *__error();
+    v20 = _sa_logt();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v31 = 2048;
-      v32 = 50;
-      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent struct %lu", buf, 0x16u);
+      v24 = 2048;
+      v25 = 50;
+      _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAIOEvent struct %lu", buf, 0x16u);
     }
 
-    *__error() = v20;
-    _SASetCrashLogMessage(279, "bufferLength %lu < serialized SAIOEvent struct %lu", v22, v23, v24, v25, v26, v27, length);
+    *__error() = v19;
+    _SASetCrashLogMessage(279, "bufferLength %lu < serialized SAIOEvent struct %lu", length, 50);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v28 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAIOEvent version" userInfo:0];
-    objc_exception_throw(v28);
+    v21 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAIOEvent version" userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v11 = *(buffer + 2);
@@ -434,7 +426,6 @@ LABEL_9:
   v17 = SASerializableNonnullInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v15, dictionary, bufferDictionary, v16);
   endTimestamp = self->_endTimestamp;
   self->_endTimestamp = v17;
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

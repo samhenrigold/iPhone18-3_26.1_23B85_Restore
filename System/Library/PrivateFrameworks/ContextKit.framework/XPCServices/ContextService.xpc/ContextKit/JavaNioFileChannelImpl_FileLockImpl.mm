@@ -1,9 +1,17 @@
 @interface JavaNioFileChannelImpl_FileLockImpl
 - (BOOL)isValid;
+- (JavaNioFileChannelImpl_FileLockImpl)initWithJavaNioChannelsFileChannel:(id)channel withLong:(int64_t)long withLong:(int64_t)withLong withBoolean:(BOOL)boolean;
 - (void)release__;
 @end
 
 @implementation JavaNioFileChannelImpl_FileLockImpl
+
+- (JavaNioFileChannelImpl_FileLockImpl)initWithJavaNioChannelsFileChannel:(id)channel withLong:(int64_t)long withLong:(int64_t)withLong withBoolean:(BOOL)boolean
+{
+  JavaNioChannelsFileLock_initWithJavaNioChannelsFileChannel_withLong_withLong_withBoolean_(self, channel, long, withLong, boolean, boolean, v6, v7);
+  *(&self->super.shared_ + 1) = 0;
+  return self;
+}
 
 - (BOOL)isValid
 {

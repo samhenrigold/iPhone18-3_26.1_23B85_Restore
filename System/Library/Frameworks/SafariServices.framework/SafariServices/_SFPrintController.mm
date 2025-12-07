@@ -304,12 +304,13 @@ LABEL_19:
 - (void)_shouldPrintWhileLoadingForUsage:(int64_t)usage completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = 0;
+  v8 = handlerCopy;
+  v9 = 0;
   if (usage <= 1)
   {
     if (usage)
     {
-      v8 = 0;
+      v10 = 0;
       if (usage != 1)
       {
         goto LABEL_11;
@@ -322,33 +323,33 @@ LABEL_19:
   if (usage == 2)
   {
 LABEL_10:
-    v10 = MEMORY[0x1E696AEC0];
-    v11 = _WBSLocalizedString();
-    v8 = [v10 stringWithFormat:v11, self->_loadingDialogTitle];
+    v12 = MEMORY[0x1E696AEC0];
+    v13 = _WBSLocalizedString();
+    v10 = [v12 stringWithFormat:v13, self->_loadingDialogTitle];
 
-    v7 = _WBSLocalizedString();
+    v9 = _WBSLocalizedString();
     goto LABEL_11;
   }
 
-  v8 = 0;
+  v10 = 0;
   if (usage != 3)
   {
 LABEL_11:
     WeakRetained = objc_loadWeakRetained(&self->_dialogPresenter);
-    v13 = [MEMORY[0x1E69B1B00] continuePrintingDialogWithTitle:v8 message:v7 applicationModal:self->_hasSetupPrintController completionHandler:handlerCopy];
-    [WeakRetained presentDialog:v13 sender:self];
+    v15 = [MEMORY[0x1E69B1B00] continuePrintingDialogWithTitle:v10 message:v9 applicationModal:self->_hasSetupPrintController completionHandler:v8];
+    [WeakRetained presentDialog:v15 sender:self];
 
     goto LABEL_12;
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXPrinting();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = WBS_LOG_CHANNEL_PREFIXPrinting(handlerCopy, v7);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1D4644000, v9, OS_LOG_TYPE_DEFAULT, "Converting webpage to PDF when it's loading", buf, 2u);
+    _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, "Converting webpage to PDF when it's loading", buf, 2u);
   }
 
-  handlerCopy[2](handlerCopy, 1);
+  v8[2](v8, 1);
 LABEL_12:
 }
 
@@ -408,49 +409,49 @@ LABEL_12:
 {
   completionCopy = completion;
   hasSetupPrintController = self->_hasSetupPrintController;
-  if (hasSetupPrintController || [(_SFPrintController *)self setUpPrintController])
+  if (hasSetupPrintController || (v8 = [(_SFPrintController *)self setUpPrintController], (v8 & 1) != 0))
   {
-    v22[0] = 0;
-    v22[1] = v22;
-    v22[2] = 0x2020000000;
-    v23 = 0;
+    v24[0] = 0;
+    v24[1] = v24;
+    v24[2] = 0x2020000000;
+    v25 = 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke;
     aBlock[3] = &unk_1E8490DA8;
-    v19 = completionCopy;
-    v20 = v22;
-    v21 = !hasSetupPrintController;
+    v21 = completionCopy;
+    v22 = v24;
+    v23 = !hasSetupPrintController;
     aBlock[4] = self;
-    v8 = _Block_copy(aBlock);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_29;
-    v15[3] = &unk_1E8490E20;
-    v9 = v8;
-    v15[4] = self;
-    v16 = v9;
+    v10 = _Block_copy(aBlock);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_29;
+    v17[3] = &unk_1E8490E20;
+    v11 = v10;
+    v17[4] = self;
+    v18 = v11;
     usageCopy = usage;
-    [(_SFPrintController *)self preparePrintInteractionControllerForUsage:usage completion:v15];
-    v10 = dispatch_time(0, 5000000000);
+    [(_SFPrintController *)self preparePrintInteractionControllerForUsage:usage completion:v17];
+    v12 = dispatch_time(0, 5000000000);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __56___SFPrintController_getPDFDataForUsage_withCompletion___block_invoke_34;
     block[3] = &unk_1E8490E48;
-    v14 = v22;
-    completionCopy = v9;
-    v13 = completionCopy;
-    dispatch_after(v10, MEMORY[0x1E69E96A0], block);
+    v16 = v24;
+    completionCopy = v11;
+    v15 = completionCopy;
+    dispatch_after(v12, MEMORY[0x1E69E96A0], block);
 
-    _Block_object_dispose(v22, 8);
+    _Block_object_dispose(v24, 8);
   }
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXPrinting(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [_SFPrintController getPDFDataForUsage:v11 withCompletion:?];
+      [_SFPrintController getPDFDataForUsage:v13 withCompletion:?];
     }
 
     (*(completionCopy + 2))(completionCopy, 0);

@@ -100,11 +100,11 @@
 
 - (id)processData:(id)data
 {
-  v186 = *MEMORY[0x1E69E9840];
-  v178.receiver = self;
-  v178.super_class = ARImageDistortionCorrectionTechnique;
+  v194 = *MEMORY[0x1E69E9840];
+  v186.receiver = self;
+  v186.super_class = ARImageDistortionCorrectionTechnique;
   dataCopy = data;
-  v4 = [(ARTechnique *)&v178 processData:?];
+  v4 = [(ARTechnique *)&v186 processData:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -125,17 +125,17 @@ LABEL_119:
     }
 
     downScalingResults = [latestResizedUltraWideImageData downScalingResults];
-    v160 = latestResizedUltraWideImageData;
+    v168 = latestResizedUltraWideImageData;
     v7 = [downScalingResults count] == 0;
 
     if (v7)
     {
 LABEL_118:
-      v13 = v160;
+      v13 = v168;
       goto LABEL_119;
     }
 
-    rotationOfResultTensor = [v160 rotationOfResultTensor];
+    rotationOfResultTensor = [v168 rotationOfResultTensor];
     v9 = rotationOfResultTensor;
     if (rotationOfResultTensor > 89)
     {
@@ -165,12 +165,12 @@ LABEL_13:
 LABEL_17:
         width = p_height->width;
         v17 = p_imageSize->width;
-        v174 = 0u;
-        v175 = 0u;
-        v176 = 0u;
-        v177 = 0u;
-        downScalingResults2 = [v160 downScalingResults];
-        v19 = [downScalingResults2 countByEnumeratingWithState:&v174 objects:v183 count:16];
+        v182 = 0u;
+        v183 = 0u;
+        v184 = 0u;
+        v185 = 0u;
+        downScalingResults2 = [v168 downScalingResults];
+        v19 = [downScalingResults2 countByEnumeratingWithState:&v182 objects:v191 count:16];
         if (!v19)
         {
 LABEL_117:
@@ -179,17 +179,17 @@ LABEL_117:
         }
 
         v20 = 0;
-        v21 = *v175;
+        v21 = *v183;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v175 != v21)
+            if (*v183 != v21)
             {
               objc_enumerationMutation(downScalingResults2);
             }
 
-            v23 = *(*(&v174 + 1) + 8 * i);
+            v23 = *(*(&v182 + 1) + 8 * i);
             [v23 imageResolution];
             if (v25 == v17 && v24 == width)
             {
@@ -199,7 +199,7 @@ LABEL_117:
             }
           }
 
-          v19 = [downScalingResults2 countByEnumeratingWithState:&v174 objects:v183 count:16];
+          v19 = [downScalingResults2 countByEnumeratingWithState:&v182 objects:v191 count:16];
         }
 
         while (v19);
@@ -212,8 +212,8 @@ LABEL_117:
         v28 = MEMORY[0x1E6986948];
         if (!self->_computeUndistortionCoefficientsForEveryFrame && !self->_undistortionMappingsForRotations)
         {
-          originalImageData2 = [v160 originalImageData];
-          [v160 timestamp];
+          originalImageData2 = [v168 originalImageData];
+          objc_msgSend_timestamp(v168);
           cameraType2 = [originalImageData2 cameraType];
           [cameraType2 isEqualToString:*v28];
           calibrationData = [originalImageData2 calibrationData];
@@ -239,8 +239,8 @@ LABEL_117:
 
         PixelFormatType = CVPixelBufferGetPixelFormatType([v20 pixelBuffer]);
         v35 = ARCreateCVPixelBufferFromPool(&self->_undistortedImageBufferPool, PixelFormatType, self, @"undistorted image", v17, width);
-        [v160 timestamp];
-        originalImageData3 = [v160 originalImageData];
+        objc_msgSend_timestamp(v168);
+        originalImageData3 = [v168 originalImageData];
         cameraType3 = [originalImageData3 cameraType];
         [cameraType3 isEqualToString:*v28];
         [v20 imageResolution];
@@ -253,123 +253,123 @@ LABEL_117:
           goto LABEL_116;
         }
 
-        originalImageData4 = [v160 originalImageData];
+        originalImageData4 = [v168 originalImageData];
         calibrationData4 = [originalImageData4 calibrationData];
-        kdebug_trace();
+        v40 = kdebug_trace();
         p_undistorter = &self->_undistorter;
         if (calibrationData4)
         {
-          [calibrationData4 lensDistortionCenter];
-          v42 = v41;
+          lensDistortionCenter = [calibrationData4 lensDistortionCenter];
           v44 = v43;
-          v46 = *MEMORY[0x1E695EFF8];
-          v45 = *(MEMORY[0x1E695EFF8] + 8);
-          v47 = _ARLogTechnique();
-          v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG);
-          if (v42 == v46 && v44 == v45)
+          v46 = v45;
+          v48 = *MEMORY[0x1E695EFF8];
+          v47 = *(MEMORY[0x1E695EFF8] + 8);
+          v49 = _ARLogTechnique(lensDistortionCenter);
+          v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG);
+          if (v44 == v48 && v46 == v47)
           {
-            if (v48)
+            if (v50)
             {
               *buf = 0;
-              _os_log_impl(&dword_1C241C000, v47, OS_LOG_TYPE_DEBUG, "lensDistortionCenter is set to CGPointZero, skipping creating UV map for distortion correction", buf, 2u);
+              _os_log_impl(&dword_1C241C000, v49, OS_LOG_TYPE_DEBUG, "lensDistortionCenter is set to CGPointZero, skipping creating UV map for distortion correction", buf, 2u);
             }
 
             goto LABEL_115;
           }
 
-          if (v48)
+          if (v50)
           {
             *buf = 0;
-            _os_log_impl(&dword_1C241C000, v47, OS_LOG_TYPE_DEBUG, "Building distortion correction UV map from calibration data", buf, 2u);
+            _os_log_impl(&dword_1C241C000, v49, OS_LOG_TYPE_DEBUG, "Building distortion correction UV map from calibration data", buf, 2u);
           }
 
           m_unrotatedImageWidth = p_undistorter->var0.__val_.m_unrotatedImageWidth;
           [calibrationData4 intrinsicMatrixReferenceDimensions];
-          v94 = v93;
+          v100 = v99;
           m_unrotatedImageHeight = p_undistorter->var0.__val_.m_unrotatedImageHeight;
           [calibrationData4 intrinsicMatrixReferenceDimensions];
-          v97 = v96;
+          v103 = v102;
           kdebug_trace();
           lensDistortionLookupTable = [calibrationData4 lensDistortionLookupTable];
-          v99 = lensDistortionLookupTable;
+          v105 = lensDistortionLookupTable;
           bytes = [lensDistortionLookupTable bytes];
-          v101 = [lensDistortionLookupTable length];
-          v102 = p_undistorter->var0.__val_.m_unrotatedImageWidth;
+          v107 = [lensDistortionLookupTable length];
+          v108 = p_undistorter->var0.__val_.m_unrotatedImageWidth;
           if (p_undistorter->var0.__val_.m_unrotatedImageWidth)
           {
-            v103 = 0;
-            v104 = v94;
-            v105 = m_unrotatedImageWidth / v104;
-            v106 = v97;
-            v107 = v42;
-            v109.f32[0] = v105 * v107;
-            v108 = v44;
-            v109.f32[1] = (m_unrotatedImageHeight / v106) * v108;
-            v110 = v102;
-            v111 = p_undistorter->var0.__val_.m_unrotatedImageHeight;
-            v112 = v111;
-            v113.f32[0] = v102;
-            v113.f32[1] = v111;
-            v114 = bytes + 4 * (v101 >> 2);
-            v115 = ((v101 >> 2) - 1);
-            v116 = 4 * v111;
-            v117 = vmaxnm_f32(v109, vsub_f32(v113, v109));
-            v118 = vmul_f32(v117, v117);
-            while (!v111)
+            v109 = 0;
+            v110 = v100;
+            v111 = m_unrotatedImageWidth / v110;
+            v112 = v103;
+            v113 = v44;
+            v115.f32[0] = v111 * v113;
+            v114 = v46;
+            v115.f32[1] = (m_unrotatedImageHeight / v112) * v114;
+            v116 = v108;
+            v117 = p_undistorter->var0.__val_.m_unrotatedImageHeight;
+            v118 = v117;
+            v119.f32[0] = v108;
+            v119.f32[1] = v117;
+            v120 = bytes + 4 * (v107 >> 2);
+            v121 = ((v107 >> 2) - 1);
+            v122 = 4 * v117;
+            v123 = vmaxnm_f32(v115, vsub_f32(v119, v115));
+            v124 = vmul_f32(v123, v123);
+            while (!v117)
             {
-              v124 = v103 + 1;
+              v130 = v109 + 1;
 LABEL_91:
-              v103 = v124;
-              if (v124 == v102)
+              v109 = v130;
+              if (v130 == v108)
               {
                 goto LABEL_92;
               }
             }
 
-            v119 = 0;
-            v120 = v103;
-            v121 = ~v103;
-            v122 = v102 + ~v103;
-            v123 = v122 * v111;
-            v124 = v103 + 1;
-            v125 = (v103 + 1) * v111;
-            v126 = v116 * (v103 + 1) - 4;
-            v127 = v111 * v102 - 1 - v103;
-            v128 = v116 * v122;
-            v129 = v111;
-            v130 = sqrtf(vaddv_f32(v118));
+            v125 = 0;
+            v126 = v109;
+            v127 = ~v109;
+            v128 = v108 + ~v109;
+            v129 = v128 * v117;
+            v130 = v109 + 1;
+            v131 = (v109 + 1) * v117;
+            v132 = v122 * (v109 + 1) - 4;
+            v133 = v117 * v108 - 1 - v109;
+            v134 = v122 * v128;
+            v135 = v117;
+            v136 = sqrtf(vaddv_f32(v124));
             while (1)
             {
-              v131.f32[0] = v120;
-              v131.f32[1] = v119;
-              v132 = vsub_f32(v131, v109);
-              v133 = sqrtf(vaddv_f32(vmul_f32(v132, v132)));
-              if (v133 >= v130)
+              v137.f32[0] = v126;
+              v137.f32[1] = v125;
+              v138 = vsub_f32(v137, v115);
+              v139 = sqrtf(vaddv_f32(vmul_f32(v138, v138)));
+              if (v139 >= v136)
               {
-                v135 = *(v114 - 4);
+                v141 = *(v120 - 4);
               }
 
               else
               {
-                v134 = (v133 * v115) / v130;
-                v135 = ((v134 - v134) * *(bytes + 4 * v134 + 4)) + ((1.0 - (v134 - v134)) * *(bytes + 4 * v134));
+                v140 = (v139 * v121) / v136;
+                v141 = ((v140 - v140) * *(bytes + 4 * v140 + 4)) + ((1.0 - (v140 - v140)) * *(bytes + 4 * v140));
               }
 
-              v136 = vadd_f32(v109, vmla_n_f32(v132, v132, v135));
+              v142 = vadd_f32(v115, vmla_n_f32(v138, v138, v141));
               if (v9 > 89)
               {
                 if (v9 == 90)
                 {
-                  v137 = v125 + ~v119;
-                  *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v126) = v112 - v136.f32[1];
+                  v143 = v131 + ~v125;
+                  *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v132) = v118 - v142.f32[1];
                   goto LABEL_87;
                 }
 
                 if (v9 == 180)
                 {
-                  v137 = v121 + (v111 - v119) * v102;
-                  p_undistorter->var0.__val_.m_mappingU.__begin_[v127] = v110 - v136.f32[0];
-                  v136.f32[0] = v112 - v136.f32[1];
+                  v143 = v127 + (v117 - v125) * v108;
+                  p_undistorter->var0.__val_.m_mappingU.__begin_[v133] = v116 - v142.f32[0];
+                  v142.f32[0] = v118 - v142.f32[1];
                   goto LABEL_87;
                 }
               }
@@ -378,28 +378,28 @@ LABEL_91:
               {
                 if (v9 == -90)
                 {
-                  v137 = v119 + v123;
-                  *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v128) = v136.i32[1];
-                  v136.f32[0] = v110 - v136.f32[0];
+                  v143 = v125 + v129;
+                  *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v134) = v142.i32[1];
+                  v142.f32[0] = v116 - v142.f32[0];
                   goto LABEL_87;
                 }
 
                 if (!v9)
                 {
-                  LODWORD(p_undistorter->var0.__val_.m_mappingU.__begin_[v103]) = v136.i32[0];
-                  v136.i32[0] = v136.i32[1];
-                  v137 = v103;
+                  LODWORD(p_undistorter->var0.__val_.m_mappingU.__begin_[v109]) = v142.i32[0];
+                  v142.i32[0] = v142.i32[1];
+                  v143 = v109;
 LABEL_87:
-                  LODWORD(p_undistorter->var0.__val_.m_mappingV.__begin_[v137]) = v136.i32[0];
+                  LODWORD(p_undistorter->var0.__val_.m_mappingV.__begin_[v143]) = v142.i32[0];
                 }
               }
 
-              ++v119;
-              v103 += v102;
-              v126 -= 4;
-              v127 -= v102;
-              v128 += 4;
-              if (!--v129)
+              ++v125;
+              v109 += v108;
+              v132 -= 4;
+              v133 -= v108;
+              v134 += 4;
+              if (!--v135)
               {
                 goto LABEL_91;
               }
@@ -414,20 +414,21 @@ LABEL_93:
           pixelBuffer = [v20 pixelBuffer];
           CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
           *buf = 0u;
-          v182 = 0u;
+          v190 = 0u;
           ARWrapCVPixelBufferVImage(pixelBuffer, buf);
           CVPixelBufferLockBaseAddress(v35, 0);
-          memset(v180, 0, sizeof(v180));
-          ARWrapCVPixelBufferVImage(v35, v180);
+          memset(v188, 0, sizeof(v188));
+          ARWrapCVPixelBufferVImage(v35, v188);
           kdebug_trace();
-          v179 = 0;
-          v139 = vImageMapping_CreateFromMap_Image8U();
-          kdebug_trace();
-          if (v139)
+          v187 = 0;
+          v145 = vImageMapping_CreateFromMap_Image8U();
+          v146 = kdebug_trace();
+          if (v145)
           {
             kdebug_trace();
-            v179 = vImageRemap_Image8U();
-            if (!v179)
+            v147 = vImageRemap_Image8U();
+            v187 = v147;
+            if (!v147)
             {
 LABEL_109:
               kdebug_trace();
@@ -440,30 +441,30 @@ LABEL_109:
               [ARImageDistortionCorrectionTechnique processData:];
             }
 
-            v140 = ARShouldUseLogTypeError(void)::internalOSVersion;
-            v141 = _ARLogTechnique();
-            v142 = v141;
-            if (v140 == 1)
+            v148 = ARShouldUseLogTypeError(void)::internalOSVersion;
+            v149 = _ARLogTechnique(v147);
+            v150 = v149;
+            if (v148 == 1)
             {
-              if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
               {
-                *v184 = 134217984;
-                v185 = v179;
-                v143 = "Image undistortion failed with error code : %ld";
-                v144 = v142;
-                v145 = OS_LOG_TYPE_ERROR;
+                *v192 = 134217984;
+                v193 = v187;
+                v151 = "Image undistortion failed with error code : %ld";
+                v152 = v150;
+                v153 = OS_LOG_TYPE_ERROR;
 LABEL_107:
-                _os_log_impl(&dword_1C241C000, v144, v145, v143, v184, 0xCu);
+                _os_log_impl(&dword_1C241C000, v152, v153, v151, v192, 0xCu);
               }
             }
 
-            else if (os_log_type_enabled(v141, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v149, OS_LOG_TYPE_INFO))
             {
-              *v184 = 134217984;
-              v185 = v179;
-              v143 = "Error: Image undistortion failed with error code : %ld";
-              v144 = v142;
-              v145 = OS_LOG_TYPE_INFO;
+              *v192 = 134217984;
+              v193 = v187;
+              v151 = "Error: Image undistortion failed with error code : %ld";
+              v152 = v150;
+              v153 = OS_LOG_TYPE_INFO;
               goto LABEL_107;
             }
 
@@ -475,39 +476,39 @@ LABEL_107:
             [ARImageDistortionCorrectionTechnique processData:];
           }
 
-          v146 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v147 = _ARLogTechnique();
-          v148 = v147;
-          if (v146 == 1)
+          v154 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v155 = _ARLogTechnique(v146);
+          v156 = v155;
+          if (v154 == 1)
           {
-            if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
             {
-              *v184 = 134217984;
-              v185 = v179;
-              v149 = "Image mapping creation failed with error code : %ld";
-              v150 = v148;
-              v151 = OS_LOG_TYPE_ERROR;
+              *v192 = 134217984;
+              v193 = v187;
+              v157 = "Image mapping creation failed with error code : %ld";
+              v158 = v156;
+              v159 = OS_LOG_TYPE_ERROR;
 LABEL_112:
-              _os_log_impl(&dword_1C241C000, v150, v151, v149, v184, 0xCu);
+              _os_log_impl(&dword_1C241C000, v158, v159, v157, v192, 0xCu);
             }
           }
 
-          else if (os_log_type_enabled(v147, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v155, OS_LOG_TYPE_INFO))
           {
-            *v184 = 134217984;
-            v185 = v179;
-            v149 = "Error: Image mapping creation failed with error code : %ld";
-            v150 = v148;
-            v151 = OS_LOG_TYPE_INFO;
+            *v192 = 134217984;
+            v193 = v187;
+            v157 = "Error: Image mapping creation failed with error code : %ld";
+            v158 = v156;
+            v159 = OS_LOG_TYPE_INFO;
             goto LABEL_112;
           }
 
 LABEL_114:
           CVPixelBufferUnlockBaseAddress(v35, 0);
           CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
-          v152 = v179 == 0;
+          v160 = v187 == 0;
 
-          if (!v152)
+          if (!v160)
           {
 LABEL_115:
             CVPixelBufferRelease(v35);
@@ -516,7 +517,7 @@ LABEL_115:
 
 LABEL_116:
           [v20 setUndistortedPixelBuffer:v35];
-          [v160 timestamp];
+          objc_msgSend_timestamp(v168);
           CVPixelBufferGetWidth(v35);
           CVPixelBufferGetHeight(v35);
           kdebug_trace();
@@ -525,116 +526,116 @@ LABEL_116:
           goto LABEL_117;
         }
 
-        v49 = _ARLogTechnique();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+        v51 = _ARLogTechnique(v40);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C241C000, v49, OS_LOG_TYPE_DEBUG, "Building distortion correction UV map from hardcoded parameters", buf, 2u);
+          _os_log_impl(&dword_1C241C000, v51, OS_LOG_TYPE_DEBUG, "Building distortion correction UV map from hardcoded parameters", buf, 2u);
         }
 
-        v50 = ARFixedIntrinsicsForBackUltraWideCamera640x480();
-        v53 = ARAdjustIntrinsicsForViewportSize(*&v50, v51, v52, 640.0, 480.0, p_undistorter->var0.__val_.m_unrotatedImageWidth, p_undistorter->var0.__val_.m_unrotatedImageHeight);
-        v170 = v54;
-        v171 = v53;
-        v173 = v55;
-        *v56.i64 = ARRadialDistortionForUltraWideCamera();
-        v57 = p_undistorter->var0.__val_.m_unrotatedImageWidth;
+        v54 = ARFixedIntrinsicsForBackUltraWideCamera640x480(v52, v53);
+        v57 = ARAdjustIntrinsicsForViewportSize(*&v54, v55, v56, 640.0, 480.0, p_undistorter->var0.__val_.m_unrotatedImageWidth, p_undistorter->var0.__val_.m_unrotatedImageHeight);
+        v178 = v58;
+        v179 = v57;
+        v181 = v59;
+        *v62.i64 = ARRadialDistortionForUltraWideCamera(v60, v61);
+        v63 = p_undistorter->var0.__val_.m_unrotatedImageWidth;
         if (!p_undistorter->var0.__val_.m_unrotatedImageWidth)
         {
           goto LABEL_93;
         }
 
-        v154 = originalImageData4;
-        v58 = 0;
-        v59 = v57;
-        v60 = p_undistorter->var0.__val_.m_unrotatedImageHeight;
-        v61 = v60;
-        _S11 = v170;
-        v165 = vcvtq_f64_f32(*v56.f32);
-        v166 = vcvt_hight_f64_f32(v56);
-        v156 = v60 * v57 - 1;
-        v157 = 4 * v60;
+        v162 = originalImageData4;
+        v64 = 0;
+        v65 = v63;
+        v66 = p_undistorter->var0.__val_.m_unrotatedImageHeight;
+        v67 = v66;
+        _S11 = v178;
+        v173 = vcvtq_f64_f32(*v62.f32);
+        v174 = vcvt_hight_f64_f32(v62);
+        v164 = v66 * v63 - 1;
+        v165 = 4 * v66;
         __asm { FMOV            V0.4S, #1.0 }
 
-        v155 = _Q0;
-        v158 = v35;
-        v164 = v60;
-        while (!v60)
+        v163 = _Q0;
+        v166 = v35;
+        v172 = v66;
+        while (!v66)
         {
-          v91 = v58 + 1;
+          v97 = v64 + 1;
 LABEL_67:
-          v58 = v91;
-          if (v91 == v57)
+          v64 = v97;
+          if (v97 == v63)
           {
             calibrationData4 = 0;
-            originalImageData4 = v154;
+            originalImageData4 = v162;
             goto LABEL_93;
           }
         }
 
-        v67 = 0;
-        v163 = ~v58;
-        v68 = v57 + ~v58;
-        v69 = v155;
-        v69.f32[0] = (v58 - *&v173) / v171;
-        v161 = (v58 + 1) * v60;
-        v162 = v68 * v60;
-        v159 = v58 + 1;
-        v70 = v157 * (v58 + 1) - 4;
-        v71 = v60;
-        v72 = v156 - v58;
-        v73 = v157 * v68;
-        v167 = v69;
+        v73 = 0;
+        v171 = ~v64;
+        v74 = v63 + ~v64;
+        v75 = v163;
+        v75.f32[0] = (v64 - *&v181) / v179;
+        v169 = (v64 + 1) * v66;
+        v170 = v74 * v66;
+        v167 = v64 + 1;
+        v76 = v165 * (v64 + 1) - 4;
+        v77 = v66;
+        v78 = v164 - v64;
+        v79 = v165 * v74;
+        v175 = v75;
         while (1)
         {
-          v74 = v69;
-          v74.f32[1] = (v67 - *(&v173 + 1)) / _S11;
-          *&v75 = *&vcvt_hight_f64_f32(v74);
-          _Q2 = vcvtq_f64_f32(*v74.f32);
-          v77 = vmuld_lane_f64(_Q2.f64[1], _Q2, 1) + _Q2.f64[0] * _Q2.f64[0];
-          if (v77 >= 0.00000001)
+          v80 = v75;
+          v80.f32[1] = (v73 - *(&v181 + 1)) / _S11;
+          *&v81 = *&vcvt_hight_f64_f32(v80);
+          _Q2 = vcvtq_f64_f32(*v80.f32);
+          v83 = vmuld_lane_f64(*&_Q2.i64[1], _Q2, 1) + *_Q2.i64 * *_Q2.i64;
+          if (v83 >= 0.00000001)
           {
-            v79 = sqrt(v77);
-            v169 = _Q2;
-            v80 = atan2(v79, v75);
-            v81 = v80 * (v80 * v80);
-            v82 = v80 * v80 * v81;
-            v83 = v80 * v80 * v82;
-            v84 = v80 * v80 * v83;
-            v85 = v80 + v165.f64[0] * v81 + v165.f64[1] * v82;
-            v69 = v167;
-            _Q2 = v169;
-            *&v85 = v85 + v166.f64[0] * v83 + v166.f64[1] * v84;
-            v78 = *&v85 / v79;
+            v85 = sqrt(v83);
+            v177 = _Q2;
+            v86 = atan2(v85, v81);
+            v87 = v86 * (v86 * v86);
+            v88 = v86 * v86 * v87;
+            v89 = v86 * v86 * v88;
+            v90 = v86 * v86 * v89;
+            v91 = v86 + v173.f64[0] * v87 + v173.f64[1] * v88;
+            v75 = v175;
+            _Q2 = v177;
+            *&v91 = v91 + v174.f64[0] * v89 + v174.f64[1] * v90;
+            v84 = *&v91 / v85;
           }
 
           else
           {
-            v78 = 1.0 / v75;
+            v84 = 1.0 / v81;
           }
 
-          *&_Q2.f64[1] = vextq_s8(_Q2, _Q2, 8uLL).u64[0];
-          *&_Q2.f64[0] = vcvt_f32_f64(vmulq_n_f64(_Q2, v78));
-          v87 = *&v173 + (v171 * *_Q2.f64);
+          _Q2.i64[1] = vextq_s8(_Q2, _Q2, 8uLL).u64[0];
+          *_Q2.i8 = vcvt_f32_f64(vmulq_n_f64(_Q2, v84));
+          v93 = *&v181 + (v179 * *_Q2.i32);
           __asm { FMLA            S0, S11, V2.S[1] }
 
           if (v9 > 89)
           {
             if (v9 == 90)
             {
-              v90 = v161 + ~v67;
-              v89 = p_undistorter;
-              *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v70) = v61 - _S0;
-              _S0 = *&v173 + (v171 * *_Q2.f64);
+              v96 = v169 + ~v73;
+              v95 = p_undistorter;
+              *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v76) = v67 - _S0;
+              _S0 = *&v181 + (v179 * *_Q2.i32);
               goto LABEL_63;
             }
 
             if (v9 == 180)
             {
-              v90 = v163 + (v164 - v67) * v57;
-              v89 = p_undistorter;
-              p_undistorter->var0.__val_.m_mappingU.__begin_[v72] = v59 - v87;
-              _S0 = v61 - _S0;
+              v96 = v171 + (v172 - v73) * v63;
+              v95 = p_undistorter;
+              p_undistorter->var0.__val_.m_mappingU.__begin_[v78] = v65 - v93;
+              _S0 = v67 - _S0;
               goto LABEL_63;
             }
           }
@@ -643,33 +644,33 @@ LABEL_67:
           {
             if (v9 == -90)
             {
-              v90 = v67 + v162;
-              v89 = p_undistorter;
-              *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v73) = _S0;
-              _S0 = v59 - v87;
+              v96 = v73 + v170;
+              v95 = p_undistorter;
+              *(p_undistorter->var0.__val_.m_mappingU.__begin_ + v79) = _S0;
+              _S0 = v65 - v93;
               goto LABEL_63;
             }
 
             if (!v9)
             {
-              v89 = p_undistorter;
-              p_undistorter->var0.__val_.m_mappingU.__begin_[v58] = v87;
-              v90 = v58;
+              v95 = p_undistorter;
+              p_undistorter->var0.__val_.m_mappingU.__begin_[v64] = v93;
+              v96 = v64;
 LABEL_63:
-              v89->var0.__val_.m_mappingV.__begin_[v90] = _S0;
+              v95->var0.__val_.m_mappingV.__begin_[v96] = _S0;
             }
           }
 
-          ++v67;
-          v58 += v57;
-          v70 -= 4;
-          v72 -= v57;
-          v73 += 4;
-          if (!--v71)
+          ++v73;
+          v64 += v63;
+          v76 -= 4;
+          v78 -= v63;
+          v79 += 4;
+          if (!--v77)
           {
-            v35 = v158;
-            v91 = v159;
-            v60 = v164;
+            v35 = v166;
+            v97 = v167;
+            v66 = v172;
             goto LABEL_67;
           }
         }
@@ -767,62 +768,62 @@ LABEL_120:
 
 - (void)buildUVMapWithCameraCalibrationData:(id)data
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  [dataCopy lensDistortionCenter];
-  v6 = v5;
-  v8 = v7;
-  v9 = *MEMORY[0x1E695EFF8];
-  v10 = *(MEMORY[0x1E695EFF8] + 8);
-  v11 = _ARLogTechnique();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
-  if (v6 == v9 && v8 == v10)
+  lensDistortionCenter = [dataCopy lensDistortionCenter];
+  v7 = v6;
+  v9 = v8;
+  v10 = *MEMORY[0x1E695EFF8];
+  v11 = *(MEMORY[0x1E695EFF8] + 8);
+  v12 = _ARLogTechnique(lensDistortionCenter);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  if (v7 == v10 && v9 == v11)
   {
-    if (v12)
+    if (v13)
     {
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
       *buf = 138543618;
-      v33 = v27;
-      v34 = 2048;
+      v34 = v28;
+      v35 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: lensDistortionCenter is set to CGPointZero, skipping creating UV map for distortion correction", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: lensDistortionCenter is set to CGPointZero, skipping creating UV map for distortion correction", buf, 0x16u);
     }
   }
 
   else
   {
-    if (v12)
+    if (v13)
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138543618;
-      v33 = v15;
-      v34 = 2048;
+      v34 = v16;
+      v35 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Building distortion correction UV map from calibration data", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Building distortion correction UV map from calibration data", buf, 0x16u);
     }
 
     width = self->_imageSize.width;
     [dataCopy intrinsicMatrixReferenceDimensions];
-    v18 = v17;
+    v19 = v18;
     height = self->_imageSize.height;
     [dataCopy intrinsicMatrixReferenceDimensions];
-    v21 = v20;
+    v22 = v21;
     [dataCopy lensDistortionCenter];
-    v23 = v22;
+    v24 = v23;
     [dataCopy lensDistortionCenter];
-    v25 = height / v21 * v24;
+    v26 = height / v22 * v25;
     kdebug_trace();
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __76__ARImageDistortionCorrectionTechnique_buildUVMapWithCameraCalibrationData___block_invoke;
-    v28[3] = &unk_1E817C420;
-    v28[4] = self;
-    v29 = dataCopy;
-    v30 = width / v18 * v23;
-    v31 = v25;
-    [(ARImageDistortionCorrectionTechnique *)self buildUVMapWithDistortedPixelProviderBlock:v28];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __76__ARImageDistortionCorrectionTechnique_buildUVMapWithCameraCalibrationData___block_invoke;
+    v29[3] = &unk_1E817C420;
+    v29[4] = self;
+    v30 = dataCopy;
+    v31 = width / v19 * v24;
+    v32 = v26;
+    [(ARImageDistortionCorrectionTechnique *)self buildUVMapWithDistortedPixelProviderBlock:v29];
   }
 }
 
@@ -838,40 +839,40 @@ double __76__ARImageDistortionCorrectionTechnique_buildUVMapWithCameraCalibratio
 
 - (void)buildUVMapFromHardcodedCalibrationParameters
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogTechnique();
+  v34 = *MEMORY[0x1E69E9840];
+  v3 = _ARLogTechnique(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138543618;
-    v27 = v5;
-    v28 = 2048;
+    v31 = v5;
+    v32 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Building distortion correction UV map from hardcoded parameters", buf, 0x16u);
   }
 
-  v6 = ARFixedIntrinsicsForBackUltraWideCamera640x480();
-  *&v9 = ARAdjustIntrinsicsForViewportSize(*&v6, v7, v8, 640.0, 480.0, self->_imageSize.width, self->_imageSize.height);
-  v13 = v9;
-  v14 = v10;
-  v15 = v11;
-  *&v12 = ARRadialDistortionForUltraWideCamera();
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __84__ARImageDistortionCorrectionTechnique_buildUVMapFromHardcodedCalibrationParameters__block_invoke;
-  v16[3] = &__block_descriptor_96_e30__CGPoint_dd_24__0_CGPoint_dd_8l;
-  v17 = DWORD2(v13);
-  v16[4] = v13;
-  v18 = 0;
-  v20 = DWORD2(v14);
-  v19 = v14;
-  v21 = 0;
-  v23 = DWORD2(v15);
-  v22 = v15;
-  v24 = 0;
-  v25 = v12;
-  [(ARImageDistortionCorrectionTechnique *)self buildUVMapWithDistortedPixelProviderBlock:v16];
+  v8 = ARFixedIntrinsicsForBackUltraWideCamera640x480(v6, v7);
+  *&v11 = ARAdjustIntrinsicsForViewportSize(*&v8, v9, v10, 640.0, 480.0, self->_imageSize.width, self->_imageSize.height);
+  v17 = v11;
+  v18 = v12;
+  v19 = v13;
+  *&v16 = ARRadialDistortionForUltraWideCamera(v14, v15);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __84__ARImageDistortionCorrectionTechnique_buildUVMapFromHardcodedCalibrationParameters__block_invoke;
+  v20[3] = &__block_descriptor_96_e30__CGPoint_dd_24__0_CGPoint_dd_8l;
+  v21 = DWORD2(v17);
+  v20[4] = v17;
+  v22 = 0;
+  v24 = DWORD2(v18);
+  v23 = v18;
+  v25 = 0;
+  v27 = DWORD2(v19);
+  v26 = v19;
+  v28 = 0;
+  v29 = v16;
+  [(ARImageDistortionCorrectionTechnique *)self buildUVMapWithDistortedPixelProviderBlock:v20];
 }
 
 double __84__ARImageDistortionCorrectionTechnique_buildUVMapFromHardcodedCalibrationParameters__block_invoke(uint64_t a1, float64x2_t a2, float64_t a3)
@@ -913,23 +914,24 @@ double __84__ARImageDistortionCorrectionTechnique_buildUVMapFromHardcodedCalibra
 
 - (void)undistortImage:(__CVBuffer *)image toTargetImage:(__CVBuffer *)targetImage imageRotationAngle:(int64_t)angle
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   CVPixelBufferLockBaseAddress(image, 0);
-  v21 = 0u;
   v22 = 0u;
-  ARWrapCVPixelBufferVImage(image, &v21);
+  v23 = 0u;
+  ARWrapCVPixelBufferVImage(image, &v22);
   CVPixelBufferLockBaseAddress(targetImage, 0);
-  memset(v20, 0, sizeof(v20));
-  ARWrapCVPixelBufferVImage(targetImage, v20);
+  memset(v21, 0, sizeof(v21));
+  ARWrapCVPixelBufferVImage(targetImage, v21);
   undistortionMappingsForRotations = self->_undistortionMappingsForRotations;
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:angle];
   v11 = [(NSDictionary *)undistortionMappingsForRotations objectForKeyedSubscript:v10];
 
-  *buf = v21;
-  *&buf[16] = v22;
+  *buf = v22;
+  *&buf[16] = v23;
   [v11 createVImageMappingIfNeededForImage:buf];
   kdebug_trace();
   v12 = vImageRemap_Image8U();
+  v13 = v12;
   if (v12)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -937,36 +939,36 @@ double __84__ARImageDistortionCorrectionTechnique_buildUVMapFromHardcodedCalibra
       [ARImageDistortionCorrectionTechnique processData:];
     }
 
-    v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v14 = _ARLogTechnique();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v15 = _ARLogTechnique(v12);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138543874;
-        *&buf[4] = v17;
+        *&buf[4] = v18;
         *&buf[12] = 2048;
         *&buf[14] = self;
         *&buf[22] = 2048;
-        *&buf[24] = v12;
-        _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Image undistortion failed with error code : %ld", buf, 0x20u);
+        *&buf[24] = v13;
+        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Image undistortion failed with error code : %ld", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       *buf = 138543874;
-      *&buf[4] = v19;
+      *&buf[4] = v20;
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2048;
-      *&buf[24] = v12;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Image undistortion failed with error code : %ld", buf, 0x20u);
+      *&buf[24] = v13;
+      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Image undistortion failed with error code : %ld", buf, 0x20u);
     }
   }
 

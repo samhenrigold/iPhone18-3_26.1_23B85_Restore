@@ -136,9 +136,9 @@ void __72__FBServiceClientAuthenticator_sharedForegroundUIAppClientAuthenticator
 - (BOOL)authenticateClient:(id)client error:(id *)error
 {
   processHandle = [client processHandle];
-  auditToken = [processHandle auditToken];
+  v7 = objc_msgSend_auditToken(processHandle);
 
-  LOBYTE(error) = [objc_opt_class() _authenticateAuditToken:auditToken entitlement:self->_entitlement credentials:self->_credentials error:error];
+  LOBYTE(error) = [objc_opt_class() _authenticateAuditToken:v7 entitlement:self->_entitlement credentials:self->_credentials error:error];
   return error;
 }
 
@@ -199,7 +199,7 @@ void __72__FBServiceClientAuthenticator_sharedForegroundUIAppClientAuthenticator
   v11 = +[FBProcessManager sharedInstance];
   if (tokenCopy)
   {
-    [tokenCopy realToken];
+    objc_msgSend_realToken(tokenCopy);
   }
 
   else

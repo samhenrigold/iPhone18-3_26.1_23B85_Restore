@@ -8,37 +8,37 @@
 
 - (void)performRequestWithCompletion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     requestInfo = self->_requestInfo;
     *buf = 136315394;
-    v30 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
-    v31 = 2112;
-    v32 = requestInfo;
+    v29 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
+    v30 = 2112;
+    v31 = requestInfo;
     _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s Performing request for HomeAutomationBackgroundRequest: %@", buf, 0x16u);
   }
 
   v6 = self->_requestInfo;
   if (v6)
   {
-    v26 = 0;
-    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v26];
-    v8 = v26;
+    v25 = 0;
+    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v25];
+    v8 = v25;
     if (v8 || !v7)
     {
       v16 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        v20 = self->_requestInfo;
+        v19 = self->_requestInfo;
         *buf = 136315650;
-        v30 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
-        v31 = 2112;
-        v32 = v20;
-        v33 = 2112;
-        v34 = v8;
+        v29 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
+        v30 = 2112;
+        v31 = v19;
+        v32 = 2112;
+        v33 = v8;
         _os_log_error_impl(&dword_1912FE000, v16, OS_LOG_TYPE_ERROR, "%s Failed to serialize asyncMessage %@: %@", buf, 0x20u);
       }
 
@@ -61,11 +61,11 @@
     {
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
       {
-        v22 = self->_requestInfo;
+        v21 = self->_requestInfo;
         *buf = 136315394;
-        v30 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
-        v31 = 2112;
-        v32 = v22;
+        v29 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
+        v30 = 2112;
+        v31 = v21;
         _os_log_debug_impl(&dword_1912FE000, v15, OS_LOG_TYPE_DEBUG, "%s Sending xpc message with requestInfo: %@", buf, 0x16u);
       }
 
@@ -73,9 +73,9 @@
       handler[1] = 3221225472;
       handler[2] = __70__AFSiriHomeAutomationBackgroundRequest_performRequestWithCompletion___block_invoke;
       handler[3] = &unk_1E7348638;
-      v25 = completionCopy;
-      v24 = v14;
-      xpc_connection_send_message_with_reply(v24, v12, 0, handler);
+      v24 = completionCopy;
+      v23 = v14;
+      xpc_connection_send_message_with_reply(v23, v12, 0, handler);
 
 LABEL_20:
       for (i = 1; i != -1; --i)
@@ -89,11 +89,11 @@ LABEL_22:
 
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v21 = self->_requestInfo;
+      v20 = self->_requestInfo;
       *buf = 136315394;
-      v30 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
-      v31 = 2112;
-      v32 = v21;
+      v29 = "[AFSiriHomeAutomationBackgroundRequest performRequestWithCompletion:]";
+      v30 = 2112;
+      v31 = v20;
       _os_log_error_impl(&dword_1912FE000, v15, OS_LOG_TYPE_ERROR, "%s Unable to send xpc message for %@", buf, 0x16u);
       if (!completionCopy)
       {
@@ -118,8 +118,6 @@ LABEL_18:
 
   completionCopy[2](completionCopy, 0);
 LABEL_23:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __70__AFSiriHomeAutomationBackgroundRequest_performRequestWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -147,24 +145,24 @@ void __70__AFSiriHomeAutomationBackgroundRequest_performRequestWithCompletion___
 
 - (AFSiriHomeAutomationBackgroundRequest)initWithRequestInfo:(id)info instanceContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   contextCopy = context;
   v8 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v16 = "[AFSiriHomeAutomationBackgroundRequest initWithRequestInfo:instanceContext:]";
-    v17 = 2112;
-    v18 = infoCopy;
-    v19 = 2112;
-    v20 = contextCopy;
+    v15 = "[AFSiriHomeAutomationBackgroundRequest initWithRequestInfo:instanceContext:]";
+    v16 = 2112;
+    v17 = infoCopy;
+    v18 = 2112;
+    v19 = contextCopy;
     _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s Initializing HomeAutomationBackgroundRequest with requestInfo: %@ and AFInstanceContext: %@", buf, 0x20u);
   }
 
-  v14.receiver = self;
-  v14.super_class = AFSiriHomeAutomationBackgroundRequest;
-  v9 = [(AFSiriHomeAutomationBackgroundRequest *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = AFSiriHomeAutomationBackgroundRequest;
+  v9 = [(AFSiriHomeAutomationBackgroundRequest *)&v13 init];
   if (v9)
   {
     v10 = [infoCopy copy];
@@ -174,7 +172,6 @@ void __70__AFSiriHomeAutomationBackgroundRequest_performRequestWithCompletion___
     objc_storeStrong(&v9->_instanceContext, context);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

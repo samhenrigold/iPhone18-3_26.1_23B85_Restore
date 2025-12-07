@@ -145,37 +145,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v55 = *MEMORY[0x277D85DE8];
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
+  v38 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v34 = 0u;
   TLV8BufferInit();
   version = [(HMDSupportedSleepConfigurationTLV *)self version];
 
   if (version)
   {
     version2 = [(HMDSupportedSleepConfigurationTLV *)self version];
-    v33 = 0;
-    supportedWoLPacketConfigurations = [version2 serializeWithError:&v33];
-    v8 = v33;
+    v32 = 0;
+    supportedWoLPacketConfigurations = [version2 serializeWithError:&v32];
+    v8 = v32;
 
     if (v8)
     {
@@ -192,27 +192,27 @@ LABEL_29:
     }
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   supportedWoLPacketConfigurations = [(HMDSupportedSleepConfigurationTLV *)self supportedWoLPacketConfigurations];
-  v26 = [supportedWoLPacketConfigurations countByEnumeratingWithState:&v29 objects:v34 count:16];
-  if (v26)
+  v25 = [supportedWoLPacketConfigurations countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (v25)
   {
-    v11 = *v30;
+    v11 = *v29;
     v12 = 1;
     errorCopy = error;
     while (1)
     {
       v13 = 0;
 LABEL_10:
-      if (*v30 != v11)
+      if (*v29 != v11)
       {
         objc_enumerationMutation(supportedWoLPacketConfigurations);
       }
 
-      v14 = *(*(&v29 + 1) + 8 * v13);
+      v14 = *(*(&v28 + 1) + 8 * v13);
       if ((v12 & 1) == 0 && TLV8BufferAppend())
       {
 LABEL_28:
@@ -220,9 +220,9 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v28 = 0;
-      v15 = [v14 serializeWithError:{&v28, errorCopy}];
-      v16 = v28;
+      v27 = 0;
+      v15 = [v14 serializeWithError:{&v27, errorCopy}];
+      v16 = v27;
       if (v16)
       {
         break;
@@ -254,15 +254,15 @@ LABEL_28:
       while (bytes < v18);
 
       v12 = 0;
-      if (++v13 != v26)
+      if (++v13 != v25)
       {
         goto LABEL_10;
       }
 
       v12 = 0;
       error = errorCopy;
-      v26 = [supportedWoLPacketConfigurations countByEnumeratingWithState:&v29 objects:v34 count:16];
-      if (!v26)
+      v25 = [supportedWoLPacketConfigurations countByEnumeratingWithState:&v28 objects:v33 count:16];
+      if (!v25)
       {
         goto LABEL_23;
       }
@@ -294,9 +294,9 @@ LABEL_23:
   }
 
   darkPollMinimumInterval2 = [(HMDSupportedSleepConfigurationTLV *)self darkPollMinimumInterval];
-  v27 = 0;
-  supportedWoLPacketConfigurations = [darkPollMinimumInterval2 serializeWithError:&v27];
-  v8 = v27;
+  v26 = 0;
+  supportedWoLPacketConfigurations = [darkPollMinimumInterval2 serializeWithError:&v26];
+  v8 = v26;
 
   if (v8)
   {
@@ -310,7 +310,7 @@ LABEL_23:
   if (!v22)
   {
 LABEL_26:
-    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v35 length:?];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v34 length:?];
     v8 = 0;
     goto LABEL_34;
   }
@@ -329,8 +329,6 @@ LABEL_33:
   v10 = 0;
 LABEL_34:
   TLV8BufferFree();
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

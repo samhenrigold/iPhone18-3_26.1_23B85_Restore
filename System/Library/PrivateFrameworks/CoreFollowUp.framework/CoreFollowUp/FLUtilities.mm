@@ -50,7 +50,7 @@
 
 + (BOOL)launchPasswordResetForAppleID:(id)d
 {
-  v3 = _FLLogSystem();
+  v3 = _FLLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [FLUtilities launchPasswordResetForAppleID:v3];
@@ -61,7 +61,7 @@
 
 + (BOOL)launchPasswordChangeForAppleID:(id)d
 {
-  v3 = _FLLogSystem();
+  v3 = _FLLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [FLUtilities launchPasswordChangeForAppleID:v3];

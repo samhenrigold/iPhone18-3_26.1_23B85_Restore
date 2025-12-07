@@ -7,7 +7,7 @@
 + (BOOL)needsDisplayForKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"variantWeight"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 1;
   }

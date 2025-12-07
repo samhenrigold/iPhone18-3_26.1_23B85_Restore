@@ -152,10 +152,11 @@
   v6 = (self + OBJC_IVAR___HUAccessoryRepresentableItemModuleContext_filter);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_20CEC8164(v7);
+  sub_20CEC8164(v7, v8);
 }
 
 - (id)itemFilter
@@ -200,10 +201,11 @@
   v6 = (self + OBJC_IVAR___HUAccessoryRepresentableItemModuleContext_itemFilter);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_20CEC8164(v7);
+  sub_20CEC8164(v7, v8);
 }
 
 - (HUAccessoryRepresentableItemModuleContext)initWithObjectLevel:(unint64_t)level accessoryContainer:(id)container sectionGroupingType:(int64_t)type hideSourceItemDescriptions:(BOOL)descriptions showFooter:(BOOL)footer valueSource:(id)source filter:(id)filter itemFilter:(id)self0
@@ -241,8 +243,8 @@ LABEL_6:
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   v21 = sub_20CF8775C(level, container, type, descriptions, footer, source, v19, v18, v17, v20);
-  sub_20CEC8164(v17);
-  sub_20CEC8164(v19);
+  sub_20CEC8164(v17, v20);
+  sub_20CEC8164(v19, v18);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
   return v21;

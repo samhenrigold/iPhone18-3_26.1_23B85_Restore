@@ -17,32 +17,13 @@
   deviceTypes = v5->_deviceTypes;
   v5->_deviceTypes = v6;
 
-  if (!v5->_deviceTypes)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"pl"];
-  partsList = v5->_partsList;
-  v5->_partsList = v8;
-
-  if (!v5->_partsList)
-  {
-    goto LABEL_5;
-  }
-
-  v10 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"ch"];
-  children = v5->_children;
-  v5->_children = v10;
-
-  if (v5->_children)
+  if (v5->_deviceTypes && ([coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"pl"], v8 = objc_claimAutoreleasedReturnValue(), partsList = v5->_partsList, v5->_partsList = v8, partsList, v5->_partsList) && (objc_msgSend(coderCopy, "decodeArrayOfObjectsOfClass:forKey:", objc_opt_class(), @"ch"), v10 = objc_claimAutoreleasedReturnValue(), children = v5->_children, v5->_children = v10, children, v5->_children))
   {
     v12 = v5;
   }
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 

@@ -161,20 +161,20 @@
 - (void)_updateCanvasView
 {
   v59[4] = *MEMORY[0x1E69E9840];
-  if (self)
+  if (result)
   {
-    if (*(self + 64) & 1) != 0 || (*(self + 65))
+    if (*(result + 64) & 1) != 0 || (*(result + 65))
     {
-      WeakRetained = objc_loadWeakRetained((self + 72));
+      WeakRetained = objc_loadWeakRetained((result + 72));
       v3 = WeakRetained != 0;
 
-      v5 = (self + 96);
-      v4 = *(self + 96);
+      v5 = (result + 96);
+      v4 = *(result + 96);
       v6 = v4 == 0;
       if (WeakRetained && !v4)
       {
         v7 = +[PKTextInputSettings sharedSettings];
-        *(self + 16) = [v7 useSlidingCanvas];
+        *(result + 16) = [v7 useSlidingCanvas];
 
         v8 = +[PKTextInputSettings sharedSettings];
         [v8 slidingCanvasWidth];
@@ -203,7 +203,7 @@
         if ((PK_UIApplicationIsSystemShell___result & 1) == 0)
         {
           v20 = MEMORY[0x1CCA6F790]();
-          if (*(self + 16) == 1)
+          if (*(result + 16) == 1)
           {
             +[PKMetalUtility layerContentsScale];
             v22 = 18;
@@ -226,19 +226,19 @@
           }
         }
 
-        [(PKTiledCanvasView *)v17 setDelegate:self];
+        [(PKTiledCanvasView *)v17 setDelegate:result];
         [(PKTiledCanvasView *)v17 setOpaque:0];
         [(PKTiledCanvasView *)v17 setLiveStrokeMode:1];
         [(PKTiledCanvasView *)v17 setUseLuminanceColorFilter:1];
-        objc_storeStrong((self + 96), v17);
-        [(PKTextInputCanvasController *)self _updateCanvasViewInkAnimated:?];
-        v29 = objc_loadWeakRetained((self + 72));
-        v30 = [v29 canvasControllerContainerView:self];
+        objc_storeStrong((result + 96), v17);
+        [(PKTextInputCanvasController *)result _updateCanvasViewInkAnimated:?];
+        v29 = objc_loadWeakRetained((result + 72));
+        v30 = [v29 canvasControllerContainerView:result];
 
         v58 = v30;
         [v30 addSubview:v17];
         [(PKTiledCanvasView *)v17 setTranslatesAutoresizingMaskIntoConstraints:0];
-        if (*(self + 16) == 1)
+        if (*(result + 16) == 1)
         {
           v31 = +[PKTextInputSettings sharedSettings];
           slidingCanvasDebugBorder = [v31 slidingCanvasDebugBorder];
@@ -289,16 +289,16 @@
           [MEMORY[0x1E696ACD8] activateConstraints:v50];
         }
 
-        v51 = objc_loadWeakRetained((self + 72));
-        v52 = [v51 canvasControllerDrawingGestureRecognizer:self];
+        v51 = objc_loadWeakRetained((result + 72));
+        v52 = [v51 canvasControllerDrawingGestureRecognizer:result];
 
         [(PKTiledCanvasView *)v17 setDrawingGestureRecognizer:v52];
         [v52 setDrawingTarget:v17];
         +[PKTextInputDebugStateIntrospector debugStateDidChange];
 
 LABEL_28:
-        [*(self + 96) setHidden:(*(self + 64) & 1) == 0];
-        [(PKTextInputCanvasController *)self _updateFloatingBackground];
+        [*(result + 96) setHidden:(*(result + 64) & 1) == 0];
+        [(PKTextInputCanvasController *)result _updateFloatingBackground];
         return;
       }
     }
@@ -306,8 +306,8 @@ LABEL_28:
     else
     {
       v3 = 0;
-      v5 = (self + 96);
-      v4 = *(self + 96);
+      v5 = (result + 96);
+      v4 = *(result + 96);
       v6 = v4 == 0;
     }
 
@@ -588,14 +588,14 @@ LABEL_12:
 
 - (void)setFloatingBackgroundRect:(double)rect
 {
-  if (self && !CGRectEqualToRect(*&a2, *(self + 112)))
+  if (result && !CGRectEqualToRect(*&a2, *(result + 112)))
   {
-    *(self + 112) = a2;
-    *(self + 120) = rect;
-    *(self + 128) = a4;
-    *(self + 136) = a5;
+    *(result + 112) = a2;
+    *(result + 120) = rect;
+    *(result + 128) = a4;
+    *(result + 136) = a5;
 
-    [(PKTextInputCanvasController *)self _updateFloatingBackground];
+    [(PKTextInputCanvasController *)result _updateFloatingBackground];
   }
 }
 

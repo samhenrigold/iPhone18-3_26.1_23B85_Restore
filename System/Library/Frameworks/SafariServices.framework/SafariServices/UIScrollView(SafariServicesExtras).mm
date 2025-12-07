@@ -3,8 +3,8 @@
 + (double)_sf_baseInsetsForVerticalScrollIndicatorInScrollViewContainerView:()SafariServicesExtras;
 - (BOOL)_sf_isScrolledPastTop;
 - (BOOL)_sf_isScrolledToOrPastBottom;
-- (uint64_t)_sf_scrollIndicatorInsets;
 - (uint64_t)_sf_setScrollIndicatorInsets:()SafariServicesExtras;
+- (void)_sf_scrollIndicatorInsets;
 - (void)_sf_setContentInsetAdjustments:()SafariServicesExtras;
 @end
 
@@ -28,7 +28,7 @@
   return v4 < v3;
 }
 
-- (uint64_t)_sf_scrollIndicatorInsets
+- (void)_sf_scrollIndicatorInsets
 {
   [self horizontalScrollIndicatorInsets];
   v5 = v4;

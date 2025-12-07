@@ -989,7 +989,7 @@ double pm_energy_impact(unint64_t *a1)
   return pm_energy_impact_internal(a1, v2);
 }
 
-void sub_29982573C()
+double sub_29982573C()
 {
   v15 = *MEMORY[0x29EDCA608];
   dword_2A14BF488 = getpagesize();
@@ -1037,20 +1037,20 @@ void sub_29982573C()
   v8 = malloc_type_malloc(v7, 0x1FD15E5FuLL);
   if (!v8 || read(v6, v8, v7) != v7)
   {
-    LOBYTE(v12) = 0;
-    v10 = 0;
+    LOBYTE(v13) = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
-  v9 = xpc_create_from_plist();
-  v10 = v9;
-  if (!v9)
+  v10 = xpc_create_from_plist();
+  v11 = v10;
+  if (!v10)
   {
     goto LABEL_17;
   }
 
-  value = xpc_dictionary_get_value(v9, "energy_constants");
-  v12 = value;
+  value = xpc_dictionary_get_value(v10, "energy_constants");
+  v13 = value;
   if (!value)
   {
 LABEL_20:
@@ -1065,7 +1065,7 @@ LABEL_20:
   if (MEMORY[0x29C2A0710](value) != MEMORY[0x29EDCAA00])
   {
 LABEL_17:
-    LOBYTE(v12) = 0;
+    LOBYTE(v13) = 0;
     if (!v6)
     {
       goto LABEL_22;
@@ -1076,8 +1076,8 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  xpc_dictionary_apply(v12, &unk_2A1F8D490);
-  LOBYTE(v12) = 1;
+  xpc_dictionary_apply(v13, &unk_2A1F8D490);
+  LOBYTE(v13) = 1;
   if (v6)
   {
     goto LABEL_21;
@@ -1089,12 +1089,12 @@ LABEL_22:
     free(v8);
   }
 
-  if (v10)
+  if (v11)
   {
-    xpc_release(v10);
+    xpc_release(v11);
   }
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
 LABEL_27:
     qword_2A14BF480 = 0;
@@ -1103,11 +1103,12 @@ LABEL_27:
     xmmword_2A14BF470 = xmmword_299827030;
     xmmword_2A14BF410 = xmmword_299826FD0;
     unk_2A14BF420 = unk_299826FE0;
+    result = 1.0;
     xmmword_2A14BF430 = xmmword_299826FF0;
-    unk_2A14BF440 = unk_299827000;
+    unk_2A14BF440 = *dbl_299827000;
   }
 
-  v13 = *MEMORY[0x29EDCA608];
+  return result;
 }
 
 uint64_t sub_2998259DC(uint64_t a1, const char *a2, void *a3)
@@ -1127,14 +1128,6 @@ uint64_t sub_2998259DC(uint64_t a1, const char *a2, void *a3)
   }
 
   return 1;
-}
-
-uint64_t sub_299825A64()
-{
-  result = *v2;
-  v4 = *v1;
-  v5 = *v0;
-  return result;
 }
 
 size_t sub_299825A7C(const void *a1, uint64_t a2, uint64_t a3, FILE *a4)

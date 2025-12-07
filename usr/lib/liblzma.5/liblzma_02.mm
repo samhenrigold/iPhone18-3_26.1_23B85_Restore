@@ -1,10 +1,10 @@
-void stream_decoder_mt_end(uint64_t *a1, uint64_t a2)
+void stream_decoder_mt_end(uint64_t a1, void *a2)
 {
   threads_end(a1, a2);
-  lzma_outq_end(a1 + 61, a2);
-  lzma_next_end((a1 + 1), a2);
-  lzma_filters_free(a1 + 37, a2);
-  lzma_index_hash_end(a1[54], a2, v4);
+  lzma_outq_end((a1 + 488), a2);
+  lzma_next_end(a1 + 8, a2);
+  lzma_filters_free((a1 + 296), a2);
+  lzma_index_hash_end(*(a1 + 432), a2);
 
   lzma_free(a1, a2);
 }
@@ -424,7 +424,7 @@ LABEL_8:
   return 0;
 }
 
-uint64_t lzma_delta_coder_init(char **a1, uint64_t a2, uint64_t a3)
+uint64_t lzma_delta_coder_init(char **a1, void *a2, uint64_t a3)
 {
   v6 = *a1;
   if (!v6)
@@ -484,7 +484,7 @@ uint64_t lzma_delta_coder_init(char **a1, uint64_t a2, uint64_t a3)
   return lzma_next_filter_init(v6, a2, (a3 + 24), 0);
 }
 
-void delta_coder_end(void *a1, uint64_t a2)
+void delta_coder_end(void *a1, void *a2)
 {
   lzma_next_end(a1, a2);
 
@@ -506,7 +506,7 @@ uint64_t lzma_delta_coder_memusage(_DWORD *a1)
   return 352;
 }
 
-uint64_t lzma_delta_encoder_init(char **a1, uint64_t a2, uint64_t a3)
+uint64_t lzma_delta_encoder_init(char **a1, void *a2, uint64_t a3)
 {
   a1[3] = delta_encode;
   a1[8] = delta_encoder_update;
@@ -519,7 +519,7 @@ uint64_t delta_encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint6
   if (v12)
   {
     v13 = *a7;
-    result = v12(*a1, a2, a3, a4, a5, a6, a7);
+    result = v12(*a1, a2, a3, a4, a5, a6, a7, a8, a9);
     v15 = *a7 - v13;
     if (*a7 != v13)
     {
@@ -599,7 +599,7 @@ uint64_t lzma_delta_props_encode(uint64_t a1, _BYTE *a2)
 uint64_t delta_decode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
   v10 = *a7;
-  result = (*(a1 + 24))(*a1);
+  result = (*(a1 + 24))(*a1, a2, a3, a4, a5);
   v12 = *a7 - v10;
   if (*a7 != v10)
   {
@@ -645,7 +645,7 @@ uint64_t lzma_delta_props_decode(void *a1, uint64_t a2, unsigned __int8 *a3, uin
   return result;
 }
 
-uint64_t lzma_simple_coder_init(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, int a7, char a8, __n128 a9)
+uint64_t lzma_simple_coder_init(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, size_t a5, uint64_t a6, int a7, char a8, __n128 a9)
 {
   v13 = *a1;
   if (*a1)
@@ -830,7 +830,7 @@ LABEL_19:
   return result;
 }
 
-void simple_coder_end(void **a1, uint64_t a2)
+void simple_coder_end(void **a1, void *a2)
 {
   lzma_next_end(a1, a2);
   lzma_free(a1[12], a2);
@@ -843,7 +843,7 @@ uint64_t copy_or_code(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint6
   v12 = *(a1 + 24);
   if (v12)
   {
-    result = v12(*a1, a2, a3, a4, a5);
+    result = v12(*a1, a2, a3, a4, a5, a6, a7, a8, a9);
     if (result)
     {
       if (result != 1)
@@ -936,7 +936,7 @@ uint64_t lzma_simple_props_decode(void *a1, uint64_t a2, int *a3, uint64_t a4)
   return result;
 }
 
-double x86_coder_init(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, __n128 a5)
+double x86_coder_init(uint64_t *a1, void *a2, uint64_t a3, char a4, __n128 a5)
 {
   if (!lzma_simple_coder_init(a1, a2, a3, x86_code, 8uLL, 5, 1, a4, a5))
   {
@@ -1308,14 +1308,14 @@ uint64_t lzma_stream_encoder_mt(void *a1, _DWORD *a2)
   return v4;
 }
 
-uint64_t stream_encoder_mt_init(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t stream_encoder_mt_init(char **a1, void *a2, _DWORD *a3)
 {
-  if (*(a1 + 16) != stream_encoder_mt_init)
+  if (a1[2] != stream_encoder_mt_init)
   {
     lzma_next_end(a1, a2);
   }
 
-  *(a1 + 16) = stream_encoder_mt_init;
+  a1[2] = stream_encoder_mt_init;
   memset(v18, 0, sizeof(v18));
   v16 = 0;
   v17 = 0;
@@ -1423,10 +1423,10 @@ LABEL_12:
       if (!pthread_cond_init((v8 + 536), 0))
       {
         v9 = 0;
-        *(a1 + 24) = stream_encode_mt;
-        *(a1 + 32) = stream_encoder_mt_end;
-        *(a1 + 40) = get_progress;
-        *(a1 + 64) = stream_encoder_mt_update;
+        a1[3] = stream_encode_mt;
+        a1[4] = stream_encoder_mt_end;
+        a1[5] = get_progress;
+        a1[8] = stream_encoder_mt_update;
         *(v8 + 2) = -1;
         *(v8 + 12) = -1;
         *(v8 + 24) = -1;
@@ -1566,7 +1566,7 @@ LABEL_11:
   }
 }
 
-uint64_t stream_encode_mt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8, int64x2_t a9, int a10)
+uint64_t stream_encode_mt(uint64_t a1, void *a2, uint64_t a3, unint64_t *a4, unint64_t a5, uint64_t a6, uint64_t *a7, unint64_t a8, int64x2_t a9, int a10)
 {
   v14 = *a1;
   v15 = 11;
@@ -1913,7 +1913,7 @@ LABEL_7:
   return v15;
 }
 
-void stream_encoder_mt_end(uint64_t a1, uint64_t a2)
+void stream_encoder_mt_end(uint64_t a1, void *a2)
 {
   threads_end_0(a1, a2);
   lzma_outq_end((a1 + 344), a2);
@@ -1955,35 +1955,31 @@ uint64_t get_progress(uint64_t a1, void *a2, void *a3)
 
 uint64_t stream_encoder_mt_update(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (*a1 > 1u || *(a1 + 448))
   {
-    v4 = 11;
+    return 11;
   }
 
-  else if (lzma_raw_encoder_memusage(a3) == -1)
+  if (lzma_raw_encoder_memusage(a3) == -1)
   {
-    v4 = 8;
+    return 8;
   }
 
-  else
+  v4 = lzma_filters_copy(a3, v10, a2);
+  if (!v4)
   {
-    v4 = lzma_filters_copy(a3, v11, a2);
-    if (!v4)
-    {
-      lzma_filters_free((a1 + 16), a2);
-      lzma_filters_free((a1 + 96), a2);
-      v9 = v11[3];
-      *(a1 + 48) = v11[2];
-      *(a1 + 64) = v9;
-      *(a1 + 80) = v11[4];
-      v10 = v11[1];
-      *(a1 + 16) = v11[0];
-      *(a1 + 32) = v10;
-    }
+    lzma_filters_free((a1 + 16), a2);
+    lzma_filters_free((a1 + 96), a2);
+    v8 = v10[3];
+    *(a1 + 48) = v10[2];
+    *(a1 + 64) = v8;
+    *(a1 + 80) = v10[4];
+    v9 = v10[1];
+    *(a1 + 16) = v10[0];
+    *(a1 + 32) = v9;
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 

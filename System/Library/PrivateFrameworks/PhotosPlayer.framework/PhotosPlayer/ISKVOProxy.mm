@@ -18,95 +18,6 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v3 = self->_keyPaths;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v11;
-    do
-    {
-      v7 = 0;
-      do
-      {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        [self->_target removeObserver:self forKeyPath:*(*(&v10 + 1) + 8 * v7++)];
-      }
-
-      while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    }
-
-    while (v5);
-  }
-
-  v9.receiver = self;
-  v9.super_class = ISKVOProxy;
-  [(ISKVOProxy *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
-{
-  changeCopy = change;
-  pathCopy = path;
-  delegate = [(ISKVOProxy *)self delegate];
-  [delegate observeChangeforKVOProxyIdentifier:self->_identifier keyPath:pathCopy change:changeCopy];
-}
-
-- (void)stopObservingTarget
-{
-  v16 = *MEMORY[0x277D85DE8];
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v3 = self->_keyPaths;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v12;
-    do
-    {
-      v7 = 0;
-      do
-      {
-        if (*v12 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        [self->_target removeObserver:self forKeyPath:{*(*(&v11 + 1) + 8 * v7++), v11}];
-      }
-
-      while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v5);
-  }
-
-  keyPaths = self->_keyPaths;
-  self->_keyPaths = 0;
-
-  target = self->_target;
-  self->_target = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)startObservingTarget
-{
   v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
   v10 = 0u;
@@ -128,7 +39,7 @@
           objc_enumerationMutation(v3);
         }
 
-        [self->_target addObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++) options:5 context:{0, v9}];
+        [self->_target removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
@@ -138,7 +49,91 @@
     while (v5);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = ISKVOProxy;
+  [(ISKVOProxy *)&v8 dealloc];
+}
+
+- (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
+{
+  changeCopy = change;
+  pathCopy = path;
+  delegate = [(ISKVOProxy *)self delegate];
+  [delegate observeChangeforKVOProxyIdentifier:self->_identifier keyPath:pathCopy change:changeCopy];
+}
+
+- (void)stopObservingTarget
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v3 = self->_keyPaths;
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        [self->_target removeObserver:self forKeyPath:{*(*(&v10 + 1) + 8 * v7++), v10}];
+      }
+
+      while (v5 != v7);
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v5);
+  }
+
+  keyPaths = self->_keyPaths;
+  self->_keyPaths = 0;
+
+  target = self->_target;
+  self->_target = 0;
+}
+
+- (void)startObservingTarget
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = self->_keyPaths;
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v9;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        [self->_target addObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v7++) options:5 context:{0, v8}];
+      }
+
+      while (v5 != v7);
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v5);
+  }
 }
 
 - (ISKVOProxy)initWithTarget:(id)target keyPaths:(id)paths identifier:(id)identifier delegate:(id)delegate

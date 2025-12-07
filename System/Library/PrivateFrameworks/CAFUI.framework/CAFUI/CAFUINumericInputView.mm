@@ -71,9 +71,9 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  CAFUINumericInputView.focusItems(in:)(x, y, width, height);
+  CAFUINumericInputView.focusItems(in:)(selfCopy, x, y, width, height);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11UIFocusItem_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11UIFocusItem_pMd, &_sSo11UIFocusItem_pMR);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

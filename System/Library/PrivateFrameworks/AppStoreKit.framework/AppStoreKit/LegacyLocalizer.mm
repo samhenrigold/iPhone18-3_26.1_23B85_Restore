@@ -149,13 +149,36 @@
   v5 = sub_1E1AEFF8C();
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   countCopy = count;
   Locale.normalizedLocale.getter(v8);
-  sub_1E1AEFEFC();
+  v11 = sub_1E1AEFEFC();
+  v13 = v12;
   (*(v6 + 8))(v8, v5);
-  sub_1E13F16B0(count);
+  sub_1E13F16B0(count, v11, v13);
+  v15 = v14;
+
+  if (v15)
+  {
+    v16 = sub_1E1AF5DBC();
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
+}
+
+- (id)formattedCountForPreferredLocale:(id)locale :(id)a4
+{
+  v6 = sub_1E1AF5DFC();
+  v8 = v7;
+  selfCopy = self;
+  localeCopy = locale;
+  sub_1E13F16B0(locale, v6, v8);
   v12 = v11;
 
   if (v12)
@@ -171,30 +194,9 @@
   return v13;
 }
 
-- (id)formattedCountForPreferredLocale:(id)locale :(id)a4
-{
-  sub_1E1AF5DFC();
-  selfCopy = self;
-  localeCopy = locale;
-  sub_1E13F16B0(locale);
-  v9 = v8;
-
-  if (v9)
-  {
-    v10 = sub_1E1AF5DBC();
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  return v10;
-}
-
 - (id)timeAgoWithContext:(id)context :(id)a4
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780, &unk_1E1B029A0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v19 - v7;
   if (context)
@@ -216,7 +218,7 @@
   sub_1E13F1C54(v8, v11, v13);
   v16 = v15;
 
-  sub_1E1308058(v8, &unk_1ECEBB780);
+  sub_1E1308058(v8, &unk_1ECEBB780, &unk_1E1B029A0);
   if (v16)
   {
     v17 = sub_1E1AF5DBC();
@@ -232,7 +234,7 @@
 
 - (id)formatDateInSentence:(id)sentence :(id)a4 :(id)a5
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780, &unk_1E1B029A0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v23 - v8;
   v10 = sub_1E1AF5DFC();
@@ -256,7 +258,7 @@
   sub_1E13F2308(v10, v12, v13, v15, v9);
   v20 = v19;
 
-  sub_1E1308058(v9, &unk_1ECEBB780);
+  sub_1E1308058(v9, &unk_1ECEBB780, &unk_1E1B029A0);
   if (v20)
   {
     v21 = sub_1E1AF5DBC();
@@ -272,7 +274,7 @@
 
 - (id)formatDate:(id)date :(id)a4
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780, &unk_1E1B029A0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v19 - v7;
   v9 = sub_1E1AF5DFC();
@@ -294,7 +296,7 @@
   sub_1E13F2BB8(v9, v11, v8, 0xD000000000000013, 0x80000001E1B55D80);
   v16 = v15;
 
-  sub_1E1308058(v8, &unk_1ECEBB780);
+  sub_1E1308058(v8, &unk_1ECEBB780, &unk_1E1B029A0);
   if (v16)
   {
     v17 = sub_1E1AF5DBC();
@@ -310,7 +312,7 @@
 
 - (id)formatDateWithContext:(id)context :(id)a4 :(id)a5
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECEBB780, &unk_1E1B029A0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v23 - v8;
   v10 = sub_1E1AF5DFC();
@@ -334,7 +336,7 @@
   sub_1E13F2BB8(v10, v12, v9, v15, v17);
   v20 = v19;
 
-  sub_1E1308058(v9, &unk_1ECEBB780);
+  sub_1E1308058(v9, &unk_1ECEBB780, &unk_1E1B029A0);
   if (v20)
   {
     v21 = sub_1E1AF5DBC();
@@ -350,22 +352,23 @@
 
 - (id)formatDuration:(int64_t)duration :(id)a4
 {
-  sub_1E1AF5DFC();
-  selfCopy = self;
-  sub_1E13F3B9C(duration);
+  v6 = sub_1E1AF5DFC();
   v8 = v7;
+  selfCopy = self;
+  sub_1E13F3B9C(duration, v6, v8);
+  v11 = v10;
 
-  if (v8)
+  if (v11)
   {
-    v9 = sub_1E1AF5DBC();
+    v12 = sub_1E1AF5DBC();
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  return v9;
+  return v12;
 }
 
 - (_TtC11AppStoreKit15LegacyLocalizer)init

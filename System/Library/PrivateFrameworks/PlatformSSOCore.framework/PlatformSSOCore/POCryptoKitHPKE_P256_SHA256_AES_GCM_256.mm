@@ -10,13 +10,12 @@
 - (_TtC15PlatformSSOCore39POCryptoKitHPKE_P256_SHA256_AES_GCM_256)init
 {
   v3 = sub_25E941668();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(&self->super.super.isa + OBJC_IVAR____TtC15PlatformSSOCore39POCryptoKitHPKE_P256_SHA256_AES_GCM_256_encryptionAlgorithm) = &unk_2870A91B0;
-  v7 = &unk_2870A91B0;
+  v6 = &unk_2870A91B0;
   sub_25E941628();
-  return POCryptoKitHPKE.init(cipherSuite:)(v6);
+  return POCryptoKitHPKE.init(cipherSuite:)(v5);
 }
 
 - (void)addValuesTo:(id)to

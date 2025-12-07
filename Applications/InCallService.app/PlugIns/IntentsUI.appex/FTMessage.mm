@@ -228,13 +228,13 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_100030744(&unk_1000C5440);
-  sub_10007B528();
+  sub_100030744(&unk_1000C5440, &qword_1000A1BB8);
+  v6 = sub_10007B528();
   storeCopy = store;
   selfCopy = self;
-  v8 = sub_100059064(storeCopy);
+  v9 = sub_100059064(storeCopy, v6);
 
-  return v8;
+  return v9;
 }
 
 - (id)displayNameUsingContactStore:(id)store

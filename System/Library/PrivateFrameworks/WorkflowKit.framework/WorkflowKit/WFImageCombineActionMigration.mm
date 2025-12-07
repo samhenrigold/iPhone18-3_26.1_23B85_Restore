@@ -23,31 +23,31 @@
 
 - (void)migrateWorkflow
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v27;
+    v5 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v26 + 1) + 8 * i);
+        v7 = *(*(&v25 + 1) + 8 * i);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v9 = [v7 objectForKey:actionIdentifierKey];
 
-        if ([v9 isEqualToString:@"is.workflow.actions.image.combine"])
+        if (objc_msgSend_isEqualToString_(v9))
         {
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
           v11 = [v7 objectForKeyedSubscript:actionParametersKey];
@@ -116,13 +116,13 @@
             v19 = @"Horizontal";
           }
 
-          if ([(__CFString *)v18 isEqualToString:@"Side-by-Side"]&& (v20 = [(__CFString *)v19 isEqualToString:@"Horizontal"], v21 = @"Horizontally", (v20 & 1) != 0) || [(__CFString *)v18 isEqualToString:@"Side-by-Side"]&& (v22 = [(__CFString *)v19 isEqualToString:@"Vertical"], v21 = @"Vertically", (v22 & 1) != 0))
+          if (objc_msgSend_isEqualToString_(v18) && (isEqualToString = objc_msgSend_isEqualToString_(v19), v21 = @"Horizontally", (isEqualToString & 1) != 0) || objc_msgSend_isEqualToString_(v18) && (v22 = objc_msgSend_isEqualToString_(v19), v21 = @"Vertically", (v22 & 1) != 0))
           {
             [v11 setObject:v21 forKey:@"WFImageCombineMode"];
             goto LABEL_30;
           }
 
-          if ([(__CFString *)v18 isEqualToString:@"Grid"])
+          if (objc_msgSend_isEqualToString_(v18))
           {
             [v11 setObject:@"In a Grid" forKey:@"WFImageCombineMode"];
             v23 = [v11 objectForKey:@"WFImageCombineDirection"];
@@ -136,14 +136,13 @@ LABEL_30:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v4);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

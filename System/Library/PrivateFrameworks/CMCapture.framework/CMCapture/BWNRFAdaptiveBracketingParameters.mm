@@ -95,7 +95,7 @@
 {
   if (!statistics)
   {
-    [BWNRFAdaptiveBracketingParameters totalIntegrationTimeForDigitalFlashMode:frameStatistics:stationary:detectedObjects:];
+    [(BWNRFAdaptiveBracketingParameters *)self totalIntegrationTimeForDigitalFlashMode:a2 frameStatistics:*&mode stationary:0 detectedObjects:stationary, objects];
     v9 = 0.0;
     return round(v9) / 100.0;
   }

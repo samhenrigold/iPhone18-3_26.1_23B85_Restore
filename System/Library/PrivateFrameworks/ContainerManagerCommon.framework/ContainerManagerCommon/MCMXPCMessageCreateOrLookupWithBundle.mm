@@ -1,70 +1,16 @@
 @interface MCMXPCMessageCreateOrLookupWithBundle
-- (BOOL)createIfNecessary;
-- (BOOL)issueSandboxExtension;
-- (BOOL)transient;
 - (MCMXPCMessageCreateOrLookupWithBundle)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
-- (NSURL)bundleURL;
-- (NSURL)executableURL;
-- (const)sandboxToken;
 @end
 
 @implementation MCMXPCMessageCreateOrLookupWithBundle
 
-- (NSURL)executableURL
-{
-  result = self->_executableURL;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSURL)bundleURL
-{
-  result = self->_bundleURL;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (const)sandboxToken
-{
-  result = self->_sandboxToken;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)issueSandboxExtension
-{
-  result = self->_issueSandboxExtension;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)transient
-{
-  result = self->_transient;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)createIfNecessary
-{
-  result = self->_createIfNecessary;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMXPCMessageCreateOrLookupWithBundle)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v26.receiver = self;
-  v26.super_class = MCMXPCMessageCreateOrLookupWithBundle;
-  v9 = [(MCMXPCMessageBase *)&v26 initWithXPCObject:objectCopy context:context error:error];
+  v25.receiver = self;
+  v25.super_class = MCMXPCMessageCreateOrLookupWithBundle;
+  v9 = [(MCMXPCMessageBase *)&v25 initWithXPCObject:objectCopy context:context error:error];
   if (v9)
   {
     uint64 = xpc_dictionary_get_uint64(objectCopy, "Flags");
@@ -103,9 +49,9 @@
           path3 = [(NSURL *)v9->_executableURL path];
           path4 = [(NSURL *)v9->_bundleURL path];
           *buf = 138412546;
-          v28 = path3;
-          v29 = 2112;
-          v30 = path4;
+          v27 = path3;
+          v28 = 2112;
+          v29 = path4;
           _os_log_error_impl(&dword_1DF2C3000, v21, OS_LOG_TYPE_ERROR, "Executable path [%@] is not inside bundle path [%@]", buf, 0x16u);
         }
       }
@@ -120,7 +66,6 @@
 
 LABEL_11:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

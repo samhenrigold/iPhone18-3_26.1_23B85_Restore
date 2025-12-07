@@ -121,19 +121,19 @@ void __44___SFReaderController_setReaderLanguageTag___block_invoke_3(uint64_t a1
   [WeakRetained activateFont:v2];
 }
 
-uint64_t __48___SFReaderController_didRequestOnDeviceSummary__block_invoke(uint64_t a1)
+uint64_t __48___SFReaderController_didRequestOnDeviceSummary__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_INFO, "Safari did begin summarization animation", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Safari did begin summarization animation", v5, 2u);
   }
 
   return [*(*(a1 + 32) + 80) summarizeArticleText:*(*(a1 + 32) + 144)];
 }
 
-uint64_t __70___SFReaderController_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__70___SFReaderController_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqualToString:*MEMORY[0x1E69B1F00]];
   if (result)

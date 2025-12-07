@@ -147,9 +147,9 @@
   sceneCopy = scene;
   parentScene = [sceneCopy parentScene];
   WeakRetained = objc_loadWeakRetained(&self->_parentScene);
-  v7 = [parentScene isEqual:WeakRetained];
+  isEqual = objc_msgSend_isEqual_(parentScene);
 
-  if (v7)
+  if (isEqual)
   {
     [sceneCopy setParentScene:0];
   }

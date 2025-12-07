@@ -19,7 +19,7 @@
 
 - (void)handleWorkflowRunResult:(id)result completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   completionCopy = completion;
   if (resultCopy)
@@ -62,15 +62,13 @@
     v17 = getWFTestingLifecycleLogObject();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 136315138;
-      v20 = "[WFHarnessTestRunnerClient handleWorkflowRunResult:completion:]";
-      _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEFAULT, "%s WFHarnessTestRunnerClient skipping callback because testDelegate does not respond to didFinishRunningHarnessTestsWithResult", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[WFHarnessTestRunnerClient handleWorkflowRunResult:completion:]";
+      _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEFAULT, "%s WFHarnessTestRunnerClient skipping callback because testDelegate does not respond to didFinishRunningHarnessTestsWithResult", &v18, 0xCu);
     }
   }
 
   completionCopy[2](completionCopy);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (WFHarnessTestRunnerClient)initWithRunRequest:(id)request

@@ -31,7 +31,7 @@
 
 - (void)_setupVoicesTableView
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D75B40]);
   v4 = [v3 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   voicesTableView = self->_voicesTableView;
@@ -55,27 +55,25 @@
   [(UITableView *)self->_voicesTableView registerClass:objc_opt_class() forCellReuseIdentifier:@"VoiceCell"];
   [(VTUIVoiceSelectionOptionsView *)self addSubview:self->_voicesTableView];
   [(UITableView *)self->_voicesTableView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v21 = MEMORY[0x277CCAAD0];
+  v20 = MEMORY[0x277CCAAD0];
   topAnchor = [(UITableView *)self->_voicesTableView topAnchor];
   topAnchor2 = [(VTUIVoiceSelectionOptionsView *)self topAnchor];
-  v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v25[0] = v22;
+  v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v24[0] = v21;
   leftAnchor = [(UITableView *)self->_voicesTableView leftAnchor];
   leftAnchor2 = [(VTUIVoiceSelectionOptionsView *)self leftAnchor];
   v12 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v25[1] = v12;
+  v24[1] = v12;
   rightAnchor = [(UITableView *)self->_voicesTableView rightAnchor];
   rightAnchor2 = [(VTUIVoiceSelectionOptionsView *)self rightAnchor];
   v15 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v25[2] = v15;
+  v24[2] = v15;
   bottomAnchor = [(UITableView *)self->_voicesTableView bottomAnchor];
   bottomAnchor2 = [(VTUIVoiceSelectionOptionsView *)self bottomAnchor];
   v18 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v25[3] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
-  [v21 activateConstraints:v19];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v24[3] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+  [v20 activateConstraints:v19];
 }
 
 - (id)_diffableTableDataSource
@@ -172,46 +170,46 @@ id __57__VTUIVoiceSelectionOptionsView__diffableTableDataSource__block_invoke(ui
 - (void)_createAndApplySnapshotForViewModel:(id)model
 {
   selfCopy = self;
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v4 = objc_alloc_init(MEMORY[0x277CFB890]);
-  v32[0] = @"Voice";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v31[0] = @"Voice";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   [v4 appendSectionsWithIdentifiers:v5];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v20 = modelCopy;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = modelCopy;
   voices = [modelCopy voices];
-  v7 = [voices countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v7 = [voices countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(voices);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         localizedDisplayName = [v11 localizedDisplayName];
 
         if (localizedDisplayName)
         {
           localizedDisplayName2 = [v11 localizedDisplayName];
-          v30 = localizedDisplayName2;
-          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+          v29 = localizedDisplayName2;
+          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
           [v4 appendItemsWithIdentifiers:v14 intoSectionWithIdentifier:@"Voice"];
 
           localizedDisplayName3 = [v11 localizedDisplayName];
-          v29 = localizedDisplayName3;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+          v28 = localizedDisplayName3;
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
           [v4 reloadItemsWithIdentifiers:v16];
         }
 
@@ -221,22 +219,21 @@ id __57__VTUIVoiceSelectionOptionsView__diffableTableDataSource__block_invoke(ui
           if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v26 = "[VTUIVoiceSelectionOptionsView _createAndApplySnapshotForViewModel:]";
-            v27 = 2112;
-            v28 = v11;
+            v25 = "[VTUIVoiceSelectionOptionsView _createAndApplySnapshotForViewModel:]";
+            v26 = 2112;
+            v27 = v11;
             _os_log_error_impl(&dword_2728BC000, v17, OS_LOG_TYPE_ERROR, "%s Unable to determine localized display name for %@", buf, 0x16u);
           }
         }
       }
 
-      v8 = [voices countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v8 = [voices countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v8);
   }
 
   [(UITableViewDiffableDataSource *)selfCopy->_tableViewDataSource applySnapshot:v4 animatingDifferences:0];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSemanticContentAttribute:(int64_t)attribute

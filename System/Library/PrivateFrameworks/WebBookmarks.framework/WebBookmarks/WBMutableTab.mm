@@ -12,7 +12,10 @@
 - (void)mergeWithTab:(id)tab;
 - (void)setLocalAttributes:(id)attributes;
 - (void)setLocalTitle:(id)title;
+- (void)setOrderIndex:(int)index;
+- (void)setPinned:(BOOL)pinned title:(id)title url:(id)url;
 - (void)setSyncPosition:(id)position;
+- (void)setSyncable:(BOOL)syncable;
 - (void)setSyncableTitle:(id)title;
 - (void)setTabGroupUUID:(id)d;
 - (void)setTitle:(id)title;
@@ -126,16 +129,28 @@
   }
 }
 
+- (void)setSyncable:(BOOL)syncable
+{
+  syncableCopy = syncable;
+  value = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
+  isInserted = [value isInserted];
+
+  if ((isInserted & 1) == 0)
+  {
+    [(WBSCopyOnWriteValue *)self->super._bookmarkStorage willModify];
+    value2 = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
+    [value2 _setSyncable:syncableCopy];
+  }
+}
+
 - (void)setTabGroupUUID:(id)d
 {
   dCopy = d;
-  tabGroupUUID = self->super._tabGroupUUID;
-  v8 = dCopy;
   if ((WBSIsEqual() & 1) == 0)
   {
-    v6 = [v8 copy];
-    v7 = self->super._tabGroupUUID;
-    self->super._tabGroupUUID = v6;
+    v4 = [dCopy copy];
+    tabGroupUUID = self->super._tabGroupUUID;
+    self->super._tabGroupUUID = v4;
   }
 }
 
@@ -192,6 +207,14 @@
   [(WBSCopyOnWriteValue *)bookmarkStorage willModify];
   value = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
   [value setSyncPosition:positionCopy];
+}
+
+- (void)setOrderIndex:(int)index
+{
+  v3 = *&index;
+  [(WBSCopyOnWriteValue *)self->super._bookmarkStorage willModify];
+  value = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
+  [value _setOrderIndex:v3];
 }
 
 - (void)adoptAttributesFromTab:(id)tab
@@ -252,6 +275,43 @@
   [(WBMutableTab *)self setShared:0];
 }
 
+- (void)setPinned:(BOOL)pinned title:(id)title url:(id)url
+{
+  pinnedCopy = pinned;
+  titleCopy = title;
+  urlCopy = url;
+  value = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
+  if ([value isPinned] != pinnedCopy)
+  {
+    goto LABEL_6;
+  }
+
+  value2 = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
+  pinnedTitle = [value2 pinnedTitle];
+  if ((WBSIsEqual() & 1) == 0)
+  {
+
+LABEL_6:
+    goto LABEL_7;
+  }
+
+  absoluteString = [urlCopy absoluteString];
+  value3 = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
+  pinnedAddress = [value3 pinnedAddress];
+  v17 = WBSIsEqual();
+
+  if ((v17 & 1) == 0)
+  {
+LABEL_7:
+    [(WBSCopyOnWriteValue *)self->super._bookmarkStorage willModify];
+    value4 = [(WBSCopyOnWriteValue *)self->super._bookmarkStorage value];
+    absoluteString2 = [urlCopy absoluteString];
+    [value4 setPinned:pinnedCopy title:titleCopy address:absoluteString2];
+
+    self->super._modified = 1;
+  }
+}
+
 - (void)markAsRead
 {
   [(WBSCopyOnWriteValue *)self->super._bookmarkStorage willModify];
@@ -273,14 +333,14 @@
     generation2 = [labelField2 generation];
     v11 = [generation2 compare:generation];
 
-    v12 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+    v14 = WBS_LOG_CHANNEL_PREFIXTabGroup(v12, v13);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
     if (v11 == -1)
     {
-      if (v13)
+      if (v15)
       {
         *buf = 0;
-        _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Adopting other tab's local title and URL", buf, 2u);
+        _os_log_impl(&dword_272C20000, v14, OS_LOG_TYPE_INFO, "Adopting other tab's local title and URL", buf, 2u);
       }
 
       localTitle = [(WBMutableTab *)tabCopy localTitle];
@@ -292,10 +352,10 @@
 
     else
     {
-      if (v13)
+      if (v15)
       {
-        *v20 = 0;
-        _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Using tab's local title and URL", v20, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_272C20000, v14, OS_LOG_TYPE_INFO, "Using tab's local title and URL", v22, 2u);
       }
 
       localTitle2 = [(WBMutableTab *)self localTitle];

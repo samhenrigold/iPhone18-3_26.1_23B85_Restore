@@ -229,58 +229,58 @@ LABEL_9:
 {
   locationCopy = location;
   errorCopy = error;
-  [(NSTimer *)self->_timeout invalidate];
+  invalidate = [(NSTimer *)self->_timeout invalidate];
   if (locationCopy)
   {
-    v8 = sub_10004B920();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = sub_10004B920(invalidate);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       [(SingleLocationUpdate *)self _timeSinceStart];
-      v10 = v9;
+      v11 = v10;
       [locationCopy horizontalAccuracy];
-      v12 = v11;
+      v13 = v12;
       [(SingleLocationUpdate *)self desiredAccuracy];
-      v14 = v13;
+      v15 = v14;
       [(SingleLocationUpdate *)self acceptableAccuracy];
-      v30 = 134219008;
+      v31 = 134219008;
       selfCopy3 = self;
-      v32 = 2048;
-      v33 = v10;
-      v34 = 2048;
-      v35 = v12;
-      v36 = 2048;
-      v37 = v14;
-      v38 = 2048;
-      v39 = v15;
-      v16 = "Single location update %p got a good-enough location after %#.3lfs (accuracy: ±%#.2lfm, desired: ±%#.2lfm, acceptable: ±%#.2lfm)";
-      v17 = v8;
-      v18 = OS_LOG_TYPE_INFO;
-      v19 = 52;
+      v33 = 2048;
+      v34 = v11;
+      v35 = 2048;
+      v36 = v13;
+      v37 = 2048;
+      v38 = v15;
+      v39 = 2048;
+      v40 = v16;
+      v17 = "Single location update %p got a good-enough location after %#.3lfs (accuracy: ±%#.2lfm, desired: ±%#.2lfm, acceptable: ±%#.2lfm)";
+      v18 = v9;
+      v19 = OS_LOG_TYPE_INFO;
+      v20 = 52;
 LABEL_7:
-      _os_log_impl(&_mh_execute_header, v17, v18, v16, &v30, v19);
+      _os_log_impl(&_mh_execute_header, v18, v19, v17, &v31, v20);
       goto LABEL_8;
     }
 
     goto LABEL_8;
   }
 
-  v8 = sub_10004B920();
-  v20 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  v9 = sub_10004B920(invalidate);
+  v21 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
   if (errorCopy)
   {
-    if (v20)
+    if (v21)
     {
       [(SingleLocationUpdate *)self _timeSinceStart];
-      v30 = 134218498;
+      v31 = 134218498;
       selfCopy3 = self;
-      v32 = 2048;
-      v33 = v21;
-      v34 = 2112;
-      v35 = errorCopy;
-      v16 = "Single location update %p failed after %#.3lfs with error: %@";
-      v17 = v8;
-      v18 = OS_LOG_TYPE_ERROR;
-      v19 = 32;
+      v33 = 2048;
+      v34 = v22;
+      v35 = 2112;
+      v36 = errorCopy;
+      v17 = "Single location update %p failed after %#.3lfs with error: %@";
+      v18 = v9;
+      v19 = OS_LOG_TYPE_ERROR;
+      v20 = 32;
       goto LABEL_7;
     }
 
@@ -289,35 +289,35 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if (v20)
+  if (v21)
   {
     [(SingleLocationUpdate *)self _timeSinceStart];
-    v24 = v23;
+    v25 = v24;
     [(CLLocation *)self->_lastLocation horizontalAccuracy];
-    v26 = v25;
+    v27 = v26;
     [(SingleLocationUpdate *)self desiredAccuracy];
-    v28 = v27;
+    v29 = v28;
     [(SingleLocationUpdate *)self acceptableAccuracy];
-    v30 = 134219008;
+    v31 = 134219008;
     selfCopy3 = self;
-    v32 = 2048;
-    v33 = v24;
-    v34 = 2048;
-    v35 = v26;
-    v36 = 2048;
-    v37 = v28;
-    v38 = 2048;
-    v39 = v29;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Single location update %p never got a good-enough location after %#.3lfs (best received: ±%#.2lfm, desired: ±%#.2lfm, acceptable: ±%#.2lfm)", &v30, 0x34u);
+    v33 = 2048;
+    v34 = v25;
+    v35 = 2048;
+    v36 = v27;
+    v37 = 2048;
+    v38 = v29;
+    v39 = 2048;
+    v40 = v30;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Single location update %p never got a good-enough location after %#.3lfs (best received: ±%#.2lfm, desired: ±%#.2lfm, acceptable: ±%#.2lfm)", &v31, 0x34u);
   }
 
   errorCopy = [NSError errorWithDomain:kCLErrorDomain code:0 userInfo:0];
 LABEL_9:
-  v22 = objc_retainBlock(self->_completionHandler);
+  v23 = objc_retainBlock(self->_completionHandler);
   [(SingleLocationUpdate *)self _cleanup];
-  if (v22)
+  if (v23)
   {
-    v22[2](v22, locationCopy, errorCopy);
+    v23[2](v23, locationCopy, errorCopy);
   }
 }
 

@@ -157,8 +157,8 @@ LABEL_9:
   while (1)
   {
     ++*(self + 81);
-    *(self + v8[283]) = 0;
-    v9 = [*(self + v1[289]) intAtWithInt:v7];
+    self[v8[283]] = 0;
+    v9 = [*&self[v1[289]] intAtWithInt:v7];
     if (v7 < [*(self + 89) length])
     {
       while (1)
@@ -176,7 +176,7 @@ LABEL_9:
         }
 
         *(v10 + 16 + 8 * v9) = *(self + 81);
-        v12 = [*(self + v5[282]) stepWithInt:v9 withInt:{objc_msgSend(*(self + 89), "byteAtWithInt:", v7)}];
+        v12 = [*&self[v5[282]] stepWithInt:v9 withInt:{objc_msgSend(*(self + 89), "byteAtWithInt:", v7)}];
         if (v12 == -1)
         {
           goto LABEL_20;
@@ -185,8 +185,8 @@ LABEL_9:
         v13 = v12;
         v9 = v12;
         v14 = (v7 + 1);
-        [*(self + v1[289]) setIntAtWithInt:v14 withInt:v12];
-        if ((*(self + 57) & 1) == 0 && (*(self + v8[283]) & 1) == 0)
+        [*&self[v1[289]] setIntAtWithInt:v14 withInt:v12];
+        if ((self[57] & 1) == 0 && (self[v8[283]] & 1) == 0)
         {
           v15 = v8;
           v16 = v5;
@@ -234,13 +234,13 @@ LABEL_21:
     }
 
     LODWORD(v7) = v21;
-    v22 = [*(self + v5[282]) stepWithInt:objc_msgSend(*(self + v1[289]) withInt:{"intAtWithInt:", v21), objc_msgSend(*(self + 89), "byteAtWithInt:", v21)}];
-    if (v22 & 0x80000000) == 0 && ([*(self + v5[282]) isAcceptWithInt:v22])
+    v22 = [*&self[v5[282]] stepWithInt:objc_msgSend(*&self[v1[289]] withInt:{"intAtWithInt:", v21), objc_msgSend(*(self + 89), "byteAtWithInt:", v21)}];
+    if (v22 & 0x80000000) == 0 && ([*&self[v5[282]] isAcceptWithInt:v22])
     {
       return 1;
     }
 
-    if (*(self + 57))
+    if (self[57])
     {
       v7 = v7;
     }

@@ -30,60 +30,60 @@ uint64_t ____CPCGBitmapContextBlockSetup_block_invoke(void *a1)
 
 uint64_t ____CPCGBitmapContextBlockSetup_block_invoke_2(uint64_t a1, uint64_t a2, CGImageRef image, CFErrorRef *a4)
 {
-  if (*(a1 + 88) == 1 && (v8 = **(*(*(a1 + 32) + 8) + 24), CGImageGetColorSpace(image), (CGColorSpaceEqualToColorSpace() & 1) == 0))
+  if (*(a1 + 88) == 1 && (CGImageGetColorSpace(image), (CGColorSpaceEqualToColorSpace() & 1) == 0))
   {
     if (a4)
     {
-      v21 = @"CPBitmapErrorDomain";
-      v22 = "Mismatched colorSpaces";
-      v23 = a4;
-      v24 = 7;
+      v20 = @"CPBitmapErrorDomain";
+      v21 = "Mismatched colorSpaces";
+      v22 = a4;
+      v23 = 7;
 LABEL_15:
-      __CPBitmapSetErrorIfNecessary(v23, v21, v24, v22);
+      __CPBitmapSetErrorIfNecessary(v22, v20, v23, v21);
     }
   }
 
   else
   {
-    v9 = *(a1 + 56);
-    if (!v9)
+    v8 = *(a1 + 56);
+    if (!v8)
     {
       return 1;
     }
 
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
-    v12 = *(a1 + 64);
+    v11 = *(a1 + 64);
     while (1)
     {
-      v13 = v9 - v11;
-      v14 = v13 >= v12 ? v12 : v13;
-      v26.origin.y = v11;
-      v15 = *(a1 + 72);
-      v16 = (v12 - v14);
-      v26.origin.x = 0.0;
-      v26.size.width = v15;
-      v26.size.height = v14;
-      v17 = CGImageCreateWithImageInRect(image, v26);
+      v12 = v8 - v10;
+      v13 = v12 >= v11 ? v11 : v12;
+      v25.origin.y = v10;
+      v14 = *(a1 + 72);
+      v15 = (v11 - v13);
+      v25.origin.x = 0.0;
+      v25.size.width = v14;
+      v25.size.height = v13;
+      v16 = CGImageCreateWithImageInRect(image, v25);
       bzero(*(*(*(a1 + 40) + 8) + 24), *(a1 + 80));
-      v27.origin.x = 0.0;
-      v27.origin.y = v16;
-      v27.size.width = v15;
-      v27.size.height = v14;
-      CGContextDrawImage(*(*(*(a1 + 48) + 8) + 24), v27, v17);
-      CGImageRelease(v17);
-      v18 = *(*(*(a1 + 32) + 8) + 24);
-      v19 = *(v18 + 32) * v14;
-      if (pwrite(*(a2 + 24), *(*(*(a1 + 40) + 8) + 24), v19, v10 + *(v18 + 40) * *(a2 + 88)) == -1)
+      v26.origin.x = 0.0;
+      v26.origin.y = v15;
+      v26.size.width = v14;
+      v26.size.height = v13;
+      CGContextDrawImage(*(*(*(a1 + 48) + 8) + 24), v26, v16);
+      CGImageRelease(v16);
+      v17 = *(*(*(a1 + 32) + 8) + 24);
+      v18 = *(v17 + 32) * v13;
+      if (pwrite(*(a2 + 24), *(*(*(a1 + 40) + 8) + 24), v18, v9 + *(v17 + 40) * *(a2 + 88)) == -1)
       {
         break;
       }
 
-      v10 += v19;
-      v9 = *(a1 + 56);
-      v12 = *(a1 + 64);
-      v11 += v12;
-      if (v11 >= v9)
+      v9 += v18;
+      v8 = *(a1 + 56);
+      v11 = *(a1 + 64);
+      v10 += v11;
+      if (v10 >= v8)
       {
         return 1;
       }
@@ -91,11 +91,11 @@ LABEL_15:
 
     if (a4)
     {
-      v25 = *MEMORY[0x1E695E640];
-      v24 = *__error();
-      v22 = "Could not write bitmap to disk";
-      v23 = a4;
-      v21 = v25;
+      v24 = *MEMORY[0x1E695E640];
+      v23 = *__error();
+      v21 = "Could not write bitmap to disk";
+      v22 = a4;
+      v20 = v24;
       goto LABEL_15;
     }
   }

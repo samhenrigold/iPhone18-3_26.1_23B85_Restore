@@ -364,32 +364,11 @@ LABEL_77:
   return v33;
 }
 
-+ (void)restrictionForClass:(uint64_t)a3 withProperties:(uint64_t)a4 errors:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_243DC3000, a1, a3, "Empty/Nil restrictionType: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_cpuTimeRestrictionWithProperties:(uint64_t)a3 errors:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_243DC3000, a1, a3, "Detected misconfigured cpuTime restriction with unknown timeWindow: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_cpuTimeRestrictionWithProperties:(uint64_t)a3 errors:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_243DC3000, a1, a3, "Detected misconfigured cpuTime restriction with unknown threshold: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
 + (void)_cpuTimeRestrictionWithBand:(uint64_t)a3 errors:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_243DC3000, a2, a3, "Detected misconfigured cpuTime band restriction with unknown band: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_243DC3000, a2, a3, "Detected misconfigured cpuTime band restriction with unknown band: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

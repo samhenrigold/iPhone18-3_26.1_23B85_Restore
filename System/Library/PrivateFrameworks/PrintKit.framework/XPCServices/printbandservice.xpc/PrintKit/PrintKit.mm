@@ -8,14 +8,15 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-double pPreProc(int a1, _t_zn_IMAGEPARAMS *a2, void *a3)
+double pPreProc(uint64_t a1, _t_zn_IMAGEPARAMS *a2, void *a3)
 {
+  v4 = a1;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
     sub_100034BA8();
   }
 
-  a2[1].aColorComponents[3] = a1;
+  a2[1].aColorComponents[3] = v4;
   v5 = *&a2[1].aColorComponents[1];
   nYDotsPerInch = a2[1].nYDotsPerInch;
   ColorModel = a2[1].ColorModel;
@@ -63,14 +64,15 @@ double pPreProc(int a1, _t_zn_IMAGEPARAMS *a2, void *a3)
   return result;
 }
 
-void pPostProc(int a1, _DWORD *a2)
+void pPostProc(uint64_t a1, _DWORD *a2)
 {
+  v3 = a1;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
     sub_100034C2C();
   }
 
-  a2[58] = a1;
+  a2[58] = v3;
   *(a2 + 236) = 1;
 }
 
@@ -84,10 +86,10 @@ void pNotifyProc(unsigned int a1, _BYTE *a2)
   a2[236] = 0;
 }
 
-void sub_10000123C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10000123C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PrintBandService;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -139,7 +141,7 @@ void Madusa::FrequencyTransform::Fft(uint64_t a1, void *a2, uint64_t a3)
   v17 = a3 + 33552;
   do
   {
-    sub_1000018E8(a1 + 69176, v8 + (v13 << 10), a1 + 24, a1 + 67624);
+    sub_1000018E8(a1 + 69176, v8 + (v13 << 10), a1 + 24, (a1 + 67624));
     v18 = 0;
     v19 = (a1 + 24);
     do
@@ -179,7 +181,7 @@ void Madusa::FrequencyTransform::Fft(uint64_t a1, void *a2, uint64_t a3)
   while (v13 != 65);
 }
 
-void sub_1000017C0(uint64_t a1, float *a2, int a3, uint64_t a4)
+void sub_1000017C0(uint64_t a1, float *a2, uint64_t a3, uint64_t a4)
 {
   sub_100002A44(a1, a2, a3, a4);
   v5 = 32;
@@ -237,7 +239,7 @@ void sub_1000017C0(uint64_t a1, float *a2, int a3, uint64_t a4)
   while (v10 < 0x3F);
 }
 
-void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, float32x4_t *a4)
 {
   v4 = 0;
   v5 = &Madusa::FftImpl::gTwiddle128;
@@ -255,7 +257,7 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     v9.i64[1] = __PAIR64__(v12.u32[0], v12.u32[1]);
     v13 = vaddq_f32(v10, v9);
     v13.i32[3] = vsubq_f32(v10, v9).i32[3];
-    *(a4 + 16 * v4++) = v13;
+    a4[v4++] = v13;
   }
 
   while (v4 != 64);
@@ -448,194 +450,194 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
   v117 = *(a3 + 4);
   v118 = *(a3 + 512);
   v119 = *(a3 + 516);
-  *a4 = v118 + *a3;
-  *(a4 + 4) = v119 + v117;
+  a4->f32[0] = v118 + *a3;
+  a4->f32[1] = v119 + v117;
   v120 = v116 - v118;
   v121 = v117 - v119;
-  *(a4 + 128) = v120 + (v121 * 0.0);
-  *(a4 + 132) = v121 - (v120 * 0.0);
+  a4[8].f32[0] = v120 + (v121 * 0.0);
+  a4[8].f32[1] = v121 - (v120 * 0.0);
   v122 = *(a3 + 8);
   v123 = *(a3 + 12);
   v124 = *(a3 + 520);
   v125 = *(a3 + 524);
-  *(a4 + 8) = v124 + v122;
-  *(a4 + 12) = v125 + v123;
+  a4->f32[2] = v124 + v122;
+  a4->f32[3] = v125 + v123;
   v126 = v122 - v124;
   v127 = v123 - v125;
-  *(a4 + 136) = v126 + (v127 * 0.0);
-  *(a4 + 140) = v127 - (v126 * 0.0);
+  a4[8].f32[2] = v126 + (v127 * 0.0);
+  a4[8].f32[3] = v127 - (v126 * 0.0);
   v128 = *(a3 + 16);
   v129 = *(a3 + 20);
   v130 = *(a3 + 528);
   v131 = *(a3 + 532);
-  *(a4 + 16) = v130 + v128;
-  *(a4 + 20) = v131 + v129;
+  a4[1].f32[0] = v130 + v128;
+  a4[1].f32[1] = v131 + v129;
   v132 = v128 - v130;
   v133 = v129 - v131;
-  *(a4 + 144) = v132 + (v133 * 0.0);
-  *(a4 + 148) = v133 - (v132 * 0.0);
+  a4[9].f32[0] = v132 + (v133 * 0.0);
+  a4[9].f32[1] = v133 - (v132 * 0.0);
   v134 = *(a3 + 24);
   v135 = *(a3 + 28);
   v136 = *(a3 + 536);
   v137 = *(a3 + 540);
-  *(a4 + 24) = v136 + v134;
-  *(a4 + 28) = v137 + v135;
+  a4[1].f32[2] = v136 + v134;
+  a4[1].f32[3] = v137 + v135;
   v138 = v134 - v136;
   v139 = v135 - v137;
-  *(a4 + 152) = v138 + (v139 * 0.0);
-  *(a4 + 156) = v139 - (v138 * 0.0);
+  a4[9].f32[2] = v138 + (v139 * 0.0);
+  a4[9].f32[3] = v139 - (v138 * 0.0);
   v140 = *(a3 + 32);
   v141 = *(a3 + 36);
   v142 = *(a3 + 544);
   v143 = *(a3 + 548);
-  *(a4 + 32) = v142 + v140;
-  *(a4 + 36) = v143 + v141;
+  a4[2].f32[0] = v142 + v140;
+  a4[2].f32[1] = v143 + v141;
   v144 = v140 - v142;
   v145 = v141 - v143;
-  *(a4 + 160) = v144 + (v145 * 0.0);
-  *(a4 + 164) = v145 - (v144 * 0.0);
+  a4[10].f32[0] = v144 + (v145 * 0.0);
+  a4[10].f32[1] = v145 - (v144 * 0.0);
   v146 = *(a3 + 40);
   v147 = *(a3 + 44);
   v148 = *(a3 + 552);
   v149 = *(a3 + 556);
-  *(a4 + 40) = v148 + v146;
-  *(a4 + 44) = v149 + v147;
+  a4[2].f32[2] = v148 + v146;
+  a4[2].f32[3] = v149 + v147;
   v150 = v146 - v148;
   v151 = v147 - v149;
-  *(a4 + 168) = v150 + (v151 * 0.0);
-  *(a4 + 172) = v151 - (v150 * 0.0);
+  a4[10].f32[2] = v150 + (v151 * 0.0);
+  a4[10].f32[3] = v151 - (v150 * 0.0);
   v152 = *(a3 + 48);
   v153 = *(a3 + 52);
   v154 = *(a3 + 560);
   v155 = *(a3 + 564);
-  *(a4 + 48) = v154 + v152;
-  *(a4 + 52) = v155 + v153;
+  a4[3].f32[0] = v154 + v152;
+  a4[3].f32[1] = v155 + v153;
   v156 = v152 - v154;
   v157 = v153 - v155;
-  *(a4 + 176) = v156 + (v157 * 0.0);
-  *(a4 + 180) = v157 - (v156 * 0.0);
+  a4[11].f32[0] = v156 + (v157 * 0.0);
+  a4[11].f32[1] = v157 - (v156 * 0.0);
   v158 = *(a3 + 56);
   v159 = *(a3 + 60);
   v160 = *(a3 + 568);
   v161 = *(a3 + 572);
-  *(a4 + 56) = v160 + v158;
-  *(a4 + 60) = v161 + v159;
+  a4[3].f32[2] = v160 + v158;
+  a4[3].f32[3] = v161 + v159;
   v162 = v158 - v160;
   v163 = v159 - v161;
-  *(a4 + 184) = v162 + (v163 * 0.0);
-  *(a4 + 188) = v163 - (v162 * 0.0);
+  a4[11].f32[2] = v162 + (v163 * 0.0);
+  a4[11].f32[3] = v163 - (v162 * 0.0);
   v164 = *(a3 + 64);
   v165 = *(a3 + 68);
   v166 = *(a3 + 576);
   v167 = *(a3 + 580);
-  *(a4 + 64) = v166 + v164;
-  *(a4 + 68) = v167 + v165;
+  a4[4].f32[0] = v166 + v164;
+  a4[4].f32[1] = v167 + v165;
   v168 = v164 - v166;
   v169 = v165 - v167;
-  *(a4 + 192) = v168 + (v169 * 0.0);
-  *(a4 + 196) = v169 - (v168 * 0.0);
+  a4[12].f32[0] = v168 + (v169 * 0.0);
+  a4[12].f32[1] = v169 - (v168 * 0.0);
   v170 = *(a3 + 72);
   v171 = *(a3 + 76);
   v172 = *(a3 + 584);
   v173 = *(a3 + 588);
-  *(a4 + 72) = v172 + v170;
-  *(a4 + 76) = v173 + v171;
+  a4[4].f32[2] = v172 + v170;
+  a4[4].f32[3] = v173 + v171;
   v174 = v170 - v172;
   v175 = v171 - v173;
-  *(a4 + 200) = v174 + (v175 * 0.0);
-  *(a4 + 204) = v175 - (v174 * 0.0);
+  a4[12].f32[2] = v174 + (v175 * 0.0);
+  a4[12].f32[3] = v175 - (v174 * 0.0);
   v176 = *(a3 + 80);
   v177 = *(a3 + 84);
   v178 = *(a3 + 592);
   v179 = *(a3 + 596);
-  *(a4 + 80) = v178 + v176;
-  *(a4 + 84) = v179 + v177;
+  a4[5].f32[0] = v178 + v176;
+  a4[5].f32[1] = v179 + v177;
   v180 = v176 - v178;
   v181 = v177 - v179;
-  *(a4 + 208) = v180 + (v181 * 0.0);
-  *(a4 + 212) = v181 - (v180 * 0.0);
+  a4[13].f32[0] = v180 + (v181 * 0.0);
+  a4[13].f32[1] = v181 - (v180 * 0.0);
   v182 = *(a3 + 88);
   v183 = *(a3 + 92);
   v184 = *(a3 + 600);
   v185 = *(a3 + 604);
-  *(a4 + 88) = v184 + v182;
-  *(a4 + 92) = v185 + v183;
+  a4[5].f32[2] = v184 + v182;
+  a4[5].f32[3] = v185 + v183;
   v186 = v182 - v184;
   v187 = v183 - v185;
-  *(a4 + 216) = v186 + (v187 * 0.0);
-  *(a4 + 220) = v187 - (v186 * 0.0);
+  a4[13].f32[2] = v186 + (v187 * 0.0);
+  a4[13].f32[3] = v187 - (v186 * 0.0);
   v188 = *(a3 + 96);
   v189 = *(a3 + 100);
   v190 = *(a3 + 608);
   v191 = *(a3 + 612);
-  *(a4 + 96) = v190 + v188;
-  *(a4 + 100) = v191 + v189;
+  a4[6].f32[0] = v190 + v188;
+  a4[6].f32[1] = v191 + v189;
   v192 = v188 - v190;
   v193 = v189 - v191;
-  *(a4 + 224) = v192 + (v193 * 0.0);
-  *(a4 + 228) = v193 - (v192 * 0.0);
+  a4[14].f32[0] = v192 + (v193 * 0.0);
+  a4[14].f32[1] = v193 - (v192 * 0.0);
   v194 = *(a3 + 104);
   v195 = *(a3 + 108);
   v196 = *(a3 + 616);
   v197 = *(a3 + 620);
-  *(a4 + 104) = v196 + v194;
-  *(a4 + 108) = v197 + v195;
+  a4[6].f32[2] = v196 + v194;
+  a4[6].f32[3] = v197 + v195;
   v198 = v194 - v196;
   v199 = v195 - v197;
-  *(a4 + 232) = v198 + (v199 * 0.0);
-  *(a4 + 236) = v199 - (v198 * 0.0);
+  a4[14].f32[2] = v198 + (v199 * 0.0);
+  a4[14].f32[3] = v199 - (v198 * 0.0);
   v200 = *(a3 + 112);
   v201 = *(a3 + 116);
   v202 = *(a3 + 624);
   v203 = *(a3 + 628);
-  *(a4 + 112) = v202 + v200;
-  *(a4 + 116) = v203 + v201;
+  a4[7].f32[0] = v202 + v200;
+  a4[7].f32[1] = v203 + v201;
   v204 = v200 - v202;
   v205 = v201 - v203;
-  *(a4 + 240) = v204 + (v205 * 0.0);
-  *(a4 + 244) = v205 - (v204 * 0.0);
+  a4[15].f32[0] = v204 + (v205 * 0.0);
+  a4[15].f32[1] = v205 - (v204 * 0.0);
   v206 = *(a3 + 120);
   v207 = *(a3 + 124);
   v208 = *(a3 + 632);
   v209 = *(a3 + 636);
-  *(a4 + 120) = v208 + v206;
-  *(a4 + 124) = v209 + v207;
+  a4[7].f32[2] = v208 + v206;
+  a4[7].f32[3] = v209 + v207;
   v210 = v206 - v208;
   v211 = v207 - v209;
-  *(a4 + 248) = v210 + (v211 * 0.0);
-  *(a4 + 252) = v211 - (v210 * 0.0);
-  v212 = a4 + 256;
+  a4[15].f32[2] = v210 + (v211 * 0.0);
+  a4[15].f32[3] = v211 - (v210 * 0.0);
+  v212 = &a4[16];
   v13.i32[0] = 1060439337;
-  if (a4 + 256 >= a3 + 768 || (v213 = a3 + 128, a3 + 128 >= a4 + 512))
+  if (&a4[16] >= a3 + 768 || (v213 = a3 + 128, a3 + 128 >= &a4[32]))
   {
     v223 = *(a3 + 128);
     v222 = *(a3 + 144);
     v225 = *(a3 + 640);
     v224 = *(a3 + 656);
-    *(a4 + 256) = vaddq_f32(v225, v223);
-    *(a4 + 272) = vaddq_f32(v224, v222);
+    a4[16] = vaddq_f32(v225, v223);
+    a4[17] = vaddq_f32(v224, v222);
     v226 = vsubq_f32(v222, v224);
     v227 = vsubq_f32(v223, v225);
     v228 = vuzp1q_s32(v227, v226);
     v229 = vuzp2q_s32(v227, v226);
     v480.val[0] = vmlaq_n_f32(vmulq_n_f32(v228, 0.70711), v229, 0.70711);
     v480.val[1] = vmlsq_lane_f32(vmulq_n_f32(v229, 0.70711), v228, *v13.f32, 0);
-    v230 = (a4 + 384);
-    vst2q_f32(v230, v480);
+    f32 = a4[24].f32;
+    vst2q_f32(f32, v480);
     v213 = a3 + 256;
     v232 = *(a3 + 160);
     v231 = *(a3 + 176);
     v480.val[0] = *(a3 + 672);
     v233 = *(a3 + 688);
-    *(a4 + 288) = vaddq_f32(v480.val[0], v232);
-    *(a4 + 304) = vaddq_f32(v233, v231);
+    a4[18] = vaddq_f32(v480.val[0], v232);
+    a4[19] = vaddq_f32(v233, v231);
     v234 = vsubq_f32(v231, v233);
     v235 = vsubq_f32(v232, v480.val[0]);
     v236 = vuzp1q_s32(v235, v234);
     v237 = vuzp2q_s32(v235, v234);
     v480.val[0] = vmlaq_n_f32(vmulq_n_f32(v236, 0.70711), v237, 0.70711);
     v480.val[1] = vmlsq_lane_f32(vmulq_n_f32(v237, 0.70711), v236, *v13.f32, 0);
-    v238 = (a4 + 416);
+    v238 = a4[26].f32;
     vst2q_f32(v238, v480);
     v240 = *(a3 + 192);
     v239 = *(a3 + 208);
@@ -649,49 +651,49 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     v246 = vuzp2q_s32(v244, v243);
     v485.val[0] = vmlaq_n_f32(vmulq_n_f32(v245, 0.70711), v246, 0.70711);
     v485.val[1] = vmlsq_lane_f32(vmulq_n_f32(v246, 0.70711), v245, *v13.f32, 0);
-    v247 = (a4 + 448);
+    v247 = a4[28].f32;
     vst2q_f32(v247, v485);
-    *(a4 + 320) = v480.val[1];
-    *(a4 + 336) = v242;
+    a4[20] = v480.val[1];
+    a4[21] = v242;
     v249 = *(a3 + 224);
     v248 = *(a3 + 240);
     v480.val[0] = *(a3 + 736);
     v250 = *(a3 + 752);
-    *(a4 + 352) = vaddq_f32(v480.val[0], v249);
-    *(a4 + 368) = vaddq_f32(v250, v248);
+    a4[22] = vaddq_f32(v480.val[0], v249);
+    a4[23] = vaddq_f32(v250, v248);
     v251 = vsubq_f32(v248, v250);
     v252 = vsubq_f32(v249, v480.val[0]);
     v253 = vuzp1q_s32(v252, v251);
     v254 = vuzp2q_s32(v252, v251);
     v480.val[0] = vmlaq_n_f32(vmulq_n_f32(v253, 0.70711), v254, 0.70711);
     v480.val[1] = vmlsq_lane_f32(vmulq_n_f32(v254, 0.70711), v253, *v13.f32, 0);
-    v255 = (a4 + 480);
+    v255 = a4[30].f32;
     vst2q_f32(v255, v480);
-    v214 = a4 + 376;
+    v214 = &a4[23].i8[8];
   }
 
   else
   {
-    v214 = a4 + 248;
+    v214 = &a4[15].i8[8];
     for (i = 17; i > 1; --i)
     {
       v216 = *v213;
       v217 = *(v213 + 4);
       v218 = *(v213 + 512);
       v219 = *(v213 + 516);
-      *(v214 + 8) = v218 + *v213;
-      *(v214 + 12) = v219 + v217;
+      *(v214 + 2) = v218 + *v213;
+      *(v214 + 3) = v219 + v217;
       v214 += 8;
       v220 = v216 - v218;
       v221 = v217 - v219;
-      *(v214 + 128) = (v220 * 0.70711) + (v221 * 0.70711);
-      *(v214 + 132) = -((v220 * 0.70711) - (v221 * 0.70711));
+      *(v214 + 32) = (v220 * 0.70711) + (v221 * 0.70711);
+      *(v214 + 33) = -((v220 * 0.70711) - (v221 * 0.70711));
       v213 += 8;
     }
   }
 
   v13.i32[0] = 1065353216;
-  if (v214 + 136 >= v213 + 640 || v213 >= v214 + 392)
+  if ((v214 + 136) >= v213 + 640 || v213 >= (v214 + 392))
   {
     v257 = v213 + 128;
     v258 = *(v213 + 16);
@@ -862,12 +864,12 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
   }
 
   v13.i32[0] = 0;
-  if (a4 + 768 <= a3 || a3 + 512 <= a4)
+  if (&a4[48] <= a3 || a3 + 512 <= a4)
   {
     v354 = *a4;
-    v353 = *(a4 + 16);
-    v356 = *(a4 + 512);
-    v355 = *(a4 + 528);
+    v353 = a4[1];
+    v356 = a4[32];
+    v355 = a4[33];
     *a3 = vaddq_f32(v356, *a4);
     *(a3 + 16) = vaddq_f32(v355, v353);
     v357 = vsubq_f32(v353, v355);
@@ -878,10 +880,10 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     v478.val[1] = vmlsq_lane_f32(v360, v359, *v13.f32, 0);
     v361 = (a3 + 256);
     vst2q_f32(v361, v478);
-    v478.val[1] = *(a4 + 32);
-    v478.val[0] = *(a4 + 48);
-    v363 = *(a4 + 544);
-    v362 = *(a4 + 560);
+    v478.val[1] = a4[2];
+    v478.val[0] = a4[3];
+    v363 = a4[34];
+    v362 = a4[35];
     *(a3 + 32) = vaddq_f32(v363, v478.val[1]);
     *(a3 + 48) = vaddq_f32(v362, v478.val[0]);
     v478.val[0] = vsubq_f32(v478.val[0], v362);
@@ -892,10 +894,10 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     v478.val[1] = vmlsq_lane_f32(v478.val[1], v364, *v13.f32, 0);
     v365 = (a3 + 288);
     vst2q_f32(v365, v478);
-    v478.val[1] = *(a4 + 64);
-    v478.val[0] = *(a4 + 80);
-    v367 = *(a4 + 576);
-    v366 = *(a4 + 592);
+    v478.val[1] = a4[4];
+    v478.val[0] = a4[5];
+    v367 = a4[36];
+    v366 = a4[37];
     *(a3 + 64) = vaddq_f32(v367, v478.val[1]);
     *(a3 + 80) = vaddq_f32(v366, v478.val[0]);
     v478.val[0] = vsubq_f32(v478.val[0], v366);
@@ -906,10 +908,10 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     v478.val[1] = vmlsq_lane_f32(v478.val[1], v368, *v13.f32, 0);
     v369 = (a3 + 320);
     vst2q_f32(v369, v478);
-    v478.val[1] = *(a4 + 96);
-    v478.val[0] = *(a4 + 112);
-    v371 = *(a4 + 608);
-    v370 = *(a4 + 624);
+    v478.val[1] = a4[6];
+    v478.val[0] = a4[7];
+    v371 = a4[38];
+    v370 = a4[39];
     *(a3 + 96) = vaddq_f32(v371, v478.val[1]);
     *(a3 + 112) = vaddq_f32(v370, v478.val[0]);
     v478.val[0] = vsubq_f32(v478.val[0], v370);
@@ -920,10 +922,10 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     v478.val[1] = vmlsq_lane_f32(v478.val[1], v372, *v13.f32, 0);
     v373 = (a3 + 352);
     vst2q_f32(v373, v478);
-    v478.val[1] = *(a4 + 128);
-    v478.val[0] = *(a4 + 144);
-    v375 = *(a4 + 640);
-    v374 = *(a4 + 656);
+    v478.val[1] = a4[8];
+    v478.val[0] = a4[9];
+    v375 = a4[40];
+    v374 = a4[41];
     *(a3 + 128) = vaddq_f32(v375, v478.val[1]);
     *(a3 + 144) = vaddq_f32(v374, v478.val[0]);
     v478.val[0] = vsubq_f32(v478.val[0], v374);
@@ -934,10 +936,10 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     v478.val[1] = vmlsq_lane_f32(v478.val[1], v376, *v13.f32, 0);
     v377 = (a3 + 384);
     vst2q_f32(v377, v478);
-    v478.val[1] = *(a4 + 160);
-    v478.val[0] = *(a4 + 176);
-    v379 = *(a4 + 672);
-    v378 = *(a4 + 688);
+    v478.val[1] = a4[10];
+    v478.val[0] = a4[11];
+    v379 = a4[42];
+    v378 = a4[43];
     v380 = vaddq_f32(v379, v478.val[1]);
     v381 = vaddq_f32(v378, v478.val[0]);
     v478.val[0] = vsubq_f32(v478.val[0], v378);
@@ -950,10 +952,10 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     vst2q_f32(v383, v478);
     *(a3 + 160) = v380;
     *(a3 + 176) = v381;
-    v478.val[1] = *(a4 + 192);
-    v478.val[0] = *(a4 + 208);
-    v385 = *(a4 + 704);
-    v384 = *(a4 + 720);
+    v478.val[1] = a4[12];
+    v478.val[0] = a4[13];
+    v385 = a4[44];
+    v384 = a4[45];
     v386 = vaddq_f32(v385, v478.val[1]);
     v387 = vsubq_f32(v478.val[0], v384);
     v478.val[1] = vsubq_f32(v478.val[1], v385);
@@ -965,10 +967,10 @@ void sub_1000018E8(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
     vst2q_f32(v390, v484);
     *(a3 + 192) = v386;
     *(a3 + 208) = vaddq_f32(v384, v478.val[0]);
-    v478.val[1] = *(a4 + 224);
-    v478.val[0] = *(a4 + 240);
-    v392 = *(a4 + 736);
-    v391 = *(a4 + 752);
+    v478.val[1] = a4[14];
+    v478.val[0] = a4[15];
+    v392 = a4[46];
+    v391 = a4[47];
     *(a3 + 224) = vaddq_f32(v392, v478.val[1]);
     *(a3 + 240) = vaddq_f32(v391, v478.val[0]);
     v478.val[0] = vsubq_f32(v478.val[0], v391);
@@ -2661,7 +2663,7 @@ uint64_t Madusa::PayloadPipe::Execute@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, u
   v20.i32[1] = vmovn_s32(vcgtq_f32(v19, xmmword_100035A10)).i32[1];
   if ((vminv_u16(vcltz_s16(vshl_n_s16(v20, 0xFuLL))) & ((v5[2] & 0xE0) == 32)) != 0 || QuickCodec::mask != -70947757)
   {
-    QuickCodec::mask = FunctionTable::ft ^ 0x157E9386;
+    QuickCodec::mask = FunctionTable::ft[0] ^ 0x157E9386;
     fegetenv(&v21);
     v21.__fpcr &= QuickCodec::mask + 70947740;
     return fesetenv(&v21);
@@ -2815,7 +2817,7 @@ void Madusa::PayloadPipe::Execute_Alt(uint64_t a1@<X8>)
   *(a1 + 28) = -1;
 }
 
-uint64_t Madusa::IteratorBoundsComputer::IteratorBoundsComputer(uint64_t a1, int a2, int a3, unsigned int a4, Madusa::PixelTraversalInformation *this)
+uint64_t Madusa::IteratorBoundsComputer::IteratorBoundsComputer(uint64_t a1, int a2, int a3, uint64_t a4, Madusa::PixelTraversalInformation *this)
 {
   *a1 = 0;
   *(a1 + 8) = 1;
@@ -2823,10 +2825,11 @@ uint64_t Madusa::IteratorBoundsComputer::IteratorBoundsComputer(uint64_t a1, int
   *(a1 + 24) = 1;
   if (a4 != -1)
   {
+    v7 = a4;
     IsValid = Madusa::PixelTraversalInformation::IsValid(this);
     v12 = *this;
     v11 = *(this + 1);
-    if (a4 <= 0x20 && ((1 << a4) & 0x100010100) != 0)
+    if (v7 <= 0x20 && ((1 << v7) & 0x100010100) != 0)
     {
       if (v11)
       {
@@ -2884,7 +2887,7 @@ LABEL_11:
           v22 = -v21;
         }
 
-        if (v11 || ((v16 & &_mh_execute_header) == 0 ? (v24 = 1) : (v24 = v16), (v15 & &_mh_execute_header) != 0 ? (v25 = v15) : (v25 = 0), (Madusa::SafeSubBytePixelIndexer::SafeSubBytePixelIndexer(v33, a4, v24, v25), Madusa::SafeSubBytePixelIndexer::operator+=(v33, &v38), !v35) ? (v22 = 0) : (v22 = v34), Madusa::SafeSubBytePixelIndexer::IsValid(v33) && (Madusa::SubBytePixelDirectionAndOffset::IsValid(&v40) & 1) != 0))
+        if (v11 || ((v16 & &_mh_execute_header) == 0 ? (v24 = 1) : (v24 = v16), (v15 & &_mh_execute_header) != 0 ? (v25 = v15) : (v25 = 0), (Madusa::SafeSubBytePixelIndexer::SafeSubBytePixelIndexer(v33, v7, v24, v25), Madusa::SafeSubBytePixelIndexer::operator+=(v33, &v38), !v35) ? (v22 = 0) : (v22 = v34), Madusa::SafeSubBytePixelIndexer::IsValid(v33) && (Madusa::SubBytePixelDirectionAndOffset::IsValid(&v40) & 1) != 0))
         {
           v23 = 0;
           if (v12)
@@ -2922,7 +2925,7 @@ LABEL_11:
           v27 = 0;
         }
 
-        Madusa::SafeSubBytePixelIndexer::SafeSubBytePixelIndexer(v33, a4, v26, v27);
+        Madusa::SafeSubBytePixelIndexer::SafeSubBytePixelIndexer(v33, v7, v26, v27);
         Madusa::SafeSubBytePixelIndexer::operator+=(v33, &v36);
         if (v35)
         {
@@ -3028,7 +3031,7 @@ uint64_t Madusa::IteratorBoundsComputer::IsValid(Madusa::IteratorBoundsComputer 
   }
 }
 
-uint64_t Madusa::IteratorBoundsComputer::SetBoundsForGivenBaseAddress(Madusa::IteratorBoundsComputer *this, uint64_t a2, unsigned __int8 **a3, unsigned __int8 **a4)
+uint64_t Madusa::IteratorBoundsComputer::SetBoundsForGivenBaseAddress(Madusa::IteratorBoundsComputer *this, unsigned __int8 *a2, unsigned __int8 **a3, unsigned __int8 **a4)
 {
   *a3 = a2;
   *a4 = a2;
@@ -3037,10 +3040,10 @@ uint64_t Madusa::IteratorBoundsComputer::SetBoundsForGivenBaseAddress(Madusa::It
     return 0;
   }
 
-  v4 = (*this + a2);
+  v4 = &a2[*this];
   v5 = *(this + 2);
-  v6 = (v5 + a2);
-  if (a2 < 0)
+  v6 = &a2[v5];
+  if ((a2 & 0x8000000000000000) != 0)
   {
     v7 = *this < 0 && v4 > a2;
     if (v7)
@@ -3078,7 +3081,7 @@ uint64_t Madusa::IteratorBoundsComputer::SetBoundsForGivenBaseAddress(Madusa::It
   return 1;
 }
 
-BOOL Madusa::IteratorBoundsComputer::ValidateForImageProperties(Madusa::IteratorBoundsComputer *this, const Madusa::ImageProperties *a2)
+uint64_t Madusa::IteratorBoundsComputer::ValidateForImageProperties(Madusa::IteratorBoundsComputer *this, const Madusa::ImageProperties *a2)
 {
   Madusa::SubBytePixelDirectionAndOffset::SubBytePixelDirectionAndOffset(&v51);
   v3 = *Madusa::ImageProperties::GetBitsPerPixelPerColor(this);
@@ -3095,7 +3098,7 @@ BOOL Madusa::IteratorBoundsComputer::ValidateForImageProperties(Madusa::Iterator
   Madusa::PixelTraversalInformation::PixelTraversalInformation(v50, v6, *YStride, &v51);
   Madusa::ImageProperties::GetBounds(this);
   Madusa::IteratorBoundsComputer::IteratorBoundsComputer(&v46, v9, v8, v5, v50);
-  Madusa::ImageProperties::GetPixelData(this, &v41);
+  Madusa::ImageProperties::GetPixelData(&v41, this);
   if ((v47 & 1) == 0 || (v49 & 1) == 0)
   {
     return 0;
@@ -3944,7 +3947,44 @@ uint64_t Madusa::TransformPipe::_OctAxisExecute(uint64_t a1, uint64_t a2)
   return Madusa::TransformPipe::OctAxisExecute(a1, a2);
 }
 
-uint64_t Madusa::TransformPipe::_FlatBlockFilterExecute(uint64_t a1, uint64_t a2)
+float Madusa::TransformPipe::FlatBlockFilterExecute(uint64_t a1, uint64_t a2)
+{
+  Madusa::ProfileTimer::ProfileTimer(var48, &unk_10006BCBB, *(a1 + 8));
+  func = __find_func(0x1F3F9F1FA04060E0, -242982710);
+  v6 = func(a1, a2);
+  v7.i16[0] = *v2 | 0xFFE0;
+  v7.i16[1] = v2[3];
+  v7.i32[1] = v7.i32[0];
+  v8.i64[0] = 0xFF000000FFLL;
+  v8.i64[1] = 0xFF000000FFLL;
+  v9 = vcvtq_f32_u32(vmulq_s32(vandq_s8(vmovl_u16(v7), v8), xmmword_10003FE00));
+  v10.i32[0] = vmovn_s32(vcgtq_f32(xmmword_10003FE10, v9)).u32[0];
+  v10.i32[1] = vmovn_s32(vcgtq_f32(v9, xmmword_10003FE10)).i32[1];
+  if ((vminv_u16(vcltz_s16(vshl_n_s16(v10, 0xFuLL))) & ((v2[2] & 0xE0) == 32)) != 0 || QuickCodec::mask != -70947757)
+  {
+    QuickCodec::mask = FunctionTable::ft[0] ^ 0x157E9386;
+    v11 = __find_func(0xDF9FDF1FC0E04070, 824451274);
+    v12 = 600;
+    while (*v11 != ((QuickCodec::mask ^ 0xC12A2DF3) / 0x9D28AF) || v11[1] != ((QuickCodec::mask ^ 0xFBC56C53) / 0x9D28AF) || v11[2] != ((QuickCodec::mask ^ 0xDDCAB631) / 0x9D28AF) || v11[3] != ((QuickCodec::mask ^ 0x79E0DCBFu) / 0x9D28AF))
+    {
+      v11 += 4;
+      if (!--v12)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    var48[9] = v11;
+    vars8 = 0u;
+LABEL_10:
+    QuickCodec::mask += 16;
+  }
+
+  Madusa::ProfileTimer::~ProfileTimer(var48);
+  return v6;
+}
+
+float Madusa::TransformPipe::_FlatBlockFilterExecute(uint64_t a1, uint64_t a2)
 {
   v3 = 0;
   v4 = 0;
@@ -4030,7 +4070,7 @@ uint64_t Madusa::TransformPipe::_FlatBlockFilterExecute(uint64_t a1, uint64_t a2
     ++QuickCodec::mask;
   }
 
-  return Madusa::TransformPipe::FlatBlockFilterExecute(a1, a2, 1676380, 1676434, 1995770411, 7811807, 7811808, 6135516);
+  return Madusa::TransformPipe::FlatBlockFilterExecute(a1, a2);
 }
 
 void *sub_100007CC4(void *a1)
@@ -5062,6 +5102,161 @@ LABEL_10:
   return Madusa::BlockPicker::GetRowBoundingBox(this, a2);
 }
 
+uint64_t Madusa::BlockPicker::ShouldProcessBandBlock(Madusa::BlockPicker *this, int a2, int a3)
+{
+  v4 = (a2 + 1) & 1;
+  if (a2 < -1)
+  {
+    v4 = -v4;
+  }
+
+  v5 = (a3 << 7) - (v4 << 6) - (128 - (v4 << 6));
+  v6 = (v5 & 0x40) == 0 && v5 == v5;
+  v7 = v6;
+  if (v6)
+  {
+    v8 = 0;
+    v9 = 0;
+    if (QuickCodec::mask == -70947757)
+    {
+      v10 = 3855801;
+    }
+
+    else
+    {
+      v10 = 1083418;
+    }
+
+    v11 = 1;
+    v12 = 1513181;
+    while (1)
+    {
+      while (1)
+      {
+        while (1)
+        {
+          v15 = v11;
+          if (v12 <= 1513251)
+          {
+            break;
+          }
+
+          if (v12 == 1513252)
+          {
+            if ((*v8 & 0x1F) != 0 || v8[2] > 0x3Fu || (v11 = 1, v12 = 1083418, v8[3] != ((QuickCodec::mask ^ v9) / 0x11ACF2)))
+            {
+              v12 = 1083472;
+              v11 = v15;
+            }
+          }
+
+          else if (v12 == 2596582)
+          {
+            v8 = v3;
+            v12 = 1513198;
+          }
+
+          else
+          {
+            v6 = v12 == 3855801;
+            v12 = 1513252;
+            if (v6)
+            {
+              v9 = -177843141;
+            }
+          }
+        }
+
+        if (v12 <= 1513180)
+        {
+          break;
+        }
+
+        v13 = (QuickCodec::mask != -70947757) | v11;
+        if (v12 == 1513198)
+        {
+          v14 = v10;
+        }
+
+        else
+        {
+          v14 = v12;
+        }
+
+        if (v12 == 1513198)
+        {
+          LODWORD(v15) = v13;
+        }
+
+        v16 = v12 == 1513181;
+        if (v12 == 1513181)
+        {
+          v12 = 1083418;
+        }
+
+        else
+        {
+          v12 = v14;
+        }
+
+        if (v16)
+        {
+          v11 = 0;
+        }
+
+        else
+        {
+          v11 = v15;
+        }
+      }
+
+      if (v12 != 1083418)
+      {
+        break;
+      }
+
+      v12 = 1083472;
+      if ((v11 & 1) == 0)
+      {
+        v12 = 2596582;
+      }
+    }
+
+    if (v11)
+    {
+      QuickCodec::mask = FunctionTable::ft[0] ^ 0x157E9386;
+      fegetenv(&v20);
+      v20.__fpcr &= QuickCodec::mask + 70947740;
+      fesetenv(&v20);
+    }
+
+    return v7;
+  }
+
+  if (((*v3 & 0x1F) != 0 || v3[2] > 0x3Fu || v3[3] != 212) && QuickCodec::mask == -70947757)
+  {
+    return v7;
+  }
+
+  QuickCodec::mask = FunctionTable::ft[0] ^ 0x157E9386;
+  func = __find_func(0xDF9FDF1FC0E04070, 824451274);
+  v19 = 600;
+  while (*func != ((QuickCodec::mask ^ 0xC12A2DF3) / 0x9D28AF) || func[1] != ((QuickCodec::mask ^ 0xFBC56C53) / 0x9D28AF) || func[2] != ((QuickCodec::mask ^ 0xDDCAB631) / 0x9D28AF) || func[3] != ((QuickCodec::mask ^ 0x79E0DCBFu) / 0x9D28AF))
+  {
+    func += 4;
+    if (!--v19)
+    {
+      goto LABEL_56;
+    }
+  }
+
+  vars0 = func;
+  vars8 = 0u;
+LABEL_56:
+  QuickCodec::mask += 16;
+  return v7;
+}
+
 uint64_t Madusa::BlockPicker::_ShouldProcessBandBlock(Madusa::BlockPicker *this, const Madusa::BlockPicker *a2, int a3)
 {
   v4.i16[3] = v3[3];
@@ -6064,19 +6259,19 @@ LABEL_13:
   return result;
 }
 
-int *Madusa::ImpulseMatchedFilter::_Execute(Madusa::ImpulseMatchedFilter *this, Madusa::ImpulseMatchedFilter *x1_0, float a2)
+int *Madusa::ImpulseMatchedFilter::_Execute(Madusa::ImpulseMatchedFilter *this, Madusa::ImpulseMatchedFilter *a2, float a3)
 {
   if ((*v3 & 0x1F) != 0 || v3[2] > 0x3Fu)
   {
     v4 = QuickCodec::mask;
     if (QuickCodec::mask == -70947757)
     {
-      return Madusa::ImpulseMatchedFilter::Execute(this, a2);
+      return Madusa::ImpulseMatchedFilter::Execute(this, a3);
     }
 
 LABEL_7:
     QuickCodec::mask = v4 + 1;
-    return Madusa::ImpulseMatchedFilter::Execute(this, a2);
+    return Madusa::ImpulseMatchedFilter::Execute(this, a3);
   }
 
   v6 = 998989 * v3[3];
@@ -6086,7 +6281,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  return Madusa::ImpulseMatchedFilter::Execute(this, a2);
+  return Madusa::ImpulseMatchedFilter::Execute(this, a3);
 }
 
 uint64_t Madusa::SessionCallbacks::ParallelFor(Madusa::SessionCallbacks *this, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
@@ -6290,7 +6485,7 @@ uint64_t Madusa::Session::UnscrambleSessionPointer(uint64_t this, void *a2)
   return this;
 }
 
-unint64_t Madusa::Session::ScrambleSessionPointer(Madusa::Session *this)
+uint64_t Madusa::Session::ScrambleSessionPointer(Madusa::Session *this)
 {
   if (Madusa::Session::gSessionOffset == this)
   {
@@ -8057,7 +8252,6 @@ uint64_t Madusa::Session::AssignWidth(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4712) = a2;
-  v4 = *(this + 4720);
   if (a2)
   {
     if (*(this + 4720) && *(this + 4722) == 1)
@@ -8090,7 +8284,6 @@ uint64_t Madusa::Session::AssignHeight(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4736) = a2;
-  v4 = *(this + 4744);
   if (a2)
   {
     if (*(this + 4744) && *(this + 4746) == 1)
@@ -8123,7 +8316,6 @@ uint64_t Madusa::Session::AssignXDotsPerInch(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4760) = a2;
-  v4 = *(this + 4768);
   if (a2)
   {
     if (*(this + 4768) && *(this + 4770) == 1)
@@ -8156,7 +8348,6 @@ uint64_t Madusa::Session::AssignYDotsPerInch(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4784) = a2;
-  v4 = *(this + 4792);
   if (a2)
   {
     if (*(this + 4792) && *(this + 4794) == 1)
@@ -8189,7 +8380,6 @@ uint64_t Madusa::Session::AssignColorModel(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4808) = a2;
-  v4 = *(this + 4816);
   if (a2)
   {
     if (*(this + 4816) && *(this + 4818) == 1)
@@ -8222,7 +8412,6 @@ uint64_t Madusa::Session::AssignAlphaChannel(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4832) = a2;
-  v4 = *(this + 4840);
   if (a2)
   {
     if (*(this + 4840) && *(this + 4842) == 1)
@@ -8255,7 +8444,6 @@ uint64_t Madusa::Session::AssignBitsPerPixelPerColor(uint64_t this, int *a2, int
 {
   v3 = *(this + 132);
   *(this + 4856) = a2;
-  v4 = *(this + 4864);
   if (a2)
   {
     if (*(this + 4864) && *(this + 4866) == 1)
@@ -8288,7 +8476,6 @@ uint64_t Madusa::Session::AssignDataType(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4880) = a2;
-  v4 = *(this + 4888);
   if (a2)
   {
     if (*(this + 4888) && *(this + 4890) == 1)
@@ -8321,7 +8508,6 @@ uint64_t Madusa::Session::AssignPaletteColorModel(uint64_t this, int *a2, int a3
 {
   v3 = *(this + 132);
   *(this + 4904) = a2;
-  v4 = *(this + 4912);
   if (a2)
   {
     if (*(this + 4912) && *(this + 4914) == 1)
@@ -8354,7 +8540,6 @@ uint64_t Madusa::Session::AssignPaletteBitsPerPixelPerColor(uint64_t this, int *
 {
   v3 = *(this + 132);
   *(this + 4928) = a2;
-  v4 = *(this + 4936);
   if (a2)
   {
     if (*(this + 4936) && *(this + 4938) == 1)
@@ -8387,7 +8572,6 @@ uint64_t Madusa::Session::AssignInverted(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4952) = a2;
-  v4 = *(this + 4960);
   if (a2)
   {
     if (*(this + 4960) && *(this + 4962) == 1)
@@ -8420,7 +8604,6 @@ uint64_t Madusa::Session::AssignDataAccessFormat(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 4976) = a2;
-  v4 = *(this + 4984);
   if (a2)
   {
     if (*(this + 4984) && *(this + 4986) == 1)
@@ -8453,7 +8636,6 @@ uint64_t Madusa::Session::AssignXStride(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 5000) = a2;
-  v4 = *(this + 5008);
   if (a2)
   {
     if (*(this + 5008) && *(this + 5010) == 1)
@@ -8486,7 +8668,6 @@ uint64_t Madusa::Session::AssignYStride(uint64_t this, int *a2, int a3)
 {
   v3 = *(this + 132);
   *(this + 5024) = a2;
-  v4 = *(this + 5032);
   if (a2)
   {
     if (*(this + 5032) && *(this + 5034) == 1)
@@ -9603,395 +9784,4 @@ uint64_t Madusa::Decode::_CpmDecode(uint64_t a1, uint64_t a2)
   }
 
   return Madusa::Decode::CpmDecode(a1, a2);
-}
-
-uint64_t Madusa::Decode::_CpmDecode_Alt(uint64_t a1)
-{
-  if ((*v1 & 0x1F) != 0 || v1[2] > 0x3Fu)
-  {
-    v2 = QuickCodec::mask;
-    if (QuickCodec::mask == -70947757)
-    {
-      return Madusa::Decode::CpmDecode_Alt(a1);
-    }
-
-LABEL_7:
-    QuickCodec::mask = v2 + 1;
-    return Madusa::Decode::CpmDecode_Alt(a1);
-  }
-
-  v4 = 182790 * v1[3];
-  v2 = QuickCodec::mask;
-  if (v4 - (v4 ^ 0x24F4CF8 | v4 & 0x24F4CF8) + (v4 ^ 0x24F4CF8 | ~(v4 | 0x24F4CF8)) + 38751480 == (~(~(~(v4 | 0x2460CF0) | v4 & 0x2460CF0) | 0x94008) | ~(~(v4 | 0x2460CF0) | v4 & 0x2460CF0) & 0x94008) || QuickCodec::mask != -70947757)
-  {
-    goto LABEL_7;
-  }
-
-  return Madusa::Decode::CpmDecode_Alt(a1);
-}
-
-uint64_t Madusa::Decode::CpmDecode_Alt(uint64_t a1)
-{
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  result = a1 + 16;
-  *(result + 16) = 0xFFFFFFFF00000000;
-  return result;
-}
-
-Madusa::PhaseDeviation *Madusa::PhaseDeviation::PhaseDeviation(Madusa::PhaseDeviation *this)
-{
-  bzero(this, 0xEB0uLL);
-  *(this + 348) = -1;
-  *(this + 422) = -1;
-  *(this + 496) = -1;
-  *(this + 570) = -1;
-  *(this + 644) = -1;
-  *(this + 718) = -1;
-  *(this + 792) = -1;
-  *(this + 866) = -1;
-  bzero(this + 3760, 0x400uLL);
-  for (i = 0; i != 56; ++i)
-  {
-    v3 = (this + i * 4);
-    v3[56] = ((*&Madusa::AffineTransform::mGridPointPhaseInRadians[i] * 10430.0) + 0.5);
-    v3[224] = Madusa::AffineTransform::mGridPointV[i] << 9;
-    v3[280] = Madusa::AffineTransform::mGridPointU[i] << 9;
-  }
-
-  return this;
-}
-
-uint64_t Madusa::PhaseDeviation::Execute(int *a1, uint64_t a2, int a3, int a4, uint64_t a5)
-{
-  v9 = 0;
-  v10 = a2 + 32;
-  v11 = a1 + 280;
-  v12 = a1 + 56;
-  do
-  {
-    while (*(v10 + 12) != 1)
-    {
-      v13 = &a1[v9];
-      v13[224] = 0;
-      v13[280] = 0;
-      a1[v9] = a1[v9 + 56] + 0x4000;
-      ++v9;
-      v10 += 16;
-      if (v9 == 56)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    v14 = &a1[v9];
-    v14[224] = Madusa::AffineTransform::mGridPointV[v9] << 9;
-    v14[280] = Madusa::AffineTransform::mGridPointU[v9] << 9;
-    a1[v9++] = vcvts_n_s32_f32(*(v10 + 8), 0x10uLL);
-    v10 += 16;
-  }
-
-  while (v9 != 56);
-LABEL_5:
-  v89 = xmmword_100040420;
-  v15 = a1 + 348;
-  Madusa::PhaseDeviation::OrientPhases(a1, a1, a1 + 112, 1);
-  v16 = 56;
-  v17 = v12;
-  do
-  {
-    v17[56] = (v17[56] - *v17);
-    ++v17;
-    --v16;
-  }
-
-  while (v16);
-  __src[0] = -1;
-  LOWORD(__src[1]) = 0;
-  func = __find_func(0x1F7F7F7FC0404020, -238780246);
-  func(a1, a1 + 112, __src);
-  v19 = memcpy(a1 + 348, __src, 0x128uLL);
-  a1[348] = 1;
-  *(a1 + 698) = 0;
-  v20 = DWORD1(v89);
-  Madusa::PhaseDeviation::OrientPhases(v19, a1, a1 + 112, DWORD1(v89));
-  v21 = 56;
-  v22 = v12;
-  do
-  {
-    v22[56] = (v22[56] - *v22);
-    ++v22;
-    --v21;
-  }
-
-  while (v21);
-  __src[0] = -1;
-  LOWORD(__src[1]) = 0;
-  v23 = __find_func(0x1F7F7F7FC0404020, -238780246);
-  v23(a1, a1 + 112, __src);
-  v24 = memcpy(a1 + 422, __src, 0x128uLL);
-  a1[422] = v20;
-  *(a1 + 846) = 0;
-  v25 = DWORD2(v89);
-  Madusa::PhaseDeviation::OrientPhases(v24, a1, a1 + 112, DWORD2(v89));
-  v26 = 56;
-  v27 = v12;
-  do
-  {
-    v27[56] = (v27[56] - *v27);
-    ++v27;
-    --v26;
-  }
-
-  while (v26);
-  __src[0] = -1;
-  LOWORD(__src[1]) = 0;
-  v28 = __find_func(0x1F7F7F7FC0404020, -238780246);
-  v28(a1, a1 + 112, __src);
-  v29 = memcpy(a1 + 496, __src, 0x128uLL);
-  a1[496] = v25;
-  *(a1 + 994) = 0;
-  v30 = HIDWORD(v89);
-  Madusa::PhaseDeviation::OrientPhases(v29, a1, a1 + 112, HIDWORD(v89));
-  v31 = 56;
-  v32 = v12;
-  do
-  {
-    v32[56] = (v32[56] - *v32);
-    ++v32;
-    --v31;
-  }
-
-  while (v31);
-  v84 = a5;
-  __src[0] = -1;
-  LOWORD(__src[1]) = 0;
-  v33 = __find_func(0x1F7F7F7FC0404020, -238780246);
-  v33(a1, a1 + 112, __src);
-  v34 = memcpy(a1 + 570, __src, 0x128uLL);
-  a1[570] = v30;
-  *(a1 + 1142) = 0;
-  if (a4)
-  {
-    v35 = __find_func(0x6F7F5FDFA0004020, -2117820406);
-    v34 = v35(a1, a1 + 348);
-    v36 = 8;
-  }
-
-  else
-  {
-    v36 = 4;
-  }
-
-  v85 = v36;
-  v37 = 0;
-  v38 = 0;
-  v39 = 0xFFFFFFFFLL;
-  do
-  {
-    v40 = 0;
-    v86 = v37;
-    v41 = &v15[74 * v37];
-    do
-    {
-      v42 = *&v41[2 * v40 + 2];
-      Madusa::PhaseDeviation::OrientPhases(v34, a1, a1 + 112, *v41);
-      v43 = v12;
-      v44 = 56;
-      do
-      {
-        v43[56] = (v43[56] - *v43);
-        ++v43;
-        --v44;
-      }
-
-      while (v44);
-      v45 = 1835008;
-      v46 = v11;
-      v47 = 56;
-      do
-      {
-        v48 = *(v46 - 168);
-        v49 = *(v46 - 56) * v42;
-        v50 = *v46++;
-        v51 = (v48 + (v49 + v50 * HIDWORD(v42)) / 2);
-        v45 = (v51 >> 15) + v45 - (v51 ^ (v51 >> 15));
-        --v47;
-      }
-
-      while (v47);
-      if (v45 > v38)
-      {
-        v39 = *v41 | (*(v41 + 2) << 32);
-        v5 = v42;
-        v38 = v45;
-      }
-
-      if (a3)
-      {
-        v52 = 1835008 - v45;
-        if (v52 > v38)
-        {
-          v39 = *v41 | (*(v41 + 4) << 32) | 0x10000000000;
-          v5 = v42;
-          v38 = v52;
-        }
-      }
-
-      ++v40;
-    }
-
-    while (v40 != 36);
-    v15 = a1 + 348;
-    v37 = v86 + 1;
-  }
-
-  while (v86 + 1 != v85);
-  Madusa::PhaseDeviation::OrientPhases(v34, a1, a1 + 112, v39);
-  v53 = 56;
-  do
-  {
-    v12[56] = (v12[56] - *v12);
-    ++v12;
-    --v53;
-  }
-
-  while (v53);
-  v54 = (8 * v5) | (HIDWORD(v5) << 35);
-  for (i = -7; i != 8; ++i)
-  {
-    v56 = (i + 8 * v5);
-    for (j = -7; j != 8; ++j)
-    {
-      v58 = j + ((v5 >> 29) & 0xFFFFFFF8);
-      v59 = 1835008;
-      v60 = v11;
-      v61 = 56;
-      do
-      {
-        v62 = *(v60 - 168);
-        v63 = *(v60 - 56) * v56;
-        v64 = *v60++;
-        v59 = ((v62 + (v63 + v64 * v58) / 16) >> 15) + v59 - ((v62 + (v63 + v64 * v58) / 16) ^ ((v62 + (v63 + v64 * v58) / 16) >> 15));
-        --v61;
-      }
-
-      while (v61);
-      v65 = v56 | (v58 << 32);
-      if (v59 > v38)
-      {
-        v54 = v65;
-        v38 = v59;
-      }
-    }
-  }
-
-  v66 = vcvts_n_f32_s32(v38, 0x10uLL);
-  *(v84 + 8) = vcvts_n_f32_s32(v54, 4uLL);
-  *(v84 + 12) = vcvts_n_f32_s32(HIDWORD(v54), 4uLL);
-  *v84 = v66;
-  *(v84 + 24) = v39;
-  *(v84 + 28) = WORD2(v39);
-  *(v84 + 16) = *(v84 + 8);
-  v67 = *(a2 + 4);
-  v69 = *(a2 + 8);
-  v68 = *(a2 + 12);
-  v70 = -((v69 * v67) - (v68 * *a2));
-  v71 = v70 == 0.0;
-  v72 = 1.0 / v70;
-  v73 = v72 * v68;
-  v74 = -(v69 * v72);
-  v75 = -(v67 * v72);
-  if (v71)
-  {
-    v76 = 0.0;
-  }
-
-  else
-  {
-    v76 = v73;
-  }
-
-  if (v71)
-  {
-    v74 = 0.0;
-    v75 = 0.0;
-    v77 = 0.0;
-  }
-
-  else
-  {
-    v77 = v72 * *a2;
-  }
-
-  v78 = *(a2 + 20);
-  *(v84 + 32) = v76;
-  *(v84 + 36) = v74;
-  *(v84 + 40) = v75;
-  *(v84 + 44) = v77;
-  *(v84 + 64) = v78;
-  *(v84 + 68) = v66 > 21.484;
-  if (v39 != 4)
-  {
-    if (v39 == 3)
-    {
-      v79 = -v76;
-      v76 = -v74;
-      *(v84 + 48) = v79;
-      *(v84 + 52) = -v74;
-      v80 = -v75;
-      v75 = -v77;
-      *(v84 + 56) = v80;
-      *(v84 + 60) = -v77;
-      if ((v39 & 0x100000000) == 0)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    else if (v39 == 2)
-    {
-      *(v84 + 48) = -v74;
-      *(v84 + 52) = v76;
-      *(v84 + 56) = -v77;
-      *(v84 + 60) = v75;
-      if ((v39 & 0x100000000) == 0)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    else
-    {
-      *(v84 + 52) = v74;
-      *(v84 + 56) = v75;
-      v75 = v77;
-      *(v84 + 48) = v76;
-      v76 = v74;
-      *(v84 + 60) = v77;
-      if ((v39 & 0x100000000) == 0)
-      {
-        goto LABEL_54;
-      }
-    }
-
-    goto LABEL_53;
-  }
-
-  v76 = -v76;
-  *(v84 + 48) = v74;
-  *(v84 + 52) = v76;
-  v75 = -v75;
-  *(v84 + 56) = v77;
-  *(v84 + 60) = v75;
-  if ((v39 & 0x100000000) != 0)
-  {
-LABEL_53:
-    *(v84 + 52) = -v76;
-    *(v84 + 60) = -v75;
-  }
-
-LABEL_54:
-  v81 = __find_func(0xBF3F1F3F20004060, 1367662826);
-  return v81(a1, v84);
 }

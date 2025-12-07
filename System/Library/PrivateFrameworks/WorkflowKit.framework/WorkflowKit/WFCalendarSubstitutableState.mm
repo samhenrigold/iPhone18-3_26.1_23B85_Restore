@@ -156,7 +156,7 @@ void __89__WFCalendarSubstitutableState_processWithContext_userInputRequiredHand
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   providerCopy = provider;
   parameterCopy = parameter;
@@ -277,16 +277,16 @@ void __89__WFCalendarSubstitutableState_processWithContext_userInputRequiredHand
     v16 = getWFGeneralLogObject();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      v33 = 136315906;
-      v34 = "WFEnforceClass";
-      v35 = 2114;
-      v36 = v14;
-      v37 = 2114;
-      v38 = objc_opt_class();
-      v39 = 2114;
-      v40 = v13;
-      v17 = v38;
-      _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v33, 0x2Au);
+      v32 = 136315906;
+      v33 = "WFEnforceClass";
+      v34 = 2114;
+      v35 = v14;
+      v36 = 2114;
+      v37 = objc_opt_class();
+      v38 = 2114;
+      v39 = v13;
+      v17 = v37;
+      _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v32, 0x2Au);
     }
 
     v15 = 0;
@@ -297,7 +297,7 @@ void __89__WFCalendarSubstitutableState_processWithContext_userInputRequiredHand
     v15 = v14;
   }
 
-  if ([v15 isEqualToString:&stru_1F4A1C408])
+  if (objc_msgSend_isEqualToString_(v15))
   {
     initWithAllCalendars2 = [[WFEKCalendarDescriptor alloc] initWithAllCalendars];
 LABEL_17:
@@ -313,8 +313,6 @@ LABEL_17:
 
   initWithAllCalendars = 0;
 LABEL_39:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return initWithAllCalendars;
 }

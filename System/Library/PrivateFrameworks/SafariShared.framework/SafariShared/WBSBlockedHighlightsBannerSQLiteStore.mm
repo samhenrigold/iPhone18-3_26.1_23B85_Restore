@@ -132,26 +132,27 @@ void __88__WBSBlockedHighlightsBannerSQLiteStore_fetchAllBlockedHighlightsWithCo
 
 uint64_t __95__WBSBlockedHighlightsBannerSQLiteStore_storeBlockedHighlightWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNeeded];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
   {
     [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    *v10 = v3;
-    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,double>(v2, 0, @"INSERT OR REPLACE INTO BlockedBannerHighlights (highlightIdentifier, blockedTime) VALUES (?, ?)", (a1 + 40), v10);
+    *v12 = v3;
+    v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&,double>(v2, 0, @"INSERT OR REPLACE INTO BlockedBannerHighlights (highlightIdentifier, blockedTime) VALUES (?, ?)", (a1 + 40), v12);
+    v6 = v4;
     if (v4 != 101)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = WBS_LOG_CHANNEL_PREFIXInterstellar(v4, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore storeBlockedHighlightWithIdentifier:completionHandler:]_block_invoke"];
-        v9 = [v8 safari_privacyPreservingDescription];
-        *v10 = 138543618;
-        *&v10[4] = v9;
-        v11 = 1024;
-        v12 = v4;
-        _os_log_error_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_ERROR, "Failed to insert into BlockedBannerHighlights table: %{public}@ (%d)", v10, 0x12u);
+        v10 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore storeBlockedHighlightWithIdentifier:completionHandler:]_block_invoke"];
+        v11 = [v10 safari_privacyPreservingDescription];
+        *v12 = 138543618;
+        *&v12[4] = v11;
+        v13 = 1024;
+        v14 = v6;
+        _os_log_error_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_ERROR, "Failed to insert into BlockedBannerHighlights table: %{public}@ (%d)", v12, 0x12u);
       }
 
       (*(*(a1 + 48) + 16))();
@@ -169,9 +170,9 @@ uint64_t __95__WBSBlockedHighlightsBannerSQLiteStore_storeBlockedHighlightWithId
     result = *(a1 + 48);
     if (result)
     {
-      v7 = *(result + 16);
+      v9 = *(result + 16);
 
-      return v7();
+      return v9();
     }
   }
 
@@ -235,7 +236,7 @@ void __100__WBSBlockedHighlightsBannerSQLiteStore_verifyIfHighlightIsBlockedWith
 
 uint64_t __87__WBSBlockedHighlightsBannerSQLiteStore_clearAllBannedHighlightsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNeeded];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
@@ -243,17 +244,17 @@ uint64_t __87__WBSBlockedHighlightsBannerSQLiteStore_clearAllBannedHighlightsWit
     v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(v2, 0, @"DELETE FROM BlockedBannerHighlights");
     if (v3 != 101)
     {
-      v4 = v3;
-      v5 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v5 = v3;
+      v6 = WBS_LOG_CHANNEL_PREFIXInterstellar(v3, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore clearAllBannedHighlightsWithCompletionHandler:]_block_invoke"];
-        v9 = [v8 safari_privacyPreservingDescription];
-        v10 = 138543618;
-        v11 = v9;
-        v12 = 1024;
-        v13 = v4;
-        _os_log_error_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_ERROR, "Unable to clear rows from Blocked Banner Highlights: %{public}@ (%d)", &v10, 0x12u);
+        v9 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore clearAllBannedHighlightsWithCompletionHandler:]_block_invoke"];
+        v10 = [v9 safari_privacyPreservingDescription];
+        v11 = 138543618;
+        v12 = v10;
+        v13 = 1024;
+        v14 = v5;
+        _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "Unable to clear rows from Blocked Banner Highlights: %{public}@ (%d)", &v11, 0x12u);
       }
     }
 
@@ -269,9 +270,9 @@ uint64_t __87__WBSBlockedHighlightsBannerSQLiteStore_clearAllBannedHighlightsWit
     result = *(a1 + 40);
     if (result)
     {
-      v7 = *(result + 16);
+      v8 = *(result + 16);
 
-      return v7();
+      return v8();
     }
   }
 
@@ -300,7 +301,7 @@ uint64_t __87__WBSBlockedHighlightsBannerSQLiteStore_clearAllBannedHighlightsWit
 
 uint64_t __112__WBSBlockedHighlightsBannerSQLiteStore_clearBlockedBannerHighlightsAfterDate_beforeDate_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNeeded];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
@@ -308,20 +309,21 @@ uint64_t __112__WBSBlockedHighlightsBannerSQLiteStore_clearBlockedBannerHighligh
     [*(a1 + 40) timeIntervalSinceReferenceDate];
     *buf = v3;
     [*(a1 + 48) timeIntervalSinceReferenceDate];
-    v11 = v4;
-    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double,double>(v2, 0, @"DELETE FROM BlockedBannerHighlights WHERE blockedTime >= ? AND blockedTime <= ?", buf, &v11);
+    v13 = v4;
+    v5 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<double,double>(v2, 0, @"DELETE FROM BlockedBannerHighlights WHERE blockedTime >= ? AND blockedTime <= ?", buf, &v13);
+    v7 = v5;
     if (v5 != 101)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXInterstellar(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v9 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore clearBlockedBannerHighlightsAfterDate:beforeDate:withCompletionHandler:]_block_invoke"];
-        v10 = [v9 safari_privacyPreservingDescription];
+        v11 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore clearBlockedBannerHighlightsAfterDate:beforeDate:withCompletionHandler:]_block_invoke"];
+        v12 = [v11 safari_privacyPreservingDescription];
         *buf = 138543618;
-        *&buf[4] = v10;
-        v13 = 1024;
-        v14 = v5;
-        _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "Unable to clear rows from Blocked Banner Highlights: %{public}@ (%d)", buf, 0x12u);
+        *&buf[4] = v12;
+        v15 = 1024;
+        v16 = v7;
+        _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Unable to clear rows from Blocked Banner Highlights: %{public}@ (%d)", buf, 0x12u);
       }
     }
 
@@ -337,9 +339,9 @@ uint64_t __112__WBSBlockedHighlightsBannerSQLiteStore_clearBlockedBannerHighligh
     result = *(a1 + 56);
     if (result)
     {
-      v8 = *(result + 16);
+      v10 = *(result + 16);
 
-      return v8();
+      return v10();
     }
   }
 
@@ -365,7 +367,7 @@ uint64_t __112__WBSBlockedHighlightsBannerSQLiteStore_clearBlockedBannerHighligh
 
 uint64_t __102__WBSBlockedHighlightsBannerSQLiteStore_removeBlockedBannerhighlightWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _openDatabaseIfNeeded];
   v2 = *(*(a1 + 32) + 24);
   if (v2)
@@ -373,17 +375,17 @@ uint64_t __102__WBSBlockedHighlightsBannerSQLiteStore_removeBlockedBannerhighlig
     v3 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<NSString * const {__strong}&>(v2, 0, @"DELETE FROM BlockedBannerHighlights WHERE highlightIdentifier = ?", (a1 + 40));
     if (v3 != 101)
     {
-      v4 = v3;
-      v5 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v5 = v3;
+      v6 = WBS_LOG_CHANNEL_PREFIXInterstellar(v3, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore removeBlockedBannerhighlightWithIdentifier:completionHandler:]_block_invoke"];
-        v9 = [v8 safari_privacyPreservingDescription];
-        v10 = 138543618;
-        v11 = v9;
-        v12 = 1024;
-        v13 = v4;
-        _os_log_error_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_ERROR, "Unable to clear row from Blocked Banner Highlights: %{public}@ (%d)", &v10, 0x12u);
+        v9 = [*(*(a1 + 32) + 24) lastErrorWithMethodName:"-[WBSBlockedHighlightsBannerSQLiteStore removeBlockedBannerhighlightWithIdentifier:completionHandler:]_block_invoke"];
+        v10 = [v9 safari_privacyPreservingDescription];
+        v11 = 138543618;
+        v12 = v10;
+        v13 = 1024;
+        v14 = v5;
+        _os_log_error_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_ERROR, "Unable to clear row from Blocked Banner Highlights: %{public}@ (%d)", &v11, 0x12u);
       }
     }
 
@@ -399,9 +401,9 @@ uint64_t __102__WBSBlockedHighlightsBannerSQLiteStore_removeBlockedBannerhighlig
     result = *(a1 + 48);
     if (result)
     {
-      v7 = *(result + 16);
+      v8 = *(result + 16);
 
-      return v7();
+      return v8();
     }
   }
 
@@ -432,59 +434,59 @@ uint64_t __102__WBSBlockedHighlightsBannerSQLiteStore_removeBlockedBannerhighlig
 
 - (void)_createDatabaseSchemaIfNeeded
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   _schemaVersion = [(WBSBlockedHighlightsBannerSQLiteStore *)self _schemaVersion];
   if (_schemaVersion <= 1)
   {
-    if (_schemaVersion && SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE BlockedBannerHighlights") != 101)
+    if (_schemaVersion && (v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"DROP TABLE BlockedBannerHighlights"), v4 != 101))
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXInterstellar(v4, v5);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(WBSBlockedHighlightsBannerSQLiteStore *)v10 _createDatabaseSchemaIfNeeded];
+        [(WBSBlockedHighlightsBannerSQLiteStore *)v15 _createDatabaseSchemaIfNeeded];
       }
     }
 
     else
     {
-      v4 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS BlockedBannerHighlights (highlightIdentifier TEXT PRIMARY KEY,blockedTime REAL NOT NULL)");
-      if (v4 == 101)
+      v6 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"CREATE TABLE IF NOT EXISTS BlockedBannerHighlights (highlightIdentifier TEXT PRIMARY KEY,blockedTime REAL NOT NULL)");
+      if (v6 == 101)
       {
         database = self->_database;
-        v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", 2];
-        v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
+        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", 2];
+        v10 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v9);
 
-        if (v7 == 101)
+        if (v10 == 101)
         {
           return;
         }
 
-        v8 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v13 = WBS_LOG_CHANNEL_PREFIXInterstellar(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v13 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSBlockedHighlightsBannerSQLiteStore _createDatabaseSchemaIfNeeded]"];
-          safari_privacyPreservingDescription = [v13 safari_privacyPreservingDescription];
+          v18 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSBlockedHighlightsBannerSQLiteStore _createDatabaseSchemaIfNeeded]"];
+          safari_privacyPreservingDescription = [v18 safari_privacyPreservingDescription];
           *buf = 138543618;
-          v16 = safari_privacyPreservingDescription;
-          v17 = 1024;
-          v18 = v7;
-          _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to set Blocked Banner Highlights database schema version: %{public}@ (%d)", buf, 0x12u);
+          v21 = safari_privacyPreservingDescription;
+          v22 = 1024;
+          v23 = v10;
+          _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to set Blocked Banner Highlights database schema version: %{public}@ (%d)", buf, 0x12u);
         }
       }
 
       else
       {
-        v9 = v4;
-        v8 = WBS_LOG_CHANNEL_PREFIXInterstellar();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v14 = v6;
+        v13 = WBS_LOG_CHANNEL_PREFIXInterstellar(v6, v7);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v11 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSBlockedHighlightsBannerSQLiteStore _createDatabaseSchemaIfNeeded]"];
-          safari_privacyPreservingDescription2 = [v11 safari_privacyPreservingDescription];
+          v16 = [(WBSSQLiteDatabase *)self->_database lastErrorWithMethodName:"[WBSBlockedHighlightsBannerSQLiteStore _createDatabaseSchemaIfNeeded]"];
+          safari_privacyPreservingDescription2 = [v16 safari_privacyPreservingDescription];
           *buf = 138543618;
-          v16 = safari_privacyPreservingDescription2;
-          v17 = 1024;
-          v18 = v9;
-          _os_log_error_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_ERROR, "Failed to create BlockedBannerHighlights table: %{public}@ (%d)", buf, 0x12u);
+          v21 = safari_privacyPreservingDescription2;
+          v22 = 1024;
+          v23 = v14;
+          _os_log_error_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_ERROR, "Failed to create BlockedBannerHighlights table: %{public}@ (%d)", buf, 0x12u);
         }
       }
     }

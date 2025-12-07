@@ -444,27 +444,21 @@ LABEL_29:
 
 - (void)setDuration:(id)duration
 {
-  v4 = [duration copy];
-  duration = self->_duration;
-  self->_duration = v4;
+  self->_duration = [duration copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setNumber:(id)number
 {
-  v4 = [number copy];
-  number = self->_number;
-  self->_number = v4;
+  self->_number = [number copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -180,7 +180,6 @@ LABEL_13:
 
   if (responseMessageData)
   {
-    responseMessageData = self->_responseMessageData;
     PBDataWriterWriteDataField();
   }
 
@@ -188,13 +187,11 @@ LABEL_13:
 
   if (responseTypeName)
   {
-    responseTypeName = self->_responseTypeName;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBIntentResponsePayloadSuccess *)self hasShouldOpenContainingApplication])
   {
-    shouldOpenContainingApplication = self->_shouldOpenContainingApplication;
     PBDataWriterWriteBOOLField();
   }
 }

@@ -80,7 +80,7 @@ id __46___TVDivTemplateController__updateContentView__block_invoke_2(uint64_t a1
   return v4;
 }
 
-uint64_t __46___TVDivTemplateController__updateContentView__block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46___TVDivTemplateController__updateContentView__block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 tv_elementType];
   if (result == *(a1 + 40))

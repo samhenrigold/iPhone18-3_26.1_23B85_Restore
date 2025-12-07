@@ -48,7 +48,7 @@
     _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[_SBPIPEndStashTabSuppressionGestureManager] addTarget %@", &v12, 0xCu);
   }
 
-  if (([(NSMutableSet *)self->_targets containsObject:targetCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_targets) & 1) == 0)
   {
     singleTapRecognizer = self->_singleTapRecognizer;
     if (!singleTapRecognizer)
@@ -84,7 +84,7 @@
     _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "[_SBPIPEndStashTabSuppressionGestureManager] removeTarget %@", &v9, 0xCu);
   }
 
-  if ([(NSMutableSet *)self->_targets containsObject:targetCopy])
+  if (objc_msgSend_containsObject_(self->_targets))
   {
     [(UITapGestureRecognizer *)self->_singleTapRecognizer removeTarget:targetCopy action:action];
     [(NSMutableSet *)self->_targets removeObject:targetCopy];

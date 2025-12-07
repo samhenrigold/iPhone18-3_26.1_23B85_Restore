@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneSearchMinShouldMatchSumScorer
 - (_DWORD)setDocAndFreq;
 - (float)score;
+- (int)advanceWithInt:(int)int;
 - (int)nextDoc;
 - (uint64_t)doNext;
 - (void)advanceTail;
@@ -126,6 +127,62 @@ LABEL_7:
   }
 
   return *(self + 40);
+}
+
+- (int)advanceWithInt:(int)int
+{
+  v3 = *&int;
+  for (i = self->lead_; i; i = i->next_)
+  {
+    v6 = sub_100042B08(self, i);
+    if (v6)
+    {
+      v7 = v6;
+      v8 = v6[1];
+      if (!v8)
+      {
+        goto LABEL_13;
+      }
+
+      *(v7 + 6) = [v8 advanceWithInt:v3];
+      head = self->head_;
+      if (!head)
+      {
+        goto LABEL_13;
+      }
+
+      [(OrgApacheLuceneSearchDisiPriorityQueue *)head addWithOrgApacheLuceneSearchDisiWrapper:v7];
+    }
+  }
+
+  v10 = self->head_;
+  if (!v10 || (v11 = [(OrgApacheLuceneSearchDisiPriorityQueue *)v10 top]) == 0)
+  {
+LABEL_13:
+    JreThrowNullPointerException();
+  }
+
+  v12 = v11;
+  while (v12[6] < v3)
+  {
+    v13 = sub_100042B08(self, v12);
+    v14 = v13[1];
+    if (v14)
+    {
+      *(v13 + 6) = [v14 advanceWithInt:v3];
+      v12 = [(OrgApacheLuceneSearchDisiPriorityQueue *)self->head_ updateTopWithOrgApacheLuceneSearchDisiWrapper:v13];
+      if (v12)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_13;
+  }
+
+  [OrgApacheLuceneSearchMinShouldMatchSumScorer setDocAndFreq]_0(self);
+
+  return [OrgApacheLuceneSearchMinShouldMatchSumScorer doNext]_0(self);
 }
 
 - (void)pushBackLeads

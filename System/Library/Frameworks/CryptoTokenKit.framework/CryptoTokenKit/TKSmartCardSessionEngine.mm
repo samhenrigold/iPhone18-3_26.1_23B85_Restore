@@ -30,26 +30,27 @@
 {
   transmitCopy = transmit;
   replyCopy = reply;
+  v8 = replyCopy;
   if (self->_transmitting)
   {
-    v8 = TK_LOG_token_0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = TK_LOG_token_0(replyCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [TKSmartCardSessionEngine transmit:? reply:?];
     }
 
-    v9 = MEMORY[0x1E696ABC0];
-    v10 = -2;
+    v10 = MEMORY[0x1E696ABC0];
+    v11 = -2;
     goto LABEL_9;
   }
 
   if (![(TKSmartCardSessionEngine *)self valid])
   {
-    v9 = MEMORY[0x1E696ABC0];
-    v10 = -7;
+    v10 = MEMORY[0x1E696ABC0];
+    v11 = -7;
 LABEL_9:
-    v16 = [v9 errorWithDomain:@"CryptoTokenKit" code:v10 userInfo:0];
-    replyCopy[2](replyCopy, 0, v16);
+    v17 = [v10 errorWithDomain:@"CryptoTokenKit" code:v11 userInfo:0];
+    (v8)[2](v8, 0, v17);
 
     goto LABEL_14;
   }
@@ -60,33 +61,32 @@ LABEL_9:
   *(p_slot + 8) = 1;
   [(TKSmartCardSlotEngine *)*p_slot logWithBytes:transmitCopy handler:&__block_literal_global_405];
   delegate = [(TKSmartCardSlotEngine *)*p_slot delegate];
-  v14 = [delegate engine:*p_slot transmit:transmitCopy];
+  v15 = [delegate engine:*p_slot transmit:transmitCopy];
 
   *(p_slot + 8) = 0;
-  v15 = *p_slot;
-  if (v14)
+  v16 = *p_slot;
+  if (v15)
   {
-    [(TKSmartCardSlotEngine *)v15 logWithBytes:v14 handler:&__block_literal_global_408];
-    (replyCopy)[2](replyCopy, v14, 0);
+    [(TKSmartCardSlotEngine *)v16 logWithBytes:v15 handler:&__block_literal_global_408];
+    (v8)[2](v8, v15, 0);
   }
 
   else
   {
-    [(TKSmartCardSlotEngine *)v15 logWithBytes:0 handler:&__block_literal_global_411];
-    v17 = TK_LOG_token_0();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = TK_LOG_token_0([(TKSmartCardSlotEngine *)v16 logWithBytes:0 handler:&__block_literal_global_411]);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [TKSmartCardSessionEngine transmit:? reply:?];
     }
 
-    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-2 userInfo:0];
-    replyCopy[2](replyCopy, 0, v18);
+    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-2 userInfo:0];
+    (v8)[2](v8, 0, v19);
   }
 
 LABEL_14:
 }
 
-void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke(int a1, os_log_t oslog)
+void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke(int a1, os_log_t oslog, uint64_t a3)
 {
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
   {
@@ -94,7 +94,7 @@ void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke(int a1, os_log
   }
 }
 
-void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke_406(int a1, os_log_t oslog)
+void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke_406(int a1, os_log_t oslog, uint64_t a3)
 {
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
   {
@@ -138,40 +138,30 @@ void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke_409(int a1, os
 
 - (void)transmit:(id *)a1 reply:.cold.1(id *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*a1 name];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_8_0(&dword_1DF413000, v2, v3, "%@: failed to transmit APDU", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_0(&dword_1DF413000, v2, v3, "%@: failed to transmit APDU", v4, v5, v6, v7);
 }
 
 - (void)transmit:(uint64_t)a1 reply:.cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 8) name];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_8_0(&dword_1DF413000, v2, v3, "%{public}@: refusing to send APDU while another is in progress.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8_0(&dword_1DF413000, v2, v3, "%{public}@: refusing to send APDU while another is in progress.", v4, v5, v6, v7);
 }
 
 void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke_406_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__TKSmartCardSessionEngine_transmit_reply___block_invoke_409_cold_1()

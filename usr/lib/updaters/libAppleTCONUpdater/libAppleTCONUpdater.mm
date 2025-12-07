@@ -11,23 +11,26 @@ uint64_t AppleTCONDevice::getIORegPropertyValue(AppleTCONDevice *this, const __C
   v10 = CFProperty;
   if (!CFProperty)
   {
+    v15 = 0;
     v4 = 3758097086;
 LABEL_9:
     AMSupportSafeRelease();
     CStringPtr = CFStringGetCStringPtr(a2, 0);
-    AppleTCONLoggingLogMsg("IOReg (%s) error: %s\n", v16, v17, v18, v19, v20, v21, v22, CStringPtr);
+    AppleTCONLoggingLogMsg("IOReg (%s) error: %s\n", CStringPtr, v15);
     return v4;
   }
 
   v11 = CFGetTypeID(CFProperty);
   if (v11 != CFDataGetTypeID())
   {
+    v15 = "invalid type";
     goto LABEL_9;
   }
 
   Length = CFDataGetLength(v10);
   if (Length != a4)
   {
+    v15 = "invalid length";
     goto LABEL_9;
   }
 
@@ -35,6 +38,7 @@ LABEL_9:
   BytePtr = CFDataGetBytePtr(v10);
   if (!BytePtr)
   {
+    v15 = "invalid data pointer";
     goto LABEL_9;
   }
 
@@ -43,57 +47,55 @@ LABEL_9:
   return 0;
 }
 
-uint64_t AppleTCONDP835Device::eraseDeviceEEPROM(AppleTCONDP835Device *this, unsigned int a2, unsigned int a3)
+uint64_t AppleTCONDP835Device::eraseDeviceEEPROM(AppleTCONDP835Device *this, int a2, unsigned int a3)
 {
   while (a3)
   {
     if (a3 >= 0x1000)
     {
-      v5 = 4096;
+      v4 = 4096;
     }
 
     else
     {
-      v5 = a3;
+      v4 = a3;
     }
 
-    v17 = v5;
-    v6 = *(this + 4);
-    v7 = IOAVDisplayMemoryWrite();
-    a3 -= v17;
-    if (v7)
+    v8 = v4;
+    v5 = IOAVDisplayMemoryWrite();
+    a3 -= v8;
+    if (v5)
     {
-      v15 = v7;
-      AppleTCONLoggingLogMsg("erase eeprom error (0x%08x): %s\n", v8, v9, v10, v11, v12, v13, v14, v7);
-      return v15;
+      v6 = v5;
+      AppleTCONLoggingLogMsg("erase eeprom error (0x%08x): %s\n", v5, "failed to erase");
+      return v6;
     }
   }
 
   return 0;
 }
 
-uint64_t AppleTCONDP835Device::writeDeviceEEPROM(AppleTCONDP835Device *this, unsigned int a2, const unsigned __int8 *a3, unsigned int a4)
+uint64_t AppleTCONDP835Device::writeDeviceEEPROM(AppleTCONDP835Device *this, int a2, const unsigned __int8 *a3, unsigned int a4)
 {
   while (a4)
   {
     if (a4 >= 0x1000)
     {
-      v6 = 4096;
+      v5 = 4096;
     }
 
     else
     {
-      v6 = a4;
+      v5 = a4;
     }
 
-    v7 = *(this + 4);
-    v8 = IOAVDisplayMemoryWrite();
-    a4 -= v6;
-    if (v8)
+    v6 = IOAVDisplayMemoryWrite();
+    a4 -= v5;
+    if (v6)
     {
-      v16 = v8;
-      AppleTCONLoggingLogMsg("write eeprom error (0x%08x): %s\n", v9, v10, v11, v12, v13, v14, v15, v8);
-      return v16;
+      v7 = v6;
+      AppleTCONLoggingLogMsg("write eeprom error (0x%08x): %s\n", v6, "failed to write");
+      return v7;
     }
   }
 
@@ -102,7 +104,6 @@ uint64_t AppleTCONDP835Device::writeDeviceEEPROM(AppleTCONDP835Device *this, uns
 
 uint64_t AppleTCONDP835Device::waitForDeviceReady(AppleTCONDP835Device *this)
 {
-  v1 = *(this + 2);
   result = IOAVDisplayMemoryRead();
   if (!result)
   {
@@ -138,93 +139,98 @@ uint64_t AppleTCONDP835Device::getOptionsValue(AppleTCONDP835Device *this, const
 void AppleTCONDP835Device::AppleTCONDP835Device(AppleTCONDP835Device *this, int a2)
 {
   *this = &unk_2A20229E8;
-  v29 = 0;
+  v7 = 0;
   *(this + 2) = 257;
   *(this + 69) = 0;
   *(this + 6) = a2;
   v3 = IOServiceMatching("AppleTCONControl");
-  if (!v3)
+  if (v3)
   {
-    v22 = "Failed to create AppleTCONControl matching dictionary\n";
-LABEL_22:
-    AppleTCONLoggingLogMsg(v22, v3, v4, v5, v6, v7, v8, v9, v23);
-    goto LABEL_14;
-  }
+    MatchingService = IOServiceGetMatchingService(*MEMORY[0x29EDBB110], v3);
+    *(this + 10) = MatchingService;
+    if (MatchingService)
+    {
+      v5 = IOAVDisplayMemoryCreateWithName();
+      *(this + 2) = v5;
+      if (v5)
+      {
+        v6 = IOAVDisplayMemoryCreateWithName();
+        *(this + 4) = v6;
+        if (v6)
+        {
+          if (AppleTCONDP835Device::getPRODStatus(this, &v7 + 3))
+          {
+            AppleTCONLoggingLogMsg("Failed to get Prod status\n");
+          }
 
-  MatchingService = IOServiceGetMatchingService(*MEMORY[0x29EDBB110], v3);
-  *(this + 10) = MatchingService;
-  if (!MatchingService)
-  {
-    v22 = "Failed to find AppleTCONControl service\n";
-    goto LABEL_22;
-  }
+          else
+          {
+            *(this + 9) = HIBYTE(v7) == 1;
+            if (AppleTCONDP835Device::getSDOMStatus(this, &v7 + 3))
+            {
+              AppleTCONLoggingLogMsg("Failed to get SDOM status\n");
+            }
 
-  v11 = *MEMORY[0x29EDB8ED8];
-  v12 = IOAVDisplayMemoryCreateWithName();
-  *(this + 2) = v12;
-  if (!v12)
-  {
-    v22 = "Failed to get memoryRef handle\n";
-    goto LABEL_22;
-  }
+            else
+            {
+              *(this + 8) = HIBYTE(v7) == 1;
+              if (IOAVDisplayMemoryRead())
+              {
+                AppleTCONLoggingLogMsg("Failed to get boot status\n");
+              }
 
-  v13 = IOAVDisplayMemoryCreateWithName();
-  *(this + 4) = v13;
-  if (!v13)
-  {
-    v22 = "Failed to get eepromRef handle\n";
-    goto LABEL_22;
-  }
+              else
+              {
+                *(this + 22) = 0;
+                *(this + 46) = 0;
+                if ((~HIBYTE(v7) & 7) != 0)
+                {
+                  AppleTCONLoggingLogMsg("Unexpected boot status: 0x%02x\n", HIBYTE(v7));
+                }
 
-  if (AppleTCONDP835Device::getPRODStatus(this, &v29 + 3))
-  {
-    v22 = "Failed to get Prod status\n";
-    goto LABEL_22;
-  }
+                else if (AppleTCONDP835Device::getBundleVer(this, &v7))
+                {
+                  AppleTCONLoggingLogMsg("Failed to get bundle version\n");
+                }
 
-  *(this + 9) = HIBYTE(v29) == 1;
-  if (AppleTCONDP835Device::getSDOMStatus(this, &v29 + 3))
-  {
-    v22 = "Failed to get SDOM status\n";
-    goto LABEL_22;
-  }
+                else
+                {
+                  *(this + 44) = v7;
+                  *(this + 45) = *(&v7 + 1);
+                }
 
-  *(this + 8) = HIBYTE(v29) == 1;
-  v14 = *(this + 2);
-  if (IOAVDisplayMemoryRead())
-  {
-    v22 = "Failed to get boot status\n";
-    goto LABEL_22;
-  }
+                *(this + 47) = 0;
+                *(this + 49) = 0;
+                *(this + 11) = 1;
+              }
+            }
+          }
+        }
 
-  *(this + 22) = 0;
-  *(this + 46) = 0;
-  if ((~HIBYTE(v29) & 7) != 0)
-  {
-    AppleTCONLoggingLogMsg("Unexpected boot status: 0x%02x\n", v3, v4, v5, v6, v7, v8, v9, SHIBYTE(v29));
-  }
+        else
+        {
+          AppleTCONLoggingLogMsg("Failed to get eepromRef handle\n");
+        }
+      }
 
-  else if (AppleTCONDP835Device::getBundleVer(this, &v29))
-  {
-    AppleTCONLoggingLogMsg("Failed to get bundle version\n", v15, v16, v17, v18, v19, v20, v21, v23);
+      else
+      {
+        AppleTCONLoggingLogMsg("Failed to get memoryRef handle\n");
+      }
+    }
+
+    else
+    {
+      AppleTCONLoggingLogMsg("Failed to find AppleTCONControl service\n");
+    }
   }
 
   else
   {
-    *(this + 44) = v29;
-    *(this + 45) = *(&v29 + 1);
+    AppleTCONLoggingLogMsg("Failed to create AppleTCONControl matching dictionary\n");
   }
 
-  *(this + 47) = 0;
-  *(this + 49) = 0;
-  *(this + 11) = 1;
-LABEL_14:
-  v27 = *(this + 45);
-  v28 = *(this + 46);
-  v25 = *(this + 9);
-  v26 = *(this + 44);
-  v24 = *(this + 8);
-  AppleTCONLoggingLogMsg("AppleTconDev:(%d:%d:%d:0x%02x:0x%02x:0x%02x)\n", v15, v16, v17, v18, v19, v20, v21, *(this + 11));
+  AppleTCONLoggingLogMsg("AppleTconDev:(%d:%d:%d:0x%02x:0x%02x:0x%02x)\n", *(this + 11), *(this + 8), *(this + 9), *(this + 44), *(this + 45), *(this + 46));
 }
 
 void AppleTCONDP835Device::~AppleTCONDP835Device(AppleTCONDP835Device *this)
@@ -253,12 +259,13 @@ void AppleTCONDP835Device::~AppleTCONDP835Device(AppleTCONDP835Device *this)
 
 uint64_t AppleTCONDP835Device::eventCmdQueryInfo(AppleTCONDP835Device *this, const __CFDictionary *a2, __CFDictionary *a3)
 {
-  v44 = *MEMORY[0x29EDCA608];
-  *v42 = 0;
-  v43 = 0;
-  memset(bytes, 0, 16);
+  v36 = *MEMORY[0x29EDCA608];
+  *v34 = 0;
+  v35 = 0;
+  *bytes = 0;
+  *&bytes[8] = 0;
   valuePtr = 0;
-  v39 = 0;
+  v31 = 0;
   OptionsValue = AppleTCONDP835Device::getOptionsValue(this, a2, @"FuseSDOM", 0);
   *(this + 64) = OptionsValue;
   v7 = AppleTCONDP835Device::getOptionsValue(OptionsValue, a2, @"FusePROD", 0);
@@ -268,481 +275,427 @@ uint64_t AppleTCONDP835Device::eventCmdQueryInfo(AppleTCONDP835Device *this, con
   v9 = AppleTCONDP835Device::getOptionsValue(v8, a2, @"SkipSameVersion", 1);
   v10 = 0;
   *(this + 67) = v9;
-  if (!*(this + 11))
+  if (*(this + 11))
   {
-    goto LABEL_2;
-  }
+    if (AppleTCONDP835Device::getBoardID(this, &v31))
+    {
+      v29 = "getBoardID failed";
+    }
 
-  if (AppleTCONDP835Device::getBoardID(this, &v39))
-  {
-    v37 = "getBoardID failed";
-LABEL_34:
-    v10 = 15;
-    goto LABEL_35;
-  }
+    else
+    {
+      *(this + 15) = v31;
+      v32 = 0;
+      v12 = IOAVDisplayMemoryRead();
+      if (v12)
+      {
+        v10 = v12;
+        v29 = "getHWCID failed";
+        goto LABEL_30;
+      }
 
-  *(this + 15) = v39;
-  v40 = 0;
-  v20 = *(this + 2);
-  v21 = IOAVDisplayMemoryRead();
-  if (v21)
-  {
-    v10 = v21;
-    v37 = "getHWCID failed";
-LABEL_35:
-    AppleTCONLoggingLogMsg("Dev:CmdQueryInfo failure %s\n", v13, v14, v15, v16, v17, v18, v19, v37);
-    goto LABEL_2;
-  }
+      v13 = 0;
+      v14 = v32;
+      if ((v32 > 0xDu || ((1 << v32) & 0x23FF) == 0) && v32 - 256 >= 6)
+      {
+        v13 = 1;
+      }
 
-  v22 = 0;
-  if ((v40 > 0xDu || ((1 << v40) & 0x23FF) == 0) && v40 - 256 >= 6)
-  {
-    v22 = 1;
-  }
+      if (*(this + 8))
+      {
+        v13 = 1;
+      }
 
-  if (*(this + 8))
-  {
-    v22 = 1;
-  }
+      else if (!*(this + 64))
+      {
+        v13 = 1;
+      }
 
-  else if (!*(this + 64))
-  {
-    v22 = 1;
-  }
+      v10 = 3758097085;
+      v15 = *(this + 69) | v13;
+      *(this + 69) = v15;
+      AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdQueryInfo: boardID=0x%08x HWCID=0x%08x personalize=%u\n", *(this + 15), v14, v15);
+      v16 = *MEMORY[0x29EDB8ED8];
+      v17 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberIntType, this + 60);
+      if (!v17)
+      {
+        v29 = "boardID alloc failed";
+        goto LABEL_30;
+      }
 
-  v10 = 3758097085;
-  *(this + 69) |= v22;
-  AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdQueryInfo: boardID=0x%08x HWCID=0x%08x personalize=%u\n", v13, v14, v15, v16, v17, v18, v19, *(this + 15));
-  v23 = *MEMORY[0x29EDB8ED8];
-  v24 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberIntType, this + 60);
-  if (!v24)
-  {
-    v37 = "boardID alloc failed";
-    goto LABEL_35;
-  }
+      v18 = v17;
+      v19 = AppleTCONDP835DeviceRestoreTagForBoardID(3, *(this + 15));
+      CFDictionaryAddValue(a3, v19, v18);
+      CFRelease(v18);
+      if (AppleTCONDP835Device::getChipID(this, &valuePtr))
+      {
+        v29 = "getChipID failed";
+      }
 
-  v25 = v24;
-  v26 = AppleTCONDP835DeviceRestoreTagForBoardID(3, *(this + 15));
-  CFDictionaryAddValue(a3, v26, v25);
-  CFRelease(v25);
-  if (AppleTCONDP835Device::getChipID(this, &valuePtr))
-  {
-    v37 = "getChipID failed";
-    goto LABEL_34;
-  }
+      else
+      {
+        v20 = CFNumberCreate(v16, kCFNumberIntType, &valuePtr);
+        if (!v20)
+        {
+          v29 = "chipID alloc failed";
+          goto LABEL_30;
+        }
 
-  v27 = CFNumberCreate(v23, kCFNumberIntType, &valuePtr);
-  if (!v27)
-  {
-    v37 = "chipID alloc failed";
-    goto LABEL_35;
-  }
-
-  v28 = v27;
-  v29 = AppleTCONDP835DeviceRestoreTagForBoardID(2, *(this + 15));
-  CFDictionaryAddValue(a3, v29, v28);
-  CFRelease(v28);
-  if (!*(this + 69))
-  {
-    goto LABEL_21;
-  }
-
-  *bytes = AppleTCONDP835Device::getNonce(unsigned char *,unsigned int)::nonceData;
-  v30 = CFDataCreate(v23, bytes, 16);
-  if (!v30)
-  {
-    v37 = "nonce alloc failed";
-    goto LABEL_35;
-  }
-
-  v31 = v30;
-  v32 = AppleTCONDP835DeviceRestoreTagForBoardID(8, *(this + 15));
-  CFDictionaryAddValue(a3, v32, v31);
-  CFRelease(v31);
-  if (AppleTCONDP835Device::getECID(this, v42))
-  {
-    v37 = "getECID failed";
-    goto LABEL_34;
-  }
-
-  v33 = CFDataCreate(v23, v42, 16);
-  if (!v33)
-  {
-    v37 = "ecid alloc failed";
-    goto LABEL_35;
-  }
-
-  v34 = v33;
-  v35 = AppleTCONDP835DeviceRestoreTagForBoardID(10, *(this + 15));
-  CFDictionaryAddValue(a3, v35, v34);
-  CFRelease(v34);
+        v21 = v20;
+        v22 = AppleTCONDP835DeviceRestoreTagForBoardID(2, *(this + 15));
+        CFDictionaryAddValue(a3, v22, v21);
+        CFRelease(v21);
+        if (!*(this + 69))
+        {
 LABEL_21:
-  AppleTCONDP835DeviceRestoreTagForBoardID(5, *(this + 15));
-  if (*(this + 69) && !*(this + 65))
-  {
-    v36 = *(this + 9) == 0;
+          AppleTCONDP835DeviceRestoreTagForBoardID(5, *(this + 15));
+          AMSupportCFDictionarySetBoolean();
+          AppleTCONDP835DeviceRestoreTagForBoardID(7, *(this + 15));
+          AMSupportCFDictionarySetInteger32();
+          return 0;
+        }
+
+        *bytes = AppleTCONDP835Device::getNonce(unsigned char *,unsigned int)::nonceData;
+        v23 = CFDataCreate(v16, bytes, 16);
+        if (!v23)
+        {
+          v29 = "nonce alloc failed";
+          goto LABEL_30;
+        }
+
+        v24 = v23;
+        v25 = AppleTCONDP835DeviceRestoreTagForBoardID(8, *(this + 15));
+        CFDictionaryAddValue(a3, v25, v24);
+        CFRelease(v24);
+        if (!AppleTCONDP835Device::getECID(this, v34))
+        {
+          v26 = CFDataCreate(v16, v34, 16);
+          if (v26)
+          {
+            v27 = v26;
+            v28 = AppleTCONDP835DeviceRestoreTagForBoardID(10, *(this + 15));
+            CFDictionaryAddValue(a3, v28, v27);
+            CFRelease(v27);
+            goto LABEL_21;
+          }
+
+          v29 = "ecid alloc failed";
+LABEL_30:
+          AppleTCONLoggingLogMsg("Dev:CmdQueryInfo failure %s\n", v29);
+          return v10;
+        }
+
+        v29 = "getECID failed";
+      }
+    }
+
+    v10 = 15;
+    goto LABEL_30;
   }
 
-  AMSupportCFDictionarySetBoolean();
-  AppleTCONDP835DeviceRestoreTagForBoardID(7, *(this + 15));
-  v36 = *(this + 69) == 0;
-  AMSupportCFDictionarySetInteger32();
-  v10 = 0;
-LABEL_2:
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
 uint64_t AppleTCONDP835Device::isFWComponentsUpdateRequired(AppleTCONDP835Device *this, CFDictionaryRef theDict)
 {
-  v38 = 0;
+  v20 = 0;
   *buffer = 0;
   Value = CFDictionaryGetValue(theDict, @"FirmwareData");
-  v11 = Value;
-  if (!Value || (v12 = CFGetTypeID(Value), v12 != CFDataGetTypeID()))
+  v4 = Value;
+  if (!Value || (v5 = CFGetTypeID(Value), v5 != CFDataGetTypeID()))
   {
-    v29 = "firmware data type invalid ";
+    v15 = "firmware data type invalid ";
     goto LABEL_25;
   }
 
-  v13 = *MEMORY[0x29EDB8ED8];
-  v14 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v11, 0, 0, 0);
-  if (!v14 || (v15 = CFGetTypeID(v14), v15 != CFDictionaryGetTypeID()))
+  v6 = *MEMORY[0x29EDB8ED8];
+  v7 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v4, 0, 0, 0);
+  if (!v7 || (v8 = CFGetTypeID(v7), v8 != CFDictionaryGetTypeID()))
   {
-    v29 = "fw dict create failed";
+    v15 = "fw dict create failed";
     goto LABEL_25;
   }
 
-  if (!CFStringCreateWithFormat(v13, 0, @"%u.%s.%s", *(this + 15), "nvm_image", "Payload"))
+  if (!CFStringCreateWithFormat(v6, 0, @"%u.%s.%s", *(this + 15), "nvm_image", "Payload"))
   {
-    v29 = "nvm ver string create failed";
+    v15 = "nvm ver string create failed";
     goto LABEL_25;
   }
 
   ValueForKeyPathInDict = AMSupportGetValueForKeyPathInDict();
-  if (!ValueForKeyPathInDict || (v17 = ValueForKeyPathInDict, v18 = CFGetTypeID(ValueForKeyPathInDict), v18 != CFDataGetTypeID()))
+  if (!ValueForKeyPathInDict || (v10 = ValueForKeyPathInDict, v11 = CFGetTypeID(ValueForKeyPathInDict), v11 != CFDataGetTypeID()))
   {
-    v29 = "bundle payload type invalid";
+    v15 = "bundle payload type invalid";
     goto LABEL_25;
   }
 
-  v39.location = 3006464;
-  v39.length = 3;
-  CFDataGetBytes(v17, v39, buffer);
-  *(this + 49) = v38;
+  v21.location = 3006464;
+  v21.length = 3;
+  CFDataGetBytes(v10, v21, buffer);
+  *(this + 49) = v20;
   *(this + 47) = buffer[1];
   *(this + 48) = buffer[0];
-  v33 = *(this + 67);
-  AppleTCONLoggingLogMsg("AppleTCONDP835Device::isFWComponentsUpdateRequired: internal:%u skipSameVersion:%u\n", v19, v20, v21, v22, v23, v24, v25, *(this + 66));
-  v26 = buffer[1] & 0x3E;
-  v27 = *(this + 44) & 0x3E;
-  if (v26 < v27)
+  AppleTCONLoggingLogMsg("AppleTCONDP835Device::isFWComponentsUpdateRequired: internal:%u skipSameVersion:%u\n", *(this + 66), *(this + 67));
+  v12 = buffer[1] & 0x3E;
+  v13 = *(this + 44) & 0x3E;
+  if (v12 < v13)
   {
-    v29 = "bundle major ver < current major ver";
+    v15 = "bundle major ver < current major ver";
     goto LABEL_25;
   }
 
-  if (v26 == v27)
+  if (v12 == v13)
   {
-    v28 = *(this + 45);
-    if (buffer[0] < v28)
+    v14 = *(this + 45);
+    if (buffer[0] < v14)
     {
-      v29 = "bundle minor ver < current minor ver";
+      v15 = "bundle minor ver < current minor ver";
       goto LABEL_25;
     }
 
-    if (buffer[0] == v28)
+    if (buffer[0] == v14)
     {
       if (*(this + 66) && !*(this + 67))
       {
-        if (v38 < *(this + 46))
+        if (v20 < *(this + 46))
         {
-          v29 = "bundle extent ver < current extent ver";
+          v15 = "bundle extent ver < current extent ver";
           goto LABEL_25;
         }
       }
 
-      else if (v38 <= *(this + 46))
+      else if (v20 <= *(this + 46))
       {
-        v29 = "bundle extent ver <= current extent ver";
+        v15 = "bundle extent ver <= current extent ver";
 LABEL_25:
-        AppleTCONLoggingLogMsg("AppleTCONDP835Device::isFWComponentsUpdateRequired: %s\n", v4, v5, v6, v7, v8, v9, v10, v29);
-        v31 = 0;
-        v30 = "Skipping";
+        AppleTCONLoggingLogMsg("AppleTCONDP835Device::isFWComponentsUpdateRequired: %s\n", v15);
+        v17 = 0;
+        v16 = "Skipping";
         goto LABEL_18;
       }
     }
   }
 
-  v30 = "Performing";
-  v31 = 1;
+  v16 = "Performing";
+  v17 = 1;
 LABEL_18:
-  v35 = *(this + 48);
-  v36 = *(this + 49);
-  v34 = *(this + 47);
-  AppleTCONLoggingLogMsg("AppleTCONDP835Device::isFWComponentsUpdateRequired: %s update to 0x%02x:0x%02x:0x%02x\n", v4, v5, v6, v7, v8, v9, v10, v30);
+  AppleTCONLoggingLogMsg("AppleTCONDP835Device::isFWComponentsUpdateRequired: %s update to 0x%02x:0x%02x:0x%02x\n", v16, *(this + 47), *(this + 48), *(this + 49));
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  return v31;
+  return v17;
 }
 
 uint64_t AppleTCONDP835Device::updateFWComponent(AppleTCONDP835Device *this, int a2, CFDataRef theData)
 {
   BytePtr = CFDataGetBytePtr(theData);
   Length = CFDataGetLength(theData);
-  AppleTCONLoggingLogMsg("AppleTCONDP835Device::updateFWComponent: component=0x%02x, componentDataLength=0x%08x\n", v7, v8, v9, v10, v11, v12, v13, a2);
-  v14 = 0;
-  v15 = &unk_299E888FC;
-  v16 = 25;
+  AppleTCONLoggingLogMsg("AppleTCONDP835Device::updateFWComponent: component=0x%02x, componentDataLength=0x%08x\n", a2, Length);
+  v7 = 0;
+  v8 = &unk_299E888FC;
+  v9 = 25;
   while (1)
   {
     if (a2 == 4)
     {
-      v17 = *(v15 - 1);
-      v18 = *v15;
-      v19 = v17 + *(this + 14);
-      v20 = AppleTCONDP835Device::eraseDeviceEEPROM(this, v19, *v15);
-      if (v20)
+      v10 = *(v8 - 1);
+      v11 = *v8;
+      v12 = v10 + *(this + 14);
+      v13 = AppleTCONDP835Device::eraseDeviceEEPROM(this, v12, *v8);
+      if (v13)
       {
-        v30 = v20;
-        v32 = "eraseDeviceEEPROM failed";
+        v16 = v13;
+        v18 = "eraseDeviceEEPROM failed";
         goto LABEL_15;
       }
 
-      if (!v14)
+      if (!v7)
       {
-        v14 = v17;
+        v7 = v10;
       }
 
-      v28 = v18 >= Length ? Length : v18;
-      v29 = AppleTCONDP835Device::writeDeviceEEPROM(this, *(this + 14) + v17, &BytePtr[v19], v28);
-      if (v29)
+      v14 = v11 >= Length ? Length : v11;
+      v15 = AppleTCONDP835Device::writeDeviceEEPROM(this, *(this + 14) + v10, &BytePtr[v12], v14);
+      if (v15)
       {
         break;
       }
     }
 
-    v15 += 4;
-    if (!--v16)
+    v8 += 4;
+    if (!--v9)
     {
       return 0;
     }
   }
 
-  v30 = v29;
-  v32 = "writeDeviceEEPROM failed";
+  v16 = v15;
+  v18 = "writeDeviceEEPROM failed";
 LABEL_15:
-  AppleTCONLoggingLogMsg("update fw component error:%s\n", v21, v22, v23, v24, v25, v26, v27, v32);
-  return v30;
+  AppleTCONLoggingLogMsg("update fw component error:%s\n", v18);
+  return v16;
 }
 
 uint64_t AppleTCONDP835Device::eventCmdPerformNextStage(AppleTCONDP835Device *this, const __CFDictionary *a2, CFDictionaryRef theDict, unsigned __int8 *a4)
 {
-  v64 = *MEMORY[0x29EDCA608];
-  *v61 = 0;
-  *v60 = 0;
+  v28 = *MEMORY[0x29EDCA608];
+  *v23 = 0;
+  *v22 = 0;
   isFWComponentsUpdateRequired = AppleTCONDP835Device::isFWComponentsUpdateRequired(this, theDict);
+  v8 = *(this + 64);
   if (*(this + 8))
   {
-    v15 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v15 = *(this + 64) == 0;
-    *(this + 64);
+    v9 = v8 == 0;
   }
 
-  v16 = !v15;
-  AppleTCONLoggingLogMsg("Fuse SDOM (%d:%d)\n", v7, v8, v9, v10, v11, v12, v13, *(this + 8));
+  v10 = !v9;
+  AppleTCONLoggingLogMsg("Fuse SDOM (%d:%d)\n", *(this + 8), v8);
   if (*(this + 10))
   {
-    v44 = "AppleTCONDP835Device::eventCmdPerformNextStage: update done\n";
+    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: update done\n");
 LABEL_43:
-    AppleTCONLoggingLogMsg(v44, v17, v18, v19, v20, v21, v22, v23, v55);
-    v40 = 0;
-    v39 = 0;
+    v18 = 0;
+    v17 = 0;
     goto LABEL_37;
   }
 
   if (isFWComponentsUpdateRequired)
   {
-    v24 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v24 = v16;
+    v11 = v10;
   }
 
-  if ((v24 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v44 = "AppleTCONDP835Device::eventCmdPerformNextStage: update not required\n";
+    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: update not required\n");
     goto LABEL_43;
   }
 
   if (!*(this + 8) && !*(this + 64))
   {
-    v53 = "SDOM not fused; see rdar://84123825 for instructions";
-    goto LABEL_56;
+    goto LABEL_51;
   }
 
-  v25 = v16 ^ 1;
+  v12 = v10 ^ 1;
   if (!*(this + 69))
   {
-    v25 = 1;
+    v12 = 1;
   }
 
-  if ((v25 & 1) == 0 && AppleTCONDP835Device::updateOTP(this, v17, v18, v19, v20, v21, v22, v23))
+  if ((v12 & 1) == 0 && AppleTCONDP835Device::updateOTP(this) || AppleTCONDP835Device::startFWUpdate(this))
   {
-    v53 = "otp update failed";
-    goto LABEL_56;
+    goto LABEL_51;
   }
 
-  if (AppleTCONDP835Device::startFWUpdate(this))
+  if (AppleTCONDP835Device::readFWPointer(this, &v23[1], v23))
   {
-    v53 = "start update failed";
-LABEL_56:
-    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: failure %s\n", v17, v18, v19, v20, v21, v22, v23, v53);
-LABEL_57:
-    v39 = 0;
-    v38 = 1;
-    v40 = 11;
-    goto LABEL_39;
-  }
-
-  if (AppleTCONDP835Device::readFWPointer(this, &v61[1], v61))
-  {
-    v26 = 3145728;
-    v27 = 0x100000;
-    v61[0] = 0x100000;
-    v61[1] = 3145728;
+    v13 = 3145728;
+    v14 = 0x100000;
+    v23[0] = 0x100000;
+    v23[1] = 3145728;
   }
 
   else
   {
-    v27 = v61[0];
-    v26 = v61[1];
+    v14 = v23[0];
+    v13 = v23[1];
   }
 
-  *(this + 13) = v26;
-  *(this + 14) = v27;
-  if (!AppleTCONDevice::getIORegPropertyValue(this, @"enforce-pcds-valid", v60, 4))
+  *(this + 13) = v13;
+  *(this + 14) = v14;
+  if (!AppleTCONDevice::getIORegPropertyValue(this, @"enforce-pcds-valid", v22, 4))
   {
-    if (*v60)
+    if (*v22)
     {
-      v62 = 256;
-      if (sysctlbyname("kern.bootargs", __s1, &v62, 0, 0) || !strstr(__s1, "enforce-pcds-valid=0"))
+      v24 = 256;
+      if (sysctlbyname("kern.bootargs", &__s1, &v24, 0, 0) || !strstr(&__s1, "enforce-pcds-valid=0"))
       {
-        v28 = *(this + 4);
-        if (IOAVDisplayMemoryRead())
-        {
-          v53 = "failed to read PCDS 0 top-level header";
-        }
-
-        else
+        if (!IOAVDisplayMemoryRead())
         {
           *(this + 68) = 0;
-          v29 = *(this + 4);
-          if (IOAVDisplayMemoryRead())
+          if (!IOAVDisplayMemoryRead())
           {
-            v53 = "failed to read PCDS 1 top-level header";
-          }
-
-          else
-          {
-            *(this + 68);
             *(this + 68) = 0;
-            v53 = "PCDS must be generated and programmed before FW update can occur";
           }
         }
 
-        goto LABEL_56;
+        goto LABEL_51;
       }
     }
   }
 
-  if (AppleTCONDP835Device::updateFWComponents(this, theDict))
+  if (AppleTCONDP835Device::updateFWComponents(this, theDict) || AppleTCONDP835Device::writeAndVerifyFWPointer(this, *(this + 14), &v23[1], v23))
   {
-    v53 = "updates failed";
-    goto LABEL_56;
+LABEL_51:
+    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: failure %s\n");
+LABEL_52:
+    v17 = 0;
+    v16 = 1;
+    v18 = 11;
+    goto LABEL_39;
   }
 
-  if (AppleTCONDP835Device::writeAndVerifyFWPointer(this, *(this + 14), &v61[1], v61, v20, v21, v22, v23))
-  {
-    v53 = "failed to set FW pointer to update bank";
-    goto LABEL_56;
-  }
-
-  v30 = v61[0];
-  *(this + 13) = v61[1];
-  *(this + 14) = v30;
+  v15 = v23[0];
+  *(this + 13) = v23[1];
+  *(this + 14) = v15;
   if (AppleTCONDP835Device::endFWUpdate(this))
   {
-    v43 = "end update failed";
+    v20 = "end update failed";
     goto LABEL_49;
   }
 
-  if (AppleTCONDP835Device::getBundleVer(this, __s1))
+  if (AppleTCONDP835Device::getBundleVer(this, &__s1))
   {
-    v43 = "failed to read bundle version after update";
+    v20 = "failed to read bundle version after update";
     goto LABEL_49;
   }
 
-  v58 = *(this + 49);
-  v56 = *(this + 48);
-  AppleTCONLoggingLogMsg("expected bundle version: 0x%02x:0x%02x:0x%02x, actual bundle version: 0x%02x:0x%02x:0x%02x\n", v31, v32, v33, v34, v35, v36, v37, *(this + 47));
-  if (__s1[0] != *(this + 47) || __s1[1] != *(this + 48) || __s1[2] != *(this + 49))
+  AppleTCONLoggingLogMsg("expected bundle version: 0x%02x:0x%02x:0x%02x, actual bundle version: 0x%02x:0x%02x:0x%02x\n", *(this + 47), *(this + 48), *(this + 49), __s1, v26, v27);
+  if (__s1 != *(this + 47) || v26 != *(this + 48) || v27 != *(this + 49))
   {
-    v43 = "bundle version after update differs from update bundle version";
+    v20 = "bundle version after update differs from update bundle version";
 LABEL_49:
-    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: failure %s\n", v31, v32, v33, v34, v35, v36, v37, v43);
-    if (AppleTCONDP835Device::startFWUpdate(this))
+    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: failure %s\n", v20);
+    if (!AppleTCONDP835Device::startFWUpdate(this))
     {
-      v52 = "failed";
-    }
-
-    else
-    {
-      if (AppleTCONDP835Device::writeAndVerifyFWPointer(this, *(this + 14), &v61[1], v61, v48, v49, v50, v51))
+      if (!AppleTCONDP835Device::writeAndVerifyFWPointer(this, *(this + 14), &v23[1], v23))
       {
-        v52 = "failed";
-      }
-
-      else
-      {
-        v54 = v61[0];
-        *(this + 13) = v61[1];
-        *(this + 14) = v54;
-        v52 = "succeeded";
+        v21 = v23[0];
+        *(this + 13) = v23[1];
+        *(this + 14) = v21;
       }
 
       AppleTCONDP835Device::endFWUpdate(this);
     }
 
-    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: failure: attempt to revert FW pointer %s\n", v45, v46, v47, v48, v49, v50, v51, v52);
-    goto LABEL_57;
+    AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: failure: attempt to revert FW pointer %s\n");
+    goto LABEL_52;
   }
 
-  v38 = *(this + 69);
-  v39 = 1;
-  v40 = 0;
-  if (!v38)
+  v16 = *(this + 69);
+  v17 = 1;
+  v18 = 0;
+  if (!v16)
   {
     *(this + 69) = 1;
     goto LABEL_39;
   }
 
 LABEL_37:
-  v38 = 1;
+  v16 = 1;
 LABEL_39:
-  *(this + 10) = v38;
-  *a4 = v38;
-  v57 = *(this + 69);
-  v59 = *(this + 10);
-  AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: didUpdate=%u personalize=%u updateDone=%u\n", v31, v32, v33, v34, v35, v36, v37, v39);
-  v41 = *MEMORY[0x29EDCA608];
-  return v40;
+  *(this + 10) = v16;
+  *a4 = v16;
+  AppleTCONLoggingLogMsg("AppleTCONDP835Device::eventCmdPerformNextStage: didUpdate=%u personalize=%u updateDone=%u\n", v17, *(this + 69), *(this + 10));
+  return v18;
 }
 
 void AppleTCONDevice::~AppleTCONDevice(AppleTCONDevice *this)
@@ -762,22 +715,21 @@ void OUTLINED_FUNCTION_3(int a1@<W8>)
   *(v1 - 22) = 0;
 }
 
-uint64_t OUTLINED_FUNCTION_7()
+uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
 {
 
   return IOAVDisplayMemoryRead();
 }
 
-uint64_t OUTLINED_FUNCTION_9()
+uint64_t OUTLINED_FUNCTION_9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12)
 {
-  v2 = *(v0 + 16);
 
   return IOAVDisplayMemoryRead();
 }
 
-uint64_t AppleTCONUpdaterCreate(uint64_t a1, const char *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONUpdaterCreate(const __CFDictionary *a1, const char *a2, uint64_t a3, uint64_t *a4)
 {
-  AppleTCONLoggingRegisterLogSink(a2, a3, a3, a4, a5, a6, a7, a8);
+  AppleTCONLoggingRegisterLogSink(a2, a3);
   if (AppleTCONUpdaterCreate::only_once != -1)
   {
     AppleTCONUpdaterCreate_cold_1();
@@ -785,7 +737,6 @@ uint64_t AppleTCONUpdaterCreate(uint64_t a1, const char *a2, uint64_t a3, uint64
 
   if (AppleTCONUpdaterTypeID)
   {
-    v10 = *MEMORY[0x29EDB8ED8];
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
@@ -804,10 +755,10 @@ uint64_t AppleTCONUpdaterCreate(uint64_t a1, const char *a2, uint64_t a3, uint64
 
   if (CFErrorWithDomain)
   {
-    v14 = CFErrorCopyDescription(CFErrorWithDomain);
-    CFStringGetCStringPtr(v14, 0);
-    AppleTCONLoggingLogMsg("%s [error]: %s\n", v15, v16, v17, v18, v19, v20, v21, "AppleTCONUpdaterCreate");
-    CFRelease(v14);
+    v9 = CFErrorCopyDescription(CFErrorWithDomain);
+    CStringPtr = CFStringGetCStringPtr(v9, 0);
+    AppleTCONLoggingLogMsg("%s [error]: %s\n", "AppleTCONUpdaterCreate", CStringPtr);
+    CFRelease(v9);
     if (a4)
     {
       *a4 = AMSupportSafeRetain();
@@ -885,8 +836,8 @@ LABEL_10:
   if (CFErrorWithDomain)
   {
     v14 = CFErrorCopyDescription(CFErrorWithDomain);
-    CFStringGetCStringPtr(v14, 0);
-    AppleTCONLoggingLogMsg("%s [error]: %s\n", v15, v16, v17, v18, v19, v20, v21, "AppleTCONUpdaterExecCommand");
+    CStringPtr = CFStringGetCStringPtr(v14, 0);
+    AppleTCONLoggingLogMsg("%s [error]: %s\n", "AppleTCONUpdaterExecCommand", CStringPtr);
     CFRelease(v14);
     if (a5)
     {
@@ -899,21 +850,21 @@ LABEL_10:
   return 0;
 }
 
-const char *AppleTCONLoggingLogMsg(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+const char *AppleTCONLoggingLogMsg(const char *a1, ...)
 {
-  result = MEMORY[0x2A1C7C4A8]();
-  v12 = *MEMORY[0x29EDCA608];
+  va_start(va, a1);
+  result = MEMORY[0x2A1C7C4A8](a1);
+  v3 = *MEMORY[0x29EDCA608];
   if (logSinkFunc)
   {
-    vsnprintf(__str, 0x1000uLL, result, &a9);
-    result = logSinkFunc(logSinkContext, __str);
+    vsnprintf(__str, 0x1000uLL, result, va);
+    return logSinkFunc(logSinkContext, __str);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-const char *AppleTCONLoggingRegisterLogSink(const char *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const char *AppleTCONLoggingRegisterLogSink(const char *result, uint64_t a2)
 {
   logSinkFunc = result;
   logSinkContext = a2;
@@ -921,7 +872,7 @@ const char *AppleTCONLoggingRegisterLogSink(const char *result, uint64_t a2, uin
   {
     if ((AppleTCONPrintVersion(void)::version_displayed & 1) == 0)
     {
-      result = AppleTCONLoggingLogMsg("AppleTCONRestoreLib Version %d.%d\n", a2, a3, a4, a5, a6, a7, a8, 2);
+      result = AppleTCONLoggingLogMsg("AppleTCONRestoreLib Version %d.%d\n", 2, 0);
       AppleTCONPrintVersion(void)::version_displayed = 1;
     }
   }
@@ -952,7 +903,6 @@ uint64_t AppleTCONDP855Device::computeCRC(AppleTCONDP855Device *this, const unsi
 
 uint64_t AppleTCONDP855Device::waitForDeviceReady(AppleTCONDP855Device *this)
 {
-  v1 = *(this + 2);
   result = IOAVDisplayMemoryRead();
   if (!result)
   {
@@ -967,13 +917,11 @@ uint64_t AppleTCONDP855Device::waitForCompletion(AppleTCONDP855Device *this)
   result = AppleTCONDP855Device::waitForDeviceReady(this);
   if (!result)
   {
-    v3 = *(this + 2);
     result = IOAVDisplayMemoryRead();
     if (!result)
     {
-      v4 = *(this + 2);
       IOAVDisplayMemoryRead();
-      AppleTCONLoggingLogMsg("Wait Code: 0x%02x 0x%02x\n", v5, v6, v7, v8, v9, v10, v11, 0);
+      AppleTCONLoggingLogMsg("Wait Code: 0x%02x 0x%02x\n", 0, 0);
       return 3758097084;
     }
   }
@@ -991,7 +939,6 @@ uint64_t AppleTCONDP855Device::getDeviceID(AppleTCONDP855Device *this, unsigned 
   result = AppleTCONDevice::getIORegPropertyValue(this, @"device-id", a2, 6);
   if (result)
   {
-    v5 = *(this + 2);
 
     return IOAVDisplayMemoryRead();
   }
@@ -1004,7 +951,6 @@ uint64_t AppleTCONDP855Device::getBundleVer(AppleTCONDP855Device *this, unsigned
   result = AppleTCONDP855Device::getBundleVerFromIOReg(this, a2);
   if (result)
   {
-    v4 = *(this + 2);
 
     return IOAVDisplayMemoryRead();
   }
@@ -1029,7 +975,6 @@ uint64_t AppleTCONDP855Device::getFirmwareVer(AppleTCONDP855Device *this, unsign
   result = AppleTCONDP855Device::getFirmwareVerFromIOReg(this, a2);
   if (result)
   {
-    v4 = *(this + 2);
 
     return IOAVDisplayMemoryRead();
   }
@@ -1056,11 +1001,9 @@ uint64_t AppleTCONDP855Device::sendDataBuffer(AppleTCONDP855Device *this, const 
     return 3758097090;
   }
 
-  v6 = *(this + 2);
   result = IOAVDisplayMemoryWrite();
   if (a3 >= 9 && !result)
   {
-    v7 = *(this + 2);
 
     return IOAVDisplayMemoryWrite();
   }
@@ -1075,15 +1018,12 @@ uint64_t AppleTCONDP855Device::readDataBuffer(AppleTCONDP855Device *this, const 
     return 3758097090;
   }
 
-  v6 = *(this + 2);
   result = IOAVDisplayMemoryRead();
   if (!result)
   {
-    v7 = *(this + 2);
     result = IOAVDisplayMemoryRead();
     if (a3 >= 9 && !result)
     {
-      v8 = *(this + 2);
       return IOAVDisplayMemoryRead();
     }
   }
@@ -1094,7 +1034,6 @@ uint64_t AppleTCONDP855Device::readDataBuffer(AppleTCONDP855Device *this, const 
 uint64_t AppleTCONDP855Device::submitCmd(AppleTCONDP855Device *this)
 {
   usleep(0x1388u);
-  v2 = *(this + 2);
   result = IOAVDisplayMemoryWrite();
   if (!result)
   {
@@ -1105,19 +1044,16 @@ uint64_t AppleTCONDP855Device::submitCmd(AppleTCONDP855Device *this)
   return result;
 }
 
-uint64_t AppleTCONDP855Device::sendCmd(AppleTCONDP855Device *a1, char *a2, const unsigned __int8 *a3, unsigned int a4)
+uint64_t AppleTCONDP855Device::sendCmd(AppleTCONDP855Device *a1, __int32 *a2, const unsigned __int8 *a3, unsigned int a4, uint8x8_t a5)
 {
-  v7 = *a2;
   result = AppleTCONDP855Device::waitForDeviceReady(a1);
   if (!result)
   {
-    v9 = *(a1 + 2);
     result = IOAVDisplayMemoryWrite();
     if (!result)
     {
       if (!a4 || (*a2 & 0x80000000) == 0 || (result = AppleTCONDP855Device::sendDataBuffer(a1, a3, a4), !result))
       {
-        v10 = *(a1 + 2);
         result = IOAVDisplayMemoryWrite();
         if (!result)
         {
@@ -1137,38 +1073,37 @@ uint64_t AppleTCONDP855Device::sendCmd(AppleTCONDP855Device *a1, char *a2, const
 
 uint64_t AppleTCONDP855Device::getSDOMStatus(AppleTCONDP855Device *this, BOOL *a2)
 {
-  *v5 = 0;
-  result = AppleTCONDevice::getIORegPropertyValue(this, @"sdom-status", v5, 4);
+  *v6 = 0;
+  result = AppleTCONDevice::getIORegPropertyValue(this, @"sdom-status", v6, 4);
   if (result)
   {
-    return AppleTCONDP855Device::getSDOMStatusFromDevice(this, a2);
+    return AppleTCONDP855Device::getSDOMStatusFromDevice(this, a2, v5);
   }
 
-  *a2 = v5[0];
+  *a2 = v6[0];
   return result;
 }
 
-uint64_t AppleTCONDP855Device::getSDOMStatusFromDevice(AppleTCONDP855Device *this, BOOL *a2)
+uint64_t AppleTCONDP855Device::getSDOMStatusFromDevice(AppleTCONDP855Device *this, BOOL *a2, uint8x8_t a3)
 {
-  v14 = 69378;
-  result = AppleTCONDP855Device::sendCmd(this, &v14, 0, 0);
+  v6 = 69378;
+  result = AppleTCONDP855Device::sendCmd(this, &v6, 0, 0, a3);
   if (!result)
   {
-    v5 = *(this + 2);
     result = IOAVDisplayMemoryRead();
     if (!result)
     {
       if (*a2 == 32)
       {
-        v13 = "OTP_STATUS_PROGRAMMED";
+        v5 = "OTP_STATUS_PROGRAMMED";
       }
 
       else
       {
-        v13 = "OTP_STATUS_UNPROGRAMMED";
+        v5 = "OTP_STATUS_UNPROGRAMMED";
       }
 
-      AppleTCONLoggingLogMsg("SDOM status %s\n", v6, v7, v8, v9, v10, v11, v12, v13);
+      AppleTCONLoggingLogMsg("SDOM status %s\n", v5);
       result = 0;
       *a2 = *a2 == 32;
     }
@@ -1179,38 +1114,37 @@ uint64_t AppleTCONDP855Device::getSDOMStatusFromDevice(AppleTCONDP855Device *thi
 
 uint64_t AppleTCONDP855Device::getPRODStatus(AppleTCONDP855Device *this, BOOL *a2)
 {
-  *v5 = 0;
-  result = AppleTCONDevice::getIORegPropertyValue(this, @"prod-status", v5, 4);
+  *v6 = 0;
+  result = AppleTCONDevice::getIORegPropertyValue(this, @"prod-status", v6, 4);
   if (result)
   {
-    return AppleTCONDP855Device::getPRODStatusFromDevice(this, a2);
+    return AppleTCONDP855Device::getPRODStatusFromDevice(this, a2, v5);
   }
 
-  *a2 = v5[0];
+  *a2 = v6[0];
   return result;
 }
 
-uint64_t AppleTCONDP855Device::getPRODStatusFromDevice(AppleTCONDP855Device *this, BOOL *a2)
+uint64_t AppleTCONDP855Device::getPRODStatusFromDevice(AppleTCONDP855Device *this, BOOL *a2, uint8x8_t a3)
 {
-  v14 = 134914;
-  result = AppleTCONDP855Device::sendCmd(this, &v14, 0, 0);
+  v6 = 134914;
+  result = AppleTCONDP855Device::sendCmd(this, &v6, 0, 0, a3);
   if (!result)
   {
-    v5 = *(this + 2);
     result = IOAVDisplayMemoryRead();
     if (!result)
     {
       if (*a2 == 32)
       {
-        v13 = "OTP_STATUS_PROGRAMMED";
+        v5 = "OTP_STATUS_PROGRAMMED";
       }
 
       else
       {
-        v13 = "OTP_STATUS_UNPROGRAMMED";
+        v5 = "OTP_STATUS_UNPROGRAMMED";
       }
 
-      AppleTCONLoggingLogMsg("PROD status %s\n", v6, v7, v8, v9, v10, v11, v12, v13);
+      AppleTCONLoggingLogMsg("PROD status %s\n", v5);
       result = 0;
       *a2 = *a2 == 32;
     }
@@ -1219,62 +1153,66 @@ uint64_t AppleTCONDP855Device::getPRODStatusFromDevice(AppleTCONDP855Device *thi
   return result;
 }
 
-uint64_t AppleTCONDP855Device::setSdom(AppleTCONDP855Device *this)
+uint64_t AppleTCONDP855Device::setSdom(AppleTCONDP855Device *this, uint8x8_t a2)
 {
-  v14 = 1118083;
-  v2 = AppleTCONDP855Device::sendCmd(this, &v14, 0, 0);
+  v7 = 1118083;
+  v2 = AppleTCONDP855Device::sendCmd(this, &v7, 0, 0, a2);
   if (v2)
   {
-    v10 = v2;
+    v3 = v2;
+    v4 = 0;
   }
 
   else
   {
-    v11 = *(this + 2);
-    v12 = IOAVDisplayMemoryRead();
-    if (v12)
+    v5 = IOAVDisplayMemoryRead();
+    if (v5)
     {
-      v10 = v12;
+      v3 = v5;
+      v4 = 1;
     }
 
     else
     {
-      AppleTCONLoggingLogMsg("setSdom: update (getDeviceStatus) error:0x%x\n", v3, v4, v5, v6, v7, v8, v9, 0);
-      v10 = 3758097098;
+      AppleTCONLoggingLogMsg("setSdom: update (getDeviceStatus) error:0x%x\n", 0);
+      v4 = 1;
+      v3 = 3758097098;
     }
   }
 
-  AppleTCONLoggingLogMsg("setSdom: update failed:0x%x phase:%d\n", v3, v4, v5, v6, v7, v8, v9, v10);
-  return v10;
+  AppleTCONLoggingLogMsg("setSdom: update failed:0x%x phase:%d\n", v3, v4);
+  return v3;
 }
 
-uint64_t AppleTCONDP855Device::setProd(AppleTCONDP855Device *this)
+uint64_t AppleTCONDP855Device::setProd(AppleTCONDP855Device *this, uint8x8_t a2)
 {
-  v14 = 1183619;
-  v2 = AppleTCONDP855Device::sendCmd(this, &v14, 0, 0);
+  v7 = 1183619;
+  v2 = AppleTCONDP855Device::sendCmd(this, &v7, 0, 0, a2);
   if (v2)
   {
-    v10 = v2;
+    v3 = v2;
+    v4 = 0;
   }
 
   else
   {
-    v11 = *(this + 2);
-    v12 = IOAVDisplayMemoryRead();
-    if (v12)
+    v5 = IOAVDisplayMemoryRead();
+    if (v5)
     {
-      v10 = v12;
+      v3 = v5;
+      v4 = 1;
     }
 
     else
     {
-      AppleTCONLoggingLogMsg("setProd: update (getDeviceStatus) error:0x%x\n", v3, v4, v5, v6, v7, v8, v9, 0);
-      v10 = 3758097098;
+      AppleTCONLoggingLogMsg("setProd: update (getDeviceStatus) error:0x%x\n", 0);
+      v4 = 1;
+      v3 = 3758097098;
     }
   }
 
-  AppleTCONLoggingLogMsg("setProd: update failed:0x%x phase:%d\n", v3, v4, v5, v6, v7, v8, v9, v10);
-  return v10;
+  AppleTCONLoggingLogMsg("setProd: update failed:0x%x phase:%d\n", v3, v4);
+  return v3;
 }
 
 uint64_t AppleTCONDP855Device::getECID(AppleTCONDP855Device *this, unsigned __int8 *a2, unsigned int a3)
@@ -1283,16 +1221,16 @@ uint64_t AppleTCONDP855Device::getECID(AppleTCONDP855Device *this, unsigned __in
   if (result)
   {
 
-    return AppleTCONDP855Device::getECIDFromDevice(this, a2, a3);
+    return AppleTCONDP855Device::getECIDFromDevice(this, a2, a3, v7);
   }
 
   return result;
 }
 
-uint64_t AppleTCONDP855Device::getECIDFromDevice(AppleTCONDP855Device *this, unsigned __int8 *a2, unsigned int a3)
+uint64_t AppleTCONDP855Device::getECIDFromDevice(AppleTCONDP855Device *this, unsigned __int8 *a2, unsigned int a3, uint8x8_t a4)
 {
-  v7 = 27;
-  result = AppleTCONDP855Device::sendCmd(this, &v7, 0, 0);
+  v8 = 27;
+  result = AppleTCONDP855Device::sendCmd(this, &v8, 0, 0, a4);
   if (!result)
   {
 
@@ -1302,70 +1240,66 @@ uint64_t AppleTCONDP855Device::getECIDFromDevice(AppleTCONDP855Device *this, uns
   return result;
 }
 
-uint64_t AppleTCONDP855Device::displayECID(AppleTCONDP855Device *this, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONDP855Device::displayECID(AppleTCONDP855Device *this, const unsigned __int8 *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  memset(v16, 0, sizeof(v16));
+  v11 = *MEMORY[0x29EDCA608];
+  memset(v10, 0, sizeof(v10));
   if (a3)
   {
-    v8 = a3;
-    v9 = a2;
-    v10 = 0;
-    v11 = 64;
+    v3 = a3;
+    v5 = 0;
+    v6 = 64;
     while (1)
     {
-      v12 = snprintf(v16 + v10, v11, "%02x", *v9);
-      if (v12 < 0)
+      v7 = snprintf(v10 + v5, v6, "%02x", *a2);
+      if (v7 < 0)
       {
         break;
       }
 
-      v13 = __OFSUB__(v11, v12);
-      v11 -= v12;
-      if ((v11 < 0) ^ v13 | (v11 == 0))
+      v8 = __OFSUB__(v6, v7);
+      v6 -= v7;
+      if ((v6 < 0) ^ v8 | (v6 == 0))
       {
         break;
       }
 
-      ++v9;
-      v10 += v12;
-      if (!--v8)
+      ++a2;
+      v5 += v7;
+      if (!--v3)
       {
         goto LABEL_6;
       }
     }
 
-    AppleTCONLoggingLogMsg("displayECID: Avoid buffer overflow %d\n", a2, a3, a4, a5, a6, a7, a8, v12);
-    result = 3758097084;
+    AppleTCONLoggingLogMsg("displayECID: Avoid buffer overflow %d\n", v7);
+    return 3758097084;
   }
 
   else
   {
 LABEL_6:
-    AppleTCONLoggingLogMsg("AppleTconDev:ECID: 0x%s\n", a2, a3, a4, a5, a6, a7, a8, v16);
-    result = 0;
+    AppleTCONLoggingLogMsg("AppleTconDev:ECID: 0x%s\n", v10);
+    return 0;
   }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-uint64_t AppleTCONDP855Device::getNonce(AppleTCONDP855Device *this, unsigned __int8 *a2, int a3)
+uint64_t AppleTCONDP855Device::getNonce(AppleTCONDP855Device *this, unsigned __int8 *a2, unsigned int a3)
 {
   result = AppleTCONDevice::getIORegPropertyValue(this, @"nonce", a2, a3);
   if (result)
   {
 
-    return AppleTCONDP855Device::getNonceFromDevice(this, a2, a3);
+    return AppleTCONDP855Device::getNonceFromDevice(this, a2, a3, v7);
   }
 
   return result;
 }
 
-uint64_t AppleTCONDP855Device::getNonceFromDevice(AppleTCONDP855Device *this, unsigned __int8 *a2, int a3)
+uint64_t AppleTCONDP855Device::getNonceFromDevice(AppleTCONDP855Device *this, unsigned __int8 *a2, unsigned int a3, uint8x8_t a4)
 {
-  v7 = 29;
-  result = AppleTCONDP855Device::sendCmd(this, &v7, 0, 0);
+  v8 = 29;
+  result = AppleTCONDP855Device::sendCmd(this, &v8, 0, 0, a4);
   if (!result)
   {
 
@@ -1375,23 +1309,19 @@ uint64_t AppleTCONDP855Device::getNonceFromDevice(AppleTCONDP855Device *this, un
   return result;
 }
 
-uint64_t AppleTCONDP855Device::readMultiPacketData(AppleTCONDP855Device *this, const unsigned __int8 *a2, int a3)
+uint64_t AppleTCONDP855Device::readMultiPacketData(AppleTCONDP855Device *this, const unsigned __int8 *a2, unsigned int a3)
 {
   if (a3)
   {
-    v4 = *(this + 2);
     result = IOAVDisplayMemoryRead();
     if (result)
     {
       return result;
     }
 
-    v13 = 0;
-    while (v13 < 0x61A81)
+    for (i = 0; i < 0x61A81; i += 100)
     {
       usleep(0x64u);
-      v13 += 100;
-      v14 = *(this + 2);
       result = IOAVDisplayMemoryRead();
       if (result)
       {
@@ -1399,13 +1329,13 @@ uint64_t AppleTCONDP855Device::readMultiPacketData(AppleTCONDP855Device *this, c
       }
     }
 
-    AppleTCONLoggingLogMsg("Timeout Error: out status : %x\n", v6, v7, v8, v9, v10, v11, v12, 0);
+    AppleTCONLoggingLogMsg("Timeout Error: out status : %x\n", 0);
   }
 
   return AppleTCONDP855Device::waitForCompletion(this);
 }
 
-uint64_t AppleTCONDP855Device::getProdFuseValue(AppleTCONDP855Device *this, unsigned __int8 *a2)
+uint64_t AppleTCONDP855Device::getProdFuseValue(AppleTCONDP855Device *this, BOOL *a2)
 {
   *v5 = 0;
   result = AppleTCONDevice::getIORegPropertyValue(this, @"prod-fuse-value", v5, 4);
@@ -1418,9 +1348,8 @@ uint64_t AppleTCONDP855Device::getProdFuseValue(AppleTCONDP855Device *this, unsi
   return result;
 }
 
-uint64_t AppleTCONDP855Device::getProdFuseValueFromDevice(AppleTCONDP855Device *this, unsigned __int8 *a2)
+uint64_t AppleTCONDP855Device::getProdFuseValueFromDevice(AppleTCONDP855Device *this, BOOL *a2)
 {
-  v3 = *(this + 2);
   result = IOAVDisplayMemoryRead();
   *a2 = 0;
   return result;
@@ -1449,7 +1378,6 @@ uint64_t AppleTCONDP855Device::writeMultiPacketData(AppleTCONDP855Device *this, 
       break;
     }
 
-    v8 = *(this + 2);
     result = IOAVDisplayMemoryWrite();
     if (!result)
     {
@@ -1489,13 +1417,12 @@ uint64_t AppleTCONDP855Device::downloadComponentBlock(AppleTCONDP855Device *a1, 
   LOBYTE(v12) = v9;
   BYTE1(v12) = a4;
   HIBYTE(v12) = AppleTCONDP855Device::computeCRC(a1, a5, a6);
-  result = AppleTCONDP855Device::sendCmd(a1, &v12, 0, 0);
+  result = AppleTCONDP855Device::sendCmd(a1, &v12, 0, 0, v10);
   if (!result)
   {
     result = AppleTCONDP855Device::writeMultiPacketData(a1, a5, a6);
     if (!result)
     {
-      v11 = *(a1 + 2);
       LODWORD(result) = IOAVDisplayMemoryRead();
       if (result)
       {
@@ -1512,54 +1439,50 @@ uint64_t AppleTCONDP855Device::downloadComponentBlock(AppleTCONDP855Device *a1, 
   return result;
 }
 
-uint64_t AppleTCONDP855Device::downloadComponentImage(AppleTCONDP855Device *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONDP855Device::downloadComponentImage(AppleTCONDP855Device *a1, int a2, int a3, uint64_t a4, unsigned int a5)
 {
-  v8 = a5;
-  v10 = a3;
-  v11 = a2;
-  v13 = a5 + 4095;
-  v14 = (a5 + 4095) >> 12;
-  AppleTCONLoggingLogMsg("Download comp:0x%04x NumBlocks:%d\n", a2, a3, a4, a5, a6, a7, a8, a3);
-  if (v13 < 0x1000)
+  v5 = a5;
+  v7 = a3;
+  v10 = a5 + 4095;
+  v11 = (a5 + 4095) >> 12;
+  AppleTCONLoggingLogMsg("Download comp:0x%04x NumBlocks:%d\n", a3, v11);
+  if (v10 < 0x1000)
   {
     return 0;
   }
 
-  v15 = 0;
-  v16 = 0;
+  v12 = 0;
+  v13 = 0;
   while (1)
   {
-    v17 = v8 >= 0x1000 ? 4096 : v8;
-    v18 = AppleTCONDP855Device::downloadComponentBlock(a1, v11, v10, v15, (a4 + v16), v17);
-    if (v18)
+    v14 = v5 >= 0x1000 ? 4096 : v5;
+    v15 = AppleTCONDP855Device::downloadComponentBlock(a1, a2, v7, v12, (a4 + v13), v14);
+    if (v15)
     {
       break;
     }
 
-    v16 += v17;
-    v8 -= v17;
-    if (v14 == ++v15)
+    v13 += v14;
+    v5 -= v14;
+    if (v11 == ++v12)
     {
       return 0;
     }
   }
 
-  v26 = v18;
-  AppleTCONLoggingLogMsg("Component Download Failed:Block:%d:length:%d!\n", v19, v20, v21, v22, v23, v24, v25, v15);
-  v27 = *(a1 + 2);
+  v16 = v15;
+  AppleTCONLoggingLogMsg("Component Download Failed:Block:%d:length:%d!\n", v12, v14);
   if (IOAVDisplayMemoryRead())
   {
-    v35 = "Could not read error code\n";
+    AppleTCONLoggingLogMsg("Could not read error code\n");
   }
 
   else
   {
-    v37 = 0;
-    v35 = "Error code 0x%02x!\n";
+    AppleTCONLoggingLogMsg("Error code 0x%02x!\n");
   }
 
-  AppleTCONLoggingLogMsg(v35, v28, v29, v30, v31, v32, v33, v34, v37);
-  return v26;
+  return v16;
 }
 
 uint64_t AppleTCONDP855Device::getLifeCycle(AppleTCONDP855Device *this, const __CFDictionary *a2, unsigned int *a3)
@@ -1570,7 +1493,7 @@ uint64_t AppleTCONDP855Device::getLifeCycle(AppleTCONDP855Device *this, const __
     v7 = 3;
 LABEL_11:
     AMSupportSafeRelease();
-    AppleTCONLoggingLogMsg("getLifeCycle %s\n", v9, v10, v11, v12, v13, v14, v15, v6);
+    AppleTCONLoggingLogMsg("getLifeCycle %s\n", v6);
     return v7;
   }
 
@@ -1639,89 +1562,88 @@ const __CFBoolean *AppleTCONDP855Device::getOptionsValue(AppleTCONDP855Device *t
 uint64_t AppleTCONDP855Device::isOTPUpdateRequired(AppleTCONDP855Device *this, const __CFDictionary *a2)
 {
   OptionsValue = AppleTCONDP855Device::getOptionsValue(this, a2, @"FuseSDOM");
-  v11 = *(this + 8);
+  v4 = *(this + 8);
   if (OptionsValue)
   {
-    v12 = v11 == 0;
-    *(this + 8);
+    v5 = v4 == 0;
   }
 
   else
   {
-    v12 = 0;
+    v5 = 0;
   }
 
-  v13 = v12;
-  AppleTCONLoggingLogMsg("Fuse SDOM (%d:%d)\n", v4, v5, v6, v7, v8, v9, v10, v11);
-  return v13;
+  v6 = v5;
+  AppleTCONLoggingLogMsg("Fuse SDOM (%d:%d)\n", v4, OptionsValue);
+  return v6;
 }
 
-void AppleTCONDP855Device::AppleTCONDP855Device(AppleTCONDP855Device *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void AppleTCONDP855Device::AppleTCONDP855Device(AppleTCONDP855Device *this, int a2)
 {
   *this = &unk_2A2022AF0;
-  v28 = 0;
-  *v27 = 0;
+  v8 = 0;
+  *v7 = 0;
   *(this + 2) = 257;
   *(this + 6) = a2;
   if (!a2)
   {
-    AppleTCONLoggingLogMsg("Failed to getIORegRootNode. Will Attempt fallback.\n", a2, a3, a4, a5, a6, a7, a8, v21);
+    AppleTCONLoggingLogMsg("Failed to getIORegRootNode. Will Attempt fallback.\n");
   }
 
-  v9 = *MEMORY[0x29EDB8ED8];
-  v10 = IOAVDisplayMemoryCreateWithName();
-  *(this + 2) = v10;
-  if (v10)
+  v3 = IOAVDisplayMemoryCreateWithName();
+  *(this + 2) = v3;
+  if (v3)
   {
-    if (AppleTCONDP855Device::getPRODStatus(this, &v28))
+    if (AppleTCONDP855Device::getPRODStatus(this, &v8))
     {
-      v18 = "Failed to get Prod status\n";
+      AppleTCONLoggingLogMsg("Failed to get Prod status\n");
     }
 
     else
     {
-      v19 = v28 == 1;
-      *(this + 9) = v19;
-      if (v19)
+      v4 = v8 == 1;
+      *(this + 9) = v4;
+      if (v4)
       {
-        if (AppleTCONDP855Device::getProdFuseValue(this, &v28))
+        if (AppleTCONDP855Device::getProdFuseValue(this, &v8))
         {
-          v18 = "Failed to get Prod value\n";
+          AppleTCONLoggingLogMsg("Failed to get Prod value\n");
           goto LABEL_18;
         }
 
-        v20 = v28;
+        v5 = v8;
       }
 
       else
       {
-        v20 = 0;
+        v5 = 0;
       }
 
-      *(this + 30) = v20;
-      if (AppleTCONDP855Device::getSDOMStatus(this, &v28))
+      *(this + 30) = v5;
+      if (AppleTCONDP855Device::getSDOMStatus(this, &v8))
       {
-        v18 = "Failed to get SDOM status\n";
+        AppleTCONLoggingLogMsg("Failed to get SDOM status\n");
       }
 
       else
       {
-        *(this + 8) = v28 == 1;
-        if (AppleTCONDP855Device::getBundleVer(this, v27))
+        *(this + 8) = v8 == 1;
+        if (AppleTCONDP855Device::getBundleVer(this, v7))
         {
-          v18 = "Failed to get bundle version\n";
+          AppleTCONLoggingLogMsg("Failed to get bundle version\n");
         }
 
         else
         {
-          *(this + 14) = *v27;
-          if (!AppleTCONDP855Device::getFirmwareVer(this, v27))
+          *(this + 14) = *v7;
+          if (!AppleTCONDP855Device::getFirmwareVer(this, v7))
           {
-            *(this + 11) = __rev16(*v27) > 0x10B;
+            v6 = __rev16(*v7);
+            *(this + 11) = v6 > 0x10B;
             goto LABEL_19;
           }
 
-          v18 = "Failed to get Firmware version\n";
+          AppleTCONLoggingLogMsg("Failed to get Firmware version\n");
         }
       }
     }
@@ -1729,18 +1651,13 @@ void AppleTCONDP855Device::AppleTCONDP855Device(AppleTCONDP855Device *this, uint
 
   else
   {
-    v18 = "Failed to get memoryRef handle\n";
+    AppleTCONLoggingLogMsg("Failed to get memoryRef handle\n");
   }
 
 LABEL_18:
-  AppleTCONLoggingLogMsg(v18, v11, v12, v13, v14, v15, v16, v17, v21);
+  v6 = 0;
 LABEL_19:
-  v26 = *(this + 29);
-  v24 = *(this + 30);
-  v25 = *(this + 28);
-  v22 = *(this + 8);
-  v23 = *(this + 9);
-  AppleTCONLoggingLogMsg("AppleTconDev(v2):(%d:%d:%d:%d:0x%02x:0x%02x(0x%04x))\n", v11, v12, v13, v14, v15, v16, v17, *(this + 11));
+  AppleTCONLoggingLogMsg("AppleTconDev(v2):(%d:%d:%d:%d:0x%02x:0x%02x(0x%04x))\n", *(this + 11), *(this + 8), *(this + 9), *(this + 30), *(this + 28), *(this + 29), v6);
 }
 
 void AppleTCONDP855Device::~AppleTCONDP855Device(AppleTCONDP855Device *this)
@@ -1763,153 +1680,145 @@ void AppleTCONDP855Device::~AppleTCONDP855Device(AppleTCONDP855Device *this)
 
 uint64_t AppleTCONDP855Device::eventCmdQueryInfo(AppleTCONDP855Device *this, const __CFDictionary *a2, __CFDictionary *a3)
 {
-  v44 = *MEMORY[0x29EDCA608];
-  *v42 = 0;
-  v43 = 0;
+  v24 = *MEMORY[0x29EDCA608];
+  *v22 = 0;
+  v23 = 0;
   *bytes = 0u;
-  v41 = 0u;
-  v39 = 0;
-  ECID = AppleTCONDP855Device::getECID(this, v42, 0x10u);
-  v12 = ECID;
+  v21 = 0u;
+  v19 = 0;
+  ECID = AppleTCONDP855Device::getECID(this, v22, 0x10u);
+  v7 = ECID;
   if (!ECID)
   {
-    ECID = AppleTCONDP855Device::displayECID(ECID, v42, 16, v7, v8, v9, v10, v11);
+    ECID = AppleTCONDP855Device::displayECID(ECID, v22, 16);
   }
 
   if (!*(this + 8) && !AppleTCONDP855Device::getOptionsValue(ECID, a2, @"FuseSDOM"))
   {
-    AppleTCONLoggingLogMsg("Dev:CmdQueryInfo SDOM not fused. No Fusing option. Bailing.\n", v13, v14, v15, v16, v17, v18, v19, v38);
-    LifeCycle = 0;
+    AppleTCONLoggingLogMsg("Dev:CmdQueryInfo SDOM not fused. No Fusing option. Bailing.\n");
+    v8 = 0;
     *(this + 10) = 1;
-    goto LABEL_16;
+    return v8;
   }
 
   if (*(this + 11))
   {
-    if (AppleTCONDP855Device::getNonce(this, bytes, 32))
+    if (AppleTCONDP855Device::getNonce(this, bytes, 0x20u))
     {
-      v37 = "getNonce failed";
+      v18 = "getNonce failed";
     }
 
     else
     {
-      LifeCycle = 3758097085;
-      v28 = *MEMORY[0x29EDB8ED8];
-      v29 = CFDataCreate(*MEMORY[0x29EDB8ED8], bytes, 32);
-      if (!v29)
+      v8 = 3758097085;
+      v9 = *MEMORY[0x29EDB8ED8];
+      v10 = CFDataCreate(*MEMORY[0x29EDB8ED8], bytes, 32);
+      if (!v10)
       {
-        v37 = "nonce alloc failed";
-        goto LABEL_23;
+        v18 = "nonce alloc failed";
+        goto LABEL_22;
       }
 
-      v30 = v29;
-      CFDictionaryAddValue(a3, @"Baobab,UpdateNonce", v29);
-      CFRelease(v30);
-      if (!v12)
+      v11 = v10;
+      CFDictionaryAddValue(a3, @"Baobab,UpdateNonce", v10);
+      CFRelease(v11);
+      if (!v7)
       {
-        v31 = CFDataCreate(v28, v42, 16);
-        if (v31)
+        v12 = CFDataCreate(v9, v22, 16);
+        if (v12)
         {
-          v32 = v31;
-          CFDictionaryAddValue(a3, @"Baobab,ECID", v31);
-          CFRelease(v32);
-          AppleTCONDP855Device::getOptionsValue(v33, a2, @"FusePROD");
-          if (*(this + 9))
-          {
-            *(this + 30);
-          }
-
+          v13 = v12;
+          CFDictionaryAddValue(a3, @"Baobab,ECID", v12);
+          CFRelease(v13);
+          AppleTCONDP855Device::getOptionsValue(v14, a2, @"FusePROD");
           AMSupportCFDictionarySetBoolean();
-          v34 = AMSupportCFDictionarySetInteger32();
-          LifeCycle = AppleTCONDP855Device::getLifeCycle(v34, a2, &v39);
+          v15 = AMSupportCFDictionarySetInteger32();
+          LifeCycle = AppleTCONDP855Device::getLifeCycle(v15, a2, &v19);
+          v8 = LifeCycle;
           if (!LifeCycle)
           {
             AMSupportCFDictionarySetInteger32();
-            goto LABEL_16;
+            return v8;
           }
 
-          v37 = "getLifeCycle failed";
+          v18 = "getLifeCycle failed";
         }
 
         else
         {
-          v37 = "ecid alloc failed";
+          v18 = "ecid alloc failed";
         }
 
-LABEL_23:
-        AppleTCONLoggingLogMsg("Dev:CmdQueryInfo failure %s\n", v20, v21, v22, v23, v24, v25, v26, v37);
-        goto LABEL_16;
+LABEL_22:
+        AppleTCONLoggingLogMsg("Dev:CmdQueryInfo failure %s\n", v18);
+        return v8;
       }
 
-      v37 = "getECID failed";
+      v18 = "getECID failed";
     }
 
-    LifeCycle = 15;
-    goto LABEL_23;
+    v8 = 15;
+    goto LABEL_22;
   }
 
-  LifeCycle = 0;
-LABEL_16:
-  v35 = *MEMORY[0x29EDCA608];
-  return LifeCycle;
+  return 0;
 }
 
 uint64_t AppleTCONDP855Device::isFWComponentsUpdateRequired(AppleTCONDP855Device *this, const __CFDictionary *a2, CFDictionaryRef theDict, unsigned __int8 *a4)
 {
   valuePtr = 0;
   Value = CFDictionaryGetValue(theDict, @"FirmwareData");
-  v15 = Value;
-  if (!Value || (v16 = CFGetTypeID(Value), v16 != CFDataGetTypeID()))
+  v8 = Value;
+  if (!Value || (v9 = CFGetTypeID(Value), v9 != CFDataGetTypeID()))
   {
-    v43 = "firmware data type invalid ";
+    v21 = "firmware data type invalid ";
     goto LABEL_19;
   }
 
-  v17 = *MEMORY[0x29EDB8ED8];
-  v18 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v15, 0, 0, 0);
-  if (!v18 || (v19 = CFGetTypeID(v18), v19 != CFDictionaryGetTypeID()))
+  v10 = *MEMORY[0x29EDB8ED8];
+  v11 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v8, 0, 0, 0);
+  if (!v11 || (v12 = CFGetTypeID(v11), v12 != CFDictionaryGetTypeID()))
   {
-    v43 = "fw dict create failed";
+    v21 = "fw dict create failed";
 LABEL_19:
-    AppleTCONLoggingLogMsg("FW component update :%s\n", v8, v9, v10, v11, v12, v13, v14, v43);
-    v41 = 0;
+    AppleTCONLoggingLogMsg("FW component update :%s\n", v21);
+    v19 = 0;
     goto LABEL_13;
   }
 
-  if (!CFStringCreateWithFormat(v17, 0, @"1.%s.%s.%s.%s", "device_id", a4, "NVM_IMAGE", "Version"))
+  if (!CFStringCreateWithFormat(v10, 0, @"1.%s.%s.%s.%s", "device_id", a4, "NVM_IMAGE", "Version"))
   {
-    v43 = "nvm ver string create failed";
+    v21 = "nvm ver string create failed";
     goto LABEL_19;
   }
 
   ValueForKeyPathInDict = AMSupportGetValueForKeyPathInDict();
-  if (!ValueForKeyPathInDict || (v21 = ValueForKeyPathInDict, v22 = CFGetTypeID(ValueForKeyPathInDict), v22 != CFNumberGetTypeID()))
+  if (!ValueForKeyPathInDict || (v14 = ValueForKeyPathInDict, v15 = CFGetTypeID(ValueForKeyPathInDict), v15 != CFNumberGetTypeID()))
   {
-    v43 = "bundle version type invalid";
+    v21 = "bundle version type invalid";
     goto LABEL_19;
   }
 
-  v23 = CFNumberGetValue(v21, kCFNumberSInt16Type, &valuePtr);
-  if (!v23)
+  v16 = CFNumberGetValue(v14, kCFNumberSInt16Type, &valuePtr);
+  if (!v16)
   {
-    v43 = "bundle ver: num: invalid";
+    v21 = "bundle ver: num: invalid";
     goto LABEL_19;
   }
 
-  OptionsValue = AppleTCONDP855Device::getOptionsValue(v23, a2, @"RestoreInternal");
-  v25 = OptionsValue;
-  v26 = AppleTCONDP855Device::getOptionsValue(OptionsValue, a2, @"SkipSameVersion");
-  AppleTCONLoggingLogMsg("FW Update Options I:%d S:%d\n", v27, v28, v29, v30, v31, v32, v33, v25);
-  if (__PAIR64__(*(this + 29), *(this + 28)) != __PAIR64__(valuePtr, HIBYTE(valuePtr)) || (v41 = 0, v25) && !v26)
+  OptionsValue = AppleTCONDP855Device::getOptionsValue(v16, a2, @"RestoreInternal");
+  v18 = AppleTCONDP855Device::getOptionsValue(OptionsValue, a2, @"SkipSameVersion");
+  AppleTCONLoggingLogMsg("FW Update Options I:%d S:%d\n", OptionsValue, v18);
+  if (__PAIR64__(*(this + 29), *(this + 28)) != __PAIR64__(valuePtr, HIBYTE(valuePtr)) || (v19 = 0, OptionsValue) && !v18)
   {
-    AppleTCONLoggingLogMsg("Update to 0x%02x:0x%02x\n", v34, v35, v36, v37, v38, v39, v40, SHIBYTE(valuePtr));
-    v41 = 1;
+    AppleTCONLoggingLogMsg("Update to 0x%02x:0x%02x\n", HIBYTE(valuePtr), valuePtr);
+    v19 = 1;
   }
 
 LABEL_13:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  return v41;
+  return v19;
 }
 
 uint64_t AppleTCONDP855Device::updateFWComponents(AppleTCONDP855Device *this, const __CFDictionary *a2, unsigned __int8 *a3)
@@ -1917,134 +1826,134 @@ uint64_t AppleTCONDP855Device::updateFWComponents(AppleTCONDP855Device *this, co
   v4 = 3758097088;
   v5 = *MEMORY[0x29EDB8ED8];
   AMSupportGetValueForKeyPathInDict();
-  v13 = AMSupportSafeRetain();
-  if (!v13)
+  v6 = AMSupportSafeRetain();
+  if (!v6)
   {
-    v40 = "ticket missing";
+    v27 = "ticket missing";
     goto LABEL_25;
   }
 
   Value = CFDictionaryGetValue(a2, @"FirmwareData");
-  if (!Value || (v15 = Value, v16 = CFGetTypeID(Value), v16 != CFDataGetTypeID()))
+  if (!Value || (v8 = Value, v9 = CFGetTypeID(Value), v9 != CFDataGetTypeID()))
   {
-    v40 = "firmware missing";
+    v27 = "firmware missing";
     goto LABEL_25;
   }
 
-  v17 = CFPropertyListCreateWithData(v5, v15, 0, 0, 0);
-  v18 = v17;
-  if (!v17 || (v19 = CFGetTypeID(v17), v19 != CFDictionaryGetTypeID()))
+  v10 = CFPropertyListCreateWithData(v5, v8, 0, 0, 0);
+  v11 = v10;
+  if (!v10 || (v12 = CFGetTypeID(v10), v12 != CFDictionaryGetTypeID()))
   {
-    v40 = "firmware dict: create failed";
+    v27 = "firmware dict: create failed";
     goto LABEL_25;
   }
 
   if (!CFStringCreateWithFormat(v5, 0, @"1.firmware.Payload"))
   {
-    v40 = "comp: key create failed";
+    v27 = "comp: key create failed";
     goto LABEL_25;
   }
 
   AMSupportGetValueForKeyPathInDict();
-  v20 = AMSupportSafeRetain();
-  v21 = v20;
-  if (!v20)
+  v13 = AMSupportSafeRetain();
+  v14 = v13;
+  if (!v13)
   {
-    v40 = "comp: data missing";
+    v27 = "comp: data missing";
     goto LABEL_25;
   }
 
-  v22 = CFDataGetLength(v20) + 4096;
-  v23 = malloc_type_malloc(v22, 0x100004077774924uLL);
-  v24 = v23;
-  if (!v23)
+  v15 = CFDataGetLength(v13) + 4096;
+  v16 = malloc_type_malloc(v15, 0x100004077774924uLL);
+  v17 = v16;
+  if (!v16)
   {
     v4 = 3;
-    v40 = "alloc: failed";
+    v27 = "alloc: failed";
     goto LABEL_25;
   }
 
-  memset(v23, 255, v22);
-  v43.length = CFDataGetLength(v13);
-  v43.location = 0;
-  CFDataGetBytes(v13, v43, v24);
-  v44.length = CFDataGetLength(v21);
-  v44.location = 0;
-  CFDataGetBytes(v21, v44, v24 + 4096);
-  if (AppleTCONDP855Device::downloadComponentImage(this, 1, 0, v24, v22, v25, v26, v27))
+  memset(v16, 255, v15);
+  v30.length = CFDataGetLength(v6);
+  v30.location = 0;
+  CFDataGetBytes(v6, v30, v17);
+  v31.length = CFDataGetLength(v14);
+  v31.location = 0;
+  CFDataGetBytes(v14, v31, v17 + 4096);
+  if (AppleTCONDP855Device::downloadComponentImage(this, 1, 0, v17, v15))
   {
     v4 = 11;
-    v40 = "download fw failed";
+    v27 = "download fw failed";
     goto LABEL_25;
   }
 
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  v28 = &off_2A14F2070;
-  v29 = 11;
+  v18 = &off_2A14F2070;
+  v19 = 11;
   while (1)
   {
-    if (!CFStringCreateWithFormat(v5, 0, @"1.%s.%s.%s.%s", "device_id", a3, *v28, "Payload"))
+    if (!CFStringCreateWithFormat(v5, 0, @"1.%s.%s.%s.%s", "device_id", a3, *v18, "Payload"))
     {
       v4 = 0;
-      v40 = "comp: string create failed";
+      v27 = "comp: string create failed";
       goto LABEL_25;
     }
 
     AMSupportGetValueForKeyPathInDict();
-    v30 = AMSupportSafeRetain();
-    if (v30)
+    v20 = AMSupportSafeRetain();
+    if (v20)
     {
       break;
     }
 
 LABEL_20:
     AMSupportSafeRelease();
-    v28 += 2;
-    if (!--v29)
+    v18 += 2;
+    if (!--v19)
     {
       v4 = 0;
       goto LABEL_22;
     }
   }
 
-  v31 = v30;
-  v32 = v18;
-  Length = CFDataGetLength(v30);
-  v34 = Length;
-  if (v22 >= Length)
+  v21 = v20;
+  v22 = v11;
+  Length = CFDataGetLength(v20);
+  v24 = Length;
+  if (v15 >= Length)
   {
-    v35 = Length;
+    v25 = Length;
   }
 
   else
   {
-    free(v24);
-    v35 = v34;
-    v24 = malloc_type_calloc(1uLL, v34, 0x100004077774924uLL);
-    LODWORD(v22) = v34;
-    if (!v24)
+    free(v17);
+    v25 = v24;
+    v17 = malloc_type_calloc(1uLL, v24, 0x100004077774924uLL);
+    LODWORD(v15) = v24;
+    if (!v17)
     {
       v4 = 3;
-      v40 = "re alloc failed";
+      v27 = "re alloc failed";
       goto LABEL_25;
     }
   }
 
-  v45.location = 0;
-  v45.length = v35;
-  CFDataGetBytes(v31, v45, v24);
-  if (!AppleTCONDP855Device::downloadComponentImage(this, 0, *(v28 - 2), v24, v34, v36, v37, v38))
+  v32.location = 0;
+  v32.length = v25;
+  CFDataGetBytes(v21, v32, v17);
+  if (!AppleTCONDP855Device::downloadComponentImage(this, 0, *(v18 - 2), v17, v24))
   {
     AMSupportSafeRelease();
-    v18 = v32;
+    v11 = v22;
     goto LABEL_20;
   }
 
   v4 = 11;
-  v40 = "download comp: failed";
+  v27 = "download comp: failed";
 LABEL_25:
-  AppleTCONLoggingLogMsg("update fw error:%s\n", v6, v7, v8, v9, v10, v11, v12, v40);
+  AppleTCONLoggingLogMsg("update fw error:%s\n", v27);
 LABEL_22:
   AMSupportSafeFree();
   AMSupportSafeRelease();
@@ -2056,43 +1965,43 @@ LABEL_22:
 
 uint64_t AppleTCONDP855Device::eventCmdPerformNextStage(AppleTCONDP855Device *this, const __CFDictionary *a2, const __CFDictionary *a3, unsigned __int8 *a4)
 {
-  *&v21[3] = 0;
-  *v21 = 0;
-  if (AppleTCONDP855Device::getDeviceID(this, v21, 7u))
+  *&v16[3] = 0;
+  *v16 = 0;
+  if (AppleTCONDP855Device::getDeviceID(this, v16, 7u))
   {
-    v19 = "get dev:id failed";
+    v15 = "get dev:id failed";
 LABEL_19:
     *(this + 10) = 1;
     *a4 = 1;
-    AppleTCONLoggingLogMsg("Dev:next stage failure %s\n", v8, v9, v10, v11, v12, v13, v14, v19);
-    v17 = 11;
+    AppleTCONLoggingLogMsg("Dev:next stage failure %s\n", v15);
+    v13 = 11;
     goto LABEL_11;
   }
 
-  AppleTCONLoggingLogMsg("Dev:deviceid %s\n", v8, v9, v10, v11, v12, v13, v14, v21);
-  isFWComponentsUpdateRequired = AppleTCONDP855Device::isFWComponentsUpdateRequired(this, a2, a3, v21);
+  AppleTCONLoggingLogMsg("Dev:deviceid %s\n", v16);
+  isFWComponentsUpdateRequired = AppleTCONDP855Device::isFWComponentsUpdateRequired(this, a2, a3, v16);
   if (*(this + 10) || !isFWComponentsUpdateRequired)
   {
     goto LABEL_10;
   }
 
-  v22 = 156;
-  if (AppleTCONDP855Device::sendCmd(this, &v22, v21, 6u))
+  v17 = 156;
+  if (AppleTCONDP855Device::sendCmd(this, &v17, v16, 6u, v9))
   {
-    v19 = "submit dev:id failed";
+    v15 = "submit dev:id failed";
     goto LABEL_19;
   }
 
-  v22 = 151;
-  if (AppleTCONDP855Device::sendCmd(this, &v22, 0, 0))
+  v17 = 151;
+  if (AppleTCONDP855Device::sendCmd(this, &v17, 0, 0, v10))
   {
-    v19 = "start update failed";
+    v15 = "start update failed";
     goto LABEL_19;
   }
 
-  if (AppleTCONDP855Device::updateFWComponents(this, a3, v21))
+  if (AppleTCONDP855Device::updateFWComponents(this, a3, v16))
   {
-    v19 = "updates failed";
+    v15 = "updates failed";
     goto LABEL_19;
   }
 
@@ -2100,34 +2009,34 @@ LABEL_19:
   {
     if (AppleTCONDP855Device::updateOTP(this, a2))
     {
-      v19 = "otp update failed";
+      v15 = "otp update failed";
       goto LABEL_19;
     }
 
-    v16 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v16 = 2;
+    v11 = 2;
   }
 
-  v22 = 153;
-  BYTE1(v22) = v16;
-  AppleTCONLoggingLogMsg("Reset option %d\n", v8, v9, v10, v11, v12, v13, v14, v16);
-  if (AppleTCONDP855Device::sendCmd(this, &v22, 0, 0))
+  v17 = 153;
+  BYTE1(v17) = v11;
+  AppleTCONLoggingLogMsg("Reset option %d\n", v11);
+  if (AppleTCONDP855Device::sendCmd(this, &v17, 0, 0, v12))
   {
-    v19 = "end update failed";
+    v15 = "end update failed";
     goto LABEL_19;
   }
 
 LABEL_10:
-  v17 = 0;
+  v13 = 0;
   *(this + 10) = 1;
   *a4 = 1;
 LABEL_11:
-  AppleTCONLoggingLogMsg("AppleTCONDP855Device::eventCmdPerformNextStage: Finished Personalization\n", v8, v9, v10, v11, v12, v13, v14, v20);
-  return v17;
+  AppleTCONLoggingLogMsg("AppleTCONDP855Device::eventCmdPerformNextStage: Finished Personalization\n");
+  return v13;
 }
 
 __CFString *AppleTCONDP835DeviceRestoreTagForBoardID(int a1, int a2)
@@ -2226,7 +2135,7 @@ __CFString *AppleTCONDP835DeviceRestoreTagForBoardID(int a1, int a2)
   return *v6;
 }
 
-uint64_t AppleTCONUpdateController::AppleTCONUpdateControllerGetDevice(AppleTCONUpdateController *this)
+AppleTCONDP855Device *AppleTCONUpdateController::AppleTCONUpdateControllerGetDevice(AppleTCONUpdateController *this)
 {
   *buffer = 2133;
   v1 = *MEMORY[0x29EDBB110];
@@ -2252,17 +2161,17 @@ uint64_t AppleTCONUpdateController::AppleTCONUpdateControllerGetDevice(AppleTCON
           {
             if (snprintf(v9, v8 + 14, "%s", "IODeviceTree:/") == 14)
             {
-              v32.length = CFDataGetLength(CFProperty);
-              v32.location = 0;
-              CFDataGetBytes(CFProperty, v32, v10 + 14);
+              v18.length = CFDataGetLength(CFProperty);
+              v18.location = 0;
+              CFDataGetBytes(CFProperty, v18, v10 + 14);
               v10[v8 + 13] = 0;
-              AppleTCONLoggingLogMsg("Looking for entry under %s\n", v11, v12, v13, v14, v15, v16, v17, v10);
-              v18 = IORegistryEntryFromPath(v1, v10);
-              if (v18)
+              AppleTCONLoggingLogMsg("Looking for entry under %s\n", v10);
+              v11 = IORegistryEntryFromPath(v1, v10);
+              if (v11)
               {
-                v19 = IORegistryEntryCreateCFProperty(v18, @"chipid", v4, 0);
-                v20 = v19;
-                if (!v19 || (v21 = CFGetTypeID(v19), v21 != CFDataGetTypeID()) || CFDataGetLength(v20) != 4 || (v33.location = 0, v33.length = 4, CFDataGetBytes(v20, v33, buffer), *buffer == 2133))
+                v12 = IORegistryEntryCreateCFProperty(v11, @"chipid", v4, 0);
+                v13 = v12;
+                if (!v12 || (v14 = CFGetTypeID(v12), v14 != CFDataGetTypeID()) || CFDataGetLength(v13) != 4 || (v19.location = 0, v19.length = 4, CFDataGetBytes(v13, v19, buffer), *buffer == 2133))
                 {
                   operator new();
                 }
@@ -2272,54 +2181,54 @@ uint64_t AppleTCONUpdateController::AppleTCONUpdateControllerGetDevice(AppleTCON
                   operator new();
                 }
 
-                LOBYTE(v30) = 0;
+                v16 = 0;
               }
 
               else
               {
-                v30 = "tcon device not found";
+                v16 = "tcon device not found";
               }
             }
 
             else
             {
-              v30 = "overflow";
+              v16 = "overflow";
             }
           }
 
           else
           {
-            v30 = "Unable to allocate memory";
+            v16 = "Unable to allocate memory";
           }
         }
 
         else
         {
-          v30 = "Invalid string";
+          v16 = "Invalid string";
         }
       }
 
       else
       {
-        v30 = "product path type mismatch";
+        v16 = "product path type mismatch";
       }
     }
 
     else
     {
-      v30 = "product path not found";
+      v16 = "product path not found";
     }
   }
 
   else
   {
-    v30 = "product not found";
+    v16 = "product not found";
   }
 
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeFree();
-  AppleTCONLoggingLogMsg("AppleTCONUpdateControllerGetDevice failed: %s\n", v22, v23, v24, v25, v26, v27, v28, v30);
+  AppleTCONLoggingLogMsg("AppleTCONUpdateControllerGetDevice failed: %s\n", v16);
   return 0;
 }
 
@@ -2342,24 +2251,23 @@ void AppleTCONUpdateController::AppleTCONUpdateController(AppleTCONUpdateControl
   *(this + 16) = v3 == 0;
 }
 
-uint64_t AppleTCONUpdateController::start(AppleTCONUpdateController *this, const __CFDictionary *a2, __CFError **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONUpdateController::start(const void **this, const __CFDictionary *a2, __CFError **a3)
 {
-  v15 = *(this + 17);
-  AppleTCONLoggingLogMsg("AppleTCONUpdateController::start: Dev = (%p) - updateSupported = %d\n", a2, a3, a4, a5, a6, a7, a8, *(this + 1));
-  if (*(this + 1))
+  AppleTCONLoggingLogMsg("AppleTCONUpdateController::start: Dev = (%p) - updateSupported = %d\n", this[1], *(this + 17));
+  if (this[1])
   {
     if (!a2)
     {
       return 0;
     }
 
-    v11 = AMSupportSafeRetain();
-    *(this + 3) = v11;
-    Value = CFDictionaryGetValue(v11, @"Options");
+    v6 = AMSupportSafeRetain();
+    this[3] = v6;
+    Value = CFDictionaryGetValue(v6, @"Options");
     if (Value)
     {
-      v13 = CFGetTypeID(Value);
-      if (v13 == CFDictionaryGetTypeID())
+      v8 = CFGetTypeID(Value);
+      if (v8 == CFDictionaryGetTypeID())
       {
         return 0;
       }
@@ -2379,68 +2287,67 @@ uint64_t AppleTCONUpdateController::start(AppleTCONUpdateController *this, const
   return 19;
 }
 
-uint64_t AppleTCONUpdateController::execCmdQueryInfo(AppleTCONUpdateController *this, const __CFDictionary *a2, const __CFDictionary **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONUpdateController::execCmdQueryInfo(AppleTCONUpdateController *this, const __CFDictionary *a2, const __CFDictionary **a3)
 {
-  AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: Begin Personalization\n", a2, a3, a4, a5, a6, a7, a8, v38);
+  AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: Begin Personalization\n");
   if (a3)
   {
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     if (Mutable)
     {
-      v26 = Mutable;
+      v7 = Mutable;
       if (a2)
       {
-        AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: Input\n", v19, v20, v21, v22, v23, v24, v25, v39);
-        v27 = *(this + 3);
+        AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: Input\n");
         AMSupportSafeRelease();
-        v28 = AMSupportSafeRetain();
-        *(this + 3) = v28;
+        v8 = AMSupportSafeRetain();
+        *(this + 3) = v8;
       }
 
       else
       {
-        v28 = *(this + 3);
+        v8 = *(this + 3);
       }
 
-      v29 = (*(**(this + 1) + 16))(*(this + 1), v28, v26);
-      if (v29)
+      v9 = (*(**(this + 1) + 16))(*(this + 1), v8, v7);
+      if (v9)
       {
-        CFRelease(v26);
-        AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: device failure %d\n", v30, v31, v32, v33, v34, v35, v36, v29);
+        CFRelease(v7);
+        AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: device failure %d\n", v9);
       }
 
       else
       {
-        *a3 = v26;
+        *a3 = v7;
       }
     }
 
     else
     {
-      AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: create output dict: failed\n", v19, v20, v21, v22, v23, v24, v25, v39);
+      AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: create output dict: failed\n");
       return 3;
     }
   }
 
   else
   {
-    AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: Output param missing\n", v11, v12, v13, v14, v15, v16, v17, v39);
+    AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCmdQueryInfo: Output param missing\n");
     return 2;
   }
 
-  return v29;
+  return v9;
 }
 
 uint64_t AppleTCONUpdateController::execPerformNextStage(AppleTCONUpdateController *this, const __CFDictionary *a2)
 {
   v2 = (*(**(this + 1) + 24))(*(this + 1), *(this + 3), a2, this + 16);
-  v10 = v2;
+  v3 = v2;
   if (v2)
   {
-    AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: device failure %d\n", v3, v4, v5, v6, v7, v8, v9, v2);
+    AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: device failure %d\n", v2);
   }
 
-  return v10;
+  return v3;
 }
 
 uint64_t AppleTCONDP835Device::writeGPIO(AppleTCONDP835Device *this, uint64_t a2, unsigned int a3)
@@ -2450,35 +2357,29 @@ uint64_t AppleTCONDP835Device::writeGPIO(AppleTCONDP835Device *this, uint64_t a2
   input[0] = a2;
   input[1] = a3;
   v3 = *(this + 10);
-  if (v3)
+  if (!v3)
   {
-    v4 = IOServiceOpen(v3, *MEMORY[0x29EDCA6B0], 0, &connect);
+    return 3758097136;
+  }
+
+  v4 = IOServiceOpen(v3, *MEMORY[0x29EDCA6B0], 0, &connect);
+  v5 = connect;
+  if (!v4)
+  {
+    if (!connect)
+    {
+      return 3758097097;
+    }
+
+    v4 = IOConnectCallScalarMethod(connect, 1u, input, 2u, 0, 0);
     v5 = connect;
-    if (!v4)
-    {
-      if (!connect)
-      {
-        v4 = 3758097097;
-        goto LABEL_7;
-      }
-
-      v4 = IOConnectCallScalarMethod(connect, 1u, input, 2u, 0, 0);
-      v5 = connect;
-    }
-
-    if (v5)
-    {
-      IOServiceClose(v5);
-    }
   }
 
-  else
+  if (v5)
   {
-    v4 = 3758097136;
+    IOServiceClose(v5);
   }
 
-LABEL_7:
-  v6 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -2506,11 +2407,20 @@ uint64_t AppleTCONDP835Device::getBoardID(AppleTCONDP835Device *this, unsigned i
     return OUTLINED_FUNCTION_10();
   }
 
-  OUTLINED_FUNCTION_6(this);
-  result = OUTLINED_FUNCTION_7();
+  v3 = OUTLINED_FUNCTION_6(this);
+  result = OUTLINED_FUNCTION_7(v3, v4, v5, v6, v7, v8, v9, v10, v12, *v13, *&v13[4], v13[6], 0);
   if (!result)
   {
-    return 3758096385;
+    if ((v14 & 0x38) == 8)
+    {
+      result = 0;
+      *v2 = (v14 >> 2) & 3;
+    }
+
+    else
+    {
+      return 3758096385;
+    }
   }
 
   return result;
@@ -2520,14 +2430,13 @@ uint64_t AppleTCONDP835Device::getBundleVer(AppleTCONDP835Device *this, unsigned
 {
   v7 = 20;
   result = OUTLINED_FUNCTION_10();
-  if (v5)
+  if (v6)
   {
     if (v4 == 3)
     {
-      result = AppleTCONDP835Device::sendCmd(this, &v7, 0, 0, 0);
+      result = AppleTCONDP835Device::sendCmd(this, &v7, 0, 0, 0, v5);
       if (!result)
       {
-        v6 = *(this + 2);
 
         return IOAVDisplayMemoryRead();
       }
@@ -2537,9 +2446,9 @@ uint64_t AppleTCONDP835Device::getBundleVer(AppleTCONDP835Device *this, unsigned
   return result;
 }
 
-uint64_t AppleTCONDP835Device::sendCmd(AppleTCONDP835Device *a1, int *a2, uint64_t a3, int a4, int a5)
+uint64_t AppleTCONDP835Device::sendCmd(AppleTCONDP835Device *a1, __int32 *a2, uint64_t a3, uint64_t a4, int a5, uint8x8_t a6)
 {
-  v9 = *a2;
+  v7 = a4;
   v10 = AppleTCONDP835Device::waitForDeviceReady(a1);
   if (v10)
   {
@@ -2547,21 +2456,18 @@ uint64_t AppleTCONDP835Device::sendCmd(AppleTCONDP835Device *a1, int *a2, uint64
   }
 
   v11 = 3758097090;
-  if (!a3 || !a4)
+  if (!a3 || !v7)
   {
 LABEL_6:
-    v13 = *(a1 + 2);
     v10 = IOAVDisplayMemoryWrite();
     if (!v10)
     {
-      v14 = *(a1 + 2);
       v10 = IOAVDisplayMemoryWrite();
       if (!v10)
       {
         v10 = AppleTCONDP835Device::waitForDeviceReady(a1);
         if (!v10)
         {
-          v15 = *(a1 + 2);
           v10 = IOAVDisplayMemoryRead();
           if (!v10)
           {
@@ -2574,9 +2480,8 @@ LABEL_6:
     return v10;
   }
 
-  if ((a5 + a4) <= 0x10)
+  if ((a5 + v7) <= 0x10)
   {
-    v12 = *(a1 + 2);
     v10 = IOAVDisplayMemoryWrite();
     if (v10)
     {
@@ -2591,7 +2496,6 @@ LABEL_6:
 
 uint64_t AppleTCONDP835Device::dischargePanel(AppleTCONDP835Device *this)
 {
-  v1 = *(this + 2);
   result = IOAVDisplayMemoryRead();
   if (!result)
   {
@@ -2609,85 +2513,114 @@ uint64_t AppleTCONDP835Device::dischargePanel(AppleTCONDP835Device *this)
 
 uint64_t AppleTCONDP835Device::startFWUpdate(AppleTCONDP835Device *this)
 {
-  result = AppleTCONDP835Device::dischargePanel(this);
-  if (!result)
+  v2 = AppleTCONDP835Device::dischargePanel(this);
+  if (v2)
   {
-    OUTLINED_FUNCTION_0();
-    result = IOAVDisplayMemoryRead();
-    if (!result)
+    return v2;
+  }
+
+  OUTLINED_FUNCTION_0();
+  v2 = IOAVDisplayMemoryRead();
+  if (v2)
+  {
+    return v2;
+  }
+
+  OUTLINED_FUNCTION_0();
+  v2 = IOAVDisplayMemoryWrite();
+  if (v2)
+  {
+    return v2;
+  }
+
+  OUTLINED_FUNCTION_0();
+  v2 = IOAVDisplayMemoryRead();
+  if (v2)
+  {
+    return v2;
+  }
+
+  v3 = 3758097129;
+  OUTLINED_FUNCTION_2();
+  v2 = IOAVDisplayMemoryRead();
+  if (v2)
+  {
+    return v2;
+  }
+
+  OUTLINED_FUNCTION_1();
+  v2 = IOAVDisplayMemoryWrite();
+  if (v2)
+  {
+    return v2;
+  }
+
+  OUTLINED_FUNCTION_2();
+  v2 = IOAVDisplayMemoryRead();
+  if (v2)
+  {
+    return v2;
+  }
+
+  OUTLINED_FUNCTION_5();
+  IOAVDisplayMemoryWrite();
+  v4 = usleep(0xC350u);
+  v2 = OUTLINED_FUNCTION_9(v4, v5, v6, v7, v8, v9, v10, v11, v13, *v14, v14[4], 0);
+  if (v2)
+  {
+    return v2;
+  }
+
+  if (v15)
+  {
+    return v3;
+  }
+
+  OUTLINED_FUNCTION_0();
+  v2 = IOAVDisplayMemoryRead();
+  if (v2)
+  {
+    return v2;
+  }
+
+  if (v16)
+  {
+    OUTLINED_FUNCTION_2();
+    v2 = IOAVDisplayMemoryRead();
+    if (!v2)
     {
-      OUTLINED_FUNCTION_0();
-      result = IOAVDisplayMemoryWrite();
-      if (!result)
+      OUTLINED_FUNCTION_1();
+      v2 = IOAVDisplayMemoryWrite();
+      if (!v2)
       {
-        OUTLINED_FUNCTION_0();
-        result = IOAVDisplayMemoryRead();
-        if (!result)
+        OUTLINED_FUNCTION_2();
+        v2 = IOAVDisplayMemoryRead();
+        if (!v2)
         {
-          OUTLINED_FUNCTION_2();
-          result = IOAVDisplayMemoryRead();
-          if (!result)
+          OUTLINED_FUNCTION_1();
+          v2 = IOAVDisplayMemoryWrite();
+          if (!v2)
           {
-            OUTLINED_FUNCTION_1();
-            result = IOAVDisplayMemoryWrite();
-            if (!result)
+            OUTLINED_FUNCTION_2();
+            v2 = IOAVDisplayMemoryRead();
+            if (!v2)
             {
-              OUTLINED_FUNCTION_2();
-              result = IOAVDisplayMemoryRead();
-              if (!result)
+              OUTLINED_FUNCTION_1();
+              v2 = IOAVDisplayMemoryWrite();
+              if (!v2)
               {
-                OUTLINED_FUNCTION_5();
-                IOAVDisplayMemoryWrite();
-                usleep(0xC350u);
-                result = OUTLINED_FUNCTION_9();
-                if (!result)
-                {
-                  OUTLINED_FUNCTION_0();
-                  result = IOAVDisplayMemoryRead();
-                  if (!result)
-                  {
-                    OUTLINED_FUNCTION_2();
-                    result = IOAVDisplayMemoryRead();
-                    if (!result)
-                    {
-                      OUTLINED_FUNCTION_1();
-                      result = IOAVDisplayMemoryWrite();
-                      if (!result)
-                      {
-                        OUTLINED_FUNCTION_2();
-                        result = IOAVDisplayMemoryRead();
-                        if (!result)
-                        {
-                          OUTLINED_FUNCTION_1();
-                          result = IOAVDisplayMemoryWrite();
-                          if (!result)
-                          {
-                            OUTLINED_FUNCTION_2();
-                            result = IOAVDisplayMemoryRead();
-                            if (!result)
-                            {
-                              OUTLINED_FUNCTION_1();
-                              result = IOAVDisplayMemoryWrite();
-                              if (!result)
-                              {
-                                return AppleTCONDP835Device::writeGPIO(this, 0x746E766DuLL, 0);
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
+                return AppleTCONDP835Device::writeGPIO(this, 0x746E766DuLL, 0);
               }
             }
           }
         }
       }
     }
+
+    return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t AppleTCONDP835Device::endFWUpdate(AppleTCONDP835Device *this)
@@ -2728,11 +2661,28 @@ uint64_t AppleTCONDP835Device::endFWUpdate(AppleTCONDP835Device *this)
   v3 = 3758097129;
   OUTLINED_FUNCTION_5();
   IOAVDisplayMemoryWrite();
-  usleep(0x493E0u);
-  v2 = OUTLINED_FUNCTION_9();
+  v4 = usleep(0x493E0u);
+  v2 = OUTLINED_FUNCTION_9(v4, v5, v6, v7, v8, v9, v10, v11, v13, *v14, v14[4], 0);
   if (v2)
   {
     return v2;
+  }
+
+  if ((~v15 & 7) != 0)
+  {
+    return v3;
+  }
+
+  OUTLINED_FUNCTION_0();
+  v2 = IOAVDisplayMemoryRead();
+  if (v2)
+  {
+    return v2;
+  }
+
+  if ((v16 & 1) == 0)
+  {
+    return 0;
   }
 
   return v3;
@@ -2745,13 +2695,19 @@ uint64_t AppleTCONDP835Device::getSDOMStatus(AppleTCONDP835Device *this, unsigne
     return OUTLINED_FUNCTION_10();
   }
 
-  OUTLINED_FUNCTION_6(this);
-  result = OUTLINED_FUNCTION_7();
+  v3 = OUTLINED_FUNCTION_6(this);
+  result = OUTLINED_FUNCTION_7(v3, v4, v5, v6, v7, v8, v9, v10, v14, *v15, *&v15[4], v15[6], 0);
   if (!result)
   {
-    AppleTCONLoggingLogMsg("SDOM status %s\n", v4, v5, v6, v7, v8, v9, v10, "OTP_STATUS_UNPROGRAMMED");
+    v12 = "OTP_STATUS_PROGRAMMED";
+    if (((v16 >> 1) & 1) == 0)
+    {
+      v12 = "OTP_STATUS_UNPROGRAMMED";
+    }
+
+    AppleTCONLoggingLogMsg("SDOM status %s\n", v12);
     result = OUTLINED_FUNCTION_8();
-    *v2 = v11;
+    *v2 = v13;
   }
 
   return result;
@@ -2764,13 +2720,19 @@ uint64_t AppleTCONDP835Device::getPRODStatus(AppleTCONDP835Device *this, unsigne
     return OUTLINED_FUNCTION_10();
   }
 
-  OUTLINED_FUNCTION_6(this);
-  result = OUTLINED_FUNCTION_7();
+  v3 = OUTLINED_FUNCTION_6(this);
+  result = OUTLINED_FUNCTION_7(v3, v4, v5, v6, v7, v8, v9, v10, v14, *v15, *&v15[4], v15[6], 0);
   if (!result)
   {
-    AppleTCONLoggingLogMsg("PROD status %s\n", v4, v5, v6, v7, v8, v9, v10, "OTP_STATUS_UNPROGRAMMED");
+    v12 = "OTP_STATUS_PROGRAMMED";
+    if ((v16 & 1) == 0)
+    {
+      v12 = "OTP_STATUS_UNPROGRAMMED";
+    }
+
+    AppleTCONLoggingLogMsg("PROD status %s\n", v12);
     result = OUTLINED_FUNCTION_8();
-    *v2 = v11;
+    *v2 = v13;
   }
 
   return result;
@@ -2779,26 +2741,28 @@ uint64_t AppleTCONDP835Device::getPRODStatus(AppleTCONDP835Device *this, unsigne
 uint64_t AppleTCONDP835Device::setSdom(AppleTCONDP835Device *this)
 {
   OUTLINED_FUNCTION_3(16777315);
-  v6 = AppleTCONDP835Device::sendCmd(v2, v3, v4, v5, 0);
+  v6 = AppleTCONDP835Device::sendCmd(v1, v2, v3, v4, 0, v5);
   if (v6)
   {
-    v16 = v6;
+    v9 = v6;
+    v7 = 0;
 LABEL_9:
-    AppleTCONLoggingLogMsg("setSdom: update failed:0x%x phase:%u\n", v7, v8, v9, v10, v11, v12, v13, v16);
-    return v16;
+    AppleTCONLoggingLogMsg("setSdom: update failed:0x%x phase:%u\n", v9, v7);
+    return v9;
   }
 
-  v14 = *(this + 2);
-  v15 = IOAVDisplayMemoryRead();
-  if (v15)
+  v7 = 1;
+  v8 = IOAVDisplayMemoryRead();
+  if (v8)
   {
-    v16 = v15;
+    v9 = v8;
     goto LABEL_9;
   }
 
-  if (v18)
+  if (v11)
   {
-    v16 = 3758097129;
+    v9 = 3758097129;
+    v7 = 1;
     goto LABEL_9;
   }
 
@@ -2808,26 +2772,28 @@ LABEL_9:
 uint64_t AppleTCONDP835Device::setProd(AppleTCONDP835Device *this)
 {
   OUTLINED_FUNCTION_3(33554531);
-  v6 = AppleTCONDP835Device::sendCmd(v2, v3, v4, v5, 1);
+  v6 = AppleTCONDP835Device::sendCmd(v1, v2, v3, v4, 1, v5);
   if (v6)
   {
-    v16 = v6;
+    v9 = v6;
+    v7 = 0;
 LABEL_9:
-    AppleTCONLoggingLogMsg("setProd: update failed:0x%x phase:%u\n", v7, v8, v9, v10, v11, v12, v13, v16);
-    return v16;
+    AppleTCONLoggingLogMsg("setProd: update failed:0x%x phase:%u\n", v9, v7);
+    return v9;
   }
 
-  v14 = *(this + 2);
-  v15 = IOAVDisplayMemoryRead();
-  if (v15)
+  v7 = 1;
+  v8 = IOAVDisplayMemoryRead();
+  if (v8)
   {
-    v16 = v15;
+    v9 = v8;
     goto LABEL_9;
   }
 
-  if (v18)
+  if (v11)
   {
-    v16 = 3758097129;
+    v9 = 3758097129;
+    v7 = 1;
     goto LABEL_9;
   }
 
@@ -2841,24 +2807,23 @@ uint64_t AppleTCONDP835Device::getECID(AppleTCONDP835Device *this, unsigned __in
   {
     if (v4 == 16)
     {
-      v6 = v3;
-      v7 = *(v5 + 16);
+      v5 = v3;
       result = IOAVDisplayMemoryRead();
       if (!result)
       {
-        v8 = 15;
-        v9 = 8;
+        v6 = 15;
+        v7 = 8;
         do
         {
-          v10 = *(v6 + v9);
-          *(v6 + v9) = *(v6 + v8);
-          *(v6 + v8--) = v10;
-          ++v9;
+          v8 = *(v5 + v7);
+          *(v5 + v7) = *(v5 + v6);
+          *(v5 + v6--) = v8;
+          ++v7;
         }
 
-        while (v8 != 11);
+        while (v6 != 11);
         result = 0;
-        *v6 = 0;
+        *v5 = 0;
       }
     }
   }
@@ -2866,10 +2831,9 @@ uint64_t AppleTCONDP835Device::getECID(AppleTCONDP835Device *this, unsigned __in
   return result;
 }
 
-uint64_t AppleTCONDP835Device::updateOTP(AppleTCONDP835Device *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONDP835Device::updateOTP(AppleTCONDP835Device *this)
 {
-  v10 = *(this + 65);
-  AppleTCONLoggingLogMsg("Fuse Prod (%d:%d)\n", a2, a3, a4, a5, a6, a7, a8, *(this + 9));
+  AppleTCONLoggingLogMsg("Fuse Prod (%d:%d)\n", *(this + 9), *(this + 65));
   if (!*(this + 9) && *(this + 65))
   {
     result = AppleTCONDP835Device::setProd(this);
@@ -2895,13 +2859,12 @@ uint64_t AppleTCONDP835Device::updateFWComponents(AppleTCONDP835Device *this, co
   v4 = 3758097088;
   AppleTCONDP835DeviceRestoreTagForBoardID(1, *(this + 15));
   v5 = *MEMORY[0x29EDB8ED8];
-  *(this + 8);
   AMSupportGetValueForKeyPathInDict();
   v6 = AMSupportSafeRetain();
   if (!v6)
   {
     OUTLINED_FUNCTION_4();
-    v27 = "ticket missing";
+    v20 = "ticket missing";
     goto LABEL_25;
   }
 
@@ -2910,7 +2873,7 @@ uint64_t AppleTCONDP835Device::updateFWComponents(AppleTCONDP835Device *this, co
   if (!Value || (v9 = CFGetTypeID(Value), v9 != CFDataGetTypeID()))
   {
     OUTLINED_FUNCTION_4();
-    v27 = "firmware missing";
+    v20 = "firmware missing";
     goto LABEL_25;
   }
 
@@ -2918,7 +2881,7 @@ uint64_t AppleTCONDP835Device::updateFWComponents(AppleTCONDP835Device *this, co
   if (!v10 || (v11 = CFGetTypeID(v10), v11 != CFDictionaryGetTypeID()))
   {
     OUTLINED_FUNCTION_4();
-    v27 = "firmware dict: create failed";
+    v20 = "firmware dict: create failed";
     goto LABEL_25;
   }
 
@@ -2934,7 +2897,7 @@ uint64_t AppleTCONDP835Device::updateFWComponents(AppleTCONDP835Device *this, co
       {
         v4 = v14;
         OUTLINED_FUNCTION_4();
-        v27 = "failed to erase personalization manifest from EEPROM";
+        v20 = "failed to erase personalization manifest from EEPROM";
       }
 
       else
@@ -2944,23 +2907,23 @@ uint64_t AppleTCONDP835Device::updateFWComponents(AppleTCONDP835Device *this, co
         {
           v4 = v15;
           OUTLINED_FUNCTION_4();
-          v27 = "failed to write personalization manifest to EEPROM";
+          v20 = "failed to write personalization manifest to EEPROM";
         }
 
         else
         {
-          v23 = CFStringCreateWithFormat(v5, 0, @"%u.%s.Payload", *(this + 15), "nvm_image");
-          if (v23)
+          v16 = CFStringCreateWithFormat(v5, 0, @"%u.%s.Payload", *(this + 15), "nvm_image");
+          if (v16)
           {
             AMSupportGetValueForKeyPathInDict();
-            v24 = AMSupportSafeRetain();
-            if (v24)
+            v17 = AMSupportSafeRetain();
+            if (v17)
             {
-              updated = AppleTCONDP835Device::updateFWComponent(this, 4, v24);
+              updated = AppleTCONDP835Device::updateFWComponent(this, 4, v17);
               if (updated)
               {
                 v4 = updated;
-                v27 = "failed to update fw component";
+                v20 = "failed to update fw component";
               }
 
               else
@@ -2968,32 +2931,32 @@ uint64_t AppleTCONDP835Device::updateFWComponents(AppleTCONDP835Device *this, co
                 v4 = doPCDSUpdate();
                 if (!v4)
                 {
-                  CFRelease(v23);
-                  CFRelease(v24);
+                  CFRelease(v16);
+                  CFRelease(v17);
                   goto LABEL_15;
                 }
 
-                v27 = "failed to update pcds component";
+                v20 = "failed to update pcds component";
               }
             }
 
             else
             {
               v4 = 0;
-              v27 = "comp: data missing";
+              v20 = "comp: data missing";
             }
           }
 
           else
           {
             v4 = 0;
-            v27 = "comp: key create failed";
+            v20 = "comp: key create failed";
           }
         }
       }
 
 LABEL_25:
-      AppleTCONLoggingLogMsg("update fw error:%s\n", v16, v17, v18, v19, v20, v21, v22, v27);
+      AppleTCONLoggingLogMsg("update fw error:%s\n", v20);
     }
   }
 
@@ -3006,26 +2969,25 @@ LABEL_15:
   return v4;
 }
 
-uint64_t AppleTCONDP835Device::readFWPointer(AppleTCONDP835Device *this, unint64_t a2, unint64_t a3)
+uint64_t AppleTCONDP835Device::readFWPointer(AppleTCONDP835Device *this, int *a2, int *a3)
 {
   if (!(a2 | a3))
   {
     return OUTLINED_FUNCTION_10();
   }
 
-  v5 = *(this + 4);
   result = IOAVDisplayMemoryRead();
   if (!result)
   {
-    v14 = bswap32(0);
-    if ((v14 & 0xFFDFFFFF) != 0x100000)
+    v6 = bswap32(0);
+    if ((v6 & 0xFFDFFFFF) != 0x100000)
     {
       return 3758096385;
     }
 
     if (a2)
     {
-      *a2 = v14;
+      *a2 = v6;
     }
 
     if (a3)
@@ -3035,54 +2997,55 @@ uint64_t AppleTCONDP835Device::readFWPointer(AppleTCONDP835Device *this, unint64
 
     if (a2)
     {
-      v15 = *a2;
-      if (!a3)
+      v7 = *a2;
+      if (a3)
       {
-LABEL_12:
-        AppleTCONLoggingLogMsg("AppleTCONDP835Device::readFWPointer: activeFWPointer:0x%08x inactiveFWPointer:0x%08x\n", v7, v8, v9, v10, v11, v12, v13, v15);
+LABEL_10:
+        v8 = *a3;
+LABEL_13:
+        AppleTCONLoggingLogMsg("AppleTCONDP835Device::readFWPointer: activeFWPointer:0x%08x inactiveFWPointer:0x%08x\n", v7, v8);
         return 0;
       }
     }
 
     else
     {
-      LOBYTE(v15) = 0;
-      if (!a3)
+      v7 = 0;
+      if (a3)
       {
-        goto LABEL_12;
+        goto LABEL_10;
       }
     }
 
-    v16 = *a3;
-    goto LABEL_12;
+    v8 = 0;
+    goto LABEL_13;
   }
 
   return result;
 }
 
-uint64_t AppleTCONDP835Device::writeFWPointer(AppleTCONDP835Device *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONDP835Device::writeFWPointer(AppleTCONDP835Device *this, unsigned int a2)
 {
-  v8 = a2;
-  AppleTCONLoggingLogMsg("AppleTCONDP835Device::writeFWPointer: fWPointer:0x%08x\n", a2, a3, a4, a5, a6, a7, a8, a2);
-  if ((v8 & 0xFFDFFFFF) != 0x100000)
+  AppleTCONLoggingLogMsg("AppleTCONDP835Device::writeFWPointer: fWPointer:0x%08x\n", a2);
+  if ((a2 & 0xFFDFFFFF) != 0x100000)
   {
     return OUTLINED_FUNCTION_10();
   }
 
-  *v11 = v8 >> 8;
+  *v5 = a2 >> 8;
   result = AppleTCONDP835Device::eraseDeviceEEPROM(this, 0, 4u);
   if (!result)
   {
-    return AppleTCONDP835Device::writeDeviceEEPROM(this, 0, v11, 4u);
+    return AppleTCONDP835Device::writeDeviceEEPROM(this, 0, v5, 4u);
   }
 
   return result;
 }
 
-uint64_t AppleTCONDP835Device::writeAndVerifyFWPointer(AppleTCONDP835Device *this, uint64_t a2, unsigned int *a3, unsigned int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleTCONDP835Device::writeAndVerifyFWPointer(AppleTCONDP835Device *this, unsigned int a2, unsigned int *a3, unsigned int *a4)
 {
-  AppleTCONLoggingLogMsg("AppleTCONDP835Device::writeAndVerifyFWPointer: fWPointer:0x%08x\n", a2, a3, a4, a5, a6, a7, a8, a2);
-  result = AppleTCONDP835Device::writeFWPointer(this, a2, v12, v13, v14, v15, v16, v17);
+  AppleTCONLoggingLogMsg("AppleTCONDP835Device::writeAndVerifyFWPointer: fWPointer:0x%08x\n", a2);
+  result = AppleTCONDP835Device::writeFWPointer(this, a2);
   if (!result)
   {
     result = AppleTCONDP835Device::readFWPointer(this, a3, a4);
@@ -3119,8 +3082,8 @@ CFErrorRef AppleTCONUpdaterIsDone(CFErrorRef result, uint64_t *a2)
       if (result)
       {
         v4 = CFErrorCopyDescription(result);
-        CFStringGetCStringPtr(v4, 0);
-        AppleTCONLoggingLogMsg("%s [error]: %s\n", v5, v6, v7, v8, v9, v10, v11, "AppleTCONUpdaterIsDone");
+        CStringPtr = CFStringGetCStringPtr(v4, 0);
+        AppleTCONLoggingLogMsg("%s [error]: %s\n", "AppleTCONUpdaterIsDone", CStringPtr);
         CFRelease(v4);
         if (a2)
         {
@@ -3168,11 +3131,11 @@ CFErrorRef AppleTCONLoggingCreateCFErrorWithDomain(uint64_t a1, unsigned int a2,
 uint64_t AppleTCONDP855Device::updateOTP(AppleTCONDP855Device *this, const __CFDictionary *a2)
 {
   OptionsValue = AppleTCONDP855Device::getOptionsValue(this, a2, @"FusePROD");
-  AppleTCONLoggingLogMsg("Fuse Prod (%d:%d)\n", v4, v5, v6, v7, v8, v9, v10, *(this + 9));
-  if (!OptionsValue || *(this + 9) || (result = AppleTCONDP855Device::setProd(this), !result))
+  AppleTCONLoggingLogMsg("Fuse Prod (%d:%d)\n", *(this + 9), OptionsValue);
+  if (!OptionsValue || *(this + 9) || (result = AppleTCONDP855Device::setProd(this, v4), !result))
   {
 
-    return AppleTCONDP855Device::setSdom(this);
+    return AppleTCONDP855Device::setSdom(this, v4);
   }
 
   return result;
@@ -3186,17 +3149,17 @@ uint64_t AppleTCONUpdateController::execCommand(AppleTCONUpdateController *this,
   }
 
   CStringPtr = CFStringGetCStringPtr(theString, 0);
-  AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: Entering execCommand: command = %s\n", v9, v10, v11, v12, v13, v14, v15, CStringPtr);
-  v16 = 0;
+  AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: Entering execCommand: command = %s\n", CStringPtr);
+  v9 = 0;
   if (!*(this + 16))
   {
     if (CFStringCompare(theString, @"queryInfo", 0))
     {
       if (CFStringCompare(theString, @"performNextStage", 0))
       {
-        v22 = CFStringGetCStringPtr(theString, 0);
-        AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: Unsupported command: %s\n", v23, v24, v25, v26, v27, v28, v29, v22);
-        v16 = 2;
+        v10 = CFStringGetCStringPtr(theString, 0);
+        AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: Unsupported command: %s\n", v10);
+        v9 = 2;
         goto LABEL_9;
       }
 
@@ -3205,16 +3168,16 @@ uint64_t AppleTCONUpdateController::execCommand(AppleTCONUpdateController *this,
 
     else
     {
-      Stage = AppleTCONUpdateController::execCmdQueryInfo(this, a3, a4, v17, v18, v19, v20, v21);
+      Stage = AppleTCONUpdateController::execCmdQueryInfo(this, a3, a4);
     }
 
-    v16 = Stage;
+    v9 = Stage;
   }
 
 LABEL_9:
-  v31 = CFStringGetCStringPtr(theString, 0);
-  AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: Exiting execCommand: command = %s, result = 0x%X\n", v32, v33, v34, v35, v36, v37, v38, v31);
-  return v16;
+  v12 = CFStringGetCStringPtr(theString, 0);
+  AppleTCONLoggingLogMsg("AppleTCONUpdateController::execCommand: Exiting execCommand: command = %s, result = 0x%X\n", v12, v9);
+  return v9;
 }
 
 void operator delete()

@@ -1,5 +1,6 @@
 @interface ITIdleTimerStateService
 - (BOOL)addIdleTimerConfiguration:(id)configuration fromProcess:(id)process forReason:(id)reason;
+- (BOOL)addIdleTimerOnBehalfOfSceneWithPID:(int)d fromProcess:(id)process withConfiguration:(id)configuration forReason:(id)reason;
 - (BOOL)clientConfiguration:(id)configuration handleIdleEvent:(unint64_t)event;
 - (BOOL)isIdleTimerServiceAvailable;
 - (ITIdleTimerStateService)initWithDispatchQueue:(id)queue delegate:(id)delegate;
@@ -58,38 +59,98 @@
   [(ITIdleTimerStateService *)&v5 dealloc];
 }
 
+- (BOOL)addIdleTimerOnBehalfOfSceneWithPID:(int)d fromProcess:(id)process withConfiguration:(id)configuration forReason:(id)reason
+{
+  v8 = *&d;
+  v30 = *MEMORY[0x277D85DE8];
+  processCopy = process;
+  configurationCopy = configuration;
+  reasonCopy = reason;
+  BSDispatchQueueAssert();
+  v13 = [(ITIdleTimerStateService *)self _identifierForClientProcess:processCopy];
+  v14 = [(NSMutableDictionary *)self->_assertionReasonsByClientID objectForKeyedSubscript:v13];
+  if (!v14)
+  {
+    v14 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    [(NSMutableDictionary *)self->_assertionReasonsByClientID setObject:v14 forKeyedSubscript:v13];
+  }
+
+  v15 = [(NSMutableDictionary *)self->_assertionsByReason objectForKeyedSubscript:reasonCopy];
+
+  if (v15)
+  {
+    v17 = ITLogIdleTimer(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
+      v24 = 138543874;
+      v25 = v23;
+      v26 = 2114;
+      v27 = processCopy;
+      v28 = 2114;
+      v29 = reasonCopy;
+      _os_log_error_impl(&dword_254ABE000, v17, OS_LOG_TYPE_ERROR, "%{public}@ - received duplicate assertion request from client: %{public}@ for reason: %{public}@", &v24, 0x20u);
+    }
+
+    v18 = 1;
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    if (objc_opt_respondsToSelector())
+    {
+      [WeakRetained acquireIdleTimerAssertionOnBehalfOfSceneWithPID:v8 fromProcess:processCopy withConfiguration:configurationCopy forReason:reasonCopy];
+    }
+
+    else
+    {
+      [WeakRetained acquireIdleTimerAssertionWithConfiguration:configurationCopy fromClient:processCopy forReason:reasonCopy];
+    }
+    v20 = ;
+    v18 = v20 != 0;
+    if (v20)
+    {
+      [(NSMutableDictionary *)self->_assertionsByReason setObject:v20 forKeyedSubscript:reasonCopy];
+      [v14 addObject:reasonCopy];
+    }
+  }
+
+  return v18;
+}
+
 - (BOOL)addIdleTimerConfiguration:(id)configuration fromProcess:(id)process forReason:(id)reason
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   processCopy = process;
   reasonCopy = reason;
-  calloutDispatchQueue = self->_calloutDispatchQueue;
   BSDispatchQueueAssert();
-  v12 = [(ITIdleTimerStateService *)self _identifierForClientProcess:processCopy];
-  v13 = [(NSMutableDictionary *)self->_assertionReasonsByClientID objectForKeyedSubscript:v12];
-  if (!v13)
+  v11 = [(ITIdleTimerStateService *)self _identifierForClientProcess:processCopy];
+  v12 = [(NSMutableDictionary *)self->_assertionReasonsByClientID objectForKeyedSubscript:v11];
+  if (!v12)
   {
-    v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    [(NSMutableDictionary *)self->_assertionReasonsByClientID setObject:v13 forKeyedSubscript:v12];
+    v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    [(NSMutableDictionary *)self->_assertionReasonsByClientID setObject:v12 forKeyedSubscript:v11];
   }
 
-  v14 = [(NSMutableDictionary *)self->_assertionsByReason objectForKeyedSubscript:reasonCopy];
+  v13 = [(NSMutableDictionary *)self->_assertionsByReason objectForKeyedSubscript:reasonCopy];
 
-  if (v14)
+  if (v13)
   {
-    v15 = ITLogIdleTimer();
+    v15 = ITLogIdleTimer(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
-      v23 = 138543874;
-      v24 = v22;
-      v25 = 2114;
-      v26 = processCopy;
-      v27 = 2114;
-      v28 = reasonCopy;
-      _os_log_error_impl(&dword_254ABE000, v15, OS_LOG_TYPE_ERROR, "%{public}@ - received duplicate assertion request from client: %{public}@ for reason: %{public}@", &v23, 0x20u);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
+      v22 = 138543874;
+      v23 = v21;
+      v24 = 2114;
+      v25 = processCopy;
+      v26 = 2114;
+      v27 = reasonCopy;
+      _os_log_error_impl(&dword_254ABE000, v15, OS_LOG_TYPE_ERROR, "%{public}@ - received duplicate assertion request from client: %{public}@ for reason: %{public}@", &v22, 0x20u);
     }
 
     v16 = 1;
@@ -104,90 +165,83 @@
     if (v18)
     {
       [(NSMutableDictionary *)self->_assertionsByReason setObject:v18 forKeyedSubscript:reasonCopy];
-      [v13 addObject:reasonCopy];
+      [v12 addObject:reasonCopy];
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)removeIdleTimerConfigurationFromProcess:(id)process forReason:(id)reason
 {
   reasonCopy = reason;
-  calloutDispatchQueue = self->_calloutDispatchQueue;
   processCopy = process;
   BSDispatchQueueAssert();
-  v8 = [(ITIdleTimerStateService *)self _identifierForClientProcess:processCopy];
+  v7 = [(ITIdleTimerStateService *)self _identifierForClientProcess:processCopy];
 
-  v9 = [(NSMutableDictionary *)self->_assertionReasonsByClientID objectForKeyedSubscript:v8];
-  if (v9)
+  v8 = [(NSMutableDictionary *)self->_assertionReasonsByClientID objectForKeyedSubscript:v7];
+  if (v8)
   {
-    v10 = [(NSMutableDictionary *)self->_assertionsByReason objectForKeyedSubscript:reasonCopy];
+    v9 = [(NSMutableDictionary *)self->_assertionsByReason objectForKeyedSubscript:reasonCopy];
     [(NSMutableDictionary *)self->_assertionsByReason removeObjectForKey:reasonCopy];
-    [v10 invalidate];
-    [v9 removeObject:reasonCopy];
+    [v9 invalidate];
+    [v8 removeObject:reasonCopy];
   }
 }
 
 - (void)clientDidDisconnect:(id)disconnect
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
-  calloutDispatchQueue = self->_calloutDispatchQueue;
   BSDispatchQueueAssert();
-  v6 = [(ITIdleTimerStateService *)self _identifierForClientProcess:disconnectCopy];
-  v7 = [(NSMutableDictionary *)self->_assertionReasonsByClientID objectForKeyedSubscript:v6];
-  v8 = [v7 copy];
+  v5 = [(ITIdleTimerStateService *)self _identifierForClientProcess:disconnectCopy];
+  v6 = [(NSMutableDictionary *)self->_assertionReasonsByClientID objectForKeyedSubscript:v5];
+  v7 = [v6 copy];
 
-  v17 = 0u;
-  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v8 = v7;
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v16;
+    v10 = v9;
+    v11 = *v14;
     do
     {
-      v13 = 0;
+      v12 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v14 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        [(ITIdleTimerStateService *)self removeIdleTimerConfigurationFromProcess:disconnectCopy forReason:*(*(&v15 + 1) + 8 * v13++), v15];
+        [(ITIdleTimerStateService *)self removeIdleTimerConfigurationFromProcess:disconnectCopy forReason:*(*(&v13 + 1) + 8 * v12++), v13];
       }
 
-      while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
-  [(NSMutableDictionary *)self->_assertionReasonsByClientID removeObjectForKey:v6];
-  v14 = *MEMORY[0x277D85DE8];
+  [(NSMutableDictionary *)self->_assertionReasonsByClientID removeObjectForKey:v5];
 }
 
 - (BOOL)isIdleTimerServiceAvailable
 {
-  selfCopy = self;
-  calloutDispatchQueue = self->_calloutDispatchQueue;
   BSDispatchQueueAssert();
-  WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
-  LOBYTE(selfCopy) = WeakRetained != 0;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  LOBYTE(self) = WeakRetained != 0;
 
-  return selfCopy;
+  return self;
 }
 
 - (BOOL)clientConfiguration:(id)configuration handleIdleEvent:(unint64_t)event
 {
-  calloutDispatchQueue = self->_calloutDispatchQueue;
   configurationCopy = configuration;
   BSDispatchQueueAssert();
   LOBYTE(event) = [(ITIdleTimerStateServer *)self->_server clientConfiguration:configurationCopy handleIdleEvent:event];
@@ -210,13 +264,12 @@
 - (void)_addStateCaptureHandler
 {
   objc_initWeak(&location, self);
-  calloutDispatchQueue = self->_calloutDispatchQueue;
-  objc_copyWeak(&v6, &location);
-  v4 = BSLogAddStateCaptureBlockWithTitle();
+  objc_copyWeak(&v5, &location);
+  v3 = BSLogAddStateCaptureBlockWithTitle();
   stateCaptureAssertion = self->_stateCaptureAssertion;
-  self->_stateCaptureAssertion = v4;
+  self->_stateCaptureAssertion = v3;
 
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v5);
   objc_destroyWeak(&location);
 }
 

@@ -108,8 +108,7 @@
   if (v6)
   {
     objc_storeStrong(&v6->_userManager, manager);
-    [p_isa[1] registerCriticalUserSwitchStakeHolder:p_isa];
-    v8 = SBLogUserSession();
+    v8 = SBLogUserSession([p_isa[1] registerCriticalUserSwitchStakeHolder:p_isa]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [(SBUserSessionController *)p_isa + 1 _initWithUserManager:?];
@@ -179,22 +178,23 @@
 
 - (void)logoutWithLogoutSupport:(id)support
 {
-  if ([(SBUserSessionController *)self canLogout])
+  canLogout = [(SBUserSessionController *)self canLogout];
+  if (canLogout)
   {
-    v4 = +[SBLockScreenManager sharedInstance];
-    isInLostMode = [v4 isInLostMode];
+    v5 = +[SBLockScreenManager sharedInstance];
+    isInLostMode = [v5 isInLostMode];
 
-    v6 = SBLogUserSession();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+    v8 = SBLogUserSession(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
     if (isInLostMode)
     {
-      if (v7)
+      if (v9)
       {
         [SBUserSessionController logoutWithLogoutSupport:];
       }
     }
 
-    else if (v7)
+    else if (v9)
     {
       [SBUserSessionController logoutWithLogoutSupport:];
     }
@@ -204,8 +204,8 @@
 
   else
   {
-    v8 = SBLogUserSession();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = SBLogUserSession(canLogout);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [SBUserSessionController logoutWithLogoutSupport:];
     }
@@ -222,7 +222,7 @@
 void __45__SBUserSessionController_disableCurrentUser__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogUserSession();
+  v3 = SBLogUserSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __45__SBUserSessionController_disableCurrentUser__block_invoke_cold_1(v2, v3);
@@ -306,7 +306,7 @@ void __102__SBUserSessionController_logoutProgressTransientOverlayPresentationTr
 
 void __102__SBUserSessionController_logoutProgressTransientOverlayPresentationTransitionCoordinatorDidComplete___block_invoke_2(uint64_t a1)
 {
-  v2 = SBLogUserSession();
+  v2 = SBLogUserSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __102__SBUserSessionController_logoutProgressTransientOverlayPresentationTransitionCoordinatorDidComplete___block_invoke_2_cold_1(a1, v2);
@@ -328,9 +328,9 @@ void __102__SBUserSessionController_logoutProgressTransientOverlayPresentationTr
 - (void)willSwitchToUser:(id)user
 {
   userCopy = user;
-  kdebug_trace();
-  v5 = SBLogUserSession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = kdebug_trace();
+  v6 = SBLogUserSession(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBUserSessionController willSwitchToUser:?];
   }
@@ -340,13 +340,14 @@ void __102__SBUserSessionController_logoutProgressTransientOverlayPresentationTr
     [SBUserSessionController willSwitchToUser:];
   }
 
-  if ([(SBUserSessionController *)self isLoginSession])
+  isLoginSession = [(SBUserSessionController *)self isLoginSession];
+  if (isLoginSession)
   {
-    v6 = SBLogUserSession();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogUserSession(isLoginSession);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[SBUserSessionController] willSwitchToUser: Exiting early for login session. User switch pending... ", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[SBUserSessionController] willSwitchToUser: Exiting early for login session. User switch pending... ", buf, 2u);
     }
 
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_43_0);
@@ -354,14 +355,14 @@ void __102__SBUserSessionController_logoutProgressTransientOverlayPresentationTr
 
   else
   {
-    v7 = [MEMORY[0x277D77C20] taskWithName:@"terminate running tasks" reason:@"terminate running tasks"];
+    v9 = [MEMORY[0x277D77C20] taskWithName:@"terminate running tasks" reason:@"terminate running tasks"];
     terminateApplicationsTask = self->_terminateApplicationsTask;
-    self->_terminateApplicationsTask = v7;
+    self->_terminateApplicationsTask = v9;
 
     [(UMUserSwitchBlockingTask *)self->_terminateApplicationsTask begin];
-    v9 = objc_opt_new();
+    v11 = objc_opt_new();
     terminateApplicationsStartDate = self->_terminateApplicationsStartDate;
-    self->_terminateApplicationsStartDate = v9;
+    self->_terminateApplicationsStartDate = v11;
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -382,8 +383,7 @@ void __44__SBUserSessionController_willSwitchToUser___block_invoke()
 void __44__SBUserSessionController_willSwitchToUser___block_invoke_2(uint64_t a1)
 {
   v22 = *MEMORY[0x277D85DE8];
-  [*(a1 + 32) setLoggingOut:1];
-  v2 = SBLogUserSession();
+  v2 = SBLogUserSession([*(a1 + 32) setLoggingOut:1]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -448,9 +448,9 @@ void __44__SBUserSessionController_willSwitchToUser___block_invoke_2(uint64_t a1
 {
   userCopy = user;
   kdebug_trace();
-  kdebug_trace();
-  v5 = SBLogUserSession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = kdebug_trace();
+  v6 = SBLogUserSession(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBUserSessionController readyToSwitchToUser:?];
   }
@@ -460,20 +460,19 @@ void __44__SBUserSessionController_willSwitchToUser___block_invoke_2(uint64_t a1
     [SBUserSessionController readyToSwitchToUser:];
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __47__SBUserSessionController_readyToSwitchToUser___block_invoke;
-  v7[3] = &unk_2783A92D8;
-  v7[4] = self;
-  v8 = userCopy;
-  v6 = userCopy;
-  dispatch_sync(MEMORY[0x277D85CD0], v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__SBUserSessionController_readyToSwitchToUser___block_invoke;
+  v8[3] = &unk_2783A92D8;
+  v8[4] = self;
+  v9 = userCopy;
+  v7 = userCopy;
+  dispatch_sync(MEMORY[0x277D85CD0], v8);
 }
 
 void __47__SBUserSessionController_readyToSwitchToUser___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) _readyToSwitchToUser:*(a1 + 40)];
-  v1 = SBLogUserSession();
+  v1 = SBLogUserSession([*(a1 + 32) _readyToSwitchToUser:*(a1 + 40)]);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __47__SBUserSessionController_readyToSwitchToUser___block_invoke_cold_1();
@@ -489,7 +488,7 @@ void __47__SBUserSessionController_readyToSwitchToUser___block_invoke(uint64_t a
 - (void)readyToSwitchToLoginSession:(id)session
 {
   sessionCopy = session;
-  v5 = SBLogUserSession();
+  v5 = SBLogUserSession(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SBUserSessionController readyToSwitchToLoginSession:?];
@@ -514,8 +513,7 @@ void __47__SBUserSessionController_readyToSwitchToUser___block_invoke(uint64_t a
 
 void __55__SBUserSessionController_readyToSwitchToLoginSession___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) _readyToSwitchToUser:*(a1 + 40)];
-  v1 = SBLogUserSession();
+  v1 = SBLogUserSession([*(a1 + 32) _readyToSwitchToUser:*(a1 + 40)]);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __55__SBUserSessionController_readyToSwitchToLoginSession___block_invoke_cold_1();
@@ -573,7 +571,7 @@ LABEL_9:
   }
 
   v11 = v8;
-  v12 = SBLogUserSession();
+  v12 = SBLogUserSession(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     currentUser = [(UMUserManager *)self->_userManager currentUser];
@@ -634,8 +632,7 @@ void __60__SBUserSessionController_userSwitchBlockingTasksDidUpdate___block_invo
 {
   v1 = a1 + 40;
   objc_storeStrong((*(a1 + 32) + 72), *(a1 + 40));
-  [*(*(v1 - 8) + 32) refreshData];
-  v2 = SBLogUserSession();
+  v2 = SBLogUserSession([*(*(v1 - 8) + 32) refreshData]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __60__SBUserSessionController_userSwitchBlockingTasksDidUpdate___block_invoke_cold_1();
@@ -661,19 +658,20 @@ void __60__SBUserSessionController_userSwitchBlockingTasksDidUpdate___block_invo
 - (void)_noteApplicationDidExit:(id)exit
 {
   exitCopy = exit;
+  v5 = exitCopy;
   if (!exitCopy)
   {
     [SBUserSessionController _noteApplicationDidExit:];
   }
 
-  v5 = SBLogUserSession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = SBLogUserSession(exitCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBUserSessionController _noteApplicationDidExit:];
   }
 
-  [(NSMutableSet *)self->_terminatingApplications removeObject:exitCopy];
-  [(NSMutableArray *)self->_displayApplications removeObject:exitCopy];
+  [(NSMutableSet *)self->_terminatingApplications removeObject:v5];
+  [(NSMutableArray *)self->_displayApplications removeObject:v5];
   [(SBLogoutProgressTransientOverlayViewController *)self->_progressTransientOverlayViewController refreshData];
   [(SBUserSessionController *)self _evaluateRunningApplications];
 }
@@ -681,7 +679,7 @@ void __60__SBUserSessionController_userSwitchBlockingTasksDidUpdate___block_invo
 - (void)_evaluateRunningApplications
 {
   v3 = [(NSMutableSet *)self->_terminatingApplications count];
-  v4 = SBLogUserSession();
+  v4 = SBLogUserSession(v3);
   defaultCenter = v4;
   if (v3)
   {
@@ -717,7 +715,7 @@ void __60__SBUserSessionController_userSwitchBlockingTasksDidUpdate___block_invo
   v18[3] = *MEMORY[0x277D85DE8];
   if (!self->_progressTransientOverlayViewController)
   {
-    v3 = SBLogUserSession();
+    v3 = SBLogUserSession(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v16 = 0;
@@ -808,7 +806,7 @@ uint64_t __61__SBUserSessionController__massageApplicationListForDisplay___block
 {
   v2 = *(a1 + 32);
   v3 = [a2 bundleIdentifier];
-  v4 = [v2 containsObject:v3];
+  v4 = objc_msgSend_containsObject_(v2);
 
   return v4;
 }

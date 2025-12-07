@@ -17,20 +17,18 @@
 
 - (void)twoWaySyncSettingDidUpdate:(id)update
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = cslprf_sting_settings_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = @"StingSystemSettings";
-    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEFAULT, "supported sting action settings changed (%@)", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = @"StingSystemSettings";
+    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEFAULT, "supported sting action settings changed (%@)", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained twoWaySyncSettingDidUpdate:updateCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)write:(id)write

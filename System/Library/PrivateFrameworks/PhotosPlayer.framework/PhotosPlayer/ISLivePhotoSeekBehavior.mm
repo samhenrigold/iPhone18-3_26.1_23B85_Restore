@@ -1,5 +1,6 @@
 @interface ISLivePhotoSeekBehavior
 - (ISLivePhotoSeekBehavior)initWithInitialLayoutInfo:(id)info seekTime:(id *)time;
+- (void)_callSeekCompletionHandler:(BOOL)handler;
 - (void)_handleDidSeekToSeekTime:(BOOL)time;
 - (void)_seekIfNeeded;
 - (void)activeDidChange;
@@ -26,9 +27,23 @@
   [(ISLivePhotoSeekBehavior *)self _seekIfNeeded];
 }
 
+- (void)_callSeekCompletionHandler:(BOOL)handler
+{
+  handlerCopy = handler;
+  seekCompletionHandler = [(ISLivePhotoSeekBehavior *)self seekCompletionHandler];
+
+  if (seekCompletionHandler)
+  {
+    seekCompletionHandler2 = [(ISLivePhotoSeekBehavior *)self seekCompletionHandler];
+    seekCompletionHandler2[2](seekCompletionHandler2, handlerCopy);
+
+    [(ISLivePhotoSeekBehavior *)self setSeekCompletionHandler:0];
+  }
+}
+
 - (void)_seekIfNeeded
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!self->_isSeeking && self->_needsSeek)
   {
     v3 = MEMORY[0x277D86220];
@@ -38,27 +53,25 @@
       value = self->_seekTime.value;
       timescale = self->_seekTime.timescale;
       *buf = 134218240;
-      v11 = value;
-      v12 = 1024;
-      v13 = timescale;
+      v10 = value;
+      v11 = 1024;
+      v12 = timescale;
       _os_signpost_emit_with_name_impl(&dword_25E667000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_BEGIN, signpostID, "com.apple.photos.LivePhotoSeekBehavior", "Seeking to  (%lld/%d)", buf, 0x12u);
     }
 
     self->_isSeeking = 1;
     self->_needsSeek = 0;
     objc_initWeak(buf, self);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __40__ISLivePhotoSeekBehavior__seekIfNeeded__block_invoke;
-    v8[3] = &unk_279A2A1A8;
-    objc_copyWeak(&v9, buf);
-    v8[4] = self;
-    dispatch_async(MEMORY[0x277D85CD0], v8);
-    objc_destroyWeak(&v9);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __40__ISLivePhotoSeekBehavior__seekIfNeeded__block_invoke;
+    v7[3] = &unk_279A2A1A8;
+    objc_copyWeak(&v8, buf);
+    v7[4] = self;
+    dispatch_async(MEMORY[0x277D85CD0], v7);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__ISLivePhotoSeekBehavior__seekIfNeeded__block_invoke(uint64_t a1)
@@ -100,7 +113,7 @@ void __40__ISLivePhotoSeekBehavior__seekIfNeeded__block_invoke_2(uint64_t a1, ch
 
 void __40__ISLivePhotoSeekBehavior__seekIfNeeded__block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D86220];
   v3 = *(a1 + 32);
   v4 = *(v3 + 40);
@@ -109,19 +122,17 @@ void __40__ISLivePhotoSeekBehavior__seekIfNeeded__block_invoke_3(uint64_t a1)
     v5 = *(v3 + 56);
     v6 = *(v3 + 64);
     v7 = *(a1 + 48);
-    v10 = 134218496;
-    v11 = v5;
-    v12 = 1024;
-    v13 = v6;
-    v14 = 1024;
-    v15 = v7;
-    _os_signpost_emit_with_name_impl(&dword_25E667000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_END, v4, "com.apple.photos.LivePhotoSeekBehavior", "Finished seeking (%lld/%d) [%d]", &v10, 0x18u);
+    v9 = 134218496;
+    v10 = v5;
+    v11 = 1024;
+    v12 = v6;
+    v13 = 1024;
+    v14 = v7;
+    _os_signpost_emit_with_name_impl(&dword_25E667000, MEMORY[0x277D86220], OS_SIGNPOST_INTERVAL_END, v4, "com.apple.photos.LivePhotoSeekBehavior", "Finished seeking (%lld/%d) [%d]", &v9, 0x18u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _handleDidSeekToSeekTime:*(a1 + 48)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSeekTime:(id *)time

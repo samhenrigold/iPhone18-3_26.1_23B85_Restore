@@ -4,6 +4,7 @@
 - (BOOL)createUserLayoutForUserwithUserID:(int)d withAKSSetup:(BOOL)setup onUserVolumePath:(id)path fromSystemVolumePath:(id)volumePath withError:(id *)error;
 - (BOOL)inDeviceRecoveryEnvironment;
 - (BOOL)mountSystemDataVolumeAt:(id)at withError:(id *)error;
+- (BOOL)mountVolumeAtPath:(id)path fromDevice:(id)device forUserUID:(unsigned int)d userGID:(unsigned int)iD withMode:(unsigned __int16)mode withError:(id *)error;
 - (BOOL)refreshPrimaryUserOnSharedDataVolumePath:(id)path withBootstrapToken:(id)token withError:(id *)error;
 - (BOOL)removeAnUser:(id)user fromUserManifest:(id)manifest saveToPath:(id)path;
 - (BOOL)saveManifest:(id)manifest toPath:(id)path;
@@ -1672,7 +1673,7 @@ LABEL_31:
 
 - (BOOL)mountSystemDataVolumeAt:(id)at withError:(id *)error
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   atCopy = at;
   if (![(UMLManager *)self inDeviceRecoveryEnvironment])
   {
@@ -1685,7 +1686,7 @@ LABEL_31:
     v21 = qword_2810B88B0;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v87 = 0;
+      v86 = 0;
       v22 = sub_22EE69AE8();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
@@ -1699,8 +1700,8 @@ LABEL_31:
 
       if (v23)
       {
-        LODWORD(v88[0]) = 138412290;
-        *(v88 + 4) = v20;
+        LODWORD(v87[0]) = 138412290;
+        *(v87 + 4) = v20;
         v24 = _os_log_send_and_compose_impl();
         v25 = v24;
         if (v24)
@@ -1739,8 +1740,8 @@ LABEL_107:
     goto LABEL_108;
   }
 
-  memset(v88, 0, sizeof(v88));
-  if (!sub_22EE71304(v88, 256))
+  memset(v87, 0, sizeof(v87));
+  if (!sub_22EE71304(v87, 256))
   {
     if (qword_2810B88B8 != -1)
     {
@@ -1750,7 +1751,7 @@ LABEL_107:
     v26 = qword_2810B88B0;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v87 = 0;
+      v86 = 0;
       v27 = sub_22EE69AE8();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
@@ -1764,7 +1765,7 @@ LABEL_107:
 
       if (v28)
       {
-        v86 = 0;
+        v85 = 0;
         v29 = _os_log_send_and_compose_impl();
         v30 = v29;
         if (v29)
@@ -1800,7 +1801,7 @@ LABEL_107:
     goto LABEL_65;
   }
 
-  v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v88];
+  v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v87];
   if (![(UMLManager *)self mountVolumeAtPath:atCopy fromDevice:v7 forUserUID:0 userGID:0 withMode:493 withError:error])
   {
     if (qword_2810B88B8 != -1)
@@ -1814,7 +1815,7 @@ LABEL_107:
       goto LABEL_104;
     }
 
-    v87 = 0;
+    v86 = 0;
     v32 = sub_22EE69AE8();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
@@ -1828,7 +1829,7 @@ LABEL_107:
 
     if (v33)
     {
-      v86 = 0;
+      v85 = 0;
       goto LABEL_44;
     }
 
@@ -1850,7 +1851,7 @@ LABEL_103:
     v39 = qword_2810B88B0;
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v87 = 0;
+      v86 = 0;
       v40 = sub_22EE69AE8();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
@@ -1864,9 +1865,9 @@ LABEL_103:
 
       if (v41)
       {
-        v86 = 0;
-        LODWORD(v85) = 2;
-        v84 = &v86;
+        v85 = 0;
+        LODWORD(v84) = 2;
+        v83 = &v85;
         v42 = _os_log_send_and_compose_impl();
         v43 = v42;
         if (v42)
@@ -1888,7 +1889,7 @@ LABEL_103:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:2 userInfo:0];
     }
 
-    if ([(UMLManager *)self unMountVolumeAt:atCopy withError:error, v84, v85])
+    if ([(UMLManager *)self unMountVolumeAt:atCopy withError:error, v83, v84])
     {
       goto LABEL_105;
     }
@@ -1912,7 +1913,7 @@ LABEL_106:
       goto LABEL_107;
     }
 
-    v87 = 0;
+    v86 = 0;
     v58 = sub_22EE69AE8();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
@@ -1926,7 +1927,7 @@ LABEL_106:
 
     if (v59)
     {
-      v86 = 0;
+      v85 = 0;
 LABEL_44:
       v34 = _os_log_send_and_compose_impl();
       v35 = v34;
@@ -1953,7 +1954,7 @@ LABEL_44:
     v44 = qword_2810B88B0;
     if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      v87 = 0;
+      v86 = 0;
       v45 = sub_22EE69AE8();
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
@@ -1967,9 +1968,9 @@ LABEL_44:
 
       if (v46)
       {
-        v86 = 0;
-        LODWORD(v85) = 2;
-        v84 = &v86;
+        v85 = 0;
+        LODWORD(v84) = 2;
+        v83 = &v85;
         v47 = _os_log_send_and_compose_impl();
         v48 = v47;
         if (v47)
@@ -1991,45 +1992,45 @@ LABEL_44:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:2 userInfo:0];
     }
 
-    if (![(UMLManager *)self unMountVolumeAt:atCopy withError:error, v84, v85])
+    if (![(UMLManager *)self unMountVolumeAt:atCopy withError:error, v83, v84])
     {
       if (qword_2810B88B8 != -1)
       {
         sub_22EE785F4();
       }
 
-      v67 = qword_2810B88B0;
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v66 = qword_2810B88B0;
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        v87 = 0;
-        v68 = sub_22EE69AE8();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        v86 = 0;
+        v67 = sub_22EE69AE8();
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
-          v69 = v68;
+          v68 = v67;
         }
 
         else
         {
-          v69 = v68 & 0xFFFFFFFE;
+          v68 = v67 & 0xFFFFFFFE;
         }
 
-        if (v69)
+        if (v68)
         {
-          v86 = 0;
-          v70 = _os_log_send_and_compose_impl();
-          v71 = v70;
-          if (v70)
+          v85 = 0;
+          v69 = _os_log_send_and_compose_impl();
+          v70 = v69;
+          if (v69)
           {
-            sub_22EE69B10(v70);
+            sub_22EE69B10(v69);
           }
         }
 
         else
         {
-          v71 = 0;
+          v70 = 0;
         }
 
-        free(v71);
+        free(v70);
       }
     }
 
@@ -2062,7 +2063,7 @@ LABEL_44:
     v15 = qword_2810B88B0;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v87 = 0;
+      v86 = 0;
       v16 = sub_22EE69AE8();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
@@ -2076,9 +2077,9 @@ LABEL_44:
 
       if (v17)
       {
-        v86 = 0;
-        LODWORD(v85) = 2;
-        v84 = &v86;
+        v85 = 0;
+        LODWORD(v84) = 2;
+        v83 = &v85;
         v18 = _os_log_send_and_compose_impl();
         v19 = v18;
         if (v18)
@@ -2100,7 +2101,7 @@ LABEL_44:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:16 userInfo:0];
     }
 
-    if ([(UMLManager *)self unMountVolumeAt:atCopy withError:error, v84, v85])
+    if ([(UMLManager *)self unMountVolumeAt:atCopy withError:error, v83, v84])
     {
       goto LABEL_167;
     }
@@ -2110,8 +2111,8 @@ LABEL_44:
       sub_22EE785F4();
     }
 
-    v72 = qword_2810B88B0;
-    if (!os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+    v71 = qword_2810B88B0;
+    if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
 LABEL_166:
 
@@ -2120,21 +2121,21 @@ LABEL_167:
       goto LABEL_106;
     }
 
-    v87 = 0;
-    v73 = sub_22EE69AE8();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+    v86 = 0;
+    v72 = sub_22EE69AE8();
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
-      v74 = v73;
+      v73 = v72;
     }
 
     else
     {
-      v74 = v73 & 0xFFFFFFFE;
+      v73 = v72 & 0xFFFFFFFE;
     }
 
-    if (v74)
+    if (v73)
     {
-      v86 = 0;
+      v85 = 0;
       goto LABEL_162;
     }
 
@@ -2152,7 +2153,7 @@ LABEL_167:
     v53 = qword_2810B88B0;
     if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      v87 = 0;
+      v86 = 0;
       v54 = sub_22EE69AE8();
       if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
@@ -2166,9 +2167,9 @@ LABEL_167:
 
       if (v55)
       {
-        v86 = 0;
-        LODWORD(v85) = 2;
-        v84 = &v86;
+        v85 = 0;
+        LODWORD(v84) = 2;
+        v83 = &v85;
         v56 = _os_log_send_and_compose_impl();
         v57 = v56;
         if (v56)
@@ -2190,7 +2191,7 @@ LABEL_167:
       *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:2 userInfo:0];
     }
 
-    if ([(UMLManager *)self unMountVolumeAt:atCopy withError:error, v84, v85])
+    if ([(UMLManager *)self unMountVolumeAt:atCopy withError:error, v83, v84])
     {
       goto LABEL_167;
     }
@@ -2200,42 +2201,42 @@ LABEL_167:
       sub_22EE785F4();
     }
 
-    v72 = qword_2810B88B0;
-    if (!os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+    v71 = qword_2810B88B0;
+    if (!os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_166;
     }
 
-    v87 = 0;
-    v75 = sub_22EE69AE8();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+    v86 = 0;
+    v74 = sub_22EE69AE8();
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
     {
-      v76 = v75;
+      v75 = v74;
     }
 
     else
     {
-      v76 = v75 & 0xFFFFFFFE;
+      v75 = v74 & 0xFFFFFFFE;
     }
 
-    if (v76)
+    if (v75)
     {
-      v86 = 0;
+      v85 = 0;
 LABEL_162:
-      v77 = _os_log_send_and_compose_impl();
-      v78 = v77;
-      if (v77)
+      v76 = _os_log_send_and_compose_impl();
+      v77 = v76;
+      if (v76)
       {
-        sub_22EE69B10(v77);
+        sub_22EE69B10(v76);
       }
 
       goto LABEL_165;
     }
 
 LABEL_164:
-    v78 = 0;
+    v77 = 0;
 LABEL_165:
-    free(v78);
+    free(v77);
     goto LABEL_166;
   }
 
@@ -2260,38 +2261,38 @@ LABEL_165:
       sub_22EE785F4();
     }
 
-    v62 = qword_2810B88B0;
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v61 = qword_2810B88B0;
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
-      v87 = 0;
-      v63 = sub_22EE69AE8();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v86 = 0;
+      v62 = sub_22EE69AE8();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        v64 = v63;
+        v63 = v62;
       }
 
       else
       {
-        v64 = v63 & 0xFFFFFFFE;
+        v63 = v62 & 0xFFFFFFFE;
       }
 
-      if (v64)
+      if (v63)
       {
-        v86 = 0;
-        v65 = _os_log_send_and_compose_impl();
-        v66 = v65;
-        if (v65)
+        v85 = 0;
+        v64 = _os_log_send_and_compose_impl();
+        v65 = v64;
+        if (v64)
         {
-          sub_22EE69B10(v65);
+          sub_22EE69B10(v64);
         }
       }
 
       else
       {
-        v66 = 0;
+        v65 = 0;
       }
 
-      free(v66);
+      free(v65);
     }
 
     if (![(UMLManager *)self unMountVolumeAt:atCopy withError:error])
@@ -2301,38 +2302,38 @@ LABEL_165:
         sub_22EE785F4();
       }
 
-      v79 = qword_2810B88B0;
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+      v78 = qword_2810B88B0;
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
       {
-        v87 = 0;
-        v80 = sub_22EE69AE8();
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+        v86 = 0;
+        v79 = sub_22EE69AE8();
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
         {
-          v81 = v80;
+          v80 = v79;
         }
 
         else
         {
-          v81 = v80 & 0xFFFFFFFE;
+          v80 = v79 & 0xFFFFFFFE;
         }
 
-        if (v81)
+        if (v80)
         {
-          v86 = 0;
-          v82 = _os_log_send_and_compose_impl();
-          v83 = v82;
-          if (v82)
+          v85 = 0;
+          v81 = _os_log_send_and_compose_impl();
+          v82 = v81;
+          if (v81)
           {
-            sub_22EE69B10(v82);
+            sub_22EE69B10(v81);
           }
         }
 
         else
         {
-          v83 = 0;
+          v82 = 0;
         }
 
-        free(v83);
+        free(v82);
       }
     }
 
@@ -2343,13 +2344,12 @@ LABEL_165:
   v38 = 1;
 LABEL_108:
 
-  v60 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (BOOL)unmountUserDataVolumeOnSystemDataAt:(id)at withError:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   atCopy = at;
   if ([(UMLManager *)self inDeviceRecoveryEnvironment])
   {
@@ -2379,7 +2379,7 @@ LABEL_108:
         v32 = qword_2810B88B0;
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          *&v51[0] = 0;
+          *&v50[0] = 0;
           v33 = sub_22EE69AE8();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
@@ -2414,10 +2414,10 @@ LABEL_108:
         goto LABEL_90;
       }
 
-      memset(v51, 0, sizeof(v51));
-      if (sub_22EE71504(v51, 256))
+      memset(v50, 0, sizeof(v50));
+      if (sub_22EE71504(v50, 256))
       {
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v51];
+        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v50];
         if (self)
         {
           v12 = self->_se;
@@ -2589,7 +2589,7 @@ LABEL_89:
       v27 = qword_2810B88B0;
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        *&v51[0] = 0;
+        *&v50[0] = 0;
         v28 = sub_22EE69AE8();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
@@ -2646,8 +2646,8 @@ LABEL_89:
 
     if (v24)
     {
-      LODWORD(v51[0]) = 138412290;
-      *(v51 + 4) = v21;
+      LODWORD(v50[0]) = 138412290;
+      *(v50 + 4) = v21;
       v25 = _os_log_send_and_compose_impl();
       v26 = v25;
       if (v25)
@@ -2678,13 +2678,11 @@ LABEL_89:
 
 LABEL_91:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)keybagOpaqueDataOnSharedDataVolumePath:(id)path withError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if ([(UMLManager *)self inDeviceRecoveryEnvironment])
   {
@@ -2892,15 +2890,13 @@ LABEL_57:
 
 LABEL_58:
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (BOOL)createUserLayoutForUserwithUserID:(int)d withAKSSetup:(BOOL)setup onUserVolumePath:(id)path fromSystemVolumePath:(id)volumePath withError:(id *)error
 {
   setupCopy = setup;
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   volumePathCopy = volumePath;
   v13 = volumePathCopy;
@@ -2915,7 +2911,7 @@ LABEL_58:
     v15 = qword_2810B88B0;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v67 = 0;
+      v66 = 0;
       v16 = sub_22EE69AE8();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
@@ -2929,10 +2925,10 @@ LABEL_58:
 
       if (v17)
       {
-        *v64 = 138412546;
-        *&v64[4] = volumePathCopy;
-        v65 = 2112;
-        v66 = pathCopy;
+        *v63 = 138412546;
+        *&v63[4] = volumePathCopy;
+        v64 = 2112;
+        v65 = pathCopy;
         v18 = _os_log_send_and_compose_impl();
         v19 = v18;
         if (v18)
@@ -2961,14 +2957,14 @@ LABEL_58:
 
     v27 = se;
     v28 = sub_22EE7710C(v27);
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = sub_22EE6DF5C;
-    v62[3] = &unk_278870048;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = sub_22EE6DF5C;
+    v61[3] = &unk_278870048;
     dCopy = d;
-    v62[4] = self;
+    v61[4] = self;
     v29 = volumePathCopy;
-    v30 = [v28 clonePath:volumePathCopy toPath:pathCopy error:error handler:v62];
+    v30 = [v28 clonePath:volumePathCopy toPath:pathCopy error:error handler:v61];
 
     if (v30)
     {
@@ -2981,7 +2977,7 @@ LABEL_58:
       v32 = qword_2810B88B0;
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        v67 = 0;
+        v66 = 0;
         v33 = sub_22EE69AE8();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
@@ -2995,10 +2991,10 @@ LABEL_58:
 
         if (v34)
         {
-          *v64 = 138543618;
-          *&v64[4] = v29;
-          v65 = 2114;
-          v66 = pathCopy;
+          *v63 = 138543618;
+          *&v63[4] = v29;
+          v64 = 2114;
+          v65 = pathCopy;
           v35 = _os_log_send_and_compose_impl();
           v36 = v35;
           if (v35)
@@ -3028,7 +3024,7 @@ LABEL_58:
           goto LABEL_99;
         }
 
-        *v64 = 0;
+        *v63 = 0;
         v47 = sub_22EE69AE8();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
@@ -3042,7 +3038,7 @@ LABEL_58:
 
         if (v48)
         {
-          LOWORD(v67) = 0;
+          LOWORD(v66) = 0;
           goto LABEL_86;
         }
 
@@ -3063,7 +3059,7 @@ LABEL_99:
       v42 = qword_2810B88B0;
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
-        *v64 = 0;
+        *v63 = 0;
         v43 = sub_22EE69AE8();
         if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
         {
@@ -3077,8 +3073,8 @@ LABEL_99:
 
         if (v44)
         {
-          LODWORD(v67) = 67109120;
-          HIDWORD(v67) = d;
+          LODWORD(v66) = 67109120;
+          HIDWORD(v66) = d;
           v45 = _os_log_send_and_compose_impl();
           v46 = v45;
           if (v45)
@@ -3122,7 +3118,7 @@ LABEL_99:
           goto LABEL_99;
         }
 
-        *v64 = 0;
+        *v63 = 0;
         v53 = sub_22EE69AE8();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
@@ -3136,7 +3132,7 @@ LABEL_99:
 
         if (v54)
         {
-          LOWORD(v67) = 0;
+          LOWORD(v66) = 0;
 LABEL_86:
           v55 = _os_log_send_and_compose_impl();
           v56 = v55;
@@ -3162,7 +3158,7 @@ LABEL_86:
         goto LABEL_72;
       }
 
-      *v64 = 0;
+      *v63 = 0;
       v57 = sub_22EE69AE8();
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
@@ -3180,7 +3176,7 @@ LABEL_86:
         goto LABEL_71;
       }
 
-      LOWORD(v67) = 0;
+      LOWORD(v66) = 0;
       v40 = _os_log_send_and_compose_impl();
       v41 = v40;
       if (v40)
@@ -3206,7 +3202,7 @@ LABEL_100:
         goto LABEL_101;
       }
 
-      v67 = 0;
+      v66 = 0;
       v38 = sub_22EE69AE8();
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
@@ -3220,10 +3216,10 @@ LABEL_100:
 
       if (v39)
       {
-        *v64 = 138543618;
-        *&v64[4] = v29;
-        v65 = 2114;
-        v66 = pathCopy;
+        *v63 = 138543618;
+        *&v63[4] = v29;
+        v64 = 2114;
+        v65 = pathCopy;
         v40 = _os_log_send_and_compose_impl();
         v41 = v40;
         if (v40)
@@ -3254,7 +3250,7 @@ LABEL_72:
   v20 = qword_2810B88B0;
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    *v64 = 0;
+    *v63 = 0;
     v21 = sub_22EE69AE8();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
@@ -3268,7 +3264,7 @@ LABEL_72:
 
     if (v22)
     {
-      LOWORD(v67) = 0;
+      LOWORD(v66) = 0;
       v23 = _os_log_send_and_compose_impl();
       v24 = v23;
       if (v23)
@@ -3298,7 +3294,6 @@ LABEL_72:
 
 LABEL_101:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -3432,27 +3427,27 @@ LABEL_30:
 
 - (id)readUserFromManifest:(id)manifest forUserUid:(unsigned int)uid withError:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   users = [manifest users];
-  v7 = [users countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v7 = [users countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(users);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = [v11 objectForKeyedSubscript:@"MKBUserSessionID"];
         v13 = v12;
         if (v12 && [v12 intValue] == uid)
@@ -3478,7 +3473,7 @@ LABEL_30:
 
             if (v17)
             {
-              v26 = 67109120;
+              v25 = 67109120;
               uidCopy = uid;
               v18 = _os_log_send_and_compose_impl();
               v19 = v18;
@@ -3502,7 +3497,7 @@ LABEL_30:
         }
       }
 
-      v8 = [users countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v8 = [users countByEnumeratingWithState:&v21 objects:v27 count:16];
       if (v8)
       {
         continue;
@@ -3515,45 +3510,43 @@ LABEL_30:
   v14 = 0;
 LABEL_23:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (BOOL)addNewUser:(id)user toUserManifest:(id)manifest saveToPath:(id)path
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   userCopy = user;
   manifestCopy = manifest;
   pathCopy = path;
   if (userCopy)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     users = [manifestCopy users];
-    v12 = [users countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v12 = [users countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v12)
     {
       v13 = v12;
       selfCopy = self;
-      v37 = manifestCopy;
+      v36 = manifestCopy;
       LODWORD(self) = 0;
       v14 = 0;
-      v15 = *v41;
+      v15 = *v40;
       do
       {
         v16 = 0;
         self = self;
         do
         {
-          if (*v41 != v15)
+          if (*v40 != v15)
           {
             objc_enumerationMutation(users);
           }
 
-          v17 = [*(*(&v40 + 1) + 8 * v16) objectForKeyedSubscript:{@"MKBUserSessionID", v34, v35}];
+          v17 = [*(*(&v39 + 1) + 8 * v16) objectForKeyedSubscript:{@"MKBUserSessionID", v33, v34}];
           v18 = [userCopy objectForKeyedSubscript:@"MKBUserSessionID"];
 
           if (v17 == v18)
@@ -3566,7 +3559,7 @@ LABEL_23:
             v19 = qword_2810B88B0;
             if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
-              v39 = 0;
+              v38 = 0;
               v20 = sub_22EE69AE8();
               if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
               {
@@ -3580,9 +3573,9 @@ LABEL_23:
 
               if (v21)
               {
-                v38 = 0;
-                LODWORD(v35) = 2;
-                v34 = &v38;
+                v37 = 0;
+                LODWORD(v34) = 2;
+                v33 = &v37;
                 v22 = _os_log_send_and_compose_impl();
                 v23 = v22;
                 if (v22)
@@ -3599,7 +3592,7 @@ LABEL_23:
               free(v23);
             }
 
-            users2 = [v37 users];
+            users2 = [v36 users];
             [users2 replaceObjectAtIndex:self withObject:userCopy];
 
             v14 = 1;
@@ -3610,13 +3603,13 @@ LABEL_23:
         }
 
         while (v13 != v16);
-        v13 = [users countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v13 = [users countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v13);
 
       self = selfCopy;
-      manifestCopy = v37;
+      manifestCopy = v36;
       if (v14)
       {
         goto LABEL_38;
@@ -3635,7 +3628,7 @@ LABEL_23:
     v26 = qword_2810B88B0;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v39 = 0;
+      v38 = 0;
       v27 = sub_22EE69AE8();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
@@ -3649,9 +3642,9 @@ LABEL_23:
 
       if (v28)
       {
-        v38 = 0;
-        LODWORD(v35) = 2;
-        v34 = &v38;
+        v37 = 0;
+        LODWORD(v34) = 2;
+        v33 = &v37;
         v29 = _os_log_send_and_compose_impl();
         v30 = v29;
         if (v29)
@@ -3672,65 +3665,64 @@ LABEL_23:
     [users3 addObject:userCopy];
 
 LABEL_38:
-    v25 = [(UMLManager *)self saveManifest:manifestCopy toPath:pathCopy, v34, v35];
+    v25 = [(UMLManager *)self saveManifest:manifestCopy toPath:pathCopy, v33, v34];
     goto LABEL_39;
   }
 
   v25 = 0;
 LABEL_39:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (BOOL)removeAnUser:(id)user fromUserManifest:(id)manifest saveToPath:(id)path
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   userCopy = user;
   manifestCopy = manifest;
   pathCopy = path;
   if (userCopy && ([userCopy userManifestDictionary], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v12 = v11;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     users = [manifestCopy users];
-    v14 = [users countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v14 = [users countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v14)
     {
       v15 = v14;
       selfCopy = self;
-      v26 = pathCopy;
-      v27 = manifestCopy;
-      v16 = *v29;
+      v25 = pathCopy;
+      v26 = manifestCopy;
+      v16 = *v28;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v29 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(users);
           }
 
-          v18 = *(*(&v28 + 1) + 8 * i);
+          v18 = *(*(&v27 + 1) + 8 * i);
           v19 = [v18 objectForKeyedSubscript:@"MKBUserSessionID"];
           v20 = [v12 objectForKeyedSubscript:@"MKBUserSessionID"];
 
           if (v19 == v20)
           {
-            manifestCopy = v27;
-            users2 = [v27 users];
+            manifestCopy = v26;
+            users2 = [v26 users];
             [users2 removeObject:v18];
 
-            pathCopy = v26;
-            v21 = [(UMLManager *)selfCopy saveManifest:v27 toPath:v26];
+            pathCopy = v25;
+            v21 = [(UMLManager *)selfCopy saveManifest:v26 toPath:v25];
             goto LABEL_15;
           }
         }
 
-        v15 = [users countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v15 = [users countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v15)
         {
           continue;
@@ -3740,8 +3732,8 @@ LABEL_39:
       }
 
       v21 = 0;
-      pathCopy = v26;
-      manifestCopy = v27;
+      pathCopy = v25;
+      manifestCopy = v26;
     }
 
     else
@@ -3757,7 +3749,6 @@ LABEL_15:
     v21 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -3987,7 +3978,7 @@ LABEL_55:
 
 - (BOOL)saveManifest:(id)manifest toPath:(id)path
 {
-  v62[3] = *MEMORY[0x277D85DE8];
+  v61[3] = *MEMORY[0x277D85DE8];
   manifestCopy = manifest;
   pathCopy = path;
   if (pathCopy)
@@ -4019,7 +4010,7 @@ LABEL_55:
       v13 = qword_2810B88B0;
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v62[0] = 0;
+        v61[0] = 0;
         v14 = sub_22EE69AE8();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
@@ -4033,9 +4024,9 @@ LABEL_55:
 
         if (v15)
         {
-          LOWORD(v60) = 0;
-          LODWORD(v59) = 2;
-          v58 = &v60;
+          LOWORD(v59) = 0;
+          LODWORD(v58) = 2;
+          v57 = &v59;
           v16 = _os_log_send_and_compose_impl();
           v17 = v16;
           if (v16)
@@ -4075,7 +4066,7 @@ LABEL_55:
         dataValue = qword_2810B88B0;
         if (os_log_type_enabled(dataValue, OS_LOG_TYPE_ERROR))
         {
-          v62[0] = 0;
+          v61[0] = 0;
           v28 = sub_22EE69AE8();
           if (os_log_type_enabled(dataValue, OS_LOG_TYPE_ERROR))
           {
@@ -4089,7 +4080,7 @@ LABEL_55:
 
           if (v29)
           {
-            LOWORD(v60) = 0;
+            LOWORD(v59) = 0;
             v30 = _os_log_send_and_compose_impl();
             v31 = v30;
             if (v30)
@@ -4118,7 +4109,7 @@ LABEL_55:
       v22 = qword_2810B88B0;
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v62[0] = 0;
+        v61[0] = 0;
         v23 = sub_22EE69AE8();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
@@ -4132,9 +4123,9 @@ LABEL_55:
 
         if (v24)
         {
-          LOWORD(v60) = 0;
-          LODWORD(v59) = 2;
-          v58 = &v60;
+          LOWORD(v59) = 0;
+          LODWORD(v58) = 2;
+          v57 = &v59;
           v25 = _os_log_send_and_compose_impl();
           v26 = v25;
           if (v25)
@@ -4163,7 +4154,7 @@ LABEL_55:
       v32 = qword_2810B88B0;
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        v62[0] = 0;
+        v61[0] = 0;
         v33 = sub_22EE69AE8();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
@@ -4177,7 +4168,7 @@ LABEL_55:
 
         if (v34)
         {
-          LOWORD(v60) = 0;
+          LOWORD(v59) = 0;
           v35 = _os_log_send_and_compose_impl();
           v36 = v35;
           if (v35)
@@ -4206,9 +4197,9 @@ LABEL_55:
 
       v43 = v42;
       v44 = sub_22EE7710C(v43);
-      v61 = 0;
-      v45 = [v44 atomicallyWriteData:dataValue toPath:v8 error:&v61];
-      v37 = v61;
+      v60 = 0;
+      v45 = [v44 atomicallyWriteData:dataValue toPath:v8 error:&v60];
+      v37 = v60;
 
       if (v45)
       {
@@ -4220,7 +4211,7 @@ LABEL_55:
         v46 = qword_2810B88B0;
         if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
         {
-          v62[0] = 0;
+          v61[0] = 0;
           v47 = sub_22EE69AE8();
           if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
           {
@@ -4234,7 +4225,7 @@ LABEL_55:
 
           if (v48)
           {
-            LOWORD(v60) = 0;
+            LOWORD(v59) = 0;
             v49 = _os_log_send_and_compose_impl();
             v50 = v49;
             if (v49)
@@ -4263,7 +4254,7 @@ LABEL_55:
       v51 = qword_2810B88B0;
       if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
       {
-        v60 = 0;
+        v59 = 0;
         v52 = sub_22EE69AE8();
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
@@ -4277,8 +4268,8 @@ LABEL_55:
 
         if (v53)
         {
-          LODWORD(v62[0]) = 138412290;
-          *(v62 + 4) = v37;
+          LODWORD(v61[0]) = 138412290;
+          *(v61 + 4) = v37;
           v54 = _os_log_send_and_compose_impl();
           v55 = v54;
           if (v54)
@@ -4306,7 +4297,7 @@ LABEL_55:
       v37 = qword_2810B88B0;
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        v62[0] = 0;
+        v61[0] = 0;
         v38 = sub_22EE69AE8();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
@@ -4320,7 +4311,7 @@ LABEL_55:
 
         if (v39)
         {
-          LOWORD(v60) = 0;
+          LOWORD(v59) = 0;
           v40 = _os_log_send_and_compose_impl();
           v41 = v40;
           if (v40)
@@ -4348,13 +4339,190 @@ LABEL_96:
   v18 = 0;
 LABEL_97:
 
-  v56 = *MEMORY[0x277D85DE8];
   return v18;
+}
+
+- (BOOL)mountVolumeAtPath:(id)path fromDevice:(id)device forUserUID:(unsigned int)d userGID:(unsigned int)iD withMode:(unsigned __int16)mode withError:(id *)error
+{
+  modeCopy = mode;
+  v10 = *&iD;
+  v11 = *&d;
+  v45 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  v44 = 0u;
+  v43 = 0u;
+  v42 = 0u;
+  v41 = 0u;
+  __argv[0] = "/sbin/mount_apfs";
+  __argv[1] = "-o";
+  __argv[2] = "nosuid";
+  __argv[3] = "-o";
+  __argv[4] = "nodev";
+  __argv[5] = [device UTF8String];
+  __argv[6] = [pathCopy UTF8String];
+  __argv[7] = 0;
+  v15 = sub_22EE71704(__argv);
+  if (v15)
+  {
+    if (qword_2810B88B8 != -1)
+    {
+      sub_22EE785F4();
+    }
+
+    v16 = qword_2810B88B0;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = sub_22EE69AE8();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v18 = v17;
+      }
+
+      else
+      {
+        v18 = v17 & 0xFFFFFFFE;
+      }
+
+      if (v18)
+      {
+        v19 = _os_log_send_and_compose_impl();
+        v20 = v19;
+        if (v19)
+        {
+          sub_22EE69B10(v19);
+        }
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      free(v20);
+    }
+
+    if (error)
+    {
+      *error = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v15 userInfo:0];
+    }
+  }
+
+  else
+  {
+    if (self)
+    {
+      se = self->_se;
+    }
+
+    else
+    {
+      se = 0;
+    }
+
+    v22 = se;
+    v23 = sub_22EE7710C(v22);
+    v24 = [v23 chmodPath:pathCopy withMode:modeCopy error:error];
+
+    if ((v24 & 1) == 0)
+    {
+      if (qword_2810B88B8 != -1)
+      {
+        sub_22EE785F4();
+      }
+
+      v25 = qword_2810B88B0;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        v26 = sub_22EE69AE8();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        {
+          v27 = v26;
+        }
+
+        else
+        {
+          v27 = v26 & 0xFFFFFFFE;
+        }
+
+        if (v27)
+        {
+          v28 = _os_log_send_and_compose_impl();
+          v29 = v28;
+          if (v28)
+          {
+            sub_22EE69B10(v28);
+          }
+        }
+
+        else
+        {
+          v29 = 0;
+        }
+
+        free(v29);
+      }
+    }
+
+    if (self)
+    {
+      v30 = self->_se;
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    v31 = v30;
+    v32 = sub_22EE7710C(v31);
+    v33 = [v32 chownPath:pathCopy toUser:v11 group:v10 error:error];
+
+    if ((v33 & 1) == 0)
+    {
+      if (qword_2810B88B8 != -1)
+      {
+        sub_22EE785F4();
+      }
+
+      v34 = qword_2810B88B0;
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        v35 = sub_22EE69AE8();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        {
+          v36 = v35;
+        }
+
+        else
+        {
+          v36 = v35 & 0xFFFFFFFE;
+        }
+
+        if (v36)
+        {
+          v37 = _os_log_send_and_compose_impl();
+          v38 = v37;
+          if (v37)
+          {
+            sub_22EE69B10(v37);
+          }
+        }
+
+        else
+        {
+          v38 = 0;
+        }
+
+        free(v38);
+      }
+    }
+  }
+
+  return v15 == 0;
 }
 
 - (BOOL)unMountVolumeAt:(id)at withError:(id *)error
 {
-  v13 = *MEMORY[0x277D85DE8];
   v5 = sub_22EE71964([at UTF8String], 0x80000);
   if (v5)
   {
@@ -4399,14 +4567,12 @@ LABEL_97:
     }
   }
 
-  result = v5 == 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 - (BOOL)inDeviceRecoveryEnvironment
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   size = 0;
   if (sysctlbyname("hw.osenvironment", 0, &size, 0, 0) == -1)
   {
@@ -4432,8 +4598,8 @@ LABEL_97:
       v13 = v11;
       v14 = __error();
       v15 = strerror(*v14);
-      *v31 = 136315138;
-      *&v31[4] = v15;
+      *v30 = 136315138;
+      *&v30[4] = v15;
       v16 = _os_log_send_and_compose_impl();
 
       if (!v16)
@@ -4481,10 +4647,10 @@ LABEL_38:
         v22 = *__error();
         v23 = __error();
         v24 = strerror(*v23);
-        *v31 = 67109378;
-        *&v31[4] = v22;
-        *&v31[8] = 2080;
-        *&v31[10] = v24;
+        *v30 = 67109378;
+        *&v30[4] = v22;
+        *&v30[8] = 2080;
+        *&v30[10] = v24;
         v25 = _os_log_send_and_compose_impl();
 
         if (!v25)
@@ -4519,8 +4685,8 @@ LABEL_38:
 
         if (v8)
         {
-          *v31 = 136315138;
-          *&v31[4] = v3;
+          *v30 = 136315138;
+          *&v30[4] = v3;
           v9 = _os_log_send_and_compose_impl();
           v10 = v9;
           if (v9)
@@ -4542,7 +4708,7 @@ LABEL_38:
         v5 = 0;
 LABEL_57:
         free(v3);
-        goto LABEL_58;
+        return v5;
       }
 
       if (qword_2810B88B8 != -1)
@@ -4558,7 +4724,7 @@ LABEL_56:
         goto LABEL_57;
       }
 
-      *v31 = 0;
+      *v30 = 0;
       v26 = sub_22EE69AE8();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
@@ -4598,7 +4764,7 @@ LABEL_53:
   v11 = qword_2810B88B0;
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    *v31 = 0;
+    *v30 = 0;
     v17 = sub_22EE69AE8();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
@@ -4630,10 +4796,7 @@ LABEL_29:
 
 LABEL_40:
 
-  v5 = 0;
-LABEL_58:
-  v28 = *MEMORY[0x277D85DE8];
-  return v5;
+  return 0;
 }
 
 - (BOOL)unmountSystemDataVolumeAt:(id)at withError:(id *)error
@@ -4673,27 +4836,26 @@ LABEL_58:
         {
           sub_22EE63EE8();
           sub_22EE703FC();
-          v20 = sub_22EE70450();
-          v21 = v20;
-          if (v20)
+          v25 = sub_22EE70450(v20, v21, v22, v23, v24);
+          v26 = v25;
+          if (v25)
           {
-            sub_22EE69B10(v20);
+            sub_22EE69B10(v25);
           }
         }
 
         else
         {
-          v21 = 0;
+          v26 = 0;
         }
 
-        free(v21);
+        free(v26);
       }
 
       if (error)
       {
-        v22 = *MEMORY[0x277CCA5B8];
         sub_22EE70444();
-        [v23 errorWithDomain:? code:? userInfo:?];
+        [v27 errorWithDomain:? code:? userInfo:?];
         *error = v13 = 0;
         goto LABEL_32;
       }

@@ -455,7 +455,7 @@ uint64_t __72__NSBundleResourceRequest_beginAccessingResourcesWithCompletionHand
       *(*(a1 + 40) + 40) = 4;
     }
 
-    if ([(NSString *)[(NSError *)a3 domain] isEqualToString:@"NSCocoaErrorDomain"]&& [(NSError *)a3 code]== 3072)
+    if (objc_msgSend_isEqualToString_([(NSError *)a3 domain]) && [(NSError *)a3 code]== 3072)
     {
       if (qword_1ED439B00 != -1)
       {
@@ -493,13 +493,13 @@ uint64_t __72__NSBundleResourceRequest_beginAccessingResourcesWithCompletionHand
       }
     }
 
-    if ([(NSString *)[(NSError *)a3 domain] isEqualToString:@"_NSBundleResourceRequestErrorDomain"]&& [(NSError *)a3 code]== 101)
+    if (objc_msgSend_isEqualToString_([(NSError *)a3 domain]) && [(NSError *)a3 code]== 101)
     {
       v17 = [NSString stringWithFormat:@"At least one of the set of tags was not found in your application: %@", *(*(a1 + 40) + 8)];
       a3 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", @"NSCocoaErrorDomain", 4994, [MEMORY[0x1E695DF20] dictionaryWithObject:v17 forKey:*MEMORY[0x1E695E618]]);
     }
 
-    if ([(NSString *)[(NSError *)a3 domain] isEqualToString:@"NSCocoaErrorDomain"])
+    if (objc_msgSend_isEqualToString_([(NSError *)a3 domain]))
     {
       if ([(NSError *)a3 code]== 4995)
       {

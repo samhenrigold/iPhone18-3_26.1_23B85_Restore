@@ -8,7 +8,7 @@
 
 - (_TtP14amsengagementd19JSClientDemoExports_)demo
 {
-  v2 = sub_100105E80();
+  v2 = sub_100105E80(self, a2);
 
   return v2;
 }

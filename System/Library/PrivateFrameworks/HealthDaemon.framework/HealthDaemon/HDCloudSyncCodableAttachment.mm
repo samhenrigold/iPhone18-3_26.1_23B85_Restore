@@ -115,73 +115,71 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_fileName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    fileSize = self->_fileSize;
     PBDataWriterWriteInt64Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_mimeType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_fileHash)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    creationDate = self->_creationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_metadata)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_assetData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_encryptionKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_systemBuildVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_deviceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -327,7 +325,6 @@
     }
   }
 
-  v6 = *(equalCopy + 96);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 96) & 2) == 0 || self->_fileSize != *(equalCopy + 2))
@@ -339,7 +336,7 @@
   else if ((*(equalCopy + 96) & 2) != 0)
   {
 LABEL_30:
-    v16 = 0;
+    v14 = 0;
     goto LABEL_31;
   }
 
@@ -358,7 +355,6 @@ LABEL_30:
     }
   }
 
-  v9 = *(equalCopy + 96);
   if (*&self->_has)
   {
     if ((*(equalCopy + 96) & 1) == 0 || self->_creationDate != *(equalCopy + 1))
@@ -417,17 +413,17 @@ LABEL_30:
   deviceName = self->_deviceName;
   if (deviceName | *(equalCopy + 4))
   {
-    v16 = [(NSString *)deviceName isEqual:?];
+    v14 = [(NSString *)deviceName isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v14 = 1;
   }
 
 LABEL_31:
 
-  return v16;
+  return v14;
 }
 
 - (unint64_t)hash

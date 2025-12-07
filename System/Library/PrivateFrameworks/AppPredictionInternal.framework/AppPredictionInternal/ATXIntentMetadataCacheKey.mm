@@ -7,18 +7,18 @@
 
 - (id)stringRepresentationForSerialization
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB18]);
   intentClassName = self->_intentClassName;
-  v23[0] = self->_bundleId;
-  v23[1] = intentClassName;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = self->_bundleId;
+  v22[1] = intentClassName;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v6 = [v3 initWithArray:v5];
 
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
   nonNilParameters = self->_nonNilParameters;
-  v22 = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v21 = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
   v10 = [(NSSet *)nonNilParameters sortedArrayUsingDescriptors:v9];
 
   v11 = [v10 componentsJoinedByString:&stru_2839A6058];
@@ -57,8 +57,6 @@
   }
 
   v19 = [v6 componentsJoinedByString:@"-"];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

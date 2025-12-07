@@ -12,6 +12,8 @@
 + (id)fileSystems3rdPartyWithPersonalityKey:(id)key bundle:(id)bundle userVisibleName:(id)name;
 + (id)fileSystemsAPFSWithPersonalityKey:(id)key bundle:(id)bundle;
 + (id)fileSystemsHFSWithPersonalityKey:(id)key bundle:(id)bundle userVisibleName:(id)name;
++ (id)filesystemFor:(id)for caseSensitive:(BOOL)sensitive encrypted:(BOOL)encrypted;
++ (id)filesystemFor:(id)for caseSensitive:(BOOL)sensitive encrypted:(BOOL)encrypted isExtension:(BOOL)extension;
 + (id)filesystemsFromBundle:(id)bundle;
 + (id)filesystemsWithBundle:(id)bundle filesystemPersonality:(id)personality userVisibleName:(id)name;
 + (id)getExtensionFilesystems;
@@ -20,9 +22,12 @@
 - (BOOL)isExtensionInsensitiveEqual:(id)equal;
 - (BOOL)isValidName:(id)name error:(id *)error;
 - (SKFilesystem)initWithDictionaryRepresentation:(id)representation;
+- (SKFilesystem)initWithSKFilesystem:(id)filesystem bundle:(id)bundle localizedName:(id)name localizedKey:(id)key caseSensitive:(BOOL)sensitive encrypted:(BOOL)encrypted personalityKey:(id)personalityKey sortPriority:(int)self0;
+- (SKFilesystem)initWithSKFilesystem:(id)filesystem bundle:(id)bundle localizedName:(id)name localizedKey:(id)key encrypted:(BOOL)encrypted personalityKey:(id)personalityKey sortPriority:(int)priority;
 - (SKFilesystem)initWithSpecialFilesystem:(id)filesystem majorType:(id)type localizedName:(id)name;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)initEncryptedFSWithUnencryptedFS:(id)s localizedName:(id)name sortPriority:(int)priority;
 @end
 
 @implementation SKFilesystem
@@ -136,7 +141,7 @@ uint64_t __30__SKFilesystem_allFilesystems__block_invoke_2(uint64_t a1, void *a2
 
 void __43__SKFilesystem_installedFilesystemsMapping__block_invoke()
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEB38] dictionary];
   v1 = [MEMORY[0x277CBEB18] array];
   v2 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/System/Library/Filesystems"];
@@ -171,28 +176,28 @@ void __43__SKFilesystem_installedFilesystemsMapping__block_invoke()
     CFRelease(v4);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v12 = v1;
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     v16 = *MEMORY[0x277CBED50];
     do
     {
       v17 = 0;
       do
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * v17);
+        v18 = *(*(&v23 + 1) + 8 * v17);
         v19 = [v18 infoDictionary];
         v20 = [v19 objectForKey:v16];
 
@@ -206,7 +211,7 @@ void __43__SKFilesystem_installedFilesystemsMapping__block_invoke()
       }
 
       while (v14 != v17);
-      v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
@@ -214,8 +219,6 @@ void __43__SKFilesystem_installedFilesystemsMapping__block_invoke()
 
   v22 = _installedFilesystemsMapping;
   _installedFilesystemsMapping = v0;
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (NSArray)installedFilesystems
@@ -245,32 +248,32 @@ void __36__SKFilesystem_installedFilesystems__block_invoke(uint64_t a1)
 
 + (id)collectFilesystemsWithPersonalityMapping:(id)mapping
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allValues = [mappingCopy allValues];
-  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [v4 addObjectsFromArray:*(*(&v13 + 1) + 8 * i)];
+        [v4 addObjectsFromArray:*(*(&v12 + 1) + 8 * i)];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -280,7 +283,6 @@ void __36__SKFilesystem_installedFilesystems__block_invoke(uint64_t a1)
   [v4 addObjectsFromArray:v10];
 
   [v4 sortWithOptions:16 usingComparator:&__block_literal_global_26];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -306,49 +308,49 @@ uint64_t __57__SKFilesystem_collectFilesystemsWithPersonalityMapping___block_inv
 
 + (id)getExtensionFilesystems
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v19 = objc_opt_new();
+  v33 = *MEMORY[0x277D85DE8];
+  v18 = objc_opt_new();
   mEMORY[0x277D07D38] = [MEMORY[0x277D07D38] sharedInstance];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__0;
-  v31 = __Block_byref_object_dispose__0;
-  v32 = objc_opt_new();
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__0;
+  v30 = __Block_byref_object_dispose__0;
+  v31 = objc_opt_new();
   if (mEMORY[0x277D07D38])
   {
     v2 = dispatch_semaphore_create(0);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __39__SKFilesystem_getExtensionFilesystems__block_invoke;
-    v24[3] = &unk_279D1F850;
-    v26 = &v27;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __39__SKFilesystem_getExtensionFilesystems__block_invoke;
+    v23[3] = &unk_279D1F850;
+    v25 = &v26;
     v3 = v2;
-    v25 = v3;
-    [mEMORY[0x277D07D38] installedExtensionsSync:v24];
+    v24 = v3;
+    [mEMORY[0x277D07D38] installedExtensionsSync:v23];
     dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  v4 = v28[5];
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v33 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v4 = v27[5];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v32 count:16];
   if (v5)
   {
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
         v8 = MEMORY[0x277CCA8D8];
-        v9 = [*(*(&v20 + 1) + 8 * i) url];
+        v9 = [*(*(&v19 + 1) + 8 * i) url];
         v10 = [v8 bundleWithURL:v9];
 
         if (v10)
@@ -363,27 +365,26 @@ uint64_t __57__SKFilesystem_collectFilesystemsWithPersonalityMapping___block_inv
             if (v13 && ([v13 isEqualToString:@"hfs"] & 1) == 0)
             {
               v15 = [SKFilesystem filesystemsFromBundle:v10];
-              [v19 setObject:v15 forKeyedSubscript:v14];
+              [v18 setObject:v15 forKeyedSubscript:v14];
             }
           }
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v20 objects:v33 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v19 objects:v32 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v27, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 
-  return v19;
+  return v18;
 }
 
 void __39__SKFilesystem_getExtensionFilesystems__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -394,9 +395,9 @@ void __39__SKFilesystem_getExtensionFilesystems__block_invoke(uint64_t a1, void 
     v9 = SKGetOSLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_FAULT, "Failed to get extensions %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_26BBB8000, v9, OS_LOG_TYPE_FAULT, "Failed to get extensions %@", &v10, 0xCu);
     }
   }
 
@@ -406,19 +407,15 @@ void __39__SKFilesystem_getExtensionFilesystems__block_invoke(uint64_t a1, void 
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __39__SKFilesystem_getExtensionFilesystems__block_invoke_2()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKFilesystem.m", 221);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -550,6 +547,167 @@ id __39__SKFilesystem_getExtensionFilesystems__block_invoke_2()
   }
 
   return v5;
+}
+
+- (SKFilesystem)initWithSKFilesystem:(id)filesystem bundle:(id)bundle localizedName:(id)name localizedKey:(id)key encrypted:(BOOL)encrypted personalityKey:(id)personalityKey sortPriority:(int)priority
+{
+  encryptedCopy = encrypted;
+  personalityKeyCopy = personalityKey;
+  keyCopy = key;
+  nameCopy = name;
+  bundleCopy = bundle;
+  filesystemCopy = filesystem;
+  v20 = getPersonalityDict(bundleCopy, personalityKeyCopy);
+  LODWORD(v23) = priority;
+  v21 = [(SKFilesystem *)self initWithSKFilesystem:filesystemCopy bundle:bundleCopy localizedName:nameCopy localizedKey:keyCopy caseSensitive:getCaseSensitive(v20 encrypted:personalityKeyCopy) personalityKey:encryptedCopy sortPriority:personalityKeyCopy, v23];
+
+  return v21;
+}
+
+- (SKFilesystem)initWithSKFilesystem:(id)filesystem bundle:(id)bundle localizedName:(id)name localizedKey:(id)key caseSensitive:(BOOL)sensitive encrypted:(BOOL)encrypted personalityKey:(id)personalityKey sortPriority:(int)self0
+{
+  encryptedCopy = encrypted;
+  sensitiveCopy = sensitive;
+  filesystemCopy = filesystem;
+  obj = bundle;
+  bundleCopy = bundle;
+  nameCopy = name;
+  keyCopy = key;
+  personalityKeyCopy = personalityKey;
+  v70.receiver = self;
+  v70.super_class = SKFilesystem;
+  v19 = [(SKFilesystem *)&v70 init];
+  infoDictionary = [bundleCopy infoDictionary];
+  v68 = [infoDictionary objectForKey:*MEMORY[0x277CBED50]];
+  v21 = [v68 componentsSeparatedByString:@"."];
+  lastObject = [v21 lastObject];
+
+  v23 = bundleCopy;
+  v24 = getPersonalityDict(bundleCopy, personalityKeyCopy);
+  if (v19)
+  {
+    v65 = infoDictionary;
+    [(SKFilesystem *)v19 setLocalizedName:nameCopy];
+    [(SKFilesystem *)v19 setLocalizedKey:keyCopy];
+    v25 = [v24 objectForKeyedSubscript:@"FSName"];
+    v26 = NSStringOrEmpty(v25);
+    [(SKFilesystem *)v19 setUnlocalizedName:v26];
+
+    v27 = [v24 objectForKeyedSubscript:@"FSEncryptionName"];
+    v28 = NSStringOrEmpty(v27);
+    [(SKFilesystem *)v19 setUnlocalizedEncryptedName:v28];
+
+    [(SKFilesystem *)v19 setType:filesystemCopy];
+    v29 = lastObject;
+    [(SKFilesystem *)v19 setMajorType:lastObject];
+    [(SKFilesystem *)v19 setIsCaseSensitive:sensitiveCopy];
+    [(SKFilesystem *)v19 setIsEncrypted:encryptedCopy];
+    [(SKFilesystem *)v19 setDefaultEffaceable:encryptedCopy ^ 1];
+    v30 = [v24 objectForKeyedSubscript:@"FSFormatMinimumSize"];
+    [(SKFilesystem *)v19 setMinimumSize:NSNumberToULongLong(v30)];
+
+    [(SKFilesystem *)v19 setSortPriority:priority];
+    [(SKFilesystem *)v19 setDmPersonality:personalityKeyCopy];
+    v31 = [v24 objectForKeyedSubscript:@"FSFormatContentMask"];
+    v32 = NSStringOrEmpty(v31);
+    [(SKFilesystem *)v19 setContentMask:v32];
+
+    v33 = [v24 objectForKeyedSubscript:@"FSRepairArguments"];
+    v34 = NSStringOrEmpty(v33);
+    repairArgs = v19->_repairArgs;
+    v19->_repairArgs = v34;
+
+    resourceURL = [v23 resourceURL];
+    v37 = [v24 objectForKeyedSubscript:@"FSRepairExecutable"];
+    v38 = NSStringOrEmpty(v37);
+    v39 = [resourceURL URLByAppendingPathComponent:v38];
+    repairExecutable = v19->_repairExecutable;
+    v19->_repairExecutable = v39;
+
+    v41 = [v24 objectForKeyedSubscript:@"FSFormatArguments"];
+    v42 = NSStringOrEmpty(v41);
+    formatArgs = v19->_formatArgs;
+    v19->_formatArgs = v42;
+
+    resourceURL2 = [v23 resourceURL];
+    v45 = [v24 objectForKeyedSubscript:@"FSFormatExecutable"];
+    v46 = NSStringOrEmpty(v45);
+    v47 = [resourceURL2 URLByAppendingPathComponent:v46];
+    formatExecutable = v19->_formatExecutable;
+    v19->_formatExecutable = v47;
+
+    v49 = [v24 objectForKeyedSubscript:@"FSVerificationArguments"];
+    v50 = NSStringOrEmpty(v49);
+    verificationArgs = v19->_verificationArgs;
+    v19->_verificationArgs = v50;
+
+    v52 = [v24 objectForKeyedSubscript:@"FSLiveVerificationArguments"];
+    v53 = NSStringOrEmpty(v52);
+    liveVerificationArgs = v19->_liveVerificationArgs;
+    v19->_liveVerificationArgs = v53;
+
+    resourceURL3 = [v23 resourceURL];
+    v56 = [v24 objectForKeyedSubscript:@"FSVerificationExecutable"];
+    v57 = NSStringOrEmpty(v56);
+    v58 = [resourceURL3 URLByAppendingPathComponent:v57];
+    verificationExecutable = v19->_verificationExecutable;
+    v19->_verificationExecutable = v58;
+
+    v60 = [v24 objectForKeyedSubscript:@"FSXMLOutputArgument"];
+    v61 = NSStringOrEmpty(v60);
+    xmlOutputArg = v19->_xmlOutputArg;
+    v19->_xmlOutputArg = v61;
+
+    objc_storeStrong(&v19->_bundle, obj);
+    if ([SKFilesystem _shouldShowFilesystemWithType:v29 key:personalityKeyCopy personality:v24])
+    {
+      lastObject = v29;
+      v63 = 1;
+    }
+
+    else
+    {
+      lastObject = v29;
+      if ([(SKFilesystem *)v19 isExtension])
+      {
+        v63 = [v29 isEqualToString:@"apfs"];
+      }
+
+      else
+      {
+        v63 = 0;
+      }
+    }
+
+    infoDictionary = v65;
+    [(SKFilesystem *)v19 setShouldShow:v63];
+  }
+
+  return v19;
+}
+
+- (id)initEncryptedFSWithUnencryptedFS:(id)s localizedName:(id)name sortPriority:(int)priority
+{
+  v5 = *&priority;
+  sCopy = s;
+  nameCopy = name;
+  dictionaryRepresentation = [sCopy dictionaryRepresentation];
+  v11 = [(SKFilesystem *)self initWithDictionaryRepresentation:dictionaryRepresentation];
+  v12 = v11;
+  if (v11)
+  {
+    [(SKFilesystem *)v11 setIsEncrypted:1];
+    [(SKFilesystem *)v12 setDefaultEffaceable:0];
+    [(SKFilesystem *)v12 setLocalizedName:nameCopy];
+    v13 = MEMORY[0x277CCACA8];
+    localizedKey = [sCopy localizedKey];
+    v15 = [v13 stringWithFormat:@"%@ Encrypted", localizedKey];
+    [(SKFilesystem *)v12 setLocalizedKey:v15];
+
+    [(SKFilesystem *)v12 setSortPriority:v5];
+  }
+
+  return v12;
 }
 
 - (id)dictionaryRepresentation
@@ -720,10 +878,131 @@ id __39__SKFilesystem_getExtensionFilesystems__block_invoke_2()
   return v6;
 }
 
++ (id)filesystemFor:(id)for caseSensitive:(BOOL)sensitive encrypted:(BOOL)encrypted isExtension:(BOOL)extension
+{
+  extensionCopy = extension;
+  encryptedCopy = encrypted;
+  sensitiveCopy = sensitive;
+  forCopy = for;
+  extensionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%d_%d_%d", forCopy, sensitiveCopy, encryptedCopy, extensionCopy];
+  cachedFilesystems = [self cachedFilesystems];
+  v13 = [cachedFilesystems objectForKey:extensionCopy];
+
+  if (v13)
+  {
+    v14 = [[SKFilesystem alloc] initWithDictionaryRepresentation:v13];
+    goto LABEL_26;
+  }
+
+  selfCopy = self;
+  if ([forCopy isEqualToString:@"apfs"])
+  {
+    v15 = @"apfs.fs";
+LABEL_13:
+    v16 = +[SKFilesystem getExtensionFilesystems];
+    v17 = v16;
+    if (extensionCopy && ([v16 objectForKeyedSubscript:forCopy], (v18 = objc_claimAutoreleasedReturnValue()) != 0) && (v37 = v18, objc_msgSend(v17, "objectForKeyedSubscript:", forCopy), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCAC30], "predicateWithBlock:", &__block_literal_global_194), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "filteredArrayUsingPredicate:", v20), v38 = v15, v21 = v17, v22 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v22, "count"), v22, v17 = v21, v15 = v38, v20, v19, v37, v36))
+    {
+      v23 = [v17 objectForKeyedSubscript:forCopy];
+      if (!v23)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", @"/System/Library/Filesystems", v15];
+      [MEMORY[0x277CCA8D8] bundleWithPath:v24];
+      v26 = v25 = v17;
+      v23 = [SKFilesystem filesystemsFromBundle:v26];
+
+      v17 = v25;
+      if (!v23)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    if ([v23 count])
+    {
+LABEL_22:
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___block_invoke_2;
+      v40[3] = &__block_descriptor_35_e39_B24__0__SKFilesystem_8__NSDictionary_16l;
+      v41 = encryptedCopy;
+      v42 = sensitiveCopy;
+      v43 = extensionCopy;
+      v29 = [MEMORY[0x277CCAC30] predicateWithBlock:v40];
+      v30 = [v23 filteredArrayUsingPredicate:v29];
+
+      if ([v30 count])
+      {
+        v31 = [v30 sortedArrayWithOptions:16 usingComparator:&__block_literal_global_200];
+        cachedFilesystems2 = [selfCopy cachedFilesystems];
+        v33 = [v31 objectAtIndexedSubscript:0];
+        dictionaryRepresentation = [v33 dictionaryRepresentation];
+        [cachedFilesystems2 setValue:dictionaryRepresentation forKey:extensionCopy];
+
+        v14 = [v31 objectAtIndexedSubscript:0];
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      goto LABEL_26;
+    }
+
+LABEL_20:
+    v27 = [v17 objectForKeyedSubscript:forCopy];
+
+    if (v27)
+    {
+      v28 = [v17 objectForKeyedSubscript:forCopy];
+
+      v23 = v28;
+    }
+
+    goto LABEL_22;
+  }
+
+  if ([forCopy isEqualToString:@"hfs"])
+  {
+    v15 = @"hfs.fs";
+    goto LABEL_13;
+  }
+
+  if ([forCopy isEqualToString:@"msdos"])
+  {
+    v15 = @"msdos.fs";
+    goto LABEL_13;
+  }
+
+  if ([forCopy isEqualToString:@"exfat"])
+  {
+    v15 = @"exfat.fs";
+    goto LABEL_13;
+  }
+
+  if ([forCopy isEqualToString:@"free"])
+  {
+    v15 = &stru_287C8F598;
+    goto LABEL_13;
+  }
+
+  v14 = 0;
+LABEL_26:
+
+  return v14;
+}
+
 BOOL __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___block_invoke_2(unsigned __int8 *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[32] == [v3 isEncrypted] && a1[33] == objc_msgSend(v3, "isCaseSensitive") && a1[34] == objc_msgSend(v3, "isExtension");
+  v4 = __PAIR64__(a1[33], a1[32]) == __PAIR64__([v3 isCaseSensitive], objc_msgSend(v3, "isEncrypted")) && a1[34] == objc_msgSend(v3, "isExtension");
 
   return v4;
 }
@@ -747,20 +1026,40 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
   return v7;
 }
 
++ (id)filesystemFor:(id)for caseSensitive:(BOOL)sensitive encrypted:(BOOL)encrypted
+{
+  encryptedCopy = encrypted;
+  sensitiveCopy = sensitive;
+  forCopy = for;
+  if ([forCopy isEqualToString:@"msdos"])
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = [forCopy isEqualToString:@"exfat"];
+  }
+
+  v9 = [SKFilesystem filesystemFor:forCopy caseSensitive:sensitiveCopy encrypted:encryptedCopy isExtension:v8];
+
+  return v9;
+}
+
 + (id)fileSystemsHFSWithPersonalityKey:(id)key bundle:(id)bundle userVisibleName:(id)name
 {
-  v73[2] = *MEMORY[0x277D85DE8];
+  v72[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   bundleCopy = bundle;
   nameCopy = name;
   v10 = getPersonalityDict(bundleCopy, keyCopy);
   infoDictionary = [bundleCopy infoDictionary];
-  v68 = [infoDictionary objectForKey:*MEMORY[0x277CBED50]];
-  v12 = [v68 componentsSeparatedByString:@"."];
+  v67 = [infoDictionary objectForKey:*MEMORY[0x277CBED50]];
+  v12 = [v67 componentsSeparatedByString:@"."];
   lastObject = [v12 lastObject];
 
   CaseSensitive = getCaseSensitive(v10, keyCopy);
-  v67 = lastObject;
+  v66 = lastObject;
   if ([keyCopy isEqualToString:@"Journaled HFS+"])
   {
     v15 = [SKFilesystem alloc];
@@ -770,10 +1069,10 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
     v19 = [v18 localizedStringForKey:@"HFS Generic" value:&stru_287C8F598 table:0];
     v20 = CaseSensitive;
     v21 = v19;
-    LODWORD(v62) = 2;
+    LODWORD(v61) = 2;
     v22 = v17;
     bundleCopy = v16;
-    v23 = [(SKFilesystem *)v15 initWithSKFilesystem:v22 bundle:v16 localizedName:v19 localizedKey:@"HFS Generic" caseSensitive:v20 encrypted:0 personalityKey:keyCopy sortPriority:v62];
+    v23 = [(SKFilesystem *)v15 initWithSKFilesystem:v22 bundle:v16 localizedName:v19 localizedKey:@"HFS Generic" caseSensitive:v20 encrypted:0 personalityKey:keyCopy sortPriority:v61];
 
     [(SKFilesystem *)v23 setIsJournaled:1];
     v24 = [SKFilesystem alloc];
@@ -781,10 +1080,10 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
     v26 = [v25 localizedStringForKey:@"HFS Generic Encrypted" value:&stru_287C8F598 table:0];
     v27 = [(SKFilesystem *)v24 initEncryptedFSWithUnencryptedFS:v23 localizedName:v26 sortPriority:3];
 
-    v73[0] = v23;
-    v73[1] = v27;
+    v72[0] = v23;
+    v72[1] = v27;
     v28 = MEMORY[0x277CBEA60];
-    v29 = v73;
+    v29 = v72;
   }
 
   else if ([keyCopy isEqualToString:@"Case-sensitive Journaled HFS+"])
@@ -792,25 +1091,25 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
     v30 = [SKFilesystem alloc];
     v31 = CaseSensitive;
     v32 = kSKDiskFileSystemHFS[0];
-    v64 = v10;
+    v63 = v10;
     v33 = +[SKError frameworkBundle];
     [v33 localizedStringForKey:@"HFS Case-sensitive" value:&stru_287C8F598 table:0];
     v35 = v34 = bundleCopy;
-    LODWORD(v62) = 4;
-    v23 = [(SKFilesystem *)v30 initWithSKFilesystem:v32 bundle:v34 localizedName:v35 localizedKey:@"HFS Case-sensitive" caseSensitive:v31 encrypted:0 personalityKey:keyCopy sortPriority:v62];
+    LODWORD(v61) = 4;
+    v23 = [(SKFilesystem *)v30 initWithSKFilesystem:v32 bundle:v34 localizedName:v35 localizedKey:@"HFS Case-sensitive" caseSensitive:v31 encrypted:0 personalityKey:keyCopy sortPriority:v61];
 
     bundleCopy = v34;
     [(SKFilesystem *)v23 setIsJournaled:1];
     v36 = [SKFilesystem alloc];
-    v10 = v64;
+    v10 = v63;
     v37 = +[SKError frameworkBundle];
     v38 = [v37 localizedStringForKey:@"HFS Case-sensitive Encrypted" value:&stru_287C8F598 table:0];
     v27 = [(SKFilesystem *)v36 initEncryptedFSWithUnencryptedFS:v23 localizedName:v38 sortPriority:5];
 
-    v72[0] = v23;
-    v72[1] = v27;
+    v71[0] = v23;
+    v71[1] = v27;
     v28 = MEMORY[0x277CBEA60];
-    v29 = v72;
+    v29 = v71;
   }
 
   else if ([keyCopy isEqualToString:@"HFS+"])
@@ -819,11 +1118,11 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
     [SKFilesystem _skfilesystemTypeWithPersonality:keyCopy];
     v41 = v40 = CaseSensitive;
     +[SKError frameworkBundle];
-    v42 = v65 = nameCopy;
+    v42 = v64 = nameCopy;
     [v42 localizedStringForKey:@"HFS Not Journaled" value:&stru_287C8F598 table:0];
     v44 = v43 = bundleCopy;
-    LODWORD(v62) = 8;
-    v23 = [(SKFilesystem *)v39 initWithSKFilesystem:v41 bundle:v43 localizedName:v44 localizedKey:@"HFS Not Journaled" caseSensitive:v40 encrypted:0 personalityKey:keyCopy sortPriority:v62];
+    LODWORD(v61) = 8;
+    v23 = [(SKFilesystem *)v39 initWithSKFilesystem:v41 bundle:v43 localizedName:v44 localizedKey:@"HFS Not Journaled" caseSensitive:v40 encrypted:0 personalityKey:keyCopy sortPriority:v61];
 
     bundleCopy = v43;
     v45 = [SKFilesystem alloc];
@@ -831,11 +1130,11 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
     v47 = [v46 localizedStringForKey:@"HFS Not Journaled Encrypted" value:&stru_287C8F598 table:0];
     v27 = [(SKFilesystem *)v45 initEncryptedFSWithUnencryptedFS:v23 localizedName:v47 sortPriority:8];
 
-    nameCopy = v65;
-    v71[0] = v23;
-    v71[1] = v27;
+    nameCopy = v64;
+    v70[0] = v23;
+    v70[1] = v27;
     v28 = MEMORY[0x277CBEA60];
-    v29 = v71;
+    v29 = v70;
   }
 
   else
@@ -844,33 +1143,33 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
     {
       if ([SKFilesystem _shouldShowFilesystemWithType:lastObject key:keyCopy personality:v10])
       {
-        v59 = 6;
+        v58 = 6;
       }
 
       else
       {
-        v59 = 8;
+        v58 = 8;
       }
 
-      v60 = [SKFilesystem alloc];
-      v61 = [SKFilesystem _skfilesystemTypeWithPersonality:keyCopy];
-      LODWORD(v62) = v59;
-      v23 = [(SKFilesystem *)v60 initWithSKFilesystem:v61 bundle:bundleCopy localizedName:nameCopy localizedKey:0 caseSensitive:0 encrypted:0 personalityKey:keyCopy sortPriority:v62];
+      v59 = [SKFilesystem alloc];
+      v60 = [SKFilesystem _skfilesystemTypeWithPersonality:keyCopy];
+      LODWORD(v61) = v58;
+      v23 = [(SKFilesystem *)v59 initWithSKFilesystem:v60 bundle:bundleCopy localizedName:nameCopy localizedKey:0 caseSensitive:0 encrypted:0 personalityKey:keyCopy sortPriority:v61];
 
-      v69 = v23;
-      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+      v68 = v23;
+      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
       goto LABEL_10;
     }
 
-    v63 = [SKFilesystem alloc];
+    v62 = [SKFilesystem alloc];
     [SKFilesystem _skfilesystemTypeWithPersonality:keyCopy];
     v49 = v48 = CaseSensitive;
     +[SKError frameworkBundle];
-    v50 = v66 = nameCopy;
+    v50 = v65 = nameCopy;
     [v50 localizedStringForKey:@"HFS Case-sensitive Not Journaled" value:&stru_287C8F598 table:0];
     v52 = v51 = bundleCopy;
-    LODWORD(v62) = 8;
-    v23 = [(SKFilesystem *)v63 initWithSKFilesystem:v49 bundle:v51 localizedName:v52 localizedKey:@"HFS Case-sensitive Not Journaled" caseSensitive:v48 encrypted:0 personalityKey:keyCopy sortPriority:v62];
+    LODWORD(v61) = 8;
+    v23 = [(SKFilesystem *)v62 initWithSKFilesystem:v49 bundle:v51 localizedName:v52 localizedKey:@"HFS Case-sensitive Not Journaled" caseSensitive:v48 encrypted:0 personalityKey:keyCopy sortPriority:v61];
 
     bundleCopy = v51;
     v53 = [SKFilesystem alloc];
@@ -878,34 +1177,33 @@ uint64_t __66__SKFilesystem_filesystemFor_caseSensitive_encrypted_isExtension___
     v55 = [v54 localizedStringForKey:@"HFS Case-sensitive Not Journaled Encrypted" value:&stru_287C8F598 table:0];
     v27 = [(SKFilesystem *)v53 initEncryptedFSWithUnencryptedFS:v23 localizedName:v55 sortPriority:8];
 
-    nameCopy = v66;
-    v70[0] = v23;
-    v70[1] = v27;
+    nameCopy = v65;
+    v69[0] = v23;
+    v69[1] = v27;
     v28 = MEMORY[0x277CBEA60];
-    v29 = v70;
+    v29 = v69;
   }
 
   v56 = [v28 arrayWithObjects:v29 count:2];
 
 LABEL_10:
-  v57 = *MEMORY[0x277D85DE8];
 
   return v56;
 }
 
 + (id)fileSystemsAPFSWithPersonalityKey:(id)key bundle:(id)bundle
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   keyCopy = key;
-  v25 = getPersonalityDict(bundleCopy, keyCopy);
-  CaseSensitive = getCaseSensitive(v25, keyCopy);
+  v24 = getPersonalityDict(bundleCopy, keyCopy);
+  CaseSensitive = getCaseSensitive(v24, keyCopy);
   v7 = [SKFilesystem alloc];
   v8 = kSKDiskFileSystemAPFS[0];
   v9 = +[SKError frameworkBundle];
   v10 = [v9 localizedStringForKey:@"APFS" value:&stru_287C8F598 table:0];
-  LODWORD(v23) = 1;
-  v11 = [(SKFilesystem *)v7 initWithSKFilesystem:v8 bundle:bundleCopy localizedName:v10 localizedKey:@"APFS" encrypted:0 personalityKey:keyCopy sortPriority:v23];
+  LODWORD(v22) = 1;
+  v11 = [(SKFilesystem *)v7 initWithSKFilesystem:v8 bundle:bundleCopy localizedName:v10 localizedKey:@"APFS" encrypted:0 personalityKey:keyCopy sortPriority:v22];
 
   v12 = [SKFilesystem alloc];
   v13 = +[SKError frameworkBundle];
@@ -929,18 +1227,16 @@ LABEL_10:
     [v15 setSortPriority:0];
   }
 
-  v26[0] = v11;
-  v26[1] = v15;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v25[0] = v11;
+  v25[1] = v15;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
 
   return v20;
 }
 
 + (id)fileSystems3rdPartyWithPersonalityKey:(id)key bundle:(id)bundle userVisibleName:(id)name
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   bundleCopy = bundle;
   keyCopy = key;
@@ -962,13 +1258,11 @@ LABEL_10:
 
   v16 = [SKFilesystem alloc];
   v17 = [SKFilesystem _skfilesystemTypeWithPersonality:keyCopy];
-  LODWORD(v22) = v15;
-  v18 = [(SKFilesystem *)v16 initWithSKFilesystem:v17 bundle:bundleCopy localizedName:nameCopy localizedKey:0 encrypted:0 personalityKey:keyCopy sortPriority:v22];
+  LODWORD(v21) = v15;
+  v18 = [(SKFilesystem *)v16 initWithSKFilesystem:v17 bundle:bundleCopy localizedName:nameCopy localizedKey:0 encrypted:0 personalityKey:keyCopy sortPriority:v21];
 
-  v23[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v22[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
 
   return v19;
 }
@@ -1009,38 +1303,37 @@ LABEL_10:
 
 - (SKFilesystem)initWithSpecialFilesystem:(id)filesystem majorType:(id)type localizedName:(id)name
 {
-  v18[8] = *MEMORY[0x277D85DE8];
-  v17[0] = @"type";
+  v17[8] = *MEMORY[0x277D85DE8];
+  v16[0] = @"type";
   nameCopy = name;
   typeCopy = type;
   filesystemCopy = filesystem;
   v11 = [SKFilesystem _skfilesystemTypeWithPersonality:filesystemCopy];
-  v18[0] = v11;
-  v18[1] = typeCopy;
-  v17[1] = @"majorType";
-  v17[2] = @"localizedName";
-  v18[2] = nameCopy;
-  v18[3] = MEMORY[0x277CBEC28];
-  v17[3] = @"isCaseSensitive";
-  v17[4] = @"isEncrypted";
-  v18[4] = MEMORY[0x277CBEC28];
-  v18[5] = MEMORY[0x277CBEC28];
-  v17[5] = @"shouldShow";
-  v17[6] = @"dmPersonality";
-  v18[6] = filesystemCopy;
-  v17[7] = @"sortPriority";
+  v17[0] = v11;
+  v17[1] = typeCopy;
+  v16[1] = @"majorType";
+  v16[2] = @"localizedName";
+  v17[2] = nameCopy;
+  v17[3] = MEMORY[0x277CBEC28];
+  v16[3] = @"isCaseSensitive";
+  v16[4] = @"isEncrypted";
+  v17[4] = MEMORY[0x277CBEC28];
+  v17[5] = MEMORY[0x277CBEC28];
+  v16[5] = @"shouldShow";
+  v16[6] = @"dmPersonality";
+  v17[6] = filesystemCopy;
+  v16[7] = @"sortPriority";
   v12 = [MEMORY[0x277CCABB0] numberWithInt:9];
-  v18[7] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:8];
+  v17[7] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:8];
 
   v14 = [(SKFilesystem *)self initWithDictionaryRepresentation:v13];
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (id)buildSpecialFilesystems
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v2 = [SKFilesystem alloc];
   v3 = +[SKError frameworkBundle];
   v4 = [v3 localizedStringForKey:@"Free Space" value:&stru_287C8F598 table:0];
@@ -1056,22 +1349,20 @@ LABEL_10:
   v12 = [v11 localizedStringForKey:@"Linux Native" value:&stru_287C8F598 table:0];
   v13 = [(SKFilesystem *)v10 initWithSpecialFilesystem:@"Linux Native" majorType:@"Linux Native" localizedName:v12];
 
-  v17[0] = v5;
-  v17[1] = v9;
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[0] = v5;
+  v16[1] = v9;
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
 
   return v14;
 }
 
 + (id)filesystemsFromBundle:(id)bundle
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   array = [MEMORY[0x277CBEB18] array];
-  v24 = bundleCopy;
+  v23 = bundleCopy;
   infoDictionary = [bundleCopy infoDictionary];
   v5 = [infoDictionary objectForKeyedSubscript:kExtensionAttributesKey];
 
@@ -1082,29 +1373,29 @@ LABEL_10:
     infoDictionary = v6;
   }
 
-  v22 = infoDictionary;
+  v21 = infoDictionary;
   v7 = [infoDictionary objectForKeyedSubscript:@"FSPersonalities"];
   v8 = [bundleCopy objectForInfoDictionaryKey:@"FSPersonalities"];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         v15 = [v9 objectForKeyedSubscript:v14];
         v16 = [v8 objectForKeyedSubscript:v14];
         v17 = [v16 objectForKeyedSubscript:@"FSName"];
@@ -1122,17 +1413,15 @@ LABEL_10:
           }
         }
 
-        v19 = [SKFilesystem filesystemsWithBundle:v24 filesystemPersonality:v14 userVisibleName:v17];
+        v19 = [SKFilesystem filesystemsWithBundle:v23 filesystemPersonality:v14 userVisibleName:v17];
         [array addObjectsFromArray:v19];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return array;
 }

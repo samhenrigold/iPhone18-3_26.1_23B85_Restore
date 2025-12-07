@@ -44,7 +44,7 @@
   v3 = objc_opt_class();
   if ((WebCoreObjCScheduleDeallocateOnMainRunLoop(v3, self) & 1) == 0)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
+    objc_msgSend__protectedContentListStore(self);
     v5 = v8;
     v6 = *(v8 + 16);
     *(v8 + 16) = 0;
@@ -106,15 +106,15 @@
 
     v5 = v4;
     v6 = v4;
-    v7 = *(v3 + 1);
+    var1 = v3->var1;
   }
 
   else
   {
-    v7 = 0;
+    var1 = 0;
   }
 
-  CFRelease(v7);
+  CFRelease(var1);
   v9 = v11;
   v11 = 0;
   if (v9)
@@ -132,49 +132,49 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    v8 = v18;
+    objc_msgSend__protectedContentListStore(self, a2);
+    v8 = v19;
   }
 
   else
   {
     v8 = 0;
-    v18 = 0;
+    v19 = 0;
   }
 
-  MEMORY[0x19EB02040](&v17, identifier);
-  MEMORY[0x19EB02040](&v16, encodedContentRuleList);
+  MEMORY[0x19EB02040](&v18, identifier);
+  MEMORY[0x19EB02040](&v17, encodedContentRuleList);
   v9 = _Block_copy(completionHandler);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10F4A28;
-  v10[1] = v9;
-  v15 = v10;
-  API::ContentRuleListStore::compileContentRuleList(v8, &v17, &v16, &v15);
-  if (v15)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10F4A28;
+  v11[1] = v9;
+  v16 = v11;
+  API::ContentRuleListStore::compileContentRuleList(v8, &v18, &v17, &v16);
+  if (v16)
   {
-    (*(*v15 + 8))(v15);
+    (*(*v16 + 8))(v16);
   }
 
   _Block_release(0);
-  v12 = v16;
-  v16 = 0;
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v12, v11);
-  }
-
   v13 = v17;
   v17 = 0;
   if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v13, v11);
+    WTF::StringImpl::destroy(v13, v12);
   }
 
   v14 = v18;
   v18 = 0;
-  if (v14)
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    CFRelease(v14[1]);
+    WTF::StringImpl::destroy(v14, v12);
+  }
+
+  v15 = v19;
+  v19 = 0;
+  if (v15)
+  {
+    CFRelease(v15[1]);
   }
 }
 
@@ -182,41 +182,41 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    v6 = v14;
+    objc_msgSend__protectedContentListStore(self, a2);
+    v6 = v15;
   }
 
   else
   {
     v6 = 0;
-    v14 = 0;
+    v15 = 0;
   }
 
-  MEMORY[0x19EB02040](&v13, identifier);
+  MEMORY[0x19EB02040](&v14, identifier);
   v7 = _Block_copy(completionHandler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10F4A50;
-  v8[1] = v7;
-  v12 = v8;
-  API::ContentRuleListStore::lookupContentRuleList(v6, &v13, &v12);
-  if (v12)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10F4A50;
+  v9[1] = v7;
+  v13 = v9;
+  API::ContentRuleListStore::lookupContentRuleList(v6, &v14, &v13);
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
   _Block_release(0);
-  v10 = v13;
-  v13 = 0;
-  if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v10, v9);
-  }
-
   v11 = v14;
   v14 = 0;
-  if (v11)
+  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    CFRelease(v11[1]);
+    WTF::StringImpl::destroy(v11, v10);
+  }
+
+  v12 = v15;
+  v15 = 0;
+  if (v12)
+  {
+    CFRelease(v12[1]);
   }
 }
 
@@ -224,33 +224,33 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    v4 = v9;
+    objc_msgSend__protectedContentListStore(self, a2);
+    v4 = v10;
   }
 
   else
   {
     v4 = 0;
-    v9 = 0;
+    v10 = 0;
   }
 
   v5 = _Block_copy(completionHandler);
-  v6 = WTF::fastMalloc(0x10);
-  *v6 = &unk_1F10F4A78;
-  *(v6 + 1) = v5;
-  v8 = v6;
-  API::ContentRuleListStore::getAvailableContentRuleListIdentifiers(v4, &v8);
-  if (v8)
+  v7 = WTF::fastMalloc(v6, 0x10);
+  *v7 = &unk_1F10F4A78;
+  v7[1] = v5;
+  v9 = v7;
+  API::ContentRuleListStore::getAvailableContentRuleListIdentifiers(v4, &v9);
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
-  v7 = v9;
-  v9 = 0;
-  if (v7)
+  v8 = v10;
+  v10 = 0;
+  if (v8)
   {
-    CFRelease(v7[1]);
+    CFRelease(v8[1]);
   }
 }
 
@@ -258,41 +258,41 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    v6 = v14;
+    objc_msgSend__protectedContentListStore(self, a2);
+    v6 = v15;
   }
 
   else
   {
     v6 = 0;
-    v14 = 0;
+    v15 = 0;
   }
 
-  MEMORY[0x19EB02040](&v13, identifier);
+  MEMORY[0x19EB02040](&v14, identifier);
   v7 = _Block_copy(completionHandler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10F4AA0;
-  v8[1] = v7;
-  v12 = v8;
-  API::ContentRuleListStore::removeContentRuleList(v6, &v13, &v12);
-  if (v12)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10F4AA0;
+  v9[1] = v7;
+  v13 = v9;
+  API::ContentRuleListStore::removeContentRuleList(v6, &v14, &v13);
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
   _Block_release(0);
-  v10 = v13;
-  v13 = 0;
-  if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v10, v9);
-  }
-
   v11 = v14;
   v14 = 0;
-  if (v11)
+  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    CFRelease(v11[1]);
+    WTF::StringImpl::destroy(v11, v10);
+  }
+
+  v12 = v15;
+  v15 = 0;
+  if (v12)
+  {
+    CFRelease(v12[1]);
   }
 }
 
@@ -300,7 +300,7 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
+    objc_msgSend__protectedContentListStore(self, a2);
     self = v3;
   }
 
@@ -322,30 +322,30 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    v4 = v10;
+    objc_msgSend__protectedContentListStore(self, a2);
+    v4 = v9;
   }
 
   else
   {
     v4 = 0;
-    v10 = 0;
+    v9 = 0;
   }
 
-  MEMORY[0x19EB02040](&v9, identifier);
-  API::ContentRuleListStore::invalidateContentRuleListVersion(v4, &v9, v5);
+  MEMORY[0x19EB02040](&v8, identifier);
+  API::ContentRuleListStore::invalidateContentRuleListVersion(v4, &v8);
+  v6 = v8;
+  v8 = 0;
+  if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v6, v5);
+  }
+
   v7 = v9;
   v9 = 0;
-  if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v7)
   {
-    WTF::StringImpl::destroy(v7, v6);
-  }
-
-  v8 = v10;
-  v10 = 0;
-  if (v8)
-  {
-    CFRelease(*(v8 + 1));
+    CFRelease(*(v7 + 1));
   }
 }
 
@@ -354,7 +354,7 @@
   versionCopy = version;
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
+    objc_msgSend__protectedContentListStore(self, a2);
     v6 = v11;
   }
 
@@ -385,30 +385,30 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    v4 = v10;
+    objc_msgSend__protectedContentListStore(self, a2);
+    v4 = v9;
   }
 
   else
   {
     v4 = 0;
-    v10 = 0;
+    v9 = 0;
   }
 
-  MEMORY[0x19EB02040](&v9, identifier);
-  API::ContentRuleListStore::corruptContentRuleListActionsMatchingEverything(v4, &v9, v5);
+  MEMORY[0x19EB02040](&v8, identifier);
+  API::ContentRuleListStore::corruptContentRuleListActionsMatchingEverything(v4, &v8);
+  v6 = v8;
+  v8 = 0;
+  if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v6, v5);
+  }
+
   v7 = v9;
   v9 = 0;
-  if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v7)
   {
-    WTF::StringImpl::destroy(v7, v6);
-  }
-
-  v8 = v10;
-  v10 = 0;
-  if (v8)
-  {
-    CFRelease(*(v8 + 1));
+    CFRelease(*(v7 + 1));
   }
 }
 
@@ -416,30 +416,30 @@
 {
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    v4 = v10;
+    objc_msgSend__protectedContentListStore(self, a2);
+    v4 = v9;
   }
 
   else
   {
     v4 = 0;
-    v10 = 0;
+    v9 = 0;
   }
 
-  MEMORY[0x19EB02040](&v9, identifier);
-  API::ContentRuleListStore::invalidateContentRuleListHeader(v4, &v9, v5);
+  MEMORY[0x19EB02040](&v8, identifier);
+  API::ContentRuleListStore::invalidateContentRuleListHeader(v4, &v8);
+  v6 = v8;
+  v8 = 0;
+  if (v6 && atomic_fetch_add_explicit(v6, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v6, v5);
+  }
+
   v7 = v9;
   v9 = 0;
-  if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v7)
   {
-    WTF::StringImpl::destroy(v7, v6);
-  }
-
-  v8 = v10;
-  v10 = 0;
-  if (v8)
-  {
-    CFRelease(*(v8 + 1));
+    CFRelease(*(v7 + 1));
   }
 }
 
@@ -448,45 +448,45 @@
   v6 = [handler copy];
   if (self)
   {
-    [(WKContentRuleListStore *)self _protectedContentListStore];
-    self = v15;
+    objc_msgSend__protectedContentListStore(self);
+    self = v16;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  MEMORY[0x19EB02040](&v14, identifier);
+  MEMORY[0x19EB02040](&v15, identifier);
   if (v6)
   {
-    v7 = v6;
+    v8 = v6;
   }
 
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10F4AC8;
-  *(v8 + 1) = v6;
-  v13 = v8;
-  API::ContentRuleListStore::getContentRuleListSource(&self->super.isa, &v14, &v13);
-  v10 = v13;
-  v13 = 0;
-  if (v10)
-  {
-    (*(*v10 + 8))(v10);
-  }
-
+  v9 = WTF::fastMalloc(v7, 0x10);
+  *v9 = &unk_1F10F4AC8;
+  v9[1] = v6;
+  v14 = v9;
+  API::ContentRuleListStore::getContentRuleListSource(&self->super.isa, &v15, &v14);
   v11 = v14;
   v14 = 0;
-  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v11)
   {
-    WTF::StringImpl::destroy(v11, v9);
+    (*(*v11 + 8))(v11);
   }
 
   v12 = v15;
   v15 = 0;
-  if (v12)
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    CFRelease(*v12->_contentRuleListStore.m_storage.data);
+    WTF::StringImpl::destroy(v12, v10);
+  }
+
+  v13 = v16;
+  v16 = 0;
+  if (v13)
+  {
+    CFRelease(*v13->_contentRuleListStore.m_storage.data);
   }
 
   if (v6)
@@ -530,15 +530,15 @@
 
     v5 = v4;
     v6 = v4;
-    v7 = *(v3 + 1);
+    var1 = v3->var1;
   }
 
   else
   {
-    v7 = 0;
+    var1 = 0;
   }
 
-  CFRelease(v7);
+  CFRelease(var1);
   v9 = v11;
   v11 = 0;
   if (v9)

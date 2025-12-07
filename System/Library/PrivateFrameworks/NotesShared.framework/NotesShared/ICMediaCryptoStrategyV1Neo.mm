@@ -226,28 +226,28 @@ LABEL_9:
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Rewrapping media with main key… {note: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Rewrapping media with main key… {note: %@}%s:%d", v5, v6, v7, v8);
 }
 
 void __48__ICMediaCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot rewrap media's encrypted values {media: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot rewrap media's encrypted values {media: %@}", v4, v5, v6, v7);
 }
 
 void __48__ICMediaCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping media's encrypted values because couldn't rewrap media data {media: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping media's encrypted values because couldn't rewrap media data {media: %@}", v4, v5, v6, v7);
 }
 
 void __48__ICMediaCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping media because encrypted media URL is nil {media: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Not rewrapping media because encrypted media URL is nil {media: %@}", v4, v5, v6, v7);
 }
 
 - (void)decryptedData
@@ -256,7 +256,7 @@ void __48__ICMediaCryptoStrategyV1Neo_rewrapWithMainKey___block_invoke_cold_3(vo
   shortLoggingDescription = [object shortLoggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting data… {media: %@}%s:%d", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_6(&dword_214D51000, v3, v4, "Decrypting data… {media: %@}%s:%d", v5, v6, v7, v8);
 }
 
 @end

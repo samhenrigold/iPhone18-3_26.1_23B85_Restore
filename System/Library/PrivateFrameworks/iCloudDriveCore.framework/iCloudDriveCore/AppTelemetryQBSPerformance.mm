@@ -139,19 +139,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_operationType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    totalTime = self->_totalTime;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -170,9 +169,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  recordsFetched = self->_recordsFetched;
   PBDataWriterWriteUint64Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -186,15 +184,13 @@ LABEL_6:
   }
 
 LABEL_13:
-  recordsFetchedTotalMetadataSize = self->_recordsFetchedTotalMetadataSize;
   PBDataWriterWriteUint64Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    xattrsFetchedTotalSize = self->_xattrsFetchedTotalSize;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:

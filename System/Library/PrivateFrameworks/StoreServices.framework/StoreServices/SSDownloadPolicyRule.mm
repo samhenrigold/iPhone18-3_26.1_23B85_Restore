@@ -414,9 +414,9 @@ LABEL_16:
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v18.receiver = self;
-    v18.super_class = SSDownloadPolicyRule;
-    v5 = [(SSDownloadPolicyRule *)&v18 init];
+    v19.receiver = self;
+    v19.super_class = SSDownloadPolicyRule;
+    v5 = [(SSDownloadPolicyRule *)&v19 init];
     if (v5)
     {
       value = xpc_dictionary_get_value(encoding, "0");
@@ -432,24 +432,24 @@ LABEL_16:
       v5->_batteryLevel = v11;
       v5->_cellularDataStates = xpc_dictionary_get_int64(encoding, "2");
       v5->_downloadSizeLimit = xpc_dictionary_get_int64(encoding, "3");
-      objc_opt_class();
-      v12 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "4");
-      if (v12)
+      v12 = objc_opt_class();
+      v13 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "4", v12);
+      if (v13)
       {
-        v13 = v12;
-        v5->_networkTypes = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v12];
+        v14 = v13;
+        v5->_networkTypes = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v13];
       }
 
       v5->_powerStates = xpc_dictionary_get_int64(encoding, "5");
       v5->_registrationStates = xpc_dictionary_get_int64(encoding, "6");
       v5->_timeLimitStates = xpc_dictionary_get_int64(encoding, "7");
-      v14 = xpc_dictionary_get_value(encoding, "8");
-      v15 = objc_opt_class();
-      v16 = SSXPCCreateNSArrayFromXPCEncodedArray(v14, v15);
-      if (v16)
+      v15 = xpc_dictionary_get_value(encoding, "8");
+      v16 = objc_opt_class();
+      v17 = SSXPCCreateNSArrayFromXPCEncodedArray(v15, v16);
+      if (v17)
       {
-        v17 = v16;
-        v5->_userDefaultStates = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v16];
+        v18 = v17;
+        v5->_userDefaultStates = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v17];
       }
     }
   }

@@ -70,13 +70,13 @@ uint64_t start()
   return 0;
 }
 
-void sub_100000E8C()
+void sub_100000E8C(uint64_t a1)
 {
-  v0 = AXLogRTT();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = AXLogRTT();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "Received AppleLanguagePreferencesChangedNotification, restarting heard", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "Received AppleLanguagePreferencesChangedNotification, restarting heard", v2, 2u);
   }
 
   exit(0);
@@ -106,7 +106,7 @@ Class sub_100000F00(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -126,7 +126,6 @@ LABEL_4:
 
 uint64_t sub_100001044(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100008040 = result;
   return result;

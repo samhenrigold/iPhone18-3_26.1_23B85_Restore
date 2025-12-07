@@ -13,6 +13,7 @@
 - (void)compactStoreWithCompletionHandler:(id)handler;
 - (void)dealloc;
 - (void)firstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers:(id)numbers cacheOnly:(BOOL)only completionHandler:(id)handler;
+- (void)firstIdentificationEntryForEnabledExtensionWithPhoneNumber:(id)number cacheOnly:(BOOL)only completionHandler:(id)handler;
 - (void)getEnabledStatusForExtensionWithIdentifier:(NSString *)identifier completionHandler:(void *)completion;
 - (void)getExtensionsWithCompletionHandler:(id)handler;
 - (void)getLastUpdatedCallDirectoryInfoWithCompletionHandler:(id)handler;
@@ -92,9 +93,8 @@
   return v2;
 }
 
-uint64_t __40__CXCallDirectoryManager_sharedInstance__block_invoke(uint64_t a1)
+uint64_t __40__CXCallDirectoryManager_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x1EEE66BB8]();
@@ -111,13 +111,13 @@ uint64_t __40__CXCallDirectoryManager_sharedInstance__block_invoke(uint64_t a1)
 
 void __43__CXCallDirectoryManager_defaultConnection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CXDefaultLog();
+  v2 = CXDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Default connection interrupted for call directory manager %@", buf, 0xCu);
   }
 
@@ -133,19 +133,17 @@ void __43__CXCallDirectoryManager_defaultConnection__block_invoke(uint64_t a1)
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__CXCallDirectoryManager_defaultConnection__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CXDefaultLog();
+  v2 = CXDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Default connection invalidated for call directory manager %@", buf, 0xCu);
   }
 
@@ -161,8 +159,6 @@ void __43__CXCallDirectoryManager_defaultConnection__block_invoke_2(uint64_t a1)
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __43__CXCallDirectoryManager_defaultConnection__block_invoke_7(uint64_t a1)
@@ -209,13 +205,13 @@ void __43__CXCallDirectoryManager_defaultConnection__block_invoke_7(uint64_t a1)
 
 void __47__CXCallDirectoryManager_maintenanceConnection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CXDefaultLog();
+  v2 = CXDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Maintenance connection interrupted for call directory manager %@", buf, 0xCu);
   }
 
@@ -231,19 +227,17 @@ void __47__CXCallDirectoryManager_maintenanceConnection__block_invoke(uint64_t a
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __47__CXCallDirectoryManager_maintenanceConnection__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CXDefaultLog();
+  v2 = CXDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Maintenance connection invalidated for call directory manager %@", buf, 0xCu);
   }
 
@@ -259,8 +253,6 @@ void __47__CXCallDirectoryManager_maintenanceConnection__block_invoke_2(uint64_t
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __47__CXCallDirectoryManager_maintenanceConnection__block_invoke_9(uint64_t a1)
@@ -343,7 +335,7 @@ void __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandle
 void __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -413,7 +405,7 @@ void __87__CXCallDirectoryManager_getEnabledStatusForExtensionWithIdentifier_com
 void __87__CXCallDirectoryManager_getEnabledStatusForExtensionWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -477,7 +469,7 @@ void __82__CXCallDirectoryManager_setEnabled_forExtensionWithIdentifier_completi
 void __82__CXCallDirectoryManager_setEnabled_forExtensionWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -499,6 +491,25 @@ uint64_t __82__CXCallDirectoryManager_setEnabled_forExtensionWithIdentifier_comp
   }
 
   return result;
+}
+
+- (void)firstIdentificationEntryForEnabledExtensionWithPhoneNumber:(id)number cacheOnly:(BOOL)only completionHandler:(id)handler
+{
+  onlyCopy = only;
+  v16[1] = *MEMORY[0x1E69E9840];
+  numberCopy = number;
+  handlerCopy = handler;
+  v16[0] = numberCopy;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __113__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionWithPhoneNumber_cacheOnly_completionHandler___block_invoke;
+  v13[3] = &unk_1E7C07640;
+  v14 = numberCopy;
+  v15 = handlerCopy;
+  v11 = numberCopy;
+  v12 = handlerCopy;
+  [(CXCallDirectoryManager *)self firstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers:v10 cacheOnly:onlyCopy completionHandler:v13];
 }
 
 void __113__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionWithPhoneNumber_cacheOnly_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -539,27 +550,25 @@ void __113__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionWi
 
 void __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyncWithPhoneNumber_cacheOnly___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) synchronousServerWithErrorHandler:&__block_literal_global_12];
-  v10[0] = *(a1 + 40);
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = *(a1 + 40);
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v4 = *(a1 + 56);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyncWithPhoneNumber_cacheOnly___block_invoke_18;
-  v8[3] = &unk_1E7C07668;
-  v7 = *(a1 + 40);
-  v5 = v7;
-  v9 = v7;
-  [v2 firstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers:v3 cacheOnly:v4 reply:v8];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyncWithPhoneNumber_cacheOnly___block_invoke_18;
+  v7[3] = &unk_1E7C07668;
+  v6 = *(a1 + 40);
+  v5 = v6;
+  v8 = v6;
+  [v2 firstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers:v3 cacheOnly:v4 reply:v7];
 }
 
 void __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyncWithPhoneNumber_cacheOnly___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CXDefaultLog();
+  v3 = CXDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyncWithPhoneNumber_cacheOnly___block_invoke_2_cold_1();
@@ -568,10 +577,7 @@ void __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyn
 
 uint64_t __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyncWithPhoneNumber_cacheOnly___block_invoke_18(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKeyedSubscript:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKeyedSubscript:*(a1 + 32)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -609,7 +615,7 @@ void __117__CXCallDirectoryManager_firstIdentificationEntriesForEnabledExtension
 void __117__CXCallDirectoryManager_firstIdentificationEntriesForEnabledExtensionsWithPhoneNumbers_cacheOnly_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -647,7 +653,7 @@ void __69__CXCallDirectoryManager_synchronizeExtensionsWithCompletionHandler___b
 void __69__CXCallDirectoryManager_synchronizeExtensionsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -658,51 +664,52 @@ void __69__CXCallDirectoryManager_synchronizeExtensionsWithCompletionHandler___b
 
 - (BOOL)fetchLiveBlockingInfoForHandle:(id)handle timeout:(double)timeout
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  if (_os_feature_enabled_impl())
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v7 = _os_feature_enabled_impl();
+  if (v7)
   {
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CXDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = handleCopy;
-      _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle: %@", buf, 0xCu);
+      v26 = handleCopy;
+      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle: %@", buf, 0xCu);
     }
 
-    v8 = dispatch_semaphore_create(0);
+    v9 = dispatch_semaphore_create(0);
     queue = [(CXCallDirectoryManager *)self queue];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block_invoke;
-    v16[3] = &unk_1E7C07708;
-    v16[4] = self;
-    v10 = v8;
-    v17 = v10;
-    v18 = handleCopy;
-    v19 = &v20;
-    dispatch_sync(queue, v16);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block_invoke;
+    v17[3] = &unk_1E7C07708;
+    v17[4] = self;
+    v11 = v9;
+    v18 = v11;
+    v19 = handleCopy;
+    v20 = &v21;
+    dispatch_sync(queue, v17);
 
-    v11 = dispatch_time(0, (timeout * 1000000000.0));
-    if (dispatch_semaphore_wait(v10, v11))
+    v12 = dispatch_time(0, (timeout * 1000000000.0));
+    v13 = dispatch_semaphore_wait(v11, v12);
+    if (v13)
     {
-      v12 = CXDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = CXDefaultLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [CXCallDirectoryManager fetchLiveBlockingInfoForHandle:v12 timeout:?];
+        [CXCallDirectoryManager fetchLiveBlockingInfoForHandle:v14 timeout:?];
       }
     }
   }
 
-  v13 = *(v21 + 24);
-  _Block_object_dispose(&v20, 8);
+  v15 = *(v22 + 24);
+  _Block_object_dispose(&v21, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v13 & 1;
+  return v15 & 1;
 }
 
 void __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block_invoke(uint64_t a1)
@@ -727,7 +734,7 @@ void __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block
 void __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -738,9 +745,9 @@ void __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block
 
 void __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block_invoke_21(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = CXDefaultLog();
+  v6 = CXDefaultLog(v5);
   v7 = v6;
   if (v5)
   {
@@ -754,69 +761,67 @@ void __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109120;
-      v9[1] = a2;
-      _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle blocked=%d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = a2;
+      _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "fetchLiveBlockingInfoForHandle blocked=%d", v8, 8u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = a2;
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:(id)number timeout:(double)timeout
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   numberCopy = number;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__4;
-  v24 = __Block_byref_object_dispose__4;
-  v25 = 0;
-  if (_os_feature_enabled_impl())
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__4;
+  v25 = __Block_byref_object_dispose__4;
+  v26 = 0;
+  v7 = _os_feature_enabled_impl();
+  if (v7)
   {
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CXDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = numberCopy;
-      _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber: %@", buf, 0xCu);
+      v28 = numberCopy;
+      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber: %@", buf, 0xCu);
     }
 
-    v8 = dispatch_semaphore_create(0);
+    v9 = dispatch_semaphore_create(0);
     queue = [(CXCallDirectoryManager *)self queue];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber_timeout___block_invoke;
-    v16[3] = &unk_1E7C07708;
-    v16[4] = self;
-    v10 = v8;
-    v17 = v10;
-    v18 = numberCopy;
-    v19 = &v20;
-    dispatch_sync(queue, v16);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber_timeout___block_invoke;
+    v17[3] = &unk_1E7C07708;
+    v17[4] = self;
+    v11 = v9;
+    v18 = v11;
+    v19 = numberCopy;
+    v20 = &v21;
+    dispatch_sync(queue, v17);
 
-    v11 = dispatch_time(0, (timeout * 1000000000.0));
-    if (dispatch_semaphore_wait(v10, v11))
+    v12 = dispatch_time(0, (timeout * 1000000000.0));
+    v13 = dispatch_semaphore_wait(v11, v12);
+    if (v13)
     {
-      v12 = CXDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = CXDefaultLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [CXCallDirectoryManager firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:v12 timeout:?];
+        [CXCallDirectoryManager firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber:v14 timeout:?];
       }
     }
   }
 
-  v13 = v21[5];
-  _Block_object_dispose(&v20, 8);
+  v15 = v22[5];
+  _Block_object_dispose(&v21, 8);
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v15;
 }
 
 void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber_timeout___block_invoke(uint64_t a1)
@@ -841,7 +846,7 @@ void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierFor
 void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber_timeout___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -852,10 +857,10 @@ void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierFor
 
 void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber_timeout___block_invoke_23(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = CXDefaultLog();
+  v7 = CXDefaultLog(v6);
   v8 = v7;
   if (v6)
   {
@@ -869,9 +874,9 @@ void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierFor
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber blocked=%@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber blocked=%@", &v11, 0xCu);
     }
 
     v9 = *(*(a1 + 40) + 8);
@@ -881,7 +886,6 @@ void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierFor
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openSettingsWithCompletionHandler:(void *)completion
@@ -913,7 +917,7 @@ void __60__CXCallDirectoryManager_openSettingsWithCompletionHandler___block_invo
 void __60__CXCallDirectoryManager_openSettingsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -955,7 +959,7 @@ void __60__CXCallDirectoryManager_compactStoreWithCompletionHandler___block_invo
 void __60__CXCallDirectoryManager_compactStoreWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -993,7 +997,7 @@ void __69__CXCallDirectoryManager_cleanUpLiveLookupDataWithCompletionHandler___b
 void __69__CXCallDirectoryManager_cleanUpLiveLookupDataWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -1031,7 +1035,7 @@ void __61__CXCallDirectoryManager_getExtensionsWithCompletionHandler___block_inv
 void __61__CXCallDirectoryManager_getExtensionsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -1078,7 +1082,7 @@ void __79__CXCallDirectoryManager_setPrioritizedExtensionIdentifiers_completionH
 void __79__CXCallDirectoryManager_setPrioritizedExtensionIdentifiers_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -1131,7 +1135,7 @@ void __79__CXCallDirectoryManager_getLastUpdatedCallDirectoryInfoWithCompletionH
 void __79__CXCallDirectoryManager_getLastUpdatedCallDirectoryInfoWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1();
@@ -1142,38 +1146,6 @@ void __79__CXCallDirectoryManager_getLastUpdatedCallDirectoryInfoWithCompletionH
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-}
-
-void __74__CXCallDirectoryManager_reloadExtensionWithIdentifier_completionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __99__CXCallDirectoryManager_firstIdentificationEntryForEnabledExtensionSyncWithPhoneNumber_cacheOnly___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "Error using remote object proxy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__CXCallDirectoryManager_fetchLiveBlockingInfoForHandle_timeout___block_invoke_21_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "fetchLiveBlockingInfoForHandle error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __92__CXCallDirectoryManager_firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber_timeout___block_invoke_23_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0(&dword_1B47F3000, v0, v1, "firstEnabledLiveBlockingExtensionIdentifierForPhoneNumber error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

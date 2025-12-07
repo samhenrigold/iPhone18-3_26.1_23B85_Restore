@@ -132,7 +132,7 @@ void __75__CKMediaObjectAddToLibraryAssetActionPerformer_performUserInteractionT
 
 + (id)localizedTitleForUseCase:(unint64_t)case actionManager:(id)manager
 {
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(self);
   v5 = [v4 localizedStringForKey:@"SAVE_TO_PHOTO_LIBRARY" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v5;

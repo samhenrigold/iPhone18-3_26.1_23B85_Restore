@@ -54,7 +54,7 @@
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITouch);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITouch, 0x277D75C68);
   lazy protocol witness table accessor for type UITouch and conformance NSObject();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -66,7 +66,7 @@
 {
   y = point.y;
   x = point.x;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v17 - v8;
   selfCopy = self;

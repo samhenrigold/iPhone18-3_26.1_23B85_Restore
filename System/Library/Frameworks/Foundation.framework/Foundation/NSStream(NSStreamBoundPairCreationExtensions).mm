@@ -1,10 +1,10 @@
 @interface NSStream(NSStreamBoundPairCreationExtensions)
-+ (__CFWriteStream)getBoundStreamsWithBufferSize:()NSStreamBoundPairCreationExtensions inputStream:outputStream:;
++ (CFWriteStreamRef)getBoundStreamsWithBufferSize:()NSStreamBoundPairCreationExtensions inputStream:outputStream:;
 @end
 
 @implementation NSStream(NSStreamBoundPairCreationExtensions)
 
-+ (__CFWriteStream)getBoundStreamsWithBufferSize:()NSStreamBoundPairCreationExtensions inputStream:outputStream:
++ (CFWriteStreamRef)getBoundStreamsWithBufferSize:()NSStreamBoundPairCreationExtensions inputStream:outputStream:
 {
   readStream[1] = *MEMORY[0x1E69E9840];
   writeStream = 0;

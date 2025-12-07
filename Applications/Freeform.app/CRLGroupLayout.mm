@@ -83,7 +83,7 @@
   v5 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -188,7 +188,7 @@
     v55 = p_groupItem2;
     if (p_groupItem2)
     {
-      [p_groupItem2 transformInRoot];
+      objc_msgSend_transformInRoot(p_groupItem2);
     }
 
     else
@@ -198,7 +198,7 @@
       v72 = 0uLL;
     }
 
-    [CRLCounterRotateInfo counterTransformForTransformInRoot:&v72];
+    objc_msgSend_counterTransformForTransformInRoot_(CRLCounterRotateInfo);
     v72 = v75;
     v73 = v76;
     v74 = v77;
@@ -259,7 +259,7 @@ LABEL_32:
             v40 = geometry;
             if (geometry)
             {
-              [geometry transform];
+              objc_msgSend_transform(geometry);
             }
 
             else
@@ -345,7 +345,7 @@ LABEL_18:
             v18 = v57;
             if (v46)
             {
-              [v46 counterTransform];
+              objc_msgSend_counterTransform(v46);
             }
 
             else
@@ -687,7 +687,7 @@ LABEL_33:
     v9 = geometry;
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
     }
 
     else
@@ -702,7 +702,7 @@ LABEL_33:
     v12 = geometry2;
     if (geometry2)
     {
-      [geometry2 transform];
+      objc_msgSend_transform(geometry2);
     }
 
     else
@@ -762,7 +762,7 @@ LABEL_14:
   width = CGRectNull.size.width;
   height = CGRectNull.size.height;
   memset(&v40, 0, sizeof(v40));
-  [(CRLCanvasAbstractLayout *)self transform];
+  objc_msgSend_transform(self, a2);
   v38 = 0u;
   v39 = 0u;
   v36 = 0u;
@@ -819,7 +819,7 @@ LABEL_14:
   v19 = v18;
   v21 = v20;
   v23 = v22;
-  [(CRLCanvasAbstractLayout *)self transform];
+  objc_msgSend_transform(self);
   v45.origin.x = v17;
   v45.origin.y = v19;
   v45.size.width = v21;
@@ -970,7 +970,7 @@ LABEL_14:
     v34 = geometry2;
     if (geometry2)
     {
-      [geometry2 fullTransform];
+      objc_msgSend_fullTransform(geometry2);
     }
 
     else
@@ -1016,7 +1016,7 @@ LABEL_14:
 - (CGRect)alignmentFrame
 {
   v2 = (&self->_dynamicLayoutGeometry + 2);
-  [(CRLCanvasAbstractLayout *)self transform];
+  objc_msgSend_transform(self, a2);
   v4.origin.x = *v2;
   v4.origin.y = v2[1];
   v4.size.width = v2[2];
@@ -1108,7 +1108,7 @@ LABEL_14:
   v8 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy rotateTransform];
+    objc_msgSend_rotateTransform(trackerCopy);
   }
 
   originalGeometry = [(CRLCanvasLayout *)self originalGeometry];
@@ -1376,7 +1376,7 @@ LABEL_32:
 
 - (BOOL)shouldSnapWhileResizing
 {
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self, a2);
   pureGeometry = [(CRLCanvasLayout *)self pureGeometry];
   [pureGeometry size];
   v6 = sub_100139A98(&v8, v4, v5);
@@ -1395,7 +1395,7 @@ LABEL_32:
   v17 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy transformForLayout:self];
+    objc_msgSend_transformForLayout_(trackerCopy);
   }
 
   originalGeometry = [(CRLCanvasLayout *)self originalGeometry];
@@ -1482,7 +1482,7 @@ LABEL_32:
         v28 = pureGeometry2;
         if (pureGeometry2)
         {
-          [pureGeometry2 transform];
+          objc_msgSend_transform(pureGeometry2);
         }
 
         else
@@ -1544,7 +1544,7 @@ LABEL_32:
   v17 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy freeTransformForLayout:self];
+    objc_msgSend_freeTransformForLayout_(trackerCopy);
   }
 
   originalGeometry = [(CRLCanvasLayout *)self originalGeometry];
@@ -1849,7 +1849,7 @@ LABEL_13:
   v16 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -1923,7 +1923,7 @@ LABEL_13:
 
           if (v13)
           {
-            [v13 transform];
+            objc_msgSend_transform(v13);
           }
 
           else
@@ -1969,7 +1969,7 @@ LABEL_13:
                 v22 = [*(*(&v27 + 1) + 8 * j) copy];
                 if (v13)
                 {
-                  [v13 transform];
+                  objc_msgSend_transform(v13);
                 }
 
                 else
@@ -2106,7 +2106,7 @@ LABEL_8:
   v12 = geometryInRoot;
   if (geometryInRoot)
   {
-    [geometryInRoot transform];
+    objc_msgSend_transform(geometryInRoot);
   }
 
   else

@@ -180,33 +180,33 @@ uint64_t __42__VOSOutputEventDispatcher_sharedInstance__block_invoke()
 
 void __38__VOSOutputEventDispatcher_sendEvent___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = VOTLogCommon();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __38__VOSOutputEventDispatcher_sendEvent___block_invoke_cold_1(a1, v2);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v3 = *(*(a1 + 40) + 16);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v10 = *(a1 + 32);
         v9 = *(a1 + 40);
         v11 = [v9 _activeSoundPack];
@@ -214,23 +214,20 @@ void __38__VOSOutputEventDispatcher_sendEvent___block_invoke(uint64_t a1)
         [v8 dispatcher:v9 handleEvent:v10 soundPack:v11 hapticPack:v12];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __38__VOSOutputEventDispatcher_sendEvent___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_223C70000, a2, OS_LOG_TYPE_DEBUG, "Sending output event: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_223C70000, a2, OS_LOG_TYPE_DEBUG, "Sending output event: %@", &v3, 0xCu);
 }
 
 @end

@@ -4,6 +4,7 @@
 - (PassbookSettingsListController)init;
 - (id)_appleCardUpsellAlertWithAccount:(id)account;
 - (id)_passDetailsViewControllerForPass:(id)pass;
+- (id)_presentPassDetailsViewControllerForPass:(id)pass presentationStyle:(int64_t)style animated:(BOOL)animated;
 - (id)peerPaymentPass;
 - (id)specifiers;
 - (void)_checkManateeCapabilityForFeatureApplication:(id)application completion:(id)completion;
@@ -17,9 +18,14 @@
 - (void)presentAccountForFeature:(unint64_t)feature destination:(unint64_t)destination fundingSourceIdentifier:(id)identifier animated:(BOOL)animated;
 - (void)presentAccountUserDetailsWithPass:(id)pass presentationStyle:(int64_t)style forAccountUserAltDSID:(id)d animated:(BOOL)animated;
 - (void)presentAccountUserInvitationForPass:(id)pass presentationStyle:(int64_t)style withStatementIdentifier:(id)identifier animated:(BOOL)animated;
+- (void)presentAppleCardBillPaymentForPass:(id)pass presentationStyle:(int64_t)style amount:(id)amount billPayAmountType:(int64_t)type animated:(BOOL)animated;
 - (void)presentAuthorizationFlowAnimated:(BOOL)animated completion:(id)completion;
+- (void)presentAuthorizationViewControllerWithPaymentPass:(id)pass session:(id)session animated:(BOOL)animated completion:(id)completion;
 - (void)presentCreditPaymentPassNumbersViewControllerForPass:(id)pass presentationStyle:(int64_t)style animated:(BOOL)animated;
 - (void)presentImportFPANCardConsentAnimated:(BOOL)animated completion:(id)completion;
+- (void)presentInstallmentPlansDetailsViewControllerForPass:(id)pass presentationStyle:(int64_t)style forFeature:(unint64_t)feature animated:(BOOL)animated;
+- (void)presentPassDetailsViewControllerForPass:(id)pass presentationStyle:(int64_t)style presentingView:(int64_t)view animated:(BOOL)animated;
+- (void)presentPeerPaymentRecurringPaymentWithPass:(id)pass presentationStyle:(int64_t)style recurringPaymentIdentifier:(id)identifier animated:(BOOL)animated;
 - (void)presentPeerPaymentTransferToBankWithPass:(id)pass;
 - (void)presentStatementDetailsViewControllerForPass:(id)pass presentationStyle:(int64_t)style withIdentifier:(id)identifier animated:(BOOL)animated;
 - (void)presentTransactionDetailsForTransaction:(id)transaction transactionSourceType:(unint64_t)type confirmPaymentOfferPlan:(BOOL)plan;
@@ -28,11 +34,17 @@
 - (void)settingsController:(id)controller requestShowPeerPaymentAssociatedAccountsFlowWithController:(id)withController withPresentationContext:(id)context;
 - (void)settingsController:(id)controller requestsAddCardPreflightWithCompletion:(id)completion;
 - (void)settingsController:(id)controller requestsAuthenticationChallengeForAppleAccountInformation:(id)information completion:(id)completion;
+- (void)settingsController:(id)controller requestsDetailViewControllerForPass:(id)pass animated:(BOOL)animated;
 - (void)settingsController:(id)controller requestsPresentAuthorizationFlowWithRedirectURL:(id)l animated:(BOOL)animated completion:(id)completion;
 - (void)settingsController:(id)controller requestsPresentAutofillInformationWithSpecifier:(id)specifier cardDescriptors:(id)descriptors authentication:(id)authentication;
+- (void)settingsController:(id)controller requestsPresentInboxMessage:(id)message animated:(BOOL)animated completion:(id)completion;
 - (void)settingsController:(id)controller requestsPresentSecurityRepairFlowWithSecurityCapabilities:(unint64_t)capabilities completion:(id)completion;
+- (void)settingsController:(id)controller requestsPresentViewController:(id)viewController animated:(BOOL)animated completion:(id)completion;
 - (void)settingsControllerRequestsPresentPrivacyWithPresenter:(id)presenter;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willMoveToParentViewController:(id)controller;
 @end
 
@@ -100,22 +112,51 @@
   [(PKPassbookSettingsController *)self->_settingsController viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PassbookSettingsListController;
+  [(PassbookSettingsListController *)&v4 viewWillAppear:appear];
+  [(PKPassbookSettingsController *)self->_settingsController viewWillAppear];
+  self->_isVisible = 1;
+  if (!self->_startedReporting)
+  {
+    self->_startedReporting = 1;
+    [PKAnalyticsReporter beginSubjectReporting:PKAnalyticsSubjectWallet];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PassbookSettingsListController;
+  [(PassbookSettingsListController *)&v4 viewWillDisappear:disappear];
+  self->_isVisible = 0;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = PassbookSettingsListController;
+  [(PassbookSettingsListController *)&v11 viewDidAppear:appear];
+  [(PKPassbookSettingsController *)self->_settingsController viewDidAppear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Wallet"];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = PKPassKitBundle();
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"WALLET_&_APPLE_PAY" table:@"WalletSettings_Localizable" locale:v6 bundleURL:bundleURL];
+
+  v12 = v9;
+  v10 = [NSArray arrayWithObjects:&v12 count:1];
+  [(PassbookSettingsListController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.wallet" title:v9 localizedNavigationComponents:v10 deepLink:v4];
+}
+
 - (Class)tableViewClass
 {
-  if (self->_showUpdateRequired)
-  {
-    v2 = PKSoftwareUpdateTableView_ptr;
-  }
+  v2 = objc_opt_class();
 
-  else
-  {
-    v2 = UITableView_ptr;
-  }
-
-  v3 = *v2;
-  v4 = objc_opt_class();
-
-  return v4;
+  return v2;
 }
 
 - (void)handleDeepLinkResourceDictionary:(id)dictionary withCompletion:(id)completion
@@ -199,6 +240,79 @@
   dispatch_async(&_dispatch_main_q, block);
 }
 
+- (void)presentPassDetailsViewControllerForPass:(id)pass presentationStyle:(int64_t)style presentingView:(int64_t)view animated:(BOOL)animated
+{
+  v7 = [(PassbookSettingsListController *)self _presentPassDetailsViewControllerForPass:pass presentationStyle:style animated:animated];
+  v8 = v7;
+  switch(view)
+  {
+    case 1:
+      [v7 presentCardNumbers];
+      goto LABEL_20;
+    case 2:
+      [v7 presentTermsAndConditions];
+      goto LABEL_20;
+    case 3:
+      [v7 presentTermsAcceptance];
+      goto LABEL_20;
+    case 4:
+      [v7 presentTopUp];
+      goto LABEL_20;
+    case 5:
+      [v7 presentIdentityVerification];
+      goto LABEL_20;
+    case 6:
+      [v7 presentSchedulePayments];
+      goto LABEL_20;
+    case 7:
+      [v7 presentBalanceDetails];
+      goto LABEL_20;
+    case 8:
+      [v7 presentBankAccounts];
+      goto LABEL_20;
+    case 9:
+      [v7 presentBillPaymentWithConfig:0];
+      goto LABEL_20;
+    case 10:
+      [v7 presentShareAccount];
+      goto LABEL_20;
+    case 11:
+      [v7 presentMakeDefaultAtApple];
+      goto LABEL_20;
+    case 12:
+      [v7 presentOrderPhysicalCard];
+      goto LABEL_20;
+    case 13:
+      [v7 presentActivatePhysicalCard];
+      goto LABEL_20;
+    case 14:
+      [v7 presentTrackPhysicalCard];
+      goto LABEL_20;
+    case 15:
+      [v7 presentISO18013Details];
+      goto LABEL_20;
+    case 16:
+      [v7 presentAutoReload];
+      goto LABEL_20;
+    case 17:
+      [v7 presentReplacePhysicalCard];
+      goto LABEL_20;
+    case 18:
+      [v7 presentDeleteCard];
+LABEL_20:
+      v7 = v8;
+      break;
+    default:
+      break;
+  }
+}
+
+- (void)presentInstallmentPlansDetailsViewControllerForPass:(id)pass presentationStyle:(int64_t)style forFeature:(unint64_t)feature animated:(BOOL)animated
+{
+  animated = [(PassbookSettingsListController *)self _presentPassDetailsViewControllerForPass:pass presentationStyle:2 animated:0, animated];
+  [animated presentInstallmentPlansForFeature:2];
+}
+
 - (void)presentCreditPaymentPassNumbersViewControllerForPass:(id)pass presentationStyle:(int64_t)style animated:(BOOL)animated
 {
   v5 = [(PassbookSettingsListController *)self _presentPassDetailsViewControllerForPass:pass presentationStyle:2 animated:0];
@@ -278,6 +392,20 @@
   v9 = completionCopy;
   v7 = completionCopy;
   [(PKPassbookSettingsController *)settingsController presentFPANAdditionFlowWithPreflight:0 selectedCredentials:0 withCompletion:v8];
+}
+
+- (void)presentAppleCardBillPaymentForPass:(id)pass presentationStyle:(int64_t)style amount:(id)amount billPayAmountType:(int64_t)type animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  amountCopy = amount;
+  passCopy = pass;
+  v15 = objc_alloc_init(PKAccountServiceAccountResolutionConfiguration);
+  [v15 setBillPayAmount:amountCopy];
+
+  [v15 setBillPayAmountType:type];
+  v14 = [(PassbookSettingsListController *)self _presentPassDetailsViewControllerForPass:passCopy presentationStyle:style animated:animatedCopy];
+
+  [v14 presentBillPaymentWithConfig:v15];
 }
 
 - (void)presentTransactionDetailsForTransaction:(id)transaction transactionSourceType:(unint64_t)type confirmPaymentOfferPlan:(BOOL)plan
@@ -391,6 +519,23 @@
   }
 }
 
+- (void)presentPeerPaymentRecurringPaymentWithPass:(id)pass presentationStyle:(int64_t)style recurringPaymentIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  identifierCopy = identifier;
+  passCopy = pass;
+  v11 = [(PassbookSettingsListController *)self _presentPassDetailsViewControllerForPass:passCopy presentationStyle:style animated:animatedCopy];
+  secureElementPass = [passCopy secureElementPass];
+
+  devicePrimaryPaymentApplication = [secureElementPass devicePrimaryPaymentApplication];
+  state = [devicePrimaryPaymentApplication state];
+
+  if (state != &dword_4 + 3)
+  {
+    [v11 presentRecurringPaymentsWithIdentifier:identifierCopy];
+  }
+}
+
 - (void)presentPeerPaymentTransferToBankWithPass:(id)pass
 {
   v4 = [(PassbookSettingsListController *)self _passDetailsViewControllerForPass:pass];
@@ -473,6 +618,32 @@
   }
 }
 
+- (id)_presentPassDetailsViewControllerForPass:(id)pass presentationStyle:(int64_t)style animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v8 = [(PassbookSettingsListController *)self _passDetailsViewControllerForPass:pass];
+  if (v8)
+  {
+    if (style >= 2)
+    {
+      if (style == 2)
+      {
+        [(PassbookSettingsListController *)self showController:v8 animate:animatedCopy];
+      }
+    }
+
+    else
+    {
+      navigationController = [(PassbookSettingsListController *)self navigationController];
+      [navigationController presentViewController:v8 animated:animatedCopy completion:0];
+    }
+
+    v10 = v8;
+  }
+
+  return v8;
+}
+
 - (id)_passDetailsViewControllerForPass:(id)pass
 {
   if (pass)
@@ -527,12 +698,32 @@
   [v7 preflightWithCompletion:v9];
 }
 
+- (void)settingsController:(id)controller requestsPresentViewController:(id)viewController animated:(BOOL)animated completion:(id)completion
+{
+  if (self->_isVisible)
+  {
+    [(PassbookSettingsListController *)self presentViewController:viewController animated:animated completion:completion];
+  }
+}
+
 - (BOOL)isPresentingViewController
 {
   presentedViewController = [(PassbookSettingsListController *)self presentedViewController];
   v3 = presentedViewController != 0;
 
   return v3;
+}
+
+- (void)settingsController:(id)controller requestsDetailViewControllerForPass:(id)pass animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7 = [(PassbookSettingsListController *)self _passDetailsViewControllerForPass:pass];
+  if (v7)
+  {
+    [(PassbookSettingsListController *)self showController:v7 animate:animatedCopy];
+  }
+
+  _objc_release_x1();
 }
 
 - (void)settingsControllerRequestsPresentPrivacyWithPresenter:(id)presenter
@@ -647,20 +838,101 @@
 - (void)presentAuthorizationFlowAnimated:(BOOL)animated completion:(id)completion
 {
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v7 = objc_alloc_init(off_19560());
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_6C70;
-  v9[3] = &unk_14B50;
-  v8 = completionCopy;
-  v10 = v8;
-  objc_copyWeak(&v11, &location);
+  inited = objc_initWeak(&location, self);
+  v8 = objc_alloc_init(off_19560(inited));
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_6C70;
+  v10[3] = &unk_14B50;
+  v9 = completionCopy;
+  v11 = v9;
+  objc_copyWeak(&v12, &location);
   animatedCopy = animated;
-  [v7 authorizationSessionWithCompletion:v9];
-  objc_destroyWeak(&v11);
+  [v8 authorizationSessionWithCompletion:v10];
+  objc_destroyWeak(&v12);
 
   objc_destroyWeak(&location);
+}
+
+- (void)presentAuthorizationViewControllerWithPaymentPass:(id)pass session:(id)session animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  passCopy = pass;
+  sessionCopy = session;
+  completionCopy = completion;
+  objc_initWeak(&location, self);
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_5930;
+  v42 = sub_5940;
+  v43 = 0;
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_717C;
+  v32[3] = &unk_14B78;
+  objc_copyWeak(&v36, &location);
+  v13 = completionCopy;
+  v35 = v13;
+  v14 = passCopy;
+  v33 = v14;
+  v15 = sessionCopy;
+  v34 = v15;
+  v37 = animatedCopy;
+  v16 = objc_retainBlock(v32);
+  v17 = [(objc_class *)off_19568() makeAuthorizationViewControllerForAuthorizationSession:v15 completion:v16];
+  v18 = v39[5];
+  v39[5] = v17;
+
+  navigationController = [(PassbookSettingsListController *)self navigationController];
+  pkui_frontMostViewController = [navigationController pkui_frontMostViewController];
+
+  [(PassbookSettingsListController *)self navigationController];
+  if (pkui_frontMostViewController)
+    v21 = {;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_7264;
+    v28[3] = &unk_14BC8;
+    v28[4] = self;
+    v30 = &v38;
+    v31 = animatedCopy;
+    v29 = v13;
+    [v21 dismissViewControllerAnimated:0 completion:v28];
+
+    v22 = v29;
+  }
+
+  else
+    v23 = {;
+    v24 = v39[5];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_7344;
+    v25[3] = &unk_14BA0;
+    v26 = v13;
+    v27 = &v38;
+    [v23 presentViewController:v24 animated:animatedCopy completion:v25];
+
+    v22 = v26;
+  }
+
+  objc_destroyWeak(&v36);
+  _Block_object_dispose(&v38, 8);
+
+  objc_destroyWeak(&location);
+}
+
+- (void)settingsController:(id)controller requestsPresentInboxMessage:(id)message animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  messageCopy = message;
+  completionCopy = completion;
+  if (![messageCopy type])
+  {
+    accountUserInvitation = [messageCopy accountUserInvitation];
+    [(PassbookSettingsListController *)self _presentAccountUserInvitation:accountUserInvitation animated:animatedCopy completion:completionCopy];
+  }
 }
 
 - (void)_presentAccountUserInvitation:(id)invitation animated:(BOOL)animated completion:(id)completion

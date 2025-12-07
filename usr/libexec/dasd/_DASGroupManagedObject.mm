@@ -7,7 +7,7 @@
 - (void)willSave
 {
   activities = [(_DASGroupManagedObject *)self activities];
-  v4 = [activities count];
+  v4 = objc_msgSend_count(activities);
 
   if (v4)
   {

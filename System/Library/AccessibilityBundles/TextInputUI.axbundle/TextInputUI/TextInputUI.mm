@@ -31,9 +31,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_29C4BAEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C4BAEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -45,44 +45,44 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_29C4BB164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C4BB164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_29C4BB3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C4BB3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getSpeakTypingServicesClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v4[0] = 0;
+  v6 = *MEMORY[0x29EDCA608];
+  v3[0] = 0;
   if (!SpeakTypingServicesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x29EDCA5F8];
-    v4[2] = 3221225472;
-    v4[3] = __SpeakTypingServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_29F30A168;
-    v6 = 0;
+    v3[1] = MEMORY[0x29EDCA5F8];
+    v3[2] = 3221225472;
+    v3[3] = __SpeakTypingServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_29F30A168;
+    v5 = 0;
     SpeakTypingServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!SpeakTypingServicesLibraryCore_frameworkLibrary)
   {
-    __getSpeakTypingServicesClass_block_invoke_cold_2(v4);
+    __getSpeakTypingServicesClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("SpeakTypingServices");
@@ -93,17 +93,13 @@ Class __getSpeakTypingServicesClass_block_invoke(uint64_t a1)
   }
 
   getSpeakTypingServicesClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t __SpeakTypingServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpeakTypingServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 

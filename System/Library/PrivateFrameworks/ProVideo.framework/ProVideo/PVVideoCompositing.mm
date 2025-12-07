@@ -169,10 +169,10 @@ LABEL_11:
 
 - (PVVideoCompositing)init
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = PVVideoCompositing;
-  v2 = [(PVRendererBase *)&v17 init];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = PVVideoCompositing;
+  v2 = [(PVRendererBase *)&v16 init];
   if (v2)
   {
     if ([PVVideoCompositing init]::onceToken != -1)
@@ -181,34 +181,34 @@ LABEL_11:
     }
 
     v3 = sRefCountLock;
-    v15 = sRefCountLock;
-    v16 = 0;
+    v14 = sRefCountLock;
+    v15 = 0;
     HGSynchronizable::Lock(sRefCountLock);
     ++sLivingCompositorRefCount;
     v4 = +[PVEnvironment PV_MAX_EXPECTED_LIVE_COMPOSITORS];
     if (sLivingCompositorRefCount > v4)
     {
-      v18[0] = @"kPVVideoCompositingTooManyLiveCompositorsWarning_LiveCount";
+      v17[0] = @"kPVVideoCompositingTooManyLiveCompositorsWarning_LiveCount";
       v5 = [MEMORY[0x277CCABB0] numberWithInt:?];
-      v18[1] = @"kPVVideoCompositingTooManyLiveCompositorsWarning_MaxExpected";
-      v19[0] = v5;
+      v17[1] = @"kPVVideoCompositingTooManyLiveCompositorsWarning_MaxExpected";
+      v18[0] = v5;
       v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
-      v19[1] = v6;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+      v18[1] = v6;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter postNotificationName:@"kPVVideoCompositingTooManyCompositorsWarning" object:v7];
     }
 
-    v9 = HGSynchronizable::Unlock(v3);
-    PVRenderManager::INSTANCE(v9, &v15);
+    HGSynchronizable::Unlock(v3);
+    PVRenderManager::INSTANCE(&v14);
     m_Obj = v2->_renderManager.m_Obj;
-    v11 = v15;
-    if (m_Obj == v15)
+    v10 = v14;
+    if (m_Obj == v14)
     {
       if (m_Obj)
       {
-        (*(*v15 + 24))(v15);
+        (*(*v14 + 24))(v14);
       }
     }
 
@@ -217,20 +217,20 @@ LABEL_11:
       if (m_Obj)
       {
         (*(*m_Obj + 24))(m_Obj);
-        v11 = v15;
+        v10 = v14;
       }
 
-      v2->_renderManager.m_Obj = v11;
+      v2->_renderManager.m_Obj = v10;
     }
 
     [(PVVideoCompositing *)v2 setupTextureFactories];
     PVRenderManager::FreeTexturePools(v2->_renderManager.m_Obj);
     [(PVVideoCompositing *)v2 setupEffectScheduler];
-    v12 = *(MEMORY[0x277CC08F0] + 16);
+    v11 = *(MEMORY[0x277CC08F0] + 16);
     *&v2->_videoCompositionDuration.value = *MEMORY[0x277CC08F0];
-    v2->_videoCompositionDuration.epoch = v12;
-    v13 = +[PVVideoCompositingContext createContextForGPU];
-    [(PVRendererBase *)v2 setCompositingContext:v13];
+    v2->_videoCompositionDuration.epoch = v11;
+    v12 = +[PVVideoCompositingContext createContextForGPU];
+    [(PVRendererBase *)v2 setCompositingContext:v12];
 
     operator new();
   }
@@ -332,7 +332,7 @@ LABEL_11:
 
   v13 = 0uLL;
   v14 = 0;
-  [(PVVideoCompositing *)self schedulingTime];
+  objc_msgSend_schedulingTime(self);
   if (0 >> 96)
   {
     v8 = self->_effectScheduler;
@@ -486,7 +486,7 @@ LABEL_10:
         lhs.epoch = self->_videoCompositionDuration.epoch;
         if (v12)
         {
-          [v12 timeRange];
+          objc_msgSend_timeRange(v12);
         }
 
         else
@@ -531,7 +531,7 @@ LABEL_10:
     memset(&v35, 0, sizeof(v35));
     if (requestCopy)
     {
-      [requestCopy compositionTime];
+      objc_msgSend_compositionTime(requestCopy);
       timescale = v35.timescale;
     }
 
@@ -649,7 +649,7 @@ LABEL_10:
     {
       if (requestCopy)
       {
-        [requestCopy compositionTime];
+        objc_msgSend_compositionTime(requestCopy);
       }
 
       else
@@ -664,7 +664,8 @@ LABEL_10:
     }
 
     time = v35;
-    [(PVRendererBase *)self startJobForDelegate:v11 time:&time playback:[(PVVideoCompositing *)self inPlayback]];
+    [(PVVideoCompositing *)self inPlayback];
+    objc_msgSend_startJobForDelegate_time_playback_(self);
     if (+[PVEnvironment PV_SERIALIZE_EXPORT_REQUESTS])
     {
       renderContext5 = [requestCopy renderContext];
@@ -894,7 +895,7 @@ uint64_t __49__PVVideoCompositing_callRefreshCompletionBlock___block_invoke(uint
     v12 = compositionRequest;
     if (compositionRequest)
     {
-      [compositionRequest compositionTime];
+      objc_msgSend_compositionTime(compositionRequest);
     }
 
     else

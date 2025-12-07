@@ -62,9 +62,7 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  messageType = self->_messageType;
   PBDataWriterWriteInt32Field();
-  cacheType = self->_cacheType;
   PBDataWriterWriteInt32Field();
   if (self->_assetKey)
   {
@@ -76,17 +74,17 @@
     PBDataWriterWriteStringField();
   }
 
-  v6 = toCopy;
+  v4 = toCopy;
   if (self->_assetData)
   {
     PBDataWriterWriteDataField();
-    v6 = toCopy;
+    v4 = toCopy;
   }
 
   if (self->_syncData)
   {
     PBDataWriterWriteSubmessage();
-    v6 = toCopy;
+    v4 = toCopy;
   }
 }
 

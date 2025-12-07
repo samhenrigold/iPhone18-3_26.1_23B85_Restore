@@ -65,7 +65,6 @@
 {
   objc_storeStrong(&self->_fromDate, date);
   dateCopy = date;
-  calendar = self->_calendar;
   NTKHourMinuteSecondAnglesForTime();
 
   self->_fromHourAngle = -0.0;
@@ -78,7 +77,6 @@
 {
   objc_storeStrong(&self->_toDate, date);
   dateCopy = date;
-  calendar = self->_calendar;
   NTKHourMinuteSecondAnglesForTime();
 
   self->_toHourAngle = -0.0;
@@ -89,21 +87,12 @@
 
 - (void)_updateHandAngles
 {
-  fromHourAngle = self->_fromHourAngle;
-  toHourAngle = self->_toHourAngle;
-  dateFraction = self->_dateFraction;
   CLKInterpolateShortestPathBetweenAnglesUnclipped();
-  self->_hourAngle = v6;
-  fromMinuteAngle = self->_fromMinuteAngle;
-  toMinuteAngle = self->_toMinuteAngle;
-  v9 = self->_dateFraction;
+  self->_hourAngle = v3;
   CLKInterpolateShortestPathBetweenAnglesUnclipped();
-  self->_minuteAngle = v10;
-  fromSecondAngle = self->_fromSecondAngle;
-  toSecondAngle = self->_toSecondAngle;
-  secondFraction = self->_secondFraction;
+  self->_minuteAngle = v4;
   CLKInterpolateShortestPathBetweenAnglesUnclipped();
-  self->_secondAngle = v14;
+  self->_secondAngle = v5;
 }
 
 - (void)setConfettiRotation:(double)rotation
@@ -404,7 +393,7 @@
     v123 = *v122++;
     *([v120 contents] + v121) = v123;
     *([v120 contents] + v121 + 2) = WORD2(v123);
-    *([v120 contents] + v121 + 4) = v152;
+    *([v120 contents] + v121 + 4) = WORD4(v123);
     v121 += 6;
   }
 
@@ -886,7 +875,7 @@
   v6 = [bufferCopy renderCommandEncoderWithDescriptor:?];
   texture = [(NTKParameciumSprite *)self->_gradientSprite texture];
   texture2 = [(NTKParameciumSprite *)self->_shadowGradientSprite texture];
-  v162 = texture2;
+  v150 = texture2;
   if (self->_showsConfetti > 0.0)
   {
     [v6 setRenderPipelineState:self->_capsulePipelineState];
@@ -894,14 +883,14 @@
     texture2 = [v6 drawIndexedPrimitives:3 indexCount:588 indexType:0 indexBuffer:self->_confettiIndexBuffer indexBufferOffset:0 instanceCount:60];
   }
 
-  v175 = 0u;
-  v176 = 0u;
-  v173 = 0u;
-  v174 = 0u;
-  v171 = 0u;
-  v172 = 0u;
-  *&v171 = *self->_targetSize;
-  LODWORD(v176) = 1065353216;
+  v163 = 0u;
+  v164 = 0u;
+  v161 = 0u;
+  v162 = 0u;
+  v159 = 0u;
+  v160 = 0u;
+  *&v159 = *self->_targetSize;
+  LODWORD(v164) = 1065353216;
   if (self->_showsNumbers > 0.0)
   {
     texture3 = [(NTKParameciumSprite *)self->_backgroundWhiteNumbersSprite texture];
@@ -912,27 +901,27 @@
     height = [texture3 height];
     *&v12 = width;
     *(&v12 + 1) = height;
-    *(&v171 + 1) = v12;
-    v172 = *&v12;
+    *(&v159 + 1) = v12;
+    v160 = *&v12;
     __asm { FMOV            V2.2S, #1.0 }
 
     [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:v12 translation:COERCE_DOUBLE(vmul_f32(*self->_targetSize scale:0x3F0000003F000000)) rotate:_D2 offset:0.0, 0.0];
-    DWORD2(v173) = v18;
-    DWORD2(v174) = v19;
-    *&v173 = v20;
-    *&v174 = v21;
-    DWORD2(v175) = v22;
-    *&v175 = v23;
-    v177[0] = 0.0;
-    [v6 setVertexBytes:v177 length:4 atIndex:1];
+    DWORD2(v161) = v18;
+    DWORD2(v162) = v19;
+    *&v161 = v20;
+    *&v162 = v21;
+    DWORD2(v163) = v22;
+    *&v163 = v23;
+    v165[0] = 0.0;
+    [v6 setVertexBytes:v165 length:4 atIndex:1];
     v24 = fmin(self->_showsNumbers + self->_showsNumbers, 1.0) * v10;
-    *&v176 = v24;
-    [v6 setVertexBytes:&v171 length:96 atIndex:0];
+    *&v164 = v24;
+    [v6 setVertexBytes:&v159 length:96 atIndex:0];
     [v6 setFragmentTexture:texture3 atIndex:0];
     [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
     v25 = fmin(self->_showsNumbers + self->_showsNumbers, 1.0) * (1.0 - v10);
-    *&v176 = v25;
-    [v6 setVertexBytes:&v171 length:96 atIndex:0];
+    *&v164 = v25;
+    [v6 setVertexBytes:&v159 length:96 atIndex:0];
     [v6 setFragmentTexture:texture4 atIndex:0];
     [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
   }
@@ -944,33 +933,33 @@
     v29 = 0;
     v30 = 0;
     *&v27 = v27 + v27;
-    *&v166 = LODWORD(v27);
+    *&v154 = LODWORD(v27);
     do
     {
       tickShadows = self->_tickShadows;
       *&v32 = 0;
       DWORD2(v32) = 0;
       *(&v32 + 3) = tickShadows;
-      v164 = v32;
+      v152 = v32;
       v33 = COERCE_DOUBLE(vmul_f32(*self->_targetSize, 0x3F0000003F000000));
       v34 = v30 / 12.0 * 6.28318531 + 1.57079633;
       *&v28 = v34;
-      [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:1.03079232e11 translation:v33 scale:0.0000305175853 rotate:v28 offset:v166];
-      v35 = &v177[v29];
+      [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:1.03079232e11 translation:v33 scale:0.0000305175853 rotate:v28 offset:v154];
+      v35 = &v165[v29];
       *v35 = v26;
       *(v35 + 1) = 0x4238000043140000;
-      HIDWORD(v28) = HIDWORD(v166);
-      *(v35 + 1) = v164;
+      HIDWORD(v28) = HIDWORD(v154);
+      *(v35 + 1) = v152;
       *(v35 + 4) = v33;
       *(v35 + 5) = 0x3F0000003F000000;
-      *(v35 + 6) = v166;
+      *(v35 + 6) = v154;
       v35[14] = v34;
       v35[15] = 0.0;
-      v177[v29 + 18] = v36;
+      v165[v29 + 18] = v36;
       *(v35 + 8) = v37;
-      v177[v29 + 22] = v38;
+      v165[v29 + 22] = v38;
       *(v35 + 10) = v39;
-      v177[v29 + 26] = v40;
+      v165[v29 + 26] = v40;
       ++v30;
       v29 += 28;
       *(v35 + 12) = v41;
@@ -999,73 +988,70 @@
 
       v49 = vmlaq_f32(vmulq_n_f32(*&self->_tritiumColors[16 * v48], v44), *&self->_confettiColors[16 * v48], v43);
       v49.f32[3] = v45;
-      *&v177[v47] = v49;
+      *&v165[v47] = v49;
       v47 += 28;
       --v46;
     }
 
     while (v46);
-    [v6 setVertexBytes:v177 length:1344 atIndex:0];
+    [v6 setVertexBytes:v165 length:1344 atIndex:0];
     [v6 drawIndexedPrimitives:3 indexCount:588 indexType:0 indexBuffer:self->_confettiIndexBuffer indexBufferOffset:0 instanceCount:12];
   }
 
-  LODWORD(v176) = 1065353216;
+  LODWORD(v164) = 1065353216;
   texture5 = [(NTKParameciumSprite *)self->_minuteShadowSprite texture];
   v51 = -self->_confettiRotation - self->_minuteAngle;
-  v177[0] = v51;
+  v165[0] = v51;
   [v6 setRenderPipelineState:self->_tintedSpritePipelineState];
   width2 = [texture5 width];
   height2 = [texture5 height];
   v53.f32[0] = width2;
   v53.f32[1] = height2;
-  v168 = v53;
-  *(&v171 + 1) = v53;
-  v172 = v53;
+  v156 = v53;
+  *(&v159 + 1) = v53;
+  v160 = v53;
   v54 = vsub_f32(0x3F0000003F000000, *self->_minuteAnchor);
   [(CLKUIAnalogHandConfiguration *)self->_minuteConfiguration radialShadowRadius];
   *&v55 = v55;
   minuteAngle = self->_minuteAngle;
   *&minuteAngle = minuteAngle;
-  v57 = COERCE_DOUBLE(vneg_f32(vmla_f32(vdup_lane_s32(*&v55, 0), v54, v168)));
+  v57 = COERCE_DOUBLE(vneg_f32(vmla_f32(vdup_lane_s32(*&v55, 0), v54, v156)));
   LODWORD(v57) = 0;
   __asm { FMOV            V8.2S, #1.0 }
 
-  [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:*(&v171 + 1) translation:COERCE_DOUBLE(vadd_f32(vmul_f32(*self->_targetSize scale:0x3F0000003F000000) rotate:0xC0A0000000000000)) offset:_D8, minuteAngle, v57];
-  DWORD2(v173) = v59;
-  DWORD2(v174) = v60;
-  *&v173 = v61;
-  *&v174 = v62;
-  DWORD2(v175) = v63;
-  *&v175 = v64;
-  [v6 setVertexBytes:v177 length:4 atIndex:1];
-  [v6 setVertexBytes:&v171 length:96 atIndex:0];
+  [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:*(&v159 + 1) translation:COERCE_DOUBLE(vadd_f32(vmul_f32(*self->_targetSize scale:0x3F0000003F000000) rotate:0xC0A0000000000000)) offset:_D8, minuteAngle, v57];
+  DWORD2(v161) = v59;
+  DWORD2(v162) = v60;
+  *&v161 = v61;
+  *&v162 = v62;
+  DWORD2(v163) = v63;
+  *&v163 = v64;
+  [v6 setVertexBytes:v165 length:4 atIndex:1];
+  [v6 setVertexBytes:&v159 length:96 atIndex:0];
   [v6 setFragmentTexture:texture5 atIndex:0];
-  [v6 setFragmentTexture:v162 atIndex:1];
+  [v6 setFragmentTexture:v150 atIndex:1];
   [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
 
   texture6 = [(NTKParameciumSprite *)self->_minuteSprite texture];
   texture7 = [(NTKParameciumSprite *)self->_minuteInlaySprite texture];
   v67 = -self->_confettiRotation - self->_minuteAngle;
-  v177[0] = v67;
+  v165[0] = v67;
   [v6 setRenderPipelineState:self->_handPipelineState];
-  v168.f32[0] = [texture6 width];
+  v156.f32[0] = [texture6 width];
   height3 = [texture6 height];
-  LODWORD(v69) = v168.i32[0];
+  LODWORD(v69) = v156.i32[0];
   *(&v69 + 1) = height3;
-  *(&v171 + 1) = v69;
-  v172 = v69;
-  v70 = vmul_f32(*self->_targetSize, 0x3F0000003F000000);
-  v71 = self->_minuteAngle;
-  v72 = -(height3 * (0.5 - *&self->_minuteAnchor[4]));
+  *(&v159 + 1) = v69;
+  v160 = v69;
   [NTKParameciumCompositeQuad createMatrixForTextureWithSize:"createMatrixForTextureWithSize:translation:scale:rotate:offset:" translation:? scale:? rotate:? offset:?];
-  DWORD2(v173) = v73;
-  DWORD2(v174) = v74;
-  *&v173 = v75;
-  *&v174 = v76;
-  DWORD2(v175) = v77;
-  *&v175 = v78;
-  [v6 setVertexBytes:v177 length:4 atIndex:1];
-  [v6 setVertexBytes:&v171 length:96 atIndex:0];
+  DWORD2(v161) = v70;
+  DWORD2(v162) = v71;
+  *&v161 = v72;
+  *&v162 = v73;
+  DWORD2(v163) = v74;
+  *&v163 = v75;
+  [v6 setVertexBytes:v165 length:4 atIndex:1];
+  [v6 setVertexBytes:&v159 length:96 atIndex:0];
   [v6 setFragmentTexture:texture6 atIndex:0];
   [v6 setFragmentTexture:texture atIndex:1];
   [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
@@ -1073,60 +1059,57 @@
   [v6 setFragmentTexture:texture7 atIndex:0];
   [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
 
-  v79 = -self->_confettiRotation - self->_hourAngle;
-  v177[0] = v79;
+  v76 = -self->_confettiRotation - self->_hourAngle;
+  v165[0] = v76;
   texture8 = [(NTKParameciumSprite *)self->_hourShadowSprite texture];
   [v6 setRenderPipelineState:self->_tintedSpritePipelineState];
-  v168.f32[0] = [texture8 width];
+  v156.f32[0] = [texture8 width];
   height4 = [texture8 height];
-  v82.i32[0] = v168.i32[0];
-  v82.f32[1] = height4;
-  v169 = v82;
-  *(&v171 + 1) = v82;
-  v172 = v82;
-  v83 = vsub_f32(0x3F0000003F000000, *self->_hourAnchor);
+  v79.i32[0] = v156.i32[0];
+  v79.f32[1] = height4;
+  v157 = v79;
+  *(&v159 + 1) = v79;
+  v160 = v79;
+  v80 = vsub_f32(0x3F0000003F000000, *self->_hourAnchor);
   [(CLKUIAnalogHandConfiguration *)self->_hourConfiguration radialShadowRadius];
-  *&v84 = v84;
+  *&v81 = v81;
   hourAngle = self->_hourAngle;
   *&hourAngle = hourAngle;
-  v86 = COERCE_DOUBLE(vneg_f32(vmla_f32(vdup_lane_s32(*&v84, 0), v83, v169)));
-  LODWORD(v86) = 0;
-  [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:*(&v171 + 1) translation:COERCE_DOUBLE(vadd_f32(vmul_f32(*self->_targetSize scale:0x3F0000003F000000) rotate:0xC0A0000000000000)) offset:_D8, hourAngle, v86];
-  DWORD2(v173) = v87;
-  DWORD2(v174) = v88;
-  *&v173 = v89;
-  *&v174 = v90;
-  DWORD2(v175) = v91;
-  *&v175 = v92;
-  [v6 setVertexBytes:v177 length:4 atIndex:1];
-  [v6 setVertexBytes:&v171 length:96 atIndex:0];
+  v83 = COERCE_DOUBLE(vneg_f32(vmla_f32(vdup_lane_s32(*&v81, 0), v80, v157)));
+  LODWORD(v83) = 0;
+  [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:*(&v159 + 1) translation:COERCE_DOUBLE(vadd_f32(vmul_f32(*self->_targetSize scale:0x3F0000003F000000) rotate:0xC0A0000000000000)) offset:_D8, hourAngle, v83];
+  DWORD2(v161) = v84;
+  DWORD2(v162) = v85;
+  *&v161 = v86;
+  *&v162 = v87;
+  DWORD2(v163) = v88;
+  *&v163 = v89;
+  [v6 setVertexBytes:v165 length:4 atIndex:1];
+  [v6 setVertexBytes:&v159 length:96 atIndex:0];
   [v6 setFragmentTexture:texture8 atIndex:0];
-  [v6 setFragmentTexture:v162 atIndex:1];
+  [v6 setFragmentTexture:v150 atIndex:1];
   [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
 
-  v93 = -self->_confettiRotation - self->_hourAngle;
-  v177[0] = v93;
+  v90 = -self->_confettiRotation - self->_hourAngle;
+  v165[0] = v90;
   texture9 = [(NTKParameciumSprite *)self->_hourSprite texture];
   texture10 = [(NTKParameciumSprite *)self->_hourInlaySprite texture];
   [v6 setRenderPipelineState:self->_handPipelineState];
-  v169.f32[0] = [texture9 width];
+  v157.f32[0] = [texture9 width];
   height5 = [texture9 height];
-  LODWORD(v97) = v169.i32[0];
-  *(&v97 + 1) = height5;
-  *(&v171 + 1) = v97;
-  v172 = v97;
-  v98 = vmul_f32(*self->_targetSize, 0x3F0000003F000000);
-  v99 = self->_hourAngle;
-  v100 = -(height5 * (0.5 - *&self->_hourAnchor[4]));
+  LODWORD(v94) = v157.i32[0];
+  *(&v94 + 1) = height5;
+  *(&v159 + 1) = v94;
+  v160 = v94;
   [NTKParameciumCompositeQuad createMatrixForTextureWithSize:"createMatrixForTextureWithSize:translation:scale:rotate:offset:" translation:? scale:? rotate:? offset:?];
-  DWORD2(v173) = v101;
-  DWORD2(v174) = v102;
-  *&v173 = v103;
-  *&v174 = v104;
-  DWORD2(v175) = v105;
-  *&v175 = v106;
-  [v6 setVertexBytes:v177 length:4 atIndex:1];
-  [v6 setVertexBytes:&v171 length:96 atIndex:0];
+  DWORD2(v161) = v95;
+  DWORD2(v162) = v96;
+  *&v161 = v97;
+  *&v162 = v98;
+  DWORD2(v163) = v99;
+  *&v163 = v100;
+  [v6 setVertexBytes:v165 length:4 atIndex:1];
+  [v6 setVertexBytes:&v159 length:96 atIndex:0];
   [v6 setFragmentTexture:texture9 atIndex:0];
   [v6 setFragmentTexture:texture atIndex:1];
   [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
@@ -1135,105 +1118,99 @@
   [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
 
   confettiRotation = self->_confettiRotation;
-  v177[0] = -confettiRotation;
+  v165[0] = -confettiRotation;
   texture11 = [(NTKParameciumSprite *)self->_secondShadowSprite texture];
   [v6 setRenderPipelineState:self->_spritePipelineState];
-  v169.f32[0] = [texture11 width];
+  v157.f32[0] = [texture11 width];
   height6 = [texture11 height];
-  v110.i32[0] = v169.i32[0];
-  v110.f32[1] = height6;
-  v170 = v110;
-  *(&v171 + 1) = v110;
-  v172 = v110;
-  v111 = vsub_f32(0x3F0000003F000000, *self->_secondAnchor);
+  v104.i32[0] = v157.i32[0];
+  v104.f32[1] = height6;
+  v158 = v104;
+  *(&v159 + 1) = v104;
+  v160 = v104;
+  v105 = vsub_f32(0x3F0000003F000000, *self->_secondAnchor);
   [(CLKUIAnalogHandConfiguration *)self->_secondConfiguration radialShadowRadius];
-  *&v112 = v112;
+  *&v106 = v106;
   secondAngle = self->_secondAngle;
   *&secondAngle = secondAngle;
-  v114 = COERCE_DOUBLE(vneg_f32(vmla_f32(vdup_lane_s32(*&v112, 0), v111, v170)));
-  LODWORD(v114) = 0;
-  [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:*(&v171 + 1) translation:COERCE_DOUBLE(vadd_f32(vmul_f32(*self->_targetSize scale:0x3F0000003F000000) rotate:0xC0A0000000000000)) offset:_D8, secondAngle, v114];
-  DWORD2(v173) = v115;
-  DWORD2(v174) = v116;
-  *&v173 = v117;
-  *&v174 = v118;
-  DWORD2(v175) = v119;
-  *&v175 = v120;
-  [v6 setVertexBytes:v177 length:4 atIndex:1];
-  [v6 setVertexBytes:&v171 length:96 atIndex:0];
+  v108 = COERCE_DOUBLE(vneg_f32(vmla_f32(vdup_lane_s32(*&v106, 0), v105, v158)));
+  LODWORD(v108) = 0;
+  [(NTKParameciumCompositeQuad *)self createMatrixForTextureWithSize:*(&v159 + 1) translation:COERCE_DOUBLE(vadd_f32(vmul_f32(*self->_targetSize scale:0x3F0000003F000000) rotate:0xC0A0000000000000)) offset:_D8, secondAngle, v108];
+  DWORD2(v161) = v109;
+  DWORD2(v162) = v110;
+  *&v161 = v111;
+  *&v162 = v112;
+  DWORD2(v163) = v113;
+  *&v163 = v114;
+  [v6 setVertexBytes:v165 length:4 atIndex:1];
+  [v6 setVertexBytes:&v159 length:96 atIndex:0];
   [v6 setFragmentTexture:texture11 atIndex:0];
   [v6 drawPrimitives:4 vertexStart:0 vertexCount:4];
 
   [v6 endEncoding];
-  v121 = [(CLKUIMetalResourcePool *)self->_secondHandBlurTexturePool dequeueReusableResourceForUseOnCommandBuffer:bufferCopy];
+  v115 = [(CLKUIMetalResourcePool *)self->_secondHandBlurTexturePool dequeueReusableResourceForUseOnCommandBuffer:bufferCopy];
   colorAttachments = [(MTLRenderPassDescriptor *)self->_blurPassDescriptor colorAttachments];
-  v123 = [colorAttachments objectAtIndexedSubscript:0];
-  [v123 setTexture:v121];
+  v117 = [colorAttachments objectAtIndexedSubscript:0];
+  [v117 setTexture:v115];
 
-  v124 = [bufferCopy renderCommandEncoderWithDescriptor:self->_blurPassDescriptor];
+  v118 = [bufferCopy renderCommandEncoderWithDescriptor:self->_blurPassDescriptor];
   texture12 = [(NTKParameciumSprite *)self->_secondSprite texture];
-  [v124 setRenderPipelineState:self->_blurPipelineState];
-  width3 = [v121 width];
-  height7 = [v121 height];
-  *&v127 = width3;
-  *(&v127 + 1) = height7;
-  *(&v171 + 1) = v127;
-  v172 = v127;
-  v128 = vmul_f32(*self->_targetSize, 0x3F0000003F000000);
-  v129 = self->_secondAngle;
-  v130 = -(height7 * (0.5 - *&self->_secondAnchor[4]));
+  [v118 setRenderPipelineState:self->_blurPipelineState];
+  width3 = [v115 width];
+  height7 = [v115 height];
+  *&v121 = width3;
+  *(&v121 + 1) = height7;
+  *(&v159 + 1) = v121;
+  v160 = v121;
   [NTKParameciumCompositeQuad createMatrixForTextureWithSize:"createMatrixForTextureWithSize:translation:scale:rotate:offset:" translation:? scale:? rotate:? offset:?];
-  DWORD2(v173) = v131;
-  DWORD2(v174) = v132;
-  *&v173 = v133;
-  *&v174 = v134;
-  DWORD2(v175) = v135;
-  *&v175 = v136;
-  [v124 setVertexBytes:&v171 length:96 atIndex:0];
+  DWORD2(v161) = v122;
+  DWORD2(v162) = v123;
+  *&v161 = v124;
+  *&v162 = v125;
+  DWORD2(v163) = v126;
+  *&v163 = v127;
+  [v118 setVertexBytes:&v159 length:96 atIndex:0];
   colorAttachments2 = [descriptorCopy colorAttachments];
-  v138 = [colorAttachments2 objectAtIndexedSubscript:0];
-  texture13 = [v138 texture];
-  [v124 setFragmentTexture:texture13 atIndex:0];
+  v129 = [colorAttachments2 objectAtIndexedSubscript:0];
+  texture13 = [v129 texture];
+  [v118 setFragmentTexture:texture13 atIndex:0];
 
-  [v124 setFragmentTexture:texture12 atIndex:1];
-  v140 = fmin(self->_tritiumProgress, 1.0 - self->_backgroundOn);
-  v177[0] = v140;
-  [v124 setFragmentBytes:v177 length:4 atIndex:0];
-  [v124 drawPrimitives:4 vertexStart:0 vertexCount:4];
+  [v118 setFragmentTexture:texture12 atIndex:1];
+  v131 = fmin(self->_tritiumProgress, 1.0 - self->_backgroundOn);
+  v165[0] = v131;
+  [v118 setFragmentBytes:v165 length:4 atIndex:0];
+  [v118 drawPrimitives:4 vertexStart:0 vertexCount:4];
 
-  [v124 endEncoding];
+  [v118 endEncoding];
   colorAttachments3 = [descriptorCopy colorAttachments];
-  v142 = [colorAttachments3 objectAtIndexedSubscript:0];
-  texture14 = [v142 texture];
+  v133 = [colorAttachments3 objectAtIndexedSubscript:0];
+  texture14 = [v133 texture];
   colorAttachments4 = [(MTLRenderPassDescriptor *)self->_compositePassDescriptor colorAttachments];
-  v145 = [colorAttachments4 objectAtIndexedSubscript:0];
-  [v145 setTexture:texture14];
+  v136 = [colorAttachments4 objectAtIndexedSubscript:0];
+  [v136 setTexture:texture14];
 
-  v146 = [bufferCopy renderCommandEncoderWithDescriptor:self->_compositePassDescriptor];
+  v137 = [bufferCopy renderCommandEncoderWithDescriptor:self->_compositePassDescriptor];
 
-  [v146 setRenderPipelineState:self->_spritePipelineState];
-  width4 = [v121 width];
-  height8 = [v121 height];
-  *&v148 = width4;
-  *(&v148 + 1) = height8;
-  *(&v171 + 1) = v148;
-  v172 = v148;
-  v149 = vmul_f32(*self->_targetSize, 0x3F0000003F000000);
-  v150 = self->_secondAngle;
-  v151 = -(height8 * (0.5 - *&self->_secondAnchor[4]));
+  [v137 setRenderPipelineState:self->_spritePipelineState];
+  width4 = [v115 width];
+  height8 = [v115 height];
+  *&v139 = width4;
+  *(&v139 + 1) = height8;
+  *(&v159 + 1) = v139;
+  v160 = v139;
   [NTKParameciumCompositeQuad createMatrixForTextureWithSize:"createMatrixForTextureWithSize:translation:scale:rotate:offset:" translation:? scale:? rotate:? offset:?];
-  DWORD2(v173) = v152;
-  DWORD2(v174) = v153;
-  DWORD2(v175) = v154;
-  *&v173 = v155;
-  *&v174 = v156;
-  *&v175 = v157;
-  *&v155 = self->_tritiumProgress;
-  LODWORD(v176) = v155;
-  [v146 setVertexBytes:&v171 length:96 atIndex:0];
-  [v146 setFragmentTexture:v121 atIndex:0];
-  [v146 drawPrimitives:4 vertexStart:0 vertexCount:4];
-  [v146 endEncoding];
+  DWORD2(v161) = v140;
+  DWORD2(v162) = v141;
+  DWORD2(v163) = v142;
+  *&v161 = v143;
+  *&v162 = v144;
+  *&v163 = v145;
+  *&v143 = self->_tritiumProgress;
+  LODWORD(v164) = v143;
+  [v137 setVertexBytes:&v159 length:96 atIndex:0];
+  [v137 setFragmentTexture:v115 atIndex:0];
+  [v137 drawPrimitives:4 vertexStart:0 vertexCount:4];
+  [v137 endEncoding];
 }
 
 @end

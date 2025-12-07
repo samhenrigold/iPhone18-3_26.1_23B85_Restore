@@ -80,7 +80,6 @@
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_settingsPluginFromBundleWithName:(id)name
@@ -165,7 +164,6 @@
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v22;
 
   return v7;

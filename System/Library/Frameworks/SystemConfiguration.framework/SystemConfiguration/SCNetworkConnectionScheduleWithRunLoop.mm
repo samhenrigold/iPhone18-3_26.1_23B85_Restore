@@ -22,12 +22,12 @@ void ____SCNetworkConnectionScheduleWithRunLoop_block_invoke(uint64_t a1)
     if (__SC_log_enabled(5, v5, v6))
     {
       v7 = _os_log_pack_size();
-      v15 = &block[-1] - ((MEMORY[0x1EEE9AC00](v7, v8, v9, v10, v11, v12, v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v16 = *__error();
-      v17 = _os_log_pack_fill();
-      *v17 = 67109120;
-      v17[1] = v4;
-      __SC_log_send(5, v5, v6, v15);
+      v13 = block - ((MEMORY[0x1EEE9AC00](v7, v8, v9, v10, v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v14 = __error();
+      v15 = _os_log_pack_fill(v13, v7, *v14, &dword_1AD2AD000, "SCNetworkConnection notification handler, kr=%d", v18);
+      *v15 = 67109120;
+      v15[1] = v4;
+      __SC_log_send(5, v5, v6, v13);
     }
 
     free(v2);
@@ -40,34 +40,28 @@ void ____SCNetworkConnectionScheduleWithRunLoop_block_invoke(uint64_t a1)
     block[1] = 0x40000000;
     block[2] = ____SCNetworkConnectionScheduleWithRunLoop_block_invoke_131;
     block[3] = &__block_descriptor_tmp_132;
-    v19 = *(a1 + 32);
-    v18 = *(a1 + 40);
+    v17 = *(a1 + 32);
+    v16 = *(a1 + 40);
     block[4] = v2;
-    block[5] = v19;
-    dispatch_async(v18, block);
+    block[5] = v17;
+    dispatch_async(v16, block);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void ____SCNetworkConnectionScheduleWithRunLoop_block_invoke_131(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
   __SCNetworkConnectionMachCallBack(a1, *(a1 + 32), a3, *(a1 + 40));
   free(*(a1 + 32));
   v4 = *(a1 + 40);
-  v5 = *MEMORY[0x1E69E9840];
 
   CFRelease(v4);
 }
 
 void ____SCNetworkConnectionScheduleWithRunLoop_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   CFRelease(*(a1 + 32));
   dispatch_release(*(a1 + 40));
   v2 = *(a1 + 48);
-  v3 = *MEMORY[0x1E69E9840];
 
   dispatch_release(v2);
 }
@@ -88,13 +82,13 @@ void ____SCNetworkConnectionScheduleWithRunLoop_block_invoke_3(uint64_t a1, int 
     if (__SC_log_enabled(7, v5, v6))
     {
       v7 = _os_log_pack_size();
-      v15 = block - ((MEMORY[0x1EEE9AC00](v7, v8, v9, v10, v11, v12, v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v16 = *__error();
-      v17 = _os_log_pack_fill();
-      v18 = *(a1 + 40) + 88;
-      *v17 = 136315138;
-      *(v17 + 4) = v18;
-      __SC_log_send(7, v5, v6, v15);
+      v13 = block - ((MEMORY[0x1EEE9AC00](v7, v8, v9, v10, v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v14 = __error();
+      v15 = _os_log_pack_fill(v13, v7, *v14, &dword_1AD2AD000, "%sne_session canceled", block[0]);
+      v16 = *(a1 + 40) + 88;
+      *v15 = 136315138;
+      *(v15 + 4) = v16;
+      __SC_log_send(7, v5, v6, v13);
     }
 
     CFRelease(*(a1 + 32));
@@ -115,27 +109,23 @@ void ____SCNetworkConnectionScheduleWithRunLoop_block_invoke_3(uint64_t a1, int 
     else if (*(v3 + 288))
     {
       CFRetain(*(a1 + 32));
-      v19 = *(*(a1 + 40) + 288);
+      v17 = *(*(a1 + 40) + 288);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 0x40000000;
       block[2] = ____SCNetworkConnectionScheduleWithRunLoop_block_invoke_4;
       block[3] = &__block_descriptor_tmp_135;
       block[4] = *(a1 + 32);
-      dispatch_async(v19, block);
+      dispatch_async(v17, block);
     }
 
     pthread_mutex_unlock((*(a1 + 40) + 16));
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void ____SCNetworkConnectionScheduleWithRunLoop_block_invoke_4(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   __SCNetworkConnectionCallBack(*(a1 + 32));
   v2 = *(a1 + 32);
-  v3 = *MEMORY[0x1E69E9840];
 
   CFRelease(v2);
 }

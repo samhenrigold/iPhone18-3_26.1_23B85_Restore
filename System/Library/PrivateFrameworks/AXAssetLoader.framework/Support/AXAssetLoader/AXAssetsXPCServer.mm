@@ -2,6 +2,7 @@
 - (AXAssetsXPCServer)init;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (void)_xpcQueue_acceptNewConnection:(id)connection;
+- (void)refreshAssetCatalogForAssetType:(id)type withOverrideTimeout:(id)timeout forceCatalogRefresh:(BOOL)refresh;
 - (void)startServer;
 - (void)updateAssetForAssetType:(id)type;
 @end
@@ -120,6 +121,20 @@ LABEL_9:
   objc_destroyWeak(&v8);
   objc_destroyWeak(&v10);
   objc_destroyWeak(&buf);
+}
+
+- (void)refreshAssetCatalogForAssetType:(id)type withOverrideTimeout:(id)timeout forceCatalogRefresh:(BOOL)refresh
+{
+  refreshCopy = refresh;
+  typeCopy = type;
+  timeoutCopy = timeout;
+  refreshAssetCatalogForAssetTypeHandler = [(AXAssetsXPCServer *)self refreshAssetCatalogForAssetTypeHandler];
+
+  if (refreshAssetCatalogForAssetTypeHandler)
+  {
+    refreshAssetCatalogForAssetTypeHandler2 = [(AXAssetsXPCServer *)self refreshAssetCatalogForAssetTypeHandler];
+    (refreshAssetCatalogForAssetTypeHandler2)[2](refreshAssetCatalogForAssetTypeHandler2, typeCopy, timeoutCopy, refreshCopy);
+  }
 }
 
 - (void)updateAssetForAssetType:(id)type

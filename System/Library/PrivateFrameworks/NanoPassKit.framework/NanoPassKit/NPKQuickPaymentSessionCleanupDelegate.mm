@@ -9,13 +9,13 @@
 {
   v24 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(contextCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       transaction = [contextCopy transaction];
       transitHistory = [contextCopy transitHistory];
@@ -29,7 +29,7 @@
       v21 = transitHistory;
       v22 = 2112;
       v23 = uniqueID;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Cleanup delegate got session complete for reason %d with transaction %@ and transit history %@ for unique ID %@", v17, 0x26u);
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Cleanup delegate got session complete for reason %d with transaction %@ and transit history %@ for unique ID %@", v17, 0x26u);
     }
   }
 
@@ -37,8 +37,6 @@
   {
     [(NPKQuickPaymentSessionCleanupDelegate *)self _saveTransactionFromContext:contextCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveTransactionFromContext:(id)context

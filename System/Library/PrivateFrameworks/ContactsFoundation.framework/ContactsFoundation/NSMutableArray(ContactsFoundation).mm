@@ -16,10 +16,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)_cn_addNonNilObjectIfNotPresent:()ContactsFoundation
@@ -59,10 +59,10 @@
 {
   if (a3)
   {
-    return [self insertObject:? atIndex:?];
+    return [result insertObject:? atIndex:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)_cn_removeObjectsPassingTest:()ContactsFoundation

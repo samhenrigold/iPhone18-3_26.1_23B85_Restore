@@ -97,22 +97,8 @@ uint64_t __54__HMDBackingStoreLogFetchOperation_mainReturningError__block_invoke
         goto LABEL_11;
       }
 
-      if (![v20 count])
+      if (![v20 count] || (objc_msgSend(*(a1 + 40), "fetchBlock"), v21 = objc_claimAutoreleasedReturnValue(), v22 = *(a1 + 32), objc_msgSend(*(a1 + 40), "store"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "local"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "_selectLogOptionsWithID:", *(*(*(a1 + 56) + 8) + 24)), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCABB0], "numberWithLongLong:", *(*(*(a1 + 56) + 8) + 24)), v25 = objc_claimAutoreleasedReturnValue(), LODWORD(v22) = (v21)[2](v21, v22, v24, v25), v25, v24, v23, v27, v21, v22))
       {
-        goto LABEL_10;
-      }
-
-      v21 = [*(a1 + 40) fetchBlock];
-      v22 = *(a1 + 32);
-      v27 = [*(a1 + 40) store];
-      v23 = [v27 local];
-      v24 = [v23 _selectLogOptionsWithID:*(*(*(a1 + 56) + 8) + 24)];
-      v25 = [MEMORY[0x277CCABB0] numberWithLongLong:*(*(*(a1 + 56) + 8) + 24)];
-      LODWORD(v22) = (v21)[2](v21, v22, v24, v25);
-
-      if (v22)
-      {
-LABEL_10:
         [*(a1 + 32) removeAllObjects];
         [*(a1 + 32) addObject:v17];
         v16 = 0;

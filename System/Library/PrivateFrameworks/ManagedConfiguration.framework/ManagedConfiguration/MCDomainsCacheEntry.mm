@@ -90,7 +90,7 @@ LABEL_6:
 
 - (BOOL)matchesURL:(id)l
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (lCopy)
   {
@@ -149,8 +149,8 @@ LABEL_13:
           {
             *buf = 138543618;
             selfCopy4 = self;
-            v43 = 2114;
-            v44 = lCopy;
+            v42 = 2114;
+            v43 = lCopy;
             v26 = "%{public}@: Rejecting URL %{public}@ because path doesn't match.";
 LABEL_38:
             _os_log_impl(&dword_1A795B000, v25, OS_LOG_TYPE_DEBUG, v26, buf, 0x16u);
@@ -222,8 +222,8 @@ LABEL_38:
           {
             *buf = 138543618;
             selfCopy4 = self;
-            v43 = 2114;
-            v44 = lCopy;
+            v42 = 2114;
+            v43 = lCopy;
             v26 = "%{public}@: Rejecting URL %{public}@ because ports don't match.";
             goto LABEL_38;
           }
@@ -244,8 +244,8 @@ LABEL_42:
       {
         *buf = 138543618;
         selfCopy4 = self;
-        v43 = 2114;
-        v44 = lCopy;
+        v42 = 2114;
+        v43 = lCopy;
         _os_log_impl(&dword_1A795B000, v38, OS_LOG_TYPE_DEBUG, "%{public}@: Matched URL %{public}@", buf, 0x16u);
       }
 
@@ -258,8 +258,8 @@ LABEL_42:
     {
       *buf = 138543618;
       selfCopy4 = self;
-      v43 = 2114;
-      v44 = lCopy;
+      v42 = 2114;
+      v43 = lCopy;
       _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_DEBUG, "%{public}@: Rejecting URL %{public}@ because host doesn't match.", buf, 0x16u);
     }
 
@@ -276,7 +276,6 @@ LABEL_42:
   v28 = 0;
 LABEL_43:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v28;
 }
 

@@ -135,7 +135,7 @@ void __20__CAMBuffer_dealloc__block_invoke(uint64_t a1)
   return isBufferQueueEnabled & 1;
 }
 
-uint64_t __22__CAMBuffer_isEnabled__block_invoke(uint64_t a1)
+void *__22__CAMBuffer_isEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isBufferQueueEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;

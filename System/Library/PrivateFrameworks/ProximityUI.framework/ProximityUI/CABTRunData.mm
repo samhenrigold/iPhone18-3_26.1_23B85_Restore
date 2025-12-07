@@ -106,20 +106,20 @@
 
 - (void)error:(id)error
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = MEMORY[0x277CCABB0];
   numberOfErrorEvents = [(CABTRunData *)self numberOfErrorEvents];
   v7 = [v5 numberWithInt:{objc_msgSend(numberOfErrorEvents, "intValue") + 1}];
   [(CABTRunData *)self setNumberOfErrorEvents:v7];
 
-  v17[0] = @"status";
+  v16[0] = @"status";
   v8 = [errorCopy objectForKeyedSubscript:?];
-  v17[1] = @"errorDescription";
-  v18[0] = v8;
+  v16[1] = @"errorDescription";
+  v17[0] = v8;
   v9 = [errorCopy objectForKeyedSubscript:?];
-  v18[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   v11 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v10];
   productUUID = [(CABTRunData *)self productUUID];
@@ -132,15 +132,13 @@
     [v11 setObject:uUIDString forKeyedSubscript:@"ProductUUID"];
   }
 
-  v16 = v11;
+  v15 = v11;
   AnalyticsSendEventLazy();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logData
 {
-  v82[15] = *MEMORY[0x277D85DE8];
+  v81[15] = *MEMORY[0x277D85DE8];
   startEvent = [(CABTRunData *)self startEvent];
   if (startEvent)
   {
@@ -156,7 +154,7 @@
       stopEvent2 = [(CABTRunData *)self stopEvent];
       v10 = [stopEvent2 objectForKeyedSubscript:@"timeElapsed"];
       [v10 doubleValue];
-      v77 = v11;
+      v76 = v11;
 
       firstRssiEvent = [(CABTRunData *)self firstRssiEvent];
 
@@ -165,7 +163,7 @@
         firstRssiEvent2 = [(CABTRunData *)self firstRssiEvent];
         v14 = [firstRssiEvent2 objectForKeyedSubscript:@"btRssiEstimate"];
         [v14 doubleValue];
-        v76 = v15;
+        v75 = v15;
 
         firstRssiEvent3 = [(CABTRunData *)self firstRssiEvent];
         v17 = [firstRssiEvent3 objectForKeyedSubscript:@"timeElapsed"];
@@ -176,7 +174,7 @@
       else
       {
         v19 = -1.0;
-        v76 = -200.0;
+        v75 = -200.0;
       }
 
       firstPoseEvent = [(CABTRunData *)self firstPoseEvent];
@@ -237,56 +235,56 @@
       v51 = v50;
 
       v52 = MEMORY[0x277CBEB38];
-      v81[0] = @"NumberOfMotionEvents";
+      v80[0] = @"NumberOfMotionEvents";
       numberOfMotionEvents = [(CABTRunData *)self numberOfMotionEvents];
-      v82[0] = numberOfMotionEvents;
-      v81[1] = @"NumberOfLevelFoundEvents";
+      v81[0] = numberOfMotionEvents;
+      v80[1] = @"NumberOfLevelFoundEvents";
       numberOfProximityLevelFoundEvents = [(CABTRunData *)self numberOfProximityLevelFoundEvents];
-      v82[1] = numberOfProximityLevelFoundEvents;
-      v81[2] = @"NumberOfRevokes";
+      v81[1] = numberOfProximityLevelFoundEvents;
+      v80[2] = @"NumberOfRevokes";
       numberOfProximityLevelRevokedEvents = [(CABTRunData *)self numberOfProximityLevelRevokedEvents];
-      v82[2] = numberOfProximityLevelRevokedEvents;
-      v81[3] = @"NumberOfInvalidPoseEvents";
+      v81[2] = numberOfProximityLevelRevokedEvents;
+      v80[3] = @"NumberOfInvalidPoseEvents";
       numberOfInvalidPoseEvents = [(CABTRunData *)self numberOfInvalidPoseEvents];
-      v82[3] = numberOfInvalidPoseEvents;
-      v81[4] = @"NumberOfErrorEvents";
+      v81[3] = numberOfInvalidPoseEvents;
+      v80[4] = @"NumberOfErrorEvents";
       numberOfErrorEvents = [(CABTRunData *)self numberOfErrorEvents];
-      v82[4] = numberOfErrorEvents;
-      v81[5] = @"TimeToFirstMeasurement";
-      v71 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
-      v82[5] = v71;
-      v81[6] = @"TimeToFirstPose";
-      v70 = [MEMORY[0x277CCABB0] numberWithDouble:v24];
-      v82[6] = v70;
-      v81[7] = @"TimeToArmsReach";
+      v81[4] = numberOfErrorEvents;
+      v80[5] = @"TimeToFirstMeasurement";
+      v70 = [MEMORY[0x277CCABB0] numberWithDouble:v19];
+      v81[5] = v70;
+      v80[6] = @"TimeToFirstPose";
+      v69 = [MEMORY[0x277CCABB0] numberWithDouble:v24];
+      v81[6] = v69;
+      v80[7] = @"TimeToArmsReach";
       v53 = [MEMORY[0x277CCABB0] numberWithDouble:v42];
-      v54 = v77 - v8;
-      v78 = v53;
-      v82[7] = v53;
-      v81[8] = @"RunDuration";
-      v69 = [MEMORY[0x277CCABB0] numberWithDouble:v54];
-      v82[8] = v69;
-      v81[9] = @"FirstRSSI";
-      v55 = [MEMORY[0x277CCABB0] numberWithDouble:v76];
-      v82[9] = v55;
-      v81[10] = @"FinalRSSI";
+      v54 = v76 - v8;
+      v77 = v53;
+      v81[7] = v53;
+      v80[8] = @"RunDuration";
+      v68 = [MEMORY[0x277CCABB0] numberWithDouble:v54];
+      v81[8] = v68;
+      v80[9] = @"FirstRSSI";
+      v55 = [MEMORY[0x277CCABB0] numberWithDouble:v75];
+      v81[9] = v55;
+      v80[10] = @"FinalRSSI";
       stopEvent4 = [(CABTRunData *)self stopEvent];
       v57 = [stopEvent4 objectForKeyedSubscript:@"btRssiEstimate"];
-      v82[10] = v57;
-      v81[11] = @"EnteredArmsReach";
+      v81[10] = v57;
+      v80[11] = @"EnteredArmsReach";
       v58 = [MEMORY[0x277CCABB0] numberWithBool:armsReachEvent != 0];
-      v82[11] = v58;
-      v81[12] = @"TotalDistanceMoved";
+      v81[11] = v58;
+      v80[12] = @"TotalDistanceMoved";
       v59 = [MEMORY[0x277CCABB0] numberWithDouble:v47 - v51];
       v60 = v52;
-      v82[12] = v59;
-      v81[13] = @"DistanceMovedToArmsReach";
+      v81[12] = v59;
+      v80[13] = @"DistanceMovedToArmsReach";
       v61 = [MEMORY[0x277CCABB0] numberWithDouble:v43];
-      v82[13] = v61;
-      v81[14] = @"StraightLineDistanceToArmsReach";
+      v81[13] = v61;
+      v80[14] = @"StraightLineDistanceToArmsReach";
       v62 = [MEMORY[0x277CCABB0] numberWithDouble:v41];
-      v82[14] = v62;
-      v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:15];
+      v81[14] = v62;
+      v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:15];
       v64 = [v60 dictionaryWithDictionary:v63];
 
       productUUID = [(CABTRunData *)self productUUID];
@@ -299,12 +297,10 @@
         [v64 setObject:uUIDString forKeyedSubscript:@"ProductUUID"];
       }
 
-      v80 = v64;
+      v79 = v64;
       AnalyticsSendEventLazy();
     }
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 @end

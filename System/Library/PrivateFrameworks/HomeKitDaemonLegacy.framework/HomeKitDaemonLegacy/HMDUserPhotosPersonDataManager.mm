@@ -22,6 +22,7 @@
 - (void)handleUserRemoteAccessDidChangeNotification:(id)notification;
 - (void)recoverDueToUUIDChangeFromOldUUID:(id)d;
 - (void)removeCloudDataDueToUserRemoval;
+- (void)removeCloudDataForZoneUUID:(id)d isDueToHomeGraphObjectRemoval:(BOOL)removal;
 - (void)updateSettingsForCurrentCameraClipsAccess;
 @end
 
@@ -55,7 +56,7 @@
 
 void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) user];
   v3 = v2;
   if (v2)
@@ -73,9 +74,9 @@ void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChan
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           v9 = HMFGetLogIdentifier();
-          v18 = 138543362;
-          v19 = v9;
-          _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating settings to default settings since Face Classification was disabled", &v18, 0xCu);
+          v17 = 138543362;
+          v18 = v9;
+          _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating settings to default settings since Face Classification was disabled", &v17, 0xCu);
         }
 
         objc_autoreleasePoolPop(v6);
@@ -94,15 +95,13 @@ void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChan
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserRemoteAccessDidChangeNotification:(id)notification
@@ -129,7 +128,7 @@ void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChan
 
 - (void)handleUpdatePersonManagerSettingsMessage:(id)message
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -139,9 +138,9 @@ void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChan
     v8 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
     *buf = 138543618;
-    v54 = v8;
-    v55 = 2112;
-    v56 = shortDescription;
+    v53 = v8;
+    v54 = 2112;
+    v55 = shortDescription;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling update person manager settings message: %@", buf, 0x16u);
   }
 
@@ -156,69 +155,69 @@ void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChan
       if ([v11 isCurrentUser] && (objc_msgSend(v11, "hasCameraClipsAccess") & 1) != 0)
       {
         v13 = *MEMORY[0x277CD13F8];
-        v52 = objc_opt_class();
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+        v51 = objc_opt_class();
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
         v15 = [messageCopy unarchivedObjectForKey:v13 ofClasses:v14];
 
         if (v15)
         {
           if ([v15 isImportingFromPhotoLibraryEnabled] && (-[HMDUserPhotosPersonDataManager cloudPhotosSettingObserver](selfCopy, "cloudPhotosSettingObserver"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isCloudPhotosEnabled"), v16, (v17 & 1) == 0))
           {
-            v43 = objc_autoreleasePoolPush();
-            v44 = selfCopy;
-            v45 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+            v42 = objc_autoreleasePoolPush();
+            v43 = selfCopy;
+            v44 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
-              v46 = HMFGetLogIdentifier();
+              v45 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v54 = v46;
-              _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@Cannot enable importing from Photo Library because cloud photos is not enabled", buf, 0xCu);
+              v53 = v45;
+              _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Cannot enable importing from Photo Library because cloud photos is not enabled", buf, 0xCu);
             }
 
-            objc_autoreleasePoolPop(v43);
-            v47 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2007];
-            [messageCopy respondWithError:v47];
+            objc_autoreleasePoolPop(v42);
+            v46 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:2007];
+            [messageCopy respondWithError:v46];
           }
 
           else
           {
             v18 = [(HMDUserPhotosPersonDataManager *)selfCopy updateSettingsModelWithSettings:v15];
-            v50[0] = MEMORY[0x277D85DD0];
-            v50[1] = 3221225472;
-            v50[2] = __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessage___block_invoke;
-            v50[3] = &unk_279735918;
-            v50[4] = selfCopy;
+            v49[0] = MEMORY[0x277D85DD0];
+            v49[1] = 3221225472;
+            v49[2] = __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessage___block_invoke;
+            v49[3] = &unk_279735918;
+            v49[4] = selfCopy;
             v19 = messageCopy;
-            v51 = v19;
-            v20 = [v18 addSuccessBlock:v50];
-            v48[0] = MEMORY[0x277D85DD0];
-            v48[1] = 3221225472;
-            v48[2] = __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessage___block_invoke_2;
-            v48[3] = &unk_2797359D8;
-            v49 = v19;
-            v21 = [v20 addFailureBlock:v48];
+            v50 = v19;
+            v20 = [v18 addSuccessBlock:v49];
+            v47[0] = MEMORY[0x277D85DD0];
+            v47[1] = 3221225472;
+            v47[2] = __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessage___block_invoke_2;
+            v47[3] = &unk_2797359D8;
+            v48 = v19;
+            v21 = [v20 addFailureBlock:v47];
           }
         }
 
         else
         {
-          v37 = objc_autoreleasePoolPush();
-          v38 = selfCopy;
-          v39 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v36 = objc_autoreleasePoolPush();
+          v37 = selfCopy;
+          v38 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            v40 = HMFGetLogIdentifier();
+            v39 = HMFGetLogIdentifier();
             messagePayload = [messageCopy messagePayload];
             *buf = 138543618;
-            v54 = v40;
-            v55 = 2112;
-            v56 = messagePayload;
-            _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_ERROR, "%{public}@Could not find photos person manager settings in message payload: %@", buf, 0x16u);
+            v53 = v39;
+            v54 = 2112;
+            v55 = messagePayload;
+            _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Could not find photos person manager settings in message payload: %@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v37);
-          v42 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
-          [messageCopy respondWithError:v42];
+          objc_autoreleasePoolPop(v36);
+          v41 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
+          [messageCopy respondWithError:v41];
 
           v15 = 0;
         }
@@ -233,9 +232,9 @@ void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChan
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v54 = v29;
-        v55 = 2112;
-        v56 = v11;
+        v53 = v29;
+        v54 = 2112;
+        v55 = v11;
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Person manager settings cannot be updated for user: %@", buf, 0x16u);
       }
 
@@ -253,7 +252,7 @@ void __87__HMDUserPhotosPersonDataManager_handleHomePersonManagerSettingsDidChan
       {
         v35 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v54 = v35;
+        v53 = v35;
         _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", buf, 0xCu);
       }
 
@@ -276,7 +275,7 @@ LABEL_21:
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v54 = v25;
+    v53 = v25;
     _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", buf, 0xCu);
   }
 
@@ -284,8 +283,6 @@ LABEL_21:
   home = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
   [messageCopy respondWithError:home];
 LABEL_22:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessage___block_invoke(uint64_t a1)
@@ -300,13 +297,13 @@ void __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessa
   [v8 setObject:v5 forKeyedSubscript:*MEMORY[0x277CD1408]];
 
   v6 = *(a1 + 40);
-  v7 = [v8 copy];
+  v7 = objc_msgSend_copy(v8);
   [v6 respondWithPayload:v7];
 }
 
 - (void)_handleUpdatedSettingsModel:(id)model
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -322,13 +319,13 @@ void __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessa
       v10 = HMFGetLogIdentifier();
       v11 = [modelCopy debugDescription];
       v12 = [settingsModel debugDescription];
-      v39 = 138543874;
-      v40 = v10;
-      v41 = 2112;
-      v42 = v11;
-      v43 = 2112;
-      v44 = v12;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling updated settings model: %@ previous model: %@", &v39, 0x20u);
+      v38 = 138543874;
+      v39 = v10;
+      v40 = 2112;
+      v41 = v11;
+      v42 = 2112;
+      v43 = v12;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling updated settings model: %@ previous model: %@", &v38, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -351,13 +348,13 @@ void __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessa
           v24 = HMFGetLogIdentifier();
           zoneUUID4 = [settingsModel zoneUUID];
           zoneUUID5 = [modelCopy zoneUUID];
-          v39 = 138543874;
-          v40 = v24;
-          v41 = 2112;
-          v42 = zoneUUID4;
-          v43 = 2112;
-          v44 = zoneUUID5;
-          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Photos person manager settings zone UUID changed from %@ to %@. Configuring photos person manager", &v39, 0x20u);
+          v38 = 138543874;
+          v39 = v24;
+          v40 = 2112;
+          v41 = zoneUUID4;
+          v42 = 2112;
+          v43 = zoneUUID5;
+          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Photos person manager settings zone UUID changed from %@ to %@. Configuring photos person manager", &v38, 0x20u);
         }
 
         objc_autoreleasePoolPop(v21);
@@ -386,9 +383,9 @@ void __75__HMDUserPhotosPersonDataManager_handleUpdatePersonManagerSettingsMessa
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           v32 = HMFGetLogIdentifier();
-          v39 = 138543362;
-          v40 = v32;
-          _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Photos person manager settings zone UUID is now nil. Removing photos person manager", &v39, 0xCu);
+          v38 = 138543362;
+          v39 = v32;
+          _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Photos person manager settings zone UUID is now nil. Removing photos person manager", &v38, 0xCu);
         }
 
         objc_autoreleasePoolPop(v29);
@@ -410,13 +407,70 @@ LABEL_16:
     userUUID = [(HMDUserPhotosPersonDataManager *)selfCopy userUUID];
     [homeManager updateGenerationCounterWithReason:@"Photos Person Manager Settings Updated" sourceUUID:userUUID shouldNotifyClients:1];
   }
+}
 
-  v38 = *MEMORY[0x277D85DE8];
+- (void)removeCloudDataForZoneUUID:(id)d isDueToHomeGraphObjectRemoval:(BOOL)removal
+{
+  removalCopy = removal;
+  v27 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  personManager = [(HMDUserPhotosPersonDataManager *)self personManager];
+  v9 = objc_alloc_init(MEMORY[0x277CD1D00]);
+  [personManager handleUpdatedSettings:v9];
+
+  if (dCopy)
+  {
+    photosPersonManagerZoneUUIDForAnyOtherHomeCurrentUser = [(HMDUserPhotosPersonDataManager *)self photosPersonManagerZoneUUIDForAnyOtherHomeCurrentUser];
+    v11 = [photosPersonManagerZoneUUIDForAnyOtherHomeCurrentUser isEqual:dCopy];
+    v12 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v14 = HMFGetOSLogHandle();
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
+    if (v11)
+    {
+      if (v15)
+      {
+        v16 = HMFGetLogIdentifier();
+        v21 = 138543618;
+        v22 = v16;
+        v23 = 2112;
+        v24 = dCopy;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Not removing user photos person cloud data for zone UUID %@ because another home current user exists that is still using the zone", &v21, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v12);
+    }
+
+    else
+    {
+      if (v15)
+      {
+        v17 = HMFGetLogIdentifier();
+        v18 = HMFBooleanToString();
+        v21 = 138543874;
+        v22 = v17;
+        v23 = 2112;
+        v24 = dCopy;
+        v25 = 2112;
+        v26 = v18;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Removing user photos person cloud data for zone UUID: %@ isDueToHomeGraphObjectRemoval: %@", &v21, 0x20u);
+      }
+
+      objc_autoreleasePoolPop(v12);
+      personManager2 = [(HMDUserPhotosPersonDataManager *)selfCopy personManager];
+      v20 = [personManager2 removeAllAssociatedDataDueToHomeGraphObjectRemoval:removalCopy];
+    }
+  }
+
+  [(HMDUserPhotosPersonDataManager *)self setPersonManager:0];
 }
 
 - (void)updateSettingsForCurrentCameraClipsAccess
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -438,11 +492,11 @@ LABEL_16:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = HMFGetLogIdentifier();
-          v20 = 138543618;
-          v21 = v12;
-          v22 = 2112;
-          v23 = v5;
-          _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating settings to default settings since user does not have access to camera clips: %@", &v20, 0x16u);
+          v19 = 138543618;
+          v20 = v12;
+          v21 = 2112;
+          v22 = v5;
+          _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating settings to default settings since user does not have access to camera clips: %@", &v19, 0x16u);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -460,20 +514,18 @@ LABEL_16:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configurePhotosPersonManagerWithSettingsModel:(id)model
 {
-  *&v34[5] = *MEMORY[0x277D85DE8];
+  *&v33[5] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -487,14 +539,14 @@ LABEL_16:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v21;
+      v30 = 138543362;
+      v31 = v21;
       v22 = "%{public}@User reference is nil";
       v23 = v20;
       v24 = OS_LOG_TYPE_DEFAULT;
       v25 = 12;
 LABEL_16:
-      _os_log_impl(&dword_2531F8000, v23, v24, v22, &v31, v25);
+      _os_log_impl(&dword_2531F8000, v23, v24, v22, &v30, v25);
     }
 
 LABEL_17:
@@ -511,12 +563,12 @@ LABEL_17:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       v21 = HMFGetLogIdentifier();
-      v31 = 138543874;
-      v32 = v21;
-      v33 = 1024;
-      *v34 = [(HMDUserPhotosPersonDataManager *)selfCopy2 supportsFaceClassification];
-      v34[2] = 1024;
-      *&v34[3] = [user isCurrentUser];
+      v30 = 138543874;
+      v31 = v21;
+      v32 = 1024;
+      *v33 = [(HMDUserPhotosPersonDataManager *)selfCopy2 supportsFaceClassification];
+      v33[2] = 1024;
+      *&v33[3] = [user isCurrentUser];
       v22 = "%{public}@Not configuring photos person manager because self.supportsFaceClassification=%d and user.isCurrentUser=%d";
       v23 = v20;
       v24 = OS_LOG_TYPE_DEBUG;
@@ -542,11 +594,11 @@ LABEL_17:
     {
       v14 = HMFGetLogIdentifier();
       personManager = [(HMDUserPhotosPersonDataManager *)selfCopy3 personManager];
-      v31 = 138543618;
-      v32 = v14;
-      v33 = 2112;
-      *v34 = personManager;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Configuring photos person manager: %@", &v31, 0x16u);
+      v30 = 138543618;
+      v31 = v14;
+      v32 = 2112;
+      *v33 = personManager;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Configuring photos person manager: %@", &v30, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -563,21 +615,20 @@ LABEL_17:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       v29 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v29;
-      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Not configuring photos person manager because zoneUUID is nil", &v31, 0xCu);
+      v30 = 138543362;
+      v31 = v29;
+      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Not configuring photos person manager because zoneUUID is nil", &v30, 0xCu);
     }
 
     objc_autoreleasePoolPop(v26);
   }
 
 LABEL_18:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)photosPersonManagerZoneUUIDForAnyOtherHomeCurrentUser
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -585,29 +636,29 @@ LABEL_18:
   v5 = user;
   if (user)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     home = [user home];
     homeManager = [home homeManager];
     homes = [homeManager homes];
 
-    v9 = [homes countByEnumeratingWithState:&v29 objects:v39 count:16];
+    v9 = [homes countByEnumeratingWithState:&v28 objects:v38 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(homes);
           }
 
-          currentUser = [*(*(&v29 + 1) + 8 * i) currentUser];
+          currentUser = [*(*(&v28 + 1) + 8 * i) currentUser];
           uuid = [currentUser uuid];
           uuid2 = [v5 uuid];
           v16 = [uuid isEqual:uuid2];
@@ -626,11 +677,11 @@ LABEL_18:
               {
                 v26 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v34 = v26;
-                v35 = 2112;
-                v36 = currentUser;
-                v37 = 2112;
-                v38 = zoneUUID;
+                v33 = v26;
+                v34 = 2112;
+                v35 = currentUser;
+                v36 = 2112;
+                v37 = zoneUUID;
                 _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Found current user %@ using photos person manager zone UUID: %@", buf, 0x20u);
               }
 
@@ -640,7 +691,7 @@ LABEL_18:
           }
         }
 
-        v10 = [homes countByEnumeratingWithState:&v29 objects:v39 count:16];
+        v10 = [homes countByEnumeratingWithState:&v28 objects:v38 count:16];
         if (v10)
         {
           continue;
@@ -660,7 +711,7 @@ LABEL_18:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v22;
+      v33 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", buf, 0xCu);
     }
 
@@ -669,8 +720,6 @@ LABEL_18:
 
   zoneUUID = 0;
 LABEL_19:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return zoneUUID;
 }
@@ -704,7 +753,7 @@ LABEL_19:
 
 - (id)updateSettingsModelWithSettings:(id)settings
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -715,11 +764,11 @@ LABEL_19:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v42 = 138543618;
-    v43 = v9;
-    v44 = 2112;
-    v45 = settingsCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating photos person manager settings: %@", &v42, 0x16u);
+    v41 = 138543618;
+    v42 = v9;
+    v43 = 2112;
+    v44 = settingsCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating photos person manager settings: %@", &v41, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -743,11 +792,11 @@ LABEL_19:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           v28 = HMFGetLogIdentifier();
-          v42 = 138543618;
-          v43 = v28;
-          v44 = 2112;
-          v45 = photosPersonManagerZoneUUIDForAnyOtherHomeCurrentUser;
-          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Using existing Photo Library person manager zone UUID for current user from another home: %@", &v42, 0x16u);
+          v41 = 138543618;
+          v42 = v28;
+          v43 = 2112;
+          v44 = photosPersonManagerZoneUUIDForAnyOtherHomeCurrentUser;
+          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Using existing Photo Library person manager zone UUID for current user from another home: %@", &v41, 0x16u);
         }
 
         objc_autoreleasePoolPop(v25);
@@ -767,11 +816,11 @@ LABEL_19:
       {
         v33 = HMFGetLogIdentifier();
         zoneUUID2 = [(HMDPhotosPersonManagerSettingsModel *)v12 zoneUUID];
-        v42 = 138543618;
-        v43 = v33;
-        v44 = 2112;
-        v45 = zoneUUID2;
-        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Importing from Photo Library is now enabled. Updating settings with new photos person manager zone UUID: %@", &v42, 0x16u);
+        v41 = 138543618;
+        v42 = v33;
+        v43 = 2112;
+        v44 = zoneUUID2;
+        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Importing from Photo Library is now enabled. Updating settings with new photos person manager zone UUID: %@", &v41, 0x16u);
       }
 
       objc_autoreleasePoolPop(v30);
@@ -787,9 +836,9 @@ LABEL_19:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       v23 = HMFGetLogIdentifier();
-      v42 = 138543362;
-      v43 = v23;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Importing from Photo Library has not changed. Not changing zone UUID", &v42, 0xCu);
+      v41 = 138543362;
+      v42 = v23;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Importing from Photo Library has not changed. Not changing zone UUID", &v41, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
@@ -806,9 +855,9 @@ LABEL_21:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = HMFGetLogIdentifier();
-    v42 = 138543362;
-    v43 = v19;
-    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Importing from Photo Library is now disabled. Updating settings to remove zone UUID", &v42, 0xCu);
+    v41 = 138543362;
+    v42 = v19;
+    _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Importing from Photo Library is now disabled. Updating settings to remove zone UUID", &v41, 0xCu);
   }
 
   objc_autoreleasePoolPop(v16);
@@ -819,8 +868,6 @@ LABEL_22:
   v37 = [MEMORY[0x277D17108] optionsWithLabel:@"Update photos person manager settings"];
   v38 = [localZone addModels:v36 options:v37];
   v39 = [v38 flatMap:&__block_literal_global_39];
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
@@ -836,7 +883,7 @@ LABEL_22:
 
 - (void)recoverDueToUUIDChangeFromOldUUID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -847,9 +894,9 @@ LABEL_22:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Migrating photos person manager settings to use new user UUID", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Migrating photos person manager settings to use new user UUID", &v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -882,20 +929,18 @@ LABEL_22:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       v27 = HMFGetLogIdentifier();
-      v29 = 138543362;
-      v30 = v27;
-      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@No old settings model exists to migrate", &v29, 0xCu);
+      v28 = 138543362;
+      v29 = v27;
+      _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@No old settings model exists to migrate", &v28, 0xCu);
     }
 
     objc_autoreleasePoolPop(v24);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   workQueue = [(HMDUserPhotosPersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -912,9 +957,9 @@ LABEL_22:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         v31 = HMFGetLogIdentifier();
-        v34 = 138543362;
-        v35 = v31;
-        _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", &v34, 0xCu);
+        v33 = 138543362;
+        v34 = v31;
+        _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", &v33, 0xCu);
       }
 
       objc_autoreleasePoolPop(v28);
@@ -924,12 +969,12 @@ LABEL_22:
     messageDispatcher = [(HMDUserPhotosPersonDataManager *)self messageDispatcher];
     v8 = *MEMORY[0x277CD14E0];
     v9 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-    v38[0] = v9;
+    v37[0] = v9;
     v10 = [HMDXPCMessagePolicy policyWithEntitlements:8197];
-    v38[1] = v10;
+    v37[1] = v10;
     v11 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
-    v38[2] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
+    v37[2] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
     [messageDispatcher registerForMessage:v8 receiver:self policies:v12 selector:sel_handleUpdatePersonManagerSettingsMessage_];
 
     notificationCenter = [(HMDUserPhotosPersonDataManager *)self notificationCenter];
@@ -953,13 +998,13 @@ LABEL_22:
         v20 = HMFGetLogIdentifier();
         settingsModel = [(HMDUserPhotosPersonDataManager *)selfCopy2 settingsModel];
         createSettings = [settingsModel createSettings];
-        v34 = 138543618;
-        v35 = v20;
-        v36 = 2112;
-        v37 = createSettings;
+        v33 = 138543618;
+        v34 = v20;
+        v35 = 2112;
+        v36 = createSettings;
         v23 = "%{public}@Initialized photos person data manager with settings: %@";
 LABEL_14:
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, v23, &v34, 0x16u);
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, v23, &v33, 0x16u);
       }
     }
 
@@ -973,10 +1018,10 @@ LABEL_14:
         v20 = HMFGetLogIdentifier();
         settingsModel = [(HMDUserPhotosPersonDataManager *)selfCopy3 settingsModel];
         createSettings = [settingsModel createSettings];
-        v34 = 138543618;
-        v35 = v20;
-        v36 = 2112;
-        v37 = createSettings;
+        v33 = 138543618;
+        v34 = v20;
+        v35 = 2112;
+        v36 = createSettings;
         v23 = "%{public}@Initialized photos person data manager with default settings: %@";
         goto LABEL_14;
       }
@@ -995,15 +1040,13 @@ LABEL_16:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     v27 = HMFGetLogIdentifier();
-    v34 = 138543362;
-    v35 = v27;
-    _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", &v34, 0xCu);
+    v33 = 138543362;
+    v34 = v27;
+    _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@User reference is nil", &v33, 0xCu);
   }
 
   objc_autoreleasePoolPop(v24);
 LABEL_17:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUUID)zoneUUID
@@ -1054,13 +1097,13 @@ LABEL_10:
   {
 LABEL_11:
     v33 = _HMFPreconditionFailure();
-    return __158__HMDUserPhotosPersonDataManager_initWithUser_messageDispatcher_localZone_workQueue_supportsFaceClassification_notificationCenter_cloudPhotosSettingObserver___block_invoke(v33);
+    return __158__HMDUserPhotosPersonDataManager_initWithUser_messageDispatcher_localZone_workQueue_supportsFaceClassification_notificationCenter_cloudPhotosSettingObserver___block_invoke(v33, v34, v35, v36);
   }
 
-  v35 = observerCopy;
-  v37.receiver = self;
-  v37.super_class = HMDUserPhotosPersonDataManager;
-  v19 = [(HMDUserPhotosPersonDataManager *)&v37 init];
+  v38 = observerCopy;
+  v40.receiver = self;
+  v40.super_class = HMDUserPhotosPersonDataManager;
+  v19 = [(HMDUserPhotosPersonDataManager *)&v40 init];
   v20 = v19;
   if (v19)
   {
@@ -1133,10 +1176,11 @@ HMDPhotosPersonManager *__158__HMDUserPhotosPersonDataManager_initWithUser_messa
 
 uint64_t __45__HMDUserPhotosPersonDataManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v33 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v33;
+  logCategory__hmf_once_v33 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)settingsModelUUIDWithUUID:(id)d

@@ -8,15 +8,15 @@
 
 - (void)createViewControllerWithCompletionHandler:(id)handler
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   Helper_x8__OBJC_CLASS___APApplication = gotLoadHelper_x8__OBJC_CLASS___APApplication(v5);
-  v90 = [*(v7 + 3712) applicationWithBundleIdentifier:{@"com.apple.mobilecal", Helper_x8__OBJC_CLASS___APApplication}];
-  if ([v90 isEffectivelyLocked])
+  v89 = [*(v7 + 3712) applicationWithBundleIdentifier:{@"com.apple.mobilecal", Helper_x8__OBJC_CLASS___APApplication}];
+  if ([v89 isEffectivelyLocked])
   {
-    v96 = 0;
-    v8 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.mobilecal" allowPlaceholder:1 error:&v96];
-    v9 = v96;
+    v95 = 0;
+    v8 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.mobilecal" allowPlaceholder:1 error:&v95];
+    v9 = v95;
     if (v9)
     {
       [(DDRemoteTimeLineViewControllerProvider *)a2 createViewControllerWithCompletionHandler:v9];
@@ -25,31 +25,31 @@
     localizedName = [v8 localizedName];
     gotLoadHelper_x8__OBJC_CLASS___ISIcon(v11);
     v13 = [objc_alloc(*(v12 + 424)) initWithBundleIdentifier:@"com.apple.mobilecal"];
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
     screens = [MEMORY[0x277D759A0] screens];
-    v15 = [screens countByEnumeratingWithState:&v92 objects:v102 count:16];
+    v15 = [screens countByEnumeratingWithState:&v91 objects:v101 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v93;
+      v17 = *v92;
       v18 = 1.0;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v93 != v17)
+          if (*v92 != v17)
           {
             objc_enumerationMutation(screens);
           }
 
-          [*(*(&v92 + 1) + 8 * i) scale];
+          [*(*(&v91 + 1) + 8 * i) scale];
           v18 = fmax(v18, v20);
         }
 
-        v16 = [screens countByEnumeratingWithState:&v92 objects:v102 count:16];
+        v16 = [screens countByEnumeratingWithState:&v91 objects:v101 count:16];
       }
 
       while (v16);
@@ -115,12 +115,12 @@
 
   else
   {
-    v100 = @"AllResults";
+    v99 = @"AllResults";
     actionContext4 = [(DDRemoteActionViewControllerProvider *)self actionContext];
     result2 = [actionContext4 result];
     v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&result2 count:1];
-    v101 = v44;
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    v100 = v44;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
   }
 
 LABEL_19:
@@ -188,8 +188,8 @@ LABEL_29:
   gotLoadHelper_x8__OBJC_CLASS___EKAttendee(v68);
   v70 = objc_alloc_init(*(v69 + 2464));
   [v70 setParticipantStatus:4];
-  v97 = v70;
-  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
+  v96 = v70;
+  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
   [v50 setAttendees:v71];
 
   [v50 setStatus:2];
@@ -211,11 +211,11 @@ LABEL_29:
   v75 = [calendar components:62 fromDate:v73];
 
   [(EKDayViewController *)v33 setDisplayDate:v75];
-  v76 = v90;
+  v76 = v89;
   if (self->_shieldView)
   {
     [(DDEKDayViewController *)v33 view];
-    v77 = v88 = v73;
+    v77 = v87 = v73;
     [v77 addSubview:self->_shieldView];
     v78 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_shieldView attribute:9 relatedBy:0 toItem:v77 attribute:9 multiplier:1.0 constant:0.0];
     [v77 addConstraint:v78];
@@ -226,7 +226,7 @@ LABEL_29:
     v80 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_shieldView attribute:7 relatedBy:0 toItem:v77 attribute:7 multiplier:1.0 constant:0.0];
     [v77 addConstraint:v80];
 
-    v76 = v90;
+    v76 = v89;
     v81 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_shieldView attribute:8 relatedBy:0 toItem:v77 attribute:8 multiplier:1.0 constant:0.0];
     [v77 addConstraint:v81];
 
@@ -234,19 +234,17 @@ LABEL_29:
     v84 = *(v83 + 3736);
     selfCopy = self;
     sharedGuard = [v84 sharedGuard];
-    v91[0] = MEMORY[0x277D85DD0];
-    v91[1] = 3221225472;
-    v91[2] = __84__DDRemoteTimeLineViewControllerProvider_createViewControllerWithCompletionHandler___block_invoke;
-    v91[3] = &unk_278290DA8;
-    v91[4] = selfCopy;
-    [sharedGuard authenticateForSubject:v90 completion:v91];
+    v90[0] = MEMORY[0x277D85DD0];
+    v90[1] = 3221225472;
+    v90[2] = __84__DDRemoteTimeLineViewControllerProvider_createViewControllerWithCompletionHandler___block_invoke;
+    v90[3] = &unk_278290DA8;
+    v90[4] = selfCopy;
+    [sharedGuard authenticateForSubject:v89 completion:v90];
 
-    v73 = v88;
+    v73 = v87;
   }
 
   handlerCopy[2](handlerCopy, v33);
-
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 void __84__DDRemoteTimeLineViewControllerProvider_createViewControllerWithCompletionHandler___block_invoke(uint64_t a1, int a2)
@@ -286,49 +284,49 @@ void __84__DDRemoteTimeLineViewControllerProvider_createViewControllerWithComple
 
 - (id)dayViewController:(id)controller eventsForStartDate:(id)date endDate:(id)endDate
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   [(DDRemoteTimeLineViewControllerProvider *)self setEvents:0];
   v9 = dispatch_group_create();
   dispatch_group_enter(v9);
   store = [(DDRemoteTimeLineViewControllerProvider *)self store];
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __87__DDRemoteTimeLineViewControllerProvider_dayViewController_eventsForStartDate_endDate___block_invoke;
-  v39[3] = &unk_278290E18;
-  v39[4] = self;
-  v34 = dateCopy;
-  v40 = v34;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __87__DDRemoteTimeLineViewControllerProvider_dayViewController_eventsForStartDate_endDate___block_invoke;
+  v38[3] = &unk_278290E18;
+  v38[4] = self;
+  v33 = dateCopy;
+  v39 = v33;
   v11 = endDateCopy;
-  v41 = v11;
+  v40 = v11;
   v12 = v9;
-  v42 = v12;
-  [store requestFullAccessToEventsWithCompletion:v39];
+  v41 = v12;
+  [store requestFullAccessToEventsWithCompletion:v38];
 
   dispatch_group_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   events = [(DDRemoteTimeLineViewControllerProvider *)self events];
-  v16 = [events countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v16 = [events countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v36;
+    v18 = *v35;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v36 != v18)
+        if (*v35 != v18)
         {
           objc_enumerationMutation(events);
         }
 
-        v20 = *(*(&v35 + 1) + 8 * i);
+        v20 = *(*(&v34 + 1) + 8 * i);
         if ([v20 isAllDay])
         {
           v21 = array;
@@ -342,7 +340,7 @@ void __84__DDRemoteTimeLineViewControllerProvider_createViewControllerWithComple
         [v21 addObject:v20];
       }
 
-      v17 = [events countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v17 = [events countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v17);
@@ -372,8 +370,6 @@ void __84__DDRemoteTimeLineViewControllerProvider_createViewControllerWithComple
   v29 = objc_alloc(*(v28 + 3248));
   events3 = [(DDRemoteTimeLineViewControllerProvider *)self events];
   v31 = [v29 initWithOccurrences:events3 timedOccurrences:array2 allDayOccurrences:array];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }

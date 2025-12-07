@@ -868,7 +868,7 @@ LABEL_15:
   if (([(UIViewControllerAccessibility *)selfCopy _accessibilityDidLoadAccessibilityInformation]& 1) == 0)
   {
     [(UIViewControllerAccessibility *)selfCopy _accessibilityLoadAccessibilityInformation];
-    [UIViewControllerAccessibility _setAccessibilityDidLoadAccessibilityInformation:selfCopy];
+    [(UIViewControllerAccessibility *)selfCopy _setAccessibilityDidLoadAccessibilityInformation:?];
   }
 }
 

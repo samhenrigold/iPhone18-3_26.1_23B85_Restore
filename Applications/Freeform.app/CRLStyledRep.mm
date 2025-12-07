@@ -93,7 +93,7 @@
   v9 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -235,7 +235,7 @@
             v29 = styledLayout;
             if (styledLayout)
             {
-              [styledLayout transformInRoot];
+              objc_msgSend_transformInRoot(styledLayout);
             }
 
             else
@@ -275,7 +275,7 @@
               v39 = layout;
               if (layout)
               {
-                [layout transformInRoot];
+                objc_msgSend_transformInRoot(layout);
               }
 
               else
@@ -328,7 +328,7 @@ LABEL_25:
             v52 = layout5;
             if (layout5)
             {
-              [layout5 transformInRoot];
+              objc_msgSend_transformInRoot(layout5);
             }
 
             else

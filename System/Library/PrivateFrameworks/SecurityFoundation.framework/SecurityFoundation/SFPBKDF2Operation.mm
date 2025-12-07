@@ -65,10 +65,7 @@
 
 - (void)setPseudoRandomFunction:(id)function
 {
-  v4 = [function copyWithZone:0];
-  pbkdf2OperationInternal = self->_pbkdf2OperationInternal;
-  v6 = pbkdf2OperationInternal[2];
-  pbkdf2OperationInternal[2] = v4;
+  *(self->_pbkdf2OperationInternal + 2) = [function copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -82,10 +79,7 @@
 
 - (void)setSalt:(id)salt
 {
-  v4 = [salt copy];
-  pbkdf2OperationInternal = self->_pbkdf2OperationInternal;
-  v6 = pbkdf2OperationInternal[3];
-  pbkdf2OperationInternal[3] = v4;
+  *(self->_pbkdf2OperationInternal + 3) = [salt copy];
 
   MEMORY[0x2821F96F8]();
 }

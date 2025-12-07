@@ -821,7 +821,7 @@ LABEL_42:
     else
     {
       memset(v7, 0, sizeof(v7));
-      [ImageTools getVImageBufferFromCGImage:v5 error:error];
+      objc_msgSend_getVImageBufferFromCGImage_error_(ImageTools);
       error = malloc_type_malloc(0x20uLL, 0x1080040ABB4582EuLL);
       *error = *&v7[0];
       *(error + 1) = *(v7 + 8);
@@ -846,7 +846,7 @@ LABEL_42:
     else
     {
       memset(v7, 0, sizeof(v7));
-      [ImageTools getVImageBufferFromCGImage:v5 error:error];
+      objc_msgSend_getVImageBufferFromCGImage_error_(ImageTools);
       error = malloc_type_malloc(0x20uLL, 0x1080040ABB4582EuLL);
       *error = *&v7[0];
       *(error + 1) = *(v7 + 8);

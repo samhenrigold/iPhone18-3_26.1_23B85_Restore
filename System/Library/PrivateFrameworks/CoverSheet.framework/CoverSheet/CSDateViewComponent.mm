@@ -2,10 +2,10 @@
 - (BOOL)_valueCheckForMask:(void *)mask;
 - (CSDateViewComponent)init;
 - (NSNumber)pageIndex;
+- (char)_internalPageIndexForPageIndex:(char *)result;
 - (id)_pageIndexForInternalPageIndex:(uint64_t)index;
 - (id)combiningWithEquivalent:(id)equivalent;
 - (id)copyWithZone:(_NSZone *)zone;
-- (uint64_t)_internalPageIndexForPageIndex:(uint64_t)result;
 - (void)_internalPageIndex;
 - (void)_setValueForInternalPageIndex:(int)index hidesTime:(int)time constrainsTime:(int)constrainsTime usesCompactTime:;
 - (void)setConstrainsTimeHeight:(BOOL)height;
@@ -154,7 +154,7 @@ LABEL_3:
   return v4;
 }
 
-- (uint64_t)_internalPageIndexForPageIndex:(uint64_t)result
+- (char)_internalPageIndexForPageIndex:(char *)result
 {
   if (result)
   {
@@ -166,7 +166,7 @@ LABEL_3:
 
     else
     {
-      return integerValue + 2;
+      return (integerValue + 2);
     }
   }
 

@@ -7,14 +7,14 @@
 
 - (NSArray)emergencyContactHandles
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___IMDEmergencyContactsManager_processingQueue);
   selfCopy = self;
   sub_22B6F0AD4(&unk_27D8CE9E0, &qword_22B7F99B0);
   sub_22B7DAF38();
 
-  v4 = sub_22B7DB8F8();
+  v3 = sub_22B7DB8F8();
+  v13, v4, v5, v6, v7, v8, v9, v10, v12, v13;
 
-  return v4;
+  return v3;
 }
 
 + (id)sharedManager

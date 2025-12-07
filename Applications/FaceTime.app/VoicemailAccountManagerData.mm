@@ -11,7 +11,7 @@
 
 - (NSArray)accounts
 {
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -39,7 +39,7 @@
 - (_TtC8FaceTime27VoicemailAccountManagerData)initWithAnyAccountSubscribed:(BOOL)subscribed online:(BOOL)online isMessageWaiting:(BOOL)waiting storageUsage:(unint64_t)usage transcriptionEnabled:(BOOL)enabled transcriptionProgress:(id)progress accounts:(id)accounts
 {
   ObjectType = swift_getObjectType();
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   v17 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(self + OBJC_IVAR____TtC8FaceTime27VoicemailAccountManagerData_anyAccountSubscribed) = subscribed;
   *(self + OBJC_IVAR____TtC8FaceTime27VoicemailAccountManagerData_online) = online;

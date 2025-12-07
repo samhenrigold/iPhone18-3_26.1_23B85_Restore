@@ -42,7 +42,7 @@
   sub_190248D60(&v27 - v19);
   v21 = *(v15 + 16);
   v21(v17, v20, v14);
-  v22 = type metadata accessor for CKMessageBalloonMaskConfiguration();
+  v22 = type metadata accessor for CKMessageBalloonMaskConfiguration(0);
   v23 = objc_allocWithZone(v22);
   v21(&v23[OBJC_IVAR____TtC7ChatKit33CKMessageBalloonMaskConfiguration_pathConfiguration], v17, v14);
   v27.receiver = v23;

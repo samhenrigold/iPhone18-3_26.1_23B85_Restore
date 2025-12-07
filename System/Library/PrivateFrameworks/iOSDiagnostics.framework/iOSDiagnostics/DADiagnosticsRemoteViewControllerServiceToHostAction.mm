@@ -8,7 +8,7 @@
 
 + (id)actionWithType:(int64_t)type object:(id)object
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_alloc_init(MEMORY[0x277CF0C80]);
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:type];
@@ -19,24 +19,23 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [self actionToString:type];
-    v14 = 136315650;
-    v15 = "+[DADiagnosticsRemoteViewControllerServiceToHostAction actionWithType:object:]";
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = objectCopy;
-    _os_log_impl(&dword_275BB3000, v9, OS_LOG_TYPE_DEFAULT, "%s Created %@ action with object %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "+[DADiagnosticsRemoteViewControllerServiceToHostAction actionWithType:object:]";
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = objectCopy;
+    _os_log_impl(&dword_275BB3000, v9, OS_LOG_TYPE_DEFAULT, "%s Created %@ action with object %@", &v13, 0x20u);
   }
 
   v11 = [[self alloc] initWithInfo:v7 responder:0];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)performActionForSceneController:(id)controller
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   info = [(DADiagnosticsRemoteViewControllerServiceToHostAction *)self info];
   v6 = [info objectForSetting:0];
@@ -49,11 +48,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [DADiagnosticsRemoteViewControllerServiceToHostAction actionToString:integerValue];
-    v30 = 136315394;
-    v31 = "[DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:]";
-    v32 = 2112;
-    v33 = v11;
-    _os_log_impl(&dword_275BB3000, v10, OS_LOG_TYPE_DEFAULT, "%s Received %@ action", &v30, 0x16u);
+    v29 = 136315394;
+    v30 = "[DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:]";
+    v31 = 2112;
+    v32 = v11;
+    _os_log_impl(&dword_275BB3000, v10, OS_LOG_TYPE_DEFAULT, "%s Received %@ action", &v29, 0x16u);
   }
 
   delegate = [controllerCopy delegate];
@@ -84,7 +83,7 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
 LABEL_25:
-          [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:];
+          [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:v9];
         }
 
 LABEL_30:
@@ -108,7 +107,7 @@ LABEL_30:
             v19 = DiagnosticLogHandleForCategory();
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
-              [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:];
+              [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:v16];
             }
           }
 
@@ -121,7 +120,7 @@ LABEL_30:
             v22 = DiagnosticLogHandleForCategory();
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:];
+              [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:v16];
             }
           }
 
@@ -141,7 +140,7 @@ LABEL_30:
           v16 = DiagnosticLogHandleForCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:];
+            [DADiagnosticsRemoteViewControllerServiceToHostAction performActionForSceneController:v9];
           }
         }
 
@@ -169,8 +168,6 @@ LABEL_30:
 
 LABEL_31:
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 + (id)actionToString:(int64_t)string
@@ -186,48 +183,40 @@ LABEL_31:
   }
 }
 
-- (void)performActionForSceneController:.cold.1()
+- (void)performActionForSceneController:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_2();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_275BB3000, v4, v5, "%s Action object type is incorrect, received: %@, expected: %@. Ignoring action", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_2();
+  v11 = 136315650;
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_275BB3000, v5, v6, "%s Action object type is incorrect, received: %@, expected: %@. Ignoring action", v7, v8, v9, v10, v11);
 }
 
-- (void)performActionForSceneController:.cold.3()
+- (void)performActionForSceneController:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_2();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_275BB3000, v4, v5, "%s Action object type is incorrect, received: %@, expected: %@. Ignoring action", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_2();
+  v11 = 136315650;
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_275BB3000, v5, v6, "%s Action object type is incorrect, received: %@, expected: %@. Ignoring action", v7, v8, v9, v10, v11);
 }
 
-- (void)performActionForSceneController:.cold.4()
+- (void)performActionForSceneController:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_2();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_275BB3000, v4, v5, "%s Action object brightness type is incorrect, received: %@, expected: %@. Ignoring action", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_2();
+  v11 = 136315650;
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_275BB3000, v5, v6, "%s Action object brightness type is incorrect, received: %@, expected: %@. Ignoring action", v7, v8, v9, v10, v11);
 }
 
-- (void)performActionForSceneController:.cold.5()
+- (void)performActionForSceneController:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_2();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_275BB3000, v4, v5, "%s Action object animate type is incorrect, received: %@, expected: %@. Ignoring action", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_2();
+  v11 = 136315650;
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_275BB3000, v5, v6, "%s Action object animate type is incorrect, received: %@, expected: %@. Ignoring action", v7, v8, v9, v10, v11);
 }
 
 @end

@@ -38,7 +38,7 @@ LABEL_9:
 
 + (id)localizedStringForSchedule:(id)schedule
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   v6 = scheduleCopy;
   if (scheduleCopy)
@@ -79,24 +79,22 @@ LABEL_9:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = NSStringFromSelector(a2);
-      v19 = 138412546;
+      v18 = 138412546;
       selfCopy = self;
-      v21 = 2112;
-      v22 = v14;
-      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "%@: %@ No schedule provided. Returning default string with assumption that access is always allowed.", &v19, 0x16u);
+      v20 = 2112;
+      v21 = v14;
+      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "%@: %@ No schedule provided. Returning default string with assumption that access is always allowed.", &v18, 0x16u);
     }
 
     v15 = [self localizedStringForRule:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 + (id)localizedStringForRule:(id)rule
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   ruleCopy = rule;
   v6 = ruleCopy;
   if (!ruleCopy)
@@ -107,8 +105,8 @@ LABEL_9:
       v10 = NSStringFromSelector(a2);
       *buf = 138412546;
       selfCopy = self;
-      v24 = 2112;
-      v25 = v10;
+      v23 = 2112;
+      v24 = v10;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "%@: %@ No rule provided. Returning default string with assumption that access is always allowed.", buf, 0x16u);
     }
 
@@ -128,9 +126,9 @@ LABEL_7:
 
   if ([v6 isWeekDayRule])
   {
-    v14 = [self localizedMainStringForRule:v6];
-    v21 = [self localizedDetailedStringForRule:v6];
-    v11 = HFLocalizedStringWithFormat(@"HFScheduleRuleTimeInterval_FormatString", @"%@%@", v15, v16, v17, v18, v19, v20, v14);
+    v13 = [self localizedMainStringForRule:v6];
+    v20 = [self localizedDetailedStringForRule:v6];
+    v11 = HFLocalizedStringWithFormat(@"HFScheduleRuleTimeInterval_FormatString", @"%@%@", v14, v15, v16, v17, v18, v19, v13);
   }
 
   else
@@ -140,14 +138,12 @@ LABEL_7:
 
 LABEL_8:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (id)localizedMainStringForRule:(id)rule
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   ruleCopy = rule;
   v6 = ruleCopy;
   if (!ruleCopy)
@@ -158,8 +154,8 @@ LABEL_8:
       v15 = NSStringFromSelector(a2);
       *buf = 138412546;
       selfCopy = self;
-      v39 = 2112;
-      v40 = v15;
+      v38 = 2112;
+      v39 = v15;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "%@: %@ No rule provided. Returning default main string with assumption that access is always allowed.", buf, 0x16u);
     }
 
@@ -203,7 +199,7 @@ LABEL_8:
     {
       [v7 stringFromDate:validUntil];
     }
-    v36 = ;
+    v35 = ;
     v17 = HFLocalizedStringWithFormat(@"HFScheduleRuleDateInterval_FormatString", @"%@%@", v21, v22, v23, v24, v25, v26, v18);
 
     goto LABEL_18;
@@ -234,21 +230,19 @@ LABEL_8:
   hf_sharedCalendar3 = [MEMORY[0x277CBEAA8] hf_sharedCalendar];
   weekDayRule2 = [v6 weekDayRule];
   endTime = [weekDayRule2 endTime];
-  v35 = [hf_sharedCalendar3 dateFromComponents:endTime];
+  v34 = [hf_sharedCalendar3 dateFromComponents:endTime];
 
-  v17 = [v7 stringFromDate:validFrom toDate:v35];
+  v17 = [v7 stringFromDate:validFrom toDate:v34];
 
 LABEL_18:
 LABEL_19:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 + (id)localizedDetailedStringForRule:(id)rule
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ruleCopy = rule;
   v6 = ruleCopy;
   if (ruleCopy)
@@ -281,17 +275,15 @@ LABEL_19:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = NSStringFromSelector(a2);
-      v15 = 138412546;
+      v14 = 138412546;
       selfCopy = self;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@: %@ No rule provided. Returning empty detailed string.", &v15, 0x16u);
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@: %@ No rule provided. Returning empty detailed string.", &v14, 0x16u);
     }
 
     v10 = &stru_2824B1A78;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

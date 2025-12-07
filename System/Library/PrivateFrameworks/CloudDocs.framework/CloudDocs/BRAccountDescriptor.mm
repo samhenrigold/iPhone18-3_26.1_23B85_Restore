@@ -168,15 +168,15 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke()
 
 void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AAE8] mainBundle];
-  v55 = [v0 bundleIdentifier];
+  v54 = [v0 bundleIdentifier];
 
-  v1 = [v55 isEqualToString:@"com.apple.CloudDocs.iCloudDriveFileProviderManaged"];
-  v63 = [v55 isEqualToString:@"com.apple.CloudDocs.iCloudDriveFileProvider"];
+  v1 = [v54 isEqualToString:@"com.apple.CloudDocs.iCloudDriveFileProviderManaged"];
+  v62 = [v54 isEqualToString:@"com.apple.CloudDocs.iCloudDriveFileProvider"];
   v2 = 1;
-  v58 = v1;
-  if (([v55 isEqualToString:@"com.apple.bird"] & 1) == 0 && (v1 & 1) == 0 && (v63 & 1) == 0)
+  v57 = v1;
+  if (([v54 isEqualToString:@"com.apple.bird"] & 1) == 0 && (v1 & 1) == 0 && (v62 & 1) == 0)
   {
     v2 = [BRPosixOperationsWrapper checkMachLookupForService:@"com.apple.bird"]!= 0;
   }
@@ -185,12 +185,12 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
   objc_sync_enter(v3);
   if ((g_cacheValid & 1) == 0)
   {
-    v52 = v3;
+    v51 = v3;
     if (v2)
     {
       if ([BRPosixOperationsWrapper checkMachLookupForService:@"com.apple.accountsd.accountmanager"])
       {
-        v54 = brc_bread_crumbs("+[BRAccountDescriptor refreshCache:]_block_invoke", 507);
+        v53 = brc_bread_crumbs("+[BRAccountDescriptor refreshCache:]_block_invoke", 507);
         v4 = brc_default_log(1, 0);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
@@ -200,12 +200,12 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
 
       else
       {
-        v54 = [MEMORY[0x1E6959A48] defaultStore];
-        v4 = [v54 br_allEligibleAppleAccounts];
+        v53 = [MEMORY[0x1E6959A48] defaultStore];
+        v4 = [v53 br_allEligibleAppleAccounts];
         if ([v4 count])
         {
           v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2];
-          if ((v63 & 1) == 0)
+          if ((v62 & 1) == 0)
           {
             v12 = [MEMORY[0x1E6967508] br_getEnterpriseProviderManager];
             if (v12)
@@ -224,7 +224,7 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
             }
           }
 
-          if ((v58 & 1) == 0)
+          if ((v57 & 1) == 0)
           {
             v19 = [MEMORY[0x1E6967508] br_getPrimaryProviderManager];
             if (v19)
@@ -244,29 +244,29 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
           }
 
           v16 = objc_opt_new();
-          v75 = 0u;
-          v76 = 0u;
-          v73 = 0u;
           v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
           v22 = v11;
-          v59 = v22;
-          obj = [v22 countByEnumeratingWithState:&v73 objects:v81 count:16];
+          v58 = v22;
+          obj = [v22 countByEnumeratingWithState:&v72 objects:v80 count:16];
           if (obj)
           {
-            v53 = *v74;
+            v52 = *v73;
             while (2)
             {
               for (i = 0; i != obj; i = i + 1)
               {
-                if (*v74 != v53)
+                if (*v73 != v52)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v23 = *(*(&v73 + 1) + 8 * i);
-                v72 = 0;
-                v24 = [v23 br_getFPDomainsWithError:&v72];
-                v25 = v72;
+                v23 = *(*(&v72 + 1) + 8 * i);
+                v71 = 0;
+                v24 = [v23 br_getFPDomainsWithError:&v71];
+                v25 = v71;
                 if (v25)
                 {
                   v48 = v25;
@@ -277,30 +277,30 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
                     __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_6();
                   }
 
-                  v47 = v59;
-                  v46 = v59;
+                  v47 = v58;
+                  v46 = v58;
                   goto LABEL_75;
                 }
 
-                v70 = 0u;
-                v71 = 0u;
-                v68 = 0u;
                 v69 = 0u;
+                v70 = 0u;
+                v67 = 0u;
+                v68 = 0u;
                 v26 = v24;
-                v27 = [v26 countByEnumeratingWithState:&v68 objects:v80 count:16];
+                v27 = [v26 countByEnumeratingWithState:&v67 objects:v79 count:16];
                 if (v27)
                 {
-                  v28 = *v69;
+                  v28 = *v68;
                   do
                   {
                     for (j = 0; j != v27; ++j)
                     {
-                      if (*v69 != v28)
+                      if (*v68 != v28)
                       {
                         objc_enumerationMutation(v26);
                       }
 
-                      v30 = *(*(&v68 + 1) + 8 * j);
+                      v30 = *(*(&v67 + 1) + 8 * j);
                       v31 = [BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:v30 withAccounts:v4 persistDomain:0];
                       if (v31)
                       {
@@ -310,16 +310,16 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
                       }
                     }
 
-                    v27 = [v26 countByEnumeratingWithState:&v68 objects:v80 count:16];
+                    v27 = [v26 countByEnumeratingWithState:&v67 objects:v79 count:16];
                   }
 
                   while (v27);
                 }
 
-                v22 = v59;
+                v22 = v58;
               }
 
-              obj = [v59 countByEnumeratingWithState:&v73 objects:v81 count:16];
+              obj = [v58 countByEnumeratingWithState:&v72 objects:v80 count:16];
               if (obj)
               {
                 continue;
@@ -335,27 +335,27 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
           v16 = 0;
         }
 
-        v66 = 0u;
-        v67 = 0u;
-        v64 = 0u;
         v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
         obja = v4;
-        v34 = [obja countByEnumeratingWithState:&v64 objects:v79 count:16];
+        v34 = [obja countByEnumeratingWithState:&v63 objects:v78 count:16];
         if (v34)
         {
-          v60 = *v65;
+          v59 = *v64;
           do
           {
-            v62 = v34;
-            for (k = 0; k != v62; ++k)
+            v61 = v34;
+            for (k = 0; k != v61; ++k)
             {
-              if (*v65 != v60)
+              if (*v64 != v59)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v36 = *(*(&v64 + 1) + 8 * k);
-              if ((!v63 || ([*(*(&v64 + 1) + 8 * k) isDataSeparatedAccount] & 1) == 0) && (!v58 || objc_msgSend(v36, "isDataSeparatedAccount")))
+              v36 = *(*(&v63 + 1) + 8 * k);
+              if ((!v62 || ([*(*(&v63 + 1) + 8 * k) isDataSeparatedAccount] & 1) == 0) && (!v57 || objc_msgSend(v36, "isDataSeparatedAccount")))
               {
                 v37 = [v36 identifier];
                 v38 = [v16 objectForKeyedSubscript:v37];
@@ -385,7 +385,7 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2()
               }
             }
 
-            v34 = [obja countByEnumeratingWithState:&v64 objects:v79 count:16];
+            v34 = [obja countByEnumeratingWithState:&v63 objects:v78 count:16];
           }
 
           while (v34);
@@ -408,20 +408,20 @@ LABEL_75:
       v5 = +[BRDaemonConnection secondaryConnection];
       v6 = [v5 newSyncProxy];
 
-      v77[0] = MEMORY[0x1E69E9820];
-      v77[1] = 3221225472;
-      v77[2] = __36__BRAccountDescriptor_refreshCache___block_invoke_3;
-      v77[3] = &unk_1E7A14918;
-      v78 = v6;
-      v54 = v78;
-      [v78 queryEligibleAccountDescriptorsWithReply:v77];
-      v7 = [v54 error];
+      v76[0] = MEMORY[0x1E69E9820];
+      v76[1] = 3221225472;
+      v76[2] = __36__BRAccountDescriptor_refreshCache___block_invoke_3;
+      v76[3] = &unk_1E7A14918;
+      v77 = v6;
+      v53 = v77;
+      [v77 queryEligibleAccountDescriptorsWithReply:v76];
+      v7 = [v53 error];
       LODWORD(v6) = v7 == 0;
 
       if (v6)
       {
         v13 = g_allAccounts;
-        v14 = [v54 result];
+        v14 = [v53 result];
         [v13 addObjectsFromArray:v14];
 
         if ([g_allAccounts count] > 1)
@@ -450,47 +450,45 @@ LABEL_75:
         v9 = brc_default_log(0, 0);
         if (os_log_type_enabled(v9, 0x90u))
         {
-          v10 = [v54 error];
-          __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_1(v10, v8, v82);
+          v10 = [v53 error];
+          __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_1(v10, v8, v81);
         }
       }
 
-      v4 = v78;
+      v4 = v77;
     }
 
-    v3 = v52;
+    v3 = v51;
   }
 
   objc_sync_exit(v3);
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 + (id)accountDescriptorForURL:(id)l mustBeLoggedIn:(BOOL)in
 {
   inCopy = in;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   lCopy = l;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = +[BRAccountDescriptor allEligibleAccountDescriptors];
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         personaIdentifier = [v11 personaIdentifier];
         v13 = [lCopy _br_isInLocalHomeDirectoryUnderPersona:personaIdentifier needsPersonaSwitch:1];
 
@@ -506,7 +504,7 @@ LABEL_75:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -519,42 +517,40 @@ LABEL_75:
   v14 = 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)accountDescriptorForPersonaID:(id)d mustBeLoggedIn:(BOOL)in
 {
   inCopy = in;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = [MEMORY[0x1E69DF088] personaAttributesForPersonaType:0];
   userPersonaUniqueString = [v6 userPersonaUniqueString];
   v8 = [dCopy isEqualToString:userPersonaUniqueString];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v9 = +[BRAccountDescriptor allEligibleAccountDescriptors];
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v24 = inCopy;
-    v12 = *v26;
+    v23 = inCopy;
+    v12 = *v25;
     v13 = v8 ^ 1;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v24 + 1) + 8 * i);
         personaIdentifier = [v15 personaIdentifier];
         v17 = [personaIdentifier isEqualToString:dCopy];
         if ((v17 | v13))
@@ -575,7 +571,7 @@ LABEL_14:
           if (v20)
           {
 LABEL_13:
-            if (v24 && ![v15 isLoggedInToCloudDocs])
+            if (v23 && ![v15 isLoggedInToCloudDocs])
             {
               v15 = 0;
             }
@@ -586,7 +582,7 @@ LABEL_13:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v11)
       {
         continue;
@@ -599,36 +595,34 @@ LABEL_13:
   v21 = 0;
 LABEL_17:
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 + (id)accountDescriptorForAccountID:(id)d mustBeLoggedIn:(BOOL)in
 {
   inCopy = in;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = +[BRAccountDescriptor allEligibleAccountDescriptors];
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         accountIdentifier = [v11 accountIdentifier];
         v13 = [accountIdentifier isEqualToString:dCopy];
 
@@ -644,7 +638,7 @@ LABEL_17:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -657,14 +651,12 @@ LABEL_17:
   v14 = 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (BOOL)mightHaveDataSeparatedAccountDescriptor
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (g_cacheValid)
   {
     v2 = g_hasDSAccount;
@@ -677,7 +669,7 @@ LABEL_14:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v12 = v4;
+      *v11 = v4;
       _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Cache not populated - going for a quick discovery%@", buf, 0xCu);
     }
 
@@ -688,20 +680,19 @@ LABEL_14:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109890;
-      *v12 = v6 == -1;
-      *&v12[4] = 1024;
-      *&v12[6] = *v12;
-      v13 = 1024;
-      v14 = 0;
-      v15 = 2112;
-      v16 = v7;
+      *v11 = v6 == -1;
+      *&v11[4] = 1024;
+      *&v11[6] = *v11;
+      v12 = 1024;
+      v13 = 0;
+      v14 = 2112;
+      v15 = v7;
       _os_log_debug_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] hasManagedPersona = %d because %d || %d%@", buf, 0x1Eu);
     }
 
     [self refreshCache:1];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v2 & 1;
 }
 
@@ -724,7 +715,7 @@ LABEL_14:
 
 + (id)matchDomainWithAccountAndStampDomainIfNeeded:(id)needed withAccounts:(id)accounts persistDomain:(BOOL *)domain
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   accountsCopy = accounts;
   identifier = [neededCopy identifier];
@@ -765,12 +756,12 @@ LABEL_14:
     +[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:];
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = accountsCopy;
-  v20 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
+  v20 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
   if (!v20)
   {
     v35 = 0;
@@ -778,22 +769,22 @@ LABEL_14:
   }
 
   v22 = v20;
-  v58 = br_dsid2;
-  v56 = v11;
-  v57 = accountsCopy;
-  v23 = *v62;
+  v57 = br_dsid2;
+  v55 = v11;
+  v56 = accountsCopy;
+  v23 = *v61;
   *&v21 = 138413058;
-  v54 = v21;
+  v53 = v21;
 LABEL_12:
   v24 = 0;
   while (1)
   {
-    if (*v62 != v23)
+    if (*v61 != v23)
     {
       objc_enumerationMutation(obj);
     }
 
-    v25 = *(*(&v61 + 1) + 8 * v24);
+    v25 = *(*(&v60 + 1) + 8 * v24);
     identifier2 = [v25 identifier];
     if ([identifier2 isEqualToString:identifier])
     {
@@ -805,9 +796,9 @@ LABEL_12:
       }
 
       *buf = 138412546;
-      v66 = identifier;
-      v67 = 2112;
-      v68 = v27;
+      v65 = identifier;
+      v66 = 2112;
+      v67 = v27;
       v29 = v28;
       v30 = "[DEBUG] Located account with identifier: %@%@";
       v31 = 22;
@@ -815,7 +806,7 @@ LABEL_12:
     }
 
     br_dsid = [v25 br_dsid];
-    v33 = [v58 isEqualToString:br_dsid];
+    v33 = [v57 isEqualToString:br_dsid];
 
     if (v33)
     {
@@ -826,12 +817,12 @@ LABEL_27:
 
     if (v22 == ++v24)
     {
-      v43 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
+      v43 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
       v22 = v43;
       if (!v43)
       {
         v35 = 0;
-        accountsCopy = v57;
+        accountsCopy = v56;
         goto LABEL_44;
       }
 
@@ -846,14 +837,14 @@ LABEL_27:
     goto LABEL_20;
   }
 
-  *buf = v54;
-  v66 = v58;
-  v67 = 2112;
-  v68 = identifier2;
-  v69 = 2112;
-  v70 = identifier;
-  v71 = 2112;
-  v72 = v27;
+  *buf = v53;
+  v65 = v57;
+  v66 = 2112;
+  v67 = identifier2;
+  v68 = 2112;
+  v69 = identifier;
+  v70 = 2112;
+  v71 = v27;
   v29 = v28;
   v30 = "[DEBUG] Located account with DSID: %@ (accountID: %@, domainID: %@)%@";
   v31 = 42;
@@ -871,7 +862,7 @@ LABEL_20:
   br_volumeUUID = [v34 br_volumeUUID];
   if (br_volumeUUID)
   {
-    v60 = identifier2;
+    v59 = identifier2;
     br_volumeUUID2 = [neededCopy br_volumeUUID];
     v38 = br_volumeUUID2;
     v39 = identifier;
@@ -879,7 +870,7 @@ LABEL_20:
     {
       v44 = brc_bread_crumbs("+[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:]", 743);
       v45 = brc_default_log(0, 0);
-      accountsCopy = v57;
+      accountsCopy = v56;
       if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
       {
         +[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:];
@@ -895,23 +886,23 @@ LABEL_20:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413314;
-        v66 = v35;
-        v67 = 2112;
-        v68 = br_volumeUUID;
-        v69 = 2112;
-        v70 = neededCopy;
-        v71 = 2112;
-        v72 = v38;
-        v73 = 2112;
-        v74 = v44;
+        v65 = v35;
+        v66 = 2112;
+        v67 = br_volumeUUID;
+        v68 = 2112;
+        v69 = neededCopy;
+        v70 = 2112;
+        v71 = v38;
+        v72 = 2112;
+        v73 = v44;
         _os_log_debug_impl(&dword_1AE2A9000, v45, OS_LOG_TYPE_DEBUG, "[DEBUG] Matched account %@ (vid=%@) and domain %@ (vid=%@) volume IDs match%@", buf, 0x34u);
       }
 
-      accountsCopy = v57;
+      accountsCopy = v56;
 LABEL_42:
 
       identifier = v39;
-      identifier2 = v60;
+      identifier2 = v59;
       goto LABEL_43;
     }
 
@@ -921,21 +912,21 @@ LABEL_42:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413314;
-      v66 = v35;
-      v67 = 2112;
-      v68 = br_volumeUUID;
-      v69 = 2112;
-      v70 = v40;
-      v71 = 2112;
-      v72 = v38;
-      v73 = 2112;
-      v74 = v41;
+      v65 = v35;
+      v66 = 2112;
+      v67 = br_volumeUUID;
+      v68 = 2112;
+      v69 = v40;
+      v70 = 2112;
+      v71 = v38;
+      v72 = 2112;
+      v73 = v41;
       _os_log_impl(&dword_1AE2A9000, v42, OS_LOG_TYPE_DEFAULT, "[WARNING] Matched account %@ (vid=%@) and domain %@ (vid=%@) volume IDs DO NOT match%@", buf, 0x34u);
     }
 
     neededCopy = v40;
     identifier = v39;
-    identifier2 = v60;
+    identifier2 = v59;
     goto LABEL_27;
   }
 
@@ -946,12 +937,12 @@ LABEL_42:
     +[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:];
   }
 
-  accountsCopy = v57;
+  accountsCopy = v56;
 LABEL_43:
 
 LABEL_44:
-  v11 = v56;
-  br_dsid2 = v58;
+  v11 = v55;
+  br_dsid2 = v57;
 LABEL_45:
 
   if (br_dsid2)
@@ -961,11 +952,11 @@ LABEL_45:
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v66 = neededCopy;
-      v67 = 2112;
-      v68 = br_dsid2;
-      v69 = 2112;
-      v70 = v46;
+      v65 = neededCopy;
+      v66 = 2112;
+      v67 = br_dsid2;
+      v68 = 2112;
+      v69 = v46;
       _os_log_debug_impl(&dword_1AE2A9000, v47, OS_LOG_TYPE_DEBUG, "[DEBUG] Domain %@ was already stamped with dsid: %@%@", buf, 0x20u);
     }
   }
@@ -973,17 +964,17 @@ LABEL_45:
   else if (v35)
   {
     br_dsid2 = [v35 br_dsid];
-    v50 = brc_bread_crumbs("+[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:]", 758);
-    v51 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v49 = brc_bread_crumbs("+[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:]", 758);
+    v50 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v66 = neededCopy;
-      v67 = 2112;
-      v68 = br_dsid2;
-      v69 = 2112;
-      v70 = v50;
-      _os_log_impl(&dword_1AE2A9000, v51, OS_LOG_TYPE_DEFAULT, "[NOTICE] Stamping domain %@ with DSID %@%@", buf, 0x20u);
+      v65 = neededCopy;
+      v66 = 2112;
+      v67 = br_dsid2;
+      v68 = 2112;
+      v69 = v49;
+      _os_log_impl(&dword_1AE2A9000, v50, OS_LOG_TYPE_DEFAULT, "[NOTICE] Stamping domain %@ with DSID %@%@", buf, 0x20u);
     }
 
     [v11 setObject:br_dsid2 forKeyedSubscript:@"dsid"];
@@ -996,15 +987,15 @@ LABEL_45:
 
   else
   {
-    v52 = brc_bread_crumbs("+[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:]", 765);
-    v53 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v51 = brc_bread_crumbs("+[BRAccountDescriptor matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:]", 765);
+    v52 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v66 = identifier;
-      v67 = 2112;
-      v68 = v52;
-      _os_log_impl(&dword_1AE2A9000, v53, OS_LOG_TYPE_DEFAULT, "[WARNING] Didn't find an account with identifier %@. Possible data loss%@", buf, 0x16u);
+      v65 = identifier;
+      v66 = 2112;
+      v67 = v51;
+      _os_log_impl(&dword_1AE2A9000, v52, OS_LOG_TYPE_DEFAULT, "[WARNING] Didn't find an account with identifier %@. Possible data loss%@", buf, 0x16u);
     }
 
     br_dsid2 = 0;
@@ -1015,8 +1006,6 @@ LABEL_45:
   v12 = v10;
 LABEL_50:
 
-  v48 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
@@ -1026,77 +1015,11 @@ void __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_1(void *a1, ui
   OUTLINED_FUNCTION_7(&dword_1AE2A9000, v6, v4, "[ERROR] Couldn't get account descriptors from daemon - %@%@", v5);
 }
 
-void __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_10_0(&dword_1AE2A9000, v0, v1, "[DEBUG] All logged in accounts cache populated to %@%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] Can't query accountsd for the logged in account descriptors either%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: Couldn't fetch the enterprise manager%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: Couldn't fetch the primary manager%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __36__BRAccountDescriptor_refreshCache___block_invoke_2_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] Domain user info: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: Can't get domain volume UUID%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: Can't get account volume UUID%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)matchDomainWithAccountAndStampDomainIfNeeded:withAccounts:persistDomain:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] There is no account for Ciconia domain, the Ciconia Migrator should delete this%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

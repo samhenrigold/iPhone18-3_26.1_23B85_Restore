@@ -20,6 +20,7 @@
 - (void)setOrderTasksBySampleCount:(BOOL)count;
 - (void)setPrintTargetHIDEvent:(BOOL)event;
 - (void)setSystemstatsFormat:(BOOL)format;
+- (void)setVerbose:(BOOL)verbose;
 @end
 
 @implementation SASamplePrintOptions
@@ -314,6 +315,26 @@ LABEL_6:
   return v2;
 }
 
+- (void)setVerbose:(BOOL)verbose
+{
+  self->_swiftAsyncDisplayCRootCallstacks = verbose;
+  v3 = 0x101010101010101 * verbose;
+  *&self->_displayKernelFrames = v3;
+  *&self->_displayFullSourcePaths = v3;
+  self->_displayCPUNumForNonRunningThreads = verbose;
+  *&self->_displayThreadRunningState = v3;
+  *&self->_displayTasksWithZeroCount = v3;
+  *&self->_displayEachIndividualIOInCallTrees = v3;
+  v4 = 22;
+  if (!verbose)
+  {
+    v4 = 0;
+  }
+
+  self->_callTreeTimestampsTimeDomain = verbose << 63 >> 63;
+  self->_hidEventDisplayOptions = v4;
+}
+
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
@@ -417,76 +438,73 @@ LABEL_6:
 - (void)setOmitTasksBelowPercentOfTotalSamples:(char)samples
 {
   samplesCopy = samples;
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (samples >= 0x65)
   {
-    v5 = *__error();
-    v6 = _sa_logt();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = *__error();
+    v5 = _sa_logt();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v14 = samplesCopy;
-      _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "omitTasksBelowPercentOfTotalSamples %d", buf, 8u);
+      v7 = samplesCopy;
+      _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "omitTasksBelowPercentOfTotalSamples %d", buf, 8u);
     }
 
-    *__error() = v5;
-    _SASetCrashLogMessage(15502, "omitTasksBelowPercentOfTotalSamples %d", v7, v8, v9, v10, v11, v12, samplesCopy);
+    *__error() = v4;
+    _SASetCrashLogMessage(15502, "omitTasksBelowPercentOfTotalSamples %d", samplesCopy);
     _os_crash();
     __break(1u);
   }
 
   self->_omitTasksBelowPercentOfTotalSamples = samples;
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOmitStacksBelowPercentOfTaskSamples:(char)samples
 {
   samplesCopy = samples;
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (samples >= 0x65)
   {
-    v5 = *__error();
-    v6 = _sa_logt();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = *__error();
+    v5 = _sa_logt();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v14 = samplesCopy;
-      _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "omitStacksBelowPercentOfTaskSamples %d", buf, 8u);
+      v7 = samplesCopy;
+      _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "omitStacksBelowPercentOfTaskSamples %d", buf, 8u);
     }
 
-    *__error() = v5;
-    _SASetCrashLogMessage(15511, "omitStacksBelowPercentOfTaskSamples %d", v7, v8, v9, v10, v11, v12, samplesCopy);
+    *__error() = v4;
+    _SASetCrashLogMessage(15511, "omitStacksBelowPercentOfTaskSamples %d", samplesCopy);
     _os_crash();
     __break(1u);
   }
 
   self->_omitStacksBelowPercentOfTaskSamples = samples;
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOmitFramesBelowPercentOfStackSamples:(char)samples
 {
   samplesCopy = samples;
-  v15 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (samples >= 0x65)
   {
-    v5 = *__error();
-    v6 = _sa_logt();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = *__error();
+    v5 = _sa_logt();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v14 = samplesCopy;
-      _os_log_error_impl(&dword_1E0E2F000, v6, OS_LOG_TYPE_ERROR, "omitFramesBelowPercentOfStackSamples %d", buf, 8u);
+      v7 = samplesCopy;
+      _os_log_error_impl(&dword_1E0E2F000, v5, OS_LOG_TYPE_ERROR, "omitFramesBelowPercentOfStackSamples %d", buf, 8u);
     }
 
-    *__error() = v5;
-    _SASetCrashLogMessage(15520, "omitFramesBelowPercentOfStackSamples %d", v7, v8, v9, v10, v11, v12, samplesCopy);
+    *__error() = v4;
+    _SASetCrashLogMessage(15520, "omitFramesBelowPercentOfStackSamples %d", samplesCopy);
     _os_crash();
     __break(1u);
   }
 
   self->_omitFramesBelowPercentOfStackSamples = samples;
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMicrostackshotsFormat:(BOOL)format
@@ -517,27 +535,7 @@ LABEL_6:
 - (id)debugDescription
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  processUUIDsToPrint = self->_processUUIDsToPrint;
-  uniquePidsToPrint = self->_uniquePidsToPrint;
-  pidsToPrint = self->_pidsToPrint;
-  tidsToPrint = self->_tidsToPrint;
-  printProblematicProcessesAndThreads = self->_printProblematicProcessesAndThreads;
-  omitAbsoluteWallTimes = self->_omitAbsoluteWallTimes;
-  omitStacksAboveBasePriority = self->_omitStacksAboveBasePriority;
-  omitStacksBelowBasePriority = self->_omitStacksBelowBasePriority;
-  omitStacksWithPCore = self->_omitStacksWithPCore;
-  omitStacksWithECore = self->_omitStacksWithECore;
-  omitStacksWithUserActive = self->_omitStacksWithUserActive;
-  omitStacksWithUserIdle = self->_omitStacksWithUserIdle;
-  omitStacksOnAC = self->_omitStacksOnAC;
-  omitStacksOnBattery = self->_omitStacksOnBattery;
-  includeUserIdleAndBatteryStateInStacks = self->_includeUserIdleAndBatteryStateInStacks;
-  microstackshotsFormat = self->_microstackshotsFormat;
-  systemstatsFormat = self->_systemstatsFormat;
-  taskAggregation = self->_taskAggregation;
-  aggregateFramesByOffsetIntoBinary = self->_aggregateFramesByOffsetIntoBinary;
   swiftAsyncPrintLeafyCCallstackOnTopOfSwiftAsyncCallstacksAlways = self->_swiftAsyncPrintLeafyCCallstackOnTopOfSwiftAsyncCallstacksAlways;
-  swiftAsyncPrintLeafyCCallstackOnTopOfCRootCallstacksAlways = self->_swiftAsyncPrintLeafyCCallstackOnTopOfCRootCallstacksAlways;
   swiftAsyncCallTreeAggregation = self->_swiftAsyncCallTreeAggregation;
   swiftAsyncDisplayCRootCallstacks = self->_swiftAsyncDisplayCRootCallstacks;
   callTreeTimestampsTimeDomain = self->_callTreeTimestampsTimeDomain;

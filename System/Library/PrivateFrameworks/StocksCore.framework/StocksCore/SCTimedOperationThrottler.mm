@@ -3,6 +3,7 @@
 - (SCTimedOperationThrottler)initWithDelegate:(id)delegate;
 - (SCWOperationThrottlerDelegate)delegate;
 - (void)operationThrottler:(id)throttler performAsyncOperationWithCompletion:(id)completion;
+- (void)setSuspended:(BOOL)suspended;
 - (void)tickle;
 - (void)tickleWithCompletion:(id)completion;
 @end
@@ -46,6 +47,13 @@
   suspended = [operationThrottler suspended];
 
   return suspended;
+}
+
+- (void)setSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  operationThrottler = [(SCTimedOperationThrottler *)self operationThrottler];
+  [operationThrottler setSuspended:suspendedCopy];
 }
 
 - (void)operationThrottler:(id)throttler performAsyncOperationWithCompletion:(id)completion

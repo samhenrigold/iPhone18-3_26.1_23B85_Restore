@@ -14,7 +14,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v9 = sub_10000A5D4(&qword_100967858);
+  v9 = sub_10000A5D4(&qword_100967858, &qword_1007B6D68);
   __chkstk_darwin(v9);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension20AnnotationImagesView_imageViews) = _swiftEmptyArrayStorage;
   type metadata accessor for AnnotationImagesView.AnnotationImageView();

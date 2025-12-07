@@ -49,7 +49,7 @@
 
 - (void)addExternalActionsAsSupportedActions:(id)actions
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   mapItem = [(MUPlaceEnrichmentActionManager *)self mapItem];
   _externalActionLinks = [mapItem _externalActionLinks];
@@ -64,26 +64,26 @@
   v13 = MEMORY[0x1E696AE18];
   if (v12)
   {
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke;
-    v32[3] = &unk_1E8219EB0;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke;
+    v31[3] = &unk_1E8219EB0;
     v14 = appAdamIds;
-    v33 = v14;
-    v15 = [v13 predicateWithBlock:v32];
+    v32 = v14;
+    v15 = [v13 predicateWithBlock:v31];
     v16 = [_externalActionLinks filteredArrayUsingPredicate:v15];
 
     v17 = MUGetMUPlaceEnrichmentActionManagerLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v35 = v16;
-      v36 = 2112;
-      v37 = v14;
+      v34 = v16;
+      v35 = 2112;
+      v36 = v14;
       _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_INFO, "Filtered showcase external actions are: %@. Showcase app adamIDs: %@", buf, 0x16u);
     }
 
-    v18 = v33;
+    v18 = v32;
   }
 
   else
@@ -95,7 +95,7 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v35 = v16;
+      v34 = v16;
       _os_log_impl(&dword_1C5620000, v18, OS_LOG_TYPE_INFO, "Showcase external are: %@. These actions contain providers with no app adam id which is expected because these are not backed by an app store app.", buf, 0xCu);
     }
   }
@@ -103,27 +103,27 @@
   if ([v16 count] || (-[MUPlaceEnrichmentActionManager onActionUpdate](self, "onActionUpdate"), v23 = objc_claimAutoreleasedReturnValue(), v23, !v23))
   {
     v20 = dispatch_group_create();
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_33;
-    v28[3] = &unk_1E8219F20;
-    v29 = v20;
-    v30 = actionsCopy;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_33;
+    v27[3] = &unk_1E8219F20;
+    v28 = v20;
+    v29 = actionsCopy;
     selfCopy = self;
     onActionUpdate = v20;
-    [v16 enumerateObjectsUsingBlock:v28];
+    [v16 enumerateObjectsUsingBlock:v27];
     objc_initWeak(buf, self);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_38;
-    v26[3] = &unk_1E8219F48;
-    objc_copyWeak(&v27, buf);
-    v26[4] = self;
-    dispatch_group_notify(onActionUpdate, MEMORY[0x1E69E96A0], v26);
-    objc_destroyWeak(&v27);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_38;
+    v25[3] = &unk_1E8219F48;
+    objc_copyWeak(&v26, buf);
+    v25[4] = self;
+    dispatch_group_notify(onActionUpdate, MEMORY[0x1E69E96A0], v25);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
 
-    supportedActions = v29;
+    supportedActions = v28;
   }
 
   else
@@ -139,8 +139,6 @@
     supportedActions = [(MUPlaceEnrichmentActionManager *)self supportedActions];
     (onActionUpdate[2].isa)(onActionUpdate, supportedActions);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke(uint64_t a1, void *a2)
@@ -154,7 +152,7 @@ uint64_t __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActio
 
 void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_33(uint64_t a1, void *a2, void *a3)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   dispatch_group_enter(*(a1 + 32));
   v6 = [v5 categoryId];
@@ -162,10 +160,10 @@ void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions__
   if (v6)
   {
     v7 = [MUPlaceEnrichmentAction alloc];
-    v27 = @"appCategory";
+    v26 = @"appCategory";
     v8 = [v5 categoryId];
-    v28[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v27[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v10 = [(MUPlaceEnrichmentAction *)v7 initWithActionType:12 isValidated:0 mkActionType:0 metadata:v9];
 
     [*(a1 + 40) addObject:v10];
@@ -185,28 +183,26 @@ void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions__
     objc_initWeak(&location, *(a1 + 48));
     v17 = [*(a1 + 48) externalActionsControllers];
     v18 = [v17 objectAtIndex:a3];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_2;
-    v21[3] = &unk_1E8219EF8;
-    objc_copyWeak(v25, &location);
-    v25[1] = a3;
-    v22 = v5;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_2;
+    v20[3] = &unk_1E8219EF8;
+    objc_copyWeak(v24, &location);
+    v24[1] = a3;
+    v21 = v5;
     v19 = v10;
-    v23 = v19;
-    v24 = *(a1 + 32);
-    [v18 fetchProviderLockupsWithCompletion:v21];
+    v22 = v19;
+    v23 = *(a1 + 32);
+    [v18 fetchProviderLockupsWithCompletion:v20];
 
-    objc_destroyWeak(v25);
+    objc_destroyWeak(v24);
     objc_destroyWeak(&location);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_38(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -214,9 +210,9 @@ void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions__
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v4 = [WeakRetained externalActionsPairs];
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_1C5620000, v3, OS_LOG_TYPE_DEBUG, "Fetched view models for all actions: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v4;
+      _os_log_impl(&dword_1C5620000, v3, OS_LOG_TYPE_DEBUG, "Fetched view models for all actions: %@", &v9, 0xCu);
     }
 
     v5 = [*(a1 + 32) onActionUpdate];
@@ -226,8 +222,8 @@ void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions__
       v6 = MUGetMUPlaceEnrichmentActionManagerLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_INFO, "Informing Enrichment section controller about external extensions validation.", &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_INFO, "Informing Enrichment section controller about external extensions validation.", &v9, 2u);
       }
 
       v7 = [*(a1 + 32) onActionUpdate];
@@ -235,13 +231,11 @@ void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions__
       (v7)[2](v7, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
@@ -261,10 +255,10 @@ void __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions__
       [v11 removeObject:*(a1 + 40)];
 
       v12 = [MUPlaceEnrichmentAction alloc];
-      v20 = @"appCategory";
+      v19 = @"appCategory";
       v13 = [*(a1 + 32) categoryId];
-      v21[0] = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v20[0] = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v15 = [(MUPlaceEnrichmentAction *)v12 initWithActionType:12 isValidated:1 mkActionType:0 metadata:v14];
 
       v16 = [WeakRetained supportedActions];
@@ -283,41 +277,39 @@ LABEL_7:
       }
 
       v15 = [*(a1 + 32) actionName];
-      v18 = 138412290;
-      v19 = v15;
-      _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_ERROR, "Unable to fetch lockups for action: %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_ERROR, "Unable to fetch lockups for action: %@", &v17, 0xCu);
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActions___block_invoke_32(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [a2 actionProviders];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(&v10 + 1) + 8 * i) appAdamId];
+        v6 = [*(*(&v9 + 1) + 8 * i) appAdamId];
         v7 = [v6 length];
 
         if (!v7)
@@ -327,7 +319,7 @@ uint64_t __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActio
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -339,7 +331,6 @@ uint64_t __71__MUPlaceEnrichmentActionManager_addExternalActionsAsSupportedActio
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -406,7 +397,7 @@ LABEL_11:
 
 - (void)layoutActionsUsingArguments:(id)arguments completion:(id)completion
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   completionCopy = completion;
   v8 = argumentsCopy;
@@ -424,7 +415,7 @@ LABEL_11:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v38 = v9;
+        v37 = v9;
         _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_ERROR, "ERROR: Arguments is missing actionKey. Arguments: %@", buf, 0xCu);
       }
 
@@ -438,7 +429,7 @@ LABEL_11:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v38 = v9;
+        v37 = v9;
         _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_ERROR, "ERROR: Trying it layout action that is not supported. Arguments: %@", buf, 0xCu);
       }
 
@@ -502,18 +493,18 @@ LABEL_28:
 
           v25 = [firstObject objectForKeyedSubscript:@"subActions"];
           v27 = [MUPlaceEnrichmentAction alloc];
-          v45 = @"subActions";
-          v46[0] = v25;
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+          v44 = @"subActions";
+          v45[0] = v25;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
           v29 = [(MUPlaceEnrichmentAction *)v27 initWithActionType:13 isValidated:1 mkActionType:0 metadata:v28];
 
           contextMenuDelegate2 = [(MUPlaceEnrichmentActionManager *)self contextMenuDelegate];
-          v35[0] = MEMORY[0x1E69E9820];
-          v35[1] = 3221225472;
-          v35[2] = __73__MUPlaceEnrichmentActionManager_layoutActionsUsingArguments_completion___block_invoke;
-          v35[3] = &unk_1E821A730;
-          v36 = completionCopy;
-          [contextMenuDelegate2 didLayoutContextMenu:v29 completion:v35];
+          v34[0] = MEMORY[0x1E69E9820];
+          v34[1] = 3221225472;
+          v34[2] = __73__MUPlaceEnrichmentActionManager_layoutActionsUsingArguments_completion___block_invoke;
+          v34[3] = &unk_1E821A730;
+          v35 = completionCopy;
+          [contextMenuDelegate2 didLayoutContextMenu:v29 completion:v34];
         }
 
         goto LABEL_23;
@@ -531,13 +522,13 @@ LABEL_28:
       v32 = NSStringFromBOOL();
       v33 = NSStringFromBOOL();
       *buf = 138413058;
-      v38 = v31;
-      v39 = 2112;
-      v40 = v32;
-      v41 = 2112;
-      v42 = v33;
-      v43 = 2112;
-      v44 = v9;
+      v37 = v31;
+      v38 = 2112;
+      v39 = v32;
+      v40 = 2112;
+      v41 = v33;
+      v42 = 2112;
+      v43 = v9;
       _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_ERROR, "ERROR: layout action arguments are not correct. isValidated:%@, boundingBoxValid:%@, accessibilityLabelValid:%@, \nArguments: %@", buf, 0x2Au);
     }
 
@@ -548,13 +539,11 @@ LABEL_28:
   if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v38 = 0;
+    v37 = 0;
     _os_log_impl(&dword_1C5620000, firstObject, OS_LOG_TYPE_ERROR, "ERROR: missing top level arguments for layoutActions callback: %@", buf, 0xCu);
   }
 
 LABEL_29:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__MUPlaceEnrichmentActionManager_layoutActionsUsingArguments_completion___block_invoke(uint64_t a1)
@@ -570,7 +559,7 @@ uint64_t __73__MUPlaceEnrichmentActionManager_layoutActionsUsingArguments_comple
 
 - (void)performActionUsingArguments:(id)arguments contextMenu:(id)menu completion:(id)completion
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   menuCopy = menu;
   completionCopy = completion;
@@ -584,48 +573,48 @@ uint64_t __73__MUPlaceEnrichmentActionManager_layoutActionsUsingArguments_comple
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v130 = 0x3032000000;
-  v131 = __Block_byref_object_copy__18756;
-  v132 = __Block_byref_object_dispose__18757;
-  v133 = 0;
+  v129 = 0x3032000000;
+  v130 = __Block_byref_object_copy__18756;
+  v131 = __Block_byref_object_dispose__18757;
+  v132 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke;
   aBlock[3] = &unk_1E8219D98;
   v11 = completionCopy;
-  v119 = v11;
+  v118 = v11;
   p_buf = &buf;
   v12 = _Block_copy(aBlock);
-  v112 = 0;
-  v113 = &v112;
-  v114 = 0x3032000000;
-  v115 = __Block_byref_object_copy__18756;
-  v116 = __Block_byref_object_dispose__18757;
-  v117 = 0;
+  v111 = 0;
+  v112 = &v111;
+  v113 = 0x3032000000;
+  v114 = __Block_byref_object_copy__18756;
+  v115 = __Block_byref_object_dispose__18757;
+  v116 = 0;
   sourceView = [(MUPlaceEnrichmentActionManager *)self sourceView];
   traitCollection = [sourceView traitCollection];
   v15 = [traitCollection userInterfaceIdiom] == 0;
 
-  v106[0] = MEMORY[0x1E69E9820];
-  v106[1] = 3221225472;
-  v106[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_9;
-  v106[3] = &unk_1E8219DC0;
-  v111 = v15;
+  v105[0] = MEMORY[0x1E69E9820];
+  v105[1] = 3221225472;
+  v105[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_9;
+  v105[3] = &unk_1E8219DC0;
+  v110 = v15;
   v16 = argumentsCopy;
-  v109 = &v112;
-  v110 = 13;
-  v107 = v16;
+  v108 = &v111;
+  v109 = 13;
+  v106 = v16;
   selfCopy = self;
-  v17 = _Block_copy(v106);
-  v104[0] = MEMORY[0x1E69E9820];
-  v104[1] = 3221225472;
-  v104[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_14;
-  v104[3] = &unk_1E8219E10;
-  v105 = v15;
-  v104[5] = &v112;
-  v104[6] = 13;
-  v104[4] = self;
-  v18 = _Block_copy(v104);
+  v17 = _Block_copy(v105);
+  v103[0] = MEMORY[0x1E69E9820];
+  v103[1] = 3221225472;
+  v103[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_14;
+  v103[3] = &unk_1E8219E10;
+  v104 = v15;
+  v103[5] = &v111;
+  v103[6] = 13;
+  v103[4] = self;
+  v18 = _Block_copy(v103);
   supportedActions = [(MUPlaceEnrichmentActionManager *)self supportedActions];
   v20 = [supportedActions count] == 0;
 
@@ -634,8 +623,8 @@ uint64_t __73__MUPlaceEnrichmentActionManager_layoutActionsUsingArguments_comple
     v30 = MUGetMUPlaceEnrichmentActionManagerLog();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v124) = 0;
-      _os_log_impl(&dword_1C5620000, v30, OS_LOG_TYPE_ERROR, "ERROR: Performing action as no supported actions.", &v124, 2u);
+      LOWORD(v123) = 0;
+      _os_log_impl(&dword_1C5620000, v30, OS_LOG_TYPE_ERROR, "ERROR: Performing action as no supported actions.", &v123, 2u);
     }
 
     v12[2](v12, 0);
@@ -651,14 +640,14 @@ uint64_t __73__MUPlaceEnrichmentActionManager_layoutActionsUsingArguments_comple
     {
       v23 = [v16 objectForKeyedSubscript:@"actionType"];
       supportedActions2 = [(MUPlaceEnrichmentActionManager *)self supportedActions];
-      v101[0] = MEMORY[0x1E69E9820];
-      v101[1] = 3221225472;
-      v101[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_17;
-      v101[3] = &unk_1E8219E38;
-      v90 = v23;
-      v102 = v90;
-      v103 = &buf;
-      v25 = [supportedActions2 objectsPassingTest:v101];
+      v100[0] = MEMORY[0x1E69E9820];
+      v100[1] = 3221225472;
+      v100[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_17;
+      v100[3] = &unk_1E8219E38;
+      v89 = v23;
+      v101 = v89;
+      v102 = &buf;
+      v25 = [supportedActions2 objectsPassingTest:v100];
 
       v26 = *(*(&buf + 1) + 40);
       if (!v26)
@@ -674,11 +663,11 @@ LABEL_18:
           goto LABEL_27;
         }
 
-        LODWORD(v124) = 138412290;
-        *(&v124 + 4) = v16;
+        LODWORD(v123) = 138412290;
+        *(&v123 + 4) = v16;
         v29 = "ERROR: Unsupported action invoked from Showcase %@";
 LABEL_16:
-        _os_log_impl(&dword_1C5620000, analyticsDelegate, OS_LOG_TYPE_ERROR, v29, &v124, 0xCu);
+        _os_log_impl(&dword_1C5620000, analyticsDelegate, OS_LOG_TYPE_ERROR, v29, &v123, 0xCu);
         goto LABEL_17;
       }
 
@@ -700,8 +689,8 @@ LABEL_27:
             goto LABEL_17;
           }
 
-          LODWORD(v124) = 138412290;
-          *(&v124 + 4) = v16;
+          LODWORD(v123) = 138412290;
+          *(&v123 + 4) = v16;
           v29 = "MUPlaceEnrichmentActionManagerUnknown action invoked from Showcase %@";
           goto LABEL_16;
         }
@@ -710,7 +699,7 @@ LABEL_21:
         v18[2](v18);
         v17[2](v17);
         v32 = [MEMORY[0x1E69A1B10] moduleFromModuleType:40];
-        v33 = v113[5];
+        v33 = v112[5];
         if (v33)
         {
           sourceView2 = v33;
@@ -730,19 +719,19 @@ LABEL_21:
         }
 
         v37 = *MEMORY[0x1E696F118];
-        v127[0] = *MEMORY[0x1E696F108];
-        v127[1] = v37;
-        v128[0] = v32;
-        v128[1] = sourceView2;
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v128 forKeys:v127 count:2];
+        v126[0] = *MEMORY[0x1E696F108];
+        v126[1] = v37;
+        v127[0] = v32;
+        v127[1] = sourceView2;
+        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v127 forKeys:v126 count:2];
         v39 = [MEMORY[0x1E696F308] actionItemWithType:{objc_msgSend(*(*(&buf + 1) + 40), "mkActionType")}];
         placeActionManager = [(MUPlaceEnrichmentActionManager *)self placeActionManager];
-        v99[0] = MEMORY[0x1E69E9820];
-        v99[1] = 3221225472;
-        v99[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_21;
-        v99[3] = &unk_1E821B860;
-        v100 = v12;
-        [placeActionManager performAction:v39 options:v38 completion:v99];
+        v98[0] = MEMORY[0x1E69E9820];
+        v98[1] = 3221225472;
+        v98[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_21;
+        v98[3] = &unk_1E821B860;
+        v99 = v12;
+        [placeActionManager performAction:v39 options:v38 completion:v98];
 
         goto LABEL_27;
       }
@@ -763,10 +752,10 @@ LABEL_21:
         {
           v18[2](v18);
           v17[2](v17);
-          v42 = v113[5];
-          if (v42)
+          v41 = v112[5];
+          if (v41)
           {
-            sourceView3 = v113[5];
+            sourceView3 = v112[5];
           }
 
           else
@@ -778,7 +767,7 @@ LABEL_21:
           presentationOptions3 = [(MUPlaceEnrichmentActionManager *)self presentationOptions];
           [presentationOptions3 setSourceView:sourceView3];
 
-          if (!v42)
+          if (!v41)
           {
           }
 
@@ -804,59 +793,59 @@ LABEL_21:
         goto LABEL_27;
       }
 
-      *&v124 = 0;
-      *(&v124 + 1) = &v124;
-      v125 = 0x2020000000;
-      v126 = 0;
-      v44 = [v16 objectForKeyedSubscript:@"appCategory"];
+      *&v123 = 0;
+      *(&v123 + 1) = &v123;
+      v124 = 0x2020000000;
+      v125 = 0;
+      v43 = [v16 objectForKeyedSubscript:@"appCategory"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v45 = [v16 objectForKeyedSubscript:@"appCategory"];
-        v46 = v45 == 0;
+        v44 = [v16 objectForKeyedSubscript:@"appCategory"];
+        v45 = v44 == 0;
       }
 
       else
       {
-        v46 = 1;
+        v45 = 1;
       }
 
-      v49 = [v16 objectForKeyedSubscript:@"isValidated"];
+      v48 = [v16 objectForKeyedSubscript:@"isValidated"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v50 = [v16 objectForKeyedSubscript:@"isValidated"];
-        v51 = v50 == 0;
+        v49 = [v16 objectForKeyedSubscript:@"isValidated"];
+        v50 = v49 == 0;
 
-        if (!v46 && !v51)
+        if (!v45 && !v50)
         {
-          v89 = [v16 objectForKeyedSubscript:@"appCategory"];
-          v52 = [v16 objectForKeyedSubscript:@"isValidated"];
-          v53 = NSBOOLFromString();
+          v88 = [v16 objectForKeyedSubscript:@"appCategory"];
+          v51 = [v16 objectForKeyedSubscript:@"isValidated"];
+          v52 = NSBOOLFromString();
 
-          if (((v89 != 0) & v53) != 1)
+          if (((v88 != 0) & v52) != 1)
           {
-            v69 = MUGetMUPlaceEnrichmentActionManagerLog();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            v68 = MUGetMUPlaceEnrichmentActionManagerLog();
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
-              *v122 = 138412290;
-              v123 = v16;
-              _os_log_impl(&dword_1C5620000, v69, OS_LOG_TYPE_ERROR, "Action arguments not valid for External Action: %@", v122, 0xCu);
+              *v121 = 138412290;
+              v122 = v16;
+              _os_log_impl(&dword_1C5620000, v68, OS_LOG_TYPE_ERROR, "Action arguments not valid for External Action: %@", v121, 0xCu);
             }
 
             goto LABEL_83;
           }
 
           externalActionsPairs = [(MUPlaceEnrichmentActionManager *)self externalActionsPairs];
-          v86 = [externalActionsPairs objectForKey:v89];
+          v85 = [externalActionsPairs objectForKey:v88];
 
-          v55 = MUGetMUPlaceEnrichmentActionManagerLog();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+          v54 = MUGetMUPlaceEnrichmentActionManagerLog();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
           {
-            v56 = *(*(&buf + 1) + 40);
-            *v122 = 138412290;
-            v123 = v56;
-            _os_log_impl(&dword_1C5620000, v55, OS_LOG_TYPE_DEBUG, "Opening external action for showcase: %@", v122, 0xCu);
+            v55 = *(*(&buf + 1) + 40);
+            *v121 = 138412290;
+            v122 = v55;
+            _os_log_impl(&dword_1C5620000, v54, OS_LOG_TYPE_DEBUG, "Opening external action for showcase: %@", v121, 0xCu);
           }
 
           enrichmentDataProvider = [(MUPlaceEnrichmentActionManager *)self enrichmentDataProvider];
@@ -865,78 +854,78 @@ LABEL_21:
           firstObject = [enrichmentEntities firstObject];
           appAdamIds = [firstObject appAdamIds];
 
-          v61 = [appAdamIds count];
-          v62 = MUGetMUPlaceEnrichmentActionManagerLog();
-          v63 = os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG);
-          if (v61)
+          v60 = [appAdamIds count];
+          v61 = MUGetMUPlaceEnrichmentActionManagerLog();
+          v62 = os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG);
+          if (v60)
           {
-            if (v63)
+            if (v62)
             {
-              *v122 = 138412290;
-              v123 = appAdamIds;
-              _os_log_impl(&dword_1C5620000, v62, OS_LOG_TYPE_DEBUG, "AdamId's found were %@", v122, 0xCu);
+              *v121 = 138412290;
+              v122 = appAdamIds;
+              _os_log_impl(&dword_1C5620000, v61, OS_LOG_TYPE_DEBUG, "AdamId's found were %@", v121, 0xCu);
             }
 
-            v96[0] = MEMORY[0x1E69E9820];
-            v96[1] = 3221225472;
-            v96[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_22;
-            v96[3] = &unk_1E8219E88;
-            v97 = v86;
-            v98 = &v124;
-            [appAdamIds enumerateObjectsUsingBlock:v96];
-            viewModels = v97;
+            v95[0] = MEMORY[0x1E69E9820];
+            v95[1] = 3221225472;
+            v95[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_22;
+            v95[3] = &unk_1E8219E88;
+            v96 = v85;
+            v97 = &v123;
+            [appAdamIds enumerateObjectsUsingBlock:v95];
+            viewModels = v96;
           }
 
           else
           {
-            if (v63)
+            if (v62)
             {
-              *v122 = 0;
-              _os_log_impl(&dword_1C5620000, v62, OS_LOG_TYPE_DEBUG, "No AdamIds were found which means that we need to execute a flexible action link.", v122, 2u);
+              *v121 = 0;
+              _os_log_impl(&dword_1C5620000, v61, OS_LOG_TYPE_DEBUG, "No AdamIds were found which means that we need to execute a flexible action link.", v121, 2u);
             }
 
-            v94 = 0u;
-            v95 = 0u;
-            v92 = 0u;
             v93 = 0u;
-            viewModels = [v86 viewModels];
-            v70 = [viewModels countByEnumeratingWithState:&v92 objects:v121 count:16];
-            if (v70)
+            v94 = 0u;
+            v91 = 0u;
+            v92 = 0u;
+            viewModels = [v85 viewModels];
+            v69 = [viewModels countByEnumeratingWithState:&v91 objects:v120 count:16];
+            if (v69)
             {
               obj = viewModels;
-              v71 = *v93;
+              v70 = *v92;
               while (2)
               {
-                for (i = 0; i != v70; ++i)
+                for (i = 0; i != v69; ++i)
                 {
-                  if (*v93 != v71)
+                  if (*v92 != v70)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v73 = *(*(&v92 + 1) + 8 * i);
-                  if ([v73 linkType] == 4)
+                  v72 = *(*(&v91 + 1) + 8 * i);
+                  if ([v72 linkType] == 4)
                   {
-                    v74 = MUGetMUPlaceEnrichmentActionManagerLog();
-                    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+                    v73 = MUGetMUPlaceEnrichmentActionManagerLog();
+                    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
                     {
-                      *v122 = 138412290;
-                      v123 = v73;
-                      _os_log_impl(&dword_1C5620000, v74, OS_LOG_TYPE_DEBUG, "Found a web link with view model %@", v122, 0xCu);
+                      *v121 = 138412290;
+                      v122 = v72;
+                      _os_log_impl(&dword_1C5620000, v73, OS_LOG_TYPE_DEBUG, "Found a web link with view model %@", v121, 0xCu);
                     }
 
                     viewModels = obj;
-                    v75 = objc_opt_new();
-                    actionController = [v86 actionController];
-                    [actionController openPartnerActionUsingViewModel:v73 withPresentationOptions:v75];
+                    v74 = objc_opt_new();
+                    actionController = [v85 actionController];
+                    [actionController openPartnerActionUsingViewModel:v72 withPresentationOptions:v74];
 
-                    *(*(&v124 + 1) + 24) = 1;
+                    *(*(&v123 + 1) + 24) = 1;
                     goto LABEL_70;
                   }
                 }
 
-                v70 = [obj countByEnumeratingWithState:&v92 objects:v121 count:16];
-                if (v70)
+                v69 = [obj countByEnumeratingWithState:&v91 objects:v120 count:16];
+                if (v69)
                 {
                   continue;
                 }
@@ -950,61 +939,61 @@ LABEL_21:
 
 LABEL_70:
 
-          if (*(*(&v124 + 1) + 24))
+          if (*(*(&v123 + 1) + 24))
           {
 LABEL_82:
 
-            v69 = v86;
+            v68 = v85;
 LABEL_83:
 
-            v65 = v89;
+            v64 = v88;
 LABEL_84:
 
-            v12[2](v12, *(*(&v124 + 1) + 24));
-            _Block_object_dispose(&v124, 8);
+            v12[2](v12, *(*(&v123 + 1) + 24));
+            _Block_object_dispose(&v123, 8);
             goto LABEL_27;
           }
 
-          v77 = [appAdamIds count];
-          v78 = MUGetMUPlaceEnrichmentActionManagerLog();
-          v79 = os_log_type_enabled(v78, OS_LOG_TYPE_ERROR);
-          if (v77)
+          v76 = [appAdamIds count];
+          v77 = MUGetMUPlaceEnrichmentActionManagerLog();
+          v78 = os_log_type_enabled(v77, OS_LOG_TYPE_ERROR);
+          if (v76)
           {
-            if (v79)
+            if (v78)
             {
-              v80 = *(*(&buf + 1) + 40);
-              *v122 = 138412290;
-              v123 = v80;
-              v81 = "Failed to invoke action: %@ as there are no view models with appAdamIDs that match the showcase specific appAdamIDs";
+              v79 = *(*(&buf + 1) + 40);
+              *v121 = 138412290;
+              v122 = v79;
+              v80 = "Failed to invoke action: %@ as there are no view models with appAdamIDs that match the showcase specific appAdamIDs";
 LABEL_76:
-              _os_log_impl(&dword_1C5620000, v78, OS_LOG_TYPE_ERROR, v81, v122, 0xCu);
+              _os_log_impl(&dword_1C5620000, v77, OS_LOG_TYPE_ERROR, v80, v121, 0xCu);
             }
           }
 
-          else if (v79)
+          else if (v78)
           {
-            v82 = *(*(&buf + 1) + 40);
-            *v122 = 138412290;
-            v123 = v82;
-            v81 = "Failed to invoke action: %@ as there are no view models with flexible action links";
+            v81 = *(*(&buf + 1) + 40);
+            *v121 = 138412290;
+            v122 = v81;
+            v80 = "Failed to invoke action: %@ as there are no view models with flexible action links";
             goto LABEL_76;
           }
 
-          v83 = MUGetMUPlaceEnrichmentActionManagerLog();
-          if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+          v82 = MUGetMUPlaceEnrichmentActionManagerLog();
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
           {
-            viewModels2 = [v86 viewModels];
-            *v122 = 138412290;
-            v123 = viewModels2;
-            _os_log_impl(&dword_1C5620000, v83, OS_LOG_TYPE_ERROR, "--> MapItem external action view models : %@", v122, 0xCu);
+            viewModels2 = [v85 viewModels];
+            *v121 = 138412290;
+            v122 = viewModels2;
+            _os_log_impl(&dword_1C5620000, v82, OS_LOG_TYPE_ERROR, "--> MapItem external action view models : %@", v121, 0xCu);
           }
 
-          v85 = MUGetMUPlaceEnrichmentActionManagerLog();
-          if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+          v84 = MUGetMUPlaceEnrichmentActionManagerLog();
+          if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
           {
-            *v122 = 138412290;
-            v123 = appAdamIds;
-            _os_log_impl(&dword_1C5620000, v85, OS_LOG_TYPE_ERROR, "--> Showcase ordered appAdamIds: %@", v122, 0xCu);
+            *v121 = 138412290;
+            v122 = appAdamIds;
+            _os_log_impl(&dword_1C5620000, v84, OS_LOG_TYPE_ERROR, "--> Showcase ordered appAdamIds: %@", v121, 0xCu);
           }
 
           goto LABEL_82;
@@ -1015,12 +1004,12 @@ LABEL_76:
       {
       }
 
-      v65 = MUGetMUPlaceEnrichmentActionManagerLog();
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      v64 = MUGetMUPlaceEnrichmentActionManagerLog();
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
-        *v122 = 138412290;
-        v123 = v16;
-        _os_log_impl(&dword_1C5620000, v65, OS_LOG_TYPE_ERROR, "Action arguments missing arguments needed to invoke external action: %@", v122, 0xCu);
+        *v121 = 138412290;
+        v122 = v16;
+        _os_log_impl(&dword_1C5620000, v64, OS_LOG_TYPE_ERROR, "Action arguments missing arguments needed to invoke external action: %@", v121, 0xCu);
       }
 
       goto LABEL_84;
@@ -1029,128 +1018,119 @@ LABEL_76:
 
 LABEL_28:
 
-  _Block_object_dispose(&v112, 8);
+  _Block_object_dispose(&v111, 8);
   _Block_object_dispose(&buf, 8);
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke(uint64_t result)
+uint64_t __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke(uint64_t result, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   if (*(result + 32))
   {
-    v1 = result;
-    v2 = MUGetMUPlaceEnrichmentActionManagerLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v2 = result;
+    v3 = MUGetMUPlaceEnrichmentActionManagerLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v3 = *(*(*(v1 + 40) + 8) + 40);
-      v4 = NSStringFromBOOL();
+      v4 = *(*(*(v2 + 40) + 8) + 40);
+      v5 = NSStringFromBOOL();
       v6 = 138412546;
-      v7 = v3;
+      v7 = v4;
       v8 = 2112;
-      v9 = v4;
-      _os_log_impl(&dword_1C5620000, v2, OS_LOG_TYPE_DEBUG, "Invoking completion handler for action: %@. Performed Action: (%@)", &v6, 0x16u);
+      v9 = v5;
+      _os_log_impl(&dword_1C5620000, v3, OS_LOG_TYPE_DEBUG, "Invoking completion handler for action: %@. Performed Action: (%@)", &v6, 0x16u);
     }
 
-    result = (*(*(v1 + 32) + 16))();
+    return (*(*(v2 + 32) + 16))();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_9(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 64))
+  v30 = *MEMORY[0x1E69E9840];
+  if ((*(a1 + 64) & 1) == 0)
   {
-LABEL_9:
-    v27 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v29 = [*(a1 + 32) objectForKeyedSubscript:@"boundingBox"];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v2 = [*(a1 + 32) objectForKeyedSubscript:@"boundingBox"];
-
-    if (v2)
+    v25 = [*(a1 + 32) objectForKeyedSubscript:@"boundingBox"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
-      v3 = [*(a1 + 32) objectForKeyedSubscript:@"boundingBox"];
-      v4 = [v3 objectForKeyedSubscript:@"xCoordinate"];
-      [v4 doubleValue];
-      v6 = v5;
-      v7 = [v3 objectForKeyedSubscript:@"yCoordinate"];
-      [v7 doubleValue];
-      v9 = v8;
-      v10 = [v3 objectForKeyedSubscript:@"width"];
-      [v10 doubleValue];
-      v12 = v11;
-      v13 = [v3 objectForKeyedSubscript:@"height"];
-      [v13 doubleValue];
-      v15 = v14;
+      v2 = [*(a1 + 32) objectForKeyedSubscript:@"boundingBox"];
 
-      v16 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v6, v9, v12, v15}];
-      v17 = *(*(a1 + 48) + 8);
-      v18 = *(v17 + 40);
-      *(v17 + 40) = v16;
-
-      v19 = *MEMORY[0x1E696F150];
-      v20 = *(MEMORY[0x1E696F150] + 8);
-      if (GEOConfigGetBOOL())
+      if (v2)
       {
-        v21 = *(*(*(a1 + 48) + 8) + 40);
-        v22 = [MEMORY[0x1E69DC888] redColor];
-        [v21 setBackgroundColor:v22];
+        v3 = [*(a1 + 32) objectForKeyedSubscript:@"boundingBox"];
+        v4 = [v3 objectForKeyedSubscript:@"xCoordinate"];
+        [v4 doubleValue];
+        v6 = v5;
+        v7 = [v3 objectForKeyedSubscript:@"yCoordinate"];
+        [v7 doubleValue];
+        v9 = v8;
+        v10 = [v3 objectForKeyedSubscript:@"width"];
+        [v10 doubleValue];
+        v12 = v11;
+        v13 = [v3 objectForKeyedSubscript:@"height"];
+        [v13 doubleValue];
+        v15 = v14;
 
-        [*(*(*(a1 + 48) + 8) + 40) setAlpha:0.1];
-      }
+        v16 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v6, v9, v12, v15}];
+        v17 = *(*(a1 + 48) + 8);
+        v18 = *(v17 + 40);
+        *(v17 + 40) = v16;
 
-      [*(*(*(a1 + 48) + 8) + 40) setUserInteractionEnabled:0];
-      [*(*(*(a1 + 48) + 8) + 40) setTag:*(a1 + 56)];
-      v23 = [*(a1 + 40) sourceView];
-      [v23 addSubview:*(*(*(a1 + 48) + 8) + 40)];
+        if (GEOConfigGetBOOL())
+        {
+          v19 = *(*(*(a1 + 48) + 8) + 40);
+          v20 = [MEMORY[0x1E69DC888] redColor];
+          [v19 setBackgroundColor:v20];
 
-      v24 = MUGetMUPlaceEnrichmentActionManagerLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
-      {
-        v36.origin.x = v6;
-        v36.origin.y = v9;
-        v36.size.width = v12;
-        v36.size.height = v15;
-        v25 = NSStringFromCGRect(v36);
-        v26 = *(*(*(a1 + 48) + 8) + 40);
-        *buf = 138412546;
-        v31 = v25;
-        v32 = 2112;
-        v33 = v26;
-        _os_log_impl(&dword_1C5620000, v24, OS_LOG_TYPE_DEBUG, "Added a dummy view at: %@. View: %@", buf, 0x16u);
+          [*(*(*(a1 + 48) + 8) + 40) setAlpha:0.1];
+        }
+
+        [*(*(*(a1 + 48) + 8) + 40) setUserInteractionEnabled:0];
+        [*(*(*(a1 + 48) + 8) + 40) setTag:*(a1 + 56)];
+        v21 = [*(a1 + 40) sourceView];
+        [v21 addSubview:*(*(*(a1 + 48) + 8) + 40)];
+
+        v22 = MUGetMUPlaceEnrichmentActionManagerLog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        {
+          v32.origin.x = v6;
+          v32.origin.y = v9;
+          v32.size.width = v12;
+          v32.size.height = v15;
+          v23 = NSStringFromCGRect(v32);
+          v24 = *(*(*(a1 + 48) + 8) + 40);
+          *buf = 138412546;
+          v27 = v23;
+          v28 = 2112;
+          v29 = v24;
+          _os_log_impl(&dword_1C5620000, v22, OS_LOG_TYPE_DEBUG, "Added a dummy view at: %@. View: %@", buf, 0x16u);
+        }
       }
     }
 
-    goto LABEL_9;
+    else
+    {
+    }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_14(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 56) & 1) == 0)
   {
     v2 = [*(a1 + 32) sourceView];
     v3 = [v2 subviews];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_2;
-    v9[3] = &unk_1E8219DE8;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_2;
+    v8[3] = &unk_1E8219DE8;
     v4 = *(a1 + 48);
-    v9[4] = *(a1 + 40);
-    v9[5] = v4;
-    [v3 enumerateObjectsUsingBlock:v9];
+    v8[4] = *(a1 + 40);
+    v8[5] = v4;
+    [v3 enumerateObjectsUsingBlock:v8];
 
     v5 = *(*(*(a1 + 40) + 8) + 40);
     if (v5)
@@ -1161,13 +1141,11 @@ void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMen
       {
         v7 = *(*(*(a1 + 40) + 8) + 40);
         *buf = 138412290;
-        v11 = v7;
+        v10 = v7;
         _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_DEBUG, "Removed a dummy view at: %@", buf, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_17(uint64_t a1, void *a2, _BYTE *a3)
@@ -1215,7 +1193,7 @@ void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMen
 
 void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_2_23(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = [v6 appAdamId];
   v8 = [v7 isEqualToString:*(a1 + 32)];
@@ -1226,11 +1204,11 @@ void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMen
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = *(a1 + 32);
-      v15 = 138412546;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_1C5620000, v9, OS_LOG_TYPE_DEBUG, "Showcase action will be executed using app adam ID: %@. View Model: %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1C5620000, v9, OS_LOG_TYPE_DEBUG, "Showcase action will be executed using app adam ID: %@. View Model: %@", &v14, 0x16u);
     }
 
     v11 = objc_opt_new();
@@ -1242,8 +1220,6 @@ void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMen
     *a4 = 1;
     *v13 = 1;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMenu_completion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -1258,7 +1234,7 @@ void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMen
 
 - (id)adamIDForAppCategory:(id)category
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   externalActionsPairs = [(MUPlaceEnrichmentActionManager *)self externalActionsPairs];
   v6 = [externalActionsPairs objectForKey:categoryCopy];
@@ -1275,32 +1251,30 @@ void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMen
     v10 = MUGetMUPlaceEnrichmentActionManagerLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 138412290;
-      v14 = categoryCopy;
-      _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_DEBUG, "No app adamID found for appCategory: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = categoryCopy;
+      _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_DEBUG, "No app adamID found for appCategory: %@", &v12, 0xCu);
     }
 
     appAdamId = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return appAdamId;
 }
 
 - (void)configureWithEnrichmentDataProvider:(id)provider presentationOptions:(id)options
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   optionsCopy = options;
   v8 = MUGetMUPlaceEnrichmentActionManagerLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = providerCopy;
-    v14 = 2112;
-    v15 = optionsCopy;
-    _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_DEBUG, "Configuring enrichmentDataProvider: %@ and presentationOptions: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = providerCopy;
+    v13 = 2112;
+    v14 = optionsCopy;
+    _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_DEBUG, "Configuring enrichmentDataProvider: %@ and presentationOptions: %@", &v11, 0x16u);
   }
 
   [(MUPlaceEnrichmentActionManager *)self setEnrichmentDataProvider:providerCopy];
@@ -1308,8 +1282,6 @@ void __85__MUPlaceEnrichmentActionManager_performActionUsingArguments_contextMen
   presentationOptions = [(MUPlaceEnrichmentActionManager *)self presentationOptions];
   sourceView = [presentationOptions sourceView];
   [(MUPlaceEnrichmentActionManager *)self setSourceView:sourceView];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)supportedPlaceEnrichmentActions

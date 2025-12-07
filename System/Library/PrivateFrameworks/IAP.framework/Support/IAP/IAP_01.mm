@@ -1,49 +1,3 @@
-void sub_100015474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Block_object_dispose((v9 - 48), 8);
-  _Unwind_Resume(a1);
-}
-
-id *sub_1000154A8(id *result)
-{
-  v1 = qword_100031E70;
-  if (qword_100031E70 != &qword_100031E68)
-  {
-    v2 = result;
-    while (1)
-    {
-      result = (*(**(v1 + 16) + 80))(*(v1 + 16));
-      if (!result)
-      {
-        result = [v2[4] iapPortManagerForDevPort:*(v1 + 16)];
-        if (result)
-        {
-          result = [result accResistorID];
-          *(*(v2[5] + 1) + 24) = result;
-          if (*(*(v2[5] + 1) + 24) <= 0xFu)
-          {
-            break;
-          }
-        }
-      }
-
-      v1 = *(v1 + 8);
-      if (v1 == &qword_100031E68)
-      {
-        return result;
-      }
-    }
-
-    *(*(v2[6] + 1) + 24) = 1;
-    *(*(v2[7] + 1) + 24) = *(v1 + 16);
-  }
-
-  return result;
-}
-
 void sub_1000155B8()
 {
   for (i = qword_100031E70; i != &qword_100031E68; i = i[1])
@@ -426,26 +380,26 @@ void sub_10001717C(uint64_t a1, void *a2)
 
   if (!strcmp(v5, "dataArrived"))
   {
-    *&v23 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *length = v23;
-    v86 = v23;
+    *&v22 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *length = v22;
+    v86 = v22;
     xpc_dictionary_get_audit_token();
     *v83 = *length;
     v84 = v86;
     if (sub_10001844C(v83))
     {
       v83[0] = 0;
-      v24 = xpc_dictionary_get_string(a2, "IAPClientPortUUIDStr");
-      v25 = xpc_dictionary_get_data(a2, "data", v83);
-      if (v24)
+      v23 = xpc_dictionary_get_string(a2, "IAPClientPortUUIDStr");
+      v24 = xpc_dictionary_get_data(a2, "data", v83);
+      if (v23)
       {
-        v26 = v25;
-        if (v25)
+        v25 = v24;
+        if (v24)
         {
-          sub_10001883C(1, @"_xpc_iaptransportd_handle_incoming_request handling kXPCDataArrivedStr for uuid: %s with %lu bytes\n", v24, v83[0]);
-          v27 = [NSString stringWithUTF8String:v24];
-          [v4 clientPortReceivedData:v27 dataPtr:v26 length:LOWORD(v83[0])];
+          sub_10001883C(1, @"_xpc_iaptransportd_handle_incoming_request handling kXPCDataArrivedStr for uuid: %s with %lu bytes\n", v23, v83[0]);
+          v26 = [NSString stringWithUTF8String:v23];
+          [v4 clientPortReceivedData:v26 dataPtr:v25 length:LOWORD(v83[0])];
         }
       }
     }
@@ -601,15 +555,15 @@ void sub_10001717C(uint64_t a1, void *a2)
                           if (byte_100031DE0 == 1)
                           {
                             sub_10001883C(1, @"Handling the kXPCShutdownIapTransportPortStr XPC message");
-                            v75 = xpc_dictionary_get_uint64(a2, "portID");
-                            if (v75)
+                            v76 = xpc_dictionary_get_uint64(a2, "portID");
+                            if (v76)
                             {
-                              v76 = v75;
-                              if (sub_100018374(v75))
+                              v77 = v76;
+                              if (sub_100018374(v76))
                               {
-                                if ((*(*v76 + 80))(v76) == 10)
+                                if ((*(*v77 + 80))(v77) == 10)
                                 {
-                                  [v4 detachClientPort:v76];
+                                  [v4 detachClientPort:v77];
                                 }
                               }
                             }
@@ -618,22 +572,9 @@ void sub_10001717C(uint64_t a1, void *a2)
 
                         else if (!strcmp(v5, "accessoryPowerDisable"))
                         {
-                          v77 = xpc_dictionary_get_uint64(a2, "portID");
-                          if (xpc_dictionary_get_uint64(a2, "portType") == 1)
+                          v78 = xpc_dictionary_get_uint64(a2, "portID");
                           {
-                            if (v77)
-                            {
-                              if (sub_100018374(v77))
-                              {
-                                if ((*(*v77 + 10))(v77) == 1)
-                                {
-                                  v78 = **v77;
-                                  {
-                                    sub_100016284();
-                                  }
-                                }
-                              }
-                            }
+                            sub_100016284();
                           }
                         }
 
@@ -642,7 +583,6 @@ void sub_10001717C(uint64_t a1, void *a2)
                           v20 = xpc_dictionary_get_uint64(a2, "portID");
                           if (!xpc_dictionary_get_uint64(a2, "portType") && v20 && sub_100018374(v20) && !(*(*v20 + 80))(v20))
                           {
-                            v21 = v20[11];
                             UpstreamService = IOAccessoryManagerGetUpstreamService();
                             NSLog(@"SR: %s:%d Toggling Acc Power for service: %u, upstreamService: %u", "_xpc_iaptransportd_handle_incoming_request_block_invoke", 1070, v20[11], UpstreamService);
                             [v4 toggleAccessoryPowerForPortService:UpstreamService];
@@ -652,20 +592,20 @@ void sub_10001717C(uint64_t a1, void *a2)
                         return;
                       }
 
-                      v73 = xpc_dictionary_create_reply(a2);
-                      if (!v73)
+                      v74 = xpc_dictionary_create_reply(a2);
+                      if (!v74)
                       {
                         NSLog(@"ERROR: Client sent kXPCIAPTransportDeviceUUIDStr xpc message without a reply context", v79, v80, v81);
                         return;
                       }
 
-                      v36 = v73;
-                      xpc_dictionary_set_BOOL(v73, "isValid", 0);
-                      v74 = [+[IAPTransportServer sharedIAPTransportServer](IAPTransportServer "sharedIAPTransportServer")];
-                      sub_10001883C(1, @"Handling the kXPCIAPTransportDeviceUUIDStr XPC message, uuid: %@\n", v74);
-                      if (v74)
+                      v36 = v74;
+                      xpc_dictionary_set_BOOL(v74, "isValid", 0);
+                      v75 = [+[IAPTransportServer sharedIAPTransportServer](IAPTransportServer "sharedIAPTransportServer")];
+                      sub_10001883C(1, @"Handling the kXPCIAPTransportDeviceUUIDStr XPC message, uuid: %@\n", v75);
+                      if (v75)
                       {
-                        xpc_dictionary_set_string(v36, "uuid", [v74 UTF8String]);
+                        xpc_dictionary_set_string(v36, "uuid", [v75 UTF8String]);
                         v46 = "isValid";
                         v49 = v36;
                         v50 = 1;
@@ -702,7 +642,7 @@ LABEL_87:
                 v83[0] = 0;
                 if (v61 && sub_100018374(v61))
                 {
-                  v63 = sub_100009090(v62, v83);
+                  v63 = sub_100009090(v62, v83, length);
                 }
 
                 else
@@ -810,7 +750,7 @@ LABEL_110:
                   {
                     v72 = v71;
                     memcpy(v71, v70, length[0]);
-                    sub_10000AD70(v68, 2, v64, v72);
+                    sub_10000AD70(v68, 2, v64, v72, v73);
                     free(v72);
                     return;
                   }
@@ -825,7 +765,7 @@ LABEL_110:
                 v33 = 2;
                 v34 = v64;
 LABEL_62:
-                sub_10000AD70(v32, v33, v34, 0);
+                sub_10000AD70(v32, v33, v34, 0, v30);
                 return;
               }
             }
@@ -866,25 +806,25 @@ LABEL_86:
     goto LABEL_87;
   }
 
-  v28 = xpc_dictionary_get_uint64(a2, "portID");
-  sub_10001883C(1, @"%s:%s-%d portAddr = %llu\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iaptransportd/IAPTransportServer.mm", "_xpc_iaptransportd_handle_incoming_request_block_invoke", 588, v28);
-  if (v28 && sub_100018374(v28))
+  v27 = xpc_dictionary_get_uint64(a2, "portID");
+  sub_10001883C(1, @"%s:%s-%d portAddr = %llu\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iaptransportd/IAPTransportServer.mm", "_xpc_iaptransportd_handle_incoming_request_block_invoke", 588, v27);
+  if (v27 && sub_100018374(v27))
   {
-    v29 = (*(*v28 + 80))(v28);
-    (*(*v28 + 32))(v28);
-    if (v29)
+    v28 = (*(*v27 + 80))(v27);
+    (*(*v27 + 32))(v27);
+    if (v28)
     {
-      v30 = 2 * (v29 == 1);
+      v29 = 2 * (v28 == 1);
     }
 
     else
     {
-      v30 = 1;
+      v29 = 1;
     }
 
-    [v4 setIoAccPortID:v30];
+    [v4 setIoAccPortID:v29];
     v31 = &qword_100031DD8;
-    if (v29 != 11)
+    if (v28 != 11)
     {
       v31 = &qword_100031DC8;
     }
@@ -893,7 +833,7 @@ LABEL_86:
     if (*v31)
     {
       v33 = 1;
-      v34 = v30;
+      v34 = v29;
       goto LABEL_62;
     }
   }
@@ -919,9 +859,9 @@ uint64_t sub_100018374(uint64_t a1)
   return v1;
 }
 
-void sub_100018434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100018434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1084,9 +1024,9 @@ uint64_t sub_100018890()
   return result;
 }
 
-void sub_100018B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100018B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1098,9 +1038,9 @@ id sub_100018BAC(uint64_t a1)
   return result;
 }
 
-void sub_100018CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100018CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1189,15 +1129,15 @@ void sub_1000192A8(uint64_t a1, _xpc_connection_s *object)
   {
     if (xpc_get_type(object) == &_xpc_type_connection)
     {
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_100019410;
-      v10[3] = &unk_10002D928;
-      v9 = *(a1 + 32);
-      v11 = *(a1 + 40);
-      v10[4] = v9;
-      v10[5] = object;
-      xpc_connection_set_event_handler(object, v10);
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_100019410;
+      v9[3] = &unk_10002D928;
+      v8 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v9[4] = v8;
+      v9[5] = object;
+      xpc_connection_set_event_handler(object, v9);
       xpc_connection_resume(object);
     }
 
@@ -1206,10 +1146,9 @@ void sub_1000192A8(uint64_t a1, _xpc_connection_s *object)
       v4 = *(a1 + 48);
       if (v4)
       {
-        v5 = *(*(a1 + 32) + 8);
-        v6 = *(v4 + 16);
+        v5 = *(v4 + 16);
 
-        v6();
+        v5();
       }
     }
 
@@ -1218,12 +1157,12 @@ void sub_1000192A8(uint64_t a1, _xpc_connection_s *object)
 
   if (*(*(a1 + 32) + 49) == 1)
   {
-    v7 = *(a1 + 40);
-    if (v7)
+    v6 = *(a1 + 40);
+    if (v6)
     {
-      v8 = *(v7 + 16);
+      v7 = *(v6 + 16);
 
-      v8();
+      v7();
     }
   }
 }
@@ -1240,7 +1179,6 @@ uint64_t sub_100019410(uint64_t result, void *a2)
     v2 = *(result + 56);
     if (v2)
     {
-      v3 = *(result + 40);
       return (*(v2 + 16))(*(result + 56));
     }
 
@@ -1281,25 +1219,25 @@ uint64_t sub_10001947C(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_1000195A0(uint64_t result)
+uint64_t sub_1000195A0(uint64_t a1)
 {
-  *result = off_10002D980;
-  *(result + 112) = 0;
-  if (*(result + 32))
+  *a1 = off_10002D980;
+  *(a1 + 112) = 0;
+  if (*(a1 + 32))
   {
     operator delete[]();
   }
 
-  *(result + 110) = 0;
-  *(result + 106) = 0;
-  *(result + 24) = 0;
-  *(result + 32) = 0;
-  *(result + 16) = 0;
-  *(result + 40) = 0;
-  *(result + 80) = 0;
-  *(result + 88) = 0;
+  *(a1 + 110) = 0;
+  *(a1 + 106) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 40) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
   --dword_100031FE8;
-  return result;
+  return a1;
 }
 
 void sub_10001962C(uint64_t a1)
@@ -1897,22 +1835,18 @@ void sub_10001A74C()
   _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "[#%s] (%s) **ERROR** err - Invalid HID function %d\n", v1, 0x1Cu);
 }
 
-void sub_10001A7E4(unsigned __int8 *a1, unsigned int *a2)
+void sub_10001A7E4()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_100003B5C();
   sub_100003B7C();
-  _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "[#%s] (%s) **ERROR** err = 0x%X when calling BTDeviceSetHIDProperties for m_btdevice %hhx, authStatus BT_TRUE, hidType %d, err", v4, 0x28u);
+  _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "[#%s] (%s) **ERROR** err = 0x%X when calling BTDeviceSetHIDProperties for m_btdevice %hhx, authStatus BT_TRUE, hidType %d, err", v0, 0x28u);
 }
 
-void sub_10001A884(unsigned __int8 *a1, unsigned int *a2)
+void sub_10001A884()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_100003B5C();
   sub_100003B7C();
-  _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "[#%s] (%s) **ERROR** err = 0x%X when calling BTDeviceSetHIDProperties for m_btdevice %hhx, authStatus BT_FALSE, hidType %d, err", v4, 0x28u);
+  _os_log_fault_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_FAULT, "[#%s] (%s) **ERROR** err = 0x%X when calling BTDeviceSetHIDProperties for m_btdevice %hhx, authStatus BT_FALSE, hidType %d, err", v0, 0x28u);
 }
 
 void sub_10001A924()
@@ -1975,17 +1909,18 @@ uint64_t sub_10001A990(io_registry_entry_t a1)
   return v5;
 }
 
-void sub_10001AA40(uint64_t a1, io_registry_entry_t a2)
+void sub_10001AA40(unsigned __int8 *a1, uint64_t a2)
 {
-  v84 = 0;
-  v85 = 0;
+  v2 = a2;
   v83 = 0;
+  v84 = 0;
+  v82 = 0;
   valuePtr = 0;
-  v81 = 0;
-  v4 = *(a1 + 224);
-  v5 = byte_100031AE8;
   v80 = 0;
-  v79 = 31;
+  v4 = a1[224];
+  v5 = byte_100031AE8;
+  v79 = 0;
+  v78 = 31;
   if (byte_100031D98 == 1)
   {
     if (xmmword_100031E80 == a1)
@@ -2001,19 +1936,19 @@ void sub_10001AA40(uint64_t a1, io_registry_entry_t a2)
     syslog(4, "%s ENTR pAIDBRoot:%hhx (%s), authCPService:%02X, aidbAttachUID:%02X\n", "AuthProcessStart", a1, v6, a2, v4);
   }
 
-  v73 = a1;
-  v74 = v4;
+  v72 = a1;
+  v73 = v4;
   v7 = 0;
-  v75 = 0;
+  v74 = 0;
   v8 = 1;
-  v72 = kCFAllocatorDefault;
-  v71 = kAuthCertBufferKey;
-  v70 = kAuthVersionKey;
-  v69 = kAuthNonceBufferKey;
-  v68 = kAuthResponseBufferKey;
+  v71 = kCFAllocatorDefault;
+  v70 = kAuthCertBufferKey;
+  v69 = kAuthVersionKey;
+  v68 = kAuthNonceBufferKey;
+  v67 = kAuthResponseBufferKey;
   do
   {
-    v85 = 0;
+    v84 = 0;
     sub_10000DBC8();
     if (v9)
     {
@@ -2034,15 +1969,15 @@ void sub_10001AA40(uint64_t a1, io_registry_entry_t a2)
       v12 = 0x7FFFFFFF;
     }
 
-    v13 = sub_10001A990(a2);
+    v13 = sub_10001A990(v2);
     if (v13)
     {
-      sub_100009840(v13, &v80 + 1, &v80, &v79);
+      sub_100009840(v13, &v79 + 1, &v79, &v78);
       v14 = 0;
-      v15 = HIBYTE(v80);
-      v8 += HIBYTE(v80) ^ 1;
+      v15 = HIBYTE(v79);
+      v8 += HIBYTE(v79) ^ 1;
       v7 = 1;
-      if ((v80 & 0x100) != 0)
+      if ((v79 & 0x100) != 0)
       {
         break;
       }
@@ -2050,7 +1985,7 @@ void sub_10001AA40(uint64_t a1, io_registry_entry_t a2)
       continue;
     }
 
-    v16 = sub_10001A2F4(a2, &v83 + 1, &v83, &valuePtr + 1, &valuePtr, &v81);
+    v16 = sub_10001A2F4(v2, &v82 + 1, &v82, &valuePtr + 1, &valuePtr, &v80);
     if (v16)
     {
       syslog(4, "%s cpGetDeviceInfo returned ioretStatus:%02X\n", "AuthProcessStart", v16);
@@ -2066,15 +2001,15 @@ void sub_10001AA40(uint64_t a1, io_registry_entry_t a2)
       goto LABEL_89;
     }
 
-    v17 = sub_10001A4C4(a2);
-    v75 = v17;
+    v17 = sub_10001A4C4(v2);
+    v74 = v17;
     if (v17)
     {
-      v18 = sub_100009B1C(v17, &v85);
+      v18 = sub_100009B1C(v17, &v84);
       if (v18)
       {
-        v19 = v85;
-        if (v85)
+        v19 = v84;
+        if (v84)
         {
           LOBYTE(v18) = 1;
 LABEL_31:
@@ -2101,8 +2036,8 @@ LABEL_31:
       LOBYTE(v18) = 0;
     }
 
-    v19 = v85;
-    if (v85)
+    v19 = v84;
+    if (v84)
     {
       goto LABEL_31;
     }
@@ -2114,8 +2049,8 @@ LABEL_32:
       syslog(4, "%s Read accessory auth cert data, gbAuthCertNotCached:%d\n", "AuthProcessStart", byte_100031D99);
     }
 
-    v19 = sub_10001A4A8(a2);
-    v85 = v19;
+    v19 = sub_10001A4A8(v2);
+    v84 = v19;
 LABEL_36:
     sub_10000DBB8();
     if (v9)
@@ -2126,8 +2061,8 @@ LABEL_36:
       }
 
       sub_10000DBA8();
-      syslog(4, "%s pCFCertData:%04X, certDataLen:%04lX\n", v60, v61, v63);
-      v19 = v85;
+      syslog(4, "%s pCFCertData:%04X, certDataLen:%04lX\n", v59, v60, v62);
+      v19 = v84;
     }
 
     if (!v19)
@@ -2138,57 +2073,57 @@ LABEL_36:
       goto LABEL_87;
     }
 
-    v20 = v72;
-    v21 = CFNumberCreate(v72, kCFNumberCharType, &valuePtr + 1);
-    keys[0] = v71;
-    keys[1] = v70;
-    values[0] = v85;
+    v20 = v71;
+    v21 = CFNumberCreate(v71, kCFNumberCharType, &valuePtr + 1);
+    keys[0] = v70;
+    keys[1] = v69;
+    values[0] = v84;
     values[1] = v21;
-    v67 = v21;
+    v66 = v21;
     v22 = CFDictionaryCreate(v20, keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v64 = v18;
+    v63 = v18;
     if (VerifyCertAuthorityDictionary())
     {
-      BytePtr = CFDataGetBytePtr(v85);
-      Length = CFDataGetLength(v85);
-      v66 = BytePtr;
-      v65 = Length;
-      v63 = v22;
-      if (v75)
+      BytePtr = CFDataGetBytePtr(v84);
+      Length = CFDataGetLength(v84);
+      v65 = BytePtr;
+      v64 = Length;
+      v62 = v22;
+      if (v74)
       {
-        *v87 = 0xAAAAAAAAAAAAAAAALL;
-        v88 = 0xAAAAAAAAAAAAAAAALL;
-        v86[0] = v87;
-        v78 = 16;
+        *v86 = 0xAAAAAAAAAAAAAAAALL;
+        v87 = 0xAAAAAAAAAAAAAAAALL;
+        v85[0] = v86;
+        v77 = 16;
         v25 = IapAuthCertSerial();
-        if (v25 && v86[0] && v78 - 1 <= 0xF)
+        if (v25 && v85[0] && v77 - 1 <= 0xF)
         {
           __chkstk_darwin(v25, v26);
-          v62 = &v65 - ((v27 + 19) & 0xFFFFFFFFFFFFFFF0);
-          memset(v62, 170, v27 + 4);
-          if (v78)
+          v61 = &v64 - ((v27 + 19) & 0xFFFFFFFFFFFFFFF0);
+          memset(v61, 170, v27 + 4);
+          if (v77)
           {
             v28 = 0;
-            v29 = v86[0];
-            v30 = v62;
+            v29 = v85[0];
+            v30 = v61;
             do
             {
               sprintf(v30, "%02X", *v29);
               ++v28;
               v30 += 2;
-              v29 = ++v86[0];
+              v29 = ++v85[0];
             }
 
-            while (v28 < v78);
+            while (v28 < v77);
           }
 
-          v31 = CFStringCreateWithCString(0, v62, 0x8000100u);
+          v31 = CFStringCreateWithCString(0, v61, 0x8000100u);
           if (v31)
           {
             v32 = v31;
-            v33 = v75;
-            v34 = CFStringCompare(v75, v31, 1uLL);
-            v61 = v34 == kCFCompareEqualTo;
+            v33 = v74;
+            v34 = CFStringCompare(v74, v31, 1uLL);
+            v60 = v34 == kCFCompareEqualTo;
             if (v34)
             {
               CStringPtr = CFStringGetCStringPtr(v33, 0x8000100u);
@@ -2201,20 +2136,20 @@ LABEL_36:
 
           else
           {
-            v61 = 0;
+            v60 = 0;
           }
         }
 
         else
         {
-          syslog(3, "%s IapAuthCertSerial failed bStatus:%d, pSerNumBin:%hhx, serNumBinLen:%02lX\n", "AuthProcessStart", v25, LODWORD(v86[0]), v78);
-          v61 = 0;
+          syslog(3, "%s IapAuthCertSerial failed bStatus:%d, pSerNumBin:%hhx, serNumBinLen:%02lX\n", "AuthProcessStart", v25, LODWORD(v85[0]), v77);
+          v60 = 0;
         }
       }
 
       else
       {
-        v61 = 1;
+        v60 = 1;
       }
 
       SecCertRef = GetSecCertRef();
@@ -2232,7 +2167,7 @@ LABEL_36:
         syslog(3, "%s Authentication version mismatch: authVerMajor:%02X != secAuthVerMajor:%02X\n", "AuthProcessStart", HIBYTE(valuePtr), SecCertRef);
       }
 
-      v60 = SecCertRef;
+      v59 = SecCertRef;
       v41 = IapAuthVerifyCertSerialNumber();
       if ((v41 & 1) == 0)
       {
@@ -2243,62 +2178,62 @@ LABEL_36:
       sub_10000DBB8();
       if (v9)
       {
-        syslog(4, "%s pkAccAuthCaps:%hhx, authCapsLen:%02lX\n", "AuthProcessStart", v14, v84);
+        syslog(4, "%s pkAccAuthCaps:%hhx, authCapsLen:%02lX\n", "AuthProcessStart", v14, v83);
       }
 
       if (v14)
       {
-        v42 = v61;
-        if (v60 == v40 && (v41 & v61) != 0 && (HIBYTE(valuePtr) & 0xFE) == 2)
+        v42 = v60;
+        if (v59 == v40 && (v41 & v60) != 0 && (HIBYTE(valuePtr) & 0xFE) == 2)
         {
+          v76 = 0;
           v77 = 0;
-          v78 = 0;
           connect = 0;
           GetRandomDigest();
-          v43 = IOServiceOpen(a2, mach_task_self_, 0, &connect);
+          v43 = IOServiceOpen(v2, mach_task_self_, 0, &connect);
           if (v43)
           {
-            syslog(4, "%s Auth CP service open fail svc:%04X, kernStatus:%02X, auth service fail\n", "AuthProcessStart", a2, v43);
+            syslog(4, "%s Auth CP service open fail svc:%04X, kernStatus:%02X, auth service fail\n", "AuthProcessStart", v2, v43);
             v11 = 1;
           }
 
           else
           {
-            v47 = sub_10001A4E0(connect, v78, &v77);
-            if (v47 || !v77)
+            v47 = sub_10001A4E0(connect, v77, &v76);
+            if (v47 || !v76)
             {
-              syslog(3, "%s cpCreateSignature failed ioretStatus:%02X, pOutSig:%hhx, auth service fail\n", "AuthProcessStart", v47, v77);
+              syslog(3, "%s cpCreateSignature failed ioretStatus:%02X, pOutSig:%hhx, auth service fail\n", "AuthProcessStart", v47, v76);
               v11 = 1;
             }
 
             else
             {
-              *v87 = v71;
-              v88 = v69;
-              v89 = v68;
-              v90 = v70;
-              v86[0] = v85;
-              v86[1] = v78;
-              v86[2] = v77;
-              v86[3] = v67;
-              v48 = CFDictionaryCreate(v72, v87, v86, 4, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+              *v86 = v70;
+              v87 = v68;
+              v88 = v67;
+              v89 = v69;
+              v85[0] = v84;
+              v85[1] = v77;
+              v85[2] = v76;
+              v85[3] = v66;
+              v48 = CFDictionaryCreate(v71, v86, v85, 4, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
               v49 = VerifyNonceSigned();
-              HIBYTE(v80) = v49;
+              HIBYTE(v79) = v49;
               if (v49)
               {
-                syslog(4, "%s Authentication pkAccAuthCaps:%04X, authCapsLen:%02X, authVerMajor:%02X PASSED !\n", "AuthProcessStart", v14, v84, HIBYTE(valuePtr));
+                syslog(4, "%s Authentication pkAccAuthCaps:%04X, authCapsLen:%02X, authVerMajor:%02X PASSED !\n", "AuthProcessStart", v14, v83, HIBYTE(valuePtr));
               }
 
-              CFRelease(v77);
+              CFRelease(v76);
               CFRelease(v48);
             }
 
             IOServiceClose(connect);
           }
 
-          if (v78)
+          if (v77)
           {
-            CFRelease(v78);
+            CFRelease(v77);
           }
 
           goto LABEL_76;
@@ -2308,26 +2243,26 @@ LABEL_36:
       else
       {
         syslog(3, "%s Accessory auth not supported pkAccAuthCaps:NULL\n", "AuthProcessStart");
-        v42 = v61;
+        v42 = v60;
       }
 
       syslog(3, "%s Auth failed: bAuthSerNumMatch:%d, bAuthCertCapsOK:%d, bCertNotRevoked:%d\n", "AuthProcessStart", v42, v14 != 0, v41);
 LABEL_76:
-      v22 = v63;
+      v22 = v62;
       goto LABEL_77;
     }
 
     syslog(3, "%s Auth CP cert authority verify fail, auth failed !\n", "AuthProcessStart");
     v14 = 0;
 LABEL_77:
-    CFRelease(v67);
+    CFRelease(v66);
     CFRelease(v22);
-    if (v75 && !v11)
+    if (v74 && !v11)
     {
-      if (HIBYTE(v80) == 1)
+      if (HIBYTE(v79) == 1)
       {
-        v44 = v85;
-        if (!v85)
+        v44 = v84;
+        if (!v84)
         {
           v11 = 0;
           goto LABEL_89;
@@ -2344,16 +2279,16 @@ LABEL_77:
           goto LABEL_86;
         }
 
-        if ((v64 & 1) == 0)
+        if ((v63 & 1) == 0)
         {
-          v46 = v75;
+          v46 = v74;
           goto LABEL_97;
         }
 
-        v45 = v75;
-        if ((sub_100009E44(v75) & 1) == 0)
+        v45 = v74;
+        if ((sub_100009E44(v74) & 1) == 0)
         {
-          v44 = v85;
+          v44 = v84;
           v46 = v45;
 LABEL_97:
           sub_100009CB0(v46, v44);
@@ -2362,7 +2297,7 @@ LABEL_97:
 
       else
       {
-        sub_10000A034(v75);
+        sub_10000A034(v74);
       }
 
 LABEL_86:
@@ -2370,15 +2305,15 @@ LABEL_86:
     }
 
 LABEL_87:
-    if (v85)
+    if (v84)
     {
-      CFRelease(v85);
+      CFRelease(v84);
     }
 
 LABEL_89:
-    v15 = HIBYTE(v80);
-    v8 += HIBYTE(v80) ^ 1;
-    if ((v80 & 0x100) != 0)
+    v15 = HIBYTE(v79);
+    v8 += HIBYTE(v79) ^ 1;
+    if ((v79 & 0x100) != 0)
     {
       break;
     }
@@ -2388,7 +2323,7 @@ LABEL_89:
   if (v15)
   {
     sub_10000DBC8();
-    v50 = v73;
+    v50 = v72;
     if (v9)
     {
       syslog(4, "%s Auth loop exit at authTryCurrent:%02X of authTryMaximum:%02X, bAuthPassed:%d\n", "AuthProcessStart", v8, v5, 1);
@@ -2398,41 +2333,36 @@ LABEL_89:
   else
   {
     syslog(3, "%s Auth loop exit at authTryCurrent:%02X of authTryMaximum:%02X, bAuthPassed:%d\n", "AuthProcessStart", v8, v5, 0);
-    v50 = v73;
+    v50 = v72;
   }
 
-  v87[0] = 0;
-  if (!IOServiceOpen(a2, mach_task_self_, 0, v87))
+  v86[0] = 0;
+  if (!IOServiceOpen(v2, mach_task_self_, 0, v86))
   {
-    if (sub_10001A5A4(v87[0], HIBYTE(v80)))
+    if (sub_10001A5A4(v86[0], HIBYTE(v79)))
     {
       sub_10000DBA8();
-      syslog(4, "%s cpSetAuthStatus(%d) returned ioretStatus:%02X\n", v60, v61, v63);
+      syslog(4, "%s cpSetAuthStatus(%d) returned ioretStatus:%02X\n", v59, v60, v62);
     }
 
-    if (v79 > 30)
+    if (v78 > 30)
     {
       v51 = "UninitializedAuthError";
     }
 
     else
     {
-      v51 = off_10002D248[v79];
+      v51 = off_10002D248[v78];
     }
 
-    v52 = CFStringCreateWithCString(v72, v51, 0x8000100u);
+    v52 = CFStringCreateWithCString(v71, v51, 0x8000100u);
     if (v52)
     {
       v53 = v52;
-      if (sub_10001A694(v87[0], v52))
+      if (sub_10001A694(v86[0], v52))
       {
-        if (v79 <= 30)
-        {
-          v54 = off_10002D248[v79];
-        }
-
         sub_10000DBA8();
-        syslog(4, "%s cpSetAuthErrorDescription(%s) returned ioretStatus:%02X\n", v65, v66, v67);
+        syslog(4, "%s cpSetAuthErrorDescription(%s) returned ioretStatus:%02X\n", v64, v65, v66);
       }
 
       CFRelease(v53);
@@ -2440,72 +2370,72 @@ LABEL_89:
 
     if (v7)
     {
-      if (v80)
+      if (v79)
       {
-        v55 = 2;
+        v54 = 2;
       }
 
       else
       {
-        v55 = 1;
+        v54 = 1;
       }
 
-      v56 = sub_10001A61C(v87[0], v55);
-      if (v56)
+      v55 = sub_10001A61C(v86[0], v54);
+      if (v55)
       {
-        syslog(4, "%s cpSetFdrValidationStatus(%d) returned ioretStatus:%02X\n", "AuthProcessStart", v55, v56);
+        syslog(4, "%s cpSetFdrValidationStatus(%d) returned ioretStatus:%02X\n", "AuthProcessStart", v54, v55);
       }
 
-      if (sub_10001A5E0(v87[0], HIBYTE(v80) & v80 & 1))
+      if (sub_10001A5E0(v86[0], HIBYTE(v79) & v79 & 1))
       {
         sub_10000DBA8();
-        syslog(4, "%s cpSetTrustStatus(%d) returned ioretStatus:%02X\n", v69, v70, v71);
+        syslog(4, "%s cpSetTrustStatus(%d) returned ioretStatus:%02X\n", v68, v69, v70);
       }
     }
 
-    IOServiceClose(v87[0]);
+    IOServiceClose(v86[0]);
   }
 
-  v57 = v75;
-  v58 = sub_10000A1BC(v50, a2, v12, HIBYTE(valuePtr), v14, v75, HIBYTE(v80), v11, v74);
+  v56 = v74;
+  v57 = sub_10000A1BC(v50, v2, v12, HIBYTE(valuePtr), v14, v74, HIBYTE(v79), v11, v73);
   if (v14)
   {
     free(v14);
   }
 
-  v59 = HIBYTE(v80);
-  if (HIBYTE(v80) || xmmword_100031EE8 != v50)
+  v58 = HIBYTE(v79);
+  if (HIBYTE(v79) || xmmword_100031EE8 != v50)
   {
-LABEL_139:
-    if (v59)
+LABEL_137:
+    if (v58)
     {
-      goto LABEL_142;
+      goto LABEL_140;
     }
 
-    goto LABEL_140;
+    goto LABEL_138;
   }
 
-  if (*(v58 + 225) == *(v58 + 224))
+  if (v57[225] == v57[224])
   {
-    v59 = 0;
-    goto LABEL_139;
+    v58 = 0;
+    goto LABEL_137;
   }
 
-  [IAPTDPostAlert TearDownAccessoryNotification:v58 + 216];
-  if (!HIBYTE(v80))
+  [IAPTDPostAlert TearDownAccessoryNotification:v57 + 216];
+  if (!HIBYTE(v79))
   {
+LABEL_138:
+    if (v56)
+    {
+      CFRelease(v56);
+    }
+  }
+
 LABEL_140:
-    if (v57)
-    {
-      CFRelease(v57);
-    }
-  }
-
-LABEL_142:
   sub_10000DBC8();
   if (v9)
   {
-    syslog(4, "%s EXIT bServiceFailed:%d, pkAccAuthCaps:%hhx, bAuthPassed:%d\n", "AuthProcessStart", v11, 0, HIBYTE(v80));
+    syslog(4, "%s EXIT bServiceFailed:%d, pkAccAuthCaps:%hhx, bAuthPassed:%d\n", "AuthProcessStart", v11, 0, HIBYTE(v79));
   }
 }
 

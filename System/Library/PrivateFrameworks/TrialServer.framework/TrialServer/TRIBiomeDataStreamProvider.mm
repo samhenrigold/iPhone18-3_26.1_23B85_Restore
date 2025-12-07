@@ -75,25 +75,23 @@
 
 void __80__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_eventHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state] == 1)
   {
     v4 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v3 error];
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "failed to to read Biome stream: %@", &v9, 0xCu);
+      v7 = [v3 error];
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "failed to to read Biome stream: %@", &v8, 0xCu);
     }
 
     v5 = *(a1 + 32);
     v6 = [v3 error];
     (*(v5 + 16))(v5, 0, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __80__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_eventHandler___block_invoke_12(uint64_t a1, void *a2)
@@ -170,25 +168,23 @@ uint64_t __91__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_w
 
 void __91__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_withFilter_eventHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state] == 1)
   {
     v4 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v3 error];
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "failed to to read Biome stream: %@", &v9, 0xCu);
+      v7 = [v3 error];
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "failed to to read Biome stream: %@", &v8, 0xCu);
     }
 
     v5 = *(a1 + 32);
     v6 = [v3 error];
     (*(v5 + 16))(v5, 0, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __91__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_withFilter_eventHandler___block_invoke_16(uint64_t a1, void *a2)
@@ -255,7 +251,7 @@ void __91__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_withF
 
 - (void)_subscribeForStreamIdentifier:(id)identifier eventHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   providerQueue = self->_providerQueue;
   identifierCopy = identifier;
@@ -272,24 +268,24 @@ void __91__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_withF
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = v12;
+      v29 = v12;
       _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Subscribing to events from Biome stream: %@", buf, 0xCu);
     }
 
     v14 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:v12 targetQueue:self->_providerQueue waking:self->_shouldSubscribeWithWaking];
     dSLPublisher = [v9 DSLPublisher];
     v16 = [dSLPublisher subscribeOn:v14];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __73__TRIBiomeDataStreamProvider__subscribeForStreamIdentifier_eventHandler___block_invoke;
-    v27[3] = &unk_279DE1100;
-    v28 = handlerCopy;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __73__TRIBiomeDataStreamProvider__subscribeForStreamIdentifier_eventHandler___block_invoke_23;
-    v25[3] = &unk_279DE1128;
-    v26 = v28;
-    v17 = [v16 sinkWithCompletion:v27 receiveInput:v25];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __73__TRIBiomeDataStreamProvider__subscribeForStreamIdentifier_eventHandler___block_invoke;
+    v26[3] = &unk_279DE1100;
+    v27 = handlerCopy;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __73__TRIBiomeDataStreamProvider__subscribeForStreamIdentifier_eventHandler___block_invoke_23;
+    v24[3] = &unk_279DE1128;
+    v25 = v27;
+    v17 = [v16 sinkWithCompletion:v26 receiveInput:v24];
 
     streamIdentifierstoSubscribedSinks = self->_streamIdentifierstoSubscribedSinks;
     identifier2 = [v9 identifier];
@@ -301,7 +297,7 @@ void __91__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_withF
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = v12;
+        v29 = v12;
         _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_DEFAULT, "Subscribed sink already exists. Replacing: %@", buf, 0xCu);
       }
     }
@@ -310,31 +306,27 @@ void __91__TRIBiomeDataStreamProvider_readLastDataStreamEventForIdentifier_withF
     identifier3 = [v9 identifier];
     [(NSMutableDictionary *)v22 setObject:v17 forKeyedSubscript:identifier3];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __73__TRIBiomeDataStreamProvider__subscribeForStreamIdentifier_eventHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state] == 1)
   {
     v4 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v3 error];
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "failed to to read Biome stream: %@", &v9, 0xCu);
+      v7 = [v3 error];
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "failed to to read Biome stream: %@", &v8, 0xCu);
     }
 
     v5 = *(a1 + 32);
     v6 = [v3 error];
     (*(v5 + 16))(v5, 0, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __73__TRIBiomeDataStreamProvider__subscribeForStreamIdentifier_eventHandler___block_invoke_23(uint64_t a1, void *a2)
@@ -372,42 +364,40 @@ void __73__TRIBiomeDataStreamProvider__subscribeForStreamIdentifier_eventHandler
 
 - (void)_unsubscribeAllDataStreams
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_providerQueue);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = self->_streamIdentifierstoSubscribedSinks;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [(NSMutableDictionary *)self->_streamIdentifierstoSubscribedSinks objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v7), v10];
+        v8 = [(NSMutableDictionary *)self->_streamIdentifierstoSubscribedSinks objectForKeyedSubscript:*(*(&v9 + 1) + 8 * v7), v9];
         [v8 cancel];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

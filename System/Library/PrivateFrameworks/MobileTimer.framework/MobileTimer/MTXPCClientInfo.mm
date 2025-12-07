@@ -34,12 +34,10 @@
 
 - (NSString)processName
 {
-  v7 = *MEMORY[0x1E69E9840];
-  proc_name([(MTXPCClientInfo *)self processID:0], &v6, 0x100u);
-  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v6];
+  v6 = *MEMORY[0x1E69E9840];
+  proc_name([(MTXPCClientInfo *)self processID:0], &v5, 0x100u);
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v5];
   v3 = [v2 copy];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

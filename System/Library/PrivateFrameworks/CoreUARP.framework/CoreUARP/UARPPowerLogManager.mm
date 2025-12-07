@@ -14,6 +14,7 @@
 - (void)setAssetOfferedForAccessoryID:(id)d offeredFirmwareVersion:(id)version activeFirmwareVersion:(id)firmwareVersion;
 - (void)setStagedFirmwareVersionForAccessoryID:(id)d stagedFirmwareVersion:(id)version;
 - (void)setStagingCompleteForAccessoryID:(id)d stagedFirmwareVersion:(id)version activeFirmareVersion:(id)firmareVersion status:(unint64_t)status;
+- (void)updateStagingProgressForAccessoryID:(id)d requestedOffset:(unsigned int)offset requestedLength:(unsigned int)length;
 @end
 
 @implementation UARPPowerLogManager
@@ -81,7 +82,7 @@
 
 - (void)addAccessoryID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(UARPPowerLogManager *)self createPowerLogAccessoryForAccessoryID:dCopy];
   if (v5)
@@ -100,17 +101,71 @@
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
-        v8 = 138412290;
-        v9 = dCopy;
-        _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "Added: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = dCopy;
+        _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "Added: %@", &v7, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)powerLogAccessoryForUUID:(id)d
+{
+  v18 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = self->_accessories;
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = *v14;
+    while (2)
+    {
+      for (i = 0; i != v6; i = i + 1)
+      {
+        if (*v14 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v9 = *(*(&v13 + 1) + 8 * i);
+        uuid = [v9 uuid];
+        v11 = [uuid isEqual:dCopy];
+
+        if (v11)
+        {
+          v6 = v9;
+          goto LABEL_11;
+        }
+      }
+
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
+  return v6;
+}
+
+- (id)powerLogAccessoryForAccessoryID:(id)d
+{
+  uuid = [d uuid];
+  v5 = [(UARPPowerLogManager *)self powerLogAccessoryForUUID:uuid];
+
+  return v5;
+}
+
+- (id)pendingReachabilityEventForAccessoryID:(id)d
 {
   v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
@@ -118,7 +173,7 @@
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v5 = self->_accessories;
+  v5 = self->_pendingReachableEvents;
   v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
@@ -134,9 +189,10 @@
 
         v9 = *(*(&v14 + 1) + 8 * i);
         uuid = [v9 uuid];
-        v11 = [uuid isEqual:dCopy];
+        uuid2 = [dCopy uuid];
+        v12 = [uuid isEqual:uuid2];
 
-        if (v11)
+        if (v12)
         {
           v6 = v9;
           goto LABEL_11;
@@ -154,67 +210,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v6;
-}
-
-- (id)powerLogAccessoryForAccessoryID:(id)d
-{
-  uuid = [d uuid];
-  v5 = [(UARPPowerLogManager *)self powerLogAccessoryForUUID:uuid];
-
-  return v5;
-}
-
-- (id)pendingReachabilityEventForAccessoryID:(id)d
-{
-  v20 = *MEMORY[0x277D85DE8];
-  dCopy = d;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v5 = self->_pendingReachableEvents;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v6)
-  {
-    v7 = *v16;
-    while (2)
-    {
-      for (i = 0; i != v6; i = i + 1)
-      {
-        if (*v16 != v7)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v9 = *(*(&v15 + 1) + 8 * i);
-        uuid = [v9 uuid];
-        uuid2 = [dCopy uuid];
-        v12 = [uuid isEqual:uuid2];
-
-        if (v12)
-        {
-          v6 = v9;
-          goto LABEL_11;
-        }
-      }
-
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      if (v6)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -241,7 +236,7 @@ LABEL_11:
 
 - (void)removeAccessoryID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(UARPPowerLogManager *)self powerLogAccessoryForAccessoryID:dCopy];
   if (v5)
@@ -249,9 +244,9 @@ LABEL_11:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = dCopy;
-      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "Removed: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = dCopy;
+      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "Removed: %@", &v7, 0xCu);
     }
 
     [(NSMutableSet *)self->_accessories removeObject:v5];
@@ -261,8 +256,6 @@ LABEL_11:
   {
     [UARPPowerLogManager removeAccessoryID:];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccessoryIDReachable:(id)reachable
@@ -448,124 +441,24 @@ LABEL_14:
 LABEL_15:
 }
 
-- (void)addAccessoryID:.cold.1()
+- (void)updateStagingProgressForAccessoryID:(id)d requestedOffset:(unsigned int)offset requestedLength:(unsigned int)length
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to add %@ twice", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
+  v5 = *&length;
+  v6 = *&offset;
+  v8 = [(UARPPowerLogManager *)self powerLogAccessoryForAccessoryID:d];
+  v9 = v8;
+  if (v8)
+  {
+    if ([v8 stagingInProgress])
+    {
+      [v9 updateStagingProgressWithRequestedOffset:v6 requestedLength:v5];
+    }
 
-- (void)postPendingReachabilityEvent:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attemping to post reachability event, but backing accessory is missing: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeAccessoryID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to remove accessory that is not present: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAccessoryIDReachable:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attemping to mark accessory reachable that is already reachable: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAccessoryIDReachable:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to mark accessory reachable that is not present: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAccessoryIDUnreachable:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to mark accessory unreachable that is already unreachable: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAccessoryIDUnreachable:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to make accessory unreachable that is not present: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAssetOfferedForAccessoryID:offeredFirmwareVersion:activeFirmwareVersion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to offer asset to unreachable accessory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAssetOfferedForAccessoryID:offeredFirmwareVersion:activeFirmwareVersion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to stage with nil active firmware version: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAssetOfferedForAccessoryID:offeredFirmwareVersion:activeFirmwareVersion:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to stage nil firmware version: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setAssetOfferedForAccessoryID:offeredFirmwareVersion:activeFirmwareVersion:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to offer asset to accessory already staging: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setStagingCompleteForAccessoryID:stagedFirmwareVersion:activeFirmareVersion:status:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to complete staging for accessory where staging is not in progress: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setStagingCompleteForAccessoryID:stagedFirmwareVersion:activeFirmareVersion:status:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to complete staging for a nil firmware version: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setStagingCompleteForAccessoryID:stagedFirmwareVersion:activeFirmareVersion:status:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to complete staging with nil active firmware version: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateStagingProgressForAccessoryID:requestedOffset:requestedLength:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Attempting to update staging progress for an accessory where staging is not in progress: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+    else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      [UARPPowerLogManager updateStagingProgressForAccessoryID:requestedOffset:requestedLength:];
+    }
+  }
 }
 
 @end

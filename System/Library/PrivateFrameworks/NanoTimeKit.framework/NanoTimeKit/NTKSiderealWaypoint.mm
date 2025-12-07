@@ -83,7 +83,7 @@
   else
   {
     v3 = off_278783990[type];
-    v4 = NTKBundle();
+    v4 = NTKBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_284110E98 table:@"Sidereal"];
   }
 

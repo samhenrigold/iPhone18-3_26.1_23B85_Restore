@@ -7,6 +7,7 @@
 - (BOOL)_xpcManagerActivateIfNecessaryWithRequest:(id)request error:(id *)error;
 - (id)_regionConfigForXPCRequest:(id)request error:(id *)error;
 - (id)_regionServerConfigForXPCRequest:(id)request error:(id *)error;
+- (id)descriptionWithLevel:(int)level;
 - (void)_fetchClientPublicKeyWithVerificationID:(id)d keyVersion:(id)version completion:(id)completion;
 - (void)_processServerResponseConfigurationsForRegion:(id)region serverResponses:(id)responses request:(id)request;
 - (void)_sendOnboardingMetricForRegionConfiguration:(id)configuration;
@@ -34,6 +35,8 @@
 - (void)_xpcGetAllRegionServerConfig:(id)config;
 - (void)_xpcGetCurrentAgencyConfig:(id)config;
 - (void)_xpcGetDataVaultSize:(id)size;
+- (void)_xpcGetDiagnosisKeys:(id)keys testMode:(BOOL)mode;
+- (void)_xpcGetDiagnosisKeysCompletion:(id)completion didPrompt:(BOOL)prompt testMode:(BOOL)mode error:(id)error;
 - (void)_xpcGetEntities:(id)entities;
 - (void)_xpcGetInfo:(id)info;
 - (void)_xpcGetLastExposureNotification:(id)notification;
@@ -58,6 +61,7 @@
 - (void)_xpcNotificationTrigger:(id)trigger;
 - (void)_xpcOnboardingDidStart:(id)start;
 - (void)_xpcPreAuthorizeDiagnosisKeys:(id)keys;
+- (void)_xpcPreAuthorizeDiagnosisKeysComplete:(id)complete userDecision:(BOOL)decision;
 - (void)_xpcRemotePresentationReceivedDecision:(id)decision;
 - (void)_xpcRequestPreAuthorizedDiagnosisKeys:(id)keys;
 - (void)_xpcResetData:(id)data;
@@ -96,50 +100,54 @@
 - (void)invalidate
 {
   v3 = self->_userAlert;
+  v6 = v3;
   if (v3)
   {
-    if (_MergedGlobals < 31 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+    if (_MergedGlobals < 31)
     {
-      [ENXPCConnection invalidate];
+      if (_MergedGlobals != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(ENXPCConnection *)v3 invalidate];
+      }
     }
 
-    [(ENUserAlert *)v3 invalidate];
+    [(ENUserAlert *)v6 invalidate];
     userAlert = self->_userAlert;
     self->_userAlert = 0;
 
     userAlert = [(ENDaemon *)self->_daemon userAlert];
 
-    if (v3 == userAlert)
+    if (v6 == userAlert)
     {
       [(ENDaemon *)self->_daemon setUserAlert:0];
     }
   }
 
-  v6 = self->_detectionSession;
-  if (v6)
+  v9 = self->_detectionSession;
+  if (v9)
   {
-    v7 = +[ENLoggingPrefs sharedENLoggingPrefs];
-    isSensitiveLoggingAllowed = [v7 isSensitiveLoggingAllowed];
+    v10 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    isSensitiveLoggingAllowed = [v10 isSensitiveLoggingAllowed];
 
     if ((isSensitiveLoggingAllowed & 1) != 0 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      [ENXPCConnection invalidate];
+      [(ENXPCConnection *)v9 invalidate];
     }
 
-    [(ENExposureDetectionDaemonSession *)v6 invalidate];
+    [(ENExposureDetectionDaemonSession *)v9 invalidate];
     detectionSession = self->_detectionSession;
     self->_detectionSession = 0;
   }
 
-  v10 = self->_manager;
-  if (v10)
+  v13 = self->_manager;
+  if (v13)
   {
     if (_MergedGlobals < 31 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      [ENXPCConnection invalidate];
+      [(ENXPCConnection *)v13 invalidate];
     }
 
-    [(ENManager *)v10 invalidate];
+    [(ENManager *)v13 invalidate];
     manager = self->_manager;
     self->_manager = 0;
   }
@@ -148,22 +156,22 @@
   if (onboardingRegionTrigger)
   {
     signingIdentity = [(ENXPCClient *)self->_client signingIdentity];
-    v14 = [signingIdentity isEqualToString:@"com.apple.Preferences"];
+    v17 = [signingIdentity isEqualToString:@"com.apple.Preferences"];
 
-    if (v14)
+    if (v17)
     {
       configurationManager = [(ENDaemon *)self->_daemon configurationManager];
       configurationStore = [configurationManager configurationStore];
 
-      v17 = [configurationStore configurationForRegion:onboardingRegionTrigger];
-      if (v17)
+      v20 = [configurationStore configurationForRegion:onboardingRegionTrigger];
+      if (v20)
       {
         if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          [ENXPCConnection invalidate];
+          [(ENXPCConnection *)onboardingRegionTrigger invalidate];
         }
 
-        [(ENXPCConnection *)self _sendOnboardingMetricForRegionConfiguration:v17];
+        [(ENXPCConnection *)self _sendOnboardingMetricForRegionConfiguration:v20];
       }
 
       [(ENDaemon *)self->_daemon setOnboardingTrigger:0];
@@ -184,6 +192,57 @@
   [(ENDaemon *)daemon xpcConnectionInvalidated:self];
 }
 
+- (id)descriptionWithLevel:(int)level
+{
+  if (self->_xpcCnx)
+  {
+    v16 = 0;
+    NSAppendPrintF(&v16, "%#{pid}", [(ENXPCClient *)self->_client pid]);
+    v4 = v16;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  manager = self->_manager;
+  if (manager)
+  {
+    v15 = v4;
+    v6 = manager;
+    NSAppendPrintF_safe(&v15, ", %@", v6);
+    v7 = v15;
+
+    v4 = v7;
+  }
+
+  detectionSession = self->_detectionSession;
+  if (detectionSession)
+  {
+    v14 = v4;
+    v9 = detectionSession;
+    NSAppendPrintF_safe(&v14, ", %@", v9);
+    v10 = v14;
+
+    v4 = v10;
+  }
+
+  if (v4)
+  {
+    v11 = v4;
+  }
+
+  else
+  {
+    v11 = &stru_285D62BB0;
+  }
+
+  v12 = v11;
+
+  return v11;
+}
+
 - (BOOL)_appActiveStatusWithError:(id *)error
 {
   signingIdentity = [(ENXPCClient *)self->_client signingIdentity];
@@ -192,13 +251,11 @@
   {
     if (error)
     {
-LABEL_18:
-      ENErrorF();
-      *error = v18 = 0;
-      goto LABEL_12;
+      ENErrorF(5, "No app signing identifier");
+      goto LABEL_19;
     }
 
-LABEL_19:
+LABEL_20:
     v18 = 0;
     goto LABEL_12;
   }
@@ -255,10 +312,13 @@ LABEL_14:
 LABEL_15:
     if (error)
     {
-      goto LABEL_18;
+      ENErrorF(14, "App restricted");
+LABEL_19:
+      *error = v18 = 0;
+      goto LABEL_12;
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
 LABEL_11:
@@ -272,12 +332,10 @@ LABEL_12:
 {
   if (MEMORY[0x282233AA0])
   {
-    xpcCnx = self->_xpcCnx;
     xpc_connection_get_audit_token();
-    v5 = *MEMORY[0x277D6C150];
-    v6 = TCCAccessCheckAuditToken();
-    v7 = v6 != 0;
-    if (!v6)
+    v4 = TCCAccessCheckAuditToken();
+    v5 = v4 != 0;
+    if (!v4)
     {
       [ENXPCConnection _authorizedAndReturnError:error];
     }
@@ -285,8 +343,8 @@ LABEL_12:
 
   else if (error)
   {
-    ENErrorF();
-    *error = v7 = 0;
+    ENErrorF(5, "Authorization not supported");
+    *error = v5 = 0;
   }
 
   else
@@ -294,25 +352,23 @@ LABEL_12:
     return 0;
   }
 
-  return v7;
+  return v5;
 }
 
 - (BOOL)_authorizationPreflightUnknownAndReturnError:(id *)error
 {
   if (MEMORY[0x282233AA0])
   {
-    xpcCnx = self->_xpcCnx;
     xpc_connection_get_audit_token();
-    v4 = *MEMORY[0x277D6C150];
     return TCCAccessPreflightWithAuditToken() == 2;
   }
 
   else if (error)
   {
-    v7 = ENErrorF();
-    v8 = v7;
+    v5 = ENErrorF(5, "Authorization not supported");
+    v6 = v5;
     result = 0;
-    *error = v7;
+    *error = v5;
   }
 
   else
@@ -329,7 +385,18 @@ LABEL_12:
   v7 = accessLevel;
   if (error && accessLevel < level)
   {
-    *error = ENErrorF();
+    v8 = "com.apple.developer.exposure-notification";
+    if (level == 3)
+    {
+      v8 = "com.apple.developer.exposure-notification-test";
+    }
+
+    if (level > 3)
+    {
+      v8 = "com.apple.private.exposure-notification";
+    }
+
+    *error = ENErrorF(3, "Requires entitlement: %s", v8);
   }
 
   return v7 >= level;
@@ -361,7 +428,7 @@ LABEL_12:
   v11 = prefRateLimitMaxAPICount;
   if (Int64 >= prefRateLimitMaxAPICount)
   {
-    [ENXPCConnection _rateLimitAndReturnError:error];
+    [(ENXPCConnection *)error _rateLimitAndReturnError:prefRateLimitMaxAPICount];
   }
 
   else
@@ -393,10 +460,13 @@ LABEL_12:
       {
         if (error)
         {
-          goto LABEL_18;
+          v14 = "Region not found";
+LABEL_19:
+          ENErrorF(16, v14);
+          goto LABEL_20;
         }
 
-        goto LABEL_19;
+        goto LABEL_21;
       }
     }
 
@@ -406,10 +476,13 @@ LABEL_12:
       {
         if (error)
         {
-          goto LABEL_18;
+          ENErrorF(5, "No Active Region Available");
+LABEL_20:
+          *error = v13 = 0;
+          goto LABEL_8;
         }
 
-        goto LABEL_19;
+        goto LABEL_21;
       }
 
       configurationStore2 = [configurationManager configurationStore];
@@ -419,13 +492,11 @@ LABEL_12:
       {
         if (error)
         {
-LABEL_18:
-          ENErrorF();
-          *error = v13 = 0;
-          goto LABEL_8;
+          v14 = "No active region configuration found";
+          goto LABEL_19;
         }
 
-LABEL_19:
+LABEL_21:
         v13 = 0;
       }
     }
@@ -437,7 +508,7 @@ LABEL_8:
 
   if (error)
   {
-    ENErrorF();
+    ENErrorF(16, "No configuration manager");
     *error = v13 = 0;
   }
 
@@ -472,10 +543,13 @@ LABEL_9:
       {
         if (error)
         {
-          goto LABEL_18;
+          v14 = "Server config not found";
+LABEL_19:
+          ENErrorF(16, v14);
+          goto LABEL_20;
         }
 
-        goto LABEL_19;
+        goto LABEL_21;
       }
     }
 
@@ -485,10 +559,13 @@ LABEL_9:
       {
         if (error)
         {
-          goto LABEL_18;
+          ENErrorF(5, "No Active Region Available");
+LABEL_20:
+          *error = v13 = 0;
+          goto LABEL_8;
         }
 
-        goto LABEL_19;
+        goto LABEL_21;
       }
 
       configurationStore2 = [configurationManager configurationStore];
@@ -498,13 +575,11 @@ LABEL_9:
       {
         if (error)
         {
-LABEL_18:
-          ENErrorF();
-          *error = v13 = 0;
-          goto LABEL_8;
+          v14 = "No active server configuration found";
+          goto LABEL_19;
         }
 
-LABEL_19:
+LABEL_21:
         v13 = 0;
       }
     }
@@ -516,7 +591,7 @@ LABEL_8:
 
   if (error)
   {
-    ENErrorF();
+    ENErrorF(16, "No configuration manager");
     *error = v13 = 0;
   }
 
@@ -782,14 +857,13 @@ LABEL_63:
 LABEL_45:
     if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      [ENXPCConnection _xpcConnectionRequest:];
+      [ENXPCConnection _xpcConnectionRequest:v5];
     }
 
     if (xpc_dictionary_expects_reply())
     {
-      v10 = v5;
-      v6 = ENErrorF();
-      [(ENXPCConnection *)self _xpcSendReplyError:v6 request:requestCopy, v10];
+      v6 = ENErrorF(5, "Unsupported message type: %lld", v5);
+      [(ENXPCConnection *)self _xpcSendReplyError:v6 request:requestCopy];
     }
 
     goto LABEL_81;
@@ -901,7 +975,7 @@ LABEL_81:
 {
   message = message;
   v4 = self->_xpcCnx;
-  v5 = v4;
+  v7 = v4;
   if (v4)
   {
     xpc_connection_send_message(v4, message);
@@ -909,7 +983,7 @@ LABEL_81:
 
   else
   {
-    [ENXPCConnection _xpcSendMessage:];
+    [(ENXPCConnection *)0 _xpcSendMessage:v5, v6];
   }
 }
 
@@ -917,8 +991,8 @@ LABEL_81:
 {
   errorCopy = error;
   requestCopy = request;
-  v7 = self->_xpcCnx;
-  if (v7)
+  v9 = self->_xpcCnx;
+  if (v9)
   {
     reply = xpc_dictionary_create_reply(requestCopy);
     if (reply)
@@ -934,7 +1008,7 @@ LABEL_81:
 
   else
   {
-    [ENXPCConnection _xpcSendReplyError:request:];
+    [(ENXPCConnection *)0 _xpcSendReplyError:v7 request:v8];
   }
 }
 
@@ -942,28 +1016,28 @@ LABEL_81:
 {
   errorCopy = error;
   replyCopy = reply;
-  v7 = self->_xpcCnx;
-  if (v7)
+  v9 = self->_xpcCnx;
+  if (v9)
   {
     CUXPCEncodeNSError();
-    xpc_connection_send_message(v7, replyCopy);
+    xpc_connection_send_message(v9, replyCopy);
     signingIdentity = [(ENXPCClient *)self->_client signingIdentity];
     if (signingIdentity != @"com.apple.enutil")
     {
-      v9 = signingIdentity;
-      if (!signingIdentity || (v10 = [(__CFString *)signingIdentity isEqual:@"com.apple.enutil"], v9, v9, (v10 & 1) == 0))
+      v11 = signingIdentity;
+      if (!signingIdentity || (v12 = [(__CFString *)signingIdentity isEqual:@"com.apple.enutil"], v11, v11, (v12 & 1) == 0))
       {
         domain = [errorCopy domain];
-        v12 = [domain isEqualToString:*MEMORY[0x277CC5BD0]];
+        v14 = [domain isEqualToString:*MEMORY[0x277CC5BD0]];
 
-        if (v12)
+        if (v14)
         {
-          v13 = [errorCopy code] - 5;
-          if (v13 <= 0xB && ((0xCE9u >> v13) & 1) != 0)
+          v15 = [errorCopy code] - 5;
+          if (v15 <= 0xB && ((0xCE9u >> v15) & 1) != 0)
           {
-            v14 = dword_24A28BE7C[v13];
+            v16 = dword_24A28BE7C[v15];
             delegate = [(ENDaemon *)self->_daemon delegate];
-            [delegate sendErrorMetricWithType:v14];
+            [delegate sendErrorMetricWithType:v16];
           }
         }
       }
@@ -972,7 +1046,7 @@ LABEL_81:
 
   else
   {
-    [ENXPCConnection _xpcSendReplyError:reply:];
+    [(ENXPCConnection *)0 _xpcSendReplyError:v7 reply:v8];
   }
 }
 
@@ -994,8 +1068,8 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  [ENXPCConnection _xpcEntitlementCheck:];
-  if (!v5)
+  [ENXPCConnection _xpcEntitlementCheck:v5];
+  if ((v5 & 1) == 0)
   {
     goto LABEL_11;
   }
@@ -1003,7 +1077,7 @@ LABEL_11:
 LABEL_5:
   if ([(ENDaemon *)self->_daemon getOverallStatus]== 4)
   {
-    v7 = ENErrorF();
+    v7 = ENErrorF(14, "Restricted");
 
     [(ENXPCConnection *)self _xpcSendReplyError:v7 request:checkCopy];
     v6 = v7;
@@ -1062,67 +1136,79 @@ LABEL_12:
       objc_storeStrong(v11 + 5, v30);
       if (v12)
       {
-        if (-[ENDaemon overallStatus](self->_daemon, "overallStatus") != 1 || (-[ENDaemon regionMonitor](self->_daemon, "regionMonitor"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 getAuthorizationState], v13, v14 != 2))
+        if ([(ENDaemon *)self->_daemon overallStatus]== 1)
         {
-          v21 = ENErrorF();
-          v16 = v37[5];
-          v37[5] = v21;
-          goto LABEL_15;
-        }
+          regionMonitor = [(ENDaemon *)self->_daemon regionMonitor];
+          getAuthorizationState = [regionMonitor getAuthorizationState];
 
-        v15 = v37;
-        v29 = v37[5];
-        v16 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v5 error:&v29];
-        objc_storeStrong(v15 + 5, v29);
-        if (!v16)
-        {
+          if (getAuthorizationState == 2)
+          {
+            v15 = v37;
+            v29 = v37[5];
+            v16 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v5 error:&v29];
+            objc_storeStrong(v15 + 5, v29);
+            if (!v16)
+            {
 LABEL_15:
 
-          goto LABEL_16;
-        }
+              goto LABEL_16;
+            }
 
-        configurationManager = [(ENDaemon *)self->_daemon configurationManager];
-        configurationStore = [configurationManager configurationStore];
+            configurationManager = [(ENDaemon *)self->_daemon configurationManager];
+            configurationStore = [configurationManager configurationStore];
 
-        if (!configurationStore)
-        {
-          v22 = ENErrorF();
-          v23 = v37[5];
-          v37[5] = v22;
+            if (!configurationStore)
+            {
+              v22 = ENErrorF(11, "Configuration store not available.");
+              v23 = v37[5];
+              v37[5] = v22;
 
-          goto LABEL_14;
-        }
+              goto LABEL_14;
+            }
 
-        travelerModeEnabled = [v16 travelerModeEnabled];
-        if (travelerModeEnabled == 1)
-        {
-          v20 = 0;
+            travelerModeEnabled = [v16 travelerModeEnabled];
+            if (travelerModeEnabled == 1)
+            {
+              v20 = 0;
+            }
+
+            else
+            {
+              if (!travelerModeEnabled)
+              {
+                v24[0] = MEMORY[0x277D85DD0];
+                v24[1] = 3221225472;
+                v24[2] = __39__ENXPCConnection__xpcGetUserTraveled___block_invoke_2;
+                v24[3] = &unk_278FD1A28;
+                v24[4] = self;
+                v28 = &v36;
+                v25 = v5;
+                v26 = v16;
+                v27 = configurationStore;
+                [(ENXPCConnection *)self _xpcGetUserTraveledPromptWithCompletion:v24];
+
+LABEL_14:
+                goto LABEL_15;
+              }
+
+              v20 = 1;
+            }
+
+            [(ENXPCConnection *)self _xpcGetUserTraveledReplyAllowed:v20 request:v5];
+            goto LABEL_14;
+          }
+
+          v21 = ENErrorF(17, "Travel Status Not Available");
         }
 
         else
         {
-          if (!travelerModeEnabled)
-          {
-            v24[0] = MEMORY[0x277D85DD0];
-            v24[1] = 3221225472;
-            v24[2] = __39__ENXPCConnection__xpcGetUserTraveled___block_invoke_2;
-            v24[3] = &unk_278FD1A28;
-            v24[4] = self;
-            v28 = &v36;
-            v25 = v5;
-            v26 = v16;
-            v27 = configurationStore;
-            [(ENXPCConnection *)self _xpcGetUserTraveledPromptWithCompletion:v24];
-
-LABEL_14:
-            goto LABEL_15;
-          }
-
-          v20 = 1;
+          v21 = ENErrorF(9, "Exposure Notification is disabled. Travel Status Not Available");
         }
 
-        [(ENXPCConnection *)self _xpcGetUserTraveledReplyAllowed:v20 request:v5];
-        goto LABEL_14;
+        v16 = v37[5];
+        v37[5] = v21;
+        goto LABEL_15;
       }
     }
   }
@@ -1133,41 +1219,31 @@ LABEL_16:
   _Block_object_dispose(&v36, 8);
 }
 
-uint64_t __39__ENXPCConnection__xpcGetUserTraveled___block_invoke(void *a1)
+void *__39__ENXPCConnection__xpcGetUserTraveled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetUserTraveled:]_block_invoke", 90, "### GetUserTraveled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __39__ENXPCConnection__xpcGetUserTraveled___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1225,32 +1301,31 @@ void __39__ENXPCConnection__xpcGetUserTraveled___block_invoke_2(uint64_t a1, uin
 - (void)_xpcGetUserTraveledPromptWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__3;
-  v32 = __Block_byref_object_dispose__3;
-  v33 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke;
-  v25[3] = &unk_278FD1A50;
-  v27 = &v28;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__3;
+  v31 = __Block_byref_object_dispose__3;
+  v32 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke;
+  v24[3] = &unk_278FD1A50;
+  v26 = &v27;
   v5 = completionCopy;
-  v26 = v5;
-  v6 = MEMORY[0x24C214430](v25);
+  v25 = v5;
+  v6 = MEMORY[0x24C214430](v24);
   if (self->_userAlert || ([(ENDaemon *)self->_daemon userAlert], v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
   {
-    v8 = ENErrorF();
-    v9 = v29[5];
-    v29[5] = v8;
+    v8 = ENErrorF(10, "Alert already active");
+    v9 = v28[5];
+    v28[5] = v8;
   }
 
   else
   {
     v9 = objc_alloc_init(MEMORY[0x277CEEE98]);
     v10 = [v9 applicationInfoForPID:{-[ENXPCClient pid](self->_client, "pid")}];
-    v11 = *MEMORY[0x277CEEE78];
     Int64Ranged = CFDictionaryGetInt64Ranged();
     [v9 invalidate];
     if (Int64Ranged == 8)
@@ -1258,105 +1333,88 @@ void __39__ENXPCConnection__xpcGetUserTraveled___block_invoke_2(uint64_t a1, uin
       signingIdentity = [(ENXPCClient *)self->_client signingIdentity];
       if (signingIdentity)
       {
-        v14 = [MEMORY[0x277CC1E68] applicationProxyForIdentifier:signingIdentity placeholder:0];
-        localizedName = [v14 localizedName];
+        v13 = [MEMORY[0x277CC1E68] applicationProxyForIdentifier:signingIdentity placeholder:0];
+        localizedName = [v13 localizedName];
 
-        v16 = objc_alloc_init(MEMORY[0x277CC5D38]);
-        objc_storeStrong(&self->_userAlert, v16);
-        [v16 setDispatchQueue:self->_dispatchQueue];
-        [v16 setTitleKey:@"SHARE_TRAVEL_TITLE_FORMAT"];
+        v15 = objc_alloc_init(MEMORY[0x277CC5D38]);
+        objc_storeStrong(&self->_userAlert, v15);
+        [v15 setDispatchQueue:self->_dispatchQueue];
+        [v15 setTitleKey:@"SHARE_TRAVEL_TITLE_FORMAT"];
         if (localizedName)
         {
-          v17 = localizedName;
+          v16 = localizedName;
         }
 
         else
         {
-          v17 = @"?";
+          v16 = @"?";
         }
 
-        [v16 setTitleParameter:v17];
-        [v16 setSubTitleKey:@"SHARE_TRAVEL_MESSAGE"];
-        [v16 setDefaultButtonTitleKey:@"SHARE_BUTTON"];
-        [v16 setAlternativeButtonTitleKey:@"DONT_SHARE_BUTTON"];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_2;
-        v23[3] = &unk_278FD1A78;
-        v23[4] = self;
-        v23[5] = v16;
-        v18 = v5;
-        v24 = v18;
-        [v16 setActionHandler:v23];
+        [v15 setTitleParameter:v16];
+        [v15 setSubTitleKey:@"SHARE_TRAVEL_MESSAGE"];
+        [v15 setDefaultButtonTitleKey:@"SHARE_BUTTON"];
+        [v15 setAlternativeButtonTitleKey:@"DONT_SHARE_BUTTON"];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_2;
+        v22[3] = &unk_278FD1A78;
+        v22[4] = self;
+        v22[5] = v15;
+        v17 = v5;
+        v23 = v17;
+        [v15 setActionHandler:v22];
         if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetUserTraveledPromptWithCompletion:]", 30, "TravelStatus alert start");
         }
 
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3;
-        v21[3] = &unk_278FD1AA0;
-        v21[4] = self;
-        v21[5] = v16;
-        v22 = v18;
-        [v16 activateWithCompletionHandler:v21];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3;
+        v20[3] = &unk_278FD1AA0;
+        v20[4] = self;
+        v20[5] = v15;
+        v21 = v17;
+        [v15 activateWithCompletionHandler:v20];
       }
 
       else
       {
-        v20 = ENErrorF();
-        localizedName = v29[5];
-        v29[5] = v20;
+        v19 = ENErrorF(5, "No signing identifier");
+        localizedName = v28[5];
+        v28[5] = v19;
       }
     }
 
     else
     {
-      v19 = ENErrorF();
-      signingIdentity = v29[5];
-      v29[5] = v19;
+      v18 = ENErrorF(10, "Only allowed in foreground");
+      signingIdentity = v28[5];
+      v28[5] = v18;
     }
   }
 
   v6[2](v6);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
 }
 
 uint64_t __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v3 = CUPrintNSError();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetUserTraveledPromptWithCompletion:]_block_invoke", 90, "### GetUserTraveledPrompt failed: %@", v3);
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF_safe();
+    v4 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v4();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 uint64_t __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_2(void *a1, unint64_t a2)
@@ -1385,22 +1443,23 @@ uint64_t __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_i
 
 void __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3(void *a1, void *a2)
 {
-  v7 = a2;
-  if (v7)
+  v3 = a2;
+  v10 = v3;
+  if (v3)
   {
     if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3_cold_1();
+      __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3_cold_1(v10);
     }
 
-    v3 = a1[4];
-    v4 = *(v3 + 8);
-    *(v3 + 8) = 0;
+    v6 = a1[4];
+    v7 = *(v6 + 8);
+    *(v6 + 8) = 0;
 
-    v5 = a1[5];
-    v6 = [*(a1[4] + 32) userAlert];
+    v8 = a1[5];
+    v9 = [*(a1[4] + 32) userAlert];
 
-    if (v5 == v6)
+    if (v8 == v9)
     {
       [*(a1[4] + 32) setUserAlert:0];
     }
@@ -1408,9 +1467,12 @@ void __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invok
     (*(a1[6] + 16))();
   }
 
-  else if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  else if (_MergedGlobals <= 30)
   {
-    __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3_cold_2();
+    if (_MergedGlobals != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3_cold_2(v3, v4, v5);
+    }
   }
 }
 
@@ -1418,30 +1480,30 @@ void __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invok
 {
   allowedCopy = allowed;
   requestCopy = request;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__3;
-  v30 = __Block_byref_object_dispose__3;
-  v31 = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __59__ENXPCConnection__xpcGetUserTraveledReplyAllowed_request___block_invoke;
-  v23[3] = &unk_278FD10D0;
-  v25 = &v26;
-  v23[4] = self;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__3;
+  v32 = __Block_byref_object_dispose__3;
+  v33 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __59__ENXPCConnection__xpcGetUserTraveledReplyAllowed_request___block_invoke;
+  v25[3] = &unk_278FD10D0;
+  v27 = &v28;
+  v25[4] = self;
   v7 = requestCopy;
-  v24 = v7;
-  v8 = MEMORY[0x24C214430](v23);
+  v26 = v7;
+  v8 = MEMORY[0x24C214430](v25);
   if (!allowedCopy)
   {
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetUserTraveledReplyAllowed:request:]", 30, "GetUserTraveled: not allowed");
     }
 
-    v16 = 0;
-    goto LABEL_16;
+    v17 = 0;
+    goto LABEL_18;
   }
 
   activeEntity = [(ENDaemon *)self->_daemon activeEntity];
@@ -1449,97 +1511,94 @@ void __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invok
   region = [entity region];
 
   regionMonitor = [(ENDaemon *)self->_daemon regionMonitor];
-  v13 = (v27 + 5);
-  obj = v27[5];
+  v13 = (v29 + 5);
+  obj = v29[5];
   v14 = [regionMonitor getAllRegionsWithError:&obj];
   objc_storeStrong(v13, obj);
 
-  if (v27[5])
+  if (v29[5])
   {
     if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetUserTraveledReplyAllowed:request:]", 90, "Unable to determine user traveled");
     }
 
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   if (!v14 || !region)
   {
-    v20 = ENErrorF();
-    v21 = v27[5];
-    v27[5] = v20;
+    v22 = ENErrorF(17, "Unable to determine user traveled");
+    v23 = v29[5];
+    v29[5] = v22;
 
-LABEL_26:
-    goto LABEL_18;
+LABEL_28:
+    goto LABEL_20;
   }
 
   v15 = [MEMORY[0x277CBEB50] setWithSet:v14];
   [v15 addObject:region];
-  v16 = [v15 count] > 1;
-  v17 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  isSensitiveLoggingAllowed = [v17 isSensitiveLoggingAllowed];
+  v16 = [v15 count];
+  v17 = v16 > 1;
+  v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed = [v18 isSensitiveLoggingAllowed];
 
   if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    v20 = "no";
+    if (v16 > 1)
+    {
+      v20 = "yes";
+    }
+
+    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetUserTraveledReplyAllowed:request:]", 30, "GetUserTraveled: %s", v20);
   }
 
-LABEL_16:
+LABEL_18:
   reply = xpc_dictionary_create_reply(v7);
   region = reply;
   if (reply)
   {
-    xpc_dictionary_set_BOOL(reply, "userTraveled", v16);
+    xpc_dictionary_set_BOOL(reply, "userTraveled", v17);
     [(ENXPCConnection *)self _xpcSendMessage:region];
   }
 
   else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetUserTraveledReplyAllowed:request:]", 90, "### GetUserTraveled create reply failed");
   }
 
-LABEL_18:
+LABEL_20:
 
   v8[2](v8);
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __59__ENXPCConnection__xpcGetUserTraveledReplyAllowed_request___block_invoke(void *a1)
+void *__59__ENXPCConnection__xpcGetUserTraveledReplyAllowed_request___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetUserTraveledReplyAllowed:request:]_block_invoke", 90, "### GetUserTraveled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetTravelStatusEnabled:(id)enabled
@@ -1584,27 +1643,32 @@ LABEL_7:
 
         if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          if (travelerModeEnabled <= 2)
+          if (travelerModeEnabled > 2)
+          {
+            v16 = "?";
+          }
+
+          else
           {
             v16 = off_278FD2238[travelerModeEnabled];
           }
 
           region = [v12 region];
           regionCode = [region regionCode];
-          LogPrintF_safe();
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetTravelStatusEnabled:]", 30, "GetTravelStatusEnabled: %s, region '%@'", v16, regionCode);
         }
 
         reply = xpc_dictionary_create_reply(v5);
-        v19 = reply;
+        v20 = reply;
         if (reply)
         {
           xpc_dictionary_set_BOOL(reply, "enbd", travelerModeEnabled == 2);
-          [(ENXPCConnection *)self _xpcSendMessage:v19];
+          [(ENXPCConnection *)self _xpcSendMessage:v20];
         }
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetTravelStatusEnabled:]", 90, "### GetTravelStatusEnabled create reply failed");
         }
       }
     }
@@ -1615,71 +1679,61 @@ LABEL_7:
   _Block_object_dispose(&v27, 8);
 }
 
-uint64_t __46__ENXPCConnection__xpcGetTravelStatusEnabled___block_invoke(void *a1)
+void *__46__ENXPCConnection__xpcGetTravelStatusEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetTravelStatusEnabled:]_block_invoke", 90, "### GetTravelStatusEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetTravelStatusEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__3;
-  v38 = __Block_byref_object_dispose__3;
-  v39 = 0;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __46__ENXPCConnection__xpcSetTravelStatusEnabled___block_invoke;
-  v31[3] = &unk_278FD10D0;
-  v33 = &v34;
-  v31[4] = self;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__3;
+  v37 = __Block_byref_object_dispose__3;
+  v38 = 0;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __46__ENXPCConnection__xpcSetTravelStatusEnabled___block_invoke;
+  v30[3] = &unk_278FD10D0;
+  v32 = &v33;
+  v30[4] = self;
   v5 = enabledCopy;
-  v32 = v5;
-  v6 = MEMORY[0x24C214430](v31);
-  v7 = (v35 + 5);
-  obj = v35[5];
+  v31 = v5;
+  v6 = MEMORY[0x24C214430](v30);
+  v7 = (v34 + 5);
+  obj = v34[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
-    v9 = (v35 + 5);
-    v29 = v35[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v29];
-    objc_storeStrong(v9, v29);
+    v9 = (v34 + 5);
+    v28 = v34[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v28];
+    objc_storeStrong(v9, v28);
     if (v10)
     {
       configurationManager = [(ENDaemon *)self->_daemon configurationManager];
@@ -1687,10 +1741,10 @@ LABEL_7:
 
       if (configurationStore)
       {
-        v13 = (v35 + 5);
-        v28 = v35[5];
-        v14 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v5 error:&v28];
-        objc_storeStrong(v13, v28);
+        v13 = (v34 + 5);
+        v27 = v34[5];
+        v14 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v5 error:&v27];
+        objc_storeStrong(v13, v27);
         if (v14)
         {
           v15 = xpc_dictionary_get_BOOL(v5, "enbd");
@@ -1710,27 +1764,26 @@ LABEL_7:
             }
 
             region = [v14 region];
-            [region regionCode];
-            v26 = v25 = v18;
-            LogPrintF_safe();
+            regionCode = [region regionCode];
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetTravelStatusEnabled:]", 30, "SetTravelStatusEnabled: %s, region '%@'", v18, regionCode);
           }
 
           if (v15)
           {
-            v20 = 2;
+            v21 = 2;
           }
 
           else
           {
-            v20 = 1;
+            v21 = 1;
           }
 
-          [v14 setTravelerModeEnabled:{v20, v25, v26}];
-          v21 = (v35 + 5);
-          v27 = v35[5];
-          v22 = [configurationStore saveRegionConfiguration:v14 error:&v27];
-          objc_storeStrong(v21, v27);
-          if (v22)
+          [v14 setTravelerModeEnabled:v21];
+          v22 = (v34 + 5);
+          v26 = v34[5];
+          v23 = [configurationStore saveRegionConfiguration:v14 error:&v26];
+          objc_storeStrong(v22, v26);
+          if (v23)
           {
             [(ENDaemon *)self->_daemon prefsChanged];
             reply = xpc_dictionary_create_reply(v5);
@@ -1741,7 +1794,7 @@ LABEL_7:
 
             else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetTravelStatusEnabled:]", 90, "### SetTravelStatusEnabled create reply failed");
             }
           }
         }
@@ -1749,53 +1802,43 @@ LABEL_7:
 
       else
       {
-        v24 = ENErrorF();
-        v14 = v35[5];
-        v35[5] = v24;
+        v25 = ENErrorF(1, "Configuration Store is not available");
+        v14 = v34[5];
+        v34[5] = v25;
       }
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
-uint64_t __46__ENXPCConnection__xpcSetTravelStatusEnabled___block_invoke(void *a1)
+void *__46__ENXPCConnection__xpcSetTravelStatusEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetTravelStatusEnabled:]_block_invoke", 90, "### SetTravelStatusEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcManagerActivate:(id)activate
@@ -1825,7 +1868,7 @@ LABEL_7:
     v36 = v5;
     if (self->_manager)
     {
-      v32 = ENErrorF();
+      v32 = ENErrorF(10, "Manager already active");
       reply = v43[5];
       v43[5] = v32;
 LABEL_28:
@@ -1847,7 +1890,7 @@ LABEL_28:
       {
         if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcManagerActivate:]", 90, "### ManagerActivate create reply failed");
         }
 
         goto LABEL_28;
@@ -1963,41 +2006,31 @@ LABEL_29:
   _Block_object_dispose(&v42, 8);
 }
 
-uint64_t __39__ENXPCConnection__xpcManagerActivate___block_invoke(void *a1)
+void *__39__ENXPCConnection__xpcManagerActivate___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcManagerActivate:]_block_invoke", 90, "### ManagerActivate failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (BOOL)_xpcManagerActivateIfNecessaryWithRequest:(id)request error:(id *)error
@@ -2040,49 +2073,46 @@ LABEL_7:
 - (void)_xpcSetEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__3;
-  v36 = __Block_byref_object_dispose__3;
-  v37 = 0;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __34__ENXPCConnection__xpcSetEnabled___block_invoke;
-  v29[3] = &unk_278FD10D0;
-  v31 = &v32;
-  v29[4] = self;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__3;
+  v30 = __Block_byref_object_dispose__3;
+  v31 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __34__ENXPCConnection__xpcSetEnabled___block_invoke;
+  v23[3] = &unk_278FD10D0;
+  v25 = &v26;
+  v23[4] = self;
   v5 = enabledCopy;
-  v30 = v5;
-  v6 = MEMORY[0x24C214430](v29);
-  v7 = (v33 + 5);
-  obj = v33[5];
+  v24 = v5;
+  v6 = MEMORY[0x24C214430](v23);
+  v7 = (v27 + 5);
+  obj = v27[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
-    v9 = (v33 + 5);
-    v27 = v33[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v27];
-    objc_storeStrong(v9, v27);
+    v9 = (v27 + 5);
+    v21 = v27[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v21];
+    objc_storeStrong(v9, v21);
     if (v10)
     {
-      v11 = (v33 + 5);
-      v26 = v33[5];
-      v12 = [(ENXPCConnection *)self _appActiveStatusWithError:&v26];
-      objc_storeStrong(v11, v26);
+      v11 = (v27 + 5);
+      v20 = v27[5];
+      v12 = [(ENXPCConnection *)self _appActiveStatusWithError:&v20];
+      objc_storeStrong(v11, v20);
       if (v12)
       {
-        accessLevel = [(ENXPCClient *)self->_client accessLevel];
-        v14 = MEMORY[0x277CBED18];
-        if (accessLevel == 3)
+        if ([(ENXPCClient *)self->_client accessLevel]== 3)
         {
           if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetEnabled:]", 30, "ExposureNotificationSetEnabled: Force Server Off");
           }
 
-          v15 = *v14;
           CFPrefs_SetValue();
         }
 
@@ -2090,45 +2120,37 @@ LABEL_7:
         {
           if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetEnabled:]", 30, "ExposureNotificationSetEnabled: Force Server Default");
           }
 
           CFPrefs_RemoveValue();
         }
 
         [(ENDaemon *)self->_daemon prefsChanged];
-        v16 = xpc_dictionary_get_BOOL(v5, "enbd");
+        v13 = xpc_dictionary_get_BOOL(v5, "enbd");
         if ([(ENDaemon *)self->_daemon overallStatus]== 4)
         {
-          v24 = ENErrorF();
-          reply = v33[5];
-          v33[5] = v24;
+          v19 = ENErrorF(14, "Restricted by system");
+          reply = v27[5];
+          v27[5] = v19;
         }
 
         else
         {
           if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
           {
-            v17 = "Disable";
-            if (v16)
+            v14 = "Disable";
+            if (v13)
             {
-              v17 = "Enable";
+              v14 = "Enable";
             }
 
-            v25 = v17;
-            LogPrintF_safe();
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetEnabled:]", 30, "ExposureNotificationSetEnabled: %s", v14);
           }
 
-          v18 = MEMORY[0x277CBED20];
-          if (!v16)
-          {
-            v18 = v14;
-          }
-
-          v19 = *v18;
           CFPrefs_SetValue();
           daemon = self->_daemon;
-          if (v16)
+          if (v13)
           {
             [(ENDaemon *)daemon setUsageUserEnabled:[(ENDaemon *)self->_daemon usageUserEnabled]+ 1];
           }
@@ -2156,7 +2178,7 @@ LABEL_7:
 
           else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetEnabled:]", 90, "### ExposureNotificationSetEnabled create reply failed");
           }
         }
       }
@@ -2165,85 +2187,68 @@ LABEL_7:
 
   v6[2](v6);
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v26, 8);
 }
 
-uint64_t __34__ENXPCConnection__xpcSetEnabled___block_invoke(void *a1)
+void *__34__ENXPCConnection__xpcSetEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetEnabled:]_block_invoke", 90, "### ExposureNotificationSetEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetPaused:(id)paused
 {
   pausedCopy = paused;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__3;
-  v26 = __Block_byref_object_dispose__3;
-  v27 = 0;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __33__ENXPCConnection__xpcSetPaused___block_invoke;
-  v19[3] = &unk_278FD10D0;
-  v21 = &v22;
-  v19[4] = self;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __33__ENXPCConnection__xpcSetPaused___block_invoke;
+  v17[3] = &unk_278FD10D0;
+  v19 = &v20;
+  v17[4] = self;
   v5 = pausedCopy;
-  v20 = v5;
-  v6 = MEMORY[0x24C214430](v19);
-  v7 = (v23 + 5);
-  obj = v23[5];
+  v18 = v5;
+  v6 = MEMORY[0x24C214430](v17);
+  v7 = (v21 + 5);
+  obj = v21[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
-    v9 = (v23 + 5);
-    v17 = v23[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v17];
-    objc_storeStrong(v9, v17);
+    v9 = (v21 + 5);
+    v15 = v21[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v15];
+    objc_storeStrong(v9, v15);
     if (v10)
     {
       v11 = xpc_dictionary_get_BOOL(v5, "paus");
       v12 = xpc_dictionary_get_double(v5, "dura");
-      v13 = MEMORY[0x277CBED20];
-      if (!v11)
-      {
-        v13 = MEMORY[0x277CBED18];
-      }
-
-      v14 = *v13;
       CFPrefs_SetValue();
       if (v11)
       {
@@ -2251,7 +2256,7 @@ LABEL_7:
         {
           if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetPaused:]", 30, "Pause, indefinite");
           }
 
           CFPrefs_RemoveValue();
@@ -2261,8 +2266,8 @@ LABEL_7:
         {
           if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
           {
-            v16 = CUPrintDurationDouble();
-            LogPrintF_safe();
+            v13 = CUPrintDurationDouble();
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetPaused:]", 30, "Pause, Expire %@", v13);
           }
 
           CFAbsoluteTimeGetCurrent();
@@ -2276,7 +2281,7 @@ LABEL_7:
       {
         if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetPaused:]", 30, "Unpause");
         }
 
         CFPrefs_RemoveValue();
@@ -2294,51 +2299,41 @@ LABEL_7:
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetPaused:]", 90, "### SetPaused create reply failed");
       }
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
-uint64_t __33__ENXPCConnection__xpcSetPaused___block_invoke(void *a1)
+void *__33__ENXPCConnection__xpcSetPaused___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetPaused:]_block_invoke", 90, "### SetPaused failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)xpcStatusChanged
@@ -2353,37 +2348,37 @@ LABEL_7:
 - (void)_xpcGetPreAuthorizeDiagnosisKeysEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__3;
-  v32 = __Block_byref_object_dispose__3;
-  v33 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __59__ENXPCConnection__xpcGetPreAuthorizeDiagnosisKeysEnabled___block_invoke;
-  v25[3] = &unk_278FD10D0;
-  v27 = &v28;
-  v25[4] = self;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__3;
+  v34 = __Block_byref_object_dispose__3;
+  v35 = 0;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __59__ENXPCConnection__xpcGetPreAuthorizeDiagnosisKeysEnabled___block_invoke;
+  v27[3] = &unk_278FD10D0;
+  v29 = &v30;
+  v27[4] = self;
   v5 = enabledCopy;
-  v26 = v5;
-  v6 = MEMORY[0x24C214430](v25);
-  v7 = (v29 + 5);
-  obj = v29[5];
+  v28 = v5;
+  v6 = MEMORY[0x24C214430](v27);
+  v7 = (v31 + 5);
+  obj = v31[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
-    v9 = (v29 + 5);
-    v23 = v29[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v23];
-    objc_storeStrong(v9, v23);
+    v9 = (v31 + 5);
+    v25 = v31[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v25];
+    objc_storeStrong(v9, v25);
     if (v10)
     {
-      v11 = (v29 + 5);
-      v22 = v29[5];
-      v12 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v5 error:&v22];
-      objc_storeStrong(v11, v22);
+      v11 = (v31 + 5);
+      v24 = v31[5];
+      v12 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v5 error:&v24];
+      objc_storeStrong(v11, v24);
       if (v12)
       {
         diagnosisKeysPreAuthorization = [v12 diagnosisKeysPreAuthorization];
@@ -2395,22 +2390,29 @@ LABEL_7:
         if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
           client = [(ENXPCConnection *)self client];
-          LogPrintF_safe();
+          v18 = client;
+          v19 = "no";
+          if (userAuthorization == 1)
+          {
+            v19 = "yes";
+          }
+
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetPreAuthorizeDiagnosisKeysEnabled:]", 30, "GetPreAuthorizeDiagnosisKeysEnabled: %s, client '%@'", v19, client);
         }
 
-        if (userAuthorization == 1 || (v18 = (v29 + 5), v21 = v29[5], [(ENXPCConnection *)self updateDiagnosisKeysPreAuthorizationForRequest:v5 withDecision:0 errorOut:&v21], objc_storeStrong(v18, v21), !v29[5]))
+        if (userAuthorization == 1 || (v20 = (v31 + 5), v23 = v31[5], [(ENXPCConnection *)self updateDiagnosisKeysPreAuthorizationForRequest:v5 withDecision:0 errorOut:&v23], objc_storeStrong(v20, v23), !v31[5]))
         {
           reply = xpc_dictionary_create_reply(v5);
-          v20 = reply;
+          v22 = reply;
           if (reply)
           {
             xpc_dictionary_set_BOOL(reply, "enbd", userAuthorization == 1);
-            [(ENXPCConnection *)self _xpcSendMessage:v20];
+            [(ENXPCConnection *)self _xpcSendMessage:v22];
           }
 
           else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetPreAuthorizeDiagnosisKeysEnabled:]", 90, "### GetPreAuthorizeDiagnosisKeysEnabled create reply failed");
           }
         }
       }
@@ -2419,87 +2421,77 @@ LABEL_7:
 
   v6[2](v6);
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
-uint64_t __59__ENXPCConnection__xpcGetPreAuthorizeDiagnosisKeysEnabled___block_invoke(void *a1)
+void *__59__ENXPCConnection__xpcGetPreAuthorizeDiagnosisKeysEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetPreAuthorizeDiagnosisKeysEnabled:]_block_invoke", 90, "### GetPreAuthorizeDiagnosisKeysEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetPreAuthorizeDiagnosisKeysEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
-  v36 = 0;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __59__ENXPCConnection__xpcSetPreAuthorizeDiagnosisKeysEnabled___block_invoke;
-  v28[3] = &unk_278FD10D0;
-  v30 = &v31;
-  v28[4] = self;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__3;
+  v33 = __Block_byref_object_dispose__3;
+  v34 = 0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __59__ENXPCConnection__xpcSetPreAuthorizeDiagnosisKeysEnabled___block_invoke;
+  v26[3] = &unk_278FD10D0;
+  v28 = &v29;
+  v26[4] = self;
   v5 = enabledCopy;
-  v29 = v5;
-  v6 = MEMORY[0x24C214430](v28);
-  v7 = (v32 + 5);
-  obj = v32[5];
+  v27 = v5;
+  v6 = MEMORY[0x24C214430](v26);
+  v7 = (v30 + 5);
+  obj = v30[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
-    v9 = (v32 + 5);
-    v26 = v32[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v26];
-    objc_storeStrong(v9, v26);
+    v9 = (v30 + 5);
+    v24 = v30[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v24];
+    objc_storeStrong(v9, v24);
     if (v10)
     {
-      v11 = (v32 + 5);
-      v25 = v32[5];
-      v12 = [(ENXPCConnection *)self _regionServerConfigForXPCRequest:v5 error:&v25];
-      objc_storeStrong(v11, v25);
+      v11 = (v30 + 5);
+      v23 = v30[5];
+      v12 = [(ENXPCConnection *)self _regionServerConfigForXPCRequest:v5 error:&v23];
+      objc_storeStrong(v11, v23);
       if (v12)
       {
         if (-[ENDaemon _isNKDActive](self->_daemon, "_isNKDActive") && ([v12 preArmTestVerificationEnabled] & 1) == 0)
         {
-          v21 = ENErrorF();
-          reply = v32[5];
-          v32[5] = v21;
+          v21 = ENErrorF(5, "Cannot set pre-Authorization, not available");
+          reply = v30[5];
+          v30[5] = v21;
         }
 
         else
@@ -2518,16 +2510,14 @@ LABEL_7:
               v18 = "yes";
             }
 
-            v22 = v18;
-            v23 = client;
-            LogPrintF_safe();
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetPreAuthorizeDiagnosisKeysEnabled:]", 30, "SetPreAuthorizeDiagnosisKeysEnabled: %s for client: %@", v18, client);
           }
 
-          v19 = (v32 + 5);
-          v24 = v32[5];
-          [(ENXPCConnection *)self updateDiagnosisKeysPreAuthorizationForRequest:v5 withDecision:v13 errorOut:&v24, v22, v23];
-          objc_storeStrong(v19, v24);
-          if (v32[5])
+          v19 = (v30 + 5);
+          v22 = v30[5];
+          [(ENXPCConnection *)self updateDiagnosisKeysPreAuthorizationForRequest:v5 withDecision:v13 errorOut:&v22];
+          objc_storeStrong(v19, v22);
+          if (v30[5])
           {
             goto LABEL_17;
           }
@@ -2540,7 +2530,7 @@ LABEL_7:
 
           else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetPreAuthorizeDiagnosisKeysEnabled:]", 90, "### SetPreAuthorizeDiagnosisKeysEnabled create reply failed");
           }
         }
       }
@@ -2551,44 +2541,34 @@ LABEL_17:
 
   v6[2](v6);
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
-uint64_t __59__ENXPCConnection__xpcSetPreAuthorizeDiagnosisKeysEnabled___block_invoke(void *a1)
+void *__59__ENXPCConnection__xpcSetPreAuthorizeDiagnosisKeysEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetPreAuthorizeDiagnosisKeysEnabled:]_block_invoke", 90, "### SetPreAuthorizeDiagnosisKeysEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcPreAuthorizeDiagnosisKeys:(id)keys
@@ -2626,45 +2606,55 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    if (-[ENDaemon _isNKDActive](self->_daemon, "_isNKDActive") && ([v10 preArmTestVerificationEnabled] & 1) == 0 || (uuid = xpc_dictionary_get_uuid(v5, "rpsid")) == 0)
+    if (-[ENDaemon _isNKDActive](self->_daemon, "_isNKDActive") && ([v10 preArmTestVerificationEnabled] & 1) == 0)
     {
-      v19 = ENErrorF();
-      v12 = v26[5];
-      v26[5] = v19;
-      goto LABEL_14;
-    }
-
-    v12 = [objc_alloc(MEMORY[0x277CCAD70]) initWithUUIDBytes:uuid];
-    remoteUISessions = [(ENDaemon *)self->_daemon remoteUISessions];
-    v14 = [remoteUISessions objectForKeyedSubscript:v12];
-
-    if (v14)
-    {
-      [v14 setOriginalRequest:v5];
-      [v14 setConnection:self];
-      v15 = +[ENLoggingPrefs sharedENLoggingPrefs];
-      isSensitiveLoggingAllowed = [v15 isSensitiveLoggingAllowed];
-
-      if (!isSensitiveLoggingAllowed || _MergedGlobals > 30 || _MergedGlobals == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_13;
-      }
-
-      client = [(ENXPCConnection *)self client];
-      LogPrintF_safe();
+      v18 = ENErrorF(5, "Pre-Authorization is not available");
     }
 
     else
     {
-      v18 = ENErrorF();
-      client = v26[5];
-      v26[5] = v18;
-    }
+      uuid = xpc_dictionary_get_uuid(v5, "rpsid");
+      if (uuid)
+      {
+        v12 = [objc_alloc(MEMORY[0x277CCAD70]) initWithUUIDBytes:uuid];
+        remoteUISessions = [(ENDaemon *)self->_daemon remoteUISessions];
+        v14 = [remoteUISessions objectForKeyedSubscript:v12];
+
+        if (v14)
+        {
+          [v14 setOriginalRequest:v5];
+          [v14 setConnection:self];
+          v15 = +[ENLoggingPrefs sharedENLoggingPrefs];
+          isSensitiveLoggingAllowed = [v15 isSensitiveLoggingAllowed];
+
+          if (!isSensitiveLoggingAllowed || _MergedGlobals > 30 || _MergedGlobals == -1 && !_LogCategory_Initialize())
+          {
+            goto LABEL_13;
+          }
+
+          client = [(ENXPCConnection *)self client];
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcPreAuthorizeDiagnosisKeys:]", 30, "PreAuthorizeDiagnosisKeys request cached for %@", client);
+        }
+
+        else
+        {
+          v19 = ENErrorF(11, "Failed to find matching session");
+          client = v26[5];
+          v26[5] = v19;
+        }
 
 LABEL_13:
 LABEL_14:
 
-    goto LABEL_15;
+        goto LABEL_15;
+      }
+
+      v18 = ENErrorF(16, "Failed to decode session ID");
+    }
+
+    v12 = v26[5];
+    v26[5] = v18;
+    goto LABEL_14;
   }
 
 LABEL_16:
@@ -2673,10 +2663,10 @@ LABEL_16:
   _Block_object_dispose(&v25, 8);
 }
 
-uint64_t __49__ENXPCConnection__xpcPreAuthorizeDiagnosisKeys___block_invoke(uint64_t result)
+void *__49__ENXPCConnection__xpcPreAuthorizeDiagnosisKeys___block_invoke(void *result)
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -2697,10 +2687,84 @@ uint64_t __49__ENXPCConnection__xpcPreAuthorizeDiagnosisKeys___block_invoke(uint
   return result;
 }
 
-uint64_t __70__ENXPCConnection__xpcPreAuthorizeDiagnosisKeysComplete_userDecision___block_invoke(uint64_t result)
+- (void)_xpcPreAuthorizeDiagnosisKeysComplete:(id)complete userDecision:(BOOL)decision
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  decisionCopy = decision;
+  completeCopy = complete;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__3;
+  v27 = __Block_byref_object_dispose__3;
+  v28 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __70__ENXPCConnection__xpcPreAuthorizeDiagnosisKeysComplete_userDecision___block_invoke;
+  v20[3] = &unk_278FD10D0;
+  v22 = &v23;
+  v20[4] = self;
+  v7 = completeCopy;
+  v21 = v7;
+  v8 = MEMORY[0x24C214430](v20);
+  v9 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed = [v9 isSensitiveLoggingAllowed];
+
+  if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  {
+    client = [(ENXPCConnection *)self client];
+    v12 = client;
+    v13 = "no";
+    if (decisionCopy)
+    {
+      v13 = "yes";
+    }
+
+    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcPreAuthorizeDiagnosisKeysComplete:userDecision:]", 30, "PreAuthorizeDiagnosisKeys: %s for %@", v13, client);
+  }
+
+  v14 = (v24 + 5);
+  obj = v24[5];
+  [(ENXPCConnection *)self updateDiagnosisKeysPreAuthorizationForRequest:v7 withDecision:decisionCopy errorOut:&obj];
+  objc_storeStrong(v14, obj);
+  if (!v24[5])
+  {
+    if (decisionCopy)
+    {
+      reply = xpc_dictionary_create_reply(v7);
+      if (reply)
+      {
+        [(ENXPCConnection *)self _xpcSendMessage:reply];
+      }
+
+      else
+      {
+        v17 = +[ENLoggingPrefs sharedENLoggingPrefs];
+        isSensitiveLoggingAllowed2 = [v17 isSensitiveLoggingAllowed];
+
+        if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcPreAuthorizeDiagnosisKeysComplete:userDecision:]", 90, "### PreAuthorizeRequestDecision create reply failed");
+        }
+      }
+    }
+
+    else
+    {
+      v16 = ENErrorF(4, "User denied pre-authorization");
+      reply = v24[5];
+      v24[5] = v16;
+    }
+  }
+
+  v8[2](v8);
+
+  _Block_object_dispose(&v23, 8);
+}
+
+void *__70__ENXPCConnection__xpcPreAuthorizeDiagnosisKeysComplete_userDecision___block_invoke(void *result)
+{
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -2753,28 +2817,28 @@ uint64_t __70__ENXPCConnection__xpcPreAuthorizeDiagnosisKeysComplete_userDecisio
       if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
         client = [(ENXPCConnection *)self client];
-        LogPrintF_safe();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcRequestPreAuthorizedDiagnosisKeys:]", 30, "RequestPreAuthorizedDiagnosisKeys for %@", client);
       }
 
       CFStringGetTypeID();
       client2 = CFPrefs_CopyTypedValue();
       if (client2)
       {
-        v12 = +[ENLoggingPrefs sharedENLoggingPrefs];
-        isSensitiveLoggingAllowed2 = [v12 isSensitiveLoggingAllowed];
+        v13 = +[ENLoggingPrefs sharedENLoggingPrefs];
+        isSensitiveLoggingAllowed2 = [v13 isSensitiveLoggingAllowed];
 
         if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcRequestPreAuthorizedDiagnosisKeys:]", 30, "RequestPreAuthorizedDiagnosisKeys for %@ already enqueued", client2);
         }
       }
 
       else
       {
-        v14 = (v27 + 5);
+        v15 = (v27 + 5);
         v21 = v27[5];
         [(ENXPCConnection *)self enqueuePreAuthorizedLockScreenActionForRequest:v5 outError:&v21];
-        objc_storeStrong(v14, v21);
+        objc_storeStrong(v15, v21);
         if (v27[5])
         {
 LABEL_17:
@@ -2791,12 +2855,12 @@ LABEL_17:
 
       else
       {
-        v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
-        isSensitiveLoggingAllowed3 = [v18 isSensitiveLoggingAllowed];
+        v19 = +[ENLoggingPrefs sharedENLoggingPrefs];
+        isSensitiveLoggingAllowed3 = [v19 isSensitiveLoggingAllowed];
 
         if (isSensitiveLoggingAllowed3 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcRequestPreAuthorizedDiagnosisKeys:]", 90, "### RequestPreAuthorizedDiagnosisKeys create reply failed");
         }
       }
     }
@@ -2805,9 +2869,9 @@ LABEL_17:
     {
       client2 = [(ENXPCConnection *)self client];
       reply = [client2 signingIdentity];
-      v16 = ENErrorF();
-      v17 = v27[5];
-      v27[5] = v16;
+      v17 = ENErrorF(4, "%@ is not the active app", reply);
+      v18 = v27[5];
+      v27[5] = v17;
     }
 
     goto LABEL_17;
@@ -2819,10 +2883,10 @@ LABEL_18:
   _Block_object_dispose(&v26, 8);
 }
 
-uint64_t __57__ENXPCConnection__xpcRequestPreAuthorizedDiagnosisKeys___block_invoke(uint64_t result)
+void *__57__ENXPCConnection__xpcRequestPreAuthorizedDiagnosisKeys___block_invoke(void *result)
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -2892,9 +2956,9 @@ uint64_t __57__ENXPCConnection__xpcRequestPreAuthorizedDiagnosisKeys___block_inv
 
       else
       {
-        v17 = ENErrorF();
-        v18 = v26[5];
-        v26[5] = v17;
+        v18 = ENErrorF(4, "User pre-authorization not available");
+        v19 = v26[5];
+        v26[5] = v18;
       }
     }
   }
@@ -2903,9 +2967,9 @@ uint64_t __57__ENXPCConnection__xpcRequestPreAuthorizedDiagnosisKeys___block_inv
   {
     client2 = [(ENXPCConnection *)self client];
     signingIdentity2 = [client2 signingIdentity];
-    v15 = ENErrorF();
-    v16 = v26[5];
-    v26[5] = v15;
+    v16 = ENErrorF(4, "%@ is not the active app", signingIdentity2);
+    v17 = v26[5];
+    v26[5] = v16;
   }
 
   v7[2](v7);
@@ -2916,42 +2980,31 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
 {
   if (*(*(*(a1 + 32) + 8) + 40))
   {
-    if (dword_281346508 > 90)
+    if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_6;
+      v2 = CUPrintNSError();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection enqueuePreAuthorizedLockScreenActionForRequest:outError:]_block_invoke", 90, "### EnqueuePreAuthorizedLockScreenAction failed: %@", v2);
     }
 
-    if (dword_281346508 == -1)
+    if (*(a1 + 40))
     {
-      if (!_LogCategory_Initialize())
-      {
-LABEL_6:
-        if (*(a1 + 40))
-        {
-          **(a1 + 40) = *(*(*(a1 + 32) + 8) + 40);
-        }
-
-        return;
-      }
-
-      v2 = *(*(*(a1 + 32) + 8) + 40);
+      **(a1 + 40) = *(*(*(a1 + 32) + 8) + 40);
     }
-
-    v3 = CUPrintNSError();
-    LogPrintF_safe();
-
-    goto LABEL_6;
   }
 }
 
-void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outError___block_invoke_2(uint64_t a1)
+void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outError___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (_MergedGlobals <= 30)
   {
-    __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outError___block_invoke_2_cold_1();
+    if (_MergedGlobals != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outError___block_invoke_2_cold_1(a1, a2, a3);
+    }
   }
 
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  WeakRetained = objc_loadWeakRetained((v3 + 32));
   [WeakRetained xpcPreAuthorizedDiagnosisKeysAvailable];
 }
 
@@ -2959,21 +3012,21 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
 {
   decisionCopy = decision;
   requestCopy = request;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__3;
-  v62 = __Block_byref_object_dispose__3;
-  v63 = 0;
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __87__ENXPCConnection_updateDiagnosisKeysPreAuthorizationForRequest_withDecision_errorOut___block_invoke;
-  v57[3] = &unk_278FD1AC8;
-  v57[4] = &v58;
-  v57[5] = out;
-  v9 = MEMORY[0x24C214430](v57);
-  v10 = (v59 + 5);
-  obj = v59[5];
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__3;
+  v61 = __Block_byref_object_dispose__3;
+  v62 = 0;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __87__ENXPCConnection_updateDiagnosisKeysPreAuthorizationForRequest_withDecision_errorOut___block_invoke;
+  v56[3] = &unk_278FD1AC8;
+  v56[4] = &v57;
+  v56[5] = out;
+  v9 = MEMORY[0x24C214430](v56);
+  v10 = (v58 + 5);
+  obj = v58[5];
   v11 = [(ENXPCConnection *)self _regionConfigForXPCRequest:requestCopy error:&obj];
   objc_storeStrong(v10, obj);
   if (v11)
@@ -2986,8 +3039,7 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
         v12 = "yes";
       }
 
-      v51 = *&v12;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection updateDiagnosisKeysPreAuthorizationForRequest:withDecision:errorOut:]", 30, "UpdateDiagnosisKeysPreAuthorization: %s", v12);
     }
 
     if (decisionCopy)
@@ -2996,8 +3048,7 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
       v14 = v13;
       if (v13 > 0.0 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        v51 = v14;
-        LogPrintF_safe();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection updateDiagnosisKeysPreAuthorizationForRequest:withDecision:errorOut:]", 30, "UpdateDiagnosisKeysPreAuthorization: Overriding duration by %lf seconds", v14);
       }
 
       date = [MEMORY[0x277CBEAA0] date];
@@ -3031,9 +3082,9 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
       }
 
       objc_opt_class();
-      v52 = v18;
+      v51 = v18;
       selfCopy = self;
-      v54 = requestCopy;
+      v53 = requestCopy;
       if (objc_opt_isKindOfClass())
       {
         v26 = v25;
@@ -3097,7 +3148,7 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
       [diagnosisKeysPreAuthorization5 setIsUserVaccinated:v42];
 
       self = selfCopy;
-      requestCopy = v54;
+      requestCopy = v53;
     }
 
     else
@@ -3110,10 +3161,10 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
 
     if (configurationStore)
     {
-      v45 = (v59 + 5);
-      v55 = v59[5];
-      v46 = [configurationStore saveRegionConfiguration:v11 error:&v55];
-      objc_storeStrong(v45, v55);
+      v45 = (v58 + 5);
+      v54 = v58[5];
+      v46 = [configurationStore saveRegionConfiguration:v11 error:&v54];
+      objc_storeStrong(v45, v54);
       if (!v46)
       {
         goto LABEL_42;
@@ -3128,21 +3179,21 @@ void __75__ENXPCConnection_enqueuePreAuthorizedLockScreenActionForRequest_outErr
       }
 
       diagnosisKeysPreAuthorization6 = [v11 diagnosisKeysPreAuthorization];
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection updateDiagnosisKeysPreAuthorizationForRequest:withDecision:errorOut:]", 30, "UpdateDiagnosisKeysPreAuthorization with pre-auth: %@", diagnosisKeysPreAuthorization6);
     }
 
     else
     {
-      v50 = ENErrorF();
-      diagnosisKeysPreAuthorization6 = v59[5];
-      v59[5] = v50;
+      v50 = ENErrorF(11, "Configuration store is not available");
+      diagnosisKeysPreAuthorization6 = v58[5];
+      v58[5] = v50;
     }
 
 LABEL_42:
   }
 
   v9[2](v9);
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
 }
 
 void __87__ENXPCConnection_updateDiagnosisKeysPreAuthorizationForRequest_withDecision_errorOut___block_invoke(uint64_t a1)
@@ -3165,13 +3216,13 @@ void __87__ENXPCConnection_updateDiagnosisKeysPreAuthorizationForRequest_withDec
 
 - (void)xpcPreAuthorizedDiagnosisKeysAvailable
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__3;
-  v46 = __Block_byref_object_dispose__3;
-  v47 = 0;
+  v48 = *MEMORY[0x277D85DE8];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__3;
+  v45 = __Block_byref_object_dispose__3;
+  v46 = 0;
   client = [(ENXPCConnection *)self client];
   signingIdentity = [client signingIdentity];
 
@@ -3179,167 +3230,278 @@ void __87__ENXPCConnection_updateDiagnosisKeysPreAuthorizationForRequest_withDec
   entity = [activeEntity entity];
   region = [entity region];
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __57__ENXPCConnection_xpcPreAuthorizedDiagnosisKeysAvailable__block_invoke;
-  v41[3] = &unk_278FD10D0;
-  v41[6] = &v42;
-  v41[4] = self;
-  v41[5] = region;
-  v30 = MEMORY[0x24C214430](v41);
-  if (self->_xpcCnx)
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __57__ENXPCConnection_xpcPreAuthorizedDiagnosisKeysAvailable__block_invoke;
+  v40[3] = &unk_278FD10D0;
+  v40[6] = &v41;
+  v40[4] = self;
+  v40[5] = region;
+  v29 = MEMORY[0x24C214430](v40);
+  if (!self->_xpcCnx)
   {
-    v6 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v6, "mTyp", 24);
-    if ([(ENXPCConnection *)self _appActiveStatusWithError:0]&& region)
+    v23 = ENErrorF(11, "Cannot send reply with no cnx");
+    v6 = v42[5];
+    v42[5] = v23;
+    goto LABEL_22;
+  }
+
+  v6 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v6, "mTyp", 24);
+  if (![(ENXPCConnection *)self _appActiveStatusWithError:0])
+  {
+    v24 = ENErrorF(4, "%@ is not the active app", signingIdentity);
+LABEL_26:
+    v31 = v42[5];
+    v42[5] = v24;
+
+    goto LABEL_22;
+  }
+
+  if (!region)
+  {
+    v24 = ENErrorF(5, "%@ has no region associated", signingIdentity);
+    goto LABEL_26;
+  }
+
+  CFPrefs_RemoveValue();
+  v7 = (v42 + 5);
+  obj = v42[5];
+  v30 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v6 error:&obj];
+  objc_storeStrong(v7, obj);
+  if (v30)
+  {
+    diagnosisKeysPreAuthorization = [v30 diagnosisKeysPreAuthorization];
+    v9 = [diagnosisKeysPreAuthorization userAuthorization] == 1;
+
+    if (v9)
     {
-      CFPrefs_RemoveValue();
-      v7 = (v43 + 5);
-      obj = v43[5];
-      v31 = [(ENXPCConnection *)self _regionConfigForXPCRequest:v6 error:&obj];
-      objc_storeStrong(v7, obj);
-      if (v31)
+      v10 = (v42 + 5);
+      v38 = v42[5];
+      [(ENXPCConnection *)self updateDiagnosisKeysPreAuthorizationForRequest:v6 withDecision:0 errorOut:&v38];
+      objc_storeStrong(v10, v38);
+      temporaryExposureKeyManager = [(ENDaemon *)self->_daemon temporaryExposureKeyManager];
+      if (temporaryExposureKeyManager)
       {
-        diagnosisKeysPreAuthorization = [v31 diagnosisKeysPreAuthorization];
-        v9 = [diagnosisKeysPreAuthorization userAuthorization] == 1;
-
-        if (v9)
+        v12 = 144 * (((CFAbsoluteTimeGetCurrent() + *MEMORY[0x277CBECD8]) / 600.0) / 0x90) - 2016;
+        client = self->_client;
+        v14 = (v42 + 5);
+        v37 = v42[5];
+        v15 = [temporaryExposureKeyManager getTemporaryExposureKeysForClient:client fromRollingStart:v12 didPrompt:1 forTesting:0 forceRefresh:0 error:&v37];
+        objc_storeStrong(v14, v37);
+        if (v15)
         {
-          v10 = (v43 + 5);
-          v39 = v43[5];
-          [(ENXPCConnection *)self updateDiagnosisKeysPreAuthorizationForRequest:v6 withDecision:0 errorOut:&v39];
-          objc_storeStrong(v10, v39);
-          temporaryExposureKeyManager = [(ENDaemon *)self->_daemon temporaryExposureKeyManager];
-          if (temporaryExposureKeyManager)
+          v16 = xpc_array_create(0, 0);
+          v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
+          v15 = v15;
+          v17 = [v15 countByEnumeratingWithState:&v33 objects:v47 count:16];
+          if (v17)
           {
-            v12 = 144 * (((CFAbsoluteTimeGetCurrent() + *MEMORY[0x277CBECD8]) / 600.0) / 0x90) - 2016;
-            client = self->_client;
-            v14 = (v43 + 5);
-            v38 = v43[5];
-            v15 = [temporaryExposureKeyManager getTemporaryExposureKeysForClient:client fromRollingStart:v12 didPrompt:1 forTesting:0 forceRefresh:0 error:&v38];
-            objc_storeStrong(v14, v38);
-            if (v15)
+            v18 = *v34;
+            do
             {
-              v16 = xpc_array_create(0, 0);
-              v36 = 0u;
-              v37 = 0u;
-              v34 = 0u;
-              v35 = 0u;
-              v15 = v15;
-              v17 = [v15 countByEnumeratingWithState:&v34 objects:v48 count:16];
-              if (v17)
+              for (i = 0; i != v17; ++i)
               {
-                v18 = *v35;
-                do
+                if (*v34 != v18)
                 {
-                  for (i = 0; i != v17; ++i)
-                  {
-                    if (*v35 != v18)
-                    {
-                      objc_enumerationMutation(v15);
-                    }
-
-                    v20 = *(*(&v34 + 1) + 8 * i);
-                    v21 = xpc_dictionary_create(0, 0, 0);
-                    [v20 encodeWithXPCObject:v21];
-                    xpc_array_set_value(v16, 0xFFFFFFFFFFFFFFFFLL, v21);
-                  }
-
-                  v17 = [v15 countByEnumeratingWithState:&v34 objects:v48 count:16];
+                  objc_enumerationMutation(v15);
                 }
 
-                while (v17);
+                v20 = *(*(&v33 + 1) + 8 * i);
+                v21 = xpc_dictionary_create(0, 0, 0);
+                [v20 encodeWithXPCObject:v21];
+                xpc_array_set_value(v16, 0xFFFFFFFFFFFFFFFFLL, v21);
               }
 
-              xpc_dictionary_set_value(v6, "tekA", v16);
-              if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-              {
-                count = xpc_array_get_count(v16);
-                LogPrintF_safe();
-              }
-
-              [(ENXPCConnection *)self _xpcSendMessage:v6, count];
+              v17 = [v15 countByEnumeratingWithState:&v33 objects:v47 count:16];
             }
+
+            while (v17);
           }
 
-          else
+          xpc_dictionary_set_value(v6, "tekA", v16);
+          if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
           {
-            v27 = ENErrorF();
-            v15 = v43[5];
-            v43[5] = v27;
+            count = xpc_array_get_count(v16);
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection xpcPreAuthorizedDiagnosisKeysAvailable]", 30, "PreAuthorizedDiagnosisKeysAvailable: %d keys", count);
           }
-        }
 
-        else
-        {
-          v25 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed = [v25 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF_safe();
-          }
+          [(ENXPCConnection *)self _xpcSendMessage:v6];
         }
+      }
+
+      else
+      {
+        v27 = ENErrorF(11, "Nil TEK manager");
+        v15 = v42[5];
+        v42[5] = v27;
       }
     }
 
     else
     {
-      v24 = ENErrorF();
-      v32 = v43[5];
-      v43[5] = v24;
+      v25 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed = [v25 isSensitiveLoggingAllowed];
+
+      if (isSensitiveLoggingAllowed && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection xpcPreAuthorizedDiagnosisKeysAvailable]", 90, "### RequestPreAuthorizedDiagnosisKeys: User pre-authorization not available");
+      }
     }
   }
 
-  else
-  {
-    v23 = ENErrorF();
-    v6 = v43[5];
-    v43[5] = v23;
-  }
+LABEL_22:
+  v29[2](v29);
 
-  v30[2](v30);
-  _Block_object_dispose(&v42, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v41, 8);
 }
 
 void __57__ENXPCConnection_xpcPreAuthorizedDiagnosisKeysAvailable__block_invoke(void *a1)
 {
   if (*(*(a1[6] + 8) + 40))
   {
-    if (dword_281346508 > 90)
+    if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      return;
+      v3 = CUPrintNSError();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection xpcPreAuthorizedDiagnosisKeysAvailable]_block_invoke", 90, "### PreAuthorizedDiagnosisKeysAvailable failed: %@", v3);
     }
-
-    if (dword_281346508 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        return;
-      }
-
-      v4 = *(*(a1[6] + 8) + 40);
-    }
-
-    v5 = CUPrintNSError();
-    LogPrintF_safe();
   }
 
   else
   {
-    v2 = a1[5];
-    v3 = *(a1[4] + 32);
+    v1 = a1[5];
+    v2 = *(a1[4] + 32);
 
-    [v3 postPreAuthorizationNotificationForRegion:v2];
+    [v2 postPreAuthorizationNotificationForRegion:v1];
   }
 }
 
-uint64_t __49__ENXPCConnection__xpcGetDiagnosisKeys_testMode___block_invoke(uint64_t result)
+- (void)_xpcGetDiagnosisKeys:(id)keys testMode:(BOOL)mode
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  modeCopy = mode;
+  keysCopy = keys;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__3;
+  v41 = __Block_byref_object_dispose__3;
+  v42 = 0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __49__ENXPCConnection__xpcGetDiagnosisKeys_testMode___block_invoke;
+  v34[3] = &unk_278FD10D0;
+  v36 = &v37;
+  v34[4] = self;
+  v7 = keysCopy;
+  v35 = v7;
+  v8 = MEMORY[0x24C214430](v34);
+  if (modeCopy)
+  {
+    v9 = 3;
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+  v10 = (v38 + 5);
+  obj = v38[5];
+  v11 = [(ENXPCConnection *)self _entitledForAccessLevel:v9 error:&obj];
+  objc_storeStrong(v10, obj);
+  if (v11)
+  {
+    v12 = (v38 + 5);
+    v32 = v38[5];
+    v13 = [(ENXPCConnection *)self _authorizedAndReturnError:&v32];
+    objc_storeStrong(v12, v32);
+    if (v13)
+    {
+      v14 = (v38 + 5);
+      v31 = v38[5];
+      v15 = [(ENXPCConnection *)self _appActiveStatusWithError:&v31];
+      objc_storeStrong(v14, v31);
+      if (v15)
+      {
+        temporaryExposureKeyManager = [(ENDaemon *)self->_daemon temporaryExposureKeyManager];
+        if (temporaryExposureKeyManager)
+        {
+          v17 = xpc_dictionary_get_BOOL(v7, "refr");
+          v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
+          isSensitiveLoggingAllowed = [v18 isSensitiveLoggingAllowed];
+
+          if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+          {
+            v20 = "no";
+            if (modeCopy)
+            {
+              v21 = "yes";
+            }
+
+            else
+            {
+              v21 = "no";
+            }
+
+            if (v17)
+            {
+              v20 = "yes";
+            }
+
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDiagnosisKeys:testMode:]", 30, "GetDiagnosisKeys %@ Test:%s, ForceRefresh:%s", self->_client, v21, v20);
+          }
+
+          [(ENDaemon *)self->_daemon setUsageGetDiagnosisKeys:[(ENDaemon *)self->_daemon usageGetDiagnosisKeys]+ 1];
+          if (-[ENXPCClient entitledToSkipKeyReleasePrompt](self->_client, "entitledToSkipKeyReleasePrompt") || ([temporaryExposureKeyManager requireKeyReleasePromptForClient:self->_client] & 1) == 0)
+          {
+            v24 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed2 = [v24 isSensitiveLoggingAllowed];
+
+            if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDiagnosisKeys:testMode:]", 50, "GetDiagnosisKeys %@ skipping prompt", self->_client);
+            }
+
+            [(ENXPCConnection *)self _xpcGetDiagnosisKeysCompletion:v7 didPrompt:0 testMode:modeCopy error:0];
+          }
+
+          else
+          {
+            v22 = (v38 + 5);
+            v30 = v38[5];
+            v23 = CUXPCDecodeNSUUID();
+            objc_storeStrong(v22, v30);
+            if (v23)
+            {
+              v28 = ENErrorF(2, "No session ID");
+              v29 = v38[5];
+              v38[5] = v28;
+            }
+          }
+        }
+
+        else
+        {
+          v26 = ENErrorF(11, "Nil TEK manager");
+          v27 = v38[5];
+          v38[5] = v26;
+        }
+      }
+    }
+  }
+
+  v8[2](v8);
+
+  _Block_object_dispose(&v37, 8);
+}
+
+void *__49__ENXPCConnection__xpcGetDiagnosisKeys_testMode___block_invoke(void *result)
+{
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -3360,10 +3522,142 @@ uint64_t __49__ENXPCConnection__xpcGetDiagnosisKeys_testMode___block_invoke(uint
   return result;
 }
 
-uint64_t __75__ENXPCConnection__xpcGetDiagnosisKeysCompletion_didPrompt_testMode_error___block_invoke(uint64_t result)
+- (void)_xpcGetDiagnosisKeysCompletion:(id)completion didPrompt:(BOOL)prompt testMode:(BOOL)mode error:(id)error
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  modeCopy = mode;
+  promptCopy = prompt;
+  v52 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  errorCopy = error;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__3;
+  v49 = __Block_byref_object_dispose__3;
+  v50 = 0;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __75__ENXPCConnection__xpcGetDiagnosisKeysCompletion_didPrompt_testMode_error___block_invoke;
+  v42[3] = &unk_278FD10D0;
+  v44 = &v45;
+  v42[4] = self;
+  v10 = completionCopy;
+  v43 = v10;
+  v34 = MEMORY[0x24C214430](v42);
+  if (errorCopy)
+  {
+    v29 = v46;
+    v30 = errorCopy;
+    temporaryExposureKeyManager = v29[5];
+    v29[5] = v30;
+    goto LABEL_24;
+  }
+
+  temporaryExposureKeyManager = [(ENDaemon *)self->_daemon temporaryExposureKeyManager];
+  if (temporaryExposureKeyManager)
+  {
+    v12 = xpc_dictionary_get_BOOL(v10, "refr");
+    if (!v12 || [(ENXPCClient *)self->_client accessLevel]> 3)
+    {
+      v13 = 144 * (((CFAbsoluteTimeGetCurrent() + *MEMORY[0x277CBECD8]) / 600.0) / 0x90) - 2016;
+      client = self->_client;
+      v15 = (v46 + 5);
+      obj = v46[5];
+      v16 = [temporaryExposureKeyManager getTemporaryExposureKeysForClient:client fromRollingStart:v13 didPrompt:promptCopy forTesting:modeCopy forceRefresh:v12 error:&obj];
+      objc_storeStrong(v15, obj);
+      if (v16)
+      {
+        v17 = xpc_array_create(0, 0);
+        v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v16 = v16;
+        v18 = [v16 countByEnumeratingWithState:&v37 objects:v51 count:16];
+        if (v18)
+        {
+          v19 = *v38;
+          do
+          {
+            for (i = 0; i != v18; ++i)
+            {
+              if (*v38 != v19)
+              {
+                objc_enumerationMutation(v16);
+              }
+
+              v21 = *(*(&v37 + 1) + 8 * i);
+              v22 = xpc_dictionary_create(0, 0, 0);
+              [v21 encodeWithXPCObject:v22];
+              xpc_array_set_value(v17, 0xFFFFFFFFFFFFFFFFLL, v22);
+            }
+
+            v18 = [v16 countByEnumeratingWithState:&v37 objects:v51 count:16];
+          }
+
+          while (v18);
+        }
+
+        v23 = +[ENLoggingPrefs sharedENLoggingPrefs];
+        isSensitiveLoggingAllowed = [v23 isSensitiveLoggingAllowed];
+
+        if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+        {
+          count = xpc_array_get_count(v17);
+          v26 = "no";
+          if (promptCopy)
+          {
+            v26 = "yes";
+          }
+
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDiagnosisKeysCompletion:didPrompt:testMode:error:]", 30, "GetDiagnosisKeys response: %zu keys, did prompt: %s", count, v26);
+        }
+
+        reply = xpc_dictionary_create_reply(v10);
+        v28 = reply;
+        if (reply)
+        {
+          xpc_dictionary_set_value(reply, "tekA", v17);
+          [(ENXPCConnection *)self _xpcSendMessage:v28];
+        }
+
+        else
+        {
+          v32 = +[ENLoggingPrefs sharedENLoggingPrefs];
+          isSensitiveLoggingAllowed2 = [v32 isSensitiveLoggingAllowed];
+
+          if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDiagnosisKeysCompletion:didPrompt:testMode:error:]", 90, "### GetDiagnosisKeys create reply failed");
+          }
+        }
+      }
+
+      goto LABEL_23;
+    }
+
+    v31 = ENErrorF(10, "Force refresh not allowed");
+  }
+
+  else
+  {
+    v31 = ENErrorF(11, "Nil TEK manager");
+  }
+
+  v16 = v46[5];
+  v46[5] = v31;
+LABEL_23:
+
+LABEL_24:
+  v34[2](v34);
+
+  _Block_object_dispose(&v45, 8);
+}
+
+void *__75__ENXPCConnection__xpcGetDiagnosisKeysCompletion_didPrompt_testMode_error___block_invoke(void *result)
+{
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -3441,7 +3735,7 @@ uint64_t __75__ENXPCConnection__xpcGetDiagnosisKeysCompletion_didPrompt_testMode
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcResetData:]", 90, "### ResetData create reply failed");
         }
       }
     }
@@ -3452,1174 +3746,1143 @@ uint64_t __75__ENXPCConnection__xpcGetDiagnosisKeysCompletion_didPrompt_testMode
   _Block_object_dispose(&v22, 8);
 }
 
-uint64_t __33__ENXPCConnection__xpcResetData___block_invoke(void *a1)
+void *__33__ENXPCConnection__xpcResetData___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcResetData:]_block_invoke", 90, "### ResetData failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcDiagnosticControl:(id)control
 {
   controlCopy = control;
-  v265 = 0;
-  v266 = &v265;
-  v267 = 0x3032000000;
-  v268 = __Block_byref_object_copy__3;
-  v269 = __Block_byref_object_dispose__3;
-  v270 = 0;
-  v262[0] = MEMORY[0x277D85DD0];
-  v262[1] = 3221225472;
-  v262[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke;
-  v262[3] = &unk_278FD10D0;
-  v264 = &v265;
-  v262[4] = self;
+  v263 = 0;
+  v264 = &v263;
+  v265 = 0x3032000000;
+  v266 = __Block_byref_object_copy__3;
+  v267 = __Block_byref_object_dispose__3;
+  v268 = 0;
+  v260[0] = MEMORY[0x277D85DD0];
+  v260[1] = 3221225472;
+  v260[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke;
+  v260[3] = &unk_278FD10D0;
+  v262 = &v263;
+  v260[4] = self;
   v5 = controlCopy;
-  v263 = v5;
-  v6 = MEMORY[0x24C214430](v262);
-  v7 = v266;
-  v261 = v266[5];
-  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&v261];
-  objc_storeStrong(v7 + 5, v261);
+  v261 = v5;
+  v6 = MEMORY[0x24C214430](v260);
+  v7 = v264;
+  v259 = v264[5];
+  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&v259];
+  objc_storeStrong(v7 + 5, v259);
   if (v8)
   {
     v9 = xpc_dictionary_get_value(v5, "parm");
     v10 = v9;
-    if (!v9 || MEMORY[0x24C214BB0](v9) != MEMORY[0x277D86468])
+    if (v9)
     {
-      v67 = ENErrorF();
-      v68 = v266[5];
-      v266[5] = v67;
-
-      goto LABEL_86;
-    }
-
-    v255 = 0;
-    v256 = &v255;
-    v257 = 0x3032000000;
-    v258 = __Block_byref_object_copy__3;
-    v259 = __Block_byref_object_dispose__3;
-    v260 = 0;
-    string = xpc_dictionary_get_string(v10, "iStr");
-    if (!string)
-    {
-      v69 = ENErrorF();
-      v70 = v266[5];
-      v266[5] = v69;
-
-      goto LABEL_85;
-    }
-
-    v254[0] = MEMORY[0x277D85DD0];
-    v254[1] = 3221225472;
-    v254[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_2;
-    v254[3] = &unk_278FD1AF0;
-    v254[4] = v10;
-    v12 = MEMORY[0x24C214430](v254);
-    v253[0] = MEMORY[0x277D85DD0];
-    v253[1] = 3221225472;
-    v253[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_3;
-    v253[3] = &unk_278FD1B18;
-    v253[4] = v10;
-    v173 = MEMORY[0x24C214430](v253);
-    delegate = [(ENDaemon *)self->_daemon delegate];
-    if (!strcasecmp(string, "Activity"))
-    {
-      if (!xpc_dictionary_get_string(v10, "activity"))
+      if (MEMORY[0x24C214BB0](v9) == MEMORY[0x277D86468])
       {
-        goto LABEL_35;
-      }
-
-      if (stricmp_prefix())
-      {
-        if (stricmp_prefix())
+        v253 = 0;
+        v254 = &v253;
+        v255 = 0x3032000000;
+        v256 = __Block_byref_object_copy__3;
+        v257 = __Block_byref_object_dispose__3;
+        v258 = 0;
+        string = xpc_dictionary_get_string(v10, "iStr");
+        if (!string)
         {
+          v73 = ENErrorF(2, "No input string");
+          v74 = v264[5];
+          v264[5] = v73;
+
+          goto LABEL_86;
+        }
+
+        v252[0] = MEMORY[0x277D85DD0];
+        v252[1] = 3221225472;
+        v252[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_2;
+        v252[3] = &unk_278FD1AF0;
+        v252[4] = v10;
+        v12 = MEMORY[0x24C214430](v252);
+        v251[0] = MEMORY[0x277D85DD0];
+        v251[1] = 3221225472;
+        v251[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_3;
+        v251[3] = &unk_278FD1B18;
+        v251[4] = v10;
+        v171 = MEMORY[0x24C214430](v251);
+        delegate = [(ENDaemon *)self->_daemon delegate];
+        if (!strcasecmp(string, "Activity"))
+        {
+          v14 = xpc_dictionary_get_string(v10, "activity");
+          if (!v14)
+          {
+            v13 = ENErrorF(2, "No activity");
+            goto LABEL_36;
+          }
+
           if (stricmp_prefix())
           {
             if (stricmp_prefix())
             {
-              goto LABEL_35;
-            }
-
-            v18 = 8;
-          }
-
-          else
-          {
-            v18 = 4;
-          }
-        }
-
-        else
-        {
-          v18 = 2;
-        }
-      }
-
-      else
-      {
-        v18 = 1;
-      }
-
-      v28 = xpc_dictionary_get_string(v10, "bundleID");
-      if (!v28)
-      {
-        goto LABEL_35;
-      }
-
-      v29 = [MEMORY[0x277CCACA0] stringWithUTF8String:v28];
-      if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-      {
-        CUPrintFlags32();
-        v167 = v161 = v29;
-        LogPrintF_safe();
-      }
-
-      if ((v18 & 3) != 0)
-      {
-        v30 = 30;
-      }
-
-      else
-      {
-        v30 = ((v18 << 29) >> 31) & 0xD2;
-      }
-
-      [(ENDaemon *)self->_daemon appLaunchWithBundleID:v29 activity:v18 shouldEnterForeground:(v18 & 7) == 0 requiredRuntimeInSeconds:v30, v161, v167];
-      v31 = (v256 + 5);
-      v252 = v256[5];
-      NSAppendPrintF_safe();
-      objc_storeStrong(v31, v252);
-    }
-
-    else
-    {
-      if (!strcasecmp(string, "BTDebug"))
-      {
-        if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-        {
-          LogPrintF_safe();
-        }
-
-        [delegate printBluetoothDebug];
-        v20 = (v256 + 5);
-        v251 = v256[5];
-        NSAppendPrintF_safe();
-        v21 = v251;
-        goto LABEL_64;
-      }
-
-      if (!strcasecmp(string, "chaff") && IsAppleInternalBuild())
-      {
-        location = 0;
-        CUXPCDecodeNSString();
-        [0 doubleValue];
-        if (v15 > 0.0)
-        {
-          CFPrefs_SetDouble();
-        }
-
-        v249 = 0;
-        CUXPCDecodeNSString();
-        if ([0 integerValue] >= 1)
-        {
-          CFPrefs_SetDouble();
-        }
-
-        v248 = 0;
-        CUXPCDecodeNSString();
-        [0 doubleValue];
-        if (v16 > 0.0)
-        {
-          CFPrefs_SetDouble();
-        }
-
-        [(ENDaemon *)self->_daemon prefsChanged];
-        v17 = (v256 + 5);
-        obj = v256[5];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v17, obj);
-
-LABEL_47:
-        goto LABEL_76;
-      }
-
-      if (!strcasecmp(string, "chaffReset") && IsAppleInternalBuild())
-      {
-        testResultManager = [(ENDaemon *)self->_daemon testResultManager];
-        [testResultManager deactivateAutomatedChaffing];
-
-        [(ENDaemon *)self->_daemon prefsChanged];
-        v20 = (v256 + 5);
-        v246 = v256[5];
-        NSAppendPrintF_safe();
-        v21 = v246;
-LABEL_64:
-        objc_storeStrong(v20, v21);
-        goto LABEL_76;
-      }
-
-      if (!strcasecmp(string, "chaffOverridesReset") && IsAppleInternalBuild())
-      {
-        CFPrefs_RemoveValue();
-        CFPrefs_RemoveValue();
-        CFPrefs_RemoveValue();
-        [(ENDaemon *)self->_daemon prefsChanged];
-        v20 = (v256 + 5);
-        v245 = v256[5];
-        NSAppendPrintF_safe();
-        v21 = v245;
-        goto LABEL_64;
-      }
-
-      if (!strcasecmp(string, "configureTestRegion") && IsAppleInternalBuild())
-      {
-        v22 = xpc_dictionary_get_string(v10, "mcc");
-        if (!v22)
-        {
-          v25 = v12[2](v12);
-          goto LABEL_93;
-        }
-
-        region2 = [MEMORY[0x277CCACA0] stringWithUTF8String:v22];
-        v24 = [ENCoreTelephonyUtility countryCodeISOForMobileCountryCode:region2];
-        if (v24)
-        {
-          v25 = [objc_alloc(MEMORY[0x277CC5CA0]) initWithCountryCode:v24];
-
-LABEL_93:
-          if (v25)
-          {
-            v42 = objc_alloc(MEMORY[0x277CC5D08]);
-            date = [MEMORY[0x277CBEAA0] date];
-            v44 = [v42 initWithRegion:v25 date:date];
-
-            v244 = 0;
-            v45 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v44 requiringSecureCoding:1 error:&v244];
-            v46 = v244;
-            if (v45)
-            {
-              CFPrefs_SetValue();
-              v47 = *MEMORY[0x277CBED20];
-              CFPrefs_SetValue();
-              objc_initWeak(&location, self);
-              dispatchQueue = self->_dispatchQueue;
-              v239[0] = MEMORY[0x277D85DD0];
-              v239[1] = 3221225472;
-              v239[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_4;
-              v239[3] = &unk_278FD1B40;
-              v239[4] = self;
-              v242 = &v255;
-              v240 = v25;
-              v241 = v5;
-              objc_copyWeak(&v243, &location);
-              dispatch_async(dispatchQueue, v239);
-              v49 = (v256 + 5);
-              v238 = v256[5];
-              NSAppendPrintF_safe();
-              objc_storeStrong(v49, v238);
-              objc_destroyWeak(&v243);
-
-              objc_destroyWeak(&location);
-            }
-
-            else
-            {
-              v124 = ENErrorF();
-              v125 = v266[5];
-              v266[5] = v124;
-            }
-
-            goto LABEL_84;
-          }
-
-          v123 = ENErrorF();
-          region2 = v266[5];
-          v266[5] = v123;
-          goto LABEL_83;
-        }
-
-LABEL_263:
-        v126 = ENErrorF();
-        v127 = v266[5];
-        v266[5] = v126;
-
-LABEL_83:
-        goto LABEL_84;
-      }
-
-      if (!strcasecmp(string, "disableTestRegion"))
-      {
-        if (CFPrefs_GetInt64())
-        {
-          CFPrefs_RemoveValue();
-          objc_initWeak(&location, self);
-          v26 = self->_dispatchQueue;
-          block[0] = MEMORY[0x277D85DD0];
-          block[1] = 3221225472;
-          block[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_5;
-          block[3] = &unk_278FD1B68;
-          block[4] = self;
-          v236 = &v255;
-          v235 = v5;
-          objc_copyWeak(&v237, &location);
-          dispatch_async(v26, block);
-          objc_destroyWeak(&v237);
-          v27 = v235;
-LABEL_61:
-
-          objc_destroyWeak(&location);
-          goto LABEL_84;
-        }
-
-        goto LABEL_35;
-      }
-
-      if (!strcasecmp(string, "phoneNumbers"))
-      {
-        v36 = (v256 + 5);
-        v233 = v256[5];
-        v29 = +[ENCoreTelephonyUtility sharedInstance];
-        currentPhoneNumbers = [v29 currentPhoneNumbers];
-        NSAppendPrintF();
-        objc_storeStrong(v36, v233);
-      }
-
-      else
-      {
-        if (!strcasecmp(string, "setRegionMonitoringMode") && IsAppleInternalBuild())
-        {
-          v37 = xpc_dictionary_get_string(v10, "mode");
-          if (v37)
-          {
-            v38 = [MEMORY[0x277CCACA0] stringWithUTF8String:v37];
-            v39 = objc_alloc_init(MEMORY[0x277CCABC0]);
-            v40 = [v39 numberFromString:v38];
-            v41 = v12;
-          }
-
-          else
-          {
-            v41 = v12;
-            v40 = 0;
-          }
-
-          objc_initWeak(&location, self);
-          v51 = self->_dispatchQueue;
-          v228[0] = MEMORY[0x277D85DD0];
-          v228[1] = 3221225472;
-          v228[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_6;
-          v228[3] = &unk_278FD1B90;
-          v228[4] = self;
-          v229 = v40;
-          v231 = &v255;
-          v230 = v5;
-          v52 = v40;
-          objc_copyWeak(&v232, &location);
-          dispatch_async(v51, v228);
-          objc_destroyWeak(&v232);
-
-          objc_destroyWeak(&location);
-          v12 = v41;
-          goto LABEL_84;
-        }
-
-        if (!strcasecmp(string, "getRegionMonitoringMode") && IsAppleInternalBuild())
-        {
-          objc_initWeak(&location, self);
-          v50 = self->_dispatchQueue;
-          v224[0] = MEMORY[0x277D85DD0];
-          v224[1] = 3221225472;
-          v224[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_7;
-          v224[3] = &unk_278FD1B68;
-          v224[4] = self;
-          v226 = &v255;
-          v225 = v5;
-          objc_copyWeak(&v227, &location);
-          dispatch_async(v50, v224);
-          objc_destroyWeak(&v227);
-          v27 = v225;
-          goto LABEL_61;
-        }
-
-        if (strcasecmp(string, "ErrorTest"))
-        {
-          if (!strcasecmp(string, "getStateMetric"))
-          {
-            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-            {
-              LogPrintF_safe();
-            }
-
-            stateMetricVersion = [(ENDaemon *)self->_daemon stateMetricVersion];
-            v20 = (v256 + 5);
-            v222 = v256[5];
-            ENVersionToString(stateMetricVersion);
-            NSAppendPrintF_safe();
-            v21 = v222;
-            goto LABEL_64;
-          }
-
-          if (!strcasecmp(string, "PreAuthKeys"))
-          {
-            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-            {
-              LogPrintF_safe();
-            }
-
-            [(ENDaemon *)self->_daemon xpcPreAuthorizedDiagnosisKeysAvailable];
-            v20 = (v256 + 5);
-            v221 = v256[5];
-            NSAppendPrintF_safe();
-            v21 = v221;
-            goto LABEL_64;
-          }
-
-          if (strcasecmp(string, "ServerFetch"))
-          {
-            if (strcasecmp(string, "RawConfig"))
-            {
-              if (!strcasecmp(string, "RemoveConfiguration") && IsAppleInternalBuild())
+              if (stricmp_prefix())
               {
-                configurationManager = [(ENDaemon *)self->_daemon configurationManager];
-                region = v12[2](v12);
-                if (!region)
+                if (stricmp_prefix())
                 {
-                  activeEntity = [(ENDaemon *)self->_daemon activeEntity];
-                  entity = [activeEntity entity];
-                  region = [entity region];
-
-                  if (!region)
-                  {
-                    v153 = ENErrorF();
-                    v154 = v266[5];
-                    v266[5] = v153;
-
-                    goto LABEL_84;
-                  }
+                  v13 = ENErrorF(2, "Bad activity: '%s'", v14);
+                  goto LABEL_36;
                 }
 
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  v161 = region;
-                  LogPrintF_safe();
-                }
-
-                configurationManager2 = [(ENDaemon *)self->_daemon configurationManager];
-                configurationStore = [configurationManager2 configurationStore];
-                v90 = v266;
-                v215 = v266[5];
-                v91 = [configurationStore removeConfigurationsForRegion:region includingSubdivisions:1 error:&v215];
-                objc_storeStrong(v90 + 5, v215);
-
-                if (v91)
-                {
-                  [(ENDaemon *)self->_daemon configurationManager:configurationManager exposureNotificationRegionConfigurationRemovedForRegion:region];
-                }
-
-                v92 = (v256 + 5);
-                v214 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v92, v214);
-
-                goto LABEL_76;
-              }
-
-              if (!strcasecmp(string, "ResetCloudCache") && IsAppleInternalBuild())
-              {
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                configurationManager3 = [(ENDaemon *)self->_daemon configurationManager];
-                [configurationManager3 resetConfigurationCache];
-
-                [(ENDaemon *)self->_daemon prefsChanged];
-                v20 = (v256 + 5);
-                v213 = v256[5];
-                NSAppendPrintF_safe();
-                v21 = v213;
-                goto LABEL_64;
-              }
-
-              if (!strcasecmp(string, "SimulateRemoveCloudConfig") && IsAppleInternalBuild())
-              {
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                configurationManager4 = [(ENDaemon *)self->_daemon configurationManager];
-                [configurationManager4 resetConfigurationCache];
-
-                [(ENDaemon *)self->_daemon prefsChanged];
-                activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
-                entity2 = [activeEntity2 entity];
-                region2 = [entity2 region];
-
-                if (region2)
-                {
-                  [(ENDaemon *)self->_daemon _exposureNotificationRegionConfigurationRemoved:region2];
-                  v108 = (v256 + 5);
-                  v212 = v256[5];
-                  NSAppendPrintF_safe();
-                  v109 = v212;
-                }
-
-                else
-                {
-                  v108 = (v256 + 5);
-                  v211 = v256[5];
-                  NSAppendPrintF_safe();
-                  v109 = v211;
-                }
-
-                v110 = v109;
-                v111 = *v108;
-                *v108 = v110;
-
-LABEL_160:
-LABEL_76:
-                reply = xpc_dictionary_create_reply(v5);
-                region2 = reply;
-                if (reply)
-                {
-                  if (v256[5])
-                  {
-                    v33 = v256[5];
-                  }
-
-                  else
-                  {
-                    v33 = @"None\n";
-                  }
-
-                  v34 = reply;
-                  uTF8String = [(__CFString *)v33 UTF8String];
-                  if (uTF8String)
-                  {
-                    xpc_dictionary_set_string(v34, "oStr", uTF8String);
-                  }
-
-                  [(ENXPCConnection *)self _xpcSendMessage:v34];
-                }
-
-                else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                goto LABEL_83;
-              }
-
-              if (!strcasecmp(string, "removeCloudOverrides"))
-              {
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                v94 = (v256 + 5);
-                v210 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v94, v210);
-                CFPrefs_RemoveValue();
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                v95 = (v256 + 5);
-                v209 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v95, v209);
-                CFPrefs_RemoveValue();
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                v96 = (v256 + 5);
-                v208 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v96, v208);
-                CFPrefs_RemoveValue();
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                v97 = (v256 + 5);
-                v207 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v97, v207);
-                CFPrefs_RemoveValue();
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                v98 = (v256 + 5);
-                v206 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v98, v206);
-                CFPrefs_RemoveValue();
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                v99 = (v256 + 5);
-                v205 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v99, v205);
-                CFPrefs_RemoveValue();
-                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
-
-                v100 = (v256 + 5);
-                v204 = v256[5];
-                NSAppendPrintF_safe();
-                objc_storeStrong(v100, v204);
-                CFPrefs_RemoveValue();
-                CFPrefs_RemoveValue();
-                goto LABEL_76;
-              }
-
-              if (!strcasecmp(string, "telemetryAuthorization") && IsAppleInternalBuild())
-              {
-                configurationManager5 = [(ENDaemon *)self->_daemon configurationManager];
-                configurationStore2 = [configurationManager5 configurationStore];
-
-                region3 = v12[2](v12);
-                if (region3)
-                {
-                  goto LABEL_287;
-                }
-
-                activeEntity3 = [(ENDaemon *)self->_daemon activeEntity];
-                entity3 = [activeEntity3 entity];
-                region3 = [entity3 region];
-
-                if (region3)
-                {
-LABEL_287:
-                  if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                  {
-                    v161 = region3;
-                    LogPrintF_safe();
-                  }
-
-                  location = 0;
-                  v112 = v266;
-                  v203 = v266[5];
-                  v113 = CUXPCDecodeNSString();
-                  objc_storeStrong(v112 + 5, v203);
-                  if (v113)
-                  {
-                    bOOLValue = [location BOOLValue];
-                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                    {
-                      v115 = "no";
-                      if (bOOLValue)
-                      {
-                        v115 = "yes";
-                      }
-
-                      v161 = v115;
-                      LogPrintF_safe();
-                    }
-
-                    v116 = [configurationStore2 serverConfigurationResponseForRegion:{region3, v161}];
-                    if (v116)
-                    {
-                      v170 = [MEMORY[0x277CBEB30] dictionaryWithDictionary:v116];
-                      v169 = [v116 objectForKeyedSubscript:@"config"];
-                      v117 = [MEMORY[0x277CBEB30] dictionaryWithDictionary:v169];
-                      v118 = [MEMORY[0x277CCABA8] numberWithBool:bOOLValue];
-                      [v117 setValue:v118 forKey:@"telemetryAuthorization"];
-
-                      if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                      {
-                        v119 = "no";
-                        if (bOOLValue)
-                        {
-                          v119 = "yes";
-                        }
-
-                        v166 = v119;
-                        LogPrintF_safe();
-                      }
-
-                      [v170 setValue:v117 forKey:{@"config", v166}];
-                      v120 = v266;
-                      v202 = v266[5];
-                      v121 = [configurationStore2 saveServerConfigurationResponse:v170 error:&v202];
-                      objc_storeStrong(v120 + 5, v202);
-                      if (v121)
-                      {
-                        v122 = [configurationStore2 configurationForRegion:region3];
-                        [(ENDaemon *)self->_daemon _exposureNotificationRegionConfigurationChanged:v122];
-                      }
-
-                      else
-                      {
-                        v159 = v266[5];
-                        v160 = ENNestedErrorF();
-                        v122 = v266[5];
-                        v266[5] = v160;
-                      }
-
-                      if ((v121 & 1) == 0)
-                      {
-                        goto LABEL_84;
-                      }
-
-                      goto LABEL_76;
-                    }
-                  }
-
-                  v157 = ENErrorF();
-                  v158 = v266[5];
-                  v266[5] = v157;
-                }
-
-                else
-                {
-                  v155 = ENErrorF();
-                  v156 = v266[5];
-                  v266[5] = v155;
-                }
-
-                v152 = configurationStore2;
-LABEL_269:
-
-                goto LABEL_84;
-              }
-
-              if (!strcasecmp(string, "sendErrorMetric"))
-              {
-                location = 0;
-                v82 = v266;
-                v201 = v266[5];
-                CUXPCDecodeNSString();
-                objc_storeStrong(v82 + 5, v201);
-                if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-                {
-                  LogPrintF_safe();
-                }
+                v19 = 8;
               }
 
               else
               {
-                if (!strcasecmp(string, "latestExposureDPMetric"))
+                v19 = 4;
+              }
+            }
+
+            else
+            {
+              v19 = 2;
+            }
+          }
+
+          else
+          {
+            v19 = 1;
+          }
+
+          v29 = xpc_dictionary_get_string(v10, "bundleID");
+          if (!v29)
+          {
+            v13 = ENErrorF(2, "No bundle ID");
+            goto LABEL_36;
+          }
+
+          v30 = [MEMORY[0x277CCACA0] stringWithUTF8String:v29];
+          if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+          {
+            v31 = CUPrintFlags32();
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Activity, bundleID %@, activity %@", v30, v31);
+          }
+
+          if ((v19 & 3) != 0)
+          {
+            v32 = 30;
+          }
+
+          else
+          {
+            v32 = ((v19 << 29) >> 31) & 0xD2;
+          }
+
+          [(ENDaemon *)self->_daemon appLaunchWithBundleID:v30 activity:v19 shouldEnterForeground:(v19 & 7) == 0 requiredRuntimeInSeconds:v32];
+          v33 = (v254 + 5);
+          v250 = v254[5];
+          NSAppendPrintF_safe(&v250, "");
+          objc_storeStrong(v33, v250);
+        }
+
+        else
+        {
+          if (!strcasecmp(string, "BTDebug"))
+          {
+            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: BTDebug");
+            }
+
+            [delegate printBluetoothDebug];
+            v21 = (v254 + 5);
+            v249 = v254[5];
+            NSAppendPrintF_safe(&v249, "");
+            v22 = v249;
+            goto LABEL_65;
+          }
+
+          if (!strcasecmp(string, "chaff") && IsAppleInternalBuild())
+          {
+            location = 0;
+            CUXPCDecodeNSString();
+            [0 doubleValue];
+            if (v16 > 0.0)
+            {
+              CFPrefs_SetDouble();
+            }
+
+            v247 = 0;
+            CUXPCDecodeNSString();
+            if ([0 integerValue] >= 1)
+            {
+              CFPrefs_SetDouble();
+            }
+
+            v246 = 0;
+            CUXPCDecodeNSString();
+            [0 doubleValue];
+            if (v17 > 0.0)
+            {
+              CFPrefs_SetDouble();
+            }
+
+            [(ENDaemon *)self->_daemon prefsChanged];
+            v18 = (v254 + 5);
+            obj = v254[5];
+            NSAppendPrintF_safe(&obj, "Chaff Overrides Complete\n");
+            objc_storeStrong(v18, obj);
+
+LABEL_48:
+            goto LABEL_77;
+          }
+
+          if (!strcasecmp(string, "chaffReset") && IsAppleInternalBuild())
+          {
+            testResultManager = [(ENDaemon *)self->_daemon testResultManager];
+            [testResultManager deactivateAutomatedChaffing];
+
+            [(ENDaemon *)self->_daemon prefsChanged];
+            v21 = (v254 + 5);
+            v244 = v254[5];
+            NSAppendPrintF_safe(&v244, "Chaff States Reset Complete\n");
+            v22 = v244;
+LABEL_65:
+            objc_storeStrong(v21, v22);
+            goto LABEL_77;
+          }
+
+          if (!strcasecmp(string, "chaffOverridesReset") && IsAppleInternalBuild())
+          {
+            CFPrefs_RemoveValue();
+            CFPrefs_RemoveValue();
+            CFPrefs_RemoveValue();
+            [(ENDaemon *)self->_daemon prefsChanged];
+            v21 = (v254 + 5);
+            v243 = v254[5];
+            NSAppendPrintF_safe(&v243, "Chaff Overrides Reset Complete\n");
+            v22 = v243;
+            goto LABEL_65;
+          }
+
+          if (!strcasecmp(string, "configureTestRegion") && IsAppleInternalBuild())
+          {
+            v23 = xpc_dictionary_get_string(v10, "mcc");
+            if (!v23)
+            {
+              v26 = v12[2](v12);
+              goto LABEL_94;
+            }
+
+            region2 = [MEMORY[0x277CCACA0] stringWithUTF8String:v23];
+            v25 = [ENCoreTelephonyUtility countryCodeISOForMobileCountryCode:region2];
+            if (v25)
+            {
+              v26 = [objc_alloc(MEMORY[0x277CC5CA0]) initWithCountryCode:v25];
+
+LABEL_94:
+              if (v26)
+              {
+                v45 = objc_alloc(MEMORY[0x277CC5D08]);
+                date = [MEMORY[0x277CBEAA0] date];
+                v47 = [v45 initWithRegion:v26 date:date];
+
+                v242 = 0;
+                v48 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v47 requiringSecureCoding:1 error:&v242];
+                v49 = v242;
+                if (v48)
                 {
-                  _getLatestExposureForDifferentialPrivacy = [(ENDaemon *)self->_daemon _getLatestExposureForDifferentialPrivacy];
-                  if (_getLatestExposureForDifferentialPrivacy == 1)
+                  CFPrefs_SetValue();
+                  CFPrefs_SetValue();
+                  objc_initWeak(&location, self);
+                  dispatchQueue = self->_dispatchQueue;
+                  v237[0] = MEMORY[0x277D85DD0];
+                  v237[1] = 3221225472;
+                  v237[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_4;
+                  v237[3] = &unk_278FD1B40;
+                  v237[4] = self;
+                  v240 = &v253;
+                  v238 = v26;
+                  v239 = v5;
+                  objc_copyWeak(&v241, &location);
+                  dispatch_async(dispatchQueue, v237);
+                  v51 = (v254 + 5);
+                  v236 = v254[5];
+                  NSAppendPrintF_safe(&v236, "");
+                  objc_storeStrong(v51, v236);
+                  objc_destroyWeak(&v241);
+
+                  objc_destroyWeak(&location);
+                }
+
+                else
+                {
+                  v130 = ENErrorF(2, "Failed to serialize region visit");
+                  v131 = v264[5];
+                  v264[5] = v130;
+                }
+
+                goto LABEL_85;
+              }
+
+              v129 = ENErrorF(2, "Failed to create region");
+              region2 = v264[5];
+              v264[5] = v129;
+              goto LABEL_84;
+            }
+
+            v132 = ENErrorF(2, "Unable to find country code for mcc");
+LABEL_267:
+            v133 = v264[5];
+            v264[5] = v132;
+
+LABEL_84:
+            goto LABEL_85;
+          }
+
+          if (!strcasecmp(string, "disableTestRegion"))
+          {
+            if (CFPrefs_GetInt64())
+            {
+              CFPrefs_RemoveValue();
+              objc_initWeak(&location, self);
+              v27 = self->_dispatchQueue;
+              block[0] = MEMORY[0x277D85DD0];
+              block[1] = 3221225472;
+              block[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_5;
+              block[3] = &unk_278FD1B68;
+              block[4] = self;
+              v234 = &v253;
+              v233 = v5;
+              objc_copyWeak(&v235, &location);
+              dispatch_async(v27, block);
+              objc_destroyWeak(&v235);
+              v28 = v233;
+LABEL_62:
+
+              objc_destroyWeak(&location);
+              goto LABEL_85;
+            }
+
+            v13 = ENErrorF(10, "### DiagnosticControl Not in test mode");
+            goto LABEL_36;
+          }
+
+          if (!strcasecmp(string, "phoneNumbers"))
+          {
+            v38 = (v254 + 5);
+            v231 = v254[5];
+            v30 = +[ENCoreTelephonyUtility sharedInstance];
+            currentPhoneNumbers = [v30 currentPhoneNumbers];
+            NSAppendPrintF(&v231, "PhoneNumber(s): %@ \n", currentPhoneNumbers);
+            objc_storeStrong(v38, v231);
+          }
+
+          else
+          {
+            if (!strcasecmp(string, "setRegionMonitoringMode") && IsAppleInternalBuild())
+            {
+              v40 = xpc_dictionary_get_string(v10, "mode");
+              if (v40)
+              {
+                v41 = [MEMORY[0x277CCACA0] stringWithUTF8String:v40];
+                v42 = objc_alloc_init(MEMORY[0x277CCABC0]);
+                v43 = [v42 numberFromString:v41];
+                v44 = v12;
+              }
+
+              else
+              {
+                v44 = v12;
+                v43 = 0;
+              }
+
+              objc_initWeak(&location, self);
+              v54 = self->_dispatchQueue;
+              v226[0] = MEMORY[0x277D85DD0];
+              v226[1] = 3221225472;
+              v226[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_6;
+              v226[3] = &unk_278FD1B90;
+              v226[4] = self;
+              v227 = v43;
+              v229 = &v253;
+              v228 = v5;
+              v55 = v43;
+              objc_copyWeak(&v230, &location);
+              dispatch_async(v54, v226);
+              objc_destroyWeak(&v230);
+
+              objc_destroyWeak(&location);
+              v12 = v44;
+              goto LABEL_85;
+            }
+
+            if (!strcasecmp(string, "getRegionMonitoringMode") && IsAppleInternalBuild())
+            {
+              objc_initWeak(&location, self);
+              v52 = self->_dispatchQueue;
+              v222[0] = MEMORY[0x277D85DD0];
+              v222[1] = 3221225472;
+              v222[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_7;
+              v222[3] = &unk_278FD1B68;
+              v222[4] = self;
+              v224 = &v253;
+              v223 = v5;
+              objc_copyWeak(&v225, &location);
+              dispatch_async(v52, v222);
+              objc_destroyWeak(&v225);
+              v28 = v223;
+              goto LABEL_62;
+            }
+
+            if (strcasecmp(string, "ErrorTest"))
+            {
+              if (!strcasecmp(string, "getStateMetric"))
+              {
+                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                {
+                  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: getStateMetric");
+                }
+
+                stateMetricVersion = [(ENDaemon *)self->_daemon stateMetricVersion];
+                v21 = (v254 + 5);
+                v220 = v254[5];
+                v61 = ENVersionToString(stateMetricVersion);
+                NSAppendPrintF_safe(&v220, "version %s (%u)\n", v61, stateMetricVersion);
+                v22 = v220;
+                goto LABEL_65;
+              }
+
+              if (!strcasecmp(string, "PreAuthKeys"))
+              {
+                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                {
+                  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: PreAuthKeys");
+                }
+
+                [(ENDaemon *)self->_daemon xpcPreAuthorizedDiagnosisKeysAvailable];
+                v21 = (v254 + 5);
+                v219 = v254[5];
+                NSAppendPrintF_safe(&v219, "");
+                v22 = v219;
+                goto LABEL_65;
+              }
+
+              if (strcasecmp(string, "ServerFetch"))
+              {
+                if (strcasecmp(string, "RawConfig"))
+                {
+                  if (!strcasecmp(string, "RemoveConfiguration") && IsAppleInternalBuild())
                   {
-                    v20 = (v256 + 5);
-                    v199 = v256[5];
-                    NSAppendPrintF();
-                    v21 = v199;
+                    configurationManager = [(ENDaemon *)self->_daemon configurationManager];
+                    region = v12[2](v12);
+                    if (!region)
+                    {
+                      activeEntity = [(ENDaemon *)self->_daemon activeEntity];
+                      entity = [activeEntity entity];
+                      region = [entity region];
+
+                      if (!region)
+                      {
+                        v159 = ENErrorF(11, "No (active entity or) region provided");
+                        v160 = v264[5];
+                        v264[5] = v159;
+
+                        goto LABEL_85;
+                      }
+                    }
+
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Remove Configuration for region: %@", region);
+                    }
+
+                    configurationManager2 = [(ENDaemon *)self->_daemon configurationManager];
+                    configurationStore = [configurationManager2 configurationStore];
+                    v94 = v264;
+                    v213 = v264[5];
+                    v95 = [configurationStore removeConfigurationsForRegion:region includingSubdivisions:1 error:&v213];
+                    objc_storeStrong(v94 + 5, v213);
+
+                    if (v95)
+                    {
+                      [(ENDaemon *)self->_daemon configurationManager:configurationManager exposureNotificationRegionConfigurationRemovedForRegion:region];
+                    }
+
+                    v96 = (v254 + 5);
+                    v212 = v254[5];
+                    NSAppendPrintF_safe(&v212, "Removed Local Cloud Config Cache for %@\n", region);
+                    objc_storeStrong(v96, v212);
+
+                    goto LABEL_77;
                   }
 
-                  else
+                  if (!strcasecmp(string, "ResetCloudCache") && IsAppleInternalBuild())
                   {
-                    v20 = (v256 + 5);
-                    if (_getLatestExposureForDifferentialPrivacy)
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                     {
-                      v198 = v256[5];
-                      NSAppendPrintF();
-                      v21 = v198;
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Reset Cloud Configs");
+                    }
+
+                    configurationManager3 = [(ENDaemon *)self->_daemon configurationManager];
+                    [configurationManager3 resetConfigurationCache];
+
+                    [(ENDaemon *)self->_daemon prefsChanged];
+                    v21 = (v254 + 5);
+                    v211 = v254[5];
+                    NSAppendPrintF_safe(&v211, "Cleared Local Cloud Config Cache\n");
+                    v22 = v211;
+                    goto LABEL_65;
+                  }
+
+                  if (!strcasecmp(string, "SimulateRemoveCloudConfig") && IsAppleInternalBuild())
+                  {
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Attempting to simulate Cloud Config Removal");
+                    }
+
+                    configurationManager4 = [(ENDaemon *)self->_daemon configurationManager];
+                    [configurationManager4 resetConfigurationCache];
+
+                    [(ENDaemon *)self->_daemon prefsChanged];
+                    activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
+                    entity2 = [activeEntity2 entity];
+                    region2 = [entity2 region];
+
+                    if (region2)
+                    {
+                      [(ENDaemon *)self->_daemon _exposureNotificationRegionConfigurationRemoved:region2];
+                      v114 = (v254 + 5);
+                      v210 = v254[5];
+                      NSAppendPrintF_safe(&v210, "Simulated Cloud Config Removal\n");
+                      v115 = v210;
                     }
 
                     else
                     {
-                      v200 = v256[5];
-                      NSAppendPrintF();
-                      v21 = v200;
+                      v114 = (v254 + 5);
+                      v209 = v254[5];
+                      NSAppendPrintF_safe(&v209, "No Active Region available to simulate Cloud Config Removal\n");
+                      v115 = v209;
                     }
+
+                    v116 = v115;
+                    v117 = *v114;
+                    *v114 = v116;
+
+LABEL_163:
+LABEL_77:
+                    reply = xpc_dictionary_create_reply(v5);
+                    region2 = reply;
+                    if (reply)
+                    {
+                      if (v254[5])
+                      {
+                        v35 = v254[5];
+                      }
+
+                      else
+                      {
+                        v35 = @"None\n";
+                      }
+
+                      v36 = reply;
+                      uTF8String = [(__CFString *)v35 UTF8String];
+                      if (uTF8String)
+                      {
+                        xpc_dictionary_set_string(v36, "oStr", uTF8String);
+                      }
+
+                      [(ENXPCConnection *)self _xpcSendMessage:v36];
+                    }
+
+                    else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticControl:]", 90, "### DiagnosticControl create reply failed");
+                    }
+
+                    goto LABEL_84;
                   }
 
-                  goto LABEL_64;
-                }
-
-                if (strcasecmp(string, "resetAA"))
-                {
-                  if (!strcasecmp(string, "help"))
+                  if (!strcasecmp(string, "removeCloudOverrides"))
                   {
                     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                     {
-                      LogPrintF_safe();
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Trigger Removal of Override Values(MobileCountryCodeOverride)");
                     }
 
-                    v128 = (v256 + 5);
-                    v197 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v128, v197);
-                    v129 = (v256 + 5);
-                    v196 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v129, v196);
-                    v130 = (v256 + 5);
-                    v195 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v130, v195);
-                    v131 = (v256 + 5);
-                    v194 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v131, v194);
-                    v132 = (v256 + 5);
-                    v193 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v132, v193);
-                    v133 = (v256 + 5);
-                    v192 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v133, v192);
-                    v134 = (v256 + 5);
-                    v191 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v134, v191);
-                    v135 = (v256 + 5);
-                    v190 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v135, v190);
-                    v136 = (v256 + 5);
-                    v189 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v136, v189);
-                    v137 = (v256 + 5);
-                    v188 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v137, v188);
-                    v138 = (v256 + 5);
-                    v187 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v138, v187);
-                    v139 = (v256 + 5);
-                    v186 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v139, v186);
-                    v140 = (v256 + 5);
-                    v185 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v140, v185);
-                    v141 = (v256 + 5);
-                    v184 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v141, v184);
-                    v142 = (v256 + 5);
-                    v183 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v142, v183);
-                    v143 = (v256 + 5);
-                    v182 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v143, v182);
-                    v144 = (v256 + 5);
-                    v181 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v144, v181);
-                    v145 = (v256 + 5);
-                    v180 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v145, v180);
-                    v146 = (v256 + 5);
-                    v179 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v146, v179);
-                    v147 = (v256 + 5);
-                    v178 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v147, v178);
-                    v148 = (v256 + 5);
-                    v177 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v148, v177);
-                    v149 = (v256 + 5);
-                    v176 = v256[5];
-                    NSAppendPrintF_safe();
-                    objc_storeStrong(v149, v176);
-                    v20 = (v256 + 5);
-                    v175 = v256[5];
-                    NSAppendPrintF_safe();
-                    v21 = v175;
-                    goto LABEL_64;
+                    v98 = (v254 + 5);
+                    v208 = v254[5];
+                    NSAppendPrintF_safe(&v208, "Diags: Trigger Removal of Override Values(MobileCountryCodeOverride)");
+                    objc_storeStrong(v98, v208);
+                    CFPrefs_RemoveValue();
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Trigger Removal of Override Values(MobileCountryCodeBasebandOverride)");
+                    }
+
+                    v99 = (v254 + 5);
+                    v207 = v254[5];
+                    NSAppendPrintF_safe(&v207, "Diags: Trigger Removal of Override Values(MobileCountryCodeBasebandOverride)");
+                    objc_storeStrong(v99, v207);
+                    CFPrefs_RemoveValue();
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Trigger Removal of Override Values(GracePeriodOverride)");
+                    }
+
+                    v100 = (v254 + 5);
+                    v206 = v254[5];
+                    NSAppendPrintF_safe(&v206, "Diags: Trigger Removal of Override Values(GracePeriodOverride)");
+                    objc_storeStrong(v100, v206);
+                    CFPrefs_RemoveValue();
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Trigger Removal of Override Values(QACloudEnvironmentEnabled)");
+                    }
+
+                    v101 = (v254 + 5);
+                    v205 = v254[5];
+                    NSAppendPrintF_safe(&v205, "Diags: Trigger Removal of Override Values(QACloudEnvironmentEnabled)");
+                    objc_storeStrong(v101, v205);
+                    CFPrefs_RemoveValue();
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Trigger Removal of Override Values(ServerConfigCallbackOverride)");
+                    }
+
+                    v102 = (v254 + 5);
+                    v204 = v254[5];
+                    NSAppendPrintF_safe(&v204, "Diags: Trigger Removal of Override Values(ServerConfigCallbackOverride)");
+                    objc_storeStrong(v102, v204);
+                    CFPrefs_RemoveValue();
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Trigger Removal of Override Values(CloudResponseVerificationDisabled)");
+                    }
+
+                    v103 = (v254 + 5);
+                    v203 = v254[5];
+                    NSAppendPrintF_safe(&v203, "Diags: Trigger Removal of Override Values(CloudResponseVerificationDisabled)");
+                    objc_storeStrong(v103, v203);
+                    CFPrefs_RemoveValue();
+                    if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Trigger Removal of Override Values(AppConfigCallbackOverride)");
+                    }
+
+                    v104 = (v254 + 5);
+                    v202 = v254[5];
+                    NSAppendPrintF_safe(&v202, "Diags: Trigger Removal of Override Values(AppConfigCallbackOverride)");
+                    objc_storeStrong(v104, v202);
+                    CFPrefs_RemoveValue();
+                    CFPrefs_RemoveValue();
+                    goto LABEL_77;
                   }
 
-                  goto LABEL_35;
-                }
-
-                location = 0;
-                CUXPCDecodeNSString();
-                if ([0 integerValue] >= 1)
-                {
-                  regionMonitor = [(ENDaemon *)self->_daemon regionMonitor];
-                  v102 = [regionMonitor getCurrentRegionVisitWithError:0];
-                  region4 = [v102 region];
-
-                  if (region4)
+                  if (!strcasecmp(string, "telemetryAuthorization") && IsAppleInternalBuild())
                   {
-                    [(ENDaemon *)self->_daemon _writePreferenceRegionPendingOnboarding:region4];
-                    CFPrefs_SetDouble();
-                    daemon = [(ENXPCConnection *)self daemon];
-                    [daemon onboardingTriggerRetry:0];
+                    configurationManager5 = [(ENDaemon *)self->_daemon configurationManager];
+                    configurationStore2 = [configurationManager5 configurationStore];
+
+                    v82 = v12[2](v12);
+                    if (v82 || (-[ENDaemon activeEntity](self->_daemon, "activeEntity"), v83 = objc_claimAutoreleasedReturnValue(), [v83 entity], v84 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v84, "region"), v82 = objc_claimAutoreleasedReturnValue(), v84, v83, v82))
+                    {
+                      if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                      {
+                        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: Update telemetryAuthorization for region: %@", v82);
+                      }
+
+                      location = 0;
+                      v118 = v264;
+                      v201 = v264[5];
+                      v119 = CUXPCDecodeNSString();
+                      objc_storeStrong(v118 + 5, v201);
+                      if (v119)
+                      {
+                        bOOLValue = [location BOOLValue];
+                        if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                        {
+                          v121 = "no";
+                          if (bOOLValue)
+                          {
+                            v121 = "yes";
+                          }
+
+                          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: telemetryAuthorization: enabled - %s", v121);
+                        }
+
+                        v122 = [configurationStore2 serverConfigurationResponseForRegion:v82];
+                        if (v122)
+                        {
+                          v168 = [MEMORY[0x277CBEB30] dictionaryWithDictionary:v122];
+                          v167 = [v122 objectForKeyedSubscript:@"config"];
+                          v123 = [MEMORY[0x277CBEB30] dictionaryWithDictionary:v167];
+                          v124 = [MEMORY[0x277CCABA8] numberWithBool:bOOLValue];
+                          [v123 setValue:v124 forKey:@"telemetryAuthorization"];
+
+                          if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                          {
+                            v125 = "no";
+                            if (bOOLValue)
+                            {
+                              v125 = "yes";
+                            }
+
+                            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: telemetryAuthorization: is now enabled - %s", v125);
+                          }
+
+                          [v168 setValue:v123 forKey:@"config"];
+                          v126 = v264;
+                          v200 = v264[5];
+                          v127 = [configurationStore2 saveServerConfigurationResponse:v168 error:&v200];
+                          objc_storeStrong(v126 + 5, v200);
+                          if (v127)
+                          {
+                            v128 = [configurationStore2 configurationForRegion:v82];
+                            [(ENDaemon *)self->_daemon _exposureNotificationRegionConfigurationChanged:v128];
+                          }
+
+                          else
+                          {
+                            v165 = ENNestedErrorF(v264[5], 2, "Diags: telemetryAuthorization: error saving configuration response");
+                            v128 = v264[5];
+                            v264[5] = v165;
+                          }
+
+                          if ((v127 & 1) == 0)
+                          {
+                            goto LABEL_85;
+                          }
+
+                          goto LABEL_77;
+                        }
+
+                        v163 = ENErrorF(2, "Diags: telemetryAuthorization: missing server configuration");
+                      }
+
+                      else
+                      {
+                        v163 = ENErrorF(15, "Diags: telemetryAuthorization: missing enabled");
+                      }
+
+                      v164 = v264[5];
+                      v264[5] = v163;
+                    }
+
+                    else
+                    {
+                      v161 = ENErrorF(11, "No (active entity or) region provided");
+                      v162 = v264[5];
+                      v264[5] = v161;
+                    }
+
+                    v158 = configurationStore2;
+LABEL_273:
+
+                    goto LABEL_85;
                   }
 
-                  else if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                  if (!strcasecmp(string, "sendErrorMetric"))
                   {
-                    LogPrintF_safe();
+                    location = 0;
+                    v86 = v264;
+                    v199 = v264[5];
+                    CUXPCDecodeNSString();
+                    objc_storeStrong(v86 + 5, v199);
+                    if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 90, "Diags: sendErrorMetric: missing errorType");
+                    }
                   }
 
-                  goto LABEL_47;
+                  else
+                  {
+                    if (!strcasecmp(string, "latestExposureDPMetric"))
+                    {
+                      _getLatestExposureForDifferentialPrivacy = [(ENDaemon *)self->_daemon _getLatestExposureForDifferentialPrivacy];
+                      if (_getLatestExposureForDifferentialPrivacy == 1)
+                      {
+                        v21 = (v254 + 5);
+                        v197 = v254[5];
+                        NSAppendPrintF(&v197, "No Latest Notification: %i\n", v166);
+                        v22 = v197;
+                      }
+
+                      else
+                      {
+                        v21 = (v254 + 5);
+                        if (_getLatestExposureForDifferentialPrivacy)
+                        {
+                          v196 = v254[5];
+                          NSAppendPrintF(&v196, "Classification Index %i\n", _getLatestExposureForDifferentialPrivacy - 1);
+                          v22 = v196;
+                        }
+
+                        else
+                        {
+                          v198 = v254[5];
+                          NSAppendPrintF(&v198, "DB Error\n", 0);
+                          v22 = v198;
+                        }
+                      }
+
+                      goto LABEL_65;
+                    }
+
+                    if (strcasecmp(string, "resetAA"))
+                    {
+                      if (!strcasecmp(string, "help"))
+                      {
+                        if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                        {
+                          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: help");
+                        }
+
+                        v134 = (v254 + 5);
+                        v195 = v254[5];
+                        NSAppendPrintF_safe(&v195, "%@", @"Commands:\n");
+                        objc_storeStrong(v134, v195);
+                        v135 = (v254 + 5);
+                        v194 = v254[5];
+                        NSAppendPrintF_safe(&v194, "%@", @"    BTDebug                    Print Bluetooth EN debug info.\n");
+                        objc_storeStrong(v135, v194);
+                        v136 = (v254 + 5);
+                        v193 = v254[5];
+                        NSAppendPrintF_safe(&v193, "%@", @"    Help                       Show this help menu.\n");
+                        objc_storeStrong(v136, v193);
+                        v137 = (v254 + 5);
+                        v192 = v254[5];
+                        NSAppendPrintF_safe(&v192, "%@", @"    PreAuthKeys                Pre-auth keys available.\n");
+                        objc_storeStrong(v137, v192);
+                        v138 = (v254 + 5);
+                        v191 = v254[5];
+                        NSAppendPrintF_safe(&v191, "%@", @"    ServerFetch                Fetch config from server for active region or specific country with ramp mode. Example: ServerFetch countryCode US rampMode 1 \n");
+                        objc_storeStrong(v138, v191);
+                        v139 = (v254 + 5);
+                        v190 = v254[5];
+                        NSAppendPrintF_safe(&v190, "%@", @"    RawConfig                  Read cached config for active or specific region. Example: RawConfig countryCode IT\n");
+                        objc_storeStrong(v139, v190);
+                        v140 = (v254 + 5);
+                        v189 = v254[5];
+                        NSAppendPrintF_safe(&v189, "%@", @"    ResetCloudCache            Reset all cached server/app configs from server.\n");
+                        objc_storeStrong(v140, v189);
+                        v141 = (v254 + 5);
+                        v188 = v254[5];
+                        NSAppendPrintF_safe(&v188, "%@", @"    SimulateRemoveCloudConfig  Simulate removing of active region's config, will not work if no active region.\n");
+                        objc_storeStrong(v141, v188);
+                        v142 = (v254 + 5);
+                        v187 = v254[5];
+                        NSAppendPrintF_safe(&v187, "%@", @"    RemoveConfiguration        Remove cached server/app configs for a region and update daemon. If no region provided, will use active entity's region. eg: RemoveConfiguration countryCode US subdivisionCode US-CA\n");
+                        objc_storeStrong(v142, v187);
+                        v143 = (v254 + 5);
+                        v186 = v254[5];
+                        objc_storeStrong(v143, v186);
+                        v144 = (v254 + 5);
+                        v185 = v254[5];
+                        NSAppendPrintF_safe(&v185, "%@", @"    disableTestRegion          Disable Test Region to test EN Service. eg: disableTestRegion \n");
+                        objc_storeStrong(v144, v185);
+                        v145 = (v254 + 5);
+                        v184 = v254[5];
+                        objc_storeStrong(v145, v184);
+                        v146 = (v254 + 5);
+                        v183 = v254[5];
+                        NSAppendPrintF_safe(&v183, "%@", @"    getRegionMonitoringMode    Reads current region monitoring mode \n");
+                        objc_storeStrong(v146, v183);
+                        v147 = (v254 + 5);
+                        v182 = v254[5];
+                        NSAppendPrintF_safe(&v182, "%@", @"    removeCloudOverrides       Removes All Cloud Pref Overrides \n");
+                        objc_storeStrong(v147, v182);
+                        v148 = (v254 + 5);
+                        v181 = v254[5];
+                        NSAppendPrintF_safe(&v181, "%@", @"    getStateMetric             Get EN state information that would be returned if AWD were to poll us right now\n");
+                        objc_storeStrong(v148, v181);
+                        v149 = (v254 + 5);
+                        v180 = v254[5];
+                        NSAppendPrintF_safe(&v180, "%@", @"    sendErrorMetric            Send EN error AWD metric (must specify error type)\n");
+                        objc_storeStrong(v149, v180);
+                        v150 = (v254 + 5);
+                        v179 = v254[5];
+                        NSAppendPrintF_safe(&v179, "%@", @"    telemetryAuthorization     Override telemetry authorization. This will temporarily update local config. eg:- enutil dcmd telemetryAuthorization enabled true countryCode SK\n");
+                        objc_storeStrong(v150, v179);
+                        v151 = (v254 + 5);
+                        v178 = v254[5];
+                        NSAppendPrintF_safe(&v178, "%@", @"    latestExposureDPMetric     Boolean reported to DP for latest exposure notification sent. eg:- enutil dcmd latestExposureDPMetric\n");
+                        objc_storeStrong(v151, v178);
+                        v152 = (v254 + 5);
+                        v177 = v254[5];
+                        NSAppendPrintF_safe(&v177, "%@", @"    resetAA                    reset the current AA cycle of the current region after the given delay. Example(resetting the AA cycle in 30 seconds): resetAA delay 30\n");
+                        objc_storeStrong(v152, v177);
+                        v153 = (v254 + 5);
+                        v176 = v254[5];
+                        NSAppendPrintF_safe(&v176, "%@", @"    chaff                      Override chaff parameters like delay to start, cadence to chaff again and selection %. <chaff delay 30 cadence 60 select 20>\n");
+                        objc_storeStrong(v153, v176);
+                        v154 = (v254 + 5);
+                        v175 = v254[5];
+                        NSAppendPrintF_safe(&v175, "%@", @"    chaffOverridesReset        Reset chaff overrides\n");
+                        objc_storeStrong(v154, v175);
+                        v155 = (v254 + 5);
+                        v174 = v254[5];
+                        NSAppendPrintF_safe(&v174, "%@", @"    chaffReset                 Reset chaffing state\n");
+                        objc_storeStrong(v155, v174);
+                        v21 = (v254 + 5);
+                        v173 = v254[5];
+                        NSAppendPrintF_safe(&v173, "%@", @"    phoneNumbers\t\t\t\t Get ITU E.164 phone number(s).\n");
+                        v22 = v173;
+                        goto LABEL_65;
+                      }
+
+                      v13 = ENErrorF(5, "Unsupported diag command: '%s'", string);
+                      goto LABEL_36;
+                    }
+
+                    location = 0;
+                    CUXPCDecodeNSString();
+                    integerValue = [0 integerValue];
+                    v106 = integerValue;
+                    if (integerValue >= 1)
+                    {
+                      regionMonitor = [(ENDaemon *)self->_daemon regionMonitor];
+                      v108 = [regionMonitor getCurrentRegionVisitWithError:0];
+                      region3 = [v108 region];
+
+                      if (region3)
+                      {
+                        [(ENDaemon *)self->_daemon _writePreferenceRegionPendingOnboarding:region3];
+                        CFPrefs_SetDouble();
+                        daemon = [(ENXPCConnection *)self daemon];
+                        [daemon onboardingTriggerRetry:0];
+                      }
+
+                      else if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                      {
+                        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 90, "No current region found, cannot reset availability alert");
+                      }
+
+                      goto LABEL_48;
+                    }
+
+                    if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    {
+                      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 90, "Invalid reset delay");
+                    }
+
+                    v156 = ENErrorF(5, "Invalid reset delay: '%f'", v106);
+                    v157 = v264[5];
+                    v264[5] = v156;
+                  }
+
+                  v158 = location;
+                  goto LABEL_273;
                 }
 
-                if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                 {
-                  LogPrintF_safe();
+                  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: RawServerConfig");
                 }
 
-                v150 = ENErrorF();
-                v151 = v266[5];
-                v266[5] = v150;
-              }
+                region2 = v12[2](v12);
+                if (region2 || (-[ENDaemon activeEntity](self->_daemon, "activeEntity"), v75 = objc_claimAutoreleasedReturnValue(), [v75 entity], v76 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v76, "region"), region2 = objc_claimAutoreleasedReturnValue(), v76, v75, region2))
+                {
+                  configurationManager6 = [(ENDaemon *)self->_daemon configurationManager];
+                  configurationStore3 = [configurationManager6 configurationStore];
+                  v79 = [configurationStore3 serverConfigurationResponseForRegion:region2];
 
-              v152 = location;
-              goto LABEL_269;
-            }
+                  if (!v79)
+                  {
+                    v132 = ENErrorF(11, "%@ configuration not found", region2);
+                    goto LABEL_267;
+                  }
 
-            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-            {
-              LogPrintF_safe();
-            }
+                  v80 = (v254 + 5);
+                  v214 = v254[5];
+                  NSAppendPrintF_safe(&v214, "%@\n", v79);
+                  objc_storeStrong(v80, v214);
 
-            region2 = v12[2](v12);
-            if (region2)
-            {
-              goto LABEL_158;
-            }
+                  goto LABEL_163;
+                }
 
-            activeEntity4 = [(ENDaemon *)self->_daemon activeEntity];
-            entity4 = [activeEntity4 entity];
-            region2 = [entity4 region];
+                v13 = ENErrorF(11, "No active region");
+LABEL_36:
+                v15 = v264[5];
+                v264[5] = v13;
 
-            if (region2)
-            {
-LABEL_158:
-              configurationManager6 = [(ENDaemon *)self->_daemon configurationManager];
-              configurationStore3 = [configurationManager6 configurationStore];
-              v75 = [configurationStore3 serverConfigurationResponseForRegion:region2];
-
-              if (!v75)
-              {
-                goto LABEL_263;
-              }
-
-              v76 = (v256 + 5);
-              v216 = v256[5];
-              NSAppendPrintF_safe();
-              objc_storeStrong(v76, v216);
-
-              goto LABEL_160;
-            }
-
-LABEL_35:
-            v13 = ENErrorF();
-            v14 = v266[5];
-            v266[5] = v13;
-
-LABEL_84:
 LABEL_85:
-            _Block_object_dispose(&v255, 8);
-
 LABEL_86:
-            goto LABEL_87;
-          }
-
-          if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF_safe();
-          }
-
-          region5 = v12[2](v12);
-          if (!region5)
-          {
-            activeEntity5 = [(ENDaemon *)self->_daemon activeEntity];
-            entity5 = [activeEntity5 entity];
-            region5 = [entity5 region];
-
-            if (!region5)
-            {
-              goto LABEL_35;
-            }
-          }
-
-          v64 = v173[2]();
-          v65 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed = [v65 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            v161 = region5;
-            v167 = v64;
-            LogPrintF_safe();
-          }
-
-          if ([v64 length])
-          {
-            integerValue = [v64 integerValue];
-            if (integerValue > 3)
-            {
-              if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-              {
-                LogPrintF_safe();
-              }
-
-              v85 = ENErrorF();
-              v86 = v266[5];
-              v266[5] = v85;
-
-              goto LABEL_183;
-            }
-
-            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-            {
-              v165 = region5;
-              v168 = integerValue;
-              LogPrintF_safe();
-            }
-
-            v83 = [(ENDaemon *)self->_daemon configurationManager:v165];
-            [v83 overrideRampModeForRegion:region5 rampMode:integerValue];
-          }
-
-          objc_initWeak(&location, self);
-          configurationManager7 = [(ENDaemon *)self->_daemon configurationManager];
-          v217[0] = MEMORY[0x277D85DD0];
-          v217[1] = 3221225472;
-          v217[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_8;
-          v217[3] = &unk_278FD1BE0;
-          v217[4] = self;
-          v219 = &v255;
-          v218 = v5;
-          objc_copyWeak(&v220, &location);
-          [configurationManager7 fetchServerConfigurationsForRegion:region5 userInitiated:0 withCompletion:v217];
-
-          objc_destroyWeak(&v220);
-          objc_destroyWeak(&location);
-LABEL_183:
-
-          goto LABEL_84;
-        }
-
-        v29 = ENErrorF();
-        if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-        {
-          v163 = CUPrintNSError();
-          LogPrintF_safe();
-        }
-
-        v53 = *MEMORY[0x277CCA598];
-        v54 = NSErrorF();
-        v55 = ENNestedErrorF();
-        if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-        {
-          v164 = CUPrintNSError();
-          LogPrintF_safe();
-        }
-
-        v56 = (v256 + 5);
-        v223 = v256[5];
-        NSAppendPrintF_safe();
-        objc_storeStrong(v56, v223);
-      }
-    }
-
-    goto LABEL_76;
-  }
+                _Block_object_dispose(&v253, 8);
 
 LABEL_87:
+                goto LABEL_88;
+              }
+
+              if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+              {
+                LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: ServerFetch");
+              }
+
+              region4 = v12[2](v12);
+              if (!region4)
+              {
+                activeEntity3 = [(ENDaemon *)self->_daemon activeEntity];
+                entity3 = [activeEntity3 entity];
+                region4 = [entity3 region];
+
+                if (!region4)
+                {
+                  v13 = ENErrorF(1, "No active region");
+                  goto LABEL_36;
+                }
+              }
+
+              v68 = v171[2]();
+              v69 = +[ENLoggingPrefs sharedENLoggingPrefs];
+              isSensitiveLoggingAllowed = [v69 isSensitiveLoggingAllowed];
+
+              if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+              {
+                LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "QA try to override ramp mode: %@: %@", region4, v68);
+              }
+
+              if ([v68 length])
+              {
+                integerValue2 = [v68 integerValue];
+                if (integerValue2 > 3)
+                {
+                  if (_MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                  {
+                    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 90, "Current ramp mode supported: {\n profile-select(%lu)\n manual-select(%lu)\n random-select(%lu)\n}", 1, 2, 3);
+                  }
+
+                  v89 = ENErrorF(5, "Unsupported rampMode: '%lu'", integerValue2);
+                  v90 = v264[5];
+                  v264[5] = v89;
+
+                  goto LABEL_186;
+                }
+
+                if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                {
+                  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "QA overriding valid ramp mode for region %@: %lu", region4, integerValue2);
+                }
+
+                configurationManager7 = [(ENDaemon *)self->_daemon configurationManager];
+                [configurationManager7 overrideRampModeForRegion:region4 rampMode:integerValue2];
+              }
+
+              objc_initWeak(&location, self);
+              configurationManager8 = [(ENDaemon *)self->_daemon configurationManager];
+              v215[0] = MEMORY[0x277D85DD0];
+              v215[1] = 3221225472;
+              v215[2] = __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_8;
+              v215[3] = &unk_278FD1BE0;
+              v215[4] = self;
+              v217 = &v253;
+              v216 = v5;
+              objc_copyWeak(&v218, &location);
+              [configurationManager8 fetchServerConfigurationsForRegion:region4 userInitiated:0 withCompletion:v215];
+
+              objc_destroyWeak(&v218);
+              objc_destroyWeak(&location);
+LABEL_186:
+
+              goto LABEL_85;
+            }
+
+            v30 = ENErrorF(2, "Diag error test");
+            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              v53 = CUPrintNSError();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: ErrorTest: %@", v53);
+            }
+
+            v56 = NSErrorF(*MEMORY[0x277CCA598], 4294960569, "Diag leaf error test");
+            v57 = ENNestedErrorF(v56, 11, "Diag nested error test");
+            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              v58 = CUPrintNSError();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcDiagnosticControl:]", 30, "Diags: ErrorTest nested: %@", v58);
+            }
+
+            v59 = (v254 + 5);
+            v221 = v254[5];
+            NSAppendPrintF_safe(&v221, "");
+            objc_storeStrong(v59, v221);
+          }
+        }
+
+        goto LABEL_77;
+      }
+
+      v71 = ENErrorF(2, "Non-dict input params");
+    }
+
+    else
+    {
+      v71 = ENErrorF(2, "No input params");
+    }
+
+    v72 = v264[5];
+    v264[5] = v71;
+
+    goto LABEL_87;
+  }
+
+LABEL_88:
   v6[2](v6);
 
-  _Block_object_dispose(&v265, 8);
+  _Block_object_dispose(&v263, 8);
 }
 
-uint64_t __41__ENXPCConnection__xpcDiagnosticControl___block_invoke(void *a1)
+void *__41__ENXPCConnection__xpcDiagnosticControl___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticControl:]_block_invoke", 90, "### DiagnosticControl failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 id __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   CUXPCDecodeNSString();
-  v3 = *(a1 + 32);
   CUXPCDecodeNSString();
 
   return 0;
@@ -4627,11 +4890,10 @@ id __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_2(uint64_t a1)
 
 id __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_3(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   CUXPCDecodeNSString();
-  v2 = 0;
+  v1 = 0;
 
-  return v2;
+  return v1;
 }
 
 void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_4(uint64_t a1)
@@ -4655,11 +4917,11 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_4(uint64_t a1)
   v7 = *(*(a1 + 56) + 8);
   v14 = *(a1 + 40);
   obj = *(v7 + 40);
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "Diags: Test Region Configured to - \n %@ \n", v14);
   objc_storeStrong((v7 + 40), obj);
   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_4_cold_1((a1 + 40));
+    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_4_cold_1();
   }
 
   reply = xpc_dictionary_create_reply(*(a1 + 48));
@@ -4703,11 +4965,11 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_5(uint64_t a1)
 
   v5 = *(*(a1 + 48) + 8);
   obj = *(v5 + 40);
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "Diags: Test Region Removed - \n %@ \n", v4);
   objc_storeStrong((v5 + 40), obj);
   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_5_cold_1();
+    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_5_cold_1(v4);
   }
 
   reply = xpc_dictionary_create_reply(*(a1 + 40));
@@ -4749,11 +5011,11 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_6(uint64_t a1)
   v3 = *(*(a1 + 56) + 8);
   v10 = *(a1 + 40);
   obj = *(v3 + 40);
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "Diags: Set Region Monitoring Mode - \n %@ \n", v10);
   objc_storeStrong((v3 + 40), obj);
   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_6_cold_1((a1 + 40));
+    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_6_cold_1();
   }
 
   reply = xpc_dictionary_create_reply(*(a1 + 48));
@@ -4794,14 +5056,14 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_7(uint64_t a1)
 
   v4 = *(*(a1 + 48) + 8);
   obj = *(v4 + 40);
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "Diags: Get Region Monitoring Mode - \n %u \n", v3);
   objc_storeStrong((v4 + 40), obj);
   v5 = +[ENLoggingPrefs sharedENLoggingPrefs];
   v6 = [v5 isSensitiveLoggingAllowed];
 
   if (v6 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_7_cold_1();
+    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_7_cold_1(v3);
   }
 
   reply = xpc_dictionary_create_reply(*(a1 + 40));
@@ -4841,7 +5103,7 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_8(uint64_t a1, v
   v6 = a3;
   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_8_cold_1();
+    __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_8_cold_1(v5);
   }
 
   v7 = *(*(a1 + 32) + 48);
@@ -4873,8 +5135,7 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_9(uint64_t a1)
     v5 = *(a1 + 40);
   }
 
-  v12 = v5;
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "%@\n", v5);
   objc_storeStrong(v3, obj);
   reply = xpc_dictionary_create_reply(*(a1 + 48));
   v7 = reply;
@@ -4937,23 +5198,28 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_9(uint64_t a1)
     {
       if (MEMORY[0x24C214BB0](v9) == MEMORY[0x277D86468])
       {
-        if (!xpc_dictionary_get_string(v10, "iStr") || !LogControl())
+        if (!xpc_dictionary_get_string(v10, "iStr"))
         {
           goto LABEL_6;
         }
 
-        v18 = *MEMORY[0x277CCA598];
-        v19 = NSErrorF();
-        v20 = ENNestedErrorF();
+        v11 = LogControl();
+        if (!v11)
+        {
+          goto LABEL_6;
+        }
+
+        v19 = NSErrorF(*MEMORY[0x277CCA598], v11, "LogControl failed");
+        v20 = ENNestedErrorF(v19, 1, "LogControl failed");
         v21 = v27[5];
         v27[5] = v20;
       }
 
       else
       {
-        v16 = ENErrorF();
-        v17 = v27[5];
-        v27[5] = v16;
+        v17 = ENErrorF(2, "Non-dict input");
+        v18 = v27[5];
+        v27[5] = v17;
       }
 
 LABEL_10:
@@ -4962,29 +5228,29 @@ LABEL_10:
     }
 
 LABEL_6:
-    if (LogShow())
+    v12 = LogShow();
+    if (v12)
     {
-      v13 = *MEMORY[0x277CCA598];
-      v12 = NSErrorF();
-      v14 = ENNestedErrorF();
-      v15 = v27[5];
-      v27[5] = v14;
+      v14 = NSErrorF(*MEMORY[0x277CCA598], v12, "LogShow failed");
+      v15 = ENNestedErrorF(v14, 1, "LogShow failed");
+      v16 = v27[5];
+      v27[5] = v15;
     }
 
     else
     {
       reply = xpc_dictionary_create_reply(v5);
-      v12 = reply;
+      v14 = reply;
       if (reply)
       {
         xpc_dictionary_set_string(reply, "oStr", 0);
         free(0);
-        [(ENXPCConnection *)self _xpcSendMessage:v12];
+        [(ENXPCConnection *)self _xpcSendMessage:v14];
       }
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticLog:]", 90, "### DiagnosticLog create reply failed");
       }
     }
 
@@ -4997,63 +5263,53 @@ LABEL_11:
   _Block_object_dispose(&v26, 8);
 }
 
-uint64_t __37__ENXPCConnection__xpcDiagnosticLog___block_invoke(void *a1)
+void *__37__ENXPCConnection__xpcDiagnosticLog___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticLog:]_block_invoke", 90, "### DiagnosticLog failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcDiagnosticShow:(id)show
 {
   showCopy = show;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__3;
-  v34 = __Block_byref_object_dispose__3;
-  v35 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __38__ENXPCConnection__xpcDiagnosticShow___block_invoke;
-  v27[3] = &unk_278FD10D0;
-  v29 = &v30;
-  v27[4] = self;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__3;
+  v36 = __Block_byref_object_dispose__3;
+  v37 = 0;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __38__ENXPCConnection__xpcDiagnosticShow___block_invoke;
+  v29[3] = &unk_278FD10D0;
+  v31 = &v32;
+  v29[4] = self;
   v5 = showCopy;
-  v28 = v5;
-  v6 = MEMORY[0x24C214430](v27);
-  v7 = v31;
-  obj = v31[5];
+  v30 = v5;
+  v6 = MEMORY[0x24C214430](v29);
+  v7 = v33;
+  obj = v33[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7 + 5, obj);
   if (v8)
@@ -5062,12 +5318,13 @@ LABEL_7:
     v10 = v9;
     if (!v9)
     {
-      goto LABEL_7;
+      goto LABEL_8;
     }
 
     if (MEMORY[0x24C214BB0](v9) != MEMORY[0x277D86468])
     {
-      goto LABEL_6;
+      v12 = ENErrorF(2, "Non-dict input params");
+      goto LABEL_7;
     }
 
     string = xpc_dictionary_get_string(v10, "iStr");
@@ -5076,39 +5333,40 @@ LABEL_7:
     {
       if (strcasecmp(string, "adv"))
       {
-LABEL_6:
-        v12 = ENErrorF();
+        v12 = ENErrorF(2, "Unknown show type: '%s'", string);
+LABEL_7:
         v13 = 0;
-        v14 = v31[5];
-        v31[5] = v12;
-LABEL_16:
+        v14 = v33[5];
+        v33[5] = v12;
+LABEL_17:
 
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
       btTracingAppID = [(ENDaemon *)self->_daemon btTracingAppID];
 
       if (!btTracingAppID)
       {
-        NSAppendPrintF_safe();
-        v13 = 0;
-LABEL_9:
+        v24 = 0;
+        NSAppendPrintF_safe(&v24, "### Not enabled\n");
+        v13 = v24;
+LABEL_10:
         reply = xpc_dictionary_create_reply(v5);
         v14 = reply;
         if (reply)
         {
           if (v13)
           {
-            v19 = v13;
+            v18 = v13;
           }
 
           else
           {
-            v19 = @"None\n";
+            v18 = @"None\n";
           }
 
           v14 = reply;
-          uTF8String = [(__CFString *)v19 UTF8String];
+          uTF8String = [(__CFString *)v18 UTF8String];
           if (uTF8String)
           {
             xpc_dictionary_set_string(v14, "oStr", uTF8String);
@@ -5119,112 +5377,100 @@ LABEL_9:
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticShow:]", 90, "### DiagnosticShow create reply failed");
         }
 
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
       delegate = [(ENDaemon *)self->_daemon delegate];
       retrieveCurrentAdvertisingPayload = [delegate retrieveCurrentAdvertisingPayload];
 
-      [retrieveCurrentAdvertisingPayload bytes];
+      bytes = [retrieveCurrentAdvertisingPayload bytes];
       if ([retrieveCurrentAdvertisingPayload length] < 0x14)
       {
-        v24 = 0;
-        v23 = &v24;
-        [retrieveCurrentAdvertisingPayload length];
-        NSAppendPrintF();
+        v25 = 0;
+        v23 = &v25;
+        NSAppendPrintF(&v25, "### Bad Adv: %.3H\n", bytes, [retrieveCurrentAdvertisingPayload length], 50);
       }
 
       else
       {
-        v25[0] = 0;
-        v23 = v25;
-        NSAppendPrintF();
+        v26 = 0;
+        v23 = &v26;
+        NSAppendPrintF(&v26, "RPI %.3H, AEM %.3H\n", bytes, 16, 16, bytes + 16, 4, 4);
       }
 
-      v17 = *v23;
+      v16 = *v23;
     }
 
     else
     {
-LABEL_7:
-      v25[1] = 0;
-      daemon = self->_daemon;
+LABEL_8:
+      v27 = 0;
       retrieveCurrentAdvertisingPayload = CUDescriptionWithLevel();
-      NSAppendPrintF_safe();
-      v17 = 0;
+      NSAppendPrintF_safe(&v27, "%@", retrieveCurrentAdvertisingPayload);
+      v16 = v27;
     }
 
-    v13 = v17;
+    v13 = v16;
 
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-LABEL_17:
+LABEL_18:
   v6[2](v6);
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
-uint64_t __38__ENXPCConnection__xpcDiagnosticShow___block_invoke(void *a1)
+void *__38__ENXPCConnection__xpcDiagnosticShow___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticShow:]_block_invoke", 90, "### DiagnosticShow failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcNotificationTrigger:(id)trigger
 {
   triggerCopy = trigger;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__3;
-  v51 = __Block_byref_object_dispose__3;
-  v52 = 0;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __43__ENXPCConnection__xpcNotificationTrigger___block_invoke;
-  v44[3] = &unk_278FD10D0;
-  v46 = &v47;
-  v44[4] = self;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__3;
+  v50 = __Block_byref_object_dispose__3;
+  v51 = 0;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __43__ENXPCConnection__xpcNotificationTrigger___block_invoke;
+  v43[3] = &unk_278FD10D0;
+  v45 = &v46;
+  v43[4] = self;
   v5 = triggerCopy;
-  v45 = v5;
-  v6 = MEMORY[0x24C214430](v44);
-  v7 = (v48 + 5);
-  obj = v48[5];
+  v44 = v5;
+  v6 = MEMORY[0x24C214430](v43);
+  v7 = (v47 + 5);
+  obj = v47[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
@@ -5243,13 +5489,13 @@ LABEL_7:
       bundleIdentifier = v15;
     }
 
-    v16 = (v48 + 5);
-    v42 = v48[5];
+    v16 = (v47 + 5);
+    v41 = v47[5];
     v17 = CUXPCDecodeNSString();
-    objc_storeStrong(v16, v42);
+    objc_storeStrong(v16, v41);
     if ((v17 & 1) == 0)
     {
-      goto LABEL_65;
+      goto LABEL_66;
     }
 
     activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
@@ -5261,64 +5507,145 @@ LABEL_7:
     if (v21)
     {
       objc_opt_class();
-      v22 = (v48 + 5);
-      v41 = v48[5];
+      v22 = (v47 + 5);
+      v40 = v47[5];
       v23 = ENXPCDecodeSecureObject();
-      objc_storeStrong(v22, v41);
+      objc_storeStrong(v22, v40);
 
       region = v23;
       if (!v23)
       {
-        goto LABEL_65;
+        goto LABEL_66;
       }
     }
 
-    if (int64 <= 3)
+    if (int64 > 3)
     {
-      if (int64 == 1)
+      switch(int64)
       {
-        if (region)
-        {
-          v26 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed = [v26 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+        case 4:
+          if (uint64)
           {
-            LogPrintF_safe();
+            if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcNotificationTrigger:]", 30, "Set monthly notification trigger : %llu seconds", uint64);
+            }
+
+            [(ENDaemon *)self->_daemon monthlyTriggerActivateWithIntervalOverride:uint64];
+            goto LABEL_62;
           }
 
-          v34 = objc_alloc_init(MEMORY[0x277CC5C68]);
-          uUID = [MEMORY[0x277CCAD70] UUID];
-          [v34 setIdentifier:uUID];
-
-          v36 = [MEMORY[0x277CBEBC8] URLWithString:@"https://example.com"];
-          [v34 setLearnMoreURL:v36];
-
-          [v34 setLocalizedBodyText:@"Example body text."];
-          [v34 setLocalizedSubjectText:@"Example Title"];
-          date = [MEMORY[0x277CBEAA0] date];
-          [v34 setNotificationDate:date];
-
-          [v34 setRegion:region];
-          [(ENDaemon *)self->_daemon postExposureNotification:v34];
-
-          goto LABEL_61;
-        }
-      }
-
-      else
-      {
-        if (int64 != 2)
-        {
-          if (int64 == 3 && [bundleIdentifier length])
+          if ([bundleIdentifier length])
           {
             if (_MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcNotificationTrigger:]", 50, "Triggering monthly notification");
+            }
+
+            [(ENDaemon *)self->_daemon postMonthlySummaryNotificationForAppBundleIdentifier:bundleIdentifier];
+            goto LABEL_62;
+          }
+
+LABEL_74:
+          v28 = ENErrorF(2, "No app bundle ID");
+          goto LABEL_33;
+        case 5:
+          if (region)
+          {
+            v32 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed = [v32 isSensitiveLoggingAllowed];
+
+            if (isSensitiveLoggingAllowed && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcNotificationTrigger:]", 50, "Triggering analytics consent notification for %@", region);
+            }
+
+            [(ENDaemon *)self->_daemon postAnalyticsOptInNotificationForRegion:region];
+            goto LABEL_62;
+          }
+
+          break;
+        case 6:
+          if (region)
+          {
+            v24 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed2 = [v24 isSensitiveLoggingAllowed];
+
+            if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcNotificationTrigger:]", 50, "Triggering pre-authorize notification for %@", region);
+            }
+
+            [(ENDaemon *)self->_daemon postPreAuthorizationNotificationForRegion:region];
+            goto LABEL_62;
+          }
+
+          break;
+        default:
+          goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      switch(int64)
+      {
+        case 1:
+          if (region)
+          {
+            v26 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed3 = [v26 isSensitiveLoggingAllowed];
+
+            if (isSensitiveLoggingAllowed3 && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcNotificationTrigger:]", 50, "Triggering exposure notification for %@ - %@", region, 0);
+            }
+
+            v34 = objc_alloc_init(MEMORY[0x277CC5C68]);
+            uUID = [MEMORY[0x277CCAD70] UUID];
+            [v34 setIdentifier:uUID];
+
+            v36 = [MEMORY[0x277CBEBC8] URLWithString:@"https://example.com"];
+            [v34 setLearnMoreURL:v36];
+
+            [v34 setLocalizedBodyText:@"Example body text."];
+            [v34 setLocalizedSubjectText:@"Example Title"];
+            date = [MEMORY[0x277CBEAA0] date];
+            [v34 setNotificationDate:date];
+
+            [v34 setRegion:region];
+            [(ENDaemon *)self->_daemon postExposureNotification:v34];
+
+            goto LABEL_62;
+          }
+
+          break;
+        case 2:
+          if (region)
+          {
+            v30 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed4 = [v30 isSensitiveLoggingAllowed];
+
+            if (isSensitiveLoggingAllowed4 && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcNotificationTrigger:]", 50, "Triggering onboarding notification for %@", region);
+            }
+
+            [(ENDaemon *)self->_daemon postOnboardingNotificationForRegion:region];
+            goto LABEL_62;
+          }
+
+          break;
+        case 3:
+          if ([bundleIdentifier length])
+          {
+            if (_MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcNotificationTrigger:]", 50, "Triggering summary notification");
             }
 
             [(ENDaemon *)self->_daemon postExposureSummaryAccessNotificationWithAppBundleIdentifier:bundleIdentifier string:@"{Example string from the Public Health Agency}"];
-LABEL_61:
+LABEL_62:
             reply = xpc_dictionary_create_reply(v5);
             if (reply)
             {
@@ -5327,150 +5654,64 @@ LABEL_61:
 
             else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcNotificationTrigger:]", 90, "### Notification trigger create reply failed");
             }
 
-            goto LABEL_64;
+            goto LABEL_65;
           }
 
-          goto LABEL_32;
-        }
-
-        if (region)
-        {
-          v30 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed2 = [v30 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            v40 = region;
-            LogPrintF_safe();
-          }
-
-          [(ENDaemon *)self->_daemon postOnboardingNotificationForRegion:region, v40];
-          goto LABEL_61;
-        }
-      }
-
-LABEL_72:
-      v39 = ENErrorF();
-      region = v48[5];
-      v48[5] = v39;
-      goto LABEL_64;
-    }
-
-    switch(int64)
-    {
-      case 4:
-        if (uint64)
-        {
-          if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            v40 = uint64;
-            LogPrintF_safe();
-          }
-
-          [(ENDaemon *)self->_daemon monthlyTriggerActivateWithIntervalOverride:uint64, v40];
-          goto LABEL_61;
-        }
-
-        if ([bundleIdentifier length])
-        {
-          if (_MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF_safe();
-          }
-
-          [(ENDaemon *)self->_daemon postMonthlySummaryNotificationForAppBundleIdentifier:bundleIdentifier];
-          goto LABEL_61;
-        }
-
-        break;
-      case 5:
-        if (region)
-        {
-          v32 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed3 = [v32 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed3 && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            v40 = region;
-            LogPrintF_safe();
-          }
-
-          [(ENDaemon *)self->_daemon postAnalyticsOptInNotificationForRegion:region, v40];
-          goto LABEL_61;
-        }
-
-        goto LABEL_72;
-      case 6:
-        if (region)
-        {
-          v24 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed4 = [v24 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed4 && _MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            v40 = region;
-            LogPrintF_safe();
-          }
-
-          [(ENDaemon *)self->_daemon postPreAuthorizationNotificationForRegion:region, v40];
-          goto LABEL_61;
-        }
-
-        goto LABEL_72;
-    }
-
+          goto LABEL_74;
+        default:
 LABEL_32:
-    v28 = ENErrorF();
-    v29 = v48[5];
-    v48[5] = v28;
+          v28 = ENErrorF(15, "Invalid notification type %d", int64);
+LABEL_33:
+          v29 = v47[5];
+          v47[5] = v28;
 
-LABEL_64:
 LABEL_65:
+LABEL_66:
+
+          goto LABEL_67;
+      }
+    }
+
+    v39 = ENErrorF(2, "No region");
+    region = v47[5];
+    v47[5] = v39;
+    goto LABEL_65;
   }
 
+LABEL_67:
   v6[2](v6);
 
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v46, 8);
 }
 
-uint64_t __43__ENXPCConnection__xpcNotificationTrigger___block_invoke(void *a1)
+void *__43__ENXPCConnection__xpcNotificationTrigger___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcNotificationTrigger:]_block_invoke", 90, "### Notification trigger failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetActiveRegion:(id)region
@@ -5518,13 +5759,13 @@ LABEL_7:
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetActiveRegion:]", 90, "### GetActiveRegion create reply failed");
       }
     }
 
     else
     {
-      v15 = ENErrorF();
+      v15 = ENErrorF(16, "No active region selected");
       reply = v22[5];
       v22[5] = v15;
     }
@@ -5535,41 +5776,31 @@ LABEL_7:
   _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __39__ENXPCConnection__xpcGetActiveRegion___block_invoke(void *a1)
+void *__39__ENXPCConnection__xpcGetActiveRegion___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetActiveRegion:]_block_invoke", 90, "### GetRegionID failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRegionHistory:(id)history
@@ -5603,7 +5834,7 @@ LABEL_7:
 
     if (v11)
     {
-      v16 = ENNestedErrorF();
+      v16 = ENNestedErrorF(v11, 16, "Unable to load Region History");
     }
 
     else
@@ -5624,13 +5855,13 @@ LABEL_7:
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionHistory:]", 90, "### GetRegionHistory create reply failed");
         }
 
         goto LABEL_6;
       }
 
-      v16 = ENErrorF();
+      v16 = ENErrorF(16, "Unable to Get Region History");
     }
 
     reply = v24[5];
@@ -5643,44 +5874,123 @@ LABEL_6:
   _Block_object_dispose(&v23, 8);
 }
 
-uint64_t __40__ENXPCConnection__xpcGetRegionHistory___block_invoke(void *a1)
+void *__40__ENXPCConnection__xpcGetRegionHistory___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionHistory:]_block_invoke", 90, "### GetRegionHistory failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRegionHistoryEnabled:(id)enabled
+{
+  enabledCopy = enabled;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __47__ENXPCConnection__xpcGetRegionHistoryEnabled___block_invoke;
+  v17[3] = &unk_278FD10D0;
+  v19 = &v20;
+  v17[4] = self;
+  v5 = enabledCopy;
+  v18 = v5;
+  v6 = MEMORY[0x24C214430](v17);
+  v7 = (v21 + 5);
+  obj = v21[5];
+  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
+  objc_storeStrong(v7, obj);
+  if (v8)
+  {
+    v9 = (v21 + 5);
+    v15 = v21[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v15];
+    objc_storeStrong(v9, v15);
+    if (v10)
+    {
+      Int64 = CFPrefs_GetInt64();
+      if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+      {
+        v12 = "no";
+        if (!Int64)
+        {
+          v12 = "yes";
+        }
+
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetRegionHistoryEnabled:]", 30, "GetRegionHistoryEnabled: %s", v12);
+      }
+
+      reply = xpc_dictionary_create_reply(v5);
+      v14 = reply;
+      if (reply)
+      {
+        xpc_dictionary_set_BOOL(reply, "enbd", Int64 == 0);
+        [(ENXPCConnection *)self _xpcSendMessage:v14];
+      }
+
+      else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionHistoryEnabled:]", 90, "### GetRegionHistoryEnabled create reply failed");
+      }
+    }
+  }
+
+  v6[2](v6);
+
+  _Block_object_dispose(&v20, 8);
+}
+
+void *__47__ENXPCConnection__xpcGetRegionHistoryEnabled___block_invoke(void *a1)
+{
+  v2 = a1[6];
+  result = *(*(v2 + 8) + 40);
+  if (result)
+  {
+    if (dword_281346508 <= 90)
+    {
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
+      {
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionHistoryEnabled:]_block_invoke", 90, "### GetRegionHistoryEnabled failed: %@", v4);
+
+        v2 = a1[6];
+      }
+    }
+
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
+
+    return [v7 _xpcSendReplyError:v6 request:v8];
+  }
+
+  return result;
+}
+
+- (void)_xpcSetRegionHistoryEnabled:(id)enabled
 {
   enabledCopy = enabled;
   v19 = 0;
@@ -5691,7 +6001,7 @@ LABEL_7:
   v24 = 0;
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
-  v16[2] = __47__ENXPCConnection__xpcGetRegionHistoryEnabled___block_invoke;
+  v16[2] = __47__ENXPCConnection__xpcSetRegionHistoryEnabled___block_invoke;
   v16[3] = &unk_278FD10D0;
   v18 = &v19;
   v16[4] = self;
@@ -5710,112 +6020,18 @@ LABEL_7:
     objc_storeStrong(v9, v14);
     if (v10)
     {
-      Int64 = CFPrefs_GetInt64();
-      if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF_safe();
-      }
-
-      reply = xpc_dictionary_create_reply(v5);
-      v13 = reply;
-      if (reply)
-      {
-        xpc_dictionary_set_BOOL(reply, "enbd", Int64 == 0);
-        [(ENXPCConnection *)self _xpcSendMessage:v13];
-      }
-
-      else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF_safe();
-      }
-    }
-  }
-
-  v6[2](v6);
-
-  _Block_object_dispose(&v19, 8);
-}
-
-uint64_t __47__ENXPCConnection__xpcGetRegionHistoryEnabled___block_invoke(void *a1)
-{
-  v2 = a1[6];
-  result = *(*(v2 + 8) + 40);
-  if (!result)
-  {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
-    {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v8 = *(*(v2 + 8) + 40);
-    }
-
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
-
-    v2 = a1[6];
-  }
-
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
-}
-
-- (void)_xpcSetRegionHistoryEnabled:(id)enabled
-{
-  enabledCopy = enabled;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__3;
-  v24 = __Block_byref_object_dispose__3;
-  v25 = 0;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __47__ENXPCConnection__xpcSetRegionHistoryEnabled___block_invoke;
-  v17[3] = &unk_278FD10D0;
-  v19 = &v20;
-  v17[4] = self;
-  v5 = enabledCopy;
-  v18 = v5;
-  v6 = MEMORY[0x24C214430](v17);
-  v7 = (v21 + 5);
-  obj = v21[5];
-  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
-  objc_storeStrong(v7, obj);
-  if (v8)
-  {
-    v9 = (v21 + 5);
-    v15 = v21[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v15];
-    objc_storeStrong(v9, v15);
-    if (v10)
-    {
       v11 = xpc_dictionary_get_BOOL(v5, "enbd");
       if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        v12 = "no";
+        if (v11)
+        {
+          v12 = "yes";
+        }
+
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetRegionHistoryEnabled:]", 30, "SetRegionHistoryEnabled: %s", v12);
       }
 
-      v12 = MEMORY[0x277CBED20];
-      if (v11)
-      {
-        v12 = MEMORY[0x277CBED18];
-      }
-
-      v13 = *v12;
       CFPrefs_SetValue();
       [(ENDaemon *)self->_daemon prefsChanged];
       reply = xpc_dictionary_create_reply(v5);
@@ -5826,81 +6042,71 @@ LABEL_7:
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetRegionHistoryEnabled:]", 90, "### SetRegionHistoryEnabled create reply failed");
       }
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __47__ENXPCConnection__xpcSetRegionHistoryEnabled___block_invoke(void *a1)
+void *__47__ENXPCConnection__xpcSetRegionHistoryEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetRegionHistoryEnabled:]_block_invoke", 90, "### SetRegionHistoryEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRegionMonitorEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__3;
-  v24 = __Block_byref_object_dispose__3;
-  v25 = 0;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __47__ENXPCConnection__xpcGetRegionMonitorEnabled___block_invoke;
-  v17[3] = &unk_278FD10D0;
-  v19 = &v20;
-  v17[4] = self;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__3;
+  v25 = __Block_byref_object_dispose__3;
+  v26 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __47__ENXPCConnection__xpcGetRegionMonitorEnabled___block_invoke;
+  v18[3] = &unk_278FD10D0;
+  v20 = &v21;
+  v18[4] = self;
   v5 = enabledCopy;
-  v18 = v5;
-  v6 = MEMORY[0x24C214430](v17);
-  v7 = (v21 + 5);
-  obj = v21[5];
+  v19 = v5;
+  v6 = MEMORY[0x24C214430](v18);
+  v7 = (v22 + 5);
+  obj = v22[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
-    v9 = (v21 + 5);
-    v15 = v21[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v15];
-    objc_storeStrong(v9, v15);
+    v9 = (v22 + 5);
+    v16 = v22[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v16];
+    objc_storeStrong(v9, v16);
     if (v10)
     {
       regionMonitor = [(ENDaemon *)self->_daemon regionMonitor];
@@ -5908,64 +6114,60 @@ LABEL_7:
 
       if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        v13 = "no";
+        if (getAuthorizationState == 2)
+        {
+          v13 = "yes";
+        }
+
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetRegionMonitorEnabled:]", 30, "GetRegionMonitorEnabled: %s", v13);
       }
 
       reply = xpc_dictionary_create_reply(v5);
-      v14 = reply;
+      v15 = reply;
       if (reply)
       {
         xpc_dictionary_set_BOOL(reply, "enbd", getAuthorizationState == 2);
-        [(ENXPCConnection *)self _xpcSendMessage:v14];
+        [(ENXPCConnection *)self _xpcSendMessage:v15];
       }
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionMonitorEnabled:]", 90, "### GetRegionMonitorEnabled create reply failed");
       }
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __47__ENXPCConnection__xpcGetRegionMonitorEnabled___block_invoke(void *a1)
+void *__47__ENXPCConnection__xpcGetRegionMonitorEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionMonitorEnabled:]_block_invoke", 90, "### GetRegionMonitorEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRegionConfig:(id)config
@@ -6003,66 +6205,62 @@ LABEL_7:
       {
         case 0:
           [(ENXPCConnection *)self _xpcGetRegionSystemConfig:v5];
-          goto LABEL_10;
+          goto LABEL_11;
         case 10:
           [(ENXPCConnection *)self _xpcGetRegionServerConfig:v5];
-          goto LABEL_10;
+          goto LABEL_11;
         case 20:
           [(ENXPCConnection *)self _xpcGetRegionAgencyConfig:v5];
-LABEL_10:
+LABEL_11:
 
-          goto LABEL_11;
+          goto LABEL_12;
       }
+
+      v13 = ENErrorF(15, "Invalid Configuration Type");
     }
 
-    v13 = ENErrorF();
+    else
+    {
+      v13 = ENErrorF(16, "No active region is selected");
+    }
+
     v14 = v20[5];
     v20[5] = v13;
 
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
-LABEL_11:
+LABEL_12:
   v6[2](v6);
 
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __39__ENXPCConnection__xpcGetRegionConfig___block_invoke(void *a1)
+void *__39__ENXPCConnection__xpcGetRegionConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionConfig:]_block_invoke", 90, "### GetCloudServerConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRegionSystemConfig:(id)config
@@ -6110,54 +6308,44 @@ LABEL_7:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionSystemConfig:]", 90, "### GetRegionSystemConfig create reply failed");
     }
   }
 
   else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionSystemConfig:]", 90, "### GetRegionSystemConfig no active region is selected");
   }
 
   v6[2](v6);
   _Block_object_dispose(&v20, 8);
 }
 
-uint64_t __45__ENXPCConnection__xpcGetRegionSystemConfig___block_invoke(void *a1)
+void *__45__ENXPCConnection__xpcGetRegionSystemConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionSystemConfig:]_block_invoke", 90, "### GetRegionSystemConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRegionServerConfig:(id)config
@@ -6181,31 +6369,16 @@ LABEL_7:
   objc_opt_class();
   v7 = (v24 + 5);
   obj = v24[5];
-  region = ENXPCDecodeSecureObjectIfPresent();
+  v8 = ENXPCDecodeSecureObjectIfPresent();
   objc_storeStrong(v7, obj);
-  if (region)
+  if (v8 || !v24[5] && (-[ENDaemon activeEntity](self->_daemon, "activeEntity"), v16 = objc_claimAutoreleasedReturnValue(), [v16 entity], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "region"), v8 = objc_claimAutoreleasedReturnValue(), v17, v16, v8))
   {
-    goto LABEL_2;
-  }
-
-  if (v24[5])
-  {
-    goto LABEL_24;
-  }
-
-  activeEntity = [(ENDaemon *)self->_daemon activeEntity];
-  entity = [activeEntity entity];
-  region = [entity region];
-
-  if (region)
-  {
-LABEL_2:
     reply = xpc_dictionary_create_reply(v5);
     if (reply)
     {
       configurationManager = [(ENDaemon *)self->_daemon configurationManager];
       configurationStore = [configurationManager configurationStore];
-      v12 = [configurationStore serverConfigurationForRegion:region];
+      v12 = [configurationStore serverConfigurationForRegion:v8];
 
       if (v12)
       {
@@ -6219,7 +6392,7 @@ LABEL_2:
 
       else
       {
-        v15 = ENErrorF();
+        v15 = ENErrorF(16, "No configuration found for region: %@", v8);
         v14 = v24[5];
         v24[5] = v15;
       }
@@ -6227,17 +6400,13 @@ LABEL_2:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionServerConfig:]", 90, "### GetRegionServerConfig create reply failed");
     }
   }
 
-  else
+  else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-LABEL_24:
-    if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF_safe();
-    }
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionServerConfig:]", 90, "### GetRegionServerConfig no active region is available");
   }
 
   v6[2](v6);
@@ -6245,41 +6414,31 @@ LABEL_24:
   _Block_object_dispose(&v23, 8);
 }
 
-uint64_t __45__ENXPCConnection__xpcGetRegionServerConfig___block_invoke(void *a1)
+void *__45__ENXPCConnection__xpcGetRegionServerConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionServerConfig:]_block_invoke", 90, "### GetRegionServerConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRegionAgencyConfig:(id)config
@@ -6327,54 +6486,44 @@ LABEL_7:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionAgencyConfig:]", 90, "### GetRegionServerConfig create reply failed");
     }
   }
 
   else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionAgencyConfig:]", 90, "### GetRegionServerConfig no active region is selected");
   }
 
   v6[2](v6);
   _Block_object_dispose(&v20, 8);
 }
 
-uint64_t __45__ENXPCConnection__xpcGetRegionAgencyConfig___block_invoke(void *a1)
+void *__45__ENXPCConnection__xpcGetRegionAgencyConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRegionAgencyConfig:]_block_invoke", 90, "### GetRegionServerConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetAllRegionConfig:(id)config
@@ -6416,7 +6565,7 @@ LABEL_7:
 
       else
       {
-        v10 = ENErrorF();
+        v10 = ENErrorF(15, "Invalid Configuration Type");
         v11 = v17[5];
         v17[5] = v10;
       }
@@ -6433,41 +6582,31 @@ LABEL_7:
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __42__ENXPCConnection__xpcGetAllRegionConfig___block_invoke(void *a1)
+void *__42__ENXPCConnection__xpcGetAllRegionConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionConfig:]_block_invoke", 90, "### GetAllRegionConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetAllRegionGeneralConfig:(id)config
@@ -6505,48 +6644,38 @@ LABEL_7:
 
   else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionGeneralConfig:]", 90, "### GetAllRegionGeneralConfig create reply failed");
   }
 
   v6[2](v6);
   _Block_object_dispose(v14, 8);
 }
 
-uint64_t __49__ENXPCConnection__xpcGetAllRegionGeneralConfig___block_invoke(void *a1)
+void *__49__ENXPCConnection__xpcGetAllRegionGeneralConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionGeneralConfig:]_block_invoke", 90, "### GetAllRegionGeneralConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __49__ENXPCConnection__xpcGetAllRegionGeneralConfig___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -6584,7 +6713,7 @@ void __49__ENXPCConnection__xpcGetAllRegionGeneralConfig___block_invoke_2(uint64
 
   if (!configurationManager || !configurationStore)
   {
-    v18 = ENErrorF();
+    v18 = ENErrorF(5, "Configurations are not available");
     reply = v31[5];
     v31[5] = v18;
     goto LABEL_28;
@@ -6627,7 +6756,7 @@ void __49__ENXPCConnection__xpcGetAllRegionGeneralConfig___block_invoke_2(uint64
           case 0:
             if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetAllRegionServerConfig:]", 30, "Fetch server config for region %@ from Cache, fetchReason: %u", v15, 0);
             }
 
             (v13)[2](v13, v15);
@@ -6636,7 +6765,7 @@ void __49__ENXPCConnection__xpcGetAllRegionGeneralConfig___block_invoke_2(uint64
             if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
               v17 = 1;
-              LogPrintF_safe();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetAllRegionServerConfig:]", 30, "Fetch server config for region %@ from Server, userInitiated: YES, fetchReason: %u", v15, 1);
             }
 
             else
@@ -6648,7 +6777,7 @@ void __49__ENXPCConnection__xpcGetAllRegionGeneralConfig___block_invoke_2(uint64
           case 2:
             if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetAllRegionServerConfig:]", 30, "Fetch server config for region %@ from Server, userInitiated: NO, fetchReason: %u", v15, 2);
             }
 
             v17 = 0;
@@ -6684,7 +6813,7 @@ LABEL_27:
 
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionServerConfig:]", 90, "### GetAllRegionServerConfig create reply failed");
   }
 
 LABEL_28:
@@ -6693,41 +6822,31 @@ LABEL_28:
   _Block_object_dispose(&v30, 8);
 }
 
-uint64_t __48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke(void *a1)
+void *__48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionServerConfig:]_block_invoke", 90, "### GetAllRegionServerConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke_2(void *a1, void *a2, uint64_t a3)
@@ -6776,39 +6895,38 @@ void __48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke_3(uint64_
 
 uint64_t __48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke_4(void *a1)
 {
-  if (a1[4] || !a1[5])
+  v2 = a1[4];
+  if (v2 || !a1[5])
   {
     if (dword_281346508 <= 90)
     {
-      if (dword_281346508 != -1 || (v7 = _LogCategory_Initialize(), v8 = a1[4], v7))
+      if (dword_281346508 != -1 || (v7 = _LogCategory_Initialize(), v2 = a1[4], v7))
       {
-        v15 = CUPrintNSError();
-        LogPrintF_safe();
+        v3 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionServerConfig:]_block_invoke_4", 90, "### GetRegionServerConfig failed: %@", v3);
 
         v2 = a1[4];
       }
     }
 
-    v16 = a1[6];
-    v9 = ENNestedErrorF();
-    v10 = *(a1[10] + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v8 = ENNestedErrorF(v2, 11, "Unable to locate server configuration for region: %@", a1[6]);
+    v9 = *(a1[10] + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
-    v12 = *(*(a1[10] + 8) + 40);
-    v13 = a1[7];
-    v14 = a1[8];
+    v11 = *(*(a1[10] + 8) + 40);
+    v12 = a1[7];
+    v13 = a1[8];
 
-    return [v13 _xpcSendReplyError:v12 request:v14];
+    return [v12 _xpcSendReplyError:v11 request:v13];
   }
 
   else
   {
-    v4 = a1[6];
-    v3 = a1[7];
-    v5 = a1[9];
+    v5 = a1[6];
+    v4 = a1[7];
 
-    return [v3 _processServerResponseConfigurationsForRegion:v4 serverResponses:? request:?];
+    return [v4 _processServerResponseConfigurationsForRegion:v5 serverResponses:? request:?];
   }
 }
 
@@ -6859,67 +6977,67 @@ void __48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke_8(uint64_
 
 - (void)_processServerResponseConfigurationsForRegion:(id)region serverResponses:(id)responses request:(id)request
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v83[1] = *MEMORY[0x277D85DE8];
   regionCopy = region;
   responsesCopy = responses;
   requestCopy = request;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = __Block_byref_object_copy__3;
-  v79 = __Block_byref_object_dispose__3;
-  v80 = 0;
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = __89__ENXPCConnection__processServerResponseConfigurationsForRegion_serverResponses_request___block_invoke;
-  v72[3] = &unk_278FD10D0;
-  v74 = &v75;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = __Block_byref_object_copy__3;
+  v78 = __Block_byref_object_dispose__3;
+  v79 = 0;
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __89__ENXPCConnection__processServerResponseConfigurationsForRegion_serverResponses_request___block_invoke;
+  v71[3] = &unk_278FD10D0;
+  v73 = &v74;
   selfCopy = self;
-  v72[4] = self;
+  v71[4] = self;
   xdict = requestCopy;
-  v73 = xdict;
-  v53 = MEMORY[0x24C214430](v72);
+  v72 = xdict;
+  v52 = MEMORY[0x24C214430](v71);
   configurationManager = [(ENDaemon *)self->_daemon configurationManager];
   configurationManager2 = [(ENDaemon *)self->_daemon configurationManager];
   configurationStore = [configurationManager2 configurationStore];
 
   if (!configurationManager || !configurationStore)
   {
-    v51 = ENErrorF();
-    v49 = v76[5];
-    v76[5] = v51;
+    v50 = ENErrorF(5, "Configurations are not available");
+    v49 = v75[5];
+    v75[5] = v50;
     goto LABEL_27;
   }
 
   v11 = [configurationStore serverConfigurationForRegion:regionCopy];
-  v52 = v11;
+  v51 = v11;
   if (!v11)
   {
-    v59 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(responsesCopy, "count")}];
-    v60 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(responsesCopy, "count")}];
     v58 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(responsesCopy, "count")}];
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
+    v59 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(responsesCopy, "count")}];
+    v57 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(responsesCopy, "count")}];
     v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v23 = responsesCopy;
-    v24 = [v23 countByEnumeratingWithState:&v65 objects:v81 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v64 objects:v80 count:16];
     if (!v24)
     {
       goto LABEL_21;
     }
 
-    v25 = *v66;
+    v25 = *v65;
     while (1)
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v66 != v25)
+        if (*v65 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        v27 = [objc_alloc(MEMORY[0x277CC5CD0]) initWithServerResponseDictionary:*(*(&v65 + 1) + 8 * i)];
+        v27 = [objc_alloc(MEMORY[0x277CC5CD0]) initWithServerResponseDictionary:*(*(&v64 + 1) + 8 * i)];
         region = [v27 region];
         if ([region isEqual:regionCopy])
         {
@@ -6936,13 +7054,13 @@ void __48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke_8(uint64_
           }
         }
 
-        [v60 addObject:v27];
+        [v59 addObject:v27];
         region3 = [v27 region];
         v32 = [configurationStore configurationForRegion:region3];
 
         if (v32)
         {
-          [v59 addObject:v32];
+          [v58 addObject:v32];
         }
 
         region4 = [v32 region];
@@ -6950,34 +7068,34 @@ void __48__ENXPCConnection__xpcGetAllRegionServerConfig___block_invoke_8(uint64_
 
         if (v34)
         {
-          [v58 addObject:v34];
+          [v57 addObject:v34];
         }
 
 LABEL_19:
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v65 objects:v81 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v64 objects:v80 count:16];
       if (!v24)
       {
 LABEL_21:
 
-        v35 = (v76 + 5);
-        v64 = v76[5];
-        v36 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v60 requiringSecureCoding:1 error:&v64];
-        objc_storeStrong(v35, v64);
+        v35 = (v75 + 5);
+        v63 = v75[5];
+        v36 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v59 requiringSecureCoding:1 error:&v63];
+        objc_storeStrong(v35, v63);
         v37 = v36;
         xpc_dictionary_set_data(xdict, "svrCfg", [v36 bytes], objc_msgSend(v36, "length"));
-        v38 = (v76 + 5);
-        v63 = v76[5];
-        v39 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v59 requiringSecureCoding:1 error:&v63];
-        objc_storeStrong(v38, v63);
+        v38 = (v75 + 5);
+        v62 = v75[5];
+        v39 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v58 requiringSecureCoding:1 error:&v62];
+        objc_storeStrong(v38, v62);
 
         v40 = v39;
         xpc_dictionary_set_data(xdict, "rgnCfg", [v39 bytes], objc_msgSend(v39, "length"));
-        v41 = (v76 + 5);
-        v62 = v76[5];
-        v42 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v58 requiringSecureCoding:1 error:&v62];
-        objc_storeStrong(v41, v62);
+        v41 = (v75 + 5);
+        v61 = v75[5];
+        v42 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v57 requiringSecureCoding:1 error:&v61];
+        objc_storeStrong(v41, v61);
 
         v43 = v42;
         xpc_dictionary_set_data(xdict, "agnCfg", [v42 bytes], objc_msgSend(v42, "length"));
@@ -6988,26 +7106,26 @@ LABEL_21:
   }
 
   v12 = MEMORY[0x277CCAAB8];
-  v84[0] = v11;
-  v13 = [MEMORY[0x277CBEA68] arrayWithObjects:v84 count:1];
-  v14 = (v76 + 5);
-  obj = v76[5];
+  v83[0] = v11;
+  v13 = [MEMORY[0x277CBEA68] arrayWithObjects:v83 count:1];
+  v14 = (v75 + 5);
+  obj = v75[5];
   v15 = [v12 archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&obj];
   objc_storeStrong(v14, obj);
 
   v16 = v15;
   xpc_dictionary_set_data(xdict, "svrCfg", [v15 bytes], objc_msgSend(v15, "length"));
   v17 = [configurationStore configurationForRegion:regionCopy];
-  v60 = v17;
+  v59 = v17;
   if (v17)
   {
     v18 = MEMORY[0x277CCAAB8];
-    v83 = v17;
-    v19 = [MEMORY[0x277CBEA68] arrayWithObjects:&v83 count:1];
-    v20 = (v76 + 5);
-    v70 = v76[5];
-    v21 = [v18 archivedDataWithRootObject:v19 requiringSecureCoding:1 error:&v70];
-    objc_storeStrong(v20, v70);
+    v82 = v17;
+    v19 = [MEMORY[0x277CBEA68] arrayWithObjects:&v82 count:1];
+    v20 = (v75 + 5);
+    v69 = v75[5];
+    v21 = [v18 archivedDataWithRootObject:v19 requiringSecureCoding:1 error:&v69];
+    objc_storeStrong(v20, v69);
 
     v22 = v21;
     xpc_dictionary_set_data(xdict, "rgnCfg", [v21 bytes], objc_msgSend(v21, "length"));
@@ -7019,73 +7137,61 @@ LABEL_21:
   }
 
   v44 = [configurationStore agencyConfigurationForRegion:regionCopy];
-  v58 = v44;
+  v57 = v44;
   if (v44)
   {
     v45 = MEMORY[0x277CCAAB8];
-    v82 = v44;
-    v46 = [MEMORY[0x277CBEA68] arrayWithObjects:&v82 count:1];
-    v47 = (v76 + 5);
-    v69 = v76[5];
-    v59 = [v45 archivedDataWithRootObject:v46 requiringSecureCoding:1 error:&v69];
-    objc_storeStrong(v47, v69);
+    v81 = v44;
+    v46 = [MEMORY[0x277CBEA68] arrayWithObjects:&v81 count:1];
+    v47 = (v75 + 5);
+    v68 = v75[5];
+    v58 = [v45 archivedDataWithRootObject:v46 requiringSecureCoding:1 error:&v68];
+    objc_storeStrong(v47, v68);
 
-    v48 = v59;
-    xpc_dictionary_set_data(xdict, "agnCfg", [v59 bytes], objc_msgSend(v59, "length"));
+    v48 = v58;
+    xpc_dictionary_set_data(xdict, "agnCfg", [v58 bytes], objc_msgSend(v58, "length"));
   }
 
   else
   {
-    v59 = v21;
+    v58 = v21;
   }
 
 LABEL_26:
 
   [(ENXPCConnection *)selfCopy _xpcSendMessage:xdict];
-  v49 = v52;
+  v49 = v51;
 LABEL_27:
 
-  v53[2](v53);
-  _Block_object_dispose(&v75, 8);
-
-  v50 = *MEMORY[0x277D85DE8];
+  v52[2](v52);
+  _Block_object_dispose(&v74, 8);
 }
 
-uint64_t __89__ENXPCConnection__processServerResponseConfigurationsForRegion_serverResponses_request___block_invoke(void *a1)
+void *__89__ENXPCConnection__processServerResponseConfigurationsForRegion_serverResponses_request___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _processServerResponseConfigurationsForRegion:serverResponses:request:]_block_invoke", 90, "### _processServerResponseConfigurationsForRegion failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetAllRegionAgencyConfig:(id)config
@@ -7125,13 +7231,13 @@ LABEL_7:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionAgencyConfig:]", 90, "### GetAllRegionAgencyConfig create reply failed");
     }
   }
 
   else
   {
-    v10 = ENErrorF();
+    v10 = ENErrorF(2, "### GetAllRegionAgencyConfig Invalid Locale");
     reply = v16[5];
     v16[5] = v10;
   }
@@ -7140,41 +7246,31 @@ LABEL_7:
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __48__ENXPCConnection__xpcGetAllRegionAgencyConfig___block_invoke(void *a1)
+void *__48__ENXPCConnection__xpcGetAllRegionAgencyConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetAllRegionAgencyConfig:]_block_invoke", 90, "### GetAllRegionAgencyConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __48__ENXPCConnection__xpcGetAllRegionAgencyConfig___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -7189,90 +7285,94 @@ void __48__ENXPCConnection__xpcGetAllRegionAgencyConfig___block_invoke_2(uint64_
 
 - (void)_xpcGetSubdivisionList:(id)list
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   listCopy = list;
-  if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  v7 = listCopy;
+  if (_MergedGlobals <= 30)
   {
-    [ENXPCConnection _xpcGetSubdivisionList:];
+    if (_MergedGlobals != -1 || (listCopy = _LogCategory_Initialize(), listCopy))
+    {
+      [(ENXPCConnection *)listCopy _xpcGetSubdivisionList:v5, v6];
+    }
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__3;
-  v47 = __Block_byref_object_dispose__3;
-  v48 = 0;
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke;
-  v40[3] = &unk_278FD10D0;
-  v42 = &v43;
-  v40[4] = self;
-  v5 = listCopy;
-  v41 = v5;
-  v6 = MEMORY[0x24C214430](v40);
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__3;
+  v49 = __Block_byref_object_dispose__3;
+  v50 = 0;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke;
+  v42[3] = &unk_278FD10D0;
+  v44 = &v45;
+  v42[4] = self;
+  v8 = v7;
+  v43 = v8;
+  v9 = MEMORY[0x24C214430](v42);
   objc_opt_class();
-  v7 = (v44 + 5);
-  obj = v44[5];
-  v8 = ENXPCDecodeSecureObjectIfPresent();
-  objc_storeStrong(v7, obj);
-  if (v8)
+  v10 = (v46 + 5);
+  obj = v46[5];
+  v11 = ENXPCDecodeSecureObjectIfPresent();
+  objc_storeStrong(v10, obj);
+  if (v11)
   {
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__3;
-    v37 = __Block_byref_object_dispose__3;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__3;
+    v39 = __Block_byref_object_dispose__3;
     configurationManager = [(ENDaemon *)self->_daemon configurationManager];
     configurationStore = [configurationManager configurationStore];
-    v38 = [configurationStore subdivisionListForRegion:v8];
+    v40 = [configurationStore subdivisionListForRegion:v11];
 
-    v11 = xpc_array_create(0, 0);
-    if (v34[5])
+    v14 = xpc_array_create(0, 0);
+    if (v36[5])
     {
+      v26 = 0u;
+      v27 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v12 = v34[5];
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v49 count:16];
-      if (v13)
+      v15 = v36[5];
+      v16 = [v15 countByEnumeratingWithState:&v24 objects:v51 count:16];
+      if (v16)
       {
-        v14 = *v23;
+        v17 = *v25;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v23 != v14)
+            if (*v25 != v17)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v15);
             }
 
-            v16 = *(*(&v22 + 1) + 8 * i);
-            v17 = [v16 cStringUsingEncoding:{4, v22}];
-            if (v17)
+            v19 = *(*(&v24 + 1) + 8 * i);
+            v20 = [v19 cStringUsingEncoding:{4, v24}];
+            if (v20)
             {
-              xpc_array_set_string(v11, 0xFFFFFFFFFFFFFFFFLL, v17);
+              xpc_array_set_string(v14, 0xFFFFFFFFFFFFFFFFLL, v20);
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v22 objects:v49 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v24 objects:v51 count:16];
         }
 
-        while (v13);
+        while (v16);
       }
 
-      reply = xpc_dictionary_create_reply(v5);
-      v19 = reply;
+      reply = xpc_dictionary_create_reply(v8);
+      v22 = reply;
       if (reply)
       {
-        xpc_dictionary_set_value(reply, "subCodes", v11);
-        [(ENXPCConnection *)self _xpcSendMessage:v19];
+        xpc_dictionary_set_value(reply, "subCodes", v14);
+        [(ENXPCConnection *)self _xpcSendMessage:v22];
       }
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetSubdivisionList:]", 90, "### GetSubdivisionList create reply failed", v24);
       }
     }
 
@@ -7280,76 +7380,64 @@ void __48__ENXPCConnection__xpcGetAllRegionAgencyConfig___block_invoke_2(uint64_
     {
       objc_initWeak(&location, self);
       configurationManager2 = [(ENDaemon *)self->_daemon configurationManager];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2;
-      v26[3] = &unk_278FD1CF8;
-      v30 = &v33;
-      v26[4] = self;
-      v27 = v8;
-      v28 = v11;
-      v29 = v5;
-      objc_copyWeak(&v31, &location);
-      [configurationManager2 fetchServerConfigurationsForRegion:v27 userInitiated:0 withCompletion:v26];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2;
+      v28[3] = &unk_278FD1CF8;
+      v32 = &v35;
+      v28[4] = self;
+      v29 = v11;
+      v30 = v14;
+      v31 = v8;
+      objc_copyWeak(&v33, &location);
+      [configurationManager2 fetchServerConfigurationsForRegion:v29 userInitiated:0 withCompletion:v28];
 
-      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v33);
       objc_destroyWeak(&location);
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v35, 8);
   }
 
   else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetSubdivisionList:]", 90, "### GetSubdivisionList no country provide");
   }
 
-  v6[2](v6);
-  _Block_object_dispose(&v43, 8);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v9[2](v9);
+  _Block_object_dispose(&v45, 8);
 }
 
-uint64_t __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke(void *a1)
+void *__42__ENXPCConnection__xpcGetSubdivisionList___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetSubdivisionList:]_block_invoke", 90, "### GetSubdivisionList failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 32) configurationManager];
   v3 = [v2 configurationStore];
   v4 = [v3 subdivisionListForRegion:*(a1 + 40)];
@@ -7357,34 +7445,34 @@ void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2(uint64_t a1)
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = *(*(*(a1 + 64) + 8) + 40);
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [v12 cStringUsingEncoding:{4, v18}];
+        v12 = *(*(&v17 + 1) + 8 * i);
+        v13 = [v12 cStringUsingEncoding:{4, v17}];
         if (v13)
         {
           xpc_array_set_string(*(a1 + 48), 0xFFFFFFFFFFFFFFFFLL, v13);
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -7403,8 +7491,6 @@ void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2(uint64_t a1)
   {
     __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2_cold_1();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_xpcGetCurrentAgencyConfig:(id)config
@@ -7436,7 +7522,7 @@ void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2(uint64_t a1)
     {
       if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetCurrentAgencyConfig:]", 90, "### GetRegionConfig no config manager");
       }
 
       goto LABEL_14;
@@ -7449,7 +7535,7 @@ void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2(uint64_t a1)
       {
         if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetCurrentAgencyConfig:]", 90, "### GetRegionConfig create reply failed");
         }
 
         goto LABEL_13;
@@ -7474,7 +7560,7 @@ void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2(uint64_t a1)
 
       if (!reply)
       {
-        v18 = ENErrorF();
+        v18 = ENErrorF(16, "No active region is selected");
         reply = v26[5];
         v26[5] = v18;
         goto LABEL_13;
@@ -7498,7 +7584,7 @@ void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2(uint64_t a1)
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetCurrentAgencyConfig:]", 90, "### GetRegionConfig create reply failed");
         }
       }
     }
@@ -7512,41 +7598,31 @@ LABEL_14:
   _Block_object_dispose(&v25, 8);
 }
 
-uint64_t __46__ENXPCConnection__xpcGetCurrentAgencyConfig___block_invoke(void *a1)
+void *__46__ENXPCConnection__xpcGetCurrentAgencyConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetCurrentAgencyConfig:]_block_invoke", 90, "### GetRegionConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __46__ENXPCConnection__xpcGetCurrentAgencyConfig___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -7585,7 +7661,7 @@ void __46__ENXPCConnection__xpcGetCurrentAgencyConfig___block_invoke_2(uint64_t 
   {
     if (![(ENDaemon *)self->_daemon prefDeveloperServerConfiguration])
     {
-      v23 = ENErrorF();
+      v23 = ENErrorF(10, "Developer Server Configuration is Not Enabled");
       v9 = v33[5];
       v33[5] = v23;
       goto LABEL_29;
@@ -7600,7 +7676,7 @@ void __46__ENXPCConnection__xpcGetCurrentAgencyConfig___block_invoke_2(uint64_t 
     {
       if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetDeveloperRegionServerConfig:]", 30, "Clear Developer Server Configuration and Subdivision List.");
       }
 
       [configurationStore clearTemporaryCountrySubdivisionList];
@@ -7614,7 +7690,7 @@ void __46__ENXPCConnection__xpcGetCurrentAgencyConfig___block_invoke_2(uint64_t 
     {
       if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetDeveloperRegionServerConfig:]", 30, "Adding Developer Server Configuration.");
       }
 
       v14 = (v33 + 5);
@@ -7644,7 +7720,7 @@ void __46__ENXPCConnection__xpcGetCurrentAgencyConfig___block_invoke_2(uint64_t 
 
       if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetDeveloperRegionServerConfig:]", 30, "Adding Developer Subdivision List.");
       }
 
       v19 = [MEMORY[0x277CC5CA0] regionWithCode:v17];
@@ -7669,7 +7745,7 @@ LABEL_26:
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetDeveloperRegionServerConfig:]", 90, "### SetDeveloperRegionServerConfig create reply failed");
         }
 
         goto LABEL_28;
@@ -7681,7 +7757,7 @@ LABEL_26:
 
     else
     {
-      v22 = ENErrorF();
+      v22 = ENErrorF(15, "### SetDeveloperRegionServerConfig no configurations found");
       v17 = v33[5];
       v33[5] = v22;
     }
@@ -7695,84 +7771,74 @@ LABEL_29:
   _Block_object_dispose(&v32, 8);
 }
 
-uint64_t __54__ENXPCConnection__xpcSetDeveloperRegionServerConfig___block_invoke(void *a1)
+void *__54__ENXPCConnection__xpcSetDeveloperRegionServerConfig___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetDeveloperRegionServerConfig:]_block_invoke", 90, "### SetDeveloperRegionServerConfig failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetRegionConsent:(id)consent
 {
-  v91[1] = *MEMORY[0x277D85DE8];
+  v84[1] = *MEMORY[0x277D85DE8];
   consentCopy = consent;
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x3032000000;
-  v88 = __Block_byref_object_copy__3;
-  v89 = __Block_byref_object_dispose__3;
-  v90 = 0;
-  v82[0] = MEMORY[0x277D85DD0];
-  v82[1] = 3221225472;
-  v82[2] = __40__ENXPCConnection__xpcSetRegionConsent___block_invoke;
-  v82[3] = &unk_278FD10D0;
-  v84 = &v85;
-  v82[4] = self;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x3032000000;
+  v81 = __Block_byref_object_copy__3;
+  v82 = __Block_byref_object_dispose__3;
+  v83 = 0;
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __40__ENXPCConnection__xpcSetRegionConsent___block_invoke;
+  v75[3] = &unk_278FD10D0;
+  v77 = &v78;
+  v75[4] = self;
   original = consentCopy;
-  v83 = original;
-  v69 = MEMORY[0x24C214430](v82);
-  v5 = v86;
-  obj = v86[5];
+  v76 = original;
+  v62 = MEMORY[0x24C214430](v75);
+  v5 = v79;
+  obj = v79[5];
   v6 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v5 + 5, obj);
   if (v6)
   {
     configurationManager = [(ENDaemon *)self->_daemon configurationManager];
-    v68 = configurationManager;
+    v61 = configurationManager;
     if (!configurationManager)
     {
-      v58 = ENErrorF();
-      v72 = v86[5];
-      v86[5] = v58;
+      v58 = ENErrorF(11, "No configuration manager");
+      v65 = v79[5];
+      v79[5] = v58;
 
       goto LABEL_58;
     }
 
     configurationStore = [configurationManager configurationStore];
-    v8 = v86;
-    v80 = v86[5];
-    v9 = [(ENXPCConnection *)self _regionConfigForXPCRequest:original error:&v80];
-    objc_storeStrong(v8 + 5, v80);
+    v8 = v79;
+    v73 = v79[5];
+    v9 = [(ENXPCConnection *)self _regionConfigForXPCRequest:original error:&v73];
+    objc_storeStrong(v8 + 5, v73);
     if (!v9)
     {
 LABEL_57:
@@ -7783,15 +7849,15 @@ LABEL_58:
 
     if ([v9 enVersion] <= 1)
     {
-      v59 = ENErrorF();
-      region = v86[5];
-      v86[5] = v59;
+      v59 = ENErrorF(5, "Consent not supported for this region.");
+      region = v79[5];
+      v79[5] = v59;
       goto LABEL_56;
     }
 
     region = [v9 region];
-    v70 = [configurationStore serverConfigurationForRegion:region];
-    appBundleID = [v70 appBundleID];
+    v63 = [configurationStore serverConfigurationForRegion:region];
+    appBundleID = [v63 appBundleID];
     if (appBundleID)
     {
       v11 = [MEMORY[0x277CC1E68] applicationProxyForIdentifier:appBundleID placeholder:0];
@@ -7808,9 +7874,9 @@ LABEL_58:
       if (isPlaceholder)
       {
 LABEL_8:
-        v15 = ENErrorF();
-        v16 = v86[5];
-        v86[5] = v15;
+        v15 = ENErrorF(10, "Cannot onboard ENX region since %@ is installed", appBundleID);
+        v16 = v79[5];
+        v79[5] = v15;
 
 LABEL_55:
 LABEL_56:
@@ -7835,18 +7901,18 @@ LABEL_56:
 
       if (v23)
       {
-        v24 = ENErrorF();
-        v11 = v86[5];
-        v86[5] = v24;
+        v24 = ENErrorF(4, "Cannot onboard ENX region %@ setting consent is restricted", region);
+        v11 = v79[5];
+        v79[5] = v24;
         goto LABEL_55;
       }
     }
 
     objc_opt_class();
-    v25 = v86;
-    v79 = v86[5];
+    v25 = v79;
+    v72 = v79[5];
     v11 = ENXPCDecodeSecureObjectIfPresent();
-    objc_storeStrong(v25 + 5, v79);
+    objc_storeStrong(v25 + 5, v72);
     if (!v11)
     {
       goto LABEL_55;
@@ -7854,9 +7920,7 @@ LABEL_56:
 
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      v60 = region;
-      v63 = v11;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetRegionConsent:]", 30, "SetRegionConsent start: Region '%@', %@", region, v11);
     }
 
     userConsent2 = [v9 userConsent];
@@ -7866,16 +7930,16 @@ LABEL_56:
 
     if ((v29 & 1) == 0)
     {
-      legalConsentVersion = [v70 legalConsentVersion];
+      legalConsentVersion = [v63 legalConsentVersion];
       consentVersion3 = [v11 consentVersion];
       v32 = [legalConsentVersion isEqualToString:consentVersion3];
 
       if ((v32 & 1) == 0)
       {
         consentVersion4 = [v11 consentVersion];
-        v36 = ENErrorF();
-        v37 = v86[5];
-        v86[5] = v36;
+        v37 = ENErrorF(2, "Unable to find consent for version: %@", consentVersion4);
+        v38 = v79[5];
+        v79[5] = v37;
 LABEL_54:
 
         goto LABEL_55;
@@ -7888,26 +7952,25 @@ LABEL_54:
 
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      [v9 userConsent];
-      v64 = v61 = region;
-      LogPrintF_safe();
+      userConsent4 = [v9 userConsent];
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetRegionConsent:]", 30, "SetRegionConsent updating consent for Region '%@' to %@", region, userConsent4);
     }
 
-    [(ENXPCConnection *)self _sendOnboardingMetricForRegionConfiguration:v9, v61, v64];
-    v38 = v86;
-    v78 = v86[5];
-    v39 = [configurationStore saveRegionConfiguration:v9 error:&v78];
-    objc_storeStrong(v38 + 5, v78);
-    if (!v39)
+    [(ENXPCConnection *)self _sendOnboardingMetricForRegionConfiguration:v9];
+    v39 = v79;
+    v71 = v79[5];
+    v40 = [configurationStore saveRegionConfiguration:v9 error:&v71];
+    objc_storeStrong(v39 + 5, v71);
+    if (!v40)
     {
       goto LABEL_55;
     }
 
-    userConsent4 = [v9 userConsent];
-    consent = [userConsent4 consent];
+    userConsent5 = [v9 userConsent];
+    consent = [userConsent5 consent];
 
     consentVersion4 = [(ENDaemon *)self->_daemon _readPreferenceRegionPendingOnboarding];
-    v67 = consent - 1;
+    v60 = consent - 1;
     switch(consent)
     {
       case 1:
@@ -7921,43 +7984,38 @@ LABEL_30:
         activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
         entity2 = [activeEntity2 entity];
         region3 = [entity2 region];
-        v45 = [region isEqual:region3];
+        v46 = [region isEqual:region3];
 
-        if (v45)
+        if (v46)
         {
           if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
           {
-            v66 = off_278FD2298[consent - 1];
-            LogPrintF_safe();
-            [(ENDaemon *)self->_daemon _turnOffEN:region];
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetRegionConsent:]", 30, "Active region %@ consent %s. Turn off EN", region, off_278FD2298[consent - 1]);
           }
 
-          else
-          {
-            [(ENDaemon *)self->_daemon _turnOffEN:v62];
-          }
+          [(ENDaemon *)self->_daemon _turnOffEN];
         }
 
         break;
     }
 
-    v46 = [consentVersion4 isEqual:region];
+    v47 = [consentVersion4 isEqual:region];
     if (consent)
     {
-      v47 = v46;
+      v48 = v47;
     }
 
     else
     {
-      v47 = 0;
+      v48 = 0;
     }
 
-    if (v47 == 1)
+    if (v48 == 1)
     {
       userNotificationCenter = [(ENDaemon *)self->_daemon userNotificationCenter];
-      v91[0] = @"com.apple.ExposureNotification.onboarding";
-      v49 = [MEMORY[0x277CBEA68] arrayWithObjects:v91 count:1];
-      [userNotificationCenter removeDeliveredNotificationsWithIdentifiers:v49];
+      v84[0] = @"com.apple.ExposureNotification.onboarding";
+      v50 = [MEMORY[0x277CBEA68] arrayWithObjects:v84 count:1];
+      [userNotificationCenter removeDeliveredNotificationsWithIdentifiers:v50];
 
       onboardingManager = [(ENDaemon *)self->_daemon onboardingManager];
       [onboardingManager setShouldObserveDeviceUnlocks:0];
@@ -7967,34 +8025,34 @@ LABEL_30:
     }
 
     userNotificationCenter2 = [(ENDaemon *)self->_daemon userNotificationCenter];
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __40__ENXPCConnection__xpcSetRegionConsent___block_invoke_2;
-    v75[3] = &unk_278FD1D20;
-    v53 = region;
-    v76 = v53;
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __40__ENXPCConnection__xpcSetRegionConsent___block_invoke_2;
+    v68[3] = &unk_278FD1D20;
+    v54 = region;
+    v69 = v54;
     selfCopy = self;
-    [userNotificationCenter2 getDeliveredNotificationsWithCompletionHandler:v75];
+    [userNotificationCenter2 getDeliveredNotificationsWithCompletionHandler:v68];
 
-    v54 = [consentVersion4 isEqual:v53];
-    if (v67 < 2)
+    v55 = [consentVersion4 isEqual:v54];
+    if (v60 < 2)
     {
-      v55 = v54;
+      v56 = v55;
     }
 
     else
     {
-      v55 = 0;
+      v56 = 0;
     }
 
-    if (v55 == 1)
+    if (v56 == 1)
     {
       [(ENDaemon *)self->_daemon onboardingTriggerDeactivate];
     }
 
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetRegionConsent:]", 30, "SetRegionConsent completed");
     }
 
     reply = xpc_dictionary_create_reply(original);
@@ -8006,81 +8064,70 @@ LABEL_30:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetRegionConsent:]", 90, "### SetRegionConsent create reply failed");
     }
 
-    v37 = v76;
+    v38 = v69;
     goto LABEL_54;
   }
 
 LABEL_59:
-  v69[2](v69);
+  v62[2](v62);
 
-  _Block_object_dispose(&v85, 8);
-  v57 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v78, 8);
 }
 
-uint64_t __40__ENXPCConnection__xpcSetRegionConsent___block_invoke(void *a1)
+void *__40__ENXPCConnection__xpcSetRegionConsent___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetRegionConsent:]_block_invoke", 90, "### SetRegionConsent failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __40__ENXPCConnection__xpcSetRegionConsent___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = a2;
-  v2 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v2 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v2)
   {
     v3 = v2;
-    v21 = *v23;
+    v20 = *v22;
     v4 = @"regionCode";
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v23 != v21)
+        if (*v22 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v22 + 1) + 8 * i);
+        v6 = *(*(&v21 + 1) + 8 * i);
         v7 = [v6 request];
         v8 = [v7 content];
         v9 = [v8 userInfo];
@@ -8107,8 +8154,8 @@ void __40__ENXPCConnection__xpcSetRegionConsent___block_invoke_2(uint64_t a1, vo
             v11 = [*(*(a1 + 40) + 32) userNotificationCenter];
             v12 = [v6 request];
             v13 = [v12 identifier];
-            v26 = v13;
-            v17 = [MEMORY[0x277CBEA68] arrayWithObjects:&v26 count:1];
+            v25 = v13;
+            v17 = [MEMORY[0x277CBEA68] arrayWithObjects:&v25 count:1];
             [v11 removeDeliveredNotificationsWithIdentifiers:v17];
 
             v4 = v14;
@@ -8118,13 +8165,11 @@ void __40__ENXPCConnection__xpcSetRegionConsent___block_invoke_2(uint64_t a1, vo
 LABEL_11:
       }
 
-      v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v3 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v3);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendOnboardingMetricForRegionConfiguration:(id)configuration
@@ -8156,7 +8201,7 @@ LABEL_11:
       subdivisionCode = 0;
     }
 
-    v38 = region;
+    v33 = region;
     v15 = [subdivisionCode componentsSeparatedByString:@"-"];
     if ([v15 count] == 2)
     {
@@ -8231,25 +8276,20 @@ LABEL_11:
         v27 = "yes";
       }
 
-      v36 = v29;
-      v37 = v27;
-      v34 = v26;
-      v35 = v28;
-      v33 = v25;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _sendOnboardingMetricForRegionConfiguration:]", 30, "Send Onboarding Metric: Trigger: %s, Subdivision: %s, Legal Count: %s, Completed: %s, First Time: %s", v25, v26, v28, v29, v27);
     }
 
-    v30 = [(ENDaemon *)self->_daemon delegate:v33];
-    countryCode2 = [v38 countryCode];
-    if ([v38 validSubdivisionCode])
+    delegate = [(ENDaemon *)self->_daemon delegate];
+    countryCode2 = [v33 countryCode];
+    if ([v33 validSubdivisionCode])
     {
-      subdivisionCode2 = [v38 subdivisionCode];
-      [v30 sendOnBoardingMetricWithTrigger:onboardingTrigger completed:consent == 2 firstTime:onboardingFirstTime countryCode:countryCode2 subdivisionCode:subdivisionCode2 legalConsent:v24];
+      subdivisionCode2 = [v33 subdivisionCode];
+      [delegate sendOnBoardingMetricWithTrigger:onboardingTrigger completed:consent == 2 firstTime:onboardingFirstTime countryCode:countryCode2 subdivisionCode:subdivisionCode2 legalConsent:v24];
     }
 
     else
     {
-      [v30 sendOnBoardingMetricWithTrigger:onboardingTrigger completed:consent == 2 firstTime:onboardingFirstTime countryCode:countryCode2 subdivisionCode:@"Unknown" legalConsent:v24];
+      [delegate sendOnBoardingMetricWithTrigger:onboardingTrigger completed:consent == 2 firstTime:onboardingFirstTime countryCode:countryCode2 subdivisionCode:@"Unknown" legalConsent:v24];
     }
 
     [(ENDaemon *)self->_daemon setOnboardingTrigger:0];
@@ -8264,25 +8304,25 @@ LABEL_11:
 - (void)_xpcTCCCheck:(id)check
 {
   checkCopy = check;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__3;
-  v28 = __Block_byref_object_dispose__3;
-  v29 = 0;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __32__ENXPCConnection__xpcTCCCheck___block_invoke;
-  v21[3] = &unk_278FD10D0;
-  v23 = &v24;
-  v21[4] = self;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__3;
+  v25 = __Block_byref_object_dispose__3;
+  v26 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __32__ENXPCConnection__xpcTCCCheck___block_invoke;
+  v18[3] = &unk_278FD10D0;
+  v20 = &v21;
+  v18[4] = self;
   v5 = checkCopy;
-  v22 = v5;
-  v6 = MEMORY[0x24C214430](v21);
+  v19 = v5;
+  v6 = MEMORY[0x24C214430](v18);
   if (MEMORY[0x282233AA0])
   {
-    v7 = v25;
-    obj = v25[5];
+    v7 = v22;
+    obj = v22[5];
     v8 = [(ENXPCConnection *)self _authorizationPreflightUnknownAndReturnError:&obj];
     objc_storeStrong(v7 + 5, obj);
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
@@ -8293,35 +8333,31 @@ LABEL_11:
         v9 = "yes";
       }
 
-      v19 = v9;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcTCCCheck:]", 30, "Preflight authorization unknown : %s", v9);
     }
 
-    xpcCnx = self->_xpcCnx;
     xpc_connection_get_audit_token();
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE0], 1, MEMORY[0x277CBF140], MEMORY[0x277CBF148]);
     CFDictionarySetValue(Mutable, *MEMORY[0x277D6C0B0], *MEMORY[0x277CBED20]);
-    v12 = *MEMORY[0x277D6C150];
-    v13 = TCCAccessCheckAuditToken();
+    v11 = TCCAccessCheckAuditToken();
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      v14 = "granted";
-      if (!v13)
+      v12 = "granted";
+      if (!v11)
       {
-        v14 = "not granted";
+        v12 = "not granted";
       }
 
-      v19 = v14;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcTCCCheck:]", 30, "TCC access result: %s", v12);
     }
 
     if (v8)
     {
-      [(ENXPCConnection *)self _updateActiveEntityFromTCCResult:v13 != 0, v19];
+      [(ENXPCConnection *)self _updateActiveEntityFromTCCResult:v11 != 0];
     }
 
     CFRelease(Mutable);
-    if (v13)
+    if (v11)
     {
       reply = xpc_dictionary_create_reply(v5);
       if (reply)
@@ -8331,65 +8367,55 @@ LABEL_11:
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcTCCCheck:]", 90, "### TCCCheck create reply failed");
       }
     }
 
     else
     {
-      v18 = ENErrorF();
-      reply = v25[5];
-      v25[5] = v18;
+      v16 = ENErrorF(4, "User denied");
+      reply = v22[5];
+      v22[5] = v16;
     }
   }
 
   else
   {
-    v16 = ENErrorF();
-    v17 = v25[5];
-    v25[5] = v16;
+    v14 = ENErrorF(5, "Authorization not supported");
+    v15 = v22[5];
+    v22[5] = v14;
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __32__ENXPCConnection__xpcTCCCheck___block_invoke(void *a1)
+void *__32__ENXPCConnection__xpcTCCCheck___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcTCCCheck:]_block_invoke", 90, "### TCCCheck failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_updateActiveEntityFromTCCResult:(BOOL)result
@@ -8400,55 +8426,56 @@ LABEL_7:
 
   if (!v7)
   {
-    [ENXPCConnection _updateActiveEntityFromTCCResult:];
+    [(ENXPCConnection *)v8 _updateActiveEntityFromTCCResult:v9, v10];
     goto LABEL_27;
   }
 
-  v8 = [(ENDaemon *)self->_daemon _getInfoDictFromAppProxy:v7];
-  if (!v8)
+  v13 = [(ENDaemon *)self->_daemon _getInfoDictFromAppProxy:v7];
+  if (!v13)
   {
-    [ENXPCConnection _updateActiveEntityFromTCCResult:];
+    [(ENXPCConnection *)0 _updateActiveEntityFromTCCResult:v11, v12];
     goto LABEL_26;
   }
 
-  v9 = [(ENDaemon *)self->_daemon regionForBundleInfo:v8];
-  if (v9)
+  v14 = [(ENDaemon *)self->_daemon regionForBundleInfo:v13];
+  v17 = v14;
+  if (v14)
   {
     if (result)
     {
-      v10 = [ENActiveEntity alloc];
-      v11 = objc_alloc(MEMORY[0x277CC5C18]);
+      v18 = [ENActiveEntity alloc];
+      v19 = objc_alloc(MEMORY[0x277CC5C18]);
       signingIdentity2 = [(ENXPCClient *)self->_client signingIdentity];
-      v13 = [v11 initWithBundleID:signingIdentity2 region:v9];
-      v14 = [(ENActiveEntity *)v10 initWithEntity:v13 activeStatus:2];
+      v21 = [v19 initWithBundleID:signingIdentity2 region:v17];
+      v22 = [(ENActiveEntity *)v18 initWithEntity:v21 activeStatus:2];
 
       if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        [ENXPCConnection _updateActiveEntityFromTCCResult:];
+        [ENXPCConnection _updateActiveEntityFromTCCResult:v17];
       }
 
       configurationManager = [(ENDaemon *)self->_daemon configurationManager];
       configurationStore = [configurationManager configurationStore];
-      v17 = [configurationStore configurationForRegion:v9];
+      v25 = [configurationStore configurationForRegion:v17];
 
-      if (v17)
+      if (v25)
       {
-        userConsent = [v17 userConsent];
+        userConsent = [v25 userConsent];
         [userConsent setConsent:4];
 
         configurationManager2 = [(ENDaemon *)self->_daemon configurationManager];
         configurationStore2 = [configurationManager2 configurationStore];
-        v37 = 0;
-        v21 = [configurationStore2 saveRegionConfiguration:v17 error:&v37];
-        v22 = v37;
+        v44 = 0;
+        v29 = [configurationStore2 saveRegionConfiguration:v25 error:&v44];
+        v30 = v44;
 
-        if ((v21 & 1) == 0 && dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+        if ((v29 & 1) == 0 && dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          [ENXPCConnection _updateActiveEntityFromTCCResult:];
+          [ENXPCConnection _updateActiveEntityFromTCCResult:v30];
         }
       }
 
-      [(ENDaemon *)self->_daemon _writePreferenceActiveEntity:v14];
+      [(ENDaemon *)self->_daemon _writePreferenceActiveEntity:v22];
 
       goto LABEL_17;
     }
@@ -8456,13 +8483,16 @@ LABEL_7:
     activeEntity = [(ENDaemon *)self->_daemon activeEntity];
     entity = [activeEntity entity];
     region = [entity region];
-    v35 = [region isEqual:v9];
+    v42 = [region isEqual:v17];
 
-    if (v35)
+    if (v42)
     {
-      if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+      if (_MergedGlobals <= 30)
       {
-        [ENXPCConnection _updateActiveEntityFromTCCResult:];
+        if (_MergedGlobals != -1 || (v14 = _LogCategory_Initialize(), v14))
+        {
+          [(ENXPCConnection *)v14 _updateActiveEntityFromTCCResult:v15, v16];
+        }
       }
 
       [(ENDaemon *)self->_daemon _turnOffEN];
@@ -8472,40 +8502,39 @@ LABEL_7:
 
   else if (result)
   {
-    v23 = [ENActiveEntity alloc];
-    v24 = objc_alloc(MEMORY[0x277CC5C18]);
+    v31 = [ENActiveEntity alloc];
+    v32 = objc_alloc(MEMORY[0x277CC5C18]);
     signingIdentity3 = [(ENXPCClient *)self->_client signingIdentity];
-    v26 = [v24 initWithBundleID:signingIdentity3 region:0];
-    v14 = [(ENActiveEntity *)v23 initWithEntity:v26 activeStatus:2];
+    v34 = [v32 initWithBundleID:signingIdentity3 region:0];
+    v22 = [(ENActiveEntity *)v31 initWithEntity:v34 activeStatus:2];
 
-    [(ENDaemon *)self->_daemon _writePreferenceActiveEntity:v14];
+    [(ENDaemon *)self->_daemon _writePreferenceActiveEntity:v22];
     daemon = self->_daemon;
     signingIdentity4 = [(ENXPCClient *)self->_client signingIdentity];
-    [(ENDaemon *)daemon _setActiveRegionForApp:signingIdentity4 infoDict:v8];
+    [(ENDaemon *)daemon _setActiveRegionForApp:signingIdentity4 infoDict:v13];
 
 LABEL_17:
-    v29 = *MEMORY[0x277D6C160];
     TCCAccessSetForBundleId();
     [(ENDaemon *)self->_daemon _disableAvailabilityAlertIfNeeded];
     [(ENDaemon *)self->_daemon prefsChanged];
-    if (v9 && [(ENXPCClient *)self->_client accessLevel]<= 2)
+    if (v17 && [(ENXPCClient *)self->_client accessLevel]<= 2)
     {
       signingIdentity5 = [(ENXPCClient *)self->_client signingIdentity];
-      v31 = self->_daemon;
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __52__ENXPCConnection__updateActiveEntityFromTCCResult___block_invoke;
-      v36[3] = &unk_278FD1D48;
-      v36[4] = signingIdentity5;
-      v36[5] = v9;
-      v36[6] = self;
-      [(ENDaemon *)v31 fetchServerConfigurationForRegion:v9 completion:v36];
+      v38 = self->_daemon;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __52__ENXPCConnection__updateActiveEntityFromTCCResult___block_invoke;
+      v43[3] = &unk_278FD1D48;
+      v43[4] = signingIdentity5;
+      v43[5] = v17;
+      v43[6] = self;
+      [(ENDaemon *)v38 fetchServerConfigurationForRegion:v17 completion:v43];
     }
 
     goto LABEL_25;
   }
 
-  [ENXPCConnection _updateActiveEntityFromTCCResult:];
+  [(ENXPCConnection *)v14 _updateActiveEntityFromTCCResult:v15, v16];
 LABEL_25:
 
 LABEL_26:
@@ -8591,7 +8620,7 @@ LABEL_10:
     {
       if (![(ENDaemon *)self->_daemon prefEnabled])
       {
-        v29 = ENErrorF();
+        v29 = ENErrorF(9, "Not enabled");
         v20 = v43[5];
         v43[5] = v29;
 LABEL_20:
@@ -8640,8 +8669,7 @@ LABEL_20:
                   [(ENDaemon *)self->_daemon setUsageExposureDetectFileActivate:[(ENDaemon *)self->_daemon usageExposureDetectFileActivate]+ 1];
                   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                   {
-                    [(ENXPCClient *)self->_client appAPIVersion];
-                    LogPrintF_safe();
+                    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileActivate:]", 30, "Activate: %@, v%d", v25, [(ENXPCClient *)self->_client appAPIVersion]);
                   }
 
                   objc_storeStrong(&self->_detectionSession, v25);
@@ -8659,20 +8687,20 @@ LABEL_20:
 
                     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
                     {
-                      LogPrintF_safe();
+                      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileActivate:]", 90, "### ExposureDetectionFileActivate create reply failed");
                     }
                   }
 
                   else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
                   {
-                    LogPrintF_safe();
+                    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileActivate:]", 90, "### ExposureDetectionFileActivate daemon session activation failed");
                   }
                 }
               }
 
               else
               {
-                v30 = ENErrorF();
+                v30 = ENErrorF(11, "Nil detection manager");
                 v25 = v43[5];
                 v43[5] = v30;
               }
@@ -8691,210 +8719,196 @@ LABEL_21:
   _Block_object_dispose(&v42, 8);
 }
 
-uint64_t __53__ENXPCConnection__xpcExposureDetectionFileActivate___block_invoke(void *a1)
+void *__53__ENXPCConnection__xpcExposureDetectionFileActivate___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileActivate:]_block_invoke", 90, "### ExposureDetectionFileActivate failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcExposureDetectionFileAdd:(id)add
 {
   addCopy = add;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy__3;
-  v59 = __Block_byref_object_dispose__3;
-  v60 = 0;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke;
-  v52[3] = &unk_278FD10D0;
-  v54 = &v55;
-  v52[4] = self;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__3;
+  v53 = __Block_byref_object_dispose__3;
+  v54 = 0;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke;
+  v46[3] = &unk_278FD10D0;
+  v48 = &v49;
+  v46[4] = self;
   v5 = addCopy;
-  v53 = v5;
-  v6 = MEMORY[0x24C214430](v52);
-  v7 = v56;
-  v51 = v56[5];
-  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&v51];
-  objc_storeStrong(v7 + 5, v51);
+  v47 = v5;
+  v6 = MEMORY[0x24C214430](v46);
+  v7 = v50;
+  v45 = v50[5];
+  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&v45];
+  objc_storeStrong(v7 + 5, v45);
   if (v8)
   {
     exposureDetectionManager = [(ENDaemon *)self->_daemon exposureDetectionManager];
     if (exposureDetectionManager)
     {
       v10 = self->_detectionSession;
-      if (!v10 || ([(ENDaemon *)self->_daemon setUsageExposureDetectFileAddKeys:[(ENDaemon *)self->_daemon usageExposureDetectFileAddKeys]+ 1], v11 = xpc_dictionary_dup_fd(v5, "fd"), v11 < 0))
+      if (v10)
       {
-        v26 = ENErrorF();
-        v27 = v56[5];
-        v56[5] = v26;
-      }
-
-      else
-      {
-        xpc_dictionary_get_string(v5, "sbTk");
-        v12 = v56;
-        v50 = v56[5];
-        v13 = ENCloneFileToTemporaryDirectory();
-        objc_storeStrong(v12 + 5, v50);
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_2;
-        v48[3] = &__block_descriptor_36_e5_v8__0l;
-        v49 = v11;
-        v14 = MEMORY[0x24C214430](v48);
-        if ((v13 & 0x80000000) == 0)
+        [(ENDaemon *)self->_daemon setUsageExposureDetectFileAddKeys:[(ENDaemon *)self->_daemon usageExposureDetectFileAddKeys]+ 1];
+        v11 = xpc_dictionary_dup_fd(v5, "fd");
+        if ((v11 & 0x80000000) == 0)
         {
-          v42 = v10;
-          v47 = 0;
-          CUXPCDecodeNSData();
-          createFileSession = [exposureDetectionManager createFileSession];
-          v16 = v56;
-          obj = v56[5];
-          v17 = [createFileSession activateWithFD:v13 signatureData:0 error:&obj];
-          objc_storeStrong(v16 + 5, obj);
-          if (v17)
+          xpc_dictionary_get_string(v5, "sbTk");
+          v12 = v50;
+          v44 = v50[5];
+          v13 = ENCloneFileToTemporaryDirectory();
+          objc_storeStrong(v12 + 5, v44);
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_2;
+          v42[3] = &__block_descriptor_36_e5_v8__0l;
+          v43 = v11;
+          v14 = MEMORY[0x24C214430](v42);
+          if ((v13 & 0x80000000) == 0)
           {
-            signatures = [createFileSession signatures];
-            firstObject = [signatures firstObject];
-
-            keyID = [firstObject keyID];
-            keyVersion = [firstObject keyVersion];
-            v21 = +[ENLoggingPrefs sharedENLoggingPrefs];
-            isSensitiveLoggingAllowed = [v21 isSensitiveLoggingAllowed];
-
-            if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            v36 = v10;
+            v41 = 0;
+            CUXPCDecodeNSData();
+            createFileSession = [exposureDetectionManager createFileSession];
+            v16 = v50;
+            obj = v50[5];
+            v17 = [createFileSession activateWithFD:v13 signatureData:0 error:&obj];
+            objc_storeStrong(v16 + 5, obj);
+            if (v17)
             {
-              sha256Data = [createFileSession sha256Data];
-              appleBundleID = [firstObject appleBundleID];
-              batchNumber = [firstObject batchNumber];
-              batchCount = [firstObject batchCount];
-              keyID2 = [firstObject keyID];
-              keyVersion2 = [firstObject keyVersion];
-              metadata = [createFileSession metadata];
-              CUPrintNSObjectOneLine();
-              v34 = v33 = keyVersion2;
-              v31 = batchCount;
-              v32 = keyID2;
-              v29 = appleBundleID;
-              v30 = batchNumber;
-              v28 = sha256Data;
-              LogPrintF_safe();
-            }
+              signatures = [createFileSession signatures];
+              firstObject = [signatures firstObject];
 
-            signatureData = [firstObject signatureData];
+              keyID = [firstObject keyID];
+              keyVersion = [firstObject keyVersion];
+              v21 = +[ENLoggingPrefs sharedENLoggingPrefs];
+              isSensitiveLoggingAllowed = [v21 isSensitiveLoggingAllowed];
 
-            if (signatureData && keyVersion)
-            {
-              v43[0] = MEMORY[0x277D85DD0];
-              v43[1] = 3221225472;
-              v43[2] = __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_3;
-              v43[3] = &unk_278FD1DB8;
-              v43[4] = self;
-              v44 = v5;
-              v45 = createFileSession;
-              [(ENXPCConnection *)self _fetchClientPublicKeyWithVerificationID:keyID keyVersion:keyVersion completion:v43];
+              if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+              {
+                sha256Data = [createFileSession sha256Data];
+                appleBundleID = [firstObject appleBundleID];
+                batchNumber = [firstObject batchNumber];
+                batchCount = [firstObject batchCount];
+                keyID2 = [firstObject keyID];
+                keyVersion2 = [firstObject keyVersion];
+                metadata = [createFileSession metadata];
+                v24 = CUPrintNSObjectOneLine();
+                LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileAdd:]", 30, "ExposureDetectionFileAdd: Hash <%@>, AppID %@, Batch %u of %u, KeyID %@, KeyVersion %@, Metadata %@", sha256Data, appleBundleID, batchNumber, batchCount, keyID2, keyVersion2, v24);
+              }
+
+              signatureData = [firstObject signatureData];
+
+              if (signatureData && keyVersion)
+              {
+                v37[0] = MEMORY[0x277D85DD0];
+                v37[1] = 3221225472;
+                v37[2] = __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_3;
+                v37[3] = &unk_278FD1DB8;
+                v37[4] = self;
+                v38 = v5;
+                v39 = createFileSession;
+                [(ENXPCConnection *)self _fetchClientPublicKeyWithVerificationID:keyID keyVersion:keyVersion completion:v37];
+              }
+
+              else
+              {
+                [(ENXPCConnection *)self _xpcExposureDetectionFileAddNext:v5 fileSession:createFileSession publicKey:0];
+              }
             }
 
             else
             {
-              [(ENXPCConnection *)self _xpcExposureDetectionFileAddNext:v5 fileSession:createFileSession publicKey:0];
+              close(v13);
             }
+
+            v10 = v36;
           }
 
-          else
-          {
-            close(v13);
-          }
+          v14[2](v14);
 
-          v10 = v42;
+          goto LABEL_20;
         }
 
-        v14[2](v14);
+        v27 = ENErrorF(2, "No file FD");
       }
+
+      else
+      {
+        v27 = ENErrorF(10, "No detection session");
+      }
+
+      v28 = v50[5];
+      v50[5] = v27;
     }
 
     else
     {
-      v25 = ENErrorF();
-      v10 = v56[5];
-      v56[5] = v25;
+      v26 = ENErrorF(10, "Nil detection manager");
+      v10 = v50[5];
+      v50[5] = v26;
     }
+
+LABEL_20:
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
-uint64_t __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke(void *a1)
+void *__48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileAdd:]_block_invoke", 90, "### ExposureDetectionFileAdd failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_3(void *a1, void *a2, void *a3)
@@ -8941,33 +8955,30 @@ uint64_t __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_4(voi
   versionCopy = version;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__3;
-  v38 = __Block_byref_object_dispose__3;
-  v39 = 0;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_completion___block_invoke;
-  v31[3] = &unk_278FD1A50;
-  v33 = &v34;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__3;
+  v35 = __Block_byref_object_dispose__3;
+  v36 = 0;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_completion___block_invoke;
+  v28[3] = &unk_278FD1A50;
+  v30 = &v31;
   v11 = completionCopy;
-  v32 = v11;
-  v12 = MEMORY[0x24C214430](v31);
+  v29 = v11;
+  v12 = MEMORY[0x24C214430](v28);
   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    v24 = dCopy;
-    v25 = versionCopy;
-    client = self->_client;
-    LogPrintF_safe();
+    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _fetchClientPublicKeyWithVerificationID:keyVersion:completion:]", 30, "Looking up public key for %@, Key Verification ID: %@, Key Version: %@", self->_client, dCopy, versionCopy);
   }
 
   if (![versionCopy length])
   {
-    v21 = ENErrorF();
-    v14 = v35[5];
-    v35[5] = v21;
+    v21 = ENErrorF(2, "Invalid public key version");
+    v14 = v32[5];
+    v32[5] = v21;
     goto LABEL_15;
   }
 
@@ -8985,9 +8996,9 @@ uint64_t __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_4(voi
 
       if (!prefRegionIdentifierOverride)
       {
-        v22 = ENErrorF();
-        v20 = v35[5];
-        v35[5] = v22;
+        v22 = ENErrorF(2, "Unknown Verification ID %@", 0);
+        v20 = v32[5];
+        v32[5] = v22;
         goto LABEL_14;
       }
     }
@@ -8996,25 +9007,25 @@ uint64_t __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_4(voi
   }
 
   daemon = self->_daemon;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_completion___block_invoke_2;
-  v26[3] = &unk_278FD1E00;
-  v30 = &v34;
-  v29 = v11;
-  v26[4] = self;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_completion___block_invoke_2;
+  v23[3] = &unk_278FD1E00;
+  v27 = &v31;
+  v26 = v11;
+  v23[4] = self;
   v14 = appRegion;
-  v27 = v14;
-  v28 = versionCopy;
-  [(ENDaemon *)daemon fetchServerConfigurationForRegion:v14 completion:v26];
+  v24 = v14;
+  v25 = versionCopy;
+  [(ENDaemon *)daemon fetchServerConfigurationForRegion:v14 completion:v23];
 
-  v20 = v29;
+  v20 = v26;
 LABEL_14:
 
 LABEL_15:
   v12[2](v12);
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
 uint64_t __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_completion___block_invoke(uint64_t result)
@@ -9031,14 +9042,14 @@ void __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_co
 {
   v5 = a2;
   v6 = a3;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_completion___block_invoke_3;
-  v35[3] = &unk_278FD1A50;
-  v33 = *(a1 + 56);
-  v7 = v33;
-  v36 = v33;
-  v8 = MEMORY[0x24C214430](v35);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_completion___block_invoke_3;
+  v30[3] = &unk_278FD1A50;
+  v28 = *(a1 + 56);
+  v7 = v28;
+  v31 = v28;
+  v8 = MEMORY[0x24C214430](v30);
   if (v6)
   {
     v9 = [v6 domain];
@@ -9049,8 +9060,7 @@ void __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_co
       if (v10 == 5)
       {
         v11 = [*(*(a1 + 32) + 24) signingIdentity];
-        v30 = *(a1 + 40);
-        v12 = ENErrorF();
+        v12 = ENErrorF(5, "No Server Configuration available for %@ in %@", v11, *(a1 + 40));
         v13 = *(*(a1 + 64) + 8);
         v14 = *(v13 + 40);
         *(v13 + 40) = v12;
@@ -9064,11 +9074,10 @@ void __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersion_co
     }
 
 LABEL_11:
-    v28 = *(a1 + 40);
-    v17 = ENNestedErrorF();
-    v18 = *(*(a1 + 64) + 8);
-    v11 = *(v18 + 40);
-    *(v18 + 40) = v17;
+    v18 = ENNestedErrorF(v6, 16, "Unable to fetch server configuration for %@", *(a1 + 40));
+    v19 = *(*(a1 + 64) + 8);
+    v11 = *(v19 + 40);
+    *(v19 + 40) = v18;
     goto LABEL_24;
   }
 
@@ -9084,46 +9093,42 @@ LABEL_11:
     {
       v16 = *(a1 + 40);
       v15 = *(a1 + 48);
-      [*(*(a1 + 32) + 24) signingIdentity];
-      v32 = v31 = v16;
-      v27 = v15;
-      v29 = v11;
-      LogPrintF_safe();
+      v17 = [*(*(a1 + 32) + 24) signingIdentity];
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _fetchClientPublicKeyWithVerificationID:keyVersion:completion:]_block_invoke_2", 90, "Public key version %@ != %@ for region: %@ and app: %@", v15, v11, v16, v17);
     }
 
-    v19 = [*(*(a1 + 32) + 32) configurationManager];
-    [v19 fetchServerConfigurationsForRegion:*(a1 + 40) userInitiated:0 withCompletion:&__block_literal_global_2291];
+    v20 = [*(*(a1 + 32) + 32) configurationManager];
+    [v20 fetchServerConfigurationsForRegion:*(a1 + 40) userInitiated:0 withCompletion:&__block_literal_global_2291];
   }
 
-  v20 = [v5 publicKey];
+  v21 = [v5 publicKey];
   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    v27 = v20;
-    LogPrintF_safe();
+    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _fetchClientPublicKeyWithVerificationID:keyVersion:completion:]_block_invoke_2", 30, "Fetched public key - %@", v21);
   }
 
-  v21 = *MEMORY[0x277CDBFF8];
-  v22 = *(*(a1 + 64) + 8);
-  obj = *(v22 + 40);
-  v23 = [ENSecKey keyFromBase64String:v20 keyClass:v21 error:&obj, v27];
-  objc_storeStrong((v22 + 40), obj);
-  if (v23)
+  v22 = *MEMORY[0x277CDBFF8];
+  v23 = *(*(a1 + 64) + 8);
+  obj = *(v23 + 40);
+  v24 = [ENSecKey keyFromBase64String:v21 keyClass:v22 error:&obj];
+  objc_storeStrong((v23 + 40), obj);
+  if (v24)
   {
     (*(*(a1 + 56) + 16))();
     if (([*(a1 + 32) skipFileSigningVerification] & 1) == 0)
     {
-      v24 = [*(*(a1 + 32) + 32) configurationManager];
-      v25 = [v24 configurationStore];
-      v26 = [v25 configurationForRegion:*(a1 + 40)];
+      v25 = [*(*(a1 + 32) + 32) configurationManager];
+      v26 = [v25 configurationStore];
+      v27 = [v26 configurationForRegion:*(a1 + 40)];
 
-      if (v26)
+      if (v27)
       {
-        [*(*(a1 + 32) + 32) _exposureNotificationRegionConfigurationChanged:v26];
+        [*(*(a1 + 32) + 32) _exposureNotificationRegionConfigurationChanged:v27];
       }
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _fetchClientPublicKeyWithVerificationID:keyVersion:completion:]_block_invoke_2", 90, "Invalid region config");
       }
     }
   }
@@ -9147,59 +9152,61 @@ uint64_t __81__ENXPCConnection__fetchClientPublicKeyWithVerificationID_keyVersio
   nextCopy = next;
   sessionCopy = session;
   keyCopy = key;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
-  v36 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __74__ENXPCConnection__xpcExposureDetectionFileAddNext_fileSession_publicKey___block_invoke;
-  v26[3] = &unk_278FD1E28;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__3;
+  v41 = __Block_byref_object_dispose__3;
+  v42 = 0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __74__ENXPCConnection__xpcExposureDetectionFileAddNext_fileSession_publicKey___block_invoke;
+  v32[3] = &unk_278FD1E28;
   v10 = sessionCopy;
-  v30 = &v31;
-  v27 = v10;
+  v36 = &v37;
+  v33 = v10;
   selfCopy = self;
   v11 = nextCopy;
-  v29 = v11;
-  v12 = MEMORY[0x24C214430](v26);
+  v35 = v11;
+  v12 = MEMORY[0x24C214430](v32);
   v13 = self->_detectionSession;
   v14 = v13;
   if (!v13)
   {
-    v23 = ENErrorF();
-    reply = v32[5];
-    v32[5] = v23;
+    v28 = ENErrorF(10, "No detection session");
+    reply = v38[5];
+    v38[5] = v28;
 LABEL_10:
 
     goto LABEL_11;
   }
 
   statistics = [(ENExposureDetectionDaemonSession *)v13 statistics];
-  [statistics fileKeyCount];
+  fileKeyCount = [statistics fileKeyCount];
 
   statistics2 = [(ENExposureDetectionDaemonSession *)v14 statistics];
-  [statistics2 matchedKeyCount];
+  matchedKeyCount = [statistics2 matchedKeyCount];
 
-  v17 = (v32 + 5);
-  obj = v32[5];
+  v19 = (v38 + 5);
+  obj = v38[5];
   LOBYTE(statistics2) = [(ENExposureDetectionDaemonSession *)v14 addMatchesFromFileSession:v10 publicKey:keyCopy endpoint:0 error:&obj];
-  objc_storeStrong(v17, obj);
+  objc_storeStrong(v19, obj);
   if (statistics2)
   {
+    v29 = matchedKeyCount;
+    v20 = fileKeyCount;
     statistics3 = [(ENExposureDetectionDaemonSession *)v14 statistics];
-    [statistics3 fileKeyCount];
+    fileKeyCount2 = [statistics3 fileKeyCount];
 
     statistics4 = [(ENExposureDetectionDaemonSession *)v14 statistics];
-    [statistics4 matchedKeyCount];
+    matchedKeyCount2 = [statistics4 matchedKeyCount];
 
-    v20 = +[ENLoggingPrefs sharedENLoggingPrefs];
-    isSensitiveLoggingAllowed = [v20 isSensitiveLoggingAllowed];
+    v25 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    isSensitiveLoggingAllowed = [v25 isSensitiveLoggingAllowed];
 
     if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileAddNext:fileSession:publicKey:]", 30, "ExposureDetectionFileAdd: keys %llu, added matches %llu", fileKeyCount2 - v20, matchedKeyCount2 - v29);
     }
 
     reply = xpc_dictionary_create_reply(v11);
@@ -9210,7 +9217,7 @@ LABEL_10:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileAddNext:fileSession:publicKey:]", 90, "### ExposureDetectionFileAdd create reply failed");
     }
 
     goto LABEL_10;
@@ -9219,67 +9226,57 @@ LABEL_10:
 LABEL_11:
 
   v12[2](v12);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
-uint64_t __74__ENXPCConnection__xpcExposureDetectionFileAddNext_fileSession_publicKey___block_invoke(uint64_t a1)
+void *__74__ENXPCConnection__xpcExposureDetectionFileAddNext_fileSession_publicKey___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) invalidate];
   v2 = *(a1 + 56);
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 56);
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = *(a1 + 56), v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileAddNext:fileSession:publicKey:]_block_invoke", 90, "### ExposureDetectionFileAdd failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = *(a1 + 56);
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
 
-    v2 = *(a1 + 56);
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcExposureDetectionFileFinish:(id)finish
 {
   finishCopy = finish;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__3;
-  v31 = __Block_byref_object_dispose__3;
-  v32 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __51__ENXPCConnection__xpcExposureDetectionFileFinish___block_invoke;
-  v24[3] = &unk_278FD10D0;
-  v26 = &v27;
-  v24[4] = self;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__3;
+  v27 = __Block_byref_object_dispose__3;
+  v28 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __51__ENXPCConnection__xpcExposureDetectionFileFinish___block_invoke;
+  v20[3] = &unk_278FD10D0;
+  v22 = &v23;
+  v20[4] = self;
   v5 = finishCopy;
-  v25 = v5;
-  v6 = MEMORY[0x24C214430](v24);
-  v7 = (v28 + 5);
-  obj = v28[5];
+  v21 = v5;
+  v6 = MEMORY[0x24C214430](v20);
+  v7 = (v24 + 5);
+  obj = v24[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
@@ -9288,28 +9285,24 @@ LABEL_7:
     v10 = v9;
     if (v9)
     {
-      v11 = (v28 + 5);
-      v22 = v28[5];
-      v12 = [(ENExposureDetectionDaemonSession *)v9 finishAndReturnError:&v22];
-      objc_storeStrong(v11, v22);
+      v11 = (v24 + 5);
+      v18 = v24[5];
+      v12 = [(ENExposureDetectionDaemonSession *)v9 finishAndReturnError:&v18];
+      objc_storeStrong(v11, v18);
       if (v12)
       {
         statistics = [v12 statistics];
         if (_MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          processedFileCount = [statistics processedFileCount];
-          fileKeyCount = [statistics fileKeyCount];
-          invalidFileSignatureCount = [statistics invalidFileSignatureCount];
-          v19 = processedFileCount;
-          LogPrintF_safe();
+          LogPrintF_safe(&_MergedGlobals, "-[ENXPCConnection _xpcExposureDetectionFileFinish:]", 50, "ExposureDetectionFileFinish: session finished successfully for %llu files (%llu keys, %llu invalid signatures)", [statistics processedFileCount], objc_msgSend(statistics, "fileKeyCount"), objc_msgSend(statistics, "invalidFileSignatureCount"));
         }
 
-        [(ENDaemon *)self->_daemon setUsageExposureDetectFileFinish:[(ENDaemon *)self->_daemon usageExposureDetectFileFinish:v19]+ 1];
+        [(ENDaemon *)self->_daemon setUsageExposureDetectFileFinish:[(ENDaemon *)self->_daemon usageExposureDetectFileFinish]+ 1];
         reply = xpc_dictionary_create_reply(v5);
         if (reply)
         {
           summary = [v12 summary];
-          v17 = summary;
+          v16 = summary;
           if (summary)
           {
             [summary encodeWithXPCObject:reply];
@@ -9318,102 +9311,92 @@ LABEL_7:
 
           else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileFinish:]", 90, "### getSummaryAndReturnError failed");
           }
         }
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileFinish:]", 90, "### ExposureDetectionFileFinish create reply failed");
         }
       }
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileFinish:]", 90, "### Finishing detection session failed");
       }
     }
 
     else
     {
-      v18 = ENErrorF();
-      v12 = v28[5];
-      v28[5] = v18;
+      v17 = ENErrorF(10, "No detection session");
+      v12 = v24[5];
+      v24[5] = v17;
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
-uint64_t __51__ENXPCConnection__xpcExposureDetectionFileFinish___block_invoke(void *a1)
+void *__51__ENXPCConnection__xpcExposureDetectionFileFinish___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileFinish:]_block_invoke", 90, "### ExposureDetectionFileFinish failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcExposureDetectionFileGetExposures:(id)exposures
 {
   exposuresCopy = exposures;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__3;
-  v62 = __Block_byref_object_dispose__3;
-  v63 = 0;
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke;
-  v55[3] = &unk_278FD10D0;
-  v57 = &v58;
-  v55[4] = self;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__3;
+  v59 = __Block_byref_object_dispose__3;
+  v60 = 0;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke;
+  v52[3] = &unk_278FD10D0;
+  v54 = &v55;
+  v52[4] = self;
   v5 = exposuresCopy;
-  v56 = v5;
-  v6 = MEMORY[0x24C214430](v55);
-  v7 = v59;
-  v54 = v59[5];
-  v38 = v6;
-  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&v54];
-  objc_storeStrong(v7 + 5, v54);
+  v53 = v5;
+  v6 = MEMORY[0x24C214430](v52);
+  v7 = v56;
+  v51 = v56[5];
+  v35 = v6;
+  v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&v51];
+  objc_storeStrong(v7 + 5, v51);
   if (v8)
   {
     if ([(ENXPCClient *)self->_client accessLevel]<= 3 && [(ENXPCClient *)self->_client appAPIVersion]>= 2)
     {
-      v33 = ENErrorF();
-      v10 = v59[5];
-      v59[5] = v33;
+      v33 = ENErrorF(10, "GetExposureInfo not supported for version 2 apps");
+      v10 = v56[5];
+      v56[5] = v33;
     }
 
     else
@@ -9425,56 +9408,56 @@ LABEL_7:
         exposureCalculationSession = [(ENExposureDetectionDaemonSession *)v9 exposureCalculationSession];
         if (exposureCalculationSession)
         {
-          v12 = v59;
-          v53 = v59[5];
-          v13 = [(ENExposureDetectionDaemonSession *)v10 getAnalysisSessionAndReturnError:&v53];
-          objc_storeStrong(v12 + 5, v53);
+          v12 = v56;
+          v50 = v56[5];
+          v13 = [(ENExposureDetectionDaemonSession *)v10 getAnalysisSessionAndReturnError:&v50];
+          objc_storeStrong(v12 + 5, v50);
           if (v13)
           {
-            v40 = v13;
+            v37 = v13;
             configuration = [v13 configuration];
             string = xpc_dictionary_get_string(v5, "auEx");
             if (string)
             {
-              v39 = [MEMORY[0x277CCACA0] stringWithUTF8String:string];
+              v36 = [MEMORY[0x277CCACA0] stringWithUTF8String:string];
             }
 
             else
             {
-              v39 = &stru_285D62BB0;
+              v36 = &stru_285D62BB0;
             }
 
+            v46 = 0;
+            v47 = &v46;
+            v48 = 0x2020000000;
             v49 = 0;
-            v50 = &v49;
-            v51 = 0x2020000000;
-            v52 = 0;
-            v47[0] = 0;
-            v47[1] = v47;
-            v47[2] = 0x2020000000;
+            v44[0] = 0;
+            v44[1] = v44;
+            v44[2] = 0x2020000000;
             minimumRiskScore = [configuration minimumRiskScore];
             [configuration minimumRiskScoreFullRange];
             v16 = v15;
+            v40 = 0;
+            v41 = &v40;
+            v42 = 0x2020000000;
             v43 = 0;
-            v44 = &v43;
-            v45 = 0x2020000000;
-            v46 = 0;
             Current = CFAbsoluteTimeGetCurrent();
             v18 = xpc_array_create(0, 0);
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_2;
-            v42[3] = &unk_278FD1E50;
-            v42[6] = &v49;
-            v42[7] = v47;
-            *&v42[9] = Current;
-            v42[10] = v16;
-            v42[8] = &v43;
-            v42[4] = v13;
-            v42[5] = v18;
-            [exposureCalculationSession enumerateCachedExposureInfo:v42];
-            if (v50[3])
+            v39[0] = MEMORY[0x277D85DD0];
+            v39[1] = 3221225472;
+            v39[2] = __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_2;
+            v39[3] = &unk_278FD1E50;
+            v39[6] = &v46;
+            v39[7] = v44;
+            *&v39[9] = Current;
+            v39[10] = v16;
+            v39[8] = &v40;
+            v39[4] = v13;
+            v39[5] = v18;
+            [exposureCalculationSession enumerateCachedExposureInfo:v39];
+            if (v47[3])
             {
-              v37 = exposureCalculationSession;
+              v34 = exposureCalculationSession;
               v19 = v5;
               activeEntity = [(ENDaemon *)self->_daemon activeEntity];
               entity = [activeEntity entity];
@@ -9491,9 +9474,9 @@ LABEL_7:
                 bundleIdentifier2 = @"?";
               }
 
-              [(ENDaemon *)self->_daemon postExposureSummaryAccessNotificationWithAppBundleIdentifier:bundleIdentifier2 string:v39];
+              [(ENDaemon *)self->_daemon postExposureSummaryAccessNotificationWithAppBundleIdentifier:bundleIdentifier2 string:v36];
               v5 = v19;
-              exposureCalculationSession = v37;
+              exposureCalculationSession = v34;
             }
 
             v26 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -9501,13 +9484,10 @@ LABEL_7:
 
             if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
-              v35 = v44[3];
-              v36 = configuration;
-              v34 = v50[3];
-              LogPrintF_safe();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileGetExposures:]", 30, "GetExposures: Processed %d, MinSkipped %llu, %@", v47[3], v41[3], configuration);
             }
 
-            [(ENDaemon *)self->_daemon setUsageExposureDetectFileGetExposures:[(ENDaemon *)self->_daemon usageExposureDetectFileGetExposures:v34]+ 1];
+            [(ENDaemon *)self->_daemon setUsageExposureDetectFileGetExposures:[(ENDaemon *)self->_daemon usageExposureDetectFileGetExposures]+ 1];
             reply = xpc_dictionary_create_reply(v5);
             v29 = reply;
             if (reply)
@@ -9516,7 +9496,7 @@ LABEL_7:
               [(ENXPCConnection *)self _xpcSendMessage:v29];
               if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF_safe();
+                LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileGetExposures:]", 30, "GetExposures: tear down session on done");
               }
 
               [(ENExposureDetectionDaemonSession *)v10 invalidate];
@@ -9526,111 +9506,101 @@ LABEL_7:
 
             else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileGetExposures:]", 90, "### GetExposures create reply failed");
             }
 
-            _Block_object_dispose(&v43, 8);
-            _Block_object_dispose(v47, 8);
-            _Block_object_dispose(&v49, 8);
+            _Block_object_dispose(&v40, 8);
+            _Block_object_dispose(v44, 8);
+            _Block_object_dispose(&v46, 8);
 
-            v13 = v40;
+            v13 = v37;
           }
         }
 
         else
         {
-          v32 = ENErrorF();
-          v13 = v59[5];
-          v59[5] = v32;
+          v32 = ENErrorF(11, "No calculation session");
+          v13 = v56[5];
+          v56[5] = v32;
         }
 
-        v6 = v38;
+        v6 = v35;
       }
 
       else
       {
-        v31 = ENErrorF();
-        exposureCalculationSession = v59[5];
-        v59[5] = v31;
+        v31 = ENErrorF(10, "No detection session");
+        exposureCalculationSession = v56[5];
+        v56[5] = v31;
       }
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v55, 8);
 }
 
-uint64_t __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke(void *a1)
+void *__57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileGetExposures:]_block_invoke", 90, "### GetExposures failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_2(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(*(a1 + 48) + 8) + 24) += [v3 count];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v37;
-    v26 = v4;
-    v27 = a1;
-    v25 = *v37;
+    v7 = *v36;
+    v25 = v4;
+    v26 = a1;
+    v24 = *v36;
     do
     {
       v8 = 0;
-      v28 = v6;
+      v27 = v6;
       do
       {
-        if (*v37 != v7)
+        if (*v36 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v36 + 1) + 8 * v8);
-        v35 = 0;
-        [*(a1 + 32) estimateRiskWithExposureInfo:v9 referenceTime:&v35 + 1 transmissionRiskLevel:&v35 skip:{*(a1 + 72), v25, v26}];
-        if ((v35 & 1) == 0)
+        v9 = *(*(&v35 + 1) + 8 * v8);
+        v34 = 0;
+        [*(a1 + 32) estimateRiskWithExposureInfo:v9 referenceTime:&v34 + 1 transmissionRiskLevel:&v34 skip:{*(a1 + 72), v24, v25}];
+        if ((v34 & 1) == 0)
         {
           v11 = v10;
           if (v10 > 255.0)
@@ -9645,7 +9615,7 @@ void __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_
 
           if (*(*(*(a1 + 56) + 8) + 24) <= v10 && v11 >= *(a1 + 80))
           {
-            v29 = v10;
+            v28 = v10;
             [v9 duration];
             v13 = 60 * ((v12 + 59) / 0x3C);
             if (v13 >= 0x708)
@@ -9655,27 +9625,27 @@ void __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_
 
             [v9 setDuration:v13];
             v14 = objc_alloc_init(MEMORY[0x277CBEB10]);
+            v30 = 0u;
             v31 = 0u;
             v32 = 0u;
             v33 = 0u;
-            v34 = 0u;
-            v30 = v9;
+            v29 = v9;
             v15 = [v9 attenuationDurations];
-            v16 = [v15 countByEnumeratingWithState:&v31 objects:v40 count:16];
+            v16 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v32;
+              v18 = *v31;
               do
               {
                 for (i = 0; i != v17; ++i)
                 {
-                  if (*v32 != v18)
+                  if (*v31 != v18)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  v20 = 60 * (([*(*(&v31 + 1) + 8 * i) unsignedIntValue] + 59) / 0x3C);
+                  v20 = 60 * (([*(*(&v30 + 1) + 8 * i) unsignedIntValue] + 59) / 0x3C);
                   if (v20 >= 0x708)
                   {
                     v21 = 1800;
@@ -9690,24 +9660,24 @@ void __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_
                   [v14 addObject:v22];
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v31 objects:v40 count:16];
+                v17 = [v15 countByEnumeratingWithState:&v30 objects:v39 count:16];
               }
 
               while (v17);
             }
 
-            [v30 setAttenuationDurations:v14];
-            [v30 setTotalRiskScore:v29];
-            [v30 setTotalRiskScoreFullRange:v11];
-            [v30 setTransmissionRiskLevel:HIBYTE(v35)];
+            [v29 setAttenuationDurations:v14];
+            [v29 setTotalRiskScore:v28];
+            [v29 setTotalRiskScoreFullRange:v11];
+            [v29 setTransmissionRiskLevel:HIBYTE(v34)];
             v23 = xpc_dictionary_create(0, 0, 0);
-            [v30 encodeWithXPCObject:v23];
-            a1 = v27;
-            xpc_array_set_value(*(v27 + 40), 0xFFFFFFFFFFFFFFFFLL, v23);
+            [v29 encodeWithXPCObject:v23];
+            a1 = v26;
+            xpc_array_set_value(*(v26 + 40), 0xFFFFFFFFFFFFFFFFLL, v23);
 
-            v7 = v25;
-            v4 = v26;
-            v6 = v28;
+            v7 = v24;
+            v4 = v25;
+            v6 = v27;
           }
 
           else
@@ -9720,36 +9690,34 @@ void __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_
       }
 
       while (v8 != v6);
-      v6 = [v4 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v6);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_xpcExposureDetectionFileGetExposureWindows:(id)windows
 {
   windowsCopy = windows;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__3;
-  v62 = __Block_byref_object_dispose__3;
-  v63 = 0;
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_invoke;
-  v55[3] = &unk_278FD10D0;
-  v57 = &v58;
-  v55[4] = self;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__3;
+  v56 = __Block_byref_object_dispose__3;
+  v57 = 0;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_invoke;
+  v49[3] = &unk_278FD10D0;
+  v51 = &v52;
+  v49[4] = self;
   v5 = windowsCopy;
-  v56 = v5;
-  v6 = MEMORY[0x24C214430](v55);
-  v7 = v59;
-  obj = v59[5];
-  v46 = v6;
+  v50 = v5;
+  v6 = MEMORY[0x24C214430](v49);
+  v7 = v53;
+  obj = v53[5];
+  v40 = v6;
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&obj];
   objc_storeStrong(v7 + 5, obj);
   if (v8)
@@ -9761,8 +9729,8 @@ void __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_
     configurationManager = [(ENDaemon *)self->_daemon configurationManager];
     configurationStore = [configurationManager configurationStore];
 
-    v44 = configurationStore;
-    v45 = region;
+    v38 = configurationStore;
+    v39 = region;
     v14 = [configurationStore serverConfigurationForRegion:region];
     variantOfConcernEnabled = [v14 variantOfConcernEnabled];
 
@@ -9770,179 +9738,175 @@ void __57__ENXPCConnection__xpcExposureDetectionFileGetExposures___block_invoke_
     v17 = v16;
     if (!v16)
     {
-      v35 = ENErrorF();
-      v19 = v59[5];
-      v59[5] = v35;
+      v35 = ENErrorF(10, "No detection session");
+      v19 = v53[5];
+      v53[5] = v35;
       goto LABEL_31;
     }
 
     exposureCalculationSession = [(ENExposureDetectionDaemonSession *)v16 exposureCalculationSession];
     v19 = exposureCalculationSession;
-    if (!exposureCalculationSession || (v20 = [exposureCalculationSession cachedExposureWindowCount], uint64 = xpc_dictionary_get_uint64(v5, "expWndIdx"), v22 = uint64, v20 < uint64))
+    if (exposureCalculationSession)
     {
-      v36 = ENErrorF();
-      v37 = v59[5];
-      v59[5] = v36;
-
-      goto LABEL_31;
-    }
-
-    if (v20 - uint64 >= 0x400)
-    {
-      v23 = 1024;
-    }
-
-    else
-    {
-      v23 = v20 - uint64;
-    }
-
-    v50 = 0;
-    v51 = &v50;
-    v52 = 0x2020000000;
-    v53 = 0;
-    value = xpc_array_create(0, 0);
-    if (v20 != v22)
-    {
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_invoke_2;
-      v48[3] = &unk_278FD1E78;
-      v48[6] = &v50;
-      v49 = variantOfConcernEnabled;
-      v48[4] = self;
-      v48[5] = value;
-      [v19 enumerateCachedExposureWindows:v48 inRange:v22 withBatchSize:{v23, 1024}];
-    }
-
-    v24 = v51[3] + v22;
-    if (v24 >= v20)
-    {
-      v27 = +[ENLoggingPrefs sharedENLoggingPrefs];
-      isSensitiveLoggingAllowed = [v27 isSensitiveLoggingAllowed];
-
-      if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+      cachedExposureWindowCount = [exposureCalculationSession cachedExposureWindowCount];
+      uint64 = xpc_dictionary_get_uint64(v5, "expWndIdx");
+      v22 = uint64;
+      if (cachedExposureWindowCount >= uint64)
       {
-        v42 = v24;
-        v43 = v20;
-        v39 = v23;
-        v40 = v51[3];
-        v38 = v22;
-        LogPrintF_safe();
-      }
-
-      [(ENDaemon *)self->_daemon setUsageExposureDetectFileGetExposureWindows:[(ENDaemon *)self->_daemon usageExposureDetectFileGetExposureWindows:v38]+ 1];
-      reply = xpc_dictionary_create_reply(v5);
-      v30 = reply;
-      if (reply)
-      {
-        xpc_dictionary_set_value(reply, "expWndA", value);
-        xpc_dictionary_set_uint64(v30, "expWndIdx", 0);
-        [(ENXPCConnection *)self _xpcSendMessage:v30];
-        v32 = +[ENLoggingPrefs sharedENLoggingPrefs];
-        isSensitiveLoggingAllowed2 = [v32 isSensitiveLoggingAllowed];
-
-        if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+        if (cachedExposureWindowCount - uint64 >= 0x400)
         {
-          LogPrintF_safe();
+          v23 = 1024;
         }
 
-        [(ENExposureDetectionDaemonSession *)v17 invalidate];
-        detectionSession = self->_detectionSession;
-        self->_detectionSession = 0;
+        else
+        {
+          v23 = cachedExposureWindowCount - uint64;
+        }
 
+        v44 = 0;
+        v45 = &v44;
+        v46 = 0x2020000000;
+        v47 = 0;
+        value = xpc_array_create(0, 0);
+        if (cachedExposureWindowCount != v22)
+        {
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_invoke_2;
+          v42[3] = &unk_278FD1E78;
+          v42[6] = &v44;
+          v43 = variantOfConcernEnabled;
+          v42[4] = self;
+          v42[5] = value;
+          [v19 enumerateCachedExposureWindows:v42 inRange:v22 withBatchSize:{v23, 1024}];
+        }
+
+        v24 = v45[3] + v22;
+        if (v24 >= cachedExposureWindowCount)
+        {
+          v27 = +[ENLoggingPrefs sharedENLoggingPrefs];
+          isSensitiveLoggingAllowed = [v27 isSensitiveLoggingAllowed];
+
+          if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileGetExposureWindows:]", 30, "GetExposureWindows complete: range %llu, %llu, processed %d, %llu of %d", v22, v23, v45[3], v24, cachedExposureWindowCount);
+          }
+
+          [(ENDaemon *)self->_daemon setUsageExposureDetectFileGetExposureWindows:[(ENDaemon *)self->_daemon usageExposureDetectFileGetExposureWindows]+ 1];
+          reply = xpc_dictionary_create_reply(v5);
+          v30 = reply;
+          if (reply)
+          {
+            xpc_dictionary_set_value(reply, "expWndA", value);
+            xpc_dictionary_set_uint64(v30, "expWndIdx", 0);
+            [(ENXPCConnection *)self _xpcSendMessage:v30];
+            v32 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed2 = [v32 isSensitiveLoggingAllowed];
+
+            if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileGetExposureWindows:]", 30, "GetExposureWindows: tear down session on done");
+            }
+
+            [(ENExposureDetectionDaemonSession *)v17 invalidate];
+            detectionSession = self->_detectionSession;
+            self->_detectionSession = 0;
+
+            goto LABEL_30;
+          }
+
+          if (dword_281346508 > 90 || dword_281346508 == -1 && !_LogCategory_Initialize())
+          {
+LABEL_30:
+
+            _Block_object_dispose(&v44, 8);
+LABEL_31:
+
+            v6 = v40;
+            goto LABEL_32;
+          }
+        }
+
+        else
+        {
+          v25 = +[ENLoggingPrefs sharedENLoggingPrefs];
+          isSensitiveLoggingAllowed3 = [v25 isSensitiveLoggingAllowed];
+
+          if (isSensitiveLoggingAllowed3 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcExposureDetectionFileGetExposureWindows:]", 30, "GetExposureWindows partial: range %llu, %llu, processed %d, %llu of %d", v22, v23, v45[3], v24, cachedExposureWindowCount);
+          }
+
+          v29 = xpc_dictionary_create_reply(v5);
+          v30 = v29;
+          if (v29)
+          {
+            xpc_dictionary_set_value(v29, "expWndA", value);
+            xpc_dictionary_set_uint64(v30, "expWndIdx", v24);
+            [(ENXPCConnection *)self _xpcSendMessage:v30];
+            goto LABEL_30;
+          }
+
+          if (dword_281346508 > 90 || dword_281346508 == -1 && !_LogCategory_Initialize())
+          {
+            goto LABEL_30;
+          }
+        }
+
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileGetExposureWindows:]", 90, "### GetExposureWindows create reply failed");
         goto LABEL_30;
       }
 
-      if (dword_281346508 > 90 || dword_281346508 == -1 && !_LogCategory_Initialize())
-      {
-LABEL_30:
-
-        _Block_object_dispose(&v50, 8);
-LABEL_31:
-
-        v6 = v46;
-        goto LABEL_32;
-      }
+      v36 = ENErrorF(2, "Bad index");
     }
 
     else
     {
-      v25 = +[ENLoggingPrefs sharedENLoggingPrefs];
-      isSensitiveLoggingAllowed3 = [v25 isSensitiveLoggingAllowed];
-
-      if (isSensitiveLoggingAllowed3 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-      {
-        v41 = v51[3];
-        LogPrintF_safe();
-      }
-
-      v29 = xpc_dictionary_create_reply(v5);
-      v30 = v29;
-      if (v29)
-      {
-        xpc_dictionary_set_value(v29, "expWndA", value);
-        xpc_dictionary_set_uint64(v30, "expWndIdx", v24);
-        [(ENXPCConnection *)self _xpcSendMessage:v30];
-        goto LABEL_30;
-      }
-
-      if (dword_281346508 > 90 || dword_281346508 == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_30;
-      }
+      v36 = ENErrorF(11, "No calculation session");
     }
 
-    LogPrintF_safe();
-    goto LABEL_30;
+    v37 = v53[5];
+    v53[5] = v36;
+
+    goto LABEL_31;
   }
 
 LABEL_32:
   v6[2](v6);
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v52, 8);
 }
 
-uint64_t __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_invoke(void *a1)
+void *__63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionFileGetExposureWindows:]_block_invoke", 90, "### GetExposureWindows failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(*(a1 + 48) + 8) + 24) += [v3 count];
   if (([*(*(a1 + 32) + 32) prefSkipExposureWindowShuffling] & 1) == 0)
@@ -9952,26 +9916,26 @@ void __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_i
     v3 = v4;
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 infectiousness])
         {
           if ((*(a1 + 56) & 1) == 0)
@@ -9985,13 +9949,11 @@ void __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_i
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_xpcExposureDetectionHistoryGetFiles:(id)files
@@ -10025,7 +9987,7 @@ void __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_i
     objc_storeStrong(v9 + 5, v12);
     if (v10)
     {
-      v11 = ENErrorF();
+      v11 = ENErrorF(2, "No session ID");
     }
   }
 
@@ -10034,41 +9996,31 @@ void __63__ENXPCConnection__xpcExposureDetectionFileGetExposureWindows___block_i
   _Block_object_dispose(&v18, 8);
 }
 
-uint64_t __56__ENXPCConnection__xpcExposureDetectionHistoryGetFiles___block_invoke(void *a1)
+void *__56__ENXPCConnection__xpcExposureDetectionHistoryGetFiles___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionHistoryGetFiles:]_block_invoke", 90, "### HistoryGetFiles failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __56__ENXPCConnection__xpcExposureDetectionHistoryGetFiles___block_invoke_2(uint64_t a1, void *a2)
@@ -10135,7 +10087,7 @@ void __56__ENXPCConnection__xpcExposureDetectionHistoryGetFiles___block_invoke_2
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionHistoryGetSessions:]", 90, "### HistoryGetSessions create reply failed");
         }
       }
     }
@@ -10146,41 +10098,31 @@ void __56__ENXPCConnection__xpcExposureDetectionHistoryGetFiles___block_invoke_2
   _Block_object_dispose(&v25, 8);
 }
 
-uint64_t __59__ENXPCConnection__xpcExposureDetectionHistoryGetSessions___block_invoke(void *a1)
+void *__59__ENXPCConnection__xpcExposureDetectionHistoryGetSessions___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcExposureDetectionHistoryGetSessions:]_block_invoke", 90, "### HistoryGetSessions failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __59__ENXPCConnection__xpcExposureDetectionHistoryGetSessions___block_invoke_2(uint64_t a1, void *a2)
@@ -10219,34 +10161,43 @@ void __59__ENXPCConnection__xpcExposureDetectionHistoryGetSessions___block_invok
     v9 = xpc_dictionary_get_BOOL(v5, "detX");
     downloadManager = [(ENDaemon *)self->_daemon downloadManager];
     v11 = downloadManager;
-    if (downloadManager && [downloadManager enabledEndpointCount])
+    if (downloadManager)
     {
-      reply = xpc_dictionary_create_reply(v5);
-      v13 = reply;
-      if (reply)
+      if ([downloadManager enabledEndpointCount])
       {
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __32__ENXPCConnection__xpcDownload___block_invoke_2;
-        v15[3] = &unk_278FD1EF0;
-        v16 = v9;
-        v15[4] = self;
-        v15[5] = reply;
-        [v11 performDownloadsForced:1 completion:v15];
+        reply = xpc_dictionary_create_reply(v5);
+        v13 = reply;
+        if (reply)
+        {
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = __32__ENXPCConnection__xpcDownload___block_invoke_2;
+          v15[3] = &unk_278FD1EF0;
+          v16 = v9;
+          v15[4] = self;
+          v15[5] = reply;
+          [v11 performDownloadsForced:1 completion:v15];
+        }
+
+        else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDownload:]", 90, "### Download create reply failed");
+        }
+
+        goto LABEL_6;
       }
 
-      else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF_safe();
-      }
+      v14 = ENErrorF(5, "No enabled download endpoints");
     }
 
     else
     {
-      v14 = ENErrorF();
-      v13 = v22[5];
-      v22[5] = v14;
+      v14 = ENErrorF(11, "Nil download manager");
     }
+
+    v13 = v22[5];
+    v22[5] = v14;
+LABEL_6:
   }
 
   v6[2](v6);
@@ -10254,41 +10205,31 @@ void __59__ENXPCConnection__xpcExposureDetectionHistoryGetSessions___block_invok
   _Block_object_dispose(&v21, 8);
 }
 
-uint64_t __32__ENXPCConnection__xpcDownload___block_invoke(void *a1)
+void *__32__ENXPCConnection__xpcDownload___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDownload:]_block_invoke", 90, "### Download failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __32__ENXPCConnection__xpcDownload___block_invoke_2(uint64_t a1)
@@ -10332,13 +10273,13 @@ void __32__ENXPCConnection__xpcDownload___block_invoke_3(uint64_t a1, void *a2, 
 
     else
     {
-      v6 = ENErrorF();
+      v6 = ENErrorF(1, "Unknown error");
     }
 
     v7 = v6;
     if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      __32__ENXPCConnection__xpcDownload___block_invoke_3_cold_1();
+      __32__ENXPCConnection__xpcDownload___block_invoke_3_cold_1(v7);
     }
 
     [*(a1 + 32) _xpcSendReplyError:v7 reply:*(a1 + 40)];
@@ -10348,23 +10289,23 @@ void __32__ENXPCConnection__xpcDownload___block_invoke_3(uint64_t a1, void *a2, 
 - (void)_xpcGetInfo:(id)info
 {
   infoCopy = info;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__3;
-  v51 = __Block_byref_object_dispose__3;
-  v52 = 0;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __31__ENXPCConnection__xpcGetInfo___block_invoke;
-  v44[3] = &unk_278FD10D0;
-  v46 = &v47;
-  v44[4] = self;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__3;
+  v52 = __Block_byref_object_dispose__3;
+  v53 = 0;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __31__ENXPCConnection__xpcGetInfo___block_invoke;
+  v45[3] = &unk_278FD10D0;
+  v47 = &v48;
+  v45[4] = self;
   v5 = infoCopy;
-  v45 = v5;
-  v6 = MEMORY[0x24C214430](v44);
-  v7 = (v48 + 5);
-  obj = v48[5];
+  v46 = v5;
+  v6 = MEMORY[0x24C214430](v45);
+  v7 = (v49 + 5);
+  obj = v49[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
@@ -10373,303 +10314,325 @@ void __32__ENXPCConnection__xpcDownload___block_invoke_3(uint64_t a1, void *a2, 
     string = xpc_dictionary_get_string(v5, "iStr");
     if (!string)
     {
-      v38 = ENErrorF();
-      activeEntity = v48[5];
-      v48[5] = v38;
-      goto LABEL_38;
+      v40 = ENErrorF(2, "No key");
+      activeEntity = v49[5];
+      v49[5] = v40;
+      goto LABEL_46;
     }
 
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      v42 = string;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetInfo:]", 30, "GetInfo: '%s'", string);
     }
 
     activeEntity = [(ENDaemon *)self->_daemon activeEntity];
-    if (!strcmp(string, "activeApp"))
+    if (strcmp(string, "activeApp"))
     {
-      if ([activeEntity activeStatus] != 2)
+      if (!strcmp(string, "activeRegion"))
       {
-        goto LABEL_37;
+        activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
+        entity = [activeEntity2 entity];
+        region = [entity region];
+
+        if (!region)
+        {
+          goto LABEL_66;
+        }
+
+        regionCode = [region regionCode];
       }
 
-      entity = [activeEntity entity];
-      bundleIdentifier = [entity bundleIdentifier];
+      else
+      {
+        if (!strcmp(string, "automaticRegionSwitch"))
+        {
+          automaticRegionSwitchEnabled = [(ENDaemon *)self->_daemon automaticRegionSwitchEnabled];
+          goto LABEL_30;
+        }
+
+        if (!strcmp(string, "availabilityAlertEnabled"))
+        {
+          automaticRegionSwitchEnabled = [(ENDaemon *)self->_daemon availabilityAlertDisabled];
+LABEL_32:
+          v22 = MEMORY[0x277CBEC30];
+          v23 = MEMORY[0x277CBEC20];
+          goto LABEL_33;
+        }
+
+        if (!strcmp(string, "dataPresent"))
+        {
+          storedAdvertisementCount = [delegate storedAdvertisementCount];
+          v30 = MEMORY[0x277CBEC30];
+          if (!storedAdvertisementCount)
+          {
+            v31 = [delegate retrieveTEKHistoryIncludingActive:1 generateNewTEK:0];
+            v32 = [v31 count];
+
+            if (!v32)
+            {
+              v30 = MEMORY[0x277CBEC20];
+            }
+          }
+
+          v24 = v30;
+          goto LABEL_36;
+        }
+
+        if (strcmp(string, "differentialPrivacyMetadata"))
+        {
+          if (strcmp(string, "profileInstalled"))
+          {
+            if (strcmp(string, "supported"))
+            {
+              if (strcmp(string, "weeklySummaryAlertEnabled"))
+              {
+                v12 = ENErrorF(5, "Unsupported key: '%s'", string);
+LABEL_45:
+                v28 = v49[5];
+                v49[5] = v12;
+
+LABEL_46:
+                goto LABEL_47;
+              }
+
+              automaticRegionSwitchEnabled = [(ENDaemon *)self->_daemon monthlySummaryDisabled];
+              goto LABEL_32;
+            }
+
+            entity2 = [activeEntity entity];
+            region2 = [entity2 region];
+
+            if (region2)
+            {
+              configurationManager = [(ENDaemon *)self->_daemon configurationManager];
+              configurationStore = [configurationManager configurationStore];
+              v37 = [configurationStore serverConfigurationForRegion:region2];
+
+              if (!v37)
+              {
+                v42 = ENErrorF(1, "No server config for %@", region2);
+                v43 = v49[5];
+                v49[5] = v42;
+
+                goto LABEL_46;
+              }
+
+              enEnabled = [v37 enEnabled];
+              v39 = MEMORY[0x277CBEC20];
+              if (enEnabled)
+              {
+                v39 = MEMORY[0x277CBEC30];
+              }
+
+              bundleIdentifier = v39;
+
+              goto LABEL_37;
+            }
+
+LABEL_66:
+            v12 = ENErrorF(1, "No active region");
+            goto LABEL_45;
+          }
+
+          automaticRegionSwitchEnabled = [delegate isENLoggingProfileInstalled];
+LABEL_30:
+          v22 = MEMORY[0x277CBEC20];
+          v23 = MEMORY[0x277CBEC30];
+LABEL_33:
+          if (automaticRegionSwitchEnabled)
+          {
+            v22 = v23;
+          }
+
+          v24 = v22;
+LABEL_36:
+          bundleIdentifier = v24;
+          goto LABEL_37;
+        }
+
+        if (![(ENXPCClient *)self->_client entitledForDifferentialPrivacy])
+        {
+          v12 = ENErrorF(3, "Requires entitlement: %s", "com.apple.private.exposure-notification-differential-privacy");
+          goto LABEL_45;
+        }
+
+        region = [(ENDaemon *)self->_daemon differentialPrivacyManager];
+        regionCode = [region metadata];
+      }
+
+      bundleIdentifier = regionCode;
 
       if (!bundleIdentifier)
       {
-        goto LABEL_37;
+        v12 = ENErrorF(11, "No error, no object?");
+        goto LABEL_45;
       }
 
-      goto LABEL_33;
+LABEL_37:
+      v25 = _CFXPCCreateXPCObjectFromCFObject();
+      if (v25)
+      {
+        reply = xpc_dictionary_create_reply(v5);
+        v27 = reply;
+        if (reply)
+        {
+          xpc_dictionary_set_value(reply, "oObj", v25);
+          [(ENXPCConnection *)self _xpcSendMessage:v27];
+        }
+
+        else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetInfo:]", 90, "### GetInfo create reply failed");
+        }
+      }
+
+      else
+      {
+        v41 = ENErrorF(11, "Output object XPC conversion failed");
+        v27 = v49[5];
+        v49[5] = v41;
+      }
+
+      goto LABEL_46;
     }
 
-    if (!strcmp(string, "activeRegion"))
+    activeStatus = [activeEntity activeStatus];
+    if (activeStatus > 1)
     {
-      activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
-      entity2 = [activeEntity2 entity];
-      region = [entity2 region];
-
-      if (!region)
+      if (activeStatus == 3)
       {
-        goto LABEL_37;
+        v14 = "NKDActive";
+        goto LABEL_44;
       }
 
-      regionCode = [region regionCode];
+      if (activeStatus == 2)
+      {
+        entity3 = [activeEntity entity];
+        bundleIdentifier = [entity3 bundleIdentifier];
+
+        if (bundleIdentifier)
+        {
+          goto LABEL_37;
+        }
+
+        v14 = "Phase1Active";
+LABEL_44:
+        v12 = ENErrorF(1, "No active app. Active status: %s", v14);
+        goto LABEL_45;
+      }
     }
 
     else
     {
-      if (!strcmp(string, "automaticRegionSwitch"))
+      if (!activeStatus)
       {
-        automaticRegionSwitchEnabled = [(ENDaemon *)self->_daemon automaticRegionSwitchEnabled];
-        goto LABEL_26;
+        v14 = "Unknown";
+        goto LABEL_44;
       }
 
-      if (!strcmp(string, "availabilityAlertEnabled"))
+      if (activeStatus == 1)
       {
-        automaticRegionSwitchEnabled = [(ENDaemon *)self->_daemon availabilityAlertDisabled];
-LABEL_28:
-        v19 = MEMORY[0x277CBEC30];
-        v20 = MEMORY[0x277CBEC20];
-        goto LABEL_29;
+        v14 = "Inactive";
+        goto LABEL_44;
       }
-
-      if (!strcmp(string, "dataPresent"))
-      {
-        storedAdvertisementCount = [delegate storedAdvertisementCount];
-        v28 = MEMORY[0x277CBEC30];
-        if (!storedAdvertisementCount)
-        {
-          v29 = [delegate retrieveTEKHistoryIncludingActive:1 generateNewTEK:0];
-          v30 = [v29 count];
-
-          if (!v30)
-          {
-            v28 = MEMORY[0x277CBEC20];
-          }
-        }
-
-        v21 = v28;
-        goto LABEL_32;
-      }
-
-      if (strcmp(string, "differentialPrivacyMetadata"))
-      {
-        if (strcmp(string, "profileInstalled"))
-        {
-          if (strcmp(string, "supported"))
-          {
-            if (strcmp(string, "weeklySummaryAlertEnabled"))
-            {
-LABEL_37:
-              v25 = ENErrorF();
-              v26 = v48[5];
-              v48[5] = v25;
-
-LABEL_38:
-              goto LABEL_39;
-            }
-
-            automaticRegionSwitchEnabled = [(ENDaemon *)self->_daemon monthlySummaryDisabled];
-            goto LABEL_28;
-          }
-
-          entity3 = [activeEntity entity];
-          region2 = [entity3 region];
-
-          if (!region2)
-          {
-            goto LABEL_37;
-          }
-
-          configurationManager = [(ENDaemon *)self->_daemon configurationManager];
-          configurationStore = [configurationManager configurationStore];
-          v35 = [configurationStore serverConfigurationForRegion:region2];
-
-          if (!v35)
-          {
-            v40 = ENErrorF();
-            v41 = v48[5];
-            v48[5] = v40;
-
-            goto LABEL_38;
-          }
-
-          enEnabled = [v35 enEnabled];
-          v37 = MEMORY[0x277CBEC20];
-          if (enEnabled)
-          {
-            v37 = MEMORY[0x277CBEC30];
-          }
-
-          bundleIdentifier = v37;
-
-LABEL_33:
-          v22 = _CFXPCCreateXPCObjectFromCFObject();
-          if (v22)
-          {
-            reply = xpc_dictionary_create_reply(v5);
-            v24 = reply;
-            if (reply)
-            {
-              xpc_dictionary_set_value(reply, "oObj", v22);
-              [(ENXPCConnection *)self _xpcSendMessage:v24];
-            }
-
-            else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
-            {
-              LogPrintF_safe();
-            }
-          }
-
-          else
-          {
-            v39 = ENErrorF();
-            v24 = v48[5];
-            v48[5] = v39;
-          }
-
-          goto LABEL_38;
-        }
-
-        automaticRegionSwitchEnabled = [delegate isENLoggingProfileInstalled];
-LABEL_26:
-        v19 = MEMORY[0x277CBEC20];
-        v20 = MEMORY[0x277CBEC30];
-LABEL_29:
-        if (automaticRegionSwitchEnabled)
-        {
-          v19 = v20;
-        }
-
-        v21 = v19;
-LABEL_32:
-        bundleIdentifier = v21;
-        goto LABEL_33;
-      }
-
-      if (![(ENXPCClient *)self->_client entitledForDifferentialPrivacy])
-      {
-        goto LABEL_37;
-      }
-
-      region = [(ENDaemon *)self->_daemon differentialPrivacyManager];
-      regionCode = [region metadata];
     }
 
-    bundleIdentifier = regionCode;
-
-    if (!bundleIdentifier)
-    {
-      goto LABEL_37;
-    }
-
-    goto LABEL_33;
+    v14 = "?";
+    goto LABEL_44;
   }
 
-LABEL_39:
+LABEL_47:
   v6[2](v6);
 
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v48, 8);
 }
 
-uint64_t __31__ENXPCConnection__xpcGetInfo___block_invoke(void *a1)
+void *__31__ENXPCConnection__xpcGetInfo___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetInfo:]_block_invoke", 90, "### GetInfo failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetDataVaultSize:(id)size
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   sizeCopy = size;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__3;
-  v45 = __Block_byref_object_dispose__3;
-  v46 = 0;
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __40__ENXPCConnection__xpcGetDataVaultSize___block_invoke;
-  v38[3] = &unk_278FD10D0;
-  v40 = &v41;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__3;
+  v43 = __Block_byref_object_dispose__3;
+  v44 = 0;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __40__ENXPCConnection__xpcGetDataVaultSize___block_invoke;
+  v36[3] = &unk_278FD10D0;
+  v38 = &v39;
   selfCopy = self;
-  v38[4] = self;
+  v36[4] = self;
   original = sizeCopy;
-  v39 = original;
-  v25 = MEMORY[0x24C214430](v38);
-  v5 = v42;
-  obj = v42[5];
+  v37 = original;
+  v23 = MEMORY[0x24C214430](v36);
+  v5 = v40;
+  obj = v40[5];
   LOBYTE(self) = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v5 + 5, obj);
   if (self)
   {
-    v27 = objc_alloc_init(MEMORY[0x277CCAA08]);
+    v25 = objc_alloc_init(MEMORY[0x277CCAA08]);
     v6 = ENDataVaultURL();
-    v30 = *MEMORY[0x277CBE840];
-    v48[0] = *MEMORY[0x277CBE840];
-    v7 = [MEMORY[0x277CBEA68] arrayWithObjects:v48 count:1];
-    v8 = [v27 enumeratorAtURL:v6 includingPropertiesForKeys:v7 options:0 errorHandler:0];
+    v28 = *MEMORY[0x277CBE840];
+    v46[0] = *MEMORY[0x277CBE840];
+    v7 = [MEMORY[0x277CBEA68] arrayWithObjects:v46 count:1];
+    v8 = [v25 enumeratorAtURL:v6 includingPropertiesForKeys:v7 options:0 errorHandler:0];
 
-    v35 = 0u;
-    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v29 = v8;
+    v31 = 0u;
+    v32 = 0u;
+    v27 = v8;
     v9 = 0;
     v10 = 0;
-    v11 = [v29 countByEnumeratingWithState:&v33 objects:v47 count:16];
+    v11 = [v27 countByEnumeratingWithState:&v31 objects:v45 count:16];
     if (v11)
     {
-      v12 = *v34;
+      v12 = *v32;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v34 != v12)
+          if (*v32 != v12)
           {
-            objc_enumerationMutation(v29);
+            objc_enumerationMutation(v27);
           }
 
-          v14 = *(*(&v33 + 1) + 8 * i);
-          v31 = 0;
-          v32 = 0;
-          v15 = [v14 getResourceValue:&v32 forKey:v30 error:{&v31, v23, v24}];
-          v16 = v32;
-          v17 = v31;
+          v14 = *(*(&v31 + 1) + 8 * i);
+          v29 = 0;
+          v30 = 0;
+          v15 = [v14 getResourceValue:&v30 forKey:v28 error:&v29];
+          v16 = v30;
+          v17 = v29;
           if (v15)
           {
             v9 += [v16 unsignedLongLongValue];
@@ -10683,14 +10646,13 @@ LABEL_7:
 
             if (isSensitiveLoggingAllowed && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
-              CUPrintNSError();
-              v24 = v23 = v14;
-              LogPrintF_safe();
+              v20 = CUPrintNSError();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDataVaultSize:]", 90, "### GetDataVaultSize file size lookup for %@: %@", v14, v20);
             }
           }
         }
 
-        v11 = [v29 countByEnumeratingWithState:&v33 objects:v47 count:16];
+        v11 = [v27 countByEnumeratingWithState:&v31 objects:v45 count:16];
       }
 
       while (v11);
@@ -10698,64 +10660,53 @@ LABEL_7:
 
     if (_MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDataVaultSize:]", 50, "GetDataVaultSize returning %llu bytes for %llu files", v9, v10);
     }
 
     reply = xpc_dictionary_create_reply(original);
-    v21 = reply;
+    v22 = reply;
     if (reply)
     {
       xpc_dictionary_set_uint64(reply, "bytes", v9);
-      [(ENXPCConnection *)selfCopy _xpcSendMessage:v21];
+      [(ENXPCConnection *)selfCopy _xpcSendMessage:v22];
     }
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetDataVaultSize:]", 90, "### GetDataVaultSize create reply failed");
     }
   }
 
-  v25[2](v25);
+  v23[2](v23);
 
-  _Block_object_dispose(&v41, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v39, 8);
 }
 
-uint64_t __40__ENXPCConnection__xpcGetDataVaultSize___block_invoke(void *a1)
+void *__40__ENXPCConnection__xpcGetDataVaultSize___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetDataVaultSize:]_block_invoke", 90, "### GetDataVaultSize failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetEntities:(id)entities
@@ -10791,7 +10742,7 @@ LABEL_7:
 
     if (entity && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetEntities:]", 30, "GetEntities activeEntity: %@", v11);
     }
 
     v13 = objc_opt_new();
@@ -10819,41 +10770,31 @@ LABEL_7:
   _Block_object_dispose(&v30, 8);
 }
 
-uint64_t __35__ENXPCConnection__xpcGetEntities___block_invoke(void *a1)
+void *__35__ENXPCConnection__xpcGetEntities___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetEntities:]_block_invoke", 90, "### GetEntities failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __35__ENXPCConnection__xpcGetEntities___block_invoke_2(uint64_t a1, void *a2)
@@ -10885,321 +10826,318 @@ void __35__ENXPCConnection__xpcGetEntities___block_invoke_2(uint64_t a1, void *a
 
 void __35__ENXPCConnection__xpcGetEntities___block_invoke_3(uint64_t a1)
 {
-  v140 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D6C150];
-  v3 = TCCAccessCopyInformation();
-  v4 = MEMORY[0x277D6C0D8];
-  v5 = *MEMORY[0x277D6C0D8];
-  v111 = [MEMORY[0x277CCAC28] predicateWithFormat:@"%K == %@", *MEMORY[0x277D6C0D8], *MEMORY[0x277CBED20]];
-  v6 = [v3 filteredArrayUsingPredicate:?];
-  v7 = *v4;
-  [MEMORY[0x277CCAC28] predicateWithFormat:@"%K == %@", *v4, *MEMORY[0x277CBED18]];
-  v110 = v112 = v3;
-  v116 = [v3 filteredArrayUsingPredicate:?];
-  v8 = [*(*(a1 + 32) + 32) regionMonitor];
-  v134 = 0;
-  v113 = [v8 getAllRegionsWithError:&v134];
-  v9 = v134;
+  v136 = *MEMORY[0x277D85DE8];
+  v2 = TCCAccessCopyInformation();
+  v3 = MEMORY[0x277D6C0D8];
+  v107 = [MEMORY[0x277CCAC28] predicateWithFormat:@"%K == %@", *MEMORY[0x277D6C0D8], *MEMORY[0x277CBED20]];
+  v4 = [v2 filteredArrayUsingPredicate:?];
+  [MEMORY[0x277CCAC28] predicateWithFormat:@"%K == %@", *v3, *MEMORY[0x277CBED18]];
+  v106 = v108 = v2;
+  v112 = [v2 filteredArrayUsingPredicate:?];
+  v5 = [*(*(a1 + 32) + 32) regionMonitor];
+  v130 = 0;
+  v109 = [v5 getAllRegionsWithError:&v130];
+  v6 = v130;
 
-  v109 = v9;
-  if ((v9 || !v113) && dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+  v105 = v6;
+  if ((v6 || !v109) && dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
     __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_1();
   }
 
-  v10 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  v11 = [v10 isSensitiveLoggingAllowed];
+  v7 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  v8 = [v7 isSensitiveLoggingAllowed];
 
-  if (v11 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  if (v8 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_2();
+    __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_2(v109);
   }
 
-  v12 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  v13 = [v12 isSensitiveLoggingAllowed];
+  v9 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  v10 = [v9 isSensitiveLoggingAllowed];
 
-  if (v13 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  if (v10 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
     __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_3(a1);
   }
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
-  v131 = 0u;
-  v14 = v6;
-  v15 = [v14 countByEnumeratingWithState:&v130 objects:v139 count:16];
-  v16 = MEMORY[0x277D6C0C0];
-  v118 = v14;
-  if (v15)
-  {
-    v17 = v15;
-    v18 = *v131;
-    do
-    {
-      for (i = 0; i != v17; ++i)
-      {
-        if (*v131 != v18)
-        {
-          objc_enumerationMutation(v14);
-        }
-
-        v20 = [*(*(&v130 + 1) + 8 * i) objectForKey:*v16];
-        if (v20)
-        {
-          v21 = v20;
-          v22 = [*(*(a1 + 32) + 32) _getBundleIDFromBundle:v20];
-          if (v22)
-          {
-            v23 = [*(*(a1 + 32) + 32) _getInfoDictFromBundle:v21];
-            if (v23)
-            {
-              v24 = [*(*(a1 + 32) + 32) regionForBundleInfo:v23];
-              v25 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:v22 region:v24];
-              v26 = [*(a1 + 48) bundleIdentifier];
-              v27 = [v22 isEqual:v26];
-
-              if ((v27 & 1) == 0)
-              {
-                v28 = [*(a1 + 48) region];
-                v29 = [v24 isEqual:v28];
-
-                if ((v29 & 1) == 0)
-                {
-                  [*(a1 + 56) addObject:v25];
-                }
-              }
-
-              v14 = v118;
-              v16 = MEMORY[0x277D6C0C0];
-            }
-          }
-        }
-      }
-
-      v17 = [v14 countByEnumeratingWithState:&v130 objects:v139 count:16];
-    }
-
-    while (v17);
-  }
-
-  v129 = 0u;
-  v127 = 0u;
   v128 = 0u;
+  v129 = 0u;
   v126 = 0u;
-  v30 = v116;
-  v31 = [v30 countByEnumeratingWithState:&v126 objects:v138 count:16];
-  v117 = v30;
-  if (v31)
+  v127 = 0u;
+  v11 = v4;
+  v12 = [v11 countByEnumeratingWithState:&v126 objects:v135 count:16];
+  v13 = MEMORY[0x277D6C0C0];
+  v114 = v11;
+  if (v12)
   {
-    v32 = v31;
-    v33 = *v127;
+    v14 = v12;
+    v15 = *v127;
     do
     {
-      for (j = 0; j != v32; ++j)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v127 != v33)
+        if (*v127 != v15)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v11);
         }
 
-        v35 = [*(*(&v126 + 1) + 8 * j) objectForKey:*v16];
-        if (v35)
+        v17 = [*(*(&v126 + 1) + 8 * i) objectForKey:*v13];
+        if (v17)
         {
-          v36 = v35;
-          v37 = [*(*(a1 + 32) + 32) _getBundleIDFromBundle:v35];
-          if (v37)
+          v18 = v17;
+          v19 = [*(*(a1 + 32) + 32) _getBundleIDFromBundle:v17];
+          if (v19)
           {
-            v38 = [*(*(a1 + 32) + 32) _getInfoDictFromBundle:v36];
-            if (v38)
+            v20 = [*(*(a1 + 32) + 32) _getInfoDictFromBundle:v18];
+            if (v20)
             {
-              v39 = [*(*(a1 + 32) + 32) regionForBundleInfo:v38];
-              v40 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:v37 region:v39];
-              v41 = [*(a1 + 48) bundleIdentifier];
-              v42 = [v37 isEqual:v41];
+              v21 = [*(*(a1 + 32) + 32) regionForBundleInfo:v20];
+              v22 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:v19 region:v21];
+              v23 = [*(a1 + 48) bundleIdentifier];
+              v24 = [v19 isEqual:v23];
 
-              if ((v42 & 1) == 0)
+              if ((v24 & 1) == 0)
               {
-                v43 = [*(a1 + 48) region];
-                v44 = [v39 isEqual:v43];
+                v25 = [*(a1 + 48) region];
+                v26 = [v21 isEqual:v25];
 
-                if ((v44 & 1) == 0)
+                if ((v26 & 1) == 0)
                 {
-                  [*(a1 + 64) addObject:v40];
+                  [*(a1 + 56) addObject:v22];
                 }
               }
 
-              v30 = v117;
-              v16 = MEMORY[0x277D6C0C0];
+              v11 = v114;
+              v13 = MEMORY[0x277D6C0C0];
             }
           }
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v126 objects:v138 count:16];
+      v14 = [v11 countByEnumeratingWithState:&v126 objects:v135 count:16];
     }
 
-    while (v32);
+    while (v14);
   }
 
-  v124 = 0u;
   v125 = 0u;
-  v122 = 0u;
   v123 = 0u;
-  v45 = *(a1 + 40);
-  v46 = [v45 countByEnumeratingWithState:&v122 objects:v137 count:16];
-  if (v46)
+  v124 = 0u;
+  v122 = 0u;
+  v27 = v112;
+  v28 = [v27 countByEnumeratingWithState:&v122 objects:v134 count:16];
+  v113 = v27;
+  if (v28)
   {
-    v47 = v46;
-    v48 = *v123;
-    v114 = v45;
+    v29 = v28;
+    v30 = *v123;
     do
     {
-      v49 = 0;
+      for (j = 0; j != v29; ++j)
+      {
+        if (*v123 != v30)
+        {
+          objc_enumerationMutation(v27);
+        }
+
+        v32 = [*(*(&v122 + 1) + 8 * j) objectForKey:*v13];
+        if (v32)
+        {
+          v33 = v32;
+          v34 = [*(*(a1 + 32) + 32) _getBundleIDFromBundle:v32];
+          if (v34)
+          {
+            v35 = [*(*(a1 + 32) + 32) _getInfoDictFromBundle:v33];
+            if (v35)
+            {
+              v36 = [*(*(a1 + 32) + 32) regionForBundleInfo:v35];
+              v37 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:v34 region:v36];
+              v38 = [*(a1 + 48) bundleIdentifier];
+              v39 = [v34 isEqual:v38];
+
+              if ((v39 & 1) == 0)
+              {
+                v40 = [*(a1 + 48) region];
+                v41 = [v36 isEqual:v40];
+
+                if ((v41 & 1) == 0)
+                {
+                  [*(a1 + 64) addObject:v37];
+                }
+              }
+
+              v27 = v113;
+              v13 = MEMORY[0x277D6C0C0];
+            }
+          }
+        }
+      }
+
+      v29 = [v27 countByEnumeratingWithState:&v122 objects:v134 count:16];
+    }
+
+    while (v29);
+  }
+
+  v120 = 0u;
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v42 = *(a1 + 40);
+  v43 = [v42 countByEnumeratingWithState:&v118 objects:v133 count:16];
+  if (v43)
+  {
+    v44 = v43;
+    v45 = *v119;
+    v110 = v42;
+    do
+    {
+      v46 = 0;
       do
       {
-        if (*v123 != v48)
+        if (*v119 != v45)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v42);
         }
 
-        v50 = *(*(&v122 + 1) + 8 * v49);
-        v51 = [v50 region];
-        v52 = [*(*(a1 + 32) + 32) configurationManager];
-        v53 = [v52 configurationStore];
-        v54 = [v53 serverConfigurationForRegion:v51];
+        v47 = *(*(&v118 + 1) + 8 * v46);
+        v48 = [v47 region];
+        v49 = [*(*(a1 + 32) + 32) configurationManager];
+        v50 = [v49 configurationStore];
+        v51 = [v50 serverConfigurationForRegion:v48];
 
-        if (v54)
+        if (v51)
         {
-          if ([v54 enEnabled])
+          if ([v51 enEnabled])
           {
-            if ([v54 enVersion] >= 2)
+            if ([v51 enVersion] >= 2)
             {
-              v55 = [*(a1 + 48) region];
-              v56 = [v51 isEqual:v55];
+              v52 = [*(a1 + 48) region];
+              v53 = [v48 isEqual:v52];
 
-              if ((v56 & 1) == 0)
+              if ((v53 & 1) == 0)
               {
-                v57 = objc_alloc(MEMORY[0x277CC5C18]);
-                v58 = [v54 appBundleID];
-                v59 = [v57 initWithBundleID:v58 region:v51];
+                v54 = objc_alloc(MEMORY[0x277CC5C18]);
+                v55 = [v51 appBundleID];
+                v56 = [v54 initWithBundleID:v55 region:v48];
 
-                v60 = [v59 bundleIdentifier];
-                if ([v60 length])
+                v57 = [v56 bundleIdentifier];
+                if ([v57 length])
                 {
 
                   goto LABEL_58;
                 }
 
-                v61 = [v59 region];
+                v58 = [v56 region];
 
-                if (!v61)
+                if (!v58)
                 {
                   goto LABEL_86;
                 }
 
 LABEL_58:
-                v62 = [v50 userConsent];
-                v63 = [v62 consent];
+                v59 = [v47 userConsent];
+                v60 = [v59 consent];
 
-                if (v63 == 2)
+                if (v60 == 2)
                 {
-                  v64 = MEMORY[0x277CCAC28];
-                  v65 = [v59 region];
-                  v66 = [v64 predicateWithFormat:@"region == %@", v65];
+                  v61 = MEMORY[0x277CCAC28];
+                  v62 = [v56 region];
+                  v63 = [v61 predicateWithFormat:@"region == %@", v62];
 
-                  v115 = [*(a1 + 64) filteredSetUsingPredicate:v66];
-                  v67 = +[ENLoggingPrefs sharedENLoggingPrefs];
-                  LODWORD(v64) = [v67 isSensitiveLoggingAllowed];
+                  v111 = [*(a1 + 64) filteredSetUsingPredicate:v63];
+                  v64 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                  LODWORD(v61) = [v64 isSensitiveLoggingAllowed];
 
-                  if (v64 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                  if (v61 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                   {
-                    __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_5((a1 + 64));
+                    __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_5();
                   }
 
-                  v68 = +[ENLoggingPrefs sharedENLoggingPrefs];
-                  v69 = [v68 isSensitiveLoggingAllowed];
+                  v65 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                  v66 = [v65 isSensitiveLoggingAllowed];
 
-                  if (v69 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                  if (v66 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                   {
-                    __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_6();
+                    __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_6(v111);
                   }
 
-                  if ([*(a1 + 64) containsObject:v59] & 1) != 0 || (objc_msgSend(v115, "containsObject:", v59))
+                  if ([*(a1 + 64) containsObject:v56] & 1) != 0 || (objc_msgSend(v111, "containsObject:", v56))
                   {
-                    v70 = +[ENLoggingPrefs sharedENLoggingPrefs];
-                    v71 = [v70 isSensitiveLoggingAllowed];
+                    v67 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                    v68 = [v67 isSensitiveLoggingAllowed];
 
-                    if (v71 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    if (v68 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                     {
-                      __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_8();
+                      __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_8(v56);
                     }
                   }
 
                   else
                   {
-                    v77 = +[ENLoggingPrefs sharedENLoggingPrefs];
-                    v78 = [v77 isSensitiveLoggingAllowed];
+                    v74 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                    v75 = [v74 isSensitiveLoggingAllowed];
 
-                    if (v78 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                    if (v75 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                     {
-                      __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_7();
+                      __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_7(v56);
                     }
 
-                    [*(a1 + 56) addObject:v59];
+                    [*(a1 + 56) addObject:v56];
                   }
 
                   goto LABEL_85;
                 }
 
-                if (([v113 containsObject:v51] & 1) == 0)
+                if (([v109 containsObject:v48] & 1) == 0)
                 {
-                  v72 = [v51 countryCode];
-                  v73 = [*(*(a1 + 32) + 32) prefRegionIdentifierOverride];
-                  v66 = v72;
-                  v74 = v73;
-                  v75 = v74;
-                  if (v66 != v74)
+                  v69 = [v48 countryCode];
+                  v70 = [*(*(a1 + 32) + 32) prefRegionIdentifierOverride];
+                  v63 = v69;
+                  v71 = v70;
+                  v72 = v71;
+                  if (v63 != v71)
                   {
-                    if ((v66 != 0) == (v74 == 0))
+                    if ((v63 != 0) == (v71 == 0))
                     {
 
                       goto LABEL_85;
                     }
 
-                    v76 = [v66 isEqual:v74];
+                    v73 = [v63 isEqual:v71];
 
-                    if (v76)
+                    if (v73)
                     {
                       goto LABEL_90;
                     }
 
 LABEL_86:
 
-                    v45 = v114;
+                    v42 = v110;
                     goto LABEL_87;
                   }
                 }
 
 LABEL_90:
-                v79 = [*(*(a1 + 32) + 32) configurationManager];
-                v80 = [v79 configurationStore];
-                v66 = [v80 agencyConfigurationForRegion:v51];
+                v76 = [*(*(a1 + 32) + 32) configurationManager];
+                v77 = [v76 configurationStore];
+                v63 = [v77 agencyConfigurationForRegion:v48];
 
-                if (v66)
+                if (v63)
                 {
-                  if (([*(a1 + 56) containsObject:v59] & 1) == 0)
+                  if (([*(a1 + 56) containsObject:v56] & 1) == 0)
                   {
-                    [*(a1 + 64) addObject:v59];
+                    [*(a1 + 64) addObject:v56];
                   }
                 }
 
                 else
                 {
-                  v81 = +[ENLoggingPrefs sharedENLoggingPrefs];
-                  v82 = [v81 isSensitiveLoggingAllowed];
+                  v78 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                  v79 = [v78 isSensitiveLoggingAllowed];
 
-                  if (v82 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                  if (v79 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                   {
                     __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_4();
                   }
@@ -11215,29 +11153,29 @@ LABEL_85:
 
 LABEL_87:
 
-        ++v49;
+        ++v46;
       }
 
-      while (v47 != v49);
-      v83 = [v45 countByEnumeratingWithState:&v122 objects:v137 count:16];
-      v47 = v83;
+      while (v44 != v46);
+      v80 = [v42 countByEnumeratingWithState:&v118 objects:v133 count:16];
+      v44 = v80;
     }
 
-    while (v83);
+    while (v80);
   }
 
-  v84 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  v85 = [v84 isSensitiveLoggingAllowed];
+  v81 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  v82 = [v81 isSensitiveLoggingAllowed];
 
-  if (v85 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  if (v82 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
     __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_9(a1);
   }
 
-  v86 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  v87 = [v86 isSensitiveLoggingAllowed];
+  v83 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  v84 = [v83 isSensitiveLoggingAllowed];
 
-  if (v87 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+  if (v84 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
     __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_10(a1);
   }
@@ -11245,51 +11183,51 @@ LABEL_87:
   reply = xpc_dictionary_create_reply(*(a1 + 72));
   if (reply)
   {
-    v89 = *(a1 + 48);
-    v90 = *(*(a1 + 80) + 8);
-    obj = *(v90 + 40);
-    v91 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v89 requiringSecureCoding:1 error:&obj];
-    objc_storeStrong((v90 + 40), obj);
-    xpc_dictionary_set_data(reply, "acEn", [v91 bytes], objc_msgSend(v91, "length"));
+    v86 = *(a1 + 48);
+    v87 = *(*(a1 + 80) + 8);
+    obj = *(v87 + 40);
+    v88 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v86 requiringSecureCoding:1 error:&obj];
+    objc_storeStrong((v87 + 40), obj);
+    xpc_dictionary_set_data(reply, "acEn", [v88 bytes], objc_msgSend(v88, "length"));
     CFDataGetTypeID();
-    v92 = CFPrefs_CopyTypedValue();
-    v93 = v92;
-    if (v92)
+    v89 = CFPrefs_CopyTypedValue();
+    v90 = v89;
+    if (v89)
     {
-      v94 = v92;
+      v91 = v89;
     }
 
     else
     {
-      v94 = v91;
+      v91 = v88;
     }
 
-    v95 = v94;
+    v92 = v91;
 
-    v96 = [v95 bytes];
-    v97 = [v95 length];
+    v93 = [v92 bytes];
+    v94 = [v92 length];
 
-    xpc_dictionary_set_data(reply, "tnEn", v96, v97);
-    v98 = MEMORY[0x277CCAAB8];
-    v99 = [*(a1 + 56) allObjects];
-    v136 = v99;
-    v100 = [MEMORY[0x277CBEA68] arrayWithObjects:&v136 count:1];
-    v101 = *(*(a1 + 80) + 8);
-    v120 = *(v101 + 40);
-    v102 = [v98 archivedDataWithRootObject:v100 requiringSecureCoding:1 error:&v120];
-    objc_storeStrong((v101 + 40), v120);
+    xpc_dictionary_set_data(reply, "tnEn", v93, v94);
+    v95 = MEMORY[0x277CCAAB8];
+    v96 = [*(a1 + 56) allObjects];
+    v132 = v96;
+    v97 = [MEMORY[0x277CBEA68] arrayWithObjects:&v132 count:1];
+    v98 = *(*(a1 + 80) + 8);
+    v116 = *(v98 + 40);
+    v99 = [v95 archivedDataWithRootObject:v97 requiringSecureCoding:1 error:&v116];
+    objc_storeStrong((v98 + 40), v116);
 
-    xpc_dictionary_set_data(reply, "auEn", [v102 bytes], objc_msgSend(v102, "length"));
-    v103 = MEMORY[0x277CCAAB8];
-    v104 = [*(a1 + 64) allObjects];
-    v135 = v104;
-    v105 = [MEMORY[0x277CBEA68] arrayWithObjects:&v135 count:1];
-    v106 = *(*(a1 + 80) + 8);
-    v119 = *(v106 + 40);
-    v107 = [v103 archivedDataWithRootObject:v105 requiringSecureCoding:1 error:&v119];
-    objc_storeStrong((v106 + 40), v119);
+    xpc_dictionary_set_data(reply, "auEn", [v99 bytes], objc_msgSend(v99, "length"));
+    v100 = MEMORY[0x277CCAAB8];
+    v101 = [*(a1 + 64) allObjects];
+    v131 = v101;
+    v102 = [MEMORY[0x277CBEA68] arrayWithObjects:&v131 count:1];
+    v103 = *(*(a1 + 80) + 8);
+    v115 = *(v103 + 40);
+    v104 = [v100 archivedDataWithRootObject:v102 requiringSecureCoding:1 error:&v115];
+    objc_storeStrong((v103 + 40), v115);
 
-    xpc_dictionary_set_data(reply, "avaEn", [v107 bytes], objc_msgSend(v107, "length"));
+    xpc_dictionary_set_data(reply, "avaEn", [v104 bytes], objc_msgSend(v104, "length"));
     [*(a1 + 32) _xpcSendMessage:reply];
   }
 
@@ -11297,8 +11235,6 @@ LABEL_87:
   {
     __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_11();
   }
-
-  v108 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_xpcSetActiveEntity:(id)entity
@@ -11320,7 +11256,7 @@ LABEL_87:
   v49[4] = self;
   original = entityCopy;
   v50 = original;
-  v43 = MEMORY[0x24C214430](v49);
+  v42 = MEMORY[0x24C214430](v49);
   v5 = v53;
   obj = v53[5];
   v6 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
@@ -11330,33 +11266,32 @@ LABEL_87:
     objc_opt_class();
     v7 = v53 + 5;
     v47 = v53[5];
-    v45 = ENXPCDecodeSecureObjectIfPresent();
+    v44 = ENXPCDecodeSecureObjectIfPresent();
     objc_storeStrong(v7, v47);
     if (v53[5])
     {
-      v38 = ENErrorF();
+      v38 = ENErrorF(2, "Region decode failed");
       v39 = v53[5];
       v53[5] = v38;
     }
 
     else
     {
-      if (v45)
+      if (v44)
       {
         v8 = +[ENLoggingPrefs sharedENLoggingPrefs];
         isSensitiveLoggingAllowed = [v8 isSensitiveLoggingAllowed];
 
         if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          v42 = v45;
-          LogPrintF_safe();
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetActiveEntity:]", 30, "### Setting active entity to %@", v44);
         }
 
         configurationManager = [(ENDaemon *)self->_daemon configurationManager];
         configurationStore = [configurationManager configurationStore];
-        v12 = [configurationStore configurationForRegion:v45];
+        v12 = [configurationStore configurationForRegion:v44];
 
-        v13 = v45;
+        v13 = v44;
         configurationManager2 = [(ENDaemon *)self->_daemon configurationManager];
         configurationStore2 = [configurationManager2 configurationStore];
         v16 = [configurationStore2 serverConfigurationForRegion:v13];
@@ -11370,18 +11305,17 @@ LABEL_24:
           {
             if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetActiveEntity:]", 30, "ExposureNotificationSetEnabled");
             }
 
-            v30 = *MEMORY[0x277CBED20];
             CFPrefs_SetValue();
           }
 
-          v31 = [ENActiveEntity alloc];
-          v32 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:appBundleID4 region:v13];
-          v33 = [(ENActiveEntity *)v31 initWithEntity:v32 activeStatus:v22];
+          v32 = [ENActiveEntity alloc];
+          v33 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:appBundleID4 region:v13];
+          v34 = [(ENActiveEntity *)v32 initWithEntity:v33 activeStatus:v22];
 
-          if ([(ENDaemon *)selfCopy->_daemon _writePreferenceActiveEntity:v33])
+          if ([(ENDaemon *)selfCopy->_daemon _writePreferenceActiveEntity:v34])
           {
             [(ENDaemon *)selfCopy->_daemon _disableAvailabilityAlertIfNeeded];
             [(ENDaemon *)selfCopy->_daemon prefsChanged];
@@ -11390,7 +11324,7 @@ LABEL_24:
 
           else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveEntity:]", 90, "### SetActiveEntity failed to write active entity pref");
           }
 
           reply = xpc_dictionary_create_reply(original);
@@ -11401,10 +11335,10 @@ LABEL_24:
 
           else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveEntity:]", 90, "### SetActiveEntity create reply failed");
           }
 
-          goto LABEL_42;
+          goto LABEL_44;
         }
 
         v17 = MEMORY[0x277CC1E68];
@@ -11438,16 +11372,16 @@ LABEL_23:
               goto LABEL_24;
             }
 
-LABEL_45:
-            v36 = ENErrorF();
+            v36 = ENErrorF(10, "TCC denied for bundle: %@", appBundleID3);
+LABEL_48:
             v37 = v53[5];
             v53[5] = v36;
 
-LABEL_46:
+LABEL_49:
             appBundleID4 = 0;
-LABEL_42:
+LABEL_44:
 
-            goto LABEL_43;
+            goto LABEL_45;
           }
         }
 
@@ -11462,77 +11396,79 @@ LABEL_42:
 
           if ((consent - 1) < 2)
           {
-            v28 = *MEMORY[0x277D6C160];
             TCCAccessSetForBundleId();
             appBundleID4 = 0;
             v22 = 3;
             goto LABEL_23;
           }
+
+          v36 = ENErrorF(10, "Invalid region authorization");
         }
 
-        else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+        else
         {
-          appState2 = [v19 appState];
-          [appState2 isInstalled];
-          [v12 enVersion];
-          LogPrintF_safe();
+          if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+          {
+            appState2 = [v19 appState];
+            isInstalled = [appState2 isInstalled];
+            enVersion = [v12 enVersion];
+            v31 = "no";
+            if (isInstalled)
+            {
+              v31 = "yes";
+            }
+
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveEntity:]", 90, "Invalid configuration to set active entity. App installed: %s, Region config:%u", v31, enVersion);
+          }
+
+          v36 = ENErrorF(11, "Invalid configuration to setActiveEntity");
         }
 
-        goto LABEL_45;
+        goto LABEL_48;
       }
 
+      v46 = 0;
       CUXPCDecodeNSString();
-      v40 = ENErrorF();
+      v40 = ENErrorF(2, "No app bundle identifier");
       v41 = v53[5];
       v53[5] = v40;
     }
 
     v13 = 0;
-    goto LABEL_46;
+    goto LABEL_49;
   }
 
-LABEL_43:
-  v43[2](v43);
+LABEL_45:
+  v42[2](v42);
 
   _Block_object_dispose(&v52, 8);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__ENXPCConnection__xpcSetActiveEntity___block_invoke(void *a1)
+void *__39__ENXPCConnection__xpcSetActiveEntity___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveEntity:]_block_invoke", 90, "### SetActiveEntity failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetLastExposureNotification:(id)notification
@@ -11586,7 +11522,7 @@ LABEL_7:
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetLastExposureNotification:]", 90, "### GetLastExposureNotification create reply failed");
         }
       }
     }
@@ -11597,68 +11533,58 @@ LABEL_7:
   _Block_object_dispose(&v27, 8);
 }
 
-uint64_t __51__ENXPCConnection__xpcGetLastExposureNotification___block_invoke(void *a1)
+void *__51__ENXPCConnection__xpcGetLastExposureNotification___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetLastExposureNotification:]_block_invoke", 90, "### GetLastExposureNotification failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetStatusForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__3;
-  v37 = __Block_byref_object_dispose__3;
-  v38 = 0;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __52__ENXPCConnection__xpcGetStatusForBundleIdentifier___block_invoke;
-  v30[3] = &unk_278FD10D0;
-  v32 = &v33;
-  v30[4] = self;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__3;
+  v39 = __Block_byref_object_dispose__3;
+  v40 = 0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __52__ENXPCConnection__xpcGetStatusForBundleIdentifier___block_invoke;
+  v32[3] = &unk_278FD10D0;
+  v34 = &v35;
+  v32[4] = self;
   v5 = identifierCopy;
-  v31 = v5;
-  v6 = MEMORY[0x24C214430](v30);
-  v7 = (v34 + 5);
-  obj = v34[5];
+  v33 = v5;
+  v6 = MEMORY[0x24C214430](v32);
+  v7 = (v36 + 5);
+  obj = v36[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (!v8)
   {
-    goto LABEL_21;
+    goto LABEL_25;
   }
 
   activeEntity = [(ENDaemon *)self->_daemon activeEntity];
@@ -11679,28 +11605,40 @@ LABEL_7:
     if (!string)
     {
       v24 = 0;
-      LOBYTE(v23) = 0;
+      v23 = 0;
 LABEL_14:
       if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        v27 = "no";
+        if (v23)
+        {
+          v27 = "yes";
+        }
+
+        v28 = "server config";
+        if (!v17)
+        {
+          v28 = "default";
+        }
+
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetStatusForBundleIdentifier:]", 30, "GetStatusForBundleIdentifier: '%s' : %s, BAR interval %llu seconds %s", string, v27, v24, v28);
       }
 
       reply = xpc_dictionary_create_reply(v5);
-      v28 = reply;
+      v30 = reply;
       if (reply)
       {
         xpc_dictionary_set_BOOL(reply, "enbd", v23);
-        xpc_dictionary_set_uint64(v28, "aBARi", v24);
-        [(ENXPCConnection *)self _xpcSendMessage:v28];
+        xpc_dictionary_set_uint64(v30, "aBARi", v24);
+        [(ENXPCConnection *)self _xpcSendMessage:v30];
       }
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetStatusForBundleIdentifier:]", 90, "### GetStatusForBundleIdentifier create reply failed");
       }
 
-      goto LABEL_21;
+      goto LABEL_25;
     }
 
     activeEntity3 = [(ENDaemon *)self->_daemon activeEntity];
@@ -11751,88 +11689,77 @@ LABEL_11:
 
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetStatusForBundleIdentifier:]", 90, "### GetStatusForBundleIdentifier No Active App Found");
   }
 
-LABEL_21:
+LABEL_25:
   v6[2](v6);
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
-uint64_t __52__ENXPCConnection__xpcGetStatusForBundleIdentifier___block_invoke(void *a1)
+void *__52__ENXPCConnection__xpcGetStatusForBundleIdentifier___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetStatusForBundleIdentifier:]_block_invoke", 90, "### GetStatusForBundleIdentifier failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcLegalConsentPageCount:(id)count
 {
   countCopy = count;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__3;
-  v20 = __Block_byref_object_dispose__3;
-  v21 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __45__ENXPCConnection__xpcLegalConsentPageCount___block_invoke;
-  v13[3] = &unk_278FD10D0;
-  v15 = &v16;
-  v13[4] = self;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__3;
+  v19 = __Block_byref_object_dispose__3;
+  v20 = 0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __45__ENXPCConnection__xpcLegalConsentPageCount___block_invoke;
+  v12[3] = &unk_278FD10D0;
+  v14 = &v15;
+  v12[4] = self;
   v5 = countCopy;
-  v14 = v5;
-  v6 = MEMORY[0x24C214430](v13);
+  v13 = v5;
+  v6 = MEMORY[0x24C214430](v12);
   objc_opt_class();
-  v7 = (v17 + 5);
-  obj = v17[5];
+  v7 = (v16 + 5);
+  obj = v16[5];
   v8 = ENXPCDecodeSecureObject();
   objc_storeStrong(v7, obj);
   if (v8)
   {
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      v11 = v8;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcLegalConsentPageCount:]", 30, "Legal consent page seen for region: %@", v8);
     }
 
     v9 = [(ENDaemon *)self->_daemon _getLegalConsentPageCount]+ 1;
     CFPrefs_SetInt64();
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcLegalConsentPageCount:]", 30, "Legal consent page view daily count: %d", v9);
     }
 
     reply = xpc_dictionary_create_reply(v5);
@@ -11843,72 +11770,62 @@ LABEL_7:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcLegalConsentPageCount:]", 90, "### LegalConsentPageCount create reply failed");
     }
   }
 
   v6[2](v6);
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __45__ENXPCConnection__xpcLegalConsentPageCount___block_invoke(void *a1)
+void *__45__ENXPCConnection__xpcLegalConsentPageCount___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcLegalConsentPageCount:]_block_invoke", 90, "### LegalConsentPageCount failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcOnboardingDidStart:(id)start
 {
   startCopy = start;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__3;
-  v47 = __Block_byref_object_dispose__3;
-  v48 = 0;
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __42__ENXPCConnection__xpcOnboardingDidStart___block_invoke;
-  v40[3] = &unk_278FD10D0;
-  v42 = &v43;
-  v40[4] = self;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__3;
+  v44 = __Block_byref_object_dispose__3;
+  v45 = 0;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __42__ENXPCConnection__xpcOnboardingDidStart___block_invoke;
+  v37[3] = &unk_278FD10D0;
+  v39 = &v40;
+  v37[4] = self;
   v5 = startCopy;
-  v41 = v5;
-  v6 = MEMORY[0x24C214430](v40);
-  v7 = (v44 + 5);
-  obj = v44[5];
-  v35 = v6;
+  v38 = v5;
+  v6 = MEMORY[0x24C214430](v37);
+  v7 = (v41 + 5);
+  obj = v41[5];
+  v32 = v6;
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
@@ -11916,9 +11833,9 @@ LABEL_7:
     string = xpc_dictionary_get_string(v5, "iStr");
     if (!string)
     {
-      v27 = ENErrorF();
-      v10 = v44[5];
-      v44[5] = v27;
+      v27 = ENErrorF(2, "No source specified");
+      v10 = v41[5];
+      v41[5] = v27;
       goto LABEL_33;
     }
 
@@ -11932,10 +11849,9 @@ LABEL_7:
     {
       if (_MergedGlobals <= 50 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcOnboardingDidStart:]", 50, "Buddy onboarding triggered once");
       }
 
-      v12 = *MEMORY[0x277CBED20];
       CFPrefs_SetValue();
       v11 = 2;
     }
@@ -11949,9 +11865,9 @@ LABEL_7:
     {
       if (([v10 isEqualToString:@"com.apple.HealthENLauncher"] & 1) == 0)
       {
-        v28 = ENErrorF();
-        v14 = v44[5];
-        v44[5] = v28;
+        v28 = ENErrorF(2, "Bad source");
+        v13 = v41[5];
+        v41[5] = v28;
         goto LABEL_32;
       }
 
@@ -11959,11 +11875,11 @@ LABEL_7:
     }
 
     objc_opt_class();
-    v13 = (v44 + 5);
-    v38 = v44[5];
-    v14 = ENXPCDecodeSecureObject();
-    objc_storeStrong(v13, v38);
-    if (!v14)
+    v12 = (v41 + 5);
+    v35 = v41[5];
+    v13 = ENXPCDecodeSecureObject();
+    objc_storeStrong(v12, v35);
+    if (!v13)
     {
 LABEL_32:
 
@@ -11971,62 +11887,60 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    v36 = v5;
-    v34 = v10;
+    v33 = v5;
+    v31 = v10;
     configurationManager = [(ENDaemon *)self->_daemon configurationManager];
-    v16 = configurationManager;
+    v15 = configurationManager;
     if (configurationManager)
     {
       configurationStore = [configurationManager configurationStore];
-      v18 = [configurationStore configurationForRegion:v14];
+      v17 = [configurationStore configurationForRegion:v13];
 
-      if (v18)
+      if (v17)
       {
-        everStartedOnboarding = [v18 everStartedOnboarding];
-        [v18 setEverStartedOnboarding:1];
-        configurationStore2 = [v16 configurationStore];
-        v21 = (v44 + 5);
-        v37 = v44[5];
-        v22 = [configurationStore2 saveRegionConfiguration:v18 error:&v37];
-        objc_storeStrong(v21, v37);
+        everStartedOnboarding = [v17 everStartedOnboarding];
+        [v17 setEverStartedOnboarding:1];
+        configurationStore2 = [v15 configurationStore];
+        v20 = (v41 + 5);
+        v34 = v41[5];
+        v21 = [configurationStore2 saveRegionConfiguration:v17 error:&v34];
+        objc_storeStrong(v20, v34);
 
-        if ((v22 & 1) == 0)
+        if ((v21 & 1) == 0)
         {
-          v6 = v35;
+          v6 = v32;
           goto LABEL_31;
         }
 
-        regionCode = [v14 regionCode];
-        v24 = "yes";
+        regionCode = [v13 regionCode];
+        v23 = "yes";
         if (everStartedOnboarding)
         {
-          v24 = "no";
+          v23 = "no";
         }
 
         if (regionCode)
         {
-          v25 = v24;
+          v24 = v23;
         }
 
         else
         {
-          v25 = "N/A";
+          v24 = "N/A";
         }
 
         if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
         {
-          regionCode2 = [v14 regionCode];
-          v33 = v25;
-          v31 = string;
-          LogPrintF_safe();
+          regionCode2 = [v13 regionCode];
+          LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcOnboardingDidStart:]", 30, "Onboarding started by '%s' for '%@' first time %s", string, regionCode2, v24);
         }
 
-        [(ENDaemon *)self->_daemon setOnboardingTrigger:v11, v31, regionCode2, v33];
+        [(ENDaemon *)self->_daemon setOnboardingTrigger:v11];
         [(ENDaemon *)self->_daemon setOnboardingFirstTime:everStartedOnboarding ^ 1u];
-        [(ENDaemon *)self->_daemon setOnboardingRegionTrigger:v14];
+        [(ENDaemon *)self->_daemon setOnboardingRegionTrigger:v13];
         [(ENDaemon *)self->_daemon setOnboardingLegalConsentLastViewCount:[(ENDaemon *)self->_daemon _getLegalConsentPageCount]];
-        v6 = v35;
-        reply = xpc_dictionary_create_reply(v36);
+        v6 = v32;
+        reply = xpc_dictionary_create_reply(v33);
         if (reply)
         {
           [(ENXPCConnection *)self _xpcSendMessage:reply];
@@ -12034,96 +11948,86 @@ LABEL_33:
 
         else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcOnboardingDidStart:]", 90, "### OnboardingDidStart create reply failed");
         }
       }
 
       else
       {
-        v30 = ENErrorF();
-        reply = v44[5];
-        v44[5] = v30;
+        v30 = ENErrorF(2, "No region config");
+        reply = v41[5];
+        v41[5] = v30;
       }
     }
 
     else
     {
-      v29 = ENErrorF();
-      v18 = v44[5];
-      v44[5] = v29;
+      v29 = ENErrorF(11, "No configuration manager");
+      v17 = v41[5];
+      v41[5] = v29;
     }
 
 LABEL_31:
 
-    v10 = v34;
-    v5 = v36;
+    v10 = v31;
+    v5 = v33;
     goto LABEL_32;
   }
 
 LABEL_34:
   v6[2](v6);
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v40, 8);
 }
 
-uint64_t __42__ENXPCConnection__xpcOnboardingDidStart___block_invoke(void *a1)
+void *__42__ENXPCConnection__xpcOnboardingDidStart___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcOnboardingDidStart:]_block_invoke", 90, "### OnboardingDidStart failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetActiveApp:(id)app
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   appCopy = app;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__3;
-  v42 = __Block_byref_object_dispose__3;
-  v43 = 0;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __36__ENXPCConnection__xpcSetActiveApp___block_invoke;
-  v35[3] = &unk_278FD10D0;
-  v37 = &v38;
-  v35[4] = self;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__3;
+  v39 = __Block_byref_object_dispose__3;
+  v40 = 0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __36__ENXPCConnection__xpcSetActiveApp___block_invoke;
+  v32[3] = &unk_278FD10D0;
+  v34 = &v35;
+  v32[4] = self;
   xdict = appCopy;
-  v36 = xdict;
-  v28 = MEMORY[0x24C214430](v35);
-  v5 = v39;
-  obj = v39[5];
+  v33 = xdict;
+  v25 = MEMORY[0x24C214430](v32);
+  v5 = v36;
+  obj = v36[5];
   v6 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v5 + 5, obj);
   if (v6)
@@ -12131,59 +12035,57 @@ LABEL_7:
     string = xpc_dictionary_get_string(xdict, "aBid");
     if (string)
     {
-      v8 = *MEMORY[0x277D6C150];
-      v32 = 0u;
-      v33 = 0u;
+      v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
-      v9 = TCCAccessCopyInformation();
-      v10 = [v9 countByEnumeratingWithState:&v30 objects:v44 count:16];
-      if (v10)
+      v27 = 0u;
+      v28 = 0u;
+      v8 = TCCAccessCopyInformation();
+      v9 = [v8 countByEnumeratingWithState:&v27 objects:v41 count:16];
+      if (v9)
       {
-        v11 = 0;
-        v12 = *v31;
-        v13 = MEMORY[0x277D6C0C0];
+        v10 = 0;
+        v11 = *v28;
+        v12 = MEMORY[0x277D6C0C0];
         while (2)
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v9; ++i)
           {
-            if (*v31 != v12)
+            if (*v28 != v11)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v8);
             }
 
-            v15 = [*(*(&v30 + 1) + 8 * i) objectForKey:{*v13, v27}];
-            if (v15)
+            v14 = [*(*(&v27 + 1) + 8 * i) objectForKey:*v12];
+            if (v14)
             {
-              v16 = [(ENDaemon *)self->_daemon _getBundleIDFromBundle:v15];
-              v17 = v16;
-              if (v16 && !strcmp(string, [v16 utf8ValueSafe]))
+              v15 = [(ENDaemon *)self->_daemon _getBundleIDFromBundle:v14];
+              v16 = v15;
+              if (v15 && !strcmp(string, [v15 utf8ValueSafe]))
               {
                 if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
                 {
-                  v27 = v17;
-                  LogPrintF_safe();
+                  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetActiveApp:]", 30, "### SetActiveApp Valid app bundle %@", v16);
                 }
 
-                InfoDictionary = CFBundleGetInfoDictionary(v15);
+                InfoDictionary = CFBundleGetInfoDictionary(v14);
                 if (InfoDictionary)
                 {
-                  v19 = [(ENDaemon *)self->_daemon regionForBundleInfo:InfoDictionary];
-                  if (v19)
+                  v18 = [(ENDaemon *)self->_daemon regionForBundleInfo:InfoDictionary];
+                  if (v18)
                   {
-                    [(ENDaemon *)self->_daemon fetchServerConfigurationForAppBundleIdentifier:v17 infoDictionary:InfoDictionary];
+                    [(ENDaemon *)self->_daemon fetchServerConfigurationForAppBundleIdentifier:v16 infoDictionary:InfoDictionary];
                   }
 
                   goto LABEL_25;
                 }
 
-                v11 = 1;
+                v10 = 1;
               }
             }
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v30 objects:v44 count:16];
-          if (v10)
+          v9 = [v8 countByEnumeratingWithState:&v27 objects:v41 count:16];
+          if (v9)
           {
             continue;
           }
@@ -12191,16 +12093,16 @@ LABEL_7:
           break;
         }
 
-        if (v11)
+        if (v10)
         {
-          v19 = 0;
-          v17 = 0;
+          v18 = 0;
+          v16 = 0;
 LABEL_25:
-          v20 = [ENActiveEntity alloc];
-          v21 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:v17 region:v19];
-          v22 = [(ENActiveEntity *)v20 initWithEntity:v21 activeStatus:2];
+          v19 = [ENActiveEntity alloc];
+          v20 = [objc_alloc(MEMORY[0x277CC5C18]) initWithBundleID:v16 region:v18];
+          v21 = [(ENActiveEntity *)v19 initWithEntity:v20 activeStatus:2];
 
-          [(ENDaemon *)self->_daemon _writePreferenceActiveEntity:v22];
+          [(ENDaemon *)self->_daemon _writePreferenceActiveEntity:v21];
           [(ENDaemon *)self->_daemon xpcReportStatus];
           reply = xpc_dictionary_create_reply(xdict);
           if (reply)
@@ -12210,7 +12112,7 @@ LABEL_25:
 
           else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveApp:]", 90, "### SetActiveApp create reply failed");
           }
 
           goto LABEL_28;
@@ -12221,83 +12123,72 @@ LABEL_25:
       {
       }
 
-      v25 = ENErrorF();
-      v19 = v39[5];
-      v39[5] = v25;
+      v23 = ENErrorF(2, "Incorrect app bundle identifier");
+      v18 = v36[5];
+      v36[5] = v23;
 LABEL_28:
     }
 
     else
     {
-      v26 = ENErrorF();
-      v9 = v39[5];
-      v39[5] = v26;
+      v24 = ENErrorF(2, "No app bundle identifier");
+      v8 = v36[5];
+      v36[5] = v24;
     }
   }
 
-  v28[2](v28);
+  v25[2](v25);
 
-  _Block_object_dispose(&v38, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 }
 
-uint64_t __36__ENXPCConnection__xpcSetActiveApp___block_invoke(void *a1)
+void *__36__ENXPCConnection__xpcSetActiveApp___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveApp:]_block_invoke", 90, "### SetActiveApp failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetAutomaticRegionSwitch:(id)switch
 {
   switchCopy = switch;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__3;
-  v21 = __Block_byref_object_dispose__3;
-  v22 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __48__ENXPCConnection__xpcSetAutomaticRegionSwitch___block_invoke;
-  v14[3] = &unk_278FD10D0;
-  v16 = &v17;
-  v14[4] = self;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __48__ENXPCConnection__xpcSetAutomaticRegionSwitch___block_invoke;
+  v13[3] = &unk_278FD10D0;
+  v15 = &v16;
+  v13[4] = self;
   v5 = switchCopy;
-  v15 = v5;
-  v6 = MEMORY[0x24C214430](v14);
-  v7 = (v18 + 5);
-  obj = v18[5];
+  v14 = v5;
+  v6 = MEMORY[0x24C214430](v13);
+  v7 = (v17 + 5);
+  obj = v17[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
@@ -12305,16 +12196,15 @@ LABEL_7:
     v9 = xpc_dictionary_get_BOOL(v5, "enbd");
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      v10 = "disabled";
+      if (v9)
+      {
+        v10 = "enabled";
+      }
+
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetAutomaticRegionSwitch:]", 30, "### setAutomaticRegionSwitchEnabled : %s", v10);
     }
 
-    v10 = MEMORY[0x277CBED20];
-    if (!v9)
-    {
-      v10 = MEMORY[0x277CBED18];
-    }
-
-    v11 = *v10;
     CFPrefs_SetValue();
     [(ENDaemon *)self->_daemon prefsChanged];
     reply = xpc_dictionary_create_reply(v5);
@@ -12325,72 +12215,62 @@ LABEL_7:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetAutomaticRegionSwitch:]", 90, "### setAutomaticRegionSwitchEnabled create reply failed");
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __48__ENXPCConnection__xpcSetAutomaticRegionSwitch___block_invoke(void *a1)
+void *__48__ENXPCConnection__xpcSetAutomaticRegionSwitch___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetAutomaticRegionSwitch:]_block_invoke", 90, "### setAutomaticRegionSwitchEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetAvailabilityAlertEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__3;
-  v21 = __Block_byref_object_dispose__3;
-  v22 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __51__ENXPCConnection__xpcSetAvailabilityAlertEnabled___block_invoke;
-  v14[3] = &unk_278FD10D0;
-  v16 = &v17;
-  v14[4] = self;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __51__ENXPCConnection__xpcSetAvailabilityAlertEnabled___block_invoke;
+  v13[3] = &unk_278FD10D0;
+  v15 = &v16;
+  v13[4] = self;
   v5 = enabledCopy;
-  v15 = v5;
-  v6 = MEMORY[0x24C214430](v14);
-  v7 = (v18 + 5);
-  obj = v18[5];
+  v14 = v5;
+  v6 = MEMORY[0x24C214430](v13);
+  v7 = (v17 + 5);
+  obj = v17[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
@@ -12398,16 +12278,15 @@ LABEL_7:
     v9 = xpc_dictionary_get_BOOL(v5, "enbd");
     if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      v10 = "disabled";
+      if (v9)
+      {
+        v10 = "enabled";
+      }
+
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetAvailabilityAlertEnabled:]", 30, "### setAvailabilityAlertEnabled : %s", v10);
     }
 
-    v10 = MEMORY[0x277CBED20];
-    if (v9)
-    {
-      v10 = MEMORY[0x277CBED18];
-    }
-
-    v11 = *v10;
     CFPrefs_SetValue();
     [(ENDaemon *)self->_daemon prefsChanged];
     reply = xpc_dictionary_create_reply(v5);
@@ -12418,90 +12297,79 @@ LABEL_7:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetAvailabilityAlertEnabled:]", 90, "### setAvailabilityAlertEnabled create reply failed");
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __51__ENXPCConnection__xpcSetAvailabilityAlertEnabled___block_invoke(void *a1)
+void *__51__ENXPCConnection__xpcSetAvailabilityAlertEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetAvailabilityAlertEnabled:]_block_invoke", 90, "### setAvailabilityAlertEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetActiveRegion:(id)region
 {
   regionCopy = region;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__3;
-  v40 = __Block_byref_object_dispose__3;
-  v41 = 0;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __39__ENXPCConnection__xpcSetActiveRegion___block_invoke;
-  v33[3] = &unk_278FD10D0;
-  v35 = &v36;
-  v33[4] = self;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__3;
+  v39 = __Block_byref_object_dispose__3;
+  v40 = 0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __39__ENXPCConnection__xpcSetActiveRegion___block_invoke;
+  v32[3] = &unk_278FD10D0;
+  v34 = &v35;
+  v32[4] = self;
   v5 = regionCopy;
-  v34 = v5;
-  v6 = MEMORY[0x24C214430](v33);
-  v7 = (v37 + 5);
-  obj = v37[5];
+  v33 = v5;
+  v6 = MEMORY[0x24C214430](v32);
+  v7 = (v36 + 5);
+  obj = v36[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
     objc_opt_class();
-    v9 = (v37 + 5);
-    v31 = v37[5];
+    v9 = (v36 + 5);
+    v30 = v36[5];
     v10 = ENXPCDecodeSecureObjectIfPresent();
-    objc_storeStrong(v9, v31);
-    if (v10 || !v37[5])
+    objc_storeStrong(v9, v30);
+    if (v10 || !v36[5])
     {
       v11 = +[ENLoggingPrefs sharedENLoggingPrefs];
       isSensitiveLoggingAllowed = [v11 isSensitiveLoggingAllowed];
 
       if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
       {
-        v30 = v10;
-        LogPrintF_safe();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetActiveRegion:]", 30, "### Setting active region to %@", v10);
       }
 
       configurationManager = [(ENDaemon *)self->_daemon configurationManager];
@@ -12560,7 +12428,7 @@ LABEL_7:
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveRegion:]", 90, "### SetActiveRegion failed to write active region pref");
       }
 
       reply = xpc_dictionary_create_reply(v5);
@@ -12571,73 +12439,63 @@ LABEL_7:
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveRegion:]", 90, "### SetActiveRegion create reply failed");
       }
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
-uint64_t __39__ENXPCConnection__xpcSetActiveRegion___block_invoke(void *a1)
+void *__39__ENXPCConnection__xpcSetActiveRegion___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetActiveRegion:]_block_invoke", 90, "### SetActiveRegion failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcSetMonthlySummaryAlertEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__3;
-  v21 = __Block_byref_object_dispose__3;
-  v22 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __53__ENXPCConnection__xpcSetMonthlySummaryAlertEnabled___block_invoke;
-  v14[3] = &unk_278FD10D0;
-  v16 = &v17;
-  v14[4] = self;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __53__ENXPCConnection__xpcSetMonthlySummaryAlertEnabled___block_invoke;
+  v13[3] = &unk_278FD10D0;
+  v15 = &v16;
+  v13[4] = self;
   v5 = enabledCopy;
-  v15 = v5;
-  v6 = MEMORY[0x24C214430](v14);
-  v7 = (v18 + 5);
-  obj = v18[5];
+  v14 = v5;
+  v6 = MEMORY[0x24C214430](v13);
+  v7 = (v17 + 5);
+  obj = v17[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
@@ -12651,11 +12509,10 @@ LABEL_7:
         v10 = "enabled";
       }
 
-      v12 = v10;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcSetMonthlySummaryAlertEnabled:]", 30, "### setMonthlySummaryAlertEnabled : %s", v10);
     }
 
-    [(ENDaemon *)self->_daemon setMonthlySummaryDisabled:!v9, v12];
+    [(ENDaemon *)self->_daemon setMonthlySummaryDisabled:!v9];
     reply = xpc_dictionary_create_reply(v5);
     if (reply)
     {
@@ -12664,80 +12521,70 @@ LABEL_7:
 
     else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetMonthlySummaryAlertEnabled:]", 90, "### setMonthlySummaryAlertEnabled create reply failed");
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __53__ENXPCConnection__xpcSetMonthlySummaryAlertEnabled___block_invoke(void *a1)
+void *__53__ENXPCConnection__xpcSetMonthlySummaryAlertEnabled___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSetMonthlySummaryAlertEnabled:]_block_invoke", 90, "### setMonthlySummaryAlertEnabled failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcGetRemotePresentationRequestIfNeeded:(id)needed
 {
   neededCopy = needed;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__3;
-  v54 = __Block_byref_object_dispose__3;
-  v55 = 0;
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __60__ENXPCConnection__xpcGetRemotePresentationRequestIfNeeded___block_invoke;
-  v47[3] = &unk_278FD10D0;
-  v49 = &v50;
-  v47[4] = self;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__3;
+  v53 = __Block_byref_object_dispose__3;
+  v54 = 0;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __60__ENXPCConnection__xpcGetRemotePresentationRequestIfNeeded___block_invoke;
+  v46[3] = &unk_278FD10D0;
+  v48 = &v49;
+  v46[4] = self;
   v5 = neededCopy;
-  v48 = v5;
-  v6 = MEMORY[0x24C214430](v47);
-  v7 = (v51 + 5);
-  obj = v51[5];
+  v47 = v5;
+  v6 = MEMORY[0x24C214430](v46);
+  v7 = (v50 + 5);
+  obj = v50[5];
   v8 = [(ENXPCConnection *)self _entitledForAccessLevel:2 error:&obj];
   objc_storeStrong(v7, obj);
   if (v8)
   {
-    v9 = (v51 + 5);
-    v45 = v51[5];
-    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v45];
-    objc_storeStrong(v9, v45);
+    v9 = (v50 + 5);
+    v44 = v50[5];
+    v10 = [(ENXPCConnection *)self _authorizedAndReturnError:&v44];
+    objc_storeStrong(v9, v44);
     if (v10)
     {
       int64 = xpc_dictionary_get_int64(v5, "rprt");
@@ -12748,10 +12595,10 @@ LABEL_7:
           v15 = 0;
           goto LABEL_12;
         case 2:
-          v16 = (v51 + 5);
-          v43 = v51[5];
-          v17 = [(ENXPCConnection *)self _appActiveStatusWithError:&v43];
-          objc_storeStrong(v16, v43);
+          v16 = (v50 + 5);
+          v42 = v50[5];
+          v17 = [(ENXPCConnection *)self _appActiveStatusWithError:&v42];
+          objc_storeStrong(v16, v42);
           if (v17)
           {
             temporaryExposureKeyManager = [(ENDaemon *)self->_daemon temporaryExposureKeyManager];
@@ -12772,94 +12619,98 @@ LABEL_16:
 
             if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
             {
-              client = self->_client;
-              LogPrintF_safe();
+              v24 = "no";
+              if (v19)
+              {
+                v24 = "yes";
+              }
+
+              LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetRemotePresentationRequestIfNeeded:]", 30, "GetRemotePresentationRequest %@ RqType: %ld, PresentationNeeded: %s", self->_client, v12, v24);
             }
 
             if (v19)
             {
               if (!v15)
               {
-LABEL_25:
+LABEL_27:
                 reply = xpc_dictionary_create_reply(v5);
                 if (reply)
                 {
-                  v28 = [MEMORY[0x277CC5D10] presentationRequestWithType:v12];
+                  v27 = [MEMORY[0x277CC5D10] presentationRequestWithType:v12];
                   signingIdentity = [(ENXPCClient *)self->_client signingIdentity];
-                  [v28 setAppBundleIdentifier:signingIdentity];
+                  [v27 setAppBundleIdentifier:signingIdentity];
 
                   appRegion = [(ENXPCClient *)self->_client appRegion];
-                  [v28 setAgencyRegion:appRegion];
+                  [v27 setAgencyRegion:appRegion];
 
-                  v31 = objc_alloc_init(ENRemoteUISession);
-                  receiptId = [v28 receiptId];
-                  [(ENRemoteUISession *)v31 setSessionID:receiptId];
+                  v30 = objc_alloc_init(ENRemoteUISession);
+                  receiptId = [v27 receiptId];
+                  [(ENRemoteUISession *)v30 setSessionID:receiptId];
 
                   remoteUISessions = [(ENDaemon *)self->_daemon remoteUISessions];
-                  receiptId2 = [v28 receiptId];
-                  [remoteUISessions setObject:v31 forKeyedSubscript:receiptId2];
+                  receiptId2 = [v27 receiptId];
+                  [remoteUISessions setObject:v30 forKeyedSubscript:receiptId2];
 
-                  v35 = (v51 + 5);
-                  v42 = v51[5];
+                  v34 = (v50 + 5);
+                  v41 = v50[5];
                   ENXPCEncodeSecureObject();
-                  objc_storeStrong(v35, v42);
+                  objc_storeStrong(v34, v41);
                   xpc_dictionary_set_BOOL(reply, "rpn", 1);
                   [(ENXPCConnection *)self _xpcSendMessage:reply];
                 }
 
                 else
                 {
-                  v39 = ENErrorF();
-                  v28 = v51[5];
-                  v51[5] = v39;
+                  v38 = ENErrorF(15, "Failed to create reply");
+                  v27 = v50[5];
+                  v50[5] = v38;
                 }
 
-                goto LABEL_30;
+                goto LABEL_32;
               }
 
               reply = objc_alloc_init(MEMORY[0x277CEEE98]);
               v25 = [reply applicationInfoForPID:{-[ENXPCClient pid](self->_client, "pid")}];
-              v26 = *MEMORY[0x277CEEE78];
               Int64Ranged = CFDictionaryGetInt64Ranged();
               [reply invalidate];
               if (Int64Ranged == 8)
               {
 
-                goto LABEL_25;
+                goto LABEL_27;
               }
 
-              v40 = ENErrorF();
-              v41 = v51[5];
-              v51[5] = v40;
+              v39 = ENErrorF(10, "Only allowed in foreground");
+              v40 = v50[5];
+              v50[5] = v39;
             }
 
             else
             {
-              v36 = xpc_dictionary_create_reply(v5);
-              reply = v36;
-              if (v36)
+              v35 = xpc_dictionary_create_reply(v5);
+              reply = v35;
+              if (v35)
               {
-                xpc_dictionary_set_BOOL(v36, "rpn", 0);
+                xpc_dictionary_set_BOOL(v35, "rpn", 0);
                 [(ENXPCConnection *)self _xpcSendMessage:reply];
               }
 
               else
               {
-                v37 = ENErrorF();
-                v38 = v51[5];
-                v51[5] = v37;
+                v36 = ENErrorF(15, "Failed to create reply");
+                v37 = v50[5];
+                v50[5] = v36;
               }
             }
 
-LABEL_30:
+LABEL_32:
           }
 
           break;
         case 3:
-          v13 = (v51 + 5);
-          v44 = v51[5];
-          v14 = [(ENXPCConnection *)self _appActiveStatusWithError:&v44];
-          objc_storeStrong(v13, v44);
+          v13 = (v50 + 5);
+          v43 = v50[5];
+          v14 = [(ENXPCConnection *)self _appActiveStatusWithError:&v43];
+          objc_storeStrong(v13, v43);
           if (v14)
           {
             v15 = 1;
@@ -12870,54 +12721,44 @@ LABEL_12:
 
           break;
         default:
-          v20 = ENErrorF();
-          reply = v51[5];
-          v51[5] = v20;
-          goto LABEL_30;
+          v20 = ENErrorF(2, "Unrecognized presentation request type %ld", int64);
+          reply = v50[5];
+          v50[5] = v20;
+          goto LABEL_32;
       }
     }
   }
 
   v6[2](v6);
 
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
-uint64_t __60__ENXPCConnection__xpcGetRemotePresentationRequestIfNeeded___block_invoke(void *a1)
+void *__60__ENXPCConnection__xpcGetRemotePresentationRequestIfNeeded___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetRemotePresentationRequestIfNeeded:]_block_invoke", 90, "### GetRemotePresentationRequest failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcRemotePresentationReceivedDecision:(id)decision
@@ -12963,7 +12804,7 @@ LABEL_21:
 
     if (!v12)
     {
-      v27 = ENErrorF();
+      v27 = ENErrorF(11, "Failed to find matching session");
       connection = v38[5];
       v38[5] = v27;
       goto LABEL_20;
@@ -12975,75 +12816,87 @@ LABEL_21:
     connection = [v12 connection];
     if (!connection)
     {
-      v28 = ENErrorF();
+      v28 = ENErrorF(11, "Client disconnected");
       originalRequest = v38[5];
       v38[5] = v28;
       goto LABEL_19;
     }
 
     originalRequest = [v12 originalRequest];
-    if (!originalRequest || ([v9 decisionInfo], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "objectForKeyedSubscript:", @"decisionType"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "integerValue"), v17, v16, v18 != objc_msgSend(v9, "requestType")))
+    if (originalRequest)
     {
-      v29 = ENErrorF();
-      v23 = v38[5];
-      v38[5] = v29;
-      goto LABEL_18;
-    }
+      decisionInfo = [v9 decisionInfo];
+      v17 = [decisionInfo objectForKeyedSubscript:@"decisionType"];
+      integerValue = [v17 integerValue];
 
-    testMode = [v9 testMode];
-    decisionInfo = [v9 decisionInfo];
-    v21 = [decisionInfo objectForKeyedSubscript:@"decisionResult"];
-    bOOLValue = [v21 BOOLValue];
-
-    if (bOOLValue)
-    {
-      v23 = 0;
-    }
-
-    else
-    {
-      v23 = ENErrorF();
-    }
-
-    requestType = [v9 requestType];
-    if (requestType == 2)
-    {
-      [connection _xpcGetDiagnosisKeysCompletion:originalRequest didPrompt:1 testMode:testMode error:v23];
-    }
-
-    else
-    {
-      if (requestType != 3)
+      if (integerValue == [v9 requestType])
       {
-        [v9 requestType];
-        v26 = ENErrorF();
-        reply = v38[5];
-        v38[5] = v26;
+        testMode = [v9 testMode];
+        decisionInfo2 = [v9 decisionInfo];
+        v21 = [decisionInfo2 objectForKeyedSubscript:@"decisionResult"];
+        bOOLValue = [v21 BOOLValue];
+
+        if (bOOLValue)
+        {
+          v23 = 0;
+        }
+
+        else
+        {
+          v23 = ENErrorF(4, "User denied");
+        }
+
+        requestType = [v9 requestType];
+        if (requestType == 2)
+        {
+          [connection _xpcGetDiagnosisKeysCompletion:originalRequest didPrompt:1 testMode:testMode error:v23];
+        }
+
+        else
+        {
+          if (requestType != 3)
+          {
+            v26 = ENErrorF(2, "Invalid request type %ld", [v9 requestType]);
+            reply = v38[5];
+            v38[5] = v26;
 LABEL_17:
 
 LABEL_18:
 LABEL_19:
 
 LABEL_20:
-        v5 = v30;
-        goto LABEL_21;
+            v5 = v30;
+            goto LABEL_21;
+          }
+
+          [connection _xpcPreAuthorizeDiagnosisKeysComplete:originalRequest userDecision:bOOLValue];
+        }
+
+        reply = xpc_dictionary_create_reply(original);
+        if (reply)
+        {
+          [(ENXPCConnection *)self _xpcSendMessage:reply];
+        }
+
+        else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcRemotePresentationReceivedDecision:]", 90, "### RemotePresentationReceivedDecision create reply failed");
+        }
+
+        goto LABEL_17;
       }
 
-      [connection _xpcPreAuthorizeDiagnosisKeysComplete:originalRequest userDecision:bOOLValue];
+      v29 = ENErrorF(15, "Decision type does not match request type");
     }
 
-    reply = xpc_dictionary_create_reply(original);
-    if (reply)
+    else
     {
-      [(ENXPCConnection *)self _xpcSendMessage:reply];
+      v29 = ENErrorF(16, "Missing original XPC request");
     }
 
-    else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF_safe();
-    }
-
-    goto LABEL_17;
+    v23 = v38[5];
+    v38[5] = v29;
+    goto LABEL_18;
   }
 
 LABEL_22:
@@ -13052,67 +12905,57 @@ LABEL_22:
   _Block_object_dispose(&v37, 8);
 }
 
-uint64_t __58__ENXPCConnection__xpcRemotePresentationReceivedDecision___block_invoke(void *a1)
+void *__58__ENXPCConnection__xpcRemotePresentationReceivedDecision___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcRemotePresentationReceivedDecision:]_block_invoke", 90, "### RemotePresentationReceivedDecision failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_xpcStartSelfReportWebSession:(id)session
 {
   sessionCopy = session;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__3;
-  v37 = __Block_byref_object_dispose__3;
-  v38 = 0;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke;
-  v30[3] = &unk_278FD10D0;
-  v32 = &v33;
-  v30[4] = self;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__3;
+  v35 = __Block_byref_object_dispose__3;
+  v36 = 0;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke;
+  v28[3] = &unk_278FD10D0;
+  v30 = &v31;
+  v28[4] = self;
   v5 = sessionCopy;
-  v31 = v5;
-  v6 = MEMORY[0x24C214430](v30);
+  v29 = v5;
+  v6 = MEMORY[0x24C214430](v28);
   objc_opt_class();
-  v7 = v34;
-  obj = v34[5];
-  region = ENXPCDecodeSecureObjectIfPresent();
+  v7 = v32;
+  obj = v32[5];
+  v8 = ENXPCDecodeSecureObjectIfPresent();
   objc_storeStrong(v7 + 5, obj);
-  if (!v34[5])
+  if (!v32[5])
   {
     activeEntity = [(ENDaemon *)self->_daemon activeEntity];
     v10 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -13121,81 +12964,69 @@ LABEL_7:
     if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
       v12 = @" <>";
-      if (region)
+      if (v8)
       {
-        v12 = region;
+        v12 = v8;
       }
 
-      v22 = v12;
-      v23 = activeEntity;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartSelfReportWebSession:]", 30, "startSelfReportWebSession Region %@, Active Entity: %@", v12, activeEntity);
     }
 
-    if ([(ENDaemon *)self->_daemon _isNKDActive:v22])
+    if ([(ENDaemon *)self->_daemon _isNKDActive])
     {
       testResultManager = [(ENDaemon *)self->_daemon testResultManager];
       if (testResultManager)
       {
-        if (region)
+        if (v8 || (-[ENDaemon activeEntity](self->_daemon, "activeEntity"), v14 = objc_claimAutoreleasedReturnValue(), [v14 entity], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "region"), v8 = objc_claimAutoreleasedReturnValue(), v15, v14, v8))
         {
-          goto LABEL_13;
-        }
-
-        activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
-        entity = [activeEntity2 entity];
-        region = [entity region];
-
-        if (region)
-        {
-LABEL_13:
           daemon = self->_daemon;
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2;
-          v24[3] = &unk_278FD1F90;
-          v28 = &v33;
-          v24[4] = self;
-          v25 = v5;
-          v26 = testResultManager;
-          region = region;
-          v27 = region;
-          [(ENDaemon *)daemon fetchServerConfigurationForRegion:region completion:v24];
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2;
+          v22[3] = &unk_278FD1F90;
+          v26 = &v31;
+          v22[4] = self;
+          v23 = v5;
+          v24 = testResultManager;
+          v8 = v8;
+          v25 = v8;
+          [(ENDaemon *)daemon fetchServerConfigurationForRegion:v8 completion:v22];
         }
 
         else
         {
-          v20 = ENTestResultErrorF(9);
-          v21 = v34[5];
-          v34[5] = v20;
+          v20 = ENTestResultErrorF(9, "No active region");
+          v21 = v32[5];
+          v32[5] = v20;
 
-          region = 0;
+          v8 = 0;
         }
       }
 
       else
       {
-        v18 = ENErrorF();
-        v19 = v34[5];
-        v34[5] = v18;
+        v18 = ENErrorF(11, "Test result manager unavailable");
+        v19 = v32[5];
+        v32[5] = v18;
       }
     }
 
     else
     {
-      v17 = ENErrorF();
-      testResultManager = v34[5];
-      v34[5] = v17;
+      v17 = ENErrorF(5, "self web verification unsupported");
+      testResultManager = v32[5];
+      v32[5] = v17;
     }
   }
 
   v6[2](v6);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
-uint64_t __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke(uint64_t result)
+void *__49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke(void *result)
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -13220,7 +13051,7 @@ void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2(uint64
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v12 = v6;
   if (v5)
   {
     if (([v5 supportsFeatures:2] & 1) == 0)
@@ -13232,16 +13063,16 @@ void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2(uint64
     reply = xpc_dictionary_create_reply(*(a1 + 40));
     if (reply)
     {
-      v9 = *(a1 + 48);
-      v10 = *(a1 + 56);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_3;
-      v14[3] = &unk_278FD1F68;
-      v11 = *(a1 + 32);
-      v14[4] = reply;
-      v14[5] = v11;
-      [v9 startSelfReportWebSession:v10 completionHandler:v14];
+      v14 = *(a1 + 48);
+      v15 = *(a1 + 56);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_3;
+      v19[3] = &unk_278FD1F68;
+      v16 = *(a1 + 32);
+      v19[4] = reply;
+      v19[5] = v16;
+      [v14 startSelfReportWebSession:v15 completionHandler:v19];
     }
 
     else
@@ -13252,11 +13083,11 @@ void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2(uint64
 
   else
   {
-    reply = ENNestedTestResultErrorF(v6, 9);
-    v12 = +[ENLoggingPrefs sharedENLoggingPrefs];
-    v13 = [v12 isSensitiveLoggingAllowed];
+    reply = ENNestedTestResultErrorF(v6, 9, "Failed to fetch region configuration", v7, v8, v9, v10, v11, v19[0]);
+    v17 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    v18 = [v17 isSensitiveLoggingAllowed];
 
-    if (v13 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+    if (v18 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
       __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2_cold_3(a1);
     }
@@ -13269,17 +13100,17 @@ LABEL_11:
 
 void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v12 = a2;
+  v11 = a2;
   v7 = a3;
   v8 = a4;
-  if (v12 && v7 || (!v8 ? (ENErrorF(), v9 = objc_claimAutoreleasedReturnValue()) : (v9 = v8), v10 = v9, v11 = *(a1 + 32), CUXPCEncodeNSError(), v10, v7))
+  if (v11 && v7 || (!v8 ? (ENErrorF(11, "Unknown error starting self report web session"), v9 = objc_claimAutoreleasedReturnValue()) : (v9 = v8), v10 = v9, CUXPCEncodeNSError(), v10, v7))
   {
     xpc_dictionary_set_string(*(a1 + 32), "nonce", [v7 utf8ValueSafe]);
   }
 
-  if (v12)
+  if (v11)
   {
-    xpc_dictionary_set_string(*(a1 + 32), "APIKey", [v12 utf8ValueSafe]);
+    xpc_dictionary_set_string(*(a1 + 32), "APIKey", [v11 utf8ValueSafe]);
   }
 
   [*(a1 + 40) _xpcSendMessage:*(a1 + 32)];
@@ -13288,29 +13119,29 @@ void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_3(uint64
 - (void)_xpcStartTestVerificationSession:(id)session
 {
   sessionCopy = session;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__3;
-  v60 = __Block_byref_object_dispose__3;
-  v61 = 0;
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke;
-  v53[3] = &unk_278FD10D0;
-  v55 = &v56;
-  v53[4] = self;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__3;
+  v56 = __Block_byref_object_dispose__3;
+  v57 = 0;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke;
+  v49[3] = &unk_278FD10D0;
+  v51 = &v52;
+  v49[4] = self;
   v5 = sessionCopy;
-  v54 = v5;
-  v6 = MEMORY[0x24C214430](v53);
-  if ([(ENXPCClient *)self->_client entitledForTestVerification]|| (v7 = v57, obj = v57[5], v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj], objc_storeStrong(v7 + 5, obj), v8))
+  v50 = v5;
+  v6 = MEMORY[0x24C214430](v49);
+  if ([(ENXPCClient *)self->_client entitledForTestVerification]|| (v7 = v53, obj = v53[5], v8 = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj], objc_storeStrong(v7 + 5, obj), v8))
   {
     v9 = xpc_dictionary_get_BOOL(v5, "chaff");
-    v10 = v57;
-    v50 = v57[5];
-    v51 = 0;
+    v10 = v53;
+    v46 = v53[5];
+    v47 = 0;
     v11 = CUXPCDecodeNSString();
-    objc_storeStrong(v10 + 5, v50);
+    objc_storeStrong(v10 + 5, v46);
     if ((v11 & 1) == 0)
     {
 LABEL_26:
@@ -13320,18 +13151,18 @@ LABEL_26:
 
     if (!v9)
     {
-      v34 = ENErrorF();
-      region = v57[5];
-      v57[5] = v34;
+      v34 = ENErrorF(2, "No verification code");
+      v13 = v53[5];
+      v53[5] = v34;
       goto LABEL_25;
     }
 
     objc_opt_class();
-    v12 = v57;
-    v49 = v57[5];
-    region = ENXPCDecodeSecureObjectIfPresent();
-    objc_storeStrong(v12 + 5, v49);
-    if (v57[5])
+    v12 = v53;
+    v45 = v53[5];
+    v13 = ENXPCDecodeSecureObjectIfPresent();
+    objc_storeStrong(v12 + 5, v45);
+    if (v53[5])
     {
 LABEL_25:
 
@@ -13351,116 +13182,105 @@ LABEL_25:
       }
 
       v18 = @" <>";
-      if (region)
+      if (v13)
       {
-        v18 = region;
+        v18 = v13;
       }
 
-      v39 = v18;
-      v40 = activeEntity;
-      v37 = v17;
-      v38 = v51;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartTestVerificationSession:]", 30, "StartTestVerificationSession %sCode: %@, Region %@, Active Entity: %@", v17, v47, v18, activeEntity);
     }
 
-    if ([(ENDaemon *)self->_daemon getOverallStatus:v37]== 2)
+    if ([(ENDaemon *)self->_daemon getOverallStatus]== 2)
     {
-      goto LABEL_29;
-    }
-
-    if ([activeEntity activeStatus] == 2)
-    {
-      entity = [activeEntity entity];
-      bundleIdentifier = [entity bundleIdentifier];
-
-      v21 = ENErrorF();
-      v22 = v57[5];
-      v57[5] = v21;
-
-      userInfo = [v57[5] userInfo];
-      v24 = [userInfo mutableCopy];
-
-      [v24 setObject:bundleIdentifier forKeyedSubscript:*MEMORY[0x277CC5BE0]];
-      v25 = objc_alloc(MEMORY[0x277CCA9B0]);
-      domain = [v57[5] domain];
-      v27 = [v25 initWithDomain:domain code:objc_msgSend(v57[5] userInfo:{"code"), v24}];
-      v28 = v57[5];
-      v57[5] = v27;
-
-LABEL_24:
-      goto LABEL_25;
-    }
-
-    if (![(ENDaemon *)self->_daemon _isNKDActive])
-    {
-LABEL_29:
-      v35 = ENErrorF();
-      bundleIdentifier = v57[5];
-      v57[5] = v35;
-      goto LABEL_24;
-    }
-
-    bundleIdentifier = [(ENDaemon *)self->_daemon testResultManager];
-    if (bundleIdentifier)
-    {
-      if (region)
-      {
-        goto LABEL_22;
-      }
-
-      activeEntity2 = [(ENDaemon *)self->_daemon activeEntity];
-      entity2 = [activeEntity2 entity];
-      region = [entity2 region];
-
-      if (region)
-      {
-LABEL_22:
-        dispatchQueue = [(ENDaemon *)self->_daemon dispatchQueue];
-        differentialPrivacyManager = [(ENDaemon *)self->_daemon differentialPrivacyManager];
-        daemon = self->_daemon;
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2;
-        v41[3] = &unk_278FD2008;
-        v41[4] = self;
-        v48 = v9;
-        v42 = v5;
-        v43 = bundleIdentifier;
-        region = region;
-        v44 = region;
-        v45 = v51;
-        v46 = dispatchQueue;
-        v47 = differentialPrivacyManager;
-        [(ENDaemon *)daemon fetchServerConfigurationForRegion:region completion:v41];
-
-LABEL_23:
-        goto LABEL_24;
-      }
-
-      v36 = ENTestResultErrorF(9);
-      region = 0;
+      v35 = ENErrorF(9, "Exposure notification is disabled");
     }
 
     else
     {
-      v36 = ENErrorF();
+      if ([activeEntity activeStatus] == 2)
+      {
+        entity = [activeEntity entity];
+        bundleIdentifier = [entity bundleIdentifier];
+
+        v21 = ENErrorF(5, "Active entity is '%@'", bundleIdentifier);
+        v22 = v53[5];
+        v53[5] = v21;
+
+        userInfo = [v53[5] userInfo];
+        v24 = [userInfo mutableCopy];
+
+        [v24 setObject:bundleIdentifier forKeyedSubscript:*MEMORY[0x277CC5BE0]];
+        v25 = objc_alloc(MEMORY[0x277CCA9B0]);
+        domain = [v53[5] domain];
+        v27 = [v25 initWithDomain:domain code:objc_msgSend(v53[5] userInfo:{"code"), v24}];
+        v28 = v53[5];
+        v53[5] = v27;
+
+LABEL_24:
+        goto LABEL_25;
+      }
+
+      if ([(ENDaemon *)self->_daemon _isNKDActive])
+      {
+        bundleIdentifier = [(ENDaemon *)self->_daemon testResultManager];
+        if (bundleIdentifier)
+        {
+          if (v13 || (-[ENDaemon activeEntity](self->_daemon, "activeEntity"), v29 = objc_claimAutoreleasedReturnValue(), [v29 entity], v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "region"), v13 = objc_claimAutoreleasedReturnValue(), v30, v29, v13))
+          {
+            dispatchQueue = [(ENDaemon *)self->_daemon dispatchQueue];
+            differentialPrivacyManager = [(ENDaemon *)self->_daemon differentialPrivacyManager];
+            daemon = self->_daemon;
+            v37[0] = MEMORY[0x277D85DD0];
+            v37[1] = 3221225472;
+            v37[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2;
+            v37[3] = &unk_278FD2008;
+            v37[4] = self;
+            v44 = v9;
+            v38 = v5;
+            v39 = bundleIdentifier;
+            v13 = v13;
+            v40 = v13;
+            v41 = v47;
+            v42 = dispatchQueue;
+            v43 = differentialPrivacyManager;
+            [(ENDaemon *)daemon fetchServerConfigurationForRegion:v13 completion:v37];
+
+LABEL_23:
+            goto LABEL_24;
+          }
+
+          v36 = ENTestResultErrorF(9, "No active region");
+          v13 = 0;
+        }
+
+        else
+        {
+          v36 = ENErrorF(11, "Test result manager unavailable");
+        }
+
+        dispatchQueue = v53[5];
+        v53[5] = v36;
+        goto LABEL_23;
+      }
+
+      v35 = ENErrorF(5, "Test verification unsupported");
     }
 
-    dispatchQueue = v57[5];
-    v57[5] = v36;
-    goto LABEL_23;
+    bundleIdentifier = v53[5];
+    v53[5] = v35;
+    goto LABEL_24;
   }
 
 LABEL_27:
   v6[2](v6);
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v52, 8);
 }
 
-uint64_t __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke(uint64_t result)
+void *__52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke(void *result)
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -13481,44 +13301,44 @@ uint64_t __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke(u
   return result;
 }
 
-void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
     reply = xpc_dictionary_create_reply(*(a1 + 40));
-    v5 = reply;
+    v10 = reply;
     if (reply)
     {
-      v6 = *(a1 + 48);
+      v11 = *(a1 + 48);
       if (*(a1 + 88) == 1)
       {
-        v7 = *(a1 + 56);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_3;
-        v18[3] = &unk_278FD1FB8;
-        v8 = *(a1 + 32);
-        v18[4] = reply;
-        v18[5] = v8;
-        [v6 startChaffTestVerficationSessionForRegion:v7 completionHandler:v18];
+        v12 = *(a1 + 56);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_3;
+        v24[3] = &unk_278FD1FB8;
+        v13 = *(a1 + 32);
+        v24[4] = reply;
+        v24[5] = v13;
+        [v11 startChaffTestVerficationSessionForRegion:v12 completionHandler:v24];
       }
 
       else
       {
-        v11 = *(a1 + 64);
-        v12 = [*(*(a1 + 32) + 32) prefNetworkProxyEnabled];
-        v13 = *(a1 + 56);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_4;
-        v17[3] = &unk_278FD1FE0;
-        v14 = *(a1 + 80);
-        v17[4] = *(a1 + 72);
-        v17[5] = v5;
-        v15 = *(a1 + 32);
-        v17[6] = v14;
-        v17[7] = v15;
-        [v6 startTestVerficationSessionWithCode:v11 proxyEnabled:v12 region:v13 completionHandler:v17];
+        v16 = *(a1 + 64);
+        v17 = [*(*(a1 + 32) + 32) prefNetworkProxyEnabled];
+        v18 = *(a1 + 56);
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_4;
+        v23[3] = &unk_278FD1FE0;
+        v19 = *(a1 + 80);
+        v23[4] = *(a1 + 72);
+        v23[5] = v10;
+        v20 = *(a1 + 32);
+        v23[6] = v19;
+        v23[7] = v20;
+        [v11 startTestVerficationSessionWithCode:v16 proxyEnabled:v17 region:v18 completionHandler:v23];
       }
     }
 
@@ -13530,16 +13350,16 @@ void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2(uin
 
   else
   {
-    v16 = ENNestedTestResultErrorF(a3, 9);
-    v9 = +[ENLoggingPrefs sharedENLoggingPrefs];
-    v10 = [v9 isSensitiveLoggingAllowed];
+    v22 = ENNestedTestResultErrorF(a3, 9, "Failed to fetch region configuration", a4, a5, a6, a7, a8, v21);
+    v14 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    v15 = [v14 isSensitiveLoggingAllowed];
 
-    if (v10 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+    if (v15 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2_cold_2();
+      __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2_cold_2(v22);
     }
 
-    [*(a1 + 32) _xpcSendReplyError:v16 request:*(a1 + 40)];
+    [*(a1 + 32) _xpcSendReplyError:v22 request:*(a1 + 40)];
   }
 }
 
@@ -13547,14 +13367,13 @@ uint64_t __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_3
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
     CUXPCEncodeNSError();
   }
 
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
 
-  return [v4 _xpcSendMessage:v5];
+  return [v3 _xpcSendMessage:v4];
 }
 
 void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_4(uint64_t a1, void *a2, void *a3)
@@ -13577,7 +13396,7 @@ void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_4(uin
 
 uint64_t __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_5(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (!v2)
   {
@@ -13589,20 +13408,19 @@ uint64_t __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_5
 
     else
     {
-      v11 = ENErrorF();
+      v11 = ENErrorF(11, "Unknown error starting session");
     }
 
     v5 = v11;
-    v12 = *(a1 + 40);
     CUXPCEncodeNSError();
 LABEL_13:
 
-    goto LABEL_14;
+    return [*(a1 + 56) _xpcSendMessage:*(a1 + 40)];
   }
 
   v3 = *(a1 + 40);
   *uuid = 0;
-  v18 = 0;
+  v14 = 0;
   v4 = v3;
   [v2 getUUIDBytes:uuid];
   xpc_dictionary_set_uuid(v4, "sessID", uuid);
@@ -13617,20 +13435,15 @@ LABEL_13:
 
     if (v9 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      v15 = v6;
-      v16 = v7;
-      LogPrintF_safe();
+      LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartTestVerificationSession:]_block_invoke_5", 90, "CodeVerified, classification info %d, report type %@", v6, v7);
     }
 
-    [*(a1 + 48) reportUserCodeVerified:v6 reportType:{objc_msgSend(v7, "unsignedIntValue", v15, v16)}];
+    [*(a1 + 48) reportUserCodeVerified:v6 reportType:{objc_msgSend(v7, "unsignedIntValue")}];
 
     goto LABEL_13;
   }
 
-LABEL_14:
-  result = [*(a1 + 56) _xpcSendMessage:*(a1 + 40)];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 56) _xpcSendMessage:*(a1 + 40)];
 }
 
 - (void)_xpcFetchTestVerificationMetadata:(id)metadata
@@ -13664,7 +13477,7 @@ LABEL_14:
     objc_storeStrong(v9, v13);
     if (v10)
     {
-      v11 = ENErrorF();
+      v11 = ENErrorF(2, "No session ID");
       v12 = v20[5];
       v20[5] = v11;
     }
@@ -13675,10 +13488,10 @@ LABEL_14:
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __53__ENXPCConnection__xpcFetchTestVerificationMetadata___block_invoke(uint64_t result)
+void *__53__ENXPCConnection__xpcFetchTestVerificationMetadata___block_invoke(void *result)
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -13730,7 +13543,7 @@ uint64_t __53__ENXPCConnection__xpcFetchTestVerificationMetadata___block_invoke(
     objc_storeStrong(v9 + 5, v13);
     if (v10)
     {
-      v11 = ENErrorF();
+      v11 = ENErrorF(2, "No session ID");
       v12 = v20[5];
       v20[5] = v11;
     }
@@ -13741,10 +13554,10 @@ uint64_t __53__ENXPCConnection__xpcFetchTestVerificationMetadata___block_invoke(
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke(uint64_t result)
+void *__53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke(void *result)
 {
-  v1 = result + 48;
-  if (*(*(*(result + 48) + 8) + 40))
+  v1 = result + 6;
+  if (*(*(result[6] + 8) + 40))
   {
     v2 = result;
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -13768,7 +13581,7 @@ uint64_t __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke(
 void __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v20 = v5;
+  v22 = v5;
   if ((a2 & 1) == 0)
   {
     if (v5)
@@ -13778,7 +13591,7 @@ void __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2(ui
 
     else
     {
-      v14 = ENErrorF();
+      v14 = ENErrorF(11, "Unknown error");
     }
 
     v11 = v14;
@@ -13787,10 +13600,9 @@ void __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2(ui
 
     if (v16 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
     {
-      __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2_cold_1();
+      __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2_cold_1(v11);
     }
 
-    v17 = *(a1 + 32);
     CUXPCEncodeNSError();
     goto LABEL_23;
   }
@@ -13823,12 +13635,18 @@ void __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2(ui
 
       else
       {
-        v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
-        v19 = [v18 isSensitiveLoggingAllowed];
+        v17 = +[ENLoggingPrefs sharedENLoggingPrefs];
+        v18 = [v17 isSensitiveLoggingAllowed];
 
-        if (v19 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+        if (v18)
         {
-          __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2_cold_3();
+          if (_MergedGlobals <= 90)
+          {
+            if (_MergedGlobals != -1 || (v19 = _LogCategory_Initialize(), v19))
+            {
+              __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2_cold_3(v19, v20, v21);
+            }
+          }
         }
       }
 
@@ -13889,7 +13707,7 @@ LABEL_23:
 
       else if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcShowBuddy:]", 90, "### ShowBuddy create reply failed");
       }
     }
   }
@@ -13899,49 +13717,38 @@ LABEL_23:
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __33__ENXPCConnection__xpcShowBuddy___block_invoke(void *a1)
+void *__33__ENXPCConnection__xpcShowBuddy___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (_MergedGlobals <= 90)
-  {
-    if (_MergedGlobals == -1)
+    if (_MergedGlobals <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (_MergedGlobals != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcShowBuddy:]_block_invoke", 90, "### ShowBuddy failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 void __33__ENXPCConnection__xpcShowBuddy___block_invoke_2(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (v4)
+  v3 = a2;
+  if (v3)
   {
-    v3 = *(a1 + 32);
     CUXPCEncodeNSError();
   }
 
@@ -13950,37 +13757,37 @@ void __33__ENXPCConnection__xpcShowBuddy___block_invoke_2(uint64_t a1, void *a2)
 
 - (void)_xpcVerifyTextMessage:(id)message
 {
-  v107[1] = *MEMORY[0x277D85DE8];
+  v103[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x3032000000;
-  v103 = __Block_byref_object_copy__3;
-  v104 = __Block_byref_object_dispose__3;
-  v105 = 0;
-  v97[0] = MEMORY[0x277D85DD0];
-  v97[1] = 3221225472;
-  v97[2] = __41__ENXPCConnection__xpcVerifyTextMessage___block_invoke;
-  v97[3] = &unk_278FD10D0;
-  v99 = &v100;
-  selfCopy = self;
-  v97[4] = self;
-  original = messageCopy;
-  v98 = original;
-  v5 = MEMORY[0x24C214430](v97);
   v96 = 0;
-  v6 = v101;
-  obj = v101[5];
-  v79 = v5;
+  v97 = &v96;
+  v98 = 0x3032000000;
+  v99 = __Block_byref_object_copy__3;
+  v100 = __Block_byref_object_dispose__3;
+  v101 = 0;
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = __41__ENXPCConnection__xpcVerifyTextMessage___block_invoke;
+  v93[3] = &unk_278FD10D0;
+  v95 = &v96;
+  selfCopy = self;
+  v93[4] = self;
+  original = messageCopy;
+  v94 = original;
+  v5 = MEMORY[0x24C214430](v93);
+  v92 = 0;
+  v6 = v97;
+  obj = v97[5];
+  v75 = v5;
   LOBYTE(self) = [(ENXPCConnection *)self _entitledForAccessLevel:4 error:&obj];
   objc_storeStrong(v6 + 5, obj);
   if (self)
   {
     if ([(ENDaemon *)selfCopy->_daemon overallStatus]!= 1)
     {
-      v49 = ENErrorF();
-      v81 = v101[5];
-      v101[5] = v49;
+      v48 = ENErrorF(9, "Exposure Notifications is not enabled");
+      v77 = v97[5];
+      v97[5] = v48;
 
       goto LABEL_73;
     }
@@ -13988,9 +13795,9 @@ void __33__ENXPCConnection__xpcShowBuddy___block_invoke_2(uint64_t a1, void *a2)
     textMessageManager = [(ENDaemon *)selfCopy->_daemon textMessageManager];
     if (!textMessageManager)
     {
-      v50 = ENErrorF();
-      v77 = v101[5];
-      v101[5] = v50;
+      v49 = ENErrorF(5, "No text message manager found");
+      v73 = v97[5];
+      v97[5] = v49;
 
       goto LABEL_72;
     }
@@ -14000,19 +13807,19 @@ void __33__ENXPCConnection__xpcShowBuddy___block_invoke_2(uint64_t a1, void *a2)
 
     if (!configurationStore)
     {
-      v51 = ENErrorF();
-      v85 = v101[5];
-      v101[5] = v51;
+      v50 = ENErrorF(11, "No configuration store found");
+      v81 = v97[5];
+      v97[5] = v50;
 
       goto LABEL_71;
     }
 
     objc_opt_class();
-    v8 = v101 + 5;
-    v94 = v101[5];
-    v84 = ENXPCDecodeSecureObject();
-    objc_storeStrong(v8, v94);
-    if (!v84)
+    v8 = v97 + 5;
+    v90 = v97[5];
+    v80 = ENXPCDecodeSecureObject();
+    objc_storeStrong(v8, v90);
+    if (!v80)
     {
 LABEL_70:
 
@@ -14022,118 +13829,91 @@ LABEL_72:
       goto LABEL_73;
     }
 
-    testVerificationCode = [v84 testVerificationCode];
-    if (!testVerificationCode)
+    testVerificationCode = [v80 testVerificationCode];
+    if (testVerificationCode)
     {
-      goto LABEL_80;
-    }
-
-    testVerificationRegion = [v84 testVerificationRegion];
-    if (!testVerificationRegion)
-    {
-      activeEntity = [(ENDaemon *)selfCopy->_daemon activeEntity];
-      entity = [activeEntity entity];
-      region = [entity region];
-
-      testVerificationRegion = region;
-      if (!region)
+      testVerificationRegion = [v80 testVerificationRegion];
+      if (testVerificationRegion || (-[ENDaemon activeEntity](selfCopy->_daemon, "activeEntity"), v10 = objc_claimAutoreleasedReturnValue(), [v10 entity], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "region"), v12 = objc_claimAutoreleasedReturnValue(), v11, v10, (testVerificationRegion = v12) != 0))
       {
-LABEL_80:
-        v52 = ENErrorF();
-        v73 = v101[5];
-        v101[5] = v52;
+        v68 = testVerificationRegion;
+        v63 = [configurationStore configurationForRegion:?];
+        if (!v63)
+        {
+          v52 = ENErrorF(5, "No region configuration found");
+          v71 = v97[5];
+          v97[5] = v52;
 
-        goto LABEL_69;
-      }
-    }
+          goto LABEL_68;
+        }
 
-    v72 = testVerificationRegion;
-    v67 = [configurationStore configurationForRegion:?];
-    if (!v67)
-    {
-      v53 = ENErrorF();
-      v75 = v101[5];
-      v101[5] = v53;
+        v13 = [configurationStore serverConfigurationForRegion:v68];
+        v70 = v13;
+        if (v13)
+        {
+          if ([v13 textMessageVerificationEnabled])
+          {
+            v14 = [configurationStore agencyConfigurationForRegion:v68];
+            v64 = v14;
+            if (v14)
+            {
+              localizedConfiguration = [v14 localizedConfiguration];
+              testVerificationNotificationBody = [localizedConfiguration testVerificationNotificationBody];
+              v17 = testVerificationNotificationBody == 0;
 
-      goto LABEL_68;
-    }
+              if (!v17)
+              {
+                preArmTestVerificationEnabled = [v70 preArmTestVerificationEnabled];
+                v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                isSensitiveLoggingAllowed = [v18 isSensitiveLoggingAllowed];
 
-    v13 = [configurationStore serverConfigurationForRegion:v72];
-    v74 = v13;
-    if (!v13 || ([v13 textMessageVerificationEnabled] & 1) == 0)
-    {
-      v54 = ENErrorF();
-      v69 = v101[5];
-      v101[5] = v54;
+                if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                {
+                  if (preArmTestVerificationEnabled)
+                  {
+                    v20 = "yes";
+                  }
 
-      goto LABEL_67;
-    }
+                  else
+                  {
+                    v20 = "no";
+                  }
 
-    v14 = [configurationStore agencyConfigurationForRegion:v72];
-    v68 = v14;
-    if (!v14 || ([v14 localizedConfiguration], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "testVerificationNotificationBody"), v16 = objc_claimAutoreleasedReturnValue(), v17 = v16 == 0, v16, v15, v17))
-    {
-      v55 = ENErrorF();
-      v64 = v101[5];
-      v101[5] = v55;
+                  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcVerifyTextMessage:]", 30, "### Verify message signature for - %@, Pre-Arm: %s", v80, v20);
+                }
 
-      goto LABEL_66;
-    }
+                CFStringGetTypeID();
+                v21 = CFPrefs_CopyTypedValue();
+                v59 = v21;
+                if (v21)
+                {
+                  v103[0] = v21;
+                  currentPhoneNumbers = [MEMORY[0x277CBEA68] arrayWithObjects:v103 count:1];
+                }
 
-    preArmTestVerificationEnabled = [v74 preArmTestVerificationEnabled];
-    v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
-    isSensitiveLoggingAllowed = [v18 isSensitiveLoggingAllowed];
+                else
+                {
+                  v22 = +[ENCoreTelephonyUtility sharedInstance];
+                  currentPhoneNumbers = [v22 currentPhoneNumbers];
+                }
 
-    if (isSensitiveLoggingAllowed && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-    {
-      if (preArmTestVerificationEnabled)
-      {
-        v20 = "yes";
-      }
+                if (![currentPhoneNumbers count])
+                {
+                  v55 = ENErrorF(11, "Unable to get phone number");
+                  v79 = v97[5];
+                  v97[5] = v55;
 
-      else
-      {
-        v20 = "no";
-      }
+                  goto LABEL_65;
+                }
 
-      v60 = v84;
-      v62 = v20;
-      LogPrintF_safe();
-    }
+                textMessagePublicKey = [v70 textMessagePublicKey];
+                v24 = *MEMORY[0x277CDBFF8];
+                v25 = v97 + 5;
+                v89 = v97[5];
+                v78 = [ENSecKey keyFromBase64String:textMessagePublicKey keyClass:v24 error:&v89];
+                objc_storeStrong(v25, v89);
 
-    CFStringGetTypeID();
-    v21 = CFPrefs_CopyTypedValue();
-    v63 = v21;
-    if (v21)
-    {
-      v107[0] = v21;
-      currentPhoneNumbers = [MEMORY[0x277CBEA68] arrayWithObjects:v107 count:1];
-    }
-
-    else
-    {
-      v22 = +[ENCoreTelephonyUtility sharedInstance];
-      currentPhoneNumbers = [v22 currentPhoneNumbers];
-    }
-
-    if (![currentPhoneNumbers count])
-    {
-      v56 = ENErrorF();
-      v83 = v101[5];
-      v101[5] = v56;
-
-      goto LABEL_65;
-    }
-
-    textMessagePublicKey = [v74 textMessagePublicKey];
-    v24 = *MEMORY[0x277CDBFF8];
-    v25 = v101 + 5;
-    v93 = v101[5];
-    v82 = [ENSecKey keyFromBase64String:textMessagePublicKey keyClass:v24 error:&v93];
-    objc_storeStrong(v25, v93);
-
-    if (!v82)
-    {
+                if (!v78)
+                {
 LABEL_64:
 
 LABEL_65:
@@ -14143,206 +13923,242 @@ LABEL_67:
 LABEL_68:
 
 LABEL_69:
-      goto LABEL_70;
-    }
+                  goto LABEL_70;
+                }
 
-    textMessagePublicKeyVersion = [v74 textMessagePublicKeyVersion];
-    v92 = 0;
-    v88 = 0u;
-    v89 = 0u;
-    v90 = 0u;
-    v91 = 0u;
-    v27 = currentPhoneNumbers;
-    v28 = [v27 countByEnumeratingWithState:&v88 objects:v106 count:16];
-    if (v28)
-    {
-      v29 = *v89;
-      while (2)
-      {
-        for (i = 0; i != v28; ++i)
-        {
-          if (*v89 != v29)
-          {
-            objc_enumerationMutation(v27);
-          }
+                textMessagePublicKeyVersion = [v70 textMessagePublicKeyVersion];
+                v88 = 0;
+                v84 = 0u;
+                v85 = 0u;
+                v86 = 0u;
+                v87 = 0u;
+                v27 = currentPhoneNumbers;
+                v28 = [v27 countByEnumeratingWithState:&v84 objects:v102 count:16];
+                if (v28)
+                {
+                  v29 = *v85;
+                  while (2)
+                  {
+                    for (i = 0; i != v28; ++i)
+                    {
+                      if (*v85 != v29)
+                      {
+                        objc_enumerationMutation(v27);
+                      }
 
-          v31 = *(*(&v88 + 1) + 8 * i);
-          v32 = v101[5];
-          v101[5] = 0;
+                      v31 = *(*(&v84 + 1) + 8 * i);
+                      v32 = v97[5];
+                      v97[5] = 0;
 
-          date = [MEMORY[0x277CBEAA0] date];
-          v34 = v101 + 5;
-          v87 = v101[5];
-          LOBYTE(v31) = [textMessageManager verifyTextMessage:v84 phoneNumber:v31 verificationDate:date publicKey:v82 publicKeyVersion:textMessagePublicKeyVersion userReport:&v92 outError:&v87];
-          objc_storeStrong(v34, v87);
-          v5 = v79;
+                      date = [MEMORY[0x277CBEAA0] date];
+                      v34 = v97 + 5;
+                      v83 = v97[5];
+                      LOBYTE(v31) = [textMessageManager verifyTextMessage:v80 phoneNumber:v31 verificationDate:date publicKey:v78 publicKeyVersion:textMessagePublicKeyVersion userReport:&v88 outError:&v83];
+                      objc_storeStrong(v34, v83);
+                      v5 = v75;
 
-          if (v31)
-          {
-            v35 = 1;
-            goto LABEL_37;
-          }
-        }
+                      if (v31)
+                      {
+                        v35 = 1;
+                        goto LABEL_37;
+                      }
+                    }
 
-        v28 = [v27 countByEnumeratingWithState:&v88 objects:v106 count:16];
-        if (v28)
-        {
-          continue;
-        }
+                    v28 = [v27 countByEnumeratingWithState:&v84 objects:v102 count:16];
+                    if (v28)
+                    {
+                      continue;
+                    }
 
-        break;
-      }
-    }
+                    break;
+                  }
+                }
 
-    v35 = 0;
+                v35 = 0;
 LABEL_37:
 
-    if (v92)
-    {
-      v36 = 3;
+                if (v88)
+                {
+                  v36 = 3;
+                }
+
+                else
+                {
+                  v36 = 0;
+                }
+
+                if (v88 && ([v70 supportsFeatures:2] & 1) == 0)
+                {
+                  v56 = ENErrorF(2, "Region does not support self reported test verification");
+                }
+
+                else
+                {
+                  if (CFPrefs_GetInt64())
+                  {
+                    v37 = IsAppleInternalBuild() != 0;
+                  }
+
+                  else
+                  {
+                    v37 = 0;
+                  }
+
+                  if (_MergedGlobals <= 40 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                  {
+                    v38 = "no";
+                    if (v37)
+                    {
+                      v38 = "yes";
+                    }
+
+                    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcVerifyTextMessage:]", 40, "### VerifyTextMessage: Disabled: %s", v38);
+                  }
+
+                  if ((v35 | v37))
+                  {
+                    if (preArmTestVerificationEnabled && (v88 & 1) == 0 && ([v63 diagnosisKeysPreAuthorization], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "userAuthorization") == 1, v39, v40))
+                    {
+                      v41 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                      isSensitiveLoggingAllowed2 = [v41 isSensitiveLoggingAllowed];
+
+                      if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                      {
+                        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcVerifyTextMessage:]", 30, "### VerifyTextMessage for Pre-Auth ENX");
+                      }
+
+                      diagnosisKeysPreAuthorization = [v63 diagnosisKeysPreAuthorization];
+                      [diagnosisKeysPreAuthorization setVerificationCode:testVerificationCode];
+
+                      diagnosisKeysPreAuthorization2 = [v63 diagnosisKeysPreAuthorization];
+                      [diagnosisKeysPreAuthorization2 setReportType:v36];
+
+                      v46 = v97 + 5;
+                      v82 = v97[5];
+                      v47 = [configurationStore saveRegionConfiguration:v63 error:&v82];
+                      objc_storeStrong(v46, v82);
+                      if (!v47)
+                      {
+                        goto LABEL_63;
+                      }
+
+                      [(ENDaemon *)selfCopy->_daemon enqueuePreauthorizedTestVerificationUnlockAction];
+                    }
+
+                    else
+                    {
+                      [(ENDaemon *)selfCopy->_daemon postTestVerificationReceivedNotification:v80 region:v68 reportType:v36];
+                    }
+
+                    reply = xpc_dictionary_create_reply(original);
+                    if (reply)
+                    {
+                      [(ENXPCConnection *)selfCopy _xpcSendMessage:reply];
+                    }
+
+                    else
+                    {
+                      v57 = +[ENLoggingPrefs sharedENLoggingPrefs];
+                      isSensitiveLoggingAllowed3 = [v57 isSensitiveLoggingAllowed];
+
+                      if (isSensitiveLoggingAllowed3 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
+                      {
+                        LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcVerifyTextMessage:]", 90, "### VerifyTextMessage create reply failed");
+                      }
+                    }
+
+                    goto LABEL_62;
+                  }
+
+                  if (v97[5])
+                  {
+                    goto LABEL_63;
+                  }
+
+                  v56 = ENErrorF(2, "Unable to verify text message signature.");
+                }
+
+                reply = v97[5];
+                v97[5] = v56;
+LABEL_62:
+
+LABEL_63:
+                goto LABEL_64;
+              }
+
+              v54 = ENErrorF(5, "Message verification notification body not available.");
+            }
+
+            else
+            {
+              v54 = ENErrorF(5, "No agency configuration found");
+            }
+
+            v60 = v97[5];
+            v97[5] = v54;
+
+            goto LABEL_66;
+          }
+
+          v53 = ENErrorF(9, "Signature verification not enabled.");
+        }
+
+        else
+        {
+          v53 = ENErrorF(5, "No server configuration found");
+        }
+
+        v65 = v97[5];
+        v97[5] = v53;
+
+        goto LABEL_67;
+      }
+
+      v51 = ENErrorF(2, "No region found for text message verification");
     }
 
     else
     {
-      v36 = 0;
+      v51 = ENErrorF(2, "Test verification code missing");
     }
 
-    if (!v92 || ([v74 supportsFeatures:2] & 1) != 0)
-    {
-      if (CFPrefs_GetInt64())
-      {
-        v37 = IsAppleInternalBuild() != 0;
-      }
+    v69 = v97[5];
+    v97[5] = v51;
 
-      else
-      {
-        v37 = 0;
-      }
-
-      if (_MergedGlobals <= 40 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-      {
-        v38 = "no";
-        if (v37)
-        {
-          v38 = "yes";
-        }
-
-        v61 = v38;
-        LogPrintF_safe();
-      }
-
-      if ((v35 | v37))
-      {
-        if (preArmTestVerificationEnabled && (v92 & 1) == 0 && ([v67 diagnosisKeysPreAuthorization], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "userAuthorization") == 1, v39, v40))
-        {
-          v41 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed2 = [v41 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed2 && _MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF_safe();
-          }
-
-          diagnosisKeysPreAuthorization = [v67 diagnosisKeysPreAuthorization];
-          [diagnosisKeysPreAuthorization setVerificationCode:testVerificationCode];
-
-          diagnosisKeysPreAuthorization2 = [v67 diagnosisKeysPreAuthorization];
-          [diagnosisKeysPreAuthorization2 setReportType:v36];
-
-          v47 = v101 + 5;
-          v86 = v101[5];
-          v48 = [configurationStore saveRegionConfiguration:v67 error:&v86];
-          objc_storeStrong(v47, v86);
-          if (!v48)
-          {
-            goto LABEL_63;
-          }
-
-          [(ENDaemon *)selfCopy->_daemon enqueuePreauthorizedTestVerificationUnlockAction];
-        }
-
-        else
-        {
-          [(ENDaemon *)selfCopy->_daemon postTestVerificationReceivedNotification:v84 region:v72 reportType:v36, v61];
-        }
-
-        reply = xpc_dictionary_create_reply(original);
-        if (reply)
-        {
-          [(ENXPCConnection *)selfCopy _xpcSendMessage:reply];
-        }
-
-        else
-        {
-          v57 = +[ENLoggingPrefs sharedENLoggingPrefs];
-          isSensitiveLoggingAllowed3 = [v57 isSensitiveLoggingAllowed];
-
-          if (isSensitiveLoggingAllowed3 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF_safe();
-          }
-        }
-
-        goto LABEL_62;
-      }
-
-      if (v101[5])
-      {
-        goto LABEL_63;
-      }
-    }
-
-    v59 = ENErrorF();
-    reply = v101[5];
-    v101[5] = v59;
-LABEL_62:
-
-LABEL_63:
-    goto LABEL_64;
+    goto LABEL_69;
   }
 
 LABEL_73:
   v5[2](v5);
 
-  _Block_object_dispose(&v100, 8);
-  v44 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v96, 8);
 }
 
-uint64_t __41__ENXPCConnection__xpcVerifyTextMessage___block_invoke(void *a1)
+void *__41__ENXPCConnection__xpcVerifyTextMessage___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (dword_281346508 <= 90)
-  {
-    if (dword_281346508 == -1)
+    if (dword_281346508 <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (dword_281346508 != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcVerifyTextMessage:]_block_invoke", 90, "### Verify message signature failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 _xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 _xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)_authorizedAndReturnError:(void *)result .cold.1(void *result)
@@ -14350,20 +14166,20 @@ LABEL_7:
   if (result)
   {
     v1 = result;
-    result = ENErrorF();
+    result = ENErrorF(4, "Not authorized");
     *v1 = result;
   }
 
   return result;
 }
 
-- (void)_rateLimitAndReturnError:(void *)result .cold.1(void *result)
+- (void)_rateLimitAndReturnError:(void *)result .cold.1(void *result, int a2)
 {
   if (result)
   {
-    v1 = result;
-    result = ENErrorF();
-    *v1 = result;
+    v2 = result;
+    result = ENErrorF(13, "Max per-day API limit reached: %u", a2);
+    *v2 = result;
   }
 
   return result;
@@ -14372,21 +14188,21 @@ LABEL_7:
 - (void)xpcConnectionEvent:.cold.1()
 {
   v0 = CUPrintXPC();
-  LogPrintF_safe();
+  LogPrintF_safe(&dword_281346508, "[ENXPCConnection xpcConnectionEvent:]", 90, "### XPC connection error: %@", v0);
 }
 
 - (void)xpcConnectionEvent:(uint64_t)a1 .cold.2(uint64_t a1)
 {
   [*(a1 + 24) pid];
   v1 = CUPrintPID();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection xpcConnectionEvent:]", 20, "XPC connection ended: %@", v1);
 }
 
-- (void)_xpcSendMessage:.cold.1()
+- (void)_xpcSendMessage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&dword_281346508, "[ENXPCConnection _xpcSendMessage:]", a3, "### Send reply with no cnx");
   }
 }
 
@@ -14395,108 +14211,131 @@ LABEL_7:
   if (dword_281346508 <= 90)
   {
     OUTLINED_FUNCTION_5();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcSendReplyError:request:]", 90, "### Send reply error failed for error: %@", v0);
     }
   }
 }
 
-- (void)_xpcSendReplyError:request:.cold.2()
+- (void)_xpcSendReplyError:(uint64_t)a3 request:.cold.2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&dword_281346508, "[ENXPCConnection _xpcSendReplyError:request:]", a3, "### Send error with no cnx");
   }
 }
 
-- (void)_xpcSendReplyError:reply:.cold.1()
+- (void)_xpcSendReplyError:(uint64_t)a3 reply:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&dword_281346508, "[ENXPCConnection _xpcSendReplyError:reply:]", a3, "### Send error with no cnx");
   }
+}
+
+- (uint64_t)_xpcEntitlementCheck:(char)a1 .cold.1(char a1)
+{
+  v1 = "no";
+  if (a1)
+  {
+    v1 = "yes";
+  }
+
+  return LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcEntitlementCheck:]", 30, "Entitlement check: %s", v1);
 }
 
 - (void)_xpcEntitlementCheck:.cold.2()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcEntitlementCheck:]", 90, "### EntitlementCheck create reply failed", v0, v1);
   }
 }
 
 uint64_t __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_2_cold_1(unint64_t a1)
 {
-  if (a1 <= 0xB)
+  if (a1 > 0xB)
+  {
+    v1 = "?";
+  }
+
+  else
   {
     v1 = off_278FD21D8[a1];
   }
 
-  return LogPrintF_safe();
+  return LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetUserTraveledPromptWithCompletion:]_block_invoke_2", 30, "TravelStatus alert response: %s", v1);
 }
 
-void __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3_cold_1()
+void __59__ENXPCConnection__xpcGetUserTraveledPromptWithCompletion___block_invoke_3_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetUserTraveledPromptWithCompletion:]_block_invoke_3", 90, "### TravelStatus alert failed: %@", v1);
 }
 
-- (uint64_t)_xpcManagerActivateIfNecessaryWithRequest:(_BYTE *)a3 error:.cold.1(uint64_t *a1, uint64_t *a2, _BYTE *a3)
+- (uint64_t)_xpcManagerActivateIfNecessaryWithRequest:(_BYTE *)a3 error:.cold.1(void *a1, void *a2, _BYTE *a3)
 {
-  *a3;
-  v5 = *a2;
-  v4 = *a1;
-  return LogPrintF_safe();
+  if (*a3)
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  return LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcManagerActivateIfNecessaryWithRequest:error:]", 30, "Activate:%@, client:%@, isLinkedBeforeAPIV2:%s", *a1, *a2, v3);
 }
 
 void __49__ENXPCConnection__xpcPreAuthorizeDiagnosisKeys___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcPreAuthorizeDiagnosisKeys:]_block_invoke", 90, "### PreAuthorizeDiagnosisKeys failed: %@", v1);
 }
 
 void __70__ENXPCConnection__xpcPreAuthorizeDiagnosisKeysComplete_userDecision___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcPreAuthorizeDiagnosisKeysComplete:userDecision:]_block_invoke", 90, "### PreAuthorizeDiagnosisKeys failed: %@", v1);
 }
 
 void __57__ENXPCConnection__xpcRequestPreAuthorizedDiagnosisKeys___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcRequestPreAuthorizedDiagnosisKeys:]_block_invoke", 90, "### RequestPreAuthorizedDiagnosisKeys failed: %@", v1);
 }
 
 void __87__ENXPCConnection_updateDiagnosisKeysPreAuthorizationForRequest_withDecision_errorOut___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&dword_281346508, "[ENXPCConnection updateDiagnosisKeysPreAuthorizationForRequest:withDecision:errorOut:]_block_invoke", 90, "### UpdateDiagnosisKeysPreAuthorization failed: %@", v1);
 }
 
 void __49__ENXPCConnection__xpcGetDiagnosisKeys_testMode___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDiagnosisKeys:testMode:]_block_invoke", 90, "### GetDiagnosisKeys failed: %@", v1);
 }
 
 void __75__ENXPCConnection__xpcGetDiagnosisKeysCompletion_didPrompt_testMode_error___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcGetDiagnosisKeysCompletion:didPrompt:testMode:error:]_block_invoke", 90, "### GetDiagnosisKeys failed: %@", v1);
 }
 
 void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_4_cold_2()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticControl:]_block_invoke_4", 90, "### DiagnosticControl create reply failed", v0, v1);
   }
 }
 
@@ -14504,7 +14343,7 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_5_cold_2()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticControl:]_block_invoke_5", 90, "### DiagnosticControl create reply failed", v0, v1);
   }
 }
 
@@ -14512,7 +14351,7 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_6_cold_2()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticControl:]_block_invoke_6", 90, "### DiagnosticControl create reply failed", v0, v1);
   }
 }
 
@@ -14520,7 +14359,7 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_7_cold_2()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticControl:]_block_invoke_7", 90, "### DiagnosticControl create reply failed", v0, v1);
   }
 }
 
@@ -14528,7 +14367,7 @@ void __41__ENXPCConnection__xpcDiagnosticControl___block_invoke_9_cold_1()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDiagnosticControl:]_block_invoke_9", 90, "### DiagnosticControl create reply failed", v0, v1);
   }
 }
 
@@ -14536,52 +14375,45 @@ void __42__ENXPCConnection__xpcGetSubdivisionList___block_invoke_2_cold_1()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetSubdivisionList:]_block_invoke_2", 90, "### GetSubdivisionList create reply failed", v0, v1);
   }
 }
 
-- (void)_updateActiveEntityFromTCCResult:.cold.4()
+- (void)_updateActiveEntityFromTCCResult:(uint64_t)a3 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_MergedGlobals <= 30 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_2(&_MergedGlobals, "[ENXPCConnection _updateActiveEntityFromTCCResult:]", a3, "App denied access by user");
   }
 }
 
-- (void)_updateActiveEntityFromTCCResult:.cold.5()
+- (void)_updateActiveEntityFromTCCResult:(uint64_t)a3 .cold.5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&dword_281346508, "[ENXPCConnection _updateActiveEntityFromTCCResult:]", a3, "### No infoDict for approved app");
   }
 }
 
-- (void)_updateActiveEntityFromTCCResult:.cold.6()
+- (void)_updateActiveEntityFromTCCResult:(uint64_t)a3 .cold.6(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&dword_281346508, "[ENXPCConnection _updateActiveEntityFromTCCResult:]", a3, "### No proxy for approved app");
   }
 }
 
-uint64_t __48__ENXPCConnection__xpcExposureDetectionFileAdd___block_invoke_4_cold_1(uint64_t a1)
+void __32__ENXPCConnection__xpcDownload___block_invoke_3_cold_1(uint64_t a1)
 {
-  v2 = *(*(a1 + 40) + 24);
-  v3 = *(a1 + 48);
-  return LogPrintF_safe();
-}
-
-void __32__ENXPCConnection__xpcDownload___block_invoke_3_cold_1()
-{
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcDownload:]_block_invoke_3", 90, "### Exposure check after download failed: %@", v1);
 }
 
 void __35__ENXPCConnection__xpcGetEntities___block_invoke_3_cold_11()
 {
   if (dword_281346508 <= 90 && (dword_281346508 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_281346508, "[ENXPCConnection _xpcGetEntities:]_block_invoke_3", 90, "### GetEntities create reply failed", v0, v1);
   }
 }
 
@@ -14589,12 +14421,12 @@ void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_cold_1(u
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartSelfReportWebSession:]_block_invoke", 90, "### startSelfReportWebSession failed: %@", v1);
 }
 
 void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2_cold_1(uint64_t a1)
 {
-  v2 = ENErrorF();
+  v2 = ENErrorF(2, "Region does not support self reported test verification");
   v3 = *(*(a1 + 64) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
@@ -14608,22 +14440,21 @@ void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2_cold_2
   if (v1 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF_safe();
+    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartSelfReportWebSession:]_block_invoke_2", 90, "### startSelfReportWebSession create reply failed");
   }
 }
 
 void __49__ENXPCConnection__xpcStartSelfReportWebSession___block_invoke_2_cold_3(uint64_t a1)
 {
-  v1 = *(*(*(a1 + 64) + 8) + 40);
-  v2 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartSelfReportWebSession:]_block_invoke_2", 90, "### startSelfReportWebSession failed: %@", v1);
 }
 
 void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartTestVerificationSession:]_block_invoke", 90, "### StartTestVerificationSession failed: %@", v1);
 }
 
 void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2_cold_1()
@@ -14634,34 +14465,34 @@ void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2_col
   if (v1 && _MergedGlobals <= 90 && (_MergedGlobals != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF_safe();
+    LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartTestVerificationSession:]_block_invoke_2", 90, "### StartTestVerificationSession create reply failed");
   }
 }
 
-void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2_cold_2()
+void __52__ENXPCConnection__xpcStartTestVerificationSession___block_invoke_2_cold_2(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcStartTestVerificationSession:]_block_invoke_2", 90, "### StartTestVerificationSession failed: %@", v1);
 }
 
 void __53__ENXPCConnection__xpcFetchTestVerificationMetadata___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcFetchTestVerificationMetadata:]_block_invoke", 90, "### FetchTestVerificationMetadata failed: %@", v1);
 }
 
 void __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3_0(a1);
   v1 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcFinishTestVerificationSession:]_block_invoke", 90, "### FinishTestVerificationSession failed: %@", v1);
 }
 
-void __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2_cold_1()
+void __53__ENXPCConnection__xpcFinishTestVerificationSession___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&_MergedGlobals, "[ENXPCConnection _xpcFinishTestVerificationSession:]_block_invoke_2", 90, "### FinishTestVerificationSession failed: %@", v1);
 }
 
 @end

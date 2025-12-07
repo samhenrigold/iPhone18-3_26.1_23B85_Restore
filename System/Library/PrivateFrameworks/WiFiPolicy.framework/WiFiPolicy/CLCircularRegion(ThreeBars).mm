@@ -39,7 +39,7 @@
 {
   v6 = a4;
   v7 = a3;
-  [self boundingBox];
+  objc_msgSend_boundingBox(self);
   v8 = MEMORY[0x277CCACA8];
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:0.0];
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:0.0];

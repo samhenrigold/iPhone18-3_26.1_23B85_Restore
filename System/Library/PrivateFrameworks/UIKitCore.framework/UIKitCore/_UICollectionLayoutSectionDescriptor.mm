@@ -1,11 +1,11 @@
 @interface _UICollectionLayoutSectionDescriptor
+- (BOOL)isEqualToSectionDescriptor:(int)descriptor comparingContentOffset:;
 - (double)scrollingUnitVector;
-- (uint64_t)isEqualToSectionDescriptor:(int)descriptor comparingContentOffset:;
 @end
 
 @implementation _UICollectionLayoutSectionDescriptor
 
-- (uint64_t)isEqualToSectionDescriptor:(int)descriptor comparingContentOffset:
+- (BOOL)isEqualToSectionDescriptor:(int)descriptor comparingContentOffset:
 {
   if (result)
   {

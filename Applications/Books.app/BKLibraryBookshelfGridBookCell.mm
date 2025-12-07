@@ -774,7 +774,7 @@ LABEL_12:
   v12 = coverLayer;
   if (coverLayer)
   {
-    [coverLayer affineTransform];
+    objc_msgSend_affineTransform(coverLayer);
   }
 
   else

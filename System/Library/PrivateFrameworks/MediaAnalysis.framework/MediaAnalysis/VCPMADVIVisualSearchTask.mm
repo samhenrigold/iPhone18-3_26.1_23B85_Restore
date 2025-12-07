@@ -84,7 +84,7 @@
   dispatch_sync(cancelQueue, block);
 }
 
-uint64_t __34__VCPMADVIVisualSearchTask_cancel__block_invoke(uint64_t a1)
+void *__34__VCPMADVIVisualSearchTask_cancel__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) cancel];
   atomic_store(1u, (*(a1 + 32) + 48));
@@ -498,7 +498,7 @@ uint64_t __34__VCPMADVIVisualSearchTask_cancel__block_invoke(uint64_t a1)
 
 void __31__VCPMADVIVisualSearchTask_run__block_invoke(uint64_t a1)
 {
-  v81[1] = *MEMORY[0x1E69E9840];
+  v84[1] = *MEMORY[0x1E69E9840];
   v2 = atomic_load((*(a1 + 32) + 48));
   if (v2)
   {
@@ -507,10 +507,10 @@ void __31__VCPMADVIVisualSearchTask_run__block_invoke(uint64_t a1)
 
   else
   {
-    v70 = 0;
-    v52 = [*(a1 + 32) createQueryContextWithError:&v70];
-    v53 = a1;
-    if (v52)
+    v73 = 0;
+    v55 = [*(a1 + 32) createQueryContextWithError:&v73];
+    v56 = a1;
+    if (v55)
     {
       v3 = [*(*(a1 + 32) + 8) documentObservations];
       v4 = v3 == 0;
@@ -523,109 +523,109 @@ void __31__VCPMADVIVisualSearchTask_run__block_invoke(uint64_t a1)
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[VisualSearch] Using client provided OCR results", &buf, 2u);
         }
 
-        v5 = [*(*(v53 + 32) + 8) documentObservations];
-        [*(*(v53 + 32) + 16) setDocumentObservations:v5];
+        v5 = [*(*(v56 + 32) + 8) documentObservations];
+        [*(*(v56 + 32) + 16) setDocumentObservations:v5];
       }
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v76 = 0x3032000000;
-      v77 = __Block_byref_object_copy__44;
-      v78 = __Block_byref_object_dispose__44;
-      v79 = objc_alloc_init(VCPTimeMeasurement);
-      [*(*(&buf + 1) + 40) start];
+      v79 = 0x3032000000;
+      v80 = __Block_byref_object_copy__44;
+      v81 = __Block_byref_object_dispose__44;
+      v82 = objc_alloc_init(VCPTimeMeasurement);
+      objc_msgSend_start(*(*(&buf + 1) + 40));
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __31__VCPMADVIVisualSearchTask_run__block_invoke_364;
       aBlock[3] = &unk_1E83501F0;
-      v6 = *(v53 + 32);
+      v6 = *(v56 + 32);
       p_buf = &buf;
       aBlock[4] = v6;
-      v69 = *(v53 + 56);
-      v67 = *(v53 + 40);
-      v51 = _Block_copy(aBlock);
-      dispatch_group_enter(*(v53 + 40));
-      v7 = [*(*(v53 + 32) + 8) gatingResultItems];
+      v72 = *(v56 + 56);
+      v70 = *(v56 + 40);
+      v54 = _Block_copy(aBlock);
+      dispatch_group_enter(*(v56 + 40));
+      v7 = [*(*(v56 + 32) + 8) gatingResultItems];
       v8 = [v7 count] == 0;
 
       if (v8)
       {
-        v55 = [*(*(v53 + 32) + 16) vcp_annotationWithTypes:15];
-        v27 = [MEMORY[0x1E69E04C8] queryWithPixelBuffer:*(v53 + 64) orientation:*(v53 + 72) normalizedRegionOfInterest:0.0 annotation:0.0 queryContext:{1.0, 1.0}];
-        v43 = VCPSignPostLog();
-        v44 = os_signpost_id_generate(v43);
+        v58 = [*(*(v56 + 32) + 16) vcp_annotationWithTypes:15];
+        v27 = [MEMORY[0x1E69E04C8] queryWithPixelBuffer:*(v56 + 64) orientation:*(v56 + 72) normalizedRegionOfInterest:0.0 annotation:0.0 queryContext:{1.0, 1.0}];
+        v45 = VCPSignPostLog(v27);
+        v46 = os_signpost_id_generate(v45);
 
-        v45 = VCPSignPostLog();
-        v46 = v45;
-        if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+        v48 = VCPSignPostLog(v47);
+        v49 = v48;
+        if (v46 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
         {
-          v47 = *(*(v53 + 32) + 24);
-          *v71 = 138412290;
-          v72 = v47;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v44, "VIService_VisualSearch", "%@", v71, 0xCu);
+          v50 = *(*(v56 + 32) + 24);
+          *v74 = 138412290;
+          v75 = v50;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v49, OS_SIGNPOST_INTERVAL_BEGIN, v46, "VIService_VisualSearch", "%@", v74, 0xCu);
         }
 
-        v33 = [*(v53 + 48) service];
-        v34 = v56;
-        v56[0] = MEMORY[0x1E69E9820];
-        v56[1] = 3221225472;
-        v56[2] = __31__VCPMADVIVisualSearchTask_run__block_invoke_371;
-        v56[3] = &unk_1E8350218;
-        v48 = *(v53 + 32);
-        v56[6] = v44;
-        v56[7] = 0;
-        v56[4] = v48;
-        v56[5] = v51;
-        v36 = [v33 searchWithVisualQuery:v27 completion:v56];
+        v35 = [*(v56 + 48) service];
+        v36 = v59;
+        v59[0] = MEMORY[0x1E69E9820];
+        v59[1] = 3221225472;
+        v59[2] = __31__VCPMADVIVisualSearchTask_run__block_invoke_371;
+        v59[3] = &unk_1E8350218;
+        v51 = *(v56 + 32);
+        v59[6] = v46;
+        v59[7] = 0;
+        v59[4] = v51;
+        v59[5] = v54;
+        v38 = [v35 searchWithVisualQuery:v27 completion:v59];
       }
 
       else
       {
-        v55 = [MEMORY[0x1E695DF70] array];
-        v64 = 0u;
+        v58 = [MEMORY[0x1E695DF70] array];
+        v67 = 0u;
+        v68 = 0u;
         v65 = 0u;
-        v62 = 0u;
-        v63 = 0u;
-        v9 = [*(*(v53 + 32) + 8) gatingResultItems];
+        v66 = 0u;
+        v9 = [*(*(v56 + 32) + 8) gatingResultItems];
         obj = v9;
-        v10 = [v9 countByEnumeratingWithState:&v62 objects:v74 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v65 objects:v77 count:16];
         if (v10)
         {
-          v11 = *v63;
+          v11 = *v66;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v63 != v11)
+              if (*v66 != v11)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v13 = *(*(&v62 + 1) + 8 * i);
+              v13 = *(*(&v65 + 1) + 8 * i);
               v14 = [MEMORY[0x1E695DF70] array];
-              v60 = 0u;
+              v63 = 0u;
+              v64 = 0u;
               v61 = 0u;
-              v58 = 0u;
-              v59 = 0u;
+              v62 = 0u;
               v15 = [v13 domains];
-              v16 = [v15 countByEnumeratingWithState:&v58 objects:v73 count:16];
+              v16 = [v15 countByEnumeratingWithState:&v61 objects:v76 count:16];
               if (v16)
               {
-                v17 = *v59;
+                v17 = *v62;
                 do
                 {
                   for (j = 0; j != v16; ++j)
                   {
-                    if (*v59 != v17)
+                    if (*v62 != v17)
                     {
                       objc_enumerationMutation(v15);
                     }
 
-                    v19 = [*(*(&v58 + 1) + 8 * j) domain];
+                    v19 = [*(*(&v61 + 1) + 8 * j) domain];
                     [v14 addObject:v19];
                   }
 
-                  v16 = [v15 countByEnumeratingWithState:&v58 objects:v73 count:16];
+                  v16 = [v15 countByEnumeratingWithState:&v61 objects:v76 count:16];
                 }
 
                 while (v16);
@@ -634,53 +634,53 @@ void __31__VCPMADVIVisualSearchTask_run__block_invoke(uint64_t a1)
               v20 = objc_alloc(MEMORY[0x1E69E0458]);
               [v13 normalizedBoundingBox];
               v21 = [v20 initWithRegionOfInterest:v14 domains:?];
-              [v55 addObject:v21];
+              [v58 addObject:v21];
             }
 
             v9 = obj;
-            v10 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+            v10 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
           }
 
           while (v10);
         }
 
         v22 = MEMORY[0x1E69E0468];
-        v23 = *(v53 + 64);
-        v24 = *(v53 + 72);
-        v25 = [*(*(v53 + 32) + 16) vcp_textAnnotation];
-        v26 = [*(*(v53 + 32) + 8) gatingPayload];
-        v27 = [v22 queryWithPixelBuffer:v23 orientation:v24 imageRegions:v55 textBlockAnnotation:v25 queryContext:v52 payload:v26];
+        v23 = *(v56 + 64);
+        v24 = *(v56 + 72);
+        v25 = [*(*(v56 + 32) + 16) vcp_textAnnotation];
+        v26 = [*(*(v56 + 32) + 8) gatingPayload];
+        v27 = [v22 queryWithPixelBuffer:v23 orientation:v24 imageRegions:v58 textBlockAnnotation:v25 queryContext:v55 payload:v26];
 
-        v28 = VCPSignPostLog();
-        v29 = os_signpost_id_generate(v28);
+        v29 = VCPSignPostLog(v28);
+        v30 = os_signpost_id_generate(v29);
 
-        v30 = VCPSignPostLog();
-        v31 = v30;
-        if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+        v32 = VCPSignPostLog(v31);
+        v33 = v32;
+        if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
         {
-          v32 = *(*(v53 + 32) + 24);
-          *v71 = 138412290;
-          v72 = v32;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v29, "VIService_ParsedVisualSearch", "%@", v71, 0xCu);
+          v34 = *(*(v56 + 32) + 24);
+          *v74 = 138412290;
+          v75 = v34;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_BEGIN, v30, "VIService_ParsedVisualSearch", "%@", v74, 0xCu);
         }
 
-        v33 = [*(v53 + 48) service];
-        v34 = v57;
-        v57[0] = MEMORY[0x1E69E9820];
-        v57[1] = 3221225472;
-        v57[2] = __31__VCPMADVIVisualSearchTask_run__block_invoke_368;
-        v57[3] = &unk_1E8350218;
-        v35 = *(v53 + 32);
-        v57[6] = v29;
-        v57[7] = 0;
-        v57[4] = v35;
-        v57[5] = v51;
-        v36 = [v33 searchWithParsedVisualQuery:v27 completion:v57];
+        v35 = [*(v56 + 48) service];
+        v36 = v60;
+        v60[0] = MEMORY[0x1E69E9820];
+        v60[1] = 3221225472;
+        v60[2] = __31__VCPMADVIVisualSearchTask_run__block_invoke_368;
+        v60[3] = &unk_1E8350218;
+        v37 = *(v56 + 32);
+        v60[6] = v30;
+        v60[7] = 0;
+        v60[4] = v37;
+        v60[5] = v54;
+        v38 = [v35 searchWithParsedVisualQuery:v27 completion:v60];
       }
 
-      v49 = *(v53 + 32);
-      v50 = *(v49 + 56);
-      *(v49 + 56) = v36;
+      v52 = *(v56 + 32);
+      v53 = *(v52 + 56);
+      *(v52 + 56) = v38;
 
       _Block_object_dispose(&buf, 8);
     }
@@ -689,20 +689,20 @@ void __31__VCPMADVIVisualSearchTask_run__block_invoke(uint64_t a1)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v37 = [v70 description];
+        v39 = [v73 description];
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v37;
+        *(&buf + 4) = v39;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADVIVisualSearchTask failed to create visual search query context (%@)", &buf, 0xCu);
       }
 
-      v38 = *(*(a1 + 32) + 8);
-      v39 = MEMORY[0x1E696ABC0];
-      v80 = *MEMORY[0x1E696A578];
-      v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create visual search query context"];
-      v81[0] = v40;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
-      v42 = [v39 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v41];
-      [v38 setError:v42];
+      v40 = *(*(a1 + 32) + 8);
+      v41 = MEMORY[0x1E696ABC0];
+      v83 = *MEMORY[0x1E696A578];
+      v42 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create visual search query context"];
+      v84[0] = v42;
+      v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:&v83 count:1];
+      v44 = [v41 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v43];
+      [v40 setError:v44];
     }
   }
 }
@@ -741,24 +741,24 @@ void __31__VCPMADVIVisualSearchTask_run__block_invoke_364(uint64_t a1, void *a2,
 
 void __31__VCPMADVIVisualSearchTask_run__block_invoke_368(void *a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(v6);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = *(a1[4] + 24);
-    v11 = 138412290;
-    v12 = v10;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_END, v9, "VIService_ParsedVisualSearch", "%@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v10;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_END, v9, "VIService_ParsedVisualSearch", "%@", &v12, 0xCu);
   }
 
   if (a1[7])
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v11 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("VIService_ParsedVisualSearch", v11 - a1[7]);
   }
 
   (*(a1[5] + 16))();
@@ -766,24 +766,24 @@ void __31__VCPMADVIVisualSearchTask_run__block_invoke_368(void *a1, void *a2, vo
 
 void __31__VCPMADVIVisualSearchTask_run__block_invoke_371(void *a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(v6);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = *(a1[4] + 24);
-    v11 = 138412290;
-    v12 = v10;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_END, v9, "VIService_VisualSearch", "%@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v10;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_END, v9, "VIService_VisualSearch", "%@", &v12, 0xCu);
   }
 
   if (a1[7])
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v11 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("VIService_VisualSearch", v11 - a1[7]);
   }
 
   (*(a1[5] + 16))();

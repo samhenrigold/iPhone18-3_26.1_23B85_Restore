@@ -84,7 +84,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    customResponsesAfterPruning = self->_customResponsesAfterPruning;
     PBDataWriterWriteUint32Field();
   }
 }

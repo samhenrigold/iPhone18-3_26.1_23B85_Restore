@@ -52,24 +52,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_image)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    destructive = self->_destructive;
     PBDataWriterWriteBOOLField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -209,7 +208,7 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    [(BLTPBImage *)image mergeFrom:?];
+    image = [(BLTPBImage *)image mergeFrom:?];
   }
 
   else
@@ -219,7 +218,7 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    [(BLTPBAppearance *)self setImage:?];
+    image = [(BLTPBAppearance *)self setImage:?];
   }
 
   fromCopy = v7;
@@ -230,7 +229,7 @@ LABEL_9:
     *&self->_has |= 1u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](image, fromCopy);
 }
 
 @end

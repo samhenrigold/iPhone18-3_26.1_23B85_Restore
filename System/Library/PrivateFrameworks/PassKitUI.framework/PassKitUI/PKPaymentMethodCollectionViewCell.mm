@@ -6,7 +6,7 @@
 
 - (void)configureWithItem:(id)item style:(unint64_t)style delegate:(id)delegate
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v65[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   delegateCopy = delegate;
   paymentPass = [itemCopy paymentPass];
@@ -41,23 +41,23 @@
     [subtitleCellConfiguration setDirectionalLayoutMargins:{16.0, 0.0, 16.0, 0.0}];
     v17 = objc_alloc_init(MEMORY[0x1E69DCFD0]);
     v18 = MEMORY[0x1E69DC628];
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __70__PKPaymentMethodCollectionViewCell_configureWithItem_style_delegate___block_invoke;
-    v50[3] = &unk_1E8016230;
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = __70__PKPaymentMethodCollectionViewCell_configureWithItem_style_delegate___block_invoke;
+    v56[3] = &unk_1E8016230;
     v19 = itemCopy;
-    v51 = v19;
-    v52 = v17;
-    v53 = delegateCopy;
+    v57 = v19;
+    v58 = v17;
+    v59 = delegateCopy;
     v20 = v17;
-    v21 = [v18 actionWithHandler:v50];
+    v21 = [v18 actionWithHandler:v56];
     [v20 addAction:v21 forControlEvents:4096];
 
     [v20 setOn:{objc_msgSend(v19, "isSelected")}];
     v22 = [objc_alloc(MEMORY[0x1E69DC790]) initWithCustomView:v20 placement:1];
     [v22 setMaintainsFixedSize:1];
-    v59[0] = v22;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:1];
+    v65[0] = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:1];
     [(PKPaymentMethodCollectionViewCell *)self setAccessories:v23];
 
     goto LABEL_9;
@@ -67,8 +67,8 @@
   if ([itemCopy isSelected])
   {
     v20 = objc_alloc_init(MEMORY[0x1E69DC788]);
-    v58 = v20;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+    v64 = v20;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
     [(PKPaymentMethodCollectionViewCell *)self setAccessories:v24];
 
 LABEL_9:
@@ -87,16 +87,16 @@ LABEL_11:
     [v26 setColor:tertiarySystemGroupedBackgroundColor];
 
     v28 = *MEMORY[0x1E69655D0];
-    v57[0] = v26;
+    v63[0] = v26;
     v29 = *MEMORY[0x1E69DB650];
-    v56[0] = v28;
-    v56[1] = v29;
+    v62[0] = v28;
+    v62[1] = v29;
     secondaryLabelColor2 = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    v57[1] = secondaryLabelColor2;
-    v56[2] = *MEMORY[0x1E69DB648];
+    v63[1] = secondaryLabelColor2;
+    v62[2] = *MEMORY[0x1E69DB648];
     v31 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD80], 0);
-    v57[2] = v31;
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:3];
+    v63[2] = v31;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:3];
 
     formattedStringValue = [balance formattedStringValue];
     v34 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:formattedStringValue attributes:v32];
@@ -105,13 +105,13 @@ LABEL_11:
 
   else
   {
-    v54[0] = *MEMORY[0x1E69DB650];
+    v60[0] = *MEMORY[0x1E69DB650];
     secondaryLabelColor3 = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    v54[1] = *MEMORY[0x1E69DB648];
-    v55[0] = secondaryLabelColor3;
+    v60[1] = *MEMORY[0x1E69DB648];
+    v61[0] = secondaryLabelColor3;
     v36 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD80], 0);
-    v55[1] = v36;
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
+    v61[1] = v36;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
 
     v37 = objc_alloc(MEMORY[0x1E696AAB0]);
     if (paymentPass)
@@ -134,28 +134,32 @@ LABEL_11:
   }
 
   PKPassFrontFaceContentSize();
+  v43 = v41.n128_f64[0];
+  v44 = v42.n128_f64[0];
   if (paymentPass)
   {
-    v41 = [[PKPassView alloc] initWithPass:paymentPass content:4 suppressedContent:1911];
-    [(PKPassView *)v41 setModallyPresented:1];
-    [(PKPassView *)v41 setPaused:1];
-    PKFloatRoundToPixel();
-    v43 = [(PKPassView *)v41 snapshotOfFrontFaceWithRequestedSize:60.0, v42];
-    [subtitleCellConfiguration setImage:v43];
+    v45 = [[PKPassView alloc] initWithPass:paymentPass content:4 suppressedContent:1911];
+    [(PKPassView *)v45 setModallyPresented:1];
+    [(PKPassView *)v45 setPaused:1];
+    v46.n128_f64[0] = v44 / v43 * 60.0;
+    PKFloatRoundToPixel(v46, v47);
+    v49 = [(PKPassView *)v45 snapshotOfFrontFaceWithRequestedSize:60.0, v48];
+    [subtitleCellConfiguration setImage:v49];
   }
 
   else
   {
-    v44 = MEMORY[0x1E69B8950];
-    PKFloatRoundToPixel();
-    v41 = [v44 constraintsWithMaxSize:{60.0, v45}];
-    v46 = MEMORY[0x1E69B8948];
-    v47 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v43 = [v46 imageNamed:@"PlaceholderCardArt_Large" inBundle:v47];
+    v50 = MEMORY[0x1E69B8950];
+    v41.n128_f64[0] = v42.n128_f64[0] / v41.n128_f64[0] * 60.0;
+    PKFloatRoundToPixel(v41, v42);
+    v45 = [v50 constraintsWithMaxSize:{60.0, v51}];
+    v52 = MEMORY[0x1E69B8948];
+    v53 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v49 = [v52 imageNamed:@"PlaceholderCardArt_Large" inBundle:v53];
 
-    v48 = [v43 resizedImageWithConstraints:v41];
-    v49 = [MEMORY[0x1E69DCAB8] imageWithPKImage:v48];
-    [subtitleCellConfiguration setImage:v49];
+    v54 = [v49 resizedImageWithConstraints:v45];
+    v55 = [MEMORY[0x1E69DCAB8] imageWithPKImage:v54];
+    [subtitleCellConfiguration setImage:v55];
   }
 
   [(PKPaymentMethodCollectionViewCell *)self setContentConfiguration:subtitleCellConfiguration];

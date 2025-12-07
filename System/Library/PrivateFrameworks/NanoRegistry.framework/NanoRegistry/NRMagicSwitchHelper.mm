@@ -7,7 +7,7 @@
 
 + (id)companionSeed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   if (!qword_1ED6F0B28)
   {
@@ -37,11 +37,11 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           uUIDString = [qword_1ED6F0B28 UUIDString];
-          v15 = 138412546;
-          v16 = uUIDString;
-          v17 = 1024;
-          v18 = v7;
-          _os_log_impl(&dword_1E0ADF000, v10, OS_LOG_TYPE_DEFAULT, "Generated and persisted new companion seed: (%@); ret: (%u)", &v15, 0x12u);
+          v14 = 138412546;
+          v15 = uUIDString;
+          v16 = 1024;
+          v17 = v7;
+          _os_log_impl(&dword_1E0ADF000, v10, OS_LOG_TYPE_DEFAULT, "Generated and persisted new companion seed: (%@); ret: (%u)", &v14, 0x12u);
         }
       }
     }
@@ -49,14 +49,13 @@
 
   os_unfair_lock_unlock(&_MergedGlobals_12);
   v12 = qword_1ED6F0B28;
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (void)clearCompanionSeed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   v2 = qword_1ED6F0B28;
   qword_1ED6F0B28 = 0;
@@ -71,13 +70,11 @@
     v6 = nr_framework_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = v3;
-      _os_log_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_DEFAULT, "Cleared Advertising Identifier Seed; ret: (%u)", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v3;
+      _os_log_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_DEFAULT, "Cleared Advertising Identifier Seed; ret: (%u)", v7, 8u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   os_unfair_lock_unlock(&_MergedGlobals_12);
 }

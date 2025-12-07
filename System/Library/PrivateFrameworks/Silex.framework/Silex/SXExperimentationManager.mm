@@ -204,14 +204,18 @@ LABEL_11:
 {
   v3 = a1;
   v4 = [a2 identifier];
-  OUTLINED_FUNCTION_0_4(&dword_1D825C000, v5, v6, "Experiment found without valid expiration date. experimentIdentifier=%@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_4(&dword_1D825C000, v5, v6, "Experiment found without valid expiration date. experimentIdentifier=%@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)getTreatmentGroupForExperiment:(void *)a1 .cold.2(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 identifier];
-  OUTLINED_FUNCTION_0_4(&dword_1D825C000, v5, v6, "No treatmentGroups for experiment. experimentIdentifier=%@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_4(&dword_1D825C000, v5, v6, "No treatmentGroups for experiment. experimentIdentifier=%@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

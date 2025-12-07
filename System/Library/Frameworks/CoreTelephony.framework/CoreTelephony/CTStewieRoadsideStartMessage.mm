@@ -13,7 +13,7 @@
 
 - (CTStewieRoadsideStartMessage)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = dictionaryCopy;
   if (dictionaryCopy)
@@ -42,9 +42,9 @@
               }
 
               v27 = MEMORY[0x1E696ABC0];
-              v37 = *MEMORY[0x1E696A578];
-              v38 = @"isPayPerUseNum is missing";
-              v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+              v36 = *MEMORY[0x1E696A578];
+              v37 = @"isPayPerUseNum is missing";
+              v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
               [v27 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v16];
               *error = selfCopy = 0;
               goto LABEL_34;
@@ -60,9 +60,9 @@
                   if (error)
                   {
                     v17 = MEMORY[0x1E696ABC0];
-                    v35 = *MEMORY[0x1E696A578];
-                    v36 = @"phoneNumber is invalid. Phone number can only contain digits and must be of length <= 15";
-                    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+                    v34 = *MEMORY[0x1E696A578];
+                    v35 = @"phoneNumber is invalid. Phone number can only contain digits and must be of length <= 15";
+                    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
                     *error = [v17 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v18];
                   }
 
@@ -77,9 +77,9 @@
               }
             }
 
-            v34.receiver = self;
-            v34.super_class = CTStewieRoadsideStartMessage;
-            v28 = [(CTStewieRoadsideStartMessage *)&v34 init];
+            v33.receiver = self;
+            v33.super_class = CTStewieRoadsideStartMessage;
+            v28 = [(CTStewieRoadsideStartMessage *)&v33 init];
             v29 = v28;
             if (v28)
             {
@@ -107,9 +107,9 @@ LABEL_33:
           if (error)
           {
             v26 = MEMORY[0x1E696ABC0];
-            v39 = *MEMORY[0x1E696A578];
-            v40 = @"providerId is invalid";
-            v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+            v38 = *MEMORY[0x1E696A578];
+            v39 = @"providerId is invalid";
+            v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
             v25 = [v26 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v14];
             goto LABEL_25;
           }
@@ -118,9 +118,9 @@ LABEL_33:
         else if (error)
         {
           v24 = MEMORY[0x1E696ABC0];
-          v41 = *MEMORY[0x1E696A578];
-          v42 = @"providerIdNum is missing";
-          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+          v40 = *MEMORY[0x1E696A578];
+          v41 = @"providerIdNum is missing";
+          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
           v25 = [v24 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v14];
 LABEL_25:
           selfCopy = 0;
@@ -139,9 +139,9 @@ LABEL_36:
       if (error)
       {
         v23 = MEMORY[0x1E696ABC0];
-        v43 = *MEMORY[0x1E696A578];
-        v44 = @"conversationID is invalid";
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+        v42 = *MEMORY[0x1E696A578];
+        v43 = @"conversationID is invalid";
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
         v22 = [v23 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v12];
         goto LABEL_18;
       }
@@ -150,9 +150,9 @@ LABEL_36:
     else if (error)
     {
       v21 = MEMORY[0x1E696ABC0];
-      v45 = *MEMORY[0x1E696A578];
-      v46 = @"conversationID is missing";
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      v44 = *MEMORY[0x1E696A578];
+      v45 = @"conversationID is missing";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
       v22 = [v21 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v12];
 LABEL_18:
       selfCopy = 0;
@@ -169,9 +169,9 @@ LABEL_37:
   if (error)
   {
     v19 = MEMORY[0x1E696ABC0];
-    v47 = *MEMORY[0x1E696A578];
-    v48[0] = @"Empty dictionary";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+    v46 = *MEMORY[0x1E696A578];
+    v47[0] = @"Empty dictionary";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
     [v19 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v9];
     *error = selfCopy = 0;
     goto LABEL_37;
@@ -180,7 +180,6 @@ LABEL_37:
   selfCopy = 0;
 LABEL_38:
 
-  v32 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

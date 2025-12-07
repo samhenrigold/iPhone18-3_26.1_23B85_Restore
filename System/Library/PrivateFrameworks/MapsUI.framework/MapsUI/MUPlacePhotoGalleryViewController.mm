@@ -38,6 +38,7 @@
 - (void)scrollViewDidEndDecelerating:(id)decelerating;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)setEnablePersonalizedAttribution:(BOOL)attribution;
+- (void)setUIStyleWithNavigationBarHidden:(BOOL)hidden;
 - (void)setupAdditionalView:(id)view withStackView:(id)stackView;
 - (void)setupAttributionView;
 - (void)setupPhotoViewsWithStackView:(id)view;
@@ -45,6 +46,7 @@
 - (void)startAnimatingActivityIndicatorViewForRAP;
 - (void)toggleBackground:(id)background;
 - (void)updateViewsWithPhotoAtIndex:(unint64_t)index;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -496,14 +498,14 @@ void __58__MUPlacePhotoGalleryViewController_addPhotoBarButtonItem__block_invoke
 
 - (void)updateViewsWithPhotoAtIndex:(unint64_t)index
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   photos = [(MUPlacePhotoGalleryViewController *)self photos];
   v6 = [photos count];
 
   if (v6 > index)
   {
     photos2 = [(MUPlacePhotoGalleryViewController *)self photos];
-    v28 = [photos2 objectAtIndexedSubscript:index];
+    v26 = [photos2 objectAtIndexedSubscript:index];
 
     photos3 = [(MUPlacePhotoGalleryViewController *)self photos];
     v9 = [photos3 count];
@@ -519,30 +521,28 @@ void __58__MUPlacePhotoGalleryViewController_addPhotoBarButtonItem__block_invoke
 LABEL_14:
 
       photoViews = [(MUPlacePhotoGalleryViewController *)self photoViews];
-      v24 = [photoViews count];
+      v23 = [photoViews count];
 
-      if (v24 > index)
+      if (v23 > index)
       {
         [(MUPlacePhotoGalleryViewController *)self downloadImageForVisibleViews];
       }
 
-      v25 = _MULocalizedStringFromThisBundle(@"%lu of %lu");
-      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:v25, index + 1, -[MUPlacePhotoGalleryViewController viewsCount](self, "viewsCount")];
-      [(MUPlacePhotoGalleryViewController *)self setTitle:v26];
-
-      v27 = *MEMORY[0x1E69E9840];
+      v24 = _MULocalizedStringFromThisBundle(@"%lu of %lu");
+      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:v24, index + 1, -[MUPlacePhotoGalleryViewController viewsCount](self, "viewsCount")];
+      [(MUPlacePhotoGalleryViewController *)self setTitle:v25];
 
       return;
     }
 
-    photoStyle = [v28 photoStyle];
+    photoStyle = [v26 photoStyle];
     if (photoStyle == 1)
     {
       leftBarButtonItem = objc_alloc_init(MUPlacePhotoGalleryAttributionViewModel);
-      title = [v28 title];
+      title = [v26 title];
       [(MUPlacePhotoGalleryAttributionViewModel *)leftBarButtonItem setTitleText:title];
 
-      subtitle = [v28 subtitle];
+      subtitle = [v26 subtitle];
       [(MUPlacePhotoGalleryAttributionViewModel *)leftBarButtonItem setSubtitleText:subtitle];
     }
 
@@ -557,7 +557,7 @@ LABEL_14:
       mapItem = self->_mapItem;
       subtitle = [(MUPlacePhotoGalleryViewController *)self userAttributionViewModel];
       attributionName = [subtitle attributionName];
-      leftBarButtonItem = [MUPlacePhotoGalleryAttributionViewModel viewModelFromMapItem:mapItem photo:v28 photoCreditName:attributionName shouldAddPhotoCredit:[(MUPlacePhotoGalleryViewController *)self enablePersonalizedAttribution]];
+      leftBarButtonItem = [MUPlacePhotoGalleryAttributionViewModel viewModelFromMapItem:mapItem photo:v26 photoCreditName:attributionName shouldAddPhotoCredit:[(MUPlacePhotoGalleryViewController *)self enablePersonalizedAttribution]];
     }
 
 LABEL_13:
@@ -577,48 +577,44 @@ LABEL_13:
     photos4 = [(MUPlacePhotoGalleryViewController *)self photos];
     *buf = 134218240;
     indexCopy = index;
-    v31 = 2048;
-    v32 = [photos4 count];
+    v29 = 2048;
+    v30 = [photos4 count];
     _os_log_impl(&dword_1C5620000, v15, OS_LOG_TYPE_FAULT, "Tried to update views when index %lu >= photos count %lu", buf, 0x16u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetPhotosZoomLevel
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   photoViews = [(MUPlacePhotoGalleryViewController *)self photoViews];
-  v3 = [photoViews countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [photoViews countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(photoViews);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
+        v7 = *(*(&v8 + 1) + 8 * i);
         [v7 minimumZoomScale];
         [v7 setZoomScale:0 animated:?];
       }
 
-      v4 = [photoViews countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [photoViews countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)zoomToPoint:(id)point
@@ -635,6 +631,29 @@ LABEL_13:
 
     [v8 zoomWithGestureRecognizer:pointCopy];
   }
+}
+
+- (void)setUIStyleWithNavigationBarHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  navigationController = [(MUPlacePhotoGalleryViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:hiddenCopy animated:1];
+
+  if (hiddenCopy)
+  {
+    [MEMORY[0x1E69DC888] blackColor];
+  }
+
+  else
+  {
+    [MEMORY[0x1E69DC888] systemBackgroundColor];
+  }
+  v6 = ;
+  view = [(MUPlacePhotoGalleryViewController *)self view];
+  [view setBackgroundColor:v6];
+
+  attributionView = [(MUPlacePhotoGalleryViewController *)self attributionView];
+  [attributionView setHidden:hiddenCopy];
 }
 
 - (void)toggleBackground:(id)background
@@ -1116,33 +1135,33 @@ LABEL_8:
 
 - (void)cancelDownloadingImages
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   downloadingImagesURLs = [(MUPlacePhotoGalleryViewController *)self downloadingImagesURLs];
-  v3 = [downloadingImagesURLs countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v3 = [downloadingImagesURLs countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(downloadingImagesURLs);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = MUGetMUPlacePhotoVCLog();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           absoluteString = [v7 absoluteString];
           *buf = 138412290;
-          v17 = absoluteString;
+          v16 = absoluteString;
           _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_DEBUG, "[X]Cancelling image download for url: %@", buf, 0xCu);
         }
 
@@ -1150,13 +1169,11 @@ LABEL_8:
         [mEMORY[0x1E696F190] cancelLoadAppImageAtURL:v7];
       }
 
-      v4 = [downloadingImagesURLs countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v4 = [downloadingImagesURLs countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadImageForPhotoViewAtIndex:(unint64_t)index
@@ -1182,7 +1199,7 @@ LABEL_8:
 
 - (void)downloadImageForURL:(id)l forIndex:(unint64_t)index
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   downloadingImagesURLs = [(MUPlacePhotoGalleryViewController *)self downloadingImagesURLs];
   v8 = [downloadingImagesURLs containsObject:lCopy];
@@ -1195,8 +1212,8 @@ LABEL_8:
       absoluteString = [lCopy absoluteString];
       *buf = 134218242;
       indexCopy = index;
-      v21 = 2112;
-      v22 = absoluteString;
+      v20 = 2112;
+      v21 = absoluteString;
       _os_log_impl(&dword_1C5620000, v9, OS_LOG_TYPE_DEBUG, "[...]Starting download for image at index: %lu. URL: %@", buf, 0x16u);
     }
 
@@ -1205,22 +1222,20 @@ LABEL_8:
 
     objc_initWeak(buf, self);
     mEMORY[0x1E696F190] = [MEMORY[0x1E696F190] sharedImageManager];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___block_invoke;
-    v15[3] = &unk_1E821A240;
-    objc_copyWeak(v18, buf);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___block_invoke;
+    v14[3] = &unk_1E821A240;
+    objc_copyWeak(v17, buf);
     v13 = lCopy;
-    v18[1] = index;
-    v16 = v13;
+    v17[1] = index;
+    v15 = v13;
     selfCopy = self;
-    [mEMORY[0x1E696F190] loadAppImageAtURL:v13 completionHandler:v15];
+    [mEMORY[0x1E696F190] loadAppImageAtURL:v13 completionHandler:v14];
 
-    objc_destroyWeak(v18);
+    objc_destroyWeak(v17);
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
@@ -1247,7 +1262,7 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
 
 void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained downloadingImagesURLs];
   [v3 removeObject:*(a1 + 32)];
@@ -1260,13 +1275,13 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
       v5 = *(a1 + 72);
       v6 = [*(a1 + 40) debugDescription];
       v7 = [*(a1 + 32) absoluteString];
-      v16 = 134218498;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "[X]Error encountered for photo at index: %lu. Error: %@. URL: %@", &v16, 0x20u);
+      v15 = 134218498;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_ERROR, "[X]Error encountered for photo at index: %lu. Error: %@. URL: %@", &v15, 0x20u);
     }
   }
 
@@ -1281,11 +1296,11 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
     {
       v11 = *(a1 + 72);
       v12 = [*(a1 + 32) absoluteString];
-      v16 = 134218242;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_DEBUG, "[✔]Showing image at index: %lu. URL: %@", &v16, 0x16u);
+      v15 = 134218242;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_DEBUG, "[✔]Showing image at index: %lu. URL: %@", &v15, 0x16u);
     }
 
     v13 = [*(a1 + 56) indexesOfDownloadedImages];
@@ -1294,13 +1309,11 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
 
     [v9 setImage:*(a1 + 48)];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadImageForVisibleViews
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
   indexOfVisibleView = [(MUPlacePhotoGalleryViewController *)self indexOfVisibleView];
   if (indexOfVisibleView != 0x7FFFFFFFFFFFFFFFLL)
@@ -1325,26 +1338,26 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
     }
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = v3;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         indexesOfDownloadedImages = [(MUPlacePhotoGalleryViewController *)self indexesOfDownloadedImages];
         v18 = [indexesOfDownloadedImages containsObject:v16];
 
@@ -1368,21 +1381,19 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewDidLoad
 {
-  v25[1] = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = MUPlacePhotoGalleryViewController;
-  [(MUPlacePhotoGalleryViewController *)&v24 viewDidLoad];
+  v24[1] = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = MUPlacePhotoGalleryViewController;
+  [(MUPlacePhotoGalleryViewController *)&v23 viewDidLoad];
   view = [(MUPlacePhotoGalleryViewController *)self view];
   [view setAccessibilityIdentifier:@"PlacePhotoGalleryView"];
 
@@ -1425,11 +1436,9 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
   [navigationItem3 setScrollEdgeAppearance:v18];
 
   v20 = objc_opt_self();
-  v25[0] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v24[0] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
   v22 = [(MUPlacePhotoGalleryViewController *)self registerForTraitChanges:v21 withAction:sel__updateNavbarVisibility];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewDidLayoutSubviews
@@ -1469,7 +1478,7 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
 
 - (void)setupAttributionView
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MUPlacePhotoGalleryAttributionView);
   attributionView = self->_attributionView;
   self->_attributionView = v3;
@@ -1477,39 +1486,38 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
   [(MUPlacePhotoGalleryAttributionView *)self->_attributionView setDelegate:self];
   [(MUPlacePhotoGalleryAttributionView *)self->_attributionView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIScrollView *)self->_scrollView addSubview:self->_attributionView];
-  v20 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel_didTapOnAttributionView];
-  [v20 setNumberOfTapsRequired:1];
-  [(MUPlacePhotoGalleryAttributionView *)self->_attributionView addGestureRecognizer:v20];
-  v15 = MEMORY[0x1E696ACD8];
+  v19 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel_didTapOnAttributionView];
+  [v19 setNumberOfTapsRequired:1];
+  [(MUPlacePhotoGalleryAttributionView *)self->_attributionView addGestureRecognizer:v19];
+  v14 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(MUPlacePhotoGalleryAttributionView *)self->_attributionView leadingAnchor];
   view = [(MUPlacePhotoGalleryViewController *)self view];
   leadingAnchor2 = [view leadingAnchor];
-  v16 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v21[0] = v16;
+  v15 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v20[0] = v15;
   trailingAnchor = [(MUPlacePhotoGalleryAttributionView *)self->_attributionView trailingAnchor];
   view2 = [(MUPlacePhotoGalleryViewController *)self view];
   trailingAnchor2 = [view2 trailingAnchor];
   v8 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v21[1] = v8;
+  v20[1] = v8;
   bottomAnchor = [(MUPlacePhotoGalleryAttributionView *)self->_attributionView bottomAnchor];
   view3 = [(MUPlacePhotoGalleryViewController *)self view];
   bottomAnchor2 = [view3 bottomAnchor];
   v12 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v21[2] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
-  [v15 activateConstraints:v13];
+  v20[2] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  [v14 activateConstraints:v13];
 
   [(MUPlacePhotoGalleryViewController *)self updateViewsWithPhotoAtIndex:[(NSNumber *)self->_originalIndex unsignedIntegerValue]];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupAdditionalView:(id)view withStackView:(id)stackView
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   if (viewCopy)
   {
-    v40 = viewCopy;
+    v39 = viewCopy;
     objc_storeStrong(&self->_additionalView, view);
     stackViewCopy = stackView;
     v9 = objc_alloc_init(MEMORY[0x1E69DD250]);
@@ -1518,61 +1526,59 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
     [v9 setBackgroundColor:clearColor];
 
     [stackViewCopy addArrangedSubview:v9];
-    v35 = MEMORY[0x1E696ACD8];
+    v34 = MEMORY[0x1E696ACD8];
     v11 = v9;
     heightAnchor = [v9 heightAnchor];
     view = [(MUPlacePhotoGalleryViewController *)self view];
     heightAnchor2 = [view heightAnchor];
     v14 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-    v42[0] = v14;
-    v39 = v9;
+    v41[0] = v14;
+    v38 = v9;
     widthAnchor = [v9 widthAnchor];
     view2 = [(MUPlacePhotoGalleryViewController *)self view];
     widthAnchor2 = [view2 widthAnchor];
     v18 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v42[1] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
-    [v35 activateConstraints:v19];
+    v41[1] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+    [v34 activateConstraints:v19];
 
     [(UIView *)self->_additionalView setTranslatesAutoresizingMaskIntoConstraints:0];
     [v11 addSubview:self->_additionalView];
-    v32 = MEMORY[0x1E696ACD8];
+    v31 = MEMORY[0x1E696ACD8];
     heightAnchor3 = [(UIView *)self->_additionalView heightAnchor];
     view3 = [(MUPlacePhotoGalleryViewController *)self view];
     widthAnchor3 = [view3 widthAnchor];
-    v33 = [heightAnchor3 constraintEqualToAnchor:widthAnchor3];
-    v41[0] = v33;
+    v32 = [heightAnchor3 constraintEqualToAnchor:widthAnchor3];
+    v40[0] = v32;
     widthAnchor4 = [(UIView *)self->_additionalView widthAnchor];
     view4 = [(MUPlacePhotoGalleryViewController *)self view];
     widthAnchor5 = [view4 widthAnchor];
     v23 = [widthAnchor4 constraintEqualToAnchor:widthAnchor5];
-    v41[1] = v23;
+    v40[1] = v23;
     centerYAnchor = [(UIView *)self->_additionalView centerYAnchor];
     view5 = [(MUPlacePhotoGalleryViewController *)self view];
     centerYAnchor2 = [view5 centerYAnchor];
     v27 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v41[2] = v27;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:3];
-    [v32 activateConstraints:v28];
+    v40[2] = v27;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
+    [v31 activateConstraints:v28];
 
     v29 = [objc_alloc(MEMORY[0x1E69DD060]) initWithTarget:self action:sel_didTapOnAdditionalView];
     [v29 setNumberOfTapsRequired:1];
     [(UIView *)self->_additionalView addGestureRecognizer:v29];
     v30 = [objc_alloc(MEMORY[0x1E69DCD28]) initWithTarget:self action:sel_handlePanGesture_];
     [v30 setDelegate:self];
-    [v39 addGestureRecognizer:v30];
+    [v38 addGestureRecognizer:v30];
 
-    viewCopy = v40;
+    viewCopy = v39;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupPhotoViewsWithStackView:(id)view
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   viewCopy = view;
-  v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_photos, "count")}];
+  v30 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_photos, "count")}];
   if ([(NSArray *)self->_photos count])
   {
     v4 = 0;
@@ -1598,11 +1604,11 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
         image = [v12 image];
       }
 
-      v35 = image;
+      v34 = image;
       v13 = [[MUPlacePhotoView alloc] initWithImage:image];
       [(MUPlacePhotoView *)v13 setNeedsFullImageDownload:v8 == 0];
-      v36 = v5;
-      v37 = v4;
+      v35 = v5;
+      v36 = v4;
       if ([v5 needsObfuscationWhenRenderedInFullScreen] && (objc_msgSend(v5, "attribution"), v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
       {
         v15 = [MUPlacePhotoViewObfuscationModel alloc];
@@ -1622,33 +1628,31 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
         [(MUPlacePhotoView *)v13 addGestureRecognizer:v18];
       }
 
-      [v31 addObject:v13];
+      [v30 addObject:v13];
       [viewCopy addArrangedSubview:v13];
-      v33 = MEMORY[0x1E696ACD8];
+      v32 = MEMORY[0x1E696ACD8];
       heightAnchor = [(MUPlacePhotoView *)v13 heightAnchor];
       view = [(MUPlacePhotoGalleryViewController *)self view];
       heightAnchor2 = [view heightAnchor];
       v22 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-      v38[0] = v22;
+      v37[0] = v22;
       widthAnchor = [(MUPlacePhotoView *)v13 widthAnchor];
       view2 = [(MUPlacePhotoGalleryViewController *)self view];
       widthAnchor2 = [view2 widthAnchor];
       v26 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-      v38[1] = v26;
-      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
-      [v33 activateConstraints:v27];
+      v37[1] = v26;
+      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+      [v32 activateConstraints:v27];
 
-      v4 = v37 + 1;
+      v4 = v36 + 1;
     }
 
-    while (v37 + 1 < [(NSArray *)self->_photos count]);
+    while (v36 + 1 < [(NSArray *)self->_photos count]);
   }
 
-  v28 = [v31 copy];
+  v28 = [v30 copy];
   photoViews = self->_photoViews;
   self->_photoViews = v28;
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reloadUserAttribution
@@ -1693,7 +1697,7 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
 
 - (void)setupViewsWithAdditionalView:(id)view
 {
-  v43[8] = *MEMORY[0x1E69E9840];
+  v42[8] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E69DCEF8];
   viewCopy = view;
   v5 = objc_alloc_init(v4);
@@ -1720,45 +1724,45 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
   [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
   [v10 setDistribution:4];
   [(UIScrollView *)self->_scrollView addSubview:v10];
-  v29 = MEMORY[0x1E696ACD8];
+  v28 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(UIScrollView *)self->_scrollView leadingAnchor];
   view2 = [(MUPlacePhotoGalleryViewController *)self view];
   leadingAnchor2 = [view2 leadingAnchor];
-  v38 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v43[0] = v38;
+  v37 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v42[0] = v37;
   trailingAnchor = [(UIScrollView *)self->_scrollView trailingAnchor];
   view3 = [(MUPlacePhotoGalleryViewController *)self view];
   trailingAnchor2 = [view3 trailingAnchor];
-  v34 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v43[1] = v34;
+  v33 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v42[1] = v33;
   topAnchor = [(UIScrollView *)self->_scrollView topAnchor];
   view4 = [(MUPlacePhotoGalleryViewController *)self view];
   topAnchor2 = [view4 topAnchor];
-  v30 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v43[2] = v30;
+  v29 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v42[2] = v29;
   bottomAnchor = [(UIScrollView *)self->_scrollView bottomAnchor];
   view5 = [(MUPlacePhotoGalleryViewController *)self view];
   bottomAnchor2 = [view5 bottomAnchor];
-  v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v43[3] = v25;
+  v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v42[3] = v24;
   leadingAnchor3 = [v10 leadingAnchor];
   leadingAnchor4 = [(UIScrollView *)self->_scrollView leadingAnchor];
-  v22 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v43[4] = v22;
+  v21 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v42[4] = v21;
   trailingAnchor3 = [v10 trailingAnchor];
   trailingAnchor4 = [(UIScrollView *)self->_scrollView trailingAnchor];
   v11 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v43[5] = v11;
+  v42[5] = v11;
   topAnchor3 = [v10 topAnchor];
   topAnchor4 = [(UIScrollView *)self->_scrollView topAnchor];
   v14 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v43[6] = v14;
+  v42[6] = v14;
   bottomAnchor3 = [v10 bottomAnchor];
   bottomAnchor4 = [(UIScrollView *)self->_scrollView bottomAnchor];
   v17 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v43[7] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:8];
-  [v29 activateConstraints:v18];
+  v42[7] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:8];
+  [v28 activateConstraints:v18];
 
   [(MUPlacePhotoGalleryViewController *)self setupPhotoViewsWithStackView:v10];
   [(MUPlacePhotoGalleryViewController *)self setupAdditionalView:viewCopy withStackView:v10];
@@ -1766,8 +1770,6 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
   [(MUPlacePhotoGalleryViewController *)self setupAttributionView];
   [(MUPlacePhotoGalleryViewController *)self updateViewsWithPhotoAtIndex:[(NSNumber *)self->_originalIndex unsignedIntegerValue]];
   [(MUPlacePhotoGalleryViewController *)self reloadUserAttribution];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -1778,14 +1780,20 @@ void __66__MUPlacePhotoGalleryViewController_downloadImageForURL_forIndex___bloc
   [(MUPlacePhotoGalleryViewController *)&v3 dealloc];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MUPlacePhotoGalleryViewController;
+  [(MUPlacePhotoGalleryViewController *)&v4 viewDidAppear:appear];
+  [(MUPlacePhotoGalleryViewController *)self becomeFirstResponder];
+}
+
 - (id)keyCommands
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69DCBA0] keyCommandWithInput:*MEMORY[0x1E69DDEA0] modifierFlags:0 action:sel_didTapDone];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

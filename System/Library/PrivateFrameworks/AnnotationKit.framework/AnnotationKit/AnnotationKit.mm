@@ -300,17 +300,17 @@ id sub_23F3F5B58(void *a1)
   return v2;
 }
 
-id sub_23F3F7958()
+id sub_23F3F7958(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = [MEMORY[0x277D75348] colorWithCGColor:?];
+  v3 = [MEMORY[0x277D75348] colorWithCGColor:?];
   CGColorGetContentHeadroom();
-  if (v1 >= 1.0)
+  if (v4 >= 1.0)
   {
-    v2 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-    objc_setAssociatedObject(v0, &unk_27E39A4C8, v2, 1);
+    v5 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+    objc_setAssociatedObject(v3, &unk_27E39A4C8, v5, 1);
   }
 
-  return v0;
+  return v3;
 }
 
 id sub_23F3F79E4(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, float a5)
@@ -521,15 +521,22 @@ id sub_23F3F7D08(void *a1)
   return v5;
 }
 
-uint64_t sub_23F3F7EF4(void *a1)
+uint64_t sub_23F3F7EF4(void *a1, double a2)
 {
-  v1 = MEMORY[0x277D75348];
-  v2 = sub_23F3F7F54([a1 CGColor]);
+  v3 = MEMORY[0x277D75348];
+  v4 = [a1 CGColor];
+  v5 = 1.0;
+  if (a2 <= 1.0)
+  {
+    v5 = a2;
+  }
 
-  return [v1 colorWithCGColor:v2];
+  v6 = sub_23F3F7F54(v4, v5);
+
+  return [v3 colorWithCGColor:v6];
 }
 
-CGColorRef sub_23F3F7F54(CGColorRef color)
+CGColorRef sub_23F3F7F54(CGColorRef color, double a2)
 {
   if (qword_27E39A4F8 != -1)
   {
@@ -539,35 +546,35 @@ CGColorRef sub_23F3F7F54(CGColorRef color)
   CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(qword_27E39A4F0, kCGRenderingIntentDefault, color, 0);
   if (CopyByMatchingToColorSpace)
   {
-    v3 = CopyByMatchingToColorSpace;
+    v4 = CopyByMatchingToColorSpace;
     Components = CGColorGetComponents(CopyByMatchingToColorSpace);
     CGColorGetContentHeadroom();
     if (Components)
     {
-      CGColorGetNumberOfComponents(v3);
+      CGColorGetNumberOfComponents(v4);
     }
 
-    CGColorRelease(v3);
+    CGColorRelease(v4);
     if (qword_27E39A4F8 != -1)
     {
       sub_23F4BCB5C();
     }
 
-    v5 = CGColorCreateWithContentHeadroom();
-    if (v5)
+    v6 = CGColorCreateWithContentHeadroom();
+    if (v6)
     {
-      v6 = v5;
+      v7 = v6;
       if (qword_27E39A518 != -1)
       {
         sub_23F4BCB98();
       }
 
-      v7 = CGColorCreateCopyByMatchingToColorSpace(qword_27E39A510, kCGRenderingIntentDefault, v6, 0);
-      CFRelease(v6);
-      if (v7)
+      v8 = CGColorCreateCopyByMatchingToColorSpace(qword_27E39A510, kCGRenderingIntentDefault, v7, 0);
+      CFRelease(v7);
+      if (v8)
       {
-        CFAutorelease(v7);
-        return v7;
+        CFAutorelease(v8);
+        return v8;
       }
     }
   }
@@ -575,12 +582,12 @@ CGColorRef sub_23F3F7F54(CGColorRef color)
   return color;
 }
 
-uint64_t sub_23F3F80D4(void *a1)
+uint64_t sub_23F3F80D4(void *a1, double a2)
 {
-  v1 = MEMORY[0x277D75348];
-  v2 = sub_23F3F7F54([a1 CGColor]);
+  v2 = MEMORY[0x277D75348];
+  v3 = sub_23F3F7F54([a1 CGColor], a2);
 
-  return [v1 colorWithCGColor:v2];
+  return [v2 colorWithCGColor:v3];
 }
 
 CGColor *sub_23F3F812C(void *a1)
@@ -689,7 +696,7 @@ uint64_t sub_23F3F83B4(uint64_t a1)
   return result;
 }
 
-uint64_t sub_23F3F83DC()
+uint64_t sub_23F3F83DC(uint64_t a1, uint64_t a2)
 {
   if (qword_27E39A4E8 != -1)
   {
@@ -1008,247 +1015,317 @@ void sub_23F3F96C0()
 
 uint64_t sub_23F3F9C54(uint64_t a1)
 {
-  qword_27E39A538 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A538;
+  qword_27E39A538 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3F9CBC(uint64_t a1)
 {
-  qword_27E39A548 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A548;
+  qword_27E39A548 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3F9D24(uint64_t a1)
 {
-  qword_27E39A558 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A558;
+  qword_27E39A558 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3F9D8C(uint64_t a1)
 {
-  qword_27E39A568 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A568;
+  qword_27E39A568 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3F9DF4(uint64_t a1)
 {
-  qword_27E39A578 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A578;
+  qword_27E39A578 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA14C(uint64_t a1)
 {
-  qword_27E39A588 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A588;
+  qword_27E39A588 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA1B4(uint64_t a1)
 {
-  qword_27E39A598 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A598;
+  qword_27E39A598 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA21C(uint64_t a1)
 {
-  qword_27E39A5A8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A5A8;
+  qword_27E39A5A8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA284(uint64_t a1)
 {
-  qword_27E39A5B8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A5B8;
+  qword_27E39A5B8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA2EC(uint64_t a1)
 {
-  qword_27E39A5C8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A5C8;
+  qword_27E39A5C8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA644(uint64_t a1)
 {
-  qword_27E39A5D8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A5D8;
+  qword_27E39A5D8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA6AC(uint64_t a1)
 {
-  qword_27E39A5E8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A5E8;
+  qword_27E39A5E8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA714(uint64_t a1)
 {
-  qword_27E39A5F8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A5F8;
+  qword_27E39A5F8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA77C(uint64_t a1)
 {
-  qword_27E39A608 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A608;
+  qword_27E39A608 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FA7E4(uint64_t a1)
 {
-  qword_27E39A618 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A618;
+  qword_27E39A618 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FAB3C(uint64_t a1)
 {
-  qword_27E39A628 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A628;
+  qword_27E39A628 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FABA4(uint64_t a1)
 {
-  qword_27E39A638 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A638;
+  qword_27E39A638 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FAC0C(uint64_t a1)
 {
-  qword_27E39A648 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A648;
+  qword_27E39A648 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FAC74(uint64_t a1)
 {
-  qword_27E39A658 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A658;
+  qword_27E39A658 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FACDC(uint64_t a1)
 {
-  qword_27E39A668 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A668;
+  qword_27E39A668 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB034(uint64_t a1)
 {
-  qword_27E39A678 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A678;
+  qword_27E39A678 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB09C(uint64_t a1)
 {
-  qword_27E39A688 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A688;
+  qword_27E39A688 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB104(uint64_t a1)
 {
-  qword_27E39A698 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A698;
+  qword_27E39A698 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB16C(uint64_t a1)
 {
-  qword_27E39A6A8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A6A8;
+  qword_27E39A6A8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB1D4(uint64_t a1)
 {
-  qword_27E39A6B8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A6B8;
+  qword_27E39A6B8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB52C(uint64_t a1)
 {
-  qword_27E39A6C8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A6C8;
+  qword_27E39A6C8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB594(uint64_t a1)
 {
-  qword_27E39A6D8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A6D8;
+  qword_27E39A6D8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB5FC(uint64_t a1)
 {
-  qword_27E39A6E8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A6E8;
+  qword_27E39A6E8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB664(uint64_t a1)
 {
-  qword_27E39A6F8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A6F8;
+  qword_27E39A6F8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FB6CC(uint64_t a1)
 {
-  qword_27E39A708 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A708;
+  qword_27E39A708 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FBA24(uint64_t a1)
 {
-  qword_27E39A718 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A718;
+  qword_27E39A718 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FBA8C(uint64_t a1)
 {
-  qword_27E39A728 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A728;
+  qword_27E39A728 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FBAF4(uint64_t a1)
 {
-  qword_27E39A738 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A738;
+  qword_27E39A738 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FBB5C(uint64_t a1)
 {
-  qword_27E39A748 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A748;
+  qword_27E39A748 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FBBC4(uint64_t a1)
 {
-  qword_27E39A758 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A758;
+  qword_27E39A758 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void sub_23F3FBCBC(uint64_t a1)
@@ -1259,247 +1336,317 @@ void sub_23F3FBCBC(uint64_t a1)
 
 uint64_t sub_23F3FC024(uint64_t a1)
 {
-  qword_27E39A778 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A778;
+  qword_27E39A778 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC08C(uint64_t a1)
 {
-  qword_27E39A788 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A788;
+  qword_27E39A788 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC0F4(uint64_t a1)
 {
-  qword_27E39A798 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A798;
+  qword_27E39A798 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC15C(uint64_t a1)
 {
-  qword_27E39A7A8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A7A8;
+  qword_27E39A7A8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC1C4(uint64_t a1)
 {
-  qword_27E39A7B8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A7B8;
+  qword_27E39A7B8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC51C(uint64_t a1)
 {
-  qword_27E39A7C8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A7C8;
+  qword_27E39A7C8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC584(uint64_t a1)
 {
-  qword_27E39A7D8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A7D8;
+  qword_27E39A7D8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC5EC(uint64_t a1)
 {
-  qword_27E39A7E8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A7E8;
+  qword_27E39A7E8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC654(uint64_t a1)
 {
-  qword_27E39A7F8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A7F8;
+  qword_27E39A7F8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FC6BC(uint64_t a1)
 {
-  qword_27E39A808 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39A808;
+  qword_27E39A808 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCA14(uint64_t a1)
 {
-  qword_27E39A818 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A818;
+  qword_27E39A818 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCA7C(uint64_t a1)
 {
-  qword_27E39A828 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A828;
+  qword_27E39A828 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCAE4(uint64_t a1)
 {
-  qword_27E39A838 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A838;
+  qword_27E39A838 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCB4C(uint64_t a1)
 {
-  qword_27E39A848 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A848;
+  qword_27E39A848 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCBB4(uint64_t a1)
 {
-  qword_27E39A858 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39A858;
+  qword_27E39A858 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCF0C(uint64_t a1)
 {
-  qword_27E39A868 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A868;
+  qword_27E39A868 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCF74(uint64_t a1)
 {
-  qword_27E39A878 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A878;
+  qword_27E39A878 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FCFDC(uint64_t a1)
 {
-  qword_27E39A888 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A888;
+  qword_27E39A888 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD044(uint64_t a1)
 {
-  qword_27E39A898 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A898;
+  qword_27E39A898 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD0AC(uint64_t a1)
 {
-  qword_27E39A8A8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39A8A8;
+  qword_27E39A8A8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD404(uint64_t a1)
 {
-  qword_27E39A8B8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A8B8;
+  qword_27E39A8B8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD46C(uint64_t a1)
 {
-  qword_27E39A8C8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A8C8;
+  qword_27E39A8C8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD4D4(uint64_t a1)
 {
-  qword_27E39A8D8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A8D8;
+  qword_27E39A8D8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD53C(uint64_t a1)
 {
-  qword_27E39A8E8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A8E8;
+  qword_27E39A8E8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD5A4(uint64_t a1)
 {
-  qword_27E39A8F8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39A8F8;
+  qword_27E39A8F8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD8FC(uint64_t a1)
 {
-  qword_27E39A908 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A908;
+  qword_27E39A908 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD964(uint64_t a1)
 {
-  qword_27E39A918 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A918;
+  qword_27E39A918 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FD9CC(uint64_t a1)
 {
-  qword_27E39A928 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A928;
+  qword_27E39A928 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FDA34(uint64_t a1)
 {
-  qword_27E39A938 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A938;
+  qword_27E39A938 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FDA9C(uint64_t a1)
 {
-  qword_27E39A948 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39A948;
+  qword_27E39A948 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FDDF4(uint64_t a1)
 {
-  qword_27E39A958 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A958;
+  qword_27E39A958 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FDE5C(uint64_t a1)
 {
-  qword_27E39A968 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A968;
+  qword_27E39A968 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FDEC4(uint64_t a1)
 {
-  qword_27E39A978 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A978;
+  qword_27E39A978 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FDF2C(uint64_t a1)
 {
-  qword_27E39A988 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A988;
+  qword_27E39A988 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FDF94(uint64_t a1)
 {
-  qword_27E39A998 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39A998;
+  qword_27E39A998 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void sub_23F3FE08C(uint64_t a1)
@@ -1510,247 +1657,317 @@ void sub_23F3FE08C(uint64_t a1)
 
 uint64_t sub_23F3FE3F4(uint64_t a1)
 {
-  qword_27E39A9B8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A9B8;
+  qword_27E39A9B8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FE45C(uint64_t a1)
 {
-  qword_27E39A9C8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A9C8;
+  qword_27E39A9C8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FE4C4(uint64_t a1)
 {
-  qword_27E39A9D8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A9D8;
+  qword_27E39A9D8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FE52C(uint64_t a1)
 {
-  qword_27E39A9E8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A9E8;
+  qword_27E39A9E8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FE594(uint64_t a1)
 {
-  qword_27E39A9F8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39A9F8;
+  qword_27E39A9F8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FE8EC(uint64_t a1)
 {
-  qword_27E39AA08 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AA08;
+  qword_27E39AA08 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FE954(uint64_t a1)
 {
-  qword_27E39AA18 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AA18;
+  qword_27E39AA18 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FE9BC(uint64_t a1)
 {
-  qword_27E39AA28 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AA28;
+  qword_27E39AA28 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FEA24(uint64_t a1)
 {
-  qword_27E39AA38 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AA38;
+  qword_27E39AA38 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FEA8C(uint64_t a1)
 {
-  qword_27E39AA48 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AA48;
+  qword_27E39AA48 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FEDE4(uint64_t a1)
 {
-  qword_27E39AA58 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AA58;
+  qword_27E39AA58 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FEE4C(uint64_t a1)
 {
-  qword_27E39AA68 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AA68;
+  qword_27E39AA68 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FEEB4(uint64_t a1)
 {
-  qword_27E39AA78 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AA78;
+  qword_27E39AA78 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FEF1C(uint64_t a1)
 {
-  qword_27E39AA88 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AA88;
+  qword_27E39AA88 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FEF84(uint64_t a1)
 {
-  qword_27E39AA98 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AA98;
+  qword_27E39AA98 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF2DC(uint64_t a1)
 {
-  qword_27E39AAA8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AAA8;
+  qword_27E39AAA8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF344(uint64_t a1)
 {
-  qword_27E39AAB8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AAB8;
+  qword_27E39AAB8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF3AC(uint64_t a1)
 {
-  qword_27E39AAC8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AAC8;
+  qword_27E39AAC8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF414(uint64_t a1)
 {
-  qword_27E39AAD8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AAD8;
+  qword_27E39AAD8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF47C(uint64_t a1)
 {
-  qword_27E39AAE8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AAE8;
+  qword_27E39AAE8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF7D4(uint64_t a1)
 {
-  qword_27E39AAF8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AAF8;
+  qword_27E39AAF8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF83C(uint64_t a1)
 {
-  qword_27E39AB08 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AB08;
+  qword_27E39AB08 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF8A4(uint64_t a1)
 {
-  qword_27E39AB18 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AB18;
+  qword_27E39AB18 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF90C(uint64_t a1)
 {
-  qword_27E39AB28 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AB28;
+  qword_27E39AB28 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FF974(uint64_t a1)
 {
-  qword_27E39AB38 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AB38;
+  qword_27E39AB38 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FFCCC(uint64_t a1)
 {
-  qword_27E39AB48 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AB48;
+  qword_27E39AB48 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FFD34(uint64_t a1)
 {
-  qword_27E39AB58 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AB58;
+  qword_27E39AB58 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FFD9C(uint64_t a1)
 {
-  qword_27E39AB68 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AB68;
+  qword_27E39AB68 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FFE04(uint64_t a1)
 {
-  qword_27E39AB78 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AB78;
+  qword_27E39AB78 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F3FFE6C(uint64_t a1)
 {
-  qword_27E39AB88 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AB88;
+  qword_27E39AB88 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4001C4(uint64_t a1)
 {
-  qword_27E39AB98 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39AB98;
+  qword_27E39AB98 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40022C(uint64_t a1)
 {
-  qword_27E39ABA8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39ABA8;
+  qword_27E39ABA8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400294(uint64_t a1)
 {
-  qword_27E39ABB8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39ABB8;
+  qword_27E39ABB8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4002FC(uint64_t a1)
 {
-  qword_27E39ABC8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39ABC8;
+  qword_27E39ABC8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400364(uint64_t a1)
 {
-  qword_27E39ABD8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39ABD8;
+  qword_27E39ABD8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void sub_23F40045C(uint64_t a1)
@@ -1761,247 +1978,317 @@ void sub_23F40045C(uint64_t a1)
 
 uint64_t sub_23F4007C4(uint64_t a1)
 {
-  qword_27E39ABF8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39ABF8;
+  qword_27E39ABF8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40082C(uint64_t a1)
 {
-  qword_27E39AC08 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AC08;
+  qword_27E39AC08 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400894(uint64_t a1)
 {
-  qword_27E39AC18 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AC18;
+  qword_27E39AC18 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4008FC(uint64_t a1)
 {
-  qword_27E39AC28 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AC28;
+  qword_27E39AC28 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400964(uint64_t a1)
 {
-  qword_27E39AC38 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AC38;
+  qword_27E39AC38 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400CBC(uint64_t a1)
 {
-  qword_27E39AC48 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AC48;
+  qword_27E39AC48 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400D24(uint64_t a1)
 {
-  qword_27E39AC58 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AC58;
+  qword_27E39AC58 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400D8C(uint64_t a1)
 {
-  qword_27E39AC68 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AC68;
+  qword_27E39AC68 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400DF4(uint64_t a1)
 {
-  qword_27E39AC78 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AC78;
+  qword_27E39AC78 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F400E5C(uint64_t a1)
 {
-  qword_27E39AC88 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AC88;
+  qword_27E39AC88 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4011B4(uint64_t a1)
 {
-  qword_27E39AC98 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AC98;
+  qword_27E39AC98 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40121C(uint64_t a1)
 {
-  qword_27E39ACA8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39ACA8;
+  qword_27E39ACA8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401284(uint64_t a1)
 {
-  qword_27E39ACB8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39ACB8;
+  qword_27E39ACB8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4012EC(uint64_t a1)
 {
-  qword_27E39ACC8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39ACC8;
+  qword_27E39ACC8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401354(uint64_t a1)
 {
-  qword_27E39ACD8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39ACD8;
+  qword_27E39ACD8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4016AC(uint64_t a1)
 {
-  qword_27E39ACE8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39ACE8;
+  qword_27E39ACE8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401714(uint64_t a1)
 {
-  qword_27E39ACF8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39ACF8;
+  qword_27E39ACF8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40177C(uint64_t a1)
 {
-  qword_27E39AD08 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AD08;
+  qword_27E39AD08 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4017E4(uint64_t a1)
 {
-  qword_27E39AD18 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AD18;
+  qword_27E39AD18 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40184C(uint64_t a1)
 {
-  qword_27E39AD28 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AD28;
+  qword_27E39AD28 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401BA4(uint64_t a1)
 {
-  qword_27E39AD38 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AD38;
+  qword_27E39AD38 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401C0C(uint64_t a1)
 {
-  qword_27E39AD48 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AD48;
+  qword_27E39AD48 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401C74(uint64_t a1)
 {
-  qword_27E39AD58 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AD58;
+  qword_27E39AD58 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401CDC(uint64_t a1)
 {
-  qword_27E39AD68 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AD68;
+  qword_27E39AD68 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F401D44(uint64_t a1)
 {
-  qword_27E39AD78 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AD78;
+  qword_27E39AD78 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40209C(uint64_t a1)
 {
-  qword_27E39AD88 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AD88;
+  qword_27E39AD88 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402104(uint64_t a1)
 {
-  qword_27E39AD98 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AD98;
+  qword_27E39AD98 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40216C(uint64_t a1)
 {
-  qword_27E39ADA8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39ADA8;
+  qword_27E39ADA8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4021D4(uint64_t a1)
 {
-  qword_27E39ADB8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39ADB8;
+  qword_27E39ADB8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40223C(uint64_t a1)
 {
-  qword_27E39ADC8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39ADC8;
+  qword_27E39ADC8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402594(uint64_t a1)
 {
-  qword_27E39ADD8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39ADD8;
+  qword_27E39ADD8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4025FC(uint64_t a1)
 {
-  qword_27E39ADE8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39ADE8;
+  qword_27E39ADE8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402664(uint64_t a1)
 {
-  qword_27E39ADF8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39ADF8;
+  qword_27E39ADF8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4026CC(uint64_t a1)
 {
-  qword_27E39AE08 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39AE08;
+  qword_27E39AE08 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402734(uint64_t a1)
 {
-  qword_27E39AE18 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39AE18;
+  qword_27E39AE18 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void sub_23F40282C(uint64_t a1)
@@ -2012,247 +2299,317 @@ void sub_23F40282C(uint64_t a1)
 
 uint64_t sub_23F402B94(uint64_t a1)
 {
-  qword_27E39AE38 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AE38;
+  qword_27E39AE38 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402BFC(uint64_t a1)
 {
-  qword_27E39AE48 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AE48;
+  qword_27E39AE48 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402C64(uint64_t a1)
 {
-  qword_27E39AE58 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AE58;
+  qword_27E39AE58 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402CCC(uint64_t a1)
 {
-  qword_27E39AE68 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AE68;
+  qword_27E39AE68 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F402D34(uint64_t a1)
 {
-  qword_27E39AE78 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39AE78;
+  qword_27E39AE78 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40308C(uint64_t a1)
 {
-  qword_27E39AE88 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AE88;
+  qword_27E39AE88 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4030F4(uint64_t a1)
 {
-  qword_27E39AE98 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AE98;
+  qword_27E39AE98 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40315C(uint64_t a1)
 {
-  qword_27E39AEA8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AEA8;
+  qword_27E39AEA8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4031C4(uint64_t a1)
 {
-  qword_27E39AEB8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AEB8;
+  qword_27E39AEB8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40322C(uint64_t a1)
 {
-  qword_27E39AEC8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39AEC8;
+  qword_27E39AEC8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403584(uint64_t a1)
 {
-  qword_27E39AED8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AED8;
+  qword_27E39AED8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4035EC(uint64_t a1)
 {
-  qword_27E39AEE8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AEE8;
+  qword_27E39AEE8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403654(uint64_t a1)
 {
-  qword_27E39AEF8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AEF8;
+  qword_27E39AEF8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4036BC(uint64_t a1)
 {
-  qword_27E39AF08 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AF08;
+  qword_27E39AF08 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403724(uint64_t a1)
 {
-  qword_27E39AF18 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39AF18;
+  qword_27E39AF18 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403A7C(uint64_t a1)
 {
-  qword_27E39AF28 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AF28;
+  qword_27E39AF28 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403AE4(uint64_t a1)
 {
-  qword_27E39AF38 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AF38;
+  qword_27E39AF38 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403B4C(uint64_t a1)
 {
-  qword_27E39AF48 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AF48;
+  qword_27E39AF48 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403BB4(uint64_t a1)
 {
-  qword_27E39AF58 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AF58;
+  qword_27E39AF58 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403C1C(uint64_t a1)
 {
-  qword_27E39AF68 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39AF68;
+  qword_27E39AF68 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403F74(uint64_t a1)
 {
-  qword_27E39AF78 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AF78;
+  qword_27E39AF78 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F403FDC(uint64_t a1)
 {
-  qword_27E39AF88 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AF88;
+  qword_27E39AF88 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F404044(uint64_t a1)
 {
-  qword_27E39AF98 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AF98;
+  qword_27E39AF98 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4040AC(uint64_t a1)
 {
-  qword_27E39AFA8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AFA8;
+  qword_27E39AFA8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F404114(uint64_t a1)
 {
-  qword_27E39AFB8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39AFB8;
+  qword_27E39AFB8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40446C(uint64_t a1)
 {
-  qword_27E39AFC8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AFC8;
+  qword_27E39AFC8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4044D4(uint64_t a1)
 {
-  qword_27E39AFD8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AFD8;
+  qword_27E39AFD8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40453C(uint64_t a1)
 {
-  qword_27E39AFE8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AFE8;
+  qword_27E39AFE8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4045A4(uint64_t a1)
 {
-  qword_27E39AFF8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39AFF8;
+  qword_27E39AFF8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40460C(uint64_t a1)
 {
-  qword_27E39B008 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39B008;
+  qword_27E39B008 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F404964(uint64_t a1)
 {
-  qword_27E39B018 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B018;
+  qword_27E39B018 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4049CC(uint64_t a1)
 {
-  qword_27E39B028 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B028;
+  qword_27E39B028 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F404A34(uint64_t a1)
 {
-  qword_27E39B038 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B038;
+  qword_27E39B038 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F404A9C(uint64_t a1)
 {
-  qword_27E39B048 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B048;
+  qword_27E39B048 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F404B04(uint64_t a1)
 {
-  qword_27E39B058 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B058;
+  qword_27E39B058 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void sub_23F404BFC(uint64_t a1)
@@ -2263,247 +2620,317 @@ void sub_23F404BFC(uint64_t a1)
 
 uint64_t sub_23F404F64(uint64_t a1)
 {
-  qword_27E39B078 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39B078;
+  qword_27E39B078 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F404FCC(uint64_t a1)
 {
-  qword_27E39B088 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39B088;
+  qword_27E39B088 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405034(uint64_t a1)
 {
-  qword_27E39B098 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39B098;
+  qword_27E39B098 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40509C(uint64_t a1)
 {
-  qword_27E39B0A8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39B0A8;
+  qword_27E39B0A8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405104(uint64_t a1)
 {
-  qword_27E39B0B8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_fill_color", *(a1 + 40));
+  v2 = qword_27E39B0B8;
+  qword_27E39B0B8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40545C(uint64_t a1)
 {
-  qword_27E39B0C8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39B0C8;
+  qword_27E39B0C8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4054C4(uint64_t a1)
 {
-  qword_27E39B0D8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39B0D8;
+  qword_27E39B0D8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40552C(uint64_t a1)
 {
-  qword_27E39B0E8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39B0E8;
+  qword_27E39B0E8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405594(uint64_t a1)
 {
-  qword_27E39B0F8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39B0F8;
+  qword_27E39B0F8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4055FC(uint64_t a1)
 {
-  qword_27E39B108 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_border_color", *(a1 + 40));
+  v2 = qword_27E39B108;
+  qword_27E39B108 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405954(uint64_t a1)
 {
-  qword_27E39B118 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39B118;
+  qword_27E39B118 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4059BC(uint64_t a1)
 {
-  qword_27E39B128 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39B128;
+  qword_27E39B128 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405A24(uint64_t a1)
 {
-  qword_27E39B138 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39B138;
+  qword_27E39B138 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405A8C(uint64_t a1)
 {
-  qword_27E39B148 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39B148;
+  qword_27E39B148 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405AF4(uint64_t a1)
 {
-  qword_27E39B158 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_text_color", *(a1 + 40));
+  v2 = qword_27E39B158;
+  qword_27E39B158 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405E4C(uint64_t a1)
 {
-  qword_27E39B168 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39B168;
+  qword_27E39B168 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405EB4(uint64_t a1)
 {
-  qword_27E39B178 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39B178;
+  qword_27E39B178 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405F1C(uint64_t a1)
 {
-  qword_27E39B188 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39B188;
+  qword_27E39B188 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405F84(uint64_t a1)
 {
-  qword_27E39B198 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39B198;
+  qword_27E39B198 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F405FEC(uint64_t a1)
 {
-  qword_27E39B1A8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"highlight_color", *(a1 + 40));
+  v2 = qword_27E39B1A8;
+  qword_27E39B1A8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406344(uint64_t a1)
 {
-  qword_27E39B1B8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39B1B8;
+  qword_27E39B1B8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4063AC(uint64_t a1)
 {
-  qword_27E39B1C8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39B1C8;
+  qword_27E39B1C8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406414(uint64_t a1)
 {
-  qword_27E39B1D8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39B1D8;
+  qword_27E39B1D8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40647C(uint64_t a1)
 {
-  qword_27E39B1E8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39B1E8;
+  qword_27E39B1E8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4064E4(uint64_t a1)
 {
-  qword_27E39B1F8 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_fill_color", *(a1 + 40));
+  v2 = qword_27E39B1F8;
+  qword_27E39B1F8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40683C(uint64_t a1)
 {
-  qword_27E39B208 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39B208;
+  qword_27E39B208 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4068A4(uint64_t a1)
 {
-  qword_27E39B218 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39B218;
+  qword_27E39B218 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F40690C(uint64_t a1)
 {
-  qword_27E39B228 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39B228;
+  qword_27E39B228 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406974(uint64_t a1)
 {
-  qword_27E39B238 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39B238;
+  qword_27E39B238 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F4069DC(uint64_t a1)
 {
-  qword_27E39B248 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_marker_border_color", *(a1 + 40));
+  v2 = qword_27E39B248;
+  qword_27E39B248 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406D34(uint64_t a1)
 {
-  qword_27E39B258 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B258;
+  qword_27E39B258 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406D9C(uint64_t a1)
 {
-  qword_27E39B268 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B268;
+  qword_27E39B268 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406E04(uint64_t a1)
 {
-  qword_27E39B278 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B278;
+  qword_27E39B278 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406E6C(uint64_t a1)
 {
-  qword_27E39B288 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B288;
+  qword_27E39B288 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 uint64_t sub_23F406ED4(uint64_t a1)
 {
-  qword_27E39B298 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v1 = +[AKAnnotationTheme colorForAnnotationStyle:propertyName:pageTheme:](AKAnnotationTheme, "colorForAnnotationStyle:propertyName:pageTheme:", [*(a1 + 32) annotationStyle], @"note_sidebar_bar_color", *(a1 + 40));
+  v2 = qword_27E39B298;
+  qword_27E39B298 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 void sub_23F406FCC(uint64_t a1)
@@ -3385,9 +3812,9 @@ void sub_23F4125D8(uint64_t a1)
   *(v13 + 512) = v2;
 }
 
-void sub_23F412914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23F412914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3783,16 +4210,18 @@ void sub_23F41792C()
   qword_27E39B570 = v3;
 }
 
-void sub_23F417DE0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_23F417DE0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_23F417DFC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_23F417DFC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_23F419854(uint64_t a1)
@@ -4067,9 +4496,9 @@ void sub_23F41FD74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   [*(a1 + 40) setAttributes:v7 range:{a3, a4}];
 }
 
-void sub_23F421B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F421B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4107,7 +4536,7 @@ Class sub_23F421D48(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -4125,7 +4554,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_23F421E8C()
+uint64_t sub_23F421E8C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_27E39B588 = result;
@@ -4272,89 +4701,90 @@ void sub_23F42685C(void *a1, CGContext *a2)
   }
 }
 
-void sub_23F4299A8(uint64_t a1, float *a2)
+void sub_23F4299A8(uint64_t a1, float *a2, __n128 a3, __n128 a4)
 {
-  v4 = 0;
-  v36[25] = *MEMORY[0x277D85DE8];
-  v5 = *a1;
-  v6 = *(a1 + 8);
-  v7 = 0.0;
-  v8 = v6;
-  v9 = *a1;
+  v6 = 0;
+  v41[25] = *MEMORY[0x277D85DE8];
+  v7 = *a1;
+  v8 = *(a1 + 8);
+  v9 = 0.0;
+  v10 = v8;
+  v11 = *a1;
   do
   {
-    v10 = *(a1 + v4 + 16);
-    v11 = *(a1 + v4 + 24);
-    v7 = sub_23F465A04(v9, v8, v10, v11) + v7;
-    v4 += 16;
-    v8 = v11;
-    v9 = v10;
+    v12 = *(a1 + v6 + 16);
+    v13 = *(a1 + v6 + 24);
+    v9 = sub_23F465A04(v11, v10, v12, v13) + v9;
+    v6 += 16;
+    v10 = v13;
+    v11 = v12;
   }
 
-  while (v4 != 48);
-  v12 = sub_23F465A04(v5, v6, *(a1 + 48), *(a1 + 56));
-  if ((v7 - v12) <= 0.1)
+  while (v6 != 48);
+  v14 = sub_23F465A04(v7, v8, *(a1 + 48), *(a1 + 56));
+  if ((v9 - v14) <= 0.1)
   {
-    *a2 = *a2 + v7;
+    *a2 = *a2 + v9;
   }
 
   else
   {
-    v13 = *(a1 + 16);
-    v35[0] = *a1;
-    v35[1] = v13;
-    v14 = *(a1 + 48);
-    v35[2] = *(a1 + 32);
-    v35[3] = v14;
-    v15 = v36;
-    v16 = 3;
-    v17 = 1;
+    v15 = *(a1 + 16);
+    v40[0] = *a1;
+    v40[1] = v15;
+    v16 = *(a1 + 48);
+    v40[2] = *(a1 + 32);
+    v40[3] = v16;
+    v17 = v41;
+    v18 = 3;
+    v19 = 1;
     __asm { FMOV            V0.2D, #0.5 }
 
     do
     {
-      v23 = v35[4 * v17 - 4];
-      v24 = v16;
-      v25 = v15;
+      v25 = v40[4 * v19 - 4];
+      v26 = v18;
+      v27 = v17;
       do
       {
-        v26 = v25[-3];
-        *v25++ = vmlaq_f64(vmulq_f64(v26, _Q0), _Q0, v23);
-        v23 = v26;
-        --v24;
+        v28 = v27[-3];
+        *v27++ = vmlaq_f64(vmulq_f64(v28, _Q0), _Q0, v25);
+        v25 = v28;
+        --v26;
       }
 
-      while (v24);
-      ++v17;
-      --v16;
-      v15 += 4;
+      while (v26);
+      ++v19;
+      --v18;
+      v17 += 4;
     }
 
-    while (v17 != 4);
-    v27 = 0;
-    v28 = v35;
+    while (v19 != 4);
+    v29 = 0;
+    v30 = v40;
     do
     {
-      v29 = *v28;
-      v28 += 4;
-      *&v34[v27] = v29;
-      v27 += 16;
+      v31 = *v30;
+      v30 += 4;
+      *&v39[v29] = v31;
+      v29 += 16;
     }
 
-    while (v27 != 64);
-    v30 = v33;
-    v31 = 3;
-    v32 = 12;
+    while (v29 != 64);
+    v32 = v38;
+    v33 = 3;
+    v34 = 12;
     do
     {
-      *v30++ = v35[v32];
-      --v31;
-      v32 -= 3;
+      v35 = v40[v34];
+      *v32++ = v35;
+      --v33;
+      v34 -= 3;
     }
 
-    while (v31 != -1);
-    sub_23F4299A8(v34, a2);
-    sub_23F4299A8(v33, a2);
+    while (v33 != -1);
+    sub_23F4299A8(v39, a2, v35, v28);
+    sub_23F4299A8(v38, a2, v36, v37);
   }
 }
 
@@ -4422,7 +4852,7 @@ void *sub_23F42CE78(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -4437,7 +4867,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_23F42CFB8()
+uint64_t sub_23F42CFB8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_27E39B5C0 = result;
@@ -4683,7 +5113,7 @@ void sub_23F43484C(uint64_t a1)
   [WeakRetained signatureViewSignatureUpdated:*(a1 + 32)];
 }
 
-uint64_t sub_23F4349AC(uint64_t a1)
+void *sub_23F4349AC(uint64_t a1)
 {
   [*(a1 + 32) minPressure];
   qword_27E39B5C8 = v2;
@@ -5303,9 +5733,9 @@ uint64_t sub_23F44577C()
   return result;
 }
 
-void sub_23F445DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23F445DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5340,12 +5770,15 @@ void sub_23F445EB8()
 uint64_t sub_23F4462B0(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) objectAtIndex:a2];
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 40) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 40) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 uint64_t sub_23F4467DC()
@@ -5392,9 +5825,9 @@ BOOL sub_23F44A5CC(uint64_t a1, void *a2)
   return (isKindOfClass & 1) == 0;
 }
 
-void sub_23F44A754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F44A754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5566,16 +5999,16 @@ id sub_23F4548C8(double a1, double a2, double a3, double a4)
   return v4;
 }
 
-id sub_23F454DFC()
+id sub_23F454DFC(uint64_t a1)
 {
   if (qword_27E39B680 != -1)
   {
     sub_23F4BD0CC();
   }
 
-  v1 = qword_27E39B688;
+  v2 = qword_27E39B688;
 
-  return v1;
+  return v2;
 }
 
 void sub_23F454E40(uint64_t a1)
@@ -5739,28 +6172,37 @@ uint64_t sub_23F456390(uint64_t result, uint64_t a2)
 
 uint64_t sub_23F4563A8(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [qword_27E39B670 objectForKey:*(a1 + 32)];
+  v2 = [qword_27E39B670 objectForKey:*(a1 + 32)];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 uint64_t sub_23F456564(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [qword_27E39B678 objectForKey:*(a1 + 32)];
+  v2 = [qword_27E39B678 objectForKey:*(a1 + 32)];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 uint64_t sub_23F45680C(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [qword_27E39B660 objectForKey:*(a1 + 32)];
+  v2 = [qword_27E39B660 objectForKey:*(a1 + 32)];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
-void sub_23F457A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_23F457A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -5872,7 +6314,7 @@ id sub_23F457D00(void *a1, void *a2)
         [v16 addObject:v17];
       }
 
-      v15 = *(v15 + 48);
+      v15 = v15[6];
     }
 
     while (v15);
@@ -5890,9 +6332,11 @@ LABEL_22:
 
 uint64_t sub_23F4580D4()
 {
-  qword_27E39B688 = dispatch_queue_create("AKTSDBrushStrokeLoadQueue", 0);
+  v0 = dispatch_queue_create("AKTSDBrushStrokeLoadQueue", 0);
+  v1 = qword_27E39B688;
+  qword_27E39B688 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t sub_23F45855C(void *a1)
@@ -6360,28 +6804,29 @@ BOOL sub_23F467FB0(id *a1, void *a2)
 
 BOOL sub_23F46A014()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = off_27E39B758;
-  v7 = off_27E39B758;
+  v8 = off_27E39B758;
   if (!off_27E39B758)
   {
-    v3[0] = MEMORY[0x277D85DD0];
-    v3[1] = 3221225472;
-    v3[2] = sub_23F46A2C4;
-    v3[3] = &unk_278C7B9D0;
-    v3[4] = &v4;
-    sub_23F46A2C4(v3);
-    v0 = v5[3];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = sub_23F46A2C4;
+    v4[3] = &unk_278C7B9D0;
+    v4[4] = &v5;
+    sub_23F46A2C4(v4);
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    v2 = sub_23F4BD000();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v2);
+    sub_23F4BD000();
+    v3 = v2;
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v3);
   }
 
   return v0(0) - 1 < 2;
@@ -6413,7 +6858,7 @@ void *sub_23F46A2C4(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -6428,7 +6873,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_23F46A404()
+uint64_t sub_23F46A404(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_27E39B760 = result;
@@ -6457,10 +6902,11 @@ __n128 sub_23F46B500(uint64_t a1)
   return v19;
 }
 
-void sub_23F46D554(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_23F46D554(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_23F46E7FC(uint64_t a1)
@@ -6501,11 +6947,11 @@ uint64_t sub_23F46EC5C(uint64_t a1)
   return [v2 _continueToCreateSignature];
 }
 
-uint64_t sub_23F47749C(double a1, double a2, double a3, double a4)
+uint64_t sub_23F47749C(uint64_t a1, double a2, double a3, double a4, double a5)
 {
-  v8 = objc_opt_class();
+  v9 = objc_opt_class();
 
-  return [v8 stableIntegralRectForRect:{a1, a2, a3, a4}];
+  return [v9 stableIntegralRectForRect:{a2, a3, a4, a5}];
 }
 
 void sub_23F478220(_Unwind_Exception *a1)
@@ -6567,7 +7013,7 @@ void sub_23F4783A4(uint64_t a1, __int128 *a2, uint64_t a3)
   }
 }
 
-uint64_t sub_23F479824(uint64_t a1)
+void *sub_23F479824(uint64_t a1)
 {
   [*(a1 + 32) minPressure];
   qword_27E39B770 = v2;
@@ -6580,9 +7026,9 @@ uint64_t sub_23F479824(uint64_t a1)
   return result;
 }
 
-void sub_23F47AE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23F47AE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6601,9 +7047,9 @@ uint64_t sub_23F47B040(uint64_t a1, int a2, CGPathRef path)
   return 0;
 }
 
-void sub_23F47B15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23F47B15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6622,9 +7068,11 @@ void sub_23F47C6C4(void *a1, int a2)
 
 uint64_t sub_23F47CD04()
 {
-  qword_27E39B790 = [MEMORY[0x277CBEB98] setWithArray:&unk_2851BAF80];
+  v0 = [MEMORY[0x277CBEB98] setWithArray:&unk_2851BAF80];
+  v1 = qword_27E39B790;
+  qword_27E39B790 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_23F47CD4C(uint64_t a1)
@@ -6671,9 +7119,11 @@ void sub_23F47CD4C(uint64_t a1)
 
 uint64_t sub_23F47D1F0()
 {
-  qword_27E39B7A0 = [MEMORY[0x277CBEB98] setWithArray:&unk_2851BAF98];
+  v0 = [MEMORY[0x277CBEB98] setWithArray:&unk_2851BAF98];
+  v1 = qword_27E39B7A0;
+  qword_27E39B7A0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_23F47D238(uint64_t a1)
@@ -7046,16 +7496,16 @@ void sub_23F48AC24()
   method_exchangeImplementations(InstanceMethod, v3);
 }
 
-void sub_23F48CC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23F48CC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7459,17 +7909,17 @@ double sub_23F49FBB8(float64x2_t *a1, double a2)
   return result;
 }
 
-void sub_23F49FC10(float64x2_t *a1, uint64_t a2, double a3, double a4)
+void sub_23F49FC10(double a1, double a2, float64x2_t *a3, uint64_t a4)
 {
-  v8 = 1.0 - a3;
-  *a2 = sub_23F4A1DA8(a1, 1.0 - a3, a3, 1.0 - a3, a3, 1.0 - a3, a3);
-  *(a2 + 8) = v9;
-  *(a2 + 16) = sub_23F4A1DA8(a1, v8, a3, v8, a3, 1.0 - a4, a4);
-  *(a2 + 24) = v10;
-  *(a2 + 32) = sub_23F4A1DA8(a1, v8, a3, 1.0 - a4, a4, 1.0 - a4, a4);
-  *(a2 + 40) = v11;
-  *(a2 + 48) = sub_23F4A1DA8(a1, 1.0 - a4, a4, 1.0 - a4, a4, 1.0 - a4, a4);
-  *(a2 + 56) = v12;
+  v8 = 1.0 - a1;
+  *a4 = sub_23F4A1DA8(a3, 1.0 - a1, a1, 1.0 - a1, a1, 1.0 - a1, a1);
+  *(a4 + 8) = v9;
+  *(a4 + 16) = sub_23F4A1DA8(a3, v8, a1, v8, a1, 1.0 - a2, a2);
+  *(a4 + 24) = v10;
+  *(a4 + 32) = sub_23F4A1DA8(a3, v8, a1, 1.0 - a2, a2, 1.0 - a2, a2);
+  *(a4 + 40) = v11;
+  *(a4 + 48) = sub_23F4A1DA8(a3, 1.0 - a2, a2, 1.0 - a2, a2, 1.0 - a2, a2);
+  *(a4 + 56) = v12;
 }
 
 uint64_t sub_23F49FCE4(double *a1, double *a2, double *a3, double *a4, double *a5)
@@ -7845,10 +8295,10 @@ void sub_23F4A1DEC(float64x2_t *a1, void *a2, uint64_t a3, uint64_t a4, void *a5
 
   else
   {
-    sub_23F49FC10(a1, v102, 0.0, 0.5);
-    sub_23F49FC10(a1, v101, 0.5, 1.0);
-    sub_23F4A1DEC(v102, v15, a3, a4, v16, v17, (a7 + 1), a8);
-    sub_23F4A1DEC(v101, v15, a3, a4, v16, v17, (a7 + 1), 0);
+    sub_23F49FC10(0.0, 0.5, a1, v102);
+    sub_23F49FC10(0.5, 1.0, a1, v101);
+    sub_23F4A1DEC(v102, v15, a3, a4, v16, v17, a7 + 1, a8);
+    sub_23F4A1DEC(v101, v15, a3, a4, v16, v17, a7 + 1, 0);
   }
 }
 
@@ -7983,11 +8433,11 @@ LABEL_37:
 
     do
     {
-      f64 = a1[v101].f64;
-      v141 = vld2q_f64(f64);
+      v120 = &a1[v101];
+      v141 = vld2q_f64(v120->f64);
       v121 = vdivq_f64(vsubq_f64(v141.val[0], v111), v112);
       v141.val[0] = vmlaq_f64(v141.val[0], v141.val[1], vmulq_n_f64(vmlaq_f64(v114, v113, vmaxnmq_f64(vminnmq_f64(vbslq_s8(vcgeq_s64(vandq_s8(v121, v117), v102), _Q7, v121), _Q16), 0)), v115));
-      *f64 = v141.val[0].f64[0];
+      v120->f64[0] = v141.val[0].f64[0];
       a1[v101 + 1].f64[0] = v141.val[0].f64[1];
       v101 += 2;
     }
@@ -8795,224 +9245,4 @@ LABEL_35:
   }
 
   return Mutable;
-}
-
-void sub_23F4A4858(float64x2_t *a1, double *a2, uint64_t a3, uint64_t a4, int a5, void *a6, double a7, double a8, double a9, double a10)
-{
-  v41[8] = *MEMORY[0x277D85DE8];
-  v36 = a6;
-  v39 = 0.0;
-  v40 = 0.0;
-  sub_23F4A4B08(a1->f64, a2, &v40, &v39);
-  v19 = v40;
-  if (v40 <= 1.0)
-  {
-    v20 = v39;
-    if (v39 >= 0.0)
-    {
-      if ((v39 - v40) * a7 >= 0.0001)
-      {
-        if (v39 - v40 >= 0.8)
-        {
-          v34 = (v40 + v39) * 0.5;
-          sub_23F49FC10(a1, v41, v40, v34);
-          sub_23F4A4858(a2, v41, a4, a3, a5 ^ 1u, v36, a9, a10, (v20 - v34) * a7, a8 + v19 * a7);
-          sub_23F49FC10(a1, v41, (v19 + v20) * 0.5, v20);
-          v27 = a8 + v34 * a7;
-          v28 = a5 ^ 1u;
-          v29 = a2;
-          v30 = a9;
-          v31 = a10;
-          v32 = a4;
-          v33 = (v20 - v34) * a7;
-        }
-
-        else
-        {
-          sub_23F49FC10(a1, v41, v40, v39);
-          v27 = a8 + v19 * a7;
-          v28 = a5 ^ 1u;
-          v29 = a2;
-          v30 = a9;
-          v31 = a10;
-          v32 = a4;
-          v33 = (v20 - v19) * a7;
-        }
-
-        sub_23F4A4858(v29, v41, v32, a3, v28, v36, v30, v31, v33, v27);
-      }
-
-      else
-      {
-        v37 = 0.0;
-        v38 = 0.0;
-        sub_23F49FC10(a1, v41, v40, v39);
-        sub_23F4A4B08(a2, v41, &v38, &v37);
-        if ((v37 - v38) * a9 < 0.1)
-        {
-          v21 = (v37 + v38) * a9 * 0.5 + a10;
-          v22 = [AKTSDPathIntersection alloc];
-          if (a5)
-          {
-            v23 = a4;
-            v24 = v21;
-            v25 = a3;
-            v26 = (v19 + v20) * a7 * 0.5 + a8;
-          }
-
-          else
-          {
-            v23 = a3;
-            v24 = (v19 + v20) * a7 * 0.5 + a8;
-            v25 = a4;
-            v26 = v21;
-          }
-
-          v35 = [(AKTSDPathIntersection *)v22 initWithSegment:v23 atT:v25 onSegmentB:v24 atT:v26 atPoint:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8), v36];
-          [v36 addObject:v35];
-        }
-      }
-    }
-  }
-}
-
-double *sub_23F4A4B08(double *a1, double *a2, double *a3, double *a4)
-{
-  v28[8] = *MEMORY[0x277D85DE8];
-  v6 = a2[6];
-  v7 = a2[7];
-  v8 = v7 - a2[1];
-  v9 = v6 - *a2;
-  v10 = v9 * v9 + v8 * v8;
-  v11 = (1.0 / sqrtf(v10));
-  v12 = v8 * v11;
-  v13 = -(v9 * v11);
-  v14 = v7 * v13 + v12 * v6;
-  v15 = a1[1] * v13 + v12 * *a1 - v14;
-  v28[0] = 0;
-  *&v28[1] = v15;
-  v16 = a1[3] * v13 + v12 * a1[2] - v14;
-  v28[2] = 0x3FD5555555555555;
-  *&v28[3] = v16;
-  v17 = v13 * a1[5] + v12 * a1[4] - v14;
-  v28[4] = 0x3FE5555555555555;
-  *&v28[5] = v17;
-  v18 = v13 * a1[7] + v12 * a1[6] - v14;
-  v28[6] = 0x3FF0000000000000;
-  *&v28[7] = v18;
-  v19 = v13 * a2[3] + v12 * a2[2] - v14;
-  v20 = v13 * a2[5] + v12 * a2[4] - v14;
-  v21 = fmin(v19, fmin(v20, 0.0));
-  v22 = fmax(v19, fmax(v20, 0.0));
-  *a3 = 2.0;
-  *a4 = -1.0;
-  sub_23F4A4CD0(a3, a4, v28, v21);
-  result = sub_23F4A4CD0(a3, a4, v28, v22);
-  for (i = 0; i != 8; i += 2)
-  {
-    v25 = *&v28[i + 1];
-    if (v25 > v21 && v25 < v22)
-    {
-      v27 = *&v28[i];
-      *a3 = fmin(*a3, v27);
-      *a4 = fmax(*a4, v27);
-    }
-  }
-
-  return result;
-}
-
-double *sub_23F4A4CD0(double *result, double *a2, uint64_t a3, double a4)
-{
-  v4 = 0;
-  v5 = (a3 + 24);
-  v6 = 3;
-  do
-  {
-    if (v4 <= 2)
-    {
-      v7 = (a3 + 16 * v4);
-      v8 = v6;
-      v9 = v5;
-      do
-      {
-        v10 = v7[1];
-        if ((v10 <= a4 || *v9 <= a4) && (v10 >= a4 || *v9 >= a4))
-        {
-          v11 = *v7;
-          v12 = *(v9 - 1) - *v7;
-          if (v12 != 0.0)
-          {
-            v11 = v12 * (a4 - (v10 - v11 * (*v9 - v10) / v12)) / (*v9 - v10);
-          }
-
-          if (v11 < *result)
-          {
-            *result = v11;
-          }
-
-          if (v11 > *a2)
-          {
-            *a2 = v11;
-          }
-        }
-
-        v9 += 2;
-        --v8;
-      }
-
-      while (v8);
-    }
-
-    ++v4;
-    v5 += 2;
-    --v6;
-  }
-
-  while (v4 != 4);
-  return result;
-}
-
-void sub_23F4A4D94(float64x2_t *a1, uint64_t a2, void *a3, double a4)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v15 = 2.0;
-  v13 = a3;
-  v14 = -1.0;
-  sub_23F4A4CD0(&v15, &v14, a2, 0.0);
-  v7 = v15;
-  if (v15 <= 1.0)
-  {
-    v8 = v14;
-    if (v14 >= 0.0)
-    {
-      if (v14 - v15 >= 0.00005)
-      {
-        if (v14 - v15 >= a4 * 0.8)
-        {
-          v12 = (v15 + v14) * 0.5;
-          sub_23F49FC10(a1, v16, v15, v12);
-          sub_23F4A4D94(a1, v16, v13, v12 - v7);
-          sub_23F49FC10(a1, v16, (v7 + v8) * 0.5, v8);
-          v11 = v8 - v12;
-          v10 = a1;
-        }
-
-        else
-        {
-          sub_23F49FC10(a1, v16, v15, v14);
-          v10 = a1;
-          v11 = v8 - v7;
-        }
-
-        sub_23F4A4D94(v10, v16, v13, v11);
-      }
-
-      else
-      {
-        v9 = [MEMORY[0x277CCABB0] numberWithDouble:(v15 + v14) * 0.5];
-        [v13 addObject:v9];
-      }
-    }
-  }
 }

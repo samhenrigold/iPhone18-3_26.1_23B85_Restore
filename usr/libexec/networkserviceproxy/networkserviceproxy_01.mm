@@ -1967,10 +1967,11 @@ void sub_10002FBD0(void *a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_10003018C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_10003018C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2001,10 +2002,11 @@ void sub_1000301B4(uint64_t a1)
   *(v7 + 40) = 0;
 }
 
-void sub_1000304D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_1000304D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2066,11 +2068,12 @@ void sub_10003326C(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_1000333BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_1000333BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2274,9 +2277,9 @@ void sub_1000336DC(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100034040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100034040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2301,9 +2304,9 @@ void sub_100034060(uint64_t a1)
   *(v4 + 40) = 0;
 }
 
-void sub_100037520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100037520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2328,9 +2331,9 @@ void sub_100037540(uint64_t a1)
   *(v4 + 40) = 0;
 }
 
-void sub_100037C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100037C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2355,9 +2358,9 @@ void sub_100037C38(uint64_t a1)
   *(v8 + 40) = 0;
 }
 
-void sub_1000391F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000391F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2395,9 +2398,9 @@ void sub_100039214(uint64_t a1)
   *(v6 + 40) = 0;
 }
 
-void sub_1000393C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000393C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2495,61 +2498,70 @@ void sub_1000393E0(uint64_t a1)
 
 uint64_t sub_100039760(uint64_t a1, void *a2)
 {
-  if (a2 && nw_array_get_count())
+  count = a2;
+  v4 = count;
+  if (count)
   {
-    v3 = nw_array_get_object_at_index();
-    address = nw_endpoint_get_address(v3);
-    v5 = nw_endpoint_copy_address_string(v3);
-    if (!v5)
+    v16 = count;
+    count = nw_array_get_count();
+    v4 = v16;
+    if (count)
     {
+      v5 = nw_array_get_object_at_index();
+      address = nw_endpoint_get_address(v5);
+      v7 = nw_endpoint_copy_address_string(v5);
+      if (!v7)
+      {
 LABEL_12:
 
-      goto LABEL_13;
-    }
-
-    v6 = v5;
-    sa_family = address->sa_family;
-    if (sa_family == 30)
-    {
-      v8 = [NSString stringWithUTF8String:v5];
-      v9 = [NPUtilities createMaskedIPv6Address:v8 prefix:56];
-    }
-
-    else
-    {
-      if (sa_family != 2)
-      {
-LABEL_9:
-        v11 = *(a1 + 32);
-        if (v11)
-        {
-          v12 = *(v11 + 536);
-        }
-
-        else
-        {
-          v12 = 0;
-        }
-
-        [*(a1 + 40) setTokenServerAddress:v12];
-        [*(a1 + 40) sendAnalytics];
-        free(v6);
-        goto LABEL_12;
+        v4 = v16;
+        goto LABEL_13;
       }
 
-      v8 = [NSString stringWithUTF8String:v5];
-      v9 = [NPUtilities createMaskedIPv4Address:v8 prefix:24];
+      v8 = v7;
+      sa_family = address->sa_family;
+      if (sa_family == 30)
+      {
+        v10 = [NSString stringWithUTF8String:v7];
+        v11 = [NPUtilities createMaskedIPv6Address:v10 prefix:56];
+      }
+
+      else
+      {
+        if (sa_family != 2)
+        {
+LABEL_9:
+          v13 = *(a1 + 32);
+          if (v13)
+          {
+            v14 = *(v13 + 536);
+          }
+
+          else
+          {
+            v14 = 0;
+          }
+
+          [*(a1 + 40) setTokenServerAddress:v14];
+          [*(a1 + 40) sendAnalytics];
+          free(v8);
+          goto LABEL_12;
+        }
+
+        v10 = [NSString stringWithUTF8String:v7];
+        v11 = [NPUtilities createMaskedIPv4Address:v10 prefix:24];
+      }
+
+      v12 = v11;
+      sub_100023ED0(*(a1 + 32), v11);
+
+      goto LABEL_9;
     }
-
-    v10 = v9;
-    sub_100023ED0(*(a1 + 32), v9);
-
-    goto LABEL_9;
   }
 
 LABEL_13:
 
-  return _objc_release_x1();
+  return _objc_release_x1(count, v4);
 }
 
 id sub_10003A2EC()
@@ -2652,9 +2664,11 @@ uint64_t sub_10003A674(void *a1)
 
 void sub_10003A6D0(id a1)
 {
-  qword_1001296E8 = [[NSBundle alloc] initWithPath:@"/System/Library/PrivateFrameworks/NetworkServiceProxy.framework"];
+  v1 = [[NSBundle alloc] initWithPath:@"/System/Library/PrivateFrameworks/NetworkServiceProxy.framework"];
+  v2 = qword_1001296E8;
+  qword_1001296E8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10003A718(id a1)
@@ -3509,93 +3523,92 @@ id sub_10003D64C(uint64_t a1, void *a2, int a3)
 {
   v4 = a2;
   v5 = objc_opt_self();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v6 = sub_10003D498(v5, v4, a3);
-  v7 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (!v7)
   {
     goto LABEL_9;
   }
 
   v8 = v7;
-  v9 = *v39;
+  v9 = *v38;
   do
   {
     v10 = 0;
     do
     {
-      if (*v39 != v9)
+      if (*v38 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v38 + 1) + 8 * v10);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v33 = v4;
+        v32 = v4;
 
-        v12 = objc_alloc_init(NSMutableArray);
+        v11 = objc_alloc_init(NSMutableArray);
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v32 = v6;
-        v13 = v6;
-        v14 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
-        if (!v14)
+        v31 = v6;
+        v12 = v6;
+        v13 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        if (!v13)
         {
           goto LABEL_28;
         }
 
-        v15 = v14;
-        v16 = *v35;
+        v14 = v13;
+        v15 = *v34;
         while (1)
         {
-          v17 = 0;
+          v16 = 0;
           do
           {
-            if (*v35 != v16)
+            if (*v34 != v15)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v34 + 1) + 8 * v17);
+            v17 = *(*(&v33 + 1) + 8 * v16);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v12 addObject:v18];
+              [v11 addObject:v17];
               goto LABEL_26;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v19 = v18;
-              v21 = v19;
-              if (!v19)
+              v18 = v17;
+              v20 = v18;
+              if (!v18)
               {
                 goto LABEL_25;
               }
 
-              v22 = objc_getProperty(v19, v20, 8, 1);
-              if (!v22)
+              v21 = objc_getProperty(v18, v19, 8, 1);
+              if (!v21)
               {
                 goto LABEL_25;
               }
 
-              v24 = v22;
-              v25 = objc_getProperty(v21, v23, 16, 1);
-              if (v25)
+              v23 = v21;
+              v24 = objc_getProperty(v20, v22, 16, 1);
+              if (v24)
               {
-                v27 = v25;
-                [objc_getProperty(v21 v26];
-                v29 = v28;
+                v26 = v24;
+                [objc_getProperty(v20 v25];
+                v28 = v27;
 
-                if (v29 <= 0.0)
+                if (v28 <= 0.0)
                 {
                   goto LABEL_25;
                 }
@@ -3605,41 +3618,41 @@ id sub_10003D64C(uint64_t a1, void *a2, int a3)
               {
               }
 
-              [v12 addObject:{objc_getProperty(v21, v30, 8, 1)}];
+              [v11 addObject:{objc_getProperty(v20, v29, 8, 1)}];
 LABEL_25:
             }
 
 LABEL_26:
-            v17 = v17 + 1;
+            v16 = v16 + 1;
           }
 
-          while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v34 objects:v42 count:16];
-          if (!v15)
+          while (v14 != v16);
+          v14 = [v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          if (!v14)
           {
 LABEL_28:
 
-            v6 = v32;
-            v4 = v33;
+            v6 = v31;
+            v4 = v32;
             goto LABEL_29;
           }
         }
       }
 
-      v10 = v10 + 1;
+      ++v10;
     }
 
     while (v8 != v10);
-    v8 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
   }
 
   while (v8);
 LABEL_9:
 
-  v12 = v6;
+  v11 = v6;
 LABEL_29:
 
-  return v12;
+  return v11;
 }
 
 void sub_10003D924(uint64_t a1, void *a2, int a3)
@@ -5576,16 +5589,20 @@ id *sub_100040AA0(id *a1, void *a2, void *a3, void *a4)
 
 void sub_100040BD0(id a1)
 {
-  qword_100129730 = [NSString stringWithUTF8String:nw_proxy_config_get_agent_domain()];
+  v1 = [NSString stringWithUTF8String:nw_proxy_config_get_agent_domain()];
+  v2 = qword_100129730;
+  qword_100129730 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100040C6C(id a1)
 {
-  qword_100129740 = [NSString stringWithUTF8String:nw_proxy_config_get_privacy_proxy_agent_type()];
+  v1 = [NSString stringWithUTF8String:nw_proxy_config_get_privacy_proxy_agent_type()];
+  v2 = qword_100129740;
+  qword_100129740 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 id *sub_100040F74(id *a1, void *a2, void *a3, void *a4)
@@ -5616,9 +5633,11 @@ id *sub_100040F74(id *a1, void *a2, void *a3, void *a4)
 
 void sub_100041238(id a1)
 {
-  qword_100129750 = [NSString stringWithUTF8String:nw_proxy_config_get_system_privacy_proxy_agent_type()];
+  v1 = [NSString stringWithUTF8String:nw_proxy_config_get_system_privacy_proxy_agent_type()];
+  v2 = qword_100129750;
+  qword_100129750 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10004136C(uint64_t a1, int a2)
@@ -5642,19 +5661,16 @@ void sub_10004136C(uint64_t a1, int a2)
           v11 = *(a1 + 8);
           *(a1 + 8) = v10;
 
-          v13 = *(a1 + 8);
           mrc_dns_proxy_set_event_handler();
-          v14 = *(a1 + 8);
-          v15 = NPGetInternalQueue();
+          v13 = NPGetInternalQueue();
           mrc_dns_proxy_set_queue();
 
-          v16 = *(a1 + 8);
           mrc_dns_proxy_activate();
           v12 = nplog_obj();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v18 = v9;
+            v15 = v9;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "DNS proxy request to start on lo0 (index %d)", buf, 8u);
           }
         }
@@ -5665,7 +5681,7 @@ void sub_10004136C(uint64_t a1, int a2)
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            v18 = 0;
+            v15 = 0;
             _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Unable to create DNS proxy parameters - %d", buf, 8u);
           }
         }
@@ -6072,10 +6088,10 @@ NSObject *sub_1000420E0(NSObject *a1, void *a2, void *a3, int a4, void *a5, void
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v31 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
-      v26 = "%s called with null agentUUID";
+      v30 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
+      v25 = "%s called with null agentUUID";
 LABEL_16:
-      _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, v26, buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, v25, buf, 0xCu);
     }
 
 LABEL_21:
@@ -6091,20 +6107,20 @@ LABEL_21:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v31 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
-      v26 = "%s called with null agentDescription";
+      v30 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
+      v25 = "%s called with null agentDescription";
       goto LABEL_16;
     }
 
     goto LABEL_21;
   }
 
-  v29.receiver = a1;
-  v29.super_class = NSPPrivacyProxyNetworkRegistration;
-  a1 = [&v29 init];
+  v28.receiver = a1;
+  v28.super_class = NSPPrivacyProxyNetworkRegistration;
+  a1 = [&v28 init];
   if (a1)
   {
-    v15 = sub_100053E68();
+    v15 = sub_100053E68(NSPServer);
     v17 = sub_100074784(v15, v16);
 
     objc_storeWeak(&a1[1].isa, v14);
@@ -6118,15 +6134,14 @@ LABEL_21:
       v18 = off_100108C80;
     }
 
-    v19 = *v18;
-    v20 = objc_opt_class();
-    v21 = sub_100040AA0(objc_alloc(*v18), a1, v11, v13);
+    v19 = objc_opt_class();
+    v20 = sub_100040AA0(objc_alloc(*v18), a1, v11, v13);
     isa = a1[2].isa;
-    a1[2].isa = v21;
+    a1[2].isa = v20;
 
-    v23 = [[NWNetworkAgentRegistration alloc] initWithNetworkAgentClass:v20 session:v17];
-    v24 = a1[3].isa;
-    a1[3].isa = v23;
+    v22 = [[NWNetworkAgentRegistration alloc] initWithNetworkAgentClass:v19 session:v17];
+    v23 = a1[3].isa;
+    a1[3].isa = v22;
 
     if (a1[2].isa)
     {
@@ -6137,21 +6152,21 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      v27 = nplog_obj();
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v26 = nplog_obj();
+      if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_20;
       }
 
       *buf = 136315138;
-      v31 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
-      v28 = "%s called with null _proxyConfigAgentRegistration";
+      v30 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
+      v27 = "%s called with null _proxyConfigAgentRegistration";
     }
 
     else
     {
-      v27 = nplog_obj();
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v26 = nplog_obj();
+      if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
 LABEL_20:
 
@@ -6159,11 +6174,11 @@ LABEL_20:
       }
 
       *buf = 136315138;
-      v31 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
-      v28 = "%s called with null _proxyConfigAgent";
+      v30 = "[NSPPrivacyProxyNetworkRegistration initWithAgentUUID:name:systemAgentType:agentDescription:delegate:]";
+      v27 = "%s called with null _proxyConfigAgent";
     }
 
-    _os_log_fault_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, v28, buf, 0xCu);
+    _os_log_fault_impl(&_mh_execute_header, v26, OS_LOG_TYPE_FAULT, v27, buf, 0xCu);
     goto LABEL_20;
   }
 
@@ -6224,9 +6239,9 @@ void *sub_1000424D0(void *result, uint64_t a2)
   return result;
 }
 
-void sub_1000425FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000425FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6276,9 +6291,9 @@ void sub_10004261C(uint64_t a1)
   *(v9 + 40) = 0;
 }
 
-void sub_100042894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100042894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6566,54 +6581,54 @@ NSObject *sub_100043094(NSObject *result, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_1000430B4(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, char a10, char a11, char a12, char a13, char a14, char a15, void *a16, void *a17, uint64_t a18, void *a19, char a20, char a21, void *a22, char a23, void *a24, void *a25, void *a26, char a27, void *a28)
+uint64_t sub_1000430B4(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, char a10, char a11, char a12, char a13, char a14, char a15, void *a16, void *a17, char a18, char a19, void *a20, unsigned __int8 a21, char a22, void *a23, char a24, void *a25, void *a26, void *a27, char a28, void *a29)
 {
-  v120 = a2;
-  v34 = a3;
-  v119 = a4;
-  v118 = a5;
-  v117 = a6;
-  v116 = a7;
-  v115 = a8;
-  v114 = a9;
-  v35 = a16;
-  v36 = a17;
-  v121 = a19;
-  v37 = a22;
-  v113 = a24;
-  v112 = a25;
-  v38 = a26;
-  v39 = a28;
-  v106 = v34;
+  v121 = a2;
+  v35 = a3;
+  v120 = a4;
+  v119 = a5;
+  v118 = a6;
+  v117 = a7;
+  v116 = a8;
+  v115 = a9;
+  v36 = a16;
+  v37 = a17;
+  v122 = a20;
+  v38 = a23;
+  v114 = a25;
+  v113 = a26;
+  v39 = a27;
+  v40 = a29;
+  v107 = v35;
   if (!a1)
   {
-    v98 = 0;
-    v40 = v120;
-    v77 = v121;
+    v99 = 0;
+    v41 = v121;
+    v78 = v122;
     goto LABEL_99;
   }
 
-  v40 = v120;
-  if (!v120)
+  v41 = v121;
+  if (!v121)
   {
     log = nplog_obj();
     if (!os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
     {
 LABEL_103:
-      v98 = 0;
-      v77 = v121;
+      v99 = 0;
+      v78 = v122;
       goto LABEL_98;
     }
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-    v100 = "%s called with null firstHopProxyURL";
+    v101 = "%s called with null firstHopProxyURL";
 LABEL_122:
-    _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, v100, buf, 0xCu);
+    _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, v101, buf, 0xCu);
     goto LABEL_103;
   }
 
-  if (!v34)
+  if (!v35)
   {
     log = nplog_obj();
     if (!os_log_type_enabled(log, OS_LOG_TYPE_FAULT))
@@ -6623,88 +6638,88 @@ LABEL_122:
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-    v100 = "%s called with null secondHopProxyURL";
+    v101 = "%s called with null secondHopProxyURL";
     goto LABEL_122;
   }
 
-  v104 = v37;
   v105 = v38;
-  v41 = [v120 UTF8String];
-  v42 = [v34 UTF8String];
-  url = nw_endpoint_create_url(v41);
-  v44 = nw_endpoint_create_url(v42);
-  v45 = v44;
+  v106 = v39;
+  v42 = [v121 UTF8String];
+  v43 = [v35 UTF8String];
+  url = nw_endpoint_create_url(v42);
+  v45 = nw_endpoint_create_url(v43);
+  v46 = v45;
   log = url;
   if (!url)
   {
-    v110 = nplog_obj();
-    if (os_log_type_enabled(v110, OS_LOG_TYPE_FAULT))
+    v111 = nplog_obj();
+    if (os_log_type_enabled(v111, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-      _os_log_fault_impl(&_mh_execute_header, v110, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyEndpoint", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v111, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyEndpoint", buf, 0xCu);
     }
 
-    v98 = 0;
-    v38 = v105;
+    v99 = 0;
+    v39 = v106;
     goto LABEL_110;
   }
 
-  if (!v44)
+  if (!v45)
   {
-    v110 = nplog_obj();
-    v38 = v105;
-    if (os_log_type_enabled(v110, OS_LOG_TYPE_FAULT))
+    v111 = nplog_obj();
+    v39 = v106;
+    if (os_log_type_enabled(v111, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-      _os_log_fault_impl(&_mh_execute_header, v110, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxyEndpoint", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v111, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxyEndpoint", buf, 0xCu);
     }
 
-    v98 = 0;
+    v99 = 0;
 LABEL_110:
-    v37 = v104;
-    v77 = v121;
+    v38 = v105;
+    v78 = v122;
     goto LABEL_97;
   }
 
   masque = nw_proxy_hop_create_masque();
-  v47 = nw_proxy_hop_create_masque();
-  v48 = v47;
-  v110 = masque;
+  v48 = nw_proxy_hop_create_masque();
+  v49 = v48;
+  v111 = masque;
   if (!masque)
   {
-    v80 = nplog_obj();
-    v37 = v104;
-    if (!os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+    v81 = nplog_obj();
+    v38 = v105;
+    if (!os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_114;
     }
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-    v101 = "%s called with null firstHopProxy";
+    v102 = "%s called with null firstHopProxy";
 LABEL_124:
-    _os_log_fault_impl(&_mh_execute_header, v80, OS_LOG_TYPE_FAULT, v101, buf, 0xCu);
+    _os_log_fault_impl(&_mh_execute_header, v81, OS_LOG_TYPE_FAULT, v102, buf, 0xCu);
     goto LABEL_114;
   }
 
-  if (v47)
+  if (v48)
   {
-    v49 = masque;
-    v50 = v117;
-    if (([v50 isEqualToString:@"RFC9298"] & 1) == 0)
+    v50 = masque;
+    v51 = v118;
+    if (([v51 isEqualToString:@"RFC9298"] & 1) == 0)
     {
-      [v50 isEqualToString:@"draft-12"];
+      [v51 isEqualToString:@"draft-12"];
     }
 
     nw_proxy_hop_set_masque_version();
 
-    v51 = v48;
-    v52 = v116;
-    if (([v52 isEqualToString:@"RFC9298"] & 1) == 0)
+    v52 = v49;
+    v53 = v117;
+    if (([v53 isEqualToString:@"RFC9298"] & 1) == 0)
     {
-      [v52 isEqualToString:@"draft-12"];
+      [v53 isEqualToString:@"draft-12"];
     }
 
     nw_proxy_hop_set_masque_version();
@@ -6729,159 +6744,152 @@ LABEL_124:
       nw_proxy_hop_set_use_x25519();
     }
 
-    v109 = v36;
+    v110 = v37;
     if (a14)
     {
       nw_proxy_hop_set_use_pqtls();
     }
 
-    v103 = v48;
-    v108 = v35;
+    v104 = v49;
+    v109 = v36;
     if (a15)
     {
       nw_proxy_hop_set_use_pqtls();
     }
 
-    v144 = 0u;
     v145 = 0u;
-    v142 = 0u;
+    v146 = 0u;
     v143 = 0u;
-    v53 = v115;
-    v54 = [v53 countByEnumeratingWithState:&v142 objects:v152 count:16];
-    if (v54)
+    v144 = 0u;
+    v54 = v116;
+    v55 = [v54 countByEnumeratingWithState:&v143 objects:v153 count:16];
+    if (v55)
     {
-      v55 = v54;
-      v56 = *v143;
+      v56 = v55;
+      v57 = *v144;
       do
       {
-        for (i = 0; i != v55; i = i + 1)
+        for (i = 0; i != v56; i = i + 1)
         {
-          if (*v143 != v56)
+          if (*v144 != v57)
           {
-            objc_enumerationMutation(v53);
+            objc_enumerationMutation(v54);
           }
 
-          v58 = sub_100043D98(*(*(&v142 + 1) + 8 * i));
-          if (v58)
+          v59 = sub_100043D98(*(*(&v143 + 1) + 8 * i));
+          if (v59)
           {
             nw_proxy_hop_add_next_hop_host();
           }
         }
 
-        v55 = [v53 countByEnumeratingWithState:&v142 objects:v152 count:16];
+        v56 = [v54 countByEnumeratingWithState:&v143 objects:v153 count:16];
       }
 
-      while (v55);
+      while (v56);
     }
 
-    v140 = 0u;
     v141 = 0u;
-    v138 = 0u;
+    v142 = 0u;
     v139 = 0u;
-    v59 = v114;
-    v60 = [v59 countByEnumeratingWithState:&v138 objects:v151 count:16];
-    if (v60)
+    v140 = 0u;
+    v60 = v115;
+    v61 = [v60 countByEnumeratingWithState:&v139 objects:v152 count:16];
+    if (v61)
     {
-      v61 = v60;
-      v62 = *v139;
+      v62 = v61;
+      v63 = *v140;
       do
       {
-        for (j = 0; j != v61; j = j + 1)
+        for (j = 0; j != v62; j = j + 1)
         {
-          if (*v139 != v62)
+          if (*v140 != v63)
           {
-            objc_enumerationMutation(v59);
+            objc_enumerationMutation(v60);
           }
 
-          v64 = sub_100043D98(*(*(&v138 + 1) + 8 * j));
-          if (v64)
+          v65 = sub_100043D98(*(*(&v139 + 1) + 8 * j));
+          if (v65)
           {
             nw_proxy_hop_add_next_hop_host();
           }
         }
 
-        v61 = [v59 countByEnumeratingWithState:&v138 objects:v151 count:16];
+        v62 = [v60 countByEnumeratingWithState:&v139 objects:v152 count:16];
       }
 
-      while (v61);
+      while (v62);
     }
 
-    v136 = 0u;
     v137 = 0u;
-    v134 = 0u;
+    v138 = 0u;
     v135 = 0u;
-    v65 = v119;
-    v66 = [v65 countByEnumeratingWithState:&v134 objects:v150 count:16];
-    if (v66)
+    v136 = 0u;
+    v66 = v120;
+    v67 = [v66 countByEnumeratingWithState:&v135 objects:v151 count:16];
+    if (v67)
     {
-      v67 = v66;
-      v68 = *v135;
+      v68 = v67;
+      v69 = *v136;
       do
       {
-        for (k = 0; k != v67; k = k + 1)
+        for (k = 0; k != v68; k = k + 1)
         {
-          if (*v135 != v68)
+          if (*v136 != v69)
           {
-            objc_enumerationMutation(v65);
+            objc_enumerationMutation(v66);
           }
 
-          v70 = *(*(&v134 + 1) + 8 * k);
-          if ([v70 length])
+          v71 = *(*(&v135 + 1) + 8 * k);
+          if ([v71 length])
           {
-            [v70 bytes];
-            [v70 length];
+            [v71 bytes];
+            [v71 length];
             nw_proxy_hop_add_server_raw_public_key();
           }
         }
 
-        v67 = [v65 countByEnumeratingWithState:&v134 objects:v150 count:16];
+        v68 = [v66 countByEnumeratingWithState:&v135 objects:v151 count:16];
       }
 
-      while (v67);
+      while (v68);
     }
 
-    v132 = 0u;
     v133 = 0u;
-    v130 = 0u;
+    v134 = 0u;
     v131 = 0u;
-    v71 = v118;
-    v72 = [v71 countByEnumeratingWithState:&v130 objects:v149 count:16];
-    if (v72)
+    v132 = 0u;
+    v72 = v119;
+    v73 = [v72 countByEnumeratingWithState:&v131 objects:v150 count:16];
+    if (v73)
     {
-      v73 = v72;
-      v74 = *v131;
+      v74 = v73;
+      v75 = *v132;
       do
       {
-        for (m = 0; m != v73; m = m + 1)
+        for (m = 0; m != v74; m = m + 1)
         {
-          if (*v131 != v74)
+          if (*v132 != v75)
           {
-            objc_enumerationMutation(v71);
+            objc_enumerationMutation(v72);
           }
 
-          v76 = *(*(&v130 + 1) + 8 * m);
-          if ([v76 length])
+          v77 = *(*(&v131 + 1) + 8 * m);
+          if ([v77 length])
           {
-            [v76 bytes];
-            [v76 length];
+            [v77 bytes];
+            [v77 length];
             nw_proxy_hop_add_server_raw_public_key();
           }
         }
 
-        v73 = [v71 countByEnumeratingWithState:&v130 objects:v149 count:16];
+        v74 = [v72 countByEnumeratingWithState:&v131 objects:v150 count:16];
       }
 
-      while (v73);
+      while (v74);
     }
 
-    v35 = v108;
-    if (v108)
-    {
-      *buf = 0uLL;
-      [v108 getUUIDBytes:buf];
-      nw_proxy_hop_add_token_header();
-    }
-
+    v36 = v109;
     if (v109)
     {
       *buf = 0uLL;
@@ -6889,182 +6897,189 @@ LABEL_124:
       nw_proxy_hop_add_token_header();
     }
 
-    v77 = v121;
-    v37 = v104;
-    if (a21)
+    if (v110)
     {
-      if (!os_variant_has_internal_diagnostics() || ![v104 length] || (+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@", v104), v78 = objc_claimAutoreleasedReturnValue(), v79 = objc_msgSend(v78, "UTF8String"), v78, v37 = v104, v77 = v121, v79))
+      *buf = 0uLL;
+      [v110 getUUIDBytes:buf];
+      nw_proxy_hop_add_token_header();
+    }
+
+    v78 = v122;
+    v38 = v105;
+    if (a22)
+    {
+      if (!os_variant_has_internal_diagnostics() || ![v105 length] || (+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@", v105), v79 = objc_claimAutoreleasedReturnValue(), v80 = objc_msgSend(v79, "UTF8String"), v79, v38 = v105, v78 = v122, v80))
       {
         nw_proxy_hop_add_extra_header();
       }
     }
 
-    if (a23)
+    if (a24)
     {
       nw_proxy_hop_add_extra_header();
     }
 
-    if (a27)
+    if (a28)
     {
       nw_proxy_hop_supports_udp_proxying_over_http2();
     }
 
-    v80 = nw_array_create();
-    if (v80)
+    v81 = nw_array_create();
+    if (v81)
     {
-      v81 = v37;
+      v82 = v38;
       nw_array_append();
       nw_array_append();
       default_privacy_proxy = nw_proxy_config_create_default_privacy_proxy();
       if (default_privacy_proxy)
       {
-        v83 = default_privacy_proxy;
-        if (v121)
+        v84 = default_privacy_proxy;
+        if (v122)
         {
           *buf = 0uLL;
-          [v121 getUUIDBytes:buf];
+          [v122 getUUIDBytes:buf];
           nw_proxy_config_set_fallback_proxy_agent();
         }
 
         nw_proxy_config_set_is_privacy_proxy();
-        v128 = 0u;
         v129 = 0u;
-        v126 = 0u;
+        v130 = 0u;
         v127 = 0u;
-        v84 = v113;
-        v85 = [v84 countByEnumeratingWithState:&v126 objects:v147 count:16];
-        if (v85)
+        v128 = 0u;
+        v85 = v114;
+        v86 = [v85 countByEnumeratingWithState:&v127 objects:v148 count:16];
+        if (v86)
         {
-          v86 = v85;
-          v87 = *v127;
+          v87 = v86;
+          v88 = *v128;
           do
           {
-            for (n = 0; n != v86; n = n + 1)
+            for (n = 0; n != v87; n = n + 1)
             {
-              if (*v127 != v87)
+              if (*v128 != v88)
               {
-                objc_enumerationMutation(v84);
+                objc_enumerationMutation(v85);
               }
 
-              [*(*(&v126 + 1) + 8 * n) UTF8String];
+              [*(*(&v127 + 1) + 8 * n) UTF8String];
               nw_proxy_config_add_preferred_domain();
             }
 
-            v86 = [v84 countByEnumeratingWithState:&v126 objects:v147 count:16];
+            v87 = [v85 countByEnumeratingWithState:&v127 objects:v148 count:16];
           }
 
-          while (v86);
+          while (v87);
         }
 
-        v124 = 0u;
         v125 = 0u;
-        v122 = 0u;
+        v126 = 0u;
         v123 = 0u;
-        v89 = v112;
-        v90 = [v89 countByEnumeratingWithState:&v122 objects:v146 count:16];
-        if (v90)
+        v124 = 0u;
+        v90 = v113;
+        v91 = [v90 countByEnumeratingWithState:&v123 objects:v147 count:16];
+        if (v91)
         {
-          v91 = v90;
-          v92 = *v123;
+          v92 = v91;
+          v93 = *v124;
           do
           {
-            for (ii = 0; ii != v91; ii = ii + 1)
+            for (ii = 0; ii != v92; ii = ii + 1)
             {
-              if (*v123 != v92)
+              if (*v124 != v93)
               {
-                objc_enumerationMutation(v89);
+                objc_enumerationMutation(v90);
               }
 
-              v94 = *(*(&v122 + 1) + 8 * ii);
+              v95 = *(*(&v123 + 1) + 8 * ii);
               *buf = 0uLL;
-              [v94 getUUIDBytes:buf];
+              [v95 getUUIDBytes:buf];
               nw_proxy_config_add_alternate_agent();
             }
 
-            v91 = [v89 countByEnumeratingWithState:&v122 objects:v146 count:16];
+            v92 = [v90 countByEnumeratingWithState:&v123 objects:v147 count:16];
           }
 
-          while (v91);
+          while (v92);
         }
 
-        if (v39)
+        if (v40)
         {
-          v95 = v83;
-          [v39 unsignedShortValue];
+          v96 = v84;
+          [v40 unsignedShortValue];
           nw_proxy_config_set_epoch();
         }
 
-        v96 = nw_proxy_config_copy_agent_data();
-        v97 = *(a1 + 32);
-        *(a1 + 32) = v96;
+        v97 = nw_proxy_config_copy_agent_data();
+        v98 = *(a1 + 32);
+        *(a1 + 32) = v97;
 
-        objc_storeStrong((a1 + 40), a26);
+        objc_storeStrong((a1 + 40), a27);
         sub_1000429C8(a1);
-        v98 = 1;
+        v99 = 1;
       }
 
       else
       {
-        v102 = nplog_obj();
-        if (os_log_type_enabled(v102, OS_LOG_TYPE_FAULT))
+        v103 = nplog_obj();
+        if (os_log_type_enabled(v103, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
           *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-          _os_log_fault_impl(&_mh_execute_header, v102, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
+          _os_log_fault_impl(&_mh_execute_header, v103, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
         }
 
-        v83 = 0;
-        v98 = 0;
+        v84 = 0;
+        v99 = 0;
       }
 
-      v37 = v81;
-      v77 = v121;
-      v48 = v103;
-      v35 = v108;
+      v38 = v82;
+      v78 = v122;
+      v49 = v104;
+      v36 = v109;
     }
 
     else
     {
-      v83 = nplog_obj();
-      if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
+      v84 = nplog_obj();
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-        _os_log_fault_impl(&_mh_execute_header, v83, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
+        _os_log_fault_impl(&_mh_execute_header, v84, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
       }
 
-      v98 = 0;
-      v48 = v103;
+      v99 = 0;
+      v49 = v104;
     }
 
-    v36 = v109;
+    v37 = v110;
 
-    v40 = v120;
+    v41 = v121;
     goto LABEL_96;
   }
 
-  v80 = nplog_obj();
-  v37 = v104;
-  if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+  v81 = nplog_obj();
+  v38 = v105;
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:fallbackAgentUUID:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:preferredPathPatterns:alternateAgentUUIDs:fallbackProxyConfigHash:fallbackSupportsUDPProxying:configEpoch:]";
-    v101 = "%s called with null secondHopProxy";
+    v102 = "%s called with null secondHopProxy";
     goto LABEL_124;
   }
 
 LABEL_114:
-  v98 = 0;
-  v77 = v121;
+  v99 = 0;
+  v78 = v122;
 LABEL_96:
 
-  v38 = v105;
+  v39 = v106;
 LABEL_97:
 
 LABEL_98:
 LABEL_99:
 
-  return v98;
+  return v99;
 }
 
 nw_endpoint_t sub_100043D98(void *a1)
@@ -7104,7 +7119,7 @@ NSObject *sub_100043E7C(NSObject *result, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_100043E9C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, uint64_t a9, void *a10, uint64_t a11, void *a12, void *a13)
+uint64_t sub_100043E9C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, char a9, void *a10, unsigned __int8 a11, void *a12, void *a13)
 {
   v19 = a2;
   v20 = a3;
@@ -7341,7 +7356,7 @@ NSObject *sub_100044458(NSObject *a1, void *a2, void *a3, void *a4)
   return v4;
 }
 
-uint64_t sub_100044518(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, uint64_t a9, void *a10, uint64_t a11, void *a12, void *a13, unsigned int a14, void *a15)
+uint64_t sub_100044518(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, char a9, void *a10, unsigned __int8 a11, void *a12, void *a13, unsigned int a14, void *a15)
 {
   v20 = a2;
   v21 = a3;
@@ -7640,48 +7655,48 @@ NSObject *sub_100044C54(NSObject *result, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_100044C74(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, char a10, char a11, char a12, char a13, char a14, char a15, void *a16, void *a17, __int16 a18, char a19, char a20, void *a21, char a22, char a23, void *a24)
+uint64_t sub_100044C74(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, char a10, char a11, char a12, char a13, char a14, char a15, void *a16, void *a17, char a18, char a19, unsigned __int8 a20, char a21, void *a22, char a23, char a24, void *a25)
 {
-  v102 = a2;
-  v31 = a3;
-  v101 = a4;
-  v100 = a5;
-  v32 = a6;
-  v33 = a7;
-  v99 = a8;
-  v98 = a9;
-  v97 = a16;
-  v96 = a17;
-  v95 = a21;
-  v34 = a24;
-  v94 = a1;
+  v103 = a2;
+  v32 = a3;
+  v102 = a4;
+  v101 = a5;
+  v33 = a6;
+  v34 = a7;
+  v100 = a8;
+  v99 = a9;
+  v98 = a16;
+  v97 = a17;
+  v96 = a22;
+  v35 = a25;
+  v95 = a1;
   if (!a1)
   {
-    v82 = 0;
-    v35 = v102;
+    v83 = 0;
+    v36 = v103;
     goto LABEL_82;
   }
 
-  v35 = v102;
-  if (!v102)
+  v36 = v103;
+  if (!v103)
   {
     url = nplog_obj();
     if (!os_log_type_enabled(url, OS_LOG_TYPE_FAULT))
     {
 LABEL_86:
-      v82 = 0;
+      v83 = 0;
       goto LABEL_81;
     }
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-    v84 = "%s called with null firstHopProxyURL";
+    v85 = "%s called with null firstHopProxyURL";
 LABEL_102:
-    _os_log_fault_impl(&_mh_execute_header, url, OS_LOG_TYPE_FAULT, v84, buf, 0xCu);
+    _os_log_fault_impl(&_mh_execute_header, url, OS_LOG_TYPE_FAULT, v85, buf, 0xCu);
     goto LABEL_86;
   }
 
-  if (!v31)
+  if (!v32)
   {
     url = nplog_obj();
     if (!os_log_type_enabled(url, OS_LOG_TYPE_FAULT))
@@ -7691,35 +7706,35 @@ LABEL_102:
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-    v84 = "%s called with null secondHopProxyURL";
+    v85 = "%s called with null secondHopProxyURL";
     goto LABEL_102;
   }
 
-  v36 = [v102 UTF8String];
-  v37 = [v31 UTF8String];
-  url = nw_endpoint_create_url(v36);
-  v39 = nw_endpoint_create_url(v37);
-  v40 = v39;
-  v93 = v31;
+  v37 = [v103 UTF8String];
+  v38 = [v32 UTF8String];
+  url = nw_endpoint_create_url(v37);
+  v40 = nw_endpoint_create_url(v38);
+  v41 = v40;
+  v94 = v32;
   if (!url)
   {
     masque = nplog_obj();
     if (!os_log_type_enabled(masque, OS_LOG_TYPE_FAULT))
     {
 LABEL_90:
-      v82 = 0;
+      v83 = 0;
       goto LABEL_80;
     }
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-    v85 = "%s called with null firstHopProxyEndpoint";
+    v86 = "%s called with null firstHopProxyEndpoint";
 LABEL_104:
-    _os_log_fault_impl(&_mh_execute_header, masque, OS_LOG_TYPE_FAULT, v85, buf, 0xCu);
+    _os_log_fault_impl(&_mh_execute_header, masque, OS_LOG_TYPE_FAULT, v86, buf, 0xCu);
     goto LABEL_90;
   }
 
-  if (!v39)
+  if (!v40)
   {
     masque = nplog_obj();
     if (!os_log_type_enabled(masque, OS_LOG_TYPE_FAULT))
@@ -7729,49 +7744,49 @@ LABEL_104:
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-    v85 = "%s called with null secondHopProxyEndpoint";
+    v86 = "%s called with null secondHopProxyEndpoint";
     goto LABEL_104;
   }
 
   masque = nw_proxy_hop_create_masque();
-  v42 = nw_proxy_hop_create_masque();
-  v43 = v42;
-  v92 = v33;
+  v43 = nw_proxy_hop_create_masque();
+  v44 = v43;
+  v93 = v34;
   if (!masque)
   {
-    v76 = nplog_obj();
-    if (!os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+    v77 = nplog_obj();
+    if (!os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_94;
     }
 
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-    v86 = "%s called with null firstHopProxy";
+    v87 = "%s called with null firstHopProxy";
 LABEL_106:
-    _os_log_fault_impl(&_mh_execute_header, v76, OS_LOG_TYPE_FAULT, v86, buf, 0xCu);
+    _os_log_fault_impl(&_mh_execute_header, v77, OS_LOG_TYPE_FAULT, v87, buf, 0xCu);
     goto LABEL_94;
   }
 
-  if (v42)
+  if (v43)
   {
-    v89 = v40;
-    v90 = url;
-    v44 = masque;
-    v45 = v32;
-    v91 = v34;
-    if (([v45 isEqualToString:@"RFC9298"] & 1) == 0)
+    v90 = v41;
+    v91 = url;
+    v45 = masque;
+    v46 = v33;
+    v92 = v35;
+    if (([v46 isEqualToString:@"RFC9298"] & 1) == 0)
     {
-      [v45 isEqualToString:@"draft-12"];
+      [v46 isEqualToString:@"draft-12"];
     }
 
     nw_proxy_hop_set_masque_version();
 
-    v46 = v43;
-    v47 = v33;
-    if (([v47 isEqualToString:@"RFC9298"] & 1) == 0)
+    v47 = v44;
+    v48 = v34;
+    if (([v48 isEqualToString:@"RFC9298"] & 1) == 0)
     {
-      [v47 isEqualToString:@"draft-12"];
+      [v48 isEqualToString:@"draft-12"];
     }
 
     nw_proxy_hop_set_masque_version();
@@ -7791,156 +7806,164 @@ LABEL_106:
       nw_proxy_hop_set_use_x25519();
     }
 
-    v88 = v43;
+    v89 = v44;
     if (a13)
     {
       nw_proxy_hop_set_use_x25519();
     }
 
-    v48 = masque;
+    v49 = masque;
     if (a14)
     {
       nw_proxy_hop_set_use_pqtls();
     }
 
-    v49 = v32;
+    v50 = v33;
     if (a15)
     {
       nw_proxy_hop_set_use_pqtls();
     }
 
-    v117 = 0u;
     v118 = 0u;
-    v115 = 0u;
+    v119 = 0u;
     v116 = 0u;
-    v50 = v99;
-    v51 = [v50 countByEnumeratingWithState:&v115 objects:v123 count:16];
-    if (v51)
+    v117 = 0u;
+    v51 = v100;
+    v52 = [v51 countByEnumeratingWithState:&v116 objects:v124 count:16];
+    if (v52)
     {
-      v52 = v51;
-      v53 = *v116;
+      v53 = v52;
+      v54 = *v117;
       do
       {
-        for (i = 0; i != v52; i = i + 1)
+        for (i = 0; i != v53; i = i + 1)
         {
-          if (*v116 != v53)
+          if (*v117 != v54)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v51);
           }
 
-          v55 = sub_100043D98(*(*(&v115 + 1) + 8 * i));
-          if (v55)
+          v56 = sub_100043D98(*(*(&v116 + 1) + 8 * i));
+          if (v56)
           {
             nw_proxy_hop_add_next_hop_host();
           }
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v115 objects:v123 count:16];
+        v53 = [v51 countByEnumeratingWithState:&v116 objects:v124 count:16];
       }
 
-      while (v52);
+      while (v53);
     }
 
-    v113 = 0u;
     v114 = 0u;
-    v111 = 0u;
+    v115 = 0u;
     v112 = 0u;
-    v56 = v98;
-    v57 = [v56 countByEnumeratingWithState:&v111 objects:v122 count:16];
-    if (v57)
+    v113 = 0u;
+    v57 = v99;
+    v58 = [v57 countByEnumeratingWithState:&v112 objects:v123 count:16];
+    if (v58)
     {
-      v58 = v57;
-      v59 = *v112;
+      v59 = v58;
+      v60 = *v113;
       do
       {
-        for (j = 0; j != v58; j = j + 1)
+        for (j = 0; j != v59; j = j + 1)
         {
-          if (*v112 != v59)
+          if (*v113 != v60)
           {
-            objc_enumerationMutation(v56);
+            objc_enumerationMutation(v57);
           }
 
-          v61 = sub_100043D98(*(*(&v111 + 1) + 8 * j));
-          if (v61)
+          v62 = sub_100043D98(*(*(&v112 + 1) + 8 * j));
+          if (v62)
           {
             nw_proxy_hop_add_next_hop_host();
           }
         }
 
-        v58 = [v56 countByEnumeratingWithState:&v111 objects:v122 count:16];
+        v59 = [v57 countByEnumeratingWithState:&v112 objects:v123 count:16];
       }
 
-      while (v58);
+      while (v59);
     }
 
-    v109 = 0u;
     v110 = 0u;
-    v107 = 0u;
+    v111 = 0u;
     v108 = 0u;
-    v62 = v101;
-    v63 = [v62 countByEnumeratingWithState:&v107 objects:v121 count:16];
-    if (v63)
+    v109 = 0u;
+    v63 = v102;
+    v64 = [v63 countByEnumeratingWithState:&v108 objects:v122 count:16];
+    if (v64)
     {
-      v64 = v63;
-      v65 = *v108;
+      v65 = v64;
+      v66 = *v109;
       do
       {
-        for (k = 0; k != v64; k = k + 1)
+        for (k = 0; k != v65; k = k + 1)
         {
-          if (*v108 != v65)
+          if (*v109 != v66)
           {
-            objc_enumerationMutation(v62);
+            objc_enumerationMutation(v63);
           }
 
-          v67 = *(*(&v107 + 1) + 8 * k);
-          if ([v67 length])
+          v68 = *(*(&v108 + 1) + 8 * k);
+          if ([v68 length])
           {
-            [v67 bytes];
-            [v67 length];
+            [v68 bytes];
+            [v68 length];
             nw_proxy_hop_add_server_raw_public_key();
           }
         }
 
-        v64 = [v62 countByEnumeratingWithState:&v107 objects:v121 count:16];
+        v65 = [v63 countByEnumeratingWithState:&v108 objects:v122 count:16];
       }
 
-      while (v64);
+      while (v65);
     }
 
-    v105 = 0u;
     v106 = 0u;
-    v103 = 0u;
+    v107 = 0u;
     v104 = 0u;
-    v68 = v100;
-    v69 = [v68 countByEnumeratingWithState:&v103 objects:v120 count:16];
-    if (v69)
+    v105 = 0u;
+    v69 = v101;
+    v70 = [v69 countByEnumeratingWithState:&v104 objects:v121 count:16];
+    if (v70)
     {
-      v70 = v69;
-      v71 = *v104;
+      v71 = v70;
+      v72 = *v105;
       do
       {
-        for (m = 0; m != v70; m = m + 1)
+        for (m = 0; m != v71; m = m + 1)
         {
-          if (*v104 != v71)
+          if (*v105 != v72)
           {
-            objc_enumerationMutation(v68);
+            objc_enumerationMutation(v69);
           }
 
-          v73 = *(*(&v103 + 1) + 8 * m);
-          if ([v73 length])
+          v74 = *(*(&v104 + 1) + 8 * m);
+          if ([v74 length])
           {
-            [v73 bytes];
-            [v73 length];
+            [v74 bytes];
+            [v74 length];
             nw_proxy_hop_add_server_raw_public_key();
           }
         }
 
-        v70 = [v68 countByEnumeratingWithState:&v103 objects:v120 count:16];
+        v71 = [v69 countByEnumeratingWithState:&v104 objects:v121 count:16];
       }
 
-      while (v70);
+      while (v71);
     }
 
+    if (v98)
+    {
+      *buf = 0uLL;
+      [v98 getUUIDBytes:buf];
+      nw_proxy_hop_add_token_header();
+    }
+
+    v33 = v50;
     if (v97)
     {
       *buf = 0uLL;
@@ -7948,117 +7971,109 @@ LABEL_106:
       nw_proxy_hop_add_token_header();
     }
 
-    v32 = v49;
-    if (v96)
+    masque = v49;
+    v44 = v89;
+    if (a21)
     {
-      *buf = 0uLL;
-      [v96 getUUIDBytes:buf];
-      nw_proxy_hop_add_token_header();
-    }
-
-    masque = v48;
-    v43 = v88;
-    if (a20)
-    {
-      if (!os_variant_has_internal_diagnostics() || ![v95 length] || (+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@", v95), v74 = objc_claimAutoreleasedReturnValue(), v75 = objc_msgSend(v74, "UTF8String"), v74, v75))
+      if (!os_variant_has_internal_diagnostics() || ![v96 length] || (+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@", v96), v75 = objc_claimAutoreleasedReturnValue(), v76 = objc_msgSend(v75, "UTF8String"), v75, v76))
       {
         nw_proxy_hop_add_extra_header();
       }
     }
 
-    if (a22)
+    if (a23)
     {
       nw_proxy_hop_add_extra_header();
     }
 
-    v76 = nw_array_create();
-    if (v76)
+    v77 = nw_array_create();
+    if (v77)
     {
       nw_array_append();
       nw_array_append();
-      if (a23)
+      if (a24)
       {
         nw_proxy_hop_supports_udp_proxying_over_http2();
       }
 
       fallback_privacy_proxy = nw_proxy_config_create_fallback_privacy_proxy();
-      v35 = v102;
-      v34 = v91;
+      v36 = v103;
+      v35 = v92;
       if (fallback_privacy_proxy)
       {
-        v78 = fallback_privacy_proxy;
+        v79 = fallback_privacy_proxy;
         nw_proxy_config_set_is_privacy_proxy();
-        if (v91)
+        if (v92)
         {
-          v79 = v78;
-          [v91 unsignedShortValue];
+          v80 = v79;
+          [v92 unsignedShortValue];
           nw_proxy_config_set_epoch();
         }
 
-        v80 = nw_proxy_config_copy_agent_data();
-        v81 = *(v94 + 32);
-        *(v94 + 32) = v80;
+        v81 = nw_proxy_config_copy_agent_data();
+        v82 = *(v95 + 32);
+        *(v95 + 32) = v81;
 
-        sub_1000429C8(v94);
-        v82 = 1;
+        sub_1000429C8(v95);
+        v83 = 1;
       }
 
       else
       {
-        v87 = nplog_obj();
-        if (os_log_type_enabled(v87, OS_LOG_TYPE_FAULT))
+        v88 = nplog_obj();
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
           *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-          _os_log_fault_impl(&_mh_execute_header, v87, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
+          _os_log_fault_impl(&_mh_execute_header, v88, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
         }
 
-        v78 = 0;
-        v82 = 0;
+        v79 = 0;
+        v83 = 0;
       }
     }
 
     else
     {
-      v78 = nplog_obj();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
+      v79 = nplog_obj();
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-        _os_log_fault_impl(&_mh_execute_header, v78, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
+        _os_log_fault_impl(&_mh_execute_header, v79, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
       }
 
-      v82 = 0;
-      v35 = v102;
-      v34 = v91;
+      v83 = 0;
+      v36 = v103;
+      v35 = v92;
     }
 
-    v40 = v89;
-    url = v90;
+    v41 = v90;
+    url = v91;
     goto LABEL_79;
   }
 
-  v76 = nplog_obj();
-  if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+  v77 = nplog_obj();
+  if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
     *&buf[4] = "[NSPPrivacyProxyMultiHopFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopNextHopsArray:secondProxyHopNextHopsArray:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesX25519:secondProxyHopUsesX25519:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:shouldFailOpen:allowGeohash:geohashOverride:enableDNSFilteringHint:fallbackSupportsUDPProxying:configEpoch:]";
-    v86 = "%s called with null secondHopProxy";
+    v87 = "%s called with null secondHopProxy";
     goto LABEL_106;
   }
 
 LABEL_94:
-  v82 = 0;
+  v83 = 0;
 LABEL_79:
 
-  v33 = v92;
+  v34 = v93;
 LABEL_80:
 
-  v31 = v93;
+  v32 = v94;
 LABEL_81:
 
 LABEL_82:
-  return v82;
+  return v83;
 }
 
 NSObject *sub_1000456FC(NSObject *result, void *a2, void *a3)
@@ -8071,34 +8086,34 @@ NSObject *sub_1000456FC(NSObject *result, void *a2, void *a3)
   return result;
 }
 
-uint64_t sub_10004571C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, uint64_t a9, void *a10)
+uint64_t sub_10004571C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, char a9, unsigned __int8 a10, void *a11)
 {
-  v17 = a2;
-  v47 = a3;
-  v18 = a4;
-  v19 = a8;
-  v20 = a10;
+  v18 = a2;
+  v48 = a3;
+  v19 = a4;
+  v20 = a8;
+  v21 = a11;
   if (a1)
   {
-    if (v17)
+    if (v18)
     {
-      url = nw_endpoint_create_url([v17 UTF8String]);
+      url = nw_endpoint_create_url([v18 UTF8String]);
       if (url)
       {
         masque = nw_proxy_hop_create_masque();
-        v23 = masque;
+        v24 = masque;
         if (masque)
         {
-          v44 = v19;
-          v46 = v17;
-          v24 = masque;
-          v25 = v18;
-          if (([v25 isEqualToString:@"RFC9298"] & 1) == 0)
+          v45 = v20;
+          v47 = v18;
+          v25 = masque;
+          v26 = v19;
+          if (([v26 isEqualToString:@"RFC9298"] & 1) == 0)
           {
-            [v25 isEqualToString:@"draft-12"];
+            [v26 isEqualToString:@"draft-12"];
           }
 
-          v43 = v23;
+          v44 = v24;
           nw_proxy_hop_set_masque_version();
 
           if (a5)
@@ -8106,151 +8121,151 @@ uint64_t sub_10004571C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6
             nw_proxy_hop_set_supports_resumption();
           }
 
-          v26 = url;
-          v45 = v20;
+          v27 = url;
+          v46 = v21;
           if (a6)
           {
             nw_proxy_hop_set_use_x25519();
           }
 
-          v27 = v18;
+          v28 = v19;
           if (a7)
           {
             nw_proxy_hop_set_use_pqtls();
           }
 
-          v50 = 0u;
           v51 = 0u;
-          v48 = 0u;
+          v52 = 0u;
           v49 = 0u;
-          v28 = v47;
-          v29 = [v28 countByEnumeratingWithState:&v48 objects:v53 count:16];
-          if (v29)
+          v50 = 0u;
+          v29 = v48;
+          v30 = [v29 countByEnumeratingWithState:&v49 objects:v54 count:16];
+          if (v30)
           {
-            v30 = v29;
-            v31 = *v49;
+            v31 = v30;
+            v32 = *v50;
             do
             {
-              for (i = 0; i != v30; i = i + 1)
+              for (i = 0; i != v31; i = i + 1)
               {
-                if (*v49 != v31)
+                if (*v50 != v32)
                 {
-                  objc_enumerationMutation(v28);
+                  objc_enumerationMutation(v29);
                 }
 
-                v33 = *(*(&v48 + 1) + 8 * i);
-                if ([v33 length])
+                v34 = *(*(&v49 + 1) + 8 * i);
+                if ([v34 length])
                 {
-                  [v33 bytes];
-                  [v33 length];
+                  [v34 bytes];
+                  [v34 length];
                   nw_proxy_hop_add_server_raw_public_key();
                 }
               }
 
-              v30 = [v28 countByEnumeratingWithState:&v48 objects:v53 count:16];
+              v31 = [v29 countByEnumeratingWithState:&v49 objects:v54 count:16];
             }
 
-            while (v30);
+            while (v31);
           }
 
-          v19 = v44;
-          if (v44)
+          v20 = v45;
+          if (v45)
           {
             buf = 0uLL;
-            [v44 getUUIDBytes:&buf];
+            [v45 getUUIDBytes:&buf];
             nw_proxy_hop_add_token_header();
           }
 
-          v34 = nw_array_create();
-          v18 = v27;
-          if (v34)
+          v35 = nw_array_create();
+          v19 = v28;
+          if (v35)
           {
             nw_array_append();
             fallback_privacy_proxy = nw_proxy_config_create_fallback_privacy_proxy();
-            url = v26;
+            url = v27;
             if (fallback_privacy_proxy)
             {
-              v36 = fallback_privacy_proxy;
+              v37 = fallback_privacy_proxy;
               nw_proxy_config_set_is_privacy_proxy();
-              v20 = v45;
-              v17 = v46;
-              v23 = v43;
-              if (v45)
+              v21 = v46;
+              v18 = v47;
+              v24 = v44;
+              if (v46)
               {
-                v37 = v36;
-                [v45 unsignedShortValue];
+                v38 = v37;
+                [v46 unsignedShortValue];
                 nw_proxy_config_set_epoch();
               }
 
-              v38 = nw_proxy_config_copy_agent_data();
-              v39 = *(a1 + 32);
-              *(a1 + 32) = v38;
+              v39 = nw_proxy_config_copy_agent_data();
+              v40 = *(a1 + 32);
+              *(a1 + 32) = v39;
 
               sub_1000429C8(a1);
-              v40 = 1;
+              v41 = 1;
             }
 
             else
             {
-              v42 = nplog_obj();
-              v20 = v45;
-              v17 = v46;
-              v23 = v43;
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+              v43 = nplog_obj();
+              v21 = v46;
+              v18 = v47;
+              v24 = v44;
+              if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
               {
                 LODWORD(buf) = 136315138;
                 *(&buf + 4) = "[NSPPrivacyProxySingleHopFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:configEpoch:]";
-                _os_log_fault_impl(&_mh_execute_header, v42, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", &buf, 0xCu);
+                _os_log_fault_impl(&_mh_execute_header, v43, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", &buf, 0xCu);
               }
 
-              v36 = 0;
-              v40 = 0;
+              v37 = 0;
+              v41 = 0;
             }
           }
 
           else
           {
-            v36 = nplog_obj();
-            url = v26;
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+            v37 = nplog_obj();
+            url = v27;
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
             {
               LODWORD(buf) = 136315138;
               *(&buf + 4) = "[NSPPrivacyProxySingleHopFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:configEpoch:]";
-              _os_log_fault_impl(&_mh_execute_header, v36, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", &buf, 0xCu);
+              _os_log_fault_impl(&_mh_execute_header, v37, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", &buf, 0xCu);
             }
 
-            v40 = 0;
-            v20 = v45;
-            v17 = v46;
-            v23 = v43;
+            v41 = 0;
+            v21 = v46;
+            v18 = v47;
+            v24 = v44;
           }
         }
 
         else
         {
-          v34 = nplog_obj();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+          v35 = nplog_obj();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
           {
             LODWORD(buf) = 136315138;
             *(&buf + 4) = "[NSPPrivacyProxySingleHopFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:configEpoch:]";
-            _os_log_fault_impl(&_mh_execute_header, v34, OS_LOG_TYPE_FAULT, "%s called with null proxyHop", &buf, 0xCu);
+            _os_log_fault_impl(&_mh_execute_header, v35, OS_LOG_TYPE_FAULT, "%s called with null proxyHop", &buf, 0xCu);
           }
 
-          v40 = 0;
+          v41 = 0;
         }
       }
 
       else
       {
-        v23 = nplog_obj();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+        v24 = nplog_obj();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           LODWORD(buf) = 136315138;
           *(&buf + 4) = "[NSPPrivacyProxySingleHopFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:configEpoch:]";
-          _os_log_fault_impl(&_mh_execute_header, v23, OS_LOG_TYPE_FAULT, "%s called with null proxyHopEndpoint", &buf, 0xCu);
+          _os_log_fault_impl(&_mh_execute_header, v24, OS_LOG_TYPE_FAULT, "%s called with null proxyHopEndpoint", &buf, 0xCu);
         }
 
-        v40 = 0;
+        v41 = 0;
       }
     }
 
@@ -8264,16 +8279,16 @@ uint64_t sub_10004571C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6
         _os_log_fault_impl(&_mh_execute_header, url, OS_LOG_TYPE_FAULT, "%s called with null proxyURL", &buf, 0xCu);
       }
 
-      v40 = 0;
+      v41 = 0;
     }
   }
 
   else
   {
-    v40 = 0;
+    v41 = 0;
   }
 
-  return v40;
+  return v41;
 }
 
 NSObject *sub_100045C5C(NSObject *a1, void *a2, void *a3, void *a4)
@@ -8293,54 +8308,54 @@ NSObject *sub_100045C5C(NSObject *a1, void *a2, void *a3, void *a4)
   return v4;
 }
 
-uint64_t sub_100045D1C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, uint64_t a9, void *a10, void *a11, unsigned int a12)
+uint64_t sub_100045D1C(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7, void *a8, char a9, unsigned __int8 a10, void *a11, void *a12, unsigned int a13)
 {
-  v19 = a2;
-  v20 = a3;
-  v51 = a4;
-  v50 = a8;
-  v21 = a10;
+  v20 = a2;
+  v21 = a3;
+  v52 = a4;
+  v51 = a8;
   v22 = a11;
-  v23 = v22;
+  v23 = a12;
+  v24 = v23;
   if (!a1)
   {
-    v38 = 0;
-    v42 = v50;
+    v39 = 0;
+    v43 = v51;
     goto LABEL_44;
   }
 
-  if (!v19)
+  if (!v20)
   {
     url = nplog_obj();
     if (os_log_type_enabled(url, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "[NSPPrivacyProxyObliviousHopsFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:obliviousConfig:obliviousPath:obliviousHTTPType:]";
-      v44 = "%s called with null proxyURL";
+      v45 = "%s called with null proxyURL";
       goto LABEL_64;
     }
 
 LABEL_50:
-    v38 = 0;
-    v42 = v50;
+    v39 = 0;
+    v43 = v51;
     goto LABEL_43;
   }
 
-  if (!v21)
+  if (!v22)
   {
     url = nplog_obj();
     if (os_log_type_enabled(url, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "[NSPPrivacyProxyObliviousHopsFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:obliviousConfig:obliviousPath:obliviousHTTPType:]";
-      v44 = "%s called with null obliviousConfig";
+      v45 = "%s called with null obliviousConfig";
       goto LABEL_64;
     }
 
     goto LABEL_50;
   }
 
-  if (!v22)
+  if (!v23)
   {
     url = nplog_obj();
     if (!os_log_type_enabled(url, OS_LOG_TYPE_FAULT))
@@ -8350,50 +8365,50 @@ LABEL_50:
 
     LODWORD(buf) = 136315138;
     *(&buf + 4) = "[NSPPrivacyProxyObliviousHopsFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:obliviousConfig:obliviousPath:obliviousHTTPType:]";
-    v44 = "%s called with null obliviousPath";
+    v45 = "%s called with null obliviousPath";
 LABEL_64:
-    _os_log_fault_impl(&_mh_execute_header, url, OS_LOG_TYPE_FAULT, v44, &buf, 0xCu);
+    _os_log_fault_impl(&_mh_execute_header, url, OS_LOG_TYPE_FAULT, v45, &buf, 0xCu);
     goto LABEL_50;
   }
 
-  v47 = a1;
-  url = nw_endpoint_create_url([v19 UTF8String]);
-  v49 = v19;
+  v48 = a1;
+  url = nw_endpoint_create_url([v20 UTF8String]);
+  v50 = v20;
   if (!url)
   {
-    v26 = nplog_obj();
-    v42 = v50;
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v27 = nplog_obj();
+    v43 = v51;
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "[NSPPrivacyProxyObliviousHopsFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:obliviousConfig:obliviousPath:obliviousHTTPType:]";
-      _os_log_fault_impl(&_mh_execute_header, v26, OS_LOG_TYPE_FAULT, "%s called with null proxyHopEndpoint", &buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, "%s called with null proxyHopEndpoint", &buf, 0xCu);
     }
 
-    v38 = 0;
+    v39 = 0;
     goto LABEL_42;
   }
 
   masque = nw_proxy_hop_create_masque();
   if (!masque)
   {
-    v45 = nplog_obj();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+    v46 = nplog_obj();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "[NSPPrivacyProxyObliviousHopsFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:obliviousConfig:obliviousPath:obliviousHTTPType:]";
-      _os_log_fault_impl(&_mh_execute_header, v45, OS_LOG_TYPE_FAULT, "%s called with null proxyHop", &buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v46, OS_LOG_TYPE_FAULT, "%s called with null proxyHop", &buf, 0xCu);
     }
 
-    v26 = 0;
+    v27 = 0;
     goto LABEL_40;
   }
 
-  v26 = masque;
-  v27 = v51;
-  if (([v27 isEqualToString:@"RFC9298"] & 1) == 0)
+  v27 = masque;
+  v28 = v52;
+  if (([v28 isEqualToString:@"RFC9298"] & 1) == 0)
   {
-    [v27 isEqualToString:@"draft-12"];
+    [v28 isEqualToString:@"draft-12"];
   }
 
   nw_proxy_hop_set_masque_version();
@@ -8408,96 +8423,96 @@ LABEL_64:
     nw_proxy_hop_set_use_x25519();
   }
 
-  v48 = url;
+  v49 = url;
   if (a7)
   {
     nw_proxy_hop_set_use_pqtls();
   }
 
-  v54 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v28 = v20;
-  v29 = v20;
-  v30 = [v29 countByEnumeratingWithState:&v52 objects:v57 count:16];
-  if (v30)
+  v54 = 0u;
+  v29 = v21;
+  v30 = v21;
+  v31 = [v30 countByEnumeratingWithState:&v53 objects:v58 count:16];
+  if (v31)
   {
-    v31 = v30;
-    v32 = *v53;
+    v32 = v31;
+    v33 = *v54;
     do
     {
-      for (i = 0; i != v31; i = i + 1)
+      for (i = 0; i != v32; i = i + 1)
       {
-        if (*v53 != v32)
+        if (*v54 != v33)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v30);
         }
 
-        v34 = *(*(&v52 + 1) + 8 * i);
-        if ([v34 length])
+        v35 = *(*(&v53 + 1) + 8 * i);
+        if ([v35 length])
         {
-          [v34 bytes];
-          [v34 length];
+          [v35 bytes];
+          [v35 length];
           nw_proxy_hop_add_server_raw_public_key();
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v53 objects:v58 count:16];
     }
 
-    while (v31);
+    while (v32);
   }
 
-  if (v50)
+  if (v51)
   {
     buf = 0uLL;
-    [v50 getUUIDBytes:&buf];
+    [v51 getUUIDBytes:&buf];
     nw_proxy_hop_add_token_header();
   }
 
-  if (a12 > 1)
+  if (a13 > 1)
   {
-    v20 = v28;
-    url = v48;
-    if (a12 != 2 || ([v21 bytes], objc_msgSend(v21, "length"), objc_msgSend(v23, "UTF8String"), (oblivious_http_with_context = nw_proxy_hop_create_oblivious_http_with_context()) == 0))
+    v21 = v29;
+    url = v49;
+    if (a13 != 2 || ([v22 bytes], objc_msgSend(v22, "length"), objc_msgSend(v24, "UTF8String"), (oblivious_http_with_context = nw_proxy_hop_create_oblivious_http_with_context()) == 0))
     {
 LABEL_37:
-      v41 = nplog_obj();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+      v42 = nplog_obj();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
       {
         LODWORD(buf) = 136315138;
         *(&buf + 4) = "[NSPPrivacyProxyObliviousHopsFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:obliviousConfig:obliviousPath:obliviousHTTPType:]";
-        _os_log_fault_impl(&_mh_execute_header, v41, OS_LOG_TYPE_FAULT, "%s called with null obliviousHop", &buf, 0xCu);
+        _os_log_fault_impl(&_mh_execute_header, v42, OS_LOG_TYPE_FAULT, "%s called with null obliviousHop", &buf, 0xCu);
       }
 
 LABEL_40:
-      v38 = 0;
+      v39 = 0;
       goto LABEL_41;
     }
   }
 
   else
   {
-    [v21 bytes];
-    [v21 length];
-    [v23 UTF8String];
+    [v22 bytes];
+    [v22 length];
+    [v24 UTF8String];
     oblivious_http_with_context = nw_proxy_hop_create_oblivious_http();
-    if (a12 == 1)
+    if (a13 == 1)
     {
       nw_proxy_hop_set_enable_chunked_oblivious_http();
     }
 
-    v20 = v28;
-    url = v48;
+    v21 = v29;
+    url = v49;
     if (!oblivious_http_with_context)
     {
       goto LABEL_37;
     }
   }
 
-  v36 = nw_array_create();
-  if (!v36)
+  v37 = nw_array_create();
+  if (!v37)
   {
     fallback_privacy_proxy = nplog_obj();
     if (os_log_type_enabled(fallback_privacy_proxy, OS_LOG_TYPE_FAULT))
@@ -8515,37 +8530,37 @@ LABEL_40:
   fallback_privacy_proxy = nw_proxy_config_create_fallback_privacy_proxy();
   if (!fallback_privacy_proxy)
   {
-    v46 = nplog_obj();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v47 = nplog_obj();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "[NSPPrivacyProxyObliviousHopsFallbackNetworkRegistration setProxyAgentConfiguration:proxyKeyArray:proxyVersion:supportsResumption:usesX25519:usesPQTLS:tokenAgentUUID:proxyHopUsesStandardToken:shouldFailOpen:obliviousConfig:obliviousPath:obliviousHTTPType:]";
-      _os_log_fault_impl(&_mh_execute_header, v46, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", &buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v47, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", &buf, 0xCu);
     }
 
 LABEL_62:
-    v38 = 0;
+    v39 = 0;
     goto LABEL_36;
   }
 
-  v38 = 1;
+  v39 = 1;
   nw_proxy_config_set_is_privacy_proxy();
-  v39 = nw_proxy_config_copy_agent_data();
-  v40 = *(v47 + 32);
-  *(v47 + 32) = v39;
+  v40 = nw_proxy_config_copy_agent_data();
+  v41 = *(v48 + 32);
+  *(v48 + 32) = v40;
 
-  sub_1000429C8(v47);
+  sub_1000429C8(v48);
 LABEL_36:
 
 LABEL_41:
-  v42 = v50;
+  v43 = v51;
 LABEL_42:
 
-  v19 = v49;
+  v20 = v50;
 LABEL_43:
 
 LABEL_44:
-  return v38;
+  return v39;
 }
 
 NSObject *sub_1000463D8(NSObject *a1, void *a2, uint64_t a3, void *a4)
@@ -8564,34 +8579,34 @@ NSObject *sub_1000463D8(NSObject *a1, void *a2, uint64_t a3, void *a4)
   return v4;
 }
 
-BOOL sub_10004648C(id *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, int a8, char a9, char a10, char a11, void *a12, void *a13, uint64_t a14, void *a15, void *a16, void *a17, char a18)
+BOOL sub_10004648C(id *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, int a8, char a9, char a10, char a11, void *a12, void *a13, char a14, char a15, void *a16, void *a17, void *a18, char a19)
 {
-  v86 = a2;
-  v85 = a3;
-  v88 = a4;
-  v81 = a5;
-  v87 = a6;
-  v80 = a7;
-  v24 = a12;
-  v79 = a13;
-  v84 = a15;
-  v83 = a16;
-  obj = a17;
+  v87 = a2;
+  v86 = a3;
+  v89 = a4;
+  v82 = a5;
+  v88 = a6;
+  v81 = a7;
+  v25 = a12;
+  v80 = a13;
+  v85 = a16;
+  v84 = a17;
+  obj = a18;
   self = a1;
-  v78 = a17;
+  v79 = a18;
   if (!a1)
   {
-    v51 = 0;
-    v27 = v85;
-    v25 = v86;
+    v52 = 0;
+    v28 = v86;
+    v26 = v87;
     goto LABEL_78;
   }
 
-  v25 = v86;
-  if (!v86)
+  v26 = v87;
+  if (!v87)
   {
     url = nplog_obj();
-    v27 = v85;
+    v28 = v86;
     if (os_log_type_enabled(url, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
@@ -8599,47 +8614,47 @@ BOOL sub_10004648C(id *a1, void *a2, void *a3, void *a4, void *a5, void *a6, voi
       _os_log_fault_impl(&_mh_execute_header, url, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyURL", buf, 0xCu);
     }
 
-    v51 = 0;
+    v52 = 0;
     goto LABEL_77;
   }
 
-  url = nw_endpoint_create_url([v86 UTF8String]);
-  v27 = v85;
+  url = nw_endpoint_create_url([v87 UTF8String]);
+  v28 = v86;
   if (!url)
   {
-    v69 = nplog_obj();
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
+    v70 = nplog_obj();
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:resolvedAddresses:fallbackAgentUUID:fallbackProxyConfigHash:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v69, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyEndpoint", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v70, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyEndpoint", buf, 0xCu);
     }
 
-    v51 = 0;
+    v52 = 0;
     goto LABEL_76;
   }
 
   masque = nw_proxy_hop_create_masque();
-  v75 = masque;
+  v76 = masque;
   if (!masque)
   {
-    v43 = nplog_obj();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+    v44 = nplog_obj();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:resolvedAddresses:fallbackAgentUUID:fallbackProxyConfigHash:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v43, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxy", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxy", buf, 0xCu);
     }
 
-    v51 = 0;
+    v52 = 0;
     goto LABEL_75;
   }
 
-  v29 = masque;
-  v30 = v87;
-  if (([v30 isEqualToString:@"RFC9298"] & 1) == 0)
+  v30 = masque;
+  v31 = v88;
+  if (([v31 isEqualToString:@"RFC9298"] & 1) == 0)
   {
-    [v30 isEqualToString:{@"draft-12", a17}];
+    [v31 isEqualToString:{@"draft-12", a18}];
   }
 
   nw_proxy_hop_set_masque_version();
@@ -8648,8 +8663,8 @@ BOOL sub_10004648C(id *a1, void *a2, void *a3, void *a4, void *a5, void *a6, voi
   {
     nw_proxy_hop_set_supports_resumption();
     *buf = 0uLL;
-    v31 = [a1[2] agentUUID];
-    [v31 getUUIDBytes:buf];
+    v32 = [a1[2] agentUUID];
+    [v32 getUUIDBytes:buf];
 
     nw_proxy_hop_set_resumable_session_agent();
   }
@@ -8665,12 +8680,12 @@ BOOL sub_10004648C(id *a1, void *a2, void *a3, void *a4, void *a5, void *a6, voi
     nw_proxy_hop_set_use_x25519();
   }
 
-  v32 = CFPreferencesCopyAppValue(@"NSPEnableMultipath", kCFPreferencesCurrentApplication);
-  v33 = v24;
-  if (!v32 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v33 = CFPreferencesCopyAppValue(@"NSPEnableMultipath", kCFPreferencesCurrentApplication);
+  v34 = v25;
+  if (!v33 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
 
-    if (v85)
+    if (v86)
     {
       goto LABEL_19;
     }
@@ -8678,165 +8693,165 @@ BOOL sub_10004648C(id *a1, void *a2, void *a3, void *a4, void *a5, void *a6, voi
     goto LABEL_38;
   }
 
-  v34 = [v32 BOOLValue];
-  v35 = nplog_obj();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v35 = [v33 BOOLValue];
+  v36 = nplog_obj();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67240192;
-    *&buf[4] = v34;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Detected enable multipath in preferences file: %{public}d", buf, 8u);
+    *&buf[4] = v35;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Detected enable multipath in preferences file: %{public}d", buf, 8u);
   }
 
-  if (v34)
+  if (v35)
   {
     nw_proxy_hop_set_enable_multipath();
   }
 
-  if (!v85)
+  if (!v86)
   {
 LABEL_38:
     nw_proxy_hop_add_extra_header();
   }
 
 LABEL_19:
-  v99 = 0u;
   v100 = 0u;
-  v97 = 0u;
+  v101 = 0u;
   v98 = 0u;
-  v36 = v88;
-  v37 = [v36 countByEnumeratingWithState:&v97 objects:v103 count:16];
-  if (v37)
+  v99 = 0u;
+  v37 = v89;
+  v38 = [v37 countByEnumeratingWithState:&v98 objects:v104 count:16];
+  if (v38)
   {
-    v38 = v37;
-    v39 = *v98;
+    v39 = v38;
+    v40 = *v99;
     do
     {
-      for (i = 0; i != v38; i = i + 1)
+      for (i = 0; i != v39; i = i + 1)
       {
-        if (*v98 != v39)
+        if (*v99 != v40)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v37);
         }
 
-        v41 = *(*(&v97 + 1) + 8 * i);
-        if ([v41 length])
+        v42 = *(*(&v98 + 1) + 8 * i);
+        if ([v42 length])
         {
-          [v41 bytes];
-          [v41 length];
+          [v42 bytes];
+          [v42 length];
           nw_proxy_hop_add_server_raw_public_key();
         }
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v97 objects:v103 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v98 objects:v104 count:16];
     }
 
-    while (v38);
+    while (v39);
   }
 
-  v24 = v33;
-  if (v33)
+  v25 = v34;
+  if (v34)
   {
     *buf = 0uLL;
-    [v33 getUUIDBytes:buf];
+    [v34 getUUIDBytes:buf];
     nw_proxy_hop_add_token_header();
   }
 
-  v42 = nw_array_create();
-  if (v42)
+  v43 = nw_array_create();
+  if (v43)
   {
-    v43 = v42;
+    v44 = v43;
     nw_array_append();
-    if (!v85)
+    if (!v86)
     {
 LABEL_61:
       default_privacy_proxy = nw_proxy_config_create_default_privacy_proxy();
-      v51 = default_privacy_proxy != 0;
+      v52 = default_privacy_proxy != 0;
       if (default_privacy_proxy)
       {
-        if (v83)
+        if (v84)
         {
           *buf = 0uLL;
-          [v83 getUUIDBytes:buf];
+          [v84 getUUIDBytes:buf];
           nw_proxy_config_set_fallback_proxy_agent();
         }
 
         nw_proxy_config_set_is_privacy_proxy();
-        if (!a18)
+        if (!a19)
         {
           nw_proxy_config_set_use_fast_fallback();
         }
 
-        v91 = 0u;
         v92 = 0u;
-        v89 = 0u;
+        v93 = 0u;
         v90 = 0u;
-        v60 = v84;
-        v61 = [v60 countByEnumeratingWithState:&v89 objects:v101 count:16];
-        if (v61)
+        v91 = 0u;
+        v61 = v85;
+        v62 = [v61 countByEnumeratingWithState:&v90 objects:v102 count:16];
+        if (v62)
         {
-          v62 = v61;
-          v63 = *v90;
+          v63 = v62;
+          v64 = *v91;
           do
           {
-            for (j = 0; j != v62; j = j + 1)
+            for (j = 0; j != v63; j = j + 1)
             {
-              if (*v90 != v63)
+              if (*v91 != v64)
               {
-                objc_enumerationMutation(v60);
+                objc_enumerationMutation(v61);
               }
 
-              [*(*(&v89 + 1) + 8 * j) UTF8String];
+              [*(*(&v90 + 1) + 8 * j) UTF8String];
               nw_endpoint_get_port(url);
               host_with_numeric_port = nw_endpoint_create_host_with_numeric_port();
               nw_proxy_config_add_resolved_endpoint();
             }
 
-            v62 = [v60 countByEnumeratingWithState:&v89 objects:v101 count:16];
+            v63 = [v61 countByEnumeratingWithState:&v90 objects:v102 count:16];
           }
 
-          while (v62);
+          while (v63);
         }
 
-        objc_setProperty_atomic(self, v66, default_privacy_proxy, 48);
-        v67 = nw_proxy_config_copy_agent_data();
-        v68 = self[4];
-        self[4] = v67;
+        objc_setProperty_atomic(self, v67, default_privacy_proxy, 48);
+        v68 = nw_proxy_config_copy_agent_data();
+        v69 = self[4];
+        self[4] = v68;
 
         objc_storeStrong(self + 5, obj);
         sub_1000429C8(self);
-        v24 = v33;
+        v25 = v34;
       }
 
       else
       {
-        v72 = nplog_obj();
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
+        v73 = nplog_obj();
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
           *&buf[4] = "[NSPPrivacyProxyProxiedContentNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:resolvedAddresses:fallbackAgentUUID:fallbackProxyConfigHash:isPrivacyProxy:]";
-          _os_log_fault_impl(&_mh_execute_header, v72, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
+          _os_log_fault_impl(&_mh_execute_header, v73, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
         }
       }
 
-      v25 = v86;
+      v26 = v87;
 
-      v27 = v85;
+      v28 = v86;
       goto LABEL_75;
     }
 
-    v44 = [v85 UTF8String];
-    if (v44 && (v45 = nw_endpoint_create_url(v44)) != 0)
+    v45 = [v86 UTF8String];
+    if (v45 && (v46 = nw_endpoint_create_url(v45)) != 0)
     {
-      v46 = v45;
-      v47 = nw_proxy_hop_create_masque();
-      if (v47)
+      v47 = v46;
+      v48 = nw_proxy_hop_create_masque();
+      if (v48)
       {
-        v77 = v46;
-        v48 = v47;
-        v49 = v80;
-        if (([v49 isEqualToString:@"RFC9298"] & 1) == 0)
+        v78 = v47;
+        v49 = v48;
+        v50 = v81;
+        if (([v50 isEqualToString:@"RFC9298"] & 1) == 0)
         {
-          [v49 isEqualToString:@"draft-12"];
+          [v50 isEqualToString:@"draft-12"];
         }
 
         nw_proxy_hop_set_masque_version();
@@ -8845,8 +8860,8 @@ LABEL_61:
         {
           nw_proxy_hop_set_supports_resumption();
           *buf = 0uLL;
-          v52 = [self[2] agentUUID];
-          [v52 getUUIDBytes:buf];
+          v53 = [self[2] agentUUID];
+          [v53 getUUIDBytes:buf];
 
           nw_proxy_hop_set_resumable_session_agent();
         }
@@ -8863,98 +8878,98 @@ LABEL_61:
         }
 
         nw_proxy_hop_add_extra_header();
-        v95 = 0u;
         v96 = 0u;
-        v93 = 0u;
+        v97 = 0u;
         v94 = 0u;
-        v53 = v81;
-        v54 = [v53 countByEnumeratingWithState:&v93 objects:v102 count:16];
-        if (v54)
+        v95 = 0u;
+        v54 = v82;
+        v55 = [v54 countByEnumeratingWithState:&v94 objects:v103 count:16];
+        if (v55)
         {
-          v55 = v54;
-          v56 = *v94;
+          v56 = v55;
+          v57 = *v95;
           do
           {
-            for (k = 0; k != v55; k = k + 1)
+            for (k = 0; k != v56; k = k + 1)
             {
-              if (*v94 != v56)
+              if (*v95 != v57)
               {
-                objc_enumerationMutation(v53);
+                objc_enumerationMutation(v54);
               }
 
-              v58 = *(*(&v93 + 1) + 8 * k);
-              if ([v58 length])
+              v59 = *(*(&v94 + 1) + 8 * k);
+              if ([v59 length])
               {
-                [v58 bytes];
-                [v58 length];
+                [v59 bytes];
+                [v59 length];
                 nw_proxy_hop_add_server_raw_public_key();
               }
             }
 
-            v55 = [v53 countByEnumeratingWithState:&v93 objects:v102 count:16];
+            v56 = [v54 countByEnumeratingWithState:&v94 objects:v103 count:16];
           }
 
-          while (v55);
+          while (v56);
         }
 
-        if (v79)
+        if (v80)
         {
           *buf = 0uLL;
-          [v79 getUUIDBytes:buf];
+          [v80 getUUIDBytes:buf];
           nw_proxy_hop_add_token_header();
         }
 
         nw_array_append();
 
-        v24 = v33;
+        v25 = v34;
         goto LABEL_61;
       }
 
-      v73 = nplog_obj();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
+      v74 = nplog_obj();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         *&buf[4] = "[NSPPrivacyProxyProxiedContentNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:resolvedAddresses:fallbackAgentUUID:fallbackProxyConfigHash:isPrivacyProxy:]";
-        _os_log_fault_impl(&_mh_execute_header, v73, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxy", buf, 0xCu);
+        _os_log_fault_impl(&_mh_execute_header, v74, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxy", buf, 0xCu);
       }
     }
 
     else
     {
-      v50 = nplog_obj();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+      v51 = nplog_obj();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
         *&buf[4] = "[NSPPrivacyProxyProxiedContentNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:resolvedAddresses:fallbackAgentUUID:fallbackProxyConfigHash:isPrivacyProxy:]";
-        _os_log_fault_impl(&_mh_execute_header, v50, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxyEndpoint", buf, 0xCu);
+        _os_log_fault_impl(&_mh_execute_header, v51, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxyEndpoint", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v71 = nplog_obj();
-    if (os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
+    v72 = nplog_obj();
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:firstProxyHopUsesPQTLS:secondProxyHopUsesPQTLS:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:resolvedAddresses:fallbackAgentUUID:fallbackProxyConfigHash:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v71, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v72, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
     }
 
-    v43 = 0;
+    v44 = 0;
   }
 
-  v51 = 0;
-  v25 = v86;
+  v52 = 0;
+  v26 = v87;
 LABEL_75:
 
-  v69 = v75;
+  v70 = v76;
 LABEL_76:
 
 LABEL_77:
 LABEL_78:
 
-  return v51;
+  return v52;
 }
 
 NSObject *sub_100046F60(NSObject *a1, void *a2, uint64_t a3, void *a4)
@@ -8973,23 +8988,23 @@ NSObject *sub_100046F60(NSObject *a1, void *a2, uint64_t a3, void *a4)
   return v4;
 }
 
-BOOL sub_100047014(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, int a8, char a9, void *a10, void *a11, __int16 a12, char a13)
+BOOL sub_100047014(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, int a8, char a9, void *a10, void *a11, char a12, char a13, char a14)
 {
-  v20 = a2;
-  v21 = a3;
-  v22 = a4;
-  v68 = a5;
-  v23 = a6;
-  v67 = a7;
-  v24 = a10;
-  v66 = a11;
+  v21 = a2;
+  v22 = a3;
+  v23 = a4;
+  v69 = a5;
+  v24 = a6;
+  v68 = a7;
+  v25 = a10;
+  v67 = a11;
   if (!a1)
   {
-    v45 = 0;
+    v46 = 0;
     goto LABEL_57;
   }
 
-  if (!v20)
+  if (!v21)
   {
     url = nplog_obj();
     if (os_log_type_enabled(url, OS_LOG_TYPE_FAULT))
@@ -8999,50 +9014,50 @@ BOOL sub_100047014(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
       _os_log_fault_impl(&_mh_execute_header, url, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyURL", buf, 0xCu);
     }
 
-    v45 = 0;
+    v46 = 0;
     goto LABEL_56;
   }
 
-  url = nw_endpoint_create_url([v20 UTF8String]);
+  url = nw_endpoint_create_url([v21 UTF8String]);
   if (!url)
   {
-    v27 = nplog_obj();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+    v28 = nplog_obj();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyEndpoint", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v28, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxyEndpoint", buf, 0xCu);
     }
 
-    v45 = 0;
+    v46 = 0;
     goto LABEL_55;
   }
 
   masque = nw_proxy_hop_create_masque();
-  v27 = masque;
-  v62 = v23;
+  v28 = masque;
+  v63 = v24;
   if (!masque)
   {
-    v37 = nplog_obj();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+    v38 = nplog_obj();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v37, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxy", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v38, OS_LOG_TYPE_FAULT, "%s called with null firstHopProxy", buf, 0xCu);
     }
 
-    v45 = 0;
+    v46 = 0;
     goto LABEL_54;
   }
 
-  v60 = masque;
-  v61 = url;
-  v63 = v24;
-  v28 = masque;
-  v29 = v23;
-  if (([v29 isEqualToString:@"RFC9298"] & 1) == 0)
+  v61 = masque;
+  v62 = url;
+  v64 = v25;
+  v29 = masque;
+  v30 = v24;
+  if (([v30 isEqualToString:@"RFC9298"] & 1) == 0)
   {
-    [v29 isEqualToString:@"draft-12"];
+    [v30 isEqualToString:@"draft-12"];
   }
 
   nw_proxy_hop_set_masque_version();
@@ -9053,96 +9068,96 @@ BOOL sub_100047014(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
   }
 
   nw_proxy_hop_set_supports_l4s();
-  v64 = v21;
-  if (!v21)
+  v65 = v22;
+  if (!v22)
   {
     nw_proxy_hop_add_extra_header();
   }
 
-  v75 = 0u;
   v76 = 0u;
-  v73 = 0u;
+  v77 = 0u;
   v74 = 0u;
-  v65 = v22;
-  v30 = v22;
-  v31 = [v30 countByEnumeratingWithState:&v73 objects:v79 count:16];
-  if (v31)
+  v75 = 0u;
+  v66 = v23;
+  v31 = v23;
+  v32 = [v31 countByEnumeratingWithState:&v74 objects:v80 count:16];
+  if (v32)
   {
-    v32 = v31;
-    v33 = *v74;
+    v33 = v32;
+    v34 = *v75;
     do
     {
-      for (i = 0; i != v32; i = i + 1)
+      for (i = 0; i != v33; i = i + 1)
       {
-        if (*v74 != v33)
+        if (*v75 != v34)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v31);
         }
 
-        v35 = *(*(&v73 + 1) + 8 * i);
-        if ([v35 length])
+        v36 = *(*(&v74 + 1) + 8 * i);
+        if ([v36 length])
         {
-          [v35 bytes];
-          [v35 length];
+          [v36 bytes];
+          [v36 length];
           nw_proxy_hop_add_server_raw_public_key();
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v73 objects:v79 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v74 objects:v80 count:16];
     }
 
-    while (v32);
+    while (v33);
   }
 
-  v24 = v63;
-  if (v63)
+  v25 = v64;
+  if (v64)
   {
     *buf = 0uLL;
-    [v63 getUUIDBytes:buf];
+    [v64 getUUIDBytes:buf];
     nw_proxy_hop_add_token_header();
   }
 
-  v36 = nw_array_create();
-  v21 = v64;
-  if (!v36)
+  v37 = nw_array_create();
+  v22 = v65;
+  if (!v37)
   {
-    v56 = nplog_obj();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+    v57 = nplog_obj();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v56, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v57, OS_LOG_TYPE_FAULT, "%s called with null proxyHopArray", buf, 0xCu);
     }
 
-    v37 = 0;
-    v45 = 0;
-    v22 = v65;
+    v38 = 0;
+    v46 = 0;
+    v23 = v66;
     goto LABEL_53;
   }
 
-  v37 = v36;
+  v38 = v37;
   nw_array_append();
-  v22 = v65;
-  if (!v64)
+  v23 = v66;
+  if (!v65)
   {
     goto LABEL_48;
   }
 
-  v38 = [v64 UTF8String];
-  if (v38 && (v39 = nw_endpoint_create_url(v38)) != 0)
+  v39 = [v65 UTF8String];
+  if (v39 && (v40 = nw_endpoint_create_url(v39)) != 0)
   {
-    v40 = v39;
-    v41 = nw_proxy_hop_create_masque();
-    if (v41)
+    v41 = v40;
+    v42 = nw_proxy_hop_create_masque();
+    if (v42)
     {
-      v42 = v41;
-      v43 = v67;
-      if (([v43 isEqualToString:@"RFC9298"] & 1) == 0)
+      v43 = v42;
+      v44 = v68;
+      if (([v44 isEqualToString:@"RFC9298"] & 1) == 0)
       {
-        [v43 isEqualToString:@"draft-12"];
+        [v44 isEqualToString:@"draft-12"];
       }
 
-      v59 = v20;
+      v60 = v21;
       nw_proxy_hop_set_masque_version();
 
       if (a9)
@@ -9152,118 +9167,118 @@ BOOL sub_100047014(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
 
       nw_proxy_hop_set_supports_l4s();
       nw_proxy_hop_add_extra_header();
-      v71 = 0u;
       v72 = 0u;
-      v69 = 0u;
+      v73 = 0u;
       v70 = 0u;
-      v46 = v68;
-      v47 = [v46 countByEnumeratingWithState:&v69 objects:v77 count:16];
-      if (v47)
+      v71 = 0u;
+      v47 = v69;
+      v48 = [v47 countByEnumeratingWithState:&v70 objects:v78 count:16];
+      if (v48)
       {
-        v48 = v47;
-        v49 = *v70;
+        v49 = v48;
+        v50 = *v71;
         do
         {
-          for (j = 0; j != v48; j = j + 1)
+          for (j = 0; j != v49; j = j + 1)
           {
-            if (*v70 != v49)
+            if (*v71 != v50)
             {
-              objc_enumerationMutation(v46);
+              objc_enumerationMutation(v47);
             }
 
-            v51 = *(*(&v69 + 1) + 8 * j);
-            if ([v51 length])
+            v52 = *(*(&v70 + 1) + 8 * j);
+            if ([v52 length])
             {
-              [v51 bytes];
-              [v51 length];
+              [v52 bytes];
+              [v52 length];
               nw_proxy_hop_add_server_raw_public_key();
             }
           }
 
-          v48 = [v46 countByEnumeratingWithState:&v69 objects:v77 count:16];
+          v49 = [v47 countByEnumeratingWithState:&v70 objects:v78 count:16];
         }
 
-        while (v48);
+        while (v49);
       }
 
-      if (v66)
+      if (v67)
       {
         *buf = 0uLL;
-        [v66 getUUIDBytes:buf];
+        [v67 getUUIDBytes:buf];
         nw_proxy_hop_add_token_header();
       }
 
       nw_array_append();
 
-      v20 = v59;
-      v21 = v64;
+      v21 = v60;
       v22 = v65;
-      v24 = v63;
+      v23 = v66;
+      v25 = v64;
 LABEL_48:
       fallback_privacy_proxy = nw_proxy_config_create_fallback_privacy_proxy();
-      v45 = fallback_privacy_proxy != 0;
+      v46 = fallback_privacy_proxy != 0;
       if (fallback_privacy_proxy)
       {
         nw_proxy_config_set_is_privacy_proxy();
-        if (!a13)
+        if (!a14)
         {
           nw_proxy_config_set_use_fast_fallback();
         }
 
-        v53 = nw_proxy_config_copy_agent_data();
-        v54 = *(a1 + 32);
-        *(a1 + 32) = v53;
+        v54 = nw_proxy_config_copy_agent_data();
+        v55 = *(a1 + 32);
+        *(a1 + 32) = v54;
 
         sub_1000429C8(a1);
       }
 
       else
       {
-        v57 = nplog_obj();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+        v58 = nplog_obj();
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
           *&buf[4] = "[NSPPrivacyProxyProxiedContentFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:isPrivacyProxy:]";
-          _os_log_fault_impl(&_mh_execute_header, v57, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
+          _os_log_fault_impl(&_mh_execute_header, v58, OS_LOG_TYPE_FAULT, "%s called with null proxyConfiguration", buf, 0xCu);
         }
       }
 
       goto LABEL_53;
     }
 
-    v58 = nplog_obj();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+    v59 = nplog_obj();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v58, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxy", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v59, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxy", buf, 0xCu);
     }
   }
 
   else
   {
-    v44 = nplog_obj();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+    v45 = nplog_obj();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
       *&buf[4] = "[NSPPrivacyProxyProxiedContentFallbackNetworkRegistration setProxyAgentConfiguration:secondProxyHopURL:firstProxyHopKeyArray:secondProxyHopKeyArray:firstProxyHopVersion:secondProxyHopVersion:firstProxyHopSupportsResumption:secondProxyHopSupportsResumption:ingressTokenAgentUUID:egressTokenAgentUUID:firstProxyHopUsesStandardToken:secondProxyHopUsesStandardToken:isPrivacyProxy:]";
-      _os_log_fault_impl(&_mh_execute_header, v44, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxyEndpoint", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v45, OS_LOG_TYPE_FAULT, "%s called with null secondHopProxyEndpoint", buf, 0xCu);
     }
   }
 
-  v45 = 0;
+  v46 = 0;
 LABEL_53:
-  v27 = v60;
-  url = v61;
+  v28 = v61;
+  url = v62;
 LABEL_54:
 
-  v23 = v62;
+  v24 = v63;
 LABEL_55:
 
 LABEL_56:
 LABEL_57:
 
-  return v45;
+  return v46;
 }
 
 void sub_100047EDC(uint64_t a1, void *a2)
@@ -9314,100 +9329,9 @@ id *sub_100048314(id *a1, void *a2, void *a3)
   return a1;
 }
 
-void sub_1000490B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000490B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
-}
-
-void sub_1000490D8(void *a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a4;
-  if (v8)
-  {
-    v9 = nplog_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      v10 = [v8 localizedDescription];
-      v11 = a1[4];
-      *buf = 138543618;
-      v28 = v10;
-      v29 = 2112;
-      v30 = v11;
-      v12 = "Fetching proxy configuration resulted in error: %{public}@ with url: %@";
-      v13 = v9;
-      v14 = 22;
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-    v15 = [a3 statusCode];
-    v16 = v15;
-    if (v7 && v15 == 200)
-    {
-      v26 = 0;
-      v17 = [NSJSONSerialization JSONObjectWithData:v7 options:0 error:&v26];
-      v9 = v26;
-      v18 = *(a1[6] + 8);
-      v19 = *(v18 + 40);
-      *(v18 + 40) = v17;
-
-      if (!*(*(a1[6] + 8) + 40))
-      {
-        v20 = nplog_obj();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-        {
-          v25 = a1[4];
-          *buf = 138412546;
-          v28 = v9;
-          v29 = 2112;
-          v30 = v25;
-          _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Fetching proxy configuration resulted in malformed JSON object: %@ with url: %@", buf, 0x16u);
-        }
-
-        v21 = *(*(a1[6] + 8) + 40);
-      }
-
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        v10 = nplog_obj();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_13;
-        }
-
-        v24 = a1[4];
-        *buf = 138412290;
-        v28 = v24;
-        v12 = "Fetching proxy configuration resulted in JSON object that is not a dictionary with url: %@";
-        v13 = v10;
-        v14 = 12;
-LABEL_4:
-        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
-LABEL_13:
-      }
-    }
-
-    else
-    {
-      v9 = nplog_obj();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        v23 = a1[4];
-        *buf = 134218242;
-        v28 = v16;
-        v29 = 2112;
-        v30 = v23;
-        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Fetching proxy configuration resulted in unexpected response: %ld with url: %@", buf, 0x16u);
-      }
-    }
-  }
-
-  v22 = *(*(a1[6] + 8) + 40);
-  (*(a1[5] + 16))();
 }

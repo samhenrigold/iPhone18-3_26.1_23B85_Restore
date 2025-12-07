@@ -559,7 +559,7 @@ uint64_t __76__VCPLightMotionAnalyzer_analyzeFrame_withTimestamp_andDuration_com
   if (!v5)
   {
     v6 = ma::EncodeStatsHW::ParseStatsFromSampleBuffer(v4, *(a1 + 48));
-    if (v6 || (v7 = *(a1 + 32), v8 = v7[1], v9 = v7[54], v15 = *(a1 + 64), (v6 = ma::EncodeAnalysis::AnalyzeFrame(v8, v9, &v15, *(a1 + 56), (v7 + 3), 0, 0)) != 0) || (v6 = [*(a1 + 32) cameraMotionDetection:*(a1 + 32) + 152]) != 0 || (v6 = objc_msgSend(*(a1 + 32), "computeMotionDivScore:", *(*(a1 + 32) + 432))) != 0)
+    if (v6 || (v7 = *(a1 + 32), v8 = v7[1], v9 = v7[54], v15 = *(a1 + 64), (v6 = ma::EncodeAnalysis::AnalyzeFrame(v8, v9, &v15, *(a1 + 56), v7 + 3, 0, 0)) != 0) || (v6 = [*(a1 + 32) cameraMotionDetection:*(a1 + 32) + 152]) != 0 || (v6 = objc_msgSend(*(a1 + 32), "computeMotionDivScore:", *(*(a1 + 32) + 432))) != 0)
     {
       v5 = v6;
     }

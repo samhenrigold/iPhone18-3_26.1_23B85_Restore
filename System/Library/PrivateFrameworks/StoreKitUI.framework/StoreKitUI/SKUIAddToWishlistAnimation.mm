@@ -54,7 +54,7 @@
           {
             v22 = [v21 imageForState:0];
             v23 = [v21 titleForState:0];
-            if (v22 == image || ([title isEqualToString:v23] & 1) != 0)
+            if (v22 == image || (objc_msgSend_isEqualToString_(title) & 1) != 0)
             {
               v13 = v25;
               objc_storeStrong(&v25->_targetButton, v21);

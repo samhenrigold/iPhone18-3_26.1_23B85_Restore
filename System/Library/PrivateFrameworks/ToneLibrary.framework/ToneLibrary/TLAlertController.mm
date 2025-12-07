@@ -19,6 +19,7 @@
 - (void)_handleUserInterruptionNotification:(id)notification;
 - (void)_performBlockOnAccessQueue:(id)queue;
 - (void)dealloc;
+- (void)handleActivationAssertionStatusChangeForAlert:(id)alert updatedStatus:(BOOL)status;
 - (void)playAlert:(id)alert withCompletionHandler:(id)handler;
 - (void)preheatForAlert:(id)alert completionHandler:(id)handler;
 - (void)updateAudioVolumeDynamicallyForAlert:(id)alert toValue:(float)value;
@@ -68,19 +69,8 @@ uint64_t __42__TLAlertController_sharedAlertController__block_invoke()
     v2->_accessQueue = v12;
 
     v14 = +[TLSystemApplication defaultSystemApplication];
-    if (!v14)
+    if (!v14 || ([MEMORY[0x1E696AAE8] mainBundle], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "bundleIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "bundleIdentifier"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isEqualToString:", v17), v17, v16, v15, (v18 & 1) == 0))
     {
-      goto LABEL_4;
-    }
-
-    mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-    bundleIdentifier2 = [mainBundle bundleIdentifier];
-    bundleIdentifier3 = [v14 bundleIdentifier];
-    v18 = [bundleIdentifier2 isEqualToString:bundleIdentifier3];
-
-    if ((v18 & 1) == 0)
-    {
-LABEL_4:
       defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
       [defaultCenter addObserver:v2 selector:sel__handleUserInterruptionNotification_ name:@"_TLAlertControllerUserInterruptionNotification" object:0];
     }
@@ -96,19 +86,8 @@ LABEL_4:
   self->_accessQueue = 0;
 
   v5 = +[TLSystemApplication defaultSystemApplication];
-  if (!v5)
+  if (!v5 || ([MEMORY[0x1E696AAE8] mainBundle], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "bundleIdentifier"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "bundleIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToString:", v8), v8, v7, v6, (v9 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-  bundleIdentifier = [mainBundle bundleIdentifier];
-  bundleIdentifier2 = [v5 bundleIdentifier];
-  v9 = [bundleIdentifier isEqualToString:bundleIdentifier2];
-
-  if ((v9 & 1) == 0)
-  {
-LABEL_3:
     defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
     [defaultCenter removeObserver:self name:@"_TLAlertControllerUserInterruptionNotification" object:0];
   }
@@ -143,11 +122,10 @@ void __28__TLAlertController_dealloc__block_invoke(uint64_t a1)
 
 - (void)_assertRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_V2(accessQueue);
   }
@@ -155,55 +133,54 @@ void __28__TLAlertController_dealloc__block_invoke(uint64_t a1)
   else
   {
     label = dispatch_queue_get_label(0);
-    if (strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertController.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/TLAlertController.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLAlertController _assertRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 117;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLAlertController _assertRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 117;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          [(TLToneStoreDownloadStoreServicesController *)v8 _assertRunningOnAccessQueue];
+          [(TLToneStoreDownloadStoreServicesController *)v11 _assertRunningOnAccessQueue];
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(TLToneStoreDownloadStoreServicesController *)v12 _assertRunningOnAccessQueue];
+        [(TLToneStoreDownloadStoreServicesController *)v18 _assertRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (BOOL)stopAllAlerts
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v3 = TLLogPlayback();
+  v37 = *MEMORY[0x1E69E9840];
+  v3 = TLLogPlayback(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
@@ -214,77 +191,65 @@ void __28__TLAlertController_dealloc__block_invoke(uint64_t a1)
   v4 = [MEMORY[0x1E695DF00] now];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x2020000000;
-  v33 = 0;
+  v35 = 0x2020000000;
+  v36 = 0;
   v5 = +[TLSystemApplication defaultSystemApplication];
-  if (!v5)
+  if (v5 && ([MEMORY[0x1E696AAE8] mainBundle], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "bundleIdentifier"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "bundleIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToString:", v8), v8, v7, v6, v9))
   {
-    goto LABEL_10;
-  }
-
-  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-  bundleIdentifier = [mainBundle bundleIdentifier];
-  bundleIdentifier2 = [v5 bundleIdentifier];
-  v9 = [bundleIdentifier isEqualToString:bundleIdentifier2];
-
-  if (v9)
-  {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __34__TLAlertController_stopAllAlerts__block_invoke;
-    v20[3] = &unk_1E85789C8;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __34__TLAlertController_stopAllAlerts__block_invoke;
+    v23[3] = &unk_1E85789C8;
     p_buf = &buf;
-    v20[4] = self;
+    v23[4] = self;
     v10 = v4;
-    v21 = v10;
-    [(TLAlertController *)self _performBlockOnAccessQueue:v20];
-    v11 = TLLogPlayback();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v24 = v10;
+    v11 = [(TLAlertController *)self _performBlockOnAccessQueue:v23];
+    v13 = TLLogPlayback(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 138543874;
+      *v28 = 138543874;
       selfCopy2 = self;
-      v27 = 2114;
-      v28 = @"_TLAlertControllerUserInterruptionNotification";
-      v29 = 2114;
-      v30 = v10;
-      _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Will post %{public}@ notification with user interruption date: %{public}@.", v25, 0x20u);
+      v30 = 2114;
+      v31 = @"_TLAlertControllerUserInterruptionNotification";
+      v32 = 2114;
+      v33 = v10;
+      _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Will post %{public}@ notification with user interruption date: %{public}@.", v28, 0x20u);
     }
 
     defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
-    v23 = @"userInterruptionDate";
-    v24 = v10;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    [defaultCenter postNotificationName:@"_TLAlertControllerUserInterruptionNotification" object:0 userInfo:v13];
+    v26 = @"userInterruptionDate";
+    v27 = v10;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    [defaultCenter postNotificationName:@"_TLAlertControllerUserInterruptionNotification" object:0 userInfo:v15];
 
-    v14 = TLLogPlayback();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = TLLogPlayback(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 138543874;
+      *v28 = 138543874;
       selfCopy2 = self;
-      v27 = 2114;
-      v28 = @"_TLAlertControllerUserInterruptionNotification";
-      v29 = 2114;
-      v30 = v10;
-      _os_log_impl(&dword_1D9356000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Did post %{public}@ notification with user interruption date: %{public}@.", v25, 0x20u);
+      v30 = 2114;
+      v31 = @"_TLAlertControllerUserInterruptionNotification";
+      v32 = 2114;
+      v33 = v10;
+      _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Did post %{public}@ notification with user interruption date: %{public}@.", v28, 0x20u);
     }
   }
 
   else
   {
-LABEL_10:
-    v15 = MEMORY[0x1E695DF30];
+    v19 = MEMORY[0x1E695DF30];
     name = [v5 name];
-    [v15 raise:*MEMORY[0x1E695D930] format:{@"The method +[TLAlert _stopAllAlerts] should not be called from anywere except the %@ process.", name}];
+    [v19 raise:*MEMORY[0x1E695D930] format:{@"The method +[TLAlert _stopAllAlerts] should not be called from anywere except the %@ process.", name}];
   }
 
-  v17 = *(*(&buf + 1) + 24);
+  v21 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  v18 = *MEMORY[0x1E69E9840];
-  return v17 & 1;
+  return v21 & 1;
 }
 
-uint64_t __34__TLAlertController_stopAllAlerts__block_invoke(uint64_t a1)
+void *__34__TLAlertController_stopAllAlerts__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _stopAllAlertsInCurrentProcessWithUserInterruptionDate:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -327,10 +292,7 @@ uint64_t __34__TLAlertController_stopAllAlerts__block_invoke(uint64_t a1)
 
 uint64_t __53__TLAlertController_playAlert_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _prepareForPlayingAlert:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _prepareForPlayingAlert:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -379,7 +341,7 @@ void __53__TLAlertController_playAlert_withCompletionHandler___block_invoke_2(ui
   return type;
 }
 
-uint64_t __74__TLAlertController_stopPlayingAlerts_withOptions_playbackCompletionType___block_invoke(uint64_t a1)
+void *__74__TLAlertController_stopPlayingAlerts_withOptions_playbackCompletionType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _stopPlayingAlerts:*(a1 + 40) withOptions:*(a1 + 48) playbackCompletionType:*(a1 + 64)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -389,54 +351,77 @@ uint64_t __74__TLAlertController_stopPlayingAlerts_withOptions_playbackCompletio
 - (void)updateAudioVolumeDynamicallyForAlert:(id)alert toValue:(float)value
 {
   alertCopy = alert;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__8;
-  v21 = __Block_byref_object_dispose__8;
-  v22 = 0;
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __66__TLAlertController_updateAudioVolumeDynamicallyForAlert_toValue___block_invoke;
-  v13 = &unk_1E8578AE0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__8;
+  v20 = __Block_byref_object_dispose__8;
+  v21 = 0;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __66__TLAlertController_updateAudioVolumeDynamicallyForAlert_toValue___block_invoke;
+  v12 = &unk_1E8578AE0;
   selfCopy = self;
   v7 = alertCopy;
-  v15 = v7;
-  v16 = &v17;
-  [(TLAlertController *)self _performBlockOnAccessQueue:&v10];
-  v8 = v18[5];
+  v14 = v7;
+  v15 = &v16;
+  [(TLAlertController *)self _performBlockOnAccessQueue:&v9];
   if (objc_opt_respondsToSelector())
   {
-    *&v9 = value;
-    [v18[5] updateAudioVolumeDynamicallyForAlert:v7 toValue:v9];
+    *&v8 = value;
+    [v17[5] updateAudioVolumeDynamicallyForAlert:v7 toValue:v8];
   }
 
   else
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Updating the audio volume of %@ is not supported. Please refer to TLAlert_Private.h for more details on the limitations of the audio volume dynamic update API.", v7, v10, v11, v12, v13, selfCopy}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Updating the audio volume of %@ is not supported. Please refer to TLAlert_Private.h for more details on the limitations of the audio volume dynamic update API.", v7, v9, v10, v11, v12, selfCopy}];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __66__TLAlertController_updateAudioVolumeDynamicallyForAlert_toValue___block_invoke(uint64_t a1)
+uint64_t __66__TLAlertController_updateAudioVolumeDynamicallyForAlert_toValue___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 32) _controllerForPlaybackBackEnd:{objc_msgSend(objc_opt_class(), "_playbackBackEndForAlert:", *(a1 + 40))}];
-  v4 = *(*(a1 + 48) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _controllerForPlaybackBackEnd:{objc_msgSend(objc_opt_class(), "_playbackBackEndForAlert:", *(a1 + 40))}];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t __81__TLAlertController_handleActivationAssertionStatusChangeForAlert_updatedStatus___block_invoke(uint64_t a1)
+- (void)handleActivationAssertionStatusChangeForAlert:(id)alert updatedStatus:(BOOL)status
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 32) _controllerForPlaybackBackEnd:{objc_msgSend(objc_opt_class(), "_playbackBackEndForAlert:", *(a1 + 40))}];
-  v4 = *(*(a1 + 48) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  statusCopy = status;
+  alertCopy = alert;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__8;
+  v19 = __Block_byref_object_dispose__8;
+  v20 = 0;
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __81__TLAlertController_handleActivationAssertionStatusChangeForAlert_updatedStatus___block_invoke;
+  v11 = &unk_1E8578AE0;
+  selfCopy = self;
+  v7 = alertCopy;
+  v13 = v7;
+  v14 = &v15;
+  [(TLAlertController *)self _performBlockOnAccessQueue:&v8];
+  if (objc_opt_respondsToSelector())
+  {
+    [v16[5] handleActivationAssertionStatusChangeForAlert:v7 updatedStatus:statusCopy];
+  }
+
+  else
+  {
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Setting up an activation assertion for %@ is not supported.", v7, v8, v9, v10, v11, selfCopy}];
+  }
+
+  _Block_object_dispose(&v15, 8);
+}
+
+uint64_t __81__TLAlertController_handleActivationAssertionStatusChangeForAlert_updatedStatus___block_invoke(uint64_t a1, uint64_t a2)
+{
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _controllerForPlaybackBackEnd:{objc_msgSend(objc_opt_class(), "_playbackBackEndForAlert:", *(a1 + 40))}];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -489,16 +474,16 @@ uint64_t __81__TLAlertController_handleActivationAssertionStatusChangeForAlert_u
 
 - (BOOL)_stopPlayingAlerts:(id)alerts withOptions:(id)options playbackCompletionType:(int64_t)type
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   alertsCopy = alerts;
   optionsCopy = options;
   [(TLAlertController *)self _assertRunningOnAccessQueue];
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   obj = alertsCopy;
-  v8 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v8 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (!v8)
   {
     v10 = 0;
@@ -507,81 +492,82 @@ uint64_t __81__TLAlertController_handleActivationAssertionStatusChangeForAlert_u
 
   v9 = v8;
   v10 = 0;
-  v11 = *v43;
+  v11 = *v45;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v43 != v11)
+      if (*v45 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v42 + 1) + 8 * i);
+      v13 = *(*(&v44 + 1) + 8 * i);
       v14 = [(NSMapTable *)self->_alertContexts objectForKey:v13];
-      v15 = v14;
+      v16 = v14;
       if (!v14)
       {
-        v16 = TLLogPlayback();
-        if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = TLLogPlayback(0, v15);
+        if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_19;
         }
 
         *buf = 138543618;
         selfCopy2 = self;
-        v49 = 2114;
-        v50 = v13;
-        v17 = v16;
-        v18 = "%{public}@: No alert context could be found for %{public}@. This alert is not playing; ignoring stop request.";
+        v51 = 2114;
+        v52 = v13;
+        v20 = v19;
+        v21 = "%{public}@: No alert context could be found for %{public}@. This alert is not playing; ignoring stop request.";
         goto LABEL_12;
       }
 
-      if ([v14 isBeingInterrupted])
+      isBeingInterrupted = [v14 isBeingInterrupted];
+      if (isBeingInterrupted)
       {
-        v16 = TLLogPlayback();
-        if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = TLLogPlayback(isBeingInterrupted, v18);
+        if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_19;
         }
 
         *buf = 138543618;
         selfCopy2 = self;
-        v49 = 2114;
-        v50 = v13;
-        v17 = v16;
-        v18 = "%{public}@: %{public}@ is already being interrupted; ignoring stop request.";
+        v51 = 2114;
+        v52 = v13;
+        v20 = v19;
+        v21 = "%{public}@: %{public}@ is already being interrupted; ignoring stop request.";
 LABEL_12:
-        _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 0x16u);
+        _os_log_impl(&dword_1D9356000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0x16u);
         goto LABEL_19;
       }
 
-      [v15 setBeingInterrupted:1];
-      playbackBackEnd = [v15 playbackBackEnd];
-      v16 = [MEMORY[0x1E696AD98] numberWithInteger:playbackBackEnd];
-      v20 = [v10 objectForKey:v16];
-      if (v20)
+      [v16 setBeingInterrupted:1];
+      playbackBackEnd = [v16 playbackBackEnd];
+      v19 = [MEMORY[0x1E696AD98] numberWithInteger:playbackBackEnd];
+      v23 = [v10 objectForKey:v19];
+      if (v23)
       {
-        v21 = v20;
+        v24 = v23;
       }
 
       else
       {
-        v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
         if (!v10)
         {
           v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
         }
 
-        [v10 setObject:v21 forKey:v16];
+        [v10 setObject:v24 forKey:v19];
       }
 
-      [v21 addObject:v13];
+      [v24 addObject:v13];
 
 LABEL_19:
     }
 
-    v9 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+    v9 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
   }
 
   while (v9);
@@ -589,69 +575,67 @@ LABEL_23:
 
   if ([v10 count])
   {
+    v42 = 0u;
+    v43 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v22 = v10;
-    v23 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
-    v24 = optionsCopy;
-    if (v23)
+    v25 = v10;
+    v26 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v27 = optionsCopy;
+    if (v26)
     {
-      v25 = v23;
-      v26 = 0;
-      v27 = *v39;
+      v28 = v26;
+      v29 = 0;
+      v30 = *v41;
       do
       {
-        for (j = 0; j != v25; ++j)
+        for (j = 0; j != v28; ++j)
         {
-          if (*v39 != v27)
+          if (*v41 != v30)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v25);
           }
 
-          v29 = *(*(&v38 + 1) + 8 * j);
-          v30 = [v22 objectForKey:v29];
-          v31 = -[TLAlertController _controllerForPlaybackBackEnd:](self, "_controllerForPlaybackBackEnd:", [v29 integerValue]);
-          v32 = v31;
-          if (v31)
+          v32 = *(*(&v40 + 1) + 8 * j);
+          v33 = [v25 objectForKey:v32];
+          v34 = -[TLAlertController _controllerForPlaybackBackEnd:](self, "_controllerForPlaybackBackEnd:", [v32 integerValue]);
+          v35 = v34;
+          if (v34)
           {
-            v26 |= [v31 stopPlayingAlerts:v30 withOptions:optionsCopy playbackCompletionType:type];
+            v29 |= [v34 stopPlayingAlerts:v33 withOptions:optionsCopy playbackCompletionType:type];
           }
         }
 
-        v25 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v28 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
-      while (v25);
+      while (v28);
     }
 
     else
     {
-      LOBYTE(v26) = 0;
+      LOBYTE(v29) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v26) = 0;
-    v24 = optionsCopy;
+    LOBYTE(v29) = 0;
+    v27 = optionsCopy;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-  return v26 & 1;
+  return v29 & 1;
 }
 
 - (void)_didReachTimeoutForAlert:(id)alert
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   [(TLAlertController *)self _assertRunningOnAccessQueue];
-  v7[0] = alertCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = alertCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   [(TLAlertController *)self _stopPlayingAlerts:v5 withOptions:0 playbackCompletionType:1];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didCompletePlaybackOfAlert:(id)alert
@@ -677,42 +661,37 @@ LABEL_23:
 {
   alertCopy = alert;
   handlerCopy = handler;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__8;
-  v21 = __Block_byref_object_dispose__8;
-  v22 = 0;
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __55__TLAlertController_preheatForAlert_completionHandler___block_invoke;
-  v13 = &unk_1E8578AE0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__8;
+  v20 = __Block_byref_object_dispose__8;
+  v21 = 0;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __55__TLAlertController_preheatForAlert_completionHandler___block_invoke;
+  v12 = &unk_1E8578AE0;
   selfCopy = self;
   v8 = alertCopy;
-  v15 = v8;
-  v16 = &v17;
-  [(TLAlertController *)self _performBlockOnAccessQueue:&v10];
-  v9 = v18[5];
+  v14 = v8;
+  v15 = &v16;
+  [(TLAlertController *)self _performBlockOnAccessQueue:&v9];
   if (objc_opt_respondsToSelector())
   {
-    [v18[5] preheatForAlert:v8 completionHandler:handlerCopy];
+    [v17[5] preheatForAlert:v8 completionHandler:handlerCopy];
   }
 
   else
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Pre-heating for %@ is not supported.", v8, v10, v11, v12, v13, selfCopy}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Pre-heating for %@ is not supported.", v8, v9, v10, v11, v12, selfCopy}];
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __55__TLAlertController_preheatForAlert_completionHandler___block_invoke(uint64_t a1)
+uint64_t __55__TLAlertController_preheatForAlert_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 32) _controllerForPlaybackBackEnd:{objc_msgSend(objc_opt_class(), "_playbackBackEndForAlert:", *(a1 + 40))}];
-  v4 = *(*(a1 + 48) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _controllerForPlaybackBackEnd:{objc_msgSend(objc_opt_class(), "_playbackBackEndForAlert:", *(a1 + 40))}];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -916,151 +895,148 @@ LABEL_23:
 
 - (BOOL)_stopAllAlertsInCurrentProcessWithUserInterruptionDate:(id)date
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  [(TLAlertController *)self _assertRunningOnAccessQueue];
-  v4 = TLLogPlayback();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  _assertRunningOnAccessQueue = [(TLAlertController *)self _assertRunningOnAccessQueue];
+  v6 = TLLogPlayback(_assertRunningOnAccessQueue, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy4 = self;
-    v31 = 2114;
-    v32 = dateCopy;
-    _os_log_impl(&dword_1D9356000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcessWithUserInterruptionDate:(%{public}@) was called.", buf, 0x16u);
+    v34 = 2114;
+    v35 = dateCopy;
+    _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcessWithUserInterruptionDate:(%{public}@) was called.", buf, 0x16u);
   }
 
-  v27 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v5 = self->_alertContexts;
-  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v25 objects:v35 count:16];
-  if (v6)
+  v29 = 0u;
+  v7 = self->_alertContexts;
+  v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v28 objects:v38 count:16];
+  if (v8)
   {
-    v8 = v6;
-    v23 = 0;
-    v9 = *v26;
-    *&v7 = 138543874;
-    v22 = v7;
+    v10 = v8;
+    v26 = 0;
+    v11 = *v29;
+    *&v9 = 138543874;
+    v25 = v9;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v9)
+        if (*v29 != v11)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
-        if ([objc_opt_class() _shouldStopAlertForUserInterruption:v11])
+        v13 = *(*(&v28 + 1) + 8 * i);
+        if ([objc_opt_class() _shouldStopAlertForUserInterruption:v13])
         {
-          v12 = [(NSMapTable *)self->_alertContexts objectForKey:v11];
-          playbackStartDate = [v12 playbackStartDate];
-          v14 = [playbackStartDate compare:dateCopy];
-          v15 = TLLogPlayback();
-          v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-          if (v14 == -1)
+          v14 = [(NSMapTable *)self->_alertContexts objectForKey:v13];
+          playbackStartDate = [v14 playbackStartDate];
+          v16 = [playbackStartDate compare:dateCopy];
+          v18 = TLLogPlayback(v16, v17);
+          v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+          if (v16 == -1)
           {
-            if (v16)
+            if (v19)
             {
-              *buf = v22;
+              *buf = v25;
               selfCopy4 = self;
-              v31 = 2114;
-              v32 = playbackStartDate;
-              v33 = 2114;
-              v34 = v11;
-              _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcess…: Playback started at %{public}@, i.e. before user interruption, for %{public}@. Scheduling this alert to be interrupted.", buf, 0x20u);
+              v34 = 2114;
+              v35 = playbackStartDate;
+              v36 = 2114;
+              v37 = v13;
+              _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcess…: Playback started at %{public}@, i.e. before user interruption, for %{public}@. Scheduling this alert to be interrupted.", buf, 0x20u);
             }
 
-            v17 = v23;
-            if (!v23)
+            v20 = v26;
+            if (!v26)
             {
-              v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
-            v23 = v17;
-            [v17 addObject:{v11, v22}];
+            v26 = v20;
+            [v20 addObject:{v13, v25}];
           }
 
           else
           {
-            if (v16)
+            if (v19)
             {
-              *buf = v22;
+              *buf = v25;
               selfCopy4 = self;
-              v31 = 2114;
-              v32 = playbackStartDate;
-              v33 = 2114;
-              v34 = v11;
-              _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcess…: Playback started at %{public}@, i.e. after user interruption, for %{public}@. Leaving this alert playing.", buf, 0x20u);
+              v34 = 2114;
+              v35 = playbackStartDate;
+              v36 = 2114;
+              v37 = v13;
+              _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcess…: Playback started at %{public}@, i.e. after user interruption, for %{public}@. Leaving this alert playing.", buf, 0x20u);
             }
           }
         }
       }
 
-      v8 = [(NSMapTable *)v5 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v10 = [(NSMapTable *)v7 countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
-    while (v8);
+    while (v10);
   }
 
   else
   {
-    v23 = 0;
+    v26 = 0;
   }
 
-  v18 = [(TLAlertController *)self _stopPlayingAlerts:v23 withOptions:0 playbackCompletionType:3];
-  v19 = TLLogPlayback();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v21 = [(TLAlertController *)self _stopPlayingAlerts:v26 withOptions:0 playbackCompletionType:3];
+  v23 = TLLogPlayback(v21, v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy4 = self;
-    v31 = 1024;
-    LODWORD(v32) = v18;
-    _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcess…: Returning willStopAnyAlert = %{BOOL}u.", buf, 0x12u);
+    v34 = 1024;
+    LODWORD(v35) = v21;
+    _os_log_impl(&dword_1D9356000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: -_stopAllAlertsInCurrentProcess…: Returning willStopAnyAlert = %{BOOL}u.", buf, 0x12u);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v21;
 }
 
 - (void)_handleUserInterruptionNotification:(id)notification
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
-  v5 = TLLogPlayback();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TLLogPlayback(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v15 = 2114;
-    v16 = notificationCopy;
-    _os_log_impl(&dword_1D9356000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleUserInterruptionNotification:(%{public}@).", buf, 0x16u);
+    v17 = 2114;
+    v18 = notificationCopy;
+    _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleUserInterruptionNotification:(%{public}@).", buf, 0x16u);
   }
 
   userInfo = [notificationCopy userInfo];
-  v7 = [userInfo objectForKey:@"userInterruptionDate"];
+  v8 = [userInfo objectForKey:@"userInterruptionDate"];
 
-  v8 = TLLogPlayback();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v11 = TLLogPlayback(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v15 = 2114;
-    v16 = v7;
-    _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleUserInterruption…: User interruption date: %{public}@.", buf, 0x16u);
+    v17 = 2114;
+    v18 = v8;
+    _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: -_handleUserInterruption…: User interruption date: %{public}@.", buf, 0x16u);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __57__TLAlertController__handleUserInterruptionNotification___block_invoke;
-  v11[3] = &unk_1E8578900;
-  v11[4] = self;
-  v12 = v7;
-  v9 = v7;
-  [(TLAlertController *)self _performBlockOnAccessQueue:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __57__TLAlertController__handleUserInterruptionNotification___block_invoke;
+  v13[3] = &unk_1E8578900;
+  v13[4] = self;
+  v14 = v8;
+  v12 = v8;
+  [(TLAlertController *)self _performBlockOnAccessQueue:v13];
 }
 
 @end

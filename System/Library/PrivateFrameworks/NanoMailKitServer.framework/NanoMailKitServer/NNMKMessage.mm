@@ -284,7 +284,7 @@ LABEL_7:
 
 + (id)generateMessageHashForMessage:(id)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = [messageCopy to];
   if (v4)
@@ -367,8 +367,6 @@ LABEL_7:
   {
     [v27 appendFormat:@"%02x", md[i]];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -587,76 +585,73 @@ LABEL_7:
   dateReceived = self->_dateReceived;
   messageId = self->_messageId;
   v9 = [NNMKMessage stringFromMailboxItemState:self->_status];
-  statusVersion = self->_statusVersion;
-  v11 = [v3 stringWithFormat:@"Message Id: %@\nConversation Id: %@\nFrom: %@\nSubject: %@\nDate Received: %@\nStatus: %@\n, status version: %lu\n, mailbox id: %@", messageId, conversationId, from, subject, dateReceived, v9, statusVersion, self->_mailboxId];
+  v10 = [v3 stringWithFormat:@"Message Id: %@\nConversation Id: %@\nFrom: %@\nSubject: %@\nDate Received: %@\nStatus: %@\n, status version: %lu\n, mailbox id: %@", messageId, conversationId, from, subject, dateReceived, v9, self->_statusVersion, self->_mailboxId];
 
-  return v11;
+  return v10;
 }
 
 + (id)messageIdsFromMessages:(id)messages
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messagesCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = messagesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        messageId = [*(*(&v13 + 1) + 8 * i) messageId];
+        messageId = [*(*(&v12 + 1) + 8 * i) messageId];
         [v4 addObject:messageId];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)serverIdsFromMessages:(id)messages
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(messagesCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = messagesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         serverId = [v10 serverId];
 
         if (serverId)
@@ -666,13 +661,11 @@ LABEL_7:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

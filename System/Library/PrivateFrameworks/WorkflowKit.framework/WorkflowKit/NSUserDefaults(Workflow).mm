@@ -116,9 +116,9 @@
 {
   systemShortcutsUserDefaults = [self systemShortcutsUserDefaults];
   v2 = [systemShortcutsUserDefaults stringForKey:@"WFShortcutsDrawerVisibilityLevelKey"];
-  v3 = [v2 isEqualToString:@"Everything"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 + (uint64_t)searchActionEnabled

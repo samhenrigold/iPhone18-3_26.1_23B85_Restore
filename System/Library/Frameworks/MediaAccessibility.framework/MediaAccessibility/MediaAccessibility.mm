@@ -93,7 +93,7 @@ const void *MAPreferencesCopyNumber(__CFString *a1)
   return MAPreferencesCopyProfileValueWithExpectedType(0, a1, TypeID);
 }
 
-const void *MAPreferencesCopyProfileValueWithExpectedType(const __CFString *a1, __CFString *a2, uint64_t a3)
+const void *MAPreferencesCopyProfileValueWithExpectedType(__CFString *a1, __CFString *a2, uint64_t a3)
 {
   v4 = MAPreferencesCopyProfileValue(a1, a2);
   v5 = v4;
@@ -199,7 +199,7 @@ NSObject *_copyResultPreferenceXPCCall(const void *a1, char a2, const void *a3)
   return v6;
 }
 
-void *MAPreferencesCopyProfileValue(CFStringRef theString, __CFString *value)
+void *MAPreferencesCopyProfileValue(__CFString *theString, __CFString *value)
 {
   if (!value)
   {
@@ -295,7 +295,7 @@ uint64_t _preferencesDefaults()
 
 void ___copyResultPreferenceXPCCall_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 72);
   v3 = *(a1 + 48);
   v4 = *(a1 + 56);
@@ -375,10 +375,9 @@ void ___copyResultPreferenceXPCCall_block_invoke(uint64_t a1)
 
   dispatch_semaphore_signal(*(a1 + 64));
   dispatch_release(*(a1 + 64));
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t MACaptionAppearancePrefIsProfileEditable(const __CFString *a1)
+BOOL MACaptionAppearancePrefIsProfileEditable(__CFString *a1)
 {
   TypeID = CFBooleanGetTypeID();
   v3 = MAPreferencesCopyProfileValueWithExpectedType(a1, @"MAIsEditable", TypeID);
@@ -884,27 +883,20 @@ const void *MAPreferencesCopyBoolean(__CFString *a1)
 
 const __CFString *MAUtilitiesCreateCanonicalLanguageIdentifierFromString(CFStringRef localeIdentifier)
 {
-  v9 = *MEMORY[0x1E69E9840];
   CanonicalLanguageIdentifierFromString = CFLocaleCreateCanonicalLanguageIdentifierFromString(0, localeIdentifier);
-  if (CanonicalLanguageIdentifierFromString)
+  if (!CanonicalLanguageIdentifierFromString)
   {
-    v2 = CanonicalLanguageIdentifierFromString;
-    Length = CFStringGetLength(CanonicalLanguageIdentifierFromString);
-    MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-    v5 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
-    if (CFStringGetCString(v2, v5, MaximumSizeForEncoding + 1, 0x8000100u) && uloc_toLanguageTag() >= 1)
-    {
-      CFRetain(v2);
-      v6 = v2;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v6 = 0;
-    }
-
-    free(v5);
-    CFRelease(v2);
+  v2 = CanonicalLanguageIdentifierFromString;
+  Length = CFStringGetLength(CanonicalLanguageIdentifierFromString);
+  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+  v5 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x100004077774924uLL);
+  if (CFStringGetCString(v2, v5, MaximumSizeForEncoding + 1, 0x8000100u) && uloc_toLanguageTag() >= 1)
+  {
+    CFRetain(v2);
+    v6 = v2;
   }
 
   else
@@ -912,7 +904,8 @@ const __CFString *MAUtilitiesCreateCanonicalLanguageIdentifierFromString(CFStrin
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  free(v5);
+  CFRelease(v2);
   return v6;
 }
 
@@ -990,21 +983,21 @@ BOOL MADimFlashingLightsEnabled(void)
   return v0() != 0;
 }
 
-void sub_1B0220A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B0220A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B0220C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B0220C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-const __CFString *MACaptionAppearancePrefCopyProfileName(const __CFString *a1)
+const __CFString *MACaptionAppearancePrefCopyProfileName(__CFString *a1)
 {
   TypeID = CFStringGetTypeID();
   v3 = MAPreferencesCopyProfileValueWithExpectedType(a1, @"MACaptionProfileName", TypeID);
@@ -1099,7 +1092,7 @@ double MACaptionAppearanceGetRelativeCharacterSizeForLanguage(uint64_t a1, void 
   }
 
   IsProfileEditable = MACaptionAppearancePrefIsProfileEditable(v6);
-  v9 = v5 < 1.5 && a3 != 0 && IsProfileEditable == 0;
+  v9 = v5 < 1.5 && a3 != 0 && !IsProfileEditable;
   if (v9 && MAUtilitiesLanguageStringMatchesLanguage(a3, @"ko"))
   {
     v5 = 1.5;
@@ -1163,21 +1156,21 @@ LABEL_11:
   }
 }
 
-const void *MAPreferencesCopyProfileBoolean(const __CFString *a1, __CFString *a2)
+const void *MAPreferencesCopyProfileBoolean(__CFString *a1, __CFString *a2)
 {
   TypeID = CFBooleanGetTypeID();
 
   return MAPreferencesCopyProfileValueWithExpectedType(a1, a2, TypeID);
 }
 
-const void *MAPreferencesCopyProfileNumber(const __CFString *a1, __CFString *a2)
+const void *MAPreferencesCopyProfileNumber(__CFString *a1, __CFString *a2)
 {
   TypeID = CFNumberGetTypeID();
 
   return MAPreferencesCopyProfileValueWithExpectedType(a1, a2, TypeID);
 }
 
-uint64_t MACaptionAppearancePrefGetRelativeCharSize(const __CFString *a1)
+uint64_t MACaptionAppearancePrefGetRelativeCharSize(__CFString *a1)
 {
   v2 = MAPreferencesCopyProfileNumber(a1, @"MACaptionCharScaleEnum");
   if (v2)
@@ -1315,16 +1308,15 @@ LABEL_10:
     {
       if (MAUtilitiesFontSupportsLanguage(CTFontDescriptorWithName, a4))
       {
-        goto LABEL_35;
+        goto LABEL_33;
       }
 
       CFRelease(CTFontDescriptorWithName);
-      v22 = (a3 - 1 > 6 ? MEMORY[0x1E6965660] : qword_1E7A94088[a3 - 1]);
-      v25 = *v22;
-      CTFontDescriptorWithName = CTFontDescriptorCreateForCSSFamily();
-      if (CTFontDescriptorWithName)
+      v24 = CTFontDescriptorCreateForCSSFamily();
+      CTFontDescriptorWithName = v24;
+      if (v24)
       {
-        goto LABEL_35;
+        goto LABEL_33;
       }
 
       goto LABEL_23;
@@ -1348,7 +1340,7 @@ LABEL_10:
 
   if (CTFontDescriptorWithName)
   {
-    goto LABEL_35;
+    goto LABEL_33;
   }
 
 LABEL_23:
@@ -1360,62 +1352,62 @@ LABEL_23:
 
   else
   {
-    v23 = CFDictionaryCreate(0, 0, 0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    CopyWithAttributes = v23;
-    if (!v23)
+    v22 = CFDictionaryCreate(0, 0, 0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    CopyWithAttributes = v22;
+    if (!v22)
     {
-      goto LABEL_48;
+      goto LABEL_46;
     }
 
-    CTFontDescriptorWithName = CTFontDescriptorCreateWithAttributes(v23);
+    CTFontDescriptorWithName = CTFontDescriptorCreateWithAttributes(v22);
     CFRelease(CopyWithAttributes);
     if (!CTFontDescriptorWithName)
     {
       CopyWithAttributes = 0;
       if (!v12)
       {
-        goto LABEL_50;
+        goto LABEL_48;
       }
 
-LABEL_49:
+LABEL_47:
       CFRelease(v12);
-      goto LABEL_50;
+      goto LABEL_48;
     }
   }
 
-LABEL_35:
+LABEL_33:
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   valuePtr = 1065353216;
   TextEdgeStyle = MACaptionAppearanceGetTextEdgeStyle(a1, 0);
   if (TextEdgeStyle < kMACaptionAppearanceTextEdgeStyleUniform)
   {
     valuePtr = 0;
-    goto LABEL_42;
+    goto LABEL_40;
   }
 
   if (TextEdgeStyle == kMACaptionAppearanceTextEdgeStyleUniform)
   {
-    v28 = 1077936128;
+    v27 = 1077936128;
   }
 
   else
   {
     if (TextEdgeStyle != kMACaptionAppearanceTextEdgeStyleDropShadow)
     {
-      goto LABEL_42;
+      goto LABEL_40;
     }
 
-    v28 = 1065353216;
+    v27 = 1065353216;
   }
 
-  valuePtr = v28;
-LABEL_42:
-  v29 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
-  CFDictionarySetValue(Mutable, @"MACaptionFontAttributeStrokeWidth", v29);
+  valuePtr = v27;
+LABEL_40:
+  v28 = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
+  CFDictionarySetValue(Mutable, @"MACaptionFontAttributeStrokeWidth", v28);
   CopyWithAttributes = CTFontDescriptorCreateCopyWithAttributes(CTFontDescriptorWithName, Mutable);
-  if (v29)
+  if (v28)
   {
-    CFRelease(v29);
+    CFRelease(v28);
   }
 
   if (Mutable)
@@ -1426,53 +1418,53 @@ LABEL_42:
   if (CopyWithAttributes)
   {
     CFRelease(CTFontDescriptorWithName);
-LABEL_48:
+LABEL_46:
     if (!v12)
     {
-      goto LABEL_50;
+      goto LABEL_48;
     }
 
-    goto LABEL_49;
+    goto LABEL_47;
   }
 
   CopyWithAttributes = CTFontDescriptorWithName;
   if (v12)
   {
-    goto LABEL_49;
+    goto LABEL_47;
   }
 
-LABEL_50:
+LABEL_48:
   if (a5)
   {
-    v30 = MACaptionAppearanceGetTextEdgeStyle(a1, 0);
-    v31 = 0.0972222222;
-    if (v30 != kMACaptionAppearanceTextEdgeStyleUniform)
+    v29 = MACaptionAppearanceGetTextEdgeStyle(a1, 0);
+    v30 = 0.0972222222;
+    if (v29 != kMACaptionAppearanceTextEdgeStyleUniform)
     {
-      v31 = 0.0;
+      v30 = 0.0;
     }
 
-    if (v30 == kMACaptionAppearanceTextEdgeStyleDropShadow)
+    if (v29 == kMACaptionAppearanceTextEdgeStyleDropShadow)
     {
-      v31 = 0.0277777778;
+      v30 = 0.0277777778;
     }
 
     if (a6 <= 60.0)
     {
-      v32 = v31 * a6;
+      v31 = v30 * a6;
     }
 
     else
     {
-      v32 = v31 * 60.0 + (a6 + -60.0) * (v31 * 0.125);
+      v31 = v30 * 60.0 + (a6 + -60.0) * (v30 * 0.125);
     }
 
-    *a5 = v32;
+    *a5 = v31;
   }
 
   return CopyWithAttributes;
 }
 
-const void *MACaptionAppearancePrefCopyVideoOverrideFontForStyle(const __CFString *a1, unint64_t a2)
+const void *MACaptionAppearancePrefCopyVideoOverrideFontForStyle(__CFString *a1, unint64_t a2)
 {
   v3 = _keyForFontStyle(a2);
   if (!v3)
@@ -1507,7 +1499,7 @@ __CFString *_keyForFontStyle(unint64_t a1)
   }
 }
 
-const __CFString *MAPreferencesCopyProfileFontDescriptor(const __CFString *a1, __CFString *a2)
+const __CFString *MAPreferencesCopyProfileFontDescriptor(__CFString *a1, __CFString *a2)
 {
   TypeID = CFStringGetTypeID();
   result = MAPreferencesCopyProfileValueWithExpectedType(a1, a2, TypeID);
@@ -1522,7 +1514,7 @@ const __CFString *MAPreferencesCopyProfileFontDescriptor(const __CFString *a1, _
   return result;
 }
 
-const __CFString *MACaptionAppearancePrefCopyFontDescriptorForStyle(const __CFString *a1, unint64_t a2)
+const __CFString *MACaptionAppearancePrefCopyFontDescriptorForStyle(__CFString *a1, unint64_t a2)
 {
   v3 = _keyForFontStyle(a2);
 
@@ -1777,7 +1769,7 @@ LABEL_15:
   return v9;
 }
 
-CFNumberRef MACaptionAppearancePrefCopyTextEdgeStyle(const __CFString *a1)
+CFNumberRef MACaptionAppearancePrefCopyTextEdgeStyle(__CFString *a1)
 {
   v1 = MAPreferencesCopyProfileNumber(a1, @"MACaptionTextEdgeStyle");
   if (!v1)
@@ -1808,7 +1800,7 @@ CFNumberRef MACaptionAppearancePrefCopyTextEdgeStyle(const __CFString *a1)
   return v4;
 }
 
-CFStringRef MAXCreateCFObjectFromXPC(void *a1)
+CFNumberRef MAXCreateCFObjectFromXPC(void *a1)
 {
   if (!a1)
   {
@@ -1889,7 +1881,7 @@ xpc_object_t MAXCreateXPCObjectFromCF(const __CFString *a1)
   valuePtr[256] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_18;
+    return 0;
   }
 
   v2 = CFGetTypeID(a1);
@@ -1897,20 +1889,14 @@ xpc_object_t MAXCreateXPCObjectFromCF(const __CFString *a1)
   {
     valuePtr[0] = 0;
     CFNumberGetValue(a1, kCFNumberSInt64Type, valuePtr);
-    v3 = xpc_int64_create(valuePtr[0]);
-LABEL_6:
-    v4 = v3;
-LABEL_19:
-    v13 = *MEMORY[0x1E69E9840];
-    return v4;
+    return xpc_int64_create(valuePtr[0]);
   }
 
   if (v2 == CFStringGetTypeID())
   {
     LOBYTE(valuePtr[0]) = 0;
     CFStringGetCString(a1, valuePtr, 2048, 0x8000100u);
-    v3 = xpc_string_create(valuePtr);
-    goto LABEL_6;
+    return xpc_string_create(valuePtr);
   }
 
   if (v2 == CFArrayGetTypeID())
@@ -1933,24 +1919,20 @@ LABEL_19:
       }
     }
 
-    goto LABEL_19;
+    return v4;
   }
 
   if (v2 != CFDictionaryGetTypeID())
   {
-LABEL_18:
-    v4 = 0;
-    goto LABEL_19;
+    return 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return _createXPCObjectFromCFDictionary(a1);
 }
 
 xpc_object_t _createXPCObjectFromCFDictionary(const __CFDictionary *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = xpc_dictionary_create(0, 0, 0);
   Count = CFDictionaryGetCount(a1);
   v4 = malloc_type_calloc(Count, 8uLL, 0xC0040B8AA526DuLL);
@@ -1988,11 +1970,10 @@ xpc_object_t _createXPCObjectFromCFDictionary(const __CFDictionary *a1)
 
   free(v4);
   free(v5);
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
-uint64_t ___createCFDictionaryFromXPCDictionary_block_invoke(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t ___createCFDictionaryFromXPCDictionary_block_invoke(uint64_t a1, const char *a2, void *a3)
 {
   if (a2)
   {
@@ -2091,35 +2072,34 @@ const CGImageMetadata *MAImageCaptioningCopyCaptionWithSource(CGImageSource *a1,
     {
       userInfoValues = 0;
       p_userInfoValues = &userInfoValues;
-      v14 = 0x2000000000;
-      v15 = 0;
-      v3 = *MEMORY[0x1E696D398];
-      v4 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@:%@", *MEMORY[0x1E696D398], *MEMORY[0x1E696DDA8]);
+      v13 = 0x2000000000;
+      v14 = 0;
+      v3 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@:%@", *MEMORY[0x1E696D398], *MEMORY[0x1E696DDA8]);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 0x40000000;
       block[2] = __MAImageCaptioningCopyCaptionWithSource_block_invoke;
       block[3] = &unk_1E7A93FC8;
       block[4] = &userInfoValues;
-      block[5] = v4;
+      block[5] = v3;
       CGImageMetadataEnumerateTagsUsingBlock(v2, 0, 0, block);
       CFRelease(v2);
-      if (v4)
+      if (v3)
       {
-        CFRelease(v4);
+        CFRelease(v3);
       }
 
-      v5 = p_userInfoValues[3];
-      if (!v5)
+      v4 = p_userInfoValues[3];
+      if (!v4)
       {
         v2 = 0;
         goto LABEL_15;
       }
 
-      if (CGImageMetadataTagGetType(v5) == kCGImageMetadataTypeString)
+      if (CGImageMetadataTagGetType(v4) == kCGImageMetadataTypeString)
       {
-        v6 = CGImageMetadataTagCopyValue(p_userInfoValues[3]);
-        v2 = v6;
-        if (!v6 || CFStringGetLength(v6))
+        v5 = CGImageMetadataTagCopyValue(p_userInfoValues[3]);
+        v2 = v5;
+        if (!v5 || CFStringGetLength(v5))
         {
           goto LABEL_11;
         }
@@ -2137,11 +2117,11 @@ LABEL_15:
 
   else if (a2)
   {
-    v8 = *MEMORY[0x1E695E480];
+    v7 = *MEMORY[0x1E695E480];
     userInfoValues = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Invalid image source");
-    v9 = CFErrorCreateWithUserInfoKeysAndValues(v8, @"com.apple.media.accessibility", 0, &userInfoKeys, &userInfoValues, 1);
+    v8 = CFErrorCreateWithUserInfoKeysAndValues(v7, @"com.apple.media.accessibility", 0, &userInfoKeys, &userInfoValues, 1);
     v2 = 0;
-    *a2 = v9;
+    *a2 = v8;
   }
 
   else
@@ -2286,12 +2266,9 @@ LABEL_21:
 
 uint64_t __libAccessibilityLibraryCore_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libAccessibilityLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2346,33 +2323,29 @@ void MACaptionAppearanceSetDisplayType(MACaptionAppearanceDomain domain, MACapti
 
 CFArrayRef MACaptionAppearanceCopyPreferredCaptioningMediaCharacteristics(MACaptionAppearanceDomain domain)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   MAPreferenceInitializeIfNeeded();
   v1 = MACaptionAppearancePrefCopyPreferAccessibleCaptions();
   if (!v1)
   {
-    goto LABEL_6;
+    return CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
   }
 
   v2 = v1;
   if (!CFBooleanGetValue(v1))
   {
     CFRelease(v2);
-LABEL_6:
-    v3 = CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
-    goto LABEL_7;
+    return CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
   }
 
-  v6 = xmmword_1E7A94078;
-  v3 = CFArrayCreate(0, &v6, 2, MEMORY[0x1E695E9C0]);
+  v5 = xmmword_1E7A94078;
+  v3 = CFArrayCreate(0, &v5, 2, MEMORY[0x1E695E9C0]);
   CFRelease(v2);
   if (!v3)
   {
-    goto LABEL_6;
+    return CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
   }
 
-LABEL_7:
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -2384,118 +2357,114 @@ BOOL MACaptionAppearanceIsCustomized(uint64_t a1)
   }
 
   v1 = MACaptionAppearancePrefCopyActiveProfileID();
-  v2 = MACaptionAppearancePrefIsProfileEditable(v1) != 0;
+  IsProfileEditable = MACaptionAppearancePrefIsProfileEditable(v1);
   if (v1)
   {
     CFRelease(v1);
   }
 
-  return v2;
+  return IsProfileEditable;
 }
 
 CGColorRef MACaptionAppearanceCopyForegroundColor(MACaptionAppearanceDomain domain, MACaptionAppearanceBehavior *behavior)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  _copyValue(MACaptionAppearancePrefCopyForegroundColor, MACaptionAppearancePrefCopyVideoOverrideForegroundColor, domain, &v7, behavior);
-  result = v7;
-  if (domain && !v7)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  _copyValue(MACaptionAppearancePrefCopyForegroundColor, MACaptionAppearancePrefCopyVideoOverrideForegroundColor, domain, &v6, behavior);
+  result = v6;
+  if (domain && !v6)
   {
-    _copyValue(MACaptionAppearancePrefCopyForegroundColor, MACaptionAppearancePrefCopyVideoOverrideForegroundColor, 0, &v7, behavior);
-    result = v7;
+    _copyValue(MACaptionAppearancePrefCopyForegroundColor, MACaptionAppearancePrefCopyVideoOverrideForegroundColor, 0, &v6, behavior);
+    result = v6;
   }
 
   if (!result)
   {
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
     *components = xmmword_1B022ED28;
-    v9 = unk_1B022ED38;
+    v8 = unk_1B022ED38;
     result = CGColorCreate(DeviceRGB, components);
-    v7 = result;
+    v6 = result;
     if (DeviceRGB)
     {
       CFRelease(DeviceRGB);
-      result = v7;
+      return v6;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CGColorRef MACaptionAppearanceCopyBackgroundColor(MACaptionAppearanceDomain domain, MACaptionAppearanceBehavior *behavior)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  _copyValue(MACaptionAppearancePrefCopyBackgroundColor, MACaptionAppearancePrefCopyVideoOverrideBackgroundColor, domain, &v7, behavior);
-  result = v7;
-  if (domain && !v7)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  _copyValue(MACaptionAppearancePrefCopyBackgroundColor, MACaptionAppearancePrefCopyVideoOverrideBackgroundColor, domain, &v6, behavior);
+  result = v6;
+  if (domain && !v6)
   {
-    _copyValue(MACaptionAppearancePrefCopyBackgroundColor, MACaptionAppearancePrefCopyVideoOverrideBackgroundColor, 0, &v7, behavior);
-    result = v7;
+    _copyValue(MACaptionAppearancePrefCopyBackgroundColor, MACaptionAppearancePrefCopyVideoOverrideBackgroundColor, 0, &v6, behavior);
+    result = v6;
   }
 
   if (!result)
   {
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
     *components = 0u;
-    v9 = 0u;
+    v8 = 0u;
     result = CGColorCreate(DeviceRGB, components);
-    v7 = result;
+    v6 = result;
     if (DeviceRGB)
     {
       CFRelease(DeviceRGB);
-      result = v7;
+      return v6;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 CGColorRef MACaptionAppearanceCopyStrokeColor()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
-  v4[0] = xmmword_1B022ED48;
-  v4[1] = unk_1B022ED58;
-  v1 = CGColorCreate(DeviceRGB, v4);
+  v3[0] = xmmword_1B022ED48;
+  v3[1] = unk_1B022ED58;
+  v1 = CGColorCreate(DeviceRGB, v3);
   if (DeviceRGB)
   {
     CFRelease(DeviceRGB);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 CGColorRef MACaptionAppearanceCopyWindowColor(MACaptionAppearanceDomain domain, MACaptionAppearanceBehavior *behavior)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  _copyValue(MACaptionAppearancePrefCopyWindowColor, MACaptionAppearancePrefCopyVideoOverrideWindowColor, domain, &v7, behavior);
-  result = v7;
-  if (domain && !v7)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  _copyValue(MACaptionAppearancePrefCopyWindowColor, MACaptionAppearancePrefCopyVideoOverrideWindowColor, domain, &v6, behavior);
+  result = v6;
+  if (domain && !v6)
   {
-    _copyValue(MACaptionAppearancePrefCopyWindowColor, MACaptionAppearancePrefCopyVideoOverrideWindowColor, 0, &v7, behavior);
-    result = v7;
+    _copyValue(MACaptionAppearancePrefCopyWindowColor, MACaptionAppearancePrefCopyVideoOverrideWindowColor, 0, &v6, behavior);
+    result = v6;
   }
 
   if (!result)
   {
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
     *components = 0u;
-    v9 = 0u;
+    v8 = 0u;
     result = CGColorCreate(DeviceRGB, components);
-    v7 = result;
+    v6 = result;
     if (DeviceRGB)
     {
       CFRelease(DeviceRGB);
-      result = v7;
+      return v6;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2674,33 +2643,29 @@ void MAAudibleMediaPrefSetPreferDescriptiveVideo(const void *a1)
 
 CFArrayRef MAAudibleMediaCopyPreferredCharacteristics(void)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   MAPreferenceInitializeIfNeeded();
   v0 = MAAudibleMediaPrefCopyPreferDescriptiveVideo();
   if (!v0)
   {
-    goto LABEL_6;
+    return CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
   }
 
   v1 = v0;
   if (!CFBooleanGetValue(v0))
   {
     CFRelease(v1);
-LABEL_6:
-    v2 = CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
-    goto LABEL_7;
+    return CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
   }
 
-  v5[0] = @"public.accessibility.describes-video";
-  v2 = CFArrayCreate(0, v5, 1, MEMORY[0x1E695E9C0]);
+  v4[0] = @"public.accessibility.describes-video";
+  v2 = CFArrayCreate(0, v4, 1, MEMORY[0x1E695E9C0]);
   CFRelease(v1);
   if (!v2)
   {
-    goto LABEL_6;
+    return CFArrayCreate(0, 0, 0, MEMORY[0x1E695E9C0]);
   }
 
-LABEL_7:
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -2728,9 +2693,9 @@ id getAXSettingsClass()
   return v1;
 }
 
-void sub_1B02237C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B02237C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2762,30 +2727,30 @@ uint64_t soft_AXSHapticMusicEnabled()
   return v0();
 }
 
-void sub_1B022392C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B022392C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B0223BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B0223BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id HMLog()
+id HMLog(uint64_t a1)
 {
   if (HMLog_onceToken != -1)
   {
     HMLog_cold_1();
   }
 
-  v1 = HMLog__HMLog;
+  v2 = HMLog__HMLog;
 
-  return v1;
+  return v2;
 }
 
 id getAXAccessQueueClass()
@@ -2812,37 +2777,37 @@ id getAXAccessQueueClass()
   return v1;
 }
 
-void sub_1B0223F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B0223F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getAXSettingsClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __AccessibilityUtilitiesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7A941E8;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __AccessibilityUtilitiesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7A941E8;
+    v5 = 0;
     AccessibilityUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary)
   {
-    __getAXSettingsClass_block_invoke_cold_2(v4);
+    __getAXSettingsClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("AXSettings");
@@ -2853,62 +2818,55 @@ Class __getAXSettingsClass_block_invoke(uint64_t a1)
   }
 
   getAXSettingsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B02255CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B02255CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __libAccessibilityLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libAccessibilityLibraryCore_frameworkLibrary_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getAXUIClientClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AccessibilityUILibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __AccessibilityUILibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7A94238;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __AccessibilityUILibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7A94238;
+    v5 = 0;
     AccessibilityUILibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AccessibilityUILibraryCore_frameworkLibrary)
   {
-    __getAXUIClientClass_block_invoke_cold_2(v4);
+    __getAXUIClientClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("AXUIClient");
@@ -2919,17 +2877,13 @@ Class __getAXUIClientClass_block_invoke(uint64_t a1)
   }
 
   getAXUIClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AccessibilityUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AccessibilityUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2942,28 +2896,28 @@ uint64_t __HMLog_block_invoke()
 
 Class __getAXAccessQueueClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!AXCoreUtilitiesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __AXCoreUtilitiesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7A94250;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __AXCoreUtilitiesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7A94250;
+    v5 = 0;
     AXCoreUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AXCoreUtilitiesLibraryCore_frameworkLibrary)
   {
-    __getAXAccessQueueClass_block_invoke_cold_2(v4);
+    __getAXAccessQueueClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("AXAccessQueue");
@@ -2974,24 +2928,21 @@ Class __getAXAccessQueueClass_block_invoke(uint64_t a1)
   }
 
   getAXAccessQueueClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __AXCoreUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AXCoreUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void MALegibleOutputDidOutputAttributedStrings(CFArrayRef theArray, uint64_t a2, CFDictionaryRef a3)
@@ -3788,7 +3739,7 @@ void MACaptionAppearancePrefSetTempProfileID(CFTypeRef cf)
   _MACaptionAppearanceTempProfileID = cf;
 }
 
-const void *MACaptionAppearancePrefCopyProfileOrder(const __CFString *a1)
+const void *MACaptionAppearancePrefCopyProfileOrder(__CFString *a1)
 {
   TypeID = CFNumberGetTypeID();
 
@@ -3864,34 +3815,35 @@ __CFString *MACaptionAppearancePrefCreateNewProfileFromProfile(__CFString *a1)
   return NewProfileID;
 }
 
-void _copyProfileToProfile(__CFString *a1, __CFString *a2, char a3)
+void _copyProfileToProfile(__CFString *a1, __CFString *a2, uint64_t a3)
 {
+  v3 = a3;
   _NotificationsSuspended_0 = 1;
   _copySetting(a1, MACaptionAppearancePrefCopyTextEdgeStyle, a2, MACaptionAppearancePrefSetTextEdgeStyle, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideTextEdgeStyle, a2, MACaptionAppearancePrefSetVideoOverrideTextEdgeStyle, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyForegroundColor, a2, MACaptionAppearancePrefSetForegroundColor, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideForegroundColor, a2, MACaptionAppearancePrefSetVideoOverrideForegroundColor, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyBackgroundColor, a2, MACaptionAppearancePrefSetBackgroundColor, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideBackgroundColor, a2, MACaptionAppearancePrefSetVideoOverrideBackgroundColor, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyWindowColor, a2, MACaptionAppearancePrefSetWindowColor, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideWindowColor, a2, MACaptionAppearancePrefSetVideoOverrideWindowColor, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyForegroundOpacity, a2, MACaptionAppearancePrefSetForegroundOpacity, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideForegroundOpacity, a2, MACaptionAppearancePrefSetVideoOverrideForegroundOpacity, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyBackgroundOpacity, a2, MACaptionAppearancePrefSetBackgroundOpacity, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideBackgroundOpacity, a2, MACaptionAppearancePrefSetVideoOverrideBackgroundOpacity, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyWindowOpacity, a2, MACaptionAppearancePrefSetWindowOpacity, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideWindowOpacity, a2, MACaptionAppearancePrefSetVideoOverrideWindowOpacity, a3);
-  _copySetting(a1, _MACaptionAppearancePrefCopyRelativeCharSize, a2, _MACaptionAppearancePrefSetRelativeCharSize, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyRelativeCharacterSize, a2, MACaptionAppearancePrefSetRelativeCharacterSize, a3);
-  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideRelativeCharSize, a2, MACaptionAppearancePrefSetVideoOverrideRelativeCharSize, a3);
-  _copyFontSetting(a1, MACaptionAppearancePrefCopyFontDescriptorForStyle, a2, MACaptionAppearancePrefSetFontDescriptorForStyle, a3);
-  _copyFontSetting(a1, MACaptionAppearancePrefCopyFontSpecifiedByUserForStyle, a2, MACaptionAppearancePrefSetFontSpecifiedByUserForStyle, a3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideTextEdgeStyle, a2, MACaptionAppearancePrefSetVideoOverrideTextEdgeStyle, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyForegroundColor, a2, MACaptionAppearancePrefSetForegroundColor, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideForegroundColor, a2, MACaptionAppearancePrefSetVideoOverrideForegroundColor, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyBackgroundColor, a2, MACaptionAppearancePrefSetBackgroundColor, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideBackgroundColor, a2, MACaptionAppearancePrefSetVideoOverrideBackgroundColor, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyWindowColor, a2, MACaptionAppearancePrefSetWindowColor, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideWindowColor, a2, MACaptionAppearancePrefSetVideoOverrideWindowColor, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyForegroundOpacity, a2, MACaptionAppearancePrefSetForegroundOpacity, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideForegroundOpacity, a2, MACaptionAppearancePrefSetVideoOverrideForegroundOpacity, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyBackgroundOpacity, a2, MACaptionAppearancePrefSetBackgroundOpacity, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideBackgroundOpacity, a2, MACaptionAppearancePrefSetVideoOverrideBackgroundOpacity, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyWindowOpacity, a2, MACaptionAppearancePrefSetWindowOpacity, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideWindowOpacity, a2, MACaptionAppearancePrefSetVideoOverrideWindowOpacity, v3);
+  _copySetting(a1, _MACaptionAppearancePrefCopyRelativeCharSize, a2, _MACaptionAppearancePrefSetRelativeCharSize, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyRelativeCharacterSize, a2, MACaptionAppearancePrefSetRelativeCharacterSize, v3);
+  _copySetting(a1, MACaptionAppearancePrefCopyVideoOverrideRelativeCharSize, a2, MACaptionAppearancePrefSetVideoOverrideRelativeCharSize, v3);
+  _copyFontSetting(a1, MACaptionAppearancePrefCopyFontDescriptorForStyle, a2, MACaptionAppearancePrefSetFontDescriptorForStyle, v3);
+  _copyFontSetting(a1, MACaptionAppearancePrefCopyFontSpecifiedByUserForStyle, a2, MACaptionAppearancePrefSetFontSpecifiedByUserForStyle, v3);
   for (i = 0; i != 8; ++i)
   {
     if (a1)
     {
       v7 = MACaptionAppearancePrefCopyVideoOverrideFontForStyle(a1, i);
-      if (a3)
+      if (v3)
       {
         goto LABEL_8;
       }
@@ -3900,7 +3852,7 @@ void _copyProfileToProfile(__CFString *a1, __CFString *a2, char a3)
     else
     {
       v7 = 0;
-      if (a3)
+      if (v3)
       {
         goto LABEL_8;
       }
@@ -3919,7 +3871,7 @@ LABEL_8:
     }
   }
 
-  _copySetting(a1, MACaptionAppearancePrefCopyWindowRoundedCornerRadius, a2, MACaptionAppearancePrefSetWindowRoundedCornerRadius, a3);
+  _copySetting(a1, MACaptionAppearancePrefCopyWindowRoundedCornerRadius, a2, MACaptionAppearancePrefSetWindowRoundedCornerRadius, v3);
   for (j = 0; j != 8; ++j)
   {
     v9 = -1;
@@ -4161,9 +4113,7 @@ uint64_t MACaptionAppearancePrefCopyShowCaptionsWhenAvailable()
     v2 = v1;
     valuePtr = 0;
     Value = CFNumberGetValue(v1, kCFNumberSInt32Type, &valuePtr);
-    v4 = valuePtr != 3 || Value == 0;
-    v5 = *MEMORY[0x1E695E4D0];
-    if (!v4)
+    if (valuePtr == 3 && Value != 0)
     {
       v0 = *MEMORY[0x1E695E4D0];
     }
@@ -4212,7 +4162,7 @@ void MACaptionAppearancePrefSetForegroundColor(__CFString *a1, CGColor *a2)
   _setPreferenceValue(a1, @"MACaptionForegroundColor", a2, MACaptionAppearancePrefCopyForegroundColor);
 }
 
-void _setPreferenceValue(__CFString *a1, __CFString *a2, CGColor *a3, uint64_t (*a4)(__CFString *))
+void _setPreferenceValue(__CFString *a1, __CFString *a2, CGColor *a3, uint64_t (*a4)(const __CFString *))
 {
   if (MACaptionAppearancePrefIsProfileEditable(a1))
   {
@@ -4300,7 +4250,7 @@ void MACaptionAppearancePrefSetWindowOpacity(__CFString *a1, CGColor *a2)
   _setPreferenceValue(a1, @"MACaptionWindowOpacity", a2, MACaptionAppearancePrefCopyWindowOpacity);
 }
 
-BOOL MACaptionAppearancePrefIsSystemFont(const __CFString *a1, unint64_t a2, uint64_t *a3)
+BOOL MACaptionAppearancePrefIsSystemFont(__CFString *a1, unint64_t a2, uint64_t *a3)
 {
   if (a3)
   {
@@ -4411,7 +4361,7 @@ void MACaptionAppearancePrefSetFontSpecifiedByUserForStyle(__CFString *a1, const
   }
 }
 
-BOOL MACaptionAppearancePrefIsFontSystemForStyle(const __CFString *a1, unint64_t a2, BOOL *a3)
+BOOL MACaptionAppearancePrefIsFontSystemForStyle(__CFString *a1, unint64_t a2, BOOL *a3)
 {
   v5 = 0;
   result = MACaptionAppearancePrefIsSystemFont(a1, a2, &v5);
@@ -4423,7 +4373,7 @@ BOOL MACaptionAppearancePrefIsFontSystemForStyle(const __CFString *a1, unint64_t
   return result;
 }
 
-const __CFString *MACaptionAppearancePrefCopyFontForStyle(const __CFString *a1, unint64_t a2)
+const __CFString *MACaptionAppearancePrefCopyFontForStyle(__CFString *a1, unint64_t a2)
 {
   v3 = _keyForFontStyle(a2);
 
@@ -4590,7 +4540,7 @@ void MACaptionAppearancePrefSetTextEdgeStyle(__CFString *a1, const __CFNumber *a
   }
 }
 
-const void *MACaptionAppearancePrefCopyFontSpecifiedByUserForStyle(const __CFString *a1, unint64_t a2)
+const void *MACaptionAppearancePrefCopyFontSpecifiedByUserForStyle(__CFString *a1, unint64_t a2)
 {
   v3 = _keyForFontStyle(a2);
   if (!v3)
@@ -4645,14 +4595,14 @@ void MACaptionAppearancePrefSetVideoOverrideFontForStyle(__CFString *a1, unint64
   }
 }
 
-const void *MAXCaptionAppearancePrefCopyProfileOrder(const __CFString *a1)
+const void *MAXCaptionAppearancePrefCopyProfileOrder(__CFString *a1)
 {
   TypeID = CFNumberGetTypeID();
 
   return MAPreferencesCopyProfileValueWithExpectedType(a1, @"MACaptionProfileOrder", TypeID);
 }
 
-const __CFString *MAXCaptionAppearancePrefCopyFontForStyle(const __CFString *a1, unint64_t a2)
+const __CFString *MAXCaptionAppearancePrefCopyFontForStyle(__CFString *a1, unint64_t a2)
 {
   v3 = _keyForFontStyle(a2);
 
@@ -4689,11 +4639,11 @@ void ___languagesUsingAlternateDefaults_block_invoke()
   _languagesUsingAlternateDefaults__alternateDefaultLanguages = Mutable;
 }
 
-void _copySetting(uint64_t a1, uint64_t (*a2)(void), uint64_t a3, void (*a4)(uint64_t, const void *), char a5)
+void _copySetting(uint64_t a1, uint64_t (*a2)(__CFString *), uint64_t a3, void (*a4)(uint64_t, const void *), char a5)
 {
   if (a1)
   {
-    v9 = a2();
+    v9 = (a2)();
     if (a5)
     {
       goto LABEL_7;
@@ -4711,7 +4661,7 @@ void _copySetting(uint64_t a1, uint64_t (*a2)(void), uint64_t a3, void (*a4)(uin
 
   if (!v9)
   {
-    v9 = (a2)(@"MACaptionSystemDefaultProfile");
+    v9 = a2(@"MACaptionSystemDefaultProfile");
   }
 
 LABEL_7:
@@ -4759,14 +4709,14 @@ LABEL_8:
   }
 }
 
-void sub_1B022921C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B022921C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4774,28 +4724,28 @@ void sub_1B022921C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 Class __getPSEVideoProcessorClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!PhotosensitivityProcessingLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __PhotosensitivityProcessingLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7A943A0;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __PhotosensitivityProcessingLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7A943A0;
+    v5 = 0;
     PhotosensitivityProcessingLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!PhotosensitivityProcessingLibraryCore_frameworkLibrary)
   {
-    __getPSEVideoProcessorClass_block_invoke_cold_2(v4);
+    __getPSEVideoProcessorClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("PSEVideoProcessor");
@@ -4806,17 +4756,13 @@ Class __getPSEVideoProcessorClass_block_invoke(uint64_t a1)
   }
 
   getPSEVideoProcessorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PhotosensitivityProcessingLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PhotosensitivityProcessingLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4840,14 +4786,6 @@ uint64_t __MADisplayFilterInitialize(void)
   }
 
   return pthread_mutex_unlock(&sInitLock);
-}
-
-double MADisplayFilterGetPostOffsets(uint64_t a1)
-{
-  result = *(a1 + 40);
-  v2 = *(a1 + 72);
-  v3 = *(a1 + 104);
-  return result;
 }
 
 double *MADisplayFilterSetPostOffsets(double *result, double a2, double a3, double a4)
@@ -4913,8 +4851,9 @@ double MADisplayFilterSetMatrix(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t MADisplayFilterCopySystemFilter(int a1, int a2, int a3)
+uint64_t MADisplayFilterCopySystemFilter(int a1, int a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = MADisplayFilterPrefCopyCategoriesForCurrentPlatform();
   if (!v6)
   {
@@ -4927,14 +4866,14 @@ uint64_t MADisplayFilterCopySystemFilter(int a1, int a2, int a3)
   {
     CFRelease(v7);
 LABEL_23:
-    v35 = 0;
-    *&v36 = 0;
+    v37 = 0;
     *&v38 = 0;
-    v34 = 0x3FF0000000000000uLL;
-    *(&v36 + 1) = 0x3FF0000000000000;
-    v37 = 0uLL;
+    *&v40 = 0;
+    v36 = 0x3FF0000000000000uLL;
     *(&v38 + 1) = 0x3FF0000000000000;
-    return _MADisplayFilterCreateWithPostOffset(&v34, 0.0, 0.0, 0.0);
+    v39 = 0uLL;
+    *(&v40 + 1) = 0x3FF0000000000000;
+    return _MADisplayFilterCreateWithPostOffset(&v36, 0.0, 0.0, 0.0);
   }
 
   v9 = Count;
@@ -4942,11 +4881,11 @@ LABEL_23:
   for (i = 0; i != v9; ++i)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(v7, i);
-    v34.i64[0] = 0;
-    CFNumberGetValue(ValueAtIndex, kCFNumberSInt64Type, &v34);
-    if (MADisplayFilterPrefGetCategoryEnabled(v34.i64[0]))
+    v36.i64[0] = 0;
+    CFNumberGetValue(ValueAtIndex, kCFNumberSInt64Type, &v36);
+    if (MADisplayFilterPrefGetCategoryEnabled(v36.i64[0]))
     {
-      v10 |= MADisplayFilterPrefGetType(v34.i64[0]);
+      v10 |= MADisplayFilterPrefGetType(v36.i64[0]);
     }
   }
 
@@ -4956,15 +4895,15 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v35 = 0;
-  *&v36 = 0;
+  v37 = 0;
   *&v38 = 0;
-  v34 = 0x3FF0000000000000uLL;
-  *(&v36 + 1) = 0x3FF0000000000000;
-  v37 = 0uLL;
+  *&v40 = 0;
+  v36 = 0x3FF0000000000000uLL;
   *(&v38 + 1) = 0x3FF0000000000000;
-  v13 = _MADisplayFilterCreateWithPostOffset(&v34, 0.0, 0.0, 0.0);
-  v14 = v13;
+  v39 = 0uLL;
+  *(&v40 + 1) = 0x3FF0000000000000;
+  v13 = _MADisplayFilterCreateWithPostOffset(&v36, 0.0, 0.0, 0.0);
+  v16 = v13;
   if (a1 && (v10 & 0x20) != 0)
   {
     if (v13)
@@ -4972,22 +4911,22 @@ LABEL_23:
       CFRelease(v13);
     }
 
-    v34 = vdupq_n_s64(0xBFD51EB851EB851FLL);
-    v35 = 0xBFD51EB851EB851FLL;
-    v36 = 0u;
-    v37 = 0u;
+    v36 = vdupq_n_s64(0xBFD51EB851EB851FLL);
+    v37 = 0xBFD51EB851EB851FLL;
     v38 = 0u;
-    v14 = _MADisplayFilterCreateWithPostOffset(&v34, 0.0, 0.0, 0.0);
-    *(v14 + 40) = 0x3FF0000000000000;
+    v39 = 0u;
+    v40 = 0u;
+    v16 = _MADisplayFilterCreateWithPostOffset(&v36, 0.0, 0.0, 0.0);
+    *(v16 + 40) = 0x3FF0000000000000;
   }
 
   if ((v10 & 0x10) != 0)
   {
     MADisplayFilterPrefGetSingleColorHue();
-    v16 = v15;
+    v18 = v17;
     MADisplayFilterPrefGetSingleColorIntensity();
-    SingleColor = MADisplayFilterCreateSingleColor(v16, v18, v19, v17);
-    MADisplayFilterCombine(v14, SingleColor);
+    SingleColor = MADisplayFilterCreateSingleColor(v18, v20, v21, v19);
+    MADisplayFilterCombine(v16, SingleColor);
     if (SingleColor)
     {
       CFRelease(SingleColor);
@@ -4996,28 +4935,28 @@ LABEL_23:
 
   if ((v10 & 2) != 0)
   {
-    MADisplayFilterPrefGetRedColorCorrectionIntensity();
-    RedColorCorrection = MADisplayFilterCreateRedColorCorrection(v24);
+    MADisplayFilterPrefGetRedColorCorrectionIntensity(v14, v15);
+    RedColorCorrection = MADisplayFilterCreateRedColorCorrection(v26);
     goto LABEL_28;
   }
 
   if ((v10 & 4) != 0)
   {
     MADisplayFilterPrefGetGreenColorCorrectionIntensity();
-    RedColorCorrection = MADisplayFilterCreateGreenColorCorrection(v25);
+    RedColorCorrection = MADisplayFilterCreateGreenColorCorrection(v27);
     goto LABEL_28;
   }
 
   if ((v10 & 8) != 0)
   {
     MADisplayFilterPrefGetBlueColorCorrectionIntensity();
-    RedColorCorrection = MADisplayFilterCreateBlueColorCorrection(v26);
+    RedColorCorrection = MADisplayFilterCreateBlueColorCorrection(v28);
 LABEL_28:
-    v27 = RedColorCorrection;
-    MADisplayFilterCombine(v14, RedColorCorrection);
-    if (v27)
+    v29 = RedColorCorrection;
+    MADisplayFilterCombine(v16, RedColorCorrection);
+    if (v29)
     {
-      CFRelease(v27);
+      CFRelease(v29);
     }
 
     goto LABEL_30;
@@ -5026,7 +4965,7 @@ LABEL_28:
   if (a2 && (v10 & 1) != 0)
   {
     MADisplayFilterPrefGetGrayscaleCorrectionIntensity();
-    RedColorCorrection = MADisplayFilterCreateGrayscale(v21);
+    RedColorCorrection = MADisplayFilterCreateGrayscale(v23);
     goto LABEL_28;
   }
 
@@ -5034,28 +4973,28 @@ LABEL_30:
   if ((v10 & 0x100) != 0)
   {
     MADisplayFilterPrefGetWarmthIntensity();
-    MADisplayFilterCreateBrightnessAdjust(a3, v28);
-    v30 = v29;
-    MADisplayFilterCombine(v14, v29);
-    if (v30)
+    MADisplayFilterCreateBrightnessAdjust(v3, v30);
+    v32 = v31;
+    MADisplayFilterCombine(v16, v31);
+    if (v32)
     {
-      CFRelease(v30);
+      CFRelease(v32);
     }
   }
 
   if ((v10 & 0x40) != 0)
   {
     MADisplayFilterPrefGetBrightnessIntensity();
-    MADisplayFilterCreateBrightnessAdjust(a3, v31);
-    v33 = v32;
-    MADisplayFilterCombine(v14, v32);
-    if (v33)
+    MADisplayFilterCreateBrightnessAdjust(v3, v33);
+    v35 = v34;
+    MADisplayFilterCombine(v16, v34);
+    if (v35)
     {
-      CFRelease(v33);
+      CFRelease(v35);
     }
   }
 
-  return v14;
+  return v16;
 }
 
 uint64_t MADisplayFilterCreateIdentity()
@@ -5373,10 +5312,10 @@ uint64_t MADisplayFilterCreateGrayscale(double a1)
   return v7;
 }
 
-void MADisplayFilterCreateBrightnessAdjust(int a1, double a2)
+void MADisplayFilterCreateBrightnessAdjust(int a1, __n128 a2)
 {
-  v2 = 1.0 - a2;
-  v3 = (1.0 - a2) * 0.75;
+  v2 = 1.0 - a2.n128_f64[0];
+  v3 = (1.0 - a2.n128_f64[0]) * 0.75;
   if (a1)
   {
 
@@ -5513,19 +5452,19 @@ double MAFilterMatrix3Multiply@<D0>(double *a1@<X0>, double *a2@<X1>, double *a3
 __int128 *MAFilterMatrix3IOMFBNormalize@<X0>(__int128 *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = 0;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = *result;
   v4 = result[1];
-  v16 = *result;
-  v17 = v4;
+  v15 = *result;
+  v16 = v4;
   v5 = result[2];
   v6 = result[3];
-  v18 = v5;
-  v19 = v6;
+  v17 = v5;
+  v18 = v6;
   v7 = *(result + 8);
-  v20 = v7;
+  v19 = v7;
   v8 = 0.0;
-  v9 = &v16;
+  v9 = &v15;
   do
   {
     v10 = 0;
@@ -5550,7 +5489,7 @@ __int128 *MAFilterMatrix3IOMFBNormalize@<X0>(__int128 *result@<X0>, uint64_t a2@
   if (v8 < 1.0)
   {
     v12 = 0;
-    v13 = &v16;
+    v13 = &v15;
     do
     {
       for (i = 0; i != 24; i += 8)
@@ -5563,11 +5502,11 @@ __int128 *MAFilterMatrix3IOMFBNormalize@<X0>(__int128 *result@<X0>, uint64_t a2@
     }
 
     while (v12 != 3);
-    v3 = v16;
-    v4 = v17;
-    v5 = v18;
-    v6 = v19;
-    v7 = v20;
+    v3 = v15;
+    v4 = v16;
+    v5 = v17;
+    v6 = v18;
+    v7 = v19;
   }
 
   *a2 = v3;
@@ -5575,7 +5514,6 @@ __int128 *MAFilterMatrix3IOMFBNormalize@<X0>(__int128 *result@<X0>, uint64_t a2@
   *(a2 + 32) = v5;
   *(a2 + 48) = v6;
   *(a2 + 64) = v7;
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5885,11 +5823,11 @@ void MAPreferencesSetMultipleProfiles(const __CFDictionary *a1)
   }
 }
 
-void MAPreferencesRemoveProfile(__CFString *a1)
+void MAPreferencesRemoveProfile(__CFString *result)
 {
-  if (a1)
+  if (result)
   {
-    _preferencesSetValue(a1, 0);
+    _preferencesSetValue(result, 0);
   }
 }
 
@@ -6073,45 +6011,40 @@ void _preferencesSetValue(__CFString *a1, const void *a2)
   }
 }
 
-CGColorRef MAPreferencesCopyProfileColor(const __CFString *a1, __CFString *a2)
+CGColorRef MAPreferencesCopyProfileColor(__CFString *a1, __CFString *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   TypeID = CFDictionaryGetTypeID();
   v5 = MAPreferencesCopyProfileValueWithExpectedType(a1, a2, TypeID);
-  if (v5)
+  if (!v5)
   {
-    v6 = v5;
-    Value = CFDictionaryGetValue(v5, @"Red");
-    v8 = CFDictionaryGetValue(v6, @"Green");
-    v9 = CFDictionaryGetValue(v6, @"Blue");
-    v10 = CFDictionaryGetValue(v6, @"Alpha");
-    v11 = CFNumberGetTypeID();
-    v12 = 0;
-    if (Value && v8 && v9 && v10)
-    {
-      v13 = v11;
-      if (CFGetTypeID(Value) == v11 && CFGetTypeID(v8) == v13 && CFGetTypeID(v9) == v13 && CFGetTypeID(v10) == v13 && CFNumberGetValue(Value, kCFNumberFloatType, &v18) && CFNumberGetValue(v8, kCFNumberFloatType, &v18 + 4) && CFNumberGetValue(v9, kCFNumberFloatType, &v19) && CFNumberGetValue(v10, kCFNumberFloatType, &v19 + 4) && (*components = vcvtq_f64_f32(v18), v21 = vcvtq_f64_f32(v19), (DeviceRGB = CGColorSpaceCreateDeviceRGB()) != 0))
-      {
-        v15 = DeviceRGB;
-        v12 = CGColorCreate(DeviceRGB, components);
-        CFRelease(v15);
-      }
+    return 0;
+  }
 
-      else
-      {
-        v12 = 0;
-      }
+  v6 = v5;
+  Value = CFDictionaryGetValue(v5, @"Red");
+  v8 = CFDictionaryGetValue(v6, @"Green");
+  v9 = CFDictionaryGetValue(v6, @"Blue");
+  v10 = CFDictionaryGetValue(v6, @"Alpha");
+  v11 = CFNumberGetTypeID();
+  v12 = 0;
+  if (Value && v8 && v9 && v10)
+  {
+    v13 = v11;
+    if (CFGetTypeID(Value) == v11 && CFGetTypeID(v8) == v13 && CFGetTypeID(v9) == v13 && CFGetTypeID(v10) == v13 && CFNumberGetValue(Value, kCFNumberFloatType, &v17) && CFNumberGetValue(v8, kCFNumberFloatType, &v17 + 4) && CFNumberGetValue(v9, kCFNumberFloatType, &v18) && CFNumberGetValue(v10, kCFNumberFloatType, &v18 + 4) && (*components = vcvtq_f64_f32(v17), v20 = vcvtq_f64_f32(v18), (DeviceRGB = CGColorSpaceCreateDeviceRGB()) != 0))
+    {
+      v15 = DeviceRGB;
+      v12 = CGColorCreate(DeviceRGB, components);
+      CFRelease(v15);
     }
 
-    CFRelease(v6);
+    else
+    {
+      v12 = 0;
+    }
   }
 
-  else
-  {
-    v12 = 0;
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
+  CFRelease(v6);
   return v12;
 }
 
@@ -6184,7 +6117,7 @@ LABEL_13:
   MAPreferencesSetProfileValue(theString, a2, 0);
 }
 
-const __CFString *MAPreferencesCopyProfileFont(const __CFString *a1, __CFString *a2)
+const __CFString *MAPreferencesCopyProfileFont(__CFString *a1, __CFString *a2)
 {
   TypeID = CFStringGetTypeID();
   result = MAPreferencesCopyProfileValueWithExpectedType(a1, a2, TypeID);
@@ -6490,10 +6423,11 @@ void ___copyResultPreferenceXPCCall_block_invoke_2(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t MAUtilitiesFontsUseSamePostScriptName(const __CTFontDescriptor *a1, const __CTFontDescriptor *a2)
@@ -6763,11 +6697,10 @@ CGColor *MAUtilitiesRGBValuesForColor(CGColor *result, void *a2, void *a3, void 
 
 CFArrayRef __MAUtilitiesCustomizedFontLanguages_block_invoke()
 {
-  v2[1] = *MEMORY[0x1E69E9840];
-  v2[0] = @"ja";
-  result = CFArrayCreate(0, v2, 1, MEMORY[0x1E695E9C0]);
+  v1[1] = *MEMORY[0x1E69E9840];
+  v1[0] = @"ja";
+  result = CFArrayCreate(0, v1, 1, MEMORY[0x1E695E9C0]);
   MAUtilitiesCustomizedFontLanguages_customizedLanguages = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7341,29 +7274,26 @@ void type metadata accessor for OptionKey()
 
 uint64_t sub_1B022CB4C()
 {
-  v1 = *v0;
-  v2 = sub_1B022DB0C();
-  v3 = MEMORY[0x1B2721790](v2);
+  v0 = sub_1B022DB0C();
+  v1 = MEMORY[0x1B2721790](v0);
 
-  return v3;
+  return v1;
 }
 
-uint64_t sub_1B022CB88()
+uint64_t sub_1B022CB88(uint64_t a1)
 {
-  v1 = *v0;
   sub_1B022DB0C();
   sub_1B022DB1C();
 }
 
-uint64_t sub_1B022CBDC()
+uint64_t sub_1B022CBDC(uint64_t a1)
 {
-  v1 = *v0;
   sub_1B022DB0C();
   sub_1B022DB5C();
   sub_1B022DB1C();
-  v2 = sub_1B022DB6C();
+  v1 = sub_1B022DB6C();
 
-  return v2;
+  return v1;
 }
 
 uint64_t sub_1B022CC58(uint64_t a1, id *a2)
@@ -7380,63 +7310,58 @@ uint64_t sub_1B022CCD0(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_1B022CD50@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1B022CD50@<X0>(uint64_t *a2@<X8>)
 {
   sub_1B022DB0C();
-  v2 = sub_1B022DADC();
+  v3 = sub_1B022DADC();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_1B022CD94(uint64_t *a1, uint64_t *a2)
+uint64_t sub_1B022CD94(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_1B022DB0C();
-  v6 = v5;
-  if (v4 == sub_1B022DB0C() && v6 == v7)
+  v2 = sub_1B022DB0C();
+  v4 = v3;
+  if (v2 == sub_1B022DB0C() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_1B022DB4C();
+    v7 = sub_1B022DB4C();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_1B022CE1C@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1B022CE1C@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_1B022DADC();
+  v3 = sub_1B022DADC();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_1B022CE64@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_1B022DB0C();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_1B022CE90(uint64_t a1)
 {
-  v2 = sub_1B022CFC4(&qword_1EB6D0390);
-  v3 = sub_1B022CFC4(&qword_1EB6D0398);
+  v2 = sub_1B022CFC4(&qword_1EB6D0390, &unk_1B022F198);
+  v3 = sub_1B022CFC4(&qword_1EB6D0398, &unk_1B022F0EC);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t sub_1B022CFC4(unint64_t *a1)
+uint64_t sub_1B022CFC4(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)

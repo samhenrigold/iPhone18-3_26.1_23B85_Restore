@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20B764078();
+  sub_20B764078(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -75,8 +75,8 @@
   v7.super_class = type metadata accessor for CatalogTipGalleryViewController();
   v4 = v7.receiver;
   [(CatalogTipGalleryViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20B766090(&qword_27C764CF8, v5, type metadata accessor for CatalogTipGalleryViewController);
-  sub_20B766090(&qword_27C764D00, v6, type metadata accessor for CatalogTipGalleryViewController);
+  sub_20B766090(&qword_27C764CF8, v5, type metadata accessor for CatalogTipGalleryViewController, &unk_20C157198);
+  sub_20B766090(&qword_27C764D00, v6, type metadata accessor for CatalogTipGalleryViewController, &unk_20C156FA0);
   sub_20C139374();
 }
 

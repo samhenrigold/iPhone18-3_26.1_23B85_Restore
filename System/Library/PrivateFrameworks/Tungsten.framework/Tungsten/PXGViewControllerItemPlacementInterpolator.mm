@@ -119,11 +119,11 @@
     sourcePlacement = self->_sourcePlacement;
     if (sourcePlacement)
     {
-      [(PXGItemPlacement *)sourcePlacement displayedAssetContentsRect];
+      objc_msgSend_displayedAssetContentsRect(sourcePlacement);
       if (v32)
       {
 LABEL_24:
-        [v32 displayedAssetContentsRect];
+        objc_msgSend_displayedAssetContentsRect(v32);
 LABEL_27:
         PXStoryRectLinearlyInterpolatingRects();
 
@@ -157,9 +157,8 @@ LABEL_28:
   if (self->_animatesCornerRadius)
   {
     [(PXGItemPlacement *)self->_sourcePlacement cornerRadius:*&v30];
-    [(PXGItemPlacement *)self->_targetPlacement cornerRadius];
     v59 = v12;
-    *&v30 = PXGCornerRadiusByLinearlyInterpolatingCornerRadii();
+    *&v30 = PXGCornerRadiusByLinearlyInterpolatingCornerRadii([(PXGItemPlacement *)self->_targetPlacement cornerRadius]);
   }
 
   v68 = v30;
@@ -407,7 +406,7 @@ void __64__PXGViewControllerItemPlacementInterpolator_adjustedPlacement___block_
     v46 = v17->_sourcePlacement;
     if (v46)
     {
-      [(PXGItemPlacement *)v46 displayedAssetContentsRect];
+      objc_msgSend_displayedAssetContentsRect(v46);
     }
 
     else
@@ -422,7 +421,7 @@ void __64__PXGViewControllerItemPlacementInterpolator_adjustedPlacement___block_
       targetPlacement = v17->_targetPlacement;
       if (targetPlacement)
       {
-        [(PXGItemPlacement *)targetPlacement displayedAssetContentsRect];
+        objc_msgSend_displayedAssetContentsRect(targetPlacement);
       }
 
       else

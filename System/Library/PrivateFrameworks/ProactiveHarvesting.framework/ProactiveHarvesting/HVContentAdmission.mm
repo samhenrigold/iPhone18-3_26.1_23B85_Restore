@@ -10,12 +10,12 @@
 + (void)registerConfigurationAsset:(id)asset;
 + (void)updateConfigurableBundleIdentifierDenyList:(id)list;
 - (HVContentAdmission)init;
-- (uint64_t)_refreshPastEventsSetting;
 - (uint64_t)_shouldAdmitContentFromBundleIdentifier:(void *)identifier;
 - (void)_disableBundleIdentifier:(uint64_t)identifier;
 - (void)_migrateIfNeededWithCompletion:(uint64_t)completion;
 - (void)_refreshBundleIdentifierDenyListsWithLearnFromDenyList:(void *)list configurableDenyList:;
 - (void)_refreshDisabledBundleIds;
+- (void)_refreshPastEventsSetting;
 @end
 
 @implementation HVContentAdmission
@@ -36,9 +36,9 @@
 - (HVContentAdmission)init
 {
   location[3] = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = HVContentAdmission;
-  v2 = [(HVContentAdmission *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = HVContentAdmission;
+  v2 = [(HVContentAdmission *)&v29 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -66,32 +66,32 @@
     if (v2->_defaults)
     {
       objc_initWeak(location, v2);
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __26__HVContentAdmission_init__block_invoke;
-      v28[3] = &unk_2789695A8;
-      objc_copyWeak(&v29, location);
-      v14 = MEMORY[0x238381E60](v28);
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __26__HVContentAdmission_init__block_invoke;
+      v27[3] = &unk_2789695A8;
+      objc_copyWeak(&v28, location);
+      v14 = MEMORY[0x238381E60](v27);
       v15 = [HVContentAdmissionKVOObserver observeObject:v2->_defaults key:@"SiriCanLearnFromAppBlacklist" handler:v14];
       kvoObserver = v2->_kvoObserver;
       v2->_kvoObserver = v15;
 
       [(HVContentAdmission *)v2 _refreshDisabledBundleIds];
-      v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __26__HVContentAdmission_init__block_invoke_2;
-      v26 = &unk_2789695A8;
-      objc_copyWeak(&v27, location);
-      v17 = MEMORY[0x238381E60](&v23);
-      v18 = [HVContentAdmissionKVOObserver observeObject:v2->_defaults key:@"SuggestionsShowPastEvents" handler:v17, v23, v24, v25, v26];
+      v22 = MEMORY[0x277D85DD0];
+      v23 = 3221225472;
+      v24 = __26__HVContentAdmission_init__block_invoke_2;
+      v25 = &unk_2789695A8;
+      objc_copyWeak(&v26, location);
+      v17 = MEMORY[0x238381E60](&v22);
+      v18 = [HVContentAdmissionKVOObserver observeObject:v2->_defaults key:@"SuggestionsShowPastEvents" handler:v17, v22, v23, v24, v25];
       pastEventsObserver = v2->_pastEventsObserver;
       v2->_pastEventsObserver = v18;
 
       [(HVContentAdmission *)v2 _refreshPastEventsSetting];
       [(HVContentAdmission *)v2 _migrateIfNeededWithCompletion:?];
 
-      objc_destroyWeak(&v27);
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(location);
     }
 
@@ -107,7 +107,6 @@
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -119,7 +118,7 @@ void __26__HVContentAdmission_init__block_invoke(uint64_t a1)
 
 - (void)_refreshDisabledBundleIds
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *(self + 16);
@@ -142,9 +141,9 @@ void __26__HVContentAdmission_init__block_invoke(uint64_t a1)
         v8 = hv_default_log_handle();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 134217984;
-          v11 = [v7 count];
-          _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVContentAdmission loaded %tu disabled bundleIds from prefs", &v10, 0xCu);
+          v9 = 134217984;
+          v10 = [v7 count];
+          _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVContentAdmission loaded %tu disabled bundleIds from prefs", &v9, 0xCu);
         }
 
         [(HVContentAdmission *)self _refreshBundleIdentifierDenyListsWithLearnFromDenyList:v7 configurableDenyList:0];
@@ -155,14 +154,12 @@ void __26__HVContentAdmission_init__block_invoke(uint64_t a1)
         v7 = hv_default_log_handle();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v10) = 0;
-          _os_log_error_impl(&dword_2321EC000, v7, OS_LOG_TYPE_ERROR, "HVContentAdmission found unexpected value type for disabled bundleIds.", &v10, 2u);
+          LOWORD(v9) = 0;
+          _os_log_error_impl(&dword_2321EC000, v7, OS_LOG_TYPE_ERROR, "HVContentAdmission found unexpected value type for disabled bundleIds.", &v9, 2u);
         }
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __26__HVContentAdmission_init__block_invoke_2(uint64_t a1)
@@ -171,11 +168,11 @@ void __26__HVContentAdmission_init__block_invoke_2(uint64_t a1)
   [(HVContentAdmission *)WeakRetained _refreshPastEventsSetting];
 }
 
-- (uint64_t)_refreshPastEventsSetting
+- (void)_refreshPastEventsSetting
 {
   if (result)
   {
-    v1 = *(result + 8);
+    v1 = result[1];
     v2[0] = MEMORY[0x277D85DD0];
     v2[1] = 3221225472;
     v2[2] = __47__HVContentAdmission__refreshPastEventsSetting__block_invoke;
@@ -211,7 +208,7 @@ void __26__HVContentAdmission_init__block_invoke_2(uint64_t a1)
 
 uint64_t __53__HVContentAdmission__migrateIfNeededWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = hv_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -266,27 +263,27 @@ uint64_t __53__HVContentAdmission__migrateIfNeededWithCompletion___block_invoke_
 
     v8 = v7;
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v39;
+      v12 = *v38;
       do
       {
         v13 = 0;
         do
         {
-          if (*v39 != v12)
+          if (*v38 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v38 + 1) + 8 * v13);
+          v14 = *(*(&v37 + 1) + 8 * v13);
           if (objc_opt_respondsToSelector())
           {
             [(HVContentAdmission *)*(a1 + 32) _disableBundleIdentifier:v14];
@@ -296,7 +293,7 @@ uint64_t __53__HVContentAdmission__migrateIfNeededWithCompletion___block_invoke_
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v37 objects:v43 count:16];
       }
 
       while (v11);
@@ -358,30 +355,30 @@ uint64_t __53__HVContentAdmission__migrateIfNeededWithCompletion___block_invoke_
     }
 
     v25 = [*(*(a1 + 32) + 16) arrayForKey:@"SuggestionsPortraitTopicsAppUsageBlacklist"];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v26 = [v25 countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v35;
+      v28 = *v34;
       do
       {
         v29 = 0;
         do
         {
-          if (*v35 != v28)
+          if (*v34 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          [v16 addObject:*(*(&v34 + 1) + 8 * v29++)];
+          [v16 addObject:*(*(&v33 + 1) + 8 * v29++)];
         }
 
         while (v27 != v29);
-        v27 = [v25 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v33 objects:v42 count:16];
       }
 
       while (v27);
@@ -402,10 +399,9 @@ uint64_t __53__HVContentAdmission__migrateIfNeededWithCompletion___block_invoke_
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -456,48 +452,48 @@ uint64_t __47__HVContentAdmission__refreshPastEventsSetting__block_invoke(uint64
 
 - (void)_refreshBundleIdentifierDenyListsWithLearnFromDenyList:(void *)list configurableDenyList:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   listCopy = list;
   v7 = listCopy;
   if (self && v5 | listCopy)
   {
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__312;
-    v31 = __Block_byref_object_dispose__313;
-    v32 = 0;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__312;
+    v30 = __Block_byref_object_dispose__313;
+    v31 = 0;
     v8 = *(self + 8);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __98__HVContentAdmission__refreshBundleIdentifierDenyListsWithLearnFromDenyList_configurableDenyList___block_invoke;
-    v23[3] = &unk_278968CC8;
-    v18 = v5;
-    v24 = v5;
-    v25 = v7;
-    v26 = &v27;
-    [v8 runWithLockAcquired:v23];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __98__HVContentAdmission__refreshBundleIdentifierDenyListsWithLearnFromDenyList_configurableDenyList___block_invoke;
+    v22[3] = &unk_278968CC8;
+    v17 = v5;
+    v23 = v5;
+    v24 = v7;
+    v25 = &v26;
+    [v8 runWithLockAcquired:v22];
     v20 = 0u;
-    v9 = v28[5];
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v33 count:16];
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v9 = v27[5];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v32 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           v14 = objc_autoreleasePoolPush();
           v15 = [[HVSpotlightDeletionRequest alloc] initWithBundleIdentifier:v13];
           v16 = +[HVDonationReceiver defaultReceiver];
@@ -508,22 +504,20 @@ uint64_t __47__HVContentAdmission__refreshPastEventsSetting__block_invoke(uint64
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v19 objects:v33 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v18 objects:v32 count:16];
       }
 
       while (v10);
     }
 
-    _Block_object_dispose(&v27, 8);
-    v5 = v18;
+    _Block_object_dispose(&v26, 8);
+    v5 = v17;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HVContentAdmission__refreshBundleIdentifierDenyListsWithLearnFromDenyList_configurableDenyList___block_invoke(void *a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1[4];
   if (!v4)
@@ -540,31 +534,31 @@ void __98__HVContentAdmission__refreshBundleIdentifierDenyListsWithLearnFromDeny
   }
 
   [v5 unionSet:v7];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v8 = *(v3 + 3);
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       v12 = 0;
       do
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v25 + 1) + 8 * v12++) contentAdmissionBlocklistDidChange:{v6, v25}];
+        [*(*(&v24 + 1) + 8 * v12++) contentAdmissionBlocklistDidChange:{v6, v24}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v10);
@@ -580,11 +574,11 @@ void __98__HVContentAdmission__refreshBundleIdentifierDenyListsWithLearnFromDeny
   v16 = hv_default_log_handle();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v24 = *(*(a1[6] + 8) + 40);
+    v23 = *(*(a1[6] + 8) + 40);
     *buf = 138412546;
-    v30 = v6;
-    v31 = 2112;
-    v32 = v24;
+    v29 = v6;
+    v30 = 2112;
+    v31 = v23;
     _os_log_debug_impl(&dword_2321EC000, v16, OS_LOG_TYPE_DEBUG, "HVContentAdmission disabled bundles: %@ newly disabled: %@", buf, 0x16u);
   }
 
@@ -603,8 +597,6 @@ void __98__HVContentAdmission__refreshBundleIdentifierDenyListsWithLearnFromDeny
     v22 = *(v3 + 2);
     *(v3 + 2) = v21;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (void)migrateForTests
@@ -652,42 +644,42 @@ void __36__HVContentAdmission_sharedInstance__block_invoke()
 
 void __40__HVContentAdmission__clearTestSettings__block_invoke(uint64_t a1, void *a2)
 {
-  v19[9] = *MEMORY[0x277D85DE8];
+  v18[9] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v19[0] = @"SiriCanLearnFromAppBlacklist";
-  v19[1] = @"spToLearnMigrationPerformed";
-  v19[2] = @"findToShowMigrationPerformed";
-  v19[3] = @"SuggestionsShowContactsFoundInMail";
-  v19[4] = @"SuggestionsShowEventsFoundInMail";
-  v19[5] = @"SuggestionsShowLocationsFoundInApps";
-  v19[6] = @"SuggestionsShowTopicsFoundInApps";
-  v19[7] = @"SuggestionsPortraitTopicsAppUsageBlacklist";
-  v19[8] = @"AppCanShowSiriSuggestionsBlacklist";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:9];
+  v18[0] = @"SiriCanLearnFromAppBlacklist";
+  v18[1] = @"spToLearnMigrationPerformed";
+  v18[2] = @"findToShowMigrationPerformed";
+  v18[3] = @"SuggestionsShowContactsFoundInMail";
+  v18[4] = @"SuggestionsShowEventsFoundInMail";
+  v18[5] = @"SuggestionsShowLocationsFoundInApps";
+  v18[6] = @"SuggestionsShowTopicsFoundInApps";
+  v18[7] = @"SuggestionsPortraitTopicsAppUsageBlacklist";
+  v18[8] = @"AppCanShowSiriSuggestionsBlacklist";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:9];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = v16 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(a1 + 32) + 16) removeObjectForKey:{*(*(&v14 + 1) + 8 * v8++), v14}];
+        [*(*(a1 + 32) + 16) removeObjectForKey:{*(*(&v13 + 1) + 8 * v8++), v13}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -700,8 +692,6 @@ void __40__HVContentAdmission__clearTestSettings__block_invoke(uint64_t a1, void
   v11 = objc_opt_new();
   v12 = v3[2];
   v3[2] = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)suggestionsShouldShowPastEvents
@@ -735,7 +725,7 @@ void __40__HVContentAdmission__clearTestSettings__block_invoke(uint64_t a1, void
 
 + (BOOL)shouldAdmitContentFromBundleIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -766,13 +756,12 @@ void __40__HVContentAdmission__clearTestSettings__block_invoke(uint64_t a1, void
     }
 
     *buf = 138412546;
-    v16 = v11;
-    v17 = 2112;
-    v18 = identifierCopy;
+    v15 = v11;
+    v16 = 2112;
+    v17 = identifierCopy;
     _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_INFO, "HVContentAdmission: %@ content from bundleIdentifier: %@", buf, 0x16u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -870,7 +859,7 @@ void __62__HVContentAdmission__shouldAdmitContentFromBundleIdentifier___block_in
 
 void __50__HVContentAdmission__registerConfigurationAsset___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -878,14 +867,14 @@ void __50__HVContentAdmission__registerConfigurationAsset___block_invoke(uint64_
     v5 = [v3 filesystemPathForAssetDataRelativePath:@"ProactiveHarvestingConfig.plist"];
     if (v5)
     {
-      v17 = 0;
-      v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:0 error:&v17];
-      v7 = v17;
+      v16 = 0;
+      v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:0 error:&v16];
+      v7 = v16;
       if (v6)
       {
-        v16 = 0;
-        v8 = [MEMORY[0x277CCAC58] propertyListWithData:v6 options:0 format:0 error:&v16];
-        v9 = v16;
+        v15 = 0;
+        v8 = [MEMORY[0x277CCAC58] propertyListWithData:v6 options:0 format:0 error:&v15];
+        v9 = v15;
 
         if (v9)
         {
@@ -893,9 +882,9 @@ void __50__HVContentAdmission__registerConfigurationAsset___block_invoke(uint64_
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v19 = v6;
-            v20 = 2112;
-            v21 = v9;
+            v18 = v6;
+            v19 = 2112;
+            v20 = v9;
             _os_log_error_impl(&dword_2321EC000, v10, OS_LOG_TYPE_ERROR, "HVContentAdmission Error deserializing ProactiveHarvesting config plist %@: %@", buf, 0x16u);
           }
         }
@@ -911,7 +900,7 @@ void __50__HVContentAdmission__registerConfigurationAsset___block_invoke(uint64_
           {
             v14 = [v10 count];
             *buf = 134217984;
-            v19 = v14;
+            v18 = v14;
             _os_log_impl(&dword_2321EC000, v13, OS_LOG_TYPE_DEFAULT, "HVContentAdmission received %tu disabled bundleIds from mobile asset", buf, 0xCu);
           }
 
@@ -925,9 +914,9 @@ void __50__HVContentAdmission__registerConfigurationAsset___block_invoke(uint64_
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v19 = v5;
-          v20 = 2112;
-          v21 = v7;
+          v18 = v5;
+          v19 = 2112;
+          v20 = v7;
           _os_log_error_impl(&dword_2321EC000, v8, OS_LOG_TYPE_ERROR, "HVContentAdmission Error obtaining data for ProactiveHarvesting config plist %@: %@", buf, 0x16u);
         }
 
@@ -941,13 +930,11 @@ void __50__HVContentAdmission__registerConfigurationAsset___block_invoke(uint64_
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = @"ProactiveHarvestingConfig.plist";
+        v18 = @"ProactiveHarvestingConfig.plist";
         _os_log_error_impl(&dword_2321EC000, v9, OS_LOG_TYPE_ERROR, "HVContentAdmission Error finding ProactiveHarvesting config plist (path: %@)", buf, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addContentAdmissionObserver:(id)observer

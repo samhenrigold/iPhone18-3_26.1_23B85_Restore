@@ -40,7 +40,7 @@ LABEL_16:
         }
 
         typingAttributes = [textView typingAttributes];
-        v24 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+        v24 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
       }
 
       else

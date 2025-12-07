@@ -36,7 +36,7 @@
   v78.receiver = self;
   v78.super_class = SBHSearchBar;
   [(SBHSearchBar *)&v78 layoutSubviews];
-  [(SBHSearchBar *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   v6 = v5;
   v76 = v7;
@@ -240,10 +240,10 @@
 
 - (SBHSearchBar)initWithFrame:(CGRect)frame
 {
-  v27[1] = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = SBHSearchBar;
-  v3 = [(SBHSearchBar *)&v26 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v29[1] = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = SBHSearchBar;
+  v3 = [(SBHSearchBar *)&v28 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [objc_alloc(MEMORY[0x1E69D3FC0]) initWithRecipe:1];
@@ -257,9 +257,9 @@
     v3->_cancelButton = v6;
 
     v8 = v3->_cancelButton;
-    v9 = SBHBundle();
-    v10 = [v9 localizedStringForKey:@"APP_LIBRARY_SEARCH_CANCEL_BUTTON_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    [(UIButton *)v8 setTitle:v10 forState:0];
+    v10 = SBHBundle(v9);
+    v11 = [v10 localizedStringForKey:@"APP_LIBRARY_SEARCH_CANCEL_BUTTON_TITLE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    [(UIButton *)v8 setTitle:v11 forState:0];
 
     [(UIButton *)v3->_cancelButton sizeToFit];
     [(UIButton *)v3->_cancelButton setAlpha:0.0];
@@ -270,16 +270,16 @@
 
     [(SBHSearchBar *)v3 addSubview:v3->_cancelButton];
     [(SBHSearchBar *)v3 _updateCancelButtonFont];
-    v12 = [SBHSearchTextField alloc];
-    v13 = [(SBHSearchTextField *)v12 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+    v13 = [SBHSearchTextField alloc];
+    v14 = [(SBHSearchTextField *)v13 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
     searchTextField = v3->_searchTextField;
-    v3->_searchTextField = v13;
+    v3->_searchTextField = v14;
 
-    [(UISearchTextField *)v3->_searchTextField setDelegate:v3];
-    v15 = v3->_searchTextField;
-    v16 = SBHBundle();
-    v17 = [v16 localizedStringForKey:@"APP_LIBRARY_SEARCH_PLACEHOLDER" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-    [(SBHSearchTextField *)v15 setPlaceholder:v17];
+    v16 = [(UISearchTextField *)v3->_searchTextField setDelegate:v3];
+    v17 = v3->_searchTextField;
+    v18 = SBHBundle(v16);
+    v19 = [v18 localizedStringForKey:@"APP_LIBRARY_SEARCH_PLACEHOLDER" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+    [(SBHSearchTextField *)v17 setPlaceholder:v19];
 
     defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter2 addObserver:v3 selector:sel__searchBarTextFieldDidChangeText_ name:*MEMORY[0x1E69DE5C0] object:v3->_searchTextField];
@@ -288,21 +288,21 @@
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-    v21 = 16.0;
+    v23 = 16.0;
     if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
-      v21 = 20.0;
+      v23 = 20.0;
     }
 
-    v3->_textFieldCancelButtonSpacing = v21;
+    v3->_textFieldCancelButtonSpacing = v23;
     v3->_alignsTextFieldOnPixelBoundaries = 1;
     v3->_portraitOrientation = 1;
     [(SBHSearchBar *)v3 setAccessibilityIdentifier:@"dewey-search-bar"];
     [(SBHSearchBar *)v3 _setIgnoresLayerTransformForSafeAreaInsets:1];
-    v22 = objc_opt_self();
-    v27[0] = v22;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
-    v24 = [(SBHSearchBar *)v3 registerForTraitChanges:v23 withAction:sel__preferredContentSizeCategoryDidChange];
+    v24 = objc_opt_self();
+    v29[0] = v24;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+    v26 = [(SBHSearchBar *)v3 registerForTraitChanges:v25 withAction:sel__preferredContentSizeCategoryDidChange];
   }
 
   return v3;
@@ -440,7 +440,7 @@ uint64_t __46__SBHSearchBar_setShowsCancelButton_animated___block_invoke(uint64_
   {
     objc_storeWeak(&self->_listLayoutProvider, obj);
     v7 = [obj layoutForIconLocation:@"SBIconLocationRoot"];
-    [v7 iconImageInfo];
+    objc_msgSend_iconImageInfo(v7);
     SBHIconListLayoutNonDefaultIconGridSizeClassLayoutInsets(v7, 1);
     BSFloatFloorForScale();
     self->_textFieldHorizontalLayoutInsets.top = 0.0;

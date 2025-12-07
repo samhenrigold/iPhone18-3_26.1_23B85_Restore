@@ -1,6 +1,7 @@
 @interface BSUIMapItem
 - (id)_bestBrandIconURLForSize:(id *)size allowSmaller:(uint64_t)smaller;
 - (id)_bestNavbarBrandIconURLForSize:(id *)size allowSmaller:(uint64_t)smaller;
+- (id)_isMessageIDVerified;
 - (id)_localizedResponseTime;
 - (id)_navBackgroundbrandColor;
 - (id)_navTintBrandColor;
@@ -10,7 +11,6 @@
 - (id)phoneNumber;
 - (id)timeZone;
 - (id)url;
-- (uint64_t)_isMessageIDVerified;
 - (void)makePlacecardViewController;
 @end
 
@@ -78,11 +78,11 @@
   return self;
 }
 
-- (uint64_t)_isMessageIDVerified
+- (id)_isMessageIDVerified
 {
   if (result)
   {
-    return [*(result + 8) _isMessageIDVerified];
+    return [result[1] _isMessageIDVerified];
   }
 
   return result;

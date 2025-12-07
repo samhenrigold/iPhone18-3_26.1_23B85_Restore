@@ -67,10 +67,10 @@
   return v4;
 }
 
-void __37__SearchUIContactsThumbnailView_init__block_invoke()
+void __37__SearchUIContactsThumbnailView_init__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v0 addObserver:objc_opt_class() selector:sel_clearAvatarSettings name:*MEMORY[0x1E69DDAD8] object:0];
+  v1 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v1 addObserver:objc_opt_class() selector:sel_clearAvatarSettings name:*MEMORY[0x1E69DDAD8] object:0];
 }
 
 - (void)_dynamicUserInterfaceTraitDidChange

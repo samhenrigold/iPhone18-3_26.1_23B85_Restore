@@ -58,39 +58,8 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_label == 0, [oCopy label], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (label = self->_label) != 0 && (objc_msgSend(v5, "label"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](label, "isEqual:", v10), v10, !v11) || (v12 = self->_predictionId == 0, objc_msgSend(v5, "predictionId"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_label == 0;
-  label = [oCopy label];
-  v8 = label != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  label = self->_label;
-  if (label)
-  {
-    label2 = [v5 label];
-    v11 = [(NSString *)label isEqual:label2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_predictionId == 0;
-  predictionId = [v5 predictionId];
-  v14 = predictionId != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -99,8 +68,8 @@ LABEL_8:
     predictionId = self->_predictionId;
     if (predictionId)
     {
-      predictionId2 = [v5 predictionId];
-      v17 = [(NSString *)predictionId isEqual:predictionId2];
+      predictionId = [v5 predictionId];
+      v17 = [(NSString *)predictionId isEqual:predictionId];
     }
 
     else
@@ -131,7 +100,7 @@ LABEL_8:
 
 - (IRMiLoPredictionEventDO)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"label"];
   if (v5)
@@ -144,9 +113,9 @@ LABEL_8:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRMiLoPredictionEventDO key label (expected %@, decoded %@)", v7, v9, 0];
-      v23 = *MEMORY[0x277CCA450];
-      v24[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x277CCA450];
+      v23[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRMiLoPredictionEventDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_9:
@@ -170,9 +139,9 @@ LABEL_6:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRMiLoPredictionEventDO key predictionId (expected %@, decoded %@)", v9, v10, 0];
-        v21 = *MEMORY[0x277CCA450];
-        v22 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+        v20 = *MEMORY[0x277CCA450];
+        v21 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRMiLoPredictionEventDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
 
@@ -205,7 +174,6 @@ LABEL_6:
   selfCopy = 0;
 LABEL_14:
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

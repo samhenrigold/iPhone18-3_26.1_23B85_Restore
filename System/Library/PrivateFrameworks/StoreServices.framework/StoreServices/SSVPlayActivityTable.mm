@@ -158,7 +158,7 @@
 void __76__SSVPlayActivityTable_insertPlayActivityEvent_withRevision_returningError___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   v4 = 0;
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   while (1)
   {
     if (v4 <= 1)
@@ -209,16 +209,21 @@ LABEL_11:
       v9 = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = v9 | 2;
+        LODWORD(v10) = v9 | 2;
       }
 
       else
       {
-        v10 = v9;
+        LODWORD(v10) = v9;
       }
 
       v11 = [v8 OSLogObject];
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
@@ -227,26 +232,25 @@ LABEL_11:
       {
         v12 = objc_opt_class();
         v13 = *(a1 + 48);
-        *v23 = 138412546;
-        *&v23[4] = v12;
-        *&v23[12] = 2112;
-        *&v23[14] = v13;
+        v22 = 138412546;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v13;
         v14 = v12;
-        LODWORD(v22) = 22;
-        v15 = _os_log_send_and_compose_impl();
+        v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v11, 16, "[%@] Statement Didn't finish after stepping -- %@", &v22, 22);
 
         if (v15)
         {
-          v11 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, v23, v22, *v23, *&v23[16], v24}];
+          v11 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
           free(v15);
           SSFileLog(v8, @"%@", v16, v17, v18, v19, v20, v21, v11);
-          goto LABEL_24;
+          goto LABEL_25;
         }
       }
 
       else
       {
-LABEL_24:
+LABEL_25:
       }
 
       return;
@@ -319,7 +323,7 @@ LABEL_4:
 
 void __76__SSVPlayActivityTable_removePlayActivityEventsUpToRevision_returningError___block_invoke(void *a1, sqlite3_stmt *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  *&v37[5] = *MEMORY[0x1E69E9840];
   sqlite3_bind_int64(a2, 1, a1[7]);
   *(*(a1[6] + 8) + 24) = [SSSQLiteDatabase statementDidFinishAfterStepping:a2];
   if ((*(*(a1[6] + 8) + 24) & 1) == 0)
@@ -333,16 +337,21 @@ void __76__SSVPlayActivityTable_removePlayActivityEventsUpToRevision_returningEr
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -351,31 +360,29 @@ void __76__SSVPlayActivityTable_removePlayActivityEventsUpToRevision_returningEr
     {
       v8 = objc_opt_class();
       v9 = a1[5];
-      *v35 = 138412546;
-      *&v35[4] = v8;
-      *&v35[12] = 2112;
-      *&v35[14] = v9;
+      v34 = 138412546;
+      v35 = v8;
+      v36 = 2112;
+      *v37 = v9;
       v10 = v8;
-      LODWORD(v34) = 22;
-      v33 = v35;
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 16, "[%@] Statement didn't finish after stepping -- %@", &v34, 22);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, v35, v34, *v35, *&v35[16], v36}];
+      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   v18 = [*(a1[4] + 8) countChanges];
   v19 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v19)
@@ -386,43 +393,48 @@ LABEL_14:
   v20 = [v19 shouldLog];
   if ([v19 shouldLogToDisk])
   {
-    v21 = v20 | 2;
+    LODWORD(v21) = v20 | 2;
   }
 
   else
   {
-    v21 = v20;
+    LODWORD(v21) = v20;
   }
 
   v22 = [v19 OSLogObject];
-  if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  {
+    v21 = v21;
+  }
+
+  else
   {
     v21 &= 2u;
   }
 
   if (!v21)
   {
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v23 = objc_opt_class();
   v24 = *(*(a1[6] + 8) + 24);
-  *v35 = 138412802;
-  *&v35[4] = v23;
-  *&v35[12] = 1024;
-  *&v35[14] = v24;
-  *&v35[18] = 1024;
-  *&v35[20] = v18;
+  v34 = 138412802;
+  v35 = v23;
+  v36 = 1024;
+  *v37 = v24;
+  v37[2] = 1024;
+  *&v37[3] = v18;
   v25 = v23;
-  LODWORD(v34) = 24;
-  v26 = _os_log_send_and_compose_impl();
+  LODWORD(v33) = 24;
+  v26 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, v22, 1, "[%@] Deleting out-of-date events returned: %d [%d rows affected]", &v34, v33);
 
   if (v26)
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, v35, v34}];
+    v22 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
     free(v26);
     SSFileLog(v19, @"%@", v27, v28, v29, v30, v31, v32, v22);
-LABEL_24:
+LABEL_26:
   }
 }
 
@@ -724,7 +736,7 @@ BOOL __39__SSVPlayActivityTable__setupDatabase___block_invoke(uint64_t a1, sqlit
     objc_msgSend(v21, "appendFormat:", @" FROM %@ WHERE ("), _eventsDatabaseTableName;
     if (iDCopy)
     {
-      objc_msgSend(v21, "appendFormat:", @"(%@ == ?) AND ("), CFSTR("store_account_id");
+      objc_msgSend(v21, "appendFormat:", @"(%@ == ?) AND ("), @"store_account_id";
     }
 
     [v21 appendFormat:@"%@ BETWEEN ? AND ?", @"revision_id"];
@@ -800,11 +812,11 @@ BOOL __39__SSVPlayActivityTable__setupDatabase___block_invoke(uint64_t a1, sqlit
   return 1;
 }
 
-uint64_t __204__SSVPlayActivityTable__getPlayActivityEvents_relevantRevisionsIndexSet_withStartRevision_endRevision_storeAccountID_shouldFilterStoreAccountID_additionalRevisionsIndexSet_ignoredRevisionsIndexSet_error___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__204__SSVPlayActivityTable__getPlayActivityEvents_relevantRevisionsIndexSet_withStartRevision_endRevision_storeAccountID_shouldFilterStoreAccountID_additionalRevisionsIndexSet_ignoredRevisionsIndexSet_error___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) appendFormat:@" OR %@ BETWEEN ? AND ?", @"revision_id"];
+    return [result[4] appendFormat:@" OR %@ BETWEEN ? AND ?", @"revision_id"];
   }
 
   return result;
@@ -980,7 +992,7 @@ uint64_t __204__SSVPlayActivityTable__getPlayActivityEvents_relevantRevisionsInd
   if (blockCopy && count)
   {
     _eventsDatabaseTableName = [objc_opt_class() _eventsDatabaseTableName];
-    v9 = objc_msgSend(objc_alloc(MEMORY[0x1E696AD60]), "initWithFormat:", @"SELECT DISTINCT %@ FROM %@ WHERE %@ IN ("), CFSTR("revision_id"), _eventsDatabaseTableName, CFSTR("pid");
+    v9 = objc_msgSend(objc_alloc(MEMORY[0x1E696AD60]), "initWithFormat:", @"SELECT DISTINCT %@ FROM %@ WHERE %@ IN ("), @"revision_id", _eventsDatabaseTableName, @"pid";
     v10 = 0;
     do
     {
@@ -1127,24 +1139,24 @@ BOOL __80__SSVPlayActivityTable__revisionsIndexSetUsingPersisentIDGenerationBloc
   return v14 & 1;
 }
 
-void __57__SSVPlayActivityTable__setValue_forDatabasePropertyKey___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+void __57__SSVPlayActivityTable__setValue_forDatabasePropertyKey___block_invoke(void *a1, sqlite3_stmt *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = 1;
-  v5 = 40;
+  v5 = 5;
   v6 = 1;
   do
   {
     v7 = v6;
-    sqlite3_bind_text(a2, v4, [*(a1 + v5) UTF8String], objc_msgSend(*(a1 + v5), "length"), 0);
+    sqlite3_bind_text(a2, v4, [a1[v5] UTF8String], objc_msgSend(a1[v5], "length"), 0);
     v6 = 0;
     ++v4;
-    v5 = 32;
+    v5 = 4;
   }
 
   while ((v7 & 1) != 0);
-  *(*(*(a1 + 64) + 8) + 24) = [SSSQLiteDatabase statementDidFinishAfterStepping:a2];
-  if ((*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
+  *(*(a1[8] + 8) + 24) = [SSSQLiteDatabase statementDidFinishAfterStepping:a2];
+  if ((*(*(a1[8] + 8) + 24) & 1) == 0)
   {
     v8 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v8)
@@ -1155,16 +1167,21 @@ void __57__SSVPlayActivityTable__setValue_forDatabasePropertyKey___block_invoke(
     v9 = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = v9 | 2;
+      LODWORD(v10) = v9 | 2;
     }
 
     else
     {
-      v10 = v9;
+      LODWORD(v10) = v9;
     }
 
     v11 = [v8 OSLogObject];
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -1172,34 +1189,33 @@ void __57__SSVPlayActivityTable__setValue_forDatabasePropertyKey___block_invoke(
     if (v10)
     {
       v12 = objc_opt_class();
-      v13 = *(a1 + 56);
-      *v23 = 138412546;
-      *&v23[4] = v12;
-      *&v23[12] = 2112;
-      *&v23[14] = v13;
+      v13 = a1[7];
+      v22 = 138412546;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v13;
       v14 = v12;
-      LODWORD(v22) = 22;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v11, 16, "[%@] Statement Didn't finish after stepping -- %@", &v22, 22);
 
       if (!v15)
       {
-LABEL_15:
+LABEL_16:
 
         return;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, v23, v22, *v23, *&v23[16], v24}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog(v8, @"%@", v16, v17, v18, v19, v20, v21, v11);
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 }
 
 void __57__SSVPlayActivityTable__setValue_forDatabasePropertyKey___block_invoke_148(uint64_t a1, sqlite3_stmt *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   sqlite3_bind_text(a2, 1, [*(a1 + 32) UTF8String], objc_msgSend(*(a1 + 32), "length"), 0);
   *(*(*(a1 + 56) + 8) + 24) = [SSSQLiteDatabase statementDidFinishAfterStepping:a2];
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
@@ -1213,16 +1229,21 @@ void __57__SSVPlayActivityTable__setValue_forDatabasePropertyKey___block_invoke_
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -1231,27 +1252,26 @@ void __57__SSVPlayActivityTable__setValue_forDatabasePropertyKey___block_invoke_
     {
       v8 = objc_opt_class();
       v9 = *(a1 + 48);
-      *v19 = 138412546;
-      *&v19[4] = v8;
-      *&v19[12] = 2112;
-      *&v19[14] = v9;
+      v18 = 138412546;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
       v10 = v8;
-      LODWORD(v18) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 16, "[%@] Statement Didn't finish after stepping -- %@", &v18, 22);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
         return;
       }
 
-      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, v19, v18, *v19, *&v19[16], v20}];
+      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v7);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 }
 

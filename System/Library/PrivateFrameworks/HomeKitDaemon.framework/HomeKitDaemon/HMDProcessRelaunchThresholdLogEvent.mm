@@ -7,15 +7,13 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"timeIntervalSincePreviousProcessLaunch";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"timeIntervalSincePreviousProcessLaunch";
   v3 = +[HMDLogEventHistograms latencyHistogram];
   timeIntervalSincePreviousProcessLaunch = [(HMDProcessRelaunchThresholdLogEvent *)self timeIntervalSincePreviousProcessLaunch];
   v5 = [v3 intervalIndexForValue:{1000 * objc_msgSend(timeIntervalSincePreviousProcessLaunch, "unsignedIntegerValue")}];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }

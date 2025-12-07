@@ -134,9 +134,9 @@
   v11 = v10 - self->_cellContentInset.left - self->_cellContentInset.right;
   style = [viewElement style];
   visibility = [style visibility];
-  v14 = [visibility isEqualToString:@"hidden"];
+  isEqualToString = objc_msgSend_isEqualToString_(visibility);
 
-  if (v14)
+  if (isEqualToString)
   {
     v15 = 0;
   }
@@ -899,16 +899,16 @@ LABEL_33:
   objc_storeStrong(&self->_reuseIdentifier, @"SKUIImageReuseIdentifier");
   style = [viewElement style];
   imageTreatment = [style imageTreatment];
-  v15 = [imageTreatment isEqualToString:@"uber"];
+  isEqualToString = objc_msgSend_isEqualToString_(imageTreatment);
 
-  if (v15)
+  if (isEqualToString)
   {
     self->_sectionBottomInset = 0.0;
   }
 
   style2 = [viewElement style];
   imageTreatment2 = [style2 imageTreatment];
-  v18 = [imageTreatment2 isEqualToString:@"uber-banner"];
+  v18 = objc_msgSend_isEqualToString_(imageTreatment2);
 
   if (v18)
   {

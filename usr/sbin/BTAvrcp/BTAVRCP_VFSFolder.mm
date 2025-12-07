@@ -2,6 +2,7 @@
 - (BTAVRCP_VFSFolder)initWithName:(id)name uid:(unint64_t)uid;
 - (MPMediaQuery)query;
 - (id)recentlyAddedFolderName;
+- (id)replyFolderWithType:(unsigned __int8)type uid:(id)uid name:(id)name;
 - (id)replyItemWithUid:(id)uid name:(id)name attributes:(id)attributes;
 - (void)storePredicate:(id)predicate;
 - (void)storePredicates:(id)predicates;
@@ -101,6 +102,35 @@
 {
   v4 = [NSSet setWithObject:predicate];
   [(BTAVRCP_VFSFolder *)self storePredicates:v4];
+}
+
+- (id)replyFolderWithType:(unsigned __int8)type uid:(id)uid name:(id)name
+{
+  typeCopy = type;
+  v14[0] = &__kCFBooleanTrue;
+  v13[0] = @"kIsFolder";
+  v13[1] = @"kFolderType";
+  nameCopy = name;
+  uidCopy = uid;
+  v9 = [NSNumber numberWithUnsignedChar:typeCopy];
+  v14[1] = v9;
+  v14[2] = uidCopy;
+  v13[2] = @"kUid";
+  v13[3] = @"kName";
+  if (nameCopy)
+  {
+    v10 = nameCopy;
+  }
+
+  else
+  {
+    v10 = &stru_100019658;
+  }
+
+  v14[3] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:4];
+
+  return v11;
 }
 
 - (id)replyItemWithUid:(id)uid name:(id)name attributes:(id)attributes

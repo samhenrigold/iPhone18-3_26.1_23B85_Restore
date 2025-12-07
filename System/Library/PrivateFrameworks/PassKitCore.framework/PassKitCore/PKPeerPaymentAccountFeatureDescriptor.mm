@@ -221,7 +221,7 @@
   maximumAmount = [(PKAccountFeatureDescriptor *)self maximumAmount];
   [v3 appendFormat:@"maximumAmount: '%@'; ", maximumAmount];
 
-  if (([identifier isEqualToString:@"loadFromCard"] & 1) != 0 || (objc_msgSend(identifier, "isEqualToString:", @"sendToUser") & 1) != 0 || objc_msgSend(identifier, "isEqualToString:", @"recurringPayments"))
+  if ((objc_msgSend_isEqualToString_(identifier) & 1) != 0 || (objc_msgSend_isEqualToString_(identifier) & 1) != 0 || objc_msgSend_isEqualToString_(identifier))
   {
     merchantIdentifier = [(PKAccountFeatureDescriptor *)self merchantIdentifier];
     [v3 appendFormat:@"merchantIdentifier: '%@'; ", merchantIdentifier];
@@ -233,7 +233,7 @@
     [v3 appendFormat:@"merchantCapabilities: '%@'; ", v9];
   }
 
-  if ([identifier isEqualToString:@"instantWithdrawal"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     feePercentage = [(PKPeerPaymentAccountFeatureDescriptor *)self feePercentage];
     [v3 appendFormat:@"feePercentage: '%@'; ", feePercentage];
@@ -245,13 +245,13 @@
     [v3 appendFormat:@"maximumFee: '%@'; ", maximumFee];
   }
 
-  if ([identifier isEqualToString:@"thresholdTopUp"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     [v3 appendFormat:@"amountSuggestions: '%@'; ", self->_amountSuggestions];
     [v3 appendFormat:@"thresholdSuggestions: '%@'; ", self->_thresholdSuggestions];
   }
 
-  if ([identifier isEqualToString:@"recurringPayments"])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     [v3 appendFormat:@"frequencyOptions: '%@'; ", self->_frequencyOptions];
     [v3 appendFormat:@"productTimeZone: '%@'; ", self->_productTimeZone];

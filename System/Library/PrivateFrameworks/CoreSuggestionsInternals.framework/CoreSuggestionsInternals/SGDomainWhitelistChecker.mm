@@ -62,23 +62,23 @@ void __69__SGDomainWhitelistChecker_isStructuredEventCandidateForEmailDomain___b
 
 + (BOOL)isStructuredEventCandidateForURL:(id)l title:(id)title
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (l)
   {
     host = [l host];
     if ([host length] <= 0x64)
     {
-      v15 = 0;
-      memset(v14, 0, sizeof(v14));
-      v7 = v14;
+      v14 = 0;
+      memset(v13, 0, sizeof(v13));
+      v7 = v13;
       LOBYTE(v6) = 0;
-      if ([host getCString:v14 maxLength:100 encoding:1])
+      if ([host getCString:v13 maxLength:100 encoding:1])
       {
-        v8 = strnlen(v14, 0x64uLL);
-        v9 = v14 + v8;
+        v8 = strnlen(v13, 0x64uLL);
+        v9 = v13 + v8;
         if (v8 >= 4)
         {
-          v7 = (v14 | (4 * (LODWORD(v14[0]) == 779581303)));
+          v7 = (v13 | (4 * (LODWORD(v13[0]) == 779581303)));
         }
 
         for (i = v9 - v7; v9 >= v7; --v9)
@@ -105,7 +105,6 @@ void __69__SGDomainWhitelistChecker_isStructuredEventCandidateForEmailDomain___b
     LOBYTE(v6) = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -131,7 +130,7 @@ void __69__SGDomainWhitelistChecker_isStructuredEventCandidateForEmailDomain___b
   return char;
 }
 
-uint64_t __57__SGDomainWhitelistChecker_payloadWithStartChar_andSize___block_invoke(void *a1, uint64_t a2)
+void *__57__SGDomainWhitelistChecker_payloadWithStartChar_andSize___block_invoke(void *a1, uint64_t a2)
 {
   v3 = *(a2 + 8);
   if (v3)
@@ -179,7 +178,7 @@ uint64_t __57__SGDomainWhitelistChecker_payloadWithStartChar_andSize___block_inv
   return lock;
 }
 
-uint64_t __45__SGDomainWhitelistChecker_payloadForDomain___block_invoke(uint64_t a1, uint64_t a2)
+void *__45__SGDomainWhitelistChecker_payloadForDomain___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a2 + 8);
   if (v3)
@@ -250,7 +249,7 @@ uint64_t __45__SGDomainWhitelistChecker_payloadForDomain___block_invoke(uint64_t
 
 void __32__SGDomainWhitelistChecker_lock__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = +[SGAsset asset];
   v4 = [v3 filesystemPathForAssetDataRelativePath:@"master_whitelist.trie"];
@@ -259,7 +258,7 @@ void __32__SGDomainWhitelistChecker_lock__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     out_token = 138412290;
-    v14 = v4;
+    v13 = v4;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "Loading master domains whitelist from path = %@", &out_token, 0xCu);
   }
 
@@ -282,26 +281,23 @@ void __32__SGDomainWhitelistChecker_lock__block_invoke(uint64_t a1)
   v9 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v2];
   v10 = lock_lock;
   lock_lock = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SGDomainWhitelistChecker_lock__block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = +[SGAsset asset];
   v3 = [v2 filesystemPathForAssetDataRelativePath:@"master_whitelist.trie"];
 
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "Received asset update notification. Now loading master domains whitelist from path = %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "Received asset update notification. Now loading master domains whitelist from path = %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) setTrieFromPath:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SGDomainWhitelistChecker_lock__block_invoke_12()

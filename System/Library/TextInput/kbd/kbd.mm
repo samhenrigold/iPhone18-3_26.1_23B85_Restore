@@ -2,7 +2,7 @@ BOOL sub_100001748(id a1, NSURL *a2, NSError *a3)
 {
   v4 = a2;
   v5 = a3;
-  v6 = TYALog();
+  v6 = TYALog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_10000D054(v4, v5, v6);
@@ -46,16 +46,16 @@ uint64_t _isTypologyURL(void *a1)
   return v4 & v5 & v7 & v9 & v2;
 }
 
-id IXATestAppRelayLog()
+id IXATestAppRelayLog(uint64_t a1)
 {
   if (qword_100026530 != -1)
   {
     sub_10000D32C();
   }
 
-  v1 = qword_100026528;
+  v2 = qword_100026528;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000024F8(id a1)
@@ -107,28 +107,27 @@ void sub_100003D8C(uint64_t a1)
   v2 = +[TIKeyboardInputManagerLoader sharedLoader];
   v3 = [v2 activeInputModeIdentifiers];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
-        v10 = TIInputModeGetSWLayout();
-        if (v10 && [*(a1 + 32) isEqualToString:{v10, v11}])
+        v9 = TIInputModeGetSWLayout();
+        if (v9 && [*(a1 + 32) isEqualToString:{v9, v10}])
         {
           *(*(*(a1 + 40) + 8) + 24) = 1;
 
@@ -136,7 +135,7 @@ void sub_100003D8C(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -210,7 +209,6 @@ void sub_100004FEC(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_100005248(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100026590 = objc_opt_new();
 
   return _objc_release_x1();
@@ -560,15 +558,15 @@ void sub_1000065EC(id a1, OS_xpc_object *a2)
   }
 }
 
-void sub_100006734(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100006734(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_debug_impl(a1, v11, OS_LOG_TYPE_DEBUG, a4, &buf, 0xCu);
+  _os_log_debug_impl(a1, v10, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t sub_1000067F4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_1000265A0 = objc_opt_new();
 
   return _objc_release_x1();
@@ -596,7 +594,6 @@ void sub_100006E18(uint64_t a1)
 
 uint64_t sub_100007410(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_1000265B0 = objc_opt_new();
 
   return _objc_release_x1();
@@ -604,7 +601,6 @@ uint64_t sub_100007410(uint64_t a1)
 
 uint64_t sub_100007900(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_1000265C0 = objc_opt_new();
 
   return _objc_release_x1();
@@ -726,16 +722,16 @@ void sub_100009630(id a1)
   _objc_release_x1();
 }
 
-id TYALog()
+id TYALog(uint64_t a1)
 {
   if (qword_1000265E8 != -1)
   {
     sub_10000DBE0();
   }
 
-  v1 = qword_1000265E0;
+  v2 = qword_1000265E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100009D68(id a1)
@@ -805,7 +801,6 @@ Class sub_10000A51C(uint64_t a1)
 uint64_t sub_10000A614(uint64_t a1)
 {
   [*(a1 + 32) resolveAssistantFrameworkClasses];
-  v2 = *(a1 + 32);
   qword_100026628 = objc_opt_new();
 
   return _objc_release_x1();
@@ -865,47 +860,46 @@ void sub_10000B3C8(uint64_t a1)
 {
   if (qword_100026638)
   {
-    v2 = *(a1 + 40);
-    v3 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
     error = 0;
-    v4 = [*(a1 + 32) notificationDetailsForType:*(a1 + 48)];
+    v3 = [*(a1 + 32) notificationDetailsForType:*(a1 + 48)];
     if (*(a1 + 48) == 2)
     {
-      v5 = 35;
+      v4 = 35;
     }
 
     else
     {
-      v5 = 0;
+      v4 = 0;
     }
 
-    qword_100026638 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, v5, &error, v4);
-    v6 = *(a1 + 40);
+    qword_100026638 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, v4, &error, v3);
+    v5 = *(a1 + 40);
     qword_100026640 = *(a1 + 48);
     if (error)
     {
-      v6[2](v6, 0);
+      v5[2](v5, 0);
     }
 
     else
     {
-      v7 = [v6 copy];
-      v8 = qword_100026610;
-      qword_100026610 = v7;
+      v6 = [v5 copy];
+      v7 = qword_100026610;
+      qword_100026610 = v6;
 
       RunLoopSource = CFUserNotificationCreateRunLoopSource(kCFAllocatorDefault, qword_100026638, sub_10000B53C, 0);
       if (RunLoopSource)
       {
-        v10 = RunLoopSource;
+        v9 = RunLoopSource;
         Current = CFRunLoopGetCurrent();
-        CFRunLoopAddSource(Current, v10, kCFRunLoopCommonModes);
-        CFRelease(v10);
+        CFRunLoopAddSource(Current, v9, kCFRunLoopCommonModes);
+        CFRelease(v9);
       }
 
       else
@@ -926,7 +920,7 @@ void sub_10000B53C(uint64_t a1, uint64_t a2)
 {
   if (qword_100026638 != a1)
   {
-    NSLog(@"Unexpected notification response received");
+    NSLog(@"Unexpected notification response received", a2);
     return;
   }
 
@@ -1179,7 +1173,6 @@ void *sub_10000CB18(uint64_t a1)
 
 uint64_t sub_10000CC40(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100026650 = result;
   return result;
@@ -1223,7 +1216,6 @@ Class sub_10000CCB4(uint64_t a1)
 
 uint64_t sub_10000CDE0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100026660 = result;
   return result;
@@ -1267,7 +1259,6 @@ Class sub_10000CE54(uint64_t a1)
 
 uint64_t sub_10000CF80(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100026670 = result;
   return result;
@@ -1339,13 +1330,6 @@ void sub_10000D47C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10000D52C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_1000024A8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_10000D5CC()
 {
   v0 = 136315138;
@@ -1370,28 +1354,26 @@ void sub_10000D6F0(void *a1, NSObject *a2)
 
 void sub_10000D7AC()
 {
-  v0 = [NSString stringWithFormat:@"%s Manually saving language models"];
-  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, "main_block_invoke", v7, 2u);
+  v8 = [NSString stringWithFormat:@"%s Manually saving language models", "main_block_invoke"];
+  sub_100006734(&_mh_execute_header, v0, v1, "%@", v2, v3, v4, v5, v6, v7);
 }
 
 void sub_10000D850(uint64_t a1)
 {
-  v1 = [NSString stringWithFormat:@"%s Couldn't create keyboard user directory: %@"];
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "main_block_invoke", a1, 2u);
+  v9 = [NSString stringWithFormat:@"%s Couldn't create keyboard user directory: %@", "main_block_invoke", a1];
+  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10000D8F8(void *a1)
 {
-  v8 = [a1 processIdentifier];
-  v1 = [NSString stringWithFormat:@"%s process %d tried to connect to the kbd accessibility server, but it was not entitled!"];
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "[TIAccessibilityServer listener:shouldAcceptNewConnection:]", v8, 2u);
+  v9 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s process %d tried to connect to the kbd accessibility server, but it was not entitled!", "-[TIAccessibilityServer listener:shouldAcceptNewConnection:]", [a1 processIdentifier]);
+  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10000D9A4(void *a1)
 {
-  v8 = [a1 processIdentifier];
-  v1 = [NSString stringWithFormat:@"%s Allowing connection from pid %d to kbd accessibility server"];
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "[TIAccessibilityServer listener:shouldAcceptNewConnection:]", v8, 2u);
+  v9 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s Allowing connection from pid %d to kbd accessibility server", "-[TIAccessibilityServer listener:shouldAcceptNewConnection:]", [a1 processIdentifier]);
+  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10000DA50(void *a1, NSObject *a2)
@@ -1418,36 +1400,32 @@ void sub_10000DC1C(uint64_t a1)
 
 void sub_10000DC88(void *a1)
 {
-  v8 = [a1 processIdentifier];
-  v1 = [NSString stringWithFormat:@"%s Establishing connection with PID %d"];
+  v1 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s Establishing connection with PID %d", "-[TIRemoteDataServer listener:shouldAcceptNewConnection:]", [a1 processIdentifier]);
   sub_10000D008();
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "[TIRemoteDataServer listener:shouldAcceptNewConnection:]", v8, v9);
+  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void sub_10000DD30(uint64_t *a1)
 {
-  v8 = *a1;
-  v1 = [NSString stringWithFormat:@"%s Could not read entitlement: %@"];
+  v1 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s Could not read entitlement: %@", "+[TIRemoteDataHandle shouldAcceptRequestForMeCardWithAuditToken:]", *a1);
   sub_10000D008();
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "+[TIRemoteDataHandle shouldAcceptRequestForMeCardWithAuditToken:]", v8, v9);
+  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void sub_10000DDD8()
 {
   v0 = +[NSXPCConnection currentConnection];
-  v8 = [v0 processIdentifier];
-  v1 = [NSString stringWithFormat:@"%s Rejecting request for me card from PID %d"];
+  v1 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s Rejecting request for me card from PID %d", "-[TIRemoteDataHandle requestMeCardWithCompletionHandler:]", [v0 processIdentifier]);
   sub_10000D008();
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "[TIRemoteDataHandle requestMeCardWithCompletionHandler:]", v8, v9);
+  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void sub_10000DEA0()
 {
   v0 = +[NSXPCConnection currentConnection];
-  v8 = [v0 processIdentifier];
-  v1 = [NSString stringWithFormat:@"%s Rejecting request for me card from PID %d"];
+  v1 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s Rejecting request for me card from PID %d", "-[TIRemoteDataHandle requestMeContactWithCompletionHandler:]", [v0 processIdentifier]);
   sub_10000D008();
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "[TIRemoteDataHandle requestMeContactWithCompletionHandler:]", v8, v9);
+  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void sub_10000DF68()
@@ -1490,9 +1468,9 @@ void sub_10000E168(void *a1)
 
 void sub_10000E1F4()
 {
-  v0 = [NSString stringWithFormat:@"%s Received request to delete all learned keyboard dictionaries."];
+  v0 = [NSString stringWithFormat:@"%s Received request to delete all learned keyboard dictionaries.", "[TIRemoteDataHandle removeAllDynamicDictionariesWithCompletionHandler:]"];
   sub_10000D008();
-  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, "[TIRemoteDataHandle removeAllDynamicDictionariesWithCompletionHandler:]", v7, v8);
+  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10000E294(void *a1)
@@ -1526,16 +1504,16 @@ void sub_10000E3BC(char a1, uint64_t a2, NSObject *a3)
 
 void sub_10000E490()
 {
-  v0 = [NSString stringWithFormat:@"%s Reading UITextChecker local dictionary"];
+  v0 = [NSString stringWithFormat:@"%s Reading UITextChecker local dictionary", "[TIRemoteDataHandle requestTextCheckerLocalDictionaryWithCompletionHandler:]"];
   sub_10000D008();
-  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, "[TIRemoteDataHandle requestTextCheckerLocalDictionaryWithCompletionHandler:]", v7, v8);
+  sub_100006734(&_mh_execute_header, v1, v2, "%@", v3, v4, v5, v6, v7, v8);
 }
 
 void sub_10000E530(uint64_t a1)
 {
-  v1 = [NSString stringWithFormat:@"%s Appending %@ to UITextChecker local dictionary"];
+  v1 = [NSString stringWithFormat:@"%s Appending %@ to UITextChecker local dictionary", "[TIRemoteDataHandle appendWordToTextCheckerLocalDictionary:]", a1];
   sub_10000D008();
-  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, "[TIRemoteDataHandle appendWordToTextCheckerLocalDictionary:]", a1, v9);
+  sub_100006734(&_mh_execute_header, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void sub_10000E5D4()

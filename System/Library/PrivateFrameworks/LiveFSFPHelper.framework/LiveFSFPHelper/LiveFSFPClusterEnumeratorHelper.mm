@@ -61,32 +61,30 @@ LABEL_5:
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = livefs_std_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[LiveFSFPClusterEnumeratorHelper invalidate]";
-    _os_log_impl(&dword_255FE9000, v3, OS_LOG_TYPE_INFO, "%s: marking state as DEAD", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[LiveFSFPClusterEnumeratorHelper invalidate]";
+    _os_log_impl(&dword_255FE9000, v3, OS_LOG_TYPE_INFO, "%s: marking state as DEAD", &v5, 0xCu);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   selfCopy->_state = 3;
   objc_sync_exit(selfCopy);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateItemsForObserver:(id)observer startingAtPage:(id)page
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v6 = objc_opt_new();
   ext = self->ext;
-  v16 = 0;
-  v8 = [(LiveFSFPExtensionHelper *)ext clusterDomainItemsOrError:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [(LiveFSFPExtensionHelper *)ext clusterDomainItemsOrError:&v15];
+  v9 = v15;
   v10 = livefs_std_log();
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v9)
@@ -94,9 +92,9 @@ LABEL_5:
     if (v11)
     {
       *buf = 136315394;
-      v18 = "[LiveFSFPClusterEnumeratorHelper enumerateItemsForObserver:startingAtPage:]";
-      v19 = 2112;
-      v20 = v9;
+      v17 = "[LiveFSFPClusterEnumeratorHelper enumerateItemsForObserver:startingAtPage:]";
+      v18 = 2112;
+      v19 = v9;
       _os_log_impl(&dword_255FE9000, v10, OS_LOG_TYPE_DEFAULT, "%s: err (%@)", buf, 0x16u);
     }
 
@@ -108,46 +106,43 @@ LABEL_5:
     if (v11)
     {
       *buf = 136315394;
-      v18 = "[LiveFSFPClusterEnumeratorHelper enumerateItemsForObserver:startingAtPage:]";
-      v19 = 2112;
-      v20 = v8;
+      v17 = "[LiveFSFPClusterEnumeratorHelper enumerateItemsForObserver:startingAtPage:]";
+      v18 = 2112;
+      v19 = v8;
       _os_log_impl(&dword_255FE9000, v10, OS_LOG_TYPE_DEFAULT, "%s: clusterDomainItems (%@)", buf, 0x16u);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __76__LiveFSFPClusterEnumeratorHelper_enumerateItemsForObserver_startingAtPage___block_invoke;
-    v14[3] = &unk_27981AEE8;
-    v14[4] = self;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __76__LiveFSFPClusterEnumeratorHelper_enumerateItemsForObserver_startingAtPage___block_invoke;
+    v13[3] = &unk_27981AEE8;
+    v13[4] = self;
     v12 = v6;
-    v15 = v12;
-    [v8 enumerateObjectsUsingBlock:v14];
+    v14 = v12;
+    [v8 enumerateObjectsUsingBlock:v13];
     [observerCopy didEnumerateItems:v12];
     [observerCopy finishEnumeratingUpToPage:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __76__LiveFSFPClusterEnumeratorHelper_enumerateItemsForObserver_startingAtPage___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [LiveFSFPClusterItem newWithName:v3 extension:*(*(a1 + 32) + 8)];
   v5 = livefs_std_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "[LiveFSFPClusterEnumeratorHelper enumerateItemsForObserver:startingAtPage:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "%s: clusterItem(%@) LiveFSFPClusterItem (%@)", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[LiveFSFPClusterEnumeratorHelper enumerateItemsForObserver:startingAtPage:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_255FE9000, v5, OS_LOG_TYPE_DEFAULT, "%s: clusterItem(%@) LiveFSFPClusterItem (%@)", &v6, 0x20u);
   }
 
   [*(a1 + 40) addObject:v4];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

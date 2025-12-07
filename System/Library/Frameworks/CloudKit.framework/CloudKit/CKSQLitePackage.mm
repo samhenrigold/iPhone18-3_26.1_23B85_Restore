@@ -20,7 +20,7 @@
 
 + (id)newPackageInDatabase:(id)database error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   v9 = objc_msgSend_db(databaseCopy, v7, v8);
   v11 = objc_msgSend_tableGroupInDatabase_withName_options_error_(CKSQLitePackage, v10, v9, @"Package", 0x100000, error);
@@ -61,28 +61,27 @@
   {
     if (error)
     {
-      v23 = *error;
+      v22 = *error;
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    v24 = 138543618;
-    v25 = v14;
-    v26 = 2114;
-    v27 = v23;
-    _os_log_debug_impl(&dword_1883EA000, v20, OS_LOG_TYPE_DEBUG, "newPackageInDatabase returning %{public}@, error=%{public}@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v14;
+    v25 = 2114;
+    v26 = v22;
+    _os_log_debug_impl(&dword_1883EA000, v20, OS_LOG_TYPE_DEBUG, "newPackageInDatabase returning %{public}@, error=%{public}@", &v23, 0x16u);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 + (id)existingPackageInDatabase:(id)database packageInfo:(id)info error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   infoCopy = info;
   v11 = objc_msgSend_db(databaseCopy, v9, v10);
@@ -105,22 +104,20 @@
   {
     if (error)
     {
-      v22 = *error;
+      v21 = *error;
     }
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
 
     *buf = 138543618;
-    v24 = v18;
-    v25 = 2114;
-    v26 = v22;
+    v23 = v18;
+    v24 = 2114;
+    v25 = v21;
     _os_log_debug_impl(&dword_1883EA000, v19, OS_LOG_TYPE_DEBUG, "existingPackageInDatabase returning %{public}@, error=%{public}@", buf, 0x16u);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

@@ -256,7 +256,7 @@ void __54__AMSFinanceAuthenticateResponse_performWithTaskInfo___block_invoke(uin
   [v21 resultWithCompletion:v24];
 }
 
-void __72__AMSFinanceAuthenticateResponse_performWithTaskInfo_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
+void __72__AMSFinanceAuthenticateResponse_performWithTaskInfo_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
   v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -271,7 +271,7 @@ void __72__AMSFinanceAuthenticateResponse_performWithTaskInfo_completionHandler_
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
-    v10 = *(a1 + 40);
+    v10 = a1[5];
     v11 = v9;
     v12 = [v10 properties];
     v13 = [v12 logUUID];
@@ -287,7 +287,7 @@ void __72__AMSFinanceAuthenticateResponse_performWithTaskInfo_completionHandler_
     _os_log_impl(&dword_192869000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Authentication request from response complete. action = %{public}@ | error = %{public}@", &v17, 0x2Au);
   }
 
-  v15 = *(a1 + 48);
+  v15 = a1[6];
   v16 = [v5 value];
   (*(v15 + 16))(v15, v16);
 }

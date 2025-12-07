@@ -288,7 +288,7 @@ LABEL_8:
     v107 = 0u;
     v5 = v4;
     v6 = 0;
-    v7 = [v5 countByEnumeratingWithState:&v106 objects:v154 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v106 objects:v153 count:16];
     if (v7)
     {
       v8 = *v107;
@@ -311,14 +311,14 @@ LABEL_8:
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
             {
               serviceName2 = [connectionCopy serviceName];
-              sub_1000099A8(serviceName2, v152, &v153);
+              sub_1000099A8(serviceName2, v152, &v152[4]);
             }
 
             v6 = 1;
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v106 objects:v154 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v106 objects:v153 count:16];
       }
 
       while (v7);

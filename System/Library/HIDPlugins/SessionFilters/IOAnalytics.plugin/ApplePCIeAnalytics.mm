@@ -1,7 +1,9 @@
 @interface ApplePCIeAnalytics
 + (id)_getProp:(__CFString *)prop fromReg:(unsigned int)reg withType:(Class)type;
 - (ApplePCIeAnalytics)init;
+- (BOOL)_iteratePCITree:(unsigned int)tree findSlot:(id *)slot findTBID:(id *)d;
 - (BOOL)_startEventMonitoring;
+- (void)_handleServiceMatched:(unsigned int)matched;
 - (void)_startEventMonitoring;
 - (void)_stopEventMonitoring;
 - (void)start;
@@ -197,6 +199,158 @@ void __26__ApplePCIeAnalytics_stop__block_invoke(uint64_t a1)
   }
 }
 
+- (BOOL)_iteratePCITree:(unsigned int)tree findSlot:(id *)slot findTBID:(id *)d
+{
+  v7 = *&tree;
+  parent = 0;
+  IOObjectRetain(tree);
+  if (IORegistryEntryGetParentEntry(v7, "IOService", &parent))
+  {
+    *&v9 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&name[96] = v9;
+    *&name[112] = v9;
+    *&name[64] = v9;
+    *&name[80] = v9;
+    *&name[32] = v9;
+    *&name[48] = v9;
+    *name = v9;
+    *&name[16] = v9;
+    IORegistryEntryGetName(v7, name);
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      [ApplePCIeAnalytics _iteratePCITree:findSlot:findTBID:];
+    }
+
+    v10 = v7;
+  }
+
+  else
+  {
+    v12 = parent;
+    if (!parent)
+    {
+LABEL_17:
+      IOObjectRelease(v7);
+      IOObjectRelease(parent);
+      return 1;
+    }
+
+    while (1)
+    {
+      if (IOObjectConformsTo(v12, "IOPCIHostBridge"))
+      {
+        goto LABEL_17;
+      }
+
+      if (!IOObjectConformsTo(v7, "IOPCIDevice"))
+      {
+        break;
+      }
+
+      v13 = [ApplePCIeAnalytics _getProp:kApplePCIeAnalytics_IOPCIDevice_Property_SlotName fromReg:v7 withType:objc_opt_class()];
+      v14 = v13;
+      if (v13)
+      {
+        *slot = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", strtol([v13 bytes] + 5, 0, 10));
+      }
+
+      v15 = [ApplePCIeAnalytics _getProp:kApplePCIeAnalytics_IOPCIDevice_Property_ThunderboltEntryID fromReg:v7 withType:objc_opt_class()];
+      v16 = v15;
+      if (v15)
+      {
+        v17 = v15;
+        *d = v16;
+      }
+
+      entry = 0;
+      if (IORegistryEntryGetParentEntry(parent, "IOService", &entry))
+      {
+        *&v19 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *&name[96] = v19;
+        *&name[112] = v19;
+        *&name[64] = v19;
+        *&name[80] = v19;
+        *&name[32] = v19;
+        *&name[48] = v19;
+        *name = v19;
+        *&name[16] = v19;
+        IORegistryEntryGetName(parent, name);
+        if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+        {
+          [ApplePCIeAnalytics _iteratePCITree:findSlot:findTBID:];
+        }
+
+        IOObjectRelease(v7);
+        v20 = parent;
+        goto LABEL_27;
+      }
+
+      v22 = 0;
+      if (IORegistryEntryGetParentEntry(v7, "IOService", &v22))
+      {
+        *&v21 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        *&name[96] = v21;
+        *&name[112] = v21;
+        *&name[64] = v21;
+        *&name[80] = v21;
+        *&name[32] = v21;
+        *&name[48] = v21;
+        *name = v21;
+        *&name[16] = v21;
+        IORegistryEntryGetName(entry, name);
+        if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+        {
+          [ApplePCIeAnalytics _iteratePCITree:findSlot:findTBID:];
+        }
+
+        IOObjectRelease(v7);
+        IOObjectRelease(parent);
+        v20 = entry;
+LABEL_27:
+        IOObjectRelease(v20);
+
+        return 0;
+      }
+
+      IOObjectRelease(v7);
+      IOObjectRelease(parent);
+      v7 = entry;
+      parent = v22;
+
+      v12 = parent;
+      if (!parent)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    *&v18 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&name[96] = v18;
+    *&name[112] = v18;
+    *&name[64] = v18;
+    *&name[80] = v18;
+    *&name[32] = v18;
+    *&name[48] = v18;
+    *name = v18;
+    *&name[16] = v18;
+    IORegistryEntryGetName(v7, name);
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    {
+      [ApplePCIeAnalytics _iteratePCITree:findSlot:findTBID:];
+    }
+
+    IOObjectRelease(v7);
+    v10 = parent;
+  }
+
+  IOObjectRelease(v10);
+  return 0;
+}
+
 + (id)_getProp:(__CFString *)prop fromReg:(unsigned int)reg withType:(Class)type
 {
   CFProperty = IORegistryEntryCreateCFProperty(reg, prop, kCFAllocatorDefault, 0);
@@ -209,34 +363,217 @@ void __26__ApplePCIeAnalytics_stop__block_invoke(uint64_t a1)
   return CFProperty;
 }
 
+- (void)_handleServiceMatched:(unsigned int)matched
+{
+  if (!matched)
+  {
+    return;
+  }
+
+  v3 = *&matched;
+  if ([(ApplePCIeAnalytics *)self analyticsEventsEnabled])
+  {
+    v5 = objc_opt_new();
+    v6 = [ApplePCIeAnalytics _getProp:kApplePCIeAnalytics_IOPCIDevice_Property_VendorID fromReg:v3 withType:objc_opt_class()];
+    v7 = convertNSDataToHexString(v6);
+    [v5 setValue:v7 forKey:@"PCIe_VID"];
+
+    v8 = [ApplePCIeAnalytics _getProp:kApplePCIeAnalytics_IOPCIDevice_Property_DeviceID fromReg:v3 withType:objc_opt_class()];
+    v9 = convertNSDataToHexString(v8);
+    [v5 setValue:v9 forKey:@"PCIe_DID"];
+
+    v10 = [ApplePCIeAnalytics _getProp:kApplePCIeAnalytics_IOPCIDevice_Property_SubsystemVendorID fromReg:v3 withType:objc_opt_class()];
+    v11 = convertNSDataToHexString(v10);
+    [v5 setValue:v11 forKey:@"PCIe_Subsystem_VID"];
+
+    v12 = [ApplePCIeAnalytics _getProp:kApplePCIeAnalytics_IOPCIDevice_Property_SubsystemID fromReg:v3 withType:objc_opt_class()];
+    v13 = convertNSDataToHexString(v12);
+    [v5 setValue:v13 forKey:@"PCIe_Subsystem_ID"];
+
+    v14 = [ApplePCIeAnalytics _getProp:kApplePCIeAnalytics_IOPCIDevice_Property_ClassCode fromReg:v3 withType:objc_opt_class()];
+    v15 = convertNSDataToHexString(v14);
+    [v5 setValue:v15 forKey:@"PCIe_ClassCode"];
+
+    v16 = [ApplePCIeAnalytics _getProp:@"IOPCIExpressCapabilities" fromReg:v3 withType:objc_opt_class()];
+    v17 = [NSNumber numberWithBool:v16 != 0];
+    [v5 setObject:v17 forKey:@"isPCIe"];
+
+    if (v16)
+    {
+      v18 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"0x%X", [v16 unsignedIntValue]);
+      [v5 setObject:v18 forKey:@"PCIe_Capabilities"];
+    }
+
+    v19 = [ApplePCIeAnalytics _getProp:@"IOPCIExpressLinkCapabilities" fromReg:v3 withType:objc_opt_class()];
+
+    if (!v19)
+    {
+      goto LABEL_31;
+    }
+
+    unsignedIntValue = [v19 unsignedIntValue];
+    v21 = [NSString stringWithFormat:@"0x%X", unsignedIntValue];
+    [v5 setObject:v21 forKey:@"PCIe_LinkCapabilities"];
+
+    if ((unsignedIntValue & 0xFu) > 6)
+    {
+      v22 = &off_23B98;
+    }
+
+    else
+    {
+      v22 = [NSNumber numberWithUnsignedInt:?];
+    }
+
+    [v5 setObject:v22 forKey:@"linkSpeed"];
+
+    v24 = (unsignedIntValue >> 4) & 0x3F;
+    if (v24 > 7)
+    {
+      if (((unsignedIntValue >> 4) & 0x3F) > 0xF)
+      {
+        if (v24 == 16)
+        {
+          v25 = &off_23C40;
+          goto LABEL_30;
+        }
+
+        if (v24 == 32)
+        {
+          v25 = &off_23C58;
+          goto LABEL_30;
+        }
+      }
+
+      else
+      {
+        if (v24 == 8)
+        {
+          v25 = &off_23C10;
+          goto LABEL_30;
+        }
+
+        if (v24 == 12)
+        {
+          v25 = &off_23C28;
+LABEL_30:
+          [v5 setObject:v25 forKey:@"linkWidth"];
+LABEL_31:
+          v35 = 0;
+          v36 = 0;
+          v26 = [(ApplePCIeAnalytics *)self _iteratePCITree:v3 findSlot:&v36 findTBID:&v35];
+          v27 = v36;
+          v28 = v35;
+          v29 = v28;
+          if (v26)
+          {
+            if (v28)
+            {
+              v30 = IORegistryEntryIDMatching([v28 unsignedLongLongValue]);
+              MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v30);
+              v32 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", kApplePCIeAnalytics_IOPCIDevice_Property_RouterID, kCFAllocatorDefault, 3u);
+              [v5 setObject:v32 forKey:@"atcPort"];
+              IOObjectRelease(MatchingService);
+            }
+
+            else if (v27)
+            {
+              [v5 setObject:v27 forKey:@"slot"];
+            }
+          }
+
+          log = self->_log;
+          if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v38 = @"com.apple.accessories.IOPCIDevice.FirstMatch";
+            _os_log_impl(&dword_0, log, OS_LOG_TYPE_DEFAULT, "Sending analytics event... (eventName: %@)", buf, 0xCu);
+          }
+
+          if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
+          {
+            [ApplePCIeAnalytics _handleServiceMatched:];
+          }
+
+          v34 = v5;
+          if ((AnalyticsSendEventLazy() & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+          {
+            [ApplePCIeAnalytics _handleServiceMatched:];
+          }
+
+          return;
+        }
+      }
+    }
+
+    else
+    {
+      if (((unsignedIntValue >> 4) & 0x3F) <= 1)
+      {
+        if (v24)
+        {
+          v25 = &off_23BC8;
+        }
+
+        else
+        {
+          v25 = &off_23BB0;
+        }
+
+        goto LABEL_30;
+      }
+
+      if (v24 == 2)
+      {
+        v25 = &off_23BE0;
+        goto LABEL_30;
+      }
+
+      if (v24 == 4)
+      {
+        v25 = &off_23BF8;
+        goto LABEL_30;
+      }
+    }
+
+    v25 = &off_23C70;
+    goto LABEL_30;
+  }
+
+  v23 = self->_log;
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v38 = @"com.apple.accessories.IOPCIDevice.FirstMatch";
+    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "Analytics events are disabled for this event - ignoring... (eventName: %@)", buf, 0xCu);
+  }
+}
+
 void __27__ApplePCIeAnalytics_start__block_invoke_cold_1(uint64_t *a1, void *a2)
 {
-  v2 = *a1;
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_1_0(&dword_0, v6, v7, "%@ failed to start!", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_0(&dword_0, v5, v6, "%@ failed to start!", v7, v8, v9, v10);
 }
 
 void __27__ApplePCIeAnalytics_start__block_invoke_cold_2(uint64_t *a1, void *a2)
 {
-  v2 = *a1;
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_1_0(&dword_0, v6, v7, "%@ already started... ignoring!", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_0(&dword_0, v5, v6, "%@ already started... ignoring!", v7, v8, v9, v10);
 }
 
 void __26__ApplePCIeAnalytics_stop__block_invoke_cold_1(uint64_t *a1, void *a2)
 {
-  v2 = *a1;
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = a2;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_1_0(&dword_0, v6, v7, "%@ already stopped... ignoring!", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_0(&dword_0, v5, v6, "%@ already stopped... ignoring!", v7, v8, v9, v10);
 }
 
 - (void)_startEventMonitoring

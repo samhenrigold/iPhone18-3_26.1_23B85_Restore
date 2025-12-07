@@ -39,9 +39,11 @@
 
 uint64_t __47__HMFLocationAuthorization_sharedAuthorization__block_invoke()
 {
-  qword_280AFC2C0 = objc_alloc_init(HMFLocationAuthorization);
+  v0 = objc_alloc_init(HMFLocationAuthorization);
+  v1 = qword_280AFC2C0;
+  qword_280AFC2C0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMFLocationAuthorization)init
@@ -60,17 +62,16 @@ uint64_t __47__HMFLocationAuthorization_sharedAuthorization__block_invoke()
 
 + (BOOL)automaticallyNotifiesObserversForKey:(id)key
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v8[0] = @"isAuthorized";
-  v8[1] = @"authorized";
-  v8[2] = @"isMonitoring";
-  v8[3] = @"monitoring";
+  v7[4] = *MEMORY[0x277D85DE8];
+  v7[0] = @"isAuthorized";
+  v7[1] = @"authorized";
+  v7[2] = @"isMonitoring";
+  v7[3] = @"monitoring";
   v3 = MEMORY[0x277CBEA60];
   keyCopy = key;
-  v5 = [v3 arrayWithObjects:v8 count:4];
+  v5 = [v3 arrayWithObjects:v7 count:4];
   LOBYTE(v3) = [v5 containsObject:keyCopy];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3 ^ 1;
 }
 
@@ -154,20 +155,19 @@ uint64_t __47__HMFLocationAuthorization_sharedAuthorization__block_invoke()
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   v3 = [HMFAttributeDescription alloc];
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:self->_state];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"State" value:v4];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = [HMFAttributeDescription alloc];
   v7 = [MEMORY[0x277CCABB0] numberWithInt:self->_status];
   v8 = [(HMFAttributeDescription *)v6 initWithName:@"Status" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   os_unfair_lock_unlock(&self->_lock.lock);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -216,7 +216,7 @@ uint64_t __47__HMFLocationAuthorization_sharedAuthorization__block_invoke()
   else
   {
     selfCopy = self;
-    if (CoreLocationLibraryCore())
+    if (CoreLocationLibraryCore(0))
     {
       if (selfCopy->_bundleIdentifier)
       {
@@ -263,76 +263,74 @@ uint64_t __47__HMFLocationAuthorization_sharedAuthorization__block_invoke()
 
 - (void)registerObserver:(id)observer
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   if (observerCopy)
   {
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      *&buf[4] = v8;
+      *&buf[4] = v9;
       *&buf[12] = 2112;
       *&buf[14] = observerCopy;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Registering location authorization observer: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Registering location authorization observer: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
-    v9 = [[HMFObjectObserver alloc] initWithObservedObject:observerCopy];
+    v10 = [[HMFObjectObserver alloc] initWithObservedObject:observerCopy];
     os_unfair_lock_lock_with_options();
-    if (([(NSMutableSet *)selfCopy->_observers containsObject:v9]& 1) == 0)
+    if (([(NSMutableSet *)selfCopy->_observers containsObject:v10]& 1) == 0)
     {
       objc_initWeak(&location, selfCopy);
-      objc_initWeak(&from, v9);
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __45__HMFLocationAuthorization_registerObserver___block_invoke;
-      v17[3] = &unk_2786E71B8;
-      objc_copyWeak(&v18, &location);
-      objc_copyWeak(&v19, &from);
-      [(HMFObjectObserver *)v9 setDeallocationBlock:v17];
-      [(NSMutableSet *)selfCopy->_observers addObject:v9];
-      v10 = selfCopy;
-      if (!v10->_state)
+      objc_initWeak(&from, v10);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __45__HMFLocationAuthorization_registerObserver___block_invoke;
+      v18[3] = &unk_2786E71B8;
+      objc_copyWeak(&v19, &location);
+      objc_copyWeak(&v20, &from);
+      [(HMFObjectObserver *)v10 setDeallocationBlock:v18];
+      [(NSMutableSet *)selfCopy->_observers addObject:v10];
+      v11 = selfCopy;
+      if (!v11->_state)
       {
         context = objc_autoreleasePoolPush();
-        v11 = v10;
-        v12 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v12 = v11;
+        v14 = HMFGetOSLogHandle(v12, v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v13 = HMFGetLogIdentifier(v11);
+          v15 = HMFGetLogIdentifier(v12);
           *buf = 138543362;
-          *&buf[4] = v13;
-          _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting to monitor location authorization", buf, 0xCu);
+          *&buf[4] = v15;
+          _os_log_impl(&dword_22ADEC000, v14, OS_LOG_TYPE_INFO, "%{public}@Starting to monitor location authorization", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(context);
-        v11->_state = 1;
-        if (CoreLocationLibraryCore())
+        v12->_state = 1;
+        if (CoreLocationLibraryCore(0))
         {
-          queue = v11->_queue;
+          queue = v12->_queue;
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = ____HMFLocationAuthorizationStartMonitoring_block_invoke;
-          v23 = &unk_2786E6C80;
-          v24 = v11;
+          v24 = &unk_2786E6C80;
+          v25 = v12;
           dispatch_async(queue, buf);
         }
       }
 
+      objc_destroyWeak(&v20);
       objc_destroyWeak(&v19);
-      objc_destroyWeak(&v18);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
     }
 
     os_unfair_lock_unlock(&selfCopy->_lock.lock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMFLocationAuthorization_registerObserver___block_invoke(uint64_t a1)
@@ -345,15 +343,15 @@ void __45__HMFLocationAuthorization_registerObserver___block_invoke(uint64_t a1)
   {
     v5 = objc_autoreleasePoolPush();
     v6 = WeakRetained;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = HMFGetOSLogHandle(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v8 = HMFGetLogIdentifier(v6);
+      v9 = HMFGetLogIdentifier(v6);
       *buf = 138543618;
-      v14 = v8;
+      v14 = v9;
       v15 = 2112;
       v16 = v4;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Observer deallocated, stopping monitoring for observer: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Observer deallocated, stopping monitoring for observer: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -361,20 +359,18 @@ void __45__HMFLocationAuthorization_registerObserver___block_invoke(uint64_t a1)
     [*(v6 + 5) removeObject:v4];
     if ([*(v6 + 5) hmf_isEmpty])
     {
-      v9 = *(v6 + 8);
+      v10 = *(v6 + 8);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __45__HMFLocationAuthorization_registerObserver___block_invoke_54;
       block[3] = &unk_2786E6CA8;
       objc_copyWeak(&v12, (a1 + 32));
-      dispatch_async(v9, block);
+      dispatch_async(v10, block);
       objc_destroyWeak(&v12);
     }
 
     os_unfair_lock_unlock(v6 + 2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMFLocationAuthorization_registerObserver___block_invoke_54(uint64_t a1)
@@ -396,15 +392,15 @@ void __45__HMFLocationAuthorization_registerObserver___block_invoke_54(uint64_t 
   {
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      v25 = v8;
+      v25 = v9;
       v26 = 2112;
       v27 = observerCopy;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unregistering location authorization observer: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Unregistering location authorization observer: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -419,27 +415,27 @@ void __45__HMFLocationAuthorization_registerObserver___block_invoke_54(uint64_t 
     v19 = 0u;
     v20 = 0u;
     v17 = 0u;
-    v10 = v18 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
-    if (v11)
+    v11 = v18 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    if (v12)
     {
-      v12 = *v18;
+      v13 = *v18;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v12)
+          if (*v18 != v13)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
           [(NSMutableSet *)selfCopy->_observers removeObject:*(*(&v17 + 1) + 8 * i)];
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     if ([(NSMutableSet *)selfCopy->_observers hmf_isEmpty])
@@ -455,8 +451,6 @@ void __45__HMFLocationAuthorization_registerObserver___block_invoke_54(uint64_t 
 
     os_unfair_lock_unlock(&selfCopy->_lock.lock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __47__HMFLocationAuthorization_unregisterObserver___block_invoke(uint64_t a1, void *a2)
@@ -484,12 +478,12 @@ BOOL __47__HMFLocationAuthorization_unregisterObserver___block_invoke(uint64_t a
 
 - (void)_requestAuthorization:(int64_t)authorization completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   queue = [(HMFLocationAuthorization *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if (CoreLocationLibraryCore())
+  if (CoreLocationLibraryCore(0))
   {
     if (self->_request)
     {
@@ -498,15 +492,15 @@ BOOL __47__HMFLocationAuthorization_unregisterObserver___block_invoke(uint64_t a
       {
         v9 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v11 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = HMFGetOSLogHandle(selfCopy, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = HMFGetLogIdentifier(selfCopy);
+          v13 = HMFGetLogIdentifier(selfCopy);
           *buf = 138543618;
-          v29 = v12;
-          v30 = 2112;
-          v31 = v8;
-          _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to request authorization with error: %@", buf, 0x16u);
+          v30 = v13;
+          v31 = 2112;
+          v32 = v8;
+          _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to request authorization with error: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -519,23 +513,23 @@ BOOL __47__HMFLocationAuthorization_unregisterObserver___block_invoke(uint64_t a
 
     else
     {
-      v17 = [[__HMFLocationAuthorizationRequest alloc] initWithType:authorization authorization:self];
-      [(HMFOperation *)v17 setQualityOfService:17];
+      v19 = [[__HMFLocationAuthorizationRequest alloc] initWithType:authorization authorization:self];
+      [(HMFOperation *)v19 setQualityOfService:17];
       objc_initWeak(buf, self);
-      objc_initWeak(&location, v17);
-      v20 = MEMORY[0x277D85DD0];
-      v21 = 3221225472;
-      v22 = __68__HMFLocationAuthorization__requestAuthorization_completionHandler___block_invoke;
-      v23 = &unk_2786E7230;
-      objc_copyWeak(&v25, buf);
-      v24 = handlerCopy;
-      objc_copyWeak(&v26, &location);
-      [(__HMFLocationAuthorizationRequest *)v17 setCompletionBlock:&v20];
-      objc_storeStrong(&self->_request, v17);
-      v18 = [(HMFScheduler *)self->_scheduler performOperation:v17, v20, v21, v22, v23];
-      objc_destroyWeak(&v26);
+      objc_initWeak(&location, v19);
+      v21 = MEMORY[0x277D85DD0];
+      v22 = 3221225472;
+      v23 = __68__HMFLocationAuthorization__requestAuthorization_completionHandler___block_invoke;
+      v24 = &unk_2786E7230;
+      objc_copyWeak(&v26, buf);
+      v25 = handlerCopy;
+      objc_copyWeak(&v27, &location);
+      [(__HMFLocationAuthorizationRequest *)v19 setCompletionBlock:&v21];
+      objc_storeStrong(&self->_request, v19);
+      v20 = [(HMFScheduler *)self->_scheduler performOperation:v19, v21, v22, v23, v24];
+      objc_destroyWeak(&v27);
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
       objc_destroyWeak(buf);
 
@@ -545,26 +539,24 @@ BOOL __47__HMFLocationAuthorization_unregisterObserver___block_invoke(uint64_t a
     goto LABEL_13;
   }
 
-  v13 = objc_autoreleasePoolPush();
+  v14 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v15 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = HMFGetOSLogHandle(selfCopy2, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v16 = HMFGetLogIdentifier(selfCopy2);
+    v18 = HMFGetLogIdentifier(selfCopy2);
     *buf = 138543362;
-    v29 = v16;
-    _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_ERROR, "%{public}@Location support not available, unable to request authorization", buf, 0xCu);
+    v30 = v18;
+    _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_ERROR, "%{public}@Location support not available, unable to request authorization", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v13);
+  objc_autoreleasePoolPop(v14);
   if (handlerCopy)
   {
     v8 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5 reason:@"CoreLocation not available"];
     handlerCopy[2](handlerCopy, v8);
 LABEL_13:
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMFLocationAuthorization__requestAuthorization_completionHandler___block_invoke(uint64_t a1)
@@ -620,13 +612,13 @@ void __68__HMFLocationAuthorization__requestAuthorization_completionHandler___bl
   v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v5 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = HMFGetOSLogHandle(selfCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = HMFGetLogIdentifier(selfCopy);
+    v7 = HMFGetLogIdentifier(selfCopy);
     *buf = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@completing location authorization mark", buf, 0xCu);
+    v11 = v7;
+    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@completing location authorization mark", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -637,8 +629,6 @@ void __68__HMFLocationAuthorization__requestAuthorization_completionHandler___bl
   block[3] = &unk_2786E6C80;
   block[4] = selfCopy;
   dispatch_async(queue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMFLocationAuthorization_locationOperationCompleted__block_invoke(uint64_t a1)
@@ -693,68 +683,66 @@ void __33__HMFLocationAuthorization__mark__block_invoke(uint64_t a1)
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   authorizationStatus = [authorizationCopy authorizationStatus];
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = HMFGetOSLogHandle(selfCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = HMFGetLogIdentifier(selfCopy);
-    v23 = 138543618;
-    v24 = v9;
-    v25 = 1024;
-    LODWORD(v26) = authorizationStatus;
-    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Received notification of authorization status changing to %d", &v23, 0x12u);
+    v10 = HMFGetLogIdentifier(selfCopy);
+    v24 = 138543618;
+    v25 = v10;
+    v26 = 1024;
+    LODWORD(v27) = authorizationStatus;
+    _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Received notification of authorization status changing to %d", &v24, 0x12u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = selfCopy;
-  v11 = v10;
-  if (v10)
+  v11 = selfCopy;
+  v12 = v11;
+  if (v11)
   {
-    [(HMFLocationAuthorization *)v10 willChangeValueForKey:@"isAuthorized"];
-    v12 = authorizationStatus - 3;
+    [(HMFLocationAuthorization *)v11 willChangeValueForKey:@"isAuthorized"];
+    v13 = authorizationStatus - 3;
     os_unfair_lock_lock_with_options();
-    os_unfair_lock_opaque = v11[6]._os_unfair_lock_opaque;
+    os_unfair_lock_opaque = v12[6]._os_unfair_lock_opaque;
     if (os_unfair_lock_opaque != authorizationStatus)
     {
-      v11[6]._os_unfair_lock_opaque = authorizationStatus;
+      v12[6]._os_unfair_lock_opaque = authorizationStatus;
     }
 
-    v14 = (v12 < 2) ^ (os_unfair_lock_opaque - 3 < 2);
-    v15 = *&v11[8]._os_unfair_lock_opaque;
-    os_unfair_lock_unlock(v11 + 2);
-    [(os_unfair_lock_s *)v11 didChangeValueForKey:@"isAuthorized"];
-    if (v15 == 1)
+    v15 = (v13 < 2) ^ (os_unfair_lock_opaque - 3 < 2);
+    v16 = *&v12[8]._os_unfair_lock_opaque;
+    os_unfair_lock_unlock(v12 + 2);
+    [(os_unfair_lock_s *)v12 didChangeValueForKey:@"isAuthorized"];
+    if (v16 == 1)
     {
-      __HMFLocationAuthorizationUpdateState(v11, 2);
+      __HMFLocationAuthorizationUpdateState(v12, 2);
     }
 
-    if (v14)
+    if (v15)
     {
-      v16 = objc_autoreleasePoolPush();
-      v17 = v11;
-      v18 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v17 = objc_autoreleasePoolPush();
+      v18 = v12;
+      v20 = HMFGetOSLogHandle(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        v19 = HMFGetLogIdentifier(v17);
-        v20 = HMFBooleanToString(v12 < 2);
-        v23 = 138543618;
-        v24 = v19;
-        v25 = 2112;
-        v26 = v20;
-        _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Posting authorization updated notification with isAuthorized: %@", &v23, 0x16u);
+        v21 = HMFGetLogIdentifier(v18);
+        v22 = HMFBooleanToString(v13 < 2);
+        v24 = 138543618;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v22;
+        _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Posting authorization updated notification with isAuthorized: %@", &v24, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v16);
-      v21 = +[HMFNotificationCenter defaultCenter];
-      [v21 postNotificationName:@"HMFLocationAuthorizationUpdatedNotification" object:v17];
+      objc_autoreleasePoolPop(v17);
+      v23 = +[HMFNotificationCenter defaultCenter];
+      [v23 postNotificationName:@"HMFLocationAuthorizationUpdatedNotification" object:v18];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -771,9 +759,11 @@ void __33__HMFLocationAuthorization__mark__block_invoke(uint64_t a1)
 
 uint64_t __39__HMFLocationAuthorization_logCategory__block_invoke()
 {
-  qword_280AFC2D0 = HMFCreateOSLogHandle(@"Location.Authorization", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"Location.Authorization", @"com.apple.HMFoundation");
+  v1 = qword_280AFC2D0;
+  qword_280AFC2D0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)logIdentifier

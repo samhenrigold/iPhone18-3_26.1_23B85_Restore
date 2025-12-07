@@ -3,6 +3,7 @@
 + (BOOL)isBatterySaverModeActive:(int)active;
 + (id)batterySaverRestrictions;
 + (id)currentBatterySaverRestrictions;
++ (id)currentBatterySaverRestrictions:(int)restrictions;
 + (id)setOfActiveRestrictionUUIDs;
 @end
 
@@ -132,6 +133,21 @@ LABEL_2:
   }
 
   return v2;
+}
+
++ (id)currentBatterySaverRestrictions:(int)restrictions
+{
+  if ([MCBatterySaverMode isBatterySaverModeActive:*&restrictions])
+  {
+    v3 = +[MCBatterySaverMode batterySaverRestrictions];
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
 }
 
 + (id)setOfActiveRestrictionUUIDs

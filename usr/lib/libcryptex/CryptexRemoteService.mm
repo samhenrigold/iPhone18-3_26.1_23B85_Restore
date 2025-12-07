@@ -41,110 +41,107 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (self->connection)
   {
-    v3 = *__error();
-    v4 = _remote_service_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v3 = __error();
+    v4 = *v3;
+    v5 = _remote_service_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       connection = self->connection;
       *buf = 138543362;
-      v11 = connection;
-      _os_log_impl(&dword_2986C0000, v4, OS_LOG_TYPE_DEBUG, "canceling RXPC connection '%{public}@'", buf, 0xCu);
+      v10 = connection;
+      _os_log_impl(&dword_2986C0000, v5, OS_LOG_TYPE_DEBUG, "canceling RXPC connection '%{public}@'", buf, 0xCu);
     }
 
-    *__error() = v3;
-    v6 = self->connection;
+    *__error() = v4;
     xpc_remote_connection_cancel();
     v7 = self->connection;
     self->connection = 0;
   }
 
-  v9.receiver = self;
-  v9.super_class = CryptexRemoteService;
-  [(CryptexRemoteService *)&v9 dealloc];
-  v8 = *MEMORY[0x29EDCA608];
+  v8.receiver = self;
+  v8.super_class = CryptexRemoteService;
+  [(CryptexRemoteService *)&v8 dealloc];
 }
 
 - (id)remote_conn
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   connection = self->connection;
   if (!connection)
   {
-    service = self->service;
     internal_queue = [(CryptexRemoteService *)self internal_queue];
-    v6 = xpc_remote_connection_create_with_remote_service();
-    v7 = self->connection;
-    self->connection = v6;
+    v5 = xpc_remote_connection_create_with_remote_service();
+    v6 = self->connection;
+    self->connection = v5;
 
-    v8 = self->connection;
     xpc_remote_connection_set_event_handler();
-    v9 = self->connection;
     xpc_remote_connection_activate();
-    v10 = *__error();
-    v11 = _remote_service_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v7 = __error();
+    v8 = *v7;
+    v9 = _remote_service_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v12 = self->connection;
-      v16 = 138543362;
-      v17 = v12;
-      _os_log_impl(&dword_2986C0000, v11, OS_LOG_TYPE_DEBUG, "establish RXPC connection '%{public}@'", &v16, 0xCu);
+      v10 = self->connection;
+      v13 = 138543362;
+      v14 = v10;
+      _os_log_impl(&dword_2986C0000, v9, OS_LOG_TYPE_DEBUG, "establish RXPC connection '%{public}@'", &v13, 0xCu);
     }
 
-    *__error() = v10;
+    *__error() = v8;
     connection = self->connection;
   }
 
-  v13 = connection;
-  v14 = *MEMORY[0x29EDCA608];
+  v11 = connection;
 
-  return v13;
+  return v11;
 }
 
 int *__35__CryptexRemoteService_remote_conn__block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = MEMORY[0x29C28F4F0](a2);
   v3 = MEMORY[0x29EDCAA18];
-  v4 = *__error();
-  v5 = _remote_service_log();
-  v6 = v5;
+  v4 = __error();
+  v5 = *v4;
+  v6 = _remote_service_log(v4);
+  v7 = v6;
   if (v2 == v3)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      v7 = "error received on remote connection";
-      v8 = buf;
-      v9 = v6;
-      v10 = OS_LOG_TYPE_DEBUG;
+      v8 = "error received on remote connection";
+      v9 = buf;
+      v10 = v7;
+      v11 = OS_LOG_TYPE_DEBUG;
       goto LABEL_6;
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = 0;
-    v7 = "unexpected message from remote connection";
-    v8 = &v12;
-    v9 = v6;
-    v10 = OS_LOG_TYPE_ERROR;
+    v13 = 0;
+    v8 = "unexpected message from remote connection";
+    v9 = &v13;
+    v10 = v7;
+    v11 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-    _os_log_impl(&dword_2986C0000, v9, v10, v7, v8, 2u);
+    _os_log_impl(&dword_2986C0000, v10, v11, v8, v9, 2u);
   }
 
   result = __error();
-  *result = v4;
+  *result = v5;
   return result;
 }
 
 - (__CFError)initService
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   if (self->service)
   {
-    [(CryptexRemoteService *)&v23 initService];
+    [(CryptexRemoteService *)&v35 initService];
   }
 
   device = [(CryptexRemoteService *)self device];
@@ -152,124 +149,160 @@ LABEL_6:
 
   if (state != 2)
   {
-    v9 = _remote_service_log();
+    v10 = _remote_service_log(v5);
 
-    if (v9)
+    if (v10)
     {
-      v10 = _remote_service_log();
-      os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      [(CryptexRemoteService *)self device];
-      *(&v24 + 4) = LODWORD(v24) = 138412290;
-      v11 = _os_log_send_and_compose_impl();
+      v12 = _remote_service_log(v11);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      device2 = [(CryptexRemoteService *)self device];
+      if (v13)
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      LODWORD(v36[0]) = 138412290;
+      *(v36 + 4) = device2;
+      v16 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_2986C0000, v12, 16, "remote device %@ not connected", v36, 12);
     }
 
     else
     {
-      v12 = MEMORY[0x29EDCA988];
-      [(CryptexRemoteService *)self device];
-      *(&v24 + 4) = LODWORD(v24) = 138412290;
-      v11 = _os_log_send_and_compose_impl();
+      v17 = MEMORY[0x29EDCA988];
+      device3 = [(CryptexRemoteService *)self device];
+      LODWORD(v36[0]) = 138412290;
+      *(v36 + 4) = device3;
+      v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "remote device %@ not connected", v36, 12);
 
-      v10 = MEMORY[0x29EDCA988];
+      v12 = MEMORY[0x29EDCA988];
     }
 
-    Error = createError("[CryptexRemoteService initService]", "remote_service.m", 172, "com.apple.security.cryptex", 57, 0, v11);
-    goto LABEL_9;
+    Error = createError("[CryptexRemoteService initService]", "remote_service.m", 172, "com.apple.security.cryptex", 57, 0, v16);
+    goto LABEL_12;
   }
 
-  device2 = [(CryptexRemoteService *)self device];
-  v6 = remote_device_copy_service();
+  device4 = [(CryptexRemoteService *)self device];
+  v7 = remote_device_copy_service();
   service = self->service;
-  self->service = v6;
+  self->service = v7;
 
   if (!self->service)
   {
-    v16 = *__error();
-    if (v16 == 83)
+    v21 = __error();
+    v22 = *v21;
+    if (*v21 == 83)
     {
-      v19 = _remote_service_log();
+      v27 = _remote_service_log(v21);
 
-      if (v19)
+      if (v27)
       {
-        v20 = _remote_service_log();
-        os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
-        *&v24 = 0x5304000100;
-        v11 = _os_log_send_and_compose_impl();
+        v29 = _remote_service_log(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          v30 = 3;
+        }
+
+        else
+        {
+          v30 = 2;
+        }
+
+        *&v36[0] = 0x5304000100;
+        v16 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &dword_2986C0000, v29, 16, "remote device has disconnected %{darwin.errno}d", v36, 8);
       }
 
       else
       {
-        *&v24 = 0x5304000100;
-        v11 = _os_log_send_and_compose_impl();
+        *&v36[0] = 0x5304000100;
+        v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "remote device has disconnected %{darwin.errno}d", v36, 8);
       }
 
-      Error = createError("[CryptexRemoteService initService]", "remote_service.m", 191, "com.apple.security.cryptex.posix", 83, 0, v11);
+      Error = createError("[CryptexRemoteService initService]", "remote_service.m", 191, "com.apple.security.cryptex.posix", 83, 0, v16);
     }
 
-    else if (v16 == 3)
+    else if (v22 == 3)
     {
-      v17 = _remote_service_log();
+      v23 = _remote_service_log(v21);
 
-      if (v17)
+      if (v23)
       {
-        v18 = _remote_service_log();
-        os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
-        *&v24 = 0x304000100;
-        v11 = _os_log_send_and_compose_impl();
+        v25 = _remote_service_log(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        {
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+
+        *&v36[0] = 0x304000100;
+        v16 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_2986C0000, v25, 16, "cryptex remote service not found on remote device %{darwin.errno}d", v36, 8);
       }
 
       else
       {
-        *&v24 = 0x304000100;
-        v11 = _os_log_send_and_compose_impl();
+        *&v36[0] = 0x304000100;
+        v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "cryptex remote service not found on remote device %{darwin.errno}d", v36, 8);
       }
 
-      Error = createError("[CryptexRemoteService initService]", "remote_service.m", 185, "com.apple.security.cryptex.posix", 3, 0, v11);
+      Error = createError("[CryptexRemoteService initService]", "remote_service.m", 185, "com.apple.security.cryptex.posix", 3, 0, v16);
     }
 
     else
     {
-      v21 = _remote_service_log();
+      v31 = _remote_service_log(v21);
 
-      if (v21)
+      if (v31)
       {
-        v22 = _remote_service_log();
-        os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
-        LODWORD(v24) = 67109120;
-        DWORD1(v24) = v16;
-        v11 = _os_log_send_and_compose_impl();
+        v33 = _remote_service_log(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        {
+          v34 = 3;
+        }
+
+        else
+        {
+          v34 = 2;
+        }
+
+        LODWORD(v36[0]) = 67109120;
+        DWORD1(v36[0]) = v22;
+        v16 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &dword_2986C0000, v33, 16, "unknown error %{darwin.errno}d", v36, 8);
       }
 
       else
       {
-        LODWORD(v24) = 67109120;
-        DWORD1(v24) = v16;
-        v11 = _os_log_send_and_compose_impl();
+        LODWORD(v36[0]) = 67109120;
+        DWORD1(v36[0]) = v22;
+        v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "unknown error %{darwin.errno}d", v36, 8);
       }
 
-      Error = createError("[CryptexRemoteService initService]", "remote_service.m", 197, "com.apple.security.cryptex.posix", v16, 0, v11);
+      Error = createError("[CryptexRemoteService initService]", "remote_service.m", 197, "com.apple.security.cryptex.posix", v22, 0, v16);
     }
 
-LABEL_9:
-    v8 = Error;
-    free(v11);
-    goto LABEL_10;
+LABEL_12:
+    v9 = Error;
+    free(v16);
+    return v9;
   }
 
-  v8 = 0;
-LABEL_10:
-  v14 = *MEMORY[0x29EDCA608];
-  return v8;
+  return 0;
 }
 
 - (BOOL)supportsFeature:(const char *)feature
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   service = self->service;
   if (service)
   {
 LABEL_2:
-    v6 = *MEMORY[0x29EDCA608];
 
     return MEMORY[0x2A1C68F00](service, feature);
   }
@@ -281,160 +314,199 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  v8 = initService;
-  v9 = *__error();
-  v10 = _remote_service_log();
+  v7 = initService;
+  v8 = __error();
+  v9 = *v8;
+  v10 = _remote_service_log(v8);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v13 = 138412290;
-    v14 = v8;
-    _os_log_impl(&dword_2986C0000, v10, OS_LOG_TYPE_ERROR, "failed to init service: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v7;
+    _os_log_impl(&dword_2986C0000, v10, OS_LOG_TYPE_ERROR, "failed to init service: %@", &v12, 0xCu);
   }
 
   *__error() = v9;
-  CFRelease(v8);
-  v11 = *MEMORY[0x29EDCA608];
+  CFRelease(v7);
   return 0;
 }
 
 - (__CFError)sendRequestSync:(id)sync response:(id *)response
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   syncCopy = sync;
   cf = 0;
   if (self->service || (Error = [(CryptexRemoteService *)self initService]) == 0)
   {
     v7 = xpc_copy_debug_description();
-    v8 = *__error();
-    v9 = _remote_service_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v8 = __error();
+    v9 = *v8;
+    v10 = _remote_service_log(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136446210;
-      v40 = v7;
-      _os_log_impl(&dword_2986C0000, v9, OS_LOG_TYPE_DEBUG, "sending request: %{public}s", buf, 0xCu);
+      v51 = v7;
+      _os_log_impl(&dword_2986C0000, v10, OS_LOG_TYPE_DEBUG, "sending request: %{public}s", buf, 0xCu);
     }
 
-    *__error() = v8;
+    *__error() = v9;
     free(v7);
     remote_conn = [(CryptexRemoteService *)self remote_conn];
-    v11 = xpc_remote_connection_send_message_with_reply_sync();
+    v12 = xpc_remote_connection_send_message_with_reply_sync();
 
-    if (MEMORY[0x29C28F4F0](v11) == MEMORY[0x29EDCAA18])
+    if (MEMORY[0x29C28F4F0](v12) == MEMORY[0x29EDCAA18])
     {
-      v22 = xpc_copy_debug_description();
-      v23 = _remote_service_log();
+      v28 = xpc_copy_debug_description();
+      v29 = _remote_service_log(v28);
 
-      if (v23)
+      if (v29)
       {
-        v24 = _remote_service_log();
-        os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+        v31 = _remote_service_log(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        {
+          v32 = 3;
+        }
+
+        else
+        {
+          v32 = 2;
+        }
+
         *buf = 136446210;
-        v40 = v22;
-        v25 = _os_log_send_and_compose_impl();
+        v51 = v28;
+        v33 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_2986C0000, v31, 16, "RemoteXPC error: %{public}s", buf, 12);
       }
 
       else
       {
         *buf = 136446210;
-        v40 = v22;
-        v25 = _os_log_send_and_compose_impl();
+        v51 = v28;
+        v33 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "RemoteXPC error: %{public}s", buf, 12);
       }
 
-      Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 249, "com.apple.security.cryptex", 54, 0, v25);
-      free(v25);
-      free(v22);
+      Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 249, "com.apple.security.cryptex", 54, 0, v33);
+      free(v33);
+      free(v28);
     }
 
     else
     {
-      v12 = xpc_copy_debug_description();
-      v13 = *__error();
-      v14 = _remote_service_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v13 = xpc_copy_debug_description();
+      v14 = __error();
+      v15 = *v14;
+      v16 = _remote_service_log(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136446210;
-        v40 = v12;
-        _os_log_impl(&dword_2986C0000, v14, OS_LOG_TYPE_DEBUG, "got reply: %{public}s", buf, 0xCu);
+        v51 = v13;
+        _os_log_impl(&dword_2986C0000, v16, OS_LOG_TYPE_DEBUG, "got reply: %{public}s", buf, 0xCu);
       }
 
-      *__error() = v13;
-      free(v12);
-      cferr = _xpc_reply_get_cferr(v11, &cf);
+      *__error() = v15;
+      free(v13);
+      cferr = _xpc_reply_get_cferr(v12, &cf);
+      v18 = cferr;
       if (cferr)
       {
-        v16 = _remote_service_log();
+        v19 = _remote_service_log(cferr);
 
-        if (v16)
+        if (v19)
         {
-          v17 = _remote_service_log();
-          os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+          v21 = _remote_service_log(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          {
+            v22 = 3;
+          }
+
+          else
+          {
+            v22 = 2;
+          }
+
           *buf = 0;
-          v18 = _os_log_send_and_compose_impl();
+          v23 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_2986C0000, v21, 16, "malformed response: cannot fetch error", buf, 2);
         }
 
         else
         {
           *buf = 0;
-          v18 = _os_log_send_and_compose_impl();
+          v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "malformed response: cannot fetch error", buf, 2);
         }
 
-        Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 261, "com.apple.security.cryptex", cferr, 0, v18);
-        free(v18);
+        Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 261, "com.apple.security.cryptex", v18, 0, v23);
+        free(v23);
       }
 
       else if (cf)
       {
-        v26 = _remote_service_log();
+        v34 = _remote_service_log(cferr);
 
-        if (v26)
+        if (v34)
         {
-          v27 = _remote_service_log();
-          os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
+          v36 = _remote_service_log(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          {
+            v37 = 3;
+          }
+
+          else
+          {
+            v37 = 2;
+          }
+
           *buf = 0;
-          v28 = _os_log_send_and_compose_impl();
+          v38 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_2986C0000, v36, 16, "routine error", buf, 2);
         }
 
         else
         {
           *buf = 0;
-          v28 = _os_log_send_and_compose_impl();
+          v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "routine error", buf, 2);
         }
 
-        Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 269, "com.apple.security.cryptex", 16, cf, v28);
-        free(v28);
+        Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 269, "com.apple.security.cryptex", 16, cf, v38);
+        free(v38);
       }
 
       else
       {
-        v37 = 0;
-        argv = _xpc_reply_get_argv(v11, &v37);
-        v30 = v37;
-        v31 = v30;
+        v48 = 0;
+        argv = _xpc_reply_get_argv(v12, &v48);
+        v40 = v48;
+        v41 = v40;
         if (argv)
         {
-          v32 = _remote_service_log();
+          v42 = _remote_service_log(v40);
 
-          if (v32)
+          if (v42)
           {
-            v33 = _remote_service_log();
-            os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+            v44 = _remote_service_log(v43);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+            {
+              v45 = 3;
+            }
+
+            else
+            {
+              v45 = 2;
+            }
+
             *buf = 0;
-            v34 = _os_log_send_and_compose_impl();
+            v46 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &dword_2986C0000, v44, 16, "malformed response: cannot fetch response", buf, 2);
           }
 
           else
           {
             *buf = 0;
-            v34 = _os_log_send_and_compose_impl();
+            v46 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_2986C0000, MEMORY[0x29EDCA988], 16, "malformed response: cannot fetch response", buf, 2);
           }
 
-          Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 276, "com.apple.security.cryptex", argv, 0, v34);
-          free(v34);
+          Error = createError("[CryptexRemoteService sendRequestSync:response:]", "remote_service.m", 276, "com.apple.security.cryptex", argv, 0, v46);
+          free(v46);
         }
 
         else
         {
-          *response = xpc_copy(v30);
+          *response = xpc_copy(v40);
 
           Error = 0;
         }
@@ -444,16 +516,17 @@ LABEL_2:
 
   else
   {
-    v20 = *__error();
-    v21 = _remote_service_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v25 = __error();
+    v26 = *v25;
+    v27 = _remote_service_log(v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v40 = Error;
-      _os_log_impl(&dword_2986C0000, v21, OS_LOG_TYPE_ERROR, "failed to init service: %@", buf, 0xCu);
+      v51 = Error;
+      _os_log_impl(&dword_2986C0000, v27, OS_LOG_TYPE_ERROR, "failed to init service: %@", buf, 0xCu);
     }
 
-    *__error() = v20;
+    *__error() = v26;
   }
 
   if (cf)
@@ -461,17 +534,23 @@ LABEL_2:
     CFRelease(cf);
   }
 
-  v35 = *MEMORY[0x29EDCA608];
   return Error;
 }
 
 - (void)initService
 {
-  v4 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_2(self, a2);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0();
-  v3 = *self;
+  if (OUTLINED_FUNCTION_4())
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_0(v7, self, v3, v4, &dword_2986C0000, v5, v6, "assertion failure: self->service -> %llu");
   _os_crash_msg();
   __break(1u);
 }

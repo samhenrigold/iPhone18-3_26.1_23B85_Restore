@@ -51,7 +51,6 @@
   {
     if (v17)
     {
-      v25 = *(config + OBJC_IVAR___QOSConfigInternal_appTarget);
       configCopy = config;
       result = sub_261464DB0();
       __break(1u);

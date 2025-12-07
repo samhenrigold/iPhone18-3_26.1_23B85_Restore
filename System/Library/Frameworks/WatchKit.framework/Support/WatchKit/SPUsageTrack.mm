@@ -6,6 +6,7 @@
 - (void)_prepareString:(char *)string fromArray:(unsigned int *)array;
 - (void)_printSeparator;
 - (void)_printString:(char *)string fromArray:(unsigned int *)array;
+- (void)_updateDataCount:(unint64_t)count application:(id)application toGizmo:(BOOL)gizmo;
 - (void)dataReceiedFromGizmo:(unint64_t)gizmo application:(id)application;
 - (void)dataSentToGizmo:(unint64_t)gizmo application:(id)application;
 @end
@@ -45,8 +46,7 @@
 - (void)_printString:(char *)string fromArray:(unsigned int *)array
 {
   __strcpy_chk();
-  [(SPUsageTrack *)self _prepareString:v13 fromArray:array];
-  v6 = wk_default_log();
+  v6 = wk_default_log([(SPUsageTrack *)self _prepareString:v13 fromArray:array]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446722;
@@ -61,25 +61,25 @@
 
 - (void)_printSeparator
 {
-  strcpy(v10, "          ");
+  memset(v11, 32, 10);
   v2 = 13;
   do
   {
-    __strcat_chk();
+    v3 = __strcat_chk();
     --v2;
   }
 
   while (v2);
-  v3 = wk_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = wk_default_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136446722;
-    v5 = "[SPUsageTrack _printSeparator]";
-    v6 = 1024;
-    v7 = 201;
-    v8 = 2082;
-    v9 = v10;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %{public}s", &v4, 0x1Cu);
+    v5 = 136446722;
+    v6 = "[SPUsageTrack _printSeparator]";
+    v7 = 1024;
+    v8 = 201;
+    v9 = 2082;
+    v10 = v11;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %{public}s", &v5, 0x1Cu);
   }
 }
 
@@ -122,6 +122,31 @@
   block[4] = self;
   v8 = applicationCopy;
   dispatch_barrier_async(usageTrackQueue, block);
+}
+
+- (void)_updateDataCount:(unint64_t)count application:(id)application toGizmo:(BOOL)gizmo
+{
+  v7 = [(SPUsageTrack *)self _arrayForApplication:application toGizmo:gizmo];
+  v8 = [(SPUsageTrack *)self _indexForSize:count];
+  if ((v8 & 0x80000000) != 0)
+  {
+    v9 = wk_default_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136446722;
+      v11 = "[SPUsageTrack _updateDataCount:application:toGizmo:]";
+      v12 = 1024;
+      v13 = 270;
+      v14 = 2048;
+      countCopy = count;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Packet larger than largest bucket. size=%lu", &v10, 0x1Cu);
+    }
+  }
+
+  else
+  {
+    ++v7[v8];
+  }
 }
 
 - (int)_indexForSize:(unint64_t)size

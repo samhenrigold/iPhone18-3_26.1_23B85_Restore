@@ -57,7 +57,7 @@
 
 - (id)contactsCustomViewConfiguration
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCA898]);
   title = [(BIMIVerifiedDomainContactHeaderViewModel *)self title];
   v5 = [v3 initWithString:title];
@@ -71,11 +71,9 @@
   v10 = MEMORY[0x277CBDC00];
   learnMoreTitle = [(BIMIVerifiedDomainContactHeaderViewModel *)self learnMoreTitle];
   v12 = [v10 contactActionWithTitle:learnMoreTitle target:self selector:sel_learnMoreButtonPressed];
-  v16[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   [v6 setActions:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

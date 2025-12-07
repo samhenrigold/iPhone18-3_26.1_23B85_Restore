@@ -7,7 +7,6 @@
 
 - (NSString)description
 {
-  v4 = *&self->sMSCTPartAttachment[OBJC_IVAR___BlastDoorSMSCTPartAttachment_sMSCTPartAttachment + 16];
   sub_213FDCA18(*(&self->super.isa + OBJC_IVAR___BlastDoorSMSCTPartAttachment_sMSCTPartAttachment), *&self->sMSCTPartAttachment[OBJC_IVAR___BlastDoorSMSCTPartAttachment_sMSCTPartAttachment]);
 
   sub_2146D9608();

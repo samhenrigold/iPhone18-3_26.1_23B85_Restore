@@ -336,25 +336,23 @@ LABEL_31:
 
   if ([(_INPBReportIncidentIntent *)self hasIsClear])
   {
-    isClear = self->_isClear;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBReportIncidentIntent *)self hasStartTime])
   {
-    startTime = self->_startTime;
     PBDataWriterWriteDoubleField();
   }
 
   userLocation = [(_INPBReportIncidentIntent *)self userLocation];
 
-  v13 = toCopy;
+  v11 = toCopy;
   if (userLocation)
   {
     userLocation2 = [(_INPBReportIncidentIntent *)self userLocation];
     PBDataWriterWriteSubmessage();
 
-    v13 = toCopy;
+    v11 = toCopy;
   }
 }
 

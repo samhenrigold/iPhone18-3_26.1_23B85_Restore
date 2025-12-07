@@ -21,7 +21,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -63,7 +63,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -105,7 +105,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -147,7 +147,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -1912,7 +1912,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -1949,7 +1949,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -1986,7 +1986,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -2023,7 +2023,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -2953,7 +2953,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -2995,7 +2995,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -3037,7 +3037,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -3079,7 +3079,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v13 = *(a1 + 56) + *(a1 + 64) * v9;
         do
         {
-          *(v13 + v12) = *(v10 + v12);
+          *(v13 + v12) = v10->n128_u8[v12];
           ++v12;
           v11 = *(a1 + 84);
         }
@@ -4844,7 +4844,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -4881,7 +4881,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -4918,7 +4918,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -4955,7 +4955,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -9208,7 +9208,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -9245,7 +9245,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -9282,7 +9282,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }
@@ -9319,7 +9319,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
         v8 = *(a1 + 56) + *(a1 + 64) * v4;
         do
         {
-          *(v8 + v7) = *(v5->f64 + v7);
+          *(v8 + v7) = v5->i8[v7];
           ++v7;
           v6 = *(a1 + 84);
         }

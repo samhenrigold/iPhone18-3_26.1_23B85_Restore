@@ -60,7 +60,7 @@
 
 - (void)setupWithContext:(id)context completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = objc_alloc_init(SNTestChain);
@@ -68,49 +68,49 @@
 
   if (testSuite)
   {
-    v20 = completionCopy;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v19 = completionCopy;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     testSuite2 = [(SNTestRun *)self testSuite];
     testSetupList = [testSuite2 testSetupList];
 
-    v12 = [testSetupList countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [testSetupList countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         v15 = 0;
         do
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(testSetupList);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * v15);
-          v23[0] = MEMORY[0x277D85DD0];
-          v23[1] = 3221225472;
-          v23[2] = __41__SNTestRun_setupWithContext_completion___block_invoke;
-          v23[3] = &unk_279D94118;
-          v23[4] = v16;
-          v24 = contextCopy;
-          [(SNTestChain *)v8 addLink:v23];
+          v16 = *(*(&v24 + 1) + 8 * v15);
+          v22[0] = MEMORY[0x277D85DD0];
+          v22[1] = 3221225472;
+          v22[2] = __41__SNTestRun_setupWithContext_completion___block_invoke;
+          v22[3] = &unk_279D94118;
+          v22[4] = v16;
+          v23 = contextCopy;
+          [(SNTestChain *)v8 addLink:v22];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [testSetupList countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [testSetupList countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
     }
 
-    completionCopy = v20;
+    completionCopy = v19;
   }
 
   testCase = [(SNTestRun *)self testCase];
@@ -118,18 +118,16 @@
 
   if (v18)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __41__SNTestRun_setupWithContext_completion___block_invoke_2;
-    v21[3] = &unk_279D94118;
-    v21[4] = self;
-    v22 = contextCopy;
-    [(SNTestChain *)v8 addLink:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __41__SNTestRun_setupWithContext_completion___block_invoke_2;
+    v20[3] = &unk_279D94118;
+    v20[4] = self;
+    v21 = contextCopy;
+    [(SNTestChain *)v8 addLink:v20];
   }
 
   [(SNTestChain *)v8 runWithCompletion:completionCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SNTestRun_setupWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -312,19 +310,14 @@ void __68__SNTestRun_runTestWithContext_testName_testCoordinator_completion___bl
 
 uint64_t __68__SNTestRun_runTestWithContext_testName_testCoordinator_completion___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  if (a2)
-  {
-    v3 = *(a1 + 56);
-  }
-
-  else
+  if (!a2)
   {
     [*(a1 + 32) finishedTestWithTestName:*(a1 + 40) waitForCommit:{objc_msgSend(*(a1 + 48), "waitForCommitToFinish")}];
   }
 
-  v4 = *(*(a1 + 56) + 16);
+  v3 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v3();
 }
 
 @end

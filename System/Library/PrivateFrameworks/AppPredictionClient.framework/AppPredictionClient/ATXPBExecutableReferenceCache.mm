@@ -1,14 +1,14 @@
 @interface ATXPBExecutableReferenceCache
 + (uint64_t)keysType;
 - (BOOL)isEqual:(id)equal;
+- (id)clearKeys;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)keysAtIndex:(id *)index;
+- (id)keysCount;
 - (uint64_t)addKeys:(uint64_t)keys;
-- (uint64_t)clearKeys;
 - (uint64_t)keys;
-- (uint64_t)keysCount;
 - (void)copyTo:(uint64_t)to;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setKeys:(uint64_t)keys;
@@ -189,11 +189,11 @@
   return v6;
 }
 
-- (uint64_t)clearKeys
+- (id)clearKeys
 {
   if (result)
   {
-    return [*(result + 8) removeAllObjects];
+    return [result[1] removeAllObjects];
   }
 
   return result;
@@ -223,11 +223,11 @@
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)keysCount
+- (id)keysCount
 {
   if (result)
   {
-    return [*(result + 8) count];
+    return [result[1] count];
   }
 
   return result;

@@ -21,7 +21,7 @@
 
 - (PNPersonPromoterDelegate)delegate
 {
-  v2 = sub_1C7227454();
+  v2 = sub_1C7227454(self, a2);
 
   return v2;
 }
@@ -29,7 +29,7 @@
 - (NSDictionary)metrics
 {
   sub_1C72274E0();
-  sub_1C6F65BE8(0, &qword_1EDD108E0);
+  sub_1C6F65BE8(0, &qword_1EDD108E0, 0x1E696AD98);
   v2 = sub_1C755048C();
 
   return v2;
@@ -37,7 +37,7 @@
 
 - (void)setMetrics:(id)metrics
 {
-  sub_1C6F65BE8(0, &qword_1EDD108E0);
+  sub_1C6F65BE8(0, &qword_1EDD108E0, 0x1E696AD98);
   v4 = sub_1C75504AC();
   selfCopy = self;
   sub_1C72275B8(v4);

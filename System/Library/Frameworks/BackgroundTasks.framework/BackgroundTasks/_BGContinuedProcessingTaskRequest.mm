@@ -88,8 +88,8 @@
 + (id)_requestFromActivity:(id)activity
 {
   activityCopy = activity;
-  launchReason = [activityCopy launchReason];
-  v6 = [launchReason isEqualToString:*MEMORY[0x1E699A560]];
+  v5 = objc_msgSend_launchReason(activityCopy);
+  v6 = [v5 isEqualToString:*MEMORY[0x1E699A560]];
 
   if (v6)
   {
@@ -505,15 +505,12 @@ LABEL_58:
 
 - (void)_activity
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   title = [a2 title];
   reason = [a2 reason];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

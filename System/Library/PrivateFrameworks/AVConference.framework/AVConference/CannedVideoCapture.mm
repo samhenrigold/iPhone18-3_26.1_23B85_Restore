@@ -287,7 +287,7 @@ uint64_t __27__CannedVideoCapture_stop___block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate canned video capture implementation", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate canned video capture implementation", v2, v3, v4, v5);
     }
   }
 
@@ -304,7 +304,7 @@ uint64_t __27__CannedVideoCapture_stop___block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to init capture source", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to init capture source", v2, v3, v4, v5);
     }
   }
 
@@ -321,7 +321,7 @@ uint64_t __27__CannedVideoCapture_stop___block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create capture session queue", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create capture session queue", v2, v3, v4, v5);
     }
   }
 
@@ -358,7 +358,7 @@ uint64_t __27__CannedVideoCapture_stop___block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_10();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate autorelease pool", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate autorelease pool", v2, v3, v4, v5);
     }
   }
 

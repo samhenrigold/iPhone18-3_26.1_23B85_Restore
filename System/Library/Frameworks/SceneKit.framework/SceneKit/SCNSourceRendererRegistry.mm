@@ -78,7 +78,7 @@ SCNSourceRendererRegistry *__43__SCNSourceRendererRegistry_sharedRegistry__block
 
 - (id)sourceRendererForEngineContext:(__C3DEngineContext *)context source:(id)source textureSource:(id)textureSource targetTexture:(id)texture
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&sourceRendererRegistryAccessMutex);
   Value = CFDictionaryGetValue(self->_registry, context);
   if (!Value)
@@ -115,35 +115,36 @@ SCNSourceRendererRegistry *__43__SCNSourceRendererRegistry_sharedRegistry__block
       if (!rendererOptions)
       {
 LABEL_19:
-        v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
 LABEL_20:
-        v19 = v18;
+        v21 = v20;
         if (texture)
         {
-          [v18 setObject:C3DColorSpaceLinearSRGB() forKeyedSubscript:*MEMORY[0x277CDA818]];
-          RenderContext = C3DEngineContextGetRenderContext(context);
-          [v19 setObject:-[SCNMTLRenderContext commandQueue](RenderContext) forKeyedSubscript:*MEMORY[0x277CDA820]];
-          [v19 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CDA810]];
-          v21 = [MEMORY[0x277CD9F40] rendererWithMTLTexture:texture options:v19];
+          [v20 setObject:C3DColorSpaceLinearSRGB() forKeyedSubscript:*MEMORY[0x277CDA818]];
+          RenderContext = C3DEngineContextGetRenderContext(context, v22);
+          [v21 setObject:-[SCNMTLRenderContext commandQueue](RenderContext) forKeyedSubscript:*MEMORY[0x277CDA820]];
+          [v21 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CDA810]];
+          v24 = [MEMORY[0x277CD9F40] rendererWithMTLTexture:texture options:v21];
         }
 
         else
         {
-          GLContext = C3DRendererContextGetGLContext([textureSource rendererContextForTextureSourceWithEngineContext:context]);
+          v25 = [textureSource rendererContextForTextureSourceWithEngineContext:context];
+          GLContext = C3DRendererContextGetGLContext(v25, v26);
           if (!GLContext)
           {
-            v23 = scn_default_log();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+            v29 = scn_default_log(0, v27);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
             {
-              C3DEngineContextGetScene_cold_1(v23, v24, v25, v26, v27, v28, v29, v30);
+              C3DEngineContextGetScene_cold_1(v29, v30, v31, v32, v33, v34, v35, v36);
             }
           }
 
-          v21 = [MEMORY[0x277CD9F40] rendererWithEAGLContext:GLContext options:v19];
+          v24 = [MEMORY[0x277CD9F40] rendererWithEAGLContext:GLContext options:v21];
         }
 
-        v13 = v21;
-        [v21 setDelegate:self];
+        v13 = v24;
+        [v24 setDelegate:self];
 
         if (v13)
         {
@@ -161,16 +162,16 @@ LABEL_20:
         goto LABEL_19;
       }
 
-      v36 = @"kCARendererFlags";
-      v37[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInt:3];
-      rendererOptions = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+      v42 = @"kCARendererFlags";
+      v43[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInt:3];
+      rendererOptions = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
       if (!rendererOptions)
       {
         goto LABEL_19;
       }
     }
 
-    v18 = [rendererOptions mutableCopy];
+    v20 = [rendererOptions mutableCopy];
     goto LABEL_20;
   }
 
@@ -182,24 +183,24 @@ LABEL_20:
   }
 
   v15 = NSClassFromString(&cfstr_Skscnrenderer.isa);
-  v16 = C3DEngineContextGetRenderContext(context);
-  if (v16)
+  v17 = C3DEngineContextGetRenderContext(context, v16);
+  if (v17)
   {
-    v17 = [(objc_class *)v15 rendererWithDevice:[(SCNMTLRenderContext *)v16 device] options:0];
+    v19 = [(objc_class *)v15 rendererWithDevice:[(SCNMTLRenderContext *)v17 device] options:0];
   }
 
   else
   {
-    v17 = [(objc_class *)v15 rendererWithContext:C3DEngineContextGetGLContext(context) options:0];
+    v19 = [(objc_class *)v15 rendererWithContext:C3DEngineContextGetGLContext(context options:v18), 0];
   }
 
-  v13 = v17;
-  [v17 setScene:source];
+  v13 = v19;
+  [v19 setScene:source];
   [v13 setBackingScaleFactor:1.0];
   [source size];
-  v34 = v33;
+  v40 = v39;
   [source size];
-  [v13 setBounds:{0.0, 0.0, v34, v35}];
+  [v13 setBounds:{0.0, 0.0, v40, v41}];
   if (v13)
   {
 LABEL_27:
@@ -207,7 +208,7 @@ LABEL_27:
   }
 
 LABEL_28:
-  v31 = v13;
+  v37 = v13;
   os_unfair_lock_unlock(&sourceRendererRegistryAccessMutex);
   return v13;
 }

@@ -14,6 +14,7 @@
 - (void)cloudCache_reportCacheDiscrepancyForOperation:(id)operation reason:(id)reason containerIdentifier:(id)identifier databaseScope:(id)scope error:(id)error;
 - (void)cloudCache_reportCacheFetchAndUpdateAnalyticsForPipeline:(id)pipeline changedZonesCount:(int64_t)count deletedZonesCount:(int64_t)zonesCount changedRecordsCount:(int64_t)recordsCount deletedRecordsCount:(int64_t)deletedRecordsCount;
 - (void)cloudCache_reportCacheSyncAnalyticsForPipeline:(id)pipeline operationCount:(int64_t)count;
+- (void)cloudCache_reportDailyCacheAnalyticsWithPushTargets:(int64_t)targets pullTargets:(int64_t)pullTargets sharedDBSummarySharingZones:(int64_t)zones privateDBSummarySharingZones:(int64_t)sharingZones unifiedZoneInSharedDB:(BOOL)b unifiedZoneInPrivateDB:(BOOL)dB deviceContexts:(unint64_t)contexts deviceKeys:(unint64_t)self0 nilSyncIdentities:(unint64_t)self1;
 - (void)cloudCache_reportWeeklyAnalyticsWithCacheValidation:(id)validation;
 - (void)cloudSync_newChildAdded:(BOOL)added;
 - (void)cloudSync_operationFailed:(id)failed error:(id)error;
@@ -70,6 +71,7 @@
 - (void)workout_reportGymKitWorkoutWithFitnessMachineType:(id)type manufacturer:(id)manufacturer timeToBeginExperience:(int64_t)experience workoutEndError:(int64_t)error;
 - (void)workout_reportMirroringEventWithStartDuration:(double)duration stopDuration:(double)stopDuration mirroringDuration:(double)mirroringDuration numOfSendDataRequests:(int64_t)requests maxTimeToSendData:(double)data minTimeToSendData:(double)sendData avgTimeToSendData:(double)toSendData isFirstParty:(BOOL)self0;
 - (void)workout_reportWorkoutCondenserCoalescingCompressionRate:(id)rate numberOfSamplesBeforeCoalescing:(int64_t)coalescing numberOfSamplesAfterCoalescing:(int64_t)afterCoalescing compressionRate:(double)compressionRate;
+- (void)workout_reportWorkoutCondenserEventWithReason:(int64_t)reason batchSize:(int64_t)size hasWatchSource:(BOOL)source duration:(double)duration success:(BOOL)success error:(id)error workoutsToCondense:(int64_t)condense workoutsToRecondense:(int64_t)self0 condensedWorkouts:(int64_t)self1 processedWorkouts:(int64_t)self2 createdSeries:(int64_t)self3 deletedSamples:(int64_t)self4;
 - (void)workout_reportWorkoutEventWithHeartBeatFailures:(int64_t)failures workoutDuration:(double)duration isFirstParty:(BOOL)party sessionID:(id)d;
 @end
 
@@ -125,18 +127,16 @@
 
 id __93__HDAnalyticsSubmissionCoordinator_Tinker__tinker_pairingDidFinishForConfiguration_duration___block_invoke(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v8[0] = MEMORY[0x277CBEC38];
-  v7[0] = @"success";
-  v7[1] = @"duration";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277CBEC38];
+  v6[0] = @"success";
+  v6[1] = @"duration";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v8[1] = v2;
-  v7[2] = @"setupType";
+  v7[1] = v2;
+  v6[2] = @"setupType";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "setupType")}];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
@@ -160,16 +160,16 @@ id __93__HDAnalyticsSubmissionCoordinator_Tinker__tinker_pairingDidFinishForConf
 
 id __104__HDAnalyticsSubmissionCoordinator_Tinker__tinker_pairingDidFailWithError_configuration_duration_stage___block_invoke(uint64_t a1)
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v12[0] = MEMORY[0x277CBEC28];
-  v11[0] = @"success";
-  v11[1] = @"duration";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277CBEC28];
+  v10[0] = @"success";
+  v10[1] = @"duration";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v12[1] = v2;
-  v11[2] = @"setupType";
+  v11[1] = v2;
+  v10[2] = @"setupType";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "setupType")}];
-  v12[2] = v3;
-  v11[3] = @"errorDomain";
+  v11[2] = v3;
+  v10[3] = @"errorDomain";
   v4 = [*(a1 + 40) domain];
   v5 = v4;
   v6 = @"<null>";
@@ -178,13 +178,11 @@ id __104__HDAnalyticsSubmissionCoordinator_Tinker__tinker_pairingDidFailWithErro
     v6 = v4;
   }
 
-  v12[3] = v6;
-  v11[4] = @"errorCode";
+  v11[3] = v6;
+  v10[4] = @"errorCode";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "code")}];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
@@ -213,38 +211,38 @@ id __104__HDAnalyticsSubmissionCoordinator_Tinker__tinker_pairingDidFailWithErro
 
 id __133__HDAnalyticsSubmissionCoordinator_Tinker___sendTinkerSyncEventWithLatency_timeSinceLastSuccessfullPull_configuration_success_error___block_invoke(uint64_t a1)
 {
-  v30[6] = *MEMORY[0x277D85DE8];
+  v29[6] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) repository];
   v3 = [v2 primaryCKContainer];
   v4 = [*(a1 + 32) repository];
   v5 = [v4 profileIdentifier];
   v6 = HDDatabaseForContainer(v3, v5);
 
-  v28 = v6;
+  v27 = v6;
   v7 = HDCKDatabaseScopeToString([v6 databaseScope]);
-  v29[0] = @"container";
-  v26 = [*(a1 + 32) analyticsDictionary];
-  v25 = [v26 objectForKeyedSubscript:@"primaryContainer"];
-  v30[0] = v25;
-  v30[1] = v7;
-  v27 = v7;
-  v29[1] = @"database";
-  v29[2] = @"reason";
+  v28[0] = @"container";
+  v25 = [*(a1 + 32) analyticsDictionary];
+  v24 = [v25 objectForKeyedSubscript:@"primaryContainer"];
+  v29[0] = v24;
+  v29[1] = v7;
+  v26 = v7;
+  v28[1] = @"database";
+  v28[2] = @"reason";
   v8 = [*(a1 + 32) analyticsDictionary];
   v9 = [v8 objectForKeyedSubscript:@"reason"];
-  v30[2] = v9;
-  v29[3] = @"options";
+  v29[2] = v9;
+  v28[3] = @"options";
   v10 = [*(a1 + 32) analyticsDictionary];
   v11 = [v10 objectForKeyedSubscript:@"options"];
-  v30[3] = v11;
-  v29[4] = @"group";
+  v29[3] = v11;
+  v28[4] = @"group";
   v12 = [*(a1 + 32) analyticsDictionary];
   v13 = [v12 objectForKeyedSubscript:@"group"];
-  v30[4] = v13;
-  v29[5] = @"success";
+  v29[4] = v13;
+  v28[5] = @"success";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 64)];
-  v30[5] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
+  v29[5] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
   v16 = [v15 mutableCopy];
 
   v17 = *(a1 + 40);
@@ -279,8 +277,6 @@ id __133__HDAnalyticsSubmissionCoordinator_Tinker___sendTinkerSyncEventWithLaten
     [v16 setObject:v22 forKeyedSubscript:@"errorCode"];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
@@ -300,10 +296,10 @@ id __133__HDAnalyticsSubmissionCoordinator_Tinker___sendTinkerSyncEventWithLaten
 
 id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosContactStatus_profileType___block_invoke(uint64_t a1)
 {
-  v50[23] = *MEMORY[0x277D85DE8];
-  v49[0] = @"allergyInfo";
-  v48 = [*(a1 + 32) allergyInfo];
-  if ([v48 length])
+  v49[23] = *MEMORY[0x277D85DE8];
+  v48[0] = @"allergyInfo";
+  v47 = [*(a1 + 32) allergyInfo];
+  if ([v47 length])
   {
     v2 = &unk_283CB0528;
   }
@@ -313,8 +309,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v2 = &unk_283CB0540;
   }
 
-  v50[0] = v2;
-  v49[1] = @"bloodType";
+  v49[0] = v2;
+  v48[1] = @"bloodType";
   if ([*(a1 + 32) bloodType])
   {
     v3 = &unk_283CB0528;
@@ -325,10 +321,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v3 = &unk_283CB0540;
   }
 
-  v50[1] = v3;
-  v49[2] = @"clinicalContacts";
-  v47 = [*(a1 + 32) clinicalContacts];
-  if ([v47 count])
+  v49[1] = v3;
+  v48[2] = @"clinicalContacts";
+  v46 = [*(a1 + 32) clinicalContacts];
+  if ([v46 count])
   {
     v4 = &unk_283CB0528;
   }
@@ -338,10 +334,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v4 = &unk_283CB0540;
   }
 
-  v50[2] = v4;
-  v49[3] = @"emergencyContacts";
-  v46 = [*(a1 + 32) emergencyContacts];
-  if ([v46 count])
+  v49[2] = v4;
+  v48[3] = @"emergencyContacts";
+  v45 = [*(a1 + 32) emergencyContacts];
+  if ([v45 count])
   {
     v5 = &unk_283CB0528;
   }
@@ -351,10 +347,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v5 = &unk_283CB0540;
   }
 
-  v50[3] = v5;
-  v49[4] = @"gregorianBirthdate";
-  v45 = [*(a1 + 32) gregorianBirthday];
-  if (v45)
+  v49[3] = v5;
+  v48[4] = @"gregorianBirthdate";
+  v44 = [*(a1 + 32) gregorianBirthday];
+  if (v44)
   {
     v6 = &unk_283CB0528;
   }
@@ -364,10 +360,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v6 = &unk_283CB0540;
   }
 
-  v50[4] = v6;
-  v49[5] = @"height";
-  v44 = [*(a1 + 32) height];
-  if (v44)
+  v49[4] = v6;
+  v48[5] = @"height";
+  v43 = [*(a1 + 32) height];
+  if (v43)
   {
     v7 = &unk_283CB0528;
   }
@@ -377,8 +373,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v7 = &unk_283CB0540;
   }
 
-  v50[5] = v7;
-  v49[6] = @"isShownOnLockScreen";
+  v49[5] = v7;
+  v48[6] = @"isShownOnLockScreen";
   if ([*(a1 + 32) isDisabled])
   {
     v8 = &unk_283CB0540;
@@ -389,10 +385,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v8 = &unk_283CB0528;
   }
 
-  v50[6] = v8;
-  v49[7] = @"medicalConditions";
-  v43 = [*(a1 + 32) medicalConditions];
-  if ([v43 length])
+  v49[6] = v8;
+  v48[7] = @"medicalConditions";
+  v42 = [*(a1 + 32) medicalConditions];
+  if ([v42 length])
   {
     v9 = &unk_283CB0528;
   }
@@ -402,10 +398,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v9 = &unk_283CB0540;
   }
 
-  v50[7] = v9;
-  v49[8] = @"medicalNotes";
-  v42 = [*(a1 + 32) medicalNotes];
-  if ([v42 length])
+  v49[7] = v9;
+  v48[8] = @"medicalNotes";
+  v41 = [*(a1 + 32) medicalNotes];
+  if ([v41 length])
   {
     v10 = &unk_283CB0528;
   }
@@ -415,10 +411,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v10 = &unk_283CB0540;
   }
 
-  v50[8] = v10;
-  v49[9] = @"medicationInfo";
-  v41 = [*(a1 + 32) medicationInfo];
-  if ([v41 length])
+  v49[8] = v10;
+  v48[9] = @"medicationInfo";
+  v40 = [*(a1 + 32) medicationInfo];
+  if ([v40 length])
   {
     v11 = &unk_283CB0528;
   }
@@ -428,10 +424,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v11 = &unk_283CB0540;
   }
 
-  v50[9] = v11;
-  v49[10] = @"name";
-  v40 = [*(a1 + 32) name];
-  if (v40)
+  v49[9] = v11;
+  v48[10] = @"name";
+  v39 = [*(a1 + 32) name];
+  if (v39)
   {
     v12 = &unk_283CB0528;
   }
@@ -441,10 +437,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v12 = &unk_283CB0540;
   }
 
-  v50[10] = v12;
-  v49[11] = @"organDonorStatus";
-  v39 = [*(a1 + 32) isOrganDonor];
-  if (v39)
+  v49[10] = v12;
+  v48[11] = @"organDonorStatus";
+  v38 = [*(a1 + 32) isOrganDonor];
+  if (v38)
   {
     v13 = &unk_283CB0528;
   }
@@ -454,10 +450,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v13 = &unk_283CB0540;
   }
 
-  v50[11] = v13;
-  v49[12] = @"picture";
-  v38 = [*(a1 + 32) pictureData];
-  if (v38)
+  v49[11] = v13;
+  v48[12] = @"picture";
+  v37 = [*(a1 + 32) pictureData];
+  if (v37)
   {
     v14 = &unk_283CB0528;
   }
@@ -467,10 +463,10 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v14 = &unk_283CB0540;
   }
 
-  v50[12] = v14;
-  v49[13] = @"primaryLanguageCode";
-  v36 = [*(a1 + 32) primaryLanguageCode];
-  if (v36)
+  v49[12] = v14;
+  v48[13] = @"primaryLanguageCode";
+  v35 = [*(a1 + 32) primaryLanguageCode];
+  if (v35)
   {
     v15 = &unk_283CB0528;
   }
@@ -480,8 +476,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v15 = &unk_283CB0540;
   }
 
-  v50[13] = v15;
-  v49[14] = @"shareDuringEmergency";
+  v49[13] = v15;
+  v48[14] = @"shareDuringEmergency";
   if ([*(a1 + 32) shareDuringEmergency])
   {
     v16 = &unk_283CB0528;
@@ -492,8 +488,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v16 = &unk_283CB0540;
   }
 
-  v50[14] = v16;
-  v49[15] = @"weight";
+  v49[14] = v16;
+  v48[15] = @"weight";
   v17 = [*(a1 + 32) weight];
   if (v17)
   {
@@ -515,13 +511,13 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v19 = &unk_283CB0528;
   }
 
-  v50[15] = v18;
-  v50[16] = v19;
-  v49[16] = @"sosContactBug";
-  v49[17] = @"profileType";
+  v49[15] = v18;
+  v49[16] = v19;
+  v48[16] = @"sosContactBug";
+  v48[17] = @"profileType";
   v20 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v50[17] = v20;
-  v49[18] = @"medicationsList";
+  v49[17] = v20;
+  v48[18] = @"medicationsList";
   v21 = [*(a1 + 32) medicationsList];
   if ([v21 count])
   {
@@ -533,8 +529,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v22 = &unk_283CB0540;
   }
 
-  v50[18] = v22;
-  v49[19] = @"allergiesList";
+  v49[18] = v22;
+  v48[19] = @"allergiesList";
   v23 = [*(a1 + 32) allergiesList];
   if ([v23 count])
   {
@@ -546,8 +542,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v24 = &unk_283CB0540;
   }
 
-  v50[19] = v24;
-  v49[20] = @"conditionsList";
+  v49[19] = v24;
+  v48[20] = @"conditionsList";
   v25 = [*(a1 + 32) conditionsList];
   if ([v25 count])
   {
@@ -559,8 +555,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v26 = &unk_283CB0540;
   }
 
-  v50[20] = v26;
-  v49[21] = @"pregnancyStartDate";
+  v49[20] = v26;
+  v48[21] = @"pregnancyStartDate";
   v27 = [*(a1 + 32) pregnancyStartDate];
   if (v27)
   {
@@ -572,8 +568,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v28 = &unk_283CB0540;
   }
 
-  v50[21] = v28;
-  v49[22] = @"pregnancyEstimatedDueDate";
+  v49[21] = v28;
+  v48[22] = @"pregnancyEstimatedDueDate";
   v29 = [*(a1 + 32) pregnancyEstimatedDueDate];
   if (v29)
   {
@@ -585,8 +581,8 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     v30 = &unk_283CB0540;
   }
 
-  v50[22] = v30;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:23];
+  v49[22] = v30;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:23];
   v32 = [v31 mutableCopy];
 
   if (*(a1 + 40) == 3)
@@ -594,9 +590,7 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
     [v32 removeObjectForKey:@"sosContactBug"];
   }
 
-  v33 = [v32 copy];
-
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = objc_msgSend_copy(v32);
 
   return v33;
 }
@@ -613,13 +607,11 @@ id __98__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_dailyReport_sosCo
 
 id __88__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_reportHasBeenSetForProfileType___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"profileType";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"profileType";
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -636,39 +628,35 @@ id __88__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_reportHasBeenSetF
 
 id __92__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_reportHasBeenDeletedForProfileType___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"profileType";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"profileType";
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 - (void)heartDaily_reportHeartDailyAnalytics:(id)analytics
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   payload = [analytics payload];
   _HKInitializeLogging();
   v5 = HKLogAnalytics();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = payload;
+    v10 = payload;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "Submitting CoreAnalytics heart daily analytics: %{public}@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __85__HDAnalyticsSubmissionCoordinator_HeartDaily__heartDaily_reportHeartDailyAnalytics___block_invoke;
-  v8[3] = &unk_278616398;
-  v9 = payload;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __85__HDAnalyticsSubmissionCoordinator_HeartDaily__heartDaily_reportHeartDailyAnalytics___block_invoke;
+  v7[3] = &unk_278616398;
+  v8 = payload;
   v6 = payload;
-  [(HDAnalyticsSubmissionCoordinator *)self sendEvent:@"com.apple.health.HeartRhythm.HeartDailyAnalytics" block:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(HDAnalyticsSubmissionCoordinator *)self sendEvent:@"com.apple.health.HeartRhythm.HeartDailyAnalytics" block:v7];
 }
 
 - (void)healthService_reportServiceTypeAdded:(id)added profileType:(int64_t)type
@@ -686,18 +674,16 @@ id __92__HDAnalyticsSubmissionCoordinator_MedicalID__medicalID_reportHasBeenDele
 
 id __100__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportServiceTypeAdded_profileType___block_invoke(uint64_t a1)
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"serviceType";
-  v6[1] = @"added";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"serviceType";
+  v5[1] = @"added";
   v1 = *(a1 + 40);
-  v7[0] = *(a1 + 32);
-  v7[1] = MEMORY[0x277CBEC38];
-  v6[2] = @"profileType";
+  v6[0] = *(a1 + 32);
+  v6[1] = MEMORY[0x277CBEC38];
+  v5[2] = @"profileType";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:v1];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -717,18 +703,16 @@ id __100__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportSe
 
 id __102__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportServiceTypeRemoved_profileType___block_invoke(uint64_t a1)
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"serviceType";
-  v6[1] = @"removed";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"serviceType";
+  v5[1] = @"removed";
   v1 = *(a1 + 40);
-  v7[0] = *(a1 + 32);
-  v7[1] = MEMORY[0x277CBEC38];
-  v6[2] = @"profileType";
+  v6[0] = *(a1 + 32);
+  v6[1] = MEMORY[0x277CBEC38];
+  v5[2] = @"profileType";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:v1];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -748,17 +732,15 @@ id __102__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportSe
 
 id __103__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportCountForAllServices_profileType___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7[0] = @"servicesCount";
-  v7[1] = @"profileType";
-  v8[0] = v2;
+  v6[0] = @"servicesCount";
+  v6[1] = @"profileType";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:v1];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -779,18 +761,16 @@ id __103__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportCo
 
 id __104__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportServiceType_duration_profileType___block_invoke(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v8[0] = *(a1 + 32);
-  v7[0] = @"serviceType";
-  v7[1] = @"duration";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v7[0] = *(a1 + 32);
+  v6[0] = @"serviceType";
+  v6[1] = @"duration";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v8[1] = v2;
-  v7[2] = @"profileType";
+  v7[1] = v2;
+  v6[2] = @"profileType";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
@@ -812,27 +792,25 @@ id __104__HDAnalyticsSubmissionCoordinator_HealthService__healthService_reportSe
 
 id __142__HDAnalyticsSubmissionCoordinator_Authorization__authorization_reportAuthRequestsFromBundleIdentifier_isExtension_isAppleWatch_shouldPrompt___block_invoke(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (!v2)
   {
     v2 = @"Unknown";
   }
 
-  v10[0] = v2;
-  v9[0] = @"bundleIdentifier";
-  v9[1] = @"isExtension";
+  v9[0] = v2;
+  v8[0] = @"bundleIdentifier";
+  v8[1] = @"isExtension";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v10[1] = v3;
-  v9[2] = @"isAppleWatch";
+  v9[1] = v3;
+  v8[2] = @"isAppleWatch";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 41)];
-  v10[2] = v4;
-  v9[3] = @"shouldPrompt";
+  v9[2] = v4;
+  v8[3] = @"shouldPrompt";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 42)];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -852,7 +830,7 @@ id __142__HDAnalyticsSubmissionCoordinator_Authorization__authorization_reportAu
 
 id __121__HDAnalyticsSubmissionCoordinator_Authorization__authorization_reportAuthRequestPromptedForBundleIdentifer_profileType___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   if (*(a1 + 32))
   {
@@ -864,14 +842,12 @@ id __121__HDAnalyticsSubmissionCoordinator_Authorization__authorization_reportAu
     v2 = @"Unknown";
   }
 
-  v7[0] = @"bundleIdentifier";
-  v7[1] = @"profileType";
-  v8[0] = v2;
+  v6[0] = @"bundleIdentifier";
+  v6[1] = @"profileType";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:v1];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -999,8 +975,8 @@ id __87__HDAnalyticsSubmissionCoordinator_Attachments__attachments_reportDailyCl
 
 id __211__HDAnalyticsSubmissionCoordinator_HeartRate__heartRate_reportDailyRestingHeartRate_sedentaryHeartRateCount_filteredSedentaryHeartRateCount_hasTimeAsleep_hasBGHRSleepMode_unfilteredRestingHeartRate_profileType___block_invoke(uint64_t a1)
 {
-  v18[9] = *MEMORY[0x277D85DE8];
-  v17[0] = @"pop";
+  v17[9] = *MEMORY[0x277D85DE8];
+  v16[0] = @"pop";
   if (*(a1 + 32))
   {
     v2 = *(a1 + 40) == 3;
@@ -1012,36 +988,34 @@ id __211__HDAnalyticsSubmissionCoordinator_HeartRate__heartRate_reportDailyResti
   }
 
   v3 = v2;
-  v4 = [MEMORY[0x277CCABB0] numberWithInt:{v3, v17[0]}];
-  v18[0] = v4;
-  v17[1] = @"output_value";
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:{v3, v16[0]}];
+  v17[0] = v4;
+  v16[1] = @"output_value";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v18[1] = v5;
-  v17[2] = @"raw_count";
+  v17[1] = v5;
+  v16[2] = @"raw_count";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 64)];
-  v18[2] = v6;
-  v17[3] = @"filtered_count";
+  v17[2] = v6;
+  v16[3] = @"filtered_count";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 68)];
-  v18[3] = v7;
-  v17[4] = @"filtered_frac";
+  v17[3] = v7;
+  v16[4] = @"filtered_frac";
   LODWORD(v8) = *(a1 + 72);
   v9 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v18[4] = v9;
-  v17[5] = @"has_bghr_sleep_mode";
+  v17[4] = v9;
+  v16[5] = @"has_bghr_sleep_mode";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 76)];
-  v18[5] = v10;
-  v17[6] = @"has_time_asleep";
+  v17[5] = v10;
+  v16[6] = @"has_time_asleep";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 77)];
-  v18[6] = v11;
-  v17[7] = @"output_value_with_sleephr";
+  v17[6] = v11;
+  v16[7] = @"output_value_with_sleephr";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
-  v18[7] = v12;
-  v17[8] = @"output_value_delta";
+  v17[7] = v12;
+  v16[8] = @"output_value_delta";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56) - *(a1 + 48)];
-  v18[8] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:9];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[8] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:9];
 
   return v14;
 }
@@ -1060,16 +1034,14 @@ id __211__HDAnalyticsSubmissionCoordinator_HeartRate__heartRate_reportDailyResti
 
 id __92__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportResponseStatusCode_profileType___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"statusCode";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"statusCode";
   v2 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
-  v7[1] = @"profileType";
-  v8[0] = v2;
+  v6[1] = @"profileType";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -1092,10 +1064,10 @@ id __92__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportResponseStatu
 
 id __112__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportSyncSuccessWithReason_options_duration_profileType___block_invoke(uint64_t a1)
 {
-  v16[8] = *MEMORY[0x277D85DE8];
-  v16[0] = MEMORY[0x277CBEC38];
-  v15[0] = @"success";
-  v15[1] = @"reason";
+  v15[8] = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277CBEC38];
+  v14[0] = @"success";
+  v14[1] = @"reason";
   v2 = *(a1 + 32);
   v3 = [v2 length];
   if (v3 >= 0x400)
@@ -1109,28 +1081,26 @@ id __112__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportSyncSuccessW
   }
 
   v5 = [v2 substringToIndex:v4];
-  v16[1] = v5;
-  v15[2] = @"optionPullRequest";
+  v15[1] = v5;
+  v14[2] = @"optionPullRequest";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) & 1];
-  v16[2] = v6;
-  v15[3] = @"optionsLastChange";
+  v15[2] = v6;
+  v14[3] = @"optionsLastChange";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:(*(a1 + 40) >> 1) & 1];
-  v16[3] = v7;
-  v15[4] = @"optionsActiveOnly";
+  v15[3] = v7;
+  v14[4] = @"optionsActiveOnly";
   v8 = [MEMORY[0x277CCABB0] numberWithInt:(*(a1 + 40) >> 2) & 1];
-  v16[4] = v8;
-  v15[5] = @"optionsRequestedByRemote";
+  v15[4] = v8;
+  v14[5] = @"optionsRequestedByRemote";
   v9 = [MEMORY[0x277CCABB0] numberWithInt:(*(a1 + 40) >> 3) & 1];
-  v16[5] = v9;
-  v15[6] = @"duration";
+  v15[5] = v9;
+  v14[6] = @"duration";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-  v16[6] = v10;
-  v15[7] = @"profileType";
+  v15[6] = v10;
+  v14[7] = @"profileType";
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-  v16[7] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:8];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[7] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:8];
 
   return v12;
 }
@@ -1233,7 +1203,7 @@ id __112__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportSyncSuccessW
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   WeakRetained = objc_loadWeakRetained(&self->_behavior);
   features = [WeakRetained features];
@@ -1246,7 +1216,7 @@ id __112__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportSyncSuccessW
     aBlock[1] = 3221225472;
     aBlock[2] = __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke;
     aBlock[3] = &unk_278624EB0;
-    objc_copyWeak(&v28, &location);
+    objc_copyWeak(&v27, &location);
     v8 = _Block_copy(aBlock);
     v9 = objc_alloc(MEMORY[0x277D10B10]);
     v10 = HKLogAnalytics();
@@ -1267,9 +1237,9 @@ id __112__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportSyncSuccessW
       [getRequest setPriority:2];
       [getRequest setRequiresNetworkConnectivity:1];
       v17 = self->_repeatingBackgroundTask;
-      v26 = 0;
-      [(HDRepeatingBackgroundTask *)v17 submitRequest:getRequest error:&v26];
-      v18 = v26;
+      v25 = 0;
+      [(HDRepeatingBackgroundTask *)v17 submitRequest:getRequest error:&v25];
+      v18 = v25;
       if (v18)
       {
         _HKInitializeLogging();
@@ -1278,14 +1248,14 @@ id __112__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportSyncSuccessW
         {
           *buf = 138543618;
           selfCopy = self;
-          v32 = 2114;
-          v33 = v18;
+          v31 = 2114;
+          v32 = v18;
           _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Unable to submitRequest: %{public}@", buf, 0x16u);
         }
       }
     }
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
@@ -1298,8 +1268,6 @@ id __112__HDAnalyticsSubmissionCoordinator_NanoSync__nanoSync_reportSyncSuccessW
     periodicActivity = self->_periodicActivity;
     self->_periodicActivity = v23;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1321,7 +1289,7 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
 
 void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke_2(uint64_t a1, unint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HDStringFromPeriodicActivityResult(a2);
   _HKInitializeLogging();
@@ -1334,32 +1302,29 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       WeakRetained = objc_loadWeakRetained((a1 + 40));
-      v13 = 138543874;
-      v14 = WeakRetained;
+      v11 = 138543874;
+      v12 = WeakRetained;
+      v13 = 2112;
+      v14 = v6;
       v15 = 2112;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_INFO, "%{public}@: HDRepeatingBackgroundTask performed analytics: %@ : %@", &v13, 0x20u);
+      v16 = v5;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_INFO, "%{public}@: HDRepeatingBackgroundTask performed analytics: %@ : %@", &v11, 0x20u);
     }
   }
 
   if (a2 <= 3)
   {
-    v11 = qword_22916E450[a2];
     (*(*(a1 + 32) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performAnalyticsSubmissionWithCompletion:(uint64_t)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (completion)
   {
-    v22 = 0;
+    v21 = 0;
     v4 = MEMORY[0x277CCACA8];
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
@@ -1367,7 +1332,7 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
 
     WeakRetained = objc_loadWeakRetained((completion + 8));
     database = [WeakRetained database];
-    v10 = [database takeAccessibilityAssertionWithOwnerIdentifier:v7 timeout:&v22 error:300.0];
+    v10 = [database takeAccessibilityAssertionWithOwnerIdentifier:v7 timeout:&v21 error:300.0];
 
     if (!v10)
     {
@@ -1377,13 +1342,13 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
       {
         *buf = 138543618;
         completionCopy = completion;
-        v25 = 2114;
-        v26 = v22;
+        v24 = 2114;
+        v25 = v21;
         _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Daily analytics failed to take database accessibility assertion: %{public}@", buf, 0x16u);
       }
     }
 
-    v12 = v22;
+    v12 = v21;
     if (v10)
     {
       v13 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:completion activityName:@"com.apple.healthd.daily-report"];
@@ -1392,9 +1357,9 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
       aBlock[1] = 3221225472;
       aBlock[2] = __78__HDAnalyticsSubmissionCoordinator__performAnalyticsSubmissionWithCompletion___block_invoke;
       aBlock[3] = &unk_278624EF8;
-      v21 = v3;
-      v18 = v10;
-      v19 = v13;
+      v20 = v3;
+      v17 = v10;
+      v18 = v13;
       completionCopy2 = completion;
       v14 = v13;
       v15 = _Block_copy(aBlock);
@@ -1406,13 +1371,11 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
       (*(v3 + 2))(v3, 2, v12, 0.0);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendEvent:(id)event block:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   blockCopy = block;
   _HKInitializeLogging();
@@ -1424,22 +1387,20 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
     v10 = HKLogAnalytics();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = 138543618;
+      v11 = 138543618;
       selfCopy = self;
-      v14 = 2114;
-      v15 = eventCopy;
-      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: Event sent: %{public}@", &v12, 0x16u);
+      v13 = 2114;
+      v14 = eventCopy;
+      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: Event sent: %{public}@", &v11, 0x16u);
     }
   }
 
   AnalyticsSendEventLazy();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEventUsed:(id)used
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   usedCopy = used;
   _HKInitializeLogging();
   v5 = HKLogAnalytics();
@@ -1450,23 +1411,22 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
     v7 = HKLogAnalytics();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138543618;
+      v10 = 138543618;
       selfCopy = self;
-      v13 = 2114;
-      v14 = usedCopy;
-      _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%{public}@: Checked whether event is used: %{public}@", &v11, 0x16u);
+      v12 = 2114;
+      v13 = usedCopy;
+      _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "%{public}@: Checked whether event is used: %{public}@", &v10, 0x16u);
     }
   }
 
   IsEventUsed = AnalyticsIsEventUsed();
 
-  v9 = *MEMORY[0x277D85DE8];
   return IsEventUsed;
 }
 
 - (void)_logFaultForTimedOutObservers:(id)observers timeoutSeconds:(double)seconds
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCAB68];
   observersCopy = observers;
   v8 = [[v6 alloc] initWithString:@"["];
@@ -1477,16 +1437,14 @@ void __58__HDAnalyticsSubmissionCoordinator_profileDidBecomeReady___block_invoke
   v9 = HKLogInfrastructure();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
-    v11 = 138543874;
+    v10 = 138543874;
     selfCopy = self;
-    v13 = 2048;
+    v12 = 2048;
     secondsCopy = seconds;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_fault_impl(&dword_228986000, v9, OS_LOG_TYPE_FAULT, "%{public}@: Timeout (%0.1f) waiting for %{public}@", &v11, 0x20u);
+    v14 = 2114;
+    v15 = v8;
+    _os_log_fault_impl(&dword_228986000, v9, OS_LOG_TYPE_FAULT, "%{public}@: Timeout (%0.1f) waiting for %{public}@", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __81__HDAnalyticsSubmissionCoordinator__logFaultForTimedOutObservers_timeoutSeconds___block_invoke(uint64_t a1, void *a2)
@@ -1501,7 +1459,7 @@ id __81__HDAnalyticsSubmissionCoordinator__logFaultForTimedOutObservers_timeoutS
   return v7;
 }
 
-uint64_t __78__HDAnalyticsSubmissionCoordinator__performAnalyticsSubmissionWithCompletion___block_invoke(uint64_t a1)
+void *__78__HDAnalyticsSubmissionCoordinator__performAnalyticsSubmissionWithCompletion___block_invoke(uint64_t a1)
 {
   (*(*(a1 + 56) + 16))();
   [*(a1 + 32) invalidate];
@@ -1554,7 +1512,7 @@ uint64_t __78__HDAnalyticsSubmissionCoordinator__performAnalyticsSubmissionWithC
       v18 = *(timeout + 72);
       *(timeout + 72) = 0;
 
-      v19 = [*(timeout + 80) copy];
+      v19 = objc_msgSend_copy(*(timeout + 80));
       v29[0] = MEMORY[0x277D85DD0];
       v29[1] = 3221225472;
       v29[2] = __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeout___block_invoke_336;
@@ -1609,7 +1567,7 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
 
 void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeout___block_invoke_3(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEAA8] now];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
@@ -1628,37 +1586,35 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
       {
         v10 = *(a1 + 40);
         *buf = 138543362;
-        v26 = v10;
+        v25 = v10;
         _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_INFO, "HDAnalyticsSubmissionCoordinator starting daily observer %{public}@", buf, 0xCu);
       }
     }
   }
 
   v11 = *(a1 + 32);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeout___block_invoke_333;
-  v19[3] = &unk_278624F20;
-  v20 = *(a1 + 48);
-  v21 = v4;
-  v18 = *(a1 + 32);
-  v12 = *(&v18 + 1);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeout___block_invoke_333;
+  v18[3] = &unk_278624F20;
+  v19 = *(a1 + 48);
+  v20 = v4;
+  v17 = *(a1 + 32);
+  v12 = *(&v17 + 1);
   v13 = *(a1 + 56);
-  v24 = *(a1 + 72);
+  v23 = *(a1 + 72);
   v14 = *(a1 + 64);
   *&v15 = v13;
   *(&v15 + 1) = v14;
-  v22 = v18;
-  v23 = v15;
+  v21 = v17;
+  v22 = v15;
   v16 = v4;
-  [v3 reportDailyAnalyticsWithCoordinator:v11 completion:v19];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v3 reportDailyAnalyticsWithCoordinator:v11 completion:v18];
 }
 
 void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeout___block_invoke_333(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) invalidate];
   [*(a1 + 40) timeIntervalSinceNow];
@@ -1678,11 +1634,11 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = *(a1 + 56);
-        v18 = 138543618;
-        v19 = v11;
-        v20 = 2050;
-        v21 = -v5;
-        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "HDAnalyticsSubmissionCoordinator daily observer %{public}@ took %{public}f seconds", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v11;
+        v19 = 2050;
+        v20 = -v5;
+        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "HDAnalyticsSubmissionCoordinator daily observer %{public}@ took %{public}f seconds", &v17, 0x16u);
       }
     }
   }
@@ -1694,13 +1650,13 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
     v13 = HKLogAnalytics();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v16 = *(a1 + 48);
-      v17 = *(a1 + 56);
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = v17;
-      _os_log_fault_impl(&dword_228986000, v13, OS_LOG_TYPE_FAULT, "%{public}@: observer %@ returned when not in progress. It missed the send.", &v18, 0x16u);
+      v15 = *(a1 + 48);
+      v16 = *(a1 + 56);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = v16;
+      _os_log_fault_impl(&dword_228986000, v13, OS_LOG_TYPE_FAULT, "%{public}@: observer %@ returned when not in progress. It missed the send.", &v17, 0x16u);
     }
 
     v12 = *(a1 + 48);
@@ -1721,13 +1677,11 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
 
   os_unfair_lock_unlock((*(a1 + 48) + 68));
   [*(a1 + 72) invalidate];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeout___block_invoke_2_338(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   (*(a1[5] + 16))(0.0);
   _HKInitializeLogging();
   v2 = HKLogAnalytics();
@@ -1741,22 +1695,20 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
       v5 = a1[4];
       v6 = a1[6];
       v7 = [*(v5 + 56) count];
-      v9 = 138543874;
-      v10 = v5;
-      v11 = 2050;
-      v12 = v6;
-      v13 = 2050;
-      v14 = v7;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "%{public}@: DailyAnalytics took %{public}f seconds with %{public}ld observers", &v9, 0x20u);
+      v8 = 138543874;
+      v9 = v5;
+      v10 = 2050;
+      v11 = v6;
+      v12 = 2050;
+      v13 = v7;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "%{public}@: DailyAnalytics took %{public}f seconds with %{public}ld observers", &v8, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDailyAnalyticsWithTimeout:(double)timeout completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_dailyAnalyticsObserversLock);
   date = [MEMORY[0x277CBEAA8] date];
@@ -1777,9 +1729,9 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
       v13 = HKLogAnalytics();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v23 = 138543362;
+        v22 = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "HDAnalyticsSubmissionCoordinator starting daily %{public}@", &v23, 0xCu);
+        _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "HDAnalyticsSubmissionCoordinator starting daily %{public}@", &v22, 0xCu);
       }
     }
   }
@@ -1794,13 +1746,12 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
   dailyAnalyticsPendingObservers = self->_dailyAnalyticsPendingObservers;
   self->_dailyAnalyticsPendingObservers = v18;
 
-  v20 = [completionCopy copy];
+  v20 = objc_msgSend_copy(completionCopy);
   dailyAnalyticsCompletionHandler = self->_dailyAnalyticsCompletionHandler;
   self->_dailyAnalyticsCompletionHandler = v20;
 
   [(HDAnalyticsSubmissionCoordinator *)self _locked_sendDailyAnalyticsWithTimeout:timeout];
   os_unfair_lock_unlock(&self->_dailyAnalyticsObserversLock);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)periodicActivity:(id)activity configureXPCActivityCriteria:(id)criteria
@@ -1853,86 +1804,83 @@ void __74__HDAnalyticsSubmissionCoordinator__locked_sendDailyAnalyticsWithTimeou
 
 id __102__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_reportSetupOperation_success_error___block_invoke(uint64_t a1)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
     v2 = *(a1 + 32);
-    v26[0] = @"operation";
-    v26[1] = @"success";
-    v27[0] = v2;
-    v27[1] = MEMORY[0x277CBEC38];
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v24[0] = @"operation";
+    v24[1] = @"success";
+    v25[0] = v2;
+    v25[1] = MEMORY[0x277CBEC38];
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
   }
 
   else
   {
-    v24[0] = @"operation";
-    v24[1] = @"success";
-    v5 = *(a1 + 32);
+    v22[0] = @"operation";
+    v22[1] = @"success";
     v4 = *(a1 + 40);
-    v25[0] = *(a1 + 32);
-    v25[1] = MEMORY[0x277CBEC28];
-    v6 = [v4 domain];
-    v7 = v6;
-    v8 = @"<null>";
-    if (v6)
+    v23[0] = *(a1 + 32);
+    v23[1] = MEMORY[0x277CBEC28];
+    v5 = [v4 domain];
+    v6 = v5;
+    v7 = @"<null>";
+    if (v5)
     {
-      v8 = v6;
+      v7 = v5;
     }
 
-    v25[2] = v8;
-    v24[3] = @"errorCode";
-    v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "code")}];
-    v25[3] = v9;
-    v24[4] = @"errorClass";
-    v10 = [*(a1 + 40) userInfo];
-    v11 = [v10 objectForKeyedSubscript:*MEMORY[0x277CCBD90]];
-    v12 = v11;
-    if (v11)
+    v23[2] = v7;
+    v22[3] = @"errorCode";
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "code")}];
+    v23[3] = v8;
+    v22[4] = @"errorClass";
+    v9 = [*(a1 + 40) userInfo];
+    v10 = [v9 objectForKeyedSubscript:*MEMORY[0x277CCBD90]];
+    v11 = v10;
+    if (v10)
     {
-      v13 = v11;
-    }
-
-    else
-    {
-      v13 = @"<unknown>";
-    }
-
-    v25[4] = v13;
-    v24[5] = @"errorMethod";
-    v14 = [*(a1 + 40) userInfo];
-    v15 = [v14 objectForKeyedSubscript:*MEMORY[0x277CCBDC0]];
-    v16 = v15;
-    if (v15)
-    {
-      v17 = v15;
+      v12 = v10;
     }
 
     else
     {
-      v17 = @"<unknown>";
+      v12 = @"<unknown>";
     }
 
-    v25[5] = v17;
-    v24[6] = @"errorParameter";
-    v18 = [*(a1 + 40) userInfo];
-    v19 = [v18 objectForKeyedSubscript:*MEMORY[0x277CCBDB8]];
-    v20 = v19;
-    if (v19)
+    v23[4] = v12;
+    v22[5] = @"errorMethod";
+    v13 = [*(a1 + 40) userInfo];
+    v14 = [v13 objectForKeyedSubscript:*MEMORY[0x277CCBDC0]];
+    v15 = v14;
+    if (v14)
     {
-      v21 = v19;
+      v16 = v14;
     }
 
     else
     {
-      v21 = @"<unknown>";
+      v16 = @"<unknown>";
     }
 
-    v25[6] = v21;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+    v23[5] = v16;
+    v22[6] = @"errorParameter";
+    v17 = [*(a1 + 40) userInfo];
+    v18 = [v17 objectForKeyedSubscript:*MEMORY[0x277CCBDB8]];
+    v19 = v18;
+    if (v18)
+    {
+      v20 = v18;
+    }
+
+    else
+    {
+      v20 = @"<unknown>";
+    }
+
+    v23[6] = v20;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:7];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1965,20 +1913,20 @@ id __102__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_report
 
 id __119__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_reportDailyAnalytics_activeWatchProductType_age_sex___block_invoke(uint64_t a1)
 {
-  v80[4] = *MEMORY[0x277D85DE8];
-  v79[0] = @"isSharingOutEnabled";
+  v79[4] = *MEMORY[0x277D85DE8];
+  v78[0] = @"isSharingOutEnabled";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 80)];
-  v80[0] = v2;
-  v79[1] = @"isSharingInEnabled";
+  v79[0] = v2;
+  v78[1] = @"isSharingInEnabled";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 81)];
-  v80[1] = v3;
-  v79[2] = @"isImproveHealthAndActivityAllowed";
+  v79[1] = v3;
+  v78[2] = @"isImproveHealthAndActivityAllowed";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 82)];
-  v79[3] = @"activeWatchProductType";
+  v78[3] = @"activeWatchProductType";
   v5 = *(a1 + 32);
-  v80[2] = v4;
-  v80[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:4];
+  v79[2] = v4;
+  v79[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:4];
   v7 = [v6 mutableCopy];
 
   v8 = [*(a1 + 40) askSomeoneToShareLastSelectedDate];
@@ -1999,13 +1947,13 @@ id __119__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_report
     v13 = 0;
   }
 
-  v77[0] = @"hasInvitedToShareInPastMonth";
+  v76[0] = @"hasInvitedToShareInPastMonth";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:v13];
-  v77[1] = @"hasInvitedToShareInPast6Months";
-  v78[0] = v14;
+  v76[1] = @"hasInvitedToShareInPast6Months";
+  v77[0] = v14;
   v15 = [MEMORY[0x277CCABB0] numberWithBool:v8];
-  v78[1] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
+  v77[1] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
   [v7 addEntriesFromDictionary:v16];
 
   if (*(a1 + 81) == 1)
@@ -2013,16 +1961,16 @@ id __119__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_report
     v17 = [*(a1 + 40) numberOfAlertNotificationsEnabled] > 0;
     v18 = [*(a1 + 40) numberOfTrendNotificationsEnabled] > 0;
     v19 = [*(a1 + 40) numberOfUpdateNotificationsEnabled] > 0;
-    v75[0] = @"hasAlertsEnabled";
+    v74[0] = @"hasAlertsEnabled";
     v20 = [MEMORY[0x277CCABB0] numberWithBool:v17];
-    v76[0] = v20;
-    v75[1] = @"hasTrendsEnabled";
+    v75[0] = v20;
+    v74[1] = @"hasTrendsEnabled";
     v21 = [MEMORY[0x277CCABB0] numberWithBool:v18];
-    v76[1] = v21;
-    v75[2] = @"hasUpdatesEnabled";
+    v75[1] = v21;
+    v74[2] = @"hasUpdatesEnabled";
     v22 = [MEMORY[0x277CCABB0] numberWithBool:v19];
-    v76[2] = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:3];
+    v75[2] = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
     [v7 addEntriesFromDictionary:v23];
 
     v24 = [*(a1 + 40) sharingContactOptionLastSelectedDate];
@@ -2043,13 +1991,13 @@ id __119__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_report
       v29 = 0;
     }
 
-    v73[0] = @"hasClickedToTextOrCallFromSharingInPastMonth";
+    v72[0] = @"hasClickedToTextOrCallFromSharingInPastMonth";
     v30 = [MEMORY[0x277CCABB0] numberWithBool:v29];
-    v73[1] = @"hasClickedToTextOrCallFromSharingInPast6Months";
-    v74[0] = v30;
+    v72[1] = @"hasClickedToTextOrCallFromSharingInPast6Months";
+    v73[0] = v30;
     v31 = [MEMORY[0x277CCABB0] numberWithBool:v24];
-    v74[1] = v31;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+    v73[1] = v31;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:2];
     [v7 addEntriesFromDictionary:v32];
 
     v33 = [*(a1 + 40) mostRecentIncomingTransactionDate];
@@ -2063,13 +2011,13 @@ id __119__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_report
 
       v38 = v37 < *(a1 + 64);
       v39 = v37 < *(a1 + 56);
-      v71[0] = @"hasReceivedNewDataOnSharedAccountInPast6Months";
+      v70[0] = @"hasReceivedNewDataOnSharedAccountInPast6Months";
       v40 = [MEMORY[0x277CCABB0] numberWithBool:v38];
-      v71[1] = @"hasReceivedNewDataOnSharedAccountInPastMonth";
-      v72[0] = v40;
+      v70[1] = @"hasReceivedNewDataOnSharedAccountInPastMonth";
+      v71[0] = v40;
       v41 = [MEMORY[0x277CCABB0] numberWithBool:v39];
-      v72[1] = v41;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+      v71[1] = v41;
+      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
       [v7 addEntriesFromDictionary:v42];
     }
 
@@ -2091,54 +2039,52 @@ id __119__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_report
       v48 = 0;
     }
 
-    v69[0] = @"hasClickedSharingInAccountInPastMonth";
+    v68[0] = @"hasClickedSharingInAccountInPastMonth";
     v49 = [MEMORY[0x277CCABB0] numberWithBool:v48];
-    v69[1] = @"hasClickedSharingInAccountInPast6Months";
-    v70[0] = v49;
+    v68[1] = @"hasClickedSharingInAccountInPast6Months";
+    v69[0] = v49;
     v50 = [MEMORY[0x277CCABB0] numberWithBool:v43];
-    v70[1] = v50;
-    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+    v69[1] = v50;
+    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:2];
     [v7 addEntriesFromDictionary:v51];
   }
 
   if (*(a1 + 80) == 1)
   {
-    v67[0] = @"numberAuthorizationsSharingOut";
+    v66[0] = @"numberAuthorizationsSharingOut";
     v52 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "numberAuthorizationsSharingOut")}];
-    v68[0] = v52;
-    v67[1] = @"averageNumberAuthorizationsSharedOutPerPerson";
+    v67[0] = v52;
+    v66[1] = @"averageNumberAuthorizationsSharedOutPerPerson";
     v53 = MEMORY[0x277CCABB0];
     [*(a1 + 40) averageNumberAuthorizationsSharedOutPerPerson];
     v54 = [v53 numberWithDouble:?];
-    v68[1] = v54;
-    v67[2] = @"maxAuthorizationsSharedOutPerPerson";
+    v67[1] = v54;
+    v66[2] = @"maxAuthorizationsSharedOutPerPerson";
     v55 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "maxAuthorizationsSharedOutPerPerson")}];
-    v68[2] = v55;
-    v67[3] = @"minAuthorizationsSharedOutPerPerson";
+    v67[2] = v55;
+    v66[3] = @"minAuthorizationsSharedOutPerPerson";
     v56 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "minAuthorizationsSharedOutPerPerson")}];
-    v68[3] = v56;
-    v67[4] = @"numberPeopleSharingOut";
+    v67[3] = v56;
+    v66[4] = @"numberPeopleSharingOut";
     v57 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "numberPeopleSharingOut")}];
-    v68[4] = v57;
-    v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:5];
+    v67[4] = v57;
+    v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:5];
     [v7 addEntriesFromDictionary:v58];
   }
 
   if (*(a1 + 82) == 1)
   {
     v59 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "numberPeopleSharingIn", @"numberPeopleSharingIn"}];
-    v66[0] = v59;
-    v65[1] = @"age";
+    v65[0] = v59;
+    v64[1] = @"age";
     v60 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
-    v65[2] = @"sex";
+    v64[2] = @"sex";
     v61 = *(a1 + 48);
-    v66[1] = v60;
-    v66[2] = v61;
-    v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
+    v65[1] = v60;
+    v65[2] = v61;
+    v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:3];
     [v7 addEntriesFromDictionary:v62];
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2158,171 +2104,187 @@ id __119__HDAnalyticsSubmissionCoordinator_SummarySharing__summarySharing_report
 
 id __103__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportWeeklyAnalyticsWithCacheValidation___block_invoke(uint64_t a1)
 {
-  v54[48] = *MEMORY[0x277D85DE8];
-  v53[0] = @"individualSyncZonesInCloud";
-  v52 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "individualSyncZonesInCloud")}];
-  v54[0] = v52;
-  v53[1] = @"masterZonesInCloud";
-  v51 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterZonesInCloud")}];
-  v54[1] = v51;
-  v53[2] = @"unifiedZonesInCloud";
-  v50 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "unifiedZonesInCloud")}];
-  v54[2] = v50;
-  v53[3] = @"sharedSummaryZonesInCloud";
-  v49 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCloud")}];
-  v54[3] = v49;
-  v53[4] = @"individualSyncZonesInCache";
-  v48 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "individualSyncZonesInCache")}];
-  v54[4] = v48;
-  v53[5] = @"masterZonesInCache";
-  v47 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterZonesInCache")}];
-  v54[5] = v47;
-  v53[6] = @"unifiedZonesInCache";
-  v46 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "unifiedZonesInCache")}];
-  v54[6] = v46;
-  v53[7] = @"sharedSummaryZonesInCache";
-  v45 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCache")}];
-  v54[7] = v45;
-  v53[8] = @"storeRecordsInCloud";
-  v44 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "storeRecordsInCloud")}];
-  v54[8] = v44;
-  v53[9] = @"sequenceRecordsInCloud";
-  v43 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sequenceRecordsInCloud")}];
-  v54[9] = v43;
-  v53[10] = @"medicalIDRecordsInCloud";
-  v42 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "medicalIDRecordsInCloud")}];
-  v54[10] = v42;
-  v53[11] = @"changeRecordsInCloud";
-  v41 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "changeRecordsInCloud")}];
-  v54[11] = v41;
-  v53[12] = @"registryRecordsInCloud";
-  v40 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "registryRecordsInCloud")}];
-  v54[12] = v40;
-  v53[13] = @"masterRecordsInCloud";
-  v39 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterRecordsInCloud")}];
-  v54[13] = v39;
-  v53[14] = @"dataUploadRequestRecordInCloud";
-  v38 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "dataUploadRequestRecordInCloud")}];
-  v54[14] = v38;
-  v53[15] = @"sharedSummaryAuthRecordInCloud";
-  v37 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryAuthRecordInCloud")}];
-  v54[15] = v37;
-  v53[16] = @"sharedSummaryParticipantRecordInCloud";
-  v36 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryParticipantRecordInCloud")}];
-  v54[16] = v36;
-  v53[17] = @"sharedSummaryRelationshipRecordInCloud";
-  v35 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRelationshipRecordInCloud")}];
-  v54[17] = v35;
-  v53[18] = @"sharedSummaryRecordInCloud";
-  v34 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRecordInCloud")}];
-  v54[18] = v34;
-  v53[19] = @"sharedSummaryTransactionRecordInCloud";
-  v33 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryTransactionRecordInCloud")}];
-  v54[19] = v33;
-  v53[20] = @"storeRecordsInCache";
-  v32 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "storeRecordsInCache")}];
-  v54[20] = v32;
-  v53[21] = @"sequenceRecordsInCache";
-  v31 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sequenceRecordsInCache")}];
-  v54[21] = v31;
-  v53[22] = @"medicalIDRecordsInCache";
-  v30 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "medicalIDRecordsInCache")}];
-  v54[22] = v30;
-  v53[23] = @"changeRecordsInCache";
-  v29 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "changeRecordsInCache")}];
-  v54[23] = v29;
-  v53[24] = @"registryRecordsInCache";
-  v28 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "registryRecordsInCache")}];
-  v54[24] = v28;
-  v53[25] = @"masterRecordsInCache";
-  v27 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterRecordsInCache")}];
-  v54[25] = v27;
-  v53[26] = @"dataUploadRequestRecordInCache";
-  v26 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "dataUploadRequestRecordInCache")}];
-  v54[26] = v26;
-  v53[27] = @"sharedSummaryAuthRecordInCache";
-  v25 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryAuthRecordInCache")}];
-  v54[27] = v25;
-  v53[28] = @"sharedSummaryParticipantRecordInCache";
-  v24 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryParticipantRecordInCache")}];
-  v54[28] = v24;
-  v53[29] = @"sharedSummaryRelationshipRecordInCache";
-  v23 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRelationshipRecordInCache")}];
-  v54[29] = v23;
-  v53[30] = @"sharedSummaryRecordInCache";
-  v22 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRecordInCache")}];
-  v54[30] = v22;
-  v53[31] = @"sharedSummaryTransactionRecordInCache";
-  v21 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryTransactionRecordInCache")}];
-  v54[31] = v21;
-  v53[32] = @"deltaIndividualSyncZonesInCloudCache";
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "individualSyncZonesInCloud") - objc_msgSend(*(a1 + 32), "individualSyncZonesInCache")}];
-  v54[32] = v20;
-  v53[33] = @"deltaMasterZonesInCloudCache";
-  v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterZonesInCloud") - objc_msgSend(*(a1 + 32), "masterZonesInCache")}];
-  v54[33] = v19;
-  v53[34] = @"deltaUnifiedZonesInCloudCache";
-  v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "unifiedZonesInCloud") - objc_msgSend(*(a1 + 32), "unifiedZonesInCache")}];
-  v54[34] = v18;
-  v53[35] = @"deltaSharedSummaryZonesInCloudCache";
-  v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCloud") - objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCache")}];
-  v54[35] = v17;
-  v53[36] = @"deltaStoreRecordsInCloudCache";
-  v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "storeRecordsInCloud") - objc_msgSend(*(a1 + 32), "storeRecordsInCache")}];
-  v54[36] = v16;
-  v53[37] = @"deltaSequenceRecordsInCloudCache";
-  v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sequenceRecordsInCloud") - objc_msgSend(*(a1 + 32), "sequenceRecordsInCache")}];
-  v54[37] = v15;
-  v53[38] = @"deltaMedicalIDRecordsInCloudCache";
-  v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "medicalIDRecordsInCloud") - objc_msgSend(*(a1 + 32), "medicalIDRecordsInCache")}];
-  v54[38] = v14;
-  v53[39] = @"deltaChangeRecordsInCloudCache";
-  v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "changeRecordsInCloud") - objc_msgSend(*(a1 + 32), "changeRecordsInCache")}];
-  v54[39] = v13;
-  v53[40] = @"deltaRegistryRecordsInCloudCache";
+  v53[48] = *MEMORY[0x277D85DE8];
+  v52[0] = @"individualSyncZonesInCloud";
+  v51 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "individualSyncZonesInCloud")}];
+  v53[0] = v51;
+  v52[1] = @"masterZonesInCloud";
+  v50 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterZonesInCloud")}];
+  v53[1] = v50;
+  v52[2] = @"unifiedZonesInCloud";
+  v49 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "unifiedZonesInCloud")}];
+  v53[2] = v49;
+  v52[3] = @"sharedSummaryZonesInCloud";
+  v48 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCloud")}];
+  v53[3] = v48;
+  v52[4] = @"individualSyncZonesInCache";
+  v47 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "individualSyncZonesInCache")}];
+  v53[4] = v47;
+  v52[5] = @"masterZonesInCache";
+  v46 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterZonesInCache")}];
+  v53[5] = v46;
+  v52[6] = @"unifiedZonesInCache";
+  v45 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "unifiedZonesInCache")}];
+  v53[6] = v45;
+  v52[7] = @"sharedSummaryZonesInCache";
+  v44 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCache")}];
+  v53[7] = v44;
+  v52[8] = @"storeRecordsInCloud";
+  v43 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "storeRecordsInCloud")}];
+  v53[8] = v43;
+  v52[9] = @"sequenceRecordsInCloud";
+  v42 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sequenceRecordsInCloud")}];
+  v53[9] = v42;
+  v52[10] = @"medicalIDRecordsInCloud";
+  v41 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "medicalIDRecordsInCloud")}];
+  v53[10] = v41;
+  v52[11] = @"changeRecordsInCloud";
+  v40 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "changeRecordsInCloud")}];
+  v53[11] = v40;
+  v52[12] = @"registryRecordsInCloud";
+  v39 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "registryRecordsInCloud")}];
+  v53[12] = v39;
+  v52[13] = @"masterRecordsInCloud";
+  v38 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterRecordsInCloud")}];
+  v53[13] = v38;
+  v52[14] = @"dataUploadRequestRecordInCloud";
+  v37 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "dataUploadRequestRecordInCloud")}];
+  v53[14] = v37;
+  v52[15] = @"sharedSummaryAuthRecordInCloud";
+  v36 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryAuthRecordInCloud")}];
+  v53[15] = v36;
+  v52[16] = @"sharedSummaryParticipantRecordInCloud";
+  v35 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryParticipantRecordInCloud")}];
+  v53[16] = v35;
+  v52[17] = @"sharedSummaryRelationshipRecordInCloud";
+  v34 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRelationshipRecordInCloud")}];
+  v53[17] = v34;
+  v52[18] = @"sharedSummaryRecordInCloud";
+  v33 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRecordInCloud")}];
+  v53[18] = v33;
+  v52[19] = @"sharedSummaryTransactionRecordInCloud";
+  v32 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryTransactionRecordInCloud")}];
+  v53[19] = v32;
+  v52[20] = @"storeRecordsInCache";
+  v31 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "storeRecordsInCache")}];
+  v53[20] = v31;
+  v52[21] = @"sequenceRecordsInCache";
+  v30 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sequenceRecordsInCache")}];
+  v53[21] = v30;
+  v52[22] = @"medicalIDRecordsInCache";
+  v29 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "medicalIDRecordsInCache")}];
+  v53[22] = v29;
+  v52[23] = @"changeRecordsInCache";
+  v28 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "changeRecordsInCache")}];
+  v53[23] = v28;
+  v52[24] = @"registryRecordsInCache";
+  v27 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "registryRecordsInCache")}];
+  v53[24] = v27;
+  v52[25] = @"masterRecordsInCache";
+  v26 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterRecordsInCache")}];
+  v53[25] = v26;
+  v52[26] = @"dataUploadRequestRecordInCache";
+  v25 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "dataUploadRequestRecordInCache")}];
+  v53[26] = v25;
+  v52[27] = @"sharedSummaryAuthRecordInCache";
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryAuthRecordInCache")}];
+  v53[27] = v24;
+  v52[28] = @"sharedSummaryParticipantRecordInCache";
+  v23 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryParticipantRecordInCache")}];
+  v53[28] = v23;
+  v52[29] = @"sharedSummaryRelationshipRecordInCache";
+  v22 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRelationshipRecordInCache")}];
+  v53[29] = v22;
+  v52[30] = @"sharedSummaryRecordInCache";
+  v21 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRecordInCache")}];
+  v53[30] = v21;
+  v52[31] = @"sharedSummaryTransactionRecordInCache";
+  v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryTransactionRecordInCache")}];
+  v53[31] = v20;
+  v52[32] = @"deltaIndividualSyncZonesInCloudCache";
+  v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "individualSyncZonesInCloud") - objc_msgSend(*(a1 + 32), "individualSyncZonesInCache")}];
+  v53[32] = v19;
+  v52[33] = @"deltaMasterZonesInCloudCache";
+  v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterZonesInCloud") - objc_msgSend(*(a1 + 32), "masterZonesInCache")}];
+  v53[33] = v18;
+  v52[34] = @"deltaUnifiedZonesInCloudCache";
+  v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "unifiedZonesInCloud") - objc_msgSend(*(a1 + 32), "unifiedZonesInCache")}];
+  v53[34] = v17;
+  v52[35] = @"deltaSharedSummaryZonesInCloudCache";
+  v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCloud") - objc_msgSend(*(a1 + 32), "sharedSummaryZonesInCache")}];
+  v53[35] = v16;
+  v52[36] = @"deltaStoreRecordsInCloudCache";
+  v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "storeRecordsInCloud") - objc_msgSend(*(a1 + 32), "storeRecordsInCache")}];
+  v53[36] = v15;
+  v52[37] = @"deltaSequenceRecordsInCloudCache";
+  v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sequenceRecordsInCloud") - objc_msgSend(*(a1 + 32), "sequenceRecordsInCache")}];
+  v53[37] = v14;
+  v52[38] = @"deltaMedicalIDRecordsInCloudCache";
+  v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "medicalIDRecordsInCloud") - objc_msgSend(*(a1 + 32), "medicalIDRecordsInCache")}];
+  v53[38] = v13;
+  v52[39] = @"deltaChangeRecordsInCloudCache";
+  v12 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "changeRecordsInCloud") - objc_msgSend(*(a1 + 32), "changeRecordsInCache")}];
+  v53[39] = v12;
+  v52[40] = @"deltaRegistryRecordsInCloudCache";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "registryRecordsInCloud") - objc_msgSend(*(a1 + 32), "registryRecordsInCache")}];
-  v54[40] = v2;
-  v53[41] = @"deltaMasterRecordsInCloudCache";
+  v53[40] = v2;
+  v52[41] = @"deltaMasterRecordsInCloudCache";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "masterRecordsInCloud") - objc_msgSend(*(a1 + 32), "masterRecordsInCache")}];
-  v54[41] = v3;
-  v53[42] = @"deltaDataUploadRequestRecordInCloudCache";
+  v53[41] = v3;
+  v52[42] = @"deltaDataUploadRequestRecordInCloudCache";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "dataUploadRequestRecordInCloud") - objc_msgSend(*(a1 + 32), "dataUploadRequestRecordInCache")}];
-  v54[42] = v4;
-  v53[43] = @"deltaSharedSummaryAuthRecordInCloudCache";
+  v53[42] = v4;
+  v52[43] = @"deltaSharedSummaryAuthRecordInCloudCache";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryAuthRecordInCloud") - objc_msgSend(*(a1 + 32), "sharedSummaryAuthRecordInCache")}];
-  v54[43] = v5;
-  v53[44] = @"deltaSharedSummaryParticipantRecordInCloudCache";
+  v53[43] = v5;
+  v52[44] = @"deltaSharedSummaryParticipantRecordInCloudCache";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryParticipantRecordInCloud") - objc_msgSend(*(a1 + 32), "sharedSummaryParticipantRecordInCache")}];
-  v54[44] = v6;
-  v53[45] = @"deltaSharedSummaryRelationshipRecordInCloudCache";
+  v53[44] = v6;
+  v52[45] = @"deltaSharedSummaryRelationshipRecordInCloudCache";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRelationshipRecordInCloud") - objc_msgSend(*(a1 + 32), "sharedSummaryRelationshipRecordInCache")}];
-  v54[45] = v7;
-  v53[46] = @"deltaSharedSummaryRecordInCloudCache";
+  v53[45] = v7;
+  v52[46] = @"deltaSharedSummaryRecordInCloudCache";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryRecordInCloud") - objc_msgSend(*(a1 + 32), "sharedSummaryRecordInCache")}];
-  v54[46] = v8;
-  v53[47] = @"deltaSharedSummaryTransactionRecordInCloudCache";
+  v53[46] = v8;
+  v52[47] = @"deltaSharedSummaryTransactionRecordInCloudCache";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "sharedSummaryTransactionRecordInCloud") - objc_msgSend(*(a1 + 32), "sharedSummaryTransactionRecordInCache")}];
-  v54[47] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:48];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v53[47] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:48];
 
   return v10;
 }
 
+- (void)cloudCache_reportDailyCacheAnalyticsWithPushTargets:(int64_t)targets pullTargets:(int64_t)pullTargets sharedDBSummarySharingZones:(int64_t)zones privateDBSummarySharingZones:(int64_t)sharingZones unifiedZoneInSharedDB:(BOOL)b unifiedZoneInPrivateDB:(BOOL)dB deviceContexts:(unint64_t)contexts deviceKeys:(unint64_t)self0 nilSyncIdentities:(unint64_t)self1
+{
+  v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.healthd.sync.cloud.cache.%@", @"daily-analytics"];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __261__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportDailyCacheAnalyticsWithPushTargets_pullTargets_sharedDBSummarySharingZones_privateDBSummarySharingZones_unifiedZoneInSharedDB_unifiedZoneInPrivateDB_deviceContexts_deviceKeys_nilSyncIdentities___block_invoke;
+  v19[3] = &__block_descriptor_90_e19___NSDictionary_8__0l;
+  v19[4] = targets;
+  v19[5] = pullTargets;
+  v19[6] = zones;
+  v19[7] = sharingZones;
+  bCopy = b;
+  dBCopy = dB;
+  v20 = *&contexts;
+  identitiesCopy = identities;
+  [(HDAnalyticsSubmissionCoordinator *)self sendEvent:v18 block:v19];
+}
+
 id __261__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportDailyCacheAnalyticsWithPushTargets_pullTargets_sharedDBSummarySharingZones_privateDBSummarySharingZones_unifiedZoneInSharedDB_unifiedZoneInPrivateDB_deviceContexts_deviceKeys_nilSyncIdentities___block_invoke(uint64_t a1)
 {
-  v16[9] = *MEMORY[0x277D85DE8];
-  v15[0] = @"pushTargets";
+  v15[9] = *MEMORY[0x277D85DE8];
+  v14[0] = @"pushTargets";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v16[0] = v2;
-  v15[1] = @"pullTargets";
+  v15[0] = v2;
+  v14[1] = @"pullTargets";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v16[1] = v3;
-  v15[2] = @"sharedDBSummarySharingZones";
+  v15[1] = v3;
+  v14[2] = @"sharedDBSummarySharingZones";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v16[2] = v4;
-  v15[3] = @"privateDBSummarySharingZones";
+  v15[2] = v4;
+  v14[3] = @"privateDBSummarySharingZones";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
   v6 = v5;
   if (*(a1 + 88))
@@ -2335,10 +2297,10 @@ id __261__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportDaily
     v7 = MEMORY[0x277CBEC28];
   }
 
-  v16[3] = v5;
-  v16[4] = v7;
-  v15[4] = @"unifiedZoneInSharedDB";
-  v15[5] = @"unifiedZoneInPrivateDB";
+  v15[3] = v5;
+  v15[4] = v7;
+  v14[4] = @"unifiedZoneInSharedDB";
+  v14[5] = @"unifiedZoneInPrivateDB";
   if (*(a1 + 89))
   {
     v8 = MEMORY[0x277CBEC38];
@@ -2349,19 +2311,17 @@ id __261__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportDaily
     v8 = MEMORY[0x277CBEC28];
   }
 
-  v16[5] = v8;
-  v15[6] = @"contextCount";
+  v15[5] = v8;
+  v14[6] = @"contextCount";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 64)];
-  v16[6] = v9;
-  v15[7] = @"keyCount";
+  v15[6] = v9;
+  v14[7] = @"keyCount";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 72)];
-  v16[7] = v10;
-  v15[8] = @"nilSyncIdentities";
+  v15[7] = v10;
+  v14[8] = @"nilSyncIdentities";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 80)];
-  v16[8] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:9];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[8] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:9];
 
   return v12;
 }
@@ -2393,25 +2353,23 @@ id __261__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportDaily
 
 id __144__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportCacheDiscrepancyForOperation_reason_containerIdentifier_databaseScope_error___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v11[0] = @"discrepancyReason";
-  v11[1] = @"container";
+  v15 = *MEMORY[0x277D85DE8];
+  v10[0] = @"discrepancyReason";
+  v10[1] = @"container";
   v3 = *(a1 + 48);
   v2 = *(a1 + 56);
-  v13 = v3;
-  v11[2] = @"database";
-  v11[3] = @"errorDomain";
-  v12 = *(a1 + 32);
+  v12 = v3;
+  v10[2] = @"database";
+  v10[3] = @"errorDomain";
+  v11 = *(a1 + 32);
   v4 = [v2 domain];
-  v14 = v4;
-  v11[4] = @"errorCode";
+  v13 = v4;
+  v10[4] = @"errorCode";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 56), "code")}];
-  v15 = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:v11 count:5];
+  v14 = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:v10 count:5];
   v7 = [*(a1 + 64) analyticsDictionary];
   v8 = [v6 hk_dictionaryByAddingEntriesFromDictionary:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2435,24 +2393,22 @@ id __144__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportCache
 
 id __184__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportCacheFetchAndUpdateAnalyticsForPipeline_changedZonesCount_deletedZonesCount_changedRecordsCount_deletedRecordsCount___block_invoke(uint64_t a1)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  v11[0] = @"changedZonesCount";
+  v11[4] = *MEMORY[0x277D85DE8];
+  v10[0] = @"changedZonesCount";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v12[0] = v2;
-  v11[1] = @"deletedZonesCount";
+  v11[0] = v2;
+  v10[1] = @"deletedZonesCount";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v12[1] = v3;
-  v11[2] = @"changedRecordsCount";
+  v11[1] = v3;
+  v10[2] = @"changedRecordsCount";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-  v12[2] = v4;
-  v11[3] = @"deletedRecordsCount";
+  v11[2] = v4;
+  v10[3] = @"deletedRecordsCount";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 64)];
-  v12[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
+  v11[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
   v7 = [*(a1 + 32) analyticsDictionary];
   v8 = [v6 hk_dictionaryByAddingEntriesFromDictionary:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2473,15 +2429,13 @@ id __184__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportCache
 
 id __113__HDAnalyticsSubmissionCoordinator_CloudKitCache__cloudCache_reportCacheSyncAnalyticsForPipeline_operationCount___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"cloudKitOperationsCount";
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"cloudKitOperationsCount";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v9[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = [*(a1 + 32) analyticsDictionary];
   v5 = [v3 hk_dictionaryByAddingEntriesFromDictionary:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2643,18 +2597,16 @@ id __616__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportDailyAnaly
 
 id __131__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportMissingManateeIdentityDuringFetchInContainer_zoneName_databaseScope___block_invoke(void *a1)
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"container";
-  v6[1] = @"zone";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"container";
+  v5[1] = @"zone";
   v1 = a1[5];
-  v7[0] = a1[4];
-  v7[1] = v1;
-  v6[2] = @"scope";
+  v6[0] = a1[4];
+  v6[1] = v1;
+  v5[2] = @"scope";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:a1[6]];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -2683,11 +2635,11 @@ id __131__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportMissingMan
 
 id __96__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportOwnershipChangeForProfile_reason___block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"profileType";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"profileType";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "profileType")}];
-  v10[1] = @"reason";
-  v11[0] = v2;
+  v9[1] = @"reason";
+  v10[0] = v2;
   v3 = *(a1 + 40);
   v4 = [v3 length];
   if (v4 >= 0x400)
@@ -2701,10 +2653,8 @@ id __96__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportOwnershipCh
   }
 
   v6 = [v3 substringToIndex:v5];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
@@ -2722,13 +2672,11 @@ id __96__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportOwnershipCh
 
 id __88__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSyncStartForType___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"type";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"type";
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2747,16 +2695,14 @@ id __88__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSyn
 
 id __101__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSyncSuccessAfterDuration_type___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"duration";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"duration";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v7[1] = @"type";
-  v8[0] = v2;
+  v6[1] = @"type";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -2778,14 +2724,14 @@ id __101__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSy
 
 id __106__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSyncFailureWithError_duration_type___block_invoke(uint64_t a1)
 {
-  v22[7] = *MEMORY[0x277D85DE8];
-  v21[0] = @"errorDomain";
-  v20 = [*(a1 + 32) domain];
-  v22[0] = v20;
-  v21[1] = @"errorCode";
+  v21[7] = *MEMORY[0x277D85DE8];
+  v20[0] = @"errorDomain";
+  v19 = [*(a1 + 32) domain];
+  v21[0] = v19;
+  v20[1] = @"errorCode";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
-  v22[1] = v2;
-  v21[2] = @"errorClass";
+  v21[1] = v2;
+  v20[2] = @"errorClass";
   v3 = [*(a1 + 32) userInfo];
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277CCBD90]];
   v5 = v4;
@@ -2799,8 +2745,8 @@ id __106__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSy
     v6 = @"<unknown>";
   }
 
-  v22[2] = v6;
-  v21[3] = @"errorMethod";
+  v21[2] = v6;
+  v20[3] = @"errorMethod";
   v7 = [*(a1 + 32) userInfo];
   v8 = [v7 objectForKeyedSubscript:*MEMORY[0x277CCBDC0]];
   v9 = v8;
@@ -2814,8 +2760,8 @@ id __106__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSy
     v10 = @"<unknown>";
   }
 
-  v22[3] = v10;
-  v21[4] = @"errorParameter";
+  v21[3] = v10;
+  v20[4] = @"errorParameter";
   v11 = [*(a1 + 32) userInfo];
   v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277CCBDB8]];
   v13 = v12;
@@ -2829,16 +2775,14 @@ id __106__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSy
     v14 = @"<unknown>";
   }
 
-  v22[4] = v14;
-  v21[5] = @"duration";
+  v21[4] = v14;
+  v20[5] = @"duration";
   v15 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v22[5] = v15;
-  v21[6] = @"type";
+  v21[5] = v15;
+  v20[6] = @"type";
   v16 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v22[6] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:7];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v21[6] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:7];
 
   return v17;
 }
@@ -2856,13 +2800,11 @@ id __106__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPeriodicSy
 
 id __95__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportRebaseTriggeredByDeletionByUser___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"byUser";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"byUser";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2890,36 +2832,34 @@ id __95__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportRebaseTrigg
 
 id __129__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportRestoreForProfile_startDate_endDate_duration_finishedJournalMerge___block_invoke(uint64_t a1)
 {
-  v18[6] = *MEMORY[0x277D85DE8];
-  v17[0] = @"pullCompleteDate";
+  v17[6] = *MEMORY[0x277D85DE8];
+  v16[0] = @"pullCompleteDate";
   v2 = MEMORY[0x277CCABB0];
   [*(a1 + 32) timeIntervalSinceReferenceDate];
   v3 = [v2 numberWithDouble:?];
-  v18[0] = v3;
-  v17[1] = @"pullStartDate";
+  v17[0] = v3;
+  v16[1] = @"pullStartDate";
   v4 = MEMORY[0x277CCABB0];
   [*(a1 + 40) timeIntervalSinceReferenceDate];
   v5 = [v4 numberWithDouble:?];
-  v18[1] = v5;
-  v17[2] = @"duration";
+  v17[1] = v5;
+  v16[2] = @"duration";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
-  v18[2] = v6;
-  v17[3] = @"finishedJournalMerge";
+  v17[2] = v6;
+  v16[3] = @"finishedJournalMerge";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 64)];
-  v18[3] = v7;
-  v17[4] = @"dbSize";
+  v17[3] = v7;
+  v16[4] = @"dbSize";
   v8 = MEMORY[0x277CCABB0];
   v9 = HDDatabaseSizeInMB(*(a1 + 48));
   v10 = [v8 numberWithInteger:HDBucketedDatabaseSizeInMB(v9)];
-  v18[4] = v10;
-  v17[5] = @"journalCount";
+  v17[4] = v10;
+  v16[5] = @"journalCount";
   v11 = MEMORY[0x277CCABB0];
   v12 = [*(a1 + 48) database];
   v13 = [v11 numberWithUnsignedInteger:{objc_msgSend(v12, "journalChapterCountForType:", 2)}];
-  v18[5] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:6];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[5] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
 
   return v14;
 }
@@ -2976,16 +2916,16 @@ id __80__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPipelineFin
 
 id __84__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPipelineFailed_error___block_invoke(uint64_t a1)
 {
-  v22[6] = *MEMORY[0x277D85DE8];
-  v22[0] = MEMORY[0x277CBEC28];
-  v21[0] = @"success";
-  v21[1] = @"errorCode";
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
-  v22[1] = v20;
-  v21[2] = @"errorDomain";
+  v21[6] = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277CBEC28];
+  v20[0] = @"success";
+  v20[1] = @"errorCode";
+  v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
+  v21[1] = v19;
+  v20[2] = @"errorDomain";
   v2 = [*(a1 + 32) domain];
-  v22[2] = v2;
-  v21[3] = @"errorClass";
+  v21[2] = v2;
+  v20[3] = @"errorClass";
   v3 = [*(a1 + 32) userInfo];
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277CCBD90]];
   v5 = v4;
@@ -2999,8 +2939,8 @@ id __84__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPipelineFai
     v6 = @"<unknown>";
   }
 
-  v22[3] = v6;
-  v21[4] = @"errorMethod";
+  v21[3] = v6;
+  v20[4] = @"errorMethod";
   v7 = [*(a1 + 32) userInfo];
   v8 = [v7 objectForKeyedSubscript:*MEMORY[0x277CCBDC0]];
   v9 = v8;
@@ -3014,8 +2954,8 @@ id __84__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPipelineFai
     v10 = @"<unknown>";
   }
 
-  v22[4] = v10;
-  v21[5] = @"errorParameter";
+  v21[4] = v10;
+  v20[5] = @"errorParameter";
   v11 = [*(a1 + 32) userInfo];
   v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277CCBDB8]];
   v13 = v12;
@@ -3029,12 +2969,10 @@ id __84__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportPipelineFai
     v14 = @"<unknown>";
   }
 
-  v22[5] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v21[5] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
   v16 = [*(a1 + 40) analyticsDictionary];
   v17 = [v15 hk_dictionaryByAddingEntriesFromDictionary:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -3091,16 +3029,16 @@ id __75__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_operationFinished
 
 id __79__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_operationFailed_error___block_invoke(uint64_t a1)
 {
-  v22[6] = *MEMORY[0x277D85DE8];
-  v22[0] = MEMORY[0x277CBEC28];
-  v21[0] = @"success";
-  v21[1] = @"errorCode";
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
-  v22[1] = v20;
-  v21[2] = @"errorDomain";
+  v21[6] = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277CBEC28];
+  v20[0] = @"success";
+  v20[1] = @"errorCode";
+  v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
+  v21[1] = v19;
+  v20[2] = @"errorDomain";
   v2 = [*(a1 + 32) domain];
-  v22[2] = v2;
-  v21[3] = @"errorClass";
+  v21[2] = v2;
+  v20[3] = @"errorClass";
   v3 = [*(a1 + 32) userInfo];
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277CCBD90]];
   v5 = v4;
@@ -3114,8 +3052,8 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_operationFailed_e
     v6 = @"<unknown>";
   }
 
-  v22[3] = v6;
-  v21[4] = @"errorMethod";
+  v21[3] = v6;
+  v20[4] = @"errorMethod";
   v7 = [*(a1 + 32) userInfo];
   v8 = [v7 objectForKeyedSubscript:*MEMORY[0x277CCBDC0]];
   v9 = v8;
@@ -3129,8 +3067,8 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_operationFailed_e
     v10 = @"<unknown>";
   }
 
-  v22[4] = v10;
-  v21[5] = @"errorParameter";
+  v21[4] = v10;
+  v20[5] = @"errorParameter";
   v11 = [*(a1 + 32) userInfo];
   v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277CCBDB8]];
   v13 = v12;
@@ -3144,12 +3082,10 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_operationFailed_e
     v14 = @"<unknown>";
   }
 
-  v22[5] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v21[5] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
   v16 = [*(a1 + 40) analyticsDictionary];
   v17 = [v15 hk_dictionaryByAddingEntriesFromDictionary:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -3167,13 +3103,11 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_operationFailed_e
 
 id __71__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_newChildAdded___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"newChildAdded";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"newChildAdded";
   v1 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3205,28 +3139,26 @@ id __71__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_newChildAdded___b
 
 id __174__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportFullSyncMetricsWithReason_shard_daysSincePreviousFullSync_totalDuration_activeDuration_numberOfRuns_incomplete___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v10[0] = @"reason";
-  v10[1] = @"shard";
-  v12 = *(a1 + 48);
-  v11 = v2;
-  v10[2] = @"daysSincePreviousFullSync";
-  v10[3] = @"totalDuration";
+  v9[0] = @"reason";
+  v9[1] = @"shard";
+  v11 = *(a1 + 48);
+  v10 = v2;
+  v9[2] = @"daysSincePreviousFullSync";
+  v9[3] = @"totalDuration";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 64)];
-  v13 = v3;
-  v10[4] = @"activeDuration";
+  v12 = v3;
+  v9[4] = @"activeDuration";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 72)];
   v5 = *(a1 + 56);
-  v14 = v4;
-  v15 = v5;
-  v10[5] = @"numberOfRuns";
-  v10[6] = @"incomplete";
+  v13 = v4;
+  v14 = v5;
+  v9[5] = @"numberOfRuns";
+  v9[6] = @"incomplete";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 80)];
-  v16 = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:v10 count:7];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v15 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:v9 count:7];
 
   return v7;
 }
@@ -3244,13 +3176,11 @@ id __174__HDAnalyticsSubmissionCoordinator_CloudSync__cloudSync_reportFullSyncMe
 
 id __68__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_recordSize___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"recordSize";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"recordSize";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3294,16 +3224,16 @@ id __76__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_operationSucceede
 
 id __79__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_operationFailed_error___block_invoke(uint64_t a1)
 {
-  v22[6] = *MEMORY[0x277D85DE8];
-  v22[0] = MEMORY[0x277CBEC28];
-  v21[0] = @"success";
-  v21[1] = @"errorCode";
-  v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
-  v22[1] = v20;
-  v21[2] = @"errorDomain";
+  v21[6] = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277CBEC28];
+  v20[0] = @"success";
+  v20[1] = @"errorCode";
+  v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "code")}];
+  v21[1] = v19;
+  v20[2] = @"errorDomain";
   v2 = [*(a1 + 32) domain];
-  v22[2] = v2;
-  v21[3] = @"errorClass";
+  v21[2] = v2;
+  v20[3] = @"errorClass";
   v3 = [*(a1 + 32) userInfo];
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277CCBD90]];
   v5 = v4;
@@ -3317,8 +3247,8 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_operationFailed_e
     v6 = @"<unknown>";
   }
 
-  v22[3] = v6;
-  v21[4] = @"errorMethod";
+  v21[3] = v6;
+  v20[4] = @"errorMethod";
   v7 = [*(a1 + 32) userInfo];
   v8 = [v7 objectForKeyedSubscript:*MEMORY[0x277CCBDC0]];
   v9 = v8;
@@ -3332,8 +3262,8 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_operationFailed_e
     v10 = @"<unknown>";
   }
 
-  v22[4] = v10;
-  v21[5] = @"errorParameter";
+  v21[4] = v10;
+  v20[5] = @"errorParameter";
   v11 = [*(a1 + 32) userInfo];
   v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277CCBDB8]];
   v13 = v12;
@@ -3347,12 +3277,10 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_operationFailed_e
     v14 = @"<unknown>";
   }
 
-  v22[5] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v21[5] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
   v16 = [*(a1 + 40) analyticsDictionary];
   v17 = [v15 hk_dictionaryByAddingEntriesFromDictionary:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -3374,12 +3302,11 @@ id __79__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_operationFailed_e
 
 id __85__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_subscriptionTriggeredDomain___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"domain";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"domain";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3397,13 +3324,11 @@ id __85__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_subscriptionTrigg
 
 id __73__HDAnalyticsSubmissionCoordinator_CloudSync__stateSync_triggerDuration___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"duration";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"duration";
   v1 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3442,95 +3367,113 @@ id __78__HDAnalyticsSubmissionCoordinator_CloudSync__contextSync_operationSuccee
 
 id __75__HDAnalyticsSubmissionCoordinator_CloudSync__contextSync_triggerDuration___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"duration";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"duration";
   v1 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
+- (void)workout_reportWorkoutCondenserEventWithReason:(int64_t)reason batchSize:(int64_t)size hasWatchSource:(BOOL)source duration:(double)duration success:(BOOL)success error:(id)error workoutsToCondense:(int64_t)condense workoutsToRecondense:(int64_t)self0 condensedWorkouts:(int64_t)self1 processedWorkouts:(int64_t)self2 createdSeries:(int64_t)self3 deletedSamples:(int64_t)self4
+{
+  errorCopy = error;
+  v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.healthd.workout.%@", @"workout-condenser"];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __244__HDAnalyticsSubmissionCoordinator_Workout__workout_reportWorkoutCondenserEventWithReason_batchSize_hasWatchSource_duration_success_error_workoutsToCondense_workoutsToRecondense_condensedWorkouts_processedWorkouts_createdSeries_deletedSamples___block_invoke;
+  v24[3] = &unk_278629070;
+  reasonCopy = reason;
+  sizeCopy = size;
+  sourceCopy = source;
+  durationCopy = duration;
+  successCopy = success;
+  v25 = errorCopy;
+  condenseCopy = condense;
+  v30 = *&recondense;
+  v31 = *&processedWorkouts;
+  samplesCopy = samples;
+  v23 = errorCopy;
+  [(HDAnalyticsSubmissionCoordinator *)self sendEvent:v22 block:v24];
+}
+
 id __244__HDAnalyticsSubmissionCoordinator_Workout__workout_reportWorkoutCondenserEventWithReason_batchSize_hasWatchSource_duration_success_error_workoutsToCondense_workoutsToRecondense_condensedWorkouts_processedWorkouts_createdSeries_deletedSamples___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v23[0] = @"reason";
-  v22 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v31[0] = v22;
-  v23[1] = @"batchSize";
-  v21 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v31[1] = v21;
-  v23[2] = @"hasWatchSource";
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 112)];
-  v31[2] = v20;
-  v23[3] = @"duration";
-  v19 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
-  v31[3] = v19;
-  v23[4] = @"success";
+  v39 = *MEMORY[0x277D85DE8];
+  v22[0] = @"reason";
+  v21 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
+  v30[0] = v21;
+  v22[1] = @"batchSize";
+  v20 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
+  v30[1] = v20;
+  v22[2] = @"hasWatchSource";
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 112)];
+  v30[2] = v19;
+  v22[3] = @"duration";
+  v18 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
+  v30[3] = v18;
+  v22[4] = @"success";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 113)];
-  v31[4] = v2;
-  v23[5] = @"errorDomain";
+  v30[4] = v2;
+  v22[5] = @"errorDomain";
   v3 = *(a1 + 32);
   if (v3)
   {
     v4 = [*(a1 + 32) domain];
     v5 = *(a1 + 32);
-    v16 = v4;
-    v32 = v4;
-    v24 = @"errorCode";
+    v15 = v4;
+    v31 = v4;
+    v23 = @"errorCode";
     if (v5)
     {
       v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "code", v4)}];
-      v18 = 0;
+      v17 = 0;
     }
 
     else
     {
       v6 = &unk_283CB3E10;
-      v18 = 1;
+      v17 = 1;
     }
   }
 
   else
   {
     v6 = &unk_283CB3E10;
-    v32 = &unk_283CB3E10;
-    v24 = @"errorCode";
-    v18 = 1;
+    v31 = &unk_283CB3E10;
+    v23 = @"errorCode";
+    v17 = 1;
   }
 
-  v33 = v6;
-  v25 = @"workoutsToCondense";
-  v7 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 64), v16}];
-  v34 = v7;
-  v26 = @"workoutsToRecondense";
+  v32 = v6;
+  v24 = @"workoutsToCondense";
+  v7 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 64), v15}];
+  v33 = v7;
+  v25 = @"workoutsToRecondense";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
-  v35 = v8;
-  v27 = @"condensedWorkouts";
+  v34 = v8;
+  v26 = @"condensedWorkouts";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 80)];
-  v36 = v9;
-  v28 = @"processedWorkouts";
+  v35 = v9;
+  v27 = @"processedWorkouts";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 88)];
-  v37 = v10;
-  v29 = @"createdSeries";
+  v36 = v10;
+  v28 = @"createdSeries";
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 96)];
-  v38 = v11;
-  v30 = @"deletedSamples";
+  v37 = v11;
+  v29 = @"deletedSamples";
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 104)];
-  v39 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v23 count:13];
+  v38 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v22 count:13];
 
-  if ((v18 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
   }
 
   if (v3)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3552,22 +3495,20 @@ id __244__HDAnalyticsSubmissionCoordinator_Workout__workout_reportWorkoutCondens
 
 id __180__HDAnalyticsSubmissionCoordinator_Workout__workout_reportWorkoutCondenserCoalescingCompressionRate_numberOfSamplesBeforeCoalescing_numberOfSamplesAfterCoalescing_compressionRate___block_invoke(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v10[0] = *(a1 + 32);
-  v9[0] = @"quantityType";
-  v9[1] = @"numberOfSamplesBeforeCoalescing";
+  v9[0] = *(a1 + 32);
+  v8[0] = @"quantityType";
+  v8[1] = @"numberOfSamplesBeforeCoalescing";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:v2];
-  v10[1] = v3;
-  v9[2] = @"numberOfSamplesAfterCoalescing";
+  v9[1] = v3;
+  v8[2] = @"numberOfSamplesAfterCoalescing";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v10[2] = v4;
-  v9[3] = @"compressionRate";
+  v9[2] = v4;
+  v8[3] = @"compressionRate";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -3592,21 +3533,19 @@ id __180__HDAnalyticsSubmissionCoordinator_Workout__workout_reportWorkoutCondens
 
 id __146__HDAnalyticsSubmissionCoordinator_Workout__workout_reportGymKitWorkoutWithFitnessMachineType_manufacturer_timeToBeginExperience_workoutEndError___block_invoke(void *a1)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
-  v8[0] = @"fitnessMachineType";
-  v8[1] = @"manufacturer";
+  v8[4] = *MEMORY[0x277D85DE8];
+  v7[0] = @"fitnessMachineType";
+  v7[1] = @"manufacturer";
   v2 = a1[5];
-  v9[0] = a1[4];
-  v9[1] = v2;
-  v8[2] = @"timeToBeginExperience";
+  v8[0] = a1[4];
+  v8[1] = v2;
+  v7[2] = @"timeToBeginExperience";
   v3 = [MEMORY[0x277CCABB0] numberWithLongLong:a1[6]];
-  v9[2] = v3;
-  v8[3] = @"errorReason";
+  v8[2] = v3;
+  v7[3] = @"errorReason";
   v4 = [MEMORY[0x277CCABB0] numberWithLongLong:a1[7]];
-  v9[3] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[3] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
 
   return v5;
 }
@@ -3633,41 +3572,39 @@ id __146__HDAnalyticsSubmissionCoordinator_Workout__workout_reportGymKitWorkoutW
 
 id __211__HDAnalyticsSubmissionCoordinator_Workout__workout_reportMirroringEventWithStartDuration_stopDuration_mirroringDuration_numOfSendDataRequests_maxTimeToSendData_minTimeToSendData_avgTimeToSendData_isFirstParty___block_invoke(uint64_t a1)
 {
-  v18[7] = *MEMORY[0x277D85DE8];
-  v17[0] = @"timeToStartMirroring";
-  v14 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v18[0] = v14;
-  v17[1] = @"timeToStopMirroring";
+  v17[7] = *MEMORY[0x277D85DE8];
+  v16[0] = @"timeToStartMirroring";
+  v13 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
+  v17[0] = v13;
+  v16[1] = @"timeToStopMirroring";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
-  v18[1] = v2;
-  v17[2] = @"countArbitraryDataRequests";
+  v17[1] = v2;
+  v16[2] = @"countArbitraryDataRequests";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  v18[2] = v3;
-  v17[3] = @"timeToSendArbitraryDataMax";
+  v17[2] = v3;
+  v16[3] = @"timeToSendArbitraryDataMax";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 56)];
-  v18[3] = v4;
-  v17[4] = @"timeToSendArbitraryDataMin";
+  v17[3] = v4;
+  v16[4] = @"timeToSendArbitraryDataMin";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 64)];
-  v18[4] = v5;
-  v17[5] = @"timeToSendArbitraryDataMean";
+  v17[4] = v5;
+  v16[5] = @"timeToSendArbitraryDataMean";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 72)];
-  v18[5] = v6;
-  v17[6] = @"isFirstParty";
+  v17[5] = v6;
+  v16[6] = @"isFirstParty";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 88)];
-  v18[6] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
+  v17[6] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
   v9 = [v8 mutableCopy];
 
   if (*(a1 + 89) == 1)
   {
-    v15 = @"mirroringSessionDuration";
+    v14 = @"mirroringSessionDuration";
     v10 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 80)];
-    v16 = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v15 = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     [v9 addEntriesFromDictionary:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -3691,28 +3628,26 @@ id __211__HDAnalyticsSubmissionCoordinator_Workout__workout_reportMirroringEvent
 
 id __132__HDAnalyticsSubmissionCoordinator_Workout__workout_reportWorkoutEventWithHeartBeatFailures_workoutDuration_isFirstParty_sessionID___block_invoke(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"countDataLinkFailures";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"countDataLinkFailures";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v12[1] = @"isFirstParty";
-  v13[0] = v2;
+  v11[1] = @"isFirstParty";
+  v12[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 56)];
-  v13[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v5 = [v4 mutableCopy];
 
   if (*(a1 + 57) == 1)
   {
-    v10[0] = @"workoutDuration";
+    v9[0] = @"workoutDuration";
     v6 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 48)];
-    v10[1] = @"sessionId";
-    v11[0] = v6;
-    v11[1] = *(a1 + 32);
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v9[1] = @"sessionId";
+    v10[0] = v6;
+    v10[1] = *(a1 + 32);
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
     [v5 addEntriesFromDictionary:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -3746,39 +3681,37 @@ id __132__HDAnalyticsSubmissionCoordinator_Workout__workout_reportWorkoutEventWi
 
 id __200__HDAnalyticsSubmissionCoordinator_Workout__workout_reportEvent_timestamp_sessionID_activityType_sessionDuration_activityCount_extendedMode_totalLocations_routeSmoothingRetryCount_activityID_failure___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v14 = *(a1 + 32);
-  v13[0] = @"timestamp";
-  v13[1] = @"performanceEvent";
-  v15 = *(a1 + 48);
-  v13[2] = @"sessionId";
-  v13[3] = @"activityType";
+  v23 = *MEMORY[0x277D85DE8];
+  v13 = *(a1 + 32);
+  v12[0] = @"timestamp";
+  v12[1] = @"performanceEvent";
+  v14 = *(a1 + 48);
+  v12[2] = @"sessionId";
+  v12[3] = @"activityType";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 64)];
-  v16 = v2;
-  v13[4] = @"workoutSessionDuration";
+  v15 = v2;
+  v12[4] = @"workoutSessionDuration";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
-  v17 = v3;
-  v13[5] = @"routeSmoothingActivityCount";
+  v16 = v3;
+  v12[5] = @"routeSmoothingActivityCount";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 80)];
-  v18 = v4;
-  v13[6] = @"extendedMode";
+  v17 = v4;
+  v12[6] = @"extendedMode";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 104)];
-  v19 = v5;
-  v13[7] = @"totalLocations";
+  v18 = v5;
+  v12[7] = @"totalLocations";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 88)];
-  v20 = v6;
-  v13[8] = @"routeSmoothingRetryCount";
+  v19 = v6;
+  v12[8] = @"routeSmoothingRetryCount";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 96)];
   v8 = *(a1 + 56);
-  v21 = v7;
-  v22 = v8;
-  v13[9] = @"activityID";
-  v13[10] = @"failure";
+  v20 = v7;
+  v21 = v8;
+  v12[9] = @"activityID";
+  v12[10] = @"failure";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 105)];
-  v23 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:v13 count:11];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v22 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:v12 count:11];
 
   return v10;
 }
@@ -3807,14 +3740,14 @@ id __200__HDAnalyticsSubmissionCoordinator_Workout__workout_reportEvent_timestam
 
 id __163__HDAnalyticsSubmissionCoordinator_Database__database_reportSQLiteCorruptionWithExtendedErrorCode_type_profile_description_sqlStatement_failedObliterationAttempt___block_invoke(uint64_t a1)
 {
-  v14[6] = *MEMORY[0x277D85DE8];
-  v13[0] = @"code";
+  v13[6] = *MEMORY[0x277D85DE8];
+  v12[0] = @"code";
   v2 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 64)];
-  v14[0] = v2;
-  v13[1] = @"databaseType";
+  v13[0] = v2;
+  v12[1] = @"databaseType";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-  v14[1] = v3;
-  v13[2] = @"description";
+  v13[1] = v3;
+  v12[2] = @"description";
   v4 = [*(a1 + 32) length];
   v5 = *(a1 + 32);
   if (v4 >= 0x401)
@@ -3822,11 +3755,11 @@ id __163__HDAnalyticsSubmissionCoordinator_Database__database_reportSQLiteCorrup
     v5 = [*(a1 + 32) substringToIndex:1024];
   }
 
-  v14[2] = v5;
-  v13[3] = @"profileType";
+  v13[2] = v5;
+  v12[3] = @"profileType";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 40), "profileType")}];
-  v14[3] = v6;
-  v13[4] = @"sqlStatement";
+  v13[3] = v6;
+  v12[4] = @"sqlStatement";
   v7 = [*(a1 + 48) length];
   v8 = *(a1 + 48);
   if (v7 >= 0x401)
@@ -3834,11 +3767,11 @@ id __163__HDAnalyticsSubmissionCoordinator_Database__database_reportSQLiteCorrup
     v8 = [*(a1 + 48) substringToIndex:1024];
   }
 
-  v14[4] = v8;
-  v13[5] = @"failedObliteration";
+  v13[4] = v8;
+  v12[5] = @"failedObliteration";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 68)];
-  v14[5] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
+  v13[5] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
 
   if (v7 >= 0x401)
   {
@@ -3847,8 +3780,6 @@ id __163__HDAnalyticsSubmissionCoordinator_Database__database_reportSQLiteCorrup
   if (v4 >= 0x401)
   {
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3871,16 +3802,14 @@ id __163__HDAnalyticsSubmissionCoordinator_Database__database_reportSQLiteCorrup
 
 id __131__HDAnalyticsSubmissionCoordinator_Database__database_reportUnprotectedDatabaseIdentifier_doesNotMatchProtectedDatabaseIdentifier___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"has-unprotected-identifier";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"has-unprotected-identifier";
   v2 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 32) != 0];
-  v7[1] = @"has-protected-identifier";
-  v8[0] = v2;
+  v6[1] = @"has-protected-identifier";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40) != 0];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -3904,19 +3833,17 @@ id __131__HDAnalyticsSubmissionCoordinator_Database__database_reportUnprotectedD
 
 id __113__HDAnalyticsSubmissionCoordinator_Database__database_reportJournalEntryInsertedForJournal_entryClass_entrySize___block_invoke(void *a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"type";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"type";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:a1[6]];
   v3 = a1[4];
   v4 = a1[5];
-  v9[0] = v2;
-  v9[1] = v3;
-  v8[1] = @"class";
-  v8[2] = @"size";
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = v2;
+  v8[1] = v3;
+  v7[1] = @"class";
+  v7[2] = @"size";
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
@@ -3981,22 +3908,20 @@ id __113__HDAnalyticsSubmissionCoordinator_Database__database_reportJournalEntry
 
 id __122__HDAnalyticsSubmissionCoordinator_Database__database_reportCachedQueryEvent_cacheHits_cacheMisses_estimatedTotalBuckets___block_invoke(void *a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v2 = a1[5];
-  v10[0] = a1[4];
-  v9[0] = @"identifier";
-  v9[1] = @"cacheHits";
+  v9[0] = a1[4];
+  v8[0] = @"identifier";
+  v8[1] = @"cacheHits";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:v2];
-  v10[1] = v3;
-  v9[2] = @"cacheMisses";
+  v9[1] = v3;
+  v8[2] = @"cacheMisses";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:a1[6]];
-  v10[2] = v4;
-  v9[3] = @"totalBuckets";
+  v9[2] = v4;
+  v8[3] = @"totalBuckets";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1[7]];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -4059,25 +3984,23 @@ void __117__HDAnalyticsSubmissionCoordinator_Database__database_reportJournalMer
 
 id __117__HDAnalyticsSubmissionCoordinator_Database__database_reportJournalMergeActivityResult_duration_interruptions_error___block_invoke_2(uint64_t a1)
 {
-  v11[5] = *MEMORY[0x277D85DE8];
-  v10[0] = @"result";
+  v10[5] = *MEMORY[0x277D85DE8];
+  v9[0] = @"result";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-  v11[0] = v2;
-  v10[1] = @"duration";
+  v10[0] = v2;
+  v9[1] = @"duration";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 64)];
-  v11[1] = v3;
-  v10[2] = @"totalInterruptionCount";
+  v10[1] = v3;
+  v9[2] = @"totalInterruptionCount";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(*(*(a1 + 32) + 8) + 24)];
-  v11[2] = v4;
-  v10[3] = @"topInterruptor";
+  v10[2] = v4;
+  v9[3] = @"topInterruptor";
   v5 = *(a1 + 48);
-  v11[3] = *(*(*(a1 + 40) + 8) + 40);
-  v10[4] = @"topInterruptionCount";
+  v10[3] = *(*(*(a1 + 40) + 8) + 40);
+  v9[4] = @"topInterruptionCount";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(*(v5 + 8) + 24)];
-  v11[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }

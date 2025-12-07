@@ -168,7 +168,7 @@
   bundleID = self->_bundleID;
   self->_bundleID = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, bundleID);
 }
 
 @end

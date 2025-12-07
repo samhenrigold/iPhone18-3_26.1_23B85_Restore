@@ -121,10 +121,9 @@ uint64_t sub_1000029A4(uint64_t a1)
   result = *(a1 + 48);
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v4 = *(result + 16);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -188,9 +187,9 @@ LABEL_16:
     {
       v13 = *(a1 + 32);
       *buf = 138412546;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v13;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v13;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Trying to preview a ZIP archive but can't read its header. Error: %@. %@ #ZIPHandling", buf, 0x16u);
     }
 
@@ -209,14 +208,13 @@ LABEL_16:
   {
     v11 = *(a1 + 32);
     *buf = 138412546;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v11;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v11;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Trying to preview an encrypted ZIP archive. Error: %@. %@ #ZIPHandling", buf, 0x16u);
   }
 
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 40);
+  v14 = *(a1 + 40);
   QLRunInMainThread();
 
 LABEL_17:
@@ -447,10 +445,9 @@ void sub_1000044FC(uint64_t a1, uint64_t a2, void *a3)
   v6 = v5;
   if (a2)
   {
-    v15 = *(a1 + 32);
-LABEL_3:
+LABEL_2:
     QLRunInMainThread();
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   if (v5)
@@ -473,14 +470,13 @@ LABEL_3:
         {
           v10 = *(a1 + 32);
           *buf = 138412546;
-          v17 = v6;
-          v18 = 2112;
-          v19 = v10;
+          v15 = v6;
+          v16 = 2112;
+          v17 = v10;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Could not read headers of encrypted ZIP archive. Error: %@. %@ #ZIPHandling", buf, 0x16u);
         }
 
-        v14 = *(a1 + 32);
-        goto LABEL_3;
+        goto LABEL_2;
       }
     }
   }
@@ -496,16 +492,16 @@ LABEL_3:
   {
     v12 = *(a1 + 32);
     *buf = 138412546;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v12;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v12;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "An error occured while trying to read archive header: %@. %@ #ZIPHandling", buf, 0x16u);
   }
 
   v13 = [*(a1 + 32) delegate];
   [v13 previewItemViewController:*(a1 + 32) didFailWithError:v6];
 
-LABEL_17:
+LABEL_16:
 }
 
 id sub_100004758(uint64_t a1)
@@ -784,7 +780,7 @@ void sub_1000078F4(uint64_t a1, void *a2, uint64_t a3, void *a4)
   }
 }
 
-uint64_t sub_100007A84(void *a1)
+uint64_t sub_100007A84(uint64_t a1)
 {
   v2 = _qlsLogHandle;
   if (!_qlsLogHandle)
@@ -795,14 +791,13 @@ uint64_t sub_100007A84(void *a1)
 
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v3 = a1[4];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Providing print preview to ScreenshotService for item: %@ #Printing", &v6, 0xCu);
+    v3 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Providing print preview to ScreenshotService for item: %@ #Printing", &v5, 0xCu);
   }
 
-  v4 = a1[5];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 void sub_100007BEC(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -813,7 +808,7 @@ void sub_100007BEC(uint64_t a1, uint64_t a2, uint64_t a3)
     v4 = *(v3 + 16);
     v5 = *(a1 + 32);
 
-    v4(v5, 0);
+    v4(v5, 0, a3);
   }
 
   else
@@ -1568,37 +1563,35 @@ void sub_100012518(uint64_t a1)
   [v3 setZoomScale:?];
 }
 
-uint64_t sub_100012998(uint64_t a1, uint64_t (*a2)(void), unint64_t *a3, void (*a4)(uint64_t))
+uint64_t sub_100012998(uint64_t a1, uint64_t (*a2)(void), unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t a5)
 {
-  v6 = a2(0);
-  v7 = sub_100012F8C(a3, a4);
+  v8 = a2(0);
+  v9 = sub_100012F8C(a3, a4, a5);
 
-  return Bindable<A>.init(wrappedValue:)(v8, v6, v7);
+  return Bindable<A>.init(wrappedValue:)(v10, v8, v9);
 }
 
 uint64_t sub_100012A20()
 {
   v0 = sub_100012EB4(&qword_10002B838, &qword_10001F678);
   v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v4 = &v11 - v3;
-  v5 = sub_100012EB4(&qword_10002B840, &unk_10001F680);
-  v6 = *(v5 - 8);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v3 = &v9 - v2;
+  v4 = sub_100012EB4(&qword_10002B840, &unk_10001F680);
+  v5 = *(v4 - 8);
   __chkstk_darwin();
-  v9 = &v11 - v8;
+  v7 = &v9 - v6;
   type metadata accessor for QLMainSceneView(0);
-  sub_100012F8C(&qword_10002B848, type metadata accessor for QLMainSceneView);
+  sub_100012F8C(&qword_10002B848, type metadata accessor for QLMainSceneView, &unk_10001F740);
   sub_100013B44();
   type metadata accessor for QLAccessorySceneView(0);
-  sub_100012F8C(&qword_10002B850, type metadata accessor for QLAccessorySceneView);
+  sub_100012F8C(&qword_10002B850, type metadata accessor for QLAccessorySceneView, &unk_10001F6F0);
   sub_100013B54();
-  sub_100012F44(&qword_10002B858, &qword_10002B840, &unk_10001F680);
-  sub_100012F44(&qword_10002B860, &qword_10002B838, &qword_10001F678);
+  sub_100012F44(&qword_10002B858, &qword_10002B840, &unk_10001F680, &protocol conformance descriptor for QLPrimaryAppExtensionScene<A>);
+  sub_100012F44(&qword_10002B860, &qword_10002B838, &qword_10001F678, &protocol conformance descriptor for QLAccessoryAppExtensionScene<A>);
   sub_100013B24();
-  (*(v1 + 8))(v4, v0);
-  return (*(v6 + 8))(v9, v5);
+  (*(v1 + 8))(v3, v0);
+  return (*(v5 + 8))(v7, v4);
 }
 
 uint64_t sub_100012CE8(uint64_t a1)
@@ -1644,7 +1637,6 @@ uint64_t sub_100012EB4(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1657,7 +1649,6 @@ uint64_t sub_100012EFC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1665,7 +1656,7 @@ uint64_t sub_100012EFC(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_100012F44(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_100012F44(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1678,7 +1669,7 @@ uint64_t sub_100012F44(unint64_t *a1, uint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_100012F8C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100012F8C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1695,8 +1686,8 @@ uint64_t sub_100012FD4()
 {
   sub_100012EFC(&qword_10002B840, &unk_10001F680);
   sub_100012EFC(&qword_10002B838, &qword_10001F678);
-  sub_100012F44(&qword_10002B858, &qword_10002B840, &unk_10001F680);
-  sub_100012F44(&qword_10002B860, &qword_10002B838, &qword_10001F678);
+  sub_100012F44(&qword_10002B858, &qword_10002B840, &unk_10001F680, &protocol conformance descriptor for QLPrimaryAppExtensionScene<A>);
+  sub_100012F44(&qword_10002B860, &qword_10002B838, &qword_10001F678, &protocol conformance descriptor for QLAccessoryAppExtensionScene<A>);
   return swift_getOpaqueTypeConformance2();
 }
 
@@ -1716,7 +1707,7 @@ uint64_t sub_100013214(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return v9(a1, a2, a2, v8);
 }
 
-uint64_t sub_1000132A8(uint64_t a1, uint64_t *a2)
+uint64_t sub_1000132A8(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -1727,7 +1718,7 @@ uint64_t sub_1000132A8(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-void sub_100013300(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void (*a5)(uint64_t))
+void sub_100013300(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t))
 {
   sub_100013374(319, a4, a5);
   if (v5 <= 0x3F)
@@ -1736,7 +1727,7 @@ void sub_100013300(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void (*
   }
 }
 
-void sub_100013374(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_100013374(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -1751,63 +1742,61 @@ void sub_100013374(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
 
 __n128 sub_1000133E4@<Q0>(uint64_t a1@<X8>)
 {
-  v2 = (sub_100012EB4(&qword_10002B9B8, &qword_10001F790) - 8);
-  v3 = (*(*v2 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v2 = sub_100012EB4(&qword_10002B9B8, &qword_10001F790) - 8;
   __chkstk_darwin();
-  v5 = v13 - v4;
+  v4 = v12 - v3;
   sub_100012EB4(&qword_10002B918, &qword_10001F6D8);
   sub_100013AC4();
   sub_100013B34();
-  v6 = sub_100013A64();
-  v7 = sub_100013A84();
-  v8 = &v5[v2[11]];
-  *v8 = v6;
-  v8[8] = v7;
+  v5 = sub_100013A64();
+  v6 = sub_100013A84();
+  v7 = &v4[*(v2 + 44)];
+  *v7 = v5;
+  v7[8] = v6;
   sub_100013AF4();
   sub_100013A74();
-  sub_100013714(v5, a1, &qword_10002B9B8, &qword_10001F790);
-  v9 = a1 + *(sub_100012EB4(&qword_10002B9C0, &qword_10001F798) + 36);
-  v10 = v13[5];
-  *(v9 + 64) = v13[4];
-  *(v9 + 80) = v10;
-  *(v9 + 96) = v13[6];
-  v11 = v13[1];
-  *v9 = v13[0];
-  *(v9 + 16) = v11;
-  result = v13[3];
-  *(v9 + 32) = v13[2];
-  *(v9 + 48) = result;
+  sub_100013714(v4, a1, &qword_10002B9B8, &qword_10001F790);
+  v8 = a1 + *(sub_100012EB4(&qword_10002B9C0, &qword_10001F798) + 36);
+  v9 = v12[5];
+  *(v8 + 64) = v12[4];
+  *(v8 + 80) = v9;
+  *(v8 + 96) = v12[6];
+  v10 = v12[1];
+  *v8 = v12[0];
+  *(v8 + 16) = v10;
+  result = v12[3];
+  *(v8 + 32) = v12[2];
+  *(v8 + 48) = result;
   return result;
 }
 
 __n128 sub_100013580@<Q0>(uint64_t a1@<X8>)
 {
-  v2 = (sub_100012EB4(&qword_10002B9C8, &qword_10001F7A0) - 8);
-  v3 = (*(*v2 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v2 = sub_100012EB4(&qword_10002B9C8, &qword_10001F7A0) - 8;
   __chkstk_darwin();
-  v5 = v13 - v4;
+  v4 = v12 - v3;
   sub_100012EB4(&qword_10002B878, qword_10001F690);
   sub_100013AC4();
   sub_100013B14();
-  v6 = sub_100013A64();
-  v7 = sub_100013A84();
-  v8 = &v5[v2[11]];
-  *v8 = v6;
-  v8[8] = v7;
+  v5 = sub_100013A64();
+  v6 = sub_100013A84();
+  v7 = &v4[*(v2 + 44)];
+  *v7 = v5;
+  v7[8] = v6;
   sub_100013AF4();
   sub_100013A74();
-  sub_100013714(v5, a1, &qword_10002B9C8, &qword_10001F7A0);
-  v9 = a1 + *(sub_100012EB4(&qword_10002B9D0, &qword_10001F7A8) + 36);
-  v10 = v13[5];
-  *(v9 + 64) = v13[4];
-  *(v9 + 80) = v10;
-  *(v9 + 96) = v13[6];
-  v11 = v13[1];
-  *v9 = v13[0];
-  *(v9 + 16) = v11;
-  result = v13[3];
-  *(v9 + 32) = v13[2];
-  *(v9 + 48) = result;
+  sub_100013714(v4, a1, &qword_10002B9C8, &qword_10001F7A0);
+  v8 = a1 + *(sub_100012EB4(&qword_10002B9D0, &qword_10001F7A8) + 36);
+  v9 = v12[5];
+  *(v8 + 64) = v12[4];
+  *(v8 + 80) = v9;
+  *(v8 + 96) = v12[6];
+  v10 = v12[1];
+  *v8 = v12[0];
+  *(v8 + 16) = v10;
+  result = v12[3];
+  *(v8 + 32) = v12[2];
+  *(v8 + 48) = result;
   return result;
 }
 
@@ -1824,7 +1813,7 @@ unint64_t sub_1000137C0()
   if (!qword_10002B9E0)
   {
     sub_100012EFC(&qword_10002B9B8, &qword_10001F790);
-    sub_100013A00(&qword_10002B9E8, &type metadata accessor for QLPreviewCollectionWrapper);
+    sub_100013A00(&qword_10002B9E8, &type metadata accessor for QLPreviewCollectionWrapper, &protocol conformance descriptor for QLPreviewCollectionWrapper);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10002B9E0);
   }
@@ -1852,7 +1841,7 @@ unint64_t sub_100013944()
   if (!qword_10002B9F8)
   {
     sub_100012EFC(&qword_10002B9C8, &qword_10001F7A0);
-    sub_100013A00(&unk_10002BA00, &type metadata accessor for QLAccessoryViewWrapper);
+    sub_100013A00(&unk_10002BA00, &type metadata accessor for QLAccessoryViewWrapper, &protocol conformance descriptor for QLAccessoryViewWrapper);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10002B9F8);
   }
@@ -1860,7 +1849,7 @@ unint64_t sub_100013944()
   return result;
 }
 
-uint64_t sub_100013A00(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100013A00(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

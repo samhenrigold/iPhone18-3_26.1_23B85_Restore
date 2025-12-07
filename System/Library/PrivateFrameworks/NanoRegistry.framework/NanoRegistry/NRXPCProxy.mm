@@ -3,6 +3,7 @@
 - (BOOL)hasEntitlement:(id)entitlement;
 - (NRXPCProxy)initWithConnection:(id)connection delegate:(id)delegate xpcTarget:(id)target entitlementBitmask:(unsigned int)bitmask;
 - (void)_invalidate;
+- (void)setMonitorClientForSuspension:(BOOL)suspension;
 @end
 
 @implementation NRXPCProxy
@@ -59,6 +60,14 @@
     target = self->_target;
     self->_target = 0;
   }
+}
+
+- (void)setMonitorClientForSuspension:(BOOL)suspension
+{
+  suspensionCopy = suspension;
+  self->_monitorClientForSuspension = suspension;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained shouldMonitorProxy:self forSuspension:suspensionCopy];
 }
 
 @end

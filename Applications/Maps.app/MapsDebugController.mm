@@ -30,7 +30,7 @@
 
 - (void)valueChangedForMapsFeature:(id)feature enabled:(BOOL)enabled
 {
-  if (feature.var0.var0 == MapsFeaturesConfig_StandaloneWatchOffline && feature.var0.var1 == *(&MapsFeaturesConfig_StandaloneWatchOffline + 1))
+  if (feature.var0.var0 == LODWORD(MapsFeaturesConfig_StandaloneWatchOffline[0]) && feature.var0.var1 == MapsFeaturesConfig_StandaloneWatchOffline[1])
   {
     [(MapsDebugController *)self _rebuildOfflineSections];
   }
@@ -38,8 +38,8 @@
 
 - (void)valueChangedForGEOConfigKey:(id)key
 {
-  v3 = GeoServicesConfig_MapsAuthToken == key.var0 && *(&GeoServicesConfig_MapsAuthToken + 1) == key.var1;
-  if (v3 || (GeoServicesConfig_MapsRefreshToken == key.var0 ? (v4 = *(&GeoServicesConfig_MapsRefreshToken + 1) == key.var1) : (v4 = 0), v4))
+  v3 = LODWORD(GeoServicesConfig_MapsAuthToken[0]) == key.var0 && GeoServicesConfig_MapsAuthToken[1] == key.var1;
+  if (v3 || (LODWORD(GeoServicesConfig_MapsRefreshToken[0]) == key.var0 ? (v4 = GeoServicesConfig_MapsRefreshToken[1] == key.var1) : (v4 = 0), v4))
   {
     [(MapsDebugController *)self _rebuildAuthSections];
   }

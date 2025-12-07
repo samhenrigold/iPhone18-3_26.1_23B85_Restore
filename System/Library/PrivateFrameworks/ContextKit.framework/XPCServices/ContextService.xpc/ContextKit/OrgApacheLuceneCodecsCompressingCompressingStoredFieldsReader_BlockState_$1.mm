@@ -2,6 +2,7 @@
 - (char)readByte;
 - (void)dealloc;
 - (void)fillBuffer;
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 @end
 
 @implementation OrgApacheLuceneCodecsCompressingCompressingStoredFieldsReader_BlockState_$1
@@ -63,6 +64,44 @@ LABEL_8:
   }
 
   return *(&v6->super.size_ + offset + 4);
+}
+
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  bytes = self->this$0_->bytes_;
+  if (!bytes)
+  {
+LABEL_5:
+    JreThrowNullPointerException();
+  }
+
+  v6 = *&withInt;
+  v7 = *&int;
+  while (1)
+  {
+    length = bytes->length_;
+    v11 = bytes->bytes_;
+    offset = bytes->offset_;
+    if (v6 <= length)
+    {
+      break;
+    }
+
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v11, offset, array, v7, length);
+    v13 = self->this$0_->bytes_->length_;
+    v6 = (v6 - v13);
+    v7 = (v13 + v7);
+    [(OrgApacheLuceneCodecsCompressingCompressingStoredFieldsReader_BlockState_$1 *)self fillBuffer];
+    bytes = self->this$0_->bytes_;
+    if (!bytes)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v11, offset, array, v7, v6);
+  self->this$0_->bytes_->offset_ += v6;
+  self->this$0_->bytes_->length_ -= v6;
 }
 
 - (void)dealloc

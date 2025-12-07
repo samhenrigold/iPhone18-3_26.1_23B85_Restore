@@ -21,13 +21,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1004B9C04();
+  sub_1004B9C04(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1004B9D8C();
+  sub_1004B9D8C(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear

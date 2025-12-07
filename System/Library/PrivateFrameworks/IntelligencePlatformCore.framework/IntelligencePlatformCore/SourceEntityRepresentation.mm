@@ -12,7 +12,7 @@
   v7 = v6;
 
   swift_getObjCClassMetadata();
-  v8 = static SourceEntityRepresentation.event(with:dataVersion:)();
+  v8 = static SourceEntityRepresentation.event(with:dataVersion:)(v5, v7);
   sub_1C4434000(v5, v7);
 
   return v8;

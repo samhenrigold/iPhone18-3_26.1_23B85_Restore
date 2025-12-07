@@ -8,35 +8,34 @@
 - (APOdmlAppInfo)initWithBundleID:(id)d adamID:(unint64_t)iD
 {
   dCopy = d;
-  v12.receiver = self;
-  v12.super_class = APOdmlAppInfo;
-  v7 = [(APOdmlAppInfo *)&v12 init];
-  v9 = v7;
+  v10.receiver = self;
+  v10.super_class = APOdmlAppInfo;
+  v7 = [(APOdmlAppInfo *)&v10 init];
+  v8 = v7;
   if (v7)
   {
-    objc_msgSend_setBundleID_(v7, v8, dCopy);
-    objc_msgSend_setAdamID_(v9, v10, iD);
+    [(APOdmlAppInfo *)v7 setBundleID:dCopy];
+    [(APOdmlAppInfo *)v8 setAdamID:iD];
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = objc_opt_class();
-  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
+  if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
-    v9 = objc_msgSend_adamID(self, v7, v8);
-    v12 = v9 == objc_msgSend_adamID(equalCopy, v10, v11);
+    adamID = [(APOdmlAppInfo *)self adamID];
+    v6 = adamID == [equalCopy adamID];
   }
 
   else
   {
-    v12 = 0;
+    v6 = 0;
   }
 
-  return v12;
+  return v6;
 }
 
 @end

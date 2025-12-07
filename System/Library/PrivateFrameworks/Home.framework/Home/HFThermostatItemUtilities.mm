@@ -6,37 +6,37 @@
 
 + (void)getDescription:(id *)description controlDescription:(id *)controlDescription optionalDescriptions:(id *)descriptions forResponse:(id)response primaryService:(id)service temperatureFormatter:(id)formatter
 {
-  v121[2] = *MEMORY[0x277D85DE8];
+  v120[2] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   serviceCopy = service;
   formatterCopy = formatter;
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x3032000000;
-  v117 = __Block_byref_object_copy__15;
-  v118 = __Block_byref_object_dispose__15;
-  v119 = 0;
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x3032000000;
-  v111 = __Block_byref_object_copy__15;
-  v112 = __Block_byref_object_dispose__15;
   v113 = 0;
-  v102 = 0;
-  v103 = &v102;
-  v104 = 0x3032000000;
-  v105 = __Block_byref_object_copy__15;
-  v106 = __Block_byref_object_dispose__15;
+  v114 = &v113;
+  v115 = 0x3032000000;
+  v116 = __Block_byref_object_copy__15;
+  v117 = __Block_byref_object_dispose__15;
+  v118 = 0;
   v107 = 0;
+  v108 = &v107;
+  v109 = 0x3032000000;
+  v110 = __Block_byref_object_copy__15;
+  v111 = __Block_byref_object_dispose__15;
+  v112 = 0;
+  v101 = 0;
+  v102 = &v101;
+  v103 = 0x3032000000;
+  v104 = __Block_byref_object_copy__15;
+  v105 = __Block_byref_object_dispose__15;
+  v106 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __132__HFThermostatItemUtilities_getDescription_controlDescription_optionalDescriptions_forResponse_primaryService_temperatureFormatter___block_invoke;
   aBlock[3] = &unk_277DFBEE0;
-  aBlock[4] = &v114;
-  aBlock[5] = &v108;
+  aBlock[4] = &v113;
+  aBlock[5] = &v107;
   aBlock[8] = controlDescription;
   aBlock[9] = descriptions;
-  aBlock[6] = &v102;
+  aBlock[6] = &v101;
   aBlock[7] = description;
   v16 = _Block_copy(aBlock);
   v17 = [objc_opt_class() currentHeatingCoolingModeValueInResponse:responseCopy];
@@ -45,33 +45,33 @@
   if (v17 && v18)
   {
     v20 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF7F0]];
-    v99 = [v20 valueWithExpectedClass:objc_opt_class()];
+    v98 = [v20 valueWithExpectedClass:objc_opt_class()];
 
     v21 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF8C8]];
     v22 = [v21 valueWithExpectedClass:objc_opt_class()];
 
     [v22 doubleValue];
     v24 = v23;
-    [v99 doubleValue];
+    [v98 doubleValue];
     if (v24 > v25)
     {
-      v26 = v99;
+      v26 = v98;
 
       v22 = v26;
     }
 
     hf_childServices = [serviceCopy hf_childServices];
-    v98 = [hf_childServices na_firstObjectPassingTest:&__block_literal_global_116];
+    v97 = [hf_childServices na_firstObjectPassingTest:&__block_literal_global_116];
 
-    if (v98)
+    if (v97)
     {
       v28 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF748] inService:?];
-      v96 = [v28 valueWithExpectedClass:objc_opt_class()];
+      v95 = [v28 valueWithExpectedClass:objc_opt_class()];
     }
 
     else
     {
-      v96 = 0;
+      v95 = 0;
     }
 
     v29 = [@"HFServiceDescriptionThermostat" mutableCopy];
@@ -125,60 +125,60 @@ LABEL_16:
       {
         if (!integerValue2)
         {
-          if ([v96 BOOLValue])
+          if ([v95 BOOLValue])
           {
-            v92 = @"FanOnly";
+            v91 = @"FanOnly";
           }
 
           else
           {
-            v92 = @"Off";
+            v91 = @"Off";
           }
 
-          [v29 appendString:v92];
+          [v29 appendString:v91];
           v30 = 0;
 LABEL_17:
           v33 = [self targetTemperatureValueInResponse:responseCopy];
-          v97 = [formatterCopy stringForObjectValue:v33];
+          v96 = [formatterCopy stringForObjectValue:v33];
           if (v30)
           {
-            if (v30 != 1 && v22 && v99)
+            if (v30 != 1 && v22 && v98)
             {
               [v29 appendString:@"WithTemperatureRange"];
               v56 = [formatterCopy stringForObjectValue:v22];
-              v57 = [formatterCopy stringForObjectValue:v99];
+              v57 = [formatterCopy stringForObjectValue:v98];
               v64 = HFLocalizedStringWithFormat(v29, @"%@%@", v58, v59, v60, v61, v62, v63, v56);
-              v65 = v115[5];
-              v115[5] = v64;
+              v65 = v114[5];
+              v114[5] = v64;
 
               v66 = [formatterCopy stringForObjectValue:v22];
-              v93 = [formatterCopy stringForObjectValue:v99];
+              v92 = [formatterCopy stringForObjectValue:v98];
               v73 = HFLocalizedStringWithFormat(@"HFServiceControlDescriptionThermostatAutoWithTemperatureRange", @"%@%@", v67, v68, v69, v70, v71, v72, v66);
-              v74 = v109[5];
-              v109[5] = v73;
+              v74 = v108[5];
+              v108[5] = v73;
 
-              v120[0] = @"heatingThresholdDescription";
+              v119[0] = @"heatingThresholdDescription";
               v44 = [formatterCopy stringForObjectValue:v22];
-              v95 = HFLocalizedStringWithFormat(@"HFServiceControlDescriptionThermostatAutoHeatingWithTemperature", @"%@", v75, v76, v77, v78, v79, v80, v44);
-              v121[0] = v95;
-              v120[1] = @"coolingThresholdDescription";
-              v94 = [formatterCopy stringForObjectValue:v99];
-              v87 = HFLocalizedStringWithFormat(@"HFServiceControlDescriptionThermostatAutoCoolingWithTemperature", @"%@", v81, v82, v83, v84, v85, v86, v94);
-              v121[1] = v87;
-              v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:v120 count:2];
-              v89 = v103[5];
-              v103[5] = v88;
+              v94 = HFLocalizedStringWithFormat(@"HFServiceControlDescriptionThermostatAutoHeatingWithTemperature", @"%@", v75, v76, v77, v78, v79, v80, v44);
+              v120[0] = v94;
+              v119[1] = @"coolingThresholdDescription";
+              v93 = [formatterCopy stringForObjectValue:v98];
+              v87 = HFLocalizedStringWithFormat(@"HFServiceControlDescriptionThermostatAutoCoolingWithTemperature", @"%@", v81, v82, v83, v84, v85, v86, v93);
+              v120[1] = v87;
+              v88 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:2];
+              v89 = v102[5];
+              v102[5] = v88;
             }
 
             else
             {
               [v29 appendString:@"WithTemperature"];
-              v40 = HFLocalizedStringWithFormat(v29, @"%@", v34, v35, v36, v37, v38, v39, v97);
-              v41 = v115[5];
-              v115[5] = v40;
+              v40 = HFLocalizedStringWithFormat(v29, @"%@", v34, v35, v36, v37, v38, v39, v96);
+              v41 = v114[5];
+              v114[5] = v40;
 
-              v42 = v109;
-              v43 = v115[5];
+              v42 = v108;
+              v43 = v114[5];
               v44 = v42[5];
               v42[5] = v43;
             }
@@ -187,23 +187,23 @@ LABEL_17:
           else
           {
             v45 = _HFLocalizedStringWithDefaultValue(v29, v29, 1);
-            v46 = v115[5];
-            v115[5] = v45;
+            v46 = v114[5];
+            v114[5] = v45;
 
             v47 = _HFLocalizedStringWithDefaultValue(v29, v29, 1);
-            v48 = v109[5];
-            v109[5] = v47;
+            v48 = v108[5];
+            v108[5] = v47;
 
-            if (v109[5])
+            if (v108[5])
             {
 LABEL_38:
 
               goto LABEL_39;
             }
 
-            if (v33 && v97)
+            if (v33 && v96)
             {
-              v55 = HFLocalizedStringWithFormat(@"HFServiceControlDescriptionThermostatOff", @"%@", v49, v50, v51, v52, v53, v54, v97);
+              v55 = HFLocalizedStringWithFormat(@"HFServiceControlDescriptionThermostatOff", @"%@", v49, v50, v51, v52, v53, v54, v96);
             }
 
             else
@@ -211,8 +211,8 @@ LABEL_38:
               v55 = _HFLocalizedStringWithDefaultValue(@"HFServiceControlDescriptionThermostatOffNoTargetTemperature", @"HFServiceControlDescriptionThermostatOffNoTargetTemperature", 1);
             }
 
-            v44 = v109[5];
-            v109[5] = v55;
+            v44 = v108[5];
+            v108[5] = v55;
           }
 
           goto LABEL_38;
@@ -236,11 +236,10 @@ LABEL_39:
     v16[2](v16);
   }
 
-  _Block_object_dispose(&v102, 8);
-  _Block_object_dispose(&v108, 8);
+  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v107, 8);
 
-  _Block_object_dispose(&v114, 8);
-  v91 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v113, 8);
 }
 
 void __132__HFThermostatItemUtilities_getDescription_controlDescription_optionalDescriptions_forResponse_primaryService_temperatureFormatter___block_invoke(uint64_t a1)

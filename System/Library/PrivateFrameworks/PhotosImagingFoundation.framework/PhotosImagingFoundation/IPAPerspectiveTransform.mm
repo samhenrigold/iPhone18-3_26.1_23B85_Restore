@@ -100,7 +100,7 @@ LABEL_9:
     X = 0.0;
     if (inputGeometry2)
     {
-      [inputGeometry2 imageQuad];
+      objc_msgSend_imageQuad(inputGeometry2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
       X = vectorCopy.X;
       Y = vectorCopy.Y;
       v20 = *(&v54 + 1);

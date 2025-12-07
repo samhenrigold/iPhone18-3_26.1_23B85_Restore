@@ -1,56 +1,56 @@
-uint64_t sub_100001CEC()
+uint64_t sub_100001CEC(uint64_t a1)
 {
   if (!SOSCCIsSOSTrustAndSyncingEnabled())
   {
     return 0;
   }
 
-  v0 = sub_100001EC8(3);
-  v1 = [v0 mapWithBlock:&stru_10000C488];
-  v2 = [v1 mutableCopy];
+  v1 = sub_100001EC8(3);
+  v2 = [v1 mapWithBlock:&stru_10000C488];
+  v3 = [v2 mutableCopy];
 
-  v3 = sub_100001EC8(2);
-  v4 = [v3 mapWithBlock:&stru_10000C4A8];
-  v5 = [v4 mutableCopy];
+  v4 = sub_100001EC8(2);
+  v5 = [v4 mapWithBlock:&stru_10000C4A8];
+  v6 = [v5 mutableCopy];
 
-  if ([v2 count])
+  if ([v3 count])
   {
-    v6 = secLogObjForScope();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = secLogObjForScope();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v2;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Process accept: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v3;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Process accept: %@", &v11, 0xCu);
     }
 
-    v7 = SOSCCAcceptApplicants();
+    v8 = SOSCCAcceptApplicants();
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if ([v5 count])
+  if ([v6 count])
   {
-    v8 = secLogObjForScope();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = secLogObjForScope();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Process reject: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Process reject: %@", &v11, 0xCu);
     }
 
-    if (v7)
+    if (v8)
     {
-      v7 = SOSCCRejectApplicants();
+      v8 = SOSCCRejectApplicants();
     }
   }
 
-  return v7;
+  return v8;
 }
 
-id sub_100001EC8(int a1)
+NSMutableArray *sub_100001EC8(int a1)
 {
   if (SOSCCIsSOSTrustAndSyncingEnabled())
   {
@@ -100,7 +100,7 @@ uint64_t start()
 {
   if (OctagonPlatformSupportsSOS())
   {
-    v142 = os_transaction_create();
+    v140 = os_transaction_create();
     context = objc_autoreleasePoolPush();
     v0 = dispatch_get_global_queue(2, 0);
     xpc_set_event_stream_handler("com.apple.notifyd.matching", v0, &stru_10000C4E8);
@@ -118,27 +118,27 @@ LABEL_3:
         _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Done", buf, 2u);
       }
 
-      v3 = v142;
+      v3 = v140;
       goto LABEL_8;
     }
 
     v5 = 0;
     v6 = &OBJC_CATEGORY_NSArray___map;
-    v136 = kSecureBackupIsEnabledKey;
-    v140 = SBUserNotificationDontDismissOnUnlock;
-    v139 = SBUserNotificationDismissOnLock;
+    v134 = kSecureBackupIsEnabledKey;
+    v138 = SBUserNotificationDontDismissOnUnlock;
+    v137 = SBUserNotificationDismissOnLock;
     v7 = &OBJC_CATEGORY_NSArray___map;
     while ((SOSCCIsSOSTrustAndSyncingEnabled() & 1) == 0)
     {
-LABEL_205:
+LABEL_203:
       ++v5;
-LABEL_206:
+LABEL_204:
       sub_100004C40(0);
-      v134 = v7[37]._class;
-      if (v134)
+      v132 = v7[37]._class;
+      if (v132)
       {
-        (v134->cache)();
-        v135 = v7[37]._class;
+        (v132->cache)();
+        v133 = v7[37]._class;
         v7[37]._class = 0;
       }
 
@@ -160,8 +160,8 @@ LABEL_206:
       v11 = secLogObjForScope();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v164 = 138412290;
-        *&v164[4] = cf;
+        *v162 = 138412290;
+        *&v162[4] = cf;
         v12 = v11;
         v13 = "returning from processEvents due to error returned from securityd: %@";
         goto LABEL_20;
@@ -181,28 +181,28 @@ LABEL_206:
           v11 = secLogObjForScope();
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            *v164 = 138412290;
-            *&v164[4] = err;
+            *v162 = 138412290;
+            *&v162[4] = err;
             v12 = v11;
             v13 = "XPC error while checking last departure reason: %@, not processing events";
 LABEL_20:
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, v164, 0xCu);
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, v162, 0xCu);
           }
 
 LABEL_21:
           v6 = &OBJC_CATEGORY_NSArray___map;
 
-LABEL_68:
-          v57 = secLogObjForScope();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+LABEL_66:
+          v55 = secLogObjForScope();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Processed events!!!", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Processed events!!!", buf, 2u);
           }
 
           v5 = 0;
           v7 = &OBJC_CATEGORY_NSArray___map;
-          goto LABEL_206;
+          goto LABEL_204;
         }
       }
     }
@@ -213,18 +213,18 @@ LABEL_68:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = [v17 lastCircleStatus];
-      *v164 = 67109888;
-      *&v164[4] = v19;
-      *&v164[8] = 1024;
-      *&v164[10] = v9;
-      *&v164[14] = 1024;
-      *&v164[16] = DepartureReason;
-      *&v164[20] = 2048;
-      *&v164[22] = v17;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "CircleStatus %d -> %d{%d} (s=%p)", v164, 0x1Eu);
+      *v162 = 67109888;
+      *&v162[4] = v19;
+      *&v162[8] = 1024;
+      *&v162[10] = v9;
+      *&v162[14] = 1024;
+      *&v162[16] = DepartureReason;
+      *&v162[20] = 2048;
+      *&v162[22] = v17;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "CircleStatus %d -> %d{%d} (s=%p)", v162, 0x1Eu);
     }
 
-    v144 = v17;
+    v142 = v17;
     v20 = [v17 pendingApplicationReminder];
     [v20 timeIntervalSinceDate:v16];
     v22 = v21;
@@ -234,16 +234,16 @@ LABEL_68:
     {
       v24 = [v17 pendingApplicationReminder];
       v25 = [v24 debugDescription];
-      *v164 = 138412546;
-      *&v164[4] = v25;
-      *&v164[12] = 2048;
-      *&v164[14] = v22;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Time until pendingApplicationReminder (%@) %f", v164, 0x16u);
+      *v162 = 138412546;
+      *&v162[4] = v25;
+      *&v162[12] = 2048;
+      *&v162[14] = v22;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Time until pendingApplicationReminder (%@) %f", v162, 0x16u);
 
       v1 = &OBJC_CATEGORY_NSArray___map;
     }
 
-    v143 = v16;
+    v141 = v16;
     if (v9 == 2)
     {
       if (v22 <= 0.0)
@@ -255,41 +255,36 @@ LABEL_68:
         v27 = v17;
         if (SOSCCIsSOSTrustAndSyncingEnabled())
         {
-          v28 = MGGetSInt32Answer() - 1;
-          if (v28 <= 2)
-          {
-            v29 = *(&off_10000C740 + v28);
-          }
-
-          v30 = SecFrameworkCopyLocalizedString();
-          v31 = [[SecureBackup alloc] initWithUserActivityLabel:@"iCloudResetAvailable"];
+          MGGetSInt32Answer();
+          v28 = SecFrameworkCopyLocalizedString();
+          v29 = [[SecureBackup alloc] initWithUserActivityLabel:@"iCloudResetAvailable"];
           *out_token = 0;
-          v32 = [v31 getAccountInfoWithInfo:0 results:out_token];
-          v33 = *out_token;
-          v34 = secLogObjForScope();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v30 = [v29 getAccountInfoWithInfo:0 results:out_token];
+          v31 = *out_token;
+          v32 = secLogObjForScope();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            *v164 = 138412546;
-            *&v164[4] = v32;
-            *&v164[12] = 2112;
-            *&v164[14] = v33;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "SecureBackup e=%@ r=%@", v164, 0x16u);
+            *v162 = 138412546;
+            *&v162[4] = v30;
+            *&v162[12] = 2112;
+            *&v162[14] = v31;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "SecureBackup e=%@ r=%@", v162, 0x16u);
           }
 
-          if (v32)
+          if (v30)
           {
-            v35 = 0;
+            v33 = 0;
           }
 
           else
           {
-            [v33 objectForKeyedSubscript:v136];
-            v137 = v27;
-            v37 = v36 = v30;
-            v35 = [v37 isEqualToNumber:&__kCFBooleanTrue];
+            [v31 objectForKeyedSubscript:v134];
+            v135 = v27;
+            v35 = v34 = v28;
+            v33 = [v35 isEqualToNumber:&__kCFBooleanTrue];
 
-            v30 = v36;
-            v27 = v137;
+            v28 = v34;
+            v27 = v135;
           }
 
           if (qword_100010708 != -1)
@@ -304,57 +299,57 @@ LABEL_68:
           }
 
           *out_token = kCFUserNotificationAlertHeaderKey;
-          v38 = SecFrameworkCopyLocalizedString();
-          *v164 = v38;
-          *&v164[8] = v30;
-          v138 = v30;
-          v158 = kCFUserNotificationAlertMessageKey;
-          v159 = kCFUserNotificationDefaultButtonTitleKey;
-          v39 = SecFrameworkCopyLocalizedString();
-          *&v164[16] = v39;
-          v160 = kCFUserNotificationAlternateButtonTitleKey;
-          v40 = &stru_10000CC78;
-          if (v35)
+          v36 = SecFrameworkCopyLocalizedString();
+          *v162 = v36;
+          *&v162[8] = v28;
+          v136 = v28;
+          v156 = kCFUserNotificationAlertMessageKey;
+          v157 = kCFUserNotificationDefaultButtonTitleKey;
+          v37 = SecFrameworkCopyLocalizedString();
+          *&v162[16] = v37;
+          v158 = kCFUserNotificationAlternateButtonTitleKey;
+          v38 = &stru_10000CC78;
+          if (v33)
           {
-            v40 = SecFrameworkCopyLocalizedString();
+            v38 = SecFrameworkCopyLocalizedString();
           }
 
-          *&v164[24] = v40;
-          v165 = &__kCFBooleanTrue;
-          v166 = &__kCFBooleanTrue;
-          v161 = kCFUserNotificationAlertTopMostKey;
-          v162 = v140;
-          v163 = v139;
-          v167 = &__kCFBooleanFalse;
-          v41 = [NSDictionary dictionaryWithObjects:v164 forKeys:out_token count:7];
-          if (v35)
+          *&v162[24] = v38;
+          v163 = &__kCFBooleanTrue;
+          v164 = &__kCFBooleanTrue;
+          v159 = kCFUserNotificationAlertTopMostKey;
+          v160 = v138;
+          v161 = v137;
+          v165 = &__kCFBooleanFalse;
+          v39 = [NSDictionary dictionaryWithObjects:v162 forKeys:out_token count:7];
+          if (v33)
           {
           }
 
           error = 0;
-          v42 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, v41);
-          qword_1000106E0 = v42;
+          v40 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, v39);
+          qword_1000106E0 = v40;
           if (error)
           {
-            v43 = secLogObjForScope();
+            v41 = secLogObjForScope();
             v1 = &OBJC_CATEGORY_NSArray___map;
-            v44 = v138;
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+            v42 = v136;
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
             {
-              *v155 = 67109120;
-              v156 = error;
-              _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Can't make pending notification err=%x", v155, 8u);
+              *v153 = 67109120;
+              v154 = error;
+              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Can't make pending notification err=%x", v153, 8u);
             }
           }
 
           else
           {
             byte_1000106E8 = 1;
-            qword_1000106D8 = CFUserNotificationCreateRunLoopSource(0, v42, sub_100006288, 0);
+            qword_1000106D8 = CFUserNotificationCreateRunLoopSource(0, v40, sub_100006288, 0);
             Current = CFRunLoopGetCurrent();
             CFRunLoopAddSource(Current, qword_1000106D8, kCFRunLoopDefaultMode);
             v1 = &OBJC_CATEGORY_NSArray___map;
-            v44 = v138;
+            v42 = v136;
           }
         }
       }
@@ -367,111 +362,111 @@ LABEL_68:
 
     if (SOSCCIsSOSTrustAndSyncingEnabled())
     {
-      v46 = +[ACAccountStore defaultStore];
-      v47 = [v46 aa_primaryAppleAccount];
-      v48 = [v47 accountProperties];
-      v49 = [v48 objectForKeyedSubscript:@"personID"];
+      v44 = +[ACAccountStore defaultStore];
+      v45 = [v44 aa_primaryAppleAccount];
+      v46 = [v45 accountProperties];
+      v47 = [v46 objectForKeyedSubscript:@"personID"];
 
-      if (v49)
+      if (v47)
       {
-        v50 = [CDPAccount isICDPEnabledForDSID:v49];
-        v51 = v50;
-        NSLog(@"iCDP: PSKeychainSyncIsUsingICDP returning %{BOOL}d", v50);
+        v48 = [CDPAccount isICDPEnabledForDSID:v47];
+        v49 = v48;
+        NSLog(@"iCDP: PSKeychainSyncIsUsingICDP returning %{BOOL}d", v48);
       }
 
       else
       {
         NSLog(@"iCDP: no primary account");
-        v51 = 0;
+        v49 = 0;
       }
 
-      byte_100010701 = v51;
-      v52 = secLogObjForScope();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      byte_100010701 = v49;
+      v50 = secLogObjForScope();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
-        *v164 = 67109120;
-        *&v164[4] = byte_100010701;
-        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "account is icdp: %{BOOL}d", v164, 8u);
+        *v162 = 67109120;
+        *&v162[4] = byte_100010701;
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "account is icdp: %{BOOL}d", v162, 8u);
       }
     }
 
-    v53 = cf;
+    v51 = cf;
     if (cf)
     {
       cf = 0;
-      CFRelease(v53);
+      CFRelease(v51);
     }
 
-    v54 = SOSCCThisDeviceIsInCircleNonCached();
-    if (sub_100003958(cf) && v54 == -1)
+    v52 = SOSCCThisDeviceIsInCircleNonCached();
+    if (sub_100003958(cf) && v52 == -1)
     {
-      v55 = secLogObjForScope();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v53 = secLogObjForScope();
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
-        *v164 = 138412290;
-        *&v164[4] = cf;
-        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "returning from processEvents due to error returned from securityd: %@", v164, 0xCu);
+        *v162 = 138412290;
+        *&v162[4] = cf;
+        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "returning from processEvents due to error returned from securityd: %@", v162, 0xCu);
       }
 
       v6 = &OBJC_CATEGORY_NSArray___map;
-      goto LABEL_66;
+      goto LABEL_64;
     }
 
     if (byte_100010701 == 1)
     {
-      [v144 setLastCircleStatus:v54];
-      [v144 writeToStorage];
+      [v142 setLastCircleStatus:v52];
+      [v142 writeToStorage];
       if (byte_100010700 == 1)
       {
-        v58 = secLogObjForScope();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v56 = secLogObjForScope();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
         {
-          *v164 = 0;
-          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "followup not resolved", v164, 2u);
+          *v162 = 0;
+          _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "followup not resolved", v162, 2u);
         }
 
         BYTE2(v1[37].inst_meths) = 1;
-LABEL_76:
+LABEL_74:
         v6 = &OBJC_CATEGORY_NSArray___map;
         v7 = &OBJC_CATEGORY_NSArray___map;
-        v59 = v144;
-LABEL_204:
+        v57 = v142;
+LABEL_202:
 
-        goto LABEL_205;
+        goto LABEL_203;
       }
 
-      if (v54 <= 0)
+      if (v52 <= 0)
       {
-        if (v54 == -1)
+        if (v52 == -1)
         {
-          v83 = secLogObjForScope();
+          v81 = secLogObjForScope();
           v6 = &OBJC_CATEGORY_NSArray___map;
-          v59 = v144;
-          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+          v57 = v142;
+          if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
           {
-            *v164 = 138412290;
-            *&v164[4] = cf;
-            _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "error from SOSCCThisDeviceIsInCircle: %@", v164, 0xCu);
+            *v162 = 138412290;
+            *&v162[4] = cf;
+            _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "error from SOSCCThisDeviceIsInCircle: %@", v162, 0xCu);
           }
 
           if (!SOSCCIsSOSTrustAndSyncingEnabled())
           {
-            goto LABEL_154;
+            goto LABEL_152;
           }
 
-          goto LABEL_136;
+          goto LABEL_134;
         }
 
-        if (v54)
+        if (v52)
         {
-          goto LABEL_137;
+          goto LABEL_135;
         }
 
-        v81 = secLogObjForScope();
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+        v79 = secLogObjForScope();
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
         {
-          *v164 = 0;
-          _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "follow up should be resolved", v164, 2u);
+          *v162 = 0;
+          _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "follow up should be resolved", v162, 2u);
         }
 
         BYTE2(v1[37].inst_meths) = 1;
@@ -480,285 +475,285 @@ LABEL_204:
 
       else
       {
-        if (v54 == 1)
+        if (v52 == 1)
         {
-          goto LABEL_108;
+          goto LABEL_106;
         }
 
-        if (v54 != 2)
+        if (v52 != 2)
         {
-          if (v54 == 3)
+          if (v52 == 3)
           {
-LABEL_108:
-            v72 = secLogObjForScope();
-            v73 = os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT);
+LABEL_106:
+            v70 = secLogObjForScope();
+            v71 = os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT);
             v6 = &OBJC_CATEGORY_NSArray___map;
             if (!DepartureReason)
             {
-              v59 = v144;
-              if (v73)
+              v57 = v142;
+              if (v71)
               {
-                *v164 = 0;
-                _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "iCDP: We appear to not be associated with an iCloud account", v164, 2u);
+                *v162 = 0;
+                _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "iCDP: We appear to not be associated with an iCloud account", v162, 2u);
               }
 
-              goto LABEL_154;
+              goto LABEL_152;
             }
 
-            v59 = v144;
-            if (v73)
+            v57 = v142;
+            if (v71)
             {
-              *v164 = 0;
-              _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "iCDP: We need to get back into the circle", v164, 2u);
+              *v162 = 0;
+              _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "iCDP: We need to get back into the circle", v162, 2u);
             }
 
             if (!SOSCCIsSOSTrustAndSyncingEnabled())
             {
-LABEL_154:
+LABEL_152:
               BYTE2(v1[37].inst_meths) = 1;
-LABEL_203:
+LABEL_201:
               v7 = &OBJC_CATEGORY_NSArray___map;
-              goto LABEL_204;
+              goto LABEL_202;
             }
 
-LABEL_136:
+LABEL_134:
             sub_100003B18(&stru_10000C5E8);
-            goto LABEL_154;
+            goto LABEL_152;
           }
 
-LABEL_137:
-          v84 = secLogObjForScope();
-          if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+LABEL_135:
+          v82 = secLogObjForScope();
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
           {
-            *v164 = 67109120;
-            *&v164[4] = v54;
-            _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "Unknown circle status %d", v164, 8u);
+            *v162 = 67109120;
+            *&v162[4] = v52;
+            _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "Unknown circle status %d", v162, 8u);
           }
 
-          goto LABEL_76;
+          goto LABEL_74;
         }
       }
     }
 
-    else if (v54 == -1 && [v144 lastCircleStatus] != -1 && DepartureReason == 1)
+    else if (v52 == -1 && [v142 lastCircleStatus] != -1 && DepartureReason == 1)
     {
-      v74 = secLogObjForScope();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+      v72 = secLogObjForScope();
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
-        *v164 = 138412290;
-        *&v164[4] = cf;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "SA: error from SOSCCThisDeviceIsInCircle: %@", v164, 0xCu);
+        *v162 = 138412290;
+        *&v162[4] = cf;
+        _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "SA: error from SOSCCThisDeviceIsInCircle: %@", v162, 0xCu);
       }
 
       if (CFErrorGetCode(cf) == 2)
       {
-        v75 = secLogObjForScope();
+        v73 = secLogObjForScope();
         v6 = &OBJC_CATEGORY_NSArray___map;
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
         {
-          *v164 = 0;
-          _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "SA: We need the password to re-validate ourselves - it's changed on another device", v164, 2u);
+          *v162 = 0;
+          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "SA: We need the password to re-validate ourselves - it's changed on another device", v162, 2u);
         }
 
-        sub_100003BD0(8u);
-        v56 = v144;
-        [v144 setLastCircleStatus:0xFFFFFFFFLL];
-        [v144 writeToStorage];
-        goto LABEL_67;
+        sub_100003BD0(8);
+        v54 = v142;
+        [v142 setLastCircleStatus:0xFFFFFFFFLL];
+        [v142 writeToStorage];
+        goto LABEL_65;
       }
     }
 
-    if (([v144 lastCircleStatus] || (v54 & 0xFFFFFFFD) != 1) && (objc_msgSend(v144, "lastCircleStatus") != 3 || v54 != 1 || (objc_msgSend(v144, "absentCircleWithNoReason") & 1) == 0))
+    if (([v142 lastCircleStatus] || (v52 & 0xFFFFFFFD) != 1) && (objc_msgSend(v142, "lastCircleStatus") != 3 || v52 != 1 || (objc_msgSend(v142, "absentCircleWithNoReason") & 1) == 0))
     {
-      v60 = [v144 debugShowLeftReason];
+      v58 = [v142 debugShowLeftReason];
 
-      if (!v60)
+      if (!v58)
       {
-LABEL_164:
+LABEL_162:
         v6 = &OBJC_CATEGORY_NSArray___map;
-        v95 = off_1000106D0;
+        v93 = off_1000106D0;
         off_1000106D0 = @"processEvents C";
 
-        v59 = v144;
-        if (v54 != [v144 lastCircleStatus])
+        v57 = v142;
+        if (v52 != [v142 lastCircleStatus])
         {
-          v96 = [v144 lastCircleStatus];
-          [v144 setLastCircleStatus:v54];
-          if (v96 == 2 || v54 != 2)
+          v94 = [v142 lastCircleStatus];
+          [v142 setLastCircleStatus:v52];
+          if (v94 == 2 || v52 != 2)
           {
-            if (v96 == 2 && v54 != 2)
+            if (v94 == 2 && v52 != 2)
             {
-              v99 = secLogObjForScope();
-              if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
+              v97 = secLogObjForScope();
+              if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
               {
-                *v164 = 0;
-                _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "Pending request completed", v164, 2u);
+                *v162 = 0;
+                _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "Pending request completed", v162, 2u);
               }
 
-              v100 = +[NSDate distantPast];
-              [v144 setApplicationDate:v100];
+              v98 = +[NSDate distantPast];
+              [v142 setApplicationDate:v98];
 
-              v101 = +[NSDate distantFuture];
-              [v144 setPendingApplicationReminder:v101];
+              v99 = +[NSDate distantFuture];
+              [v142 setPendingApplicationReminder:v99];
             }
           }
 
           else
           {
-            v97 = secLogObjForScope();
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+            v95 = secLogObjForScope();
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
             {
-              *v164 = 0;
-              _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "Pending request started", v164, 2u);
+              *v162 = 0;
+              _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "Pending request started", v162, 2u);
             }
 
-            [v144 setApplicationDate:v143];
-            v98 = [v143 dateByAddingTimeInterval:{objc_msgSend(v144, "pendingApplicationReminderAlertInterval")}];
-            [v144 setPendingApplicationReminder:v98];
+            [v142 setApplicationDate:v141];
+            v96 = [v141 dateByAddingTimeInterval:{objc_msgSend(v142, "pendingApplicationReminderAlertInterval")}];
+            [v142 setPendingApplicationReminder:v96];
 
-            sub_100003A2C([v144 pendingApplicationReminderAlertInterval]);
+            sub_100003A2C([v142 pendingApplicationReminderAlertInterval]);
           }
 
-          [v144 writeToStorage];
+          [v142 writeToStorage];
         }
 
-        if (v54)
+        if (v52)
         {
-          if (v54 == 2)
+          if (v52 == 2)
           {
-            v102 = qword_1000106E0;
+            v100 = qword_1000106E0;
             if (qword_1000106E0)
             {
               out_token[0] = 0;
-              v103 = off_1000106D0;
+              v101 = off_1000106D0;
               off_1000106D0 = @"processEvents D1";
 
-              v104 = kSOSCCCircleChangedNotification;
-              v105 = &_dispatch_main_q;
+              v102 = kSOSCCCircleChangedNotification;
+              v103 = &_dispatch_main_q;
               handler[0] = _NSConcreteStackBlock;
               handler[1] = 3221225472;
               handler[2] = sub_100004214;
               handler[3] = &unk_10000C528;
-              handler[4] = v102;
-              notify_register_dispatch(v104, out_token, &_dispatch_main_q, handler);
+              handler[4] = v100;
+              notify_register_dispatch(v102, out_token, &_dispatch_main_q, handler);
 
-              v106 = off_1000106D0;
+              v104 = off_1000106D0;
               off_1000106D0 = @"processEvents D2";
 
-              v107 = secLogObjForScope();
-              if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+              v105 = secLogObjForScope();
+              if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
               {
-                *v164 = 67109376;
-                *&v164[4] = (byte_1000106E8 & 1) == 0;
-                *&v164[8] = 1024;
-                *&v164[10] = out_token[0];
-                _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "NOTE: currentAlertIsForApplicants %{BOOL}d, token %d", v164, 0xEu);
+                *v162 = 67109376;
+                *&v162[4] = (byte_1000106E8 & 1) == 0;
+                *&v162[8] = 1024;
+                *&v162[10] = out_token[0];
+                _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "NOTE: currentAlertIsForApplicants %{BOOL}d, token %d", v162, 0xEu);
               }
 
               CFRunLoopRun();
-LABEL_66:
-              v56 = v144;
-LABEL_67:
+LABEL_64:
+              v54 = v142;
+LABEL_65:
 
-              goto LABEL_68;
+              goto LABEL_66;
             }
           }
 
-          v129 = off_1000106D0;
+          v127 = off_1000106D0;
           off_1000106D0 = @"processEvents D4";
 
-          v130 = secLogObjForScope();
-          if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
+          v128 = secLogObjForScope();
+          if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
           {
-            *v164 = 67109120;
-            *&v164[4] = v54;
-            _os_log_impl(&_mh_execute_header, v130, OS_LOG_TYPE_DEFAULT, "SOSCCThisDeviceIsInCircle status %d, not checking applicants", v164, 8u);
+            *v162 = 67109120;
+            *&v162[4] = v52;
+            _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_DEFAULT, "SOSCCThisDeviceIsInCircle status %d, not checking applicants", v162, 8u);
           }
         }
 
         else
         {
-          v108 = off_1000106D0;
+          v106 = off_1000106D0;
           off_1000106D0 = @"processEvents E";
 
-          v109 = objc_opt_new();
-          v110 = qword_1000106F0;
-          qword_1000106F0 = v109;
+          v107 = objc_opt_new();
+          v108 = qword_1000106F0;
+          qword_1000106F0 = v107;
 
-          v147 = 0u;
-          v148 = 0u;
           v145 = 0u;
           v146 = 0u;
-          v111 = SOSCCCopyApplicantPeerInfo();
-          v112 = [v111 countByEnumeratingWithState:&v145 objects:buf count:16];
-          if (v112)
+          v143 = 0u;
+          v144 = 0u;
+          v109 = SOSCCCopyApplicantPeerInfo();
+          v110 = [v109 countByEnumeratingWithState:&v143 objects:buf count:16];
+          if (v110)
           {
-            v113 = v112;
-            v114 = *v146;
+            v111 = v110;
+            v112 = *v144;
             do
             {
-              for (i = 0; i != v113; i = i + 1)
+              for (i = 0; i != v111; i = i + 1)
               {
-                if (*v146 != v114)
+                if (*v144 != v112)
                 {
-                  objc_enumerationMutation(v111);
+                  objc_enumerationMutation(v109);
                 }
 
-                v116 = [[Applicant alloc] initWithPeerInfo:*(*(&v145 + 1) + 8 * i)];
-                v117 = qword_1000106F0;
-                v118 = [(Applicant *)v116 idString];
-                [v117 setObject:v116 forKeyedSubscript:v118];
+                v114 = [[Applicant alloc] initWithPeerInfo:*(*(&v143 + 1) + 8 * i)];
+                v115 = qword_1000106F0;
+                v116 = [(Applicant *)v114 idString];
+                [v115 setObject:v114 forKeyedSubscript:v116];
               }
 
-              v113 = [v111 countByEnumeratingWithState:&v145 objects:buf count:16];
+              v111 = [v109 countByEnumeratingWithState:&v143 objects:buf count:16];
             }
 
-            while (v113);
+            while (v111);
           }
 
-          v119 = cf;
+          v117 = cf;
           if (cf)
           {
             cf = 0;
-            CFRelease(v119);
+            CFRelease(v117);
           }
 
           out_token[0] = -42;
           v6 = &OBJC_CATEGORY_NSArray___map;
-          v120 = off_1000106D0;
+          v118 = off_1000106D0;
           off_1000106D0 = @"processEvents F";
 
-          v121 = kSOSCCCircleChangedNotification;
-          v122 = &_dispatch_main_q;
-          v123 = notify_register_dispatch(v121, out_token, &_dispatch_main_q, &stru_10000C568);
+          v119 = kSOSCCCircleChangedNotification;
+          v120 = &_dispatch_main_q;
+          v121 = notify_register_dispatch(v119, out_token, &_dispatch_main_q, &stru_10000C568);
 
-          v124 = secLogObjForScope();
+          v122 = secLogObjForScope();
           v1 = &OBJC_CATEGORY_NSArray___map;
-          v59 = v144;
-          if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+          v57 = v142;
+          if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
           {
-            *v164 = 67109376;
-            *&v164[4] = out_token[0];
-            *&v164[8] = 1024;
-            *&v164[10] = v123;
-            _os_log_impl(&_mh_execute_header, v124, OS_LOG_TYPE_DEFAULT, "ACC token %d, status %d", v164, 0xEu);
+            *v162 = 67109376;
+            *&v162[4] = out_token[0];
+            *&v162[8] = 1024;
+            *&v162[10] = v121;
+            _os_log_impl(&_mh_execute_header, v122, OS_LOG_TYPE_DEFAULT, "ACC token %d, status %d", v162, 0xEu);
           }
 
-          v125 = off_1000106D0;
+          v123 = off_1000106D0;
           off_1000106D0 = @"processEvents F2";
 
           if ([qword_1000106F0 count])
           {
-            v126 = off_1000106D0;
+            v124 = off_1000106D0;
             off_1000106D0 = @"processEvents F3";
 
             sub_1000044BC(0);
-            v127 = off_1000106D0;
+            v125 = off_1000106D0;
             off_1000106D0 = @"processEvents F4";
 
             if (qword_1000106E0)
             {
-              v128 = off_1000106D0;
+              v126 = off_1000106D0;
               off_1000106D0 = @"processEvents F5";
 
               CFRunLoopRun();
@@ -767,127 +762,127 @@ LABEL_67:
 
           else
           {
-            v131 = secLogObjForScope();
-            if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+            v129 = secLogObjForScope();
+            if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
             {
-              *v164 = 0;
-              _os_log_impl(&_mh_execute_header, v131, OS_LOG_TYPE_DEFAULT, "No applicants", v164, 2u);
+              *v162 = 0;
+              _os_log_impl(&_mh_execute_header, v129, OS_LOG_TYPE_DEFAULT, "No applicants", v162, 2u);
             }
           }
 
-          v132 = off_1000106D0;
+          v130 = off_1000106D0;
           off_1000106D0 = @"processEvents F6";
 
           notify_cancel(out_token[0]);
-          v133 = off_1000106D0;
+          v131 = off_1000106D0;
           off_1000106D0 = @"processEvents DONE";
         }
 
-        goto LABEL_203;
+        goto LABEL_201;
       }
     }
 
-    v61 = off_1000106D0;
+    v59 = off_1000106D0;
     off_1000106D0 = @"processEvents B";
 
-    v62 = [v144 debugShowLeftReason];
+    v60 = [v142 debugShowLeftReason];
 
-    if (v62)
+    if (v60)
     {
-      v63 = secLogObjForScope();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      v61 = secLogObjForScope();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = [v144 debugShowLeftReason];
-        *v164 = 138412290;
-        *&v164[4] = v64;
-        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "debugShowLeftReason: %@", v164, 0xCu);
+        v62 = [v142 debugShowLeftReason];
+        *v162 = 138412290;
+        *&v162[4] = v62;
+        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "debugShowLeftReason: %@", v162, 0xCu);
       }
 
-      v65 = [v144 debugShowLeftReason];
-      DepartureReason = [v65 intValue];
+      v63 = [v142 debugShowLeftReason];
+      DepartureReason = [v63 intValue];
 
-      [v144 setDebugShowLeftReason:0];
-      v66 = err;
+      [v142 setDebugShowLeftReason:0];
+      v64 = err;
       if (err)
       {
         err = 0;
-        CFRelease(v66);
+        CFRelease(v64);
       }
 
-      [v144 writeToStorage];
+      [v142 writeToStorage];
     }
 
     if (!DepartureReason)
     {
-      v76 = secLogObjForScope();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      v74 = secLogObjForScope();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
       {
-        *v164 = 138412290;
-        *&v164[4] = err;
-        v77 = v76;
-        v78 = "Couldn't get last departure reason: %@";
-        v79 = 12;
-LABEL_162:
-        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, v78, v164, v79);
+        *v162 = 138412290;
+        *&v162[4] = err;
+        v75 = v74;
+        v76 = "Couldn't get last departure reason: %@";
+        v77 = 12;
+LABEL_160:
+        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, v76, v162, v77);
       }
 
-LABEL_163:
+LABEL_161:
 
-      goto LABEL_164;
+      goto LABEL_162;
     }
 
-    v68 = v54 == 3 && DepartureReason == 1;
-    [v144 setAbsentCircleWithNoReason:v68];
-    v69 = secLogObjForScope();
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+    v66 = v52 == 3 && DepartureReason == 1;
+    [v142 setAbsentCircleWithNoReason:v66];
+    v67 = secLogObjForScope();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
     {
-      *v164 = 67109120;
-      *&v164[4] = DepartureReason;
-      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "Depature reason %d", v164, 8u);
+      *v162 = 67109120;
+      *&v162[4] = DepartureReason;
+      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "Depature reason %d", v162, 8u);
     }
 
     if ((byte_100010701 & 1) == 0)
     {
-      v80 = secLogObjForScope();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+      v78 = secLogObjForScope();
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
-        *v164 = 0;
-        _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "posting revocation notification!", v164, 2u);
+        *v162 = 0;
+        _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "posting revocation notification!", v162, 2u);
       }
 
       sub_100003BD0(DepartureReason);
-      goto LABEL_159;
+      goto LABEL_157;
     }
 
     if (byte_100010700)
     {
-      v70 = secLogObjForScope();
-      v71 = v144;
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+      v68 = secLogObjForScope();
+      v69 = v142;
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
       {
-        *v164 = 0;
-        _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "still waiting for followup to resolve", v164, 2u);
+        *v162 = 0;
+        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "still waiting for followup to resolve", v162, 2u);
       }
 
-LABEL_160:
-      v76 = secLogObjForScope();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+LABEL_158:
+      v74 = secLogObjForScope();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
       {
-        v94 = [v71 lastCircleStatus];
-        *v164 = 67109376;
-        *&v164[4] = v54;
-        *&v164[8] = 1024;
-        *&v164[10] = v94;
-        v77 = v76;
-        v78 = "pKOA returned (cS %d lCS %d)";
-        v79 = 14;
-        goto LABEL_162;
+        v92 = [v69 lastCircleStatus];
+        *v162 = 67109376;
+        *&v162[4] = v52;
+        *&v162[8] = 1024;
+        *&v162[10] = v92;
+        v75 = v74;
+        v76 = "pKOA returned (cS %d lCS %d)";
+        v77 = 14;
+        goto LABEL_160;
       }
 
-      goto LABEL_163;
+      goto LABEL_161;
     }
 
-    v82 = objc_alloc_init(CDPFollowUpController);
+    v80 = objc_alloc_init(CDPFollowUpController);
     if (SOSCompatibilityModeEnabled())
     {
       +[CDPFollowUpContext contextForSOSCompatibilityMode];
@@ -897,59 +892,59 @@ LABEL_160:
     {
       +[CDPFollowUpContext contextForStateRepair];
     }
-    v85 = ;
-    v86 = SOSCompatibilityModeEnabled();
-    v87 = secLogObjForScope();
-    v88 = os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT);
-    if (v86)
+    v83 = ;
+    v84 = SOSCompatibilityModeEnabled();
+    v85 = secLogObjForScope();
+    v86 = os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT);
+    if (v84)
     {
-      if (v88)
+      if (v86)
       {
-        *v164 = 0;
-        v89 = v87;
-        v90 = "Posting a follow up (for SOS) of type SOS Compatibility Mode";
-LABEL_146:
-        _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, v90, v164, 2u);
+        *v162 = 0;
+        v87 = v85;
+        v88 = "Posting a follow up (for SOS) of type SOS Compatibility Mode";
+LABEL_144:
+        _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, v88, v162, 2u);
       }
     }
 
-    else if (v88)
+    else if (v86)
     {
-      *v164 = 0;
-      v89 = v87;
-      v90 = "Posting a follow up (for SOS) of type repair";
-      goto LABEL_146;
+      *v162 = 0;
+      v87 = v85;
+      v88 = "Posting a follow up (for SOS) of type repair";
+      goto LABEL_144;
     }
 
-    v150 = 0;
-    [v82 postFollowUpWithContext:v85 error:&v150];
-    v91 = v150;
-    v92 = secLogObjForScope();
-    v93 = os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT);
-    if (v91)
+    v148 = 0;
+    [v80 postFollowUpWithContext:v83 error:&v148];
+    v89 = v148;
+    v90 = secLogObjForScope();
+    v91 = os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT);
+    if (v89)
     {
-      if (v93)
+      if (v91)
       {
-        *v164 = 138412290;
-        *&v164[4] = v91;
-        _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "request to CoreCDP to follow up failed: %@", v164, 0xCu);
+        *v162 = 138412290;
+        *&v162[4] = v89;
+        _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "request to CoreCDP to follow up failed: %@", v162, 0xCu);
       }
     }
 
     else
     {
-      if (v93)
+      if (v91)
       {
-        *v164 = 0;
-        _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "CoreCDP handling follow up", v164, 2u);
+        *v162 = 0;
+        _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "CoreCDP handling follow up", v162, 2u);
       }
 
       byte_100010700 = 1;
     }
 
-LABEL_159:
-    v71 = v144;
-    goto LABEL_160;
+LABEL_157:
+    v69 = v142;
+    goto LABEL_158;
   }
 
   v3 = secLogObjForScope();
@@ -1026,8 +1021,9 @@ void sub_100003B18(void *a1)
   }
 }
 
-void sub_100003BD0(unsigned int a1)
+void sub_100003BD0(uint64_t a1)
 {
+  v1 = a1;
   if (SOSCCIsSOSTrustAndSyncingEnabled())
   {
     v2 = off_1000106D0;
@@ -1037,11 +1033,11 @@ void sub_100003BD0(unsigned int a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v28) = a1;
+      LODWORD(v28) = v1;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "DepartureReason %d", buf, 8u);
     }
 
-    if (a1 > 7 || ((1 << a1) & 0xE4) == 0)
+    if (v1 > 7 || ((1 << v1) & 0xE4) == 0)
     {
       v4 = SecFrameworkCopyLocalizedString();
       v5 = SecFrameworkCopyLocalizedString();
@@ -1052,14 +1048,14 @@ void sub_100003BD0(unsigned int a1)
 
       if (byte_100010710 == 1)
       {
-        if (a1 >= 8)
+        if (v1 >= 8)
         {
           v6 = 8;
         }
 
         else
         {
-          v6 = a1;
+          v6 = v1;
         }
 
         v7 = SecFrameworkCopyLocalizedString();
@@ -1170,7 +1166,7 @@ void sub_100003BD0(unsigned int a1)
           handler[2] = sub_100005A88;
           handler[3] = &unk_10000C680;
           handler[4] = v15;
-          v25 = a1;
+          v25 = v1;
           notify_register_dispatch("com.apple.EscrowSecurityAlert.reset", buf, &_dispatch_main_q, handler);
           v21 = off_1000106D0;
           off_1000106D0 = @"pKOA D";
@@ -1284,8 +1280,9 @@ LABEL_21:
   notify_cancel(a2);
 }
 
-void sub_1000044BC(int a1)
+void sub_1000044BC(uint64_t a1)
 {
+  v1 = a1;
   if (SOSCCIsSOSTrustAndSyncingEnabled())
   {
     v2 = +[MCProfileConnection sharedConnection];
@@ -1293,85 +1290,85 @@ void sub_1000044BC(int a1)
 
     if (v3 == 2)
     {
-      v4 = secLogObjForScope();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = secLogObjForScope();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Account modifications not allowed.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Account modifications not allowed.", buf, 2u);
       }
 
       goto LABEL_31;
     }
 
-    if (a1)
+    if (v1)
     {
       if (SOSCCIsSOSTrustAndSyncingEnabled())
       {
-        v5 = SecFrameworkCopyLocalizedString();
-        v6 = sub_100004CDC();
-        v7 = [NSString stringWithFormat:v5, v6];
+        v6 = SecFrameworkCopyLocalizedString();
+        v7 = sub_100004CDC(v6);
+        v8 = [NSString stringWithFormat:v6, v7];
 
-        v8 = SecFrameworkCopyLocalizedString();
+        v9 = SecFrameworkCopyLocalizedString();
         *v42 = kCFUserNotificationAlertHeaderKey;
         v43 = kCFUserNotificationDefaultButtonTitleKey;
-        *buf = v7;
-        *&buf[8] = v8;
+        *buf = v8;
+        *&buf[8] = v9;
         v44 = kCFUserNotificationAlertTopMostKey;
         v45 = SBUserNotificationDontDismissOnUnlock;
         *&buf[16] = &__kCFBooleanTrue;
         v51 = &__kCFBooleanTrue;
         v46 = SBUserNotificationDismissOnLock;
         v52 = &__kCFBooleanFalse;
-        v9 = [NSDictionary dictionaryWithObjects:buf forKeys:v42 count:5];
+        v10 = [NSDictionary dictionaryWithObjects:buf forKeys:v42 count:5];
         responseFlags = 3;
         error = -1431655766;
-        v10 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, v9);
-        if (v10)
+        v11 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, v10);
+        if (v11)
         {
-          v11 = v10;
-          CFUserNotificationReceiveResponse(v10, 0.0, &responseFlags);
-          CFRelease(v11);
+          v12 = v11;
+          CFUserNotificationReceiveResponse(v11, 0.0, &responseFlags);
+          CFRelease(v12);
         }
       }
 
-      v12 = qword_1000106E0;
+      v4 = qword_1000106E0;
       if (!qword_1000106E0)
       {
 LABEL_19:
         byte_1000106E8 = 0;
-        v14 = sub_100004D58();
-        v15 = secLogObjForScope();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_100004D58(v4);
+        v14 = secLogObjForScope();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          *&buf[4] = v14;
+          *&buf[4] = v13;
           *&buf[12] = 2112;
           *&buf[14] = qword_1000106F0;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Asking about: %@ (of: %@)", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Asking about: %@ (of: %@)", buf, 0x16u);
         }
 
-        v4 = v14;
-        v16 = SOSCCIsSOSTrustAndSyncingEnabled();
-        if (v4 && v16 && ([v4 name], (v17 = objc_claimAutoreleasedReturnValue()) != 0) && (v18 = v17, [v4 deviceType], v19 = objc_claimAutoreleasedReturnValue(), v19, v18, v19))
+        v5 = v13;
+        v15 = SOSCCIsSOSTrustAndSyncingEnabled();
+        if (v5 && v15 && ([v5 name], (v16 = objc_claimAutoreleasedReturnValue()) != 0) && (v17 = v16, [v5 deviceType], v18 = objc_claimAutoreleasedReturnValue(), v18, v17, v18))
         {
-          v20 = SecFrameworkCopyLocalizedString();
-          v21 = [v4 name];
-          v22 = [NSString stringWithFormat:v20, v21];
+          v19 = SecFrameworkCopyLocalizedString();
+          v20 = [v5 name];
+          v21 = [NSString stringWithFormat:v19, v20];
 
-          v23 = [v4 deviceType];
-          if (([v23 isEqualToString:@"iPhone"] & 1) == 0 && (objc_msgSend(v23, "isEqualToString:", @"iPod") & 1) == 0 && (objc_msgSend(v23, "isEqualToString:", @"iPad") & 1) == 0)
+          v22 = [v5 deviceType];
+          if (([v22 isEqualToString:@"iPhone"] & 1) == 0 && (objc_msgSend(v22, "isEqualToString:", @"iPod") & 1) == 0 && (objc_msgSend(v22, "isEqualToString:", @"iPad") & 1) == 0)
           {
-            [v23 isEqualToString:@"Mac"];
+            [v22 isEqualToString:@"Mac"];
           }
 
-          v25 = SecFrameworkCopyLocalizedString();
+          v24 = SecFrameworkCopyLocalizedString();
 
-          v26 = sub_100004CDC();
-          v27 = [NSString stringWithFormat:v25, v26];
+          v26 = sub_100004CDC(v25);
+          v27 = [NSString stringWithFormat:v24, v26];
 
           *v42 = kCFUserNotificationAlertHeaderKey;
           v43 = kCFUserNotificationAlertMessageKey;
-          *buf = v22;
+          *buf = v21;
           *&buf[8] = v27;
           v44 = kCFUserNotificationDefaultButtonTitleKey;
           v28 = SecFrameworkCopyLocalizedString();
@@ -1423,7 +1420,7 @@ LABEL_19:
                 if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  *&buf[4] = v4;
+                  *&buf[4] = v5;
                   *&buf[12] = 1024;
                   *&buf[14] = v42[0];
                   _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Can't make notification for %@ err=%x", buf, 0x12u);
@@ -1438,7 +1435,7 @@ LABEL_48:
               CFRunLoopAddSource(Current, qword_1000106D8, kCFRunLoopDefaultMode);
             }
 
-            [v4 setApplicantUIState:1];
+            [v5 setApplicantUIState:1];
 
 LABEL_31:
             return;
@@ -1449,12 +1446,12 @@ LABEL_31:
         {
         }
 
-        v24 = secLogObjForScope();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v23 = secLogObjForScope();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *&buf[4] = v4;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "NULL data for %@", buf, 0xCu);
+          *&buf[4] = v5;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "NULL data for %@", buf, 0xCu);
         }
 
         sub_100004C40(1);
@@ -1465,13 +1462,13 @@ LABEL_31:
       {
 LABEL_16:
         qword_1000106E0 = 0;
-        CFRelease(v12);
+        CFRelease(v4);
 LABEL_17:
-        v13 = qword_1000106D8;
+        v4 = qword_1000106D8;
         if (qword_1000106D8)
         {
           qword_1000106D8 = 0;
-          CFRelease(v13);
+          CFRelease(v4);
         }
 
         goto LABEL_19;
@@ -1485,15 +1482,15 @@ LABEL_17:
         goto LABEL_19;
       }
 
-      v12 = qword_1000106E0;
+      v4 = qword_1000106E0;
       if (!qword_1000106E0)
       {
         goto LABEL_19;
       }
     }
 
-    CFUserNotificationCancel(v12);
-    v12 = qword_1000106E0;
+    CFUserNotificationCancel(v4);
+    v4 = qword_1000106E0;
     if (!qword_1000106E0)
     {
       goto LABEL_17;
@@ -1503,8 +1500,9 @@ LABEL_17:
   }
 }
 
-void sub_100004C40(int a1)
+void sub_100004C40(uint64_t a1)
 {
+  v1 = a1;
   if (SOSCCIsSOSTrustAndSyncingEnabled())
   {
     if (qword_1000106D8)
@@ -1530,7 +1528,7 @@ void sub_100004C40(int a1)
       }
     }
 
-    if (a1)
+    if (v1)
     {
       v5 = CFRunLoopGetCurrent();
       CFRunLoopStop(v5);
@@ -1541,65 +1539,65 @@ void sub_100004C40(int a1)
   }
 }
 
-id sub_100004CDC()
+id sub_100004CDC(uint64_t a1)
 {
   if (SOSCCIsSOSTrustAndSyncingEnabled())
   {
-    v0 = +[ACAccountStore defaultStore];
-    v1 = [v0 aa_primaryAppleAccount];
-    v2 = [v1 username];
+    v1 = +[ACAccountStore defaultStore];
+    v2 = [v1 aa_primaryAppleAccount];
+    v3 = [v2 username];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
-id sub_100004D58()
+id sub_100004D58(uint64_t a1)
 {
   if (SOSCCIsSOSTrustAndSyncingEnabled())
   {
-    v12 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    v0 = [qword_1000106F0 objectEnumerator];
-    v1 = [v0 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    if (v1)
+    v12 = 0u;
+    v1 = [qword_1000106F0 objectEnumerator];
+    v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v2)
     {
-      v2 = v1;
-      v3 = 0;
-      v4 = *v11;
+      v3 = v2;
+      v4 = 0;
+      v5 = *v12;
       while (2)
       {
-        for (i = 0; i != v2; i = i + 1)
+        for (i = 0; i != v3; i = i + 1)
         {
-          if (*v11 != v4)
+          if (*v12 != v5)
           {
-            objc_enumerationMutation(v0);
+            objc_enumerationMutation(v1);
           }
 
-          v6 = *(*(&v10 + 1) + 8 * i);
-          if ([v6 applicantUIState] == 1)
+          v7 = *(*(&v11 + 1) + 8 * i);
+          if ([v7 applicantUIState] == 1)
           {
-            v8 = v6;
+            v9 = v7;
 
             goto LABEL_17;
           }
 
-          if (![v6 applicantUIState])
+          if (![v7 applicantUIState])
           {
-            v7 = v6;
+            v8 = v7;
 
-            v3 = v7;
+            v4 = v8;
           }
         }
 
-        v2 = [v0 countByEnumeratingWithState:&v10 objects:v14 count:16];
-        if (v2)
+        v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        if (v3)
         {
           continue;
         }
@@ -1610,20 +1608,20 @@ id sub_100004D58()
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
 
-    v3 = v3;
-    v8 = v3;
+    v4 = v4;
+    v9 = v4;
 LABEL_17:
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 void sub_100004ECC(__CFUserNotification *a1, __CFError *a2)
@@ -1661,7 +1659,7 @@ LABEL_9:
     [v7 enumerateObjectsUsingBlock:v32];
     if (v4)
     {
-      v8 = sub_100001CEC();
+      v8 = sub_100001CEC(&err);
       v9 = secLogObjForScope();
       v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
       if (v8)
@@ -1733,7 +1731,7 @@ LABEL_56:
       v19 = 0;
       while ((SOSCCTryUserCredentials() & 1) != 0)
       {
-        v20 = sub_100001CEC();
+        v20 = sub_100001CEC(&err);
         if ((v20 & 1) == 0)
         {
           v21 = secLogObjForScope();
@@ -1763,7 +1761,7 @@ LABEL_56:
 
         if ((v24 & 1) == 0)
         {
-          if (v20 && (sub_100004D58(), v25 = objc_claimAutoreleasedReturnValue(), v25, v25))
+          if (v20 && (sub_100004D58(v22), v25 = objc_claimAutoreleasedReturnValue(), v25, v25))
           {
             sub_100004C40(0);
             sub_1000044BC(0);

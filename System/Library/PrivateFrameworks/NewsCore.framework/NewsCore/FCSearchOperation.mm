@@ -34,26 +34,24 @@
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   cloudContext = [(FCSearchOperation *)self cloudContext];
 
   if (!cloudContext && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Search operation requires a cloud context"];
-    v6 = 136315906;
-    v7 = "[FCSearchOperation validateOperation]";
-    v8 = 2080;
-    v9 = "FCSearchOperation.m";
-    v10 = 1024;
-    v11 = 87;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Search operation requires a cloud context"];
+    v5 = 136315906;
+    v6 = "[FCSearchOperation validateOperation]";
+    v7 = 2080;
+    v8 = "FCSearchOperation.m";
+    v9 = 1024;
+    v10 = 87;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
-  result = cloudContext != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return cloudContext != 0;
 }
 
 - (void)performOperation
@@ -142,20 +140,18 @@ uint64_t __37__FCSearchOperation_performOperation__block_invoke_4(uint64_t a1, v
 
 void __37__FCSearchOperation_performOperation__block_invoke_5(uint64_t a1, void *a2)
 {
-  v6 = a2;
-  v3 = [v6 fc_isCancellationError];
-  v4 = *(a1 + 32);
-  if (v3)
+  v4 = a2;
+  if ([v4 fc_isCancellationError])
   {
-    v5 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v5 = v6;
+    v3 = v4;
   }
 
-  [*(a1 + 32) finishedPerformingOperationWithError:v5];
+  [*(a1 + 32) finishedPerformingOperationWithError:v3];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -405,24 +401,24 @@ void __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke
 
 void __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke_3(id *a1, void *a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 status])
   {
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke_4;
-    v39[3] = &unk_1E7C37BC0;
-    v40 = v3;
-    v41 = a1[7];
-    __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke_4(v39);
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke_4;
+    v38[3] = &unk_1E7C37BC0;
+    v39 = v3;
+    v40 = a1[7];
+    __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke_4(v38);
 
-    v4 = v40;
+    v4 = v39;
   }
 
   else
   {
-    v34 = v3;
+    v33 = v3;
     v5 = [v3 fetchedObject];
     v4 = [v5 fc_dictionaryWithKeyBlock:&__block_literal_global_242_1];
 
@@ -433,34 +429,34 @@ void __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke
       v8 = [v4 count];
       v9 = [a1[4] count];
       *buf = 134218240;
-      v44 = v8;
-      v45 = 2048;
-      v46 = v9;
+      v43 = v8;
+      v44 = 2048;
+      v45 = v9;
       _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_INFO, "inflated %lu of %lu search results", buf, 0x16u);
     }
 
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v33 = a1;
+    v32 = a1;
     v11 = a1[5];
-    v12 = [v11 countByEnumeratingWithState:&v35 objects:v42 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v34 objects:v41 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v36;
+      v14 = *v35;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v35 + 1) + 8 * i);
+          v16 = *(*(&v34 + 1) + 8 * i);
           v17 = [v16 articleID];
           v18 = [v4 objectForKey:v17];
 
@@ -479,7 +475,7 @@ void __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke
               v22 = v21;
               v23 = [v20 articleID];
               *buf = 138412290;
-              v44 = v23;
+              v43 = v23;
               _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "failed to inflate search result headline with article ID: %@", buf, 0xCu);
             }
           }
@@ -487,13 +483,13 @@ void __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke
           [v10 addObject:v20];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v35 objects:v42 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v34 objects:v41 count:16];
       }
 
       while (v13);
     }
 
-    v24 = [v33[6] articles];
+    v24 = [v32[6] articles];
     v25 = [v24 underlyingStream];
     v26 = v25;
     if (v25)
@@ -512,35 +508,31 @@ void __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke
     v30 = [(FCStreamingResults *)[FCArticleStreamingResults alloc] initWithResults:v10 followedByStream:v28];
     [(FCArticleSearchOperationResult *)v29 setArticles:v30];
 
-    v31 = [v33[6] feedBack];
+    v31 = [v32[6] feedBack];
     [(FCArticleSearchOperationResult *)v29 setFeedBack:v31];
 
-    (*(v33[8] + 2))();
-    v3 = v34;
+    (*(v32[8] + 2))();
+    v3 = v33;
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __58__FCSearchOperation__fetchFullHeadlineResultsForArticles___block_invoke_4(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = v2;
-    v8 = [v6 error];
-    v9 = 138412290;
-    v10 = v8;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to inflate search result headlines with error: %@", &v9, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = v2;
+    v7 = [v5 error];
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to inflate search result headlines with error: %@", &v8, 0xCu);
   }
 
   v3 = *(a1 + 40);
   v4 = [*(a1 + 32) error];
   (*(v3 + 16))(v3, v4);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

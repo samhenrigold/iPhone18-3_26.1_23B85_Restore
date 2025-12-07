@@ -1,4 +1,4 @@
-void sub_1000011B0(mach_port_context_t a1, uint64_t a2)
+void sub_1000011B0(mach_port_context_t a1, uint64_t a2, uint64_t a3)
 {
   switch(a2)
   {
@@ -28,9 +28,11 @@ void sub_1000011B0(mach_port_context_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100001320(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int *a6, int *a7, __int128 *a8)
+uint64_t sub_100001320(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5, int *a6, int *a7, __int128 *a8)
 {
-  v23 = 0;
+  v13 = a1;
+  v28 = 0;
+  v29 = 0;
   *a6 = 0;
   *a7 = 0;
   if (_SCUnserializeString())
@@ -52,59 +54,70 @@ uint64_t sub_100001320(int a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, in
 
   if (a5 && !_SCUnserialize())
   {
-LABEL_17:
-    v20 = 1001;
-    goto LABEL_18;
+LABEL_23:
+    v23 = 1001;
+    goto LABEL_24;
   }
 
 LABEL_7:
   if (*a7)
   {
-    return 0;
+    goto LABEL_25;
   }
 
   TypeID = CFStringGetTypeID();
-  if (!v23 || CFGetTypeID(v23) != TypeID)
+  if (!v29 || CFGetTypeID(v29) != TypeID || (Value = v28) != 0 && ((v16 = CFDictionaryGetTypeID(), CFGetTypeID(v28) != v16) || (Value = CFDictionaryGetValue(v28, kSCDynamicStoreUseSessionKeys)) != 0 && (v17 = CFBooleanGetTypeID(), CFGetTypeID(Value) != v17)))
   {
-    v20 = 1002;
-LABEL_18:
-    *a7 = v20;
-    return 0;
+    v23 = 1002;
+LABEL_24:
+    *a7 = v23;
+    goto LABEL_25;
   }
 
-  v15 = a8[1];
-  v24[0] = *a8;
-  v24[1] = v15;
-  v16 = sub_100001720(a1, v24);
-  if (!v16)
+  v18 = a8[1];
+  v30[0] = *a8;
+  v30[1] = v18;
+  v19 = sub_100001720(v13, v30);
+  if (!v19)
   {
     sub_100001D48();
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v21 = *__error();
-      *_os_log_pack_fill() = 0;
+      v24 = _os_log_pack_size();
+      v25 = &v28 - ((__chkstk_darwin(v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = __error();
+      *_os_log_pack_fill(v25, v24, *v26, &_mh_execute_header, "session is already open") = 0;
       __SC_log_send();
     }
 
-    goto LABEL_17;
+    goto LABEL_23;
   }
 
-  v17 = v16;
-  *a6 = *(v16 + 16);
-  v18 = sub_100001D48();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = v19;
+  *a6 = *(v19 + 16);
+  v21 = sub_100001D48();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    sub_100067664(a6, &v23, v18);
+    sub_100067664(a6, &v29, v21);
   }
 
   Private = __SCDynamicStoreCreatePrivate();
-  *(v17 + 56) = Private;
+  *(v20 + 56) = Private;
   *a7 = 0;
   *(Private + 40) = *a6;
-  *(v17 + 40) = v23;
+  if (Value)
+  {
+    *(Private + 44) = CFBooleanGetValue(Value);
+  }
+
+  *(v20 + 40) = v29;
+LABEL_25:
+  if (v28)
+  {
+    CFRelease(v28);
+  }
+
   return 0;
 }
 
@@ -240,51 +253,53 @@ LABEL_5:
     v3 = mach_port_construct(mach_task_self_, &options, Instance, &name);
     if (v3)
     {
-      v4 = v3;
+      v5 = v3;
+      *&v4 = 136315138;
+      v20 = v4;
       while (1)
       {
-        v15 = 0;
+        v21 = 0;
         sub_100001D48();
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          _os_log_pack_size();
-          __chkstk_darwin();
-          v5 = *__error();
-          v6 = _os_log_pack_fill();
-          v7 = mach_error_string(v4);
-          *v6 = 136315138;
-          *(v6 + 4) = v7;
+          v6 = _os_log_pack_size();
+          v7 = &v20 - ((__chkstk_darwin(v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v8 = __error();
+          v9 = _os_log_pack_fill(v7, v6, *v8, &_mh_execute_header, "could not allocate mach port: %s", v20);
+          v10 = mach_error_string(v5);
+          *v9 = v20;
+          *(v9 + 4) = v10;
           __SC_log_send();
         }
 
-        if (v4 == 6 || v4 == 3)
+        if (v5 == 6 || v5 == 3)
         {
           sleep(1u);
         }
 
         else
         {
-          v8 = mach_error_string(v4);
-          asprintf(&v15, "Could not allocate mach port: %s", v8);
+          v11 = mach_error_string(v5);
+          asprintf(&v21, "Could not allocate mach port: %s", v11);
           _SC_crash();
-          if (v15)
+          if (v21)
           {
-            free(v15);
+            free(v21);
           }
 
           CFRelease(Instance);
         }
 
-        if (v4 != 6 && v4 != 3)
+        if (v5 != 6 && v5 != 3)
         {
           break;
         }
 
         *&options.flags = 1;
         options.8 = 0uLL;
-        v4 = mach_port_construct(mach_task_self_, &options, Instance, &name);
-        if (!v4)
+        v5 = mach_port_construct(mach_task_self_, &options, Instance, &name);
+        if (!v5)
         {
           goto LABEL_19;
         }
@@ -301,18 +316,18 @@ LABEL_19:
         goto LABEL_5;
       }
 
-      v10 = inserted;
+      v13 = inserted;
       sub_100001D48();
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        _os_log_pack_size();
-        __chkstk_darwin();
-        v11 = *__error();
-        v12 = _os_log_pack_fill();
-        v13 = mach_error_string(v10);
-        *v12 = 136315138;
-        *(v12 + 4) = v13;
+        v14 = _os_log_pack_size();
+        v15 = &v20 - ((__chkstk_darwin(v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v16 = __error();
+        v17 = _os_log_pack_fill(v15, v14, *v16, &_mh_execute_header, "mach_port_insert_right() failed: %s", v20);
+        v18 = mach_error_string(v13);
+        *v17 = 136315138;
+        *(v17 + 4) = v18;
         __SC_log_send();
       }
 
@@ -332,14 +347,13 @@ uint64_t sub_100001C8C(uint64_t a1, int a2)
   if (!a2)
   {
     dispatch_mach_notify_no_senders();
-    v4 = *(a1 + 24);
   }
 
   dispatch_set_qos_class_fallback();
-  v5 = *(a1 + 24);
-  v6 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  v5 = *(a1 + 16);
 
-  return _dispatch_mach_connect(v5, v6, 0, 0);
+  return _dispatch_mach_connect(v4, v5, 0, 0);
 }
 
 os_log_t sub_100001D48()
@@ -360,6 +374,7 @@ void sub_100001DBC()
   {
     valuePtr = 0;
     *values = 0u;
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
@@ -390,7 +405,6 @@ void sub_100001DBC()
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     Count = CFSetGetCount(qword_1000816E8);
     if (Count >= 65)
     {
@@ -440,12 +454,12 @@ LABEL_21:
       v5 = sub_100001D48();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        v11 = v3[10];
-        v12 = v3[46];
+        v10 = v3[10];
+        v11 = v3[46];
         *buf = 67109376;
-        v18 = v11;
-        v19 = 1024;
-        v20 = v12;
+        v17 = v10;
+        v18 = 1024;
+        v19 = v11;
         _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "-->port : %5u : port = %u", buf, 0xEu);
       }
 
@@ -460,29 +474,28 @@ LABEL_21:
         while (!v6);
       }
 
-      v7 = v3[46];
       _SC_sendMachMessage();
       v4 = v3[12];
 LABEL_13:
       if (v4 == 3 && (v3[48] & 0x80000000) == 0)
       {
-        v8 = sub_100001D48();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v7 = sub_100001D48();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          v13 = v3[10];
-          v14 = v3[48];
-          v15 = v3[49];
+          v12 = v3[10];
+          v13 = v3[48];
+          v14 = v3[49];
           *buf = 67109632;
-          v18 = v13;
-          v19 = 1024;
-          v20 = v14;
-          v21 = 1024;
-          v22 = v15;
-          _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "-->fd   : %5u : fd = %d, msgid = %d", buf, 0x14u);
+          v17 = v12;
+          v18 = 1024;
+          v19 = v13;
+          v20 = 1024;
+          v21 = v14;
+          _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "-->fd   : %5u : fd = %d, msgid = %d", buf, 0x14u);
         }
 
-        v9 = write(v3[48], v3 + 49, 4uLL);
-        if (v9 != 4 && (v9 != -1 || *__error() != 35))
+        v8 = write(v3[48], v3 + 49, 4uLL);
+        if (v8 != 4 && (v8 != -1 || *__error() != 35))
         {
           v3[48] = -1;
         }
@@ -497,8 +510,9 @@ LABEL_25:
   }
 }
 
-uint64_t sub_100002094(int a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
+uint64_t sub_100002094(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5, int *a6)
 {
+  v9 = a1;
   *a6 = 0;
   if (a2 && a3 && !_SCUnserialize())
   {
@@ -525,7 +539,7 @@ LABEL_14:
 LABEL_7:
   if (!*a6)
   {
-    v10 = sub_1000022F8(a1);
+    v10 = sub_1000022F8(v9);
     if (v10)
     {
       v11 = sub_10000246C(*(v10 + 56), 0, 0);
@@ -904,18 +918,20 @@ void sub_100002C24(__CFArray **a1, void *value)
   CFArrayAppendValue(Mutable, value);
 }
 
-uint64_t sub_100002CAC(int a1, mach_port_name_t a2, int a3, _DWORD *a4)
+uint64_t sub_100002CAC(int a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
+  v5 = a3;
+  v6 = a2;
   v7 = sub_1000022F8(a1);
   if (v7)
   {
     v8 = *(v7 + 56);
-    v9 = sub_100002E48(v8, a3, a2);
+    v9 = sub_100002E48(v8, v5, v6);
     *a4 = v9;
     if (!v9)
     {
       *(v8 + 48) = 2;
-      *(v8 + 184) = a2;
+      *(v8 + 184) = v6;
       return 0;
     }
   }
@@ -925,9 +941,9 @@ uint64_t sub_100002CAC(int a1, mach_port_name_t a2, int a3, _DWORD *a4)
     *a4 = 2001;
   }
 
-  if (a2)
+  if (v6)
   {
-    mach_port_deallocate(mach_task_self_, a2);
+    mach_port_deallocate(mach_task_self_, v6);
   }
 
   return 0;
@@ -1012,11 +1028,11 @@ void sub_100002F1C(uint64_t a1, xpc_object_t object)
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          _os_log_pack_size();
-          v12 = *__error();
-          v13 = _os_log_pack_fill();
-          *v13 = 136315138;
-          *(v13 + 4) = string;
+          v14 = _os_log_pack_size();
+          v15 = __error();
+          v16 = _os_log_pack_fill(v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), v14, *v15, &_mh_execute_header, "DNS configuration server: %s", v19[0]);
+          *v16 = 136315138;
+          *(v16 + 4) = string;
           __SC_log_send();
         }
 
@@ -1027,28 +1043,28 @@ void sub_100002F1C(uint64_t a1, xpc_object_t object)
       {
         sub_1000035EC();
         _SC_syslog_os_log_mapping();
-        v9 = __SC_log_enabled();
+        v10 = __SC_log_enabled();
         if (object == &_xpc_error_connection_interrupted)
         {
-          if (v9)
+          if (v10)
           {
-            _os_log_pack_size();
-            v14 = *__error();
-            v7 = _os_log_pack_fill();
-            v8 = 136315138;
+            v17 = _os_log_pack_size();
+            v18 = __error();
+            v8 = _os_log_pack_fill(v19 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v17, *v18, &_mh_execute_header, "DNS configuration server: %s", v19[0]);
+            v9 = 136315138;
             goto LABEL_5;
           }
         }
 
-        else if (v9)
+        else if (v10)
         {
-          _os_log_pack_size();
-          v10 = *__error();
-          v11 = _os_log_pack_fill();
-          *v11 = 134218242;
-          *(v11 + 4) = object;
-          *(v11 + 12) = 2080;
-          *(v11 + 14) = string;
+          v11 = _os_log_pack_size();
+          v12 = __error();
+          v13 = _os_log_pack_fill(v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11, *v12, &_mh_execute_header, "DNS configuration server: Connection error: %p : %s", v19[0], v19[1]);
+          *v13 = 134218242;
+          *(v13 + 4) = object;
+          *(v13 + 12) = 2080;
+          *(v13 + 14) = string;
           __SC_log_send();
         }
       }
@@ -1060,13 +1076,13 @@ void sub_100002F1C(uint64_t a1, xpc_object_t object)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        _os_log_pack_size();
-        v6 = *__error();
-        v7 = _os_log_pack_fill();
-        v8 = 134217984;
+        v6 = _os_log_pack_size();
+        v7 = __error();
+        v8 = _os_log_pack_fill(v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v6, *v7, &_mh_execute_header, "DNS configuration server: unknown event type : %p", v19[0]);
+        v9 = 134217984;
 LABEL_5:
-        *v7 = v8;
-        *(v7 + 4) = string;
+        *v8 = v9;
+        *(v8 + 4) = string;
         __SC_log_send();
       }
     }
@@ -1080,14 +1096,14 @@ void sub_100003274(_xpc_connection_s *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
+    v3 = &handler - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "<%p:%d> DNS configuration session: open", handler, v8);
     pid = xpc_connection_get_pid(a1);
-    *v6 = 134218240;
-    *(v6 + 4) = a1;
-    *(v6 + 12) = 1024;
-    *(v6 + 14) = pid;
+    *v5 = 134218240;
+    *(v5 + 4) = a1;
+    *(v5 + 12) = 1024;
+    *(v5 + 14) = pid;
     __SC_log_send();
   }
 
@@ -1098,12 +1114,12 @@ void sub_100003274(_xpc_connection_s *a1)
   }
 
   xpc_connection_set_target_queue(a1, qword_100081930);
-  handler[0] = _NSConcreteStackBlock;
-  handler[1] = 0x40000000;
-  handler[2] = sub_100003734;
-  handler[3] = &unk_10007A750;
-  handler[4] = a1;
-  xpc_connection_set_event_handler(a1, handler);
+  handler = _NSConcreteStackBlock;
+  v8 = 0x40000000;
+  v9 = sub_100003734;
+  v10 = &unk_10007A750;
+  v11 = a1;
+  xpc_connection_set_event_handler(a1, &handler);
   xpc_connection_resume(a1);
 }
 
@@ -1114,14 +1130,14 @@ void sub_100003430(_xpc_connection_s *a1)
   if (__SC_log_enabled())
   {
     v2 = _os_log_pack_size();
-    __chkstk_darwin(v2, v3, v4);
-    v5 = *__error();
-    v6 = _os_log_pack_fill();
+    v3 = &handler - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = __error();
+    v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "<%p:%d> Network information session: open", handler, v8);
     pid = xpc_connection_get_pid(a1);
-    *v6 = 134218240;
-    *(v6 + 4) = a1;
-    *(v6 + 12) = 1024;
-    *(v6 + 14) = pid;
+    *v5 = 134218240;
+    *(v5 + 4) = a1;
+    *(v5 + 12) = 1024;
+    *(v5 + 14) = pid;
     __SC_log_send();
   }
 
@@ -1132,12 +1148,12 @@ void sub_100003430(_xpc_connection_s *a1)
   }
 
   xpc_connection_set_target_queue(a1, qword_100081B60);
-  handler[0] = _NSConcreteStackBlock;
-  handler[1] = 0x40000000;
-  handler[2] = sub_100003B58;
-  handler[3] = &unk_10007AF20;
-  handler[4] = a1;
-  xpc_connection_set_event_handler(a1, handler);
+  handler = _NSConcreteStackBlock;
+  v8 = 0x40000000;
+  v9 = sub_100003B58;
+  v10 = &unk_10007AF20;
+  v11 = a1;
+  xpc_connection_set_event_handler(a1, &handler);
   xpc_connection_resume(a1);
 }
 
@@ -1173,9 +1189,9 @@ void sub_100003734(uint64_t a1, xpc_object_t object)
   type = xpc_get_type(object);
   if (type == &_xpc_type_dictionary)
   {
-    v11 = *(a1 + 32);
+    v12 = *(a1 + 32);
 
-    sub_100003F7C(v11, object);
+    sub_100003F7C(v12, object);
   }
 
   else
@@ -1190,16 +1206,16 @@ void sub_100003734(uint64_t a1, xpc_object_t object)
         return;
       }
 
-      _os_log_pack_size();
-      v6 = *__error();
-      v7 = _os_log_pack_fill();
-      v8 = *(a1 + 32);
-      pid = xpc_connection_get_pid(v8);
-      *v7 = 134218496;
-      *(v7 + 4) = v8;
-      *(v7 + 12) = 1024;
-      *(v7 + 14) = pid;
-      v10 = 2048;
+      v6 = _os_log_pack_size();
+      v7 = __error();
+      v8 = _os_log_pack_fill(&v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v6, *v7, &_mh_execute_header, "<%p:%d> unknown event type : %p", v29, v30, v31);
+      v9 = *(a1 + 32);
+      pid = xpc_connection_get_pid(v9);
+      *v8 = 134218496;
+      *(v8 + 4) = v9;
+      *(v8 + 12) = 1024;
+      *(v8 + 14) = pid;
+      v11 = 2048;
       goto LABEL_5;
     }
 
@@ -1210,15 +1226,15 @@ void sub_100003734(uint64_t a1, xpc_object_t object)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        _os_log_pack_size();
-        v18 = *__error();
-        v19 = _os_log_pack_fill();
-        v20 = *(a1 + 32);
-        v21 = xpc_connection_get_pid(v20);
-        *v19 = 134218240;
-        *(v19 + 4) = v20;
-        *(v19 + 12) = 1024;
-        *(v19 + 14) = v21;
+        v20 = _os_log_pack_size();
+        v21 = __error();
+        v22 = _os_log_pack_fill(&v29 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), v20, *v21, &_mh_execute_header, "<%p:%d> DNS configuration session: close", v29, v30);
+        v23 = *(a1 + 32);
+        v24 = xpc_connection_get_pid(v23);
+        *v22 = 134218240;
+        *(v22 + 4) = v23;
+        *(v22 + 12) = 1024;
+        *(v22 + 14) = v24;
         __SC_log_send();
       }
 
@@ -1237,43 +1253,43 @@ void sub_100003734(uint64_t a1, xpc_object_t object)
       v5 = string;
       sub_1000035EC();
       _SC_syslog_os_log_mapping();
-      v13 = __SC_log_enabled();
+      v14 = __SC_log_enabled();
       if (object == &_xpc_error_connection_interrupted)
       {
-        if (v13)
+        if (v14)
         {
-          _os_log_pack_size();
-          v22 = *__error();
-          v7 = _os_log_pack_fill();
-          v23 = *(a1 + 32);
-          v24 = xpc_connection_get_pid(v23);
-          *v7 = 134218498;
-          *(v7 + 4) = v23;
-          *(v7 + 12) = 1024;
-          *(v7 + 14) = v24;
-          v10 = 2080;
+          v25 = _os_log_pack_size();
+          v26 = __error();
+          v8 = _os_log_pack_fill(&v29 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0), v25, *v26, &_mh_execute_header, "<%p:%d> %s", v29, v30, v31);
+          v27 = *(a1 + 32);
+          v28 = xpc_connection_get_pid(v27);
+          *v8 = 134218498;
+          *(v8 + 4) = v27;
+          *(v8 + 12) = 1024;
+          *(v8 + 14) = v28;
+          v11 = 2080;
 LABEL_5:
-          *(v7 + 18) = v10;
-          *(v7 + 20) = v5;
+          *(v8 + 18) = v11;
+          *(v8 + 20) = v5;
           __SC_log_send();
         }
       }
 
-      else if (v13)
+      else if (v14)
       {
-        _os_log_pack_size();
-        v14 = *__error();
-        v15 = _os_log_pack_fill();
-        v16 = *(a1 + 32);
-        v17 = xpc_connection_get_pid(v16);
-        *v15 = 134218754;
-        *(v15 + 4) = v16;
-        *(v15 + 12) = 1024;
-        *(v15 + 14) = v17;
-        *(v15 + 18) = 2048;
-        *(v15 + 20) = object;
-        *(v15 + 28) = 2080;
-        *(v15 + 30) = v5;
+        v15 = _os_log_pack_size();
+        v16 = __error();
+        v17 = _os_log_pack_fill(&v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v15, *v16, &_mh_execute_header, "<%p:%d> Connection error: %p : %s", v29, v30, v31, v32);
+        v18 = *(a1 + 32);
+        v19 = xpc_connection_get_pid(v18);
+        *v17 = 134218754;
+        *(v17 + 4) = v18;
+        *(v17 + 12) = 1024;
+        *(v17 + 14) = v19;
+        *(v17 + 18) = 2048;
+        *(v17 + 20) = object;
+        *(v17 + 28) = 2080;
+        *(v17 + 30) = v5;
         __SC_log_send();
       }
     }
@@ -1285,9 +1301,9 @@ void sub_100003B58(uint64_t a1, xpc_object_t object)
   type = xpc_get_type(object);
   if (type == &_xpc_type_dictionary)
   {
-    v11 = *(a1 + 32);
+    v12 = *(a1 + 32);
 
-    sub_100004168(v11, object);
+    sub_100004168(v12, object);
   }
 
   else
@@ -1302,16 +1318,16 @@ void sub_100003B58(uint64_t a1, xpc_object_t object)
         return;
       }
 
-      _os_log_pack_size();
-      v6 = *__error();
-      v7 = _os_log_pack_fill();
-      v8 = *(a1 + 32);
-      pid = xpc_connection_get_pid(v8);
-      *v7 = 134218496;
-      *(v7 + 4) = v8;
-      *(v7 + 12) = 1024;
-      *(v7 + 14) = pid;
-      v10 = 2048;
+      v6 = _os_log_pack_size();
+      v7 = __error();
+      v8 = _os_log_pack_fill(&v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v6, *v7, &_mh_execute_header, "<%p:%d> unknown event type : %p", v29, v30, v31);
+      v9 = *(a1 + 32);
+      pid = xpc_connection_get_pid(v9);
+      *v8 = 134218496;
+      *(v8 + 4) = v9;
+      *(v8 + 12) = 1024;
+      *(v8 + 14) = pid;
+      v11 = 2048;
       goto LABEL_5;
     }
 
@@ -1322,15 +1338,15 @@ void sub_100003B58(uint64_t a1, xpc_object_t object)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        _os_log_pack_size();
-        v18 = *__error();
-        v19 = _os_log_pack_fill();
-        v20 = *(a1 + 32);
-        v21 = xpc_connection_get_pid(v20);
-        *v19 = 134218240;
-        *(v19 + 4) = v20;
-        *(v19 + 12) = 1024;
-        *(v19 + 14) = v21;
+        v20 = _os_log_pack_size();
+        v21 = __error();
+        v22 = _os_log_pack_fill(&v29 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), v20, *v21, &_mh_execute_header, "<%p:%d> Network information session: close", v29, v30);
+        v23 = *(a1 + 32);
+        v24 = xpc_connection_get_pid(v23);
+        *v22 = 134218240;
+        *(v22 + 4) = v23;
+        *(v22 + 12) = 1024;
+        *(v22 + 14) = v24;
         __SC_log_send();
       }
 
@@ -1349,43 +1365,43 @@ void sub_100003B58(uint64_t a1, xpc_object_t object)
       v5 = string;
       sub_1000035EC();
       _SC_syslog_os_log_mapping();
-      v13 = __SC_log_enabled();
+      v14 = __SC_log_enabled();
       if (object == &_xpc_error_connection_interrupted)
       {
-        if (v13)
+        if (v14)
         {
-          _os_log_pack_size();
-          v22 = *__error();
-          v7 = _os_log_pack_fill();
-          v23 = *(a1 + 32);
-          v24 = xpc_connection_get_pid(v23);
-          *v7 = 134218498;
-          *(v7 + 4) = v23;
-          *(v7 + 12) = 1024;
-          *(v7 + 14) = v24;
-          v10 = 2080;
+          v25 = _os_log_pack_size();
+          v26 = __error();
+          v8 = _os_log_pack_fill(&v29 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0), v25, *v26, &_mh_execute_header, "<%p:%d> %s", v29, v30, v31);
+          v27 = *(a1 + 32);
+          v28 = xpc_connection_get_pid(v27);
+          *v8 = 134218498;
+          *(v8 + 4) = v27;
+          *(v8 + 12) = 1024;
+          *(v8 + 14) = v28;
+          v11 = 2080;
 LABEL_5:
-          *(v7 + 18) = v10;
-          *(v7 + 20) = v5;
+          *(v8 + 18) = v11;
+          *(v8 + 20) = v5;
           __SC_log_send();
         }
       }
 
-      else if (v13)
+      else if (v14)
       {
-        _os_log_pack_size();
-        v14 = *__error();
-        v15 = _os_log_pack_fill();
-        v16 = *(a1 + 32);
-        v17 = xpc_connection_get_pid(v16);
-        *v15 = 134218754;
-        *(v15 + 4) = v16;
-        *(v15 + 12) = 1024;
-        *(v15 + 14) = v17;
-        *(v15 + 18) = 2048;
-        *(v15 + 20) = object;
-        *(v15 + 28) = 2080;
-        *(v15 + 30) = v5;
+        v15 = _os_log_pack_size();
+        v16 = __error();
+        v17 = _os_log_pack_fill(&v29 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), v15, *v16, &_mh_execute_header, "<%p:%d> Connection error: %p : %s", v29, v30, v31, v32);
+        v18 = *(a1 + 32);
+        v19 = xpc_connection_get_pid(v18);
+        *v17 = 134218754;
+        *(v17 + 4) = v18;
+        *(v17 + 12) = 1024;
+        *(v17 + 14) = v19;
+        *(v17 + 18) = 2048;
+        *(v17 + 20) = object;
+        *(v17 + 28) = 2080;
+        *(v17 + 30) = v5;
         __SC_log_send();
       }
     }
@@ -1417,13 +1433,13 @@ void sub_100003F7C(_xpc_connection_s *a1, xpc_object_t xdict)
       if (__SC_log_enabled())
       {
         v6 = _os_log_pack_size();
-        __chkstk_darwin(v6, v7, v8);
-        v9 = *__error();
-        v10 = _os_log_pack_fill();
-        *v10 = 134218240;
-        *(v10 + 4) = a1;
-        *(v10 + 12) = 2048;
-        *(v10 + 14) = v5;
+        v7 = v10 - ((__chkstk_darwin(v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v8 = __error();
+        v9 = _os_log_pack_fill(v7, v6, *v8, &_mh_execute_header, "<%p> unknown request : %lld", v10[0], v10[1]);
+        *v9 = 134218240;
+        *(v9 + 4) = a1;
+        *(v9 + 12) = 2048;
+        *(v9 + 14) = v5;
         __SC_log_send();
       }
     }
@@ -1461,13 +1477,13 @@ void sub_100004168(_xpc_connection_s *a1, xpc_object_t xdict)
       if (__SC_log_enabled())
       {
         v6 = _os_log_pack_size();
-        __chkstk_darwin(v6, v7, v8);
-        v9 = *__error();
-        v10 = _os_log_pack_fill();
-        *v10 = 134218240;
-        *(v10 + 4) = a1;
-        *(v10 + 12) = 2048;
-        *(v10 + 14) = v5;
+        v7 = v10 - ((__chkstk_darwin(v6) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v8 = __error();
+        v9 = _os_log_pack_fill(v7, v6, *v8, &_mh_execute_header, "<%p> unknown request : %lld", v10[0], v10[1]);
+        *v9 = 134218240;
+        *(v9 + 4) = a1;
+        *(v9 + 12) = 2048;
+        *(v9 + 14) = v5;
         __SC_log_send();
       }
     }
@@ -1476,13 +1492,13 @@ void sub_100004168(_xpc_connection_s *a1, xpc_object_t xdict)
 
 void sub_1000043B0(_xpc_connection_s *a1, xpc_object_t xdict)
 {
-  v24 = 0;
+  v22[0] = 0;
   remote_connection = xpc_dictionary_get_remote_connection(xdict);
   reply = xpc_dictionary_create_reply(xdict);
   if (reply)
   {
     v6 = reply;
-    v7 = sub_100004658(&qword_100081900, a1, &v24);
+    v7 = sub_100004658(&qword_100081900, a1, v22);
     string = xpc_dictionary_get_string(xdict, "proc_name");
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
@@ -1499,19 +1515,19 @@ void sub_1000043B0(_xpc_connection_s *a1, xpc_object_t xdict)
       }
 
       v10 = _os_log_pack_size();
-      __chkstk_darwin(v10, v11, v12);
-      v13 = *__error();
-      v14 = _os_log_pack_fill();
+      v11 = v22 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = __error();
+      v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "<%p:%s[%d]> DNS configuration copy: %llu", v22[0], v22[1], v23, v24);
       pid = xpc_connection_get_pid(a1);
-      v16 = v24;
-      *v14 = 134218754;
-      *(v14 + 4) = a1;
-      *(v14 + 12) = 2080;
-      *(v14 + 14) = v9;
-      *(v14 + 22) = 1024;
-      *(v14 + 24) = pid;
-      *(v14 + 28) = 2048;
-      *(v14 + 30) = v16;
+      v15 = v22[0];
+      *v13 = 134218754;
+      *(v13 + 4) = a1;
+      *(v13 + 12) = 2080;
+      *(v13 + 14) = v9;
+      *(v13 + 22) = 1024;
+      *(v13 + 24) = pid;
+      *(v13 + 28) = 2048;
+      *(v13 + 30) = v15;
       __SC_log_send();
     }
 
@@ -1532,18 +1548,18 @@ void sub_1000043B0(_xpc_connection_s *a1, xpc_object_t xdict)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v19 = _os_log_pack_size();
-      __chkstk_darwin(v19, v20, v21);
-      v22 = *__error();
-      v23 = _os_log_pack_fill();
-      *v23 = 134217984;
-      *(v23 + 4) = a1;
+      v18 = _os_log_pack_size();
+      v19 = v22 - ((__chkstk_darwin(v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v20 = __error();
+      v21 = _os_log_pack_fill(v19, v18, *v20, &_mh_execute_header, "<%p> _dnsinfo_copy: xpc_dictionary_create_reply: failed", v22[0]);
+      *v21 = 134217984;
+      *(v21 + 4) = a1;
       __SC_log_send();
     }
   }
 }
 
-uint64_t sub_100004658(uint64_t *a1, uint64_t a2, void *a3)
+uint64_t sub_100004658(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
   v11 = a2;
   v5 = CFDataCreate(0, &v11, 8);
@@ -1597,7 +1613,7 @@ uint64_t sub_100004708(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-uint64_t sub_1000047E8(int a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5, _DWORD *a6, int *a7)
+uint64_t sub_1000047E8(int a1, uint64_t a2, unsigned int a3, void *a4, _DWORD *a5, _DWORD *a6, int *a7)
 {
   v20 = 0;
   cf = 0;
@@ -1717,19 +1733,31 @@ uint64_t sub_100004A70(uint64_t a1, void *a2, const __CFDictionary *a3)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        goto LABEL_14;
+        v10 = _os_log_pack_size();
+        v11 = &atoken - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v12 = *__error();
+        v13 = _os_log_pack_fill(v11, v10, v12, &_mh_execute_header, "%s(%@): %@ has deny entitlement");
+LABEL_15:
+        *v13 = 136315650;
+        *(v13 + 4) = "checkReadAccess";
+        *(v13 + 12) = 2112;
+        *(v13 + 14) = a2;
+        *(v13 + 22) = 2112;
+        *(v13 + 24) = a1;
+        __SC_log_send();
+        return 1003;
       }
 
       return 1003;
     }
 
-    v10 = CFDictionaryContainsKey(a3, @"read-deny-background");
-    if (&_ba_is_process_extension && v10)
+    v14 = CFDictionaryContainsKey(a3, @"read-deny-background");
+    if (&_ba_is_process_extension && v14)
     {
-      v11 = *(a1 + 112);
-      if (v11)
+      v15 = *(a1 + 112);
+      if (v15)
       {
-        if (CFBooleanGetValue(v11))
+        if (CFBooleanGetValue(v15))
         {
           goto LABEL_13;
         }
@@ -1738,13 +1766,13 @@ uint64_t sub_100004A70(uint64_t a1, void *a2, const __CFDictionary *a3)
       else
       {
         is_process_extension = ba_is_process_extension();
-        v18 = &kCFBooleanTrue;
+        v20 = &kCFBooleanTrue;
         if (!is_process_extension)
         {
-          v18 = &kCFBooleanFalse;
+          v20 = &kCFBooleanFalse;
         }
 
-        *(a1 + 112) = *v18;
+        *(a1 + 112) = *v20;
         if (is_process_extension)
         {
 LABEL_13:
@@ -1752,19 +1780,11 @@ LABEL_13:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-LABEL_14:
-            v12 = _os_log_pack_size();
-            __chkstk_darwin(v12, v13, v14);
-            v15 = *__error();
-            v16 = _os_log_pack_fill();
-            *v16 = 136315650;
-            *(v16 + 4) = "checkReadAccess";
-            *(v16 + 12) = 2112;
-            *(v16 + 14) = a2;
-            *(v16 + 22) = 2112;
-            *(v16 + 24) = a1;
-            __SC_log_send();
-            return 1003;
+            v16 = _os_log_pack_size();
+            v17 = &atoken - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v18 = *__error();
+            v13 = _os_log_pack_fill(v17, v16, v18, &_mh_execute_header, "%s(%@): %@ deny background asset extension");
+            goto LABEL_15;
           }
 
           return 1003;
@@ -1782,16 +1802,16 @@ LABEL_14:
         result = __SC_log_enabled();
         if (result)
         {
-          v19 = _os_log_pack_size();
-          __chkstk_darwin(v19, v20, v21);
-          v22 = *__error();
-          v23 = _os_log_pack_fill();
-          *v23 = 136315650;
-          *(v23 + 4) = "checkReadAccess";
-          *(v23 + 12) = 2112;
-          *(v23 + 14) = a2;
-          *(v23 + 22) = 2112;
-          *(v23 + 24) = a1;
+          v21 = _os_log_pack_size();
+          v22 = &atoken - ((__chkstk_darwin(v21) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v23 = __error();
+          v24 = _os_log_pack_fill(v22, v21, *v23, &_mh_execute_header, "%s(%@): %@ has allow entitlement");
+          *v24 = 136315650;
+          *(v24 + 4) = "checkReadAccess";
+          *(v24 + 12) = 2112;
+          *(v24 + 14) = a2;
+          *(v24 + 22) = 2112;
+          *(v24 + 24) = a1;
           __SC_log_send();
           return 0;
         }
@@ -1804,10 +1824,10 @@ LABEL_14:
           return 0;
         }
 
-        v24 = sub_100022F34(a1, @"com.apple.SystemConfiguration.SCDynamicStore-read-no-fault");
+        v25 = sub_100022F34(a1, @"com.apple.SystemConfiguration.SCDynamicStore-read-no-fault");
         if (CFDictionaryContainsKey(a3, @"read-allow-platform") && sub_100022FE8(a1))
         {
-          if (v24)
+          if (v25)
           {
             return 0;
           }
@@ -1818,7 +1838,7 @@ LABEL_14:
           }
         }
 
-        else if (v24)
+        else if (v25)
         {
           return 1003;
         }
@@ -1969,18 +1989,18 @@ const __CFNull *sub_100005164(uint64_t a1, const __CFString *key)
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          _os_log_pack_size();
-          __chkstk_darwin();
-          v12 = *__error();
-          v13 = _os_log_pack_fill();
-          v14 = *token.val;
-          v15 = *(a1 + 40);
-          *v13 = 138412802;
-          *(v13 + 4) = key;
-          *(v13 + 12) = 2112;
-          *(v13 + 14) = v14;
-          *(v13 + 22) = 2112;
-          *(v13 + 24) = v15;
+          v12 = _os_log_pack_size();
+          v13 = &token - ((__chkstk_darwin(v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v14 = __error();
+          v15 = _os_log_pack_fill(v13, v12, *v14, &_mh_execute_header, "SecTaskCopyValueForEntitlement(,%@,) failed, error = %@ : %@");
+          v16 = *token.val;
+          v17 = *(a1 + 40);
+          *v15 = 138412802;
+          *(v15 + 4) = key;
+          *(v15 + 12) = 2112;
+          *(v15 + 14) = v16;
+          *(v15 + 22) = 2112;
+          *(v15 + 24) = v17;
           __SC_log_send();
         }
       }
@@ -2020,13 +2040,13 @@ LABEL_23:
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v17 = *__error();
-    v18 = _os_log_pack_fill();
-    v19 = *(a1 + 40);
-    *v18 = 138412290;
-    *(v18 + 4) = v19;
+    v19 = _os_log_pack_size();
+    v20 = &token - ((__chkstk_darwin(v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v21 = __error();
+    v22 = _os_log_pack_fill(v20, v19, *v21, &_mh_execute_header, "SecTaskCreateWithAuditToken() failed: %@");
+    v23 = *(a1 + 40);
+    *v22 = 138412290;
+    *(v22 + 4) = v23;
     __SC_log_send();
   }
 
@@ -2315,51 +2335,51 @@ const __CFBoolean *sub_100005D30(char *cStr)
     if (__SC_log_enabled())
     {
       v5 = _os_log_pack_size();
-      __chkstk_darwin(v5, v6, v7);
-      v8 = *__error();
-      v9 = _os_log_pack_fill();
-      *v9 = 136315650;
-      *(v9 + 4) = "interface_update_expensive";
-      *(v9 + 12) = 2080;
-      *(v9 + 14) = cStr;
-      *(v9 + 22) = 2112;
-      *(v9 + 24) = v4;
+      v6 = &v27 - ((__chkstk_darwin(v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v7 = __error();
+      v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "%s: FOUND %s = %@");
+      *v8 = 136315650;
+      *(v8 + 4) = "interface_update_expensive";
+      *(v8 + 12) = 2080;
+      *(v8 + 14) = cStr;
+      *(v8 + 22) = 2112;
+      *(v8 + 24) = v4;
       __SC_log_send();
     }
 
     CFRetain(v4);
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v11 = _SCNetworkInterfaceCreateWithBSDName();
-    if (!v11)
+    v10 = _SCNetworkInterfaceCreateWithBSDName();
+    if (!v10)
     {
-      v22 = 0;
+      v20 = 0;
       goto LABEL_31;
     }
 
-    v4 = v11;
-    v10 = 0;
+    v4 = v10;
+    v9 = 0;
   }
 
   BSDName = SCNetworkInterfaceGetBSDName(v4);
   InterfaceType = SCNetworkInterfaceGetInterfaceType(v4);
   if (CFEqual(InterfaceType, kSCNetworkInterfaceTypeIEEE80211))
   {
-    v14 = BSDName == 0;
+    v13 = BSDName == 0;
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  if (!v14)
+  if (!v13)
   {
-    v15 = CFStringHasPrefix(BSDName, @"en") ? v10 : 1;
-    if ((v15 & 1) == 0)
+    v14 = CFStringHasPrefix(BSDName, @"en") ? v9 : 1;
+    if ((v14 & 1) == 0)
     {
       Mutable = qword_1000817E8;
       if (!qword_1000817E8)
@@ -2373,48 +2393,48 @@ const __CFBoolean *sub_100005D30(char *cStr)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v17 = _os_log_pack_size();
-        __chkstk_darwin(v17, v18, v19);
-        v20 = *__error();
-        v21 = _os_log_pack_fill();
-        *v21 = 136315650;
-        *(v21 + 4) = "interface_update_expensive";
-        *(v21 + 12) = 2080;
-        *(v21 + 14) = cStr;
-        *(v21 + 22) = 2112;
-        *(v21 + 24) = v4;
+        v16 = _os_log_pack_size();
+        v17 = &v27 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v18 = __error();
+        v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "%s: SAVED %s = %@");
+        *v19 = 136315650;
+        *(v19 + 4) = "interface_update_expensive";
+        *(v19 + 12) = 2080;
+        *(v19 + 14) = cStr;
+        *(v19 + 22) = 2112;
+        *(v19 + 24) = v4;
         __SC_log_send();
       }
     }
   }
 
-  v22 = sub_1000060C8(v4);
+  v20 = sub_1000060C8(v4);
   if (_os_feature_enabled_impl())
   {
-    v23 = SCNetworkInterfaceSupportsLowDataMode() != 0;
+    v21 = SCNetworkInterfaceSupportsLowDataMode() != 0;
   }
 
   else
   {
-    v23 = 0;
+    v21 = 0;
   }
 
   CFRelease(v4);
-  if (v22)
+  if (v20)
   {
-    v24 = sub_10000A6F0(2);
-    if (v24 != -1)
+    v22 = sub_10000A6F0(2);
+    if (v22 != -1)
     {
-      v25 = v24;
-      v26 = CFBooleanGetValue(v22);
-      if (!v26)
+      v23 = v22;
+      v24 = CFBooleanGetValue(v20);
+      if (!v24)
       {
-        v23 = 0;
+        v21 = 0;
       }
 
-      v27 = sub_1000290F4(v25, cStr, v26 != 0);
-      close(v25);
-      if (v23 && !v27)
+      v25 = sub_1000290F4(v23, cStr, v24 != 0);
+      close(v23);
+      if (v21 && !v25)
       {
         sub_10002934C(v2);
       }
@@ -2423,7 +2443,7 @@ const __CFBoolean *sub_100005D30(char *cStr)
 
 LABEL_31:
   CFRelease(v2);
-  return v22;
+  return v20;
 }
 
 CFBooleanRef sub_1000060C8(const __SCNetworkInterface *Interface)
@@ -2454,8 +2474,8 @@ CFBooleanRef sub_1000060C8(const __SCNetworkInterface *Interface)
 
   if (v6 || !CFStringHasPrefix(BSDName, @"en"))
   {
-    v21 = SCNetworkInterfaceGetInterfaceType(v1);
-    if (CFEqual(v21, kSCNetworkInterfaceTypeWWAN))
+    v20 = SCNetworkInterfaceGetInterfaceType(v1);
+    if (CFEqual(v20, kSCNetworkInterfaceTypeWWAN))
     {
       return kCFBooleanTrue;
     }
@@ -2476,26 +2496,18 @@ CFBooleanRef sub_1000060C8(const __SCNetworkInterface *Interface)
     goto LABEL_17;
   }
 
-  if (CFGetTypeID(v8) != TypeID)
+  if (CFGetTypeID(v8) != TypeID || (Value = CFDictionaryGetValue(v8, @"Expiration"), v11 = CFDateGetTypeID(), !Value) || CFGetTypeID(Value) != v11 || (Current = CFAbsoluteTimeGetCurrent(), v13 = CFDateCreate(0, Current), v14 = CFDateCompare(v13, Value, 0), CFRelease(v13), v14 != kCFCompareLessThan) || (v21 = CFDictionaryGetValue(v8, @"Cost"), v22 = CFStringGetTypeID(), !v21) || CFGetTypeID(v21) != v22)
   {
-    goto LABEL_16;
-  }
-
-  Value = CFDictionaryGetValue(v8, @"Expiration");
-  v11 = CFDateGetTypeID();
-  if (!Value || CFGetTypeID(Value) != v11 || (Current = CFAbsoluteTimeGetCurrent(), v13 = CFDateCreate(0, Current), v14 = CFDateCompare(v13, Value, 0), CFRelease(v13), v14 != kCFCompareLessThan) || (v22 = CFDictionaryGetValue(v8, @"Cost"), v23 = CFStringGetTypeID(), !v22) || CFGetTypeID(v22) != v23)
-  {
-LABEL_16:
     CFRelease(v8);
     goto LABEL_17;
   }
 
-  v24 = CFEqual(v22, @"Expensive");
-  if (!v24)
+  v23 = CFEqual(v21, @"Expensive");
+  if (!v23)
   {
-    v25 = CFEqual(v22, @"Inexpensive");
+    v24 = CFEqual(v21, @"Inexpensive");
     CFRelease(v8);
-    if (v25)
+    if (v24)
     {
       goto LABEL_28;
     }
@@ -2511,12 +2523,12 @@ LABEL_17:
     if (__SC_log_enabled())
     {
       v15 = _os_log_pack_size();
-      __chkstk_darwin(v15, v16, v17);
-      v18 = *__error();
-      v19 = _os_log_pack_fill();
-      v20 = SCNetworkInterfaceGetBSDName(v1);
-      *v19 = 138412290;
-      *(v19 + 4) = v20;
+      v16 = &v31 - ((__chkstk_darwin(v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v17 = __error();
+      v18 = _os_log_pack_fill(v16, v15, *v17, &_mh_execute_header, "%@: Wi-Fi is expensive");
+      v19 = SCNetworkInterfaceGetBSDName(v1);
+      *v18 = 138412290;
+      *(v18 + 4) = v19;
       __SC_log_send();
     }
 
@@ -2529,25 +2541,25 @@ LABEL_28:
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v26 = _os_log_pack_size();
-    __chkstk_darwin(v26, v27, v28);
-    v29 = *__error();
-    v30 = _os_log_pack_fill();
-    v31 = SCNetworkInterfaceGetBSDName(v1);
-    v32 = "";
-    if (!v24)
+    v25 = _os_log_pack_size();
+    v26 = &v31 - ((__chkstk_darwin(v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = __error();
+    v28 = _os_log_pack_fill(v26, v25, *v27, &_mh_execute_header, "%@: Wi-Fi using %sexpensive override");
+    v29 = SCNetworkInterfaceGetBSDName(v1);
+    v30 = "";
+    if (!v23)
     {
-      v32 = "in";
+      v30 = "in";
     }
 
-    *v30 = 138412546;
-    *(v30 + 4) = v31;
-    *(v30 + 12) = 2080;
-    *(v30 + 14) = v32;
+    *v28 = 138412546;
+    *(v28 + 4) = v29;
+    *(v28 + 12) = 2080;
+    *(v28 + 14) = v30;
     __SC_log_send();
   }
 
-  if (v24)
+  if (v23)
   {
     return kCFBooleanTrue;
   }
@@ -2608,12 +2620,12 @@ LABEL_7:
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v21 = _os_log_pack_size();
-        __chkstk_darwin(v21, v22, v23);
-        v24 = *__error();
-        v25 = _os_log_pack_fill();
-        *v25 = 136315138;
-        *(v25 + 4) = a1;
+        v20 = _os_log_pack_size();
+        v21 = &v24 - ((__chkstk_darwin(v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v22 = __error();
+        v23 = _os_log_pack_fill(v21, v20, *v22, &_mh_execute_header, "Update interface link status: %s: <removed>", v24);
+        *v23 = 136315138;
+        *(v23 + 4) = a1;
         __SC_log_send();
       }
 
@@ -2628,13 +2640,13 @@ LABEL_7:
     if (__SC_log_enabled())
     {
       v16 = _os_log_pack_size();
-      __chkstk_darwin(v16, v17, v18);
-      v19 = *__error();
-      v20 = _os_log_pack_fill();
-      *v20 = 136315394;
-      *(v20 + 4) = a1;
-      *(v20 + 12) = 2112;
-      *(v20 + 14) = v15;
+      v17 = &v24 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v18 = __error();
+      v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "Update interface link status: %s: %@");
+      *v19 = 136315394;
+      *(v19 + 4) = a1;
+      *(v19 + 12) = 2112;
+      *(v19 + 14) = v15;
       __SC_log_send();
     }
 
@@ -2713,8 +2725,8 @@ CFMutableDictionaryRef sub_100006990(const __CFDictionary *a1)
 
 uint64_t sub_100006A6C(int a1)
 {
-  memset(v22, 0, 512);
-  v1 = recv(a1, v22, 0x400uLL, 0);
+  memset(v19, 0, 512);
+  v1 = recv(a1, v19, 0x400uLL, 0);
   if (v1 == -1)
   {
     if (!qword_1000817B0)
@@ -2726,14 +2738,14 @@ uint64_t sub_100006A6C(int a1)
     result = __SC_log_enabled();
     if (result)
     {
-      v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12, v13);
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      v16 = __error();
-      v17 = strerror(*v16);
-      *v15 = 136315138;
-      *(v15 + 4) = v17;
+      v10 = _os_log_pack_size();
+      v11 = v19 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = __error();
+      v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "recv() failed: %s", *&v19[0]);
+      v14 = __error();
+      v15 = strerror(*v14);
+      *v13 = 136315138;
+      *(v13 + 4) = v15;
       __SC_log_send();
       return 0;
     }
@@ -2753,9 +2765,9 @@ uint64_t sub_100006A6C(int a1)
       if (__SC_log_enabled())
       {
         v3 = _os_log_pack_size();
-        __chkstk_darwin(v3, v4, v5);
-        v6 = *__error();
-        *_os_log_pack_fill() = 0;
+        v4 = v19 - ((__chkstk_darwin(v3) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v5 = __error();
+        *_os_log_pack_fill(v4, v3, *v5, &_mh_execute_header, "received first event") = 0;
         __SC_log_send();
       }
 
@@ -2765,25 +2777,25 @@ uint64_t sub_100006A6C(int a1)
     _SCDynamicStoreCacheOpen();
     if (v2 >= 1)
     {
-      v7 = 0;
-      v8 = v22;
+      v6 = 0;
+      v7 = v19;
       while (1)
       {
-        v9 = v7 + *(v22 + v7);
-        if (v9 > v2)
+        v8 = v6 + *(v19 + v6);
+        if (v8 > v2)
         {
           break;
         }
 
-        if (*(v8 + 1) == 1 && *(v8 + 2) == 1)
+        if (*(v7 + 1) == 1 && *(v7 + 2) == 1)
         {
-          sub_100008ECC(v8);
-          v9 = v7 + *(v22 + v7);
+          sub_100008ECC(v7);
+          v8 = v6 + *(v19 + v6);
         }
 
-        v8 = v22 + v9;
-        v7 = v9;
-        if (v9 >= v2)
+        v7 = v19 + v8;
+        v6 = v8;
+        if (v8 >= v2)
         {
           goto LABEL_24;
         }
@@ -2797,10 +2809,10 @@ uint64_t sub_100006A6C(int a1)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v18 = _os_log_pack_size();
-        __chkstk_darwin(v18, v19, v20);
-        v21 = *__error();
-        *_os_log_pack_fill() = 0;
+        v16 = _os_log_pack_size();
+        v17 = v19 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v18 = __error();
+        *_os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "missed SYSPROTO_EVENT event, buffer not big enough") = 0;
         __SC_log_send();
       }
     }
@@ -2865,11 +2877,11 @@ void sub_100006F80(uint64_t a1, xpc_object_t object)
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          _os_log_pack_size();
-          v12 = *__error();
-          v13 = _os_log_pack_fill();
-          *v13 = 136315138;
-          *(v13 + 4) = string;
+          v14 = _os_log_pack_size();
+          v15 = __error();
+          v16 = _os_log_pack_fill(v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), v14, *v15, &_mh_execute_header, "Network information server: %s", v19[0]);
+          *v16 = 136315138;
+          *(v16 + 4) = string;
           __SC_log_send();
         }
 
@@ -2880,28 +2892,28 @@ void sub_100006F80(uint64_t a1, xpc_object_t object)
       {
         sub_1000035EC();
         _SC_syslog_os_log_mapping();
-        v9 = __SC_log_enabled();
+        v10 = __SC_log_enabled();
         if (object == &_xpc_error_connection_interrupted)
         {
-          if (v9)
+          if (v10)
           {
-            _os_log_pack_size();
-            v14 = *__error();
-            v7 = _os_log_pack_fill();
-            v8 = 136315138;
+            v17 = _os_log_pack_size();
+            v18 = __error();
+            v8 = _os_log_pack_fill(v19 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), v17, *v18, &_mh_execute_header, "Network information server: %s", v19[0]);
+            v9 = 136315138;
             goto LABEL_5;
           }
         }
 
-        else if (v9)
+        else if (v10)
         {
-          _os_log_pack_size();
-          v10 = *__error();
-          v11 = _os_log_pack_fill();
-          *v11 = 134218242;
-          *(v11 + 4) = object;
-          *(v11 + 12) = 2080;
-          *(v11 + 14) = string;
+          v11 = _os_log_pack_size();
+          v12 = __error();
+          v13 = _os_log_pack_fill(v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11, *v12, &_mh_execute_header, "Network information server: Connection error: %p : %s", v19[0], v19[1]);
+          *v13 = 134218242;
+          *(v13 + 4) = object;
+          *(v13 + 12) = 2080;
+          *(v13 + 14) = string;
           __SC_log_send();
         }
       }
@@ -2913,13 +2925,13 @@ void sub_100006F80(uint64_t a1, xpc_object_t object)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        _os_log_pack_size();
-        v6 = *__error();
-        v7 = _os_log_pack_fill();
-        v8 = 134217984;
+        v6 = _os_log_pack_size();
+        v7 = __error();
+        v8 = _os_log_pack_fill(v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v6, *v7, &_mh_execute_header, "Network information server: unknown event type : %p", v19[0]);
+        v9 = 134217984;
 LABEL_5:
-        *v7 = v8;
-        *(v7 + 4) = string;
+        *v8 = v9;
+        *(v8 + 4) = string;
         __SC_log_send();
       }
     }
@@ -2985,7 +2997,7 @@ void sub_100007400(mach_port_context_t a1)
   dispatch_sync(qword_100081790, v5);
 }
 
-uint64_t sub_100007528(int a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t a6, int a7, int *a8)
+uint64_t sub_100007528(int a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5, uint64_t a6, unsigned int a7, int *a8)
 {
   *a8 = 0;
   if (a2 && a3 && !_SCUnserialize())
@@ -3045,7 +3057,7 @@ LABEL_18:
   return 0;
 }
 
-uint64_t sub_10000787C(uint64_t *a1)
+uint64_t sub_10000787C(CFTypeRef *a1)
 {
   v2 = *a1;
   v3 = sub_100001D48();
@@ -3167,17 +3179,17 @@ uint64_t sub_100007A20(uint64_t a1, __CFString *key)
       if (result)
       {
         v8 = _os_log_pack_size();
-        __chkstk_darwin(v8, v9, v10);
-        v11 = *__error();
-        v12 = _os_log_pack_fill();
-        v13 = *(a1 + 84);
+        v9 = &atoken - ((__chkstk_darwin(v8) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v10 = __error();
+        v11 = _os_log_pack_fill(v9, v8, *v10, &_mh_execute_header, "*** Non-configd pid %d modifying %@ ***");
+        v12 = *(a1 + 84);
         *atoken.val = *(a1 + 68);
-        *&atoken.val[4] = v13;
-        v14 = audit_token_to_pid(&atoken);
-        *v12 = 67109378;
-        *(v12 + 4) = v14;
-        *(v12 + 8) = 2112;
-        *(v12 + 10) = key;
+        *&atoken.val[4] = v12;
+        v13 = audit_token_to_pid(&atoken);
+        *v11 = 67109378;
+        *(v11 + 4) = v13;
+        *(v11 + 8) = 2112;
+        *(v11 + 10) = key;
         __SC_log_send();
         return 0;
       }
@@ -3338,7 +3350,7 @@ LABEL_4:
   return 0;
 }
 
-CFTypeID sub_100008040(void *a1, const void *a2, uint64_t a3)
+uint64_t sub_100008040(void *a1, const void *a2, uint64_t a3)
 {
   result = CFStringGetTypeID();
   if (a1)
@@ -3388,13 +3400,13 @@ void sub_100008128(void *a1)
 
 void sub_1000081D4(_xpc_connection_s *a1, xpc_object_t xdict)
 {
-  v24 = 0;
+  v22[0] = 0;
   remote_connection = xpc_dictionary_get_remote_connection(xdict);
   reply = xpc_dictionary_create_reply(xdict);
   if (reply)
   {
     v6 = reply;
-    v7 = sub_100004658(&qword_100081B28, a1, &v24);
+    v7 = sub_100004658(&qword_100081B28, a1, v22);
     string = xpc_dictionary_get_string(xdict, "proc_name");
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
@@ -3411,19 +3423,19 @@ void sub_1000081D4(_xpc_connection_s *a1, xpc_object_t xdict)
       }
 
       v10 = _os_log_pack_size();
-      __chkstk_darwin(v10, v11, v12);
-      v13 = *__error();
-      v14 = _os_log_pack_fill();
+      v11 = v22 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = __error();
+      v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "<%p:%s[%d]> Network information copy: %llu", v22[0], v22[1], v23, v24);
       pid = xpc_connection_get_pid(a1);
-      v16 = v24;
-      *v14 = 134218754;
-      *(v14 + 4) = a1;
-      *(v14 + 12) = 2080;
-      *(v14 + 14) = v9;
-      *(v14 + 22) = 1024;
-      *(v14 + 24) = pid;
-      *(v14 + 28) = 2048;
-      *(v14 + 30) = v16;
+      v15 = v22[0];
+      *v13 = 134218754;
+      *(v13 + 4) = a1;
+      *(v13 + 12) = 2080;
+      *(v13 + 14) = v9;
+      *(v13 + 22) = 1024;
+      *(v13 + 24) = pid;
+      *(v13 + 28) = 2048;
+      *(v13 + 30) = v15;
       __SC_log_send();
     }
 
@@ -3444,12 +3456,12 @@ void sub_1000081D4(_xpc_connection_s *a1, xpc_object_t xdict)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v19 = _os_log_pack_size();
-      __chkstk_darwin(v19, v20, v21);
-      v22 = *__error();
-      v23 = _os_log_pack_fill();
-      *v23 = 134217984;
-      *(v23 + 4) = a1;
+      v18 = _os_log_pack_size();
+      v19 = v22 - ((__chkstk_darwin(v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v20 = __error();
+      v21 = _os_log_pack_fill(v19, v18, *v20, &_mh_execute_header, "<%p> _nwi_state_copy: xpc_dictionary_create_reply: failed", v22[0]);
+      *v21 = 134217984;
+      *(v21 + 4) = a1;
       __SC_log_send();
     }
   }
@@ -3820,11 +3832,11 @@ void sub_100008C3C()
       if (__SC_log_enabled())
       {
         v2 = _os_log_pack_size();
-        __chkstk_darwin(v2, v3, v4);
-        v5 = *__error();
-        v6 = _os_log_pack_fill();
-        *v6 = 67109120;
-        v6[1] = v1;
+        v3 = &v6 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v4 = __error();
+        v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "notify_post() failed: error=%u", v6);
+        *v5 = 67109120;
+        v5[1] = v1;
         __SC_log_send();
       }
     }
@@ -3846,9 +3858,9 @@ void sub_100008D94(uint64_t a1)
     if (__SC_log_enabled())
     {
       v1 = _os_log_pack_size();
-      __chkstk_darwin(v1, v2, v3);
-      v4 = *__error();
-      *_os_log_pack_fill() = 0;
+      v2 = &v4 - ((__chkstk_darwin(v1) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v3 = __error();
+      *_os_log_pack_fill(v2, v1, *v3, &_mh_execute_header, "kernel event monitor disabled") = 0;
       __SC_log_send();
     }
 
@@ -3856,7 +3868,7 @@ void sub_100008D94(uint64_t a1)
   }
 }
 
-void sub_100008ECC(const char *a1)
+void sub_100008ECC(char *a1)
 {
   v2 = *a1 - 24;
   v3 = *(a1 + 3);
@@ -3869,21 +3881,20 @@ void sub_100008ECC(const char *a1)
         return;
       }
 
-      v14 = *(a1 + 5);
-      if (v14 - 6 >= 3)
+      v12 = *(a1 + 5);
+      if ((v12 - 6) >= 3)
       {
-        if (v14 != 9)
+        if (v12 != 9)
         {
           return;
         }
 
-        v5 = *a1 - 68 < 0;
         if (v2 < 0x2C)
         {
           goto LABEL_139;
         }
 
-        snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+        snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
         if (!qword_1000817B0)
         {
           qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -3892,30 +3903,29 @@ void sub_100008ECC(const char *a1)
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v41 = _os_log_pack_size();
-          __chkstk_darwin(v41, v42, v43);
-          v44 = *__error();
-          v45 = _os_log_pack_fill();
-          v46 = *(a1 + 5);
-          *v45 = 136315394;
-          *(v45 + 4) = __str;
-          *(v45 + 12) = 1024;
-          *(v45 + 14) = v46;
+          v35 = _os_log_pack_size();
+          v36 = &v89 - ((__chkstk_darwin(v35) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v37 = __error();
+          v38 = _os_log_pack_fill(v36, v35, *v37, &_mh_execute_header, "Process IPv6 router expired: %s: %u", v89, __str);
+          v39 = *(a1 + 5);
+          *v38 = 136315394;
+          *(v38 + 4) = &__str;
+          *(v38 + 12) = 1024;
+          *(v38 + 14) = v39;
           __SC_log_send();
         }
 
-        sub_100028F88(__str);
+        sub_100028F88(&__str);
       }
 
       else
       {
-        v5 = *a1 - 68 < 0;
         if (v2 < 0x2C)
         {
           goto LABEL_139;
         }
 
-        snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+        snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
         if (!qword_1000817B0)
         {
           qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -3924,39 +3934,38 @@ void sub_100008ECC(const char *a1)
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v15 = _os_log_pack_size();
-          __chkstk_darwin(v15, v16, v17);
-          v18 = *__error();
-          v19 = _os_log_pack_fill();
-          v20 = *(a1 + 5);
-          *v19 = 136315394;
-          *(v19 + 4) = __str;
-          *(v19 + 12) = 1024;
-          *(v19 + 14) = v20;
+          v13 = _os_log_pack_size();
+          v14 = &v89 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v15 = __error();
+          v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "Process ND6 address change: %s: %u", v89, __str);
+          v17 = *(a1 + 5);
+          *v16 = 136315394;
+          *(v16 + 4) = &__str;
+          *(v16 + 12) = 1024;
+          *(v16 + 14) = v17;
           __SC_log_send();
         }
 
-        sub_10000A848(0, __str);
+        sub_10000A848(0, &__str);
       }
 
       return;
     }
 
-    v28 = *(a1 + 5);
-    if (v28 - 1 >= 5)
+    v24 = *(a1 + 5);
+    if ((v24 - 1) >= 5)
     {
-      if (v28 != 7)
+      if (v24 != 7)
       {
         return;
       }
 
-      v5 = *a1 - 192 < 0;
       if (v2 < 0xA8)
       {
         goto LABEL_139;
       }
 
-      snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+      snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
       if (!qword_1000817B0)
       {
         qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -3965,26 +3974,25 @@ void sub_100008ECC(const char *a1)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v52 = _os_log_pack_size();
-        __chkstk_darwin(v52, v53, v54);
-        v55 = *__error();
-        v56 = _os_log_pack_fill();
-        *v56 = 136315138;
-        *(v56 + 4) = __str;
+        v44 = _os_log_pack_size();
+        v45 = &v89 - ((__chkstk_darwin(v44) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v46 = __error();
+        v47 = _os_log_pack_fill(v45, v44, *v46, &_mh_execute_header, "Process NAT64 prefix request: %s", v89);
+        *v47 = 136315138;
+        *(v47 + 4) = &__str;
         __SC_log_send();
       }
 
-      sub_100028E1C(__str);
+      sub_100028E1C(&__str);
       return;
     }
 
-    v5 = *a1 - 192 < 0;
     if (v2 < 0xA8)
     {
       goto LABEL_139;
     }
 
-    snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+    snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
     if (!qword_1000817B0)
     {
       qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -3993,37 +4001,37 @@ void sub_100008ECC(const char *a1)
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v29 = _os_log_pack_size();
-      __chkstk_darwin(v29, v30, v31);
-      v32 = *__error();
-      v33 = _os_log_pack_fill();
-      v34 = *(a1 + 5);
-      *v33 = 136315394;
-      *(v33 + 4) = __str;
-      *(v33 + 12) = 1024;
-      *(v33 + 14) = v34;
+      v25 = _os_log_pack_size();
+      v26 = &v89 - ((__chkstk_darwin(v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v27 = __error();
+      v28 = _os_log_pack_fill(v26, v25, *v27, &_mh_execute_header, "Process IPv6 address change: %s: %u", v89, __str);
+      v29 = *(a1 + 5);
+      *v28 = 136315394;
+      *(v28 + 4) = &__str;
+      *(v28 + 12) = 1024;
+      *(v28 + 14) = v29;
       __SC_log_send();
     }
 
-    sub_10000A848(0, __str);
-    v35 = *(a1 + 5);
-    if (v35 == 1)
+    sub_10000A848(0, &__str);
+    v30 = *(a1 + 5);
+    if (v30 == 1)
     {
       if ((a1[164] & 4) != 0)
       {
-        sub_100028CA4(__str, a1 + 56, 6, (a1 + 184));
+        sub_100028CA4(&__str, a1 + 56, 6, (a1 + 184));
 LABEL_112:
-        v35 = *(a1 + 5);
+        v30 = *(a1 + 5);
         goto LABEL_113;
       }
 
-      v35 = 1;
+      v30 = 1;
     }
 
 LABEL_113:
-    if (v35 != 3 && qword_1000817C8)
+    if (v30 != 3 && qword_1000817C8)
     {
-      sub_10002792C(__str);
+      sub_10002792C(&__str);
     }
 
     return;
@@ -4031,19 +4039,18 @@ LABEL_113:
 
   if (v3 == 1)
   {
-    v21 = *(a1 + 5);
-    if (v21 > 6)
+    v18 = *(a1 + 5);
+    if (v18 > 6)
     {
-      switch(v21)
+      switch(v18)
       {
         case 7:
-          v5 = *a1 - 56 < 0;
-          if (v2 < 0x20 || v2 < *(a1 + 52) + 32)
+          if (v2 < 0x20 || v2 < a1[52] + 32)
           {
             goto LABEL_139;
           }
 
-          snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+          snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
           if (!qword_1000817B0)
           {
             qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4052,25 +4059,24 @@ LABEL_113:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v73 = _os_log_pack_size();
-            __chkstk_darwin(v73, v74, v75);
-            v76 = *__error();
-            v77 = _os_log_pack_fill();
-            *v77 = 136315138;
-            *(v77 + 4) = __str;
+            v61 = _os_log_pack_size();
+            v62 = &v89 - ((__chkstk_darwin(v61) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v63 = __error();
+            v64 = _os_log_pack_fill(v62, v61, *v63, &_mh_execute_header, "Process ARP collision: %s", v89);
+            *v64 = 136315138;
+            *(v64 + 4) = &__str;
             __SC_log_send();
           }
 
-          sub_10002864C(__str, *(a1 + 12), *(a1 + 52), (a1 + 53));
+          sub_10002864C(&__str, *(a1 + 12), a1[52], (a1 + 53));
           break;
         case 9:
-          v5 = *a1 - 48 < 0;
           if (v2 < 0x18)
           {
             goto LABEL_139;
           }
 
-          snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+          snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
           if (!qword_1000817B0)
           {
             qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4079,25 +4085,24 @@ LABEL_113:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v78 = _os_log_pack_size();
-            __chkstk_darwin(v78, v79, v80);
-            v81 = *__error();
-            v82 = _os_log_pack_fill();
-            *v82 = 136315138;
-            *(v82 + 4) = __str;
+            v65 = _os_log_pack_size();
+            v66 = &v89 - ((__chkstk_darwin(v65) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v67 = __error();
+            v68 = _os_log_pack_fill(v66, v65, *v67, &_mh_execute_header, "Process router ARP failure: %s", v89);
+            *v68 = 136315138;
+            *(v68 + 4) = &__str;
             __SC_log_send();
           }
 
-          sub_100028878(__str);
+          sub_100028878(&__str);
           break;
         case 10:
-          v5 = *a1 - 48 < 0;
           if (v2 < 0x18)
           {
             goto LABEL_139;
           }
 
-          snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+          snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
           if (!qword_1000817B0)
           {
             qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4106,16 +4111,16 @@ LABEL_113:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v47 = _os_log_pack_size();
-            __chkstk_darwin(v47, v48, v49);
-            v50 = *__error();
-            v51 = _os_log_pack_fill();
-            *v51 = 136315138;
-            *(v51 + 4) = __str;
+            v40 = _os_log_pack_size();
+            v41 = &v89 - ((__chkstk_darwin(v40) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v42 = __error();
+            v43 = _os_log_pack_fill(v41, v40, *v42, &_mh_execute_header, "Process router ARP alive: %s", v89);
+            *v43 = 136315138;
+            *(v43 + 4) = &__str;
             __SC_log_send();
           }
 
-          sub_100028A64(__str);
+          sub_100028A64(&__str);
           break;
         default:
           return;
@@ -4124,18 +4129,17 @@ LABEL_113:
       return;
     }
 
-    if ((v21 - 1) >= 6)
+    if ((v18 - 1) >= 6)
     {
       return;
     }
 
-    v5 = *a1 - 76 < 0;
     if (v2 < 0x34)
     {
       goto LABEL_139;
     }
 
-    snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+    snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
     if (!qword_1000817B0)
     {
       qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4144,19 +4148,19 @@ LABEL_113:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v22 = _os_log_pack_size();
-      __chkstk_darwin(v22, v23, v24);
-      v25 = *__error();
-      v26 = _os_log_pack_fill();
-      v27 = *(a1 + 5);
-      *v26 = 136315394;
-      *(v26 + 4) = __str;
-      *(v26 + 12) = 1024;
-      *(v26 + 14) = v27;
+      v19 = _os_log_pack_size();
+      v20 = &v89 - ((__chkstk_darwin(v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v21 = __error();
+      v22 = _os_log_pack_fill(v20, v19, *v21, &_mh_execute_header, "Process IPv4 address change: %s: %u", v89, __str);
+      v23 = *(a1 + 5);
+      *v22 = 136315394;
+      *(v22 + 4) = &__str;
+      *(v22 + 12) = 1024;
+      *(v22 + 14) = v23;
       __SC_log_send();
     }
 
-    sub_10000D8D0(0, __str);
+    sub_10000D8D0(0, &__str);
     goto LABEL_112;
   }
 
@@ -4170,13 +4174,12 @@ LABEL_113:
   {
     if (v4 > 11)
     {
-      v5 = *a1 - 48 < 0;
       if (v2 < 0x18)
       {
         goto LABEL_139;
       }
 
-      snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+      snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
       if (!qword_1000817B0)
       {
         qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4185,28 +4188,28 @@ LABEL_113:
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v62 = _os_log_pack_size();
-        __chkstk_darwin(v62, v63, v64);
-        v65 = *__error();
-        v66 = _os_log_pack_fill();
+        v52 = _os_log_pack_size();
+        v53 = &v89 - ((__chkstk_darwin(v52) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v54 = __error();
+        v55 = _os_log_pack_fill(v53, v52, *v54, &_mh_execute_header, "Process interface link status %s: %s", v89, __str);
         if (*(a1 + 5) == 13)
         {
-          v67 = "active";
+          v56 = "active";
         }
 
         else
         {
-          v67 = "inactive";
+          v56 = "inactive";
         }
 
-        *v66 = 136315394;
-        *(v66 + 4) = v67;
-        *(v66 + 12) = 2080;
-        *(v66 + 14) = __str;
+        *v55 = 136315394;
+        *(v55 + 4) = v56;
+        *(v55 + 12) = 2080;
+        *(v55 + 14) = &__str;
         __SC_log_send();
       }
 
-      sub_100006E68(__str, 0, 0);
+      sub_100006E68(&__str, 0, 0);
     }
 
     else
@@ -4214,13 +4217,12 @@ LABEL_113:
       switch(v4)
       {
         case 9:
-          v5 = *a1 - 48 < 0;
           if (v2 < 0x18)
           {
             goto LABEL_139;
           }
 
-          snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+          snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
           if (!qword_1000817B0)
           {
             qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4229,25 +4231,24 @@ LABEL_113:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v96 = _os_log_pack_size();
-            __chkstk_darwin(v96, v97, v98);
-            v99 = *__error();
-            v100 = _os_log_pack_fill();
-            *v100 = 136315138;
-            *(v100 + 4) = __str;
+            v80 = _os_log_pack_size();
+            v81 = &v89 - ((__chkstk_darwin(v80) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v82 = __error();
+            v83 = _os_log_pack_fill(v81, v80, *v82, &_mh_execute_header, "Process interface attach: %s", v89);
+            *v83 = 136315138;
+            *(v83 + 4) = &__str;
             __SC_log_send();
           }
 
-          sub_100027E44(__str);
+          sub_100027E44(&__str);
           break;
         case 10:
-          v5 = *a1 - 48 < 0;
           if (v2 < 0x18)
           {
             goto LABEL_139;
           }
 
-          snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+          snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
           if (!qword_1000817B0)
           {
             qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4256,25 +4257,24 @@ LABEL_113:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v83 = _os_log_pack_size();
-            __chkstk_darwin(v83, v84, v85);
-            v86 = *__error();
-            v87 = _os_log_pack_fill();
-            *v87 = 136315138;
-            *(v87 + 4) = __str;
+            v69 = _os_log_pack_size();
+            v70 = &v89 - ((__chkstk_darwin(v69) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v71 = __error();
+            v72 = _os_log_pack_fill(v70, v69, *v71, &_mh_execute_header, "Process interface detaching: %s", v89);
+            *v72 = 136315138;
+            *(v72 + 4) = &__str;
             __SC_log_send();
           }
 
-          sub_100027788(__str);
+          sub_100027788(&__str);
           break;
         case 11:
-          v5 = *a1 - 48 < 0;
           if (v2 < 0x18)
           {
             goto LABEL_139;
           }
 
-          snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+          snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
           if (!qword_1000817B0)
           {
             qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4283,16 +4283,16 @@ LABEL_113:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v36 = _os_log_pack_size();
-            __chkstk_darwin(v36, v37, v38);
-            v39 = *__error();
-            v40 = _os_log_pack_fill();
-            *v40 = 136315138;
-            *(v40 + 4) = __str;
+            v31 = _os_log_pack_size();
+            v32 = &v89 - ((__chkstk_darwin(v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v33 = __error();
+            v34 = _os_log_pack_fill(v32, v31, *v33, &_mh_execute_header, "Process interface detach: %s", v89);
+            *v34 = 136315138;
+            *(v34 + 4) = &__str;
             __SC_log_send();
           }
 
-          sub_100027EF8(__str);
+          sub_100027EF8(&__str);
           break;
         default:
           return;
@@ -4306,10 +4306,9 @@ LABEL_113:
     {
       if ((v4 - 14) < 2)
       {
-        v5 = *a1 - 56 < 0;
         if (v2 >= 0x20)
         {
-          snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+          snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
           if (!qword_1000817B0)
           {
             qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4318,26 +4317,26 @@ LABEL_113:
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v6 = _os_log_pack_size();
-            __chkstk_darwin(v6, v7, v8);
-            v9 = *__error();
-            v10 = _os_log_pack_fill();
-            v11 = "detach";
-            v12 = *(a1 + 12);
-            v13 = *(a1 + 13);
+            v5 = _os_log_pack_size();
+            v6 = &v89 - ((__chkstk_darwin(v5) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v7 = __error();
+            v8 = _os_log_pack_fill(v6, v5, *v7, &_mh_execute_header, "Process protocol %s: %s (pf=%u, n=%u)", v89, __str, v91, v92);
+            v9 = "detach";
+            v10 = *(a1 + 12);
+            v11 = *(a1 + 13);
             if (*(a1 + 5) == 14)
             {
-              v11 = "attach";
+              v9 = "attach";
             }
 
-            *v10 = 136315906;
-            *(v10 + 4) = v11;
-            *(v10 + 12) = 2080;
-            *(v10 + 14) = __str;
-            *(v10 + 22) = 1024;
-            *(v10 + 24) = v12;
-            *(v10 + 28) = 1024;
-            *(v10 + 30) = v13;
+            *v8 = 136315906;
+            *(v8 + 4) = v9;
+            *(v8 + 12) = 2080;
+            *(v8 + 14) = &__str;
+            *(v8 + 22) = 1024;
+            *(v8 + 24) = v10;
+            *(v8 + 28) = 1024;
+            *(v8 + 30) = v11;
             __SC_log_send();
           }
 
@@ -4352,10 +4351,9 @@ LABEL_113:
         return;
       }
 
-      v5 = *a1 - 48 < 0;
       if (v2 >= 0x18)
       {
-        snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+        snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
         if (!qword_1000817B0)
         {
           qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4364,16 +4362,16 @@ LABEL_113:
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v68 = _os_log_pack_size();
-          __chkstk_darwin(v68, v69, v70);
-          v71 = *__error();
-          v72 = _os_log_pack_fill();
-          *v72 = 136315138;
-          *(v72 + 4) = __str;
+          v57 = _os_log_pack_size();
+          v58 = &v89 - ((__chkstk_darwin(v57) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v59 = __error();
+          v60 = _os_log_pack_fill(v58, v57, *v59, &_mh_execute_header, "Process interface idle: %s", v89);
+          *v60 = 136315138;
+          *(v60 + 4) = &__str;
           __SC_log_send();
         }
 
-        sub_100028150(__str);
+        sub_100028150(&__str);
         return;
       }
 
@@ -4386,13 +4384,12 @@ LABEL_139:
     switch(v4)
     {
       case 20:
-        v5 = *a1 - 48 < 0;
         if (v2 < 0x18)
         {
           goto LABEL_139;
         }
 
-        snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+        snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
         if (!qword_1000817B0)
         {
           qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4401,28 +4398,27 @@ LABEL_139:
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v101 = _os_log_pack_size();
-          __chkstk_darwin(v101, v102, v103);
-          v104 = *__error();
-          v105 = _os_log_pack_fill();
-          v106 = *(a1 + 12);
-          *v105 = 136315394;
-          *(v105 + 4) = __str;
-          *(v105 + 12) = 1024;
-          *(v105 + 14) = v106;
+          v84 = _os_log_pack_size();
+          v85 = &v89 - ((__chkstk_darwin(v84) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v86 = __error();
+          v87 = _os_log_pack_fill(v85, v84, *v86, &_mh_execute_header, "Process interface quality: %s (q=%d)", v89, __str);
+          v88 = *(a1 + 12);
+          *v87 = 136315394;
+          *(v87 + 4) = &__str;
+          *(v87 + 12) = 1024;
+          *(v87 + 14) = v88;
           __SC_log_send();
         }
 
-        sub_10000A3BC(__str, *(a1 + 12));
+        sub_10000A3BC(&__str, *(a1 + 12));
         break;
       case 24:
-        v5 = *a1 - 48 < 0;
         if (v2 < 0x18)
         {
           goto LABEL_139;
         }
 
-        snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+        snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
         if (!qword_1000817B0)
         {
           qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4431,37 +4427,36 @@ LABEL_139:
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v88 = _os_log_pack_size();
-          __chkstk_darwin(v88, v89, v90);
-          v91 = *__error();
-          v92 = _os_log_pack_fill();
-          *v92 = 136315138;
-          *(v92 + 4) = __str;
+          v73 = _os_log_pack_size();
+          v74 = &v89 - ((__chkstk_darwin(v73) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v75 = __error();
+          v76 = _os_log_pack_fill(v74, v73, *v75, &_mh_execute_header, "Process interface link issues: %s", v89);
+          *v76 = 136315138;
+          *(v76 + 4) = &__str;
           __SC_log_send();
         }
 
-        v94 = *(a1 + 10);
-        v93 = (a1 + 80);
-        if (v94 ^ qword_1000817D9 | v93[2] ^ dword_1000817E1)
+        v78 = *(a1 + 10);
+        v77 = a1 + 80;
+        if (v78 ^ qword_1000817D9 | *(v77 + 2) ^ dword_1000817E1)
         {
-          v95 = 12;
+          v79 = 12;
         }
 
         else
         {
-          v95 = 0;
+          v79 = 0;
         }
 
-        sub_10002751C(__str, *(v93 - 1), v93 - 32, 20, v93, v95);
+        sub_10002751C(&__str, *(v77 - 1), v77 - 32, 20, v77, v79);
         break;
       case 25:
-        v5 = *a1 - 48 < 0;
         if (v2 < 0x18)
         {
           goto LABEL_139;
         }
 
-        snprintf(__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
+        snprintf(&__str, 0x10uLL, "%s%u", a1 + 32, *(a1 + 7));
         if (!qword_1000817B0)
         {
           qword_1000817B0 = os_log_create("com.apple.SystemConfiguration", "KernelEventMonitor");
@@ -4470,16 +4465,16 @@ LABEL_139:
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v57 = _os_log_pack_size();
-          __chkstk_darwin(v57, v58, v59);
-          v60 = *__error();
-          v61 = _os_log_pack_fill();
-          *v61 = 136315138;
-          *(v61 + 4) = __str;
+          v48 = _os_log_pack_size();
+          v49 = &v89 - ((__chkstk_darwin(v48) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v50 = __error();
+          v51 = _os_log_pack_fill(v49, v48, *v50, &_mh_execute_header, "Process interface delegation change: %s", v89);
+          *v51 = 136315138;
+          *(v51 + 4) = &__str;
           __SC_log_send();
         }
 
-        sub_100027FD4(__str);
+        sub_100027FD4(&__str);
         break;
       default:
         return;
@@ -4489,7 +4484,7 @@ LABEL_139:
 
 void sub_10000A3BC(char *cStr, int a2)
 {
-  valuePtr = a2;
+  HIDWORD(v19) = a2;
   v4 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainState, v4, kSCEntNetLinkQuality);
   v6 = sub_10000A670(NetworkInterfaceEntity);
@@ -4501,7 +4496,7 @@ void sub_10000A3BC(char *cStr, int a2)
 
   else
   {
-    v8 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    v8 = CFNumberCreate(0, kCFNumberIntType, &v19 + 4);
     CFDictionarySetValue(v7, kSCPropNetLinkQuality, v8);
     CFRelease(v8);
   }
@@ -4514,12 +4509,12 @@ void sub_10000A3BC(char *cStr, int a2)
   {
     if (v10)
     {
-      v16 = _os_log_pack_size();
-      __chkstk_darwin(v16, v17, v18);
-      v19 = *__error();
-      v20 = _os_log_pack_fill();
-      *v20 = 136315138;
-      *(v20 + 4) = cStr;
+      v15 = _os_log_pack_size();
+      v16 = &v19 - ((__chkstk_darwin(v15) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v17 = __error();
+      v18 = _os_log_pack_fill(v16, v15, *v17, &_mh_execute_header, "Update interface link quality: %s: <unknown>", v19);
+      *v18 = 136315138;
+      *(v18 + 4) = cStr;
       __SC_log_send();
     }
 
@@ -4531,13 +4526,13 @@ void sub_10000A3BC(char *cStr, int a2)
     if (v10)
     {
       v11 = _os_log_pack_size();
-      __chkstk_darwin(v11, v12, v13);
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      *v15 = 136315394;
-      *(v15 + 4) = cStr;
-      *(v15 + 12) = 2112;
-      *(v15 + 14) = v7;
+      v12 = &v19 - ((__chkstk_darwin(v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v13 = __error();
+      v14 = _os_log_pack_fill(v12, v11, *v13, &_mh_execute_header, "Update interface link quality: %s: %@");
+      *v14 = 136315394;
+      *(v14 + 4) = cStr;
+      *(v14 + 12) = 2112;
+      *(v14 + 14) = v7;
       __SC_log_send();
     }
 
@@ -4575,13 +4570,13 @@ uint64_t sub_10000A6F0(int a1)
     if (__SC_log_enabled())
     {
       v2 = _os_log_pack_size();
-      __chkstk_darwin(v2, v3, v4);
-      v5 = *__error();
-      v6 = _os_log_pack_fill();
-      v7 = __error();
-      v8 = strerror(*v7);
-      *v6 = 136315138;
-      *(v6 + 4) = v8;
+      v3 = &v9 - ((__chkstk_darwin(v2) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v4 = __error();
+      v5 = _os_log_pack_fill(v3, v2, *v4, &_mh_execute_header, "socket() failed: %s", v9);
+      v6 = __error();
+      v7 = strerror(*v6);
+      *v5 = 136315138;
+      *(v5 + 4) = v7;
       __SC_log_send();
     }
   }
@@ -4591,25 +4586,25 @@ uint64_t sub_10000A6F0(int a1)
 
 void sub_10000A848(ifaddrs *a1, const char *a2)
 {
-  v69 = 0;
+  v66 = 0;
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v68 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  v65 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!a1)
   {
-    if (getifaddrs(&v69) == -1)
+    if (getifaddrs(&v66) == -1)
     {
       sub_100006F0C();
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v50 = _os_log_pack_size();
-        __chkstk_darwin(v50, v51, v52);
-        v53 = *__error();
-        v54 = _os_log_pack_fill();
-        v55 = __error();
-        v56 = strerror(*v55);
-        *v54 = 136315138;
-        *(v54 + 4) = v56;
+        v48 = _os_log_pack_size();
+        v49 = &v54 - ((__chkstk_darwin(v48) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v50 = __error();
+        v51 = _os_log_pack_fill(v49, v48, *v50, &_mh_execute_header, "getifaddrs() failed: %s", v54);
+        v52 = __error();
+        v53 = strerror(*v52);
+        *v51 = 136315138;
+        *(v51 + 4) = v53;
         __SC_log_send();
       }
 
@@ -4617,10 +4612,10 @@ void sub_10000A848(ifaddrs *a1, const char *a2)
       goto LABEL_60;
     }
 
-    a1 = v69;
-    if (!v69)
+    a1 = v66;
+    if (!v66)
     {
-      v45 = 0;
+      v43 = 0;
       v6 = -1;
       if (a2)
       {
@@ -4631,36 +4626,36 @@ void sub_10000A848(ifaddrs *a1, const char *a2)
     }
   }
 
-  v60 = 0;
-  v62 = kSCEntNetIPv6;
-  v63 = kSCDynamicStoreDomainState;
-  v61 = kSCPropNetIPv6Addresses;
+  v57 = 0;
+  v59 = kSCEntNetIPv6;
+  v60 = kSCDynamicStoreDomainState;
+  v58 = kSCPropNetIPv6Addresses;
   v5 = kSCPropNetIPv6PrefixLength;
-  v67 = kSCPropNetIPv6Flags;
-  v58 = kSCPropNetIPv6DestAddresses;
+  v64 = kSCPropNetIPv6Flags;
+  v55 = kSCPropNetIPv6DestAddresses;
   v6 = -1;
   *&v4 = 136315138;
-  v57 = v4;
-  v64 = a2;
+  v54 = v4;
+  v61 = a2;
   do
   {
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
     v83 = 0u;
-    v80 = 0u;
+    v84 = 0u;
     v81 = 0u;
-    v78 = 0u;
+    v82 = 0u;
     v79 = 0u;
-    v76 = 0u;
+    v80 = 0u;
     v77 = 0u;
-    v74 = 0u;
+    v78 = 0u;
     v75 = 0u;
+    v76 = 0u;
     v73 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    memset(v72, 0, sizeof(v72));
+    v72 = 0u;
+    v70 = 0u;
+    v68 = 0u;
+    memset(v69, 0, sizeof(v69));
     if (a1->ifa_addr->sa_family != 30)
     {
       goto LABEL_55;
@@ -4673,7 +4668,7 @@ void sub_10000A848(ifaddrs *a1, const char *a2)
         goto LABEL_55;
       }
 
-      v60 = 1;
+      v57 = 1;
     }
 
     if (v6 == -1)
@@ -4687,115 +4682,114 @@ void sub_10000A848(ifaddrs *a1, const char *a2)
 
     v7 = v5;
     v8 = CFStringCreateWithCString(0, a1->ifa_name, 0);
-    NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, v63, v8, v62);
+    NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, v60, v8, v59);
     CFRelease(v8);
-    v10 = sub_10000B1A0(NetworkInterfaceEntity, Mutable, v68);
+    v10 = sub_10000B1A0(NetworkInterfaceEntity, Mutable, v65);
     ifa_addr = a1->ifa_addr;
-    v12 = *(ifa_addr + 8);
+    v12 = ifa_addr->sa_data[6];
     if (v12 == 255)
     {
-      v13 = *(ifa_addr + 9);
+      v13 = ifa_addr->sa_data[7];
       if ((v13 & 0xF0) != 0x30 && (v13 & 0xF) == 2)
       {
 LABEL_15:
-        v14 = *(ifa_addr + 10);
-        if (*(ifa_addr + 10))
+        v14 = *&ifa_addr->sa_data[8];
+        if (*&ifa_addr->sa_data[8])
         {
-          *(ifa_addr + 10) = 0;
-          if (!*(ifa_addr + 24))
+          *&ifa_addr->sa_data[8] = 0;
+          if (!*&ifa_addr[1].sa_data[6])
           {
-            *(ifa_addr + 24) = __rev16(v14);
+            *&ifa_addr[1].sa_data[6] = __rev16(v14);
           }
         }
       }
     }
 
-    else if (v12 == 254 && (*(ifa_addr + 9) & 0xC0) == 0x80)
+    else if (v12 == 254 && (ifa_addr->sa_data[7] & 0xC0) == 0x80)
     {
       goto LABEL_15;
     }
 
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
     v83 = 0u;
-    v80 = 0u;
+    v84 = 0u;
     v81 = 0u;
-    v78 = 0u;
+    v82 = 0u;
     v79 = 0u;
-    v76 = 0u;
+    v80 = 0u;
     v77 = 0u;
-    v74 = 0u;
+    v78 = 0u;
     v75 = 0u;
+    v76 = 0u;
     v73 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    memset(v72, 0, sizeof(v72));
-    ifa_name = a1->ifa_name;
+    v72 = 0u;
+    v70 = 0u;
+    v68 = 0u;
+    memset(v69, 0, sizeof(v69));
     __strlcpy_chk();
-    v16 = *(ifa_addr + 12);
-    v72[0] = *ifa_addr;
-    *(v72 + 12) = v16;
-    v66 = v6;
-    if (ioctl(v6, 0xC1206949uLL, &v71) == -1)
+    v15 = *&ifa_addr->sa_data[10];
+    v69[0] = *ifa_addr;
+    *(v69 + 12) = v15;
+    v63 = v6;
+    if (ioctl(v6, 0xC1206949uLL, &v68) == -1)
     {
       sub_100006F0C();
-      *__error();
+      __error();
       _SC_syslog_os_log_mapping();
-      *__error();
+      __error();
       if (__SC_log_enabled())
       {
-        v17 = _os_log_pack_size();
-        v59 = &v57;
-        __chkstk_darwin(v17, v18, v19);
-        v20 = *__error();
-        v21 = _os_log_pack_fill();
-        v22 = __error();
-        v23 = strerror(*v22);
-        *v21 = v57;
-        *(v21 + 4) = v23;
-        *__error();
+        v16 = _os_log_pack_size();
+        v56 = &v54;
+        v17 = &v54 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v18 = __error();
+        v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "ioctl() failed: %s", v54);
+        v20 = __error();
+        v21 = strerror(*v20);
+        *v19 = v54;
+        *(v19 + 4) = v21;
+        __error();
         __SC_log_send();
       }
     }
 
-    sub_100028AD0(v10, v61, ifa_addr);
-    v24 = 0;
-    v25 = 0;
+    sub_100028AD0(v10, v58, ifa_addr);
+    v22 = 0;
+    v23 = 0;
     ifa_netmask = a1->ifa_netmask;
-    v27 = &ifa_netmask->sa_data[6];
+    v25 = &ifa_netmask->sa_data[6];
     v5 = v7;
-    while (v27[v24] == 255)
+    while (v25[v22] == 255)
     {
-      ++v24;
-      v25 += 8;
-      if (v24 == 16)
+      ++v22;
+      v23 += 8;
+      if (v22 == 16)
       {
-        v70 = 128;
+        v67 = 128;
         goto LABEL_36;
       }
     }
 
-    v70 = v25;
-    v28 = 0;
-    v29 = v27[v24];
+    v67 = v23;
+    v26 = 0;
+    v27 = v25[v22];
     while (1)
     {
-      v30 = v28 + 7;
-      if (((v29 >> (v28 + 7)) & 1) == 0)
+      v28 = v26 + 7;
+      if (((v27 >> (v26 + 7)) & 1) == 0)
       {
         break;
       }
 
-      if (--v28 == -7)
+      if (--v26 == -7)
       {
-        v70 = v25 + 7;
+        v67 = v23 + 7;
 LABEL_32:
-        v31 = &ifa_netmask->sa_data[7];
-        while (v24 != 15)
+        v29 = &ifa_netmask->sa_data[7];
+        while (v22 != 15)
         {
-          if (v31[v24++])
+          if (v29[v22++])
           {
             goto LABEL_35;
           }
@@ -4805,17 +4799,17 @@ LABEL_32:
       }
     }
 
-    v70 = v25 - v28;
-    while (((v29 >> v30) & 1) == 0)
+    v67 = v23 - v26;
+    while (((v27 >> v28) & 1) == 0)
     {
-      if (!--v30)
+      if (!--v28)
       {
         goto LABEL_32;
       }
     }
 
 LABEL_35:
-    v70 = 0;
+    v67 = 0;
 LABEL_36:
     Value = CFDictionaryGetValue(v10, v7);
     if (Value)
@@ -4828,32 +4822,32 @@ LABEL_36:
       MutableCopy = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
     }
 
-    v35 = MutableCopy;
-    v6 = v66;
-    v36 = CFNumberCreate(0, kCFNumberIntType, &v70);
-    CFArrayAppendValue(v35, v36);
-    CFRelease(v36);
-    CFDictionarySetValue(v10, v7, v35);
-    CFRelease(v35);
-    v70 = v72[0];
-    v37 = CFDictionaryGetValue(v10, v67);
-    a2 = v64;
-    if (v37)
+    v33 = MutableCopy;
+    v6 = v63;
+    v34 = CFNumberCreate(0, kCFNumberIntType, &v67);
+    CFArrayAppendValue(v33, v34);
+    CFRelease(v34);
+    CFDictionarySetValue(v10, v7, v33);
+    CFRelease(v33);
+    v67 = v69[0];
+    v35 = CFDictionaryGetValue(v10, v64);
+    a2 = v61;
+    if (v35)
     {
-      v38 = CFArrayCreateMutableCopy(0, 0, v37);
+      v36 = CFArrayCreateMutableCopy(0, 0, v35);
     }
 
     else
     {
-      v38 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+      v36 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
     }
 
-    v39 = v38;
-    v40 = CFNumberCreate(0, kCFNumberIntType, &v70);
-    CFArrayAppendValue(v39, v40);
-    CFRelease(v40);
-    CFDictionarySetValue(v10, v67, v39);
-    CFRelease(v39);
+    v37 = v36;
+    v38 = CFNumberCreate(0, kCFNumberIntType, &v67);
+    CFArrayAppendValue(v37, v38);
+    CFRelease(v38);
+    CFDictionarySetValue(v10, v64, v37);
+    CFRelease(v37);
     if ((a1->ifa_flags & 0x10) == 0)
     {
       goto LABEL_54;
@@ -4865,33 +4859,33 @@ LABEL_36:
       goto LABEL_54;
     }
 
-    v42 = *(ifa_dstaddr + 8);
-    if (v42 == 255)
+    v40 = ifa_dstaddr->sa_data[6];
+    if (v40 == 255)
     {
-      v43 = *(ifa_dstaddr + 9);
-      if ((v43 & 0xF0) != 0x30 && (v43 & 0xF) == 2)
+      v41 = ifa_dstaddr->sa_data[7];
+      if ((v41 & 0xF0) != 0x30 && (v41 & 0xF) == 2)
       {
 LABEL_50:
-        v44 = *(ifa_dstaddr + 10);
-        if (*(ifa_dstaddr + 10))
+        v42 = *&ifa_dstaddr->sa_data[8];
+        if (*&ifa_dstaddr->sa_data[8])
         {
-          *(ifa_dstaddr + 10) = 0;
-          if (!*(ifa_dstaddr + 24))
+          *&ifa_dstaddr->sa_data[8] = 0;
+          if (!*&ifa_dstaddr[1].sa_data[6])
           {
-            *(ifa_dstaddr + 24) = __rev16(v44);
+            *&ifa_dstaddr[1].sa_data[6] = __rev16(v42);
           }
         }
       }
     }
 
-    else if (v42 == 254 && (*(ifa_dstaddr + 9) & 0xC0) == 0x80)
+    else if (v40 == 254 && (ifa_dstaddr->sa_data[7] & 0xC0) == 0x80)
     {
       goto LABEL_50;
     }
 
-    sub_100028AD0(v10, v58, ifa_dstaddr);
+    sub_100028AD0(v10, v55, ifa_dstaddr);
 LABEL_54:
-    CFDictionarySetValue(v68, NetworkInterfaceEntity, v10);
+    CFDictionarySetValue(v65, NetworkInterfaceEntity, v10);
     CFRelease(v10);
     CFRelease(NetworkInterfaceEntity);
 LABEL_55:
@@ -4899,29 +4893,29 @@ LABEL_55:
   }
 
   while (a1);
-  v45 = v60 != 0;
+  v43 = v57 != 0;
   if (a2)
   {
 LABEL_57:
-    if (!v45)
+    if (!v43)
     {
-      v46 = CFStringCreateWithCString(0, a2, 0);
-      v47 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainState, v46, kSCEntNetIPv6);
-      CFRelease(v46);
-      v48 = v68;
-      v49 = sub_10000B1A0(v47, Mutable, v68);
-      CFDictionarySetValue(v48, v47, v49);
-      CFRelease(v49);
+      v44 = CFStringCreateWithCString(0, a2, 0);
+      v45 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainState, v44, kSCEntNetIPv6);
+      CFRelease(v44);
+      v46 = v65;
+      v47 = sub_10000B1A0(v45, Mutable, v65);
+      CFDictionarySetValue(v46, v45, v47);
       CFRelease(v47);
+      CFRelease(v45);
     }
   }
 
 LABEL_59:
-  CFDictionaryApplyFunction(v68, sub_10000B580, Mutable);
+  CFDictionaryApplyFunction(v65, sub_10000B580, Mutable);
 LABEL_60:
-  if (v69)
+  if (v66)
   {
-    freeifaddrs(v69);
+    freeifaddrs(v66);
   }
 
   if (v6 != -1)
@@ -4930,7 +4924,7 @@ LABEL_60:
   }
 
   CFRelease(Mutable);
-  CFRelease(v68);
+  CFRelease(v65);
 }
 
 CFMutableDictionaryRef sub_10000B02C(const __CFString *key, __CFDictionary *a2, CFDictionaryRef theDict)
@@ -5057,11 +5051,11 @@ uint64_t sub_10000B314(const __CFString *key, const void *a2, CFDictionaryRef th
         if (__SC_log_enabled())
         {
           v9 = _os_log_pack_size();
-          __chkstk_darwin(v9, v10, v11);
-          v12 = *__error();
-          v13 = _os_log_pack_fill();
-          *v13 = 138412290;
-          *(v13 + 4) = key;
+          v10 = &v17 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v11 = __error();
+          v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "Update interface configuration: %@: <removed>");
+          *v12 = 138412290;
+          *(v12 + 4) = key;
           __SC_log_send();
         }
 
@@ -5077,14 +5071,14 @@ LABEL_10:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v14 = _os_log_pack_size();
-      __chkstk_darwin(v14, v15, v16);
-      v17 = *__error();
-      v18 = _os_log_pack_fill();
-      *v18 = 138412546;
-      *(v18 + 4) = key;
-      *(v18 + 12) = 2112;
-      *(v18 + 14) = a2;
+      v13 = _os_log_pack_size();
+      v14 = &v17 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = __error();
+      v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "Update interface configuration: %@: %@");
+      *v16 = 138412546;
+      *(v16 + 4) = key;
+      *(v16 + 12) = 2112;
+      *(v16 + 14) = a2;
       __SC_log_send();
     }
 
@@ -5114,24 +5108,24 @@ uint64_t sub_10000B580(const __CFString *key, const void *a2, CFDictionaryRef th
 LABEL_10:
       if (v6)
       {
-        v12 = SCDynamicStoreCopyValue(qword_100081700, key);
-        if (v12)
+        v11 = SCDynamicStoreCopyValue(qword_100081700, key);
+        if (v11)
         {
-          v13 = v12;
+          v12 = v11;
           sub_100006F0C();
           _SC_syslog_os_log_mapping();
           if (__SC_log_enabled())
           {
-            v14 = _os_log_pack_size();
-            __chkstk_darwin(v14, v15, v16);
-            v17 = *__error();
-            v18 = _os_log_pack_fill();
-            *v18 = 138412290;
-            *(v18 + 4) = key;
+            v13 = _os_log_pack_size();
+            v14 = &v17 - ((__chkstk_darwin(v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v15 = __error();
+            v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "Update interface configuration: %@: <removed>");
+            *v16 = 138412290;
+            *(v16 + 4) = key;
             __SC_log_send();
           }
 
-          CFRelease(v13);
+          CFRelease(v12);
         }
 
         return SCDynamicStoreRemoveValue(qword_100081700, key);
@@ -5161,13 +5155,13 @@ LABEL_10:
   if (__SC_log_enabled())
   {
     v7 = _os_log_pack_size();
-    __chkstk_darwin(v7, v8, v9);
-    v10 = *__error();
-    v11 = _os_log_pack_fill();
-    *v11 = 138412546;
-    *(v11 + 4) = key;
-    *(v11 + 12) = 2112;
-    *(v11 + 14) = a2;
+    v8 = &v17 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v9 = __error();
+    v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "Update interface configuration: %@: %@");
+    *v10 = 138412546;
+    *(v10 + 4) = key;
+    *(v10 + 12) = 2112;
+    *(v10 + 14) = a2;
     __SC_log_send();
   }
 
@@ -5186,24 +5180,24 @@ uint64_t sub_10000B890(uint64_t result)
 {
   if (result)
   {
-    if (gethostname(v34, 0x100uLL) == -1)
+    if (gethostname(v31, 0x100uLL) == -1)
     {
       sub_1000035EC();
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
         v1 = _os_log_pack_size();
-        __chkstk_darwin(v1, v2, v3);
-        v4 = *__error();
-        v5 = _os_log_pack_fill();
-        v6 = __error();
-        v7 = strerror(*v6);
-        *v5 = 136315138;
-        *(v5 + 4) = v7;
+        v2 = &v29[-1] - ((__chkstk_darwin(v1) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v3 = __error();
+        v4 = _os_log_pack_fill(v2, v1, *v3, &_mh_execute_header, "gethostname() failed: %s", v28);
+        v5 = __error();
+        v6 = strerror(*v5);
+        *v4 = 136315138;
+        *(v4 + 4) = v6;
         __SC_log_send();
       }
 
-      v34[0] = 0;
+      v31[0] = 0;
     }
 
     if (!_SC_cfstring_to_cstring())
@@ -5212,25 +5206,25 @@ uint64_t sub_10000B890(uint64_t result)
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v8 = _os_log_pack_size();
-        __chkstk_darwin(v8, v9, v10);
-        v11 = *__error();
-        *_os_log_pack_fill() = 0;
+        v7 = _os_log_pack_size();
+        v8 = &v29[-1] - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v9 = __error();
+        *_os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "could not convert [new] hostname") = 0;
         __SC_log_send();
       }
 
-      v33[0] = 0;
+      LOBYTE(v29[0]) = 0;
     }
 
-    v34[255] = 0;
-    v33[255] = 0;
-    result = strcmp(v34, v33);
+    v31[255] = 0;
+    v30 = 0;
+    result = strcmp(v31, v29);
     if (result)
     {
-      v12 = strlen(v33);
-      v13 = sethostname(v33, v12);
+      v10 = strlen(v29);
+      v11 = sethostname(v29, v10);
       sub_1000035EC();
-      if (v13)
+      if (v11)
       {
         _SC_syslog_os_log_mapping();
         result = __SC_log_enabled();
@@ -5239,49 +5233,49 @@ uint64_t sub_10000B890(uint64_t result)
           return result;
         }
 
-        v14 = _os_log_pack_size();
-        __chkstk_darwin(v14, v15, v16);
-        v17 = *__error();
-        v18 = _os_log_pack_fill();
-        v19 = strlen(v33);
-        v20 = __error();
-        v21 = strerror(*v20);
-        *v18 = 136315650;
-        *(v18 + 4) = v33;
-        *(v18 + 12) = 2048;
-        *(v18 + 14) = v19;
-        *(v18 + 22) = 2080;
-        *(v18 + 24) = v21;
+        v12 = _os_log_pack_size();
+        v13 = &v29[-1] - ((__chkstk_darwin(v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v14 = __error();
+        v15 = _os_log_pack_fill(v13, v12, *v14, &_mh_execute_header, "sethostname(%s, %lu) failed: %s", v28, v29[0], v29[1]);
+        v16 = strlen(v29);
+        v17 = __error();
+        v18 = strerror(*v17);
+        *v15 = 136315650;
+        *(v15 + 4) = v29;
+        *(v15 + 12) = 2048;
+        *(v15 + 14) = v16;
+        *(v15 + 22) = 2080;
+        *(v15 + 24) = v18;
         return __SC_log_send();
       }
 
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-        v22 = _os_log_pack_size();
-        __chkstk_darwin(v22, v23, v24);
-        v25 = *__error();
-        v26 = _os_log_pack_fill();
-        *v26 = 136315138;
-        *(v26 + 4) = v33;
+        v19 = _os_log_pack_size();
+        v20 = &v29[-1] - ((__chkstk_darwin(v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v21 = __error();
+        v22 = _os_log_pack_fill(v20, v19, *v21, &_mh_execute_header, "setting hostname to %s", v28);
+        *v22 = 136315138;
+        *(v22 + 4) = v29;
         __SC_log_send();
       }
 
       result = notify_post("com.apple.system.hostname");
       if (result)
       {
-        v27 = result;
+        v23 = result;
         sub_1000035EC();
         _SC_syslog_os_log_mapping();
         result = __SC_log_enabled();
         if (result)
         {
-          v28 = _os_log_pack_size();
-          __chkstk_darwin(v28, v29, v30);
-          v31 = *__error();
-          v32 = _os_log_pack_fill();
-          *v32 = 67109120;
-          v32[1] = v27;
+          v24 = _os_log_pack_size();
+          v25 = &v29[-1] - ((__chkstk_darwin(v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v26 = __error();
+          v27 = _os_log_pack_fill(v25, v24, *v26, &_mh_execute_header, "notify_post(com.apple.system.hostname) failed: error=%u", v28);
+          *v27 = 67109120;
+          v27[1] = v23;
           return __SC_log_send();
         }
       }
@@ -5301,7 +5295,7 @@ void sub_10000BD1C(void *a1)
   CFRelease(Copy);
 }
 
-uint64_t sub_10000BDBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int *a8)
+uint64_t sub_10000BDBC(int a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5, uint64_t a6, _DWORD *a7, int *a8)
 {
   *a7 = 0;
   *a8 = 0;
@@ -5355,15 +5349,15 @@ void sub_10000BEF4(const __SCDynamicStore *a1)
           if (__SC_log_enabled())
           {
             v7 = _os_log_pack_size();
-            __chkstk_darwin(v7, v8, v9);
-            v10 = *__error();
-            v11 = _os_log_pack_fill();
-            *v11 = 138412290;
-            *(v11 + 4) = Value;
+            v8 = &v33 - ((__chkstk_darwin(v7) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v9 = __error();
+            v10 = _os_log_pack_fill(v8, v7, *v9, &_mh_execute_header, "hostname (prefs) = %@");
+            *v10 = 138412290;
+            *(v10 + 4) = Value;
             __SC_log_send();
           }
 
-          v12 = 0;
+          v11 = 0;
 LABEL_35:
           sub_10000B890(Value);
           goto LABEL_36;
@@ -5375,101 +5369,101 @@ LABEL_35:
   }
 
   NetworkGlobalEntity = SCDynamicStoreKeyCreateNetworkGlobalEntity(0, kSCDynamicStoreDomainState, kSCEntNetIPv4);
-  v14 = SCDynamicStoreCopyValue(a1, NetworkGlobalEntity);
+  v13 = SCDynamicStoreCopyValue(a1, NetworkGlobalEntity);
   CFRelease(NetworkGlobalEntity);
-  if (!v14)
+  if (!v13)
   {
-    v12 = 0;
+    v11 = 0;
     goto LABEL_21;
   }
 
-  v15 = CFDictionaryGetTypeID();
-  if (CFGetTypeID(v14) != v15)
+  v14 = CFDictionaryGetTypeID();
+  if (CFGetTypeID(v13) != v14)
   {
     goto LABEL_18;
   }
 
-  v12 = CFDictionaryGetValue(v14, kSCDynamicStorePropNetPrimaryService);
-  v16 = CFStringGetTypeID();
-  if (!v12)
+  v11 = CFDictionaryGetValue(v13, kSCDynamicStorePropNetPrimaryService);
+  v15 = CFStringGetTypeID();
+  if (!v11)
   {
 LABEL_19:
-    CFRelease(v14);
+    CFRelease(v13);
 LABEL_21:
     ValueAtIndex = 0;
     goto LABEL_22;
   }
 
-  if (CFGetTypeID(v12) != v16)
+  if (CFGetTypeID(v11) != v15)
   {
 LABEL_18:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_19;
   }
 
-  CFRetain(v12);
-  CFRelease(v14);
-  v17 = sub_10003D338(v12);
-  if (v17)
+  CFRetain(v11);
+  CFRelease(v13);
+  v16 = sub_10003D338(v11);
+  if (v16)
   {
-    Value = v17;
+    Value = v16;
     sub_1000035EC();
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v18 = _os_log_pack_size();
-      __chkstk_darwin(v18, v19, v20);
-      v21 = *__error();
-      v22 = _os_log_pack_fill();
-      *v22 = 138412290;
-      *(v22 + 4) = Value;
+      v17 = _os_log_pack_size();
+      v18 = &v33 - ((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v19 = __error();
+      v20 = _os_log_pack_fill(v18, v17, *v19, &_mh_execute_header, "hostname (DHCP) = %@");
+      *v20 = 138412290;
+      *(v20 + 4) = Value;
       __SC_log_send();
     }
 
     goto LABEL_35;
   }
 
-  NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(0, kSCDynamicStoreDomainState, v12, kSCEntNetIPv4);
-  v14 = SCDynamicStoreCopyValue(a1, NetworkServiceEntity);
+  NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(0, kSCDynamicStoreDomainState, v11, kSCEntNetIPv4);
+  v13 = SCDynamicStoreCopyValue(a1, NetworkServiceEntity);
   CFRelease(NetworkServiceEntity);
-  if (!v14)
+  if (!v13)
   {
     goto LABEL_21;
   }
 
-  v32 = CFDictionaryGetTypeID();
-  if (CFGetTypeID(v14) != v32)
+  v29 = CFDictionaryGetTypeID();
+  if (CFGetTypeID(v13) != v29)
   {
     goto LABEL_19;
   }
 
-  v33 = CFDictionaryGetValue(v14, kSCPropNetIPv4Addresses);
-  v34 = CFArrayGetTypeID();
-  if (!v33)
+  v30 = CFDictionaryGetValue(v13, kSCPropNetIPv4Addresses);
+  v31 = CFArrayGetTypeID();
+  if (!v30)
   {
     goto LABEL_19;
   }
 
-  if (CFGetTypeID(v33) != v34)
+  if (CFGetTypeID(v30) != v31)
   {
     goto LABEL_19;
   }
 
-  if (CFArrayGetCount(v33) < 1)
+  if (CFArrayGetCount(v30) < 1)
   {
     goto LABEL_19;
   }
 
-  ValueAtIndex = CFArrayGetValueAtIndex(v33, 0);
-  v35 = CFStringGetTypeID();
-  if (!ValueAtIndex || CFGetTypeID(ValueAtIndex) != v35)
+  ValueAtIndex = CFArrayGetValueAtIndex(v30, 0);
+  v32 = CFStringGetTypeID();
+  if (!ValueAtIndex || CFGetTypeID(ValueAtIndex) != v32)
   {
     goto LABEL_19;
   }
 
   CFRetain(ValueAtIndex);
-  CFRelease(v14);
-  if (!sub_10003D3D4(v12) && sub_1000484F0())
+  CFRelease(v13);
+  if (!sub_10003D3D4(v11) && sub_1000484F0(ValueAtIndex))
   {
     Value = 0;
     goto LABEL_29;
@@ -5492,12 +5486,12 @@ LABEL_22:
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v24 = _os_log_pack_size();
-    __chkstk_darwin(v24, v25, v26);
-    v27 = *__error();
-    v28 = _os_log_pack_fill();
-    *v28 = 138412290;
-    *(v28 + 4) = Value;
+    v22 = _os_log_pack_size();
+    v23 = &v33 - ((__chkstk_darwin(v22) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v24 = __error();
+    v25 = _os_log_pack_fill(v23, v22, *v24, &_mh_execute_header, "hostname (multicast DNS) = %@");
+    *v25 = 138412290;
+    *(v25 + 4) = Value;
     __SC_log_send();
   }
 
@@ -5507,10 +5501,10 @@ LABEL_22:
     sub_100068178();
   }
 
-  v30 = MutableCopy;
+  v27 = MutableCopy;
   CFStringAppend(MutableCopy, @".local");
-  sub_10000B890(v30);
-  CFRelease(v30);
+  sub_10000B890(v27);
+  CFRelease(v27);
   if (ValueAtIndex)
   {
 LABEL_29:
@@ -5520,7 +5514,7 @@ LABEL_29:
 LABEL_30:
   if (!Value)
   {
-    if (!v12)
+    if (!v11)
     {
       return;
     }
@@ -5530,14 +5524,14 @@ LABEL_30:
 
 LABEL_36:
   CFRelease(Value);
-  if (v12)
+  if (v11)
   {
 LABEL_32:
-    CFRelease(v12);
+    CFRelease(v11);
   }
 }
 
-uint64_t sub_10000C450(int a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7, int *a8)
+uint64_t sub_10000C450(int a1, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5, void *a6, _DWORD *a7, int *a8)
 {
   *a6 = 0;
   *a7 = 0;
@@ -5663,7 +5657,7 @@ LABEL_12:
   return result;
 }
 
-void sub_10000C8DC(__CFString *a1, uint64_t *a2)
+void sub_10000C8DC(__CFString *a1, void *a2)
 {
   TypeID = CFStringGetTypeID();
   if (a1 && CFGetTypeID(a1) == TypeID)
@@ -5843,26 +5837,26 @@ void sub_10000CE00(id a1, int a2)
 
 void sub_10000CE60(void *a1, uint64_t a2)
 {
-  v9 = 0;
+  v8 = 0;
   TypeID = CFStringGetTypeID();
   if (a1)
   {
     if (CFGetTypeID(a1) == TypeID)
     {
       value = 0;
-      if (!sub_100004F2C(*(a2 + 8), a1, &v9, &value, 1))
+      if (!sub_100004F2C(*(a2 + 8), a1, &v8, &value, 1))
       {
         CFDictionaryAddValue(*(a2 + 16), a1, value);
         CFRelease(value);
-        v5 = v9;
-        if (v9)
+        v5 = v8;
+        if (v8)
         {
           Mutable = *a2;
           if (!*a2)
           {
             Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
             *a2 = Mutable;
-            v5 = v9;
+            v5 = v8;
           }
 
           CFDictionarySetValue(Mutable, a1, v5);
@@ -5870,11 +5864,10 @@ void sub_10000CE60(void *a1, uint64_t a2)
 
         else
         {
-          v7 = *(a2 + 8);
-          v8 = sub_100001D48();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v7 = sub_100001D48();
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
-            sub_100067898(v7);
+            sub_100067898();
           }
         }
       }
@@ -5936,7 +5929,7 @@ void sub_10000D19C(const void *a1, const __CFArray *a2, CFStringRef theString)
   Length = CFStringGetLength(theString);
   if (CFStringGetMaximumSizeForEncoding(Length, 0x600u) < 256)
   {
-    Typed = v27;
+    Typed = v26;
   }
 
   else
@@ -5953,17 +5946,17 @@ void sub_10000D19C(const void *a1, const __CFArray *a2, CFStringRef theString)
     {
       if (v10)
       {
-        regerror(v10, BytePtr, v26, 0x100uLL);
+        regerror(v10, BytePtr, v25, 0x100uLL);
         sub_100001D48();
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          v21 = _os_log_pack_size();
-          __chkstk_darwin(v21, v22, v23);
-          v24 = *__error();
-          v25 = _os_log_pack_fill();
-          *v25 = 136315138;
-          *(v25 + 4) = v26;
+          v20 = _os_log_pack_size();
+          v21 = &v25[-((__chkstk_darwin(v20) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+          v22 = __error();
+          v23 = _os_log_pack_fill(v21, v20, *v22, &_mh_execute_header, "%s", v24);
+          *v23 = 136315138;
+          *(v23 + 4) = v25;
           __SC_log_send();
         }
       }
@@ -5997,20 +5990,20 @@ void sub_10000D19C(const void *a1, const __CFArray *a2, CFStringRef theString)
     if (__SC_log_enabled())
     {
       v17 = _os_log_pack_size();
-      __chkstk_darwin(v17, v18, v19);
-      v20 = *__error();
-      *_os_log_pack_fill() = 0;
+      v18 = &v25[-((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+      v19 = __error();
+      *_os_log_pack_fill(v18, v17, *v19, &_mh_execute_header, "could not convert store key to C string") = 0;
       __SC_log_send();
     }
   }
 
-  if (Typed != v27)
+  if (Typed != v26)
   {
     CFAllocatorDeallocate(0, Typed);
   }
 }
 
-CFTypeID sub_10000D4A8(const void *a1, uint64_t a2)
+uint64_t sub_10000D4A8(const void *a1, uint64_t a2)
 {
   result = CFStringGetTypeID();
   if (a1)
@@ -6127,33 +6120,33 @@ void sub_10000D778(const void *a1, CFArrayRef theArray, const void *a3)
 
 void sub_10000D8D0(ifaddrs *a1, const char *a2)
 {
-  v26 = 0;
+  v28 = 0;
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   v5 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (!a1)
   {
-    if (getifaddrs(&v26) == -1)
+    if (getifaddrs(&v28) == -1)
     {
       sub_100006F0C();
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
         v18 = _os_log_pack_size();
-        __chkstk_darwin(v18, v19, v20);
-        v21 = *__error();
-        v22 = _os_log_pack_fill();
-        v23 = __error();
-        v24 = strerror(*v23);
-        *v22 = 136315138;
-        *(v22 + 4) = v24;
+        v19 = &v24 - ((__chkstk_darwin(v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v20 = __error();
+        v21 = _os_log_pack_fill(v19, v18, *v20, &_mh_execute_header, "getifaddrs() failed: %s", v24);
+        v22 = __error();
+        v23 = strerror(*v22);
+        *v21 = 136315138;
+        *(v21 + 4) = v23;
         __SC_log_send();
       }
 
       goto LABEL_16;
     }
 
-    a1 = v26;
-    if (!v26)
+    a1 = v28;
+    if (!v28)
     {
       v14 = 0;
       if (a2)
@@ -6166,6 +6159,8 @@ void sub_10000D8D0(ifaddrs *a1, const char *a2)
   }
 
   v25 = 0;
+  v27 = kSCPropNetIPv4DestAddresses;
+  v26 = kSCPropNetIPv4BroadcastAddresses;
   do
   {
     if (a1->ifa_addr->sa_family != 2)
@@ -6194,12 +6189,12 @@ void sub_10000D8D0(ifaddrs *a1, const char *a2)
     {
       v11 = &ifa_dstaddr->sa_data[2];
       v12 = v9;
-      v13 = kSCPropNetIPv4DestAddresses;
+      v13 = v27;
     }
 
     else
     {
-      sub_100028550(v9, kSCPropNetIPv4BroadcastAddresses, &ifa_dstaddr->sa_data[2]);
+      sub_100028550(v9, v26, &ifa_dstaddr->sa_data[2]);
       v11 = &a1->ifa_netmask->sa_data[2];
       v12 = v9;
       v13 = kSCPropNetIPv4SubnetMasks;
@@ -6233,9 +6228,9 @@ LABEL_13:
 LABEL_15:
   CFDictionaryApplyFunction(v5, sub_10000B314, Mutable);
 LABEL_16:
-  if (v26)
+  if (v28)
   {
-    freeifaddrs(v26);
+    freeifaddrs(v28);
   }
 
   CFRelease(Mutable);
@@ -6250,11 +6245,12 @@ void sub_10000DC80(const __SCDynamicStore *a1, const __CFArray *a2)
 
 void sub_10000DCDC(const __SCDynamicStore *a1, const __CFArray *a2, const __CFArray *a3)
 {
-  v215 = 0;
-  v216 = 0;
+  v198 = a1;
+  v218 = 0;
+  v219 = 0;
   Mutable = 0;
-  v213 = 0;
-  v214 = 0;
+  v216 = 0;
+  v217 = 0;
   sub_10000FCE4();
   if (a2)
   {
@@ -6270,13 +6266,13 @@ void sub_10000DCDC(const __SCDynamicStore *a1, const __CFArray *a2, const __CFAr
       if (__SC_log_enabled())
       {
         v6 = _os_log_pack_size();
-        __chkstk_darwin(v6, v7, v8);
-        v9 = *__error();
-        v10 = _os_log_pack_fill();
-        *v10 = 138412546;
-        *(v10 + 4) = a2;
-        *(v10 + 12) = 2048;
-        *(v10 + 14) = Count;
+        v7 = &v194[-((__chkstk_darwin(v6) + 15) & 0xFFFFFFFFFFFFFFF0)];
+        v8 = __error();
+        v9 = _os_log_pack_fill(v7, v6, *v8, &_mh_execute_header, "changed keys %@ (%ld)");
+        *v9 = 138412546;
+        *(v9 + 4) = a2;
+        *(v9 + 12) = 2048;
+        *(v9 + 14) = Count;
         __SC_log_send();
       }
     }
@@ -6292,9 +6288,9 @@ void sub_10000DCDC(const __SCDynamicStore *a1, const __CFArray *a2, const __CFAr
     return;
   }
 
-  if (qword_1000819F8 && (v11 = sub_100010FF4(qword_1000819F8, kSCEntNetDNS)) != 0)
+  if (qword_1000819F8 && (v10 = sub_100010FF4(qword_1000819F8, kSCEntNetDNS)) != 0)
   {
-    Copy = CFDictionaryCreateCopy(0, v11);
+    Copy = CFDictionaryCreateCopy(0, v10);
   }
 
   else
@@ -6302,91 +6298,94 @@ void sub_10000DCDC(const __SCDynamicStore *a1, const __CFArray *a2, const __CFAr
     Copy = 0;
   }
 
-  if (qword_100081A00 && (v12 = sub_100010FF4(qword_100081A00, kSCEntNetProxies)) != 0)
+  if (qword_100081A00 && (v11 = sub_100010FF4(qword_100081A00, kSCEntNetProxies)) != 0)
   {
-    v187 = CFDictionaryCreateCopy(0, v12);
+    v196 = CFDictionaryCreateCopy(0, v11);
   }
 
   else
   {
-    v187 = 0;
+    v196 = 0;
   }
 
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v213 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v214 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v198 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v13 = &selRef_qosMarkingIsEnabled_;
+  v216 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+  v217 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  v207 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
+  v12 = &selRef_qosMarkingIsEnabled_;
   if (Count < 1)
   {
-    v186 = 0;
-    v200 = 0;
-    v206 = 0;
+    v195 = 0;
+    v208 = 0;
+    v211 = 0;
     goto LABEL_56;
   }
 
-  v206 = 0;
-  v200 = 0;
+  v211 = 0;
+  v208 = 0;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  v16 = kSCEntNetInterfaceDelegation;
+  v210 = kSCEntNetIPv4;
+  v15 = kSCEntNetInterfaceDelegation;
+  v206 = kSCEntNetIPv6;
+  *&v209 = kSCEntNetInterface;
   do
   {
     valuePtr[0] = 0;
-    ValueAtIndex = CFArrayGetValueAtIndex(a2, v15);
+    ValueAtIndex = CFArrayGetValueAtIndex(a2, v14);
     if (CFEqual(ValueAtIndex, qword_1000819E0))
     {
-      HIDWORD(v206) = 1;
+      HIDWORD(v211) = 1;
       goto LABEL_26;
     }
 
-    if (CFEqual(ValueAtIndex, v13[318]) || CFEqual(ValueAtIndex, qword_1000819E8) || CFEqual(ValueAtIndex, @"/Library/Preferences/SystemConfiguration/resolver"))
+    if (CFEqual(ValueAtIndex, v12[318]) || CFEqual(ValueAtIndex, qword_1000819E8) || CFEqual(ValueAtIndex, @"/Library/Preferences/SystemConfiguration/resolver"))
     {
-      LODWORD(v206) = 1;
+      LODWORD(v211) = 1;
       goto LABEL_26;
     }
 
-    if (CFStringHasPrefix(ValueAtIndex, qword_100081A08) && CFStringHasSuffix(ValueAtIndex, v16))
+    if (CFStringHasPrefix(ValueAtIndex, qword_100081A08) && CFStringHasSuffix(ValueAtIndex, v15))
     {
-      v14 = 1;
-      v206 = 0x100000001;
+      v13 = 1;
+      v211 = 0x100000001;
       goto LABEL_26;
     }
 
     if (CFStringHasPrefix(ValueAtIndex, qword_100081A10))
     {
-      v211 = 0;
-      v18 = sub_10000FD64(ValueAtIndex, &v211);
-      if (!v18)
+      v214 = 0;
+      v17 = sub_10000FD64(ValueAtIndex, &v214);
+      if (!v17)
       {
         goto LABEL_53;
       }
 
-      v19 = v18;
-      sub_100010060(v198, v18);
-      if (v211)
+      v18 = v17;
+      sub_100010060(v207, v17);
+      if (v214)
       {
-        if (CFEqual(v211, kSCEntNetIPv4))
+        if (CFEqual(v214, v210))
         {
-          v20 = &v216;
+          v19 = &v219;
 LABEL_51:
-          sub_10000FE40(v20, v19);
+          sub_10000FE40(v19, v18);
           goto LABEL_52;
         }
 
-        if (CFEqual(v211, kSCEntNetIPv6))
+        if (CFEqual(v214, v206))
         {
-          v20 = &v215;
+          v19 = &v218;
           goto LABEL_51;
         }
       }
 
 LABEL_52:
-      CFRelease(v19);
+      CFRelease(v18);
 LABEL_53:
-      if (v211)
+      if (v214)
       {
-        CFRelease(v211);
+        CFRelease(v214);
       }
 
       goto LABEL_26;
@@ -6394,65 +6393,67 @@ LABEL_53:
 
     if (CFStringHasPrefix(ValueAtIndex, qword_100081A18))
     {
-      v21 = sub_10000FD64(ValueAtIndex, 0);
-      if (v21)
+      v20 = sub_10000FD64(ValueAtIndex, 0);
+      if (v20)
       {
-        v22 = v21;
-        sub_100010060(v198, v21);
-        CFRelease(v22);
+        v21 = v20;
+        sub_100010060(v207, v20);
+        CFRelease(v21);
       }
 
+      v22 = 0;
       v23 = 0;
-      v24 = 0;
       do
       {
-        v25 = v23;
-        HasSuffix = CFStringHasSuffix(ValueAtIndex, **(&off_10007AB78 + v24));
+        v24 = v22;
+        HasSuffix = CFStringHasSuffix(ValueAtIndex, **(&off_10007AB78 + v23));
         if (HasSuffix)
         {
           break;
         }
 
+        v22 = 1;
         v23 = 1;
-        v24 = 1;
       }
 
-      while ((v25 & 1) == 0);
+      while ((v24 & 1) == 0);
       if (HasSuffix)
       {
-        v14 = 1;
+        v13 = 1;
       }
 
-      if (CFStringHasSuffix(ValueAtIndex, kSCEntNetInterface))
+      if (CFStringHasSuffix(ValueAtIndex, v209))
       {
-        v14 = 1;
+        v13 = 1;
       }
 
-      v13 = &selRef_qosMarkingIsEnabled_;
+      v12 = &selRef_qosMarkingIsEnabled_;
     }
 
     else if (sub_100049098(ValueAtIndex, valuePtr))
     {
       sub_10003FD7C(0, valuePtr[0]);
-      v200 = 1;
+      v208 = 1;
     }
 
 LABEL_26:
-    ++v15;
+    ++v14;
   }
 
-  while (v15 != Count);
-  v186 = v14 != 0;
+  while (v14 != Count);
+  v195 = v13 != 0;
 LABEL_56:
-  v27 = v198;
+  v26 = v207;
   if (a3)
   {
-    v28 = CFArrayGetCount(a3);
-    if (v28 >= 1)
+    v27 = CFArrayGetCount(a3);
+    if (v27 >= 1)
     {
-      v29 = v28;
+      v29 = v27;
       v30 = 0;
-      v203 = v28;
+      *&v28 = 138412290;
+      v209 = v28;
+      v210 = v27;
       do
       {
         v31 = CFArrayGetValueAtIndex(a3, v30);
@@ -6467,19 +6468,20 @@ LABEL_56:
           if (__SC_log_enabled())
           {
             v32 = _os_log_pack_size();
-            __chkstk_darwin(v32, v33, v34);
-            v35 = *__error();
-            v13 = &selRef_qosMarkingIsEnabled_;
-            v36 = _os_log_pack_fill();
-            *v36 = 138412290;
+            v33 = &v194[-((__chkstk_darwin(v32) + 15) & 0xFFFFFFFFFFFFFFF0)];
+            v34 = __error();
+            v35 = v32;
+            v12 = &selRef_qosMarkingIsEnabled_;
+            v36 = _os_log_pack_fill(v33, v35, *v34, &_mh_execute_header, "Interface rank changed %@");
+            *v36 = v209;
             *(v36 + 4) = v31;
-            v27 = v198;
+            v26 = v207;
             __SC_log_send();
-            v29 = v203;
+            v29 = v210;
           }
         }
 
-        sub_10003FE50(v27, v31);
+        sub_10003FE50(v26, v31);
         ++v30;
       }
 
@@ -6490,15 +6492,15 @@ LABEL_56:
   v37 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
   v38 = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
   CFArrayAppendValue(v37, qword_1000819E0);
-  CFArrayAppendValue(v37, v13[318]);
+  CFArrayAppendValue(v37, v12[318]);
   CFArrayAppendValue(v37, qword_1000819E8);
-  v39 = CFArrayGetCount(v27);
+  v39 = CFArrayGetCount(v26);
   if (v39 >= 1)
   {
     v40 = v39;
     for (i = 0; i != v40; ++i)
     {
-      v42 = CFArrayGetValueAtIndex(v27, i);
+      v42 = CFArrayGetValueAtIndex(v26, i);
       sub_10000FEC8(v42, v37);
       sub_100010114(v42, v37);
     }
@@ -6517,7 +6519,7 @@ LABEL_56:
   NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainState, kSCCompAnyRegex, kSCEntNetLink);
   sub_100010060(v38, NetworkInterfaceEntity);
   CFRelease(NetworkInterfaceEntity);
-  v47 = SCDynamicStoreCopyMultiple(a1, v37, v38);
+  v47 = SCDynamicStoreCopyMultiple(v198, v37, v38);
   if (v37)
   {
     CFRelease(v37);
@@ -6552,12 +6554,12 @@ LABEL_56:
         v52 = 0;
       }
 
-      v190 = v52;
+      v200 = v52;
     }
 
     else
     {
-      v190 = 0;
+      v200 = 0;
     }
 
     v53 = CFDictionaryGetValue(v49, kSCPropNetPPPOverridePrimary);
@@ -6574,7 +6576,7 @@ LABEL_56:
     }
 
     dword_100081A68 = v55;
-    if (v190)
+    if (v200)
     {
       if (byte_1000819B4 == 1)
       {
@@ -6587,11 +6589,11 @@ LABEL_56:
         if (__SC_log_enabled())
         {
           v56 = _os_log_pack_size();
-          __chkstk_darwin(v56, v57, v58);
-          v59 = *__error();
-          v60 = _os_log_pack_fill();
-          *v60 = 138412290;
-          *(v60 + 4) = v190;
+          v57 = &v194[-((__chkstk_darwin(v56) + 15) & 0xFFFFFFFFFFFFFFF0)];
+          v58 = __error();
+          v59 = _os_log_pack_fill(v57, v56, *v58, &_mh_execute_header, "service_order %@ ");
+          *v59 = 138412290;
+          *(v59 + 4) = v200;
           __SC_log_send();
         }
       }
@@ -6599,224 +6601,229 @@ LABEL_56:
 
     else
     {
-      v190 = 0;
+      v200 = 0;
     }
   }
 
   else
   {
-    v190 = 0;
+    v200 = 0;
     dword_100081A68 = 0;
   }
 
-  v197 = CFArrayGetCount(v198);
-  if (v197 < 1)
+  v206 = CFArrayGetCount(v207);
+  if (v206 < 1)
   {
-    v61 = 0;
-    v191 = 0;
+    v60 = 0;
+    v203 = 0;
   }
 
   else
   {
-    v191 = 0;
+    v203 = 0;
+    v60 = 0;
     v61 = 0;
-    v62 = 0;
-    v195 = v216;
-    v193 = v215;
+    v201 = kSCEntNetDNS;
+    v202 = kSCEntNetIPv4;
+    v199 = kSCEntNetIPv6;
+    v205 = v219;
+    v204 = v218;
     do
     {
-      v204 = v61;
-      v201 = v62;
-      v63 = CFArrayGetValueAtIndex(v198, v62);
-      v64 = sub_100010280(v47, v63, 0);
-      v65 = sub_100010314(v47, v63, 0);
-      v66 = 0;
-      v67 = (sub_1000103A8(v63, v64, v65, v47) != 0) << 30;
+      LODWORD(v210) = v60;
+      *&v209 = v61;
+      v62 = CFArrayGetValueAtIndex(v207, v61);
+      v63 = sub_100010280(v47, v62, 0);
+      v64 = sub_100010314(v47, v62, 0);
+      v65 = 0;
+      v66 = (sub_1000103A8(v62, v63, v64, v47) != 0) << 30;
       do
       {
-        v68 = off_10007ABF0[v66];
-        v69 = **(&off_10007AB20 + v66);
-        v70 = sub_100010280(v47, v63, v69);
-        v71 = sub_100010314(v47, v63, v69);
-        v72 = (v68)(v63, v70, v71, v47);
-        v73 = 1 << v66;
-        if (!v72)
+        v67 = off_10007ABF0[v65];
+        v68 = **(&off_10007AB20 + v65);
+        v69 = sub_100010280(v47, v62, v68);
+        v70 = sub_100010314(v47, v62, v68);
+        v71 = (v67)(v62, v69, v70, v47);
+        v72 = 1 << v65;
+        if (!v71)
         {
-          v73 = 0;
+          v72 = 0;
         }
 
-        v67 |= v73;
-        ++v66;
+        v66 |= v72;
+        ++v65;
       }
 
-      while (v66 != 5);
-      v74 = 0;
-      v75 = &off_10007AB50;
-      v76 = 3;
+      while (v65 != 5);
+      v73 = 0;
+      v74 = &off_10007AB50;
+      v75 = 3;
       do
       {
-        v77 = *(v75 - 1);
-        v78 = sub_100010280(v47, v63, *v77);
-        if (v78)
+        v76 = *(v74 - 1);
+        v77 = sub_100010280(v47, v62, *v76);
+        if (v77)
         {
-          v79 = *v75;
-          v80 = CFDictionaryGetValue(v78, **v75);
-          v81 = CFNumberGetTypeID();
-          if (v80 && CFGetTypeID(v80) == v81)
+          v78 = *v74;
+          v79 = CFDictionaryGetValue(v77, **v74);
+          v80 = CFNumberGetTypeID();
+          if (v79 && CFGetTypeID(v79) == v80)
           {
-            v82 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-            CFDictionaryAddValue(v82, *v79, v80);
+            v81 = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            CFDictionaryAddValue(v81, *v78, v79);
           }
 
           else
           {
-            v82 = 0;
+            v81 = 0;
           }
         }
 
         else
         {
           CFNumberGetTypeID();
-          v82 = 0;
+          v81 = 0;
         }
 
-        if (sub_100010D40(v63, *v77, v82))
+        if (sub_100010D40(v62, *v76, v81))
         {
-          v74 = 1;
+          v73 = 1;
         }
 
-        if (v82)
+        if (v81)
         {
-          CFRelease(v82);
+          CFRelease(v81);
         }
 
-        v75 += 2;
-        --v76;
+        v74 += 2;
+        --v75;
       }
 
-      while (v76);
-      if (v74)
+      while (v75);
+      if (v73)
       {
-        v83 = v67 | 0x40;
+        v82 = v66 | 0x40;
       }
 
       else
       {
-        v83 = v67;
+        v82 = v66;
       }
 
-      if (v195 && CFSetContainsValue(v195, v63))
+      v83 = v204;
+      if (v205 && CFSetContainsValue(v205, v62))
       {
-        v83 |= 1u;
+        v82 |= 1u;
       }
 
-      v84 = v206;
-      v61 = v204;
-      if (v193 && CFSetContainsValue(v193, v63))
+      v84 = v211;
+      v60 = v210;
+      if (v83 && CFSetContainsValue(v83, v62))
       {
-        v83 |= 2u;
-        v85 = sub_100010280(v47, v63, kSCEntNetDNS);
-        v86 = v200;
+        v82 |= 2u;
+        v85 = sub_100010280(v47, v62, v201);
+        v86 = v208;
         if (v85)
         {
           v86 = 1;
         }
 
-        v200 = v86;
+        v208 = v86;
       }
 
-      if ((v83 & 0x40000000) != 0)
+      if ((v82 & 0x40000000) != 0)
       {
-        HIDWORD(v206) = 1;
+        HIDWORD(v211) = 1;
       }
 
       else
       {
-        if (v83)
+        if (v82)
         {
-          v61 = 1;
+          v60 = 1;
         }
 
-        v87 = HIDWORD(v206);
-        if (v83)
+        v87 = HIDWORD(v211);
+        if (v82)
         {
           v87 = 1;
         }
 
-        HIDWORD(v206) = v87;
-        if (v83)
+        HIDWORD(v211) = v87;
+        if (v82)
         {
           v84 = 1;
         }
 
-        if ((v83 & 2) != 0)
+        if ((v82 & 2) != 0)
         {
-          v61 = 1;
-          v200 = 1;
-          HIDWORD(v206) = 1;
+          v60 = 1;
+          v208 = 1;
+          HIDWORD(v211) = 1;
           v84 = 1;
         }
       }
 
-      if ((v83 & 4) != 0)
+      if ((v82 & 4) != 0)
       {
         if (qword_1000819F8)
         {
-          v88 = CFEqual(qword_1000819F8, v63);
-          v89 = v191;
+          v88 = CFEqual(qword_1000819F8, v62);
+          v89 = v203;
           if (v88)
           {
             v89 = 1;
           }
 
-          v191 = v89;
+          v203 = v89;
         }
 
-        v200 = 1;
+        v208 = 1;
         v84 = 1;
       }
 
-      if ((v83 & 8) != 0)
+      if ((v82 & 8) != 0)
       {
-        v61 = 1;
+        v60 = 1;
       }
 
-      if ((v83 & 0x10) != 0)
-      {
-        v84 = 1;
-      }
-
-      if ((v83 & 0x40) != 0 && (sub_100010FF4(v63, kSCEntNetIPv4) || sub_100010FF4(v63, kSCEntNetIPv6)))
+      if ((v82 & 0x10) != 0)
       {
         v84 = 1;
       }
 
-      LODWORD(v206) = v84;
-      v62 = v201 + 1;
+      if ((v82 & 0x40) != 0 && (sub_100010FF4(v62, v202) || sub_100010FF4(v62, v199)))
+      {
+        v84 = 1;
+      }
+
+      LODWORD(v211) = v84;
+      v61 = v209 + 1;
     }
 
-    while (v201 + 1 != v197);
+    while (v209 + 1 != v206);
   }
 
   v90 = CFDictionaryGetCount(qword_1000819C0);
   v91 = sub_100012838(qword_1000819A0);
   v92 = sub_100012904(qword_1000819A0, v90);
   qword_1000819A0 = v92;
-  if (HIDWORD(v206))
+  v206 = v91;
+  if (HIDWORD(v211))
   {
     if (qword_100081A20)
     {
       sub_100012AB4(qword_100081A20);
     }
 
-    qword_100081A20 = sub_100012B7C(2, v190);
+    qword_100081A20 = sub_100012B7C(2, v200);
     sub_100013C6C(qword_100081A20, "IPv4");
     if (qword_100081A28)
     {
       sub_100012AB4(qword_100081A28);
     }
 
-    qword_100081A28 = sub_100012B7C(30, v190);
+    qword_100081A28 = sub_100012B7C(30, v200);
     sub_100013C6C(qword_100081A28, "IPv6");
     v92 = qword_1000819A0;
 LABEL_157:
@@ -6835,36 +6842,37 @@ LABEL_157:
     if (__SC_log_enabled())
     {
       v93 = _os_log_pack_size();
-      __chkstk_darwin(v93, v94, v95);
-      v96 = *__error();
-      *_os_log_pack_fill() = 0;
+      v94 = &v194[-((__chkstk_darwin(v93) + 15) & 0xFFFFFFFFFFFFFFF0)];
+      v95 = __error();
+      *_os_log_pack_fill(v94, v93, *v95, &_mh_execute_header, "electing IPv4 primary") = 0;
       __SC_log_send();
+      v91 = v206;
     }
 
     valuePtr[0] = 0;
     if (qword_100081A28)
     {
-      v97 = qword_100081A28 + 16;
+      v96 = qword_100081A28 + 16;
     }
 
     else
     {
-      v97 = 0;
+      v96 = 0;
     }
 
-    v98 = sub_100014050(qword_100081A20, v97, qword_1000819A0, 2, valuePtr, v47, v216);
-    v99 = v98;
-    if (v98)
+    v97 = sub_100014050(qword_100081A20, v96, qword_1000819A0, 2u, valuePtr, v47, v219);
+    v98 = v97;
+    if (v97)
     {
-      v100 = *v98;
+      v99 = *v97;
     }
 
     else
     {
-      v100 = 0;
+      v99 = 0;
     }
 
-    sub_100014B84(&qword_100081A30, v100, "IPv4");
+    sub_100014B84(&qword_100081A30, v99, "IPv4");
     sub_100014EE8(qword_100081A30, valuePtr[0], &Mutable);
     if (!qword_100081998)
     {
@@ -6874,26 +6882,26 @@ LABEL_157:
     _SC_syslog_os_log_mapping();
     if (__SC_log_enabled())
     {
-      v101 = _os_log_pack_size();
-      __chkstk_darwin(v101, v102, v103);
-      v104 = *__error();
-      *_os_log_pack_fill() = 0;
+      v100 = _os_log_pack_size();
+      v101 = &v194[-((__chkstk_darwin(v100) + 15) & 0xFFFFFFFFFFFFFFF0)];
+      v102 = __error();
+      *_os_log_pack_fill(v101, v100, *v102, &_mh_execute_header, "electing IPv6 primary") = 0;
       __SC_log_send();
     }
 
     valuePtr[0] = 0;
-    v105 = sub_100014050(qword_100081A28, v99, qword_1000819A0, 30, valuePtr, v47, v215);
-    if (v105)
+    v103 = sub_100014050(qword_100081A28, v98, qword_1000819A0, 0x1Eu, valuePtr, v47, v218);
+    if (v103)
     {
-      v106 = *v105;
+      v104 = *v103;
     }
 
     else
     {
-      v106 = 0;
+      v104 = 0;
     }
 
-    sub_100014B84(&qword_100081A38, v106, "IPv6");
+    sub_100014B84(&qword_100081A38, v104, "IPv6");
     sub_100016C1C(qword_100081A38, valuePtr[0], &Mutable);
     if (qword_1000819A0)
     {
@@ -6902,8 +6910,19 @@ LABEL_157:
 
     if (qword_100081A30 && qword_100081A38)
     {
-      v107 = sub_100040118(qword_100081A40, qword_100081A30, kSCEntNetDNS);
-      if (v107 <= sub_100040118(qword_100081A48, qword_100081A38, kSCEntNetDNS))
+      v105 = sub_100040118(qword_100081A40, qword_100081A30, kSCEntNetDNS);
+      if (v105 <= sub_100040118(qword_100081A48, qword_100081A38, kSCEntNetDNS))
+      {
+        v106 = qword_100081A30;
+      }
+
+      else
+      {
+        v106 = qword_100081A38;
+      }
+
+      v107 = sub_100040118(qword_100081A40, qword_100081A30, kSCEntNetProxies);
+      if (v107 <= sub_100040118(qword_100081A48, qword_100081A38, kSCEntNetProxies))
       {
         v108 = qword_100081A30;
       }
@@ -6912,103 +6931,94 @@ LABEL_157:
       {
         v108 = qword_100081A38;
       }
-
-      v109 = sub_100040118(qword_100081A40, qword_100081A30, kSCEntNetProxies);
-      if (v109 <= sub_100040118(qword_100081A48, qword_100081A38, kSCEntNetProxies))
-      {
-        v110 = qword_100081A30;
-      }
-
-      else
-      {
-        v110 = qword_100081A38;
-      }
     }
 
     else
     {
       if (qword_100081A38)
       {
-        v110 = qword_100081A38;
+        v108 = qword_100081A38;
       }
 
       else
       {
-        v110 = qword_100081A30;
+        v108 = qword_100081A30;
       }
 
-      v108 = v110;
+      v106 = v108;
     }
 
-    v111 = sub_100014B84(&qword_1000819F8, v108, "DNS");
-    if (v111)
+    v109 = sub_100014B84(&qword_1000819F8, v106, "DNS");
+    if (v109)
+    {
+      v110 = 1;
+    }
+
+    else
+    {
+      v110 = v211;
+    }
+
+    v111 = v203;
+    if (v109)
+    {
+      v111 = 1;
+    }
+
+    if (sub_100014B84(&qword_100081A00, v108, "Proxies"))
     {
       v112 = 1;
     }
 
     else
     {
-      v112 = v206;
+      v112 = v60;
     }
 
-    v113 = v191;
-    if (v111)
+    v113 = v110 != 0;
+    if (!v112 && v110 && G_supplemental_proxies_follow_dns)
     {
+      v112 = CFBooleanGetValue(G_supplemental_proxies_follow_dns) != 0;
       v113 = 1;
-    }
-
-    if (sub_100014B84(&qword_100081A00, v110, "Proxies"))
-    {
-      v114 = 1;
-    }
-
-    else
-    {
-      v114 = v61;
-    }
-
-    v115 = v112 != 0;
-    if (!v114 && v112 && G_supplemental_proxies_follow_dns)
-    {
-      v114 = CFBooleanGetValue(G_supplemental_proxies_follow_dns) != 0;
-      v115 = 1;
-      v112 = 1;
+      v110 = 1;
     }
   }
 
   else
   {
-    if (v206)
+    if (v211)
     {
       goto LABEL_157;
     }
 
-    v115 = 0;
-    v112 = 0;
-    v114 = v61;
-    v113 = v191;
+    v113 = 0;
+    v110 = 0;
+    v112 = v60;
+    v111 = v203;
   }
 
-  v116 = sub_10001775C(v91, qword_1000819A0);
-  if (HIDWORD(v206) != 0 || v115 || v186)
+  v114 = HIDWORD(v211) != 0;
+  v115 = sub_10001775C(v91, qword_1000819A0);
+  if (v114 || v113 || v195)
   {
     if (qword_1000819A0)
     {
+      v116 = HIDWORD(v211) != 0;
       v117 = mach_absolute_time();
       v118 = qword_1000819A0;
       *(qword_1000819A0 + 32) = v117;
-      if (HIDWORD(v206) != 0 || v186)
+      if (v116 || v195)
       {
         LODWORD(valuePtr[0]) = 0;
-        LODWORD(v211) = 0;
-        sub_100017CB4(v47, valuePtr, &v211);
+        LODWORD(v214) = 0;
+        sub_100017CB4(v47, valuePtr, &v214);
         v118 = qword_1000819A0;
-        v119 = v211;
+        v119 = v214;
         *(qword_1000819A0 + 24) = valuePtr[0];
         *(v118 + 28) = v119;
       }
 
-      sub_10001858C(v91, v118, v116);
+      sub_10001858C(v91, v118, v115);
       v120 = qword_1000819A0;
     }
 
@@ -7018,7 +7028,7 @@ LABEL_157:
     }
 
     v121 = sub_100018900(v120);
-    v122 = (v121 | v112) == 0;
+    v122 = (v121 | v110) == 0;
   }
 
   else
@@ -7027,7 +7037,7 @@ LABEL_157:
     v122 = 1;
   }
 
-  if (v113)
+  if (v111)
   {
     if (qword_1000819F8 && (v123 = CFDictionaryGetValue(qword_1000819C0, qword_1000819F8)) != 0)
     {
@@ -7071,12 +7081,12 @@ LABEL_222:
     if (v126)
     {
       v121 |= 2u;
-      v196 = 1;
+      LODWORD(v205) = 1;
       goto LABEL_228;
     }
   }
 
-  v196 = 0;
+  LODWORD(v205) = 0;
   v127 = 0;
   if (!v122)
   {
@@ -7099,7 +7109,7 @@ LABEL_228:
       v131 = 0;
     }
 
-    v132 = sub_100018CCC(v131, v128, qword_1000819C0, v190, v129, v130, valuePtr);
+    v132 = sub_100018CCC(v131, v128, qword_1000819C0, v200, v129, v130, valuePtr);
     if (v132)
     {
       v133 = valuePtr[0];
@@ -7147,8 +7157,8 @@ LABEL_240:
       if (v135)
       {
         v136 = qword_100081AB8;
-        sub_100010060(v213, qword_100081AB8);
-        CFDictionaryRemoveValue(v214, v136);
+        sub_100010060(v216, qword_100081AB8);
+        CFDictionaryRemoveValue(v217, v136);
       }
 
       else
@@ -7177,8 +7187,8 @@ LABEL_244:
     }
   }
 
-  v194 = v127;
-  if (v114)
+  LODWORD(v204) = v127;
+  if (v112)
   {
     if (qword_100081A00)
     {
@@ -7194,7 +7204,7 @@ LABEL_244:
       v139 = 0;
     }
 
-    v141 = sub_10001D02C(v139, qword_1000819C0, v190, v47);
+    v141 = sub_10001D02C(v139, qword_1000819C0, v200, v47);
     v142 = qword_100081AC8;
     if (qword_100081AC8 == v141)
     {
@@ -7227,8 +7237,8 @@ LABEL_262:
         }
 
         v143 = qword_100081AD0;
-        sub_100010060(v213, qword_100081AD0);
-        CFDictionaryRemoveValue(v214, v143);
+        sub_100010060(v216, qword_100081AD0);
+        CFDictionaryRemoveValue(v217, v143);
       }
 
       v140 = 0;
@@ -7250,10 +7260,10 @@ LABEL_266:
 
   else
   {
-    LOBYTE(v140) = 1;
+    v140 = 1;
   }
 
-  if (v200)
+  if (v208)
   {
     v144 = v121 | 0x10;
   }
@@ -7263,46 +7273,47 @@ LABEL_266:
     v144 = v121;
   }
 
-  if (v198)
+  if (v207)
   {
-    CFRelease(v198);
+    CFRelease(v207);
   }
 
   CFRelease(v47);
-  if (v216)
+  if (v219)
   {
-    CFRelease(v216);
-    v216 = 0;
+    CFRelease(v219);
+    v219 = 0;
   }
 
-  if (v215)
+  if (v218)
   {
-    CFRelease(v215);
-    v215 = 0;
+    CFRelease(v218);
+    v218 = 0;
   }
 
-  v205 = v116;
+  v210 = v115;
   if (!v144)
   {
-    sub_10001E078(&Mutable, a1);
+    sub_10001E078(&Mutable, v198);
     if (Copy)
     {
       CFRelease(Copy);
     }
 
-    if (v187)
+    if (v196)
     {
-      CFRelease(v187);
+      CFRelease(v196);
     }
 
     v148 = 0;
     v149 = 1;
-    v150 = v91;
+    v150 = v206;
 LABEL_371:
-    v199 = v148;
-    if (CFDictionaryGetCount(v214) <= 0 && CFArrayGetCount(v213) <= 0 && CFArrayGetCount(Mutable) < 1)
+    v183 = CFDictionaryGetCount(v217);
+    v207 = v148;
+    if (v183 <= 0 && CFArrayGetCount(v216) <= 0 && CFArrayGetCount(Mutable) < 1)
     {
-      if (v200)
+      if (v208)
       {
         if (!qword_100081998)
         {
@@ -7312,7 +7323,11 @@ LABEL_371:
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          goto LABEL_377;
+          v188 = _os_log_pack_size();
+          v189 = &v194[-((__chkstk_darwin(v188) + 15) & 0xFFFFFFFFFFFFFFF0)];
+          v190 = *__error();
+          v187 = _os_log_pack_fill(v189, v188, v190, &_mh_execute_header, "nat64 update");
+          goto LABEL_378;
         }
       }
 
@@ -7326,7 +7341,11 @@ LABEL_371:
         _SC_syslog_os_log_mapping();
         if (__SC_log_enabled())
         {
-          goto LABEL_377;
+          v191 = _os_log_pack_size();
+          v192 = &v194[-((__chkstk_darwin(v191) + 15) & 0xFFFFFFFFFFFFFFF0)];
+          v193 = __error();
+          *_os_log_pack_fill(v192, v191, *v193, &_mh_execute_header, "network event w/no changes") = 0;
+          goto LABEL_379;
         }
       }
     }
@@ -7341,44 +7360,48 @@ LABEL_371:
       _SC_syslog_os_log_mapping();
       if (__SC_log_enabled())
       {
-LABEL_377:
-        v182 = _os_log_pack_size();
-        __chkstk_darwin(v182, v183, v184);
-        v185 = *__error();
-        *_os_log_pack_fill() = 0;
+        v184 = _os_log_pack_size();
+        v185 = &v194[-((__chkstk_darwin(v184) + 15) & 0xFFFFFFFFFFFFFFF0)];
+        v186 = *__error();
+        v187 = _os_log_pack_fill(v185, v184, v186, &_mh_execute_header, "network changed");
+LABEL_378:
+        *v187 = 0;
+LABEL_379:
         __SC_log_send();
       }
     }
 
     if ((v149 & 1) == 0)
     {
-      goto LABEL_379;
+      goto LABEL_381;
     }
 
-    goto LABEL_380;
+    goto LABEL_382;
   }
 
-  v192 = v144;
-  v199 = CFStringCreateMutable(0, 0);
-  if (v116)
+  LODWORD(v202) = v140;
+  v203 = v144;
+  v207 = CFStringCreateMutable(0, 0);
+  if (v115)
   {
     v145 = qword_1000819A0;
     v146 = sub_1000136F8();
-    if (!(v91 | v145))
+    if (!(v206 | v145))
     {
       goto LABEL_281;
     }
 
-    if (v91 && v145 && (v151 = *(v145 + 16), v151 == *(v91 + 16)))
+    if (v206 && v145 && (v151 = *(v145 + 16), v151 == *(v206 + 16)))
     {
       if (v151 > 0)
       {
-        v152 = (v91 + 40 + 224 * *(v91 + 4));
-        v153 = (v145 + 40 + 224 * *(v145 + 4));
-        while (!strcmp((v145 + 40 + 112 * *v153), (v91 + 40 + 112 * *v152)))
+        v152 = (v206 + 40);
+        v153 = (v206 + 40 + 224 * *(v206 + 4));
+        v154 = (v145 + 40 + 224 * *(v145 + 4));
+        while (!strcmp((v145 + 40 + 112 * *v154), &v152[112 * *v153]))
         {
+          ++v154;
           ++v153;
-          ++v152;
           if (!--v151)
           {
             goto LABEL_281;
@@ -7389,148 +7412,149 @@ LABEL_377:
       }
 
 LABEL_281:
-      v207 = v146 != -1;
-      v147 = v116;
+      LODWORD(v211) = v146 != -1;
+      v147 = v210;
     }
 
     else
     {
 LABEL_295:
-      v147 = v116;
+      v147 = v210;
       if (v146 == -1)
       {
-        v207 = 0;
+        LODWORD(v211) = 0;
       }
 
       else
       {
         sub_100045A10(v145, v146);
-        v207 = 1;
+        LODWORD(v211) = 1;
       }
     }
 
-    v154 = 0;
-    v202 = (v147 + 10);
-    v155 = 1;
+    v155 = 0;
+    *&v209 = v147 + 40;
+    v156 = 1;
     do
     {
-      v156 = v155;
-      v157 = byte_10006CADC[v154];
-      if (v207)
+      v157 = v156;
+      v158 = byte_10006CADC[v155];
+      if (v211)
       {
-        v158 = 3;
-        if (v155)
+        v159 = 12;
+        if (v156)
         {
-          v158 = 2;
+          v159 = 8;
         }
 
-        v159 = v202;
-        if (!v155)
+        v160 = v209;
+        if (!v156)
         {
-          v159 = v202 + 112 * v147[1];
+          v160 = v209 + 112 * SHIDWORD(v147->isa);
         }
 
-        v160 = v147[v158];
-        if (v160 >= 1)
+        v161 = *(&v147->isa + v159);
+        if (v161 >= 1)
         {
           do
           {
-            sub_100045CEC(v159, v157, v146);
-            v159 += 112;
-            --v160;
+            sub_100045CEC(v160, v158, v146);
+            v160 += 112;
+            --v161;
           }
 
-          while (v160);
+          while (v161);
         }
       }
 
-      v208 = v156;
+      HIDWORD(v211) = v157;
       first_ifstate = nwi_state_get_first_ifstate();
       if (first_ifstate)
       {
         next = first_ifstate;
-        v163 = 0;
         v164 = 0;
+        v165 = 0;
         do
         {
-          v165 = "?";
+          v166 = "?";
           if ((*(next + 16) & 0xE00uLL) <= 0x5FF)
           {
-            v165 = *(&off_10007A998 + ((*(next + 16) >> 8) & 0xFLL));
+            v166 = *(&off_10007A998 + ((*(next + 16) >> 8) & 0xFLL));
           }
 
-          v166 = inet_ntop(*(next + 32), (next + 36), valuePtr, 0x2Eu);
-          if (v163)
+          v167 = inet_ntop(*(next + 32), (next + 36), valuePtr, 0x2Eu);
+          if (v164)
           {
-            if (!v164)
+            if (!v165)
             {
-              v164 = CFStringCreateMutable(0, 0);
+              v165 = CFStringCreateMutable(0, 0);
             }
 
             ifname = nwi_ifstate_get_ifname();
-            CFStringAppendFormat(v164, 0, @", %s", ifname);
-            if (*v165)
+            CFStringAppendFormat(v165, 0, @", %s", ifname);
+            if (*v166)
             {
-              CFStringAppendFormat(v164, 0, @"%s:%s", v165, v166);
+              CFStringAppendFormat(v165, 0, @"%s:%s", v166, v167);
             }
           }
 
           else
           {
-            v163 = CFStringCreateMutable(0, 0);
-            v168 = nwi_ifstate_get_ifname();
-            CFStringAppendFormat(v163, 0, @"%s%s:%s", v168, v165, v166);
+            v164 = CFStringCreateMutable(0, 0);
+            v169 = nwi_ifstate_get_ifname();
+            CFStringAppendFormat(v164, 0, @"%s%s:%s", v169, v166, v167);
           }
 
-          v169 = *(next + 32);
           next = nwi_ifstate_get_next();
         }
 
         while (next);
-        v147 = v205;
-        if (v163)
+        v147 = v210;
+        if (v164)
         {
           v170 = 54;
-          if (v208)
+          if ((v211 & 0x100000000) != 0)
           {
             v170 = 52;
           }
 
-          CFStringAppendFormat(v199, 0, @" v%c(%@"), v170, v163;
-          if (v164)
+          v171 = v207;
+          CFStringAppendFormat(v207, 0, @" v%c(%@"), v170, v164;
+          if (v165)
           {
-            if (CFStringGetLength(v164))
+            if (CFStringGetLength(v165))
             {
-              CFStringAppendFormat(v199, 0, @"%@", v164);
+              CFStringAppendFormat(v171, 0, @"%@", v165);
             }
 
-            CFStringAppend(v199, @""));
-            CFRelease(v163);
+            CFStringAppend(v171, @""));
+            CFRelease(v164);
           }
 
           else
           {
-            CFStringAppend(v199, @""));
-            v164 = v163;
+            CFStringAppend(v171, @""));
+            v165 = v164;
           }
 
-          CFRelease(v164);
+          CFRelease(v165);
         }
       }
 
-      v155 = 0;
-      v154 = &_mh_execute_header.magic + 1;
+      v156 = 0;
+      v155 = &_mh_execute_header.magic + 1;
     }
 
-    while ((v208 & 1) != 0);
+    while ((v211 & 0x100000000) != 0);
   }
 
-  if (v194 | v196)
+  v172 = v204;
+  if (v204 | v205)
   {
-    v171 = v140;
+    v173 = v202;
     if (!qword_1000819F8)
     {
-      v148 = v199;
+      v148 = v207;
       if (!Copy)
       {
         goto LABEL_339;
@@ -7539,114 +7563,114 @@ LABEL_295:
       goto LABEL_336;
     }
 
-    v172 = sub_100010FF4(qword_1000819F8, kSCEntNetDNS);
+    v174 = sub_100010FF4(qword_1000819F8, kSCEntNetDNS);
     if (Copy)
     {
-      v148 = v199;
-      if (v172)
+      v148 = v207;
+      if (v174)
       {
-        if (!CFEqual(Copy, v172))
+        if (!CFEqual(Copy, v174))
         {
-          v173 = "!";
+          v175 = "!";
           goto LABEL_340;
         }
 
 LABEL_339:
-        v173 = "";
+        v175 = "";
         goto LABEL_340;
       }
 
 LABEL_336:
-      v173 = "-";
+      v175 = "-";
       goto LABEL_340;
     }
 
-    v148 = v199;
-    if (!v172)
+    v148 = v207;
+    if (!v174)
     {
       goto LABEL_339;
     }
 
-    v173 = "+";
+    v175 = "+";
 LABEL_340:
-    if (v194 && *v173 == 0)
+    if ((v172 & (*v175 == 0)) != 0)
     {
-      v173 = "*";
+      v175 = "*";
     }
 
-    CFStringAppendFormat(v148, 0, @" DNS%s", v173);
+    CFStringAppendFormat(v148, 0, @" DNS%s", v175);
   }
 
   else
   {
-    v148 = v199;
-    v171 = v140;
+    v148 = v207;
+    v173 = v202;
     if (qword_1000819F8)
     {
-      CFStringAppend(v199, @" DNS");
+      CFStringAppend(v207, @" DNS");
     }
   }
 
-  if ((v171 & 1) == 0)
+  if ((v173 & 1) == 0)
   {
-    v150 = v91;
-    v174 = v192;
+    v150 = v206;
+    v176 = v203;
     if (qword_100081A00)
     {
-      v175 = sub_100010FF4(qword_100081A00, kSCEntNetProxies);
-      if (!v187)
+      v177 = sub_100010FF4(qword_100081A00, kSCEntNetProxies);
+      if (!v196)
       {
-        if (v175)
+        if (v177)
         {
-          v176 = "+";
+          v178 = "+";
           goto LABEL_356;
         }
 
         goto LABEL_355;
       }
 
-      if (v175)
+      if (v177)
       {
-        if (!CFEqual(v187, v175))
+        if (!CFEqual(v196, v177))
         {
-          v176 = "!";
+          v178 = "!";
 LABEL_356:
-          CFStringAppendFormat(v148, 0, @" Proxy%s", v176);
+          CFStringAppendFormat(v148, 0, @" Proxy%s", v178);
           goto LABEL_357;
         }
 
 LABEL_355:
-        v176 = "";
+        v178 = "";
         goto LABEL_356;
       }
     }
 
-    else if (!v187)
+    else if (!v196)
     {
       goto LABEL_355;
     }
 
-    v176 = "-";
+    v178 = "-";
     goto LABEL_356;
   }
 
-  v150 = v91;
-  v174 = v192;
+  v150 = v206;
+  v176 = v203;
   if (qword_100081A00)
   {
     CFStringAppend(v148, @" Proxy");
   }
 
 LABEL_357:
-  sub_10001E078(&Mutable, a1);
+  sub_10001E078(&Mutable, v198);
   if (Copy)
   {
     CFRelease(Copy);
   }
 
-  if (v187)
+  if (v196)
   {
-    CFRelease(v187);
+    CFRelease(v196);
   }
 
   if (qword_100081AE8 != -1)
@@ -7658,7 +7682,7 @@ LABEL_357:
   block[1] = 0x40000000;
   block[2] = sub_1000401C0;
   block[3] = &unk_10007AB88;
-  v210 = v174;
+  v213 = v176;
   dispatch_async(qword_100081AF0, block);
   if (!v148)
   {
@@ -7680,21 +7704,21 @@ LABEL_357:
   _SC_syslog_os_log_mapping();
   if (__SC_log_enabled())
   {
-    v177 = _os_log_pack_size();
-    __chkstk_darwin(v177, v178, v179);
-    v180 = *__error();
-    v181 = _os_log_pack_fill();
-    *v181 = 138412290;
-    *(v181 + 4) = v199;
+    v179 = _os_log_pack_size();
+    v180 = &v194[-((__chkstk_darwin(v179) + 15) & 0xFFFFFFFFFFFFFFF0)];
+    v181 = __error();
+    v182 = _os_log_pack_fill(v180, v179, *v181, &_mh_execute_header, "network changed:%@");
+    *v182 = 138412290;
+    *(v182 + 4) = v207;
     __SC_log_send();
   }
 
-LABEL_379:
-  CFRelease(v199);
-LABEL_380:
-  if (v205)
+LABEL_381:
+  CFRelease(v207);
+LABEL_382:
+  if (v210)
   {
-    free(v205);
+    free(v210);
   }
 
   if (v150)
@@ -7708,16 +7732,16 @@ LABEL_380:
     Mutable = 0;
   }
 
-  if (v213)
+  if (v216)
   {
-    CFRelease(v213);
-    v213 = 0;
+    CFRelease(v216);
+    v216 = 0;
   }
 
-  if (v214)
+  if (v217)
   {
-    CFRelease(v214);
-    v214 = 0;
+    CFRelease(v217);
+    v217 = 0;
   }
 
   sub_10001E3C0();
@@ -7881,7 +7905,7 @@ const void *sub_100010314(const void *a1, CFStringRef serviceID, CFStringRef ent
 
 uint64_t sub_1000103A8(__CFString *serviceID, const __CFDictionary *a2, const __CFDictionary *a3, const void *a4)
 {
-  v56 = 0x1000000;
+  v54 = 0x1000000;
   v8 = sub_100010314(a4, serviceID, kSCEntNetCommCenter);
   v9 = v8;
   if (v8)
@@ -7898,10 +7922,10 @@ uint64_t sub_1000103A8(__CFString *serviceID, const __CFDictionary *a2, const __
         {
           a3 = 0;
           v12 = 0;
-          v56 = 0x4000000;
+          v54 = 0x4000000;
 LABEL_76:
-          v47 = a3 != 0;
-          v48 = v12;
+          v45 = a3 != 0;
+          v46 = v12;
           Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
           goto LABEL_82;
         }
@@ -7948,14 +7972,14 @@ LABEL_76:
         if (__SC_log_enabled())
         {
           v17 = _os_log_pack_size();
-          v53[1] = v53;
-          __chkstk_darwin(v17, v18, v19);
-          v20 = *__error();
-          v21 = _os_log_pack_fill();
-          *v21 = 138412546;
-          *(v21 + 4) = serviceID;
-          *(v21 + 12) = 2112;
-          *(v21 + 14) = v14;
+          v51[1] = v51;
+          v18 = v51 - ((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+          v19 = __error();
+          v20 = _os_log_pack_fill(v18, v17, *v19, &_mh_execute_header, "%@ ignoring Setup PrimaryRank = %@");
+          *v20 = 138412546;
+          *(v20 + 4) = serviceID;
+          *(v20 + 12) = 2112;
+          *(v20 + 14) = v14;
           __SC_log_send();
         }
 
@@ -7963,9 +7987,9 @@ LABEL_76:
       }
     }
 
-    v22 = CFDictionaryGetValue(a3, @"IPIsCoupled");
-    v23 = CFBooleanGetTypeID();
-    if (v22 && CFGetTypeID(v22) == v23 && CFBooleanGetValue(v22))
+    v21 = CFDictionaryGetValue(a3, @"IPIsCoupled");
+    v22 = CFBooleanGetTypeID();
+    if (v21 && CFGetTypeID(v21) == v22 && CFBooleanGetValue(v21))
     {
       v13 = 1;
     }
@@ -7974,16 +7998,16 @@ LABEL_76:
     if (a2)
     {
 LABEL_28:
-      v24 = CFDictionaryGetValue(a2, kSCPropNetServicePrimaryRank);
-      v25 = CFStringGetTypeID();
-      if (v24 && CFGetTypeID(v24) != v25)
+      v23 = CFDictionaryGetValue(a2, kSCPropNetServicePrimaryRank);
+      v24 = CFStringGetTypeID();
+      if (v23 && CFGetTypeID(v23) != v24)
       {
-        v24 = 0;
+        v23 = 0;
       }
 
-      v26 = CFDictionaryGetValue(a2, @"IPIsCoupled");
-      v27 = CFBooleanGetTypeID();
-      if (v26 && CFGetTypeID(v26) == v27 && CFBooleanGetValue(v26))
+      v25 = CFDictionaryGetValue(a2, @"IPIsCoupled");
+      v26 = CFBooleanGetTypeID();
+      if (v25 && CFGetTypeID(v25) == v26 && CFBooleanGetValue(v25))
       {
         v13 = 1;
       }
@@ -8011,7 +8035,7 @@ LABEL_28:
     }
   }
 
-  v24 = 0;
+  v23 = 0;
   if (v13)
   {
 LABEL_38:
@@ -8020,13 +8044,13 @@ LABEL_38:
   }
 
 LABEL_41:
-  v28 = sub_100010C70(a4, serviceID);
-  if (v28)
+  v27 = sub_100010C70(a4, serviceID);
+  if (v27)
   {
-    NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainState, v28, kSCEntNetLink);
-    v30 = CFDictionaryGetValue(a4, NetworkInterfaceEntity);
+    NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, kSCDynamicStoreDomainState, v27, kSCEntNetLink);
+    v29 = CFDictionaryGetValue(a4, NetworkInterfaceEntity);
     CFRelease(NetworkInterfaceEntity);
-    v12 = sub_10003ED9C(v30);
+    v12 = sub_10003ED9C(v29);
   }
 
   else
@@ -8035,73 +8059,73 @@ LABEL_41:
   }
 
 LABEL_44:
-  if (v14 | v24)
+  if (v14 | v23)
   {
     LOBYTE(value) = 0;
     LOBYTE(valuePtr) = 0;
-    v31 = sub_100040678(v14, &value);
-    v32 = sub_100040678(v24, &valuePtr);
+    v30 = sub_100040678(v14, &value);
+    v31 = sub_100040678(v23, &valuePtr);
     if (value && valuePtr)
     {
-      if (v31 <= v32)
+      if (v30 <= v31)
       {
-        v33 = v32;
+        v32 = v31;
       }
 
       else
       {
-        v33 = v31;
+        v32 = v30;
       }
 
-      v56 = v33;
+      v54 = v32;
       goto LABEL_55;
     }
 
     if (value)
     {
-      v56 = v31;
+      v54 = v30;
 LABEL_55:
-      v34 = 1;
+      v33 = 1;
       goto LABEL_57;
     }
 
     if (valuePtr)
     {
-      v56 = v32;
+      v54 = v31;
       goto LABEL_55;
     }
   }
 
-  v34 = 0;
+  v33 = 0;
 LABEL_57:
-  v35 = sub_100010C70(a4, serviceID);
-  if (v35)
+  v34 = sub_100010C70(a4, serviceID);
+  if (v34)
   {
-    v36 = v35;
+    v35 = v34;
     if (qword_100081A70)
     {
-      v37 = CFDictionaryGetValue(qword_100081A70, v35);
-      if (v37)
+      v36 = CFDictionaryGetValue(qword_100081A70, v34);
+      if (v36)
       {
         LODWORD(value) = 0;
-        if (CFNumberGetValue(v37, kCFNumberSInt32Type, &value))
+        if (CFNumberGetValue(v36, kCFNumberSInt32Type, &value))
         {
           if (value)
           {
             if (value == 1)
             {
-              v38 = 0;
+              v37 = 0;
             }
 
             else
             {
-              v38 = value << 24;
+              v37 = value << 24;
             }
 
-            if (!v34 || v38 > v56)
+            if (!v33 || v37 > v54)
             {
-              v56 = v38;
-              v39 = "Interface";
+              v54 = v37;
+              v38 = "Interface";
 LABEL_70:
               if (!qword_100081998)
               {
@@ -8111,27 +8135,27 @@ LABEL_70:
               _SC_syslog_os_log_mapping();
               if (__SC_log_enabled())
               {
-                v40 = _os_log_pack_size();
-                __chkstk_darwin(v40, v41, v42);
-                v43 = *__error();
-                v44 = _os_log_pack_fill();
-                v45 = v56;
-                v46 = " [coupled]";
-                *v44 = 138413314;
-                *(v44 + 4) = serviceID;
+                v39 = _os_log_pack_size();
+                v40 = v51 - ((__chkstk_darwin(v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+                v41 = __error();
+                v42 = _os_log_pack_fill(v40, v39, *v41, &_mh_execute_header, "serviceID %@ interface %@ rank = 0x%x (source=%s)%s");
+                v43 = v54;
+                v44 = " [coupled]";
+                *v42 = 138413314;
+                *(v42 + 4) = serviceID;
                 if (!v12)
                 {
-                  v46 = "";
+                  v44 = "";
                 }
 
-                *(v44 + 12) = 2112;
-                *(v44 + 14) = v36;
-                *(v44 + 22) = 1024;
-                *(v44 + 24) = v45;
-                *(v44 + 28) = 2080;
-                *(v44 + 30) = v39;
-                *(v44 + 38) = 2080;
-                *(v44 + 40) = v46;
+                *(v42 + 12) = 2112;
+                *(v42 + 14) = v35;
+                *(v42 + 22) = 1024;
+                *(v42 + 24) = v43;
+                *(v42 + 28) = 2080;
+                *(v42 + 30) = v38;
+                *(v42 + 38) = 2080;
+                *(v42 + 40) = v44;
                 __SC_log_send();
               }
 
@@ -8139,41 +8163,41 @@ LABEL_70:
             }
 
 LABEL_69:
-            v39 = "Service";
+            v38 = "Service";
             goto LABEL_70;
           }
         }
       }
     }
 
-    if (v34)
+    if (v33)
     {
       goto LABEL_69;
     }
   }
 
-  v47 = a3 != 0;
-  v48 = v12;
-  if (!a3 && !v34 && !v12)
+  v45 = a3 != 0;
+  v46 = v12;
+  if (!a3 && !v33 && !v12)
   {
     return sub_100010D40(serviceID, kSCEntNetService, 0);
   }
 
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (v34)
+  if (v33)
   {
 LABEL_82:
-    v51 = CFNumberCreate(0, kCFNumberSInt32Type, &v56);
-    CFDictionarySetValue(Mutable, @"RankAssertion", v51);
-    CFRelease(v51);
-    if (!v48)
+    v49 = CFNumberCreate(0, kCFNumberSInt32Type, &v54);
+    CFDictionarySetValue(Mutable, @"RankAssertion", v49);
+    CFRelease(v49);
+    if (!v46)
     {
       goto LABEL_83;
     }
 
 LABEL_86:
     CFDictionarySetValue(Mutable, @"IPIsCoupled", kCFBooleanTrue);
-    if (!v47)
+    if (!v45)
     {
       goto LABEL_88;
     }
@@ -8187,20 +8211,20 @@ LABEL_86:
   }
 
 LABEL_83:
-  if (v47)
+  if (v45)
   {
 LABEL_87:
     CFDictionarySetValue(Mutable, kSCPropNetServiceServiceIndex, a3);
   }
 
 LABEL_88:
-  v50 = sub_100010D40(serviceID, kSCEntNetService, Mutable);
+  v48 = sub_100010D40(serviceID, kSCEntNetService, Mutable);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  return v50;
+  return v48;
 }
 
 const void *sub_100010AB0(const __CFDictionary *a1, uint64_t a2, uint64_t a3, _DWORD *a4)
@@ -8222,10 +8246,10 @@ const void *sub_100010AB0(const __CFDictionary *a1, uint64_t a2, uint64_t a3, _D
     return 0;
   }
 
-  valuePtr = 0;
-  if (CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr))
+  HIDWORD(v15) = 0;
+  if (CFNumberGetValue(Value, kCFNumberSInt32Type, &v15 + 4))
   {
-    v9 = valuePtr <= 0;
+    v9 = SHIDWORD(v15) <= 0;
   }
 
   else
@@ -8244,15 +8268,15 @@ const void *sub_100010AB0(const __CFDictionary *a1, uint64_t a2, uint64_t a3, _D
     if (__SC_log_enabled())
     {
       v10 = _os_log_pack_size();
-      __chkstk_darwin(v10, v11, v12);
-      v13 = *__error();
-      v14 = _os_log_pack_fill();
-      *v14 = 138412802;
-      *(v14 + 4) = a3;
-      *(v14 + 12) = 2112;
-      *(v14 + 14) = a2;
-      *(v14 + 22) = 2112;
-      *(v14 + 24) = Value;
+      v11 = &v15 - ((__chkstk_darwin(v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v12 = __error();
+      v13 = _os_log_pack_fill(v11, v10, *v12, &_mh_execute_header, "%@%@ ServiceIndex %@ is invalid, ignoring");
+      *v13 = 138412802;
+      *(v13 + 4) = a3;
+      *(v13 + 12) = 2112;
+      *(v13 + 14) = a2;
+      *(v13 + 22) = 2112;
+      *(v13 + 24) = Value;
       __SC_log_send();
     }
 
@@ -8261,7 +8285,7 @@ const void *sub_100010AB0(const __CFDictionary *a1, uint64_t a2, uint64_t a3, _D
 
   if (a4)
   {
-    *a4 = valuePtr;
+    *a4 = HIDWORD(v15);
   }
 
   return Value;
@@ -8517,16 +8541,16 @@ LABEL_16:
 
 uint64_t sub_1000112A8(void *a1, const __CFDictionary *a2)
 {
-  v43 = 0;
-  v42 = 0;
+  v39 = 0;
+  v38 = 0;
   v3 = sub_100010FF4(a1, kSCEntNetIPv6);
-  v4 = sub_100011820(v3, &v43, &v42);
-  result = sub_100011820(a2, &v43, &v42);
-  v6 = v42;
-  v7 = v43;
-  if (v42)
+  v4 = sub_100011820(v3, &v39, &v38);
+  result = sub_100011820(a2, &v39, &v38);
+  v6 = v38;
+  v7 = v39;
+  if (v38)
   {
-    v8 = v43 == 0;
+    v8 = v39 == 0;
   }
 
   else
@@ -8564,27 +8588,27 @@ uint64_t sub_1000112A8(void *a1, const __CFDictionary *a2)
         qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
       }
 
-      *__error();
+      __error();
       _SC_syslog_os_log_mapping();
-      *__error();
+      __error();
       result = __SC_log_enabled();
       if (result)
       {
-        v18 = _os_log_pack_size();
-        v41 = &v41;
-        __chkstk_darwin(v18, v19, v20);
-        v21 = *__error();
-        v22 = _os_log_pack_fill();
-        v23 = inet_ntop(30, v4, v44, 0x2Eu);
-        v24 = __error();
-        v25 = strerror(*v24);
-        *v22 = 138412802;
-        *(v22 + 4) = v6;
-        *(v22 + 12) = 2080;
-        *(v22 + 14) = v23;
-        *(v22 + 22) = 2080;
-        *(v22 + 24) = v25;
-        *__error();
+        v17 = _os_log_pack_size();
+        v37 = &v37;
+        v18 = &v37 - ((__chkstk_darwin(v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v19 = __error();
+        v20 = _os_log_pack_fill(v18, v17, *v19, &_mh_execute_header, "siocdrdel_in6(%@, %s) failed: %s");
+        v21 = inet_ntop(30, v4, v40, 0x2Eu);
+        v22 = __error();
+        v23 = strerror(*v22);
+        *v20 = 138412802;
+        *(v20 + 4) = v6;
+        *(v20 + 12) = 2080;
+        *(v20 + 14) = v21;
+        *(v20 + 22) = 2080;
+        *(v20 + 24) = v23;
+        __error();
         goto LABEL_23;
       }
     }
@@ -8601,14 +8625,14 @@ uint64_t sub_1000112A8(void *a1, const __CFDictionary *a2)
       if (result)
       {
         v12 = _os_log_pack_size();
-        __chkstk_darwin(v12, v13, v14);
-        v15 = *__error();
-        v16 = _os_log_pack_fill();
-        v17 = inet_ntop(30, v4, v44, 0x2Eu);
-        *v16 = 138412546;
-        *(v16 + 4) = v6;
-        *(v16 + 12) = 2080;
-        *(v16 + 14) = v17;
+        v13 = &v37 - ((__chkstk_darwin(v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v14 = __error();
+        v15 = _os_log_pack_fill(v13, v12, *v14, &_mh_execute_header, "%@ removed default route %s");
+        v16 = inet_ntop(30, v4, v40, 0x2Eu);
+        *v15 = 138412546;
+        *(v15 + 4) = v6;
+        *(v15 + 12) = 2080;
+        *(v15 + 14) = v16;
 LABEL_23:
         result = __SC_log_send();
       }
@@ -8641,26 +8665,26 @@ LABEL_29:
       qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
     }
 
-    *__error();
+    __error();
     _SC_syslog_os_log_mapping();
-    *__error();
+    __error();
     result = __SC_log_enabled();
     if (result)
     {
-      v33 = _os_log_pack_size();
-      __chkstk_darwin(v33, v34, v35);
-      v36 = *__error();
-      v37 = _os_log_pack_fill();
-      v38 = inet_ntop(30, v9, v44, 0x2Eu);
-      v39 = __error();
-      v40 = strerror(*v39);
-      *v37 = 138412802;
-      *(v37 + 4) = v6;
-      *(v37 + 12) = 2080;
-      *(v37 + 14) = v38;
-      *(v37 + 22) = 2080;
-      *(v37 + 24) = v40;
-      *__error();
+      v30 = _os_log_pack_size();
+      v31 = &v37 - ((__chkstk_darwin(v30) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = __error();
+      v33 = _os_log_pack_fill(v31, v30, *v32, &_mh_execute_header, "siocdradd_in6(%@, %s) failed: %s");
+      v34 = inet_ntop(30, v9, v40, 0x2Eu);
+      v35 = __error();
+      v36 = strerror(*v35);
+      *v33 = 138412802;
+      *(v33 + 4) = v6;
+      *(v33 + 12) = 2080;
+      *(v33 + 14) = v34;
+      *(v33 + 22) = 2080;
+      *(v33 + 24) = v36;
+      __error();
       return __SC_log_send();
     }
   }
@@ -8676,15 +8700,15 @@ LABEL_29:
     result = __SC_log_enabled();
     if (result)
     {
-      v27 = _os_log_pack_size();
-      __chkstk_darwin(v27, v28, v29);
-      v30 = *__error();
-      v31 = _os_log_pack_fill();
-      v32 = inet_ntop(30, v9, v44, 0x2Eu);
-      *v31 = 138412546;
-      *(v31 + 4) = v6;
-      *(v31 + 12) = 2080;
-      *(v31 + 14) = v32;
+      v25 = _os_log_pack_size();
+      v26 = &v37 - ((__chkstk_darwin(v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v27 = __error();
+      v28 = _os_log_pack_fill(v26, v25, *v27, &_mh_execute_header, "%@ added default route %s");
+      v29 = inet_ntop(30, v9, v40, 0x2Eu);
+      *v28 = 138412546;
+      *(v28 + 4) = v6;
+      *(v28 + 12) = 2080;
+      *(v28 + 14) = v29;
       return __SC_log_send();
     }
   }
@@ -8730,7 +8754,7 @@ const UInt8 *sub_1000118D0(const __CFDictionary *a1)
   return CFDataGetBytePtr(Value);
 }
 
-uint64_t sub_100011964(__CFString *a1, const __CFDictionary *a2, const __CFDictionary *a3, const void *a4)
+uint64_t sub_100011964(__CFString *a1, const __CFDictionary *a2, unint64_t a3, const void *a4)
 {
   v46[7] = kSCPropNetDNSSearchDomains;
   v47 = 0;
@@ -9025,7 +9049,7 @@ LABEL_79:
   return v41;
 }
 
-uint64_t sub_100011FB0(__CFString *key, const __CFDictionary *a2, const __CFDictionary *a3, const void *a4)
+uint64_t sub_100011FB0(__CFString *key, const __CFDictionary *a2, unint64_t a3, const void *a4)
 {
   number[1] = kSCPropNetProxiesFTPEnable;
   number[2] = kSCPropNetProxiesFTPProxy;
@@ -9392,7 +9416,7 @@ void *sub_100012838(unsigned int *a1)
   return memcpy(v3, a1, v2 + 40);
 }
 
-_DWORD *sub_100012904(_DWORD *a1, unsigned int a2)
+_DWORD *sub_100012904(_DWORD *a1, int a2)
 {
   if (!a1 && !a2)
   {
@@ -9404,7 +9428,7 @@ _DWORD *sub_100012904(_DWORD *a1, unsigned int a2)
     return a1;
   }
 
-  v5 = 4 * a2 + 224 * a2;
+  v5 = 4 * a2 + 112 * (2 * a2);
   v4 = malloc_type_malloc(v5 + 40, 0x10000404FC79BA4uLL);
   bzero(v4, v5 + 40);
   *v4 = 538379777;
@@ -9610,59 +9634,59 @@ uint64_t sub_100012C98(uint64_t a1, CFDictionaryRef theDict, uint64_t a3)
               *(v35 + 12) = *(v9 + 4);
             }
 
-            v21 = v15 & 0xFF000000;
+            v20 = v15 & 0xFF000000;
             if (dword_100081A68 && !(v33 ^ 0x7070 | BYTE2(v33) ^ 0x70))
             {
-              v21 = 0;
+              v20 = 0;
             }
 
-            DWORD2(v34) = v21 | v14 & 0xFFFFFF;
+            DWORD2(v34) = v20 | v14 & 0xFFFFFF;
             if (!CFStringHasPrefix(v12, @"stf") && !CFStringHasPrefix(v12, @"gif"))
             {
               if (sub_100013248(v32))
               {
-                v23 = 0;
-                v22 = 1;
+                v22 = 0;
+                v21 = 1;
                 goto LABEL_26;
               }
 
               v30 = 0;
               if (*a3 == 2)
               {
-                v29 = 30;
+                v28 = 30;
               }
 
               else
               {
-                v29 = 2;
+                v28 = 2;
               }
 
-              if (!sub_1000132B8(theDict, v29, &v30) || v30 == v15)
+              if (!sub_1000132B8(theDict, v28, &v30) || v30 == v15)
               {
-                v23 = 0;
-                v22 = byte_100081A78 == 0;
+                v22 = 0;
+                v21 = byte_100081A78 == 0;
                 goto LABEL_26;
               }
             }
 
-            v22 = 0;
-            v23 = 1;
+            v21 = 0;
+            v22 = 1;
 LABEL_26:
             *(&v32 + 1) = v12;
-            v24 = sub_100013354(&v33);
-            HIDWORD(v34) = v23;
-            LODWORD(v35[0]) = v22;
-            LODWORD(v34) = v24;
-            DWORD1(v34) = sub_1000134F8(&v33, v24);
-            v25 = *(a3 + 32);
-            v26 = v32;
+            v23 = sub_100013354(&v33);
+            HIDWORD(v34) = v22;
+            LODWORD(v35[0]) = v21;
+            LODWORD(v34) = v23;
+            DWORD1(v34) = sub_1000134F8(&v33, v23);
+            v24 = *(a3 + 32);
+            v25 = v32;
             valuePtr = DWORD2(v34);
-            v27 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-            if (v27)
+            v26 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+            if (v26)
             {
-              v28 = v27;
-              CFDictionarySetValue(v25, v26, v27);
-              CFRelease(v28);
+              v27 = v26;
+              CFDictionarySetValue(v24, v25, v26);
+              CFRelease(v27);
             }
 
             *(&v36 + 1) = sub_1000438CC(v11);
@@ -9679,13 +9703,13 @@ LABEL_26:
           if (result)
           {
             v16 = _os_log_pack_size();
-            __chkstk_darwin(v16, v17, v18);
-            v19 = *__error();
-            v20 = _os_log_pack_fill();
-            *v20 = 136315394;
-            *(v20 + 4) = "elect_ip";
-            *(v20 + 12) = 2112;
-            *(v20 + 14) = v12;
+            v17 = &v29 - ((__chkstk_darwin(v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+            v18 = __error();
+            v19 = _os_log_pack_fill(v17, v16, *v18, &_mh_execute_header, "%s: failed to convert %@ to string\n");
+            *v19 = 136315394;
+            *(v19 + 4) = "elect_ip";
+            *(v19 + 12) = 2112;
+            *(v19 + 14) = v12;
             return __SC_log_send();
           }
         }
@@ -9698,12 +9722,12 @@ LABEL_26:
 
 uint64_t sub_10001304C(const __CFDictionary *a1, const __CFArray *a2, uint64_t a3, const void *a4)
 {
-  v19 = 0xFFFFFF;
-  v7 = sub_100010AB0(a1, a4, &stru_10007C038, &v19);
+  HIDWORD(v18) = 0xFFFFFF;
+  v7 = sub_100010AB0(a1, a4, &stru_10007C038, &v18 + 1);
   if (v7)
   {
     v8 = v7;
-    v19 += a3;
+    HIDWORD(v18) += a3;
     if (!qword_100081998)
     {
       qword_100081998 = os_log_create("com.apple.SystemConfiguration", "IPMonitor");
@@ -9713,26 +9737,26 @@ uint64_t sub_10001304C(const __CFDictionary *a1, const __CFArray *a2, uint64_t a
     if (__SC_log_enabled())
     {
       v9 = _os_log_pack_size();
-      __chkstk_darwin(v9, v10, v11);
-      v12 = *__error();
-      v13 = _os_log_pack_fill();
-      v14 = v19;
-      *v13 = 138412802;
-      *(v13 + 4) = a4;
-      *(v13 + 12) = 2112;
-      *(v13 + 14) = v8;
-      *(v13 + 22) = 1024;
-      *(v13 + 24) = v14;
+      v10 = &v18 - ((__chkstk_darwin(v9) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v11 = __error();
+      v12 = _os_log_pack_fill(v10, v9, *v11, &_mh_execute_header, "%@ specifies ServiceIndex %@, effective index is %u");
+      v13 = HIDWORD(v18);
+      *v12 = 138412802;
+      *(v12 + 4) = a4;
+      *(v12 + 12) = 2112;
+      *(v12 + 14) = v8;
+      *(v12 + 22) = 1024;
+      *(v12 + 24) = v13;
       __SC_log_send();
     }
   }
 
   else if (a3 >= 1 && a2 && a4)
   {
-    v15 = 0;
+    v14 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(a2, v15);
+      ValueAtIndex = CFArrayGetValueAtIndex(a2, v14);
       TypeID = CFStringGetTypeID();
       if (ValueAtIndex)
       {
@@ -9742,14 +9766,14 @@ uint64_t sub_10001304C(const __CFDictionary *a1, const __CFArray *a2, uint64_t a
         }
       }
 
-      if (a3 == ++v15)
+      if (a3 == ++v14)
       {
-        return v19;
+        return HIDWORD(v18);
       }
     }
 
-    return (v15 + 1);
+    HIDWORD(v18) = v14 + 1;
   }
 
-  return v19;
+  return HIDWORD(v18);
 }

@@ -1,8 +1,8 @@
 @interface MAAsset(SUS)
 - (id)isEmergencyUpdate;
 - (uint64_t)cancelDownload;
-- (uint64_t)cancelDownloadIfNecessary;
 - (uint64_t)purge;
+- (void)cancelDownloadIfNecessary;
 - (void)cleanupAsset;
 @end
 
@@ -46,7 +46,7 @@
   return result;
 }
 
-- (uint64_t)cancelDownloadIfNecessary
+- (void)cancelDownloadIfNecessary
 {
   result = [self isDownloading];
   if (result)

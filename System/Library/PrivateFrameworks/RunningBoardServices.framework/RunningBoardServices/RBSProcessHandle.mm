@@ -34,7 +34,6 @@
 - (void)_fullEncode:(uint64_t)encode;
 - (void)_keepAlive;
 - (void)dealloc;
-- (void)elapsedCPUTimeForFrontBoard;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 - (void)fullEncode:(id)encode forKey:(id)key;
 - (void)intendToExitWith:(id)with;
@@ -105,7 +104,7 @@
   result = self->_bsAuditToken;
   if (result)
   {
-    return [($115C4C562B26FF47E01F9F4EA65B5887 *)result realToken];
+    return objc_msgSend_realToken(result, a3);
   }
 
   *retstr->var0 = 0u;
@@ -174,7 +173,7 @@ void __27__RBSProcessHandle_dealloc__block_invoke(uint64_t a1)
 {
   if ((self->_data & 0x4000000000000000) == 0)
   {
-    v2 = rbs_process_log();
+    v2 = rbs_process_log(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [RBSProcessHandle elapsedCPUTimeForFrontBoard];
@@ -206,9 +205,9 @@ LABEL_15:
   }
 
   port = [(RBSMachPortTaskNameRight *)taskPort port];
-  if (port - 1 > 0xFFFFFFFD)
+  if ((port - 1) > 0xFFFFFFFD)
   {
-    v2 = rbs_process_log();
+    v2 = rbs_process_log(port);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       [RBSProcessHandle elapsedCPUTimeForFrontBoard];
@@ -219,15 +218,16 @@ LABEL_15:
 
   v12 = port;
   *task_info_out = 0u;
-  memset(v30, 0, 24);
+  memset(v32, 0, 24);
   task_info_outCnt = 10;
   if (task_info(port, 0x12u, task_info_out, &task_info_outCnt))
   {
-    v13 = 0.0;
-    if (RBSPIDExists(self->_pid))
+    v13 = RBSPIDExists(self->_pid);
+    v14 = 0.0;
+    if (v13)
     {
-      v14 = rbs_process_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = rbs_process_log(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [RBSProcessHandle elapsedCPUTimeForFrontBoard];
       }
@@ -236,24 +236,25 @@ LABEL_15:
 
   else
   {
-    v16 = vmovn_s64(*(v30 + 4));
-    v17 = vshrn_n_s64(*(v30 + 4), 0x20uLL);
-    v18.i64[0] = v16.i32[0];
-    v18.i64[1] = v16.i32[1];
-    v19 = vcvtq_f64_s64(v18);
-    v18.i64[0] = v17.i32[0];
-    v18.i64[1] = v17.i32[1];
-    v13 = vaddvq_f64(vaddq_f64(vdivq_f64(vcvtq_f64_s64(v18), vdupq_n_s64(0x412E848000000000uLL)), v19));
+    v17 = vmovn_s64(*(v32 + 4));
+    v18 = vshrn_n_s64(*(v32 + 4), 0x20uLL);
+    v19.i64[0] = v17.i32[0];
+    v19.i64[1] = v17.i32[1];
+    v20 = vcvtq_f64_s64(v19);
+    v19.i64[0] = v18.i32[0];
+    v19.i64[1] = v18.i32[1];
+    v14 = vaddvq_f64(vaddq_f64(vdivq_f64(vcvtq_f64_s64(v19), vdupq_n_s64(0x412E848000000000uLL)), v20));
   }
 
-  memset(v27, 0, sizeof(v27));
-  v26 = 4;
-  if (task_info(v12, 3u, v27, &v26))
+  memset(v29, 0, sizeof(v29));
+  v28 = 4;
+  if (task_info(v12, 3u, v29, &v28))
   {
-    if (RBSPIDExists(self->_pid))
+    v21 = RBSPIDExists(self->_pid);
+    if (v21)
     {
-      v20 = rbs_process_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = rbs_process_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [RBSProcessHandle elapsedCPUTimeForFrontBoard];
       }
@@ -262,18 +263,18 @@ LABEL_15:
 
   else
   {
-    v21 = vmovn_s64(*v27);
-    v22 = vshrn_n_s64(*v27, 0x20uLL);
-    v23.i64[0] = v21.i32[0];
-    v23.i64[1] = v21.i32[1];
-    v24 = vcvtq_f64_s64(v23);
-    v23.i64[0] = v22.i32[0];
-    v23.i64[1] = v22.i32[1];
-    v25 = vaddq_f64(vdivq_f64(vcvtq_f64_s64(v23), vdupq_n_s64(0x412E848000000000uLL)), v24);
-    return v13 + v25.f64[0] + v25.f64[1];
+    v23 = vmovn_s64(*v29);
+    v24 = vshrn_n_s64(*v29, 0x20uLL);
+    v25.i64[0] = v23.i32[0];
+    v25.i64[1] = v23.i32[1];
+    v26 = vcvtq_f64_s64(v25);
+    v25.i64[0] = v24.i32[0];
+    v25.i64[1] = v24.i32[1];
+    v27 = vaddq_f64(vdivq_f64(vcvtq_f64_s64(v25), vdupq_n_s64(0x412E848000000000uLL)), v26);
+    return v14 + v27.f64[0] + v27.f64[1];
   }
 
-  return v13;
+  return v14;
 }
 
 - (NSString)description
@@ -301,11 +302,11 @@ LABEL_15:
 {
   objc_opt_self();
   os_unfair_lock_lock(&__Lock_0);
-  v0 = rbs_process_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v3 = rbs_process_log(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_18E8AD000, v0, OS_LOG_TYPE_DEFAULT, "Removing all cached process handles", v1, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_18E8AD000, v3, OS_LOG_TYPE_DEFAULT, "Removing all cached process handles", v4, 2u);
   }
 
   [__ProcessHandles removeAllObjects];
@@ -412,7 +413,7 @@ LABEL_5:
 
 + (void)_handleForIdentifier:(int)identifier pidVersion:(int)version ignoreCache:(void *)cache error:
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v8 = a2;
   v9 = objc_opt_self();
   rbs_pid = [v8 rbs_pid];
@@ -458,15 +459,16 @@ LABEL_11:
 
     else
     {
-      [v17 auditToken];
-      if (audit_token_to_pidversion(&atoken) != identifier)
+      objc_msgSend_auditToken(v17);
+      v21 = audit_token_to_pidversion(&atoken);
+      if (v21 != identifier)
       {
-        v24 = rbs_process_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v25 = rbs_process_log(v21);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           atoken.val[0] = 138412290;
           *&atoken.val[1] = v17;
-          _os_log_impl(&dword_18E8AD000, v24, OS_LOG_TYPE_DEFAULT, "Found different PID versions for handle in local process cache, now trying to fetch new handle %@", &atoken, 0xCu);
+          _os_log_impl(&dword_18E8AD000, v25, OS_LOG_TYPE_DEFAULT, "Found different PID versions for handle in local process cache, now trying to fetch new handle %@", &atoken, 0xCu);
         }
 
         v15 = 1;
@@ -477,23 +479,23 @@ LABEL_11:
     }
 
 LABEL_12:
-    if (v15 && v17 && ([v17 auditToken], audit_token_to_pidversion(&atoken) != identifier))
+    if (v15 && v17 && (objc_msgSend_auditToken(v17), v18 = audit_token_to_pidversion(&atoken), v18 != identifier))
     {
-      v21 = rbs_process_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = rbs_process_log(v18);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         atoken.val[0] = 138412290;
         *&atoken.val[1] = v17;
-        _os_log_impl(&dword_18E8AD000, v21, OS_LOG_TYPE_DEFAULT, "handle %@ has mismatched pid version", &atoken, 0xCu);
+        _os_log_impl(&dword_18E8AD000, v22, OS_LOG_TYPE_DEFAULT, "handle %@ has mismatched pid version", &atoken, 0xCu);
       }
 
       if (cache)
       {
-        v22 = MEMORY[0x1E696ABC0];
-        v25 = *MEMORY[0x1E696A588];
-        v26 = @" process has mismatched pid version";
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-        *cache = [v22 errorWithDomain:@"RBSRequestErrorDomain" code:3 userInfo:v23];
+        v23 = MEMORY[0x1E696ABC0];
+        v26 = *MEMORY[0x1E696A588];
+        v27 = @" process has mismatched pid version";
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        *cache = [v23 errorWithDomain:@"RBSRequestErrorDomain" code:3 userInfo:v24];
 
         cache = 0;
       }
@@ -510,17 +512,15 @@ LABEL_12:
   if (cache)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A588];
-    v29[0] = @"Invalid process identifier";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v29 = *MEMORY[0x1E696A588];
+    v30[0] = @"Invalid process identifier";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     *cache = [v13 errorWithDomain:@"RBSRequestErrorDomain" code:1 userInfo:v14];
 
     cache = 0;
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return cache;
 }
@@ -588,7 +588,7 @@ LABEL_17:
 
   if (v5)
   {
-    v6 = rbs_process_log();
+    v6 = rbs_process_log(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[RBSProcessHandle _cacheHandle:];
@@ -611,7 +611,7 @@ LABEL_17:
     v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v3];
     v13 = [__ProcessHandles objectForKey:v12];
     v14 = v13;
-    if (v13 && ([v13 auditToken], v15 = audit_token_to_pidversion(&v18), objc_msgSend(v2, "auditToken"), v15 == audit_token_to_pidversion(&v18)))
+    if (v13 && (objc_msgSend_auditToken(v13), v15 = audit_token_to_pidversion(&v18), objc_msgSend_auditToken(v2), v15 == audit_token_to_pidversion(&v18)))
     {
       [__ProcessHandles objectForKey:v12];
       v2 = v16 = v2;
@@ -645,41 +645,40 @@ LABEL_17:
 {
   v13 = *MEMORY[0x1E69E9840];
   deathCopy = death;
+  v5 = deathCopy;
   if ((self->_data & 0x4000000000000000) != 0)
   {
-    v5 = rbs_process_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = rbs_process_log(deathCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_18E8AD000, v5, OS_LOG_TYPE_DEFAULT, "Starting death monitoring for handle %@", buf, 0xCu);
+      _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "Starting death monitoring for handle %@", buf, 0xCu);
     }
 
-    v6 = +[RBSConnection sharedInstance];
-    v7 = [RBSProcessIdentifier identifierWithPid:self->_pid];
+    v7 = +[RBSConnection sharedInstance];
+    v8 = [RBSProcessIdentifier identifierWithPid:self->_pid];
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
     v9[2] = __36__RBSProcessHandle_monitorForDeath___block_invoke;
     v9[3] = &unk_1E7276968;
     v9[4] = self;
-    v10 = deathCopy;
-    [v6 subscribeToProcessDeath:v7 handler:v9];
+    v10 = v5;
+    [v7 subscribeToProcessDeath:v8 handler:v9];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __36__RBSProcessHandle_monitorForDeath___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = rbs_process_log();
+  v4 = rbs_process_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "Calling process death completion block for handle %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_18E8AD000, v4, OS_LOG_TYPE_DEFAULT, "Calling process death completion block for handle %@", &v10, 0xCu);
   }
 
   v8 = a1 + 32;
@@ -695,24 +694,23 @@ void __36__RBSProcessHandle_monitorForDeath___block_invoke(uint64_t a1, void *a2
     v9 = objc_alloc_init(RBSProcessExitContext);
     (*(v7 + 16))(v7, v6, v9);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)intendToExitWith:(id)with
 {
   withCopy = with;
+  v5 = withCopy;
   if ((self->_data & 0x4000000000000000) != 0)
   {
-    v6 = +[RBSConnection sharedInstance];
+    v7 = +[RBSConnection sharedInstance];
     instance = [(RBSProcessHandle *)self instance];
-    [v6 intendToExit:instance withStatus:withCopy];
+    [v7 intendToExit:instance withStatus:v5];
   }
 
   else
   {
-    v5 = rbs_general_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = rbs_general_log(withCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [RBSProcessHandle intendToExitWith:];
     }
@@ -792,7 +790,7 @@ LABEL_3:
     v20->_pid = [instanceCopy rbs_pid];
     if (tokenCopy)
     {
-      [tokenCopy realToken];
+      objc_msgSend_realToken(tokenCopy);
     }
 
     else
@@ -806,7 +804,7 @@ LABEL_3:
       v27 = MEMORY[0x1E698E628];
       if (tokenCopy)
       {
-        [tokenCopy realToken];
+        objc_msgSend_realToken(tokenCopy);
       }
 
       else
@@ -861,7 +859,7 @@ LABEL_3:
 + (id)handleForKey:(unint64_t)key fetchIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
   v7 = [RBSProcessHandle _cachedHandleForKey:v6];
   if (v7)
@@ -879,14 +877,14 @@ LABEL_3:
     v9 = +[RBSConnection sharedInstance];
     v10 = [v9 handleForKey:v6];
 
-    v11 = rbs_process_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = rbs_process_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218242;
+      v15 = 134218242;
       keyCopy = key;
-      v16 = 2114;
-      v17 = v10;
-      _os_log_impl(&dword_18E8AD000, v11, OS_LOG_TYPE_DEFAULT, "Hit the server for a process handle %llx that resolved to: %{public}@", &v14, 0x16u);
+      v17 = 2114;
+      v18 = v10;
+      _os_log_impl(&dword_18E8AD000, v12, OS_LOG_TYPE_DEFAULT, "Hit the server for a process handle %llx that resolved to: %{public}@", &v15, 0x16u);
     }
 
     if (v10)
@@ -896,7 +894,7 @@ LABEL_3:
 
     else
     {
-      v10 = rbs_process_log();
+      v10 = rbs_process_log(v13);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         +[RBSProcessHandle handleForKey:fetchIfNeeded:];
@@ -905,8 +903,6 @@ LABEL_3:
       v7 = 0;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1082,10 +1078,10 @@ LABEL_7:
 
   else
   {
-    v8 = rbs_process_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = rbs_process_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(RBSProcessHandle *)&self->_data encodeWithRBSXPCCoder:v8];
+      [(RBSProcessHandle *)&self->_data encodeWithRBSXPCCoder:v9];
     }
 
     [coderCopy encodeUInt64:self->_data & 0x1FFFFFFFFFFFFFFFLL forKey:@"&"];
@@ -1099,7 +1095,7 @@ LABEL_7:
   if (v5)
   {
     v6 = v5;
-    v7 = rbs_process_log();
+    v7 = rbs_process_log(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [(RBSProcessHandle *)v6 initWithRBSXPCCoder:v7];
@@ -1164,7 +1160,7 @@ LABEL_7:
 
 - (void)_fullEncode:(uint64_t)encode
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (encode)
@@ -1177,18 +1173,18 @@ LABEL_7:
 
     else
     {
-      v6 = rbs_general_log();
+      v6 = rbs_general_log(v3);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(encode + 48);
         v8 = *(encode + 64);
-        v11 = 138412802;
+        v10 = 138412802;
         encodeCopy = encode;
-        v13 = 2048;
-        v14 = v7;
-        v15 = 1024;
-        v16 = v8;
-        _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "Full encoding handle %@, with data %llx, and pid %d", &v11, 0x1Cu);
+        v12 = 2048;
+        v13 = v7;
+        v14 = 1024;
+        v15 = v8;
+        _os_log_impl(&dword_18E8AD000, v6, OS_LOG_TYPE_DEFAULT, "Full encoding handle %@, with data %llx, and pid %d", &v10, 0x1Cu);
       }
 
       [v4 encodeObject:*(encode + 72) forKey:@"_identity"];
@@ -1206,8 +1202,6 @@ LABEL_7:
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (_DWORD)_initWithIdentity:(void *)identity beforeTranslocationBundlePath:(void *)path executablePath:
@@ -1249,14 +1243,6 @@ LABEL_7:
   return v8;
 }
 
-+ (void)_cacheHandle:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 - (void)initWithInstance:auditToken:bundleData:manageFlags:beforeTranslocationBundlePath:executablePath:cache:.cold.1()
 {
   OUTLINED_FUNCTION_1();
@@ -1273,22 +1259,6 @@ LABEL_7:
   [v0 handleFailureInMethod:@"auditToken" object:? file:? lineNumber:? description:?];
 }
 
-+ (void)handleForKey:fetchIfNeeded:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)elapsedCPUTimeForFrontBoard
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 + (void)observeForImminentAssertionsExpiration:.cold.1()
 {
   OUTLINED_FUNCTION_1();
@@ -1299,21 +1269,19 @@ LABEL_7:
 
 - (void)encodeWithRBSXPCCoder:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1 & 0x1FFFFFFFFFFFFFFFLL;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_DEBUG, "Encoding RBSProcessHandle with IPC ID %llx", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_DEBUG, "Encoding RBSProcessHandle with IPC ID %llx", &v3, 0xCu);
 }
 
 - (void)initWithRBSXPCCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_DEBUG, "Decoded RBSProcessHandle with IPC ID %llx", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_18E8AD000, a2, OS_LOG_TYPE_DEBUG, "Decoded RBSProcessHandle with IPC ID %llx", &v2, 0xCu);
 }
 
 - (void)initWithRBSXPCCoder:.cold.2()

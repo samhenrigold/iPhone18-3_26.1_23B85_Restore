@@ -1,2689 +1,3 @@
-void health::FormatImplementation<unsigned long &,long long &,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
-{
-  v34 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v34 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    ++v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 + v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v34 = &v11->__r_.__value_.__s.__data_[2];
-    v25 = v11->__r_.__value_.__s.__data_[2];
-    if ((v25 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v26 = 0;
-      v27 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v34 = v27;
-        v26 = (v25 & 0xF) + 10 * v26;
-        v28 = *v27++;
-        LOBYTE(v25) = v28;
-      }
-
-      while ((v28 - 58) >= 0xFFFFFFF6);
-      v34 = v27;
-      if (*(v27 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,unsigned long &,long long &,int &,char *>::formatOptionsAtIndex<unsigned long &,long long &,int &,char *>(v26);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_70;
-  }
-
-  health::FormatOptions::FormatOptions(&v30, &v34);
-  v13 = v34;
-  if (*(&v30 + 1) > 1)
-  {
-    if (*(&v30 + 1) == 2)
-    {
-      health::TypeFormatter<int &,void>::TypeFormatter(&__p, a4[1], &v30);
-      v23 = BYTE7(v37);
-      if (SBYTE7(v37) < 0)
-      {
-        v23 = v36;
-      }
-
-      v24 = *(&v31 + 1);
-      if (*(&v31 + 1) <= v23)
-      {
-        v24 = v23;
-      }
-
-      if (v31)
-      {
-        v23 = v24;
-      }
-
-      health::FormatImplementation<unsigned long &,long long &,int &,char *>(v13, a2, &v23[a3 + v9], a4);
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v16 = a2;
-      }
-
-      else
-      {
-        v16 = a2->__r_.__value_.__r.__words[0];
-      }
-
-      goto LABEL_58;
-    }
-
-    if (*(&v30 + 1) != 3)
-    {
-      goto LABEL_71;
-    }
-
-    v17 = **a4;
-    __p = v17;
-    if (v17)
-    {
-      v17 = strlen(v17);
-    }
-
-    v36 = v17;
-    v37 = v30;
-    v38 = v31;
-    v39 = v32;
-    v40 = v33;
-    v18 = *(&v31 + 1);
-    if (*(&v31 + 1) <= v17)
-    {
-      v18 = v17;
-    }
-
-    if (v31)
-    {
-      v19 = v18;
-    }
-
-    else
-    {
-      v19 = v17;
-    }
-
-    health::FormatImplementation<unsigned long &,long long &,int &,char *>(v34, a2, &v19[a3 + v9], a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = a2;
-    }
-
-    else
-    {
-      v20 = a2->__r_.__value_.__r.__words[0];
-    }
-
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v30, &v20[a3 + v9], &__p);
-  }
-
-  else
-  {
-    if (*(&v30 + 1))
-    {
-      if (*(&v30 + 1) == 1)
-      {
-        health::TypeFormatter<long long &,void>::TypeFormatter(&__p, a4[2], &v30);
-        v14 = BYTE7(v37);
-        if (SBYTE7(v37) < 0)
-        {
-          v14 = v36;
-        }
-
-        v15 = *(&v31 + 1);
-        if (*(&v31 + 1) <= v14)
-        {
-          v15 = v14;
-        }
-
-        if (v31)
-        {
-          v14 = v15;
-        }
-
-        health::FormatImplementation<unsigned long &,long long &,int &,char *>(v13, a2, &v14[a3 + v9], a4);
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v16 = a2;
-        }
-
-        else
-        {
-          v16 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        goto LABEL_58;
-      }
-
-LABEL_71:
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_70:
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-
-    health::TypeFormatter<unsigned long &,void>::TypeFormatter(&__p, a4[3], &v30);
-    v21 = BYTE7(v37);
-    if (SBYTE7(v37) < 0)
-    {
-      v21 = v36;
-    }
-
-    v22 = *(&v31 + 1);
-    if (*(&v31 + 1) <= v21)
-    {
-      v22 = v21;
-    }
-
-    if (v31)
-    {
-      v21 = v22;
-    }
-
-    health::FormatImplementation<unsigned long &,long long &,int &,char *>(v13, a2, &v21[a3 + v9], a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v16 = a2;
-    }
-
-    else
-    {
-      v16 = a2->__r_.__value_.__r.__words[0];
-    }
-
-LABEL_58:
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v30, &v16[a3 + v9], &__p);
-    if (SBYTE7(v37) < 0)
-    {
-      operator delete(__p);
-    }
-  }
-
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,unsigned long &,long long &,int &,char *>::formatOptionsAtIndex<unsigned long &,long long &,int &,char *>(uint64_t a1)
-{
-  if (!a1 || a1 == 1 || a1 == 2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  else
-  {
-    v3 = __cxa_allocate_exception(0x10uLL);
-    exception = v3;
-    if (a1 == 3)
-    {
-      std::runtime_error::runtime_error(v3, "Requested parameter is not an FormatOptions instance.");
-    }
-
-    else
-    {
-      std::runtime_error::runtime_error(v3, "Parameter index out of bounds.");
-    }
-  }
-
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-uint64_t health::TypeFormatter<unsigned long &,void>::TypeFormatter(uint64_t a1, void *a2, uint64_t a3)
-{
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
-  v6 = v16;
-  if (*(a3 + 16) == 1)
-  {
-    *(v19 + *(v16 - 24)) = *(a3 + 24);
-  }
-
-  if (*(a3 + 32) == 1)
-  {
-    *(&v18 + *(v6 - 24)) = *(a3 + 40);
-  }
-
-  v7 = (&v16 + *(v6 - 24));
-  v8 = *(a3 + 52);
-  if (v7[1].__fmtflags_ == -1)
-  {
-    std::ios_base::getloc(v7);
-    v9 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
-    (v9->__vftable[2].~facet_0)(v9, 32);
-    std::locale::~locale(&v14);
-  }
-
-  v7[1].__fmtflags_ = v8;
-  MEMORY[0x22AAC83C0](&v16, *a2);
-  if ((v24 & 0x10) != 0)
-  {
-    v11 = v23;
-    if (v23 < v20)
-    {
-      v23 = v20;
-      v11 = v20;
-    }
-
-    v12 = v19[3];
-  }
-
-  else
-  {
-    if ((v24 & 8) == 0)
-    {
-      v10 = 0;
-      HIBYTE(v15) = 0;
-      goto LABEL_20;
-    }
-
-    v12 = v19[0];
-    v11 = v19[2];
-  }
-
-  v10 = v11 - v12;
-  if (v11 - v12 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v10 >= 0x17)
-  {
-    operator new();
-  }
-
-  HIBYTE(v15) = v11 - v12;
-  if (v10)
-  {
-    memmove(&v14, v12, v10);
-  }
-
-LABEL_20:
-  *(&v14 + v10) = 0;
-  if (*(a1 + 23) < 0)
-  {
-    operator delete(*a1);
-  }
-
-  *a1 = v14;
-  *(a1 + 16) = v15;
-  v16 = *MEMORY[0x277D82828];
-  *(&v16 + *(v16 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v17 = MEMORY[0x277D82878] + 16;
-  if (v22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  v17 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(&v18);
-  std::ostream::~ostream();
-  MEMORY[0x22AAC8550](&v25);
-  return a1;
-}
-
-void sub_228FCEF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
-{
-  std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
-  {
-    operator delete(*v12);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::__shared_ptr_emplace<health::POSIXMappedFileExtent>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_283BF1D58;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x22AAC8590);
-}
-
-void health::FormatImplementation<long long &,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
-{
-  v32 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v32 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    ++v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 + v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v32 = &v11->__r_.__value_.__s.__data_[2];
-    v23 = v11->__r_.__value_.__s.__data_[2];
-    if ((v23 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v24 = 0;
-      v25 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v32 = v25;
-        v24 = (v23 & 0xF) + 10 * v24;
-        v26 = *v25++;
-        LOBYTE(v23) = v26;
-      }
-
-      while ((v26 - 58) >= 0xFFFFFFF6);
-      v32 = v25;
-      if (*(v25 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,long long &,int &,char *>::formatOptionsAtIndex<long long &,int &,char *>(v24);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_59;
-  }
-
-  health::FormatOptions::FormatOptions(&v28, &v32);
-  v13 = v32;
-  if (*(&v28 + 1))
-  {
-    if (*(&v28 + 1) != 1)
-    {
-      if (*(&v28 + 1) == 2)
-      {
-        v14 = **a4;
-        __p = v14;
-        if (v14)
-        {
-          v14 = strlen(v14);
-        }
-
-        v34 = v14;
-        v35 = v28;
-        v36 = v29;
-        v37 = v30;
-        v38 = v31;
-        v15 = *(&v29 + 1);
-        if (*(&v29 + 1) <= v14)
-        {
-          v15 = v14;
-        }
-
-        if (v29)
-        {
-          v16 = v15;
-        }
-
-        else
-        {
-          v16 = v14;
-        }
-
-        health::FormatImplementation<long long &,int &,char *>(v32, a2, &v16[a3 + v9], a4);
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v17 = a2;
-        }
-
-        else
-        {
-          v17 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v28, &v17[a3 + v9], &__p);
-        goto LABEL_49;
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_59:
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-
-    health::TypeFormatter<int &,void>::TypeFormatter(&__p, a4[1], &v28);
-    v18 = BYTE7(v35);
-    if (SBYTE7(v35) < 0)
-    {
-      v18 = v34;
-    }
-
-    v19 = *(&v29 + 1);
-    if (*(&v29 + 1) <= v18)
-    {
-      v19 = v18;
-    }
-
-    if (v29)
-    {
-      v18 = v19;
-    }
-
-    health::FormatImplementation<long long &,int &,char *>(v13, a2, &v18[a3 + v9], a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = a2;
-    }
-
-    else
-    {
-      v20 = a2->__r_.__value_.__r.__words[0];
-    }
-  }
-
-  else
-  {
-    health::TypeFormatter<long long &,void>::TypeFormatter(&__p, a4[2], &v28);
-    v21 = BYTE7(v35);
-    if (SBYTE7(v35) < 0)
-    {
-      v21 = v34;
-    }
-
-    v22 = *(&v29 + 1);
-    if (*(&v29 + 1) <= v21)
-    {
-      v22 = v21;
-    }
-
-    if (v29)
-    {
-      v21 = v22;
-    }
-
-    health::FormatImplementation<long long &,int &,char *>(v13, a2, &v21[a3 + v9], a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = a2;
-    }
-
-    else
-    {
-      v20 = a2->__r_.__value_.__r.__words[0];
-    }
-  }
-
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, &v20[a3 + v9], &__p);
-  if (SBYTE7(v35) < 0)
-  {
-    operator delete(__p);
-  }
-
-LABEL_49:
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,long long &,int &,char *>::formatOptionsAtIndex<long long &,int &,char *>(uint64_t a1)
-{
-  if (a1 && a1 != 1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    v2 = exception;
-    if (a1 == 2)
-    {
-      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-    }
-
-    else
-    {
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-    }
-  }
-
-  else
-  {
-    v2 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatImplementation<int const&,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
-{
-  v55 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v55 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    ++v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 + v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v55 = &v11->__r_.__value_.__s.__data_[2];
-    v45 = v11->__r_.__value_.__s.__data_[2];
-    if ((v45 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v46 = 0;
-      v47 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v55 = v47;
-        v46 = (v45 & 0xF) + 10 * v46;
-        v48 = *v47++;
-        LOBYTE(v45) = v48;
-      }
-
-      while ((v48 - 58) >= 0xFFFFFFF6);
-      v55 = v47;
-      if (*(v47 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,int const&,int &,char *>::formatOptionsAtIndex<int const&,int &,char *>(v46);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_125;
-  }
-
-  health::FormatOptions::FormatOptions(&v51, &v55);
-  v13 = v55;
-  if (!*(&v51 + 1))
-  {
-    v22 = *(a4 + 16);
-    __p[1] = 0;
-    v57 = 0;
-    __p[0] = 0;
-    std::ostringstream::basic_ostringstream[abi:ne200100](&v60);
-    v23 = v60;
-    if (v52 == 1)
-    {
-      *(&v62 + *(v60 - 3) + 8) = *(&v52 + 1);
-    }
-
-    v50 = v13;
-    if (v53 == 1)
-    {
-      *(&v62 + *(v23 - 24)) = *(&v53 + 1);
-    }
-
-    v24 = (&v60 + *(v23 - 24));
-    v25 = SLOBYTE(__c[1]);
-    if (v24[1].__fmtflags_ == -1)
-    {
-      std::ios_base::getloc(v24);
-      v26 = std::locale::use_facet(__dst, MEMORY[0x277D82680]);
-      (v26->__vftable[2].~facet_0)(v26, 32);
-      std::locale::~locale(__dst);
-    }
-
-    v24[1].__fmtflags_ = v25;
-    MEMORY[0x22AAC83A0](&v60, *v22);
-    if ((v69 & 0x10) != 0)
-    {
-      v28 = v68;
-      if (v68 < *(&__src + 1))
-      {
-        v68 = *(&__src + 1);
-        v28 = *(&__src + 1);
-      }
-
-      v29 = __src;
-    }
-
-    else
-    {
-      if ((v69 & 8) == 0)
-      {
-        v27 = 0;
-        HIBYTE(v59) = 0;
-        goto LABEL_59;
-      }
-
-      v29 = *(&v62 + 1);
-      v28 = *(&v63 + 1);
-    }
-
-    v27 = v28 - v29;
-    if (v28 - v29 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    if (v27 >= 0x17)
-    {
-      operator new();
-    }
-
-    HIBYTE(v59) = v28 - v29;
-    if (v27)
-    {
-      memmove(__dst, v29, v27);
-    }
-
-LABEL_59:
-    *(&__dst[0].__locale_ + v27) = 0;
-    if (SHIBYTE(v57) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    *__p = *&__dst[0].__locale_;
-    v57 = v59;
-    v60 = *MEMORY[0x277D82828];
-    *(&v60 + *(v60 - 3)) = *(MEMORY[0x277D82828] + 24);
-    v61 = MEMORY[0x277D82878] + 16;
-    if (v67 < 0)
-    {
-      operator delete(v66);
-    }
-
-    v61 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(&v62);
-    std::ostream::~ostream();
-    MEMORY[0x22AAC8550](&v70);
-    v30 = SHIBYTE(v57);
-    if (v57 >= 0)
-    {
-      v31 = HIBYTE(v57);
-    }
-
-    else
-    {
-      v31 = __p[1];
-    }
-
-    v32 = *(&v52 + 1);
-    if (*(&v52 + 1) <= v31)
-    {
-      v32 = v31;
-    }
-
-    if (v52)
-    {
-      v33 = v32;
-    }
-
-    else
-    {
-      v33 = v31;
-    }
-
-    health::FormatImplementation<int const&,int &,char *>(v50, a2, v33 + a3 + v9, a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v34 = a2;
-    }
-
-    else
-    {
-      v34 = a2->__r_.__value_.__r.__words[0];
-    }
-
-    v35 = v34 + a3 + v9;
-    if (v52 == 1)
-    {
-      v36 = *(&v52 + 1) - v31;
-      if (*(&v52 + 1) > v31)
-      {
-        if (v51)
-        {
-          if (v51 != 1)
-          {
-            if (v51 != 2 || (memset(v35, LOBYTE(__c[1]), *(&v52 + 1) - v31), !v31))
-            {
-LABEL_90:
-              if ((v30 & 0x80000000) == 0)
-              {
-                goto LABEL_93;
-              }
-
-              goto LABEL_91;
-            }
-
-            if (v30 >= 0)
-            {
-              v37 = __p;
-            }
-
-            else
-            {
-              v37 = __p[0];
-            }
-
-            v38 = &v35[v36];
-LABEL_89:
-            memmove(v38, v37, v31);
-            goto LABEL_90;
-          }
-
-          if (v36 >= 2)
-          {
-            if (v36 >> 1 <= 1)
-            {
-              v39 = 1;
-            }
-
-            else
-            {
-              v39 = v36 >> 1;
-            }
-
-            memset(v35, LOBYTE(__c[1]), v39);
-            v35 += v39;
-          }
-
-          if (v31)
-          {
-            if (v30 >= 0)
-            {
-              v40 = __p;
-            }
-
-            else
-            {
-              v40 = __p[0];
-            }
-
-            memmove(v35, v40, v31);
-          }
-
-          if (v36 - (v36 >> 1) <= 1)
-          {
-            v41 = 1;
-          }
-
-          else
-          {
-            v41 = v36 - (v36 >> 1);
-          }
-
-          v42 = LOBYTE(__c[1]);
-          v43 = &v35[v31];
-        }
-
-        else
-        {
-          if (v31)
-          {
-            if (v30 >= 0)
-            {
-              v44 = __p;
-            }
-
-            else
-            {
-              v44 = __p[0];
-            }
-
-            memmove(v35, v44, v31);
-          }
-
-          v42 = LOBYTE(__c[1]);
-          v43 = &v35[v31];
-          v41 = v36;
-        }
-
-        memset(v43, v42, v41);
-        if ((v30 & 0x80000000) == 0)
-        {
-          goto LABEL_93;
-        }
-
-LABEL_91:
-        v21 = __p[0];
-        goto LABEL_92;
-      }
-    }
-
-    if (!v31)
-    {
-      goto LABEL_90;
-    }
-
-    if (v30 >= 0)
-    {
-      v37 = __p;
-    }
-
-    else
-    {
-      v37 = __p[0];
-    }
-
-    v38 = v34 + a3 + v9;
-    goto LABEL_89;
-  }
-
-  if (*(&v51 + 1) != 1)
-  {
-    if (*(&v51 + 1) == 2)
-    {
-      v14 = **a4;
-      v60 = v14;
-      if (v14)
-      {
-        v14 = strlen(v14);
-      }
-
-      v62 = v51;
-      v63 = v52;
-      __src = v53;
-      v61 = v14;
-      v65 = *__c;
-      v15 = *(&v52 + 1);
-      if (*(&v52 + 1) <= v14)
-      {
-        v15 = v14;
-      }
-
-      if (v52)
-      {
-        v16 = v15;
-      }
-
-      else
-      {
-        v16 = v14;
-      }
-
-      health::FormatImplementation<int const&,int &,char *>(v55, a2, &v16[a3 + v9], a4);
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v17 = a2;
-      }
-
-      else
-      {
-        v17 = a2->__r_.__value_.__r.__words[0];
-      }
-
-      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v51, &v17[a3 + v9], &v60);
-      goto LABEL_93;
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_125:
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  health::TypeFormatter<int &,void>::TypeFormatter(&v60, *(a4 + 8), &v51);
-  v18 = BYTE7(v62);
-  if (SBYTE7(v62) < 0)
-  {
-    v18 = v61;
-  }
-
-  v19 = *(&v52 + 1);
-  if (*(&v52 + 1) <= v18)
-  {
-    v19 = v18;
-  }
-
-  if (v52)
-  {
-    v18 = v19;
-  }
-
-  health::FormatImplementation<int const&,int &,char *>(v13, a2, v18 + a3 + v9, a4);
-  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v20 = a2;
-  }
-
-  else
-  {
-    v20 = a2->__r_.__value_.__r.__words[0];
-  }
-
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v51, &v20[a3 + v9], &v60);
-  if (SBYTE7(v62) < 0)
-  {
-    v21 = v60;
-LABEL_92:
-    operator delete(v21);
-  }
-
-LABEL_93:
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,int const&,int &,char *>::formatOptionsAtIndex<int const&,int &,char *>(uint64_t a1)
-{
-  if (a1 && a1 != 1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    v2 = exception;
-    if (a1 == 2)
-    {
-      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-    }
-
-    else
-    {
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-    }
-  }
-
-  else
-  {
-    v2 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatImplementation<std::string const&,int &,char *>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
-{
-  v32 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v32 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    ++v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 + v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v32 = &v11->__r_.__value_.__s.__data_[2];
-    v23 = v11->__r_.__value_.__s.__data_[2];
-    if ((v23 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v24 = 0;
-      v25 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v32 = v25;
-        v24 = (v23 & 0xF) + 10 * v24;
-        v26 = *v25++;
-        LOBYTE(v23) = v26;
-      }
-
-      while ((v26 - 58) >= 0xFFFFFFF6);
-      v32 = v25;
-      if (*(v25 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,std::string const&,int &,char *>::formatOptionsAtIndex<std::string const&,int &,char *>(v24);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_59;
-  }
-
-  health::FormatOptions::FormatOptions(&v28, &v32);
-  v13 = v32;
-  if (*(&v28 + 1))
-  {
-    if (*(&v28 + 1) != 1)
-    {
-      if (*(&v28 + 1) == 2)
-      {
-        v14 = **a4;
-        __p = v14;
-        if (v14)
-        {
-          v14 = strlen(v14);
-        }
-
-        v34 = v14;
-        v35 = v28;
-        v36 = v29;
-        v37 = v30;
-        v38 = v31;
-        v15 = *(&v29 + 1);
-        if (*(&v29 + 1) <= v14)
-        {
-          v15 = v14;
-        }
-
-        if (v29)
-        {
-          v16 = v15;
-        }
-
-        else
-        {
-          v16 = v14;
-        }
-
-        health::FormatImplementation<std::string const&,int &,char *>(v32, a2, &v16[a3 + v9], a4);
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v17 = a2;
-        }
-
-        else
-        {
-          v17 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v28, &v17[a3 + v9], &__p);
-        goto LABEL_49;
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_59:
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-
-    health::TypeFormatter<int &,void>::TypeFormatter(&__p, a4[1], &v28);
-    v18 = BYTE7(v35);
-    if (SBYTE7(v35) < 0)
-    {
-      v18 = v34;
-    }
-
-    v19 = *(&v29 + 1);
-    if (*(&v29 + 1) <= v18)
-    {
-      v19 = v18;
-    }
-
-    if (v29)
-    {
-      v18 = v19;
-    }
-
-    health::FormatImplementation<std::string const&,int &,char *>(v13, a2, &v18[a3 + v9], a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = a2;
-    }
-
-    else
-    {
-      v20 = a2->__r_.__value_.__r.__words[0];
-    }
-  }
-
-  else
-  {
-    health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, a4[2], &v28);
-    v21 = BYTE7(v35);
-    if (SBYTE7(v35) < 0)
-    {
-      v21 = v34;
-    }
-
-    v22 = *(&v29 + 1);
-    if (*(&v29 + 1) <= v21)
-    {
-      v22 = v21;
-    }
-
-    if (v29)
-    {
-      v21 = v22;
-    }
-
-    health::FormatImplementation<std::string const&,int &,char *>(v13, a2, &v21[a3 + v9], a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = a2;
-    }
-
-    else
-    {
-      v20 = a2->__r_.__value_.__r.__words[0];
-    }
-  }
-
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, &v20[a3 + v9], &__p);
-  if (SBYTE7(v35) < 0)
-  {
-    operator delete(__p);
-  }
-
-LABEL_49:
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,std::string const&,int &,char *>::formatOptionsAtIndex<std::string const&,int &,char *>(uint64_t a1)
-{
-  if (a1 && a1 != 1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    v2 = exception;
-    if (a1 == 2)
-    {
-      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-    }
-
-    else
-    {
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-    }
-  }
-
-  else
-  {
-    v2 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void std::__shared_ptr_emplace<health::POSIXFile>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_283BF1DA8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x22AAC8590);
-}
-
-void std::__shared_ptr_emplace<std::vector<unsigned char>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_283BF1DF8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x22AAC8590);
-}
-
-void std::__shared_ptr_emplace<std::vector<unsigned char>>::__on_zero_shared(uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2)
-  {
-    *(a1 + 32) = v2;
-    operator delete(v2);
-  }
-}
-
-void std::__shared_ptr_emplace<health::InMemoryMappedFileExtent>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_283BF1E48;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x22AAC8590);
-}
-
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
-{
-  v3 = (a1 + 8);
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-    goto LABEL_7;
-  }
-
-  while (1)
-  {
-    while (1)
-    {
-      v5 = v2;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v2 + 32)) & 0x80) == 0)
-      {
-        break;
-      }
-
-      v2 = *v5;
-      v3 = v5;
-      if (!*v5)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2) & 0x80) == 0)
-    {
-      break;
-    }
-
-    v3 = v5 + 1;
-    v2 = v5[1];
-    if (!v2)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  if (!*v3)
-  {
-LABEL_7:
-    operator new();
-  }
-
-  return *v3;
-}
-
-void sub_228FD059C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::shared_ptr<health::InMemoryFile>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-      std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::shared_ptr<health::InMemoryFile>>,0>(v2 + 32);
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__shared_ptr_emplace<health::InMemoryFile>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_283BF1E98;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x22AAC8590);
-}
-
-uint64_t HDCodableWorkoutConfigurationReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v42 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v42 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v42 & 0x7F) << v5;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) <= 2)
-      {
-        break;
-      }
-
-      switch(v13)
-      {
-        case 3:
-          v23 = 0;
-          v24 = 0;
-          v25 = 0;
-          *(a1 + 48) |= 8u;
-          while (1)
-          {
-            v43 = 0;
-            v26 = [a2 position] + 1;
-            if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
-            {
-              v28 = [a2 data];
-              [v28 getBytes:&v43 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v25 |= (v43 & 0x7F) << v23;
-            if ((v43 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v23 += 7;
-            v11 = v24++ >= 9;
-            if (v11)
-            {
-              v22 = 0;
-              goto LABEL_59;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v22 = 0;
-          }
-
-          else
-          {
-            v22 = v25;
-          }
-
-LABEL_59:
-          v38 = 32;
-LABEL_68:
-          *(a1 + v38) = v22;
-          break;
-        case 4:
-          *(a1 + 48) |= 4u;
-          v41 = 0;
-          v29 = [a2 position] + 8;
-          if (v29 >= [a2 position] && (v30 = objc_msgSend(a2, "position") + 8, v30 <= objc_msgSend(a2, "length")))
-          {
-            v39 = [a2 data];
-            [v39 getBytes:&v41 range:{objc_msgSend(a2, "position"), 8}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          *(a1 + 24) = v41;
-          break;
-        case 5:
-          v14 = PBReaderReadString();
-          v15 = *(a1 + 40);
-          *(a1 + 40) = v14;
-
-          break;
-        default:
-          goto LABEL_54;
-      }
-
-LABEL_71:
-      v40 = [a2 position];
-      if (v40 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    if (v13 == 1)
-    {
-      v31 = 0;
-      v32 = 0;
-      v33 = 0;
-      *(a1 + 48) |= 1u;
-      while (1)
-      {
-        v45 = 0;
-        v34 = [a2 position] + 1;
-        if (v34 >= [a2 position] && (v35 = objc_msgSend(a2, "position") + 1, v35 <= objc_msgSend(a2, "length")))
-        {
-          v36 = [a2 data];
-          [v36 getBytes:&v45 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v33 |= (v45 & 0x7F) << v31;
-        if ((v45 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v31 += 7;
-        v11 = v32++ >= 9;
-        if (v11)
-        {
-          v22 = 0;
-          goto LABEL_63;
-        }
-      }
-
-      if ([a2 hasError])
-      {
-        v22 = 0;
-      }
-
-      else
-      {
-        v22 = v33;
-      }
-
-LABEL_63:
-      v38 = 8;
-    }
-
-    else
-    {
-      if (v13 != 2)
-      {
-LABEL_54:
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-
-        goto LABEL_71;
-      }
-
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      *(a1 + 48) |= 2u;
-      while (1)
-      {
-        v44 = 0;
-        v19 = [a2 position] + 1;
-        if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
-        {
-          v21 = [a2 data];
-          [v21 getBytes:&v44 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v18 |= (v44 & 0x7F) << v16;
-        if ((v44 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v16 += 7;
-        v11 = v17++ >= 9;
-        if (v11)
-        {
-          v22 = 0;
-          goto LABEL_67;
-        }
-      }
-
-      if ([a2 hasError])
-      {
-        v22 = 0;
-      }
-
-      else
-      {
-        v22 = v18;
-      }
-
-LABEL_67:
-      v38 = 16;
-    }
-
-    goto LABEL_68;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t HDCodableRoutineLocationRequestReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v22 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v22 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v22 & 0x7F) << v5;
-        if ((v22 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = 0;
-        v14 = 0;
-        v15 = 0;
-        *(a1 + 12) |= 1u;
-        while (1)
-        {
-          v23 = 0;
-          v16 = [a2 position] + 1;
-          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
-          {
-            v18 = [a2 data];
-            [v18 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v15 |= (v23 & 0x7F) << v13;
-          if ((v23 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v13 += 7;
-          v11 = v14++ >= 9;
-          if (v11)
-          {
-            v19 = 0;
-            goto LABEL_32;
-          }
-        }
-
-        v19 = [a2 hasError] ? 0 : v15;
-LABEL_32:
-        *(a1 + 8) = v19;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v21 = [a2 position];
-    }
-
-    while (v21 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_228FD39F4(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v3 + 32));
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v4 - 88));
-  _Unwind_Resume(a1);
-}
-
-void sub_228FD55B8(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v3 + 32));
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v4 - 112));
-  _Unwind_Resume(a1);
-}
-
-uint64_t statistics::Interval::Interval(uint64_t this)
-{
-  *this = &unk_283BF1F08;
-  *(this + 24) = 0;
-  return this;
-}
-
-{
-  *this = &unk_283BF1F08;
-  *(this + 24) = 0;
-  return this;
-}
-
-void statistics::Interval::~Interval(statistics::Interval *this)
-{
-  PB::Base::~Base(this);
-
-  JUMPOUT(0x22AAC8590);
-}
-
-double statistics::Interval::Interval(statistics::Interval *this, const statistics::Interval *a2)
-{
-  *this = &unk_283BF1F08;
-  *(this + 6) = 0;
-  if ((*(a2 + 24) & 2) != 0)
-  {
-    result = *(a2 + 2);
-    *(this + 24) = 2;
-    *(this + 2) = result;
-    v2 = 3;
-    if ((*(a2 + 24) & 1) == 0)
-    {
-      return result;
-    }
-
-    goto LABEL_5;
-  }
-
-  v2 = 1;
-  if (*(a2 + 24))
-  {
-LABEL_5:
-    result = *(a2 + 1);
-    *(this + 24) = v2;
-    *(this + 1) = result;
-  }
-
-  return result;
-}
-
-uint64_t statistics::Interval::operator=(uint64_t a1, const statistics::Interval *a2)
-{
-  if (a1 != a2)
-  {
-    statistics::Interval::Interval(&v6, a2);
-    v3 = *(a1 + 24);
-    *(a1 + 24) = v8;
-    v8 = v3;
-    v4 = *(a1 + 8);
-    *(a1 + 8) = v7;
-    v7 = v4;
-    PB::Base::~Base(&v6);
-  }
-
-  return a1;
-}
-
-double statistics::swap(statistics *this, statistics::Interval *a2, statistics::Interval *a3)
-{
-  v3 = *(this + 6);
-  *(this + 6) = *(a2 + 6);
-  *(a2 + 6) = v3;
-  v4 = *(this + 2);
-  *(this + 2) = *(a2 + 2);
-  *(a2 + 2) = v4;
-  result = *(this + 1);
-  *(this + 1) = *(a2 + 1);
-  *(a2 + 1) = result;
-  return result;
-}
-
-double statistics::Interval::Interval(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_283BF1F08;
-  *(a1 + 24) = *(a2 + 24);
-  *(a2 + 24) = 0;
-  *(a1 + 16) = *(a2 + 16);
-  result = *(a2 + 8);
-  *(a1 + 8) = result;
-  return result;
-}
-
-{
-  *a1 = &unk_283BF1F08;
-  *(a1 + 24) = *(a2 + 24);
-  *(a2 + 24) = 0;
-  *(a1 + 16) = *(a2 + 16);
-  result = *(a2 + 8);
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t statistics::Interval::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v7 = &unk_283BF1F08;
-    v3 = *(a2 + 24);
-    *(a2 + 24) = 0;
-    v9 = *(a1 + 24);
-    v4 = *(a1 + 8);
-    v5 = *(a2 + 8);
-    *(a1 + 24) = v3;
-    *(a1 + 8) = v5;
-    v8 = v4;
-    PB::Base::~Base(&v7);
-  }
-
-  return a1;
-}
-
-uint64_t statistics::Interval::formatText(statistics::Interval *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 24);
-  if (v5)
-  {
-    PB::TextFormatter::format(a2, "end", *(this + 1));
-    v5 = *(this + 24);
-  }
-
-  if ((v5 & 2) != 0)
-  {
-    PB::TextFormatter::format(a2, "start", *(this + 2));
-  }
-
-  return MEMORY[0x2821A4560](a2);
-}
-
-uint64_t statistics::Interval::readFrom(statistics::Interval *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    while (1)
-    {
-      v7 = *a2;
-      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-      {
-        v15 = 0;
-        v16 = 0;
-        v10 = 0;
-        v17 = (v7 + v2);
-        v18 = v3 >= v2;
-        v19 = v3 - v2;
-        if (!v18)
-        {
-          v19 = 0;
-        }
-
-        v20 = v2 + 1;
-        while (v19)
-        {
-          v21 = *v17;
-          *(a2 + 1) = v20;
-          v10 |= (v21 & 0x7F) << v15;
-          if ((v21 & 0x80) == 0)
-          {
-            goto LABEL_18;
-          }
-
-          v15 += 7;
-          ++v17;
-          --v19;
-          ++v20;
-          v14 = v16++ > 8;
-          if (v14)
-          {
-            goto LABEL_24;
-          }
-        }
-
-        v4 = 1;
-        *(a2 + 24) = 1;
-        goto LABEL_35;
-      }
-
-      v8 = 0;
-      v9 = 0;
-      v10 = 0;
-      v11 = (v7 + v2);
-      v12 = v2 + 1;
-      while (1)
-      {
-        *(a2 + 1) = v12;
-        v13 = *v11++;
-        v10 |= (v13 & 0x7F) << v8;
-        if ((v13 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v8 += 7;
-        ++v12;
-        v14 = v9++ > 8;
-        if (v14)
-        {
-          goto LABEL_24;
-        }
-      }
-
-LABEL_18:
-      if ((v10 & 7) == 4)
-      {
-        v4 = 0;
-        goto LABEL_35;
-      }
-
-      if ((v10 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v10 >> 3) == 1)
-      {
-        *(this + 24) |= 2u;
-        v2 = *(a2 + 1);
-        if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-        {
-          goto LABEL_28;
-        }
-
-        *(this + 2) = *(*a2 + v2);
-LABEL_30:
-        v2 = *(a2 + 1) + 8;
-        *(a2 + 1) = v2;
-        goto LABEL_31;
-      }
-
-LABEL_24:
-      if (!PB::Reader::skip(a2))
-      {
-        v22 = 0;
-        return v22 & 1;
-      }
-
-      v2 = *(a2 + 1);
-LABEL_31:
-      v3 = *(a2 + 2);
-      v4 = *(a2 + 24);
-      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
-      {
-        goto LABEL_35;
-      }
-    }
-
-    *(this + 24) |= 1u;
-    v2 = *(a2 + 1);
-    if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-    {
-LABEL_28:
-      *(a2 + 24) = 1;
-      goto LABEL_31;
-    }
-
-    *(this + 1) = *(*a2 + v2);
-    goto LABEL_30;
-  }
-
-LABEL_35:
-  v22 = v4 ^ 1;
-  return v22 & 1;
-}
-
-uint64_t statistics::Interval::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 24);
-  if ((v4 & 2) != 0)
-  {
-    this = PB::Writer::write(a2, *(this + 16));
-    v4 = *(v3 + 24);
-  }
-
-  if (v4)
-  {
-    v5 = *(v3 + 8);
-
-    return PB::Writer::write(a2, v5);
-  }
-
-  return this;
-}
-
-BOOL statistics::Interval::operator==(uint64_t a1, uint64_t a2)
-{
-  if ((*(a1 + 24) & 2) != 0)
-  {
-    if ((*(a2 + 24) & 2) == 0 || *(a1 + 16) != *(a2 + 16))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 24) & 2) != 0)
-  {
-    return 0;
-  }
-
-  v2 = (*(a2 + 24) & 1) == 0;
-  if (*(a1 + 24))
-  {
-    return (*(a2 + 24) & 1) != 0 && *(a1 + 8) == *(a2 + 8);
-  }
-
-  return v2;
-}
-
-uint64_t statistics::Interval::hash_value(statistics::Interval *this)
-{
-  if ((*(this + 24) & 2) != 0)
-  {
-    v1 = *(this + 2);
-    if (v1 == 0.0)
-    {
-      v1 = 0.0;
-    }
-
-    if (*(this + 24))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_9:
-    v2 = 0.0;
-    return *&v2 ^ *&v1;
-  }
-
-  v1 = 0.0;
-  if ((*(this + 24) & 1) == 0)
-  {
-    goto LABEL_9;
-  }
-
-LABEL_3:
-  v2 = *(this + 1);
-  if (v2 == 0.0)
-  {
-    v2 = 0.0;
-  }
-
-  return *&v2 ^ *&v1;
-}
-
-void sub_228FE1BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
-{
-  _Block_object_dispose((v39 - 176), 8);
-  _Block_object_dispose(&a39, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__166(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228FE2A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__167(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_228FE2DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE2FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE3364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE36E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE3ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE3F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE4498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE4854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228FE6070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t health::DataStore::DataStore(uint64_t a1, __int128 *a2)
-{
-  v3[0] = 0;
-  v3[1] = 0;
-  return health::DataStore::DataStore(a1, a2, v3, 0);
-}
-
-{
-  v3[0] = 0;
-  v3[1] = 0;
-  return health::DataStore::DataStore(a1, a2, v3, 0);
-}
-
-uint64_t health::DataStore::DataStore(uint64_t a1, __int128 *a2, void *a3, int a4)
-{
-  v10[4] = *MEMORY[0x277D85DE8];
-  v5 = a3[1];
-  v8[0] = *a3;
-  v8[1] = v5;
-  if (v5)
-  {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  health::BlockAccessFile::BlockAccessFile(a1, a2, v8, a4);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  *(a1 + 864) = 0u;
-  v10[0] = &unk_283BF1FB8;
-  v10[1] = a1;
-  v10[3] = v10;
-  health::BlockAccessFile::performReadTransactionWithLambda(a1, v10);
-  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v10);
-  if (!*(a1 + 864))
-  {
-    v9[0] = &unk_283BF2038;
-    v9[1] = a1;
-    v9[3] = v9;
-    health::BlockAccessFile::performWriteTransactionWithLambda(a1, v9);
-    std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](v9);
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return a1;
-}
-
-void sub_228FE74FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](va);
-  health::TransactionalFile::~TransactionalFile(v4);
-  _Unwind_Resume(a1);
-}
-
-uint64_t health::DataStore::performReadTransactionWithLambda(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  v4[0] = &unk_283BF20C8;
-  v4[1] = a1;
-  v4[2] = a2;
-  v4[3] = v4;
-  health::BlockAccessFile::performReadTransactionWithLambda(a1, v4);
-  result = std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_228FE75FC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t health::DataStore::checkIntegrity(uint64_t a1, uint64_t a2)
-{
-  v7[4] = *MEMORY[0x277D85DE8];
-  v7[0] = &unk_283BF21C8;
-  v7[1] = a2;
-  v7[3] = v7;
-  health::BlockAccessFile::checkIntegrity(a1, v7);
-  std::__function::__value_func<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::~__value_func[abi:ne200100](v7);
-  v6[0] = &unk_283BF2258;
-  v6[1] = a1;
-  v6[2] = a2;
-  v6[3] = v6;
-  health::BlockAccessFile::performReadTransactionWithLambda(a1, v6);
-  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v6);
-  result = 1;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_228FE76E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
-{
-  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](&a17);
-  if (a2 == 1)
-  {
-    v24 = *__cxa_begin_catch(a1);
-    a10 = *(*(v24 - 8) + 8) & 0x7FFFFFFFFFFFFFFFLL;
-    a9 = (*(v24 + 16))();
-    health::FormatString<char const*,char const*>(&__p, &a10, &a9);
-    v25 = *(v21 + 24);
-    if (v25)
-    {
-      (*(*v25 + 48))(v25, &__p);
-      if (a16 < 0)
-      {
-        operator delete(__p);
-      }
-
-      __cxa_end_catch();
-      JUMPOUT(0x228FE76B0);
-    }
-
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void health::FormatString<char const*,char const*>(std::string *a1, const char **a2, const char **a3)
-{
-  v3[0] = a3;
-  v3[1] = a2;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
-  a1->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<char const*,char const*>("Integrity checking failed due to caught exception: {0} {1}", a1, 0, v3);
-}
-
-void sub_228FE7860(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t health::DataStore::rebuildIndex(health::DataStore *this)
-{
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_283BF22D8;
-  v3[1] = this;
-  v3[3] = v3;
-  health::BlockAccessFile::performWriteTransactionWithLambda(this, v3);
-  result = std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](v3);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_228FE7900(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<BOOL ()(health::BlockAccessFile::WriteTransaction &)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t health::DataStore::enumerateObjectTreeForInspecting(uint64_t a1, uint64_t a2)
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  v4[0] = &unk_283BF23E8;
-  v4[1] = a1;
-  v4[2] = a2;
-  v4[3] = v4;
-  health::BlockAccessFile::performReadTransactionWithLambda(a1, v4);
-  result = std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_228FE7998(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void health::DataStore::checkIntegrityForInspecting(uint64_t a1, uint64_t a2)
-{
-  v23[4] = *MEMORY[0x277D85DE8];
-  if (*(a1 + 327) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v21, *(a1 + 304), *(a1 + 312));
-  }
-
-  else
-  {
-    v21 = *(a1 + 304);
-  }
-
-  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v21.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v21.__r_.__value_.__l.__size_;
-  }
-
-  v5 = v19;
-  std::string::basic_string[abi:ne200100](v19, size + 4);
-  if (v20 < 0)
-  {
-    v5 = v19[0];
-  }
-
-  if (size)
-  {
-    if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v6 = &v21;
-    }
-
-    else
-    {
-      v6 = v21.__r_.__value_.__r.__words[0];
-    }
-
-    memmove(v5, v6, size);
-  }
-
-  strcpy(v5 + size, "-wal");
-  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v7 = &v21;
-  }
-
-  else
-  {
-    v7 = v21.__r_.__value_.__r.__words[0];
-  }
-
-  v8 = stat(v7, &v18);
-  st_size = v18.st_size;
-  if (v20 >= 0)
-  {
-    v10 = v19;
-  }
-
-  else
-  {
-    v10 = v19[0];
-  }
-
-  v11 = stat(v10, &v16);
-  if (v8)
-  {
-    v12 = -1;
-  }
-
-  else
-  {
-    v12 = st_size;
-  }
-
-  v13 = v16.st_size;
-  if (v11)
-  {
-    v13 = 0;
-  }
-
-  v14 = v13 + v12;
-  v17 = v14;
-  if (v14 < 0)
-  {
-    v22[0] = __error();
-    v22[1] = &v21;
-    memset(&__p, 0, sizeof(__p));
-    health::FormatImplementation<std::string &,int &>("HFD file [{0}] size cannot be determined (error {1}).", &__p, 0, v22);
-    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a2 + 24), 0, 0, 0, &__p);
-  }
-
-  else
-  {
-    if (v14)
-    {
-      goto LABEL_31;
-    }
-
-    health::FormatString<std::string &>(&__p, "HFD file [{0}] is empty.", &v21);
-    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a2 + 24), 0, 0, 0, &__p);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-LABEL_31:
-  v23[0] = &unk_283BF2468;
-  v23[1] = a2;
-  v23[3] = v23;
-  health::BlockAccessFile::checkIntegrity(a1, v23);
-  std::__function::__value_func<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::~__value_func[abi:ne200100](v23);
-  v22[5] = 0;
-  operator new();
-}
-
-void sub_228FE7C44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v15 - 161) < 0)
-  {
-    operator delete(*(v15 - 184));
-  }
-
-  if (*(v15 - 137) < 0)
-  {
-    operator delete(*(v15 - 160));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v7[0] = a3;
-  v7[1] = a4;
-  v6 = a2;
-  if (!a1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  return (*(*a1 + 48))(a1, &v6, v7, a5);
-}
-
-void health::FormatString<std::string &>(std::string *a1, std::string *a2, uint64_t a3)
-{
-  v3 = a3;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
-  a1->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<std::string &>(a2, a1, 0, &v3);
-}
-
-void sub_228FE7D70(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void health::DataStore::_checkBlockIntegrity(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
-{
-  v16 = a3;
-  v17 = a4;
-  if (a3 + a4 > a6)
-  {
-    health::FormatString<std::string &>(&__p, "HFD block [{0}] is not strictly within file bounds.", a5);
-    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a7 + 24), 2, a3, a4, &__p);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-  }
-
-  if (health::BlockAccessFile::isBlockUsingFreeSpace(a1, &v16, a2))
-  {
-    v13 = v16;
-    v14 = v17;
-    health::FormatString<std::string &>(&__p, "HFD block [{0}] is using space that is marked free.", a5);
-    std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::operator()(*(a7 + 24), 3, v13, v14, &__p);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-  }
-}
-
 void sub_228FE7E78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
@@ -2715,28 +29,28 @@ void *health::DataStore::ReadTransaction::ReadTransaction(void *result, uint64_t
   return result;
 }
 
-void health::DataStore::ReadTransaction::_pointerForObject(health::DataStore::ReadTransaction *this@<X0>, ObjectIdentifier *a2@<X1>, uint64_t a3@<X8>)
+void health::DataStore::ReadTransaction::_pointerForObject(uint64_t *__return_ptr a1@<X8>, health::DataStore::ReadTransaction *this@<X0>, ObjectIdentifier *a3@<X1>)
 {
   v6 = *(this + 2);
   v7 = this;
-  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v6, a2, 0, v4);
+  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v6, a3, 0, v4);
   if (v5 == 1)
   {
-    *a3 = *(health::Optional<health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::operator->(v4) + 16);
-    *(a3 + 16) = 1;
+    *a1 = *(health::Optional<health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::operator->(v4) + 16);
+    *(a1 + 16) = 1;
   }
 
   else
   {
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    *(a1 + 16) = 0;
   }
 }
 
 uint64_t health::DataStore::ReadTransaction::retrieveBytesWithIdentifier(uint64_t **this, health::RawBuffer *a2, ObjectIdentifier *a3)
 {
-  health::DataStore::ReadTransaction::_pointerForObject(this, a3, v12);
+  health::DataStore::ReadTransaction::_pointerForObject(v12, this, a3);
   v5 = v13;
   if (v13 == 1)
   {
@@ -2759,10 +73,10 @@ uint64_t health::DataStore::ReadTransaction::objectExistsForIdentifier(health::D
   return v4;
 }
 
-void *health::DataStore::ReadTransaction::enumerateIdentifiersForObjectType(uint64_t a1, uint64_t a2, uint64_t a3)
+void *health::DataStore::ReadTransaction::enumerateIdentifiersForObjectType(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 40);
-  v9[0] = *(a1 + 32);
+  v4 = a1[5];
+  v9[0] = a1[4];
   v9[1] = v4;
   v9[2] = a1;
   v8[0] = a2;
@@ -2771,7 +85,7 @@ void *health::DataStore::ReadTransaction::enumerateIdentifiersForObjectType(uint
   v7[1] = -1;
   v6 = a3;
   bzero(v10, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(a1 + 16), v9[0], v4, v10);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(a1[2], v9[0], v4, v10);
   return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateValuesInRange<health::DataStore::ReadTransaction::enumerateIdentifiersForObjectType(long long,std::function<void ()(health::DataStore::ObjectIdentifier)>)::$_0>(v9, 0, v10, &v6, v8, v7);
 }
 
@@ -2836,7 +150,7 @@ uint64_t health::DataStore::WriteTransaction::storeBytesWithIdentifier(health::D
       return health::BlockAccessFile::WriteTransaction::updateObject<health::ByteRange<void const,unsigned long long>>(this + 80, v9, v10, &v17);
     }
 
-    health::BlockAccessFile::WriteTransaction::freeBlock(this + 80, v9, v10);
+    health::BlockAccessFile::WriteTransaction::freeBlock((this + 80), v9, v10);
     v13 = v18;
     v12 = (this + 80);
   }
@@ -2863,16 +177,16 @@ void health::DataStore::WriteTransaction::removeObjectWithIdentifier(health::Dat
   if (v6 == 1)
   {
     v4 = health::Optional<health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::operator->(v5);
-    health::BlockAccessFile::WriteTransaction::freeBlock(this + 80, *(v4 + 16), *(v4 + 24));
+    health::BlockAccessFile::WriteTransaction::freeBlock((this + 80), *(v4 + 16), *(v4 + 24));
     health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::removeValueForKey(&v7, a2);
   }
 }
 
-BOOL health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::removeValueForKey(uint64_t a1, void *a2)
+BOOL health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::removeValueForKey(uint64_t *a1, void *a2)
 {
-  v4 = *(a1 + 16);
+  v4 = a1[2];
   bzero(v6, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(v4 + 24), *a1, *(a1 + 8), v6);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(v4 + 24), *a1, a1[1], v6);
   return health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKey(a1, 0, a2, a1, v6) != 2;
 }
 
@@ -3095,7 +409,7 @@ uint64_t std::__function::__func<health::DataStore::checkIntegrity(std::function
   return result;
 }
 
-uint64_t std::__function::__func<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_0,std::allocator<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_0>,BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::operator()(uint64_t a1, int *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+uint64_t std::__function::__func<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_0,std::allocator<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_0>,BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::operator()(uint64_t a1, int *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v7 = *a2;
   v8 = *a3;
@@ -3199,7 +513,7 @@ uint64_t std::__function::__func<health::DataStore::checkIntegrity(std::function
   }
 }
 
-void health::FormatImplementation<std::string &,long long &,unsigned long &,std::string const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
+void health::FormatImplementation<std::string &,long long &,unsigned long &,std::string const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t **a4)
 {
   v32 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -3283,7 +597,7 @@ LABEL_6:
   {
     if (v29 == 2)
     {
-      health::TypeFormatter<unsigned long &,void>::TypeFormatter(&__p, *(a4 + 8), v28);
+      health::TypeFormatter<unsigned long &,void>::TypeFormatter(&__p, a4[1], v28);
       v21 = v35;
       if ((v35 & 0x80u) != 0)
       {
@@ -3357,7 +671,7 @@ LABEL_6:
     {
       if (v29 == 1)
       {
-        health::TypeFormatter<long long &,void>::TypeFormatter(&__p, *(a4 + 16), v28);
+        health::TypeFormatter<long long &,void>::TypeFormatter(&__p, a4[2], v28);
         v14 = v35;
         if ((v35 & 0x80u) != 0)
         {
@@ -3396,7 +710,7 @@ LABEL_68:
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *(a4 + 24), v28);
+    health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, a4[3], v28);
     v19 = v35;
     if ((v35 & 0x80u) != 0)
     {
@@ -3427,7 +741,7 @@ LABEL_68:
   }
 
 LABEL_56:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v28, &v16[a3 + v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v28, v16 + a3 + v9, &__p);
   if (v35 < 0)
   {
     operator delete(__p);
@@ -3470,19 +784,20 @@ double health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTr
   if (*(a3 + 544))
   {
     v12 = health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::childForKey(a3, a4);
-    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKeyInChildAtIndex<health::DataStore::ObjectIdentifier>(a1, (a2 + 1), a3, v12, a4, a5, v15);
-    if ((BYTE8(v16) & 1) != 0 || *(a3 + 544) - 1 <= v12)
+    v13 = v12;
+    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKeyInChildAtIndex<health::DataStore::ObjectIdentifier>(a1, (a2 + 1), a3, v12, a4, a5, v16);
+    if ((BYTE8(v17) & 1) != 0 || *(a3 + 544) - 1 <= v13)
     {
-      v14 = v15[1];
-      *a6 = v15[0];
-      a6[1] = v14;
-      result = *&v16;
-      a6[2] = v16;
+      v15 = v16[1];
+      *a6 = v16[0];
+      a6[1] = v15;
+      result = *&v17;
+      a6[2] = v17;
     }
 
     else
     {
-      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKeyInChildAtIndex<health::DataStore::ObjectIdentifier>(a1, (a2 + 1), a3, (v12 + 1), a4, a5, a6);
+      health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKeyInChildAtIndex<health::DataStore::ObjectIdentifier>(a1, (a2 + 1), a3, (v13 + 1), a4, a5, a6);
     }
   }
 
@@ -3497,49 +812,57 @@ double health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTr
   return result;
 }
 
-double health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKeyInChildAtIndex<health::DataStore::ObjectIdentifier>@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned int a4@<W3>, void *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKeyInChildAtIndex<health::DataStore::ObjectIdentifier>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   if (*(a3 + 544) <= a4)
   {
-    std::string::basic_string[abi:ne200100]<0>(v31, "index < node.childCount");
-    std::string::basic_string[abi:ne200100]<0>(v30, "_valueForKeyInChildAtIndex");
-    std::string::basic_string[abi:ne200100]<0>(v29, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDBPlusTree.hpp");
-    health::FormatString<>("Child index out of bounds.", &v28);
-    health::_HDAssertImplementation<health::btree_access_error>(v31, v30, v29, 158, &v28);
+    std::string::basic_string[abi:ne200100]<0>(v32, "index < node.childCount");
+    std::string::basic_string[abi:ne200100]<0>(v31, "_valueForKeyInChildAtIndex");
+    std::string::basic_string[abi:ne200100]<0>(v30, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDBPlusTree.hpp");
+    health::FormatString<>("Child index out of bounds.", &v29);
+    health::_HDAssertImplementation<health::btree_access_error>(v32, v31, v30, 158, &v29);
   }
 
   if (*(a3 + 546) != 1)
   {
-    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v24, a1, a2, a3, a4);
-    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKey<health::DataStore::ObjectIdentifier>(a1, a2, v24, a5, a6);
-    return *&v16;
+    v19 = a2;
+    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v25, a1, a2, a3, a4);
+    health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_valueForKey<health::DataStore::ObjectIdentifier>(a1, v19, v25, a5, a6, a7);
+    return;
   }
 
   v11 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a3, a4);
   v12 = *(v11 + 16);
   v13 = *(v11 + 24);
   v14 = *(a1 + 16);
-  bzero(v24, 0x222uLL);
-  v26 = 0u;
+  bzero(v25, 0x222uLL);
   v27 = 0u;
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>>(*(v14 + 16), v12, v13, v24);
-  if (!v25)
+  v28 = 0u;
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>>(*(v14 + 16), v12, v13, v25);
+  if (v26)
   {
-    goto LABEL_19;
-  }
+    v15 = health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::indexForKey(v25, a5);
+    v16 = HIDWORD(v15);
+    if (!HIDWORD(v15))
+    {
+      v17 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v25, v15);
+      v18 = v17[1];
+      *a7 = *v17;
+      *(a7 + 16) = v18;
+      *(a7 + 32) = 0;
+LABEL_6:
+      *(a7 + 40) = 1;
+      return;
+    }
 
-  v15 = health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>::indexForKey(v24, a5);
-  v17 = HIDWORD(v15);
-  if (HIDWORD(v15))
-  {
     if (a6 == 2)
     {
-      if (v17 == 2)
+      if (v16 == 2)
       {
-        v21 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v24, v15);
-        v16 = v21[1];
+        v21 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v25, v15);
+        v22 = v21[1];
         *a7 = *v21;
-        *(a7 + 16) = v16;
+        *(a7 + 16) = v22;
         *(a7 + 32) = 2;
         goto LABEL_6;
       }
@@ -3547,53 +870,40 @@ double health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTr
 
     else
     {
-      if (a6 == 1)
+      if (a6 != 1)
       {
-        if (v17 == 1)
+        if (a6)
         {
-          v20 = v15;
+          return;
         }
 
-        else
-        {
-          if (v15 >= v25 - 1)
-          {
-            goto LABEL_19;
-          }
+        goto LABEL_19;
+      }
 
-          v20 = v15 + 1;
-        }
-
-        v22 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v24, v20);
-        v16 = v22[1];
-        *a7 = *v22;
-        *(a7 + 16) = v16;
+      if (v16 == 1)
+      {
+        v20 = v15;
+LABEL_18:
+        v23 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v25, v20);
+        v24 = v23[1];
+        *a7 = *v23;
+        *(a7 + 16) = v24;
         *(a7 + 32) = 1;
         goto LABEL_6;
       }
 
-      if (a6)
+      if (v15 < v26 - 1)
       {
-        return *&v16;
+        v20 = v15 + 1;
+        goto LABEL_18;
       }
     }
-
-LABEL_19:
-    *&v16 = 0;
-    *(a7 + 25) = 0u;
-    *a7 = 0u;
-    *(a7 + 16) = 0u;
-    return *&v16;
   }
 
-  v18 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v24, v15);
-  v16 = v18[1];
-  *a7 = *v18;
-  *(a7 + 16) = v16;
-  *(a7 + 32) = 0;
-LABEL_6:
-  *(a7 + 40) = 1;
-  return *&v16;
+LABEL_19:
+  *(a7 + 25) = 0u;
+  *a7 = 0u;
+  *(a7 + 16) = 0u;
 }
 
 void sub_228FE95FC(_Unwind_Exception *exception_object)
@@ -3621,7 +931,7 @@ void sub_228FE95FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void health::_HDAssertImplementation<health::btree_access_error>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void health::_HDAssertImplementation<health::btree_access_error>(uint64_t **a1, uint64_t **a2, uint64_t **a3, uint64_t a4, uint64_t **a5)
 {
   v39 = *MEMORY[0x277D85DE8];
   memset(v38, 0, sizeof(v38));
@@ -3647,7 +957,7 @@ void health::_HDAssertImplementation<health::btree_access_error>(uint64_t a1, ui
 
   else
   {
-    v15 = *(a5 + 8);
+    v15 = a5[1];
   }
 
   v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, v14, v15);
@@ -3671,7 +981,7 @@ void health::_HDAssertImplementation<health::btree_access_error>(uint64_t a1, ui
 
   else
   {
-    v20 = *(a1 + 8);
+    v20 = a1[1];
   }
 
   v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
@@ -3694,7 +1004,7 @@ void health::_HDAssertImplementation<health::btree_access_error>(uint64_t a1, ui
 
   else
   {
-    v25 = *(a2 + 8);
+    v25 = a2[1];
   }
 
   v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v24, v25);
@@ -3717,7 +1027,7 @@ void health::_HDAssertImplementation<health::btree_access_error>(uint64_t a1, ui
 
   else
   {
-    v30 = *(a3 + 8);
+    v30 = a3[1];
   }
 
   v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v29, v30);
@@ -3759,7 +1069,7 @@ void sub_228FE98D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(void *a1, uint64_t a2, int a3, uint64_t a4, unsigned int a5)
+void *health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(void *a1, uint64_t a2, int a3, uint64_t a4, int a5)
 {
   if (*(a4 + 544) <= a5)
   {
@@ -3801,7 +1111,7 @@ void *health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTre
     if (*(a4 + 544) - 1 > a5)
     {
       v15 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a1, *(a1 + 272) - 1);
-      result = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, a5 + 1);
+      result = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a4, (a5 + 1));
       if (*v15 >= *result && (*v15 > *result || v15[1] >= result[1]))
       {
         std::string::basic_string[abi:ne200100]<0>(v19, "child.children[child.childCount - 1].key < node.children[index + 1].key");
@@ -3851,33 +1161,32 @@ __n128 std::__function::__func<health::DataStore::checkIntegrity(std::function<v
 
 void std::__function::__func<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1,std::allocator<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1>,void ()(health::BlockAccessFile::ReadTransaction const&)>::operator()(uint64_t a1, uint64_t *a2)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v13[0] = 0;
-  v13[1] = 0;
-  v14 = a2;
+  v16[4] = *MEMORY[0x277D85DE8];
+  v12[0] = 0;
+  v12[1] = 0;
+  v13 = a2;
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
   v6 = *(v5 + 872);
-  v10 = *(v5 + 864);
-  v11 = v6;
-  v12 = v13;
-  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v16, v4);
-  bzero(v15, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(v14, v10, v6, v15);
-  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::verifyInteriorNode(v15);
-  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v17, v16);
-  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_checkInteriorNodeIntegrity(&v10, 0, v15, v17);
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v17);
+  v9 = *(v5 + 864);
+  v10 = v6;
+  v11 = v12;
+  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v15, v4);
+  bzero(v14, 0x223uLL);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(v13, v9, v6, v14);
+  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::verifyInteriorNode(v14);
+  std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v16, v15);
+  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_checkInteriorNodeIntegrity(&v9, 0, v14, v16);
   std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v16);
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v15);
   v7 = *(a1 + 16);
-  v17[0] = &v10;
-  v17[1] = v7;
-  v17[2] = a2;
-  v8 = v12;
-  bzero(v15, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(v8[2], v10, v11, v15);
-  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(&v10, 0, v15, v17);
-  v9 = *MEMORY[0x277D85DE8];
+  v16[0] = &v9;
+  v16[1] = v7;
+  v16[2] = a2;
+  v8 = v11;
+  bzero(v14, 0x223uLL);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(v8[2], v9, v10, v14);
+  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(&v9, 0, v14, v16);
 }
 
 void sub_228FEA02C(_Unwind_Exception *a1)
@@ -3899,9 +1208,9 @@ uint64_t std::__function::__func<health::DataStore::checkIntegrity(std::function
   }
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::verifyInteriorNode(uint64_t result)
+uint64_t *health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::verifyInteriorNode(uint64_t *result)
 {
-  v1 = *(result + 544);
+  v1 = *(result + 272);
   if (v1 >= 0x12)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3916,7 +1225,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
     while (1)
     {
       v5 = *result;
-      v4 = *(result + 8);
+      v4 = result[1];
       v6 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v2, v3);
       if (*v6 < v5)
       {
@@ -3946,8 +1255,8 @@ LABEL_13:
 
 uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_checkInteriorNodeIntegrity(uint64_t result, int a2, uint64_t a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v23 = 0;
   if (*(a3 + 544))
   {
     v7 = result;
@@ -3960,27 +1269,27 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
       {
         if (*(a3 + 546) == 1)
         {
-          v10 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a3, v24);
-          bzero(v20, 0x222uLL);
+          v10 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a3, v23);
+          bzero(v19, 0x222uLL);
+          v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
-          health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>>(*(v9 + 16), *(v10 + 16), *(v10 + 24), v20);
-          if (v21 >= 0x12u)
+          health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>>(*(v9 + 16), *(v10 + 16), *(v10 + 24), v19);
+          if (v20 >= 0x12u)
           {
             exception = __cxa_allocate_exception(0x10uLL);
             std::logic_error::logic_error(exception, "Node contains too many values!");
             goto LABEL_22;
           }
 
-          if (v21 >= 2u)
+          if (v20 >= 2u)
           {
-            v11 = v20;
+            v11 = v19;
             v12 = 1;
             while (1)
             {
               v14 = *v11;
               v13 = v11[1];
-              v15 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v20, v12);
+              v15 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v19, v12);
               if (*v15 < v14)
               {
                 break;
@@ -3991,8 +1300,8 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
                 break;
               }
 
-              v11 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v20, v12++);
-              if (v12 >= v21)
+              v11 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](v19, v12++);
+              if (v12 >= v20)
               {
                 goto LABEL_16;
               }
@@ -4005,28 +1314,27 @@ LABEL_22:
           }
 
 LABEL_16:
-          v17 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v26, a4);
+          v17 = std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v25, a4);
         }
 
         else
         {
-          health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v20, v7, a2, a3, v24);
-          health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::verifyInteriorNode(v20);
-          std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v25, a4);
-          health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_checkInteriorNodeIntegrity(v7, (a2 + 1), v20, v25);
-          v17 = v25;
+          health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v19, v7, a2, a3, v23);
+          health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::verifyInteriorNode(v19);
+          std::__function::__value_func<void ()(std::string const&)>::__value_func[abi:ne200100](v24, a4);
+          health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_checkInteriorNodeIntegrity(v7, a2 + 1, v19, v24);
+          v17 = v24;
         }
 
         result = std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v17);
       }
 
-      v8 = ++v24;
+      v8 = ++v23;
     }
 
-    while (*(a3 + 544) > v24);
+    while (*(a3 + 544) > v23);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4428,7 +1736,7 @@ LABEL_62:
     v17 = a2->__r_.__value_.__r.__words[0];
   }
 
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v44, &v17[a3 - v9], &v53);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v44, v17 + a3 - v9, &v53);
 LABEL_65:
   if (v9)
   {
@@ -4462,7 +1770,7 @@ void health::FormatterParameters<0ul,unsigned short &,char const*>::formatOption
   __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(uint64_t a1, int a2, uint64_t a3, uint64_t *a4)
+void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(uint64_t result, int a2, uint64_t a3, uint64_t a4)
 {
   if (*(a3 + 544))
   {
@@ -4470,7 +1778,7 @@ void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTree
     {
       v6 = *(a3 + 16);
       v7 = *(a3 + 24);
-      v8 = *(a1 + 16);
+      v8 = *(result + 16);
       bzero(v25, 0x222uLL);
       v27 = 0u;
       v28 = 0u;
@@ -4512,7 +1820,7 @@ void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTree
       v18 = *(&v28 + 1);
       for (i = v28; ; i = v33)
       {
-        v19 = *(a1 + 16);
+        v19 = *(result + 16);
         if (i == *v19 && v18 == *(v19 + 8))
         {
           break;
@@ -4565,8 +1873,8 @@ void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTree
 
     else
     {
-      health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v30, a1, a2, a3, 0);
-      health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(a1, (a2 + 1), v30, a4);
+      health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v30, result, a2, a3, 0);
+      health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(result, a2 + 1, v30, a4);
     }
   }
 }
@@ -4596,14 +1904,14 @@ void sub_228FEB17C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(int,health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17> const&,health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1} const&,health::bplustree::EnumerationDirection)const::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer const&)#1}::operator()(uint64_t *a1, void *a2, uint64_t a3, unsigned __int8 *a4)
+void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(int,health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17> const&,health::DataStore::checkIntegrity(std::function<void ()(std::string const&)>)::$_1::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1} const&,health::bplustree::EnumerationDirection)const::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer const&)#1}::operator()(uint64_t a1, void *a2, uint64_t a3, unsigned __int8 *a4)
 {
   v23 = a3;
   v24 = a4;
   health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(*a1, a2, 0, &v20);
   if (v22 != 1)
   {
-    v10 = a1[1];
+    v10 = *(a1 + 8);
     v19.__r_.__value_.__r.__words[0] = &v23;
     v19.__r_.__value_.__l.__size_ = a2;
     memset(&v25, 0, sizeof(v25));
@@ -4627,7 +1935,7 @@ void health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTree
   health::Optional<health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::get(&v20);
   if (v23 != v21[0] || (v6 = v24, v24 != v21[1]))
   {
-    v7 = a1[1];
+    v7 = *(a1 + 8);
     health::Optional<health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::get(&v20);
     v25.__r_.__value_.__r.__words[0] = v21;
     v25.__r_.__value_.__l.__size_ = &v23;
@@ -4659,7 +1967,7 @@ LABEL_11:
     {
       std::vector<unsigned char>::vector[abi:ne200100](&v25, v6);
       health::RawBuffer::RawBuffer(&v19, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_ - v25.__r_.__value_.__r.__words[0]);
-      v12 = a1[2];
+      v12 = *(a1 + 16);
       v13 = v23;
       v14 = v24;
       health::RawBuffer::RawBuffer(v18, v19.__r_.__value_.__l.__data_, v19.__r_.__value_.__l.__size_);
@@ -4676,8 +1984,8 @@ LABEL_19:
 
   else
   {
-    v16 = a1[1];
-    health::FormatString<health::DataStore::ObjectIdentifier const&>("Target block for {0} has 0 length", a2, &v25);
+    v16 = *(a1 + 8);
+    health::FormatString<health::DataStore::ObjectIdentifier const&>("Target block for {0} has 0 length", &v25, a2);
     v17 = *(v16 + 24);
     if (!v17)
     {
@@ -4715,7 +2023,7 @@ uint64_t health::Optional<health::bplustree::Tree<health::BlockAccessFile::ReadT
   return result;
 }
 
-void health::FormatImplementation<health::DataStore::ObjectIdentifier const&,health::BlockPointer &,health::BlockPointer &>(std::string *a1, std::string *a2, std::string::size_type a3, void **a4)
+void health::FormatImplementation<health::DataStore::ObjectIdentifier const&,health::BlockPointer &,health::BlockPointer &>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
 {
   v30 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -4801,7 +2109,7 @@ LABEL_6:
     {
       if (v27 == 2)
       {
-        health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", *a4, *a4 + 1, &__p);
+        health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", &__p, *a4, *a4 + 8);
         size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
@@ -4839,7 +2147,7 @@ LABEL_57:
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", a4[1], a4[1] + 1, &__p);
+    health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", &__p, *(a4 + 8), *(a4 + 8) + 8);
     v17 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
@@ -4871,7 +2179,7 @@ LABEL_57:
 
   else
   {
-    health::TypeFormatter<health::DataStore::ObjectIdentifier const&,void>::TypeFormatter(&__p, a4[2], v26);
+    health::TypeFormatter<health::DataStore::ObjectIdentifier const&,void>::TypeFormatter(&__p, *(a4 + 16), v26);
     v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
@@ -4902,7 +2210,7 @@ LABEL_57:
   }
 
 LABEL_45:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, &v16[a3 + v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, v16 + a3 + v9, &__p.__r_.__value_.__l.__data_);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4940,7 +2248,7 @@ void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier const&,
   __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void health::FormatImplementation<health::DataStore::ObjectIdentifier const&,health::BlockPointer &>(std::string *a1, std::string *a2, std::string::size_type a3, void **a4)
+void health::FormatImplementation<health::DataStore::ObjectIdentifier const&,health::BlockPointer &>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
 {
   v28 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -5024,7 +2332,7 @@ LABEL_6:
   {
     if (v25 == 1)
     {
-      health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", *a4, *a4 + 1, &__p);
+      health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", &__p, *a4, *a4 + 8);
       size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
@@ -5062,7 +2370,7 @@ LABEL_47:
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  health::TypeFormatter<health::DataStore::ObjectIdentifier const&,void>::TypeFormatter(&__p, a4[1], v24);
+  health::TypeFormatter<health::DataStore::ObjectIdentifier const&,void>::TypeFormatter(&__p, *(a4 + 8), v24);
   v17 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
@@ -5092,7 +2400,7 @@ LABEL_47:
   }
 
 LABEL_35:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, &v16[a3 - v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, v16 + a3 - v9, &__p.__r_.__value_.__l.__data_);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -5264,7 +2572,7 @@ LABEL_19:
     v17 = a2->__r_.__value_.__r.__words[0];
   }
 
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v23, &v17[a3 - v9], v28);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v23, v17 + a3 - v9, v28);
   if (v9)
   {
     health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
@@ -5307,39 +2615,39 @@ uint64_t std::__function::__func<health::DataStore::rebuildIndex(void)::$_0,std:
 
 uint64_t std::__function::__func<health::DataStore::rebuildIndex(void)::$_0,std::allocator<health::DataStore::rebuildIndex(void)::$_0>,BOOL ()(health::BlockAccessFile::WriteTransaction &)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 8);
-  v18[1] = 0;
-  v18[0] = 0;
+  v17[1] = 0;
+  v17[0] = 0;
+  v18 = a2;
   v19 = a2;
-  v20 = a2;
   v5 = *(v3 + 872);
-  v17[0] = *(v3 + 864);
-  v4 = v17[0];
-  v17[1] = v5;
-  v17[2] = v18;
-  bzero(v16, 0x223uLL);
+  v16[0] = *(v3 + 864);
+  v4 = v16[0];
+  v16[1] = v5;
+  v16[2] = v17;
+  bzero(v15, 0x223uLL);
   v6 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength(a2, 547);
   v8 = v7;
-  health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(a2, v6, v7, v16);
-  v15[0] = v6;
-  v15[1] = v8;
-  v15[2] = v18;
-  v22[0] = v15;
-  bzero(v21, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(v19, v4, v5, v21);
-  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::rebuildIndex(void)::$_0::operator() const(health::BlockAccessFile::WriteTransaction &)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v17, 0, v21, v22);
-  v14 = 1;
-  v13 = *(v3 + 864);
+  health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(a2, v6, v7, v15);
+  v14[0] = v6;
+  v14[1] = v8;
+  v14[2] = v17;
+  v21[0] = v14;
+  bzero(v20, 0x223uLL);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(v18, v4, v5, v20);
+  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::rebuildIndex(void)::$_0::operator() const(health::BlockAccessFile::WriteTransaction &)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v16, 0, v20, v21);
+  v13 = 1;
+  v12 = *(v3 + 864);
   *(v3 + 864) = v6;
   *(v3 + 872) = v8;
-  v22[0] = &unk_283BF2348;
-  v22[1] = &v14;
-  v22[3] = v22;
-  health::DataStore::checkIntegrity(v3, v22);
-  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v22);
-  v9 = v14;
-  if (v14 == 1)
+  v21[0] = &unk_283BF2348;
+  v21[1] = &v13;
+  v21[3] = v21;
+  health::DataStore::checkIntegrity(v3, v21);
+  std::__function::__value_func<void ()(std::string const&)>::~__value_func[abi:ne200100](v21);
+  v9 = v13;
+  if (v13 == 1)
   {
     v10 = *(a2 + 24);
     *(v10 + 40) = v6;
@@ -5349,10 +2657,9 @@ uint64_t std::__function::__func<health::DataStore::rebuildIndex(void)::$_0,std:
 
   else
   {
-    *(v3 + 864) = v13;
+    *(v3 + 864) = v12;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -5368,7 +2675,7 @@ uint64_t std::__function::__func<health::DataStore::rebuildIndex(void)::$_0,std:
   }
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::rebuildIndex(void)::$_0::operator() const(health::BlockAccessFile::WriteTransaction &)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(uint64_t result, int a2, uint64_t a3, uint64_t *a4)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::rebuildIndex(void)::$_0::operator() const(health::BlockAccessFile::WriteTransaction &)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(uint64_t result, int a2, uint64_t a3, uint64_t **a4)
 {
   if (*(a3 + 544))
   {
@@ -5402,7 +2709,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
           }
 
           v10 = v12->n128_u64[1];
-          v30[0] = v13[1];
+          *v30 = *(v13 + 16);
           result = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::setValueForKey(*a4, v12, v30);
           ++v9;
           v11 = v14;
@@ -5464,7 +2771,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
             v10 = v22->n128_u64[1];
           }
 
-          v36[0] = v23[1];
+          *v36 = *(v23 + 16);
           result = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::setValueForKey(*a4, v22, v36);
         }
 
@@ -5475,7 +2782,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
     else
     {
       health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v30, result, a2, a3, 0);
-      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::rebuildIndex(void)::$_0::operator() const(health::BlockAccessFile::WriteTransaction &)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v5, (a2 + 1), v30, a4);
+      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::rebuildIndex(void)::$_0::operator() const(health::BlockAccessFile::WriteTransaction &)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v5, a2 + 1, v30, a4);
     }
   }
 
@@ -5669,7 +2976,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
     else
     {
       health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v30, result, a2, a3, 0);
-      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::enumerateObjectTreeForInspecting(std::function<void ()(health::DataStore::ObjectIdentifier const&,health::BlockPointer)>)::$_0::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v5, (a2 + 1), v30, a4);
+      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::enumerateObjectTreeForInspecting(std::function<void ()(health::DataStore::ObjectIdentifier const&,health::BlockPointer)>)::$_0::operator() const(health::BlockAccessFile::ReadTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v5, a2 + 1, v30, a4);
     }
   }
 
@@ -5865,7 +3172,7 @@ LABEL_47:
   }
 
 LABEL_35:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, &v16[a3 - v9], &__p);
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, v16 + a3 - v9, &__p);
   if (v31 < 0)
   {
     operator delete(__p);
@@ -5903,7 +3210,7 @@ void health::FormatterParameters<0ul,std::string &,int &>::formatOptionsAtIndex<
   __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void health::FormatImplementation<std::string &>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t *a4)
+void health::FormatImplementation<std::string &>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t **a4)
 {
   v26 = a1;
   v6 = a1->__r_.__value_.__s.__data_[0];
@@ -5987,7 +3294,7 @@ void health::FormatImplementation<std::string &>(std::string *a1, std::string *a
                 v16 = a2->__r_.__value_.__r.__words[0];
               }
 
-              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, &v16[a3 - v9], __p);
+              health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v22, v16 + a3 - v9, __p);
               if (v28 < 0)
               {
                 operator delete(__p[0]);
@@ -6080,41 +3387,40 @@ __n128 std::__function::__func<health::DataStore::checkIntegrityForInspecting(st
 
 uint64_t std::__function::__func<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1,std::allocator<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1>,BOOL ()(health::BlockAccessFile::WriteTransaction &)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 8);
   v5 = *(a2 + 16);
-  v18[0] = *a2;
-  v18[1] = v5;
-  v18[2] = *(a2 + 32);
-  v19 = *(a2 + 48);
-  std::deque<health::BlockPointer>::deque(v20, (a2 + 56));
+  v17[0] = *a2;
+  v17[1] = v5;
+  v17[2] = *(a2 + 32);
+  v18 = *(a2 + 48);
+  std::deque<health::BlockPointer>::deque(v19, (a2 + 56));
   v6 = *(v4 + 864);
   v7 = *(v4 + 872);
   std::string::basic_string[abi:ne200100]<0>(__p, "Object Store");
   v8 = **(a1 + 16);
-  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::__value_func[abi:ne200100](v22, *(a1 + 24));
-  health::DataStore::_checkBlockIntegrity(v4, v18, v6, v7, __p, v8, v22);
-  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::~__value_func[abi:ne200100](v22);
-  if (v17 < 0)
+  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::__value_func[abi:ne200100](v21, *(a1 + 24));
+  health::DataStore::_checkBlockIntegrity(v4, v17, v6, v7, __p, v8, v21);
+  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::~__value_func[abi:ne200100](v21);
+  if (v16 < 0)
   {
     operator delete(__p[0]);
   }
 
-  std::deque<health::BlockPointer>::~deque[abi:ne200100](v20);
-  v15[0] = 0;
-  v15[1] = 0;
-  v15[2] = a2;
+  std::deque<health::BlockPointer>::~deque[abi:ne200100](v19);
+  v14[0] = 0;
+  v14[1] = 0;
+  v14[2] = a2;
   v9 = *(v4 + 872);
-  v14[0] = *(v4 + 864);
-  v14[1] = v9;
-  v14[2] = v15;
-  v12[0] = v4;
-  v12[1] = a2;
-  v13 = *(a1 + 16);
-  bzero(v21, 0x223uLL);
-  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(a2, v14[0], v9, v21);
-  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v14, 0, v21, v12);
-  v10 = *MEMORY[0x277D85DE8];
+  v13[0] = *(v4 + 864);
+  v13[1] = v9;
+  v13[2] = v14;
+  v11[0] = v4;
+  v11[1] = a2;
+  v12 = *(a1 + 16);
+  bzero(v20, 0x223uLL);
+  health::BlockAccessFile::ReadTransaction::retrieveObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(a2, v13[0], v9, v20);
+  health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v13, 0, v20, v11);
   return 1;
 }
 
@@ -6272,7 +3578,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlus
     else
     {
       health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v30, result, a2, a3, 0);
-      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v5, (a2 + 1), v30, a4);
+      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(v5, a2 + 1, v30, a4);
     }
   }
 
@@ -6304,33 +3610,31 @@ void sub_228FEDEB0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(int,health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17> const&,health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1} const&,health::bplustree::EnumerationDirection)const::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer const&)#1}::operator()(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateAllValues<health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1}>(int,health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17> const&,health::DataStore::checkIntegrityForInspecting(std::function<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>)::$_1::operator() const(health::BlockAccessFile::WriteTransaction const&)::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer)#1} const&,health::bplustree::EnumerationDirection)const::{lambda(health::DataStore::ObjectIdentifier const&,health::BlockPointer const&)#1}::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v9 = *a1;
   v8 = *(a1 + 8);
   v10 = *(v8 + 48);
   v12 = *(v8 + 16);
   v11 = *(v8 + 32);
-  v18[0] = *v8;
-  v18[1] = v12;
-  v18[2] = v11;
-  v19 = v10;
-  std::deque<health::BlockPointer>::deque(v20, (v8 + 56));
-  health::FormatString<health::DataStore::ObjectIdentifier const&>("HFD object [ID: {0}]", a2, &__p);
+  v17[0] = *v8;
+  v17[1] = v12;
+  v17[2] = v11;
+  v18 = v10;
+  std::deque<health::BlockPointer>::deque(v19, (v8 + 56));
+  health::FormatString<health::DataStore::ObjectIdentifier const&>("HFD object [ID: {0}]", &__p, a2);
   v13 = *(a1 + 24);
   v14 = **(a1 + 16);
-  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::__value_func[abi:ne200100](v21, v13);
-  health::DataStore::_checkBlockIntegrity(v9, v18, a3, a4, &__p, v14, v21);
-  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::~__value_func[abi:ne200100](v21);
+  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::__value_func[abi:ne200100](v20, v13);
+  health::DataStore::_checkBlockIntegrity(v9, v17, a3, a4, &__p, v14, v20);
+  std::__function::__value_func<BOOL ()(health::DataStore::IntegrityError,health::BlockPointer,std::string const&)>::~__value_func[abi:ne200100](v20);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  result = std::deque<health::BlockPointer>::~deque[abi:ne200100](v20);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::deque<health::BlockPointer>::~deque[abi:ne200100](v19);
 }
 
 void sub_228FEE084(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6367,7 +3671,7 @@ void *health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTre
     else
     {
       health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(v17, v11, a2, a3, v12);
-      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateValuesInRange<health::DataStore::ReadTransaction::enumerateIdentifiersForObjectType(long long,std::function<void ()(health::DataStore::ObjectIdentifier)>)::$_0>(v11, (a2 + 1), v17, a4, a5, a6);
+      return health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_enumerateValuesInRange<health::DataStore::ReadTransaction::enumerateIdentifiersForObjectType(long long,std::function<void ()(health::DataStore::ObjectIdentifier)>)::$_0>(v11, a2 + 1, v17, a4, a5, a6);
     }
   }
 
@@ -6578,7 +3882,7 @@ uint64_t std::function<void ()(health::DataStore::ObjectIdentifier)>::operator()
   return (*(*a1 + 48))(a1, v4);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKey(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKey(uint64_t a1, int a2, void *a3, uint64_t *a4, uint64_t a5)
 {
   if (!*(a5 + 544))
   {
@@ -6597,7 +3901,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
   }
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKeyWithLeafChildren(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKeyWithLeafChildren(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, uint64_t a5)
 {
   if (!*(a5 + 544))
   {
@@ -6643,7 +3947,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     {
       v17 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v9);
       *v17 = v71[0];
-      health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, *(a4 + 8), a5);
+      health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, a4[1], a5);
     }
 
 LABEL_22:
@@ -6683,7 +3987,7 @@ LABEL_22:
     health::BlockAccessFile::WriteTransaction::freeBlock(*(v25 + 24), v12, v11);
     health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::deleteElementAtIndex(a5, v9);
     --*(a5 + 544);
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, *(a4 + 8), a5);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, a4[1], a5);
     if (*(a5 + 544))
     {
       goto LABEL_22;
@@ -6813,7 +4117,7 @@ LABEL_22:
     health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::LeafNode<health::DataStore::ObjectIdentifier,health::BlockPointer,health::BlockPointer,17>>(*(*(a1 + 16) + 24), v61, v62, v51);
     *health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v60) = *v41;
     *health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v59) = *v51;
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *v48, *(v48 + 8), a5);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *v48, v48[1], a5);
     v29 = v60 == 0;
     return !v29;
   }
@@ -6825,7 +4129,7 @@ LABEL_22:
   health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::deleteElementAtIndex(a5, v59);
   --*(a5 + 544);
   *health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v60) = *v35;
-  health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *v63, *(v63 + 8), a5);
+  health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *v63, v63[1], a5);
   v42 = *(a1 + 16);
   v43 = v35[71];
   v44 = *(v58 + 1);
@@ -6878,7 +4182,7 @@ void sub_228FEEFA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKeyWithInteriorChildren(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5)
+uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKeyWithInteriorChildren(uint64_t a1, int a2, void *a3, uint64_t *a4, uint64_t a5)
 {
   if (!*(a5 + 544))
   {
@@ -6893,7 +4197,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
   v11 = v10;
   v50 = *(health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v10) + 16);
   health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_interiorChildAtIndex(a1, a2, a5, v10, v49);
-  v12 = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKey(a1, (a2 + 1), a3, &v50, v49);
+  v12 = health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::_removeValueForKey(a1, a2 + 1, a3, &v50, v49);
   if (v12 <= 1)
   {
     v13 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v10);
@@ -6901,7 +4205,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     {
       v14 = health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v10);
       *v14 = v49[0];
-      health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, *(a4 + 8), a5);
+      health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, a4[1], a5);
     }
 
     v15 = v10 == 0;
@@ -6920,8 +4224,8 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     std::string::basic_string[abi:ne200100]<0>(v48, "result == RemovalResult::MergeRequired");
     std::string::basic_string[abi:ne200100]<0>(v47, "_removeValueForKeyWithInteriorChildren");
     std::string::basic_string[abi:ne200100]<0>(v46, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDBPlusTree.hpp");
-    LODWORD(v44[0]) = v16;
-    health::FormatString<int>("Unexpected removal result {0} after handling non-merge cases.", v44, &__p);
+    v44[0] = v16;
+    health::FormatString<int>("Unexpected removal result {0} after handling non-merge cases.", &__p, v44);
     health::_HDAssertImplementation<std::logic_error>(v17, v48, v47, v46, 871, &__p);
   }
 
@@ -7015,7 +4319,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
     health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), v43, v30, v23);
     *health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v19) = *v22;
     *health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v10) = *v23;
-    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, *(a4 + 8), a5);
+    health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, a4[1], a5);
     v15 = v19 == 0;
     return !v15;
   }
@@ -7026,7 +4330,7 @@ uint64_t health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlu
   health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::deleteElementAtIndex(a5, v10);
   --*(a5 + 544);
   *health::StaticArray<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>::ChildEntry,17ul>::operator[](a5, v19) = *v22;
-  health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, *(a4 + 8), a5);
+  health::BlockAccessFile::WriteTransaction::updateObject<health::bplustree::InteriorNode<health::DataStore::ObjectIdentifier,health::BlockPointer,17>>(*(*(a1 + 16) + 24), *a4, a4[1], a5);
   health::BlockAccessFile::WriteTransaction::freeBlock(*(*(a1 + 16) + 24), v43, v25);
   if (*(a5 + 544) >= 9u)
   {
@@ -7064,9 +4368,9 @@ void sub_228FEF6E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228FF03F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228FF03F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7078,9 +4382,9 @@ uint64_t __Block_byref_object_copy__168(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228FF1064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228FF1064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7092,30 +4396,30 @@ uint64_t __Block_byref_object_copy__169(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228FF752C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_228FF752C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
+  va_start(va, a47);
   _Block_object_dispose(&a42, 8);
-  _Block_object_dispose(&a48, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id HDLocationSeriesDataEntityAllProperties(void)
 {
-  v3[12] = *MEMORY[0x277D85DE8];
-  v3[0] = @"series_identifier";
-  v3[1] = @"timestamp";
-  v3[2] = @"latitude";
-  v3[3] = @"longitude";
-  v3[4] = @"altitude";
-  v3[5] = @"speed";
-  v3[6] = @"course";
-  v3[7] = @"horizontal_accuracy";
-  v3[8] = @"vertical_accuracy";
-  v3[9] = @"speed_accuracy";
-  v3[10] = @"course_accuracy";
-  v3[11] = @"signal_environment";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:12];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[12] = *MEMORY[0x277D85DE8];
+  v2[0] = @"series_identifier";
+  v2[1] = @"timestamp";
+  v2[2] = @"latitude";
+  v2[3] = @"longitude";
+  v2[4] = @"altitude";
+  v2[5] = @"speed";
+  v2[6] = @"course";
+  v2[7] = @"horizontal_accuracy";
+  v2[8] = @"vertical_accuracy";
+  v2[9] = @"speed_accuracy";
+  v2[10] = @"course_accuracy";
+  v2[11] = @"signal_environment";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:12];
 
   return v0;
 }
@@ -7394,68 +4698,67 @@ LABEL_6:
 
 uint64_t HDRawQuantitySample::applyMask(uint64_t result, double **a2)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = *a2;
-  if (v3 != *a2)
+  v2 = a2[1];
+  v3 = *a2;
+  if (v2 != *a2)
   {
-    v5 = *(result + 16);
-    v6 = *(result + 8);
-    v7 = v5 - v6;
-    if (v5 - v6 >= 0.01)
+    v4 = *(result + 16);
+    v5 = *(result + 8);
+    v6 = v4 - v5;
+    if (v4 - v5 >= 0.01)
     {
-      v8 = v4 + 1;
-      v9 = 0.0;
+      v7 = v3 + 1;
+      v8 = 0.0;
       do
       {
-        v10 = v8 - 1;
-        if (*v8 > v6)
+        v9 = v7 - 1;
+        if (*v7 > v5)
         {
-          v11 = *v10;
-          if (*v10 >= v5)
+          v10 = *v9;
+          if (*v9 >= v4)
           {
             break;
           }
 
-          if (v11 > v6)
+          if (v10 > v5)
           {
-            if (v5 < v11)
+            if (v4 < v10)
             {
-              v10 = (result + 16);
+              v9 = (result + 16);
             }
 
-            v9 = v9 + *v10 - v6;
+            v8 = v8 + *v9 - v5;
           }
 
-          if (*v8 >= v5)
+          if (*v7 >= v4)
           {
-            v12 = (result + 16);
+            v11 = (result + 16);
           }
 
           else
           {
-            v12 = v8;
+            v11 = v7;
           }
 
-          v6 = *v12;
+          v5 = *v11;
         }
 
-        v13 = v8 + 1;
-        v8 += 2;
+        v12 = v7 + 1;
+        v7 += 2;
       }
 
-      while (v13 != v3);
-      if (v6 >= v5)
+      while (v12 != v2);
+      if (v5 >= v4)
       {
-        v14 = v9;
+        v13 = v8;
       }
 
       else
       {
-        v14 = v9 + v5 - v6;
+        v13 = v8 + v4 - v5;
       }
 
-      if (v14 <= 0.0)
+      if (v13 <= 0.0)
       {
 LABEL_25:
         *(result + 32) = 0;
@@ -7463,22 +4766,22 @@ LABEL_25:
 
       else
       {
-        *result = v14 * *result / v7;
+        *result = v13 * *result / v6;
       }
     }
 
     else
     {
-      while (v6 >= *v4)
+      while (v5 >= *v3)
       {
-        if (v6 < v4[1])
+        if (v5 < v3[1])
         {
           *result = 0;
           goto LABEL_25;
         }
 
-        v4 += 2;
-        if (v4 == v3)
+        v3 += 2;
+        if (v3 == v2)
         {
           return result;
         }
@@ -7504,16 +4807,16 @@ uint64_t HDRawQuantitySample::operator==(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void sub_228FFEECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228FFEECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7526,10 +4829,11 @@ uint64_t __Block_byref_object_copy__170(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228FFF75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_228FFF75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7546,42 +4850,59 @@ uint64_t HKWorkoutBuilderConstructionStateFromBuilderServerState(unint64_t a1)
   }
 }
 
-void sub_229003654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_229003654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, ...)
 {
+  va_start(va, a62);
   _Block_object_dispose(&a51, 8);
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a63, 8);
-  _Block_object_dispose((v63 - 240), 8);
-  _Block_object_dispose((v63 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v62 - 240), 8);
+  _Block_object_dispose((v62 - 192), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22900AC08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_22900543C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose((v30 - 176), 8);
-  _Block_object_dispose(&a30, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22900E17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22901030C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2290068D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22900AC08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose((v29 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22900E17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
   va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290115B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_22901030C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2290115B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
+{
+  va_start(va, a48);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7598,16 +4919,16 @@ uint64_t HDEntityCategoryForKeyValueCategory(unint64_t a1)
   }
 }
 
-void sub_229012768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229012768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -7620,39 +4941,39 @@ uint64_t __Block_byref_object_copy__171(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290161BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2290161BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229017214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_229017214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 144), 8);
+  _Block_object_dispose((v18 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229017A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_229017A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22901E1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22901E1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7664,9 +4985,9 @@ uint64_t __Block_byref_object_copy__172(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290244AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290244AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8483,16 +5804,16 @@ LABEL_167:
   return [a2 hasError] ^ 1;
 }
 
-void sub_229028F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_229028F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229029FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_229029FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8504,16 +5825,16 @@ uint64_t __Block_byref_object_copy__174(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22902A254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22902A254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22902A5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22902A5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8536,9 +5857,9 @@ void sub_22902DD24(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22902DFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_22902DFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -8747,6 +6068,13 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(a2);
 }
 
+void sub_22902F578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__175(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -8773,10 +6101,11 @@ unint64_t HDCurrentSyncVersionForSyncEntity(void *a1)
   }
 }
 
-void sub_229030378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_229030378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 136), 8);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8787,40 +6116,48 @@ uint64_t __Block_byref_object_copy__176(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_229030C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_229030C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229031EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_229031EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290320C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2290320C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229033410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_229033410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, ...)
 {
-  _Block_object_dispose(&a63, 8);
+  va_start(va, a62);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a41, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22903445C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
+{
+  va_start(va, a60);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8838,24 +6175,31 @@ uint64_t __Block_byref_object_copy__177(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22903A2DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22903A2DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22903A7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22903A7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22903AC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22903AA30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a15);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22903AC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8889,32 +6233,32 @@ uint64_t _HDWorkoutSessionCanReplaceSession(void *a1, void *a2)
   return v9;
 }
 
-void sub_22903DA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22903DA08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22903DBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22903DBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22904213C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_22904213C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229042248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_229042248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<BOOL ()(health::DataStore::WriteTransaction &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8988,41 +6332,41 @@ __n128 _ZNKSt3__110__function6__funcIZZZ65__HDDatabaseMigrator_performHFDMigrati
 
 BOOL _ZNSt3__110__function6__funcIZZZ65__HDDatabaseMigrator_performHFDMigrationToVersion_handler_error__EUb_EUb0_E3__0NS_9allocatorIS2_EEFbRN6health9DataStore16WriteTransactionEEEclES8_(uint64_t **a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v27 = xmmword_22916DD30;
-  v29 = *(a2 + 32);
-  v30 = a2;
-  v4.n128_f64[0] = health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v29, &v27, 0, v31);
-  if (v32 != 1)
+  v32 = *MEMORY[0x277D85DE8];
+  v24 = xmmword_22916DD30;
+  v26 = *(a2 + 32);
+  v27 = a2;
+  v4.n128_f64[0] = health::bplustree::Tree<health::BlockAccessFile::ReadTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v26, &v24, 0, v28);
+  if (v29 != 1)
   {
     goto LABEL_10;
   }
 
-  health::DataStore::ReadTransaction::_pointerForObject(a2, &v27, &v29);
-  if (v30 == 1)
+  health::DataStore::ReadTransaction::_pointerForObject(&v26, a2, &v24);
+  if (v27 == 1)
   {
     v5 = *(a2 + 24);
-    v6 = health::Optional<health::BlockPointer>::get(&v29);
+    v6 = health::Optional<health::BlockPointer>::get(&v26);
     v7 = *v6;
     v8 = v6[1];
-    v33 = 0;
-    v34 = 8;
-    v28.n128_u64[0] = v31;
-    v28.n128_u64[1] = 8;
-    health::BlockAccessFile::ReadTransaction::retrieveBlock(v5, v7, v8, &v28);
-    v9 = v33;
-    if (v34 <= 0x3FF)
+    v30 = 0;
+    v31 = 8;
+    v25.n128_u64[0] = v28;
+    v25.n128_u64[1] = 8;
+    health::BlockAccessFile::ReadTransaction::retrieveBlock(v5, v7, v8, &v25);
+    v9 = v30;
+    if (v31 <= 0x3FF)
     {
-      v10 = v31;
+      v10 = v28;
     }
 
     else
     {
-      v10 = v33;
+      v10 = v30;
     }
 
     v11 = *v10;
-    v33 = 0;
+    v30 = 0;
     if (v9)
     {
       MEMORY[0x22AAC8570](v9, 0x1000C8077774924);
@@ -9037,57 +6381,52 @@ BOOL _ZNSt3__110__function6__funcIZZZ65__HDDatabaseMigrator_performHFDMigrationT
   if (v11 >= *a1[1])
   {
     *a1[2] = 0;
-    result = 1;
+    return 1;
   }
 
   else
   {
 LABEL_10:
-    v12 = *a1[4];
-    v13 = *a1[5];
     *a1[2] = (*(*a1[3] + 16))(v4);
-    v14 = a1[1];
-    v29 = *(a2 + 32);
-    v30 = a2 + 48;
-    health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v29, &v27, 0, v31);
-    if (v32)
+    v12 = a1[1];
+    v26 = *(a2 + 32);
+    v27 = a2 + 48;
+    health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::valueForKey<health::DataStore::ObjectIdentifier>(&v26, &v24, 0, v28);
+    if (v29)
     {
-      v15 = *(health::Optional<health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::operator->(v31) + 24) == 8;
-      v16 = health::Optional<health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::operator->(v31);
-      v17 = *(v16 + 16);
-      v18 = *(v16 + 24);
-      if (v15)
+      v13 = *(health::Optional<health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::operator->(v28) + 24) == 8;
+      v14 = health::Optional<health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::LookupResult>::operator->(v28);
+      v15 = *(v14 + 16);
+      v16 = *(v14 + 24);
+      if (v13)
       {
-        health::BlockAccessFile::WriteTransaction::updateObject<long>(a2 + 80, v17, v18, *v14);
+        health::BlockAccessFile::WriteTransaction::updateObject<long>(a2 + 80, v15, v16, *v12);
       }
 
       else
       {
-        health::BlockAccessFile::WriteTransaction::freeBlock(a2 + 80, v17, v18);
-        v23 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength((a2 + 80), 8);
-        v25 = v24;
-        health::BlockAccessFile::WriteTransaction::updateObject<long>(a2 + 80, v23, v24, *v14);
-        v28.n128_u64[0] = v23;
-        v28.n128_u64[1] = v25;
-        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::setValueForKey(&v29, &v27, &v28);
+        health::BlockAccessFile::WriteTransaction::freeBlock((a2 + 80), v15, v16);
+        v21 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength((a2 + 80), 8);
+        v23 = v22;
+        health::BlockAccessFile::WriteTransaction::updateObject<long>(a2 + 80, v21, v22, *v12);
+        v25.n128_u64[0] = v21;
+        v25.n128_u64[1] = v23;
+        health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::setValueForKey(&v26, &v24, &v25);
       }
     }
 
     else
     {
-      v19 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength((a2 + 80), 8);
-      v21 = v20;
-      health::BlockAccessFile::WriteTransaction::updateObject<long>(a2 + 80, v19, v20, *v14);
-      v28.n128_u64[0] = v19;
-      v28.n128_u64[1] = v21;
-      health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::setValueForKey(&v29, &v27, &v28);
+      v17 = health::BlockAccessFile::WriteTransaction::_requestBlockOfLength((a2 + 80), 8);
+      v19 = v18;
+      health::BlockAccessFile::WriteTransaction::updateObject<long>(a2 + 80, v17, v18, *v12);
+      v25.n128_u64[0] = v17;
+      v25.n128_u64[1] = v19;
+      health::bplustree::Tree<health::BlockAccessFile::WriteTransaction::BPlusTreeConfiguration<health::DataStore::ObjectIdentifier,health::BlockPointer>>::setValueForKey(&v26, &v24, &v25);
     }
 
-    result = *a1[2] == 0;
+    return *a1[2] == 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_229042B30(_Unwind_Exception *a1)
@@ -9117,34 +6456,33 @@ uint64_t _ZNKSt3__110__function6__funcIZZZ65__HDDatabaseMigrator_performHFDMigra
 
 uint64_t health::BlockAccessFile::WriteTransaction::updateObject<long>(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = 8;
-  v11[0] = v12;
-  v11[1] = v12;
-  v11[2] = 8;
-  v10[0] = a4;
-  health::SerializationBuffer::appendRaw<unsigned long long>(v11, v10);
-  if (v14 <= 0x3FF)
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = 8;
+  v10[0] = v11;
+  v10[1] = v11;
+  v10[2] = 8;
+  v9[0] = a4;
+  health::SerializationBuffer::appendRaw<unsigned long long>(v10, v9);
+  if (v13 <= 0x3FF)
   {
-    v7 = v12;
+    v7 = v11;
   }
 
   else
   {
-    v7 = v13;
+    v7 = v12;
   }
 
-  health::RawBuffer::RawBuffer(v10, v7, v14);
-  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v10);
-  result = v13;
-  v13 = 0;
+  health::RawBuffer::RawBuffer(v9, v7, v13);
+  health::BlockAccessFile::WriteTransaction::updateBlock(a1, a2, a3, v9);
+  result = v12;
+  v12 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9280,9 +6618,9 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2290438A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2290438A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9294,25 +6632,28 @@ uint64_t __Block_byref_object_copy__178(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22904565C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_22904565C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229047874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_229047874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229048338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_229048338(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -9323,17 +6664,17 @@ uint64_t __Block_byref_object_copy__179(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_229049954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_229049954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
+  _Block_object_dispose((v24 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22904A5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22904A5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9347,52 +6688,50 @@ uint64_t __Block_byref_object_copy__180(uint64_t result, uint64_t a2)
 
 id HDDoseEventUUIDsFromCodableObjectCollection(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([v1 hasGeneratedObjectCollection])
   {
-    v17 = v1;
+    v16 = v1;
     v3 = [v1 generatedObjectCollection];
     v4 = [v3 medicationDoseEvents];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
           v10 = MEMORY[0x277CCAD78];
-          v11 = [*(*(&v18 + 1) + 8 * i) sample];
+          v11 = [*(*(&v17 + 1) + 8 * i) sample];
           v12 = [v11 object];
           v13 = [v12 uuid];
           v14 = [v10 hk_UUIDWithData:v13];
           [v2 hk_addNonNilObject:v14];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
     }
 
-    v1 = v17;
+    v1 = v16;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -9634,7 +6973,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  v6 = *(this + 40);
   PB::TextFormatter::format(a2, "shouldContributeToCount");
   v5 = *(this + 44);
   if ((v5 & 4) == 0)
@@ -9649,7 +6987,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  v7 = *(this + 3);
   PB::TextFormatter::format(a2, "sourceID");
   if ((*(this + 44) & 8) != 0)
   {
@@ -9953,7 +7290,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    v5 = *(v3 + 40);
     this = PB::Writer::write(a2);
     if ((*(v3 + 44) & 4) == 0)
     {
@@ -9978,7 +7314,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v6 = *(v3 + 24);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -10129,7 +7464,7 @@ LABEL_10:
   return *&v2 ^ *&v1 ^ *&v3 ^ v4 ^ v5;
 }
 
-void sub_22904F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_22904F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   _Block_object_dispose(&STACK[0x230], 8);
   _Block_object_dispose(&STACK[0x260], 8);
@@ -10393,24 +7728,24 @@ void sub_22905373C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2290591DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290591DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229059A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_229059A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -10431,9 +7766,9 @@ id HDUserDomainConceptEntityPredicateForConceptsWithCreationDateBefore()
   return v2;
 }
 
-void sub_22905A14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22905A14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -10447,9 +7782,9 @@ id HDUserDomainConceptEntityPredicateForPropertyType(uint64_t a1)
   return v3;
 }
 
-void sub_22905A51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22905A51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -10469,17 +7804,18 @@ uint64_t HDUserDomainConceptEntityPredicateForConceptUUID(uint64_t a1, int a2)
   return [MEMORY[0x277D10B18] predicateWithProperty:@"uuid" value:a1 comparisonType:v2];
 }
 
-void sub_22905AF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22905AF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22905C838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_22905C838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -10515,33 +7851,33 @@ __CFString *HDStringFromUserDomainConceptEntityInsertResult(unint64_t a1)
 
 id HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifiers(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier(*(*(&v12 + 1) + 8 * i));
-        [v2 addObject:{v8, v12}];
+        v8 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier(*(*(&v11 + 1) + 8 * i));
+        [v2 addObject:{v8, v11}];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -10549,14 +7885,12 @@ id HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifiers(void *a1)
 
   v9 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v2];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 id HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier(void *a1)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = MEMORY[0x277D10B18];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v1, "code")}];
@@ -10576,35 +7910,31 @@ id HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier(void *a1)
   }
 
   v9 = MEMORY[0x277D10B20];
-  v14[0] = v4;
-  v14[1] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = v4;
+  v13[1] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v11 = [v9 predicateMatchingAllPredicates:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 id HDUserDomainConceptEntityPredicateForMedicalCoding(void *a1)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277D10B20];
   v2 = MEMORY[0x277D10B18];
   v3 = a1;
   v4 = [v3 codingSystem];
   v5 = [v4 identifier];
   v6 = [v2 predicateWithProperty:@"medical_coding_system.string" equalToValue:v5];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = MEMORY[0x277D10B18];
   v8 = [v3 code];
 
   v9 = [v7 predicateWithProperty:@"medical_coding_code.string" equalToValue:v8];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v11 = [v1 predicateMatchingAllPredicates:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -10630,7 +7960,7 @@ id HDUserDomainConceptEntityPredicateWithCodingCollection(void *a1)
 
 id __HDUserDomainConceptEntityPredicateWithCodingCollection_block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D10B80];
   v3 = a2;
   v4 = objc_alloc_init(v2);
@@ -10639,18 +7969,16 @@ id __HDUserDomainConceptEntityPredicateWithCodingCollection_block_invoke(uint64_
 
   [v4 setPredicate:v5];
   v6 = MEMORY[0x277D10B18];
-  v11[0] = @"udc_id";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = @"udc_id";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v8 = [v6 predicateWithProperty:@"udc_id" comparisonType:7 subqueryDescriptor:v4 subqueryProperties:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
-void sub_22905D9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22905D9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -10659,14 +7987,9 @@ void _HDSyncAnchorPropertyForType(unint64_t a1)
 {
   if (a1 >= 6)
   {
-    v3 = [MEMORY[0x277CCA890] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString * _Nonnull _HDSyncAnchorPropertyForType(HDSyncAnchorType)"];
-    [v3 handleFailureInFunction:v4 file:@"HDSyncAnchorEntity.m" lineNumber:71 description:{@"Invalid anchor type %ld", a1}];
-  }
-
-  else
-  {
-    v2 = off_27862CAA8[a1];
+    v2 = [MEMORY[0x277CCA890] currentHandler];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString * _Nonnull _HDSyncAnchorPropertyForType(HDSyncAnchorType)"];
+    [v2 handleFailureInFunction:v3 file:@"HDSyncAnchorEntity.m" lineNumber:71 description:{@"Invalid anchor type %ld", a1}];
   }
 }
 
@@ -10674,14 +7997,9 @@ void _HDSyncAnchorUpdateOptionsForType(unint64_t a1)
 {
   if (a1 >= 6)
   {
-    v3 = [MEMORY[0x277CCA890] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSUInteger _HDSyncAnchorUpdateOptionsForType(HDSyncAnchorType)"];
-    [v3 handleFailureInFunction:v4 file:@"HDSyncAnchorEntity.m" lineNumber:95 description:{@"Invalid anchor type %ld", a1}];
-  }
-
-  else
-  {
-    v2 = qword_229181610[a1];
+    v2 = [MEMORY[0x277CCA890] currentHandler];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSUInteger _HDSyncAnchorUpdateOptionsForType(HDSyncAnchorType)"];
+    [v2 handleFailureInFunction:v3 file:@"HDSyncAnchorEntity.m" lineNumber:95 description:{@"Invalid anchor type %ld", a1}];
   }
 }
 
@@ -10689,14 +8007,9 @@ void _HDSyncAnchorUpdateDatePropertyForType(unint64_t a1)
 {
   if (a1 >= 6)
   {
-    v3 = [MEMORY[0x277CCA890] currentHandler];
-    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString * _Nonnull _HDSyncAnchorUpdateDatePropertyForType(HDSyncAnchorType)"];
-    [v3 handleFailureInFunction:v4 file:@"HDSyncAnchorEntity.m" lineNumber:83 description:{@"Invalid anchor type %ld", a1}];
-  }
-
-  else
-  {
-    v2 = off_27862CAD8[a1];
+    v2 = [MEMORY[0x277CCA890] currentHandler];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString * _Nonnull _HDSyncAnchorUpdateDatePropertyForType(HDSyncAnchorType)"];
+    [v2 handleFailureInFunction:v3 file:@"HDSyncAnchorEntity.m" lineNumber:83 description:{@"Invalid anchor type %ld", a1}];
   }
 }
 
@@ -10725,11 +8038,19 @@ uint64_t __Block_byref_object_copy__183(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_229061870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_229061870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
+  va_start(va, a41);
   _Block_object_dispose(&a34, 8);
   _Block_object_dispose(&a38, 8);
-  _Block_object_dispose(&a42, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229062064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -11058,9 +8379,9 @@ LABEL_93:
   return [a2 hasError] ^ 1;
 }
 
-void sub_229065694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229065694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -11072,9 +8393,9 @@ uint64_t __Block_byref_object_copy__184(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_229066680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_229066680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -11086,11 +8407,12 @@ uint64_t __Block_byref_object_copy__185(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_229068A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_229068A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -11101,48 +8423,48 @@ void sub_229068D80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_229069A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_229069A54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22906B07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22906C8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22906B07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22906D920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22906C8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a11);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22906F8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22906D920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290700E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22906F8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a17);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 160), 8);
+  _Block_object_dispose((v18 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2290700E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v24 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -11167,11 +8489,19 @@ void sub_229070694(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_229070ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_229070ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 144), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229071008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -11429,7 +8759,7 @@ uint64_t __Block_byref_object_copy__186(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22907DF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_22907DF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
 {
   _Block_object_dispose(&a46, 8);
   _Block_object_dispose(&a52, 8);
@@ -11465,33 +8795,33 @@ void sub_229081AA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id HDConceptAuthorizationEntityPredicateForHealthConceptIdentifiers(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = HDConceptAuthorizationEntityPredicateForHealthConceptIdentifier(*(*(&v12 + 1) + 8 * i), 1);
-        [v2 addObject:{v8, v12}];
+        v8 = HDConceptAuthorizationEntityPredicateForHealthConceptIdentifier(*(*(&v11 + 1) + 8 * i), 1);
+        [v2 addObject:{v8, v11}];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -11499,14 +8829,12 @@ id HDConceptAuthorizationEntityPredicateForHealthConceptIdentifiers(void *a1)
 
   v9 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v2];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 id HDConceptAuthorizationEntityPredicateForHealthConceptIdentifier(void *a1, char a2)
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B18];
   v4 = a1;
   v5 = [v4 domain];
@@ -11518,9 +8846,9 @@ id HDConceptAuthorizationEntityPredicateForHealthConceptIdentifier(void *a1, cha
   v9 = [v7 predicateWithProperty:@"concept_identifier_underlying_identifier" equalToValue:v8];
 
   v10 = MEMORY[0x277D10B20];
-  v17[0] = v6;
-  v17[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = v6;
+  v16[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   v12 = [v10 predicateMatchingAllPredicates:v11];
 
   if (a2)
@@ -11535,14 +8863,12 @@ id HDConceptAuthorizationEntityPredicateForHealthConceptIdentifier(void *a1, cha
 
   v14 = v13;
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
-void sub_229088608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229088608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -11588,9 +8914,9 @@ uint64_t HDConceptAuthorizationEntityPredicateForSemanticIdentifierString(uint64
   return [MEMORY[0x277D10B18] predicateWithProperty:@"semantic_identifier_string" value:a1 comparisonType:v2];
 }
 
-void sub_22908989C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22908989C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -11602,28 +8928,28 @@ uint64_t __Block_byref_object_copy__188(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_229089EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229089EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908A0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22908A0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908A444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22908A444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908ADCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_22908ADCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a38, 8);
   _Block_object_dispose(&a42, 8);
@@ -11631,55 +8957,63 @@ void sub_22908ADCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Block_object_dispose(&a50, 8);
   _Block_object_dispose(&a54, 8);
   _Block_object_dispose(&a60, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&a66, 8);
-  _Block_object_dispose(&a72, 8);
   _Block_object_dispose(&STACK[0x228], 8);
-  _Block_object_dispose((v72 - 248), 8);
-  _Block_object_dispose((v72 - 200), 8);
-  _Block_object_dispose((v72 - 168), 8);
+  _Block_object_dispose((v66 - 248), 8);
+  _Block_object_dispose((v66 - 200), 8);
+  _Block_object_dispose((v66 - 168), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908B2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22908B2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908BA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_22908BA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
 {
-  _Block_object_dispose(&a44, 8);
-  _Block_object_dispose((v44 - 232), 8);
-  _Block_object_dispose((v44 - 200), 8);
-  _Block_object_dispose((v44 - 152), 8);
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v43 - 232), 8);
+  _Block_object_dispose((v43 - 200), 8);
+  _Block_object_dispose((v43 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908C390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22908C390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908CED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22908C840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a9);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22908FA3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22908CED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22908FA3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -12145,11 +9479,12 @@ LABEL_50:
   return v2;
 }
 
-void sub_22909519C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22909519C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
-  _Block_object_dispose((v27 - 96), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
+  _Block_object_dispose((v26 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -12167,10 +9502,11 @@ void sub_2290964A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_229097730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_229097730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 128), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -12181,11 +9517,12 @@ uint64_t __Block_byref_object_copy__191(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290A1F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_2290A1F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -12196,32 +9533,32 @@ uint64_t __Block_byref_object_copy__192(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290A3218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290A3218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290A4B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2290A4B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290A5258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2290A5258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 112), 8);
+  _Block_object_dispose((v24 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290A56A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290A56A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -12237,15 +9574,14 @@ id HDSleepScheduleEntityPredicateForWeekday(uint64_t a1)
 
   else
   {
-    v3 = *MEMORY[0x277CCCDD0];
-    v4 = HKSleepScheduleWeekdayArrayFromWeekdays();
-    v2 = [v4 hk_map:&__block_literal_global_232];
+    v3 = HKSleepScheduleWeekdayArrayFromWeekdays();
+    v2 = [v3 hk_map:&__block_literal_global_232];
 
     [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v2];
   }
-  v5 = ;
+  v4 = ;
 
-  return v5;
+  return v4;
 }
 
 __CFString *_PropertyForWeekday(uint64_t a1)
@@ -12323,18 +9659,16 @@ id __HDSleepScheduleEntityPredicateForWeekday_block_invoke(uint64_t a1, void *a2
 
 id HDSleepScheduleEntityPredicateForWeekdayBeforeDate(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B20];
   v4 = a2;
   v5 = HDSleepScheduleEntityPredicateForWeekday(a1);
-  v11[0] = v5;
-  v6 = HDSampleEntityPredicateForStartDate(3);
+  v10[0] = v5;
+  v6 = HDSampleEntityPredicateForStartDate(3, v4);
 
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v3 predicateMatchingAllPredicates:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -12346,20 +9680,20 @@ void sub_2290ABAAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _HDSampleHistoryDescriptionForObjectType@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t *_HDSampleHistoryDescriptionForObjectType@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *result@<X0>)
 {
-  *(a2 + 23) = 14;
-  strcpy(a2, "Unknown Series");
+  *(a1 + 23) = 14;
+  strcpy(a1, "Unknown Series");
   if (result > 1)
   {
     if (result == 2)
     {
       v2 = 21;
-      *(a2 + 23) = 21;
+      *(a1 + 23) = 21;
       v3 = "Quantity Samples (v1)";
 LABEL_11:
-      *a2 = *v3;
-      *(a2 + 13) = *(v3 + 13);
+      *a1 = *v3;
+      *(a1 + 13) = *(v3 + 13);
       goto LABEL_12;
     }
 
@@ -12369,8 +9703,8 @@ LABEL_11:
     }
 
     v2 = 20;
-    *(a2 + 23) = 20;
-    *(a2 + 16) = 691172904;
+    *(a1 + 23) = 20;
+    *(a1 + 4) = 691172904;
     v4 = "Location Series (v2)";
   }
 
@@ -12384,20 +9718,20 @@ LABEL_11:
       }
 
       v2 = 21;
-      *(a2 + 23) = 21;
+      *(a1 + 23) = 21;
       v3 = "Quantity Samples (v0)";
       goto LABEL_11;
     }
 
     v2 = 20;
-    *(a2 + 23) = 20;
-    *(a2 + 16) = 691107368;
+    *(a1 + 23) = 20;
+    *(a1 + 4) = 691107368;
     v4 = "Location Series (v1)";
   }
 
-  *a2 = *v4;
+  *a1 = *v4;
 LABEL_12:
-  *(a2 + v2) = 0;
+  *(a1 + v2) = 0;
   return result;
 }
 
@@ -12862,9 +10196,9 @@ LABEL_122:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2290B04D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2290B04D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -12883,16 +10217,16 @@ void sub_2290B1874(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2290B26F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2290B26F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290B3BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290B3BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -12902,6 +10236,13 @@ uint64_t __Block_byref_object_copy__194(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_2290B40B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t HDCodableClinicalContactReadFrom(uint64_t a1, void *a2)
@@ -13107,12 +10448,13 @@ LABEL_28:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2290C0A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_2290C0A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -13123,14 +10465,21 @@ uint64_t __Block_byref_object_copy__195(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290C3850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2290C14CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va, a11);
+  va_start(va, a32);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290C43A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_2290C3850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2290C43A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
 {
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a30, 8);
@@ -13459,10 +10808,11 @@ LABEL_78:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2290CA43C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_2290CA43C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   _Block_object_dispose(&a9, 8);
-  _Block_object_dispose(&a15, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -13801,14 +11151,21 @@ LABEL_84:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2290CE95C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2290CE95C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-__n128 std::deque<HDQuantitySampleAttenuationEngineSample>::push_back(void *a1, uint64_t a2)
+void sub_2290CF41C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  std::deque<HDQuantitySampleAttenuationEngineSample>::~deque[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+__n128 std::deque<HDQuantitySampleAttenuationEngineSample>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -13830,7 +11187,7 @@ __n128 std::deque<HDQuantitySampleAttenuationEngineSample>::push_back(void *a1, 
     if (v8 < 0x66)
     {
       v10 = a1[3];
-      v11 = &v10[-*a1];
+      v11 = v10 - *a1;
       if (v6 < v11)
       {
         if (v10 != v5)
@@ -13857,13 +11214,13 @@ __n128 std::deque<HDQuantitySampleAttenuationEngineSample>::push_back(void *a1, 
 
     a1[4] = v8 - 102;
     *&v16 = *v4;
-    a1[1] = v4 + 8;
+    a1[1] = (v4 + 1);
     std::__split_buffer<std::__thread_id *>::emplace_back<std::__thread_id *&>(a1, &v16);
     v4 = a1[1];
     v9 = a1[5] + a1[4];
   }
 
-  v13 = *&v4[8 * (v9 / 0x66)] + 40 * (v9 % 0x66);
+  v13 = v4[v9 / 0x66] + 40 * (v9 % 0x66);
   result = *a2;
   v15 = *(a2 + 16);
   *(v13 + 32) = *(a2 + 32);
@@ -13884,7 +11241,7 @@ void sub_2290CF660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<HDQuantitySampleAttenuationEngineSample>::__append_with_size[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>>(void *a1, void *a2, __int128 *a3, unint64_t a4)
+void *std::deque<HDQuantitySampleAttenuationEngineSample>::__append_with_size[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>>(unint64_t *a1, void *a2, __int128 *a3, unint64_t a4)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -13943,7 +11300,7 @@ void *std::deque<HDQuantitySampleAttenuationEngineSample>::__append_with_size[ab
       {
         v26 = a1[1];
         v40 = *v26;
-        a1[1] = v26 + 1;
+        a1[1] = (v26 + 1);
         std::__split_buffer<std::__thread_id *>::emplace_back<std::__thread_id *&>(a1, &v40);
       }
     }
@@ -13992,7 +11349,7 @@ void *std::deque<HDQuantitySampleAttenuationEngineSample>::__append_with_size[ab
       {
         v27 = a1[1];
         v40 = *v27;
-        a1[1] = v27 + 1;
+        a1[1] = (v27 + 1);
         std::__split_buffer<std::__thread_id *>::emplace_back<std::__thread_id *&>(a1, &v40);
       }
     }
@@ -14016,7 +11373,7 @@ void *std::deque<HDQuantitySampleAttenuationEngineSample>::__append_with_size[ab
     v30 = v29;
   }
 
-  v40 = (v8 + 8 * (v14 / 0x66));
+  v40 = v8 + 8 * (v14 / 0x66);
   v41 = v30;
   result = std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>::operator+=[abi:ne200100](&v40, a4);
   v32 = v41;
@@ -14119,13 +11476,13 @@ void *std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySa
   return result;
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__copy_impl::_CopySegment<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>>>(void *a1, _BYTE *a2, void *a3, _BYTE *a4, uint64_t a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__copy_impl::_CopySegment<std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const&,HDQuantitySampleAttenuationEngineSample const* const*,long,102l>,std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>>>(void **a1, _BYTE *a2, void **a3, _BYTE *a4, void ***a5)
 {
   v5 = a5;
   if (a1 == a3)
   {
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     v9 = a4;
   }
 
@@ -14133,7 +11490,7 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<HDQuantitySam
   {
     v10 = a3;
     v11 = a1 + 1;
-    std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const*,std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>,0>(&v26, a2, (*a1 + 4080), *a5, *(a5 + 8));
+    std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,HDQuantitySampleAttenuationEngineSample const*,HDQuantitySampleAttenuationEngineSample const*,std::__deque_iterator<HDQuantitySampleAttenuationEngineSample,HDQuantitySampleAttenuationEngineSample*,HDQuantitySampleAttenuationEngineSample&,HDQuantitySampleAttenuationEngineSample**,long,102l>,0>(&v26, a2, *a1 + 4080, *a5, a5[1]);
     *v5 = v27;
     v12 = *v5;
     v13 = v5[1];
@@ -14307,9 +11664,9 @@ LABEL_9:
   return std::__split_buffer<std::__thread_id *>::~__split_buffer(a1);
 }
 
-void sub_2290D12D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290D12D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -14323,81 +11680,73 @@ uint64_t __Block_byref_object_copy__198(uint64_t result, uint64_t a2)
 
 id HDAttachmentReferencePredicateForUnsynchronizedReferences()
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D10B18] predicateWithProperty:@"type" equalToValue:&unk_283CB4080];
   v1 = [MEMORY[0x277D10B18] predicateWithProperty:@"cloud_status" equalToValue:&unk_283CB4080];
   v2 = MEMORY[0x277D10B20];
-  v7[0] = v0;
-  v7[1] = v1;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = v0;
+  v6[1] = v1;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 predicateMatchingAllPredicates:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id HDAttachmentReferencePredicateForUnsynchronizedTombstones()
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D10B18] predicateWithProperty:@"type" equalToValue:&unk_283CB4098];
   v1 = [MEMORY[0x277D10B18] predicateWithProperty:@"cloud_status" equalToValue:&unk_283CB4080];
   v2 = MEMORY[0x277D10B20];
-  v7[0] = v0;
-  v7[1] = v1;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = v0;
+  v6[1] = v1;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 predicateMatchingAllPredicates:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 id HDAttachmentReferencePredicateForObjectAndSchemaIdentifier(uint64_t a1, void *a2)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B18];
   v4 = a2;
   v5 = [v3 predicateWithProperty:@"object_identifier" equalToValue:a1];
   v6 = [MEMORY[0x277D10B18] predicateWithProperty:@"schema_identifier" equalToValue:v4];
 
   v7 = MEMORY[0x277D10B20];
-  v12[0] = v5;
-  v12[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = v5;
+  v11[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v9 = [v7 predicateMatchingAllPredicates:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 id HDAttachmentReferencePredicateForNonTombstoneAttachmentIdentifier(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277D10B18] predicateWithProperty:@"attachment_identifier" equalToValue:a1];
   v2 = [MEMORY[0x277D10B18] predicateWithProperty:@"type" notEqualToValue:&unk_283CB4098];
   v3 = MEMORY[0x277D10B20];
-  v8[0] = v1;
-  v8[1] = v2;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[0] = v1;
+  v7[1] = v2;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v5 = [v3 predicateMatchingAllPredicates:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
-void sub_2290D7378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2290D7378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290D77E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2290D77E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -14409,11 +11758,11 @@ uint64_t __Block_byref_object_copy__199(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290DBA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2290DBA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 120), 8);
+  _Block_object_dispose((v23 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -14424,9 +11773,9 @@ uint64_t __Block_byref_object_copy__200(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290DCC98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2290DCC98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -14452,25 +11801,27 @@ void sub_2290E0000(uint64_t a1, int a2)
   JUMPOUT(0x2290E000CLL);
 }
 
-void sub_2290E3084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2290E3084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290E3858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_2290E3858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290E4770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_2290E4770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -14589,6 +11940,38 @@ LABEL_28:
   return [a2 hasError] ^ 1;
 }
 
+void sub_2290E5B5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2)
+  {
+    if (a2 == 2)
+    {
+      v10 = objc_begin_catch(exception_object);
+      _HKInitializeLogging();
+      v11 = *MEMORY[0x277CCC328];
+      if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
+      {
+        v12 = *(v9 + 32);
+        LODWORD(a9) = 138543618;
+        *(&a9 + 4) = v10;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v12;
+        _os_log_fault_impl(&dword_228986000, v11, OS_LOG_TYPE_FAULT, "caught exception (%{public}@) attempting to create client object with codable %@", &a9, 0x16u);
+      }
+    }
+
+    else
+    {
+      objc_begin_catch(exception_object);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x2290E5B28);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 uint64_t _isCompanionSyncToUSLegallyCompliantOxygenSaturationDeviceForSyncSession(void *a1)
 {
   v1 = a1;
@@ -14598,23 +11981,7 @@ uint64_t _isCompanionSyncToUSLegallyCompliantOxygenSaturationDeviceForSyncSessio
   v5 = [v4 behavior];
   v6 = [v5 isCompanionCapable];
 
-  if (!v6)
-  {
-    goto LABEL_5;
-  }
-
-  v7 = [v1 syncStore];
-  v8 = [v7 syncStoreType];
-
-  if (v8 != 1)
-  {
-    goto LABEL_5;
-  }
-
-  v9 = [v1 syncStore];
-  v10 = objc_opt_respondsToSelector();
-
-  if (v10)
+  if (v6 && ([v1 syncStore], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "syncStoreType"), v7, v8 == 1) && (objc_msgSend(v1, "syncStore"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_opt_respondsToSelector(), v9, (v10 & 1) != 0))
   {
     v11 = [v1 syncStore];
     v12 = [v11 remoteDeviceSupportsUSLegallyCompliantOxygenSaturation];
@@ -14622,16 +11989,15 @@ uint64_t _isCompanionSyncToUSLegallyCompliantOxygenSaturationDeviceForSyncSessio
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 
   return v12;
 }
 
-void sub_2290EE628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290EE628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -14645,67 +12011,59 @@ uint64_t __Block_byref_object_copy__202(uint64_t result, uint64_t a2)
 
 id HDQuantitySampleStatisticsEntityPredicateForMinValue(uint64_t a1, void *a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"min";
-  v9[1] = @"quantity";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"min";
+  v8[1] = @"quantity";
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v9 count:2];
+  v5 = [v3 arrayWithObjects:v8 count:2];
   v6 = [MEMORY[0x277D10B18] predicateWithCoalescedProperties:v5 value:v4 comparisonType:a1];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 id HDQuantitySampleStatisticsEntityPredicateForMaxValue(uint64_t a1, void *a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"max";
-  v9[1] = @"quantity";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"max";
+  v8[1] = @"quantity";
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v9 count:2];
+  v5 = [v3 arrayWithObjects:v8 count:2];
   v6 = [MEMORY[0x277D10B18] predicateWithCoalescedProperties:v5 value:v4 comparisonType:a1];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 id HDQuantitySampleStatisticsEntityPredicateForMostRecentValue(uint64_t a1, void *a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"most_recent";
-  v9[1] = @"quantity";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"most_recent";
+  v8[1] = @"quantity";
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v9 count:2];
+  v5 = [v3 arrayWithObjects:v8 count:2];
   v6 = [MEMORY[0x277D10B18] predicateWithCoalescedProperties:v5 value:v4 comparisonType:a1];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 id HDQuantitySampleStatisticsEntityPredicateForMostRecentStartDate(uint64_t a1, void *a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"most_recent_date";
-  v9[1] = @"start_date";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"most_recent_date";
+  v8[1] = @"start_date";
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v9 count:2];
+  v5 = [v3 arrayWithObjects:v8 count:2];
   v6 = [MEMORY[0x277D10B18] predicateWithCoalescedProperties:v5 value:v4 comparisonType:a1];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 id HDQuantitySampleStatisticsEntityPredicateForMostRecentEndDate(uint64_t a1, void *a2)
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = a2;
   v4 = +[(HDSQLiteSchemaEntity *)HDQuantitySampleStatisticsEntity];
@@ -14714,23 +12072,21 @@ id HDQuantitySampleStatisticsEntityPredicateForMostRecentEndDate(uint64_t a1, vo
   v7 = HDSQLOperatorForComparisonType();
   v8 = [v2 stringWithFormat:@"(IFNULL((%@.%@ + %@.%@), %@.%@) %@ ?)", v4, @"most_recent_date", v5, @"most_recent_duration", v6, @"end_date", v7];
 
-  v16[0] = @"most_recent_date";
-  v16[1] = @"most_recent_duration";
-  v16[2] = @"end_date";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = @"most_recent_date";
+  v15[1] = @"most_recent_duration";
+  v15[2] = @"end_date";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   v10 = MEMORY[0x277D10B90];
-  v15 = v3;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = v3;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   v12 = [v10 predicateWithSQL:v8 overProperties:v9 values:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id HDQuantitySampleStatisticsEntityPredicateForMostRecentDuration(uint64_t a1, void *a2)
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = a2;
   v4 = +[(HDSQLiteSchemaEntity *)HDQuantitySampleStatisticsEntity];
@@ -14739,16 +12095,14 @@ id HDQuantitySampleStatisticsEntityPredicateForMostRecentDuration(uint64_t a1, v
   v7 = HDSQLOperatorForComparisonType();
   v8 = [v2 stringWithFormat:@"(IFNULL(%@.%@, (%@.%@ - %@.%@)) %@ ?)", v4, @"most_recent_duration", v5, @"end_date", v6, @"start_date", v7];
 
-  v16[0] = @"most_recent_duration";
-  v16[1] = @"end_date";
-  v16[2] = @"start_date";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = @"most_recent_duration";
+  v15[1] = @"end_date";
+  v15[2] = @"start_date";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   v10 = MEMORY[0x277D10B90];
-  v15 = v3;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = v3;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   v12 = [v10 predicateWithSQL:v8 overProperties:v9 values:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -14920,11 +12274,11 @@ id HDECGEntityPredicateForSymptomsStatus(uint64_t a1, char a2)
   return v6;
 }
 
-void sub_2290F46C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2290F46C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -14935,23 +12289,23 @@ uint64_t __Block_byref_object_copy__203(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290F50A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290F50A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290F56E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2290F56E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290F6DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2290F6DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -14963,9 +12317,9 @@ uint64_t __Block_byref_object_copy__204(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2290F8160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2290F8160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -15237,21 +12591,21 @@ LABEL_54:
   return [a2 hasError] ^ 1;
 }
 
-void sub_2290FEAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2290FEAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2290FF104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, ...)
+void sub_2290FF104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v17 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
-  v21 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v24 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
+  v28 = va_arg(va1, void);
 
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
@@ -15631,9 +12985,9 @@ LABEL_48:
   return [a2 hasError] ^ 1;
 }
 
-void sub_229105280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229105280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -15645,30 +12999,30 @@ uint64_t __Block_byref_object_copy__205(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_229106164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229106164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229106B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_229106B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229107FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_229107FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229108790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_229108790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -15682,34 +13036,33 @@ uint64_t __Block_byref_object_copy__206(uint64_t result, uint64_t a2)
 
 id HDCachedQueryMetadataEntityAllProperties()
 {
-  v3[11] = *MEMORY[0x277D85DE8];
-  v3[0] = @"query_identifier";
-  v3[1] = @"source_id";
-  v3[2] = @"generation_number";
-  v3[3] = @"max_anchor";
-  v3[4] = @"last_query_start_index";
-  v3[5] = @"last_query_end_index";
-  v3[6] = @"last_updated_date";
-  v3[7] = @"creation_date";
-  v3[8] = @"build_version";
-  v3[9] = @"anchor_date";
-  v3[10] = @"interval_components";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:11];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[11] = *MEMORY[0x277D85DE8];
+  v2[0] = @"query_identifier";
+  v2[1] = @"source_id";
+  v2[2] = @"generation_number";
+  v2[3] = @"max_anchor";
+  v2[4] = @"last_query_start_index";
+  v2[5] = @"last_query_end_index";
+  v2[6] = @"last_updated_date";
+  v2[7] = @"creation_date";
+  v2[8] = @"build_version";
+  v2[9] = @"anchor_date";
+  v2[10] = @"interval_components";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:11];
 
   return v0;
 }
 
-void sub_22910C3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22910C3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id HDCachedQueryMetadataEntityPredicateForQueryIdentifierAndSource(uint64_t a1, void *a2)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B18];
   v4 = a2;
   v5 = [v3 predicateWithProperty:@"query_identifier" equalToValue:a1];
@@ -15721,12 +13074,10 @@ id HDCachedQueryMetadataEntityPredicateForQueryIdentifierAndSource(uint64_t a1, 
   v10 = [v6 predicateWithProperty:@"source_id" equalToValue:v9];
 
   v11 = MEMORY[0x277D10B20];
-  v16[0] = v5;
-  v16[1] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v5;
+  v15[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v13 = [v11 predicateMatchingAllPredicates:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -15738,23 +13089,23 @@ uint64_t __Block_byref_object_copy__207(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22910C9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22910C9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22910CBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22910CBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22910CF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22910CF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -15893,18 +13244,18 @@ LABEL_36:
   return [a2 hasError] ^ 1;
 }
 
-id HDQuantitySampleEntityPredicateForQuantity(uint64_t a1)
+id HDQuantitySampleEntityPredicateForQuantity(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForNumber();
-  v4 = [v2 predicateWithProperty:@"quantity" value:v3 comparisonType:a1];
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForNumber();
+  v5 = [v3 predicateWithProperty:@"quantity" value:v4 comparisonType:a1];
 
-  return v4;
+  return v5;
 }
 
-void sub_229111438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_229111438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -15916,42 +13267,43 @@ uint64_t __Block_byref_object_copy__208(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2291127A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2291127A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_229114618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose((v71 - 152), 8);
+  _Block_object_dispose((v66 - 152), 8);
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a66, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2291153D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2291153D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229117B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_229117B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2291181F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
+void sub_2291181F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
 {
+  va_start(va, a45);
   _Block_object_dispose(&a36, 8);
   _Block_object_dispose(&a42, 8);
-  _Block_object_dispose(&a46, 8);
-  _Block_object_dispose((v46 - 216), 8);
-  _Block_object_dispose((v46 - 168), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v45 - 216), 8);
+  _Block_object_dispose((v45 - 168), 8);
   _Unwind_Resume(a1);
 }
 
@@ -15962,9 +13314,9 @@ uint64_t __Block_byref_object_copy__209(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22911AC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22911AC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

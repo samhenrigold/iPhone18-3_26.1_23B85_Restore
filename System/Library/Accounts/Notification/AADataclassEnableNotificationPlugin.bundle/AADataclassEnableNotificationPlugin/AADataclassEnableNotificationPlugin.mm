@@ -194,7 +194,7 @@ id sub_29C857810(void *a1, uint64_t a2, void *a3)
 
 void sub_29C857D58(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -203,9 +203,9 @@ void sub_29C857D58(uint64_t a1, int a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_29C856000, v7, OS_LOG_TYPE_DEFAULT, "Successfully enabled mail dataclass for account %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_29C856000, v7, OS_LOG_TYPE_DEFAULT, "Successfully enabled mail dataclass for account %@", &v9, 0xCu);
     }
 
 LABEL_7:
@@ -218,15 +218,13 @@ LABEL_7:
     v7 = _AALogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_29C85C42C(a1);
+      sub_29C85C42C();
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C8582B4(uint64_t a1, void *a2)
@@ -248,7 +246,7 @@ uint64_t sub_29C8582B4(uint64_t a1, void *a2)
 
 void sub_29C85832C(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v8 = v5;
   if (a2)
@@ -258,7 +256,7 @@ void sub_29C85832C(uint64_t a1, int a2, void *a3)
     {
       v10 = *(a1 + 32);
       *buf = 138412290;
-      v25 = v10;
+      v24 = v10;
       _os_log_impl(&dword_29C856000, v9, OS_LOG_TYPE_DEFAULT, "Successfully enabled BYOE dataclass for account %@", buf, 0xCu);
     }
   }
@@ -273,7 +271,7 @@ void sub_29C85832C(uint64_t a1, int a2, void *a3)
     v9 = _AALogSystem();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_29C85C4C8(a1);
+      sub_29C85C4C8();
     }
   }
 
@@ -290,20 +288,18 @@ LABEL_8:
 
     v18 = objc_msgSend_sharedManager(AADataclassManager, v16, v17);
     v19 = *(a1 + 32);
-    v22[0] = MEMORY[0x29EDCA5F8];
-    v22[1] = 3221225472;
-    v22[2] = sub_29C8584FC;
-    v22[3] = &unk_29F32A368;
-    v23 = v19;
-    objc_msgSend_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion_(v18, v20, v11, v23, v22);
+    v21[0] = MEMORY[0x29EDCA5F8];
+    v21[1] = 3221225472;
+    v21[2] = sub_29C8584FC;
+    v21[3] = &unk_29F32A368;
+    v22 = v19;
+    objc_msgSend_enableDataclassesWithoutLocalDataDataclassActionsForDataclasses_fromAccount_completion_(v18, v20, v11, v22, v21);
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C8584FC(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -312,9 +308,9 @@ void sub_29C8584FC(uint64_t a1, int a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_29C856000, v7, OS_LOG_TYPE_DEFAULT, "Successfully enabled dataclasses for account %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_29C856000, v7, OS_LOG_TYPE_DEFAULT, "Successfully enabled dataclasses for account %@", &v9, 0xCu);
     }
 
 LABEL_7:
@@ -327,20 +323,18 @@ LABEL_7:
     v7 = _AALogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_29C85C564(a1);
+      sub_29C85C564();
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C8585F4(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -349,9 +343,9 @@ void sub_29C8585F4(uint64_t a1, int a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_29C856000, v7, OS_LOG_TYPE_DEFAULT, "Successfully enabled dataclasses for account %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_29C856000, v7, OS_LOG_TYPE_DEFAULT, "Successfully enabled dataclasses for account %@", &v9, 0xCu);
     }
 
 LABEL_7:
@@ -364,20 +358,18 @@ LABEL_7:
     v7 = _AALogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_29C85C564(a1);
+      sub_29C85C564();
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C858C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29C858C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -391,7 +383,7 @@ uint64_t sub_29C858C70(uint64_t result, uint64_t a2)
 
 void sub_29C858C88(void *a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v6 = a3;
   if (v6)
   {
@@ -427,7 +419,7 @@ void sub_29C858C88(void *a1, int a2, void *a3)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v10;
+      v15 = v10;
       _os_log_impl(&dword_29C856000, v11, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
 
@@ -437,8 +429,6 @@ void sub_29C858C88(void *a1, int a2, void *a3)
   v12 = *(a1[7] + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = 0;
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C858EF8(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -448,17 +438,11 @@ void sub_29C858EF8(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_29C858F24(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29C858F24(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
-}
-
-uint64_t sub_29C858F4C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t sub_29C8598F0()
@@ -493,71 +477,67 @@ void sub_29C859A48()
 
 void sub_29C859DA0(uint64_t a1, const char *a2)
 {
-  v19[11] = *MEMORY[0x29EDCA608];
+  v18[11] = *MEMORY[0x29EDCA608];
   v2 = *MEMORY[0x29EDC5898];
   v3 = *MEMORY[0x29EDB8118];
-  v18[0] = *MEMORY[0x29EDB8100];
-  v18[1] = v3;
+  v17[0] = *MEMORY[0x29EDB8100];
+  v17[1] = v3;
   v4 = *MEMORY[0x29EDC58D0];
-  v19[0] = v2;
-  v19[1] = v4;
+  v18[0] = v2;
+  v18[1] = v4;
   v5 = *MEMORY[0x29EDC58D8];
   v6 = *MEMORY[0x29EDB8168];
-  v18[2] = *MEMORY[0x29EDB8160];
-  v18[3] = v6;
+  v17[2] = *MEMORY[0x29EDB8160];
+  v17[3] = v6;
   v7 = *MEMORY[0x29EDC5888];
-  v19[2] = v5;
-  v19[3] = v7;
+  v18[2] = v5;
+  v18[3] = v7;
   v8 = *MEMORY[0x29EDC5890];
   v9 = *MEMORY[0x29EDB80D0];
-  v18[4] = *MEMORY[0x29EDB8080];
-  v18[5] = v9;
+  v17[4] = *MEMORY[0x29EDB8080];
+  v17[5] = v9;
   v10 = *MEMORY[0x29EDC58A0];
-  v19[4] = v8;
-  v19[5] = v10;
+  v18[4] = v8;
+  v18[5] = v10;
   v11 = *MEMORY[0x29EDC58A8];
   v12 = *MEMORY[0x29EDB80F0];
-  v18[6] = *MEMORY[0x29EDB80E8];
-  v18[7] = v12;
+  v17[6] = *MEMORY[0x29EDB80E8];
+  v17[7] = v12;
   v13 = *MEMORY[0x29EDC58B0];
-  v19[6] = v11;
-  v19[7] = v13;
+  v18[6] = v11;
+  v18[7] = v13;
   v14 = *MEMORY[0x29EDB8180];
-  v18[8] = *MEMORY[0x29EDB8130];
-  v18[9] = v14;
-  v19[8] = *MEMORY[0x29EDC58C8];
-  v19[9] = v2;
-  v18[10] = *MEMORY[0x29EDB80F8];
-  v19[10] = *MEMORY[0x29EDC58C0];
-  v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], a2, v19, v18, 11);
+  v17[8] = *MEMORY[0x29EDB8130];
+  v17[9] = v14;
+  v18[8] = *MEMORY[0x29EDC58C8];
+  v18[9] = v2;
+  v17[10] = *MEMORY[0x29EDB80F8];
+  v18[10] = *MEMORY[0x29EDC58C0];
+  v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x29EDB8DC0], a2, v18, v17, 11);
   v16 = qword_2A1A10CE8;
   qword_2A1A10CE8 = v15;
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C85A310(uint64_t a1, const char *a2)
 {
-  v8[6] = *MEMORY[0x29EDCA608];
+  v7[6] = *MEMORY[0x29EDCA608];
   v2 = *MEMORY[0x29EDB80C0];
-  v8[0] = *MEMORY[0x29EDB80B0];
-  v8[1] = v2;
+  v7[0] = *MEMORY[0x29EDB80B0];
+  v7[1] = v2;
   v3 = *MEMORY[0x29EDB80F0];
-  v8[2] = *MEMORY[0x29EDB80E8];
-  v8[3] = v3;
+  v7[2] = *MEMORY[0x29EDB80E8];
+  v7[3] = v3;
   v4 = *MEMORY[0x29EDB8180];
-  v8[4] = *MEMORY[0x29EDB8158];
-  v8[5] = v4;
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], a2, v8, 6);
+  v7[4] = *MEMORY[0x29EDB8158];
+  v7[5] = v4;
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], a2, v7, 6);
   v6 = qword_2A17951B8;
   qword_2A17951B8 = v5;
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C85ACC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C85ACC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -610,7 +590,7 @@ void sub_29C85AFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_29C85AFDC(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v7 = a3;
   if (v5)
@@ -639,23 +619,23 @@ void sub_29C85AFDC(uint64_t a1, void *a2, void *a3)
       shouldVerifyAccountSave = objc_msgSend__shouldVerifyAccountSave(*(a1 + 32), v13, v14);
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v37 = 0x3032000000;
-      v38 = sub_29C85ACE0;
-      v39 = sub_29C85ACF0;
-      v40 = os_transaction_create();
-      v28 = MEMORY[0x29EDCA5F8];
-      v29 = 3221225472;
-      v30 = sub_29C85B344;
-      v31 = &unk_29F32A468;
+      v36 = 0x3032000000;
+      v37 = sub_29C85ACE0;
+      v38 = sub_29C85ACF0;
+      v39 = os_transaction_create();
+      v27 = MEMORY[0x29EDCA5F8];
+      v28 = 3221225472;
+      v29 = sub_29C85B344;
+      v30 = &unk_29F32A468;
       v18 = *(a1 + 40);
       v17 = a1 + 40;
-      v32 = v18;
+      v31 = v18;
       v19 = v10;
-      v33 = v19;
-      v34 = *(v17 + 8);
+      v32 = v19;
+      v33 = *(v17 + 8);
       p_buf = &buf;
-      v20 = MEMORY[0x29ED46520](&v28);
-      objc_msgSend_saveAccount_onAccountStore_withDataclassActions_doVerify_completion_(WeakRetained[2], v21, *v17, WeakRetained[1], v19, shouldVerifyAccountSave, v20, v28, v29, v30, v31);
+      v20 = MEMORY[0x29ED46520](&v27);
+      objc_msgSend_saveAccount_onAccountStore_withDataclassActions_doVerify_completion_(WeakRetained[2], v21, *v17, WeakRetained[1], v19, shouldVerifyAccountSave, v20, v27, v28, v29, v30);
 
       _Block_object_dispose(&buf, 8);
     }
@@ -684,20 +664,18 @@ void sub_29C85AFDC(uint64_t a1, void *a2, void *a3)
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C85B324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29C85B324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_29C85B344(void *a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = _AALogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -710,13 +688,13 @@ void sub_29C85B344(void *a1, int a2, void *a3)
       v7 = @"YES";
     }
 
-    v14 = 138412802;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_29C856000, v6, OS_LOG_TYPE_DEFAULT, "Account save with dataclass actions had success (%@) for account (%@) with dataclass actions: %@", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_29C856000, v6, OS_LOG_TYPE_DEFAULT, "Account save with dataclass actions had success (%@) for account (%@) with dataclass actions: %@", &v13, 0x20u);
   }
 
   if (v5)
@@ -732,13 +710,11 @@ void sub_29C85B344(void *a1, int a2, void *a3)
   v11 = *(a1[7] + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = 0;
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C85B7D0(void **a1, void *a2, void *a3)
+void sub_29C85B7D0(id *a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v6 = a3;
   if (objc_msgSend_count(v6, v7, v8))
@@ -751,11 +727,11 @@ void sub_29C85B7D0(void **a1, void *a2, void *a3)
       if (v13)
       {
         v15 = objc_msgSend_objectAtIndexedSubscript_(v6, v14, 0);
-        v32 = 134218242;
-        v33 = objc_msgSend_type(v15, v16, v17);
-        v34 = 2112;
-        v35 = v5;
-        _os_log_impl(&dword_29C856000, v12, OS_LOG_TYPE_DEFAULT, "Action %lu available for %@", &v32, 0x16u);
+        v31 = 134218242;
+        v32 = objc_msgSend_type(v15, v16, v17);
+        v33 = 2112;
+        v34 = v5;
+        _os_log_impl(&dword_29C856000, v12, OS_LOG_TYPE_DEFAULT, "Action %lu available for %@", &v31, 0x16u);
       }
 
       v20 = objc_msgSend_firstObject(v6, v18, v19);
@@ -770,11 +746,11 @@ void sub_29C85B7D0(void **a1, void *a2, void *a3)
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           v28 = objc_msgSend_type(v20, v26, v27);
-          v32 = 138412546;
-          v33 = v5;
-          v34 = 2048;
-          v35 = v28;
-          _os_log_impl(&dword_29C856000, v25, OS_LOG_TYPE_DEFAULT, "Not enabling dataclass %@ as only action %lu is not safe for auto enablement.", &v32, 0x16u);
+          v31 = 138412546;
+          v32 = v5;
+          v33 = 2048;
+          v34 = v28;
+          _os_log_impl(&dword_29C856000, v25, OS_LOG_TYPE_DEFAULT, "Not enabling dataclass %@ as only action %lu is not safe for auto enablement.", &v31, 0x16u);
         }
 
         objc_msgSend_removeObject_(a1[6], v29, v5);
@@ -786,17 +762,15 @@ void sub_29C85B7D0(void **a1, void *a2, void *a3)
     {
       if (v13)
       {
-        v32 = 138412290;
-        v33 = v5;
-        _os_log_impl(&dword_29C856000, v12, OS_LOG_TYPE_DEFAULT, "Unable to auto-enable dataclass %@ as enablement requires a user decision.", &v32, 0xCu);
+        v31 = 138412290;
+        v32 = v5;
+        _os_log_impl(&dword_29C856000, v12, OS_LOG_TYPE_DEFAULT, "Unable to auto-enable dataclass %@ as enablement requires a user decision.", &v31, 0xCu);
       }
 
       objc_msgSend_removeObject_(a1[6], v23, v5);
       objc_msgSend_setEnabled_forDataclass_(a1[7], v24, 0, v5);
     }
   }
-
-  v31 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C85BB0C(uint64_t a1, void *a2)
@@ -828,10 +802,11 @@ LABEL_6:
   return canAutoEnableDataclass_forAccount;
 }
 
-void sub_29C85BD14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29C85BD14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_29C85BEA4()
@@ -892,28 +867,25 @@ void sub_29C85C3B8()
   objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v2, v3, v4, @"block");
 }
 
-void sub_29C85C42C(uint64_t a1)
+void sub_29C85C42C()
 {
-  sub_29C858F4C(a1, *MEMORY[0x29EDCA608]);
+  sub_29C858F4C(*MEMORY[0x29EDCA608]);
   sub_29C858EE0();
-  sub_29C858EF8(&dword_29C856000, v1, v2, "Failed to enable mail dataclass for account %@ with error %@");
-  v3 = *MEMORY[0x29EDCA608];
+  sub_29C858EF8(&dword_29C856000, v0, v1, "Failed to enable mail dataclass for account %@ with error %@");
 }
 
-void sub_29C85C4C8(uint64_t a1)
+void sub_29C85C4C8()
 {
-  sub_29C858F4C(a1, *MEMORY[0x29EDCA608]);
+  sub_29C858F4C(*MEMORY[0x29EDCA608]);
   sub_29C858EE0();
-  sub_29C858EF8(&dword_29C856000, v1, v2, "Failed to enable BYOE dataclass for account %@ with error %@");
-  v3 = *MEMORY[0x29EDCA608];
+  sub_29C858EF8(&dword_29C856000, v0, v1, "Failed to enable BYOE dataclass for account %@ with error %@");
 }
 
-void sub_29C85C564(uint64_t a1)
+void sub_29C85C564()
 {
-  sub_29C858F4C(a1, *MEMORY[0x29EDCA608]);
+  sub_29C858F4C(*MEMORY[0x29EDCA608]);
   sub_29C858EE0();
-  sub_29C858EF8(&dword_29C856000, v1, v2, "Failed to enable dataclasses for account %@ with error %@");
-  v3 = *MEMORY[0x29EDCA608];
+  sub_29C858EF8(&dword_29C856000, v0, v1, "Failed to enable dataclasses for account %@ with error %@");
 }
 
 void sub_29C85C5CC()
@@ -923,27 +895,11 @@ void sub_29C85C5CC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_29C85C608()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_29C858F40();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
 void sub_29C85C67C()
 {
   sub_29C858F18();
   sub_29C858F40();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_29C85C6B8()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_29C858F40();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C85C760()
@@ -972,20 +928,16 @@ void sub_29C85C840()
 
 void sub_29C85C91C()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29C85BCFC();
   sub_29C85BD08();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C85C98C()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29C85BCFC();
   sub_29C85BD08();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C85CA10()
@@ -1030,11 +982,9 @@ void sub_29C85CBE0()
 
 void sub_29C85CC54()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29C85BCFC();
   sub_29C85BD08();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C85CCC4()
@@ -1047,19 +997,9 @@ void sub_29C85CCC4()
 
 void sub_29C85CD38()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29C85BCFC();
   sub_29C85BD08();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29C85CDA8()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C85BCFC();
-  sub_29C85BD14(&dword_29C856000, v0, v1, "Failed to save account without auto-enableable dataclasses with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C85CE10()
@@ -1086,61 +1026,34 @@ void sub_29C85CEF8()
   objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v2, v3, v4, @"completion");
 }
 
-void sub_29C85CFB0()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C85BCFC();
-  sub_29C85BD14(&dword_29C856000, v0, v1, "Unable to build list of dataclasses and actions for enablement %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29C85D018()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C85BCFC();
-  sub_29C85BD14(&dword_29C856000, v0, v1, "Encountered error when saving with dataclass actions: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29C85D080()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C85BCFC();
-  sub_29C85BD14(&dword_29C856000, v0, v1, "Failed to get dataclass actions for account, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
 void sub_29C85D17C(uint64_t a1, char a2, os_log_t log)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v3 = @"YES";
   if ((a2 & 1) == 0)
   {
     v3 = @"NO";
   }
 
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_29C856000, log, OS_LOG_TYPE_DEBUG, "Policy restriction for %@ is %@", &v5, 0x16u);
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_29C856000, log, OS_LOG_TYPE_DEBUG, "Policy restriction for %@ is %@", &v4, 0x16u);
 }
 
 void sub_29C85D21C(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29C856000, a2, OS_LOG_TYPE_DEBUG, "Policy identifier does not exist for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29C856000, a2, OS_LOG_TYPE_DEBUG, "Policy identifier does not exist for %@", &v2, 0xCu);
 }
 
 void sub_29C85D2A8(os_log_t log)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v2 = 138412290;
-  v3 = qword_2A1A10CF8;
-  _os_log_debug_impl(&dword_29C856000, log, OS_LOG_TYPE_DEBUG, "Current device model: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 138412290;
+  v2 = qword_2A1A10CF8;
+  _os_log_debug_impl(&dword_29C856000, log, OS_LOG_TYPE_DEBUG, "Current device model: %@", &v1, 0xCu);
 }

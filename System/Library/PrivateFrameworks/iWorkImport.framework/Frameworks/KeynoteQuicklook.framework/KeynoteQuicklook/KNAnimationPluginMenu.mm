@@ -61,54 +61,62 @@
     switch(direction)
     {
       case 0xBuLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v6, @"From Left *Direction*", @"From Left", @"Keynote");
+          v7 = @"From Left *Direction*";
+          v8 = @"From Left";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v6, @"Left to Right *Direction*", @"Left to Right", @"Keynote");
+          v7 = @"Left to Right *Direction*";
+          v8 = @"Left to Right";
         }
 
         goto LABEL_64;
       case 0xCuLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v17, @"From Right *Direction*", @"From Right", @"Keynote");
+          v7 = @"From Right *Direction*";
+          v8 = @"From Right";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v17, @"Right to Left *Direction*", @"Right to Left", @"Keynote");
+          v7 = @"Right to Left *Direction*";
+          v8 = @"Right to Left";
         }
 
         goto LABEL_64;
       case 0xDuLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v19, @"From Top *Direction*", @"From Top", @"Keynote");
+          v7 = @"From Top *Direction*";
+          v8 = @"From Top";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v19, @"Top to Bottom *Direction*", @"Top to Bottom", @"Keynote");
+          v7 = @"Top to Bottom *Direction*";
+          v8 = @"Top to Bottom";
         }
 
         goto LABEL_64;
       case 0xEuLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v14, @"From Bottom *Direction*", @"From Bottom", @"Keynote");
+          v7 = @"From Bottom *Direction*";
+          v8 = @"From Bottom";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v14, @"Bottom to Top *Direction*", @"Bottom to Top", @"Keynote");
+          v7 = @"Bottom to Top *Direction*";
+          v8 = @"Bottom to Top";
         }
 
         goto LABEL_64;
@@ -138,133 +146,141 @@
       case 0x30uLL:
       case 0x31uLL:
       case 0x32uLL:
-        goto LABEL_65;
+        goto LABEL_66;
       case 0x15uLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v16, @"From Top Left *Direction*", @"From Top Left", @"Keynote");
+          v7 = @"From Top Left *Direction*";
+          v8 = @"From Top Left";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v16, @"Top Left to Bottom Right *Direction*", @"Top Left to Bottom Right", @"Keynote");
+          v7 = @"Top Left to Bottom Right *Direction*";
+          v8 = @"Top Left to Bottom Right";
         }
 
         goto LABEL_64;
       case 0x16uLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v15, @"From Top Right *Direction*", @"From Top Right", @"Keynote");
+          v7 = @"From Top Right *Direction*";
+          v8 = @"From Top Right";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v15, @"Top Right to Bottom Left *Direction*", @"Top Right to Bottom Left", @"Keynote");
+          v7 = @"Top Right to Bottom Left *Direction*";
+          v8 = @"Top Right to Bottom Left";
         }
 
         goto LABEL_64;
       case 0x17uLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v13, @"From Bottom Left *Direction*", @"From Bottom Left", @"Keynote");
+          v7 = @"From Bottom Left *Direction*";
+          v8 = @"From Bottom Left";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v13, @"Bottom Left to Top Right *Direction*", @"Bottom Left to Top Right", @"Keynote");
+          v7 = @"Bottom Left to Top Right *Direction*";
+          v8 = @"Bottom Left to Top Right";
         }
 
         goto LABEL_64;
       case 0x18uLL:
-        v7 = sub_275DC204C();
+        v6 = sub_275DC204C(self);
         if (version)
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v18, @"From Bottom Right *Direction*", @"From Bottom Right", @"Keynote");
+          v7 = @"From Bottom Right *Direction*";
+          v8 = @"From Bottom Right";
         }
 
         else
         {
-          objc_msgSend_localizedStringForKey_value_table_(v7, v18, @"Bottom Right to Top Left *Direction*", @"Bottom Right to Top Left", @"Keynote");
+          v7 = @"Bottom Right to Top Left *Direction*";
+          v8 = @"Bottom Right to Top Left";
         }
 
         goto LABEL_64;
       case 0x1FuLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Clockwise *Direction*";
-        v11 = @"Clockwise";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Clockwise *Direction*";
+        v8 = @"Clockwise";
+        goto LABEL_65;
       case 0x20uLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Counterclockwise *Direction*";
-        v11 = @"Counterclockwise";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Counterclockwise *Direction*";
+        v8 = @"Counterclockwise";
+        goto LABEL_65;
       case 0x29uLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"In *Direction*";
-        v11 = @"In";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"In *Direction*";
+        v8 = @"In";
+        goto LABEL_65;
       case 0x2AuLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Out *Direction*";
-        v11 = @"Out";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Out *Direction*";
+        v8 = @"Out";
+        goto LABEL_65;
       case 0x2BuLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Up *Direction*";
-        v11 = @"Up";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Up *Direction*";
+        v8 = @"Up";
+        goto LABEL_65;
       case 0x2CuLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Down *Direction*";
-        v11 = @"Down";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Down *Direction*";
+        v8 = @"Down";
+        goto LABEL_65;
       case 0x33uLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Start to End *Direction*";
-        v11 = @"Start to End";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Start to End *Direction*";
+        v8 = @"Start to End";
+        goto LABEL_65;
       case 0x34uLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"End to Start *Direction*";
-        v11 = @"End to Start";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"End to Start *Direction*";
+        v8 = @"End to Start";
+        goto LABEL_65;
       case 0x35uLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Middle to Ends *Direction*";
-        v11 = @"Middle to Ends";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Middle to Ends *Direction*";
+        v8 = @"Middle to Ends";
+        goto LABEL_65;
       case 0x36uLL:
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"Ends to Middle *Direction*";
-        v11 = @"Ends to Middle";
-        goto LABEL_51;
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"Ends to Middle *Direction*";
+        v8 = @"Ends to Middle";
+        goto LABEL_65;
       default:
         if (direction)
         {
-          goto LABEL_65;
+          goto LABEL_66;
         }
 
-        v8 = sub_275DC204C();
-        v7 = v8;
-        v10 = @"None *Direction*";
-        v11 = @"None";
+        v9 = sub_275DC204C(self);
+        v6 = v9;
+        v7 = @"None *Direction*";
+        v8 = @"None";
         break;
     }
 
-    goto LABEL_51;
+    goto LABEL_65;
   }
 
   if (direction <= 112)
@@ -274,260 +290,258 @@
       switch(direction)
       {
         case ']':
-          v8 = sub_275DC204C();
-          v7 = v8;
-          v10 = @"Simultaneous *Direction*";
-          v11 = @"Simultaneous";
+          v9 = sub_275DC204C(self);
+          v6 = v9;
+          v7 = @"Simultaneous *Direction*";
+          v8 = @"Simultaneous";
           break;
         case 'o':
-          v8 = sub_275DC204C();
-          v7 = v8;
-          v10 = @"Forward *Direction*";
-          v11 = @"Forward";
+          v9 = sub_275DC204C(self);
+          v6 = v9;
+          v7 = @"Forward *Direction*";
+          v8 = @"Forward";
           break;
         case 'p':
-          v8 = sub_275DC204C();
-          v7 = v8;
-          v10 = @"Backward *Direction*";
-          v11 = @"Backward";
+          v9 = sub_275DC204C(self);
+          v6 = v9;
+          v7 = @"Backward *Direction*";
+          v8 = @"Backward";
           break;
         default:
-          goto LABEL_65;
+          goto LABEL_66;
       }
 
-      goto LABEL_51;
+      goto LABEL_65;
     }
 
     if (direction != 91)
     {
-      v8 = sub_275DC204C();
-      v7 = v8;
-      v10 = @"Alternating *Direction*";
-      v11 = @"Alternating";
-      goto LABEL_51;
+      v9 = sub_275DC204C(self);
+      v6 = v9;
+      v7 = @"Alternating *Direction*";
+      v8 = @"Alternating";
+      goto LABEL_65;
     }
 
 LABEL_21:
-    v8 = sub_275DC204C();
-    v7 = v8;
-    v10 = @"Random *Direction*";
-    v11 = @"Random";
-    goto LABEL_51;
+    v9 = sub_275DC204C(self);
+    v6 = v9;
+    v7 = @"Random *Direction*";
+    v8 = @"Random";
+    goto LABEL_65;
   }
 
   if (direction <= 114)
   {
-    if (direction != 113)
+    if (direction == 113)
     {
-      v7 = sub_275DC204C();
-      if (version)
-      {
-        objc_msgSend_localizedStringForKey_value_table_(v7, v12, @"Center *Direction*", @"Center", @"Keynote");
-      }
-
-      else
-      {
-        objc_msgSend_localizedStringForKey_value_table_(v7, v12, @"From Center *Direction*", @"From Center", @"Keynote");
-      }
-
-      goto LABEL_64;
+      goto LABEL_21;
     }
 
-    goto LABEL_21;
+    v6 = sub_275DC204C(self);
+    if (version)
+    {
+      v7 = @"Center *Direction*";
+      v8 = @"Center";
+    }
+
+    else
+    {
+      v7 = @"From Center *Direction*";
+      v8 = @"From Center";
+    }
+
+LABEL_64:
+    v9 = v6;
+    goto LABEL_65;
   }
 
   switch(direction)
   {
     case 's':
-      v7 = sub_275DC204C();
+      v6 = sub_275DC204C(self);
       if (version)
       {
-        objc_msgSend_localizedStringForKey_value_table_(v7, v20, @"Edges *Direction*", @"Edges", @"Keynote");
+        v7 = @"Edges *Direction*";
+        v8 = @"Edges";
       }
 
       else
       {
-        objc_msgSend_localizedStringForKey_value_table_(v7, v20, @"From Edges *Direction*", @"From Edges", @"Keynote");
+        v7 = @"From Edges *Direction*";
+        v8 = @"From Edges";
       }
 
       goto LABEL_64;
     case 'y':
-      v8 = sub_275DC204C();
-      v7 = v8;
-      v10 = @"Gravity *Direction*";
-      v11 = @"Gravity";
+      v9 = sub_275DC204C(self);
+      v6 = v9;
+      v7 = @"Gravity *Direction*";
+      v8 = @"Gravity";
       break;
     case 'z':
-      v8 = sub_275DC204C();
-      v7 = v8;
-      v10 = @"No Gravity *Direction*";
-      v11 = @"No Gravity";
+      v9 = sub_275DC204C(self);
+      v6 = v9;
+      v7 = @"No Gravity *Direction*";
+      v8 = @"No Gravity";
       break;
     default:
-      goto LABEL_65;
+      goto LABEL_66;
   }
 
-LABEL_51:
-  objc_msgSend_localizedStringForKey_value_table_(v8, v9, v10, v11, @"Keynote");
-  v5 = LABEL_64:;
-
 LABEL_65:
+  v5 = [v9 localizedStringForKey:v7 value:v8 table:@"Keynote"];
+
+LABEL_66:
 
   return v5;
 }
 
 - (id)localizedStringForDirection:(unint64_t)direction
 {
-  if ((objc_msgSend_containsDirection_(self, a2, direction) & 1) == 0)
+  if (![(KNAnimationPluginMenu *)self containsDirection:?])
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNAnimationPluginMenu localizedStringForDirection:]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationPluginMenu.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 214, 0, "Asking for a direction that is not in the plugin");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNAnimationPluginMenu localizedStringForDirection:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNAnimationPluginMenu.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:214 isFatal:0 description:"Asking for a direction that is not in the plugin"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v13 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v5, direction);
-  v15 = objc_msgSend_objectForKeyedSubscript_(self->_directionToLocalizedStringMap, v14, v13);
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:direction];
+  v9 = [(NSMutableDictionary *)self->_directionToLocalizedStringMap objectForKeyedSubscript:v8];
 
-  return v15;
+  return v9;
 }
 
 - (NSArray)localizedDirections
 {
-  v3 = objc_msgSend_copy(self->_localizedDirections, a2, v2);
+  v2 = [(NSMutableArray *)self->_localizedDirections copy];
 
-  return v3;
+  return v2;
 }
 
 - (NSArray)directions
 {
-  v3 = objc_msgSend_copy(self->_directions, a2, v2);
+  v2 = [(NSMutableArray *)self->_directions copy];
 
-  return v3;
+  return v2;
 }
 
 - (void)addDirection:(unint64_t)direction localizedMenuString:(id)string
 {
   v6 = MEMORY[0x277CCABB0];
   stringCopy = string;
-  v13 = objc_msgSend_numberWithUnsignedInteger_(v6, v8, direction);
-  objc_msgSend_addObject_(self->_localizedDirections, v9, stringCopy);
-  objc_msgSend_addObject_(self->_directions, v10, v13);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_localizedStringToDirectionMap, v11, v13, stringCopy);
-  objc_msgSend_setObject_forKeyedSubscript_(self->_directionToLocalizedStringMap, v12, stringCopy, v13);
+  v8 = [v6 numberWithUnsignedInteger:direction];
+  [(NSMutableArray *)self->_localizedDirections addObject:stringCopy];
+  [(NSMutableArray *)self->_directions addObject:v8];
+  [(NSMutableDictionary *)self->_localizedStringToDirectionMap setObject:v8 forKeyedSubscript:stringCopy];
+  [(NSMutableDictionary *)self->_directionToLocalizedStringMap setObject:stringCopy forKeyedSubscript:v8];
 }
 
 - (void)addDirection:(unint64_t)direction useShortString:(BOOL)string
 {
-  stringCopy = string;
-  v7 = objc_opt_class();
-  v10 = objc_msgSend_localizedStringForDirection_shortVersion_(v7, v8, direction, stringCopy);
-  objc_msgSend_addDirection_localizedMenuString_(self, v9, direction, v10);
+  v6 = [objc_opt_class() localizedStringForDirection:direction shortVersion:string];
+  [(KNAnimationPluginMenu *)self addDirection:direction localizedMenuString:v6];
 }
 
 - (BOOL)containsDirection:(unint64_t)direction
 {
-  v4 = objc_msgSend_directions(self, a2, direction);
-  v6 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v5, direction);
-  v8 = objc_msgSend_containsObject_(v4, v7, v6);
+  directions = [(KNAnimationPluginMenu *)self directions];
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:direction];
+  v6 = [directions containsObject:v5];
 
-  return v8;
+  return v6;
 }
 
 - (unint64_t)indexForDirection:(unint64_t)direction
 {
-  v4 = objc_msgSend_directions(self, a2, direction);
-  v6 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v5, direction);
-  v8 = objc_msgSend_indexOfObject_(v4, v7, v6);
+  directions = [(KNAnimationPluginMenu *)self directions];
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:direction];
+  v6 = [directions indexOfObject:v5];
 
-  return v8;
+  return v6;
 }
 
 - (unint64_t)directionForIndex:(unint64_t)index
 {
-  v4 = objc_msgSend_directions(self, a2, index);
-  v6 = objc_msgSend_objectAtIndexedSubscript_(v4, v5, index);
-  v9 = objc_msgSend_intValue(v6, v7, v8);
+  directions = [(KNAnimationPluginMenu *)self directions];
+  v5 = [directions objectAtIndexedSubscript:index];
+  intValue = [v5 intValue];
 
-  return v9;
+  return intValue;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v6 = objc_msgSend_localizedDirections(self, v4, v5);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v7, v6, @"localizedDirections");
+  localizedDirections = [(KNAnimationPluginMenu *)self localizedDirections];
+  [coderCopy encodeObject:localizedDirections forKey:@"localizedDirections"];
 
-  v10 = objc_msgSend_directions(self, v8, v9);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v11, v10, @"directions");
+  directions = [(KNAnimationPluginMenu *)self directions];
+  [coderCopy encodeObject:directions forKey:@"directions"];
 
-  v14 = objc_msgSend_defaultDirection(self, v12, v13);
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v15, v14, @"defaultDirection");
+  [coderCopy encodeInteger:-[KNAnimationPluginMenu defaultDirection](self forKey:{"defaultDirection"), @"defaultDirection"}];
 }
 
 - (KNAnimationPluginMenu)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v7 = objc_msgSend_init(self, v5, v6);
-  v8 = MEMORY[0x277CBEB98];
-  v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v12 = objc_msgSend_setWithObjects_(v8, v11, v9, v10, 0);
-  v14 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v13, v12, @"localizedDirections");
+  v5 = [(KNAnimationPluginMenu *)self init];
+  v6 = MEMORY[0x277CBEB98];
+  v7 = objc_opt_class();
+  v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
+  v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"localizedDirections"];
 
-  v15 = MEMORY[0x277CBEB98];
-  v16 = objc_opt_class();
-  v17 = objc_opt_class();
-  v19 = objc_msgSend_setWithObjects_(v15, v18, v16, v17, 0);
-  v21 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v20, v19, @"directions");
+  v10 = MEMORY[0x277CBEB98];
+  v11 = objc_opt_class();
+  v12 = [v10 setWithObjects:{v11, objc_opt_class(), 0}];
+  v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"directions"];
 
-  if (objc_msgSend_count(v21, v22, v23))
+  if ([v13 count])
   {
-    v25 = 0;
+    v14 = 0;
     do
     {
-      v26 = objc_msgSend_objectAtIndexedSubscript_(v21, v24, v25);
-      v29 = objc_msgSend_integerValue(v26, v27, v28);
-      v31 = objc_msgSend_objectAtIndexedSubscript_(v14, v30, v25);
-      objc_msgSend_addDirection_localizedMenuString_(v7, v32, v29, v31);
+      v15 = [v13 objectAtIndexedSubscript:v14];
+      integerValue = [v15 integerValue];
+      v17 = [v9 objectAtIndexedSubscript:v14];
+      [(KNAnimationPluginMenu *)v5 addDirection:integerValue localizedMenuString:v17];
 
-      ++v25;
+      ++v14;
     }
 
-    while (v25 < objc_msgSend_count(v21, v33, v34));
+    while (v14 < [v13 count]);
   }
 
-  v35 = objc_msgSend_decodeIntegerForKey_(coderCopy, v24, @"defaultDirection");
-  objc_msgSend_setDefaultDirection_(v7, v36, v35);
+  -[KNAnimationPluginMenu setDefaultDirection:](v5, "setDefaultDirection:", [coderCopy decodeIntegerForKey:@"defaultDirection"]);
 
-  return v7;
+  return v5;
 }
 
 - (void)copyToInstance:(id)instance
 {
   instanceCopy = instance;
-  if (objc_msgSend_count(self, v4, v5))
+  if ([(KNAnimationPluginMenu *)self count])
   {
-    v8 = 0;
+    v4 = 0;
     do
     {
-      v9 = objc_msgSend_directions(self, v6, v7);
-      v11 = objc_msgSend_objectAtIndexedSubscript_(v9, v10, v8);
-      v14 = objc_msgSend_integerValue(v11, v12, v13);
-      v17 = objc_msgSend_localizedDirections(self, v15, v16);
-      v19 = objc_msgSend_objectAtIndexedSubscript_(v17, v18, v8);
-      objc_msgSend_addDirection_localizedMenuString_(instanceCopy, v20, v14, v19);
+      directions = [(KNAnimationPluginMenu *)self directions];
+      v6 = [directions objectAtIndexedSubscript:v4];
+      integerValue = [v6 integerValue];
+      localizedDirections = [(KNAnimationPluginMenu *)self localizedDirections];
+      v9 = [localizedDirections objectAtIndexedSubscript:v4];
+      [instanceCopy addDirection:integerValue localizedMenuString:v9];
 
-      ++v8;
+      ++v4;
     }
 
-    while (v8 < objc_msgSend_count(self, v21, v22));
+    while (v4 < [(KNAnimationPluginMenu *)self count]);
   }
 
-  v23 = objc_msgSend_defaultDirection(self, v6, v7);
-  objc_msgSend_setDefaultDirection_(instanceCopy, v24, v23);
+  [instanceCopy setDefaultDirection:{-[KNAnimationPluginMenu defaultDirection](self, "defaultDirection")}];
 }
 
 @end

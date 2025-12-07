@@ -38,13 +38,13 @@
 
   requestProperties = [(SSPurchase *)self requestProperties];
   requestParameters = [requestProperties requestParameters];
-  v41[0] = _NSConcreteStackBlock;
-  v41[1] = 3221225472;
-  v41[2] = sub_1000CABFC;
-  v41[3] = &unk_100327658;
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_1000CABFC;
+  v40[3] = &unk_100327658;
   v12 = v4;
-  v42 = v12;
-  [requestParameters enumerateKeysAndObjectsUsingBlock:v41];
+  v41 = v12;
+  [requestParameters enumerateKeysAndObjectsUsingBlock:v40];
 
   requestProperties2 = [(SSPurchase *)self requestProperties];
   uRLBagKey = [requestProperties2 URLBagKey];
@@ -55,36 +55,36 @@
     {
       v16 = 0;
       v15 = 0;
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
     if ([uRLBagKey isEqualToString:@"downloadProduct"])
     {
       v15 = 0;
       v16 = 2;
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
     if ([uRLBagKey isEqualToString:@"p2-in-app-buy"])
     {
       v15 = 0;
       v16 = 3;
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
     if ([uRLBagKey isEqualToString:@"updateProduct"])
     {
       v15 = 0;
       v16 = 4;
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
     if ([uRLBagKey isEqualToString:@"redownloadAllTones"])
     {
-LABEL_32:
+LABEL_33:
       v16 = 0;
       v15 = 1;
-      goto LABEL_33;
+      goto LABEL_34;
     }
 
     v17 = +[SSLogConfig sharedDaemonConfig];
@@ -96,16 +96,21 @@ LABEL_32:
     shouldLog = [v17 shouldLog];
     if ([v17 shouldLogToDisk])
     {
-      v19 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v19 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
     oSLogObject = [v17 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
+    {
+      v19 = v19;
+    }
+
+    else
     {
       v19 &= 2u;
     }
@@ -113,34 +118,32 @@ LABEL_32:
     if (v19)
     {
       v21 = objc_opt_class();
-      v43 = 138543618;
-      v44 = v21;
-      v45 = 2112;
-      v46 = uRLBagKey;
+      v42 = 138543618;
+      v43 = v21;
+      v44 = 2112;
+      v45 = uRLBagKey;
       v22 = v21;
-      LODWORD(v40) = 22;
-      v39 = &v43;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 17, "%{public}@: Unmatched type found in AMSPurchaseShim for bag key: (%@)", &v42, 22);
 
       if (!v23)
       {
-LABEL_31:
+LABEL_32:
 
-        goto LABEL_32;
+        goto LABEL_33;
       }
 
-      oSLogObject = [NSString stringWithCString:v23 encoding:4, &v43, v40];
+      oSLogObject = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       v39 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
   v15 = 0;
   v16 = 1;
-LABEL_33:
+LABEL_34:
   v24 = [[SSAMSPurchase alloc] initWithPurchaseType:v16 buyParams:v12];
   if (v15 && (objc_opt_respondsToSelector() & 1) != 0)
   {

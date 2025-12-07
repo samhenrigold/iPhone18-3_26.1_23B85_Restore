@@ -100,7 +100,7 @@
 
       if ([lineDashPattern count])
       {
-        DashedClipPath = _createDashedClipPath(&points->x, pointCount, lineCap, join, lineDashPattern, v162, v159, v178, v177, scale, v28, v18);
+        DashedClipPath = _createDashedClipPath(points, pointCount, lineCap, join, lineDashPattern, v162, v159, v178, v177, scale, v28, v18);
         CGContextAddPath(context, DashedClipPath);
         CGContextClip(context);
         CGPathRelease(DashedClipPath);
@@ -111,7 +111,7 @@
     {
       if ([lineDashPattern count])
       {
-        path = _createDashedClipPath(&points->x, pointCount, lineCap, join, lineDashPattern, v162, v159, v178, v177, scale, v28, v18);
+        path = _createDashedClipPath(points, pointCount, lineCap, join, lineDashPattern, v162, v159, v178, v177, scale, v28, v18);
         CGContextAddPath(context, path);
         goto LABEL_20;
       }
@@ -134,20 +134,20 @@ LABEL_20:
     contextCopy = context;
     v149 = lineDashPattern;
     v39 = pointCount - 1;
-    x = points->x;
-    y = points->y;
-    p_y = &points[1].y;
+    v42 = points->f64[0];
+    v41 = points->f64[1];
+    v40 = &points[1].f64[1];
     v180 = pointCount;
     v181 = pointCount - 1;
     v43 = 0.0;
     do
     {
-      v44 = *(p_y - 1);
-      v45 = *p_y;
-      v43 = v43 + sqrt((v44 - x) * (v44 - x) + 0.0 + (*p_y - y) * (*p_y - y));
-      p_y += 2;
-      y = v45;
-      x = v44;
+      v44 = *(v40 - 1);
+      v45 = *v40;
+      v43 = v43 + sqrt((v44 - v42) * (v44 - v42) + 0.0 + (*v40 - v41) * (*v40 - v41));
+      v40 += 2;
+      v41 = v45;
+      v42 = v44;
       --v39;
     }
 
@@ -215,11 +215,11 @@ LABEL_133:
       {
         v46 = v62 + 1;
         v64 = v193[v62];
-        v63 = v63 + sqrt((v64.f64[0] - v57.f64[0]) * (v64.f64[0] - v57.f64[0]) + 0.0 + (v193[v62].y - v60) * (v193[v62].y - v60));
+        v63 = v63 + sqrt((v64.f64[0] - v57.f64[0]) * (v64.f64[0] - v57.f64[0]) + 0.0 + (v193[v62].f64[1] - v60) * (v193[v62].f64[1] - v60));
         v57 = vsubq_f64(vsubq_f64(v64, v194), v58);
         v65 = vaddvq_f64(vmulq_f64(v57, v57)) < v47;
-        v60 = v193[v62].y;
-        v57.f64[0] = v193[v62++].x;
+        v60 = v193[v62].f64[1];
+        v57.f64[0] = v193[v62++].f64[0];
         if (!v65)
         {
           goto LABEL_32;
@@ -526,9 +526,9 @@ LABEL_105:
 
       v88 = v181;
 LABEL_89:
-      p_x = &points[v88].x;
-      v151 = *p_x - v178;
-      v90 = p_x[1] - v177;
+      f64 = points[v88].f64;
+      v151 = *f64 - v178;
+      v90 = f64[1] - v177;
     }
 
     else

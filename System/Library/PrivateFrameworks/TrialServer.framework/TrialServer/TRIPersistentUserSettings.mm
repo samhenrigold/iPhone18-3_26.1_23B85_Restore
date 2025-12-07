@@ -208,7 +208,7 @@ LABEL_9:
 
 - (id)persistedSiriLocale
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyValueStore = [(TRIPersistentUserSettings *)self keyValueStore];
 
   if (keyValueStore)
@@ -222,9 +222,9 @@ LABEL_9:
       v7 = objc_autoreleasePoolPush();
       v8 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
       objc_autoreleasePoolPop(v7);
-      v16 = 0;
-      v9 = [v6 unarchivedObjectOfClasses:v8 fromData:v5 error:&v16];
-      v10 = v16;
+      v15 = 0;
+      v9 = [v6 unarchivedObjectOfClasses:v8 fromData:v5 error:&v15];
+      v10 = v15;
 
       if (v10)
       {
@@ -232,7 +232,7 @@ LABEL_9:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v18 = v10;
+          v17 = v10;
           _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Unable to unarchive siri locale from Trial persisted storage, encountered: %@", buf, 0xCu);
         }
 
@@ -276,14 +276,12 @@ LABEL_9:
     v12 = &stru_287FA0430;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)persistSiriLocale:(id)locale
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   if (!localeCopy)
   {
@@ -303,9 +301,9 @@ LABEL_9:
     }
   }
 
-  v16 = 0;
-  v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:localeCopy requiringSecureCoding:0 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:localeCopy requiringSecureCoding:0 error:&v15];
+  v9 = v15;
   if (!v9)
   {
     if (v8)
@@ -332,7 +330,7 @@ LABEL_9:
   if (os_log_type_enabled(keyValueStore2, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v18 = v9;
+    v17 = v9;
     v11 = "Unable to archive siri locale from Trial persisted storage, encountered: %@";
     v12 = keyValueStore2;
     v13 = 12;
@@ -341,13 +339,11 @@ LABEL_10:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)persistedActiveDictationLocales
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyValueStore = [(TRIPersistentUserSettings *)self keyValueStore];
   v3 = [keyValueStore blobForKey:@"com.apple.triald.persisted.activeDictationLocales" usingTransaction:0];
 
@@ -359,9 +355,9 @@ LABEL_14:
     v7 = objc_opt_class();
     v8 = [v6 initWithObjects:{v7, objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v5);
-    v16 = 0;
-    v9 = [v4 unarchivedObjectOfClasses:v8 fromData:v3 error:&v16];
-    v10 = v16;
+    v15 = 0;
+    v9 = [v4 unarchivedObjectOfClasses:v8 fromData:v3 error:&v15];
+    v10 = v15;
 
     if (v10)
     {
@@ -369,7 +365,7 @@ LABEL_14:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v10;
+        v17 = v10;
         _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Unable to unarchive dictation locales from Trial persisted storage, encountered: %@", buf, 0xCu);
       }
 
@@ -400,17 +396,15 @@ LABEL_14:
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)persistActiveDictationLocales:(id)locales
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:locales requiringSecureCoding:0 error:&v11];
-  v5 = v11;
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:locales requiringSecureCoding:0 error:&v10];
+  v5 = v10;
   if (!v5)
   {
     if (v4)
@@ -437,7 +431,7 @@ LABEL_14:
   if (os_log_type_enabled(keyValueStore, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v13 = v5;
+    v12 = v5;
     v7 = "Unable to archive dictation locales from Trial persisted storage, encountered: %@";
     v8 = keyValueStore;
     v9 = 12;
@@ -446,8 +440,6 @@ LABEL_4:
   }
 
 LABEL_8:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)persistedDiagnosticsUsageEnabled
@@ -533,7 +525,7 @@ LABEL_9:
 
 - (int64_t)persistedAIState
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyValueStore = [(TRIPersistentUserSettings *)self keyValueStore];
 
   if (!keyValueStore)
@@ -557,21 +549,21 @@ LABEL_9:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v13 = @"com.apple.triald.persisted.AIState";
+      v12 = @"com.apple.triald.persisted.AIState";
       _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "No persisted AI State and usage state found for key: %{public}@", buf, 0xCu);
     }
 
     goto LABEL_14;
   }
 
-  v11 = 0;
+  v10 = 0;
   if ([v5 length]< 8)
   {
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v13 = [v5 length];
+      v12 = [v5 length];
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Blob length (%lu) is insufficient for reading persisted AI State", buf, 0xCu);
     }
 
@@ -580,11 +572,10 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  [v5 getBytes:&v11 length:8];
-  v6 = v11;
+  [v5 getBytes:&v10 length:8];
+  v6 = v10;
 LABEL_15:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -632,7 +623,7 @@ LABEL_9:
 
 - (id)persistedMapsBucketId
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keyValueStore = [(TRIPersistentUserSettings *)self keyValueStore];
   v3 = [keyValueStore blobForKey:@"com.apple.triald.persisted.Maps.BucketId" usingTransaction:0];
 
@@ -642,9 +633,9 @@ LABEL_9:
     v5 = objc_autoreleasePoolPush();
     v6 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v5);
-    v13 = 0;
-    v7 = [v4 unarchivedObjectOfClasses:v6 fromData:v3 error:&v13];
-    v8 = v13;
+    v12 = 0;
+    v7 = [v4 unarchivedObjectOfClasses:v6 fromData:v3 error:&v12];
+    v8 = v12;
 
     if (v7)
     {
@@ -657,7 +648,7 @@ LABEL_9:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v8;
+        v14 = v8;
         _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Unable to unarchive maps bucket id from Trial persisted storage, encountered: %@", buf, 0xCu);
       }
 
@@ -671,21 +662,19 @@ LABEL_9:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = @"com.apple.triald.persisted.Maps.BucketId";
+      v14 = @"com.apple.triald.persisted.Maps.BucketId";
       _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "No persisted Maps Bucket ID found for key: %{public}@", buf, 0xCu);
     }
 
     v9 = &unk_287FC4DF8;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)persistMapsBucketId:(id)id
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -705,9 +694,9 @@ LABEL_9:
     }
   }
 
-  v16 = 0;
-  v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:idCopy requiringSecureCoding:0 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:idCopy requiringSecureCoding:0 error:&v15];
+  v9 = v15;
   if (!v9)
   {
     if (v8)
@@ -734,7 +723,7 @@ LABEL_9:
   if (os_log_type_enabled(keyValueStore2, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v18 = v9;
+    v17 = v9;
     v11 = "Unable to archive maps bucket id from Trial persisted storage, encountered: %@";
     v12 = keyValueStore2;
     v13 = 12;
@@ -743,13 +732,11 @@ LABEL_10:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)persistedMapsDeviceCountryCode
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   keyValueStore = [(TRIPersistentUserSettings *)self keyValueStore];
   v3 = [keyValueStore blobForKey:@"com.apple.triald.persisted.Maps.DeviceCountryCode" usingTransaction:0];
 
@@ -759,9 +746,9 @@ LABEL_14:
     v5 = objc_autoreleasePoolPush();
     v6 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v5);
-    v14 = 0;
-    v7 = [v4 unarchivedObjectOfClasses:v6 fromData:v3 error:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [v4 unarchivedObjectOfClasses:v6 fromData:v3 error:&v13];
+    v8 = v13;
 
     if (v8)
     {
@@ -769,7 +756,7 @@ LABEL_14:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v8;
+        v15 = v8;
         _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Unable to unarchive Maps country code from Trial persisted storage, encountered: %@", buf, 0xCu);
       }
 
@@ -800,14 +787,12 @@ LABEL_14:
     v10 = &stru_287FA0430;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)persistMapsDeviceCountryCode:(id)code
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   if (!codeCopy)
   {
@@ -815,9 +800,9 @@ LABEL_14:
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIPersistentUserSettings.m" lineNumber:292 description:{@"Invalid parameter not satisfying: %@", @"countryCode"}];
   }
 
-  v11 = 0;
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:codeCopy requiringSecureCoding:0 error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:codeCopy requiringSecureCoding:0 error:&v10];
+  v7 = v10;
   if (v6)
   {
     keyValueStore = [(TRIPersistentUserSettings *)self keyValueStore];
@@ -830,12 +815,10 @@ LABEL_14:
     if (os_log_type_enabled(keyValueStore, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_error_impl(&dword_26F567000, keyValueStore, OS_LOG_TYPE_ERROR, "Data to be persisted for Maps country code was nil, encountered: %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

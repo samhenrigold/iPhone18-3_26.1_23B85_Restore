@@ -1,82 +1,79 @@
 char *HeadphoneProxFeatureManager.getWhatsNewNotShowedFeatures2025(deviceAddress:)(uint64_t a1, void *a2)
 {
   v3 = v2;
-  v89[7] = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   swift_beginAccess();
   v6 = *(v2 + 136);
   if (v6)
   {
-    v7 = *(v2 + 152);
-    v8 = qword_2814AEED8;
+    v7 = qword_2814AEED8;
 
-    if (v8 != -1)
+    if (v7 != -1)
     {
       swift_once();
     }
 
-    v9 = sub_25126654C();
-    __swift_project_value_buffer(v9, qword_2814AF200);
+    v8 = sub_25126654C();
+    __swift_project_value_buffer(v8, qword_2814AF200);
 
-    v10 = sub_25126652C();
-    v11 = sub_2512666EC();
+    v9 = sub_25126652C();
+    v10 = sub_2512666EC();
 
-    if (os_log_type_enabled(v10, v11))
+    if (os_log_type_enabled(v9, v10))
     {
+      v11 = swift_slowAlloc();
       v12 = swift_slowAlloc();
-      v13 = swift_slowAlloc();
-      v89[0] = v13;
-      *v12 = 136315138;
+      v89[0] = v12;
+      *v11 = 136315138;
 
-      v15 = MEMORY[0x25306ED40](v14, &type metadata for HeadphoneProxFeatureManager.HeadphoneProxFeature);
-      v17 = v16;
+      v14 = MEMORY[0x25306ED40](v13, &type metadata for HeadphoneProxFeatureManager.HeadphoneProxFeature);
+      v16 = v15;
 
-      v18 = sub_251251A44(v15, v17, v89);
+      v17 = sub_251251A44(v14, v16, v89);
 
-      *(v12 + 4) = v18;
-      _os_log_impl(&dword_25124E000, v10, v11, "HeadphoneProxFeatureService: showing cached values: %s", v12, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v13);
-      MEMORY[0x25306F360](v13, -1, -1);
+      *(v11 + 4) = v17;
+      _os_log_impl(&dword_25124E000, v9, v10, "HeadphoneProxFeatureService: showing cached values: %s", v11, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v12);
       MEMORY[0x25306F360](v12, -1, -1);
+      MEMORY[0x25306F360](v11, -1, -1);
     }
 
-    goto LABEL_28;
+    return v6;
   }
 
-  v19.value._countAndFlagsBits = a1;
-  v19.value._object = a2;
-  if (!HeadphoneProxFeatureManager.shouldShowPauseMediaOnSleepCard(deviceAddress:)(v19))
+  v18.value._countAndFlagsBits = a1;
+  v18.value._object = a2;
+  if (!HeadphoneProxFeatureManager.shouldShowPauseMediaOnSleepCard(deviceAddress:)(v18))
   {
     if (qword_2814AEED8 != -1)
     {
       swift_once();
     }
 
-    v38 = sub_25126654C();
-    __swift_project_value_buffer(v38, qword_2814AF200);
-    v39 = sub_25126652C();
-    v40 = sub_2512666EC();
-    if (os_log_type_enabled(v39, v40))
+    v37 = sub_25126654C();
+    __swift_project_value_buffer(v37, qword_2814AF200);
+    v38 = sub_25126652C();
+    v39 = sub_2512666EC();
+    if (os_log_type_enabled(v38, v39))
     {
-      v41 = swift_slowAlloc();
-      *v41 = 0;
-      _os_log_impl(&dword_25124E000, v39, v40, "HeadphoneProxFeatureService: returning [] due to not fiddle ", v41, 2u);
-      MEMORY[0x25306F360](v41, -1, -1);
+      v40 = swift_slowAlloc();
+      *v40 = 0;
+      _os_log_impl(&dword_25124E000, v38, v39, "HeadphoneProxFeatureService: returning [] due to not fiddle ", v40, 2u);
+      MEMORY[0x25306F360](v40, -1, -1);
     }
 
-    v43 = sub_25125647C();
-    if (*v42)
+    v42 = sub_25125647C(v89);
+    if (*v41)
     {
       v6 = MEMORY[0x277D84F90];
-      *v42 = MEMORY[0x277D84F90];
+      *v41 = MEMORY[0x277D84F90];
 
-      (v43)(v89, 0);
-      goto LABEL_28;
+      (v42)(v89, 0);
+      return v6;
     }
 
-    (v43)(v89, 0);
-LABEL_27:
-    v6 = MEMORY[0x277D84F90];
-    goto LABEL_28;
+    (v42)(v89, 0);
+    return MEMORY[0x277D84F90];
   }
 
   v88 = MEMORY[0x277D84F90];
@@ -88,131 +85,132 @@ LABEL_22:
       swift_once();
     }
 
-    v44 = sub_25126654C();
-    __swift_project_value_buffer(v44, qword_2814AF200);
-    v45 = sub_25126652C();
-    v46 = sub_2512666EC();
-    if (os_log_type_enabled(v45, v46))
+    v43 = sub_25126654C();
+    __swift_project_value_buffer(v43, qword_2814AF200);
+    v44 = sub_25126652C();
+    v45 = sub_2512666EC();
+    if (os_log_type_enabled(v44, v45))
     {
-      v47 = swift_slowAlloc();
-      *v47 = 0;
-      _os_log_impl(&dword_25124E000, v45, v46, "HeadphoneProxFeatureService: getWhatsNewNotShowedFeatures: Invalid Device, Return", v47, 2u);
-      MEMORY[0x25306F360](v47, -1, -1);
+      v46 = swift_slowAlloc();
+      *v46 = 0;
+      _os_log_impl(&dword_25124E000, v44, v45, "HeadphoneProxFeatureService: getWhatsNewNotShowedFeatures: Invalid Device, Return", v46, 2u);
+      MEMORY[0x25306F360](v46, -1, -1);
     }
 
-    goto LABEL_27;
+    return MEMORY[0x277D84F90];
   }
 
-  v20 = sub_251254BE0();
+  v19 = sub_251254BE0();
 
-  v21 = MEMORY[0x277D837D0];
-  v22 = sub_25126672C();
-  v24 = v23;
+  v20 = MEMORY[0x277D837D0];
+  v21 = sub_25126672C();
+  v23 = v22;
   sub_25126648C();
-  v25 = sub_25126647C();
-  v89[0] = v22;
-  v89[1] = v24;
-  v84 = v20;
-  v85 = v20;
-  v82 = v21;
-  v83 = v20;
-  v26 = sub_25126672C();
-  v28 = v27;
+  v24 = sub_25126647C();
+  v89[0] = v21;
+  v89[1] = v23;
+  v84 = v19;
+  v85 = v19;
+  v82 = v20;
+  v83 = v19;
+  v25 = sub_25126672C();
+  v27 = v26;
 
-  v29 = sub_25126646C();
+  v28 = sub_25126646C();
 
-  if (!*(v29 + 16))
+  if (!*(v28 + 16))
   {
 
     goto LABEL_21;
   }
 
-  v30 = sub_2512520B0(v26, v28);
-  v32 = v31;
+  v29 = sub_2512520B0(v25, v27);
+  v31 = v30;
 
-  if ((v32 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v87 = *(*(v29 + 56) + 8 * v30);
+  v87 = *(*(v28 + 56) + 8 * v29);
 
-  v33 = sub_25125A8E4(a1, a2);
+  v32 = sub_25125A8E4(a1, a2);
 
-  v34.value._countAndFlagsBits = a1;
-  v34.value._object = a2;
-  v35 = HeadphoneProxFeatureManager.shouldShowLiveTranslationCard(deviceAddress:)(v34);
+  v33.value._countAndFlagsBits = a1;
+  v33.value._object = a2;
+  v34 = HeadphoneProxFeatureManager.shouldShowLiveTranslationCard(deviceAddress:)(v33);
 
-  if (v35)
+  if (v34)
   {
-    v36 = [v33 personalTranslatorVersion];
-    v37 = v36 < [*(v3 + 72) personalTranslatorVersion];
+    v35 = [v32 personalTranslatorVersion];
+    v36 = v35 < [*(v3 + 72) personalTranslatorVersion];
   }
 
   else
   {
-    v37 = 0;
+    v36 = 0;
   }
 
   sub_25126641C();
-  v50 = sub_2512664BC();
+  v48 = sub_2512664BC();
 
-  if (v50 == 2)
+  if (v48 == 2)
   {
-    v51 = [v33 chargingRemindersVersion];
-    v52 = v51 < [*(v3 + 72) chargingRemindersVersion];
+    v49 = [v32 chargingRemindersVersion];
+    v50 = v49 < [*(v3 + 72) chargingRemindersVersion];
   }
 
   else
   {
-    v52 = 0;
+    v50 = 0;
   }
 
   sub_25126641C();
-  v53 = sub_2512664CC();
+  v51 = sub_2512664CC();
 
-  if (v53 == 2)
+  if (v51 == 2)
   {
-    v54 = [v33 newChargingStatusVersion];
-    v55 = v54 < [*(v3 + 72) newChargingStatusVersion];
+    v52 = [v32 newChargingStatusVersion];
+    v53 = v52 < [*(v3 + 72) newChargingStatusVersion];
   }
 
   else
   {
-    v55 = 0;
+    v53 = 0;
   }
 
-  v56 = [v33 remoteCameraControlVersion];
-  if (v56 >= [*(v3 + 72) remoteCameraControlVersion])
+  v54 = [v32 remoteCameraControlVersion];
+  if (v54 >= [*(v3 + 72) remoteCameraControlVersion])
   {
-    v58 = 0;
+    v56 = 0;
   }
 
   else
   {
     sub_25126641C();
-    v57 = sub_2512664AC();
+    v55 = sub_2512664AC();
 
-    v58 = v57 == 2;
+    v56 = v55 == 2;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F427B08, &qword_251267510);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_251267500;
-  *(inited + 32) = v52;
+  *(inited + 32) = v50;
   *(inited + 33) = 9;
-  *(inited + 34) = v55;
+  *(inited + 34) = v53;
   *(inited + 35) = 266;
   *(inited + 37) = 5;
-  *(inited + 38) = v58;
+  *(inited + 38) = v56;
   *(inited + 39) = 11;
-  v60 = sub_2512643F8(1, 5, 1, inited);
-  *(v60 + 2) = 5;
-  v60[40] = v37;
-  v60[41] = 8;
-  sub_251264118(0, 0xE000000000000000, v60, &v88);
+  v58 = sub_2512643F8(1, 5, 1, inited);
+  *(v58 + 2) = 5;
+  v58[40] = v36;
+  v58[41] = 8;
+  sub_251264118(0, 0xE000000000000000, v58, &v88);
+  v60 = v59;
   v62 = v61;
 
   if (qword_2814AEED8 != -1)
@@ -223,7 +221,7 @@ LABEL_21:
   v63 = sub_25126654C();
   __swift_project_value_buffer(v63, qword_2814AF200);
 
-  v64 = v33;
+  v64 = v32;
 
   v65 = sub_25126652C();
   v66 = sub_2512666EC();
@@ -236,7 +234,7 @@ LABEL_21:
     *v67 = 136315906;
     *(v67 + 4) = sub_251251A44(a1, a2, v89);
     *(v67 + 12) = 2080;
-    v68 = sub_251251A44(0, v62, v89);
+    v68 = sub_251251A44(v60, v62, v89);
 
     *(v67 + 14) = v68;
     *(v67 + 22) = 2080;
@@ -273,16 +271,14 @@ LABEL_21:
   *(v3 + 144) = a1;
   *(v3 + 152) = a2;
   swift_bridgeObjectRetain_n();
-  sub_25125DB58(v79);
+  sub_25125DB58(v79, v80, v81);
 
-LABEL_28:
-  v48 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 char *HeadphoneProxFeatureManager.getWhatsNewNotShowedFeatures(deviceAddress:)(uint64_t a1, unint64_t a2)
 {
-  v134[13] = *MEMORY[0x277D85DE8];
+  v133[13] = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     if (qword_2814AEED8 != -1)
@@ -329,22 +325,22 @@ char *HeadphoneProxFeatureManager.getWhatsNewNotShowedFeatures(deviceAddress:)(u
   {
     if (vmovn_s64(vceqq_s64(*&v10[i], vdupq_laneq_s64(*&v10[i], 1))).u8[0])
     {
-      v132 = *&v10[i];
-      v134[0] = v11;
+      v131 = *&v10[i];
+      v133[0] = v11;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         sub_2512647F8(0, *(v11 + 16) + 1, 1);
-        v11 = v134[0];
+        v11 = v133[0];
       }
 
       v14 = *(v11 + 16);
       v13 = *(v11 + 24);
-      v15 = v132;
+      v15 = v131;
       if (v14 >= v13 >> 1)
       {
         sub_2512647F8((v13 > 1), v14 + 1, 1);
-        v15 = v132;
-        v11 = v134[0];
+        v15 = v131;
+        v11 = v133[0];
       }
 
       *(v11 + 16) = v14 + 1;
@@ -372,9 +368,9 @@ char *HeadphoneProxFeatureManager.getWhatsNewNotShowedFeatures(deviceAddress:)(u
     {
       v20 = swift_slowAlloc();
       v21 = swift_slowAlloc();
-      v134[0] = v21;
+      v133[0] = v21;
       *v20 = 136315138;
-      *(v20 + 4) = sub_251251A44(a1, a2, v134);
+      *(v20 + 4) = sub_251251A44(a1, a2, v133);
       _os_log_impl(&dword_25124E000, v18, v19, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: All 2025 features seen, Return empty array", v20, 0xCu);
       __swift_destroy_boxed_opaque_existential_1Tm(v21);
       MEMORY[0x25306F360](v21, -1, -1);
@@ -382,8 +378,7 @@ char *HeadphoneProxFeatureManager.getWhatsNewNotShowedFeatures(deviceAddress:)(u
     }
 
 LABEL_20:
-    v25 = MEMORY[0x277D84F90];
-    goto LABEL_96;
+    return MEMORY[0x277D84F90];
   }
 
   v26 = [v6 headGesturesVersion];
@@ -392,8 +387,8 @@ LABEL_20:
   v29 = sub_2512665AC();
   AppBooleanValue = CFPreferencesGetAppBooleanValue(v28, v29, 0);
 
-  v131 = a1;
-  v129 = AppBooleanValue;
+  v130 = a1;
+  v128 = AppBooleanValue;
   if (v26 < v27 || AppBooleanValue)
   {
     if (qword_2814AEED8 != -1)
@@ -413,26 +408,26 @@ LABEL_20:
     if (os_log_type_enabled(v34, v35))
     {
       v36 = swift_slowAlloc();
-      v126 = swift_slowAlloc();
-      v134[0] = v126;
+      v125 = swift_slowAlloc();
+      v133[0] = v125;
       *v36 = 136315906;
-      *(v36 + 4) = sub_251251A44(v131, a2, v134);
+      *(v36 + 4) = sub_251251A44(v130, a2, v133);
       *(v36 + 12) = 2080;
       [v33 headGesturesVersion];
       sub_2512521C8();
-      v123 = v35;
+      v122 = v35;
       v37 = sub_25126673C();
-      v39 = sub_251251A44(v37, v38, v134);
+      v39 = sub_251251A44(v37, v38, v133);
 
       *(v36 + 14) = v39;
       *(v36 + 22) = 2080;
       [*(v3 + 72) headGesturesVersion];
       v40 = sub_25126673C();
-      v42 = sub_251251A44(v40, v41, v134);
+      v42 = sub_251251A44(v40, v41, v133);
 
       *(v36 + 24) = v42;
       *(v36 + 32) = 2080;
-      if (v129)
+      if (v128)
       {
         v43 = 5457241;
       }
@@ -442,7 +437,7 @@ LABEL_20:
         v43 = 20302;
       }
 
-      if (v129)
+      if (v128)
       {
         v44 = 0xE300000000000000;
       }
@@ -452,12 +447,12 @@ LABEL_20:
         v44 = 0xE200000000000000;
       }
 
-      v45 = sub_251251A44(v43, v44, v134);
+      v45 = sub_251251A44(v43, v44, v133);
 
       *(v36 + 34) = v45;
-      _os_log_impl(&dword_25124E000, v34, v123, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Head Gestures: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v36, 0x2Au);
+      _os_log_impl(&dword_25124E000, v34, v122, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Head Gestures: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v36, 0x2Au);
       swift_arrayDestroy();
-      MEMORY[0x25306F360](v126, -1, -1);
+      MEMORY[0x25306F360](v125, -1, -1);
       MEMORY[0x25306F360](v36, -1, -1);
     }
 
@@ -503,26 +498,26 @@ LABEL_20:
     if (os_log_type_enabled(v55, v56))
     {
       v57 = swift_slowAlloc();
-      v127 = swift_slowAlloc();
-      v134[0] = v127;
+      v126 = swift_slowAlloc();
+      v133[0] = v126;
       *v57 = 136315906;
-      *(v57 + 4) = sub_251251A44(v131, a2, v134);
+      *(v57 + 4) = sub_251251A44(v130, a2, v133);
       *(v57 + 12) = 2080;
       [v54 pauseMediaOnSleepVersion];
       sub_2512521C8();
-      v124 = v56;
+      v123 = v56;
       v58 = sub_25126673C();
-      v60 = sub_251251A44(v58, v59, v134);
+      v60 = sub_251251A44(v58, v59, v133);
 
       *(v57 + 14) = v60;
       *(v57 + 22) = 2080;
       [*(v3 + 72) pauseMediaOnSleepVersion];
       v61 = sub_25126673C();
-      v63 = sub_251251A44(v61, v62, v134);
+      v63 = sub_251251A44(v61, v62, v133);
 
       *(v57 + 24) = v63;
       *(v57 + 32) = 2080;
-      if (v129)
+      if (v128)
       {
         v64 = 5457241;
       }
@@ -532,7 +527,7 @@ LABEL_20:
         v64 = 20302;
       }
 
-      if (v129)
+      if (v128)
       {
         v65 = 0xE300000000000000;
       }
@@ -542,12 +537,12 @@ LABEL_20:
         v65 = 0xE200000000000000;
       }
 
-      v66 = sub_251251A44(v64, v65, v134);
+      v66 = sub_251251A44(v64, v65, v133);
 
       *(v57 + 34) = v66;
-      _os_log_impl(&dword_25124E000, v55, v124, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Pause Media on Sleep: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v57, 0x2Au);
+      _os_log_impl(&dword_25124E000, v55, v123, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Pause Media on Sleep: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v57, 0x2Au);
       swift_arrayDestroy();
-      MEMORY[0x25306F360](v127, -1, -1);
+      MEMORY[0x25306F360](v126, -1, -1);
       MEMORY[0x25306F360](v57, -1, -1);
     }
 
@@ -591,26 +586,26 @@ LABEL_20:
     if (os_log_type_enabled(v77, v78))
     {
       v79 = swift_slowAlloc();
-      v128 = swift_slowAlloc();
-      v134[0] = v128;
+      v127 = swift_slowAlloc();
+      v133[0] = v127;
       *v79 = 136315906;
-      *(v79 + 4) = sub_251251A44(v131, a2, v134);
+      *(v79 + 4) = sub_251251A44(v130, a2, v133);
       *(v79 + 12) = 2080;
       [v76 hearingAssistVersion];
       sub_2512521C8();
-      v125 = v78;
+      v124 = v78;
       v80 = sub_25126673C();
-      v82 = sub_251251A44(v80, v81, v134);
+      v82 = sub_251251A44(v80, v81, v133);
 
       *(v79 + 14) = v82;
       *(v79 + 22) = 2080;
       [*(v3 + 72) hearingAssistVersion];
       v83 = sub_25126673C();
-      v85 = sub_251251A44(v83, v84, v134);
+      v85 = sub_251251A44(v83, v84, v133);
 
       *(v79 + 24) = v85;
       *(v79 + 32) = 2080;
-      if (v129)
+      if (v128)
       {
         v86 = 5457241;
       }
@@ -620,7 +615,7 @@ LABEL_20:
         v86 = 20302;
       }
 
-      if (v129)
+      if (v128)
       {
         v87 = 0xE300000000000000;
       }
@@ -630,13 +625,13 @@ LABEL_20:
         v87 = 0xE200000000000000;
       }
 
-      v88 = sub_251251A44(v86, v87, v134);
+      v88 = sub_251251A44(v86, v87, v133);
 
       *(v79 + 34) = v88;
 
-      _os_log_impl(&dword_25124E000, v77, v125, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Yodel: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v79, 0x2Au);
+      _os_log_impl(&dword_25124E000, v77, v124, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Yodel: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v79, 0x2Au);
       swift_arrayDestroy();
-      MEMORY[0x25306F360](v128, -1, -1);
+      MEMORY[0x25306F360](v127, -1, -1);
       MEMORY[0x25306F360](v79, -1, -1);
     }
 
@@ -649,7 +644,7 @@ LABEL_20:
       v25 = sub_251264600(0, *(v25 + 2) + 1, 1, v25);
     }
 
-    v74 = v131;
+    v74 = v130;
     v90 = *(v25 + 2);
     v89 = *(v25 + 3);
     if (v90 >= v89 >> 1)
@@ -664,7 +659,7 @@ LABEL_20:
   else
   {
 
-    v74 = v131;
+    v74 = v130;
   }
 
   v91 = [v6 voiceQualityVersion];
@@ -691,22 +686,22 @@ LABEL_20:
     if (os_log_type_enabled(v98, v99))
     {
       v100 = swift_slowAlloc();
-      v133 = swift_slowAlloc();
-      v134[0] = v133;
+      v132 = swift_slowAlloc();
+      v133[0] = v132;
       *v100 = 136315906;
-      *(v100 + 4) = sub_251251A44(v131, a2, v134);
+      *(v100 + 4) = sub_251251A44(v130, a2, v133);
       *(v100 + 12) = 2080;
       [v97 voiceQualityVersion];
       sub_2512521C8();
-      v130 = v99;
+      v129 = v99;
       v101 = sub_25126673C();
-      v103 = sub_251251A44(v101, v102, v134);
+      v103 = sub_251251A44(v101, v102, v133);
 
       *(v100 + 14) = v103;
       *(v100 + 22) = 2080;
       [*(v3 + 72) voiceQualityVersion];
       v104 = sub_25126673C();
-      v106 = sub_251251A44(v104, v105, v134);
+      v106 = sub_251251A44(v104, v105, v133);
 
       *(v100 + 24) = v106;
       *(v100 + 32) = 2080;
@@ -730,14 +725,14 @@ LABEL_20:
         v108 = 0xE200000000000000;
       }
 
-      v109 = sub_251251A44(v107, v108, v134);
+      v109 = sub_251251A44(v107, v108, v133);
 
       *(v100 + 34) = v109;
-      _os_log_impl(&dword_25124E000, v98, v130, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Voice Quality: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v100, 0x2Au);
+      _os_log_impl(&dword_25124E000, v98, v129, "HeadphoneProxFeatureService: [%s] getWhatsNewNotShowedFeatures: Voice Quality: Yes, Current Version: %s, Target Version: %s, Force Show: %s", v100, 0x2Au);
       swift_arrayDestroy();
-      MEMORY[0x25306F360](v133, -1, -1);
+      MEMORY[0x25306F360](v132, -1, -1);
       v110 = v100;
-      v74 = v131;
+      v74 = v130;
       MEMORY[0x25306F360](v110, -1, -1);
     }
 
@@ -772,12 +767,12 @@ LABEL_20:
   {
     v116 = swift_slowAlloc();
     v117 = swift_slowAlloc();
-    v134[0] = v117;
+    v133[0] = v117;
     *v116 = 136315394;
-    *(v116 + 4) = sub_251251A44(v74, a2, v134);
+    *(v116 + 4) = sub_251251A44(v74, a2, v133);
     *(v116 + 12) = 2080;
     v118 = MEMORY[0x25306ED40](v25, &type metadata for HeadphoneProxFeatureManager.HeadphoneProxFeature);
-    v120 = sub_251251A44(v118, v119, v134);
+    v120 = sub_251251A44(v118, v119, v133);
 
     *(v116 + 14) = v120;
 
@@ -791,12 +786,10 @@ LABEL_20:
   {
   }
 
-LABEL_96:
-  v121 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_251264118(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
+void sub_251264118(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
 {
   v4 = *(a3 + 16);
   if (v4)
@@ -1255,14 +1248,14 @@ char *sub_2512646F4(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-char *sub_2512647F8(char *a1, int64_t a2, char a3)
+char *sub_2512647F8(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_251264838(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_251264818(void *a1, int64_t a2, char a3)
+void *sub_251264818(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_25126493C(a1, a2, a3, *v3);
   *v3 = result;
@@ -1438,9 +1431,9 @@ Swift::Bool __swiftcall HeadphoneProxFeatureManager.shouldShowYodelCard(deviceAd
 
   v5 = sub_2512665DC();
   v7 = v6;
-  LOBYTE(v84[0]) = 6;
+  LOBYTE(v82[0]) = 6;
 
-  v8 = sub_25125B280(v5, v7, v84);
+  v8 = sub_25125B280(v5, v7, v82);
   v10 = v9;
 
   if (!v8)
@@ -1463,7 +1456,7 @@ LABEL_55:
     {
       v55 = swift_slowAlloc();
       v56 = swift_slowAlloc();
-      v85[0] = v56;
+      v83[0] = v56;
       *v55 = 136315394;
       if (object)
       {
@@ -1476,20 +1469,19 @@ LABEL_55:
         v57 = 0xE300000000000000;
       }
 
-      v58 = sub_251251A44(countAndFlagsBits, v57, v85);
+      v58 = sub_251251A44(countAndFlagsBits, v57, v83);
 
       *(v55 + 4) = v58;
       *(v55 + 12) = 2080;
       swift_beginAccess();
-      v59 = *(v2 + 24);
       sub_251252064();
 
-      v60 = sub_25126659C();
-      v62 = v61;
+      v59 = sub_25126659C();
+      v61 = v60;
 
-      v63 = sub_251251A44(v60, v62, v85);
+      v62 = sub_251251A44(v59, v61, v83);
 
-      *(v55 + 14) = v63;
+      *(v55 + 14) = v62;
       _os_log_impl(&dword_25124E000, v53, v54, "HeadphoneProxFeatureService: shouldShowYodelCard: Invalid Device, Return false address: %s %s", v55, 0x16u);
       swift_arrayDestroy();
       MEMORY[0x25306F360](v56, -1, -1);
@@ -1499,29 +1491,29 @@ LABEL_55:
     return 0;
   }
 
-  v78 = v5;
-  countAndFlagsBits = v83;
+  v76 = v5;
+  countAndFlagsBits = v81;
   v11 = swift_allocObject();
   *(v11 + 16) = v8;
   *(v11 + 24) = v10;
-  v83[0] = sub_251266284;
-  v83[1] = v11;
+  v81[0] = sub_251266284;
+  v81[1] = v11;
   v12 = swift_allocObject();
   *(v12 + 16) = v8;
   *(v12 + 24) = v10;
-  v83[2] = sub_2512662E4;
-  v83[3] = v12;
+  v81[2] = sub_2512662E4;
+  v81[3] = v12;
   v13 = swift_allocObject();
   *(v13 + 16) = v8;
   *(v13 + 24) = v10;
-  v83[4] = sub_2512662F8;
-  v83[5] = v13;
+  v81[4] = sub_2512662F8;
+  v81[5] = v13;
   v14 = v8;
   v15 = v10;
   v16 = v14;
   v17 = v15;
-  v80 = v16;
-  v79 = v17;
+  v78 = v16;
+  v77 = v17;
   v18 = 0;
   v19 = MEMORY[0x277D84F90];
   do
@@ -1545,11 +1537,11 @@ LABEL_55:
         goto LABEL_55;
       }
 
-      v81 = *&v83[2 * v20];
+      v79 = *&v81[2 * v20];
       v18 = v20 + 1;
 
-      (v81)(v85, v21);
-      if (v85[0])
+      (v79)(v83, v21);
+      if (v83[0])
       {
         break;
       }
@@ -1562,21 +1554,21 @@ LABEL_55:
     }
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v84[0] = v19;
+    v82[0] = v19;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
       sub_251264818(0, *(v19 + 16) + 1, 1);
-      v19 = v84[0];
+      v19 = v82[0];
     }
 
-    v23 = v81;
+    v23 = v79;
     v25 = *(v19 + 16);
     v24 = *(v19 + 24);
     if (v25 >= v24 >> 1)
     {
       sub_251264818((v24 > 1), v25 + 1, 1);
-      v23 = v81;
-      v19 = v84[0];
+      v23 = v79;
+      v19 = v82[0];
     }
 
     *(v19 + 16) = v25 + 1;
@@ -1597,32 +1589,31 @@ LABEL_17:
       swift_once();
     }
 
-    v65 = sub_25126654C();
-    __swift_project_value_buffer(v65, qword_2814AF200);
+    v64 = sub_25126654C();
+    __swift_project_value_buffer(v64, qword_2814AF200);
 
-    v66 = sub_25126652C();
-    v67 = sub_2512666EC();
+    v65 = sub_25126652C();
+    v66 = sub_2512666EC();
 
-    if (os_log_type_enabled(v66, v67))
+    if (os_log_type_enabled(v65, v66))
     {
+      v67 = swift_slowAlloc();
       v68 = swift_slowAlloc();
-      v69 = swift_slowAlloc();
-      v85[0] = v69;
-      *v68 = 136315138;
+      v83[0] = v68;
+      *v67 = 136315138;
       swift_beginAccess();
-      v70 = *(v2 + 24);
       sub_251252064();
 
-      v71 = sub_25126659C();
-      v73 = v72;
+      v69 = sub_25126659C();
+      v71 = v70;
 
-      v74 = sub_251251A44(v71, v73, v85);
+      v72 = sub_251251A44(v69, v71, v83);
 
-      *(v68 + 4) = v74;
-      _os_log_impl(&dword_25124E000, v66, v67, "HeadphoneProxFeatureService: shouldShowYodelCard: device does not support Yodel, Return false %s", v68, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v69);
-      MEMORY[0x25306F360](v69, -1, -1);
+      *(v67 + 4) = v72;
+      _os_log_impl(&dword_25124E000, v65, v66, "HeadphoneProxFeatureService: shouldShowYodelCard: device does not support Yodel, Return false %s", v67, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v68);
       MEMORY[0x25306F360](v68, -1, -1);
+      MEMORY[0x25306F360](v67, -1, -1);
     }
 
     return 0;
@@ -1630,8 +1621,8 @@ LABEL_17:
 
   v27 = v5;
   v28 = sub_25125A8E4(v5, v7);
-  v82 = [v28 hearingAssistVersion];
-  v77 = [*(v2 + 72) hearingAssistVersion];
+  v80 = [v28 hearingAssistVersion];
+  v75 = [*(v2 + 72) hearingAssistVersion];
   if (qword_2814AEED8 != -1)
   {
     swift_once();
@@ -1648,12 +1639,12 @@ LABEL_17:
   if (os_log_type_enabled(v31, v32))
   {
     v33 = swift_slowAlloc();
-    v76 = swift_slowAlloc();
-    v84[0] = v76;
+    v74 = swift_slowAlloc();
+    v82[0] = v74;
     *v33 = 136315906;
-    *(v33 + 4) = sub_251251A44(v5, v7, v84);
+    *(v33 + 4) = sub_251251A44(v5, v7, v82);
     *(v33 + 12) = 2080;
-    if (v82 >= v77)
+    if (v80 >= v75)
     {
       v34 = 20302;
     }
@@ -1663,7 +1654,7 @@ LABEL_17:
       v34 = 5457241;
     }
 
-    if (v82 >= v77)
+    if (v80 >= v75)
     {
       v35 = 0xE200000000000000;
     }
@@ -1673,26 +1664,26 @@ LABEL_17:
       v35 = 0xE300000000000000;
     }
 
-    v36 = sub_251251A44(v34, v35, v84);
+    v36 = sub_251251A44(v34, v35, v82);
 
     *(v33 + 14) = v36;
     *(v33 + 22) = 2080;
-    v85[0] = [v30 hearingAssistVersion];
+    v83[0] = [v30 hearingAssistVersion];
     sub_2512521C8();
     v37 = sub_25126673C();
-    v39 = sub_251251A44(v37, v38, v84);
+    v39 = sub_251251A44(v37, v38, v82);
 
     *(v33 + 24) = v39;
     *(v33 + 32) = 2080;
-    v85[0] = [*(v2 + 72) hearingAssistVersion];
-    v27 = v78;
+    v83[0] = [*(v2 + 72) hearingAssistVersion];
+    v27 = v76;
     v40 = sub_25126673C();
-    v42 = sub_251251A44(v40, v41, v84);
+    v42 = sub_251251A44(v40, v41, v82);
 
     *(v33 + 34) = v42;
     _os_log_impl(&dword_25124E000, v31, v32, "HeadphoneProxFeatureService: [%s] shouldShowYodelCard: %s, Current Version: %s, Target Version: %s", v33, 0x2Au);
     swift_arrayDestroy();
-    MEMORY[0x25306F360](v76, -1, -1);
+    MEMORY[0x25306F360](v74, -1, -1);
     MEMORY[0x25306F360](v33, -1, -1);
   }
 
@@ -1713,9 +1704,9 @@ LABEL_17:
     {
       v49 = swift_slowAlloc();
       v50 = swift_slowAlloc();
-      v84[0] = v50;
+      v82[0] = v50;
       *v49 = 136315138;
-      v51 = sub_251251A44(v27, v7, v84);
+      v51 = sub_251251A44(v27, v7, v82);
 
       *(v49 + 4) = v51;
       _os_log_impl(&dword_25124E000, v47, v48, "HeadphoneProxFeatureService: [%s] shouldShowYodelCard: Force Show!", v49, 0xCu);
@@ -1733,7 +1724,7 @@ LABEL_17:
   {
   }
 
-  return v82 < v77 || AppBooleanValue != 0;
+  return v80 < v75 || AppBooleanValue != 0;
 }
 
 void HeadphoneProxFeatureManager.updateDevice(for:deviceAddress:usecase:completion:)(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(void), uint64_t a7)
@@ -1743,41 +1734,40 @@ void HeadphoneProxFeatureManager.updateDevice(for:deviceAddress:usecase:completi
   v16 = *(v7 + 24);
   if (*(v16 + 16))
   {
-    v17 = *(v7 + 24);
 
-    v18 = sub_2512520B0(a2, a3);
-    if (v19)
+    v17 = sub_2512520B0(a2, a3);
+    if (v18)
     {
-      v20 = *(*(v16 + 56) + 8 * v18);
+      v19 = *(*(v16 + 56) + 8 * v17);
 
       swift_beginAccess();
-      v21 = *(v8 + 40);
-      v22 = [v20 identifier];
-      if (!v22)
+      v20 = *(v8 + 40);
+      v21 = [v19 identifier];
+      if (!v21)
       {
         sub_2512665BC();
-        v22 = sub_2512665AC();
+        v21 = sub_2512665AC();
       }
 
-      v23 = swift_allocObject();
-      v23[2] = a4;
-      v23[3] = a5;
-      v23[4] = a1;
-      v23[5] = a6;
-      v23[6] = a7;
+      v22 = swift_allocObject();
+      v22[2] = a4;
+      v22[3] = a5;
+      v22[4] = a1;
+      v22[5] = a6;
+      v22[6] = a7;
       aBlock[4] = sub_251266370;
-      aBlock[5] = v23;
+      aBlock[5] = v22;
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 1107296256;
       aBlock[2] = sub_251251908;
       aBlock[3] = &block_descriptor_2;
-      v24 = _Block_copy(aBlock);
+      v23 = _Block_copy(aBlock);
 
-      v25 = a1;
-      sub_25124F9C8(a6);
+      v24 = a1;
+      sub_25124F9C8(a6, a7);
 
-      [v21 sendDeviceConfig:v25 identifier:v22 completion:v24];
-      _Block_release(v24);
+      [v20 sendDeviceConfig:v24 identifier:v21 completion:v23];
+      _Block_release(v23);
 
       return;
     }
@@ -1788,33 +1778,32 @@ void HeadphoneProxFeatureManager.updateDevice(for:deviceAddress:usecase:completi
     swift_once();
   }
 
-  v26 = sub_25126654C();
-  __swift_project_value_buffer(v26, qword_2814AF200);
+  v25 = sub_25126654C();
+  __swift_project_value_buffer(v25, qword_2814AF200);
 
-  v27 = sub_25126652C();
-  v28 = sub_2512666EC();
+  v26 = sub_25126652C();
+  v27 = sub_2512666EC();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v26, v27))
   {
-    v29 = swift_slowAlloc();
-    v35 = swift_slowAlloc();
-    aBlock[0] = v35;
-    *v29 = 136315394;
-    v30 = *(v8 + 24);
+    v28 = swift_slowAlloc();
+    v33 = swift_slowAlloc();
+    aBlock[0] = v33;
+    *v28 = 136315394;
     sub_251252064();
 
-    v31 = sub_25126659C();
-    v33 = v32;
+    v29 = sub_25126659C();
+    v31 = v30;
 
-    v34 = sub_251251A44(v31, v33, aBlock);
+    v32 = sub_251251A44(v29, v31, aBlock);
 
-    *(v29 + 4) = v34;
-    *(v29 + 12) = 2080;
-    *(v29 + 14) = sub_251251A44(a2, a3, aBlock);
-    _os_log_impl(&dword_25124E000, v27, v28, "HeadphoneProxFeatureService: setYodelConfig: Invalid Device, Return %s %s", v29, 0x16u);
+    *(v28 + 4) = v32;
+    *(v28 + 12) = 2080;
+    *(v28 + 14) = sub_251251A44(a2, a3, aBlock);
+    _os_log_impl(&dword_25124E000, v26, v27, "HeadphoneProxFeatureService: setYodelConfig: Invalid Device, Return %s %s", v28, 0x16u);
     swift_arrayDestroy();
-    MEMORY[0x25306F360](v35, -1, -1);
-    MEMORY[0x25306F360](v29, -1, -1);
+    MEMORY[0x25306F360](v33, -1, -1);
+    MEMORY[0x25306F360](v28, -1, -1);
   }
 
   if (a6)
@@ -1928,38 +1917,37 @@ void HeadphoneProxFeatureManager.updateRecord(configs:deviceAddress:usecase:comp
   v16 = *(v7 + 32);
   if (*(v16 + 16))
   {
-    v17 = *(v7 + 32);
 
-    v18 = sub_2512520B0(a2, a3);
-    if (v19)
+    v17 = sub_2512520B0(a2, a3);
+    if (v18)
     {
-      v20 = *(*(v16 + 56) + 8 * v18);
+      v19 = *(*(v16 + 56) + 8 * v17);
 
-      v21 = *(v8 + 88);
-      v22 = [v20 bluetoothUUID];
-      if (!v22)
+      v20 = *(v8 + 88);
+      v21 = [v19 bluetoothUUID];
+      if (!v21)
       {
         sub_2512665BC();
-        v22 = sub_2512665AC();
+        v21 = sub_2512665AC();
       }
 
-      v23 = swift_allocObject();
-      v23[2] = a4;
-      v23[3] = a5;
-      v23[4] = a6;
-      v23[5] = a7;
+      v22 = swift_allocObject();
+      v22[2] = a4;
+      v22[3] = a5;
+      v22[4] = a6;
+      v22[5] = a7;
       aBlock[4] = sub_251266398;
-      aBlock[5] = v23;
+      aBlock[5] = v22;
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 1107296256;
       aBlock[2] = sub_251251908;
       aBlock[3] = &block_descriptor_15;
-      v24 = _Block_copy(aBlock);
+      v23 = _Block_copy(aBlock);
 
-      sub_25124F9C8(a6);
+      sub_25124F9C8(a6, a7);
 
-      [v21 modifyDeviceConfig:a1 identifier:v22 completion:v24];
-      _Block_release(v24);
+      [v20 modifyDeviceConfig:a1 identifier:v21 completion:v23];
+      _Block_release(v23);
 
       return;
     }
@@ -1970,34 +1958,33 @@ void HeadphoneProxFeatureManager.updateRecord(configs:deviceAddress:usecase:comp
     swift_once();
   }
 
-  v25 = sub_25126654C();
-  __swift_project_value_buffer(v25, qword_2814AF200);
+  v24 = sub_25126654C();
+  __swift_project_value_buffer(v24, qword_2814AF200);
 
-  v26 = sub_25126652C();
-  v27 = sub_2512666EC();
+  v25 = sub_25126652C();
+  v26 = sub_2512666EC();
 
-  if (os_log_type_enabled(v26, v27))
+  if (os_log_type_enabled(v25, v26))
   {
-    v28 = swift_slowAlloc();
-    v34 = swift_slowAlloc();
-    v36 = v34;
-    *v28 = 136315394;
+    v27 = swift_slowAlloc();
+    v32 = swift_slowAlloc();
+    v34 = v32;
+    *v27 = 136315394;
     swift_beginAccess();
-    v29 = *(v8 + 24);
     sub_251252064();
 
-    v30 = sub_25126659C();
-    v32 = v31;
+    v28 = sub_25126659C();
+    v30 = v29;
 
-    v33 = sub_251251A44(v30, v32, &v36);
+    v31 = sub_251251A44(v28, v30, &v34);
 
-    *(v28 + 4) = v33;
-    *(v28 + 12) = 2080;
-    *(v28 + 14) = sub_251251A44(a2, a3, &v36);
-    _os_log_impl(&dword_25124E000, v26, v27, "HeadphoneProxFeatureService: updateRecord: Invalid Device, Return %s %s", v28, 0x16u);
+    *(v27 + 4) = v31;
+    *(v27 + 12) = 2080;
+    *(v27 + 14) = sub_251251A44(a2, a3, &v34);
+    _os_log_impl(&dword_25124E000, v25, v26, "HeadphoneProxFeatureService: updateRecord: Invalid Device, Return %s %s", v27, 0x16u);
     swift_arrayDestroy();
-    MEMORY[0x25306F360](v34, -1, -1);
-    MEMORY[0x25306F360](v28, -1, -1);
+    MEMORY[0x25306F360](v32, -1, -1);
+    MEMORY[0x25306F360](v27, -1, -1);
   }
 
   if (a6)

@@ -69,7 +69,7 @@ uint64_t __51__PKPaletteImageGeneratingToolView_didMoveToWindow__block_invoke_2(
       _os_log_impl(&dword_1C7CCA000, v3, OS_LOG_TYPE_DEFAULT, "image wand dark ca asset loaded", buf, 2u);
     }
 
-    v5 = &OBJC_IVAR___PKPaletteImageGeneratingToolView__animatedDarkToolView;
+    v5 = OBJC_IVAR___PKPaletteImageGeneratingToolView__animatedDarkToolView;
   }
 
   else

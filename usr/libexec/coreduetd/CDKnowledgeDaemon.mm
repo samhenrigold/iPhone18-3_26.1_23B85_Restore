@@ -73,7 +73,7 @@
     memset(&audittoken, 0, sizeof(audittoken));
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     if (proc_pidpath_audittoken(&audittoken, buffer, 0x1000u) < 1)
@@ -425,64 +425,64 @@ LABEL_11:
   objc_autoreleasePoolPop(v6);
   if (!activityCopy2 || !xpc_activity_should_defer(activityCopy2))
   {
-    v41 = v5;
+    v40 = v5;
     activity = activityCopy2;
-    v46 = objc_alloc_init(NSMutableArray);
+    v45 = objc_alloc_init(NSMutableArray);
     v8 = objc_alloc_init(NSMutableArray);
     [LSApplicationRecord enumeratorWithOptions:0];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    obj = v56 = 0u;
-    v9 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+    obj = v55 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
     if (v9)
     {
       v10 = v9;
-      v47 = *v54;
+      v46 = *v53;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v54 != v47)
+          if (*v53 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v53 + 1) + 8 * i);
+          v12 = *(*(&v52 + 1) + 8 * i);
           v13 = objc_autoreleasePoolPush();
           bundleIdentifier = [v12 bundleIdentifier];
           if (bundleIdentifier)
           {
-            [v46 addObject:bundleIdentifier];
+            [v45 addObject:bundleIdentifier];
           }
 
-          v51 = 0u;
-          v52 = 0u;
-          v49 = 0u;
           v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
           applicationExtensionRecords = [v12 applicationExtensionRecords];
-          v16 = [applicationExtensionRecords countByEnumeratingWithState:&v49 objects:v58 count:16];
+          v16 = [applicationExtensionRecords countByEnumeratingWithState:&v48 objects:v57 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v50;
+            v18 = *v49;
             do
             {
               for (j = 0; j != v17; j = j + 1)
               {
-                if (*v50 != v18)
+                if (*v49 != v18)
                 {
                   objc_enumerationMutation(applicationExtensionRecords);
                 }
 
-                effectiveBundleIdentifier = [*(*(&v49 + 1) + 8 * j) effectiveBundleIdentifier];
+                effectiveBundleIdentifier = [*(*(&v48 + 1) + 8 * j) effectiveBundleIdentifier];
                 if (effectiveBundleIdentifier)
                 {
                   [v8 addObject:effectiveBundleIdentifier];
                 }
               }
 
-              v17 = [applicationExtensionRecords countByEnumeratingWithState:&v49 objects:v58 count:16];
+              v17 = [applicationExtensionRecords countByEnumeratingWithState:&v48 objects:v57 count:16];
             }
 
             while (v17);
@@ -491,13 +491,13 @@ LABEL_11:
           objc_autoreleasePoolPop(v13);
         }
 
-        v10 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v10 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
       }
 
       while (v10);
     }
 
-    v7 = v46;
+    v7 = v45;
     v21 = v8;
     activityCopy2 = activity;
     if (activity)
@@ -533,7 +533,7 @@ LABEL_31:
 
 LABEL_32:
 
-        v5 = v41;
+        v5 = v40;
 LABEL_42:
 
         goto LABEL_43;
@@ -572,33 +572,32 @@ LABEL_42:
     if ([v34 compare:v35] == -1)
     {
       v36 = [[NSDateInterval alloc] initWithStartDate:v34 endDate:v35];
-      storage = v22->_storage;
       ARPCollectAndSendAnalyticsEvents();
     }
 
-    [v29 setObject:v30 forKey:{@"LastAnalyticsCollectionDate", v41}];
+    [v29 setObject:v30 forKey:{@"LastAnalyticsCollectionDate", v40}];
 
     objc_autoreleasePoolPop(v27);
-    v48[0] = _NSConcreteStackBlock;
-    v48[1] = 3221225472;
-    v48[2] = sub_10001A2F8;
-    v48[3] = &unk_10003CA78;
-    v48[4] = v22;
-    v38 = objc_retainBlock(v48);
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = sub_10001A2F8;
+    v47[3] = &unk_10003CA78;
+    v47[4] = v22;
+    v37 = objc_retainBlock(v47);
     intentSpotlightIndex = [(CDKnowledgeDaemon *)v22 intentSpotlightIndex];
 
     if (intentSpotlightIndex)
     {
       intentSpotlightIndex2 = [(CDKnowledgeDaemon *)v22 intentSpotlightIndex];
-      [intentSpotlightIndex2 triggerIndexIncludingAdditions:1 completion:v38];
+      [intentSpotlightIndex2 triggerIndexIncludingAdditions:1 completion:v37];
     }
 
     else
     {
-      (v38[2])(v38);
+      (v37[2])(v37);
     }
 
-    v5 = v42;
+    v5 = v41;
 
     goto LABEL_42;
   }

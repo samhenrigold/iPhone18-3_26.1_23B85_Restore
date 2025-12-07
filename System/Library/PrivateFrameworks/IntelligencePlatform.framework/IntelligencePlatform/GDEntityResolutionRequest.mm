@@ -139,35 +139,8 @@ LABEL_30:
       v38 = NSStringFromSelector("kgq");
       v39 = [coderCopy decodeObjectOfClass:v37 forKey:v38];
 
-      if (!v39)
+      if (!v39 && ([coderCopy error], v49 = objc_claimAutoreleasedReturnValue(), v49, v49) || (NSStringFromSelector(sel_includeFeatures), v40 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend(coderCopy, "decodeBoolForKey:", v40), v40, objc_msgSend(coderCopy, "error"), v42 = objc_claimAutoreleasedReturnValue(), v42, v42) || (v53 = v41, NSStringFromSelector(sel_includeInferredNames), v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(coderCopy, "decodeBoolForKey:", v43), v43, objc_msgSend(coderCopy, "error"), v45 = objc_claimAutoreleasedReturnValue(), v45, v45) || (NSStringFromSelector(sel_enableBackupSearch), v46 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(coderCopy, "decodeBoolForKey:", v46), v46, objc_msgSend(coderCopy, "error"), v47 = objc_claimAutoreleasedReturnValue(), v47, v47))
       {
-        error5 = [coderCopy error];
-
-        if (error5)
-        {
-          goto LABEL_27;
-        }
-      }
-
-      v40 = NSStringFromSelector(sel_includeFeatures);
-      v41 = [coderCopy decodeBoolForKey:v40];
-
-      error6 = [coderCopy error];
-
-      if (error6)
-      {
-        goto LABEL_27;
-      }
-
-      v53 = v41;
-      v43 = NSStringFromSelector(sel_includeInferredNames);
-      v44 = [coderCopy decodeBoolForKey:v43];
-
-      error7 = [coderCopy error];
-
-      if (error7 || (NSStringFromSelector(sel_enableBackupSearch), v46 = objc_claimAutoreleasedReturnValue(), v52 = [coderCopy decodeBoolForKey:v46], v46, objc_msgSend(coderCopy, "error"), v47 = objc_claimAutoreleasedReturnValue(), v47, v47))
-      {
-LABEL_27:
         v24 = 0;
       }
 

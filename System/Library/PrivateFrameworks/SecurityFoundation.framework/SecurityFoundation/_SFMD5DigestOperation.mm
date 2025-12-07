@@ -45,11 +45,10 @@
 
 - (NSData)hashValue
 {
-  v7 = *MEMORY[0x277D85DE8];
-  memset(&v5, 0, sizeof(v5));
-  CC_MD5_Final(md, &v5);
+  v6 = *MEMORY[0x277D85DE8];
+  memset(&v4, 0, sizeof(v4));
+  CC_MD5_Final(md, &v4);
   v2 = [MEMORY[0x277CBEA90] dataWithBytes:md length:16];
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

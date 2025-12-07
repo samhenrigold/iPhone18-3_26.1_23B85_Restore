@@ -4,12 +4,12 @@
 - (char)_updateMotionDataFromSampleBuffer:(char *)result;
 - (double)_frameRateForFrameStatistics:(float *)statistics portType:(void *)type;
 - (float)getAEMaxGainForPortType:(id)type suggestedFrameRate:(double)rate;
+- (id)_updatemotionThreshold:(uint64_t)threshold forPortType:;
 - (uint64_t)_getSceneStabilityFromSampleBuffer:(char *)buffer currentFrameRate:(const void *)rate portType:(uint64_t)type;
 - (uint64_t)_switchBackTo60AsFlickerFrequencyIsDetected:(uint64_t)detected;
-- (uint64_t)_updateAEMaxGainDictionary:(uint64_t)result withAEMaxGain:(void *)gain forPortType:(void *)type;
-- (uint64_t)_updateSuggestedFrameRateFromFrameStatistics:(uint64_t)result sampleBuffer:(void *)buffer currentFrameRate:(CMAttachmentBearerRef)target aeMaxGain:(float)gain;
-- (uint64_t)_updatemotionThreshold:(uint64_t)threshold forPortType:;
 - (uint64_t)_waterSceneDetected;
+- (unsigned)_updateSuggestedFrameRateFromFrameStatistics:(unsigned __int8 *)result sampleBuffer:(void *)buffer currentFrameRate:(CMAttachmentBearerRef)target aeMaxGain:(float)gain;
+- (void)_updateAEMaxGainDictionary:(void *)result withAEMaxGain:(void *)gain forPortType:(void *)type;
 - (void)_updateSmartSceneFromSampleBuffer:(uint64_t)buffer currentFrameRate:(CMAttachmentBearerRef)target portType:(uint64_t)type;
 - (void)addAttachmentsToSamplebuffer:(opaqueCMSampleBuffer *)samplebuffer;
 - (void)dealloc;
@@ -98,30 +98,30 @@
     if (!*(result + 4))
     {
       result = objc_alloc_init(MEMORY[0x1E695DF90]);
-      *(v12 + 32) = result;
+      *(v12 + 4) = result;
     }
 
-    if (!*(v12 + 400))
+    if (!*(v12 + 50))
     {
       result = objc_alloc_init(MEMORY[0x1E695DF90]);
-      *(v12 + 400) = result;
+      *(v12 + 50) = result;
     }
 
-    if (!*(v12 + 392))
+    if (!*(v12 + 49))
     {
       result = objc_alloc_init(MEMORY[0x1E695DF90]);
-      *(v12 + 392) = result;
+      *(v12 + 49) = result;
     }
 
-    *(v12 + 488) = 0;
-    *(v12 + 48) = 0;
-    if (!*(v12 + 40))
+    *(v12 + 122) = 0;
+    *(v12 + 6) = 0;
+    if (!*(v12 + 5))
     {
       result = objc_alloc_init(MEMORY[0x1E695DF90]);
-      *(v12 + 40) = result;
+      *(v12 + 5) = result;
     }
 
-    v13 = OUTLINED_FUNCTION_10_0(result, a2, types, parameters, disabled, s, a7, a8, v52, __SPAIR64__(disabledCopy, parametersCopy), v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, 0);
+    v13 = OUTLINED_FUNCTION_10_0(result, a2, types, parameters, disabled, s, a7, a8, v52, __SPAIR64__(disabledCopy, parametersCopy), v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85);
     if (v13)
     {
       v14 = v13;
@@ -137,21 +137,21 @@
 
           v17 = *(8 * i);
           v18 = [types objectForKeyedSubscript:v17];
-          v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          isEqualToString = objc_alloc_init(MEMORY[0x1E695DF90]);
           if (v18)
           {
-            v27 = v19;
-            v19 = [objc_msgSend(v18 "portType")];
-            if (v19)
+            v27 = isEqualToString;
+            isEqualToString = objc_msgSend_isEqualToString_([v18 portType]);
+            if (isEqualToString)
             {
               -[BWVariableFrameRateSelector _updateAEMaxGainDictionary:withAEMaxGain:forPortType:](v12, v27, [v18 aeMaxGain]);
               -[BWVariableFrameRateSelector _updatemotionThreshold:forPortType:](v12, [v18 motionThreshold], v17);
-              v19 = [*(v12 + 32) setObject:v27 forKeyedSubscript:v17];
+              isEqualToString = [*(v12 + 4) setObject:v27 forKeyedSubscript:v17];
             }
           }
         }
 
-        v14 = OUTLINED_FUNCTION_10_0(v19, v20, v21, v22, v23, v24, v25, v26, v53, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v87);
+        v14 = OUTLINED_FUNCTION_10_0(isEqualToString, v20, v21, v22, v23, v24, v25, v26, v53, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86);
       }
 
       while (v14);
@@ -162,24 +162,24 @@
     BWSmartCameraSceneInitialize(v29, v30, 1, 1, v31, v28, v32, v33);
     v34 = OUTLINED_FUNCTION_0_58();
     BWSmartCameraSceneInitialize(v35, v36, 55, 3, v37, v34, v38, v39);
-    BWSmartCameraSceneInitialize(v12 + 144, 1, 1, 1, "VFR Device Motion Low", 0.001, 0.004, 0.5);
-    BWSmartCameraSceneInitialize(v12 + 184, 1, 55, 1, "VFR Device Motion High", 0.998, 0.004, 0.5);
+    BWSmartCameraSceneInitialize((v12 + 144), 1, 1, 1, "VFR Device Motion Low", 0.001, 0.004, 0.5);
+    BWSmartCameraSceneInitialize((v12 + 184), 1, 55, 1, "VFR Device Motion High", 0.998, 0.004, 0.5);
     v40 = OUTLINED_FUNCTION_0_58();
     BWSmartCameraSceneInitialize(v41, v42, 8, 1, v43, v40, v44, v45);
-    BWSmartCameraSceneInitialize(v12 + 264, 1, 10, 1, "VFR Zoom requested", 0.9, 0.0, 1.0);
+    BWSmartCameraSceneInitialize((v12 + 264), 1, 10, 1, "VFR Zoom requested", 0.9, 0.0, 1.0);
     v46 = OUTLINED_FUNCTION_0_58();
     BWSmartCameraSceneInitialize(v47, v48, 25, 5, v49, v46, v50, v51);
-    result = BWSmartCameraSceneInitialize(v12 + 344, 1, 15, 600, "VFR water detected", 0.45, 0.05, 0.5);
-    *(v12 + 472) = 0;
-    *(v12 + 536) = 0;
-    *(v12 + 473) = v54 ^ 1;
-    *(v12 + 474) = BYTE4(v54);
+    result = BWSmartCameraSceneInitialize((v12 + 344), 1, 15, 600, "VFR water detected", 0.45, 0.05, 0.5);
+    v12[472] = 0;
+    *(v12 + 134) = 0;
+    v12[473] = v54 ^ 1;
+    v12[474] = BYTE4(v54);
   }
 
   return result;
 }
 
-- (uint64_t)_updateSuggestedFrameRateFromFrameStatistics:(uint64_t)result sampleBuffer:(void *)buffer currentFrameRate:(CMAttachmentBearerRef)target aeMaxGain:(float)gain
+- (unsigned)_updateSuggestedFrameRateFromFrameStatistics:(unsigned __int8 *)result sampleBuffer:(void *)buffer currentFrameRate:(CMAttachmentBearerRef)target aeMaxGain:(float)gain
 {
   if (!result)
   {
@@ -196,20 +196,20 @@
   [buffer gain];
   v15 = v13 * v14;
   v16 = [BWVariableFrameRateSelector _getSceneStabilityFromSampleBuffer:v7 currentFrameRate:target portType:v10];
-  BWSmartCameraSceneUpdateWithConfidence(v7 + 224, [buffer aeLimitsReached]);
-  v17 = *(v7 + 225);
+  BWSmartCameraSceneUpdateWithConfidence((v7 + 224), [buffer aeLimitsReached]);
+  v17 = v7[225];
   _waterSceneDetected = [(BWVariableFrameRateSelector *)v7 _waterSceneDetected];
   v63 = [v9 objectForKeyedSubscript:*off_1E798B528];
   bufferCopy = buffer;
   v19 = [BWVariableFrameRateSelector _frameRateForFrameStatistics:v7 portType:buffer];
   v20 = *&v19;
-  v21 = *(v7 + 12);
+  v21 = *(v7 + 3);
   v22 = *&v19 == 60.0 && v21 == 0;
   v23 = v21 == 2 || v22;
-  v24 = [v10 isEqualToString:{*off_1E798A0D8, v63}];
-  *(v7 + 532) = v16;
-  *(v7 + 533) = v17;
-  *(v7 + 534) = _waterSceneDetected;
+  isEqualToString = objc_msgSend_isEqualToString_(v10, v63);
+  v7[532] = v16;
+  v7[533] = v17;
+  v7[534] = _waterSceneDetected;
   if (v23)
   {
     v25 = 2;
@@ -220,10 +220,10 @@
     v25 = 1;
   }
 
-  *(v7 + 496) = v25;
+  *(v7 + 124) = v25;
   [objc_msgSend(v11 objectForKeyedSubscript:{*off_1E798B210), "floatValue"}];
   v27 = vcvtps_s32_f32(v26) & 0x7FFFFFFE;
-  *(v7 + 536) = v27;
+  *(v7 + 134) = v27;
   if (!v23)
   {
     v31 = v20 < 60.0 && v21 == 0;
@@ -239,9 +239,9 @@
 
     if (v17)
     {
-      if (v24)
+      if (isEqualToString)
       {
-        if (gain == 30.0 && (*(v7 + 474) & 1) != 0 && v27 > 0x18)
+        if (gain == 30.0 && (v7[474] & 1) != 0 && v27 > 0x18)
         {
           goto LABEL_31;
         }
@@ -255,11 +255,11 @@ LABEL_31:
         OUTLINED_FUNCTION_1_71(v32);
         v34 = OUTLINED_FUNCTION_2_63();
         v35 = v29 && v33 == 6;
-        if (!v35 || *(v7 + 8) != v34)
+        if (!v35 || *(v7 + 2) != v34)
         {
           v30 = 0;
-          *(v7 + 492) = 6;
-          *(v7 + 500) = gain;
+          *(v7 + 123) = 6;
+          *(v7 + 125) = gain;
           v28 = 1103101952;
           goto LABEL_53;
         }
@@ -269,11 +269,11 @@ LABEL_31:
     }
 
     [v7 getAEMaxGainForPortType:v10 suggestedFrameRate:30.0];
-    v43 = *(v7 + 492);
+    v43 = *(v7 + 123);
     if (v43 == 6)
     {
       v44 = v42;
-      if (v15 <= (*&a33sFf1[4 * (v42 > 255.0)] * *(v7 + 384)))
+      if (v15 <= (*&a33sFf1[4 * (v42 > 255.0)] * *(v7 + 96)))
       {
         goto LABEL_76;
       }
@@ -281,7 +281,7 @@ LABEL_31:
       [bufferCopy integrationTime];
       v46 = v45;
       [bufferCopy gain];
-      if (*(v7 + 536) > 29)
+      if (*(v7 + 134) > 29)
       {
         goto LABEL_97;
       }
@@ -292,36 +292,36 @@ LABEL_31:
         goto LABEL_97;
       }
 
-      v43 = *(v7 + 492);
+      v43 = *(v7 + 123);
     }
 
     v50 = v20 == gain && v43 == 4;
-    if (v50 && *(v7 + 8) == v20)
+    if (v50 && *(v7 + 2) == v20)
     {
       goto LABEL_97;
     }
 
 LABEL_76:
     v30 = 0;
-    *(v7 + 492) = 4;
-    *(v7 + 500) = gain;
+    *(v7 + 123) = 4;
+    *(v7 + 125) = gain;
 LABEL_77:
-    *(v7 + 504) = v20;
-    *(v7 + 8) = v20;
+    *(v7 + 126) = v20;
+    *(v7 + 2) = v20;
     goto LABEL_98;
   }
 
   if (_waterSceneDetected)
   {
     v28 = 1114636288;
-    v29 = gain == 60.0 && *(v7 + 492) == 8;
+    v29 = gain == 60.0 && *(v7 + 123) == 8;
     if (!v29 || (OUTLINED_FUNCTION_3_57(), !v29))
     {
       v30 = 0;
-      *(v7 + 492) = 8;
-      *(v7 + 500) = gain;
+      *(v7 + 123) = 8;
+      *(v7 + 125) = gain;
 LABEL_53:
-      *(v7 + 504) = v28;
+      *(v7 + 126) = v28;
       goto LABEL_54;
     }
 
@@ -334,7 +334,7 @@ LABEL_53:
     v36 = 1;
   }
 
-  if ((v36 & 1) != 0 || *(v7 + 473) != 1)
+  if ((v36 & 1) != 0 || v7[473] != 1)
   {
     if (v17)
     {
@@ -342,11 +342,11 @@ LABEL_53:
       [bufferCopy gain];
       OUTLINED_FUNCTION_1_71(v37);
       v39 = gain == 30.0 && v38 == 3;
-      if (!v39 || *(v7 + 8) != 30.0)
+      if (!v39 || *(v7 + 2) != 30.0)
       {
         v30 = 0;
-        *(v7 + 492) = 3;
-        *(v7 + 500) = gain;
+        *(v7 + 123) = 3;
+        *(v7 + 125) = gain;
         v28 = 1106247680;
         goto LABEL_53;
       }
@@ -358,7 +358,7 @@ LABEL_53:
     if (v29)
     {
       v30 = 0;
-      *(v7 + 492) = 7;
+      *(v7 + 123) = 7;
       *(v7 + 500) = 0x41F0000041C00000;
       v28 = 1106247680;
       goto LABEL_54;
@@ -370,7 +370,7 @@ LABEL_53:
       goto LABEL_98;
     }
 
-    v51 = *(v7 + 492);
+    v51 = *(v7 + 123);
     if (v51 == 1)
     {
       goto LABEL_84;
@@ -378,7 +378,7 @@ LABEL_53:
 
     if (v51 == 3)
     {
-      v52 = *(v7 + 384) * 0.95;
+      v52 = *(v7 + 96) * 0.95;
       if (v15 > v52)
       {
         goto LABEL_97;
@@ -386,7 +386,7 @@ LABEL_53:
     }
 
     [bufferCopy integrationTime];
-    if (v53 <= *(v7 + 24))
+    if (v53 <= *(v7 + 6))
     {
 LABEL_84:
       v54 = 2;
@@ -411,12 +411,12 @@ LABEL_84:
       v54 = 5;
     }
 
-    v55 = v20 == 30.0 && *(v7 + 492) == v54;
-    if (!v55 || *(v7 + 8) != 30.0)
+    v55 = v20 == 30.0 && *(v7 + 123) == v54;
+    if (!v55 || *(v7 + 2) != 30.0)
     {
       v30 = 0;
-      *(v7 + 492) = v54;
-      *(v7 + 500) = 1106247680;
+      *(v7 + 123) = v54;
+      *(v7 + 125) = 1106247680;
       goto LABEL_77;
     }
 
@@ -425,47 +425,47 @@ LABEL_97:
     goto LABEL_98;
   }
 
-  if (*(v7 + 492) != 1 || (OUTLINED_FUNCTION_3_57(), !v29))
+  if (*(v7 + 123) != 1 || (OUTLINED_FUNCTION_3_57(), !v29))
   {
     v30 = 1;
-    *(v7 + 492) = 1;
+    *(v7 + 123) = 1;
     *(v7 + 500) = 0x4270000042700000;
     v28 = 1114636288;
 LABEL_54:
-    *(v7 + 8) = v28;
+    *(v7 + 2) = v28;
     goto LABEL_98;
   }
 
   v30 = 1;
 LABEL_98:
-  v60 = *(v7 + 8);
-  if (v60 == 0.0 && (v60 != gain || *(v7 + 492)))
+  v60 = *(v7 + 2);
+  if (v60 == 0.0 && (v60 != gain || *(v7 + 123)))
   {
-    *(v7 + 492) = 0;
-    *(v7 + 500) = gain;
-    *(v7 + 504) = gain;
-    *(v7 + 8) = gain;
+    *(v7 + 123) = 0;
+    *(v7 + 125) = gain;
+    *(v7 + 126) = gain;
+    *(v7 + 2) = gain;
   }
 
-  if (*(v7 + 473) == 1)
+  if (v7[473] == 1)
   {
-    *(v7 + 52) = v30;
+    *(v7 + 13) = v30;
   }
 
-  v61 = [MEMORY[0x1E696AD98] numberWithInt:*(v7 + 492)];
-  v62 = *(v7 + 40);
+  v61 = [MEMORY[0x1E696AD98] numberWithInt:*(v7 + 123)];
+  v62 = *(v7 + 5);
 
   return [v62 setObject:v61 forKeyedSubscript:0x1F21AA0F0];
 }
 
-- (uint64_t)_updatemotionThreshold:(uint64_t)threshold forPortType:
+- (id)_updatemotionThreshold:(uint64_t)threshold forPortType:
 {
   if (result)
   {
     v5 = result;
-    [*(result + 392) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", a2), threshold}];
+    [result[49] setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", a2), threshold}];
     v6 = [MEMORY[0x1E696AD98] numberWithInt:a2];
-    v7 = *(v5 + 400);
+    v7 = v5[50];
 
     return [v7 setObject:v6 forKeyedSubscript:threshold];
   }
@@ -473,7 +473,7 @@ LABEL_98:
   return result;
 }
 
-- (uint64_t)_updateAEMaxGainDictionary:(uint64_t)result withAEMaxGain:(void *)gain forPortType:(void *)type
+- (void)_updateAEMaxGainDictionary:(void *)result withAEMaxGain:(void *)gain forPortType:(void *)type
 {
   if (result)
   {
@@ -499,7 +499,7 @@ LABEL_98:
           v8 = *(*(&v10 + 1) + 8 * v7);
           [objc_msgSend(type objectForKeyedSubscript:{v8), "floatValue"}];
           [gain setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithFloat:"), v8}];
-          ++v7;
+          v7 = v7 + 1;
         }
 
         while (v5 != v7);
@@ -518,41 +518,41 @@ LABEL_98:
 {
   if (result)
   {
-    v2 = result;
+    v3 = result;
     result = [CMGetAttachment(target *off_1E798A3C8];
     if (result)
     {
-      v3 = result;
+      v4 = result;
       bytes = [result bytes];
-      result = [v3 length];
-      v5 = *(bytes + 4);
-      if (result == (40 * v5 + 8))
+      result = [v4 length];
+      v6 = *(bytes + 4);
+      if (result == (40 * v6 + 8))
       {
-        if (v5 >= 1)
+        if (v6 >= 1)
         {
-          v6 = 0;
-          v7 = *(v2 + 408);
-          v8 = *(v2 + 424);
-          v9 = (bytes + 28);
-          v10 = vdupq_n_s64(0x3E10000000000000uLL);
+          v7 = 0;
+          v8 = *(v3 + 408);
+          v9 = *(v3 + 424);
+          v10 = (bytes + 28);
+          v11 = vdupq_n_s64(0x3E10000000000000uLL);
           do
           {
-            _Q3 = v8;
-            _Q1 = v7;
-            v13 = *(v9 - 1);
-            v14.i64[0] = *v9;
-            v14.i64[1] = HIDWORD(*v9);
-            v8 = vmulq_f64(vcvtq_f64_s64(v14), v10);
-            v14.i64[0] = v13;
-            v14.i64[1] = SHIDWORD(v13);
-            v7 = vmulq_f64(vcvtq_f64_s64(v14), v10);
-            v6 += 2;
-            v9 += 10;
+            _Q3 = v9;
+            _Q1 = v8;
+            v14 = *(v10 - 1);
+            v15.i64[0] = *v10;
+            v15.i64[1] = HIDWORD(*v10);
+            v9 = vmulq_f64(vcvtq_f64_s64(v15), v11);
+            v15.i64[0] = v14;
+            v15.i64[1] = SHIDWORD(v14);
+            v8 = vmulq_f64(vcvtq_f64_s64(v15), v11);
+            v7 += 2;
+            v10 += 10;
           }
 
-          while (v6 < v5);
-          _D7 = v7.f64[1];
-          _D16 = v8.f64[1];
+          while (v7 < v6);
+          _D7 = v8.f64[1];
+          _D16 = v9.f64[1];
           __asm
           {
             FMLA            D6, D7, V3.D[1]
@@ -561,19 +561,20 @@ LABEL_98:
             FMLA            D17, D16, V3.D[1]
           }
 
-          *(v2 + 408) = v7;
-          *(v2 + 424) = v8;
-          *(v2 + 57) = _D6 - v7.f64[0] * _Q3.f64[0];
-          *(v2 + 58) = vmuld_lane_f64(v8.f64[0], _Q1, 1) - v7.f64[1] * _Q3.f64[0] + _Q1.f64[0] * v8.f64[1] - v7.f64[0] * _Q3.f64[1];
-          *(v2 + 55) = _D17 + _Q1.f64[0] * v7.f64[0];
-          *(v2 + 56) = -_Q3.f64[1] * v8.f64[0] + _Q1.f64[0] * v7.f64[1] + _Q3.f64[0] * v8.f64[1] - v7.f64[0] * _Q1.f64[1];
+          *(v3 + 408) = v8;
+          *(v3 + 424) = v9;
+          *(v3 + 57) = _D6 - v8.f64[0] * _Q3.f64[0];
+          *(v3 + 58) = vmuld_lane_f64(v9.f64[0], _Q1, 1) - v8.f64[1] * _Q3.f64[0] + _Q1.f64[0] * v9.f64[1] - v8.f64[0] * _Q3.f64[1];
+          *(v3 + 55) = _D17 + _Q1.f64[0] * v8.f64[0];
+          *(v3 + 56) = -_Q3.f64[1] * v9.f64[0] + _Q1.f64[0] * v8.f64[1] + _Q3.f64[0] * v9.f64[1] - v8.f64[0] * _Q1.f64[1];
         }
       }
 
       else
       {
         fig_log_get_emitter();
-        return FigDebugAssert3();
+        v26 = 0;
+        return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v26, v2, v27, v28, v29, v30, vars0, vars8);
       }
     }
   }

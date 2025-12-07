@@ -43,11 +43,11 @@
 
 - (PRUISModalRemoteViewController)initWithEntryPoint:(id)point
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   pointCopy = point;
-  v14.receiver = self;
-  v14.super_class = PRUISModalRemoteViewController;
-  v6 = [(PRUISModalRemoteViewController *)&v14 initWithNibName:0 bundle:0];
+  v15.receiver = self;
+  v15.super_class = PRUISModalRemoteViewController;
+  v6 = [(PRUISModalRemoteViewController *)&v15 initWithNibName:0 bundle:0];
   v7 = v6;
   if (v6)
   {
@@ -57,14 +57,14 @@
     scene = v7->_scene;
     v7->_scene = v9;
 
-    [(FBScene *)v7->_scene addExtension:objc_opt_class()];
-    v11 = PRUISLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = [(FBScene *)v7->_scene addExtension:objc_opt_class()];
+    v12 = PRUISLogCommon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v7->_scene;
+      v13 = v7->_scene;
       *buf = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_1CAE63000, v11, OS_LOG_TYPE_DEFAULT, "Created new PosterBoard modal scene %{public}@", buf, 0xCu);
+      v17 = v13;
+      _os_log_impl(&dword_1CAE63000, v12, OS_LOG_TYPE_DEFAULT, "Created new PosterBoard modal scene %{public}@", buf, 0xCu);
     }
 
     [(FBScene *)v7->_scene setDelegate:v7];
@@ -352,8 +352,7 @@ void __53__PRUISModalRemoteViewController_initWithEntryPoint___block_invoke(uint
         self->_scenePresenter = v12;
 
         [(UIScenePresenter *)self->_scenePresenter modifyPresentationContext:&__block_literal_global_32];
-        [(UIScenePresenter *)self->_scenePresenter activate];
-        v14 = PRUISLogRemoteEditing();
+        v14 = PRUISLogRemoteEditing([(UIScenePresenter *)self->_scenePresenter activate]);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *v18 = 0;
@@ -735,23 +734,24 @@ void __93__PRUISModalRemoteViewController__updateSceneToSize_orientation_withAni
 
 - (void)sceneDidDeactivate:(id)deactivate withError:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
+  v7 = errorCopy;
   if (self->_scene == deactivate)
   {
-    v7 = PRUISLogRemoteEditing();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PRUISLogRemoteEditing(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134218242;
+      v10 = 134218242;
       selfCopy = self;
-      v11 = 2112;
-      v12 = errorCopy;
-      _os_log_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEFAULT, "Remote modal controller %p scene did deactivate with error: %@", &v9, 0x16u);
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_1CAE63000, v8, OS_LOG_TYPE_DEFAULT, "Remote modal controller %p scene did deactivate with error: %@", &v10, 0x16u);
     }
 
-    v8 = [[PRUISModalEntryPointResponse alloc] initWithResult:0];
-    [(PRUISModalRemoteViewController *)self _invokeWillDismissDelegateWithResponse:v8];
-    [(PRUISModalRemoteViewController *)self _invokeDidDismissDelegateWithResponse:v8];
+    v9 = [[PRUISModalEntryPointResponse alloc] initWithResult:0];
+    [(PRUISModalRemoteViewController *)self _invokeWillDismissDelegateWithResponse:v9];
+    [(PRUISModalRemoteViewController *)self _invokeDidDismissDelegateWithResponse:v9];
     [(PRUISModalRemoteViewController *)self _invalidateAfterDismissal];
   }
 }
@@ -779,10 +779,10 @@ void __93__PRUISModalRemoteViewController__updateSceneToSize_orientation_withAni
 
 - (void)_acquireKeyboardFocusDeferringRuleIfNecessary
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_5(&dword_1CAE63000, v2, v3, "%{public}@-%{public}p: Cannot acquire keyboard focus deferring assertion because parent scene is nil", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_1CAE63000, v3, v4, "%{public}@-%{public}p: Cannot acquire keyboard focus deferring assertion because parent scene is nil", v5, v6, v7, v8);
 }
 
 - (id)descriptionWithMultilinePrefix:(id)prefix

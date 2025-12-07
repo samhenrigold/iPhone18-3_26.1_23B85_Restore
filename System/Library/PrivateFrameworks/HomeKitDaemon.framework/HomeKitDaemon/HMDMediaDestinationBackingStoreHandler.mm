@@ -24,7 +24,7 @@
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -33,23 +33,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = removedCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown transaction object: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = removedCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove unknown transaction object: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
   [messageCopy respondWithError:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -60,9 +58,9 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v49 = v14;
-    v50 = 2112;
-    v51 = valuesCopy;
+    v48 = v14;
+    v49 = 2112;
+    v50 = valuesCopy;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction object updated with new object: %@", buf, 0x16u);
   }
 
@@ -96,9 +94,9 @@
         {
           v45 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v49 = v45;
-          v50 = 2112;
-          v51 = v21;
+          v48 = v45;
+          v49 = 2112;
+          v50 = v21;
           _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio destination with unrecongnized model: %@", buf, 0x16u);
         }
 
@@ -129,16 +127,16 @@
           if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v34 = v47 = v31;
+            v34 = v46 = v31;
             *buf = 138543874;
-            v49 = v34;
-            v50 = 2112;
-            v51 = v23;
-            v52 = 2112;
-            v53 = destination2;
+            v48 = v34;
+            v49 = 2112;
+            v50 = v23;
+            v51 = 2112;
+            v52 = destination2;
             _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Updated audio destination: %@ new audio destination: %@", buf, 0x20u);
 
-            v31 = v47;
+            v31 = v46;
           }
 
           objc_autoreleasePoolPop(v31);
@@ -165,9 +163,9 @@
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v49 = v41;
-        v50 = 2112;
-        v51 = v19;
+        v48 = v41;
+        v49 = 2112;
+        v50 = v19;
         _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to process unknown transaction object: %@", buf, 0x16u);
       }
 
@@ -186,14 +184,12 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v49 = v18;
+      v48 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping due to Home Theater QFA enabled", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAudioGroupIdentifier:(id)identifier
@@ -215,7 +211,7 @@
 - (HMMediaDestination)destination
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(HMMutableMediaDestination *)self->_destination copy];
+  v3 = objc_msgSend_copy(self->_destination);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -223,7 +219,7 @@
 
 - (void)updateAudioGroupIdentifier:(id)identifier completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -232,11 +228,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v11;
-    v31 = 2112;
-    v32 = identifierCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to audio group identifier: %@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v11;
+    v30 = 2112;
+    v31 = identifierCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to audio group identifier: %@", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -255,9 +251,9 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v19;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Attempting forced push due to audio group identifier already updated", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v19;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Attempting forced push due to audio group identifier already updated", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -282,20 +278,18 @@
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       v27 = HMFGetLogIdentifier();
-      v29 = 138543362;
-      v30 = v27;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier due to no completion", &v29, 0xCu);
+      v28 = 138543362;
+      v29 = v27;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier due to no completion", &v28, 0xCu);
     }
 
     objc_autoreleasePoolPop(v24);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSupportedOptions:(unint64_t)options completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HMMediaDestinationSupportOptionsAsString();
   v8 = objc_autoreleasePoolPush();
@@ -305,9 +299,9 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v7;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating to supported options: %@", buf, 0x16u);
   }
 
@@ -324,7 +318,7 @@
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v16;
+        v27 = v16;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Supported options already updated", buf, 0xCu);
       }
 
@@ -355,19 +349,17 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v20;
+      v27 = v20;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to update supported options due to no completion", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDestination:(id)destination
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   os_unfair_lock_lock_with_options();
   if (([(HMMutableMediaDestination *)self->_destination isEqual:destinationCopy]& 1) != 0)
@@ -388,17 +380,15 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = destinationCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged destination: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = destinationCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Merged destination: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaDestinationBackingStoreHandler)initWithDestination:(id)destination backingStore:(id)store metricsDispatcher:(id)dispatcher delegate:(id)delegate
@@ -460,10 +450,9 @@ LABEL_9:
 
 void __53__HMDMediaDestinationBackingStoreHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_58650;
-  logCategory__hmf_once_v19_58650 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_58650;
+  logCategory__hmf_once_v19_58650 = v0;
 }
 
 + (id)backingStoreObjectForMediaDestination:(id)destination

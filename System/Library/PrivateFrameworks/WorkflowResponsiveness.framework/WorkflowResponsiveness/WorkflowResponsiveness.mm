@@ -61,6 +61,13 @@ LABEL_14:
   }
 }
 
+void sub_2746E72A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
+{
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -79,53 +86,58 @@ BOOL PlaceholderNameMatches(void *a1, void *a2)
   return v8;
 }
 
-void sub_2746EF0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2746EDC14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  va_start(va, a15);
+  va_start(va, a36);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2746EF800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2746EF0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t WRProcessIsBeingDebugged(int a1)
+void sub_2746EF800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WRProcessIsBeingDebugged(uint64_t a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   v6 = 0u;
   v7 = 0u;
   memset(v5, 0, sizeof(v5));
-  if (!proc_pidinfo(a1, 13, 1uLL, v5, 64))
+  if (proc_pidinfo(a1, 13, 1uLL, v5, 64))
   {
-    v2 = *__error();
-    v3 = _wrlog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if ((v6 & 2) != 0)
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    v2 = __error();
+    v3 = *v2;
+    v4 = _wrlog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       WRProcessIsBeingDebugged_cold_1();
     }
 
-    *__error() = v2;
-    goto LABEL_7;
+    *__error() = v3;
   }
 
-  if ((v6 & 2) == 0)
-  {
-LABEL_7:
-    result = 0;
-    goto LABEL_8;
-  }
-
-  result = 1;
-LABEL_8:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t WRMachTimeFromNanosecondsUsingLiveTimebase(uint64_t a1)
+uint64_t WRMachTimeFromNanosecondsUsingLiveTimebase(unint64_t a1)
 {
   if (WRMachTimebaseForLiveMachine_once != -1)
   {
@@ -252,10 +264,11 @@ void OUTLINED_FUNCTION_44(void *a1, NSObject *a2, uint64_t a3, const char *a4, u
   _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, a5, 0x16u);
 }
 
-void OUTLINED_FUNCTION_46(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_46(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_47(int a1@<W8>)
@@ -296,7 +309,7 @@ id OUTLINED_FUNCTION_71(uint64_t a1, const char *a2)
   return objc_getProperty(v2, a2, 56, 1);
 }
 
-uint64_t OUTLINED_FUNCTION_73()
+uint64_t OUTLINED_FUNCTION_73(uint64_t a1)
 {
 
   return objc_opt_isKindOfClass();
@@ -356,16 +369,16 @@ uint64_t OUTLINED_FUNCTION_100(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   return [v4 countByEnumeratingWithState:a3 objects:a4 count:16];
 }
 
-id _wrlog()
+id _wrlog(uint64_t a1)
 {
   if (_wrlog_onceToken != -1)
   {
     _wrlog_cold_1();
   }
 
-  v1 = _wrlog_log;
+  v2 = _wrlog_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ___wrlog_block_invoke()
@@ -450,29 +463,29 @@ id DictGetDict(void *a1, void *a2, void *a3)
 
 uint64_t ArrayDoAllClassesMatch(void *a1, void *a2, uint64_t a3, void *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = a1;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = a2;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (a4)
@@ -494,7 +507,7 @@ uint64_t ArrayDoAllClassesMatch(void *a1, void *a2, uint64_t a3, void *a4)
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v9)
       {
         continue;
@@ -507,7 +520,6 @@ uint64_t ArrayDoAllClassesMatch(void *a1, void *a2, uint64_t a3, void *a4)
   v13 = 1;
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -528,7 +540,7 @@ id DictGetArrayOfClass(void *a1, void *a2, uint64_t a3, void *a4)
   return v9;
 }
 
-uint64_t WRIsAppleInternal()
+uint64_t WRIsAppleInternal(uint64_t a1, uint64_t a2)
 {
   if (WRIsAppleInternal_onceToken != -1)
   {
@@ -548,10 +560,9 @@ uint64_t __WRIsAppleInternal_block_invoke()
 id WRCreateOSTransaction(char *__format, ...)
 {
   va_start(va, __format);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   vsnprintf(__str, 0x200uLL, __format, va);
   v1 = os_transaction_create();
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -584,16 +595,16 @@ id WRMakeErrorWithUnderlyingError(uint64_t a1, void *a2, void *a3, uint64_t a4, 
   return v17;
 }
 
-id AllWorkflowKeys()
+id AllWorkflowKeys(uint64_t a1)
 {
   if (AllWorkflowKeys_onceToken != -1)
   {
     AllWorkflowKeys_cold_1();
   }
 
-  v1 = AllWorkflowKeys_allWorkflowKeys;
+  v2 = AllWorkflowKeys_allWorkflowKeys;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AllWorkflowKeys_block_invoke()
@@ -608,16 +619,16 @@ uint64_t __AllWorkflowKeys_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id AllSignpostKeys()
+id AllSignpostKeys(uint64_t a1)
 {
   if (AllSignpostKeys_onceToken != -1)
   {
     AllSignpostKeys_cold_1();
   }
 
-  v1 = AllSignpostKeys_allSignpostKeys;
+  v2 = AllSignpostKeys_allSignpostKeys;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AllSignpostKeys_block_invoke()
@@ -643,16 +654,16 @@ uint64_t __AllSignpostKeys_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id AllDiagnosticKeys()
+id AllDiagnosticKeys(uint64_t a1)
 {
   if (AllDiagnosticKeys_onceToken != -1)
   {
     AllDiagnosticKeys_cold_1();
   }
 
-  v1 = AllDiagnosticKeys_allDiagnosticKeys;
+  v2 = AllDiagnosticKeys_allDiagnosticKeys;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AllDiagnosticKeys_block_invoke()
@@ -681,7 +692,7 @@ uint64_t __AllDiagnosticKeys_block_invoke()
 id WRCheckForBadWorkflowDict(void *a1)
 {
   v1 = a1;
-  v2 = AllWorkflowKeys();
+  v2 = AllWorkflowKeys(v1);
   v9 = 0;
   v10 = &v9;
   v11 = 0x3032000000;
@@ -703,9 +714,9 @@ id WRCheckForBadWorkflowDict(void *a1)
   return v4;
 }
 
-void sub_2746F5BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2746F5BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -816,18 +827,19 @@ LABEL_12:
     {
       if (![v7 isEqualToString:@"diagnostics"])
       {
-        v71 = *__error();
-        v72 = _wrlog();
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
+        v71 = __error();
+        v72 = *v71;
+        v73 = _wrlog(v71);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
         {
-          __WRCheckForBadWorkflowDict_block_invoke_cold_1(v7, v72);
+          __WRCheckForBadWorkflowDict_block_invoke_cold_1(v7, v73);
         }
 
-        *__error() = v71;
-        v79 = WRMakeError(6, @"unhandled workflow array key %@", v73, v74, v75, v76, v77, v78, v7);
-        v80 = *(*(a1 + 40) + 8);
-        v81 = *(v80 + 40);
-        *(v80 + 40) = v79;
+        *__error() = v72;
+        v80 = WRMakeError(6, @"unhandled workflow array key %@", v74, v75, v76, v77, v78, v79, v7);
+        v81 = *(*(a1 + 40) + 8);
+        v82 = *(v81 + 40);
+        *(v81 + 40) = v80;
 
         goto LABEL_46;
       }
@@ -922,11 +934,11 @@ LABEL_6:
   }
 
 LABEL_45:
-  v82 = v21;
+  v83 = v21;
 
-  v83 = *(*(a1 + 40) + 8);
-  v84 = *(v83 + 40);
-  *(v83 + 40) = v82;
+  v84 = *(*(a1 + 40) + 8);
+  v85 = *(v84 + 40);
+  *(v84 + 40) = v83;
 
   if (*(*(*(a1 + 40) + 8) + 40))
   {
@@ -934,14 +946,12 @@ LABEL_45:
   }
 
 LABEL_47:
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 id WRCheckForBadSignpostDict(void *a1)
 {
   v1 = a1;
-  v2 = AllSignpostKeys();
+  v2 = AllSignpostKeys(v1);
   v9 = 0;
   v10 = &v9;
   v11 = 0x3032000000;
@@ -963,9 +973,9 @@ id WRCheckForBadSignpostDict(void *a1)
   return v4;
 }
 
-void sub_2746F61D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2746F61D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -973,7 +983,7 @@ void sub_2746F61D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 id WRCheckForBadDiagnosticDict(void *a1)
 {
   v1 = a1;
-  v2 = AllDiagnosticKeys();
+  v2 = AllDiagnosticKeys(v1);
   v9 = 0;
   v10 = &v9;
   v11 = 0x3032000000;
@@ -995,9 +1005,9 @@ id WRCheckForBadDiagnosticDict(void *a1)
   return v4;
 }
 
-void sub_2746F6308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2746F6308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1034,47 +1044,47 @@ void __WRCheckForBadSignpostDict_block_invoke(uint64_t a1, void *a2, void *a3, _
         v83 = 0u;
         v80 = 0u;
         v81 = 0u;
-        v33 = v8;
-        v34 = [v33 countByEnumeratingWithState:&v80 objects:v85 count:16];
-        if (v34)
+        v32 = v8;
+        v33 = [v32 countByEnumeratingWithState:&v80 objects:v85 count:16];
+        if (v33)
         {
-          v35 = v34;
-          v36 = *v81;
+          v34 = v33;
+          v35 = *v81;
 LABEL_13:
-          v37 = 0;
+          v36 = 0;
           while (1)
           {
-            if (*v81 != v36)
+            if (*v81 != v35)
             {
-              objc_enumerationMutation(v33);
+              objc_enumerationMutation(v32);
             }
 
-            v38 = *(*(&v80 + 1) + 8 * v37);
+            v37 = *(*(&v80 + 1) + 8 * v36);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              WRCheckForBadDiagnosticDict(v38);
+              WRCheckForBadDiagnosticDict(v37);
             }
 
             else
             {
-              ClassName = object_getClassName(v38);
-              WRMakeError(6, @"Wrong type for signpost diagnostic dict: %s", v41, v42, v43, v44, v45, v46, ClassName);
+              ClassName = object_getClassName(v37);
+              WRMakeError(6, @"Wrong type for signpost diagnostic dict: %s", v40, v41, v42, v43, v44, v45, ClassName);
             }
-            v39 = ;
-            v47 = *(*(a1 + 40) + 8);
-            v48 = *(v47 + 40);
-            *(v47 + 40) = v39;
+            v38 = ;
+            v46 = *(*(a1 + 40) + 8);
+            v47 = *(v46 + 40);
+            *(v46 + 40) = v38;
 
             if (*(*(*(a1 + 40) + 8) + 40))
             {
               break;
             }
 
-            if (v35 == ++v37)
+            if (v34 == ++v36)
             {
-              v35 = [v33 countByEnumeratingWithState:&v80 objects:v85 count:16];
-              if (v35)
+              v34 = [v32 countByEnumeratingWithState:&v80 objects:v85 count:16];
+              if (v34)
               {
                 goto LABEL_13;
               }
@@ -1097,47 +1107,47 @@ LABEL_36:
         v79 = 0u;
         v76 = 0u;
         v77 = 0u;
-        v33 = v8;
-        v49 = [v33 countByEnumeratingWithState:&v76 objects:v84 count:16];
-        if (v49)
+        v32 = v8;
+        v48 = [v32 countByEnumeratingWithState:&v76 objects:v84 count:16];
+        if (v48)
         {
-          v50 = v49;
-          v51 = *v77;
+          v49 = v48;
+          v50 = *v77;
 LABEL_26:
-          v52 = 0;
+          v51 = 0;
           while (1)
           {
-            if (*v77 != v51)
+            if (*v77 != v50)
             {
-              objc_enumerationMutation(v33);
+              objc_enumerationMutation(v32);
             }
 
-            v53 = *(*(&v76 + 1) + 8 * v52);
+            v52 = *(*(&v76 + 1) + 8 * v51);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              WRValidateSignpostDictLeafEntry(v7, v53);
+              WRValidateSignpostDictLeafEntry(v7, v52);
             }
 
             else
             {
-              v55 = object_getClassName(v53);
-              WRMakeError(6, @"Wrong type for signpost environmental field name: %s", v56, v57, v58, v59, v60, v61, v55);
+              v54 = object_getClassName(v52);
+              WRMakeError(6, @"Wrong type for signpost environmental field name: %s", v55, v56, v57, v58, v59, v60, v54);
             }
-            v54 = ;
-            v62 = *(*(a1 + 40) + 8);
-            v63 = *(v62 + 40);
-            *(v62 + 40) = v54;
+            v53 = ;
+            v61 = *(*(a1 + 40) + 8);
+            v62 = *(v61 + 40);
+            *(v61 + 40) = v53;
 
             if (*(*(*(a1 + 40) + 8) + 40))
             {
               goto LABEL_36;
             }
 
-            if (v50 == ++v52)
+            if (v49 == ++v51)
             {
-              v50 = [v33 countByEnumeratingWithState:&v76 objects:v84 count:16];
-              if (v50)
+              v49 = [v32 countByEnumeratingWithState:&v76 objects:v84 count:16];
+              if (v49)
               {
                 goto LABEL_26;
               }
@@ -1152,8 +1162,9 @@ LABEL_37:
         goto LABEL_9;
       }
 
-      v64 = *__error();
-      v65 = _wrlog();
+      v63 = __error();
+      v64 = *v63;
+      v65 = _wrlog(v63);
       if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
       {
         __WRCheckForBadSignpostDict_block_invoke_cold_1(v7, v65);
@@ -1188,8 +1199,6 @@ LABEL_8:
 
   *a4 = 1;
 LABEL_9:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 id WRValidateSignpostDictLeafEntry(void *a1, void *a2)
@@ -1496,7 +1505,7 @@ id WROverrideTelemetryEnablementForWorkflow(void *a1, void *a2)
 id _WROverrideDiagnostics(void *a1, void *a2, void *a3, void *a4)
 {
   v5 = WRTaskingKeyBaseForDiagnostic(a1, a2, a3);
-  v6 = AllDiagnosticKeys();
+  v6 = AllDiagnosticKeys(v5);
   v7 = [v6 allKeys];
   v8 = _WROverrideDict(v5, v7);
 
@@ -1536,7 +1545,7 @@ id _WROverrideDiagnostics(void *a1, void *a2, void *a3, void *a4)
 id WROverrideForWorkflow(void *a1, void *a2)
 {
   v3 = WRTaskingKeyBaseForWorkflow(a1);
-  v4 = AllWorkflowKeys();
+  v4 = AllWorkflowKeys(v3);
   v5 = [v4 allKeys];
   v6 = _WROverrideDict(v3, v5);
 
@@ -1577,29 +1586,29 @@ id WROverrideForWorkflow(void *a1, void *a2)
 
 id _WROverrideDict(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [v3 stringByAppendingString:v10];
         v12 = objc_opt_class();
         v13 = WRTaskingValueForKeyOfType(v11, v12, 0);
@@ -1614,7 +1623,7 @@ id _WROverrideDict(void *a1, void *a2)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -1624,8 +1633,6 @@ id _WROverrideDict(void *a1, void *a2)
   {
     v7 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1642,7 +1649,7 @@ id WRTaskingKeyBaseForWorkflow(void *a1)
 id WROverrideForSignpost(void *a1, void *a2, void *a3)
 {
   v4 = WRTaskingKeyBaseForSignpost(a1, a2);
-  v5 = AllSignpostKeys();
+  v5 = AllSignpostKeys(v4);
   v6 = [v5 allKeys];
   v7 = _WROverrideDict(v4, v6);
 
@@ -1692,10 +1699,10 @@ id WRTaskingKeyBaseForSignpost(void *a1, void *a2)
 
 id WROverrideNewSignpostsForWorkflow(void *a1, uint64_t *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
-  v45 = 0;
+  v44 = 0;
   if (a2)
   {
     *a2 = 0;
@@ -1703,7 +1710,7 @@ id WROverrideNewSignpostsForWorkflow(void *a1, uint64_t *a2)
 
   else
   {
-    a2 = &v45;
+    a2 = &v44;
   }
 
   v5 = WRTaskingKeyForNewSignposts(v3);
@@ -1713,27 +1720,27 @@ id WROverrideNewSignpostsForWorkflow(void *a1, uint64_t *a2)
   {
     v7 = [v6 componentsSeparatedByString:{@", "}];
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v9 = v7;
-    v40 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
-    if (v40)
+    v39 = [v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    if (v39)
     {
-      v10 = *v42;
-      v38 = v6;
-      v39 = *v42;
+      v10 = *v41;
+      v37 = v6;
+      v38 = *v41;
 LABEL_7:
       v11 = 0;
       while (1)
       {
-        if (*v42 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * v11);
+        v12 = *(*(&v40 + 1) + 8 * v11);
         v13 = WROverrideForSignpost(v4, v12, a2);
         if (!v13)
         {
@@ -1751,7 +1758,7 @@ LABEL_7:
 
 LABEL_21:
             v35 = 0;
-            v6 = v38;
+            v6 = v37;
             goto LABEL_22;
           }
         }
@@ -1770,17 +1777,17 @@ LABEL_21:
           v8 = v31;
           a2 = v30;
           v9 = v29;
-          v10 = v39;
+          v10 = v38;
           v20 = v34;
         }
 
         [v8 addObject:v20];
 
-        if (v40 == ++v11)
+        if (v39 == ++v11)
         {
-          v6 = v38;
-          v40 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
-          if (v40)
+          v6 = v37;
+          v39 = [v9 countByEnumeratingWithState:&v40 objects:v45 count:16];
+          if (v39)
           {
             goto LABEL_7;
           }
@@ -1808,8 +1815,6 @@ LABEL_22:
     v35 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
@@ -1833,8 +1838,8 @@ id WRTaskingKeyForNewSignposts(void *a1)
 
 id WROverrideNewWorkflows(uint64_t *a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v39 = 0;
+  v40 = *MEMORY[0x277D85DE8];
+  v38 = 0;
   if (a1)
   {
     v1 = a1;
@@ -1843,7 +1848,7 @@ id WROverrideNewWorkflows(uint64_t *a1)
 
   else
   {
-    v1 = &v39;
+    v1 = &v38;
   }
 
   v2 = WRTaskingStringForKey(@"WR.workflows", v1);
@@ -1852,28 +1857,28 @@ id WROverrideNewWorkflows(uint64_t *a1)
   {
     v4 = [v2 componentsSeparatedByString:{@", "}];
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v36;
+      v9 = *v35;
       obj = v6;
-      v33 = v3;
+      v32 = v3;
 LABEL_7:
       v10 = 0;
       while (1)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * v10);
+        v11 = *(*(&v34 + 1) + 8 * v10);
         v12 = WROverrideForWorkflow(v11, v1);
         v13 = [v12 mutableCopy];
 
@@ -1916,7 +1921,7 @@ LABEL_26:
           v6 = obj;
 
           v30 = 0;
-          v3 = v33;
+          v3 = v32;
           goto LABEL_27;
         }
 
@@ -1927,8 +1932,8 @@ LABEL_26:
         if (v8 == ++v10)
         {
           v6 = obj;
-          v8 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-          v3 = v33;
+          v8 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v3 = v32;
           if (v8)
           {
             goto LABEL_7;
@@ -1947,8 +1952,6 @@ LABEL_27:
   {
     v30 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -2019,65 +2022,65 @@ id WRTaskingDictForWorkflow(void *a1, void *a2)
 
 void __WRTaskingDictForWorkflow_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
   if ([v5 isEqualToString:@"signposts"])
   {
-    v43 = a1;
-    v45 = v6;
-    v46 = v5;
+    v44 = a1;
+    v46 = v6;
+    v47 = v5;
     v8 = *(a1 + 48);
     v9 = v6;
-    v44 = v7;
-    v48 = v7;
-    v47 = v8;
-    v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v78 = 0u;
+    v45 = v7;
+    v49 = v7;
+    v48 = v8;
+    v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v79 = 0u;
     v80 = 0u;
     v81 = 0u;
+    v82 = 0u;
     obj = v9;
-    v51 = [obj countByEnumeratingWithState:&v78 objects:v85 count:16];
-    if (v51)
+    v52 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
+    if (v52)
     {
-      v50 = *v79;
+      v51 = *v80;
       do
       {
-        for (i = 0; i != v51; ++i)
+        for (i = 0; i != v52; ++i)
         {
-          if (*v79 != v50)
+          if (*v80 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v78 + 1) + 8 * i);
+          v11 = *(*(&v79 + 1) + 8 * i);
           v12 = [v11 objectForKeyedSubscript:@"name"];
           if (v12)
           {
-            v55 = v11;
-            v53 = objc_alloc_init(MEMORY[0x277CBEB38]);
-            v72 = 0u;
+            v56 = v11;
+            v54 = objc_alloc_init(MEMORY[0x277CBEB38]);
             v73 = 0u;
             v74 = 0u;
             v75 = 0u;
-            v13 = v48;
-            v14 = [v13 countByEnumeratingWithState:&v72 objects:v84 count:16];
+            v76 = 0u;
+            v13 = v49;
+            v14 = [v13 countByEnumeratingWithState:&v73 objects:v85 count:16];
             if (v14)
             {
               v15 = v14;
-              v16 = *v73;
+              v16 = *v74;
 LABEL_10:
               v17 = 0;
               while (1)
               {
-                if (*v73 != v16)
+                if (*v74 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v72 + 1) + 8 * v17);
+                v18 = *(*(&v73 + 1) + 8 * v17);
                 v19 = [v18 objectForKeyedSubscript:@"name"];
                 v20 = [v19 isEqualToString:v12];
 
@@ -2088,7 +2091,7 @@ LABEL_10:
 
                 if (v15 == ++v17)
                 {
-                  v15 = [v13 countByEnumeratingWithState:&v72 objects:v84 count:16];
+                  v15 = [v13 countByEnumeratingWithState:&v73 objects:v85 count:16];
                   if (v15)
                   {
                     goto LABEL_10;
@@ -2111,105 +2114,106 @@ LABEL_10:
 LABEL_16:
             }
 
-            [v47 addObject:v12];
+            [v48 addObject:v12];
             v21 = 0;
 LABEL_19:
-            v69[0] = MEMORY[0x277D85DD0];
-            v69[1] = 3221225472;
-            v69[2] = ___WRTaskingFilteredSignposts_block_invoke;
-            v69[3] = &unk_279EE3308;
+            v70[0] = MEMORY[0x277D85DD0];
+            v70[1] = 3221225472;
+            v70[2] = ___WRTaskingFilteredSignposts_block_invoke;
+            v70[3] = &unk_279EE3308;
             v22 = v21;
-            v70 = v22;
-            v23 = v53;
-            v71 = v23;
-            [v55 enumerateKeysAndObjectsUsingBlock:v69];
-            v67[0] = MEMORY[0x277D85DD0];
-            v67[1] = 3221225472;
-            v67[2] = ___WRTaskingFilteredSignposts_block_invoke_2;
-            v67[3] = &unk_279EE3308;
-            v67[4] = v55;
+            v71 = v22;
+            v23 = v54;
+            v72 = v23;
+            [v56 enumerateKeysAndObjectsUsingBlock:v70];
+            v68[0] = MEMORY[0x277D85DD0];
+            v68[1] = 3221225472;
+            v68[2] = ___WRTaskingFilteredSignposts_block_invoke_2;
+            v68[3] = &unk_279EE3308;
+            v68[4] = v56;
             v24 = v23;
-            v68 = v24;
-            [v22 enumerateKeysAndObjectsUsingBlock:v67];
+            v69 = v24;
+            [v22 enumerateKeysAndObjectsUsingBlock:v68];
             if ([v24 count])
             {
               [v24 setObject:v12 forKeyedSubscript:@"name"];
-              [v49 addObject:v24];
+              [v50 addObject:v24];
             }
           }
 
           else
           {
-            v25 = *__error();
-            v26 = _wrlog();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+            v25 = __error();
+            v26 = *v25;
+            v27 = _wrlog(v25);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
             {
-              __WRTaskingDictForWorkflow_block_invoke_cold_1(&v76, v77);
+              __WRTaskingDictForWorkflow_block_invoke_cold_1(&v77, v78);
             }
 
-            *__error() = v25;
+            *__error() = v26;
           }
         }
 
-        v51 = [obj countByEnumeratingWithState:&v78 objects:v85 count:16];
+        v52 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
       }
 
-      while (v51);
+      while (v52);
     }
 
-    v65 = 0u;
     v66 = 0u;
-    v63 = 0u;
+    v67 = 0u;
     v64 = 0u;
-    v54 = v48;
-    v27 = [v54 countByEnumeratingWithState:&v63 objects:v83 count:16];
-    if (v27)
+    v65 = 0u;
+    v55 = v49;
+    v28 = [v55 countByEnumeratingWithState:&v64 objects:v84 count:16];
+    if (v28)
     {
-      v28 = v27;
-      v56 = *v64;
+      v29 = v28;
+      v57 = *v65;
       do
       {
-        for (j = 0; j != v28; ++j)
+        for (j = 0; j != v29; ++j)
         {
-          if (*v64 != v56)
+          if (*v65 != v57)
           {
-            objc_enumerationMutation(v54);
+            objc_enumerationMutation(v55);
           }
 
-          v30 = [*(*(&v63 + 1) + 8 * j) objectForKeyedSubscript:@"name"];
-          if (v30)
+          v31 = [*(*(&v64 + 1) + 8 * j) objectForKeyedSubscript:@"name"];
+          if (v31)
           {
-            v59 = 0u;
             v60 = 0u;
-            v57 = 0u;
+            v61 = 0u;
             v58 = 0u;
-            v31 = obj;
-            v32 = [v31 countByEnumeratingWithState:&v57 objects:v82 count:16];
-            if (v32)
+            v59 = 0u;
+            v32 = obj;
+            v33 = [v32 countByEnumeratingWithState:&v58 objects:v83 count:16];
+            if (v33)
             {
-              v33 = v32;
-              v34 = *v58;
+              v34 = v33;
+              v35 = *v59;
 LABEL_35:
-              v35 = 0;
+              v36 = 0;
               while (1)
               {
-                if (*v58 != v34)
+                if (*v59 != v35)
                 {
-                  objc_enumerationMutation(v31);
+                  objc_enumerationMutation(v32);
                 }
 
-                v36 = [*(*(&v57 + 1) + 8 * v35) objectForKeyedSubscript:@"name"];
-                v37 = [v36 isEqualToString:v30];
+                v37 = [*(*(&v58 + 1) + 8 * v36) objectForKeyedSubscript:@"name"];
+                v38 = [v37 isEqualToString:v31];
 
-                if (v37)
+                if (v38)
                 {
                   break;
                 }
 
-                if (v33 == ++v35)
+                if (v34 == ++v36)
                 {
-                  v33 = [v31 countByEnumeratingWithState:&v57 objects:v82 count:16];
-                  if (v33)
+                  v34 = [v32 countByEnumeratingWithState:&v58 objects:v83 count:16];
+                  if (v34)
                   {
                     goto LABEL_35;
                   }
@@ -2223,113 +2227,112 @@ LABEL_35:
             {
 LABEL_41:
 
-              v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
-              [v31 setObject:v30 forKeyedSubscript:@"name"];
-              [v31 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:0x288387F78];
-              [v49 addObject:v31];
+              v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              [v32 setObject:v31 forKeyedSubscript:@"name"];
+              [v32 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:0x288387F78];
+              [v50 addObject:v32];
             }
           }
 
           else
           {
-            v38 = *__error();
-            v39 = _wrlog();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+            v39 = __error();
+            v40 = *v39;
+            v41 = _wrlog(v39);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
             {
-              __WRTaskingDictForWorkflow_block_invoke_cold_1(&v61, v62);
+              __WRTaskingDictForWorkflow_block_invoke_cold_1(&v62, v63);
             }
 
-            *__error() = v38;
+            *__error() = v40;
           }
         }
 
-        v28 = [v54 countByEnumeratingWithState:&v63 objects:v83 count:16];
+        v29 = [v55 countByEnumeratingWithState:&v64 objects:v84 count:16];
       }
 
-      while (v28);
+      while (v29);
     }
 
-    if ([v49 count])
+    if ([v50 count])
     {
-      v40 = v49;
+      v42 = v50;
     }
 
     else
     {
-      v40 = 0;
+      v42 = 0;
     }
 
-    v6 = v45;
-    v5 = v46;
-    v7 = v44;
+    v6 = v46;
+    v5 = v47;
+    v7 = v45;
 
-    [*(v43 + 40) setObject:v40 forKeyedSubscript:@"signposts"];
+    [*(v44 + 40) setObject:v42 forKeyedSubscript:@"signposts"];
   }
 
   else if ([v5 isEqualToString:@"diagnostics"])
   {
-    v41 = _WRTaskingFilteredDiagnostics(v6, v7);
-    [*(a1 + 40) setObject:v41 forKeyedSubscript:@"diagnostics"];
+    v43 = _WRTaskingFilteredDiagnostics(v6, v7);
+    [*(a1 + 40) setObject:v43 forKeyedSubscript:@"diagnostics"];
   }
 
   else if (!v7 || ([v6 isEqual:v7] & 1) == 0)
   {
     [*(a1 + 40) setObject:v6 forKeyedSubscript:v5];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 id _WRTaskingFilteredDiagnostics(void *a1, void *a2)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v38 = a2;
-  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v69 = 0u;
+  v39 = a2;
+  v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
   obj = v3;
-  v41 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
-  if (v41)
+  v42 = [obj countByEnumeratingWithState:&v70 objects:v77 count:16];
+  if (v42)
   {
-    v40 = *v70;
+    v41 = *v71;
     do
     {
-      for (i = 0; i != v41; i = i + 1)
+      for (i = 0; i != v42; i = i + 1)
       {
-        if (*v70 != v40)
+        if (*v71 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v69 + 1) + 8 * i);
+        v5 = *(*(&v70 + 1) + 8 * i);
         v6 = [v5 objectForKeyedSubscript:@"name"];
         if (v6)
         {
-          v46 = v5;
-          v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          v63 = 0u;
+          v47 = v5;
+          v45 = objc_alloc_init(MEMORY[0x277CBEB38]);
           v64 = 0u;
           v65 = 0u;
           v66 = 0u;
-          v7 = v38;
-          v8 = [v7 countByEnumeratingWithState:&v63 objects:v75 count:16];
+          v67 = 0u;
+          v7 = v39;
+          v8 = [v7 countByEnumeratingWithState:&v64 objects:v76 count:16];
           if (v8)
           {
             v9 = v8;
-            v10 = *v64;
+            v10 = *v65;
 LABEL_9:
             v11 = 0;
             while (1)
             {
-              if (*v64 != v10)
+              if (*v65 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v63 + 1) + 8 * v11);
+              v12 = *(*(&v64 + 1) + 8 * v11);
               v13 = [v12 objectForKeyedSubscript:@"name"];
               v14 = [v13 isEqualToString:v6];
 
@@ -2340,7 +2343,7 @@ LABEL_9:
 
               if (v9 == ++v11)
               {
-                v9 = [v7 countByEnumeratingWithState:&v63 objects:v75 count:16];
+                v9 = [v7 countByEnumeratingWithState:&v64 objects:v76 count:16];
                 if (v9)
                 {
                   goto LABEL_9;
@@ -2352,7 +2355,7 @@ LABEL_9:
 
             v16 = v12;
 
-            v15 = v44;
+            v15 = v45;
             if (v16)
             {
               goto LABEL_18;
@@ -2363,108 +2366,109 @@ LABEL_9:
           {
 LABEL_15:
 
-            v15 = v44;
+            v15 = v45;
           }
 
           [v15 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"is_new"];
           v16 = 0;
 LABEL_18:
-          v60[0] = MEMORY[0x277D85DD0];
-          v60[1] = 3221225472;
-          v60[2] = ___WRTaskingFilteredDiagnostics_block_invoke;
-          v60[3] = &unk_279EE3308;
+          v61[0] = MEMORY[0x277D85DD0];
+          v61[1] = 3221225472;
+          v61[2] = ___WRTaskingFilteredDiagnostics_block_invoke;
+          v61[3] = &unk_279EE3308;
           v17 = v16;
-          v61 = v17;
+          v62 = v17;
           v18 = v15;
-          v62 = v18;
-          [v46 enumerateKeysAndObjectsUsingBlock:v60];
-          v58[0] = MEMORY[0x277D85DD0];
-          v58[1] = 3221225472;
-          v58[2] = ___WRTaskingFilteredDiagnostics_block_invoke_2;
-          v58[3] = &unk_279EE3308;
-          v58[4] = v46;
+          v63 = v18;
+          [v47 enumerateKeysAndObjectsUsingBlock:v61];
+          v59[0] = MEMORY[0x277D85DD0];
+          v59[1] = 3221225472;
+          v59[2] = ___WRTaskingFilteredDiagnostics_block_invoke_2;
+          v59[3] = &unk_279EE3308;
+          v59[4] = v47;
           v19 = v18;
-          v59 = v19;
-          [v17 enumerateKeysAndObjectsUsingBlock:v58];
+          v60 = v19;
+          [v17 enumerateKeysAndObjectsUsingBlock:v59];
           if ([v19 count])
           {
             [v19 setObject:v6 forKeyedSubscript:@"name"];
-            [v39 addObject:v19];
+            [v40 addObject:v19];
           }
         }
 
         else
         {
-          v20 = *__error();
-          v21 = _wrlog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+          v20 = __error();
+          v21 = *v20;
+          v22 = _wrlog(v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
           {
-            _WRTaskingFilteredDiagnostics_cold_1(&v67, v68);
+            _WRTaskingFilteredDiagnostics_cold_1(&v68, v69);
           }
 
-          *__error() = v20;
+          *__error() = v21;
         }
       }
 
-      v41 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
+      v42 = [obj countByEnumeratingWithState:&v70 objects:v77 count:16];
     }
 
-    while (v41);
+    while (v42);
   }
 
-  v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v42 = v38;
-  v47 = [v42 countByEnumeratingWithState:&v54 objects:v74 count:16];
-  if (v47)
+  v56 = 0u;
+  v43 = v39;
+  v48 = [v43 countByEnumeratingWithState:&v55 objects:v75 count:16];
+  if (v48)
   {
-    v45 = *v55;
+    v46 = *v56;
     do
     {
-      for (j = 0; j != v47; ++j)
+      for (j = 0; j != v48; ++j)
       {
-        if (*v55 != v45)
+        if (*v56 != v46)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v43);
         }
 
-        v23 = *(*(&v54 + 1) + 8 * j);
-        v24 = [v23 objectForKeyedSubscript:@"name"];
-        if (v24)
+        v24 = *(*(&v55 + 1) + 8 * j);
+        v25 = [v24 objectForKeyedSubscript:@"name"];
+        if (v25)
         {
-          v50 = 0u;
           v51 = 0u;
-          v48 = 0u;
+          v52 = 0u;
           v49 = 0u;
-          v25 = obj;
-          v26 = [v25 countByEnumeratingWithState:&v48 objects:v73 count:16];
-          if (v26)
+          v50 = 0u;
+          v26 = obj;
+          v27 = [v26 countByEnumeratingWithState:&v49 objects:v74 count:16];
+          if (v27)
           {
-            v27 = v26;
-            v28 = *v49;
+            v28 = v27;
+            v29 = *v50;
             while (2)
             {
-              for (k = 0; k != v27; ++k)
+              for (k = 0; k != v28; ++k)
               {
-                if (*v49 != v28)
+                if (*v50 != v29)
                 {
-                  objc_enumerationMutation(v25);
+                  objc_enumerationMutation(v26);
                 }
 
-                v30 = [*(*(&v48 + 1) + 8 * k) objectForKeyedSubscript:@"name"];
-                v31 = [v30 isEqualToString:v24];
+                v31 = [*(*(&v49 + 1) + 8 * k) objectForKeyedSubscript:@"name"];
+                v32 = [v31 isEqualToString:v25];
 
-                if (v31)
+                if (v32)
                 {
 
                   goto LABEL_45;
                 }
               }
 
-              v27 = [v25 countByEnumeratingWithState:&v48 objects:v73 count:16];
-              if (v27)
+              v28 = [v26 countByEnumeratingWithState:&v49 objects:v74 count:16];
+              if (v28)
               {
                 continue;
               }
@@ -2473,44 +2477,43 @@ LABEL_18:
             }
           }
 
-          v32 = _WRTaskingDiagnosticRemovedDict(v23);
-          [v39 addObject:v32];
+          v33 = _WRTaskingDiagnosticRemovedDict(v24);
+          [v40 addObject:v33];
         }
 
         else
         {
-          v33 = *__error();
-          v34 = _wrlog();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+          v34 = __error();
+          v35 = *v34;
+          v36 = _wrlog(v34);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
           {
-            _WRTaskingFilteredDiagnostics_cold_1(&v52, v53);
+            _WRTaskingFilteredDiagnostics_cold_1(&v53, v54);
           }
 
-          *__error() = v33;
+          *__error() = v35;
         }
 
 LABEL_45:
       }
 
-      v47 = [v42 countByEnumeratingWithState:&v54 objects:v74 count:16];
+      v48 = [v43 countByEnumeratingWithState:&v55 objects:v75 count:16];
     }
 
-    while (v47);
+    while (v48);
   }
 
-  if ([v39 count])
+  if ([v40 count])
   {
-    v35 = v39;
+    v37 = v40;
   }
 
   else
   {
-    v35 = 0;
+    v37 = 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v35;
+  return v37;
 }
 
 void __WRTaskingDictForWorkflow_block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2554,60 +2557,60 @@ LABEL_9:
 
 void __WRTaskingDictForWorkflow_block_invoke_34(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 isEqualToString:@"signposts"])
   {
-    v23 = v5;
+    v22 = v5;
     v7 = *(a1 + 40);
     v8 = *(a1 + 32);
-    v22 = v6;
+    v21 = v6;
     v9 = v6;
     v10 = v7;
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     obj = v9;
-    v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v31;
+      v13 = *v30;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v31 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v30 + 1) + 8 * i);
+          v15 = *(*(&v29 + 1) + 8 * i);
           v16 = [v15 objectForKeyedSubscript:@"name"];
           v17 = WRTaskingKeyBaseForSignpost(v10, v16);
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = ___WRTaskingDictAddSignposts_block_invoke;
-          v25[3] = &unk_279EE36B8;
-          v26 = v8;
-          v27 = v10;
-          v28 = v16;
-          v29 = v17;
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = ___WRTaskingDictAddSignposts_block_invoke;
+          v24[3] = &unk_279EE36B8;
+          v25 = v8;
+          v26 = v10;
+          v27 = v16;
+          v28 = v17;
           v18 = v17;
           v19 = v16;
-          [v15 enumerateKeysAndObjectsUsingBlock:v25];
+          [v15 enumerateKeysAndObjectsUsingBlock:v24];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v12);
     }
 
-    v6 = v22;
-    v5 = v23;
+    v6 = v21;
+    v5 = v22;
   }
 
   else if ([v5 isEqualToString:@"diagnostics"])
@@ -2620,38 +2623,36 @@ void __WRTaskingDictForWorkflow_block_invoke_34(uint64_t a1, void *a2, void *a3)
     v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@%@", *(a1 + 48), v5];
     [*(a1 + 32) setObject:v6 forKeyedSubscript:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void _WRTaskingDictAddDiagnostics(void *a1, void *a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v24 = a1;
+  v33 = *MEMORY[0x277D85DE8];
+  v23 = a1;
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = v7;
-  v10 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v10 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
     LODWORD(v12) = 0;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
+        v15 = *(*(&v28 + 1) + 8 * i);
         v16 = [v15 objectForKeyedSubscript:@"is_new"];
 
         if (v16)
@@ -2667,25 +2668,23 @@ void _WRTaskingDictAddDiagnostics(void *a1, void *a2, void *a3, void *a4)
 
         v18 = v17;
         v19 = WRTaskingKeyBaseForDiagnostic(v8, v9, v17);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = ___WRTaskingDictAddDiagnostics_block_invoke;
-        v25[3] = &unk_279EE3690;
-        v26 = v18;
-        v27 = v19;
-        v28 = v24;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = ___WRTaskingDictAddDiagnostics_block_invoke;
+        v24[3] = &unk_279EE3690;
+        v25 = v18;
+        v26 = v19;
+        v27 = v23;
         v20 = v18;
         v21 = v19;
-        [v15 enumerateKeysAndObjectsUsingBlock:v25];
+        [v15 enumerateKeysAndObjectsUsingBlock:v24];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v11);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 id WRTaskingValueForKeyOfType(void *a1, uint64_t a2, void *a3)
@@ -2836,15 +2835,16 @@ BOOL WRIsDisabledWorkflow(void *a1)
 
   else
   {
-    v8 = *__error();
-    v9 = _wrlog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v8 = __error();
+    v9 = *v8;
+    v10 = _wrlog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       WRIsDisabledWorkflow_cold_1();
     }
 
     v7 = 0;
-    *__error() = v8;
+    *__error() = v9;
   }
 
   return v7;
@@ -2856,6 +2856,13 @@ void sub_2746FC87C(_Unwind_Exception *a1)
   _Block_object_dispose(&STACK[0x4A0], 8);
   _Block_object_dispose(&STACK[0x510], 8);
   _Block_object_dispose((v1 - 160), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2746FD07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2917,44 +2924,39 @@ id OUTLINED_FUNCTION_8_0(uint64_t a1, const char *a2, ptrdiff_t a3)
   return objc_getProperty(v3, a2, a3, 1);
 }
 
-void OUTLINED_FUNCTION_15_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_15_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 void WRProcessIsBeingDebugged_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __WRCheckForBadWorkflowDict_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2746E5000, a2, OS_LOG_TYPE_FAULT, "unhandled workflow array key %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2746E5000, a2, OS_LOG_TYPE_FAULT, "unhandled workflow array key %{public}@", &v2, 0xCu);
 }
 
 void __WRCheckForBadSignpostDict_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2746E5000, a2, OS_LOG_TYPE_FAULT, "unhandled signpost array key %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2746E5000, a2, OS_LOG_TYPE_FAULT, "unhandled signpost array key %{public}@", &v2, 0xCu);
 }
 
 void WRIsDisabledWorkflow_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_4_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }

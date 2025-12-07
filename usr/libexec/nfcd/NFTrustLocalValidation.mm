@@ -1,4 +1,5 @@
 @interface NFTrustLocalValidation
++ (id)withPrimitiveLocalValidation:(unsigned __int8)validation;
 - (NFTrustLocalValidation)initWithCoder:(id)coder;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -24,6 +25,19 @@
 {
   coderCopy = coder;
   [coderCopy encodeInteger:-[NFTrustLocalValidation primitiveLocalValidation](self forKey:{"primitiveLocalValidation"), @"primitiveLocalValidation"}];
+}
+
++ (id)withPrimitiveLocalValidation:(unsigned __int8)validation
+{
+  validationCopy = validation;
+  v4 = [NFTrustLocalValidation alloc];
+  v5 = v4;
+  if (v4)
+  {
+    [(NFTrustLocalValidation *)v4 setPrimitiveLocalValidation:validationCopy];
+  }
+
+  return v5;
 }
 
 - (id)description

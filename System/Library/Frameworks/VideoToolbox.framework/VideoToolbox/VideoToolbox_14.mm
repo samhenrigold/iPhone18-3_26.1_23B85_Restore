@@ -55,7 +55,7 @@ uint64_t vt_Copy_RGhA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_
     v36 = *a4;
     v37 = *a3 + *a4 * v11;
     v38 = 8 * v12;
-    v39 = (v37 + 8 * v12);
+    v39 = v37 + 8 * v12;
     v40 = (v39 + *a4);
     v235 = v36 & 0x7FFFFFFFFFFFFFFFLL;
     v234 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -581,7 +581,7 @@ uint64_t vt_Copy_RGhA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_
         while (v241 != v93);
       }
 
-      v39 = &v239[v235];
+      v39 = v239 + 2 * v235;
       v40 = &v238[v235];
       v33 += 4 * v234;
       ++v26;
@@ -749,7 +749,7 @@ uint64_t vt_Copy_RGfA_p420ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, void *
     v36 = *a3;
     v37 = *a3 + *a4 * v9;
     v38 = 16 * v10;
-    v39 = (v37 + 16 * v10);
+    v39 = v37 + 16 * v10;
     v40 = (v39 + *a4);
     v204 = (*a4 >> 1) & 0x3FFFFFFFFFFFFFFFLL;
     v203 = (v31 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -1140,7 +1140,7 @@ uint64_t vt_Copy_RGfA_p420ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, void *
         while (v210 != v85);
       }
 
-      v39 = &v208[v204];
+      v39 = v208 + 4 * v204;
       v40 = &v207[v204];
       v34 += 4 * v203;
       ++v25;
@@ -1218,7 +1218,7 @@ uint64_t vt_Copy_RGfA_p420ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
     v36 = *a3;
     v37 = *a3 + *a4 * v9;
     v38 = 16 * v10;
-    v39 = (v37 + 16 * v10);
+    v39 = v37 + 16 * v10;
     v40 = (v39 + *a4);
     v204 = (*a4 >> 1) & 0x3FFFFFFFFFFFFFFFLL;
     v203 = (v31 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -1609,7 +1609,7 @@ uint64_t vt_Copy_RGfA_p420ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
         while (v210 != v85);
       }
 
-      v39 = &v208[v204];
+      v39 = v208 + 4 * v204;
       v40 = &v207[v204];
       v34 += 4 * v203;
       ++v25;
@@ -1687,7 +1687,7 @@ uint64_t vt_Copy_RGfA_p420ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
     v36 = *a3;
     v37 = *a3 + *a4 * v9;
     v38 = 16 * v10;
-    v39 = (v37 + 16 * v10);
+    v39 = v37 + 16 * v10;
     v40 = (v39 + *a4);
     v204 = (*a4 >> 1) & 0x3FFFFFFFFFFFFFFFLL;
     v203 = (v31 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -2078,7 +2078,7 @@ uint64_t vt_Copy_RGfA_p420ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, void *a
         while (v210 != v85);
       }
 
-      v39 = &v208[v204];
+      v39 = v208 + 4 * v204;
       v40 = &v207[v204];
       v34 += 4 * v203;
       ++v25;
@@ -2151,7 +2151,7 @@ uint64_t vt_Copy_RGfA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, unint6
     v34 = *a4;
     v35 = *a3 + *a4 * v9;
     v36 = 16 * v10;
-    v37 = (v35 + 16 * v10);
+    v37 = v35 + 16 * v10;
     v38 = (v37 + v34);
     v202 = (v34 >> 1) & 0x3FFFFFFFFFFFFFFFLL;
     v201 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -2541,7 +2541,7 @@ uint64_t vt_Copy_RGfA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, unint6
         while (v208 != v85);
       }
 
-      v37 = &v206[v202];
+      v37 = v206 + 4 * v202;
       v38 = &v205[v202];
       v31 += 4 * v201;
       ++v24;
@@ -2614,7 +2614,7 @@ uint64_t vt_Copy_RGfA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, unint64
     v34 = *a4;
     v35 = *a3 + *a4 * v9;
     v36 = 16 * v10;
-    v37 = (v35 + 16 * v10);
+    v37 = v35 + 16 * v10;
     v38 = (v37 + v34);
     v202 = (v34 >> 1) & 0x3FFFFFFFFFFFFFFFLL;
     v201 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -3004,7 +3004,7 @@ uint64_t vt_Copy_RGfA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, unint64
         while (v208 != v85);
       }
 
-      v37 = &v206[v202];
+      v37 = v206 + 4 * v202;
       v38 = &v205[v202];
       v31 += 4 * v201;
       ++v24;
@@ -3077,7 +3077,7 @@ uint64_t vt_Copy_RGfA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, unint64
     v34 = *a4;
     v35 = *a3 + *a4 * v9;
     v36 = 16 * v10;
-    v37 = (v35 + 16 * v10);
+    v37 = v35 + 16 * v10;
     v38 = (v37 + v34);
     v202 = (v34 >> 1) & 0x3FFFFFFFFFFFFFFFLL;
     v201 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -3467,7 +3467,7 @@ uint64_t vt_Copy_RGfA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, unint64
         while (v208 != v85);
       }
 
-      v37 = &v206[v202];
+      v37 = v206 + 4 * v202;
       v38 = &v205[v202];
       v31 += 4 * v201;
       ++v24;
@@ -3483,7 +3483,7 @@ uint64_t vt_Copy_RGfA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, unint64
   return 0;
 }
 
-uint64_t vt_Copy_w30r_b3a8_Crop(size_t a1, uint64_t a2, uint64_t *a3, const void **a4, uint64_t *a5, char **a6)
+uint64_t vt_Copy_w30r_b3a8_Crop(size_t a1, uint64_t a2, uint64_t *a3, char **a4, uint64_t *a5, char **a6)
 {
   if (a2)
   {
@@ -3537,7 +3537,7 @@ uint64_t vt_Copy_w30r_b3a8(size_t a1, unint64_t a2, uint64_t *a3, const void **a
   return 0;
 }
 
-vImage_Error vt_VImage_Setup_w30r_x420(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_x420(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -3614,7 +3614,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_x422(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_x422(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -3691,7 +3691,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_x444(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_x444(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -3768,7 +3768,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_xf20(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_xf20(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -3845,7 +3845,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_xf22(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_xf22(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -3922,7 +3922,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_xf44(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_xf44(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -3999,7 +3999,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_xw20(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_xw20(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -4076,7 +4076,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_xw22(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_xw22(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -4153,7 +4153,7 @@ LABEL_11:
   return result;
 }
 
-vImage_Error vt_VImage_Setup_w30r_xw44(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_w30r_xw44(unint64_t a1, unint64_t a2, uint64_t a3, const __CFString *a4, uint64_t a5, char a6, uint64_t a7, void *a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v23 = 0u;
   v24 = 0u;
@@ -5239,7 +5239,7 @@ uint64_t vt_Copy_64RGBA_p420ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
       if (v24 >= v183)
       {
         v125 = (v35 + v188);
-        v126 = (v30 + v188);
+        v126 = v30 + v188;
         v72 = v24;
         v127 = v169;
       }
@@ -5344,7 +5344,7 @@ uint64_t vt_Copy_64RGBA_p420ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
         v31 = (v191 + v124 + v69);
         v34 = (v192 + v124 + v69);
         v125 = (v35 + v71);
-        v126 = (v30 + v71);
+        v126 = v30 + v71;
         v127 = v169;
       }
 
@@ -5358,12 +5358,12 @@ uint64_t vt_Copy_64RGBA_p420ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
         {
           if (v72)
           {
-            v137 = &v126[v128 - 4];
-            v135 = &v126[v128 - 3];
-            v136 = &v126[v128 - 2];
-            v132 = v126[v128];
-            v133 = v126[v128 + 1];
-            v134 = v126[v128 + 2];
+            v137 = (v126 + v128 * 2 - 8);
+            v135 = (v126 + v128 * 2 - 6);
+            v136 = (v126 + v128 * 2 - 4);
+            v132 = *(v126 + v128 * 2);
+            v133 = *(v126 + v128 * 2 + 2);
+            v134 = *(v126 + v128 * 2 + 4);
           }
 
           else
@@ -5700,7 +5700,7 @@ uint64_t vt_Copy_64RGBA_p420ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
       if (v24 >= v183)
       {
         v125 = (v35 + v188);
-        v126 = (v30 + v188);
+        v126 = v30 + v188;
         v72 = v24;
         v127 = v169;
       }
@@ -5805,7 +5805,7 @@ uint64_t vt_Copy_64RGBA_p420ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         v31 = (v191 + v124 + v69);
         v34 = (v192 + v124 + v69);
         v125 = (v35 + v71);
-        v126 = (v30 + v71);
+        v126 = v30 + v71;
         v127 = v169;
       }
 
@@ -5819,12 +5819,12 @@ uint64_t vt_Copy_64RGBA_p420ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         {
           if (v72)
           {
-            v137 = &v126[v128 - 4];
-            v135 = &v126[v128 - 3];
-            v136 = &v126[v128 - 2];
-            v132 = v126[v128];
-            v133 = v126[v128 + 1];
-            v134 = v126[v128 + 2];
+            v137 = (v126 + v128 * 2 - 8);
+            v135 = (v126 + v128 * 2 - 6);
+            v136 = (v126 + v128 * 2 - 4);
+            v132 = *(v126 + v128 * 2);
+            v133 = *(v126 + v128 * 2 + 2);
+            v134 = *(v126 + v128 * 2 + 4);
           }
 
           else
@@ -6161,7 +6161,7 @@ uint64_t vt_Copy_64RGBA_p420ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
       if (v24 >= v183)
       {
         v125 = (v35 + v188);
-        v126 = (v30 + v188);
+        v126 = v30 + v188;
         v72 = v24;
         v127 = v169;
       }
@@ -6266,7 +6266,7 @@ uint64_t vt_Copy_64RGBA_p420ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         v31 = (v191 + v124 + v69);
         v34 = (v192 + v124 + v69);
         v125 = (v35 + v71);
-        v126 = (v30 + v71);
+        v126 = v30 + v71;
         v127 = v169;
       }
 
@@ -6280,12 +6280,12 @@ uint64_t vt_Copy_64RGBA_p420ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         {
           if (v72)
           {
-            v137 = &v126[v128 - 4];
-            v135 = &v126[v128 - 3];
-            v136 = &v126[v128 - 2];
-            v132 = v126[v128];
-            v133 = v126[v128 + 1];
-            v134 = v126[v128 + 2];
+            v137 = (v126 + v128 * 2 - 8);
+            v135 = (v126 + v128 * 2 - 6);
+            v136 = (v126 + v128 * 2 - 4);
+            v132 = *(v126 + v128 * 2);
+            v133 = *(v126 + v128 * 2 + 2);
+            v134 = *(v126 + v128 * 2 + 4);
           }
 
           else
@@ -6466,7 +6466,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
     v28 = *a4;
     v29 = *a3 + *a4 * v9;
     v187 = 8 * v10;
-    v30 = (v29 + 8 * v10);
+    v30 = v29 + 8 * v10;
     v31 = (v30 + *a4);
     v164 = v28 & 0x7FFFFFFFFFFFFFFFLL;
     v163 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -6618,7 +6618,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
       if (v23 >= v21)
       {
         v121 = (v34 + v187);
-        v122 = (v29 + v187);
+        v122 = v29 + v187;
         v71 = v23;
         v123 = v167;
       }
@@ -6718,7 +6718,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
         v33 = (v188 + v120 + v68);
         v32 = (v39 + v120 + v68);
         v121 = (v34 + v70);
-        v122 = (v29 + v70);
+        v122 = v29 + v70;
         v123 = v167;
         v37 = v160;
       }
@@ -6733,12 +6733,12 @@ uint64_t vt_Copy_64RGBA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
         {
           if (v71)
           {
-            v133 = &v122[v124 - 4];
-            v131 = &v122[v124 - 3];
-            v132 = &v122[v124 - 2];
-            v128 = v122[v124];
-            v129 = v122[v124 + 1];
-            v130 = v122[v124 + 2];
+            v133 = (v122 + v124 * 2 - 8);
+            v131 = (v122 + v124 * 2 - 6);
+            v132 = (v122 + v124 * 2 - 4);
+            v128 = *(v122 + v124 * 2);
+            v129 = *(v122 + v124 * 2 + 2);
+            v130 = *(v122 + v124 * 2 + 4);
           }
 
           else
@@ -6847,7 +6847,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU2020(uint64_t a1, uint64_t a2, uint64_t *a3, uint
         while (v176 != v71);
       }
 
-      v30 = &v170[v164];
+      v30 = v170 + 2 * v164;
       v31 = &v169[v164];
       v32 = &v173[v163];
       v22 = v175 + 1;
@@ -6918,7 +6918,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
     v28 = *a4;
     v29 = *a3 + *a4 * v9;
     v187 = 8 * v10;
-    v30 = (v29 + 8 * v10);
+    v30 = v29 + 8 * v10;
     v31 = (v30 + *a4);
     v164 = v28 & 0x7FFFFFFFFFFFFFFFLL;
     v163 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -7070,7 +7070,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
       if (v23 >= v21)
       {
         v121 = (v34 + v187);
-        v122 = (v29 + v187);
+        v122 = v29 + v187;
         v71 = v23;
         v123 = v167;
       }
@@ -7170,7 +7170,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         v33 = (v188 + v120 + v68);
         v32 = (v39 + v120 + v68);
         v121 = (v34 + v70);
-        v122 = (v29 + v70);
+        v122 = v29 + v70;
         v123 = v167;
         v37 = v160;
       }
@@ -7185,12 +7185,12 @@ uint64_t vt_Copy_64RGBA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         {
           if (v71)
           {
-            v133 = &v122[v124 - 4];
-            v131 = &v122[v124 - 3];
-            v132 = &v122[v124 - 2];
-            v128 = v122[v124];
-            v129 = v122[v124 + 1];
-            v130 = v122[v124 + 2];
+            v133 = (v122 + v124 * 2 - 8);
+            v131 = (v122 + v124 * 2 - 6);
+            v132 = (v122 + v124 * 2 - 4);
+            v128 = *(v122 + v124 * 2);
+            v129 = *(v122 + v124 * 2 + 2);
+            v130 = *(v122 + v124 * 2 + 4);
           }
 
           else
@@ -7299,7 +7299,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU709(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         while (v176 != v71);
       }
 
-      v30 = &v170[v164];
+      v30 = v170 + 2 * v164;
       v31 = &v169[v164];
       v32 = &v173[v163];
       v22 = v175 + 1;
@@ -7370,7 +7370,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
     v28 = *a4;
     v29 = *a3 + *a4 * v9;
     v187 = 8 * v10;
-    v30 = (v29 + 8 * v10);
+    v30 = v29 + 8 * v10;
     v31 = (v30 + *a4);
     v164 = v28 & 0x7FFFFFFFFFFFFFFFLL;
     v163 = (*a8 >> 1) & 0x7FFFFFFFFFFFFFFELL;
@@ -7522,7 +7522,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
       if (v23 >= v21)
       {
         v121 = (v34 + v187);
-        v122 = (v29 + v187);
+        v122 = v29 + v187;
         v71 = v23;
         v123 = v167;
       }
@@ -7622,7 +7622,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         v33 = (v188 + v120 + v68);
         v32 = (v39 + v120 + v68);
         v121 = (v34 + v70);
-        v122 = (v29 + v70);
+        v122 = v29 + v70;
         v123 = v167;
         v37 = v160;
       }
@@ -7637,12 +7637,12 @@ uint64_t vt_Copy_64RGBA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         {
           if (v71)
           {
-            v133 = &v122[v124 - 4];
-            v131 = &v122[v124 - 3];
-            v132 = &v122[v124 - 2];
-            v128 = v122[v124];
-            v129 = v122[v124 + 1];
-            v130 = v122[v124 + 2];
+            v133 = (v122 + v124 * 2 - 8);
+            v131 = (v122 + v124 * 2 - 6);
+            v132 = (v122 + v124 * 2 - 4);
+            v128 = *(v122 + v124 * 2);
+            v129 = *(v122 + v124 * 2 + 2);
+            v130 = *(v122 + v124 * 2 + 4);
           }
 
           else
@@ -7751,7 +7751,7 @@ uint64_t vt_Copy_64RGBA_pf20ITU601(uint64_t a1, uint64_t a2, uint64_t *a3, uint6
         while (v176 != v71);
       }
 
-      v30 = &v170[v164];
+      v30 = v170 + 2 * v164;
       v31 = &v169[v164];
       v32 = &v173[v163];
       v22 = v175 + 1;
@@ -7800,7 +7800,7 @@ uint64_t vt_Copy_x44p_x444(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4,
       while (a1 != v13);
       v10 += v7;
       v11 += v8;
-      v12 = (v12 + v9);
+      v12 += v9;
       ++v6;
     }
 
@@ -7810,7 +7810,7 @@ uint64_t vt_Copy_x44p_x444(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4,
   return 0;
 }
 
-vImage_Error vt_VImage_Setup_x444_w30r(unint64_t a1, unint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint8_t a6, uint64_t a7, vImage_YpCbCrToARGB **a8, uint64_t (**a9)(), uint64_t a10, void (**a11)(void **a1))
+vImage_Error vt_VImage_Setup_x444_w30r(unint64_t a1, unint64_t a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint8_t a6, uint64_t a7, vImage_YpCbCrToARGB **a8, void *a9, uint64_t a10, void (**a11)(void **a1))
 {
   v22 = 0uLL;
   v23 = 0;

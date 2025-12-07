@@ -366,20 +366,20 @@ void __65__MapsSuggestionsVisitTrackingLocationUpdater_didUpdateLocation___block
 
 void __65__MapsSuggestionsVisitTrackingLocationUpdater_didUpdateLocation___block_invoke_79(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(v3, v4))
   {
-    v4 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v5 = [v3 uniqueName];
-      v6 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2112;
-      v10 = v6;
-      _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "CALLING{%@} didUpdateLocation:%@", &v7, 0x16u);
+      v6 = [v3 uniqueName];
+      v7 = *(a1 + 32);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "CALLING{%@} didUpdateLocation:%@", &v8, 0x16u);
     }
   }
 

@@ -799,7 +799,7 @@ LABEL_40:
   return v39;
 }
 
-id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_64(uint64_t a1, void *a2)
+id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_64(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -980,7 +980,7 @@ id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_par
   return v19;
 }
 
-id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_70(uint64_t a1, void *a2)
+id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_70(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1057,7 +1057,7 @@ id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_par
   return v10;
 }
 
-id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_2_73(uint64_t a1, void *a2)
+id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_2_73(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1158,7 +1158,7 @@ id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_par
   return v20;
 }
 
-id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
+id __82__AMSURLRequestEncoder_requestByEncodingRequestAndReturnSigningErrors_parameters___block_invoke_3(void *a1, uint64_t a2, void *a3)
 {
   v24 = *MEMORY[0x1E69E9840];
   v5 = a3;

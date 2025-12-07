@@ -4,9 +4,11 @@
 + (id)participantWithTUConversationParticipant:(id)participant;
 - (BOOL)isEqual:(id)equal;
 - (CSDConversationParticipant)csdConversationParticipant;
+- (id)avModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)presentationModeAsString:(int)string;
 - (int)StringAsAvMode:(id)mode;
 - (int)StringAsPresentationMode:(id)mode;
 - (int)avMode;
@@ -239,6 +241,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
 }
 
+- (id)avModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100619F88 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsAvMode:(id)mode
 {
   modeCopy = mode;
@@ -441,6 +458,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
+}
+
+- (id)presentationModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100619FA0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsPresentationMode:(id)mode
@@ -955,14 +987,12 @@ LABEL_74:
   has = self->_has;
   if ((*&has & 0x80) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (*&has)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteUint64Field();
   }
 
@@ -976,16 +1006,15 @@ LABEL_74:
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x4000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) != 0)
   {
-    isMomentsAvailable = self->_isMomentsAvailable;
     PBDataWriterWriteBOOLField();
-    v7 = self->_has;
-    if ((*&v7 & 0x40000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x40000) == 0)
     {
 LABEL_11:
-      if ((*&v7 & 0x1000) == 0)
+      if ((*&v5 & 0x1000) == 0)
       {
         goto LABEL_12;
       }
@@ -994,18 +1023,17 @@ LABEL_11:
     }
   }
 
-  else if ((*&v7 & 0x40000) == 0)
+  else if ((*&v5 & 0x40000) == 0)
   {
     goto LABEL_11;
   }
 
-  isScreenSharingAvailable = self->_isScreenSharingAvailable;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x1000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000) == 0)
   {
 LABEL_12:
-    if ((*&v7 & 0x10000) == 0)
+    if ((*&v5 & 0x10000) == 0)
     {
       goto LABEL_13;
     }
@@ -1014,13 +1042,12 @@ LABEL_12:
   }
 
 LABEL_51:
-  isGondolaCallingAvailable = self->_isGondolaCallingAvailable;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x10000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000) == 0)
   {
 LABEL_13:
-    if ((*&v7 & 0x2000) == 0)
+    if ((*&v5 & 0x2000) == 0)
     {
       goto LABEL_14;
     }
@@ -1029,13 +1056,12 @@ LABEL_13:
   }
 
 LABEL_52:
-  isPersonaAvailable = self->_isPersonaAvailable;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_14:
-    if ((*&v7 & 0x20) == 0)
+    if ((*&v5 & 0x20) == 0)
     {
       goto LABEL_15;
     }
@@ -1044,13 +1070,12 @@ LABEL_14:
   }
 
 LABEL_53:
-  isLightweight = self->_isLightweight;
   PBDataWriterWriteBOOLField();
-  v7 = self->_has;
-  if ((*&v7 & 0x20) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20) == 0)
   {
 LABEL_15:
-    if ((*&v7 & 8) == 0)
+    if ((*&v5 & 8) == 0)
     {
       goto LABEL_16;
     }
@@ -1059,13 +1084,12 @@ LABEL_15:
   }
 
 LABEL_54:
-  sharePlayProtocolVersion = self->_sharePlayProtocolVersion;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 8) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 8) == 0)
   {
 LABEL_16:
-    if ((*&v7 & 0x800) == 0)
+    if ((*&v5 & 0x800) == 0)
     {
       goto LABEL_17;
     }
@@ -1074,13 +1098,12 @@ LABEL_16:
   }
 
 LABEL_55:
-  options = self->_options;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_17:
-    if ((*&v7 & 0x400) == 0)
+    if ((*&v5 & 0x400) == 0)
     {
       goto LABEL_19;
     }
@@ -1089,12 +1112,10 @@ LABEL_17:
   }
 
 LABEL_56:
-  isGFTDowngradeToOneToOneAvailable = self->_isGFTDowngradeToOneToOneAvailable;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_18:
-    guestModeEnabled = self->_guestModeEnabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1104,16 +1125,15 @@ LABEL_19:
     PBDataWriterWriteSubmessage();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x200000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x200000) != 0)
   {
-    isUPlusNDowngradeAvailable = self->_isUPlusNDowngradeAvailable;
     PBDataWriterWriteBOOLField();
-    v9 = self->_has;
-    if ((*&v9 & 2) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 2) == 0)
     {
 LABEL_23:
-      if ((*&v9 & 0x2000000) == 0)
+      if ((*&v6 & 0x2000000) == 0)
       {
         goto LABEL_24;
       }
@@ -1122,18 +1142,17 @@ LABEL_23:
     }
   }
 
-  else if ((*&v9 & 2) == 0)
+  else if ((*&v6 & 2) == 0)
   {
     goto LABEL_23;
   }
 
-  avMode = self->_avMode;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x2000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000000) == 0)
   {
 LABEL_24:
-    if ((*&v9 & 0x800000) == 0)
+    if ((*&v6 & 0x800000) == 0)
     {
       goto LABEL_26;
     }
@@ -1142,12 +1161,10 @@ LABEL_24:
   }
 
 LABEL_60:
-  supportsLeaveContext = self->_supportsLeaveContext;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x800000) != 0)
   {
 LABEL_25:
-    isUPlusOneScreenSharingAvailable = self->_isUPlusOneScreenSharingAvailable;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1157,16 +1174,15 @@ LABEL_26:
     PBDataWriterWriteDataField();
   }
 
-  v11 = self->_has;
-  if ((*&v11 & 0x80000) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x80000) != 0)
   {
-    isSpatialPersonaEnabled = self->_isSpatialPersonaEnabled;
     PBDataWriterWriteBOOLField();
-    v11 = self->_has;
-    if ((*&v11 & 0x400000) == 0)
+    v7 = self->_has;
+    if ((*&v7 & 0x400000) == 0)
     {
 LABEL_30:
-      if ((*&v11 & 0x200) == 0)
+      if ((*&v7 & 0x200) == 0)
       {
         goto LABEL_31;
       }
@@ -1175,18 +1191,17 @@ LABEL_30:
     }
   }
 
-  else if ((*&v11 & 0x400000) == 0)
+  else if ((*&v7 & 0x400000) == 0)
   {
     goto LABEL_30;
   }
 
-  isUPlusOneAVLessAvailable = self->_isUPlusOneAVLessAvailable;
   PBDataWriterWriteBOOLField();
-  v11 = self->_has;
-  if ((*&v11 & 0x200) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x200) == 0)
   {
 LABEL_31:
-    if ((*&v11 & 0x100) == 0)
+    if ((*&v7 & 0x100) == 0)
     {
       goto LABEL_32;
     }
@@ -1195,13 +1210,12 @@ LABEL_31:
   }
 
 LABEL_64:
-  visionFeatureVersion = self->_visionFeatureVersion;
   PBDataWriterWriteUint32Field();
-  v11 = self->_has;
-  if ((*&v11 & 0x100) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x100) == 0)
   {
 LABEL_32:
-    if ((*&v11 & 0x1000000) == 0)
+    if ((*&v7 & 0x1000000) == 0)
     {
       goto LABEL_33;
     }
@@ -1210,13 +1224,12 @@ LABEL_32:
   }
 
 LABEL_65:
-  visionCallEstablishmentVersion = self->_visionCallEstablishmentVersion;
   PBDataWriterWriteUint32Field();
-  v11 = self->_has;
-  if ((*&v11 & 0x1000000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x1000000) == 0)
   {
 LABEL_33:
-    if ((*&v11 & 0x4000000) == 0)
+    if ((*&v7 & 0x4000000) == 0)
     {
       goto LABEL_34;
     }
@@ -1225,13 +1238,12 @@ LABEL_33:
   }
 
 LABEL_66:
-  isUPlusOneVisionToVisionAvailable = self->_isUPlusOneVisionToVisionAvailable;
   PBDataWriterWriteBOOLField();
-  v11 = self->_has;
-  if ((*&v11 & 0x4000000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x4000000) == 0)
   {
 LABEL_34:
-    if ((*&v11 & 0x40) == 0)
+    if ((*&v7 & 0x40) == 0)
     {
       goto LABEL_35;
     }
@@ -1240,13 +1252,12 @@ LABEL_34:
   }
 
 LABEL_67:
-  supportsRequestToScreenShare = self->_supportsRequestToScreenShare;
   PBDataWriterWriteBOOLField();
-  v11 = self->_has;
-  if ((*&v11 & 0x40) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x40) == 0)
   {
 LABEL_35:
-    if ((*&v11 & 0x20000) == 0)
+    if ((*&v7 & 0x20000) == 0)
     {
       goto LABEL_36;
     }
@@ -1255,13 +1266,12 @@ LABEL_35:
   }
 
 LABEL_68:
-  spatialPersonaGenerationCounter = self->_spatialPersonaGenerationCounter;
   PBDataWriterWriteUint32Field();
-  v11 = self->_has;
-  if ((*&v11 & 0x20000) == 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x20000) == 0)
   {
 LABEL_36:
-    if ((*&v11 & 0x10) == 0)
+    if ((*&v7 & 0x10) == 0)
     {
       goto LABEL_38;
     }
@@ -1270,12 +1280,10 @@ LABEL_36:
   }
 
 LABEL_69:
-  isPhotosSharePlayAvailable = self->_isPhotosSharePlayAvailable;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_37:
-    presentationMode = self->_presentationMode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1290,16 +1298,15 @@ LABEL_38:
     PBDataWriterWriteSubmessage();
   }
 
-  v13 = self->_has;
-  if ((*&v13 & 0x100000) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x100000) != 0)
   {
-    isTranslationAvailable = self->_isTranslationAvailable;
     PBDataWriterWriteBOOLField();
-    v13 = self->_has;
-    if ((*&v13 & 0x8000) == 0)
+    v8 = self->_has;
+    if ((*&v8 & 0x8000) == 0)
     {
 LABEL_44:
-      if ((*&v13 & 4) == 0)
+      if ((*&v8 & 4) == 0)
       {
         goto LABEL_46;
       }
@@ -1308,17 +1315,15 @@ LABEL_44:
     }
   }
 
-  else if ((*&v13 & 0x8000) == 0)
+  else if ((*&v8 & 0x8000) == 0)
   {
     goto LABEL_44;
   }
 
-  isNearbySharePlay = self->_isNearbySharePlay;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_45:
-    nearbyFeatureVersion = self->_nearbyFeatureVersion;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2142,7 +2147,6 @@ LABEL_33:
       goto LABEL_202;
     }
 
-    v11 = *(equalCopy + 112);
     if (self->_isMomentsAvailable)
     {
       if ((*(equalCopy + 112) & 1) == 0)
@@ -2169,7 +2173,6 @@ LABEL_33:
       goto LABEL_202;
     }
 
-    v12 = *(equalCopy + 116);
     if (self->_isScreenSharingAvailable)
     {
       if ((*(equalCopy + 116) & 1) == 0)
@@ -2196,7 +2199,6 @@ LABEL_33:
       goto LABEL_202;
     }
 
-    v13 = *(equalCopy + 110);
     if (self->_isGondolaCallingAvailable)
     {
       if ((*(equalCopy + 110) & 1) == 0)
@@ -2223,7 +2225,6 @@ LABEL_33:
       goto LABEL_202;
     }
 
-    v14 = *(equalCopy + 114);
     if (self->_isPersonaAvailable)
     {
       if ((*(equalCopy + 114) & 1) == 0)
@@ -2250,7 +2251,6 @@ LABEL_33:
       goto LABEL_202;
     }
 
-    v15 = *(equalCopy + 111);
     if (self->_isLightweight)
     {
       if ((*(equalCopy + 111) & 1) == 0)
@@ -2303,7 +2303,6 @@ LABEL_33:
       goto LABEL_202;
     }
 
-    v18 = *(equalCopy + 109);
     if (self->_isGFTDowngradeToOneToOneAvailable)
     {
       if ((*(equalCopy + 109) & 1) == 0)
@@ -2330,7 +2329,6 @@ LABEL_33:
       goto LABEL_202;
     }
 
-    v19 = *(equalCopy + 108);
     if (self->_guestModeEnabled)
     {
       if ((*(equalCopy + 108) & 1) == 0)
@@ -2361,15 +2359,14 @@ LABEL_33:
     v9 = self->_has;
   }
 
-  v17 = *(equalCopy + 32);
+  v12 = *(equalCopy + 32);
   if ((*&v9 & 0x200000) != 0)
   {
-    if ((v17 & 0x200000) == 0)
+    if ((v12 & 0x200000) == 0)
     {
       goto LABEL_202;
     }
 
-    v20 = *(equalCopy + 119);
     if (self->_isUPlusNDowngradeAvailable)
     {
       if ((*(equalCopy + 119) & 1) == 0)
@@ -2384,32 +2381,31 @@ LABEL_33:
     }
   }
 
-  else if ((v17 & 0x200000) != 0)
+  else if ((v12 & 0x200000) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 2) != 0)
   {
-    if ((v17 & 2) == 0 || self->_avMode != *(equalCopy + 6))
+    if ((v12 & 2) == 0 || self->_avMode != *(equalCopy + 6))
     {
       goto LABEL_202;
     }
   }
 
-  else if ((v17 & 2) != 0)
+  else if ((v12 & 2) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x2000000) != 0)
   {
-    if ((v17 & 0x2000000) == 0)
+    if ((v12 & 0x2000000) == 0)
     {
       goto LABEL_202;
     }
 
-    v21 = *(equalCopy + 123);
     if (self->_supportsLeaveContext)
     {
       if ((*(equalCopy + 123) & 1) == 0)
@@ -2424,19 +2420,18 @@ LABEL_33:
     }
   }
 
-  else if ((v17 & 0x2000000) != 0)
+  else if ((v12 & 0x2000000) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x800000) != 0)
   {
-    if ((v17 & 0x800000) == 0)
+    if ((v12 & 0x800000) == 0)
     {
       goto LABEL_202;
     }
 
-    v22 = *(equalCopy + 121);
     if (self->_isUPlusOneScreenSharingAvailable)
     {
       if ((*(equalCopy + 121) & 1) == 0)
@@ -2451,7 +2446,7 @@ LABEL_33:
     }
   }
 
-  else if ((v17 & 0x800000) != 0)
+  else if ((v12 & 0x800000) != 0)
   {
     goto LABEL_202;
   }
@@ -2467,15 +2462,14 @@ LABEL_33:
     v9 = self->_has;
   }
 
-  v24 = *(equalCopy + 32);
+  v14 = *(equalCopy + 32);
   if ((*&v9 & 0x80000) != 0)
   {
-    if ((v24 & 0x80000) == 0)
+    if ((v14 & 0x80000) == 0)
     {
       goto LABEL_202;
     }
 
-    v25 = *(equalCopy + 117);
     if (self->_isSpatialPersonaEnabled)
     {
       if ((*(equalCopy + 117) & 1) == 0)
@@ -2490,19 +2484,18 @@ LABEL_33:
     }
   }
 
-  else if ((v24 & 0x80000) != 0)
+  else if ((v14 & 0x80000) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x400000) != 0)
   {
-    if ((v24 & 0x400000) == 0)
+    if ((v14 & 0x400000) == 0)
     {
       goto LABEL_202;
     }
 
-    v26 = *(equalCopy + 120);
     if (self->_isUPlusOneAVLessAvailable)
     {
       if ((*(equalCopy + 120) & 1) == 0)
@@ -2517,45 +2510,44 @@ LABEL_33:
     }
   }
 
-  else if ((v24 & 0x400000) != 0)
+  else if ((v14 & 0x400000) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x200) != 0)
   {
-    if ((v24 & 0x200) == 0 || self->_visionFeatureVersion != *(equalCopy + 26))
+    if ((v14 & 0x200) == 0 || self->_visionFeatureVersion != *(equalCopy + 26))
     {
       goto LABEL_202;
     }
   }
 
-  else if ((v24 & 0x200) != 0)
+  else if ((v14 & 0x200) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x100) != 0)
   {
-    if ((v24 & 0x100) == 0 || self->_visionCallEstablishmentVersion != *(equalCopy + 25))
+    if ((v14 & 0x100) == 0 || self->_visionCallEstablishmentVersion != *(equalCopy + 25))
     {
       goto LABEL_202;
     }
   }
 
-  else if ((v24 & 0x100) != 0)
+  else if ((v14 & 0x100) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x1000000) != 0)
   {
-    if ((v24 & 0x1000000) == 0)
+    if ((v14 & 0x1000000) == 0)
     {
       goto LABEL_202;
     }
 
-    v27 = *(equalCopy + 122);
     if (self->_isUPlusOneVisionToVisionAvailable)
     {
       if ((*(equalCopy + 122) & 1) == 0)
@@ -2570,19 +2562,18 @@ LABEL_33:
     }
   }
 
-  else if ((v24 & 0x1000000) != 0)
+  else if ((v14 & 0x1000000) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x4000000) != 0)
   {
-    if ((v24 & 0x4000000) == 0)
+    if ((v14 & 0x4000000) == 0)
     {
       goto LABEL_202;
     }
 
-    v28 = *(equalCopy + 124);
     if (self->_supportsRequestToScreenShare)
     {
       if ((*(equalCopy + 124) & 1) == 0)
@@ -2597,32 +2588,31 @@ LABEL_33:
     }
   }
 
-  else if ((v24 & 0x4000000) != 0)
+  else if ((v14 & 0x4000000) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x40) != 0)
   {
-    if ((v24 & 0x40) == 0 || self->_spatialPersonaGenerationCounter != *(equalCopy + 20))
+    if ((v14 & 0x40) == 0 || self->_spatialPersonaGenerationCounter != *(equalCopy + 20))
     {
       goto LABEL_202;
     }
   }
 
-  else if ((v24 & 0x40) != 0)
+  else if ((v14 & 0x40) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x20000) != 0)
   {
-    if ((v24 & 0x20000) == 0)
+    if ((v14 & 0x20000) == 0)
     {
       goto LABEL_202;
     }
 
-    v29 = *(equalCopy + 115);
     if (self->_isPhotosSharePlayAvailable)
     {
       if ((*(equalCopy + 115) & 1) == 0)
@@ -2637,20 +2627,20 @@ LABEL_33:
     }
   }
 
-  else if ((v24 & 0x20000) != 0)
+  else if ((v14 & 0x20000) != 0)
   {
     goto LABEL_202;
   }
 
   if ((*&v9 & 0x10) != 0)
   {
-    if ((v24 & 0x10) == 0 || self->_presentationMode != *(equalCopy + 18))
+    if ((v14 & 0x10) == 0 || self->_presentationMode != *(equalCopy + 18))
     {
       goto LABEL_202;
     }
   }
 
-  else if ((v24 & 0x10) != 0)
+  else if ((v14 & 0x10) != 0)
   {
     goto LABEL_202;
   }
@@ -2670,16 +2660,15 @@ LABEL_33:
     }
   }
 
-  v32 = self->_has;
-  v33 = *(equalCopy + 32);
-  if ((*&v32 & 0x100000) != 0)
+  v17 = self->_has;
+  v18 = *(equalCopy + 32);
+  if ((*&v17 & 0x100000) != 0)
   {
-    if ((v33 & 0x100000) == 0)
+    if ((v18 & 0x100000) == 0)
     {
       goto LABEL_202;
     }
 
-    v34 = *(equalCopy + 118);
     if (self->_isTranslationAvailable)
     {
       if ((*(equalCopy + 118) & 1) == 0)
@@ -2694,16 +2683,15 @@ LABEL_33:
     }
   }
 
-  else if ((v33 & 0x100000) != 0)
+  else if ((v18 & 0x100000) != 0)
   {
     goto LABEL_202;
   }
 
-  if ((*&v32 & 0x8000) != 0)
+  if ((*&v17 & 0x8000) != 0)
   {
-    if ((v33 & 0x8000) != 0)
+    if ((v18 & 0x8000) != 0)
     {
-      v35 = *(equalCopy + 113);
       if (self->_isNearbySharePlay)
       {
         if ((*(equalCopy + 113) & 1) == 0)
@@ -2721,34 +2709,34 @@ LABEL_33:
     }
 
 LABEL_202:
-    v36 = 0;
+    v19 = 0;
     goto LABEL_203;
   }
 
-  if ((v33 & 0x8000) != 0)
+  if ((v18 & 0x8000) != 0)
   {
     goto LABEL_202;
   }
 
 LABEL_197:
-  if ((*&v32 & 4) != 0)
+  if ((*&v17 & 4) != 0)
   {
-    if ((v33 & 4) == 0 || self->_nearbyFeatureVersion != *(equalCopy + 14))
+    if ((v18 & 4) == 0 || self->_nearbyFeatureVersion != *(equalCopy + 14))
     {
       goto LABEL_202;
     }
 
-    v36 = 1;
+    v19 = 1;
   }
 
   else
   {
-    v36 = (*(equalCopy + 32) & 4) == 0;
+    v19 = (*(equalCopy + 32) & 4) == 0;
   }
 
 LABEL_203:
 
-  return v36;
+  return v19;
 }
 
 - (unint64_t)hash

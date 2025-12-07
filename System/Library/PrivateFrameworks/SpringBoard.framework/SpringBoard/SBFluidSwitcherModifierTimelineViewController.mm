@@ -131,13 +131,13 @@
             }
 
             v12 = *(*(&v36 + 1) + 8 * i);
-            [v12 frame];
+            objc_msgSend_frame(v12, v36);
             v14 = v13;
-            [v12 frame];
+            objc_msgSend_frame(v12);
             v16 = v15;
-            [v12 frame];
+            objc_msgSend_frame(v12);
             [v12 setFrame:{v10, v14, v16}];
-            [v12 frame];
+            objc_msgSend_frame(v12);
             v10 = v17 + v18 + 10.0;
           }
 
@@ -154,7 +154,7 @@
 
       [(SBFTouchPassThroughScrollView *)self->_scrollView setContentSize:v10, 0.0];
       scrollView = self->_scrollView;
-      [(SBFTouchPassThroughScrollView *)scrollView frame];
+      objc_msgSend_frame(scrollView);
       [(SBFTouchPassThroughScrollView *)scrollView setContentOffset:0 animated:v10 - v20, 0.0];
     }
 
@@ -168,28 +168,28 @@
     if ([(NSMutableArray *)self->_entryViews count])
     {
       lastObject = [(NSMutableArray *)self->_entryViews lastObject];
-      [lastObject frame];
+      objc_msgSend_frame(lastObject);
       v26 = v25;
-      [lastObject frame];
+      objc_msgSend_frame(lastObject);
       v23 = v26 + v27 + 10.0;
     }
 
-    [(SBFluidSwitcherModifierTimelineEntryView *)v22 frame];
+    objc_msgSend_frame(v22, v36);
     v29 = v28;
-    [(SBFluidSwitcherModifierTimelineEntryView *)v22 frame];
+    objc_msgSend_frame(v22);
     [(SBFluidSwitcherModifierTimelineEntryView *)v22 setFrame:v23, 35.0, v29];
     [(NSMutableArray *)self->_entryViews addObject:v22];
-    [(SBFluidSwitcherModifierTimelineEntryView *)v22 frame];
+    objc_msgSend_frame(v22);
     v30 = CGRectGetMaxX(v42) + 10.0;
     [(SBFTouchPassThroughScrollView *)self->_scrollView setContentSize:v30, 0.0];
     view = [(SBFluidSwitcherModifierTimelineViewController *)self view];
-    [view frame];
+    objc_msgSend_frame(view);
     v33 = v32;
 
     if (v30 > v33)
     {
       v34 = self->_scrollView;
-      [(SBFTouchPassThroughScrollView *)v34 frame];
+      objc_msgSend_frame(v34);
       [(SBFTouchPassThroughScrollView *)v34 setContentOffset:1 animated:v30 - v35, 0.0];
     }
   }
@@ -208,7 +208,7 @@
     [popoverPresentationController setSourceView:viewCopy];
 
     popoverPresentationController2 = [(UINavigationController *)self->_navigationController popoverPresentationController];
-    [viewCopy frame];
+    objc_msgSend_frame(viewCopy);
     [popoverPresentationController2 setSourceRect:{v9 * 0.5, 35.0, 1.0, 1.0}];
 
     [(UINavigationController *)self->_navigationController setPreferredContentSize:600.0, 1.79769313e308];
@@ -237,9 +237,9 @@
   [view bounds];
   [(SBFTouchPassThroughScrollView *)scrollView setFrame:?];
 
-  [(UIButton *)self->_clearButton frame];
+  objc_msgSend_frame(self->_clearButton);
   v6 = v5;
-  [(UIButton *)self->_clearButton frame];
+  objc_msgSend_frame(self->_clearButton);
   v8 = v7;
   [(UIButton *)self->_clearButton setFrame:10.0, 5.0, v6];
   v20.origin.x = 10.0;
@@ -252,9 +252,9 @@
   v21.size.width = v6;
   v21.size.height = v8;
   MinY = CGRectGetMinY(v21);
-  [(UIButton *)self->_noiseLevelButton frame];
+  objc_msgSend_frame(self->_noiseLevelButton);
   v12 = v11;
-  [(UIButton *)self->_noiseLevelButton frame];
+  objc_msgSend_frame(self->_noiseLevelButton);
   v14 = v13;
   [(UIButton *)self->_noiseLevelButton setFrame:v9, MinY, v12];
   v22.origin.x = v9;
@@ -267,9 +267,9 @@
   v23.size.width = v12;
   v23.size.height = v14;
   v16 = CGRectGetMinY(v23);
-  [(UIButton *)self->_pauseButton frame];
+  objc_msgSend_frame(self->_pauseButton);
   v18 = v17;
-  [(UIButton *)self->_pauseButton frame];
+  objc_msgSend_frame(self->_pauseButton);
   [(UIButton *)self->_pauseButton setFrame:v15, v16, v18];
 }
 

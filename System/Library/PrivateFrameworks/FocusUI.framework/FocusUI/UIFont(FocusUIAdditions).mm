@@ -17,9 +17,9 @@
     +[UIFont(FocusUIAdditions) fcui_excessiveLineHeightChars];
   }
 
-  v1 = fcui_excessiveLineHeightChars___excessiveLineHeightChars;
+  v2 = fcui_excessiveLineHeightChars___excessiveLineHeightChars;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)fcui_hasExuberatedLineHeightForText:()FocusUIAdditions
@@ -40,10 +40,10 @@
 
 - (uint64_t)fcui_effectiveScaledValueForValue:()FocusUIAdditions hasExuberatedLineHeight:
 {
-  if (a4)
+  if (a3)
   {
     v6 = objc_opt_class();
-    [self _scaledValueForValue:a2];
+    [self _scaledValueForValue:a4];
 
     return [v6 fcui_exuberatedValueForValue:?];
   }
@@ -116,7 +116,7 @@
 - (double)fcui_measuringHeightForText:()FocusUIAdditions withNumberOfLines:
 {
   v6 = a4;
-  [self fcui_effectiveLineHeightForText:?];
+  [self fcui_effectiveLineHeightForText:a3];
   v8 = v7;
   v9 = a4 - 1;
   if (!a4)
@@ -131,7 +131,7 @@
 
 - (double)fcui_drawingHeightForText:()FocusUIAdditions withNumberOfLines:additionalPadding:
 {
-  v8 = [self fcui_hasExuberatedLineHeightForText:?];
+  v8 = [self fcui_hasExuberatedLineHeightForText:a4];
   if (v8)
   {
     v9 = objc_opt_class();

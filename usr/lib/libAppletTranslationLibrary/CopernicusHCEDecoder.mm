@@ -9,23 +9,22 @@
 
 - (id)GetAppletProperties:(id)properties withPackage:(id)package withModule:(id)module withTransceiver:(id)transceiver withError:(id *)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"Supported";
-  v11[0] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:{1, transceiver, error}];
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"Supported";
+  v10[0] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:{1, transceiver, error}];
 
   return v7;
 }
 
 - (id)getAppletStateAndHistory:(id)history withApplet:(id)applet withPackage:(id)package withModule:(id)module withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "HCE has no history", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "HCE has no history", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"HCE has no history"];
@@ -34,46 +33,44 @@
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)processEndOfTransaction:(id)transaction withApplet:(id)applet withPackage:(id)package withModule:(id)module withError:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
-  v8 = ATLLogObject();
+  v24[1] = *MEMORY[0x277D85DE8];
+  v8 = ATLLogObject(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "HCE has no EOT", v22, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_22EEF5000, v8, OS_LOG_TYPE_ERROR, "HCE has no EOT", v20, 2u);
   }
 
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"HCE has no EOT"];
@@ -82,35 +79,33 @@
   {
     v11 = *error;
     v12 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
     if (*error)
     {
-      v14 = *MEMORY[0x277CCA7E8];
-      v23[0] = *MEMORY[0x277CCA450];
-      v23[1] = v14;
-      v24[0] = v9;
-      v24[1] = v11;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v24;
-      v17 = v23;
-      v18 = 2;
+      v13 = *MEMORY[0x277CCA7E8];
+      v21[0] = *MEMORY[0x277CCA450];
+      v21[1] = v13;
+      v22[0] = v9;
+      v22[1] = v11;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v22;
+      v16 = v21;
+      v17 = 2;
     }
 
     else
     {
-      v25 = *MEMORY[0x277CCA450];
-      v26[0] = v9;
-      v15 = MEMORY[0x277CBEAC0];
-      v16 = v26;
-      v17 = &v25;
-      v18 = 1;
+      v23 = *MEMORY[0x277CCA450];
+      v24[0] = v9;
+      v14 = MEMORY[0x277CBEAC0];
+      v15 = v24;
+      v16 = &v23;
+      v17 = 1;
     }
 
-    v19 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:v18];
-    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v19];
+    v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
+    *error = [v12 errorWithDomain:@"ATL" code:7 userInfo:v18];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -119,9 +114,10 @@
   v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   appletCopy = applet;
-  if ([eventCopy length] > 1)
+  v12 = [eventCopy length];
+  if (v12 > 1)
   {
-    v22 = MEMORY[0x277CBEB38];
+    v23 = MEMORY[0x277CBEB38];
     v28[0] = @"EventType";
     v28[1] = @"appletIdentifier";
     v29[0] = @"EndEvent";
@@ -136,8 +132,8 @@
     v29[5] = &unk_2843C71A8;
     v28[6] = @"informative";
     v29[6] = &unk_2843C7190;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:7];
-    error = [v22 dictionaryWithDictionary:v23];
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:7];
+    error = [v23 dictionaryWithDictionary:v24];
 
     if ([eventCopy length] < 4)
     {
@@ -145,58 +141,57 @@
     }
 
     bytes = [eventCopy bytes];
-    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(bytes + 2)) >> 16];
-    [error setObject:v14 forKeyedSubscript:@"PairingModeBrandCode"];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:bswap32(*(bytes + 2)) >> 16];
+    [error setObject:v15 forKeyedSubscript:@"PairingModeBrandCode"];
   }
 
   else
   {
-    v12 = ATLLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = ATLLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
       v35 = [eventCopy length];
-      _os_log_impl(&dword_22EEF5000, v12, OS_LOG_TYPE_ERROR, "Bad length %u", buf, 8u);
+      _os_log_impl(&dword_22EEF5000, v13, OS_LOG_TYPE_ERROR, "Bad length %u", buf, 8u);
     }
 
-    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Bad length %u", objc_msgSend(eventCopy, "length")];
-    v14 = v13;
+    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Bad length %u", objc_msgSend(eventCopy, "length")];
+    v15 = v14;
     if (error)
     {
-      v15 = *error;
-      v16 = MEMORY[0x277CCA9B8];
+      v16 = *error;
+      v17 = MEMORY[0x277CCA9B8];
       if (*error)
       {
-        v17 = *MEMORY[0x277CCA7E8];
+        v18 = *MEMORY[0x277CCA7E8];
         v30[0] = *MEMORY[0x277CCA450];
-        v30[1] = v17;
-        v31[0] = v13;
-        v31[1] = v15;
-        v18 = MEMORY[0x277CBEAC0];
-        v19 = v31;
-        v20 = v30;
-        v21 = 2;
+        v30[1] = v18;
+        v31[0] = v14;
+        v31[1] = v16;
+        v19 = MEMORY[0x277CBEAC0];
+        v20 = v31;
+        v21 = v30;
+        v22 = 2;
       }
 
       else
       {
         v32 = *MEMORY[0x277CCA450];
-        v33 = v13;
-        v18 = MEMORY[0x277CBEAC0];
-        v19 = &v33;
-        v20 = &v32;
-        v21 = 1;
+        v33 = v14;
+        v19 = MEMORY[0x277CBEAC0];
+        v20 = &v33;
+        v21 = &v32;
+        v22 = 1;
       }
 
-      v25 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:v21];
-      *error = [v16 errorWithDomain:@"ATL" code:3 userInfo:v25];
+      v26 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:v22];
+      *error = [v17 errorWithDomain:@"ATL" code:3 userInfo:v26];
 
       error = 0;
     }
   }
 
 LABEL_12:
-  v26 = *MEMORY[0x277D85DE8];
 
   return error;
 }

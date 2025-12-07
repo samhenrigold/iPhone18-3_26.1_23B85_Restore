@@ -113,7 +113,7 @@ LABEL_10:
 - (void)processMessage:(id)message
 {
   messageCopy = message;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v5);
 
   objc_opt_class();

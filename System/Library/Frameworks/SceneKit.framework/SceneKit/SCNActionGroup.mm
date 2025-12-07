@@ -102,7 +102,7 @@
 + (id)groupWithActions:(id)actions
 {
   v21[1] = *MEMORY[0x277D85DE8];
-  if (actions && [actions count])
+  if (actions && (self = [actions count]) != 0)
   {
     v4 = objc_alloc_init(SCNActionGroup);
     objc_opt_class();
@@ -157,7 +157,7 @@
 
   else
   {
-    v12 = scn_default_log();
+    v12 = scn_default_log(self, a2);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SCNActionGroup groupWithActions:v12];

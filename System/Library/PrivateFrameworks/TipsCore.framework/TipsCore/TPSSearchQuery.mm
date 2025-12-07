@@ -25,11 +25,11 @@
 
 - (id)makeCSQueryWith:(id)with
 {
-  sub_1C014C3C0();
+  v4 = sub_1C014C3C0();
   selfCopy = self;
-  v5 = sub_1C01125D0();
+  v6 = sub_1C01125D0(v4);
 
-  return v5;
+  return v6;
 }
 
 + (id)escapeSearchTerm:(id)term
@@ -156,7 +156,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1C0113884(v8);
+  sub_1C0113884(v8, v9);
 }
 
 - (TPSSearchQuery)initWithIdentifier:(id)identifier searchTerm:(id)term options:(unint64_t)options matchingStyle:(int64_t)style contentTypeFilter:(int64_t)filter

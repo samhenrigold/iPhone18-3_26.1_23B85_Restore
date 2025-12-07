@@ -142,28 +142,28 @@
 
 + (id)highestRankInRecommendations:(id)recommendations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   recommendationsCopy = recommendations;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [recommendationsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [recommendationsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     v7 = -5.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(recommendationsCopy);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         [v9 rankingConfidenceScore];
         if (v10 > v7)
         {
@@ -172,7 +172,7 @@
         }
       }
 
-      v5 = [recommendationsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [recommendationsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -183,14 +183,12 @@
     v7 = -5.0;
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __50__HRERecommendation_highestRankInRecommendations___block_invoke;
-  v15[3] = &__block_descriptor_40_e27_B16__0__HRERecommendation_8l;
-  *&v15[4] = v7;
-  v12 = [recommendationsCopy na_filter:v15];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __50__HRERecommendation_highestRankInRecommendations___block_invoke;
+  v14[3] = &__block_descriptor_40_e27_B16__0__HRERecommendation_8l;
+  *&v14[4] = v7;
+  v12 = [recommendationsCopy na_filter:v14];
 
   return v12;
 }
@@ -251,14 +249,14 @@
 
 - (NSArray)roomsToFilterHomeObjects
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   room = [(HRERecommendation *)self room];
 
   if (room)
   {
     room2 = [(HRERecommendation *)self room];
-    v9[0] = room2;
-    rooms = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = room2;
+    rooms = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -268,8 +266,6 @@
   }
 
   v6 = rooms;
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -367,14 +363,14 @@
 
 - (id)splitUsingSplitStrategy:(unint64_t)strategy inHome:(id)home
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v8 = homeCopy;
   if (!strategy)
   {
     v17 = MEMORY[0x277CBEB98];
-    v22[0] = self;
-    zones = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = self;
+    zones = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v14 = [v17 setWithArray:zones];
 LABEL_9:
     v4 = v14;
@@ -400,29 +396,27 @@ LABEL_9:
       [zones addObject:roomForEntireHome2];
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __71__HRERecommendation_TemplateAdditions__splitUsingSplitStrategy_inHome___block_invoke;
-    v21[3] = &unk_2797773B8;
-    v21[4] = self;
-    v14 = [zones na_map:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __71__HRERecommendation_TemplateAdditions__splitUsingSplitStrategy_inHome___block_invoke;
+    v20[3] = &unk_2797773B8;
+    v20[4] = self;
+    v14 = [zones na_map:v20];
     goto LABEL_9;
   }
 
   v15 = MEMORY[0x277CBEB98];
   zones = [homeCopy zones];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __71__HRERecommendation_TemplateAdditions__splitUsingSplitStrategy_inHome___block_invoke_2;
-  v20[3] = &unk_2797773E0;
-  v20[4] = self;
-  v16 = [zones na_map:v20];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __71__HRERecommendation_TemplateAdditions__splitUsingSplitStrategy_inHome___block_invoke_2;
+  v19[3] = &unk_2797773E0;
+  v19[4] = self;
+  v16 = [zones na_map:v19];
   v4 = [v15 setWithArray:v16];
 
 LABEL_10:
 LABEL_11:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -190,11 +190,11 @@ LABEL_21:
 
 - (SFRejectPeopleInPhotoCommand)initWithProtobuf:(id)protobuf
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v25.receiver = self;
-  v25.super_class = SFRejectPeopleInPhotoCommand;
-  v5 = [(SFRejectPeopleInPhotoCommand *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SFRejectPeopleInPhotoCommand;
+  v5 = [(SFRejectPeopleInPhotoCommand *)&v24 init];
   if (v5)
   {
     rejectedPeoples = [protobufCopy rejectedPeoples];
@@ -208,33 +208,33 @@ LABEL_21:
       v7 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     rejectedPeoples2 = [protobufCopy rejectedPeoples];
-    v9 = [rejectedPeoples2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v9 = [rejectedPeoples2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(rejectedPeoples2);
           }
 
-          v13 = [[SFPerson alloc] initWithProtobuf:*(*(&v21 + 1) + 8 * i)];
+          v13 = [[SFPerson alloc] initWithProtobuf:*(*(&v20 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [rejectedPeoples2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v10 = [rejectedPeoples2 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v10);
@@ -254,7 +254,6 @@ LABEL_21:
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

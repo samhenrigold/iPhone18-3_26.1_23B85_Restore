@@ -85,7 +85,7 @@ void __31__SASProximitySession_activate__block_invoke(uint64_t a1, void *a2, voi
 
 - (void)receivedAction:(id)action response:(id)response
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v7 = [(SASProximitySession *)self actionFromData:action];
   v8 = +[SASLogging facility];
@@ -97,14 +97,14 @@ void __31__SASProximitySession_activate__block_invoke(uint64_t a1, void *a2, voi
   }
 
   v9 = dispatch_get_global_queue(0, 0);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __47__SASProximitySession_receivedAction_response___block_invoke;
-  v19 = &unk_278846070;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __47__SASProximitySession_receivedAction_response___block_invoke;
+  v18 = &unk_278846070;
   selfCopy = self;
   v10 = v7;
-  v21 = v10;
-  dispatch_async(v9, &v16);
+  v20 = v10;
+  dispatch_async(v9, &v15);
 
   if ([v10 hasResponse])
   {
@@ -123,9 +123,9 @@ void __31__SASProximitySession_activate__block_invoke(uint64_t a1, void *a2, voi
         _os_log_impl(&dword_22E4D7000, v12, OS_LOG_TYPE_DEFAULT, "Responding to remote device...", buf, 2u);
       }
 
-      v22 = @"data";
-      v23 = responsePayload;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v21 = @"data";
+      v22 = responsePayload;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
       responseCopy[2](responseCopy, v13);
     }
 
@@ -151,8 +151,6 @@ void __31__SASProximitySession_activate__block_invoke(uint64_t a1, void *a2, voi
 
     responseCopy[2](responseCopy, MEMORY[0x277CBEC10]);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sendAction:(id)action
@@ -191,82 +189,77 @@ void __31__SASProximitySession_activate__block_invoke(uint64_t a1, void *a2, voi
 
 void __34__SASProximitySession_sendAction___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:1];
   [v2 setObject:v3 forKeyedSubscript:@"Version"];
 
-  v4 = *(a1 + 32);
-  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objc_opt_class(), "actionID")}];
-  [v2 setObject:v5 forKeyedSubscript:@"Action"];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(objc_opt_class(), "actionID")}];
+  [v2 setObject:v4 forKeyedSubscript:@"Action"];
 
-  v6 = [*(a1 + 32) requestPayload];
-  if (v6)
+  v5 = [*(a1 + 32) requestPayload];
+  if (v5)
   {
-    [v2 setObject:v6 forKeyedSubscript:@"Payload"];
-    v7 = dispatch_semaphore_create(0);
-    v8 = +[SASLogging facility];
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    [v2 setObject:v5 forKeyedSubscript:@"Payload"];
+    v6 = dispatch_semaphore_create(0);
+    v7 = +[SASLogging facility];
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v9 = *(a1 + 32);
     *buf = 134217984;
-    v22 = [objc_opt_class() actionID];
-    v10 = "Sending action (type %ld) with payload...";
+    v18 = [objc_opt_class() actionID];
+    v8 = "Sending action (type %ld) with payload...";
   }
 
   else
   {
-    v7 = dispatch_semaphore_create(0);
-    v8 = +[SASLogging facility];
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v6 = dispatch_semaphore_create(0);
+    v7 = +[SASLogging facility];
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v11 = *(a1 + 32);
     *buf = 134217984;
-    v22 = [objc_opt_class() actionID];
-    v10 = "Sending action (type %ld)...";
+    v18 = [objc_opt_class() actionID];
+    v8 = "Sending action (type %ld)...";
   }
 
-  _os_log_impl(&dword_22E4D7000, v8, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
+  _os_log_impl(&dword_22E4D7000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
 LABEL_7:
 
-  v12 = [*(a1 + 40) transport];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __34__SASProximitySession_sendAction___block_invoke_22;
-  v17[3] = &unk_278846098;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 48);
-  v18 = v13;
-  v20 = v14;
-  v15 = v7;
-  v19 = v15;
-  [v12 sendData:v2 response:v17];
+  v9 = [*(a1 + 40) transport];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __34__SASProximitySession_sendAction___block_invoke_22;
+  v13[3] = &unk_278846098;
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 48);
+  v14 = v10;
+  v16 = v11;
+  v12 = v6;
+  v15 = v12;
+  [v9 sendData:v2 response:v13];
 
   if ([*(a1 + 32) hasResponse])
   {
-    dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __34__SASProximitySession_sendAction___block_invoke_22(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[SASLogging facility];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = v5;
-    _os_log_impl(&dword_22E4D7000, v7, OS_LOG_TYPE_DEFAULT, "Receiving action response with error: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v5;
+    _os_log_impl(&dword_22E4D7000, v7, OS_LOG_TYPE_DEFAULT, "Receiving action response with error: %@", &v13, 0xCu);
   }
 
   if (v5)
@@ -286,8 +279,8 @@ void __34__SASProximitySession_sendAction___block_invoke_22(uint64_t a1, void *a
     {
       if (v12)
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_22E4D7000, v11, OS_LOG_TYPE_DEFAULT, "Received response from remote device", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_22E4D7000, v11, OS_LOG_TYPE_DEFAULT, "Received response from remote device", &v13, 2u);
       }
 
       [*(a1 + 32) setResponseFromData:v10];
@@ -297,19 +290,18 @@ void __34__SASProximitySession_sendAction___block_invoke_22(uint64_t a1, void *a
     {
       if (v12)
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_22E4D7000, v11, OS_LOG_TYPE_DEFAULT, "Received null response from remote device", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_22E4D7000, v11, OS_LOG_TYPE_DEFAULT, "Received null response from remote device", &v13, 2u);
       }
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionFromData:(id)data
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = [dataCopy objectForKeyedSubscript:@"Action"];
   unsignedIntegerValue = [v4 unsignedIntegerValue];
@@ -384,18 +376,16 @@ LABEL_22:
     }
   }
 
-  v11 = +[SASLogging facility];
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v10 = +[SASLogging facility];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
-    v13 = unsignedIntegerValue;
-    _os_log_impl(&dword_22E4D7000, v11, OS_LOG_TYPE_DEFAULT, "Received unknown action of type: %lu", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = unsignedIntegerValue;
+    _os_log_impl(&dword_22E4D7000, v10, OS_LOG_TYPE_DEFAULT, "Received unknown action of type: %lu", &v11, 0xCu);
   }
 
   v8 = 0;
 LABEL_23:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

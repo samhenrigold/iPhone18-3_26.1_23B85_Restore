@@ -9,7 +9,7 @@ void __78__UIViewController_AppCardPresentation__ck_canDismissAndPresentSimultan
   ck_canDismissAndPresentSimultaneously_enabled = [v0 BOOLForKey:@"ChatKitSimultaneousTransitionsEnabled"];
 }
 
-uint64_t __78__UIViewController_AppCardPresentation__ck_canDismissAndPresentSimultaneously__block_invoke_2()
+uint64_t __78__UIViewController_AppCardPresentation__ck_canDismissAndPresentSimultaneously__block_invoke_2(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   if (result)

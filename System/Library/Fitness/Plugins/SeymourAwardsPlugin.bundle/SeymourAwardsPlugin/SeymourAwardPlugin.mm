@@ -7,12 +7,10 @@
 
 - (NSString)pluginIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC19SeymourAwardsPlugin18SeymourAwardPlugin_pluginIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC19SeymourAwardsPlugin18SeymourAwardPlugin_pluginIdentifier + 8);
 
-  v4 = sub_233981694();
+  v2 = sub_233981694();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC19SeymourAwardsPlugin18SeymourAwardPlugin)init

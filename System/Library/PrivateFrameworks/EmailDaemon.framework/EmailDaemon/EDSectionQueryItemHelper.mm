@@ -110,10 +110,10 @@ LABEL_9:
 
 - (id)sectionNumberForID:(id)d
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v12[0] = dCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = dCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v6 = [(EDSectionQueryItemHelper *)self sectionNumbersForIDs:v5];
   firstObject = [v6 firstObject];
 
@@ -129,7 +129,6 @@ LABEL_9:
 
   v9 = v8;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -242,7 +241,7 @@ id __49__EDSectionQueryItemHelper_sectionNumbersForIDs___block_invoke_2(uint64_t
 
 uint64_t __52__EDSectionQueryItemHelper__createSectionComparator__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -250,10 +249,10 @@ uint64_t __52__EDSectionQueryItemHelper__createSectionComparator__block_invoke(u
   if (WeakRetained)
   {
     v9 = [WeakRetained _idForItem:v5];
-    v24[0] = v9;
+    v23[0] = v9;
     v10 = [v8 _idForItem:v6];
-    v24[1] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[1] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v12 = [v8 sectionNumbersForIDs:v11];
 
     v13 = [v12 objectAtIndexedSubscript:0];
@@ -320,7 +319,6 @@ uint64_t __52__EDSectionQueryItemHelper__createSectionComparator__block_invoke(u
     v17 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

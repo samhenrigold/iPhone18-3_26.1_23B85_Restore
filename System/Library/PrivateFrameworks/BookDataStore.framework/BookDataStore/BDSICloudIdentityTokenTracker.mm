@@ -51,7 +51,7 @@
 
 - (void)acknowledgeiCloudIdentity
 {
-  v3 = BDSCloudKitLog();
+  v3 = BDSCloudKitLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;

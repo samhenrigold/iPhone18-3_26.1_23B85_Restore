@@ -25,7 +25,7 @@
   dataCopy = data;
   v5 = gsl::make_span<shazam::spectral_peak_compact_t const>([dataCopy bytes], objc_msgSend(dataCopy, "length"));
   shazam::packed_signature_view::packed_signature_view(v10, v5, v6);
-  shazam::get_siginfo(v10, v9);
+  shazam::get_siginfo(v9, v10);
   SampleLength = shazam::signature_info::getSampleLength(v9);
 
   return SampleLength;
@@ -81,7 +81,7 @@ LABEL_12:
 
 + (id)signatureInfoForData:(id)data error:(id *)error
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = gsl::make_span<shazam::spectral_peak_compact_t const>([dataCopy bytes], objc_msgSend(dataCopy, "length"));
   if (v5 == -1 || !v6 && v5)
@@ -89,47 +89,47 @@ LABEL_12:
     gsl::details::terminate(v5);
   }
 
-  shazam::packed_signature_view::packed_signature_view(v26, v5, v6);
-  version = shazam::get_version(v26, v7);
-  v24[0] = 0;
-  v24[1] = 0;
-  v25 = 0;
+  shazam::packed_signature_view::packed_signature_view(v25, v5, v6);
+  version = shazam::get_version(v25, v7);
+  v23[0] = 0;
+  v23[1] = 0;
+  v24 = 0;
   __p[0] = 0;
   __p[1] = 0;
-  v23 = 0;
-  if ((shazam::get_version_as_string(version, v24, __p) & 1) == 0)
+  v22 = 0;
+  if ((shazam::get_version_as_string(version, v23, __p) & 1) == 0)
   {
-    legacy_version = shazam::get_legacy_version(v26, v9);
+    legacy_version = shazam::get_legacy_version(v25, v9);
     if (legacy_version)
     {
-      shazam::get_legacy_version_as_string(legacy_version, v24);
+      shazam::get_legacy_version_as_string(legacy_version, v23);
     }
   }
 
-  if (v27 != 1342177285)
+  if (v26 != 1342177285)
   {
-    shazam::unpack_signature<shazam::basic_signature<(shazam::signature_density)2147483647>>(v20);
+    shazam::unpack_signature<shazam::basic_signature<(shazam::signature_density)2147483647>>(v19);
   }
 
-  shazam::unpack_signature<shazam::freebird_signature>(v26, v20);
-  v29[0] = @"raw_sample_rate";
-  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v21];
-  v30[0] = v11;
-  v29[1] = @"software_version";
-  if (v25 >= 0)
+  shazam::unpack_signature<shazam::freebird_signature>(v25, v19);
+  v28[0] = @"raw_sample_rate";
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v20];
+  v29[0] = v11;
+  v28[1] = @"software_version";
+  if (v24 >= 0)
   {
-    v12 = v24;
+    v12 = v23;
   }
 
   else
   {
-    v12 = v24[0];
+    v12 = v23[0];
   }
 
   v13 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:1];
-  v30[1] = v13;
-  v29[2] = @"format_version";
-  if (v23 >= 0)
+  v29[1] = v13;
+  v28[2] = @"format_version";
+  if (v22 >= 0)
   {
     v14 = __p;
   }
@@ -140,25 +140,23 @@ LABEL_12:
   }
 
   v15 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:1];
-  v30[2] = v15;
-  v29[3] = @"num_features";
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:(v20[1] - v20[0]) >> 5];
-  v30[3] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+  v29[2] = v15;
+  v28[3] = @"num_features";
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:(v19[1] - v19[0]) >> 5];
+  v29[3] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
 
-  v28 = v20;
-  std::vector<shazam::freebird_tensor>::__destroy_vector::operator()[abi:ne200100](&v28);
-  if (SHIBYTE(v23) < 0)
+  v27 = v19;
+  std::vector<shazam::freebird_tensor>::__destroy_vector::operator()[abi:ne200100](&v27);
+  if (SHIBYTE(v22) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v25) < 0)
+  if (SHIBYTE(v24) < 0)
   {
-    operator delete(v24[0]);
+    operator delete(v23[0]);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

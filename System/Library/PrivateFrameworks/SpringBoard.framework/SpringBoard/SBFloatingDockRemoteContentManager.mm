@@ -339,7 +339,7 @@ void __70__SBFloatingDockRemoteContentManager__fileStackIconsFromFloatingDock___
   layer = [sceneView layer];
 
   animationKeys = [layer animationKeys];
-  LODWORD(sceneView) = [animationKeys containsObject:@"SceneHostingControllerMatchMoveAnimationKey"];
+  LODWORD(sceneView) = objc_msgSend_containsObject_(animationKeys);
 
   if (sceneView)
   {
@@ -901,20 +901,24 @@ void __70__SBFloatingDockRemoteContentManager__fileStackIconsFromFloatingDock___
     v11 = *v24;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v12 = 0;
+      do
       {
         if (*v24 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
-        if (([v5 containsObject:v13] & 1) == 0)
+        v13 = *(*(&v23 + 1) + 8 * v12);
+        if ((objc_msgSend_containsObject_(v5) & 1) == 0)
         {
           [v6 addObject:v13];
         }
+
+        ++v12;
       }
 
+      while (v10 != v12);
       v10 = [allKeys countByEnumeratingWithState:&v23 objects:v30 count:16];
     }
 
@@ -933,16 +937,18 @@ void __70__SBFloatingDockRemoteContentManager__fileStackIconsFromFloatingDock___
     v17 = *v20;
     do
     {
-      for (j = 0; j != v16; ++j)
+      v18 = 0;
+      do
       {
         if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(SBFloatingDockRemoteContentManager *)self removeOpenIndicatorViewForIconUniqueIdentifier:*(*(&v19 + 1) + 8 * j), v19];
+        [(SBFloatingDockRemoteContentManager *)self removeOpenIndicatorViewForIconUniqueIdentifier:*(*(&v19 + 1) + 8 * v18++), v19];
       }
 
+      while (v16 != v18);
       v16 = [v14 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
@@ -1046,7 +1052,7 @@ void __71__SBFloatingDockRemoteContentManager_handleFloatingDockFrameDidChange__
     v10 = [v8 objectForKey:v9];
 
     CGAffineTransformMakeScale(&v11, *(a1 + 72), *(a1 + 72));
-    [v10 frame];
+    objc_msgSend_frame(v10);
     [v10 setFrame:?];
   }
 }
@@ -1056,7 +1062,7 @@ void __71__SBFloatingDockRemoteContentManager_handleFloatingDockFrameDidChange__
   userInfo = [change userInfo];
   v7 = [userInfo objectForKey:@"SBInstalledApplicationsRemovedBundleIDs"];
 
-  if ([v7 containsObject:@"com.apple.DocumentsApp"])
+  if (objc_msgSend_containsObject_(v7))
   {
     _floatingDockUtilitiesListView = [(SBFloatingDockRemoteContentManager *)self _floatingDockUtilitiesListView];
     [_floatingDockUtilitiesListView removeAllIconViews];
@@ -1539,22 +1545,26 @@ uint64_t __69__SBFloatingDockRemoteContentManager__validateFloatingDockListModel
           v18 = *v25;
           do
           {
-            for (i = 0; i != v17; ++i)
+            v19 = 0;
+            do
             {
               if (*v25 != v18)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v20 = *(*(&v24 + 1) + 8 * i);
-              if (([v13 containsObject:v20] & 1) == 0)
+              v20 = *(*(&v24 + 1) + 8 * v19);
+              if ((objc_msgSend_containsObject_(v13) & 1) == 0)
               {
                 [v14 addObject:v20];
                 v21 = [(SBFloatingDockRemoteContentManager *)self _urlForFileStackIconDataSourceUniqueIdentifierFromURLSourceDataStore:v20];
                 [v21 stopAccessingSecurityScopedResource];
               }
+
+              ++v19;
             }
 
+            while (v17 != v19);
             v17 = [allKeys countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
@@ -1663,7 +1673,7 @@ void __64__SBFloatingDockRemoteContentManager__cleanUpURLSourceDataStore__block_
   if (view)
   {
     viewCopy = view;
-    [viewCopy frame];
+    objc_msgSend_frame(viewCopy);
     v5 = v4;
     v7 = v6;
     [viewCopy iconContentScale];
@@ -2123,54 +2133,9 @@ void __64__SBFloatingDockRemoteContentManager__cleanUpURLSourceDataStore__block_
 
 - (void)_setupRemoteContentSceneView
 {
-  v31[4] = *MEMORY[0x277D85DE8];
-  p_sceneHostingController = &self->_sceneHostingController;
-  if (self->_sceneHostingController)
-  {
-    floatingDockRootViewController = [(SBFloatingDockRemoteContentManager *)self floatingDockRootViewController];
-    view = [floatingDockRootViewController view];
-    parentOfSceneView = self->_parentOfSceneView;
-    self->_parentOfSceneView = view;
-
-    sceneView = [(_UISceneHostingController *)self->_sceneHostingController sceneView];
-    sceneView = self->_sceneView;
-    self->_sceneView = sceneView;
-
-    [(UIView *)self->_sceneView setClipsToBounds:0];
-    v9 = self->_sceneView;
-    if (!v9)
-    {
-      v10 = SBLogDockFileStack();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        [(SBFloatingDockRemoteContentManager *)p_sceneHostingController _setupRemoteContentSceneView:v10];
-      }
-
-      v9 = self->_sceneView;
-    }
-
-    [(UIView *)self->_parentOfSceneView addSubview:v9];
-    [(UIView *)self->_sceneView setTranslatesAutoresizingMaskIntoConstraints:0];
-    v27 = MEMORY[0x277CCAAD0];
-    leadingAnchor = [(UIView *)self->_sceneView leadingAnchor];
-    leadingAnchor2 = [(UIView *)self->_parentOfSceneView leadingAnchor];
-    v28 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v31[0] = v28;
-    trailingAnchor = [(UIView *)self->_sceneView trailingAnchor];
-    trailingAnchor2 = [(UIView *)self->_parentOfSceneView trailingAnchor];
-    v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v31[1] = v19;
-    topAnchor = [(UIView *)self->_sceneView topAnchor];
-    topAnchor2 = [(UIView *)self->_parentOfSceneView topAnchor];
-    v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v31[2] = v22;
-    bottomAnchor = [(UIView *)self->_sceneView bottomAnchor];
-    bottomAnchor2 = [(UIView *)self->_parentOfSceneView bottomAnchor];
-    v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v31[3] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
-    [v27 activateConstraints:v26];
-  }
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a2, a3, "Setup floating dock remote content failed because sceneView is nil with hosting controller %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_notifyClientToPrewarmFileStackIconAssociatedFoldersAndOpenIndicators
@@ -2301,7 +2266,7 @@ void __64__SBFloatingDockRemoteContentManager__cleanUpURLSourceDataStore__block_
           identifier2 = [displayMode identifier];
           _floatingDockUtilitiesListView2 = [(SBFloatingDockRemoteContentManager *)self _floatingDockUtilitiesListView];
           v43 = [_floatingDockUtilitiesListView2 displayedIconViewForIcon:v6];
-          [v43 frame];
+          objc_msgSend_frame(v43);
           v45 = v44;
           v47 = v46;
           v49 = v48;
@@ -2412,7 +2377,7 @@ void __107__SBFloatingDockRemoteContentManager__notifyClientToPrewarmFileStackIc
     identifier2 = [displayMode identifier];
     _floatingDockUtilitiesListView2 = [(SBFloatingDockRemoteContentManager *)self _floatingDockUtilitiesListView];
     v26 = [_floatingDockUtilitiesListView2 displayedIconViewForIcon:v7];
-    [v26 frame];
+    objc_msgSend_frame(v26);
     v28 = v27;
     v30 = v29;
     v32 = v31;
@@ -2786,7 +2751,7 @@ void __87__SBFloatingDockRemoteContentManager_clientRequestToUpdateFileStackIcon
 - (void)handleDownloadCompletedForFileStackIcon:(id)icon iconUrl:(id)url isDownloadsFolder:(BOOL)folder
 {
   folderCopy = folder;
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   iconCopy = icon;
   urlCopy = url;
   if (folderCopy)
@@ -2799,99 +2764,99 @@ void __87__SBFloatingDockRemoteContentManager_clientRequestToUpdateFileStackIcon
       goto LABEL_14;
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __104__SBFloatingDockRemoteContentManager_handleDownloadCompletedForFileStackIcon_iconUrl_isDownloadsFolder___block_invoke;
-    v35[3] = &unk_2783B6A98;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __104__SBFloatingDockRemoteContentManager_handleDownloadCompletedForFileStackIcon_iconUrl_isDownloadsFolder___block_invoke;
+    v37[3] = &unk_2783B6A98;
     v11 = urlCopy;
-    v36 = v11;
-    v37 = &v38;
-    [_floatingDockUtilitiesListModel enumerateIconsUsingBlock:v35];
-    v12 = *(v39 + 24);
-    if (v12)
+    v38 = v11;
+    v39 = &v40;
+    v12 = [_floatingDockUtilitiesListModel enumerateIconsUsingBlock:v37];
+    v13 = *(v41 + 24);
+    if (v13)
     {
-      v13 = SBLogDock();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogDock(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v44 = v11;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Icon URL already exists in floating dock, will not insert download folder again, url %@", buf, 0xCu);
+        v46 = v11;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Icon URL already exists in floating dock, will not insert download folder again, url %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v13 = objc_alloc_init(MEMORY[0x277D66178]);
-      [v13 setUrl:v11];
-      v14 = [_floatingDockUtilitiesListModel addIcon:v13];
-      if ([v14 count])
+      v14 = objc_alloc_init(MEMORY[0x277D66178]);
+      [v14 setUrl:v11];
+      v15 = [_floatingDockUtilitiesListModel addIcon:v14];
+      v16 = [v15 count];
+      if (v16)
       {
-        homeScreenDefaults = SBLogDock();
+        homeScreenDefaults = SBLogDock(v16);
         if (os_log_type_enabled(homeScreenDefaults, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v44 = v11;
+          v46 = v11;
           _os_log_impl(&dword_21ED4E000, homeScreenDefaults, OS_LOG_TYPE_DEFAULT, "Failed to insert downloads folder into the floating dock after first download even though we should, url %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v16 = +[SBDefaults localDefaults];
-        homeScreenDefaults = [v16 homeScreenDefaults];
+        v18 = +[SBDefaults localDefaults];
+        homeScreenDefaults = [v18 homeScreenDefaults];
 
-        [homeScreenDefaults setShouldInsertDownloadFileStackIconToFloatingDock:0];
-        v17 = SBLogDock();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = SBLogDock([homeScreenDefaults setShouldInsertDownloadFileStackIconToFloatingDock:0]);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v44 = v11;
-          _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Successfully inserted downloads folder into the floating dock after first download, url %@", buf, 0xCu);
+          v46 = v11;
+          _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Successfully inserted downloads folder into the floating dock after first download, url %@", buf, 0xCu);
         }
       }
     }
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v40, 8);
     selfCopy3 = self;
-    if (v12)
+    if (v13)
     {
 LABEL_14:
+      v35 = 0u;
+      v36 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v31 = 0u;
-      v32 = 0u;
       fileStackIconsInDock = [(SBFloatingDockRemoteContentManager *)selfCopy3 fileStackIconsInDock];
-      v19 = [fileStackIconsInDock countByEnumeratingWithState:&v31 objects:v42 count:16];
-      if (v19)
+      v21 = [fileStackIconsInDock countByEnumeratingWithState:&v33 objects:v44 count:16];
+      if (v21)
       {
-        v20 = *v32;
+        v22 = *v34;
         do
         {
-          for (i = 0; i != v19; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v32 != v20)
+            if (*v34 != v22)
             {
               objc_enumerationMutation(fileStackIconsInDock);
             }
 
-            v22 = *(*(&v31 + 1) + 8 * i);
-            leafIdentifier = [v22 leafIdentifier];
+            v24 = *(*(&v33 + 1) + 8 * i);
+            leafIdentifier = [v24 leafIdentifier];
             if ([leafIdentifier isEqualToString:iconCopy])
             {
-              v24 = [v22 url];
-              v25 = [v24 isEqual:urlCopy];
+              v26 = [v24 url];
+              v27 = [v26 isEqual:urlCopy];
 
-              if (v25)
+              if (v27)
               {
                 _floatingDockUtilitiesListView = [(SBFloatingDockRemoteContentManager *)selfCopy _floatingDockUtilitiesListView];
-                v27 = [_floatingDockUtilitiesListView iconViewForIcon:v22];
+                v29 = [_floatingDockUtilitiesListView iconViewForIcon:v24];
 
                 floatingDockRootViewController = [(SBFloatingDockRemoteContentManager *)selfCopy floatingDockRootViewController];
-                [floatingDockRootViewController handleDownloadCompletedRequestIfNeededForIconView:v27];
+                [floatingDockRootViewController handleDownloadCompletedRequestIfNeededForIconView:v29];
 
                 goto LABEL_25;
               }
@@ -2902,10 +2867,10 @@ LABEL_14:
             }
           }
 
-          v19 = [fileStackIconsInDock countByEnumeratingWithState:&v31 objects:v42 count:16];
+          v21 = [fileStackIconsInDock countByEnumeratingWithState:&v33 objects:v44 count:16];
         }
 
-        while (v19);
+        while (v21);
       }
 
 LABEL_25:
@@ -2944,28 +2909,28 @@ void __104__SBFloatingDockRemoteContentManager_handleDownloadCompletedForFileSta
 
 - (BOOL)_shouldInsertDownloadsFolderAfterFirstDownload
 {
-  v8 = *MEMORY[0x277D85DE8];
-  currentDevice = +[SBDefaults localDefaults];
-  homeScreenDefaults = [currentDevice homeScreenDefaults];
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = +[SBDefaults localDefaults];
+  homeScreenDefaults = [v2 homeScreenDefaults];
 
-  LODWORD(currentDevice) = [homeScreenDefaults shouldInsertDownloadFileStackIconToFloatingDock];
-  v4 = SBLogDock();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  shouldInsertDownloadFileStackIconToFloatingDock = [homeScreenDefaults shouldInsertDownloadFileStackIconToFloatingDock];
+  v5 = SBLogDock(shouldInsertDownloadFileStackIconToFloatingDock);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = currentDevice;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "User defaults shouldInsertDownloads is %d", v7, 8u);
+    v8[0] = 67109120;
+    v8[1] = shouldInsertDownloadFileStackIconToFloatingDock;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "User defaults shouldInsertDownloads is %d", v8, 8u);
   }
 
-  if (currentDevice)
+  if (shouldInsertDownloadFileStackIconToFloatingDock)
   {
-    currentDevice = [MEMORY[0x277D75418] currentDevice];
-    userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+    shouldInsertDownloadFileStackIconToFloatingDock = [MEMORY[0x277D75418] currentDevice];
+    userInterfaceIdiom = [shouldInsertDownloadFileStackIconToFloatingDock userInterfaceIdiom];
 
-    LOBYTE(currentDevice) = (userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1;
+    LOBYTE(shouldInsertDownloadFileStackIconToFloatingDock) = (userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1;
   }
 
-  return currentDevice;
+  return shouldInsertDownloadFileStackIconToFloatingDock;
 }
 
 - (void)clientRequestToAcknowledgeDidFinishAnimatingFor:(BOOL)for withFileStackIcon:(id)icon
@@ -3043,7 +3008,7 @@ LABEL_6:
       identifier2 = [displayMode identifier];
       _floatingDockUtilitiesListView2 = [(SBFloatingDockRemoteContentManager *)self _floatingDockUtilitiesListView];
       v29 = [_floatingDockUtilitiesListView2 displayedIconViewForIcon:v6];
-      [v29 frame];
+      objc_msgSend_frame(v29);
       v31 = v30;
       v33 = v32;
       v35 = v34;
@@ -3167,7 +3132,7 @@ void __58__SBFloatingDockRemoteContentManager_iconList_didAddIcon___block_invoke
     identifier2 = [displayMode identifier];
     _floatingDockUtilitiesListView2 = [(SBFloatingDockRemoteContentManager *)self _floatingDockUtilitiesListView];
     v29 = [_floatingDockUtilitiesListView2 displayedIconViewForIcon:v9];
-    [v29 frame];
+    objc_msgSend_frame(v29);
     v31 = v30;
     v33 = v32;
     v35 = v34;
@@ -3660,7 +3625,7 @@ void __59__SBFloatingDockRemoteContentManager_iconView_performDrop___block_invok
 
 - (void)applicationRestrictionController:(id)controller didUpdateVisibleTags:(id)tags hiddenTags:(id)hiddenTags
 {
-  v6 = [hiddenTags containsObject:{@"com.apple.DocumentsApp", tags}];
+  v6 = objc_msgSend_containsObject_(hiddenTags, a2, @"com.apple.DocumentsApp", tags);
   hiddenRestorableFileStackIcons = [(SBFloatingDockRemoteContentManager *)self hiddenRestorableFileStackIcons];
   v8 = hiddenRestorableFileStackIcons;
   if (v6)
@@ -3794,6 +3759,13 @@ void __59__SBFloatingDockRemoteContentManager_iconView_performDrop___block_invok
   *buf = 136315138;
   *a2 = "[SBFloatingDockRemoteContentManager iconView:performDrop:]";
   _os_log_error_impl(&dword_21ED4E000, log, OS_LOG_TYPE_ERROR, "%s Error in retrieving document drag URL with conforming type, will not move document to file stack icon represented folder", buf, 0xCu);
+}
+
+- (void)iconView:(uint64_t)a3 performDrop:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SBFloatingDockRemoteContentManager iconView:performDrop:]";
+  OUTLINED_FUNCTION_0_5(&dword_21ED4E000, a1, a3, "%s cannot drop folder on folder", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

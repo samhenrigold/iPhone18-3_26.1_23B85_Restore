@@ -75,42 +75,40 @@
 
 - (void)newBOLTSModule
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v9 = a2;
-  v8 = 0;
-  settingsProvider = self->_settingsProvider;
+  v8 = a2;
+  v7 = 0;
   if (objc_opt_respondsToSelector())
   {
     if ([(CBAdaptiveAutoBrightnessSettingsProvider *)selfCopy->_settingsProvider getMLABModelPath])
     {
       getMLABModelPath = [(CBAdaptiveAutoBrightnessSettingsProvider *)selfCopy->_settingsProvider getMLABModelPath];
-      CBBOLTS::createFromUncompiledModelPath(getMLABModelPath, v4);
+      CBBOLTS::createFromUncompiledModelPath(getMLABModelPath, v3);
     }
   }
 
-  v5 = +[MLAB URLOfModelInThisBundle];
-  CBBOLTS::createUsingModelURL(v5, v6);
+  v4 = +[MLAB URLOfModelInThisBundle];
+  CBBOLTS::createUsingModelURL(v4, v5);
 }
 
 - (void)loadBOLTSModule
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v18 = a2;
+  v17 = a2;
   if (self->_boltsModule)
   {
-    v17 = +[MLAB URLOfModelInThisBundle];
-    settingsProvider = selfCopy->_settingsProvider;
+    v16 = +[MLAB URLOfModelInThisBundle];
     if (objc_opt_respondsToSelector())
     {
       getMLABModelPath = [(CBAdaptiveAutoBrightnessSettingsProvider *)selfCopy->_settingsProvider getMLABModelPath];
       if (getMLABModelPath)
       {
-        v15 = CBBOLTS::compileModel(getMLABModelPath, v3);
-        if (v15)
+        v14 = CBBOLTS::compileModel(getMLABModelPath, v2);
+        if (v14)
         {
-          v17 = v15;
+          v16 = v14;
         }
 
         else
@@ -135,45 +133,45 @@
             logHandle = inited;
           }
 
-          v14 = logHandle;
-          v13 = 16;
+          v13 = logHandle;
+          v12 = 16;
           if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
           {
-            log = v14;
-            type = v13;
-            __os_log_helper_16_0_0(v12);
-            _os_log_error_impl(&dword_1DE8E5000, log, type, "Failed to compile supplied model, falling back to using bundled model", v12, 2u);
+            log = v13;
+            type = v12;
+            __os_log_helper_16_0_0(v11);
+            _os_log_error_impl(&dword_1DE8E5000, log, type, "Failed to compile supplied model, falling back to using bundled model", v11, 2u);
           }
         }
       }
     }
 
-    if (CBBOLTS::switchModel(selfCopy->_boltsModule, v17))
+    if (CBBOLTS::switchModel(selfCopy->_boltsModule, v16))
     {
       if (selfCopy->super._logHandle)
       {
-        v5 = selfCopy->super._logHandle;
+        v4 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v4 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v3 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v4 = init_default_corebrightness_log();
+          v3 = init_default_corebrightness_log();
         }
 
-        v5 = v4;
+        v4 = v3;
       }
 
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_1_8_64(v20, v17);
-        _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEFAULT, "BOLTS switched to a new model: %@", v20, 0xCu);
+        __os_log_helper_16_2_1_8_64(v19, v16);
+        _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "BOLTS switched to a new model: %@", v19, 0xCu);
       }
     }
 
@@ -181,28 +179,28 @@
     {
       if (selfCopy->super._logHandle)
       {
-        v7 = selfCopy->super._logHandle;
+        v6 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v5 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v6 = init_default_corebrightness_log();
+          v5 = init_default_corebrightness_log();
         }
 
-        v7 = v6;
+        v6 = v5;
       }
 
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_1_8_64(v21, v17);
-        _os_log_error_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_ERROR, "Failed to switch to a new model: %@", v21, 0xCu);
+        __os_log_helper_16_2_1_8_64(v20, v16);
+        _os_log_error_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_ERROR, "Failed to switch to a new model: %@", v20, 0xCu);
       }
     }
   }
@@ -211,8 +209,6 @@
   {
     selfCopy->_boltsModule = [(CBBOLTSProvider *)selfCopy newBOLTSModule];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

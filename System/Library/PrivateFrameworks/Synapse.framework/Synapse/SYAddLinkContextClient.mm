@@ -58,41 +58,41 @@
 
 void __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke(id *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [a1[4] _createConnectionIfNeeded];
   v2 = os_log_create("com.apple.synapse", "AddLinkContext");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[5] _uniqueIdentifier];
     *buf = 138412290;
-    v21 = v3;
+    v20 = v3;
     _os_log_impl(&dword_225901000, v2, OS_LOG_TYPE_DEFAULT, "AddLinkContextClient: userWillAddLinkWithActivity started for activity: %@", buf, 0xCu);
   }
 
   v4 = [a1[4] _connection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_5;
-  v18[3] = &unk_27856B4C0;
-  v19 = a1[6];
-  v5 = [v4 remoteObjectProxyWithErrorHandler:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_5;
+  v17[3] = &unk_27856B4C0;
+  v18 = a1[6];
+  v5 = [v4 remoteObjectProxyWithErrorHandler:v17];
 
   if (v5)
   {
     v6 = a1[5];
-    v17 = 0;
-    v7 = [v6 _createUserActivityDataWithSaving:0 options:0 error:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [v6 _createUserActivityDataWithSaving:0 options:0 error:&v16];
+    v8 = v16;
     v9 = v8;
     if (v7)
     {
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_7;
-      v14[3] = &unk_27856B4E8;
-      v15 = v8;
-      v16 = a1[6];
-      [v5 userWillAddLinkWithActivityData:v7 completion:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_7;
+      v13[3] = &unk_27856B4E8;
+      v14 = v8;
+      v15 = a1[6];
+      [v5 userWillAddLinkWithActivityData:v7 completion:v13];
     }
 
     else
@@ -119,8 +119,6 @@ void __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block
       v10[2](v10, 0);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_5(uint64_t a1, void *a2)
@@ -197,7 +195,7 @@ uint64_t __52__SYAddLinkContextClient_userDidRemoveContentItems___block_invoke(u
 
 void __52__SYAddLinkContextClient_userDidRemoveContentItems___block_invoke_2(id *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   [a1[4] _createConnectionIfNeeded];
   v2 = [a1[5] objectsAtIndexes:a1[6]];
   v3 = os_log_create("com.apple.synapse", "AddLinkContext");
@@ -207,9 +205,9 @@ void __52__SYAddLinkContextClient_userDidRemoveContentItems___block_invoke_2(id 
     v5 = [v2 firstObject];
     v6 = [v5 itemIdentifier];
     *buf = 134218242;
-    v27 = v4;
-    v28 = 2112;
-    v29 = v6;
+    v26 = v4;
+    v27 = 2112;
+    v28 = v6;
     _os_log_impl(&dword_225901000, v3, OS_LOG_TYPE_DEFAULT, "AddLinkContextClient: userDidRemoveContentItems started for %lu items including: %@", buf, 0x16u);
   }
 
@@ -219,27 +217,27 @@ void __52__SYAddLinkContextClient_userDidRemoveContentItems___block_invoke_2(id 
   if (v8)
   {
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(a1[6], "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v10 = v2;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         v14 = 0;
         do
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [*(*(&v21 + 1) + 8 * v14) dataRepresentationWithError:{0, v21}];
+          v15 = [*(*(&v20 + 1) + 8 * v14) dataRepresentationWithError:{0, v20}];
           if (v15)
           {
             [v9 addObject:v15];
@@ -249,7 +247,7 @@ void __52__SYAddLinkContextClient_userDidRemoveContentItems___block_invoke_2(id 
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -264,17 +262,15 @@ void __52__SYAddLinkContextClient_userDidRemoveContentItems___block_invoke_2(id 
         v18 = [v10 firstObject];
         v19 = [v18 itemIdentifier];
         *buf = 134218242;
-        v27 = v17;
-        v28 = 2112;
-        v29 = v19;
+        v26 = v17;
+        v27 = 2112;
+        v28 = v19;
         _os_log_impl(&dword_225901000, v16, OS_LOG_TYPE_DEFAULT, "AddLinkContextClient: userDidRemoveContentItems encoding failed for %lu items including: %@", buf, 0x16u);
       }
     }
 
-    [v8 userDidRemoveContentItemDatas:{v9, v21}];
+    [v8 userDidRemoveContentItemDatas:{v9, v20}];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SYAddLinkContextClient_userDidRemoveContentItems___block_invoke_11(uint64_t a1, void *a2)
@@ -315,7 +311,7 @@ uint64_t __53__SYAddLinkContextClient_userEditDidAddContentItems___block_invoke(
 
 void __53__SYAddLinkContextClient_userEditDidAddContentItems___block_invoke_2(id *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   [a1[4] _createConnectionIfNeeded];
   v2 = [a1[5] objectsAtIndexes:a1[6]];
   v3 = os_log_create("com.apple.synapse", "AddLinkContext");
@@ -325,9 +321,9 @@ void __53__SYAddLinkContextClient_userEditDidAddContentItems___block_invoke_2(id
     v5 = [v2 firstObject];
     v6 = [v5 itemIdentifier];
     *buf = 134218242;
-    v27 = v4;
-    v28 = 2112;
-    v29 = v6;
+    v26 = v4;
+    v27 = 2112;
+    v28 = v6;
     _os_log_impl(&dword_225901000, v3, OS_LOG_TYPE_DEFAULT, "AddLinkContextClient: userEditDidAddContentItems started for %lu items including: %@", buf, 0x16u);
   }
 
@@ -337,27 +333,27 @@ void __53__SYAddLinkContextClient_userEditDidAddContentItems___block_invoke_2(id
   if (v8)
   {
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(a1[6], "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v10 = v2;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         v14 = 0;
         do
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [*(*(&v21 + 1) + 8 * v14) dataRepresentationWithError:{0, v21}];
+          v15 = [*(*(&v20 + 1) + 8 * v14) dataRepresentationWithError:{0, v20}];
           if (v15)
           {
             [v9 addObject:v15];
@@ -367,7 +363,7 @@ void __53__SYAddLinkContextClient_userEditDidAddContentItems___block_invoke_2(id
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -382,17 +378,15 @@ void __53__SYAddLinkContextClient_userEditDidAddContentItems___block_invoke_2(id
         v18 = [v10 firstObject];
         v19 = [v18 itemIdentifier];
         *buf = 134218242;
-        v27 = v17;
-        v28 = 2112;
-        v29 = v19;
+        v26 = v17;
+        v27 = 2112;
+        v28 = v19;
         _os_log_impl(&dword_225901000, v16, OS_LOG_TYPE_DEFAULT, "AddLinkContextClient: userEditDidAddContentItems encoding failed for %lu items including: %@", buf, 0x16u);
       }
     }
 
-    [v8 userEditDidAddContentItemDatas:{v9, v21}];
+    [v8 userEditDidAddContentItemDatas:{v9, v20}];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SYAddLinkContextClient_userEditDidAddContentItems___block_invoke_17(uint64_t a1, void *a2)
@@ -509,29 +503,27 @@ uint64_t __55__SYAddLinkContextClient_createConnectionWithEndpoint___block_invok
 
 void __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_225901000, log, OS_LOG_TYPE_ERROR, "Failed to serialize data for user activity %@. Error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_225901000, log, OS_LOG_TYPE_ERROR, "Failed to serialize data for user activity %@. Error: %@", &v4, 0x16u);
 }
 
 void __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_5_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "AddLinkContextClient: Error creating remote service proxy: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "AddLinkContextClient: Error creating remote service proxy: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __65__SYAddLinkContextClient_userWillAddLinkWithActivity_completion___block_invoke_7_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Failed to deserialize data for content item data. Error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Failed to deserialize data for content item data. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

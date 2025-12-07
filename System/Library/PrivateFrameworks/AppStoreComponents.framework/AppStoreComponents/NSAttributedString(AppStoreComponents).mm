@@ -57,27 +57,27 @@
       [v21 appendAttributedString:v20];
       [v21 addAttribute:@"ASCLockupHeadingImageName" value:v18 range:{0, objc_msgSend(v20, "length")}];
       mutableString = [v21 mutableString];
-      v24 = ASCLocalizedString(@"LOCKUP_HEADING_JOINER", v23);
-      [mutableString appendString:v24];
+      v23 = ASCLocalizedString(@"LOCKUP_HEADING_JOINER");
+      [mutableString appendString:v23];
 
       mutableString2 = [v21 mutableString];
       [mutableString2 appendString:v19];
 
-      v26 = [v21 copy];
+      v25 = [v21 copy];
     }
 
     else
     {
-      v26 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v19];
+      v25 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v19];
     }
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  return v26;
+  return v25;
 }
 
 + (id)asc_attributedStringWithLockupTextContainingSymbols:()AppStoreComponents compatibleWithTraitCollection:

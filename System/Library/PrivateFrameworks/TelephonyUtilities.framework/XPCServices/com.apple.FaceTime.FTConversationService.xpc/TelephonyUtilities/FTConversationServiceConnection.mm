@@ -12,6 +12,7 @@
 - (void)invalidate;
 - (void)removeConversationLinkDescriptorsWithPredicate:(id)predicate deleteReason:(int64_t)reason reply:(id)reply;
 - (void)removeLinkDescriptorsFromDataSourceWithPredicate:(id)predicate reply:(id)reply;
+- (void)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply;
 - (void)setDelegate:(id)delegate;
 - (void)setExpirationDate:(id)date withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply;
 - (void)setInteger:(int64_t)integer forKey:(id)key reply:(id)reply;
@@ -139,8 +140,8 @@
 
   else
   {
-    v12 = FTCServiceLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -165,8 +166,8 @@
 
   else
   {
-    v12 = FTCServiceLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -191,8 +192,8 @@
 
   else
   {
-    v12 = FTCServiceLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -217,8 +218,8 @@
 
   else
   {
-    v16 = FTCServiceLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = FTCServiceLog(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -244,8 +245,8 @@
 
   else
   {
-    v14 = FTCServiceLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = FTCServiceLog(v13, v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -270,8 +271,35 @@
 
   else
   {
-    v12 = FTCServiceLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000CE7C(a2);
+    }
+
+    delegate = [NSError errorWithDomain:@"com.apple.FaceTime.FTConversationService" code:1 userInfo:0];
+    replyCopy[2](replyCopy, 0x7FFFFFFFFFFFFFFFLL, delegate);
+  }
+}
+
+- (void)setActivated:(BOOL)activated withRevision:(int64_t)revision forConversationLinkDescriptorsWithPredicate:(id)predicate reply:(id)reply
+{
+  activatedCopy = activated;
+  predicateCopy = predicate;
+  replyCopy = reply;
+  entitlements = [(FTConversationServiceConnection *)self entitlements];
+  v14 = [entitlements containsObject:@"modify-conversation-links"];
+
+  if (v14)
+  {
+    delegate = [(FTConversationServiceConnection *)self delegate];
+    [delegate setActivated:activatedCopy withRevision:revision forConversationLinkDescriptorsWithPredicate:predicateCopy reply:replyCopy];
+  }
+
+  else
+  {
+    v18 = FTCServiceLog(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -297,8 +325,8 @@
 
   else
   {
-    v17 = FTCServiceLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = FTCServiceLog(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -324,8 +352,8 @@
 
   else
   {
-    v17 = FTCServiceLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = FTCServiceLog(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -351,8 +379,8 @@
 
   else
   {
-    v17 = FTCServiceLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = FTCServiceLog(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -377,8 +405,8 @@
 
   else
   {
-    v14 = FTCServiceLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = FTCServiceLog(v13, v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -403,8 +431,8 @@
 
   else
   {
-    v12 = FTCServiceLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -430,8 +458,8 @@
 
   else
   {
-    v15 = FTCServiceLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = FTCServiceLog(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }
@@ -456,8 +484,8 @@
 
   else
   {
-    v12 = FTCServiceLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = FTCServiceLog(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10000CE7C(a2);
     }

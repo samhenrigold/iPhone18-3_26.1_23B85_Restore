@@ -20,14 +20,13 @@
 
 - (void)dealloc
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC12FMNetworking13FMNHttpClient_sessionLock);
   selfCopy = self;
 
   sub_24A8BB0C4();
 
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for FMNHttpClient();
-  [(FMNHttpClient *)&v4 dealloc];
+  v3.receiver = selfCopy;
+  v3.super_class = type metadata accessor for FMNHttpClient();
+  [(FMNHttpClient *)&v3 dealloc];
 }
 
 - (_TtC12FMNetworking13FMNHttpClient)init

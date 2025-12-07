@@ -230,7 +230,7 @@ uint64_t _citrus_UTF1632_stdenc_mbtocs(uint64_t a1, _DWORD *a2, unsigned int *a3
   return v12;
 }
 
-uint64_t _citrus_UTF1632_stdenc_cstomb(uint64_t a1, char *a2, unint64_t a3, int a4, int a5, uint64_t a6, uint64_t *a7)
+uint64_t _citrus_UTF1632_stdenc_cstomb(uint64_t a1, char *a2, unint64_t a3, int a4, unsigned int a5, uint64_t a6, uint64_t *a7)
 {
   if (a4 == -1)
   {
@@ -286,11 +286,11 @@ uint64_t _citrus_UTF1632_stdenc_get_state_desc(uint64_t a1, _DWORD *a2, int a3, 
   return result;
 }
 
-uint64_t _citrus_UTF1632_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, uint64_t *a6, unint64_t a7, unsigned int *a8, void *a9, uint64_t a10, void (*a11)(uint64_t), uint64_t a12)
+uint64_t _citrus_UTF1632_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, unint64_t *a6, unint64_t a7, unsigned int *a8, void *a9, void (**a10)(void), void (*a11)(uint64_t), uint64_t a12)
 {
   v12 = *a6;
   *a9 = 0;
-  v31 = 0;
+  v30 = 0;
   if (*a5 >= a7)
   {
     v13 = a7;
@@ -306,26 +306,26 @@ uint64_t _citrus_UTF1632_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, u
     v14 = a7;
     v16 = 0;
     v17 = 0;
-    v25 = v12;
-    v32 = 0;
+    v24 = v12;
+    v31 = 0;
     while (1)
     {
       a11(a12);
-      result = _citrus_UTF1632_mbrtowc_priv(*(a1 + 8), &v32, a6, v14, a8, &v31);
+      result = _citrus_UTF1632_mbrtowc_priv(*(a1 + 8), &v31, a6, v14, a8, &v30);
       if (result)
       {
         break;
       }
 
-      v19 = v31;
-      if (v31 == -2)
+      v19 = v30;
+      if (v30 == -2)
       {
         result = 0;
         *a9 = -2;
         break;
       }
 
-      v20 = v32;
+      v20 = v31;
       *(a2 + 4 * v17) = 0;
       *(a3 + 4 * v17) = v20;
       if (v19 > v14)
@@ -341,20 +341,19 @@ uint64_t _citrus_UTF1632_stdenc_mbtocsn(uint64_t a1, uint64_t a2, uint64_t a3, u
         _citrus_UTF1632_stdenc_mbtocsn_cold_1();
       }
 
-      *(a4 + 2 * v17) = v21 - v25;
+      *(a4 + 2 * v17) = v21 - v24;
       if (a10 && *a10)
       {
-        v22 = *(a10 + 16);
         (*a10)();
       }
 
       result = 0;
       if (++v17 < v13)
       {
-        v23 = v14 + v12;
+        v22 = v14 + v12;
         v12 = v21;
-        v14 = v23 - v21;
-        if (v23 != v21)
+        v14 = v22 - v21;
+        if (v22 != v21)
         {
           continue;
         }
@@ -508,7 +507,7 @@ uint64_t _citrus_UTF1632_mbrtowc_priv(unsigned int *a1, unsigned int *a2, uint64
         v19 = 0;
         while (a4 != v19)
         {
-          v13[i + v19] = *(v6 + v19);
+          *(v13 + i + v19) = *(v6 + v19);
           if (!(i - v7 + ++v19))
           {
             v8 = a1[3];
@@ -621,8 +620,8 @@ LABEL_38:
 
     else if (v18)
     {
-      v23 = a5 + 9;
-      v24 = (a5 + 2);
+      v23 = (a5 + 9);
+      v24 = a5 + 2;
       if (v9 == 2)
       {
         goto LABEL_44;
@@ -630,8 +629,8 @@ LABEL_38:
 
       if (v9 == 1)
       {
-        v23 = (a5 + 2);
-        v24 = a5 + 9;
+        v23 = a5 + 2;
+        v24 = (a5 + 9);
 LABEL_44:
         v25 = *v23;
         v12 = *v24 | (v25 << 8);
@@ -690,7 +689,7 @@ LABEL_48:
   return 92;
 }
 
-uint64_t _citrus_UTF1632_wcrtomb_priv(int *a1, char *__dst, unint64_t a3, int a4, uint64_t a5, uint64_t *a6)
+uint64_t _citrus_UTF1632_wcrtomb_priv(int *a1, char *__dst, unint64_t a3, unsigned int a4, uint64_t a5, uint64_t *a6)
 {
   v9 = a3;
   v12 = *(a5 + 4);

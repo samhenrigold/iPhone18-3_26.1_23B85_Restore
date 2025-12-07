@@ -60,7 +60,7 @@
   swift_getObjCClassMetadata();
   assetCopy = asset;
   static SiriTTSTrainerSession.set(installingProgressBlock:for:)(v5, v6, assetCopy);
-  sub_63C4(v5);
+  sub_63C4(v5, v6);
 }
 
 - (SiriTTSTrainerSession)init

@@ -27,7 +27,7 @@
   }
 
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SleepRoomDataProvider();
+  v6.super_class = type metadata accessor for SleepRoomDataProvider(0);
   [(SleepRoomDataProvider *)&v6 dealloc];
 }
 
@@ -53,7 +53,7 @@
   v6[2] = self;
   v6[3] = ObjectType;
   selfCopy = self;
-  sub_29E607C50(sub_29E6CB724, v6);
+  sub_29E607C50(sub_29E6CB724, v6, "SleepHealthAppPlugin/SleepRoomDataProvider.swift", 48, 2u, 202);
 }
 
 - (void)sleepStore:(id)store sleepFocusConfigurationDidUpdate:(id)update
@@ -63,7 +63,7 @@
   v7[2] = self;
   v7[3] = ObjectType;
   selfCopy = self;
-  sub_29E607C50(sub_29E6CB6FC, v7);
+  sub_29E607C50(sub_29E6CB6FC, v7, "SleepHealthAppPlugin/SleepRoomDataProvider.swift", 48, 2u, 211);
 }
 
 @end

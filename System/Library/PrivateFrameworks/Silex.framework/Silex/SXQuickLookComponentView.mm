@@ -418,7 +418,7 @@ void __44__SXQuickLookComponentView_createErrorState__block_invoke(uint64_t a1, 
     [v15 setErrorLabel:v4];
 
     v5 = [v15 errorLabel];
-    v6 = SXBundle();
+    v6 = SXBundle(v5);
     v7 = [v6 localizedStringForKey:@"SXTapToRetry" value:&stru_1F532F6C0 table:0];
     [v5 setText:v7];
 

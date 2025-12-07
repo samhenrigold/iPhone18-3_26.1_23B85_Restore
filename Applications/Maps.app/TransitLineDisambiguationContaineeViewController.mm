@@ -64,10 +64,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection);
   v8 = *(self + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection);
+  v9 = *(self + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (id)onRefinementError
@@ -110,10 +111,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError);
   v8 = *(self + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError);
+  v9 = *(self + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (_TtC4Maps48TransitLineDisambiguationContaineeViewController)initWithLabelMarker:(id)marker

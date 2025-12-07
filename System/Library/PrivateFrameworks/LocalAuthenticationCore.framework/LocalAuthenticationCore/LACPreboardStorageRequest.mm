@@ -31,48 +31,45 @@
 
 - (LACXPCClient)client
 {
-  v2 = *(self + OBJC_IVAR____TtC23LocalAuthenticationCore25LACPreboardStorageRequest_client);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (NSUUID)contextID
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v13 - v5;
-  outlined init with copy of UUID?(self + OBJC_IVAR____TtC23LocalAuthenticationCore25LACPreboardStorageRequest_contextID, &v13 - v5);
-  v7 = type metadata accessor for UUID();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v5 = &v12 - v4;
+  outlined init with copy of UUID?(self + OBJC_IVAR____TtC23LocalAuthenticationCore25LACPreboardStorageRequest_contextID, &v12 - v4);
+  v6 = type metadata accessor for UUID();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(v8 + 8))(v6, v7);
-    v10 = isa;
+    (*(v7 + 8))(v5, v6);
+    v9 = isa;
   }
 
-  return v10;
+  return v9;
 }
 
 - (NSDictionary)options
 {
   if (*(self + OBJC_IVAR____TtC23LocalAuthenticationCore25LACPreboardStorageRequest_options))
   {
-    v2 = *(self + OBJC_IVAR____TtC23LocalAuthenticationCore25LACPreboardStorageRequest_options);
 
-    v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v3.super.isa = 0;
+    v2.super.isa = 0;
   }
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (_TtC23LocalAuthenticationCore25LACPreboardStorageRequest)init

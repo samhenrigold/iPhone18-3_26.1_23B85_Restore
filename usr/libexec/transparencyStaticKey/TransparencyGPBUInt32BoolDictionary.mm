@@ -1,4 +1,5 @@
 @interface TransparencyGPBUInt32BoolDictionary
+- (BOOL)getBool:(BOOL *)bool forKey:(unsigned int)key;
 - (BOOL)isEqual:(id)equal;
 - (TransparencyGPBUInt32BoolDictionary)initWithBools:(const BOOL *)bools forKeys:(const unsigned int *)keys count:(unint64_t)count;
 - (TransparencyGPBUInt32BoolDictionary)initWithDictionary:(id)dictionary;
@@ -8,6 +9,8 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndBoolsUsingBlock:(id)block;
+- (void)removeBoolForKey:(unsigned int)key;
+- (void)setBool:(BOOL)bool forKey:(unsigned int)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -201,6 +204,18 @@
   [(TransparencyGPBUInt32BoolDictionary *)self enumerateKeysAndBoolsUsingBlock:v3];
 }
 
+- (BOOL)getBool:(BOOL *)bool forKey:(unsigned int)key
+{
+  v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithUnsignedInt:*&key]];
+  v6 = v5;
+  if (bool && v5)
+  {
+    *bool = [v5 BOOLValue];
+  }
+
+  return v6 != 0;
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -213,6 +228,25 @@
       sub_10002B180(autocreator, self);
     }
   }
+}
+
+- (void)setBool:(BOOL)bool forKey:(unsigned int)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithBool:" numberWithBool:bool], [NSNumber numberWithUnsignedInt:*&key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_10002B180(autocreator, self);
+  }
+}
+
+- (void)removeBoolForKey:(unsigned int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithUnsignedInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

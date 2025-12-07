@@ -11,63 +11,61 @@
 
 - (BOOL)repairTimesyncDB:(id *)b
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v16 = *MEMORY[0x277D85DE8];
+  v9 = 0;
   v4 = self->_lcr;
   timesyncReference = [(_OSLogCollectionReference *)v4 timesyncReference];
   fileDescriptor = [timesyncReference fileDescriptor];
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = ___OSRepairTimesync_block_invoke;
-  v11[3] = &unk_2787AE5B0;
-  v12 = fileDescriptor;
-  v11[4] = &v13;
-  v11[5] = &v10;
-  _timesync_foreach_reg_file_at(fileDescriptor, v11);
-  v7 = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = ___OSRepairTimesync_block_invoke;
+  v10[3] = &unk_2787AE5B0;
+  v11 = fileDescriptor;
+  v10[4] = &v12;
+  v10[5] = &v9;
+  _timesync_foreach_reg_file_at(fileDescriptor, v10);
+  v7 = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
 
   if (v7)
   {
-    _OSLogFailWithPOSIXError(v10, b);
+    _OSLogFailWithPOSIXError(v9, b);
   }
 
-  result = v7 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 == 0;
 }
 
 - (BOOL)checkTimesyncDB:(BOOL *)b error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0;
   v6 = self->_lcr;
   timesyncReference = [(_OSLogCollectionReference *)v6 timesyncReference];
   fileDescriptor = [timesyncReference fileDescriptor];
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 1;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = ___OSValidateTimesync_block_invoke;
-  v13[3] = &unk_2787AE5B0;
-  v14 = fileDescriptor;
-  v13[4] = &v15;
-  v13[5] = &v12;
-  _timesync_foreach_reg_file_at(fileDescriptor, v13);
-  v9 = *(v16 + 6);
-  _Block_object_dispose(&v15, 8);
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 1;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = ___OSValidateTimesync_block_invoke;
+  v12[3] = &unk_2787AE5B0;
+  v13 = fileDescriptor;
+  v12[4] = &v14;
+  v12[5] = &v11;
+  _timesync_foreach_reg_file_at(fileDescriptor, v12);
+  v9 = *(v15 + 6);
+  _Block_object_dispose(&v14, 8);
 
   if (v9 < 0)
   {
-    _OSLogFailWithPOSIXError(v12, error);
+    _OSLogFailWithPOSIXError(v11, error);
   }
 
   else
@@ -75,28 +73,27 @@
     *b = v9 != 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9 >= 0;
 }
 
 - (BOOL)performDestructiveUpdates:(id *)updates
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   if (!_os_trace_device_unlocked_since_boot())
   {
-LABEL_57:
-    v40 = 1;
+LABEL_64:
+    v41 = 1;
     updatesCopy = updates;
-LABEL_59:
-    _OSLogFailWithPOSIXError(v40, updatesCopy);
-    goto LABEL_54;
+LABEL_66:
+    _OSLogFailWithPOSIXError(v41, updatesCopy);
+    return 0;
   }
 
   v5 = __str;
   version = self->_version;
   if (version == -1)
   {
-    goto LABEL_70;
+    goto LABEL_83;
   }
 
   if (version <= 4)
@@ -109,30 +106,30 @@ LABEL_59:
     v7 = self->_version;
   }
 
-  v53 = v7 + 1;
+  v65 = v7 + 1;
   updatesCopy2 = updates;
   do
   {
     if (version == 2)
     {
-      v55 = self->_lcr;
-      diagnosticsDirectoryReference = [(_OSLogCollectionReference *)v55 diagnosticsDirectoryReference];
+      v67 = self->_lcr;
+      diagnosticsDirectoryReference = [(_OSLogCollectionReference *)v67 diagnosticsDirectoryReference];
       fileDescriptor = [diagnosticsDirectoryReference fileDescriptor];
 
-      if (fcntl(fileDescriptor, 50, &v57) == -1)
+      if (fcntl(fileDescriptor, 50, &v70) == -1)
       {
-        v27 = *__error();
+        __error();
         _os_assumes_log();
       }
 
-      v56[0] = &v57;
-      v56[1] = 0;
-      v10 = fts_open(v56, 2132, 0);
+      v69[0] = &v70;
+      v69[1] = 0;
+      v10 = fts_open(v69, 2132, 0);
       if (!v10)
       {
-        v42 = 0;
+        v43 = 0;
         v11 = -1;
-        goto LABEL_63;
+        goto LABEL_70;
       }
 
       v11 = openat(fileDescriptor, "timesync", 0);
@@ -141,32 +138,43 @@ LABEL_59:
         if (*__error() != 2)
         {
           v11 = -1;
-LABEL_62:
-          v42 = v10;
-LABEL_63:
-          v43 = __error();
-          _OSLogFailWithPOSIXError(*v43, updatesCopy2);
+LABEL_69:
+          v43 = v10;
+LABEL_70:
+          v44 = __error();
+          _OSLogFailWithPOSIXError(*v44, updatesCopy2);
           if (v11 != -1 && close(v11) == -1)
           {
-            v50 = *__error();
-            v51 = *__error();
-            if (v50 == 9)
+            v59 = *__error();
+            v60 = *__error();
+            if (v59 == 9)
             {
               qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
-              qword_27DA527A8 = v51;
+              qword_27DA527A8 = v60;
               __break(1u);
             }
 
             _os_assumes_log();
-            v61 = 0u;
-            v62 = 0u;
-            v60 = 0u;
+            v68 = 0;
+            v74 = 0u;
+            v75 = 0u;
+            v73 = 0u;
             memset(__str, 0, sizeof(__str));
-            os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-            v52 = *__error();
-            v63 = 67109120;
-            v64 = v52;
-            _os_log_send_and_compose_impl();
+            v61 = MEMORY[0x277D86220];
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+            {
+              v62 = 3;
+            }
+
+            else
+            {
+              v62 = 2;
+            }
+
+            v63 = *__error();
+            v76 = 67109120;
+            v77 = v63;
+            _os_log_send_and_compose_impl(v62, &v68, __str, 80, &dword_22E01A000, v61, 16, "assertion failure: __extension__({ __typeof__(_os_trace_close(tsfd)) _e = ((__typeof__(_os_trace_close(tsfd)))__builtin_expect(((long)(_os_trace_close(tsfd))), (0l))); if (_e == (__typeof__(_os_trace_close(tsfd)))-1) { _os_assumes_log((uint64_t)(uintptr_t)(*__error())); } _e; }) -> %{errno}d", &v76, 8);
             result = _os_crash_msg();
             __break(1u);
             return result;
@@ -174,12 +182,10 @@ LABEL_63:
 
           if (v10)
           {
-            fts_close(v42);
+            fts_close(v43);
           }
 
-LABEL_54:
-          result = 0;
-          goto LABEL_55;
+          return 0;
         }
       }
 
@@ -204,79 +210,124 @@ LABEL_54:
             }
           }
 
-          v61 = 0u;
-          v62 = 0u;
-          v60 = 0u;
+          v68 = 0;
+          v74 = 0u;
+          v75 = 0u;
+          v73 = 0u;
           memset(__str, 0, sizeof(__str));
           updates = MEMORY[0x277D86220];
-          os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-          v39 = *__error();
-          v63 = 67109120;
-          v64 = v39;
-          _os_log_send_and_compose_impl();
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            v39 = 3;
+          }
+
+          else
+          {
+            v39 = 2;
+          }
+
+          v40 = *__error();
+          v76 = 67109120;
+          v77 = v40;
+          _os_log_send_and_compose_impl(v39, &v68, __str, 80, &dword_22E01A000, updates, 16, "assertion failure: unlinkat(tsfd, names[i]->d_name, 0) -> %{errno}d", &v76, 8);
           _os_crash_msg();
           __break(1u);
-          goto LABEL_57;
+          goto LABEL_64;
         }
 
 LABEL_20:
         _os_trace_scandir_free_namelist();
         if (unlinkat(fileDescriptor, "timesync", 128) == -1)
         {
-LABEL_69:
-          v61 = 0u;
-          v62 = 0u;
-          v60 = 0u;
+LABEL_79:
+          v68 = 0;
+          v74 = 0u;
+          v75 = 0u;
+          v73 = 0u;
           memset(__str, 0, sizeof(__str));
-          os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-          v45 = *__error();
-          v63 = 67109120;
-          v64 = v45;
-          _os_log_send_and_compose_impl();
+          v48 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            v49 = 3;
+          }
+
+          else
+          {
+            v49 = 2;
+          }
+
+          v50 = *__error();
+          v76 = 67109120;
+          v77 = v50;
+          LODWORD(v64) = 8;
+          _os_log_send_and_compose_impl(v49, &v68, __str, 80, &dword_22E01A000, v48, 16, "assertion failure: unlinkat(dfd, timesync, 0x0080) -> %{errno}d", &v76, v64);
           _os_crash_msg();
           __break(1u);
-LABEL_70:
+LABEL_83:
+          v68 = 0;
           *(v5 + 3) = 0u;
           *(v5 + 4) = 0u;
           *(v5 + 1) = 0u;
           *(v5 + 2) = 0u;
           *v5 = 0u;
-          os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-          v57 = 134217984;
-          v58 = 0;
-          _os_log_send_and_compose_impl();
-          v46 = _os_crash_msg();
+          v51 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            v52 = 3;
+          }
+
+          else
+          {
+            v52 = 2;
+          }
+
+          v70 = 134217984;
+          v71 = 0;
+          _os_log_send_and_compose_impl(v52, &v68, __str, 80, &dword_22E01A000, v51, 16, "assertion failure: _version != -1 -> %llu", &v70);
+          v53 = _os_crash_msg();
           __break(1u);
           qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
-          qword_27DA527A8 = v46;
+          qword_27DA527A8 = v53;
           __break(1u);
-          goto LABEL_71;
-        }
-
-        if (close(v11) == -1)
-        {
-LABEL_71:
-          v47 = *__error();
-          v48 = *__error();
-          if (v47 == 9)
+LABEL_87:
+          v54 = *__error();
+          v55 = *__error();
+          if (v54 == 9)
           {
             qword_27DA52778 = "BUG IN CLIENT OF LIBTRACE: don't close random fds";
-            qword_27DA527A8 = v48;
+            qword_27DA527A8 = v55;
             __break(1u);
           }
 
           _os_assumes_log();
-          v61 = 0u;
-          v62 = 0u;
-          v60 = 0u;
+          v68 = 0;
+          v74 = 0u;
+          v75 = 0u;
+          v73 = 0u;
           memset(__str, 0, sizeof(__str));
-          os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-          v49 = *__error();
-          v63 = 67109120;
-          v64 = v49;
-          _os_log_send_and_compose_impl();
+          v56 = MEMORY[0x277D86220];
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            v57 = 3;
+          }
+
+          else
+          {
+            v57 = 2;
+          }
+
+          v58 = *__error();
+          v76 = 67109120;
+          v77 = v58;
+          LODWORD(v64) = 8;
+          _os_log_send_and_compose_impl(v57, &v68, __str, 80, &dword_22E01A000, v56, 16, "assertion failure: __extension__({ __typeof__(_os_trace_close(tsfd)) _e = ((__typeof__(_os_trace_close(tsfd)))__builtin_expect(((long)(_os_trace_close(tsfd))), (0l))); if (_e == (__typeof__(_os_trace_close(tsfd)))-1) { _os_assumes_log((uint64_t)(uintptr_t)(*__error())); } _e; }) -> %{errno}d", &v76, v64);
           _os_crash_msg();
           __break(1u);
+        }
+
+        if (close(v11) == -1)
+        {
+          goto LABEL_87;
         }
       }
 
@@ -321,16 +372,40 @@ LABEL_71:
               {
                 if (!strcmp(v23, ".tracev3"))
                 {
-                  fts_path = v21->fts_path;
-                  v25 = _os_trace_mmap_at();
-                  if (v25)
+                  v68 = 0;
+                  v24 = _os_trace_mmap_at();
+                  if (v24)
                   {
+                    v25 = v24;
+                    v26 = 0;
                     *__str = MEMORY[0x277D85DD0];
                     *&__str[8] = 0x40000000;
                     *&__str[16] = ___timesync_convert_tracev3_block_invoke;
                     *&__str[24] = &__block_descriptor_tmp_70;
-                    *&v60 = v18;
-                    munmap(v25, 0);
+                    *&v73 = v18;
+                    do
+                    {
+                      if (v68 - v26 < 0x10)
+                      {
+                        break;
+                      }
+
+                      v27 = *&v25[v26 + 8];
+                      if (v68 - v26 - 16 < v27)
+                      {
+                        break;
+                      }
+
+                      if (!(*&__str[16])(__str))
+                      {
+                        break;
+                      }
+
+                      v26 = (v26 + v27 + 23) & 0xFFFFFFFFFFFFFFF8;
+                    }
+
+                    while (v26 - 1 < v68);
+                    munmap(v25, v68);
                   }
                 }
               }
@@ -347,21 +422,32 @@ LABEL_71:
           operator new();
         }
 
-        goto LABEL_62;
+        goto LABEL_69;
       }
 
-      v61 = 0u;
-      v62 = 0u;
-      v60 = 0u;
+      v68 = 0;
+      v74 = 0u;
+      v75 = 0u;
+      v73 = 0u;
       memset(__str, 0, sizeof(__str));
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      v44 = *__error();
-      v63 = 67109120;
-      v64 = v44;
-      _os_log_send_and_compose_impl();
+      v45 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v46 = 3;
+      }
+
+      else
+      {
+        v46 = 2;
+      }
+
+      v47 = *__error();
+      v76 = 67109120;
+      v77 = v47;
+      _os_log_send_and_compose_impl(v46, &v68, __str, 80, &dword_22E01A000, v45, 16, "assertion failure: mkdirat(dfd, timesync, 0755) -> %{errno}d", &v76, 8);
       _os_crash_msg();
       __break(1u);
-      goto LABEL_69;
+      goto LABEL_79;
     }
   }
 
@@ -369,59 +455,56 @@ LABEL_71:
   diagnosticsDirectoryReference2 = [(_OSLogCollectionReference *)self->_lcr diagnosticsDirectoryReference];
   fileDescriptor2 = [diagnosticsDirectoryReference2 fileDescriptor];
 
-  v30 = openat(fileDescriptor2, "Info.plist", 514, 420);
-  if (v30 == -1)
+  v31 = openat(fileDescriptor2, "Info.plist", 514, 420);
+  if (v31 == -1)
   {
-    v40 = *__error();
+    v41 = *__error();
     updatesCopy = updatesCopy2;
-    goto LABEL_59;
+    goto LABEL_66;
   }
 
-  v31 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v30 closeOnDealloc:1];
-  v32 = [v31 readDataToEndOfFileAndReturnError:0];
-  if ([v32 length])
+  v32 = [objc_alloc(MEMORY[0x277CCA9F8]) initWithFileDescriptor:v31 closeOnDealloc:1];
+  v33 = [v32 readDataToEndOfFileAndReturnError:0];
+  if ([v33 length])
   {
-    v33 = updatesCopy2;
-    v34 = [MEMORY[0x277CCAC58] propertyListWithData:v32 options:1 format:0 error:updatesCopy2];
-    if (!v34)
+    v34 = updatesCopy2;
+    v35 = [MEMORY[0x277CCAC58] propertyListWithData:v33 options:1 format:0 error:updatesCopy2];
+    if (!v35)
     {
-LABEL_53:
+LABEL_58:
 
-      goto LABEL_54;
+      return 0;
     }
   }
 
   else
   {
-    v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v33 = updatesCopy2;
+    v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v34 = updatesCopy2;
   }
 
-  v35 = [MEMORY[0x277CCABB0] numberWithInteger:v53];
-  [v34 setObject:v35 forKeyedSubscript:@"OSArchiveVersion"];
+  v36 = [MEMORY[0x277CCABB0] numberWithInteger:v65];
+  [v35 setObject:v36 forKeyedSubscript:@"OSArchiveVersion"];
 
-  v36 = [MEMORY[0x277CCAC58] dataWithPropertyList:v34 format:100 options:0 error:v33];
+  v37 = [MEMORY[0x277CCAC58] dataWithPropertyList:v35 format:100 options:0 error:v34];
 
-  if (!v36)
+  if (!v37)
   {
-    v32 = 0;
-    goto LABEL_53;
+    v33 = 0;
+    goto LABEL_58;
   }
 
-  if (![v31 truncateAtOffset:0 error:v33] || (objc_msgSend(v31, "writeData:error:", v36, v33) & 1) == 0)
+  if (![v32 truncateAtOffset:0 error:v34] || (objc_msgSend(v32, "writeData:error:", v37, v34) & 1) == 0)
   {
-    v32 = v36;
-    goto LABEL_53;
+    v33 = v37;
+    goto LABEL_58;
   }
 
-  [v31 closeAndReturnError:0];
+  [v32 closeAndReturnError:0];
 
   self->_state = (v7 - 2) < 3;
-  self->_version = v53;
-  result = 1;
-LABEL_55:
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  self->_version = v65;
+  return 1;
 }
 
 - (void)dealloc
@@ -455,11 +538,11 @@ LABEL_55:
 
 - (_OSLogVersioning)initWithCollection:(id)collection closeOnRelease:(BOOL)release error:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
-  v41.receiver = self;
-  v41.super_class = _OSLogVersioning;
-  v10 = [(_OSLogVersioning *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = _OSLogVersioning;
+  v10 = [(_OSLogVersioning *)&v40 init];
   v11 = v10;
   if (!v10)
   {
@@ -474,7 +557,7 @@ LABEL_40:
   diagnosticsDirectoryReference = [v12 diagnosticsDirectoryReference];
   fileDescriptor = [diagnosticsDirectoryReference fileDescriptor];
 
-  v42 = 0;
+  v41 = 0;
   if (fcntl(fileDescriptor, 50, __s1) == -1)
   {
     goto LABEL_17;
@@ -499,26 +582,26 @@ LABEL_28:
   {
     if (*__error() == 2)
     {
-      memset(&v54, 0, sizeof(v54));
-      if (fstatat(fileDescriptor, "FaultsAndErrors", &v54, 0) || (v54.st_mode & 0xF000) != 0x4000)
+      memset(&v53, 0, sizeof(v53));
+      if (fstatat(fileDescriptor, "FaultsAndErrors", &v53, 0) || (v53.st_mode & 0xF000) != 0x4000)
       {
-        v49 = 0;
-        v50 = &v49;
-        v51 = 0x2020000000;
-        v52 = 0;
         v48 = 0;
+        v49 = &v48;
+        v50 = 0x2020000000;
+        v51 = 0;
+        v47 = 0;
         v27 = _os_trace_mmap_at();
         v28 = v27;
         if (v27)
         {
-          v29 = v48;
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v44 = ___OSIsAncientArchive_block_invoke;
-          v45 = &unk_2787AE588;
-          v46 = &v49;
-          v47 = v27;
-          v30 = v43;
+          v29 = v47;
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v43 = ___OSIsAncientArchive_block_invoke;
+          v44 = &unk_2787AE588;
+          v45 = &v48;
+          v46 = v27;
+          v30 = v42;
           v31 = 0;
           do
           {
@@ -533,7 +616,7 @@ LABEL_28:
               break;
             }
 
-            if (!(v44)(v30))
+            if (!(v43)(v30))
             {
               break;
             }
@@ -544,8 +627,8 @@ LABEL_28:
           while (v31 - 1 < v29);
         }
 
-        v33 = *(v50 + 24);
-        _Block_object_dispose(&v49, 8);
+        v33 = *(v49 + 24);
+        _Block_object_dispose(&v48, 8);
         v24 = 1;
         if (!v33)
         {
@@ -569,9 +652,9 @@ LABEL_17:
   }
 
   v17 = objc_alloc(MEMORY[0x277CBEA90]);
-  v18 = [v17 initWithBytesNoCopy:v16 length:v42 freeWhenDone:0];
+  v18 = [v17 initWithBytesNoCopy:v16 length:v41 freeWhenDone:0];
   v19 = [MEMORY[0x277CCAC58] propertyListWithData:v18 options:0 format:0 error:error];
-  munmap(v16, v42);
+  munmap(v16, v41);
   if (v19)
   {
     v20 = [v19 objectForKeyedSubscript:@"OSArchiveVersion"];
@@ -629,7 +712,6 @@ LABEL_18:
   v26 = 0;
 LABEL_41:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

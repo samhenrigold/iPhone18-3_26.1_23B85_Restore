@@ -145,39 +145,39 @@
 
 - (id)_taskForHandler:(id)handler
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_2AC10;
-  v16 = sub_2AC20;
-  v17 = 0;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_2B2D0;
-  v8[3] = &unk_3281C0;
-  v11 = &v12;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_2AC10;
+  v17 = sub_2AC20;
+  v18 = 0;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_2B2D0;
+  v9[3] = &unk_3281C0;
+  v12 = &v13;
   selfCopy = self;
   handlerCopy = handler;
-  v10 = handlerCopy;
-  [(BEURLSchemeHandler *)selfCopy _executeBlockWithLock:v8];
-  v4 = v13[5];
-  if (!v4)
+  v11 = handlerCopy;
+  v4 = [(BEURLSchemeHandler *)selfCopy _executeBlockWithLock:v9];
+  v5 = v14[5];
+  if (!v5)
   {
-    v5 = _BookEPUBLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _BookEPUBLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = handlerCopy;
+      v20 = handlerCopy;
     }
 
-    v4 = v13[5];
+    v5 = v14[5];
   }
 
-  v6 = v4;
+  v7 = v5;
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
 
-  return v6;
+  return v7;
 }
 
 - (void)_removeTaskForHandler:(id)handler

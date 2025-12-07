@@ -11,7 +11,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v7 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC9MomentsUI13CapsuleButton_buttonTapped);
+  v7 = (self + OBJC_IVAR____TtC9MomentsUI13CapsuleButton_buttonTapped);
   *v7 = destructiveProjectEnumData for SuggestionRanking.VisibilityCategory;
   v7[1] = 0;
   v10.receiver = self;
@@ -24,7 +24,7 @@
 
 - (_TtC9MomentsUI13CapsuleButton)initWithCoder:(id)coder
 {
-  v4 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtC9MomentsUI13CapsuleButton_buttonTapped);
+  v4 = (self + OBJC_IVAR____TtC9MomentsUI13CapsuleButton_buttonTapped);
   *v4 = destructiveProjectEnumData for SuggestionRanking.VisibilityCategory;
   v4[1] = 0;
   v10.receiver = self;

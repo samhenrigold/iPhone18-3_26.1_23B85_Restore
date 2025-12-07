@@ -26,7 +26,7 @@
 
 - (id)_translate:(id)_translate isTechnical:(BOOL)technical textFormattingRanges:(id)ranges
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v6 = 4;
   if (!technical)
   {
@@ -34,9 +34,9 @@
   }
 
   translationDelegate = self->_translationDelegate;
-  v15 = 0;
-  ranges = [(BRLTBrailleTranslationDelegateProtocol *)translationDelegate printBrailleForText:_translate language:0 mode:v6 textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:&v15, ranges];
-  v9 = v15;
+  v14 = 0;
+  ranges = [(BRLTBrailleTranslationDelegateProtocol *)translationDelegate printBrailleForText:_translate language:0 mode:v6 textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:&v14, ranges];
+  v9 = v14;
   if (ranges)
   {
     v10 = ranges;
@@ -47,25 +47,23 @@
     v10 = &stru_2853FD1A8;
   }
 
-  v16[0] = @"braille";
-  v16[1] = @"locations";
-  v17[0] = v10;
+  v15[0] = @"braille";
+  v15[1] = @"locations";
+  v16[0] = v10;
   v11 = [(BRLTTranslator *)self arrayFromData:v9];
-  v17[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v12;
 }
 
 - (id)_backTranslate:(id)translate
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   translationDelegate = self->_translationDelegate;
-  v12 = 0;
-  v5 = [(BRLTBrailleTranslationDelegateProtocol *)translationDelegate textForPrintBraille:translate language:0 mode:1 locations:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [(BRLTBrailleTranslationDelegateProtocol *)translationDelegate textForPrintBraille:translate language:0 mode:1 locations:&v11];
+  v6 = v11;
   if (v5)
   {
     v7 = v5;
@@ -76,14 +74,12 @@
     v7 = &stru_2853FD1A8;
   }
 
-  v13[0] = @"text";
-  v13[1] = @"locations";
-  v14[0] = v7;
+  v12[0] = @"text";
+  v12[1] = @"locations";
+  v13[0] = v7;
   v8 = [(BRLTTranslator *)self arrayFromData:v6];
-  v14[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v13[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v9;
 }

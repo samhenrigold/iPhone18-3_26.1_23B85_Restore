@@ -57,24 +57,25 @@
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      v6 = objc_autoreleasePoolPush();
-      v7 = MEMORY[0x1E696ACD0];
-      v8 = objc_opt_class();
-      action = [v5 action];
-      v17 = 0;
-      v10 = [v7 unarchivedObjectOfClass:v8 fromData:action error:&v17];
-      v11 = v17;
+      v6 = protoCopy;
+      v7 = objc_autoreleasePoolPush();
+      v8 = MEMORY[0x1E696ACD0];
+      v9 = objc_opt_class();
+      action = [v6 action];
+      v19 = 0;
+      v11 = [v8 unarchivedObjectOfClass:v9 fromData:action error:&v19];
+      v12 = v19;
 
-      objc_autoreleasePoolPop(v6);
-      if (v11)
+      objc_autoreleasePoolPop(v7);
+      if (v12)
       {
-        v12 = __atxlog_handle_default();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = __atxlog_handle_default(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          [ATXLinkActionContainer initWithProto:];
+          [ATXLinkActionContainer initWithProto:?];
         }
 
         selfCopy = 0;
@@ -82,20 +83,20 @@
 
       else
       {
-        bundleId = [v5 bundleId];
-        v15 = [(ATXLinkActionContainer *)self initWithBundleId:bundleId action:v10];
+        bundleId = [v6 bundleId];
+        v17 = [(ATXLinkActionContainer *)self initWithBundleId:bundleId action:v11];
 
-        self = v15;
+        self = v17;
         selfCopy = self;
       }
     }
 
     else
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXLinkActionContainer *)self initWithProto:v5];
+        [(ATXLinkActionContainer *)self initWithProto:v6];
       }
 
       selfCopy = 0;
@@ -119,30 +120,30 @@
   v5 = objc_autoreleasePoolPush();
   v6 = MEMORY[0x1E696ACC8];
   action = [(ATXLinkActionContainer *)self action];
-  v13 = 0;
-  v8 = [v6 archivedDataWithRootObject:action requiringSecureCoding:1 error:&v13];
-  v9 = v13;
+  v14 = 0;
+  v8 = [v6 archivedDataWithRootObject:action requiringSecureCoding:1 error:&v14];
+  v9 = v14;
 
   objc_autoreleasePoolPop(v5);
   [v3 setAction:v8];
 
   if (v9)
   {
-    v10 = __atxlog_handle_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_default(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [ATXLinkActionContainer proto];
+      [(ATXLinkActionContainer *)self proto];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = v3;
+    v12 = v3;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)encodeAsProto
@@ -190,21 +191,21 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForBundleId" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.LinkActionContainer" errorCode:-1 logHandle:v7];
 
   if (v8)
   {
     v9 = MEMORY[0x1E69C5D78];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_default();
+    v11 = __atxlog_handle_default(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"codingKeyForLinkAction" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.LinkActionContainer" errorCode:-1 logHandle:v11];
 
     if (v12)
     {
       v13 = MEMORY[0x1E69C5D78];
       v14 = objc_opt_class();
-      v15 = __atxlog_handle_default();
+      v15 = __atxlog_handle_default(v14);
       v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"codingKeyForLinkImage" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.LinkActionContainer" errorCode:-1 logHandle:v15];
 
       self = [(ATXLinkActionContainer *)self _initWithBundleId:v8 action:v12 image:v16];
@@ -313,20 +314,20 @@ LABEL_9:
   _os_log_fault_impl(&dword_1BF549000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-ATXPBLinkAction proto", &v5, 0xCu);
 }
 
-- (void)initWithProto:.cold.2()
+- (void)initWithProto:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v2, v3, "%@: Unable to decode data from serialized Link action message: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "%@: Unable to decode data from serialized Link action message: %@", v5, v6, v7, v8);
 }
 
 - (void)proto
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v2, v3, "%@: Unable to serialize LNAction: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "%@: Unable to serialize LNAction: %@", v5, v6, v7, v8);
 }
 
 @end

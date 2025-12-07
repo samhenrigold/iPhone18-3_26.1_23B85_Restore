@@ -18,7 +18,7 @@
   if (v8)
   {
     objc_storeWeak(&v8->_manager, managerCopy);
-    v10 = [contextCopy copy];
+    v10 = objc_msgSend_copy(contextCopy);
     context = v9->_context;
     v9->_context = v10;
   }
@@ -66,7 +66,7 @@ LABEL_8:
 
 void __40__HDCloudSyncManagerRepositoryTask_main__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
@@ -75,16 +75,14 @@ void __40__HDCloudSyncManagerRepositoryTask_main__block_invoke(uint64_t a1, void
   {
     v8 = *(a1 + 32);
     v9 = v7;
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2048;
-    v14 = [v5 count];
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Fetched %ld repositories.", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2048;
+    v13 = [v5 count];
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Fetched %ld repositories.", &v10, 0x16u);
   }
 
   [*(a1 + 32) mainWithRepositories:v5 error:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mainWithRepositories:(id)repositories error:(id)error

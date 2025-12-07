@@ -127,7 +127,7 @@
   }
 
   [v3 appendFormat:@"  total       (wait) : %s\n", __str];
-  [(NURenderJobStatistics *)self duration];
+  objc_msgSend_duration(self);
   if (v14 == 0.0)
   {
     __str[0] = 0;
@@ -139,7 +139,7 @@
   }
 
   [v3 appendFormat:@"  total    (execute) : %s\n", __str];
-  [(NURenderJobStatistics *)self duration];
+  objc_msgSend_duration(self);
   v16 = v15;
   [(NURenderJobStatistics *)self latency];
   v18 = v16 + v17;
@@ -266,7 +266,7 @@ char *__36__NURenderJobStatistics_description__block_invoke(char *a1, long doubl
 {
   [(NURenderJobStatistics *)self totalDuration];
   v4 = v3;
-  [(NURenderJobStatistics *)self duration];
+  objc_msgSend_duration(self);
   result = v4 - v5;
   if (result < 0.0)
   {

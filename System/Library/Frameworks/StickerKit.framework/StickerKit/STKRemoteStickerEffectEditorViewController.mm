@@ -22,7 +22,7 @@
   swift_beginAccess();
   (*(v5 + 24))(self + v8, v7, v4);
   swift_endAccess();
-  v9 = type metadata accessor for RemoteStickerEffectEditorViewController();
+  v9 = type metadata accessor for RemoteStickerEffectEditorViewController(0);
   v13.receiver = self;
   v13.super_class = v9;
   v10 = [(RemoteBaseSceneHostingController *)&v13 initWithNibName:0 bundle:0];
@@ -60,18 +60,19 @@
 
 - (void)showStickerEffectViewWithSourceRect:(CGRect)rect showing:(BOOL)showing
 {
-  *&v7 = rect.origin.x;
-  *(&v7 + 1) = *&rect.origin.y;
+  *&v8 = rect.origin.x;
+  *(&v8 + 1) = *&rect.origin.y;
   width = rect.size.width;
   height = rect.size.height;
   showingCopy = showing;
   selfCopy = self;
-  v5 = sub_19A626D64(0, &v7, 0, 1);
+  v5 = sub_19A626D64(0, &v8, 0, 1);
   swift_getKeyPath();
   swift_getKeyPath();
-  sub_19A7AB644();
+  sub_19A7AB644(&v7);
 
-  [v6 sendAction_];
+  v6 = v7;
+  [v7 sendAction_];
 }
 
 - (STKRemoteStickerEffectEditorViewController)initWithNibName:(id)name bundle:(id)bundle

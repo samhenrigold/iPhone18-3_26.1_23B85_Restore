@@ -6,6 +6,7 @@
 - (void)onDisconnectWithTransportContext:(id)context;
 - (void)onGameplayEndedWithReason:(int64_t)reason error:(id)error transportContext:(id)context;
 - (void)onGameplayStartedWithTransportContext:(id)context;
+- (void)onInviteSentWithApproach:(unint64_t)approach isHosted:(BOOL)hosted recipients:(id)recipients transportContext:(id)context;
 - (void)onTransportError:(id)error transportContext:(id)context;
 @end
 
@@ -47,7 +48,7 @@
 
   MultiplayerActivityReporter.instrument(errorHandler:transportContext:)(v5, v6, context);
   v8 = v7;
-  sub_22790D4C0(v5);
+  sub_22790D4C0(v5, v6);
   v11[4] = sub_2279FCD44;
   v11[5] = v8;
   v11[0] = MEMORY[0x277D85DD0];
@@ -98,6 +99,16 @@
   selfCopy = self;
   errorCopy = error;
   MultiplayerActivityReporter.onGameplayEnded(reason:error:transportContext:)();
+}
+
+- (void)onInviteSentWithApproach:(unint64_t)approach isHosted:(BOOL)hosted recipients:(id)recipients transportContext:(id)context
+{
+  hostedCopy = hosted;
+  sub_2279FF044(0, &qword_27D7DC888, off_2785DBC78);
+  v10 = sub_227A7269C();
+  contextCopy = context;
+  selfCopy = self;
+  MultiplayerActivityReporter.onInviteSent(approach:isHosted:recipients:transportContext:)(approach, hostedCopy, v10, contextCopy);
 }
 
 - (void)onTransportError:(id)error transportContext:(id)context

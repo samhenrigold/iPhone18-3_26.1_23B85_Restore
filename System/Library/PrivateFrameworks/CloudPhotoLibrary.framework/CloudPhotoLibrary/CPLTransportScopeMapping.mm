@@ -1,6 +1,9 @@
 @interface CPLTransportScopeMapping
+- (BOOL)_addAllTransportScopesForScope:(id)scope scopes:(id)scopes allowsTentativeTransportScope:(BOOL)transportScope useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error;
 - (BOOL)_addTransportScopeForScope:(id)scope scopes:(id)scopes allowsTentativeTransportScope:(BOOL)transportScope useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error;
 - (BOOL)_checkTransportScopeForScopeIdentifier:(id)identifier hasConcreteScope:(BOOL *)scope error:(id *)error;
+- (BOOL)addTransportScopeForScope:(id)scope scopes:(id)scopes allowsTentativeTransportScope:(BOOL)transportScope useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error;
+- (BOOL)addTransportScopeForScopeIdentifier:(id)identifier scopes:(id)scopes useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error;
 - (BOOL)hasConcreteScopeForScopeWithIdentifier:(id)identifier;
 - (CPLTransportScopeMapping)initWithTranslator:(id)translator;
 - (id)concreteScopeForScopeWithIdentifier:(id)identifier;
@@ -21,52 +24,138 @@
 
 - (void)updateWithTransportScopeMapping:(id)mapping
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   v6 = mappingCopy;
   if (mappingCopy != self)
   {
-    v14 = mappingCopy;
+    v12 = mappingCopy;
     if (self->_translator != mappingCopy->_translator)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v8 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v7 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           translator = self->_translator;
-          v10 = v14->_translator;
+          v9 = v12->_translator;
           *buf = 138412546;
-          v16 = translator;
-          v17 = 2112;
-          v18 = v10;
-          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to merge two incompatible mappings (%@ / %@)", buf, 0x16u);
+          v14 = translator;
+          v15 = 2112;
+          v16 = v9;
+          _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Trying to merge two incompatible mappings (%@ / %@)", buf, 0x16u);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLTransportScopeMapping.m"];
-      v13 = self->_translator;
-      [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:169 description:{@"Trying to merge two incompatible mappings (%@ / %@)", v13, v14->_translator}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLTransportScopeMapping.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:169 description:{@"Trying to merge two incompatible mappings (%@ / %@)", self->_translator, v12->_translator}];
 
       abort();
     }
 
     [(NSMutableDictionary *)self->_concreteScopeMapping addEntriesFromDictionary:mappingCopy->_concreteScopeMapping];
-    mappingCopy = [(NSMutableDictionary *)self->_scopeMapping addEntriesFromDictionary:v14->_scopeMapping];
-    v6 = v14;
+    mappingCopy = [(NSMutableDictionary *)self->_scopeMapping addEntriesFromDictionary:v12->_scopeMapping];
+    v6 = v12;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   MEMORY[0x1EEE66BB8](mappingCopy, v6);
+}
+
+- (BOOL)addTransportScopeForScope:(id)scope scopes:(id)scopes allowsTentativeTransportScope:(BOOL)transportScope useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error
+{
+  necessaryCopy = necessary;
+  transportScopeCopy = transportScope;
+  scopeCopy = scope;
+  scopesCopy = scopes;
+  v17 = 0;
+  scopeIdentifier = [scopeCopy scopeIdentifier];
+  v15 = 0;
+  if ([(CPLTransportScopeMapping *)self _checkTransportScopeForScopeIdentifier:scopeIdentifier hasConcreteScope:&v17 error:error])
+  {
+    v15 = (v17 & 1) != 0 || [(CPLTransportScopeMapping *)self _addAllTransportScopesForScope:scopeCopy scopes:scopesCopy allowsTentativeTransportScope:transportScopeCopy useStagingScopeIfNecessary:necessaryCopy error:error];
+  }
+
+  return v15;
+}
+
+- (BOOL)addTransportScopeForScopeIdentifier:(id)identifier scopes:(id)scopes useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error
+{
+  necessaryCopy = necessary;
+  identifierCopy = identifier;
+  scopesCopy = scopes;
+  v16 = 0;
+  v12 = 0;
+  if ([(CPLTransportScopeMapping *)self _checkTransportScopeForScopeIdentifier:identifierCopy hasConcreteScope:&v16 error:error])
+  {
+    if (v16)
+    {
+      v12 = 1;
+    }
+
+    else
+    {
+      v13 = [scopesCopy scopeWithIdentifier:identifierCopy];
+      if (v13)
+      {
+        v12 = [(CPLTransportScopeMapping *)self _addAllTransportScopesForScope:v13 scopes:scopesCopy allowsTentativeTransportScope:0 useStagingScopeIfNecessary:necessaryCopy error:error];
+      }
+
+      else
+      {
+        null = [MEMORY[0x1E695DFB0] null];
+        [(NSMutableDictionary *)self->_concreteScopeMapping setObject:null forKeyedSubscript:identifierCopy];
+
+        if (error)
+        {
+          [CPLErrors cplErrorWithCode:32 description:@"Unknown scope %@", identifierCopy];
+          *error = v12 = 0;
+        }
+
+        else
+        {
+          v12 = 0;
+        }
+      }
+    }
+  }
+
+  return v12;
+}
+
+- (BOOL)_addAllTransportScopesForScope:(id)scope scopes:(id)scopes allowsTentativeTransportScope:(BOOL)transportScope useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error
+{
+  necessaryCopy = necessary;
+  transportScopeCopy = transportScope;
+  scopeCopy = scope;
+  scopesCopy = scopes;
+  if ([(CPLTransportScopeMapping *)self _addTransportScopeForScope:scopeCopy scopes:scopesCopy allowsTentativeTransportScope:transportScopeCopy useStagingScopeIfNecessary:necessaryCopy error:error])
+  {
+    v14 = [scopesCopy sharingScopeForScope:scopeCopy];
+    if (v14)
+    {
+      v15 = [(CPLTransportScopeMapping *)self _addTransportScopeForScope:v14 scopes:scopesCopy allowsTentativeTransportScope:transportScopeCopy useStagingScopeIfNecessary:necessaryCopy error:error];
+    }
+
+    else
+    {
+      v15 = 1;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
 }
 
 - (BOOL)_addTransportScopeForScope:(id)scope scopes:(id)scopes allowsTentativeTransportScope:(BOOL)transportScope useStagingScopeIfNecessary:(BOOL)necessary error:(id *)error
 {
   necessaryCopy = necessary;
   transportScopeCopy = transportScope;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   scopesCopy = scopes;
   scopeIdentifier = [scopeCopy scopeIdentifier];
@@ -152,20 +241,19 @@ LABEL_15:
     v23 = __CPLTransportScopeOSLogDomain_result;
     if (os_log_type_enabled(__CPLTransportScopeOSLogDomain_result, OS_LOG_TYPE_DEBUG))
     {
-      v28 = 138412802;
-      v29 = v22;
-      v30 = 2112;
-      v31 = scopeCopy;
-      v32 = 2112;
+      v27 = 138412802;
+      v28 = v22;
+      v29 = 2112;
+      v30 = scopeCopy;
+      v31 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_DEBUG, "Adding %@ for %@ to %@", &v28, 0x20u);
+      _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_DEBUG, "Adding %@ for %@ to %@", &v27, 0x20u);
     }
   }
 
   v24 = 1;
 LABEL_24:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

@@ -32,18 +32,17 @@
 {
   v5 = sub_2436CBD38();
   v7 = v6;
-  v8 = *MEMORY[0x277CFA5F8];
-  if (v5 == sub_2436CBD38() && v7 == v9)
+  if (v5 == sub_2436CBD38() && v7 == v8)
   {
     selfCopy = self;
 
     goto LABEL_8;
   }
 
-  v11 = sub_2436CC2E8();
+  v10 = sub_2436CC2E8();
   selfCopy2 = self;
 
-  if (v11)
+  if (v10)
   {
 LABEL_8:
     sub_24366DE24();

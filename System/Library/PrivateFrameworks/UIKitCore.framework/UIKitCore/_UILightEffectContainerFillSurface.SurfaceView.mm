@@ -12,15 +12,16 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v12.receiver = self;
-  v12.super_class = type metadata accessor for _UILightEffectContainerFillSurface.SurfaceView();
-  height = [(UIView *)&v12 initWithFrame:x, y, width, height];
-  v8 = objc_opt_self();
-  v9 = height;
-  whiteColor = [v8 whiteColor];
-  [(UIView *)v9 setBackgroundColor:whiteColor];
+  type metadata accessor for _UILightEffectContainerFillSurface.SurfaceView();
+  v14.receiver = self;
+  v14.super_class = v8;
+  height = [(UIView *)&v14 initWithFrame:x, y, width, height];
+  v10 = objc_opt_self();
+  v11 = height;
+  whiteColor = [v10 whiteColor];
+  [(UIView *)v11 setBackgroundColor:whiteColor];
 
-  return v9;
+  return v11;
 }
 
 - (void)layoutSubviews

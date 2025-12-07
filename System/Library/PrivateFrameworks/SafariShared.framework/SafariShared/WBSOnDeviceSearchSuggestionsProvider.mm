@@ -155,7 +155,7 @@ LABEL_2:
     searchModel = self->_searchModel;
     if (searchModel)
     {
-      [(WBSOnDeviceSearchSuggestionsModel *)searchModel readTreeNodeWithCandidate:node];
+      objc_msgSend_readTreeNodeWithCandidate_(searchModel);
       v9 = v15;
       v10 = v16;
       while (v9 != v10)
@@ -195,58 +195,58 @@ LABEL_2:
 - (void)_doSearch:(id)search atRootNode:(_WBSSearchSuggestionCandidate *)node
 {
   searchCopy = search;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x6012000000;
-  v67 = __Block_byref_object_copy__30;
-  v68 = __Block_byref_object_dispose__30;
-  v69 = "";
-  memset(v70, 0, sizeof(v70));
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x6012000000;
-  v60 = __Block_byref_object_copy__30;
-  v61 = __Block_byref_object_dispose__30;
-  v62 = "";
-  memset(v63, 0, sizeof(v63));
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __61__WBSOnDeviceSearchSuggestionsProvider__doSearch_atRootNode___block_invoke;
-  v56[3] = &unk_1E7FC8990;
-  v56[4] = &v64;
-  v56[5] = &v57;
-  v6 = MEMORY[0x1BFB13CE0](v56);
-  v53 = *&node->var0;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x6012000000;
+  v69 = __Block_byref_object_copy__30;
+  v70 = __Block_byref_object_dispose__30;
+  v71 = "";
+  memset(v72, 0, sizeof(v72));
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x6012000000;
+  v62 = __Block_byref_object_copy__30;
+  v63 = __Block_byref_object_dispose__30;
+  v64 = "";
+  memset(v65, 0, sizeof(v65));
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __61__WBSOnDeviceSearchSuggestionsProvider__doSearch_atRootNode___block_invoke;
+  v58[3] = &unk_1E7FC8990;
+  v58[4] = &v66;
+  v58[5] = &v59;
+  v6 = MEMORY[0x1BFB13CE0](v58);
+  v55 = *&node->var0;
   var2 = node->var2;
-  v55 = node->var3;
-  (v6)[2](v6, &v53);
-  v7 = v58;
-  for (i = v58[5].i64[1]; i; i = v58[5].i64[1])
+  v57 = node->var3;
+  (v6)[2](v6, &v55);
+  v7 = v60;
+  for (i = v60[5].i64[1]; i; i = v60[5].i64[1])
   {
     v9 = *(v7[7] + 8 * ((i + v7[10] - 1) / 0xAAuLL)) + 24 * ((i + v7[10] - 1) % 0xAAuLL);
     v10 = *(v9 + 8);
-    v50 = *v9;
-    v51 = v10;
-    v52 = *(v9 + 16);
+    v52 = *v9;
+    v53 = v10;
+    v54 = *(v9 + 16);
     std::deque<_WBSSearchSuggestionCandidate>::pop_back(v7 + 6);
     searchModel = self->_searchModel;
     if (searchModel)
     {
-      [(WBSOnDeviceSearchSuggestionsModel *)searchModel readTreeNodeWithCandidate:&v50];
+      objc_msgSend_readTreeNodeWithCandidate_(searchModel);
     }
 
     else
     {
-      v47 = 0;
-      v48 = 0;
       v49 = 0;
+      v50 = 0;
+      v51 = 0;
     }
 
-    std::deque<_WBSSearchSuggestionCandidate>::deque(v44, v65[3].i64);
-    std::deque<_WBSSearchSuggestionCandidate>::deque(&v40, v58[3].i64);
-    if (v46)
+    std::deque<_WBSSearchSuggestionCandidate>::deque(v45, v67[3].i64);
+    std::deque<_WBSSearchSuggestionCandidate>::deque(v41, v60[3].i64);
+    if (v48)
     {
-      v12 = *(*(v44[1] + 8 * (v45 / 0xAA)) + 24 * (v45 % 0xAA));
+      v12 = *(*(v46 + 8 * (v47 / 0xAA)) + 24 * (v47 % 0xAA));
     }
 
     else
@@ -254,28 +254,28 @@ LABEL_2:
       v12 = -1;
     }
 
-    if (v43 && *(*(v41 + 8 * (v42 / 0xAA)) + 24 * (v42 % 0xAA)) < v12)
+    if (v44 && *(*(v42 + 8 * (v43 / 0xAA)) + 24 * (v43 % 0xAA)) < v12)
     {
-      v12 = *(*(v41 + 8 * (v42 / 0xAA)) + 24 * (v42 % 0xAA));
+      v12 = *(*(v42 + 8 * (v43 / 0xAA)) + 24 * (v43 % 0xAA));
     }
 
-    std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](&v40);
-    std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v44);
-    v14 = v47;
-    v13 = v48;
+    std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v41);
+    std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v45);
+    v14 = v49;
+    v13 = v50;
     while (v14 != v13)
     {
-      if (*v14 > v12 || (v15 = v65, v16 = v65[5].i64[1], v17 = v58, v18 = v58[5].i64[1], v19 = v18 + v16, maximumNumberOfSuggestions = self->_maximumNumberOfSuggestions, v18 + v16 < maximumNumberOfSuggestions))
+      if (*v14 > v12 || (v15 = v67, v16 = v67[5].i64[1], v17 = v60, v18 = v60[5].i64[1], v19 = v18 + v16, maximumNumberOfSuggestions = self->_maximumNumberOfSuggestions, v18 + v16 < maximumNumberOfSuggestions))
       {
         v21 = *v14;
-        v38 = *(v14 + 8);
-        v37 = v21;
-        v39 = v14[2];
-        (v6)[2](v6, &v37);
-        v15 = v65;
-        v16 = v65[5].i64[1];
-        v17 = v58;
-        v18 = v58[5].i64[1];
+        v39 = *(v14 + 8);
+        v38 = v21;
+        v40 = v14[2];
+        (v6)[2](v6, &v38);
+        v15 = v67;
+        v16 = v67[5].i64[1];
+        v17 = v60;
+        v18 = v60[5].i64[1];
         maximumNumberOfSuggestions = self->_maximumNumberOfSuggestions;
         v19 = v18 + v16;
       }
@@ -289,14 +289,14 @@ LABEL_2:
         }
 
         std::deque<_WBSSearchSuggestionCandidate>::pop_front(v22);
-        v15 = v65;
+        v15 = v67;
       }
 
       std::deque<_WBSSearchSuggestionCandidate>::deque(v34, v15[3].i64);
-      std::deque<_WBSSearchSuggestionCandidate>::deque(&v30, v58[3].i64);
-      if (v36)
+      std::deque<_WBSSearchSuggestionCandidate>::deque(v30, v60[3].i64);
+      if (v37)
       {
-        v12 = *(*(v34[1] + 8 * (v35 / 0xAA)) + 24 * (v35 % 0xAA));
+        v12 = *(*(v35 + 8 * (v36 / 0xAA)) + 24 * (v36 % 0xAA));
       }
 
       else
@@ -312,22 +312,22 @@ LABEL_2:
         }
       }
 
-      std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](&v30);
+      std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v30);
       std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v34);
       v14 += 3;
     }
 
-    v71 = &v47;
-    std::vector<_WBSSearchSuggestionCandidate>::__destroy_vector::operator()[abi:sn200100](&v71);
+    v73 = &v49;
+    std::vector<_WBSSearchSuggestionCandidate>::__destroy_vector::operator()[abi:sn200100](&v73);
 
-    v7 = v58;
+    v7 = v60;
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  while (v65[5].i64[1])
+  while (v67[5].i64[1])
   {
-    [array addObject:*(*(v65[3].i64[1] + 8 * (v65[5].i64[0] / 0xAAuLL)) + 24 * (v65[5].i64[0] % 0xAAuLL) + 16)];
-    std::deque<_WBSSearchSuggestionCandidate>::pop_front(v65 + 3);
+    [array addObject:*(*(v67[3].i64[1] + 8 * (v67[5].i64[0] / 0xAAuLL)) + 24 * (v67[5].i64[0] % 0xAAuLL) + 16)];
+    std::deque<_WBSSearchSuggestionCandidate>::pop_front(v67 + 3);
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -341,13 +341,13 @@ LABEL_2:
   v25 = searchCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  _Block_object_dispose(&v57, 8);
-  std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v63);
-  _Block_object_dispose(&v64, 8);
-  std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v70);
+  _Block_object_dispose(&v59, 8);
+  std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v65);
+  _Block_object_dispose(&v66, 8);
+  std::deque<_WBSSearchSuggestionCandidate>::~deque[abi:sn200100](v72);
 }
 
-void __61__WBSOnDeviceSearchSuggestionsProvider__doSearch_atRootNode___block_invoke(uint64_t a1, unint64_t a2)
+void __61__WBSOnDeviceSearchSuggestionsProvider__doSearch_atRootNode___block_invoke(uint64_t a1, int *a2)
 {
   v3 = 40;
   if (*(a2 + 8))
@@ -400,10 +400,10 @@ LABEL_10:
 
   else
   {
-    std::deque<_WBSSearchSuggestionCandidate>::push_back(v4[3].i64, a2);
+    std::deque<_WBSSearchSuggestionCandidate>::push_back(&v4[3], a2);
   }
 
-  v18 = *(a2 + 16);
+  v18 = *(a2 + 2);
 }
 
 void __61__WBSOnDeviceSearchSuggestionsProvider__doSearch_atRootNode___block_invoke_3(void *a1)

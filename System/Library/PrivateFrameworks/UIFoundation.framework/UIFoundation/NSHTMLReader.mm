@@ -4506,24 +4506,24 @@ LABEL_15:
 
 - (void)_loadUsingWebKit
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (self->_errorCode != -1)
   {
     return;
   }
 
-  softLinkWebThreadLock();
+  softLinkWebThreadLock(self);
   _webViewClass = [(NSHTMLReader *)self _webViewClass];
   v5 = [(NSDictionary *)self->_options objectForKey:NSBaseURLDocumentOption];
-  v49 = [(NSDictionary *)self->_options objectForKey:@"CharacterEncoding"];
+  v51 = [(NSDictionary *)self->_options objectForKey:@"CharacterEncoding"];
   v6 = [(NSDictionary *)self->_options objectForKey:NSTextEncodingNameDocumentOption];
-  v51 = [(NSDictionary *)self->_options objectForKey:NSWebResourceLoadDelegateDocumentOption];
-  v50 = [(NSDictionary *)self->_options objectForKey:@"WebPolicyDelegate"];
+  v53 = [(NSDictionary *)self->_options objectForKey:NSWebResourceLoadDelegateDocumentOption];
+  v52 = [(NSDictionary *)self->_options objectForKey:@"WebPolicyDelegate"];
   _webPreferences = [(NSDictionary *)self->_options objectForKey:NSWebPreferencesDocumentOption];
-  v53 = [(NSDictionary *)self->_options objectForKey:NSTimeoutDocumentOption];
-  v52 = [(NSDictionary *)self->_options objectForKey:NSTextSizeMultiplierDocumentOption];
+  v55 = [(NSDictionary *)self->_options objectForKey:NSTimeoutDocumentOption];
+  v54 = [(NSDictionary *)self->_options objectForKey:NSTextSizeMultiplierDocumentOption];
   v8 = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
-  bzero(&v58, 0x201uLL);
+  bzero(&v60, 0x201uLL);
   v9 = [(NSData *)self->_data length];
   self->_errorCode = 1;
   if (!_webViewClass)
@@ -4538,7 +4538,7 @@ LABEL_15:
     return;
   }
 
-  v48 = v6;
+  v50 = v6;
   if (v10 >= 0x200)
   {
     v12 = 512;
@@ -4549,18 +4549,18 @@ LABEL_15:
     v12 = v10;
   }
 
-  [(NSData *)data getBytes:&v58 length:v12];
+  [(NSData *)data getBytes:&v60 length:v12];
   if (v10)
   {
-    v47 = v5;
+    v49 = v5;
     v13 = 0;
     v14 = MEMORY[0x1E69E9830];
     do
     {
-      v15 = *(&v58 + v13);
+      v15 = *(&v60 + v13);
       if (v15 < 0)
       {
-        v16 = __maskrune(*(&v58 + v13), 0x4000uLL);
+        v16 = __maskrune(*(&v60 + v13), 0x4000uLL);
       }
 
       else
@@ -4594,14 +4594,14 @@ LABEL_15:
 
     if (v10 < 9)
     {
-      v5 = v47;
+      v5 = v49;
     }
 
     else
     {
-      v20 = v58 == 1768714338 && v59 == 29811;
-      v5 = v47;
-      if (v20 && v60 - 48 <= 9 && v61 - 48 < 0xA)
+      v20 = v60 == 1768714338 && v61 == 29811;
+      v5 = v49;
+      if (v20 && v62 - 48 <= 9 && v63 - 48 < 0xA)
       {
         goto LABEL_103;
       }
@@ -4614,16 +4614,16 @@ LABEL_15:
   }
 
   v21 = v12 - v19;
-  if (v21 < 0x41 || strncasecmp(&v58 + v19, "<?xml", 5uLL) || !strnstr(&v58 + v19, "<!DOCTYPE plist", v21) && !strnstr(&v58 + v19, "<!doctype plist", v21) || !strnstr(&v58 + v19, "<plist", v21))
+  if (v21 < 0x41 || strncasecmp(&v60 + v19, "<?xml", 5uLL) || !strnstr(&v60 + v19, "<!DOCTYPE plist", v21) && !strnstr(&v60 + v19, "<!doctype plist", v21) || !strnstr(&v60 + v19, "<plist", v21))
   {
     v22 = 0;
-    v23 = v48;
+    v23 = v50;
     goto LABEL_38;
   }
 
 LABEL_103:
   v22 = [(NSHTMLReader *)self _createWebArchiveForData:self->_data];
-  v23 = v48;
+  v23 = v50;
   if (!v22)
   {
     return;
@@ -4645,9 +4645,9 @@ LABEL_38:
   mainFrame = [(WebView *)v24 mainFrame];
   v27 = [[NSHTMLWebDelegate alloc] initWithBaseURL:v5];
   self->_webDelegate = v27;
-  if (v51)
+  if (v53)
   {
-    v28 = v51;
+    v28 = v53;
   }
 
   else
@@ -4655,9 +4655,9 @@ LABEL_38:
     v28 = v27;
   }
 
-  if (v50)
+  if (v52)
   {
-    v29 = v50;
+    v29 = v52;
   }
 
   else
@@ -4689,9 +4689,9 @@ LABEL_38:
     self->_minimumFontSize = 1.0;
   }
 
-  if (!v23 && v49)
+  if (!v23 && v51)
   {
-    unsignedIntegerValue = [v49 unsignedIntegerValue];
+    unsignedIntegerValue = [v51 unsignedIntegerValue];
     if (!unsignedIntegerValue || (v32 = CFStringConvertNSStringEncodingToEncoding(unsignedIntegerValue), v32 == -1))
     {
       v23 = 0;
@@ -4703,9 +4703,9 @@ LABEL_38:
     }
   }
 
-  if (v52)
+  if (v54)
   {
-    [v52 doubleValue];
+    [v54 doubleValue];
     self->_textSizeMultiplier = textSizeMultiplier;
   }
 
@@ -4724,9 +4724,9 @@ LABEL_38:
   *&textSizeMultiplier = textSizeMultiplier;
   [(WebView *)self->_webView setTextSizeMultiplier:textSizeMultiplier];
   v34 = 0.1;
-  if (v53)
+  if (v55)
   {
-    [v53 doubleValue];
+    [v55 doubleValue];
     if (v35 <= 0.0)
     {
       v36 = 60.0;
@@ -4763,7 +4763,7 @@ LABEL_71:
 
 LABEL_74:
   v37 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:v36];
-  if ((softLinkWebThreadIsLocked() & 1) == 0)
+  if ((softLinkWebThreadIsLocked(v37) & 1) == 0)
   {
     [(NSHTMLReader *)a2 _loadUsingWebKit];
   }
@@ -4776,9 +4776,9 @@ LABEL_74:
       break;
     }
 
-    CFRunLoopRunInMode(v25, v34 * 10.0, 1u);
-    softLinkWebThreadLock();
-    if ((softLinkWebThreadIsLocked() & 1) == 0)
+    v39 = CFRunLoopRunInMode(v25, v34 * 10.0, 1u);
+    v40 = softLinkWebThreadLock(v39);
+    if ((softLinkWebThreadIsLocked(v40) & 1) == 0)
     {
       [(NSHTMLReader *)a2 _loadUsingWebKit];
     }
@@ -4797,10 +4797,10 @@ LABEL_74:
       representation = [(WebDataSource *)dataSource representation];
       if (representation)
       {
-        v41 = representation;
+        v43 = representation;
         if (objc_opt_respondsToSelector())
         {
-          dOMDocument = [v41 DOMDocument];
+          dOMDocument = [v43 DOMDocument];
           self->_document = dOMDocument;
           if (dOMDocument)
           {
@@ -4817,32 +4817,32 @@ LABEL_74:
               title = [(DOMDocument *)self->_document title];
               if (title)
               {
-                v44 = title;
+                v46 = title;
                 if ([(NSString *)title length])
                 {
-                  [(NSMutableDictionary *)self->_documentAttrs setObject:v44 forKey:@"NSTitleDocumentAttribute"];
+                  [(NSMutableDictionary *)self->_documentAttrs setObject:v46 forKey:@"NSTitleDocumentAttribute"];
                 }
               }
             }
 
-            v45 = [(objc_class *)getNSColorClass_4() _disambiguated_due_to_CIImage_colorWithCGColor:[(WebFrame *)mainFrame _bodyBackgroundColor]];
-            v56 = 0;
+            v47 = [(objc_class *)getNSColorClass_4() _disambiguated_due_to_CIImage_colorWithCGColor:[(WebFrame *)mainFrame _bodyBackgroundColor]];
+            v58 = 0;
+            v59 = 0;
+            v56 = 0.0;
             v57 = 0;
-            v54 = 0.0;
-            v55 = 0;
-            [v45 getRed:&v57 green:&v56 blue:&v55 alpha:&v54];
-            if (v45)
+            [v47 getRed:&v59 green:&v58 blue:&v57 alpha:&v56];
+            if (v47)
             {
-              v46 = v54;
-              if (v54 > 0.0)
+              v48 = v56;
+              if (v56 > 0.0)
               {
-                [(NSMutableDictionary *)self->_documentAttrs setObject:v45 forKey:@"BackgroundColor", v54];
+                [(NSMutableDictionary *)self->_documentAttrs setObject:v47 forKey:@"BackgroundColor", v56];
               }
             }
 
             if (v5)
             {
-              [(NSMutableDictionary *)self->_documentAttrs setObject:v5 forKey:@"BaseURL", v46];
+              [(NSMutableDictionary *)self->_documentAttrs setObject:v5 forKey:@"BaseURL", v48];
             }
           }
         }

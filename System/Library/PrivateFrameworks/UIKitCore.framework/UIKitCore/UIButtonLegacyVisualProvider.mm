@@ -184,7 +184,7 @@
   {
     text = [(UILabel *)self->_titleView text];
     v9 = text;
-    if (text && [text length] && (objc_msgSend(v4, "isEqualToString:", v9) & 1) == 0)
+    if (text && [text length] && (objc_msgSend_isEqualToString_(v4) & 1) == 0)
     {
       [(UIButtonLegacyVisualProvider *)self _beginTitleAnimation];
     }
@@ -192,7 +192,7 @@
     if ((*(&self->_button->_buttonFlags + 2) & 0x80) == 0)
     {
       [(UIButtonLegacyVisualProvider *)self _setupTitleViewRequestingLayout:0];
-      if (([v4 isEqual:v9] & 1) == 0)
+      if ((objc_msgSend_isEqual_(v4) & 1) == 0)
       {
         [(UILabel *)self->_titleView setText:v4];
       }
@@ -351,7 +351,7 @@ LABEL_7:
   v8 = v7;
   if (image == v7)
   {
-    v10 = 1;
+    isEqual = 1;
   }
 
   else
@@ -368,12 +368,12 @@ LABEL_7:
 
     if (v9)
     {
-      v10 = 0;
+      isEqual = 0;
     }
 
     else
     {
-      v10 = [image isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(image);
     }
   }
 
@@ -390,7 +390,7 @@ LABEL_7:
       {
         traitCollection = [(UIView *)self->_button traitCollection];
         traitCollection2 = [v8 traitCollection];
-        v14 = [traitCollection isEqual:traitCollection2];
+        v14 = objc_msgSend_isEqual_(traitCollection);
 
         if ((v14 & 1) == 0)
         {
@@ -416,7 +416,7 @@ LABEL_7:
       v16 = [(UIButton *)self->_button _imageColorForState:state];
       tintColor = [(UIView *)self->_imageView tintColor];
       v18 = tintColor;
-      if (tintColor != v16 && ([tintColor isEqual:v16] & 1) == 0)
+      if (tintColor != v16 && (objc_msgSend_isEqual_(tintColor) & 1) == 0)
       {
         [(UIView *)self->_imageView setTintColor:v16];
       }
@@ -464,7 +464,7 @@ LABEL_7:
   }
 
   v27 = self->_button;
-  if ((v10 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [(UIView *)v27 invalidateIntrinsicContentSize];
     v27 = self->_button;
@@ -685,9 +685,9 @@ LABEL_18:
     {
       traitCollection = [(UIView *)self->_button traitCollection];
       traitCollection2 = [v4 traitCollection];
-      v9 = [traitCollection isEqual:traitCollection2];
+      isEqual = objc_msgSend_isEqual_(traitCollection);
 
-      if ((v9 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         [(UIImageView *)self->_backgroundView traitCollectionDidChange:0];
       }
@@ -1859,9 +1859,9 @@ LABEL_18:
 
     else
     {
-      v13 = [font isEqual:?];
+      isEqual = objc_msgSend_isEqual_(font);
       [(UILabel *)self->_titleView _setFont:v16 isDefaultForIdiom:idiomCopy];
-      if ((v13 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         [(UIView *)self->_button invalidateIntrinsicContentSize];
       }
@@ -2105,7 +2105,7 @@ id __86__UIButtonLegacyVisualProvider_contextMenuInteraction_configurationForMen
 {
   v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = [*(a1 + 32) menu];
+  v4 = objc_msgSend_menu(*(a1 + 32));
   v5 = [*(a1 + 32) _menuProvider];
 
   if (v5)
@@ -2887,7 +2887,7 @@ LABEL_9:
       _currentImage = [(UIImageView *)self->_imageView _currentImage];
       image = [(UIImageView *)self->_imageView image];
       _primitiveImageAsset = [v31 _primitiveImageAsset];
-      if (([v31 isEqual:image] & 1) != 0 || (objc_msgSend(v31, "isEqual:", _currentImage) & 1) != 0 || _primitiveImageAsset && (objc_msgSend(image, "_primitiveImageAsset"), v170 = objc_claimAutoreleasedReturnValue(), v170, _primitiveImageAsset == v170))
+      if ((objc_msgSend_isEqual_(v31) & 1) != 0 || (objc_msgSend_isEqual_(v31) & 1) != 0 || _primitiveImageAsset && ([image _primitiveImageAsset], v170 = objc_claimAutoreleasedReturnValue(), v170, _primitiveImageAsset == v170))
       {
         [(UIImageView *)self->_imageView _edgeInsetsForEffects];
         v33 = v33 + v40 + v41;
@@ -2987,7 +2987,7 @@ LABEL_9:
       else
       {
         text = [(UILabel *)titleView text];
-        if ([text isEqualToString:v76])
+        if (objc_msgSend_isEqualToString_(text))
         {
           v80 = 0;
         }
@@ -4661,9 +4661,9 @@ uint64_t __61__UIButtonLegacyVisualProvider__updateSelectionViewForState___block
         v65 = 1;
 LABEL_25:
         borderColor = [(_UIButtonMaskAnimationView *)self->_maskAnimationView borderColor];
-        v67 = [borderColor isEqual:v13];
+        isEqual = objc_msgSend_isEqual_(borderColor);
 
-        if ((v67 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
           if (!v65)
           {
@@ -4773,7 +4773,7 @@ LABEL_33:
   [layer14 removeAnimationForKey:@"opacity"];
 
   borderColor2 = [(_UIButtonMaskAnimationView *)self->_maskAnimationView borderColor];
-  v61 = [v13 isEqual:borderColor2];
+  v61 = objc_msgSend_isEqual_(v13);
 
   if ((v61 & 1) == 0)
   {

@@ -62,7 +62,7 @@ LABEL_15:
         v19 = v11;
 LABEL_19:
         v20 = MEMORY[0x1E696AEC0];
-        v21 = CKFrameworkBundle();
+        v21 = CKFrameworkBundle(direction);
         v22 = [v21 localizedStringForKey:v18 value:&stru_1F04268F8 table:@"ChatKit"];
         v23 = [v20 stringWithFormat:v22, v19];
 

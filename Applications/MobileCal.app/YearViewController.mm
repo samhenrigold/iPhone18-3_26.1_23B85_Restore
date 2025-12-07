@@ -1221,22 +1221,22 @@ LABEL_20:
 
 - (int64_t)intendedSizeClass
 {
-  objc_opt_class();
-  sub_100026F2C();
+  v2 = objc_opt_class();
+  sub_100026F2C(v2);
   return 0;
 }
 
 - (Class)multipleMonthViewClass
 {
-  objc_opt_class();
-  sub_100026F2C();
+  v2 = objc_opt_class();
+  sub_100026F2C(v2);
   return 0;
 }
 
 - (unint64_t)monthsPerRow
 {
-  objc_opt_class();
-  sub_100026F2C();
+  v2 = objc_opt_class();
+  sub_100026F2C(v2);
   return 1;
 }
 

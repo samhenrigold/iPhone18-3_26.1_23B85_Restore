@@ -68,7 +68,7 @@
 - (id)emailSubject
 {
   v3 = MEMORY[0x1E696AEC0];
-  v4 = EKBundle();
+  v4 = EKBundle(self);
   v5 = [v4 localizedStringForKey:@"Event canceled: %@" value:&stru_1F1B49D68 table:@"iTIP"];
   event = [(EKiMIPHandler *)self event];
   title = [event title];
@@ -80,7 +80,7 @@
 - (id)emailBody
 {
   v3 = MEMORY[0x1E696AEC0];
-  v4 = EKBundle();
+  v4 = EKBundle(self);
   v5 = [v4 localizedStringForKey:@"%@ has canceled the event: %@. To handle this cancellation value:click the link below.\n" table:{&stru_1F1B49D68, @"iTIP"}];
   defaultProvider = [MEMORY[0x1E6992F50] defaultProvider];
   myShortDisplayName = [defaultProvider myShortDisplayName];

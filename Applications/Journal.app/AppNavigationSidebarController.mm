@@ -93,7 +93,7 @@
 
 - (void)addJournal:(id)journal
 {
-  v4 = sub_1000F24EC(&qword_100AD1420);
+  v4 = sub_1000F24EC(&qword_100AD1420, &unk_10093C080);
   __chkstk_darwin(v4 - 8);
   v6 = &v9 - v5;
   v7 = type metadata accessor for UUID();
@@ -101,7 +101,7 @@
   selfCopy = self;
   sub_100142978(v6);
 
-  sub_100004F84(v6, &qword_100AD1420);
+  sub_100004F84(v6, &qword_100AD1420, &unk_10093C080);
 }
 
 - (_TtC7Journal30AppNavigationSidebarController)initWithCollectionViewLayout:(id)layout
@@ -169,7 +169,7 @@
   v3 = objc_opt_self();
   selfCopy = self;
   currentUser = [v3 currentUser];
-  v5 = objc_allocWithZone(type metadata accessor for LockSettingsViewModel());
+  v5 = objc_allocWithZone(type metadata accessor for LockSettingsViewModel(0));
   v6 = sub_1000042A4(currentUser);
   LOBYTE(currentUser) = sub_100811FCC();
 
@@ -222,11 +222,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100153CF0(viewCopy, session);
+  sub_100153CF0(viewCopy, session, v11);
 
   swift_unknownObjectRelease();
   (*(v9 + 8))(v11, v8);
-  sub_1000065A8(0, &unk_100AD4C90);
+  sub_1000065A8(0, &unk_100AD4C90, UIDragItem_ptr);
   v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v14.super.isa;
@@ -234,7 +234,7 @@
 
 - (void)collectionView:(id)view dragSessionDidEnd:(id)end
 {
-  v5 = sub_1000F24EC(&qword_100AD4C88);
+  v5 = sub_1000F24EC(&qword_100AD4C88, &qword_100943678);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   v8 = type metadata accessor for AppNavigationSidebarController.DragState(0);
@@ -258,7 +258,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = sub_1000F24EC(&unk_100ADFB90);
+  v9 = sub_1000F24EC(&unk_100ADFB90, &qword_1009512D0);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -280,7 +280,7 @@
   v16 = sub_100154F78(viewCopy, update, v11);
 
   swift_unknownObjectRelease();
-  sub_100004F84(v11, &unk_100ADFB90);
+  sub_100004F84(v11, &unk_100ADFB90, &qword_1009512D0);
 
   return v16;
 }
@@ -303,7 +303,7 @@
 
   v8 = sub_1001564EC(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8;
 }
 
@@ -329,7 +329,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1002610E0();
+  sub_1002610E0(v7);
 
   (*(v5 + 8))(v7, v4);
 }

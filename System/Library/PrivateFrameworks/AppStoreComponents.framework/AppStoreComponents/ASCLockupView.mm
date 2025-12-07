@@ -1080,6 +1080,13 @@ LABEL_8:
   _os_log_error_impl(&dword_21571A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Lockup view %@ could not find view controller to present from.", v0, 0xCu);
 }
 
+- (void)offerPresenterWillPerformActionOfOffer:(uint64_t)a3 inState:(uint64_t)a4 withActivity:(uint64_t)a5 inContext:(uint64_t)a6 withPaymentSheetView:(uint64_t)a7 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_21571A000, MEMORY[0x277D86220], a3, "Offer context configured: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)offerPresenterPreprocessOffer:inState:completionBlock:.cold.1()
 {
   v4 = *MEMORY[0x277D85DE8];

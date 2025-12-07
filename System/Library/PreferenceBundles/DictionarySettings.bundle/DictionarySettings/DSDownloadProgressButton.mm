@@ -15,6 +15,8 @@
 - (void)drawRect:(CGRect)rect;
 - (void)endTrackingWithTouch:(id)touch withEvent:(id)event;
 - (void)layoutSubviews;
+- (void)setHighlighted:(BOOL)highlighted;
+- (void)setProgress:(double)progress animated:(BOOL)animated;
 - (void)setProgressType:(int64_t)type;
 - (void)tintColorDidChange;
 - (void)traitCollectionDidChange:(id)change;
@@ -157,9 +159,9 @@ LABEL_12:
 
 - (void)layoutSubviews
 {
-  v23.receiver = self;
-  v23.super_class = DSDownloadProgressButton;
-  [(DSDownloadProgressButton *)&v23 layoutSubviews];
+  v18.receiver = self;
+  v18.super_class = DSDownloadProgressButton;
+  [(DSDownloadProgressButton *)&v18 layoutSubviews];
   traitCollection = [(DSDownloadProgressButton *)self traitCollection];
   [traitCollection displayScale];
   v5 = v4;
@@ -169,7 +171,6 @@ LABEL_12:
   addToLibraryOrDownloadImageView = self->_addToLibraryOrDownloadImageView;
   if (addToLibraryOrDownloadImageView && ([(UIImageView *)addToLibraryOrDownloadImageView isHidden]& 1) == 0)
   {
-    y = CGRectZero.origin.y;
     image = [(UIImageView *)self->_addToLibraryOrDownloadImageView image];
     [image size];
 
@@ -181,15 +182,12 @@ LABEL_12:
   finishedImageView = self->_finishedImageView;
   if (finishedImageView && ([(UIImageView *)finishedImageView isHidden]& 1) == 0)
   {
-    width = self->_lastLayoutSize.width;
-    height = self->_lastLayoutSize.height;
-    if (!MPUSizeEqualToSize() || ([(UIImageView *)self->_finishedImageView image], v16 = objc_claimAutoreleasedReturnValue(), v16, !v16))
+    if (!MPUSizeEqualToSize() || ([(UIImageView *)self->_finishedImageView image], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
     {
-      v17 = [objc_opt_class() _finishedImageForLayoutSize:traitCollection traitCollection:{v7, v9}];
-      [(UIImageView *)self->_finishedImageView setImage:v17];
+      v14 = [objc_opt_class() _finishedImageForLayoutSize:traitCollection traitCollection:{v7, v9}];
+      [(UIImageView *)self->_finishedImageView setImage:v14];
     }
 
-    v18 = CGRectZero.origin.y;
     image2 = [(UIImageView *)self->_finishedImageView image];
     [image2 size];
 
@@ -201,12 +199,11 @@ LABEL_12:
   itemOfferButton = self->_itemOfferButton;
   if (itemOfferButton && ([(SUUIItemOfferButton *)itemOfferButton isHidden]& 1) == 0)
   {
-    v21 = CGRectZero.origin.y;
     UIRectCenteredYInRectScale();
     UIRectCenteredXInRectScale();
-    v22 = self->_itemOfferButton;
+    v17 = self->_itemOfferButton;
     MPURectByApplyingUserInterfaceLayoutDirectionInRect();
-    [(SUUIItemOfferButton *)v22 MPU_applyBoundsAndCenterForUntransformedFrame:v5];
+    [(SUUIItemOfferButton *)v17 MPU_applyBoundsAndCenterForUntransformedFrame:v5];
   }
 
   self->_lastLayoutSize.width = v7;
@@ -432,6 +429,110 @@ LABEL_12:
   }
 }
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  if ([(DSDownloadProgressButton *)self isHighlighted]!= highlighted)
+  {
+    v7.receiver = self;
+    v7.super_class = DSDownloadProgressButton;
+    [(DSDownloadProgressButton *)&v7 setHighlighted:highlightedCopy];
+    if ([(DSDownloadProgressButton *)self _needsAddToLibraryOrDownloadImageViewForProgressType:self->_progressType])
+    {
+      v5 = 0.2;
+      if (!highlightedCopy)
+      {
+        v5 = 1.0;
+      }
+
+      [(UIImageView *)self->_addToLibraryOrDownloadImageView setAlpha:v5];
+    }
+
+    if ([(DSDownloadProgressButton *)self _needsFinishedImageViewForProgressType:self->_progressType])
+    {
+      v6 = 0.2;
+      if (!highlightedCopy)
+      {
+        v6 = 1.0;
+      }
+
+      [(UIImageView *)self->_finishedImageView setAlpha:v6];
+    }
+  }
+}
+
+- (void)setProgress:(double)progress animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if (progress < 0.0)
+  {
+    progress = 0.0;
+  }
+
+  v6 = fmin(progress, 1.0);
+  progress = self->_progress;
+  if ((MPUFloatEqualToFloat() & 1) == 0)
+  {
+    self->_progress = v6;
+    if ((self->_progressType & 0xFFFFFFFFFFFFFFFELL) == 2)
+    {
+      if ([(DSDownloadProgressButton *)self _usesDrawingForProgressType:?])
+      {
+        window = [(DSDownloadProgressButton *)self window];
+        screen = [window screen];
+
+        if (animatedCopy && screen)
+        {
+          v9 = CACurrentMediaTime();
+          self->_progressAnimationStartTime = v9;
+          self->_progressAnimationEndTime = v9 + 1.2;
+          if (self->_isAnimatingProgress)
+          {
+            progress = self->_currentAnimatedProgress;
+          }
+
+          self->_initialAnimatedProgress = progress;
+          self->_currentAnimatedProgress = progress;
+          if (!self->_displayLink)
+          {
+            v10 = [screen displayLinkWithTarget:self selector:"_handleDisplayLinkDidFire:"];
+            displayLink = self->_displayLink;
+            self->_displayLink = v10;
+
+            v12 = self->_displayLink;
+            v13 = +[NSRunLoop mainRunLoop];
+            [(CADisplayLink *)v12 addToRunLoop:v13 forMode:NSRunLoopCommonModes];
+          }
+
+          if (!self->_progressAnimationTimingFunction)
+          {
+            v14 = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            progressAnimationTimingFunction = self->_progressAnimationTimingFunction;
+            self->_progressAnimationTimingFunction = v14;
+          }
+
+          self->_isAnimatingProgress = 1;
+        }
+
+        else
+        {
+          [(DSDownloadProgressButton *)self _stopProgressAnimation];
+        }
+
+        [(DSDownloadProgressButton *)self setNeedsDisplay];
+      }
+
+      else if (self->_style == 1)
+      {
+        itemOfferButton = self->_itemOfferButton;
+        v17 = self->_progress;
+
+        [(SUUIItemOfferButton *)itemOfferButton setProgress:animatedCopy animated:v17];
+      }
+    }
+  }
+}
+
 - (void)setProgressType:(int64_t)type
 {
   if (self->_progressType != type)
@@ -444,13 +545,11 @@ LABEL_12:
 - (void)_handleDisplayLinkDidFire:(id)fire
 {
   fireCopy = fire;
-  progressAnimationStartTime = self->_progressAnimationStartTime;
-  progressAnimationEndTime = self->_progressAnimationEndTime;
   if ((MPUFloatEqualToFloat() & 1) == 0)
   {
     [fireCopy timestamp];
-    v7 = (v6 - self->_progressAnimationStartTime) / (self->_progressAnimationEndTime - self->_progressAnimationStartTime);
-    if (v7 >= 0.99)
+    v5 = (v4 - self->_progressAnimationStartTime) / (self->_progressAnimationEndTime - self->_progressAnimationStartTime);
+    if (v5 >= 0.99)
     {
       [(DSDownloadProgressButton *)self _stopProgressAnimation];
     }
@@ -460,12 +559,12 @@ LABEL_12:
       progressAnimationTimingFunction = self->_progressAnimationTimingFunction;
       if (progressAnimationTimingFunction)
       {
-        *&v7 = v7;
-        [(CAMediaTimingFunction *)progressAnimationTimingFunction _solveForInput:v7];
-        v7 = v9;
+        *&v5 = v5;
+        [(CAMediaTimingFunction *)progressAnimationTimingFunction _solveForInput:v5];
+        v5 = v7;
       }
 
-      self->_currentAnimatedProgress = self->_initialAnimatedProgress + (self->_progress - self->_initialAnimatedProgress) * v7;
+      self->_currentAnimatedProgress = self->_initialAnimatedProgress + (self->_progress - self->_initialAnimatedProgress) * v5;
     }
 
     [(DSDownloadProgressButton *)self setNeedsDisplay];

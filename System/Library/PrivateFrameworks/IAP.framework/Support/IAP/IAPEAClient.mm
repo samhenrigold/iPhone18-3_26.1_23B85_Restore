@@ -5,6 +5,7 @@
 - (BOOL)clientRequiresAccReset;
 - (BOOL)locationSupportedByClient;
 - (BOOL)supportsAccessibility;
+- (IAPEAClient)initWithCapabilities:(unsigned int)capabilities auditToken:(id *)token xpcConnection:(id)connection eaProtocols:(id)protocols andBundleId:(id)id;
 - (int)_getProcessId;
 - (void)_setJetsamPrioritySpecialCasing:(BOOL)casing;
 - (void)dealloc;
@@ -18,6 +19,184 @@
 @end
 
 @implementation IAPEAClient
+
+- (IAPEAClient)initWithCapabilities:(unsigned int)capabilities auditToken:(id *)token xpcConnection:(id)connection eaProtocols:(id)protocols andBundleId:(id)id
+{
+  v11 = *&capabilities;
+  v26.receiver = self;
+  v26.super_class = IAPEAClient;
+  result = [(IAPEAClient *)&v26 init];
+  v13 = result;
+  if (!result)
+  {
+    return v13;
+  }
+
+  if (((result + 120) & 3) != 0 || (result->_iapSessionRefCount = 0, (&result->_capabilities & 3) != 0) || (result->_capabilities = v11, (result->_auditToken.val & 3) != 0))
+  {
+LABEL_38:
+    __break(0x5516u);
+    goto LABEL_39;
+  }
+
+  v14 = *&token->var0[4];
+  *result->_auditToken.val = *token->var0;
+  *&result->_auditToken.val[4] = v14;
+  if (connection)
+  {
+    result = xpc_retain(connection);
+    if (((v13 + 144) & 7) == 0)
+    {
+      v13->_xpcConnection = result;
+      result = [id copy];
+      if (((v13 + 56) & 7) == 0)
+      {
+        v13->_bundleId = &result->super.isa;
+        if (((v13 + 20) & 3) == 0)
+        {
+          v13->_processId = -1;
+          result = dispatch_queue_create("IAPEAClient Process Assertion Queue", 0);
+          if (((v13 + 80) & 7) == 0)
+          {
+            v13->_processAssertionQ = result;
+            if (((v13 + 88) & 7) == 0)
+            {
+              v13->_processAssertion = 0;
+              if (((v13 + 96) & 7) == 0)
+              {
+                v13->_bksProcessAssertion = 0;
+                if (((v13 + 104) & 7) == 0)
+                {
+                  v13->_processAssertionStartTime = 0;
+                  *&v13->_clientRequiresAccReset = 0;
+                  result = [protocols copy];
+                  if (((v13 + 72) & 7) == 0)
+                  {
+                    v13->_clientEAProtocols = result;
+                    v15 = *&token->var0[4];
+                    v24 = *token->var0;
+                    v25 = v15;
+                    v13->_entitlementForAllAccessories = sub_1000ADA88(@"com.apple.private.externalaccessory.showallaccessories", &v24);
+                    sub_1000DDE90(3u, @"INIT - %s:%s - %d capability=0x%x", "/Library/Caches/com.apple.xbs/Sources/iapd/common/IAPEAClient.m", "[IAPEAClient initWithCapabilities:auditToken:xpcConnection:eaProtocols:andBundleId:]", 104, v11);
+                    if ((v11 & 0x10) != 0)
+                    {
+                      v16 = "YES";
+                    }
+
+                    else
+                    {
+                      v16 = "NO";
+                    }
+
+                    sub_1000DDE90(3u, @"%@ supports EA while suspended = %s", id, v16);
+                    if ((v11 & 0x20) != 0)
+                    {
+                      v17 = "YES";
+                    }
+
+                    else
+                    {
+                      v17 = "NO";
+                    }
+
+                    sub_1000DDE90(3u, @"%@ supports EA while backgrounded = %s", id, v17);
+                    if ((v11 & 0x8000) != 0)
+                    {
+                      v18 = "YES";
+                    }
+
+                    else
+                    {
+                      v18 = "NO";
+                    }
+
+                    sub_1000DDE90(3u, @"%@ supports Application state = %s", id, v18);
+                    if (v13->_entitlementForAllAccessories >= 2u)
+                    {
+                      goto LABEL_40;
+                    }
+
+                    sub_1000DDE90(3u, @"_entitlementForAllAccessories = %d", v13->_entitlementForAllAccessories);
+                    result = objc_alloc_init(IAPApplicationStateMonitor);
+                    if (((v13 + 128) & 7) == 0)
+                    {
+                      v13->_appStateMonitor = result;
+                      v19 = [(IAPEAClient *)result applicationInfoForBundleIDSync:v13->_bundleId];
+                      result = [objc_msgSend(v19 objectForKey:{BKSApplicationStateKey), "unsignedIntegerValue"}];
+                      if (((v13 + 136) & 3) == 0)
+                      {
+                        v13->_applicationState = result;
+                        [(IAPEAClient *)v13 _getProcessId];
+                        result = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v13->_processAssertionQ);
+                        p_processAssertionTimer = &v13->_processAssertionTimer;
+                        if ((&v13->_processAssertionTimer & 7) == 0)
+                        {
+                          *p_processAssertionTimer = result;
+                          if (!result)
+                          {
+                            goto LABEL_39;
+                          }
+
+                          handler[0] = _NSConcreteStackBlock;
+                          handler[1] = 3221225472;
+                          handler[2] = sub_1000ADB8C;
+                          handler[3] = &unk_100111C88;
+                          handler[4] = v13;
+                          dispatch_source_set_event_handler(&result->super, handler);
+                          result = v13->_processAssertionTimer;
+                          if (!result)
+                          {
+                            goto LABEL_39;
+                          }
+
+                          dispatch_source_set_timer(&result->super, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
+                          result = *p_processAssertionTimer;
+                          if (!*p_processAssertionTimer)
+                          {
+                            goto LABEL_39;
+                          }
+
+                          dispatch_resume(&result->super);
+                          if (*p_processAssertionTimer)
+                          {
+                            v22 = 0;
+                            if ((v13->_capabilities & 2) != 0)
+                            {
+                              v21 = *&token->var0[4];
+                              v24 = *token->var0;
+                              v25 = v21;
+                              if (sub_1000ADA88(@"com.apple.iapd.accessibility", &v24))
+                              {
+                                v22 = 1;
+                              }
+                            }
+
+                            v13->_supportsAccessibility = v22;
+                            return v13;
+                          }
+
+                          __break(0x5518u);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    goto LABEL_38;
+  }
+
+LABEL_39:
+  __break(0x5510u);
+LABEL_40:
+  __break(0x550Au);
+  return result;
+}
 
 - (void)dealloc
 {

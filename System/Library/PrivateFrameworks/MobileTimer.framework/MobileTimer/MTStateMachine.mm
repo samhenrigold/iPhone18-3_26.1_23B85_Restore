@@ -28,7 +28,7 @@
 
 - (void)enterState:(id)state
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   currentState = [(MTStateMachine *)self currentState];
 
@@ -39,13 +39,13 @@
     {
       stateMachineName = [(MTStateMachine *)self stateMachineName];
       currentState = self->_currentState;
-      v13 = 138543874;
-      v14 = stateMachineName;
-      v15 = 2112;
-      v16 = stateCopy;
-      v17 = 2114;
-      v18 = currentState;
-      _os_log_impl(&dword_1B1F9F000, stateMachineLog, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will enter state %@ with previous state %{public}@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = stateMachineName;
+      v14 = 2112;
+      v15 = stateCopy;
+      v16 = 2114;
+      v17 = currentState;
+      _os_log_impl(&dword_1B1F9F000, stateMachineLog, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will enter state %@ with previous state %{public}@", &v12, 0x20u);
     }
 
     currentState2 = [(MTStateMachine *)self currentState];
@@ -58,17 +58,15 @@
     if (os_log_type_enabled(stateMachineLog2, OS_LOG_TYPE_DEFAULT))
     {
       stateMachineName2 = [(MTStateMachine *)self stateMachineName];
-      v13 = 138543874;
-      v14 = stateMachineName2;
-      v15 = 2114;
-      v16 = stateCopy;
-      v17 = 2114;
-      v18 = currentState2;
-      _os_log_impl(&dword_1B1F9F000, stateMachineLog2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did enter state %{public}@ with previous state %{public}@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = stateMachineName2;
+      v14 = 2114;
+      v15 = stateCopy;
+      v16 = 2114;
+      v17 = currentState2;
+      _os_log_impl(&dword_1B1F9F000, stateMachineLog2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Did enter state %{public}@ with previous state %{public}@", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)stateMachineName

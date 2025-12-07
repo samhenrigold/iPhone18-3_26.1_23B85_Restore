@@ -18,6 +18,7 @@
 - (NSString)interiorStyle;
 - (NSString)vehicleLayout;
 - (NSString)vehicleLogo;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -259,6 +260,123 @@
   v3 = vehicleLogoCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000048000003"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    exteriorStyleCharacteristic = [(CAFVehicleVariant *)self exteriorStyleCharacteristic];
+    uniqueIdentifier2 = [exteriorStyleCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      exteriorStyle = [(CAFVehicleVariant *)self exteriorStyle];
+      [observers vehicleVariantService:self didUpdateExteriorStyle:exteriorStyle];
+LABEL_20:
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000048000004"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    interiorStyleCharacteristic = [(CAFVehicleVariant *)self interiorStyleCharacteristic];
+    uniqueIdentifier4 = [interiorStyleCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      exteriorStyle = [(CAFVehicleVariant *)self interiorStyle];
+      [observers vehicleVariantService:self didUpdateInteriorStyle:exteriorStyle];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000048000005"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    vehicleLayoutCharacteristic = [(CAFVehicleVariant *)self vehicleLayoutCharacteristic];
+    uniqueIdentifier6 = [vehicleLayoutCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      exteriorStyle = [(CAFVehicleVariant *)self vehicleLayout];
+      [observers vehicleVariantService:self didUpdateVehicleLayout:exteriorStyle];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000048000006"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    audioLogoCharacteristic = [(CAFVehicleVariant *)self audioLogoCharacteristic];
+    uniqueIdentifier8 = [audioLogoCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      exteriorStyle = [(CAFVehicleVariant *)self audioLogo];
+      [observers vehicleVariantService:self didUpdateAudioLogo:exteriorStyle];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000048000007"])
+  {
+LABEL_21:
+
+    goto LABEL_22;
+  }
+
+  uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+  vehicleLogoCharacteristic = [(CAFVehicleVariant *)self vehicleLogoCharacteristic];
+  uniqueIdentifier10 = [vehicleLogoCharacteristic uniqueIdentifier];
+  v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+  if (v32)
+  {
+    observers = [(CAFService *)self observers];
+    exteriorStyle = [(CAFVehicleVariant *)self vehicleLogo];
+    [observers vehicleVariantService:self didUpdateVehicleLogo:exteriorStyle];
+    goto LABEL_20;
+  }
+
+LABEL_22:
+  v33.receiver = self;
+  v33.super_class = CAFVehicleVariant;
+  [(CAFService *)&v33 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForExteriorStyle

@@ -418,57 +418,57 @@ LABEL_17:
     }
 
     v8 = [self vCardDataForURL:lCopy];
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3010000000;
-    v25 = 0.0;
-    v26 = 0;
-    v24 = &unk_1A8980B7F;
-    v25 = sub_1A86F03C4();
-    v26 = v9;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3010000000;
+    v26 = 0.0;
+    v27 = 0;
+    v25 = &unk_1A8980B7F;
+    v26 = sub_1A86F03C4(v8, v9);
+    v27 = v10;
     if (v8)
     {
-      v10 = dispatch_group_create();
-      dispatch_group_enter(v10);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = sub_1A86F0400;
-      v18[3] = &unk_1E7826900;
-      v20 = &v21;
-      v11 = v10;
-      v19 = v11;
-      [IMAttachmentBlastdoor sendData:v8 senderContext:contextCopy forPreviewType:0 withCompletionBlock:v18];
-      dispatch_group_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-      v12 = v22[4];
-      v13 = v22[5];
+      v11 = dispatch_group_create();
+      dispatch_group_enter(v11);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = sub_1A86F0400;
+      v19[3] = &unk_1E7826900;
+      v21 = &v22;
+      v12 = v11;
+      v20 = v12;
+      [IMAttachmentBlastdoor sendData:v8 senderContext:contextCopy forPreviewType:0 withCompletionBlock:v19];
+      dispatch_group_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
+      v13 = v23[4];
+      v14 = v23[5];
     }
 
     else
     {
-      v12 = v22[4];
-      v13 = v22[5];
+      v13 = v23[4];
+      v14 = v23[5];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v22, 8);
   }
 
   else
   {
     [self _legacyCoordinateForvCardURL:lCopy];
-    v12 = v14;
     v13 = v15;
+    v14 = v16;
   }
 
-  v16 = v12;
   v17 = v13;
-  result.longitude = v17;
-  result.latitude = v16;
+  v18 = v14;
+  result.longitude = v18;
+  result.latitude = v17;
   return result;
 }
 
 + (CLLocationCoordinate2D)_legacyCoordinateForvCardURL:(id)l
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (qword_1EB30B7A8 != -1)
   {
@@ -477,49 +477,49 @@ LABEL_17:
 
   v5 = [self vCardDataForURL:lCopy];
   v6 = [self vCardURLSForData:v5];
-  v7 = sub_1A86F03C4();
-  v9 = v8;
-  v29 = 0u;
+  v8 = sub_1A86F03C4(v6, v7);
+  v10 = v9;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v10 = v6;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v11)
+  v33 = 0u;
+  v11 = v6;
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v30;
+    v13 = v12;
+    v14 = *v31;
     while (2)
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v13)
+        if (*v31 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = MEMORY[0x1E695DFF8];
-        value = [*(*(&v29 + 1) + 8 * i) value];
-        v17 = [v15 URLWithString:value];
+        v16 = MEMORY[0x1E695DFF8];
+        value = [*(*(&v30 + 1) + 8 * i) value];
+        v18 = [v16 URLWithString:value];
 
-        v18 = [IMMapURLHelpers coordinatesFromURL:v17];
-        if ([v18 count] == 2)
+        v19 = [IMMapURLHelpers coordinatesFromURL:v18];
+        if ([v19 count] == 2)
         {
-          v19 = off_1EB30B7A0;
-          v20 = [v18 objectAtIndex:0];
-          [v20 doubleValue];
-          v22 = v21;
-          v23 = [v18 objectAtIndex:1];
-          doubleValue = [v23 doubleValue];
-          v7 = v19(doubleValue, v22, v25);
-          v9 = v26;
+          v20 = off_1EB30B7A0;
+          v21 = [v19 objectAtIndex:0];
+          [v21 doubleValue];
+          v23 = v22;
+          v24 = [v19 objectAtIndex:1];
+          doubleValue = [v24 doubleValue];
+          v8 = v20(doubleValue, v23, v26);
+          v10 = v27;
 
           goto LABEL_13;
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v12)
+      v13 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v13)
       {
         continue;
       }
@@ -530,10 +530,10 @@ LABEL_17:
 
 LABEL_13:
 
-  v27 = v7;
-  v28 = v9;
-  result.longitude = v28;
-  result.latitude = v27;
+  v28 = v8;
+  v29 = v10;
+  result.longitude = v29;
+  result.latitude = v28;
   return result;
 }
 
@@ -589,7 +589,7 @@ LABEL_13:
     }
   }
 
-  if ((!sub_1A86F10B4() || !sub_1A86F11F8()) && IMOSLoggingEnabled())
+  if ((!sub_1A86F10B4(0) || !sub_1A86F11F8()) && IMOSLoggingEnabled())
   {
     v14 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
@@ -606,7 +606,7 @@ LABEL_13:
     }
   }
 
-  if ((!sub_1A86F10B4() || !sub_1A86F1334()) && IMOSLoggingEnabled())
+  if ((!sub_1A86F10B4(0) || !sub_1A86F1334()) && IMOSLoggingEnabled())
   {
     v17 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
@@ -623,7 +623,7 @@ LABEL_13:
     }
   }
 
-  if ((!sub_1A86F10B4() || !sub_1A86F1470()) && IMOSLoggingEnabled())
+  if ((!sub_1A86F10B4(0) || !sub_1A86F1470()) && IMOSLoggingEnabled())
   {
     v20 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
@@ -640,7 +640,7 @@ LABEL_13:
     }
   }
 
-  if ((!sub_1A86F10B4() || !sub_1A86F15AC()) && IMOSLoggingEnabled())
+  if ((!sub_1A86F10B4(0) || !sub_1A86F15AC()) && IMOSLoggingEnabled())
   {
     v23 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
@@ -657,7 +657,7 @@ LABEL_13:
     }
   }
 
-  if (v9 && sub_1A86F10B4() && sub_1A86F11F8() && sub_1A86F10B4() && sub_1A86F1334() && sub_1A86F10B4() && sub_1A86F1470() && sub_1A86F10B4() && sub_1A86F15AC())
+  if (v9 && sub_1A86F10B4(0) && sub_1A86F11F8() && sub_1A86F10B4(0) && sub_1A86F1334() && sub_1A86F10B4(0) && sub_1A86F1470() && sub_1A86F10B4(0) && sub_1A86F15AC())
   {
     [self mapThumbnailFillSizeForWidth:{width, v38}];
     v27 = v26;

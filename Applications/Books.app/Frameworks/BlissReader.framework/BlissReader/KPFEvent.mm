@@ -118,7 +118,8 @@
         [(THImageLayer *)v11 setBounds:CGPointZero.x, y, v19, v20];
         v90 = v10;
         [(THImageLayer *)v11 setName:v10];
-        -[KPFEvent p_affineTransformFromArray:](self, "p_affineTransformFromArray:", [v9 objectForKey:@"affineTransform"]);
+        [v9 objectForKey:@"affineTransform"];
+        objc_msgSend_p_affineTransformFromArray_(self);
         [(THImageLayer *)v11 setAffineTransform:&v98];
         v21 = [v9 objectForKey:@"translationEmphasis"];
         if (v21)
@@ -223,7 +224,7 @@
                   [(AVPlayerLayer *)playerLayer setZPosition:?];
                   if (v89)
                   {
-                    [(THImageLayer *)v89 transform];
+                    objc_msgSend_transform(v89);
                   }
 
                   else
@@ -292,7 +293,7 @@
         memset(&v98, 0, sizeof(v98));
         if (v58)
         {
-          [v58 affineTransform];
+          objc_msgSend_affineTransform(v58);
         }
 
         [v58 bounds];
@@ -1051,21 +1052,21 @@ LABEL_32:
             return 0;
           }
 
-          memset(&v49, 0, sizeof(v49));
-          v45 = [dictionary objectForKey:@"transform"];
+          memset(&v48, 0, sizeof(v48));
+          [dictionary objectForKey:@"transform"];
           if (self)
           {
-            [(KPFEvent *)self p_transformFromArray:v45];
+            objc_msgSend_p_transformFromArray_(self);
           }
 
           else
           {
-            memset(&v49, 0, sizeof(v49));
+            memset(&v48, 0, sizeof(v48));
           }
 
           if (layer)
           {
-            [layer transform];
+            objc_msgSend_transform(layer);
           }
 
           else
@@ -1073,10 +1074,10 @@ LABEL_32:
             memset(&b, 0, sizeof(b));
           }
 
-          v46 = v49;
-          CATransform3DConcat(&v48, &v46, &b);
-          v49 = v48;
-          return [NSValue valueWithCATransform3D:&v48];
+          v45 = v48;
+          CATransform3DConcat(&v47, &v45, &b);
+          v48 = v47;
+          return [NSValue valueWithCATransform3D:&v47];
         }
 
         [objc_msgSend(dictionary objectForKey:{@"pointX", "floatValue"}];
@@ -1276,7 +1277,7 @@ LABEL_14:
   v14 = 0u;
   if (v6)
   {
-    [v6 sublayerTransform];
+    objc_msgSend_sublayerTransform(v6);
   }
 
   v7 = tan(0.174532925);

@@ -83,7 +83,7 @@
     v26 = [v19 vectorWithX:v21 Y:v23 Z:v18 W:v25];
     filterHueKernel = [objc_opt_class() filterHueKernel];
     inputImage2 = [(PIIPTHueChromaColorFilter *)self inputImage];
-    [inputImage2 extent];
+    objc_msgSend_extent(inputImage2);
     v30 = v29;
     v32 = v31;
     v34 = v33;

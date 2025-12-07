@@ -22,9 +22,11 @@
 
 uint64_t __44__LACCredentialSignpostEvent_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_0 = objc_alloc_init(LACCredentialSignpostEvent);
+  v0 = objc_alloc_init(LACCredentialSignpostEvent);
+  v1 = sharedInstance_sharedInstance_0;
+  sharedInstance_sharedInstance_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)extractableCredentialReadAttemptWithAge:(id)age accessAllowed:(BOOL)allowed
@@ -58,20 +60,18 @@ LACSignpostEvent *__84__LACCredentialSignpostEvent_extractableCredentialReadAtte
 
 void __84__LACCredentialSignpostEvent_extractableCredentialReadAttemptWithAge_accessAllowed___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = LACLogCredentials();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = LACLogCredentials(a1);
   if (os_signpost_enabled(v2))
   {
     v3 = [*(a1 + 32) integerValue];
     v4 = *(a1 + 40);
-    v6[0] = 67240448;
-    v6[1] = v3;
-    v7 = 1026;
-    v8 = v4;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialExtractAge", " enableTelemetry=YES  age=%{public,signpost.telemetry:number1,name=age}d  ok=%{public,signpost.telemetry:number2,name=ok}d ", v6, 0xEu);
+    v5[0] = 67240448;
+    v5[1] = v3;
+    v6 = 1026;
+    v7 = v4;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialExtractAge", " enableTelemetry=YES  age=%{public,signpost.telemetry:number1,name=age}d  ok=%{public,signpost.telemetry:number2,name=ok}d ", v5, 0xEu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)extractableCredentialFailedReadAttemptWithAge:(id)age signingID:(id)d
@@ -107,20 +107,18 @@ LACSignpostEvent *__86__LACCredentialSignpostEvent_extractableCredentialFailedRe
 
 void __86__LACCredentialSignpostEvent_extractableCredentialFailedReadAttemptWithAge_signingID___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = LACLogCredentials();
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = LACLogCredentials(a1);
   if (os_signpost_enabled(v2))
   {
     v3 = [*(a1 + 32) integerValue];
     v4 = *(a1 + 40);
-    v6[0] = 67240450;
-    v6[1] = v3;
-    v7 = 2114;
-    v8 = v4;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialExtractFailed", " enableTelemetry=YES  age=%{public,signpost.telemetry:number1,name=age}d  sid=%{public,signpost.telemetry:string1,name=sid}@ ", v6, 0x12u);
+    v5[0] = 67240450;
+    v5[1] = v3;
+    v6 = 2114;
+    v7 = v4;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialExtractFailed", " enableTelemetry=YES  age=%{public,signpost.telemetry:number1,name=age}d  sid=%{public,signpost.telemetry:string1,name=sid}@ ", v5, 0x12u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)extractableCredentialWriteAttemptWithAccessAllowed:(BOOL)allowed
@@ -150,17 +148,15 @@ LACSignpostEvent *__81__LACCredentialSignpostEvent_extractableCredentialWriteAtt
 
 void __81__LACCredentialSignpostEvent_extractableCredentialWriteAttemptWithAccessAllowed___block_invoke_2(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = LACLogCredentials();
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = LACLogCredentials(a1);
   if (os_signpost_enabled(v2))
   {
     v3 = *(a1 + 32);
-    v5[0] = 67240192;
-    v5[1] = v3;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialWriteAttempt", " enableTelemetry=YES  ok=%{public,signpost.telemetry:number1,name=ok}d ", v5, 8u);
+    v4[0] = 67240192;
+    v4[1] = v3;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialWriteAttempt", " enableTelemetry=YES  ok=%{public,signpost.telemetry:number1,name=ok}d ", v4, 8u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)extractableCredentialFailedWriteAttemptWithSigningID:(id)d
@@ -192,17 +188,15 @@ LACSignpostEvent *__83__LACCredentialSignpostEvent_extractableCredentialFailedWr
 
 void __83__LACCredentialSignpostEvent_extractableCredentialFailedWriteAttemptWithSigningID___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = LACLogCredentials();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = LACLogCredentials(a1);
   if (os_signpost_enabled(v2))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialWriteFailed", " enableTelemetry=YES  sid=%{public,signpost.telemetry:string1,name=sid}@ ", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_signpost_emit_with_name_impl(&dword_1B0233000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CredentialWriteFailed", " enableTelemetry=YES  sid=%{public,signpost.telemetry:string1,name=sid}@ ", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

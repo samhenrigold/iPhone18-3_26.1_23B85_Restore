@@ -120,8 +120,8 @@
 
 - (uint64_t)requestPixelBufferPoolForFormat:(_DWORD *)a1 size:.cold.1(_DWORD *a1)
 {
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFF842ALL, "<<<< BWInferenceSchedulerResourceCoordinator >>>>", 0x4C, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }

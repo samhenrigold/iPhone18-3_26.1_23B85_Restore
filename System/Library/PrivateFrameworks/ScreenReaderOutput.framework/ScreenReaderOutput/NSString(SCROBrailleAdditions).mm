@@ -16,9 +16,9 @@
     [NSString(SCROBrailleAdditions) _illegalCharacterSet];
   }
 
-  v1 = _illegalCharacterSet___illegalCharacterSet;
+  v2 = _illegalCharacterSet___illegalCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 - (id)_legalWhiteSpaceSet

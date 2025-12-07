@@ -27,14 +27,14 @@
 
 - (CBABCurve)initWithConfiguration:(id)configuration
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v55 = a2;
+  v56 = a2;
   configurationCopy = configuration;
   self->_logHandle = os_log_create("com.apple.CoreBrightness.CBABCurve", "default");
-  v53.receiver = selfCopy;
-  v53.super_class = CBABCurve;
-  selfCopy = [(CBABCurve *)&v53 init];
+  v54.receiver = selfCopy;
+  v54.super_class = CBABCurve;
+  selfCopy = [(CBABCurve *)&v54 init];
   if (selfCopy)
   {
     selfCopy->maximumBrightness = 1.0;
@@ -44,7 +44,7 @@
     selfCopy->currentLux = 300.0;
     selfCopy->_scaleFactor = 1.0;
     [objc_msgSend(configurationCopy "minBrightness")];
-    v52 = v4;
+    v53 = v4;
     selfCopy->shouldClampLowLux = float_equal(v4, 1.0);
     if (selfCopy->_logHandle)
     {
@@ -80,28 +80,28 @@
         v5 = "NO";
       }
 
-      __os_log_helper_16_2_2_8_0_8_32(v65, COERCE__INT64(v52), v5);
-      _os_log_impl(&dword_1DE8E5000, oslog, type, "Panel min brightness from curve configuration: %f; should clamp low lux: %s", v65, 0x16u);
+      __os_log_helper_16_2_2_8_0_8_32(v66, COERCE__INT64(v53), v5);
+      _os_log_impl(&dword_1DE8E5000, oslog, type, "Panel min brightness from curve configuration: %f; should clamp low lux: %s", v66, 0x16u);
     }
 
-    v49 = 1;
-    v48 = [CBPreferencesHandler copyPreferenceForAllUsersForKey:@"DisplayPreferences"];
+    v50 = 1;
+    v49 = [CBPreferencesHandler copyPreferenceForAllUsersForKey:@"DisplayPreferences"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v47 = [v48 objectForKey:{objc_msgSend(configurationCopy, "uuid")}];
+      v48 = [v49 objectForKey:{objc_msgSend(configurationCopy, "uuid")}];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v46 = [v47 objectForKey:@"AutoBrightnessCurve"];
+        v47 = [v48 objectForKey:@"AutoBrightnessCurve"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v45 = [v46 objectForKey:@"Version"];
+          v46 = [v47 objectForKey:@"Version"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            unsignedIntValue = [v45 unsignedIntValue];
+            unsignedIntValue = [v46 unsignedIntValue];
             selfCopy->_version = unsignedIntValue;
             if (unsignedIntValue == 1)
             {
@@ -125,17 +125,17 @@
                 v27 = v26;
               }
 
-              v44 = v27;
-              v43 = OS_LOG_TYPE_INFO;
+              v45 = v27;
+              v44 = OS_LOG_TYPE_INFO;
               if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
               {
-                __os_log_helper_16_0_1_8_0(v64, selfCopy->_version);
-                _os_log_impl(&dword_1DE8E5000, v44, v43, "upgrading curve from version %lu", v64, 0xCu);
+                __os_log_helper_16_0_1_8_0(v65, selfCopy->_version);
+                _os_log_impl(&dword_1DE8E5000, v45, v44, "upgrading curve from version %lu", v65, 0xCu);
               }
 
               if ([configurationCopy isBuiltin] & 1) != 0 && (objc_msgSend(configurationCopy, "isEnergySaving"))
               {
-                v49 = 0;
+                v50 = 0;
               }
 
               else
@@ -166,88 +166,88 @@
                 v25 = v24;
               }
 
-              v42 = v25;
-              v41 = OS_LOG_TYPE_ERROR;
+              v43 = v25;
+              v42 = OS_LOG_TYPE_ERROR;
               if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                v22 = v42;
-                v23 = v41;
-                __os_log_helper_16_0_0(v40);
-                _os_log_error_impl(&dword_1DE8E5000, v22, v23, "curve version mismatch", v40, 2u);
+                v22 = v43;
+                v23 = v42;
+                __os_log_helper_16_0_0(v41);
+                _os_log_error_impl(&dword_1DE8E5000, v22, v23, "curve version mismatch", v41, 2u);
               }
 
-              v49 = 0;
+              v50 = 0;
             }
           }
 
           else
           {
-            v49 = 0;
+            v50 = 0;
           }
 
-          v45 = [v46 objectForKey:@"Lux1"];
+          v46 = [v47 objectForKey:@"Lux1"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v45 floatValue];
+            [v46 floatValue];
             selfCopy->pref.e1 = v6;
           }
 
           else
           {
-            v49 = 0;
+            v50 = 0;
           }
 
-          v45 = [v46 objectForKey:@"Lux2"];
+          v46 = [v47 objectForKey:@"Lux2"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v45 floatValue];
+            [v46 floatValue];
             selfCopy->pref.e2 = v7;
           }
 
           else
           {
-            v49 = 0;
+            v50 = 0;
           }
 
-          v45 = [v46 objectForKey:@"Backlight1"];
+          v46 = [v47 objectForKey:@"Backlight1"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v45 floatValue];
+            [v46 floatValue];
             selfCopy->pref.bl1 = v8;
           }
 
           else
           {
-            v49 = 0;
+            v50 = 0;
           }
 
-          v45 = [v46 objectForKey:@"Backlight2"];
+          v46 = [v47 objectForKey:@"Backlight2"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v45 floatValue];
+            [v46 floatValue];
             selfCopy->pref.bl2 = v9;
           }
 
           else
           {
-            v49 = 0;
+            v50 = 0;
           }
 
-          v45 = [v46 objectForKey:@"LuxThreshold"];
+          v46 = [v47 objectForKey:@"LuxThreshold"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v45 floatValue];
+            [v46 floatValue];
             selfCopy->pref.eThresh = v10;
           }
 
           else
           {
-            v49 = 0;
+            v50 = 0;
           }
         }
 
@@ -273,15 +273,15 @@
             v21 = v20;
           }
 
-          v39 = v21;
-          v38 = OS_LOG_TYPE_DEFAULT;
+          v40 = v21;
+          v39 = OS_LOG_TYPE_DEFAULT;
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            __os_log_helper_16_2_1_8_66(v63, [configurationCopy productID]);
-            _os_log_impl(&dword_1DE8E5000, v39, v38, "no curve preferences for the display %{public}@", v63, 0xCu);
+            __os_log_helper_16_2_1_8_66(v64, [configurationCopy productID]);
+            _os_log_impl(&dword_1DE8E5000, v40, v39, "no curve preferences for the display %{public}@", v64, 0xCu);
           }
 
-          v49 = 0;
+          v50 = 0;
         }
       }
 
@@ -307,15 +307,15 @@
           v19 = v18;
         }
 
-        v37 = v19;
-        v36 = OS_LOG_TYPE_DEFAULT;
+        v38 = v19;
+        v37 = OS_LOG_TYPE_DEFAULT;
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_2_1_8_66(v62, [configurationCopy productID]);
-          _os_log_impl(&dword_1DE8E5000, v37, v36, "no preferences for the display %{public}@", v62, 0xCu);
+          __os_log_helper_16_2_1_8_66(v63, [configurationCopy productID]);
+          _os_log_impl(&dword_1DE8E5000, v38, v37, "no preferences for the display %{public}@", v63, 0xCu);
         }
 
-        v49 = 0;
+        v50 = 0;
       }
     }
 
@@ -341,21 +341,21 @@
         v17 = v16;
       }
 
-      v35 = v17;
-      v34 = OS_LOG_TYPE_DEFAULT;
+      v36 = v17;
+      v35 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = v35;
-        v15 = v34;
-        __os_log_helper_16_0_0(v33);
-        _os_log_impl(&dword_1DE8E5000, v14, v15, "no display preferences", v33, 2u);
+        v14 = v36;
+        v15 = v35;
+        __os_log_helper_16_0_0(v34);
+        _os_log_impl(&dword_1DE8E5000, v14, v15, "no display preferences", v34, 2u);
       }
 
-      v49 = 0;
+      v50 = 0;
     }
 
-    *&v11 = MEMORY[0x1E69E5920](v48).n128_u64[0];
-    if (v49)
+    *&v11 = MEMORY[0x1E69E5920](v49).n128_u64[0];
+    if (v50)
     {
       e1 = selfCopy->pref.e1;
       e2 = selfCopy->pref.e2;
@@ -370,21 +370,20 @@
       v13 = selfCopy;
       if (selfCopy)
       {
-        [(CBABCurve *)selfCopy provideDefaultPreferencesWithConfiguration:configurationCopy, v11];
+        objc_msgSend_provideDefaultPreferencesWithConfiguration_(selfCopy, v31, configurationCopy, v11);
       }
 
       else
       {
-        v31 = 0uLL;
-        v32 = 0.0;
+        v32 = 0uLL;
+        v33 = 0.0;
       }
 
-      *&v13->pref.bl1 = v31;
-      v13->pref.eThresh = v32;
+      *&v13->pref.bl1 = v32;
+      v13->pref.eThresh = v33;
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -527,7 +526,6 @@
     retstr->var1 = 0.625;
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -627,7 +625,7 @@
       _os_log_debug_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEBUG, "setLux=%f, mappedBrightness=%f, scaler=%f", v21, 0x20u);
     }
 
-    v20 = 1;
+    return 1;
   }
 
   else
@@ -658,11 +656,8 @@
       _os_log_error_impl(&dword_1DE8E5000, v17, OS_LOG_TYPE_ERROR, "lux value (%f) is < 0", v24, 0xCu);
     }
 
-    v20 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v20 & 1;
 }
 
 - (void)updateALSParametersForDisplayBrightness:(float)brightness
@@ -853,14 +848,12 @@
       _os_log_debug_impl(&dword_1DE8E5000, v23, OS_LOG_TYPE_DEBUG, "ABOVE Bl1: %f BL2: %f slope: %f linBT: %f lux: %f\n", v43, 0x34u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)resetToDefaultState
 {
   selfCopy = self;
-  v12 = a2;
+  v13 = a2;
   if (self->_logHandle)
   {
     logHandle = selfCopy->_logHandle;
@@ -881,30 +874,30 @@
     logHandle = inited;
   }
 
-  v11 = logHandle;
-  v10 = OS_LOG_TYPE_DEFAULT;
+  v12 = logHandle;
+  v11 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
-    log = v11;
-    type = v10;
-    __os_log_helper_16_0_0(v9);
-    _os_log_impl(&dword_1DE8E5000, log, type, "Curve reset to default state", v9, 2u);
+    log = v12;
+    type = v11;
+    __os_log_helper_16_0_0(v10);
+    _os_log_impl(&dword_1DE8E5000, log, type, "Curve reset to default state", v10, 2u);
   }
 
-  v2 = selfCopy;
+  v3 = selfCopy;
   if (selfCopy)
   {
-    [(CBABCurve *)selfCopy provideDefaultPreferencesWithConfiguration:selfCopy->config];
+    objc_msgSend_provideDefaultPreferencesWithConfiguration_(selfCopy, v2, selfCopy->config);
   }
 
   else
   {
-    v7 = 0uLL;
-    v8 = 0.0;
+    v8 = 0uLL;
+    v9 = 0.0;
   }
 
-  *&v2->pref.bl1 = v7;
-  v2->pref.eThresh = v8;
+  *&v3->pref.bl1 = v8;
+  v3->pref.eThresh = v9;
 }
 
 - (id)copyUserPrefState

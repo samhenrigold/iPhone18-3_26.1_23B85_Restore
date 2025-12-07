@@ -45,7 +45,7 @@
 
   else
   {
-    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super.super.super._storage, 0x25u, 4uLL, 1);
+    DataForKey = TUI::Util::PartialStruct::Storage::allocateDataForKey(&self->super.super.super._storage, 37, 4, 1);
     if (!DataForKey)
     {
       return;
@@ -218,7 +218,7 @@
 
 + (unint64_t)backgroundKindFromString:(id)string
 {
-  if ([string isEqualToString:@"solid"])
+  if (objc_msgSend_isEqualToString_(string, a2, @"solid"))
   {
     return 2;
   }

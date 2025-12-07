@@ -10,45 +10,42 @@
 - (void)removeHighMemoryThresholdRequest:(id)request afterDelay:(double)delay
 {
   requestCopy = request;
-  isolater = self->_isolater;
   block[5] = MEMORY[0x1E69E9820];
   block[6] = 3221225472;
   block[7] = __71__MNXPCTransactionManager_removeHighMemoryThresholdRequest_afterDelay___block_invoke;
   block[8] = &unk_1E8430D50;
   block[9] = self;
-  v12 = requestCopy;
-  v8 = requestCopy;
+  v11 = requestCopy;
+  v7 = requestCopy;
   geo_isolate_sync();
-  v9 = dispatch_time(0, (delay * 1000000000.0));
-  v10 = MNNavigationQueue();
+  v8 = dispatch_time(0, (delay * 1000000000.0));
+  v9 = MNNavigationQueue();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __71__MNXPCTransactionManager_removeHighMemoryThresholdRequest_afterDelay___block_invoke_8;
   block[3] = &unk_1E8430ED8;
   block[4] = self;
-  dispatch_after(v9, v10, block);
+  dispatch_after(v8, v9, block);
 }
 
-uint64_t __71__MNXPCTransactionManager_removeHighMemoryThresholdRequest_afterDelay___block_invoke(uint64_t a1)
+void *__71__MNXPCTransactionManager_removeHighMemoryThresholdRequest_afterDelay___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   result = [*(*(a1 + 32) + 16) containsObject:*(a1 + 40)];
   if (result)
   {
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
-      v5 = [objc_opt_class() description];
-      v7 = 136315138;
-      v8 = [v5 UTF8String];
-      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "navd > XPC transaction |     Exit request from %s", &v7, 0xCu);
+      v4 = [objc_opt_class() description];
+      v5 = 136315138;
+      v6 = [v4 UTF8String];
+      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "navd > XPC transaction |     Exit request from %s", &v5, 0xCu);
     }
 
-    result = [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
+    return [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -97,9 +94,9 @@ void __71__MNXPCTransactionManager_removeHighMemoryThresholdRequest_afterDelay__
 
 - (void)addHighMemoryThresholdRequest:(id)request
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v14 = self->_isolater;
+  v13 = self->_isolater;
   _geo_isolate_lock();
   if (![(NSHashTable *)self->_requesters containsObject:requestCopy])
   {
@@ -143,8 +140,6 @@ void __71__MNXPCTransactionManager_removeHighMemoryThresholdRequest_afterDelay__
   }
 
   _geo_isolate_unlock();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (MNXPCTransactionManager)init

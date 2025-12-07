@@ -161,13 +161,13 @@ uint64_t __45__MPModelMovieKind_kindWithVariants_options___block_invoke(uint64_t
 
 - (shared_ptr<mlcore::Predicate>)predicateWithBaseProperty:(void *)property
 {
-  v9 = *MEMORY[0x1E69E9840];
-  memset(v7, 0, sizeof(v7));
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, sizeof(v8));
   v4 = [(MPModelMovieKind *)self variants:0];
   if (v4)
   {
-    LODWORD(v8) = 2048;
-    std::vector<int>::push_back[abi:ne200100](v7, &v8);
+    LODWORD(v9) = 2048;
+    std::vector<int>::push_back[abi:ne200100](v8, &v9);
   }
 
   Property = mlcore::ItemPropertyMediaType(v4);
@@ -176,13 +176,13 @@ uint64_t __45__MPModelMovieKind_kindWithVariants_options___block_invoke(uint64_t
     Property = MPMediaLibraryGetProperty(property, Property);
   }
 
-  *&v6 = Property;
-  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<int>,std::allocator<mlcore::InPredicate<int>>,mlcore::ModelProperty<int> *&,std::vector<int> const&,0>();
+  v6[0] = Property;
+  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<int>,std::allocator<mlcore::InPredicate<int>>,mlcore::ModelProperty<int> *&,std::vector<int> const&,0>(v7, v6, v8);
 }
 
 - (shared_ptr<mlcore::Predicate>)representedSearchScopePredicate
 {
-  v2 = [(MPModelMovieKind *)self predicateWithBaseProperty:0];
+  v2 = objc_msgSend_predicateWithBaseProperty_(self, a2, 0);
   result.var1 = v3;
   result.var0 = v2;
   return result;

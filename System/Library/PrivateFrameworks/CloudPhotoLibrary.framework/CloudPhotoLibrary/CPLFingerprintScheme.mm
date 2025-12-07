@@ -91,14 +91,14 @@
 
 void __47__CPLFingerprintScheme_zeroByteFileFingerprint__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (!v1[3])
   {
     v3 = [MEMORY[0x1E695DEF0] data];
-    v15 = 0;
-    v4 = [v1 fingerPrintForData:v3 error:&v15];
-    v5 = v15;
+    v14 = 0;
+    v4 = [v1 fingerPrintForData:v3 error:&v14];
+    v5 = v14;
     v6 = *(a1 + 32);
     v7 = *(v6 + 24);
     *(v6 + 24) = v4;
@@ -107,29 +107,27 @@ void __47__CPLFingerprintScheme_zeroByteFileFingerprint__block_invoke(uint64_t a
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v9 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v8 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v10 = *(a1 + 32);
+          v9 = *(a1 + 32);
           *buf = 138412546;
-          v17 = v10;
-          v18 = 2112;
-          v19 = v5;
-          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "%@ failed to create zero size finger print: %@", buf, 0x16u);
+          v16 = v9;
+          v17 = 2112;
+          v18 = v5;
+          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "%@ failed to create zero size finger print: %@", buf, 0x16u);
         }
       }
 
-      v11 = [MEMORY[0x1E696AAA8] currentHandler];
-      v13 = *(a1 + 32);
-      v12 = *(a1 + 40);
-      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
-      [v11 handleFailureInMethod:v12 object:v13 file:v14 lineNumber:169 description:{@"%@ failed to create zero size finger print: %@", *(a1 + 32), v5}];
+      v10 = [MEMORY[0x1E696AAA8] currentHandler];
+      v12 = *(a1 + 32);
+      v11 = *(a1 + 40);
+      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
+      [v10 handleFailureInMethod:v11 object:v12 file:v13 lineNumber:169 description:{@"%@ failed to create zero size finger print: %@", *(a1 + 32), v5}];
 
       abort();
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fingerPrintForFD:(int)d error:(id *)error

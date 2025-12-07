@@ -240,7 +240,7 @@
   if ((dyld_program_sdk_at_least() & 1) == 0)
   {
     v5 = _UIMainBundleIdentifier();
-    [v5 isEqualToString:@"com.sina.weibo"];
+    objc_msgSend_isEqualToString_(v5);
   }
 
   v6 = objc_alloc(objc_opt_class());
@@ -2638,10 +2638,10 @@ LABEL_10:
       if (v5)
       {
         text = [(UILabel *)v5 text];
-        v7 = [promptCopy isEqualToString:text];
+        isEqualToString = objc_msgSend_isEqualToString_(promptCopy);
 
         [(UILabel *)v5 setText:promptCopy];
-        if (v7)
+        if (isEqualToString)
         {
           goto LABEL_10;
         }
@@ -5002,7 +5002,7 @@ LABEL_53:
 
   self->_previousLayoutState = self->_layoutState;
   self->_layoutState = state;
-  [(_UISearchBarVisualProviderIOS *)self configureLayout:self->_prospectiveLayout forState:self->_previousLayoutState, *v34, *&v34[16]];
+  [(_UISearchBarVisualProviderIOS *)self configureLayout:self->_prospectiveLayout forState:self->_previousLayoutState, *v34, *&v34[8]];
   [(_UISearchBarVisualProviderIOS *)self configureLayout:self->_currentLayout];
   transitionContext = [(_UISearchBarTransitionerBase *)self->_transitioner transitionContext];
   [transitionContext setFromLayout:self->_prospectiveLayout];

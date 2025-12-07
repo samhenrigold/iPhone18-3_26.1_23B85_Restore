@@ -206,9 +206,9 @@ void __83__ML3SpotlightMatchingNameCache_loadFromLibrary_namesMatchingString_can
   dispatch_sync(v3, block);
 }
 
-void __83__ML3SpotlightMatchingNameCache_loadFromLibrary_namesMatchingString_cancelHandler___block_invoke_2(uint64_t a1)
+void __83__ML3SpotlightMatchingNameCache_loadFromLibrary_namesMatchingString_cancelHandler___block_invoke_2(uint64_t result)
 {
-  v1 = *(a1 + 32);
+  v1 = *(result + 32);
   if (v1)
   {
     objc_storeStrong(&__matchingNameCache, v1);

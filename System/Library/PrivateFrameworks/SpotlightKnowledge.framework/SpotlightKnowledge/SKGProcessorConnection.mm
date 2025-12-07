@@ -195,32 +195,32 @@ void __92__SKGProcessorConnection_checkProcessingReportForBundleIdentifier_flags
 
 - (void)getGenerationProgressReportForTypes:(id)types protectionClasses:(id)classes reportHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   classesCopy = classes;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
   group = dispatch_group_create();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = typesCopy;
-  v31 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v30)
   {
-    v27 = *v42;
+    v26 = *v41;
     do
     {
       v11 = 0;
       do
       {
-        if (*v42 != v27)
+        if (*v41 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * v11);
+        v12 = *(*(&v40 + 1) + 8 * v11);
         v13 = xpc_dictionary_create(0, 0, 0);
         v14 = [v12 stringByAppendingString:@"GenerationProgress"];
         xpc_dictionary_set_string(v13, "command", [v14 UTF8String]);
@@ -228,35 +228,35 @@ void __92__SKGProcessorConnection_checkProcessingReportForBundleIdentifier_flags
         if ([classesCopy count])
         {
           empty = xpc_array_create_empty();
+          v36 = 0u;
           v37 = 0u;
           v38 = 0u;
           v39 = 0u;
-          v40 = 0u;
           v16 = classesCopy;
           v17 = classesCopy;
-          v18 = [v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v38;
+            v20 = *v37;
             do
             {
               v21 = 0;
               do
               {
-                if (*v38 != v20)
+                if (*v37 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v22 = xpc_string_create([*(*(&v37 + 1) + 8 * v21) UTF8String]);
+                v22 = xpc_string_create([*(*(&v36 + 1) + 8 * v21) UTF8String]);
                 xpc_array_append_value(empty, v22);
 
                 ++v21;
               }
 
               while (v19 != v21);
-              v19 = [v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
 
             while (v19);
@@ -267,34 +267,32 @@ void __92__SKGProcessorConnection_checkProcessingReportForBundleIdentifier_flags
         }
 
         dispatch_group_enter(group);
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __112__SKGProcessorConnection_getGenerationProgressReportForTypes_protectionClasses_reportHandler_completionHandler___block_invoke;
-        v34[3] = &unk_1E74B7FA8;
-        v34[4] = v12;
-        v36 = handlerCopy;
-        v35 = group;
-        [(CSXPCConnection *)self sendMessageAsync:v13 completion:v34];
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __112__SKGProcessorConnection_getGenerationProgressReportForTypes_protectionClasses_reportHandler_completionHandler___block_invoke;
+        v33[3] = &unk_1E74B7FA8;
+        v33[4] = v12;
+        v35 = handlerCopy;
+        v34 = group;
+        [(CSXPCConnection *)self sendMessageAsync:v13 completion:v33];
 
         ++v11;
       }
 
-      while (v11 != v31);
-      v31 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+      while (v11 != v30);
+      v30 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __112__SKGProcessorConnection_getGenerationProgressReportForTypes_protectionClasses_reportHandler_completionHandler___block_invoke_2;
   block[3] = &unk_1E74B7FD0;
-  v33 = completionHandlerCopy;
+  v32 = completionHandlerCopy;
   v23 = completionHandlerCopy;
   dispatch_group_notify(group, MEMORY[0x1E69E96A0], block);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __112__SKGProcessorConnection_getGenerationProgressReportForTypes_protectionClasses_reportHandler_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -320,51 +318,51 @@ void __112__SKGProcessorConnection_getGenerationProgressReportForTypes_protectio
 
 - (void)getGenerationConfigurationForTypes:(id)types configurationHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
   v10 = dispatch_group_create();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = typesCopy;
-  v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       v14 = 0;
       do
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v27 + 1) + 8 * v14);
+        v15 = *(*(&v26 + 1) + 8 * v14);
         v16 = xpc_dictionary_create(0, 0, 0);
         v17 = [v15 stringByAppendingString:@"GenerationConfiguration"];
         xpc_dictionary_set_string(v16, "command", [v17 UTF8String]);
 
         dispatch_group_enter(v10);
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __100__SKGProcessorConnection_getGenerationConfigurationForTypes_configurationHandler_completionHandler___block_invoke;
-        v24[3] = &unk_1E74B7FA8;
-        v24[4] = v15;
-        v26 = handlerCopy;
-        v25 = v10;
-        [(CSXPCConnection *)self sendMessageAsync:v16 completion:v24];
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __100__SKGProcessorConnection_getGenerationConfigurationForTypes_configurationHandler_completionHandler___block_invoke;
+        v23[3] = &unk_1E74B7FA8;
+        v23[4] = v15;
+        v25 = handlerCopy;
+        v24 = v10;
+        [(CSXPCConnection *)self sendMessageAsync:v16 completion:v23];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v12);
@@ -374,11 +372,9 @@ void __112__SKGProcessorConnection_getGenerationProgressReportForTypes_protectio
   block[1] = 3221225472;
   block[2] = __100__SKGProcessorConnection_getGenerationConfigurationForTypes_configurationHandler_completionHandler___block_invoke_2;
   block[3] = &unk_1E74B7FD0;
-  v23 = completionHandlerCopy;
+  v22 = completionHandlerCopy;
   v18 = completionHandlerCopy;
   dispatch_group_notify(v10, MEMORY[0x1E69E96A0], block);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __100__SKGProcessorConnection_getGenerationConfigurationForTypes_configurationHandler_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -405,7 +401,7 @@ void __100__SKGProcessorConnection_getGenerationConfigurationForTypes_configurat
 - (void)getProgressReportWithVerbosity:(int64_t)verbosity processorFlags:(unint64_t)flags protectionClasses:(id)classes reportHandler:(id)handler
 {
   flagsCopy = flags;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   handlerCopy = handler;
   v12 = xpc_dictionary_create(0, 0, 0);
@@ -446,34 +442,34 @@ LABEL_12:
     verbosityCopy = verbosity;
     selfCopy = self;
     empty = xpc_array_create_empty();
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v16 = classesCopy;
-    v17 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v28;
+      v19 = *v27;
       do
       {
         v20 = 0;
         do
         {
-          if (*v28 != v19)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = xpc_string_create([*(*(&v27 + 1) + 8 * v20) UTF8String]);
+          v21 = xpc_string_create([*(*(&v26 + 1) + 8 * v20) UTF8String]);
           xpc_array_append_value(empty, v21);
 
           ++v20;
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v18);
@@ -485,15 +481,13 @@ LABEL_12:
   }
 
   xpc_dictionary_set_int64(v12, "verbose", verbosity);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __104__SKGProcessorConnection_getProgressReportWithVerbosity_processorFlags_protectionClasses_reportHandler___block_invoke;
-  v25[3] = &unk_1E74B7F80;
-  v26 = handlerCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __104__SKGProcessorConnection_getProgressReportWithVerbosity_processorFlags_protectionClasses_reportHandler___block_invoke;
+  v24[3] = &unk_1E74B7F80;
+  v25 = handlerCopy;
   v22 = handlerCopy;
-  [(CSXPCConnection *)self sendMessageAsync:v12 completion:v25];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [(CSXPCConnection *)self sendMessageAsync:v12 completion:v24];
 }
 
 void __104__SKGProcessorConnection_getProgressReportWithVerbosity_processorFlags_protectionClasses_reportHandler___block_invoke(uint64_t a1, void *a2)
@@ -572,33 +566,33 @@ void __77__SKGProcessorConnection_getCachedEmbeddingCompletenessForBundle_comple
 
 void __84__SKGProcessorConnection_getHistoricalProgressReportsForDateInterval_reportHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
-        v16 = 0;
-        v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v13 options:0 error:&v16];
+        v13 = *(*(&v16 + 1) + 8 * v12);
+        v15 = 0;
+        v14 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v13 options:0 error:&v15];
         if (v14)
         {
           objc_opt_class();
@@ -612,14 +606,13 @@ void __84__SKGProcessorConnection_getHistoricalProgressReportsForDateInterval_re
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 32) + 16))();
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getHistoricalProgressReportsJSONDataForDateInterval:(id)interval reportHandler:(id)handler

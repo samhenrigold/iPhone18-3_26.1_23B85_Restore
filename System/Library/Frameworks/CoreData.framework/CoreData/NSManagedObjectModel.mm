@@ -5,9 +5,9 @@
 + (NSManagedObjectModel)mergedModelFromBundles:(NSArray *)bundles forStoreMetadata:(NSDictionary *)metadata;
 + (NSManagedObjectModel)modelByMergingModels:(NSArray *)models;
 + (NSManagedObjectModel)modelByMergingModels:(NSArray *)models forStoreMetadata:(NSDictionary *)metadata;
++ (char)_deepCollectEntitiesInArray:(void *)array entity:;
 + (id)versionsHashesForModelAtURL:(id)l error:(id *)error;
 + (int64_t)_debugOptimizedModelLayout;
-+ (uint64_t)_deepCollectEntitiesInArray:(void *)array entity:;
 + (void)_modelPathsFromBundles:(uint64_t)bundles;
 + (void)_newModelFromOptimizedEncoding:(uint64_t)encoding error:(const __CFData *)error;
 - (BOOL)isEqual:(id)equal;
@@ -66,45 +66,44 @@
 
 - (uint64_t)_hasEntityWithUniquenessConstraints
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     v2 = *(result + 64);
     if ((v2 & 4) != 0)
     {
-      result = (v2 >> 3) & 1;
+      return (v2 >> 3) & 1;
     }
 
     else
     {
-      v10 = 0u;
-      v11 = 0u;
-      v8 = 0u;
       v9 = 0u;
+      v10 = 0u;
+      v7 = 0u;
+      v8 = 0u;
       v3 = *(result + 32);
-      result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      result = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (result)
       {
         v4 = result;
-        v5 = *v9;
+        v5 = *v8;
         while (2)
         {
           for (i = 0; i != v4; ++i)
           {
-            if (*v9 != v5)
+            if (*v8 != v5)
             {
               objc_enumerationMutation(v3);
             }
 
-            if (-[NSEntityDescription _hasUniqueProperties]([*(v1 + 32) objectForKey:*(*(&v8 + 1) + 8 * i)]))
+            if (-[NSEntityDescription _hasUniqueProperties]([*(v1 + 32) objectForKey:*(*(&v7 + 1) + 8 * i)]))
             {
-              result = 1;
-              goto LABEL_14;
+              return 1;
             }
           }
 
-          v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+          v4 = [v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
           result = 0;
           if (v4)
           {
@@ -117,8 +116,6 @@
     }
   }
 
-LABEL_14:
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -178,7 +175,7 @@ LABEL_14:
 
 - (id)versionHash
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = _PF_Private_Malloc_Zone;
   if (!_PF_Private_Malloc_Zone)
   {
@@ -189,30 +186,30 @@ LABEL_14:
   v4 = malloc_type_zone_malloc(v3, 0x20uLL, 0xACE9FC24uLL);
   CC_SHA256_Init(&c);
   v5 = [-[NSMutableDictionary allValues](self->_entities "allValues")];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        CC_SHA256_Update(&c, [objc_msgSend(*(*(&v14 + 1) + 8 * v9++) "versionHash")], 0x20u);
+        CC_SHA256_Update(&c, [objc_msgSend(*(*(&v13 + 1) + 8 * v9++) "versionHash")], 0x20u);
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v7);
@@ -227,7 +224,6 @@ LABEL_14:
   }
 
   malloc_zone_free(v11, v4);
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -280,15 +276,15 @@ LABEL_10:
 
 - (void)_createCachesAndOptimizeState
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   managedObjectModelFlags = self->_managedObjectModelFlags;
   if ((*&managedObjectModelFlags & 2) == 0)
   {
     self->_managedObjectModelFlags = (*&managedObjectModelFlags | 2);
-    v60 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+    v59 = objc_alloc_init(MEMORY[0x1E696AAC8]);
     v4 = [-[NSMutableDictionary allValues](self->_entities "allValues")];
     v5 = [v4 count];
-    v59 = &name;
+    v58 = &name;
     v6 = MEMORY[0x1EEE9AC00](v5);
     v9 = &name - v8;
     v10 = 8 * v7;
@@ -383,38 +379,38 @@ LABEL_10:
       }
     }
 
-    v61 = v16;
+    v60 = v16;
     array = [MEMORY[0x1E695DF70] array];
     v25 = 0;
 LABEL_29:
     if (CFSetGetCount(Mutable) >= 1)
     {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
-      v26 = [(__CFSet *)Mutable countByEnumeratingWithState:&v70 objects:v86 count:16];
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v26 = [(__CFSet *)Mutable countByEnumeratingWithState:&v69 objects:v85 count:16];
       if (!v26)
       {
         goto LABEL_55;
       }
 
-      v27 = *v71;
+      v27 = *v70;
       while (1)
       {
         v28 = 0;
         do
         {
-          if (*v71 != v27)
+          if (*v70 != v27)
           {
             objc_enumerationMutation(Mutable);
           }
 
-          v29 = *(*(&v70 + 1) + 8 * v28);
+          v29 = *(*(&v69 + 1) + 8 * v28);
           if (v29)
           {
             v30 = -1;
-            v31 = *(*(&v70 + 1) + 8 * v28);
+            v31 = *(*(&v69 + 1) + 8 * v28);
             do
             {
               v31 = *(v31 + 80);
@@ -472,32 +468,32 @@ LABEL_51:
         }
 
         while (v28 != v26);
-        v35 = [(__CFSet *)Mutable countByEnumeratingWithState:&v70 objects:v86 count:16];
+        v35 = [(__CFSet *)Mutable countByEnumeratingWithState:&v69 objects:v85 count:16];
         v26 = v35;
         if (!v35)
         {
 LABEL_55:
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
           v67 = 0u;
-          v36 = [array countByEnumeratingWithState:&v66 objects:v85 count:16];
+          v68 = 0u;
+          v65 = 0u;
+          v66 = 0u;
+          v36 = [array countByEnumeratingWithState:&v65 objects:v84 count:16];
           if (v36)
           {
-            v37 = *v67;
+            v37 = *v66;
             do
             {
               for (j = 0; j != v36; ++j)
               {
-                if (*v67 != v37)
+                if (*v66 != v37)
                 {
                   objc_enumerationMutation(array);
                 }
 
-                CFSetRemoveValue(Mutable, *(*(&v66 + 1) + 8 * j));
+                CFSetRemoveValue(Mutable, *(*(&v65 + 1) + 8 * j));
               }
 
-              v36 = [array countByEnumeratingWithState:&v66 objects:v85 count:16];
+              v36 = [array countByEnumeratingWithState:&v65 objects:v84 count:16];
             }
 
             while (v36);
@@ -511,12 +507,12 @@ LABEL_55:
 
     CFRelease(Mutable);
     [array removeAllObjects];
-    v61 = [(NSKnownKeysDictionary *)v61 count];
-    if (v61)
+    v60 = [(NSKnownKeysDictionary *)v60 count];
+    if (v60)
     {
       v40 = 0;
       *&v39 = 138413314;
-      v58 = v39;
+      v57 = v39;
       do
       {
         v41 = *(values + 8 * v40);
@@ -573,17 +569,17 @@ LABEL_79:
               name2 = [_checkSelfForNonCascadeNoInverses name];
               v48 = [objc_msgSend(_checkSelfForNonCascadeNoInverses "inverseRelationship")];
               name3 = [_checkSelfForNonCascadeNoInverses name];
-              v75 = v58;
-              v76 = uniquenessConstraints;
-              v77 = 2112;
-              v78 = name;
-              v79 = 2112;
-              v80 = name2;
-              v81 = 2112;
-              v82 = v48;
-              v83 = 2112;
-              v84 = name3;
-              _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Cannot use uniqueness constraints { %@ } on entity '%@' due to relationship '%@' having a mandatory to-one inverse relationship '%@' and not using a cascade delete rule on '%@'\n", &v75, 0x34u);
+              v74 = v57;
+              v75 = uniquenessConstraints;
+              v76 = 2112;
+              v77 = name;
+              v78 = 2112;
+              v79 = name2;
+              v80 = 2112;
+              v81 = v48;
+              v82 = 2112;
+              v83 = name3;
+              _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Cannot use uniqueness constraints { %@ } on entity '%@' due to relationship '%@' having a mandatory to-one inverse relationship '%@' and not using a cascade delete rule on '%@'\n", &v74, 0x34u);
             }
           }
         }
@@ -594,35 +590,35 @@ LABEL_77:
         v40 = (v40 + 1);
       }
 
-      while (v40 != v61);
+      while (v40 != v60);
     }
 
     if (BYTE6(z9dsptsiQ80etb9782fsrs98bfdle88) == 1)
     {
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
       v63 = 0u;
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
       fetchRequestTemplates = self->_fetchRequestTemplates;
-      v51 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v51 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v61 objects:v73 count:16];
       if (v51)
       {
-        v52 = *v63;
+        v52 = *v62;
         do
         {
           for (k = 0; k != v51; ++k)
           {
-            if (*v63 != v52)
+            if (*v62 != v52)
             {
               objc_enumerationMutation(fetchRequestTemplates);
             }
 
-            v54 = [(NSMutableDictionary *)self->_fetchRequestTemplates objectForKey:*(*(&v62 + 1) + 8 * k)];
+            v54 = [(NSMutableDictionary *)self->_fetchRequestTemplates objectForKey:*(*(&v61 + 1) + 8 * k)];
             [v54 allowEvaluation];
             [v54 _incrementInUseCounter];
           }
 
-          v51 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v62 objects:v74 count:16];
+          v51 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v61 objects:v73 count:16];
         }
 
         while (v51);
@@ -630,47 +626,45 @@ LABEL_77:
     }
 
     [(NSManagedObjectModel *)self _finalizeIndexes];
-    if (v61 >= 6 && +[_PFTask getNumActiveProcessors]>= 2)
+    if (v60 >= 6 && +[(_PFTask *)0x1ED4BE000]>= 2)
     {
     }
 
-    [v60 drain];
+    [v59 drain];
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finalizeIndexes
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    v8 = 0u;
-    v9 = 0u;
-    v6 = 0u;
     v7 = 0u;
-    result = [result countByEnumeratingWithState:&v6 objects:v10 count:16];
+    v8 = 0u;
+    v5 = 0u;
+    v6 = 0u;
+    result = [result countByEnumeratingWithState:&v5 objects:v9 count:16];
     if (result)
     {
       v2 = result;
-      v3 = *v7;
+      v3 = *v6;
       do
       {
         v4 = 0;
         do
         {
-          if (*v7 != v3)
+          if (*v6 != v3)
           {
             objc_enumerationMutation(v1);
           }
 
-          [(NSEntityDescription *)*(*(&v6 + 1) + 8 * v4) _finalizeIndexes];
+          [(NSEntityDescription *)*(*(&v5 + 1) + 8 * v4) _finalizeIndexes];
           v4 = v4 + 1;
         }
 
         while (v2 != v4);
-        result = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+        result = [v1 countByEnumeratingWithState:&v5 objects:v9 count:16];
         v2 = result;
       }
 
@@ -678,7 +672,6 @@ LABEL_77:
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -692,7 +685,7 @@ LABEL_77:
 
 - (uint64_t)_allowedClassesFromTransformableAttributes
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -700,48 +693,48 @@ LABEL_77:
     if (!result)
     {
       v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       obj = *(v1 + 32);
-      v16 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
-      if (v16)
+      v15 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      if (v15)
       {
-        v14 = *v23;
-        v15 = v1;
+        v13 = *v22;
+        v14 = v1;
         do
         {
           v3 = 0;
           do
           {
-            if (*v23 != v14)
+            if (*v22 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = v3;
-            v4 = [*(v1 + 32) objectForKey:*(*(&v22 + 1) + 8 * v3)];
+            v16 = v3;
+            v4 = [*(v1 + 32) objectForKey:*(*(&v21 + 1) + 8 * v3)];
+            v17 = 0u;
             v18 = 0u;
             v19 = 0u;
             v20 = 0u;
-            v21 = 0u;
             attributesByName = [v4 attributesByName];
-            v6 = [attributesByName countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v6 = [attributesByName countByEnumeratingWithState:&v17 objects:v25 count:16];
             if (v6)
             {
               v7 = v6;
-              v8 = *v19;
+              v8 = *v18;
               do
               {
                 for (i = 0; i != v7; ++i)
                 {
-                  if (*v19 != v8)
+                  if (*v18 != v8)
                   {
                     objc_enumerationMutation(attributesByName);
                   }
 
-                  v10 = [objc_msgSend(v4 "attributesByName")];
+                  v10 = objc_msgSend_valueForKey_([v4 attributesByName]);
                   if ([v10 valueTransformerName])
                   {
                     [MEMORY[0x1E696B0A0] valueTransformerForName:{objc_msgSend(v10, "valueTransformerName")}];
@@ -753,21 +746,21 @@ LABEL_77:
                   }
                 }
 
-                v7 = [attributesByName countByEnumeratingWithState:&v18 objects:v26 count:16];
+                v7 = [attributesByName countByEnumeratingWithState:&v17 objects:v25 count:16];
               }
 
               while (v7);
             }
 
-            v3 = v17 + 1;
-            v1 = v15;
+            v3 = v16 + 1;
+            v1 = v14;
           }
 
-          while (v17 + 1 != v16);
-          v16 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+          while (v16 + 1 != v15);
+          v15 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
         }
 
-        while (v16);
+        while (v15);
       }
 
       v11 = 0;
@@ -776,48 +769,47 @@ LABEL_77:
       {
       }
 
-      result = *(*(v1 + 24) + 16);
+      return *(*(v1 + 24) + 16);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (NSManagedObjectModel)mergedModelFromBundles:(NSArray *)bundles
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   objc_opt_class();
-  v29 = objc_autoreleasePoolPush();
+  v28 = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v5 = 0x1E6EC0000uLL;
   v6 = [NSManagedObjectModel _modelPathsFromBundles:?];
-  v7 = [v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (!v7)
   {
     goto LABEL_18;
   }
 
   v8 = v7;
-  v9 = *v34;
+  v9 = *v33;
   v10 = 0x1E695D000uLL;
   do
   {
     v11 = 0;
-    v31 = v8;
+    v30 = v8;
     do
     {
-      if (*v34 != v9)
+      if (*v33 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v33 + 1) + 8 * v11);
+      v12 = *(*(&v32 + 1) + 8 * v11);
       v13 = objc_autoreleasePoolPush();
       v14 = [*(v10 + 4088) fileURLWithPath:v12];
       v15 = [objc_alloc(*(v5 + 2712)) initWithContentsOfURL:v14];
@@ -846,7 +838,7 @@ LABEL_77:
           v6 = v18;
           v9 = v17;
           v10 = v16;
-          v8 = v31;
+          v8 = v30;
           if (v22)
           {
             goto LABEL_16;
@@ -860,12 +852,12 @@ LABEL_77:
           v6 = v18;
           v9 = v17;
           v10 = v16;
-          v8 = v31;
+          v8 = v30;
           if (v22)
           {
 LABEL_16:
             *buf = 138412290;
-            v38 = v14;
+            v37 = v14;
             _os_log_error_impl(&dword_18565F000, log, OS_LOG_TYPE_ERROR, "CoreData: error: +mergedModelFromBundles: Failed to load model at URL '%@'\n", buf, 0xCu);
           }
         }
@@ -880,7 +872,7 @@ LABEL_14:
     }
 
     while (v8 != v11);
-    v23 = [v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v23 = [v6 countByEnumeratingWithState:&v32 objects:v38 count:16];
     v8 = v23;
   }
 
@@ -897,15 +889,13 @@ LABEL_18:
   }
 
   v25 = v24;
-  objc_autoreleasePoolPop(v29);
-  result = v25;
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  objc_autoreleasePoolPop(v28);
+  return v25;
 }
 
 + (void)_modelPathsFromBundles:(uint64_t)bundles
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (a2)
   {
@@ -941,27 +931,27 @@ LABEL_8:
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = v5;
-  v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
+        v11 = *(*(&v16 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         if ((v3 & 1) == 0 || (v13 = [objc_msgSend(v11 "bundlePath")], objc_msgSend(v13, "count") < 5) || !objc_msgSend(objc_msgSend(v13, "objectAtIndex:", 1), "isEqual:", @"System") || (objc_msgSend(objc_msgSend(v13, "objectAtIndex:", 2), "isEqual:", @"Library") & 1) == 0)
         {
@@ -974,27 +964,23 @@ LABEL_8:
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return array;
 }
 
 + (NSManagedObjectModel)modelByMergingModels:(NSArray *)models
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v132 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   objc_opt_class();
   if (!models)
   {
-    result = 0;
-LABEL_114:
-    v84 = *MEMORY[0x1E69E9840];
-    return result;
+    return 0;
   }
 
   v4 = [(NSArray *)models count];
@@ -1005,422 +991,412 @@ LABEL_114:
   }
 
   v5 = v4;
-  if (v4)
+  if (!v4)
   {
-    v88 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-    v9 = 0;
-    v95 = v5 - 2;
-    v92 = v5;
-    v93 = models;
-    do
-    {
-      context = objc_autoreleasePoolPush();
-      v10 = [(NSArray *)models objectAtIndex:v9];
-      if (v9 + 1 >= v5)
-      {
-        goto LABEL_33;
-      }
+    v6 = objc_alloc_init(NSManagedObjectModel);
+LABEL_7:
 
-      v11 = v10;
-      v12 = v9 + 1;
+    return v6;
+  }
+
+  v85 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v8 = 0;
+  v92 = v5 - 2;
+  v89 = v5;
+  v90 = models;
+  do
+  {
+    context = objc_autoreleasePoolPush();
+    v9 = [(NSArray *)models objectAtIndex:v8];
+    if (v8 + 1 < v5)
+    {
+      v10 = v9;
+      v11 = v8 + 1;
       do
       {
-        v13 = [(NSArray *)models objectAtIndex:v12];
-        entitiesByName = [v13 entitiesByName];
+        v12 = [(NSArray *)models objectAtIndex:v11];
+        entitiesByName = [v12 entitiesByName];
+        v117 = 0u;
+        v118 = 0u;
+        v119 = 0u;
         v120 = 0u;
-        v121 = 0u;
-        v122 = 0u;
-        v123 = 0u;
         allValues = [entitiesByName allValues];
-        v16 = [allValues countByEnumeratingWithState:&v120 objects:v133 count:16];
-        if (v16)
+        v15 = [allValues countByEnumeratingWithState:&v117 objects:v130 count:16];
+        if (v15)
         {
-          v17 = v16;
-          v18 = *v121;
+          v16 = v15;
+          v17 = *v118;
           do
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v121 != v18)
+              if (*v118 != v17)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v20 = *(*(&v120 + 1) + 8 * i);
-              name = [v20 name];
-              if (v11)
+              v19 = *(*(&v117 + 1) + 8 * i);
+              name = [v19 name];
+              if (v10)
               {
-                v22 = name;
-                v23 = [v11[4] objectForKey:name];
-                if (v23)
+                v21 = name;
+                v22 = [v10[4] objectForKey:name];
+                if (v22)
                 {
-                  if (([v23 isEqual:v20] & 1) == 0)
+                  if (([v22 isEqual:v19] & 1) == 0)
                   {
-                    [v88 drain];
-                    v85 = MEMORY[0x1E695DF30];
-                    v86 = *MEMORY[0x1E695D940];
-                    v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't merge models with two different entities named '%@'", v22];
-                    goto LABEL_117;
+LABEL_114:
+                    [v85 drain];
+                    v82 = MEMORY[0x1E695DF30];
+                    v83 = *MEMORY[0x1E695D940];
+                    v84 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v21);
+                    objc_exception_throw([v82 exceptionWithName:v83 reason:v84 userInfo:0]);
                   }
                 }
               }
             }
 
-            v17 = [allValues countByEnumeratingWithState:&v120 objects:v133 count:16];
+            v16 = [allValues countByEnumeratingWithState:&v117 objects:v130 count:16];
           }
 
-          while (v17);
+          while (v16);
         }
 
-        fetchRequestTemplatesByName = [v13 fetchRequestTemplatesByName];
-        v116 = 0u;
-        v117 = 0u;
-        v118 = 0u;
-        v119 = 0u;
-        v25 = [fetchRequestTemplatesByName countByEnumeratingWithState:&v116 objects:v132 count:16];
-        if (!v25)
-        {
-          goto LABEL_32;
-        }
-
-        v26 = v25;
-        v27 = *v117;
-        do
-        {
-          for (j = 0; j != v26; ++j)
-          {
-            if (*v117 != v27)
-            {
-              objc_enumerationMutation(fetchRequestTemplatesByName);
-            }
-
-            v29 = *(*(&v116 + 1) + 8 * j);
-            v30 = [v13 fetchRequestTemplateForName:v29];
-            v31 = [v11 fetchRequestTemplateForName:v29];
-            if (v31 && ([v31 isEqual:v30] & 1) == 0)
-            {
-              [v88 drain];
-              v85 = MEMORY[0x1E695DF30];
-              v86 = *MEMORY[0x1E695D940];
-              v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't merge models with two different fetch request templates for name'%@'", v29];
-LABEL_117:
-              objc_exception_throw([v85 exceptionWithName:v86 reason:v87 userInfo:0]);
-            }
-          }
-
-          v26 = [fetchRequestTemplatesByName countByEnumeratingWithState:&v116 objects:v132 count:16];
-        }
-
-        while (v26);
-LABEL_32:
-        ++v12;
-        v5 = v92;
-        models = v93;
-      }
-
-      while (v12 != v92);
-LABEL_33:
-      objc_autoreleasePoolPop(context);
-    }
-
-    while (v9++ != v95);
-    v33 = [-[NSArray objectAtIndex:](models objectAtIndex:{0), "copy"}];
-    v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v35 = objc_alloc_init(NSMergedPolicyLocalizationPolicy);
-    if ([v33 _localizationPolicy])
-    {
-      -[NSMergedPolicyLocalizationPolicy addPolicy:](v35, "addPolicy:", [v33 _localizationPolicy]);
-    }
-
-    v89 = v35;
-    [v33 _setLocalizationPolicy:v35];
-    if (v5 >= 2)
-    {
-      v36 = 1;
-      v37 = 0x1E6EC0000uLL;
-      do
-      {
-        v90 = objc_autoreleasePoolPush();
-        v91 = v36;
-        v38 = [(NSArray *)models objectAtIndex:v36];
-        [v34 removeAllObjects];
-        entitiesByName2 = [v38 entitiesByName];
-        v112 = 0u;
+        fetchRequestTemplatesByName = [v12 fetchRequestTemplatesByName];
         v113 = 0u;
         v114 = 0u;
         v115 = 0u;
-        v40 = [entitiesByName2 countByEnumeratingWithState:&v112 objects:v131 count:16];
-        if (v40)
+        v116 = 0u;
+        v24 = [fetchRequestTemplatesByName countByEnumeratingWithState:&v113 objects:v129 count:16];
+        if (v24)
         {
-          v41 = v40;
-          v42 = *v113;
+          v25 = v24;
+          v26 = *v114;
           do
           {
-            for (k = 0; k != v41; ++k)
+            for (j = 0; j != v25; ++j)
             {
-              if (*v113 != v42)
+              if (*v114 != v26)
               {
-                objc_enumerationMutation(entitiesByName2);
+                objc_enumerationMutation(fetchRequestTemplatesByName);
               }
 
-              v44 = [entitiesByName2 objectForKey:*(*(&v112 + 1) + 8 * k)];
-              if (![v44 superentity])
+              v21 = *(*(&v113 + 1) + 8 * j);
+              v28 = [v12 fetchRequestTemplateForName:v21];
+              v29 = [v10 fetchRequestTemplateForName:v21];
+              if (v29 && ([v29 isEqual:v28] & 1) == 0)
               {
-                v45 = [v44 copy];
-                [(NSManagedObjectModel *)*(v37 + 2712) _deepCollectEntitiesInArray:v34 entity:v45];
+                goto LABEL_114;
               }
             }
 
-            v41 = [entitiesByName2 countByEnumeratingWithState:&v112 objects:v131 count:16];
+            v25 = [fetchRequestTemplatesByName countByEnumeratingWithState:&v113 objects:v129 count:16];
           }
 
-          while (v41);
+          while (v25);
         }
 
-        v46 = [v34 count];
-        if (v46)
+        ++v11;
+        v5 = v89;
+        models = v90;
+      }
+
+      while (v11 != v89);
+    }
+
+    objc_autoreleasePoolPop(context);
+  }
+
+  while (v8++ != v92);
+  v31 = [-[NSArray objectAtIndex:](models objectAtIndex:{0), "copy"}];
+  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v33 = objc_alloc_init(NSMergedPolicyLocalizationPolicy);
+  if ([v31 _localizationPolicy])
+  {
+    -[NSMergedPolicyLocalizationPolicy addPolicy:](v33, "addPolicy:", [v31 _localizationPolicy]);
+  }
+
+  v86 = v33;
+  [v31 _setLocalizationPolicy:v33];
+  if (v5 >= 2)
+  {
+    v34 = 1;
+    v35 = 0x1E6EC0000uLL;
+    do
+    {
+      v87 = objc_autoreleasePoolPush();
+      v88 = v34;
+      v36 = [(NSArray *)models objectAtIndex:v34];
+      [v32 removeAllObjects];
+      entitiesByName2 = [v36 entitiesByName];
+      v109 = 0u;
+      v110 = 0u;
+      v111 = 0u;
+      v112 = 0u;
+      v38 = [entitiesByName2 countByEnumeratingWithState:&v109 objects:v128 count:16];
+      if (v38)
+      {
+        v39 = v38;
+        v40 = *v110;
+        do
         {
-          v47 = v46;
-          for (m = 0; m != v47; ++m)
+          for (k = 0; k != v39; ++k)
           {
-            v49 = [v34 objectAtIndex:m];
-            name2 = [v49 name];
-            if (!v33 || ![v33[4] objectForKey:name2])
+            if (*v110 != v40)
             {
-              [v33 _addEntity:v49];
+              objc_enumerationMutation(entitiesByName2);
+            }
+
+            v42 = [entitiesByName2 objectForKey:*(*(&v109 + 1) + 8 * k)];
+            if (![v42 superentity])
+            {
+              v43 = [v42 copy];
+              [(NSManagedObjectModel *)*(v35 + 2712) _deepCollectEntitiesInArray:v32 entity:v43];
             }
           }
+
+          v39 = [entitiesByName2 countByEnumeratingWithState:&v109 objects:v128 count:16];
         }
 
-        if ([v38 _localizationPolicy])
-        {
-          -[NSMergedPolicyLocalizationPolicy addPolicy:](v89, "addPolicy:", [v38 _localizationPolicy]);
-        }
+        while (v39);
+      }
 
-        contexta = v38;
-        if ([v38[5] count])
+      v44 = [v32 count];
+      if (v44)
+      {
+        v45 = v44;
+        for (m = 0; m != v45; ++m)
         {
-          v110 = 0u;
-          v111 = 0u;
-          v108 = 0u;
-          v109 = 0u;
-          obj = v38[5];
-          v99 = [obj countByEnumeratingWithState:&v108 objects:v130 count:16];
-          if (v99)
+          v47 = [v32 objectAtIndex:m];
+          name2 = [v47 name];
+          if (!v31 || ![v31[4] objectForKey:name2])
           {
-            v96 = *v109;
-            do
-            {
-              for (n = 0; n != v99; ++n)
-              {
-                if (*v109 != v96)
-                {
-                  objc_enumerationMutation(obj);
-                }
+            [v31 _addEntity:v47];
+          }
+        }
+      }
 
-                v52 = *(*(&v108 + 1) + 8 * n);
-                [v34 removeAllObjects];
-                v53 = [contexta entitiesForConfiguration:v52];
-                v104 = 0u;
-                v105 = 0u;
-                v106 = 0u;
-                v107 = 0u;
-                v54 = [v53 countByEnumeratingWithState:&v104 objects:v129 count:16];
-                if (v54)
+      if ([v36 _localizationPolicy])
+      {
+        -[NSMergedPolicyLocalizationPolicy addPolicy:](v86, "addPolicy:", [v36 _localizationPolicy]);
+      }
+
+      contexta = v36;
+      if ([v36[5] count])
+      {
+        v107 = 0u;
+        v108 = 0u;
+        v105 = 0u;
+        v106 = 0u;
+        obj = v36[5];
+        v96 = [obj countByEnumeratingWithState:&v105 objects:v127 count:16];
+        if (v96)
+        {
+          v93 = *v106;
+          do
+          {
+            for (n = 0; n != v96; ++n)
+            {
+              if (*v106 != v93)
+              {
+                objc_enumerationMutation(obj);
+              }
+
+              v50 = *(*(&v105 + 1) + 8 * n);
+              [v32 removeAllObjects];
+              v51 = [contexta entitiesForConfiguration:v50];
+              v101 = 0u;
+              v102 = 0u;
+              v103 = 0u;
+              v104 = 0u;
+              v52 = [v51 countByEnumeratingWithState:&v101 objects:v126 count:16];
+              if (v52)
+              {
+                v53 = v52;
+                v54 = *v102;
+                do
                 {
-                  v55 = v54;
-                  v56 = *v105;
+                  v55 = 0;
                   do
                   {
-                    v57 = 0;
-                    do
+                    if (*v102 != v54)
                     {
-                      if (*v105 != v56)
-                      {
-                        objc_enumerationMutation(v53);
-                      }
-
-                      name3 = [*(*(&v104 + 1) + 8 * v57) name];
-                      if (v33)
-                      {
-                        v59 = [v33[4] objectForKey:name3];
-                      }
-
-                      else
-                      {
-                        v59 = 0;
-                      }
-
-                      [v34 addObject:v59];
-                      ++v57;
+                      objc_enumerationMutation(v51);
                     }
 
-                    while (v55 != v57);
-                    v60 = [v53 countByEnumeratingWithState:&v104 objects:v129 count:16];
-                    v55 = v60;
+                    name3 = [*(*(&v101 + 1) + 8 * v55) name];
+                    if (v31)
+                    {
+                      v57 = [v31[4] objectForKey:name3];
+                    }
+
+                    else
+                    {
+                      v57 = 0;
+                    }
+
+                    [v32 addObject:v57];
+                    ++v55;
                   }
 
-                  while (v60);
+                  while (v53 != v55);
+                  v58 = [v51 countByEnumeratingWithState:&v101 objects:v126 count:16];
+                  v53 = v58;
                 }
 
-                if (v33)
+                while (v58);
+              }
+
+              if (v31)
+              {
+                if ((v31[8] & 3) != 0)
                 {
-                  if ((v33[8] & 3) != 0)
+                  LogStream = _PFLogGetLogStream(17);
+                  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
                   {
-                    LogStream = _PFLogGetLogStream(17);
-                    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 0;
-                      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: _addEntities called on immutable NSManagedObjectModel\n", buf, 2u);
-                    }
-
-                    v62 = _PFLogGetLogStream(17);
-                    if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
-                    {
-                      *buf = 0;
-                      _os_log_fault_impl(&dword_18565F000, v62, OS_LOG_TYPE_FAULT, "CoreData: _addEntities called on immutable NSManagedObjectModel", buf, 2u);
-                    }
+                    *buf = 0;
+                    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: _addEntities called on immutable NSManagedObjectModel\n", buf, 2u);
                   }
 
-                  v63 = v33[5];
-                  if (!v63)
+                  v60 = _PFLogGetLogStream(17);
+                  if (os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
                   {
-                    v63 = objc_alloc_init(MEMORY[0x1E695DF90]);
-                    v33[5] = v63;
+                    *buf = 0;
+                    _os_log_fault_impl(&dword_18565F000, v60, OS_LOG_TYPE_FAULT, "CoreData: _addEntities called on immutable NSManagedObjectModel", buf, 2u);
                   }
+                }
 
-                  v64 = [v63 objectForKey:v52];
+                v61 = v31[5];
+                if (!v61)
+                {
+                  v61 = objc_alloc_init(MEMORY[0x1E695DF90]);
+                  v31[5] = v61;
+                }
+
+                v62 = [v61 objectForKey:v50];
+                if (v62)
+                {
+                  v63 = v62;
+                  v123 = 0u;
+                  v124 = 0u;
+                  v121 = 0u;
+                  v122 = 0u;
+                  v64 = [v32 countByEnumeratingWithState:&v121 objects:buf count:16];
                   if (v64)
                   {
                     v65 = v64;
-                    v126 = 0u;
-                    v127 = 0u;
-                    v124 = 0u;
-                    v125 = 0u;
-                    v66 = [v34 countByEnumeratingWithState:&v124 objects:buf count:16];
-                    if (v66)
+                    v66 = *v122;
+                    do
                     {
-                      v67 = v66;
-                      v68 = *v125;
-                      do
+                      for (ii = 0; ii != v65; ++ii)
                       {
-                        for (ii = 0; ii != v67; ++ii)
+                        if (*v122 != v66)
                         {
-                          if (*v125 != v68)
-                          {
-                            objc_enumerationMutation(v34);
-                          }
-
-                          v70 = *(*(&v124 + 1) + 8 * ii);
-                          if ([v65 indexOfObjectIdenticalTo:v70] == 0x7FFFFFFFFFFFFFFFLL)
-                          {
-                            [v65 addObject:v70];
-                          }
+                          objc_enumerationMutation(v32);
                         }
 
-                        v67 = [v34 countByEnumeratingWithState:&v124 objects:buf count:16];
+                        v68 = *(*(&v121 + 1) + 8 * ii);
+                        if ([v63 indexOfObjectIdenticalTo:v68] == 0x7FFFFFFFFFFFFFFFLL)
+                        {
+                          [v63 addObject:v68];
+                        }
                       }
 
-                      while (v67);
+                      v65 = [v32 countByEnumeratingWithState:&v121 objects:buf count:16];
                     }
-                  }
 
-                  else
-                  {
-                    v71 = [v34 mutableCopy];
-                    [v33[5] setObject:v71 forKey:v52];
+                    while (v65);
                   }
-
-                  if (!*(v33[3] + 3))
-                  {
-                    *(v33[3] + 3) = objc_alloc_init(MEMORY[0x1E695DF90]);
-                  }
-
-                  [*(v33[3] + 3) setObject:objc_msgSend(MEMORY[0x1E695DFD8] forKeyedSubscript:{"setWithArray:", objc_msgSend(v33[5], "objectForKeyedSubscript:", v52)), v52}];
                 }
-              }
 
-              v99 = [obj countByEnumeratingWithState:&v108 objects:v130 count:16];
-            }
+                else
+                {
+                  v69 = [v32 mutableCopy];
+                  [v31[5] setObject:v69 forKey:v50];
+                }
 
-            while (v99);
-          }
-        }
+                if (!*(v31[3] + 3))
+                {
+                  *(v31[3] + 3) = objc_alloc_init(MEMORY[0x1E695DF90]);
+                }
 
-        fetchRequestTemplatesByName2 = [contexta fetchRequestTemplatesByName];
-        v100 = 0u;
-        v101 = 0u;
-        v102 = 0u;
-        v103 = 0u;
-        v73 = [fetchRequestTemplatesByName2 countByEnumeratingWithState:&v100 objects:v128 count:16];
-        if (v73)
-        {
-          v74 = v73;
-          v75 = *v101;
-          do
-          {
-            for (jj = 0; jj != v74; ++jj)
-            {
-              if (*v101 != v75)
-              {
-                objc_enumerationMutation(fetchRequestTemplatesByName2);
-              }
-
-              v77 = *(*(&v100 + 1) + 8 * jj);
-              if (![v33 fetchRequestTemplateForName:v77])
-              {
-                v78 = [objc_msgSend(fetchRequestTemplatesByName2 objectForKey:{v77), "copy"}];
-                [v33 setFetchRequestTemplate:v78 forName:v77];
+                [*(v31[3] + 3) setObject:objc_msgSend(MEMORY[0x1E695DFD8] forKeyedSubscript:{"setWithArray:", objc_msgSend(v31[5], "objectForKeyedSubscript:", v50)), v50}];
               }
             }
 
-            v74 = [fetchRequestTemplatesByName2 countByEnumeratingWithState:&v100 objects:v128 count:16];
+            v96 = [obj countByEnumeratingWithState:&v105 objects:v127 count:16];
           }
 
-          while (v74);
+          while (v96);
         }
-
-        versionIdentifiers = [contexta versionIdentifiers];
-        models = v93;
-        v37 = 0x1E6EC0000;
-        if (versionIdentifiers && v33)
-        {
-          v80 = versionIdentifiers;
-          versionIdentifiers2 = [v33 versionIdentifiers];
-          if (versionIdentifiers2)
-          {
-            v82 = [versionIdentifiers2 mutableCopy];
-            [v82 unionSet:v80];
-            [v33 setVersionIdentifiers:{objc_msgSend(v82, "copy")}];
-          }
-
-          else
-          {
-            [v33 setVersionIdentifiers:v80];
-          }
-        }
-
-        objc_autoreleasePoolPop(v90);
-        v36 = v91 + 1;
       }
 
-      while (v91 + 1 != v92);
+      fetchRequestTemplatesByName2 = [contexta fetchRequestTemplatesByName];
+      v97 = 0u;
+      v98 = 0u;
+      v99 = 0u;
+      v100 = 0u;
+      v71 = [fetchRequestTemplatesByName2 countByEnumeratingWithState:&v97 objects:v125 count:16];
+      if (v71)
+      {
+        v72 = v71;
+        v73 = *v98;
+        do
+        {
+          for (jj = 0; jj != v72; ++jj)
+          {
+            if (*v98 != v73)
+            {
+              objc_enumerationMutation(fetchRequestTemplatesByName2);
+            }
+
+            v75 = *(*(&v97 + 1) + 8 * jj);
+            if (![v31 fetchRequestTemplateForName:v75])
+            {
+              v76 = [objc_msgSend(fetchRequestTemplatesByName2 objectForKey:{v75), "copy"}];
+              [v31 setFetchRequestTemplate:v76 forName:v75];
+            }
+          }
+
+          v72 = [fetchRequestTemplatesByName2 countByEnumeratingWithState:&v97 objects:v125 count:16];
+        }
+
+        while (v72);
+      }
+
+      versionIdentifiers = [contexta versionIdentifiers];
+      models = v90;
+      v35 = 0x1E6EC0000;
+      if (versionIdentifiers && v31)
+      {
+        v78 = versionIdentifiers;
+        versionIdentifiers2 = [v31 versionIdentifiers];
+        if (versionIdentifiers2)
+        {
+          v80 = [versionIdentifiers2 mutableCopy];
+          [v80 unionSet:v78];
+          [v31 setVersionIdentifiers:{objc_msgSend(v80, "copy")}];
+        }
+
+        else
+        {
+          [v31 setVersionIdentifiers:v78];
+        }
+      }
+
+      objc_autoreleasePoolPop(v87);
+      v34 = v88 + 1;
     }
 
-    v83 = v33;
-    [v88 drain];
-    result = v33;
-    goto LABEL_114;
+    while (v88 + 1 != v89);
   }
 
-  v6 = objc_alloc_init(NSManagedObjectModel);
-LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  v81 = v31;
+  [v85 drain];
+  return v31;
 }
 
-+ (uint64_t)_deepCollectEntitiesInArray:(void *)array entity:
++ (char)_deepCollectEntitiesInArray:(void *)array entity:
 {
   objc_opt_self();
   [a2 addObject:array];
@@ -1441,40 +1417,40 @@ LABEL_7:
 + (NSManagedObjectModel)mergedModelFromBundles:(NSArray *)bundles forStoreMetadata:(NSDictionary *)metadata
 {
   selfCopy = self;
-  v19 = metadata;
-  v27 = *MEMORY[0x1E69E9840];
+  v18 = metadata;
+  v26 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
   v6 = [NSManagedObjectModel _modelPathsFromBundles:?];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
-        v21 = 0;
-        if ([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] && v21 == 1)
+        v20 = 0;
+        if ([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] && v20 == 1)
         {
           v13 = [[NSManagedObjectModelBundle alloc] initWithPath:v11];
         }
 
         else
         {
-          v13 = -[NSManagedObjectModel initWithContentsOfURL:]([NSManagedObjectModel alloc], "initWithContentsOfURL:", [MEMORY[0x1E695DFF8] fileURLWithPath:v11 isDirectory:{0, selfCopy, v19}]);
+          v13 = -[NSManagedObjectModel initWithContentsOfURL:]([NSManagedObjectModel alloc], "initWithContentsOfURL:", [MEMORY[0x1E695DFF8] fileURLWithPath:v11 isDirectory:{0, selfCopy, v18}]);
         }
 
         v14 = v13;
@@ -1486,44 +1462,42 @@ LABEL_7:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
   }
 
-  v15 = [selfCopy modelByMergingModels:array forStoreMetadata:{v19, selfCopy, v19}];
+  v15 = [selfCopy modelByMergingModels:array forStoreMetadata:{v18, selfCopy, v18}];
   objc_autoreleasePoolPop(context);
-  result = v15;
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return v15;
 }
 
 + (NSManagedObjectModel)modelByMergingModels:(NSArray *)models forStoreMetadata:(NSDictionary *)metadata
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v7 = [-[NSDictionary objectForKey:](metadata objectForKey:{@"NSStoreModelVersionHashes", "mutableCopy"}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v8 = [(NSArray *)models countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [(NSArray *)models countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v25;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(models);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         v15 = [v13 _modelForVersionHashes:v7];
         if (v15)
@@ -1546,7 +1520,7 @@ LABEL_7:
         objc_autoreleasePoolPop(v14);
       }
 
-      v9 = [(NSArray *)models countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [(NSArray *)models countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v9)
       {
         continue;
@@ -1582,14 +1556,12 @@ LABEL_15:
   }
 
   [v6 drain];
-  result = v20;
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return v20;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   if (self->_entities)
   {
@@ -1608,31 +1580,31 @@ LABEL_15:
   v8 = [(NSMutableDictionary *)self->_configurations count];
   if (v8 != ([(NSMutableDictionary *)self->_configurations objectForKey:@"PF_DEFAULT_CONFIGURATION_NAME"]!= 0))
   {
-    v16 = v5;
+    v15 = v5;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     configurations = self->_configurations;
-    v11 = [(NSMutableDictionary *)configurations countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v11 = [(NSMutableDictionary *)configurations countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(configurations);
           }
 
-          [dictionary setObject:objc_msgSend(MEMORY[0x1E695DFD8] forKey:{"setWithArray:", -[NSMutableDictionary objectForKey:](self->_configurations, "objectForKey:", *(*(&v17 + 1) + 8 * i))), *(*(&v17 + 1) + 8 * i)}];
+          [dictionary setObject:objc_msgSend(MEMORY[0x1E695DFD8] forKey:{"setWithArray:", -[NSMutableDictionary objectForKey:](self->_configurations, "objectForKey:", *(*(&v16 + 1) + 8 * i))), *(*(&v16 + 1) + 8 * i)}];
         }
 
-        v12 = [(NSMutableDictionary *)configurations countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v12 = [(NSMutableDictionary *)configurations countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v12);
@@ -1640,348 +1612,342 @@ LABEL_15:
 
     [dictionary removeObjectForKey:@"PF_DEFAULT_CONFIGURATION_NAME"];
     [coder encodeObject:dictionary forKey:@"NSConfigurations"];
-    v5 = v16;
+    v5 = v15;
   }
 
   [coder encodeObject:self->_fetchRequestTemplates forKey:@"NSFetchRequestTemplates"];
   [coder encodeObject:self->_versionIdentifiers forKey:@"NSVersionIdentifiers"];
   objc_autoreleasePoolPop(v5);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (NSManagedObjectModel)initWithCoder:(id)coder
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   objc_opt_class();
-  v91.receiver = self;
-  v91.super_class = NSManagedObjectModel;
-  v4 = [(NSManagedObjectModel *)&v91 init];
-  if (v4)
+  v89.receiver = self;
+  v89.super_class = NSManagedObjectModel;
+  v4 = [(NSManagedObjectModel *)&v89 init];
+  if (!v4)
   {
-    +[PFModelDecoderContext assertNoContext];
-    v5 = +[PFModelDecoderContext retainedContext];
-    v7 = v5;
-    if (v5)
+    return 0;
+  }
+
+  +[PFModelDecoderContext assertNoContext];
+  v5 = +[PFModelDecoderContext retainedContext];
+  v7 = v5;
+  if (v5)
+  {
+    objc_setProperty_nonatomic(v5, v6, v4, 8);
+  }
+
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v86 = __38__NSManagedObjectModel_initWithCoder___block_invoke;
+  v87 = &unk_1E6EC16F0;
+  v88 = v7;
+  v8 = MEMORY[0x1E695DFD8];
+  v9 = objc_opt_class();
+  v10 = v4;
+  v11 = objc_opt_class();
+  v12 = objc_opt_class();
+  v13 = objc_opt_class();
+  v14 = [coder decodeObjectOfClasses:objc_msgSend(objc_msgSend(v8 forKey:{"setWithObjects:", v9, v11, v12, v13, objc_opt_class(), 0), "setByAddingObjectsFromArray:", +[NSKnownKeysDictionary classesForArchiving](NSKnownKeysDictionary, "classesForArchiving")), @"NSEntities"}];
+  v4->_entities = v14;
+  if (v14)
+  {
+    if (([(NSMutableDictionary *)v14 isNSDictionary]& 1) == 0)
     {
-      objc_setProperty_nonatomic(v5, v6, v4, 8);
+      [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF4350D0)}];
+
+      goto LABEL_68;
     }
 
-    v87[0] = MEMORY[0x1E69E9820];
-    v87[1] = 3221225472;
-    v88 = __38__NSManagedObjectModel_initWithCoder___block_invoke;
-    v89 = &unk_1E6EC16F0;
-    v90 = v7;
-    v8 = MEMORY[0x1E695DFD8];
-    v9 = objc_opt_class();
-    v10 = v4;
-    v11 = objc_opt_class();
-    v12 = objc_opt_class();
-    v13 = objc_opt_class();
-    v14 = [coder decodeObjectOfClasses:objc_msgSend(objc_msgSend(v8 forKey:{"setWithObjects:", v9, v11, v12, v13, objc_opt_class(), 0), "setByAddingObjectsFromArray:", +[NSKnownKeysDictionary classesForArchiving](NSKnownKeysDictionary, "classesForArchiving")), @"NSEntities"}];
-    v4->_entities = v14;
-    if (v14)
+    v15 = [MEMORY[0x1E695DFA8] set];
+    v83 = 0u;
+    v84 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    allKeys = [(NSMutableDictionary *)v4->_entities allKeys];
+    v17 = [allKeys countByEnumeratingWithState:&v81 objects:v93 count:16];
+    if (v17)
     {
-      if (([(NSMutableDictionary *)v14 isNSDictionary]& 1) == 0)
-      {
-        [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF4350D0)}];
-
-        goto LABEL_68;
-      }
-
-      v15 = [MEMORY[0x1E695DFA8] set];
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
-      v84 = 0u;
-      allKeys = [(NSMutableDictionary *)v4->_entities allKeys];
-      v17 = [allKeys countByEnumeratingWithState:&v83 objects:v95 count:16];
-      if (v17)
-      {
-        v18 = *v84;
-        v19 = *MEMORY[0x1E696A250];
+      v18 = *v82;
+      v19 = *MEMORY[0x1E696A250];
 LABEL_8:
-        v20 = 0;
-        while (1)
+      v20 = 0;
+      while (1)
+      {
+        if (*v82 != v18)
         {
-          if (*v84 != v18)
-          {
-            objc_enumerationMutation(allKeys);
-          }
+          objc_enumerationMutation(allKeys);
+        }
 
-          v21 = *(*(&v83 + 1) + 8 * v20);
-          v22 = objc_autoreleasePoolPush();
-          v23 = [(NSMutableDictionary *)v10->_entities objectForKeyedSubscript:v21];
-          if ([v21 isNSString] && (objc_opt_class(), superentity = v23, (objc_opt_isKindOfClass() & 1) != 0))
+        v21 = *(*(&v81 + 1) + 8 * v20);
+        v22 = objc_autoreleasePoolPush();
+        v23 = [(NSMutableDictionary *)v10->_entities objectForKeyedSubscript:v21];
+        if ([v21 isNSString] && (objc_opt_class(), superentity = v23, (objc_opt_isKindOfClass() & 1) != 0))
+        {
+          while (1)
           {
-            while (1)
+            superentity = [superentity superentity];
+            if (!superentity || ([v15 containsObject:superentity] & 1) != 0)
             {
-              superentity = [superentity superentity];
-              if (!superentity || ([v15 containsObject:superentity] & 1) != 0)
-              {
-                break;
-              }
-
-              name = [superentity name];
-              if (!name || [(NSMutableDictionary *)v10->_entities objectForKeyedSubscript:name]!= superentity)
-              {
-                [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", v19, 4866, &unk_1EF435120)}];
-
-                goto LABEL_19;
-              }
-
-              [v15 addObject:superentity];
+              break;
             }
 
-            v82 = 0;
-            v26 = [v23 performPostDecodeValidationInModel:v10 error:&v82];
-            if (v26)
+            name = [superentity name];
+            if (!name || [(NSMutableDictionary *)v10->_entities objectForKeyedSubscript:name]!= superentity)
             {
-              goto LABEL_21;
+              [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", v19, 4866, &unk_1EF435120)}];
+
+              goto LABEL_19;
             }
 
-            [coder failWithError:v82];
+            [v15 addObject:superentity];
           }
 
-          else
+          v80 = 0;
+          v26 = [v23 performPostDecodeValidationInModel:v10 error:&v80];
+          if (v26)
           {
-            [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", v19, 4866, &unk_1EF4350F8)}];
+            goto LABEL_21;
+          }
+
+          [coder failWithError:v80];
+        }
+
+        else
+        {
+          [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", v19, 4866, &unk_1EF4350F8)}];
 
 LABEL_19:
-            v26 = 0;
-          }
+          v26 = 0;
+        }
 
-          v10 = 0;
+        v10 = 0;
 LABEL_21:
-          objc_autoreleasePoolPop(v22);
-          if (!v26)
-          {
-            goto LABEL_68;
-          }
-
-          if (++v20 == v17)
-          {
-            v27 = [allKeys countByEnumeratingWithState:&v83 objects:v95 count:16];
-            v17 = v27;
-            if (v27)
-            {
-              goto LABEL_8;
-            }
-
-            break;
-          }
-        }
-      }
-
-      entities = v10->_entities;
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        v10->_entities = [(NSMutableDictionary *)v10->_entities mutableCopy];
-      }
-    }
-
-    v29 = PF_CALLOC_OBJECT_ARRAY(4);
-    v10->_additionalPrivateIvars = v29;
-    *v29 = 0;
-    *(v10->_additionalPrivateIvars + 1) = 0;
-    *(v10->_additionalPrivateIvars + 2) = 0;
-    *(v10->_additionalPrivateIvars + 3) = 0;
-    v30 = MEMORY[0x1E695DFD8];
-    v31 = objc_opt_class();
-    v32 = objc_opt_class();
-    v33 = objc_opt_class();
-    v34 = objc_opt_class();
-    v35 = objc_opt_class();
-    v36 = [coder decodeObjectOfClasses:objc_msgSend(v30 forKey:{"setWithObjects:", v31, v32, v33, v34, v35, objc_opt_class(), 0), @"NSConfigurations"}];
-    if (v36)
-    {
-      v10->_configurations = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v69 = v10;
-      *(v10->_additionalPrivateIvars + 3) = objc_alloc_init(MEMORY[0x1E695DF90]);
-      context = objc_autoreleasePoolPush();
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
-      v79 = 0u;
-      v37 = [v36 countByEnumeratingWithState:&v78 objects:v94 count:16];
-      if (v37)
-      {
-        v38 = *v79;
-        do
+        objc_autoreleasePoolPop(v22);
+        if (!v26)
         {
-          for (i = 0; i != v37; ++i)
-          {
-            if (*v79 != v38)
-            {
-              objc_enumerationMutation(v36);
-            }
-
-            v40 = *(*(&v78 + 1) + 8 * i);
-            v41 = [objc_msgSend(objc_msgSend(v36 objectForKey:{v40), "allObjects"), "mutableCopy"}];
-            [(NSMutableDictionary *)v10->_configurations setObject:v41 forKey:v40];
-            v42 = [MEMORY[0x1E695DFA8] set];
-            v76 = 0u;
-            v77 = 0u;
-            v74 = 0u;
-            v75 = 0u;
-            v43 = [v41 countByEnumeratingWithState:&v74 objects:v93 count:16];
-            if (v43)
-            {
-              v44 = *v75;
-              do
-              {
-                for (j = 0; j != v43; ++j)
-                {
-                  if (*v75 != v44)
-                  {
-                    objc_enumerationMutation(v41);
-                  }
-
-                  [v42 addObject:{objc_msgSend(*(*(&v74 + 1) + 8 * j), "name")}];
-                }
-
-                v43 = [v41 countByEnumeratingWithState:&v74 objects:v93 count:16];
-              }
-
-              while (v43);
-            }
-
-            v10 = v69;
-            [v69->_additionalPrivateIvars[3] setObject:v42 forKey:v40];
-          }
-
-          v37 = [v36 countByEnumeratingWithState:&v78 objects:v94 count:16];
+          goto LABEL_68;
         }
 
-        while (v37);
-      }
-
-      objc_autoreleasePoolPop(context);
-    }
-
-    v46 = MEMORY[0x1E695DFD8];
-    v47 = objc_opt_class();
-    v48 = objc_opt_class();
-    v49 = objc_opt_class();
-    v50 = [coder decodeObjectOfClasses:objc_msgSend(v46 forKey:{"setWithObjects:", v47, v48, v49, objc_opt_class(), 0), @"NSFetchRequestTemplates"}];
-    v10->_fetchRequestTemplates = v50;
-    if (!v50)
-    {
-LABEL_60:
-      v59 = MEMORY[0x1E695DFD8];
-      v60 = objc_opt_class();
-      v61 = objc_opt_class();
-      v62 = objc_opt_class();
-      v63 = objc_opt_class();
-      v64 = [coder decodeObjectOfClasses:objc_msgSend(v59 forKey:{"setWithObjects:", v60, v61, v62, v63, objc_opt_class(), 0), @"NSVersionIdentifiers"}];
-      v10->_versionIdentifiers = v64;
-      if (!v64)
-      {
-        v10->_versionIdentifiers = objc_alloc_init(MEMORY[0x1E695DFD8]);
-      }
-
-      *&v10->_managedObjectModelFlags &= 0xFFFFFFFC;
-      [(NSManagedObjectModel *)v10 _finalizeIndexes];
-      goto LABEL_69;
-    }
-
-    if (([(NSMutableDictionary *)v50 isNSDictionary]& 1) != 0)
-    {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      allKeys2 = [(NSMutableDictionary *)v10->_fetchRequestTemplates allKeys];
-      v52 = [allKeys2 countByEnumeratingWithState:&v70 objects:v92 count:16];
-      if (v52)
-      {
-        v53 = *v71;
-        while (2)
+        if (++v20 == v17)
         {
-          for (k = 0; k != v52; ++k)
+          v27 = [allKeys countByEnumeratingWithState:&v81 objects:v93 count:16];
+          v17 = v27;
+          if (v27)
           {
-            if (*v71 != v53)
-            {
-              objc_enumerationMutation(allKeys2);
-            }
-
-            v55 = *(*(&v70 + 1) + 8 * k);
-            v56 = [(NSMutableDictionary *)v10->_fetchRequestTemplates objectForKeyedSubscript:v55];
-            if (![v55 isNSString] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-            {
-              [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF435170)}];
-
-              goto LABEL_68;
-            }
-
-            entity = [v56 entity];
-            v58 = entity;
-            if (entity && (![entity name] || -[NSMutableDictionary objectForKeyedSubscript:](v10->_entities, "objectForKeyedSubscript:", objc_msgSend(v58, "name")) != v58))
-            {
-              [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF435198)}];
-
-              goto LABEL_68;
-            }
-          }
-
-          v52 = [allKeys2 countByEnumeratingWithState:&v70 objects:v92 count:16];
-          if (v52)
-          {
-            continue;
+            goto LABEL_8;
           }
 
           break;
         }
       }
-
-      goto LABEL_60;
     }
 
-    [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF435148)}];
-
-LABEL_68:
-    v10 = 0;
-LABEL_69:
-    v88(v87);
-    result = v10;
-    goto LABEL_70;
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      v10->_entities = [(NSMutableDictionary *)v10->_entities mutableCopy];
+    }
   }
 
-  result = 0;
-LABEL_70:
-  v66 = *MEMORY[0x1E69E9840];
-  return result;
+  v28 = PF_CALLOC_OBJECT_ARRAY(4);
+  v10->_additionalPrivateIvars = v28;
+  *v28 = 0;
+  *(v10->_additionalPrivateIvars + 1) = 0;
+  *(v10->_additionalPrivateIvars + 2) = 0;
+  *(v10->_additionalPrivateIvars + 3) = 0;
+  v29 = MEMORY[0x1E695DFD8];
+  v30 = objc_opt_class();
+  v31 = objc_opt_class();
+  v32 = objc_opt_class();
+  v33 = objc_opt_class();
+  v34 = objc_opt_class();
+  v35 = [coder decodeObjectOfClasses:objc_msgSend(v29 forKey:{"setWithObjects:", v30, v31, v32, v33, v34, objc_opt_class(), 0), @"NSConfigurations"}];
+  if (v35)
+  {
+    v10->_configurations = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v67 = v10;
+    *(v10->_additionalPrivateIvars + 3) = objc_alloc_init(MEMORY[0x1E695DF90]);
+    context = objc_autoreleasePoolPush();
+    v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v36 = [v35 countByEnumeratingWithState:&v76 objects:v92 count:16];
+    if (v36)
+    {
+      v37 = *v77;
+      do
+      {
+        for (i = 0; i != v36; ++i)
+        {
+          if (*v77 != v37)
+          {
+            objc_enumerationMutation(v35);
+          }
+
+          v39 = *(*(&v76 + 1) + 8 * i);
+          v40 = [objc_msgSend(objc_msgSend(v35 objectForKey:{v39), "allObjects"), "mutableCopy"}];
+          [(NSMutableDictionary *)v10->_configurations setObject:v40 forKey:v39];
+          v41 = [MEMORY[0x1E695DFA8] set];
+          v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          v42 = [v40 countByEnumeratingWithState:&v72 objects:v91 count:16];
+          if (v42)
+          {
+            v43 = *v73;
+            do
+            {
+              for (j = 0; j != v42; ++j)
+              {
+                if (*v73 != v43)
+                {
+                  objc_enumerationMutation(v40);
+                }
+
+                [v41 addObject:{objc_msgSend(*(*(&v72 + 1) + 8 * j), "name")}];
+              }
+
+              v42 = [v40 countByEnumeratingWithState:&v72 objects:v91 count:16];
+            }
+
+            while (v42);
+          }
+
+          v10 = v67;
+          [v67->_additionalPrivateIvars[3] setObject:v41 forKey:v39];
+        }
+
+        v36 = [v35 countByEnumeratingWithState:&v76 objects:v92 count:16];
+      }
+
+      while (v36);
+    }
+
+    objc_autoreleasePoolPop(context);
+  }
+
+  v45 = MEMORY[0x1E695DFD8];
+  v46 = objc_opt_class();
+  v47 = objc_opt_class();
+  v48 = objc_opt_class();
+  v49 = [coder decodeObjectOfClasses:objc_msgSend(v45 forKey:{"setWithObjects:", v46, v47, v48, objc_opt_class(), 0), @"NSFetchRequestTemplates"}];
+  v10->_fetchRequestTemplates = v49;
+  if (!v49)
+  {
+LABEL_60:
+    v58 = MEMORY[0x1E695DFD8];
+    v59 = objc_opt_class();
+    v60 = objc_opt_class();
+    v61 = objc_opt_class();
+    v62 = objc_opt_class();
+    v63 = [coder decodeObjectOfClasses:objc_msgSend(v58 forKey:{"setWithObjects:", v59, v60, v61, v62, objc_opt_class(), 0), @"NSVersionIdentifiers"}];
+    v10->_versionIdentifiers = v63;
+    if (!v63)
+    {
+      v10->_versionIdentifiers = objc_alloc_init(MEMORY[0x1E695DFD8]);
+    }
+
+    *&v10->_managedObjectModelFlags &= 0xFFFFFFFC;
+    [(NSManagedObjectModel *)v10 _finalizeIndexes];
+    goto LABEL_69;
+  }
+
+  if (([(NSMutableDictionary *)v49 isNSDictionary]& 1) != 0)
+  {
+    v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    allKeys2 = [(NSMutableDictionary *)v10->_fetchRequestTemplates allKeys];
+    v51 = [allKeys2 countByEnumeratingWithState:&v68 objects:v90 count:16];
+    if (v51)
+    {
+      v52 = *v69;
+      while (2)
+      {
+        for (k = 0; k != v51; ++k)
+        {
+          if (*v69 != v52)
+          {
+            objc_enumerationMutation(allKeys2);
+          }
+
+          v54 = *(*(&v68 + 1) + 8 * k);
+          v55 = [(NSMutableDictionary *)v10->_fetchRequestTemplates objectForKeyedSubscript:v54];
+          if (![v54 isNSString] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+          {
+            [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF435170)}];
+
+            goto LABEL_68;
+          }
+
+          entity = [v55 entity];
+          v57 = entity;
+          if (entity && (![entity name] || -[NSMutableDictionary objectForKeyedSubscript:](v10->_entities, "objectForKeyedSubscript:", objc_msgSend(v57, "name")) != v57))
+          {
+            [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF435198)}];
+
+            goto LABEL_68;
+          }
+        }
+
+        v51 = [allKeys2 countByEnumeratingWithState:&v68 objects:v90 count:16];
+        if (v51)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    goto LABEL_60;
+  }
+
+  [coder failWithError:{objc_msgSend(MEMORY[0x1E696ABC0], "errorWithDomain:code:userInfo:", *MEMORY[0x1E696A250], 4866, &unk_1EF435148)}];
+
+LABEL_68:
+  v10 = 0;
+LABEL_69:
+  v86(v85);
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   if (v4)
   {
     [v4 _setModelsReferenceIDOffset:{-[NSManagedObjectModel _modelsReferenceIDOffset](self, "_modelsReferenceIDOffset")}];
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     entities = self->_entities;
-    v7 = [(NSMutableDictionary *)entities countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v7 = [(NSMutableDictionary *)entities countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v44;
+      v9 = *v43;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v44 != v9)
+          if (*v43 != v9)
           {
             objc_enumerationMutation(entities);
           }
 
-          v11 = [(NSMutableDictionary *)self->_entities objectForKey:*(*(&v43 + 1) + 8 * i)];
+          v11 = [(NSMutableDictionary *)self->_entities objectForKey:*(*(&v42 + 1) + 8 * i)];
           if (![v11 superentity])
           {
             v12 = [v11 copy];
@@ -1989,7 +1955,7 @@ LABEL_70:
           }
         }
 
-        v8 = [(NSMutableDictionary *)entities countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v8 = [(NSMutableDictionary *)entities countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v8);
@@ -2007,25 +1973,25 @@ LABEL_70:
     obj = self->_configurations;
     if (obj)
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
-      v15 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v15 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v38 objects:v47 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v40;
+        v17 = *v39;
         do
         {
           for (j = 0; j != v16; ++j)
           {
-            if (*v40 != v17)
+            if (*v39 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v39 + 1) + 8 * j);
+            v19 = *(*(&v38 + 1) + 8 * j);
             v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v21 = [(NSManagedObjectModel *)self entitiesForConfiguration:v19];
             v22 = [(NSArray *)v21 count];
@@ -2041,7 +2007,7 @@ LABEL_70:
             [v4 setEntities:v20 forConfiguration:v19];
           }
 
-          v16 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+          v16 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v38 objects:v47 count:16];
         }
 
         while (v16);
@@ -2051,30 +2017,30 @@ LABEL_70:
     fetchRequestTemplates = self->_fetchRequestTemplates;
     if (fetchRequestTemplates)
     {
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
-      v26 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v26 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v34 objects:v46 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v36;
+        v28 = *v35;
         do
         {
           for (m = 0; m != v27; ++m)
           {
-            if (*v36 != v28)
+            if (*v35 != v28)
             {
               objc_enumerationMutation(fetchRequestTemplates);
             }
 
-            v30 = *(*(&v35 + 1) + 8 * m);
+            v30 = *(*(&v34 + 1) + 8 * m);
             v31 = [-[NSMutableDictionary objectForKey:](self->_fetchRequestTemplates objectForKey:{v30), "copy"}];
             [v4 setFetchRequestTemplate:v31 forName:v30];
           }
 
-          v27 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v35 objects:v47 count:16];
+          v27 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v34 objects:v46 count:16];
         }
 
         while (v27);
@@ -2084,7 +2050,6 @@ LABEL_70:
     [v4 setVersionIdentifiers:self->_versionIdentifiers];
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -2137,18 +2102,19 @@ LABEL_15:
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v6.receiver = self;
-  v6.super_class = NSManagedObjectModel;
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@) isEditable %u, entities %@, fetch request templates %@", -[NSManagedObjectModel description](&v6, sel_description), -[NSManagedObjectModel isEditable](self, "isEditable"), -[NSManagedObjectModel entitiesByName](self, "entitiesByName"), -[NSManagedObjectModel fetchRequestTemplatesByName](self, "fetchRequestTemplatesByName")];
+  v4 = MEMORY[0x1E696AEC0];
+  v8.receiver = self;
+  v8.super_class = NSManagedObjectModel;
+  v5 = [(NSManagedObjectModel *)&v8 description];
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, [(NSManagedObjectModel *)self isEditable], [(NSManagedObjectModel *)self entitiesByName], [(NSManagedObjectModel *)self fetchRequestTemplatesByName]);
   objc_autoreleasePoolPop(v3);
-  return v4;
+  return v6;
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count
 {
   if (!state->var1)
   {
-    entities = self->_entities;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -2171,9 +2137,9 @@ LABEL_15:
 
   else
   {
-    v13 = self->_entities;
+    entities = self->_entities;
 
-    return [(NSMutableDictionary *)v13 _valueCountByEnumeratingWithState:state objects:objects count:count];
+    return [(NSMutableDictionary *)entities _valueCountByEnumeratingWithState:state objects:objects count:count];
   }
 }
 
@@ -2217,7 +2183,7 @@ LABEL_15:
 
 - (void)_removeEntity:(uint64_t)entity
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (entity)
   {
     if ([a2 managedObjectModel] != entity)
@@ -2229,31 +2195,31 @@ LABEL_15:
     [entity _throwIfNotEditable];
     if (name)
     {
-      v25 = [*(entity + 32) objectForKey:name];
-      if (v25)
+      v24 = [*(entity + 32) objectForKey:name];
+      if (v24)
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
-        v23 = name;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v22 = name;
         obj = *(entity + 40);
-        v5 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v5 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v5)
         {
           v6 = v5;
-          v7 = *v27;
+          v7 = *v26;
           do
           {
             for (i = 0; i != v6; ++i)
             {
-              if (*v27 != v7)
+              if (*v26 != v7)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v9 = *(*(&v26 + 1) + 8 * i);
-              v10 = [MEMORY[0x1E695DEC8] arrayWithObject:v25];
+              v9 = *(*(&v25 + 1) + 8 * i);
+              v10 = [MEMORY[0x1E695DEC8] arrayWithObject:v24];
               v11 = *(entity + 40);
               if (v11)
               {
@@ -2278,32 +2244,32 @@ LABEL_15:
                     }
                   }
 
-                  v32 = 0u;
-                  v33 = 0u;
-                  v30 = 0u;
                   v31 = 0u;
-                  v16 = [v10 countByEnumeratingWithState:&v30 objects:buf count:16];
+                  v32 = 0u;
+                  v29 = 0u;
+                  v30 = 0u;
+                  v16 = [v10 countByEnumeratingWithState:&v29 objects:buf count:16];
                   if (v16)
                   {
                     v17 = v16;
-                    v18 = *v31;
+                    v18 = *v30;
                     do
                     {
                       for (j = 0; j != v17; ++j)
                       {
-                        if (*v31 != v18)
+                        if (*v30 != v18)
                         {
                           objc_enumerationMutation(v10);
                         }
 
-                        v20 = [v13 indexOfObjectIdenticalTo:*(*(&v30 + 1) + 8 * j)];
+                        v20 = [v13 indexOfObjectIdenticalTo:*(*(&v29 + 1) + 8 * j)];
                         if (v20 != 0x7FFFFFFFFFFFFFFFLL)
                         {
                           [v13 removeObjectAtIndex:v20];
                         }
                       }
 
-                      v17 = [v10 countByEnumeratingWithState:&v30 objects:buf count:16];
+                      v17 = [v10 countByEnumeratingWithState:&v29 objects:buf count:16];
                     }
 
                     while (v17);
@@ -2312,20 +2278,18 @@ LABEL_15:
               }
             }
 
-            v6 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v6 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v6);
         }
 
-        v21 = v25;
-        [*(entity + 32) removeObjectForKey:v23];
-        [(NSEntityDescription *)v25 _setManagedObjectModel:?];
+        v21 = v24;
+        [*(entity + 32) removeObjectForKey:v22];
+        [(NSEntityDescription *)v24 _setManagedObjectModel:?];
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)configurations
@@ -2361,7 +2325,7 @@ LABEL_15:
 
 - (void)setEntities:(NSArray *)entities forConfiguration:(NSString *)configuration
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ((*&self->_managedObjectModelFlags & 3) != 0)
   {
     LogStream = _PFLogGetLogStream(17);
@@ -2406,38 +2370,36 @@ LABEL_15:
   }
 
   v14 = [MEMORY[0x1E695DFA8] set];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v15 = [(NSArray *)entities countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v15 = [(NSArray *)entities countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       v18 = 0;
       do
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(entities);
         }
 
-        [v14 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * v18++), "name")}];
+        [v14 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v18++), "name")}];
       }
 
       while (v16 != v18);
-      v16 = [(NSArray *)entities countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v16 = [(NSArray *)entities countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v16);
   }
 
   [self->_additionalPrivateIvars[3] setObject:v14 forKeyedSubscript:configuration];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)fetchRequestTemplatesByName
@@ -2492,15 +2454,16 @@ LABEL_15:
 
         else
         {
-          v14 = [(NSFetchRequest *)fetchRequestTemplate copy];
-          [v14 setEntity:v11];
-          [(NSMutableDictionary *)self->_fetchRequestTemplates setObject:v14 forKey:name];
+          v15 = [(NSFetchRequest *)fetchRequestTemplate copy];
+          [v15 setEntity:v11];
+          [(NSMutableDictionary *)self->_fetchRequestTemplates setObject:v15 forKey:name];
         }
       }
 
       else if (z9dsptsiQ80etb9782fsrs98bfdle88 == 1)
       {
-        objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"Cannot set fetch request template.  This model does not contain entity '%@'.", -[NSEntityDescription name](entity, "name")), 0}]);
+        v14 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{-[NSEntityDescription name](entity, "name")), 0}];
+        objc_exception_throw(v14);
       }
     }
 
@@ -2574,31 +2537,31 @@ LABEL_15:
 
 - (id)_entityVersionHashesByNameInStyle:(id)result
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (result)
   {
     entitiesByName = [result entitiesByName];
     v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(entitiesByName, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v5 = [entitiesByName countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [entitiesByName countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(entitiesByName);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * v8);
+          v9 = *(*(&v11 + 1) + 8 * v8);
           v10 = objc_autoreleasePoolPush();
           [v4 setValue:-[NSEntityDescription _versionHashInStyle:](objc_msgSend(entitiesByName forKey:{"objectForKey:", v9), a2), v9}];
           objc_autoreleasePoolPop(v10);
@@ -2606,25 +2569,24 @@ LABEL_15:
         }
 
         while (v6 != v8);
-        v6 = [entitiesByName countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [entitiesByName countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
     }
 
-    result = v4;
+    return v4;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)_isConfiguration:(uint64_t)configuration inStyle:(void *)style compatibleWithStoreMetadata:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_16;
+    return result;
   }
 
   v6 = result;
@@ -2632,119 +2594,111 @@ LABEL_15:
   intValue = [v7 intValue];
   if ([v7 intValue] > 3)
   {
-    goto LABEL_15;
+    return 0;
   }
 
   result = [style objectForKey:@"NSStoreModelVersionHashes"];
   if (!result)
   {
-    goto LABEL_16;
+    return result;
   }
 
   v9 = result;
   v10 = [objc_msgSend(v6 "entitiesByName")];
   if (v10 != [v9 count])
   {
-LABEL_15:
-    result = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   v11 = [(NSManagedObjectModel *)v6 _entityVersionHashesByNameInStyle:configuration];
   v12 = v11;
   if (intValue < 3)
   {
-    v24 = 0uLL;
-    v25 = 0uLL;
-    v22 = 0uLL;
     v23 = 0uLL;
-    v13 = [v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v24 = 0uLL;
+    v21 = 0uLL;
+    v22 = 0uLL;
+    v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
 LABEL_8:
       v16 = 0;
       while (1)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        result = [v9 objectForKey:*(*(&v22 + 1) + 8 * v16)];
+        result = [v9 objectForKey:*(*(&v21 + 1) + 8 * v16)];
         if (!result)
         {
-          goto LABEL_16;
+          return result;
         }
 
         if (v14 == ++v16)
         {
-          v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
           result = 1;
           if (v14)
           {
             goto LABEL_8;
           }
 
-          goto LABEL_16;
+          return result;
         }
       }
     }
 
-LABEL_26:
-    result = 1;
-    goto LABEL_16;
+    return 1;
   }
 
-  v28 = 0uLL;
-  v29 = 0uLL;
-  v26 = 0uLL;
   v27 = 0uLL;
-  v18 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (!v18)
+  v28 = 0uLL;
+  v25 = 0uLL;
+  v26 = 0uLL;
+  v17 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (!v17)
   {
-    goto LABEL_26;
+    return 1;
   }
 
-  v19 = v18;
-  v20 = *v27;
+  v18 = v17;
+  v19 = *v26;
 LABEL_19:
-  v21 = 0;
+  v20 = 0;
   while (1)
   {
-    if (*v27 != v20)
+    if (*v26 != v19)
     {
       objc_enumerationMutation(v12);
     }
 
-    result = [objc_msgSend(v12 objectForKey:{*(*(&v26 + 1) + 8 * v21)), "isEqual:", objc_msgSend(v9, "objectForKey:", *(*(&v26 + 1) + 8 * v21))}];
+    result = [objc_msgSend(v12 objectForKey:{*(*(&v25 + 1) + 8 * v20)), "isEqual:", objc_msgSend(v9, "objectForKey:", *(*(&v25 + 1) + 8 * v20))}];
     if (!result)
     {
-      break;
+      return result;
     }
 
-    if (v19 == ++v21)
+    if (v18 == ++v20)
     {
-      v19 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v18 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
       result = 1;
-      if (v19)
+      if (v18)
       {
         goto LABEL_19;
       }
 
-      break;
+      return result;
     }
   }
-
-LABEL_16:
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 + (NSDictionary)checksumsForVersionedModelAtURL:(NSURL *)modelURL error:(NSError *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF20] dictionary];
   v7 = [[NSManagedObjectModelBundle alloc] initWithPath:[(NSURL *)modelURL path]];
   if (v7)
@@ -2758,36 +2712,36 @@ LABEL_16:
 
     v9 = dictionary;
 
-    goto LABEL_5;
+    return dictionary;
   }
 
-  v12 = MEMORY[0x1E696ABC0];
-  v13 = *MEMORY[0x1E696A250];
-  v21 = *MEMORY[0x1E696A578];
-  v22[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load model at URL '%@'", modelURL];
-  v14 = [v12 errorWithDomain:v13 code:258 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v22, &v21, 1)}];
-  v15 = dictionary;
-  if (!v14)
+  v11 = MEMORY[0x1E696ABC0];
+  v12 = *MEMORY[0x1E696A250];
+  v20 = *MEMORY[0x1E696A578];
+  v21[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], modelURL);
+  v13 = [v11 errorWithDomain:v12 code:258 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v21, &v20, 1)}];
+  v14 = dictionary;
+  if (!v13)
   {
-    goto LABEL_5;
+    return dictionary;
   }
 
-  v16 = objc_autoreleasePoolPush();
+  v15 = objc_autoreleasePoolPush();
   _pflogInitialize(1);
   if (_pflogging_enable_oslog >= 1)
   {
-    v17 = _pflogging_catastrophic_mode;
+    v16 = _pflogging_catastrophic_mode;
     LogStream = _PFLogGetLogStream(1);
-    v19 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
-    if (v17)
+    v18 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
+    if (v16)
     {
-      if (!v19)
+      if (!v18)
       {
         goto LABEL_12;
       }
     }
 
-    else if (!v19)
+    else if (!v18)
     {
       goto LABEL_12;
     }
@@ -2795,31 +2749,28 @@ LABEL_16:
     *buf = 138412546;
     *&buf[4] = modelURL;
     *&buf[12] = 2112;
-    *&buf[14] = v14;
+    *&buf[14] = v13;
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: +checksumsForVersionedModelAtURL:error: Failed to load model at URL '%@' due to error %@\n", buf, 0x16u);
   }
 
 LABEL_12:
-  _NSCoreDataLog_console(1, "+checksumsForVersionedModelAtURL:error: Failed to load model at URL '%@' due to error %@", modelURL, v14, *buf, *&buf[16]);
-  objc_autoreleasePoolPop(v16);
+  _NSCoreDataLog_console(1, "+checksumsForVersionedModelAtURL:error: Failed to load model at URL '%@' due to error %@", modelURL, v13, *buf, *&buf[8]);
+  objc_autoreleasePoolPop(v15);
   if (error)
   {
-    *error = v14;
+    *error = v13;
   }
 
-LABEL_5:
-  result = dictionary;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return dictionary;
 }
 
 + (id)versionsHashesForModelAtURL:(id)l error:(id *)error
 {
-  v28[2] = *MEMORY[0x1E69E9840];
-  v26 = 0;
+  v27[2] = *MEMORY[0x1E69E9840];
+  v25 = 0;
   v6 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   path = [l path];
-  if (![objc_msgSend(path "pathExtension")] || (v8 = objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:isDirectory:", objc_msgSend(path, "stringByAppendingPathComponent:", @"VersionInfo.plist"), 0), (v9 = objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithContentsOfURL:error:", v8, &v26)) == 0) || (entityVersionHashesByName = objc_msgSend(objc_msgSend(v9, "objectForKey:", @"NSManagedObjectModel_VersionHashes"), "objectForKey:", objc_msgSend(v9, "objectForKey:", @"NSManagedObjectModel_CurrentVersionName")), v11 = entityVersionHashesByName, !entityVersionHashesByName))
+  if (![objc_msgSend(path "pathExtension")] || (v8 = objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:isDirectory:", objc_msgSend(path, "stringByAppendingPathComponent:", @"VersionInfo.plist"), 0), (v9 = objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithContentsOfURL:error:", v8, &v25)) == 0) || (entityVersionHashesByName = objc_msgSend(objc_msgSend(v9, "objectForKey:", @"NSManagedObjectModel_VersionHashes"), "objectForKey:", objc_msgSend(v9, "objectForKey:", @"NSManagedObjectModel_CurrentVersionName")), v11 = entityVersionHashesByName, !entityVersionHashesByName))
   {
     v12 = [[NSManagedObjectModel alloc] initWithContentsOfURL:l];
     v13 = v12;
@@ -2835,24 +2786,24 @@ LABEL_5:
     }
   }
 
-  v15 = v26;
+  v15 = v25;
   v16 = entityVersionHashesByName;
   [v6 drain];
   v17 = 0;
-  v18 = v26;
+  v18 = v25;
   v19 = entityVersionHashesByName;
-  v20 = v26;
-  if (!(entityVersionHashesByName | v26))
+  v20 = v25;
+  if (!(entityVersionHashesByName | v25))
   {
     v21 = MEMORY[0x1E696ABC0];
-    v28[0] = @"Unable to model NSManagedObjectModel";
+    v27[0] = @"Unable to model NSManagedObjectModel";
     v22 = *MEMORY[0x1E696A368];
-    v27[0] = @"reason";
-    v27[1] = v22;
-    v28[1] = [l path];
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v26[0] = @"reason";
+    v26[1] = v22;
+    v27[1] = [l path];
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
     v20 = [v21 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v23];
-    v26 = v20;
+    v25 = v20;
   }
 
   if (error && v20)
@@ -2860,13 +2811,12 @@ LABEL_5:
     *error = v20;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return entityVersionHashesByName;
 }
 
 + (BOOL)versionHashes:(id)hashes compatibleWithStoreMetadata:(id)metadata
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([objc_msgSend(metadata objectForKey:{0x1EF3FD3E8), "intValue"}] > 3)
   {
     goto LABEL_13;
@@ -2875,7 +2825,7 @@ LABEL_5:
   v6 = [metadata objectForKey:@"NSStoreModelVersionHashes"];
   if (!v6)
   {
-    goto LABEL_14;
+    return v6;
   }
 
   v7 = v6;
@@ -2884,28 +2834,28 @@ LABEL_5:
   {
 LABEL_13:
     LOBYTE(v6) = 0;
-    goto LABEL_14;
+    return v6;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v9 = [hashes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v9 = [hashes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
 LABEL_6:
     v12 = 0;
     while (1)
     {
-      if (*v16 != v11)
+      if (*v15 != v11)
       {
         objc_enumerationMutation(hashes);
       }
 
-      LODWORD(v6) = [objc_msgSend(hashes objectForKey:{*(*(&v15 + 1) + 8 * v12)), "isEqual:", objc_msgSend(v7, "objectForKey:", *(*(&v15 + 1) + 8 * v12))}];
+      LODWORD(v6) = [objc_msgSend(hashes objectForKey:{*(*(&v14 + 1) + 8 * v12)), "isEqual:", objc_msgSend(v7, "objectForKey:", *(*(&v14 + 1) + 8 * v12))}];
       if (!v6)
       {
         break;
@@ -2913,14 +2863,14 @@ LABEL_6:
 
       if (v10 == ++v12)
       {
-        v10 = [hashes countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [hashes countByEnumeratingWithState:&v14 objects:v18 count:16];
         LOBYTE(v6) = 1;
         if (v10)
         {
           goto LABEL_6;
         }
 
-        break;
+        return v6;
       }
     }
   }
@@ -2930,8 +2880,6 @@ LABEL_6:
     LOBYTE(v6) = 1;
   }
 
-LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -2940,1336 +2888,1335 @@ LABEL_14:
   v3 = MEMORY[0x1EEE9AC00](self);
   v5 = v4;
   v6 = v3;
-  v473 = *MEMORY[0x1E69E9840];
+  v471 = *MEMORY[0x1E69E9840];
   [v3 _setIsEditable:0 optimizationStyle:1];
   if ((v6[64] & 4) == 0)
   {
     v7 = [v6 copy];
     v8 = [v7 _optimizedEncoding:v5];
 
-    v9 = *MEMORY[0x1E69E9840];
     return v8;
   }
 
-  v333 = v5;
-  v11 = MEMORY[0x1E695E9D8];
-  v354 = *(MEMORY[0x1E695E9D8] + 8);
-  v449.version = 0;
-  v449.retain = v354;
-  v353 = *(MEMORY[0x1E695E9D8] + 16);
-  *&v449.release = v353;
-  v12 = *(MEMORY[0x1E695E9D8] + 40);
-  v449.equal = 0;
-  v449.hash = v12;
-  v448.version = 0;
-  *&v448.retain = *(MEMORY[0x1E695E9E8] + 8);
-  v448.copyDescription = *(MEMORY[0x1E695E9E8] + 24);
-  v448.equal = 0;
-  v13 = *MEMORY[0x1E695E480];
-  v345 = v6;
-  v14 = MEMORY[0x1E695E9C0];
-  Mutable = CFArrayCreateMutable(v13, 0, MEMORY[0x1E695E9C0]);
-  v352 = CFDictionaryCreateMutable(v13, 0, &v449, &v448);
-  v338 = CFArrayCreateMutable(v13, 0, v14);
-  CFArrayAppendValue(v338, &stru_1EF3F1768);
-  v339 = CFDictionaryCreateMutable(v13, 0, v11, &v448);
-  CFDictionarySetValue(v339, &stru_1EF3F1768, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
-  v350 = CFArrayCreateMutable(v13, 0, v14);
-  CFArrayAppendValue(v350, &stru_1EF3F1768);
-  v355 = CFDictionaryCreateMutable(v13, 0, v11, &v448);
-  CFDictionarySetValue(v355, &stru_1EF3F1768, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
-  v349 = CFArrayCreateMutable(v13, 0, v14);
-  CFArrayAppendValue(v349, [MEMORY[0x1E695DEF0] data]);
-  v15 = CFDictionaryCreateMutable(v13, 0, v11, &v448);
-  null = [MEMORY[0x1E695DFB0] null];
-  CFDictionarySetValue(v15, null, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
-  v17 = CFArrayCreateMutable(v13, 0, v14);
-  mapping = [*(v345 + 4) mapping];
-  v335 = v17;
-  [(__CFArray *)v17 addObject:mapping];
-  v19 = CFDictionaryCreateMutable(v13, 0, &v449, &v448);
-  mapping2 = [*(v345 + 4) mapping];
-  CFDictionarySetValue(v19, mapping2, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
-  v21 = v14;
-  v22 = v345;
-  v341 = CFArrayCreateMutable(v13, 0, v21);
+  v331 = v5;
+  v10 = MEMORY[0x1E695E9D8];
+  v352 = *(MEMORY[0x1E695E9D8] + 8);
   v447.version = 0;
-  v447.retain = v354;
-  v447.release = v353;
+  v447.retain = v352;
+  v351 = *(MEMORY[0x1E695E9D8] + 16);
+  *&v447.release = v351;
+  v11 = *(MEMORY[0x1E695E9D8] + 40);
   v447.equal = 0;
-  v447.copyDescription = 0;
-  v447.hash = v12;
-  v23 = CFDictionaryCreateMutable(v13, 0, &v447, &v448);
-  v24 = [*(v345 + 6) count];
-  v336 = v19;
-  v342 = v23;
-  if (v24)
+  v447.hash = v11;
+  v446.version = 0;
+  *&v446.retain = *(MEMORY[0x1E695E9E8] + 8);
+  v446.copyDescription = *(MEMORY[0x1E695E9E8] + 24);
+  v446.equal = 0;
+  v12 = *MEMORY[0x1E695E480];
+  v343 = v6;
+  v13 = MEMORY[0x1E695E9C0];
+  Mutable = CFArrayCreateMutable(v12, 0, MEMORY[0x1E695E9C0]);
+  v350 = CFDictionaryCreateMutable(v12, 0, &v447, &v446);
+  v336 = CFArrayCreateMutable(v12, 0, v13);
+  CFArrayAppendValue(v336, &stru_1EF3F1768);
+  v337 = CFDictionaryCreateMutable(v12, 0, v10, &v446);
+  CFDictionarySetValue(v337, &stru_1EF3F1768, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
+  v348 = CFArrayCreateMutable(v12, 0, v13);
+  CFArrayAppendValue(v348, &stru_1EF3F1768);
+  v353 = CFDictionaryCreateMutable(v12, 0, v10, &v446);
+  CFDictionarySetValue(v353, &stru_1EF3F1768, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
+  v347 = CFArrayCreateMutable(v12, 0, v13);
+  CFArrayAppendValue(v347, [MEMORY[0x1E695DEF0] data]);
+  v14 = CFDictionaryCreateMutable(v12, 0, v10, &v446);
+  null = [MEMORY[0x1E695DFB0] null];
+  CFDictionarySetValue(v14, null, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
+  v16 = CFArrayCreateMutable(v12, 0, v13);
+  mapping = [*(v343 + 4) mapping];
+  v333 = v16;
+  [(__CFArray *)v16 addObject:mapping];
+  v18 = CFDictionaryCreateMutable(v12, 0, &v447, &v446);
+  mapping2 = [*(v343 + 4) mapping];
+  CFDictionarySetValue(v18, mapping2, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:0]);
+  v20 = v13;
+  v21 = v343;
+  v339 = CFArrayCreateMutable(v12, 0, v20);
+  v445.version = 0;
+  v445.retain = v352;
+  v445.release = v351;
+  v445.equal = 0;
+  v445.copyDescription = 0;
+  v445.hash = v11;
+  v22 = CFDictionaryCreateMutable(v12, 0, &v445, &v446);
+  v23 = [*(v343 + 6) count];
+  v334 = v18;
+  v340 = v22;
+  if (v23)
   {
-    v25 = [[NSKnownKeysDictionary alloc] initWithDictionary:*(v345 + 6)];
-    if (![(__CFDictionary *)v19 objectForKey:[(NSKnownKeysDictionary *)v25 mapping]])
+    v24 = [[NSKnownKeysDictionary alloc] initWithDictionary:*(v343 + 6)];
+    if (![(__CFDictionary *)v18 objectForKey:[(NSKnownKeysDictionary *)v24 mapping]])
     {
-      v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v335, "count")}];
-      v22 = v345;
-      [(__CFArray *)v335 addObject:[(NSKnownKeysDictionary *)v25 mapping]];
-      mapping3 = [(NSKnownKeysDictionary *)v25 mapping];
-      v28 = v26;
-      v23 = v342;
-      CFDictionarySetValue(v19, mapping3, v28);
+      v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v333, "count")}];
+      v21 = v343;
+      [(__CFArray *)v333 addObject:[(NSKnownKeysDictionary *)v24 mapping]];
+      mapping3 = [(NSKnownKeysDictionary *)v24 mapping];
+      v27 = v25;
+      v22 = v340;
+      CFDictionarySetValue(v18, mapping3, v27);
     }
 
-    v331 = v25;
-    v446 = 0u;
-    v445 = 0u;
+    v329 = v24;
     v444 = 0u;
     v443 = 0u;
-    v354 = *(v22 + 6);
-    v29 = [v354 countByEnumeratingWithState:&v443 objects:v472 count:16];
-    v30 = v350;
-    if (v29)
+    v442 = 0u;
+    v441 = 0u;
+    v352 = *(v21 + 6);
+    v28 = [v352 countByEnumeratingWithState:&v441 objects:v470 count:16];
+    v29 = v348;
+    if (v28)
     {
-      v31 = v29;
-      v32 = *v444;
+      v30 = v28;
+      v31 = *v442;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v444 != v32)
+          if (*v442 != v31)
           {
-            objc_enumerationMutation(v354);
+            objc_enumerationMutation(v352);
           }
 
-          v34 = *(*(&v443 + 1) + 8 * i);
-          if (![(__CFDictionary *)v355 objectForKey:v34])
+          v33 = *(*(&v441 + 1) + 8 * i);
+          if (![(__CFDictionary *)v353 objectForKey:v33])
           {
-            v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v350, "count")}];
-            [(__CFArray *)v350 addObject:v34];
-            [(__CFDictionary *)v355 setObject:v35 forKey:v34];
+            v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v348, "count")}];
+            [(__CFArray *)v348 addObject:v33];
+            [(__CFDictionary *)v353 setObject:v34 forKey:v33];
           }
 
-          v36 = [*(v345 + 6) objectForKey:v34];
-          if (!CFDictionaryGetValue(v23, v36))
+          v35 = [*(v343 + 6) objectForKey:v33];
+          if (!CFDictionaryGetValue(v22, v35))
           {
-            v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v341, "count")}];
-            v23 = v342;
-            [(__CFArray *)v341 addObject:v36];
-            CFDictionarySetValue(v342, v36, v37);
+            v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v339, "count")}];
+            v22 = v340;
+            [(__CFArray *)v339 addObject:v35];
+            CFDictionarySetValue(v340, v35, v36);
           }
         }
 
-        v31 = [v354 countByEnumeratingWithState:&v443 objects:v472 count:16];
+        v30 = [v352 countByEnumeratingWithState:&v441 objects:v470 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    v22 = v345;
+    v21 = v343;
   }
 
   else
   {
-    v331 = 0;
-    v30 = v350;
+    v329 = 0;
+    v29 = v348;
   }
 
-  v330 = objc_opt_class();
-  v351 = objc_opt_class();
-  v332 = [[NSSQLModel alloc] initWithManagedObjectModel:v22 configurationName:0 retainHashHack:1];
-  if (!v332)
+  v328 = objc_opt_class();
+  v349 = objc_opt_class();
+  v330 = [[NSSQLModel alloc] initWithManagedObjectModel:v21 configurationName:0 retainHashHack:1];
+  if (!v330)
   {
-    if (v333)
+    if (v331)
     {
-      *v333 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:0];
+      *v331 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:0];
     }
 
     goto LABEL_214;
   }
 
-  v442 = 0u;
-  v441 = 0u;
   v440 = 0u;
   v439 = 0u;
-  v38 = *(v22 + 5);
-  v39 = [v38 countByEnumeratingWithState:&v439 objects:v471 count:16];
-  if (v39)
-  {
-    v40 = v39;
-    v41 = *v440;
-    do
-    {
-      for (j = 0; j != v40; ++j)
-      {
-        if (*v440 != v41)
-        {
-          objc_enumerationMutation(v38);
-        }
-
-        v43 = *(*(&v439 + 1) + 8 * j);
-        if (![(__CFDictionary *)v355 objectForKey:v43])
-        {
-          v44 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-          [(__CFArray *)v30 addObject:v43];
-          [(__CFDictionary *)v355 setObject:v44 forKey:v43];
-        }
-      }
-
-      v40 = [v38 countByEnumeratingWithState:&v439 objects:v471 count:16];
-    }
-
-    while (v40);
-  }
-
   v438 = 0u;
   v437 = 0u;
-  v436 = 0u;
-  v435 = 0u;
-  v354 = *(v345 + 7);
-  v45 = [v354 countByEnumeratingWithState:&v435 objects:v470 count:16];
-  if (v45)
+  v37 = *(v21 + 5);
+  v38 = [v37 countByEnumeratingWithState:&v437 objects:v469 count:16];
+  if (v38)
   {
-    v46 = v45;
-    v47 = *v436;
+    v39 = v38;
+    v40 = *v438;
     do
     {
-      for (k = 0; k != v46; ++k)
+      for (j = 0; j != v39; ++j)
       {
-        if (*v436 != v47)
+        if (*v438 != v40)
         {
-          objc_enumerationMutation(v354);
+          objc_enumerationMutation(v37);
         }
 
-        v49 = *(*(&v435 + 1) + 8 * k);
-        if (![(__CFDictionary *)v15 objectForKey:v49])
+        v42 = *(*(&v437 + 1) + 8 * j);
+        if (![(__CFDictionary *)v353 objectForKey:v42])
         {
-          v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-          -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v49 requiringSecureCoding:1 error:0]);
-          CFDictionarySetValue(v15, v49, v50);
+          v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+          [(__CFArray *)v29 addObject:v42];
+          [(__CFDictionary *)v353 setObject:v43 forKey:v42];
         }
       }
 
-      v46 = [v354 countByEnumeratingWithState:&v435 objects:v470 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v437 objects:v469 count:16];
     }
 
-    while (v46);
+    while (v39);
   }
 
+  v436 = 0u;
+  v435 = 0u;
   v434 = 0u;
   v433 = 0u;
-  v432 = 0u;
-  v431 = 0u;
-  allValues = [*(v345 + 4) allValues];
-  v52 = [allValues countByEnumeratingWithState:&v431 objects:v469 count:16];
-  *&v353 = v15;
-  if (!v52)
+  v352 = *(v343 + 7);
+  v44 = [v352 countByEnumeratingWithState:&v433 objects:v468 count:16];
+  if (v44)
   {
-    v347 = 0;
-    v337 = 0;
-    v328 = 0;
-    v329 = 0;
-    LODWORD(v354) = 0;
-    goto LABEL_248;
-  }
-
-  v347 = 0;
-  v337 = 0;
-  v328 = 0;
-  v329 = 0;
-  LODWORD(v354) = 0;
-  v53 = *v432;
-  v54 = v352;
-  v323 = allValues;
-  v325 = v53;
-LABEL_40:
-  v55 = 0;
-  v324 = v52;
-LABEL_41:
-  if (*v432 != v53)
-  {
-    v56 = v55;
-    objc_enumerationMutation(allValues);
-    v55 = v56;
-  }
-
-  v326 = v55;
-  v57 = *(*(&v431 + 1) + 8 * v55);
-  name = [v57 name];
-  v334 = v57;
-  if (![(__CFDictionary *)v355 objectForKey:?])
-  {
-    v58 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-    [(__CFArray *)v30 addObject:name];
-    v57 = v334;
-    [(__CFDictionary *)v355 setObject:v58 forKey:name];
-  }
-
-  versionHashModifier = [v57 versionHashModifier];
-  if (versionHashModifier)
-  {
-    v60 = versionHashModifier;
-    if (![(__CFDictionary *)v339 objectForKey:versionHashModifier])
-    {
-      v61 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v338, "count")}];
-      [(__CFArray *)v338 addObject:v60];
-      v62 = v61;
-      v57 = v334;
-      [(__CFDictionary *)v339 setObject:v62 forKey:v60];
-    }
-  }
-
-  versionHash = [v57 versionHash];
-  if (versionHash)
-  {
-    v64 = versionHash;
-    if (![(__CFDictionary *)v15 objectForKey:versionHash])
-    {
-      v65 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-      [(__CFArray *)v349 addObject:v64];
-      v66 = v65;
-      v57 = v334;
-      CFDictionarySetValue(v15, v64, v66);
-    }
-  }
-
-  managedObjectClassName = [v57 managedObjectClassName];
-  if (managedObjectClassName)
-  {
-    v68 = managedObjectClassName;
-    if (![(__CFDictionary *)v355 objectForKey:managedObjectClassName])
-    {
-      v69 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-      [(__CFArray *)v30 addObject:v68];
-      v70 = v69;
-      v57 = v334;
-      [(__CFDictionary *)v355 setObject:v70 forKey:v68];
-    }
-  }
-
-  renamingIdentifier = [v57 renamingIdentifier];
-  if (renamingIdentifier)
-  {
-    v72 = renamingIdentifier;
-    if (![(__CFDictionary *)v339 objectForKey:renamingIdentifier])
-    {
-      v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v338, "count")}];
-      [(__CFArray *)v338 addObject:v72];
-      v74 = v73;
-      v57 = v334;
-      [(__CFDictionary *)v339 setObject:v74 forKey:v72];
-    }
-  }
-
-  coreSpotlightDisplayNameExpression = [v57 coreSpotlightDisplayNameExpression];
-  if (coreSpotlightDisplayNameExpression)
-  {
-    v76 = coreSpotlightDisplayNameExpression;
-    if (![(__CFDictionary *)v15 objectForKey:coreSpotlightDisplayNameExpression])
-    {
-      v77 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-      -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v76 requiringSecureCoding:1 error:0]);
-      v78 = v77;
-      v57 = v334;
-      CFDictionarySetValue(v15, v76, v78);
-    }
-  }
-
-  v429 = 0u;
-  v430 = 0u;
-  v427 = 0u;
-  v428 = 0u;
-  indexes = [v57 indexes];
-  v344 = [indexes countByEnumeratingWithState:&v427 objects:v468 count:16];
-  if (v344)
-  {
-    v343 = *v428;
+    v45 = v44;
+    v46 = *v434;
     do
     {
-      v79 = 0;
+      for (k = 0; k != v45; ++k)
+      {
+        if (*v434 != v46)
+        {
+          objc_enumerationMutation(v352);
+        }
+
+        v48 = *(*(&v433 + 1) + 8 * k);
+        if (![(__CFDictionary *)v14 objectForKey:v48])
+        {
+          v49 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+          -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v48 requiringSecureCoding:1 error:0]);
+          CFDictionarySetValue(v14, v48, v49);
+        }
+      }
+
+      v45 = [v352 countByEnumeratingWithState:&v433 objects:v468 count:16];
+    }
+
+    while (v45);
+  }
+
+  v432 = 0u;
+  v431 = 0u;
+  v430 = 0u;
+  v429 = 0u;
+  allValues = [*(v343 + 4) allValues];
+  v51 = [allValues countByEnumeratingWithState:&v429 objects:v467 count:16];
+  *&v351 = v14;
+  if (!v51)
+  {
+    v345 = 0;
+    v335 = 0;
+    v326 = 0;
+    v327 = 0;
+    LODWORD(v352) = 0;
+    goto LABEL_247;
+  }
+
+  v345 = 0;
+  v335 = 0;
+  v326 = 0;
+  v327 = 0;
+  LODWORD(v352) = 0;
+  v52 = *v430;
+  v53 = v350;
+  v321 = allValues;
+  v323 = v52;
+LABEL_40:
+  v54 = 0;
+  v322 = v51;
+LABEL_41:
+  if (*v430 != v52)
+  {
+    v55 = v54;
+    objc_enumerationMutation(allValues);
+    v54 = v55;
+  }
+
+  v324 = v54;
+  v56 = *(*(&v429 + 1) + 8 * v54);
+  name = [v56 name];
+  v332 = v56;
+  if (![(__CFDictionary *)v353 objectForKey:?])
+  {
+    v57 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+    [(__CFArray *)v29 addObject:name];
+    v56 = v332;
+    [(__CFDictionary *)v353 setObject:v57 forKey:name];
+  }
+
+  versionHashModifier = [v56 versionHashModifier];
+  if (versionHashModifier)
+  {
+    v59 = versionHashModifier;
+    if (![(__CFDictionary *)v337 objectForKey:versionHashModifier])
+    {
+      v60 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v336, "count")}];
+      [(__CFArray *)v336 addObject:v59];
+      v61 = v60;
+      v56 = v332;
+      [(__CFDictionary *)v337 setObject:v61 forKey:v59];
+    }
+  }
+
+  versionHash = [v56 versionHash];
+  if (versionHash)
+  {
+    v63 = versionHash;
+    if (![(__CFDictionary *)v14 objectForKey:versionHash])
+    {
+      v64 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+      [(__CFArray *)v347 addObject:v63];
+      v65 = v64;
+      v56 = v332;
+      CFDictionarySetValue(v14, v63, v65);
+    }
+  }
+
+  managedObjectClassName = [v56 managedObjectClassName];
+  if (managedObjectClassName)
+  {
+    v67 = managedObjectClassName;
+    if (![(__CFDictionary *)v353 objectForKey:managedObjectClassName])
+    {
+      v68 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+      [(__CFArray *)v29 addObject:v67];
+      v69 = v68;
+      v56 = v332;
+      [(__CFDictionary *)v353 setObject:v69 forKey:v67];
+    }
+  }
+
+  renamingIdentifier = [v56 renamingIdentifier];
+  if (renamingIdentifier)
+  {
+    v71 = renamingIdentifier;
+    if (![(__CFDictionary *)v337 objectForKey:renamingIdentifier])
+    {
+      v72 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v336, "count")}];
+      [(__CFArray *)v336 addObject:v71];
+      v73 = v72;
+      v56 = v332;
+      [(__CFDictionary *)v337 setObject:v73 forKey:v71];
+    }
+  }
+
+  coreSpotlightDisplayNameExpression = [v56 coreSpotlightDisplayNameExpression];
+  if (coreSpotlightDisplayNameExpression)
+  {
+    v75 = coreSpotlightDisplayNameExpression;
+    if (![(__CFDictionary *)v14 objectForKey:coreSpotlightDisplayNameExpression])
+    {
+      v76 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+      -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v75 requiringSecureCoding:1 error:0]);
+      v77 = v76;
+      v56 = v332;
+      CFDictionarySetValue(v14, v75, v77);
+    }
+  }
+
+  v427 = 0u;
+  v428 = 0u;
+  v425 = 0u;
+  v426 = 0u;
+  indexes = [v56 indexes];
+  v342 = [indexes countByEnumeratingWithState:&v425 objects:v466 count:16];
+  if (v342)
+  {
+    v341 = *v426;
+    do
+    {
+      v78 = 0;
       do
       {
-        if (*v428 != v343)
+        if (*v426 != v341)
         {
           objc_enumerationMutation(indexes);
         }
 
-        v346 = v79;
-        v80 = *(*(&v427 + 1) + 8 * v79);
-        name2 = [v80 name];
+        v344 = v78;
+        v79 = *(*(&v425 + 1) + 8 * v78);
+        name2 = [v79 name];
         if (name2)
         {
-          v82 = name2;
-          if (![(__CFDictionary *)v355 objectForKey:name2])
+          v81 = name2;
+          if (![(__CFDictionary *)v353 objectForKey:name2])
           {
-            v83 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-            [(__CFArray *)v30 addObject:v82];
-            [(__CFDictionary *)v355 setObject:v83 forKey:v82];
+            v82 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+            [(__CFArray *)v29 addObject:v81];
+            [(__CFDictionary *)v353 setObject:v82 forKey:v81];
           }
         }
 
-        partialIndexPredicate = [v80 partialIndexPredicate];
+        partialIndexPredicate = [v79 partialIndexPredicate];
         if (partialIndexPredicate)
         {
-          v85 = partialIndexPredicate;
-          if (![(__CFDictionary *)v15 objectForKey:partialIndexPredicate])
+          v84 = partialIndexPredicate;
+          if (![(__CFDictionary *)v14 objectForKey:partialIndexPredicate])
           {
-            v86 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-            -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v85 requiringSecureCoding:1 error:0]);
-            CFDictionarySetValue(v15, v85, v86);
+            v85 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+            -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v84 requiringSecureCoding:1 error:0]);
+            CFDictionarySetValue(v14, v84, v85);
           }
         }
 
-        v425 = 0u;
-        v426 = 0u;
         v423 = 0u;
         v424 = 0u;
-        elements = [v80 elements];
-        v88 = [elements countByEnumeratingWithState:&v423 objects:v467 count:16];
-        if (v88)
+        v421 = 0u;
+        v422 = 0u;
+        elements = [v79 elements];
+        v87 = [elements countByEnumeratingWithState:&v421 objects:v465 count:16];
+        if (v87)
         {
-          v89 = v88;
-          v90 = *v424;
+          v88 = v87;
+          v89 = *v422;
           do
           {
-            for (m = 0; m != v89; ++m)
+            for (m = 0; m != v88; ++m)
             {
-              if (*v424 != v90)
+              if (*v422 != v89)
               {
                 objc_enumerationMutation(elements);
               }
 
-              v92 = *(*(&v423 + 1) + 8 * m);
-              propertyName = [v92 propertyName];
+              v91 = *(*(&v421 + 1) + 8 * m);
+              propertyName = [v91 propertyName];
               if (propertyName)
               {
-                v94 = propertyName;
-                if (![(__CFDictionary *)v355 objectForKey:propertyName])
+                v93 = propertyName;
+                if (![(__CFDictionary *)v353 objectForKey:propertyName])
                 {
-                  v95 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v350, "count")}];
-                  v15 = v353;
-                  [(__CFArray *)v350 addObject:v94];
-                  v96 = v95;
-                  v54 = v352;
-                  [(__CFDictionary *)v355 setObject:v96 forKey:v94];
+                  v94 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v348, "count")}];
+                  v14 = v351;
+                  [(__CFArray *)v348 addObject:v93];
+                  v95 = v94;
+                  v53 = v350;
+                  [(__CFDictionary *)v353 setObject:v95 forKey:v93];
                 }
               }
 
-              property = [v92 property];
+              property = [v91 property];
               if ([property _propertyType] == 5)
               {
-                if (![(__CFDictionary *)v54 objectForKey:property])
+                if (![(__CFDictionary *)v53 objectForKey:property])
                 {
-                  v98 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
-                  v54 = v352;
+                  v97 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
+                  v53 = v350;
                   [(__CFArray *)Mutable addObject:property];
-                  CFDictionarySetValue(v352, property, v98);
+                  CFDictionarySetValue(v350, property, v97);
                 }
 
                 name3 = [property name];
-                if (![(__CFDictionary *)v355 objectForKey:name3])
+                if (![(__CFDictionary *)v353 objectForKey:name3])
                 {
-                  v100 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v350, "count")}];
-                  v15 = v353;
-                  [(__CFArray *)v350 addObject:name3];
-                  v101 = v100;
-                  v54 = v352;
-                  [(__CFDictionary *)v355 setObject:v101 forKey:name3];
+                  v99 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v348, "count")}];
+                  v14 = v351;
+                  [(__CFArray *)v348 addObject:name3];
+                  v100 = v99;
+                  v53 = v350;
+                  [(__CFDictionary *)v353 setObject:v100 forKey:name3];
                 }
 
-                LODWORD(v354) = v354 + 1;
+                LODWORD(v352) = v352 + 1;
                 expression = [property expression];
-                if (![(__CFDictionary *)v15 objectForKey:expression])
+                if (![(__CFDictionary *)v14 objectForKey:expression])
                 {
-                  v103 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                  v15 = v353;
-                  -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:expression requiringSecureCoding:1 error:0]);
-                  [v353 setObject:v103 forKey:expression];
+                  v102 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                  v14 = v351;
+                  -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:expression requiringSecureCoding:1 error:0]);
+                  [v351 setObject:v102 forKey:expression];
                 }
               }
             }
 
-            v347 += v89;
-            v89 = [elements countByEnumeratingWithState:&v423 objects:v467 count:16];
+            v345 += v88;
+            v88 = [elements countByEnumeratingWithState:&v421 objects:v465 count:16];
           }
 
-          while (v89);
+          while (v88);
         }
 
-        v79 = v346 + 1;
-        v30 = v350;
+        v78 = v344 + 1;
+        v29 = v348;
       }
 
-      while (v346 + 1 != v344);
-      v337 += v344;
-      v344 = [indexes countByEnumeratingWithState:&v427 objects:v468 count:16];
+      while (v344 + 1 != v342);
+      v335 += v342;
+      v342 = [indexes countByEnumeratingWithState:&v425 objects:v466 count:16];
     }
 
-    while (v344);
+    while (v342);
   }
 
-  v104 = v334;
-  userInfo = [v334 userInfo];
-  if ([userInfo count] && !-[__CFDictionary objectForKey:](v15, "objectForKey:", userInfo))
+  v103 = v332;
+  userInfo = [v332 userInfo];
+  if ([userInfo count] && !-[__CFDictionary objectForKey:](v14, "objectForKey:", userInfo))
   {
-    v106 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-    -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:userInfo requiringSecureCoding:1 error:0]);
-    v107 = v106;
-    v104 = v334;
-    CFDictionarySetValue(v15, userInfo, v107);
+    v105 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+    -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:userInfo requiringSecureCoding:1 error:0]);
+    v106 = v105;
+    v103 = v332;
+    CFDictionarySetValue(v14, userInfo, v106);
   }
 
-  if (!-[__CFDictionary objectForKey:](v336, "objectForKey:", [v104 _propertySearchMapping]))
+  if (!-[__CFDictionary objectForKey:](v334, "objectForKey:", [v103 _propertySearchMapping]))
   {
-    v108 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v335, "count")}];
-    v104 = v334;
-    -[__CFArray addObject:](v335, "addObject:", [v334 _propertySearchMapping]);
-    CFDictionarySetValue(v336, [v334 _propertySearchMapping], v108);
+    v107 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v333, "count")}];
+    v103 = v332;
+    -[__CFArray addObject:](v333, "addObject:", [v332 _propertySearchMapping]);
+    CFDictionarySetValue(v334, [v332 _propertySearchMapping], v107);
   }
 
-  if ([v104 subentitiesByName])
+  if ([v103 subentitiesByName])
   {
-    if ([objc_msgSend(v104 "subentitiesByName")])
+    if ([objc_msgSend(v103 "subentitiesByName")])
     {
-      v109 = [objc_msgSend(v104 "subentitiesByName")];
-      if (![(__CFDictionary *)v336 objectForKey:v109])
+      v108 = [objc_msgSend(v103 "subentitiesByName")];
+      if (![(__CFDictionary *)v334 objectForKey:v108])
       {
-        v110 = MEMORY[0x1E696AD98];
-        v111 = [(__CFArray *)v335 count];
-        v112 = v110;
-        v104 = v334;
-        CFDictionarySetValue(v336, v109, [v112 numberWithUnsignedInteger:v111]);
-        [(__CFArray *)v335 addObject:v109];
+        v109 = MEMORY[0x1E696AD98];
+        v110 = [(__CFArray *)v333 count];
+        v111 = v109;
+        v103 = v332;
+        CFDictionarySetValue(v334, v108, [v111 numberWithUnsignedInteger:v110]);
+        [(__CFArray *)v333 addObject:v108];
       }
     }
   }
 
-  attributesByName = [v104 attributesByName];
-  if (!-[__CFDictionary objectForKey:](v336, "objectForKey:", [attributesByName mapping]))
+  attributesByName = [v103 attributesByName];
+  if (!-[__CFDictionary objectForKey:](v334, "objectForKey:", [attributesByName mapping]))
   {
-    v114 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v335, "count")}];
-    -[__CFArray addObject:](v335, "addObject:", [attributesByName mapping]);
+    v113 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v333, "count")}];
+    -[__CFArray addObject:](v333, "addObject:", [attributesByName mapping]);
     mapping4 = [attributesByName mapping];
-    v116 = v114;
-    v104 = v334;
-    CFDictionarySetValue(v336, mapping4, v116);
+    v115 = v113;
+    v103 = v332;
+    CFDictionarySetValue(v334, mapping4, v115);
   }
 
-  relationshipsByName = [v104 relationshipsByName];
-  if (!-[__CFDictionary objectForKey:](v336, "objectForKey:", [relationshipsByName mapping]))
+  relationshipsByName = [v103 relationshipsByName];
+  if (!-[__CFDictionary objectForKey:](v334, "objectForKey:", [relationshipsByName mapping]))
   {
-    v118 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v335, "count")}];
-    -[__CFArray addObject:](v335, "addObject:", [relationshipsByName mapping]);
+    v117 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v333, "count")}];
+    -[__CFArray addObject:](v333, "addObject:", [relationshipsByName mapping]);
     mapping5 = [relationshipsByName mapping];
-    v120 = v118;
-    v104 = v334;
-    CFDictionarySetValue(v336, mapping5, v120);
+    v119 = v117;
+    v103 = v332;
+    CFDictionarySetValue(v334, mapping5, v119);
   }
 
-  v421 = 0u;
-  v422 = 0u;
   v419 = 0u;
   v420 = 0u;
-  properties = [v104 properties];
-  v122 = [properties countByEnumeratingWithState:&v419 objects:v466 count:16];
-  if (!v122)
+  v417 = 0u;
+  v418 = 0u;
+  properties = [v103 properties];
+  v121 = [properties countByEnumeratingWithState:&v417 objects:v464 count:16];
+  if (!v121)
   {
     goto LABEL_197;
   }
 
-  v123 = v122;
-  v124 = *v420;
-  v343 = properties;
-  indexes = v124;
+  v122 = v121;
+  v123 = *v418;
+  v341 = properties;
+  indexes = v123;
 LABEL_105:
-  v125 = 0;
-  v344 = v123;
+  v124 = 0;
+  v342 = v122;
   while (1)
   {
-    if (*v420 != v124)
+    if (*v418 != v123)
     {
       objc_enumerationMutation(properties);
     }
 
-    v126 = *(*(&v419 + 1) + 8 * v125);
-    name4 = [v126 name];
-    if (object_getClass(v126) != v330)
+    v125 = *(*(&v417 + 1) + 8 * v124);
+    name4 = [v125 name];
+    if (object_getClass(v125) != v328)
     {
       break;
     }
 
 LABEL_195:
-    v125 = v125 + 1;
-    if (v125 == v123)
+    v124 = v124 + 1;
+    if (v124 == v122)
     {
-      v123 = [properties countByEnumeratingWithState:&v419 objects:v466 count:16];
-      v54 = v352;
-      if (v123)
+      v122 = [properties countByEnumeratingWithState:&v417 objects:v464 count:16];
+      v53 = v350;
+      if (v122)
       {
         goto LABEL_105;
       }
 
 LABEL_197:
-      v182 = [(NSSQLModel *)v332 entityNamed:name];
+      v181 = [(NSSQLModel *)v330 entityNamed:name];
+      v405 = 0u;
+      v406 = 0u;
       v407 = 0u;
       v408 = 0u;
-      v409 = 0u;
-      v410 = 0u;
-      properties2 = [(NSSQLEntity *)v182 properties];
-      v184 = [properties2 countByEnumeratingWithState:&v407 objects:v463 count:16];
-      if (v184)
+      properties2 = [(NSSQLEntity *)v181 properties];
+      v183 = [properties2 countByEnumeratingWithState:&v405 objects:v461 count:16];
+      if (v183)
       {
-        v185 = v184;
-        v186 = *v408;
+        v184 = v183;
+        v185 = *v406;
         do
         {
-          for (n = 0; n != v185; ++n)
+          for (n = 0; n != v184; ++n)
           {
-            if (*v408 != v186)
+            if (*v406 != v185)
             {
               objc_enumerationMutation(properties2);
             }
 
-            name5 = [*(*(&v407 + 1) + 8 * n) name];
-            if (![(__CFDictionary *)v355 objectForKey:name5])
+            name5 = [*(*(&v405 + 1) + 8 * n) name];
+            if (![(__CFDictionary *)v353 objectForKey:name5])
             {
-              v189 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-              [(__CFArray *)v30 addObject:name5];
-              v190 = v189;
-              v54 = v352;
-              [(__CFDictionary *)v355 setObject:v190 forKey:name5];
+              v188 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+              [(__CFArray *)v29 addObject:name5];
+              v189 = v188;
+              v53 = v350;
+              [(__CFDictionary *)v353 setObject:v189 forKey:name5];
             }
           }
 
-          v185 = [properties2 countByEnumeratingWithState:&v407 objects:v463 count:16];
+          v184 = [properties2 countByEnumeratingWithState:&v405 objects:v461 count:16];
         }
 
-        while (v185);
+        while (v184);
       }
 
-      v53 = v325;
-      v55 = v326 + 1;
-      allValues = v323;
-      if (v326 + 1 != v324)
+      v52 = v323;
+      v54 = v324 + 1;
+      allValues = v321;
+      if (v324 + 1 != v322)
       {
         goto LABEL_41;
       }
 
-      v52 = [v323 countByEnumeratingWithState:&v431 objects:v469 count:16];
-      v53 = v325;
-      if (!v52)
+      v51 = [v321 countByEnumeratingWithState:&v429 objects:v467 count:16];
+      v52 = v323;
+      if (!v51)
       {
-LABEL_248:
-        v405 = 0u;
-        v406 = 0u;
+LABEL_247:
         v403 = 0u;
         v404 = 0u;
-        v343 = [(__CFArray *)v341 countByEnumeratingWithState:&v403 objects:v462 count:16];
-        if (v343)
+        v401 = 0u;
+        v402 = 0u;
+        v341 = [(__CFArray *)v339 countByEnumeratingWithState:&v401 objects:v460 count:16];
+        if (v341)
         {
-          indexes = *v404;
+          indexes = *v402;
           do
           {
-            v206 = 0;
+            v204 = 0;
             do
             {
-              if (*v404 != indexes)
+              if (*v402 != indexes)
               {
-                objc_enumerationMutation(v341);
+                objc_enumerationMutation(v339);
               }
 
-              v344 = v206;
-              v346 = *(*(&v403 + 1) + 8 * v206);
-              predicate = [v346 predicate];
-              v208 = v352;
+              v342 = v204;
+              v344 = *(*(&v401 + 1) + 8 * v204);
+              predicate = [v344 predicate];
+              v206 = v350;
               if (predicate)
               {
-                v209 = predicate;
-                if (![(__CFDictionary *)v15 objectForKey:predicate])
+                v207 = predicate;
+                if (![(__CFDictionary *)v14 objectForKey:predicate])
                 {
-                  v210 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                  -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v209 requiringSecureCoding:1 error:0]);
-                  CFDictionarySetValue(v15, v209, v210);
+                  v208 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                  -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v207 requiringSecureCoding:1 error:0]);
+                  CFDictionarySetValue(v14, v207, v208);
                 }
               }
 
-              havingPredicate = [v346 havingPredicate];
+              havingPredicate = [v344 havingPredicate];
               if (havingPredicate)
               {
-                v212 = havingPredicate;
-                if (![(__CFDictionary *)v15 objectForKey:havingPredicate])
+                v210 = havingPredicate;
+                if (![(__CFDictionary *)v14 objectForKey:havingPredicate])
                 {
-                  v213 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                  -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v212 requiringSecureCoding:1 error:0]);
-                  CFDictionarySetValue(v15, v212, v213);
+                  v211 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                  -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v210 requiringSecureCoding:1 error:0]);
+                  CFDictionarySetValue(v14, v210, v211);
                 }
               }
 
-              propertiesToFetch = [v346 propertiesToFetch];
+              propertiesToFetch = [v344 propertiesToFetch];
+              v397 = 0u;
+              v398 = 0u;
               v399 = 0u;
               v400 = 0u;
-              v401 = 0u;
-              v402 = 0u;
-              v215 = [propertiesToFetch countByEnumeratingWithState:&v399 objects:v461 count:16];
-              if (v215)
+              v213 = [propertiesToFetch countByEnumeratingWithState:&v397 objects:v459 count:16];
+              if (v213)
               {
-                v216 = v215;
-                v217 = *v400;
+                v214 = v213;
+                v215 = *v398;
                 do
                 {
-                  for (ii = 0; ii != v216; ++ii)
+                  for (ii = 0; ii != v214; ++ii)
                   {
-                    if (*v400 != v217)
+                    if (*v398 != v215)
                     {
                       objc_enumerationMutation(propertiesToFetch);
                     }
 
-                    v219 = *(*(&v399 + 1) + 8 * ii);
-                    if (object_getClass(v219) == v351)
+                    v217 = *(*(&v397 + 1) + 8 * ii);
+                    if (object_getClass(v217) == v349)
                     {
-                      if (![(__CFDictionary *)v208 objectForKey:v219])
+                      if (![(__CFDictionary *)v206 objectForKey:v217])
                       {
-                        v220 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
-                        v208 = v352;
-                        [(__CFArray *)Mutable addObject:v219];
-                        CFDictionarySetValue(v352, v219, v220);
+                        v218 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
+                        v206 = v350;
+                        [(__CFArray *)Mutable addObject:v217];
+                        CFDictionarySetValue(v350, v217, v218);
                       }
 
-                      name6 = [v219 name];
-                      if (![(__CFDictionary *)v355 objectForKey:name6])
+                      name6 = [v217 name];
+                      if (![(__CFDictionary *)v353 objectForKey:name6])
                       {
-                        v222 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v350, "count")}];
-                        v15 = v353;
-                        [(__CFArray *)v350 addObject:name6];
-                        v223 = v222;
-                        v208 = v352;
-                        [(__CFDictionary *)v355 setObject:v223 forKey:name6];
+                        v220 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v348, "count")}];
+                        v14 = v351;
+                        [(__CFArray *)v348 addObject:name6];
+                        v221 = v220;
+                        v206 = v350;
+                        [(__CFDictionary *)v353 setObject:v221 forKey:name6];
                       }
 
-                      LODWORD(v354) = v354 + 1;
-                      expression2 = [v219 expression];
-                      if (![(__CFDictionary *)v15 objectForKey:expression2])
+                      LODWORD(v352) = v352 + 1;
+                      expression2 = [v217 expression];
+                      if (![(__CFDictionary *)v14 objectForKey:expression2])
                       {
-                        v225 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                        v15 = v353;
-                        -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:expression2 requiringSecureCoding:1 error:0]);
-                        [v353 setObject:v225 forKey:expression2];
+                        v223 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                        v14 = v351;
+                        -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:expression2 requiringSecureCoding:1 error:0]);
+                        [v351 setObject:v223 forKey:expression2];
                       }
                     }
                   }
 
-                  v216 = [propertiesToFetch countByEnumeratingWithState:&v399 objects:v461 count:16];
+                  v214 = [propertiesToFetch countByEnumeratingWithState:&v397 objects:v459 count:16];
                 }
 
-                while (v216);
+                while (v214);
               }
 
-              propertiesToGroupBy = [v346 propertiesToGroupBy];
+              propertiesToGroupBy = [v344 propertiesToGroupBy];
+              v393 = 0u;
+              v394 = 0u;
               v395 = 0u;
               v396 = 0u;
-              v397 = 0u;
-              v398 = 0u;
-              v227 = [propertiesToGroupBy countByEnumeratingWithState:&v395 objects:v460 count:16];
-              if (v227)
+              v225 = [propertiesToGroupBy countByEnumeratingWithState:&v393 objects:v458 count:16];
+              if (v225)
               {
-                v228 = v227;
-                v229 = *v396;
+                v226 = v225;
+                v227 = *v394;
                 do
                 {
-                  for (jj = 0; jj != v228; ++jj)
+                  for (jj = 0; jj != v226; ++jj)
                   {
-                    if (*v396 != v229)
+                    if (*v394 != v227)
                     {
                       objc_enumerationMutation(propertiesToGroupBy);
                     }
 
-                    v231 = *(*(&v395 + 1) + 8 * jj);
-                    if (object_getClass(v231) == v351)
+                    v229 = *(*(&v393 + 1) + 8 * jj);
+                    if (object_getClass(v229) == v349)
                     {
-                      if (![(__CFDictionary *)v208 objectForKey:v231])
+                      if (![(__CFDictionary *)v206 objectForKey:v229])
                       {
-                        v232 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
-                        v208 = v352;
-                        [(__CFArray *)Mutable addObject:v231];
-                        CFDictionarySetValue(v352, v231, v232);
+                        v230 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
+                        v206 = v350;
+                        [(__CFArray *)Mutable addObject:v229];
+                        CFDictionarySetValue(v350, v229, v230);
                       }
 
-                      name7 = [v231 name];
-                      if (![(__CFDictionary *)v355 objectForKey:name7])
+                      name7 = [v229 name];
+                      if (![(__CFDictionary *)v353 objectForKey:name7])
                       {
-                        v234 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v350, "count")}];
-                        v15 = v353;
-                        [(__CFArray *)v350 addObject:name7];
-                        v235 = v234;
-                        v208 = v352;
-                        [(__CFDictionary *)v355 setObject:v235 forKey:name7];
+                        v232 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v348, "count")}];
+                        v14 = v351;
+                        [(__CFArray *)v348 addObject:name7];
+                        v233 = v232;
+                        v206 = v350;
+                        [(__CFDictionary *)v353 setObject:v233 forKey:name7];
                       }
 
-                      LODWORD(v354) = v354 + 1;
-                      expression3 = [v231 expression];
-                      if (![(__CFDictionary *)v15 objectForKey:expression3])
+                      LODWORD(v352) = v352 + 1;
+                      expression3 = [v229 expression];
+                      if (![(__CFDictionary *)v14 objectForKey:expression3])
                       {
-                        v237 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                        v15 = v353;
-                        -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:expression3 requiringSecureCoding:1 error:0]);
-                        [v353 setObject:v237 forKey:expression3];
+                        v235 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                        v14 = v351;
+                        -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:expression3 requiringSecureCoding:1 error:0]);
+                        [v351 setObject:v235 forKey:expression3];
                       }
                     }
                   }
 
-                  v228 = [propertiesToGroupBy countByEnumeratingWithState:&v395 objects:v460 count:16];
+                  v226 = [propertiesToGroupBy countByEnumeratingWithState:&v393 objects:v458 count:16];
                 }
 
-                while (v228);
+                while (v226);
               }
 
-              sortDescriptors = [v346 sortDescriptors];
+              sortDescriptors = [v344 sortDescriptors];
+              v389 = 0u;
+              v390 = 0u;
               v391 = 0u;
               v392 = 0u;
-              v393 = 0u;
-              v394 = 0u;
-              v239 = [sortDescriptors countByEnumeratingWithState:&v391 objects:v459 count:16];
-              v30 = v350;
-              if (v239)
+              v237 = [sortDescriptors countByEnumeratingWithState:&v389 objects:v457 count:16];
+              v29 = v348;
+              if (v237)
               {
-                v240 = v239;
-                v241 = *v392;
+                v238 = v237;
+                v239 = *v390;
                 do
                 {
-                  for (kk = 0; kk != v240; ++kk)
+                  for (kk = 0; kk != v238; ++kk)
                   {
-                    if (*v392 != v241)
+                    if (*v390 != v239)
                     {
                       objc_enumerationMutation(sortDescriptors);
                     }
 
-                    v243 = *(*(&v391 + 1) + 8 * kk);
-                    if (![(__CFDictionary *)v15 objectForKey:v243])
+                    v241 = *(*(&v389 + 1) + 8 * kk);
+                    if (![(__CFDictionary *)v14 objectForKey:v241])
                     {
-                      v244 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                      v15 = v353;
-                      -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v243 requiringSecureCoding:1 error:0]);
-                      [v353 setObject:v244 forKey:v243];
+                      v242 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                      v14 = v351;
+                      -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v241 requiringSecureCoding:1 error:0]);
+                      [v351 setObject:v242 forKey:v241];
                     }
                   }
 
-                  v240 = [sortDescriptors countByEnumeratingWithState:&v391 objects:v459 count:16];
+                  v238 = [sortDescriptors countByEnumeratingWithState:&v389 objects:v457 count:16];
                 }
 
-                while (v240);
+                while (v238);
               }
 
-              relationshipKeyPathsForPrefetching = [v346 relationshipKeyPathsForPrefetching];
+              relationshipKeyPathsForPrefetching = [v344 relationshipKeyPathsForPrefetching];
+              v385 = 0u;
+              v386 = 0u;
               v387 = 0u;
               v388 = 0u;
-              v389 = 0u;
-              v390 = 0u;
-              v246 = [relationshipKeyPathsForPrefetching countByEnumeratingWithState:&v387 objects:v458 count:16];
-              if (v246)
+              v244 = [relationshipKeyPathsForPrefetching countByEnumeratingWithState:&v385 objects:v456 count:16];
+              if (v244)
               {
-                v247 = v246;
-                v248 = *v388;
+                v245 = v244;
+                v246 = *v386;
                 do
                 {
-                  for (mm = 0; mm != v247; ++mm)
+                  for (mm = 0; mm != v245; ++mm)
                   {
-                    if (*v388 != v248)
+                    if (*v386 != v246)
                     {
                       objc_enumerationMutation(relationshipKeyPathsForPrefetching);
                     }
 
-                    v250 = *(*(&v387 + 1) + 8 * mm);
-                    if (![(__CFDictionary *)v355 objectForKey:v250])
+                    v248 = *(*(&v385 + 1) + 8 * mm);
+                    if (![(__CFDictionary *)v353 objectForKey:v248])
                     {
-                      v251 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v350, "count")}];
-                      [(__CFArray *)v350 addObject:v250];
-                      [(__CFDictionary *)v355 setObject:v251 forKey:v250];
+                      v249 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v348, "count")}];
+                      [(__CFArray *)v348 addObject:v248];
+                      [(__CFDictionary *)v353 setObject:v249 forKey:v248];
                     }
                   }
 
-                  v247 = [relationshipKeyPathsForPrefetching countByEnumeratingWithState:&v387 objects:v458 count:16];
+                  v245 = [relationshipKeyPathsForPrefetching countByEnumeratingWithState:&v385 objects:v456 count:16];
                 }
 
-                while (v247);
+                while (v245);
               }
 
-              v206 = v344 + 1;
+              v204 = v342 + 1;
             }
 
-            while (v344 + 1 != v343);
-            v343 = [(__CFArray *)v341 countByEnumeratingWithState:&v403 objects:v462 count:16];
+            while (v342 + 1 != v341);
+            v341 = [(__CFArray *)v339 countByEnumeratingWithState:&v401 objects:v460 count:16];
           }
 
-          while (v343);
+          while (v341);
         }
 
-        v386 = 0;
-        v385 = -559038737;
-        v195 = objc_alloc_init(MEMORY[0x1E695DF88]);
-        [v195 appendBytes:"momv2$srsraori55717101jhus-[6910aathnnhi86786714[-;uadmiraenv143" length:64];
-        v252 = [v195 length];
-        v253 = (v252 + 3) & 0xFFFFFFFC;
-        if (v253 != v252)
+        v384 = 0;
+        v383 = -559038737;
+        v194 = objc_alloc_init(MEMORY[0x1E695DF88]);
+        [v194 appendBytes:"momv2$srsraori55717101jhus-[6910aathnnhi86786714[-;uadmiraenv143" length:64];
+        v250 = [v194 length];
+        v251 = (v250 + 3) & 0xFFFFFFFC;
+        if (v251 != v250)
         {
-          [v195 appendBytes:&v386 length:v253 - v252];
+          [v194 appendBytes:&v384 length:v251 - v250];
         }
 
-        v351 = [v195 length];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v386 length:4];
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        v346 = [v195 length];
-        _writeInt32IntoData(v195, [(__CFArray *)v338 count]);
-        v383 = 0u;
-        v384 = 0u;
+        v349 = [v194 length];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v384 length:4];
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        v344 = [v194 length];
+        _writeInt32IntoData(v194, [(__CFArray *)v336 count]);
         v381 = 0u;
         v382 = 0u;
-        v254 = [(__CFArray *)v338 countByEnumeratingWithState:&v381 objects:v456 count:16];
-        if (v254)
-        {
-          v255 = v254;
-          v256 = *v382;
-          do
-          {
-            for (nn = 0; nn != v255; ++nn)
-            {
-              if (*v382 != v256)
-              {
-                objc_enumerationMutation(v338);
-              }
-
-              _writeStringIntoData(*(*(&v381 + 1) + 8 * nn), v195, v457);
-            }
-
-            v255 = [(__CFArray *)v338 countByEnumeratingWithState:&v381 objects:v456 count:16];
-          }
-
-          while (v255);
-        }
-
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        v344 = [v195 length];
-        _writeInt32IntoData(v195, [(__CFArray *)v30 count]);
         v379 = 0u;
         v380 = 0u;
+        v252 = [(__CFArray *)v336 countByEnumeratingWithState:&v379 objects:v454 count:16];
+        if (v252)
+        {
+          v253 = v252;
+          v254 = *v380;
+          do
+          {
+            for (nn = 0; nn != v253; ++nn)
+            {
+              if (*v380 != v254)
+              {
+                objc_enumerationMutation(v336);
+              }
+
+              _writeStringIntoData(*(*(&v379 + 1) + 8 * nn), v194, v455);
+            }
+
+            v253 = [(__CFArray *)v336 countByEnumeratingWithState:&v379 objects:v454 count:16];
+          }
+
+          while (v253);
+        }
+
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        v342 = [v194 length];
+        _writeInt32IntoData(v194, [(__CFArray *)v29 count]);
         v377 = 0u;
         v378 = 0u;
-        v258 = [(__CFArray *)v30 countByEnumeratingWithState:&v377 objects:v455 count:16];
-        if (v258)
-        {
-          v259 = v258;
-          v260 = *v378;
-          do
-          {
-            for (i1 = 0; i1 != v259; ++i1)
-            {
-              if (*v378 != v260)
-              {
-                objc_enumerationMutation(v30);
-              }
-
-              _writePFEncodedStringShapeIntoData(v195, *(*(&v377 + 1) + 8 * i1), v457);
-            }
-
-            v259 = [(__CFArray *)v30 countByEnumeratingWithState:&v377 objects:v455 count:16];
-          }
-
-          while (v259);
-        }
-
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        v343 = [v195 length];
-        _writeInt32IntoData(v195, [(__CFArray *)v349 count]);
         v375 = 0u;
         v376 = 0u;
+        v256 = [(__CFArray *)v29 countByEnumeratingWithState:&v375 objects:v453 count:16];
+        if (v256)
+        {
+          v257 = v256;
+          v258 = *v376;
+          do
+          {
+            for (i1 = 0; i1 != v257; ++i1)
+            {
+              if (*v376 != v258)
+              {
+                objc_enumerationMutation(v29);
+              }
+
+              _writePFEncodedStringShapeIntoData(v194, *(*(&v375 + 1) + 8 * i1), v455);
+            }
+
+            v257 = [(__CFArray *)v29 countByEnumeratingWithState:&v375 objects:v453 count:16];
+          }
+
+          while (v257);
+        }
+
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        v341 = [v194 length];
+        _writeInt32IntoData(v194, [(__CFArray *)v347 count]);
         v373 = 0u;
         v374 = 0u;
-        v262 = [(__CFArray *)v349 countByEnumeratingWithState:&v373 objects:v454 count:16];
-        if (v262)
-        {
-          v263 = v262;
-          v264 = *v374;
-          do
-          {
-            for (i2 = 0; i2 != v263; ++i2)
-            {
-              if (*v374 != v264)
-              {
-                objc_enumerationMutation(v349);
-              }
-
-              _writePFEncodedDataShapeIntoData(v195, *(*(&v373 + 1) + 8 * i2));
-            }
-
-            v263 = [(__CFArray *)v349 countByEnumeratingWithState:&v373 objects:v454 count:16];
-          }
-
-          while (v263);
-        }
-
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        indexes = [v195 length];
-        _writeInt32IntoData(v195, [(__CFArray *)v335 count]);
         v371 = 0u;
         v372 = 0u;
-        v369 = 0u;
-        v370 = 0u;
-        v266 = [(__CFArray *)v335 countByEnumeratingWithState:&v369 objects:v453 count:16];
-        if (v266)
+        v260 = [(__CFArray *)v347 countByEnumeratingWithState:&v371 objects:v452 count:16];
+        if (v260)
         {
-          v267 = v266;
-          v268 = *v370;
+          v261 = v260;
+          v262 = *v372;
           do
           {
-            for (i3 = 0; i3 != v267; ++i3)
+            for (i2 = 0; i2 != v261; ++i2)
             {
-              if (*v370 != v268)
+              if (*v372 != v262)
               {
-                objc_enumerationMutation(v335);
+                objc_enumerationMutation(v347);
               }
 
-              _writeKKDMappingStrategyIntoData(v195, *(*(&v369 + 1) + 8 * i3), v355);
+              _writePFEncodedDataShapeIntoData(v194, *(*(&v371 + 1) + 8 * i2));
             }
 
-            v267 = [(__CFArray *)v335 countByEnumeratingWithState:&v369 objects:v453 count:16];
+            v261 = [(__CFArray *)v347 countByEnumeratingWithState:&v371 objects:v452 count:16];
           }
 
-          while (v267);
+          while (v261);
         }
 
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        v330 = [v195 length];
-        _writeInt32IntoData(v195, v328);
-        _writeInt32IntoData(v195, HIDWORD(v328));
-        _writeInt32IntoData(v195, v329);
-        _writeInt32IntoData(v195, v354);
-        _writeInt32IntoData(v195, HIDWORD(v329));
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        indexes = [v194 length];
+        _writeInt32IntoData(v194, [(__CFArray *)v333 count]);
+        v369 = 0u;
+        v370 = 0u;
         v367 = 0u;
         v368 = 0u;
-        v365 = 0u;
-        v366 = 0u;
-        v270 = [(__CFArray *)Mutable countByEnumeratingWithState:&v365 objects:v452 count:16];
-        if (v270)
+        v264 = [(__CFArray *)v333 countByEnumeratingWithState:&v367 objects:v451 count:16];
+        if (v264)
         {
-          v271 = v270;
-          v272 = *v366;
+          v265 = v264;
+          v266 = *v368;
           do
           {
-            for (i4 = 0; i4 != v271; ++i4)
+            for (i3 = 0; i3 != v265; ++i3)
             {
-              if (*v366 != v272)
+              if (*v368 != v266)
+              {
+                objc_enumerationMutation(v333);
+              }
+
+              _writeKKDMappingStrategyIntoData(v194, *(*(&v367 + 1) + 8 * i3), v353);
+            }
+
+            v265 = [(__CFArray *)v333 countByEnumeratingWithState:&v367 objects:v451 count:16];
+          }
+
+          while (v265);
+        }
+
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        v328 = [v194 length];
+        _writeInt32IntoData(v194, v326);
+        _writeInt32IntoData(v194, HIDWORD(v326));
+        _writeInt32IntoData(v194, v327);
+        _writeInt32IntoData(v194, v352);
+        _writeInt32IntoData(v194, HIDWORD(v327));
+        v365 = 0u;
+        v366 = 0u;
+        v363 = 0u;
+        v364 = 0u;
+        v268 = [(__CFArray *)Mutable countByEnumeratingWithState:&v363 objects:v450 count:16];
+        if (v268)
+        {
+          v269 = v268;
+          v270 = *v364;
+          do
+          {
+            for (i4 = 0; i4 != v269; ++i4)
+            {
+              if (*v364 != v270)
               {
                 objc_enumerationMutation(Mutable);
               }
 
-              [*(*(&v365 + 1) + 8 * i4) _writeIntoData:v195 propertiesDict:v352 uniquedPropertyNames:v355 uniquedStrings:v339 uniquedData:v15 entitiesSlots:objc_msgSend(*(v345 + 4) fetchRequests:{"mapping"), v342}];
+              [*(*(&v363 + 1) + 8 * i4) _writeIntoData:v194 propertiesDict:v350 uniquedPropertyNames:v353 uniquedStrings:v337 uniquedData:v14 entitiesSlots:objc_msgSend(*(v343 + 4) fetchRequests:{"mapping"), v340}];
             }
 
-            v271 = [(__CFArray *)Mutable countByEnumeratingWithState:&v365 objects:v452 count:16];
+            v269 = [(__CFArray *)Mutable countByEnumeratingWithState:&v363 objects:v450 count:16];
           }
 
-          while (v271);
+          while (v269);
         }
 
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        name = [v195 length];
-        _writeInt32IntoData(v195, [*(v345 + 4) count]);
-        v274 = [objc_msgSend(*(v345 + 4) "mapping")];
-        if (v274)
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        name = [v194 length];
+        _writeInt32IntoData(v194, [*(v343 + 4) count]);
+        v272 = [objc_msgSend(*(v343 + 4) "mapping")];
+        if (v272)
         {
-          v275 = v274;
-          for (i5 = 0; i5 != v275; ++i5)
+          v273 = v272;
+          for (i5 = 0; i5 != v273; ++i5)
           {
-            [objc_msgSend(*(v345 + 4) valueAtIndex:{i5), "_writeIntoData:propertiesDict:uniquedPropertyNames:uniquedStrings:uniquedData:uniquedMappings:entities:", v195, v352, v355, v339, v15, v336, *(v345 + 4)}];
+            [objc_msgSend(*(v343 + 4) valueAtIndex:{i5), "_writeIntoData:propertiesDict:uniquedPropertyNames:uniquedStrings:uniquedData:uniquedMappings:entities:", v194, v350, v353, v337, v14, v334, *(v343 + 4)}];
           }
         }
 
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        v334 = [v195 length];
-        _writeInt32IntoData(v195, [(__CFArray *)v341 count]);
-        v277 = [(__CFArray *)v341 count];
-        if (v277)
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        v332 = [v194 length];
+        _writeInt32IntoData(v194, [(__CFArray *)v339 count]);
+        v275 = [(__CFArray *)v339 count];
+        if (v275)
         {
-          v278 = v277;
-          for (i6 = 0; i6 != v278; ++i6)
+          v276 = v275;
+          for (i6 = 0; i6 != v276; ++i6)
           {
-            [-[__CFArray objectAtIndex:](v341 objectAtIndex:{i6), "_writeIntoData:propertiesDict:uniquedPropertyNames:uniquedStrings:uniquedData:uniquedMappings:entities:", v195, v352, v355, v339, v15, v336, *(v345 + 4)}];
+            [-[__CFArray objectAtIndex:](v339 objectAtIndex:{i6), "_writeIntoData:propertiesDict:uniquedPropertyNames:uniquedStrings:uniquedData:uniquedMappings:entities:", v194, v350, v353, v337, v14, v334, *(v343 + 4)}];
           }
         }
 
-        [v195 appendBytes:&v385 length:4];
-        [v195 appendBytes:&v385 length:4];
-        v280 = [v195 length];
-        _writeInt32IntoData(v195, *(v345 + 16));
-        v281 = *(v345 + 4);
-        if (v281)
+        [v194 appendBytes:&v383 length:4];
+        [v194 appendBytes:&v383 length:4];
+        v278 = [v194 length];
+        _writeInt32IntoData(v194, *(v343 + 16));
+        v279 = *(v343 + 4);
+        if (v279)
         {
-          v282 = [v281 count];
+          v280 = [v279 count];
         }
 
         else
         {
-          v282 = 0;
+          v280 = 0;
         }
 
-        _writeInt32IntoData(v195, v282);
-        if (v331 && [(NSKnownKeysDictionary *)v331 count])
+        _writeInt32IntoData(v194, v280);
+        if (v329 && [(NSKnownKeysDictionary *)v329 count])
         {
-          _writeInt32IntoData(v195, [*(v345 + 6) count]);
-          v363 = 0u;
-          v364 = 0u;
+          _writeInt32IntoData(v194, [*(v343 + 6) count]);
           v361 = 0u;
           v362 = 0u;
-          allValues2 = [*(v345 + 6) allValues];
-          v284 = [allValues2 countByEnumeratingWithState:&v361 objects:v451 count:16];
-          if (v284)
+          v359 = 0u;
+          v360 = 0u;
+          allValues2 = [*(v343 + 6) allValues];
+          v282 = [allValues2 countByEnumeratingWithState:&v359 objects:v449 count:16];
+          if (v282)
           {
-            v285 = v284;
-            v286 = *v362;
+            v283 = v282;
+            v284 = *v360;
             do
             {
-              for (i7 = 0; i7 != v285; ++i7)
+              for (i7 = 0; i7 != v283; ++i7)
               {
-                if (*v362 != v286)
+                if (*v360 != v284)
                 {
                   objc_enumerationMutation(allValues2);
                 }
 
-                v288 = [CFDictionaryGetValue(v342 *(*(&v361 + 1) + 8 * i7))];
-                _writeInt64IntoData(v195, v288);
+                v286 = [CFDictionaryGetValue(v340 *(*(&v359 + 1) + 8 * i7))];
+                _writeInt64IntoData(v194, v286);
               }
 
-              v285 = [allValues2 countByEnumeratingWithState:&v361 objects:v451 count:16];
+              v283 = [allValues2 countByEnumeratingWithState:&v359 objects:v449 count:16];
             }
 
-            while (v285);
+            while (v283);
           }
         }
 
         else
         {
-          _writeInt32IntoData(v195, 0);
+          _writeInt32IntoData(v194, 0);
         }
 
-        v289 = *(v345 + 5);
-        v326 = v280;
-        if (v289)
+        v287 = *(v343 + 5);
+        v324 = v278;
+        if (v287)
         {
-          _writeInt32IntoData(v195, [v289 count]);
-          mapping6 = [*(v345 + 4) mapping];
+          _writeInt32IntoData(v194, [v287 count]);
+          mapping6 = [*(v343 + 4) mapping];
+          v355 = 0u;
+          v356 = 0u;
           v357 = 0u;
           v358 = 0u;
-          v359 = 0u;
-          v360 = 0u;
-          *&v353 = *(v345 + 5);
-          v291 = [v353 countByEnumeratingWithState:&v357 objects:v450 count:16];
-          if (v291)
+          *&v351 = *(v343 + 5);
+          v289 = [v351 countByEnumeratingWithState:&v355 objects:v448 count:16];
+          if (v289)
           {
-            v292 = v291;
-            v293 = *v358;
+            v290 = v289;
+            v291 = *v356;
             do
             {
-              for (i8 = 0; i8 != v292; ++i8)
+              for (i8 = 0; i8 != v290; ++i8)
               {
-                if (*v358 != v293)
+                if (*v356 != v291)
                 {
-                  objc_enumerationMutation(v353);
+                  objc_enumerationMutation(v351);
                 }
 
-                v295 = *(*(&v357 + 1) + 8 * i8);
-                allObjects = [*(v345 + 5) objectForKey:v295];
-                _writeInt32IntoData(v195, [-[__CFDictionary objectForKey:](v355 objectForKey:{v295), "unsignedIntegerValue"}]);
+                v293 = *(*(&v355 + 1) + 8 * i8);
+                allObjects = [*(v343 + 5) objectForKey:v293];
+                _writeInt32IntoData(v194, [-[__CFDictionary objectForKey:](v353 objectForKey:{v293), "unsignedIntegerValue"}]);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
                   allObjects = [allObjects allObjects];
                 }
 
-                _writePFEncodedArrayShapeIntoData(v195, allObjects, mapping6, 0);
+                _writePFEncodedArrayShapeIntoData(v194, allObjects, mapping6, 0);
               }
 
-              v292 = [v353 countByEnumeratingWithState:&v357 objects:v450 count:16];
+              v290 = [v351 countByEnumeratingWithState:&v355 objects:v448 count:16];
             }
 
-            while (v292);
+            while (v290);
           }
         }
 
         else
         {
-          _writeInt32IntoData(v195, 0);
+          _writeInt32IntoData(v194, 0);
         }
 
-        v297 = v345;
-        _writePFEncodedArrayShapeIntoData(v195, [*(v345 + 7) allObjects], v15, 0);
-        if ([*(v345 + 4) count])
+        v295 = v343;
+        _writePFEncodedArrayShapeIntoData(v194, [*(v343 + 7) allObjects], v14, 0);
+        if ([*(v343 + 4) count])
         {
-          v298 = 0;
+          v296 = 0;
           do
           {
-            _writeInt64IntoData(v195, 0);
-            ++v298;
+            _writeInt64IntoData(v194, 0);
+            ++v296;
           }
 
-          while (v298 < [*(v345 + 4) count]);
+          while (v296 < [*(v343 + 4) count]);
         }
 
-        *&v353 = v332->_entitiesByName;
-        v299 = [*(v345 + 4) count];
-        v30 = v350;
-        if (v299)
+        *&v351 = v330->_entitiesByName;
+        v297 = [*(v343 + 4) count];
+        v29 = v348;
+        if (v297)
         {
-          v300 = v299;
-          for (i9 = 0; i9 != v300; ++i9)
+          v298 = v297;
+          for (i9 = 0; i9 != v298; ++i9)
           {
-            v302 = [objc_msgSend(v297[4] valueAtIndex:{i9), "name"}];
-            v303 = [v353 objectForKey:v302];
-            if (v303 && (v304 = v303[31]) != 0)
+            v300 = [objc_msgSend(v295[4] valueAtIndex:{i9), "name"}];
+            v301 = [v351 objectForKey:v300];
+            if (v301 && (v302 = v301[31]) != 0)
             {
-              v305 = [-[NSSQLEntity properties](v303) count];
-              v306 = MEMORY[0x1EEE9AC00](v305);
-              v309 = &v323 - v308;
-              v310 = v306;
-              if (v306 > 0x200)
+              v303 = [-[NSSQLEntity properties](v301) count];
+              v304 = MEMORY[0x1EEE9AC00](v303);
+              v307 = &v321 - v306;
+              v308 = v304;
+              if (v304 > 0x200)
               {
-                v309 = NSAllocateScannedUncollectable();
+                v307 = NSAllocateScannedUncollectable();
               }
 
               else
               {
-                bzero(&v323 - v308, 8 * v307);
+                bzero(&v321 - v306, 8 * v305);
               }
 
-              v311 = v304[1];
-              if (v311 >= 1)
+              v309 = v302[1];
+              if (v309 >= 1)
               {
-                v312 = 0;
-                v313 = v304[9];
+                v310 = 0;
+                v311 = v302[9];
                 do
                 {
-                  v315 = *v313++;
-                  v314 = v315;
-                  v316 = v304[8];
-                  v317 = v316 ^ v315;
-                  if (v316 != v315 && v317 != -1)
+                  v313 = *v311++;
+                  v312 = v313;
+                  v314 = v302[8];
+                  v315 = v314 ^ v313;
+                  if (v314 != v313 && v315 != -1)
                   {
-                    *&v309[8 * v312++] = v314;
+                    *&v307[8 * v310++] = v312;
                   }
 
-                  --v311;
+                  --v309;
                 }
 
-                while (v311);
+                while (v309);
               }
 
-              v319 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v309 count:v310];
-              _writePFEncodedArrayShapeIntoData(v195, v319, v355, 0);
+              v317 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v307 count:v308];
+              _writePFEncodedArrayShapeIntoData(v194, v317, v353, 0);
 
-              if (v310 >= 0x201)
+              if (v308 >= 0x201)
               {
-                NSZoneFree(0, v309);
+                NSZoneFree(0, v307);
               }
 
-              v297 = v345;
+              v295 = v343;
             }
 
-            else if (v333)
+            else if (v331)
             {
-              v322 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Can't find hashorder for entity '%@'", objc_msgSend(v303, "name")), @"Base Problem"}];
-              *v333 = v322;
+              v320 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], objc_msgSend(v301, "name")), @"Base Problem"}];
+              *v331 = v320;
 
               goto LABEL_214;
             }
           }
         }
 
-        [v195 appendBytes:&v386 length:8];
-        v356 = bswap32(v326);
-        v320 = v351;
-        [v195 replaceBytesInRange:v351 withBytes:{4, &v356}];
-        v356 = bswap32(name);
-        [v195 replaceBytesInRange:(v320 + 4) withBytes:{4, &v356}];
-        v356 = bswap32([v297[4] count]);
-        [v195 replaceBytesInRange:(v320 + 8) withBytes:{4, &v356}];
-        v356 = bswap32(v330);
-        [v195 replaceBytesInRange:(v320 + 12) withBytes:{4, &v356}];
-        v356 = bswap32([(__CFDictionary *)v352 count]);
-        [v195 replaceBytesInRange:(v320 + 16) withBytes:{4, &v356}];
-        v356 = bswap32(v328);
-        [v195 replaceBytesInRange:(v320 + 20) withBytes:{4, &v356}];
-        v356 = bswap32(HIDWORD(v328));
-        [v195 replaceBytesInRange:(v320 + 24) withBytes:{4, &v356}];
-        v356 = bswap32(v329);
-        [v195 replaceBytesInRange:(v320 + 28) withBytes:{4, &v356}];
-        v356 = bswap32(v354);
-        [v195 replaceBytesInRange:(v320 + 32) withBytes:{4, &v356}];
-        v356 = bswap32(HIDWORD(v329));
-        [v195 replaceBytesInRange:(v320 + 36) withBytes:{4, &v356}];
-        v356 = bswap32(indexes);
-        [v195 replaceBytesInRange:(v320 + 40) withBytes:{4, &v356}];
-        v356 = bswap32([(__CFArray *)v335 count]);
-        [v195 replaceBytesInRange:(v320 + 44) withBytes:{4, &v356}];
-        v356 = bswap32(v343);
-        [v195 replaceBytesInRange:(v320 + 48) withBytes:{4, &v356}];
-        v197 = v349;
-        v356 = bswap32([(__CFArray *)v349 count]);
-        [v195 replaceBytesInRange:(v320 + 52) withBytes:{4, &v356}];
-        v356 = bswap32(v346);
-        [v195 replaceBytesInRange:(v320 + 56) withBytes:{4, &v356}];
-        v321 = v297;
+        [v194 appendBytes:&v384 length:8];
+        v354 = bswap32(v324);
+        v318 = v349;
+        [v194 replaceBytesInRange:v349 withBytes:{4, &v354}];
+        v354 = bswap32(name);
+        [v194 replaceBytesInRange:(v318 + 4) withBytes:{4, &v354}];
+        v354 = bswap32([v295[4] count]);
+        [v194 replaceBytesInRange:(v318 + 8) withBytes:{4, &v354}];
+        v354 = bswap32(v328);
+        [v194 replaceBytesInRange:(v318 + 12) withBytes:{4, &v354}];
+        v354 = bswap32([(__CFDictionary *)v350 count]);
+        [v194 replaceBytesInRange:(v318 + 16) withBytes:{4, &v354}];
+        v354 = bswap32(v326);
+        [v194 replaceBytesInRange:(v318 + 20) withBytes:{4, &v354}];
+        v354 = bswap32(HIDWORD(v326));
+        [v194 replaceBytesInRange:(v318 + 24) withBytes:{4, &v354}];
+        v354 = bswap32(v327);
+        [v194 replaceBytesInRange:(v318 + 28) withBytes:{4, &v354}];
+        v354 = bswap32(v352);
+        [v194 replaceBytesInRange:(v318 + 32) withBytes:{4, &v354}];
+        v354 = bswap32(HIDWORD(v327));
+        [v194 replaceBytesInRange:(v318 + 36) withBytes:{4, &v354}];
+        v354 = bswap32(indexes);
+        [v194 replaceBytesInRange:(v318 + 40) withBytes:{4, &v354}];
+        v354 = bswap32([(__CFArray *)v333 count]);
+        [v194 replaceBytesInRange:(v318 + 44) withBytes:{4, &v354}];
+        v354 = bswap32(v341);
+        [v194 replaceBytesInRange:(v318 + 48) withBytes:{4, &v354}];
+        v196 = v347;
+        v354 = bswap32([(__CFArray *)v347 count]);
+        [v194 replaceBytesInRange:(v318 + 52) withBytes:{4, &v354}];
+        v354 = bswap32(v344);
+        [v194 replaceBytesInRange:(v318 + 56) withBytes:{4, &v354}];
+        v319 = v295;
+        v198 = v337;
+        v354 = bswap32([(__CFDictionary *)v337 count]);
+        [v194 replaceBytesInRange:(v318 + 60) withBytes:{4, &v354}];
+        v354 = bswap32(v342);
+        [v194 replaceBytesInRange:(v318 + 64) withBytes:{4, &v354}];
+        v354 = bswap32([(__CFDictionary *)v353 count]);
+        [v194 replaceBytesInRange:(v318 + 68) withBytes:{4, &v354}];
+        v354 = bswap32(v332);
+        [v194 replaceBytesInRange:(v318 + 72) withBytes:{4, &v354}];
         v199 = v339;
-        v356 = bswap32([(__CFDictionary *)v339 count]);
-        [v195 replaceBytesInRange:(v320 + 60) withBytes:{4, &v356}];
-        v356 = bswap32(v344);
-        [v195 replaceBytesInRange:(v320 + 64) withBytes:{4, &v356}];
-        v356 = bswap32([(__CFDictionary *)v355 count]);
-        [v195 replaceBytesInRange:(v320 + 68) withBytes:{4, &v356}];
-        v356 = bswap32(v334);
-        [v195 replaceBytesInRange:(v320 + 72) withBytes:{4, &v356}];
-        v200 = v341;
-        v356 = bswap32([(__CFArray *)v341 count]);
-        [v195 replaceBytesInRange:(v320 + 76) withBytes:{4, &v356}];
-        v356 = bswap32([v321[6] count]);
-        [v195 replaceBytesInRange:(v320 + 80) withBytes:{4, &v356}];
-        v356 = bswap32(v337);
-        [v195 replaceBytesInRange:(v320 + 84) withBytes:{4, &v356}];
-        v356 = bswap32(v347);
-        [v195 replaceBytesInRange:(v320 + 88) withBytes:{4, &v356}];
-        v196 = Mutable;
-        v198 = v338;
+        v354 = bswap32([(__CFArray *)v339 count]);
+        [v194 replaceBytesInRange:(v318 + 76) withBytes:{4, &v354}];
+        v354 = bswap32([v319[6] count]);
+        [v194 replaceBytesInRange:(v318 + 80) withBytes:{4, &v354}];
+        v354 = bswap32(v335);
+        [v194 replaceBytesInRange:(v318 + 84) withBytes:{4, &v354}];
+        v354 = bswap32(v345);
+        [v194 replaceBytesInRange:(v318 + 88) withBytes:{4, &v354}];
+        v195 = Mutable;
+        v197 = v336;
         if (!Mutable)
         {
           goto LABEL_217;
         }
 
 LABEL_216:
-        CFRelease(v196);
+        CFRelease(v195);
         goto LABEL_217;
       }
 
@@ -4277,79 +4224,79 @@ LABEL_216:
     }
   }
 
-  if (![(__CFDictionary *)v355 objectForKey:name4])
+  if (![(__CFDictionary *)v353 objectForKey:name4])
   {
-    v128 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-    [(__CFArray *)v30 addObject:name4];
-    [(__CFDictionary *)v355 setValue:v128 forKey:name4];
+    v127 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+    [(__CFArray *)v29 addObject:name4];
+    [(__CFDictionary *)v353 setValue:v127 forKey:name4];
   }
 
-  versionHashModifier2 = [v126 versionHashModifier];
+  versionHashModifier2 = [v125 versionHashModifier];
   if (versionHashModifier2)
   {
-    v130 = versionHashModifier2;
-    if (![(__CFDictionary *)v339 objectForKey:versionHashModifier2])
+    v129 = versionHashModifier2;
+    if (![(__CFDictionary *)v337 objectForKey:versionHashModifier2])
     {
-      v131 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v338, "count")}];
-      [(__CFArray *)v338 addObject:v130];
-      [(__CFDictionary *)v339 setValue:v131 forKey:v130];
+      v130 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v336, "count")}];
+      [(__CFArray *)v336 addObject:v129];
+      [(__CFDictionary *)v337 setValue:v130 forKey:v129];
     }
   }
 
-  versionHash2 = [v126 versionHash];
+  versionHash2 = [v125 versionHash];
   if (versionHash2)
   {
-    v133 = versionHash2;
-    if (![(__CFDictionary *)v15 objectForKey:versionHash2])
+    v132 = versionHash2;
+    if (![(__CFDictionary *)v14 objectForKey:versionHash2])
     {
-      v134 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-      [(__CFArray *)v349 addObject:v133];
-      CFDictionarySetValue(v15, v133, v134);
+      v133 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+      [(__CFArray *)v347 addObject:v132];
+      CFDictionarySetValue(v14, v132, v133);
     }
   }
 
-  renamingIdentifier2 = [v126 renamingIdentifier];
+  renamingIdentifier2 = [v125 renamingIdentifier];
   if (renamingIdentifier2)
   {
-    v136 = renamingIdentifier2;
-    if (([renamingIdentifier2 isEqualToString:{objc_msgSend(v126, "name")}] & 1) == 0 && !-[__CFDictionary objectForKey:](v339, "objectForKey:", v136))
+    v135 = renamingIdentifier2;
+    if (([renamingIdentifier2 isEqualToString:{objc_msgSend(v125, "name")}] & 1) == 0 && !-[__CFDictionary objectForKey:](v337, "objectForKey:", v135))
     {
-      v137 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v338, "count")}];
-      [(__CFArray *)v338 addObject:v136];
-      [(__CFDictionary *)v339 setObject:v137 forKey:v136];
+      v136 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v336, "count")}];
+      [(__CFArray *)v336 addObject:v135];
+      [(__CFDictionary *)v337 setObject:v136 forKey:v135];
     }
   }
 
-  userInfo2 = [v126 userInfo];
-  if ([userInfo2 count] && !-[__CFDictionary objectForKey:](v15, "objectForKey:", userInfo2))
+  userInfo2 = [v125 userInfo];
+  if ([userInfo2 count] && !-[__CFDictionary objectForKey:](v14, "objectForKey:", userInfo2))
   {
-    v139 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-    -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:userInfo2 requiringSecureCoding:1 error:0]);
-    CFDictionarySetValue(v15, userInfo2, v139);
+    v138 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+    -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:userInfo2 requiringSecureCoding:1 error:0]);
+    CFDictionarySetValue(v14, userInfo2, v138);
   }
 
-  v140 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
-  [(__CFArray *)Mutable addObject:v126];
-  CFDictionarySetValue(v352, v126, v140);
-  _propertyType = [v126 _propertyType];
-  v142 = _propertyType;
-  v346 = v125;
+  v139 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](Mutable, "count")}];
+  [(__CFArray *)Mutable addObject:v125];
+  CFDictionarySetValue(v350, v125, v139);
+  _propertyType = [v125 _propertyType];
+  v141 = _propertyType;
+  v344 = v124;
   if (_propertyType <= 3)
   {
     if (_propertyType != 2)
     {
       if (_propertyType != 3)
       {
-        goto LABEL_405;
+        goto LABEL_404;
       }
 
-      ++HIDWORD(v329);
-      fetchRequest = [v126 fetchRequest];
-      if (!CFDictionaryGetValue(v342, fetchRequest))
+      ++HIDWORD(v327);
+      fetchRequest = [v125 fetchRequest];
+      if (!CFDictionaryGetValue(v340, fetchRequest))
       {
-        v144 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v341, "count")}];
-        [(__CFArray *)v341 addObject:fetchRequest];
-        CFDictionarySetValue(v342, fetchRequest, v144);
+        v143 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v339, "count")}];
+        [(__CFArray *)v339 addObject:fetchRequest];
+        CFDictionarySetValue(v340, fetchRequest, v143);
       }
 
       goto LABEL_170;
@@ -4361,104 +4308,104 @@ LABEL_216:
   switch(_propertyType)
   {
     case 4:
-      LODWORD(v329) = v329 + 1;
+      LODWORD(v327) = v327 + 1;
 LABEL_170:
-      v417 = 0u;
-      v418 = 0u;
       v415 = 0u;
       v416 = 0u;
-      v166 = v126;
-      _rawValidationPredicates = [v126 _rawValidationPredicates];
-      v168 = [_rawValidationPredicates countByEnumeratingWithState:&v415 objects:v465 count:16];
-      if (v168)
+      v413 = 0u;
+      v414 = 0u;
+      v165 = v125;
+      _rawValidationPredicates = [v125 _rawValidationPredicates];
+      v167 = [_rawValidationPredicates countByEnumeratingWithState:&v413 objects:v463 count:16];
+      if (v167)
       {
-        v169 = v168;
-        v170 = *v416;
+        v168 = v167;
+        v169 = *v414;
         do
         {
-          for (i10 = 0; i10 != v169; ++i10)
+          for (i10 = 0; i10 != v168; ++i10)
           {
-            if (*v416 != v170)
+            if (*v414 != v169)
             {
               objc_enumerationMutation(_rawValidationPredicates);
             }
 
-            v172 = *(*(&v415 + 1) + 8 * i10);
-            if (![(__CFDictionary *)v15 objectForKey:v172])
+            v171 = *(*(&v413 + 1) + 8 * i10);
+            if (![(__CFDictionary *)v14 objectForKey:v171])
             {
-              v173 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-              v15 = v353;
-              -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v172 requiringSecureCoding:1 error:0]);
-              CFDictionarySetValue(v353, v172, v173);
+              v172 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+              v14 = v351;
+              -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v171 requiringSecureCoding:1 error:0]);
+              CFDictionarySetValue(v351, v171, v172);
             }
           }
 
-          v169 = [_rawValidationPredicates countByEnumeratingWithState:&v415 objects:v465 count:16];
+          v168 = [_rawValidationPredicates countByEnumeratingWithState:&v413 objects:v463 count:16];
         }
 
-        while (v169);
+        while (v168);
       }
 
-      v413 = 0u;
-      v414 = 0u;
       v411 = 0u;
       v412 = 0u;
-      _rawValidationWarnings = [v166 _rawValidationWarnings];
-      v175 = [_rawValidationWarnings countByEnumeratingWithState:&v411 objects:v464 count:16];
-      if (v175)
+      v409 = 0u;
+      v410 = 0u;
+      _rawValidationWarnings = [v165 _rawValidationWarnings];
+      v174 = [_rawValidationWarnings countByEnumeratingWithState:&v409 objects:v462 count:16];
+      if (v174)
       {
-        v176 = v175;
-        v177 = *v412;
-        v30 = v350;
+        v175 = v174;
+        v176 = *v410;
+        v29 = v348;
         while (2)
         {
-          for (i11 = 0; i11 != v176; ++i11)
+          for (i11 = 0; i11 != v175; ++i11)
           {
-            if (*v412 != v177)
+            if (*v410 != v176)
             {
               objc_enumerationMutation(_rawValidationWarnings);
             }
 
-            v179 = *(*(&v411 + 1) + 8 * i11);
-            if ([v179 isNSString])
+            v178 = *(*(&v409 + 1) + 8 * i11);
+            if ([v178 isNSString])
             {
-              if (![(__CFDictionary *)v339 objectForKey:v179])
+              if (![(__CFDictionary *)v337 objectForKey:v178])
               {
-                v180 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v338, "count")}];
-                v30 = v350;
-                [(__CFArray *)v338 addObject:v179];
-                [(__CFDictionary *)v339 setObject:v180 forKey:v179];
+                v179 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v336, "count")}];
+                v29 = v348;
+                [(__CFArray *)v336 addObject:v178];
+                [(__CFDictionary *)v337 setObject:v179 forKey:v178];
               }
             }
 
             else
             {
-              if (![v179 isNSNumber])
+              if (![v178 isNSNumber])
               {
-                v191 = v333;
-                if (!v333)
+                v190 = v331;
+                if (!v331)
                 {
                   goto LABEL_214;
                 }
 
-                v192 = MEMORY[0x1E696ABC0];
-                v193 = *MEMORY[0x1E696A250];
-                v194 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Invalid value in warnings array" forKey:@"Base error"];
+                v191 = MEMORY[0x1E696ABC0];
+                v192 = *MEMORY[0x1E696A250];
+                v193 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Invalid value in warnings array" forKey:@"Base error"];
                 goto LABEL_211;
               }
 
-              if (![(__CFDictionary *)v15 objectForKey:v179])
+              if (![(__CFDictionary *)v14 objectForKey:v178])
               {
-                v181 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                v15 = v353;
-                -[__CFArray addObject:](v349, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v179 requiringSecureCoding:1 error:0]);
-                CFDictionarySetValue(v353, v179, v181);
+                v180 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                v14 = v351;
+                -[__CFArray addObject:](v347, "addObject:", [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v178 requiringSecureCoding:1 error:0]);
+                CFDictionarySetValue(v351, v178, v180);
               }
             }
           }
 
-          v176 = [_rawValidationWarnings countByEnumeratingWithState:&v411 objects:v464 count:16];
-          if (v176)
+          v175 = [_rawValidationWarnings countByEnumeratingWithState:&v409 objects:v462 count:16];
+          if (v175)
           {
             continue;
           }
@@ -4469,48 +4416,48 @@ LABEL_170:
 
       else
       {
-        v30 = v350;
+        v29 = v348;
       }
 
-      properties = v343;
-      v123 = v344;
-      v124 = indexes;
-      v125 = v346;
+      properties = v341;
+      v122 = v342;
+      v123 = indexes;
+      v124 = v344;
       goto LABEL_195;
     case 6:
 LABEL_132:
-      attributeValueClassName = [v126 attributeValueClassName];
+      attributeValueClassName = [v125 attributeValueClassName];
       if (attributeValueClassName)
       {
-        v146 = attributeValueClassName;
-        if (![(__CFDictionary *)v355 objectForKey:attributeValueClassName])
+        v145 = attributeValueClassName;
+        if (![(__CFDictionary *)v353 objectForKey:attributeValueClassName])
         {
-          v147 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-          [(__CFArray *)v30 addObject:v146];
-          [(__CFDictionary *)v355 setObject:v147 forKey:v146];
+          v146 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+          [(__CFArray *)v29 addObject:v145];
+          [(__CFDictionary *)v353 setObject:v146 forKey:v145];
         }
       }
 
-      valueTransformerName = [v126 valueTransformerName];
+      valueTransformerName = [v125 valueTransformerName];
       if (valueTransformerName)
       {
-        v149 = valueTransformerName;
-        if (![(__CFDictionary *)v339 objectForKey:valueTransformerName])
+        v148 = valueTransformerName;
+        if (![(__CFDictionary *)v337 objectForKey:valueTransformerName])
         {
-          v150 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v338, "count")}];
-          [(__CFArray *)v338 addObject:v149];
-          [(__CFDictionary *)v339 setObject:v150 forKey:v149];
+          v149 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v336, "count")}];
+          [(__CFArray *)v336 addObject:v148];
+          [(__CFDictionary *)v337 setObject:v149 forKey:v148];
         }
       }
 
-      defaultValue = [v126 defaultValue];
+      defaultValue = [v125 defaultValue];
       if (!defaultValue)
       {
         goto LABEL_161;
       }
 
       stringValue = defaultValue;
-      attributeType = [v126 attributeType];
+      attributeType = [v125 attributeType];
       if (attributeType <= 499)
       {
         if (attributeType > 299)
@@ -4526,14 +4473,14 @@ LABEL_132:
           }
 
           stringValue = [stringValue stringValue];
-          if ([(__CFDictionary *)v355 objectForKey:stringValue])
+          if ([(__CFDictionary *)v353 objectForKey:stringValue])
           {
             goto LABEL_161;
           }
 
-          v154 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v30, "count")}];
-          [(__CFArray *)v30 addObject:stringValue];
-          v155 = v355;
+          v153 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v29, "count")}];
+          [(__CFArray *)v29 addObject:stringValue];
+          v154 = v353;
           goto LABEL_160;
         }
 
@@ -4555,57 +4502,57 @@ LABEL_132:
             }
 
 LABEL_161:
-            if (v142 == 6)
+            if (v141 == 6)
             {
-              derivationExpression = [v126 derivationExpression];
+              derivationExpression = [v125 derivationExpression];
               if (derivationExpression)
               {
-                v159 = derivationExpression;
-                if (![(__CFDictionary *)v15 objectForKey:derivationExpression])
+                v158 = derivationExpression;
+                if (![(__CFDictionary *)v14 objectForKey:derivationExpression])
                 {
-                  v160 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v159 requiringSecureCoding:1 error:0];
-                  v161 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                  v15 = v353;
-                  [(__CFArray *)v349 addObject:v160];
-                  CFDictionarySetValue(v353, v159, v161);
+                  v159 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v158 requiringSecureCoding:1 error:0];
+                  v160 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                  v14 = v351;
+                  [(__CFArray *)v347 addObject:v159];
+                  CFDictionarySetValue(v351, v158, v160);
                 }
               }
 
-              filteringPredicate = [v126 filteringPredicate];
+              filteringPredicate = [v125 filteringPredicate];
               if (filteringPredicate)
               {
-                v163 = filteringPredicate;
-                if (![(__CFDictionary *)v15 objectForKey:filteringPredicate])
+                v162 = filteringPredicate;
+                if (![(__CFDictionary *)v14 objectForKey:filteringPredicate])
                 {
-                  v164 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v163 requiringSecureCoding:1 error:0];
-                  v165 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-                  v15 = v353;
-                  [(__CFArray *)v349 addObject:v164];
-                  CFDictionarySetValue(v353, v163, v165);
+                  v163 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v162 requiringSecureCoding:1 error:0];
+                  v164 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+                  v14 = v351;
+                  [(__CFArray *)v347 addObject:v163];
+                  CFDictionarySetValue(v351, v162, v164);
                 }
               }
 
-              ++HIDWORD(v328);
+              ++HIDWORD(v326);
             }
 
             else
             {
-              LODWORD(v328) = v328 + 1;
+              LODWORD(v326) = v326 + 1;
             }
 
             goto LABEL_170;
           }
 
-          if ([(__CFDictionary *)v339 objectForKey:stringValue])
+          if ([(__CFDictionary *)v337 objectForKey:stringValue])
           {
             goto LABEL_161;
           }
 
-          v154 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v338, "count")}];
-          [(__CFArray *)v338 addObject:stringValue];
-          v155 = v339;
+          v153 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v336, "count")}];
+          [(__CFArray *)v336 addObject:stringValue];
+          v154 = v337;
 LABEL_160:
-          [(__CFDictionary *)v155 setObject:v154 forKey:stringValue];
+          [(__CFDictionary *)v154 setObject:v153 forKey:stringValue];
           goto LABEL_161;
         }
 
@@ -4616,38 +4563,38 @@ LABEL_160:
       }
 
 LABEL_156:
-      if (![(__CFDictionary *)v15 objectForKey:stringValue])
+      if (![(__CFDictionary *)v14 objectForKey:stringValue])
       {
-        v156 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:stringValue requiringSecureCoding:1 error:0];
-        v157 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v349, "count")}];
-        v15 = v353;
-        [(__CFArray *)v349 addObject:v156];
-        CFDictionarySetValue(v353, stringValue, v157);
+        v155 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:stringValue requiringSecureCoding:1 error:0];
+        v156 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[__CFArray count](v347, "count")}];
+        v14 = v351;
+        [(__CFArray *)v347 addObject:v155];
+        CFDictionarySetValue(v351, stringValue, v156);
       }
 
       goto LABEL_161;
     case 7:
-      v191 = v333;
-      if (v333)
+      v190 = v331;
+      if (v331)
       {
-        v192 = MEMORY[0x1E696ABC0];
-        v193 = *MEMORY[0x1E696A250];
-        v194 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"Unsupported property; can't optimize composite attribute", @"Base error", v126, @"Property", 0}];
+        v191 = MEMORY[0x1E696ABC0];
+        v192 = *MEMORY[0x1E696A250];
+        v193 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"Unsupported property; can't optimize composite attribute", @"Base error", v125, @"Property", 0}];
 LABEL_211:
-        v195 = 0;
-        *v191 = [v192 errorWithDomain:v193 code:134060 userInfo:v194];
+        v194 = 0;
+        *v190 = [v191 errorWithDomain:v192 code:134060 userInfo:v193];
         goto LABEL_215;
       }
 
       break;
     default:
-LABEL_405:
-      v191 = v333;
-      if (v333)
+LABEL_404:
+      v190 = v331;
+      if (v331)
       {
-        v192 = MEMORY[0x1E696ABC0];
-        v193 = *MEMORY[0x1E696A250];
-        v194 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"Invalid property; can't optimize", @"Base error", v126, @"Property", 0}];
+        v191 = MEMORY[0x1E696ABC0];
+        v192 = *MEMORY[0x1E696A250];
+        v193 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{@"Invalid property; can't optimize", @"Base error", v125, @"Property", 0}];
         goto LABEL_211;
       }
 
@@ -4655,22 +4602,27 @@ LABEL_405:
   }
 
 LABEL_214:
-  v195 = 0;
+  v194 = 0;
 LABEL_215:
-  v196 = Mutable;
-  v197 = v349;
-  v198 = v338;
+  v195 = Mutable;
+  v196 = v347;
+  v197 = v336;
+  v198 = v337;
   v199 = v339;
-  v200 = v341;
   if (Mutable)
   {
     goto LABEL_216;
   }
 
 LABEL_217:
-  if (v352)
+  if (v350)
   {
-    CFRelease(v352);
+    CFRelease(v350);
+  }
+
+  if (v197)
+  {
+    CFRelease(v197);
   }
 
   if (v198)
@@ -4678,47 +4630,27 @@ LABEL_217:
     CFRelease(v198);
   }
 
-  if (v199)
+  if (v29)
   {
-    CFRelease(v199);
+    CFRelease(v29);
   }
 
-  if (v30)
+  if (v353)
   {
-    CFRelease(v30);
+    CFRelease(v353);
   }
 
-  if (v355)
+  v200 = v333;
+  v201 = v334;
+  v202 = v329;
+  if (v196)
   {
-    CFRelease(v355);
+    CFRelease(v196);
   }
 
-  v201 = v335;
-  v202 = v336;
-  v203 = v331;
-  if (v197)
+  if (v14)
   {
-    CFRelease(v197);
-  }
-
-  if (v15)
-  {
-    CFRelease(v15);
-  }
-
-  if (v201)
-  {
-    CFRelease(v201);
-  }
-
-  if (v202)
-  {
-    CFRelease(v202);
-  }
-
-  v204 = v342;
-  if (v203)
-  {
+    CFRelease(v14);
   }
 
   if (v200)
@@ -4726,27 +4658,39 @@ LABEL_217:
     CFRelease(v200);
   }
 
-  if (v204)
+  if (v201)
   {
-    CFRelease(v204);
+    CFRelease(v201);
   }
 
-  if (v332)
+  v203 = v340;
+  if (v202)
   {
   }
 
-  if (v195)
+  if (v199)
   {
-    result = v195;
+    CFRelease(v199);
+  }
+
+  if (v203)
+  {
+    CFRelease(v203);
+  }
+
+  if (v330)
+  {
+  }
+
+  if (v194)
+  {
+    return v194;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v205 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (NSManagedObjectModel)initWithContentsOfURL:(id)l forStoreMetadata:(id)metadata
@@ -4822,7 +4766,7 @@ LABEL_13:
   {
     v10 = MEMORY[0x1E695DF30];
     v11 = *MEMORY[0x1E695D930];
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model already contains an entity named %@.", v6];
+    v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v6);
     v7 = v10;
     v8 = v11;
 LABEL_10:
@@ -4889,1597 +4833,1578 @@ LABEL_12:
 
 + (void)_newModelFromOptimizedEncoding:(uint64_t)encoding error:(const __CFData *)error
 {
-  v295[1] = *MEMORY[0x1E69E9840];
+  v293[1] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  if (!error)
+  if (error)
   {
-    goto LABEL_9;
-  }
-
-  objc_opt_class();
-  objc_opt_class();
-  v295[0] = 0;
-  BytePtr = CFDataGetBytePtr(error);
-  if ([(__CFData *)error length]< 0x40)
-  {
-    goto LABEL_9;
-  }
-
-  if (!memcmp("momv2$srsraori55717101jhus-[6910aathnnhi86786714[-;uadmiraenv143", BytePtr, 0x40uLL))
-  {
-    v4 = 13;
-  }
-
-  else
-  {
-    if ([(__CFData *)error length]< 0x40 || memcmp("momv2$8129374fj;a30[5yo-]0-87ujuhok'p0907ljnlmmji870-oi43902[349", BytePtr, 0x40uLL))
+    objc_opt_class();
+    objc_opt_class();
+    v293[0] = 0;
+    BytePtr = CFDataGetBytePtr(error);
+    if ([(__CFData *)error length]>= 0x40)
     {
-      goto LABEL_9;
-    }
-
-    v4 = 12;
-  }
-
-  v5 = [(__CFData *)error length];
-  if (v5 < 0x9C)
-  {
-    goto LABEL_9;
-  }
-
-  v294 = bswap32(*(BytePtr + 16));
-  v8 = *(BytePtr + 18);
-  v9 = bswap32(v8);
-  v10 = *(BytePtr + 5);
-  *&v6 = *(BytePtr + 12);
-  v11 = *(BytePtr + 27);
-  v12 = *(BytePtr + 29);
-  v13 = *(BytePtr + 31);
-  v14 = bswap32(v13);
-  v15 = *(BytePtr + 33);
-  v16 = bswap32(v15);
-  v17.i64[1] = __PAIR64__(v12, v11);
-  v17.i64[0] = v6;
-  v18 = vrev32q_s8(v17);
-  v19 = vrev32q_s8(v10);
-  v20 = *(BytePtr + 140);
-  v21 = vrev32q_s8(v20);
-  v17.i64[0] = 0x1000000010000;
-  v17.i64[1] = 0x1000000010000;
-  v22 = vmovn_s16(vuzp1q_s16(vcgtq_u32(v19, v17), vcgtq_u32(v18, v17)));
-  v22.i8[0] = vmaxv_u8(v22);
-  *v17.i8 = vmovn_s32(vcgtq_u32(v21, v17));
-  v17.i16[0] = vmaxv_u16(*v17.i8);
-  if ((v9 > 0x10000 || v14 > 0x10000 || v16 > 0x10000) | (v22.i32[0] | v17.i32[0]) & 1 || (v21.i32[1] + v18.i32[1]) > v21.i32[0])
-  {
-    goto LABEL_9;
-  }
-
-  v23 = v5;
-  v277 = v19;
-  v279 = v18;
-  v274 = v21;
-  v268 = v6;
-  v269 = v10;
-  v271 = v4;
-  v265 = v20;
-  v266 = v8;
-  v276 = v18.u32[1];
-  v278 = v11;
-  v273 = v9;
-  v275 = v21.u32[0];
-  v282 = v13;
-  v280 = v14;
-  v283 = &v237;
-  v267 = *(BytePtr + 17);
-  LODWORD(v272) = *(BytePtr + 19);
-  v24 = *(BytePtr + 26);
-  v25 = *(BytePtr + 28);
-  v26 = *(BytePtr + 30);
-  v27 = bswap32(*(BytePtr + 32));
-  v264 = *(BytePtr + 34);
-  MEMORY[0x1EEE9AC00](v5);
-  if (v16 > 0x200)
-  {
-    v30 = NSAllocateScannedUncollectable();
-    v281 = v30;
-  }
-
-  else
-  {
-    v281 = &v237 - v29;
-    bzero(&v237 - v29, 8 * v28);
-  }
-
-  v293 = v27;
-  v31 = (v27 + 3) & 0x1FFFFFFFCLL;
-  v32 = v31 + 4;
-  if (v31 + 4 <= v23)
-  {
-    v33 = bswap32(*&BytePtr[v31]);
-    v293 = v32;
-  }
-
-  else
-  {
-    v33 = 0;
-  }
-
-  if (v33 != v16)
-  {
-    goto LABEL_9;
-  }
-
-  if (!v15)
-  {
-LABEL_23:
-    v36 = bswap32(v26);
-    v37 = v280;
-    MEMORY[0x1EEE9AC00](v30);
-    v40 = &v237 - v39;
-    if (v37 > 0x200)
-    {
-      v41 = NSAllocateScannedUncollectable();
-      v40 = v41;
-    }
-
-    else
-    {
-      bzero(&v237 - v39, 8 * v38);
-    }
-
-    v292 = v36;
-    v42 = (v36 + 3) & 0x1FFFFFFFCLL;
-    v43 = v42 + 4;
-    v263 = v40;
-    if (v42 + 4 <= v23)
-    {
-      v44 = bswap32(*&BytePtr[v42]);
-      v292 = v43;
-    }
-
-    else
-    {
-      v44 = 0;
-    }
-
-    if (v44 != v37)
-    {
-      goto LABEL_9;
-    }
-
-    if (v282)
-    {
-      v45 = v263;
-      v46 = v280;
-      do
+      if (!memcmp("momv2$srsraori55717101jhus-[6910aathnnhi86786714[-;uadmiraenv143", BytePtr, 0x40uLL))
       {
-        v47 = _newReadStringFromBytes(BytePtr, &v292, v23);
-        if (!v47)
+        v4 = 13;
+      }
+
+      else
+      {
+        if ([(__CFData *)error length]< 0x40 || memcmp("momv2$8129374fj;a30[5yo-]0-87ujuhok'p0907ljnlmmji870-oi43902[349", BytePtr, 0x40uLL))
         {
-          goto LABEL_9;
+          return;
         }
 
-        v48 = v47;
-        *v45++ = [v47 mutableCopy];
+        v4 = 12;
       }
 
-      while (--v46);
-    }
-
-    v49 = bswap32(v25);
-    v50 = v279.u32[3];
-    MEMORY[0x1EEE9AC00](v41);
-    v53 = (&v237 - v52);
-    if (v50 > 0x200)
-    {
-      v54 = NSAllocateScannedUncollectable();
-      v53 = v54;
-    }
-
-    else
-    {
-      bzero(&v237 - v52, 8 * v51);
-    }
-
-    v291 = v49;
-    v55 = (v49 + 3) & 0x1FFFFFFFCLL;
-    v56 = v55 + 4;
-    if (v55 + 4 <= v23)
-    {
-      v57 = bswap32(*&BytePtr[v55]);
-      v291 = v56;
-    }
-
-    else
-    {
-      v57 = 0;
-    }
-
-    if (v57 != v50)
-    {
-      goto LABEL_9;
-    }
-
-    if (v12)
-    {
-      v58 = v53;
-      v59 = v50;
-      do
+      v5 = [(__CFData *)error length];
+      if (v5 >= 0x9C)
       {
-        v54 = _readPFEncodedDataFromData(error, BytePtr, &v291, v23);
-        if (!v54)
+        v292 = bswap32(*(BytePtr + 16));
+        v7 = *(BytePtr + 18);
+        v8 = bswap32(v7);
+        v9 = *(BytePtr + 5);
+        *&v6 = *(BytePtr + 12);
+        v10 = *(BytePtr + 27);
+        v11 = *(BytePtr + 29);
+        v12 = *(BytePtr + 31);
+        v13 = bswap32(v12);
+        v14 = *(BytePtr + 33);
+        v15 = bswap32(v14);
+        v16.i64[1] = __PAIR64__(v11, v10);
+        v16.i64[0] = v6;
+        v17 = vrev32q_s8(v16);
+        v18 = vrev32q_s8(v9);
+        v19 = *(BytePtr + 140);
+        v20 = vrev32q_s8(v19);
+        v16.i64[0] = 0x1000000010000;
+        v16.i64[1] = 0x1000000010000;
+        v21 = vmovn_s16(vuzp1q_s16(vcgtq_u32(v18, v16), vcgtq_u32(v17, v16)));
+        v21.i8[0] = vmaxv_u8(v21);
+        *v16.i8 = vmovn_s32(vcgtq_u32(v20, v16));
+        v16.i16[0] = vmaxv_u16(*v16.i8);
+        if (!((v8 > 0x10000 || v13 > 0x10000 || v15 > 0x10000) | (v21.i32[0] | v16.i32[0]) & 1) && (v20.i32[1] + v17.i32[1]) <= v20.i32[0])
         {
-          goto LABEL_9;
-        }
-
-        *v58++ = v54;
-      }
-
-      while (--v59);
-    }
-
-    v60 = v279.u32[2];
-    v61 = 8 * v279.u32[2];
-    v62 = MEMORY[0x1EEE9AC00](v54);
-    v63 = (&v237 - ((v61 + 15) & 0xFFFFFFFF0));
-    v290 = v64;
-    v65 = (v64 + 3) & 0x1FFFFFFFCLL;
-    v66 = v65 + 4;
-    if (v65 + 4 <= v23)
-    {
-      v67 = bswap32(*&BytePtr[v65]);
-      v290 = v66;
-    }
-
-    else
-    {
-      v67 = 0;
-    }
-
-    if (v67 != v60)
-    {
-      goto LABEL_9;
-    }
-
-    v262 = (&v237 - ((v61 + 15) & 0xFFFFFFFF0));
-    if (v278)
-    {
-      v68 = v60;
-      do
-      {
-        v69 = _newReadKKDMappingStrategyFromByes(error, BytePtr, &v290, v23, v281);
-        if (!v69)
-        {
-          goto LABEL_9;
-        }
-
-        *v63++ = v69;
-        --v68;
-      }
-
-      while (v68);
-      v260 = v50;
-      MEMORY[0x1EEE9AC00](v69);
-      v70 = (&v237 - ((v61 + 15) & 0xFFFFFFFF0));
-      v71 = NSClassFromString(@"NSKnownKeysDictionary2");
-      v72 = 0;
-      v73 = v262;
-      do
-      {
-        v74 = [(objc_class *)v71 newInstanceWithSearchStrategy:*(v73 + 8 * v72) inData:error];
-        v70[v72++] = v74;
-      }
-
-      while (v60 != v72);
-      v258 = v53;
-      v75 = v70;
-      v50 = v260;
-    }
-
-    else
-    {
-      v258 = v53;
-      MEMORY[0x1EEE9AC00](v62);
-      v75 = (&v237 - ((v61 + 15) & 0xFFFFFFFF0));
-      v74 = NSClassFromString(@"NSKnownKeysDictionary2");
-    }
-
-    v76 = v277.u32[0];
-    MEMORY[0x1EEE9AC00](v74);
-    v79 = &v237 - v78;
-    v259 = v60;
-    if (v76 >= 0x1FF)
-    {
-      v80 = NSAllocateScannedUncollectable();
-      v79 = v80;
-      if (!v80)
-      {
-        if (v282)
-        {
-          v104 = v280;
-          v105 = v263;
-          do
+          v22 = v5;
+          v275 = v18;
+          v277 = v17;
+          v272 = v20;
+          v266 = v6;
+          v267 = v9;
+          v269 = v4;
+          v263 = v19;
+          v264 = v7;
+          v274 = v17.u32[1];
+          v276 = v10;
+          v271 = v8;
+          v273 = v20.u32[0];
+          v280 = v12;
+          v278 = v13;
+          v281 = &v235;
+          v265 = *(BytePtr + 17);
+          LODWORD(v270) = *(BytePtr + 19);
+          v23 = *(BytePtr + 28);
+          v24 = *(BytePtr + 30);
+          v25 = bswap32(*(BytePtr + 32));
+          v262 = *(BytePtr + 34);
+          MEMORY[0x1EEE9AC00](v5);
+          if (v15 > 0x200)
           {
-            v106 = *v105++;
-
-            --v104;
+            v28 = NSAllocateScannedUncollectable();
+            v279 = v28;
           }
 
-          while (v104);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      bzero(&v237 - v78, 8 * v77);
-    }
-
-    v81 = v277.u32[1];
-    MEMORY[0x1EEE9AC00](v80);
-    v84 = (&v237 - v83);
-    v257 = v75;
-    if (v81 > 0x1FE)
-    {
-      v85 = NSAllocateScannedUncollectable();
-      v84 = v85;
-      if (!v85)
-      {
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v79);
-        }
-
-        if (v282)
-        {
-          v111 = v280;
-          v112 = v263;
-          do
+          else
           {
-            v113 = *v112++;
-
-            --v111;
+            v279 = &v235 - v27;
+            bzero(&v235 - v27, 8 * v26);
           }
 
-          while (v111);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      bzero(&v237 - v83, 8 * v82);
-    }
-
-    v86 = MEMORY[0x1EEE9AC00](v85);
-    v255 = v236;
-    v236[0] = 0;
-    v236[1] = 0;
-    MEMORY[0x1EEE9AC00](v86);
-    v89 = &v237 - v88;
-    v261 = v90;
-    if (v90 > 0x1FE)
-    {
-      v91 = NSAllocateScannedUncollectable();
-      v89 = v91;
-      if (!v91)
-      {
-        if (v81 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v79);
-        }
-
-        if (v282)
-        {
-          v119 = v280;
-          v120 = v263;
-          do
+          v291 = v25;
+          v29 = (v25 + 3) & 0x1FFFFFFFCLL;
+          v30 = v29 + 4;
+          if (v29 + 4 <= v22)
           {
-            v121 = *v120++;
-
-            --v119;
+            v31 = bswap32(*&BytePtr[v29]);
+            v291 = v30;
           }
 
-          while (v119);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      bzero(&v237 - v88, 8 * v87);
-    }
-
-    MEMORY[0x1EEE9AC00](v91);
-    v277.i64[0] = v94;
-    if (v94 > 0x1FE)
-    {
-      v95 = NSAllocateScannedUncollectable();
-      v256 = v95;
-      if (!v95)
-      {
-        if (v261 >= 0x1FF)
-        {
-          NSZoneFree(0, v89);
-        }
-
-        if (v81 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v79);
-        }
-
-        if (v282)
-        {
-          v126 = v280;
-          v127 = v263;
-          do
+          else
           {
-            v128 = *v127++;
-
-            --v126;
+            v31 = 0;
           }
 
-          while (v126);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v256 = (&v237 - v93);
-      bzero(&v237 - v93, 8 * v92);
-    }
-
-    MEMORY[0x1EEE9AC00](v95);
-    v279.i64[0] = v98;
-    if (v98 > 0x1FE)
-    {
-      v99 = NSAllocateScannedUncollectable();
-      v254 = v99;
-      if (!v99)
-      {
-        if (v277.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v256);
-        }
-
-        if (v261 >= 0x1FF)
-        {
-          NSZoneFree(0, v89);
-        }
-
-        if (v81 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v79);
-        }
-
-        if (v282)
-        {
-          v133 = v280;
-          v134 = v263;
-          do
+          if (v31 == v15)
           {
-            v135 = *v134++;
-
-            --v133;
-          }
-
-          while (v133);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v254 = (&v237 - v97);
-      bzero(&v237 - v97, 8 * v96);
-    }
-
-    MEMORY[0x1EEE9AC00](v99);
-    if (v102 > 0x1FE)
-    {
-      v103 = NSAllocateScannedUncollectable();
-      v252 = v103;
-      if (!v103)
-      {
-        if (v279.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v254);
-        }
-
-        if (v277.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v256);
-        }
-
-        if (v261 >= 0x1FF)
-        {
-          NSZoneFree(0, v89);
-        }
-
-        if (v81 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v79);
-        }
-
-        if (v282)
-        {
-          v168 = v280;
-          v169 = v263;
-          do
-          {
-            v170 = *v169++;
-
-            --v168;
-          }
-
-          while (v168);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v252 = (&v237 - v101);
-      bzero(&v237 - v101, 8 * v100);
-    }
-
-    MEMORY[0x1EEE9AC00](v103);
-    if (v109 > 0x1FE)
-    {
-      v110 = NSAllocateScannedUncollectable();
-      v250 = v110;
-      if (!v110)
-      {
-        if (v276 >= 0x1FF)
-        {
-          NSZoneFree(0, v252);
-        }
-
-        if (v279.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v254);
-        }
-
-        if (v277.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v256);
-        }
-
-        if (v261 >= 0x1FF)
-        {
-          NSZoneFree(0, v89);
-        }
-
-        if (v81 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v79);
-        }
-
-        if (v282)
-        {
-          v171 = v280;
-          v172 = v263;
-          do
-          {
-            v173 = *v172++;
-
-            --v171;
-          }
-
-          while (v171);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v250 = &v237 - v108;
-      bzero(&v237 - v108, 8 * v107);
-    }
-
-    v260 = v50;
-    v251 = v89;
-    v253 = v81;
-    v249 = v79;
-    MEMORY[0x1EEE9AC00](v110);
-    if (v116 > 0x1FE)
-    {
-      v118 = NSAllocateScannedUncollectable();
-      v117 = v118;
-      if (!v118)
-      {
-        if (v275 >= 0x1FF)
-        {
-          NSZoneFree(0, v250);
-        }
-
-        if (v276 >= 0x1FF)
-        {
-          NSZoneFree(0, v252);
-        }
-
-        if (v279.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v254);
-        }
-
-        if (v277.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v256);
-        }
-
-        if (v261 >= 0x1FF)
-        {
-          NSZoneFree(0, v251);
-        }
-
-        if (v253 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v249);
-        }
-
-        if (v282)
-        {
-          v174 = v280;
-          v175 = v263;
-          do
-          {
-            v176 = *v175++;
-
-            --v174;
-          }
-
-          while (v174);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v117 = &v237 - v115;
-      bzero(&v237 - v115, 8 * v114);
-    }
-
-    MEMORY[0x1EEE9AC00](v118);
-    v248 = v124;
-    if (v124 > 0x1FE)
-    {
-      v125 = NSAllocateScannedUncollectable();
-      v247 = v125;
-      if (!v125)
-      {
-        if (v273 >= 0x1FF)
-        {
-          NSZoneFree(0, v117);
-        }
-
-        if (v275 >= 0x1FF)
-        {
-          NSZoneFree(0, v250);
-        }
-
-        if (v276 >= 0x1FF)
-        {
-          NSZoneFree(0, v252);
-        }
-
-        if (v279.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v254);
-        }
-
-        if (v277.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v256);
-        }
-
-        if (v261 >= 0x1FF)
-        {
-          NSZoneFree(0, v251);
-        }
-
-        if (v253 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v249);
-        }
-
-        if (v282)
-        {
-          v177 = v280;
-          v178 = v263;
-          do
-          {
-            v179 = *v178++;
-
-            --v177;
-          }
-
-          while (v177);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v247 = &v237 - v123;
-      bzero(&v237 - v123, 8 * v122);
-    }
-
-    MEMORY[0x1EEE9AC00](v125);
-    v274.i64[0] = v131;
-    if (v131 > 0x1FE)
-    {
-      v132 = NSAllocateScannedUncollectable();
-      if (!v132)
-      {
-        if (v248 >= 0x1FF)
-        {
-          NSZoneFree(0, v247);
-        }
-
-        if (v273 >= 0x1FF)
-        {
-          NSZoneFree(0, v117);
-        }
-
-        if (v275 >= 0x1FF)
-        {
-          NSZoneFree(0, v250);
-        }
-
-        if (v276 >= 0x1FF)
-        {
-          NSZoneFree(0, v252);
-        }
-
-        if (v279.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v254);
-        }
-
-        if (v277.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v256);
-        }
-
-        if (v261 >= 0x1FF)
-        {
-          NSZoneFree(0, v251);
-        }
-
-        if (v253 >= 0x1FF)
-        {
-          NSZoneFree(0, v84);
-        }
-
-        if (v76 >= 0x1FF)
-        {
-          NSZoneFree(0, v249);
-        }
-
-        if (v282)
-        {
-          v180 = v280;
-          v181 = v263;
-          do
-          {
-            v182 = *v181++;
-
-            --v180;
-          }
-
-          while (v180);
-        }
-
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v132 = (&v237 - v130);
-      bzero(&v237 - v130, 8 * v129);
-    }
-
-    v136 = objc_opt_class();
-    v137 = v84;
-    v138 = v253;
-    v139 = _PFAllocateObjects(v136, v84, v253, 0);
-    if (v139 == v138)
-    {
-      objc_opt_class();
-      v140 = objc_opt_class();
-      v141 = v261;
-      v142 = _PFAllocateObjects(v140, v251, v261, 0);
-      if (v142 == v141)
-      {
-        v143 = objc_opt_class();
-        v144 = v277.i32[0];
-        v145 = _PFAllocateObjects(v143, v256, v277.u32[0], 0);
-        if (v145 == v144)
-        {
-          v146 = objc_opt_class();
-          v147 = v279.i32[0];
-          v148 = _PFAllocateObjects(v146, v254, v279.u32[0], 0);
-          if (v148 == v147)
-          {
-            v149 = objc_opt_class();
-            v150 = v276;
-            v151 = _PFAllocateObjects(v149, v252, v276, 0);
-            if (v151 == v150)
+            if (v14)
             {
-              v152 = objc_opt_class();
-              v153 = v275;
-              v154 = _PFAllocateObjects(v152, v250, v275, 0);
-              if (v154 == v153)
+              v32 = v279;
+              v33 = v15;
+              do
               {
-                v155 = objc_opt_class();
-                v156 = v273;
-                v157 = _PFAllocateObjects(v155, v117, v273, 0);
-                if (v157 == v156)
+                v28 = _readPFEncodedStringFromData(error, BytePtr, &v291, v22);
+                if (!v28)
                 {
-                  v158 = objc_opt_class();
-                  v159 = v248;
-                  v160 = _PFAllocateObjects(v158, v247, v248, 0);
-                  if (v160 == v159)
+                  return;
+                }
+
+                *v32++ = v28;
+              }
+
+              while (--v33);
+            }
+
+            v34 = bswap32(v24);
+            v35 = v278;
+            MEMORY[0x1EEE9AC00](v28);
+            v38 = &v235 - v37;
+            if (v35 > 0x200)
+            {
+              v39 = NSAllocateScannedUncollectable();
+              v38 = v39;
+            }
+
+            else
+            {
+              bzero(&v235 - v37, 8 * v36);
+            }
+
+            v290 = v34;
+            v40 = (v34 + 3) & 0x1FFFFFFFCLL;
+            v41 = v40 + 4;
+            v261 = v38;
+            if (v40 + 4 <= v22)
+            {
+              v42 = bswap32(*&BytePtr[v40]);
+              v290 = v41;
+            }
+
+            else
+            {
+              v42 = 0;
+            }
+
+            if (v42 != v35)
+            {
+              return;
+            }
+
+            if (v280)
+            {
+              v43 = v261;
+              v44 = v278;
+              do
+              {
+                v45 = _newReadStringFromBytes(BytePtr, &v290, v22);
+                if (!v45)
+                {
+                  return;
+                }
+
+                v46 = v45;
+                *v43++ = [v45 mutableCopy];
+              }
+
+              while (--v44);
+            }
+
+            v47 = bswap32(v23);
+            v48 = v277.u32[3];
+            MEMORY[0x1EEE9AC00](v39);
+            v51 = (&v235 - v50);
+            if (v48 > 0x200)
+            {
+              v52 = NSAllocateScannedUncollectable();
+              v51 = v52;
+            }
+
+            else
+            {
+              bzero(&v235 - v50, 8 * v49);
+            }
+
+            v289 = v47;
+            v53 = (v47 + 3) & 0x1FFFFFFFCLL;
+            v54 = v53 + 4;
+            if (v53 + 4 <= v22)
+            {
+              v55 = bswap32(*&BytePtr[v53]);
+              v289 = v54;
+            }
+
+            else
+            {
+              v55 = 0;
+            }
+
+            if (v55 != v48)
+            {
+              return;
+            }
+
+            if (v11)
+            {
+              v56 = v51;
+              v57 = v48;
+              do
+              {
+                v52 = _readPFEncodedDataFromData(error, BytePtr, &v289, v22);
+                if (!v52)
+                {
+                  return;
+                }
+
+                *v56++ = v52;
+              }
+
+              while (--v57);
+            }
+
+            v58 = v277.u32[2];
+            v59 = 8 * v277.u32[2];
+            v60 = MEMORY[0x1EEE9AC00](v52);
+            v61 = (&v235 - ((v59 + 15) & 0xFFFFFFFF0));
+            v288 = v62;
+            v63 = (v62 + 3) & 0x1FFFFFFFCLL;
+            v64 = v63 + 4;
+            if (v63 + 4 <= v22)
+            {
+              v65 = bswap32(*&BytePtr[v63]);
+              v288 = v64;
+            }
+
+            else
+            {
+              v65 = 0;
+            }
+
+            if (v65 != v58)
+            {
+              return;
+            }
+
+            v260 = (&v235 - ((v59 + 15) & 0xFFFFFFFF0));
+            if (v276)
+            {
+              v66 = v58;
+              do
+              {
+                v67 = _newReadKKDMappingStrategyFromByes(error, BytePtr, &v288, v22, v279);
+                if (!v67)
+                {
+                  return;
+                }
+
+                *v61++ = v67;
+                --v66;
+              }
+
+              while (v66);
+              v258 = v48;
+              MEMORY[0x1EEE9AC00](v67);
+              v68 = (&v235 - ((v59 + 15) & 0xFFFFFFFF0));
+              v69 = NSClassFromString(@"NSKnownKeysDictionary2");
+              v70 = 0;
+              v71 = v260;
+              do
+              {
+                v72 = [(objc_class *)v69 newInstanceWithSearchStrategy:*(v71 + 8 * v70) inData:error];
+                v68[v70++] = v72;
+              }
+
+              while (v58 != v70);
+              v256 = v51;
+              v73 = v68;
+              v48 = v258;
+            }
+
+            else
+            {
+              v256 = v51;
+              MEMORY[0x1EEE9AC00](v60);
+              v73 = (&v235 - ((v59 + 15) & 0xFFFFFFFF0));
+              v72 = NSClassFromString(@"NSKnownKeysDictionary2");
+            }
+
+            v74 = v275.u32[0];
+            MEMORY[0x1EEE9AC00](v72);
+            v77 = &v235 - v76;
+            v257 = v58;
+            if (v74 >= 0x1FF)
+            {
+              v78 = NSAllocateScannedUncollectable();
+              v77 = v78;
+              if (!v78)
+              {
+                if (v280)
+                {
+                  v102 = v278;
+                  v103 = v261;
+                  do
                   {
-                    v161 = objc_opt_class();
-                    v162 = v274.i32[0];
-                    v163 = _PFAllocateObjects(v161, v132, v274.u32[0], 0);
-                    if (v163 == v162)
+                    v104 = *v103++;
+
+                    --v102;
+                  }
+
+                  while (v102);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              bzero(&v235 - v76, 8 * v75);
+            }
+
+            v79 = v275.u32[1];
+            MEMORY[0x1EEE9AC00](v78);
+            v82 = (&v235 - v81);
+            v255 = v73;
+            if (v79 > 0x1FE)
+            {
+              v83 = NSAllocateScannedUncollectable();
+              v82 = v83;
+              if (!v83)
+              {
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v77);
+                }
+
+                if (v280)
+                {
+                  v109 = v278;
+                  v110 = v261;
+                  do
+                  {
+                    v111 = *v110++;
+
+                    --v109;
+                  }
+
+                  while (v109);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              bzero(&v235 - v81, 8 * v80);
+            }
+
+            v84 = MEMORY[0x1EEE9AC00](v83);
+            v253 = v234;
+            v234[0] = 0;
+            v234[1] = 0;
+            MEMORY[0x1EEE9AC00](v84);
+            v87 = &v235 - v86;
+            v259 = v88;
+            if (v88 > 0x1FE)
+            {
+              v89 = NSAllocateScannedUncollectable();
+              v87 = v89;
+              if (!v89)
+              {
+                if (v79 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v77);
+                }
+
+                if (v280)
+                {
+                  v117 = v278;
+                  v118 = v261;
+                  do
+                  {
+                    v119 = *v118++;
+
+                    --v117;
+                  }
+
+                  while (v117);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              bzero(&v235 - v86, 8 * v85);
+            }
+
+            MEMORY[0x1EEE9AC00](v89);
+            v275.i64[0] = v92;
+            if (v92 > 0x1FE)
+            {
+              v93 = NSAllocateScannedUncollectable();
+              v254 = v93;
+              if (!v93)
+              {
+                if (v259 >= 0x1FF)
+                {
+                  NSZoneFree(0, v87);
+                }
+
+                if (v79 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v77);
+                }
+
+                if (v280)
+                {
+                  v124 = v278;
+                  v125 = v261;
+                  do
+                  {
+                    v126 = *v125++;
+
+                    --v124;
+                  }
+
+                  while (v124);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v254 = (&v235 - v91);
+              bzero(&v235 - v91, 8 * v90);
+            }
+
+            MEMORY[0x1EEE9AC00](v93);
+            v277.i64[0] = v96;
+            if (v96 > 0x1FE)
+            {
+              v97 = NSAllocateScannedUncollectable();
+              v252 = v97;
+              if (!v97)
+              {
+                if (v275.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v254);
+                }
+
+                if (v259 >= 0x1FF)
+                {
+                  NSZoneFree(0, v87);
+                }
+
+                if (v79 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v77);
+                }
+
+                if (v280)
+                {
+                  v131 = v278;
+                  v132 = v261;
+                  do
+                  {
+                    v133 = *v132++;
+
+                    --v131;
+                  }
+
+                  while (v131);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v252 = (&v235 - v95);
+              bzero(&v235 - v95, 8 * v94);
+            }
+
+            MEMORY[0x1EEE9AC00](v97);
+            if (v100 > 0x1FE)
+            {
+              v101 = NSAllocateScannedUncollectable();
+              v250 = v101;
+              if (!v101)
+              {
+                if (v277.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v252);
+                }
+
+                if (v275.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v254);
+                }
+
+                if (v259 >= 0x1FF)
+                {
+                  NSZoneFree(0, v87);
+                }
+
+                if (v79 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v77);
+                }
+
+                if (v280)
+                {
+                  v166 = v278;
+                  v167 = v261;
+                  do
+                  {
+                    v168 = *v167++;
+
+                    --v166;
+                  }
+
+                  while (v166);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v250 = (&v235 - v99);
+              bzero(&v235 - v99, 8 * v98);
+            }
+
+            MEMORY[0x1EEE9AC00](v101);
+            if (v107 > 0x1FE)
+            {
+              v108 = NSAllocateScannedUncollectable();
+              v248 = v108;
+              if (!v108)
+              {
+                if (v274 >= 0x1FF)
+                {
+                  NSZoneFree(0, v250);
+                }
+
+                if (v277.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v252);
+                }
+
+                if (v275.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v254);
+                }
+
+                if (v259 >= 0x1FF)
+                {
+                  NSZoneFree(0, v87);
+                }
+
+                if (v79 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v77);
+                }
+
+                if (v280)
+                {
+                  v169 = v278;
+                  v170 = v261;
+                  do
+                  {
+                    v171 = *v170++;
+
+                    --v169;
+                  }
+
+                  while (v169);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v248 = &v235 - v106;
+              bzero(&v235 - v106, 8 * v105);
+            }
+
+            v258 = v48;
+            v249 = v87;
+            v251 = v79;
+            v247 = v77;
+            MEMORY[0x1EEE9AC00](v108);
+            if (v114 > 0x1FE)
+            {
+              v116 = NSAllocateScannedUncollectable();
+              v115 = v116;
+              if (!v116)
+              {
+                if (v273 >= 0x1FF)
+                {
+                  NSZoneFree(0, v248);
+                }
+
+                if (v274 >= 0x1FF)
+                {
+                  NSZoneFree(0, v250);
+                }
+
+                if (v277.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v252);
+                }
+
+                if (v275.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v254);
+                }
+
+                if (v259 >= 0x1FF)
+                {
+                  NSZoneFree(0, v249);
+                }
+
+                if (v251 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v247);
+                }
+
+                if (v280)
+                {
+                  v172 = v278;
+                  v173 = v261;
+                  do
+                  {
+                    v174 = *v173++;
+
+                    --v172;
+                  }
+
+                  while (v172);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v115 = &v235 - v113;
+              bzero(&v235 - v113, 8 * v112);
+            }
+
+            MEMORY[0x1EEE9AC00](v116);
+            v246 = v122;
+            if (v122 > 0x1FE)
+            {
+              v123 = NSAllocateScannedUncollectable();
+              v245 = v123;
+              if (!v123)
+              {
+                if (v271 >= 0x1FF)
+                {
+                  NSZoneFree(0, v115);
+                }
+
+                if (v273 >= 0x1FF)
+                {
+                  NSZoneFree(0, v248);
+                }
+
+                if (v274 >= 0x1FF)
+                {
+                  NSZoneFree(0, v250);
+                }
+
+                if (v277.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v252);
+                }
+
+                if (v275.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v254);
+                }
+
+                if (v259 >= 0x1FF)
+                {
+                  NSZoneFree(0, v249);
+                }
+
+                if (v251 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v247);
+                }
+
+                if (v280)
+                {
+                  v175 = v278;
+                  v176 = v261;
+                  do
+                  {
+                    v177 = *v176++;
+
+                    --v175;
+                  }
+
+                  while (v175);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v245 = &v235 - v121;
+              bzero(&v235 - v121, 8 * v120);
+            }
+
+            MEMORY[0x1EEE9AC00](v123);
+            v272.i64[0] = v129;
+            if (v129 > 0x1FE)
+            {
+              v130 = NSAllocateScannedUncollectable();
+              if (!v130)
+              {
+                if (v246 >= 0x1FF)
+                {
+                  NSZoneFree(0, v245);
+                }
+
+                if (v271 >= 0x1FF)
+                {
+                  NSZoneFree(0, v115);
+                }
+
+                if (v273 >= 0x1FF)
+                {
+                  NSZoneFree(0, v248);
+                }
+
+                if (v274 >= 0x1FF)
+                {
+                  NSZoneFree(0, v250);
+                }
+
+                if (v277.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v252);
+                }
+
+                if (v275.i32[0] >= 0x1FFu)
+                {
+                  NSZoneFree(0, v254);
+                }
+
+                if (v259 >= 0x1FF)
+                {
+                  NSZoneFree(0, v249);
+                }
+
+                if (v251 >= 0x1FF)
+                {
+                  NSZoneFree(0, v82);
+                }
+
+                if (v74 >= 0x1FF)
+                {
+                  NSZoneFree(0, v247);
+                }
+
+                if (v280)
+                {
+                  v178 = v278;
+                  v179 = v261;
+                  do
+                  {
+                    v180 = *v179++;
+
+                    --v178;
+                  }
+
+                  while (v178);
+                }
+
+                return;
+              }
+            }
+
+            else
+            {
+              v130 = (&v235 - v128);
+              bzero(&v235 - v128, 8 * v127);
+            }
+
+            v134 = objc_opt_class();
+            v135 = v82;
+            v136 = v251;
+            v137 = _PFAllocateObjects(v134, v82, v251, 0);
+            if (v137 == v136)
+            {
+              objc_opt_class();
+              v138 = objc_opt_class();
+              v139 = v259;
+              v140 = _PFAllocateObjects(v138, v249, v259, 0);
+              if (v140 == v139)
+              {
+                v141 = objc_opt_class();
+                v142 = v275.i32[0];
+                v143 = _PFAllocateObjects(v141, v254, v275.u32[0], 0);
+                if (v143 == v142)
+                {
+                  v144 = objc_opt_class();
+                  v145 = v277.i32[0];
+                  v146 = _PFAllocateObjects(v144, v252, v277.u32[0], 0);
+                  if (v146 == v145)
+                  {
+                    v147 = objc_opt_class();
+                    v148 = v274;
+                    v149 = _PFAllocateObjects(v147, v250, v274, 0);
+                    if (v149 == v148)
                     {
-                      v164 = bswap32(v272);
-                      v289 = v164;
-                      v165 = (v164 + 3) & 0x1FFFFFFFCLL;
-                      v166 = v165 + 4;
-                      if (v165 + 4 <= v23)
+                      v150 = objc_opt_class();
+                      v151 = v273;
+                      v152 = _PFAllocateObjects(v150, v248, v273, 0);
+                      if (v152 == v151)
                       {
-                        v167 = bswap32(*&BytePtr[v165]);
-                        v289 = v166;
-                        v164 = v166;
-                      }
-
-                      else
-                      {
-                        v167 = 0;
-                      }
-
-                      if (v167 == v253)
-                      {
-                        v183 = (v164 + 3) & 0x7FFFFFFFCLL;
-                        v184 = v183 + 4;
-                        if (v183 + 4 <= v23)
+                        v153 = objc_opt_class();
+                        v154 = v271;
+                        v155 = _PFAllocateObjects(v153, v115, v271, 0);
+                        if (v155 == v154)
                         {
-                          v185 = bswap32(*&BytePtr[v183]);
-                          v289 = v184;
-                          v164 = v184;
-                        }
-
-                        else
-                        {
-                          v185 = 0;
-                        }
-
-                        if (v185 == v261)
-                        {
-                          v186 = (v164 + 3) & 0x1FFFFFFFFCLL;
-                          v187 = v186 + 4;
-                          if (v186 + 4 <= v23)
+                          v156 = objc_opt_class();
+                          v157 = v246;
+                          v158 = _PFAllocateObjects(v156, v245, v246, 0);
+                          if (v158 == v157)
                           {
-                            v188 = bswap32(*&BytePtr[v186]);
-                            v289 = v187;
-                            v164 = v187;
-                          }
-
-                          else
-                          {
-                            v188 = 0;
-                          }
-
-                          if (v188 == v277.i32[0])
-                          {
-                            v189 = (v164 + 3) & 0x7FFFFFFFFCLL;
-                            v190 = v189 + 4;
-                            if (v189 + 4 <= v23)
+                            v159 = objc_opt_class();
+                            v160 = v272.i32[0];
+                            v161 = _PFAllocateObjects(v159, v130, v272.u32[0], 0);
+                            if (v161 == v160)
                             {
-                              v191 = bswap32(*&BytePtr[v189]);
-                              v289 = v190;
-                              v164 = v190;
-                            }
-
-                            else
-                            {
-                              v191 = 0;
-                            }
-
-                            if (v191 == v279.i32[0])
-                            {
-                              v192 = (v164 + 3) & 0x1FFFFFFFFFCLL;
-                              v193 = v192 + 4;
-                              if (v192 + 4 <= v23)
+                              v162 = bswap32(v270);
+                              v287 = v162;
+                              v163 = (v162 + 3) & 0x1FFFFFFFCLL;
+                              v164 = v163 + 4;
+                              if (v163 + 4 <= v22)
                               {
-                                v194 = bswap32(*&BytePtr[v192]);
-                                v289 = v193;
+                                v165 = bswap32(*&BytePtr[v163]);
+                                v287 = v164;
+                                v162 = v164;
                               }
 
                               else
                               {
-                                v194 = 0;
+                                v165 = 0;
                               }
 
-                              if (v194 == v276)
+                              if (v165 == v251)
                               {
-                                if (v269.i32[1])
+                                v181 = (v162 + 3) & 0x7FFFFFFFCLL;
+                                v182 = v181 + 4;
+                                if (v181 + 4 <= v22)
                                 {
-                                  v246 = *v84;
+                                  v183 = bswap32(*&BytePtr[v181]);
+                                  v287 = v182;
+                                  v162 = v182;
                                 }
 
                                 else
                                 {
-                                  v246 = 0;
+                                  v183 = 0;
                                 }
 
-                                if (v269.i32[2])
+                                if (v183 == v259)
                                 {
-                                  v245 = *v251;
-                                }
-
-                                else
-                                {
-                                  v245 = 0;
-                                }
-
-                                HIDWORD(v237) = v269.i32[3];
-                                if (v269.i32[3])
-                                {
-                                  v243 = *v256;
-                                }
-
-                                else
-                                {
-                                  v243 = 0;
-                                }
-
-                                LODWORD(v237) = v268;
-                                if (v268)
-                                {
-                                  v242 = *v254;
-                                }
-
-                                else
-                                {
-                                  v242 = 0;
-                                }
-
-                                if (DWORD1(v268))
-                                {
-                                  v244 = *v252;
-                                }
-
-                                else
-                                {
-                                  v244 = 0;
-                                }
-
-                                if (v269.i32[0])
-                                {
-                                  v195 = 0;
-                                  v238 = 0;
-                                  v239 = 0;
-                                  v240 = 0;
-                                  v241 = 0;
-                                  *&v268 = 0;
-                                  v269.i64[0] = 0;
-                                  v272 = 0;
-                                  while (1)
+                                  v184 = (v162 + 3) & 0x1FFFFFFFFCLL;
+                                  v185 = v184 + 4;
+                                  if (v184 + 4 <= v22)
                                   {
-                                    v196 = _readPropertyIntoShellFromBytes(error, BytePtr, &v289, v23, v117, v249, v250, v246, v245, v268, v243, v242, v244, v281, v263, v258, v271, v295);
-                                    if (!v196)
-                                    {
-                                      goto LABEL_327;
-                                    }
-
-                                    *(v249 + v195) = v196;
-                                    if (v84[v272] == v196)
-                                    {
-                                      v272 = v272 + 1;
-                                      if (v272 == v253)
-                                      {
-                                        v246 = 0;
-                                        v197 = v253;
-                                        v198 = &v296;
-                                      }
-
-                                      else
-                                      {
-                                        v197 = v84[v272];
-                                        v198 = &v274.i64[1];
-                                      }
-
-                                      goto LABEL_287;
-                                    }
-
-                                    if (v255[v269.i64[0]] != v196)
-                                    {
-                                      break;
-                                    }
-
-                                    if (!__CFADD__(v269.i64[0]++, 1))
-                                    {
-                                      v197 = v255[v269.i64[0]];
-                                      v198 = &v292;
-LABEL_287:
-                                      *(v198 - 32) = v197;
-                                      goto LABEL_288;
-                                    }
-
-                                    v269.i64[0] = 0;
-                                    *&v268 = 0;
-LABEL_288:
-                                    if (v76 == ++v195)
-                                    {
-                                      goto LABEL_289;
-                                    }
-                                  }
-
-                                  if (v251[v241] == v196)
-                                  {
-                                    if (++v241 == v261)
-                                    {
-                                      v245 = 0;
-                                      v197 = v261;
-                                      v198 = &v270;
-                                    }
-
-                                    else
-                                    {
-                                      v197 = v251[v241];
-                                      v198 = &v274;
-                                    }
-                                  }
-
-                                  else if (v256[v240] == v196)
-                                  {
-                                    if (++v240 == v277.i64[0])
-                                    {
-                                      v243 = 0;
-                                      v197 = v277.i64[0];
-                                      v198 = &v269.i64[1];
-                                    }
-
-                                    else
-                                    {
-                                      v197 = v256[v240];
-                                      v198 = &v272;
-                                    }
-                                  }
-
-                                  else if (v254[v239] == v196)
-                                  {
-                                    if (++v239 == v279.i64[0])
-                                    {
-                                      v242 = 0;
-                                      v197 = v279.i64[0];
-                                      v198 = &v269;
-                                    }
-
-                                    else
-                                    {
-                                      v197 = v254[v239];
-                                      v198 = &v271;
-                                    }
-                                  }
-
-                                  else if (++v238 == v276)
-                                  {
-                                    v244 = 0;
-                                    v197 = v276;
-                                    v198 = &v268 + 1;
+                                    v186 = bswap32(*&BytePtr[v184]);
+                                    v287 = v185;
+                                    v162 = v185;
                                   }
 
                                   else
                                   {
-                                    v197 = v252[v238];
-                                    v198 = &v273;
+                                    v186 = 0;
                                   }
 
-                                  goto LABEL_287;
-                                }
+                                  if (v186 == v275.i32[0])
+                                  {
+                                    v187 = (v162 + 3) & 0x7FFFFFFFFCLL;
+                                    v188 = v187 + 4;
+                                    if (v187 + 4 <= v22)
+                                    {
+                                      v189 = bswap32(*&BytePtr[v187]);
+                                      v287 = v188;
+                                      v162 = v188;
+                                    }
+
+                                    else
+                                    {
+                                      v189 = 0;
+                                    }
+
+                                    if (v189 == v277.i32[0])
+                                    {
+                                      v190 = (v162 + 3) & 0x1FFFFFFFFFCLL;
+                                      v191 = v190 + 4;
+                                      if (v190 + 4 <= v22)
+                                      {
+                                        v192 = bswap32(*&BytePtr[v190]);
+                                        v287 = v191;
+                                      }
+
+                                      else
+                                      {
+                                        v192 = 0;
+                                      }
+
+                                      if (v192 == v274)
+                                      {
+                                        if (v267.i32[1])
+                                        {
+                                          v244 = *v82;
+                                        }
+
+                                        else
+                                        {
+                                          v244 = 0;
+                                        }
+
+                                        if (v267.i32[2])
+                                        {
+                                          v243 = *v249;
+                                        }
+
+                                        else
+                                        {
+                                          v243 = 0;
+                                        }
+
+                                        HIDWORD(v235) = v267.i32[3];
+                                        if (v267.i32[3])
+                                        {
+                                          v241 = *v254;
+                                        }
+
+                                        else
+                                        {
+                                          v241 = 0;
+                                        }
+
+                                        LODWORD(v235) = v266;
+                                        if (v266)
+                                        {
+                                          v240 = *v252;
+                                        }
+
+                                        else
+                                        {
+                                          v240 = 0;
+                                        }
+
+                                        if (DWORD1(v266))
+                                        {
+                                          v242 = *v250;
+                                        }
+
+                                        else
+                                        {
+                                          v242 = 0;
+                                        }
+
+                                        if (v267.i32[0])
+                                        {
+                                          v193 = 0;
+                                          v236 = 0;
+                                          v237 = 0;
+                                          v238 = 0;
+                                          v239 = 0;
+                                          *&v266 = 0;
+                                          v267.i64[0] = 0;
+                                          v270 = 0;
+                                          while (1)
+                                          {
+                                            v194 = _readPropertyIntoShellFromBytes(error, BytePtr, &v287, v22, v115, v247, v248, v244, v243, v266, v241, v240, v242, v279, v261, v256, v269, v293);
+                                            if (!v194)
+                                            {
+                                              goto LABEL_327;
+                                            }
+
+                                            *(v247 + v193) = v194;
+                                            if (v82[v270] == v194)
+                                            {
+                                              v270 = v270 + 1;
+                                              if (v270 == v251)
+                                              {
+                                                v244 = 0;
+                                                v195 = v251;
+                                                v196 = &v294;
+                                              }
+
+                                              else
+                                              {
+                                                v195 = v82[v270];
+                                                v196 = &v272.i64[1];
+                                              }
+
+                                              goto LABEL_287;
+                                            }
+
+                                            if (v253[v267.i64[0]] != v194)
+                                            {
+                                              break;
+                                            }
+
+                                            if (!__CFADD__(v267.i64[0]++, 1))
+                                            {
+                                              v195 = v253[v267.i64[0]];
+                                              v196 = &v290;
+LABEL_287:
+                                              *(v196 - 32) = v195;
+                                              goto LABEL_288;
+                                            }
+
+                                            v267.i64[0] = 0;
+                                            *&v266 = 0;
+LABEL_288:
+                                            if (v74 == ++v193)
+                                            {
+                                              goto LABEL_289;
+                                            }
+                                          }
+
+                                          if (v249[v239] == v194)
+                                          {
+                                            if (++v239 == v259)
+                                            {
+                                              v243 = 0;
+                                              v195 = v259;
+                                              v196 = &v268;
+                                            }
+
+                                            else
+                                            {
+                                              v195 = v249[v239];
+                                              v196 = &v272;
+                                            }
+                                          }
+
+                                          else if (v254[v238] == v194)
+                                          {
+                                            if (++v238 == v275.i64[0])
+                                            {
+                                              v241 = 0;
+                                              v195 = v275.i64[0];
+                                              v196 = &v267.i64[1];
+                                            }
+
+                                            else
+                                            {
+                                              v195 = v254[v238];
+                                              v196 = &v270;
+                                            }
+                                          }
+
+                                          else if (v252[v237] == v194)
+                                          {
+                                            if (++v237 == v277.i64[0])
+                                            {
+                                              v240 = 0;
+                                              v195 = v277.i64[0];
+                                              v196 = &v267;
+                                            }
+
+                                            else
+                                            {
+                                              v195 = v252[v237];
+                                              v196 = &v269;
+                                            }
+                                          }
+
+                                          else if (++v236 == v274)
+                                          {
+                                            v242 = 0;
+                                            v195 = v274;
+                                            v196 = &v266 + 1;
+                                          }
+
+                                          else
+                                          {
+                                            v195 = v250[v236];
+                                            v196 = &v271;
+                                          }
+
+                                          goto LABEL_287;
+                                        }
 
 LABEL_289:
-                                *&v268 = objc_opt_class();
-                                if (HIDWORD(v237))
-                                {
-                                  v200 = v256;
-                                  v201 = v277.i64[0];
-                                  do
-                                  {
-                                    v272 = *v200;
-                                    inverseRelationship = [v272 inverseRelationship];
-                                    if (inverseRelationship)
-                                    {
-                                      unsignedIntegerValue = [inverseRelationship unsignedIntegerValue];
-                                      v269.i64[0] = *(v249 + unsignedIntegerValue);
-                                      if (objc_opt_class() != v268)
-                                      {
-                                        goto LABEL_327;
-                                      }
-
-                                      if (v272)
-                                      {
-
-                                        *(v272 + 14) = v269.i64[0];
-                                      }
-                                    }
-
-                                    ++v200;
-                                    --v201;
-                                  }
-
-                                  while (v201);
-                                }
-
-                                v288 = bswap32(v267);
-                                v204 = (v288 + 3) & 0x1FFFFFFFCLL;
-                                v205 = v204 + 4;
-                                if (v204 + 4 <= v23)
-                                {
-                                  v206 = bswap32(*&BytePtr[v204]);
-                                  v288 = v205;
-                                }
-
-                                else
-                                {
-                                  v206 = 0;
-                                }
-
-                                if (v206 == v273)
-                                {
-                                  if (v266)
-                                  {
-                                    v272 = 0;
-                                    v207 = 0;
-                                    v208 = 0;
-                                    v269.i64[0] = v132;
-                                    *&v268 = v247;
-                                    while (1)
-                                    {
-                                      v287 = v248 - v208;
-                                      v286 = v274.i64[0] - v207;
-                                      if (!_readEntityIntoShellFromData(error, BytePtr, &v288, v23, *&v117[8 * v272], v257, v249, v268, &v287, v269.i64[0], &v286, v281, v263, v258, v117, v262, v271, v295))
-                                      {
-                                        goto LABEL_327;
-                                      }
-
-                                      v208 += v287;
-                                      if (v208 > v248)
-                                      {
-                                        break;
-                                      }
-
-                                      v207 += v286;
-                                      if (v207 > v274.i64[0])
-                                      {
-                                        break;
-                                      }
-
-                                      *&v268 = v268 + 8 * v287;
-                                      v269.i64[0] += 8 * v286;
-                                      v272 = v272 + 1;
-                                      if (v273 == v272)
-                                      {
-                                        goto LABEL_306;
-                                      }
-                                    }
-
-                                    v232 = objc_autoreleasePoolPush();
-                                    if (_NSCoreDataIsOSLogEnabled(1))
-                                    {
-                                      v233 = _pflogging_catastrophic_mode;
-                                      LogStream = _PFLogGetLogStream(1);
-                                      v235 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
-                                      if (v233)
-                                      {
-                                        if (v235)
+                                        *&v266 = objc_opt_class();
+                                        if (HIDWORD(v235))
                                         {
-                                          *buf = 0;
-                                          goto LABEL_392;
+                                          v198 = v254;
+                                          v199 = v275.i64[0];
+                                          do
+                                          {
+                                            v270 = *v198;
+                                            inverseRelationship = [v270 inverseRelationship];
+                                            if (inverseRelationship)
+                                            {
+                                              unsignedIntegerValue = [inverseRelationship unsignedIntegerValue];
+                                              v267.i64[0] = *(v247 + unsignedIntegerValue);
+                                              if (objc_opt_class() != v266)
+                                              {
+                                                goto LABEL_327;
+                                              }
+
+                                              if (v270)
+                                              {
+
+                                                *(v270 + 14) = v267.i64[0];
+                                              }
+                                            }
+
+                                            ++v198;
+                                            --v199;
+                                          }
+
+                                          while (v199);
                                         }
-                                      }
 
-                                      else if (v235)
-                                      {
-                                        *buf = 0;
+                                        v286 = bswap32(v265);
+                                        v202 = (v286 + 3) & 0x1FFFFFFFCLL;
+                                        v203 = v202 + 4;
+                                        if (v202 + 4 <= v22)
+                                        {
+                                          v204 = bswap32(*&BytePtr[v202]);
+                                          v286 = v203;
+                                        }
+
+                                        else
+                                        {
+                                          v204 = 0;
+                                        }
+
+                                        if (v204 == v271)
+                                        {
+                                          if (v264)
+                                          {
+                                            v270 = 0;
+                                            v205 = 0;
+                                            v206 = 0;
+                                            v267.i64[0] = v130;
+                                            *&v266 = v245;
+                                            while (1)
+                                            {
+                                              v285 = v246 - v206;
+                                              v284 = v272.i64[0] - v205;
+                                              if (!_readEntityIntoShellFromData(error, BytePtr, &v286, v22, *&v115[8 * v270], v255, v247, v266, &v285, v267.i64[0], &v284, v279, v261, v256, v115, v260, v269, v293))
+                                              {
+                                                goto LABEL_327;
+                                              }
+
+                                              v206 += v285;
+                                              if (v206 > v246)
+                                              {
+                                                break;
+                                              }
+
+                                              v205 += v284;
+                                              if (v205 > v272.i64[0])
+                                              {
+                                                break;
+                                              }
+
+                                              *&v266 = v266 + 8 * v285;
+                                              v267.i64[0] += 8 * v284;
+                                              v270 = v270 + 1;
+                                              if (v271 == v270)
+                                              {
+                                                goto LABEL_306;
+                                              }
+                                            }
+
+                                            v230 = objc_autoreleasePoolPush();
+                                            if (_NSCoreDataIsOSLogEnabled(1))
+                                            {
+                                              v231 = _pflogging_catastrophic_mode;
+                                              LogStream = _PFLogGetLogStream(1);
+                                              v233 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
+                                              if (v231)
+                                              {
+                                                if (v233)
+                                                {
+                                                  *buf = 0;
+                                                  goto LABEL_392;
+                                                }
+                                              }
+
+                                              else if (v233)
+                                              {
+                                                *buf = 0;
 LABEL_392:
-                                        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Bad: decoding optimized model smashed memory. Bailing.\n", buf, 2u);
-                                      }
-                                    }
+                                                _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Bad: decoding optimized model smashed memory. Bailing.\n", buf, 2u);
+                                              }
+                                            }
 
-                                    _NSCoreDataLog_console(1, "Bad: decoding optimized model smashed memory. Bailing.", v237);
-                                    objc_autoreleasePoolPop(v232);
-                                    __break(1u);
-                                    return;
-                                  }
+                                            _NSCoreDataLog_console(1, "Bad: decoding optimized model smashed memory. Bailing.", v235);
+                                            objc_autoreleasePoolPop(v230);
+                                            __break(1u);
+                                            return;
+                                          }
 
 LABEL_306:
-                                  v284 = bswap32(v264);
-                                  v209 = (v284 + 3) & 0x1FFFFFFFCLL;
-                                  v210 = v209 + 4;
-                                  if (v209 + 4 <= v23)
-                                  {
-                                    v211 = bswap32(*&BytePtr[v209]);
-                                    v284 = v210;
-                                  }
+                                          v282 = bswap32(v262);
+                                          v207 = (v282 + 3) & 0x1FFFFFFFCLL;
+                                          v208 = v207 + 4;
+                                          if (v207 + 4 <= v22)
+                                          {
+                                            v209 = bswap32(*&BytePtr[v207]);
+                                            v282 = v208;
+                                          }
 
-                                  else
-                                  {
-                                    v211 = 0;
-                                  }
+                                          else
+                                          {
+                                            v209 = 0;
+                                          }
 
-                                  if (v211 == v275)
-                                  {
-                                    LODWORD(v272) = v265.i32[0];
-                                    if (!v265.i32[0])
-                                    {
+                                          if (v209 == v273)
+                                          {
+                                            LODWORD(v270) = v263.i32[0];
+                                            if (!v263.i32[0])
+                                            {
 LABEL_314:
-                                      if (v253 >= 0x1FF)
-                                      {
-                                        NSZoneFree(0, v84);
-                                      }
+                                              if (v251 >= 0x1FF)
+                                              {
+                                                NSZoneFree(0, v82);
+                                              }
 
-                                      if (v277.i32[0] >= 0x1FFu)
-                                      {
-                                        NSZoneFree(0, v256);
-                                      }
+                                              if (v275.i32[0] >= 0x1FFu)
+                                              {
+                                                NSZoneFree(0, v254);
+                                              }
 
-                                      if (v276 >= 0x1FF)
-                                      {
-                                        NSZoneFree(0, v252);
-                                      }
+                                              if (v274 >= 0x1FF)
+                                              {
+                                                NSZoneFree(0, v250);
+                                              }
 
-                                      if (v237)
-                                      {
-                                        v214 = 0;
-                                        do
-                                        {
+                                              if (v235)
+                                              {
+                                                v212 = 0;
+                                                do
+                                                {
+                                                }
+
+                                                while (v277.i64[0] != v212);
+                                                if (v277.i32[0] >= 0x1FFu)
+                                                {
+                                                  NSZoneFree(0, v252);
+                                                }
+                                              }
+
+                                              if (v263.i32[1])
+                                              {
+                                                v213 = v255[1];
+                                              }
+
+                                              else
+                                              {
+                                                v213 = 0;
+                                              }
+
+                                              v220 = _newReadModelFromBytes(error, BytePtr, &v292, v22, *v255, v213, v115, v248, v279, v256);
+                                              if (v220 && v264)
+                                              {
+                                                v221 = v115;
+                                                v222 = v271;
+                                                do
+                                                {
+                                                  v223 = *v221++;
+                                                  *(v223 + 40) = v220;
+                                                  --v222;
+                                                }
+
+                                                while (v222);
+                                              }
+
+                                              if (v280)
+                                              {
+                                                v224 = v261;
+                                                v225 = v278;
+                                                do
+                                                {
+                                                  v226 = *v224++;
+
+                                                  --v225;
+                                                }
+
+                                                while (v225);
+                                              }
+
+                                              if (v270)
+                                              {
+                                                v227 = v248;
+                                                v228 = v273;
+                                                do
+                                                {
+                                                  v229 = *v227++;
+
+                                                  --v228;
+                                                }
+
+                                                while (v228);
+                                              }
+
+                                              if (v271 >= 0x1FF)
+                                              {
+                                                NSZoneFree(0, v115);
+                                              }
+
+                                              if (v74 >= 0x1FF)
+                                              {
+                                                NSZoneFree(0, v247);
+                                              }
+
+                                              if (v273 >= 0x1FF)
+                                              {
+                                                NSZoneFree(0, v248);
+                                              }
+
+                                              if (v15 >= 0x201)
+                                              {
+                                                NSZoneFree(0, v279);
+                                              }
+
+                                              if (v258 >= 0x201)
+                                              {
+                                                NSZoneFree(0, v256);
+                                              }
+
+                                              if (v278 >= 0x201)
+                                              {
+                                                NSZoneFree(0, v261);
+                                              }
+
+                                              if (v272.i32[0] >= 0x1FFu)
+                                              {
+                                                NSZoneFree(0, v130);
+                                              }
+
+                                              return;
+                                            }
+
+                                            v210 = v248;
+                                            v211 = v273;
+                                            while (_readFetchRequestIntoShellFromData(error, BytePtr, &v282, v22, *v210, v255, v247, v279, v261, v256, v115, v260, v269, v293))
+                                            {
+                                              ++v210;
+                                              if (!--v211)
+                                              {
+                                                goto LABEL_314;
+                                              }
+                                            }
+                                          }
                                         }
-
-                                        while (v279.i64[0] != v214);
-                                        if (v279.i32[0] >= 0x1FFu)
-                                        {
-                                          NSZoneFree(0, v254);
-                                        }
-                                      }
-
-                                      if (v265.i32[1])
-                                      {
-                                        v215 = v257[1];
-                                      }
-
-                                      else
-                                      {
-                                        v215 = 0;
-                                      }
-
-                                      v222 = _newReadModelFromBytes(error, BytePtr, &v294, v23, *v257, v215, v117, v250, v281, v258);
-                                      if (v222 && v266)
-                                      {
-                                        v223 = v117;
-                                        v224 = v273;
-                                        do
-                                        {
-                                          v225 = *v223++;
-                                          *(v225 + 40) = v222;
-                                          --v224;
-                                        }
-
-                                        while (v224);
-                                      }
-
-                                      if (v282)
-                                      {
-                                        v226 = v263;
-                                        v227 = v280;
-                                        do
-                                        {
-                                          v228 = *v226++;
-
-                                          --v227;
-                                        }
-
-                                        while (v227);
-                                      }
-
-                                      if (v272)
-                                      {
-                                        v229 = v250;
-                                        v230 = v275;
-                                        do
-                                        {
-                                          v231 = *v229++;
-
-                                          --v230;
-                                        }
-
-                                        while (v230);
-                                      }
-
-                                      if (v273 >= 0x1FF)
-                                      {
-                                        NSZoneFree(0, v117);
-                                      }
-
-                                      if (v76 >= 0x1FF)
-                                      {
-                                        NSZoneFree(0, v249);
-                                      }
-
-                                      if (v275 >= 0x1FF)
-                                      {
-                                        NSZoneFree(0, v250);
-                                      }
-
-                                      if (v16 >= 0x201)
-                                      {
-                                        NSZoneFree(0, v281);
-                                      }
-
-                                      if (v260 >= 0x201)
-                                      {
-                                        NSZoneFree(0, v258);
-                                      }
-
-                                      if (v280 >= 0x201)
-                                      {
-                                        NSZoneFree(0, v263);
-                                      }
-
-                                      if (v274.i32[0] >= 0x1FFu)
-                                      {
-                                        NSZoneFree(0, v132);
-                                      }
-
-                                      goto LABEL_9;
-                                    }
-
-                                    v212 = v250;
-                                    v213 = v275;
-                                    while (_readFetchRequestIntoShellFromData(error, BytePtr, &v284, v23, *v212, v257, v249, v281, v263, v258, v117, v262, v271, v295))
-                                    {
-                                      ++v212;
-                                      if (!--v213)
-                                      {
-                                        goto LABEL_314;
                                       }
                                     }
                                   }
                                 }
                               }
+
+LABEL_327:
+                              if (v74 >= 0x1FF)
+                              {
+                                NSZoneFree(0, v247);
+                              }
+
+                              v161 = v272.i32[0];
                             }
+
+                            _PFDeallocateObjects(v130, v161);
+                            if (v272.i32[0] >= 0x1FFu)
+                            {
+                              NSZoneFree(0, v130);
+                            }
+
+                            v158 = v246;
                           }
+
+                          _PFDeallocateObjects(v245, v158);
+                          if (v246 >= 0x1FF)
+                          {
+                            NSZoneFree(0, v245);
+                          }
+
+                          v155 = v271;
+                        }
+
+                        _PFDeallocateObjects(v115, v155);
+                        v152 = v273;
+                        if (v271 >= 0x1FF)
+                        {
+                          NSZoneFree(0, v115);
+                          v152 = v273;
                         }
                       }
 
-LABEL_327:
-                      if (v76 >= 0x1FF)
+                      _PFDeallocateObjects(v248, v152);
+                      if (v273 >= 0x1FF)
                       {
-                        NSZoneFree(0, v249);
+                        NSZoneFree(0, v248);
                       }
 
-                      v163 = v274.i32[0];
+                      v149 = v274;
                     }
 
-                    _PFDeallocateObjects(v132, v163);
-                    if (v274.i32[0] >= 0x1FFu)
+                    _PFDeallocateObjects(v250, v149);
+                    v146 = v277.i32[0];
+                    if (v274 >= 0x1FF)
                     {
-                      NSZoneFree(0, v132);
+                      NSZoneFree(0, v250);
+                      v146 = v277.i32[0];
                     }
-
-                    v160 = v248;
                   }
 
-                  _PFDeallocateObjects(v247, v160);
-                  if (v248 >= 0x1FF)
+                  _PFDeallocateObjects(v252, v146);
+                  if (v277.i32[0] >= 0x1FFu)
                   {
-                    NSZoneFree(0, v247);
+                    NSZoneFree(0, v252);
                   }
 
-                  v157 = v273;
+                  v143 = v275.i32[0];
                 }
 
-                _PFDeallocateObjects(v117, v157);
-                v154 = v275;
-                if (v273 >= 0x1FF)
+                _PFDeallocateObjects(v254, v143);
+                if (v275.i32[0] >= 0x1FFu)
                 {
-                  NSZoneFree(0, v117);
-                  v154 = v275;
+                  NSZoneFree(0, v254);
                 }
+
+                v140 = v259;
               }
 
-              _PFDeallocateObjects(v250, v154);
-              if (v275 >= 0x1FF)
+              _PFDeallocateObjects(v249, v140);
+              if (v259 >= 0x1FF)
               {
-                NSZoneFree(0, v250);
+                NSZoneFree(0, v249);
               }
 
-              v151 = v276;
+              _PFDeallocateObjects(v253, 0);
+              v136 = v251;
+              v137 = v251;
+              v135 = v82;
             }
 
-            _PFDeallocateObjects(v252, v151);
-            v148 = v279.i32[0];
-            if (v276 >= 0x1FF)
+            _PFDeallocateObjects(v135, v137);
+            if (v136 >= 0x1FF)
             {
-              NSZoneFree(0, v252);
-              v148 = v279.i32[0];
+              NSZoneFree(0, v82);
+            }
+
+            v214 = v278;
+            v215 = v261;
+            if (v280)
+            {
+              do
+              {
+                v216 = *v215++;
+
+                --v214;
+              }
+
+              while (v214);
+            }
+
+            if (v276)
+            {
+              v217 = v257;
+              v218 = v260;
+              do
+              {
+                v219 = *v218++;
+
+                --v217;
+              }
+
+              while (v217);
             }
           }
-
-          _PFDeallocateObjects(v254, v148);
-          if (v279.i32[0] >= 0x1FFu)
-          {
-            NSZoneFree(0, v254);
-          }
-
-          v145 = v277.i32[0];
         }
-
-        _PFDeallocateObjects(v256, v145);
-        if (v277.i32[0] >= 0x1FFu)
-        {
-          NSZoneFree(0, v256);
-        }
-
-        v142 = v261;
       }
-
-      _PFDeallocateObjects(v251, v142);
-      if (v261 >= 0x1FF)
-      {
-        NSZoneFree(0, v251);
-      }
-
-      _PFDeallocateObjects(v255, 0);
-      v138 = v253;
-      v139 = v253;
-      v137 = v84;
-    }
-
-    _PFDeallocateObjects(v137, v139);
-    if (v138 >= 0x1FF)
-    {
-      NSZoneFree(0, v84);
-    }
-
-    v216 = v280;
-    v217 = v263;
-    if (v282)
-    {
-      do
-      {
-        v218 = *v217++;
-
-        --v216;
-      }
-
-      while (v216);
-    }
-
-    if (v278)
-    {
-      v219 = v259;
-      v220 = v262;
-      do
-      {
-        v221 = *v220++;
-
-        --v219;
-      }
-
-      while (v219);
-    }
-
-    goto LABEL_9;
-  }
-
-  v34 = v281;
-  v35 = v16;
-  while (1)
-  {
-    v30 = _readPFEncodedStringFromData(error, BytePtr, &v293, v23);
-    if (!v30)
-    {
-      break;
-    }
-
-    *v34++ = v30;
-    if (!--v35)
-    {
-      goto LABEL_23;
     }
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_modelForVersionHashes:(id)hashes
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   entitiesByName = [(NSManagedObjectModel *)self entitiesByName];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v6 = [hashes countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v6 = [hashes countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(hashes);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         v12 = [(NSDictionary *)entitiesByName objectForKey:v11];
         v13 = [hashes objectForKey:v11];
         if (v12)
@@ -6497,7 +6422,7 @@ LABEL_9:
         }
       }
 
-      v7 = [hashes countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v7 = [hashes countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v7);
@@ -6513,7 +6438,7 @@ LABEL_9:
     v15 = 0;
     if (!v8)
     {
-      goto LABEL_29;
+      return v15;
     }
 
     goto LABEL_28;
@@ -6521,26 +6446,26 @@ LABEL_9:
 
   v15 = [[NSManagedObjectModel alloc] _initWithEntities:v8];
   [v15 setVersionIdentifiers:{-[NSManagedObjectModel versionIdentifiers](self, "versionIdentifiers")}];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   fetchRequestTemplates = self->_fetchRequestTemplates;
-  v17 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v17 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v26;
+    v19 = *v25;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v26 != v19)
+        if (*v25 != v19)
         {
           objc_enumerationMutation(fetchRequestTemplates);
         }
 
-        v21 = *(*(&v25 + 1) + 8 * j);
+        v21 = *(*(&v24 + 1) + 8 * j);
         v22 = [(NSMutableDictionary *)self->_fetchRequestTemplates objectForKey:v21];
         if ([v8 containsObject:{objc_msgSend(v22, "entity")}])
         {
@@ -6548,7 +6473,7 @@ LABEL_9:
         }
       }
 
-      v18 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v18 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v18);
@@ -6559,15 +6484,13 @@ LABEL_9:
 LABEL_28:
   }
 
-LABEL_29:
-  v23 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)_initWithContentsOfURL:(id)l options:(unint64_t)options
 {
   optionsCopy = options;
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   objc_opt_class();
   if (l)
@@ -6575,9 +6498,9 @@ LABEL_29:
     v8 = objc_alloc_init(MEMORY[0x1E696AAC8]);
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     path = [l path];
-    v66 = 0;
-    v11 = [defaultManager fileExistsAtPath:path isDirectory:&v66];
-    if (v11 && v66 == 1)
+    v65 = 0;
+    v11 = [defaultManager fileExistsAtPath:path isDirectory:&v65];
+    if (v11 && v65 == 1)
     {
       v12 = [[NSManagedObjectModelBundle alloc] initWithPath:path];
       v13 = v12;
@@ -6603,7 +6526,7 @@ LABEL_58:
 
 LABEL_76:
           [v8 drain];
-          goto LABEL_77;
+          return v18;
         }
 
         if (!PFUseToolchainBehaviors())
@@ -6625,31 +6548,31 @@ LABEL_76:
 
             else
             {
-              v55 = _PFLogGetLogStream(4);
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+              v54 = _PFLogGetLogStream(4);
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
                 lCopy2 = v14;
-                _os_log_impl(&dword_18565F000, v55, OS_LOG_TYPE_DEFAULT, "CoreData: annotation:  Failed to load optimized model at path '%@'\n", buf, 0xCu);
+                _os_log_impl(&dword_18565F000, v54, OS_LOG_TYPE_DEFAULT, "CoreData: annotation:  Failed to load optimized model at path '%@'\n", buf, 0xCu);
               }
             }
           }
 
           if (_pflogging_catastrophic_mode)
           {
-            v56 = 1;
+            v55 = 1;
           }
 
           else
           {
-            v56 = 4;
+            v55 = 4;
           }
 
-          _NSCoreDataLog_console(v56, " Failed to load optimized model at path '%@'", v14);
+          _NSCoreDataLog_console(v55, " Failed to load optimized model at path '%@'", v14);
           objc_autoreleasePoolPop(v19);
         }
 
-        if (!v15 || (v57 = [path stringByDeletingLastPathComponent], !objc_msgSend(objc_msgSend(v57, "pathExtension"), "isEqualToString:", @"momd")))
+        if (!v15 || (v56 = [path stringByDeletingLastPathComponent], !objc_msgSend(objc_msgSend(v56, "pathExtension"), "isEqualToString:", @"momd")))
         {
 LABEL_37:
           if (!path || path == v14)
@@ -6687,9 +6610,9 @@ LABEL_93:
             goto LABEL_76;
           }
 
-          v65 = 0;
-          v32 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:path options:0 error:&v65];
-          if (!v65)
+          v64 = 0;
+          v32 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:path options:0 error:&v64];
+          if (!v64)
           {
 LABEL_46:
             error = 0;
@@ -6739,8 +6662,8 @@ LABEL_46:
 LABEL_105:
                   *buf = 138412546;
                   lCopy2 = path;
-                  v69 = 2112;
-                  v70 = error;
+                  v68 = 2112;
+                  v69 = error;
                   _os_log_error_impl(&dword_18565F000, v47, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to load keyed archive model at path '%@' with error '%@'\n", buf, 0x16u);
                 }
               }
@@ -6800,13 +6723,13 @@ LABEL_69:
               if (v36)
               {
 LABEL_98:
-                v63 = NSStringFromSelector(a2);
+                v62 = NSStringFromSelector(a2);
                 *buf = 138412802;
-                lCopy2 = v63;
-                v69 = 2112;
-                v70 = path;
-                v71 = 2112;
-                v72 = v65;
+                lCopy2 = v62;
+                v68 = 2112;
+                v69 = path;
+                v70 = 2112;
+                v71 = v64;
                 _os_log_error_impl(&dword_18565F000, v35, OS_LOG_TYPE_ERROR, "CoreData: error: Failed reading data in %@ from path %@, error, %@\n", buf, 0x20u);
               }
             }
@@ -6818,27 +6741,27 @@ LABEL_98:
           }
 
           v37 = NSStringFromSelector(a2);
-          _NSCoreDataLog_console(1, "Failed reading data in %@ from path %@, error, %@", v37, path, v65);
+          _NSCoreDataLog_console(1, "Failed reading data in %@ from path %@, error, %@", v37, path, v64);
           objc_autoreleasePoolPop(v33);
           goto LABEL_46;
         }
 
-        v58 = [[NSManagedObjectModelBundle alloc] initWithPath:v57];
-        if (v58)
+        v57 = [[NSManagedObjectModelBundle alloc] initWithPath:v56];
+        if (v57)
         {
-          path = [-[NSManagedObjectModelBundle currentVersionURL](v58 "currentVersionURL")];
+          path = [-[NSManagedObjectModelBundle currentVersionURL](v57 "currentVersionURL")];
           goto LABEL_36;
         }
 
-        v59 = objc_autoreleasePoolPush();
+        v58 = objc_autoreleasePoolPush();
         if (_NSCoreDataIsOSLogEnabled(1))
         {
-          v60 = _pflogging_catastrophic_mode == 0;
-          v61 = _PFLogGetLogStream(1);
-          v62 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
-          if (v60)
+          v59 = _pflogging_catastrophic_mode == 0;
+          v60 = _PFLogGetLogStream(1);
+          v61 = os_log_type_enabled(v60, OS_LOG_TYPE_ERROR);
+          if (v59)
           {
-            if (v62)
+            if (v61)
             {
               *buf = 138412290;
               lCopy2 = path;
@@ -6846,17 +6769,17 @@ LABEL_98:
             }
           }
 
-          else if (v62)
+          else if (v61)
           {
             *buf = 138412290;
             lCopy2 = path;
 LABEL_107:
-            _os_log_error_impl(&dword_18565F000, v61, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to load model bundle at path '%@'\n", buf, 0xCu);
+            _os_log_error_impl(&dword_18565F000, v60, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to load model bundle at path '%@'\n", buf, 0xCu);
           }
         }
 
         _NSCoreDataLog_console(1, " Failed to load model bundle at path '%@'", path);
-        objc_autoreleasePoolPop(v59);
+        objc_autoreleasePoolPop(v58);
         goto LABEL_37;
       }
 
@@ -6976,10 +6899,7 @@ LABEL_95:
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"CoreData: Cannot load NSManagedObjectModel.  nil is an illegal URL parameter" userInfo:0]);
   }
 
-  v18 = 0;
-LABEL_77:
-  v53 = *MEMORY[0x1E69E9840];
-  return v18;
+  return 0;
 }
 
 + (int64_t)_debugOptimizedModelLayout
@@ -6992,7 +6912,7 @@ LABEL_77:
   return _MergedGlobals_75;
 }
 
-uint64_t __70__NSManagedObjectModel__NSInternalMethods___debugOptimizedModelLayout__block_invoke()
+void *__70__NSManagedObjectModel__NSInternalMethods___debugOptimizedModelLayout__block_invoke()
 {
   result = [_PFRoutines integerValueForOverride:?];
   _MergedGlobals_75 = result;
@@ -7019,32 +6939,32 @@ uint64_t __70__NSManagedObjectModel__NSInternalMethods___debugOptimizedModelLayo
 
 - (id)_entityVersionHashesDigestFrom:(id)result
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (result)
   {
     memset(&c, 0, sizeof(c));
     CC_SHA512_Init(&c);
     v3 = objc_autoreleasePoolPush();
     v4 = [objc_msgSend(a2 "allKeys")];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v16 + 1) + 8 * i);
+          v9 = *(*(&v15 + 1) + 8 * i);
           v10 = [a2 objectForKey:v9];
           uTF8String = [v9 UTF8String];
           v12 = strlen(uTF8String);
@@ -7054,7 +6974,7 @@ uint64_t __70__NSManagedObjectModel__NSInternalMethods___debugOptimizedModelLayo
           CC_SHA512_Update(&c, data, uTF8String);
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v6);
@@ -7065,10 +6985,9 @@ uint64_t __70__NSManagedObjectModel__NSInternalMethods___debugOptimizedModelLayo
     v14 = [v13 base64EncodedStringWithOptions:0];
 
     objc_autoreleasePoolPop(v3);
-    result = v14;
+    return v14;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7118,77 +7037,74 @@ uint64_t __70__NSManagedObjectModel__NSInternalMethods___debugOptimizedModelLayo
 
 - (void)_flattenProperties
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allValues = [(NSMutableDictionary *)self->_entities allValues];
-  v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) _flattenProperties];
+        [*(*(&v7 + 1) + 8 * v6++) _flattenProperties];
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_hasEntityWithDerivedAttribute
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    v9 = 0u;
-    v10 = 0u;
-    v7 = 0u;
     v8 = 0u;
+    v9 = 0u;
+    v6 = 0u;
+    v7 = 0u;
     v2 = *(result + 32);
-    result = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+    result = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     if (result)
     {
       v3 = result;
-      v4 = *v8;
+      v4 = *v7;
       while (2)
       {
         v5 = 0;
         do
         {
-          if (*v8 != v4)
+          if (*v7 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          if (-[NSEntityDescription _hasDerivedAttributes]([*(v1 + 32) objectForKey:*(*(&v7 + 1) + 8 * v5)]))
+          if (-[NSEntityDescription _hasDerivedAttributes]([*(v1 + 32) objectForKey:*(*(&v6 + 1) + 8 * v5)]))
           {
-            result = 1;
-            goto LABEL_12;
+            return 1;
           }
 
           ++v5;
         }
 
         while (v3 != v5);
-        result = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+        result = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
         v3 = result;
         if (result)
         {
@@ -7200,37 +7116,35 @@ uint64_t __70__NSManagedObjectModel__NSInternalMethods___debugOptimizedModelLayo
     }
   }
 
-LABEL_12:
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_traverseTombstonesAndMark:(uint64_t)mark
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (mark && (*(mark + 64) & 0x10) == 0)
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     obj = *(mark + 32);
-    v20 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
-    if (v20)
+    v19 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+    if (v19)
     {
       v5 = 0;
-      v19 = *v40;
+      v18 = *v39;
       do
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v40 != v19)
+          if (*v39 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = [*(mark + 32) objectForKey:*(*(&v39 + 1) + 8 * i)];
+          v6 = [*(mark + 32) objectForKey:*(*(&v38 + 1) + 8 * i)];
           v7 = [objc_msgSend(v6 "userInfo")];
           v8 = v7;
           if (v7)
@@ -7239,36 +7153,36 @@ LABEL_12:
             {
               if ([v8 length])
               {
-                v22 = [v8 componentsSeparatedByString:{@", "}];
-                v37 = 0u;
-                v38 = 0u;
-                v35 = 0u;
+                v21 = [v8 componentsSeparatedByString:{@", "}];
                 v36 = 0u;
-                v9 = [v22 countByEnumeratingWithState:&v35 objects:v45 count:16];
+                v37 = 0u;
+                v34 = 0u;
+                v35 = 0u;
+                v9 = [v21 countByEnumeratingWithState:&v34 objects:v44 count:16];
                 if (v9)
                 {
-                  v10 = *v36;
+                  v10 = *v35;
                   do
                   {
                     for (j = 0; j != v9; ++j)
                     {
-                      if (*v36 != v10)
+                      if (*v35 != v10)
                       {
-                        objc_enumerationMutation(v22);
+                        objc_enumerationMutation(v21);
                       }
 
                       if (v6)
                       {
-                        v12 = *(*(&v35 + 1) + 8 * j);
+                        v12 = *(*(&v34 + 1) + 8 * j);
                         superentity = v6;
                         do
                         {
                           if (!-[NSEntityDescription _attributeNamed:]([superentity superentity], v12))
                           {
                             [-[NSEntityDescription _attributeNamed:](superentity v12)];
-                            v44[0] = superentity;
-                            v44[1] = v12;
-                            [v4 addObject:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v44, 2)}];
+                            v43[0] = superentity;
+                            v43[1] = v12;
+                            [v4 addObject:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v43, 2)}];
                             superentity = 0;
                             v5 = 1;
                           }
@@ -7280,7 +7194,7 @@ LABEL_12:
                       }
                     }
 
-                    v9 = [v22 countByEnumeratingWithState:&v35 objects:v45 count:16];
+                    v9 = [v21 countByEnumeratingWithState:&v34 objects:v44 count:16];
                   }
 
                   while (v9);
@@ -7290,103 +7204,99 @@ LABEL_12:
           }
         }
 
-        v20 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+        v19 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
       }
 
-      while (v20);
+      while (v19);
       if (v5)
       {
-        v29 = 0;
-        v30 = &v29;
-        v31 = 0x3052000000;
-        v32 = __Block_byref_object_copy__14;
-        v33 = __Block_byref_object_dispose__14;
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __71__NSManagedObjectModel__NSInternalMethods___traverseTombstonesAndMark___block_invoke;
-        v27[3] = &unk_1E6EC27D0;
-        v28 = a2;
-        v27[4] = &v29;
-        v34 = v27;
+        v28 = 0;
+        v29 = &v28;
+        v30 = 0x3052000000;
+        v31 = __Block_byref_object_copy__14;
+        v32 = __Block_byref_object_dispose__14;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __71__NSManagedObjectModel__NSInternalMethods___traverseTombstonesAndMark___block_invoke;
+        v26[3] = &unk_1E6EC27D0;
+        v27 = a2;
+        v26[4] = &v28;
+        v33 = v26;
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
-        v14 = [v4 countByEnumeratingWithState:&v23 objects:v43 count:16];
+        v14 = [v4 countByEnumeratingWithState:&v22 objects:v42 count:16];
         if (v14)
         {
-          v15 = *v24;
+          v15 = *v23;
           do
           {
             for (k = 0; k != v14; ++k)
             {
-              if (*v24 != v15)
+              if (*v23 != v15)
               {
                 objc_enumerationMutation(v4);
               }
 
-              (*(v30[5] + 16))(v30[5], [*(*(&v23 + 1) + 8 * k) objectAtIndexedSubscript:0], objc_msgSend(*(*(&v23 + 1) + 8 * k), "objectAtIndexedSubscript:", 1));
+              (*(v29[5] + 16))(v29[5], [*(*(&v22 + 1) + 8 * k) objectAtIndexedSubscript:0], objc_msgSend(*(*(&v22 + 1) + 8 * k), "objectAtIndexedSubscript:", 1));
             }
 
-            v14 = [v4 countByEnumeratingWithState:&v23 objects:v43 count:16];
+            v14 = [v4 countByEnumeratingWithState:&v22 objects:v42 count:16];
           }
 
           while (v14);
         }
 
-        _Block_object_dispose(&v29, 8);
+        _Block_object_dispose(&v28, 8);
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __71__NSManagedObjectModel__NSInternalMethods___traverseTombstonesAndMark___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+char *__71__NSManagedObjectModel__NSInternalMethods___traverseTombstonesAndMark___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [-[NSEntityDescription _attributeNamed:](a2 a3)];
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = [a2 subentities];
-  result = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  result = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v7 = result;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         (*(*(*(*(a1 + 32) + 8) + 40) + 16))();
         ++v9;
       }
 
       while (v7 != v9);
-      result = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      result = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       v7 = result;
     }
 
     while (result);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_setIsEditable:(BOOL)editable optimizationStyle:(unint64_t)style
 {
   editableCopy = editable;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   v7 = objc_autoreleasePoolPush();
   managedObjectModelFlags = self->_managedObjectModelFlags;
@@ -7394,30 +7304,30 @@ uint64_t __71__NSManagedObjectModel__NSInternalMethods___traverseTombstonesAndMa
   {
     if (BYTE6(z9dsptsiQ80etb9782fsrs98bfdle88) == 1)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       fetchRequestTemplates = self->_fetchRequestTemplates;
-      v10 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
-        v11 = *v17;
+        v11 = *v16;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(fetchRequestTemplates);
             }
 
-            v13 = [(NSMutableDictionary *)self->_fetchRequestTemplates objectForKey:*(*(&v16 + 1) + 8 * i)];
+            v13 = [(NSMutableDictionary *)self->_fetchRequestTemplates objectForKey:*(*(&v15 + 1) + 8 * i)];
             [v13 allowEvaluation];
             [v13 _incrementInUseCounter];
           }
 
-          v10 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [(NSMutableDictionary *)fetchRequestTemplates countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v10);
@@ -7445,7 +7355,6 @@ uint64_t __71__NSManagedObjectModel__NSInternalMethods___traverseTombstonesAndMa
 
   objc_autoreleasePoolPop(v7);
   objc_sync_exit(self);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setLocalizationPolicy:(id)policy
@@ -7475,118 +7384,113 @@ uint64_t __71__NSManagedObjectModel__NSInternalMethods___traverseTombstonesAndMa
 
 - (id)_entitiesByVersionHash
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (result)
   {
     entities = [result entities];
     v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(entities, "count")}];
+    v7 = 0u;
     v8 = 0u;
     v9 = 0u;
     v10 = 0u;
-    v11 = 0u;
-    v3 = [entities countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v3 = [entities countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v9;
+      v5 = *v8;
       do
       {
         v6 = 0;
         do
         {
-          if (*v9 != v5)
+          if (*v8 != v5)
           {
             objc_enumerationMutation(entities);
           }
 
-          [v2 setObject:*(*(&v8 + 1) + 8 * v6) forKey:{objc_msgSend(*(*(&v8 + 1) + 8 * v6), "versionHash")}];
+          [v2 setObject:*(*(&v7 + 1) + 8 * v6) forKey:{objc_msgSend(*(*(&v7 + 1) + 8 * v6), "versionHash")}];
           ++v6;
         }
 
         while (v4 != v6);
-        v4 = [entities countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v4 = [entities countByEnumeratingWithState:&v7 objects:v11 count:16];
       }
 
       while (v4);
     }
 
-    result = v2;
+    return v2;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_stripForMigration
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   entities = [(NSManagedObjectModel *)self entities];
-  v3 = [(NSArray *)entities countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)entities countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(entities);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) _stripForMigration];
+        [*(*(&v7 + 1) + 8 * v6++) _stripForMigration];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)entities countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)entities countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_restoreValidation
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   entities = [(NSManagedObjectModel *)self entities];
-  v3 = [(NSArray *)entities countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)entities countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(entities);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) _restoreValidation];
+        [*(*(&v7 + 1) + 8 * v6++) _restoreValidation];
       }
 
       while (v4 != v6);
-      v4 = [(NSArray *)entities countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSArray *)entities countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setModelsReferenceIDOffset:(int64_t)offset

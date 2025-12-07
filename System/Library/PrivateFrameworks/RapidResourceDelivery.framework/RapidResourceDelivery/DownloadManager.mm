@@ -80,23 +80,22 @@ LABEL_6:
 {
   v7 = sub_227F2B114();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_227F2B084();
   taskCopy = task;
   selfCopy = self;
   response = [taskCopy response];
   if (response)
   {
-    v15 = response;
+    v14 = response;
     objc_opt_self();
-    v16 = swift_dynamicCastObjCClass();
-    if (v16)
+    v15 = swift_dynamicCastObjCClass();
+    if (v15)
     {
-      sub_227EC8C98([taskCopy taskIdentifier], v11, v16);
+      sub_227EC8C98([taskCopy taskIdentifier], v10, v15);
 
-      (*(v8 + 8))(v11, v7);
+      (*(v8 + 8))(v10, v7);
       return;
     }
   }

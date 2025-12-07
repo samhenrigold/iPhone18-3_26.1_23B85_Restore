@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  v14[0] = @"guest";
+  v14[3] = *MEMORY[0x1E69E9840];
+  v13[0] = @"guest";
   guest = self->_guest;
   null = guest;
   if (!guest)
@@ -31,8 +31,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"guestDisplayPreferences";
+  v14[0] = null;
+  v13[1] = @"guestDisplayPreferences";
   guestDisplayPreferences = self->_guestDisplayPreferences;
   null2 = guestDisplayPreferences;
   if (!guestDisplayPreferences)
@@ -40,8 +40,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"code";
+  v14[1] = null2;
+  v13[2] = @"code";
   code = [(INGetRestaurantGuestIntentResponse *)self code];
   v8 = @"Failure";
   if (code != INGetRestaurantGuestIntentResponseCodeFailure)
@@ -61,8 +61,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = null3;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
   if (!v9)
   {
   }
@@ -85,7 +85,6 @@
   }
 
 LABEL_15:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

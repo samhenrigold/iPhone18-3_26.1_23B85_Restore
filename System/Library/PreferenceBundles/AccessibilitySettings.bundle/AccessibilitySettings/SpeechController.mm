@@ -612,7 +612,7 @@ void __28__SpeechController_loadView__block_invoke_5(uint64_t a1)
     if (v12)
     {
       v13 = v12;
-      _AXLogWithFacility();
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"%@");
 
       return;
     }

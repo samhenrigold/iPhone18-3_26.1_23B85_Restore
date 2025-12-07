@@ -129,9 +129,9 @@ void __123___UIKeyboardArbiterClientInputDestination__didHandleKeyboardClientCha
     }
 
     v8 = [*(a1 + 48) sourceSceneIdentityString];
-    v9 = [v8 isEqual:v5];
+    isEqual = objc_msgSend_isEqual_(v8);
 
-    if (v9)
+    if (isEqual)
     {
       *(*(*(a1 + 56) + 8) + 24) = 1;
     }
@@ -150,7 +150,7 @@ void __123___UIKeyboardArbiterClientInputDestination__didHandleKeyboardClientCha
   {
     v8 = v7;
     v9 = [*(a1 + 40) sourceSceneIdentityString];
-    if ([v9 isEqualToString:v6])
+    if (objc_msgSend_isEqualToString_(v9))
     {
 
       goto LABEL_11;
@@ -162,10 +162,10 @@ void __123___UIKeyboardArbiterClientInputDestination__didHandleKeyboardClientCha
     v12 = [v11 screen];
     v13 = [v12 displayConfiguration];
     v14 = [v13 _nameForDisplayType];
-    v15 = [v10 isEqualToString:v14];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
 
     v6 = v21;
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_11;
     }
@@ -173,7 +173,7 @@ void __123___UIKeyboardArbiterClientInputDestination__didHandleKeyboardClientCha
 
   v16 = [*(a1 + 40) hostBundleIdentifier];
   v17 = _UIMainBundleIdentifier();
-  v18 = [v16 isEqualToString:v17];
+  v18 = objc_msgSend_isEqualToString_(v16);
 
   if (([*(a1 + 40) keyboardOnScreen] & 1) != 0 || !v18)
   {
@@ -307,11 +307,11 @@ void __77___UIKeyboardArbiterClientInputDestination_queue_keyboardChanged_onComp
             v12 = v11;
             v13 = [v10 sceneIdentityString];
             v1 = [*(a1 + 32) sourceSceneIdentityString];
-            v14 = [v13 isEqual:v1];
+            isEqual = objc_msgSend_isEqual_(v13);
 
-            if (v14)
+            if (isEqual)
             {
-              v15 = 1;
+              isEqualToString = 1;
               goto LABEL_17;
             }
           }
@@ -330,23 +330,23 @@ void __77___UIKeyboardArbiterClientInputDestination_queue_keyboardChanged_onComp
       }
     }
 
-    v15 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
     v6 = [*(a1 + 32) sourceBundleIdentifier];
     v16 = [objc_opt_class() currentBundleIdentifier];
-    if ([v6 isEqualToString:v16])
+    if (objc_msgSend_isEqualToString_(v6))
     {
-      v15 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       v17 = [*(a1 + 32) hostBundleIdentifier];
       v1 = [objc_opt_class() currentBundleIdentifier];
-      v15 = [v17 isEqualToString:v1];
+      isEqualToString = objc_msgSend_isEqualToString_(v17);
     }
   }
 
@@ -379,7 +379,7 @@ LABEL_17:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     v26 = "N";
-    if (v15)
+    if (isEqualToString)
     {
       v26 = "Y";
     }
@@ -411,7 +411,7 @@ LABEL_30:
     }
   }
 
-  v35 = v15;
+  v35 = isEqualToString;
   v30 = objc_loadWeakRetained((a1 + 56));
   v31 = +[_UIKeyboardArbiterClientInputDestination currentBundleIdentifier];
   v32 = [v30 isSpotlight:v31];
@@ -700,10 +700,10 @@ LABEL_42:
   }
 
   v56 = +[UIApplication displayIdentifier];
-  v57 = [v56 isEqualToString:v113];
+  isEqualToString = objc_msgSend_isEqualToString_(v56);
 
   v58 = [*(a1 + 32) keyboardOnScreen];
-  if (!v57)
+  if (!isEqualToString)
   {
     LODWORD(v55) = 0;
     if (v58)
@@ -843,7 +843,7 @@ LABEL_50:
     }
 
     v92 = [*(a1 + 32) applicationIdentifier];
-    if (-[NSObject isEqualToString:](v92, "isEqualToString:", @"com.apple.Spotlight") && [*(a1 + 32) keyboardOnScreen] && objc_msgSend(v3, "showingKeyboard"))
+    if (objc_msgSend_isEqualToString_(v92) && [*(a1 + 32) keyboardOnScreen] && objc_msgSend(v3, "showingKeyboard"))
     {
       v93 = [v3 scene];
       v94 = [v93 activationState];

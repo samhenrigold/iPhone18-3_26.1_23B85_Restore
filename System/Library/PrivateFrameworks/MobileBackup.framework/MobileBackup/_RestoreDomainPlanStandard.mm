@@ -132,57 +132,55 @@
     __assert_rtn("[_RestoreDomainPlanStandard enumerateAndMarkATCRestorables:enumerator:]", "MBRestorePlanDB.m", 2058, "enumerator");
   }
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   parentPlan = self->super._parentPlan;
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100271428;
-  v14[3] = &unk_1003C2C50;
-  v14[4] = self;
-  v16 = &v27;
-  v17 = &v23;
-  v18 = &v19;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100271428;
+  v12[3] = &unk_1003C2C50;
+  v12[4] = self;
+  v14 = &v25;
+  v15 = &v21;
+  v16 = &v17;
   v8 = enumeratorCopy;
-  v15 = v8;
-  LODWORD(parentPlan) = [(MBRestorePlanDB *)parentPlan _withReadOnlyDB:restorables accessor:v14];
+  v13 = v8;
+  LODWORD(parentPlan) = [(MBRestorePlanDB *)parentPlan _withReadOnlyDB:restorables accessor:v12];
 
   if (parentPlan)
   {
-    if (v28[3])
+    if (v26[3])
     {
       v9 = [(MBRestorePlanDB *)self->super._parentPlan _validRWDatabase:restorables];
-      v10 = v28[3];
-      v11 = v20[3];
-      v12 = [v9 executeWithError:restorables sql:{@"\n UPDATE Domains\n SET    totalATCItems = %llu, \n        totalATCFiles = %llu, \n        totalATCBytes = %llu\n WHERE  domainID = %llu;", v10, v24[3], v11, self->super._domainID}];
+      v10 = [v9 executeWithError:restorables sql:{@"\n UPDATE Domains\n SET    totalATCItems = %llu, \n        totalATCFiles = %llu, \n        totalATCBytes = %llu\n WHERE  domainID = %llu;", v26[3], v22[3], v18[3], self->super._domainID}];
     }
 
     else
     {
-      v12 = 1;
+      v10 = 1;
     }
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
 
-  return v12;
+  return v10;
 }
 
 - (BOOL)_enumerateAndMarkATCRestorables:(id)restorables totalATCItems:(unint64_t *)items totalATCFiles:(unint64_t *)files totalATCBytes:(int64_t *)bytes error:(id *)error enumerator:(id)enumerator
@@ -430,25 +428,25 @@
 
   v12 = pathCopy;
   v13 = +[NSMutableArray array];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
   parentPlan = self->super._parentPlan;
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_1002724A4;
-  v33[3] = &unk_1003C2CF0;
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_1002724A4;
+  v34[3] = &unk_1003C2CF0;
   onlyCopy = only;
-  v33[4] = self;
-  v37 = location;
-  v38 = length;
+  v34[4] = self;
+  v38 = location;
+  v39 = length;
   v15 = v12;
-  v34 = v15;
-  v36 = &v40;
+  v35 = v15;
+  v37 = &v41;
   v16 = v13;
-  v35 = v16;
-  if ([(MBRestorePlanDB *)parentPlan _withReadOnlyDB:error accessor:v33])
+  v36 = v16;
+  if ([(MBRestorePlanDB *)parentPlan _withReadOnlyDB:error accessor:v34])
   {
 
     v17 = MBGetDefaultLog();
@@ -458,60 +456,59 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = [v16 count];
-        v20 = v41[3];
+        v20 = v42[3];
         v21 = [v16 count];
         name = [(MBDomain *)self->super._domain name];
         *buf = 134218754;
-        v45 = &v19[-v20];
-        v46 = 2048;
-        v47 = v21;
-        v48 = 2112;
-        v49 = name;
-        v50 = 2112;
-        v51 = v15;
+        v46 = &v19[-v20];
+        v47 = 2048;
+        v48 = v21;
+        v49 = 2112;
+        v50 = name;
+        v51 = 2112;
+        v52 = v15;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "=plan= =atc= Found %llu/%lu restore files from plan for domain:%@, relativePath:%@", buf, 0x2Au);
       }
 
-      [v16 count];
-      v23 = v41[3];
-      [v16 count];
+      v23 = [v16 count];
+      v24 = v42[3];
+      v25 = [v16 count];
       name2 = [(MBDomain *)self->super._domain name];
-      _MBLog();
+      _MBLog(@"Df", "=plan= =atc= Found %llu/%lu restore files from plan for domain:%@, relativePath:%@", &v23[-v24], v25, name2, v15);
     }
 
-    v24 = v16;
+    v27 = v16;
   }
 
   else
   {
-    v25 = MBGetDefaultLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v28 = MBGetDefaultLog();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v26 = v25;
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = v28;
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         name3 = [(MBDomain *)self->super._domain name];
-        v28 = *error;
+        v31 = *error;
         *buf = 138412802;
-        v45 = name3;
-        v46 = 2112;
-        v47 = v15;
-        v48 = 2112;
-        v49 = v28;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "=plan= =atc= Failed finding restore files from plan for domain:%@, relativePath:%@ %@", buf, 0x20u);
+        v46 = name3;
+        v47 = 2112;
+        v48 = v15;
+        v49 = 2112;
+        v50 = v31;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "=plan= =atc= Failed finding restore files from plan for domain:%@, relativePath:%@ %@", buf, 0x20u);
       }
 
       name4 = [(MBDomain *)self->super._domain name];
-      v32 = *error;
-      _MBLog();
+      _MBLog(@"E ", "=plan= =atc= Failed finding restore files from plan for domain:%@, relativePath:%@ %@", name4, v15, *error);
     }
 
-    v24 = 0;
+    v27 = 0;
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v41, 8);
 
-  return v24;
+  return v27;
 }
 
 @end

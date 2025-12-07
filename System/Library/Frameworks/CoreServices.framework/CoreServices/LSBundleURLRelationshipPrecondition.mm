@@ -53,12 +53,12 @@
 
 - (BOOL)isMet
 {
-  v44[3] = *MEMORY[0x1E69E9840];
-  v43 = 2;
+  v43[3] = *MEMORY[0x1E69E9840];
+  v42 = 2;
   CurrentContext = _LSDatabaseContextGetCurrentContext(self);
+  v39 = 0;
   v40 = 0;
   v41 = 0;
-  v42 = 0;
   v3 = +[_LSDServiceDomain defaultServiceDomain];
   v4 = LaunchServices::Database::Context::_get(&CurrentContext, v3, 0);
 
@@ -67,29 +67,29 @@
     v5 = [LSApplicationRecord alloc];
     bundleIdentifier = self->_bundleIdentifier;
     placeholderFetchBehavior = self->_placeholderFetchBehavior;
-    v38 = 0;
-    v8 = [(LSApplicationRecord *)v5 _initWithNode:0 bundleIdentifier:bundleIdentifier placeholderBehavior:placeholderFetchBehavior systemPlaceholder:0 itemID:0 forceInBundleContainer:0 context:v4 error:&v38];
-    v9 = v38;
+    v37 = 0;
+    v8 = [(LSApplicationRecord *)v5 _initWithNode:0 bundleIdentifier:bundleIdentifier placeholderBehavior:placeholderFetchBehavior systemPlaceholder:0 itemID:0 forceInBundleContainer:0 context:v4 error:&v37];
+    v9 = v37;
     v10 = v9;
     if (v8)
     {
       v11 = [v8 URL];
       v12 = *MEMORY[0x1E695DAD0];
-      v44[0] = *MEMORY[0x1E695DD70];
-      v44[1] = v12;
+      v43[0] = *MEMORY[0x1E695DD70];
+      v43[1] = v12;
       v13 = *MEMORY[0x1E695DB78];
-      v44[2] = *MEMORY[0x1E695DB78];
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
+      v43[2] = *MEMORY[0x1E695DB78];
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:3];
       url = self->_url;
-      v37 = v10;
-      v16 = [(NSURL *)url resourceValuesForKeys:v14 error:&v37];
-      v17 = v37;
+      v36 = v10;
+      v16 = [(NSURL *)url resourceValuesForKeys:v14 error:&v36];
+      v17 = v36;
 
       if (v16)
       {
-        v36 = v17;
-        v18 = [v11 resourceValuesForKeys:v14 error:&v36];
-        v19 = v36;
+        v35 = v17;
+        v18 = [v11 resourceValuesForKeys:v14 error:&v35];
+        v19 = v35;
 
         if (v18)
         {
@@ -100,9 +100,9 @@
           {
             defaultManager = [MEMORY[0x1E696AC08] defaultManager];
             v23 = self->_url;
-            v35 = v19;
-            v24 = [defaultManager getRelationship:&v43 ofDirectoryAtURL:v23 toItemAtURL:v11 error:&v35];
-            v25 = v35;
+            v34 = v19;
+            v24 = [defaultManager getRelationship:&v42 ofDirectoryAtURL:v23 toItemAtURL:v11 error:&v34];
+            v25 = v34;
 
             v19 = v25;
           }
@@ -120,7 +120,7 @@
               v28 = 2;
             }
 
-            v43 = v28;
+            v42 = v28;
           }
         }
 
@@ -139,7 +139,7 @@
 
       if (v24)
       {
-        v29 = v43 == self->_requiredRelationship;
+        v29 = v42 == self->_requiredRelationship;
         goto LABEL_24;
       }
     }
@@ -162,11 +162,12 @@
 
     else
     {
-      v17 = v42;
+      v9 = v41;
+      v17 = v9;
     }
   }
 
-  v30 = _LSDefaultLog();
+  v30 = _LSDefaultLog(v9);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     [(LSBundleURLRelationshipPrecondition *)self isMet];
@@ -174,36 +175,34 @@
 
   v29 = 0;
 LABEL_24:
-  if (CurrentContext && v41 == 1)
+  if (CurrentContext && v40 == 1)
   {
     _LSContextDestroy(CurrentContext);
   }
 
-  v31 = v40;
+  v31 = v39;
   CurrentContext = 0;
+  v39 = 0;
+
   v40 = 0;
-
+  v32 = v41;
   v41 = 0;
-  v32 = v42;
-  v42 = 0;
 
-  v33 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
 - (void)isMet
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *(self + 8);
   v4 = *(self + 16);
-  v6 = 138412802;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Couldn't get URL relationship for %@ and %@: %@", &v6, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412802;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Couldn't get URL relationship for %@ and %@: %@", &v5, 0x20u);
 }
 
 @end

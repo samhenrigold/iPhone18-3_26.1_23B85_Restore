@@ -46,7 +46,7 @@
       v10 = coordinateCopy;
       objectCopy2 = object;
       objectCopy3 = object;
-      sub_275F2B600(&self->_pageCoordinateDictionary, &v10);
+      sub_275F2B600(&self->_pageCoordinateDictionary, &v10, &v10);
     }
 
     else

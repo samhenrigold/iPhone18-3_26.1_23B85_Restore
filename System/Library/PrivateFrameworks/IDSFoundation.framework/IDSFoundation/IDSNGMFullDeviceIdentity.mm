@@ -71,7 +71,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19060();
+    sub_1A7E19060(self);
   }
 
   return 0;
@@ -82,7 +82,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E190EC();
+    sub_1A7E190EC(self);
   }
 
   return 0;
@@ -93,7 +93,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19178();
+    sub_1A7E19178(self);
   }
 
   return 0;
@@ -104,7 +104,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19204();
+    sub_1A7E19204(self);
   }
 
   return 0;
@@ -115,7 +115,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19290();
+    sub_1A7E19290(self);
   }
 }
 
@@ -124,7 +124,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E1931C();
+    sub_1A7E1931C(self);
   }
 }
 
@@ -133,7 +133,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E193A8();
+    sub_1A7E193A8(self);
   }
 }
 
@@ -142,7 +142,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19434();
+    sub_1A7E19434(self);
   }
 }
 
@@ -151,7 +151,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E194C0();
+    sub_1A7E194C0(self);
   }
 }
 
@@ -160,7 +160,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E1954C();
+    sub_1A7E1954C(self);
   }
 
   return 0;
@@ -171,7 +171,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E195D8();
+    sub_1A7E195D8(self);
   }
 
   return 0;
@@ -182,7 +182,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E19664();
+    sub_1A7E19664(self);
   }
 
   return 0;
@@ -193,7 +193,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E196F0();
+    sub_1A7E196F0(self);
   }
 
   return 0;
@@ -204,7 +204,7 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_FAULT))
   {
-    sub_1A7E1977C();
+    sub_1A7E1977C(self);
   }
 
   return 0;

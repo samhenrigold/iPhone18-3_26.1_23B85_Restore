@@ -608,7 +608,7 @@ LABEL_23:
   }
 
   v13 = &v29;
-  v14 = sub_100001F0C(0, "com.apple.mdt.uniqueDocumentIdentifier", v7, v8, v9, v10, v11, v12, *&v27.st_dev, v27.st_ino, *&v27.st_uid, *&v27.st_rdev, v27.st_atimespec.tv_sec, v27.st_atimespec.tv_nsec, v27.st_mtimespec.tv_sec, v27.st_mtimespec.tv_nsec, v27.st_ctimespec.tv_sec, v27.st_ctimespec.tv_nsec, v27.st_birthtimespec.tv_sec, v27.st_birthtimespec.tv_nsec, v27.st_size, v27.st_blocks, *&v27.st_blksize, *&v27.st_gen, v27.st_qspare[0], v27.st_qspare[1], value, v29);
+  v14 = sub_100001F0C(0, "com.apple.mdt.uniqueDocumentIdentifier", v7, v8, v9, v10, v11, v12, *&v27.st_dev, v27.st_ino, *&v27.st_uid, *&v27.st_rdev, v27.st_atimespec.tv_sec, v27.st_atimespec.tv_nsec, v27.st_mtimespec.tv_sec, v27.st_mtimespec.tv_nsec, v27.st_ctimespec.tv_sec, v27.st_ctimespec.tv_nsec, v27.st_birthtimespec.tv_sec, v27.st_birthtimespec.tv_nsec, v27.st_size, v27.st_blocks, *&v27.st_blksize, *&v27.st_gen, v27.st_qspare[0], v27.st_qspare[1], value);
   if (v14 > 0)
   {
     v15 = 0;
@@ -629,7 +629,7 @@ LABEL_16:
   }
 
   v15 = v18;
-  v14 = sub_100001F0C(v18, "com.apple.mdt.uniqueDocumentIdentifier", v20, v21, v22, v23, v24, v25, *&v27.st_dev, v27.st_ino, *&v27.st_uid, *&v27.st_rdev, v27.st_atimespec.tv_sec, v27.st_atimespec.tv_nsec, v27.st_mtimespec.tv_sec, v27.st_mtimespec.tv_nsec, v27.st_ctimespec.tv_sec, v27.st_ctimespec.tv_nsec, v27.st_birthtimespec.tv_sec, v27.st_birthtimespec.tv_nsec, v27.st_size, v27.st_blocks, *&v27.st_blksize, *&v27.st_gen, v27.st_qspare[0], v27.st_qspare[1], value, v29);
+  v14 = sub_100001F0C(v18, "com.apple.mdt.uniqueDocumentIdentifier", v20, v21, v22, v23, v24, v25, *&v27.st_dev, v27.st_ino, *&v27.st_uid, *&v27.st_rdev, v27.st_atimespec.tv_sec, v27.st_atimespec.tv_nsec, v27.st_mtimespec.tv_sec, v27.st_mtimespec.tv_nsec, v27.st_ctimespec.tv_sec, v27.st_ctimespec.tv_nsec, v27.st_birthtimespec.tv_sec, v27.st_birthtimespec.tv_nsec, v27.st_size, v27.st_blocks, *&v27.st_blksize, *&v27.st_gen, v27.st_qspare[0], v27.st_qspare[1], value);
   if (v14 < 1)
   {
     v17 = 0;

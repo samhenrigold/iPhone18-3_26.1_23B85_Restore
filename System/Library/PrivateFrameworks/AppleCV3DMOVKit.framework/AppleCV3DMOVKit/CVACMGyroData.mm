@@ -66,11 +66,11 @@
 
 + (id)withData:(id)data
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v12 = 0;
-  v4 = [CVAMetadataWrapper decodeClass:dataCopy class:objc_opt_class() error:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [CVAMetadataWrapper decodeClass:dataCopy class:objc_opt_class() error:&v11];
+  v5 = v11;
   if (v4)
   {
     v6 = v4;
@@ -93,7 +93,7 @@
         {
           localizedDescription = [v5 localizedDescription];
           *buf = 138412290;
-          v14 = localizedDescription;
+          v13 = localizedDescription;
           _os_log_impl(&dword_24016D000, v8, OS_LOG_TYPE_ERROR, "CVACMGyroData - ERROR - cannot deserialize data: %@", buf, 0xCu);
         }
       }
@@ -101,8 +101,6 @@
       v6 = 0;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -154,41 +152,39 @@
 
 - (id)dictionary
 {
-  v19[8] = *MEMORY[0x277D85DE8];
-  v18[0] = @"x";
+  v18[8] = *MEMORY[0x277D85DE8];
+  v17[0] = @"x";
   v3 = MEMORY[0x277CCABB0];
   [(CVACLMotionTypeVector3 *)self->_rotationRate x];
   v4 = [v3 numberWithFloat:?];
-  v19[0] = v4;
-  v18[1] = @"y";
+  v18[0] = v4;
+  v17[1] = @"y";
   v5 = MEMORY[0x277CCABB0];
   [(CVACLMotionTypeVector3 *)self->_rotationRate y];
   v6 = [v5 numberWithFloat:?];
-  v19[1] = v6;
-  v18[2] = @"z";
+  v18[1] = v6;
+  v17[2] = @"z";
   v7 = MEMORY[0x277CCABB0];
   [(CVACLMotionTypeVector3 *)self->_rotationRate z];
   v8 = [v7 numberWithFloat:?];
-  v19[2] = v8;
-  v18[3] = @"p";
+  v18[2] = v8;
+  v17[3] = @"p";
   *&v9 = self->_temperature;
   v10 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v19[3] = v10;
-  v18[4] = @"t";
+  v18[3] = v10;
+  v17[4] = @"t";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v19[4] = v11;
-  v18[5] = @"st";
+  v18[4] = v11;
+  v17[5] = @"st";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_syncTimestamp];
-  v19[5] = v12;
-  v18[6] = @"sn";
+  v18[5] = v12;
+  v17[6] = @"sn";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_sequenceNumber];
-  v19[6] = v13;
-  v18[7] = @"fi";
+  v18[6] = v13;
+  v17[7] = @"fi";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_frameId];
-  v19[7] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[7] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:8];
 
   return v15;
 }

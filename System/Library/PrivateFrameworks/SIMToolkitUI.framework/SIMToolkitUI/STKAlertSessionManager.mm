@@ -24,45 +24,43 @@
 
 - (void)enqueuePresentationForSession:(id)session completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   completionCopy = completion;
   v8 = [(STKAlertSessionManager *)self log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v17 = sessionCopy;
+    v16 = sessionCopy;
     _os_log_impl(&dword_262BB4000, v8, OS_LOG_TYPE_DEFAULT, "Session <%p> - Enqueing for presentation", buf, 0xCu);
   }
 
   eventQueue = self->_eventQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __67__STKAlertSessionManager_enqueuePresentationForSession_completion___block_invoke;
-  v13[3] = &unk_279B4C3E0;
-  v13[4] = self;
-  v14 = sessionCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __67__STKAlertSessionManager_enqueuePresentationForSession_completion___block_invoke;
+  v12[3] = &unk_279B4C3E0;
+  v12[4] = self;
+  v13 = sessionCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = sessionCopy;
-  [(STKAlertSessionEventQueue *)eventQueue enqueue:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(STKAlertSessionEventQueue *)eventQueue enqueue:v12];
 }
 
 void __67__STKAlertSessionManager_enqueuePresentationForSession_completion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) remoteAlertDescriptorForSession:*(a1 + 40)];
   v3 = [*(a1 + 32) log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v23 = 134218242;
-    v24 = v4;
-    v25 = 2114;
-    v26 = v2;
-    _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "Session <%p> - Remote alert descriptor: %{public}@", &v23, 0x16u);
+    v21 = 134218242;
+    v22 = v4;
+    v23 = 2114;
+    v24 = v2;
+    _os_log_impl(&dword_262BB4000, v3, OS_LOG_TYPE_DEFAULT, "Session <%p> - Remote alert descriptor: %{public}@", &v21, 0x16u);
   }
 
   if ([v2 isValid])
@@ -78,46 +76,43 @@ void __67__STKAlertSessionManager_enqueuePresentationForSession_completion___blo
     v12 = [v10 setWithObject:v11];
     [v9 setActions:v12];
 
-    v13 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = [*(a1 + 40) ussdListener];
-      v15 = [v14 endpoint];
-      v16 = [v15 _endpoint];
-      [v9 setXpcEndpoint:v16];
+      v13 = [*(a1 + 40) ussdListener];
+      v14 = [v13 endpoint];
+      v15 = [v14 _endpoint];
+      [v9 setXpcEndpoint:v15];
     }
 
-    v17 = [MEMORY[0x277D66BF0] newHandleWithDefinition:v8 configurationContext:v9];
-    [*(a1 + 32) _willPresentAlertHandle:v17];
-    v18 = *(a1 + 40);
-    v19 = [v2 action];
-    [v18 presentRemoteAlertHandle:v17 withAction:v19];
+    v16 = [MEMORY[0x277D66BF0] newHandleWithDefinition:v8 configurationContext:v9];
+    [*(a1 + 32) _willPresentAlertHandle:v16];
+    v17 = *(a1 + 40);
+    v18 = [v2 action];
+    [v17 presentRemoteAlertHandle:v16 withAction:v18];
 
-    if (!v17)
+    if (!v16)
     {
       [*(a1 + 40) sendResponse:5];
       [*(a1 + 40) invalidate];
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v17 != 0);
+    (*(*(a1 + 48) + 16))(*(a1 + 48), v16 != 0);
   }
 
   else
   {
-    v20 = [*(a1 + 32) log];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = [*(a1 + 32) log];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 40);
-      v23 = 134217984;
-      v24 = v21;
-      _os_log_impl(&dword_262BB4000, v20, OS_LOG_TYPE_DEFAULT, "Session <%p> - Failed to create a remote alert.  Invalidating.", &v23, 0xCu);
+      v20 = *(a1 + 40);
+      v21 = 134217984;
+      v22 = v20;
+      _os_log_impl(&dword_262BB4000, v19, OS_LOG_TYPE_DEFAULT, "Session <%p> - Failed to create a remote alert.  Invalidating.", &v21, 0xCu);
     }
 
     [*(a1 + 40) invalidate];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

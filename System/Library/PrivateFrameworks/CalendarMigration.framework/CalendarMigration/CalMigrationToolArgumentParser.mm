@@ -11,7 +11,7 @@
 
 + (id)parseOptionsFromCommandLineArguments:(id)arguments printUsage:(BOOL *)usage error:(id *)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   argumentsCopy = arguments;
   if (![argumentsCopy count])
   {
@@ -29,16 +29,16 @@
     goto LABEL_76;
   }
 
-  v56 = 0;
-  v57 = 0;
-  v54 = 0;
   v55 = 0;
+  v56 = 0;
+  v53 = 0;
+  v54 = 0;
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v9 = argumentsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (!v10)
   {
 
@@ -57,24 +57,24 @@
   errorCopy = error;
   v12 = 0;
   v13 = 0;
-  v14 = *v51;
-  v48 = -1;
-  v49 = -1;
-  v46 = -1;
+  v14 = *v50;
   v47 = -1;
+  v48 = -1;
   v45 = -1;
+  v46 = -1;
+  v44 = -1;
   v15 = -1;
 LABEL_4:
   v16 = 0;
   while (2)
   {
     v17 = v13;
-    if (*v51 != v14)
+    if (*v50 != v14)
     {
       objc_enumerationMutation(v9);
     }
 
-    v18 = *(*(&v50 + 1) + 8 * v16);
+    v18 = *(*(&v49 + 1) + 8 * v16);
     v19 = [self _argumentFromCommandLineArgument:v18];
     if (v12 && v19 != 1)
     {
@@ -159,7 +159,7 @@ LABEL_29:
           continue;
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v49 objects:v57 count:16];
         if (v11)
         {
           goto LABEL_4;
@@ -169,25 +169,25 @@ LABEL_29:
         {
           v17 = v13;
           error = errorCopy;
-          v27 = v45;
-          v30 = v48;
-          v31 = v49;
-          v28 = v46;
-          v29 = v47;
+          v27 = v44;
+          v30 = v47;
+          v31 = v48;
+          v28 = v45;
+          v29 = v46;
 LABEL_42:
-          if (v57)
+          if (v56)
           {
-            if (!v56)
+            if (!v55)
             {
-              v32 = [v57 URLByAppendingPathComponent:@"Library/Group Containers/group.com.apple.calendar" isDirectory:1];
-              v33 = v56;
-              v56 = v32;
+              v32 = [v56 URLByAppendingPathComponent:@"Library/Group Containers/group.com.apple.calendar" isDirectory:1];
+              v33 = v55;
+              v55 = v32;
             }
 
-            if (!v54 || v55)
+            if (!v53 || v54)
             {
               v36 = objc_alloc(MEMORY[0x277CF7528]);
-              v22 = [v36 initWithHomeDirectory:v57 destinationDirectory:v56 performCalendarMigration:v15 performReminderMigration:v31 performCleanup:v30 deleteMigratedData:v29 backupBeforeCalendarMigration:v28 backupBeforeReminderMigration:v27 saveAccountsChangesToFile:v55 accountsDatabaseFile:v54];
+              v22 = [v36 initWithHomeDirectory:v56 destinationDirectory:v55 performCalendarMigration:v15 performReminderMigration:v31 performCleanup:v30 deleteMigratedData:v29 backupBeforeCalendarMigration:v28 backupBeforeReminderMigration:v27 saveAccountsChangesToFile:v54 accountsDatabaseFile:v53];
               goto LABEL_75;
             }
 
@@ -228,14 +228,13 @@ LABEL_51:
 LABEL_75:
 
 LABEL_76:
-        v41 = *MEMORY[0x277D85DE8];
 
         return v22;
       case 2:
-        v12 = &v57;
+        v12 = &v56;
         goto LABEL_29;
       case 3:
-        v12 = &v56;
+        v12 = &v55;
         goto LABEL_29;
       case 4:
         if ([v9 count] == 1)
@@ -280,40 +279,40 @@ LABEL_72:
         v15 = 0;
         goto LABEL_29;
       case 8:
-        v49 = 1;
-        goto LABEL_29;
-      case 9:
-        v49 = 0;
-        goto LABEL_29;
-      case 10:
         v48 = 1;
         goto LABEL_29;
-      case 11:
+      case 9:
         v48 = 0;
         goto LABEL_29;
-      case 12:
+      case 10:
         v47 = 1;
         goto LABEL_29;
-      case 13:
+      case 11:
         v47 = 0;
         goto LABEL_29;
-      case 14:
+      case 12:
         v46 = 1;
         goto LABEL_29;
-      case 15:
+      case 13:
         v46 = 0;
         goto LABEL_29;
-      case 16:
+      case 14:
         v45 = 1;
         goto LABEL_29;
-      case 17:
+      case 15:
         v45 = 0;
         goto LABEL_29;
+      case 16:
+        v44 = 1;
+        goto LABEL_29;
+      case 17:
+        v44 = 0;
+        goto LABEL_29;
       case 18:
-        v12 = &v55;
+        v12 = &v54;
         goto LABEL_29;
       case 19:
-        v12 = &v54;
+        v12 = &v53;
         goto LABEL_29;
       default:
         goto LABEL_29;

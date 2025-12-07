@@ -5,7 +5,6 @@
 
 uint64_t __52___HKArchiveCreator_addFileToArchive_pathInArchive___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = 0;
   v5 = 0;
@@ -24,7 +23,6 @@ uint64_t __52___HKArchiveCreator_addFileToArchive_pathInArchive___block_invoke(u
     objc_autoreleasePoolPop(v7);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

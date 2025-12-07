@@ -6,7 +6,7 @@
 
 - (CLEEDRequestHelper)initWithDelegate:(id)delegate andQueue:(id)queue
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46E0 != -1)
   {
     dispatch_once(&qword_1EAFE46E0, &unk_1F0E6B7E0);
@@ -16,10 +16,10 @@
   if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v24 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
-    v25 = 2114;
+    v23 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
+    v24 = 2114;
     delegateCopy = delegate;
-    v27 = 2114;
+    v26 = 2114;
     queueCopy = queue;
     _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "#EED2FWK,%{public}s[Delegate:%{public}@,Queue:%{public}@]", buf, 0x20u);
   }
@@ -33,13 +33,13 @@
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6B7E0);
     }
 
-    v17 = 136446722;
-    v18 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
-    v19 = 2114;
+    v16 = 136446722;
+    v17 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
+    v18 = 2114;
     delegateCopy2 = delegate;
-    v21 = 2114;
+    v20 = 2114;
     queueCopy2 = queue;
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 0, "#EED2FWK,%{public}s[Delegate:%{public}@,Queue:%{public}@]", &v16, 32);
     sub_19B885924("Generic", 1, 0, 2, "[CLEEDRequestHelper initWithDelegate:andQueue:]", "CoreLocation: %s\n", v9);
     if (v9 != buf)
     {
@@ -47,9 +47,9 @@
     }
   }
 
-  v16.receiver = self;
-  v16.super_class = CLEEDRequestHelper;
-  v10 = [(CLEEDHelper *)&v16 initWithDelegate:delegate queue:queue];
+  v15.receiver = self;
+  v15.super_class = CLEEDRequestHelper;
+  v10 = [(CLEEDHelper *)&v15 initWithDelegate:delegate queue:queue];
   if (v10)
   {
     if (qword_1EAFE46E0 != -1)
@@ -61,7 +61,7 @@
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v24 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
+      v23 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
       _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_DEFAULT, "#EED2FWK,%{public}s Object created successfully", buf, 0xCu);
     }
 
@@ -74,9 +74,9 @@
         dispatch_once(&qword_1EAFE46E0, &unk_1F0E6B7E0);
       }
 
-      v17 = 136446210;
-      v18 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
-      v13 = _os_log_send_and_compose_impl();
+      v16 = 136446210;
+      v17 = "[CLEEDRequestHelper initWithDelegate:andQueue:]";
+      v13 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 0, "#EED2FWK,%{public}s Object created successfully", &v16, 12);
       sub_19B885924("Generic", 1, 0, 2, "[CLEEDRequestHelper initWithDelegate:andQueue:]", "CoreLocation: %s\n", v13);
       if (v13 != buf)
       {
@@ -85,7 +85,6 @@
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

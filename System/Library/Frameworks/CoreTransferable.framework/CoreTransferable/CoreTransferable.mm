@@ -9,7 +9,7 @@ uint64_t sub_20E3C0758()
   return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed @async () -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed @async () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -18,11 +18,9 @@ uint64_t outlined consume of (@escaping @callee_guaranteed @async () -> ())?(uin
   return result;
 }
 
-uint64_t sub_20E3C0838(uint64_t *a1)
+uint64_t sub_20E3C0838(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  type metadata accessor for _VisibleTransferRepresentation();
+  type metadata accessor for _VisibleTransferRepresentation(255, *a1, a1[1], a4);
 
   return swift_getWitnessTable();
 }
@@ -43,64 +41,52 @@ uint64_t sub_20E3C09E4()
 {
   v1 = *(v0 + 16);
   v2 = *(v0 + 24);
-  v3 = type metadata accessor for ResolvedTransferRepresentation();
+  v3 = type metadata accessor for ResolvedTransferRepresentation(0);
   v4 = *(*(v3 - 1) + 80);
   v5 = (v4 + 32) & ~v4;
   v6 = *(*(v3 - 1) + 64);
-  v7 = type metadata accessor for _ConditionalTransferRepresentation();
-  v8 = *(*(v7 - 8) + 80);
-  v24 = *(*(v7 - 8) + 64);
-  v9 = (v0 + v5);
-  v10 = *(v0 + v5 + 16);
-  if (v10 != 255)
+  v8 = type metadata accessor for _ConditionalTransferRepresentation(0, v1, v2, v7);
+  v9 = *(*(v8 - 8) + 80);
+  v17 = *(*(v8 - 8) + 64);
+  v10 = (v0 + v5);
+  v11 = *(v0 + v5 + 16);
+  if (v11 != 255)
   {
-    outlined consume of ResolvedTransferRepresentation.SuggestedFileNameStorage(*v9, v9[1], v10 & 1);
+    outlined consume of ResolvedTransferRepresentation.SuggestedFileNameStorage(*v10, v10[1], v11 & 1);
   }
 
-  v11 = v3[5];
-  v12 = type metadata accessor for UTType();
-  (*(*(v12 - 8) + 8))(v9 + v11, v12);
-  v13 = (v9 + v3[8]);
-  if (*v13)
+  v12 = v3[5];
+  v13 = type metadata accessor for UTType();
+  (*(*(v13 - 8) + 8))(v10 + v12, v13);
+  if (*(v10 + v3[8]))
   {
-    v14 = v13[1];
   }
 
-  v15 = (v9 + v3[9]);
-  if (*v15)
+  if (*(v10 + v3[9]))
   {
-    v16 = v15[1];
   }
 
-  v17 = (v9 + v3[10]);
-  if (*v17)
+  if (*(v10 + v3[10]))
   {
-    v18 = v17[1];
   }
 
-  v19 = v4 | v8;
-  v20 = (v5 + v6 + v8) & ~v8;
-  v21 = *(v9 + v3[12] + 8);
+  v14 = v4 | v9;
+  v15 = (v5 + v6 + v9) & ~v9;
 
-  v22 = *(v0 + v20 + 8);
+  (*(*(v1 - 8) + 8))(v0 + v15 + *(v8 + 36), v1);
 
-  (*(*(v1 - 8) + 8))(v0 + v20 + *(v7 + 36), v1);
-
-  return MEMORY[0x2821FE8E8](v0, v20 + v24, v19 | 7);
+  return MEMORY[0x2821FE8E8](v0, v15 + v17, v14 | 7);
 }
 
-uint64_t sub_20E3C0C04(uint64_t *a1)
+uint64_t sub_20E3C0C04(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  type metadata accessor for _FileNamedTransferRepresentation();
+  type metadata accessor for _FileNamedTransferRepresentation(255, *a1, a1[1], a4);
 
   return swift_getWitnessTable();
 }
 
 uint64_t sub_20E3C0C4C()
 {
-  v1 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -129,7 +115,6 @@ uint64_t sub_20E3C0D04()
 
 uint64_t sub_20E3C0D84()
 {
-  v1 = *(v0 + 88);
 
   return MEMORY[0x2821FE8E8](v0, 96, 7);
 }
@@ -186,12 +171,11 @@ uint64_t _sxq_s5Error_pIeghnrzo_xq_sAA_pIeghHnrzo_16CoreTransferable0C0RzAbCR_r0
 
 uint64_t sub_20E3C0FC4()
 {
-  v1 = *(v0 + 56);
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
 
-uint64_t get_enum_tag_for_layout_string_xq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyxq_Iseghnrzo_Sg_0(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_xq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyxq_Iseghnrzo_Sg_0(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -206,27 +190,21 @@ uint64_t sub_20E3C1014()
 {
   if (v0[6])
   {
-    v1 = v0[7];
   }
 
   if (v0[8])
   {
-    v2 = v0[9];
   }
 
   if (v0[10])
   {
-    v3 = v0[11];
   }
-
-  v4 = v0[13];
 
   return MEMORY[0x2821FE8E8](v0, 112, 7);
 }
 
 uint64_t sub_20E3C109C()
 {
-  v1 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -281,7 +259,6 @@ uint64_t sub_20E3C11AC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_20E3C126C()
 {
-  v1 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -454,14 +431,12 @@ uint64_t sub_20E3C17DC()
 
 uint64_t sub_20E3C185C()
 {
-  v1 = *(v0 + 88);
 
   return MEMORY[0x2821FE8E8](v0, 96, 7);
 }
 
 uint64_t sub_20E3C18A0()
 {
-  v1 = *(v0 + 72);
 
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
@@ -514,39 +489,32 @@ uint64_t sub_20E3C1998(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_20E3C1A54()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_20E3C1A94()
 {
-  v1 = *(v0 + 2);
+  v1 = *(v0 + 16);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 72) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 6);
 
-  v7 = *(v0 + 8);
-
-  (*(v2 + 8))(&v0[v4], v1);
+  (*(v2 + 8))(v0 + v4, v1);
 
   return MEMORY[0x2821FE8E8](v0, v5 + 8, v3 | 7);
 }
 
 uint64_t sub_20E3C1B6C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
 uint64_t sub_20E3C1BAC()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -561,88 +529,68 @@ uint64_t _sxq_Ieghnr_xq_s5Error_pIeghHnrzo_16CoreTransferable0C0RzAbCR_r0_lTR_0(
 
 uint64_t sub_20E3C1C58()
 {
-  v1 = *(v0 + 56);
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
 
 uint64_t sub_20E3C1CA4(uint64_t *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
-  type metadata accessor for TupleTransferRepresentation();
+  type metadata accessor for TupleTransferRepresentation(255, *a1, a1[1], a1[2]);
 
   return swift_getWitnessTable();
 }
 
 uint64_t sub_20E3C1CF0()
 {
-  v1 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
 uint64_t sub_20E3C1D30()
 {
-  v1 = type metadata accessor for ResolvedTransferRepresentation();
+  v1 = type metadata accessor for ResolvedTransferRepresentation(0);
   v2 = *(*(v1 - 1) + 80);
   v3 = (v2 + 48) & ~v2;
   v4 = *(*(v1 - 1) + 64);
-  v5 = *(v0 + 40);
 
-  v6 = (v0 + v3);
-  v7 = *(v0 + v3 + 16);
-  if (v7 != 255)
+  v5 = (v0 + v3);
+  v6 = *(v0 + v3 + 16);
+  if (v6 != 255)
   {
-    outlined consume of ResolvedTransferRepresentation.SuggestedFileNameStorage(*v6, v6[1], v7 & 1);
+    outlined consume of ResolvedTransferRepresentation.SuggestedFileNameStorage(*v5, v5[1], v6 & 1);
   }
 
-  v8 = v1[5];
-  v9 = type metadata accessor for UTType();
-  (*(*(v9 - 8) + 8))(v6 + v8, v9);
-  v10 = (v6 + v1[8]);
-  if (*v10)
+  v7 = v1[5];
+  v8 = type metadata accessor for UTType();
+  (*(*(v8 - 8) + 8))(v5 + v7, v8);
+  if (*(v5 + v1[8]))
   {
-    v11 = v10[1];
   }
 
-  v12 = (v6 + v1[9]);
-  if (*v12)
+  if (*(v5 + v1[9]))
   {
-    v13 = v12[1];
   }
 
-  v14 = (v6 + v1[10]);
-  if (*v14)
+  if (*(v5 + v1[10]))
   {
-    v15 = v14[1];
   }
 
-  v16 = (v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v17 = (v16 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v18 = *(v6 + v1[12] + 8);
+  v9 = (v4 + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
 
-  v19 = *(v0 + v17);
-
-  return MEMORY[0x2821FE8E8](v0, ((v17 + 15) & 0xFFFFFFFFFFFFFFF8) + 8, v2 | 7);
+  return MEMORY[0x2821FE8E8](v0, ((((v9 + 15) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8, v2 | 7);
 }
 
 uint64_t sub_20E3C1EC4()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[7];
 
-  outlined consume of Data._Representation(v0[8], v0[9]);
-  v3 = v0[11];
+  outlined consume of Data._Representation(*(v0 + 64), *(v0 + 72));
 
   return MEMORY[0x2821FE8E8](v0, 96, 7);
 }
 
 uint64_t sub_20E3C1F14()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -666,7 +614,7 @@ uint64_t sub_20E3C2000()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -675,38 +623,38 @@ uint64_t outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_gu
   return result;
 }
 
-void sub_20E3C217C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_20E3C217C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_20E3C2280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_20E3C2280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_20E3C2384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_20E3C2384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_20E3C2488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_20E3C2488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getNSDocumentTypeDocumentAttributeSymbolLoc_block_invoke(uint64_t a1)
+void *__getNSDocumentTypeDocumentAttributeSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = UIFoundationLibrary();
-  result = dlsym(v2, "NSDocumentTypeDocumentAttribute");
+  v3 = UIFoundationLibrary();
+  result = dlsym(v3, "NSDocumentTypeDocumentAttribute");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getNSDocumentTypeDocumentAttributeSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -714,45 +662,41 @@ void *__getNSDocumentTypeDocumentAttributeSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t UIFoundationLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!UIFoundationLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __UIFoundationLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_277E1D690;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __UIFoundationLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_277E1D690;
+    v5 = 0;
     UIFoundationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = UIFoundationLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!UIFoundationLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __UIFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -783,7 +727,7 @@ void *__getNSHTMLTextDocumentTypeSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t static Transferable.exportedContentTypes(visibility:)(uint64_t *a1, uint64_t a2, uint64_t a3)
+unint64_t static Transferable.exportedContentTypes(visibility:)(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v3 = *a1;
   static Transferable.resolvedRepresentations()(a2, a3);
@@ -791,7 +735,7 @@ uint64_t static Transferable.exportedContentTypes(visibility:)(uint64_t *a1, uin
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGGMd, &_ss18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGGMR);
   LazyFilterSequence.filter(_:)();
 
-  v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(v6, v7);
+  v4 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(v6, v7, v8);
 
   return v4;
 }
@@ -799,27 +743,25 @@ uint64_t static Transferable.exportedContentTypes(visibility:)(uint64_t *a1, uin
 uint64_t static Transferable.resolvedRepresentations()(uint64_t a1, uint64_t a2)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5 = type metadata accessor for _TransferRepresentationValue();
-  v6 = *(v5 - 8);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = (MEMORY[0x28223BE20])();
-  v10 = &v21 - v9;
-  v11 = *(AssociatedTypeWitness - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x28223BE20](v8);
+  v7 = type metadata accessor for _TransferRepresentationValue(0, AssociatedTypeWitness, v5, v6);
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x28223BE20](v7);
+  v11 = &v21 - v10;
+  v12 = *(AssociatedTypeWitness - 8);
+  v13 = MEMORY[0x28223BE20](v9);
   v15 = &v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v13);
   v17 = &v21 - v16;
   (*(a2 + 24))(a1, a2);
   swift_getDynamicType();
-  (*(v11 + 16))(v15, v17, AssociatedTypeWitness);
-  _TransferRepresentationValue.init(_:)(v15, AssociatedTypeWitness, v10);
+  (*(v12 + 16))(v15, v17, AssociatedTypeWitness);
+  _TransferRepresentationValue.init(_:)(v15, AssociatedTypeWitness, v11);
   _TransferRepresentationInputs.init()();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(AssociatedConformanceWitness + 48))(&v22, v10);
-  (*(v6 + 8))(v10, v5);
+  (*(AssociatedConformanceWitness + 48))(&v22, v11);
+  (*(v8 + 8))(v11, v7);
   v19 = v22;
-  (*(v11 + 8))(v17, AssociatedTypeWitness);
+  (*(v12 + 8))(v17, AssociatedTypeWitness);
   return v19;
 }
 
@@ -828,7 +770,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -836,19 +777,18 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(uint64_t a1, uint64_t (*a2)(unint64_t))
+unint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(uint64_t a1, uint64_t (*a2)(unint64_t), uint64_t a3)
 {
-  v4 = type metadata accessor for UTType();
-  v39 = *(v4 - 8);
-  v5 = *(v39 + 64);
-  MEMORY[0x28223BE20](v4);
+  v5 = type metadata accessor for UTType();
+  v39 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
   v41 = v33 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *(a1 + 16);
   v8 = v7;
   if (v7)
   {
     v8 = 0;
-    v9 = *(type metadata accessor for ResolvedTransferRepresentation() - 8);
+    v9 = *(type metadata accessor for ResolvedTransferRepresentation(0) - 8);
     v10 = a1;
     v11 = a1 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
     v12 = *(v9 + 72);
@@ -870,7 +810,7 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18La
   result = MEMORY[0x277D84F90];
   if (v13)
   {
-    v37 = v4;
+    v37 = v5;
     v42 = MEMORY[0x277D84F90];
     result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v13 & ~(v13 >> 63), 0);
     v15 = v42;
@@ -879,7 +819,7 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18La
     if (v7)
     {
       v16 = 0;
-      v17 = *(type metadata accessor for ResolvedTransferRepresentation() - 8);
+      v17 = *(type metadata accessor for ResolvedTransferRepresentation(0) - 8);
       v18 = a1;
       v19 = a1 + ((*(v17 + 80) + 32) & ~*(v17 + 80));
       v20 = *(v17 + 72);
@@ -910,7 +850,7 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18La
     }
 
     v40 = v15;
-    result = type metadata accessor for ResolvedTransferRepresentation();
+    result = type metadata accessor for ResolvedTransferRepresentation(0);
     v21 = 0;
     v35 = *(result - 8);
     v36 = result;
@@ -941,7 +881,7 @@ LABEL_33:
           if (v29 >= v28 >> 1)
           {
             v40 = v29 + 1;
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v28 > 1, v29 + 1, 1);
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1);
             v30 = v40;
             v26 = v37;
             v27 = v42;
@@ -1006,45 +946,44 @@ LABEL_36:
   return result;
 }
 
-size_t static Transferable.readableContentTypes.getter(uint64_t a1, uint64_t a2)
+void *static Transferable.readableContentTypes.getter(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for UTType();
-  v35 = *(v4 - 8);
-  v5 = *(v35 + 64);
+  v34 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = static Transferable.resolvedRepresentations()(a1, a2);
-  v9 = *(v8 + 16);
-  if (!v9)
+  v6 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = static Transferable.resolvedRepresentations()(a1, a2);
+  v8 = *(v7 + 16);
+  if (!v8)
   {
 LABEL_33:
 
     return MEMORY[0x277D84F90];
   }
 
-  v10 = v8;
-  v11 = type metadata accessor for ResolvedTransferRepresentation();
-  result = v10;
-  v13 = 0;
-  v14 = (*(*(v11 - 8) + 80) + 32) & ~*(*(v11 - 8) + 80);
-  v15 = result + v14;
-  v16 = *(*(v11 - 8) + 72);
-  v17 = *(v11 + 36);
-  v18 = v14 + v17;
-  while (!*(result + v18))
+  v9 = v7;
+  v10 = type metadata accessor for ResolvedTransferRepresentation(0);
+  result = v9;
+  v12 = 0;
+  v13 = (*(*(v10 - 8) + 80) + 32) & ~*(*(v10 - 8) + 80);
+  v14 = result + v13;
+  v15 = *(*(v10 - 8) + 72);
+  v16 = *(v10 + 36);
+  v17 = v13 + v16;
+  while (!*(result + v17))
   {
-    v18 += v16;
-    if (v9 == ++v13)
+    v17 += v15;
+    if (v8 == ++v12)
     {
       goto LABEL_33;
     }
   }
 
-  v19 = v15 + v17;
-  v20 = 1;
+  v18 = &v14[v16];
+  v19 = 1;
   while (2)
   {
-    if (v13 == v9)
+    if (v12 == v8)
     {
 LABEL_41:
       __break(1u);
@@ -1053,8 +992,8 @@ LABEL_41:
 
     do
     {
-      v21 = v13 + 1;
-      if (__OFADD__(v13, 1))
+      v20 = v12 + 1;
+      if (__OFADD__(v12, 1))
       {
 LABEL_38:
         __break(1u);
@@ -1065,22 +1004,22 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      if (v21 == v9)
+      if (v20 == v8)
       {
         goto LABEL_15;
       }
 
-      if (v21 >= v9)
+      if (v20 >= v8)
       {
         goto LABEL_39;
       }
 
-      ++v13;
+      ++v12;
     }
 
-    while (!*(v19 + v16 * v21));
-    v13 = v21;
-    if (!__OFADD__(v20++, 1))
+    while (!*&v18[v15 * v20]);
+    v12 = v20;
+    if (!__OFADD__(v19++, 1))
     {
       continue;
     }
@@ -1090,63 +1029,63 @@ LABEL_40:
 
   __break(1u);
 LABEL_15:
-  if (!v20)
+  if (!v19)
   {
     goto LABEL_33;
   }
 
-  v31 = result;
-  v37 = MEMORY[0x277D84F90];
-  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v20 & ~(v20 >> 63), 0);
-  v23 = 0;
-  v24 = v37;
-  v25 = v14 + *(v11 + 36);
-  while (!*(v31 + v25))
+  v30 = result;
+  v36 = MEMORY[0x277D84F90];
+  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19 & ~(v19 >> 63), 0);
+  v22 = 0;
+  v23 = v36;
+  v24 = v13 + *(v10 + 36);
+  while (!*(v30 + v24))
   {
-    v25 += v16;
-    if (v9 == ++v23)
+    v24 += v15;
+    if (v8 == ++v22)
     {
-      v23 = v9;
+      v22 = v8;
       break;
     }
   }
 
-  if (v20 < 0)
+  if (v19 < 0)
   {
 LABEL_42:
     __break(1u);
     return result;
   }
 
-  v36 = 0;
-  v32 = v35 + 32;
-  v33 = (v35 + 16);
-  v34 = v20;
+  v35 = 0;
+  v31 = v34 + 32;
+  v32 = (v34 + 16);
+  v33 = v19;
   while (2)
   {
-    if (v23 >= v9)
+    if (v22 >= v8)
     {
       goto LABEL_40;
     }
 
-    (*v33)(v7, v15 + v16 * v23 + *(v11 + 20), v4);
-    v37 = v24;
-    v27 = *(v24 + 16);
-    v26 = *(v24 + 24);
-    if (v27 >= v26 >> 1)
+    (*v32)(v6, &v14[v15 * v22 + *(v10 + 20)], v4);
+    v36 = v23;
+    v26 = *(v23 + 16);
+    v25 = *(v23 + 24);
+    if (v26 >= v25 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v26 > 1, v27 + 1, 1);
-      v24 = v37;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1);
+      v23 = v36;
     }
 
-    v28 = v35;
-    ++v36;
-    *(v24 + 16) = v27 + 1;
-    result = (*(v28 + 32))(v24 + ((*(v28 + 80) + 32) & ~*(v28 + 80)) + *(v28 + 72) * v27, v7, v4);
+    v27 = v34;
+    ++v35;
+    *(v23 + 16) = v26 + 1;
+    result = (*(v27 + 32))(v23 + ((*(v27 + 80) + 32) & ~*(v27 + 80)) + *(v27 + 72) * v26, v6, v4);
     do
     {
-      v29 = v23 + 1;
-      if (__OFADD__(v23, 1))
+      v28 = v22 + 1;
+      if (__OFADD__(v22, 1))
       {
         __break(1u);
 LABEL_37:
@@ -1154,24 +1093,24 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      if (v29 == v9)
+      if (v28 == v8)
       {
-        v23 = v9;
+        v22 = v8;
         goto LABEL_23;
       }
 
-      if (v29 >= v9)
+      if (v28 >= v8)
       {
         goto LABEL_37;
       }
 
-      ++v23;
+      ++v22;
     }
 
-    while (!*(v15 + v29 * v16 + *(v11 + 36)));
-    v23 = v29;
+    while (!*&v14[v28 * v15 + *(v10 + 36)]);
+    v22 = v28;
 LABEL_23:
-    if (v36 != v34)
+    if (v35 != v33)
     {
       continue;
     }
@@ -1179,10 +1118,10 @@ LABEL_23:
     break;
   }
 
-  return v24;
+  return v23;
 }
 
-uint64_t Transferable.exportedContentTypes(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t Transferable.exportedContentTypes(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   v7 = *(a2 - 8);
@@ -1205,7 +1144,7 @@ uint64_t Transferable.exportedContentTypes(_:)(uint64_t a1, uint64_t a2, uint64_
   (*(v7 + 32))(v13 + v12, v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), a2);
   LazyFilterSequence.filter(_:)();
 
-  v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(v20, v21);
+  v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(v20, v21, v22);
 
   return v14;
 }
@@ -1213,29 +1152,28 @@ uint64_t Transferable.exportedContentTypes(_:)(uint64_t a1, uint64_t a2, uint64_
 uint64_t closure #3 in Transferable.exportedContentTypes(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = type metadata accessor for Logger();
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8);
-  v10 = a1 + *(type metadata accessor for ResolvedTransferRepresentation() + 40);
-  v11 = *v10;
-  if (*v10)
+  v9 = a1 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 40);
+  v10 = *v9;
+  if (*v9)
   {
-    v12 = *(v10 + 8);
-    v16[3] = a3;
-    v16[4] = a4;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v16);
+    v11 = *(v9 + 8);
+    v15[3] = a3;
+    v15[4] = a4;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v15);
     (*(*(a3 - 8) + 16))(boxed_opaque_existential_1, a2, a3);
 
-    v14 = v11(v16);
-    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v11);
-    __swift_destroy_boxed_opaque_existential_0Tm(v16);
+    v13 = v10(v15);
+    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v10, v11);
+    __swift_destroy_boxed_opaque_existential_0Tm(v15);
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  return v14 & 1;
+  return v13 & 1;
 }
 
 uint64_t Transferable.init(importing:contentType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1246,13 +1184,11 @@ uint64_t Transferable.init(importing:contentType:)(uint64_t a1, uint64_t a2, uin
   v6[5] = a4;
   v6[2] = a1;
   v6[3] = a2;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   v6[8] = swift_task_alloc();
-  v8 = type metadata accessor for URL();
-  v6[9] = v8;
-  v9 = *(v8 - 8);
-  v6[10] = v9;
-  v10 = *(v9 + 64) + 15;
+  v7 = type metadata accessor for URL();
+  v6[9] = v7;
+  v6[10] = *(v7 - 8);
   v6[11] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](Transferable.init(importing:contentType:), 0, 0);
@@ -1278,50 +1214,43 @@ uint64_t Transferable.init(importing:contentType:)()
 }
 
 {
-  v2 = *(*v1 + 96);
-  v5 = *v1;
   *(*v1 + 104) = v0;
 
   if (v0)
   {
-    v3 = Transferable.init(importing:contentType:);
+    v2 = Transferable.init(importing:contentType:);
   }
 
   else
   {
-    v3 = Transferable.init(importing:contentType:);
+    v2 = Transferable.init(importing:contentType:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  v2 = v0[10];
-  v1 = v0[11];
-  v4 = v0[8];
-  v3 = v0[9];
-  v5 = v0[3];
+  v1 = v0[10];
+  v2 = v0[9];
+  v3 = v0[3];
   outlined destroy of UTType?(v0[4], &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-  (*(v2 + 8))(v5, v3);
+  (*(v1 + 8))(v3, v2);
 
-  v6 = v0[1];
+  v4 = v0[1];
 
-  return v6();
+  return v4();
 }
 
 {
-  v2 = v0[10];
-  v1 = v0[11];
-  v4 = v0[8];
-  v3 = v0[9];
-  v5 = v0[3];
+  v1 = v0[10];
+  v2 = v0[9];
+  v3 = v0[3];
   outlined destroy of UTType?(v0[4], &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-  (*(v2 + 8))(v5, v3);
+  (*(v1 + 8))(v3, v2);
 
-  v6 = v0[1];
-  v7 = v0[13];
+  v4 = v0[1];
 
-  return v6();
+  return v4();
 }
 
 {
@@ -1344,44 +1273,39 @@ uint64_t Transferable.init(importing:contentType:)()
 }
 
 {
-  v2 = *(*v1 + 80);
-  v5 = *v1;
   *(*v1 + 88) = v0;
 
   if (v0)
   {
-    v3 = Transferable.init(importing:contentType:);
+    v2 = Transferable.init(importing:contentType:);
   }
 
   else
   {
-    v3 = Transferable.init(importing:contentType:);
+    v2 = Transferable.init(importing:contentType:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  v1 = v0[9];
-  v2 = v0[5];
+  v1 = v0[5];
   outlined consume of Data._Representation(v0[3], v0[4]);
-  outlined destroy of UTType?(v2, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  outlined destroy of UTType?(v1, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-  v3 = v0[1];
+  v2 = v0[1];
 
-  return v3();
+  return v2();
 }
 
 {
-  v1 = v0[9];
-  v2 = v0[5];
+  v1 = v0[5];
   outlined consume of Data._Representation(v0[3], v0[4]);
-  outlined destroy of UTType?(v2, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  outlined destroy of UTType?(v1, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-  v3 = v0[1];
-  v4 = v0[11];
+  v2 = v0[1];
 
-  return v3();
+  return v2();
 }
 
 uint64_t Transferable.init(_file:contentType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1393,40 +1317,28 @@ uint64_t Transferable.init(_file:contentType:)(uint64_t a1, uint64_t a2, uint64_
   v5[22] = a1;
   v6 = type metadata accessor for Logger();
   v5[27] = v6;
-  v7 = *(v6 - 8);
-  v5[28] = v7;
-  v8 = *(v7 + 64) + 15;
+  v5[28] = *(v6 - 8);
   v5[29] = swift_task_alloc();
-  v9 = type metadata accessor for Optional();
-  v5[30] = v9;
-  v10 = *(v9 - 8);
-  v5[31] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7 = type metadata accessor for Optional();
+  v5[30] = v7;
+  v5[31] = *(v7 - 8);
   v5[32] = swift_task_alloc();
   v5[33] = swift_task_alloc();
-  v12 = type metadata accessor for URL();
-  v5[34] = v12;
-  v13 = *(v12 - 8);
-  v5[35] = v13;
-  v14 = *(v13 + 64) + 15;
+  v8 = type metadata accessor for URL();
+  v5[34] = v8;
+  v5[35] = *(v8 - 8);
   v5[36] = swift_task_alloc();
-  v15 = type metadata accessor for ReceivedTransferredFile(0);
-  v5[37] = v15;
-  v16 = *(*(v15 - 8) + 64) + 15;
+  v5[37] = type metadata accessor for ReceivedTransferredFile(0);
   v5[38] = swift_task_alloc();
-  v17 = type metadata accessor for ResolvedTransferRepresentation();
-  v5[39] = v17;
-  v18 = *(v17 - 8);
-  v5[40] = v18;
-  v19 = *(v18 + 64) + 15;
+  v9 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v5[39] = v9;
+  v5[40] = *(v9 - 8);
   v5[41] = swift_task_alloc();
-  v20 = type metadata accessor for UTType();
-  v5[42] = v20;
-  v21 = *(v20 - 8);
-  v5[43] = v21;
-  v22 = *(v21 + 64) + 15;
+  v10 = type metadata accessor for UTType();
+  v5[42] = v10;
+  v5[43] = *(v10 - 8);
   v5[44] = swift_task_alloc();
-  v23 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   v5[45] = swift_task_alloc();
   v5[46] = swift_task_alloc();
   v5[47] = swift_task_alloc();
@@ -1450,108 +1362,97 @@ uint64_t Transferable.init(_file:contentType:)()
   {
     v6 = *(v0 + 384);
     v7 = *(v0 + 368);
-    v8 = *(v0 + 184);
     _contentType(for:)(v7);
     outlined destroy of UTType?(v6, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
     outlined init with take of URL?(v7, v6, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   }
 
-  v9 = *(v0 + 360);
-  v10 = *(v0 + 336);
-  outlined init with copy of UTType?(*(v0 + 384), v9, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-  if (v5(v9, 1, v10) == 1)
+  v8 = *(v0 + 360);
+  v9 = *(v0 + 336);
+  outlined init with copy of UTType?(*(v0 + 384), v8, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  if (v5(v8, 1, v9) == 1)
   {
-    v11 = *(v0 + 384);
-    v13 = *(v0 + 272);
-    v12 = *(v0 + 280);
-    v14 = *(v0 + 184);
-    v15 = *(v0 + 192);
+    v10 = *(v0 + 384);
+    v12 = *(v0 + 272);
+    v11 = *(v0 + 280);
+    v13 = *(v0 + 184);
+    v14 = *(v0 + 192);
     outlined destroy of UTType?(*(v0 + 360), &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    outlined destroy of UTType?(v15, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    (*(v12 + 8))(v14, v13);
-LABEL_17:
-    outlined destroy of UTType?(v11, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    v45 = *(v0 + 376);
-    v44 = *(v0 + 384);
-    v47 = *(v0 + 360);
-    v46 = *(v0 + 368);
-    v48 = *(v0 + 352);
-    v49 = *(v0 + 328);
-    v50 = *(v0 + 304);
-    v51 = *(v0 + 288);
-    v52 = *(v0 + 256);
-    v53 = *(v0 + 264);
-    v68 = *(v0 + 232);
-
-    v54 = *(v0 + 8);
-
-    return v54();
-  }
-
-  v16 = *(v0 + 368);
-  v18 = *(v0 + 344);
-  v17 = *(v0 + 352);
-  v19 = *(v0 + 336);
-  v21 = *(v0 + 200);
-  v20 = *(v0 + 208);
-  (*(v18 + 32))(v17, *(v0 + 360), v19);
-  (*(v18 + 16))(v16, v17, v19);
-  (*(v18 + 56))(v16, 0, 1, v19);
-  v22 = static Transferable.resolvedRepresentations(for:)(v16, v21, v20);
-  *(v0 + 392) = v22;
-  result = outlined destroy of UTType?(v16, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-  v24 = *(v22 + 16);
-  *(v0 + 400) = v24;
-  if (!v24)
-  {
+    outlined destroy of UTType?(v14, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    (*(v11 + 8))(v13, v12);
 LABEL_16:
+    outlined destroy of UTType?(v10, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-    v11 = *(v0 + 384);
-    v38 = *(v0 + 344);
-    v67 = *(v0 + 352);
-    v39 = *(v0 + 336);
-    v40 = *(v0 + 272);
-    v41 = *(v0 + 280);
-    v43 = *(v0 + 184);
-    v42 = *(v0 + 192);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    v42 = *(v0 + 8);
+
+    return v42();
+  }
+
+  v15 = *(v0 + 368);
+  v17 = *(v0 + 344);
+  v16 = *(v0 + 352);
+  v18 = *(v0 + 336);
+  v20 = *(v0 + 200);
+  v19 = *(v0 + 208);
+  (*(v17 + 32))(v16, *(v0 + 360), v18);
+  (*(v17 + 16))(v15, v16, v18);
+  (*(v17 + 56))(v15, 0, 1, v18);
+  v21 = static Transferable.resolvedRepresentations(for:)(v15, v20, v19);
+  *(v0 + 392) = v21;
+  result = outlined destroy of UTType?(v15, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  v23 = *(v21 + 16);
+  *(v0 + 400) = v23;
+  if (!v23)
+  {
+LABEL_15:
+
+    v10 = *(v0 + 384);
+    v36 = *(v0 + 344);
+    v52 = *(v0 + 352);
+    v37 = *(v0 + 336);
+    v38 = *(v0 + 272);
+    v39 = *(v0 + 280);
+    v41 = *(v0 + 184);
+    v40 = *(v0 + 192);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    outlined destroy of UTType?(v42, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    (*(v41 + 8))(v43, v40);
-    (*(v38 + 8))(v67, v39);
-    goto LABEL_17;
+    outlined destroy of UTType?(v40, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    (*(v39 + 8))(v41, v38);
+    (*(v36 + 8))(v52, v37);
+    goto LABEL_16;
   }
 
-  v25 = 0;
+  v24 = 0;
   *(v0 + 488) = *(*(v0 + 320) + 80);
-  v26 = MEMORY[0x277CC9318];
+  v25 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 408) = v25;
-    v27 = *(v0 + 392);
-    if (v25 >= *(v27 + 16))
+    *(v0 + 408) = v24;
+    v26 = *(v0 + 392);
+    if (v24 >= *(v26 + 16))
     {
       __break(1u);
       return result;
     }
 
-    v28 = *(v0 + 328);
-    v29 = *(v0 + 312);
-    outlined init with copy of ResolvedTransferRepresentation(v27 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v25, v28, type metadata accessor for ResolvedTransferRepresentation);
-    v30 = (v28 + *(v29 + 36));
-    v31 = *v30;
-    *(v0 + 416) = *v30;
-    *(v0 + 424) = v30[1];
+    v27 = *(v0 + 328);
+    v28 = *(v0 + 312);
+    outlined init with copy of ResolvedTransferRepresentation(v26 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v24, v27, type metadata accessor for ResolvedTransferRepresentation);
+    v29 = (v27 + *(v28 + 36));
+    v30 = *v29;
+    *(v0 + 416) = *v29;
+    v31 = v29[1];
+    *(v0 + 424) = v31;
     v32 = *(v0 + 328);
-    if (!v31)
+    if (!v30)
     {
       result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 328), type metadata accessor for ResolvedTransferRepresentation);
       goto LABEL_8;
@@ -1564,83 +1465,76 @@ LABEL_16:
       break;
     }
 
-    if (v33 == v26)
+    if (v33 == v25)
     {
-      v34 = *(v0 + 184);
-      v35 = Data.init(contentsOf:options:)();
-      *(v0 + 456) = v35;
-      *(v0 + 464) = v36;
-      v61 = *(v0 + 416);
-      v62 = *(v0 + 424);
-      *(v0 + 80) = v26;
+      v34 = Data.init(contentsOf:options:)();
+      *(v0 + 456) = v34;
+      *(v0 + 464) = v35;
+      v48 = *(v0 + 416);
+      *(v0 + 80) = v25;
       *(v0 + 88) = &protocol witness table for Data;
-      *(v0 + 56) = v35;
-      *(v0 + 64) = v36;
-      outlined copy of Data._Representation(v35, v36);
-      v69 = (v61 + *v61);
-      v63 = v61[1];
-      v64 = swift_task_alloc();
-      *(v0 + 472) = v64;
-      *v64 = v0;
-      v64[1] = Transferable.init(_file:contentType:);
-      v65 = v0 + 16;
-      v66 = v0 + 56;
-      goto LABEL_21;
+      *(v0 + 56) = v34;
+      *(v0 + 64) = v35;
+      outlined copy of Data._Representation(v34, v35);
+      v53 = (v48 + *v48);
+      v49 = swift_task_alloc();
+      *(v0 + 472) = v49;
+      *v49 = v0;
+      v49[1] = Transferable.init(_file:contentType:);
+      v50 = v0 + 16;
+      v51 = v0 + 56;
+      goto LABEL_20;
     }
 
     outlined destroy of ResolvedTransferRepresentation(v32, type metadata accessor for ResolvedTransferRepresentation);
-    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v31);
+    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v30, v31);
 LABEL_8:
-    v25 = *(v0 + 408) + 1;
-    if (v25 == *(v0 + 400))
+    v24 = *(v0 + 408) + 1;
+    if (v24 == *(v0 + 400))
     {
-      v37 = *(v0 + 392);
-      goto LABEL_16;
+      goto LABEL_15;
     }
   }
 
-  v56 = *(v0 + 296);
-  v55 = *(v0 + 304);
-  v57 = *(v0 + 288);
-  (*(*(v0 + 280) + 16))(v57, *(v0 + 184), *(v0 + 272));
+  v44 = *(v0 + 296);
+  v43 = *(v0 + 304);
+  v45 = *(v0 + 288);
+  (*(*(v0 + 280) + 16))(v45, *(v0 + 184), *(v0 + 272));
 
-  ReceivedTransferredFile.init(file:isOriginalFile:)(v57, 1, v55);
-  *(v0 + 160) = v56;
+  ReceivedTransferredFile.init(file:isOriginalFile:)(v45, 1, v43);
+  *(v0 + 160) = v44;
   *(v0 + 168) = &protocol witness table for ReceivedTransferredFile;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 136));
-  outlined init with copy of ResolvedTransferRepresentation(v55, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-  v69 = (v31 + *v31);
-  v59 = v31[1];
-  v60 = swift_task_alloc();
-  *(v0 + 440) = v60;
-  *v60 = v0;
-  v60[1] = Transferable.init(_file:contentType:);
-  v65 = v0 + 96;
-  v66 = v0 + 136;
-LABEL_21:
+  outlined init with copy of ResolvedTransferRepresentation(v43, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+  v53 = (v30 + *v30);
+  v47 = swift_task_alloc();
+  *(v0 + 440) = v47;
+  *v47 = v0;
+  v47[1] = Transferable.init(_file:contentType:);
+  v50 = v0 + 96;
+  v51 = v0 + 136;
+LABEL_20:
 
-  return v69(v65, v66);
+  return v53(v50, v51);
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 440);
-  v4 = *v1;
   *(*v1 + 448) = v0;
 
   if (v0)
   {
 
-    v5 = Transferable.init(_file:contentType:);
+    v3 = Transferable.init(_file:contentType:);
   }
 
   else
   {
     __swift_destroy_boxed_opaque_existential_0Tm((v2 + 136));
-    v5 = Transferable.init(_file:contentType:);
+    v3 = Transferable.init(_file:contentType:);
   }
 
-  return MEMORY[0x2822009F8](v5, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
@@ -1665,459 +1559,398 @@ LABEL_3:
     v8 = *(v0 + 416);
     v7 = *(v0 + 424);
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 328), type metadata accessor for ResolvedTransferRepresentation);
-    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v8);
+    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v8, v7);
     while (1)
     {
       while (1)
       {
-        v31 = *(v0 + 408) + 1;
-        if (v31 == *(v0 + 400))
+        v29 = *(v0 + 408) + 1;
+        if (v29 == *(v0 + 400))
         {
-          v59 = *(v0 + 392);
 
-          v95 = *(v0 + 384);
-          v60 = *(v0 + 344);
-          v61 = *(v0 + 352);
-          v62 = *(v0 + 336);
-          v64 = *(v0 + 272);
-          v63 = *(v0 + 280);
-          v66 = *(v0 + 184);
-          v65 = *(v0 + 192);
-          type metadata accessor for TransferableError();
-          lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+          v68 = *(v0 + 384);
+          v46 = *(v0 + 344);
+          v47 = *(v0 + 352);
+          v48 = *(v0 + 336);
+          v50 = *(v0 + 272);
+          v49 = *(v0 + 280);
+          v52 = *(v0 + 184);
+          v51 = *(v0 + 192);
+          type metadata accessor for TransferableError(0);
+          lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
           swift_allocError();
           swift_storeEnumTagMultiPayload();
           swift_willThrow();
-          outlined destroy of UTType?(v65, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-          (*(v63 + 8))(v66, v64);
-          (*(v60 + 8))(v61, v62);
-          outlined destroy of UTType?(v95, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-          v68 = *(v0 + 376);
-          v67 = *(v0 + 384);
-          v70 = *(v0 + 360);
-          v69 = *(v0 + 368);
-          v71 = *(v0 + 352);
-          v72 = *(v0 + 328);
-          v73 = *(v0 + 304);
-          v74 = *(v0 + 288);
-          v75 = *(v0 + 256);
-          v76 = *(v0 + 264);
-          v96 = *(v0 + 232);
+          outlined destroy of UTType?(v51, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+          (*(v49 + 8))(v52, v50);
+          (*(v46 + 8))(v47, v48);
+          outlined destroy of UTType?(v68, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-          v58 = *(v0 + 8);
+          v45 = *(v0 + 8);
           goto LABEL_18;
         }
 
-        *(v0 + 408) = v31;
-        v32 = *(v0 + 392);
-        if (v31 >= *(v32 + 16))
+        *(v0 + 408) = v29;
+        v30 = *(v0 + 392);
+        if (v29 >= *(v30 + 16))
         {
           __break(1u);
           return result;
         }
 
-        v33 = *(v0 + 328);
-        v34 = *(v0 + 312);
-        outlined init with copy of ResolvedTransferRepresentation(v32 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v31, v33, type metadata accessor for ResolvedTransferRepresentation);
-        v35 = (v33 + *(v34 + 36));
-        v36 = *v35;
-        *(v0 + 416) = *v35;
-        *(v0 + 424) = v35[1];
-        v37 = *(v0 + 328);
-        if (v36)
+        v31 = *(v0 + 328);
+        v32 = *(v0 + 312);
+        outlined init with copy of ResolvedTransferRepresentation(v30 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v29, v31, type metadata accessor for ResolvedTransferRepresentation);
+        v33 = (v31 + *(v32 + 36));
+        v34 = *v33;
+        *(v0 + 416) = *v33;
+        *(v0 + 424) = v33[1];
+        v35 = *(v0 + 328);
+        if (v34)
         {
           break;
         }
 
-        result = outlined destroy of ResolvedTransferRepresentation(v37, type metadata accessor for ResolvedTransferRepresentation);
+        result = outlined destroy of ResolvedTransferRepresentation(v35, type metadata accessor for ResolvedTransferRepresentation);
       }
 
-      v38 = *(v37 + *(*(v0 + 312) + 28));
-      *(v0 + 432) = v38;
-      if (v38 == type metadata accessor for SentTransferredFile(0))
+      v36 = *(v35 + *(*(v0 + 312) + 28));
+      *(v0 + 432) = v36;
+      if (v36 == type metadata accessor for SentTransferredFile(0))
       {
-        v78 = *(v0 + 296);
-        v77 = *(v0 + 304);
-        v79 = *(v0 + 288);
-        (*(*(v0 + 280) + 16))(v79, *(v0 + 184), *(v0 + 272));
+        v54 = *(v0 + 296);
+        v53 = *(v0 + 304);
+        v55 = *(v0 + 288);
+        (*(*(v0 + 280) + 16))(v55, *(v0 + 184), *(v0 + 272));
 
-        ReceivedTransferredFile.init(file:isOriginalFile:)(v79, 1, v77);
-        *(v0 + 160) = v78;
+        ReceivedTransferredFile.init(file:isOriginalFile:)(v55, 1, v53);
+        *(v0 + 160) = v54;
         *(v0 + 168) = &protocol witness table for ReceivedTransferredFile;
         boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 136));
-        outlined init with copy of ResolvedTransferRepresentation(v77, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-        v100 = (v36 + *v36);
-        v81 = v36[1];
-        v82 = swift_task_alloc();
-        *(v0 + 440) = v82;
-        *v82 = v0;
-        v82[1] = Transferable.init(_file:contentType:);
-        v83 = v0 + 96;
-        v84 = v0 + 136;
+        outlined init with copy of ResolvedTransferRepresentation(v53, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+        v71 = (v34 + *v34);
+        v57 = swift_task_alloc();
+        *(v0 + 440) = v57;
+        *v57 = v0;
+        v57[1] = Transferable.init(_file:contentType:);
+        v58 = v0 + 96;
+        v59 = v0 + 136;
         goto LABEL_23;
       }
 
-      if (v38 != v6)
+      if (v36 != v6)
       {
         goto LABEL_3;
       }
 
 LABEL_4:
-      v10 = *(v0 + 184);
-      v11 = Data.init(contentsOf:options:)();
-      *(v0 + 456) = v11;
-      *(v0 + 464) = v12;
+      v10 = Data.init(contentsOf:options:)();
+      *(v0 + 456) = v10;
+      *(v0 + 464) = v11;
       if (!v5)
       {
         break;
       }
 
-      v97 = v5;
-      v14 = *(v0 + 224);
-      v13 = *(v0 + 232);
-      v15 = *(v0 + 216);
-      v16 = logger.unsafeMutableAddressor();
-      (*(v14 + 16))(v13, v16, v15);
-      v17 = Logger.logObject.getter();
-      v18 = static os_log_type_t.error.getter();
-      v19 = os_log_type_enabled(v17, v18);
-      v21 = *(v0 + 416);
-      v20 = *(v0 + 424);
-      v22 = *(v0 + 328);
-      v23 = *(v0 + 232);
-      v24 = *(v0 + 216);
-      v25 = (*(v0 + 224) + 8);
-      if (v19)
+      v69 = v5;
+      v13 = *(v0 + 224);
+      v12 = *(v0 + 232);
+      v14 = *(v0 + 216);
+      v15 = logger.unsafeMutableAddressor();
+      (*(v13 + 16))(v12, v15, v14);
+      v16 = Logger.logObject.getter();
+      v17 = static os_log_type_t.error.getter();
+      v18 = os_log_type_enabled(v16, v17);
+      v20 = *(v0 + 416);
+      v19 = *(v0 + 424);
+      v21 = *(v0 + 328);
+      v22 = *(v0 + 232);
+      v23 = *(v0 + 216);
+      v24 = (*(v0 + 224) + 8);
+      if (v18)
       {
-        v93 = *(v0 + 328);
-        v26 = v6;
-        v27 = swift_slowAlloc();
-        *v27 = 0;
-        _os_log_impl(&dword_20E3BF000, v17, v18, "error", v27, 2u);
-        v28 = v27;
-        v6 = v26;
-        MEMORY[0x20F32E080](v28, -1, -1);
-        outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v21);
+        v66 = *(v0 + 328);
+        v25 = v6;
+        v26 = swift_slowAlloc();
+        *v26 = 0;
+        _os_log_impl(&dword_20E3BF000, v16, v17, "error", v26, 2u);
+        v27 = v26;
+        v6 = v25;
+        MEMORY[0x20F32E080](v27, -1, -1);
+        outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v20, v19);
 
-        (*v25)(v23, v24);
-        v29 = v93;
+        (*v24)(v22, v23);
+        v28 = v66;
       }
 
       else
       {
-        v30 = *(v0 + 424);
-        outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 416));
+        outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 416), *(v0 + 424));
 
-        (*v25)(v23, v24);
-        v29 = v22;
+        (*v24)(v22, v23);
+        v28 = v21;
       }
 
-      result = outlined destroy of ResolvedTransferRepresentation(v29, type metadata accessor for ResolvedTransferRepresentation);
+      result = outlined destroy of ResolvedTransferRepresentation(v28, type metadata accessor for ResolvedTransferRepresentation);
       v5 = 0;
     }
 
-    v85 = *(v0 + 416);
-    v86 = *(v0 + 424);
+    v60 = *(v0 + 416);
     *(v0 + 80) = v6;
     *(v0 + 88) = &protocol witness table for Data;
-    *(v0 + 56) = v11;
-    *(v0 + 64) = v12;
-    outlined copy of Data._Representation(v11, v12);
-    v100 = (v85 + *v85);
-    v87 = v85[1];
-    v88 = swift_task_alloc();
-    *(v0 + 472) = v88;
-    *v88 = v0;
-    v88[1] = Transferable.init(_file:contentType:);
-    v83 = v0 + 16;
-    v84 = v0 + 56;
+    *(v0 + 56) = v10;
+    *(v0 + 64) = v11;
+    outlined copy of Data._Representation(v10, v11);
+    v71 = (v60 + *v60);
+    v61 = swift_task_alloc();
+    *(v0 + 472) = v61;
+    *v61 = v0;
+    v61[1] = Transferable.init(_file:contentType:);
+    v58 = v0 + 16;
+    v59 = v0 + 56;
 LABEL_23:
 
-    return v100(v83, v84);
+    return v71(v58, v59);
   }
 
   else
   {
-    v39 = *(v0 + 416);
-    v40 = *(v0 + 424);
-    v41 = *(v0 + 392);
-    v42 = *(v0 + 344);
-    v43 = *(v0 + 328);
-    v89 = *(v0 + 336);
-    v90 = *(v0 + 352);
-    v45 = *(v0 + 272);
-    v44 = *(v0 + 280);
-    v98 = *(v0 + 264);
-    v46 = *(v0 + 192);
-    v92 = *(v0 + 384);
-    v94 = *(v0 + 200);
-    v47 = *(v0 + 184);
-    v91 = *(v0 + 176);
+    v37 = *(v0 + 416);
+    v38 = *(v0 + 424);
+    v39 = *(v0 + 344);
+    v40 = *(v0 + 328);
+    v62 = *(v0 + 336);
+    v63 = *(v0 + 352);
+    v42 = *(v0 + 272);
+    v41 = *(v0 + 280);
+    v70 = *(v0 + 264);
+    v43 = *(v0 + 192);
+    v65 = *(v0 + 384);
+    v67 = *(v0 + 200);
+    v44 = *(v0 + 184);
+    v64 = *(v0 + 176);
 
-    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v39);
-    outlined destroy of UTType?(v46, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    (*(v44 + 8))(v47, v45);
-    outlined destroy of ResolvedTransferRepresentation(v43, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v42 + 8))(v90, v89);
-    outlined destroy of UTType?(v92, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    (*(v4 + 32))(v91, v98, v94);
-    v49 = *(v0 + 376);
-    v48 = *(v0 + 384);
-    v51 = *(v0 + 360);
-    v50 = *(v0 + 368);
-    v52 = *(v0 + 352);
-    v53 = *(v0 + 328);
-    v54 = *(v0 + 304);
-    v55 = *(v0 + 288);
-    v57 = *(v0 + 256);
-    v56 = *(v0 + 264);
-    v99 = *(v0 + 232);
+    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v37, v38);
+    outlined destroy of UTType?(v43, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    (*(v41 + 8))(v44, v42);
+    outlined destroy of ResolvedTransferRepresentation(v40, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v39 + 8))(v63, v62);
+    outlined destroy of UTType?(v65, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    (*(v4 + 32))(v64, v70, v67);
 
-    v58 = *(v0 + 8);
+    v45 = *(v0 + 8);
 LABEL_18:
 
-    return v58();
+    return v45();
   }
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 472);
-  v6 = *v1;
   *(*v1 + 480) = v0;
 
   if (v0)
   {
-    v4 = Transferable.init(_file:contentType:);
+    v3 = Transferable.init(_file:contentType:);
   }
 
   else
   {
     __swift_destroy_boxed_opaque_existential_0Tm((v2 + 56));
-    v4 = Transferable.init(_file:contentType:);
+    v3 = Transferable.init(_file:contentType:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
   v1 = *(v0 + 456);
   v2 = *(v0 + 464);
-  v3 = *(v0 + 424);
-  v4 = *(v0 + 328);
-  v5 = *(v0 + 256);
-  v6 = *(v0 + 200);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 416));
+  v3 = *(v0 + 328);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 416), *(v0 + 424));
   outlined consume of Data._Representation(v1, v2);
-  outlined destroy of ResolvedTransferRepresentation(v4, type metadata accessor for ResolvedTransferRepresentation);
+  outlined destroy of ResolvedTransferRepresentation(v3, type metadata accessor for ResolvedTransferRepresentation);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable0B0_pMd, &_s16CoreTransferable0B0_pMR);
   if (swift_dynamicCast())
   {
-    v7 = *(v0 + 392);
-    v9 = *(v0 + 344);
-    v8 = *(v0 + 352);
-    v10 = *(v0 + 336);
-    v12 = *(v0 + 272);
-    v11 = *(v0 + 280);
-    v13 = *(v0 + 256);
-    v15 = *(v0 + 192);
-    v14 = *(v0 + 200);
-    v16 = *(v0 + 184);
-    v90 = *(v0 + 384);
-    v94 = *(v0 + 176);
+    v5 = *(v0 + 344);
+    v4 = *(v0 + 352);
+    v6 = *(v0 + 336);
+    v8 = *(v0 + 272);
+    v7 = *(v0 + 280);
+    v9 = *(v0 + 256);
+    v11 = *(v0 + 192);
+    v10 = *(v0 + 200);
+    v12 = *(v0 + 184);
+    v62 = *(v0 + 384);
+    v65 = *(v0 + 176);
 
-    outlined destroy of UTType?(v15, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    (*(v11 + 8))(v16, v12);
-    (*(v9 + 8))(v8, v10);
-    outlined destroy of UTType?(v90, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    v17 = *(v14 - 8);
-    (*(v17 + 56))(v13, 0, 1, v14);
-    (*(v17 + 32))(v94, v13, v14);
-    v19 = *(v0 + 376);
-    v18 = *(v0 + 384);
-    v21 = *(v0 + 360);
-    v20 = *(v0 + 368);
-    v22 = *(v0 + 352);
-    v23 = *(v0 + 328);
-    v24 = *(v0 + 304);
-    v25 = *(v0 + 288);
-    v27 = *(v0 + 256);
-    v26 = *(v0 + 264);
-    v95 = *(v0 + 232);
+    outlined destroy of UTType?(v11, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    (*(v7 + 8))(v12, v8);
+    (*(v5 + 8))(v4, v6);
+    outlined destroy of UTType?(v62, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    v13 = *(v10 - 8);
+    (*(v13 + 56))(v9, 0, 1, v10);
+    (*(v13 + 32))(v65, v9, v10);
 
-    v28 = *(v0 + 8);
+    v14 = *(v0 + 8);
 LABEL_5:
 
-    return v28();
+    return v14();
   }
 
-  v30 = *(v0 + 248);
-  v29 = *(v0 + 256);
-  v31 = *(v0 + 240);
-  (*(*(*(v0 + 200) - 8) + 56))(v29, 1, 1);
-  result = (*(v30 + 8))(v29, v31);
-  v33 = *(v0 + 408) + 1;
-  if (v33 == *(v0 + 400))
+  v16 = *(v0 + 248);
+  v15 = *(v0 + 256);
+  v17 = *(v0 + 240);
+  (*(*(*(v0 + 200) - 8) + 56))(v15, 1, 1);
+  result = (*(v16 + 8))(v15, v17);
+  v19 = *(v0 + 408) + 1;
+  if (v19 == *(v0 + 400))
   {
 LABEL_4:
-    v34 = *(v0 + 392);
 
-    v91 = *(v0 + 384);
-    v35 = *(v0 + 344);
-    v36 = *(v0 + 352);
-    v37 = *(v0 + 336);
-    v39 = *(v0 + 272);
-    v38 = *(v0 + 280);
-    v41 = *(v0 + 184);
-    v40 = *(v0 + 192);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    v63 = *(v0 + 384);
+    v20 = *(v0 + 344);
+    v21 = *(v0 + 352);
+    v22 = *(v0 + 336);
+    v24 = *(v0 + 272);
+    v23 = *(v0 + 280);
+    v26 = *(v0 + 184);
+    v25 = *(v0 + 192);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    outlined destroy of UTType?(v40, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    (*(v38 + 8))(v41, v39);
-    (*(v35 + 8))(v36, v37);
-    outlined destroy of UTType?(v91, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    v43 = *(v0 + 376);
-    v42 = *(v0 + 384);
-    v45 = *(v0 + 360);
-    v44 = *(v0 + 368);
-    v46 = *(v0 + 352);
-    v47 = *(v0 + 328);
-    v48 = *(v0 + 304);
-    v49 = *(v0 + 288);
-    v50 = *(v0 + 256);
-    v51 = *(v0 + 264);
-    v92 = *(v0 + 232);
+    outlined destroy of UTType?(v25, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    (*(v23 + 8))(v26, v24);
+    (*(v20 + 8))(v21, v22);
+    outlined destroy of UTType?(v63, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-    v28 = *(v0 + 8);
+    v14 = *(v0 + 8);
     goto LABEL_5;
   }
 
-  v52 = *(v0 + 480);
-  v53 = MEMORY[0x277CC9318];
+  v27 = *(v0 + 480);
+  v28 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 408) = v33;
-    v54 = *(v0 + 392);
-    if (v33 >= *(v54 + 16))
+    *(v0 + 408) = v19;
+    v29 = *(v0 + 392);
+    if (v19 >= *(v29 + 16))
     {
       __break(1u);
       return result;
     }
 
-    v55 = *(v0 + 328);
-    v56 = *(v0 + 312);
-    outlined init with copy of ResolvedTransferRepresentation(v54 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v33, v55, type metadata accessor for ResolvedTransferRepresentation);
-    v57 = (v55 + *(v56 + 36));
-    v58 = *v57;
-    *(v0 + 416) = *v57;
-    *(v0 + 424) = v57[1];
-    v59 = *(v0 + 328);
-    if (v58)
+    v30 = *(v0 + 328);
+    v31 = *(v0 + 312);
+    outlined init with copy of ResolvedTransferRepresentation(v29 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v19, v30, type metadata accessor for ResolvedTransferRepresentation);
+    v32 = (v30 + *(v31 + 36));
+    v33 = *v32;
+    *(v0 + 416) = *v32;
+    v34 = v32[1];
+    *(v0 + 424) = v34;
+    v35 = *(v0 + 328);
+    if (v33)
     {
       break;
     }
 
     result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 328), type metadata accessor for ResolvedTransferRepresentation);
 LABEL_10:
-    v33 = *(v0 + 408) + 1;
-    if (v33 == *(v0 + 400))
+    v19 = *(v0 + 408) + 1;
+    if (v19 == *(v0 + 400))
     {
       goto LABEL_4;
     }
   }
 
-  v60 = *(v59 + *(*(v0 + 312) + 28));
-  *(v0 + 432) = v60;
-  if (v60 == type metadata accessor for SentTransferredFile(0))
+  v36 = *(v35 + *(*(v0 + 312) + 28));
+  *(v0 + 432) = v36;
+  if (v36 == type metadata accessor for SentTransferredFile(0))
   {
-    v79 = *(v0 + 296);
-    v78 = *(v0 + 304);
-    v80 = *(v0 + 288);
-    (*(*(v0 + 280) + 16))(v80, *(v0 + 184), *(v0 + 272));
+    v54 = *(v0 + 296);
+    v53 = *(v0 + 304);
+    v55 = *(v0 + 288);
+    (*(*(v0 + 280) + 16))(v55, *(v0 + 184), *(v0 + 272));
 
-    ReceivedTransferredFile.init(file:isOriginalFile:)(v80, 1, v78);
-    *(v0 + 160) = v79;
+    ReceivedTransferredFile.init(file:isOriginalFile:)(v55, 1, v53);
+    *(v0 + 160) = v54;
     *(v0 + 168) = &protocol witness table for ReceivedTransferredFile;
     boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 136));
-    outlined init with copy of ResolvedTransferRepresentation(v78, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-    v97 = (v58 + *v58);
-    v82 = v58[1];
-    v83 = swift_task_alloc();
-    *(v0 + 440) = v83;
-    *v83 = v0;
-    v83[1] = Transferable.init(_file:contentType:);
-    v84 = v0 + 96;
-    v85 = v0 + 136;
+    outlined init with copy of ResolvedTransferRepresentation(v53, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+    v67 = (v33 + *v33);
+    v57 = swift_task_alloc();
+    *(v0 + 440) = v57;
+    *v57 = v0;
+    v57[1] = Transferable.init(_file:contentType:);
+    v58 = v0 + 96;
+    v59 = v0 + 136;
     goto LABEL_21;
   }
 
-  if (v60 != v53)
+  if (v36 != v28)
   {
-    outlined destroy of ResolvedTransferRepresentation(v59, type metadata accessor for ResolvedTransferRepresentation);
-    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v58);
+    outlined destroy of ResolvedTransferRepresentation(v35, type metadata accessor for ResolvedTransferRepresentation);
+    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v33, v34);
     goto LABEL_10;
   }
 
-  v61 = *(v0 + 184);
-  v62 = Data.init(contentsOf:options:)();
-  *(v0 + 456) = v62;
-  *(v0 + 464) = v63;
-  if (v52)
+  v37 = Data.init(contentsOf:options:)();
+  *(v0 + 456) = v37;
+  *(v0 + 464) = v38;
+  if (v27)
   {
-    v65 = *(v0 + 224);
-    v64 = *(v0 + 232);
-    v66 = *(v0 + 216);
-    v67 = logger.unsafeMutableAddressor();
-    (*(v65 + 16))(v64, v67, v66);
-    v68 = Logger.logObject.getter();
-    v69 = static os_log_type_t.error.getter();
-    v70 = os_log_type_enabled(v68, v69);
-    v72 = *(v0 + 416);
-    v71 = *(v0 + 424);
-    v73 = *(v0 + 328);
-    v74 = *(v0 + 224);
-    v96 = *(v0 + 232);
-    v75 = *(v0 + 216);
-    if (v70)
+    v40 = *(v0 + 224);
+    v39 = *(v0 + 232);
+    v41 = *(v0 + 216);
+    v42 = logger.unsafeMutableAddressor();
+    (*(v40 + 16))(v39, v42, v41);
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.error.getter();
+    v45 = os_log_type_enabled(v43, v44);
+    v47 = *(v0 + 416);
+    v46 = *(v0 + 424);
+    v48 = *(v0 + 328);
+    v49 = *(v0 + 224);
+    v66 = *(v0 + 232);
+    v50 = *(v0 + 216);
+    if (v45)
     {
-      v93 = *(v0 + 328);
-      v76 = swift_slowAlloc();
-      *v76 = 0;
-      _os_log_impl(&dword_20E3BF000, v68, v69, "error", v76, 2u);
-      v77 = v76;
-      v73 = v93;
-      MEMORY[0x20F32E080](v77, -1, -1);
+      v64 = *(v0 + 328);
+      v51 = swift_slowAlloc();
+      *v51 = 0;
+      _os_log_impl(&dword_20E3BF000, v43, v44, "error", v51, 2u);
+      v52 = v51;
+      v48 = v64;
+      MEMORY[0x20F32E080](v52, -1, -1);
     }
 
-    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v72);
+    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v47, v46);
 
-    (*(v74 + 8))(v96, v75);
-    result = outlined destroy of ResolvedTransferRepresentation(v73, type metadata accessor for ResolvedTransferRepresentation);
-    v52 = 0;
+    (*(v49 + 8))(v66, v50);
+    result = outlined destroy of ResolvedTransferRepresentation(v48, type metadata accessor for ResolvedTransferRepresentation);
+    v27 = 0;
     goto LABEL_10;
   }
 
-  v86 = *(v0 + 416);
-  v87 = *(v0 + 424);
-  *(v0 + 80) = v53;
+  v60 = *(v0 + 416);
+  *(v0 + 80) = v28;
   *(v0 + 88) = &protocol witness table for Data;
-  *(v0 + 56) = v62;
-  *(v0 + 64) = v63;
-  outlined copy of Data._Representation(v62, v63);
-  v97 = (v86 + *v86);
-  v88 = v86[1];
-  v89 = swift_task_alloc();
-  *(v0 + 472) = v89;
-  *v89 = v0;
-  v89[1] = Transferable.init(_file:contentType:);
-  v84 = v0 + 16;
-  v85 = v0 + 56;
+  *(v0 + 56) = v37;
+  *(v0 + 64) = v38;
+  outlined copy of Data._Representation(v37, v38);
+  v67 = (v60 + *v60);
+  v61 = swift_task_alloc();
+  *(v0 + 472) = v61;
+  *v61 = v0;
+  v61[1] = Transferable.init(_file:contentType:);
+  v58 = v0 + 16;
+  v59 = v0 + 56;
 LABEL_21:
 
-  return v97(v84, v85);
+  return v67(v58, v59);
 }
 
 {
@@ -2135,95 +1968,82 @@ LABEL_21:
       v4 = *(v0 + 416);
       v5 = *(v0 + 424);
       outlined destroy of ResolvedTransferRepresentation(*(v0 + 328), type metadata accessor for ResolvedTransferRepresentation);
-      for (result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v4); ; result = outlined destroy of ResolvedTransferRepresentation(v16, type metadata accessor for ResolvedTransferRepresentation))
+      for (result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v4, v5); ; result = outlined destroy of ResolvedTransferRepresentation(v15, type metadata accessor for ResolvedTransferRepresentation))
       {
-        v10 = *(v0 + 408) + 1;
-        if (v10 == *(v0 + 400))
+        v9 = *(v0 + 408) + 1;
+        if (v9 == *(v0 + 400))
         {
-          v18 = *(v0 + 392);
 
-          v49 = *(v0 + 384);
-          v19 = *(v0 + 344);
-          v20 = *(v0 + 352);
-          v21 = *(v0 + 336);
-          v23 = *(v0 + 272);
-          v22 = *(v0 + 280);
-          v25 = *(v0 + 184);
-          v24 = *(v0 + 192);
-          type metadata accessor for TransferableError();
-          lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+          v34 = *(v0 + 384);
+          v17 = *(v0 + 344);
+          v18 = *(v0 + 352);
+          v19 = *(v0 + 336);
+          v21 = *(v0 + 272);
+          v20 = *(v0 + 280);
+          v23 = *(v0 + 184);
+          v22 = *(v0 + 192);
+          type metadata accessor for TransferableError(0);
+          lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
           swift_allocError();
           swift_storeEnumTagMultiPayload();
           swift_willThrow();
-          outlined destroy of UTType?(v24, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-          (*(v22 + 8))(v25, v23);
-          (*(v19 + 8))(v20, v21);
-          outlined destroy of UTType?(v49, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-          v27 = *(v0 + 376);
-          v26 = *(v0 + 384);
-          v29 = *(v0 + 360);
-          v28 = *(v0 + 368);
-          v30 = *(v0 + 352);
-          v31 = *(v0 + 328);
-          v32 = *(v0 + 304);
-          v33 = *(v0 + 288);
-          v34 = *(v0 + 256);
-          v35 = *(v0 + 264);
-          v50 = *(v0 + 232);
+          outlined destroy of UTType?(v22, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+          (*(v20 + 8))(v23, v21);
+          (*(v17 + 8))(v18, v19);
+          outlined destroy of UTType?(v34, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-          v36 = *(v0 + 8);
+          v24 = *(v0 + 8);
 
-          return v36();
+          return v24();
         }
 
-        *(v0 + 408) = v10;
-        v11 = *(v0 + 392);
-        if (v10 >= *(v11 + 16))
+        *(v0 + 408) = v9;
+        v10 = *(v0 + 392);
+        if (v9 >= *(v10 + 16))
         {
           __break(1u);
           return result;
         }
 
-        v12 = *(v0 + 328);
-        v13 = *(v0 + 312);
-        outlined init with copy of ResolvedTransferRepresentation(v11 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v10, v12, type metadata accessor for ResolvedTransferRepresentation);
-        v14 = (v12 + *(v13 + 36));
-        v15 = *v14;
-        *(v0 + 416) = *v14;
-        *(v0 + 424) = v14[1];
-        v16 = *(v0 + 328);
-        if (v15)
+        v11 = *(v0 + 328);
+        v12 = *(v0 + 312);
+        outlined init with copy of ResolvedTransferRepresentation(v10 + ((*(v0 + 488) + 32) & ~*(v0 + 488)) + *(*(v0 + 320) + 72) * v9, v11, type metadata accessor for ResolvedTransferRepresentation);
+        v13 = (v11 + *(v12 + 36));
+        v14 = *v13;
+        *(v0 + 416) = *v13;
+        *(v0 + 424) = v13[1];
+        v15 = *(v0 + 328);
+        if (v14)
         {
           break;
         }
       }
 
-      v17 = *(v16 + *(*(v0 + 312) + 28));
-      *(v0 + 432) = v17;
-      if (v17 == type metadata accessor for SentTransferredFile(0))
+      v16 = *(v15 + *(*(v0 + 312) + 28));
+      *(v0 + 432) = v16;
+      if (v16 == type metadata accessor for SentTransferredFile(0))
       {
-        v38 = *(v0 + 296);
-        v37 = *(v0 + 304);
-        v39 = *(v0 + 288);
-        (*(*(v0 + 280) + 16))(v39, *(v0 + 184), *(v0 + 272));
+        v26 = *(v0 + 296);
+        v25 = *(v0 + 304);
+        v27 = *(v0 + 288);
+        (*(*(v0 + 280) + 16))(v27, *(v0 + 184), *(v0 + 272));
 
-        ReceivedTransferredFile.init(file:isOriginalFile:)(v39, 1, v37);
-        *(v0 + 160) = v38;
+        ReceivedTransferredFile.init(file:isOriginalFile:)(v27, 1, v25);
+        *(v0 + 160) = v26;
         *(v0 + 168) = &protocol witness table for ReceivedTransferredFile;
         boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 136));
-        outlined init with copy of ResolvedTransferRepresentation(v37, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-        v51 = (v15 + *v15);
-        v41 = v15[1];
-        v42 = swift_task_alloc();
-        *(v0 + 440) = v42;
-        *v42 = v0;
-        v42[1] = Transferable.init(_file:contentType:);
-        v47 = v0 + 96;
-        v48 = v0 + 136;
+        outlined init with copy of ResolvedTransferRepresentation(v25, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+        v35 = (v14 + *v14);
+        v29 = swift_task_alloc();
+        *(v0 + 440) = v29;
+        *v29 = v0;
+        v29[1] = Transferable.init(_file:contentType:);
+        v32 = v0 + 96;
+        v33 = v0 + 136;
         goto LABEL_15;
       }
 
-      if (v17 != v3)
+      if (v16 != v3)
       {
         continue;
       }
@@ -2232,28 +2052,25 @@ LABEL_21:
     }
   }
 
-  v7 = *(v0 + 184);
-  v8 = Data.init(contentsOf:options:)();
-  *(v0 + 456) = v8;
-  *(v0 + 464) = v9;
-  v43 = *(v0 + 416);
-  v44 = *(v0 + 424);
+  v7 = Data.init(contentsOf:options:)();
+  *(v0 + 456) = v7;
+  *(v0 + 464) = v8;
+  v30 = *(v0 + 416);
   *(v0 + 80) = v3;
   *(v0 + 88) = &protocol witness table for Data;
-  *(v0 + 56) = v8;
-  *(v0 + 64) = v9;
-  outlined copy of Data._Representation(v8, v9);
-  v51 = (v43 + *v43);
-  v45 = v43[1];
-  v46 = swift_task_alloc();
-  *(v0 + 472) = v46;
-  *v46 = v0;
-  v46[1] = Transferable.init(_file:contentType:);
-  v47 = v0 + 16;
-  v48 = v0 + 56;
+  *(v0 + 56) = v7;
+  *(v0 + 64) = v8;
+  outlined copy of Data._Representation(v7, v8);
+  v35 = (v30 + *v30);
+  v31 = swift_task_alloc();
+  *(v0 + 472) = v31;
+  *v31 = v0;
+  v31[1] = Transferable.init(_file:contentType:);
+  v32 = v0 + 16;
+  v33 = v0 + 56;
 LABEL_15:
 
-  return v51(v47, v48);
+  return v35(v32, v33);
 }
 
 {
@@ -2276,18 +2093,18 @@ LABEL_15:
   v14 = *(v0 + 216);
   if (v8)
   {
-    v64 = v1;
+    v49 = v1;
     v15 = *(v0 + 328);
     v16 = swift_slowAlloc();
     *v16 = 0;
     _os_log_impl(&dword_20E3BF000, v6, v7, "error", v16, 2u);
     v17 = v16;
     v11 = v15;
-    v1 = v64;
+    v1 = v49;
     MEMORY[0x20F32E080](v17, -1, -1);
   }
 
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v10);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v10, v9);
 
   (*(v12 + 8))(v13, v14);
   result = outlined destroy of ResolvedTransferRepresentation(v11, type metadata accessor for ResolvedTransferRepresentation);
@@ -2296,40 +2113,28 @@ LABEL_15:
   if (v19 == *(v0 + 400))
   {
 LABEL_13:
-    v37 = *(v0 + 392);
 
-    v62 = *(v0 + 384);
-    v38 = *(v0 + 344);
-    v39 = *(v0 + 352);
-    v40 = *(v0 + 336);
-    v42 = *(v0 + 272);
-    v41 = *(v0 + 280);
-    v44 = *(v0 + 184);
-    v43 = *(v0 + 192);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    v48 = *(v0 + 384);
+    v35 = *(v0 + 344);
+    v36 = *(v0 + 352);
+    v37 = *(v0 + 336);
+    v39 = *(v0 + 272);
+    v38 = *(v0 + 280);
+    v41 = *(v0 + 184);
+    v40 = *(v0 + 192);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    outlined destroy of UTType?(v43, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    (*(v41 + 8))(v44, v42);
-    (*(v38 + 8))(v39, v40);
-    outlined destroy of UTType?(v62, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    v46 = *(v0 + 376);
-    v45 = *(v0 + 384);
-    v48 = *(v0 + 360);
-    v47 = *(v0 + 368);
-    v49 = *(v0 + 352);
-    v50 = *(v0 + 328);
-    v51 = *(v0 + 304);
-    v52 = *(v0 + 288);
-    v53 = *(v0 + 256);
-    v54 = *(v0 + 264);
-    v63 = *(v0 + 232);
+    outlined destroy of UTType?(v40, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    (*(v38 + 8))(v41, v39);
+    (*(v35 + 8))(v36, v37);
+    outlined destroy of UTType?(v48, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-    v55 = *(v0 + 8);
+    v42 = *(v0 + 8);
 
-    return v55();
+    return v42();
   }
 
   while (1)
@@ -2348,47 +2153,45 @@ LABEL_13:
     v24 = (v22 + *(v23 + 36));
     v25 = *v24;
     *(v0 + 416) = *v24;
-    *(v0 + 424) = v24[1];
-    v26 = *(v0 + 328);
+    v26 = v24[1];
+    *(v0 + 424) = v26;
+    v27 = *(v0 + 328);
     if (!v25)
     {
       result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 328), type metadata accessor for ResolvedTransferRepresentation);
       goto LABEL_6;
     }
 
-    v27 = *(v26 + *(*(v0 + 312) + 28));
-    *(v0 + 432) = v27;
-    if (v27 == type metadata accessor for SentTransferredFile(0))
+    v28 = *(v27 + *(*(v0 + 312) + 28));
+    *(v0 + 432) = v28;
+    if (v28 == type metadata accessor for SentTransferredFile(0))
     {
       break;
     }
 
-    if (v27 == v20)
+    if (v28 == v20)
     {
-      v28 = *(v0 + 184);
       v29 = Data.init(contentsOf:options:)();
       *(v0 + 456) = v29;
       *(v0 + 464) = v30;
       v31 = *(v0 + 416);
-      v32 = *(v0 + 424);
       *(v0 + 80) = v20;
       *(v0 + 88) = &protocol witness table for Data;
       *(v0 + 56) = v29;
       *(v0 + 64) = v30;
       outlined copy of Data._Representation(v29, v30);
-      v65 = (v31 + *v31);
-      v33 = v31[1];
-      v34 = swift_task_alloc();
-      *(v0 + 472) = v34;
-      *v34 = v0;
-      v34[1] = Transferable.init(_file:contentType:);
-      v35 = v0 + 16;
-      v36 = v0 + 56;
+      v50 = (v31 + *v31);
+      v32 = swift_task_alloc();
+      *(v0 + 472) = v32;
+      *v32 = v0;
+      v32[1] = Transferable.init(_file:contentType:);
+      v33 = v0 + 16;
+      v34 = v0 + 56;
       goto LABEL_17;
     }
 
-    outlined destroy of ResolvedTransferRepresentation(v26, type metadata accessor for ResolvedTransferRepresentation);
-    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v25);
+    outlined destroy of ResolvedTransferRepresentation(v27, type metadata accessor for ResolvedTransferRepresentation);
+    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v25, v26);
 LABEL_6:
     v19 = *(v0 + 408) + 1;
     if (v19 == *(v0 + 400))
@@ -2397,27 +2200,26 @@ LABEL_6:
     }
   }
 
-  v57 = *(v0 + 296);
-  v56 = *(v0 + 304);
-  v58 = *(v0 + 288);
-  (*(*(v0 + 280) + 16))(v58, *(v0 + 184), *(v0 + 272));
+  v44 = *(v0 + 296);
+  v43 = *(v0 + 304);
+  v45 = *(v0 + 288);
+  (*(*(v0 + 280) + 16))(v45, *(v0 + 184), *(v0 + 272));
 
-  ReceivedTransferredFile.init(file:isOriginalFile:)(v58, 1, v56);
-  *(v0 + 160) = v57;
+  ReceivedTransferredFile.init(file:isOriginalFile:)(v45, 1, v43);
+  *(v0 + 160) = v44;
   *(v0 + 168) = &protocol witness table for ReceivedTransferredFile;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 136));
-  outlined init with copy of ResolvedTransferRepresentation(v56, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-  v65 = (v25 + *v25);
-  v60 = v25[1];
-  v61 = swift_task_alloc();
-  *(v0 + 440) = v61;
-  *v61 = v0;
-  v61[1] = Transferable.init(_file:contentType:);
-  v35 = v0 + 96;
-  v36 = v0 + 136;
+  outlined init with copy of ResolvedTransferRepresentation(v43, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+  v50 = (v25 + *v25);
+  v47 = swift_task_alloc();
+  *(v0 + 440) = v47;
+  *v47 = v0;
+  v47[1] = Transferable.init(_file:contentType:);
+  v33 = v0 + 96;
+  v34 = v0 + 136;
 LABEL_17:
 
-  return v65(v35, v36);
+  return v50(v33, v34);
 }
 
 uint64_t Transferable.export(to:contentType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2428,7 +2230,7 @@ uint64_t Transferable.export(to:contentType:)(uint64_t a1, uint64_t a2, uint64_t
   v6[5] = a4;
   v6[2] = a1;
   v6[3] = a2;
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v6[8] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](Transferable.export(to:contentType:), 0, 0);
@@ -2446,23 +2248,21 @@ uint64_t Transferable.export(to:contentType:)()
   v0[9] = v5;
   *v5 = v0;
   v5[1] = Transferable.export(to:contentType:);
-  v7 = v0[7];
   v6 = v0[8];
-  v8 = v0[5];
-  v9 = v0[6];
-  v10 = v0[4];
-  v11 = v0[2];
+  v7 = v0[5];
+  v8 = v0[6];
+  v9 = v0[4];
+  v10 = v0[2];
 
-  return Transferable._file(contentType:destinationDirectory:)(v11, v10, v6, v8, v9);
+  return Transferable._file(contentType:destinationDirectory:)(v10, v9, v6, v7, v8);
 }
 
 {
-  v2 = *(*v1 + 72);
-  v3 = *(*v1 + 64);
-  v4 = *v1;
-  v4[10] = v0;
+  v2 = *(*v1 + 64);
+  v3 = *v1;
+  *(v3 + 80) = v0;
 
-  outlined destroy of UTType?(v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of UTType?(v2, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   if (v0)
   {
 
@@ -2471,21 +2271,18 @@ uint64_t Transferable.export(to:contentType:)()
 
   else
   {
-    v5 = v4[8];
 
-    v6 = v4[1];
+    v4 = *(v3 + 8);
 
-    return v6();
+    return v4();
   }
 }
 
 {
-  v1 = v0[8];
 
-  v2 = v0[1];
-  v3 = v0[10];
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t Transferable._file(contentType:destinationDirectory:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2498,37 +2295,29 @@ uint64_t Transferable._file(contentType:destinationDirectory:)(uint64_t a1, uint
   v6[11] = a2;
   v7 = type metadata accessor for Logger();
   v6[16] = v7;
-  v8 = *(v7 - 8);
-  v6[17] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[17] = *(v7 - 8);
   v6[18] = swift_task_alloc();
   v6[19] = swift_task_alloc();
   v6[20] = swift_task_alloc();
-  v10 = type metadata accessor for UUID();
-  v6[21] = v10;
-  v11 = *(v10 - 8);
-  v6[22] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for UUID();
+  v6[21] = v8;
+  v6[22] = *(v8 - 8);
   v6[23] = swift_task_alloc();
-  v13 = type metadata accessor for URL();
-  v6[24] = v13;
-  v14 = *(v13 - 8);
-  v6[25] = v14;
-  v15 = *(v14 + 64) + 15;
+  v9 = type metadata accessor for URL();
+  v6[24] = v9;
+  v6[25] = *(v9 - 8);
   v6[26] = swift_task_alloc();
   v6[27] = swift_task_alloc();
   v6[28] = swift_task_alloc();
   v6[29] = swift_task_alloc();
-  v16 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v6[30] = swift_task_alloc();
   v6[31] = swift_task_alloc();
   v6[32] = swift_task_alloc();
   v6[33] = swift_task_alloc();
-  v17 = type metadata accessor for ResolvedTransferRepresentation();
-  v6[34] = v17;
-  v18 = *(v17 - 8);
-  v6[35] = v18;
-  v19 = *(v18 + 64) + 15;
+  v10 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v6[34] = v10;
+  v6[35] = *(v10 - 8);
   v6[36] = swift_task_alloc();
   v6[37] = swift_task_alloc();
   v6[38] = swift_task_alloc();
@@ -2573,252 +2362,194 @@ uint64_t Transferable._file(contentType:destinationDirectory:)()
 
       if (v11 == v6)
       {
-        v31 = swift_task_alloc();
-        *(v0 + 384) = v31;
-        *v31 = v0;
-        v31[1] = Transferable._file(contentType:destinationDirectory:);
-        v32 = *(v0 + 312);
-        v33 = *(v0 + 112);
-        v34 = *(v0 + 120);
-        v35 = *(v0 + 104);
+        v22 = swift_task_alloc();
+        *(v0 + 384) = v22;
+        *v22 = v0;
+        v22[1] = Transferable._file(contentType:destinationDirectory:);
+        v23 = *(v0 + 312);
+        v24 = *(v0 + 112);
+        v25 = *(v0 + 104);
 
-        return Transferable.data(from:)(v32, v35, v33);
+        return Transferable.data(from:)(v23, v25, v24);
       }
 
       result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 312), type metadata accessor for ResolvedTransferRepresentation);
       v5 = *(v0 + 344) + 1;
       if (v5 == *(v0 + 328))
       {
-        v12 = *(v0 + 320);
-        goto LABEL_8;
+        goto LABEL_7;
       }
     }
 
-    v21 = *(v0 + 264);
-    v22 = *(v0 + 192);
-    v23 = *(v0 + 200);
-    v24 = *(v23 + 56);
-    *(v0 + 352) = v24;
-    *(v0 + 360) = (v23 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-    v24(v21, 1, 1, v22);
-    v25 = swift_task_alloc();
-    *(v0 + 368) = v25;
-    *v25 = v0;
-    v25[1] = Transferable._file(contentType:destinationDirectory:);
-    v26 = *(v0 + 312);
-    v27 = *(v0 + 256);
-    v28 = *(v0 + 112);
-    v29 = *(v0 + 120);
-    v30 = *(v0 + 104);
+    v13 = *(v0 + 264);
+    v14 = *(v0 + 192);
+    v15 = *(v0 + 200);
+    v16 = *(v15 + 56);
+    *(v0 + 352) = v16;
+    *(v0 + 360) = (v15 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+    v16(v13, 1, 1, v14);
+    v17 = swift_task_alloc();
+    *(v0 + 368) = v17;
+    *v17 = v0;
+    v17[1] = Transferable._file(contentType:destinationDirectory:);
+    v18 = *(v0 + 312);
+    v19 = *(v0 + 256);
+    v20 = *(v0 + 112);
+    v21 = *(v0 + 104);
 
-    return Transferable.url(from:)(v27, v26, v30, v28);
+    return Transferable.url(from:)(v19, v18, v21, v20);
   }
 
   else
   {
-LABEL_8:
+LABEL_7:
 
-    v14 = *(v0 + 304);
-    v13 = *(v0 + 312);
-    v15 = *(v0 + 288);
-    v16 = *(v0 + 296);
-    v17 = *(v0 + 256);
-    v18 = *(v0 + 264);
-    v19 = *(v0 + 248);
-    v36 = *(v0 + 240);
-    v37 = *(v0 + 232);
-    v38 = *(v0 + 224);
-    v39 = *(v0 + 216);
-    v40 = *(v0 + 208);
-    v41 = *(v0 + 184);
-    v42 = *(v0 + 160);
-    v43 = *(v0 + 152);
-    v44 = *(v0 + 144);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
 
-    v20 = *(v0 + 8);
+    v12 = *(v0 + 8);
 
-    return v20();
+    return v12();
   }
 }
 
 {
-  v2 = *(*v1 + 368);
-  v5 = *v1;
   *(*v1 + 376) = v0;
 
   if (v0)
   {
-    v3 = Transferable._file(contentType:destinationDirectory:);
+    v2 = Transferable._file(contentType:destinationDirectory:);
   }
 
   else
   {
-    v3 = Transferable._file(contentType:destinationDirectory:);
+    v2 = Transferable._file(contentType:destinationDirectory:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  v2 = *(v0 + 352);
-  v1 = *(v0 + 360);
-  v3 = *(v0 + 256);
-  v4 = *(v0 + 264);
-  v5 = *(v0 + 192);
-  outlined destroy of UTType?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v2(v3, 0, 1, v5);
-  outlined init with take of URL?(v3, v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v6 = *(v0 + 248);
-  v7 = *(v0 + 192);
-  v8 = *(v0 + 200);
-  outlined init with copy of UTType?(*(v0 + 264), v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v8 + 48))(v6, 1, v7) != 1)
+  v1 = *(v0 + 352);
+  v2 = *(v0 + 256);
+  v3 = *(v0 + 264);
+  v4 = *(v0 + 192);
+  outlined destroy of UTType?(v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v1(v2, 0, 1, v4);
+  outlined init with take of URL?(v2, v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v5 = *(v0 + 248);
+  v6 = *(v0 + 192);
+  v7 = *(v0 + 200);
+  outlined init with copy of UTType?(*(v0 + 264), v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v7 + 48))(v5, 1, v6) != 1)
   {
-    v29 = *(v0 + 312);
-    v28 = *(v0 + 320);
-    v30 = *(v0 + 264);
-    v31 = *(v0 + 248);
-    v32 = *(v0 + 232);
-    v33 = *(v0 + 192);
-    v34 = *(v0 + 200);
-    v35 = *(v0 + 96);
-    v36 = *(v0 + 80);
+    v19 = *(v0 + 312);
+    v20 = *(v0 + 264);
+    v21 = *(v0 + 248);
+    v22 = *(v0 + 232);
+    v23 = *(v0 + 192);
+    v24 = *(v0 + 200);
+    v25 = *(v0 + 96);
+    v26 = *(v0 + 80);
 
-    (*(v34 + 32))(v32, v31, v33);
-    copyFile(from:to:)(v32, v35, v36);
-    (*(v34 + 8))(v32, v33);
-    outlined destroy of UTType?(v30, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    outlined destroy of ResolvedTransferRepresentation(v29, type metadata accessor for ResolvedTransferRepresentation);
-    v38 = *(v0 + 304);
-    v37 = *(v0 + 312);
-    v40 = *(v0 + 288);
-    v39 = *(v0 + 296);
-    v42 = *(v0 + 256);
-    v41 = *(v0 + 264);
-    v44 = *(v0 + 240);
-    v43 = *(v0 + 248);
-    v45 = *(v0 + 224);
-    v46 = *(v0 + 232);
-    v66 = *(v0 + 216);
-    v68 = *(v0 + 208);
-    v70 = *(v0 + 184);
-    v72 = *(v0 + 160);
-    v74 = *(v0 + 152);
-    v76 = *(v0 + 144);
+    (*(v24 + 32))(v22, v21, v23);
+    copyFile(from:to:)(v22, v25, v26);
+    (*(v24 + 8))(v22, v23);
+    outlined destroy of UTType?(v20, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined destroy of ResolvedTransferRepresentation(v19, type metadata accessor for ResolvedTransferRepresentation);
 
-    v27 = *(v0 + 8);
+    v18 = *(v0 + 8);
     goto LABEL_10;
   }
 
-  v9 = *(v0 + 312);
-  v10 = *(v0 + 248);
+  v8 = *(v0 + 312);
+  v9 = *(v0 + 248);
   outlined destroy of UTType?(*(v0 + 264), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined destroy of ResolvedTransferRepresentation(v9, type metadata accessor for ResolvedTransferRepresentation);
-  result = outlined destroy of UTType?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v12 = *(v0 + 344) + 1;
-  if (v12 == *(v0 + 328))
+  outlined destroy of ResolvedTransferRepresentation(v8, type metadata accessor for ResolvedTransferRepresentation);
+  result = outlined destroy of UTType?(v9, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v11 = *(v0 + 344) + 1;
+  if (v11 == *(v0 + 328))
   {
 LABEL_8:
-    v19 = *(v0 + 320);
 
-    v21 = *(v0 + 304);
-    v20 = *(v0 + 312);
-    v22 = *(v0 + 288);
-    v23 = *(v0 + 296);
-    v24 = *(v0 + 256);
-    v25 = *(v0 + 264);
-    v26 = *(v0 + 248);
-    v62 = *(v0 + 240);
-    v63 = *(v0 + 232);
-    v64 = *(v0 + 224);
-    v65 = *(v0 + 216);
-    v67 = *(v0 + 208);
-    v69 = *(v0 + 184);
-    v71 = *(v0 + 160);
-    v73 = *(v0 + 152);
-    v75 = *(v0 + 144);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
 
-    v27 = *(v0 + 8);
+    v18 = *(v0 + 8);
 LABEL_10:
 
-    return v27();
+    return v18();
   }
 
-  v13 = MEMORY[0x277CC9318];
+  v12 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 344) = v12;
-    v14 = *(v0 + 320);
-    if (v12 >= *(v14 + 16))
+    *(v0 + 344) = v11;
+    v13 = *(v0 + 320);
+    if (v11 >= *(v13 + 16))
     {
       __break(1u);
       return result;
     }
 
-    v15 = *(v0 + 336);
-    v16 = *(v0 + 312);
-    v17 = *(v0 + 272);
-    outlined init with copy of ResolvedTransferRepresentation(v14 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 280) + 72) * v12, v16, type metadata accessor for ResolvedTransferRepresentation);
-    v18 = *(v16 + *(v17 + 28));
-    if (v18 == v15)
+    v14 = *(v0 + 336);
+    v15 = *(v0 + 312);
+    v16 = *(v0 + 272);
+    outlined init with copy of ResolvedTransferRepresentation(v13 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 280) + 72) * v11, v15, type metadata accessor for ResolvedTransferRepresentation);
+    v17 = *(v15 + *(v16 + 28));
+    if (v17 == v14)
     {
       break;
     }
 
-    if (v18 == v13)
+    if (v17 == v12)
     {
-      v57 = swift_task_alloc();
-      *(v0 + 384) = v57;
-      *v57 = v0;
-      v57[1] = Transferable._file(contentType:destinationDirectory:);
-      v58 = *(v0 + 312);
-      v59 = *(v0 + 112);
-      v60 = *(v0 + 120);
-      v61 = *(v0 + 104);
+      v36 = swift_task_alloc();
+      *(v0 + 384) = v36;
+      *v36 = v0;
+      v36[1] = Transferable._file(contentType:destinationDirectory:);
+      v37 = *(v0 + 312);
+      v38 = *(v0 + 112);
+      v39 = *(v0 + 104);
 
-      return Transferable.data(from:)(v58, v61, v59);
+      return Transferable.data(from:)(v37, v39, v38);
     }
 
     result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 312), type metadata accessor for ResolvedTransferRepresentation);
-    v12 = *(v0 + 344) + 1;
-    if (v12 == *(v0 + 328))
+    v11 = *(v0 + 344) + 1;
+    if (v11 == *(v0 + 328))
     {
       goto LABEL_8;
     }
   }
 
-  v47 = *(v0 + 264);
-  v48 = *(v0 + 192);
-  v49 = *(v0 + 200);
-  v50 = *(v49 + 56);
-  *(v0 + 352) = v50;
-  *(v0 + 360) = (v49 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v50(v47, 1, 1, v48);
-  v51 = swift_task_alloc();
-  *(v0 + 368) = v51;
-  *v51 = v0;
-  v51[1] = Transferable._file(contentType:destinationDirectory:);
-  v52 = *(v0 + 312);
-  v53 = *(v0 + 256);
-  v54 = *(v0 + 112);
-  v55 = *(v0 + 120);
-  v56 = *(v0 + 104);
+  v27 = *(v0 + 264);
+  v28 = *(v0 + 192);
+  v29 = *(v0 + 200);
+  v30 = *(v29 + 56);
+  *(v0 + 352) = v30;
+  *(v0 + 360) = (v29 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+  v30(v27, 1, 1, v28);
+  v31 = swift_task_alloc();
+  *(v0 + 368) = v31;
+  *v31 = v0;
+  v31[1] = Transferable._file(contentType:destinationDirectory:);
+  v32 = *(v0 + 312);
+  v33 = *(v0 + 256);
+  v34 = *(v0 + 112);
+  v35 = *(v0 + 104);
 
-  return Transferable.url(from:)(v53, v52, v56, v54);
+  return Transferable.url(from:)(v33, v32, v35, v34);
 }
 
 {
-  v138 = v0;
+  v93 = v0;
   v1 = *(v0 + 312);
   v2 = *(v1 + 16);
   if (v2 == 255)
@@ -2867,7 +2598,6 @@ LABEL_5:
   if (v20 == 1)
   {
     v22 = *(v0 + 192);
-    v23 = *(v0 + 208);
     backupDirectory()();
     if (v19(v21, 1, v22) != 1)
     {
@@ -2880,392 +2610,145 @@ LABEL_5:
     (*(*(v0 + 200) + 32))(*(v0 + 208), *(v0 + 240), *(v0 + 192));
   }
 
-  v124 = *(v0 + 400);
-  v128 = *(v0 + 408);
-  v24 = *(v0 + 392);
-  v25 = *(v0 + 312);
-  v26 = *(v0 + 272);
-  v28 = *(v0 + 216);
-  v27 = *(v0 + 224);
-  v30 = *(v0 + 200);
-  v29 = *(v0 + 208);
-  v31 = *(v0 + 192);
+  v87 = *(v0 + 408);
+  v23 = *(v0 + 216);
+  v25 = *(v0 + 200);
+  v24 = *(v0 + 208);
+  v26 = *(v0 + 192);
   URL.appendingPathComponent(_:isDirectory:)();
 
-  v32 = *(v30 + 8);
-  v32(v29, v31);
-  v33 = v25 + *(v26 + 20);
+  v27 = *(v25 + 8);
+  v27(v24, v26);
   URL.appendingPathExtension(for:)();
-  v32(v28, v31);
-  v34 = v128;
+  v27(v23, v26);
+  v28 = v87;
   Data.write(to:options:)();
-  v36 = *(v0 + 392);
-  v35 = *(v0 + 400);
-  v37 = *(v0 + 224);
-  if (!v128)
+  v30 = *(v0 + 392);
+  v29 = *(v0 + 400);
+  v31 = *(v0 + 224);
+  if (!v87)
   {
-    v63 = *(v0 + 320);
-    v64 = *(v0 + 192);
-    v65 = *(v0 + 200);
-    v66 = *(v0 + 80);
+    v55 = *(v0 + 192);
+    v56 = *(v0 + 200);
+    v57 = *(v0 + 80);
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 312), type metadata accessor for ResolvedTransferRepresentation);
-    outlined consume of Data._Representation(v36, v35);
-    outlined consume of Data._Representation(v36, v35);
+    outlined consume of Data._Representation(v30, v29);
+    outlined consume of Data._Representation(v30, v29);
 
-    (*(v65 + 32))(v66, v37, v64);
-    v68 = *(v0 + 304);
-    v67 = *(v0 + 312);
-    v70 = *(v0 + 288);
-    v69 = *(v0 + 296);
-    v72 = *(v0 + 256);
-    v71 = *(v0 + 264);
-    v74 = *(v0 + 240);
-    v73 = *(v0 + 248);
-    v75 = *(v0 + 224);
-    v76 = *(v0 + 232);
-    v116 = *(v0 + 216);
-    v119 = *(v0 + 208);
-    v122 = *(v0 + 184);
-    v126 = *(v0 + 160);
-    v131 = *(v0 + 152);
-    v135 = *(v0 + 144);
+    (*(v56 + 32))(v57, v31, v55);
 
-    v77 = *(v0 + 8);
+    v58 = *(v0 + 8);
 LABEL_22:
 
-    return v77();
+    return v58();
   }
 
-  v129 = *(v0 + 304);
-  v133 = *(v0 + 312);
-  v38 = *(v0 + 160);
-  v39 = v34;
-  v41 = *(v0 + 128);
-  v40 = *(v0 + 136);
-  v32(v37, *(v0 + 192));
-  outlined consume of Data._Representation(v36, v35);
-  v42 = logger.unsafeMutableAddressor();
-  (*(v40 + 16))(v38, v42, v41);
-  v43 = v39;
-  outlined init with copy of ResolvedTransferRepresentation(v133, v129, type metadata accessor for ResolvedTransferRepresentation);
-  v44 = v39;
-  v45 = Logger.logObject.getter();
-  v46 = static os_log_type_t.fault.getter();
+  v88 = *(v0 + 304);
+  v90 = *(v0 + 312);
+  v32 = *(v0 + 160);
+  v33 = v28;
+  v35 = *(v0 + 128);
+  v34 = *(v0 + 136);
+  v27(v31, *(v0 + 192));
+  outlined consume of Data._Representation(v30, v29);
+  v36 = logger.unsafeMutableAddressor();
+  (*(v34 + 16))(v32, v36, v35);
+  v37 = v33;
+  outlined init with copy of ResolvedTransferRepresentation(v90, v88, type metadata accessor for ResolvedTransferRepresentation);
+  v38 = v33;
+  v39 = Logger.logObject.getter();
+  v40 = static os_log_type_t.fault.getter();
 
-  v47 = os_log_type_enabled(v45, v46);
-  v48 = *(v0 + 400);
-  v134 = *(v0 + 392);
-  v49 = *(v0 + 304);
-  v50 = *(v0 + 312);
-  if (v47)
+  v41 = os_log_type_enabled(v39, v40);
+  v42 = *(v0 + 400);
+  v91 = *(v0 + 392);
+  v43 = *(v0 + 304);
+  v44 = *(v0 + 312);
+  if (v41)
   {
-    v51 = *(v0 + 272);
-    v121 = *(v0 + 136);
-    v125 = *(v0 + 128);
-    v130 = *(v0 + 160);
-    v118 = *(v0 + 312);
-    v52 = swift_slowAlloc();
-    v53 = swift_slowAlloc();
-    v115 = v48;
-    v54 = swift_slowAlloc();
-    v137 = v54;
-    *v52 = 136315394;
-    v55 = v49 + *(v51 + 20);
-    v56 = UTType.identifier.getter();
-    v58 = v57;
-    outlined destroy of ResolvedTransferRepresentation(v49, type metadata accessor for ResolvedTransferRepresentation);
-    v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v56, v58, &v137);
+    v85 = *(v0 + 136);
+    v86 = *(v0 + 128);
+    v89 = *(v0 + 160);
+    v84 = *(v0 + 312);
+    v45 = swift_slowAlloc();
+    v46 = swift_slowAlloc();
+    v83 = v42;
+    v47 = swift_slowAlloc();
+    v92 = v47;
+    *v45 = 136315394;
+    v48 = UTType.identifier.getter();
+    v50 = v49;
+    outlined destroy of ResolvedTransferRepresentation(v43, type metadata accessor for ResolvedTransferRepresentation);
+    v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, &v92);
 
-    *(v52 + 4) = v59;
-    *(v52 + 12) = 2112;
-    v60 = v43;
-    v61 = _swift_stdlib_bridgeErrorToNSError();
-    *(v52 + 14) = v61;
-    *v53 = v61;
-    _os_log_impl(&dword_20E3BF000, v45, v46, "Error writing data for type identifier %s: %@", v52, 0x16u);
-    outlined destroy of UTType?(v53, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v53, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v54);
-    MEMORY[0x20F32E080](v54, -1, -1);
-    MEMORY[0x20F32E080](v52, -1, -1);
+    *(v45 + 4) = v51;
+    *(v45 + 12) = 2112;
+    v52 = v37;
+    v53 = _swift_stdlib_bridgeErrorToNSError();
+    *(v45 + 14) = v53;
+    *v46 = v53;
+    _os_log_impl(&dword_20E3BF000, v39, v40, "Error writing data for type identifier %s: %@", v45, 0x16u);
+    outlined destroy of UTType?(v46, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x20F32E080](v46, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v47);
+    MEMORY[0x20F32E080](v47, -1, -1);
+    MEMORY[0x20F32E080](v45, -1, -1);
 
-    outlined consume of Data._Representation(v134, v115);
-    (*(v121 + 8))(v130, v125);
-    v62 = v118;
+    outlined consume of Data._Representation(v91, v83);
+    (*(v85 + 8))(v89, v86);
+    v54 = v84;
   }
 
   else
   {
-    v78 = *(v0 + 160);
-    v79 = *(v0 + 128);
-    v80 = *(v0 + 136);
+    v59 = *(v0 + 160);
+    v60 = *(v0 + 128);
+    v61 = *(v0 + 136);
 
-    outlined consume of Data._Representation(v134, v48);
-    outlined destroy of ResolvedTransferRepresentation(v49, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v80 + 8))(v78, v79);
-    v62 = v50;
+    outlined consume of Data._Representation(v91, v42);
+    outlined destroy of ResolvedTransferRepresentation(v43, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v61 + 8))(v59, v60);
+    v54 = v44;
   }
 
-  result = outlined destroy of ResolvedTransferRepresentation(v62, type metadata accessor for ResolvedTransferRepresentation);
-  v82 = *(v0 + 344) + 1;
-  if (v82 == *(v0 + 328))
+  result = outlined destroy of ResolvedTransferRepresentation(v54, type metadata accessor for ResolvedTransferRepresentation);
+  v63 = *(v0 + 344) + 1;
+  if (v63 == *(v0 + 328))
   {
 LABEL_21:
-    v89 = *(v0 + 320);
 
-    v91 = *(v0 + 304);
-    v90 = *(v0 + 312);
-    v92 = *(v0 + 288);
-    v93 = *(v0 + 296);
-    v94 = *(v0 + 256);
-    v95 = *(v0 + 264);
-    v96 = *(v0 + 248);
-    v112 = *(v0 + 240);
-    v113 = *(v0 + 232);
-    v114 = *(v0 + 224);
-    v117 = *(v0 + 216);
-    v120 = *(v0 + 208);
-    v123 = *(v0 + 184);
-    v127 = *(v0 + 160);
-    v132 = *(v0 + 152);
-    v136 = *(v0 + 144);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
 
-    v77 = *(v0 + 8);
+    v58 = *(v0 + 8);
     goto LABEL_22;
   }
 
-  v83 = MEMORY[0x277CC9318];
+  v64 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 344) = v82;
-    v84 = *(v0 + 320);
-    if (v82 >= *(v84 + 16))
+    *(v0 + 344) = v63;
+    v65 = *(v0 + 320);
+    if (v63 >= *(v65 + 16))
     {
       __break(1u);
       return result;
     }
 
-    v85 = *(v0 + 336);
-    v86 = *(v0 + 312);
-    v87 = *(v0 + 272);
-    outlined init with copy of ResolvedTransferRepresentation(v84 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 280) + 72) * v82, v86, type metadata accessor for ResolvedTransferRepresentation);
-    v88 = *(v86 + *(v87 + 28));
-    if (v88 == v85)
+    v66 = *(v0 + 336);
+    v67 = *(v0 + 312);
+    v68 = *(v0 + 272);
+    outlined init with copy of ResolvedTransferRepresentation(v65 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 280) + 72) * v63, v67, type metadata accessor for ResolvedTransferRepresentation);
+    v69 = *(v67 + *(v68 + 28));
+    if (v69 == v66)
     {
       break;
     }
 
-    if (v88 == v83)
-    {
-      v107 = swift_task_alloc();
-      *(v0 + 384) = v107;
-      *v107 = v0;
-      v107[1] = Transferable._file(contentType:destinationDirectory:);
-      v108 = *(v0 + 312);
-      v109 = *(v0 + 112);
-      v110 = *(v0 + 120);
-      v111 = *(v0 + 104);
-
-      return Transferable.data(from:)(v108, v111, v109);
-    }
-
-    result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 312), type metadata accessor for ResolvedTransferRepresentation);
-    v82 = *(v0 + 344) + 1;
-    if (v82 == *(v0 + 328))
-    {
-      goto LABEL_21;
-    }
-  }
-
-  v97 = *(v0 + 264);
-  v98 = *(v0 + 192);
-  v99 = *(v0 + 200);
-  v100 = *(v99 + 56);
-  *(v0 + 352) = v100;
-  *(v0 + 360) = (v99 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v100(v97, 1, 1, v98);
-  v101 = swift_task_alloc();
-  *(v0 + 368) = v101;
-  *v101 = v0;
-  v101[1] = Transferable._file(contentType:destinationDirectory:);
-  v102 = *(v0 + 312);
-  v103 = *(v0 + 256);
-  v104 = *(v0 + 112);
-  v105 = *(v0 + 120);
-  v106 = *(v0 + 104);
-
-  return Transferable.url(from:)(v103, v102, v106, v104);
-}
-
-{
-  v103 = v0;
-  v1 = *(v0 + 376);
-  v2 = *(v0 + 312);
-  v3 = *(v0 + 296);
-  v4 = *(v0 + 152);
-  v5 = *(v0 + 128);
-  v6 = *(v0 + 136);
-  v7 = logger.unsafeMutableAddressor();
-  (*(v6 + 16))(v4, v7, v5);
-  outlined init with copy of ResolvedTransferRepresentation(v2, v3, type metadata accessor for ResolvedTransferRepresentation);
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.fault.getter();
-
-  v11 = os_log_type_enabled(v9, v10);
-  v12 = *(v0 + 376);
-  v13 = *(v0 + 296);
-  if (v11)
-  {
-    v14 = *(v0 + 272);
-    v93 = *(v0 + 136);
-    v96 = *(v0 + 128);
-    v99 = *(v0 + 152);
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v102 = v17;
-    *v15 = 136315394;
-    v18 = v13 + *(v14 + 20);
-    v19 = UTType.identifier.getter();
-    v21 = v20;
-    outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v102);
-
-    *(v15 + 4) = v22;
-    *(v15 + 12) = 2112;
-    v23 = v12;
-    v24 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v24;
-    *v16 = v24;
-    _os_log_impl(&dword_20E3BF000, v9, v10, "Error loading URL for type identifier %s: %@", v15, 0x16u);
-    outlined destroy of UTType?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v16, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v17);
-    MEMORY[0x20F32E080](v17, -1, -1);
-    MEMORY[0x20F32E080](v15, -1, -1);
-
-    (*(v93 + 8))(v99, v96);
-  }
-
-  else
-  {
-    v25 = *(v0 + 152);
-    v26 = *(v0 + 128);
-    v27 = *(v0 + 136);
-
-    outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v27 + 8))(v25, v26);
-  }
-
-  v28 = *(v0 + 248);
-  v29 = *(v0 + 192);
-  v30 = *(v0 + 200);
-  outlined init with copy of UTType?(*(v0 + 264), v28, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v30 + 48))(v28, 1, v29) != 1)
-  {
-    v51 = *(v0 + 312);
-    v50 = *(v0 + 320);
-    v52 = *(v0 + 264);
-    v53 = *(v0 + 248);
-    v54 = *(v0 + 232);
-    v55 = *(v0 + 192);
-    v56 = *(v0 + 200);
-    v57 = *(v0 + 96);
-    v58 = *(v0 + 80);
-
-    (*(v56 + 32))(v54, v53, v55);
-    copyFile(from:to:)(v54, v57, v58);
-    (*(v56 + 8))(v54, v55);
-    outlined destroy of UTType?(v52, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    outlined destroy of ResolvedTransferRepresentation(v51, type metadata accessor for ResolvedTransferRepresentation);
-    v60 = *(v0 + 304);
-    v59 = *(v0 + 312);
-    v62 = *(v0 + 288);
-    v61 = *(v0 + 296);
-    v64 = *(v0 + 256);
-    v63 = *(v0 + 264);
-    v66 = *(v0 + 240);
-    v65 = *(v0 + 248);
-    v67 = *(v0 + 224);
-    v68 = *(v0 + 232);
-    v88 = *(v0 + 216);
-    v90 = *(v0 + 208);
-    v92 = *(v0 + 184);
-    v95 = *(v0 + 160);
-    v98 = *(v0 + 152);
-    v101 = *(v0 + 144);
-
-    v49 = *(v0 + 8);
-    goto LABEL_13;
-  }
-
-  v31 = *(v0 + 312);
-  v32 = *(v0 + 248);
-  outlined destroy of UTType?(*(v0 + 264), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined destroy of ResolvedTransferRepresentation(v31, type metadata accessor for ResolvedTransferRepresentation);
-  result = outlined destroy of UTType?(v32, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v34 = *(v0 + 344) + 1;
-  if (v34 == *(v0 + 328))
-  {
-LABEL_11:
-    v41 = *(v0 + 320);
-
-    v43 = *(v0 + 304);
-    v42 = *(v0 + 312);
-    v44 = *(v0 + 288);
-    v45 = *(v0 + 296);
-    v46 = *(v0 + 256);
-    v47 = *(v0 + 264);
-    v48 = *(v0 + 248);
-    v84 = *(v0 + 240);
-    v85 = *(v0 + 232);
-    v86 = *(v0 + 224);
-    v87 = *(v0 + 216);
-    v89 = *(v0 + 208);
-    v91 = *(v0 + 184);
-    v94 = *(v0 + 160);
-    v97 = *(v0 + 152);
-    v100 = *(v0 + 144);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
-    swift_allocError();
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-
-    v49 = *(v0 + 8);
-LABEL_13:
-
-    return v49();
-  }
-
-  v35 = MEMORY[0x277CC9318];
-  while (1)
-  {
-    *(v0 + 344) = v34;
-    v36 = *(v0 + 320);
-    if (v34 >= *(v36 + 16))
-    {
-      __break(1u);
-      return result;
-    }
-
-    v37 = *(v0 + 336);
-    v38 = *(v0 + 312);
-    v39 = *(v0 + 272);
-    outlined init with copy of ResolvedTransferRepresentation(v36 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 280) + 72) * v34, v38, type metadata accessor for ResolvedTransferRepresentation);
-    v40 = *(v38 + *(v39 + 28));
-    if (v40 == v37)
-    {
-      break;
-    }
-
-    if (v40 == v35)
+    if (v69 == v64)
     {
       v79 = swift_task_alloc();
       *(v0 + 384) = v79;
@@ -3273,230 +2756,372 @@ LABEL_13:
       v79[1] = Transferable._file(contentType:destinationDirectory:);
       v80 = *(v0 + 312);
       v81 = *(v0 + 112);
-      v82 = *(v0 + 120);
-      v83 = *(v0 + 104);
+      v82 = *(v0 + 104);
 
-      return Transferable.data(from:)(v80, v83, v81);
+      return Transferable.data(from:)(v80, v82, v81);
     }
 
     result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 312), type metadata accessor for ResolvedTransferRepresentation);
-    v34 = *(v0 + 344) + 1;
-    if (v34 == *(v0 + 328))
+    v63 = *(v0 + 344) + 1;
+    if (v63 == *(v0 + 328))
     {
-      goto LABEL_11;
+      goto LABEL_21;
     }
   }
 
-  v69 = *(v0 + 264);
-  v70 = *(v0 + 192);
-  v71 = *(v0 + 200);
-  v72 = *(v71 + 56);
-  *(v0 + 352) = v72;
-  *(v0 + 360) = (v71 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v72(v69, 1, 1, v70);
-  v73 = swift_task_alloc();
-  *(v0 + 368) = v73;
-  *v73 = v0;
-  v73[1] = Transferable._file(contentType:destinationDirectory:);
-  v74 = *(v0 + 312);
-  v75 = *(v0 + 256);
-  v76 = *(v0 + 112);
-  v77 = *(v0 + 120);
+  v70 = *(v0 + 264);
+  v71 = *(v0 + 192);
+  v72 = *(v0 + 200);
+  v73 = *(v72 + 56);
+  *(v0 + 352) = v73;
+  *(v0 + 360) = (v72 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+  v73(v70, 1, 1, v71);
+  v74 = swift_task_alloc();
+  *(v0 + 368) = v74;
+  *v74 = v0;
+  v74[1] = Transferable._file(contentType:destinationDirectory:);
+  v75 = *(v0 + 312);
+  v76 = *(v0 + 256);
+  v77 = *(v0 + 112);
   v78 = *(v0 + 104);
 
-  return Transferable.url(from:)(v75, v74, v78, v76);
-}
-
-{
-  v76 = v0;
-  v1 = *(v0 + 408);
-  v2 = *(v0 + 312);
-  v3 = *(v0 + 288);
-  v5 = *(v0 + 136);
-  v4 = *(v0 + 144);
-  v6 = *(v0 + 128);
-  v7 = logger.unsafeMutableAddressor();
-  (*(v5 + 16))(v4, v7, v6);
-  outlined init with copy of ResolvedTransferRepresentation(v2, v3, type metadata accessor for ResolvedTransferRepresentation);
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.fault.getter();
-
-  v11 = os_log_type_enabled(v9, v10);
-  v12 = *(v0 + 408);
-  v13 = *(v0 + 312);
-  v14 = *(v0 + 288);
-  if (v11)
-  {
-    v15 = *(v0 + 272);
-    v69 = *(v0 + 136);
-    v71 = *(v0 + 128);
-    v73 = *(v0 + 144);
-    v67 = *(v0 + 312);
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v75 = v18;
-    *v16 = 136315394;
-    v19 = v14 + *(v15 + 20);
-    v20 = UTType.identifier.getter();
-    v22 = v21;
-    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, &v75);
-
-    *(v16 + 4) = v23;
-    *(v16 + 12) = 2112;
-    v24 = v12;
-    v25 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v25;
-    *v17 = v25;
-    _os_log_impl(&dword_20E3BF000, v9, v10, "Error loading data for type identifier %s: %@", v16, 0x16u);
-    outlined destroy of UTType?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v17, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v18);
-    MEMORY[0x20F32E080](v18, -1, -1);
-    MEMORY[0x20F32E080](v16, -1, -1);
-
-    (*(v69 + 8))(v73, v71);
-    v26 = v67;
-  }
-
-  else
-  {
-    v28 = *(v0 + 136);
-    v27 = *(v0 + 144);
-    v29 = *(v0 + 128);
-
-    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v28 + 8))(v27, v29);
-    v26 = v13;
-  }
-
-  result = outlined destroy of ResolvedTransferRepresentation(v26, type metadata accessor for ResolvedTransferRepresentation);
-  v31 = *(v0 + 344) + 1;
-  if (v31 == *(v0 + 328))
-  {
-LABEL_10:
-    v38 = *(v0 + 320);
-
-    v40 = *(v0 + 304);
-    v39 = *(v0 + 312);
-    v41 = *(v0 + 288);
-    v42 = *(v0 + 296);
-    v43 = *(v0 + 256);
-    v44 = *(v0 + 264);
-    v45 = *(v0 + 248);
-    v62 = *(v0 + 240);
-    v63 = *(v0 + 232);
-    v64 = *(v0 + 224);
-    v65 = *(v0 + 216);
-    v66 = *(v0 + 208);
-    v68 = *(v0 + 184);
-    v70 = *(v0 + 160);
-    v72 = *(v0 + 152);
-    v74 = *(v0 + 144);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
-    swift_allocError();
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-
-    v46 = *(v0 + 8);
-
-    return v46();
-  }
-
-  else
-  {
-    v32 = MEMORY[0x277CC9318];
-    while (1)
-    {
-      *(v0 + 344) = v31;
-      v33 = *(v0 + 320);
-      if (v31 >= *(v33 + 16))
-      {
-        __break(1u);
-        return result;
-      }
-
-      v34 = *(v0 + 336);
-      v35 = *(v0 + 312);
-      v36 = *(v0 + 272);
-      outlined init with copy of ResolvedTransferRepresentation(v33 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 280) + 72) * v31, v35, type metadata accessor for ResolvedTransferRepresentation);
-      v37 = *(v35 + *(v36 + 28));
-      if (v37 == v34)
-      {
-        break;
-      }
-
-      if (v37 == v32)
-      {
-        v57 = swift_task_alloc();
-        *(v0 + 384) = v57;
-        *v57 = v0;
-        v57[1] = Transferable._file(contentType:destinationDirectory:);
-        v58 = *(v0 + 312);
-        v59 = *(v0 + 112);
-        v60 = *(v0 + 120);
-        v61 = *(v0 + 104);
-
-        return Transferable.data(from:)(v58, v61, v59);
-      }
-
-      result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 312), type metadata accessor for ResolvedTransferRepresentation);
-      v31 = *(v0 + 344) + 1;
-      if (v31 == *(v0 + 328))
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v47 = *(v0 + 264);
-    v48 = *(v0 + 192);
-    v49 = *(v0 + 200);
-    v50 = *(v49 + 56);
-    *(v0 + 352) = v50;
-    *(v0 + 360) = (v49 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-    v50(v47, 1, 1, v48);
-    v51 = swift_task_alloc();
-    *(v0 + 368) = v51;
-    *v51 = v0;
-    v51[1] = Transferable._file(contentType:destinationDirectory:);
-    v52 = *(v0 + 312);
-    v53 = *(v0 + 256);
-    v54 = *(v0 + 112);
-    v55 = *(v0 + 120);
-    v56 = *(v0 + 104);
-
-    return Transferable.url(from:)(v53, v52, v56, v54);
-  }
+  return Transferable.url(from:)(v76, v75, v78, v77);
 }
 
 uint64_t Transferable._file(contentType:destinationDirectory:)(uint64_t a1, uint64_t a2)
 {
   v4 = *v3;
-  v5 = *(*v3 + 384);
-  v8 = *v3;
   v4[49] = a1;
   v4[50] = a2;
   v4[51] = v2;
 
   if (v2)
   {
-    v6 = Transferable._file(contentType:destinationDirectory:);
+    v5 = Transferable._file(contentType:destinationDirectory:);
   }
 
   else
   {
-    v6 = Transferable._file(contentType:destinationDirectory:);
+    v5 = Transferable._file(contentType:destinationDirectory:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+  return MEMORY[0x2822009F8](v5, 0, 0);
+}
+
+uint64_t Transferable._file(contentType:destinationDirectory:)(uint64_t a1)
+{
+  v66 = v1;
+  v2 = *(v1 + 376);
+  v3 = *(v1 + 312);
+  v4 = *(v1 + 296);
+  v5 = *(v1 + 152);
+  v6 = *(v1 + 128);
+  v7 = *(v1 + 136);
+  v8 = logger.unsafeMutableAddressor();
+  (*(v7 + 16))(v5, v8, v6);
+  outlined init with copy of ResolvedTransferRepresentation(v3, v4, type metadata accessor for ResolvedTransferRepresentation);
+  v9 = v2;
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.fault.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v13 = *(v1 + 376);
+  v14 = *(v1 + 296);
+  if (v12)
+  {
+    v62 = *(v1 + 136);
+    v63 = *(v1 + 128);
+    v64 = *(v1 + 152);
+    v15 = swift_slowAlloc();
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v65 = v17;
+    *v15 = 136315394;
+    v18 = UTType.identifier.getter();
+    v20 = v19;
+    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
+    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &v65);
+
+    *(v15 + 4) = v21;
+    *(v15 + 12) = 2112;
+    v22 = v13;
+    v23 = _swift_stdlib_bridgeErrorToNSError();
+    *(v15 + 14) = v23;
+    *v16 = v23;
+    _os_log_impl(&dword_20E3BF000, v10, v11, "Error loading URL for type identifier %s: %@", v15, 0x16u);
+    outlined destroy of UTType?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x20F32E080](v16, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v17);
+    MEMORY[0x20F32E080](v17, -1, -1);
+    MEMORY[0x20F32E080](v15, -1, -1);
+
+    (*(v62 + 8))(v64, v63);
+  }
+
+  else
+  {
+    v24 = *(v1 + 152);
+    v25 = *(v1 + 128);
+    v26 = *(v1 + 136);
+
+    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v26 + 8))(v24, v25);
+  }
+
+  v27 = *(v1 + 248);
+  v28 = *(v1 + 192);
+  v29 = *(v1 + 200);
+  outlined init with copy of UTType?(*(v1 + 264), v27, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v29 + 48))(v27, 1, v28) != 1)
+  {
+    v41 = *(v1 + 312);
+    v42 = *(v1 + 264);
+    v43 = *(v1 + 248);
+    v44 = *(v1 + 232);
+    v45 = *(v1 + 192);
+    v46 = *(v1 + 200);
+    v47 = *(v1 + 96);
+    v48 = *(v1 + 80);
+
+    (*(v46 + 32))(v44, v43, v45);
+    copyFile(from:to:)(v44, v47, v48);
+    (*(v46 + 8))(v44, v45);
+    outlined destroy of UTType?(v42, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined destroy of ResolvedTransferRepresentation(v41, type metadata accessor for ResolvedTransferRepresentation);
+
+    v40 = *(v1 + 8);
+    goto LABEL_13;
+  }
+
+  v30 = *(v1 + 312);
+  v31 = *(v1 + 248);
+  outlined destroy of UTType?(*(v1 + 264), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of ResolvedTransferRepresentation(v30, type metadata accessor for ResolvedTransferRepresentation);
+  result = outlined destroy of UTType?(v31, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v33 = *(v1 + 344) + 1;
+  if (v33 == *(v1 + 328))
+  {
+LABEL_11:
+
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+    swift_allocError();
+    swift_storeEnumTagMultiPayload();
+    swift_willThrow();
+
+    v40 = *(v1 + 8);
+LABEL_13:
+
+    return v40();
+  }
+
+  v34 = MEMORY[0x277CC9318];
+  while (1)
+  {
+    *(v1 + 344) = v33;
+    v35 = *(v1 + 320);
+    if (v33 >= *(v35 + 16))
+    {
+      __break(1u);
+      return result;
+    }
+
+    v36 = *(v1 + 336);
+    v37 = *(v1 + 312);
+    v38 = *(v1 + 272);
+    outlined init with copy of ResolvedTransferRepresentation(v35 + ((*(v1 + 76) + 32) & ~*(v1 + 76)) + *(*(v1 + 280) + 72) * v33, v37, type metadata accessor for ResolvedTransferRepresentation);
+    v39 = *(v37 + *(v38 + 28));
+    if (v39 == v36)
+    {
+      break;
+    }
+
+    if (v39 == v34)
+    {
+      v58 = swift_task_alloc();
+      *(v1 + 384) = v58;
+      *v58 = v1;
+      v58[1] = Transferable._file(contentType:destinationDirectory:);
+      v59 = *(v1 + 312);
+      v60 = *(v1 + 112);
+      v61 = *(v1 + 104);
+
+      return Transferable.data(from:)(v59, v61, v60);
+    }
+
+    result = outlined destroy of ResolvedTransferRepresentation(*(v1 + 312), type metadata accessor for ResolvedTransferRepresentation);
+    v33 = *(v1 + 344) + 1;
+    if (v33 == *(v1 + 328))
+    {
+      goto LABEL_11;
+    }
+  }
+
+  v49 = *(v1 + 264);
+  v50 = *(v1 + 192);
+  v51 = *(v1 + 200);
+  v52 = *(v51 + 56);
+  *(v1 + 352) = v52;
+  *(v1 + 360) = (v51 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+  v52(v49, 1, 1, v50);
+  v53 = swift_task_alloc();
+  *(v1 + 368) = v53;
+  *v53 = v1;
+  v53[1] = Transferable._file(contentType:destinationDirectory:);
+  v54 = *(v1 + 312);
+  v55 = *(v1 + 256);
+  v56 = *(v1 + 112);
+  v57 = *(v1 + 104);
+
+  return Transferable.url(from:)(v55, v54, v57, v56);
+}
+
+{
+  v56 = v1;
+  v2 = *(v1 + 408);
+  v3 = *(v1 + 312);
+  v4 = *(v1 + 288);
+  v6 = *(v1 + 136);
+  v5 = *(v1 + 144);
+  v7 = *(v1 + 128);
+  v8 = logger.unsafeMutableAddressor();
+  (*(v6 + 16))(v5, v8, v7);
+  outlined init with copy of ResolvedTransferRepresentation(v3, v4, type metadata accessor for ResolvedTransferRepresentation);
+  v9 = v2;
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.fault.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v13 = *(v1 + 408);
+  v14 = *(v1 + 312);
+  v15 = *(v1 + 288);
+  if (v12)
+  {
+    v52 = *(v1 + 136);
+    v53 = *(v1 + 128);
+    v54 = *(v1 + 144);
+    v51 = *(v1 + 312);
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v55 = v18;
+    *v16 = 136315394;
+    v19 = UTType.identifier.getter();
+    v21 = v20;
+    outlined destroy of ResolvedTransferRepresentation(v15, type metadata accessor for ResolvedTransferRepresentation);
+    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v55);
+
+    *(v16 + 4) = v22;
+    *(v16 + 12) = 2112;
+    v23 = v13;
+    v24 = _swift_stdlib_bridgeErrorToNSError();
+    *(v16 + 14) = v24;
+    *v17 = v24;
+    _os_log_impl(&dword_20E3BF000, v10, v11, "Error loading data for type identifier %s: %@", v16, 0x16u);
+    outlined destroy of UTType?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x20F32E080](v17, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v18);
+    MEMORY[0x20F32E080](v18, -1, -1);
+    MEMORY[0x20F32E080](v16, -1, -1);
+
+    (*(v52 + 8))(v54, v53);
+    v25 = v51;
+  }
+
+  else
+  {
+    v27 = *(v1 + 136);
+    v26 = *(v1 + 144);
+    v28 = *(v1 + 128);
+
+    outlined destroy of ResolvedTransferRepresentation(v15, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v27 + 8))(v26, v28);
+    v25 = v14;
+  }
+
+  result = outlined destroy of ResolvedTransferRepresentation(v25, type metadata accessor for ResolvedTransferRepresentation);
+  v30 = *(v1 + 344) + 1;
+  if (v30 == *(v1 + 328))
+  {
+LABEL_10:
+
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+    swift_allocError();
+    swift_storeEnumTagMultiPayload();
+    swift_willThrow();
+
+    v37 = *(v1 + 8);
+
+    return v37();
+  }
+
+  else
+  {
+    v31 = MEMORY[0x277CC9318];
+    while (1)
+    {
+      *(v1 + 344) = v30;
+      v32 = *(v1 + 320);
+      if (v30 >= *(v32 + 16))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v33 = *(v1 + 336);
+      v34 = *(v1 + 312);
+      v35 = *(v1 + 272);
+      outlined init with copy of ResolvedTransferRepresentation(v32 + ((*(v1 + 76) + 32) & ~*(v1 + 76)) + *(*(v1 + 280) + 72) * v30, v34, type metadata accessor for ResolvedTransferRepresentation);
+      v36 = *(v34 + *(v35 + 28));
+      if (v36 == v33)
+      {
+        break;
+      }
+
+      if (v36 == v31)
+      {
+        v47 = swift_task_alloc();
+        *(v1 + 384) = v47;
+        *v47 = v1;
+        v47[1] = Transferable._file(contentType:destinationDirectory:);
+        v48 = *(v1 + 312);
+        v49 = *(v1 + 112);
+        v50 = *(v1 + 104);
+
+        return Transferable.data(from:)(v48, v50, v49);
+      }
+
+      result = outlined destroy of ResolvedTransferRepresentation(*(v1 + 312), type metadata accessor for ResolvedTransferRepresentation);
+      v30 = *(v1 + 344) + 1;
+      if (v30 == *(v1 + 328))
+      {
+        goto LABEL_10;
+      }
+    }
+
+    v38 = *(v1 + 264);
+    v39 = *(v1 + 192);
+    v40 = *(v1 + 200);
+    v41 = *(v40 + 56);
+    *(v1 + 352) = v41;
+    *(v1 + 360) = (v40 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+    v41(v38, 1, 1, v39);
+    v42 = swift_task_alloc();
+    *(v1 + 368) = v42;
+    *v42 = v1;
+    v42[1] = Transferable._file(contentType:destinationDirectory:);
+    v43 = *(v1 + 312);
+    v44 = *(v1 + 256);
+    v45 = *(v1 + 112);
+    v46 = *(v1 + 104);
+
+    return Transferable.url(from:)(v44, v43, v46, v45);
+  }
 }
 
 uint64_t Transferable.withExportedFile<A>(contentType:fileHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v18 = *MEMORY[0x277D85DE8];
   v8[8] = a7;
   v8[9] = v7;
   v8[6] = a4;
@@ -3506,20 +3131,15 @@ uint64_t Transferable.withExportedFile<A>(contentType:fileHandler:)(uint64_t a1,
   v8[3] = a1;
   v9 = type metadata accessor for Logger();
   v8[10] = v9;
-  v10 = *(v9 - 8);
-  v8[11] = v10;
-  v11 = *(v10 + 64) + 15;
+  v8[11] = *(v9 - 8);
   v8[12] = swift_task_alloc();
-  v12 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v8[13] = swift_task_alloc();
-  v13 = type metadata accessor for URL();
-  v8[14] = v13;
-  v14 = *(v13 - 8);
-  v8[15] = v14;
-  v15 = *(v14 + 64) + 15;
+  v10 = type metadata accessor for URL();
+  v8[14] = v10;
+  v8[15] = *(v10 - 8);
   v8[16] = swift_task_alloc();
   v8[17] = swift_task_alloc();
-  v16 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](Transferable.withExportedFile<A>(contentType:fileHandler:), 0, 0);
 }
@@ -3527,7 +3147,6 @@ uint64_t Transferable.withExportedFile<A>(contentType:fileHandler:)(uint64_t a1,
 uint64_t Transferable.withExportedFile<A>(contentType:fileHandler:)()
 {
   v1 = v0;
-  v11 = *MEMORY[0x277D85DE8];
   (*(v0[15] + 56))(v0[13], 1, 1, v0[14]);
   v2 = swift_task_alloc();
   v1[18] = v2;
@@ -3536,234 +3155,198 @@ uint64_t Transferable.withExportedFile<A>(contentType:fileHandler:)()
   v3 = v1[17];
   v4 = v1[13];
   v5 = v1[8];
-  v6 = v1[9];
-  v7 = v1[7];
-  v8 = v1[4];
-  v9 = *MEMORY[0x277D85DE8];
+  v6 = v1[7];
+  v7 = v1[4];
 
-  return Transferable._file(contentType:destinationDirectory:)(v3, v8, v4, v7, v5);
+  return Transferable._file(contentType:destinationDirectory:)(v3, v7, v4, v6, v5);
 }
 
 {
-  v16 = *MEMORY[0x277D85DE8];
   v2 = *v1;
-  v3 = *(*v1 + 144);
-  v4 = *v1;
+  v3 = *v1;
   v2[19] = v0;
 
-  v5 = v2[13];
+  v4 = v2[13];
   if (v0)
   {
-    outlined destroy of UTType?(v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v6 = *MEMORY[0x277D85DE8];
+    outlined destroy of UTType?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 
     return MEMORY[0x2822009F8](Transferable.withExportedFile<A>(contentType:fileHandler:), 0, 0);
   }
 
   else
   {
-    v7 = v2[5];
-    outlined destroy of UTType?(v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v15 = (v7 + *v7);
-    v8 = v7[1];
-    v9 = swift_task_alloc();
-    v2[20] = v9;
-    *v9 = v4;
-    v9[1] = Transferable.withExportedFile<A>(contentType:fileHandler:);
-    v10 = v2[17];
-    v11 = v2[6];
-    v12 = v2[3];
-    v13 = *MEMORY[0x277D85DE8];
+    v5 = v2[5];
+    outlined destroy of UTType?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v10 = (v5 + *v5);
+    v6 = swift_task_alloc();
+    v2[20] = v6;
+    *v6 = v3;
+    v6[1] = Transferable.withExportedFile<A>(contentType:fileHandler:);
+    v7 = v2[17];
+    v8 = v2[3];
 
-    return v15(v12, v10);
+    return v10(v8, v7);
   }
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*v1 + 160);
-  v7 = *v1;
   *(*v1 + 168) = v0;
 
   if (v0)
   {
-    v3 = Transferable.withExportedFile<A>(contentType:fileHandler:);
+    v2 = Transferable.withExportedFile<A>(contentType:fileHandler:);
   }
 
   else
   {
-    v3 = Transferable.withExportedFile<A>(contentType:fileHandler:);
+    v2 = Transferable.withExportedFile<A>(contentType:fileHandler:);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  v55 = v0;
-  v54[1] = *MEMORY[0x277D85DE8];
-  v1 = v0[17];
-  v2 = [objc_opt_self() defaultManager];
-  URL._bridgeToObjectiveC()(v3);
-  v5 = v4;
+  v49 = v0;
+  v48[1] = *MEMORY[0x277D85DE8];
+  v1 = [objc_opt_self() defaultManager];
+  URL._bridgeToObjectiveC()(v2);
+  v4 = v3;
   v0[2] = 0;
-  v6 = [v2 removeItemAtURL:v4 error:v0 + 2];
+  v5 = [v1 removeItemAtURL:v3 error:v0 + 2];
 
-  v7 = v0[2];
-  v8 = v0[17];
-  if (v6)
+  v6 = v0[2];
+  v7 = v0[17];
+  if (v5)
   {
-    v9 = v0[14];
-    v10 = *(v0[15] + 8);
-    v11 = v7;
-    v10(v8, v9);
+    v8 = v0[14];
+    v9 = *(v0[15] + 8);
+    v10 = v6;
+    v9(v7, v8);
   }
 
   else
   {
-    v13 = v0[15];
-    v12 = v0[16];
-    v14 = v0[14];
-    v16 = v0[11];
-    v15 = v0[12];
-    v17 = v0[10];
-    v18 = v7;
-    v19 = _convertNSErrorToError(_:)();
+    v12 = v0[15];
+    v11 = v0[16];
+    v13 = v0[14];
+    v15 = v0[11];
+    v14 = v0[12];
+    v16 = v0[10];
+    v17 = v6;
+    v18 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
-    v20 = logger.unsafeMutableAddressor();
-    (*(v16 + 16))(v15, v20, v17);
-    (*(v13 + 16))(v12, v8, v14);
-    v21 = v19;
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.error.getter();
+    v19 = logger.unsafeMutableAddressor();
+    (*(v15 + 16))(v14, v19, v16);
+    (*(v12 + 16))(v11, v7, v13);
+    v20 = v18;
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.error.getter();
 
-    v53 = v23;
-    v24 = os_log_type_enabled(v22, v23);
-    v25 = v0[16];
-    v26 = v0[17];
-    v28 = v0[14];
-    v27 = v0[15];
-    v30 = v0[11];
-    v29 = v0[12];
-    v31 = v0[10];
-    if (v24)
+    v47 = v22;
+    v23 = os_log_type_enabled(v21, v22);
+    v24 = v0[16];
+    v25 = v0[17];
+    v27 = v0[14];
+    v26 = v0[15];
+    v29 = v0[11];
+    v28 = v0[12];
+    v30 = v0[10];
+    if (v23)
     {
-      v52 = v0[10];
-      v32 = swift_slowAlloc();
-      v48 = swift_slowAlloc();
-      v49 = swift_slowAlloc();
-      v54[0] = v49;
-      *v32 = 136315394;
-      v50 = v29;
-      v51 = v26;
-      v33 = URL.path.getter();
-      v35 = v34;
-      v36 = *(v27 + 8);
-      v36(v25, v28);
-      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v35, v54);
+      v46 = v0[10];
+      v31 = swift_slowAlloc();
+      v42 = swift_slowAlloc();
+      v43 = swift_slowAlloc();
+      v48[0] = v43;
+      *v31 = 136315394;
+      v44 = v28;
+      v45 = v25;
+      v32 = URL.path.getter();
+      v34 = v33;
+      v35 = *(v26 + 8);
+      v35(v24, v27);
+      v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v34, v48);
 
-      *(v32 + 4) = v37;
-      *(v32 + 12) = 2112;
-      v38 = v19;
-      v39 = _swift_stdlib_bridgeErrorToNSError();
-      *(v32 + 14) = v39;
-      *v48 = v39;
-      _os_log_impl(&dword_20E3BF000, v22, v53, "Failed to remove temporary file: %s Error: %@", v32, 0x16u);
-      outlined destroy of UTType?(v48, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x20F32E080](v48, -1, -1);
-      __swift_destroy_boxed_opaque_existential_0Tm(v49);
-      MEMORY[0x20F32E080](v49, -1, -1);
-      MEMORY[0x20F32E080](v32, -1, -1);
+      *(v31 + 4) = v36;
+      *(v31 + 12) = 2112;
+      v37 = v18;
+      v38 = _swift_stdlib_bridgeErrorToNSError();
+      *(v31 + 14) = v38;
+      *v42 = v38;
+      _os_log_impl(&dword_20E3BF000, v21, v47, "Failed to remove temporary file: %s Error: %@", v31, 0x16u);
+      outlined destroy of UTType?(v42, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x20F32E080](v42, -1, -1);
+      __swift_destroy_boxed_opaque_existential_0Tm(v43);
+      MEMORY[0x20F32E080](v43, -1, -1);
+      MEMORY[0x20F32E080](v31, -1, -1);
 
-      (*(v30 + 8))(v50, v52);
-      v36(v51, v28);
+      (*(v29 + 8))(v44, v46);
+      v35(v45, v27);
     }
 
     else
     {
 
-      v40 = *(v27 + 8);
-      v40(v25, v28);
-      (*(v30 + 8))(v29, v31);
-      v40(v26, v28);
+      v39 = *(v26 + 8);
+      v39(v24, v27);
+      (*(v29 + 8))(v28, v30);
+      v39(v25, v27);
     }
   }
 
-  v42 = v0[16];
-  v41 = v0[17];
-  v44 = v0[12];
-  v43 = v0[13];
+  v40 = v0[1];
 
-  v45 = v0[1];
-  v46 = *MEMORY[0x277D85DE8];
-
-  return v45();
+  return v40();
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = v0[19];
-  v3 = v0[16];
-  v2 = v0[17];
-  v5 = v0[12];
-  v4 = v0[13];
 
-  v6 = v0[1];
-  v7 = *MEMORY[0x277D85DE8];
+  v1 = *(v0 + 8);
 
-  return v6();
+  return v1();
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
   (*(v0[15] + 8))(v0[17], v0[14]);
-  v1 = v0[21];
-  v3 = v0[16];
-  v2 = v0[17];
-  v5 = v0[12];
-  v4 = v0[13];
 
-  v6 = v0[1];
-  v7 = *MEMORY[0x277D85DE8];
+  v1 = v0[1];
 
-  return v6();
+  return v1();
 }
 
-uint64_t Transferable.suggestedFilename.getter(uint64_t a1, uint64_t a2)
+uint64_t (*Transferable.suggestedFilename.getter(uint64_t a1, uint64_t a2))(void *)
 {
-  v4 = type metadata accessor for ResolvedTransferRepresentation();
+  v4 = type metadata accessor for ResolvedTransferRepresentation(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v9 - 8);
-  v13 = v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = v27 - v14;
+  v7 = v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v11 = v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v25 - v12;
   result = static Transferable.resolvedRepresentations()(a1, a2);
-  v17 = result;
-  v18 = *(result + 16);
-  if (v18)
+  v15 = result;
+  v16 = *(result + 2);
+  if (v16)
   {
-    v19 = 0;
-    while (v19 < *(v17 + 16))
+    v17 = 0;
+    while (v17 < *(v15 + 16))
     {
-      outlined init with copy of ResolvedTransferRepresentation(v17 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v19, v8, type metadata accessor for ResolvedTransferRepresentation);
-      if (v8[16] != 255)
+      outlined init with copy of ResolvedTransferRepresentation(v15 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v17, v7, type metadata accessor for ResolvedTransferRepresentation);
+      if (v7[16] != 255)
       {
 
-        outlined init with take of ResolvedTransferRepresentation(v8, v15, type metadata accessor for ResolvedTransferRepresentation);
-        v20 = 0;
+        outlined init with take of ResolvedTransferRepresentation(v7, v13, type metadata accessor for ResolvedTransferRepresentation);
+        v18 = 0;
         goto LABEL_8;
       }
 
-      ++v19;
-      result = outlined destroy of ResolvedTransferRepresentation(v8, type metadata accessor for ResolvedTransferRepresentation);
-      if (v18 == v19)
+      ++v17;
+      result = outlined destroy of ResolvedTransferRepresentation(v7, type metadata accessor for ResolvedTransferRepresentation);
+      if (v16 == v17)
       {
         goto LABEL_6;
       }
@@ -3776,43 +3359,43 @@ uint64_t Transferable.suggestedFilename.getter(uint64_t a1, uint64_t a2)
   {
 LABEL_6:
 
-    v20 = 1;
+    v18 = 1;
 LABEL_8:
-    (*(v5 + 56))(v15, v20, 1, v4);
-    outlined init with copy of UTType?(v15, v13, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
-    if ((*(v5 + 48))(v13, 1, v4) == 1)
+    (*(v5 + 56))(v13, v18, 1, v4);
+    outlined init with copy of UTType?(v13, v11, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+    if ((*(v5 + 48))(v11, 1, v4) == 1)
     {
-      outlined destroy of UTType?(v15, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
-      v21 = v13;
+      outlined destroy of UTType?(v13, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+      v19 = v11;
     }
 
     else
     {
-      v22 = *v13;
-      v23 = *(v13 + 1);
-      v24 = v13[16];
-      outlined copy of ResolvedTransferRepresentation.SuggestedFileNameStorage?(*v13, v23, v13[16]);
-      outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-      if (v24 != 255)
+      v20 = *v11;
+      v21 = *(v11 + 1);
+      v22 = v11[16];
+      outlined copy of ResolvedTransferRepresentation.SuggestedFileNameStorage?(*v11, v21, v11[16]);
+      outlined destroy of ResolvedTransferRepresentation(v11, type metadata accessor for ResolvedTransferRepresentation);
+      if (v22 != 255)
       {
-        v29 = v22;
-        v30 = v23;
-        v31 = v24 & 1;
-        v28[3] = a1;
-        v28[4] = a2;
-        boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v28);
-        (*(*(a1 - 8) + 16))(boxed_opaque_existential_1, v27[1], a1);
-        v26 = ResolvedTransferRepresentation.SuggestedFileNameStorage.resolved(_:)(v28);
-        outlined consume of ResolvedTransferRepresentation.SuggestedFileNameStorage(v29, v30, v31);
-        outlined destroy of UTType?(v15, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
-        outlined destroy of UTType?(v28, &_s16CoreTransferable0B0_pSgMd, &_s16CoreTransferable0B0_pSgMR);
-        return v26;
+        v27 = v20;
+        v28 = v21;
+        v29 = v22 & 1;
+        v26[3] = a1;
+        v26[4] = a2;
+        boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v26);
+        (*(*(a1 - 8) + 16))(boxed_opaque_existential_1, v25[1], a1);
+        v24 = ResolvedTransferRepresentation.SuggestedFileNameStorage.resolved(_:)(v26);
+        outlined consume of ResolvedTransferRepresentation.SuggestedFileNameStorage(v27, v28, v29);
+        outlined destroy of UTType?(v13, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+        outlined destroy of UTType?(v26, &_s16CoreTransferable0B0_pSgMd, &_s16CoreTransferable0B0_pSgMR);
+        return v24;
       }
 
-      v21 = v15;
+      v19 = v13;
     }
 
-    outlined destroy of UTType?(v21, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+    outlined destroy of UTType?(v19, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
     return 0;
   }
 
@@ -3828,7 +3411,7 @@ uint64_t Transferable.init(importing:contentType:)(uint64_t a1, uint64_t a2, uin
   v7[3] = a2;
   v7[4] = a3;
   v7[2] = a1;
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   v7[9] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](Transferable.init(importing:contentType:), 0, 0);
@@ -3842,35 +3425,25 @@ uint64_t Transferable.init(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   v6[25] = a4;
   v6[22] = a1;
   v6[23] = a2;
-  v7 = type metadata accessor for ReceivedTransferredFile(0);
-  v6[28] = v7;
-  v8 = *(*(v7 - 8) + 64) + 15;
+  v6[28] = type metadata accessor for ReceivedTransferredFile(0);
   v6[29] = swift_task_alloc();
-  v9 = type metadata accessor for UUID();
-  v6[30] = v9;
-  v10 = *(v9 - 8);
-  v6[31] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7 = type metadata accessor for UUID();
+  v6[30] = v7;
+  v6[31] = *(v7 - 8);
   v6[32] = swift_task_alloc();
-  v12 = type metadata accessor for URL();
-  v6[33] = v12;
-  v13 = *(v12 - 8);
-  v6[34] = v13;
-  v14 = *(v13 + 64) + 15;
+  v8 = type metadata accessor for URL();
+  v6[33] = v8;
+  v6[34] = *(v8 - 8);
   v6[35] = swift_task_alloc();
   v6[36] = swift_task_alloc();
-  v15 = type metadata accessor for Optional();
-  v6[37] = v15;
-  v16 = *(v15 - 8);
-  v6[38] = v16;
-  v17 = *(v16 + 64) + 15;
+  v9 = type metadata accessor for Optional();
+  v6[37] = v9;
+  v6[38] = *(v9 - 8);
   v6[39] = swift_task_alloc();
   v6[40] = swift_task_alloc();
-  v18 = type metadata accessor for ResolvedTransferRepresentation();
-  v6[41] = v18;
-  v19 = *(v18 - 8);
-  v6[42] = v19;
-  v20 = *(v19 + 64) + 15;
+  v10 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v6[41] = v10;
+  v6[42] = *(v10 - 8);
   v6[43] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](Transferable.init(_:_:), 0, 0);
@@ -3884,29 +3457,22 @@ uint64_t Transferable.init(_:_:)()
   *(v0 + 360) = v2;
   if (!v2)
   {
-LABEL_11:
+LABEL_10:
 
-    v14 = *(v0 + 344);
-    v15 = *(v0 + 312);
-    v16 = *(v0 + 320);
-    v17 = *(v0 + 288);
-    v44 = *(v0 + 280);
-    v46 = *(v0 + 256);
-    v48 = *(v0 + 232);
-    v18 = *(v0 + 192);
-    v19 = *(v0 + 200);
-    v20 = *(v0 + 184);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    v14 = *(v0 + 192);
+    v15 = *(v0 + 200);
+    v16 = *(v0 + 184);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    outlined consume of Data._Representation(v20, v18);
-    outlined destroy of UTType?(v19, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    outlined consume of Data._Representation(v16, v14);
+    outlined destroy of UTType?(v15, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-    v21 = *(v0 + 8);
+    v17 = *(v0 + 8);
 
-    return v21();
+    return v17();
   }
 
   v3 = 0;
@@ -3928,8 +3494,9 @@ LABEL_11:
     v8 = (v6 + *(v7 + 36));
     v9 = *v8;
     *(v0 + 376) = *v8;
-    *(v0 + 384) = v8[1];
-    v10 = *(v0 + 344);
+    v10 = v8[1];
+    *(v0 + 384) = v10;
+    v11 = *(v0 + 344);
     if (v9)
     {
       break;
@@ -3940,110 +3507,101 @@ LABEL_4:
     v3 = *(v0 + 368) + 1;
     if (v3 == *(v0 + 360))
     {
-      v13 = *(v0 + 352);
-      goto LABEL_11;
+      goto LABEL_10;
     }
   }
 
-  v11 = *(v10 + *(*(v0 + 328) + 28));
-  *(v0 + 392) = v11;
-  if (v11 == v4)
+  v12 = *(v11 + *(*(v0 + 328) + 28));
+  *(v0 + 392) = v12;
+  if (v12 == v4)
   {
-    v23 = *(v0 + 184);
-    v22 = *(v0 + 192);
+    v19 = *(v0 + 184);
+    v18 = *(v0 + 192);
     *(v0 + 160) = v4;
     *(v0 + 168) = &protocol witness table for Data;
-    *(v0 + 136) = v23;
-    *(v0 + 144) = v22;
-    outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v9);
-    outlined copy of Data._Representation(v23, v22);
-    v49 = (v9 + *v9);
-    v24 = v9[1];
-    v25 = swift_task_alloc();
-    *(v0 + 400) = v25;
-    *v25 = v0;
-    v25[1] = Transferable.init(_:_:);
-    v26 = v0 + 96;
-    v27 = v0 + 136;
-    goto LABEL_16;
+    *(v0 + 136) = v19;
+    *(v0 + 144) = v18;
+    outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v9, v10);
+    outlined copy of Data._Representation(v19, v18);
+    v37 = (v9 + *v9);
+    v20 = swift_task_alloc();
+    *(v0 + 400) = v20;
+    *v20 = v0;
+    v20[1] = Transferable.init(_:_:);
+    v21 = v0 + 96;
+    v22 = v0 + 136;
+    goto LABEL_15;
   }
 
-  v12 = type metadata accessor for SentTransferredFile(0);
+  v13 = type metadata accessor for SentTransferredFile(0);
 
-  if (v11 != v12)
+  if (v12 != v13)
   {
-    outlined destroy of ResolvedTransferRepresentation(v10, type metadata accessor for ResolvedTransferRepresentation);
-    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v9);
+    outlined destroy of ResolvedTransferRepresentation(v11, type metadata accessor for ResolvedTransferRepresentation);
+    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v9, v10);
     goto LABEL_4;
   }
 
-  v29 = *(v0 + 280);
-  v28 = *(v0 + 288);
-  v30 = *(v0 + 272);
-  v32 = *(v0 + 248);
-  v31 = *(v0 + 256);
-  v33 = *(v0 + 240);
-  v50 = *(v0 + 192);
-  v45 = *(v0 + 264);
-  v47 = *(v0 + 184);
-  v34 = NSTemporaryDirectory();
+  v23 = *(v0 + 280);
+  v24 = *(v0 + 272);
+  v26 = *(v0 + 248);
+  v25 = *(v0 + 256);
+  v27 = *(v0 + 240);
+  v36 = *(v0 + 264);
+  v28 = NSTemporaryDirectory();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   URL.init(fileURLWithPath:isDirectory:)();
 
   UUID.init()();
   UUID.uuidString.getter();
-  (*(v32 + 8))(v31, v33);
+  (*(v26 + 8))(v25, v27);
   URL.appendingPathComponent(_:isDirectory:)();
 
-  v35 = *(v30 + 8);
-  *(v0 + 416) = v35;
-  *(v0 + 424) = (v30 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v35(v29, v45);
+  v29 = *(v24 + 8);
+  *(v0 + 416) = v29;
+  *(v0 + 424) = (v24 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v29(v23, v36);
   Data.write(to:options:)();
-  v36 = *(v0 + 376);
-  v37 = *(v0 + 384);
-  v38 = *(v0 + 280);
-  v40 = *(v0 + 224);
-  v39 = *(v0 + 232);
-  (*(*(v0 + 272) + 16))(v38, *(v0 + 288), *(v0 + 264));
-  ReceivedTransferredFile.init(file:isOriginalFile:)(v38, 1, v39);
-  *(v0 + 80) = v40;
+  v30 = *(v0 + 376);
+  v31 = *(v0 + 280);
+  v33 = *(v0 + 224);
+  v32 = *(v0 + 232);
+  (*(*(v0 + 272) + 16))(v31, *(v0 + 288), *(v0 + 264));
+  ReceivedTransferredFile.init(file:isOriginalFile:)(v31, 1, v32);
+  *(v0 + 80) = v33;
   *(v0 + 88) = &protocol witness table for ReceivedTransferredFile;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-  outlined init with copy of ResolvedTransferRepresentation(v39, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-  v49 = (v36 + *v36);
-  v42 = v36[1];
-  v43 = swift_task_alloc();
-  *(v0 + 432) = v43;
-  *v43 = v0;
-  v43[1] = Transferable.init(_:_:);
-  v26 = v0 + 16;
-  v27 = v0 + 56;
-LABEL_16:
+  outlined init with copy of ResolvedTransferRepresentation(v32, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+  v37 = (v30 + *v30);
+  v35 = swift_task_alloc();
+  *(v0 + 432) = v35;
+  *v35 = v0;
+  v35[1] = Transferable.init(_:_:);
+  v21 = v0 + 16;
+  v22 = v0 + 56;
+LABEL_15:
 
-  return v49(v26, v27);
+  return v37(v21, v22);
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 400);
-  v4 = *v1;
   *(*v1 + 408) = v0;
 
   if (v0)
   {
 
-    v5 = Transferable.init(_:_:);
+    v3 = Transferable.init(_:_:);
   }
 
   else
   {
     __swift_destroy_boxed_opaque_existential_0Tm((v2 + 136));
-    v5 = Transferable.init(_:_:);
+    v3 = Transferable.init(_:_:);
   }
 
-  return MEMORY[0x2822009F8](v5, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
@@ -4068,32 +3626,24 @@ LABEL_16:
       while (2)
       {
         outlined destroy of ResolvedTransferRepresentation(v10, type metadata accessor for ResolvedTransferRepresentation);
-        for (result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v9); ; result = outlined destroy of ResolvedTransferRepresentation(v18, type metadata accessor for ResolvedTransferRepresentation))
+        for (result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v9, v8); ; result = outlined destroy of ResolvedTransferRepresentation(v18, type metadata accessor for ResolvedTransferRepresentation))
         {
           v13 = *(v0 + 368) + 1;
           if (v13 == *(v0 + 360))
           {
-            v53 = *(v0 + 352);
 
-            v54 = *(v0 + 344);
-            v55 = *(v0 + 312);
-            v56 = *(v0 + 320);
-            v57 = *(v0 + 288);
-            v67 = *(v0 + 280);
-            v69 = *(v0 + 256);
-            v72 = *(v0 + 232);
-            v58 = *(v0 + 192);
-            v59 = *(v0 + 200);
-            v60 = *(v0 + 184);
-            type metadata accessor for TransferableError();
-            lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+            v43 = *(v0 + 192);
+            v44 = *(v0 + 200);
+            v45 = *(v0 + 184);
+            type metadata accessor for TransferableError(0);
+            lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
             swift_allocError();
             swift_storeEnumTagMultiPayload();
             swift_willThrow();
-            outlined consume of Data._Representation(v60, v58);
-            outlined destroy of UTType?(v59, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+            outlined consume of Data._Representation(v45, v43);
+            outlined destroy of UTType?(v44, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-            v52 = *(v0 + 8);
+            v42 = *(v0 + 8);
             goto LABEL_19;
           }
 
@@ -4111,7 +3661,8 @@ LABEL_16:
           v17 = (v15 + *(v16 + 36));
           v9 = *v17;
           *(v0 + 376) = *v17;
-          *(v0 + 384) = v17[1];
+          v8 = v17[1];
+          *(v0 + 384) = v8;
           v18 = *(v0 + 344);
           if (v9)
           {
@@ -4123,22 +3674,21 @@ LABEL_16:
         *(v0 + 392) = v19;
         if (v19 == v11)
         {
-          v62 = *(v0 + 184);
-          v61 = *(v0 + 192);
+          v47 = *(v0 + 184);
+          v46 = *(v0 + 192);
           *(v0 + 160) = v11;
           *(v0 + 168) = &protocol witness table for Data;
-          *(v0 + 136) = v62;
-          *(v0 + 144) = v61;
-          outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v9);
-          outlined copy of Data._Representation(v62, v61);
-          v71 = (v9 + *v9);
-          v63 = v9[1];
-          v64 = swift_task_alloc();
-          *(v0 + 400) = v64;
-          *v64 = v0;
-          v64[1] = Transferable.init(_:_:);
-          v37 = v0 + 96;
-          v38 = v0 + 136;
+          *(v0 + 136) = v47;
+          *(v0 + 144) = v46;
+          outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v9, v8);
+          outlined copy of Data._Representation(v47, v46);
+          v51 = (v9 + *v9);
+          v48 = swift_task_alloc();
+          *(v0 + 400) = v48;
+          *v48 = v0;
+          v48[1] = Transferable.init(_:_:);
+          v34 = v0 + 96;
+          v35 = v0 + 136;
           goto LABEL_14;
         }
 
@@ -4154,294 +3704,258 @@ LABEL_16:
       }
     }
 
-    v22 = *(v0 + 280);
-    v21 = *(v0 + 288);
-    v23 = *(v0 + 272);
-    v70 = v5;
-    v25 = *(v0 + 248);
-    v24 = *(v0 + 256);
-    v26 = *(v0 + 240);
-    v68 = *(v0 + 192);
-    v65 = *(v0 + 264);
-    v66 = *(v0 + 184);
-    v27 = NSTemporaryDirectory();
+    v21 = *(v0 + 280);
+    v22 = *(v0 + 272);
+    v50 = v5;
+    v24 = *(v0 + 248);
+    v23 = *(v0 + 256);
+    v25 = *(v0 + 240);
+    v49 = *(v0 + 264);
+    v26 = NSTemporaryDirectory();
     static String._unconditionallyBridgeFromObjectiveC(_:)();
 
     URL.init(fileURLWithPath:isDirectory:)();
 
     UUID.init()();
     UUID.uuidString.getter();
-    (*(v25 + 8))(v24, v26);
+    (*(v24 + 8))(v23, v25);
     URL.appendingPathComponent(_:isDirectory:)();
 
-    v28 = *(v23 + 8);
-    *(v0 + 416) = v28;
-    *(v0 + 424) = (v23 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-    v28(v22, v65);
+    v27 = *(v22 + 8);
+    *(v0 + 416) = v27;
+    *(v0 + 424) = (v22 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v27(v21, v49);
     Data.write(to:options:)();
-    if (v70)
+    if (v50)
     {
     }
 
-    v29 = *(v0 + 376);
-    v30 = *(v0 + 384);
-    v31 = *(v0 + 280);
-    v33 = *(v0 + 224);
-    v32 = *(v0 + 232);
-    (*(*(v0 + 272) + 16))(v31, *(v0 + 288), *(v0 + 264));
-    ReceivedTransferredFile.init(file:isOriginalFile:)(v31, 1, v32);
-    *(v0 + 80) = v33;
+    v28 = *(v0 + 376);
+    v29 = *(v0 + 280);
+    v31 = *(v0 + 224);
+    v30 = *(v0 + 232);
+    (*(*(v0 + 272) + 16))(v29, *(v0 + 288), *(v0 + 264));
+    ReceivedTransferredFile.init(file:isOriginalFile:)(v29, 1, v30);
+    *(v0 + 80) = v31;
     *(v0 + 88) = &protocol witness table for ReceivedTransferredFile;
     boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-    outlined init with copy of ResolvedTransferRepresentation(v32, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-    v71 = (v29 + *v29);
-    v35 = v29[1];
-    v36 = swift_task_alloc();
-    *(v0 + 432) = v36;
-    *v36 = v0;
-    v36[1] = Transferable.init(_:_:);
-    v37 = v0 + 16;
-    v38 = v0 + 56;
+    outlined init with copy of ResolvedTransferRepresentation(v30, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+    v51 = (v28 + *v28);
+    v33 = swift_task_alloc();
+    *(v0 + 432) = v33;
+    *v33 = v0;
+    v33[1] = Transferable.init(_:_:);
+    v34 = v0 + 16;
+    v35 = v0 + 56;
 LABEL_14:
 
-    return v71(v37, v38);
+    return v51(v34, v35);
   }
 
   else
   {
-    v39 = *(v0 + 376);
-    v40 = *(v0 + 384);
-    v42 = *(v0 + 344);
-    v41 = *(v0 + 352);
-    v44 = *(v0 + 192);
-    v43 = *(v0 + 200);
-    v45 = *(v0 + 184);
+    v36 = *(v0 + 376);
+    v37 = *(v0 + 384);
+    v38 = *(v0 + 344);
+    v40 = *(v0 + 192);
+    v39 = *(v0 + 200);
+    v41 = *(v0 + 184);
 
-    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v39);
-    outlined consume of Data._Representation(v45, v44);
-    outlined destroy of UTType?(v43, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    outlined destroy of ResolvedTransferRepresentation(v42, type metadata accessor for ResolvedTransferRepresentation);
-    v46 = *(v0 + 344);
-    v47 = *(v0 + 312);
-    v49 = *(v0 + 280);
-    v48 = *(v0 + 288);
-    v50 = *(v0 + 256);
-    v51 = *(v0 + 232);
+    outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v36, v37);
+    outlined consume of Data._Representation(v41, v40);
+    outlined destroy of UTType?(v39, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    outlined destroy of ResolvedTransferRepresentation(v38, type metadata accessor for ResolvedTransferRepresentation);
     (*(v4 + 32))(*(v0 + 176), *(v0 + 320), *(v0 + 208));
 
-    v52 = *(v0 + 8);
+    v42 = *(v0 + 8);
 LABEL_19:
 
-    return v52();
+    return v42();
   }
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 432);
-  v4 = *v1;
   *(*v1 + 440) = v0;
 
   if (v0)
   {
 
-    v5 = Transferable.init(_:_:);
+    v3 = Transferable.init(_:_:);
   }
 
   else
   {
     __swift_destroy_boxed_opaque_existential_0Tm((v2 + 56));
-    v5 = Transferable.init(_:_:);
+    v3 = Transferable.init(_:_:);
   }
 
-  return MEMORY[0x2822009F8](v5, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
-  v2 = *(v0 + 416);
-  v1 = *(v0 + 424);
-  v3 = *(v0 + 384);
-  v4 = *(v0 + 344);
-  v5 = *(v0 + 312);
-  v6 = *(v0 + 288);
-  v7 = *(v0 + 264);
-  v8 = *(v0 + 232);
-  v9 = *(v0 + 208);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 376));
-  outlined destroy of ResolvedTransferRepresentation(v8, type metadata accessor for ReceivedTransferredFile);
-  v2(v6, v7);
-  outlined destroy of ResolvedTransferRepresentation(v4, type metadata accessor for ResolvedTransferRepresentation);
+  v1 = *(v0 + 416);
+  v2 = *(v0 + 344);
+  v3 = *(v0 + 312);
+  v4 = *(v0 + 288);
+  v5 = *(v0 + 264);
+  v6 = *(v0 + 232);
+  v7 = *(v0 + 208);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 376), *(v0 + 384));
+  outlined destroy of ResolvedTransferRepresentation(v6, type metadata accessor for ReceivedTransferredFile);
+  v1(v4, v5);
+  outlined destroy of ResolvedTransferRepresentation(v2, type metadata accessor for ResolvedTransferRepresentation);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable0B0_pMd, &_s16CoreTransferable0B0_pMR);
-  v10 = swift_dynamicCast();
-  v11 = *(v9 - 8);
-  (*(v11 + 56))(v5, v10 ^ 1u, 1, v9);
-  if ((*(v11 + 48))(v5, 1, v9) != 1)
+  v8 = swift_dynamicCast();
+  v9 = *(v7 - 8);
+  (*(v9 + 56))(v3, v8 ^ 1u, 1, v7);
+  if ((*(v9 + 48))(v3, 1, v7) != 1)
   {
-    v24 = *(v0 + 352);
-    v25 = *(v0 + 192);
-    v26 = *(v0 + 184);
+    v17 = *(v0 + 192);
+    v18 = *(v0 + 184);
     outlined destroy of UTType?(*(v0 + 200), &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    outlined consume of Data._Representation(v26, v25);
+    outlined consume of Data._Representation(v18, v17);
 
-    v27 = *(v0 + 344);
-    v28 = *(v0 + 320);
-    v30 = *(v0 + 280);
-    v29 = *(v0 + 288);
-    v31 = *(v0 + 256);
-    v32 = *(v0 + 232);
-    (*(v11 + 32))(*(v0 + 176), *(v0 + 312), *(v0 + 208));
+    (*(v9 + 32))(*(v0 + 176), *(v0 + 312), *(v0 + 208));
 
-    v23 = *(v0 + 8);
+    v16 = *(v0 + 8);
     goto LABEL_5;
   }
 
-  v12 = *(v0 + 440);
+  v10 = *(v0 + 440);
   result = (*(*(v0 + 304) + 8))(*(v0 + 312), *(v0 + 296));
-  v14 = *(v0 + 368) + 1;
-  if (v14 == *(v0 + 360))
+  v12 = *(v0 + 368) + 1;
+  if (v12 == *(v0 + 360))
   {
 LABEL_3:
-    v15 = *(v0 + 352);
 
-    v16 = *(v0 + 344);
-    v17 = *(v0 + 312);
-    v18 = *(v0 + 320);
-    v19 = *(v0 + 288);
-    v64 = *(v0 + 280);
-    v66 = *(v0 + 256);
-    v68 = *(v0 + 232);
-    v20 = *(v0 + 192);
-    v21 = *(v0 + 200);
-    v22 = *(v0 + 184);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    v13 = *(v0 + 192);
+    v14 = *(v0 + 200);
+    v15 = *(v0 + 184);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    outlined consume of Data._Representation(v22, v20);
-    outlined destroy of UTType?(v21, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    outlined consume of Data._Representation(v15, v13);
+    outlined destroy of UTType?(v14, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-    v23 = *(v0 + 8);
+    v16 = *(v0 + 8);
 LABEL_5:
 
-    return v23();
+    return v16();
   }
 
-  v33 = MEMORY[0x277CC9318];
+  v19 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 368) = v14;
-    v34 = *(v0 + 352);
-    if (v14 >= *(v34 + 16))
+    *(v0 + 368) = v12;
+    v20 = *(v0 + 352);
+    if (v12 >= *(v20 + 16))
     {
       __break(1u);
       return result;
     }
 
-    v35 = *(v0 + 344);
-    v36 = *(v0 + 328);
-    outlined init with copy of ResolvedTransferRepresentation(v34 + ((*(v0 + 448) + 32) & ~*(v0 + 448)) + *(*(v0 + 336) + 72) * v14, v35, type metadata accessor for ResolvedTransferRepresentation);
-    v37 = (v35 + *(v36 + 36));
-    v38 = *v37;
-    *(v0 + 376) = *v37;
-    *(v0 + 384) = v37[1];
-    v39 = *(v0 + 344);
-    if (v38)
+    v21 = *(v0 + 344);
+    v22 = *(v0 + 328);
+    outlined init with copy of ResolvedTransferRepresentation(v20 + ((*(v0 + 448) + 32) & ~*(v0 + 448)) + *(*(v0 + 336) + 72) * v12, v21, type metadata accessor for ResolvedTransferRepresentation);
+    v23 = (v21 + *(v22 + 36));
+    v24 = *v23;
+    *(v0 + 376) = *v23;
+    v25 = v23[1];
+    *(v0 + 384) = v25;
+    v26 = *(v0 + 344);
+    if (v24)
     {
       break;
     }
 
     result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 344), type metadata accessor for ResolvedTransferRepresentation);
 LABEL_10:
-    v14 = *(v0 + 368) + 1;
-    if (v14 == *(v0 + 360))
+    v12 = *(v0 + 368) + 1;
+    if (v12 == *(v0 + 360))
     {
       goto LABEL_3;
     }
   }
 
-  v40 = *(v39 + *(*(v0 + 328) + 28));
-  *(v0 + 392) = v40;
-  if (v40 == v33)
+  v27 = *(v26 + *(*(v0 + 328) + 28));
+  *(v0 + 392) = v27;
+  if (v27 == v19)
   {
-    v43 = *(v0 + 184);
-    v42 = *(v0 + 192);
-    *(v0 + 160) = v33;
+    v30 = *(v0 + 184);
+    v29 = *(v0 + 192);
+    *(v0 + 160) = v19;
     *(v0 + 168) = &protocol witness table for Data;
-    *(v0 + 136) = v43;
-    *(v0 + 144) = v42;
-    outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v38);
-    outlined copy of Data._Representation(v43, v42);
-    v69 = (v38 + *v38);
-    v44 = v38[1];
-    v45 = swift_task_alloc();
-    *(v0 + 400) = v45;
-    *v45 = v0;
-    v45[1] = Transferable.init(_:_:);
-    v46 = v0 + 96;
-    v47 = v0 + 136;
+    *(v0 + 136) = v30;
+    *(v0 + 144) = v29;
+    outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v24, v25);
+    outlined copy of Data._Representation(v30, v29);
+    v48 = (v24 + *v24);
+    v31 = swift_task_alloc();
+    *(v0 + 400) = v31;
+    *v31 = v0;
+    v31[1] = Transferable.init(_:_:);
+    v32 = v0 + 96;
+    v33 = v0 + 136;
     goto LABEL_20;
   }
 
-  v41 = type metadata accessor for SentTransferredFile(0);
+  v28 = type metadata accessor for SentTransferredFile(0);
 
-  if (v40 != v41)
+  if (v27 != v28)
   {
-    outlined destroy of ResolvedTransferRepresentation(v39, type metadata accessor for ResolvedTransferRepresentation);
-    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v38);
+    outlined destroy of ResolvedTransferRepresentation(v26, type metadata accessor for ResolvedTransferRepresentation);
+    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v24, v25);
     goto LABEL_10;
   }
 
-  v48 = *(v0 + 280);
-  v49 = *(v0 + 272);
-  v63 = *(v0 + 288);
-  v65 = *(v0 + 264);
-  v50 = *(v0 + 248);
-  v51 = *(v0 + 256);
-  v52 = *(v0 + 240);
-  v67 = *(v0 + 184);
-  v70 = *(v0 + 192);
-  v53 = NSTemporaryDirectory();
+  v34 = *(v0 + 280);
+  v35 = *(v0 + 272);
+  v47 = *(v0 + 264);
+  v36 = *(v0 + 248);
+  v37 = *(v0 + 256);
+  v38 = *(v0 + 240);
+  v39 = NSTemporaryDirectory();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   URL.init(fileURLWithPath:isDirectory:)();
 
   UUID.init()();
   UUID.uuidString.getter();
-  (*(v50 + 8))(v51, v52);
+  (*(v36 + 8))(v37, v38);
   URL.appendingPathComponent(_:isDirectory:)();
 
-  v54 = *(v49 + 8);
-  *(v0 + 416) = v54;
-  *(v0 + 424) = (v49 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v54(v48, v65);
+  v40 = *(v35 + 8);
+  *(v0 + 416) = v40;
+  *(v0 + 424) = (v35 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v40(v34, v47);
   Data.write(to:options:)();
-  if (v12)
+  if (v10)
   {
   }
 
-  v55 = *(v0 + 376);
-  v56 = *(v0 + 384);
-  v57 = *(v0 + 280);
-  v59 = *(v0 + 224);
-  v58 = *(v0 + 232);
-  (*(*(v0 + 272) + 16))(v57, *(v0 + 288), *(v0 + 264));
-  ReceivedTransferredFile.init(file:isOriginalFile:)(v57, 1, v58);
-  *(v0 + 80) = v59;
+  v41 = *(v0 + 376);
+  v42 = *(v0 + 280);
+  v44 = *(v0 + 224);
+  v43 = *(v0 + 232);
+  (*(*(v0 + 272) + 16))(v42, *(v0 + 288), *(v0 + 264));
+  ReceivedTransferredFile.init(file:isOriginalFile:)(v42, 1, v43);
+  *(v0 + 80) = v44;
   *(v0 + 88) = &protocol witness table for ReceivedTransferredFile;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-  outlined init with copy of ResolvedTransferRepresentation(v58, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-  v69 = (v55 + *v55);
-  v61 = v55[1];
-  v62 = swift_task_alloc();
-  *(v0 + 432) = v62;
-  *v62 = v0;
-  v62[1] = Transferable.init(_:_:);
-  v46 = v0 + 16;
-  v47 = v0 + 56;
+  outlined init with copy of ResolvedTransferRepresentation(v43, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+  v48 = (v41 + *v41);
+  v46 = swift_task_alloc();
+  *(v0 + 432) = v46;
+  *v46 = v0;
+  v46[1] = Transferable.init(_:_:);
+  v32 = v0 + 16;
+  v33 = v0 + 56;
 LABEL_20:
 
-  return v69(v46, v47);
+  return v48(v32, v33);
 }
 
 {
@@ -4461,34 +3975,26 @@ LABEL_20:
     while (2)
     {
       outlined destroy of ResolvedTransferRepresentation(v7, type metadata accessor for ResolvedTransferRepresentation);
-      for (result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v6); ; result = outlined destroy of ResolvedTransferRepresentation(v15, type metadata accessor for ResolvedTransferRepresentation))
+      for (result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v6, v5); ; result = outlined destroy of ResolvedTransferRepresentation(v15, type metadata accessor for ResolvedTransferRepresentation))
       {
         v10 = *(v0 + 368) + 1;
         if (v10 == *(v0 + 360))
         {
-          v36 = *(v0 + 352);
 
-          v37 = *(v0 + 344);
-          v38 = *(v0 + 312);
-          v39 = *(v0 + 320);
-          v40 = *(v0 + 288);
-          v50 = *(v0 + 280);
-          v52 = *(v0 + 256);
-          v55 = *(v0 + 232);
-          v41 = *(v0 + 192);
-          v42 = *(v0 + 200);
-          v43 = *(v0 + 184);
-          type metadata accessor for TransferableError();
-          lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+          v33 = *(v0 + 192);
+          v34 = *(v0 + 200);
+          v35 = *(v0 + 184);
+          type metadata accessor for TransferableError(0);
+          lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
           swift_allocError();
           swift_storeEnumTagMultiPayload();
           swift_willThrow();
-          outlined consume of Data._Representation(v43, v41);
-          outlined destroy of UTType?(v42, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+          outlined consume of Data._Representation(v35, v33);
+          outlined destroy of UTType?(v34, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-          v44 = *(v0 + 8);
+          v36 = *(v0 + 8);
 
-          return v44();
+          return v36();
         }
 
         *(v0 + 368) = v10;
@@ -4505,7 +4011,8 @@ LABEL_20:
         v14 = (v12 + *(v13 + 36));
         v6 = *v14;
         *(v0 + 376) = *v14;
-        *(v0 + 384) = v14[1];
+        v5 = v14[1];
+        *(v0 + 384) = v5;
         v15 = *(v0 + 344);
         if (v6)
         {
@@ -4517,22 +4024,21 @@ LABEL_20:
       *(v0 + 392) = v16;
       if (v16 == v8)
       {
-        v46 = *(v0 + 184);
-        v45 = *(v0 + 192);
+        v38 = *(v0 + 184);
+        v37 = *(v0 + 192);
         *(v0 + 160) = v8;
         *(v0 + 168) = &protocol witness table for Data;
-        *(v0 + 136) = v46;
-        *(v0 + 144) = v45;
-        outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v6);
-        outlined copy of Data._Representation(v46, v45);
-        v54 = (v6 + *v6);
-        v47 = v6[1];
-        v48 = swift_task_alloc();
-        *(v0 + 400) = v48;
-        *v48 = v0;
-        v48[1] = Transferable.init(_:_:);
-        v34 = v0 + 96;
-        v35 = v0 + 136;
+        *(v0 + 136) = v38;
+        *(v0 + 144) = v37;
+        outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v6, v5);
+        outlined copy of Data._Representation(v38, v37);
+        v41 = (v6 + *v6);
+        v39 = swift_task_alloc();
+        *(v0 + 400) = v39;
+        *v39 = v0;
+        v39[1] = Transferable.init(_:_:);
+        v31 = v0 + 96;
+        v32 = v0 + 136;
         goto LABEL_11;
       }
 
@@ -4548,211 +4054,191 @@ LABEL_20:
     }
   }
 
-  v19 = *(v0 + 280);
-  v18 = *(v0 + 288);
-  v20 = *(v0 + 272);
-  v22 = *(v0 + 248);
-  v21 = *(v0 + 256);
-  v23 = *(v0 + 240);
-  v53 = *(v0 + 192);
-  v49 = *(v0 + 264);
-  v51 = *(v0 + 184);
-  v24 = NSTemporaryDirectory();
+  v18 = *(v0 + 280);
+  v19 = *(v0 + 272);
+  v21 = *(v0 + 248);
+  v20 = *(v0 + 256);
+  v22 = *(v0 + 240);
+  v40 = *(v0 + 264);
+  v23 = NSTemporaryDirectory();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   URL.init(fileURLWithPath:isDirectory:)();
 
   UUID.init()();
   UUID.uuidString.getter();
-  (*(v22 + 8))(v21, v23);
+  (*(v21 + 8))(v20, v22);
   URL.appendingPathComponent(_:isDirectory:)();
 
-  v25 = *(v20 + 8);
-  *(v0 + 416) = v25;
-  *(v0 + 424) = (v20 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v25(v19, v49);
+  v24 = *(v19 + 8);
+  *(v0 + 416) = v24;
+  *(v0 + 424) = (v19 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v24(v18, v40);
   Data.write(to:options:)();
-  v26 = *(v0 + 376);
-  v27 = *(v0 + 384);
-  v28 = *(v0 + 280);
-  v30 = *(v0 + 224);
-  v29 = *(v0 + 232);
-  (*(*(v0 + 272) + 16))(v28, *(v0 + 288), *(v0 + 264));
-  ReceivedTransferredFile.init(file:isOriginalFile:)(v28, 1, v29);
-  *(v0 + 80) = v30;
+  v25 = *(v0 + 376);
+  v26 = *(v0 + 280);
+  v28 = *(v0 + 224);
+  v27 = *(v0 + 232);
+  (*(*(v0 + 272) + 16))(v26, *(v0 + 288), *(v0 + 264));
+  ReceivedTransferredFile.init(file:isOriginalFile:)(v26, 1, v27);
+  *(v0 + 80) = v28;
   *(v0 + 88) = &protocol witness table for ReceivedTransferredFile;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-  outlined init with copy of ResolvedTransferRepresentation(v29, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-  v54 = (v26 + *v26);
-  v32 = v26[1];
-  v33 = swift_task_alloc();
-  *(v0 + 432) = v33;
-  *v33 = v0;
-  v33[1] = Transferable.init(_:_:);
-  v34 = v0 + 16;
-  v35 = v0 + 56;
+  outlined init with copy of ResolvedTransferRepresentation(v27, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+  v41 = (v25 + *v25);
+  v30 = swift_task_alloc();
+  *(v0 + 432) = v30;
+  *v30 = v0;
+  v30[1] = Transferable.init(_:_:);
+  v31 = v0 + 16;
+  v32 = v0 + 56;
 LABEL_11:
 
-  return v54(v34, v35);
+  return v41(v31, v32);
 }
 
 {
-  v2 = *(v0 + 416);
-  v1 = *(v0 + 424);
-  v3 = *(v0 + 384);
-  v4 = *(v0 + 344);
-  v5 = *(v0 + 312);
-  v6 = *(v0 + 288);
-  v7 = *(v0 + 264);
-  v8 = *(v0 + 232);
-  v9 = *(v0 + 208);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 376));
-  outlined destroy of ResolvedTransferRepresentation(v8, type metadata accessor for ReceivedTransferredFile);
-  v2(v6, v7);
-  outlined destroy of ResolvedTransferRepresentation(v4, type metadata accessor for ResolvedTransferRepresentation);
+  v1 = *(v0 + 416);
+  v2 = *(v0 + 344);
+  v3 = *(v0 + 312);
+  v4 = *(v0 + 288);
+  v5 = *(v0 + 264);
+  v6 = *(v0 + 232);
+  v7 = *(v0 + 208);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*(v0 + 376), *(v0 + 384));
+  outlined destroy of ResolvedTransferRepresentation(v6, type metadata accessor for ReceivedTransferredFile);
+  v1(v4, v5);
+  outlined destroy of ResolvedTransferRepresentation(v2, type metadata accessor for ResolvedTransferRepresentation);
   __swift_destroy_boxed_opaque_existential_0Tm((v0 + 56));
-  (*(*(v9 - 8) + 56))(v5, 1, 1, v9);
+  (*(*(v7 - 8) + 56))(v3, 1, 1, v7);
   result = (*(*(v0 + 304) + 8))(*(v0 + 312), *(v0 + 296));
-  v11 = *(v0 + 368) + 1;
-  if (v11 == *(v0 + 360))
+  v9 = *(v0 + 368) + 1;
+  if (v9 == *(v0 + 360))
   {
 LABEL_2:
-    v12 = *(v0 + 352);
 
-    v13 = *(v0 + 344);
-    v14 = *(v0 + 312);
-    v15 = *(v0 + 320);
-    v16 = *(v0 + 288);
-    v52 = *(v0 + 280);
-    v54 = *(v0 + 256);
-    v56 = *(v0 + 232);
-    v17 = *(v0 + 192);
-    v18 = *(v0 + 200);
-    v19 = *(v0 + 184);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    v10 = *(v0 + 192);
+    v11 = *(v0 + 200);
+    v12 = *(v0 + 184);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    outlined consume of Data._Representation(v19, v17);
-    outlined destroy of UTType?(v18, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    outlined consume of Data._Representation(v12, v10);
+    outlined destroy of UTType?(v11, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-    v20 = *(v0 + 8);
+    v13 = *(v0 + 8);
 
-    return v20();
+    return v13();
   }
 
-  v21 = MEMORY[0x277CC9318];
+  v14 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 368) = v11;
-    v22 = *(v0 + 352);
-    if (v11 >= *(v22 + 16))
+    *(v0 + 368) = v9;
+    v15 = *(v0 + 352);
+    if (v9 >= *(v15 + 16))
     {
       __break(1u);
       return result;
     }
 
-    v23 = *(v0 + 344);
-    v24 = *(v0 + 328);
-    outlined init with copy of ResolvedTransferRepresentation(v22 + ((*(v0 + 448) + 32) & ~*(v0 + 448)) + *(*(v0 + 336) + 72) * v11, v23, type metadata accessor for ResolvedTransferRepresentation);
-    v25 = (v23 + *(v24 + 36));
-    v26 = *v25;
-    *(v0 + 376) = *v25;
-    *(v0 + 384) = v25[1];
-    v27 = *(v0 + 344);
-    if (v26)
+    v16 = *(v0 + 344);
+    v17 = *(v0 + 328);
+    outlined init with copy of ResolvedTransferRepresentation(v15 + ((*(v0 + 448) + 32) & ~*(v0 + 448)) + *(*(v0 + 336) + 72) * v9, v16, type metadata accessor for ResolvedTransferRepresentation);
+    v18 = (v16 + *(v17 + 36));
+    v19 = *v18;
+    *(v0 + 376) = *v18;
+    v20 = v18[1];
+    *(v0 + 384) = v20;
+    v21 = *(v0 + 344);
+    if (v19)
     {
       break;
     }
 
     result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 344), type metadata accessor for ResolvedTransferRepresentation);
 LABEL_7:
-    v11 = *(v0 + 368) + 1;
-    if (v11 == *(v0 + 360))
+    v9 = *(v0 + 368) + 1;
+    if (v9 == *(v0 + 360))
     {
       goto LABEL_2;
     }
   }
 
-  v28 = *(v27 + *(*(v0 + 328) + 28));
-  *(v0 + 392) = v28;
-  if (v28 == v21)
+  v22 = *(v21 + *(*(v0 + 328) + 28));
+  *(v0 + 392) = v22;
+  if (v22 == v14)
   {
-    v31 = *(v0 + 184);
-    v30 = *(v0 + 192);
-    *(v0 + 160) = v21;
+    v25 = *(v0 + 184);
+    v24 = *(v0 + 192);
+    *(v0 + 160) = v14;
     *(v0 + 168) = &protocol witness table for Data;
-    *(v0 + 136) = v31;
-    *(v0 + 144) = v30;
-    outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v26);
-    outlined copy of Data._Representation(v31, v30);
-    v57 = (v26 + *v26);
-    v32 = v26[1];
-    v33 = swift_task_alloc();
-    *(v0 + 400) = v33;
-    *v33 = v0;
-    v33[1] = Transferable.init(_:_:);
-    v34 = v0 + 96;
-    v35 = v0 + 136;
+    *(v0 + 136) = v25;
+    *(v0 + 144) = v24;
+    outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v19, v20);
+    outlined copy of Data._Representation(v25, v24);
+    v43 = (v19 + *v19);
+    v26 = swift_task_alloc();
+    *(v0 + 400) = v26;
+    *v26 = v0;
+    v26[1] = Transferable.init(_:_:);
+    v27 = v0 + 96;
+    v28 = v0 + 136;
     goto LABEL_15;
   }
 
-  v29 = type metadata accessor for SentTransferredFile(0);
+  v23 = type metadata accessor for SentTransferredFile(0);
 
-  if (v28 != v29)
+  if (v22 != v23)
   {
-    outlined destroy of ResolvedTransferRepresentation(v27, type metadata accessor for ResolvedTransferRepresentation);
-    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v26);
+    outlined destroy of ResolvedTransferRepresentation(v21, type metadata accessor for ResolvedTransferRepresentation);
+    result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v19, v20);
     goto LABEL_7;
   }
 
-  v37 = *(v0 + 280);
-  v36 = *(v0 + 288);
-  v38 = *(v0 + 272);
-  v40 = *(v0 + 248);
-  v39 = *(v0 + 256);
-  v41 = *(v0 + 240);
-  v58 = *(v0 + 192);
-  v53 = *(v0 + 264);
-  v55 = *(v0 + 184);
-  v42 = NSTemporaryDirectory();
+  v29 = *(v0 + 280);
+  v30 = *(v0 + 272);
+  v32 = *(v0 + 248);
+  v31 = *(v0 + 256);
+  v33 = *(v0 + 240);
+  v42 = *(v0 + 264);
+  v34 = NSTemporaryDirectory();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   URL.init(fileURLWithPath:isDirectory:)();
 
   UUID.init()();
   UUID.uuidString.getter();
-  (*(v40 + 8))(v39, v41);
+  (*(v32 + 8))(v31, v33);
   URL.appendingPathComponent(_:isDirectory:)();
 
-  v43 = *(v38 + 8);
-  *(v0 + 416) = v43;
-  *(v0 + 424) = (v38 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v43(v37, v53);
+  v35 = *(v30 + 8);
+  *(v0 + 416) = v35;
+  *(v0 + 424) = (v30 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v35(v29, v42);
   Data.write(to:options:)();
-  v44 = *(v0 + 376);
-  v45 = *(v0 + 384);
-  v46 = *(v0 + 280);
-  v48 = *(v0 + 224);
-  v47 = *(v0 + 232);
-  (*(*(v0 + 272) + 16))(v46, *(v0 + 288), *(v0 + 264));
-  ReceivedTransferredFile.init(file:isOriginalFile:)(v46, 1, v47);
-  *(v0 + 80) = v48;
+  v36 = *(v0 + 376);
+  v37 = *(v0 + 280);
+  v39 = *(v0 + 224);
+  v38 = *(v0 + 232);
+  (*(*(v0 + 272) + 16))(v37, *(v0 + 288), *(v0 + 264));
+  ReceivedTransferredFile.init(file:isOriginalFile:)(v37, 1, v38);
+  *(v0 + 80) = v39;
   *(v0 + 88) = &protocol witness table for ReceivedTransferredFile;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-  outlined init with copy of ResolvedTransferRepresentation(v47, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
-  v57 = (v44 + *v44);
-  v50 = v44[1];
-  v51 = swift_task_alloc();
-  *(v0 + 432) = v51;
-  *v51 = v0;
-  v51[1] = Transferable.init(_:_:);
-  v34 = v0 + 16;
-  v35 = v0 + 56;
+  outlined init with copy of ResolvedTransferRepresentation(v38, boxed_opaque_existential_1, type metadata accessor for ReceivedTransferredFile);
+  v43 = (v36 + *v36);
+  v41 = swift_task_alloc();
+  *(v0 + 432) = v41;
+  *v41 = v0;
+  v41[1] = Transferable.init(_:_:);
+  v27 = v0 + 16;
+  v28 = v0 + 56;
 LABEL_15:
 
-  return v57(v34, v35);
+  return v43(v27, v28);
 }
 
 uint64_t Transferable.exported(as:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4763,18 +4249,14 @@ uint64_t Transferable.exported(as:)(uint64_t a1, uint64_t a2, uint64_t a3)
   v4[3] = a2;
   v5 = type metadata accessor for UTType();
   v4[6] = v5;
-  v6 = *(v5 - 8);
-  v4[7] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4[7] = *(v5 - 8);
   v4[8] = swift_task_alloc();
-  v8 = type metadata accessor for ResolvedTransferRepresentation();
-  v4[9] = v8;
-  v9 = *(v8 - 8);
-  v4[10] = v9;
-  v10 = *(v9 + 64) + 15;
+  v6 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v4[9] = v6;
+  v4[10] = *(v6 - 8);
   v4[11] = swift_task_alloc();
   v4[12] = swift_task_alloc();
-  v11 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   v4[13] = swift_task_alloc();
   v4[14] = swift_task_alloc();
   v4[15] = swift_task_alloc();
@@ -4807,31 +4289,25 @@ LABEL_12:
       swift_allocError();
       *v27 = 1;
       swift_willThrow();
-      v28 = v0[14];
-      v30 = v0[12];
-      v29 = v0[13];
-      v31 = v0[11];
-      v32 = v0[8];
       outlined destroy of UTType?(v0[15], &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-      v33 = v0[1];
+      v28 = v0[1];
 
-      return v33();
+      return v28();
     }
 
     else
     {
       (*(v0[7] + 32))(v0[8], v0[13], v0[6]);
-      v34 = swift_task_alloc();
-      v0[16] = v34;
-      *v34 = v0;
-      v34[1] = Transferable.exported(as:);
-      v35 = v0[8];
-      v36 = v0[4];
-      v37 = v0[5];
-      v38 = v0[3];
+      v29 = swift_task_alloc();
+      v0[16] = v29;
+      *v29 = v0;
+      v29[1] = Transferable.exported(as:);
+      v30 = v0[8];
+      v31 = v0[4];
+      v32 = v0[3];
 
-      return Transferable.data(contentType:)(v35, v38, v36);
+      return Transferable.data(contentType:)(v30, v32, v31);
     }
   }
 
@@ -4892,56 +4368,44 @@ LABEL_10:
 }
 
 {
-  v1 = v0[14];
-  v2 = v0[15];
-  v4 = v0[12];
-  v3 = v0[13];
-  v5 = v0[11];
+  v1 = v0[15];
   (*(v0[7] + 8))(v0[8], v0[6]);
-  outlined destroy of UTType?(v2, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  outlined destroy of UTType?(v1, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-  v6 = v0[1];
-  v8 = v0[18];
-  v7 = v0[19];
+  v2 = v0[1];
+  v4 = v0[18];
+  v3 = v0[19];
 
-  return v6(v7, v8);
+  return v2(v3, v4);
 }
 
 {
   (*(v0[7] + 8))(v0[8], v0[6]);
-  v1 = v0[17];
-  v2 = v0[14];
-  v4 = v0[12];
-  v3 = v0[13];
-  v5 = v0[11];
-  v6 = v0[8];
   outlined destroy of UTType?(v0[15], &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
 
-  v7 = v0[1];
+  v1 = v0[1];
 
-  return v7();
+  return v1();
 }
 
 uint64_t Transferable.exported(as:)(uint64_t a1, uint64_t a2)
 {
   v6 = *v3;
-  v7 = *(*v3 + 128);
-  v8 = *v3;
   *(*v3 + 136) = v2;
 
   if (v2)
   {
-    v9 = Transferable.exported(as:);
+    v7 = Transferable.exported(as:);
   }
 
   else
   {
     *(v6 + 144) = a2;
     *(v6 + 152) = a1;
-    v9 = Transferable.exported(as:);
+    v7 = Transferable.exported(as:);
   }
 
-  return MEMORY[0x2822009F8](v9, 0, 0);
+  return MEMORY[0x2822009F8](v7, 0, 0);
 }
 
 uint64_t Transferable.data(contentType:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4956,31 +4420,30 @@ uint64_t Transferable.data(contentType:)(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t Transferable.data(contentType:)(uint64_t a1, uint64_t a2)
 {
-  v6 = *(*v3 + 16);
-  v11 = *v3;
+  v10 = *v3;
 
-  v9 = *(v11 + 8);
+  v8 = *(v10 + 8);
   if (!v2)
   {
-    v7 = a1;
-    v8 = a2;
+    v6 = a1;
+    v7 = a2;
   }
 
-  return v9(v7, v8);
+  return v8(v6, v7);
 }
 
-uint64_t static Transferable.exportedFileContentTypes(visibility:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(unint64_t))
+unint64_t static Transferable.exportedFileContentTypes(visibility:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(unint64_t), uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v5 = *a1;
-  v8 = static Transferable.resolvedRepresentations()(a2, a3);
+  v8 = *a1;
+  v11 = static Transferable.resolvedRepresentations()(a2, a3);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGGMd, &_ss18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGGMR);
   LazyFilterSequence.filter(_:)();
-  *(swift_allocObject() + 16) = v5;
+  *(swift_allocObject() + 16) = v8;
   LazyFilterSequence.filter(_:)();
 
-  v6 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(v8, a4);
+  v9 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs18LazyFilterSequenceVySay16CoreTransferable30ResolvedTransferRepresentationVGG_22UniformTypeIdentifiers6UTTypeVs5NeverOTg504_s16g58Transferable0B0PAAE20exportedContentTypes10visibilitySay22lm12Identifiers6o6VGAA32jK38VisibilityV_tFZAhA08ResolvedkL0VXEfU1_Tf1cn_nTm(v11, a4, 0);
 
-  return v6;
+  return v9;
 }
 
 uint64_t Transferable.file(contentType:fileHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -4995,17 +4458,15 @@ uint64_t Transferable.file(contentType:fileHandler:)(uint64_t a1, uint64_t a2, u
 
 uint64_t Transferable.file(contentType:fileHandler:)()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t Transferable._file(contentType:fileHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
   v6[15] = a5;
   v6[16] = v5;
   v6[13] = a3;
@@ -5014,49 +4475,39 @@ uint64_t Transferable._file(contentType:fileHandler:)(uint64_t a1, uint64_t a2, 
   v6[12] = a2;
   v7 = type metadata accessor for Logger();
   v6[17] = v7;
-  v8 = *(v7 - 8);
-  v6[18] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[18] = *(v7 - 8);
   v6[19] = swift_task_alloc();
   v6[20] = swift_task_alloc();
   v6[21] = swift_task_alloc();
-  v10 = type metadata accessor for UUID();
-  v6[22] = v10;
-  v11 = *(v10 - 8);
-  v6[23] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = type metadata accessor for UUID();
+  v6[22] = v8;
+  v6[23] = *(v8 - 8);
   v6[24] = swift_task_alloc();
-  v13 = type metadata accessor for URL();
-  v6[25] = v13;
-  v14 = *(v13 - 8);
-  v6[26] = v14;
-  v15 = *(v14 + 64) + 15;
+  v9 = type metadata accessor for URL();
+  v6[25] = v9;
+  v6[26] = *(v9 - 8);
   v6[27] = swift_task_alloc();
   v6[28] = swift_task_alloc();
   v6[29] = swift_task_alloc();
-  v16 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v6[30] = swift_task_alloc();
   v6[31] = swift_task_alloc();
   v6[32] = swift_task_alloc();
-  v17 = type metadata accessor for ResolvedTransferRepresentation();
-  v6[33] = v17;
-  v18 = *(v17 - 8);
-  v6[34] = v18;
-  v19 = *(v18 + 64) + 15;
+  v10 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v6[33] = v10;
+  v6[34] = *(v10 - 8);
   v6[35] = swift_task_alloc();
   v6[36] = swift_task_alloc();
   v6[37] = swift_task_alloc();
   v6[38] = swift_task_alloc();
-  v20 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   v6[39] = swift_task_alloc();
-  v21 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](Transferable._file(contentType:fileHandler:), 0, 0);
 }
 
 uint64_t Transferable._file(contentType:fileHandler:)()
 {
-  v54 = *MEMORY[0x277D85DE8];
   v1 = *(v0 + 312);
   v3 = *(v0 + 112);
   v2 = *(v0 + 120);
@@ -5099,258 +4550,192 @@ uint64_t Transferable._file(contentType:fileHandler:)()
 
       if (v17 == v12)
       {
-        v40 = swift_task_alloc();
-        *(v0 + 384) = v40;
-        *v40 = v0;
-        v40[1] = Transferable._file(contentType:fileHandler:);
-        v41 = *(v0 + 304);
-        v42 = *(v0 + 120);
-        v43 = *(v0 + 128);
-        v44 = *(v0 + 112);
-        v45 = *MEMORY[0x277D85DE8];
+        v29 = swift_task_alloc();
+        *(v0 + 384) = v29;
+        *v29 = v0;
+        v29[1] = Transferable._file(contentType:fileHandler:);
+        v30 = *(v0 + 304);
+        v31 = *(v0 + 120);
+        v32 = *(v0 + 112);
 
-        return Transferable.data(from:)(v41, v44, v42);
+        return Transferable.data(from:)(v30, v32, v31);
       }
 
       outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
       v11 = *(v0 + 344) + 1;
       if (v11 == *(v0 + 328))
       {
-        v18 = *(v0 + 320);
-        goto LABEL_8;
+        goto LABEL_7;
       }
     }
 
-    v29 = *(v0 + 256);
-    v30 = *(v0 + 200);
-    v31 = *(v0 + 208);
-    v32 = *(v31 + 56);
-    *(v0 + 352) = v32;
-    *(v0 + 360) = (v31 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-    v32(v29, 1, 1, v30);
-    v33 = swift_task_alloc();
-    *(v0 + 368) = v33;
-    *v33 = v0;
-    v33[1] = Transferable._file(contentType:fileHandler:);
-    v34 = *(v0 + 304);
-    v35 = *(v0 + 248);
-    v36 = *(v0 + 120);
-    v37 = *(v0 + 128);
-    v38 = *(v0 + 112);
-    v39 = *MEMORY[0x277D85DE8];
+    v20 = *(v0 + 256);
+    v21 = *(v0 + 200);
+    v22 = *(v0 + 208);
+    v23 = *(v22 + 56);
+    *(v0 + 352) = v23;
+    *(v0 + 360) = (v22 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+    v23(v20, 1, 1, v21);
+    v24 = swift_task_alloc();
+    *(v0 + 368) = v24;
+    *v24 = v0;
+    v24[1] = Transferable._file(contentType:fileHandler:);
+    v25 = *(v0 + 304);
+    v26 = *(v0 + 248);
+    v27 = *(v0 + 120);
+    v28 = *(v0 + 112);
 
-    return Transferable.url(from:)(v35, v34, v38, v36);
+    return Transferable.url(from:)(v26, v25, v28, v27);
   }
 
   else
   {
-LABEL_8:
+LABEL_7:
 
-    v20 = *(v0 + 304);
-    v19 = *(v0 + 312);
-    v21 = *(v0 + 288);
-    v22 = *(v0 + 296);
-    v23 = *(v0 + 280);
-    v24 = *(v0 + 248);
-    v25 = *(v0 + 256);
-    v46 = *(v0 + 240);
-    v47 = *(v0 + 232);
-    v48 = *(v0 + 224);
-    v49 = *(v0 + 216);
-    v50 = *(v0 + 192);
-    v51 = *(v0 + 168);
-    v52 = *(v0 + 160);
-    v53 = *(v0 + 152);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
 
-    v26 = *(v0 + 8);
-    v27 = *MEMORY[0x277D85DE8];
+    v18 = *(v0 + 8);
 
-    return v26();
+    return v18();
   }
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*v1 + 368);
-  v7 = *v1;
   *(*v1 + 376) = v0;
 
   if (v0)
   {
-    v3 = Transferable._file(contentType:fileHandler:);
+    v2 = Transferable._file(contentType:fileHandler:);
   }
 
   else
   {
-    v3 = Transferable._file(contentType:fileHandler:);
+    v2 = Transferable._file(contentType:fileHandler:);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  v77 = *MEMORY[0x277D85DE8];
-  v2 = *(v0 + 352);
-  v1 = *(v0 + 360);
-  v3 = *(v0 + 248);
-  v4 = *(v0 + 256);
-  v5 = *(v0 + 200);
-  outlined destroy of UTType?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v2(v3, 0, 1, v5);
-  outlined init with take of URL?(v3, v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v6 = *(v0 + 240);
-  v7 = *(v0 + 200);
-  v8 = *(v0 + 208);
-  outlined init with copy of UTType?(*(v0 + 256), v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = *(v0 + 256);
-  v11 = *(v0 + 240);
-  if (v9 != 1)
+  v1 = *(v0 + 352);
+  v2 = *(v0 + 248);
+  v3 = *(v0 + 256);
+  v4 = *(v0 + 200);
+  outlined destroy of UTType?(v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v1(v2, 0, 1, v4);
+  outlined init with take of URL?(v2, v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v5 = *(v0 + 240);
+  v6 = *(v0 + 200);
+  v7 = *(v0 + 208);
+  outlined init with copy of UTType?(*(v0 + 256), v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = *(v0 + 256);
+  v10 = *(v0 + 240);
+  if (v8 != 1)
   {
-    v30 = *(v0 + 320);
-    v31 = *(v0 + 232);
-    v32 = *(v0 + 200);
-    v33 = *(v0 + 208);
-    v35 = *(v0 + 96);
-    v34 = *(v0 + 104);
+    v20 = *(v0 + 232);
+    v21 = *(v0 + 200);
+    v22 = *(v0 + 208);
+    v23 = *(v0 + 96);
 
-    (*(v33 + 32))(v31, v11, v32);
-    v35(v31);
-    (*(v33 + 8))(v31, v32);
-    outlined destroy of UTType?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v36 = *(v0 + 312);
-    v38 = *(v0 + 288);
-    v37 = *(v0 + 296);
-    v39 = *(v0 + 280);
-    v40 = *(v0 + 248);
-    v41 = *(v0 + 256);
-    v43 = *(v0 + 232);
-    v42 = *(v0 + 240);
-    v66 = *(v0 + 224);
-    v68 = *(v0 + 216);
-    v70 = *(v0 + 192);
-    v72 = *(v0 + 168);
-    v74 = *(v0 + 160);
-    v76 = *(v0 + 152);
+    (*(v22 + 32))(v20, v10, v21);
+    v23(v20);
+    (*(v22 + 8))(v20, v21);
+    outlined destroy of UTType?(v9, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
 
-    v28 = *(v0 + 8);
-    v44 = *MEMORY[0x277D85DE8];
+    v19 = *(v0 + 8);
     goto LABEL_10;
   }
 
-  v12 = *(v0 + 304);
+  v11 = *(v0 + 304);
   outlined destroy of UTType?(*(v0 + 256), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined destroy of ResolvedTransferRepresentation(v12, type metadata accessor for ResolvedTransferRepresentation);
-  outlined destroy of UTType?(v11, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v13 = *(v0 + 344) + 1;
-  if (v13 == *(v0 + 328))
+  outlined destroy of ResolvedTransferRepresentation(v11, type metadata accessor for ResolvedTransferRepresentation);
+  outlined destroy of UTType?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v12 = *(v0 + 344) + 1;
+  if (v12 == *(v0 + 328))
   {
 LABEL_8:
-    v20 = *(v0 + 320);
 
-    v22 = *(v0 + 304);
-    v21 = *(v0 + 312);
-    v23 = *(v0 + 288);
-    v24 = *(v0 + 296);
-    v25 = *(v0 + 280);
-    v26 = *(v0 + 248);
-    v27 = *(v0 + 256);
-    v63 = *(v0 + 240);
-    v64 = *(v0 + 232);
-    v65 = *(v0 + 224);
-    v67 = *(v0 + 216);
-    v69 = *(v0 + 192);
-    v71 = *(v0 + 168);
-    v73 = *(v0 + 160);
-    v75 = *(v0 + 152);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
 
-    v28 = *(v0 + 8);
-    v29 = *MEMORY[0x277D85DE8];
+    v19 = *(v0 + 8);
 LABEL_10:
 
-    return v28();
+    return v19();
   }
 
-  v14 = MEMORY[0x277CC9318];
+  v13 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 344) = v13;
-    v15 = *(v0 + 320);
-    if (v13 >= *(v15 + 16))
+    *(v0 + 344) = v12;
+    v14 = *(v0 + 320);
+    if (v12 >= *(v14 + 16))
     {
       __break(1u);
     }
 
-    v16 = *(v0 + 336);
-    v17 = *(v0 + 304);
-    v18 = *(v0 + 264);
-    outlined init with copy of ResolvedTransferRepresentation(v15 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 272) + 72) * v13, v17, type metadata accessor for ResolvedTransferRepresentation);
-    v19 = *(v17 + *(v18 + 28));
-    if (v19 == v16)
+    v15 = *(v0 + 336);
+    v16 = *(v0 + 304);
+    v17 = *(v0 + 264);
+    outlined init with copy of ResolvedTransferRepresentation(v14 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 272) + 72) * v12, v16, type metadata accessor for ResolvedTransferRepresentation);
+    v18 = *(v16 + *(v17 + 28));
+    if (v18 == v15)
     {
       break;
     }
 
-    if (v19 == v14)
+    if (v18 == v13)
     {
-      v57 = swift_task_alloc();
-      *(v0 + 384) = v57;
-      *v57 = v0;
-      v57[1] = Transferable._file(contentType:fileHandler:);
-      v58 = *(v0 + 304);
-      v59 = *(v0 + 120);
-      v60 = *(v0 + 128);
-      v61 = *(v0 + 112);
-      v62 = *MEMORY[0x277D85DE8];
+      v34 = swift_task_alloc();
+      *(v0 + 384) = v34;
+      *v34 = v0;
+      v34[1] = Transferable._file(contentType:fileHandler:);
+      v35 = *(v0 + 304);
+      v36 = *(v0 + 120);
+      v37 = *(v0 + 112);
 
-      return Transferable.data(from:)(v58, v61, v59);
+      return Transferable.data(from:)(v35, v37, v36);
     }
 
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
-    v13 = *(v0 + 344) + 1;
-    if (v13 == *(v0 + 328))
+    v12 = *(v0 + 344) + 1;
+    if (v12 == *(v0 + 328))
     {
       goto LABEL_8;
     }
   }
 
-  v46 = *(v0 + 256);
-  v47 = *(v0 + 200);
-  v48 = *(v0 + 208);
-  v49 = *(v48 + 56);
-  *(v0 + 352) = v49;
-  *(v0 + 360) = (v48 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v49(v46, 1, 1, v47);
-  v50 = swift_task_alloc();
-  *(v0 + 368) = v50;
-  *v50 = v0;
-  v50[1] = Transferable._file(contentType:fileHandler:);
-  v51 = *(v0 + 304);
-  v52 = *(v0 + 248);
-  v53 = *(v0 + 120);
-  v54 = *(v0 + 128);
-  v55 = *(v0 + 112);
-  v56 = *MEMORY[0x277D85DE8];
+  v25 = *(v0 + 256);
+  v26 = *(v0 + 200);
+  v27 = *(v0 + 208);
+  v28 = *(v27 + 56);
+  *(v0 + 352) = v28;
+  *(v0 + 360) = (v27 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+  v28(v25, 1, 1, v26);
+  v29 = swift_task_alloc();
+  *(v0 + 368) = v29;
+  *v29 = v0;
+  v29[1] = Transferable._file(contentType:fileHandler:);
+  v30 = *(v0 + 304);
+  v31 = *(v0 + 248);
+  v32 = *(v0 + 120);
+  v33 = *(v0 + 112);
 
-  return Transferable.url(from:)(v52, v51, v55, v53);
+  return Transferable.url(from:)(v31, v30, v33, v32);
 }
 
 {
-  v136 = v0;
-  v135[1] = *MEMORY[0x277D85DE8];
+  v93 = v0;
+  v92[1] = *MEMORY[0x277D85DE8];
   v1 = *(v0 + 304);
   v2 = *(v1 + 16);
   if (v2 == 255)
@@ -5389,644 +4774,534 @@ LABEL_5:
     (*(v14 + 8))(v13, v15);
   }
 
-  v127 = *(v0 + 400);
-  v131 = *(v0 + 408);
-  v16 = *(v0 + 392);
-  v17 = *(v0 + 216);
-  v18 = *(v0 + 224);
-  v20 = *(v0 + 200);
-  v19 = *(v0 + 208);
-  v21 = NSTemporaryDirectory();
+  v90 = *(v0 + 408);
+  v16 = *(v0 + 216);
+  v18 = *(v0 + 200);
+  v17 = *(v0 + 208);
+  v19 = NSTemporaryDirectory();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   URL.init(fileURLWithPath:isDirectory:)();
 
   URL.appendingPathComponent(_:isDirectory:)();
 
-  v22 = *(v19 + 8);
-  v22(v17, v20);
-  v23 = v131;
+  v20 = *(v17 + 8);
+  v20(v16, v18);
+  v21 = v90;
   Data.write(to:options:)();
-  v24 = *(v0 + 392);
-  v25 = *(v0 + 400);
-  if (!v131)
+  v22 = *(v0 + 392);
+  v23 = *(v0 + 400);
+  if (!v90)
   {
-    v52 = *(v0 + 320);
-    v53 = *(v0 + 224);
-    v55 = *(v0 + 96);
-    v54 = *(v0 + 104);
+    v48 = *(v0 + 224);
+    v49 = *(v0 + 96);
     outlined consume of Data._Representation(*(v0 + 392), *(v0 + 400));
 
-    v55(v53);
-    v56 = [objc_opt_self() defaultManager];
-    URL._bridgeToObjectiveC()(v57);
-    v59 = v58;
+    v49(v48);
+    v50 = [objc_opt_self() defaultManager];
+    URL._bridgeToObjectiveC()(v51);
+    v53 = v52;
     *(v0 + 80) = 0;
-    LODWORD(v53) = [v56 removeItemAtURL:v58 error:v0 + 80];
+    LODWORD(v48) = [v50 removeItemAtURL:v52 error:v0 + 80];
 
-    v60 = *(v0 + 80);
-    v61 = *(v0 + 392);
-    v62 = *(v0 + 400);
-    if (v53)
+    v54 = *(v0 + 80);
+    v55 = *(v0 + 392);
+    v56 = *(v0 + 400);
+    if (v48)
     {
-      v63 = v60;
-      outlined consume of Data._Representation(v61, v62);
+      v57 = v54;
+      outlined consume of Data._Representation(v55, v56);
     }
 
     else
     {
-      v84 = v60;
-      v85 = _convertNSErrorToError(_:)();
+      v69 = v54;
+      v70 = _convertNSErrorToError(_:)();
 
       swift_willThrow();
-      outlined consume of Data._Representation(v61, v62);
+      outlined consume of Data._Representation(v55, v56);
     }
 
-    v22(*(v0 + 224), *(v0 + 200));
-    v86 = *(v0 + 312);
-    v88 = *(v0 + 288);
-    v87 = *(v0 + 296);
-    v89 = *(v0 + 280);
-    v90 = *(v0 + 248);
-    v91 = *(v0 + 256);
-    v93 = *(v0 + 232);
-    v92 = *(v0 + 240);
-    v117 = *(v0 + 224);
-    v120 = *(v0 + 216);
-    v123 = *(v0 + 192);
-    v126 = *(v0 + 168);
-    v130 = *(v0 + 160);
-    v134 = *(v0 + 152);
+    v20(*(v0 + 224), *(v0 + 200));
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
 
-    v82 = *(v0 + 8);
-    v94 = *MEMORY[0x277D85DE8];
+    v68 = *(v0 + 8);
     goto LABEL_21;
   }
 
-  v26 = v22;
-  v27 = *(v0 + 296);
-  v28 = *(v0 + 304);
-  v29 = *(v0 + 168);
-  v30 = *(v0 + 136);
-  v31 = *(v0 + 144);
-  v26(*(v0 + 224), *(v0 + 200));
-  outlined consume of Data._Representation(v24, v25);
-  v32 = logger.unsafeMutableAddressor();
-  (*(v31 + 16))(v29, v32, v30);
-  outlined init with copy of ResolvedTransferRepresentation(v28, v27, type metadata accessor for ResolvedTransferRepresentation);
-  v33 = v131;
-  v34 = Logger.logObject.getter();
-  v35 = static os_log_type_t.fault.getter();
+  v24 = v20;
+  v25 = *(v0 + 296);
+  v26 = *(v0 + 304);
+  v27 = *(v0 + 168);
+  v28 = *(v0 + 136);
+  v29 = *(v0 + 144);
+  v24(*(v0 + 224), *(v0 + 200));
+  outlined consume of Data._Representation(v22, v23);
+  v30 = logger.unsafeMutableAddressor();
+  (*(v29 + 16))(v27, v30, v28);
+  outlined init with copy of ResolvedTransferRepresentation(v26, v25, type metadata accessor for ResolvedTransferRepresentation);
+  v31 = v90;
+  v32 = Logger.logObject.getter();
+  v33 = static os_log_type_t.fault.getter();
 
-  v36 = os_log_type_enabled(v34, v35);
-  v37 = *(v0 + 400);
-  v132 = *(v0 + 392);
-  v38 = *(v0 + 296);
-  v39 = *(v0 + 304);
-  if (v36)
+  v34 = os_log_type_enabled(v32, v33);
+  v35 = *(v0 + 400);
+  v91 = *(v0 + 392);
+  v36 = *(v0 + 296);
+  v37 = *(v0 + 304);
+  if (v34)
   {
-    v40 = *(v0 + 264);
-    v121 = *(v0 + 144);
-    v124 = *(v0 + 136);
-    v128 = *(v0 + 168);
-    v118 = *(v0 + 304);
-    v41 = swift_slowAlloc();
-    v42 = swift_slowAlloc();
-    v115 = v37;
-    v43 = swift_slowAlloc();
-    v135[0] = v43;
-    *v41 = 136315394;
-    v44 = v38 + *(v40 + 20);
-    v45 = UTType.identifier.getter();
-    v47 = v46;
-    outlined destroy of ResolvedTransferRepresentation(v38, type metadata accessor for ResolvedTransferRepresentation);
-    v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v47, v135);
+    v87 = *(v0 + 144);
+    v88 = *(v0 + 136);
+    v89 = *(v0 + 168);
+    v86 = *(v0 + 304);
+    v38 = swift_slowAlloc();
+    v39 = swift_slowAlloc();
+    v85 = v35;
+    v40 = swift_slowAlloc();
+    v92[0] = v40;
+    *v38 = 136315394;
+    v41 = UTType.identifier.getter();
+    v43 = v42;
+    outlined destroy of ResolvedTransferRepresentation(v36, type metadata accessor for ResolvedTransferRepresentation);
+    v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v43, v92);
 
-    *(v41 + 4) = v48;
-    *(v41 + 12) = 2112;
-    v49 = v23;
-    v50 = _swift_stdlib_bridgeErrorToNSError();
-    *(v41 + 14) = v50;
-    *v42 = v50;
-    _os_log_impl(&dword_20E3BF000, v34, v35, "Error writing data for type identifier %s: %@", v41, 0x16u);
-    outlined destroy of UTType?(v42, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v42, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v43);
-    MEMORY[0x20F32E080](v43, -1, -1);
-    MEMORY[0x20F32E080](v41, -1, -1);
+    *(v38 + 4) = v44;
+    *(v38 + 12) = 2112;
+    v45 = v21;
+    v46 = _swift_stdlib_bridgeErrorToNSError();
+    *(v38 + 14) = v46;
+    *v39 = v46;
+    _os_log_impl(&dword_20E3BF000, v32, v33, "Error writing data for type identifier %s: %@", v38, 0x16u);
+    outlined destroy of UTType?(v39, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x20F32E080](v39, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v40);
+    MEMORY[0x20F32E080](v40, -1, -1);
+    MEMORY[0x20F32E080](v38, -1, -1);
 
-    outlined consume of Data._Representation(v132, v115);
-    (*(v121 + 8))(v128, v124);
-    v51 = v118;
+    outlined consume of Data._Representation(v91, v85);
+    (*(v87 + 8))(v89, v88);
+    v47 = v86;
   }
 
   else
   {
-    v64 = *(v0 + 168);
-    v65 = *(v0 + 136);
-    v66 = *(v0 + 144);
+    v58 = *(v0 + 168);
+    v59 = *(v0 + 136);
+    v60 = *(v0 + 144);
 
-    outlined consume of Data._Representation(v132, v37);
-    outlined destroy of ResolvedTransferRepresentation(v38, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v66 + 8))(v64, v65);
-    v51 = v39;
+    outlined consume of Data._Representation(v91, v35);
+    outlined destroy of ResolvedTransferRepresentation(v36, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v60 + 8))(v58, v59);
+    v47 = v37;
   }
 
-  outlined destroy of ResolvedTransferRepresentation(v51, type metadata accessor for ResolvedTransferRepresentation);
-  v67 = *(v0 + 344) + 1;
-  if (v67 == *(v0 + 328))
+  outlined destroy of ResolvedTransferRepresentation(v47, type metadata accessor for ResolvedTransferRepresentation);
+  v61 = *(v0 + 344) + 1;
+  if (v61 == *(v0 + 328))
   {
 LABEL_18:
-    v74 = *(v0 + 320);
 
-    v76 = *(v0 + 304);
-    v75 = *(v0 + 312);
-    v77 = *(v0 + 288);
-    v78 = *(v0 + 296);
-    v79 = *(v0 + 280);
-    v80 = *(v0 + 248);
-    v81 = *(v0 + 256);
-    v113 = *(v0 + 240);
-    v114 = *(v0 + 232);
-    v116 = *(v0 + 224);
-    v119 = *(v0 + 216);
-    v122 = *(v0 + 192);
-    v125 = *(v0 + 168);
-    v129 = *(v0 + 160);
-    v133 = *(v0 + 152);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
 
-    v82 = *(v0 + 8);
-    v83 = *MEMORY[0x277D85DE8];
+    v68 = *(v0 + 8);
 LABEL_21:
 
-    return v82();
+    return v68();
   }
 
-  v68 = MEMORY[0x277CC9318];
+  v62 = MEMORY[0x277CC9318];
   while (1)
   {
-    *(v0 + 344) = v67;
-    v69 = *(v0 + 320);
-    if (v67 >= *(v69 + 16))
+    *(v0 + 344) = v61;
+    v63 = *(v0 + 320);
+    if (v61 >= *(v63 + 16))
     {
       __break(1u);
     }
 
-    v70 = *(v0 + 336);
-    v71 = *(v0 + 304);
-    v72 = *(v0 + 264);
-    outlined init with copy of ResolvedTransferRepresentation(v69 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 272) + 72) * v67, v71, type metadata accessor for ResolvedTransferRepresentation);
-    v73 = *(v71 + *(v72 + 28));
-    if (v73 == v70)
+    v64 = *(v0 + 336);
+    v65 = *(v0 + 304);
+    v66 = *(v0 + 264);
+    outlined init with copy of ResolvedTransferRepresentation(v63 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 272) + 72) * v61, v65, type metadata accessor for ResolvedTransferRepresentation);
+    v67 = *(v65 + *(v66 + 28));
+    if (v67 == v64)
     {
       break;
     }
 
-    if (v73 == v68)
+    if (v67 == v62)
     {
-      v107 = swift_task_alloc();
-      *(v0 + 384) = v107;
-      *v107 = v0;
-      v107[1] = Transferable._file(contentType:fileHandler:);
-      v108 = *(v0 + 304);
-      v109 = *(v0 + 120);
-      v110 = *(v0 + 128);
-      v111 = *(v0 + 112);
-      v112 = *MEMORY[0x277D85DE8];
+      v81 = swift_task_alloc();
+      *(v0 + 384) = v81;
+      *v81 = v0;
+      v81[1] = Transferable._file(contentType:fileHandler:);
+      v82 = *(v0 + 304);
+      v83 = *(v0 + 120);
+      v84 = *(v0 + 112);
 
-      return Transferable.data(from:)(v108, v111, v109);
+      return Transferable.data(from:)(v82, v84, v83);
     }
 
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
-    v67 = *(v0 + 344) + 1;
-    if (v67 == *(v0 + 328))
+    v61 = *(v0 + 344) + 1;
+    if (v61 == *(v0 + 328))
     {
       goto LABEL_18;
     }
   }
 
-  v96 = *(v0 + 256);
-  v97 = *(v0 + 200);
-  v98 = *(v0 + 208);
-  v99 = *(v98 + 56);
-  *(v0 + 352) = v99;
-  *(v0 + 360) = (v98 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v99(v96, 1, 1, v97);
-  v100 = swift_task_alloc();
-  *(v0 + 368) = v100;
-  *v100 = v0;
-  v100[1] = Transferable._file(contentType:fileHandler:);
-  v101 = *(v0 + 304);
-  v102 = *(v0 + 248);
-  v103 = *(v0 + 120);
-  v104 = *(v0 + 128);
-  v105 = *(v0 + 112);
-  v106 = *MEMORY[0x277D85DE8];
+  v72 = *(v0 + 256);
+  v73 = *(v0 + 200);
+  v74 = *(v0 + 208);
+  v75 = *(v74 + 56);
+  *(v0 + 352) = v75;
+  *(v0 + 360) = (v74 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+  v75(v72, 1, 1, v73);
+  v76 = swift_task_alloc();
+  *(v0 + 368) = v76;
+  *v76 = v0;
+  v76[1] = Transferable._file(contentType:fileHandler:);
+  v77 = *(v0 + 304);
+  v78 = *(v0 + 248);
+  v79 = *(v0 + 120);
+  v80 = *(v0 + 112);
 
-  return Transferable.url(from:)(v102, v101, v105, v103);
-}
-
-{
-  v103 = v0;
-  v102[1] = *MEMORY[0x277D85DE8];
-  v1 = *(v0 + 376);
-  v2 = *(v0 + 304);
-  v3 = *(v0 + 288);
-  v4 = *(v0 + 160);
-  v5 = *(v0 + 136);
-  v6 = *(v0 + 144);
-  v7 = logger.unsafeMutableAddressor();
-  (*(v6 + 16))(v4, v7, v5);
-  outlined init with copy of ResolvedTransferRepresentation(v2, v3, type metadata accessor for ResolvedTransferRepresentation);
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.fault.getter();
-
-  v11 = os_log_type_enabled(v9, v10);
-  v12 = *(v0 + 376);
-  v13 = *(v0 + 288);
-  if (v11)
-  {
-    v14 = *(v0 + 264);
-    v93 = *(v0 + 144);
-    v96 = *(v0 + 136);
-    v99 = *(v0 + 160);
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v102[0] = v17;
-    *v15 = 136315394;
-    v18 = v13 + *(v14 + 20);
-    v19 = UTType.identifier.getter();
-    v21 = v20;
-    outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, v102);
-
-    *(v15 + 4) = v22;
-    *(v15 + 12) = 2112;
-    v23 = v12;
-    v24 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v24;
-    *v16 = v24;
-    _os_log_impl(&dword_20E3BF000, v9, v10, "Error loading URL for type identifier %s: %@", v15, 0x16u);
-    outlined destroy of UTType?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v16, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v17);
-    MEMORY[0x20F32E080](v17, -1, -1);
-    MEMORY[0x20F32E080](v15, -1, -1);
-
-    (*(v93 + 8))(v99, v96);
-  }
-
-  else
-  {
-    v25 = *(v0 + 160);
-    v26 = *(v0 + 136);
-    v27 = *(v0 + 144);
-
-    outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v27 + 8))(v25, v26);
-  }
-
-  v28 = *(v0 + 240);
-  v29 = *(v0 + 200);
-  v30 = *(v0 + 208);
-  outlined init with copy of UTType?(*(v0 + 256), v28, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v30 + 48))(v28, 1, v29) != 1)
-  {
-    v50 = *(v0 + 320);
-    v51 = *(v0 + 256);
-    v52 = *(v0 + 232);
-    v53 = *(v0 + 240);
-    v54 = *(v0 + 200);
-    v55 = *(v0 + 208);
-    v57 = *(v0 + 96);
-    v56 = *(v0 + 104);
-
-    (*(v55 + 32))(v52, v53, v54);
-    v57(v52);
-    (*(v55 + 8))(v52, v54);
-    outlined destroy of UTType?(v51, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v58 = *(v0 + 312);
-    v60 = *(v0 + 288);
-    v59 = *(v0 + 296);
-    v61 = *(v0 + 280);
-    v62 = *(v0 + 248);
-    v63 = *(v0 + 256);
-    v65 = *(v0 + 232);
-    v64 = *(v0 + 240);
-    v88 = *(v0 + 224);
-    v90 = *(v0 + 216);
-    v92 = *(v0 + 192);
-    v95 = *(v0 + 168);
-    v98 = *(v0 + 160);
-    v101 = *(v0 + 152);
-    outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
-
-    v48 = *(v0 + 8);
-    v66 = *MEMORY[0x277D85DE8];
-    goto LABEL_13;
-  }
-
-  v31 = *(v0 + 304);
-  v32 = *(v0 + 240);
-  outlined destroy of UTType?(*(v0 + 256), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined destroy of ResolvedTransferRepresentation(v31, type metadata accessor for ResolvedTransferRepresentation);
-  outlined destroy of UTType?(v32, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v33 = *(v0 + 344) + 1;
-  if (v33 == *(v0 + 328))
-  {
-LABEL_11:
-    v40 = *(v0 + 320);
-
-    v42 = *(v0 + 304);
-    v41 = *(v0 + 312);
-    v43 = *(v0 + 288);
-    v44 = *(v0 + 296);
-    v45 = *(v0 + 280);
-    v46 = *(v0 + 248);
-    v47 = *(v0 + 256);
-    v85 = *(v0 + 240);
-    v86 = *(v0 + 232);
-    v87 = *(v0 + 224);
-    v89 = *(v0 + 216);
-    v91 = *(v0 + 192);
-    v94 = *(v0 + 168);
-    v97 = *(v0 + 160);
-    v100 = *(v0 + 152);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
-    swift_allocError();
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-
-    v48 = *(v0 + 8);
-    v49 = *MEMORY[0x277D85DE8];
-LABEL_13:
-
-    return v48();
-  }
-
-  v34 = MEMORY[0x277CC9318];
-  while (1)
-  {
-    *(v0 + 344) = v33;
-    v35 = *(v0 + 320);
-    if (v33 >= *(v35 + 16))
-    {
-      __break(1u);
-    }
-
-    v36 = *(v0 + 336);
-    v37 = *(v0 + 304);
-    v38 = *(v0 + 264);
-    outlined init with copy of ResolvedTransferRepresentation(v35 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 272) + 72) * v33, v37, type metadata accessor for ResolvedTransferRepresentation);
-    v39 = *(v37 + *(v38 + 28));
-    if (v39 == v36)
-    {
-      break;
-    }
-
-    if (v39 == v34)
-    {
-      v79 = swift_task_alloc();
-      *(v0 + 384) = v79;
-      *v79 = v0;
-      v79[1] = Transferable._file(contentType:fileHandler:);
-      v80 = *(v0 + 304);
-      v81 = *(v0 + 120);
-      v82 = *(v0 + 128);
-      v83 = *(v0 + 112);
-      v84 = *MEMORY[0x277D85DE8];
-
-      return Transferable.data(from:)(v80, v83, v81);
-    }
-
-    outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
-    v33 = *(v0 + 344) + 1;
-    if (v33 == *(v0 + 328))
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v68 = *(v0 + 256);
-  v69 = *(v0 + 200);
-  v70 = *(v0 + 208);
-  v71 = *(v70 + 56);
-  *(v0 + 352) = v71;
-  *(v0 + 360) = (v70 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v71(v68, 1, 1, v69);
-  v72 = swift_task_alloc();
-  *(v0 + 368) = v72;
-  *v72 = v0;
-  v72[1] = Transferable._file(contentType:fileHandler:);
-  v73 = *(v0 + 304);
-  v74 = *(v0 + 248);
-  v75 = *(v0 + 120);
-  v76 = *(v0 + 128);
-  v77 = *(v0 + 112);
-  v78 = *MEMORY[0x277D85DE8];
-
-  return Transferable.url(from:)(v74, v73, v77, v75);
-}
-
-{
-  v78 = v0;
-  v77[1] = *MEMORY[0x277D85DE8];
-  v1 = *(v0 + 408);
-  v2 = *(v0 + 304);
-  v3 = *(v0 + 280);
-  v5 = *(v0 + 144);
-  v4 = *(v0 + 152);
-  v6 = *(v0 + 136);
-  v7 = logger.unsafeMutableAddressor();
-  (*(v5 + 16))(v4, v7, v6);
-  outlined init with copy of ResolvedTransferRepresentation(v2, v3, type metadata accessor for ResolvedTransferRepresentation);
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.fault.getter();
-
-  v11 = os_log_type_enabled(v9, v10);
-  v12 = *(v0 + 408);
-  v13 = *(v0 + 304);
-  v14 = *(v0 + 280);
-  if (v11)
-  {
-    v15 = *(v0 + 264);
-    v71 = *(v0 + 144);
-    v73 = *(v0 + 136);
-    v75 = *(v0 + 152);
-    v69 = *(v0 + 304);
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v77[0] = v18;
-    *v16 = 136315394;
-    v19 = v14 + *(v15 + 20);
-    v20 = UTType.identifier.getter();
-    v22 = v21;
-    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v77);
-
-    *(v16 + 4) = v23;
-    *(v16 + 12) = 2112;
-    v24 = v12;
-    v25 = _swift_stdlib_bridgeErrorToNSError();
-    *(v16 + 14) = v25;
-    *v17 = v25;
-    _os_log_impl(&dword_20E3BF000, v9, v10, "Error loading data for type identifier %s: %@", v16, 0x16u);
-    outlined destroy of UTType?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v17, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v18);
-    MEMORY[0x20F32E080](v18, -1, -1);
-    MEMORY[0x20F32E080](v16, -1, -1);
-
-    (*(v71 + 8))(v75, v73);
-    v26 = v69;
-  }
-
-  else
-  {
-    v28 = *(v0 + 144);
-    v27 = *(v0 + 152);
-    v29 = *(v0 + 136);
-
-    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v28 + 8))(v27, v29);
-    v26 = v13;
-  }
-
-  outlined destroy of ResolvedTransferRepresentation(v26, type metadata accessor for ResolvedTransferRepresentation);
-  v30 = *(v0 + 344) + 1;
-  if (v30 == *(v0 + 328))
-  {
-LABEL_10:
-    v37 = *(v0 + 320);
-
-    v39 = *(v0 + 304);
-    v38 = *(v0 + 312);
-    v40 = *(v0 + 288);
-    v41 = *(v0 + 296);
-    v42 = *(v0 + 280);
-    v43 = *(v0 + 248);
-    v44 = *(v0 + 256);
-    v65 = *(v0 + 240);
-    v66 = *(v0 + 232);
-    v67 = *(v0 + 224);
-    v68 = *(v0 + 216);
-    v70 = *(v0 + 192);
-    v72 = *(v0 + 168);
-    v74 = *(v0 + 160);
-    v76 = *(v0 + 152);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
-    swift_allocError();
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-
-    v45 = *(v0 + 8);
-    v46 = *MEMORY[0x277D85DE8];
-
-    return v45();
-  }
-
-  else
-  {
-    v31 = MEMORY[0x277CC9318];
-    while (1)
-    {
-      *(v0 + 344) = v30;
-      v32 = *(v0 + 320);
-      if (v30 >= *(v32 + 16))
-      {
-        __break(1u);
-      }
-
-      v33 = *(v0 + 336);
-      v34 = *(v0 + 304);
-      v35 = *(v0 + 264);
-      outlined init with copy of ResolvedTransferRepresentation(v32 + ((*(v0 + 76) + 32) & ~*(v0 + 76)) + *(*(v0 + 272) + 72) * v30, v34, type metadata accessor for ResolvedTransferRepresentation);
-      v36 = *(v34 + *(v35 + 28));
-      if (v36 == v33)
-      {
-        break;
-      }
-
-      if (v36 == v31)
-      {
-        v59 = swift_task_alloc();
-        *(v0 + 384) = v59;
-        *v59 = v0;
-        v59[1] = Transferable._file(contentType:fileHandler:);
-        v60 = *(v0 + 304);
-        v61 = *(v0 + 120);
-        v62 = *(v0 + 128);
-        v63 = *(v0 + 112);
-        v64 = *MEMORY[0x277D85DE8];
-
-        return Transferable.data(from:)(v60, v63, v61);
-      }
-
-      outlined destroy of ResolvedTransferRepresentation(*(v0 + 304), type metadata accessor for ResolvedTransferRepresentation);
-      v30 = *(v0 + 344) + 1;
-      if (v30 == *(v0 + 328))
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v48 = *(v0 + 256);
-    v49 = *(v0 + 200);
-    v50 = *(v0 + 208);
-    v51 = *(v50 + 56);
-    *(v0 + 352) = v51;
-    *(v0 + 360) = (v50 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-    v51(v48, 1, 1, v49);
-    v52 = swift_task_alloc();
-    *(v0 + 368) = v52;
-    *v52 = v0;
-    v52[1] = Transferable._file(contentType:fileHandler:);
-    v53 = *(v0 + 304);
-    v54 = *(v0 + 248);
-    v55 = *(v0 + 120);
-    v56 = *(v0 + 128);
-    v57 = *(v0 + 112);
-    v58 = *MEMORY[0x277D85DE8];
-
-    return Transferable.url(from:)(v54, v53, v57, v55);
-  }
+  return Transferable.url(from:)(v78, v77, v80, v79);
 }
 
 uint64_t Transferable._file(contentType:fileHandler:)(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v4 = *v3;
-  v5 = *(*v3 + 384);
-  v10 = *v3;
   v4[49] = a1;
   v4[50] = a2;
   v4[51] = v2;
 
   if (v2)
   {
-    v6 = Transferable._file(contentType:fileHandler:);
+    v5 = Transferable._file(contentType:fileHandler:);
   }
 
   else
   {
-    v6 = Transferable._file(contentType:fileHandler:);
+    v5 = Transferable._file(contentType:fileHandler:);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  return MEMORY[0x2822009F8](v5, 0, 0);
+}
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+uint64_t Transferable._file(contentType:fileHandler:)(uint64_t a1)
+{
+  v64 = v1;
+  v63[1] = *MEMORY[0x277D85DE8];
+  v2 = *(v1 + 376);
+  v3 = *(v1 + 304);
+  v4 = *(v1 + 288);
+  v5 = *(v1 + 160);
+  v6 = *(v1 + 136);
+  v7 = *(v1 + 144);
+  v8 = logger.unsafeMutableAddressor();
+  (*(v7 + 16))(v5, v8, v6);
+  outlined init with copy of ResolvedTransferRepresentation(v3, v4, type metadata accessor for ResolvedTransferRepresentation);
+  v9 = v2;
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.fault.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v13 = *(v1 + 376);
+  v14 = *(v1 + 288);
+  if (v12)
+  {
+    v60 = *(v1 + 144);
+    v61 = *(v1 + 136);
+    v62 = *(v1 + 160);
+    v15 = swift_slowAlloc();
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v63[0] = v17;
+    *v15 = 136315394;
+    v18 = UTType.identifier.getter();
+    v20 = v19;
+    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
+    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, v63);
+
+    *(v15 + 4) = v21;
+    *(v15 + 12) = 2112;
+    v22 = v13;
+    v23 = _swift_stdlib_bridgeErrorToNSError();
+    *(v15 + 14) = v23;
+    *v16 = v23;
+    _os_log_impl(&dword_20E3BF000, v10, v11, "Error loading URL for type identifier %s: %@", v15, 0x16u);
+    outlined destroy of UTType?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x20F32E080](v16, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v17);
+    MEMORY[0x20F32E080](v17, -1, -1);
+    MEMORY[0x20F32E080](v15, -1, -1);
+
+    (*(v60 + 8))(v62, v61);
+  }
+
+  else
+  {
+    v24 = *(v1 + 160);
+    v25 = *(v1 + 136);
+    v26 = *(v1 + 144);
+
+    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v26 + 8))(v24, v25);
+  }
+
+  v27 = *(v1 + 240);
+  v28 = *(v1 + 200);
+  v29 = *(v1 + 208);
+  outlined init with copy of UTType?(*(v1 + 256), v27, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v29 + 48))(v27, 1, v28) != 1)
+  {
+    v40 = *(v1 + 256);
+    v41 = *(v1 + 232);
+    v42 = *(v1 + 240);
+    v43 = *(v1 + 200);
+    v44 = *(v1 + 208);
+    v45 = *(v1 + 96);
+
+    (*(v44 + 32))(v41, v42, v43);
+    v45(v41);
+    (*(v44 + 8))(v41, v43);
+    outlined destroy of UTType?(v40, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined destroy of ResolvedTransferRepresentation(*(v1 + 304), type metadata accessor for ResolvedTransferRepresentation);
+
+    v39 = *(v1 + 8);
+    goto LABEL_13;
+  }
+
+  v30 = *(v1 + 304);
+  v31 = *(v1 + 240);
+  outlined destroy of UTType?(*(v1 + 256), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of ResolvedTransferRepresentation(v30, type metadata accessor for ResolvedTransferRepresentation);
+  outlined destroy of UTType?(v31, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v32 = *(v1 + 344) + 1;
+  if (v32 == *(v1 + 328))
+  {
+LABEL_11:
+
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+    swift_allocError();
+    swift_storeEnumTagMultiPayload();
+    swift_willThrow();
+
+    v39 = *(v1 + 8);
+LABEL_13:
+
+    return v39();
+  }
+
+  v33 = MEMORY[0x277CC9318];
+  while (1)
+  {
+    *(v1 + 344) = v32;
+    v34 = *(v1 + 320);
+    if (v32 >= *(v34 + 16))
+    {
+      __break(1u);
+    }
+
+    v35 = *(v1 + 336);
+    v36 = *(v1 + 304);
+    v37 = *(v1 + 264);
+    outlined init with copy of ResolvedTransferRepresentation(v34 + ((*(v1 + 76) + 32) & ~*(v1 + 76)) + *(*(v1 + 272) + 72) * v32, v36, type metadata accessor for ResolvedTransferRepresentation);
+    v38 = *(v36 + *(v37 + 28));
+    if (v38 == v35)
+    {
+      break;
+    }
+
+    if (v38 == v33)
+    {
+      v56 = swift_task_alloc();
+      *(v1 + 384) = v56;
+      *v56 = v1;
+      v56[1] = Transferable._file(contentType:fileHandler:);
+      v57 = *(v1 + 304);
+      v58 = *(v1 + 120);
+      v59 = *(v1 + 112);
+
+      return Transferable.data(from:)(v57, v59, v58);
+    }
+
+    outlined destroy of ResolvedTransferRepresentation(*(v1 + 304), type metadata accessor for ResolvedTransferRepresentation);
+    v32 = *(v1 + 344) + 1;
+    if (v32 == *(v1 + 328))
+    {
+      goto LABEL_11;
+    }
+  }
+
+  v47 = *(v1 + 256);
+  v48 = *(v1 + 200);
+  v49 = *(v1 + 208);
+  v50 = *(v49 + 56);
+  *(v1 + 352) = v50;
+  *(v1 + 360) = (v49 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+  v50(v47, 1, 1, v48);
+  v51 = swift_task_alloc();
+  *(v1 + 368) = v51;
+  *v51 = v1;
+  v51[1] = Transferable._file(contentType:fileHandler:);
+  v52 = *(v1 + 304);
+  v53 = *(v1 + 248);
+  v54 = *(v1 + 120);
+  v55 = *(v1 + 112);
+
+  return Transferable.url(from:)(v53, v52, v55, v54);
+}
+
+{
+  v56 = v1;
+  v55[1] = *MEMORY[0x277D85DE8];
+  v2 = *(v1 + 408);
+  v3 = *(v1 + 304);
+  v4 = *(v1 + 280);
+  v6 = *(v1 + 144);
+  v5 = *(v1 + 152);
+  v7 = *(v1 + 136);
+  v8 = logger.unsafeMutableAddressor();
+  (*(v6 + 16))(v5, v8, v7);
+  outlined init with copy of ResolvedTransferRepresentation(v3, v4, type metadata accessor for ResolvedTransferRepresentation);
+  v9 = v2;
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.fault.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v13 = *(v1 + 408);
+  v14 = *(v1 + 304);
+  v15 = *(v1 + 280);
+  if (v12)
+  {
+    v52 = *(v1 + 144);
+    v53 = *(v1 + 136);
+    v54 = *(v1 + 152);
+    v51 = *(v1 + 304);
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v18 = swift_slowAlloc();
+    v55[0] = v18;
+    *v16 = 136315394;
+    v19 = UTType.identifier.getter();
+    v21 = v20;
+    outlined destroy of ResolvedTransferRepresentation(v15, type metadata accessor for ResolvedTransferRepresentation);
+    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, v55);
+
+    *(v16 + 4) = v22;
+    *(v16 + 12) = 2112;
+    v23 = v13;
+    v24 = _swift_stdlib_bridgeErrorToNSError();
+    *(v16 + 14) = v24;
+    *v17 = v24;
+    _os_log_impl(&dword_20E3BF000, v10, v11, "Error loading data for type identifier %s: %@", v16, 0x16u);
+    outlined destroy of UTType?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x20F32E080](v17, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v18);
+    MEMORY[0x20F32E080](v18, -1, -1);
+    MEMORY[0x20F32E080](v16, -1, -1);
+
+    (*(v52 + 8))(v54, v53);
+    v25 = v51;
+  }
+
+  else
+  {
+    v27 = *(v1 + 144);
+    v26 = *(v1 + 152);
+    v28 = *(v1 + 136);
+
+    outlined destroy of ResolvedTransferRepresentation(v15, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v27 + 8))(v26, v28);
+    v25 = v14;
+  }
+
+  outlined destroy of ResolvedTransferRepresentation(v25, type metadata accessor for ResolvedTransferRepresentation);
+  v29 = *(v1 + 344) + 1;
+  if (v29 == *(v1 + 328))
+  {
+LABEL_10:
+
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+    swift_allocError();
+    swift_storeEnumTagMultiPayload();
+    swift_willThrow();
+
+    v36 = *(v1 + 8);
+
+    return v36();
+  }
+
+  else
+  {
+    v30 = MEMORY[0x277CC9318];
+    while (1)
+    {
+      *(v1 + 344) = v29;
+      v31 = *(v1 + 320);
+      if (v29 >= *(v31 + 16))
+      {
+        __break(1u);
+      }
+
+      v32 = *(v1 + 336);
+      v33 = *(v1 + 304);
+      v34 = *(v1 + 264);
+      outlined init with copy of ResolvedTransferRepresentation(v31 + ((*(v1 + 76) + 32) & ~*(v1 + 76)) + *(*(v1 + 272) + 72) * v29, v33, type metadata accessor for ResolvedTransferRepresentation);
+      v35 = *(v33 + *(v34 + 28));
+      if (v35 == v32)
+      {
+        break;
+      }
+
+      if (v35 == v30)
+      {
+        v47 = swift_task_alloc();
+        *(v1 + 384) = v47;
+        *v47 = v1;
+        v47[1] = Transferable._file(contentType:fileHandler:);
+        v48 = *(v1 + 304);
+        v49 = *(v1 + 120);
+        v50 = *(v1 + 112);
+
+        return Transferable.data(from:)(v48, v50, v49);
+      }
+
+      outlined destroy of ResolvedTransferRepresentation(*(v1 + 304), type metadata accessor for ResolvedTransferRepresentation);
+      v29 = *(v1 + 344) + 1;
+      if (v29 == *(v1 + 328))
+      {
+        goto LABEL_10;
+      }
+    }
+
+    v38 = *(v1 + 256);
+    v39 = *(v1 + 200);
+    v40 = *(v1 + 208);
+    v41 = *(v40 + 56);
+    *(v1 + 352) = v41;
+    *(v1 + 360) = (v40 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+    v41(v38, 1, 1, v39);
+    v42 = swift_task_alloc();
+    *(v1 + 368) = v42;
+    *v42 = v1;
+    v42[1] = Transferable._file(contentType:fileHandler:);
+    v43 = *(v1 + 304);
+    v44 = *(v1 + 248);
+    v45 = *(v1 + 120);
+    v46 = *(v1 + 112);
+
+    return Transferable.url(from:)(v44, v43, v46, v45);
+  }
 }
 
 uint64_t Transferable.init(data:contentType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -6038,7 +5313,7 @@ uint64_t Transferable.init(data:contentType:)(uint64_t a1, uint64_t a2, uint64_t
   v7[3] = a2;
   v7[4] = a3;
   v7[2] = a1;
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   v7[9] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](Transferable.init(data:contentType:), 0, 0);
@@ -6072,48 +5347,43 @@ uint64_t Transferable.init(data:contentType:)()
 }
 
 {
-  v2 = *(*v1 + 96);
-  v5 = *v1;
   *(*v1 + 104) = v0;
 
   if (v0)
   {
-    v3 = Transferable.init(data:contentType:);
+    v2 = Transferable.init(data:contentType:);
   }
 
   else
   {
-    v3 = Transferable.init(data:contentType:);
+    v2 = Transferable.init(data:contentType:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
   v1 = v0[10];
   v2 = v0[11];
-  v3 = v0[9];
-  v4 = v0[5];
+  v3 = v0[5];
   outlined consume of Data._Representation(v0[3], v0[4]);
-  (*(v2 + 8))(v4, v1);
+  (*(v2 + 8))(v3, v1);
 
-  v5 = v0[1];
+  v4 = v0[1];
 
-  return v5();
+  return v4();
 }
 
 {
   v1 = v0[10];
   v2 = v0[11];
-  v3 = v0[9];
-  v4 = v0[5];
+  v3 = v0[5];
   outlined consume of Data._Representation(v0[3], v0[4]);
-  (*(v2 + 8))(v4, v1);
+  (*(v2 + 8))(v3, v1);
 
-  v5 = v0[1];
-  v6 = v0[13];
+  v4 = v0[1];
 
-  return v5();
+  return v4();
 }
 
 uint64_t Transferable._data(contentType:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6124,34 +5394,28 @@ uint64_t Transferable._data(contentType:)(uint64_t a1, uint64_t a2, uint64_t a3)
   v4[13] = a2;
   v5 = type metadata accessor for Logger();
   v4[16] = v5;
-  v6 = *(v5 - 8);
-  v4[17] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4[17] = *(v5 - 8);
   v4[18] = swift_task_alloc();
   v4[19] = swift_task_alloc();
   v4[20] = swift_task_alloc();
-  v8 = type metadata accessor for SentTransferredFile(0);
-  v4[21] = v8;
-  v9 = *(v8 - 8);
-  v4[22] = v9;
-  v10 = *(v9 + 64) + 15;
+  v6 = type metadata accessor for SentTransferredFile(0);
+  v4[21] = v6;
+  v4[22] = *(v6 - 8);
   v4[23] = swift_task_alloc();
-  v11 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
   v4[24] = swift_task_alloc();
   v4[25] = swift_task_alloc();
   v4[26] = swift_task_alloc();
-  v12 = type metadata accessor for ResolvedTransferRepresentation();
-  v4[27] = v12;
-  v13 = *(v12 - 8);
-  v4[28] = v13;
-  v14 = *(v13 + 64) + 15;
+  v7 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v4[27] = v7;
+  v4[28] = *(v7 - 8);
   v4[29] = swift_task_alloc();
   v4[30] = swift_task_alloc();
   v4[31] = swift_task_alloc();
   v4[32] = swift_task_alloc();
   v4[33] = swift_task_alloc();
   v4[34] = swift_task_alloc();
-  v15 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
   v4[35] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](Transferable._data(contentType:), 0, 0);
@@ -6173,20 +5437,20 @@ uint64_t Transferable._data(contentType:)()
   v9 = *(v8 + 16);
   if (!v9)
   {
-    v48 = *(v0 + 96);
+    v47 = *(v0 + 96);
 
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
-    v7(v49, v48, v5);
+    v7(v48, v47, v5);
     goto LABEL_39;
   }
 
-  v88 = v7;
+  v62 = v7;
   v10 = 0;
   v11 = *(v0 + 224);
-  v93 = v5;
-  v96 = *(v0 + 216);
+  v63 = v5;
+  v64 = *(v0 + 216);
   v12 = MEMORY[0x277D84F90];
   while (v10 < *(v8 + 16))
   {
@@ -6198,7 +5462,7 @@ uint64_t Transferable._data(contentType:)()
     *(v0 + 296) = v16;
     outlined init with copy of ResolvedTransferRepresentation(v8 + v15 + v16 * v10, v13, type metadata accessor for ResolvedTransferRepresentation);
     v17 = *(v0 + 272);
-    if (*(v13 + *(v96 + 32)))
+    if (*(v13 + *(v64 + 32)))
     {
       outlined init with take of ResolvedTransferRepresentation(v17, *(v0 + 264), type metadata accessor for ResolvedTransferRepresentation);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -6210,7 +5474,7 @@ uint64_t Transferable._data(contentType:)()
       v18 = *(v12 + 24);
       if (v19 >= v18 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v18 > 1, v19 + 1, 1);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1);
       }
 
       v20 = *(v0 + 264);
@@ -6250,16 +5514,15 @@ uint64_t Transferable._data(contentType:)()
           v28 = *(v26 + *(v27 + 28));
           if (v28 == v24)
           {
-            v52 = swift_task_alloc();
-            *(v0 + 320) = v52;
-            *v52 = v0;
-            v52[1] = Transferable._data(contentType:);
-            v53 = *(v0 + 256);
-            v54 = *(v0 + 112);
-            v55 = *(v0 + 120);
-            v56 = *(v0 + 104);
+            v51 = swift_task_alloc();
+            *(v0 + 320) = v51;
+            *v51 = v0;
+            v51[1] = Transferable._data(contentType:);
+            v52 = *(v0 + 256);
+            v53 = *(v0 + 112);
+            v54 = *(v0 + 104);
 
-            return Transferable.data(from:)(v53, v56, v54);
+            return Transferable.data(from:)(v52, v54, v53);
           }
 
           v29 = *(v0 + 256);
@@ -6272,52 +5535,49 @@ uint64_t Transferable._data(contentType:)()
             *(v0 + 352) = v33;
             *(v0 + 360) = (v32 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
             v33(v30, 1, 1);
-            v34 = *(v31 + 32);
-            v35 = *(v29 + v34);
-            if (v35)
+            v34 = *(v29 + *(v31 + 32));
+            if (v34)
             {
-              v66 = *(v0 + 120);
-              v67 = *(v29 + v34 + 8);
-              v68 = *(v0 + 104);
-              *(v0 + 80) = v68;
-              v69 = v68;
+              v56 = *(v0 + 120);
+              v57 = *(v0 + 104);
+              *(v0 + 80) = v57;
+              v58 = v57;
               boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-              (*(*(v69 - 8) + 16))(boxed_opaque_existential_1, v66, v69);
-              v98 = (v35 + *v35);
-              v71 = v35[1];
-              v72 = swift_task_alloc();
-              *(v0 + 368) = v72;
-              *v72 = v0;
-              v72[1] = Transferable._data(contentType:);
+              (*(*(v58 - 8) + 16))(boxed_opaque_existential_1, v56, v58);
+              v65 = (v34 + *v34);
+              v60 = swift_task_alloc();
+              *(v0 + 368) = v60;
+              *v60 = v0;
+              v60[1] = Transferable._data(contentType:);
 
-              return v98(v0 + 16, v0 + 56);
+              return v65(v0 + 16, v0 + 56);
             }
 
-            v36 = *(v0 + 200);
-            v37 = *(v0 + 168);
+            v35 = *(v0 + 200);
+            v36 = *(v0 + 168);
             outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
             *(v0 + 16) = 0u;
             *(v0 + 32) = 0u;
             *(v0 + 48) = 0;
             outlined destroy of UTType?(v0 + 16, &_s16CoreTransferable0B8Currency_pSgMd, &_s16CoreTransferable0B8Currency_pSgMR);
-            (v33)(v36, 1, 1, v37);
+            (v33)(v35, 1, 1, v36);
             outlined init with take of URL?(*(v0 + 200), *(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-            v38 = *(v0 + 192);
-            v39 = *(v0 + 168);
-            v40 = *(v0 + 176);
-            outlined init with copy of UTType?(*(v0 + 208), v38, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-            if ((*(v40 + 48))(v38, 1, v39) != 1)
+            v37 = *(v0 + 192);
+            v38 = *(v0 + 168);
+            v39 = *(v0 + 176);
+            outlined init with copy of UTType?(*(v0 + 208), v37, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+            if ((*(v39 + 48))(v37, 1, v38) != 1)
             {
               outlined init with take of ResolvedTransferRepresentation(*(v0 + 192), *(v0 + 184), type metadata accessor for SentTransferredFile);
               v10 = Data.init(contentsOf:options:)();
-              v12 = v43;
-              v44 = *(v0 + 208);
+              v12 = v42;
+              v43 = *(v0 + 208);
               outlined destroy of ResolvedTransferRepresentation(*(v0 + 184), type metadata accessor for SentTransferredFile);
-              outlined destroy of UTType?(v44, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-              v45 = v12 >> 62;
+              outlined destroy of UTType?(v43, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+              v44 = v12 >> 62;
               if ((v12 >> 62) > 1)
               {
-                if (v45 != 2)
+                if (v44 != 2)
                 {
                   outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
 LABEL_32:
@@ -6325,13 +5585,13 @@ LABEL_32:
                   goto LABEL_15;
                 }
 
-                v46 = *(v10 + 16);
-                v47 = *(v10 + 24);
+                v45 = *(v10 + 16);
+                v46 = *(v10 + 24);
               }
 
               else
               {
-                if (!v45)
+                if (!v44)
                 {
                   outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
                   if ((v12 & 0xFF000000000000) != 0)
@@ -6342,12 +5602,12 @@ LABEL_32:
                   goto LABEL_32;
                 }
 
-                v46 = v10;
-                v47 = v10 >> 32;
+                v45 = v10;
+                v46 = v10 >> 32;
               }
 
               outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-              if (v46 != v47)
+              if (v45 != v46)
               {
                 goto LABEL_46;
               }
@@ -6355,11 +5615,11 @@ LABEL_32:
               goto LABEL_32;
             }
 
-            v41 = *(v0 + 256);
-            v42 = *(v0 + 192);
+            v40 = *(v0 + 256);
+            v41 = *(v0 + 192);
             outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-            outlined destroy of ResolvedTransferRepresentation(v41, type metadata accessor for ResolvedTransferRepresentation);
-            result = outlined destroy of UTType?(v42, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+            outlined destroy of ResolvedTransferRepresentation(v40, type metadata accessor for ResolvedTransferRepresentation);
+            result = outlined destroy of UTType?(v41, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
           }
 
           else
@@ -6371,80 +5631,50 @@ LABEL_15:
           v23 = *(v0 + 312) + 1;
           if (v23 == *(v0 + 288))
           {
-            v57 = *(v0 + 304);
 
-            type metadata accessor for TransferableError();
-            lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+            type metadata accessor for TransferableError(0);
+            lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
             swift_allocError();
             goto LABEL_39;
           }
         }
       }
 
-      v50 = *(v0 + 96);
+      v49 = *(v0 + 96);
 
-      type metadata accessor for TransferableError();
-      lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+      type metadata accessor for TransferableError(0);
+      lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
       swift_allocError();
-      v88(v51, v50, v93);
+      v62(v50, v49, v63);
 LABEL_39:
       swift_storeEnumTagMultiPayload();
-      v59 = *(v0 + 272);
-      v58 = *(v0 + 280);
-      v61 = *(v0 + 256);
-      v60 = *(v0 + 264);
-      v63 = *(v0 + 240);
-      v62 = *(v0 + 248);
-      v64 = *(v0 + 232);
-      v82 = *(v0 + 208);
-      v84 = *(v0 + 200);
-      v86 = *(v0 + 192);
-      v89 = *(v0 + 184);
-      v91 = *(v0 + 160);
-      v94 = *(v0 + 152);
-      v97 = *(v0 + 144);
       swift_willThrow();
 
-      v65 = *(v0 + 8);
+      v55 = *(v0 + 8);
 
-      return v65();
+      return v55();
     }
   }
 
   __break(1u);
 LABEL_46:
-  v73 = *(v0 + 304);
-  v75 = *(v0 + 272);
-  v74 = *(v0 + 280);
-  v77 = *(v0 + 256);
-  v76 = *(v0 + 264);
-  v79 = *(v0 + 240);
-  v78 = *(v0 + 248);
-  v80 = *(v0 + 232);
-  v83 = *(v0 + 208);
-  v85 = *(v0 + 200);
-  v87 = *(v0 + 192);
-  v90 = *(v0 + 184);
-  v92 = *(v0 + 160);
-  v95 = *(v0 + 152);
-  v99 = *(v0 + 144);
 
-  v81 = *(v0 + 8);
+  v61 = *(v0 + 8);
 
-  return v81(v10, v12);
+  return v61(v10, v12);
 }
 
 {
-  v120 = v0;
+  v84 = v0;
   v3 = *(v0 + 336);
   v4 = v3 >> 62;
   if ((v3 >> 62) > 1)
   {
     if (v4 != 2)
     {
-      v23 = *(v0 + 328);
+      v13 = *(v0 + 328);
       outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-      v5 = v23;
+      v5 = v13;
       v6 = v3;
       goto LABEL_14;
     }
@@ -6463,220 +5693,197 @@ LABEL_8:
 
 LABEL_14:
     outlined consume of Data._Representation(v5, v6);
-    v24 = *(v0 + 312) + 1;
-    if (v24 == *(v0 + 288))
+    v14 = *(v0 + 312) + 1;
+    if (v14 == *(v0 + 288))
     {
 LABEL_15:
-      v25 = *(v0 + 304);
 
-      type metadata accessor for TransferableError();
-      lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+      type metadata accessor for TransferableError(0);
+      lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
       swift_allocError();
       swift_storeEnumTagMultiPayload();
-      v27 = *(v0 + 272);
-      v26 = *(v0 + 280);
-      v29 = *(v0 + 256);
-      v28 = *(v0 + 264);
-      v31 = *(v0 + 240);
-      v30 = *(v0 + 248);
-      v32 = *(v0 + 232);
-      v33 = *(v0 + 208);
-      v99 = *(v0 + 200);
-      v102 = *(v0 + 192);
-      v105 = *(v0 + 184);
-      v108 = *(v0 + 160);
-      v111 = *(v0 + 152);
-      logb = *(v0 + 144);
       swift_willThrow();
 
-      v34 = *(v0 + 8);
+      v15 = *(v0 + 8);
 
-      return v34();
+      return v15();
     }
 
-    v35 = *(v0 + 344);
-    v36 = MEMORY[0x277CC9318];
+    v16 = *(v0 + 344);
+    v17 = MEMORY[0x277CC9318];
     while (1)
     {
-      *(v0 + 312) = v24;
-      v37 = *(v0 + 304);
-      if (v24 >= *(v37 + 16))
+      *(v0 + 312) = v14;
+      v18 = *(v0 + 304);
+      if (v14 >= *(v18 + 16))
       {
         __break(1u);
 LABEL_50:
         log = v2;
-        v117 = v1;
+        v81 = v1;
         goto LABEL_10;
       }
 
-      v38 = *(v0 + 256);
+      v19 = *(v0 + 256);
       v1 = *(v0 + 216);
-      outlined init with copy of ResolvedTransferRepresentation(v37 + ((*(v0 + 384) + 32) & ~*(v0 + 384)) + *(v0 + 296) * v24, v38, type metadata accessor for ResolvedTransferRepresentation);
-      v39 = *(v38 + *(v1 + 28));
-      if (v39 == v36)
+      outlined init with copy of ResolvedTransferRepresentation(v18 + ((*(v0 + 384) + 32) & ~*(v0 + 384)) + *(v0 + 296) * v14, v19, type metadata accessor for ResolvedTransferRepresentation);
+      v20 = *(v19 + *(v1 + 28));
+      if (v20 == v17)
       {
-        v83 = swift_task_alloc();
-        *(v0 + 320) = v83;
-        *v83 = v0;
-        v83[1] = Transferable._data(contentType:);
-        v84 = *(v0 + 256);
-        v85 = *(v0 + 112);
-        v86 = *(v0 + 120);
-        v87 = *(v0 + 104);
+        v61 = swift_task_alloc();
+        *(v0 + 320) = v61;
+        *v61 = v0;
+        v61[1] = Transferable._data(contentType:);
+        v62 = *(v0 + 256);
+        v63 = *(v0 + 112);
+        v64 = *(v0 + 104);
 
-        return Transferable.data(from:)(v84, v87, v85);
+        return Transferable.data(from:)(v62, v64, v63);
       }
 
-      v40 = *(v0 + 256);
-      if (v39 == *(v0 + 168))
+      v21 = *(v0 + 256);
+      if (v20 == *(v0 + 168))
       {
-        v41 = *(v0 + 208);
-        v42 = *(v0 + 216);
-        v43 = *(v0 + 176);
-        v44 = *(v43 + 56);
-        *(v0 + 352) = v44;
-        *(v0 + 360) = (v43 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-        v44(v41, 1, 1);
-        v45 = *(v42 + 32);
-        v46 = *(v40 + v45);
-        if (v46)
+        v22 = *(v0 + 208);
+        v23 = *(v0 + 216);
+        v24 = *(v0 + 176);
+        v25 = *(v24 + 56);
+        *(v0 + 352) = v25;
+        *(v0 + 360) = (v24 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+        v25(v22, 1, 1);
+        v26 = *(v21 + *(v23 + 32));
+        if (v26)
         {
-          v88 = *(v0 + 120);
-          v89 = *(v40 + v45 + 8);
-          v90 = *(v0 + 104);
-          *(v0 + 80) = v90;
-          v91 = v90;
+          v65 = *(v0 + 120);
+          v66 = *(v0 + 104);
+          *(v0 + 80) = v66;
+          v67 = v66;
           boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-          (*(*(v91 - 8) + 16))(boxed_opaque_existential_1, v88, v91);
-          v118 = (v46 + *v46);
-          v93 = v46[1];
-          v94 = swift_task_alloc();
-          *(v0 + 368) = v94;
-          *v94 = v0;
-          v94[1] = Transferable._data(contentType:);
+          (*(*(v67 - 8) + 16))(boxed_opaque_existential_1, v65, v67);
+          v82 = (v26 + *v26);
+          v69 = swift_task_alloc();
+          *(v0 + 368) = v69;
+          *v69 = v0;
+          v69[1] = Transferable._data(contentType:);
 
-          return v118(v0 + 16, v0 + 56);
+          return v82(v0 + 16, v0 + 56);
         }
 
-        v47 = *(v0 + 200);
-        v48 = *(v0 + 168);
+        v27 = *(v0 + 200);
+        v28 = *(v0 + 168);
         outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
         *(v0 + 16) = 0u;
         *(v0 + 32) = 0u;
         *(v0 + 48) = 0;
         outlined destroy of UTType?(v0 + 16, &_s16CoreTransferable0B8Currency_pSgMd, &_s16CoreTransferable0B8Currency_pSgMR);
-        (v44)(v47, 1, 1, v48);
+        (v25)(v27, 1, 1, v28);
         outlined init with take of URL?(*(v0 + 200), *(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-        v49 = *(v0 + 192);
-        v50 = *(v0 + 168);
-        v51 = *(v0 + 176);
-        outlined init with copy of UTType?(*(v0 + 208), v49, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-        v52 = *(v51 + 48);
-        v2 = v51 + 48;
-        if (v52(v49, 1, v50) != 1)
+        v29 = *(v0 + 192);
+        v30 = *(v0 + 168);
+        v31 = *(v0 + 176);
+        outlined init with copy of UTType?(*(v0 + 208), v29, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+        v32 = *(v31 + 48);
+        v2 = v31 + 48;
+        if (v32(v29, 1, v30) != 1)
         {
           outlined init with take of ResolvedTransferRepresentation(*(v0 + 192), *(v0 + 184), type metadata accessor for SentTransferredFile);
-          v54 = Data.init(contentsOf:options:)();
-          if (v35)
+          v34 = Data.init(contentsOf:options:)();
+          if (v16)
           {
-            logc = *(v0 + 256);
-            v56 = *(v0 + 232);
-            v57 = v35;
-            v58 = *(v0 + 136);
-            v59 = *(v0 + 144);
-            v60 = *(v0 + 128);
-            v61 = logger.unsafeMutableAddressor();
-            (*(v58 + 16))(v59, v61, v60);
-            v62 = v57;
-            outlined init with copy of ResolvedTransferRepresentation(logc, v56, type metadata accessor for ResolvedTransferRepresentation);
-            v63 = v57;
-            v64 = Logger.logObject.getter();
-            v65 = static os_log_type_t.fault.getter();
+            logb = *(v0 + 256);
+            v36 = *(v0 + 232);
+            v37 = v16;
+            v38 = *(v0 + 136);
+            v39 = *(v0 + 144);
+            v40 = *(v0 + 128);
+            v41 = logger.unsafeMutableAddressor();
+            (*(v38 + 16))(v39, v41, v40);
+            v42 = v37;
+            outlined init with copy of ResolvedTransferRepresentation(logb, v36, type metadata accessor for ResolvedTransferRepresentation);
+            v43 = v37;
+            v44 = Logger.logObject.getter();
+            v45 = static os_log_type_t.fault.getter();
 
-            loga = v64;
-            v66 = os_log_type_enabled(v64, v65);
+            loga = v44;
+            v46 = os_log_type_enabled(v44, v45);
             v2 = *(v0 + 232);
-            if (v66)
+            v76 = *(v0 + 184);
+            v77 = *(v0 + 208);
+            if (v46)
             {
-              v67 = *(v0 + 216);
-              v109 = *(v0 + 184);
-              v112 = *(v0 + 208);
-              v100 = *(v0 + 136);
-              v103 = *(v0 + 128);
-              v106 = *(v0 + 144);
-              v68 = swift_slowAlloc();
-              v96 = swift_slowAlloc();
-              v97 = swift_slowAlloc();
-              v119 = v97;
-              *v68 = 136315394;
-              v69 = v2 + *(v67 + 20);
-              v70 = UTType.identifier.getter();
-              v95 = v65;
-              v72 = v71;
+              v73 = *(v0 + 136);
+              v74 = *(v0 + 128);
+              v75 = *(v0 + 144);
+              v47 = swift_slowAlloc();
+              v71 = swift_slowAlloc();
+              v72 = swift_slowAlloc();
+              v83 = v72;
+              *v47 = 136315394;
+              v48 = UTType.identifier.getter();
+              v70 = v45;
+              v50 = v49;
               outlined destroy of ResolvedTransferRepresentation(v2, type metadata accessor for ResolvedTransferRepresentation);
-              v73 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v70, v72, &v119);
+              v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, &v83);
 
-              *(v68 + 4) = v73;
-              *(v68 + 12) = 2112;
-              v74 = v62;
-              v75 = _swift_stdlib_bridgeErrorToNSError();
-              *(v68 + 14) = v75;
-              *v96 = v75;
-              _os_log_impl(&dword_20E3BF000, loga, v95, "Error loading data for type identifier %s: %@", v68, 0x16u);
-              outlined destroy of UTType?(v96, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-              MEMORY[0x20F32E080](v96, -1, -1);
-              v1 = v97;
-              __swift_destroy_boxed_opaque_existential_0Tm(v97);
-              MEMORY[0x20F32E080](v97, -1, -1);
-              MEMORY[0x20F32E080](v68, -1, -1);
+              *(v47 + 4) = v51;
+              *(v47 + 12) = 2112;
+              v52 = v42;
+              v53 = _swift_stdlib_bridgeErrorToNSError();
+              *(v47 + 14) = v53;
+              *v71 = v53;
+              _os_log_impl(&dword_20E3BF000, loga, v70, "Error loading data for type identifier %s: %@", v47, 0x16u);
+              outlined destroy of UTType?(v71, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+              MEMORY[0x20F32E080](v71, -1, -1);
+              v1 = v72;
+              __swift_destroy_boxed_opaque_existential_0Tm(v72);
+              MEMORY[0x20F32E080](v72, -1, -1);
+              MEMORY[0x20F32E080](v47, -1, -1);
 
-              (*(v100 + 8))(v106, v103);
+              (*(v73 + 8))(v75, v74);
             }
 
             else
             {
-              v109 = *(v0 + 184);
-              v112 = *(v0 + 208);
-              v1 = v62;
-              v78 = *(v0 + 136);
-              v79 = *(v0 + 144);
-              v80 = *(v0 + 128);
+              v1 = v42;
+              v56 = *(v0 + 136);
+              v57 = *(v0 + 144);
+              v58 = *(v0 + 128);
 
               outlined destroy of ResolvedTransferRepresentation(v2, type metadata accessor for ResolvedTransferRepresentation);
-              (*(v78 + 8))(v79, v80);
+              (*(v56 + 8))(v57, v58);
             }
 
-            outlined destroy of ResolvedTransferRepresentation(v109, type metadata accessor for SentTransferredFile);
-            outlined destroy of UTType?(v112, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+            outlined destroy of ResolvedTransferRepresentation(v76, type metadata accessor for SentTransferredFile);
+            outlined destroy of UTType?(v77, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
             outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-            v35 = 0;
+            v16 = 0;
             goto LABEL_20;
           }
 
-          v2 = v54;
-          v1 = v55;
-          v76 = *(v0 + 208);
+          v2 = v34;
+          v1 = v35;
+          v54 = *(v0 + 208);
           outlined destroy of ResolvedTransferRepresentation(*(v0 + 184), type metadata accessor for SentTransferredFile);
-          outlined destroy of UTType?(v76, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-          v77 = v1 >> 62;
+          outlined destroy of UTType?(v54, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+          v55 = v1 >> 62;
           if ((v1 >> 62) > 1)
           {
-            if (v77 != 2)
+            if (v55 != 2)
             {
               outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
 LABEL_42:
               outlined consume of Data._Representation(v2, v1);
-              v35 = 0;
+              v16 = 0;
               goto LABEL_20;
             }
 
-            v81 = *(v2 + 16);
-            v82 = *(v2 + 24);
+            v59 = *(v2 + 16);
+            v60 = *(v2 + 24);
           }
 
           else
           {
-            if (!v77)
+            if (!v55)
             {
               outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
               if ((v1 & 0xFF000000000000) != 0)
@@ -6687,12 +5894,12 @@ LABEL_42:
               goto LABEL_42;
             }
 
-            v81 = v2;
-            v82 = v2 >> 32;
+            v59 = v2;
+            v60 = v2 >> 32;
           }
 
           outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-          if (v81 != v82)
+          if (v59 != v60)
           {
             goto LABEL_50;
           }
@@ -6700,10 +5907,10 @@ LABEL_42:
           goto LABEL_42;
         }
 
-        v53 = *(v0 + 256);
+        v33 = *(v0 + 256);
         v1 = *(v0 + 192);
         outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-        outlined destroy of ResolvedTransferRepresentation(v53, type metadata accessor for ResolvedTransferRepresentation);
+        outlined destroy of ResolvedTransferRepresentation(v33, type metadata accessor for ResolvedTransferRepresentation);
         outlined destroy of UTType?(v1, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
       }
 
@@ -6713,8 +5920,8 @@ LABEL_42:
       }
 
 LABEL_20:
-      v24 = *(v0 + 312) + 1;
-      if (v24 == *(v0 + 288))
+      v14 = *(v0 + 312) + 1;
+      if (v14 == *(v0 + 288))
       {
         goto LABEL_15;
       }
@@ -6739,143 +5946,110 @@ LABEL_20:
 
 LABEL_9:
   log = v5;
-  v117 = v6;
+  v81 = v6;
 LABEL_10:
-  v11 = *(v0 + 304);
-  v13 = *(v0 + 272);
-  v12 = *(v0 + 280);
-  v15 = *(v0 + 256);
-  v14 = *(v0 + 264);
-  v17 = *(v0 + 240);
-  v16 = *(v0 + 248);
-  v18 = *(v0 + 232);
-  v20 = *(v0 + 200);
-  v19 = *(v0 + 208);
-  v98 = *(v0 + 192);
-  v101 = *(v0 + 184);
-  v104 = *(v0 + 160);
-  v107 = *(v0 + 152);
-  v110 = *(v0 + 144);
 
-  v21 = *(v0 + 8);
+  v11 = *(v0 + 8);
 
-  return v21(log, v117);
+  return v11(log, v81);
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 368);
-  v6 = *v1;
   *(*v1 + 376) = v0;
 
   if (v0)
   {
-    v4 = Transferable._data(contentType:);
+    v3 = Transferable._data(contentType:);
   }
 
   else
   {
     __swift_destroy_boxed_opaque_existential_0Tm((v2 + 56));
-    v4 = Transferable._data(contentType:);
+    v3 = Transferable._data(contentType:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
-  v114 = v0;
-  v2 = *(v0 + 352);
-  v1 = *(v0 + 360);
-  v3 = *(v0 + 200);
-  v4 = *(v0 + 168);
+  v77 = v0;
+  v1 = *(v0 + 352);
+  v2 = *(v0 + 200);
+  v3 = *(v0 + 168);
   outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable0B8Currency_pMd, &_s16CoreTransferable0B8Currency_pMR);
-  v5 = swift_dynamicCast();
-  v2(v3, v5 ^ 1u, 1, v4);
-  v6 = *(v0 + 376);
-  v7 = MEMORY[0x277CC9318];
-  v8 = &_s16CoreTransferable0B8Currency_pSgMd;
+  v4 = swift_dynamicCast();
+  v1(v2, v4 ^ 1u, 1, v3);
+  v5 = *(v0 + 376);
+  v6 = MEMORY[0x277CC9318];
+  v7 = &_s16CoreTransferable0B8Currency_pSgMd;
   while (2)
   {
     outlined init with take of URL?(*(v0 + 200), *(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-    v9 = *(v0 + 192);
-    v11 = *(v0 + 168);
-    v10 = *(v0 + 176);
-    outlined init with copy of UTType?(*(v0 + 208), v9, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-    if ((*(v10 + 48))(v9, 1, v11) == 1)
+    v8 = *(v0 + 192);
+    v10 = *(v0 + 168);
+    v9 = *(v0 + 176);
+    outlined init with copy of UTType?(*(v0 + 208), v8, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+    if ((*(v9 + 48))(v8, 1, v10) == 1)
     {
-      v12 = *(v0 + 256);
-      v13 = *(v0 + 192);
+      v11 = *(v0 + 256);
+      v12 = *(v0 + 192);
       outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-      outlined destroy of ResolvedTransferRepresentation(v12, type metadata accessor for ResolvedTransferRepresentation);
-      outlined destroy of UTType?(v13, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+      outlined destroy of ResolvedTransferRepresentation(v11, type metadata accessor for ResolvedTransferRepresentation);
+      outlined destroy of UTType?(v12, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
       goto LABEL_20;
     }
 
     outlined init with take of ResolvedTransferRepresentation(*(v0 + 192), *(v0 + 184), type metadata accessor for SentTransferredFile);
-    v14 = Data.init(contentsOf:options:)();
-    if (!v6)
+    v13 = Data.init(contentsOf:options:)();
+    if (!v5)
     {
-      v8 = v14;
-      v12 = v15;
-      v39 = *(v0 + 208);
+      v7 = v13;
+      v11 = v14;
+      v36 = *(v0 + 208);
       outlined destroy of ResolvedTransferRepresentation(*(v0 + 184), type metadata accessor for SentTransferredFile);
-      outlined destroy of UTType?(v39, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-      v40 = v12 >> 62;
-      if ((v12 >> 62) > 1)
+      outlined destroy of UTType?(v36, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+      v37 = v11 >> 62;
+      if ((v11 >> 62) > 1)
       {
-        if (v40 != 2)
+        if (v37 != 2)
         {
           outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
           goto LABEL_19;
         }
 
-        v45 = *(v8 + 16);
-        v46 = *(v8 + 24);
+        v42 = *(v7 + 16);
+        v43 = *(v7 + 24);
       }
 
       else
       {
-        if (!v40)
+        if (!v37)
         {
           outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-          if ((v12 & 0xFF000000000000) != 0)
+          if ((v11 & 0xFF000000000000) != 0)
           {
 LABEL_37:
-            v84 = *(v0 + 304);
-            v86 = *(v0 + 272);
-            v85 = *(v0 + 280);
-            v88 = *(v0 + 256);
-            v87 = *(v0 + 264);
-            v90 = *(v0 + 240);
-            v89 = *(v0 + 248);
-            v91 = *(v0 + 232);
-            v96 = *(v0 + 208);
-            v99 = *(v0 + 200);
-            v102 = *(v0 + 192);
-            v105 = *(v0 + 184);
-            v108 = *(v0 + 160);
-            v110 = *(v0 + 152);
-            v112 = *(v0 + 144);
 
-            v92 = *(v0 + 8);
+            v68 = *(v0 + 8);
 
-            return v92(v8, v12);
+            return v68(v7, v11);
           }
 
 LABEL_19:
-          outlined consume of Data._Representation(v8, v12);
-          v6 = 0;
-          v8 = &_s16CoreTransferable0B8Currency_pSgMd;
+          outlined consume of Data._Representation(v7, v11);
+          v5 = 0;
+          v7 = &_s16CoreTransferable0B8Currency_pSgMd;
           goto LABEL_20;
         }
 
-        v45 = v8;
-        v46 = v8 >> 32;
+        v42 = v7;
+        v43 = v7 >> 32;
       }
 
       outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-      if (v45 != v46)
+      if (v42 != v43)
       {
         goto LABEL_37;
       }
@@ -6883,447 +6057,169 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v16 = *(v0 + 256);
-    v17 = *(v0 + 232);
-    v18 = *(v0 + 136);
-    v19 = *(v0 + 144);
-    v20 = *(v0 + 128);
-    v21 = logger.unsafeMutableAddressor();
-    (*(v18 + 16))(v19, v21, v20);
-    outlined init with copy of ResolvedTransferRepresentation(v16, v17, type metadata accessor for ResolvedTransferRepresentation);
-    v22 = v6;
-    v23 = Logger.logObject.getter();
-    v24 = static os_log_type_t.fault.getter();
+    v15 = *(v0 + 256);
+    v16 = *(v0 + 232);
+    v17 = *(v0 + 136);
+    v18 = *(v0 + 144);
+    v19 = *(v0 + 128);
+    v20 = logger.unsafeMutableAddressor();
+    (*(v17 + 16))(v18, v20, v19);
+    outlined init with copy of ResolvedTransferRepresentation(v15, v16, type metadata accessor for ResolvedTransferRepresentation);
+    v21 = v5;
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.fault.getter();
 
-    v25 = os_log_type_enabled(v23, v24);
-    v26 = *(v0 + 232);
-    if (v25)
+    v24 = os_log_type_enabled(v22, v23);
+    v25 = *(v0 + 232);
+    if (v24)
     {
-      v27 = *(v0 + 216);
-      v103 = *(v0 + 184);
-      v106 = *(v0 + 208);
-      v94 = *(v0 + 136);
-      v97 = *(v0 + 128);
-      v100 = *(v0 + 144);
-      log = v23;
+      v73 = *(v0 + 184);
+      v74 = *(v0 + 208);
+      v70 = *(v0 + 136);
+      v71 = *(v0 + 128);
+      v72 = *(v0 + 144);
+      log = v22;
+      v26 = swift_slowAlloc();
+      v27 = swift_slowAlloc();
       v28 = swift_slowAlloc();
-      v29 = swift_slowAlloc();
-      v30 = swift_slowAlloc();
-      v113 = v30;
-      *v28 = 136315394;
-      v31 = v26 + *(v27 + 20);
-      v32 = UTType.identifier.getter();
-      v34 = v33;
-      outlined destroy of ResolvedTransferRepresentation(v26, type metadata accessor for ResolvedTransferRepresentation);
-      v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v32, v34, &v113);
+      v76 = v28;
+      *v26 = 136315394;
+      v29 = UTType.identifier.getter();
+      v31 = v30;
+      outlined destroy of ResolvedTransferRepresentation(v25, type metadata accessor for ResolvedTransferRepresentation);
+      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, &v76);
 
-      *(v28 + 4) = v35;
-      *(v28 + 12) = 2112;
-      v36 = v6;
-      v37 = _swift_stdlib_bridgeErrorToNSError();
-      *(v28 + 14) = v37;
-      *v29 = v37;
-      v12 = log;
-      _os_log_impl(&dword_20E3BF000, log, v24, "Error loading data for type identifier %s: %@", v28, 0x16u);
-      outlined destroy of UTType?(v29, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x20F32E080](v29, -1, -1);
-      __swift_destroy_boxed_opaque_existential_0Tm(v30);
-      MEMORY[0x20F32E080](v30, -1, -1);
+      *(v26 + 4) = v32;
+      *(v26 + 12) = 2112;
+      v33 = v5;
+      v34 = _swift_stdlib_bridgeErrorToNSError();
+      *(v26 + 14) = v34;
+      *v27 = v34;
+      v11 = log;
+      _os_log_impl(&dword_20E3BF000, log, v23, "Error loading data for type identifier %s: %@", v26, 0x16u);
+      outlined destroy of UTType?(v27, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x20F32E080](v27, -1, -1);
+      __swift_destroy_boxed_opaque_existential_0Tm(v28);
       MEMORY[0x20F32E080](v28, -1, -1);
+      MEMORY[0x20F32E080](v26, -1, -1);
 
-      (*(v94 + 8))(v100, v97);
-      outlined destroy of ResolvedTransferRepresentation(v103, type metadata accessor for SentTransferredFile);
-      v38 = v106;
+      (*(v70 + 8))(v72, v71);
+      outlined destroy of ResolvedTransferRepresentation(v73, type metadata accessor for SentTransferredFile);
+      v35 = v74;
     }
 
     else
     {
-      v12 = *(v0 + 208);
-      v41 = *(v0 + 184);
-      v43 = *(v0 + 136);
-      v42 = *(v0 + 144);
-      v44 = *(v0 + 128);
+      v11 = *(v0 + 208);
+      v38 = *(v0 + 184);
+      v40 = *(v0 + 136);
+      v39 = *(v0 + 144);
+      v41 = *(v0 + 128);
 
-      outlined destroy of ResolvedTransferRepresentation(v26, type metadata accessor for ResolvedTransferRepresentation);
-      (*(v43 + 8))(v42, v44);
-      outlined destroy of ResolvedTransferRepresentation(v41, type metadata accessor for SentTransferredFile);
-      v38 = v12;
+      outlined destroy of ResolvedTransferRepresentation(v25, type metadata accessor for ResolvedTransferRepresentation);
+      (*(v40 + 8))(v39, v41);
+      outlined destroy of ResolvedTransferRepresentation(v38, type metadata accessor for SentTransferredFile);
+      v35 = v11;
     }
 
-    outlined destroy of UTType?(v38, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-    v8 = &_s16CoreTransferable0B8Currency_pSgMd;
+    outlined destroy of UTType?(v35, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+    v7 = &_s16CoreTransferable0B8Currency_pSgMd;
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-    v6 = 0;
+    v5 = 0;
     while (1)
     {
 LABEL_20:
-      v47 = *(v0 + 312) + 1;
-      if (v47 == *(v0 + 288))
+      v44 = *(v0 + 312) + 1;
+      if (v44 == *(v0 + 288))
       {
-        v61 = *(v0 + 304);
 
-        type metadata accessor for TransferableError();
-        lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+        type metadata accessor for TransferableError(0);
+        lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
         swift_allocError();
         swift_storeEnumTagMultiPayload();
-        v63 = *(v0 + 272);
-        v62 = *(v0 + 280);
-        v65 = *(v0 + 256);
-        v64 = *(v0 + 264);
-        v67 = *(v0 + 240);
-        v66 = *(v0 + 248);
-        v68 = *(v0 + 232);
-        v69 = *(v0 + 208);
-        v95 = *(v0 + 200);
-        v98 = *(v0 + 192);
-        v101 = *(v0 + 184);
-        v104 = *(v0 + 160);
-        v107 = *(v0 + 152);
-        v109 = *(v0 + 144);
         swift_willThrow();
 
-        v70 = *(v0 + 8);
+        v57 = *(v0 + 8);
 
-        return v70();
+        return v57();
       }
 
-      *(v0 + 312) = v47;
-      v48 = *(v0 + 304);
-      if (v47 >= *(v48 + 16))
+      *(v0 + 312) = v44;
+      v45 = *(v0 + 304);
+      if (v44 >= *(v45 + 16))
       {
         __break(1u);
         goto LABEL_37;
       }
 
-      v12 = *(v0 + 256);
-      v49 = *(v0 + 216);
-      outlined init with copy of ResolvedTransferRepresentation(v48 + ((*(v0 + 384) + 32) & ~*(v0 + 384)) + *(v0 + 296) * v47, v12, type metadata accessor for ResolvedTransferRepresentation);
-      v50 = *(v12 + *(v49 + 28));
-      if (v50 == v7)
+      v11 = *(v0 + 256);
+      v46 = *(v0 + 216);
+      outlined init with copy of ResolvedTransferRepresentation(v45 + ((*(v0 + 384) + 32) & ~*(v0 + 384)) + *(v0 + 296) * v44, v11, type metadata accessor for ResolvedTransferRepresentation);
+      v47 = *(v11 + *(v46 + 28));
+      if (v47 == v6)
       {
-        v72 = swift_task_alloc();
-        *(v0 + 320) = v72;
-        *v72 = v0;
-        v72[1] = Transferable._data(contentType:);
-        v73 = *(v0 + 256);
-        v74 = *(v0 + 112);
-        v75 = *(v0 + 120);
-        v76 = *(v0 + 104);
+        v59 = swift_task_alloc();
+        *(v0 + 320) = v59;
+        *v59 = v0;
+        v59[1] = Transferable._data(contentType:);
+        v60 = *(v0 + 256);
+        v61 = *(v0 + 112);
+        v62 = *(v0 + 104);
 
-        return Transferable.data(from:)(v73, v76, v74);
+        return Transferable.data(from:)(v60, v62, v61);
       }
 
-      v51 = *(v0 + 256);
-      if (v50 == *(v0 + 168))
+      v48 = *(v0 + 256);
+      if (v47 == *(v0 + 168))
       {
         break;
       }
 
-      outlined destroy of ResolvedTransferRepresentation(v51, type metadata accessor for ResolvedTransferRepresentation);
+      outlined destroy of ResolvedTransferRepresentation(v48, type metadata accessor for ResolvedTransferRepresentation);
     }
 
-    v52 = *(v0 + 208);
-    v53 = *(v0 + 216);
-    v54 = *(v0 + 176);
-    v55 = *(v54 + 56);
-    *(v0 + 352) = v55;
-    *(v0 + 360) = (v54 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-    v56 = v51;
-    v55(v52, 1, 1);
-    v57 = *(v53 + 32);
-    v58 = *(v56 + v57);
-    if (!v58)
+    v49 = *(v0 + 208);
+    v50 = *(v0 + 216);
+    v51 = *(v0 + 176);
+    v52 = *(v51 + 56);
+    *(v0 + 352) = v52;
+    *(v0 + 360) = (v51 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+    v53 = v48;
+    v52(v49, 1, 1);
+    v54 = *(v53 + *(v50 + 32));
+    if (!v54)
     {
-      v59 = *(v0 + 200);
-      v60 = *(v0 + 168);
+      v55 = *(v0 + 200);
+      v56 = *(v0 + 168);
       outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
       *(v0 + 16) = 0u;
       *(v0 + 32) = 0u;
       *(v0 + 48) = 0;
       outlined destroy of UTType?(v0 + 16, &_s16CoreTransferable0B8Currency_pSgMd, &_s16CoreTransferable0B8Currency_pSgMR);
-      (v55)(v59, 1, 1, v60);
+      (v52)(v55, 1, 1, v56);
       continue;
     }
 
     break;
   }
 
-  v77 = *(v0 + 120);
-  v78 = *(v56 + v57 + 8);
-  v79 = *(v0 + 104);
-  *(v0 + 80) = v79;
-  v80 = v79;
+  v63 = *(v0 + 120);
+  v64 = *(v0 + 104);
+  *(v0 + 80) = v64;
+  v65 = v64;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-  (*(*(v80 - 8) + 16))(boxed_opaque_existential_1, v77, v80);
-  v111 = (v58 + *v58);
-  v82 = v58[1];
-  v83 = swift_task_alloc();
-  *(v0 + 368) = v83;
-  *v83 = v0;
-  v83[1] = Transferable._data(contentType:);
+  (*(*(v65 - 8) + 16))(boxed_opaque_existential_1, v63, v65);
+  v75 = (v54 + *v54);
+  v67 = swift_task_alloc();
+  *(v0 + 368) = v67;
+  *v67 = v0;
+  v67[1] = Transferable._data(contentType:);
 
-  return v111(v0 + 16, v0 + 56);
+  return v75(v0 + 16, v0 + 56);
 }
 
 {
-  v105 = v0;
-  v1 = *(v0 + 344);
-  v2 = *(v0 + 248);
-  v3 = *(v0 + 256);
-  v4 = *(v0 + 160);
-  v5 = *(v0 + 128);
-  v6 = *(v0 + 136);
-  v7 = logger.unsafeMutableAddressor();
-  (*(v6 + 16))(v4, v7, v5);
-  outlined init with copy of ResolvedTransferRepresentation(v3, v2, type metadata accessor for ResolvedTransferRepresentation);
-  v8 = v1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.fault.getter();
-
-  v11 = os_log_type_enabled(v9, v10);
-  v12 = *(v0 + 344);
-  v13 = *(v0 + 248);
-  if (v11)
-  {
-    v14 = *(v0 + 216);
-    v95 = *(v0 + 136);
-    v98 = *(v0 + 128);
-    v101 = *(v0 + 160);
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v104 = v17;
-    *v15 = 136315394;
-    v18 = v13 + *(v14 + 20);
-    v19 = UTType.identifier.getter();
-    v21 = v20;
-    outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v104);
-
-    *(v15 + 4) = v22;
-    *(v15 + 12) = 2112;
-    v23 = v12;
-    v24 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v24;
-    *v16 = v24;
-    _os_log_impl(&dword_20E3BF000, v9, v10, "Error loading data for type identifier %s: %@", v15, 0x16u);
-    outlined destroy of UTType?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v16, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v17);
-    MEMORY[0x20F32E080](v17, -1, -1);
-    MEMORY[0x20F32E080](v15, -1, -1);
-
-    (*(v95 + 8))(v101, v98);
-  }
-
-  else
-  {
-    v25 = *(v0 + 160);
-    v26 = *(v0 + 128);
-    v27 = *(v0 + 136);
-
-    outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v27 + 8))(v25, v26);
-  }
-
-  result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-  v29 = *(v0 + 312) + 1;
-  if (v29 == *(v0 + 288))
-  {
-LABEL_5:
-    v30 = *(v0 + 304);
-
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
-    swift_allocError();
-    swift_storeEnumTagMultiPayload();
-    v32 = *(v0 + 272);
-    v31 = *(v0 + 280);
-    v34 = *(v0 + 256);
-    v33 = *(v0 + 264);
-    v36 = *(v0 + 240);
-    v35 = *(v0 + 248);
-    v37 = *(v0 + 232);
-    v38 = *(v0 + 208);
-    v87 = *(v0 + 200);
-    v89 = *(v0 + 192);
-    v91 = *(v0 + 184);
-    v93 = *(v0 + 160);
-    v96 = *(v0 + 152);
-    v99 = *(v0 + 144);
-    swift_willThrow();
-
-    v39 = *(v0 + 8);
-
-    return v39();
-  }
-
-  v40 = MEMORY[0x277CC9318];
-  while (1)
-  {
-    *(v0 + 312) = v29;
-    v41 = *(v0 + 304);
-    if (v29 >= *(v41 + 16))
-    {
-      __break(1u);
-      return result;
-    }
-
-    v42 = *(v0 + 256);
-    v43 = *(v0 + 216);
-    outlined init with copy of ResolvedTransferRepresentation(v41 + ((*(v0 + 384) + 32) & ~*(v0 + 384)) + *(v0 + 296) * v29, v42, type metadata accessor for ResolvedTransferRepresentation);
-    v44 = *(v42 + *(v43 + 28));
-    if (v44 == v40)
-    {
-      break;
-    }
-
-    v45 = *(v0 + 256);
-    if (v44 == *(v0 + 168))
-    {
-      v46 = *(v0 + 208);
-      v47 = *(v0 + 216);
-      v48 = *(v0 + 176);
-      v49 = *(v48 + 56);
-      *(v0 + 352) = v49;
-      *(v0 + 360) = (v48 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-      v49(v46, 1, 1);
-      v50 = *(v47 + 32);
-      v51 = *(v45 + v50);
-      if (v51)
-      {
-        v71 = *(v0 + 120);
-        v72 = *(v45 + v50 + 8);
-        v73 = *(v0 + 104);
-        *(v0 + 80) = v73;
-        v74 = v73;
-        boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-        (*(*(v74 - 8) + 16))(boxed_opaque_existential_1, v71, v74);
-        v102 = (v51 + *v51);
-        v76 = v51[1];
-        v77 = swift_task_alloc();
-        *(v0 + 368) = v77;
-        *v77 = v0;
-        v77[1] = Transferable._data(contentType:);
-
-        return v102(v0 + 16, v0 + 56);
-      }
-
-      v52 = *(v0 + 200);
-      v53 = *(v0 + 168);
-      outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-      *(v0 + 16) = 0u;
-      *(v0 + 32) = 0u;
-      *(v0 + 48) = 0;
-      outlined destroy of UTType?(v0 + 16, &_s16CoreTransferable0B8Currency_pSgMd, &_s16CoreTransferable0B8Currency_pSgMR);
-      (v49)(v52, 1, 1, v53);
-      outlined init with take of URL?(*(v0 + 200), *(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-      v54 = *(v0 + 192);
-      v55 = *(v0 + 168);
-      v56 = *(v0 + 176);
-      outlined init with copy of UTType?(*(v0 + 208), v54, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-      if ((*(v56 + 48))(v54, 1, v55) != 1)
-      {
-        outlined init with take of ResolvedTransferRepresentation(*(v0 + 192), *(v0 + 184), type metadata accessor for SentTransferredFile);
-        v59 = Data.init(contentsOf:options:)();
-        v61 = v60;
-        v62 = *(v0 + 208);
-        outlined destroy of ResolvedTransferRepresentation(*(v0 + 184), type metadata accessor for SentTransferredFile);
-        outlined destroy of UTType?(v62, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-        v63 = v61 >> 62;
-        if ((v61 >> 62) > 1)
-        {
-          if (v63 != 2)
-          {
-            outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-LABEL_27:
-            result = outlined consume of Data._Representation(v59, v61);
-            goto LABEL_10;
-          }
-
-          v64 = *(v59 + 16);
-          v65 = *(v59 + 24);
-        }
-
-        else
-        {
-          if (!v63)
-          {
-            outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-            if ((v61 & 0xFF000000000000) != 0)
-            {
-              goto LABEL_34;
-            }
-
-            goto LABEL_27;
-          }
-
-          v64 = v59;
-          v65 = v59 >> 32;
-        }
-
-        outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-        if (v64 != v65)
-        {
-LABEL_34:
-          v78 = *(v0 + 304);
-          v80 = *(v0 + 272);
-          v79 = *(v0 + 280);
-          v82 = *(v0 + 256);
-          v81 = *(v0 + 264);
-          v84 = *(v0 + 240);
-          v83 = *(v0 + 248);
-          v85 = *(v0 + 232);
-          v88 = *(v0 + 208);
-          v90 = *(v0 + 200);
-          v92 = *(v0 + 192);
-          v94 = *(v0 + 184);
-          v97 = *(v0 + 160);
-          v100 = *(v0 + 152);
-          v103 = *(v0 + 144);
-
-          v86 = *(v0 + 8);
-
-          return v86(v59, v61);
-        }
-
-        goto LABEL_27;
-      }
-
-      v57 = *(v0 + 256);
-      v58 = *(v0 + 192);
-      outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-      outlined destroy of ResolvedTransferRepresentation(v57, type metadata accessor for ResolvedTransferRepresentation);
-      result = outlined destroy of UTType?(v58, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-    }
-
-    else
-    {
-      result = outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-    }
-
-LABEL_10:
-    v29 = *(v0 + 312) + 1;
-    if (v29 == *(v0 + 288))
-    {
-      goto LABEL_5;
-    }
-  }
-
-  v66 = swift_task_alloc();
-  *(v0 + 320) = v66;
-  *v66 = v0;
-  v66[1] = Transferable._data(contentType:);
-  v67 = *(v0 + 256);
-  v68 = *(v0 + 112);
-  v69 = *(v0 + 120);
-  v70 = *(v0 + 104);
-
-  return Transferable.data(from:)(v67, v70, v68);
-}
-
-{
-  v101 = v0;
+  v65 = v0;
   v1 = *(v0 + 376);
   v2 = *(v0 + 256);
   v3 = *(v0 + 240);
@@ -7343,90 +6239,88 @@ LABEL_10:
   v13 = *(v0 + 240);
   if (v11)
   {
-    v14 = *(v0 + 216);
-    v91 = *(v0 + 136);
-    v94 = *(v0 + 128);
-    v97 = *(v0 + 152);
+    v60 = *(v0 + 136);
+    v61 = *(v0 + 128);
+    v62 = *(v0 + 152);
+    v14 = swift_slowAlloc();
     v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v100 = v17;
-    *v15 = 136315394;
-    v18 = v13 + *(v14 + 20);
-    v19 = UTType.identifier.getter();
-    v21 = v20;
+    v64 = v16;
+    *v14 = 136315394;
+    v17 = UTType.identifier.getter();
+    v19 = v18;
     outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v100);
+    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, &v64);
 
-    *(v15 + 4) = v22;
-    *(v15 + 12) = 2112;
-    v23 = v12;
-    v24 = _swift_stdlib_bridgeErrorToNSError();
-    *(v15 + 14) = v24;
-    *v16 = v24;
-    _os_log_impl(&dword_20E3BF000, v9, v10, "Error loading URL for type identifier %s: %@", v15, 0x16u);
-    outlined destroy of UTType?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x20F32E080](v16, -1, -1);
-    __swift_destroy_boxed_opaque_existential_0Tm(v17);
-    MEMORY[0x20F32E080](v17, -1, -1);
+    *(v14 + 4) = v20;
+    *(v14 + 12) = 2112;
+    v21 = v12;
+    v22 = _swift_stdlib_bridgeErrorToNSError();
+    *(v14 + 14) = v22;
+    *v15 = v22;
+    _os_log_impl(&dword_20E3BF000, v9, v10, "Error loading URL for type identifier %s: %@", v14, 0x16u);
+    outlined destroy of UTType?(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x20F32E080](v15, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v16);
+    MEMORY[0x20F32E080](v16, -1, -1);
+    MEMORY[0x20F32E080](v14, -1, -1);
 
-    (*(v91 + 8))(v97, v94);
+    (*(v60 + 8))(v62, v61);
   }
 
   else
   {
-    v25 = *(v0 + 152);
-    v26 = *(v0 + 128);
-    v27 = *(v0 + 136);
+    v23 = *(v0 + 152);
+    v24 = *(v0 + 128);
+    v25 = *(v0 + 136);
 
     outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
-    (*(v27 + 8))(v25, v26);
+    (*(v25 + 8))(v23, v24);
   }
 
   while (2)
   {
-    v42 = *(v0 + 192);
-    v43 = *(v0 + 168);
-    v44 = *(v0 + 176);
-    outlined init with copy of UTType?(*(v0 + 208), v42, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-    if ((*(v44 + 48))(v42, 1, v43) == 1)
+    v39 = *(v0 + 192);
+    v40 = *(v0 + 168);
+    v41 = *(v0 + 176);
+    outlined init with copy of UTType?(*(v0 + 208), v39, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+    if ((*(v41 + 48))(v39, 1, v40) == 1)
     {
-      v29 = *(v0 + 256);
-      v30 = *(v0 + 192);
+      v27 = *(v0 + 256);
+      v28 = *(v0 + 192);
       outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-      outlined destroy of ResolvedTransferRepresentation(v29, type metadata accessor for ResolvedTransferRepresentation);
-      outlined destroy of UTType?(v30, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+      outlined destroy of ResolvedTransferRepresentation(v27, type metadata accessor for ResolvedTransferRepresentation);
+      outlined destroy of UTType?(v28, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
       goto LABEL_23;
     }
 
     outlined init with take of ResolvedTransferRepresentation(*(v0 + 192), *(v0 + 184), type metadata accessor for SentTransferredFile);
-    v30 = Data.init(contentsOf:options:)();
-    v29 = v45;
-    v46 = *(v0 + 208);
+    v28 = Data.init(contentsOf:options:)();
+    v27 = v42;
+    v43 = *(v0 + 208);
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 184), type metadata accessor for SentTransferredFile);
-    outlined destroy of UTType?(v46, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-    v47 = v29 >> 62;
-    if ((v29 >> 62) > 1)
+    outlined destroy of UTType?(v43, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+    v44 = v27 >> 62;
+    if ((v27 >> 62) > 1)
     {
-      if (v47 != 2)
+      if (v44 != 2)
       {
         outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
         goto LABEL_22;
       }
 
-      v48 = *(v30 + 16);
-      v49 = *(v30 + 24);
+      v45 = *(v28 + 16);
+      v46 = *(v28 + 24);
       goto LABEL_19;
     }
 
-    if (v47)
+    if (v44)
     {
-      v48 = v30;
-      v49 = v30 >> 32;
+      v45 = v28;
+      v46 = v28 >> 32;
 LABEL_19:
       outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-      if (v48 != v49)
+      if (v45 != v46)
       {
         goto LABEL_34;
       }
@@ -7435,120 +6329,88 @@ LABEL_19:
     }
 
     outlined destroy of ResolvedTransferRepresentation(*(v0 + 256), type metadata accessor for ResolvedTransferRepresentation);
-    if ((v29 & 0xFF000000000000) != 0)
+    if ((v27 & 0xFF000000000000) != 0)
     {
 LABEL_34:
-      v74 = *(v0 + 304);
-      v76 = *(v0 + 272);
-      v75 = *(v0 + 280);
-      v78 = *(v0 + 256);
-      v77 = *(v0 + 264);
-      v80 = *(v0 + 240);
-      v79 = *(v0 + 248);
-      v81 = *(v0 + 232);
-      v84 = *(v0 + 208);
-      v86 = *(v0 + 200);
-      v88 = *(v0 + 192);
-      v90 = *(v0 + 184);
-      v93 = *(v0 + 160);
-      v96 = *(v0 + 152);
-      v99 = *(v0 + 144);
 
-      v82 = *(v0 + 8);
+      v59 = *(v0 + 8);
 
-      return v82(v30, v29);
+      return v59(v28, v27);
     }
 
 LABEL_22:
-    outlined consume of Data._Representation(v30, v29);
+    outlined consume of Data._Representation(v28, v27);
     while (1)
     {
 LABEL_23:
-      v50 = *(v0 + 312) + 1;
-      if (v50 == *(v0 + 288))
+      v47 = *(v0 + 312) + 1;
+      if (v47 == *(v0 + 288))
       {
-        v51 = *(v0 + 304);
 
-        type metadata accessor for TransferableError();
-        lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+        type metadata accessor for TransferableError(0);
+        lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
         swift_allocError();
         swift_storeEnumTagMultiPayload();
-        v53 = *(v0 + 272);
-        v52 = *(v0 + 280);
-        v55 = *(v0 + 256);
-        v54 = *(v0 + 264);
-        v57 = *(v0 + 240);
-        v56 = *(v0 + 248);
-        v58 = *(v0 + 232);
-        v59 = *(v0 + 208);
-        v83 = *(v0 + 200);
-        v85 = *(v0 + 192);
-        v87 = *(v0 + 184);
-        v89 = *(v0 + 160);
-        v92 = *(v0 + 152);
-        v95 = *(v0 + 144);
         swift_willThrow();
 
-        v60 = *(v0 + 8);
+        v48 = *(v0 + 8);
 
-        return v60();
+        return v48();
       }
 
-      *(v0 + 312) = v50;
-      v28 = *(v0 + 304);
-      if (v50 >= *(v28 + 16))
+      *(v0 + 312) = v47;
+      v26 = *(v0 + 304);
+      if (v47 >= *(v26 + 16))
       {
         __break(1u);
         goto LABEL_34;
       }
 
-      v29 = *(v0 + 256);
-      v30 = *(v0 + 216);
-      outlined init with copy of ResolvedTransferRepresentation(v28 + ((*(v0 + 384) + 32) & ~*(v0 + 384)) + *(v0 + 296) * v50, v29, type metadata accessor for ResolvedTransferRepresentation);
-      v31 = *(v29 + *(v30 + 28));
-      if (v31 == MEMORY[0x277CC9318])
+      v27 = *(v0 + 256);
+      v28 = *(v0 + 216);
+      outlined init with copy of ResolvedTransferRepresentation(v26 + ((*(v0 + 384) + 32) & ~*(v0 + 384)) + *(v0 + 296) * v47, v27, type metadata accessor for ResolvedTransferRepresentation);
+      v29 = *(v27 + *(v28 + 28));
+      if (v29 == MEMORY[0x277CC9318])
       {
-        v62 = swift_task_alloc();
-        *(v0 + 320) = v62;
-        *v62 = v0;
-        v62[1] = Transferable._data(contentType:);
-        v63 = *(v0 + 256);
-        v64 = *(v0 + 112);
-        v65 = *(v0 + 120);
-        v66 = *(v0 + 104);
+        v50 = swift_task_alloc();
+        *(v0 + 320) = v50;
+        *v50 = v0;
+        v50[1] = Transferable._data(contentType:);
+        v51 = *(v0 + 256);
+        v52 = *(v0 + 112);
+        v53 = *(v0 + 104);
 
-        return Transferable.data(from:)(v63, v66, v64);
+        return Transferable.data(from:)(v51, v53, v52);
       }
 
-      v32 = *(v0 + 256);
-      if (v31 == *(v0 + 168))
+      v30 = *(v0 + 256);
+      if (v29 == *(v0 + 168))
       {
         break;
       }
 
-      outlined destroy of ResolvedTransferRepresentation(v32, type metadata accessor for ResolvedTransferRepresentation);
+      outlined destroy of ResolvedTransferRepresentation(v30, type metadata accessor for ResolvedTransferRepresentation);
     }
 
-    v33 = *(v0 + 208);
-    v34 = *(v0 + 216);
-    v35 = *(v0 + 176);
-    v36 = *(v35 + 56);
-    *(v0 + 352) = v36;
-    *(v0 + 360) = (v35 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-    v37 = v32;
-    v36(v33, 1, 1);
-    v38 = *(v34 + 32);
-    v39 = *(v37 + v38);
-    if (!v39)
+    v31 = *(v0 + 208);
+    v32 = *(v0 + 216);
+    v33 = *(v0 + 176);
+    v34 = *(v33 + 56);
+    *(v0 + 352) = v34;
+    *(v0 + 360) = (v33 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+    v35 = v30;
+    v34(v31, 1, 1);
+    v36 = *(v35 + *(v32 + 32));
+    if (!v36)
     {
-      v40 = *(v0 + 200);
-      v41 = *(v0 + 168);
+      v37 = *(v0 + 200);
+      v38 = *(v0 + 168);
       outlined destroy of UTType?(*(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
       *(v0 + 16) = 0u;
       *(v0 + 32) = 0u;
       *(v0 + 48) = 0;
       outlined destroy of UTType?(v0 + 16, &_s16CoreTransferable0B8Currency_pSgMd, &_s16CoreTransferable0B8Currency_pSgMR);
-      (v36)(v40, 1, 1, v41);
+      (v34)(v37, 1, 1, v38);
       outlined init with take of URL?(*(v0 + 200), *(v0 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
       continue;
     }
@@ -7556,84 +6418,301 @@ LABEL_23:
     break;
   }
 
-  v67 = *(v0 + 120);
-  v68 = *(v37 + v38 + 8);
-  v69 = *(v0 + 104);
-  *(v0 + 80) = v69;
-  v70 = v69;
+  v54 = *(v0 + 120);
+  v55 = *(v0 + 104);
+  *(v0 + 80) = v55;
+  v56 = v55;
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-  (*(*(v70 - 8) + 16))(boxed_opaque_existential_1, v67, v70);
-  v98 = (v39 + *v39);
-  v72 = v39[1];
-  v73 = swift_task_alloc();
-  *(v0 + 368) = v73;
-  *v73 = v0;
-  v73[1] = Transferable._data(contentType:);
+  (*(*(v56 - 8) + 16))(boxed_opaque_existential_1, v54, v56);
+  v63 = (v36 + *v36);
+  v58 = swift_task_alloc();
+  *(v0 + 368) = v58;
+  *v58 = v0;
+  v58[1] = Transferable._data(contentType:);
 
-  return v98(v0 + 16, v0 + 56);
+  return v63(v0 + 16, v0 + 56);
 }
 
 uint64_t Transferable._data(contentType:)(uint64_t a1, uint64_t a2)
 {
   v4 = *v3;
-  v5 = *(*v3 + 320);
-  v8 = *v3;
   v4[41] = a1;
   v4[42] = a2;
   v4[43] = v2;
 
   if (v2)
   {
-    v6 = Transferable._data(contentType:);
+    v5 = Transferable._data(contentType:);
   }
 
   else
   {
-    v6 = Transferable._data(contentType:);
+    v5 = Transferable._data(contentType:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+  return MEMORY[0x2822009F8](v5, 0, 0);
 }
 
-size_t static Transferable.writableContentTypes.getter(uint64_t a1, uint64_t a2)
+uint64_t Transferable._data(contentType:)(uint64_t a1)
+{
+  v70 = v1;
+  v2 = *(v1 + 344);
+  v3 = *(v1 + 248);
+  v4 = *(v1 + 256);
+  v5 = *(v1 + 160);
+  v6 = *(v1 + 128);
+  v7 = *(v1 + 136);
+  v8 = logger.unsafeMutableAddressor();
+  (*(v7 + 16))(v5, v8, v6);
+  outlined init with copy of ResolvedTransferRepresentation(v4, v3, type metadata accessor for ResolvedTransferRepresentation);
+  v9 = v2;
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.fault.getter();
+
+  v12 = os_log_type_enabled(v10, v11);
+  v13 = *(v1 + 344);
+  v14 = *(v1 + 248);
+  if (v12)
+  {
+    v65 = *(v1 + 136);
+    v66 = *(v1 + 128);
+    v67 = *(v1 + 160);
+    v15 = swift_slowAlloc();
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v69 = v17;
+    *v15 = 136315394;
+    v18 = UTType.identifier.getter();
+    v20 = v19;
+    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
+    v21 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &v69);
+
+    *(v15 + 4) = v21;
+    *(v15 + 12) = 2112;
+    v22 = v13;
+    v23 = _swift_stdlib_bridgeErrorToNSError();
+    *(v15 + 14) = v23;
+    *v16 = v23;
+    _os_log_impl(&dword_20E3BF000, v10, v11, "Error loading data for type identifier %s: %@", v15, 0x16u);
+    outlined destroy of UTType?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x20F32E080](v16, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0Tm(v17);
+    MEMORY[0x20F32E080](v17, -1, -1);
+    MEMORY[0x20F32E080](v15, -1, -1);
+
+    (*(v65 + 8))(v67, v66);
+  }
+
+  else
+  {
+    v24 = *(v1 + 160);
+    v25 = *(v1 + 128);
+    v26 = *(v1 + 136);
+
+    outlined destroy of ResolvedTransferRepresentation(v14, type metadata accessor for ResolvedTransferRepresentation);
+    (*(v26 + 8))(v24, v25);
+  }
+
+  result = outlined destroy of ResolvedTransferRepresentation(*(v1 + 256), type metadata accessor for ResolvedTransferRepresentation);
+  v28 = *(v1 + 312) + 1;
+  if (v28 == *(v1 + 288))
+  {
+LABEL_5:
+
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+    swift_allocError();
+    swift_storeEnumTagMultiPayload();
+    swift_willThrow();
+
+    v29 = *(v1 + 8);
+
+    return v29();
+  }
+
+  v30 = MEMORY[0x277CC9318];
+  while (1)
+  {
+    *(v1 + 312) = v28;
+    v31 = *(v1 + 304);
+    if (v28 >= *(v31 + 16))
+    {
+      __break(1u);
+      return result;
+    }
+
+    v32 = *(v1 + 256);
+    v33 = *(v1 + 216);
+    outlined init with copy of ResolvedTransferRepresentation(v31 + ((*(v1 + 384) + 32) & ~*(v1 + 384)) + *(v1 + 296) * v28, v32, type metadata accessor for ResolvedTransferRepresentation);
+    v34 = *(v32 + *(v33 + 28));
+    if (v34 == v30)
+    {
+      break;
+    }
+
+    v35 = *(v1 + 256);
+    if (v34 == *(v1 + 168))
+    {
+      v36 = *(v1 + 208);
+      v37 = *(v1 + 216);
+      v38 = *(v1 + 176);
+      v39 = *(v38 + 56);
+      *(v1 + 352) = v39;
+      *(v1 + 360) = (v38 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+      v39(v36, 1, 1);
+      v40 = *(v35 + *(v37 + 32));
+      if (v40)
+      {
+        v59 = *(v1 + 120);
+        v60 = *(v1 + 104);
+        *(v1 + 80) = v60;
+        v61 = v60;
+        boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v1 + 56));
+        (*(*(v61 - 8) + 16))(boxed_opaque_existential_1, v59, v61);
+        v68 = (v40 + *v40);
+        v63 = swift_task_alloc();
+        *(v1 + 368) = v63;
+        *v63 = v1;
+        v63[1] = Transferable._data(contentType:);
+
+        return v68(v1 + 16, v1 + 56);
+      }
+
+      v41 = *(v1 + 200);
+      v42 = *(v1 + 168);
+      outlined destroy of UTType?(*(v1 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+      *(v1 + 16) = 0u;
+      *(v1 + 32) = 0u;
+      *(v1 + 48) = 0;
+      outlined destroy of UTType?(v1 + 16, &_s16CoreTransferable0B8Currency_pSgMd, &_s16CoreTransferable0B8Currency_pSgMR);
+      (v39)(v41, 1, 1, v42);
+      outlined init with take of URL?(*(v1 + 200), *(v1 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+      v43 = *(v1 + 192);
+      v44 = *(v1 + 168);
+      v45 = *(v1 + 176);
+      outlined init with copy of UTType?(*(v1 + 208), v43, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+      if ((*(v45 + 48))(v43, 1, v44) != 1)
+      {
+        outlined init with take of ResolvedTransferRepresentation(*(v1 + 192), *(v1 + 184), type metadata accessor for SentTransferredFile);
+        v48 = Data.init(contentsOf:options:)();
+        v50 = v49;
+        v51 = *(v1 + 208);
+        outlined destroy of ResolvedTransferRepresentation(*(v1 + 184), type metadata accessor for SentTransferredFile);
+        outlined destroy of UTType?(v51, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+        v52 = v50 >> 62;
+        if ((v50 >> 62) > 1)
+        {
+          if (v52 != 2)
+          {
+            outlined destroy of ResolvedTransferRepresentation(*(v1 + 256), type metadata accessor for ResolvedTransferRepresentation);
+LABEL_27:
+            result = outlined consume of Data._Representation(v48, v50);
+            goto LABEL_10;
+          }
+
+          v53 = *(v48 + 16);
+          v54 = *(v48 + 24);
+        }
+
+        else
+        {
+          if (!v52)
+          {
+            outlined destroy of ResolvedTransferRepresentation(*(v1 + 256), type metadata accessor for ResolvedTransferRepresentation);
+            if ((v50 & 0xFF000000000000) != 0)
+            {
+              goto LABEL_34;
+            }
+
+            goto LABEL_27;
+          }
+
+          v53 = v48;
+          v54 = v48 >> 32;
+        }
+
+        outlined destroy of ResolvedTransferRepresentation(*(v1 + 256), type metadata accessor for ResolvedTransferRepresentation);
+        if (v53 != v54)
+        {
+LABEL_34:
+
+          v64 = *(v1 + 8);
+
+          return v64(v48, v50);
+        }
+
+        goto LABEL_27;
+      }
+
+      v46 = *(v1 + 256);
+      v47 = *(v1 + 192);
+      outlined destroy of UTType?(*(v1 + 208), &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+      outlined destroy of ResolvedTransferRepresentation(v46, type metadata accessor for ResolvedTransferRepresentation);
+      result = outlined destroy of UTType?(v47, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+    }
+
+    else
+    {
+      result = outlined destroy of ResolvedTransferRepresentation(*(v1 + 256), type metadata accessor for ResolvedTransferRepresentation);
+    }
+
+LABEL_10:
+    v28 = *(v1 + 312) + 1;
+    if (v28 == *(v1 + 288))
+    {
+      goto LABEL_5;
+    }
+  }
+
+  v55 = swift_task_alloc();
+  *(v1 + 320) = v55;
+  *v55 = v1;
+  v55[1] = Transferable._data(contentType:);
+  v56 = *(v1 + 256);
+  v57 = *(v1 + 112);
+  v58 = *(v1 + 104);
+
+  return Transferable.data(from:)(v56, v58, v57);
+}
+
+void *static Transferable.writableContentTypes.getter(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for UTType();
-  v35 = *(v4 - 8);
-  v5 = *(v35 + 64);
+  v34 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = static Transferable.resolvedRepresentations()(a1, a2);
-  v9 = *(v8 + 16);
-  if (!v9)
+  v6 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = static Transferable.resolvedRepresentations()(a1, a2);
+  v8 = *(v7 + 16);
+  if (!v8)
   {
 LABEL_33:
 
     return MEMORY[0x277D84F90];
   }
 
-  v10 = v8;
-  v11 = type metadata accessor for ResolvedTransferRepresentation();
-  result = v10;
-  v13 = 0;
-  v14 = (*(*(v11 - 8) + 80) + 32) & ~*(*(v11 - 8) + 80);
-  v15 = result + v14;
-  v16 = *(*(v11 - 8) + 72);
-  v17 = *(v11 + 32);
-  v18 = v14 + v17;
-  while (!*(result + v18))
+  v9 = v7;
+  v10 = type metadata accessor for ResolvedTransferRepresentation(0);
+  result = v9;
+  v12 = 0;
+  v13 = (*(*(v10 - 8) + 80) + 32) & ~*(*(v10 - 8) + 80);
+  v14 = result + v13;
+  v15 = *(*(v10 - 8) + 72);
+  v16 = *(v10 + 32);
+  v17 = v13 + v16;
+  while (!*(result + v17))
   {
-    v18 += v16;
-    if (v9 == ++v13)
+    v17 += v15;
+    if (v8 == ++v12)
     {
       goto LABEL_33;
     }
   }
 
-  v19 = v15 + v17;
-  v20 = 1;
+  v18 = &v14[v16];
+  v19 = 1;
   while (2)
   {
-    if (v13 == v9)
+    if (v12 == v8)
     {
 LABEL_41:
       __break(1u);
@@ -7642,8 +6721,8 @@ LABEL_41:
 
     do
     {
-      v21 = v13 + 1;
-      if (__OFADD__(v13, 1))
+      v20 = v12 + 1;
+      if (__OFADD__(v12, 1))
       {
 LABEL_38:
         __break(1u);
@@ -7654,22 +6733,22 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      if (v21 == v9)
+      if (v20 == v8)
       {
         goto LABEL_15;
       }
 
-      if (v21 >= v9)
+      if (v20 >= v8)
       {
         goto LABEL_39;
       }
 
-      ++v13;
+      ++v12;
     }
 
-    while (!*(v19 + v16 * v21));
-    v13 = v21;
-    if (!__OFADD__(v20++, 1))
+    while (!*&v18[v15 * v20]);
+    v12 = v20;
+    if (!__OFADD__(v19++, 1))
     {
       continue;
     }
@@ -7679,63 +6758,63 @@ LABEL_40:
 
   __break(1u);
 LABEL_15:
-  if (!v20)
+  if (!v19)
   {
     goto LABEL_33;
   }
 
-  v31 = result;
-  v37 = MEMORY[0x277D84F90];
-  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v20 & ~(v20 >> 63), 0);
-  v23 = 0;
-  v24 = v37;
-  v25 = v14 + *(v11 + 32);
-  while (!*(v31 + v25))
+  v30 = result;
+  v36 = MEMORY[0x277D84F90];
+  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19 & ~(v19 >> 63), 0);
+  v22 = 0;
+  v23 = v36;
+  v24 = v13 + *(v10 + 32);
+  while (!*(v30 + v24))
   {
-    v25 += v16;
-    if (v9 == ++v23)
+    v24 += v15;
+    if (v8 == ++v22)
     {
-      v23 = v9;
+      v22 = v8;
       break;
     }
   }
 
-  if (v20 < 0)
+  if (v19 < 0)
   {
 LABEL_42:
     __break(1u);
     return result;
   }
 
-  v36 = 0;
-  v32 = v35 + 32;
-  v33 = (v35 + 16);
-  v34 = v20;
+  v35 = 0;
+  v31 = v34 + 32;
+  v32 = (v34 + 16);
+  v33 = v19;
   while (2)
   {
-    if (v23 >= v9)
+    if (v22 >= v8)
     {
       goto LABEL_40;
     }
 
-    (*v33)(v7, v15 + v16 * v23 + *(v11 + 20), v4);
-    v37 = v24;
-    v27 = *(v24 + 16);
-    v26 = *(v24 + 24);
-    if (v27 >= v26 >> 1)
+    (*v32)(v6, &v14[v15 * v22 + *(v10 + 20)], v4);
+    v36 = v23;
+    v26 = *(v23 + 16);
+    v25 = *(v23 + 24);
+    if (v26 >= v25 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v26 > 1, v27 + 1, 1);
-      v24 = v37;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1);
+      v23 = v36;
     }
 
-    v28 = v35;
-    ++v36;
-    *(v24 + 16) = v27 + 1;
-    result = (*(v28 + 32))(v24 + ((*(v28 + 80) + 32) & ~*(v28 + 80)) + *(v28 + 72) * v27, v7, v4);
+    v27 = v34;
+    ++v35;
+    *(v23 + 16) = v26 + 1;
+    result = (*(v27 + 32))(v23 + ((*(v27 + 80) + 32) & ~*(v27 + 80)) + *(v27 + 72) * v26, v6, v4);
     do
     {
-      v29 = v23 + 1;
-      if (__OFADD__(v23, 1))
+      v28 = v22 + 1;
+      if (__OFADD__(v22, 1))
       {
         __break(1u);
 LABEL_37:
@@ -7743,24 +6822,24 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      if (v29 == v9)
+      if (v28 == v8)
       {
-        v23 = v9;
+        v22 = v8;
         goto LABEL_23;
       }
 
-      if (v29 >= v9)
+      if (v28 >= v8)
       {
         goto LABEL_37;
       }
 
-      ++v23;
+      ++v22;
     }
 
-    while (!*(v15 + v29 * v16 + *(v11 + 32)));
-    v23 = v29;
+    while (!*&v14[v28 * v15 + *(v10 + 32)]);
+    v22 = v28;
 LABEL_23:
-    if (v36 != v34)
+    if (v35 != v33)
     {
       continue;
     }
@@ -7768,150 +6847,144 @@ LABEL_23:
     break;
   }
 
-  return v24;
+  return v23;
 }
 
 uint64_t static Transferable.resolvedRepresentations(for:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v41 = a1;
-  v5 = type metadata accessor for ResolvedTransferRepresentation();
+  v36 = a1;
+  v5 = type metadata accessor for ResolvedTransferRepresentation(0);
   v6 = *(v5 - 8);
-  v39 = v5;
-  v40 = v6;
-  v7 = *(v6 + 64);
+  v34 = v5;
+  v35 = v6;
   MEMORY[0x28223BE20](v5);
-  v38 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v9 - 8);
-  v13 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v37 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v37 - v18;
-  v20 = type metadata accessor for UTType();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v37 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = static Transferable.resolvedRepresentations()(a2, a3);
-  outlined init with copy of UTType?(v41, v19, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-  if ((*(v21 + 48))(v19, 1, v20) == 1)
+  v33 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v11 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v32 - v12;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  MEMORY[0x28223BE20](v14 - 8);
+  v16 = &v32 - v15;
+  v17 = type metadata accessor for UTType();
+  v18 = *(v17 - 8);
+  MEMORY[0x28223BE20](v17);
+  v20 = &v32 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = static Transferable.resolvedRepresentations()(a2, a3);
+  outlined init with copy of UTType?(v36, v16, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  if ((*(v18 + 48))(v16, 1, v17) == 1)
   {
-    outlined destroy of UTType?(v19, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-    if (*(v25 + 16))
+    outlined destroy of UTType?(v16, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    if (*(v21 + 16))
     {
-      v26 = v40;
-      outlined init with copy of ResolvedTransferRepresentation(v25 + ((*(v40 + 80) + 32) & ~*(v40 + 80)), v15, type metadata accessor for ResolvedTransferRepresentation);
-      v27 = 0;
+      v22 = v35;
+      outlined init with copy of ResolvedTransferRepresentation(v21 + ((*(v35 + 80) + 32) & ~*(v35 + 80)), v13, type metadata accessor for ResolvedTransferRepresentation);
+      v23 = 0;
     }
 
     else
     {
-      v27 = 1;
-      v26 = v40;
+      v23 = 1;
+      v22 = v35;
     }
 
-    v30 = v27;
-    v31 = v39;
-    (*(v26 + 56))(v15, v30, 1, v39);
-    outlined init with copy of UTType?(v15, v13, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
-    if ((*(v26 + 48))(v13, 1, v31) == 1)
+    v26 = v23;
+    v27 = v34;
+    (*(v22 + 56))(v13, v26, 1, v34);
+    outlined init with copy of UTType?(v13, v11, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+    if ((*(v22 + 48))(v11, 1, v27) == 1)
     {
-      outlined destroy of UTType?(v15, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+      outlined destroy of UTType?(v13, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
       return MEMORY[0x277D84F90];
     }
 
     else
     {
-      v32 = v13;
-      v33 = v38;
-      outlined init with take of ResolvedTransferRepresentation(v32, v38, type metadata accessor for ResolvedTransferRepresentation);
+      v28 = v11;
+      v29 = v33;
+      outlined init with take of ResolvedTransferRepresentation(v28, v33, type metadata accessor for ResolvedTransferRepresentation);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy16CoreTransferable30ResolvedTransferRepresentationVGMd, &_ss23_ContiguousArrayStorageCy16CoreTransferable30ResolvedTransferRepresentationVGMR);
-      v34 = *(v26 + 72);
-      v35 = (*(v26 + 80) + 32) & ~*(v26 + 80);
-      v29 = swift_allocObject();
-      *(v29 + 16) = xmmword_20E3FD830;
-      outlined init with take of ResolvedTransferRepresentation(v33, v29 + v35, type metadata accessor for ResolvedTransferRepresentation);
-      outlined destroy of UTType?(v15, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
+      v30 = (*(v22 + 80) + 32) & ~*(v22 + 80);
+      v25 = swift_allocObject();
+      *(v25 + 16) = xmmword_20E3FD830;
+      outlined init with take of ResolvedTransferRepresentation(v29, v25 + v30, type metadata accessor for ResolvedTransferRepresentation);
+      outlined destroy of UTType?(v13, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMd, &_s16CoreTransferable30ResolvedTransferRepresentationVSgMR);
     }
   }
 
   else
   {
-    v28 = (*(v21 + 32))(v24, v19, v20);
-    MEMORY[0x28223BE20](v28);
-    *(&v37 - 2) = v24;
-    v29 = specialized _ArrayProtocol.filter(_:)(partial apply for closure #2 in static Transferable.resolvedRepresentations(for:), (&v37 - 4), v25);
-    (*(v21 + 8))(v24, v20);
+    v24 = (*(v18 + 32))(v20, v16, v17);
+    MEMORY[0x28223BE20](v24);
+    *(&v32 - 2) = v20;
+    v25 = specialized _ArrayProtocol.filter(_:)(partial apply for closure #2 in static Transferable.resolvedRepresentations(for:), (&v32 - 4), v21);
+    (*(v18 + 8))(v20, v17);
   }
 
-  return v29;
+  return v25;
 }
 
 uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t (*a1)(char *), uint64_t a2, uint64_t a3)
 {
-  v7 = type metadata accessor for ResolvedTransferRepresentation();
-  v26 = *(v7 - 8);
-  v8 = *(v26 + 64);
-  v9 = MEMORY[0x28223BE20](v7 - 8);
-  v25 = v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v9);
-  v13 = v22 - v12;
-  v24 = *(a3 + 16);
-  if (v24)
+  v7 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v25 = *(v7 - 8);
+  v8 = MEMORY[0x28223BE20](v7 - 8);
+  v24 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x28223BE20](v8);
+  v12 = v21 - v11;
+  v23 = *(a3 + 16);
+  if (v23)
   {
-    v14 = 0;
-    v15 = MEMORY[0x277D84F90];
-    v22[1] = a2;
-    v23 = a3;
-    v22[0] = a1;
-    while (v14 < *(a3 + 16))
+    v13 = 0;
+    v14 = MEMORY[0x277D84F90];
+    v21[1] = a2;
+    v22 = a3;
+    v21[0] = a1;
+    while (v13 < *(a3 + 16))
     {
-      v16 = (*(v26 + 80) + 32) & ~*(v26 + 80);
-      v17 = *(v26 + 72);
-      outlined init with copy of ResolvedTransferRepresentation(a3 + v16 + v17 * v14, v13, type metadata accessor for ResolvedTransferRepresentation);
-      v18 = a1(v13);
+      v15 = (*(v25 + 80) + 32) & ~*(v25 + 80);
+      v16 = *(v25 + 72);
+      outlined init with copy of ResolvedTransferRepresentation(a3 + v15 + v16 * v13, v12, type metadata accessor for ResolvedTransferRepresentation);
+      v17 = a1(v12);
       if (v3)
       {
-        outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
+        outlined destroy of ResolvedTransferRepresentation(v12, type metadata accessor for ResolvedTransferRepresentation);
 
         goto LABEL_15;
       }
 
-      if (v18)
+      if (v17)
       {
-        outlined init with take of ResolvedTransferRepresentation(v13, v25, type metadata accessor for ResolvedTransferRepresentation);
+        outlined init with take of ResolvedTransferRepresentation(v12, v24, type metadata accessor for ResolvedTransferRepresentation);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v27 = v15;
+        v26 = v14;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 16) + 1, 1);
-          v15 = v27;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v14 + 16) + 1, 1);
+          v14 = v26;
         }
 
-        v21 = *(v15 + 16);
-        v20 = *(v15 + 24);
-        if (v21 >= v20 >> 1)
+        v20 = *(v14 + 16);
+        v19 = *(v14 + 24);
+        if (v20 >= v19 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v20 > 1, v21 + 1, 1);
-          v15 = v27;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
+          v14 = v26;
         }
 
-        *(v15 + 16) = v21 + 1;
-        result = outlined init with take of ResolvedTransferRepresentation(v25, v15 + v16 + v21 * v17, type metadata accessor for ResolvedTransferRepresentation);
-        a3 = v23;
-        a1 = v22[0];
+        *(v14 + 16) = v20 + 1;
+        result = outlined init with take of ResolvedTransferRepresentation(v24, v14 + v15 + v20 * v16, type metadata accessor for ResolvedTransferRepresentation);
+        a3 = v22;
+        a1 = v21[0];
       }
 
       else
       {
-        result = outlined destroy of ResolvedTransferRepresentation(v13, type metadata accessor for ResolvedTransferRepresentation);
+        result = outlined destroy of ResolvedTransferRepresentation(v12, type metadata accessor for ResolvedTransferRepresentation);
       }
 
-      if (v24 == ++v14)
+      if (v23 == ++v13)
       {
         goto LABEL_15;
       }
@@ -7922,10 +6995,10 @@ uint64_t specialized _ArrayProtocol.filter(_:)(uint64_t (*a1)(char *), uint64_t 
 
   else
   {
-    v15 = MEMORY[0x277D84F90];
+    v14 = MEMORY[0x277D84F90];
 LABEL_15:
 
-    return v15;
+    return v14;
   }
 
   return result;
@@ -7938,13 +7011,11 @@ uint64_t Transferable.url(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   v5[13] = a2;
   v5[14] = a3;
   v5[12] = a1;
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
   v5[17] = swift_task_alloc();
-  v7 = type metadata accessor for SentTransferredFile(0);
-  v5[18] = v7;
-  v8 = *(v7 - 8);
-  v5[19] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6 = type metadata accessor for SentTransferredFile(0);
+  v5[18] = v6;
+  v5[19] = *(v6 - 8);
   v5[20] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](Transferable.url(from:), 0, 0);
@@ -7953,114 +7024,100 @@ uint64_t Transferable.url(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 uint64_t Transferable.url(from:)()
 {
   v1 = *(v0 + 104);
-  v2 = (v1 + *(type metadata accessor for ResolvedTransferRepresentation() + 32));
+  v2 = (v1 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 32));
   v3 = *v2;
   *(v0 + 168) = *v2;
   *(v0 + 176) = v2[1];
   if (v3)
   {
     v4 = *(v0 + 128);
-    v12 = *(v0 + 112);
-    *(v0 + 80) = v12;
+    v9 = *(v0 + 112);
+    *(v0 + 80) = v9;
     boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-    (*(*(v12 - 8) + 16))(boxed_opaque_existential_1, v4);
+    (*(*(v9 - 8) + 16))(boxed_opaque_existential_1, v4);
 
-    v13 = (v3 + *v3);
-    v6 = v3[1];
-    v7 = swift_task_alloc();
-    *(v0 + 184) = v7;
-    *v7 = v0;
-    v7[1] = Transferable.url(from:);
+    v10 = (v3 + *v3);
+    v6 = swift_task_alloc();
+    *(v0 + 184) = v6;
+    *v6 = v0;
+    v6[1] = Transferable.url(from:);
 
-    return v13(v0 + 16, v0 + 56);
+    return v10(v0 + 16, v0 + 56);
   }
 
   else
   {
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    v9 = *(v0 + 160);
-    v10 = *(v0 + 136);
 
-    v11 = *(v0 + 8);
+    v8 = *(v0 + 8);
 
-    return v11();
+    return v8();
   }
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 184);
-  v6 = *v1;
   *(*v1 + 192) = v0;
 
   if (v0)
   {
-    v4 = Transferable.url(from:);
+    v3 = Transferable.url(from:);
   }
 
   else
   {
     __swift_destroy_boxed_opaque_existential_0Tm((v2 + 56));
-    v4 = Transferable.url(from:);
+    v3 = Transferable.url(from:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
-  v1 = v0[22];
-  v2 = v0[18];
-  v3 = v0[19];
-  v4 = v0[17];
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[21]);
+  v1 = v0[19];
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[21], v0[22]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable0B8Currency_pMd, &_s16CoreTransferable0B8Currency_pMR);
-  v5 = swift_dynamicCast();
-  v6 = *(v3 + 56);
-  if (v5)
+  v2 = swift_dynamicCast();
+  v3 = *(v1 + 56);
+  if (v2)
   {
-    v7 = v0[20];
-    v8 = v0[17];
-    v9 = v0[12];
-    v6(v8, 0, 1, v0[18]);
-    outlined init with take of ResolvedTransferRepresentation(v8, v7, type metadata accessor for SentTransferredFile);
-    v10 = type metadata accessor for URL();
-    (*(*(v10 - 8) + 32))(v9, v7, v10);
+    v4 = v0[20];
+    v5 = v0[17];
+    v6 = v0[12];
+    v3(v5, 0, 1, v0[18]);
+    outlined init with take of ResolvedTransferRepresentation(v5, v4, type metadata accessor for SentTransferredFile);
+    v7 = type metadata accessor for URL();
+    (*(*(v7 - 8) + 32))(v6, v4, v7);
   }
 
   else
   {
-    v12 = v0[17];
-    v6(v12, 1, 1, v0[18]);
-    outlined destroy of UTType?(v12, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    v9 = v0[17];
+    v3(v9, 1, 1, v0[18]);
+    outlined destroy of UTType?(v9, &_s16CoreTransferable19SentTransferredFileVSgMd, &_s16CoreTransferable19SentTransferredFileVSgMR);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    v13 = v0[20];
-    v14 = v0[17];
   }
 
-  v11 = v0[1];
+  v8 = v0[1];
 
-  return v11();
+  return v8();
 }
 
 {
-  v1 = v0[22];
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[21]);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[21], v0[22]);
   __swift_destroy_boxed_opaque_existential_0Tm(v0 + 7);
-  v2 = v0[24];
-  v3 = v0[20];
-  v4 = v0[17];
 
-  v5 = v0[1];
+  v1 = v0[1];
 
-  return v5();
+  return v1();
 }
 
 uint64_t Transferable.data(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8075,143 +7132,133 @@ uint64_t Transferable.data(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t Transferable.data(from:)()
 {
   v1 = *(v0 + 112);
-  v2 = (v1 + *(type metadata accessor for ResolvedTransferRepresentation() + 32));
+  v2 = (v1 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 32));
   v3 = *v2;
   *(v0 + 144) = *v2;
   *(v0 + 152) = v2[1];
   if (v3)
   {
     v4 = *(v0 + 136);
-    v10 = *(v0 + 120);
-    *(v0 + 80) = v10;
+    v9 = *(v0 + 120);
+    *(v0 + 80) = v9;
     boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 56));
-    (*(*(v10 - 8) + 16))(boxed_opaque_existential_1, v4);
+    (*(*(v9 - 8) + 16))(boxed_opaque_existential_1, v4);
 
-    v11 = (v3 + *v3);
-    v6 = v3[1];
-    v7 = swift_task_alloc();
-    *(v0 + 160) = v7;
-    *v7 = v0;
-    v7[1] = Transferable.data(from:);
+    v10 = (v3 + *v3);
+    v6 = swift_task_alloc();
+    *(v0 + 160) = v6;
+    *v6 = v0;
+    v6[1] = Transferable.data(from:);
 
-    return v11(v0 + 16, v0 + 56);
+    return v10(v0 + 16, v0 + 56);
   }
 
   else
   {
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    v9 = *(v0 + 8);
+    v8 = *(v0 + 8);
 
-    return v9();
+    return v8();
   }
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 160);
-  v6 = *v1;
   *(*v1 + 168) = v0;
 
   if (v0)
   {
-    v4 = Transferable.data(from:);
+    v3 = Transferable.data(from:);
   }
 
   else
   {
     __swift_destroy_boxed_opaque_existential_0Tm((v2 + 56));
-    v4 = Transferable.data(from:);
+    v3 = Transferable.data(from:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
-  v1 = v0[19];
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[18]);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[18], v0[19]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable0B8Currency_pMd, &_s16CoreTransferable0B8Currency_pMR);
   if (swift_dynamicCast())
   {
-    v2 = v0[12];
-    v3 = v0[13];
-    v4 = v0[1];
+    v1 = v0[12];
+    v2 = v0[13];
+    v3 = v0[1];
 
-    return v4(v2, v3);
+    return v3(v1, v2);
   }
 
   else
   {
-    type metadata accessor for TransferableError();
-    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError);
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
     swift_allocError();
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    v6 = v0[1];
+    v5 = v0[1];
 
-    return v6();
+    return v5();
   }
 }
 
 {
-  v1 = v0[19];
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[18]);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v0[18], v0[19]);
   __swift_destroy_boxed_opaque_existential_0Tm(v0 + 7);
-  v2 = v0[21];
-  v3 = v0[1];
+  v1 = v0[1];
 
-  return v3();
+  return v1();
 }
 
 uint64_t _contentType(for:)@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for Logger();
-  v21 = *(v2 - 8);
-  v22 = v2;
-  v3 = *(v21 + 64);
+  v16[1] = *(v2 - 8);
+  v16[2] = v2;
   MEMORY[0x28223BE20](v2);
-  v23 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for URLResourceValues();
-  v20 = *(v5 - 8);
-  v6 = *(v20 + 64);
-  MEMORY[0x28223BE20](v5);
-  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for UTType();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
-  v15 = &v20 - v14;
+  v16[3] = v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for URLResourceValues();
+  v16[0] = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v6 = v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for UTType();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = v16 - v10;
   URL.pathExtension.getter();
   static UTType.data.getter();
   UTType.init(filenameExtension:conformingTo:)();
-  if ((*(v10 + 48))(v15, 1, v9) == 1)
+  if ((*(v8 + 48))(v11, 1, v7) == 1)
   {
-    outlined destroy of UTType?(v15, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+    outlined destroy of UTType?(v11, &_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMd, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_20E3FD830;
-    v17 = *MEMORY[0x277CBE7B8];
+    v13 = *MEMORY[0x277CBE7B8];
     *(inited + 32) = *MEMORY[0x277CBE7B8];
-    v18 = v17;
+    v14 = v13;
     _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSo16NSURLResourceKeya_Tt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of ResolvedTransferRepresentation(inited + 32, type metadata accessor for NSURLResourceKey);
     URL.resourceValues(forKeys:)();
 
     URLResourceValues.contentType.getter();
-    return (*(v20 + 8))(v8, v5);
+    return (*(v16[0] + 8))(v6, v4);
   }
 
   else
   {
-    (*(v10 + 32))(a1, v15, v9);
-    return (*(v10 + 56))(a1, 0, 1, v9);
+    (*(v8 + 32))(a1, v11, v7);
+    return (*(v8 + 56))(a1, 0, 1, v7);
   }
 }
 
@@ -8240,48 +7287,43 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridg
 
 uint64_t protocol witness for Hashable.hashValue.getter in conformance NSURLResourceKey()
 {
-  v1 = *v0;
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x20F32D560](v2);
+  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v1 = MEMORY[0x20F32D560](v0);
 
-  return v3;
+  return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NSURLResourceKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NSURLResourceKey(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSURLResourceKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSURLResourceKey(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NSURLResourceKey(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NSURLResourceKey(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance NSURLResourceKey@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
@@ -8294,23 +7336,22 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance NS
 
 uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance NSURLResourceKey@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSURLResourceKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey);
-  v3 = lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey);
+  v2 = lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey, &protocol conformance descriptor for NSURLResourceKey);
+  v3 = lazy protocol witness table accessor for type TransferableError and conformance TransferableError(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey, &protocol conformance descriptor for NSURLResourceKey);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -8408,16 +7449,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -8514,7 +7553,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -8528,15 +7566,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -8551,15 +7589,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -8568,12 +7606,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -8596,7 +7634,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   if (isUniquelyReferenced_nonNull_native && v5 <= v3[3] >> 1)
   {
@@ -8610,15 +7647,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v16 = v4 + v2;
+    v12 = v4 + v2;
   }
 
   else
   {
-    v16 = v4;
+    v12 = v4;
   }
 
-  v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v16, 1, v3);
+  v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v12, 1, v3);
   if (!*(v6 + 16))
   {
 LABEL_13:
@@ -8632,18 +7669,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v9 = (v3[3] >> 1) - v3[2];
-  result = type metadata accessor for ResolvedTransferRepresentation();
-  v10 = *(result - 8);
-  if (v9 < v2)
+  v8 = (v3[3] >> 1) - v3[2];
+  result = type metadata accessor for ResolvedTransferRepresentation(0);
+  if (v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  v11 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-  v12 = *(v10 + 72);
   swift_arrayInitWithCopy();
 
   if (!v2)
@@ -8653,12 +7687,12 @@ LABEL_14:
     return result;
   }
 
-  v13 = v3[2];
-  v14 = __OFADD__(v13, v2);
-  v15 = v13 + v2;
-  if (!v14)
+  v9 = v3[2];
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    v3[2] = v15;
+    v3[2] = v11;
     goto LABEL_14;
   }
 
@@ -8766,7 +7800,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy22UniformTypeIdentifiers6UTTypeVGMd, &_ss23_ContiguousArrayStorageCy22UniformTypeIdentifiers6UTTypeVGMR, MEMORY[0x277D85578]);
   *v3 = result;
@@ -8779,7 +7813,7 @@ size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapaci
   return result;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -8839,7 +7873,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -8934,7 +7968,7 @@ LABEL_17:
           goto LABEL_17;
         }
 
-        v13 = *(type metadata accessor for ResolvedTransferRepresentation() - 8);
+        v13 = *(type metadata accessor for ResolvedTransferRepresentation(0) - 8);
         result = a4(a3 + ((*(v13 + 80) + 32) & ~*(v13 + 80)) + *(v13 + 72) * v12);
         ++v6;
       }
@@ -8999,24 +8033,24 @@ uint64_t outlined consume of ResolvedTransferRepresentation.SuggestedFileNameSto
   }
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -9047,19 +8081,21 @@ unint64_t lazy protocol witness table accessor for type TransferableSupportError
 BOOL partial apply for closure #2 in static Transferable.exportedContentTypes(visibility:)(uint64_t a1)
 {
   v3[1] = *(v1 + 16);
-  v3[0] = *(a1 + *(type metadata accessor for ResolvedTransferRepresentation() + 44));
+  v3[0] = *(a1 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 44));
   return TransferRepresentationVisibility.conforms(to:)(v3);
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0Tm(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0Tm(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with take of ResolvedTransferRepresentation(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
@@ -9067,13 +8103,6 @@ uint64_t outlined init with take of ResolvedTransferRepresentation(uint64_t a1, 
   v5 = a3(0);
   (*(*(v5 - 8) + 32))(a2, a1, v5);
   return a2;
-}
-
-uint64_t partial apply for closure #2 in static Transferable.resolvedRepresentations(for:)(uint64_t a1)
-{
-  v2 = *(v1 + 16);
-  v3 = a1 + *(type metadata accessor for ResolvedTransferRepresentation() + 20);
-  return UTType.conforms(to:)() & 1;
 }
 
 uint64_t outlined destroy of UTType?(uint64_t a1, uint64_t *a2, uint64_t *a3)
@@ -9121,72 +8150,70 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSo16NSURLResourceKeya_Tt0g5Tf
     v3 = static _SetStorage.allocate(capacity:)();
     v4 = 0;
     v5 = v3 + 56;
-    v27 = v1;
-    v28 = a1 + 32;
+    v25 = v1;
+    v26 = a1 + 32;
     v6 = v1;
     while (1)
     {
-      v7 = *(v28 + 8 * v4);
-      v8 = *(v3 + 40);
+      v7 = *(v26 + 8 * v4);
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       Hasher.init(_seed:)();
-      v29 = v7;
+      v27 = v7;
       String.hash(into:)();
-      v9 = Hasher._finalize()();
+      v8 = Hasher._finalize()();
 
-      v11 = -1 << *(v3 + 32);
-      v12 = v9 & ~v11;
-      v13 = v12 >> 6;
-      v14 = *(v5 + 8 * (v12 >> 6));
-      v15 = 1 << v12;
-      if (((1 << v12) & v14) == 0)
+      v10 = -1 << *(v3 + 32);
+      v11 = v8 & ~v10;
+      v12 = v11 >> 6;
+      v13 = *(v5 + 8 * (v11 >> 6));
+      v14 = 1 << v11;
+      if (((1 << v11) & v13) == 0)
       {
         goto LABEL_15;
       }
 
-      v16 = ~v11;
+      v15 = ~v10;
       do
       {
-        v17 = *(*(v3 + 48) + 8 * v12);
-        v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v20 = v19;
-        if (v18 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v20 == v21)
+        v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v18 = v17;
+        if (v16 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v18 == v19)
         {
 
 LABEL_4:
-          v6 = v27;
+          v6 = v25;
           goto LABEL_5;
         }
 
-        v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v21 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if (v23)
+        if (v21)
         {
 
           goto LABEL_4;
         }
 
-        v12 = (v12 + 1) & v16;
-        v13 = v12 >> 6;
-        v14 = *(v5 + 8 * (v12 >> 6));
-        v15 = 1 << v12;
+        v11 = (v11 + 1) & v15;
+        v12 = v11 >> 6;
+        v13 = *(v5 + 8 * (v11 >> 6));
+        v14 = 1 << v11;
       }
 
-      while (((1 << v12) & v14) != 0);
-      v6 = v27;
+      while (((1 << v11) & v13) != 0);
+      v6 = v25;
 LABEL_15:
-      *(v5 + 8 * v13) = v15 | v14;
-      *(*(v3 + 48) + 8 * v12) = v29;
-      v24 = *(v3 + 16);
-      v25 = __OFADD__(v24, 1);
-      v26 = v24 + 1;
-      if (v25)
+      *(v5 + 8 * v12) = v14 | v13;
+      *(*(v3 + 48) + 8 * v11) = v27;
+      v22 = *(v3 + 16);
+      v23 = __OFADD__(v22, 1);
+      v24 = v22 + 1;
+      if (v23)
       {
         __break(1u);
         return result;
       }
 
-      *(v3 + 16) = v26;
+      *(v3 + 16) = v24;
 LABEL_5:
       if (++v4 == v6)
       {
@@ -9217,7 +8244,7 @@ void type metadata accessor for NSURLResourceKey()
   }
 }
 
-uint64_t lazy protocol witness table accessor for type TransferableError and conformance TransferableError(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type TransferableError and conformance TransferableError(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9232,108 +8259,96 @@ uint64_t lazy protocol witness table accessor for type TransferableError and con
 
 uint64_t static AttributedString.transferRepresentation.getter@<X0>(uint64_t a1@<X8>)
 {
-  v45 = a1;
+  v36 = a1;
   v1 = type metadata accessor for UTType();
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v39 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
-  v5 = *(*(v46 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v46);
-  v41 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x28223BE20](v6);
-  v40 = &v39 - v9;
-  MEMORY[0x28223BE20](v8);
-  v11 = &v39 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR);
-  v44 = v12;
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12);
-  v16 = &v39 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14);
-  v43 = &v39 - v17;
+  v3 = &v30 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
+  v4 = MEMORY[0x28223BE20](v37);
+  v32 = &v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x28223BE20](v4);
+  v31 = &v30 - v7;
+  MEMORY[0x28223BE20](v6);
+  v9 = &v30 - v8;
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR);
+  v10 = MEMORY[0x28223BE20](v35);
+  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v34 = &v30 - v13;
   static UTType.flatRTFD.getter();
-  v18 = type metadata accessor for AttributedString();
-  v19 = lazy protocol witness table accessor for type AttributedString and conformance AttributedString(&lazy protocol witness table cache variable for type AttributedString and conformance AttributedString, MEMORY[0x277CC8C40]);
-  DataRepresentation.init(contentType:exporting:importing:)(v4, &async function pointer to closure #1 in static AttributedString.flatRTFDRepresentation.getter, 0, &async function pointer to closure #2 in static AttributedString.flatRTFDRepresentation.getter, 0, v18, v19);
-  v39 = lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
-  v20 = v46;
-  TransferRepresentation.exportingCondition(_:)(closure #3 in static AttributedString.flatRTFDRepresentation.getter, 0, v46, v16);
-  outlined destroy of UTType?(v11, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
-  v42 = lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type _ConditionalTransferRepresentation<DataRepresentation<AttributedString>> and conformance _ConditionalTransferRepresentation<A>, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR);
-  static TransferRepresentationBuilder.buildExpression<A>(_:)(v16, v18, v12, v42);
-  outlined destroy of UTType?(v16, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR);
+  v14 = type metadata accessor for AttributedString();
+  v15 = lazy protocol witness table accessor for type AttributedString and conformance AttributedString(&lazy protocol witness table cache variable for type AttributedString and conformance AttributedString, MEMORY[0x277CC8C40], &protocol conformance descriptor for AttributedString);
+  DataRepresentation.init(contentType:exporting:importing:)(v3, &async function pointer to closure #1 in static AttributedString.flatRTFDRepresentation.getter, 0, &async function pointer to closure #2 in static AttributedString.flatRTFDRepresentation.getter, 0, v14, v15);
+  v30 = lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR, &protocol conformance descriptor for DataRepresentation<A>);
+  TransferRepresentation.exportingCondition(_:)(closure #3 in static AttributedString.flatRTFDRepresentation.getter, 0, v37, v30, v12);
+  outlined destroy of UTType?(v9, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
+  v33 = lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type _ConditionalTransferRepresentation<DataRepresentation<AttributedString>> and conformance _ConditionalTransferRepresentation<A>, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR, &protocol conformance descriptor for _ConditionalTransferRepresentation<A>);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v12, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR);
   static UTType.rtf.getter();
-  v21 = v40;
-  DataRepresentation.init(contentType:exporting:importing:)(v4, &async function pointer to closure #1 in static AttributedString.rtfRepresentation.getter, 0, &async function pointer to closure #2 in static AttributedString.rtfRepresentation.getter, 0, v18, v19);
-  v22 = v20;
-  v23 = v20;
-  v24 = v39;
-  static TransferRepresentationBuilder.buildExpression<A>(_:)(v21, v18, v23, v39);
-  outlined destroy of UTType?(v21, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
+  v16 = v31;
+  DataRepresentation.init(contentType:exporting:importing:)(v3, &async function pointer to closure #1 in static AttributedString.rtfRepresentation.getter, 0, &async function pointer to closure #2 in static AttributedString.rtfRepresentation.getter, 0, v14, v15);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v16, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
   static UTType.html.getter();
-  v25 = v41;
-  DataRepresentation.init(importedContentType:importing:)(v4, &async function pointer to closure #1 in static AttributedString.htmlRepresentation.getter, 0, v41);
-  static TransferRepresentationBuilder.buildExpression<A>(_:)(v25, v18, v22, v24);
-  outlined destroy of UTType?(v25, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
-  v26 = lazy protocol witness table accessor for type String and conformance String();
-  ProxyRepresentation.init(exporting:importing:)(closure #1 in static AttributedString.transferRepresentation.getter, 0, closure #2 in static AttributedString.transferRepresentation.getter, 0, v18, MEMORY[0x277D837D0], v19, v26, &v50);
-  v47 = v50;
-  v48 = v51;
-  v49 = v52;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMd, &_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMR);
-  v28 = lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type ProxyRepresentation<AttributedString, String> and conformance ProxyRepresentation<A, B>, &_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMd, &_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMR);
-  static TransferRepresentationBuilder.buildExpression<A>(_:)(&v47, v18, v27, v28);
-  v29 = v48;
-  v30 = v49;
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v47);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v29);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v30);
-  v31 = v54;
-  v32 = v55;
-  v50 = v53;
-  v51 = v54;
-  v52 = v55;
-  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v53);
-  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v31);
-  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v32);
-  v33 = v43;
-  static TransferRepresentationBuilder.buildBlock<A, B, C, D>(_:_:_:_:)(v43, v11, v21, &v50, v18, v44, v46, v46, v45, v27, v42);
-  v34 = v51;
-  v35 = v52;
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v50);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v34);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v35);
-  v36 = v54;
-  v37 = v55;
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v53);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v36);
-  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v37);
-  outlined destroy of UTType?(v21, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
-  outlined destroy of UTType?(v11, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
-  return outlined destroy of UTType?(v33, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR);
+  v17 = v32;
+  DataRepresentation.init(importedContentType:importing:)(v3, &async function pointer to closure #1 in static AttributedString.htmlRepresentation.getter, 0, v14, v15, v32);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v17, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
+  v18 = lazy protocol witness table accessor for type String and conformance String();
+  ProxyRepresentation.init(exporting:importing:)(closure #1 in static AttributedString.transferRepresentation.getter, 0, closure #2 in static AttributedString.transferRepresentation.getter, 0, v14, MEMORY[0x277D837D0], v15, v18, &v41);
+  v38 = v41;
+  v39 = v42;
+  v40 = v43;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMd, &_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMR);
+  lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type ProxyRepresentation<AttributedString, String> and conformance ProxyRepresentation<A, B>, &_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMd, &_s16CoreTransferable19ProxyRepresentationVy10Foundation16AttributedStringVSSGMR, &protocol conformance descriptor for ProxyRepresentation<A, B>);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  v20 = v39;
+  v21 = v40;
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v38, *(&v38 + 1));
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v20, *(&v20 + 1));
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v21, *(&v21 + 1));
+  v22 = v45;
+  v23 = v46;
+  v41 = v44;
+  v42 = v45;
+  v43 = v46;
+  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v44, *(&v44 + 1));
+  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v22, *(&v22 + 1));
+  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(v23, *(&v23 + 1));
+  v24 = v34;
+  static TransferRepresentationBuilder.buildBlock<A, B, C, D>(_:_:_:_:)(v34, v9, v16, &v41, v14, v35, v37, v37, v36, v19, v33);
+  v25 = v42;
+  v26 = v43;
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v41, *(&v41 + 1));
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v25, *(&v25 + 1));
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v26, *(&v26 + 1));
+  v27 = v45;
+  v28 = v46;
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v44, *(&v44 + 1));
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v27, *(&v27 + 1));
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(v28, *(&v28 + 1));
+  outlined destroy of UTType?(v16, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
+  outlined destroy of UTType?(v9, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation16AttributedStringVGMR);
+  return outlined destroy of UTType?(v24, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation16AttributedStringVGGMR);
 }
 
 uint64_t closure #1 in static AttributedString.transferRepresentation.getter@<X0>(uint64_t *a1@<X8>)
 {
   v2 = type metadata accessor for AttributedString.CharacterView();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2);
   AttributedString.characters.getter();
-  lazy protocol witness table accessor for type AttributedString and conformance AttributedString(&lazy protocol witness table cache variable for type AttributedString.CharacterView and conformance AttributedString.CharacterView, MEMORY[0x277CC8B30]);
+  lazy protocol witness table accessor for type AttributedString and conformance AttributedString(&lazy protocol witness table cache variable for type AttributedString.CharacterView and conformance AttributedString.CharacterView, MEMORY[0x277CC8B30], MEMORY[0x277CC8B40]);
   result = String.init<A>(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v4;
   return result;
 }
 
 uint64_t closure #2 in static AttributedString.transferRepresentation.getter(uint64_t *a1)
 {
-  v2 = type metadata accessor for AttributeContainer();
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v5 = *a1;
-  v4 = a1[1];
+  v1 = type metadata accessor for AttributeContainer();
+  MEMORY[0x28223BE20](v1 - 8);
 
   AttributeContainer.init()();
   return AttributedString.init(_:attributes:)();
@@ -9341,22 +8356,17 @@ uint64_t closure #2 in static AttributedString.transferRepresentation.getter(uin
 
 uint64_t closure #1 in static AttributedString.flatRTFDRepresentation.getter(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1[18] = a1;
   v2 = type metadata accessor for AttributedString();
   v1[19] = v2;
-  v3 = *(v2 - 8);
-  v1[20] = v3;
-  v4 = *(v3 + 64) + 15;
+  v1[20] = *(v2 - 8);
   v1[21] = swift_task_alloc();
-  v5 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](closure #1 in static AttributedString.flatRTFDRepresentation.getter, 0, 0);
 }
 
 uint64_t closure #1 in static AttributedString.flatRTFDRepresentation.getter()
 {
-  v33 = *MEMORY[0x277D85DE8];
   v2 = *(v0 + 160);
   v1 = *(v0 + 168);
   v4 = *(v0 + 144);
@@ -9395,97 +8405,87 @@ uint64_t closure #1 in static AttributedString.flatRTFDRepresentation.getter()
   v21 = [v7 dataFromAttributedString:v10 range:0 documentAttributes:v6 error:{isa, v0 + 136}];
 
   v22 = *(v0 + 136);
-  v23 = *(v0 + 168);
   if (v21)
   {
-    v24 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v26 = v25;
+    v23 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+    v25 = v24;
 
-    v27 = *(v0 + 8);
-    v28 = *MEMORY[0x277D85DE8];
+    v26 = *(v0 + 8);
 
-    return v27(v24, v26);
+    return v26(v23, v25);
   }
 
   else
   {
-    v30 = v22;
+    v28 = v22;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
 
-    v31 = *(v0 + 8);
-    v32 = *MEMORY[0x277D85DE8];
+    v29 = *(v0 + 8);
 
-    return v31();
+    return v29();
   }
 }
 
 uint64_t closure #2 in static AttributedString.flatRTFDRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v3[19] = a2;
   v3[20] = a3;
   v3[18] = a1;
-  v4 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](closure #2 in static AttributedString.flatRTFDRepresentation.getter, 0, 0);
 }
 
 uint64_t closure #2 in static AttributedString.flatRTFDRepresentation.getter()
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v2 = v0[19];
-  v1 = v0[20];
-  v3 = objc_opt_self();
+  v1 = objc_opt_self();
   isa = Data._bridgeToObjectiveC()().super.isa;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd, &_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_20E3FD830;
-  v6 = objc_opt_self();
-  v7 = [v6 documentType];
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
+  v4 = objc_opt_self();
+  v5 = [v4 documentType];
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
 
-  v0[15] = v8;
-  v0[16] = v10;
-  v11 = MEMORY[0x277D837D0];
+  v0[15] = v6;
+  v0[16] = v8;
+  v9 = MEMORY[0x277D837D0];
   AnyHashable.init<A>(_:)();
-  v12 = [v6 rtfd];
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = v14;
+  v10 = [v4 rtfd];
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
 
-  *(inited + 96) = v11;
-  *(inited + 72) = v13;
-  *(inited + 80) = v15;
+  *(inited + 96) = v9;
+  *(inited + 72) = v11;
+  *(inited + 80) = v13;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
   outlined destroy of UTType?(inited + 32, &_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
-  v16 = Dictionary._bridgeToObjectiveC()().super.isa;
+  v14 = Dictionary._bridgeToObjectiveC()().super.isa;
 
   v0[17] = 0;
-  v17 = [v3 attributedStringFromData:isa options:v16 documentAttributes:0 error:v0 + 17];
+  v15 = [v1 attributedStringFromData:isa options:v14 documentAttributes:0 error:v0 + 17];
 
-  v18 = v0[17];
-  if (v17)
+  v16 = v0[17];
+  if (v15)
   {
-    v19 = v0[18];
-    v20 = v18;
+    v17 = v16;
     AttributedString.init(_:)();
   }
 
   else
   {
-    v23 = v18;
+    v19 = v16;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v21 = v0[1];
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = v0[1];
 
-  return v21();
+  return v18();
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
@@ -9493,7 +8493,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -9503,22 +8502,17 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
 
 uint64_t closure #1 in static AttributedString.rtfRepresentation.getter(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1[18] = a1;
   v2 = type metadata accessor for AttributedString();
   v1[19] = v2;
-  v3 = *(v2 - 8);
-  v1[20] = v3;
-  v4 = *(v3 + 64) + 15;
+  v1[20] = *(v2 - 8);
   v1[21] = swift_task_alloc();
-  v5 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](closure #1 in static AttributedString.rtfRepresentation.getter, 0, 0);
 }
 
 uint64_t closure #1 in static AttributedString.rtfRepresentation.getter()
 {
-  v33 = *MEMORY[0x277D85DE8];
   v2 = *(v0 + 160);
   v1 = *(v0 + 168);
   v4 = *(v0 + 144);
@@ -9557,164 +8551,147 @@ uint64_t closure #1 in static AttributedString.rtfRepresentation.getter()
   v21 = [v7 dataFromAttributedString:v10 range:0 documentAttributes:v6 error:{isa, v0 + 136}];
 
   v22 = *(v0 + 136);
-  v23 = *(v0 + 168);
   if (v21)
   {
-    v24 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v26 = v25;
+    v23 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+    v25 = v24;
 
-    v27 = *(v0 + 8);
-    v28 = *MEMORY[0x277D85DE8];
+    v26 = *(v0 + 8);
 
-    return v27(v24, v26);
+    return v26(v23, v25);
   }
 
   else
   {
-    v30 = v22;
+    v28 = v22;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
 
-    v31 = *(v0 + 8);
-    v32 = *MEMORY[0x277D85DE8];
+    v29 = *(v0 + 8);
 
-    return v31();
+    return v29();
   }
 }
 
 uint64_t closure #2 in static AttributedString.rtfRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v3[19] = a2;
   v3[20] = a3;
   v3[18] = a1;
-  v4 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](closure #2 in static AttributedString.rtfRepresentation.getter, 0, 0);
 }
 
 uint64_t closure #2 in static AttributedString.rtfRepresentation.getter()
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v2 = v0[19];
-  v1 = v0[20];
-  v3 = objc_opt_self();
+  v1 = objc_opt_self();
   isa = Data._bridgeToObjectiveC()().super.isa;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd, &_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_20E3FD830;
-  v6 = objc_opt_self();
-  v7 = [v6 documentType];
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
+  v4 = objc_opt_self();
+  v5 = [v4 documentType];
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
 
-  v0[15] = v8;
-  v0[16] = v10;
-  v11 = MEMORY[0x277D837D0];
+  v0[15] = v6;
+  v0[16] = v8;
+  v9 = MEMORY[0x277D837D0];
   AnyHashable.init<A>(_:)();
-  v12 = [v6 rtf];
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = v14;
+  v10 = [v4 rtf];
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
 
-  *(inited + 96) = v11;
-  *(inited + 72) = v13;
-  *(inited + 80) = v15;
+  *(inited + 96) = v9;
+  *(inited + 72) = v11;
+  *(inited + 80) = v13;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
   outlined destroy of UTType?(inited + 32, &_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
-  v16 = Dictionary._bridgeToObjectiveC()().super.isa;
+  v14 = Dictionary._bridgeToObjectiveC()().super.isa;
 
   v0[17] = 0;
-  v17 = [v3 attributedStringFromData:isa options:v16 documentAttributes:0 error:v0 + 17];
+  v15 = [v1 attributedStringFromData:isa options:v14 documentAttributes:0 error:v0 + 17];
 
-  v18 = v0[17];
-  if (v17)
+  v16 = v0[17];
+  if (v15)
   {
-    v19 = v0[18];
-    v20 = v18;
+    v17 = v16;
     AttributedString.init(_:)();
   }
 
   else
   {
-    v23 = v18;
+    v19 = v16;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v21 = v0[1];
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = v0[1];
 
-  return v21();
+  return v18();
 }
 
 uint64_t closure #1 in static AttributedString.htmlRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v3[19] = a2;
   v3[20] = a3;
   v3[18] = a1;
-  v4 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](closure #1 in static AttributedString.htmlRepresentation.getter, 0, 0);
 }
 
 uint64_t closure #1 in static AttributedString.htmlRepresentation.getter()
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v2 = v0[19];
-  v1 = v0[20];
-  v3 = objc_opt_self();
+  v1 = objc_opt_self();
   isa = Data._bridgeToObjectiveC()().super.isa;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd, &_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_20E3FD830;
-  v6 = objc_opt_self();
-  v7 = [v6 documentType];
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
+  v4 = objc_opt_self();
+  v5 = [v4 documentType];
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
 
-  v0[15] = v8;
-  v0[16] = v10;
-  v11 = MEMORY[0x277D837D0];
+  v0[15] = v6;
+  v0[16] = v8;
+  v9 = MEMORY[0x277D837D0];
   AnyHashable.init<A>(_:)();
-  v12 = [v6 html];
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = v14;
+  v10 = [v4 html];
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
 
-  *(inited + 96) = v11;
-  *(inited + 72) = v13;
-  *(inited + 80) = v15;
+  *(inited + 96) = v9;
+  *(inited + 72) = v11;
+  *(inited + 80) = v13;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
   outlined destroy of UTType?(inited + 32, &_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
-  v16 = Dictionary._bridgeToObjectiveC()().super.isa;
+  v14 = Dictionary._bridgeToObjectiveC()().super.isa;
 
   v0[17] = 0;
-  v17 = [v3 attributedStringFromData:isa options:v16 documentAttributes:0 error:v0 + 17];
+  v15 = [v1 attributedStringFromData:isa options:v14 documentAttributes:0 error:v0 + 17];
 
-  v18 = v0[17];
-  if (v17)
+  v16 = v0[17];
+  if (v15)
   {
-    v19 = v0[18];
-    v20 = v18;
+    v17 = v16;
     AttributedString.init(_:)();
   }
 
   else
   {
-    v23 = v18;
+    v19 = v16;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v21 = v0[1];
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = v0[1];
 
-  return v21();
+  return v18();
 }
 
 unint64_t lazy protocol witness table accessor for type String and conformance String()
@@ -9740,7 +8717,7 @@ unint64_t lazy protocol witness table accessor for type String and conformance S
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -9753,7 +8730,7 @@ uint64_t lazy protocol witness table accessor for type DataRepresentation<Attrib
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type AttributedString and conformance AttributedString(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AttributedString and conformance AttributedString(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9897,4 +8874,1009 @@ _OWORD *outlined init with take of Any(_OWORD *a1, _OWORD *a2)
   *a2 = *a1;
   a2[1] = v2;
   return a2;
+}
+
+unint64_t type metadata accessor for NSAttributedString()
+{
+  result = lazy cache variable for type metadata for NSAttributedString;
+  if (!lazy cache variable for type metadata for NSAttributedString)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for NSAttributedString);
+  }
+
+  return result;
+}
+
+uint64_t ResolvedTransferRepresentation.exporter.getter()
+{
+  v1 = (v0 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 32));
+  v2 = *v1;
+  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(*v1, v1[1]);
+  return v2;
+}
+
+uint64_t ResolvedTransferRepresentation.exporter.setter(uint64_t a1, uint64_t a2)
+{
+  v5 = (v2 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 32));
+  result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*v5, v5[1]);
+  *v5 = a1;
+  v5[1] = a2;
+  return result;
+}
+
+uint64_t ResolvedTransferRepresentation.importer.getter()
+{
+  v1 = (v0 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 36));
+  v2 = *v1;
+  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(*v1, v1[1]);
+  return v2;
+}
+
+uint64_t ResolvedTransferRepresentation.importer.setter(uint64_t a1, uint64_t a2)
+{
+  v5 = (v2 + *(type metadata accessor for ResolvedTransferRepresentation(0) + 36));
+  result = outlined consume of (@escaping @callee_guaranteed @async () -> ())?(*v5, v5[1]);
+  *v5 = a1;
+  v5[1] = a2;
+  return result;
+}
+
+uint64_t _TransferRepresentationOutputs.init<A, B, C>(contentType:suggestedFileName:shouldAttemptToOpenInPlace:exporter:importer:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>, __int128 a10, __int128 a11, uint64_t a12, uint64_t a13)
+{
+  v32 = a4;
+  v30 = a2;
+  v31 = a3;
+  v33 = a9;
+  v28 = a11;
+  v29 = a10;
+  v26 = a13;
+  v27 = a12;
+  v18 = type metadata accessor for UTType();
+  v19 = *(v18 - 8);
+  MEMORY[0x28223BE20](v18);
+  v21 = &v26 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy16CoreTransferable30ResolvedTransferRepresentationVGMd, &_ss23_ContiguousArrayStorageCy16CoreTransferable30ResolvedTransferRepresentationVGMR);
+  v22 = *(type metadata accessor for ResolvedTransferRepresentation(0) - 8);
+  v23 = (*(v22 + 80) + 32) & ~*(v22 + 80);
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_20E3FD830;
+  (*(v19 + 16))(v21, a1, v18);
+  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(a5, a6);
+  outlined copy of (@escaping @callee_guaranteed @Sendable @async (@in_guaranteed TransferableCurrency) -> (@out Transferable, @error @owned Error))?(a7, a8);
+  ResolvedTransferRepresentation.init<A, B, C>(contentType:suggestedFileName:shouldAttemptToOpenInPlace:exporting:importing:)(v21, v30, v31, v32, a5, a6, a7, a8, v24 + v23, v29, *(&v29 + 1), v28, *(&v28 + 1), v27, v26);
+  _TransferRepresentationOutputs.init(_:)(v24);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(a7, a8);
+  outlined consume of (@escaping @callee_guaranteed @async () -> ())?(a5, a6);
+  result = (*(v19 + 8))(a1, v18);
+  *v33 = v34;
+  return result;
+}
+
+uint64_t TransferRepresentation.visibility(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v8 = *(a2 - 8);
+  v9 = MEMORY[0x28223BE20](a1);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *v9;
+  (*(v8 + 16))(v11, v4, a2);
+  (*(v8 + 32))(a4, v11, a2);
+  result = type metadata accessor for _VisibleTransferRepresentation(0, a2, a3, v13);
+  *(a4 + *(result + 36)) = v12;
+  return result;
+}
+
+uint64_t static _VisibleTransferRepresentation._decomposedTransferRepresentation(_:inputs:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
+{
+  v23[0] = a1;
+  v23[1] = a4;
+  v6 = *(a2 - 8);
+  MEMORY[0x28223BE20](a1);
+  v8 = v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for _TransferRepresentationValue(0, v9, v9, v10);
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = v23 - v13;
+  v16 = type metadata accessor for _VisibleTransferRepresentation(0, a2, a3, v15);
+  v17 = *(v16 - 8);
+  MEMORY[0x28223BE20](v16);
+  v19 = v23 - v18;
+  (*(v17 + 16))(v23 - v18, v23[0], v16);
+  (*(v6 + 16))(v8, v19, a2);
+  _TransferRepresentationValue.init(_:)(v8, a2, v14);
+  (*(a3 + 48))(&v28, v14);
+  (*(v12 + 8))(v14, v11);
+  v25 = a2;
+  v26 = a3;
+  v27 = v19;
+  v20 = type metadata accessor for ResolvedTransferRepresentation(0);
+  v21 = _TransferRepresentationOutputs.map<A>(_:)(partial apply for closure #1 in static _VisibleTransferRepresentation._decomposedTransferRepresentation(_:inputs:), v24, v20);
+
+  _TransferRepresentationOutputs.init(_:)(v21);
+  return (*(v17 + 8))(v19, v16);
+}
+
+uint64_t partial apply for closure #1 in static _VisibleTransferRepresentation._decomposedTransferRepresentation(_:inputs:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = v2[2];
+  v5 = v2[3];
+  v6 = v2[4];
+  outlined init with copy of ResolvedTransferRepresentation(a1, a2);
+  v8 = *(v6 + *(type metadata accessor for _VisibleTransferRepresentation(0, v4, v5, v7) + 36));
+  result = type metadata accessor for ResolvedTransferRepresentation(0);
+  *(a2 + *(result + 44)) = v8;
+  return result;
+}
+
+uint64_t instantiation function for generic protocol witness table for _VisibleTransferRepresentation<A>(uint64_t a1, uint64_t a2)
+{
+  result = swift_getWitnessTable();
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t type metadata completion function for _VisibleTransferRepresentation(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for _VisibleTransferRepresentation(_DWORD *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (v5 >= a2)
+  {
+    return (*(v4 + 48))(a1);
+  }
+
+  v6 = ((*(*(*(a3 + 16) - 8) + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + 8;
+  v7 = a2 - v5;
+  v8 = v6 & 0xFFFFFFF8;
+  if ((v6 & 0xFFFFFFF8) != 0)
+  {
+    v9 = 2;
+  }
+
+  else
+  {
+    v9 = v7 + 1;
+  }
+
+  if (v9 >= 0x10000)
+  {
+    v10 = 4;
+  }
+
+  else
+  {
+    v10 = 2;
+  }
+
+  if (v9 < 0x100)
+  {
+    v10 = 1;
+  }
+
+  if (v9 >= 2)
+  {
+    v11 = v10;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  if (v11 > 1)
+  {
+    if (v11 == 2)
+    {
+      v12 = *(a1 + v6);
+      if (!v12)
+      {
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+      v12 = *(a1 + v6);
+      if (!v12)
+      {
+        goto LABEL_24;
+      }
+    }
+  }
+
+  else if (!v11 || (v12 = *(a1 + v6)) == 0)
+  {
+LABEL_24:
+    if (v5)
+    {
+      return (*(v4 + 48))(a1);
+    }
+
+    return 0;
+  }
+
+  v13 = v12 - 1;
+  if (v8)
+  {
+    v13 = 0;
+    LODWORD(v8) = *a1;
+  }
+
+  return v5 + (v8 | v13) + 1;
+}
+
+unsigned int *storeEnumTagSinglePayload for _VisibleTransferRepresentation(unsigned int *result, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v5 = *(*(a4 + 16) - 8);
+  v6 = *(v5 + 84);
+  v7 = ((*(v5 + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + 8;
+  if (v6 >= a3)
+  {
+    v11 = 0;
+    v12 = a2 - v6;
+    if (a2 <= v6)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+    v8 = a3 - v6;
+    if (((*(v5 + 64) + 7) & 0xFFFFFFF8) == 0xFFFFFFF8)
+    {
+      v9 = v8 + 1;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    if (v9 >= 0x10000)
+    {
+      v10 = 4;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    if (v9 < 0x100)
+    {
+      v10 = 1;
+    }
+
+    if (v9 >= 2)
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v12 = a2 - v6;
+    if (a2 <= v6)
+    {
+LABEL_14:
+      if (v11 > 1)
+      {
+        if (v11 != 2)
+        {
+          *(result + v7) = 0;
+          if (!a2)
+          {
+            return result;
+          }
+
+          goto LABEL_30;
+        }
+
+        *(result + v7) = 0;
+      }
+
+      else if (v11)
+      {
+        *(result + v7) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_30;
+      }
+
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_30:
+      v16 = *(v5 + 56);
+
+      return v16();
+    }
+  }
+
+  if (((*(v5 + 64) + 7) & 0xFFFFFFF8) == 0xFFFFFFF8)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  if (((*(v5 + 64) + 7) & 0xFFFFFFF8) != 0xFFFFFFF8)
+  {
+    v14 = ~v6 + a2;
+    v15 = result;
+    bzero(result, v7);
+    result = v15;
+    *v15 = v14;
+  }
+
+  if (v11 > 1)
+  {
+    if (v11 == 2)
+    {
+      *(result + v7) = v13;
+    }
+
+    else
+    {
+      *(result + v7) = v13;
+    }
+  }
+
+  else if (v11)
+  {
+    *(result + v7) = v13;
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of ResolvedTransferRepresentation(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for ResolvedTransferRepresentation(0);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t static Data.transferRepresentation.getter()
+{
+  v0 = type metadata accessor for UTType();
+  MEMORY[0x28223BE20](v0 - 8);
+  v2 = &v11 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR);
+  v4 = MEMORY[0x28223BE20](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = &v11 - v7;
+  static UTType.data.getter();
+  v9 = lazy protocol witness table accessor for type Data and conformance Data();
+  DataRepresentation.init(contentType:exporting:importing:)(v2, &async function pointer to closure #1 in static Data.transferRepresentation.getter, 0, &async function pointer to closure #2 in static Data.transferRepresentation.getter, 0, MEMORY[0x277CC9318], v9);
+  lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type DataRepresentation<Data> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR, &protocol conformance descriptor for DataRepresentation<A>);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v6, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  return outlined destroy of UTType?(v8, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR);
+}
+
+uint64_t closure #1 in static Data.transferRepresentation.getter(uint64_t *a1)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  outlined copy of Data._Representation(*a1, v2);
+  v4 = *(v1 + 8);
+
+  return v4(v3, v2);
+}
+
+uint64_t closure #2 in static Data.transferRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[3] = a2;
+  v3[4] = a3;
+  v3[2] = a1;
+  return MEMORY[0x2822009F8](closure #2 in static Data.transferRepresentation.getter, 0, 0);
+}
+
+uint64_t closure #2 in static Data.transferRepresentation.getter()
+{
+  v1 = v0[3];
+  v2 = v0[4];
+  v3 = v0[2];
+  *v3 = v1;
+  v3[1] = v2;
+  outlined copy of Data._Representation(v1, v2);
+  v4 = v0[1];
+
+  return v4();
+}
+
+unint64_t lazy protocol witness table accessor for type Data and conformance Data()
+{
+  result = lazy protocol witness table cache variable for type Data and conformance Data;
+  if (!lazy protocol witness table cache variable for type Data and conformance Data)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Data and conformance Data);
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for static Transferable.transferRepresentation.getter in conformance Data(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for UTType();
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR);
+  v8 = MEMORY[0x28223BE20](v7);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = &v14 - v11;
+  static UTType.data.getter();
+  DataRepresentation.init(contentType:exporting:importing:)(v6, &async function pointer to closure #1 in static Data.transferRepresentation.getter, 0, &async function pointer to closure #2 in static Data.transferRepresentation.getter, 0, a1, a2);
+  lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type DataRepresentation<Data> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR, &protocol conformance descriptor for DataRepresentation<A>);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v10, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  return outlined destroy of UTType?(v12, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation0C0VGMR);
+}
+
+uint64_t static String.transferRepresentation.getter()
+{
+  v0 = type metadata accessor for UTType();
+  MEMORY[0x28223BE20](v0 - 8);
+  v2 = &v11 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR);
+  v4 = MEMORY[0x28223BE20](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = &v11 - v7;
+  static UTType.utf8PlainText.getter();
+  v9 = lazy protocol witness table accessor for type String and conformance String();
+  DataRepresentation.init(contentType:exporting:importing:)(v2, &async function pointer to closure #1 in static String.transferRepresentation.getter, 0, &async function pointer to closure #2 in static String.transferRepresentation.getter, 0, MEMORY[0x277D837D0], v9);
+  lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type DataRepresentation<String> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR, &protocol conformance descriptor for DataRepresentation<A>);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v6, &_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  return outlined destroy of UTType?(v8, &_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR);
+}
+
+uint64_t closure #1 in static String.transferRepresentation.getter(uint64_t *a1)
+{
+  v3 = type metadata accessor for String.Encoding();
+  v1[2] = v3;
+  v1[3] = *(v3 - 8);
+  v4 = swift_task_alloc();
+  v5 = *a1;
+  v6 = a1[1];
+  v1[4] = v4;
+  v1[5] = v5;
+  v1[6] = v6;
+
+  return MEMORY[0x2822009F8](closure #1 in static String.transferRepresentation.getter, 0, 0);
+}
+
+uint64_t closure #1 in static String.transferRepresentation.getter()
+{
+  v2 = v0[3];
+  v1 = v0[4];
+  v3 = v0[2];
+  static String.Encoding.utf8.getter();
+  v4 = String.data(using:allowLossyConversion:)();
+  v6 = v5;
+  (*(v2 + 8))(v1, v3);
+  if (v6 >> 60 == 15)
+  {
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+    swift_allocError();
+    swift_storeEnumTagMultiPayload();
+    swift_willThrow();
+
+    v7 = v0[1];
+
+    return v7();
+  }
+
+  else
+  {
+
+    v9 = v0[1];
+
+    return v9(v4, v6);
+  }
+}
+
+uint64_t closure #2 in static String.transferRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[3] = a2;
+  v3[4] = a3;
+  v3[2] = a1;
+  type metadata accessor for String.Encoding();
+  v3[5] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in static String.transferRepresentation.getter, 0, 0);
+}
+
+uint64_t closure #2 in static String.transferRepresentation.getter()
+{
+  static String.Encoding.utf8.getter();
+  v1 = String.init(data:encoding:)();
+  if (v2)
+  {
+    v3 = *(v0 + 16);
+    *v3 = v1;
+    v3[1] = v2;
+  }
+
+  else
+  {
+    type metadata accessor for TransferableError(0);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+    swift_allocError();
+    swift_storeEnumTagMultiPayload();
+    swift_willThrow();
+  }
+
+  v4 = *(v0 + 8);
+
+  return v4();
+}
+
+uint64_t protocol witness for static Transferable.transferRepresentation.getter in conformance String(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for UTType();
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR);
+  v8 = MEMORY[0x28223BE20](v7);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = &v14 - v11;
+  static UTType.utf8PlainText.getter();
+  DataRepresentation.init(contentType:exporting:importing:)(v6, &async function pointer to closure #1 in static String.transferRepresentation.getter, 0, &async function pointer to closure #2 in static String.transferRepresentation.getter, 0, a1, a2);
+  lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type DataRepresentation<String> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR, &protocol conformance descriptor for DataRepresentation<A>);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v10, &_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  return outlined destroy of UTType?(v12, &_s16CoreTransferable18DataRepresentationVySSGMd, &_s16CoreTransferable18DataRepresentationVySSGMR);
+}
+
+uint64_t static URL.transferRepresentation.getter@<X0>(uint64_t a1@<X8>)
+{
+  v23 = a1;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMR);
+  v1 = MEMORY[0x28223BE20](v22);
+  v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v1);
+  v21 = &v20 - v4;
+  v5 = type metadata accessor for UTType();
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMR);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v20 - v12;
+  static UTType.url.getter();
+  v14 = type metadata accessor for URL();
+  v15 = lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], &protocol conformance descriptor for URL);
+  DataRepresentation.init(contentType:exporting:importing:)(v7, &async function pointer to closure #1 in static URL.transferRepresentation.getter, 0, &async function pointer to partial apply for closure #2 in static URL.transferRepresentation.getter, 0, v14, v15);
+  v16 = lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type DataRepresentation<URL> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMR, &protocol conformance descriptor for DataRepresentation<A>);
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v11, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMR);
+  static UTType.fileURL.getter();
+  DataRepresentation.init(contentType:exporting:importing:)(v7, &async function pointer to closure #3 in static URL.transferRepresentation.getter, 0, &async function pointer to partial apply for closure #4 in static URL.transferRepresentation.getter, 0, v14, v15);
+  TransferRepresentation.exportingCondition(_:)(closure #5 in static URL.transferRepresentation.getter, 0, v8, v16, v3);
+  outlined destroy of UTType?(v11, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMR);
+  lazy protocol witness table accessor for type DataRepresentation<AttributedString> and conformance DataRepresentation<A>(&lazy protocol witness table cache variable for type _ConditionalTransferRepresentation<DataRepresentation<URL>> and conformance _ConditionalTransferRepresentation<A>, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMR, &protocol conformance descriptor for _ConditionalTransferRepresentation<A>);
+  v17 = v21;
+  v18 = v22;
+  static TransferRepresentationBuilder.buildExpression<A>(_:)();
+  outlined destroy of UTType?(v3, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMR);
+  static TransferRepresentationBuilder.buildBlock<A, B>(_:_:)(v13, v17, v8, v18, v23);
+  outlined destroy of UTType?(v17, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10Foundation3URLVGGMR);
+  return outlined destroy of UTType?(v13, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMd, &_s16CoreTransferable18DataRepresentationVy10Foundation3URLVGMR);
+}
+
+uint64_t closure #1 in static URL.transferRepresentation.getter(uint64_t a1)
+{
+  v1[4] = a1;
+  v2 = type metadata accessor for UTType();
+  v1[5] = v2;
+  v1[6] = *(v2 - 8);
+  v1[7] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #1 in static URL.transferRepresentation.getter, 0, 0);
+}
+
+{
+  v2 = v1[7];
+  v3 = v1[4];
+  static UTType.url.getter();
+  v4 = swift_task_alloc();
+  v1[8] = v4;
+  *(v4 + 16) = v3;
+  *(v4 + 24) = v2;
+  v5 = swift_task_alloc();
+  v1[9] = v5;
+  *v5 = v1;
+  v5[1] = closure #1 in static URL.transferRepresentation.getter;
+  v6 = MEMORY[0x277CC9318];
+
+  return MEMORY[0x2822008A0](v1 + 2, 0, 0, 0xD000000000000012, 0x800000020E3FF2B0, closure #1 in URL.data(contentType:)partial apply, v4, v6);
+}
+
+uint64_t closure #1 in static URL.transferRepresentation.getter()
+{
+  *(*v1 + 80) = v0;
+
+  if (v0)
+  {
+    v2 = closure #1 in static URL.transferRepresentation.getter;
+  }
+
+  else
+  {
+
+    v2 = closure #1 in static URL.transferRepresentation.getter;
+  }
+
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+uint64_t closure #2 in static URL.transferRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[3] = a2;
+  v3[4] = a3;
+  v3[2] = a1;
+  v4 = type metadata accessor for UTType();
+  v3[5] = v4;
+  v3[6] = *(v4 - 8);
+  v3[7] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #2 in static URL.transferRepresentation.getter, 0, 0);
+}
+
+uint64_t closure #2 in static URL.transferRepresentation.getter(uint64_t a1)
+{
+  v3 = v1[6];
+  v2 = v1[7];
+  v4 = v1[5];
+  static UTType.url.getter();
+  static URL.url(contentType:data:)();
+  (*(v3 + 8))(v2, v4);
+
+  v5 = v1[1];
+
+  return v5();
+}
+
+uint64_t partial apply for closure #2 in static URL.transferRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = Transferable.file(contentType:fileHandler:);
+
+  return closure #2 in static URL.transferRepresentation.getter(a1, a2, a3);
+}
+
+void static URL.url(contentType:data:)()
+{
+  v8[1] = *MEMORY[0x277D85DE8];
+  v0 = objc_opt_self();
+  isa = Data._bridgeToObjectiveC()().super.isa;
+  v2 = UTType.identifier.getter();
+  v3 = MEMORY[0x20F32D490](v2);
+
+  v8[0] = 0;
+  v4 = [v0 objectWithItemProviderData:isa typeIdentifier:v3 error:v8];
+
+  v5 = v8[0];
+  if (v4)
+  {
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = v5;
+  }
+
+  else
+  {
+    v7 = v8[0];
+    _convertNSErrorToError(_:)();
+
+    swift_willThrow();
+  }
+}
+
+uint64_t closure #3 in static URL.transferRepresentation.getter(uint64_t a1)
+{
+  v1[4] = a1;
+  v2 = type metadata accessor for UTType();
+  v1[5] = v2;
+  v1[6] = *(v2 - 8);
+  v1[7] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #3 in static URL.transferRepresentation.getter, 0, 0);
+}
+
+{
+  v2 = v1[7];
+  v3 = v1[4];
+  static UTType.fileURL.getter();
+  v4 = swift_task_alloc();
+  v1[8] = v4;
+  *(v4 + 16) = v3;
+  *(v4 + 24) = v2;
+  v5 = swift_task_alloc();
+  v1[9] = v5;
+  *v5 = v1;
+  v5[1] = closure #3 in static URL.transferRepresentation.getter;
+  v6 = MEMORY[0x277CC9318];
+
+  return MEMORY[0x2822008A0](v1 + 2, 0, 0, 0xD000000000000012, 0x800000020E3FF2B0, partial apply for closure #1 in URL.data(contentType:), v4, v6);
+}
+
+uint64_t closure #3 in static URL.transferRepresentation.getter()
+{
+  *(*v1 + 80) = v0;
+
+  if (v0)
+  {
+    v2 = closure #3 in static URL.transferRepresentation.getter;
+  }
+
+  else
+  {
+
+    v2 = closure #3 in static URL.transferRepresentation.getter;
+  }
+
+  return MEMORY[0x2822009F8](v2, 0, 0);
+}
+
+{
+  v1 = v0[2];
+  v2 = v0[3];
+  (*(v0[6] + 8))(v0[7], v0[5]);
+
+  v3 = v0[1];
+
+  return v3(v1, v2);
+}
+
+{
+  v1 = v0[7];
+  v2 = v0[5];
+  v3 = v0[6];
+
+  (*(v3 + 8))(v1, v2);
+
+  v4 = v0[1];
+
+  return v4();
+}
+
+uint64_t closure #4 in static URL.transferRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[3] = a2;
+  v3[4] = a3;
+  v3[2] = a1;
+  v4 = type metadata accessor for UTType();
+  v3[5] = v4;
+  v3[6] = *(v4 - 8);
+  v3[7] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #4 in static URL.transferRepresentation.getter, 0, 0);
+}
+
+uint64_t closure #4 in static URL.transferRepresentation.getter(uint64_t a1)
+{
+  v3 = v1[6];
+  v2 = v1[7];
+  v4 = v1[5];
+  static UTType.fileURL.getter();
+  static URL.url(contentType:data:)();
+  (*(v3 + 8))(v2, v4);
+
+  v5 = v1[1];
+
+  return v5();
+}
+
+uint64_t partial apply for closure #4 in static URL.transferRepresentation.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = partial apply for closure #4 in static URL.transferRepresentation.getter;
+
+  return closure #4 in static URL.transferRepresentation.getter(a1, a2, a3);
+}
+
+void closure #1 in URL.data(contentType:)(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = (aBlock - v4);
+  URL._bridgeToObjectiveC()(v4);
+  v7 = v6;
+  v8 = UTType.identifier.getter();
+  v9 = MEMORY[0x20F32D490](v8);
+
+  (*(v3 + 16))(v5, a1, v2);
+  v10 = (*(v3 + 80) + 16) & ~*(v3 + 80);
+  v11 = swift_allocObject();
+  (*(v3 + 32))(v11 + v10, v5, v2);
+  aBlock[4] = partial apply for closure #1 in closure #1 in URL.data(contentType:);
+  aBlock[5] = v11;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Error?) -> ();
+  aBlock[3] = &block_descriptor;
+  v12 = _Block_copy(aBlock);
+
+  v13 = [v7 loadDataWithTypeIdentifier:v9 forItemProviderCompletionHandler:v12];
+  _Block_release(v12);
+}
+
+uint64_t thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Data?, @guaranteed Error?) -> ()(uint64_t a1, void *a2, void *a3)
+{
+  v4 = a2;
+  v5 = *(a1 + 32);
+  if (a2)
+  {
+
+    v6 = v4;
+    v4 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+
+    v8 = 0xF000000000000000;
+  }
+
+  v9 = a3;
+  v5(v4, v8, a3);
+
+  outlined consume of Data?(v4, v8);
+}
+
+uint64_t partial apply for closure #1 in closure #1 in URL.data(contentType:)(uint64_t a1, unint64_t a2, void *a3)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
+  if (a2 >> 60 == 15)
+  {
+    if (a3)
+    {
+      v6 = a3;
+    }
+
+    else
+    {
+      type metadata accessor for TransferableError(0);
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type TransferableError and conformance TransferableError, type metadata accessor for TransferableError, &protocol conformance descriptor for TransferableError);
+      swift_allocError();
+      swift_storeEnumTagMultiPayload();
+    }
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
+    return CheckedContinuation.resume(throwing:)();
+  }
+
+  else
+  {
+    outlined copy of Data._Representation(a1, a2);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCy10Foundation4DataVs5Error_pGMd, &_sScCy10Foundation4DataVs5Error_pGMR);
+    return CheckedContinuation.resume(returning:)();
+  }
+}
+
+uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
+{
+  if (a2 >> 60 != 15)
+  {
+    return outlined consume of Data._Representation(result, a2);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type URL and conformance URL(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t static TransferRepresentation._decomposedTransferRepresentation(_:inputs:)@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+{
+  return static TransferRepresentation._decomposedTransferRepresentation(_:inputs:)(a1, a2, a3);
+}
+
+{
+  v21[1] = a3;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v8 = type metadata accessor for _TransferRepresentationValue(0, AssociatedTypeWitness, v6, v7);
+  v9 = *(v8 - 8);
+  v10 = MEMORY[0x28223BE20](v8);
+  v12 = v21 - v11;
+  v13 = *(AssociatedTypeWitness - 8);
+  v14 = MEMORY[0x28223BE20](v10);
+  v16 = v21 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = v21 - v17;
+  (*(a2 + 40))(a1, a2);
+  (*(v13 + 16))(v16, v18, AssociatedTypeWitness);
+  _TransferRepresentationValue.init(_:)(v16, AssociatedTypeWitness, v12);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(AssociatedConformanceWitness + 48))(v12);
+  (*(v9 + 8))(v12, v8);
+  return (*(v13 + 8))(v18, AssociatedTypeWitness);
+}
+
+void TransferRepresentation.bodyError()(uint64_t a1)
+{
+  _StringGuts.grow(_:)(34);
+
+  v1 = _typeName(_:qualified:)();
+  MEMORY[0x20F32D540](v1);
+
+  MEMORY[0x20F32D540](46, 0xE100000000000000);
+  _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
 }

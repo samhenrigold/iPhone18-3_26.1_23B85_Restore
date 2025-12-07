@@ -321,7 +321,7 @@ LABEL_16:
 
 - (id)_featureSettingsForOnboardingModel:(id)model featureSettingsModel:(id)settingsModel
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   settingsModelCopy = settingsModel;
   v7 = [(HKSPFeatureAvailabilityStore *)self _isCurrentOnboardingVersionCompletedForOnboardingModel:model];
   v8 = 0;
@@ -346,109 +346,97 @@ LABEL_16:
           }
 
           v11 = objc_alloc(MEMORY[0x277CCD450]);
-          v16 = *MEMORY[0x277CCC120];
+          v15 = *MEMORY[0x277CCC120];
           v12 = [MEMORY[0x277CCABB0] numberWithBool:sleepTrackingFeatureEnabled];
-          v17[0] = v12;
-          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+          v16[0] = v12;
+          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
           v8 = [v11 initWithDictionary:v13];
         }
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)_defaultSleepTrackingRequirements
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:self->_featureIdentifier];
-  v8[0] = v3;
+  v7[0] = v3;
   v4 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:self->_featureIdentifier];
-  v8[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
 
   return v5;
 }
 
 - (id)_onboardSleepTrackingRequirements
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   _defaultSleepTrackingRequirements = [(HKSPFeatureAvailabilityStore *)self _defaultSleepTrackingRequirements];
   v4 = [MEMORY[0x277CCD428] onboardingRecordIsNotPresentForFeatureWithIdentifier:self->_featureIdentifier];
-  v10[0] = v4;
+  v9[0] = v4;
   v5 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:*MEMORY[0x277CCE268]];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [_defaultSleepTrackingRequirements arrayByAddingObjectsFromArray:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)_useSleepTrackingRequirements
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   _defaultSleepTrackingRequirements = [(HKSPFeatureAvailabilityStore *)self _defaultSleepTrackingRequirements];
   v4 = [MEMORY[0x277CCD428] onboardingRecordIsPresentForFeatureWithIdentifier:self->_featureIdentifier];
   wristDetectionIsEnabledForActiveWatch = [MEMORY[0x277CCD428] wristDetectionIsEnabledForActiveWatch];
-  v11[1] = wristDetectionIsEnabledForActiveWatch;
+  v10[1] = wristDetectionIsEnabledForActiveWatch;
   v6 = [MEMORY[0x277CCD428] featureIsOnWithIdentifier:self->_featureIdentifier isOnIfSettingIsAbsent:0];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
   v8 = [_defaultSleepTrackingRequirements arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_sleepTrackingRequirements
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCD420]);
-  v12[0] = *MEMORY[0x277CCBE88];
+  v11[0] = *MEMORY[0x277CCBE88];
   _defaultSleepTrackingRequirements = [(HKSPFeatureAvailabilityStore *)self _defaultSleepTrackingRequirements];
-  v13[0] = _defaultSleepTrackingRequirements;
-  v12[1] = *MEMORY[0x277CCBE80];
+  v12[0] = _defaultSleepTrackingRequirements;
+  v11[1] = *MEMORY[0x277CCBE80];
   _onboardSleepTrackingRequirements = [(HKSPFeatureAvailabilityStore *)self _onboardSleepTrackingRequirements];
-  v13[1] = _onboardSleepTrackingRequirements;
-  v12[2] = *MEMORY[0x277CCBE38];
+  v12[1] = _onboardSleepTrackingRequirements;
+  v11[2] = *MEMORY[0x277CCBE38];
   _onboardSleepTrackingRequirements2 = [(HKSPFeatureAvailabilityStore *)self _onboardSleepTrackingRequirements];
-  v13[2] = _onboardSleepTrackingRequirements2;
-  v12[3] = *MEMORY[0x277CCBEA0];
+  v12[2] = _onboardSleepTrackingRequirements2;
+  v11[3] = *MEMORY[0x277CCBEA0];
   _useSleepTrackingRequirements = [(HKSPFeatureAvailabilityStore *)self _useSleepTrackingRequirements];
-  v13[3] = _useSleepTrackingRequirements;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[3] = _useSleepTrackingRequirements;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
   v9 = [v3 initWithRequirementsByContext:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_defaultRequirements
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCD420]);
   v4 = *MEMORY[0x277CCBE88];
-  v14[0] = MEMORY[0x277CBEBF8];
+  v13[0] = MEMORY[0x277CBEBF8];
   v5 = *MEMORY[0x277CCBE80];
-  v13[0] = v4;
-  v13[1] = v5;
+  v12[0] = v4;
+  v12[1] = v5;
   v6 = [MEMORY[0x277CCD428] onboardingRecordIsNotPresentForFeatureWithIdentifier:self->_featureIdentifier];
-  v12 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v14[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v11 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v13[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v9 = [v3 initWithRequirementsByContext:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -805,92 +793,82 @@ void __130__HKSPFeatureAvailabilityStore_setCurrentOnboardingVersionCompletedFor
 
 - (void)saveOnboardingCompletion:(id)completion settings:(id)settings completion:(id)a5
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] HKOnboardingCompletion is not implemented for Sleep.", &v10, 0xCu);
+    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] HKOnboardingCompletion is not implemented for Sleep.", &v9, 0xCu);
   }
 
   v8 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"HKOnboardingCompletion is not implemented for Sleep."];
   v6[2](v6, 0, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeatureSettingData:(id)data forKey:(id)key completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v10, 0xCu);
+    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v9, 0xCu);
   }
 
   v8 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"Feature settings is not implemented for Sleep."];
   completionCopy[2](completionCopy, 0, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeatureSettingString:(id)string forKey:(id)key completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v10, 0xCu);
+    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v9, 0xCu);
   }
 
   v8 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"Feature settings is not implemented for Sleep."];
   completionCopy[2](completionCopy, 0, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFeatureSettingNumber:(id)number forKey:(id)key completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v10, 0xCu);
+    _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v9, 0xCu);
   }
 
   v8 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"Feature settings is not implemented for Sleep."];
   completionCopy[2](completionCopy, 0, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeFeatureSettingValueForKey:(id)key completion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v6 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v9, 0xCu);
+    _os_log_error_impl(&dword_269A84000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Feature settings is not implemented for Sleep.", &v8, 0xCu);
   }
 
   v7 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"Feature settings is not implemented for Sleep."];
   completionCopy[2](completionCopy, 0, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetOnboardingWithCompletion:(id)completion
@@ -955,7 +933,7 @@ void __62__HKSPFeatureAvailabilityStore_resetOnboardingWithCompletion___block_in
 
 - (void)_pairedDeviceDidChange
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -965,13 +943,12 @@ void __62__HKSPFeatureAvailabilityStore_resetOnboardingWithCompletion___block_in
   }
 
   observers = self->_observers;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __54__HKSPFeatureAvailabilityStore__pairedDeviceDidChange__block_invoke;
-  v6[3] = &unk_279C74AA0;
-  v6[4] = self;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __54__HKSPFeatureAvailabilityStore__pairedDeviceDidChange__block_invoke;
+  v5[3] = &unk_279C74AA0;
+  v5[4] = self;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v5];
 }
 
 void __54__HKSPFeatureAvailabilityStore__pairedDeviceDidChange__block_invoke(uint64_t a1, void *a2)
@@ -1037,10 +1014,7 @@ uint64_t __61__HKSPFeatureAvailabilityStore__updateCachedOnboardingModel___block
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v3;
-  v4 = [*(a1 + 40) copy];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 48);
-  *(v5 + 48) = v4;
+  *(*(a1 + 32) + 48) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1099,17 +1073,14 @@ uint64_t __66__HKSPFeatureAvailabilityStore__updateCachedFeatureSettingsModel___
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v3;
-  v4 = [*(a1 + 40) copy];
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 56);
-  *(v5 + 56) = v4;
+  *(*(a1 + 32) + 56) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)_notifyObserversForDidUpdateOnboarding
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1119,18 +1090,17 @@ uint64_t __66__HKSPFeatureAvailabilityStore__updateCachedFeatureSettingsModel___
   }
 
   observers = self->_observers;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __70__HKSPFeatureAvailabilityStore__notifyObserversForDidUpdateOnboarding__block_invoke;
-  v6[3] = &unk_279C74AA0;
-  v6[4] = self;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __70__HKSPFeatureAvailabilityStore__notifyObserversForDidUpdateOnboarding__block_invoke;
+  v5[3] = &unk_279C74AA0;
+  v5[4] = self;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v5];
 }
 
 - (void)_notifyObserversForDidUpdateSettings
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1140,13 +1110,12 @@ uint64_t __66__HKSPFeatureAvailabilityStore__updateCachedFeatureSettingsModel___
   }
 
   observers = self->_observers;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __68__HKSPFeatureAvailabilityStore__notifyObserversForDidUpdateSettings__block_invoke;
-  v6[3] = &unk_279C74AA0;
-  v6[4] = self;
-  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __68__HKSPFeatureAvailabilityStore__notifyObserversForDidUpdateSettings__block_invoke;
+  v5[3] = &unk_279C74AA0;
+  v5[4] = self;
+  [(HKSPObserverSet *)observers enumerateObserversWithBlock:v5];
 }
 
 void __68__HKSPFeatureAvailabilityStore__notifyObserversForDidUpdateSettings__block_invoke(uint64_t a1, void *a2)

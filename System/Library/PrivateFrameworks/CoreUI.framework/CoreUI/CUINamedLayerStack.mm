@@ -15,9 +15,9 @@
 - (CUINamedLayerStack)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme resolvingWithBlock:(id)block
 {
   nameCopy = name;
-  v68.receiver = self;
-  v68.super_class = CUINamedLayerStack;
-  v8 = [(CUINamedLookup *)&v68 initWithName:name usingRenditionKey:key fromTheme:?];
+  v40.receiver = self;
+  v40.super_class = CUINamedLayerStack;
+  v8 = [(CUINamedLookup *)&v40 initWithName:name usingRenditionKey:key fromTheme:?];
   _rendition = [(CUINamedLookup *)v8 _rendition];
   if ([(CUIThemeRendition *)_rendition type]== 1002)
   {
@@ -27,68 +27,67 @@
       nameCopy = [(CUIThemeRendition *)_rendition name];
     }
 
-    v60 = v8;
-    v62 = objc_alloc_init(NSMutableArray);
-    v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
+    v32 = v8;
+    v34 = objc_alloc_init(NSMutableArray);
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = [(CUIThemeRendition *)_rendition layerReferences];
-    v16 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
-    if (v16)
+    v10 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+    if (v10)
     {
-      v17 = v16;
-      v18 = 0;
-      v19 = *v65;
+      v11 = v10;
+      v12 = 0;
+      v13 = *v37;
       while (2)
       {
-        v20 = nameCopy;
-        for (i = 0; i != v17; i = i + 1)
+        v14 = nameCopy;
+        for (i = 0; i != v11; i = i + 1)
         {
-          if (*v65 != v19)
+          if (*v37 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v64 + 1) + 8 * i);
-          v23 = (*(block + 2))(block, [v22 referenceKey]);
-          if (!v23)
+          v16 = *(*(&v36 + 1) + 8 * i);
+          v17 = (*(block + 2))(block, [v16 referenceKey]);
+          if (!v17)
           {
-            [v22 referenceKey];
-            nameCopy = v20;
-            _CUILog(4, "CoreUI: Unable to resolve layer reference for '%@' name '%@' layerRef referenceKey '%@'", v28, v29, v30, v31, v32, v33, v22);
+            nameCopy = v14;
+            _CUILog(4, "CoreUI: Unable to resolve layer reference for '%@' name '%@' layerRef referenceKey '%@'", v16, v14, [v16 referenceKey]);
             goto LABEL_23;
           }
 
-          theme = [[CUINamedLayerImage alloc] initWithName:[NSString usingRenditionKey:"stringWithFormat:" fromTheme:@"%@[%ld]" stringWithFormat:v20, ++v18], v23, theme];
+          theme = [[CUINamedLayerImage alloc] initWithName:[NSString usingRenditionKey:"stringWithFormat:" fromTheme:@"%@[%ld]" stringWithFormat:v14, ++v12], v17, theme];
           if ([(CUINamedLookup *)theme _rendition])
           {
-            [v22 frame];
+            [v16 frame];
             [(CUINamedLayerImage *)theme setFrame:?];
-            [v22 opacity];
-            if (v25 < 1.0)
+            [v16 opacity];
+            if (v19 < 1.0)
             {
               [(CUINamedLayerImage *)theme opacity];
-              if (v26 == 1.0)
+              if (v20 == 1.0)
               {
-                [v22 opacity];
+                [v16 opacity];
                 [(CUINamedLayerImage *)theme setOpacity:?];
               }
             }
 
-            if ([v22 blendMode] >= 1 && !-[CUINamedLayerImage blendMode](theme, "blendMode"))
+            if ([v16 blendMode] >= 1 && !-[CUINamedLayerImage blendMode](theme, "blendMode"))
             {
-              -[CUINamedLayerImage setBlendMode:](theme, "setBlendMode:", [v22 blendMode]);
+              -[CUINamedLayerImage setBlendMode:](theme, "setBlendMode:", [v16 blendMode]);
             }
 
-            -[CUINamedLayerImage setFixedFrame:](theme, "setFixedFrame:", [v22 fixedFrame]);
-            [(NSArray *)v62 addObject:theme];
+            -[CUINamedLayerImage setFixedFrame:](theme, "setFixedFrame:", [v16 fixedFrame]);
+            [(NSArray *)v34 addObject:theme];
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
-        nameCopy = v20;
-        if (v17)
+        v11 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+        nameCopy = v14;
+        if (v11)
         {
           continue;
         }
@@ -98,54 +97,54 @@
     }
 
 LABEL_23:
-    v27 = v60;
-    v60->_layers = v62;
-    v34 = objc_alloc_init(CUIRenditionKey);
-    [(CUIRenditionKey *)v34 setThemeElement:[(CUIRenditionKey *)[(CUINamedLookup *)v60 key] themeElement]];
-    [(CUIRenditionKey *)v34 setThemePart:208];
-    [(CUIRenditionKey *)v34 setThemeIdentifier:[(CUIRenditionKey *)[(CUINamedLookup *)v60 key] themeIdentifier]];
-    v35 = (*(block + 2))(block, v34);
-    if (v35)
+    v21 = v32;
+    v32->_layers = v34;
+    v22 = objc_alloc_init(CUIRenditionKey);
+    [(CUIRenditionKey *)v22 setThemeElement:[(CUIRenditionKey *)[(CUINamedLookup *)v32 key] themeElement]];
+    [(CUIRenditionKey *)v22 setThemePart:208];
+    [(CUIRenditionKey *)v22 setThemeIdentifier:[(CUIRenditionKey *)[(CUINamedLookup *)v32 key] themeIdentifier]];
+    v23 = (*(block + 2))(block, v22);
+    if (v23)
     {
-      v42 = v35;
-      storageRef = [(CUINamedLookup *)v60 storageRef];
-      v45 = _LookupStructuredThemeProvider(storageRef, v44);
-      v46 = [v45 copyLookupKeySignatureForKey:{objc_msgSend(v42, "keyList")}];
-      v60->_flattenedImageRendition = [v45 renditionWithKey:objc_msgSend(v42 usingKeySignature:{"keyList"), v46}];
+      v24 = v23;
+      [(CUINamedLookup *)v32 storageRef];
+      v25 = _LookupStructuredThemeProvider();
+      v26 = [v25 copyLookupKeySignatureForKey:{objc_msgSend(v24, "keyList")}];
+      v32->_flattenedImageRendition = [v25 renditionWithKey:objc_msgSend(v24 usingKeySignature:{"keyList"), v26}];
     }
 
     else
     {
-      _CUILog(4, "CoreUI: Unable to resolve flattened image for layer stack %@", v36, v37, v38, v39, v40, v41, v60);
+      _CUILog(4, "CoreUI: Unable to resolve flattened image for layer stack %@", v32);
     }
 
     v8 = objc_alloc_init(CUIRenditionKey);
-    [(CUINamedLayerStack *)v8 setThemeElement:[(CUIRenditionKey *)[(CUINamedLookup *)v60 key] themeElement]];
+    [(CUINamedLayerStack *)v8 setThemeElement:[(CUIRenditionKey *)[(CUINamedLookup *)v32 key] themeElement]];
     [(CUINamedLayerStack *)v8 setThemePart:209];
-    [(CUINamedLayerStack *)v8 setThemeIdentifier:[(CUIRenditionKey *)[(CUINamedLookup *)v60 key] themeIdentifier]];
-    v47 = (*(block + 2))(block, v8);
-    if (v47)
+    [(CUINamedLayerStack *)v8 setThemeIdentifier:[(CUIRenditionKey *)[(CUINamedLookup *)v32 key] themeIdentifier]];
+    v27 = (*(block + 2))(block, v8);
+    if (v27)
     {
-      v54 = v47;
-      storageRef2 = [(CUINamedLookup *)v60 storageRef];
-      v57 = _LookupStructuredThemeProvider(storageRef2, v56);
-      v58 = [v57 copyLookupKeySignatureForKey:{objc_msgSend(v54, "keyList")}];
-      v60->_radiosityImageRendition = [v57 renditionWithKey:objc_msgSend(v54 usingKeySignature:{"keyList"), v58}];
+      v28 = v27;
+      [(CUINamedLookup *)v32 storageRef];
+      v29 = _LookupStructuredThemeProvider();
+      v30 = [v29 copyLookupKeySignatureForKey:{objc_msgSend(v28, "keyList")}];
+      v32->_radiosityImageRendition = [v29 renditionWithKey:objc_msgSend(v28 usingKeySignature:{"keyList"), v30}];
     }
 
     else
     {
-      _CUILog(4, "CoreUI: Unable to resolve radiosity image for layer stack %@", v48, v49, v50, v51, v52, v53, nameCopy);
+      _CUILog(4, "CoreUI: Unable to resolve radiosity image for layer stack %@", nameCopy);
     }
   }
 
   else
   {
-    _CUILog(4, "CoreUI: Attempting to create named layer stack '%@' from inappropriate rendition type: %@", v10, v11, v12, v13, v14, v15, nameCopy);
-    v27 = 0;
+    _CUILog(4, "CoreUI: Attempting to create named layer stack '%@' from inappropriate rendition type: %@", nameCopy, _rendition);
+    v21 = 0;
   }
 
-  return v27;
+  return v21;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -252,37 +251,37 @@ LABEL_6:
     v22 = malloc_type_malloc((320 * blur) | 8, 0x100004000313F17uLL);
     v23 = 0;
     v24 = 1.0 / (v21 * 2.50662827);
-    v68 = vdupq_n_s64(40 * blur);
+    v62 = vdupq_n_s64(40 * blur);
     v25 = v21 * (v21 + v21);
     v26 = xmmword_18E022180;
-    v70 = v22;
+    v64 = v22;
     do
     {
-      v73 = vmovn_s64(vcgeq_u64(v68, v26));
-      v74 = v26;
+      v67 = vmovn_s64(vcgeq_u64(v62, v26));
+      v68 = v26;
       kernel = exp(-(v23 * v23) / v25);
       v27 = exp(-((v23 + 1) * (v23 + 1)) / v25);
       v28.f64[0] = kernel;
       v28.f64[1] = v27;
-      if (v73.i8[0])
+      if (v67.i8[0])
       {
-        v70[v23] = v24 * kernel;
+        v64[v23] = v24 * kernel;
       }
 
-      if (v73.i8[4])
+      if (v67.i8[4])
       {
-        v70[v23 + 1] = vmuld_lane_f64(v24, v28, 1);
+        v64[v23 + 1] = vmuld_lane_f64(v24, v28, 1);
       }
 
       v23 += 2;
-      v26 = vaddq_s64(v74, vdupq_n_s64(2uLL));
+      v26 = vaddq_s64(v68, vdupq_n_s64(2uLL));
     }
 
     while (((40 * blur) | 2) != v23);
-    v29 = *v70;
+    v29 = *v64;
     if (v20)
     {
-      v30 = v70 + 1;
+      v30 = v64 + 1;
       v31 = 40 * blur;
       do
       {
@@ -299,10 +298,10 @@ LABEL_6:
     v34 = 80 * blur;
     v35 = 16384.0 / v29;
     v36 = malloc_type_malloc((160 * blur) | 2, 0x1000040BDFB0063uLL);
-    v36[40 * blur] = (v35 * *v70);
+    v36[40 * blur] = (v35 * *v64);
     if (v20)
     {
-      v37 = v70 + 1;
+      v37 = v64 + 1;
       v38 = &v36[40 * blur + 1];
       v39 = 40 * blur;
       do
@@ -317,7 +316,7 @@ LABEL_6:
     }
 
     kernela = v36;
-    v69 = 40 * blur;
+    v63 = 40 * blur;
     v42 = v34 + height;
     v43 = (v34 + height) * v33;
     v44 = malloc_type_malloc(v43, 0x100004077774924uLL);
@@ -329,19 +328,19 @@ LABEL_6:
     src.rowBytes = v43;
     dest.data = v46;
     dest.height = 1;
-    v47 = v69 * v33;
+    v47 = v63 * v33;
     dest.width = heightCopy;
     dest.rowBytes = v33 * heightCopy;
-    bzero(v44, v69 * v33);
-    bzero(&v44[(v69 + heightCopy) * v33], v69 * v33);
+    bzero(v44, v63 * v33);
+    bzero(&v44[(v63 + heightCopy) * v33], v63 * v33);
     if (factor)
     {
       v48 = __src;
-      v49 = (2 * v69) | 1;
+      v49 = (2 * v63) | 1;
       do
       {
         memcpy(&v44[v47], v48, v45);
-        vImageConvolve_ARGB8888(&src, &dest, 0, v69, 0, kernela, 1u, v49, 0x4000, 0, 0x14u);
+        vImageConvolve_ARGB8888(&src, &dest, 0, v63, 0, kernela, 1u, v49, 0x4000, 0, 0x14u);
         dest.data = dest.data + v45;
         v48 += pixel;
         --factor;
@@ -354,7 +353,7 @@ LABEL_6:
 
     else
     {
-      v49 = (2 * v69) | 1;
+      v49 = (2 * v63) | 1;
       v50 = __src;
     }
 
@@ -370,7 +369,7 @@ LABEL_6:
     free(v46);
     free(v44);
     free(kernela);
-    free(v70);
+    free(v64);
     *&retstr->data = 0u;
     *&retstr->width = 0u;
   }
@@ -383,19 +382,19 @@ LABEL_6:
     v51 = 3;
     __asm { FMOV            V0.2D, #0.5 }
 
-    v76 = _Q0;
+    v70 = _Q0;
     src.data = row;
     src.height = factor;
     do
     {
-      v57 = vcvtq_u64_f64(vcvtq_f64_f32(vrnda_f32(vcvt_f32_f64(vmulq_f64(vcvtq_f64_u64(*&src.height), v76)))));
+      v57 = vcvtq_u64_f64(vcvtq_f64_f32(vrnda_f32(vcvt_f32_f64(vmulq_f64(vcvtq_f64_u64(*&src.height), v70)))));
       *&retstr->height = v57;
       retstr->rowBytes = 4 * v57.i64[1];
       retstr->data = malloc_type_malloc(4 * v57.i64[1] * v57.i64[0], 0xE771AA93uLL);
       result = vImageScale_ARGB8888(&src, retstr, 0, 0);
       if (result)
       {
-        _CUILog(4, "CoreUI -- radiosity downscale vImage error: %ld", v59, v60, v61, v62, v63, v64, result);
+        _CUILog(4, "CoreUI -- radiosity downscale vImage error: %ld", result);
       }
 
       *&src.height = *&retstr->height;
@@ -412,8 +411,8 @@ LABEL_6:
     while (v51);
     if (a11)
     {
-      v65 = vcvtq_f64_u64(*&retstr->height);
-      *a11 = vextq_s8(v65, v65, 8uLL);
+      v59 = vcvtq_f64_u64(*&retstr->height);
+      *a11 = vextq_s8(v59, v59, 8uLL);
     }
   }
 
@@ -439,48 +438,46 @@ LABEL_6:
 
 + (CGImage)createRadiosityImageWithImage:(CGImage *)image displayScale:(int64_t)scale
 {
-  v7 = scale * 40.0;
+  v6 = scale * 40.0;
   Width = CGImageGetWidth(image);
   Height = CGImageGetHeight(image);
-  v10 = Width + v7 * 2.0;
-  v11 = Height + v7 * 2.0;
-  v12 = [[CSIBitmapWrapper alloc] initWithPixelWidth:v10 pixelHeight:v11];
+  v9 = [[CSIBitmapWrapper alloc] initWithPixelWidth:(Width + v6 * 2.0) pixelHeight:(Height + v6 * 2.0)];
   ColorSpace = CGImageGetColorSpace(image);
   if (CGColorSpaceIsWideGamutRGB(ColorSpace))
   {
-    v14 = 3;
+    v11 = 3;
   }
 
   else
   {
-    v14 = 1;
+    v11 = 1;
   }
 
-  [(CSIBitmapWrapper *)v12 setColorSpaceID:v14];
-  [(CSIBitmapWrapper *)v12 setPixelFormat:1095911234];
-  [(CSIBitmapWrapper *)v12 setSourceAlphaInfo:2];
-  bitmapContext = [(CSIBitmapWrapper *)v12 bitmapContext];
-  v32.origin.x = v7;
-  v32.origin.y = v7;
-  v32.size.width = Width;
-  v32.size.height = Height;
-  CGContextDrawImage(bitmapContext, v32, image);
-  Data = CGBitmapContextGetData(bitmapContext);
-  BytesPerRow = CGBitmapContextGetBytesPerRow(bitmapContext);
+  [(CSIBitmapWrapper *)v9 setColorSpaceID:v11];
+  [(CSIBitmapWrapper *)v9 setPixelFormat:1095911234];
+  [(CSIBitmapWrapper *)v9 setSourceAlphaInfo:2];
+  bitmapContext = [(CSIBitmapWrapper *)v9 bitmapContext];
+  v27.origin.x = v6;
+  v27.origin.y = v6;
+  v27.size.width = Width;
+  v27.size.height = Height;
+  CGContextDrawImage(bitmapContext, v27, image);
+  CGBitmapContextGetData(bitmapContext);
+  CGBitmapContextGetBytesPerRow(bitmapContext);
   BitsPerPixel = CGBitmapContextGetBitsPerPixel(bitmapContext);
-  v31 = 1;
-  v30 = CGSizeZero;
-  memset(v29, 0, sizeof(v29));
-  if (self && (v19 = BitsPerPixel, [self _doRadiosityBlurOnPixelBuffer:Data bytesPerRow:BytesPerRow bitsPerPixel:BitsPerPixel width:v10 height:v11 scaleFactor:scale usesGaussianBlur:&v31 adjustedSize:&v30], (v31 & 1) == 0))
+  v26 = 1;
+  v25 = CGSizeZero;
+  memset(v24, 0, sizeof(v24));
+  if (self && (v14 = BitsPerPixel, objc_msgSend__doRadiosityBlurOnPixelBuffer_bytesPerRow_bitsPerPixel_width_height_scaleFactor_usesGaussianBlur_adjustedSize_(self, &v26, &v25), (v26 & 1) == 0))
   {
-    v28 = 0;
-    v23[0] = 8;
-    v23[1] = v19;
-    v24 = CGImageGetColorSpace(image);
-    v25 = 8194;
-    v27 = 0;
-    v26 = 0;
-    Image = MEMORY[0x193AC7550](v29, v23, 0, 0, 512, 0);
+    v23 = 0;
+    v18[0] = 8;
+    v18[1] = v14;
+    v19 = CGImageGetColorSpace(image);
+    v20 = 8194;
+    v22 = 0;
+    v21 = 0;
+    Image = MEMORY[0x193AC7550](v24, v18, 0, 0, 512, 0);
   }
 
   else
@@ -488,9 +485,9 @@ LABEL_6:
     Image = CGBitmapContextCreateImage(bitmapContext);
   }
 
-  v21 = Image;
+  v16 = Image;
 
-  return v21;
+  return v16;
 }
 
 + (void)radiosityImageWithImage:(CGImage *)image displayScale:(int64_t)scale completionHandler:(id)handler

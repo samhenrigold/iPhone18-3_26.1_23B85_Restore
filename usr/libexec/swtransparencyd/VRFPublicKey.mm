@@ -1,6 +1,7 @@
 @interface VRFPublicKey
 + (id)descriptor;
 - (BOOL)needsRefresh;
+- (void)setNeedsRefresh:(BOOL)refresh;
 @end
 
 @implementation VRFPublicKey
@@ -11,6 +12,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setNeedsRefresh:(BOOL)refresh
+{
+  v4 = [NSNumber numberWithBool:refresh];
+  objc_setAssociatedObject(self, @"needsRefresh", v4, 1);
 }
 
 + (id)descriptor

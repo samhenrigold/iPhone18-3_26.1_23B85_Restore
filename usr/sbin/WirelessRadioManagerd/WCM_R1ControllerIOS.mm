@@ -2,9 +2,12 @@
 - (WCM_R1ControllerIOS)init;
 - (void)dealloc;
 - (void)handleMessage:(id)message;
+- (void)handlePowerState:(BOOL)state;
 - (void)handleRCU1Connection:(id)connection;
 - (void)handleRCU1NBRangingActive:(id)active;
 - (void)handleRCU1QueryStatus:(id)status;
+- (void)sendBlockEnhancedMms:(BOOL)mms;
+- (void)sendRCU1Message:(BOOL)message wifiBand:(unsigned __int8)band btPowerState:(BOOL)state btBand:(unsigned __int8)btBand isForce:(BOOL)force;
 @end
 
 @implementation WCM_R1ControllerIOS
@@ -31,6 +34,15 @@
   [(WCM_R1Controller *)&v4 dealloc];
 }
 
+- (void)handlePowerState:(BOOL)state
+{
+  stateCopy = state;
+  [(WCM_R1Controller *)self setMRCU1NbBandMask:0];
+  v5.receiver = self;
+  v5.super_class = WCM_R1ControllerIOS;
+  [(WCM_R1Controller *)&v5 handlePowerState:stateCopy];
+}
+
 - (void)handleMessage:(id)message
 {
   uint64 = xpc_dictionary_get_uint64(message, "kMessageId");
@@ -52,6 +64,47 @@
     default:
       [WCM_Logging logLevel:0 message:@"RCU1 controller dropping message-id %lld", uint64];
       break;
+  }
+}
+
+- (void)sendRCU1Message:(BOOL)message wifiBand:(unsigned __int8)band btPowerState:(BOOL)state btBand:(unsigned __int8)btBand isForce:(BOOL)force
+{
+  bandCopy = band;
+  v10 = byte_1002B7EB4 == message && dword_1002B7EB8 == band;
+  if (v10 && byte_1002B7EBC == state && byte_1002B7EBD == btBand && !force)
+  {
+    [WCM_Logging logLevel:3 message:@"Don't send RCU1Message - No change in WiFi/BT state WiFiPower = (%d) WiFiband = (%d) btPower = (%d) btBand= (%d)force = [%d]", message, band, state, btBand, 0];
+  }
+
+  else
+  {
+    byte_1002B7EB4 = message;
+    dword_1002B7EB8 = band;
+    byte_1002B7EBC = state;
+    byte_1002B7EBD = btBand;
+    [WCM_Logging logLevel:2 message:@"send RCU1Message WiFiPower = (%d) WiFiband = (%d) btPower = (%d) btBand= (%d)force = [%d]", message, band, state, btBand, force];
+    v11 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_BOOL(v11, "kWCMHToRCU1wiFiPowerStatus", message);
+    xpc_dictionary_set_uint64(v11, "kWCMHToRCU15GStatus", bandCopy);
+    xpc_dictionary_set_uint64(v11, "kWCMHToRCU1DutyCycle", 0xAuLL);
+    xpc_dictionary_set_BOOL(v11, "kWCMHToRCU1BTPowerStatus", byte_1002B7EBC);
+    xpc_dictionary_set_uint64(v11, "kWCMHToRCU1BTBandStatus", byte_1002B7EBD);
+    [(WCM_Controller *)self sendMessage:1500 withArgs:v11];
+
+    xpc_release(v11);
+  }
+}
+
+- (void)sendBlockEnhancedMms:(BOOL)mms
+{
+  if (byte_1002B7EBE != mms)
+  {
+    [WCM_Logging logLevel:2 message:@"send BlockDirective %d to R1", mms];
+    v5 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_BOOL(v5, "kWCMHToR2BlockEnhancedMms", mms);
+    [(WCM_Controller *)self sendMessage:1504 withArgs:v5];
+    xpc_release(v5);
+    byte_1002B7EBE = mms;
   }
 }
 

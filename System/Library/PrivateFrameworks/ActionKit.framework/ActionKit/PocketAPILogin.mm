@@ -132,20 +132,19 @@ void *__49__PocketAPILogin_pocketAPI_receivedRequestToken___block_invoke(void *r
   return result;
 }
 
-uint64_t __49__PocketAPILogin_pocketAPI_receivedRequestToken___block_invoke_2(uint64_t result, char a2)
+void *__49__PocketAPILogin_pocketAPI_receivedRequestToken___block_invoke_2(void *result, char a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
-    v2 = *(result + 32);
-    v3 = *(result + 40);
+    v2 = result[4];
+    v3 = result[5];
     v4 = *MEMORY[0x277CCA050];
-    v6 = *MEMORY[0x277CCA450];
-    v7[0] = @"Failed to open the Pocket authentication URL.";
-    result = [v2 pocketAPI:v3 hadLoginError:{objc_msgSend(MEMORY[0x277CCA9B8], "errorWithDomain:code:userInfo:", v4, 3328, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v7, &v6, 1))}];
+    v5 = *MEMORY[0x277CCA450];
+    v6[0] = @"Failed to open the Pocket authentication URL.";
+    return [v2 pocketAPI:v3 hadLoginError:{objc_msgSend(MEMORY[0x277CCA9B8], "errorWithDomain:code:userInfo:", v4, 3328, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v6, &v5, 1))}];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 

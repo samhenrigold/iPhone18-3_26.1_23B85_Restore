@@ -96,7 +96,7 @@
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -110,7 +110,7 @@
         v7 = v6;
         if (self->_usesDefaultLayoutWidth != v6->_usesDefaultLayoutWidth)
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
 LABEL_20:
 
           goto LABEL_21;
@@ -126,7 +126,7 @@ LABEL_20:
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           if (!v9 || !v10)
           {
 LABEL_19:
@@ -134,9 +134,9 @@ LABEL_19:
             goto LABEL_20;
           }
 
-          v12 = [(UIColor *)v9 isEqual:v10];
+          isEqual = objc_msgSend_isEqual_(v9);
 
-          if (!v12)
+          if (!isEqual)
           {
             goto LABEL_20;
           }
@@ -149,15 +149,15 @@ LABEL_19:
         v11 = v15;
         if (v9 == v15)
         {
-          LOBYTE(v12) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           if (v9 && v15)
           {
-            LOBYTE(v12) = [(UIColor *)v9 isEqual:v15];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v9);
           }
         }
 
@@ -165,12 +165,12 @@ LABEL_19:
       }
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_21:
 
-  return v12;
+  return isEqual;
 }
 
 @end

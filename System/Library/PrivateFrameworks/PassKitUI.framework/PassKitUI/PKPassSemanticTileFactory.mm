@@ -845,7 +845,7 @@ void __117__PKPassSemanticTileFactory_Event__fetchUpcomingPassInformationEventGu
   return v13;
 }
 
-uint64_t __100__PKPassSemanticTileFactory_Event__weatherGroupTileFromItem_tileIdentifier_groupIdentifier_context___block_invoke(uint64_t a1)
+_TtC9PassKitUI28PKPassTileForeignViewAdaptor *__100__PKPassSemanticTileFactory_Event__weatherGroupTileFromItem_tileIdentifier_groupIdentifier_context___block_invoke(uint64_t a1)
 {
   v2 = [_TtC9PassKitUI28PKPassTileForeignViewAdaptor alloc];
   v3 = [PKTileContextWeatherView createWithWeatherInformation:*(a1 + 32)];
@@ -1614,7 +1614,7 @@ void __87__PKPassSemanticTileFactory_Event__fetchVenueMapImageForDescriptor_cont
   return v27;
 }
 
-uint64_t __112__PKPassSemanticTileFactory_Event__findMyFriendsGroupTileFromFooterText_tileIdentifier_groupIdentifier_context___block_invoke(uint64_t a1)
+_TtC9PassKitUI28PKPassTileForeignViewAdaptor *__112__PKPassSemanticTileFactory_Event__findMyFriendsGroupTileFromFooterText_tileIdentifier_groupIdentifier_context___block_invoke(uint64_t a1)
 {
   v2 = [_TtC9PassKitUI28PKPassTileForeignViewAdaptor alloc];
   v3 = [PKTileContextFindMyView createWithEventName:*(a1 + 32)];

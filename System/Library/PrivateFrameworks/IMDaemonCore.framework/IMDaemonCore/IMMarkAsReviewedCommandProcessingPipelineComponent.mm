@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   reviewedChatGUIDs = [inputCopy reviewedChatGUIDs];
   v5 = reviewedChatGUIDs;
@@ -36,8 +36,8 @@
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Ignoring mark as reviewed chats command, no chat guids received", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Ignoring mark as reviewed chats command, no chat guids received", &v11, 2u);
     }
 
     goto LABEL_16;
@@ -48,9 +48,9 @@
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "<IMMarkAsReviewedCommandProcessingPipelineComponent> Started processing mark as reviewed chats: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "<IMMarkAsReviewedCommandProcessingPipelineComponent> Started processing mark as reviewed chats: %@", &v11, 0xCu);
     }
   }
 
@@ -67,9 +67,9 @@
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Ignoring mark as reviewed chat command as it is not from me for chats: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v5;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Ignoring mark as reviewed chat command as it is not from me for chats: %@", &v11, 0xCu);
     }
 
 LABEL_16:
@@ -77,8 +77,6 @@ LABEL_16:
 
 LABEL_17:
   v9 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

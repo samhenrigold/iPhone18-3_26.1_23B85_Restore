@@ -19,6 +19,8 @@
 - (void)didUpdateLazyReferenceDelegate:(id)delegate;
 - (void)readComponent:(id)component completionQueue:(id)queue completion:(id)completion;
 - (void)readRootObjectWithCompletionQueue:(id)queue completion:(id)completion;
+- (void)reader:(id)reader didFindExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)self0 completion:(id)self1;
+- (void)reader:(id)reader didFindExternalRepeatedReference:(id)reference isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)parentObject completion:(id)self0;
 - (void)reader:(id)reader didReadLazyReference:(id)reference;
 - (void)reader:(id)reader didUnarchiveObject:(id)object;
 @end
@@ -387,6 +389,63 @@ LABEL_11:
   _Block_object_dispose(&v39, 8);
 
   return v29;
+}
+
+- (void)reader:(id)reader didFindExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)self0 completion:(id)self1
+{
+  objectCopy = object;
+  weakCopy = weak;
+  protocolCopy = protocol;
+  completionCopy = completion;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  canResolveExternalReferences = objc_msgSend_canResolveExternalReferences(WeakRetained, v20, v21);
+
+  if (canResolveExternalReferences)
+  {
+    v33.receiver = self;
+    v33.super_class = TSPDecoderReadCoordinator;
+    v24 = protocolCopy;
+    [(TSPReadCoordinatorBase *)&v33 reader:reader didFindExternalReferenceToObjectIdentifier:identifier componentIdentifier:componentIdentifier isWeak:weakCopy allowUnknownObject:objectCopy objectClass:class objectProtocol:protocolCopy fromParentObject:parentObject completion:completionCopy];
+  }
+
+  else
+  {
+    v25 = MEMORY[0x277D81150];
+    v24 = protocolCopy;
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSPDecoderReadCoordinator reader:didFindExternalReferenceToObjectIdentifier:componentIdentifier:isWeak:allowUnknownObject:objectClass:objectProtocol:fromParentObject:completion:]");
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDecoderReadCoordinator.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v29, v26, v28, 331, 0, "External references are not supported.");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
+  }
+}
+
+- (void)reader:(id)reader didFindExternalRepeatedReference:(id)reference isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)parentObject completion:(id)self0
+{
+  objectCopy = object;
+  weakCopy = weak;
+  referenceCopy = reference;
+  protocolCopy = protocol;
+  completionCopy = completion;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  canResolveExternalReferences = objc_msgSend_canResolveExternalReferences(WeakRetained, v20, v21);
+
+  if (canResolveExternalReferences)
+  {
+    v31.receiver = self;
+    v31.super_class = TSPDecoderReadCoordinator;
+    [(TSPReadCoordinatorBase *)&v31 reader:reader didFindExternalRepeatedReference:referenceCopy isWeak:weakCopy allowUnknownObject:objectCopy objectClass:class objectProtocol:protocolCopy fromParentObject:parentObject completion:completionCopy];
+  }
+
+  else
+  {
+    v24 = MEMORY[0x277D81150];
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSPDecoderReadCoordinator reader:didFindExternalRepeatedReference:isWeak:allowUnknownObject:objectClass:objectProtocol:fromParentObject:completion:]");
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDecoderReadCoordinator.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v28, v25, v27, 339, 0, "External references are not supported.");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30);
+  }
 }
 
 - (void)reader:(id)reader didUnarchiveObject:(id)object

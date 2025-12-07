@@ -80,30 +80,31 @@ PRComplicationSuggestionSet *__127__PRComplicationGalleryViewController_initWith
 PRComplicationDescriptor *__127__PRComplicationGalleryViewController_initWithSuggestionSets_applicationWidgetCollections_listLayoutProvider_iconViewProvider___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = PRSharedWidgetExtensionProvider();
+  v3 = PRSharedWidgetExtensionProvider(v2);
   v4 = [v3 widgetDescriptorForIdentifiable:v2];
 
   if (v4)
   {
-    v5 = [v4 supportedFamilies];
+    v6 = [v4 supportedFamilies];
     [v2 widgetFamily];
-    if ((CHSWidgetFamilyMaskFromWidgetFamily() & v5) != 0)
+    v7 = CHSWidgetFamilyMaskFromWidgetFamily();
+    if ((v7 & v6) != 0)
     {
-      v6 = [v2 widgetFamily];
-      v7 = [v2 intent];
-      v8 = [v4 widgetForFamily:v6 intent:v7];
+      v8 = [v2 widgetFamily];
+      v9 = [v2 intent];
+      v10 = [v4 widgetForFamily:v8 intent:v9];
 
-      v9 = [PRComplicationDescriptor alloc];
-      v10 = [MEMORY[0x1E696AFB0] UUID];
-      v11 = [v10 UUIDString];
-      v12 = [(PRComplicationDescriptor *)v9 initWithUniqueIdentifier:v11 widget:v8];
+      v11 = [PRComplicationDescriptor alloc];
+      v12 = [MEMORY[0x1E696AFB0] UUID];
+      v13 = [v12 UUIDString];
+      v14 = [(PRComplicationDescriptor *)v11 initWithUniqueIdentifier:v13 widget:v10];
 
-      [(PRComplicationDescriptor *)v12 setSuggestedComplication:v2];
+      [(PRComplicationDescriptor *)v14 setSuggestedComplication:v2];
       goto LABEL_9;
     }
 
-    v13 = PRLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = PRLogCommon(v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       __127__PRComplicationGalleryViewController_initWithSuggestionSets_applicationWidgetCollections_listLayoutProvider_iconViewProvider___block_invoke_2_cold_1(v4, v2);
     }
@@ -111,17 +112,17 @@ PRComplicationDescriptor *__127__PRComplicationGalleryViewController_initWithSug
 
   else
   {
-    v13 = PRLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = PRLogCommon(v5);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_2(v13);
+      __133__PRWidgetSuggestionsViewController_initWithSuggestionSets_listLayoutProvider_iconViewProvider_widgetDragHandler_usingSidebarLayout___block_invoke_2_cold_2(v15);
     }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_9:
 
-  return v12;
+  return v14;
 }
 
 - (void)loadView
@@ -139,54 +140,54 @@ LABEL_9:
 
 - (void)viewDidLoad
 {
-  v33.receiver = self;
-  v33.super_class = PRComplicationGalleryViewController;
-  [(PRComplicationGalleryViewController *)&v33 viewDidLoad];
-  v3 = PRBundle();
-  v4 = [v3 localizedStringForKey:@"COMPLICATION_GALLERY_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
-  [(PRComplicationGalleryViewController *)self setTitle:v4];
+  v34.receiver = self;
+  v34.super_class = PRComplicationGalleryViewController;
+  viewDidLoad = [(PRComplicationGalleryViewController *)&v34 viewDidLoad];
+  v4 = PRBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"COMPLICATION_GALLERY_TITLE" value:&stru_1F1C13D90 table:@"PosterKit"];
+  [(PRComplicationGalleryViewController *)self setTitle:v5];
 
   objc_initWeak(&location, self);
-  v5 = MEMORY[0x1E69DC800];
-  v6 = objc_opt_class();
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __50__PRComplicationGalleryViewController_viewDidLoad__block_invoke;
-  v30[3] = &unk_1E78432B0;
-  objc_copyWeak(&v31, &location);
-  v7 = [v5 registrationWithCellClass:v6 configurationHandler:v30];
+  v6 = MEMORY[0x1E69DC800];
+  v7 = objc_opt_class();
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __50__PRComplicationGalleryViewController_viewDidLoad__block_invoke;
+  v31[3] = &unk_1E78432B0;
+  objc_copyWeak(&v32, &location);
+  v8 = [v6 registrationWithCellClass:v7 configurationHandler:v31];
   collectionView = [(PRComplicationGalleryView *)self->_complicationGalleryView collectionView];
   [collectionView setDelegate:self];
-  v9 = MEMORY[0x1E69DC800];
-  v10 = objc_opt_class();
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __50__PRComplicationGalleryViewController_viewDidLoad__block_invoke_2;
-  v28[3] = &unk_1E78434A8;
-  v11 = collectionView;
-  v29 = v11;
-  v12 = [v9 registrationWithCellClass:v10 configurationHandler:v28];
-  v13 = objc_alloc(MEMORY[0x1E69DC820]);
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __50__PRComplicationGalleryViewController_viewDidLoad__block_invoke_4;
-  v24 = &unk_1E78434D0;
-  v14 = v11;
-  v25 = v14;
+  v10 = MEMORY[0x1E69DC800];
+  v11 = objc_opt_class();
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __50__PRComplicationGalleryViewController_viewDidLoad__block_invoke_2;
+  v29[3] = &unk_1E78434A8;
+  v12 = collectionView;
+  v30 = v12;
+  v13 = [v10 registrationWithCellClass:v11 configurationHandler:v29];
+  v14 = objc_alloc(MEMORY[0x1E69DC820]);
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __50__PRComplicationGalleryViewController_viewDidLoad__block_invoke_4;
+  v25 = &unk_1E78434D0;
   v15 = v12;
   v26 = v15;
-  v16 = v7;
+  v16 = v13;
   v27 = v16;
-  v17 = [v13 initWithCollectionView:v14 cellProvider:&v21];
+  v17 = v8;
+  v28 = v17;
+  v18 = [v14 initWithCollectionView:v15 cellProvider:&v22];
   dataSource = self->_dataSource;
-  self->_dataSource = v17;
+  self->_dataSource = v18;
 
-  [v14 setContentInset:{8.0, 0.0, 0.0, 0.0, v21, v22, v23, v24}];
-  v19 = self->_dataSource;
+  [v15 setContentInset:{8.0, 0.0, 0.0, 0.0, v22, v23, v24, v25}];
+  v20 = self->_dataSource;
   _buildSnapshot = [(PRComplicationGalleryViewController *)self _buildSnapshot];
-  [(UICollectionViewDiffableDataSource *)v19 applySnapshot:_buildSnapshot animatingDifferences:0];
+  [(UICollectionViewDiffableDataSource *)v20 applySnapshot:_buildSnapshot animatingDifferences:0];
 
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
 }
 
@@ -370,7 +371,7 @@ PRComplicationGalleryItem *__53__PRComplicationGalleryViewController__buildSnaps
 
   [(PRComplicationDescriptor *)v10 setSuggestedComplication:suggestedComplication];
   v12 = [PRComplicationGalleryWidgetItem alloc];
-  v13 = PRSharedWidgetExtensionProvider();
+  v13 = PRSharedWidgetExtensionProvider(v12);
   v14 = [v13 widgetDescriptorForWidget:widget];
   displayName = [v14 displayName];
   v16 = [(PRComplicationGalleryWidgetItem *)v12 initWithDisplayName:displayName selected:0 iconImageHidden:hiddenCopy descriptor:v10];
@@ -456,51 +457,51 @@ PRComplicationGalleryItem *__53__PRComplicationGalleryViewController__buildSnaps
   descriptor = [item descriptor];
   widget = [descriptor widget];
 
-  v12 = PRSharedWidgetExtensionProvider();
-  v32 = [v12 widgetDescriptorForWidget:widget];
+  v13 = PRSharedWidgetExtensionProvider(v12);
+  v33 = [v13 widgetDescriptorForWidget:widget];
 
-  v13 = objc_alloc(MEMORY[0x1E69D40F0]);
+  v14 = objc_alloc(MEMORY[0x1E69D40F0]);
   listLayoutProvider = [(PRComplicationGalleryViewController *)self listLayoutProvider];
   iconViewProvider = [(PRComplicationGalleryViewController *)self iconViewProvider];
-  v16 = [v13 initWithGalleryItem:v32 titleAndSubtitleVisible:0 listLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider];
+  v17 = [v14 initWithGalleryItem:v33 titleAndSubtitleVisible:0 listLayoutProvider:listLayoutProvider iconViewProvider:iconViewProvider];
 
-  [v16 setSelectedSizeClass:{objc_msgSend(widget, "family")}];
-  [v16 setDelegate:self];
-  [v16 setUsesAmbientScaleFactorForRemovableBackgroundItems:0];
-  wrapperView = [v16 wrapperView];
+  [v17 setSelectedSizeClass:{objc_msgSend(widget, "family")}];
+  [v17 setDelegate:self];
+  [v17 setUsesAmbientScaleFactorForRemovableBackgroundItems:0];
+  wrapperView = [v17 wrapperView];
   [wrapperView setBackgroundType:0];
 
-  wrapperView2 = [v16 wrapperView];
+  wrapperView2 = [v17 wrapperView];
   [wrapperView2 setCornerRadius:PRWidgetPlatterCornerRadius()];
 
-  [cellCopy setWidgetWrapperViewController:v16];
-  v19 = +[PRWidgetMetricsProvider sharedInstance];
-  v20 = [v19 systemMetricsForWidget:widget];
+  [cellCopy setWidgetWrapperViewController:v17];
+  v20 = +[PRWidgetMetricsProvider sharedInstance];
+  v21 = [v20 systemMetricsForWidget:widget];
 
   traitCollection = [(PRComplicationGalleryViewController *)self traitCollection];
   [traitCollection displayScale];
-  v23 = v22;
+  v24 = v23;
 
-  [v20 _effectiveSizePixelAlignedForDisplayScale:v23];
+  [v21 _effectiveSizePixelAlignedForDisplayScale:v24];
   [cellCopy setContentSize:?];
   collectionView = [(PRComplicationGalleryView *)self->_complicationGalleryView collectionView];
   extensionIdentity = [widget extensionIdentity];
   extensionBundleIdentifier = [extensionIdentity extensionBundleIdentifier];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __80__PRComplicationGalleryViewController__configureWidgetCell_forItem_atIndexPath___block_invoke;
-  v33[3] = &unk_1E7843348;
-  v34 = collectionView;
-  v35 = cellCopy;
-  v36 = pathCopy;
-  v27 = pathCopy;
-  v28 = cellCopy;
-  v29 = collectionView;
-  [PRComplicationGalleryIconProvider loadIconImageForExtensionBundleIdentifier:extensionBundleIdentifier atWidth:v33 completion:20.0];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __80__PRComplicationGalleryViewController__configureWidgetCell_forItem_atIndexPath___block_invoke;
+  v34[3] = &unk_1E7843348;
+  v35 = collectionView;
+  v36 = cellCopy;
+  v37 = pathCopy;
+  v28 = pathCopy;
+  v29 = cellCopy;
+  v30 = collectionView;
+  [PRComplicationGalleryIconProvider loadIconImageForExtensionBundleIdentifier:extensionBundleIdentifier atWidth:v34 completion:20.0];
 
-  view = [v16 view];
+  view = [v17 view];
   superview = [view superview];
-  [(PRComplicationGalleryViewController *)self bs_addChildViewController:v16 withSuperview:superview];
+  [(PRComplicationGalleryViewController *)self bs_addChildViewController:v17 withSuperview:superview];
 }
 
 void __80__PRComplicationGalleryViewController__configureWidgetCell_forItem_atIndexPath___block_invoke(uint64_t a1, void *a2)
@@ -519,7 +520,7 @@ void __80__PRComplicationGalleryViewController__configureWidgetCell_forItem_atIn
 {
   controllerCopy = controller;
   widget = [descriptor widget];
-  v7 = PRSharedWidgetExtensionProvider();
+  v7 = PRSharedWidgetExtensionProvider(widget);
   v8 = [v7 widgetDescriptorForWidget:widget];
 
   intentType = [v8 intentType];
@@ -534,7 +535,7 @@ void __80__PRComplicationGalleryViewController__configureWidgetCell_forItem_atIn
 
     else
     {
-      v13 = PRLogCommon();
+      v13 = PRLogCommon(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [PRComplicationGalleryViewController _configureWidgetHostViewController:widget forWidgetDescriptor:?];
@@ -1044,15 +1045,23 @@ void __80__PRComplicationGalleryViewController__configureWidgetCell_forItem_atIn
 void __127__PRComplicationGalleryViewController_initWithSuggestionSets_applicationWidgetCollections_listLayoutProvider_iconViewProvider___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
   [a2 widgetFamily];
-  v8 = NSStringFromWidgetFamily();
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v2, v3, "Suggested complication %@ does not support provided widget family %@", v4, v5, v6, v7, 2u);
+  v3 = NSStringFromWidgetFamily();
+  *v10 = 138412546;
+  *&v10[4] = a1;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v4, v5, "Suggested complication %@ does not support provided widget family %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_configureWidgetHostViewController:(void *)a1 forWidgetDescriptor:.cold.1(void *a1)
 {
   v2 = [a1 extensionBundleIdentifier];
-  v9 = [a1 kind];
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v3, v4, "Default intent asked for but not provided: %@ - %@", v5, v6, v7, v8, 2u);
+  v3 = [a1 kind];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v4, v5, "Default intent asked for but not provided: %@ - %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

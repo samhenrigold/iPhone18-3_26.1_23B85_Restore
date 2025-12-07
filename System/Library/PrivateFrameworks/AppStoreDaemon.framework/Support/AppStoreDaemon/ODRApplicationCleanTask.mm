@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v3 = sub_1003DC0F4();
+  v3 = sub_1003DC0F4(ODRServiceDelegate);
   v4[0] = _NSConcreteStackBlock;
   v4[1] = 3221225472;
   v4[2] = sub_10036ACB0;

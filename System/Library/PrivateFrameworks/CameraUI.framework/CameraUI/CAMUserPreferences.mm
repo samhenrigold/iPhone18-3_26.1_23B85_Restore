@@ -3243,7 +3243,7 @@ id __140__CAMUserPreferences_readPreferencesWithOverrides_emulationMode_callActi
   }
 
   v3 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:0];
-  v4 = [v3 timestamp];
+  v4 = objc_msgSend_timestamp(v3);
   [v4 timeIntervalSinceNow];
   v6 = fabs(v5);
 
@@ -3298,18 +3298,20 @@ LABEL_5:
   }
 }
 
-uint64_t __38__CAMUserPreferences_writePreferences__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+uint64_t __38__CAMUserPreferences_writePreferences__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v10 = v5;
-  if (*(a1 + 48) != 1 || [*(a1 + 32) smartStyleSystemStyleIndex] != a3 && (v6 = objc_msgSend(v10, "isCustomized"), v5 = v10, v6))
+  if (*(a1 + 48) != 1 || (v6 = [*(a1 + 32) smartStyleSystemStyleIndex], v5 = v10, v6 != a3) && (v6 = objc_msgSend(v10, "isCustomized"), v5 = v10, v6))
   {
     v7 = *(a1 + 40);
     v8 = [v5 dictionaryRepresentation];
     [v7 addObject:v8];
+
+    v5 = v10;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v5);
 }
 
 - (void)_writeSmartStylePresetStringForIndex:(int64_t)index inStyles:(id)styles key:(id)key
@@ -5277,6 +5279,23 @@ LABEL_9:
   result.var1 = resolution;
   result.var0 = encoding;
   return result;
+}
+
+- (void)readPreferencesWithOverrides:(uint64_t)a3 emulationMode:(uint64_t)a4 callActive:(uint64_t)a5 shouldResetCaptureConfiguration:(uint64_t)a6 bypassXPCWhenReadingSystemStyle:(uint64_t)a7 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (*a1 > 0xBuLL)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = off_1E76F9360[*a1];
+  }
+
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v8;
+  OUTLINED_FUNCTION_0_0(&dword_1A3640000, a2, a3, "Default for portrait mode rear device %{public}@ is not a back position device", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 @end

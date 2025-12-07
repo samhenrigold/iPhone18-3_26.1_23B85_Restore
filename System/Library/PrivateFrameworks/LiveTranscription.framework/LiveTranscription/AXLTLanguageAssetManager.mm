@@ -78,7 +78,7 @@ void __73__AXLTLanguageAssetManager_languageAssetAvaliableForTaskHint_completion
   [(AXLTLanguageAssetManager *)self languageAssetAvaliableForTaskHint:hint completion:v12];
 }
 
-void __79__AXLTLanguageAssetManager_downloadSpeechAssetForTaskHint_progress_completion___block_invoke(uint64_t a1, char a2)
+void __79__AXLTLanguageAssetManager_downloadSpeechAssetForTaskHint_progress_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -141,7 +141,7 @@ uint64_t __79__AXLTLanguageAssetManager_downloadSpeechAssetForTaskHint_progress_
   [(AXLTLanguageAssetManager *)self languageAssetAvaliableForTaskHint:hint completion:v3];
 }
 
-void __57__AXLTLanguageAssetManager_deleteSpeechAssetForTaskHint___block_invoke(uint64_t a1, int a2)
+void __57__AXLTLanguageAssetManager_deleteSpeechAssetForTaskHint___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {

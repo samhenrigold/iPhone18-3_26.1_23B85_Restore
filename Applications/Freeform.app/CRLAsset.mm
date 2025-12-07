@@ -46,7 +46,7 @@
 
 - (UTType)type
 {
-  v3 = sub_1005B981C(&unk_1019F8DB0);
+  v3 = sub_1005B981C(&unk_1019F8DB0, &unk_101471FC0);
   __chkstk_darwin(v3 - 8);
   v5 = &v19 - v4;
   v6 = *&self->storage[OBJC_IVAR____TtC8Freeform8CRLAsset_storage + 16];
@@ -151,7 +151,7 @@
 
   v6 = sub_100C7D944(v8);
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
   return v6 & 1;
 }
 
@@ -168,7 +168,7 @@
   v9 = *(v8 + 24);
   selfCopy = self;
   v9(v7, v8);
-  sub_10006849C(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_10006849C(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   dispatch thunk of Hashable.hash(into:)();
   (*(v4 + 8))(v6, v3);
   v11 = Hasher.finalize()();

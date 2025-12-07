@@ -26,7 +26,7 @@
 
 - (void)confirmRecoveryKey:(id)key completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   completionCopy = completion;
   v8 = _CDPLogSystem();
@@ -50,25 +50,23 @@
   v9 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_context eventName:*MEMORY[0x277CFD800] category:*MEMORY[0x277CFD930]];
   authProvider = self->_authProvider;
   context = self->_context;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __62__CDPDAccountRecoveryValidator_confirmRecoveryKey_completion___block_invoke;
-  v16[3] = &unk_278E244A8;
-  v16[4] = self;
-  v17 = keyCopy;
-  v18 = v9;
-  v19 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __62__CDPDAccountRecoveryValidator_confirmRecoveryKey_completion___block_invoke;
+  v15[3] = &unk_278E244A8;
+  v15[4] = self;
+  v16 = keyCopy;
+  v17 = v9;
+  v18 = completionCopy;
   v12 = completionCopy;
   v13 = v9;
   v14 = keyCopy;
-  [(CDPAuthProviderInternal *)authProvider cdpContext:context verifyMasterKey:v14 completion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(CDPAuthProviderInternal *)authProvider cdpContext:context verifyMasterKey:v14 completion:v15];
 }
 
 void __62__CDPDAccountRecoveryValidator_confirmRecoveryKey_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -82,9 +80,9 @@ void __62__CDPDAccountRecoveryValidator_confirmRecoveryKey_completion___block_in
     v8 = *(a1 + 40);
     v9 = *(v7 + 24);
     v10 = [*(v7 + 16) altDSID];
-    v20 = 0;
-    v11 = [v9 cacheRecoveryKey:v8 forAltDSID:v10 error:&v20];
-    v12 = v20;
+    v19 = 0;
+    v11 = [v9 cacheRecoveryKey:v8 forAltDSID:v10 error:&v19];
+    v12 = v19;
 
     v13 = _CDPLogSystem();
     v14 = v13;
@@ -113,9 +111,9 @@ void __62__CDPDAccountRecoveryValidator_confirmRecoveryKey_completion___block_in
     {
       v16 = *(a1 + 32);
       *buf = 138412546;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v5;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v5;
       _os_log_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEFAULT, "%@ : recovery failed with error %@", buf, 0x16u);
     }
 
@@ -128,8 +126,6 @@ void __62__CDPDAccountRecoveryValidator_confirmRecoveryKey_completion___block_in
   }
 
   v18();
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateRecoveryKey:(id)key

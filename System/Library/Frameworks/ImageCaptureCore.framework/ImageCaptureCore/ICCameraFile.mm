@@ -217,41 +217,39 @@ LABEL_11:
 
 - (id)debugIdentity
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v4 = [(ICCameraFile *)self description];
   [array addObject:v4];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   sidecarFiles = [(ICCameraFile *)self sidecarFiles];
-  v6 = [sidecarFiles countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [sidecarFiles countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(sidecarFiles);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) description];
+        v10 = [*(*(&v12 + 1) + 8 * i) description];
         [array addObject:v10];
       }
 
-      v7 = [sidecarFiles countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [sidecarFiles countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -644,7 +642,7 @@ LABEL_25:
 
 - (void)setKeywordPropertiesFromDict:(id)dict
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   [(ICCameraFile *)self duration];
   if (v5 == 0.0)
@@ -890,8 +888,8 @@ LABEL_55:
         v48 = v46;
         *buf = 136446466;
         uTF8String = [name UTF8String];
-        v52 = 2114;
-        v53 = v45;
+        v51 = 2114;
+        v52 = v45;
         _os_log_impl(&dword_1C6F19000, v48, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
 
@@ -900,8 +898,6 @@ LABEL_55:
       [(ICCameraFile *)self didChangeValueForKey:@"height"];
     }
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (ICCameraFile)initWithName:(id)name parentFolder:(id)folder device:(id)device
@@ -1171,23 +1167,21 @@ LABEL_28:
 
 - (void)requestThumbnail
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   device = [(ICCameraItem *)self device];
   delegate = [device delegate];
 
-  v10 = @"kCGImageSourceShouldCache";
-  v11[0] = MEMORY[0x1E695E118];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __32__ICCameraFile_requestThumbnail__block_invoke;
-  v8[3] = &unk_1E829CC58;
-  v8[4] = self;
-  v9 = delegate;
+  v9 = @"kCGImageSourceShouldCache";
+  v10[0] = MEMORY[0x1E695E118];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __32__ICCameraFile_requestThumbnail__block_invoke;
+  v7[3] = &unk_1E829CC58;
+  v7[4] = self;
+  v8 = delegate;
   v6 = delegate;
-  [(ICCameraFile *)self requestThumbnailDataWithOptions:v5 completion:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(ICCameraFile *)self requestThumbnailDataWithOptions:v5 completion:v7];
 }
 
 void __32__ICCameraFile_requestThumbnail__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1319,7 +1313,7 @@ LABEL_17:
 
 void __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) device];
   v3 = [v2 delegate];
 
@@ -1344,9 +1338,9 @@ void __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invok
       v11 = v6;
       v12 = v10;
       *buf = 136446466;
-      v52 = [v6 UTF8String];
-      v53 = 2114;
-      v54 = v9;
+      v51 = [v6 UTF8String];
+      v52 = 2114;
+      v53 = v9;
       _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
@@ -1358,27 +1352,27 @@ void __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invok
     __ICOSLogCreate();
     if (__ICLogTypeEnabled())
     {
-      v35 = [*(a1 + 32) name];
-      if ([v35 length] >= 0x15)
+      v34 = [*(a1 + 32) name];
+      if ([v34 length] >= 0x15)
       {
-        v36 = [v35 substringWithRange:{0, 18}];
-        v37 = [v36 stringByAppendingString:@".."];
+        v35 = [v34 substringWithRange:{0, 18}];
+        v36 = [v35 stringByAppendingString:@".."];
 
-        v35 = v37;
+        v34 = v36;
       }
 
-      v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<- recv thumb: Client Canceled Request"];
-      v39 = *v5;
+      v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<- recv thumb: Client Canceled Request"];
+      v38 = *v5;
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = v35;
-        v41 = v39;
-        v42 = [v35 UTF8String];
+        v39 = v34;
+        v40 = v38;
+        v41 = [v34 UTF8String];
         *buf = 136446466;
-        v52 = v42;
-        v53 = 2114;
-        v54 = v38;
-        _os_log_impl(&dword_1C6F19000, v41, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+        v51 = v41;
+        v52 = 2114;
+        v53 = v37;
+        _os_log_impl(&dword_1C6F19000, v40, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
 
@@ -1399,18 +1393,18 @@ void __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invok
     v19 = [v18 deviceManager];
     v20 = *(a1 + 32);
     v21 = [v20 device];
-    v43 = MEMORY[0x1E69E9820];
-    v44 = 3221225472;
-    v45 = __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invoke_172;
-    v46 = &unk_1E829CC80;
+    v42 = MEMORY[0x1E69E9820];
+    v43 = 3221225472;
+    v44 = __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invoke_172;
+    v45 = &unk_1E829CC80;
     v22 = v17;
-    v47 = v22;
+    v46 = v22;
     v23 = v16;
     v24 = *(a1 + 32);
-    v48 = v23;
-    v49 = v24;
-    v50 = *(a1 + 48);
-    [v19 getFileThumbnail:v20 fromDevice:v21 withOptions:v23 completion:&v43];
+    v47 = v23;
+    v48 = v24;
+    v49 = *(a1 + 48);
+    [v19 getFileThumbnail:v20 fromDevice:v21 withOptions:v23 completion:&v42];
 
     v25 = dispatch_time(0, 3000000000);
     if (dispatch_semaphore_wait(v22, v25))
@@ -1433,20 +1427,18 @@ void __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invok
         v32 = v30;
         v33 = [v26 UTF8String];
         *buf = 136446466;
-        v52 = v33;
-        v53 = 2114;
-        v54 = v29;
+        v51 = v33;
+        v52 = 2114;
+        v53 = v29;
         _os_log_impl(&dword_1C6F19000, v32, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invoke_172(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   dispatch_semaphore_signal(*(a1 + 32));
@@ -1532,16 +1524,14 @@ void __59__ICCameraFile_requestThumbnailDataWithOptions_completion___block_invok
       v25 = v19;
       v26 = v24;
       *buf = 136446466;
-      v29 = [v19 UTF8String];
-      v30 = 2114;
-      v31 = v23;
+      v28 = [v19 UTF8String];
+      v29 = 2114;
+      v30 = v23;
       _os_log_impl(&dword_1C6F19000, v26, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestThumbnailWithOptions:(id)options completion:(id)completion
@@ -1592,27 +1582,21 @@ void __31__ICCameraFile_requestMetadata__block_invoke_2(uint64_t a1)
   v2 = [*(a1 + 32) device];
   if (v2)
   {
-    v7 = v2;
+    v6 = v2;
     v3 = [*(a1 + 32) device];
     if ([v3 hasOpenSession])
     {
       v4 = *(a1 + 40);
 
-      if (!v4)
+      if (!v4 || (objc_opt_respondsToSelector() & 1) == 0)
       {
         return;
       }
 
       v5 = *(a1 + 40);
-      if ((objc_opt_respondsToSelector() & 1) == 0)
-      {
-        return;
-      }
-
-      v6 = *(a1 + 40);
-      v7 = [*(a1 + 32) device];
+      v6 = [*(a1 + 32) device];
       v3 = [*(a1 + 32) metadata];
-      [v6 cameraDevice:v7 didReceiveMetadata:v3 forItem:*(a1 + 32) error:*(a1 + 48)];
+      [v5 cameraDevice:v6 didReceiveMetadata:v3 forItem:*(a1 + 32) error:*(a1 + 48)];
     }
   }
 }
@@ -1701,7 +1685,7 @@ LABEL_16:
 
 void __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) device];
   v3 = [v2 delegate];
 
@@ -1726,9 +1710,9 @@ void __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_
       v11 = v6;
       v12 = v10;
       *buf = 136446466;
-      v48 = [v6 UTF8String];
-      v49 = 2114;
-      v50 = v9;
+      v47 = [v6 UTF8String];
+      v48 = 2114;
+      v49 = v9;
       _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
@@ -1740,33 +1724,33 @@ void __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_
     __ICOSLogCreate();
     if (__ICLogTypeEnabled())
     {
-      v34 = [*(a1 + 32) name];
-      if ([v34 length] >= 0x15)
+      v33 = [*(a1 + 32) name];
+      if ([v33 length] >= 0x15)
       {
-        v35 = [v34 substringWithRange:{0, 18}];
-        v36 = [v35 stringByAppendingString:@".."];
+        v34 = [v33 substringWithRange:{0, 18}];
+        v35 = [v34 stringByAppendingString:@".."];
 
-        v34 = v36;
+        v33 = v35;
       }
 
-      v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<- recv meta: Client Canceled Request"];
-      v38 = *v5;
+      v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<- recv meta: Client Canceled Request"];
+      v37 = *v5;
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = v34;
-        v40 = v38;
-        v41 = [v34 UTF8String];
+        v38 = v33;
+        v39 = v37;
+        v40 = [v33 UTF8String];
         *buf = 136446466;
-        v48 = v41;
-        v49 = 2114;
-        v50 = v37;
-        _os_log_impl(&dword_1C6F19000, v40, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+        v47 = v40;
+        v48 = 2114;
+        v49 = v36;
+        _os_log_impl(&dword_1C6F19000, v39, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
 
-    v42 = *(a1 + 48);
+    v41 = *(a1 + 48);
     v32 = [*(a1 + 32) metadata];
-    (*(v42 + 16))(v42, v32, v21);
+    (*(v41 + 16))(v41, v32, v21);
   }
 
   else
@@ -1777,16 +1761,16 @@ void __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_
     v18 = *(a1 + 32);
     v19 = [v18 device];
     v20 = *(a1 + 40);
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_invoke_205;
-    v43[3] = &unk_1E829CD48;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_invoke_205;
+    v42[3] = &unk_1E829CD48;
     v21 = v15;
     v22 = *(a1 + 32);
-    v44 = v21;
-    v45 = v22;
-    v46 = *(a1 + 48);
-    [v17 getFileMetadata:v18 fromDevice:v19 withOptions:v20 completion:v43];
+    v43 = v21;
+    v44 = v22;
+    v45 = *(a1 + 48);
+    [v17 getFileMetadata:v18 fromDevice:v19 withOptions:v20 completion:v42];
 
     v23 = dispatch_time(0, 3000000000);
     if (dispatch_semaphore_wait(v21, v23))
@@ -1809,22 +1793,20 @@ void __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_
         v30 = v28;
         v31 = [v24 UTF8String];
         *buf = 136446466;
-        v48 = v31;
-        v49 = 2114;
-        v50 = v27;
+        v47 = v31;
+        v48 = 2114;
+        v49 = v27;
         _os_log_impl(&dword_1C6F19000, v30, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
 
-    v32 = v44;
+    v32 = v43;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __64__ICCameraFile_requestMetadataDictionaryWithOptions_completion___block_invoke_205(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = a3;
   dispatch_semaphore_signal(v4);
@@ -1879,9 +1861,9 @@ LABEL_7:
       v17 = v11;
       v18 = v16;
       *buf = 136446466;
-      v23 = [v11 UTF8String];
-      v24 = 2114;
-      v25 = v15;
+      v22 = [v11 UTF8String];
+      v23 = 2114;
+      v24 = v15;
       _os_log_impl(&dword_1C6F19000, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
@@ -1889,8 +1871,6 @@ LABEL_7:
   v19 = *(a1 + 48);
   v20 = [*(a1 + 40) metadata];
   (*(v19 + 16))(v19, v20, v8);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestMetadataWithOptions:(id)options completion:(id)completion
@@ -1987,16 +1967,16 @@ LABEL_10:
 
 void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke(id *a1)
 {
-  v157 = *MEMORY[0x1E69E9840];
+  v156 = *MEMORY[0x1E69E9840];
   v2 = dispatch_semaphore_create(0);
   v3 = a1[4];
-  v150[0] = MEMORY[0x1E69E9820];
-  v150[1] = 3221225472;
-  v150[2] = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_2;
-  v150[3] = &unk_1E829C820;
+  v149[0] = MEMORY[0x1E69E9820];
+  v149[1] = 3221225472;
+  v149[2] = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_2;
+  v149[3] = &unk_1E829C820;
   dsema = v2;
-  v151 = dsema;
-  [v3 requestRefreshObjectHandleInfo:v150];
+  v150 = dsema;
+  [v3 requestRefreshObjectHandleInfo:v149];
   v4 = dispatch_time(0, 3000000000);
   dispatch_semaphore_wait(dsema, v4);
   if (!a1[5])
@@ -2010,7 +1990,7 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke(id 
     [v8 setTotalUnitCount:{objc_msgSend(a1[4], "fileSize")}];
   }
 
-  v112 = [a1[7] objectForKeyedSubscript:@"ICDownloadsDirectoryURL"];
+  v111 = [a1[7] objectForKeyedSubscript:@"ICDownloadsDirectoryURL"];
   v9 = [a1[7] objectForKeyedSubscript:@"ICSaveAsFilename"];
   v10 = v9;
   if (v9)
@@ -2025,14 +2005,14 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke(id 
 
   v12 = v11;
 
-  v113 = [a1[7] objectForKeyedSubscript:@"ICAppendedDuplicateNumber"];
-  v111 = [v12 stringByDeletingPathExtension];
-  v110 = [v12 pathExtension];
-  v106 = v12;
-  v108 = [a1[4] fileSize];
-  if (v113)
+  v112 = [a1[7] objectForKeyedSubscript:@"ICAppendedDuplicateNumber"];
+  v110 = [v12 stringByDeletingPathExtension];
+  v109 = [v12 pathExtension];
+  v105 = v12;
+  v107 = [a1[4] fileSize];
+  if (v112)
   {
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %d.%@", v111, objc_msgSend(v113, "intValue"), v110];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %d.%@", v110, objc_msgSend(v112, "intValue"), v109];
 
     __ICOSLogCreate();
     v14 = [a1[4] name];
@@ -2044,7 +2024,7 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke(id 
       v14 = v16;
     }
 
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Main asset filename is already on disk, appending %d", objc_msgSend(v113, "intValue")];
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Main asset filename is already on disk, appending %d", objc_msgSend(v112, "intValue")];
     v18 = *MEMORY[0x1E69A8B08];
     if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_DEFAULT))
     {
@@ -2063,11 +2043,11 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke(id 
 
   if (a1[5])
   {
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", v111, v110];
-    v14 = v106;
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", v110, v109];
+    v14 = v105;
 LABEL_14:
 
-    v22 = [v112 path];
+    v22 = [v111 path];
     v23 = [v22 stringByAppendingPathComponent:v13];
     v24 = v23;
     v25 = open([v23 UTF8String], 2562, 33152);
@@ -2075,12 +2055,12 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v113 = 0;
+  v112 = 0;
   v81 = 1;
-  v13 = v106;
+  v13 = v105;
   while (1)
   {
-    v82 = [v112 path];
+    v82 = [v111 path];
     v83 = [v82 stringByAppendingPathComponent:v13];
     v84 = v83;
     v25 = open([v83 UTF8String], 2562, 33152);
@@ -2092,7 +2072,7 @@ LABEL_14:
       break;
     }
 
-    v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %d.%@", v111, v81, v110];
+    v87 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %d.%@", v110, v81, v109];
 
     __ICOSLogCreate();
     v88 = [a1[4] name];
@@ -2122,14 +2102,14 @@ LABEL_14:
 
     v81 = (v81 + 1);
     v13 = v87;
-    v113 = v96;
+    v112 = v96;
   }
 
 LABEL_15:
-  v26 = [v112 path];
-  v105 = [v26 stringByAppendingPathComponent:v13];
+  v26 = [v111 path];
+  v104 = [v26 stringByAppendingPathComponent:v13];
 
-  if (!v13 || !v108)
+  if (!v13 || !v107)
   {
     __ICOSLogCreate();
     if ([@"download fail" length] < 0x15)
@@ -2143,7 +2123,7 @@ LABEL_15:
       v52 = [v51 stringByAppendingString:@".."];
     }
 
-    v72 = [MEMORY[0x1E696AEC0] stringWithFormat:@"filename: %@, fileSize: %llu", v13, v108];
+    v72 = [MEMORY[0x1E696AEC0] stringWithFormat:@"filename: %@, fileSize: %llu", v13, v107];
     v73 = *MEMORY[0x1E69A8B08];
     if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_DEFAULT))
     {
@@ -2168,8 +2148,8 @@ LABEL_15:
     goto LABEL_72;
   }
 
-  v27 = v105;
-  v104 = [v105 fileSystemRepresentation];
+  v27 = v104;
+  v103 = [v104 fileSystemRepresentation];
   __ICOSLogCreate();
   if (v25 == -1)
   {
@@ -2184,7 +2164,7 @@ LABEL_15:
       v80 = [v79 stringByAppendingString:@".."];
     }
 
-    v97 = [MEMORY[0x1E696AEC0] stringWithFormat:@"filename: %@, fileSize: %llu", v13, v108];
+    v97 = [MEMORY[0x1E696AEC0] stringWithFormat:@"filename: %@, fileSize: %llu", v13, v107];
     v98 = *MEMORY[0x1E69A8B08];
     if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_DEFAULT))
     {
@@ -2220,7 +2200,7 @@ LABEL_72:
     v28 = v30;
   }
 
-  v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Downloading to: %s", v104];
+  v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Downloading to: %s", v103];
   v32 = *MEMORY[0x1E69A8B08];
   if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_DEFAULT))
   {
@@ -2237,15 +2217,15 @@ LABEL_72:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v156 = v108;
-  v146 = 0;
-  v147 = &v146;
-  v148 = 0x2020000000;
-  v149 = 0;
-  v145[0] = 0;
-  v145[1] = v145;
-  v145[2] = 0x2020000000;
-  v145[3] = 0;
+  v155 = v107;
+  v145 = 0;
+  v146 = &v145;
+  v147 = 0x2020000000;
+  v148 = 0;
+  v144[0] = 0;
+  v144[1] = v144;
+  v144[2] = 0x2020000000;
+  v144[3] = 0;
   v36 = [a1[4] device];
   if ([v36 isAppleDevice])
   {
@@ -2257,20 +2237,20 @@ LABEL_72:
     v37 = 0x400000;
   }
 
-  v141 = 0;
-  v142 = &v141;
-  v143 = 0x2020000000;
-  v144 = 0;
-  v137 = 0;
-  v138 = &v137;
-  v139 = 0x2020000000;
   v140 = 0;
+  v141 = &v140;
+  v142 = 0x2020000000;
+  v143 = 0;
+  v136 = 0;
+  v137 = &v136;
+  v138 = 0x2020000000;
+  v139 = 0;
   [a1[4] requestOpenStreamData];
   info = 0;
   mach_timebase_info(&info);
   _gBenchmarkStartMachTime = 0;
   *&_gBenchmarkStartMachTime = mach_absolute_time();
-  while (*(*&buf[8] + 24) >= 1 && (v142[3] & 1) == 0 && ([a1[6] isCancelled] & 1) == 0)
+  while (*(*&buf[8] + 24) >= 1 && (v141[3] & 1) == 0 && ([a1[6] isCancelled] & 1) == 0)
   {
     v38 = objc_autoreleasePoolPush();
     if (v37 >= *(*&buf[8] + 24))
@@ -2293,43 +2273,43 @@ LABEL_72:
       v40 = v42;
     }
 
-    v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requesting: %llu at offset: %llu", v39, v147[3]];
+    v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requesting: %llu at offset: %llu", v39, v146[3]];
     v44 = *MEMORY[0x1E69A8B08];
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       v45 = v40;
       v46 = [v40 UTF8String];
-      *v152 = 136446466;
-      *&v152[4] = v46;
-      v153 = 2114;
-      v154 = v43;
-      _os_log_impl(&dword_1C6F19000, v44, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v152, 0x16u);
+      *v151 = 136446466;
+      *&v151[4] = v46;
+      v152 = 2114;
+      v153 = v43;
+      _os_log_impl(&dword_1C6F19000, v44, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v151, 0x16u);
     }
 
     v47 = dispatch_semaphore_create(0);
-    *v152 = 0;
-    mach_timebase_info(v152);
+    *v151 = 0;
+    mach_timebase_info(v151);
     _gBenchmarkStartMachTime = 0;
     *&_gBenchmarkStartMachTime = mach_absolute_time();
     v48 = a1[4];
-    v49 = v147[3];
-    v125[0] = MEMORY[0x1E69E9820];
-    v125[1] = 3221225472;
-    v125[2] = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_248;
-    v125[3] = &unk_1E829CDC0;
-    v129 = &v137;
-    v125[4] = v48;
-    v135 = v25;
-    v130 = &v141;
-    v131 = v145;
-    v126 = a1[5];
-    v127 = a1[6];
-    v132 = buf;
-    v133 = &v146;
-    v134 = v108;
+    v49 = v146[3];
+    v124[0] = MEMORY[0x1E69E9820];
+    v124[1] = 3221225472;
+    v124[2] = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_248;
+    v124[3] = &unk_1E829CDC0;
+    v128 = &v136;
+    v124[4] = v48;
+    v134 = v25;
+    v129 = &v140;
+    v130 = v144;
+    v125 = a1[5];
+    v126 = a1[6];
+    v131 = buf;
+    v132 = &v145;
+    v133 = v107;
     v50 = v47;
-    v128 = v50;
-    [v48 requestStreamDataAtOffset:v49 length:v39 completion:v125];
+    v127 = v50;
+    [v48 requestStreamDataAtOffset:v49 length:v39 completion:v124];
     dispatch_semaphore_wait(v50, 0xFFFFFFFFFFFFFFFFLL);
 
     objc_autoreleasePoolPop(v38);
@@ -2338,7 +2318,7 @@ LABEL_72:
   v53 = 0.0;
   if (!a1[5])
   {
-    v54 = v138[3];
+    v54 = v137[3];
     numer = info.numer;
     denom = info.denom;
     v57 = *(*&buf[8] + 24);
@@ -2352,18 +2332,18 @@ LABEL_72:
       v58 = v60;
     }
 
-    v53 = -(v57 - ((1000.0 / (((v54 * numer) / denom) / 1000000.0)) * v108)) * 0.000000953674316;
+    v53 = -(v57 - ((1000.0 / (((v54 * numer) / denom) / 1000000.0)) * v107)) * 0.000000953674316;
     v61 = [MEMORY[0x1E696AEC0] stringWithFormat:@"icDatarate: %07.2f", *&v53];
     v62 = *MEMORY[0x1E69A8B08];
     if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
       v63 = v58;
       v64 = [v58 UTF8String];
-      *v152 = 136446466;
-      *&v152[4] = v64;
-      v153 = 2114;
-      v154 = v61;
-      _os_log_impl(&dword_1C6F19000, v62, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v152, 0x16u);
+      *v151 = 136446466;
+      *&v151[4] = v64;
+      v152 = 2114;
+      v153 = v61;
+      _os_log_impl(&dword_1C6F19000, v62, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v151, 0x16u);
     }
   }
 
@@ -2374,39 +2354,37 @@ LABEL_72:
   block[1] = 3221225472;
   block[2] = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_283;
   block[3] = &unk_1E829CE08;
-  v121 = &v141;
-  v122 = v104;
+  v120 = &v140;
+  v121 = v103;
   v67 = a1[6];
   v68 = a1[5];
-  v123 = v53;
-  v109 = a1[4];
+  v122 = v53;
+  v108 = a1[4];
   v69 = a1[7];
-  *&v70 = v109;
+  *&v70 = v108;
   *(&v70 + 1) = v69;
   *&v71 = v67;
   *(&v71 + 1) = v68;
-  v115 = v71;
-  v116 = v70;
-  v124 = v25;
-  v117 = v113;
-  v118 = v112;
-  v120 = a1[8];
-  v119 = v13;
+  v114 = v71;
+  v115 = v70;
+  v123 = v25;
+  v116 = v112;
+  v117 = v111;
+  v119 = a1[8];
+  v118 = v13;
   dispatch_async(v66, block);
 
-  _Block_object_dispose(&v137, 8);
-  _Block_object_dispose(&v141, 8);
-  _Block_object_dispose(v145, 8);
-  _Block_object_dispose(&v146, 8);
+  _Block_object_dispose(&v136, 8);
+  _Block_object_dispose(&v140, 8);
+  _Block_object_dispose(v144, 8);
+  _Block_object_dispose(&v145, 8);
   _Block_object_dispose(buf, 8);
 LABEL_73:
-
-  v103 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_248(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   *(*(*(a1 + 64) + 8) + 24) = ((mach_absolute_time() - *&_gBenchmarkStartMachTime) + *(*(*(a1 + 64) + 8) + 24));
   v4 = [v3 objectForKeyedSubscript:@"ICReadData"];
@@ -2431,9 +2409,9 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_248
     v13 = v7;
     v14 = v12;
     *buf = 136446466;
-    v50 = [v7 UTF8String];
-    v51 = 2114;
-    v52 = v10;
+    v48 = [v7 UTF8String];
+    v49 = 2114;
+    v50 = v10;
     _os_log_impl(&dword_1C6F19000, v14, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
@@ -2442,19 +2420,19 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_248
     v15 = [*(a1 + 32) device];
     v16 = [v15 deviceWriteQueue];
     block = MEMORY[0x1E69E9820];
-    v39 = 3221225472;
-    v40 = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_258;
-    v41 = &unk_1E829CD98;
-    v42 = v3;
-    v48 = *(a1 + 112);
+    v37 = 3221225472;
+    v38 = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_258;
+    v39 = &unk_1E829CD98;
+    v40 = v3;
+    v46 = *(a1 + 112);
     v17 = v4;
     v18 = *(a1 + 32);
     v19 = *(a1 + 40);
-    v43 = v17;
-    v44 = v18;
-    v47 = *(a1 + 72);
-    v45 = v19;
-    v46 = *(a1 + 48);
+    v41 = v17;
+    v42 = v18;
+    v45 = *(a1 + 72);
+    v43 = v19;
+    v44 = *(a1 + 48);
     dispatch_async(v16, &block);
 
     *(*(*(a1 + 88) + 8) + 24) -= v6;
@@ -2471,19 +2449,18 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_248
         v20 = v22;
       }
 
-      v23 = *(*(*(a1 + 96) + 8) + 24);
-      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"+ Request @ Offset: %lld, Remaining: %lld", v23, *(*(*(a1 + 88) + 8) + 24), block, v39, v40, v41, v42, v43, v44, v45];
-      v25 = *v11;
+      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"+ Request @ Offset: %lld, Remaining: %lld", *(*(*(a1 + 96) + 8) + 24), *(*(*(a1 + 88) + 8) + 24), block, v37, v38, v39, v40, v41, v42, v43];
+      v24 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = v20;
-        v27 = v25;
-        v28 = [v20 UTF8String];
+        v25 = v20;
+        v26 = v24;
+        v27 = [v20 UTF8String];
         *buf = 136446466;
-        v50 = v28;
-        v51 = 2114;
-        v52 = v24;
-        _os_log_impl(&dword_1C6F19000, v27, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+        v48 = v27;
+        v49 = 2114;
+        v50 = v23;
+        _os_log_impl(&dword_1C6F19000, v26, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
   }
@@ -2491,40 +2468,38 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_248
   else
   {
     __ICOSLogCreate();
-    v29 = [*(a1 + 32) name];
-    if ([v29 length] >= 0x15)
+    v28 = [*(a1 + 32) name];
+    if ([v28 length] >= 0x15)
     {
-      v30 = [v29 substringWithRange:{0, 18}];
-      v31 = [v30 stringByAppendingString:@".."];
+      v29 = [v28 substringWithRange:{0, 18}];
+      v30 = [v29 stringByAppendingString:@".."];
 
-      v29 = v31;
+      v28 = v30;
     }
 
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Downloading Failed - Missing File Data"];
-    v33 = *v11;
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Downloading Failed - Missing File Data"];
+    v32 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = v29;
-      v35 = v33;
-      v36 = [v29 UTF8String];
+      v33 = v28;
+      v34 = v32;
+      v35 = [v28 UTF8String];
       *buf = 136446466;
-      v50 = v36;
-      v51 = 2114;
-      v52 = v32;
-      _os_log_impl(&dword_1C6F19000, v35, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v48 = v35;
+      v49 = 2114;
+      v50 = v31;
+      _os_log_impl(&dword_1C6F19000, v34, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
     *(*(*(a1 + 72) + 8) + 24) = 1;
   }
 
   dispatch_semaphore_signal(*(a1 + 56));
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_258(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"ICBufferOffset"];
   v3 = [v2 unsignedLongLongValue];
 
@@ -2553,9 +2528,9 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_258
         v21 = v16;
         v22 = v20;
         *buf = 136446466;
-        v31 = [v16 UTF8String];
-        v32 = 2114;
-        v33 = v19;
+        v30 = [v16 UTF8String];
+        v31 = 2114;
+        v32 = v19;
         _os_log_impl(&dword_1C6F19000, v22, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
       }
     }
@@ -2584,9 +2559,9 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_258
       v14 = v9;
       v15 = v13;
       *buf = 136446466;
-      v31 = [v9 UTF8String];
-      v32 = 2114;
-      v33 = v12;
+      v30 = [v9 UTF8String];
+      v31 = 2114;
+      v32 = v12;
       _os_log_impl(&dword_1C6F19000, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
@@ -2598,19 +2573,17 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_258
     block[1] = 3221225472;
     block[2] = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_268;
     block[3] = &unk_1E829CC30;
-    v27 = *(a1 + 64);
-    v28 = v23;
-    v29 = *(a1 + 48);
+    v26 = *(a1 + 64);
+    v27 = v23;
+    v28 = *(a1 + 48);
     v24 = v23;
     ICPerformBlockOnMainThread(block);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_268(id *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [a1[4] setCompletedUnitCount:{objc_msgSend(a1[5], "unsignedLongLongValue")}];
   __ICOSLogCreate();
   v2 = [a1[6] name];
@@ -2631,9 +2604,9 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_268
     v9 = v2;
     v10 = v8;
     *buf = 136446466;
-    v15 = [v2 UTF8String];
-    v16 = 2114;
-    v17 = v7;
+    v14 = [v2 UTF8String];
+    v15 = 2114;
+    v16 = v7;
     _os_log_impl(&dword_1C6F19000, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
@@ -2644,13 +2617,11 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_268
   {
     [v12 didReceiveDownloadProgressForFile:a1[6] downloadedBytes:objc_msgSend(a1[5] maxBytes:{"unsignedLongLongValue"), objc_msgSend(a1[6], "fileSize")}];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_283(uint64_t a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 96) + 8) + 24) == 1)
   {
     unlink(*(a1 + 104));
@@ -2744,9 +2715,9 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_283
               v26 = v24;
               v27 = [(__CFString *)v20 UTF8String];
               __buf = 136446466;
-              v53 = v27;
-              v54 = 2114;
-              v55 = v23;
+              v51 = v27;
+              v52 = 2114;
+              v53 = v23;
               _os_log_impl(&dword_1C6F19000, v26, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &__buf, 0x16u);
             }
           }
@@ -2772,9 +2743,9 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_283
               v31 = v29;
               v32 = [(__CFString *)v22 UTF8String];
               __buf = 136446466;
-              v53 = v32;
-              v54 = 2114;
-              v55 = v28;
+              v51 = v32;
+              v52 = 2114;
+              v53 = v28;
               _os_log_impl(&dword_1C6F19000, v31, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &__buf, 0x16u);
             }
 
@@ -2812,13 +2783,12 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_283
       block[2] = __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_299;
       block[3] = &unk_1E829CC30;
       block[4] = *(a1 + 48);
-      v49 = *(a1 + 64);
-      v50 = *(a1 + 72);
+      v47 = *(a1 + 64);
+      v48 = *(a1 + 72);
       ICPerformBlockOnMainThread(block);
     }
   }
 
-  v41 = *(a1 + 80);
   (*(*(a1 + 88) + 16))();
   if (*(a1 + 40))
   {
@@ -2830,8 +2800,8 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_283
 
   else
   {
-    v42 = [*(a1 + 48) device];
-    [v42 setDownloadProgress:0];
+    v41 = [*(a1 + 48) device];
+    [v41 setDownloadProgress:0];
 
     if (v2)
     {
@@ -2839,45 +2809,44 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_283
     }
   }
 
-  v43 = [*(a1 + 56) objectForKeyedSubscript:@"ICDeleteAfterSuccessfulDownload"];
-  v44 = v43;
-  if (v43 && [v43 BOOLValue])
+  v42 = [*(a1 + 56) objectForKeyedSubscript:@"ICDeleteAfterSuccessfulDownload"];
+  v43 = v42;
+  if (v42 && [v42 BOOLValue])
   {
-    v45 = [*(a1 + 48) device];
-    v51 = *(a1 + 48);
-    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
-    [v45 requestDeleteFiles:v46];
+    v44 = [*(a1 + 48) device];
+    v49 = *(a1 + 48);
+    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+    [v44 requestDeleteFiles:v45];
   }
 
 LABEL_45:
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_299(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = [*(a1 + 32) sidecarFiles];
-  v2 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = MEMORY[0x1E695E118];
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = [MEMORY[0x1E695DF90] dictionary];
         v9 = v8;
         v10 = *(a1 + 40);
@@ -2894,18 +2863,16 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_299
       }
 
       while (v3 != v6);
-      v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v3);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_2_300(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = a2;
   __ICOSLogCreate();
   if (__ICLogTypeEnabled())
@@ -2925,15 +2892,13 @@ void __54__ICCameraFile_requestDownloadWithOptions_completion___block_invoke_2_3
     {
       v8 = v3;
       v9 = v7;
-      v11 = 136446466;
-      v12 = [v3 UTF8String];
-      v13 = 2114;
-      v14 = v6;
-      _os_log_impl(&dword_1C6F19000, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v11, 0x16u);
+      v10 = 136446466;
+      v11 = [v3 UTF8String];
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_1C6F19000, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestReadDataAtOffset:(off_t)offset length:(off_t)length completion:(void *)completion
@@ -2999,7 +2964,7 @@ LABEL_9:
 
 void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) fileSize];
   v3 = *(a1 + 56);
   if (v3 < 0 || (v4 = v2, v3 >= v2) || *(a1 + 64) + v3 > v2)
@@ -3030,57 +2995,55 @@ void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke
 
     v13 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.ImageCaptureCore" code:-21448 userInfo:0];
     (*(*(a1 + 48) + 16))();
+LABEL_9:
+
+    return;
   }
 
-  else
+  v13 = [MEMORY[0x1E695DF88] dataWithCapacity:?];
+  if (v13)
   {
-    v13 = [MEMORY[0x1E695DF88] dataWithCapacity:?];
-    if (!v13)
-    {
-      goto LABEL_10;
-    }
-
     __ICOSLogCreate();
-    v15 = [*(a1 + 32) name];
-    if ([v15 length] >= 0x15)
+    v14 = [*(a1 + 32) name];
+    if ([v14 length] >= 0x15)
     {
-      v16 = [v15 substringWithRange:{0, 18}];
-      v17 = [v16 stringByAppendingString:@".."];
+      v15 = [v14 substringWithRange:{0, 18}];
+      v16 = [v15 stringByAppendingString:@".."];
 
-      v15 = v17;
+      v14 = v16;
     }
 
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Downloading to data buffer: %llu", *(a1 + 64)];
-    v19 = *MEMORY[0x1E69A8B08];
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Downloading to data buffer: %llu", *(a1 + 64)];
+    v18 = *MEMORY[0x1E69A8B08];
     if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = v15;
-      v21 = v19;
+      v19 = v14;
+      v20 = v18;
       *buf = 136446466;
-      *&buf[4] = [v15 UTF8String];
+      *&buf[4] = [v14 UTF8String];
       *&buf[12] = 2114;
-      *&buf[14] = v18;
-      _os_log_impl(&dword_1C6F19000, v21, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      *&buf[14] = v17;
+      _os_log_impl(&dword_1C6F19000, v20, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v63 = 0;
-    v64 = &v63;
-    v22 = *(a1 + 56);
-    v71 = *(a1 + 64);
-    v65 = 0x2020000000;
-    v66 = v22;
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x2020000000;
     v62 = 0;
-    v55 = 0;
-    v56 = &v55;
-    v57 = 0x2020000000;
+    v63 = &v62;
+    v21 = *(a1 + 56);
+    v70 = *(a1 + 64);
+    v64 = 0x2020000000;
+    v65 = v21;
     v58 = 0;
-    if (v71 > 0x200000)
+    v59 = &v58;
+    v60 = 0x2020000000;
+    v61 = 0;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x2020000000;
+    v57 = 0;
+    if (v70 > 0x200000)
     {
       [*(a1 + 32) requestOpenStreamData];
     }
@@ -3089,80 +3052,80 @@ void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke
     mach_timebase_info(&info);
     _gBenchmarkStartMachTime = 0;
     *&_gBenchmarkStartMachTime = mach_absolute_time();
-    v23 = *&buf[8];
-    v24 = *(*&buf[8] + 24);
-    if (v24 >= 1)
+    v22 = *&buf[8];
+    v23 = *(*&buf[8] + 24);
+    if (v23 >= 1)
     {
-      while ((v60[3] & 1) == 0)
+      while ((v59[3] & 1) == 0)
       {
-        v25 = [*(a1 + 40) isCancelled];
-        v23 = *&buf[8];
-        if (v25)
+        v24 = [*(a1 + 40) isCancelled];
+        v22 = *&buf[8];
+        if (v24)
         {
           break;
         }
 
-        v26 = *(*&buf[8] + 24) >= 0x200000 ? 0x200000 : *(*&buf[8] + 24);
-        v27 = dispatch_semaphore_create(0);
-        *v67 = 0;
-        mach_timebase_info(v67);
+        v25 = *(*&buf[8] + 24) >= 0x200000 ? 0x200000 : *(*&buf[8] + 24);
+        v26 = dispatch_semaphore_create(0);
+        *v66 = 0;
+        mach_timebase_info(v66);
         _gBenchmarkStartMachTime = 0;
         *&_gBenchmarkStartMachTime = mach_absolute_time();
-        v28 = *(a1 + 32);
-        v29 = v64[3];
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke_320;
-        v45[3] = &unk_1E829CE58;
-        v49 = &v55;
-        v45[4] = v28;
-        v46 = v13;
-        v50 = buf;
-        v51 = &v63;
-        v30 = *(a1 + 40);
-        v31 = *(a1 + 56);
-        v47 = v30;
-        v52 = &v59;
-        v53 = v31;
-        v32 = v27;
-        v48 = v32;
-        [v28 requestStreamDataAtOffset:v29 length:v26 completion:v45];
-        dispatch_semaphore_wait(v32, 0xFFFFFFFFFFFFFFFFLL);
+        v27 = *(a1 + 32);
+        v28 = v63[3];
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke_320;
+        v44[3] = &unk_1E829CE58;
+        v48 = &v54;
+        v44[4] = v27;
+        v45 = v13;
+        v49 = buf;
+        v50 = &v62;
+        v29 = *(a1 + 40);
+        v30 = *(a1 + 56);
+        v46 = v29;
+        v51 = &v58;
+        v52 = v30;
+        v31 = v26;
+        v47 = v31;
+        [v27 requestStreamDataAtOffset:v28 length:v25 completion:v44];
+        dispatch_semaphore_wait(v31, 0xFFFFFFFFFFFFFFFFLL);
 
-        v23 = *&buf[8];
+        v22 = *&buf[8];
         if (*(*&buf[8] + 24) <= 0)
         {
           break;
         }
       }
 
-      v24 = *(v23 + 24);
+      v23 = *(v22 + 24);
     }
 
-    v33 = v56[3];
+    v32 = v55[3];
     numer = info.numer;
     denom = info.denom;
     __ICOSLogCreate();
-    v36 = [*(a1 + 32) name];
-    if ([v36 length] >= 0x15)
+    v35 = [*(a1 + 32) name];
+    if ([v35 length] >= 0x15)
     {
-      v37 = [v36 substringWithRange:{0, 18}];
-      v38 = [v37 stringByAppendingString:@".."];
+      v36 = [v35 substringWithRange:{0, 18}];
+      v37 = [v36 stringByAppendingString:@".."];
 
-      v36 = v38;
+      v35 = v37;
     }
 
-    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"icDatarate: %07.2f", -(v24 - ((1000.0 / (((v33 * numer) / denom) / 1000000.0)) * v4)) * 0.000000953674316];
-    v40 = *MEMORY[0x1E69A8B08];
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"icDatarate: %07.2f", -(v23 - ((1000.0 / (((v32 * numer) / denom) / 1000000.0)) * v4)) * 0.000000953674316];
+    v39 = *MEMORY[0x1E69A8B08];
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = v36;
-      v42 = [v36 UTF8String];
-      *v67 = 136446466;
-      *&v67[4] = v42;
-      v68 = 2114;
-      v69 = v39;
-      _os_log_impl(&dword_1C6F19000, v40, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v67, 0x16u);
+      v40 = v35;
+      v41 = [v35 UTF8String];
+      *v66 = 136446466;
+      *&v66[4] = v41;
+      v67 = 2114;
+      v68 = v38;
+      _os_log_impl(&dword_1C6F19000, v39, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", v66, 0x16u);
     }
 
     if (*(a1 + 64) > 0x200000)
@@ -3170,38 +3133,36 @@ void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke
       [*(a1 + 32) requestCloseStreamData];
     }
 
-    if (*(v60 + 24) == 1)
+    if (*(v59 + 24) == 1)
     {
-      v43 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.ImageCaptureCore" code:-21448 userInfo:0];
+      v42 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.ImageCaptureCore" code:-21448 userInfo:0];
     }
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
     if ([*(a1 + 40) isCancelled])
     {
-      v44 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.ImageCaptureCore" code:-9937 userInfo:0];
+      v43 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.ImageCaptureCore" code:-9937 userInfo:0];
 
-      v43 = v44;
+      v42 = v43;
     }
 
     (*(*(a1 + 48) + 16))();
 
-    _Block_object_dispose(&v55, 8);
-    _Block_object_dispose(&v59, 8);
-    _Block_object_dispose(&v63, 8);
+    _Block_object_dispose(&v54, 8);
+    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v62, 8);
     _Block_object_dispose(buf, 8);
+    goto LABEL_9;
   }
-
-LABEL_10:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke_320(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   *(*(*(a1 + 64) + 8) + 24) = ((mach_absolute_time() - *&_gBenchmarkStartMachTime) + *(*(*(a1 + 64) + 8) + 24));
   v4 = [v3 objectForKeyedSubscript:@"ICReadData"];
@@ -3243,9 +3204,9 @@ void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke
       v17 = v11;
       v18 = v16;
       *buf = 136446466;
-      v35 = [v11 UTF8String];
-      v36 = 2114;
-      v37 = v14;
+      v34 = [v11 UTF8String];
+      v35 = 2114;
+      v36 = v14;
       _os_log_impl(&dword_1C6F19000, v18, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -3278,9 +3239,9 @@ void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke
       v31 = v29;
       v32 = [v21 UTF8String];
       *buf = 136446466;
-      v35 = v32;
-      v36 = 2114;
-      v37 = v28;
+      v34 = v32;
+      v35 = 2114;
+      v36 = v28;
       _os_log_impl(&dword_1C6F19000, v31, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
@@ -3291,8 +3252,6 @@ void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke
   }
 
   dispatch_semaphore_signal(*(a1 + 56));
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestCloseStreamData
@@ -3314,7 +3273,7 @@ void __58__ICCameraFile_requestReadDataAtOffset_length_completion___block_invoke
 
 void __38__ICCameraFile_requestCloseStreamData__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = [a3 objectForKeyedSubscript:@"errCode"];
   v5 = [v4 intValue];
 
@@ -3336,15 +3295,13 @@ void __38__ICCameraFile_requestCloseStreamData__block_invoke(uint64_t a1, uint64
     {
       v11 = v6;
       v12 = v10;
-      v14 = 136446466;
-      v15 = [v6 UTF8String];
-      v16 = 2114;
-      v17 = v9;
-      _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v14, 0x16u);
+      v13 = 136446466;
+      v14 = [v6 UTF8String];
+      v15 = 2114;
+      v16 = v9;
+      _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestOpenStreamData
@@ -3371,7 +3328,7 @@ void __38__ICCameraFile_requestCloseStreamData__block_invoke(uint64_t a1, uint64
 
 intptr_t __37__ICCameraFile_requestOpenStreamData__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = [a3 objectForKeyedSubscript:@"errCode"];
   v5 = [v4 intValue];
 
@@ -3393,17 +3350,15 @@ intptr_t __37__ICCameraFile_requestOpenStreamData__block_invoke(uint64_t a1, uin
     {
       v11 = v6;
       v12 = v10;
-      v15 = 136446466;
-      v16 = [v6 UTF8String];
-      v17 = 2114;
-      v18 = v9;
-      _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v15, 0x16u);
+      v14 = 136446466;
+      v15 = [v6 UTF8String];
+      v16 = 2114;
+      v17 = v9;
+      _os_log_impl(&dword_1C6F19000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &v14, 0x16u);
     }
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 - (void)requestStreamDataAtOffset:(int64_t)offset length:(int64_t)length completion:(id)completion

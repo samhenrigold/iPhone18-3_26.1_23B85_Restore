@@ -87,16 +87,14 @@
   {
     if (arg)
     {
-      v6 = [NSNumber numberWithInt:atoi(arg)];
-      requestedTime = self->_requestedTime;
-      self->_requestedTime = v6;
+      self->_requestedTime = [NSNumber numberWithInt:atoi(arg)];
 
       _objc_release_x1();
     }
 
     else
     {
-      v8 = self->_requestedTime;
+      requestedTime = self->_requestedTime;
       self->_requestedTime = 0;
     }
   }
@@ -140,7 +138,7 @@
       localizedAdditionalDescription = [v13 localizedAdditionalDescription];
       v19 = [localizedAdditionalDescription length];
 
-      [v13 localizedDescription];
+      objc_msgSend_localizedDescription(v13);
       if (v19)
         v20 = {;
         localizedAdditionalDescription2 = [v13 localizedAdditionalDescription];
@@ -303,58 +301,57 @@ LABEL_14:
   [queryCopy _setExternalDocumentsBundleIdentifier:0];
   [queryCopy setOperationQueue:v10];
   objc_storeStrong(&self->_currentWatchedQuery, query);
-  v41[0] = NSMetadataUbiquitousItemDownloadingStatusNotDownloaded;
-  v41[1] = NSMetadataUbiquitousItemDownloadingStatusDownloaded;
-  v42[0] = @"not downloaded";
-  v42[1] = @"server edit to download";
-  v11 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:2];
-  v39[0] = NSMetadataUbiquitousSharedItemPermissionsReadOnly;
-  v39[1] = NSMetadataUbiquitousSharedItemPermissionsReadWrite;
-  v40[0] = @"r";
-  v40[1] = @"rw";
-  v12 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:2];
+  v40[0] = NSMetadataUbiquitousItemDownloadingStatusNotDownloaded;
+  v40[1] = NSMetadataUbiquitousItemDownloadingStatusDownloaded;
+  v41[0] = @"not downloaded";
+  v41[1] = @"server edit to download";
+  v11 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:2];
+  v38[0] = NSMetadataUbiquitousSharedItemPermissionsReadOnly;
+  v38[1] = NSMetadataUbiquitousSharedItemPermissionsReadWrite;
+  v39[0] = @"r";
+  v39[1] = @"rw";
+  v12 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
   v13 = +[NSDate date];
   startDate = self->_startDate;
   self->_startDate = v13;
 
   fileSystemRepresentation = [pathCopy fileSystemRepresentation];
-  scopes = self->_scopes;
-  v17 = BRCPrettyPrintBitmap();
-  [v9 write:{"observing in %s for the %s scope(s)\n", fileSystemRepresentation, objc_msgSend(v17, "UTF8String")}];
+  v16 = BRCPrettyPrintBitmap();
+  [v9 write:{"observing in %s for the %s scope(s)\n", fileSystemRepresentation, objc_msgSend(v16, "UTF8String")}];
 
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = sub_100006A14;
-  v34[3] = &unk_100024F78;
-  v18 = queryCopy;
-  v34[4] = v18;
-  v19 = v9;
-  v34[5] = v19;
-  v34[6] = self;
-  v34[7] = pathCopy;
-  v34[8] = v11;
-  v34[9] = v12;
-  v20 = objc_retainBlock(v34);
-  v21 = +[NSNotificationCenter defaultCenter];
   v33[0] = _NSConcreteStackBlock;
   v33[1] = 3221225472;
-  v33[2] = sub_1000078C0;
-  v33[3] = &unk_100024FA0;
-  v22 = v20;
-  v33[4] = v22;
-  v23 = [v21 addObserverForName:NSMetadataQueryDidUpdateNotification object:v18 queue:v10 usingBlock:v33];
-
-  v24 = +[NSNotificationCenter defaultCenter];
+  v33[2] = sub_100006A14;
+  v33[3] = &unk_100024F78;
+  v17 = queryCopy;
+  v33[4] = v17;
+  v18 = v9;
+  v33[5] = v18;
+  v33[6] = self;
+  v33[7] = pathCopy;
+  v33[8] = v11;
+  v33[9] = v12;
+  v19 = objc_retainBlock(v33);
+  v20 = +[NSNotificationCenter defaultCenter];
   v32[0] = _NSConcreteStackBlock;
   v32[1] = 3221225472;
-  v32[2] = sub_100007920;
-  v32[3] = &unk_100024FC8;
-  v32[4] = self;
-  v32[6] = v22;
-  v32[5] = v19;
-  v25 = [v24 addObserverForName:NSMetadataQueryDidFinishGatheringNotification object:v18 queue:v10 usingBlock:v32];
+  v32[2] = sub_1000078C0;
+  v32[3] = &unk_100024FA0;
+  v21 = v19;
+  v32[4] = v21;
+  v22 = [v20 addObserverForName:NSMetadataQueryDidUpdateNotification object:v17 queue:v10 usingBlock:v32];
 
-  if (![v18 startQuery])
+  v23 = +[NSNotificationCenter defaultCenter];
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100007920;
+  v31[3] = &unk_100024FC8;
+  v31[4] = self;
+  v31[6] = v21;
+  v31[5] = v18;
+  v24 = [v23 addObserverForName:NSMetadataQueryDidFinishGatheringNotification object:v17 queue:v10 usingBlock:v31];
+
+  if (![v17 startQuery])
   {
     errx(1, "can't start query");
   }
@@ -367,26 +364,26 @@ LABEL_14:
     }
 
 LABEL_9:
-    v30 = +[NSRunLoop mainRunLoop];
-    [v30 run];
+    v29 = +[NSRunLoop mainRunLoop];
+    [v29 run];
   }
 
-  v26 = brc_bread_crumbs();
-  v27 = brc_default_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v25 = brc_bread_crumbs();
+  v26 = brc_default_log();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     requestedTime = self->_requestedTime;
     *buf = 138412546;
-    v36 = requestedTime;
-    v37 = 2112;
-    v38 = v26;
-    _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] The user has requested to run the query for %@%@", buf, 0x16u);
+    v35 = requestedTime;
+    v36 = 2112;
+    v37 = v25;
+    _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] The user has requested to run the query for %@%@", buf, 0x16u);
   }
 
 LABEL_8:
-  v28 = [NSTimer timerWithTimeInterval:self target:"_checkIfQueryShouldStop:" selector:0 userInfo:1 repeats:1.0];
-  v29 = +[NSRunLoop mainRunLoop];
-  [v29 addTimer:v28 forMode:NSRunLoopCommonModes];
+  v27 = [NSTimer timerWithTimeInterval:self target:"_checkIfQueryShouldStop:" selector:0 userInfo:1 repeats:1.0];
+  v28 = +[NSRunLoop mainRunLoop];
+  [v28 addTimer:v27 forMode:NSRunLoopCommonModes];
 
   goto LABEL_9;
 }

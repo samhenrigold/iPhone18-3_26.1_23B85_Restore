@@ -93,12 +93,12 @@
 {
   longitude = coordinates.longitude;
   latitude = coordinates.latitude;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   timeCopy = time;
-  v39.receiver = self;
-  v39.super_class = PGConsolidatedAddress;
-  v12 = [(PGConsolidatedAddress *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = PGConsolidatedAddress;
+  v12 = [(PGConsolidatedAddress *)&v38 init];
   v13 = v12;
   if (v12)
   {
@@ -106,28 +106,28 @@
     objc_storeStrong(&v13->_addressEdgesSortedByTime, time);
     v13->_centerCoordinates.latitude = latitude;
     v13->_centerCoordinates.longitude = longitude;
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v14 = timeCopy;
-    v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v36;
+      v17 = *v35;
       v18 = 1.79769313e308;
       v19 = -1.79769313e308;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
+          v21 = *(*(&v34 + 1) + 8 * i);
           [v21 timestampUTCStart];
           v23 = v22;
           [v21 timestampUTCEnd];
@@ -142,7 +142,7 @@
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v16);
@@ -168,7 +168,6 @@
     v13->_timeLocationIdentifier = v31;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

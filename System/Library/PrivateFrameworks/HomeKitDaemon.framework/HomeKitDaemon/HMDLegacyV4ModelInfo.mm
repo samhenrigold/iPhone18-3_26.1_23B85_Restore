@@ -35,7 +35,7 @@
     v19 = v13;
     v14 = v13;
     [properties enumerateKeysAndObjectsUsingBlock:v18];
-    v15 = [v14 copy];
+    v15 = objc_msgSend_copy(v14);
     properties = v5->_properties;
     v5->_properties = v15;
   }
@@ -89,7 +89,7 @@ void __38__HMDLegacyV4ModelInfo_initWithClass___block_invoke(uint64_t a1, void *
 
     [v13 setLoggingVisibility:v8];
     v17 = *(a1 + 32);
-    v18 = [v13 copy];
+    v18 = objc_msgSend_copy(v13);
     [v17 setObject:v18 forKey:v5];
 
     v5 = v13;

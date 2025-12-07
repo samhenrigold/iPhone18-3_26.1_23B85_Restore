@@ -295,7 +295,7 @@ LABEL_36:
 
       if (placeCopy)
       {
-        v79.origin.x = calculateCropSizeOfPixelBuffer(v72[3], rect);
+        v79.origin.x = calculateCropSizeOfPixelBuffer(v72[3], rect, 0.1);
         x = v79.origin.x;
         y = v79.origin.y;
         width = v79.size.width;
@@ -947,7 +947,7 @@ uint64_t __89__VNInstanceMaskObservation__upsampleLowResMask_reference_maskProdu
       v24 = CVPixelBufferGetHeight(*(a1 + 72));
       v25 = CVPixelBufferGetWidth(*(a1 + 72));
       memset(v20, 0, sizeof(v20));
-      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(v20, &v23, v26, 4uLL);
+      std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(v20, v23.i64, v26, 4uLL);
     }
 
     v22 = *(a1 + 72);
@@ -1042,7 +1042,7 @@ LABEL_20:
             goto LABEL_12;
           }
 
-          v34.origin.x = calculateCropSizeOfPixelBuffer(v20, error);
+          v34.origin.x = calculateCropSizeOfPixelBuffer(v20, error, 0.0);
           v21 = v34.origin.x;
           v22 = v34.origin.y;
           v23 = v34.size.width;
@@ -1153,11 +1153,11 @@ LABEL_12:
 
 - (CVPixelBufferRef)generateMaskForInstances:(NSIndexSet *)instances error:(NSError *)error
 {
-  v70 = instances;
-  if (v70)
+  v71 = instances;
+  if (v71)
   {
     isSingleMask = [(_VNLowResAlphaMask *)self->_lowResAlphaMask isSingleMask];
-    v7 = v70;
+    v7 = v71;
     if (isSingleMask)
     {
       pixelBuffer = 0;
@@ -1173,87 +1173,89 @@ LABEL_12:
         CVPixelBufferLockBaseAddress(v9, 1uLL);
         CVPixelBufferLockBaseAddress(pixelBuffer, 0);
         v25 = [(NSIndexSet *)v7 containsIndex:0];
-        std::vector<BOOL>::vector(__p, self->_numComponents);
+        numComponents = self->_numComponents;
+        v72 = 0;
+        std::vector<BOOL>::vector(__p, numComponents, &v72);
         if (self->_numComponents >= 2)
         {
-          v26 = 1;
+          v27 = 1;
           do
           {
-            v27 = [(NSIndexSet *)v7 containsIndex:v26];
-            v28 = v26 >> 6;
-            v29 = 1 << v26;
-            if (v25 == v27)
+            v28 = [(NSIndexSet *)v7 containsIndex:v27];
+            v29 = v27 >> 6;
+            v30 = 1 << v27;
+            if (v25 == v28)
             {
-              v30 = *(__p[0] + v28) & ~v29;
+              v31 = *(__p[0] + v29) & ~v30;
             }
 
             else
             {
-              v30 = *(__p[0] + v28) | v29;
+              v31 = *(__p[0] + v29) | v30;
             }
 
-            *(__p[0] + v28) = v30;
-            ++v26;
+            *(__p[0] + v29) = v31;
+            ++v27;
           }
 
-          while (v26 < self->_numComponents);
+          while (v27 < self->_numComponents);
         }
 
-        v31 = v7;
+        v32 = v7;
         BaseAddress = CVPixelBufferGetBaseAddress(selfCopy->_instanceMask);
         BytesPerRow = CVPixelBufferGetBytesPerRow(v9);
-        v34 = CVPixelBufferGetHeight(v9);
-        v35 = CVPixelBufferGetWidth(v9);
-        v36 = CVPixelBufferGetBaseAddress(v9);
-        v37 = CVPixelBufferGetBaseAddress(pixelBuffer);
-        if (v34)
+        v35 = CVPixelBufferGetHeight(v9);
+        v36 = CVPixelBufferGetWidth(v9);
+        v37 = CVPixelBufferGetBaseAddress(v9);
+        v38 = CVPixelBufferGetBaseAddress(pixelBuffer);
+        if (v35)
         {
-          v38 = 0;
-          v39 = __p[0];
-          v40 = v37;
+          v39 = 0;
+          v40 = __p[0];
+          v41 = v38;
           do
           {
-            if (v35)
+            if (v36)
             {
-              for (i = 0; i != v35; ++i)
+              for (i = 0; i != v36; ++i)
               {
-                if ((*&v39[(BaseAddress[i] >> 3) & 0x18] >> BaseAddress[i]))
+                if ((*&v40[(BaseAddress[i] >> 3) & 0x18] >> BaseAddress[i]))
                 {
-                  v42 = *&v36[4 * i];
+                  v43 = *&v37[4 * i];
                 }
 
                 else
                 {
-                  v42 = 0;
+                  v43 = 0;
                 }
 
-                *&v40[4 * i] = v42;
+                *&v41[4 * i] = v43;
               }
             }
 
-            ++v38;
-            v40 += BytesPerRow;
-            v36 += BytesPerRow;
-            BaseAddress += v35;
+            ++v39;
+            v41 += BytesPerRow;
+            v37 += BytesPerRow;
+            BaseAddress += v36;
           }
 
-          while (v38 != v34);
+          while (v39 != v35);
           if (v25)
           {
-            for (j = 0; j != v34; ++j)
+            for (j = 0; j != v35; ++j)
             {
-              if (v35)
+              if (v36)
               {
-                v44 = &v37[j * BytesPerRow];
-                v45 = v35;
+                v45 = &v38[j * BytesPerRow];
+                v46 = v36;
                 do
                 {
-                  *v44 = 1.0 - *v44;
-                  ++v44;
-                  --v45;
+                  *v45 = 1.0 - *v45;
+                  ++v45;
+                  --v46;
                 }
 
-                while (v45);
+                while (v46);
               }
             }
           }
@@ -1263,7 +1265,7 @@ LABEL_12:
         CVPixelBufferUnlockBaseAddress(selfCopy->_instanceMask, 1uLL);
         CVPixelBufferUnlockBaseAddress(v9, 1uLL);
         v17 = pixelBuffer;
-        v7 = v31;
+        v7 = v32;
         if (__p[0])
         {
           operator delete(__p[0]);
@@ -1298,109 +1300,109 @@ LABEL_62:
       if (!UsingIOSurface)
       {
         CVPixelBufferLockBaseAddress(__p[0], 0);
-        v46 = CVPixelBufferGetBytesPerRow(__p[0]);
-        v47 = CVPixelBufferGetHeight(__p[0]);
-        v48 = CVPixelBufferGetWidth(__p[0]);
-        v49 = CVPixelBufferGetBaseAddress(__p[0]);
-        bzero(v49, v47 * v46);
+        v47 = CVPixelBufferGetBytesPerRow(__p[0]);
+        v48 = CVPixelBufferGetHeight(__p[0]);
+        v49 = CVPixelBufferGetWidth(__p[0]);
+        v50 = CVPixelBufferGetBaseAddress(__p[0]);
+        bzero(v50, v48 * v47);
         lowResAlphaMask = self->_lowResAlphaMask;
         if (lowResAlphaMask)
         {
-          v51 = [(NSArray *)lowResAlphaMask->_instanceLowResMaskArray count];
+          v52 = [(NSArray *)lowResAlphaMask->_instanceLowResMaskArray count];
         }
 
         else
         {
-          v51 = 0;
+          v52 = 0;
         }
 
-        v52 = v7;
-        v53 = [(NSIndexSet *)v7 containsIndex:0];
-        if (v51)
+        v53 = v7;
+        v54 = [(NSIndexSet *)v7 containsIndex:0];
+        if (v52)
         {
-          v54 = 0;
+          v55 = 0;
           do
           {
-            v55 = v54 + 1;
-            if (v53 != [(NSIndexSet *)v52 containsIndex:v54 + 1])
+            v56 = v55 + 1;
+            if (v54 != [(NSIndexSet *)v53 containsIndex:v55 + 1])
             {
-              v56 = [(_VNLowResAlphaMask *)selfCopy2->_lowResAlphaMask _alphaMaskAtIndex:v54];
-              CVPixelBufferLockBaseAddress(v56, 1uLL);
-              v57 = CVPixelBufferGetBaseAddress(v56);
-              if (v47)
+              v57 = [(_VNLowResAlphaMask *)selfCopy2->_lowResAlphaMask _alphaMaskAtIndex:v55];
+              CVPixelBufferLockBaseAddress(v57, 1uLL);
+              v58 = CVPixelBufferGetBaseAddress(v57);
+              if (v48)
               {
-                for (k = 0; k != v47; ++k)
+                for (k = 0; k != v48; ++k)
                 {
-                  if (v48)
+                  if (v49)
                   {
-                    v59 = &v49[k * v46];
-                    v60 = &v57[k * v46];
-                    v61 = v48;
+                    v60 = &v50[k * v47];
+                    v61 = &v58[k * v47];
+                    v62 = v49;
                     do
                     {
-                      v62 = *v60++;
-                      v63 = v62 + *v59;
-                      if (v63 >= 1.0)
+                      v63 = *v61++;
+                      v64 = v63 + *v60;
+                      if (v64 >= 1.0)
                       {
-                        v63 = 1.0;
+                        v64 = 1.0;
                       }
 
-                      *v59++ = v63;
-                      --v61;
+                      *v60++ = v64;
+                      --v62;
                     }
 
-                    while (v61);
+                    while (v62);
                   }
                 }
               }
 
-              CVPixelBufferUnlockBaseAddress(v56, 1uLL);
+              CVPixelBufferUnlockBaseAddress(v57, 1uLL);
             }
 
-            v54 = v55;
+            v55 = v56;
           }
 
-          while (v55 != v51);
+          while (v56 != v52);
         }
 
-        if (v47)
+        if (v48)
         {
-          v64 = v53;
+          v65 = v54;
         }
 
         else
         {
-          v64 = 0;
+          v65 = 0;
         }
 
-        if (v64)
+        if (v65)
         {
-          v65 = 0;
+          v66 = 0;
           do
           {
-            if (v48)
+            if (v49)
             {
-              v66 = &v49[v65 * v46];
-              v67 = v48;
+              v67 = &v50[v66 * v47];
+              v68 = v49;
               do
               {
-                *v66 = 1.0 - *v66;
-                ++v66;
-                --v67;
+                *v67 = 1.0 - *v67;
+                ++v67;
+                --v68;
               }
 
-              while (v67);
+              while (v68);
             }
 
-            ++v65;
+            ++v66;
           }
 
-          while (v65 != v47);
+          while (v66 != v48);
         }
 
         CVPixelBufferUnlockBaseAddress(__p[0], 0);
         v17 = __p[0];
-        v7 = v52;
+        v7 = v53;
         goto LABEL_62;
       }
 

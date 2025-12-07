@@ -85,7 +85,7 @@ LABEL_19:
   v28 = 0;
   v26 = 0u;
   v27 = 0u;
-  [v14 structure];
+  objc_msgSend_structure(v14);
   v17 = _NTKLoggingObjectForDomain();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {

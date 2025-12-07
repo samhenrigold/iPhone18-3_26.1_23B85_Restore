@@ -10,26 +10,23 @@
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __55__BKSHIDEventDeliveryPolicy_appendDescriptionToStream___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendProem:self block:v6];
+  [v5 appendProem:v6 block:{3221225472, __55__BKSHIDEventDeliveryPolicy_appendDescriptionToStream___block_invoke, &unk_1E6F47C78}];
 }
 
 void __55__BKSHIDEventDeliveryPolicy_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = NSStringFromBKSHIDEventDeferringPolicyStatus(*(*(a1 + 40) + 16));
-  [v1 appendString:v2 withName:@"status"];
+  [v1 appendString:? withName:?];
 }
 
 - (unint64_t)hash
 {
-  v2 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deferringPolicyStatus];
+  v2 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   v3 = [v2 hash];
 
   return v3;

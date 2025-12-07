@@ -5,6 +5,7 @@
 - (void)captureHandlerWithAudioSample:(id)sample bufferType:(int64_t)type;
 - (void)captureHandlerWithSample:(id)sample timingData:(id)data;
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply;
+- (void)consumeSandboxExtension:(id)extension processNewConnection:(BOOL)connection;
 - (void)discardInAppRecordingWithHandler:(id)handler;
 - (void)exportClipToURL:(id)l duration:(double)duration completionHandler:(id)handler;
 - (void)getSystemBroadcastExtensionInfo:(id)info;
@@ -31,11 +32,19 @@
 - (void)saveClipToCameraRoll:(id)roll handler:(id)handler;
 - (void)saveVideo:(id)video handler:(id)handler;
 - (void)saveVideoToCameraRoll:(id)roll handler:(id)handler;
+- (void)setBroadcastPickerPreferredExt:(id)ext showsMicButton:(BOOL)button;
 - (void)setBroadcastURL:(id)l;
+- (void)setMicrophoneEnabled:(BOOL)enabled;
 - (void)setupBroadcastWithHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info handler:(id)handler;
 - (void)setupSystemBroadcastWithHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info handler:(id)handler;
 - (void)shouldResumeSessionType:(id)type;
+- (void)startClipBufferingWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withCompletionHandler:(id)handler;
 - (void)startHQLRWithSessionInfo:(id)info windowSize:(CGSize)size handler:(id)handler;
+- (void)startInAppBroadcastWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler;
+- (void)startInAppCaptureWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler;
+- (void)startInAppRecordingWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler;
+- (void)startSystemBroadcastWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler;
+- (void)startSystemRecordingWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled withHandler:(id)handler;
 - (void)stopAllActiveClients;
 - (void)stopClipBufferingWithCompletionHandler:(id)handler;
 - (void)stopCurrentActiveSessionWithHandler:(id)handler;
@@ -49,6 +58,7 @@
 - (void)stopSystemRecordingWithURLHandler:(id)handler;
 - (void)updateBroadcastServiceInfo:(id)info;
 - (void)updateBroadcastURL:(id)l;
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d;
 - (void)updateScreenRecordingStateWithCurrentState:(id)state;
 @end
 
@@ -145,43 +155,39 @@ void __21__RPDaemonProxy_init__block_invoke_150(uint64_t a1)
 
 - (void)issueSandboxExtensionForMainBundleRead
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (!__RPLogLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136446466;
-    v4 = "[RPDaemonProxy issueSandboxExtensionForMainBundleRead]";
-    v5 = 1024;
-    v6 = 123;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d ", &v3, 0x12u);
+    v2 = 136446466;
+    v3 = "[RPDaemonProxy issueSandboxExtensionForMainBundleRead]";
+    v4 = 1024;
+    v5 = 123;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d ", &v2, 0x12u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)issueSandboxExtensionForClientFileWrite:(id)write
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   path = [write path];
   stringByDeletingLastPathComponent = [path stringByDeletingLastPathComponent];
 
   fileSystemRepresentation = [stringByDeletingLastPathComponent fileSystemRepresentation];
-  v6 = *MEMORY[0x277D861C0];
-  v7 = *MEMORY[0x277D861E8];
-  v8 = sandbox_extension_issue_file();
-  if (v8)
+  v6 = sandbox_extension_issue_file();
+  if (v6)
   {
-    v9 = v8;
-    v10 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
-    free(v9);
+    v7 = v6;
+    v8 = [MEMORY[0x277CCACA8] stringWithCString:v6 encoding:4];
+    free(v7);
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136446722;
-      v14 = "[RPDaemonProxy issueSandboxExtensionForClientFileWrite:]";
-      v15 = 1024;
-      v16 = 149;
-      v17 = 2080;
-      v18 = fileSystemRepresentation;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Issued sandbox extension for client folder path %s", &v13, 0x1Cu);
+      v10 = 136446722;
+      v11 = "[RPDaemonProxy issueSandboxExtensionForClientFileWrite:]";
+      v12 = 1024;
+      v13 = 149;
+      v14 = 2080;
+      v15 = fileSystemRepresentation;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Issued sandbox extension for client folder path %s", &v10, 0x1Cu);
     }
   }
 
@@ -192,12 +198,10 @@ void __21__RPDaemonProxy_init__block_invoke_150(uint64_t a1)
       [RPDaemonProxy issueSandboxExtensionForClientFileWrite:];
     }
 
-    v10 = 0;
+    v8 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v8;
 }
 
 - (void)stopCurrentActiveSessionWithHandler:(id)handler
@@ -241,6 +245,24 @@ void __37__RPDaemonProxy_stopAllActiveClients__block_invoke(uint64_t a1, void *a
   }
 }
 
+- (void)startInAppRecordingWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  handlerCopy = handler;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v16 = 0;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "RPDaemonProxy: startInAppRecordingWithContextID:withHandler:", v16, 2u);
+  }
+
+  v15 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_158];
+  [v15 startInAppRecordingWithContextID:dCopy windowSize:enabledCopy microphoneEnabled:cameraEnabledCopy cameraEnabled:handlerCopy withHandler:{width, height}];
+}
+
 void __105__RPDaemonProxy_startInAppRecordingWithContextID_windowSize_microphoneEnabled_cameraEnabled_withHandler___block_invoke(uint64_t a1, void *a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -272,16 +294,16 @@ void __47__RPDaemonProxy_stopInAppRecordingWithHandler___block_invoke(uint64_t a
 
 - (void)stopInAppRecordingWithUrl:(id)url handler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   urlCopy = url;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136446466;
-    v13 = "[RPDaemonProxy stopInAppRecordingWithUrl:handler:]";
-    v14 = 1024;
-    v15 = 209;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v12, 0x12u);
+    v11 = 136446466;
+    v12 = "[RPDaemonProxy stopInAppRecordingWithUrl:handler:]";
+    v13 = 1024;
+    v14 = 209;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v11, 0x12u);
   }
 
   v8 = [(RPDaemonProxy *)self issueSandboxExtensionForClientFileWrite:urlCopy];
@@ -301,8 +323,6 @@ void __47__RPDaemonProxy_stopInAppRecordingWithHandler___block_invoke(uint64_t a
 
     [v10 stopInAppRecordingWithUrl:urlCopy handler:handlerCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__RPDaemonProxy_stopInAppRecordingWithUrl_handler___block_invoke(uint64_t a1, void *a2)
@@ -357,22 +377,20 @@ void __36__RPDaemonProxy_pauseInAppRecording__block_invoke(uint64_t a1, void *a2
 
 - (void)resumeInAppRecordingWithWindowLayerContextID:(id)d completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446466;
-    v11 = "[RPDaemonProxy resumeInAppRecordingWithWindowLayerContextID:completionHandler:]";
-    v12 = 1024;
-    v13 = 254;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v10, 0x12u);
+    v9 = 136446466;
+    v10 = "[RPDaemonProxy resumeInAppRecordingWithWindowLayerContextID:completionHandler:]";
+    v11 = 1024;
+    v12 = 254;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v9, 0x12u);
   }
 
   v8 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_168];
   [v8 resumeInAppRecordingWithWindowLayerContextID:dCopy completionHandler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __80__RPDaemonProxy_resumeInAppRecordingWithWindowLayerContextID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -382,6 +400,24 @@ void __80__RPDaemonProxy_resumeInAppRecordingWithWindowLayerContextID_completion
   {
     __80__RPDaemonProxy_resumeInAppRecordingWithWindowLayerContextID_completionHandler___block_invoke_cold_1(v2);
   }
+}
+
+- (void)startInAppCaptureWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  handlerCopy = handler;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v16 = 0;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "RPDaemonProxy: startInAppCaptureWithContextID:withHandler:", v16, 2u);
+  }
+
+  v15 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_170];
+  [v15 startInAppCaptureWithContextID:dCopy windowSize:enabledCopy microphoneEnabled:cameraEnabledCopy cameraEnabled:handlerCopy withHandler:{width, height}];
 }
 
 void __103__RPDaemonProxy_startInAppCaptureWithContextID_windowSize_microphoneEnabled_cameraEnabled_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -435,22 +471,20 @@ void __34__RPDaemonProxy_pauseInAppCapture__block_invoke(uint64_t a1, void *a2)
 
 - (void)resumeInAppCaptureWithWindowLayerContextID:(id)d completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446466;
-    v11 = "[RPDaemonProxy resumeInAppCaptureWithWindowLayerContextID:completionHandler:]";
-    v12 = 1024;
-    v13 = 305;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v10, 0x12u);
+    v9 = 136446466;
+    v10 = "[RPDaemonProxy resumeInAppCaptureWithWindowLayerContextID:completionHandler:]";
+    v11 = 1024;
+    v12 = 305;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v9, 0x12u);
   }
 
   v8 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_176];
   [v8 resumeInAppCaptureWithWindowLayerContextID:dCopy completionHandler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __78__RPDaemonProxy_resumeInAppCaptureWithWindowLayerContextID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -485,6 +519,25 @@ void __119__RPDaemonProxy_setupBroadcastWithHostBundleID_broadcastExtensionBundl
   {
     __119__RPDaemonProxy_setupBroadcastWithHostBundleID_broadcastExtensionBundleID_broadcastConfigurationData_userInfo_handler___block_invoke_cold_1(a2);
   }
+}
+
+- (void)startInAppBroadcastWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  endpointCopy = endpoint;
+  handlerCopy = handler;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v19 = 0;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "RPDaemonProxy: startInAppBroadcastWithContextID:withHandler:", v19, 2u);
+  }
+
+  v18 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_180];
+  [v18 startInAppBroadcastWithContextID:dCopy windowSize:enabledCopy microphoneEnabled:cameraEnabledCopy cameraEnabled:endpointCopy listenerEndpoint:handlerCopy withHandler:{width, height}];
 }
 
 void __122__RPDaemonProxy_startInAppBroadcastWithContextID_windowSize_microphoneEnabled_cameraEnabled_listenerEndpoint_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -538,22 +591,20 @@ void __36__RPDaemonProxy_pauseInAppBroadcast__block_invoke(uint64_t a1, void *a2
 
 - (void)resumeInAppBroadcastWithWindowLayerContextID:(id)d completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446466;
-    v11 = "[RPDaemonProxy resumeInAppBroadcastWithWindowLayerContextID:completionHandler:]";
-    v12 = 1024;
-    v13 = 369;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v10, 0x12u);
+    v9 = 136446466;
+    v10 = "[RPDaemonProxy resumeInAppBroadcastWithWindowLayerContextID:completionHandler:]";
+    v11 = 1024;
+    v12 = 369;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v9, 0x12u);
   }
 
   v8 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_186];
   [v8 resumeInAppBroadcastWithWindowLayerContextID:dCopy completionHandler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __80__RPDaemonProxy_resumeInAppBroadcastWithWindowLayerContextID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -563,6 +614,25 @@ void __80__RPDaemonProxy_resumeInAppBroadcastWithWindowLayerContextID_completion
   {
     __80__RPDaemonProxy_resumeInAppBroadcastWithWindowLayerContextID_completionHandler___block_invoke_cold_1(v2);
   }
+}
+
+- (void)startSystemRecordingWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled withHandler:(id)handler
+{
+  realityCameraEnabledCopy = realityCameraEnabled;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  handlerCopy = handler;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v18 = 0;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "RPDaemonProxy: startSystemRecordingWithContextID:withHandler:", v18, 2u);
+  }
+
+  v17 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_188];
+  [v17 startSystemRecordingWithContextID:dCopy windowSize:enabledCopy microphoneEnabled:cameraEnabledCopy cameraEnabled:realityCameraEnabledCopy mixedRealityCameraEnabled:handlerCopy withHandler:{width, height}];
 }
 
 void __132__RPDaemonProxy_startSystemRecordingWithContextID_windowSize_microphoneEnabled_cameraEnabled_mixedRealityCameraEnabled_withHandler___block_invoke(uint64_t a1, void *a2)
@@ -596,21 +666,19 @@ void __48__RPDaemonProxy_stopSystemRecordingWithHandler___block_invoke(uint64_t 
 
 - (void)stopSystemRecordingWithURLHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPDaemonProxy stopSystemRecordingWithURLHandler:]";
-    v9 = 1024;
-    v10 = 410;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy stopSystemRecordingWithURLHandler:]";
+    v8 = 1024;
+    v9 = 410;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
   }
 
   v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_192];
   [v5 stopSystemRecordingWithURLHandler:handlerCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__RPDaemonProxy_stopSystemRecordingWithURLHandler___block_invoke(uint64_t a1, void *a2)
@@ -624,21 +692,19 @@ void __51__RPDaemonProxy_stopSystemRecordingWithURLHandler___block_invoke(uint64
 
 - (void)resumeSystemRecordingWithCompletionHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPDaemonProxy resumeSystemRecordingWithCompletionHandler:]";
-    v9 = 1024;
-    v10 = 425;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy resumeSystemRecordingWithCompletionHandler:]";
+    v8 = 1024;
+    v9 = 425;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
   }
 
   v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_194];
   [v5 resumeSystemRecordingWithCompletionHandler:handlerCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RPDaemonProxy_resumeSystemRecordingWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -675,6 +741,26 @@ void __125__RPDaemonProxy_setupSystemBroadcastWithHostBundleID_broadcastExtensio
   }
 }
 
+- (void)startSystemBroadcastWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled mixedRealityCameraEnabled:(BOOL)realityCameraEnabled listenerEndpoint:(id)endpoint withHandler:(id)handler
+{
+  realityCameraEnabledCopy = realityCameraEnabled;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  dCopy = d;
+  endpointCopy = endpoint;
+  handlerCopy = handler;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v21 = 0;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "RPDaemonProxy: startSystemBroadcastWithContextID:withHandler:", v21, 2u);
+  }
+
+  v20 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_198];
+  [v20 startSystemBroadcastWithContextID:dCopy windowSize:enabledCopy microphoneEnabled:cameraEnabledCopy cameraEnabled:realityCameraEnabledCopy mixedRealityCameraEnabled:endpointCopy listenerEndpoint:handlerCopy withHandler:{width, height}];
+}
+
 void __149__RPDaemonProxy_startSystemBroadcastWithContextID_windowSize_microphoneEnabled_cameraEnabled_mixedRealityCameraEnabled_listenerEndpoint_withHandler___block_invoke(uint64_t a1, void *a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -706,21 +792,19 @@ void __48__RPDaemonProxy_stopSystemBroadcastWithHandler___block_invoke(uint64_t 
 
 - (void)resumeSystemBroadcastWithCompletionHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPDaemonProxy resumeSystemBroadcastWithCompletionHandler:]";
-    v9 = 1024;
-    v10 = 478;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy resumeSystemBroadcastWithCompletionHandler:]";
+    v8 = 1024;
+    v9 = 478;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
   }
 
   v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_202];
   [v5 resumeSystemBroadcastWithCompletionHandler:handlerCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RPDaemonProxy_resumeSystemBroadcastWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -824,21 +908,19 @@ void __37__RPDaemonProxy_stopHQLRWithHandler___block_invoke(uint64_t a1, void *a
 
 - (void)resumeHQLRWithCompletionHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPDaemonProxy resumeHQLRWithCompletionHandler:]";
-    v9 = 1024;
-    v10 = 541;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy resumeHQLRWithCompletionHandler:]";
+    v8 = 1024;
+    v9 = 541;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
   }
 
   v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_222];
   [v5 resumeHQLRWithCompletionHandler:handlerCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__RPDaemonProxy_resumeHQLRWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -869,6 +951,24 @@ void __49__RPDaemonProxy_getSystemBroadcastExtensionInfo___block_invoke(uint64_t
   {
     __119__RPDaemonProxy_setupBroadcastWithHostBundleID_broadcastExtensionBundleID_broadcastConfigurationData_userInfo_handler___block_invoke_cold_1(a2);
   }
+}
+
+- (void)consumeSandboxExtension:(id)extension processNewConnection:(BOOL)connection
+{
+  connectionCopy = connection;
+  v12 = *MEMORY[0x277D85DE8];
+  extensionCopy = extension;
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 136446466;
+    v9 = "[RPDaemonProxy consumeSandboxExtension:processNewConnection:]";
+    v10 = 1024;
+    v11 = 568;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v8, 0x12u);
+  }
+
+  v7 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_226];
+  [v7 consumeSandboxExtension:extensionCopy processNewConnection:connectionCopy];
 }
 
 void __62__RPDaemonProxy_consumeSandboxExtension_processNewConnection___block_invoke(uint64_t a1, void *a2)
@@ -902,22 +1002,20 @@ void __46__RPDaemonProxy_macApplicationDidResignActive__block_invoke(uint64_t a1
 
 - (void)macApplicationDidBecomeActiveWithContextID:(id)d completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446466;
-    v11 = "[RPDaemonProxy macApplicationDidBecomeActiveWithContextID:completionHandler:]";
-    v12 = 1024;
-    v13 = 591;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v10, 0x12u);
+    v9 = 136446466;
+    v10 = "[RPDaemonProxy macApplicationDidBecomeActiveWithContextID:completionHandler:]";
+    v11 = 1024;
+    v12 = 591;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v9, 0x12u);
   }
 
   v8 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_230];
   [v8 macApplicationDidBecomeActiveWithContextID:dCopy completionHandler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __78__RPDaemonProxy_macApplicationDidBecomeActiveWithContextID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -931,16 +1029,16 @@ void __78__RPDaemonProxy_macApplicationDidBecomeActiveWithContextID_completionHa
 
 - (void)saveVideo:(id)video handler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   videoCopy = video;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136446466;
-    v13 = "[RPDaemonProxy saveVideo:handler:]";
-    v14 = 1024;
-    v15 = 620;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v12, 0x12u);
+    v11 = 136446466;
+    v12 = "[RPDaemonProxy saveVideo:handler:]";
+    v13 = 1024;
+    v14 = 620;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v11, 0x12u);
   }
 
   v8 = [(RPDaemonProxy *)self issueSandboxExtensionForClientFileWrite:videoCopy];
@@ -960,8 +1058,6 @@ void __78__RPDaemonProxy_macApplicationDidBecomeActiveWithContextID_completionHa
 
     [v10 saveVideo:videoCopy handler:handlerCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __35__RPDaemonProxy_saveVideo_handler___block_invoke(uint64_t a1, void *a2)
@@ -997,16 +1093,16 @@ void __47__RPDaemonProxy_saveVideoToCameraRoll_handler___block_invoke(uint64_t a
 
 - (void)saveClipToCameraRoll:(id)roll handler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   rollCopy = roll;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136446466;
-    v13 = "[RPDaemonProxy saveClipToCameraRoll:handler:]";
-    v14 = 1024;
-    v15 = 655;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v12, 0x12u);
+    v11 = 136446466;
+    v12 = "[RPDaemonProxy saveClipToCameraRoll:handler:]";
+    v13 = 1024;
+    v14 = 655;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v11, 0x12u);
   }
 
   v8 = [(RPDaemonProxy *)self issueSandboxExtensionForClientFileWrite:rollCopy];
@@ -1026,8 +1122,6 @@ void __47__RPDaemonProxy_saveVideoToCameraRoll_handler___block_invoke(uint64_t a
 
     [v10 saveClipToCameraRoll:rollCopy handler:handlerCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RPDaemonProxy_saveClipToCameraRoll_handler___block_invoke(uint64_t a1, void *a2)
@@ -1058,6 +1152,23 @@ void __35__RPDaemonProxy_reportCameraUsage___block_invoke(uint64_t a1, void *a2)
   }
 }
 
+- (void)setMicrophoneEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v10 = *MEMORY[0x277D85DE8];
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy setMicrophoneEnabled:]";
+    v8 = 1024;
+    v9 = 688;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
+  }
+
+  v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_240];
+  [v5 setMicrophoneEnabled:enabledCopy];
+}
+
 void __38__RPDaemonProxy_setMicrophoneEnabled___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
@@ -1069,21 +1180,19 @@ void __38__RPDaemonProxy_setMicrophoneEnabled___block_invoke(uint64_t a1, void *
 
 - (void)getSystemBroadcastPickerInfo:(id)info
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPDaemonProxy getSystemBroadcastPickerInfo:]";
-    v9 = 1024;
-    v10 = 697;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy getSystemBroadcastPickerInfo:]";
+    v8 = 1024;
+    v9 = 697;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
   }
 
   v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_242];
   [v5 getSystemBroadcastPickerInfo:infoCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RPDaemonProxy_getSystemBroadcastPickerInfo___block_invoke(uint64_t a1, void *a2)
@@ -1093,6 +1202,24 @@ void __46__RPDaemonProxy_getSystemBroadcastPickerInfo___block_invoke(uint64_t a1
   {
     __46__RPDaemonProxy_getSystemBroadcastPickerInfo___block_invoke_cold_1(v2);
   }
+}
+
+- (void)setBroadcastPickerPreferredExt:(id)ext showsMicButton:(BOOL)button
+{
+  buttonCopy = button;
+  v12 = *MEMORY[0x277D85DE8];
+  extCopy = ext;
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 136446466;
+    v9 = "[RPDaemonProxy setBroadcastPickerPreferredExt:showsMicButton:]";
+    v10 = 1024;
+    v11 = 706;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v8, 0x12u);
+  }
+
+  v7 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_244];
+  [v7 setBroadcastPickerPreferredExt:extCopy showsMicButton:buttonCopy];
 }
 
 void __63__RPDaemonProxy_setBroadcastPickerPreferredExt_showsMicButton___block_invoke(uint64_t a1, void *a2)
@@ -1106,20 +1233,18 @@ void __63__RPDaemonProxy_setBroadcastPickerPreferredExt_showsMicButton___block_i
 
 - (void)openControlCenterSystemRecordingView
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446466;
-    v6 = "[RPDaemonProxy openControlCenterSystemRecordingView]";
-    v7 = 1024;
-    v8 = 716;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v5, 0x12u);
+    v4 = 136446466;
+    v5 = "[RPDaemonProxy openControlCenterSystemRecordingView]";
+    v6 = 1024;
+    v7 = 716;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v4, 0x12u);
   }
 
   v3 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_246];
   [v3 openControlCenterSystemRecordingView];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __53__RPDaemonProxy_openControlCenterSystemRecordingView__block_invoke(uint64_t a1, void *a2)
@@ -1129,6 +1254,23 @@ void __53__RPDaemonProxy_openControlCenterSystemRecordingView__block_invoke(uint
   {
     __53__RPDaemonProxy_openControlCenterSystemRecordingView__block_invoke_cold_1(v2);
   }
+}
+
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d
+{
+  v3 = *&d;
+  v10 = *MEMORY[0x277D85DE8];
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy updateProcessIDForAudioCaptureWithPID:]";
+    v8 = 1024;
+    v9 = 728;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
+  }
+
+  v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_248];
+  [v5 updateProcessIDForAudioCaptureWithPID:v3];
 }
 
 void __55__RPDaemonProxy_updateProcessIDForAudioCaptureWithPID___block_invoke(uint64_t a1, void *a2)
@@ -1230,41 +1372,37 @@ void __55__RPDaemonProxy_updateProcessIDForAudioCaptureWithPID___block_invoke(ui
 
 - (void)captureHandlerWithSample:(id)sample timingData:(id)data
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   dataCopy = data;
   if (!__RPLogLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446466;
-    v10 = "[RPDaemonProxy captureHandlerWithSample:timingData:]";
-    v11 = 1024;
-    v12 = 788;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d ", &v9, 0x12u);
+    v8 = 136446466;
+    v9 = "[RPDaemonProxy captureHandlerWithSample:timingData:]";
+    v10 = 1024;
+    v11 = 788;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d ", &v8, 0x12u);
   }
 
   v7 = +[RPScreenRecorder sharedRecorder];
   [v7 captureHandlerWithSample:sampleCopy timingData:dataCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)captureHandlerWithAudioSample:(id)sample bufferType:(int64_t)type
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   if (!__RPLogLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[RPDaemonProxy captureHandlerWithAudioSample:bufferType:]";
-    v10 = 1024;
-    v11 = 795;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d ", &v8, 0x12u);
+    v7 = 136446466;
+    v8 = "[RPDaemonProxy captureHandlerWithAudioSample:bufferType:]";
+    v9 = 1024;
+    v10 = 795;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d ", &v7, 0x12u);
   }
 
   v6 = +[RPScreenRecorder sharedRecorder];
   [v6 captureHandlerWithAudioSample:sampleCopy bufferType:type];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordingLockInterrupted:(id)interrupted
@@ -1296,18 +1434,18 @@ void __55__RPDaemonProxy_updateProcessIDForAudioCaptureWithPID___block_invoke(ui
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
 {
   replyCopy = reply;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   invocationCopy = invocation;
   if (replyCopy)
   {
     if (!__RPLogLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136446466;
-      v12 = "[RPDaemonProxy connection:handleInvocation:isReply:]";
-      v13 = 1024;
-      v14 = 819;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d received reply for invocation", &v11, 0x12u);
+      v10 = 136446466;
+      v11 = "[RPDaemonProxy connection:handleInvocation:isReply:]";
+      v12 = 1024;
+      v13 = 819;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d received reply for invocation", &v10, 0x12u);
     }
 
     [invocationCopy retainArguments];
@@ -1315,18 +1453,16 @@ void __55__RPDaemonProxy_updateProcessIDForAudioCaptureWithPID___block_invoke(ui
 
   else if (!__RPLogLevel && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136446466;
-    v12 = "[RPDaemonProxy connection:handleInvocation:isReply:]";
-    v13 = 1024;
-    v14 = 825;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d did not receive reply for invocation", &v11, 0x12u);
+    v10 = 136446466;
+    v11 = "[RPDaemonProxy connection:handleInvocation:isReply:]";
+    v12 = 1024;
+    v13 = 825;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d did not receive reply for invocation", &v10, 0x12u);
   }
 
   [invocationCopy invoke];
   null = [MEMORY[0x277CBEB68] null];
   [invocationCopy setTarget:null];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBroadcastURL:(id)l
@@ -1345,6 +1481,28 @@ void __33__RPDaemonProxy_setBroadcastURL___block_invoke(uint64_t a1, void *a2)
   }
 }
 
+- (void)startClipBufferingWithContextID:(id)d windowSize:(CGSize)size microphoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withCompletionHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  height = size.height;
+  width = size.width;
+  v20 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  handlerCopy = handler;
+  if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = 136446466;
+    v17 = "[RPDaemonProxy startClipBufferingWithContextID:windowSize:microphoneEnabled:cameraEnabled:withCompletionHandler:]";
+    v18 = 1024;
+    v19 = 843;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v16, 0x12u);
+  }
+
+  v15 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_256];
+  [v15 startClipBufferingWithContextID:dCopy windowSize:enabledCopy microphoneEnabled:cameraEnabledCopy cameraEnabled:handlerCopy withCompletionHandler:{width, height}];
+}
+
 void __114__RPDaemonProxy_startClipBufferingWithContextID_windowSize_microphoneEnabled_cameraEnabled_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
@@ -1356,21 +1514,19 @@ void __114__RPDaemonProxy_startClipBufferingWithContextID_windowSize_microphoneE
 
 - (void)stopClipBufferingWithCompletionHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPDaemonProxy stopClipBufferingWithCompletionHandler:]";
-    v9 = 1024;
-    v10 = 856;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPDaemonProxy stopClipBufferingWithCompletionHandler:]";
+    v8 = 1024;
+    v9 = 856;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v6, 0x12u);
   }
 
   v5 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_258];
   [v5 stopClipBufferingWithCompletionHandler:handlerCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__RPDaemonProxy_stopClipBufferingWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1384,16 +1540,16 @@ void __56__RPDaemonProxy_stopClipBufferingWithCompletionHandler___block_invoke(u
 
 - (void)exportClipToURL:(id)l duration:(double)duration completionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136446466;
-    v15 = "[RPDaemonProxy exportClipToURL:duration:completionHandler:]";
-    v16 = 1024;
-    v17 = 869;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v14, 0x12u);
+    v13 = 136446466;
+    v14 = "[RPDaemonProxy exportClipToURL:duration:completionHandler:]";
+    v15 = 1024;
+    v16 = 869;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v13, 0x12u);
   }
 
   v10 = [(RPDaemonProxy *)self issueSandboxExtensionForClientFileWrite:lCopy];
@@ -1413,8 +1569,6 @@ void __56__RPDaemonProxy_stopClipBufferingWithCompletionHandler___block_invoke(u
 
     [v12 exportClipToURL:lCopy duration:handlerCopy completionHandler:duration];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RPDaemonProxy_exportClipToURL_duration_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1428,22 +1582,20 @@ void __60__RPDaemonProxy_exportClipToURL_duration_completionHandler___block_invo
 
 - (void)resumeInAppClipWithWindowLayerContextID:(id)d completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446466;
-    v11 = "[RPDaemonProxy resumeInAppClipWithWindowLayerContextID:completionHandler:]";
-    v12 = 1024;
-    v13 = 889;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v10, 0x12u);
+    v9 = 136446466;
+    v10 = "[RPDaemonProxy resumeInAppClipWithWindowLayerContextID:completionHandler:]";
+    v11 = 1024;
+    v12 = 889;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v9, 0x12u);
   }
 
   v8 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_262];
   [v8 resumeInAppClipWithWindowLayerContextID:dCopy completionHandler:handlerCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __75__RPDaemonProxy_resumeInAppClipWithWindowLayerContextID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1457,530 +1609,428 @@ void __75__RPDaemonProxy_resumeInAppClipWithWindowLayerContextID_completionHandl
 
 - (void)issueSandboxExtensionForClientFileWrite:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__RPDaemonProxy_stopCurrentActiveSessionWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __37__RPDaemonProxy_stopAllActiveClients__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __105__RPDaemonProxy_startInAppRecordingWithContextID_windowSize_microphoneEnabled_cameraEnabled_withHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __47__RPDaemonProxy_stopInAppRecordingWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopInAppRecordingWithUrl:handler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__RPDaemonProxy_stopInAppRecordingWithUrl_handler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__RPDaemonProxy_discardInAppRecordingWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __36__RPDaemonProxy_pauseInAppRecording__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __80__RPDaemonProxy_resumeInAppRecordingWithWindowLayerContextID_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __103__RPDaemonProxy_startInAppCaptureWithContextID_windowSize_microphoneEnabled_cameraEnabled_withHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __45__RPDaemonProxy_stopInAppCaptureWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __34__RPDaemonProxy_pauseInAppCapture__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __78__RPDaemonProxy_resumeInAppCaptureWithWindowLayerContextID_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __119__RPDaemonProxy_setupBroadcastWithHostBundleID_broadcastExtensionBundleID_broadcastConfigurationData_userInfo_handler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __122__RPDaemonProxy_startInAppBroadcastWithContextID_windowSize_microphoneEnabled_cameraEnabled_listenerEndpoint_withHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __47__RPDaemonProxy_stopInAppBroadcastWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __36__RPDaemonProxy_pauseInAppBroadcast__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __80__RPDaemonProxy_resumeInAppBroadcastWithWindowLayerContextID_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __132__RPDaemonProxy_startSystemRecordingWithContextID_windowSize_microphoneEnabled_cameraEnabled_mixedRealityCameraEnabled_withHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__RPDaemonProxy_stopSystemRecordingWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__RPDaemonProxy_stopSystemRecordingWithURLHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RPDaemonProxy_resumeSystemRecordingWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __125__RPDaemonProxy_setupSystemBroadcastWithHostBundleID_broadcastExtensionBundleID_broadcastConfigurationData_userInfo_handler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __149__RPDaemonProxy_startSystemBroadcastWithContextID_windowSize_microphoneEnabled_cameraEnabled_mixedRealityCameraEnabled_listenerEndpoint_withHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__RPDaemonProxy_stopSystemBroadcastWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RPDaemonProxy_resumeSystemBroadcastWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startHQLRWithSessionInfo:windowSize:handler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startHQLRWithSessionInfo:windowSize:handler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __61__RPDaemonProxy_startHQLRWithSessionInfo_windowSize_handler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__RPDaemonProxy_resumeHQLRWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __62__RPDaemonProxy_consumeSandboxExtension_processNewConnection___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RPDaemonProxy_macApplicationDidResignActive__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __78__RPDaemonProxy_macApplicationDidBecomeActiveWithContextID_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveVideo:handler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __35__RPDaemonProxy_saveVideo_handler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __47__RPDaemonProxy_saveVideoToCameraRoll_handler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveClipToCameraRoll:handler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RPDaemonProxy_saveClipToCameraRoll_handler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __35__RPDaemonProxy_reportCameraUsage___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __38__RPDaemonProxy_setMicrophoneEnabled___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RPDaemonProxy_getSystemBroadcastPickerInfo___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __63__RPDaemonProxy_setBroadcastPickerPreferredExt_showsMicButton___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__RPDaemonProxy_openControlCenterSystemRecordingView__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RPDaemonProxy_updateProcessIDForAudioCaptureWithPID___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __33__RPDaemonProxy_setBroadcastURL___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __114__RPDaemonProxy_startClipBufferingWithContextID_windowSize_microphoneEnabled_cameraEnabled_withCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__RPDaemonProxy_stopClipBufferingWithCompletionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)exportClipToURL:duration:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RPDaemonProxy_exportClipToURL_duration_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__RPDaemonProxy_resumeInAppClipWithWindowLayerContextID_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

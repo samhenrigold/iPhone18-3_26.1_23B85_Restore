@@ -40,12 +40,12 @@
 
 - (CDMEmbeddingGraphRequestCommand)initWithText:(id)text requestId:(id)id
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   textCopy = text;
   idCopy = id;
-  v19.receiver = self;
-  v19.super_class = CDMEmbeddingGraphRequestCommand;
-  v9 = [(CDMBaseCommand *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = CDMEmbeddingGraphRequestCommand;
+  v9 = [(CDMBaseCommand *)&v18 init];
   v10 = v9;
   if (v9)
   {
@@ -62,11 +62,11 @@
       v15 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v18 = [idCopy idA];
+        v17 = [idCopy idA];
         *buf = 136315394;
-        v21 = "[CDMEmbeddingGraphRequestCommand initWithText:requestId:]";
-        v22 = 2112;
-        v23 = v18;
+        v20 = "[CDMEmbeddingGraphRequestCommand initWithText:requestId:]";
+        v21 = 2112;
+        v22 = v17;
         _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s Request ID not set, generated request id with UUID: %@", buf, 0x16u);
       }
     }
@@ -74,7 +74,6 @@
     objc_storeStrong(&v10->_requestId, idCopy);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

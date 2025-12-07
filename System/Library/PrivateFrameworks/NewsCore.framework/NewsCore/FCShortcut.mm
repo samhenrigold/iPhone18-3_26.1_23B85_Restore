@@ -28,27 +28,27 @@
 
 - (FCShortcut)initWithIdentifier:(id)identifier dateAdded:(id)added order:(id)order shortcutType:(unint64_t)type
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   addedCopy = added;
   orderCopy = order;
   if (!identifierCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shortcut list entry must have an item identifier"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shortcut list entry must have an item identifier"];
     *buf = 136315906;
-    v24 = "[FCShortcut initWithIdentifier:dateAdded:order:shortcutType:]";
-    v25 = 2080;
-    v26 = "FCShortcut.m";
-    v27 = 1024;
-    v28 = 20;
-    v29 = 2114;
-    v30 = v21;
+    v23 = "[FCShortcut initWithIdentifier:dateAdded:order:shortcutType:]";
+    v24 = 2080;
+    v25 = "FCShortcut.m";
+    v26 = 1024;
+    v27 = 20;
+    v28 = 2114;
+    v29 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v22.receiver = self;
-  v22.super_class = FCShortcut;
-  v13 = [(FCShortcut *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = FCShortcut;
+  v13 = [(FCShortcut *)&v21 init];
   v14 = v13;
   if (v13)
   {
@@ -74,7 +74,6 @@
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

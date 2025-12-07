@@ -2001,7 +2001,7 @@ void __88__STTimeAllowancesViewModelCoordinator_saveDefaultAlwaysAllowListWithCo
 {
   OUTLINED_FUNCTION_1_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0(&dword_264BA2000, v0, v1, "user with DSID could not be found: %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_0(&dword_264BA2000, v0, v1, "user with DSID could not be found: %{public}@", v2, v3, v4, v5);
 }
 
 void __75__STTimeAllowancesViewModelCoordinator_loadViewModelWithCompletionHandler___block_invoke_cold_1(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -2016,7 +2016,7 @@ void __76__STTimeAllowancesViewModelCoordinator_toggleDowntimeWithCompletionHand
 {
   OUTLINED_FUNCTION_1_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_0(&dword_264BA2000, v0, v1, "user with objectID could not be found: %{public}@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_0(&dword_264BA2000, v0, v1, "user with objectID could not be found: %{public}@", v2, v3, v4, v5);
 }
 
 void __78__STTimeAllowancesViewModelCoordinator_saveAlwaysAllowList_completionHandler___block_invoke_cold_2()

@@ -221,7 +221,7 @@
 
 - (SPBeacon)initWithCoder:(id)coder
 {
-  v70[2] = *MEMORY[0x277D85DE8];
+  v69[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   identifier = self->_identifier;
@@ -254,9 +254,9 @@
   self->_role = v17;
 
   v19 = MEMORY[0x277CBEB98];
-  v70[0] = objc_opt_class();
-  v70[1] = objc_opt_class();
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+  v69[0] = objc_opt_class();
+  v69[1] = objc_opt_class();
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
   v21 = [v19 setWithArray:v20];
   v22 = [coderCopy decodeObjectOfClasses:v21 forKey:@"shares"];
   shares = self->_shares;
@@ -267,10 +267,10 @@
   self->_lostModeInfo = v24;
 
   v26 = MEMORY[0x277CBEB98];
-  v69[0] = objc_opt_class();
-  v69[1] = objc_opt_class();
-  v69[2] = objc_opt_class();
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:3];
+  v68[0] = objc_opt_class();
+  v68[1] = objc_opt_class();
+  v68[2] = objc_opt_class();
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:3];
   v28 = [v26 setWithArray:v27];
   v29 = [coderCopy decodeObjectOfClasses:v28 forKey:@"taskInformation"];
   taskInformation = self->_taskInformation;
@@ -312,9 +312,9 @@
 
   self->_canBeLeashedByHost = [coderCopy decodeBoolForKey:@"canBeLeashedByHost"];
   v45 = MEMORY[0x277CBEB98];
-  v68[0] = objc_opt_class();
-  v68[1] = objc_opt_class();
-  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+  v67[0] = objc_opt_class();
+  v67[1] = objc_opt_class();
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
   v47 = [v45 setWithArray:v46];
   v48 = [coderCopy decodeObjectOfClasses:v47 forKey:@"safeLocations"];
   safeLocations = self->_safeLocations;
@@ -327,10 +327,10 @@
   self->_serialNumber = v50;
 
   v52 = MEMORY[0x277CBEB98];
-  v67[0] = objc_opt_class();
-  v67[1] = objc_opt_class();
-  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
-  v54 = [v52 setWithArray:{v53, v67[0]}];
+  v66[0] = objc_opt_class();
+  v66[1] = objc_opt_class();
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+  v54 = [v52 setWithArray:{v53, v66[0]}];
   v55 = [coderCopy decodeObjectOfClasses:v54 forKey:@"locationProviders"];
   locationProviders = self->_locationProviders;
   self->_locationProviders = v55;
@@ -357,7 +357,6 @@
 
   LOBYTE(v54) = [coderCopy decodeBoolForKey:@"isAppleAudioAccessory"];
   self->_isAppleAudioAccessory = v54;
-  v65 = *MEMORY[0x277D85DE8];
   return self;
 }
 

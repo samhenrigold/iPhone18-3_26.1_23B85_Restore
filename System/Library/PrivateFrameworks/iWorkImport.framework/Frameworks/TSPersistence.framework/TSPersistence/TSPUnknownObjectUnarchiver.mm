@@ -1,4 +1,5 @@
 @interface TSPUnknownObjectUnarchiver
+- (TSPUnknownObjectUnarchiver)initWithIdentifier:(int64_t)identifier archiveInfo:(shared_ptr<TSP:(id)info :(id)a6 ArchiveInfo>)a4 messagesData:(BOOL)data packageLocator:(id)locator hasAlternateMessages:(id)messages objectDelegate:(id)self0 lazyReferenceDelegate:delegate:;
 - (TSPUnknownObjectUnarchiver)initWithMessageType:(unsigned int)type unarchiveClass:(Class)class message:()unique_ptr<google:(std:(int64_t)google :()unique_ptr<TSP:(std:(unint64_t)p :(id)a9 default_delete<TSP:(BOOL)self0 :(id)self1 IdentifierMap<BOOL>>>)a7 :(id)self2 IdentifierMap<BOOL> default_delete<google:(id)self3 :protobuf::Message>>)a5 :protobuf::Message identifier:strongReferences:messageVersion:unknownContent:hasAlternateMessages:objectDelegate:lazyReferenceDelegate:delegate:;
 - (const)message;
 - (id).cxx_construct;
@@ -25,6 +26,56 @@
   v30 = v29;
 
   objc_exception_throw(v29);
+}
+
+- (TSPUnknownObjectUnarchiver)initWithIdentifier:(int64_t)identifier archiveInfo:(shared_ptr<TSP:(id)info :(id)a6 ArchiveInfo>)a4 messagesData:(BOOL)data packageLocator:(id)locator hasAlternateMessages:(id)messages objectDelegate:(id)self0 lazyReferenceDelegate:delegate:
+{
+  dataCopy = data;
+  v11 = a6;
+  cntrl = a4.__cntrl_;
+  ptr = a4.__ptr_;
+  v29 = a4.__cntrl_;
+  infoCopy = info;
+  v18 = dataCopy;
+  locatorCopy = locator;
+  messagesCopy = messages;
+  v21 = objc_opt_class();
+  v31 = 0;
+  v32 = 0;
+  v30.receiver = self;
+  v30.super_class = TSPUnknownObjectUnarchiver;
+  v28 = v11;
+  v22 = [(TSPUnarchiver *)&v30 initWithMessageType:11199 unarchiveClass:v21 message:&v32 identifier:identifier strongReferences:&v31 messageVersion:0 unknownContent:0 hasAlternateMessages:v28 objectDelegate:v18 lazyReferenceDelegate:locatorCopy delegate:messagesCopy];
+  sub_276A519D8(&v31);
+  v23 = v32;
+  v32 = 0;
+  if (v23)
+  {
+    (*(*v23 + 8))(v23);
+  }
+
+  if (v22)
+  {
+    v25 = ptr->_vptr$MessageLite;
+    v24 = ptr->_internal_metadata_.ptr_;
+    if (v24)
+    {
+      atomic_fetch_add_explicit(v24 + 1, 1uLL, memory_order_relaxed);
+    }
+
+    v26 = v22->_archiveInfo.__cntrl_;
+    v22->_archiveInfo.__ptr_ = v25;
+    v22->_archiveInfo.__cntrl_ = v24;
+    if (v26)
+    {
+      sub_2769C1430(v26);
+    }
+
+    objc_storeStrong(&v22->_messagesData, cntrl);
+    objc_storeStrong(&v22->_packageLocator, info);
+  }
+
+  return v22;
 }
 
 - (const)message

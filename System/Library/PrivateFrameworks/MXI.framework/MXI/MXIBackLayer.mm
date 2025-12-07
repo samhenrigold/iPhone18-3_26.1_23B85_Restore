@@ -9,11 +9,11 @@
 - (MXIBackLayer)initWithDevice:(id)device tileSize:(unsigned int)size tileMips:(unsigned int)mips downsampleLODs:(unsigned int)ds pixelFormat:(unint64_t)format failOnBinaryArchiveMiss:(BOOL)miss error:(id *)error
 {
   missCopy = miss;
-  v173 = *MEMORY[0x277D85DE8];
+  v178 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v169.receiver = self;
-  v169.super_class = MXIBackLayer;
-  v19 = [(MXIBackLayer *)&v169 init];
+  v174.receiver = self;
+  v174.super_class = MXIBackLayer;
+  v19 = [(MXIBackLayer *)&v174 init];
   if (v19)
   {
     formatCopy = format;
@@ -39,27 +39,27 @@
       v26 = objc_msgSend_newDefaultLibraryWithBundle_error_(deviceCopy, v29, v27, error, v30);
     }
 
-    v168 = objc_opt_new();
-    v166 = v27;
+    v173 = objc_opt_new();
+    v171 = v27;
     v33 = objc_msgSend_URLForResource_withExtension_(v27, v31, @"mxi_archive", @"metallib", v32);
-    objc_msgSend_setUrl_(v168, v34, v33, v35, v36);
+    objc_msgSend_setUrl_(v173, v34, v33, v35, v36);
 
-    v39 = objc_msgSend_newBinaryArchiveWithDescriptor_error_(deviceCopy, v37, v168, error, v38);
-    v167 = v39;
+    v39 = objc_msgSend_newBinaryArchiveWithDescriptor_error_(deviceCopy, v37, v173, error, v38);
+    v172 = v39;
     if (v39)
     {
-      v170 = v39;
-      v42 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v40, &v170, 1, v41);
+      v175 = v39;
+      v42 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v40, &v175, 1, v41);
     }
 
     else
     {
-      v43 = _mxi_log();
+      v43 = _mxi_log(0);
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
         v48 = objc_msgSend_localizedDescription(*error, v44, v45, v46, v47);
         *buf = 138412290;
-        v172 = v48;
+        v177 = v48;
         _os_log_impl(&dword_22F9C3000, v43, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:43] [TiledProcessor] WARNING: nil MTLBinaryArchive for mxi_archive, error %@", buf, 0xCu);
       }
 
@@ -87,119 +87,119 @@
 
     if (!v19->_concatRGBD)
     {
-      v92 = _mxi_log();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+      v95 = _mxi_log(v64);
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        v134 = objc_msgSend_computeFunction(v50, v130, v131, v132, v133);
-        v139 = objc_msgSend_name(v134, v135, v136, v137, v138);
+        v139 = objc_msgSend_computeFunction(v50, v135, v136, v137, v138);
+        v144 = objc_msgSend_name(v139, v140, v141, v142, v143);
         *buf = 138412290;
-        v172 = v139;
-        _os_log_impl(&dword_22F9C3000, v92, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:60] Failed on creating compute pipeline state for function '%@'", buf, 0xCu);
+        v177 = v144;
+        _os_log_impl(&dword_22F9C3000, v95, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:60] Failed on creating compute pipeline state for function '%@'", buf, 0xCu);
       }
 
       v28 = 0;
       goto LABEL_38;
     }
 
-    v64 = objc_opt_new();
+    v65 = objc_opt_new();
 
-    v68 = objc_msgSend_newFunctionWithName_(v26, v65, @"downscale_alpha_weighted", v66, v67);
-    objc_msgSend_setComputeFunction_(v64, v69, v68, v70, v71);
+    v69 = objc_msgSend_newFunctionWithName_(v26, v66, @"downscale_alpha_weighted", v67, v68);
+    objc_msgSend_setComputeFunction_(v65, v70, v69, v71, v72);
 
-    objc_msgSend_setBinaryArchives_(v64, v72, v42, v73, v74);
-    v76 = objc_msgSend_newComputePipelineStateWithDescriptor_options_reflection_error_(deviceCopy, v75, v64, v49, 0, error);
+    objc_msgSend_setBinaryArchives_(v65, v73, v42, v74, v75);
+    v77 = objc_msgSend_newComputePipelineStateWithDescriptor_options_reflection_error_(deviceCopy, v76, v65, v49, 0, error);
     downscaleAlphtaWeighted = v19->_downscaleAlphtaWeighted;
-    v19->_downscaleAlphtaWeighted = v76;
+    v19->_downscaleAlphtaWeighted = v77;
 
     if (!v19->_downscaleAlphtaWeighted)
     {
-      v92 = _mxi_log();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+      v95 = _mxi_log(v79);
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        v144 = objc_msgSend_computeFunction(v64, v140, v141, v142, v143);
-        v149 = objc_msgSend_name(v144, v145, v146, v147, v148);
+        v149 = objc_msgSend_computeFunction(v65, v145, v146, v147, v148);
+        v154 = objc_msgSend_name(v149, v150, v151, v152, v153);
         *buf = 138412290;
-        v172 = v149;
-        _os_log_impl(&dword_22F9C3000, v92, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:72] Failed on creating compute pipeline state for function '%@'", buf, 0xCu);
+        v177 = v154;
+        _os_log_impl(&dword_22F9C3000, v95, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:72] Failed on creating compute pipeline state for function '%@'", buf, 0xCu);
       }
 
       v28 = 0;
-      v50 = v64;
+      v50 = v65;
       goto LABEL_38;
     }
 
-    v78 = objc_opt_new();
+    v80 = objc_opt_new();
 
-    v82 = objc_msgSend_newFunctionWithName_(v26, v79, @"back_layer_copy", v80, v81);
-    objc_msgSend_setComputeFunction_(v78, v83, v82, v84, v85);
+    v84 = objc_msgSend_newFunctionWithName_(v26, v81, @"back_layer_copy", v82, v83);
+    objc_msgSend_setComputeFunction_(v80, v85, v84, v86, v87);
 
-    objc_msgSend_setBinaryArchives_(v78, v86, v42, v87, v88);
-    v90 = objc_msgSend_newComputePipelineStateWithDescriptor_options_reflection_error_(deviceCopy, v89, v78, 0, 0, error);
+    objc_msgSend_setBinaryArchives_(v80, v88, v42, v89, v90);
+    v92 = objc_msgSend_newComputePipelineStateWithDescriptor_options_reflection_error_(deviceCopy, v91, v80, 0, 0, error);
     backLayerBlend = v19->_backLayerBlend;
-    v19->_backLayerBlend = v90;
+    v19->_backLayerBlend = v92;
 
     if (v19->_backLayerBlend)
     {
-      v92 = objc_opt_new();
-      objc_msgSend_setTextureType_(v92, v93, 2, v94, v95);
-      objc_msgSend_setWidth_(v92, v96, sizeCopy << (dsCopy - 1), v97, v98);
-      objc_msgSend_setHeight_(v92, v99, sizeCopy << (dsCopy - 1), v100, v101);
-      objc_msgSend_setPixelFormat_(v92, v102, formatCopy, v103, v104);
-      objc_msgSend_setMipmapLevelCount_(v92, v105, dsCopy + 1, v106, v107);
-      objc_msgSend_setUsage_(v92, v108, 3, v109, v110);
-      v114 = objc_msgSend_newTextureWithDescriptor_(deviceCopy, v111, v92, v112, v113);
+      v95 = objc_opt_new();
+      objc_msgSend_setTextureType_(v95, v96, 2, v97, v98);
+      objc_msgSend_setWidth_(v95, v99, sizeCopy << (dsCopy - 1), v100, v101);
+      objc_msgSend_setHeight_(v95, v102, sizeCopy << (dsCopy - 1), v103, v104);
+      objc_msgSend_setPixelFormat_(v95, v105, formatCopy, v106, v107);
+      objc_msgSend_setMipmapLevelCount_(v95, v108, dsCopy + 1, v109, v110);
+      objc_msgSend_setUsage_(v95, v111, 3, v112, v113);
+      v117 = objc_msgSend_newTextureWithDescriptor_(deviceCopy, v114, v95, v115, v116);
       backLayerTexture = v19->_backLayerTexture;
-      v19->_backLayerTexture = v114;
+      v19->_backLayerTexture = v117;
 
       if (v19->_backLayerTexture)
       {
-        objc_msgSend_setWidth_(v92, v116, sizeCopy, v117, v118);
-        objc_msgSend_setHeight_(v92, v119, sizeCopy, v120, v121);
-        objc_msgSend_setMipmapLevelCount_(v92, v122, mipsCopy, v123, v124);
-        v128 = objc_msgSend_newTextureWithDescriptor_(deviceCopy, v125, v92, v126, v127);
+        objc_msgSend_setWidth_(v95, v120, sizeCopy, v121, v122);
+        objc_msgSend_setHeight_(v95, v123, sizeCopy, v124, v125);
+        objc_msgSend_setMipmapLevelCount_(v95, v126, mipsCopy, v127, v128);
+        v132 = objc_msgSend_newTextureWithDescriptor_(deviceCopy, v129, v95, v130, v131);
         tileTexture = v19->_tileTexture;
-        v19->_tileTexture = v128;
+        v19->_tileTexture = v132;
 
         if (v19->_tileTexture)
         {
           v19->_lods = dsCopy;
           v28 = v19;
 LABEL_37:
-          v50 = v78;
+          v50 = v80;
 LABEL_38:
 
           goto LABEL_39;
         }
 
-        v160 = _mxi_log();
-        if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
+        v165 = _mxi_log(v134);
+        if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v160, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:110] Failed on creating back layer tile texture", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v165, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:110] Failed on creating back layer tile texture", buf, 2u);
         }
       }
 
       else
       {
-        v160 = _mxi_log();
-        if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
+        v165 = _mxi_log(v119);
+        if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_22F9C3000, v160, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:100] Failed on creating back layer texture", buf, 2u);
+          _os_log_impl(&dword_22F9C3000, v165, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:100] Failed on creating back layer texture", buf, 2u);
         }
       }
     }
 
     else
     {
-      v92 = _mxi_log();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+      v95 = _mxi_log(v94);
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        v154 = objc_msgSend_computeFunction(v78, v150, v151, v152, v153);
-        v159 = objc_msgSend_name(v154, v155, v156, v157, v158);
+        v159 = objc_msgSend_computeFunction(v80, v155, v156, v157, v158);
+        v164 = objc_msgSend_name(v159, v160, v161, v162, v163);
         *buf = 138412290;
-        v172 = v159;
-        _os_log_impl(&dword_22F9C3000, v92, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:84] Failed on creating compute pipeline state for function '%@'", buf, 0xCu);
+        v177 = v164;
+        _os_log_impl(&dword_22F9C3000, v95, OS_LOG_TYPE_ERROR, "[MXI.framework/MXIBackLayer.mm:84] Failed on creating compute pipeline state for function '%@'", buf, 0xCu);
       }
     }
 

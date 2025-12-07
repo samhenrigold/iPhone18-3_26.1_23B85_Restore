@@ -23,39 +23,37 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  objc_msgSend_width(self, v9, v10, v11);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  [(EQKitHSpace *)self width];
 
-  return objc_msgSend_initWithWidth_(v8, v12, v13, v14);
+  return [v4 initWithWidth:?];
 }
 
 - (BOOL)isEqual:(id)equal
 {
   if (self == equal)
   {
-    LOBYTE(isMemberOfClass) = 1;
+    LOBYTE(v5) = 1;
   }
 
   else if (equal)
   {
-    v5 = objc_opt_class();
-    isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
-    if (isMemberOfClass)
+    v5 = [equal isMemberOfClass:objc_opt_class()];
+    if (v5)
     {
-      objc_msgSend_width(self, v9, v10, v11);
-      v13 = v12;
-      objc_msgSend_width(equal, v14, v15, v16);
-      LOBYTE(isMemberOfClass) = v13 == v17;
+      [(EQKitHSpace *)self width];
+      v7 = v6;
+      [equal width];
+      LOBYTE(v5) = v7 == v8;
     }
   }
 
   else
   {
-    LOBYTE(isMemberOfClass) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  return isMemberOfClass;
+  return v5;
 }
 
 - (unint64_t)hash
@@ -69,8 +67,8 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  objc_msgSend_width(self, v5, v6, v7);
-  return objc_msgSend_stringWithFormat_(v3, v8, @"<%@ %p>: width=%f", v9, v4, self, v10);
+  [(EQKitHSpace *)self width];
+  return [v3 stringWithFormat:@"<%@ %p>: width=%f", v4, self, v5];
 }
 
 @end

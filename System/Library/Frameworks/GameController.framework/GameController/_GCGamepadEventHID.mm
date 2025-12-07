@@ -9,35 +9,35 @@
 
 - (_GCGamepadEventHID)initWithHIDEvent:(__IOHIDEvent *)event
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = _GCGamepadEventHID;
-  v4 = [(_GCGamepadEventHID *)&v19 init];
+  v20 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = _GCGamepadEventHID;
+  v4 = [(_GCGamepadEventHID *)&v18 init];
   if (v4)
   {
     v4->_event = CFRetain(event);
     if (IOHIDEventGetType() == 35)
     {
       IOHIDEventGetChildren();
+      v14 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
-      v5 = v18 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v5 = v17 = 0u;
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v16;
+        v8 = *v15;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v16 != v8)
+            if (*v15 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v15 + 1) + 8 * i);
+            v10 = *(*(&v14 + 1) + 8 * i);
             IntegerValue = IOHIDEventGetIntegerValue();
             v12 = IOHIDEventGetIntegerValue();
             if (IntegerValue == 65280 && v12 == 67)
@@ -47,7 +47,7 @@
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
           if (v7)
           {
             continue;
@@ -61,7 +61,6 @@ LABEL_14:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -123,97 +122,82 @@ LABEL_14:
     switch(element)
     {
       case 0:
-        event = self->_event;
-        goto LABEL_31;
       case 1:
-        v30 = self->_event;
-        goto LABEL_31;
       case 2:
-        v35 = self->_event;
-        goto LABEL_31;
       case 3:
-        v21 = self->_event;
-        goto LABEL_31;
       case 4:
-        v23 = self->_event;
-        goto LABEL_31;
       case 5:
-        v36 = self->_event;
-        goto LABEL_31;
       case 6:
-        v39 = self->_event;
-        goto LABEL_31;
       case 7:
-        v28 = self->_event;
-        goto LABEL_31;
       case 8:
-        v29 = self->_event;
-        goto LABEL_31;
       case 9:
-        v26 = self->_event;
-        goto LABEL_31;
+      case 18:
+      case 19:
+      case 20:
+      case 21:
+      case 41:
+      case 42:
+      case 43:
+      case 44:
+      case 45:
+      case 46:
+        IOHIDEventGetFloatValue();
+        return v14;
       case 10:
       case 11:
-        v8 = self->_event;
         IOHIDEventGetFloatValue();
-        v10 = v9;
-        if (element != 10)
+        v9 = v8;
+        if (element == 10)
         {
-          goto LABEL_11;
+          goto LABEL_9;
         }
 
-        return fmaxf(v10, 0.0);
+        goto LABEL_11;
       case 12:
       case 13:
-        v14 = self->_event;
         IOHIDEventGetFloatValue();
-        v10 = v15;
+        v9 = v12;
         if (element != 13)
         {
           goto LABEL_11;
         }
 
-        return fmaxf(v10, 0.0);
+        goto LABEL_9;
       case 14:
       case 15:
-        v16 = self->_event;
         IOHIDEventGetFloatValue();
-        v10 = v17;
+        v9 = v13;
         if (element != 14)
         {
           goto LABEL_11;
         }
 
-        return fmaxf(v10, 0.0);
+        goto LABEL_9;
       case 16:
       case 17:
-        v12 = self->_event;
         IOHIDEventGetFloatValue();
-        v10 = v13;
+        v9 = v11;
         if (element == 17)
         {
-          return fmaxf(v10, 0.0);
+LABEL_9:
+          v7 = fmaxf(v9, 0.0);
         }
 
-LABEL_11:
-        if (v10 >= 0.0)
+        else
         {
-          return 0.0;
+LABEL_11:
+          if (v9 >= 0.0)
+          {
+            v7 = 0.0;
+          }
+
+          else
+          {
+            v7 = -v9;
+          }
         }
 
-        return -v10;
-      case 18:
-        v31 = self->_event;
-        goto LABEL_31;
-      case 19:
-        v27 = self->_event;
-        goto LABEL_31;
-      case 20:
-        v24 = self->_event;
-        goto LABEL_31;
-      case 21:
-        v19 = self->_event;
-        goto LABEL_31;
+        break;
       case 22:
       case 23:
       case 24:
@@ -234,27 +218,6 @@ LABEL_11:
       case 39:
       case 40:
         return v7;
-      case 41:
-        v20 = self->_event;
-        goto LABEL_31;
-      case 42:
-        v25 = self->_event;
-        goto LABEL_31;
-      case 43:
-        v38 = self->_event;
-        goto LABEL_31;
-      case 44:
-        v18 = self->_event;
-        goto LABEL_31;
-      case 45:
-        v22 = self->_event;
-        goto LABEL_31;
-      case 46:
-        v32 = self->_event;
-LABEL_31:
-        IOHIDEventGetFloatValue();
-        v7 = v33;
-        break;
       default:
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
         [currentHandler2 handleFailureInMethod:a2 object:self file:@"_GCGamepadEventImpl.m" lineNumber:491 description:@"Unknown element"];

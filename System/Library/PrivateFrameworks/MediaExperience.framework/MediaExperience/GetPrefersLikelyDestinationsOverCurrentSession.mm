@@ -6,16 +6,13 @@
 uint64_t __routingSessionManagerResilientRemote_GetPrefersLikelyDestinationsOverCurrentSession_block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 16) + 64);
-  if (!v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+  if (!v4)
   {
     return 4294954514;
   }
 
-  v6 = *(VTable + 16) + 64;
-
-  return v5(a2, v3);
+  return v4(a2, v3);
 }
 
 @end

@@ -31,25 +31,26 @@
 + (BOOL)isBiometricAuthenticationAvailable
 {
   v2 = objc_alloc_init(MEMORY[0x1E696EE50]);
-  v9 = 0;
-  v3 = [v2 canEvaluatePolicy:1 error:&v9];
-  v4 = v9;
+  v11 = 0;
+  v3 = [v2 canEvaluatePolicy:1 error:&v11];
+  v4 = v11;
+  v6 = v4;
   if ((v3 & 1) == 0)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    v6 = v5;
-    if (v4)
+    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization(v4, v5);
+    v8 = v7;
+    if (v6)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        +[(_ASDevice *)v6];
+        +[(_ASDevice *)v8];
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1C20AD000, v6, OS_LOG_TYPE_INFO, "No biometrics available", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "No biometrics available", v10, 2u);
     }
   }
 
@@ -59,25 +60,26 @@
 + (BOOL)isCompanionAuthenticationAvailable
 {
   v2 = objc_alloc_init(MEMORY[0x1E696EE50]);
-  v9 = 0;
-  v3 = [v2 canEvaluatePolicy:3 error:&v9];
-  v4 = v9;
+  v11 = 0;
+  v3 = [v2 canEvaluatePolicy:3 error:&v11];
+  v4 = v11;
+  v6 = v4;
   if ((v3 & 1) == 0)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    v6 = v5;
-    if (v4)
+    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization(v4, v5);
+    v8 = v7;
+    if (v6)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        +[(_ASDevice *)v6];
+        +[(_ASDevice *)v8];
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1C20AD000, v6, OS_LOG_TYPE_INFO, "No companion auth available", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "No companion auth available", v10, 2u);
     }
   }
 
@@ -87,40 +89,42 @@
 + (BOOL)shouldRequireLocalAuthenticationForPasswords
 {
   v2 = objc_alloc_init(MEMORY[0x1E696EE50]);
-  v9 = 0;
-  v3 = [v2 canEvaluatePolicy:2 error:&v9];
-  v4 = v9;
+  v11 = 0;
+  v3 = [v2 canEvaluatePolicy:2 error:&v11];
+  v4 = v11;
   v5 = v4;
   if (v3)
   {
 LABEL_6:
-    v6 = 1;
+    v8 = 1;
     goto LABEL_7;
   }
 
-  if (([v4 safari_matchesErrorDomain:*MEMORY[0x1E696EE30] andCode:-5] & 1) == 0)
+  v6 = [v4 safari_matchesErrorDomain:*MEMORY[0x1E696EE30] andCode:-5];
+  if ((v6 & 1) == 0)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      +[(_ASDevice *)v7];
+      +[(_ASDevice *)v9];
     }
 
     goto LABEL_6;
   }
 
-  v6 = 0;
+  v8 = 0;
 LABEL_7:
 
-  return v6;
+  return v8;
 }
 
 + (int64_t)biometryType
 {
   v2 = objc_alloc_init(MEMORY[0x1E696EE50]);
-  v8 = 0;
-  v3 = [v2 canEvaluatePolicy:1 error:&v8];
-  v4 = v8;
+  v10 = 0;
+  v3 = [v2 canEvaluatePolicy:1 error:&v10];
+  v4 = v10;
+  v6 = v4;
   if (v3)
   {
     biometryType = [v2 biometryType];
@@ -128,10 +132,10 @@ LABEL_7:
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXAuthorization(v4, v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      +[(_ASDevice *)v6];
+      +[(_ASDevice *)v8];
     }
 
     biometryType = 0;
@@ -152,46 +156,34 @@ LABEL_7:
 
 + (void)isBiometricAuthenticationAvailable
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Local Auth returned error when checking biometric auth availability: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Local Auth returned error when checking biometric auth availability: %{public}@", v6, v7, v8, v9);
 }
 
 + (void)isCompanionAuthenticationAvailable
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Local Auth returned error when checking companion auth availability: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Local Auth returned error when checking companion auth availability: %{public}@", v6, v7, v8, v9);
 }
 
 + (void)shouldRequireLocalAuthenticationForPasswords
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Local Auth returned error when checking password auth availability: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Local Auth returned error when checking password auth availability: %{public}@", v6, v7, v8, v9);
 }
 
 + (void)biometryType
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Cannot evaluate biometrics: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Cannot evaluate biometrics: %{public}@", v6, v7, v8, v9);
 }
 
 @end

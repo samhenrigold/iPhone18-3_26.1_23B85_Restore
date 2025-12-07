@@ -8,15 +8,15 @@
 
 - (void)stopWithReason:(int)reason
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   v6 = ne_log_obj();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     selfCopy = self;
-    v13 = 2080;
-    v14 = ne_session_stop_reason_to_string();
+    v12 = 2080;
+    v13 = ne_session_stop_reason_to_string();
     _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@: Calling stopFilterWithReason because: %s", buf, 0x16u);
   }
 
@@ -30,15 +30,13 @@
     v7 = 0;
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __51__NEFilterExtensionProviderContext_stopWithReason___block_invoke;
-  v9[3] = &unk_1E7F086C0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__NEFilterExtensionProviderContext_stopWithReason___block_invoke;
+  v8[3] = &unk_1E7F086C0;
   reasonCopy = reason;
-  v9[4] = self;
-  [_principalObject stopFilterWithReason:v7 completionHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[4] = self;
+  [_principalObject stopFilterWithReason:v7 completionHandler:v8];
 }
 
 uint64_t __51__NEFilterExtensionProviderContext_stopWithReason___block_invoke(uint64_t a1)

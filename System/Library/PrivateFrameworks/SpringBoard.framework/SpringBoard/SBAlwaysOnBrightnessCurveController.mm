@@ -44,28 +44,28 @@
 - (void)setUseAlwaysOnBrightnessCurve:(BOOL)curve withRampDuration:(double)duration
 {
   curveCopy = curve;
-  v17[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   self->_lock_useAlwaysOnBrightnessCurve = curveCopy;
   os_unfair_lock_unlock(&self->_lock);
-  v16[0] = @"AOTState";
+  v17[0] = @"AOTState";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:curveCopy];
-  v16[1] = @"AOTTransitionTime";
-  v17[0] = v7;
+  v17[1] = @"AOTTransitionTime";
+  v18[0] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:duration];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v18[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
-  v10 = SBLogBacklight();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = SBLogBacklight(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11[0] = 67109634;
-    v11[1] = curveCopy;
-    v12 = 2048;
+    v12[0] = 67109634;
+    v12[1] = curveCopy;
+    v13 = 2048;
     durationCopy = duration;
-    v14 = 2114;
-    v15 = v9;
-    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "setUseAlwaysOnBrightnessCurve:%{BOOL}u duration:%.2fs set to %{public}@", v11, 0x1Cu);
+    v15 = 2114;
+    v16 = v9;
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "setUseAlwaysOnBrightnessCurve:%{BOOL}u duration:%.2fs set to %{public}@", v12, 0x1Cu);
   }
 
   [(BrightnessSystemClient *)self->_brightnessSystemClient setProperty:v9 forKey:@"CBAOTStateUpdate"];

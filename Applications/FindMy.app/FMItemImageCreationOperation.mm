@@ -27,7 +27,7 @@
 - (void)start
 {
   selfCopy = self;
-  sub_10018F8C0();
+  sub_10018F8C0(selfCopy, v2, v3);
 }
 
 - (_TtC6FindMy28FMItemImageCreationOperation)init

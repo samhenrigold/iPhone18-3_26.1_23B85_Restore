@@ -5,34 +5,35 @@
 - (void)_laterButtonTapped:(id)tapped;
 - (void)_otherButtonTapped:(id)tapped;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SSVisitStoreViewController
 
 - (SSVisitStoreViewController)initWithPlans:(id)plans showOtherOption:(BOOL)option
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   plansCopy = plans;
-  v7 = [plansCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [plansCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     carrierName2 = &stru_28753DF48;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(plansCopy);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         carrierName = [v12 carrierName];
         v14 = [carrierName length];
 
@@ -48,7 +49,7 @@
         }
       }
 
-      v8 = [plansCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v8 = [plansCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v8)
       {
         continue;
@@ -80,11 +81,10 @@ LABEL_12:
   v22 = [v19 stringWithFormat:v21, carrierName2];
 
   self->_showOtherOption = option;
-  v26.receiver = self;
-  v26.super_class = SSVisitStoreViewController;
-  v23 = [(SSVisitStoreViewController *)&v26 initWithTitle:v18 detailText:v22 symbolName:@"antenna.radiowaves.left.and.right"];
+  v25.receiver = self;
+  v25.super_class = SSVisitStoreViewController;
+  v23 = [(SSVisitStoreViewController *)&v25 initWithTitle:v18 detailText:v22 symbolName:@"antenna.radiowaves.left.and.right"];
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -130,6 +130,14 @@ LABEL_12:
     buttonTray3 = [(SSVisitStoreViewController *)self buttonTray];
     [buttonTray3 addButton:linkButton3];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SSVisitStoreViewController;
+  [(SSVisitStoreViewController *)&v4 viewWillAppear:appear];
+  [(UIViewController *)self configureNavigationItem];
 }
 
 - (void)_continueButtonTapped:(id)tapped

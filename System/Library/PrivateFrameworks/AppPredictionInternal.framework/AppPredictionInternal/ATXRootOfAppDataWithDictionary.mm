@@ -65,10 +65,9 @@
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  sessionCounts = self->_sessionCounts;
-  v7 = [v3 initWithFormat:@"<%@ session counts: %@ first UA: %@", v5, sessionCounts, self->_firstUA];
+  v6 = [v3 initWithFormat:@"<%@ session counts: %@ first UA: %@", v5, self->_sessionCounts, self->_firstUA];
 
-  return v7;
+  return v6;
 }
 
 @end

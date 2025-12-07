@@ -38,9 +38,9 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFSelectedRoomItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   serviceLikeBuilder = [(HFSelectedRoomItemProvider *)self serviceLikeBuilder];
-  v7 = [v4 initWithHome:home serviceLikeBuilder:serviceLikeBuilder];
+  v7 = [v4 initWithHome:v5 serviceLikeBuilder:serviceLikeBuilder];
 
   return v7;
 }

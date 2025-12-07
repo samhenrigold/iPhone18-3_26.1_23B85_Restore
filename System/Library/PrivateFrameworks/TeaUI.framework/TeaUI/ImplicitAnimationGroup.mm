@@ -27,9 +27,10 @@
 - (BOOL)isRunning
 {
   selfCopy = self;
-  v3 = ImplicitAnimationGroup.isRunning.getter();
+  ImplicitAnimationGroup.isRunning.getter();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isReversed
@@ -42,8 +43,9 @@
 
 - (void)setReversed:(BOOL)reversed
 {
+  reversedCopy = reversed;
   selfCopy = self;
-  ImplicitAnimationGroup.isReversed.setter(reversed);
+  ImplicitAnimationGroup.isReversed.setter(reversedCopy);
 }
 
 - (double)fractionComplete
@@ -97,7 +99,7 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  ImplicitAnimationGroup.addCompletion(_:)(sub_1D7FECEEC, v5);
+  ImplicitAnimationGroup.addCompletion(_:)(sub_1D7FECEEC, v5, v7, v8, v9, v10, v11);
 }
 
 - (void)continueAnimationWithTimingParameters:(id)parameters durationFactor:(double)factor

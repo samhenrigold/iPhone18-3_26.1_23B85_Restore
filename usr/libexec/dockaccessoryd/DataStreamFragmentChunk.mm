@@ -98,7 +98,7 @@ LABEL_11:
             else
             {
               selfCopy = self;
-              v21 = sub_10007FAA0();
+              v21 = sub_10007FAA0(selfCopy);
               if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 v23 = sub_10007FAFC(selfCopy);
@@ -118,7 +118,7 @@ LABEL_11:
           else
           {
             selfCopy2 = self;
-            v19 = sub_10007FAA0();
+            v19 = sub_10007FAA0(selfCopy2);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               v20 = sub_10007FAFC(selfCopy2);
@@ -139,7 +139,7 @@ LABEL_11:
         else
         {
           selfCopy3 = self;
-          selfCopy2 = sub_10007FAA0();
+          selfCopy2 = sub_10007FAA0(selfCopy3);
           if (os_log_type_enabled(selfCopy2, OS_LOG_TYPE_ERROR))
           {
             v18 = sub_10007FAFC(selfCopy3);
@@ -160,7 +160,7 @@ LABEL_11:
       else
       {
         selfCopy4 = self;
-        selfCopy3 = sub_10007FAA0();
+        selfCopy3 = sub_10007FAA0(selfCopy4);
         if (os_log_type_enabled(selfCopy3, OS_LOG_TYPE_ERROR))
         {
           v17 = sub_10007FAFC(selfCopy4);
@@ -181,7 +181,7 @@ LABEL_11:
     else
     {
       selfCopy5 = self;
-      selfCopy4 = sub_10007FAA0();
+      selfCopy4 = sub_10007FAA0(selfCopy5);
       if (os_log_type_enabled(selfCopy4, OS_LOG_TYPE_ERROR))
       {
         v16 = sub_10007FAFC(selfCopy5);
@@ -202,7 +202,7 @@ LABEL_11:
   else
   {
     selfCopy6 = self;
-    selfCopy5 = sub_10007FAA0();
+    selfCopy5 = sub_10007FAA0(selfCopy6);
     if (os_log_type_enabled(selfCopy5, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy6);

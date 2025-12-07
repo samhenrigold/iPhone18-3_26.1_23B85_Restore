@@ -3,32 +3,32 @@
 
 @implementation CAContentStreamOptions
 
-uint64_t __82__CAContentStreamOptions_CAContentStreamOptionsRevLockAdditions__setTrackedLayer___block_invoke()
+SEL __82__CAContentStreamOptions_CAContentStreamOptionsRevLockAdditions__setTrackedLayer___block_invoke(uint64_t a1)
 {
   result = NSSelectorFromString(&cfstr_Settrackedlaye.isa);
   if (![CAContentStreamOptions(CAContentStreamOptionsRevLockAdditions) setTrackedLayer:]::trackedLayerSel)
   {
-    v1 = result;
+    v2 = result;
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      [CAContentStreamOptions(CAContentStreamOptionsRevLockAdditions) setTrackedLayer:]::trackedLayerSel = v1;
+      [CAContentStreamOptions(CAContentStreamOptionsRevLockAdditions) setTrackedLayer:]::trackedLayerSel = v2;
     }
   }
 
   return result;
 }
 
-uint64_t __78__CAContentStreamOptions_CAContentStreamOptionsRevLockAdditions__trackedLayer__block_invoke()
+SEL __78__CAContentStreamOptions_CAContentStreamOptionsRevLockAdditions__trackedLayer__block_invoke(uint64_t a1)
 {
   result = NSSelectorFromString(&cfstr_Trackedlayerid.isa);
   if (![CAContentStreamOptions(CAContentStreamOptionsRevLockAdditions) trackedLayer]::trackedLayerSel)
   {
-    v1 = result;
+    v2 = result;
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      [CAContentStreamOptions(CAContentStreamOptionsRevLockAdditions) trackedLayer]::trackedLayerSel = v1;
+      [CAContentStreamOptions(CAContentStreamOptionsRevLockAdditions) trackedLayer]::trackedLayerSel = v2;
     }
   }
 

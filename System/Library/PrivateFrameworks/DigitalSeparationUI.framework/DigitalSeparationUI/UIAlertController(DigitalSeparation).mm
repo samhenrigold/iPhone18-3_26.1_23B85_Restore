@@ -234,37 +234,37 @@ LABEL_22:
 
 + (id)ds_alertControllerWithStopPermissionSharingError:()DigitalSeparation
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a3;
   ds_localizedPermissionNames = [v4 ds_localizedPermissionNames];
   v6 = MEMORY[0x277CCAAF0];
   allObjects = [ds_localizedPermissionNames allObjects];
   v8 = [v6 localizedStringByJoiningStrings:allObjects];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   underlyingErrors = [v4 underlyingErrors];
-  v10 = [underlyingErrors countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v10 = [underlyingErrors countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(underlyingErrors);
         }
 
-        v12 |= [*(*(&v27 + 1) + 8 * i) code] == 7;
+        v12 |= [*(*(&v26 + 1) + 8 * i) code] == 7;
       }
 
-      v11 = [underlyingErrors countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v11 = [underlyingErrors countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v11);
@@ -283,9 +283,9 @@ LABEL_22:
 
       if ([ds_localizedPermissionNames count] >= 2)
       {
-        v25 = MEMORY[0x277CCACA8];
-        v26 = DSUILocStringForKey(@"RESET_APP_PERMISSIONS_FAILED_RESTRICTIONS_MULTIPLE_APPS");
-        v17 = [v25 stringWithFormat:v26, v8];
+        v24 = MEMORY[0x277CCACA8];
+        v25 = DSUILocStringForKey(@"RESET_APP_PERMISSIONS_FAILED_RESTRICTIONS_MULTIPLE_APPS");
+        v17 = [v24 stringWithFormat:v25, v8];
 
         goto LABEL_13;
       }
@@ -305,8 +305,6 @@ LABEL_14:
   v21 = [v19 stringWithFormat:v20, v8];
 
   v22 = [self alertControllerWithTitle:v21 message:v17 preferredStyle:1];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

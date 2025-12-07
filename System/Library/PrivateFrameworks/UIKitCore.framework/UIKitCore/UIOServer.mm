@@ -33,11 +33,11 @@
   return v2;
 }
 
-void __27__UIOServer_sharedInstance__block_invoke()
+void __27__UIOServer_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = qword_1ED4A0950;
-  qword_1ED4A0950 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = qword_1ED4A0950;
+  qword_1ED4A0950 = v1;
 }
 
 + (id)_identifierForSceneType:(int64_t)type spaceIdentifier:(id)identifier

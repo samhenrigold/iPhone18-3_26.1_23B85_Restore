@@ -147,7 +147,7 @@
 
 - (SPDiscoveredAccessoryProductInformation)initWithCoder:(id)coder
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   self->_beaconGroupVersion = [coderCopy decodeIntegerForKey:@"beaconGroupVersion"];
   self->_eligibleForPairing = [coderCopy decodeBoolForKey:@"eligibleForPairing"];
@@ -209,9 +209,9 @@
   self->_capabilities = [v29 unsignedIntegerValue];
 
   v30 = MEMORY[0x277CBEB98];
-  v53[0] = objc_opt_class();
-  v53[1] = objc_opt_class();
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+  v52[0] = objc_opt_class();
+  v52[1] = objc_opt_class();
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
   v32 = [v30 setWithArray:v31];
   v33 = [coderCopy decodeObjectOfClasses:v32 forKey:@"layoutTemplate"];
   layoutTemplate = self->_layoutTemplate;
@@ -250,7 +250,6 @@
   disableMetadata = self->_disableMetadata;
   self->_disableMetadata = v49;
 
-  v51 = *MEMORY[0x277D85DE8];
   return self;
 }
 

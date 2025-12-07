@@ -47,7 +47,9 @@
 - (void)showMessage:(id)message andContext:(id)context completion:(id)completion;
 - (void)showPasswordViewController;
 - (void)updateIdentityMenu;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation KerberosLoginViewController
@@ -83,11 +85,11 @@
 
 - (void)viewDidLoad
 {
-  v44.receiver = self;
-  v44.super_class = KerberosLoginViewController;
-  [(KerberosLoginViewController *)&v44 viewDidLoad];
-  v3 = sub_100003F48();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v45.receiver = self;
+  v45.super_class = KerberosLoginViewController;
+  viewDidLoad = [(KerberosLoginViewController *)&v45 viewDidLoad];
+  v4 = sub_100003F48(viewDidLoad);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B170();
   }
@@ -98,50 +100,50 @@
   layer2 = [(UIView *)self->_userNamePasswordView layer];
   [layer2 setCornerRadius:10.0];
 
-  v6 = objc_alloc_init(UILabel);
-  v7 = +[NSBundle mainBundle];
-  v8 = [v7 localizedStringForKey:@"SIGN_IN_TEXT" value:&stru_100014860 table:0];
-  [v6 setText:v8];
+  v7 = objc_alloc_init(UILabel);
+  v8 = +[NSBundle mainBundle];
+  v9 = [v8 localizedStringForKey:@"SIGN_IN_TEXT" value:&stru_100014860 table:0];
+  [v7 setText:v9];
 
-  [v6 setTextAlignment:0];
-  [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v9 = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
-  [v6 setFont:v9];
+  [v7 setTextAlignment:0];
+  [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v10 = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+  [v7 setFont:v10];
 
-  [v6 setAdjustsFontForContentSizeCategory:1];
-  v10 = [[UIBarButtonItem alloc] initWithCustomView:v6];
+  [v7 setAdjustsFontForContentSizeCategory:1];
+  v11 = [[UIBarButtonItem alloc] initWithCustomView:v7];
   navigationItem = [(KerberosLoginViewController *)self navigationItem];
-  [navigationItem setLeftBarButtonItem:v10];
+  [navigationItem setLeftBarButtonItem:v11];
 
   loginStackView = [(KerberosLoginViewController *)self loginStackView];
   loginStackView2 = [(KerberosLoginViewController *)self loginStackView];
   subviews = [loginStackView2 subviews];
-  v15 = [subviews objectAtIndexedSubscript:0];
-  [loginStackView setCustomSpacing:v15 afterView:16.0];
+  v16 = [subviews objectAtIndexedSubscript:0];
+  [loginStackView setCustomSpacing:v16 afterView:16.0];
 
   loginStackView3 = [(KerberosLoginViewController *)self loginStackView];
   loginStackView4 = [(KerberosLoginViewController *)self loginStackView];
   subviews2 = [loginStackView4 subviews];
-  v19 = [subviews2 objectAtIndexedSubscript:1];
-  [loginStackView3 setCustomSpacing:v19 afterView:16.0];
+  v20 = [subviews2 objectAtIndexedSubscript:1];
+  [loginStackView3 setCustomSpacing:v20 afterView:16.0];
 
   WeakRetained = objc_loadWeakRetained(&self->_usernameTextField);
   [WeakRetained setDelegate:self];
 
-  v21 = objc_loadWeakRetained(&self->_passwordTextField);
-  [v21 setDelegate:self];
+  v22 = objc_loadWeakRetained(&self->_passwordTextField);
+  [v22 setDelegate:self];
 
-  v22 = objc_loadWeakRetained(&self->_usernameTextField);
-  [v22 addTarget:self action:"textFieldDidChange:" forControlEvents:0x20000];
-
-  v23 = objc_loadWeakRetained(&self->_passwordTextField);
+  v23 = objc_loadWeakRetained(&self->_usernameTextField);
   [v23 addTarget:self action:"textFieldDidChange:" forControlEvents:0x20000];
 
-  v24 = objc_loadWeakRetained(&self->_usernameTextField);
-  [v24 setTextContentType:UITextContentTypeUsername];
+  v24 = objc_loadWeakRetained(&self->_passwordTextField);
+  [v24 addTarget:self action:"textFieldDidChange:" forControlEvents:0x20000];
 
-  v25 = objc_loadWeakRetained(&self->_passwordTextField);
-  [v25 setTextContentType:UITextContentTypePassword];
+  v25 = objc_loadWeakRetained(&self->_usernameTextField);
+  [v25 setTextContentType:UITextContentTypeUsername];
+
+  v26 = objc_loadWeakRetained(&self->_passwordTextField);
+  [v26 setTextContentType:UITextContentTypePassword];
 
   containerView = [(KerberosLoginViewController *)self containerView];
   [containerView setClipsToBounds:1];
@@ -154,11 +156,11 @@
   layer4 = [containerView3 layer];
   [layer4 setMaskedCorners:3];
 
-  v31 = +[NSNotificationCenter defaultCenter];
-  [v31 addObserver:self selector:"keyboardWillChangeFrame:" name:UIKeyboardWillChangeFrameNotification object:0];
-
   v32 = +[NSNotificationCenter defaultCenter];
-  [v32 addObserver:self selector:"keyboardWillHide:" name:UIKeyboardWillHideNotification object:0];
+  [v32 addObserver:self selector:"keyboardWillChangeFrame:" name:UIKeyboardWillChangeFrameNotification object:0];
+
+  v33 = +[NSNotificationCenter defaultCenter];
+  [v33 addObserver:self selector:"keyboardWillHide:" name:UIKeyboardWillHideNotification object:0];
 
   [(KerberosLoginViewController *)self changeUIForCertIdentity];
   buildOptionsMenu = [(KerberosLoginViewController *)self buildOptionsMenu];
@@ -176,18 +178,18 @@
   [identityButton2 setShowsMenuAsPrimaryAction:1];
 
   objc_initWeak(&location, self);
-  v39 = objc_alloc_init(TKTokenWatcher);
-  [(KerberosLoginViewController *)self setWatcher:v39];
+  v40 = objc_alloc_init(TKTokenWatcher);
+  [(KerberosLoginViewController *)self setWatcher:v40];
 
   watcher = [(KerberosLoginViewController *)self watcher];
-  v41[0] = _NSConcreteStackBlock;
-  v41[1] = 3221225472;
-  v41[2] = sub_100003F8C;
-  v41[3] = &unk_1000144E0;
-  objc_copyWeak(&v42, &location);
-  [watcher setInsertionHandler:v41];
+  v42[0] = _NSConcreteStackBlock;
+  v42[1] = 3221225472;
+  v42[2] = sub_100003F8C;
+  v42[3] = &unk_1000144E0;
+  objc_copyWeak(&v43, &location);
+  [watcher setInsertionHandler:v42];
 
-  objc_destroyWeak(&v42);
+  objc_destroyWeak(&v43);
   objc_destroyWeak(&location);
 }
 
@@ -423,9 +425,91 @@
   [identityButton2 setMenu:buildIdentityMenu];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = KerberosLoginViewController;
+  [(KerberosLoginViewController *)&v8 viewWillAppear:appear];
+  [(KerberosLoginViewController *)self enableUI];
+  WeakRetained = objc_loadWeakRetained(&self->_usernameTextField);
+  text = [WeakRetained text];
+  v6 = [text length];
+
+  if (!v6)
+  {
+    v7 = objc_loadWeakRetained(&self->_usernameTextField);
+    [v7 becomeFirstResponder];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v32.receiver = self;
+  v32.super_class = KerberosLoginViewController;
+  [(KerberosLoginViewController *)&v32 viewDidAppear:appear];
+  [(KerberosLoginViewController *)self presentPendingAlertIfNeeded];
+  currentUIContext = [(KerberosLoginViewController *)self currentUIContext];
+  callerLocalizedName = [currentUIContext callerLocalizedName];
+
+  WeakRetained = objc_loadWeakRetained(&self->_signInTitleLabel);
+  v7 = +[NSBundle mainBundle];
+  v8 = [v7 localizedStringForKey:@"SIGN_IN_TITLE" value:&stru_100014860 table:0];
+  currentUIContext2 = [(KerberosLoginViewController *)self currentUIContext];
+  realm = [currentUIContext2 realm];
+  v11 = [NSString stringWithFormat:v8, callerLocalizedName, realm];
+  [WeakRetained setText:v11];
+
+  v12 = objc_loadWeakRetained(&self->_signInTitleLabel);
+  [v12 sizeToFit];
+
+  currentUIContext3 = [(KerberosLoginViewController *)self currentUIContext];
+  extensionData = [currentUIContext3 extensionData];
+  helpText = [extensionData helpText];
+  v16 = [helpText length];
+
+  v17 = objc_loadWeakRetained(&self->_customHelpTitleLabel);
+  v18 = v17;
+  if (v16)
+  {
+    currentUIContext4 = [(KerberosLoginViewController *)self currentUIContext];
+    extensionData2 = [currentUIContext4 extensionData];
+    helpText2 = [extensionData2 helpText];
+    [v18 setText:helpText2];
+  }
+
+  else
+  {
+    [v17 setText:&stru_100014860];
+  }
+
+  currentUIContext5 = [(KerberosLoginViewController *)self currentUIContext];
+  extensionData3 = [currentUIContext5 extensionData];
+  customUsernameLabel = [extensionData3 customUsernameLabel];
+  v25 = [customUsernameLabel length];
+
+  if (v25)
+  {
+    v26 = objc_loadWeakRetained(&self->_usernameTextField);
+    currentUIContext6 = [(KerberosLoginViewController *)self currentUIContext];
+    extensionData4 = [currentUIContext6 extensionData];
+    customUsernameLabel2 = [extensionData4 customUsernameLabel];
+    [v26 setPlaceholder:customUsernameLabel2];
+  }
+
+  v30 = objc_loadWeakRetained(&self->_customHelpTitleLabel);
+  [v30 sizeToFit];
+
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_1000057CC;
+  v31[3] = &unk_100014358;
+  v31[4] = self;
+  [UIView animateWithDuration:1 delay:v31 options:&stru_100014570 animations:0.35 completion:0.35];
+}
+
 - (void)cancelClicked:(id)clicked
 {
-  v4 = sub_100003F48();
+  v4 = sub_100003F48(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B254();
@@ -445,7 +529,7 @@
 
 - (void)loginClicked:(id)clicked
 {
-  v4 = sub_100003F48();
+  v4 = sub_100003F48(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B404();
@@ -678,7 +762,7 @@ LABEL_10:
 {
   operationCopy = operation;
   messageCopy = message;
-  v8 = sub_100003F48();
+  v8 = sub_100003F48(messageCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B438();
@@ -690,7 +774,7 @@ LABEL_10:
 
 - (void)resetUI
 {
-  v3 = sub_100003F48();
+  v3 = sub_100003F48(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B4BC();
@@ -721,7 +805,7 @@ LABEL_10:
 
 - (void)cancelCurrentOperation
 {
-  v3 = sub_100003F48();
+  v3 = sub_100003F48(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B4F0();
@@ -735,23 +819,23 @@ LABEL_10:
 {
   contextCopy = context;
   errorCopy = error;
-  v10 = sub_100003F48();
+  v10 = sub_100003F48(errorCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134218498;
     resultCopy = result;
-    v35 = 2112;
-    v36 = contextCopy;
-    v37 = 2112;
-    v38 = errorCopy;
+    v36 = 2112;
+    v37 = contextCopy;
+    v38 = 2112;
+    v39 = errorCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "login handleResult: %lu, %@, %@", buf, 0x20u);
   }
 
   switch(result)
   {
     case 1uLL:
-      v11 = sub_100003F48();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = sub_100003F48(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         sub_10000B654();
       }
@@ -759,8 +843,8 @@ LABEL_10:
       [(KerberosLoginViewController *)self promptForPasswordWithContext:contextCopy];
       break;
     case 2uLL:
-      v21 = sub_100003F48();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = sub_100003F48(v11);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         sub_10000B620();
       }
@@ -768,8 +852,8 @@ LABEL_10:
       [(KerberosLoginViewController *)self promptForPrincipalWithContext:contextCopy];
       break;
     case 3uLL:
-      v18 = sub_100003F48();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = sub_100003F48(v11);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         sub_10000B5EC();
       }
@@ -783,95 +867,95 @@ LABEL_10:
       goto LABEL_31;
     case 8uLL:
       localizedDescription = +[NSBundle mainBundle];
-      v27 = [localizedDescription localizedStringForKey:@"PASSWORD_EXPIRED" value:&stru_100014860 table:0];
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = sub_100006E58;
-      v32[3] = &unk_100014628;
-      v32[4] = self;
-      v28 = v32;
+      v28 = [localizedDescription localizedStringForKey:@"PASSWORD_EXPIRED" value:&stru_100014860 table:0];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_100006E58;
+      v33[3] = &unk_100014628;
+      v33[4] = self;
+      v29 = v33;
       selfCopy2 = self;
-      v30 = v27;
-      v31 = contextCopy;
+      v31 = v28;
+      v32 = contextCopy;
       goto LABEL_30;
     case 9uLL:
       keychainHelper = [(KerberosLoginViewController *)self keychainHelper];
       serviceName = [contextCopy serviceName];
       [keychainHelper removeCredentialsFromKeychainWithService:serviceName];
 
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"ACCOUNT_LOCKED";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"ACCOUNT_LOCKED";
       goto LABEL_29;
     case 0xAuLL:
       keychainHelper2 = [(KerberosLoginViewController *)self keychainHelper];
       serviceName2 = [contextCopy serviceName];
       [keychainHelper2 removeCredentialsFromKeychainWithService:serviceName2];
 
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"PASSWORD_INCORRECT";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"PASSWORD_INCORRECT";
       goto LABEL_29;
     case 0xBuLL:
       keychainHelper3 = [(KerberosLoginViewController *)self keychainHelper];
       serviceName3 = [contextCopy serviceName];
       [keychainHelper3 removeCredentialsFromKeychainWithService:serviceName3];
 
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"USERNAME_INCORRECT";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"USERNAME_INCORRECT";
       goto LABEL_29;
     case 0xCuLL:
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"KDC_UNREACHABLE";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"KDC_UNREACHABLE";
       goto LABEL_29;
     case 0xDuLL:
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"UNABLE_TO_RESOLVE_REALM";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"UNABLE_TO_RESOLVE_REALM";
       goto LABEL_29;
     case 0xEuLL:
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"UNSUPPORTED_ENC_TYPE";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"UNSUPPORTED_ENC_TYPE";
       goto LABEL_29;
     case 0xFuLL:
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"CERTIFICATE_NOT_FOUND";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"CERTIFICATE_NOT_FOUND";
       goto LABEL_29;
     case 0x10uLL:
       keychainHelper4 = [(KerberosLoginViewController *)self keychainHelper];
       serviceName4 = [contextCopy serviceName];
       [keychainHelper4 removeCredentialsFromKeychainWithService:serviceName4];
 
-      v13 = +[NSBundle mainBundle];
-      localizedDescription = v13;
-      v15 = @"PASSWORD_CHANGED_TEXT";
+      v14 = +[NSBundle mainBundle];
+      localizedDescription = v14;
+      v16 = @"PASSWORD_CHANGED_TEXT";
 LABEL_29:
-      v27 = [v13 localizedStringForKey:v15 value:&stru_100014860 table:0];
+      v28 = [v14 localizedStringForKey:v16 value:&stru_100014860 table:0];
       selfCopy2 = self;
-      v30 = v27;
-      v31 = contextCopy;
-      v28 = 0;
+      v31 = v28;
+      v32 = contextCopy;
+      v29 = 0;
 LABEL_30:
-      [(KerberosLoginViewController *)selfCopy2 showMessage:v30 andContext:v31 completion:v28];
+      [(KerberosLoginViewController *)selfCopy2 showMessage:v31 andContext:v32 completion:v29];
 
 LABEL_31:
       break;
     case 0x11uLL:
-      v12 = sub_100003F48();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = sub_100003F48(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        sub_10000B524(contextCopy, v12);
+        sub_10000B524(contextCopy, v13);
       }
 
       [contextCopy completeRequestWithDoNotHandle];
       break;
     case 0x12uLL:
-      v26 = sub_100003F48();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v27 = sub_100003F48(v11);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         sub_10000B5B8();
       }
@@ -996,7 +1080,7 @@ LABEL_31:
 {
   contextCopy = context;
   completionCopy = completion;
-  v8 = sub_100003F48();
+  v8 = sub_100003F48(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B78C();
@@ -1010,10 +1094,11 @@ LABEL_31:
     [(KerberosLoginViewController *)self promptForSmartcardWithContext:contextCopy];
   }
 
-  if ([(KerberosLoginViewController *)self viewControllerIsShowing])
+  viewControllerIsShowing = [(KerberosLoginViewController *)self viewControllerIsShowing];
+  if (viewControllerIsShowing)
   {
-    v9 = sub_100003F48();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100003F48(viewControllerIsShowing);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10000B7C0();
     }
@@ -1026,14 +1111,14 @@ LABEL_31:
 
   else
   {
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10000806C;
-    v10[3] = &unk_1000146F0;
-    v10[4] = self;
-    v11 = contextCopy;
-    v12 = completionCopy;
-    [v11 presentAuthorizationViewControllerWithCompletion:v10];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000806C;
+    v11[3] = &unk_1000146F0;
+    v11[4] = self;
+    v12 = contextCopy;
+    v13 = completionCopy;
+    [v12 presentAuthorizationViewControllerWithCompletion:v11];
   }
 }
 
@@ -1183,11 +1268,11 @@ LABEL_6:
   keychainLAContext2 = [currentUIContext3 keychainLAContext];
   currentUIContext4 = [(KerberosLoginViewController *)self currentUIContext];
   serviceName = [currentUIContext4 serviceName];
-  v25 = 0;
   v26 = 0;
-  v12 = [keychainHelper retrieveCredentialsFromKeychainWithContext:keychainLAContext2 service:serviceName returnedUsername:&v26 returnedPassword:&v25];
-  v13 = v26;
-  v14 = v25;
+  v27 = 0;
+  v12 = [keychainHelper retrieveCredentialsFromKeychainWithContext:keychainLAContext2 service:serviceName returnedUsername:&v27 returnedPassword:&v26];
+  v13 = v27;
+  v14 = v26;
 
   if (!v12)
   {
@@ -1197,11 +1282,11 @@ LABEL_6:
     v16 = objc_loadWeakRetained(&self->_usernameTextField);
     [v16 setText:v13];
 
-    v17 = sub_100003F48();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100003F48(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v24 = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "prefilled credentials", v24, 2u);
+      *v25 = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "prefilled credentials", v25, 2u);
     }
 
     [(KerberosLoginViewController *)self _updateLoginButtonState];
@@ -1216,16 +1301,16 @@ LABEL_6:
 
   prefilledPassword = self->_prefilledPassword;
   self->_prefilledPassword = v14;
-  v21 = v14;
+  v22 = v14;
 
   prefilledUsername = self->_prefilledUsername;
   self->_prefilledUsername = v13;
-  v23 = v13;
+  v24 = v13;
 }
 
 - (BOOL)accessibilityPerformEscape
 {
-  v3 = sub_100003F48();
+  v3 = sub_100003F48(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1239,19 +1324,20 @@ LABEL_6:
 - (BOOL)accessibilityPerformMagicTap
 {
   _formIsValid = [(KerberosLoginViewController *)self _formIsValid];
+  v4 = _formIsValid;
   if (_formIsValid)
   {
-    v4 = sub_100003F48();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100003F48(_formIsValid);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Submitted login request via accessibility gesture", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Submitted login request via accessibility gesture", v7, 2u);
     }
 
     [(KerberosLoginViewController *)self loginClicked:0];
   }
 
-  return _formIsValid;
+  return v4;
 }
 
 - (void)changeFocusedElementForAccessibilityIfNeeded

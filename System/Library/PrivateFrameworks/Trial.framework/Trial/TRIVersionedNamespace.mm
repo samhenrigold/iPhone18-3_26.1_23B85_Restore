@@ -1,8 +1,10 @@
 @interface TRIVersionedNamespace
++ (id)versionedNamespaceWithName:(id)name compatibilityVersion:(unsigned int)version;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToVersionedNamespace:(id)namespace;
 - (TRIVersionedNamespace)initWithCoder:(id)coder;
 - (TRIVersionedNamespace)initWithName:(id)name compatibilityVersion:(unsigned int)version;
+- (id)copyWithReplacementCompatibilityVersion:(unsigned int)version;
 - (id)copyWithReplacementName:(id)name;
 - (id)description;
 - (id)userFacingString;
@@ -42,6 +44,15 @@
   return v10;
 }
 
++ (id)versionedNamespaceWithName:(id)name compatibilityVersion:(unsigned int)version
+{
+  v4 = *&version;
+  nameCopy = name;
+  v7 = [[self alloc] initWithName:nameCopy compatibilityVersion:v4];
+
+  return v7;
+}
+
 - (id)copyWithReplacementName:(id)name
 {
   nameCopy = name;
@@ -50,22 +61,21 @@
   return v5;
 }
 
+- (id)copyWithReplacementCompatibilityVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v5 = objc_alloc(objc_opt_class());
+  name = self->_name;
+
+  return [v5 initWithName:name compatibilityVersion:v3];
+}
+
 - (BOOL)isEqualToVersionedNamespace:(id)namespace
 {
   namespaceCopy = namespace;
   v5 = namespaceCopy;
-  if (!namespaceCopy)
+  if (!namespaceCopy || (v6 = self->_name == 0, [namespaceCopy name], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (name = self->_name) != 0 && (objc_msgSend(v5, "name"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](name, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_name == 0;
-  name = [namespaceCopy name];
-  v8 = name != 0;
-
-  if (v6 == v8 || (name = self->_name) != 0 && ([v5 name], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](name, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 
@@ -97,7 +107,7 @@ LABEL_6:
 
 - (TRIVersionedNamespace)initWithCoder:(id)coder
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   if (!v5)
@@ -106,9 +116,9 @@ LABEL_6:
 
     if (!error)
     {
-      v18 = *MEMORY[0x277CCA450];
-      v19[0] = @"Retrieved nil serialized value for nonnull TRIVersionedNamespace.name";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x277CCA450];
+      v18[0] = @"Retrieved nil serialized value for nonnull TRIVersionedNamespace.name";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v10 = objc_alloc(MEMORY[0x277CCA9B8]);
       v11 = 2;
 LABEL_9:
@@ -133,9 +143,9 @@ LABEL_10:
         goto LABEL_3;
       }
 
-      v16 = *MEMORY[0x277CCA450];
-      v17 = @"Missing serialized value for TRIVersionedNamespace.compatibilityVersion";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x277CCA450];
+      v16 = @"Missing serialized value for TRIVersionedNamespace.compatibilityVersion";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
       v10 = objc_alloc(MEMORY[0x277CCA9B8]);
       v11 = 1;
       goto LABEL_9;
@@ -149,7 +159,6 @@ LABEL_3:
   selfCopy = self;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

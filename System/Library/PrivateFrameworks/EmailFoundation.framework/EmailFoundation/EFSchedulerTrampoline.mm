@@ -111,20 +111,19 @@ void __56__EFSchedulerTrampoline_trampolineWithScheduler_object___block_invoke()
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v7.receiver = self;
-  v7.super_class = EFSchedulerTrampoline;
-  if ([(EFSchedulerTrampoline *)&v7 respondsToSelector:?])
+  v5.receiver = self;
+  v5.super_class = EFSchedulerTrampoline;
+  if ([(EFSchedulerTrampoline *)&v5 respondsToSelector:?])
   {
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    object = self->_object;
-    v4 = objc_opt_respondsToSelector();
+    v3 = objc_opt_respondsToSelector();
   }
 
-  return v4 & 1;
+  return v3 & 1;
 }
 
 - (id)methodSignatureForSelector:(SEL)selector

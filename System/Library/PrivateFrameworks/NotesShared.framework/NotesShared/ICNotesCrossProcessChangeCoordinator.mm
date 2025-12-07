@@ -143,4 +143,25 @@ void __71__ICNotesCrossProcessChangeCoordinator_registerForAccountNotifications_
   [v3 postNotificationName:*MEMORY[0x277D36138] object:0];
 }
 
+- (void)postCrossProcessNotificationName:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_214D51000, a2, a3, "Sending cross process notification: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)registerForCrossProcessNotificationName:(uint64_t)a3 block:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_214D51000, a2, a3, "Registering for cross-process notifications: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __86__ICNotesCrossProcessChangeCoordinator_registerForCrossProcessNotificationName_block___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_214D51000, a2, a3, "Handling cross-process notification: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

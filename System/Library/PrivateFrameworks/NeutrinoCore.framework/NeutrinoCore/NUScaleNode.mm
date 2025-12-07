@@ -49,7 +49,7 @@
     else
     {
       v9 = [NUImageGeometry alloc];
-      [v5 extent];
+      objc_msgSend_extent(v5);
       v10 = -[NUImageGeometry initWithExtent:renderScale:orientation:](v9, "initWithExtent:renderScale:orientation:", &v12, p_targetScale->numerator, p_targetScale->denominator, [v5 orientation]);
     }
 
@@ -123,7 +123,7 @@
       if (!NUScaleEqual(p_effectiveScale->numerator, p_effectiveScale->denominator, NUScaleOne, *(&NUScaleOne + 1)))
       {
         sampleMode = self->_sampleMode;
-        [v7 physicalScaledExtent];
+        objc_msgSend_physicalScaledExtent(v7);
         v12 = [NURenderNode resampleImage:v10 by:p_effectiveScale->numerator sampleMode:p_effectiveScale->denominator extent:sampleMode colorSpace:buf, 0];
 
         v10 = v12;

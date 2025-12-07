@@ -68,10 +68,7 @@
 
 uint64_t __56__HAP2AccessoryServerTransportBaseWithDelegate_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 56));
 
   return MEMORY[0x2821F96F8]();
 }

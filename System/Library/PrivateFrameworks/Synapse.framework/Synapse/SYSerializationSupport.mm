@@ -34,7 +34,7 @@
 
 + (id)itemDataFromArchiveData:(id)data majorVersion:(int64_t *)version minorVersion:(int64_t *)minorVersion error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length] <= 7)
   {
@@ -46,9 +46,9 @@
     [SYSerializationSupport itemDataFromArchiveData:a2 majorVersion:self minorVersion:? error:?];
   }
 
-  LODWORD(v25[0]) = 0;
-  [dataCopy getBytes:v25 range:{0, 4}];
-  if (LODWORD(v25[0]) != -260867735)
+  LODWORD(v24[0]) = 0;
+  [dataCopy getBytes:v24 range:{0, 4}];
+  if (LODWORD(v24[0]) != -260867735)
   {
 LABEL_7:
     v17 = SYFormatErrorMalformed();
@@ -57,27 +57,27 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v23 = 0;
-  [dataCopy getBytes:&v23 + 1 range:{4, 1}];
-  [dataCopy getBytes:&v23 range:{5, 1}];
-  v12 = HIBYTE(v23);
-  v13 = v23;
-  if (HIBYTE(v23) >= 2uLL)
+  v22 = 0;
+  [dataCopy getBytes:&v22 + 1 range:{4, 1}];
+  [dataCopy getBytes:&v22 range:{5, 1}];
+  v12 = HIBYTE(v22);
+  v13 = v22;
+  if (HIBYTE(v22) >= 2uLL)
   {
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Data format is a future or unsupported version: %ld.%ld.", HIBYTE(v23), v23];
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Data format is a future or unsupported version: %ld.%ld.", HIBYTE(v22), v22];
     v15 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = v14;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = v14;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v17 = [v15 errorWithDomain:@"com.apple.synapse" code:-123 userInfo:v16];
 
     goto LABEL_8;
   }
 
-  LOWORD(v25[0]) = 0;
-  [dataCopy getBytes:v25 range:{6, 2}];
-  v22 = LOWORD(v25[0]);
-  if (LOWORD(v25[0]) < 8uLL || [dataCopy length] <= v22)
+  LOWORD(v24[0]) = 0;
+  [dataCopy getBytes:v24 range:{6, 2}];
+  v21 = LOWORD(v24[0]);
+  if (LOWORD(v24[0]) < 8uLL || [dataCopy length] <= v21)
   {
     v17 = SYFormatErrorMalformed();
 LABEL_8:
@@ -110,8 +110,6 @@ LABEL_10:
     v19 = v17;
     *error = v17;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

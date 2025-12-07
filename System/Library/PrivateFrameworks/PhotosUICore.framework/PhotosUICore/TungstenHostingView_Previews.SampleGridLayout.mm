@@ -8,7 +8,7 @@
 - (_TtCV12PhotosUICore28TungstenHostingView_PreviewsP33_548AEEF075E30F02ECF115384DCAC70916SampleGridLayout)init
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for TungstenHostingView_Previews.SampleGridLayout();
+  v4.super_class = type metadata accessor for TungstenHostingView_Previews.SampleGridLayout(self, a2);
   v2 = [(PXGItemsLayout *)&v4 init];
   [(TungstenHostingView_Previews.SampleGridLayout *)v2 setNumberOfColumns:50];
   [(PXGItemsLayout *)v2 setNumberOfItems:5000];

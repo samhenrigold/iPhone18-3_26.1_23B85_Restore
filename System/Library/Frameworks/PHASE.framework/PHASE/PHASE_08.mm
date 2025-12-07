@@ -1,287 +1,8 @@
-void Phase::SpatialModeler::DirectivityHistogram::updateWasHitVector(Phase::SpatialModeler::DirectivityHistogram *this)
+uint64_t Phase::SpatialModeler::DirectivityHistogram::operator/=(double a1, uint64_t a2)
 {
-  if (*(this + 6))
-  {
-    v2 = 0;
-    do
-    {
-      v3 = *(this + 7);
-      v4 = (*(this + 1) + 4 * v2 * v3);
-      __C = -3.4028e38;
-      vDSP_maxv(v4, 1, &__C, v3);
-      *(*(this + 11) + 4 * v2++) = __C > 1.0e-22;
-    }
-
-    while (v2 < *(this + 6));
-  }
-}
-
-void **Phase::SpatialModeler::DirectivityHistogram::operator=(void **this, uint64_t a2)
-{
-  if (a2 != this)
-  {
-    Phase::SpatialModeler::EnergyHistogram::operator=(this, a2);
-    *(this + 20) = *(a2 + 80);
-    std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(this + 11, *(a2 + 88), *(a2 + 96), (*(a2 + 96) - *(a2 + 88)) >> 2);
-    Phase::SpatialModeler::DirectionalHistogramData::operator=(this + 14, a2 + 112);
-  }
-
-  return this;
-}
-
-uint64_t Phase::SpatialModeler::DirectivityHistogram::operator+=(uint64_t a1, uint64_t a2)
-{
-  Phase::SpatialModeler::EnergyHistogram::operator+=(a1, a2);
-  v4 = *(a1 + 88);
-  v5 = *(a1 + 96) - v4;
-  if (v5)
-  {
-    v6 = v5 >> 2;
-    v7 = *(a2 + 88);
-    v8 = (*(a2 + 96) - v7) >> 2;
-    if (v6 <= 1)
-    {
-      v6 = 1;
-    }
-
-    do
-    {
-      if (!v8)
-      {
-        break;
-      }
-
-      if (*v7 == 1)
-      {
-        *v4 = 1;
-      }
-
-      ++v7;
-      ++v4;
-      --v8;
-      --v6;
-    }
-
-    while (v6);
-  }
-
-  v9 = *(a2 + 112);
-  if (v9 >= *(a1 + 112))
-  {
-    v9 = *(a1 + 112);
-  }
-
-  if (v9)
-  {
-    LODWORD(v10) = 73 * v9;
-    v11 = *(a2 + 120);
-    v12 = *(a1 + 120);
-    if (v10 <= 1)
-    {
-      v10 = 1;
-    }
-
-    else
-    {
-      v10 = v10;
-    }
-
-    do
-    {
-      v13 = *v11++;
-      *v12 = v13 + *v12;
-      ++v12;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  *(a1 + 80) = -1;
-  return a1;
-}
-
-void sub_23A3946E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
-{
-  if (a2 == 1)
-  {
-    v9 = __cxa_begin_catch(exception_object);
-    v10 = **(Phase::Logger::GetInstance(v9) + 1264);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(a9) = 136315394;
-      *(&a9 + 4) = "DirectivityHistogram.cpp";
-      WORD6(a9) = 1024;
-      *(&a9 + 14) = 443;
-      _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot add other histogram because of a size mismatch.\n", &a9, 0x12u);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x23A3946B0);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t Phase::SpatialModeler::DirectivityHistogram::MultiplyAdd(Phase::SpatialModeler::DirectivityHistogram *this, float **a2, float a3)
-{
-  result = Phase::SpatialModeler::EnergyHistogram::MultiplyAdd(this, a2, a3);
-  v7 = *(this + 11);
-  v8 = *(this + 12) - v7;
-  if (v8)
-  {
-    v9 = v8 >> 2;
-    v10 = a2[11];
-    v11 = (a2[12] - v10) >> 2;
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    do
-    {
-      if (!v11)
-      {
-        break;
-      }
-
-      v12 = *v10;
-      v10 += 4;
-      *v7++ |= v12;
-      --v11;
-      --v9;
-    }
-
-    while (v9);
-  }
-
-  v13 = *(a2 + 28);
-  if (v13 >= *(this + 28))
-  {
-    v13 = *(this + 28);
-  }
-
-  if (v13)
-  {
-    LODWORD(v14) = 73 * v13;
-    v15 = a2[15];
-    v16 = *(this + 15);
-    if (v14 <= 1)
-    {
-      v14 = 1;
-    }
-
-    else
-    {
-      v14 = v14;
-    }
-
-    do
-    {
-      v17 = *v15++;
-      *v16 = *v16 + (v17 * a3);
-      ++v16;
-      --v14;
-    }
-
-    while (v14);
-  }
-
-  *(this + 20) = -1;
-  return result;
-}
-
-void sub_23A39488C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
-{
-  if (a2 == 1)
-  {
-    v9 = __cxa_begin_catch(exception_object);
-    v10 = **(Phase::Logger::GetInstance(v9) + 1264);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(a9) = 136315394;
-      *(&a9 + 4) = "DirectivityHistogram.cpp";
-      WORD6(a9) = 1024;
-      *(&a9 + 14) = 474;
-      _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Cannot add other histogram because of a size mismatch.\n", &a9, 0x12u);
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x23A39485CLL);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *Phase::SpatialModeler::DirectivityHistogram::operator*=(void *a1, double a2)
-{
-  v2 = *&a2;
-  v4 = *(Phase::SpatialModeler::EnergyHistogram::operator*=(a1, a2) + 112);
-  if (v4)
-  {
-    v5 = 73 * v4;
-    if (v5 <= 1)
-    {
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = v5;
-    }
-
-    v7 = (v6 + 3) & 0x1FFFFFFFCLL;
-    v8 = vdupq_n_s64(v6 - 1);
-    v9 = xmmword_23A554B60;
-    v10 = xmmword_23A554B70;
-    v11 = (a1[15] + 8);
-    v12 = vdupq_n_s64(4uLL);
-    do
-    {
-      v13 = vmovn_s64(vcgeq_u64(v8, v10));
-      if (vuzp1_s16(v13, *v8.i8).u8[0])
-      {
-        *(v11 - 2) = *(v11 - 2) * v2;
-      }
-
-      if (vuzp1_s16(v13, *&v8).i8[2])
-      {
-        *(v11 - 1) = *(v11 - 1) * v2;
-      }
-
-      if (vuzp1_s16(*&v8, vmovn_s64(vcgeq_u64(v8, *&v9))).i32[1])
-      {
-        *v11 = *v11 * v2;
-        v11[1] = v11[1] * v2;
-      }
-
-      v9 = vaddq_s64(v9, v12);
-      v10 = vaddq_s64(v10, v12);
-      v11 += 4;
-      v7 -= 4;
-    }
-
-    while (v7);
-  }
-
-  if (v2 == 0.0)
-  {
-    v14 = a1[11];
-    v15 = a1[12] - v14;
-    if (v15 >= 1)
-    {
-      bzero(v14, v15);
-    }
-  }
-
-  return a1;
-}
-
-uint64_t Phase::SpatialModeler::DirectivityHistogram::operator/=(uint64_t a1, double a2)
-{
-  v2 = 1.0 / *&a2;
-  *&a2 = 1.0 / *&a2;
-  result = Phase::SpatialModeler::EnergyHistogram::operator*=(a1, a2);
+  v2 = 1.0 / *&a1;
+  *&a1 = 1.0 / *&a1;
+  result = Phase::SpatialModeler::EnergyHistogram::operator*=(a2, a1);
   v4 = *(result + 112);
   if (v4)
   {
@@ -333,11 +54,11 @@ uint64_t Phase::SpatialModeler::DirectivityHistogram::operator/=(uint64_t a1, do
   return result;
 }
 
-void *Phase::SpatialModeler::DirectPathTransmissionDebugger::BeginTrackingSource(uint64_t a1, unint64_t a2, uint64_t a3)
+void *Phase::SpatialModeler::DirectPathTransmissionDebugger::BeginTrackingSource(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6[0] = a2;
-  v6[2] = v6;
-  v4 = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(a1 + 8, v6);
+  v6 = a2;
+  v7 = &v6;
+  v4 = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>((a1 + 8), &v6, &std::piecewise_construct, &v7);
   return std::function<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::RenderSourceView const*)>::operator=(v4 + 7, a3);
 }
 
@@ -381,11 +102,11 @@ uint64_t Phase::SpatialModeler::DirectPathTransmissionDebugger::EndTrackingSourc
   return result;
 }
 
-void *Phase::SpatialModeler::DirectPathTransmissionDebugger::BeginTrackingAudibleGeometry(uint64_t a1, unint64_t a2, uint64_t a3)
+void *Phase::SpatialModeler::DirectPathTransmissionDebugger::BeginTrackingAudibleGeometry(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6[0] = a2;
-  v6[2] = v6;
-  v4 = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(a1 + 8, v6);
+  v6 = a2;
+  v7 = &v6;
+  v4 = std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>((a1 + 8), &v6, &std::piecewise_construct, &v7);
   return std::function<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::AudibleTriangleView const*)>::operator=(v4 + 11, a3);
 }
 
@@ -429,41 +150,41 @@ uint64_t Phase::SpatialModeler::DirectPathTransmissionDebugger::EndTrackingAudib
   return result;
 }
 
-void *std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+uint64_t **std::__tree<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::__map_value_compare<Phase::Handle64,std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>,std::less<Phase::Handle64>,true>,std::allocator<std::__value_type<Phase::Handle64,Phase::SpatialModeler::DirectPathTransmissionDebugger::SourceDebugInfo>>>::__emplace_unique_key_args<Phase::Handle64,std::piecewise_construct_t const&,std::tuple<Phase::Handle64 const&>,std::tuple<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -708,33 +429,34 @@ uint64_t std::__function::__value_func<void ()(Phase::SpatialModeler::DirectPath
   return a1;
 }
 
-void Phase::SpatialModeler::DirectPathTransmissionErrorCategory::message(int a1@<W1>, _BYTE *a2@<X8>)
+void Phase::SpatialModeler::DirectPathTransmissionErrorCategory::message(uint64_t a1@<X1>, void *a2@<X8>)
 {
+  v2 = a1;
   if (a1 > 7)
   {
     if (a1 == 129)
     {
-      v5 = "Scene queries submitted to the Geometry Layer failed";
+      v4 = "Scene queries submitted to the Geometry Layer failed";
     }
 
     else if (a1 == 128)
     {
-      v5 = "Cannot generate source points from the SourceEntity";
+      v4 = "Cannot generate source points from the SourceEntity";
     }
 
     else
     {
-      v5 = "(unrecognized error)";
+      v4 = "(unrecognized error)";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(a2, v5);
+    std::string::basic_string[abi:ne200100]<0>(a2, v4);
   }
 
   else
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "Direct path transmission ");
-    Phase::SpatialModeler::ModelerErrorMessage(a1, __p, a2);
-    if (v7 < 0)
+    Phase::SpatialModeler::ModelerErrorMessage(v2, __p, a2);
+    if (v6 < 0)
     {
       operator delete(__p[0]);
     }
@@ -1188,7 +910,7 @@ LABEL_56:
   }
 
   v20 = *(v13 + 208);
-  if (v16 <= v20 || (v21 = (v17 + 24 * v20), *(v21 + 5) != HIDWORD(v20)) || (v22 = *v21) == 0 || *v22 != 3)
+  if (v16 <= v20 || (v21 = v17 + 24 * v20, *(v21 + 20) != HIDWORD(v20)) || (v22 = *v21) == 0 || v22->n128_u32[0] != 3)
   {
     v50 = (**a1)(a1);
     v62[0] = 6;
@@ -1199,8 +921,8 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v24 = *(v22 + 120);
-  v23 = *(v22 + 128);
+  v24 = v22[7].n128_u64[1];
+  v23 = v22[8].n128_u64[0];
   if (v24 != v23)
   {
     v25 = *v24;
@@ -1416,7 +1138,7 @@ uint64_t Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQuery@<X0>
   {
     v4 = *(a2 + 184);
 
-    return v4();
+    return v4(a1);
   }
 
   else
@@ -1448,128 +1170,130 @@ uint64_t Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryBegin
   return std::__variant_detail::__move_constructor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1, a3);
 }
 
-void Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryBeginPointSource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float *a6, uint64_t a7)
+void Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryBeginPointSource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __n128 *a6, uint64_t a7)
 {
-  v86 = *MEMORY[0x277D85DE8];
-  v14 = std::chrono::steady_clock::now().__d_.__rep_ / 1000000000.0;
-  if (v14 - *(a7 + 456) < 0.04)
+  v84[1] = *MEMORY[0x277D85DE8];
+  v14.n128_f64[0] = std::chrono::steady_clock::now().__d_.__rep_ / 1000000000.0;
+  v15.n128_f64[0] = v14.n128_f64[0] - *(a7 + 456);
+  v16.n128_u32[1] = 1067743969;
+  if (v15.n128_f64[0] < 0.04)
   {
-    v15 = *(a7 + 464);
-    v16 = *(a7 + 468);
-    v17 = *(a7 + 472);
+    v14.n128_u32[0] = *(a7 + 464);
+    v15.n128_u32[0] = *(a7 + 468);
+    v16.n128_u32[0] = *(a7 + 472);
 
-    Phase::SpatialModeler::DirectPathTransmissionImpl::BuildOutputPointSource(a1, a2, a3, a7, v15, v16, v17);
+    Phase::SpatialModeler::DirectPathTransmissionImpl::BuildOutputPointSource(a1, a2, a3, a7, v14, v15, v16);
     return;
   }
 
-  v18 = *(a3 + 96);
-  if (!v18 || *v18 != 3)
+  v17 = *(a3 + 96);
+  if (!v17 || *v17 != 3)
   {
-    v48 = (**a2)(a2);
+    v47 = (**a2)(a2);
     *a1 = 4;
-    *(a1 + 8) = v48;
+    *(a1 + 8) = v47;
     *(a1 + 24) = 2;
     return;
   }
 
-  *(v18 + 192) = v14;
-  v19 = *(a5 + 64);
-  v20 = *(a5 + 68);
-  v21 = *(a5 + 72);
-  v22 = *(a7 + 208);
-  v23.f32[0] = Phase::Geometry::CalculateDirectivitySubbandGains<3ul>(a4, a5, a6, *(a7 + 216), *(a7 + 224));
-  v25 = v24;
-  v23.i32[1] = v26;
-  v27 = vbsl_s8(vclez_f32(v23), 0x100000001, v23);
-  v76 = *v27.i32;
-  v77 = logf(*&v27.i32[1]);
-  v28.f32[0] = logf(v76);
-  v28.f32[1] = v77;
+  *(v17 + 192) = v14.n128_u64[0];
+  v18 = *(a5 + 64);
+  v19 = *(a5 + 68);
+  v20 = *(a5 + 72);
+  v21 = *(a7 + 208);
+  v22.f32[0] = Phase::Geometry::CalculateDirectivitySubbandGains<3ul>(a4, a5, a6, *(a7 + 216), *(a7 + 224));
+  v24 = v23;
+  v22.i32[1] = v25;
+  v26 = vbsl_s8(vclez_f32(v22), 0x100000001, v22);
+  v75 = *v26.i32;
+  v76 = logf(*&v26.i32[1]);
+  v27.f32[0] = logf(v75);
+  v27.f32[1] = v76;
   __asm { FMOV            V1.2S, #10.0 }
 
-  v84 = vmul_f32(vdiv_f32(vmul_f32(v28, vdup_n_s32(0x410AF967u)), _D1), _D1);
-  v34 = 1;
-  if (v25 > 0.0)
+  v83 = vmul_f32(vdiv_f32(vmul_f32(v27, vdup_n_s32(0x410AF967u)), _D1), _D1);
+  v33 = 1;
+  if (v24 > 0.0)
   {
-    *&v34 = v25;
+    *&v33 = v24;
   }
 
-  v35 = logf(*&v34);
+  v34 = logf(*&v33);
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  v85 = ((v35 * 8.6859) / 10.0) * 10.0;
-  *&v82 = 0;
-  DWORD2(v82) = 0;
+  *v84 = ((v34 * 8.6859) / 10.0) * 10.0;
+  *&v81 = 0;
+  DWORD2(v81) = 0;
   do
   {
-    if (v37 <= 2)
+    if (v36 <= 2)
     {
-      v36 = v37 + 1;
-      *(&v82 + v37++) = v84.i32[v38];
+      v35 = v36 + 1;
+      *(&v81 + v36++) = v83.i32[v37];
     }
 
-    ++v38;
+    ++v37;
   }
 
-  while (v38 != 3);
-  if (v36 <= 2)
+  while (v37 != 3);
+  if (v35 <= 2)
   {
-    bzero(&v82 + 4 * v36, 12 - 4 * v36);
+    bzero(&v81 + 4 * v35, 12 - 4 * v35);
   }
 
-  v39 = v82;
-  v40 = *(&v82 + 2);
-  *(a7 + 264) = v82;
-  *(a7 + 272) = v40;
-  v41 = 0;
-  if (*(a4 + 88) > v22)
+  v38 = v81;
+  v39 = *(&v81 + 2);
+  *(a7 + 264) = v81;
+  *(a7 + 272) = v39;
+  v40 = 0;
+  if (*(a4 + 88) > v21)
   {
-    v42 = *(a4 + 72) + 24 * v22;
-    if (*(v42 + 20) == HIDWORD(v22))
+    v41 = *(a4 + 72) + 24 * v21;
+    if (*(v41 + 20) == HIDWORD(v21))
     {
-      v43 = *v42;
-      if (v43)
+      v42 = *v41;
+      if (v42)
       {
-        v44 = *(a5 + 152);
-        v45 = fmaxf(v44, sqrtf((((v19 - a6[16]) * (v19 - a6[16])) + ((v20 - a6[17]) * (v20 - a6[17]))) + ((v21 - a6[18]) * (v21 - a6[18]))));
-        if (*v43 == 2)
+        v43 = *(a5 + 152);
+        v44 = fmaxf(v43, sqrtf((((v18 - a6[4].n128_f32[0]) * (v18 - a6[4].n128_f32[0])) + ((v19 - a6[4].n128_f32[1]) * (v19 - a6[4].n128_f32[1]))) + ((v20 - a6[4].n128_f32[2]) * (v20 - a6[4].n128_f32[2]))));
+        if (*v42 == 2)
         {
-          v49 = **(v43 + 40);
-          if (v49)
+          v48 = **(v42 + 40);
+          if (v48)
           {
-            v50 = Phase::Envelope<float>::operator()((v49 + 16), v45);
-            if (v50 <= 0.0)
+            v49 = Phase::Envelope<float>::operator()((v48 + 16), v44);
+            if (v49 <= 0.0)
             {
-              v50 = COERCE_FLOAT(1);
+              v49 = COERCE_FLOAT(1);
             }
 
-            *v41.i32 = ((logf(v50) * 8.6859) / 10.0) * 10.0;
-            v39 = *(a7 + 264);
-            v40 = *(a7 + 272);
+            *v40.i32 = ((logf(v49) * 8.6859) / 10.0) * 10.0;
+            v38 = *(a7 + 264);
+            v39 = *(a7 + 272);
             goto LABEL_29;
           }
         }
 
         else
         {
-          if (*v43 != 1)
+          if (*v42 != 1)
           {
             goto LABEL_29;
           }
 
-          v46 = **(v43 + 40);
-          if (v46)
+          v45 = **(v42 + 40);
+          if (v45)
           {
-            v47 = (log2f(v45) * 6.0206) * *(v46 + 16);
-            if (v47 >= -20.0)
+            v46 = (log2f(v44) * 6.0206) * *(v45 + 16);
+            if (v46 >= -20.0)
             {
-              *v41.i32 = -v47;
+              *v40.i32 = -v46;
             }
 
             else
             {
-              *v41.i32 = 20.0;
+              *v40.i32 = 20.0;
             }
 
             goto LABEL_29;
@@ -1582,150 +1306,150 @@ void Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryBeginPoin
   }
 
 LABEL_29:
+  v50 = 0;
   v51 = 0;
   v52 = 0;
-  v53 = 0;
-  *(a7 + 384) = v41.i32[0];
-  v54 = *(a7 + 240);
-  v55 = *(a7 + 248);
-  v56 = *(a7 + 260);
-  v84 = vadd_f32(v39, *(a7 + 252));
-  v85 = v40 + v56;
-  *&v82 = 0;
-  DWORD2(v82) = 0;
+  *(a7 + 384) = v40.i32[0];
+  v53 = *(a7 + 240);
+  v54 = *(a7 + 248);
+  v55 = *(a7 + 260);
+  v83 = vadd_f32(v38, *(a7 + 252));
+  *v84 = v39 + v55;
+  *&v81 = 0;
+  DWORD2(v81) = 0;
   do
   {
-    if (v52 <= 2)
+    if (v51 <= 2)
     {
-      v51 = v52 + 1;
-      *(&v82 + v52++) = v84.i32[v53];
+      v50 = v51 + 1;
+      *(&v81 + v51++) = v83.i32[v52];
     }
 
-    ++v53;
+    ++v52;
   }
 
-  while (v53 != 3);
-  if (v51 <= 2)
+  while (v52 != 3);
+  if (v50 <= 2)
   {
-    v78 = v41;
-    bzero(&v82 + 4 * v51, 12 - 4 * v51);
-    v41 = v78;
+    v77 = v40;
+    bzero(&v81 + 4 * v50, 12 - 4 * v50);
+    v40 = v77;
   }
 
+  v56 = 0;
   v57 = 0;
   v58 = 0;
-  v59 = 0;
-  v60 = *(&v82 + 2);
-  v61 = v82;
-  v62 = a6[16];
-  v63 = a6[17];
-  v64 = a6[18];
-  *(a7 + 388) = v62;
-  *(a7 + 392) = v63;
-  *(a7 + 396) = v64;
+  v59 = *(&v81 + 2);
+  v60 = v81;
+  v61 = a6[4].n128_f32[0];
+  v62 = a6[4].n128_f32[1];
+  v63 = a6[4].n128_f32[2];
+  *(a7 + 388) = v61;
+  *(a7 + 392) = v62;
+  *(a7 + 396) = v63;
+  v64 = v18 - v61;
   v65 = v19 - v62;
   v66 = v20 - v63;
-  v67 = v21 - v64;
-  v68 = sqrtf(((v65 * v65) + (v66 * v66)) + (v67 * v67));
-  *(a7 + 404) = v65 / v68;
-  *(a7 + 408) = v66 / v68;
-  *(a7 + 412) = v67 / v68;
+  v67 = sqrtf(((v64 * v64) + (v65 * v65)) + (v66 * v66));
+  *(a7 + 404) = v64 / v67;
+  *(a7 + 408) = v65 / v67;
+  *(a7 + 412) = v66 / v67;
   *(a7 + 400) = 0;
-  *(a7 + 416) = v68;
-  v84 = vadd_f32(vdup_lane_s32(v41, 0), v61);
-  v85 = *v41.i32 + v60;
-  *&v82 = 0;
-  DWORD2(v82) = 0;
+  *(a7 + 416) = v67;
+  v83 = vadd_f32(vdup_lane_s32(v40, 0), v60);
+  *v84 = *v40.i32 + v59;
+  *&v81 = 0;
+  DWORD2(v81) = 0;
   do
   {
-    if (v58 <= 2)
+    if (v57 <= 2)
     {
-      v57 = v58 + 1;
-      *(&v82 + v58++) = v84.i32[v59];
+      v56 = v57 + 1;
+      *(&v81 + v57++) = v83.i32[v58];
     }
 
-    ++v59;
+    ++v58;
   }
 
-  while (v59 != 3);
-  if (v57 <= 2)
+  while (v58 != 3);
+  if (v56 <= 2)
   {
-    bzero(&v82 + 4 * v57, 12 - 4 * v57);
+    bzero(&v81 + 4 * v56, 12 - 4 * v56);
   }
 
+  v68 = 0;
   v69 = 0;
   v70 = 0;
-  v71 = 0;
-  v84 = vsub_f32(*&v82, v54);
-  v85 = *(&v82 + 2) - v55;
-  *&v82 = 0;
-  DWORD2(v82) = 0;
+  v83 = vsub_f32(*&v81, v53);
+  *v84 = *(&v81 + 2) - v54;
+  *&v81 = 0;
+  DWORD2(v81) = 0;
   do
   {
-    if (v70 <= 2)
+    if (v69 <= 2)
     {
-      v69 = v70 + 1;
-      *(&v82 + v70++) = v84.i32[v71];
+      v68 = v69 + 1;
+      *(&v81 + v69++) = v83.i32[v70];
     }
 
-    ++v71;
+    ++v70;
   }
 
-  while (v71 != 3);
-  if (v69 <= 2)
+  while (v70 != 3);
+  if (v68 <= 2)
   {
-    bzero(&v82 + 4 * v69, 12 - 4 * v69);
+    bzero(&v81 + 4 * v68, 12 - 4 * v68);
   }
 
+  v71 = 0;
   v72 = 0;
   v73 = 0;
-  v74 = 0;
-  v84 = vmaxnm_f32(*&v82, 0);
-  v85 = fmaxf(*(&v82 + 2), 0.0);
-  *&v82 = 0;
-  DWORD2(v82) = 0;
+  v83 = vmaxnm_f32(*&v81, 0);
+  LODWORD(v84[0]) = fmaxf(*(&v81 + 2), 0.0);
+  *&v81 = 0;
+  DWORD2(v81) = 0;
   do
   {
-    if (v73 <= 2)
+    if (v72 <= 2)
     {
-      v72 = v73 + 1;
-      *(&v82 + v73++) = v84.i32[v74];
+      v71 = v72 + 1;
+      *(&v81 + v72++) = v83.i32[v73];
     }
 
-    ++v74;
+    ++v73;
   }
 
-  while (v74 != 3);
-  if (v72 <= 2)
+  while (v73 != 3);
+  if (v71 <= 2)
   {
-    bzero(&v82 + 4 * v72, 12 - 4 * v72);
+    bzero(&v81 + 4 * v71, 12 - 4 * v71);
   }
 
-  v75 = DWORD2(v82);
-  *(a7 + 420) = v82;
-  *(a7 + 428) = v75;
+  v74 = DWORD2(v81);
+  *(a7 + 420) = v81;
+  *(a7 + 428) = v74;
   *(a7 + 432) = 1;
   *(a7 + 64) = *(a2 + 44);
   *(a7 + 88) = a7 + 388;
   *(a7 + 96) = 0x4400000001;
   *(a7 + 184) = Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryHandleResultsPointSource;
   *(a7 + 72) = *(a2 + 24);
-  v84 = a7;
+  v83 = a7;
+  v79 = 0;
   v80 = 0;
-  v81 = 0;
   __p = 0;
-  std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch * const*,Phase::Geometry::SceneQueryBatch * const*>(&__p, &v84, &v85, 1uLL);
-  v82 = 0uLL;
-  v83 = 0;
-  std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch **,Phase::Geometry::SceneQueryBatch **>(&v82, __p, v80, (v80 - __p) >> 3);
-  *a1 = v82;
-  *(a1 + 16) = v83;
-  v83 = 0;
-  v82 = 0uLL;
+  std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch * const*,Phase::Geometry::SceneQueryBatch * const*>(&__p, &v83, v84, 1uLL);
+  v81 = 0uLL;
+  v82 = 0;
+  std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch **,Phase::Geometry::SceneQueryBatch **>(&v81, __p, v79, (v79 - __p) >> 3);
+  *a1 = v81;
+  *(a1 + 16) = v82;
+  v82 = 0;
+  v81 = 0uLL;
   *(a1 + 24) = 3;
   if (__p)
   {
-    v80 = __p;
+    v79 = __p;
     operator delete(__p);
   }
 }
@@ -2092,7 +1816,7 @@ LABEL_126:
           v37 = *v36;
           if (*v36)
           {
-            if (v37->i32[0] == 3)
+            if (*v37 == 3)
             {
               Phase::Geometry::GenerateSourcePoints(v29, v37, v34, &v143, v25, &v150);
               v138 = v152;
@@ -2206,13 +1930,13 @@ LABEL_126:
                 v67 = 0;
                 do
                 {
-                  Phase::operator*<float>(&v37[6], (v150 + 12 * v67), &v164);
+                  Phase::operator*<float>((v37 + 48), (v150 + 12 * v67), &v164);
                   v68 = 0;
                   v69 = 0;
                   v70 = 0;
-                  v71 = v37[9].f32[1];
-                  v72 = (v71 * *(&v164 + 2)) + v37[9].f32[0];
-                  v73 = vadd_f32(vmul_n_f32(*&v164, v71), v37[8]);
+                  v71 = *(v37 + 76);
+                  v72 = (v71 * *(&v164 + 2)) + *(v37 + 72);
+                  v73 = vadd_f32(vmul_n_f32(*&v164, v71), *(v37 + 64));
                   v74 = *(a3 + 104) + 68 * v67;
                   *v74 = v73;
                   v75 = v39 - v72;
@@ -2407,7 +2131,7 @@ LABEL_79:
   }
 }
 
-void sub_23A397D94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46)
+void sub_23A397D94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46)
 {
   std::unique_ptr<Phase::Vector<float,3ul> [],std::function<void ()(void *)>>::reset[abi:ne200100](&a26);
   std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](&a27);
@@ -2774,7 +2498,7 @@ void sub_23A398654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryHandleResults@<X0>(Phase::Logger *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+void Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryHandleResults(Phase::Logger *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
 {
   v18 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -2809,11 +2533,10 @@ uint64_t Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryHandl
     operator new();
   }
 
-  result = (**a1)(a1);
+  v15 = (**a1)(a1);
   *a3 = 129;
-  *(a3 + 8) = result;
+  *(a3 + 8) = v15;
   *(a3 + 24) = 2;
-  return result;
 }
 
 void sub_23A39921C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, uint64_t a22, char a23)
@@ -2926,74 +2649,74 @@ float32x2_t Phase::Inverse<float>@<D0>(float32x2_t *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-float Phase::Geometry::CalculateDirectivitySubbandGains<3ul>(Phase::Geometry::SystemState *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+float Phase::Geometry::CalculateDirectivitySubbandGains<3ul>(Phase::Geometry::SystemState *a1, uint64_t a2, __n128 *a3, uint64_t a4, uint64_t a5)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v5 = *a3 == 3 && *a2 == 2;
+  v43 = *MEMORY[0x277D85DE8];
+  v5 = a3->n128_u32[0] == 3 && *a2 == 2;
   v6 = 1.0;
   if (v5)
   {
-    Phase::Geometry::SystemState::SystemState(v36, a1);
+    Phase::Geometry::SystemState::SystemState(v38, a1);
     v12 = *(a2 + 64);
-    v34 = *(a2 + 48);
-    v35 = v12;
-    v13 = *(a3 + 64);
-    v39 = *(a3 + 48);
-    v40 = v13;
-    _ZZN5Phase8Geometry32CalculateDirectivitySubbandGainsILm3EEENS_14PackedSubbandsIfXT_EEERNS0_11SystemStateERKNS0_6EntityES8_NS_8Handle64ES9_ENKUlT_bT0_T1_T2_E_clIS4_S9_NS_6AffineIfEESH_EEDaSA_bSB_SC_SD_(v37, v38, 1, a4, &v34, &v39);
-    v6 = v14;
-    v16 = v15;
-    v18 = v17;
-    Phase::Geometry::SystemState::~SystemState(v36);
-    if (*(a3 + 120) == *(a3 + 128))
+    v36 = *(a2 + 48);
+    v37 = v12;
+    v13 = a3[4];
+    v41 = a3[3];
+    v42 = v13;
+    _ZZN5Phase8Geometry32CalculateDirectivitySubbandGainsILm3EEENS_14PackedSubbandsIfXT_EEERNS0_11SystemStateERKNS0_6EntityES8_NS_8Handle64ES9_ENKUlT_bT0_T1_T2_E_clIS4_S9_NS_6AffineIfEESH_EEDaSA_bSB_SC_SD_(v39, v40, 1, a4, &v36, &v41, v41, v13, v14);
+    v6 = v15;
+    v17 = v16;
+    v19 = v18;
+    Phase::Geometry::SystemState::~SystemState(v38);
+    if (a3[7].n128_u64[1] == a3[8].n128_u64[0])
     {
-      Phase::Geometry::SystemState::SystemState(v31, a1);
-      v19 = *(a2 + 64);
-      v34 = *(a2 + 48);
-      v35 = v19;
-      v20 = *(a3 + 64);
-      v39 = *(a3 + 48);
-      v40 = v20;
-      _ZZN5Phase8Geometry32CalculateDirectivitySubbandGainsILm3EEENS_14PackedSubbandsIfXT_EEERNS0_11SystemStateERKNS0_6EntityES8_NS_8Handle64ES9_ENKUlT_bT0_T1_T2_E_clIS4_S9_NS_6AffineIfEESH_EEDaSA_bSB_SC_SD_(v32, v33, 0, a5, &v34, &v39);
-      v22 = v21;
+      Phase::Geometry::SystemState::SystemState(v33, a1);
+      v20 = *(a2 + 64);
+      v36 = *(a2 + 48);
+      v37 = v20;
+      v21 = a3[4];
+      v41 = a3[3];
+      v42 = v21;
+      _ZZN5Phase8Geometry32CalculateDirectivitySubbandGainsILm3EEENS_14PackedSubbandsIfXT_EEERNS0_11SystemStateERKNS0_6EntityES8_NS_8Handle64ES9_ENKUlT_bT0_T1_T2_E_clIS4_S9_NS_6AffineIfEESH_EEDaSA_bSB_SC_SD_(v34, v35, 0, a5, &v36, &v41, v41, v21, v22);
       v24 = v23;
       v26 = v25;
-      Phase::Geometry::SystemState::~SystemState(v31);
-      v27 = 0;
-      v28 = 0;
+      v28 = v27;
+      Phase::Geometry::SystemState::~SystemState(v33);
       v29 = 0;
-      *&v39 = v6 * v22;
-      *(&v39 + 1) = v16 * v24;
-      *(&v39 + 2) = v18 * v26;
-      *&v34 = 0;
-      DWORD2(v34) = 0;
+      v30 = 0;
+      v31 = 0;
+      v41.n128_f32[0] = v6 * v24;
+      v41.n128_f32[1] = v17 * v26;
+      v41.n128_f32[2] = v19 * v28;
+      *&v36 = 0;
+      DWORD2(v36) = 0;
       do
       {
-        if (v28 <= 2)
+        if (v30 <= 2)
         {
-          v27 = v28 + 1;
-          *(&v34 + v28++) = *(&v39 + v29);
+          v29 = v30 + 1;
+          *(&v36 + v30++) = v41.n128_u32[v31];
         }
 
-        v29 += 4;
+        ++v31;
       }
 
-      while (v29 != 12);
-      if (v27 <= 2)
+      while (v31 != 3);
+      if (v29 <= 2)
       {
-        bzero(&v34 + 4 * v27, 12 - 4 * v27);
+        bzero(&v36 + 4 * v29, 12 - 4 * v29);
       }
 
-      return *&v34;
+      return *&v36;
     }
   }
 
   return v6;
 }
 
-void sub_23A39987C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A39987C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Phase::Geometry::SystemState::~SystemState(va);
   _Unwind_Resume(a1);
 }
@@ -3122,13 +2845,13 @@ void sub_23A399BD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::SpatialModeler::DirectPathTransmissionImpl::BuildOutputPointSource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5, float a6, float a7)
+uint64_t Phase::SpatialModeler::DirectPathTransmissionImpl::BuildOutputPointSource(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5, __n128 a6, __n128 a7)
 {
   v116 = *MEMORY[0x277D85DE8];
   v9 = *(a3 + 64);
   if (!v9)
   {
-    result = (**a2)(a2);
+    result = (**a2)(a2, a5.n128_f32[0], a6.n128_f32[0], a7.n128_f32[0]);
     v47 = 5;
     goto LABEL_26;
   }
@@ -3137,7 +2860,7 @@ uint64_t Phase::SpatialModeler::DirectPathTransmissionImpl::BuildOutputPointSour
   v12 = *(v9 + 184);
   if (v12 <= v11 || (v13 = *(v9 + 168), v14 = (v13 + 24 * v11), *(v14 + 5) != HIDWORD(v11)) || (v15 = *v14) == 0 || *v15 != 3)
   {
-    result = (**a2)(a2);
+    result = (**a2)(a2, a5, a6, a7);
     v47 = 6;
 LABEL_26:
     *a1 = v47;
@@ -3149,11 +2872,14 @@ LABEL_26:
   v16 = *(a4 + 200);
   if (v12 <= v16 || (v17 = (v13 + 24 * v16), *(v17 + 5) != HIDWORD(v16)) || (v18 = *v17) == 0 || *v18 != 2)
   {
-    result = (**a2)(a2);
+    result = (**a2)(a2, a5, a6, a7);
     v47 = 7;
     goto LABEL_26;
   }
 
+  v19 = a7.n128_f32[0];
+  v69 = a6.n128_u32[0];
+  v71 = a5.n128_u32[0];
   v21 = *(v15 + 64);
   v79 = *(v15 + 48);
   v80 = v21;
@@ -3242,13 +2968,13 @@ LABEL_21:
   *v31 = 0;
   __asm { FMOV            V0.2S, #10.0 }
 
-  v54 = vmul_f32(vdiv_f32(vmul_f32(__PAIR64__(LODWORD(a6), LODWORD(a5)), _D0), _D0), vdup_n_s32(0x3DEBC8E3u));
+  v54 = vmul_f32(vdiv_f32(vmul_f32(__PAIR64__(v69, v71), _D0), _D0), vdup_n_s32(0x3DEBC8E3u));
   v70 = v54.f32[0];
   v72 = expf(v54.f32[1]);
   *&v55 = expf(v70);
   *(&v55 + 1) = v72;
   v114 = v55;
-  v57 = expf(((a7 * 10.0) / 10.0) * 0.11513);
+  v57 = expf(((v19 * 10.0) / 10.0) * 0.11513);
   v58 = 0;
   v59 = 0;
   v60 = 0;
@@ -3336,119 +3062,94 @@ LABEL_27:
 
 void Phase::SpatialModeler::DirectPathTransmissionImpl::RunSpatialQueryHandleResultsPointSource(Phase::Logger *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
   v9 = os_signpost_id_generate(**(Instance + 224));
   v10 = Phase::Logger::GetInstance(v9);
   if (*(v10 + 232) == 1)
   {
-    v11 = **(Phase::Logger::GetInstance(v10) + 224);
-    v12 = v11;
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v14 = **(Phase::Logger::GetInstance(v10) + 224);
+    v15 = v14;
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_23A302000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Phase_DirectPath_Spatial_Query_Handle_Results", "DirectPathTransmission: Handle Query Results", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_23A302000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Phase_DirectPath_Spatial_Query_Handle_Results", "DirectPathTransmission: Handle Query Results", buf, 2u);
     }
   }
 
-  v13 = atomic_load(a3);
-  if (v13 == 3)
+  v16 = atomic_load(a3);
+  if (v16 == 3)
   {
-    v14 = *(a1 + 2);
-    if (!*(v14 + 3192))
+    v17 = *(a1 + 2);
+    if (!*(v17 + 3192))
     {
       goto LABEL_20;
     }
 
-    v15 = Phase::Geometry::SystemDebugger::GetFromSystem(v14);
-    if (!v15)
-    {
-      goto LABEL_20;
-    }
-
-    v18 = *(v15 + 24);
-    v16 = v15 + 24;
-    v17 = v18;
+    v18 = Phase::Geometry::SystemDebugger::GetFromSystem(v17);
     if (!v18)
     {
       goto LABEL_20;
     }
 
-    v19 = *(a3 + 192);
-    v20 = v16;
-    do
+    v21 = *(v18 + 24);
+    v19 = v18 + 24;
+    v20 = v21;
+    if (!v21)
     {
-      v21 = *(v17 + 32);
-      v22 = v21 >= v19;
-      v23 = v21 < v19;
-      if (v22)
-      {
-        v20 = v17;
-      }
-
-      v17 = *(v17 + 8 * v23);
+      goto LABEL_20;
     }
 
-    while (v17);
-    if (v20 != v16)
+    v22 = *(a3 + 192);
+    v23 = v19;
+    do
     {
       v24 = *(v20 + 32);
-      v25 = v20 + 40;
-      if (v24 <= v19)
+      v25 = v24 >= v22;
+      v26 = v24 < v22;
+      if (v25)
       {
-        v26 = v25;
+        v23 = v20;
+      }
+
+      v20 = *(v20 + 8 * v26);
+    }
+
+    while (v20);
+    if (v23 != v19)
+    {
+      v27 = *(v23 + 32);
+      v28 = v23 + 40;
+      if (v27 <= v22)
+      {
+        v29 = v28;
       }
 
       else
       {
-        v26 = 0;
+        v29 = 0;
       }
     }
 
     else
     {
 LABEL_20:
-      v26 = 0;
-    }
-
-    v28 = 0;
-    v29 = 0;
-    v30 = 0;
-    v60 = vneg_f32(*(a3 + 436));
-    *&v61 = -*(a3 + 444);
-    *buf = 0;
-    v49 = 0.0;
-    do
-    {
-      if (v29 <= 2)
-      {
-        v28 = v29 + 1;
-        *&buf[4 * v29++] = v60.i32[v30];
-      }
-
-      ++v30;
-    }
-
-    while (v30 != 3);
-    if (v28 <= 2)
-    {
-      bzero(&buf[4 * v28], 12 - 4 * v28);
+      v29 = 0;
     }
 
     v31 = 0;
     v32 = 0;
     v33 = 0;
-    v34 = *(a3 + 264);
-    v60 = vadd_f32(*buf, v34);
-    *&v61 = v49 + *(a3 + 272);
+    v61 = vneg_f32(*(a3 + 436));
+    *&v62 = -*(a3 + 444);
     *buf = 0;
-    v49 = 0.0;
+    v50 = 0.0;
     do
     {
       if (v32 <= 2)
       {
         v31 = v32 + 1;
-        *&buf[4 * v32++] = v60.i32[v33];
+        *&buf[4 * v32++] = v61.i32[v33];
       }
 
       ++v33;
@@ -3460,98 +3161,126 @@ LABEL_20:
       bzero(&buf[4 * v31], 12 - 4 * v31);
     }
 
+    v34 = 0;
     v35 = 0;
     v36 = 0;
-    v37 = 0;
-    v34.i32[0] = *(a3 + 384);
-    v60 = vadd_f32(*buf, vdup_lane_s32(v34, 0));
-    *&v61 = v49 + v34.f32[0];
+    v13.n128_u64[0] = *(a3 + 264);
+    v61 = vadd_f32(*buf, v13.n128_u64[0]);
+    *&v62 = v50 + *(a3 + 272);
     *buf = 0;
-    v49 = 0.0;
+    v50 = 0.0;
     do
     {
-      if (v36 <= 2)
+      if (v35 <= 2)
       {
-        v35 = v36 + 1;
-        *&buf[4 * v36++] = v60.i32[v37];
+        v34 = v35 + 1;
+        *&buf[4 * v35++] = v61.i32[v36];
       }
 
-      ++v37;
+      ++v36;
     }
 
-    while (v37 != 3);
-    if (v35 <= 2)
+    while (v36 != 3);
+    if (v34 <= 2)
     {
-      bzero(&buf[4 * v35], 12 - 4 * v35);
+      bzero(&buf[4 * v34], 12 - 4 * v34);
     }
 
-    v38 = *buf;
-    v39 = v49;
-    if (v26 && *(v26 + 40))
+    v37 = 0;
+    v38 = 0;
+    v39 = 0;
+    v13.n128_u32[0] = *(a3 + 384);
+    v12.n128_u64[0] = vadd_f32(*buf, vdup_lane_s32(v13.n128_u64[0], 0));
+    v61 = v12.n128_u64[0];
+    *&v62 = v50 + v13.n128_f32[0];
+    *buf = 0;
+    v50 = 0.0;
+    do
     {
-      v40 = 0;
+      if (v38 <= 2)
+      {
+        v37 = v38 + 1;
+        *&buf[4 * v38++] = v61.i32[v39];
+      }
+
+      ++v39;
+    }
+
+    while (v39 != 3);
+    if (v37 <= 2)
+    {
+      bzero(&buf[4 * v37], 12 - 4 * v37);
+    }
+
+    v11.n128_u64[0] = *buf;
+    v40 = v50;
+    if (v29 && *(v29 + 40))
+    {
       v41 = 0;
       v42 = 0;
-      v60 = *(a3 + 192);
-      v61 = xmmword_23A554B70;
-      v58 = 0;
+      v43 = 0;
+      v61 = *(a3 + 192);
+      v62 = xmmword_23A554B70;
       v59 = 0;
-      v62 = &v58;
-      v63 = 0;
-      v64 = vneg_f32(*buf);
-      v65 = -v49;
+      v60 = 0;
+      v63 = &v59;
+      v64 = 0;
+      v65 = vneg_f32(*buf);
+      v66 = -v50;
       *buf = 0;
-      v49 = 0.0;
+      v50 = 0.0;
       do
       {
-        if (v41 <= 2)
+        if (v42 <= 2)
         {
-          v40 = v41 + 1;
-          *&buf[4 * v41++] = v64.i32[v42];
+          v41 = v42 + 1;
+          *&buf[4 * v42++] = v65.i32[v43];
         }
 
-        ++v42;
+        ++v43;
       }
 
-      while (v42 != 3);
-      v47 = v38;
-      if (v40 <= 2)
+      while (v43 != 3);
+      v48 = v11;
+      if (v41 <= 2)
       {
-        bzero(&buf[4 * v40], 12 - 4 * v40);
+        bzero(&buf[4 * v41], 12 - 4 * v41);
       }
 
-      v57 = 3;
-      v50 = 0u;
+      v58 = 3;
       v51 = 0u;
       v52 = 0u;
       v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v63 = buf;
-      std::function<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::RenderSourceView const*)>::operator()(*(v26 + 40), &v60);
-      v38 = v47;
+      v57 = 0u;
+      v64 = buf;
+      std::function<void ()(Phase::SpatialModeler::DirectPathTransmissionDebugger::RenderSourceView const*)>::operator()(*(v29 + 40), &v61);
+      v11 = v48;
     }
 
-    v43 = Phase::SpatialModeler::DirectPathTransmissionImpl::BuildOutputPointSource(a4, a1, a2, a3, v38.f32[0], v38.f32[1], v39);
-    v44 = Phase::Logger::GetInstance(v43);
-    if (*(v44 + 232) == 1)
+    v12.n128_u32[0] = v11.n128_u32[1];
+    v13.n128_f32[0] = v40;
+    v44 = Phase::SpatialModeler::DirectPathTransmissionImpl::BuildOutputPointSource(a4, a1, a2, a3, v11, v12, v13);
+    v45 = Phase::Logger::GetInstance(v44);
+    if (*(v45 + 232) == 1)
     {
-      v45 = **(Phase::Logger::GetInstance(v44) + 224);
-      v46 = v45;
-      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+      v46 = **(Phase::Logger::GetInstance(v45) + 224);
+      v47 = v46;
+      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_23A302000, v46, OS_SIGNPOST_INTERVAL_END, v9, "Phase_DirectPath_Spatial_Query_Handle_Results", &unk_23A5C28A2, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_23A302000, v47, OS_SIGNPOST_INTERVAL_END, v9, "Phase_DirectPath_Spatial_Query_Handle_Results", &unk_23A5C28A2, buf, 2u);
       }
     }
   }
 
   else
   {
-    v27 = (**a1)(a1);
+    v30 = (**a1)(a1);
     *a4 = 129;
-    *(a4 + 8) = v27;
+    *(a4 + 8) = v30;
     *(a4 + 24) = 2;
   }
 }
@@ -3617,8 +3346,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatc
   result = *a2;
   *v2 = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -3670,10 +3398,10 @@ uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm
   return result;
 }
 
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEN5Phase14SpatialModeler13ReturnSuccessENSA_11ReturnErrorENSA_18WaitOnSceneQueriesENSA_18ClaimOrWaitOnTokenENSA_12ReleaseTokenEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISG_LNS0_6_TraitE1EEEEEvOT_EUlRSM_OT0_E_JRNS0_6__baseILSK_1EJS8_SB_SC_SD_SE_SF_EEEOSU_EEEDcSM_DpT0_(uint64_t *a1, __n128 *a2, __n128 *a3)
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJNS_9monostateEN5Phase14SpatialModeler13ReturnSuccessENSA_11ReturnErrorENSA_18WaitOnSceneQueriesENSA_18ClaimOrWaitOnTokenENSA_12ReleaseTokenEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISG_LNS0_6_TraitE1EEEEEvOT_EUlRSM_OT0_E_JRNS0_6__baseILSK_1EJS8_SB_SC_SD_SE_SF_EEEOSU_EEEDcSM_DpT0_(__n128 **a1, __n128 *a2, __n128 *a3)
 {
   v4 = *a1;
-  if (*(*a1 + 24) == 2)
+  if ((*a1)[1].n128_u32[2] == 2)
   {
     result = *a3;
     *a2 = *a3;
@@ -3684,7 +3412,7 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EE
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](*a1);
     result = *a3;
     *v4 = *a3;
-    *(v4 + 24) = 2;
+    v4[1].n128_u32[2] = 2;
   }
 
   return result;
@@ -3785,17 +3513,17 @@ uint64_t *std::unique_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceF
   return result;
 }
 
-void *std::vector<Phase::Vector<float,3ul>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<Phase::Vector<float,3ul>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<Phase::Vector<float,3ul>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<Phase::Vector<float,3ul>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23A39AB74(_Unwind_Exception *exception_object)
@@ -3810,7 +3538,7 @@ void sub_23A39AB74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<Phase::Vector<float,3ul>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::Vector<float,3ul>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -3844,7 +3572,7 @@ uint64_t *std::unique_ptr<Phase::SpatialModeler::TraceWithEnergyQuery [],std::fu
   return result;
 }
 
-uint64_t std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch * const*,Phase::Geometry::SceneQueryBatch * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch * const*,Phase::Geometry::SceneQueryBatch * const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3866,7 +3594,7 @@ void sub_23A39AC8C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<Phase::Geometry::SceneQueryBatch *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::Geometry::SceneQueryBatch *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -3876,7 +3604,7 @@ void std::vector<Phase::Geometry::SceneQueryBatch *>::__vallocate[abi:ne200100](
   std::vector<Phase::Controller::DVM23::SubmixController *>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch **,Phase::Geometry::SceneQueryBatch **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch **,Phase::Geometry::SceneQueryBatch **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4153,122 +3881,122 @@ void _ZNSt3__110__function6__funcIZN5Phase7details10AllocArrayINS2_14SpatialMode
   operator delete(v2);
 }
 
-void _ZZN5Phase8Geometry32CalculateDirectivitySubbandGainsILm3EEENS_14PackedSubbandsIfXT_EEERNS0_11SystemStateERKNS0_6EntityES8_NS_8Handle64ES9_ENKUlT_bT0_T1_T2_E_clIS4_S9_NS_6AffineIfEESH_EEDaSA_bSB_SC_SD_(uint64_t a1, unsigned int a2, int a3, uint64_t a4, float32x2_t *a5, float32x2_t *a6)
+void _ZZN5Phase8Geometry32CalculateDirectivitySubbandGainsILm3EEENS_14PackedSubbandsIfXT_EEERNS0_11SystemStateERKNS0_6EntityES8_NS_8Handle64ES9_ENKUlT_bT0_T1_T2_E_clIS4_S9_NS_6AffineIfEESH_EEDaSA_bSB_SC_SD_(uint64_t result, unsigned int a2, int a3, uint64_t a4, float32x2_t *a5, float32x2_t *a6, __n128 a7, __n128 a8, __n128 a9)
 {
   if (a4 >= a2)
   {
     return;
   }
 
-  v6 = (a1 + 24 * a4);
-  if (*(v6 + 5) != HIDWORD(a4))
+  v9 = (result + 24 * a4);
+  if (*(v9 + 5) != HIDWORD(a4))
   {
     return;
   }
 
-  v7 = *v6;
-  if (!v7)
+  v10 = *v9;
+  if (!v10)
   {
     return;
   }
 
-  v8 = *v7;
-  if (*v7 == 3)
+  v11 = *v10;
+  if (*v10 == 3)
   {
-    v22 = **(v7 + 5);
-    if (!v22)
+    v25 = **(v10 + 5);
+    if (!v25)
     {
       goto LABEL_38;
     }
 
     if (a3)
     {
-      v23 = a6;
+      v26 = a6;
     }
 
     else
     {
-      v23 = a5;
+      v26 = a5;
     }
 
     if (a3)
     {
-      v24 = a5;
+      v27 = a5;
     }
 
     else
     {
-      v24 = a6;
+      v27 = a6;
     }
 
-    Phase::TransformPositionByInverse<float>(v24, v23 + 2, &v31);
-    v25 = v31.f32[0];
-    v26 = v32;
-    v27 = acosf(v31.f32[1] / sqrtf(((v25 * v25) + (v31.f32[1] * v31.f32[1])) + (v26 * v26)));
-    v28 = atan2f(v25, v26) + 3.1416;
-    v29 = v28 - (floorf(v28 / 6.2832) * 6.2832);
-    if (v29 >= 6.2832)
+    Phase::TransformPositionByInverse<float>(v27, v26 + 2, &v34);
+    v28 = v34.f32[0];
+    v29 = v35;
+    v30 = acosf(v34.f32[1] / sqrtf(((v28 * v28) + (v34.f32[1] * v34.f32[1])) + (v29 * v29)));
+    v31 = atan2f(v28, v29) + 3.1416;
+    v32 = v31 - (floorf(v31 / 6.2832) * 6.2832);
+    if (v32 >= 6.2832)
     {
-      v30 = nextafterf(6.2832, 0.0);
+      v33 = nextafterf(6.2832, 0.0);
     }
 
     else
     {
-      v30 = v29 + 0.0;
+      v33 = v32 + 0.0;
     }
 
-    Phase::Geometry::SphericalCapDirectivity::GetSubbandGainsFromDatabase<3ul>(v22, v27, v30);
+    Phase::Geometry::SphericalCapDirectivity::GetSubbandGainsFromDatabase<3ul>(v25, v30, v33);
   }
 
   else
   {
-    if (v8 != 2)
+    if (v11 != 2)
     {
-      if (v8 != 1)
+      if (v11 != 1)
       {
         return;
       }
 
-      v9 = *(*(v7 + 5) + 40);
-      if (v9)
+      v12 = *(*(v10 + 5) + 40);
+      if (v12)
       {
         if (a3)
         {
-          v10 = a6;
+          v13 = a6;
         }
 
         else
         {
-          v10 = a5;
+          v13 = a5;
         }
 
         if (a3)
         {
-          v11 = a5;
+          v14 = a5;
         }
 
         else
         {
-          v11 = a6;
+          v14 = a6;
         }
 
-        Phase::TransformPositionByInverse<float>(v11, v10 + 2, &v31);
-        v12 = v31.f32[0];
-        v13 = v32;
-        v14 = acosf(v31.f32[1] / sqrtf(((v12 * v12) + (v31.f32[1] * v31.f32[1])) + (v13 * v13)));
-        v15 = atan2f(v12, v13) + 3.1416;
-        v16 = v15 - (floorf(v15 / 6.2832) * 6.2832);
-        if (v16 >= 6.2832)
+        Phase::TransformPositionByInverse<float>(v14, v13 + 2, &v34);
+        v15 = v34.f32[0];
+        v16 = v35;
+        v17 = acosf(v34.f32[1] / sqrtf(((v15 * v15) + (v34.f32[1] * v34.f32[1])) + (v16 * v16)));
+        v18 = atan2f(v15, v16) + 3.1416;
+        v19 = v18 - (floorf(v18 / 6.2832) * 6.2832);
+        if (v19 >= 6.2832)
         {
-          v17 = nextafterf(6.2832, 0.0);
+          v20 = nextafterf(6.2832, 0.0);
         }
 
         else
         {
-          v17 = v16 + 0.0;
+          v20 = v19 + 0.0;
         }
 
-        Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<3ul>(v9, v14, v17);
+        Phase::Geometry::CardioidDirectivity::CalculateSubbandGains<3ul>(v12, v17, v20);
         return;
       }
 
@@ -4276,35 +4004,35 @@ LABEL_38:
       std::terminate();
     }
 
-    v18 = *(*(v7 + 5) + 40);
-    if (!v18)
+    v21 = *(*(v10 + 5) + 40);
+    if (!v21)
     {
       goto LABEL_38;
     }
 
     if (a3)
     {
-      v19 = a6;
+      v22 = a6;
     }
 
     else
     {
-      v19 = a5;
+      v22 = a5;
     }
 
     if (a3)
     {
-      v20 = a5;
+      v23 = a5;
     }
 
     else
     {
-      v20 = a6;
+      v23 = a6;
     }
 
-    Phase::TransformPositionByInverse<float>(v20, v19 + 2, &v31);
-    v21 = acosf(-v32 / sqrtf(vaddv_f32(vmul_f32(v31, v31)) + (v32 * v32)));
-    Phase::Geometry::ConeDirectivity::CalculateSubbandGains<3ul>(v18, v21 + v21);
+    Phase::TransformPositionByInverse<float>(v23, v22 + 2, &v34);
+    v24 = acosf(-v35 / sqrtf(vaddv_f32(vmul_f32(v34, v34)) + (v35 * v35)));
+    Phase::Geometry::ConeDirectivity::CalculateSubbandGains<3ul>(v21, v24 + v24);
   }
 }
 
@@ -4497,7 +4225,7 @@ Phase::Geometry::SystemState *Phase::Geometry::SystemState::SystemState(Phase::G
   v7 = *(a2 + 130);
   if (v7 != v6)
   {
-    std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__vallocate[abi:ne200100](this + 1032, (v7 - v6) >> 4);
+    std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__vallocate[abi:ne200100](this + 129, (v7 - v6) >> 4);
   }
 
   v8 = *(a2 + 66);
@@ -4506,7 +4234,7 @@ Phase::Geometry::SystemState *Phase::Geometry::SystemState::SystemState(Phase::G
   return this;
 }
 
-void sub_23A39BBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_23A39BBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v9[130] = v10;
   std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -4582,7 +4310,7 @@ uint64_t Phase::SharedSlotMapState<Phase::Geometry::Context,Phase::Handle64>::op
   return a1;
 }
 
-void std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<Phase::Geometry::MpsCpuScene>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4858,7 +4586,7 @@ uint64_t *std::unique_ptr<Phase::SpatialModeler::TraceWithEnergyQuery [],std::fu
   return a1;
 }
 
-Phase::SpatialModeler::DirectPathTransmission::SourceFrame *Phase::SpatialModeler::DirectPathTransmission::SourceFrame::SourceFrame(Phase::SpatialModeler::DirectPathTransmission::SourceFrame *this, uint64_t a2, double a3)
+Phase::SpatialModeler::DirectPathTransmission::SourceFrame *Phase::SpatialModeler::DirectPathTransmission::SourceFrame::SourceFrame(Phase::SpatialModeler::DirectPathTransmission::SourceFrame *this, uint64_t *a2, double a3)
 {
   v20[4] = *MEMORY[0x277D85DE8];
   *(this + 6) = 0;
@@ -5049,74 +4777,74 @@ uint64_t *Phase::SpatialModeler::DirectPathTransmission::SourceFrame::operator=(
   return a1;
 }
 
-void Phase::SpatialModeler::DirectPathTransmission::GetSupportedQueryDescs(void *a1@<X8>)
+void Phase::SpatialModeler::DirectPathTransmission::GetSupportedQueryDescs(uint64_t *a1@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v12[23] = 4;
-  strcpy(v12, "CULL");
-  v13 = 0;
-  v14 = 0x100000001;
-  v15 = 1;
-  memset(v16, 0, sizeof(v16));
-  std::vector<unsigned int>::resize(v16, 5uLL);
-  v3 = 0;
-  v4 = *v16;
+  v26 = *MEMORY[0x277D85DE8];
+  v11[23] = 4;
+  strcpy(v11, "CULL");
+  v12 = 0;
+  v13 = 0x100000001;
+  v14 = 1;
+  memset(v15, 0, sizeof(v15));
+  std::vector<unsigned int>::resize(v15, 5uLL);
+  v2 = 0;
+  v3 = *v15;
   do
   {
-    *(v4 + v3) = *(&constinit + v3);
-    v3 += 4;
+    *(v3 + v2) = *(&constinit + v2);
+    v2 += 4;
   }
 
-  while (v3 != 20);
-  v17[23] = 7;
-  strcpy(v17, "CLUSTER");
-  v18 = 1;
-  v19 = 0x200000003;
-  v20 = 1;
-  memset(v21, 0, sizeof(v21));
-  std::vector<unsigned int>::resize(v21, 5uLL);
-  v5 = 0;
-  v6 = *v21;
+  while (v2 != 20);
+  v16[23] = 7;
+  strcpy(v16, "CLUSTER");
+  v17 = 1;
+  v18 = 0x200000003;
+  v19 = 1;
+  memset(v20, 0, sizeof(v20));
+  std::vector<unsigned int>::resize(v20, 5uLL);
+  v4 = 0;
+  v5 = *v20;
   do
   {
-    *(v6 + v5 * 4) = Phase::SpatialModeler::DirectPathTransmissionPrivate::sClusterQueryPropertyUIDs[v5];
-    ++v5;
+    *(v5 + v4 * 4) = Phase::SpatialModeler::DirectPathTransmissionPrivate::sClusterQueryPropertyUIDs[v4];
+    ++v4;
   }
 
-  while (v5 != 5);
-  v22[23] = 7;
-  strcpy(v22, "SPATIAL");
-  v23 = 2;
-  v24 = 0x300000002;
-  v25 = 2;
-  memset(v26, 0, sizeof(v26));
-  std::vector<unsigned int>::resize(v26, 5uLL);
-  v7 = 0;
-  v8 = *v26;
+  while (v4 != 5);
+  v21[23] = 7;
+  strcpy(v21, "SPATIAL");
+  v22 = 2;
+  v23 = 0x300000002;
+  v24 = 2;
+  memset(v25, 0, sizeof(v25));
+  std::vector<unsigned int>::resize(v25, 5uLL);
+  v6 = 0;
+  v7 = *v25;
   do
   {
-    *(v8 + v7 * 4) = Phase::SpatialModeler::DirectPathTransmissionPrivate::sSpatialQueryPropertyUIDs[v7];
-    ++v7;
+    *(v7 + v6 * 4) = Phase::SpatialModeler::DirectPathTransmissionPrivate::sSpatialQueryPropertyUIDs[v6];
+    ++v6;
   }
 
-  while (v7 != 5);
+  while (v6 != 5);
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v12, &v27, 3uLL);
+  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v11, &v26, 3uLL);
   for (i = 0; i != -240; i -= 80)
   {
-    v10 = &v12[i];
-    v11 = *&v26[i];
-    if (v11)
+    v9 = &v11[i];
+    v10 = *&v25[i];
+    if (v10)
     {
-      *(v10 + 27) = v11;
-      operator delete(v11);
+      *(v9 + 27) = v10;
+      operator delete(v10);
     }
 
-    if (v10[183] < 0)
+    if (v9[183] < 0)
     {
-      operator delete(*(v10 + 20));
+      operator delete(*(v9 + 20));
     }
   }
 }
@@ -5138,52 +4866,52 @@ void sub_23A39CAA8(_Unwind_Exception *a1)
 
 uint64_t Phase::SpatialModeler::DirectPathTransmission::GetEntityShapeTemplates@<X0>(uint64_t *a1@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  memset(v9, 0, sizeof(v9));
-  v10 = 1065353216;
-  v11 = 3;
-  v8 = 1;
-  v12 = 1;
-  v14 = 1;
-  Phase::UnorderedStringMap<Phase::OptionsValue>::Set(v9, &Phase::Geometry::MeshOptions::SortPrimitives, &v12);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,unsigned int,float,double,Phase::Vector<float,2ul>,Phase::Vector<float,3ul>,Phase::Vector<float,4ul>,std::string,std::vector<unsigned int>,std::vector<unsigned long long>,Phase::UnorderedStringMap<Phase::OptionsValue>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v12);
-  memset(v13, 0, sizeof(v13));
-  v14 = 1065353216;
-  v15 = 4;
-  v12 = 2;
-  memset(v5, 0, sizeof(v5));
-  v6 = 1065353216;
-  v7 = 5;
-  v4 = 1;
-  std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](a1, &v8);
-  std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](a1, &v12);
-  std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](a1, &v4);
-  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v5);
-  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v13);
-  return std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v9);
+  memset(v8, 0, sizeof(v8));
+  v9 = 1065353216;
+  v10 = 3;
+  v7 = 1;
+  v11 = 1;
+  v13 = 1;
+  Phase::UnorderedStringMap<Phase::OptionsValue>::Set(v8, &Phase::Geometry::MeshOptions::SortPrimitives, &v11);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,unsigned int,float,double,Phase::Vector<float,2ul>,Phase::Vector<float,3ul>,Phase::Vector<float,4ul>,std::string,std::vector<unsigned int>,std::vector<unsigned long long>,Phase::UnorderedStringMap<Phase::OptionsValue>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v11);
+  memset(v12, 0, sizeof(v12));
+  v13 = 1065353216;
+  v14 = 4;
+  v11 = 2;
+  memset(v4, 0, sizeof(v4));
+  v5 = 1065353216;
+  v6 = 5;
+  v3 = 1;
+  std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](a1, &v7);
+  std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](a1, &v11);
+  std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](a1, &v3);
+  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v4);
+  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v12);
+  return std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v8);
 }
 
-void sub_23A39CC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23A39CC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v10 = va_arg(va1, void **);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v17 = va_arg(va1, void **);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,unsigned int,float,double,Phase::Vector<float,2ul>,Phase::Vector<float,3ul>,Phase::Vector<float,4ul>,std::string,std::vector<unsigned int>,std::vector<unsigned long long>,Phase::UnorderedStringMap<Phase::OptionsValue>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va1);
-  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v8 + 8);
+  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v15 + 8);
   std::vector<Phase::SpatialModeler::EntityShapeTemplate>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
+_DWORD *std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:ne200100](uint64_t *a1, _DWORD *a2)
 {
   v4 = a1[1];
   if (v4 >= a1[2])
@@ -5196,7 +4924,7 @@ uint64_t std::vector<Phase::SpatialModeler::EntityShapeTemplate>::push_back[abi:
     *v4 = *a2;
     std::unordered_map<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,std::allocator<std::pair<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey const,Phase::OptionsValue>>>::unordered_map((v4 + 2), (a2 + 2));
     v4[12] = a2[12];
-    result = (v4 + 14);
+    result = v4 + 14;
     a1[1] = (v4 + 14);
   }
 
@@ -5261,7 +4989,7 @@ LABEL_16:
 
   v8 = v6[8];
 
-  return v8();
+  return (v8)(a1);
 }
 
 uint64_t Phase::SpatialModeler::DirectPathTransmission::AllocateQueryState@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
@@ -5290,51 +5018,51 @@ void Phase::SpatialModeler::DirectPathTransmission::GetGraphDescription(uint64_t
   {
     std::string::__assign_external(a2, "DirectPathTransmissionSpatialQueryGraph", 0x27uLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 3uLL);
-    v7 = *(a2 + 24);
-    if (*(v7 + 23) < 0)
+    v6 = *(a2 + 24);
+    if (*(v6 + 23) < 0)
     {
-      *(v7 + 8) = 19;
-      v8 = *v7;
+      *(v6 + 8) = 19;
+      v7 = *v6;
     }
 
     else
     {
-      *(v7 + 23) = 19;
-      v8 = v7;
+      *(v6 + 23) = 19;
+      v7 = v6;
     }
 
-    strcpy(v8, "BeginSpatialQueries");
-    *(v7 + 24) |= 1uLL;
-    v9 = *(a2 + 24);
-    if (*(v9 + 55) < 0)
+    strcpy(v7, "BeginSpatialQueries");
+    *(v6 + 24) |= 1uLL;
+    v8 = *(a2 + 24);
+    if (*(v8 + 55) < 0)
     {
-      *(v9 + 40) = 22;
-      v10 = *(v9 + 32);
+      *(v8 + 40) = 22;
+      v9 = *(v8 + 32);
     }
 
     else
     {
-      v10 = (v9 + 32);
-      *(v9 + 55) = 22;
+      v9 = (v8 + 32);
+      *(v8 + 55) = 22;
     }
 
-    strcpy(v10, "RunSpatialSceneQueries");
-    *(v9 + 56) |= 2uLL;
-    v11 = *(a2 + 24);
-    if (*(v11 + 87) < 0)
+    strcpy(v9, "RunSpatialSceneQueries");
+    *(v8 + 56) |= 2uLL;
+    v10 = *(a2 + 24);
+    if (*(v10 + 87) < 0)
     {
-      *(v11 + 72) = 20;
-      v12 = *(v11 + 64);
+      *(v10 + 72) = 20;
+      v11 = *(v10 + 64);
     }
 
     else
     {
-      v12 = (v11 + 64);
-      *(v11 + 87) = 20;
+      v11 = (v10 + 64);
+      *(v10 + 87) = 20;
     }
 
-    strcpy(v12, "FinishSpatialQueries");
-    *(v11 + 88) |= 0xCuLL;
+    strcpy(v11, "FinishSpatialQueries");
+    *(v10 + 88) |= 0xCuLL;
   }
 
   else
@@ -5343,20 +5071,20 @@ void Phase::SpatialModeler::DirectPathTransmission::GetGraphDescription(uint64_t
     {
       std::string::__assign_external(a2, "DirectPathTransmissionClusterQueryGraph", 0x27uLL);
       std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-      v4 = *(a2 + 24);
-      if (*(v4 + 23) < 0)
+      v3 = *(a2 + 24);
+      if (*(v3 + 23) < 0)
       {
-        *(v4 + 8) = 18;
-        v6 = *v4;
+        *(v3 + 8) = 18;
+        v5 = *v3;
       }
 
       else
       {
-        *(v4 + 23) = 18;
-        v6 = v4;
+        *(v3 + 23) = 18;
+        v5 = v3;
       }
 
-      strcpy(v6, "FullClusterQueries");
+      strcpy(v5, "FullClusterQueries");
     }
 
     else
@@ -5368,33 +5096,33 @@ void Phase::SpatialModeler::DirectPathTransmission::GetGraphDescription(uint64_t
 
       std::string::__assign_external(a2, "DirectPathTransmissionCullQueryGraph", 0x24uLL);
       std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-      v4 = *(a2 + 24);
-      if (*(v4 + 23) < 0)
+      v3 = *(a2 + 24);
+      if (*(v3 + 23) < 0)
       {
-        *(v4 + 8) = 15;
-        v5 = *v4;
+        *(v3 + 8) = 15;
+        v4 = *v3;
       }
 
       else
       {
-        *(v4 + 23) = 15;
-        v5 = v4;
+        *(v3 + 23) = 15;
+        v4 = v3;
       }
 
-      strcpy(v5, "FullCullQueries");
+      strcpy(v4, "FullCullQueries");
     }
 
-    *(v4 + 24) = 0xFFFFFFFFLL;
+    *(v3 + 24) = 0xFFFFFFFFLL;
   }
 }
 
-unint64_t Phase::SpatialModeler::DirectPathTransmission::GetHistory@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t Phase::SpatialModeler::DirectPathTransmission::GetHistory@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  buf[6] = *MEMORY[0x277D85DE8];
   v6 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * a2) ^ ((0xC6A4A7935BD1E995 * a2) >> 47)) + 3864292196u) ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * a3) ^ ((0xC6A4A7935BD1E995 * a3) >> 47)))) + 3864292196u) ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * a4) ^ ((0xC6A4A7935BD1E995 * a4) >> 47)))) + 3864292196u;
   caulk::concurrent::details::node_allocator<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10ul,(caulk::concurrent::skiplist_options)0>::begin_traversal();
-  *buf = v6;
-  v7 = caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_to_level<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_le>(a1 + 64, buf, 0);
+  buf[0] = v6;
+  v7 = caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_to_level<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_le>((a1 + 8), buf, 0);
   if (*(v7 + 16) == v6)
   {
     v8 = v7;
@@ -5402,23 +5130,23 @@ unint64_t Phase::SpatialModeler::DirectPathTransmission::GetHistory@<X0>(uint64_
 
   else
   {
-    v8 = a1 + 264;
+    v8 = a1 + 33;
   }
 
-  if (*(v8 + 26) == 2 || (v9 = atomic_load((v8 + 40)), (v9 & 1) != 0))
+  if (*(v8 + 26) == 2 || (v9 = atomic_load(v8 + 5), (v9 & 1) != 0))
   {
     operator new();
   }
 
   *a5 = *v8;
-  add_explicit = *(v8 + 8);
+  add_explicit = v8[1];
   a5[1] = add_explicit;
   if (add_explicit)
   {
     add_explicit = atomic_fetch_add_explicit((add_explicit + 8), 1uLL, memory_order_relaxed);
   }
 
-  return caulk::concurrent::details::node_allocator<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10ul,(caulk::concurrent::skiplist_options)0>::end_traversal(a1 + 320, add_explicit);
+  return caulk::concurrent::details::node_allocator<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10ul,(caulk::concurrent::skiplist_options)0>::end_traversal((a1 + 40), add_explicit);
 }
 
 void sub_23A39D8F4(_Unwind_Exception *a1)
@@ -5449,7 +5177,7 @@ void Phase::SpatialModeler::DirectPathTransmission::~DirectPathTransmission(std:
   JUMPOUT(0x23EE864A0);
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5471,7 +5199,7 @@ void sub_23A39DAA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5488,7 +5216,7 @@ void sub_23A39DB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<Phase::SpatialModeler::QueryDesc>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Phase::SpatialModeler::QueryDesc>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -5522,11 +5250,11 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<P
       v11 = *(a2 + v7 + 24);
       v12 = *(a2 + v7 + 40);
       *(a4 + v7 + 48) = 0;
-      v13 = a4 + v7 + 48;
-      *(v13 - 8) = v12;
-      *(v13 - 24) = v11;
-      *(v13 + 8) = 0;
-      *(v13 + 16) = 0;
+      v13 = (a4 + v7 + 48);
+      *(v13 - 2) = v12;
+      *(v13 - 3) = v11;
+      v13[1] = 0;
+      v13[2] = 0;
       std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v13, *(a2 + v7 + 48), *(a2 + v7 + 56), (*(a2 + v7 + 56) - *(a2 + v7 + 48)) >> 2);
       *(a4 + v7 + 72) = *(a2 + v7 + 72);
       v7 += 80;
@@ -5612,14 +5340,14 @@ uint64_t std::vector<Phase::SpatialModeler::EntityShapeTemplate>::__emplace_back
   return v13;
 }
 
-void sub_23A39DDE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A39DDE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Phase::SpatialModeler::EntityShapeTemplate>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-unint64_t caulk::concurrent::details::node_allocator<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10ul,(caulk::concurrent::skiplist_options)0>::end_traversal@<X0>(unint64_t result@<X0>, unint64_t a2@<X8>)
+uint64_t caulk::concurrent::details::node_allocator<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10ul,(caulk::concurrent::skiplist_options)0>::end_traversal@<X0>(uint64_t result@<X0>, unint64_t a2@<X8>)
 {
   _X2 = 0;
   _X3 = 0;
@@ -5836,7 +5564,7 @@ unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::Spati
   return a1;
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_to_level<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_le>(unint64_t a1, void *a2, unint64_t a3)
+uint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_to_level<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_le>(unint64_t a1, void *a2, unint64_t a3)
 {
   v6 = -1;
   v7 = 56;
@@ -5894,7 +5622,7 @@ void caulk::concurrent::details::node_allocator<unsigned long,std::shared_ptr<Ph
   }
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_lt &>(unint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_lt &>(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = a3;
   v5 = atomic_load((a3 + 16 * a2 + 40));
@@ -5928,7 +5656,7 @@ unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::Spati
   return v4;
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::try_flag_node(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::try_flag_node(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = a4 | 2;
   do
@@ -5990,7 +5718,7 @@ unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::Spati
   return a3;
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::help_flagged(unint64_t result, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::help_flagged(unint64_t result, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   _X20 = a4;
   v7 = result;
@@ -6046,7 +5774,7 @@ unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::Spati
   return result;
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_le &>(unint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<unsigned long,std::shared_ptr<Phase::SpatialModeler::DirectPathTransmission::SourceHistory>,10,(caulk::concurrent::skiplist_options)0>::key_le &>(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = a3;
   v5 = atomic_load((a3 + 16 * a2 + 40));
@@ -6456,7 +6184,7 @@ void Phase::Dispatch::ClientTransactionManager::AddTransaction(id *a1, uint64_t 
   v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
-  if (v5 && (v5 = [(Phase::Logger *)v5 length]) != 0)
+  if (v5 && (v5 = [v5 length]) != 0)
   {
     if (a2 <= 1)
     {
@@ -7099,19 +6827,71 @@ Phase::Dispatch::ExternalStreamClientCommandProcessor *Phase::Dispatch::External
 
   *this = &unk_284D32170;
   *(this + 10) = a2;
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 1);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 2);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 3);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 4);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 5);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 14);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 11);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 6);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 7);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 8);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 9);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 10);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 13);
+  v10 = 1;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::HandleAddStreamResponse;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 1, &v10, &v8);
+  v10 = 2;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::HandleAddInputStreamResponse;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 2, &v10, &v8);
+  v10 = 3;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::HandleRemoveStreamResponse;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 3, &v10, &v8);
+  v10 = 4;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::HandleClaimStreamResponse;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 4, &v10, &v8);
+  v10 = 5;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::HandleAbandonStreamResponse;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 5, &v10, &v8);
+  v10 = 14;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::HandlePauseStreamResponse;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 14, &v10, &v8);
+  v10 = 11;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::UpdateStreamStateForController;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 11, &v10, &v8);
+  v10 = 6;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::UpdateControllerPauseState;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 6, &v10, &v8);
+  v10 = 7;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::UpdateStreamPauseState;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 7, &v10, &v8);
+  v10 = 8;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::PrepareRendering;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 8, &v10, &v8);
+  v10 = 9;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::StartRendering;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 9, &v10, &v8);
+  v10 = 10;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::StopRendering;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 10, &v10, &v8);
+  v10 = 13;
+  *&v8 = Phase::Dispatch::ExternalStreamClientCommandProcessor::HandleInputMutedSpeechActivityResponse;
+  *(&v8 + 1) = 0;
+  v9 = this;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 13, &v10, &v8);
   return this;
 }
 
@@ -7151,32 +6931,32 @@ void Phase::Dispatch::ExternalStreamClientCommandProcessor::HandlePauseStreamRes
   (*(**(this + 10) + 168))(*(this + 10), *a2, a2[1], a2[2], a2[3], a2[4], a2[5]);
 }
 
-void *std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(void *result, int a2)
+float *std::__hash_table<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::ExternalStreamServerMessageType,std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::ExternalStreamServerMessageType>,std::hash<Phase::Dispatch::ExternalStreamServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::ExternalStreamServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::ExternalStreamServerMessageType,Phase::Dispatch::ExternalStreamServerMessageType,std::__bind<void (Phase::Dispatch::ExternalStreamClientCommandProcessor::*)(void const*),Phase::Dispatch::ExternalStreamClientCommandProcessor*,std::placeholders::__ph<1> const&>>(float *result, int a2, _DWORD *a3, __int128 *a4)
 {
-  v2 = result[1];
-  if (!v2)
+  v4 = *(result + 1);
+  if (!v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v6 = a2;
+    if (v4 <= a2)
     {
-      v4 = a2 % v2;
+      v6 = a2 % v4;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v6 = (v4 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*result + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7184,39 +6964,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v9 >= v4)
       {
-        v7 %= v2;
+        v9 %= v4;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v9 &= v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v8 + 4) != a2)
   {
     goto LABEL_17;
   }
@@ -7224,9 +7004,9 @@ LABEL_17:
   return result;
 }
 
-void sub_23A3A1128(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A1128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7257,8 +7037,8 @@ void Phase::Dispatch::ExternalStreamClientDirectDispatcher::ExternalStreamClient
 {
   v3 = [MEMORY[0x277CCAD78] UUID];
   *this = &unk_284D32308;
-  Phase::Logger::GetInstance(v3);
-  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(this + 1);
+  Instance = Phase::Logger::GetInstance(v3);
+  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(this + 1, *(Instance + 928), 1, 0x20000);
 }
 
 void sub_23A3A1334(_Unwind_Exception *a1)
@@ -7310,7 +7090,7 @@ void Phase::Dispatch::ExternalStreamClientDirectDispatcher::AddExternalOutputStr
   v24 = **(a1 + 16);
   v35 = 0;
   v34 = 1;
-  v25 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v24, 72, &v35, &v34);
+  v25 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v24, 0x48uLL, &v35, &v34);
   if (!v25)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -7410,7 +7190,7 @@ void Phase::Dispatch::ExternalStreamClientDirectDispatcher::RemoveExternalStream
   v14 = **(a1 + 16);
   v21 = 0;
   v20 = 1;
-  v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 40, &v21, &v20);
+  v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 0x28uLL, &v21, &v20);
   if (!v15)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -7482,7 +7262,7 @@ void Phase::Dispatch::ExternalStreamClientDirectDispatcher::ClaimControlOfExtern
   v14 = **(a1 + 16);
   v21 = 0;
   v20 = 1;
-  v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 48, &v21, &v20);
+  v15 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v14, 0x30uLL, &v21, &v20);
   if (!v15)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -7553,7 +7333,7 @@ void Phase::Dispatch::ExternalStreamClientDirectDispatcher::AbandonControlOfExte
   v12 = **(a1 + 16);
   v19 = 0;
   v18 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 32, &v19, &v18);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x20uLL, &v19, &v18);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -7624,7 +7404,7 @@ void Phase::Dispatch::ExternalStreamClientDirectDispatcher::PauseExternalStream(
   v16 = **(a1 + 16);
   v23 = 0;
   v22 = 1;
-  v17 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v16, 48, &v23, &v22);
+  v17 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v16, 0x30uLL, &v23, &v22);
   if (!v17)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -7693,7 +7473,7 @@ void Phase::Dispatch::ExternalStreamClientDirectDispatcher::GatherDebugInformati
   v6 = **(a1 + 16);
   v13 = 0;
   v12 = 1;
-  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 24, &v13, &v12);
+  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 0x18uLL, &v13, &v12);
   if (!v7)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -7939,44 +7719,80 @@ uint64_t Phase::Dispatch::GeometryClientCommandProcessor::GeometryClientCommandP
 
   *a1 = &unk_284D324F0;
   *(a1 + 80) = a2;
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 1u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 2u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 3u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 4u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 5u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 6u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 7u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 8u);
-  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 9u);
+  v10 = 1;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::BeginTrackingSourceCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 1u, &v10, &v8);
+  v10 = 2;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::BeginTrackingAudibleGeometryCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 2u, &v10, &v8);
+  v10 = 3;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::GetShapeInfoCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 3u, &v10, &v8);
+  v10 = 4;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::GetVoxelsCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 4u, &v10, &v8);
+  v10 = 5;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::BeginTrackingRayTraceIntersectionsCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 5u, &v10, &v8);
+  v10 = 6;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::BeginTrackingEnergyHistogramCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 6u, &v10, &v8);
+  v10 = 7;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::BeginTrackingImageSourceLocationsCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 7u, &v10, &v8);
+  v10 = 8;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::BeginTrackingListenerEarlyResponseMetadataCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 8u, &v10, &v8);
+  v10 = 9;
+  *&v8 = Phase::Dispatch::GeometryClientCommandProcessor::BeginTrackingListenerLateReverbMetadataCallback;
+  *(&v8 + 1) = 0;
+  v9 = a1;
+  std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(v4, 9u, &v10, &v8);
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(void *result, unsigned int a2)
+float *std::__hash_table<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::__unordered_map_hasher<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::hash<Phase::Dispatch::GeometryServerMessageType>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,true>,std::__unordered_map_equal<Phase::Dispatch::GeometryServerMessageType,std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>,std::equal_to<Phase::Dispatch::GeometryServerMessageType>,std::hash<Phase::Dispatch::GeometryServerMessageType>,true>,std::allocator<std::__hash_value_type<Phase::Dispatch::GeometryServerMessageType,std::function<void ()(void const*)>>>>::__emplace_unique_key_args<Phase::Dispatch::GeometryServerMessageType,Phase::Dispatch::GeometryServerMessageType,std::__bind<void (Phase::Dispatch::GeometryClientCommandProcessor::*)(void const*),Phase::Dispatch::GeometryClientCommandProcessor*,std::placeholders::__ph<1> const&>>(float *result, unsigned int a2, _DWORD *a3, __int128 *a4)
 {
-  v2 = result[1];
-  if (!v2)
+  v4 = *(result + 1);
+  if (!v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v6 = a2;
+    if (v4 <= a2)
     {
-      v4 = a2 % v2;
+      v6 = a2 % v4;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v6 = (v4 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*result + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7984,39 +7800,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v9 >= v4)
       {
-        v7 %= v2;
+        v9 %= v4;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v9 &= v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v8 + 4) != a2)
   {
     goto LABEL_17;
   }
@@ -8024,9 +7840,9 @@ LABEL_17:
   return result;
 }
 
-void sub_23A3A3FB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A3FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::ActionTreeServerCommand,std::function<void ()(void const*)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8055,7 +7871,7 @@ uint64_t std::__function::__func<std::__bind<void (Phase::Dispatch::GeometryClie
 
 uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ListenerManager>(Phase::Logger *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 6);
   if (a2 >= ((*(a1 + 7) - v3) >> 5))
   {
@@ -8063,9 +7879,9 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ListenerM
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 112;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 112;
       _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: pId < mServiceRegistry.size() is false.", buf, 0x12u);
     }
 
@@ -8082,13 +7898,13 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ListenerM
       Phase::GetBacktraceFrame<1ul>(&__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       *buf = 136315906;
-      v14 = "TaskManager.hpp";
-      v15 = 1024;
-      v16 = 121;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 2080;
-      v20 = v10;
+      v15 = "TaskManager.hpp";
+      v16 = 1024;
+      v17 = 121;
+      v18 = 1024;
+      v19 = a2;
+      v20 = 2080;
+      v21 = v10;
       _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::domain_error) [not lService.has_value() is true]: No service registered for Id %i, in call \\n%s", buf, 0x22u);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -8097,7 +7913,7 @@ uint64_t Phase::Controller::TaskManager::GetService<Phase::Controller::ListenerM
     }
 
     v11 = __cxa_allocate_exception(0x10uLL);
-    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s");
+    std::domain_error::domain_error[abi:ne200100](v11, "No service registered for Id %i, in call \n%s", v12, __p.__r_.__value_.__l.__data_);
   }
 
   v5 = v4(3);
@@ -8119,14 +7935,15 @@ void sub_23A3A443C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-unint64_t Phase::Dispatch::GeometryClientDirectDispatcher::CreateEntity(uint64_t a1, int a2)
+unint64_t Phase::Dispatch::GeometryClientDirectDispatcher::CreateEntity(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v14 = *MEMORY[0x277D85DE8];
   Phase::Geometry::EntityFactory::Create(a2, &v8);
   if (v8)
   {
     v5 = Phase::Geometry::SystemScheduler::AddToDatabase(*(a1 + 8) + 2784, &v8);
-    if (a2 == 2)
+    if (v2 == 2)
     {
       Phase::Controller::ListenerManager::AddListener(*(a1 + 16), v5);
     }
@@ -8176,7 +7993,7 @@ unint64_t Phase::Dispatch::GeometryClientDirectDispatcher::CreateMedium(uint64_t
   v43 = 1;
   Phase::UnorderedStringMap<Phase::OptionsValue>::Set(v37, &v44, buf);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,unsigned int,float,double,Phase::Vector<float,2ul>,Phase::Vector<float,3ul>,Phase::Vector<float,4ul>,std::string,std::vector<unsigned int>,std::vector<unsigned long long>,Phase::UnorderedStringMap<Phase::OptionsValue>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
-  v4 = Phase::Geometry::MediumFactory::Create(*(a1 + 8) + 928, 1u, v37, &v35);
+  v4 = Phase::Geometry::MediumFactory::Create((*(a1 + 8) + 928), 1u, &v35, v37);
   if (v35)
   {
     v5 = **(v35 + 40);
@@ -8368,7 +8185,7 @@ LABEL_34:
   return v31;
 }
 
-void sub_23A3A4A10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint8_t buf, uint64_t a32)
+void sub_23A3A4A10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint8_t buf, uint64_t a32)
 {
   if (a12)
   {
@@ -8390,7 +8207,7 @@ unint64_t Phase::Dispatch::GeometryClientDirectDispatcher::CreateMaterial(uint64
   v19 = 1;
   Phase::UnorderedStringMap<Phase::OptionsValue>::Set(v13, &v11, buf);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<BOOL,int,unsigned int,float,double,Phase::Vector<float,2ul>,Phase::Vector<float,3ul>,Phase::Vector<float,4ul>,std::string,std::vector<unsigned int>,std::vector<unsigned long long>,Phase::UnorderedStringMap<Phase::OptionsValue>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
-  v4 = Phase::Geometry::MaterialFactory::Create(*(a1 + 8) + 1384, 1u, v13, &v11);
+  v4 = Phase::Geometry::MaterialFactory::Create((*(a1 + 8) + 1384), 1u, &v11, v13);
   if (v11)
   {
     Phase::Dispatch::sCopyMaterialData(a2, **(v11 + 5));
@@ -8428,12 +8245,12 @@ unint64_t Phase::Dispatch::GeometryClientDirectDispatcher::CreateMaterial(uint64
   return v8;
 }
 
-void sub_23A3A4D54(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_23A3A4D54(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(va);
@@ -9054,7 +8871,7 @@ void sub_23A3A5C60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(uint64_t a1, uint64_t a2, id *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  *&v19[5] = *MEMORY[0x277D85DE8];
   v5 = *a3;
   v6 = a3[1];
   v7 = a3[2];
@@ -9067,7 +8884,7 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(uint64_t a1
     v16 = 1024;
     v17 = 599;
     v18 = 2048;
-    v19 = a2;
+    *v19 = a2;
     _os_log_impl(&dword_23A302000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Updating Material 0x%llx", buf, 0x1Cu);
   }
 
@@ -9078,15 +8895,15 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(uint64_t a1
   operator new();
 }
 
-void sub_23A3A5EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23A3A5EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, id);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, id);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va1);
   Phase::Dispatch::ExternalStreamClientDirectDispatcher::RemoveExternalStream(NSUUID *,NSUUID *,void({block_pointer})(NSError *))::$_0::~$_0(va);
   _Unwind_Resume(a1);
@@ -9104,9 +8921,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetSourceGain(uint64_t
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3A5F80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A5F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9123,9 +8940,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetListenerGain(uint64
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23A3A6028(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A6028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9148,9 +8965,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetRoomAcousticTrackin
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A61B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A61B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9166,9 +8983,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetRoomAcousticMaximum
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](&v4);
 }
 
-void sub_23A3A625C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A625C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9184,9 +9001,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetRoomAcousticSoftLim
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](&v4);
 }
 
-void sub_23A3A6300(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A6300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9202,9 +9019,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetRoomAcousticSmoothi
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](&v4);
 }
 
-void sub_23A3A63A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A63A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9220,16 +9037,16 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetSpaceBlendTargetPre
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A6444(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A6444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_23A3A6508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A3A6508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9245,9 +9062,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetSpaceBlendLevel(Pha
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](&v4);
 }
 
-void sub_23A3A65AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A65AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9263,9 +9080,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetSceneClassification
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A664C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9341,8 +9158,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetOccluderIsStatic(Ph
   return std::__function::__value_func<void ()(Phase::Geometry::System *)>::~__value_func[abi:ne200100](v11);
 }
 
-uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetListenerHeadTracking(uint64_t *a1, uint64_t a2, int a3)
+uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetListenerHeadTracking(Phase::Logger *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v17 = *MEMORY[0x277D85DE8];
   v6 = **(Phase::Logger::GetInstance(a1) + 848);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -9352,7 +9170,7 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetListenerHeadTrackin
     v11 = 1024;
     v12 = 870;
     v9 = 136315906;
-    if (a3)
+    if (v3)
     {
       v7 = "true";
     }
@@ -9364,7 +9182,7 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::SetListenerHeadTrackin
     _os_log_impl(&dword_23A302000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Setting tracking to %s on listener 0x%llx", &v9, 0x26u);
   }
 
-  return Phase::Controller::ListenerManager::SetTracking(a1[2], a2, a3);
+  return Phase::Controller::ListenerManager::SetTracking(*(a1 + 2), a2, v3);
 }
 
 uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::UpdateTransform(uint64_t a1, uint64_t a2, __int128 *a3, int a4)
@@ -9419,9 +9237,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingSource(uint
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A6D9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A6D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9457,9 +9275,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingAudibleGeom
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A6FDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A6FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9516,12 +9334,12 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::BeginTrackingRayTraceInter
   operator new();
 }
 
-void sub_23A3A7444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A3A7444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v8 + 8);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v7 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v14 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v13 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -9536,9 +9354,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingRayTraceInt
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A750C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A750C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9553,12 +9371,12 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::BeginTrackingEnergyHistogr
   operator new();
 }
 
-void sub_23A3A7620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A3A7620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v8 + 8);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v7 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v14 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v13 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -9573,9 +9391,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingEnergyHisto
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A76E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A76E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9590,12 +9408,12 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::BeginTrackingImageSourceLo
   operator new();
 }
 
-void sub_23A3A77FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A3A77FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v8 + 8);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v7 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v14 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v13 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -9610,9 +9428,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingImageSource
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A78C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A78C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9627,12 +9445,12 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::BeginTrackingListenerEarly
   operator new();
 }
 
-void sub_23A3A79D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A3A79D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v8 + 8);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v7 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v14 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v13 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -9647,9 +9465,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingListenerEar
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A7AA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A7AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9664,12 +9482,12 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::BeginTrackingListenerLateR
   operator new();
 }
 
-void sub_23A3A7BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A3A7BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v8 + 8);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v7 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v14 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v13 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -9684,9 +9502,9 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingListenerLat
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A7C7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A7C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9701,12 +9519,12 @@ void Phase::Dispatch::GeometryClientDirectDispatcher::BeginTrackingRoomData(uint
   operator new();
 }
 
-void sub_23A3A7D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A3A7D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v8 + 8);
-  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v7 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v14 + 8);
+  std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](v13 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -9721,18 +9539,97 @@ uint64_t Phase::Dispatch::GeometryClientDirectDispatcher::EndTrackingRoomData(ui
   return std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_23A3A7E54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A3A7E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_23A3A7F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23A3A7F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(Phase::Geometry::SystemDebugger *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
+}
+
+double sGetFrequencies(uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  switch(a2)
+  {
+    case 0x1FuLL:
+      v4 = &Phase::sThirdOctaveBandFrequencies;
+      v5 = &std::__any_imp::__unique_typeinfo<Phase::Controller::ListenerManager *>::__id;
+      goto LABEL_7;
+    case 0xAuLL:
+      v4 = &Phase::sOctaveBandFrequencies;
+      v5 = &Phase::sThirdOctaveBandFrequencies;
+      goto LABEL_7;
+    case 3uLL:
+      v4 = &Phase::sThreeBandFrequencies;
+      v5 = &Phase::sOctaveBandFrequencies;
+LABEL_7:
+      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(a1, v4, v5, a2);
+      v7 = *a1;
+      v8 = a1[1];
+      goto LABEL_9;
+  }
+
+  Phase::GenerateLogarithmicSeries<float>(a2, &v9, 20.0, 20000.0);
+  v7 = v9;
+  *a1 = v9;
+  result = *&v10;
+  *(a1 + 1) = v10;
+  v8 = *&result;
+LABEL_9:
+  if (v7 == v8)
+  {
+    std::terminate();
+  }
+
+  return result;
+}
+
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  switch(a2)
+  {
+    case 0x1FuLL:
+      v4 = &Phase::sThirdOctaveBandFrequencies;
+      v5 = &qword_23A597510;
+      goto LABEL_7;
+    case 0xAuLL:
+      v4 = &Phase::sOctaveBandFrequencies;
+      v5 = &Phase::sThirdOctaveBandFrequencies;
+      goto LABEL_7;
+    case 3uLL:
+      v4 = &Phase::sThreeBandFrequencies;
+      v5 = &Phase::sOctaveBandFrequencies;
+LABEL_7:
+      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(a1, v4, v5, a2);
+      v7 = *a1;
+      v8 = a1[1];
+      goto LABEL_9;
+  }
+
+  Phase::GenerateLogarithmicSeries<float>(a2, &v9, 20.0, 20000.0);
+  v7 = v9;
+  *a1 = v9;
+  result = *&v10;
+  *(a1 + 1) = v10;
+  v8 = *&result;
+LABEL_9:
+  if (v7 == v8)
+  {
+    std::terminate();
+  }
+
+  return result;
 }
 
 void sub_23A3A8040(_Unwind_Exception *exception_object)
@@ -9777,4 +9674,164 @@ uint64_t std::__function::__value_func<void ()(unsigned long,Phase::Vector<unsig
   }
 
   return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::~__func(id *a1)
+{
+
+  JUMPOUT(0x23EE864A0);
+}
+
+id std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::__clone(uint64_t a1, void *a2)
+{
+  *a2 = &unk_284D327E0;
+  a2[1] = *(a1 + 8);
+  a2[2] = *(a1 + 16);
+  a2[3] = *(a1 + 24);
+  result = *(a1 + 32);
+  v5 = *(a1 + 40);
+  a2[4] = result;
+  a2[5] = v5;
+  return result;
+}
+
+void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::destroy(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+}
+
+void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::destroy_deallocate(id *a1)
+{
+
+  operator delete(a1);
+}
+
+void std::__function::__func<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0,std::allocator<Phase::Dispatch::GeometryClientDirectDispatcher::UpdateMaterial(Phase::Handle64,Phase::Dispatch::MaterialData const&)::$_0>,void ()(Phase::Geometry::System *)>::operator()(uint64_t a1, uint64_t *a2)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  UniqueSlot = Phase::details::SharedSlotMap<Phase::Geometry::Material,Phase::Handle64>::GetUniqueSlot(*a2 + 1176, *(a1 + 40));
+  if (!UniqueSlot)
+  {
+    goto LABEL_16;
+  }
+
+  v5 = UniqueSlot;
+  shared_owners = UniqueSlot->__shared_owners_;
+  if (shared_owners && *(shared_owners + 8) >= 1)
+  {
+    v7 = *(v3 + 1376);
+    if (!v7)
+    {
+      std::terminate();
+    }
+
+    v8 = v5->__vftable;
+    Phase::Geometry::MaterialFactory::Create(v7, v5->__vftable, v19, 0);
+    v9 = *v19;
+    if (*v19)
+    {
+      *(*v19 + 8) = *(v8 + 1);
+    }
+
+    v10 = *&v19[8];
+    *v19 = 0;
+    *&v19[8] = 0;
+    UniqueSlot = v5->__shared_owners_;
+    v5->__vftable = v9;
+    v5->__shared_owners_ = v10;
+    if (UniqueSlot)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](UniqueSlot);
+      UniqueSlot = *&v19[8];
+      if (*&v19[8])
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](*&v19[8]);
+      }
+    }
+  }
+
+  v11 = v5->__vftable;
+  if (!v11)
+  {
+LABEL_16:
+    v17 = **(Phase::Logger::GetInstance(UniqueSlot) + 848);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    *v19 = 136315394;
+    *&v19[4] = "DispatcherGeometryClientDirect.mm";
+    *&v19[12] = 1024;
+    *&v19[14] = 564;
+    v18 = "%25s:%-5d Unable to find geo material to update.";
+    goto LABEL_18;
+  }
+
+  v12 = **(v11 + 5);
+  if (v12)
+  {
+    Phase::Dispatch::sCopyMaterialData((a1 + 8), v12);
+    v14 = qword_23A555248;
+    v15 = 40;
+    while (1)
+    {
+      v16 = *(*(v11 + 5) + v15);
+      if (!v16)
+      {
+        break;
+      }
+
+      Phase::Dispatch::sConvertMaterialData((a1 + 8), v16, *v14);
+      v15 += 40;
+      ++v14;
+      if (v15 == 160)
+      {
+        return;
+      }
+    }
+
+    v17 = **(Phase::Logger::GetInstance(v13) + 848);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      *v19 = 136315394;
+      *&v19[4] = "DispatcherGeometryClientDirect.mm";
+      *&v19[12] = 1024;
+      *&v19[14] = 584;
+      v18 = "%25s:%-5d Unable to find internal geo material map to update.";
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v17 = **(Phase::Logger::GetInstance(UniqueSlot) + 848);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      *v19 = 136315394;
+      *&v19[4] = "DispatcherGeometryClientDirect.mm";
+      *&v19[12] = 1024;
+      *&v19[14] = 572;
+      v18 = "%25s:%-5d Unable to find user geo material map to update.";
+LABEL_18:
+      _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_ERROR, v18, v19, 0x12u);
+    }
+  }
 }

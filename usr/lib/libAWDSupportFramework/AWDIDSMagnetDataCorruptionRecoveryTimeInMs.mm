@@ -57,14 +57,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    recoveryTimeInMs = self->_recoveryTimeInMs;
 
     PBDataWriterWriteInt64Field();
   }

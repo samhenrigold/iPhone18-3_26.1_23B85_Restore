@@ -1,3 +1,274 @@
+char *paint_row_buffer(char *result, uint64_t a2, int a3)
+{
+  v19 = 0;
+  v5 = *(result + 1622);
+  v6 = *(a2 + 6580);
+  if (v6 == 15)
+  {
+    v7 = *(result + 1019);
+    result = aj_get_internal_format(*(result + 30), *(a2 + 6937), *(a2 + 6940));
+    if (result == 5 && v7 == 0)
+    {
+      v9 = 4;
+    }
+
+    else
+    {
+      v9 = result;
+    }
+
+    if (v9 == 5)
+    {
+      v19 = 8421631;
+    }
+
+    else if (v9 == 3)
+    {
+      v19 = -1;
+    }
+  }
+
+  else if (v6 == 6)
+  {
+    *(&v19 + 1) = -32640;
+  }
+
+  v10 = *(a2 + 28);
+  v11 = *(a2 + 6492);
+  v12 = v11 * v10;
+  v13 = *(a2 + 6592);
+  v14 = *(a2 + 6596);
+  if (*(a2 + 6592))
+  {
+    v16 = 0;
+    v17 = v13;
+    v18 = a3;
+    v15[0] = v11 - v14;
+    v15[1] = 0;
+    v15[2] = v14;
+    v15[3] = a3;
+    aj_paint_region(v5, *(a2 + 6808), &v19, v10, v11, v11 * v10, a3, &v16);
+    result = aj_paint_region(v5, *(a2 + 6808), &v19, v10, *(a2 + 6492), v12, a3, v15);
+  }
+
+  if (*(a2 + 6584) || *(a2 + 6588))
+  {
+    v16 = 0;
+    v17 = *(a2 + 6492);
+    v18 = a3;
+    return aj_paint_region(v5, *(a2 + 6808), &v19, v10, v17, v12, a3, &v16);
+  }
+
+  return result;
+}
+
+uint64_t check_mcu_table(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 12) >= 5u)
+  {
+    aj_log_error("Decode", "Too many check state stream bytes (%d > %d)");
+    return 12;
+  }
+
+  result = aj_istream_state_restore(a2, a1);
+  if (!result)
+  {
+    if (*(a1 + 12))
+    {
+      v5 = 0;
+      while (*(a1 + 8 + v5) == *(*(a2 + 8) + v5))
+      {
+        if (*(a1 + 12) == ++v5)
+        {
+          return 0;
+        }
+      }
+
+      aj_log_error("Decode", "Image data does not match data in supplied RA-table: Stream byte %d differs, 0x%X != 0x%X");
+      return 12;
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t mmap_multiscan(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v10 = (a2 + 16);
+  v9 = *(a2 + 16);
+  if (v9)
+  {
+    v11 = *(a2 + 4);
+  }
+
+  else
+  {
+    v12 = *(a4 + 32);
+    v13 = *(a4 + 52);
+    v14 = *(a4 + 48) - v12;
+    *a2 = v14;
+    if (v13)
+    {
+      v15 = v13 - v14;
+    }
+
+    else
+    {
+      v16 = estimate_jpeg_size(*(a5 + 8), *(a5 + 12));
+      if (v16 >= 5242880)
+      {
+        v15 = 5242880;
+      }
+
+      else
+      {
+        v15 = v16;
+      }
+
+      v12 = *(a4 + 32);
+    }
+
+    if (v15 <= v12)
+    {
+      v17 = v12;
+    }
+
+    else
+    {
+      v17 = v15;
+    }
+
+    v18 = *(a1 + 16);
+    if (v18)
+    {
+      free(v18);
+    }
+
+    v19 = malloc_type_calloc(1uLL, v17, 0xDF03590AuLL);
+    *(a1 + 16) = v19;
+    *v10 = v19;
+    if (!v19)
+    {
+      aj_log_error("Decode", "Could not allocate memory for input mapping");
+      return 6;
+    }
+
+    *(a2 + 8) = v17;
+    memcpy(v19, *(a4 + 8), *(a4 + 32));
+    v11 = *(a4 + 32);
+    *(a2 + 4) = v11;
+    v9 = *(a2 + 16);
+  }
+
+  v20 = *(a2 + 8);
+  v21 = *(a4 + 36);
+  v22 = *(a4 + 40);
+  *(a4 + 40) = v9;
+  *(a4 + 8) = v9 + v11;
+  *(a4 + 32) = 0;
+  *(a4 + 36) = v20;
+  *(a4 + 104) = v9;
+  if (*(a4 + 56) != 2)
+  {
+    v36 = v21;
+    v25 = 0;
+    v26 = v20 - v11;
+    while (1)
+    {
+      if (!v26)
+      {
+        v27 = *(a2 + 8) + (*(a2 + 8) >> 1);
+        if (v27 >> 31)
+        {
+          return 1;
+        }
+
+        v28 = *(a2 + 16);
+        v29 = malloc_type_malloc(*(a2 + 8) + (*(a2 + 8) >> 1), 0x20D67D9CuLL);
+        if (!v29)
+        {
+          return 6;
+        }
+
+        v30 = v29;
+        memcpy(v29, v28, *(a2 + 4));
+        *(a1 + 16) = v30;
+        *(a2 + 16) = v30;
+        *(a2 + 8) = v27;
+        if (v28)
+        {
+          free(v28);
+          LODWORD(v27) = *(a2 + 8);
+          v30 = *(a2 + 16);
+        }
+
+        v25 = 0;
+        v31 = *(a2 + 4);
+        v26 = v27 - v31;
+        *(a4 + 40) = v30;
+        *(a4 + 8) = &v30[v31];
+        *(a4 + 32) = 0;
+        *(a4 + 36) = v27;
+        *(a4 + 104) = v30;
+      }
+
+      v32 = aj_istream_move_forward(a4);
+      if (v32)
+      {
+        v23 = v32;
+        aj_log_error("Decode", "Could not read file into memory");
+        v11 = *(a2 + 4);
+        v24 = *(a4 + 56);
+        goto LABEL_36;
+      }
+
+      v33 = *(a4 + 32);
+      v11 = *(a2 + 4) + v33 - v25;
+      *(a2 + 4) = v11;
+      v34 = *(a4 + 52);
+      if (v34 && v34 == *a2 + v11)
+      {
+        v23 = 0;
+        v24 = 2;
+        *(a4 + 56) = 2;
+        goto LABEL_36;
+      }
+
+      v24 = *(a4 + 56);
+      if (v24 == 1)
+      {
+        v23 = 4294967294;
+        goto LABEL_36;
+      }
+
+      v26 -= v33 - v25;
+      v25 = v33;
+      if (v24 == 2)
+      {
+        v23 = 0;
+LABEL_36:
+        v21 = v36;
+        goto LABEL_37;
+      }
+    }
+  }
+
+  v23 = 0;
+  v24 = 2;
+LABEL_37:
+  *(a4 + 40) = v22;
+  *(a4 + 8) = v22;
+  *(a4 + 32) = 0;
+  *(a4 + 36) = v21;
+  *(a4 + 104) = 0;
+  *(a2 + 24) = v11;
+  aj_istream_init_mem(a3, v10, *(a4 + 112), v24);
+  *(a3 + 96) = *a2;
+  return v23;
+}
+
 uint64_t handle_error_from_decode(unsigned int a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   if (*a4)
@@ -25,10 +296,11 @@ uint64_t handle_error_from_decode(unsigned int a1, uint64_t a2, uint64_t a3, _DW
   }
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t aj_mcu_dct(int *a1, uint64_t a2)
@@ -135,7 +407,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t (*aj_fill_prog_coeff_buf(uint64_t (*result)(), uint8x8_t **a2))()
+uint64_t (*(*aj_fill_prog_coeff_buf(uint64_t (*(*result)(uint8x8_t **a1, int8x16_t *a2, int16x8_t *a3))(), uint8x8_t **a2))(uint8x8_t **a1, int8x16_t *a2, int16x8_t *a3))()
 {
   if (*(result + 4) * *(result + 3358) >= 1)
   {
@@ -286,7 +558,7 @@ uint64_t aj_bufferproc_rgb2yuv(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   return v17();
 }
 
-void aj_bufferproc_upsample_422(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
+void aj_bufferproc_upsample_422(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
   v7 = a1;
   v8 = *(a1 + 80);
@@ -366,7 +638,7 @@ uint64_t aj_bufferproc_upsample422_init(uint64_t a1, uint64_t a2, uint64_t a3, u
 
   else
   {
-    aj_log_error(0, "Input format to upsample422, is not 4:2:2", v4, v5);
+    aj_log_error(0, "Input format to upsample422, is not 4:2:2", a3, a4, v4, v5);
     return 1;
   }
 
@@ -401,21 +673,21 @@ unsigned __int16 *aj_internal_upsample_422_12bit(unsigned __int16 *result, _WORD
   return result;
 }
 
-uint64_t aj_mcu_pack(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t aj_mcu_pack(uint64_t *a1, int **a2, uint64_t *a3)
 {
   v6 = *a3;
   result = aj_find_and_handle_markers(a2, a3, 0);
   if (!result)
   {
-    result = process_blocks(a1, a3, *(*(a2 + 8) + 88), **a2, *(a2 + 196), *(a2 + 192), v6, 0);
+    result = process_blocks(a1, a3, a2[1][22], **a2, *(a2 + 49), *(a2 + 48), v6, 0);
     if (!result)
     {
       v8 = vadd_s32(*(a3 + 28), 0x100000001);
       *(a3 + 28) = v8;
       result = 0;
-      if (v8.i32[0] >= *(*(a2 + 8) + 80))
+      if (v8 >= a2[1][20])
       {
-        *(a3 + 24) = (*(a3 + 24) + 1);
+        a3[3] = (*(a3 + 6) + 1);
       }
     }
   }
@@ -423,7 +695,7 @@ uint64_t aj_mcu_pack(uint64_t *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t process_blocks(uint64_t *a1, int *a2, int a3, int a4, int a5, int a6, uint64_t a7, int32x2_t *a8)
+uint64_t process_blocks(uint64_t *a1, int *a2, int a3, int a4, int a5, int a6, unsigned int *a7, int32x2_t *a8)
 {
   v14 = a2[7];
   v15 = a2[6];
@@ -673,7 +945,7 @@ double applejpeg_encode_options_init(uint64_t a1)
   return result;
 }
 
-uint64_t applejpeg_encode_set_options_mem(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+uint64_t applejpeg_encode_set_options_mem(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   if (!a1 || !a2 || !a3 || !a4)
   {
@@ -701,7 +973,7 @@ uint64_t applejpeg_encode_set_options_mem(uint64_t a1, _OWORD *a2, uint64_t a3, 
   return encode_set_options(a1, v8, a3, a4, 0);
 }
 
-uint64_t encode_set_options(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, __int128 *a5)
+uint64_t encode_set_options(uint64_t a1, __int128 *a2, __int128 *a3, _OWORD *a4, __int128 *a5)
 {
   *(a1 + 26624) = 0;
   v10 = encode_check_options(a2, a3);
@@ -712,7 +984,7 @@ uint64_t encode_set_options(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, _
 
   if (a3)
   {
-    if (*a3 < 1 || (v12 = *(a3 + 4), v12 < 1))
+    if (*a3 < 1 || (v12 = *(a3 + 1), v12 < 1))
     {
       v11 = 8;
       aj_log_error("Encode", "Width and height must be > 0");
@@ -726,7 +998,7 @@ uint64_t encode_set_options(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, _
 
     else
     {
-      v13 = *(a3 + 8);
+      v13 = *(a3 + 2);
       if (v13 < 0x13 || v13 == 20)
       {
         v14 = (a1 + 20040);
@@ -751,33 +1023,33 @@ uint64_t encode_set_options(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, _
         }
 
         v19 = *a2;
-        v20 = *(a2 + 32);
-        *(a1 + 20056) = *(a2 + 16);
+        v20 = a2[2];
+        *(a1 + 20056) = a2[1];
         *(a1 + 20072) = v20;
         *v14 = v19;
-        v21 = *(a2 + 48);
-        v22 = *(a2 + 64);
-        v23 = *(a2 + 96);
-        *(a1 + 20120) = *(a2 + 80);
+        v21 = a2[3];
+        v22 = a2[4];
+        v23 = a2[6];
+        *(a1 + 20120) = a2[5];
         *(a1 + 20136) = v23;
         *(a1 + 20088) = v21;
         *(a1 + 20104) = v22;
-        v24 = *(a2 + 112);
-        v25 = *(a2 + 128);
-        v26 = *(a2 + 144);
-        *(a1 + 20200) = *(a2 + 160);
+        v24 = a2[7];
+        v25 = a2[8];
+        v26 = a2[9];
+        *(a1 + 20200) = *(a2 + 20);
         *(a1 + 20168) = v25;
         *(a1 + 20184) = v26;
         *(a1 + 20152) = v24;
         v27 = *a3;
-        v28 = *(a3 + 16);
-        *(a1 + 20240) = *(a3 + 32);
+        v28 = a3[1];
+        *(a1 + 20240) = a3[2];
         *(a1 + 20224) = v28;
         *(a1 + 20208) = v27;
-        v29 = *(a3 + 48);
-        v30 = *(a3 + 64);
-        v31 = *(a3 + 80);
-        *(a1 + 20304) = *(a3 + 96);
+        v29 = a3[3];
+        v30 = a3[4];
+        v31 = a3[5];
+        *(a1 + 20304) = a3[6];
         *(a1 + 20288) = v31;
         *(a1 + 20272) = v30;
         *(a1 + 20256) = v29;
@@ -810,7 +1082,7 @@ uint64_t encode_set_options(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, _
   return v11;
 }
 
-uint64_t applejpeg_encode_set_options_file(uint64_t a1, _OWORD *a2, uint64_t a3, __int128 *a4)
+uint64_t applejpeg_encode_set_options_file(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4)
 {
   if (a1 && a2 && a3 && a4)
   {
@@ -830,18 +1102,18 @@ uint64_t applejpeg_encode_set_options_file(uint64_t a1, _OWORD *a2, uint64_t a3,
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_num_threads(uint64_t a1, uint64_t a2, int a3)
+uint64_t applejpeg_encode_set_option_num_threads(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && a2)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
@@ -856,7 +1128,7 @@ uint64_t applejpeg_encode_set_option_num_threads(uint64_t a1, uint64_t a2, int a
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3);
     return 8;
   }
 }
@@ -1130,13 +1402,13 @@ LABEL_29:
   return 5;
 }
 
-uint64_t applejpeg_encode_set_option_restart_markers(uint64_t a1, uint64_t a2, int a3)
+uint64_t applejpeg_encode_set_option_restart_markers(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && a2)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
@@ -1151,7 +1423,7 @@ uint64_t applejpeg_encode_set_option_restart_markers(uint64_t a1, uint64_t a2, i
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3);
     return 8;
   }
 }
@@ -1162,7 +1434,7 @@ uint64_t applejpeg_encode_set_option_max_filesize(uint64_t a1, uint64_t a2, uint
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
@@ -1177,18 +1449,18 @@ uint64_t applejpeg_encode_set_option_max_filesize(uint64_t a1, uint64_t a2, uint
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_quality(uint64_t a1, uint64_t a2, int a3)
+uint64_t applejpeg_encode_set_option_quality(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && a2)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
@@ -1203,28 +1475,28 @@ uint64_t applejpeg_encode_set_option_quality(uint64_t a1, uint64_t a2, int a3)
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_q_tables(uint64_t a1, uint64_t a2, int a3, void *a4)
+uint64_t applejpeg_encode_set_option_q_tables(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (!a1 || !a2)
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4);
     return 8;
   }
 
   if (*(a1 + 26624))
   {
-    aj_log_error("Encode", "Cannot modify options after committing them");
+    aj_log_error("Encode", "Cannot modify options after committing them", a3, a4);
     return 5;
   }
 
   if (!a3 || a3 >= 5)
   {
-    aj_log_error("Encode", "Invalid num_tables");
+    aj_log_error("Encode", "Invalid num_tables", a3, a4);
     return 8;
   }
 
@@ -1237,7 +1509,7 @@ uint64_t applejpeg_encode_set_option_q_tables(uint64_t a1, uint64_t a2, int a3, 
     {
       if (!*a4)
       {
-        aj_log_error("Encode", "Table may not be NULL");
+        aj_log_error("Encode", "Table may not be NULL", a3, a4);
         return 8;
       }
 
@@ -1258,13 +1530,13 @@ LABEL_15:
   return encode_check_options(a1 + 19872, a2);
 }
 
-uint64_t applejpeg_encode_set_option_format(uint64_t a1, uint64_t a2, int a3)
+uint64_t applejpeg_encode_set_option_format(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && a2)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
@@ -1279,18 +1551,18 @@ uint64_t applejpeg_encode_set_option_format(uint64_t a1, uint64_t a2, int a3)
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_type_baseline(_DWORD *a1, uint64_t a2, int a3)
+uint64_t applejpeg_encode_set_option_type_baseline(_DWORD *a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && a2)
   {
     if (a1[6656])
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
@@ -1298,7 +1570,7 @@ uint64_t applejpeg_encode_set_option_type_baseline(_DWORD *a1, uint64_t a2, int 
     {
       a1[4982] = a3;
       a1[4983] = 0;
-      v4 = (a1 + 4968);
+      v4 = a1 + 4968;
 
       return encode_check_options(v4, a2);
     }
@@ -1306,38 +1578,39 @@ uint64_t applejpeg_encode_set_option_type_baseline(_DWORD *a1, uint64_t a2, int 
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_type_progressive(uint64_t a1, uint64_t a2, int a3, int a4, const void *a5)
+uint64_t applejpeg_encode_set_option_type_progressive(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5)
 {
-  if (a1 && a2 && a4 && a5)
+  if (a1 && a2 && (v6 = a4) != 0 && a5)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
     else
     {
+      v10 = a3;
       v11 = *(a1 + 26680);
       if (v11)
       {
         free(v11);
       }
 
-      v12 = malloc_type_calloc(1uLL, 36 * a4, 0x10000408AA14F5FuLL);
+      v12 = malloc_type_calloc(1uLL, 36 * v6, 0x10000408AA14F5FuLL);
       *(a1 + 26680) = v12;
       *(a1 + 26616) = v12;
       if (v12)
       {
-        memcpy(v12, a5, 36 * a4);
-        *(a1 + 19928) = a3;
+        memcpy(v12, a5, 36 * v6);
+        *(a1 + 19928) = v10;
         *(a1 + 19932) = 1;
-        *(a1 + 19936) = a4;
+        *(a1 + 19936) = v6;
         *(a1 + 19944) = *(a1 + 26616);
 
         return encode_check_options(a1 + 19872, a2);
@@ -1353,18 +1626,18 @@ uint64_t applejpeg_encode_set_option_type_progressive(uint64_t a1, uint64_t a2, 
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4, a5);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_type_lossless(_DWORD *a1, uint64_t a2, int a3, int a4, int a5)
+uint64_t applejpeg_encode_set_option_type_lossless(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a1 && a2)
   {
     if (a1[6656])
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3, a4, a5);
       return 5;
     }
 
@@ -1374,7 +1647,7 @@ uint64_t applejpeg_encode_set_option_type_lossless(_DWORD *a1, uint64_t a2, int 
       a1[4983] = 2;
       a1[4996] = a4;
       a1[4997] = a5;
-      v6 = (a1 + 4968);
+      v6 = a1 + 4968;
 
       return encode_check_options(v6, a2);
     }
@@ -1382,18 +1655,18 @@ uint64_t applejpeg_encode_set_option_type_lossless(_DWORD *a1, uint64_t a2, int 
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4, a5);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_skip_app0_header(uint64_t a1, uint64_t a2, int a3)
+uint64_t applejpeg_encode_set_option_skip_app0_header(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 && a2)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3);
       return 5;
     }
 
@@ -1408,12 +1681,12 @@ uint64_t applejpeg_encode_set_option_skip_app0_header(uint64_t a1, uint64_t a2, 
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_callback(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t applejpeg_encode_set_option_callback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a1 && a2 && a3 && a4)
   {
@@ -1436,18 +1709,18 @@ uint64_t applejpeg_encode_set_option_callback(uint64_t a1, uint64_t a2, uint64_t
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4, a5);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_strip_encode(uint64_t a1, uint64_t a2, char a3, char a4, char a5, int a6)
+uint64_t applejpeg_encode_set_option_strip_encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a1 && a2)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3, a4, a5, a6);
       return 5;
     }
 
@@ -1465,18 +1738,18 @@ uint64_t applejpeg_encode_set_option_strip_encode(uint64_t a1, uint64_t a2, char
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4, a5, a6);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_insert_segment(uint64_t a1, uint64_t a2, int a3, uint64_t a4, void *a5)
+uint64_t applejpeg_encode_set_option_insert_segment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   if (a1 && a2 && a5)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3, a4);
       return 5;
     }
 
@@ -1493,18 +1766,18 @@ uint64_t applejpeg_encode_set_option_insert_segment(uint64_t a1, uint64_t a2, in
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4, a5);
     return 8;
   }
 }
 
-uint64_t applejpeg_encode_set_option_record_rst_offsets(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+uint64_t applejpeg_encode_set_option_record_rst_offsets(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a1 && a2)
   {
     if (*(a1 + 26624))
     {
-      aj_log_error("Encode", "Cannot modify options after committing them");
+      aj_log_error("Encode", "Cannot modify options after committing them", a3, a4, a5);
       return 5;
     }
 
@@ -1521,7 +1794,7 @@ uint64_t applejpeg_encode_set_option_record_rst_offsets(uint64_t a1, uint64_t a2
 
   else
   {
-    aj_log_error("Encode", "Cannot take NULL arguments");
+    aj_log_error("Encode", "Cannot take NULL arguments", a3, a4, a5);
     return 8;
   }
 }
@@ -1570,10 +1843,10 @@ double applejpeg_encode_reset_options(uint64_t a1)
 
 uint64_t applejpeg_encode_image_row(uint64_t a1, unsigned int *a2, void *a3)
 {
-  v22 = 0;
+  v17 = 0;
   if (a1 && a2)
   {
-    v6 = check_input(a1, a2, 0, &v22);
+    v6 = check_input(a1, a2, 0, &v17);
     if (!v6)
     {
       if (*(a1 + 26624))
@@ -1582,9 +1855,6 @@ uint64_t applejpeg_encode_image_row(uint64_t a1, unsigned int *a2, void *a3)
         v7 = a2[11];
         if (v7 >= 16)
         {
-          v9 = *(a1 + 24);
-          v10 = *(a1 + 28);
-          v11 = a2[11];
           kdebug_trace();
         }
 
@@ -1602,7 +1872,6 @@ uint64_t applejpeg_encode_image_row(uint64_t a1, unsigned int *a2, void *a3)
 
         if (*v8 + *(a1 + 13304) > *(a1 + 28))
         {
-          *v21 = *(a1 + 28);
           aj_log_error("Encode", "Image height is %d but %d rows have been passed in.");
           return 1;
         }
@@ -1615,10 +1884,10 @@ uint64_t applejpeg_encode_image_row(uint64_t a1, unsigned int *a2, void *a3)
 
         if (!*(a1 + 13284))
         {
-          v19 = aj_write_jpeg_headers((a1 + 16), a1 + 22328, a1 + 3440, *(a1 + 19832), *(a1 + 22456), *(a1 + 20120), *(a1 + 20168), *(a1 + 20176), 0);
-          if (v19)
+          v16 = aj_write_jpeg_headers((a1 + 16), a1 + 22328, a1 + 3440, *(a1 + 19832), *(a1 + 22456), *(a1 + 20120), *(a1 + 20168), *(a1 + 20176), 0);
+          if (v16)
           {
-            v6 = v19;
+            v6 = v16;
             aj_log_error("Encode", "Failed to write JPEG headers");
             return v6;
           }
@@ -1626,60 +1895,60 @@ uint64_t applejpeg_encode_image_row(uint64_t a1, unsigned int *a2, void *a3)
           *(a1 + 13284) = 1;
         }
 
-        v13 = v22;
-        if (v22 && *(a1 + 13376) == 14)
+        v10 = v17;
+        if (v17 && *(a1 + 13376) == 14)
         {
           v8 = (a1 + 13444);
         }
 
-        v14 = *(a1 + 13292) + *v8;
-        if (v14 >= *(a1 + 13308))
+        v11 = *(a1 + 13292) + *v8;
+        if (v11 >= *(a1 + 13308))
         {
-          v15 = 0;
+          v12 = 0;
           while (1)
           {
-            setup_input((a1 + 20400), a1 + 16, a2, v15);
-            v16 = aj_encode_row(a1 + 16, (a1 + 20400), *(a1 + 13304) >= (*(a1 + 13452) - 1) * *(a1 + 13444));
-            if (v16)
+            setup_input((a1 + 20400), a1 + 16, a2, v12);
+            v13 = aj_encode_row(a1 + 16, (a1 + 20400), *(a1 + 13304) >= (*(a1 + 13452) - 1) * *(a1 + 13444));
+            if (v13)
             {
               break;
             }
 
-            v17 = *(a1 + 13308);
+            v14 = *(a1 + 13308);
             if (*(a1 + 13292))
             {
-              v18 = 1;
+              v15 = 1;
             }
 
             else
             {
-              v18 = *(a1 + 13308);
+              v15 = *(a1 + 13308);
             }
 
-            v15 += v18;
-            *(a1 + 13304) += v17;
+            v12 += v15;
+            *(a1 + 13304) += v14;
             *(a1 + 13292) = 0;
-            v14 -= v17;
-            if (v14 < v17)
+            v11 -= v14;
+            if (v11 < v14)
             {
-              v13 = v22;
+              v10 = v17;
               goto LABEL_34;
             }
           }
 
-          v6 = v16;
+          v6 = v13;
           aj_log_error("Encode", "Failed to encode row");
         }
 
         else
         {
-          v15 = 0;
+          v12 = 0;
 LABEL_34:
-          if (v13)
+          if (v10)
           {
-            if (v14 && *(a1 + 13376) != 14)
+            if (v11 && *(a1 + 13376) != 14)
             {
-              setup_input((a1 + 20400), a1 + 16, a2, v15);
+              setup_input((a1 + 20400), a1 + 16, a2, v12);
               *(a1 + 13292) = 1;
             }
 
@@ -1690,9 +1959,9 @@ LABEL_34:
 
           else
           {
-            if (v14)
+            if (v11)
             {
-              setup_input((a1 + 20400), a1 + 16, a2, v15);
+              setup_input((a1 + 20400), a1 + 16, a2, v12);
               buffer_input_row(a1 + 16, a1 + 20400);
             }
 
@@ -1701,7 +1970,6 @@ LABEL_34:
 
           if (v7 >= 16)
           {
-            v20 = *(a1 + 22416);
             kdebug_trace();
           }
 
@@ -1719,20 +1987,19 @@ LABEL_34:
 
   else
   {
-    aj_log_error("Encode", "Cannot accept NULL arguments");
+    aj_log_error("Encode", "Cannot accept NULL arguments", a3);
     return 8;
   }
 
   return v6;
 }
 
-uint64_t check_input(_DWORD *a1, unsigned int *a2, int a3, _BOOL4 *a4)
+uint64_t check_input(_DWORD *a1, unsigned int *a2, uint64_t a3, _BOOL4 *a4)
 {
   v4 = a2[8];
   if ((v4 - 5) < 0xFFFFFFFC)
   {
-    v13 = a2[8];
-    aj_log_error("Encode", "Invalid number of planes: %d");
+    aj_log_error("Encode", "Invalid number of planes: %d", a3, a4);
     return 8;
   }
 
@@ -1741,7 +2008,7 @@ uint64_t check_input(_DWORD *a1, unsigned int *a2, int a3, _BOOL4 *a4)
   {
     if (!*&a2[2 * v6])
     {
-      aj_log_error("Encode", "Plane pointer #%d is NULL");
+      aj_log_error("Encode", "Plane pointer #%d is NULL", a3, a4);
       return 8;
     }
 
@@ -1752,7 +2019,7 @@ uint64_t check_input(_DWORD *a1, unsigned int *a2, int a3, _BOOL4 *a4)
   v7 = a1[5054];
   if (v7 != a2[12])
   {
-    aj_log_error("Encode", "Format differs from what previously set");
+    aj_log_error("Encode", "Format differs from what previously set", a3, a4);
     return 8;
   }
 
@@ -1771,7 +2038,7 @@ uint64_t check_input(_DWORD *a1, unsigned int *a2, int a3, _BOOL4 *a4)
     }
 
 LABEL_15:
-    aj_log_error("Encode", "Invalid data dimensions");
+    aj_log_error("Encode", "Invalid data dimensions", a3, a4);
     return 8;
   }
 
@@ -1793,14 +2060,14 @@ LABEL_18:
   {
     if (v7 == 14 && memcmp(a1 + 5056, a2 + 14, 0x40uLL))
     {
-      aj_log_error("Encode", "Texture info structs differ");
+      aj_log_error("Encode", "Texture info structs differ", v13, v14);
       return 8;
     }
   }
 
   else if ((v8 & 1) != 0 && v11 < v9)
   {
-    aj_log_error("Encode", "An even number of rows is required for vertically decimated input");
+    aj_log_error("Encode", "An even number of rows is required for vertically decimated input", a3, a4);
     return 8;
   }
 
@@ -1918,7 +2185,7 @@ uint64_t applejpeg_encode_image_all(uint64_t a1, unsigned int *a2, void *a3)
 {
   if (!a1 || !a2)
   {
-    aj_log_error("Encode", "Cannot accept NULL arguments");
+    aj_log_error("Encode", "Cannot accept NULL arguments", a3);
     return 8;
   }
 
@@ -1927,37 +2194,34 @@ uint64_t applejpeg_encode_image_all(uint64_t a1, unsigned int *a2, void *a3)
   {
     if (*(a1 + 26624))
     {
-      v9 = *(a1 + 24);
-      v10 = *(a1 + 28);
-      v11 = *(a1 + 19820);
       kdebug_trace();
       if (*(a1 + 19820))
       {
         setup_input((a1 + 20400), a1 + 16, a2, 0);
-        v12 = do_encode_lossless(a1);
+        v9 = do_encode_lossless(a1);
 LABEL_10:
-        v7 = v12;
-        v13 = (a1 + 22416);
+        v7 = v9;
+        v10 = (a1 + 22416);
 LABEL_11:
-        *a3 = *v13;
+        *a3 = *v10;
         *(a1 + 26624) = 0;
         kdebug_trace();
         return v7;
       }
 
-      v14 = *(a1 + 20048);
-      if (!v14)
+      v11 = *(a1 + 20048);
+      if (!v11)
       {
-        v12 = do_encode(a1, a2);
+        v9 = do_encode(a1, a2);
         goto LABEL_10;
       }
 
-      v15 = a1 + 22328;
-      v27 = *(a1 + 22392);
-      v25 = *(a1 + 22360);
-      v26 = *(a1 + 22376);
-      v23 = *(a1 + 22328);
-      v24 = *(a1 + 22344);
+      v12 = a1 + 22328;
+      v24 = *(a1 + 22392);
+      v22 = *(a1 + 22360);
+      v23 = *(a1 + 22376);
+      v20 = *(a1 + 22328);
+      v21 = *(a1 + 22344);
       *(a1 + 22368) = dummy_callback2;
       *(a1 + 20048) = 0;
       aj_encode_reset_session((a1 + 16), a1 + 20400, a1 + 20040);
@@ -1967,21 +2231,21 @@ LABEL_11:
         return v6;
       }
 
-      v13 = (a1 + 22416);
-      v16 = *(a1 + 22416);
-      v22 = v14;
-      if (v16 >= v14)
+      v10 = (a1 + 22416);
+      v13 = *(a1 + 22416);
+      v19 = v11;
+      if (v13 >= v11)
       {
-        v17 = *(a1 + 20056);
-        if (v17 >= 2)
+        v14 = *(a1 + 20056);
+        if (v14 >= 2)
         {
-          v19 = v17 - 1;
-          v21 = v14 / 20;
-          v20 = 1;
+          v16 = v14 - 1;
+          v18 = v11 / 20;
+          v17 = 1;
           while (1)
           {
-            v18 = (v20 + v19) >> 1;
-            *(a1 + 20056) = v18;
+            v15 = (v17 + v16) >> 1;
+            *(a1 + 20056) = v15;
             aj_encode_reset_session((a1 + 16), a1 + 20400, a1 + 20040);
             v6 = do_encode(a1, a2);
             if (v6)
@@ -1989,35 +2253,35 @@ LABEL_11:
               return v6;
             }
 
-            v16 = *v13;
-            if (v22 <= *v13)
+            v13 = *v10;
+            if (v19 <= *v10)
             {
-              v19 = v18 - 1;
+              v16 = v15 - 1;
             }
 
             else
             {
-              if (v22 - v16 < v21)
+              if (v19 - v13 < v18)
               {
                 goto LABEL_31;
               }
 
-              v20 = v18 + 1;
+              v17 = v15 + 1;
             }
 
-            if (v20 > v19)
+            if (v17 > v16)
             {
               goto LABEL_31;
             }
           }
         }
 
-        v18 = v17 / 2;
+        v15 = v14 / 2;
 LABEL_31:
-        v15 = a1 + 22328;
-        if (v16 >= v22 && v18 >= 2)
+        v12 = a1 + 22328;
+        if (v13 >= v19 && v15 >= 2)
         {
-          *(a1 + 20056) = v18 - 1;
+          *(a1 + 20056) = v15 - 1;
           aj_encode_reset_session((a1 + 16), a1 + 20400, a1 + 20040);
           v6 = do_encode(a1, a2);
           if (v6)
@@ -2025,18 +2289,18 @@ LABEL_31:
             return v6;
           }
 
-          v16 = *v13;
+          v13 = *v10;
         }
       }
 
-      if (v16 < v22)
+      if (v13 < v19)
       {
         aj_encode_reset_session((a1 + 16), a1 + 20400, a1 + 20040);
-        *(v15 + 32) = v25;
-        *(v15 + 48) = v26;
-        *(v15 + 64) = v27;
-        *v15 = v23;
-        *(v15 + 16) = v24;
+        *(v12 + 32) = v22;
+        *(v12 + 48) = v23;
+        *(v12 + 64) = v24;
+        *v12 = v20;
+        *(v12 + 16) = v21;
         v7 = do_encode(a1, a2);
         if (v7)
         {
@@ -2161,7 +2425,7 @@ uint64_t applejpeg_encode_image_all_with_bitstream_offset(uint64_t a1, unsigned 
 
   else
   {
-    aj_log_error("Encode", "Cannot accept NULL arguments");
+    aj_log_error("Encode", "Cannot accept NULL arguments", a3);
     return 8;
   }
 
@@ -2203,52 +2467,61 @@ uint64_t enc_mem_callback(void *__src, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t verify_pscan_setup(unsigned int *a1, int a2, int a3)
+uint64_t verify_pscan_setup(unsigned int *a1, unsigned int a2, int a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v42 = *MEMORY[0x277D85DE8];
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  if (a2 < 1)
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  if (a2 >= 1)
   {
-LABEL_5:
-    if (a3 < 1)
+    v5 = a2;
+    while (!aj_fill_coeffblock_from_scan_properties(a1, &v10, a3))
     {
-      result = 0;
-      goto LABEL_14;
+      a1 += 9;
+      if (!--v5)
+      {
+        goto LABEL_5;
+      }
     }
 
+    goto LABEL_12;
+  }
+
+LABEL_5:
+  if (a3 >= 1)
+  {
     v6 = 0;
-    v7 = &v11;
+    v7 = &v10;
 LABEL_7:
     v8 = 0;
     while (*(v7 + v8) == -1)
@@ -2264,29 +2537,16 @@ LABEL_7:
           goto LABEL_7;
         }
 
-        goto LABEL_14;
+        return result;
       }
     }
+
+LABEL_12:
+    aj_log_error("Encode", "The progressive scan set-up is illegal or contains errors", v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40);
+    return 5;
   }
 
-  else
-  {
-    v5 = a2;
-    while (!aj_fill_coeffblock_from_scan_properties(a1, &v11, a3))
-    {
-      a1 += 9;
-      if (!--v5)
-      {
-        goto LABEL_5;
-      }
-    }
-  }
-
-  aj_log_error("Encode", "The progressive scan set-up is illegal or contains errors", v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41);
-  result = 5;
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t aj_ostream_write_cold_1(uint64_t a1)
@@ -2317,48 +2577,45 @@ uint64_t aj_ostream_write_bytes_cold_1(uint64_t a1)
 
 void applejpeg_decode_create_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_240A75000, a2, a3, "[%p] Created session", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_240A75000, a2, a3, "[%p] Created session", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void applejpeg_decode_destroy_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_240A75000, a2, a3, "[%p] Releasing session", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_240A75000, a2, a3, "[%p] Releasing session", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void applejpeg_decode_build_index_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v4 = v0;
-  _os_log_debug_impl(&dword_240A75000, v1, OS_LOG_TYPE_DEBUG, "[%p] Index-table finished with code %d", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_240A75000, v1, OS_LOG_TYPE_DEBUG, "[%p] Index-table finished with code %d", v2, 0x12u);
 }
 
 void applejpeg_decode_image_all_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v3 = -1;
-  _os_log_error_impl(&dword_240A75000, v0, OS_LOG_TYPE_ERROR, "Warning! [%p] Decoding incomplete with error code %d. This is expected if the image has not been fully downloaded.", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = -1;
+  _os_log_error_impl(&dword_240A75000, v0, OS_LOG_TYPE_ERROR, "Warning! [%p] Decoding incomplete with error code %d. This is expected if the image has not been fully downloaded.", v1, 0x12u);
 }
 
 void applejpeg_decode_image_all_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_240A75000, a2, a3, "[%p] Decoding completed without errors", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_240A75000, a2, a3, "[%p] Decoding completed without errors", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void applejpeg_decode_image_all_cold_3()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
-  v4 = v0;
-  _os_log_error_impl(&dword_240A75000, v1, OS_LOG_TYPE_ERROR, "[%p] Decoding failed with error code %d", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_240A75000, v1, OS_LOG_TYPE_ERROR, "[%p] Decoding failed with error code %d", v2, 0x12u);
 }

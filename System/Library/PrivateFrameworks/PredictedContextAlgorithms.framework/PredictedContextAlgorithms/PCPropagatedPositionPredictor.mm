@@ -6,7 +6,7 @@
 
 + (void)predictPropagatedPosition:(id)position locations:(id *)locations atTime:(double)time
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   positionCopy = position;
   *locations = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (positionCopy && [positionCopy count])
@@ -23,10 +23,10 @@
         v60 = [positionCopy objectAtIndexedSubscript:0];
         [v60 timeCFAbsolute];
         *buf = 136315650;
-        v66 = "+[PCPropagatedPositionPredictor predictPropagatedPosition:locations:atTime:]";
-        v67 = 2048;
-        v68 = v61;
-        v69 = 2048;
+        v65 = "+[PCPropagatedPositionPredictor predictPropagatedPosition:locations:atTime:]";
+        v66 = 2048;
+        v67 = v61;
+        v68 = 2048;
         timeCopy = time;
         _os_log_impl(&dword_1CEE74000, &v11->super.super, OS_LOG_TYPE_DEFAULT, "%s, Propagated position is in the past, prop, %lf, cur, %lf", buf, 0x20u);
       }
@@ -93,8 +93,8 @@
       v45 = NSStringFromClass(v44);
       [(PCPSource *)v43 setIdentifier:v45];
 
-      v64 = v43;
-      v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
+      v63 = v43;
+      v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
       v47 = [v46 mutableCopy];
       predictedContext10 = [(PCPPredictedContextLocation *)v11 predictedContext];
       [predictedContext10 setSources:v47];
@@ -114,8 +114,8 @@
       [(PCPPredictedContextSource *)v55 setPropagatedLocation:v56];
 
       [(PCPSource *)v43 setPredictedContextSource:v55];
-      v63 = v43;
-      v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
+      v62 = v43;
+      v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
       v58 = [v57 mutableCopy];
       predictedContext11 = [(PCPPredictedContextLocation *)v11 predictedContext];
       [predictedContext11 setSources:v58];
@@ -123,8 +123,6 @@
       [*locations addObject:v11];
     }
   }
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 @end

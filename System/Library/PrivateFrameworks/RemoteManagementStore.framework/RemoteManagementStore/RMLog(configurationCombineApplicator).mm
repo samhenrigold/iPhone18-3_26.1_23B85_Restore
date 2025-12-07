@@ -11,9 +11,9 @@
     +[RMLog(configurationCombineApplicator) configurationCombineApplicator];
   }
 
-  v1 = configurationCombineApplicator_result;
+  v2 = configurationCombineApplicator_result;
 
-  return v1;
+  return v2;
 }
 
 @end

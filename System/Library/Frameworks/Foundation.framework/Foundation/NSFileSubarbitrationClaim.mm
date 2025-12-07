@@ -693,7 +693,7 @@ uint64_t __76__NSFileSubarbitrationClaim_evaluateSelfWithRootNode_checkSubarbitr
 uint64_t __76__NSFileSubarbitrationClaim_evaluateSelfWithRootNode_checkSubarbitrability___block_invoke_13(uint64_t a1, int a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
-  if (a2 && [*(*(a1 + 32) + 248) count] == 1 && (objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend(objc_msgSend(a3, "purposeID"), "isEqualToString:", @"com.apple.desktopservices.copyengine"))
+  if (a2 && [*(*(a1 + 32) + 248) count] == 1 && (objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqualToString_(objc_msgSend(a3, "purposeID")))
   {
     v5 = _NSFCClaimsLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -732,7 +732,7 @@ LABEL_11:
   return 0;
 }
 
-uint64_t __76__NSFileSubarbitrationClaim_evaluateSelfWithRootNode_checkSubarbitrability___block_invoke_65(uint64_t a1, void *a2)
+void *__76__NSFileSubarbitrationClaim_evaluateSelfWithRootNode_checkSubarbitrability___block_invoke_65(uint64_t a1, void *a2)
 {
   result = (*(*(a1 + 40) + 16))();
   v5 = *(a1 + 32);
@@ -750,7 +750,7 @@ uint64_t __76__NSFileSubarbitrationClaim_evaluateSelfWithRootNode_checkSubarbitr
   return result;
 }
 
-uint64_t __76__NSFileSubarbitrationClaim_evaluateSelfWithRootNode_checkSubarbitrability___block_invoke_2_67(uint64_t a1, void *a2)
+void *__76__NSFileSubarbitrationClaim_evaluateSelfWithRootNode_checkSubarbitrability___block_invoke_2_67(uint64_t a1, void *a2)
 {
   result = (*(*(a1 + 40) + 16))();
   v5 = *(a1 + 32);

@@ -73,27 +73,28 @@
 
 - (id)numberForKey:(id)key
 {
-  v8 = 0;
-  v3 = [(HKFeatureSettings *)self numberForKey:key error:&v8];
-  v4 = v8;
+  v10 = 0;
+  v3 = [(HKFeatureSettings *)self numberForKey:key error:&v10];
+  v4 = v10;
+  v6 = v4;
   if (v4)
   {
-    _HKInitializeLogging();
-    v5 = HKLogDefault;
+    _HKInitializeLogging(v4, v5);
+    v7 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_FAULT))
     {
-      [(HKFeatureSettings *)v5 numberForKey:v4];
+      [(HKFeatureSettings *)v7 numberForKey:v6];
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = v3;
+    v8 = v3;
   }
 
-  return v6;
+  return v8;
 }
 
 - (id)allKeys
@@ -323,76 +324,74 @@ LABEL_14:
 
 - (id)dataForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v3 = [(HKFeatureSettings *)self dataForKey:key error:&v18];
-  v4 = v18;
+  v22 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v3 = [(HKFeatureSettings *)self dataForKey:key error:&v19];
+  v4 = v19;
+  v6 = v4;
   if (v4)
   {
-    _HKInitializeLogging();
-    v5 = HKLogDefault;
+    _HKInitializeLogging(v4, v5);
+    v7 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_FAULT))
     {
-      v9 = v5;
-      v10 = [v4 description];
-      HIDWORD(v19) = HIDWORD(v10);
-      OUTLINED_FUNCTION_0_1(&dword_19197B000, v11, v12, "Reading setting failed with error: %{public}@", v13, v14, v15, v16, v17, v18, 2u);
+      v10 = v7;
+      v11 = [v6 description];
+      *buf = 138543362;
+      v21 = v11;
+      OUTLINED_FUNCTION_0_1(&dword_19197B000, v12, v13, "Reading setting failed with error: %{public}@", v14, v15, v16, v17, v18, v19);
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = v3;
+    v8 = v3;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v8;
 }
 
 - (id)stringForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v3 = [(HKFeatureSettings *)self stringForKey:key error:&v18];
-  v4 = v18;
+  v22 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v3 = [(HKFeatureSettings *)self stringForKey:key error:&v19];
+  v4 = v19;
+  v6 = v4;
   if (v4)
   {
-    _HKInitializeLogging();
-    v5 = HKLogDefault;
+    _HKInitializeLogging(v4, v5);
+    v7 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_FAULT))
     {
-      v9 = v5;
-      v10 = [v4 description];
-      HIDWORD(v19) = HIDWORD(v10);
-      OUTLINED_FUNCTION_0_1(&dword_19197B000, v11, v12, "Reading setting failed with error: %{public}@", v13, v14, v15, v16, v17, v18, 2u);
+      v10 = v7;
+      v11 = [v6 description];
+      *buf = 138543362;
+      v21 = v11;
+      OUTLINED_FUNCTION_0_1(&dword_19197B000, v12, v13, "Reading setting failed with error: %{public}@", v14, v15, v16, v17, v18, v19);
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = v3;
+    v8 = v3;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v8;
 }
 
 - (void)numberForKey:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 description];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_fault_impl(&dword_19197B000, v3, OS_LOG_TYPE_FAULT, "Reading setting failed with error: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_fault_impl(&dword_19197B000, v3, OS_LOG_TYPE_FAULT, "Reading setting failed with error: %{public}@", &v5, 0xCu);
 }
 
 @end

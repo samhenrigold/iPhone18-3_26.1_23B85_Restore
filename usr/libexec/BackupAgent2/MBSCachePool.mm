@@ -59,7 +59,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Removing cache from pool", buf, 2u);
-    _MBLog();
+    _MBLog(@"Db", "Removing cache from pool");
   }
 
   queue = self->_queue;
@@ -108,7 +108,7 @@
     *buf = 134217984;
     v7 = v2;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Opened cache: %p", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Db", "Opened cache: %p", v2);
   }
 
   return v2;
@@ -122,8 +122,7 @@
     *buf = 134217984;
     cacheCopy = cache;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Closing cache: %p", buf, 0xCu);
-    cacheCopy2 = cache;
-    _MBLog();
+    _MBLog(@"Db", "Closing cache: %p", cache);
   }
 
   [cache close];
@@ -140,7 +139,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Not scheduling duplicate drain", buf, 2u);
-      _MBLog();
+      _MBLog(@"Db", "Not scheduling duplicate drain");
     }
   }
 
@@ -151,7 +150,7 @@
       *buf = 67109120;
       v10 = 10;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Scheduling drain of cache pool in %d s", buf, 8u);
-      _MBLog();
+      _MBLog(@"Db", "Scheduling drain of cache pool in %d s", 10);
     }
 
     v6 = dispatch_time(0, 10000000000);
@@ -172,40 +171,39 @@
   v3 = [(NSMutableArray *)self->_caches count];
   v4 = MBGetDefaultLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (!v3)
+  if (v3)
   {
-    if (!v5)
+    if (v5)
     {
-      return;
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Draining cache pool", buf, 2u);
+      _MBLog(@"Db", "Draining cache pool");
     }
 
+    [(MBSCachePool *)self _closeCache:[(NSMutableArray *)self->_caches objectAtIndexedSubscript:0]];
+    [(NSMutableArray *)self->_caches removeObjectAtIndex:0];
+    if ([(NSMutableArray *)self->_caches count])
+    {
+      [(MBSCachePool *)self _scheduleDrain];
+    }
+
+    else
+    {
+      v6 = MBGetDefaultLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      {
+        *v8 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Not scheduling cache pool drain because it's empty", v8, 2u);
+        _MBLog(@"Db", "Not scheduling cache pool drain because it's empty");
+      }
+    }
+  }
+
+  else if (v5)
+  {
     *v7 = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Can't drain because cache pool is empty", v7, 2u);
-    goto LABEL_10;
-  }
-
-  if (v5)
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Draining cache pool", buf, 2u);
-    _MBLog();
-  }
-
-  [(MBSCachePool *)self _closeCache:[(NSMutableArray *)self->_caches objectAtIndexedSubscript:0]];
-  [(NSMutableArray *)self->_caches removeObjectAtIndex:0];
-  if ([(NSMutableArray *)self->_caches count])
-  {
-    [(MBSCachePool *)self _scheduleDrain];
-    return;
-  }
-
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Not scheduling cache pool drain because it's empty", v8, 2u);
-LABEL_10:
-    _MBLog();
+    _MBLog(@"Db", "Can't drain because cache pool is empty");
   }
 }
 

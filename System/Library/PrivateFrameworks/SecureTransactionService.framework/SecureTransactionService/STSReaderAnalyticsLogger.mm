@@ -40,7 +40,7 @@
 - (void)_postReaderTransactionEvent:(id)event prepOnly:(BOOL)only
 {
   onlyCopy = only;
-  v99[11] = *MEMORY[0x277D85DE8];
+  v98[11] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v6 = eventCopy;
   if (onlyCopy)
@@ -166,7 +166,7 @@
     v53 = qword_280017798;
     if (!qword_280017798)
     {
-      sub_265398190(OS_LOG_TYPE_INFO, 0, "[STSReaderAnalyticsLogger _postReaderTransactionEvent:prepOnly:]", 146, @"Missing startEvent time", v50, v51, v52, v93);
+      sub_265398190(OS_LOG_TYPE_INFO, 0, "[STSReaderAnalyticsLogger _postReaderTransactionEvent:prepOnly:]", 146, @"Missing startEvent time", v50, v51, v52, v92);
     }
 
     v54 = [v6 objectForKeyedSubscript:@"transactionEndEventTime"];
@@ -205,7 +205,7 @@
       v66 = v65;
       v67 = 0;
       v68 = qword_2800177A8;
-      v95 = v59;
+      v94 = v59;
       if (qword_2800177A0 && qword_2800177A8)
       {
         [qword_2800177A8 timeIntervalSinceDate:?];
@@ -216,40 +216,40 @@
       v70 = 0;
       if (qword_2800177B0 && v68)
       {
-        [v95 timeIntervalSinceDate:?];
+        [v94 timeIntervalSinceDate:?];
         v70 = (v71 * 1000.0);
       }
 
-      v98[0] = @"transactionUUID";
-      v98[1] = @"engagementType";
-      v94 = uUIDString;
-      v99[0] = uUIDString;
-      v99[1] = qword_2800175C8;
-      v98[2] = @"supportedtedReaderBTRoles";
-      v98[3] = @"errorCode";
-      v99[2] = qword_2800175D0;
-      v99[3] = v47;
-      v98[4] = @"totalDurationSec";
+      v97[0] = @"transactionUUID";
+      v97[1] = @"engagementType";
+      v93 = uUIDString;
+      v98[0] = uUIDString;
+      v98[1] = qword_2800175C8;
+      v97[2] = @"supportedtedReaderBTRoles";
+      v97[3] = @"errorCode";
+      v98[2] = qword_2800175D0;
+      v98[3] = v47;
+      v97[4] = @"totalDurationSec";
       v72 = [MEMORY[0x277CCABB0] numberWithLong:v66];
-      v99[4] = v72;
-      v98[5] = @"engagementDurationMSec";
+      v98[4] = v72;
+      v97[5] = @"engagementDurationMSec";
       v73 = [MEMORY[0x277CCABB0] numberWithLong:v67];
-      v99[5] = v73;
-      v98[6] = @"altCarrierTransactionDurationMSecs";
+      v98[5] = v73;
+      v97[6] = @"altCarrierTransactionDurationMSecs";
       v74 = [MEMORY[0x277CCABB0] numberWithLong:v70];
-      v99[6] = v74;
-      v99[7] = qword_2800175E0;
-      v98[7] = @"responseSize";
-      v98[8] = @"requestSize";
-      v99[8] = qword_2800175D8;
-      v99[9] = qword_2800175E8;
-      v98[9] = @"handoverRequestSize";
-      v98[10] = @"handoverResponseSize";
-      v99[10] = qword_2800175F0;
-      v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:11];
+      v98[6] = v74;
+      v98[7] = qword_2800175E0;
+      v97[7] = @"responseSize";
+      v97[8] = @"requestSize";
+      v98[8] = qword_2800175D8;
+      v98[9] = qword_2800175E8;
+      v97[9] = @"handoverRequestSize";
+      v97[10] = @"handoverResponseSize";
+      v98[10] = qword_2800175F0;
+      v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:11];
 
       [CALogger postCAEventFor:@"com.apple.sts.readerISO18013TransactionEvent" eventInput:v75];
-      v96[0] = @"totalNFCEngagementTransactions";
+      v95[0] = @"totalNFCEngagementTransactions";
       if ([qword_2800175C8 intValue] == 1)
       {
         v76 = &unk_2876ED9E0;
@@ -260,8 +260,8 @@
         v76 = &unk_2876ED9B0;
       }
 
-      v97[0] = v76;
-      v96[1] = @"totalQRCodeEngagementTransactions";
+      v96[0] = v76;
+      v95[1] = @"totalQRCodeEngagementTransactions";
       if ([qword_2800175C8 intValue] == 2)
       {
         v77 = &unk_2876ED9E0;
@@ -272,8 +272,8 @@
         v77 = &unk_2876ED9B0;
       }
 
-      v97[1] = v77;
-      v96[2] = @"totalSuccessfulNFCEngagementTransactions";
+      v96[1] = v77;
+      v95[2] = @"totalSuccessfulNFCEngagementTransactions";
       intValue = [qword_2800175C8 intValue];
       v79 = &unk_2876ED9B0;
       if (intValue == 1)
@@ -289,20 +289,20 @@
         }
       }
 
-      v97[2] = v79;
-      v96[3] = @"totalSuccessfulQRCodeEngagementTransactions";
+      v96[2] = v79;
+      v95[3] = @"totalSuccessfulQRCodeEngagementTransactions";
       v80 = &unk_2876ED9B0;
       if ([qword_2800175C8 intValue] == 2 && !objc_msgSend(v47, "intValue"))
       {
         v80 = &unk_2876ED9E0;
       }
 
-      v97[3] = v80;
-      v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:4];
+      v96[3] = v80;
+      v81 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:4];
       [CALogger postCAEventFor:@"com.apple.sts.dailyReaderISO18013Statistics" eventInput:v81];
 
-      uUIDString = v94;
-      v59 = v95;
+      uUIDString = v93;
+      v59 = v94;
     }
 
     v82 = qword_280017798;
@@ -335,8 +335,6 @@
     v91 = qword_2800175D0;
     qword_2800175D0 = &unk_2876ED9C8;
   }
-
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postReaderTransactionEvent:(id)event prepOnly:(BOOL)only

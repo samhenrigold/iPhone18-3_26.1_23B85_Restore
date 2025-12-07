@@ -33,7 +33,7 @@
   elementCopy = element;
   modelCopy = model;
   completionCopy = completion;
-  v12 = _AAUILogSystem();
+  v12 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412546;
@@ -50,7 +50,7 @@
 {
   modelCopy = model;
   completionCopy = completion;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -65,7 +65,7 @@
 {
   upsellCopy = upsell;
   v5 = [[ICQUpgradeFlowManager alloc] initWithJourneyId:@"settingsHideMyEmail"];
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_33770(v5, v6);
@@ -77,8 +77,7 @@
     v8 = _hookCompletion;
     _hookCompletion = v7;
 
-    [v5 setDelegate:self];
-    v9 = _AAUILogSystem();
+    v9 = _AAUILogSystem([v5 setDelegate:self]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -91,7 +90,7 @@
 
 - (void)upgradeFlowManagerDidCancel:(id)cancel
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_337E8(v3);
@@ -107,7 +106,7 @@
 
 - (void)upgradeFlowManagerDidComplete:(id)complete
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_3382C(v3);

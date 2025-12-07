@@ -25,11 +25,11 @@
 - (void)_produceMessageBody:(id)body
 {
   bodyCopy = body;
-  OspreyLoggingInit();
-  v5 = OspreyLogContextGRPC;
+  OspreyLoggingInit(bodyCopy, v5);
+  v6 = OspreyLogContextGRPC;
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
   {
-    [(OspreyMessageReader *)self _produceMessageBody:v5, bodyCopy];
+    [(OspreyMessageReader *)self _produceMessageBody:v6, bodyCopy];
   }
 
   messageHandler = self->_messageHandler;
@@ -42,48 +42,49 @@
 - (void)readData:(id)data
 {
   dataCopy = data;
-  OspreyLoggingInit();
-  v5 = OspreyLogContextGRPC;
-  if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
+  OspreyLoggingInit(dataCopy, v5);
+  v6 = OspreyLogContextGRPC;
+  v7 = os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG);
+  if (v7)
   {
-    [(OspreyMessageReader *)self readData:v5, dataCopy];
+    [(OspreyMessageReader *)self readData:v6, dataCopy];
   }
 
   if (self->_readerState == 1)
   {
-    OspreyLoggingInit();
-    v6 = OspreyLogContextGRPC;
+    OspreyLoggingInit(v7, v8);
+    v9 = OspreyLogContextGRPC;
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
     {
-      [(OspreyMessageReader *)self readData:v6];
+      [(OspreyMessageReader *)self readData:v9];
     }
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __32__OspreyMessageReader_readData___block_invoke;
-  v8[3] = &unk_2799F1DD0;
-  v8[4] = self;
-  v8[5] = 5;
-  [dataCopy enumerateByteRangesUsingBlock:v8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __32__OspreyMessageReader_readData___block_invoke;
+  v13[3] = &unk_2799F1DD0;
+  v13[4] = self;
+  v13[5] = 5;
+  v10 = [dataCopy enumerateByteRangesUsingBlock:v13];
   if (self->_readerState == 1)
   {
-    OspreyLoggingInit();
-    v7 = OspreyLogContextGRPC;
+    OspreyLoggingInit(v10, v11);
+    v12 = OspreyLogContextGRPC;
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
     {
-      [(OspreyMessageReader *)self readData:v7];
+      [(OspreyMessageReader *)self readData:v12];
     }
   }
 }
 
-void __32__OspreyMessageReader_readData___block_invoke(uint64_t a1, uint64_t a2, __n128 a3, uint64_t a4, unint64_t a5)
+void __32__OspreyMessageReader_readData___block_invoke(uint64_t a1, uint64_t a2, __n128 a3, uint64_t a4, uint64_t a5)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     a3.n128_u64[0] = 136315650;
-    v35 = a3;
+    v37 = a3;
     v8 = a5;
     do
     {
@@ -121,7 +122,7 @@ void __32__OspreyMessageReader_readData___block_invoke(uint64_t a1, uint64_t a2,
           v22 = *(a1 + 32);
         }
 
-        [*(v22 + 48) appendBytes:a2 + v13 length:{v24, *&v35}];
+        [*(v22 + 48) appendBytes:a2 + v13 length:{v24, *&v37}];
         v8 -= v24;
         v25 = [*(*(a1 + 32) + 48) length];
         v26 = *(a1 + 32);
@@ -131,24 +132,24 @@ void __32__OspreyMessageReader_readData___block_invoke(uint64_t a1, uint64_t a2,
           {
             v27 = [[OspreyZlibDataDecompressor alloc] initWithOptions:31];
             v28 = [*(*(a1 + 32) + 48) _createDispatchData];
-            v36 = 0;
-            v29 = [(OspreyZlibDataDecompressor *)v27 decompressedDataForData:v28 error:&v36];
-            v30 = v36;
+            v38 = 0;
+            v29 = [(OspreyZlibDataDecompressor *)v27 decompressedDataForData:v28 error:&v38];
+            v30 = v38;
 
             if (v30 || !v29)
             {
-              OspreyLoggingInit();
-              v31 = OspreyLogContextGRPC;
+              OspreyLoggingInit(v31, v32);
+              v33 = OspreyLogContextGRPC;
               if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
               {
-                v34 = *(*(a1 + 32) + 24);
-                *buf = v35.n128_u32[0];
-                v38 = "[OspreyMessageReader readData:]_block_invoke";
-                v39 = 2048;
-                v40 = v34;
-                v41 = 2112;
-                v42 = v30;
-                _os_log_error_impl(&dword_25DDE6000, v31, OS_LOG_TYPE_ERROR, "%s Error decompressing message %lu with %@", buf, 0x20u);
+                v36 = *(*(a1 + 32) + 24);
+                *buf = v37.n128_u32[0];
+                v40 = "[OspreyMessageReader readData:]_block_invoke";
+                v41 = 2048;
+                v42 = v36;
+                v43 = 2112;
+                v44 = v30;
+                _os_log_error_impl(&dword_25DDE6000, v33, OS_LOG_TYPE_ERROR, "%s Error decompressing message %lu with %@", buf, 0x20u);
               }
             }
 
@@ -164,9 +165,9 @@ void __32__OspreyMessageReader_readData___block_invoke(uint64_t a1, uint64_t a2,
             [v26 _produceMessageBody:v30];
           }
 
-          v32 = *(a1 + 32);
-          v33 = *(v32 + 48);
-          *(v32 + 48) = 0;
+          v34 = *(a1 + 32);
+          v35 = *(v34 + 48);
+          *(v34 + 48) = 0;
 
           *(*(a1 + 32) + 32) = 0;
           *(*(a1 + 32) + 40) = 0;
@@ -185,7 +186,7 @@ void __32__OspreyMessageReader_readData___block_invoke(uint64_t a1, uint64_t a2,
           v17 = v16 - [*(*(a1 + 32) + 48) length];
         }
 
-        [*(*(a1 + 32) + 48) appendBytes:a2 + v13 length:{v17, *&v35}];
+        [*(*(a1 + 32) + 48) appendBytes:a2 + v13 length:{v17, *&v37}];
         v8 -= v17;
         if ([*(*(a1 + 32) + 48) length] == *(a1 + 40))
         {

@@ -19,6 +19,7 @@
 + (id)_topViewControllerInTabBarController:(id)controller;
 + (id)findScrollViewByIndexInStackCollectionView:(id)view index:(unint64_t)index;
 + (id)findScrollViewInView:(id)view desiredScrollViewClass:(Class)class;
++ (id)findScrollViewInView:(id)view desiredScrollViewClass:(Class)class numScrollViewsToSkip:(int)skip;
 + (id)prepareForPPT;
 + (id)testLog;
 + (id)testOperationQueue;
@@ -346,6 +347,81 @@ LABEL_6:
   v6 = [objc_opt_class() findScrollViewInView:viewCopy desiredScrollViewClass:class numScrollViewsToSkip:0];
 
   return v6;
+}
+
++ (id)findScrollViewInView:(id)view desiredScrollViewClass:(Class)class numScrollViewsToSkip:(int)skip
+{
+  v5 = *&skip;
+  viewCopy = view;
+  if (viewCopy)
+  {
+    if (!class)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+LABEL_6:
+        v9 = viewCopy;
+        goto LABEL_20;
+      }
+
+      objc_opt_class();
+    }
+
+    if (objc_opt_isKindOfClass())
+    {
+      goto LABEL_6;
+    }
+
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    subviews = [viewCopy subviews];
+    v11 = [subviews countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = *v19;
+      while (2)
+      {
+        for (i = 0; i != v12; i = i + 1)
+        {
+          if (*v19 != v13)
+          {
+            objc_enumerationMutation(subviews);
+          }
+
+          v15 = [self findScrollViewInView:*(*(&v18 + 1) + 8 * i) desiredScrollViewClass:class numScrollViewsToSkip:v5];
+          v9 = v15;
+          v16 = dword_1000235F0;
+          if (v15)
+          {
+            v16 = ++dword_1000235F0;
+          }
+
+          if (v16 > v5)
+          {
+
+            goto LABEL_20;
+          }
+        }
+
+        v12 = [subviews countByEnumeratingWithState:&v18 objects:v22 count:16];
+        if (v12)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  v9 = 0;
+LABEL_20:
+
+  return v9;
 }
 
 + (id)findScrollViewByIndexInStackCollectionView:(id)view index:(unint64_t)index

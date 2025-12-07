@@ -44,6 +44,8 @@
 + (id)predicateForSamplesWithinDateInterval:(id)interval options:(unint64_t)options;
 + (id)predicateForStatesOfMindWithAssociations:(id)associations;
 + (id)predicateForStatesOfMindWithValence:(double)valence operatorType:(unint64_t)type;
++ (id)predicateForUserAnnotatedMedicationsWithHasSchedule:(BOOL)schedule;
++ (id)predicateForUserAnnotatedMedicationsWithIsArchived:(BOOL)archived;
 + (id)predicateForWorkoutEffortSamplesRelatedToWorkout:(id)workout activity:(id)activity;
 + (id)predicateForWorkoutRoutesUsingMetadataForWorkout:(id)workout;
 + (id)serverInterface;
@@ -60,6 +62,7 @@
 - (id)_initWithObjectType:(id)type predicate:(id)predicate;
 - (id)exportedInterface;
 - (id)remoteInterface;
+- (void)_queue_activateWithHealthStore:(id)store activationUUID:(id)d isReactivating:(BOOL)reactivating completion:(id)completion;
 - (void)_queue_finishActivationWithServerProxy:(id)proxy activationUUID:(id)d error:(id)error completion:(id)completion;
 - (void)_throwInvalidArgumentExceptionIfHasBeenExecuted:(SEL)executed;
 - (void)activateWithClientQueue:(id)queue healthStore:(id)store delegate:(id)delegate time:(double)time completion:(id)completion;
@@ -97,7 +100,7 @@
 
 + (NSPredicate)predicateForClinicalRecordsFromSource:(HKSource *)source FHIRResourceType:(HKFHIRResourceType)resourceType identifier:(NSString *)identifier
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   v8 = identifier;
   v9 = resourceType;
   v10 = [self predicateForObjectsFromSource:source];
@@ -106,13 +109,11 @@
   v12 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %@", @"FHIRResource.identifier", v8];
 
   v13 = MEMORY[0x1E696AB28];
-  v18[0] = v10;
-  v18[1] = v11;
-  v18[2] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
+  v17[0] = v10;
+  v17[1] = v11;
+  v17[2] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
   v15 = [v13 andPredicateWithSubpredicates:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -515,12 +516,12 @@ NSPredicate *__66__HKQuery_HKPredicates__predicateForCategorySamplesEqualToValue
 
 + (NSPredicate)predicateForActivitySummariesBetweenStartDateComponents:(NSDateComponents *)startDateComponents endDateComponents:(NSDateComponents *)endDateComponents
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v5 = startDateComponents;
-  v16 = 0;
+  v15 = 0;
   v6 = endDateComponents;
-  v7 = [HKActivitySummary _validateActivitySummaryDateComponentsRange:v5 endDateComponents:v6 errorMessage:&v16];
-  v8 = v16;
+  v7 = [HKActivitySummary _validateActivitySummaryDateComponentsRange:v5 endDateComponents:v6 errorMessage:&v15];
+  v8 = v15;
   if (!v7)
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@", v8}];
@@ -530,12 +531,10 @@ NSPredicate *__66__HKQuery_HKPredicates__predicateForCategorySamplesEqualToValue
   v10 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K <= %@", @"dateComponents", v6];
 
   v11 = MEMORY[0x1E696AB28];
-  v17[0] = v9;
-  v17[1] = v10;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = v9;
+  v16[1] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v13 = [v11 andPredicateWithSubpredicates:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -598,6 +597,24 @@ NSPredicate *__66__HKQuery_HKPredicates__predicateForCategorySamplesEqualToValue
   return v5;
 }
 
++ (id)predicateForUserAnnotatedMedicationsWithIsArchived:(BOOL)archived
+{
+  v3 = MEMORY[0x1E696AE18];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:archived];
+  v5 = [v3 predicateWithFormat:@"%K == %@", @"isArchived", v4];
+
+  return v5;
+}
+
++ (id)predicateForUserAnnotatedMedicationsWithHasSchedule:(BOOL)schedule
+{
+  v3 = MEMORY[0x1E696AE18];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:schedule];
+  v5 = [v3 predicateWithFormat:@"%K == %@", @"hasSchedule", v4];
+
+  return v5;
+}
+
 + (id)predicateForDiagnosticTestResultWithReferenceRangeStatus:(int64_t)status
 {
   v3 = MEMORY[0x1E696AE18];
@@ -609,10 +626,10 @@ NSPredicate *__66__HKQuery_HKPredicates__predicateForCategorySamplesEqualToValue
 
 + (id)predicateForRecordsWithSortDateFromStartDateComponents:(id)components endDateComponents:(id)dateComponents
 {
-  v18[2] = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v4 = [HKMedicalRecord _sortDateIntervalFromStartDateComponents:components endDateComponents:dateComponents error:&v17];
-  v5 = v17;
+  v17[2] = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v4 = [HKMedicalRecord _sortDateIntervalFromStartDateComponents:components endDateComponents:dateComponents error:&v16];
+  v5 = v16;
   if (!v4)
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@", v5}];
@@ -627,12 +644,10 @@ NSPredicate *__66__HKQuery_HKPredicates__predicateForCategorySamplesEqualToValue
   v11 = [v9 predicateWithFormat:@"%K  < %@", @"sortDate", endDate];
 
   v12 = MEMORY[0x1E696AB28];
-  v18[0] = v8;
-  v18[1] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = v8;
+  v17[1] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v14 = [v12 andPredicateWithSubpredicates:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -715,55 +730,54 @@ NSPredicate *__66__HKQuery_HKPredicates__predicateForCategorySamplesEqualToValue
 
 + (id)predicateForStatesOfMindWithAssociations:(id)associations
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   associationsCopy = associations;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v5 = associationsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         v10 = MEMORY[0x1E696AD98];
-        integerValue = [*(*(&v17 + 1) + 8 * i) integerValue];
-        v13 = [v10 numberWithInteger:{HKStateOfMindDomainFromAssociation(integerValue, v12)}];
-        [array addObject:v13];
+        [*(*(&v15 + 1) + 8 * i) integerValue];
+        HKStateOfMindDomainFromAssociation();
+        v12 = [v10 numberWithInteger:v11];
+        [array addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
-  v14 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K in %@", @"domains", array, v17];
+  v13 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K in %@", @"domains", array, v15];
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 + (id)predicateForWorkoutRoutesUsingMetadataForWorkout:(id)workout
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   workoutCopy = workout;
   uUID = [workoutCopy UUID];
   uUIDString = [uUID UUIDString];
-  v20[0] = uUIDString;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v19[0] = uUIDString;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
   v7 = [HKQuery predicateForObjectsWithMetadataKey:@"_HKPrivateSmoothedRouteWorkoutAssociatedUUID" allowedValues:v6];
 
   startDate = [workoutCopy startDate];
@@ -776,12 +790,10 @@ NSPredicate *__66__HKQuery_HKPredicates__predicateForCategorySamplesEqualToValue
   v12 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v9 endDate:v11];
   v13 = [HKQuery predicateForSamplesWithinDateInterval:v12 options:0];
   v14 = MEMORY[0x1E696AB28];
-  v19[0] = v7;
-  v19[1] = v13;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = v7;
+  v18[1] = v13;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v16 = [v14 andPredicateWithSubpredicates:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1058,17 +1070,17 @@ _BYTE *__72__HKQuery_activateWithClientQueue_healthStore_delegate_time_completio
 
   else
   {
-    v4 = a1 + 32;
+    v3 = a1 + 32;
     objc_storeWeak((*(a1 + 32) + 16), *(a1 + 40));
     objc_storeStrong((*(a1 + 32) + 128), *(a1 + 48));
     [*(a1 + 32) setActivationUUID:*(a1 + 56)];
-    *(*v4 + 136) = [*(a1 + 64) applicationSDKVersionToken];
-    *(*v4 + 40) = *(a1 + 96);
-    v5 = [*(*(a1 + 32) + 104) count];
-    _HKInitializeLogging();
+    *(*v3 + 136) = [*(a1 + 64) applicationSDKVersionToken];
+    *(*v3 + 40) = *(a1 + 96);
+    v4 = [*(*(a1 + 32) + 104) count];
+    _HKInitializeLogging(v4, v5);
     v6 = HKLogQuery;
     v7 = os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEFAULT);
-    if (v5 < 2)
+    if (v4 < 2)
     {
       if (v7)
       {
@@ -1110,10 +1122,9 @@ _BYTE *__72__HKQuery_activateWithClientQueue_healthStore_delegate_time_completio
 
     [*(a1 + 32) queue_validate];
     *(*(a1 + 32) + 8) = 1;
-    result = [*(a1 + 32) _queue_activateWithHealthStore:*(a1 + 64) activationUUID:*(a1 + 56) isReactivating:0 completion:*(a1 + 72)];
+    return [*(a1 + 32) _queue_activateWithHealthStore:*(a1 + 64) activationUUID:*(a1 + 56) isReactivating:0 completion:*(a1 + 72)];
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1133,22 +1144,22 @@ _BYTE *__72__HKQuery_activateWithClientQueue_healthStore_delegate_time_completio
 
 void __37__HKQuery_reactivateWithHealthStore___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 32) activationUUID];
-  if (v2)
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = [*(a1 + 32) activationUUID];
+  if (v3)
   {
     if ([*(a1 + 32) activationState] == 3)
     {
-      _HKInitializeLogging();
-      v3 = HKLogQuery;
+      _HKInitializeLogging(3, v4);
+      v5 = HKLogQuery;
       if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(a1 + 32);
+        v6 = *(a1 + 32);
         *buf = 138543362;
-        v15 = v4;
-        v5 = "%{public}@: Query deactivated before reactivation was requested; ignoring reactivation request.";
+        v17 = v6;
+        v7 = "%{public}@: Query deactivated before reactivation was requested; ignoring reactivation request.";
 LABEL_10:
-        _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, v5, buf, 0xCu);
+        _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
       }
     }
 
@@ -1157,29 +1168,29 @@ LABEL_10:
       if ([*(a1 + 32) activationState] != 1)
       {
         [*(*(a1 + 32) + 24) invalidate];
-        v8 = *(a1 + 32);
-        v9 = *(v8 + 24);
-        *(v8 + 24) = 0;
+        v11 = *(a1 + 32);
+        v12 = *(v11 + 24);
+        *(v11 + 24) = 0;
 
-        v10 = *(a1 + 32);
-        v11 = *(a1 + 40);
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __37__HKQuery_reactivateWithHealthStore___block_invoke_93;
-        v13[3] = &unk_1E7376A00;
-        v13[4] = v10;
-        [v10 _queue_activateWithHealthStore:v11 activationUUID:v2 isReactivating:1 completion:v13];
+        v13 = *(a1 + 32);
+        v14 = *(a1 + 40);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __37__HKQuery_reactivateWithHealthStore___block_invoke_93;
+        v15[3] = &unk_1E7376A00;
+        v15[4] = v13;
+        [v13 _queue_activateWithHealthStore:v14 activationUUID:v3 isReactivating:1 completion:v15];
         goto LABEL_12;
       }
 
-      _HKInitializeLogging();
-      v3 = HKLogQuery;
+      _HKInitializeLogging(1, v9);
+      v5 = HKLogQuery;
       if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
+        v10 = *(a1 + 32);
         *buf = 138543362;
-        v15 = v7;
-        v5 = "%{public}@: Query is activation in progress; ignoring reactivation request.";
+        v17 = v10;
+        v7 = "%{public}@: Query is activation in progress; ignoring reactivation request.";
         goto LABEL_10;
       }
     }
@@ -1187,21 +1198,19 @@ LABEL_10:
 
   else
   {
-    _HKInitializeLogging();
-    v3 = HKLogQuery;
+    _HKInitializeLogging(0, v2);
+    v5 = HKLogQuery;
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138543362;
-      v15 = v6;
-      v5 = "%{public}@: Query reactivated with nil UUID; ignoring reactivation request.";
+      v17 = v8;
+      v7 = "%{public}@: Query reactivated with nil UUID; ignoring reactivation request.";
       goto LABEL_10;
     }
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __37__HKQuery_reactivateWithHealthStore___block_invoke_93(uint64_t a1, char a2, void *a3)
@@ -1222,12 +1231,12 @@ void __37__HKQuery_reactivateWithHealthStore___block_invoke_93(uint64_t a1, char
   }
 }
 
-uint64_t __37__HKQuery_reactivateWithHealthStore___block_invoke_2(uint64_t a1)
+uint64_t __37__HKQuery_reactivateWithHealthStore___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(a1, a2);
   if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
   {
-    __37__HKQuery_reactivateWithHealthStore___block_invoke_2_cold_1(a1);
+    __37__HKQuery_reactivateWithHealthStore___block_invoke_2_cold_1();
   }
 
   return [*(a1 + 32) _queue_deactivateWithError:*(a1 + 40)];
@@ -1263,7 +1272,7 @@ uint64_t __37__HKQuery_reactivateWithHealthStore___block_invoke_2(uint64_t a1)
   return v3 & 1;
 }
 
-uint64_t __21__HKQuery_deactivate__block_invoke(uint64_t a1)
+void *__21__HKQuery_deactivate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_deactivateWithError:0];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1275,6 +1284,66 @@ uint64_t __21__HKQuery_deactivate__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(self->_queue);
 
   [(HKQuery *)self _queue_deactivateWithError:0];
+}
+
+- (void)_queue_activateWithHealthStore:(id)store activationUUID:(id)d isReactivating:(BOOL)reactivating completion:(id)completion
+{
+  reactivatingCopy = reactivating;
+  storeCopy = store;
+  dCopy = d;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_queue);
+  atomic_store(1u, &self->_activationState);
+  objc_storeStrong(&self->_strongHealthStore, store);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke;
+  aBlock[3] = &unk_1E737D320;
+  aBlock[4] = self;
+  v14 = dCopy;
+  v33 = v14;
+  v15 = completionCopy;
+  v34 = v15;
+  v16 = _Block_copy(aBlock);
+  v18 = v16;
+  p_proxyProvider = &self->_proxyProvider;
+  if (!self->_proxyProvider)
+  {
+    v20 = objc_alloc_init([objc_opt_class() configurationClass]);
+    [(HKQuery *)self queue_populateConfiguration:v20];
+    v21 = [[HKQueryServerProxyProvider alloc] initWithHealthStore:storeCopy query:self configuration:v20 queryUUID:v14];
+    proxyProvider = self->_proxyProvider;
+    self->_proxyProvider = v21;
+
+    [(HKQueryServerProxyProvider *)self->_proxyProvider setShouldForceReactivation:reactivatingCopy];
+  }
+
+  _HKInitializeLogging(v16, v17);
+  if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEBUG))
+  {
+    [HKQuery _queue_activateWithHealthStore:activationUUID:isReactivating:completion:];
+  }
+
+  objc_initWeak(&location, *p_proxyProvider);
+  v23 = *p_proxyProvider;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_96;
+  v28[3] = &unk_1E737D370;
+  v29 = v18;
+  objc_copyWeak(&v30, &location);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_3;
+  v25[3] = &unk_1E737D398;
+  v24 = v29;
+  v26 = v24;
+  objc_copyWeak(&v27, &location);
+  [(HKProxyProvider *)v23 fetchProxyWithHandler:v28 errorHandler:v25];
+  objc_destroyWeak(&v27);
+
+  objc_destroyWeak(&v30);
+  objc_destroyWeak(&location);
 }
 
 void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1301,12 +1370,12 @@ void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_
   dispatch_async(v12, v16);
 }
 
-uint64_t __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2(uint64_t a1)
+uint64_t __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(a1, a2);
   if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEBUG))
   {
-    __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2_cold_1(a1);
+    __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2_cold_1();
   }
 
   return [*(a1 + 32) _queue_finishActivationWithServerProxy:*(a1 + 48) activationUUID:*(a1 + 64) error:*(a1 + 56) completion:*(a1 + 72)];
@@ -1328,18 +1397,12 @@ void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_
   objc_destroyWeak(&v8);
 }
 
-void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2_97(uint64_t a1, int a2, void *a3)
+void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2_97(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 40);
-  v6 = a3;
+  v4 = *(a1 + 40);
+  v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  if (a2)
-  {
-    v8 = *(a1 + 32);
-  }
-
-  v9 = WeakRetained;
-  (*(v5 + 16))(v5);
+  (*(v4 + 16))(v4);
 }
 
 void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1377,49 +1440,49 @@ void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_
 
   else if (activationState != 3)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(activationState, v16);
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
     {
       [HKQuery _queue_finishActivationWithServerProxy:activationUUID:error:completion:];
     }
 
-    v16 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Invalid query activation state upon completing connection"];
-    [(HKQuery *)self _queue_deactivateWithError:v16];
-    (completionCopy)[2](completionCopy, 0, v16);
+    v17 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"Invalid query activation state upon completing connection"];
+    [(HKQuery *)self _queue_deactivateWithError:v17];
+    (completionCopy)[2](completionCopy, 0, v17);
   }
 }
 
 - (BOOL)_queue_deactivateWithError:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_queue);
-  v5 = atomic_exchange(&self->_activationState, 3u);
-  if (v5 != 3)
+  v7 = atomic_exchange(&self->_activationState, 3u);
+  if (v7 != 3)
   {
-    _HKInitializeLogging();
-    v6 = HKLogQuery;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogQuery;
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = " with error: ";
+      v9 = " with error: ";
       if (!errorCopy)
       {
-        v7 = "";
+        v9 = "";
       }
 
-      v16 = 138543874;
+      v17 = 138543874;
       selfCopy = self;
-      v8 = &stru_1F05FF230;
+      v10 = &stru_1F05FF230;
       if (errorCopy)
       {
-        v8 = errorCopy;
+        v10 = errorCopy;
       }
 
-      v18 = 2080;
-      v19 = v7;
-      v20 = 2114;
-      v21 = v8;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "Stopping query %{public}@%s%{public}@", &v16, 0x20u);
+      v19 = 2080;
+      v20 = v9;
+      v21 = 2114;
+      v22 = v10;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Stopping query %{public}@%s%{public}@", &v17, 0x20u);
     }
 
     if (errorCopy)
@@ -1444,8 +1507,7 @@ void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_
     self->_proxyProvider = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v5 != 3;
+  return v7 != 3;
 }
 
 - (void)client_deliverError:(id)error forQuery:(id)query
@@ -1465,43 +1527,41 @@ void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_
   dispatch_async(queue, block);
 }
 
-void __40__HKQuery_client_deliverError_forQuery___block_invoke(uint64_t a1)
+void __40__HKQuery_client_deliverError_forQuery___block_invoke(uint64_t a1, uint64_t a2)
 {
   v16 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  _HKInitializeLogging();
-  v3 = HKLogQuery;
-  if (v2)
+  v3 = *(a1 + 32);
+  _HKInitializeLogging(a1, a2);
+  v4 = HKLogQuery;
+  if (v3)
   {
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v4 = *(a1 + 40);
-      v6 = *(a1 + 48);
+      v6 = *(a1 + 32);
+      v5 = *(a1 + 40);
+      v7 = *(a1 + 48);
       v10 = 138543874;
-      v11 = v4;
+      v11 = v5;
       v12 = 2114;
-      v13 = v5;
+      v13 = v6;
       v14 = 2114;
-      v15 = v6;
-      _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Received error for query %{public}@: %{public}@", &v10, 0x20u);
+      v15 = v7;
+      _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Received error for query %{public}@: %{public}@", &v10, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
   {
-    __40__HKQuery_client_deliverError_forQuery___block_invoke_cold_1(a1);
+    __40__HKQuery_client_deliverError_forQuery___block_invoke_cold_1();
   }
 
-  v7 = [*(a1 + 40) activationUUID];
-  v8 = [v7 isEqual:*(a1 + 48)];
+  v8 = [*(a1 + 40) activationUUID];
+  v9 = [v8 isEqual:*(a1 + 48)];
 
-  if (v8)
+  if (v9)
   {
     [*(a1 + 40) _queue_deactivateWithError:*(a1 + 32)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (NSString)taskIdentifier
@@ -1513,72 +1573,74 @@ void __40__HKQuery_client_deliverError_forQuery___block_invoke(uint64_t a1)
 
 - (HKSampleType)sampleType
 {
-  if ([(NSArray *)self->_queryDescriptors count]< 2)
+  v3 = [(NSArray *)self->_queryDescriptors count];
+  if (v3 < 2)
   {
-    objectType = self->_objectType;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = self->_objectType;
+      v5 = self->_objectType;
       goto LABEL_7;
     }
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v3, v4);
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
     {
       [HKQuery sampleType];
     }
   }
 
-  v4 = 0;
+  v5 = 0;
 LABEL_7:
 
-  return v4;
+  return v5;
 }
 
 - (HKObjectType)objectType
 {
-  if ([(NSArray *)self->_queryDescriptors count]< 2)
+  v3 = [(NSArray *)self->_queryDescriptors count];
+  if (v3 < 2)
   {
-    v3 = self->_objectType;
+    v5 = self->_objectType;
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v3, v4);
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
     {
       [HKQuery objectType];
     }
 
-    v3 = 0;
+    v5 = 0;
   }
 
-  return v3;
+  return v5;
 }
 
 - (NSPredicate)predicate
 {
-  if ([(NSArray *)self->_queryDescriptors count]< 2)
+  v3 = [(NSArray *)self->_queryDescriptors count];
+  if (v3 < 2)
   {
-    v3 = self->_predicate;
+    v5 = self->_predicate;
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v3, v4);
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
     {
       [HKQuery predicate];
     }
 
-    v3 = 0;
+    v5 = 0;
   }
 
-  return v3;
+  return v5;
 }
 
 - (HKQueryDelegate)delegate
@@ -1612,7 +1674,7 @@ uint64_t __19__HKQuery_delegate__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](WeakRetained, v4);
 }
 
 - (void)setPredicate:(id)predicate
@@ -1740,30 +1802,31 @@ uint64_t __19__HKQuery_delegate__block_invoke(uint64_t a1)
 
 - (id)_filterForPredicate:(id)predicate objectType:(id)type
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   typeCopy = type;
   v8 = predicateCopy;
-  v9 = v8;
-  if ([objc_opt_class() shouldApplyAdditionalPredicateForObjectType:typeCopy])
+  v9 = [objc_opt_class() shouldApplyAdditionalPredicateForObjectType:typeCopy];
+  v11 = v8;
+  if (v9)
   {
-    v10 = [typeCopy _predicateForSDKVersionToken:HKApplicationSDKVersionToken()];
-    v11 = v10;
-    v9 = v8;
-    if (v10)
+    v12 = [typeCopy _predicateForSDKVersionToken:{HKApplicationSDKVersionToken(v9, v10)}];
+    v13 = v12;
+    v11 = v8;
+    if (v12)
     {
       if (v8)
       {
-        v12 = MEMORY[0x1E696AB28];
-        v18[0] = self->_predicate;
-        v18[1] = v10;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
-        v9 = [v12 andPredicateWithSubpredicates:v13];
+        v14 = MEMORY[0x1E696AB28];
+        v19[0] = self->_predicate;
+        v19[1] = v12;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+        v11 = [v14 andPredicateWithSubpredicates:v15];
       }
 
       else
       {
-        v9 = v10;
+        v11 = v12;
       }
     }
   }
@@ -1777,12 +1840,10 @@ uint64_t __19__HKQuery_delegate__block_invoke(uint64_t a1)
   {
     [MEMORY[0x1E695DFD8] set];
   }
-  v14 = ;
-  v15 = [v9 hk_filterRepresentationForDataTypes:v14];
+  v16 = ;
+  v17 = [v11 hk_filterRepresentationForDataTypes:v16];
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v17;
 }
 
 - (id)exportedInterface
@@ -1801,28 +1862,26 @@ uint64_t __19__HKQuery_delegate__block_invoke(uint64_t a1)
 
 - (void)connectionInvalidated
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_19197B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: Connection invalidated", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19197B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: Connection invalidated", v1, 0xCu);
 }
 
 - (void)connectionInterrupted
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_19197B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: Connection interrupted", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_19197B000, v0, OS_LOG_TYPE_DEBUG, "%{public}@: Connection interrupted", v1, 0xCu);
 }
 
 + (id)predicateForActivityCachesBetweenStartDateComponents:(id)components endDateComponents:(id)dateComponents
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   componentsCopy = components;
-  v16 = 0;
+  v15 = 0;
   dateComponentsCopy = dateComponents;
-  v7 = [HKActivitySummary _validateActivitySummaryDateComponentsRange:componentsCopy endDateComponents:dateComponentsCopy errorMessage:&v16];
-  v8 = v16;
+  v7 = [HKActivitySummary _validateActivitySummaryDateComponentsRange:componentsCopy endDateComponents:dateComponentsCopy errorMessage:&v15];
+  v8 = v15;
   if (!v7)
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"%@", v8}];
@@ -1832,12 +1891,10 @@ uint64_t __19__HKQuery_delegate__block_invoke(uint64_t a1)
   dateComponentsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K <= %@", @"dateComponents", dateComponentsCopy];
 
   v11 = MEMORY[0x1E696AB28];
-  v17[0] = componentsCopy;
-  v17[1] = dateComponentsCopy;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = componentsCopy;
+  v16[1] = dateComponentsCopy;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v13 = [v11 andPredicateWithSubpredicates:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1910,89 +1967,66 @@ void __72__HKQuery_activateWithClientQueue_healthStore_delegate_time_completion_
   objc_end_catch();
 }
 
-void __37__HKQuery_reactivateWithHealthStore___block_invoke_2_cold_1(uint64_t a1)
+void __37__HKQuery_reactivateWithHealthStore___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)_queue_activateWithHealthStore:(uint64_t)a1 activationUUID:(uint64_t *)a2 isReactivating:completion:.cold.1(uint64_t a1, uint64_t *a2)
+- (void)_queue_activateWithHealthStore:activationUUID:isReactivating:completion:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_4();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEBUG, "%{public}@: Initiating connection to query server via %@", v6, 0x16u);
   v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_19197B000, v1, OS_LOG_TYPE_DEBUG, "%{public}@: Initiating connection to query server via %@", v2, 0x16u);
 }
 
-void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2_cold_1(void *a1)
+void __83__HKQuery__queue_activateWithHealthStore_activationUUID_isReactivating_completion___block_invoke_2_cold_1()
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
-  v4 = a1[7];
-  OUTLINED_FUNCTION_3_0();
-  v11 = 1024;
-  v12 = v5;
-  v13 = v6;
-  v14 = v7;
-  _os_log_debug_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEBUG, "%{public}@: Connection to query server via %{public}@ complete with success=%{BOOL}d, error=%{public}@", v10, 0x26u);
   v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0();
+  v5 = 1024;
+  v6 = v0;
+  v7 = v1;
+  v8 = v2;
+  _os_log_debug_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEBUG, "%{public}@: Connection to query server via %{public}@ complete with success=%{BOOL}d, error=%{public}@", v4, 0x26u);
 }
 
 - (void)_queue_finishActivationWithServerProxy:activationUUID:error:completion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __40__HKQuery_client_deliverError_forQuery___block_invoke_cold_1(uint64_t a1)
+void __40__HKQuery_client_deliverError_forQuery___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)sampleType
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)objectType
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)predicate
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

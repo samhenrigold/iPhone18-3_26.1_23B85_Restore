@@ -17,7 +17,7 @@
 
 - (id)transformerClass
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([self generatedPreviewItemType])
   {
     generatedPreviewItemType = [self generatedPreviewItemType];
@@ -51,32 +51,31 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v6 = *MEMORY[0x277D43EF8];
+  v5 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
   {
-    v8 = MEMORY[0x277D43EF8];
+    v7 = MEMORY[0x277D43EF8];
     QLSInitLogging();
-    v6 = *v8;
+    v5 = *v7;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = v6;
-    v9 = 134217984;
+    v6 = v5;
+    v8 = 134217984;
     previewItemType = [self previewItemType];
-    _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Unhandled item type %lu #PreviewItem", &v9, 0xCu);
+    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_ERROR, "Unhandled item type %lu #PreviewItem", &v8, 0xCu);
   }
 
   v3 = 0;
 LABEL_21:
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)previewItemPrintingViewControllerClassName
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   previewItemType = [self previewItemType];
   if (previewItemType != 6 && previewItemType != 4)
   {
@@ -90,15 +89,14 @@ LABEL_21:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
+      v8 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_ERROR, "Unknown preview item type in -previewItemViewControllerClassName: for preview item %@ #PreviewItem", &v9, 0xCu);
+      _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_ERROR, "Unknown preview item type in -previewItemViewControllerClassName: for preview item %@ #PreviewItem", &v8, 0xCu);
     }
   }
 
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -120,7 +118,7 @@ LABEL_21:
 
 - (__CFString)previewItemViewControllerClassNameForType:()UI
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = @"QLPDFItemViewController";
   switch(a3)
   {
@@ -163,6 +161,24 @@ LABEL_21:
       v5 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
+        v10 = MEMORY[0x277D43EF8];
+        QLSInitLogging();
+        v5 = *v10;
+      }
+
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_20;
+      }
+
+      v12 = 138412290;
+      selfCopy2 = self;
+      v6 = "Unsupported preview item type in -previewItemViewControllerClassName: for preview item %@ #PreviewItem";
+      goto LABEL_15;
+    default:
+      v5 = *MEMORY[0x277D43EF8];
+      if (!*MEMORY[0x277D43EF8])
+      {
         v11 = MEMORY[0x277D43EF8];
         QLSInitLogging();
         v5 = *v11;
@@ -173,34 +189,15 @@ LABEL_21:
         goto LABEL_20;
       }
 
-      v13 = 138412290;
-      selfCopy2 = self;
-      v6 = "Unsupported preview item type in -previewItemViewControllerClassName: for preview item %@ #PreviewItem";
-      goto LABEL_15;
-    default:
-      v5 = *MEMORY[0x277D43EF8];
-      if (!*MEMORY[0x277D43EF8])
-      {
-        v12 = MEMORY[0x277D43EF8];
-        QLSInitLogging();
-        v5 = *v12;
-      }
-
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_20;
-      }
-
-      v13 = 138412290;
+      v12 = 138412290;
       selfCopy2 = self;
       v6 = "Unknown preview item type in -previewItemViewControllerClassName: for preview item %@ #PreviewItem";
 LABEL_15:
-      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, v6, &v13, 0xCu);
+      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, v6, &v12, 0xCu);
 LABEL_20:
       v8 = objc_opt_class();
       v4 = NSStringFromClass(v8);
 LABEL_21:
-      v9 = *MEMORY[0x277D85DE8];
 
       return v4;
   }
@@ -208,7 +205,7 @@ LABEL_21:
 
 - (double)imageRawSizeOfContents:()UI withPreviewItemType:imageIsAnimated:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -289,7 +286,6 @@ LABEL_28:
 
 LABEL_32:
     v21 = *MEMORY[0x277CBF3A8];
-    v26 = *(MEMORY[0x277CBF3A8] + 8);
     goto LABEL_33;
   }
 
@@ -305,7 +301,7 @@ LABEL_10:
     *a5 = CGImageSourceGetCount(v8) > 1;
   }
 
-  v30 = 0;
+  v28 = 0;
   *valuePtr = 0;
   v16 = CGImageSourceCopyPropertiesAtIndex(v8, 0, 0);
   CFRelease(v8);
@@ -320,18 +316,18 @@ LABEL_10:
     v18 = CFDictionaryGetValue(v16, *MEMORY[0x277CD3448]);
     if (v18)
     {
-      CFNumberGetValue(v18, kCFNumberCGFloatType, &v30);
+      CFNumberGetValue(v18, kCFNumberCGFloatType, &v28);
     }
 
     v19 = CFDictionaryGetValue(v16, *MEMORY[0x277CD3410]);
     if (v19)
     {
-      v29 = 0;
-      CFNumberGetValue(v19, kCFNumberIntType, &v29);
-      if (v29 >= 5)
+      v27 = 0;
+      CFNumberGetValue(v19, kCFNumberIntType, &v27);
+      if (v27 >= 5)
       {
-        v20 = v30;
-        v30 = *valuePtr;
+        v20 = v28;
+        v28 = *valuePtr;
         *valuePtr = v20;
       }
     }
@@ -347,13 +343,12 @@ LABEL_10:
 
 LABEL_33:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (double)previewSizeForItemViewControllerSize:()UI
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   fetcher = [self fetcher];
   fetchedContent = [fetcher fetchedContent];
 
@@ -378,17 +373,15 @@ LABEL_33:
 
         if (isKindOfClass)
         {
-          v31 = objc_alloc(MEMORY[0x277CE6650]);
-          v42 = *MEMORY[0x277CE6260];
-          v43 = &unk_284D72F58;
-          v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-          v33 = [v31 initWithURL:fetchedContent options:v32];
+          v27 = objc_alloc(MEMORY[0x277CE6650]);
+          v34 = *MEMORY[0x277CE6260];
+          v35 = &unk_284D72F58;
+          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+          v29 = [v27 initWithURL:fetchedContent options:v28];
 
-          [v33 ql_imageSizeOfFirstVideoTrack];
-          v34 = *MEMORY[0x277CBF348];
-          v35 = *(MEMORY[0x277CBF348] + 8);
+          [v29 ql_imageSizeOfFirstVideoTrack];
           QLAdaptSizeToRect();
-          v10 = v36;
+          v10 = v30;
 
           goto LABEL_35;
         }
@@ -397,29 +390,28 @@ LABEL_33:
 
 LABEL_34:
     v10 = *MEMORY[0x277CBF3A8];
-    v37 = *(MEMORY[0x277CBF3A8] + 8);
     goto LABEL_35;
   }
 
-  v41 = 0;
-  [self imageRawSizeOfContents:fetchedContent withPreviewItemType:objc_msgSend(self imageIsAnimated:{"previewItemType"), &v41}];
+  v33 = 0;
+  [self imageRawSizeOfContents:fetchedContent withPreviewItemType:objc_msgSend(self imageIsAnimated:{"previewItemType"), &v33}];
   v10 = *MEMORY[0x277CBF3A8];
   if (v8 == *MEMORY[0x277CBF3A8] && v9 == *(MEMORY[0x277CBF3A8] + 8))
   {
     v17 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
-      v40 = MEMORY[0x277D43EF8];
+      v32 = MEMORY[0x277D43EF8];
       QLSInitLogging();
-      v17 = *v40;
+      v17 = *v32;
     }
 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
       selfCopy = self;
-      v46 = 2112;
-      v47 = fetchedContent;
+      v38 = 2112;
+      v39 = fetchedContent;
       _os_log_impl(&dword_23A714000, v17, OS_LOG_TYPE_INFO, "Could not determine preview size of contents %@ %@ #PreviewItem", buf, 0x16u);
     }
   }
@@ -440,41 +432,36 @@ LABEL_34:
     else
     {
       v19 = 1.0;
-      if (v41 == 1)
+      if (v33 == 1)
       {
-        QLGetScaleForAnimatedImageWithSize();
+        QLGetScaleForAnimatedImageWithSize(v12, v13);
       }
 
       v10 = v12 / v19;
       v20 = v13 / v19;
       if (v12 / v19 > a2 || v20 > a3)
       {
-        v22 = *MEMORY[0x277CBF348];
-        v23 = *(MEMORY[0x277CBF348] + 8);
         QLAdaptSizeToRect();
-        v10 = v24;
-        v20 = v25;
+        v10 = v22;
+        v20 = v23;
       }
 
-      if ((![self canBeEdited] || v41 == 1) && v10 < a2 * 0.75 && v20 < a3 * 0.75)
+      if ((![self canBeEdited] || v33 == 1) && v10 < a2 * 0.75 && v20 < a3 * 0.75)
       {
-        v27 = *MEMORY[0x277CBF348];
-        v28 = *(MEMORY[0x277CBF348] + 8);
         QLAdaptSizeToRect();
-        v10 = v29;
+        v10 = v25;
       }
     }
   }
 
 LABEL_35:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (uint64_t)shouldUseRemoteViewController
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   previewItemContentType = [self previewItemContentType];
   previewItemType = [self previewItemType];
   if (previewItemType > 0xE)
@@ -512,22 +499,22 @@ LABEL_7:
 
     if (previewItemType != 1)
     {
-      v7 = *MEMORY[0x277D43EF8];
+      v6 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
-        v9 = MEMORY[0x277D43EF8];
+        v8 = MEMORY[0x277D43EF8];
         QLSInitLogging();
-        v7 = *v9;
+        v6 = *v8;
       }
 
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8 = v7;
-        v10 = 134218242;
+        v7 = v6;
+        v9 = 134218242;
         previewItemType2 = [self previewItemType];
-        v12 = 2112;
-        v13 = previewItemContentType;
-        _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_ERROR, "Unhandled item type %lu: contentType is: %@ #PreviewItem", &v10, 0x16u);
+        v11 = 2112;
+        v12 = previewItemContentType;
+        _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Unhandled item type %lu: contentType is: %@ #PreviewItem", &v9, 0x16u);
       }
 
       goto LABEL_5;
@@ -540,7 +527,6 @@ LABEL_3:
   v4 = 1;
 LABEL_10:
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -589,22 +575,22 @@ LABEL_10:
 
 + (uint64_t)openInTypeForItem:()UI appIsContentManaged:
 {
-  v3 = a3;
-  v4 = _QLGetOpenInAppClaimBindingForItem(v3);
-  if (!v4)
+  v5 = a3;
+  v6 = _QLGetOpenInAppClaimBindingForItem(v5, a4);
+  if (!v6)
   {
-    v13 = 0;
+    v15 = 0;
     goto LABEL_12;
   }
 
-  editedCopy = [v3 editedCopy];
+  editedCopy = [v5 editedCopy];
 
   if (editedCopy)
   {
     goto LABEL_11;
   }
 
-  bundleRecord = [v4 bundleRecord];
+  bundleRecord = [v6 bundleRecord];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
@@ -613,34 +599,34 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  bundleRecord2 = [v4 bundleRecord];
+  bundleRecord2 = [v6 bundleRecord];
   supportsOpenInPlace = [bundleRecord2 supportsOpenInPlace];
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v11 = [defaultWorkspace isApplicationEligibleForReadOnlyDocumentOpenBehavior:bundleRecord2];
+  v13 = [defaultWorkspace isApplicationEligibleForReadOnlyDocumentOpenBehavior:bundleRecord2];
 
   if (!supportsOpenInPlace)
   {
     goto LABEL_11;
   }
 
-  fpItem = [v3 fpItem];
+  fpItem = [v5 fpItem];
 
   if (fpItem)
   {
-    v13 = 1;
+    v15 = 1;
     goto LABEL_12;
   }
 
-  previewItemURL = [v3 previewItemURL];
+  previewItemURL = [v5 previewItemURL];
 
   if (!previewItemURL)
   {
 LABEL_11:
-    v13 = 2;
+    v15 = 2;
     goto LABEL_12;
   }
 
-  previewItemURL2 = [v3 previewItemURL];
+  previewItemURL2 = [v5 previewItemURL];
   if ([previewItemURL2 _QLNeedsCoordination])
   {
     isBookmarkable = 1;
@@ -648,46 +634,45 @@ LABEL_11:
 
   else
   {
-    isBookmarkable = [v3 isBookmarkable];
+    isBookmarkable = [v5 isBookmarkable];
   }
 
-  previewItemURL3 = [v3 previewItemURL];
+  previewItemURL3 = [v5 previewItemURL];
   if ([previewItemURL3 ui_isFileProviderURL])
   {
-    previewItemURL4 = [v3 previewItemURL];
-    v20 = FPURLMightBeInFileProvider() != 0;
+    previewItemURL4 = [v5 previewItemURL];
+    v22 = FPURLMightBeInFileProvider() != 0;
 
-    v21 = v20 | v11;
+    v23 = v22 | v13;
   }
 
   else
   {
-    v21 = 1;
+    v23 = 1;
   }
 
-  if ((isBookmarkable & v21) != 0)
+  if ((isBookmarkable & v23) != 0)
   {
-    v13 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v13 = 2;
+    v15 = 2;
   }
 
 LABEL_12:
 
-  return v13;
+  return v15;
 }
 
 - (BOOL)isBookmarkable
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   previewItemURL = [self previewItemURL];
   v2 = FPCreateBookmarkableStringFromDocumentURL();
 
   v3 = [v2 length] != 0;
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -725,7 +710,7 @@ LABEL_12:
 
 - (double)preferredContentSizeForOrbPlatterWithURL:()UI
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([self previewItemType] == 2 || objc_msgSend(self, "previewItemType") == 3)
   {
@@ -733,25 +718,23 @@ LABEL_12:
     v6 = v5;
   }
 
-  else if ([self previewItemType] == 1 && (objc_msgSend(self, "UTIAnalyzer"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isAudioOnly"), v9, (v10 & 1) == 0))
+  else if ([self previewItemType] == 1 && (objc_msgSend(self, "UTIAnalyzer"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isAudioOnly"), v8, (v9 & 1) == 0))
   {
-    v12 = objc_alloc(MEMORY[0x277CE6650]);
-    v16 = *MEMORY[0x277CE6260];
-    v17[0] = &unk_284D72F58;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-    v14 = [v12 initWithURL:v4 options:v13];
+    v10 = objc_alloc(MEMORY[0x277CE6650]);
+    v14 = *MEMORY[0x277CE6260];
+    v15[0] = &unk_284D72F58;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v12 = [v10 initWithURL:v4 options:v11];
 
-    [v14 ql_imageSizeOfFirstVideoTrack];
-    v6 = v15;
+    [v12 ql_imageSizeOfFirstVideoTrack];
+    v6 = v13;
   }
 
   else
   {
     v6 = *MEMORY[0x277CBF3A8];
-    v11 = *(MEMORY[0x277CBF3A8] + 8);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -40,7 +40,6 @@
   v6 = MEMORY[0x277D82BE0](selfCopy);
   objc_storeStrong(&location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -125,7 +124,6 @@
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&mEMORY[0x277CF0130], HIDWORD(v5));
   objc_storeStrong(location, HIDWORD(v5));
-  *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -176,7 +174,6 @@
   }
 
   objc_storeStrong(&v8, 0);
-  *MEMORY[0x277D85DE8];
   return isAccountAccessTelemetryOptInEnabled & 1;
 }
 

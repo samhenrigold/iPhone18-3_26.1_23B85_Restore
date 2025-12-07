@@ -8,6 +8,7 @@
 - (id)URLForModelHash:(id)hash bundleID:(id)d;
 - (id)cachedModelPathMatchingHash:(id)hash csIdentity:(id)identity;
 - (id)getDiskSpaceForBundleID:(id)d;
+- (id)getDiskSpaceItemizedByBundleIDAndPurge:(BOOL)purge;
 - (void)scheduleMaintenanceWithName:(id)name directoryPaths:(id)paths;
 @end
 
@@ -98,6 +99,17 @@
   v5 = [_ANEStorageHelper removeDirectoryAtPath:path];
 
   return v5;
+}
+
+- (id)getDiskSpaceItemizedByBundleIDAndPurge:(BOOL)purge
+{
+  purgeCopy = purge;
+  cacheDir = [(_ANEInMemoryModelCacheManager *)self cacheDir];
+  path = [cacheDir path];
+
+  v6 = [_ANEStorageHelper sizeOfModelCacheAtPath:path purgeSubdirectories:purgeCopy];
+
+  return v6;
 }
 
 - (id)getDiskSpaceForBundleID:(id)d

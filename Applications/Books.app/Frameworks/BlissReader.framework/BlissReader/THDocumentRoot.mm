@@ -1059,18 +1059,18 @@ LABEL_10:
   v4 = [(THDocumentRoot *)self absolutePageIndexForAnnotation:annotation];
   if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v5 = THBundle();
+    v6 = THBundle(0x7FFFFFFFFFFFFFFFLL, v5);
 
-    return [v5 localizedStringForKey:@"-" value:&stru_471858 table:0];
+    return [v6 localizedStringForKey:@"-" value:&stru_471858 table:0];
   }
 
   else
   {
-    v7 = v4;
-    v8 = [THPresentationType paginatedPresentationTypeInContext:[(THDocumentRoot *)self context]];
+    v8 = v4;
+    v9 = [THPresentationType paginatedPresentationTypeInContext:[(THDocumentRoot *)self context]];
     navigationModel = [(THDocumentRoot *)self navigationModel];
 
-    return [(THDocumentNavigationModel *)navigationModel pageNumberStringForAbsolutePageIndex:v7 forPresentationType:v8];
+    return [(THDocumentNavigationModel *)navigationModel pageNumberStringForAbsolutePageIndex:v8 forPresentationType:v9];
   }
 }
 

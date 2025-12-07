@@ -17,9 +17,9 @@
   fontCopy = font;
   colorCopy = color;
   unitColorCopy = unitColor;
-  v13 = sub_1C3C60410(style, fontCopy, colorCopy, unitColorCopy);
+  v14 = sub_1C3C60410(style, fontCopy, colorCopy, unitColorCopy, duration);
 
-  return v13;
+  return v14;
 }
 
 @end

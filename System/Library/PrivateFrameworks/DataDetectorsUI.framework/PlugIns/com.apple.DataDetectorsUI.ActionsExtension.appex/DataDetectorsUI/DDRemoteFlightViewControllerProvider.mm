@@ -25,28 +25,7 @@
     v10 = CFStringCompare(Type, DDBinderFlightInformationKey, 0);
 
     v11 = 0;
-    if (v10)
-    {
-      goto LABEL_4;
-    }
-
-    actionContext2 = [(DDRemoteFlightViewControllerProvider *)self actionContext];
-    [actionContext2 result];
-    DDResultGetSubresultWithType();
-
-    actionContext3 = [(DDRemoteFlightViewControllerProvider *)self actionContext];
-    [actionContext3 result];
-    DDResultGetSubresultWithType();
-
-    v11 = DDResultGetValue();
-    integerValue = [DDResultGetValue() integerValue];
-    if (!v11)
-    {
-      goto LABEL_4;
-    }
-
-    v15 = integerValue;
-    if (integerValue)
+    if (v10 == kCFCompareEqualTo && (-[DDRemoteFlightViewControllerProvider actionContext](self, "actionContext"), v12 = objc_claimAutoreleasedReturnValue(), [v12 result], DDResultGetSubresultWithType(), v12, -[DDRemoteFlightViewControllerProvider actionContext](self, "actionContext"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "result"), DDResultGetSubresultWithType(), v13, DDResultGetValue(), v11 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(DDResultGetValue(), "integerValue"), v11) && (v15 = v14) != 0)
     {
       v16 = +[NSDate date];
       v17 = [FUFlightFactory flightFactoryClassWithProvider:FUFactoryProvider_Default];
@@ -61,7 +40,6 @@
 
     else
     {
-LABEL_4:
       v5[2](v5, 0);
     }
   }

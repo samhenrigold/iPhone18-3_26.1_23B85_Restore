@@ -566,7 +566,7 @@ LABEL_36:
     v9 = *i;
     v10 = i[1];
     name = [v10 name];
-    v12 = [name isEqualToString:nameCopy];
+    v12 = objc_msgSend_isEqualToString_(name);
 
     if (v12)
     {

@@ -197,12 +197,11 @@ uint64_t __52__MAElementCollection_filteredCollectionUsingBlock___block_invoke(u
 {
   v4 = objc_autoreleasePoolPush();
   v5 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
-  v6 = *(a1 + 32);
-  v7 = [objc_alloc(objc_opt_class()) initWithGraphReference:*(v6 + 8) elementIdentifiers:v5];
-  v8 = (*(*(a1 + 40) + 16))();
+  v6 = [objc_alloc(objc_opt_class()) initWithGraphReference:*(*(a1 + 32) + 8) elementIdentifiers:v5];
+  v7 = (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v4);
-  return v8;
+  return v7;
 }
 
 - (void)enumerateUnsignedLongLongPropertyValuesForKey:(id)key withBlock:(id)block
@@ -263,8 +262,7 @@ void __66__MAElementCollection_enumerateIdentifiersAsCollectionsWithBlock___bloc
 {
   v4 = objc_autoreleasePoolPush();
   v5 = [[KGElementIdentifierSet alloc] initWithElementIdentifier:a2];
-  v6 = *(a1 + 32);
-  v7 = [objc_alloc(objc_opt_class()) initWithGraphReference:*(v6 + 8) elementIdentifiers:v5];
+  v6 = [objc_alloc(objc_opt_class()) initWithGraphReference:*(*(a1 + 32) + 8) elementIdentifiers:v5];
   (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v4);

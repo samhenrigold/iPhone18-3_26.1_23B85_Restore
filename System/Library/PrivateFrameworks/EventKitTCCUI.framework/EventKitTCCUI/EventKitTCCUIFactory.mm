@@ -10,9 +10,9 @@
 - (EventKitTCCUIFactory)initWithBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v18.receiver = self;
-  v18.super_class = EventKitTCCUIFactory;
-  v5 = [(EventKitTCCUIFactory *)&v18 init];
+  v20.receiver = self;
+  v20.super_class = EventKitTCCUIFactory;
+  v5 = [(EventKitTCCUIFactory *)&v20 init];
   v6 = [objc_alloc(MEMORY[0x277CC5A40]) initWithEKOptions:132];
   eventStore = v5->_eventStore;
   v5->_eventStore = v6;
@@ -31,30 +31,30 @@
 
   if (!firstObject)
   {
-    v12 = logHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = logHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [EventKitTCCUIFactory initWithBundleIdentifier:v12];
+      [EventKitTCCUIFactory initWithBundleIdentifier:v13];
     }
 
-    v13 = [(EKEventStore *)v5->_eventStore nextEventsWithCalendars:0 limit:1 exclusionOptions:12];
-    firstObject = [v13 firstObject];
+    v14 = [(EKEventStore *)v5->_eventStore nextEventsWithCalendars:0 limit:1 exclusionOptions:12];
+    firstObject = [v14 firstObject];
 
     if (!firstObject)
     {
-      v14 = logHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v16 = logHandle(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        [EventKitTCCUIFactory initWithBundleIdentifier:v14];
+        [EventKitTCCUIFactory initWithBundleIdentifier:v16];
       }
 
       firstObject = 0;
     }
   }
 
-  v15 = [[_TtC13EventKitTCCUI19EventPreviewWrapper alloc] initWithEvent:firstObject];
+  v17 = [[_TtC13EventKitTCCUI19EventPreviewWrapper alloc] initWithEvent:firstObject];
   previewWrapper = v5->_previewWrapper;
-  v5->_previewWrapper = v15;
+  v5->_previewWrapper = v17;
 
   return v5;
 }

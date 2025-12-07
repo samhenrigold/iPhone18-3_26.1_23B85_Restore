@@ -128,7 +128,7 @@ void __69___UIRemoteDictionaryViewController_tableView_cellForRowAtIndexPath___b
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __69___UIRemoteDictionaryViewController_tableView_cellForRowAtIndexPath___block_invoke_3(uint64_t a1)
+void *__69___UIRemoteDictionaryViewController_tableView_cellForRowAtIndexPath___block_invoke_3(uint64_t a1)
 {
   [*(a1 + 32) setProgress:1 animated:*(a1 + 48)];
   result = [*(a1 + 40) isStalled];

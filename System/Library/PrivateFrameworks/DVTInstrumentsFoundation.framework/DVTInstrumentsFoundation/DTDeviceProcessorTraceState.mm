@@ -122,30 +122,30 @@
 
 - (id)dictionaryRepresentation
 {
-  v17[7] = *MEMORY[0x277D85DE8];
+  v16[7] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB38]);
-  v16[0] = @"Streaming";
+  v15[0] = @"Streaming";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsStreaming];
-  v17[0] = v4;
-  v16[1] = @"HWSupported";
+  v16[0] = v4;
+  v15[1] = @"HWSupported";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsHardware];
-  v17[1] = v5;
-  v16[2] = @"ProdTraceSupported";
+  v16[1] = v5;
+  v15[2] = @"ProdTraceSupported";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsProdTrace];
-  v17[2] = v6;
-  v16[3] = @"DevTraceSupported";
+  v16[2] = v6;
+  v15[3] = @"DevTraceSupported";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsDevTrace];
-  v17[3] = v7;
-  v16[4] = @"HWConfigured";
+  v16[3] = v7;
+  v15[4] = @"HWConfigured";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_hardwareConfigured];
   allocatedBufferSize = self->_allocatedBufferSize;
   requestedBufferSize = self->_requestedBufferSize;
-  v17[4] = v8;
-  v17[5] = allocatedBufferSize;
-  v16[5] = @"AllocatedBufferSize";
-  v16[6] = @"RequestedBufferSize";
-  v17[6] = requestedBufferSize;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:7];
+  v16[4] = v8;
+  v16[5] = allocatedBufferSize;
+  v15[5] = @"AllocatedBufferSize";
+  v15[6] = @"RequestedBufferSize";
+  v16[6] = requestedBufferSize;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
   v12 = [v3 initWithDictionary:v11];
 
   v13 = processor_trace_recording_version();
@@ -153,8 +153,6 @@
   {
     [v12 setObject:v13 forKeyedSubscript:@"HWTraceVersion"];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -38,13 +38,11 @@
 
 void __41__EKColor_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B08];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B08];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_5;
   knownIdentityKeysForComparison_keys_5 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSource:(id)source
@@ -56,16 +54,16 @@ void __41__EKColor_knownIdentityKeysForComparison__block_invoke()
 
 - (BOOL)validate:(id *)validate
 {
-  v19[1] = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = EKColor;
-  LODWORD(v5) = [(EKObject *)&v17 validate:?];
+  v18[1] = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = EKColor;
+  LODWORD(v5) = [(EKObject *)&v16 validate:?];
   if (v5)
   {
     if (![(EKObject *)self isNew])
     {
-      v19[0] = *MEMORY[0x1E69928C0];
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+      v18[0] = *MEMORY[0x1E69928C0];
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
       v7 = [(EKObject *)self hasUnsavedChangesInKeys:v6];
 
       if (v7)
@@ -78,7 +76,7 @@ LABEL_16:
           v5 = v14;
           LOBYTE(v5) = 0;
           *validate = v14;
-          goto LABEL_18;
+          return v5;
         }
 
         goto LABEL_17;
@@ -87,8 +85,8 @@ LABEL_16:
 
     if (![(EKObject *)self isNew])
     {
-      v18 = *MEMORY[0x1E6992B08];
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+      v17 = *MEMORY[0x1E6992B08];
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
       v10 = [(EKObject *)self hasUnsavedChangesInKeys:v9];
 
       if (v10)
@@ -101,7 +99,7 @@ LABEL_16:
 
 LABEL_17:
         LOBYTE(v5) = 0;
-        goto LABEL_18;
+        return v5;
       }
     }
 
@@ -114,7 +112,7 @@ LABEL_17:
       if (v13)
       {
         LOBYTE(v5) = 1;
-        goto LABEL_18;
+        return v5;
       }
     }
 
@@ -131,8 +129,6 @@ LABEL_17:
     goto LABEL_17;
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -11,6 +11,7 @@
 - (void)_removeCurrentDownloadsLocationFromFavorites;
 - (void)_rootItemOfPreferredProviderInDomains:(id)domains completion:(id)completion;
 - (void)_validatePreferredProvider:(id)provider completion:(id)completion;
+- (void)fetchDefaultDownloadsLocationItemAndCreateIfNeeded:(BOOL)needed completion:(id)completion;
 - (void)fetchDefaultDownloadsLocationSettingsItem:(id)item;
 - (void)fetchProvidersSuitableForDownloads:(id)downloads;
 - (void)fetchSuitableLocationsForDownloads:(id)downloads;
@@ -97,42 +98,42 @@ void __65__DOCDownloadSettings_fetchDefaultDownloadsLocationSettingsItem___block
 
 void __58__DOCDownloadSettings_fetchSuitableLocationsForDownloads___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 count])
   {
     v7 = [MEMORY[0x277CBEB18] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * v12);
+          v13 = *(*(&v17 + 1) + 8 * v12);
           v14 = [DOCDownloadSettingsItem alloc];
-          v15 = [(DOCDownloadSettingsItem *)v14 initWithFPProviderDomain:v13, v18];
+          v15 = [(DOCDownloadSettingsItem *)v14 initWithFPProviderDomain:v13, v17];
           [v7 addObject:v15];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -157,8 +158,6 @@ void __58__DOCDownloadSettings_fetchSuitableLocationsForDownloads___block_invoke
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDefaultDownloadsToLocation:(id)location completionHandler:(id)handler
@@ -198,7 +197,7 @@ void __71__DOCDownloadSettings_setDefaultDownloadsToLocation_completionHandler__
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __71__DOCDownloadSettings_setDefaultDownloadsToLocation_completionHandler___block_invoke_cold_1(a1);
+      __71__DOCDownloadSettings_setDefaultDownloadsToLocation_completionHandler___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -250,7 +249,7 @@ void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler_
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_cold_1(a1);
+      __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_cold_1();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -271,7 +270,7 @@ void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler_
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_2_cold_1(a1);
+      __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_2_cold_1();
     }
   }
 
@@ -289,7 +288,7 @@ void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler_
   [v7 fetchURLForItem:v12 completionHandler:v11];
 }
 
-void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_17(void *a1, void *a2, void *a3)
+void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_17(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -304,13 +303,63 @@ void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler_
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_17_cold_1(a1);
+      __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_17_cold_1();
     }
   }
 
-  v8 = [[DOCDownloadSettingsItem alloc] initWithFPItem:a1[4]];
-  v9 = a1[5];
-  (*(a1[6] + 16))();
+  v8 = [[DOCDownloadSettingsItem alloc] initWithFPItem:*(a1 + 32)];
+  (*(*(a1 + 48) + 16))();
+}
+
+- (void)fetchDefaultDownloadsLocationItemAndCreateIfNeeded:(BOOL)needed completion:(id)completion
+{
+  neededCopy = needed;
+  completionCopy = completion;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke;
+  aBlock[3] = &unk_278F9C348;
+  aBlock[4] = self;
+  v7 = completionCopy;
+  v24 = v7;
+  v8 = _Block_copy(aBlock);
+  v9 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.DocumentManager.defaults"];
+  v10 = [v9 dataForKey:@"DOCDefaultDownloadLocationKey"];
+  v22 = 0;
+  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v22];
+  v12 = v22;
+  if (v11)
+  {
+    defaultManager = [MEMORY[0x277CC6408] defaultManager];
+    itemID = [v11 itemID];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_26;
+    v16[3] = &unk_278F9C370;
+    v17 = v11;
+    selfCopy = self;
+    v19 = v7;
+    v20 = v8;
+    v21 = neededCopy;
+    [defaultManager fetchItemForItemID:itemID completionHandler:v16];
+  }
+
+  else
+  {
+    v15 = docDownloadServiceLogHandle;
+    if (!docDownloadServiceLogHandle)
+    {
+      DOCInitLogging();
+      v15 = docDownloadServiceLogHandle;
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:];
+    }
+
+    (*(v8 + 2))(v8, neededCopy, 0);
+  }
 }
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -328,7 +377,7 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 40))
@@ -370,11 +419,11 @@ LABEL_14:
         v11 = v10;
         v12 = [v5 fileURL];
         *buf = 136315650;
-        v19 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
-        v20 = 2112;
-        v21 = v5;
-        v22 = 2112;
-        v23 = v12;
+        v18 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+        v19 = 2112;
+        v20 = v5;
+        v21 = 2112;
+        v22 = v12;
         _os_log_impl(&dword_249340000, v11, OS_LOG_TYPE_INFO, "%s item: %@ already has a cached URL: %@ returning immediately", buf, 0x20u);
       }
 
@@ -391,30 +440,28 @@ LABEL_14:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v19 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
-      v20 = 2112;
-      v21 = v5;
+      v18 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+      v19 = 2112;
+      v20 = v5;
       _os_log_impl(&dword_249340000, v10, OS_LOG_TYPE_INFO, "%s item: %@  does not have a cached URL, fetching", buf, 0x16u);
     }
 
-    v14 = [MEMORY[0x277CC6408] defaultManager];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21;
-    v15[3] = &unk_278F9C320;
-    v16 = v5;
-    v17 = *(a1 + 40);
-    [v14 fetchURLForItem:v16 completionHandler:v15];
+    v13 = [MEMORY[0x277CC6408] defaultManager];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21;
+    v14[3] = &unk_278F9C320;
+    v15 = v5;
+    v16 = *(a1 + 40);
+    [v13 fetchURLForItem:v15 completionHandler:v14];
   }
 
 LABEL_15:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -428,7 +475,7 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21_cold_1(v6, a1);
+      __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21_cold_1();
     }
   }
 
@@ -442,33 +489,30 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 32);
-    v12 = 136315650;
-    v13 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+    v10 = 136315650;
+    v11 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+    v12 = 2112;
+    v13 = v5;
     v14 = 2112;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_249340000, v8, OS_LOG_TYPE_INFO, "%s fetched URL: %@ for saved downloads location item: %@", &v12, 0x20u);
+    v15 = v9;
+    _os_log_impl(&dword_249340000, v8, OS_LOG_TYPE_INFO, "%s fetched URL: %@ for saved downloads location item: %@", &v10, 0x20u);
   }
 
-  v10 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_26(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     v7 = MEMORY[0x277CC6420];
     v8 = [v5 providerDomainID];
-    v25 = 0;
-    v9 = [v7 providerDomainWithID:v8 cachePolicy:1 error:&v25];
-    v10 = v25;
+    v22 = 0;
+    v9 = [v7 providerDomainWithID:v8 cachePolicy:1 error:&v22];
+    v10 = v22;
 
     if (v10)
     {
@@ -499,9 +543,9 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v27 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
-          v28 = 2112;
-          v29 = v5;
+          v24 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+          v25 = 2112;
+          v26 = v5;
           _os_log_impl(&dword_249340000, v12, OS_LOG_TYPE_INFO, "%s Successfully fetched saved downloads location item: %@", buf, 0x16u);
         }
 
@@ -522,11 +566,11 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
             v15 = v14;
             v16 = [v5 fileURL];
             *buf = 136315650;
-            v27 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
-            v28 = 2112;
-            v29 = v5;
-            v30 = 2112;
-            v31 = v16;
+            v24 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+            v25 = 2112;
+            v26 = v5;
+            v27 = 2112;
+            v28 = v16;
             _os_log_impl(&dword_249340000, v15, OS_LOG_TYPE_INFO, "%s item: %@ already has a cached URL: %@ returning immediately", buf, 0x20u);
           }
 
@@ -544,20 +588,20 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v27 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
-            v28 = 2112;
-            v29 = v5;
+            v24 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+            v25 = 2112;
+            v26 = v5;
             _os_log_impl(&dword_249340000, v14, OS_LOG_TYPE_INFO, "%s item: %@  does not have a cached URL, fetching", buf, 0x16u);
           }
 
-          v21 = [MEMORY[0x277CC6408] defaultManager];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_28;
-          v22[3] = &unk_278F9C320;
-          v23 = v5;
-          v24 = *(a1 + 48);
-          [v21 fetchURLForItem:v23 completionHandler:v22];
+          v18 = [MEMORY[0x277CC6408] defaultManager];
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_28;
+          v19[3] = &unk_278F9C320;
+          v20 = v5;
+          v21 = *(a1 + 48);
+          [v18 fetchURLForItem:v20 completionHandler:v19];
         }
       }
 
@@ -582,17 +626,13 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
     __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_26_cold_2();
   }
 
-  v18 = *(a1 + 64);
-  v19 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
 LABEL_27:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_28(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -606,7 +646,7 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21_cold_1(v6, a1);
+      __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21_cold_1();
     }
   }
 
@@ -620,19 +660,16 @@ void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeede
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 32);
-    v12 = 136315650;
-    v13 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+    v10 = 136315650;
+    v11 = "[DOCDownloadSettings fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:]_block_invoke";
+    v12 = 2112;
+    v13 = v5;
     v14 = 2112;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&dword_249340000, v8, OS_LOG_TYPE_INFO, "%s fetched URL: %@ for saved downloads location item: %@", &v12, 0x20u);
+    v15 = v9;
+    _os_log_impl(&dword_249340000, v8, OS_LOG_TYPE_INFO, "%s fetched URL: %@ for saved downloads location item: %@", &v10, 0x20u);
   }
 
-  v10 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeCurrentDownloadsLocationFromFavorites
@@ -670,20 +707,20 @@ void __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__blo
   _Block_object_dispose(v5, 8);
 }
 
-void __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__block_invoke_30(uint64_t a1, char a2)
+void __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__block_invoke_30(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = docDownloadServiceLogHandle;
+    v2 = docDownloadServiceLogHandle;
     if (!docDownloadServiceLogHandle)
     {
       DOCInitLogging();
-      v3 = docDownloadServiceLogHandle;
+      v2 = docDownloadServiceLogHandle;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__block_invoke_30_cold_1(a1);
+      __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__block_invoke_30_cold_1();
     }
   }
 }
@@ -734,7 +771,7 @@ void __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__blo
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [DOCDownloadSettings _saveDownloadFolderItem:itemCopy error:error];
+      [DOCDownloadSettings _saveDownloadFolderItem:error:];
     }
   }
 
@@ -753,20 +790,20 @@ void __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke(uint
   [v2 addFavorite:v5 completion:v4];
 }
 
-void __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2(uint64_t a1, char a2)
+void __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = docDownloadServiceLogHandle;
+    v2 = docDownloadServiceLogHandle;
     if (!docDownloadServiceLogHandle)
     {
       DOCInitLogging();
-      v3 = docDownloadServiceLogHandle;
+      v2 = docDownloadServiceLogHandle;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2_cold_1(a1);
+      __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2_cold_1();
     }
   }
 }
@@ -792,22 +829,20 @@ void __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2(ui
 
 - (void)setDefaultDownloadsItemForProviderDomain:(id)domain completionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v14[0] = domain;
+  v13[0] = domain;
   v7 = MEMORY[0x277CBEA60];
   domainCopy = domain;
-  v9 = [v7 arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke;
-  v12[3] = &unk_278F9C3C0;
-  v12[4] = self;
-  v13 = handlerCopy;
+  v9 = [v7 arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke;
+  v11[3] = &unk_278F9C3C0;
+  v11[4] = self;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [(DOCDownloadSettings *)self _rootItemOfPreferredProviderInDomains:v9 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(DOCDownloadSettings *)self _rootItemOfPreferredProviderInDomains:v9 completion:v11];
 }
 
 void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -834,7 +869,7 @@ void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completi
 
 void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = docDownloadServiceLogHandle;
@@ -847,23 +882,23 @@ void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completi
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = v5;
+    v18 = v5;
     _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_INFO, "Fetched downloads location: %@", buf, 0xCu);
   }
 
   if (v5)
   {
     v8 = *(a1 + 32);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke_42;
-    v14[3] = &unk_278F9BD58;
-    v15 = v5;
-    v16 = v6;
-    v17 = *(a1 + 40);
-    [v8 setDefaultDownloadsLocationItem:v15 completionHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke_42;
+    v13[3] = &unk_278F9BD58;
+    v14 = v5;
+    v15 = v6;
+    v16 = *(a1 + 40);
+    [v8 setDefaultDownloadsLocationItem:v14 completionHandler:v13];
 
-    v9 = v15;
+    v9 = v14;
   }
 
   else
@@ -886,8 +921,6 @@ void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completi
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke_42(uint64_t a1, uint64_t a2, void *a3)
@@ -925,40 +958,40 @@ void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completi
 
 void __58__DOCDownloadSettings_fetchProvidersSuitableForDownloads___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v36 = a3;
-  v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v35 = a3;
+  v36 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (!v6)
   {
-    v38 = 0;
+    v37 = 0;
     v8 = 0;
     v9 = 0;
     goto LABEL_40;
   }
 
   v7 = v6;
-  v38 = 0;
+  v37 = 0;
   v8 = 0;
   v9 = 0;
-  v10 = *v40;
+  v10 = *v39;
   do
   {
     v11 = 0;
     do
     {
-      if (*v40 != v10)
+      if (*v39 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v39 + 1) + 8 * v11);
+      v12 = *(*(&v38 + 1) + 8 * v11);
       v13 = [v12 identifier];
       v14 = [v13 isEqualToString:@"com.apple.FileProvider.LocalStorage"];
 
@@ -973,10 +1006,10 @@ void __58__DOCDownloadSettings_fetchProvidersSuitableForDownloads___block_invoke
       {
         v16 = [v12 isMainiCloudDriveDomain];
         v17 = v12;
-        v18 = v38;
+        v18 = v37;
         if (v16)
         {
-          v19 = v38;
+          v19 = v37;
         }
 
         else
@@ -989,7 +1022,7 @@ void __58__DOCDownloadSettings_fetchProvidersSuitableForDownloads___block_invoke
           v18 = v17;
         }
 
-        v38 = v18;
+        v37 = v18;
         if (!v16)
         {
           v8 = v17;
@@ -1032,12 +1065,12 @@ LABEL_32:
                         goto LABEL_33;
                       }
 
-                      v33 = [v12 providerID];
-                      v34 = [v33 isEqualToString:@"com.apple.TapToRadar.SystemFiles"];
+                      v32 = [v12 providerID];
+                      v33 = [v32 isEqualToString:@"com.apple.TapToRadar.SystemFiles"];
 
-                      if ((v34 & 1) == 0)
+                      if ((v33 & 1) == 0)
                       {
-                        [v37 addObject:v12];
+                        [v36 addObject:v12];
                       }
                     }
                   }
@@ -1053,24 +1086,24 @@ LABEL_33:
     }
 
     while (v7 != v11);
-    v28 = [v5 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v28 = [v5 countByEnumeratingWithState:&v38 objects:v42 count:16];
     v7 = v28;
   }
 
   while (v28);
 LABEL_40:
 
-  [v37 sortUsingComparator:&__block_literal_global_14];
-  if (v9 && [v37 containsObject:v9])
+  [v36 sortUsingComparator:&__block_literal_global_14];
+  if (v9 && [v36 containsObject:v9])
   {
-    [v37 removeObject:v9];
-    [v37 insertObject:v9 atIndex:0];
+    [v36 removeObject:v9];
+    [v36 insertObject:v9 atIndex:0];
   }
 
-  if (v38 && (v29 = v38, ([v37 containsObject:v38] & 1) != 0) || v8 && (v29 = v8, objc_msgSend(v37, "containsObject:", v8)))
+  if (v37 && (v29 = v37, ([v36 containsObject:v37] & 1) != 0) || v8 && (v29 = v8, objc_msgSend(v36, "containsObject:", v8)))
   {
-    [v37 removeObject:v29];
-    [v37 insertObject:v29 atIndex:0];
+    [v36 removeObject:v29];
+    [v36 insertObject:v29 atIndex:0];
     v30 = 0;
     if (!v9)
     {
@@ -1087,20 +1120,18 @@ LABEL_40:
     }
   }
 
-  if ((([v37 count] != 0) & ~v30) == 0)
+  if ((([v36 count] != 0) & ~v30) == 0)
   {
-    [v37 removeObject:v9];
-    [v37 insertObject:v9 atIndex:0];
+    [v36 removeObject:v9];
+    [v36 insertObject:v9 atIndex:0];
   }
 
 LABEL_52:
   v31 = *(a1 + 32);
   if (v31)
   {
-    (*(v31 + 16))(v31, v37, v36);
+    (*(v31 + 16))(v31, v36, v35);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__DOCDownloadSettings_fetchProvidersSuitableForDownloads___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1145,7 +1176,7 @@ uint64_t __58__DOCDownloadSettings_fetchProvidersSuitableForDownloads___block_in
 
 void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -1154,33 +1185,33 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
   aBlock[3] = &unk_278F9C408;
   aBlock[4] = *(a1 + 32);
   v7 = v6;
-  v42 = v7;
+  v41 = v7;
   v8 = _Block_copy(aBlock);
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_2_53;
-  v38[3] = &unk_278F9C458;
-  v38[4] = *(a1 + 32);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_2_53;
+  v37[3] = &unk_278F9C458;
+  v37[4] = *(a1 + 32);
   v9 = v5;
-  v39 = v9;
+  v38 = v9;
   v10 = v8;
-  v40 = v10;
-  v11 = _Block_copy(v38);
-  v29 = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_5;
-  v32 = &unk_278F9C4D0;
+  v39 = v10;
+  v11 = _Block_copy(v37);
+  v28 = MEMORY[0x277D85DD0];
+  v29 = 3221225472;
+  v30 = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_5;
+  v31 = &unk_278F9C4D0;
   v12 = v9;
-  v33 = v12;
+  v32 = v12;
   v13 = *(a1 + 40);
   v14 = *(a1 + 32);
-  v34 = v13;
-  v35 = v14;
+  v33 = v13;
+  v34 = v14;
   v15 = v10;
-  v36 = v15;
+  v35 = v15;
   v16 = v11;
-  v37 = v16;
-  v17 = _Block_copy(&v29);
+  v36 = v16;
+  v17 = _Block_copy(&v28);
   if (v7)
   {
     v18 = docDownloadServiceLogHandle;
@@ -1193,7 +1224,7 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v44 = v7;
+      v43 = v7;
       _os_log_impl(&dword_249340000, v18, OS_LOG_TYPE_INFO, "No valid providers - can not fetch any locations. Error: %@", buf, 0xCu);
     }
 
@@ -1217,7 +1248,7 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
         v26 = v24;
         v27 = [v25 providerDomainID];
         *buf = 138412290;
-        v44 = v27;
+        v43 = v27;
         _os_log_impl(&dword_249340000, v26, OS_LOG_TYPE_INFO, "No valid saved downloads location - fetching default in previous location's domain: %@", buf, 0xCu);
       }
 
@@ -1241,8 +1272,6 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
       (*(v16 + 2))(v16, *(a1 + 56), *(a1 + 48));
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -1269,7 +1298,7 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
 
 void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = docDownloadServiceLogHandle;
@@ -1282,23 +1311,21 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v17 = v5;
+    v16 = v5;
     _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_INFO, "Fetched downloads location: %@", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_51;
-  v12[3] = &unk_278F9BD58;
-  v13 = v5;
-  v14 = v6;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_51;
+  v11[3] = &unk_278F9BD58;
+  v12 = v5;
+  v13 = v6;
   v8 = *(a1 + 32);
-  v15 = *(a1 + 40);
+  v14 = *(a1 + 40);
   v9 = v6;
   v10 = v5;
-  [v8 setDefaultDownloadsLocationItem:v10 completionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v8 setDefaultDownloadsLocationItem:v10 completionHandler:v11];
 }
 
 void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_51(uint64_t a1, uint64_t a2, void *a3)
@@ -1357,16 +1384,16 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
 
 void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_5(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_6;
-  v26[3] = &unk_278F9C480;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_6;
+  v25[3] = &unk_278F9C480;
   v9 = *(a1 + 32);
-  v27 = *(a1 + 40);
-  v10 = [v9 indexOfObjectPassingTest:v26];
+  v26 = *(a1 + 40);
+  v10 = [v9 indexOfObjectPassingTest:v25];
   v11 = *(a1 + 32);
   if (!v11 || v10 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -1382,7 +1409,7 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
       v18 = v17;
       v19 = [v7 providerDomainID];
       *buf = 138412290;
-      v29 = v19;
+      v28 = v19;
       _os_log_impl(&dword_249340000, v18, OS_LOG_TYPE_INFO, "Preferred domain (%@) is unavailable - falling back to default using standard fallback logic", buf, 0xCu);
     }
 
@@ -1393,23 +1420,21 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
   {
     v12 = [v11 objectAtIndexedSubscript:?];
     v13 = *(a1 + 48);
-    v30[0] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_7;
-    v21[3] = &unk_278F9C4A8;
-    v25 = a2;
-    v22 = *(a1 + 56);
+    v29[0] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_7;
+    v20[3] = &unk_278F9C4A8;
+    v24 = a2;
+    v21 = *(a1 + 56);
     v15 = v8;
     v16 = *(a1 + 48);
-    v23 = v15;
-    v21[4] = v16;
-    v24 = *(a1 + 64);
-    [v13 _rootItemOfPreferredProviderInDomains:v14 completion:v21];
+    v22 = v15;
+    v20[4] = v16;
+    v23 = *(a1 + 64);
+    [v13 _rootItemOfPreferredProviderInDomains:v14 completion:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_6(uint64_t a1, void *a2)
@@ -1423,7 +1448,7 @@ uint64_t __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPre
 
 void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_7(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1441,25 +1466,24 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
       v11 = v10;
       v12 = [v8 providerDomainID];
       *buf = 138412290;
-      v21 = v12;
+      v17 = v12;
       _os_log_impl(&dword_249340000, v11, OS_LOG_TYPE_INFO, "Validated preferred domain! - creating Downloads folder from that domain: %@", buf, 0xCu);
     }
 
     if (*(a1 + 64) == 1)
     {
-      v13 = *(a1 + 48);
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v16 = *(a1 + 32);
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_57;
-      v18[3] = &unk_278F9B570;
-      v19 = *(a1 + 48);
-      [v16 _fetchDefaultDownloadsFolderInParent:v8 completion:v18];
+      v13 = *(a1 + 32);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferredDomain_createIfMissing_completion___block_invoke_57;
+      v14[3] = &unk_278F9B570;
+      v15 = *(a1 + 48);
+      [v13 _fetchDefaultDownloadsFolderInParent:v8 completion:v14];
     }
   }
 
@@ -1477,12 +1501,8 @@ void __107__DOCDownloadSettings__fetchDefaultFallbackDownloadLocationWithPreferr
       _os_log_impl(&dword_249340000, v10, OS_LOG_TYPE_INFO, "Unable to validate preferred domain - falling back to default using standard fallback logic", buf, 2u);
     }
 
-    v14 = *(a1 + 64);
-    v15 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createDefaultDownloadsFolderInParent:(id)parent completion:(id)completion
@@ -1530,7 +1550,7 @@ void __72__DOCDownloadSettings__createDefaultDownloadsFolderInParent_completion_
 
 - (void)_fetchDefaultDownloadsFolderInParent:(id)parent completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   parentCopy = parent;
   completionCopy = completion;
   v7 = docDownloadServiceLogHandle;
@@ -1543,9 +1563,9 @@ void __72__DOCDownloadSettings__createDefaultDownloadsFolderInParent_completion_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v23 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
-    v24 = 2112;
-    v25 = parentCopy;
+    v22 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
+    v23 = 2112;
+    v24 = parentCopy;
     _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_INFO, "%s Look for existing Downloads folder in parent: %@", buf, 0x16u);
   }
 
@@ -1572,20 +1592,20 @@ void __72__DOCDownloadSettings__createDefaultDownloadsFolderInParent_completion_
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v23 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
-        v24 = 2112;
-        v25 = parentCopy;
+        v22 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
+        v23 = 2112;
+        v24 = parentCopy;
         _os_log_impl(&dword_249340000, v14, OS_LOG_TYPE_INFO, "%s Downloads folder at URL: %@ exists. Fetching item and returning.", buf, 0x16u);
       }
 
       defaultManager2 = [MEMORY[0x277CC6408] defaultManager];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __71__DOCDownloadSettings__fetchDefaultDownloadsFolderInParent_completion___block_invoke;
-      v19[3] = &unk_278F9BCE0;
-      v20 = v10;
-      v21 = completionCopy;
-      [defaultManager2 fetchItemForURL:v20 completionHandler:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __71__DOCDownloadSettings__fetchDefaultDownloadsFolderInParent_completion___block_invoke;
+      v18[3] = &unk_278F9BCE0;
+      v19 = v10;
+      v20 = completionCopy;
+      [defaultManager2 fetchItemForURL:v19 completionHandler:v18];
     }
 
     else
@@ -1599,9 +1619,9 @@ void __72__DOCDownloadSettings__createDefaultDownloadsFolderInParent_completion_
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v23 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
-        v24 = 2112;
-        v25 = parentCopy;
+        v22 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
+        v23 = 2112;
+        v24 = parentCopy;
         _os_log_impl(&dword_249340000, v14, OS_LOG_TYPE_INFO, "%s Look parent did not have a fileURL: %@", buf, 0x16u);
       }
 
@@ -1618,9 +1638,9 @@ void __72__DOCDownloadSettings__createDefaultDownloadsFolderInParent_completion_
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
-      v24 = 2112;
-      v25 = parentCopy;
+      v22 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
+      v23 = 2112;
+      v24 = parentCopy;
       _os_log_impl(&dword_249340000, v17, OS_LOG_TYPE_INFO, "%s Look for existing Downloads folder in URL: %@", buf, 0x16u);
     }
   }
@@ -1637,21 +1657,19 @@ void __72__DOCDownloadSettings__createDefaultDownloadsFolderInParent_completion_
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
-      v24 = 2112;
-      v25 = parentCopy;
+      v22 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]";
+      v23 = 2112;
+      v24 = parentCopy;
       _os_log_impl(&dword_249340000, v16, OS_LOG_TYPE_INFO, "%s Look parent did not have a fileURL: %@", buf, 0x16u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __71__DOCDownloadSettings__fetchDefaultDownloadsFolderInParent_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = docDownloadServiceLogHandle;
@@ -1664,20 +1682,18 @@ void __71__DOCDownloadSettings__fetchDefaultDownloadsFolderInParent_completion__
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = *(a1 + 32);
-    v10 = 136315906;
-    v11 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_INFO, "%s Got FPItem: %@ for URL: %@ error: %@", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[DOCDownloadSettings _fetchDefaultDownloadsFolderInParent:completion:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v6;
+    _os_log_impl(&dword_249340000, v7, OS_LOG_TYPE_INFO, "%s Got FPItem: %@ for URL: %@ error: %@", &v9, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchProviders:(id)providers
@@ -1842,7 +1858,7 @@ void __48__DOCDownloadSettings__fetchAvailableProviders___block_invoke_3(uint64_
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __48__DOCDownloadSettings__fetchAvailableProviders___block_invoke_3_cold_1(a1);
+      __48__DOCDownloadSettings__fetchAvailableProviders___block_invoke_3_cold_1();
     }
   }
 
@@ -1930,56 +1946,56 @@ void __72__DOCDownloadSettings__rootItemOfPreferredProviderInDomains_completion_
 
 - (void)_preferredProvidersIn:(id)in completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   inCopy = in;
   completionCopy = completion;
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x3032000000;
-  v29[3] = __Block_byref_object_copy__8;
-  v29[4] = __Block_byref_object_dispose__8;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__8;
+  v28[4] = __Block_byref_object_dispose__8;
   array = [MEMORY[0x277CBEB18] array];
   v7 = dispatch_group_create();
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x2020000000;
-  v28 = 0;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x2020000000;
+  v27 = 0;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = inCopy;
-  v8 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v8 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v8)
   {
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * v10);
+        v11 = *(*(&v22 + 1) + 8 * v10);
         dispatch_group_enter(v7);
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __56__DOCDownloadSettings__preferredProvidersIn_completion___block_invoke;
-        v19[3] = &unk_278F9C5E8;
-        v21 = v29;
-        v22 = v27;
-        v19[4] = v11;
-        v20 = v7;
-        [(DOCDownloadSettings *)self _validatePreferredProvider:v11 completion:v19];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __56__DOCDownloadSettings__preferredProvidersIn_completion___block_invoke;
+        v18[3] = &unk_278F9C5E8;
+        v20 = v28;
+        v21 = v26;
+        v18[4] = v11;
+        v19 = v7;
+        [(DOCDownloadSettings *)self _validatePreferredProvider:v11 completion:v18];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v8);
@@ -1989,15 +2005,13 @@ void __72__DOCDownloadSettings__rootItemOfPreferredProviderInDomains_completion_
   block[1] = 3221225472;
   block[2] = __56__DOCDownloadSettings__preferredProvidersIn_completion___block_invoke_2;
   block[3] = &unk_278F9C610;
-  v18 = v29;
-  v17 = completionCopy;
+  v17 = v28;
+  v16 = completionCopy;
   v12 = completionCopy;
   dispatch_group_notify(v7, MEMORY[0x277D85CD0], block);
 
-  _Block_object_dispose(v27, 8);
-  _Block_object_dispose(v29, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 void __56__DOCDownloadSettings__preferredProvidersIn_completion___block_invoke(uint64_t a1, int a2)
@@ -2034,10 +2048,9 @@ uint64_t __56__DOCDownloadSettings__preferredProvidersIn_completion___block_invo
     *(v2 + 40) = 0;
   }
 
-  v4 = *(*(*(a1 + 40) + 8) + 40);
-  v5 = *(*(a1 + 32) + 16);
+  v4 = *(*(a1 + 32) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (void)_validatePreferredProvider:(id)provider completion:(id)completion
@@ -2098,10 +2111,9 @@ uint64_t __61__DOCDownloadSettings__validatePreferredProvider_completion___block
   }
 
   *(*(*(a1 + 40) + 8) + 24) = v3;
-  v4 = *(*(*(a1 + 40) + 8) + 24);
-  v5 = *(*(a1 + 32) + 16);
+  v4 = *(*(a1 + 32) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (id)_createErrorForCode:(int64_t)code localizedDescription:(id)description underlyingError:(id)error
@@ -2124,133 +2136,105 @@ uint64_t __61__DOCDownloadSettings__validatePreferredProvider_completion___block
 
 void __65__DOCDownloadSettings_fetchDefaultDownloadsLocationSettingsItem___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__DOCDownloadSettings_fetchSuitableLocationsForDownloads___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __71__DOCDownloadSettings_setDefaultDownloadsToLocation_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __71__DOCDownloadSettings_setDefaultDownloadsToLocation_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_2_cold_1(uint64_t a1)
+void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_17_cold_1(uint64_t a1)
+void __72__DOCDownloadSettings_setDefaultDownloadsLocationURL_completionHandler___block_invoke_17_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)fetchDefaultDownloadsLocationItemAndCreateIfNeeded:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21_cold_1(uint64_t a1, uint64_t a2)
+void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_21_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 32);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_26_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 providerDomainID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_0(&dword_249340000, v5, v6, "Unable to get domain for ID: %@. Error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_0(&dword_249340000, v5, v6, "Unable to get domain for ID: %@. Error: %@", v7, v8, v9, v10);
 }
 
 void __85__DOCDownloadSettings_fetchDefaultDownloadsLocationItemAndCreateIfNeeded_completion___block_invoke_26_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__block_invoke_30_cold_1(uint64_t a1)
+void __67__DOCDownloadSettings__removeCurrentDownloadsLocationFromFavorites__block_invoke_30_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
-  v8 = *(*(v1 + 8) + 40);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-- (void)_saveDownloadFolderItem:(uint64_t)a1 error:(uint64_t *)a2 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)_saveDownloadFolderItem:error:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2_cold_1(uint64_t a1)
+void __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)setDefaultDownloadsLocationItem:(uint64_t)a1 completionHandler:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -2261,40 +2245,32 @@ void __53__DOCDownloadSettings__saveDownloadFolderItem_error___block_invoke_2_co
 
 void __82__DOCDownloadSettings_setDefaultDownloadsItemForProviderDomain_completionHandler___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__DOCDownloadSettings__fetchProviders___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __48__DOCDownloadSettings__fetchAvailableProviders___block_invoke_3_cold_1(uint64_t a1)
+void __48__DOCDownloadSettings__fetchAvailableProviders___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __72__DOCDownloadSettings__rootItemOfPreferredProviderInDomains_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 providerDisplayName];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7_0(&dword_249340000, v5, v6, "Unable to fetch root node for preferred domain: %@ error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_0(&dword_249340000, v5, v6, "Unable to fetch root node for preferred domain: %@ error: %@", v7, v8, v9, v10);
 }
 
 @end

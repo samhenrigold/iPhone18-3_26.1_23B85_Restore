@@ -87,7 +87,6 @@ LABEL_6:
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_keyclass != *(equalCopy + 10))
@@ -99,7 +98,7 @@ LABEL_6:
   else if ((*(equalCopy + 44) & 2) != 0)
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -134,17 +133,17 @@ LABEL_18:
   backupwrappedkey = self->_backupwrappedkey;
   if (backupwrappedkey | *(equalCopy + 3))
   {
-    v9 = [(NSData *)backupwrappedkey isEqual:?];
+    v8 = [(NSData *)backupwrappedkey isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -221,38 +220,36 @@ LABEL_19:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    keyclass = self->_keyclass;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    actualKeyclass = self->_actualKeyclass;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_baguuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_akswrappedkey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_backupwrappedkey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

@@ -54,7 +54,6 @@
     self->_stopTime = v3;
     self->_elapsedTime = v4;
     self->_elapsedTimeMS = UpTicksToMilliseconds();
-    elapsedTime = self->_elapsedTime;
     self->_elapsedTimeSeconds = UpTicksToSeconds();
     self->_status = 1;
   }
@@ -96,9 +95,7 @@
     *&self->_elapsedTime = 0u;
     *&self->_elapsedTimeSeconds = 0u;
     *&self->_startTime = 0u;
-    v3 = objc_opt_new();
-    laps = self->_laps;
-    self->_laps = v3;
+    self->_laps = objc_opt_new();
 
     MEMORY[0x2821F96F8]();
   }

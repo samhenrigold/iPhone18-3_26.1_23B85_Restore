@@ -73,14 +73,14 @@
   }
 
   v26 = v7;
-  accessibilityHint2 = NSString;
+  v8 = NSString;
   [(TUIAXElement *)self accessibilityFrame];
   v28 = NSStringFromCGRect(v34);
   v31 = [NSString stringWithFormat:@" frame=%@", v28];;
   v27 = [v3 count];
   if (v27)
   {
-    accessibilityHint2 = NSString;
+    v8 = NSString;
     v25 = [v3 componentsJoinedByString:{@", "}];
     v30 = [NSString stringWithFormat:@" traits=%@", v25];;
   }
@@ -93,7 +93,7 @@
   accessibilityLabel = [(TUIAXElement *)self accessibilityLabel];
   if (accessibilityLabel)
   {
-    accessibilityHint2 = NSString;
+    v8 = NSString;
     accessibilityLabel2 = [(TUIAXElement *)self accessibilityLabel];
     v29 = [NSString stringWithFormat:@" label=%@", accessibilityLabel2];;
   }
@@ -106,7 +106,7 @@
   accessibilityValue = [(TUIAXElement *)self accessibilityValue];
   if (accessibilityValue)
   {
-    accessibilityHint2 = NSString;
+    v8 = NSString;
     accessibilityValue2 = [(TUIAXElement *)self accessibilityValue];
     v11 = [NSString stringWithFormat:@" value=%@", accessibilityValue2];;
   }
@@ -116,11 +116,11 @@
     v11 = &stru_264550;
   }
 
-  accessibilityHint = [(TUIAXElement *)self accessibilityHint];
-  if (accessibilityHint)
+  v12 = objc_msgSend_accessibilityHint(self);
+  if (v12)
   {
-    accessibilityHint2 = [(TUIAXElement *)self accessibilityHint];
-    v13 = [NSString stringWithFormat:@" hint=%@", accessibilityHint2];;
+    v8 = objc_msgSend_accessibilityHint(self);
+    v13 = [NSString stringWithFormat:@" hint=%@", v8];;
   }
 
   else
@@ -138,7 +138,7 @@
   {
     [(TUIAXElement *)self axModel];
     v22 = accessibilityLabel;
-    v16 = accessibilityHint2;
+    v16 = v8;
     v18 = v17 = v3;
     shouldScrollHorizontally = [v18 shouldScrollHorizontally];
     v20 = @" scroll=h;";
@@ -150,11 +150,11 @@
     v15 = [NSString stringWithFormat:@"<%@: %p (%@) %@%@%@%@%@%@%@>", v5, self, axModel, v26, v31, v30, v29, v11, v13, v20];;
 
     v3 = v17;
-    accessibilityHint2 = v16;
+    v8 = v16;
     accessibilityLabel = v22;
   }
 
-  if (accessibilityHint)
+  if (v12)
   {
   }
 
@@ -176,8 +176,8 @@
 - (NSString)inferredLabel
 {
   v3 = objc_opt_new();
-  children = [(TUIAXElement *)self children];
-  v5 = [NSMutableArray tui_stackWithObjectsFromArray:children];
+  v4 = objc_msgSend_children(self);
+  v5 = [NSMutableArray tui_stackWithObjectsFromArray:v4];
 
   while ([v5 count])
   {
@@ -193,15 +193,15 @@
 
     else
     {
-      children2 = [tui_pop children];
-      v13 = [children2 count];
+      v12 = objc_msgSend_children(tui_pop);
+      v13 = [v12 count];
 
       if (!v13)
       {
         goto LABEL_9;
       }
 
-      axLabel = [tui_pop children];
+      axLabel = objc_msgSend_children(tui_pop);
       [v5 tui_pushObjectsFromArray:axLabel];
     }
 
@@ -218,18 +218,18 @@ LABEL_9:
   modelCopy = model;
   v6 = self->_axModel;
   identifier = [modelCopy identifier];
-  v64 = v6;
+  v65 = v6;
   identifier2 = [(TUIAXModel *)v6 identifier];
   v9 = [identifier isEqual:identifier2];
 
   if ((v9 & 1) == 0)
   {
-    identifier3 = [(TUIAXModel *)v64 identifier];
+    identifier3 = [(TUIAXModel *)v65 identifier];
 
     if (identifier3)
     {
       identifierToAXElementMap = [(TUIAXEvaluationContext *)self->_context identifierToAXElementMap];
-      identifier4 = [(TUIAXModel *)v64 identifier];
+      identifier4 = [(TUIAXModel *)v65 identifier];
       [identifierToAXElementMap removeObjectForKey:identifier4];
     }
 
@@ -244,43 +244,43 @@ LABEL_9:
   }
 
   objc_storeStrong(&self->_axModel, model);
-  v67 = objc_opt_new();
+  v68 = objc_opt_new();
   if ([modelCopy isControl] && (-[TUIAXElement context](self, "context"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "renderModelSection"), v17 = objc_claimAutoreleasedReturnValue(), v17, v16, v17))
   {
     _currentStateForControl = [(TUIAXElement *)self _currentStateForControl];
-    v78 = 0u;
     v79 = 0u;
     v80 = 0u;
     v81 = 0u;
-    children = [modelCopy children];
-    v20 = [children countByEnumeratingWithState:&v78 objects:v84 count:16];
+    v82 = 0u;
+    v19 = objc_msgSend_children(modelCopy);
+    v20 = [v19 countByEnumeratingWithState:&v79 objects:v85 count:16];
     if (v20)
     {
       v21 = v20;
-      v69 = 0;
-      v22 = *v79;
+      v70 = 0;
+      v22 = *v80;
       do
       {
         for (i = 0; i != v21; i = i + 1)
         {
-          if (*v79 != v22)
+          if (*v80 != v22)
           {
-            objc_enumerationMutation(children);
+            objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v78 + 1) + 8 * i);
+          v24 = *(*(&v79 + 1) + 8 * i);
           stateName = [v24 stateName];
-          v26 = [_currentStateForControl isEqualToString:stateName];
+          v26 = objc_msgSend_isEqualToString_(_currentStateForControl);
 
           if (v26)
           {
             v27 = v24;
 
-            v69 = v27;
+            v70 = v27;
           }
         }
 
-        v21 = [children countByEnumeratingWithState:&v78 objects:v84 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v79 objects:v85 count:16];
       }
 
       while (v21);
@@ -288,41 +288,41 @@ LABEL_9:
 
     else
     {
-      v69 = 0;
+      v70 = 0;
     }
   }
 
   else
   {
-    v69 = 0;
+    v70 = 0;
   }
 
-  v76 = 0u;
   v77 = 0u;
-  v74 = 0u;
+  v78 = 0u;
   v75 = 0u;
-  children2 = [modelCopy children];
-  v29 = [children2 countByEnumeratingWithState:&v74 objects:v83 count:16];
-  v68 = modelCopy;
+  v76 = 0u;
+  v28 = objc_msgSend_children(modelCopy);
+  v29 = [v28 countByEnumeratingWithState:&v75 objects:v84 count:16];
+  v69 = modelCopy;
   if (v29)
   {
     v30 = v29;
-    v31 = *v75;
+    v31 = *v76;
     do
     {
       for (j = 0; j != v30; j = j + 1)
       {
-        if (*v75 != v31)
+        if (*v76 != v31)
         {
-          objc_enumerationMutation(children2);
+          objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v74 + 1) + 8 * j);
+        v33 = *(*(&v75 + 1) + 8 * j);
         if ([v33 hasAccessibleDescendants])
         {
           if (([v33 hidden] & 1) == 0)
           {
-            if (![modelCopy isControl] || (-[TUIAXElement context](self, "context"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "renderModelSection"), v35 = objc_claimAutoreleasedReturnValue(), v35, v34, !v35) || v33 == v69 || !v69 && (objc_msgSend(v33, "stateName"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v36, "isEqualToString:", @"default"), v36, v37))
+            if (![modelCopy isControl] || (-[TUIAXElement context](self, "context"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "renderModelSection"), v35 = objc_claimAutoreleasedReturnValue(), v35, v34, !v35) || v33 == v70 || !v70 && (objc_msgSend(v33, "stateName"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend_isEqualToString_(v36), v36, v37))
             {
               identifier7 = [v33 identifier];
               context = [(TUIAXElement *)self context];
@@ -340,16 +340,16 @@ LABEL_9:
               {
                 [(TUIAXElement *)v41 updateWithAXModel:v33];
                 [(TUIAXElement *)v41 setAccessibilityContainer:self];
-                [v67 addObject:v41];
+                [v68 addObject:v41];
               }
 
-              modelCopy = v68;
+              modelCopy = v69;
             }
           }
         }
       }
 
-      v30 = [children2 countByEnumeratingWithState:&v74 objects:v83 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v75 objects:v84 count:16];
     }
 
     while (v30);
@@ -372,28 +372,28 @@ LABEL_9:
     }
   }
 
+  v67 = objc_opt_new();
   v66 = objc_opt_new();
-  v65 = objc_opt_new();
-  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
   resolvedCustomActions2 = [modelCopy resolvedCustomActions];
-  v47 = [resolvedCustomActions2 countByEnumeratingWithState:&v70 objects:v82 count:16];
+  v47 = [resolvedCustomActions2 countByEnumeratingWithState:&v71 objects:v83 count:16];
   if (v47)
   {
     v48 = v47;
-    v49 = *v71;
+    v49 = *v72;
     do
     {
       for (k = 0; k != v48; k = k + 1)
       {
-        if (*v71 != v49)
+        if (*v72 != v49)
         {
           objc_enumerationMutation(resolvedCustomActions2);
         }
 
-        v51 = *(*(&v70 + 1) + 8 * k);
+        v51 = *(*(&v71 + 1) + 8 * k);
         if ([v51 isDefault])
         {
           [(TUIAXElement *)self setDefaultAction:v51];
@@ -402,7 +402,7 @@ LABEL_9:
         else
         {
           trigger = [v51 trigger];
-          v53 = [trigger isEqualToString:@"accessibilityIncrement"];
+          v53 = objc_msgSend_isEqualToString_(trigger);
 
           if (v53)
           {
@@ -412,7 +412,7 @@ LABEL_9:
           else
           {
             trigger2 = [v51 trigger];
-            v55 = [trigger2 isEqualToString:@"accessibilityDecrement"];
+            v55 = objc_msgSend_isEqualToString_(trigger2);
 
             if (v55)
             {
@@ -426,35 +426,36 @@ LABEL_9:
               label = [v51 label];
               v59 = [v57 initWithName:label target:v56 selector:"invoke"];
 
-              [v66 addObject:v59];
-              [v65 addObject:v56];
+              [v67 addObject:v59];
+              [v66 addObject:v56];
             }
           }
         }
       }
 
-      v48 = [resolvedCustomActions2 countByEnumeratingWithState:&v70 objects:v82 count:16];
+      v48 = [resolvedCustomActions2 countByEnumeratingWithState:&v71 objects:v83 count:16];
     }
 
     while (v48);
   }
 
-  modelCopy = v68;
-  if ([v68 hasContextMenu])
+  modelCopy = v69;
+  hasContextMenu2 = [v69 hasContextMenu];
+  if (hasContextMenu2)
   {
-    v60 = TUIBundle();
-    v61 = [v60 localizedStringForKey:@"Show menu" value:&stru_264550 table:@"TemplateUILocalizable"];
+    v61 = TUIBundle(hasContextMenu2);
+    v62 = [v61 localizedStringForKey:@"Show menu" value:&stru_264550 table:@"TemplateUILocalizable"];
 
-    v62 = [[UIAccessibilityCustomAction alloc] initWithName:v61 target:self selector:"_presentContextMenu"];
-    [v66 addObject:v62];
+    v63 = [[UIAccessibilityCustomAction alloc] initWithName:v62 target:self selector:"_presentContextMenu"];
+    [v67 addObject:v63];
   }
 
-  v63 = [v66 copy];
-  [(TUIAXElement *)self setAccessibilityCustomActions:v63];
+  v64 = [v67 copy];
+  [(TUIAXElement *)self setAccessibilityCustomActions:v64];
 
-  [(TUIAXElement *)self setRetainedCustomActionTargets:v65];
+  [(TUIAXElement *)self setRetainedCustomActionTargets:v66];
 LABEL_60:
-  [(TUIAXElement *)self setChildren:v67];
+  [(TUIAXElement *)self setChildren:v68];
 }
 
 - (id)_viewForOverrideIdentifier:(id)identifier outParentRenderModelSection:(id *)section outParentView:(id *)view
@@ -663,7 +664,7 @@ LABEL_13:
 
 - (id)accessibilityElements
 {
-  children = [(TUIAXElement *)self children];
+  v3 = objc_msgSend_children(self, a2);
   axModel = [(TUIAXElement *)self axModel];
   shouldVendControlView = [axModel shouldVendControlView];
 
@@ -679,11 +680,11 @@ LABEL_13:
       v9 = [NSArray arrayWithObjects:&v11 count:1];
 
       [v8 setAccessibilityContainer:self];
-      children = v9;
+      v3 = v9;
     }
   }
 
-  return children;
+  return v3;
 }
 
 - (id)accessibilityLabel

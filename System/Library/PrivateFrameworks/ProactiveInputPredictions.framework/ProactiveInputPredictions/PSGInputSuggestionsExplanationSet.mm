@@ -38,29 +38,29 @@
 
 void __48__PSGInputSuggestionsExplanationSet_description__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(a2 + 8);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         v8 = *(a1 + 32);
-        v9 = +[PSGInputSuggestionsExplanationSet stringFromExplanationCode:](PSGInputSuggestionsExplanationSet, "stringFromExplanationCode:", [*(*(&v11 + 1) + 8 * v7) unsignedIntegerValue]);
+        v9 = +[PSGInputSuggestionsExplanationSet stringFromExplanationCode:](PSGInputSuggestionsExplanationSet, "stringFromExplanationCode:", [*(*(&v10 + 1) + 8 * v7) unsignedIntegerValue]);
         [v8 appendString:v9];
 
         [*(a1 + 32) appendString:@"; "];
@@ -68,13 +68,11 @@ void __48__PSGInputSuggestionsExplanationSet_description__block_invoke(uint64_t 
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -193,7 +191,7 @@ void __48__PSGInputSuggestionsExplanationSet_description__block_invoke(uint64_t 
   return v3;
 }
 
-uint64_t __60__PSGInputSuggestionsExplanationSet_hasTriggeringXPCTimeout__block_invoke(uint64_t a1, uint64_t a2)
+void *__60__PSGInputSuggestionsExplanationSet_hasTriggeringXPCTimeout__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a2 + 8) containsObject:&unk_2873454F0];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -231,7 +229,7 @@ uint64_t __60__PSGInputSuggestionsExplanationSet_hasContactsServingError__block_
 
 void __60__PSGInputSuggestionsExplanationSet_hasContactsServingError__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [a2 unsignedIntegerValue];
   v6 = v5;
   v7 = HIWORD(v5);
@@ -258,17 +256,15 @@ LABEL_8:
     v8 = psg_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10[0] = 67109376;
-      v10[1] = v7;
-      v11 = 1024;
-      v12 = v6;
-      _os_log_impl(&dword_260D18000, v8, OS_LOG_TYPE_INFO, "hasContactsServingError => YES due to expCode (%d, %d)", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v7;
+      v10 = 1024;
+      v11 = v6;
+      _os_log_impl(&dword_260D18000, v8, OS_LOG_TYPE_INFO, "hasContactsServingError => YES due to expCode (%d, %d)", v9, 0xEu);
     }
 
     *a3 = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasPETLoggingData
@@ -300,7 +296,7 @@ uint64_t __54__PSGInputSuggestionsExplanationSet_hasPETLoggingData__block_invoke
   return [v2 enumerateObjectsUsingBlock:v4];
 }
 
-uint64_t __54__PSGInputSuggestionsExplanationSet_hasPETLoggingData__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+void *__54__PSGInputSuggestionsExplanationSet_hasPETLoggingData__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 unsignedIntegerValue];
   if ((result - 1) <= 1)
@@ -333,7 +329,7 @@ uint64_t __54__PSGInputSuggestionsExplanationSet_hasPETLoggingData__block_invoke
   return v3;
 }
 
-uint64_t __42__PSGInputSuggestionsExplanationSet_count__block_invoke(uint64_t a1, uint64_t a2)
+void *__42__PSGInputSuggestionsExplanationSet_count__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a2 + 8) count];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -376,16 +372,16 @@ uint64_t __71__PSGInputSuggestionsExplanationSet_enumerateExplanationCodeWithBlo
 - (void)_pushExplanationCode:(unsigned __int16)code namespaceId:(unsigned __int16)id
 {
   idCopy = id;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (id < 2u)
   {
     lock = self->_lock;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __70__PSGInputSuggestionsExplanationSet__pushExplanationCode_namespaceId___block_invoke;
-    v8[3] = &__block_descriptor_36_e54_v16__0__PSGInputSuggestionsExplanationSetGuardedData_8l;
-    v9 = code | (id << 16);
-    [(_PASLock *)lock runWithLockAcquired:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __70__PSGInputSuggestionsExplanationSet__pushExplanationCode_namespaceId___block_invoke;
+    v7[3] = &__block_descriptor_36_e54_v16__0__PSGInputSuggestionsExplanationSetGuardedData_8l;
+    v8 = code | (id << 16);
+    [(_PASLock *)lock runWithLockAcquired:v7];
   }
 
   else
@@ -394,12 +390,10 @@ uint64_t __71__PSGInputSuggestionsExplanationSet_enumerateExplanationCodeWithBlo
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      v11 = idCopy;
+      v10 = idCopy;
       _os_log_fault_impl(&dword_260D18000, v5, OS_LOG_TYPE_FAULT, "Unexpcted namespace id: %d", buf, 8u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PSGInputSuggestionsExplanationSet__pushExplanationCode_namespaceId___block_invoke(uint64_t a1, uint64_t a2)

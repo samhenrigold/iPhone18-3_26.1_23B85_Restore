@@ -247,18 +247,14 @@ LABEL_12:
     }
   }
 
-  else
+  else if (([(NSDate *)startDate isEqual:?]& 1) == 0)
   {
-    v8 = [(NSDate *)startDate isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_39;
-    }
+    goto LABEL_39;
   }
 
   endDate = self->_endDate;
-  v10 = summaryCopy[3];
-  if (endDate && v10)
+  v9 = summaryCopy[3];
+  if (endDate && v9)
   {
     if (([(NSDate *)endDate isEqual:?]& 1) == 0)
     {
@@ -266,38 +262,38 @@ LABEL_12:
     }
   }
 
-  else if (endDate != v10)
+  else if (endDate != v9)
   {
     goto LABEL_39;
   }
 
-  v11 = summaryCopy[4];
-  v12 = self->_currencyCode;
-  v13 = v11;
-  v14 = v13;
-  if (v12 == v13)
+  v10 = summaryCopy[4];
+  v11 = self->_currencyCode;
+  v12 = v10;
+  v13 = v12;
+  if (v11 == v12)
   {
   }
 
   else
   {
-    if (!v12 || !v13)
+    if (!v11 || !v12)
     {
 
       goto LABEL_39;
     }
 
-    v15 = [(NSString *)v12 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_39;
     }
   }
 
   onePercentTotal = self->_onePercentTotal;
-  v17 = summaryCopy[5];
-  if (onePercentTotal && v17)
+  v16 = summaryCopy[5];
+  if (onePercentTotal && v16)
   {
     if (([(NSDecimalNumber *)onePercentTotal isEqual:?]& 1) == 0)
     {
@@ -305,14 +301,14 @@ LABEL_12:
     }
   }
 
-  else if (onePercentTotal != v17)
+  else if (onePercentTotal != v16)
   {
     goto LABEL_39;
   }
 
   twoPercentTotal = self->_twoPercentTotal;
-  v19 = summaryCopy[6];
-  if (twoPercentTotal && v19)
+  v18 = summaryCopy[6];
+  if (twoPercentTotal && v18)
   {
     if (([(NSDecimalNumber *)twoPercentTotal isEqual:?]& 1) == 0)
     {
@@ -320,22 +316,22 @@ LABEL_12:
     }
   }
 
-  else if (twoPercentTotal != v19)
+  else if (twoPercentTotal != v18)
   {
     goto LABEL_39;
   }
 
   threePercentTotal = self->_threePercentTotal;
-  v21 = summaryCopy[7];
-  if (!threePercentTotal || !v21)
+  v20 = summaryCopy[7];
+  if (!threePercentTotal || !v20)
   {
-    if (threePercentTotal == v21)
+    if (threePercentTotal == v20)
     {
       goto LABEL_35;
     }
 
 LABEL_39:
-    v24 = 0;
+    v23 = 0;
     goto LABEL_40;
   }
 
@@ -346,20 +342,20 @@ LABEL_39:
 
 LABEL_35:
   specialTotal = self->_specialTotal;
-  v23 = summaryCopy[8];
-  if (specialTotal && v23)
+  v22 = summaryCopy[8];
+  if (specialTotal && v22)
   {
-    v24 = [(NSDecimalNumber *)specialTotal isEqual:?];
+    v23 = [(NSDecimalNumber *)specialTotal isEqual:?];
   }
 
   else
   {
-    v24 = specialTotal == v23;
+    v23 = specialTotal == v22;
   }
 
 LABEL_40:
 
-  return v24;
+  return v23;
 }
 
 - (unint64_t)hash

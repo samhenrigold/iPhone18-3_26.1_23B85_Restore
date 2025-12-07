@@ -45,9 +45,9 @@
 {
   v4 = [equal key];
   v5 = [(UIKeyboardEmoji *)self key];
-  v6 = [v4 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (BOOL)supportsSkinToneVariants

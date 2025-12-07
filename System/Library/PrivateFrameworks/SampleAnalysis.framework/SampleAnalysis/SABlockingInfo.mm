@@ -14,12 +14,12 @@
   v3 = _sa_logt();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v11 = 0;
-    _os_log_error_impl(&dword_1E0E2F000, v3, OS_LOG_TYPE_ERROR, "Must use a subclass of SABlockingInfo, not SABlockingInfo directly", v11, 2u);
+    *v5 = 0;
+    _os_log_error_impl(&dword_1E0E2F000, v3, OS_LOG_TYPE_ERROR, "Must use a subclass of SABlockingInfo, not SABlockingInfo directly", v5, 2u);
   }
 
   *__error() = v2;
-  _SASetCrashLogMessage(1865, "Must use a subclass of SABlockingInfo, not SABlockingInfo directly", v4, v5, v6, v7, v8, v9, v11[0]);
+  _SASetCrashLogMessage(1865, "Must use a subclass of SABlockingInfo, not SABlockingInfo directly");
   result = _os_crash();
   __break(1u);
   return result;
@@ -45,7 +45,7 @@
 
   *__error() = v3;
   v5 = object_getClassName(self);
-  _SASetCrashLogMessage(1873, "SABlockingInfo subclass %s doesn't implement blockingTid", v6, v7, v8, v9, v10, v11, v5);
+  _SASetCrashLogMessage(1873, "SABlockingInfo subclass %s doesn't implement blockingTid", v5);
   result = _os_crash();
   __break(1u);
   return result;
@@ -64,7 +64,7 @@
 
   *__error() = v3;
   v5 = object_getClassName(self);
-  _SASetCrashLogMessage(1877, "SABlockingInfo subclass %s doesn't implement blockingPid", v6, v7, v8, v9, v10, v11, v5);
+  _SASetCrashLogMessage(1877, "SABlockingInfo subclass %s doesn't implement blockingPid", v5);
   result = _os_crash();
   __break(1u);
   return result;

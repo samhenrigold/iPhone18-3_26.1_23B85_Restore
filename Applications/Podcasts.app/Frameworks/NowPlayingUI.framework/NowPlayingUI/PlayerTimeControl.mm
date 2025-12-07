@@ -47,13 +47,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_4BEE0();
+  sub_4BEE0(selfCopy);
 }
 
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_4C04C();
+  sub_4C04C(selfCopy);
 }
 
 - (UIEdgeInsets)alignmentRectInsets
@@ -88,7 +88,7 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   selfCopy = self;
-  sub_4C22C(x, y, width, height);
+  sub_4C22C(selfCopy, x, y, width, height);
 }
 
 - (CGSize)intrinsicContentSize
@@ -107,7 +107,7 @@
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_4C4BC();
+  sub_4C4BC(selfCopy);
 }
 
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event

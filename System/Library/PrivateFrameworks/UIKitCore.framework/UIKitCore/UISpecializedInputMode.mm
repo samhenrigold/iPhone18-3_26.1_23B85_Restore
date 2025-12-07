@@ -50,9 +50,9 @@
 - (id)hardwareLayout
 {
   identifier = [(UIKeyboardInputMode *)self identifier];
-  v4 = [identifier isEqualToString:@"autofillsignup"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     hardwareLayout = 0;
   }

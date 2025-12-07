@@ -278,9 +278,9 @@
 - (id)copyWithContext:(id)context
 {
   contextCopy = context;
-  TSUSetCrashReporterInfo();
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d This should not be called on TSDCounterRotateInfo", "[TSDCounterRotateInfo copyWithContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDCounterRotateInfo.m", 174);
   v4 = MEMORY[0x277D81150];
-  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSDCounterRotateInfo copyWithContext:]", "[TSDCounterRotateInfo copyWithContext:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDCounterRotateInfo.m", 174);
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSDCounterRotateInfo copyWithContext:]");
   v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/TSDCounterRotateInfo.m");
   objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v9, v6, v8, 174, 1, "This should not be called on TSDCounterRotateInfo");
 

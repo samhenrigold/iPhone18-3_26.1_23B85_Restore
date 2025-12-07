@@ -146,7 +146,7 @@
   textViewportLayoutController = [v5 textViewportLayoutController];
   viewportRange = [textViewportLayoutController viewportRange];
 
-  if ([viewportRange isNotEmpty] && ((objc_msgSend(viewportRange, "containsRange:", v13) & 1) != 0 || (objc_msgSend(viewportRange, "endLocation"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEqual:", endLocation), v8, v9)))
+  if ([viewportRange isNotEmpty] && ((objc_msgSend(viewportRange, "containsRange:", v13) & 1) != 0 || (objc_msgSend(viewportRange, "endLocation"), v8 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v8), v8, isEqual)))
   {
     v10 = [off_1E70ECBF0 alloc];
     location = [viewportRange location];

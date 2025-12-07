@@ -169,13 +169,11 @@ uint64_t __52__SiriAnalyticsRemoteService_barrierWithCompletion___block_invoke_2
 
 void __104__SiriAnalyticsRemoteService_resolvePartialMessage_timestamp_messageUUID_isolatedStreamUUID_completion___block_invoke(void *a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1[4] + 16);
-  v5[0] = a1[5];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  v4[0] = a1[5];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   [v2 resolveMessages:v3 completion:a1[6]];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)emitMessage:(id)message timestamp:(unint64_t)timestamp messageUUID:(id)d isolatedStreamUUID:(id)iD completion:(id)completion
@@ -204,13 +202,11 @@ void __104__SiriAnalyticsRemoteService_resolvePartialMessage_timestamp_messageUU
 
 void __94__SiriAnalyticsRemoteService_emitMessage_timestamp_messageUUID_isolatedStreamUUID_completion___block_invoke(void *a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1[4] + 16);
-  v5[0] = a1[5];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  v4[0] = a1[5];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   [v2 publishMessages:v3 completion:a1[6]];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (SiriAnalyticsRemoteService)initWithMachServiceName:(id)name

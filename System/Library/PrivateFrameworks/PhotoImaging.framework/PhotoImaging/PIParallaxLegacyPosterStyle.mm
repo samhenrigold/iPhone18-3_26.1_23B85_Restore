@@ -11,7 +11,7 @@
   v3 = MEMORY[0x1E69B3BE8];
   imageCopy = image;
   v5 = [[v3 alloc] initWithTargetPixelCount:0x40000];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   v6 = NUPixelSizeFromCGSize();
   [v5 scaleForImageSize:{v6, v7}];
   NUScaleToDouble();
@@ -97,7 +97,7 @@
       _os_signpost_emit_with_name_impl(&dword_1C7694000, v15, OS_SIGNPOST_INTERVAL_END, v16, "PIParallaxLegacyPosterStyle.localLight", "", buf, 2u);
     }
 
-    [v7 extent];
+    objc_msgSend_extent(v7);
     [inactiveFilter setVisibleFrame:?];
     [inactiveFilter setRenderScale:1.0];
     [inactiveFilter setLocalLightData:v13];

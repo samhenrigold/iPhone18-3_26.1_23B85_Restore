@@ -52,8 +52,8 @@
   policyWriterCopy = policyWriter;
   queueCopy = queue;
   transportQueueCopy = transportQueue;
-  v126.receiver = self;
-  v126.super_class = STReactor;
+  v124.receiver = self;
+  v124.super_class = STReactor;
   completeCopy = complete;
   beginCopy = begin;
   directoryURLCopy = directoryURL;
@@ -67,7 +67,7 @@
   storePrimitivesCopy = storePrimitives;
   filesystemPrimitivesCopy = filesystemPrimitives;
   primitivesCopy = primitives;
-  v34 = [(STReactor *)&v126 init];
+  v34 = [(STReactor *)&v124 init];
   objc_storeStrong(&v34->_reactorQueue, queue);
   objc_storeStrong(&v34->_transportQueue, transportQueue);
   objc_storeStrong(&v34->_xpcServiceProvider, provider);
@@ -76,16 +76,16 @@
   v35 = [[STFamilyInformationProvider alloc] initWithFamilyCirclePrimitives:primitivesCopy deviceInformationPrimitives:informationPrimitivesCopy contactStorePrimitives:storePrimitivesCopy];
 
   v36 = [[STFileBackedKeyValueStore alloc] initWithDirectory:lCopy fileExtension:@"plist" filesystemPrimitives:filesystemPrimitivesCopy];
-  v94 = v36;
+  v92 = v36;
   purge = [(STFileBackedKeyValueStore *)v36 purge];
   v38 = [[STPersistentIDSMessageTransportMessageAddressMap alloc] initWithPrimitives:transportPrimitivesCopy userAliasResolver:v35 keyValueStore:v36];
   v39 = [[STFileBackedKeyValueStore alloc] initWithDirectory:rLCopy fileExtension:@"plist" filesystemPrimitives:filesystemPrimitivesCopy];
 
   obja = v39;
   purge2 = [(STFileBackedKeyValueStore *)v39 purge];
-  v106 = v38;
-  v102 = [[STPersistentIDSMessageTransportMessageIdentifierMap alloc] initWithKeyValueStore:v39];
-  v41 = [[STIDSMessageTransport alloc] initWithPrimitives:transportPrimitivesCopy messageAddressMap:v38 messageIdentifierMap:v102 addressValidator:v35 userAliasResolver:v35 returnAddressProvider:v35 transportQueue:transportQueueCopy];
+  v104 = v38;
+  v100 = [[STPersistentIDSMessageTransportMessageIdentifierMap alloc] initWithKeyValueStore:v39];
+  v41 = [[STIDSMessageTransport alloc] initWithPrimitives:transportPrimitivesCopy messageAddressMap:v38 messageIdentifierMap:v100 addressValidator:v35 userAliasResolver:v35 returnAddressProvider:v35 transportQueue:transportQueueCopy];
   v42 = [[STFileBackedKeyValueStore alloc] initWithDirectory:uRLCopy fileExtension:@"plist" filesystemPrimitives:filesystemPrimitivesCopy];
 
   purge3 = [(STFileBackedKeyValueStore *)v42 purge];
@@ -96,9 +96,9 @@
   objc_storeStrong(&v34->_familyInformationProvider, v35);
   [(STFamilyProviding *)v34->_familyInformationProvider setObserver:v34];
   objc_storeStrong(&v34->_idsTransportPrimitives, transportPrimitives);
-  v99 = v41;
+  v97 = v41;
   objc_storeStrong(&v34->__messageTransport, v41);
-  v97 = v44;
+  v95 = v44;
   v47 = [[STMessageTrackingTransportEnvoy alloc] initWithTransportService:v45 messageLedger:v44 queue:v34->_transportQueue];
   transportEnvoy = v34->_transportEnvoy;
   v34->_transportEnvoy = v47;
@@ -126,17 +126,15 @@
   genesisStateStore = v34->_genesisStateStore;
   v34->_genesisStateStore = v54;
 
-  v92 = [NSSet setWithArray:&off_1001B2550];
+  v90 = [NSSet setWithArray:&off_1001B2550];
   v56 = [schedulerProviderCopy createSchedulerRegisteredForTypes:? schedulerDelegate:?];
 
   backgroundActivityScheduler = v34->_backgroundActivityScheduler;
   v34->_backgroundActivityScheduler = v56;
 
-  v58 = [STReactorDirectiveProcessor alloc];
-  userSafetyPolicyWriter = v34->_userSafetyPolicyWriter;
-  v60 = [(STReactorDirectiveProcessor *)v58 initWithQueue:v34->_reactorQueue transportEnvoy:v34->_transportEnvoy transportEnvoyQueue:v34->_transportQueue configurationStore:v34->_configurationStore deviceStateStore:v34->_deviceStateStore biomeEventWriter:v34->_biomeEventWriter backgroundActivityScheduler:v34->_backgroundActivityScheduler familyProvider:v34->_familyInformationProvider eyeReliefStateWriter:v34->_eyeReliefStateWriter userSafetyPolicyWriter:userSafetyPolicyWriter transportPrimitives:v34->_idsTransportPrimitives];
+  v58 = [[STReactorDirectiveProcessor alloc] initWithQueue:v34->_reactorQueue transportEnvoy:v34->_transportEnvoy transportEnvoyQueue:v34->_transportQueue configurationStore:v34->_configurationStore deviceStateStore:v34->_deviceStateStore biomeEventWriter:v34->_biomeEventWriter backgroundActivityScheduler:v34->_backgroundActivityScheduler familyProvider:v34->_familyInformationProvider eyeReliefStateWriter:v34->_eyeReliefStateWriter userSafetyPolicyWriter:v34->_userSafetyPolicyWriter transportPrimitives:v34->_idsTransportPrimitives];
   directiveProcessor = v34->_directiveProcessor;
-  v34->_directiveProcessor = v60;
+  v34->_directiveProcessor = v58;
 
   provideAskService = [(STXPCServiceProvider *)v34->_xpcServiceProvider provideAskService];
   askService = v34->_askService;
@@ -164,40 +162,40 @@
 
   [(STDowntimeService *)v34->_downtimeService setDelegate:v34];
   objc_storeStrong(&v34->_deviceInformationPrimitives, informationPrimitives);
-  v72 = objc_retainBlock(beginCopy);
+  v70 = objc_retainBlock(beginCopy);
 
   shutdownWillBegin = v34->_shutdownWillBegin;
-  v34->_shutdownWillBegin = v72;
+  v34->_shutdownWillBegin = v70;
 
-  v74 = objc_retainBlock(completeCopy);
+  v72 = objc_retainBlock(completeCopy);
   shutdownDidComplete = v34->_shutdownDidComplete;
-  v34->_shutdownDidComplete = v74;
+  v34->_shutdownDidComplete = v72;
 
-  v121[0] = _NSConcreteStackBlock;
-  v121[1] = 3221225472;
-  v121[2] = sub_10005FD74;
-  v121[3] = &unk_1001A3E08;
-  v76 = v94;
+  v119[0] = _NSConcreteStackBlock;
+  v119[1] = 3221225472;
+  v119[2] = sub_10005FD74;
+  v119[3] = &unk_1001A3E08;
+  v74 = v92;
+  v120 = v74;
+  v75 = obja;
+  v121 = v75;
+  v76 = v42;
   v122 = v76;
-  v77 = obja;
+  v77 = v53;
   v123 = v77;
-  v78 = v42;
-  v124 = v78;
-  v79 = v53;
-  v125 = v79;
-  v80 = objc_retainBlock(v121);
+  v78 = objc_retainBlock(v119);
   purgeKeyValueStores = v34->_purgeKeyValueStores;
-  v34->_purgeKeyValueStores = v80;
+  v34->_purgeKeyValueStores = v78;
 
-  v82 = +[NSNotificationCenter defaultCenter];
-  v83 = +[STNetworkDetector sharedInstance];
-  [v82 addObserver:v34 selector:"_networkDidBecomeReachable:" name:@"STNetworkDetectorChangedNotificationName" object:v83];
+  v80 = +[NSNotificationCenter defaultCenter];
+  v81 = +[STNetworkDetector sharedInstance];
+  [v80 addObserver:v34 selector:"_networkDidBecomeReachable:" name:@"STNetworkDetectorChangedNotificationName" object:v81];
 
-  v84 = +[STLog reactor];
-  if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+  v82 = +[STLog reactor];
+  if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "Initialized Reactor", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "Initialized Reactor", buf, 2u);
   }
 
   return v34;

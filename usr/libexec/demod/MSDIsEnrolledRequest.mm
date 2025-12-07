@@ -8,9 +8,9 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v19.receiver = self;
-  v19.super_class = MSDIsEnrolledRequest;
-  v8 = [(MSDServerRequest *)&v19 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v20.receiver = self;
+  v20.super_class = MSDIsEnrolledRequest;
+  v8 = [(MSDServerRequest *)&v20 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (error)
@@ -22,9 +22,9 @@
 
   else
   {
-    v18 = errorCopy;
-    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v18];
-    v11 = v18;
+    v19 = errorCopy;
+    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v19];
+    v11 = v19;
 
     if (v10)
     {
@@ -34,12 +34,13 @@
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if ([v12 BOOLValue])
+          bOOLValue = [v12 BOOLValue];
+          if (bOOLValue)
           {
-            v13 = sub_100063A54();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+            v14 = sub_100063A54(bOOLValue);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
-              sub_1000E0394(v13);
+              sub_1000E0394(v14);
             }
           }
 
@@ -61,12 +62,12 @@
 
   if (!error2)
   {
-    v17 = v11;
-    sub_1000C1390(&v17, 3727744512, @"Unexpected server response.");
-    v16 = v17;
+    v18 = v11;
+    sub_1000C1390(&v18, 3727744512, @"Unexpected server response.");
+    v17 = v18;
 
-    [v8 setError:v16];
-    v11 = v16;
+    [v8 setError:v17];
+    v11 = v17;
   }
 
 LABEL_10:

@@ -16,17 +16,17 @@
 - (uint64_t)pbf_URLIsReachableAndConformToResourceValues:()PBFAdditions error:;
 - (uint64_t)pbf_URLIsReachableAndConformsToAttributeValues:()PBFAdditions error:;
 - (uint64_t)pbf_isLegacyPosterSnapshot;
-- (uint64_t)pbf_isSnapshotBundle;
 - (uint64_t)pbf_recursivelyUpdateFileAttributes:()PBFAdditions error:;
 - (uint64_t)pbf_recursivelyUpdateResourceValues:()PBFAdditions error:;
 - (uint64_t)pbf_recursivelyValidateContentsAreReachableAndConformToAttributeValues:()PBFAdditions URLsNotConformingToAttributes:error:;
 - (uint64_t)pbf_recursivelyValidateContentsAreReachableAndConformToResourceValues:()PBFAdditions URLsNotConformingToAttributes:error:;
 - (uint64_t)pbf_updateFileAttributes:()PBFAdditions error:;
+- (void)pbf_isSnapshotBundle;
 @end
 
 @implementation NSURL(PBFAdditions)
 
-- (uint64_t)pbf_isSnapshotBundle
+- (void)pbf_isSnapshotBundle
 {
   result = [self pbf_isDirectory];
   if (result)
@@ -760,16 +760,16 @@ LABEL_13:
     +[NSURL(PBFAdditions) pbf_archivedDataStoreBaseURL];
   }
 
-  v1 = pbf_archivedDataStoreBaseURL_archivedDataStoreBaseURL;
+  v2 = pbf_archivedDataStoreBaseURL_archivedDataStoreBaseURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)pbf_dataStoreSQLiteDatabaseURLForBaseURL:()PBFAdditions version:
 {
   if (a4 >= 0x3C)
   {
-    v6 = [self pbf_dataStoreURLForBaseURL:? version:?];
+    v6 = [self pbf_dataStoreURLForBaseURL:a3 version:?];
     v4 = [self pbf_dataStoreSQLiteDatabaseURLForDataStoreURL:v6];
   }
 

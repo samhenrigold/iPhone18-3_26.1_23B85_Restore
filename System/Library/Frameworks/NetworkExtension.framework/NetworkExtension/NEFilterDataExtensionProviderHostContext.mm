@@ -30,9 +30,11 @@
 
 uint64_t __75__NEFilterDataExtensionProviderHostContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_4264 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2A60];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2A60];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_4264;
+  _extensionAuxiliaryHostProtocol_protocol_4264 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -49,9 +51,11 @@ uint64_t __75__NEFilterDataExtensionProviderHostContext__extensionAuxiliaryHostP
 
 uint64_t __77__NEFilterDataExtensionProviderHostContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_4269 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2910];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2910];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_4269;
+  _extensionAuxiliaryVendorProtocol_protocol_4269 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)applySettings:(id)settings completionHandler:(id)handler

@@ -26,7 +26,7 @@
 
 - (void)_startTimer
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   timerID = [(HMDHomePeriodicReader *)self timerID];
   v4 = +[HMDBackgroundTaskManager sharedManager];
   [v4 cancelTaskWithIdentifier:timerID onObserver:self];
@@ -45,9 +45,9 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v11;
-      v31 = 2112;
-      v32 = numberValue;
+      v29 = v11;
+      v30 = 2112;
+      v31 = numberValue;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Preference for reader interval is missing, using default value: %@", buf, 0x16u);
     }
 
@@ -66,19 +66,19 @@
     v18 = HMFGetLogIdentifier();
     hmf_localTimeDescription = [v14 hmf_localTimeDescription];
     *buf = 138543874;
-    v30 = v18;
-    v31 = 2112;
-    v32 = timerID;
-    v33 = 2112;
-    v34 = hmf_localTimeDescription;
+    v29 = v18;
+    v30 = 2112;
+    v31 = timerID;
+    v32 = 2112;
+    v33 = hmf_localTimeDescription;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Starting the next timer (%@) to fire at %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v15);
   v20 = +[HMDBackgroundTaskManager sharedManager];
-  v28 = 0;
-  v21 = [v20 scheduleTaskWithIdentifier:timerID fireDate:v14 onObserver:selfCopy2 selector:sel_handleTimerFiredNotification_ error:&v28];
-  v22 = v28;
+  v27 = 0;
+  v21 = [v20 scheduleTaskWithIdentifier:timerID fireDate:v14 onObserver:selfCopy2 selector:sel_handleTimerFiredNotification_ error:&v27];
+  v22 = v27;
 
   if ((v21 & 1) == 0)
   {
@@ -89,44 +89,42 @@
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v30 = v26;
-      v31 = 2112;
-      v32 = timerID;
-      v33 = 2112;
-      v34 = v22;
+      v29 = v26;
+      v30 = 2112;
+      v31 = timerID;
+      v32 = 2112;
+      v33 = v22;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to start timer %@ with error %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v23);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_issueCharacteristicRequests:(id)requests
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   requestsCopy = requests;
-  v5 = [requestsCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v5 = [requestsCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
-    v20 = requestsCopy;
+    v7 = *v21;
+    v19 = requestsCopy;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(requestsCopy);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = [requestsCopy objectForKey:v9];
         v11 = objc_autoreleasePoolPush();
         selfCopy = self;
@@ -138,15 +136,15 @@
           v15 = v7;
           v17 = v16 = self;
           *buf = 138543618;
-          v26 = v17;
-          v27 = 2112;
-          v28 = v9;
+          v25 = v17;
+          v26 = 2112;
+          v27 = v9;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Issuing a periodic read for %@", buf, 0x16u);
 
           self = v16;
           v7 = v15;
           v6 = v14;
-          requestsCopy = v20;
+          requestsCopy = v19;
         }
 
         objc_autoreleasePoolPop(v11);
@@ -154,18 +152,16 @@
         [v9 readCharacteristicValues:v10 source:1130 queue:workQueue completionHandler:&__block_literal_global_19_84288];
       }
 
-      v6 = [requestsCopy countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v6 = [requestsCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v6);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkToIssueRead
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -173,11 +169,11 @@
   {
     v6 = HMFGetLogIdentifier();
     timerID = [(HMDHomePeriodicReader *)selfCopy timerID];
-    v12 = 138543618;
-    v13 = v6;
-    v14 = 2112;
-    v15 = timerID;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping the timer with ID: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v6;
+    v13 = 2112;
+    v14 = timerID;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping the timer with ID: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -191,13 +187,11 @@
     [(HMDHomePeriodicReader *)selfCopy _issueCharacteristicRequests:_characteristicsToRead];
     [(HMDHomePeriodicReader *)selfCopy _startTimer];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkToIssueRead
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomePeriodicReader *)self workQueue];
 
   if (workQueue)
@@ -220,19 +214,17 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Object not configured yet", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startReadTimer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomePeriodicReader *)self workQueue];
 
   if (workQueue)
@@ -255,19 +247,17 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Object not configured yet", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _characteristicsToRead];
   if (v2)
   {
@@ -277,21 +267,19 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting periodic read timer", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting periodic read timer", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [*(a1 + 32) _startTimer];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_characteristicsToRead
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   home = [(HMDHomePeriodicReader *)self home];
   primaryResident = [home primaryResident];
   isCurrentDevice = [primaryResident isCurrentDevice];
@@ -299,30 +287,30 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
   if (isCurrentDevice)
   {
     v6 = [MEMORY[0x277CBEB58] set];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v45 = home;
+    v44 = home;
     triggers = [home triggers];
-    v8 = [triggers copy];
+    v8 = objc_msgSend_copy(triggers);
 
     obj = v8;
-    v9 = [v8 countByEnumeratingWithState:&v66 objects:v73 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v65 objects:v72 count:16];
     if (v9)
     {
       v10 = v9;
-      v52 = *v67;
+      v51 = *v66;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v67 != v52)
+          if (*v66 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v66 + 1) + 8 * i);
+          v12 = *(*(&v65 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -339,25 +327,25 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
           if (v14)
           {
             characteristicBaseEvents = [v14 characteristicBaseEvents];
+            v61 = 0u;
             v62 = 0u;
             v63 = 0u;
             v64 = 0u;
-            v65 = 0u;
-            v16 = [characteristicBaseEvents countByEnumeratingWithState:&v62 objects:v72 count:16];
+            v16 = [characteristicBaseEvents countByEnumeratingWithState:&v61 objects:v71 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v63;
+              v18 = *v62;
               do
               {
                 for (j = 0; j != v17; ++j)
                 {
-                  if (*v63 != v18)
+                  if (*v62 != v18)
                   {
                     objc_enumerationMutation(characteristicBaseEvents);
                   }
 
-                  characteristic = [*(*(&v62 + 1) + 8 * j) characteristic];
+                  characteristic = [*(*(&v61 + 1) + 8 * j) characteristic];
                   accessory = [characteristic accessory];
 
                   if ([accessory hasIPLink])
@@ -366,7 +354,7 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
                   }
                 }
 
-                v17 = [characteristicBaseEvents countByEnumeratingWithState:&v62 objects:v72 count:16];
+                v17 = [characteristicBaseEvents countByEnumeratingWithState:&v61 objects:v71 count:16];
               }
 
               while (v17);
@@ -374,24 +362,24 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
+        v10 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
       }
 
       while (v10);
     }
 
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
     v22 = v6;
-    v48 = [v22 countByEnumeratingWithState:&v58 objects:v71 count:16];
-    if (v48)
+    v47 = [v22 countByEnumeratingWithState:&v57 objects:v70 count:16];
+    if (v47)
     {
-      v53 = 0;
-      v46 = v22;
-      v47 = *v59;
+      v52 = 0;
+      v45 = v22;
+      v46 = *v58;
       v23 = *MEMORY[0x277CFE810];
       v24 = *MEMORY[0x277CFE680];
       do
@@ -399,12 +387,12 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
         v25 = 0;
         do
         {
-          if (*v59 != v47)
+          if (*v58 != v46)
           {
-            objc_enumerationMutation(v46);
+            objc_enumerationMutation(v45);
           }
 
-          v26 = *(*(&v58 + 1) + 8 * v25);
+          v26 = *(*(&v57 + 1) + 8 * v25);
           array = [strongToStrongObjectsMapTable objectForKey:v26];
           if (!array)
           {
@@ -413,26 +401,26 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
           }
 
           obja = v25;
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
           v55 = 0u;
+          v56 = 0u;
+          v53 = 0u;
+          v54 = 0u;
           services = [v26 services];
-          v29 = [services countByEnumeratingWithState:&v54 objects:v70 count:16];
+          v29 = [services countByEnumeratingWithState:&v53 objects:v69 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v55;
+            v31 = *v54;
             do
             {
               for (k = 0; k != v30; ++k)
               {
-                if (*v55 != v31)
+                if (*v54 != v31)
                 {
                   objc_enumerationMutation(services);
                 }
 
-                v33 = *(*(&v54 + 1) + 8 * k);
+                v33 = *(*(&v53 + 1) + 8 * k);
                 type = [v33 type];
                 v35 = [type isEqualToString:v23];
 
@@ -444,12 +432,12 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
                     v37 = [HMDCharacteristicRequest requestWithCharacteristic:v36];
                     [array addObject:v37];
 
-                    v53 = 1;
+                    v52 = 1;
                   }
                 }
               }
 
-              v30 = [services countByEnumeratingWithState:&v54 objects:v70 count:16];
+              v30 = [services countByEnumeratingWithState:&v53 objects:v69 count:16];
             }
 
             while (v30);
@@ -458,18 +446,18 @@ void __39__HMDHomePeriodicReader_startReadTimer__block_invoke(uint64_t a1)
           v25 = obja + 1;
         }
 
-        while (obja + 1 != v48);
-        v48 = [v46 countByEnumeratingWithState:&v58 objects:v71 count:16];
+        while (obja + 1 != v47);
+        v47 = [v45 countByEnumeratingWithState:&v57 objects:v70 count:16];
       }
 
-      while (v48);
-      v22 = v46;
+      while (v47);
+      v22 = v45;
 
-      if (v53)
+      if (v52)
       {
         v38 = strongToStrongObjectsMapTable;
 LABEL_50:
-        home = v45;
+        home = v44;
 
         goto LABEL_51;
       }
@@ -490,7 +478,7 @@ LABEL_50:
   {
     v42 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v75 = v42;
+    v74 = v42;
     _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@This device is not the resident, not issuing the periodic read", buf, 0xCu);
   }
 
@@ -498,33 +486,30 @@ LABEL_50:
   v38 = 0;
 LABEL_51:
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v38;
 }
 
 - (void)residentUpdated
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resident updated, issuing a read", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resident updated, issuing a read", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDHomePeriodicReader *)selfCopy checkToIssueRead];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTimerFiredNotification:(id)notification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_stringForKey:@"HMD.BGTM.NK"];
@@ -540,23 +525,21 @@ LABEL_51:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Issuing read for fired timer with ID: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Issuing read for fired timer with ID: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     [(HMDHomePeriodicReader *)selfCopy checkToIssueRead];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCharacteristicBasedEventAdded:(id)added
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -564,15 +547,13 @@ LABEL_51:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received characteristic event added notification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received characteristic event added notification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDHomePeriodicReader *)selfCopy startReadTimer];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -632,12 +613,11 @@ LABEL_51:
 
 uint64_t __36__HMDHomePeriodicReader_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_84320;
-  logCategory__hmf_once_v1_84320 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_84320;
+  logCategory__hmf_once_v1_84320 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

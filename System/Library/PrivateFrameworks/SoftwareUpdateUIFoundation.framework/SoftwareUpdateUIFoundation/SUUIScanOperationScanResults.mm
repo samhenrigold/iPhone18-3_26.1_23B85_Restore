@@ -313,7 +313,6 @@
   MEMORY[0x277D82BD8](v42);
   MEMORY[0x277D82BD8](identifier);
   objc_storeStrong(obj, 0);
-  *MEMORY[0x277D85DE8];
 
   return v25;
 }

@@ -1,6 +1,7 @@
 @interface CertInfoTrustDetailsViewController
 - (void)_setupNavItem;
 - (void)loadView;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CertInfoTrustDetailsViewController
@@ -20,6 +21,14 @@
   v2 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CertInfo"];
   v3 = [v2 localizedStringForKey:@"DETAILS" value:&stru_28561D260 table:@"CertInfo"];
   [navigationItem setTitle:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CertInfoTrustDetailsViewController;
+  [(CertInfoTrustDetailsViewController *)&v4 viewWillAppear:appear];
+  [(CertInfoTrustDetailsViewController *)self _setupNavItem];
 }
 
 @end

@@ -204,7 +204,7 @@
 - (id)description
 {
   v3 = [[NSString stringWithFormat:?], "stringByAppendingFormat:", @"\t                   Style ID: %@\n", [(MPDocument *)self currentStyle]];
-  [(MPDocument *)self duration];
+  objc_msgSend_duration(self);
   return [(NSString *)v3 stringByAppendingFormat:@"\t                   Duration: %f\n", v4];
 }
 
@@ -951,7 +951,7 @@
 {
   documentLayerGroup = [(MPDocumentInternal *)self->_internal documentLayerGroup];
 
-  [(MPLayerGroup *)documentLayerGroup duration];
+  objc_msgSend_duration(documentLayerGroup);
   return result;
 }
 

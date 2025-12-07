@@ -168,7 +168,7 @@ uint64_t __100__UNSUserNotificationServerRemoteNotificationConnectionListener_li
 
 - (void)_requestTokenForRemoteNotificationsForBundleIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = [MEMORY[0x277D77CB8] sourceDescriptionWithBundleIdentifier:identifierCopy];
@@ -194,9 +194,9 @@ uint64_t __100__UNSUserNotificationServerRemoteNotificationConnectionListener_li
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:v11, @"aps-environment"];
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277CCA050];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = v12;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = v12;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v16 = [v13 errorWithDomain:v14 code:3000 userInfo:v15];
 
     handlerCopy[2](handlerCopy, 0, v16);
@@ -210,8 +210,6 @@ uint64_t __100__UNSUserNotificationServerRemoteNotificationConnectionListener_li
   }
 
 LABEL_7:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateTokenForRemoteNotificationsForBundleIdentifier:(id)identifier
@@ -268,7 +266,7 @@ LABEL_7:
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __135__UNSUserNotificationServerRemoteNotificationConnectionListener_getAllowsRemoteNotificationsForBundleIdentifier_withCompletionHandler___block_invoke(uint64_t a1)
+void *__135__UNSUserNotificationServerRemoteNotificationConnectionListener_getAllowsRemoteNotificationsForBundleIdentifier_withCompletionHandler___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _allowsRemoteNotificationsForBundleIdentifier:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -349,47 +347,45 @@ uint64_t __135__UNSUserNotificationServerRemoteNotificationConnectionListener_ge
 
 - (void)_queue_removeConnectionForAllBundleIdentifiers:(id)identifiers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = [(NSMapTable *)self->_bundleIdentifiersByConnection objectForKey:identifiersCopy];
   v6 = [v5 copy];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(UNSUserNotificationServerRemoteNotificationConnectionListener *)self _queue_removeConnection:identifiersCopy forBundleIdentifier:*(*(&v13 + 1) + 8 * v11++), v13];
+        [(UNSUserNotificationServerRemoteNotificationConnectionListener *)self _queue_removeConnection:identifiersCopy forBundleIdentifier:*(*(&v12 + 1) + 8 * v11++), v12];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_didReceiveDeviceToken:(id)token forBundleIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   identifierCopy = identifier;
   v8 = [(UNSUserNotificationServerRemoteNotificationConnectionListener *)self _queue_observerConnectionsForBundleIdentifier:identifierCopy];
@@ -398,59 +394,56 @@ uint64_t __135__UNSUserNotificationServerRemoteNotificationConnectionListener_ge
   {
     v10 = v9;
     *buf = 138543618;
-    v24 = identifierCopy;
-    v25 = 2048;
-    v26 = [v8 count];
+    v23 = identifierCopy;
+    v24 = 2048;
+    v25 = [v8 count];
     _os_log_impl(&dword_270AA8000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending received device token to %ld connections", buf, 0x16u);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        remoteObjectProxy = [*(*(&v18 + 1) + 8 * v15) remoteObjectProxy];
+        remoteObjectProxy = [*(*(&v17 + 1) + 8 * v15) remoteObjectProxy];
         [remoteObjectProxy didReceiveDeviceToken:tokenCopy forBundleIdentifier:identifierCopy];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestTokenForRemoteNotificationsForBundleIdentifier:(uint64_t)a1 withCompletionHandler:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 138543874;
-  v4 = @"aps-environment";
-  v5 = 2114;
-  v6 = a1;
-  v7 = 2114;
-  v8 = 0;
-  _os_log_error_impl(&dword_270AA8000, a2, OS_LOG_TYPE_ERROR, "No valid '%{public}@' entitlement string found for application '%{public}@': %{public}@.", &v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 138543874;
+  v3 = @"aps-environment";
+  v4 = 2114;
+  v5 = a1;
+  v6 = 2114;
+  v7 = 0;
+  _os_log_error_impl(&dword_270AA8000, a2, OS_LOG_TYPE_ERROR, "No valid '%{public}@' entitlement string found for application '%{public}@': %{public}@.", &v2, 0x20u);
 }
 
 @end

@@ -15,8 +15,8 @@
 - (id).cxx_construct;
 - (id)actionForKey:(id)key;
 - (id)statisticsHandler;
-- (uint64_t)_statisticsMask;
-- (uint64_t)_updateSubsurface:(uint64_t)result;
+- (int32x2_t)_updateSubsurface:(int32x2_t *)result;
+- (os_unfair_lock_s)_statisticsMask;
 - (uint64_t)updateColor;
 - (uint64_t)waitUntilAsyncRenderingCompleted;
 - (void)_clearSubsurface;
@@ -255,7 +255,7 @@ LABEL_9:
   {
     atomic_fetch_add_explicit(p + 2, 1u, memory_order_relaxed);
     os_unfair_lock_unlock(&self->_lock._lock);
-    RB::Drawable::statistics_handler(p, &v6);
+    RB::Drawable::statistics_handler(&v6, p);
     if (v6)
     {
       v4 = *(v6 + 16);
@@ -681,24 +681,24 @@ LABEL_9:
             v100 = colorMode;
             RB::ColorMode::ColorMode(&t1, colorMode);
             v36 = objc_opt_new();
-            [v36 setProfile:2];
-            [v36 setDefaultColorSpace:rb_color_space(BYTE1(t1.a) | 0x100u)];
+            [(RBDisplayList *)v36 setProfile:2];
+            [(RBDisplayList *)v36 setDefaultColorSpace:rb_color_space(BYTE1(t1.a) | 0x100u)];
             v37.i32[0] = 0;
             v38 = vceq_s32(*&v108, 0x8000000080000000);
             v39 = vdup_lane_s32(vcgt_s32(v37, vpmin_u32(v38, v38)), 0);
             v40 = vbsl_s8(v39, vneg_f32(0x80000000800000), vcvt_f32_s32(*&v108));
             v41 = vand_s8(0x100000001000000, v39);
-            [v36 setContentRect:{*v41.i32, *&v41.i32[1], *v40.i32, *&v40.i32[1]}];
+            [(RBDisplayList *)v36 setContentRect:*v41.i32, *&v41.i32[1], *v40.i32, *&v40.i32[1]];
             *&v155.b = v154;
             v155.a = a;
             v155.d = d;
             v155.tx = tx;
             v155.ty = ty;
-            [v36 concat:&v155];
+            [(RBDisplayList *)v36 concat:&v155];
             v42 = RBDeviceSwapCurrent(v9);
             (*(callback + 2))(callback, v36);
             RBDeviceSwapCurrent(v42);
-            _rb_contents = [v36 _rb_contents];
+            _rb_contents = [(RBDisplayList *)v36 _rb_contents];
             if (_rb_contents)
             {
               v45 = RB::DisplayList::Layer::color_info((_rb_contents + 320), v44);
@@ -927,7 +927,7 @@ LABEL_141:
 
                 else
                 {
-                  v90 = [RBImageQueueLayer initWithSlots:?];
+                  v90 = [[RBImageQueueLayer alloc] initWithSlots:?];
 
                   self->_queueLayer._p = v90;
                   [(RBImageQueueLayer *)v90 setContentsScale:v107];
@@ -1107,17 +1107,17 @@ LABEL_142:
   return 0;
 }
 
-- (uint64_t)_statisticsMask
+- (os_unfair_lock_s)_statisticsMask
 {
   selfCopy = self;
   if (self)
   {
     os_unfair_lock_lock(self + 12);
-    v2 = *(selfCopy + 64);
+    v2 = *&selfCopy[16]._os_unfair_lock_opaque;
     if (v2)
     {
       atomic_fetch_add_explicit(&v2[2], 1u, memory_order_relaxed);
-      os_unfair_lock_unlock((selfCopy + 48));
+      os_unfair_lock_unlock(selfCopy + 12);
       selfCopy = RB::Drawable::statistics_mask(v2);
       if (atomic_fetch_add_explicit(&v2[2], 0xFFFFFFFF, memory_order_release) == 1)
       {
@@ -1127,7 +1127,7 @@ LABEL_142:
 
     else
     {
-      os_unfair_lock_unlock((selfCopy + 48));
+      os_unfair_lock_unlock(selfCopy + 12);
       return 0;
     }
   }
@@ -1361,7 +1361,7 @@ void __38__RBLayer_displayWithBounds_callback___block_invoke_30(uint64_t a1)
     v12 = @"RBLayer";
   }
 
-  RB::RenderFrame::RenderFrame(v51, v11, *(a1 + 104), 1, v12, v9 ^ 1u);
+  RB::RenderFrame::RenderFrame(v51, v11, *(a1 + 104), 1, v12, v9 ^ 1);
   v13 = *(a1 + 80);
   v14 = *(a1 + 147);
   v15 = *(a1 + 146);
@@ -2196,7 +2196,7 @@ void __59__RBLayer_copyImageInRect_options_completionQueue_handler___block_invok
 
   if (v37(v36))
   {
-    RBStrokeRef::clip(v52);
+    RBStrokeRef::clip();
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3321888768;
     v25[2] = __59__RBLayer_copyImageInRect_options_completionQueue_handler___block_invoke_63;
@@ -2583,14 +2583,14 @@ LABEL_9:
   RB::SurfacePool::collect_async(v10);
 }
 
-- (uint64_t)_updateSubsurface:(uint64_t)result
+- (int32x2_t)_updateSubsurface:(int32x2_t *)result
 {
   if (result)
   {
     v3 = result;
-    if (!*(result + 104) || a2[5].i32[0] - *(result + 144) >= 0)
+    if (!*&result[13] || a2[5].i32[0] - result[18].i32[0] >= 0)
     {
-      v4 = *(result + 72);
+      v4 = result[9];
       if (v4)
       {
         [v4 removeFromSuperlayer];

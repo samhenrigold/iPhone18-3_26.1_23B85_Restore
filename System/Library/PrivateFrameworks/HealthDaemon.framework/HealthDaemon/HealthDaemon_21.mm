@@ -1,2084 +1,3 @@
-__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
-{
-  v4 = *(a2 + 3);
-  v5 = *(a1 + 3);
-  if (v4 == v5)
-  {
-    goto LABEL_21;
-  }
-
-  v6 = *(*a4 + 384);
-  v7 = *(*a4 + 392);
-  v8 = v6;
-  if (v6 == v7)
-  {
-    v9 = *(*a4 + 384);
-  }
-
-  else
-  {
-    while (*v8 != v4)
-    {
-      v8 += 8;
-      if (v8 == v7)
-      {
-        v8 = *(*a4 + 392);
-        break;
-      }
-    }
-
-    v9 = *(*a4 + 384);
-    while (*v9 != v5)
-    {
-      v9 += 8;
-      if (v9 == v7)
-      {
-        v9 = *(*a4 + 392);
-        break;
-      }
-    }
-  }
-
-  if (v8 - v6 >= v9 - v6)
-  {
-LABEL_21:
-    v13 = *(a3 + 3);
-    if (v13 != v4)
-    {
-      v14 = *(*a4 + 384);
-      v15 = *(*a4 + 392);
-      if (v14 == v15)
-      {
-        v17 = *(*a4 + 384);
-        v16 = v17;
-      }
-
-      else
-      {
-        v16 = *(*a4 + 384);
-        v17 = v16;
-        do
-        {
-          if (*v17 == v13)
-          {
-            goto LABEL_27;
-          }
-
-          v17 += 8;
-        }
-
-        while (v17 != v15);
-        v17 = *(*a4 + 392);
-LABEL_27:
-        while (*v16 != v4)
-        {
-          v16 += 8;
-          if (v16 == v15)
-          {
-            v16 = *(*a4 + 392);
-            break;
-          }
-        }
-      }
-
-      if (v17 - v14 < v16 - v14)
-      {
-        v18 = *a2;
-        *v46 = a2[1];
-        *&v46[16] = a2[2];
-        v19 = *(a3 + 27);
-        v20 = a3[1];
-        *a2 = *a3;
-        a2[1] = v20;
-        *(a2 + 27) = v19;
-        *a3 = v18;
-        a3[1] = *v46;
-        result = *&v46[11];
-        *(a3 + 27) = *&v46[11];
-        v22 = *(a2 + 3);
-        v23 = *(a1 + 3);
-        if (v22 != v23)
-        {
-          v24 = *(*a4 + 384);
-          v25 = *(*a4 + 392);
-          if (v24 == v25)
-          {
-            v27 = *(*a4 + 384);
-            v26 = v27;
-          }
-
-          else
-          {
-            v26 = *(*a4 + 384);
-            v27 = v26;
-            do
-            {
-              if (*v27 == v22)
-              {
-                goto LABEL_38;
-              }
-
-              v27 += 8;
-            }
-
-            while (v27 != v25);
-            v27 = *(*a4 + 392);
-LABEL_38:
-            while (*v26 != v23)
-            {
-              v26 += 8;
-              if (v26 == v25)
-              {
-                v26 = *(*a4 + 392);
-                break;
-              }
-            }
-          }
-
-          if (v27 - v24 < v26 - v24)
-          {
-            v41 = *a1;
-            *v48 = a1[1];
-            *&v48[16] = a1[2];
-            v42 = *(a2 + 27);
-            v43 = a2[1];
-            *a1 = *a2;
-            a1[1] = v43;
-            *(a1 + 27) = v42;
-            *a2 = v41;
-            a2[1] = *v48;
-            result = *&v48[11];
-            *(a2 + 27) = *&v48[11];
-          }
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v10 = *(a3 + 3);
-    if (v10 != v4)
-    {
-      v11 = *(*a4 + 384);
-      if (v6 == v7)
-      {
-        v12 = *(*a4 + 384);
-      }
-
-      else
-      {
-        while (*v11 != v10)
-        {
-          v11 += 8;
-          if (v11 == v7)
-          {
-            v11 = *(*a4 + 392);
-            break;
-          }
-        }
-
-        v12 = *(*a4 + 384);
-        while (*v12 != v4)
-        {
-          v12 += 8;
-          if (v12 == v7)
-          {
-            v12 = *(*a4 + 392);
-            break;
-          }
-        }
-      }
-
-      if (v11 - v6 < v12 - v6)
-      {
-        v28 = a1[1];
-        v29 = *a1;
-        *v49 = *(&v28 + 1);
-        *&v49[8] = a1[2];
-        v30 = *(a3 + 27);
-        v31 = a3[1];
-        *a1 = *a3;
-        a1[1] = v31;
-        *(a1 + 27) = v30;
-LABEL_59:
-        *a3 = v29;
-        a3[1] = v28;
-        result = *&v49[3];
-        *(a3 + 27) = *&v49[3];
-        return result;
-      }
-    }
-
-    v32 = *a1;
-    *v47 = a1[1];
-    *&v47[16] = a1[2];
-    v33 = *(a2 + 27);
-    v34 = a2[1];
-    *a1 = *a2;
-    a1[1] = v34;
-    *(a1 + 27) = v33;
-    *a2 = v32;
-    a2[1] = *v47;
-    result = *&v47[11];
-    *(a2 + 27) = *&v47[11];
-    v35 = *(a3 + 3);
-    v36 = *(a2 + 3);
-    if (v35 != v36)
-    {
-      v37 = *(*a4 + 384);
-      v38 = *(*a4 + 392);
-      if (v37 == v38)
-      {
-        v40 = *(*a4 + 384);
-        v39 = v40;
-      }
-
-      else
-      {
-        v39 = *(*a4 + 384);
-        v40 = v39;
-        do
-        {
-          if (*v40 == v35)
-          {
-            goto LABEL_50;
-          }
-
-          v40 += 8;
-        }
-
-        while (v40 != v38);
-        v40 = *(*a4 + 392);
-LABEL_50:
-        while (*v39 != v36)
-        {
-          v39 += 8;
-          if (v39 == v38)
-          {
-            v39 = *(*a4 + 392);
-            break;
-          }
-        }
-      }
-
-      if (v40 - v37 < v39 - v37)
-      {
-        v28 = a2[1];
-        v29 = *a2;
-        *v49 = *(&v28 + 1);
-        *&v49[8] = a2[2];
-        v44 = *(a3 + 27);
-        v45 = a3[1];
-        *a2 = *a3;
-        a2[1] = v45;
-        *(a2 + 27) = v44;
-        goto LABEL_59;
-      }
-    }
-  }
-
-  return result;
-}
-
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  result.n128_u64[0] = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, a2, a3, a5).n128_u64[0];
-  v11 = *(a4 + 24);
-  v12 = *(a3 + 24);
-  if (v11 != v12)
-  {
-    v13 = *(*a5 + 384);
-    v14 = *(*a5 + 392);
-    if (v13 == v14)
-    {
-      v16 = *(*a5 + 384);
-      v15 = v16;
-    }
-
-    else
-    {
-      v15 = *(*a5 + 384);
-      v16 = v15;
-      do
-      {
-        if (*v16 == v11)
-        {
-          goto LABEL_7;
-        }
-
-        v16 += 8;
-      }
-
-      while (v16 != v14);
-      v16 = *(*a5 + 392);
-LABEL_7:
-      while (*v15 != v12)
-      {
-        v15 += 8;
-        if (v15 == v14)
-        {
-          v15 = *(*a5 + 392);
-          break;
-        }
-      }
-    }
-
-    if (v16 - v13 < v15 - v13)
-    {
-      v17 = *a3;
-      *v38 = *(a3 + 16);
-      *&v38[16] = *(a3 + 32);
-      v18 = *(a4 + 27);
-      v19 = *(a4 + 16);
-      *a3 = *a4;
-      *(a3 + 16) = v19;
-      *(a3 + 27) = v18;
-      *a4 = v17;
-      *(a4 + 16) = *v38;
-      result = *&v38[11];
-      *(a4 + 27) = *&v38[11];
-      v20 = *(a3 + 24);
-      v21 = *(a2 + 24);
-      if (v20 != v21)
-      {
-        v22 = *(*a5 + 384);
-        v23 = *(*a5 + 392);
-        if (v22 == v23)
-        {
-          v25 = *(*a5 + 384);
-          v24 = v25;
-        }
-
-        else
-        {
-          v24 = *(*a5 + 384);
-          v25 = v24;
-          do
-          {
-            if (*v25 == v20)
-            {
-              goto LABEL_18;
-            }
-
-            v25 += 8;
-          }
-
-          while (v25 != v23);
-          v25 = *(*a5 + 392);
-LABEL_18:
-          while (*v24 != v21)
-          {
-            v24 += 8;
-            if (v24 == v23)
-            {
-              v24 = *(*a5 + 392);
-              break;
-            }
-          }
-        }
-
-        if (v25 - v22 < v24 - v22)
-        {
-          v26 = *a2;
-          *v39 = *(a2 + 16);
-          *&v39[16] = *(a2 + 32);
-          v27 = *(a3 + 27);
-          v28 = *(a3 + 16);
-          *a2 = *a3;
-          *(a2 + 16) = v28;
-          *(a2 + 27) = v27;
-          *a3 = v26;
-          *(a3 + 16) = *v39;
-          result = *&v39[11];
-          *(a3 + 27) = *&v39[11];
-          v29 = *(a2 + 24);
-          v30 = *(a1 + 24);
-          if (v29 != v30)
-          {
-            v31 = *(*a5 + 384);
-            v32 = *(*a5 + 392);
-            if (v31 == v32)
-            {
-              v34 = *(*a5 + 384);
-              v33 = v34;
-            }
-
-            else
-            {
-              v33 = *(*a5 + 384);
-              v34 = v33;
-              do
-              {
-                if (*v34 == v29)
-                {
-                  goto LABEL_29;
-                }
-
-                v34 += 8;
-              }
-
-              while (v34 != v32);
-              v34 = *(*a5 + 392);
-LABEL_29:
-              while (*v33 != v30)
-              {
-                v33 += 8;
-                if (v33 == v32)
-                {
-                  v33 = *(*a5 + 392);
-                  break;
-                }
-              }
-            }
-
-            if (v34 - v31 < v33 - v31)
-            {
-              v35 = *a1;
-              *v40 = *(a1 + 16);
-              *&v40[16] = *(a1 + 32);
-              v36 = *(a2 + 27);
-              v37 = *(a2 + 16);
-              *a1 = *a2;
-              *(a1 + 16) = v37;
-              *(a1 + 27) = v36;
-              *a2 = v35;
-              *(a2 + 16) = *v40;
-              result = *&v40[11];
-              *(a2 + 27) = *&v40[11];
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  result.n128_u64[0] = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, a2, a3, a4, a6).n128_u64[0];
-  v13 = *(a5 + 24);
-  v14 = *(a4 + 24);
-  if (v13 != v14)
-  {
-    v15 = *(*a6 + 384);
-    v16 = *(*a6 + 392);
-    if (v15 == v16)
-    {
-      v18 = *(*a6 + 384);
-      v17 = v18;
-    }
-
-    else
-    {
-      v17 = *(*a6 + 384);
-      v18 = v17;
-      do
-      {
-        if (*v18 == v13)
-        {
-          goto LABEL_7;
-        }
-
-        v18 += 8;
-      }
-
-      while (v18 != v16);
-      v18 = *(*a6 + 392);
-LABEL_7:
-      while (*v17 != v14)
-      {
-        v17 += 8;
-        if (v17 == v16)
-        {
-          v17 = *(*a6 + 392);
-          break;
-        }
-      }
-    }
-
-    if (v18 - v15 < v17 - v15)
-    {
-      v19 = *a4;
-      *v49 = *(a4 + 16);
-      *&v49[16] = *(a4 + 32);
-      v20 = *(a5 + 27);
-      v21 = *(a5 + 16);
-      *a4 = *a5;
-      *(a4 + 16) = v21;
-      *(a4 + 27) = v20;
-      *a5 = v19;
-      *(a5 + 16) = *v49;
-      result = *&v49[11];
-      *(a5 + 27) = *&v49[11];
-      v22 = *(a4 + 24);
-      v23 = *(a3 + 24);
-      if (v22 != v23)
-      {
-        v24 = *(*a6 + 384);
-        v25 = *(*a6 + 392);
-        if (v24 == v25)
-        {
-          v27 = *(*a6 + 384);
-          v26 = v27;
-        }
-
-        else
-        {
-          v26 = *(*a6 + 384);
-          v27 = v26;
-          do
-          {
-            if (*v27 == v22)
-            {
-              goto LABEL_18;
-            }
-
-            v27 += 8;
-          }
-
-          while (v27 != v25);
-          v27 = *(*a6 + 392);
-LABEL_18:
-          while (*v26 != v23)
-          {
-            v26 += 8;
-            if (v26 == v25)
-            {
-              v26 = *(*a6 + 392);
-              break;
-            }
-          }
-        }
-
-        if (v27 - v24 < v26 - v24)
-        {
-          v28 = *a3;
-          *v50 = *(a3 + 16);
-          *&v50[16] = *(a3 + 32);
-          v29 = *(a4 + 27);
-          v30 = *(a4 + 16);
-          *a3 = *a4;
-          *(a3 + 16) = v30;
-          *(a3 + 27) = v29;
-          *a4 = v28;
-          *(a4 + 16) = *v50;
-          result = *&v50[11];
-          *(a4 + 27) = *&v50[11];
-          v31 = *(a3 + 24);
-          v32 = *(a2 + 24);
-          if (v31 != v32)
-          {
-            v33 = *(*a6 + 384);
-            v34 = *(*a6 + 392);
-            if (v33 == v34)
-            {
-              v36 = *(*a6 + 384);
-              v35 = v36;
-            }
-
-            else
-            {
-              v35 = *(*a6 + 384);
-              v36 = v35;
-              do
-              {
-                if (*v36 == v31)
-                {
-                  goto LABEL_29;
-                }
-
-                v36 += 8;
-              }
-
-              while (v36 != v34);
-              v36 = *(*a6 + 392);
-LABEL_29:
-              while (*v35 != v32)
-              {
-                v35 += 8;
-                if (v35 == v34)
-                {
-                  v35 = *(*a6 + 392);
-                  break;
-                }
-              }
-            }
-
-            if (v36 - v33 < v35 - v33)
-            {
-              v37 = *a2;
-              *v51 = *(a2 + 16);
-              *&v51[16] = *(a2 + 32);
-              v38 = *(a3 + 27);
-              v39 = *(a3 + 16);
-              *a2 = *a3;
-              *(a2 + 16) = v39;
-              *(a2 + 27) = v38;
-              *a3 = v37;
-              *(a3 + 16) = *v51;
-              result = *&v51[11];
-              *(a3 + 27) = *&v51[11];
-              v40 = *(a2 + 24);
-              v41 = *(a1 + 24);
-              if (v40 != v41)
-              {
-                v42 = *(*a6 + 384);
-                v43 = *(*a6 + 392);
-                if (v42 == v43)
-                {
-                  v45 = *(*a6 + 384);
-                  v44 = v45;
-                }
-
-                else
-                {
-                  v44 = *(*a6 + 384);
-                  v45 = v44;
-                  do
-                  {
-                    if (*v45 == v40)
-                    {
-                      goto LABEL_40;
-                    }
-
-                    v45 += 8;
-                  }
-
-                  while (v45 != v43);
-                  v45 = *(*a6 + 392);
-LABEL_40:
-                  while (*v44 != v41)
-                  {
-                    v44 += 8;
-                    if (v44 == v43)
-                    {
-                      v44 = *(*a6 + 392);
-                      break;
-                    }
-                  }
-                }
-
-                if (v45 - v42 < v44 - v42)
-                {
-                  v46 = *a1;
-                  *v52 = *(a1 + 16);
-                  *&v52[16] = *(a1 + 32);
-                  v47 = *(a2 + 27);
-                  v48 = *(a2 + 16);
-                  *a1 = *a2;
-                  *(a1 + 16) = v48;
-                  *(a1 + 27) = v47;
-                  *a2 = v46;
-                  *(a2 + 16) = *v52;
-                  result = *&v52[11];
-                  *(a2 + 27) = *&v52[11];
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v39 = *MEMORY[0x277D85DE8];
-  v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
-  if (v6 <= 2)
-  {
-    if (v6 >= 2)
-    {
-      if (v6 == 2)
-      {
-        v7 = *(a2 - 24);
-        v8 = *(a1 + 24);
-        if (v7 != v8)
-        {
-          v9 = *(*a3 + 384);
-          v10 = *(*a3 + 392);
-          if (v9 == v10)
-          {
-            v12 = *(*a3 + 384);
-            v11 = v12;
-          }
-
-          else
-          {
-            v11 = *(*a3 + 384);
-            v12 = v11;
-            do
-            {
-              if (*v12 == v7)
-              {
-                goto LABEL_10;
-              }
-
-              v12 += 8;
-            }
-
-            while (v12 != v10);
-            v12 = *(*a3 + 392);
-LABEL_10:
-            while (*v11 != v8)
-            {
-              v11 += 8;
-              if (v11 == v10)
-              {
-                v11 = *(*a3 + 392);
-                break;
-              }
-            }
-          }
-
-          if (v12 - v9 < v11 - v9)
-          {
-            v31 = (a2 - 48);
-            v32 = *a1;
-            *v37 = *(a1 + 16);
-            *&v37[16] = *(a1 + 32);
-            v33 = *(a2 - 21);
-            v34 = *(a2 - 32);
-            *a1 = *(a2 - 48);
-            *(a1 + 16) = v34;
-            *(a1 + 27) = v33;
-            *v31 = v32;
-            v31[1] = *v37;
-            *(v31 + 27) = *&v37[11];
-          }
-        }
-
-        goto LABEL_50;
-      }
-
-      goto LABEL_18;
-    }
-
-LABEL_50:
-    result = 1;
-    goto LABEL_51;
-  }
-
-  switch(v6)
-  {
-    case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, (a1 + 48), (a2 - 48), a3);
-      goto LABEL_50;
-    case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, a1 + 48, a1 + 96, a2 - 48, a3);
-      goto LABEL_50;
-    case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, a1 + 48, a1 + 96, a1 + 144, a2 - 48, a3);
-      goto LABEL_50;
-  }
-
-LABEL_18:
-  v13 = a1 + 96;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, (a1 + 48), (a1 + 96), a3);
-  v14 = a1 + 144;
-  if (a1 + 144 == a2)
-  {
-    goto LABEL_50;
-  }
-
-  v15 = 0;
-  while (1)
-  {
-    v16 = *(v14 + 24);
-    v17 = *(v13 + 24);
-    if (v16 != v17)
-    {
-      v18 = *(*a3 + 384);
-      v19 = *(*a3 + 392);
-      if (v18 == v19)
-      {
-        v21 = *(*a3 + 384);
-        v20 = v21;
-      }
-
-      else
-      {
-        v20 = *(*a3 + 384);
-        v21 = v20;
-        do
-        {
-          if (*v21 == v16)
-          {
-            goto LABEL_26;
-          }
-
-          v21 += 8;
-        }
-
-        while (v21 != v19);
-        v21 = *(*a3 + 392);
-LABEL_26:
-        while (*v20 != v17)
-        {
-          v20 += 8;
-          if (v20 == v19)
-          {
-            v20 = *(*a3 + 392);
-            break;
-          }
-        }
-      }
-
-      if (v21 - v18 < v20 - v18)
-      {
-        v35 = *v14;
-        v36 = *(v14 + 16);
-        v38 = *(v14 + 32);
-        v22 = v14;
-        while (1)
-        {
-          v23 = *(v13 + 16);
-          *v22 = *v13;
-          *(v22 + 16) = v23;
-          *(v22 + 27) = *(v13 + 27);
-          if (v13 == a1)
-          {
-            break;
-          }
-
-          v22 = v13;
-          v24 = *(v13 - 24);
-          if (v16 != v24)
-          {
-            v25 = *(*a3 + 384);
-            v26 = *(*a3 + 392);
-            if (v25 == v26)
-            {
-              v28 = *(*a3 + 384);
-              v27 = v28;
-            }
-
-            else
-            {
-              v27 = *(*a3 + 384);
-              v28 = v27;
-              do
-              {
-                if (*v28 == v16)
-                {
-                  goto LABEL_39;
-                }
-
-                v28 += 8;
-              }
-
-              while (v28 != v26);
-              v28 = *(*a3 + 392);
-LABEL_39:
-              while (*v27 != v24)
-              {
-                v27 += 8;
-                if (v27 == v26)
-                {
-                  v27 = *(*a3 + 392);
-                  break;
-                }
-              }
-            }
-
-            v13 -= 48;
-            if (v28 - v25 < v27 - v25)
-            {
-              continue;
-            }
-          }
-
-          goto LABEL_46;
-        }
-
-        v22 = a1;
-LABEL_46:
-        *v22 = v35;
-        *(v22 + 16) = v36;
-        *(v22 + 24) = v16;
-        *(v22 + 32) = v38;
-        *(v22 + 39) = *(&v38 + 7);
-        if (++v15 == 8)
-        {
-          break;
-        }
-      }
-    }
-
-    v13 = v14;
-    v14 += 48;
-    if (v14 == a2)
-    {
-      goto LABEL_50;
-    }
-  }
-
-  result = v14 + 48 == a2;
-LABEL_51:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,false>(uint64_t a1, __int128 *a2, uint64_t a3, char a4)
-{
-  v268 = *MEMORY[0x277D85DE8];
-LABEL_2:
-  v8 = a2 - 3;
-  v9 = a2 - 6;
-  v10 = a2 - 9;
-  v11 = a1;
-  while (1)
-  {
-    a1 = v11;
-    v12 = a2 - v11;
-    v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 4);
-    if (v13 > 2)
-    {
-      break;
-    }
-
-    if (v13 < 2)
-    {
-      goto LABEL_190;
-    }
-
-    if (v13 == 2)
-    {
-      if (*(a2 - 5) < *(v11 + 8))
-      {
-        *v256 = *(v11 + 16);
-        *&v256[16] = *(v11 + 32);
-        v222 = *v11;
-        v116 = *(a2 - 3);
-        v117 = *(a2 - 2);
-        *(v11 + 27) = *(a2 - 21);
-        *v11 = v116;
-        *(v11 + 16) = v117;
-        *(a2 - 21) = *&v256[11];
-        *(a2 - 3) = v222;
-        *(a2 - 2) = *v256;
-      }
-
-      goto LABEL_190;
-    }
-
-LABEL_10:
-    if (v12 <= 1151)
-    {
-      v127 = (v11 + 48);
-      v129 = v11 == a2 || v127 == a2;
-      if (a4)
-      {
-        if (!v129)
-        {
-          v130 = 0;
-          v131 = v11;
-          do
-          {
-            v132 = v127;
-            v133 = *(v131 + 56);
-            if (v133 < *(v131 + 8))
-            {
-              v134 = *v127;
-              *v225 = *(v131 + 64);
-              *&v225[16] = *(v131 + 80);
-              v135 = v130;
-              while (1)
-              {
-                v136 = (v11 + v135);
-                v137 = *(v11 + v135 + 16);
-                v136[3] = *(v11 + v135);
-                v136[4] = v137;
-                *(v136 + 75) = *(v11 + v135 + 27);
-                if (!v135)
-                {
-                  break;
-                }
-
-                v135 -= 48;
-                if (v133 >= *(v136 - 5))
-                {
-                  v138 = v11 + v135 + 48;
-                  goto LABEL_130;
-                }
-              }
-
-              v138 = v11;
-LABEL_130:
-              *v138 = v134;
-              *(v138 + 8) = v133;
-              *(v138 + 16) = *v225;
-              *(v138 + 27) = *&v225[11];
-            }
-
-            v127 = v132 + 3;
-            v130 += 48;
-            v131 = v132;
-          }
-
-          while (v132 + 3 != a2);
-        }
-      }
-
-      else if (!v129)
-      {
-        do
-        {
-          v181 = v127;
-          v182 = *(a1 + 56);
-          if (v182 < *(a1 + 8))
-          {
-            v183 = *v127;
-            *v229 = *(a1 + 64);
-            *&v229[16] = *(a1 + 80);
-            v184 = v127;
-            do
-            {
-              v185 = *(v184 - 2);
-              *v184 = *(v184 - 3);
-              v184[1] = v185;
-              *(v184 + 27) = *(v184 - 21);
-              v186 = *(v184 - 11);
-              v184 -= 3;
-            }
-
-            while (v182 < v186);
-            *v184 = v183;
-            *(v184 + 1) = v182;
-            *(v184 + 27) = *&v229[11];
-            v184[1] = *v229;
-          }
-
-          v127 += 3;
-          a1 = v181;
-        }
-
-        while (v181 + 3 != a2);
-      }
-
-      goto LABEL_190;
-    }
-
-    if (!a3)
-    {
-      if (v11 != a2)
-      {
-        v139 = (v13 - 2) >> 1;
-        v140 = v139;
-        do
-        {
-          v141 = v140;
-          if (v139 >= v140)
-          {
-            v142 = (2 * v140) | 1;
-            v143 = v11 + 48 * v142;
-            if (2 * v141 + 2 < v13 && *(v143 + 8) < *(v143 + 56))
-            {
-              v143 += 48;
-              v142 = 2 * v141 + 2;
-            }
-
-            v144 = v11 + 48 * v141;
-            v145 = *(v144 + 8);
-            if (*(v143 + 8) >= v145)
-            {
-              v146 = *v144;
-              *v226 = *(v144 + 16);
-              *&v226[16] = *(v144 + 32);
-              do
-              {
-                v147 = v144;
-                v144 = v143;
-                v148 = *v143;
-                v149 = *(v143 + 16);
-                *(v147 + 27) = *(v143 + 27);
-                *v147 = v148;
-                v147[1] = v149;
-                if (v139 < v142)
-                {
-                  break;
-                }
-
-                v150 = 2 * v142;
-                v142 = (2 * v142) | 1;
-                v143 = v11 + 48 * v142;
-                v151 = v150 + 2;
-                if (v151 < v13 && *(v143 + 8) < *(v143 + 56))
-                {
-                  v143 += 48;
-                  v142 = v151;
-                }
-              }
-
-              while (*(v143 + 8) >= v145);
-              *v144 = v146;
-              *(v144 + 8) = v145;
-              *(v144 + 16) = *v226;
-              *(v144 + 27) = *&v226[11];
-            }
-          }
-
-          v140 = v141 - 1;
-        }
-
-        while (v141);
-        v152 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 4);
-        do
-        {
-          v153 = 0;
-          v154 = *(v11 + 16);
-          *v259 = v154;
-          *&v259[16] = *(v11 + 32);
-          v227 = *v11;
-          v155 = v11;
-          do
-          {
-            v156 = &v155[3 * v153];
-            v157 = (v156 + 6);
-            v158 = (2 * v153) | 1;
-            v153 = 2 * v153 + 2;
-            if (v153 >= v152)
-            {
-              v153 = v158;
-            }
-
-            else
-            {
-              v159 = v156[7];
-              v160 = v156[13];
-              v161 = (v156 + 12);
-              if (v159 >= v160)
-              {
-                v153 = v158;
-              }
-
-              else
-              {
-                v157 = v161;
-              }
-            }
-
-            v162 = *v157;
-            v163 = v157[1];
-            *(v155 + 27) = *(v157 + 27);
-            *v155 = v162;
-            v155[1] = v163;
-            v155 = v157;
-          }
-
-          while (v153 <= ((v152 - 2) >> 1));
-          a2 -= 3;
-          if (v157 == a2)
-          {
-            *(v157 + 27) = *&v259[11];
-            *v157 = v227;
-            v157[1] = *v259;
-          }
-
-          else
-          {
-            v164 = *a2;
-            v165 = a2[1];
-            *(v157 + 27) = *(a2 + 27);
-            *v157 = v164;
-            v157[1] = v165;
-            *(a2 + 27) = *&v259[11];
-            *a2 = v227;
-            a2[1] = *v259;
-            v166 = v157 - v11 + 48;
-            if (v166 >= 49)
-            {
-              v167 = (-2 - 0x5555555555555555 * (v166 >> 4)) >> 1;
-              v168 = v11 + 48 * v167;
-              v169 = *(v157 + 1);
-              if (*(v168 + 8) < v169)
-              {
-                v170 = *v157;
-                *v202 = v157[1];
-                *&v202[16] = v157[2];
-                do
-                {
-                  v171 = v157;
-                  v157 = v168;
-                  v172 = *v168;
-                  v173 = *(v168 + 16);
-                  *(v171 + 27) = *(v168 + 27);
-                  *v171 = v172;
-                  v171[1] = v173;
-                  if (!v167)
-                  {
-                    break;
-                  }
-
-                  v167 = (v167 - 1) >> 1;
-                  v168 = v11 + 48 * v167;
-                }
-
-                while (*(v168 + 8) < v169);
-                *v157 = v170;
-                *(v157 + 1) = v169;
-                v157[1] = *v202;
-                *(v157 + 27) = *&v202[11];
-              }
-            }
-          }
-        }
-
-        while (v152-- > 2);
-      }
-
-      goto LABEL_190;
-    }
-
-    v14 = v13 >> 1;
-    v15 = v11 + 48 * (v13 >> 1);
-    v16 = *(a2 - 5);
-    if (v12 >= 0x1801)
-    {
-      v17 = *(v15 + 8);
-      if (v17 >= *(v11 + 8))
-      {
-        if (v16 < v17)
-        {
-          *v235 = *(v15 + 16);
-          *&v235[16] = *(v15 + 32);
-          v205 = *v15;
-          v23 = *v8;
-          v24 = *(a2 - 2);
-          *(v15 + 27) = *(a2 - 21);
-          *v15 = v23;
-          *(v15 + 16) = v24;
-          *(a2 - 21) = *&v235[11];
-          *v8 = v205;
-          *(a2 - 2) = *v235;
-          if (*(v15 + 8) < *(v11 + 8))
-          {
-            *v236 = *(v11 + 16);
-            *&v236[16] = *(v11 + 32);
-            v206 = *v11;
-            v25 = *v15;
-            v26 = *(v15 + 16);
-            *(v11 + 27) = *(v15 + 27);
-            *v11 = v25;
-            *(v11 + 16) = v26;
-            *(v15 + 27) = *&v236[11];
-            *v15 = v206;
-            *(v15 + 16) = *v236;
-          }
-        }
-      }
-
-      else
-      {
-        if (v16 < v17)
-        {
-          *v233 = *(v11 + 16);
-          *&v233[16] = *(v11 + 32);
-          v203 = *v11;
-          v18 = *v8;
-          v19 = *(a2 - 2);
-          *(v11 + 27) = *(a2 - 21);
-          *v11 = v18;
-          *(v11 + 16) = v19;
-          goto LABEL_27;
-        }
-
-        *v239 = *(v11 + 16);
-        *&v239[16] = *(v11 + 32);
-        v209 = *v11;
-        v31 = *v15;
-        v32 = *(v15 + 16);
-        *(v11 + 27) = *(v15 + 27);
-        *v11 = v31;
-        *(v11 + 16) = v32;
-        *(v15 + 27) = *&v239[11];
-        *v15 = v209;
-        *(v15 + 16) = *v239;
-        if (*(a2 - 5) < *(v15 + 8))
-        {
-          *v233 = *(v15 + 16);
-          *&v233[16] = *(v15 + 32);
-          v203 = *v15;
-          v33 = *v8;
-          v34 = *(a2 - 2);
-          *(v15 + 27) = *(a2 - 21);
-          *v15 = v33;
-          *(v15 + 16) = v34;
-LABEL_27:
-          *(a2 - 21) = *&v233[11];
-          *v8 = v203;
-          *(a2 - 2) = *v233;
-        }
-      }
-
-      v35 = v11 + 48 * v14;
-      v36 = (v35 - 48);
-      v37 = *(v35 - 40);
-      v38 = *(a2 - 11);
-      if (v37 >= *(v11 + 56))
-      {
-        if (v38 < v37)
-        {
-          *v241 = *(v35 - 32);
-          *&v241[16] = *(v35 - 16);
-          v210 = *v36;
-          v43 = *v9;
-          v44 = *(a2 - 5);
-          *(v35 - 21) = *(a2 - 69);
-          *v36 = v43;
-          *(v35 - 32) = v44;
-          *(a2 - 69) = *&v241[11];
-          *v9 = v210;
-          *(a2 - 5) = *v241;
-          if (*(v35 - 40) < *(v11 + 56))
-          {
-            *v242 = *(v11 + 64);
-            *&v242[16] = *(v11 + 80);
-            v45 = *(v11 + 48);
-            v47 = *v36;
-            v46 = *(v35 - 32);
-            *(v11 + 75) = *(v35 - 21);
-            *(v11 + 48) = v47;
-            *(v11 + 64) = v46;
-            *(v35 - 21) = *&v242[11];
-            *v36 = v45;
-            *(v35 - 32) = *v242;
-          }
-        }
-      }
-
-      else
-      {
-        if (v38 < v37)
-        {
-          v39 = *(v11 + 64);
-          *&v240[8] = *(&v39 + 1);
-          *&v240[16] = *(v11 + 80);
-          v40 = *(v11 + 48);
-          v42 = *v9;
-          v41 = *(a2 - 5);
-          *(v11 + 75) = *(a2 - 69);
-          *(v11 + 48) = v42;
-          *(v11 + 64) = v41;
-          goto LABEL_39;
-        }
-
-        *v244 = *(v11 + 64);
-        *&v244[16] = *(v11 + 80);
-        v52 = *(v11 + 48);
-        v54 = *v36;
-        v53 = *(v35 - 32);
-        *(v11 + 75) = *(v35 - 21);
-        *(v11 + 48) = v54;
-        *(v11 + 64) = v53;
-        *(v35 - 21) = *&v244[11];
-        *v36 = v52;
-        *(v35 - 32) = *v244;
-        if (*(a2 - 11) < *(v35 - 40))
-        {
-          *v240 = *(v35 - 32);
-          *&v240[16] = *(v35 - 16);
-          v212 = *v36;
-          v55 = *v9;
-          v56 = *(a2 - 5);
-          *(v35 - 21) = *(a2 - 69);
-          *v36 = v55;
-          *(v35 - 32) = v56;
-          v40 = v212;
-          v39 = *v240;
-LABEL_39:
-          *(a2 - 69) = *&v240[11];
-          *v9 = v40;
-          *(a2 - 5) = v39;
-        }
-      }
-
-      v57 = v11 + 48 * v14;
-      v58 = *(v57 + 56);
-      v59 = *(a2 - 17);
-      if (v58 >= *(v11 + 104))
-      {
-        if (v59 < v58)
-        {
-          *v246 = *(v57 + 64);
-          *&v246[16] = *(v57 + 80);
-          v213 = *(v57 + 48);
-          v64 = *v10;
-          v65 = *(a2 - 8);
-          *(v57 + 75) = *(a2 - 117);
-          *(v57 + 48) = v64;
-          *(v57 + 64) = v65;
-          *(a2 - 117) = *&v246[11];
-          *v10 = v213;
-          *(a2 - 8) = *v246;
-          if (*(v57 + 56) < *(v11 + 104))
-          {
-            *v247 = *(v11 + 112);
-            *&v247[16] = *(v11 + 128);
-            v66 = *(v11 + 96);
-            v68 = *(v57 + 48);
-            v67 = *(v57 + 64);
-            *(v11 + 123) = *(v57 + 75);
-            *(v11 + 96) = v68;
-            *(v11 + 112) = v67;
-            *(v57 + 75) = *&v247[11];
-            *(v57 + 48) = v66;
-            *(v57 + 64) = *v247;
-          }
-        }
-      }
-
-      else
-      {
-        if (v59 < v58)
-        {
-          v60 = *(v11 + 112);
-          *&v245[8] = *(&v60 + 1);
-          *&v245[16] = *(v11 + 128);
-          v61 = *(v11 + 96);
-          v63 = *v10;
-          v62 = *(a2 - 8);
-          *(v11 + 123) = *(a2 - 117);
-          *(v11 + 96) = v63;
-          *(v11 + 112) = v62;
-          goto LABEL_48;
-        }
-
-        *v248 = *(v11 + 112);
-        *&v248[16] = *(v11 + 128);
-        v69 = *(v11 + 96);
-        v71 = *(v57 + 48);
-        v70 = *(v57 + 64);
-        *(v11 + 123) = *(v57 + 75);
-        *(v11 + 96) = v71;
-        *(v11 + 112) = v70;
-        *(v57 + 75) = *&v248[11];
-        *(v57 + 48) = v69;
-        *(v57 + 64) = *v248;
-        if (*(a2 - 17) < *(v57 + 56))
-        {
-          *v245 = *(v57 + 64);
-          *&v245[16] = *(v57 + 80);
-          v214 = *(v57 + 48);
-          v72 = *v10;
-          v73 = *(a2 - 8);
-          *(v57 + 75) = *(a2 - 117);
-          *(v57 + 48) = v72;
-          *(v57 + 64) = v73;
-          v61 = v214;
-          v60 = *v245;
-LABEL_48:
-          *(a2 - 117) = *&v245[11];
-          *v10 = v61;
-          *(a2 - 8) = v60;
-        }
-      }
-
-      v74 = *(v15 + 8);
-      v75 = *(v57 + 56);
-      if (v74 >= *(v35 - 40))
-      {
-        if (v75 < v74)
-        {
-          *v250 = *(v15 + 16);
-          *&v250[16] = *(v15 + 32);
-          v216 = *v15;
-          v77 = *(v57 + 64);
-          *v15 = *(v57 + 48);
-          *(v15 + 16) = v77;
-          *(v15 + 27) = *(v57 + 75);
-          *(v57 + 75) = *&v250[11];
-          *(v57 + 48) = v216;
-          *(v57 + 64) = *v250;
-          if (*(v15 + 8) < *(v35 - 40))
-          {
-            *v251 = *(v35 - 32);
-            *&v251[16] = *(v35 - 16);
-            v217 = *v36;
-            v78 = *(v15 + 16);
-            *v36 = *v15;
-            *(v35 - 32) = v78;
-            *(v35 - 21) = *(v15 + 27);
-            *(v15 + 27) = *&v251[11];
-            *v15 = v217;
-            *(v15 + 16) = *v251;
-          }
-        }
-      }
-
-      else
-      {
-        if (v75 < v74)
-        {
-          *v249 = *(v35 - 32);
-          *&v249[16] = *(v35 - 16);
-          v215 = *v36;
-          v76 = *(v57 + 64);
-          *v36 = *(v57 + 48);
-          *(v35 - 32) = v76;
-          *(v35 - 21) = *(v57 + 75);
-          goto LABEL_57;
-        }
-
-        *v252 = *(v35 - 32);
-        *&v252[16] = *(v35 - 16);
-        v218 = *v36;
-        v79 = *(v15 + 16);
-        *v36 = *v15;
-        *(v35 - 32) = v79;
-        *(v35 - 21) = *(v15 + 27);
-        *(v15 + 27) = *&v252[11];
-        *v15 = v218;
-        *(v15 + 16) = *v252;
-        if (*(v57 + 56) < *(v15 + 8))
-        {
-          *v249 = *(v15 + 16);
-          *&v249[16] = *(v15 + 32);
-          v215 = *v15;
-          v80 = *(v57 + 64);
-          *v15 = *(v57 + 48);
-          *(v15 + 16) = v80;
-          *(v15 + 27) = *(v57 + 75);
-LABEL_57:
-          *(v57 + 75) = *&v249[11];
-          *(v57 + 48) = v215;
-          *(v57 + 64) = *v249;
-        }
-      }
-
-      *v253 = *(v11 + 16);
-      *&v253[16] = *(v11 + 32);
-      v219 = *v11;
-      v81 = *v15;
-      v82 = *(v15 + 16);
-      *(v11 + 27) = *(v15 + 27);
-      *v11 = v81;
-      *(v11 + 16) = v82;
-      *(v15 + 27) = *&v253[11];
-      *v15 = v219;
-      *(v15 + 16) = *v253;
-      goto LABEL_59;
-    }
-
-    v20 = *(v11 + 8);
-    if (v20 >= *(v15 + 8))
-    {
-      if (v16 < v20)
-      {
-        *v237 = *(v11 + 16);
-        *&v237[16] = *(v11 + 32);
-        v207 = *v11;
-        v27 = *v8;
-        v28 = *(a2 - 2);
-        *(v11 + 27) = *(a2 - 21);
-        *v11 = v27;
-        *(v11 + 16) = v28;
-        *(a2 - 21) = *&v237[11];
-        *v8 = v207;
-        *(a2 - 2) = *v237;
-        if (*(v11 + 8) < *(v15 + 8))
-        {
-          *v238 = *(v15 + 16);
-          *&v238[16] = *(v15 + 32);
-          v208 = *v15;
-          v29 = *v11;
-          v30 = *(v11 + 16);
-          *(v15 + 27) = *(v11 + 27);
-          *v15 = v29;
-          *(v15 + 16) = v30;
-          *(v11 + 27) = *&v238[11];
-          *v11 = v208;
-          *(v11 + 16) = *v238;
-        }
-      }
-
-      goto LABEL_59;
-    }
-
-    if (v16 < v20)
-    {
-      *v234 = *(v15 + 16);
-      *&v234[16] = *(v15 + 32);
-      v204 = *v15;
-      v21 = *v8;
-      v22 = *(a2 - 2);
-      *(v15 + 27) = *(a2 - 21);
-      *v15 = v21;
-      *(v15 + 16) = v22;
-LABEL_36:
-      *(a2 - 21) = *&v234[11];
-      *v8 = v204;
-      *(a2 - 2) = *v234;
-      goto LABEL_59;
-    }
-
-    *v243 = *(v15 + 16);
-    *&v243[16] = *(v15 + 32);
-    v211 = *v15;
-    v48 = *v11;
-    v49 = *(v11 + 16);
-    *(v15 + 27) = *(v11 + 27);
-    *v15 = v48;
-    *(v15 + 16) = v49;
-    *(v11 + 27) = *&v243[11];
-    *v11 = v211;
-    *(v11 + 16) = *v243;
-    if (*(a2 - 5) < *(v11 + 8))
-    {
-      *v234 = *(v11 + 16);
-      *&v234[16] = *(v11 + 32);
-      v204 = *v11;
-      v50 = *v8;
-      v51 = *(a2 - 2);
-      *(v11 + 27) = *(a2 - 21);
-      *v11 = v50;
-      *(v11 + 16) = v51;
-      goto LABEL_36;
-    }
-
-LABEL_59:
-    --a3;
-    if (a4)
-    {
-      v83 = *(v11 + 8);
-LABEL_62:
-      v84 = 0;
-      v85 = *v11;
-      *v200 = *(v11 + 16);
-      *&v200[16] = *(v11 + 32);
-      do
-      {
-        v86 = *(v11 + v84 + 56);
-        v84 += 48;
-      }
-
-      while (v86 < v83);
-      v87 = v11 + v84;
-      v88 = a2;
-      if (v84 == 48)
-      {
-        v91 = a2;
-        while (v87 < v91)
-        {
-          v89 = v91 - 6;
-          v92 = *(v91 - 5);
-          v91 -= 6;
-          if (v92 < v83)
-          {
-            goto LABEL_72;
-          }
-        }
-
-        v89 = v91;
-      }
-
-      else
-      {
-        do
-        {
-          v89 = v88 - 6;
-          v90 = *(v88 - 5);
-          v88 -= 6;
-        }
-
-        while (v90 >= v83);
-      }
-
-LABEL_72:
-      v11 = v87;
-      if (v87 < v89)
-      {
-        v93 = v89;
-        do
-        {
-          *v254 = *(v11 + 16);
-          *&v254[16] = *(v11 + 32);
-          v220 = *v11;
-          v94 = *v93;
-          v95 = *(v93 + 1);
-          *(v11 + 27) = *(v93 + 27);
-          *v11 = v94;
-          *(v11 + 16) = v95;
-          *(v93 + 27) = *&v254[11];
-          *v93 = v220;
-          *(v93 + 1) = *v254;
-          do
-          {
-            v96 = *(v11 + 56);
-            v11 += 48;
-          }
-
-          while (v96 < v83);
-          do
-          {
-            v97 = *(v93 - 5);
-            v93 -= 6;
-          }
-
-          while (v97 >= v83);
-        }
-
-        while (v11 < v93);
-      }
-
-      if (v11 - 48 != a1)
-      {
-        v98 = *(v11 - 48);
-        v99 = *(v11 - 32);
-        *(a1 + 27) = *(v11 - 21);
-        *a1 = v98;
-        *(a1 + 16) = v99;
-      }
-
-      *(v11 - 48) = v85;
-      *(v11 - 40) = v83;
-      *(v11 - 21) = *&v200[11];
-      *(v11 - 32) = *v200;
-      if (v87 < v89)
-      {
-        goto LABEL_83;
-      }
-
-      v100 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*>(a1, v11 - 48);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*>(v11, a2))
-      {
-        a2 = (v11 - 48);
-        if (!v100)
-        {
-          goto LABEL_2;
-        }
-
-        goto LABEL_190;
-      }
-
-      if (!v100)
-      {
-LABEL_83:
-        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,false>(a1, v11 - 48, a3, a4 & 1);
-        a4 = 0;
-      }
-    }
-
-    else
-    {
-      v83 = *(v11 + 8);
-      if (*(v11 - 40) < v83)
-      {
-        goto LABEL_62;
-      }
-
-      v101 = *v11;
-      *v201 = *(v11 + 16);
-      *&v201[16] = *(v11 + 32);
-      if (v83 >= *(a2 - 5))
-      {
-        v104 = v11 + 48;
-        do
-        {
-          v11 = v104;
-          if (v104 >= a2)
-          {
-            break;
-          }
-
-          v105 = *(v104 + 8);
-          v104 += 48;
-        }
-
-        while (v83 >= v105);
-      }
-
-      else
-      {
-        v102 = v11;
-        do
-        {
-          v11 = v102 + 48;
-          v103 = *(v102 + 56);
-          v102 += 48;
-        }
-
-        while (v83 >= v103);
-      }
-
-      v106 = a2;
-      if (v11 < a2)
-      {
-        v107 = a2;
-        do
-        {
-          v106 = (v107 - 6);
-          v108 = *(v107 - 5);
-          v107 -= 6;
-        }
-
-        while (v83 < v108);
-      }
-
-      while (v11 < v106)
-      {
-        *v255 = *(v11 + 16);
-        *&v255[16] = *(v11 + 32);
-        v221 = *v11;
-        v109 = *v106;
-        v110 = v106[1];
-        *(v11 + 27) = *(v106 + 27);
-        *v11 = v109;
-        *(v11 + 16) = v110;
-        *(v106 + 27) = *&v255[11];
-        *v106 = v221;
-        v106[1] = *v255;
-        do
-        {
-          v111 = *(v11 + 56);
-          v11 += 48;
-        }
-
-        while (v83 >= v111);
-        do
-        {
-          v112 = *(v106 - 5);
-          v106 -= 3;
-        }
-
-        while (v83 < v112);
-      }
-
-      if (v11 - 48 != a1)
-      {
-        v113 = *(v11 - 48);
-        v114 = *(v11 - 32);
-        *(a1 + 27) = *(v11 - 21);
-        *a1 = v113;
-        *(a1 + 16) = v114;
-      }
-
-      a4 = 0;
-      *(v11 - 48) = v101;
-      *(v11 - 40) = v83;
-      *(v11 - 21) = *&v201[11];
-      *(v11 - 32) = *v201;
-    }
-  }
-
-  if (v13 == 3)
-  {
-    v118 = *(v11 + 56);
-    v119 = *(a2 - 5);
-    if (v118 >= *(v11 + 8))
-    {
-      if (v119 < v118)
-      {
-        *v260 = *(v11 + 64);
-        *&v260[16] = *(v11 + 80);
-        v175 = *(v11 + 48);
-        v177 = *v8;
-        v176 = *(a2 - 2);
-        *(v11 + 75) = *(a2 - 21);
-        *(v11 + 48) = v177;
-        *(v11 + 64) = v176;
-        *(a2 - 21) = *&v260[11];
-        *v8 = v175;
-        *(a2 - 2) = *v260;
-        goto LABEL_188;
-      }
-    }
-
-    else
-    {
-      if (v119 < v118)
-      {
-        *v257 = *(v11 + 16);
-        *&v257[16] = *(v11 + 32);
-        v223 = *v11;
-        v120 = *v8;
-        v121 = *(a2 - 2);
-        *(v11 + 27) = *(a2 - 21);
-        *v11 = v120;
-        *(v11 + 16) = v121;
-        v122 = v223;
-        v123 = *v257;
-LABEL_181:
-        *(a2 - 21) = *&v257[11];
-        *v8 = v122;
-        *(a2 - 2) = v123;
-        goto LABEL_190;
-      }
-
-      *v263 = *(v11 + 16);
-      *&v263[16] = *(v11 + 32);
-      v230 = *v11;
-      v187 = *(v11 + 64);
-      *v11 = *(v11 + 48);
-      *(v11 + 16) = v187;
-      *(v11 + 27) = *(v11 + 75);
-      *(v11 + 48) = v230;
-      *(v11 + 64) = *v263;
-      *(v11 + 75) = *&v263[11];
-      if (*(a2 - 5) < *(v11 + 56))
-      {
-        v123 = *(v11 + 64);
-        *&v257[8] = *(&v123 + 1);
-        *&v257[16] = *(v11 + 80);
-        v122 = *(v11 + 48);
-        v189 = *v8;
-        v188 = *(a2 - 2);
-        *(v11 + 75) = *(a2 - 21);
-        *(v11 + 48) = v189;
-        *(v11 + 64) = v188;
-        goto LABEL_181;
-      }
-    }
-
-LABEL_190:
-    v199 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (v13 == 4)
-  {
-    v124 = *(v11 + 56);
-    v125 = *(v11 + 104);
-    if (v124 >= *(v11 + 8))
-    {
-      if (v125 < v124)
-      {
-        v178 = *(v11 + 48);
-        *v261 = *(v11 + 64);
-        *&v261[16] = *(v11 + 80);
-        v179 = *(v11 + 112);
-        *(v11 + 48) = *(v11 + 96);
-        *(v11 + 64) = v179;
-        *(v11 + 75) = *(v11 + 123);
-        *(v11 + 96) = v178;
-        *(v11 + 112) = *v261;
-        *(v11 + 123) = *&v261[11];
-        if (*(v11 + 56) < *(v11 + 8))
-        {
-          *v262 = *(v11 + 16);
-          *&v262[16] = *(v11 + 32);
-          v228 = *v11;
-          v180 = *(v11 + 64);
-          *v11 = *(v11 + 48);
-          *(v11 + 16) = v180;
-          *(v11 + 27) = *(v11 + 75);
-          *(v11 + 48) = v228;
-          *(v11 + 64) = *v262;
-          *(v11 + 75) = *&v262[11];
-        }
-      }
-
-      goto LABEL_185;
-    }
-
-    if (v125 >= v124)
-    {
-      *v264 = *(v11 + 16);
-      *&v264[16] = *(v11 + 32);
-      v231 = *v11;
-      v190 = *(v11 + 64);
-      *v11 = *(v11 + 48);
-      *(v11 + 16) = v190;
-      *(v11 + 27) = *(v11 + 75);
-      *(v11 + 48) = v231;
-      *(v11 + 64) = *v264;
-      *(v11 + 75) = *&v264[11];
-      if (v125 >= *(v11 + 56))
-      {
-        goto LABEL_185;
-      }
-
-      v191 = *(v11 + 48);
-      *v258 = *(v11 + 64);
-      *&v258[16] = *(v11 + 80);
-      v192 = *(v11 + 112);
-      *(v11 + 48) = *(v11 + 96);
-      *(v11 + 64) = v192;
-      *(v11 + 75) = *(v11 + 123);
-      *(v11 + 96) = v191;
-      *(v11 + 112) = *v258;
-    }
-
-    else
-    {
-      *v258 = *(v11 + 16);
-      *&v258[16] = *(v11 + 32);
-      v224 = *v11;
-      v126 = *(v11 + 112);
-      *v11 = *(v11 + 96);
-      *(v11 + 16) = v126;
-      *(v11 + 27) = *(v11 + 123);
-      *(v11 + 96) = v224;
-      *(v11 + 112) = *v258;
-    }
-
-    *(v11 + 123) = *&v258[11];
-LABEL_185:
-    if (*(a2 - 5) >= *(v11 + 104))
-    {
-      goto LABEL_190;
-    }
-
-    *v265 = *(v11 + 112);
-    *&v265[16] = *(v11 + 128);
-    v193 = *(v11 + 96);
-    v195 = *v8;
-    v194 = *(a2 - 2);
-    *(v11 + 123) = *(a2 - 21);
-    *(v11 + 96) = v195;
-    *(v11 + 112) = v194;
-    *(a2 - 21) = *&v265[11];
-    *v8 = v193;
-    *(a2 - 2) = *v265;
-    if (*(v11 + 104) >= *(v11 + 56))
-    {
-      goto LABEL_190;
-    }
-
-    v196 = *(v11 + 48);
-    *v266 = *(v11 + 64);
-    *&v266[16] = *(v11 + 80);
-    v197 = *(v11 + 112);
-    *(v11 + 48) = *(v11 + 96);
-    *(v11 + 64) = v197;
-    *(v11 + 75) = *(v11 + 123);
-    *(v11 + 96) = v196;
-    *(v11 + 112) = *v266;
-    *(v11 + 123) = *&v266[11];
-LABEL_188:
-    if (*(v11 + 56) < *(v11 + 8))
-    {
-      *v267 = *(v11 + 16);
-      *&v267[16] = *(v11 + 32);
-      v232 = *v11;
-      v198 = *(v11 + 64);
-      *v11 = *(v11 + 48);
-      *(v11 + 16) = v198;
-      *(v11 + 27) = *(v11 + 75);
-      *(v11 + 48) = v232;
-      *(v11 + 64) = *v267;
-      *(v11 + 75) = *&v267[11];
-    }
-
-    goto LABEL_190;
-  }
-
-  if (v13 != 5)
-  {
-    goto LABEL_10;
-  }
-
-  v115 = *MEMORY[0x277D85DE8];
-
-  std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(v11, (v11 + 48), (v11 + 96), (v11 + 144), a2 - 3);
-}
-
 __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5)
 {
   v5 = *(a2 + 1);
@@ -2280,42 +199,41 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*>(uint64_t a1, uint64_t *a2)
 {
-  v82 = *MEMORY[0x277D85DE8];
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
   if (v2 > 2)
   {
     if (v2 == 3)
     {
-      v6 = (a2 - 48);
+      v6 = (a2 - 6);
       v7 = *(a1 + 56);
-      v8 = *(a2 - 40);
+      v8 = *(a2 - 5);
       if (v7 < *(a1 + 8))
       {
         if (v8 >= v7)
         {
           v36 = *a1;
-          *v74 = *(a1 + 16);
-          *&v74[16] = *(a1 + 32);
+          *v73 = *(a1 + 16);
+          *&v73[16] = *(a1 + 32);
           v37 = *(a1 + 64);
           *a1 = *(a1 + 48);
           *(a1 + 16) = v37;
           *(a1 + 27) = *(a1 + 75);
           *(a1 + 48) = v36;
-          *(a1 + 64) = *v74;
-          *(a1 + 75) = *&v74[11];
-          if (*(a2 - 40) >= *(a1 + 56))
+          *(a1 + 64) = *v73;
+          *(a1 + 75) = *&v73[11];
+          if (*(a2 - 5) >= *(a1 + 56))
           {
-            goto LABEL_52;
+            return 1;
           }
 
           v9 = *(a1 + 64);
           v10 = *(a1 + 48);
-          *v80 = *(&v9 + 1);
-          *&v80[8] = *(a1 + 80);
+          *v79 = *(&v9 + 1);
+          *&v79[8] = *(a1 + 80);
           v38 = *(a2 - 21);
-          v39 = *(a2 - 32);
+          v39 = *(a2 - 2);
           *(a1 + 48) = *v6;
           *(a1 + 64) = v39;
           *(a1 + 75) = v38;
@@ -2325,55 +243,53 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDSta
         {
           v9 = *(a1 + 16);
           v10 = *a1;
-          *v80 = *(&v9 + 1);
-          *&v80[8] = *(a1 + 32);
+          *v79 = *(&v9 + 1);
+          *&v79[8] = *(a1 + 32);
           v11 = *(a2 - 21);
-          v12 = *(a2 - 32);
+          v12 = *(a2 - 2);
           *a1 = *v6;
           *(a1 + 16) = v12;
           *(a1 + 27) = v11;
         }
 
         *v6 = v10;
-        *(a2 - 32) = v9;
-        *(a2 - 21) = *&v80[3];
-        goto LABEL_52;
+        *(a2 - 2) = v9;
+        *(a2 - 21) = *&v79[3];
+        return 1;
       }
 
       if (v8 >= v7)
       {
-LABEL_52:
-        result = 1;
-        goto LABEL_53;
+        return 1;
       }
 
       v25 = *(a1 + 48);
-      *v69 = *(a1 + 64);
-      *&v69[16] = *(a1 + 80);
+      *v68 = *(a1 + 64);
+      *&v68[16] = *(a1 + 80);
       v26 = *(a2 - 21);
-      v27 = *(a2 - 32);
+      v27 = *(a2 - 2);
       *(a1 + 48) = *v6;
       *(a1 + 64) = v27;
       *(a1 + 75) = v26;
       *v6 = v25;
-      *(a2 - 32) = *v69;
-      *(a2 - 21) = *&v69[11];
+      *(a2 - 2) = *v68;
+      *(a2 - 21) = *&v68[11];
 LABEL_50:
       if (*(a1 + 56) < *(a1 + 8))
       {
         v62 = *a1;
-        *v79 = *(a1 + 16);
-        *&v79[16] = *(a1 + 32);
+        *v78 = *(a1 + 16);
+        *&v78[16] = *(a1 + 32);
         v63 = *(a1 + 64);
         *a1 = *(a1 + 48);
         *(a1 + 16) = v63;
         *(a1 + 27) = *(a1 + 75);
         *(a1 + 48) = v62;
-        *(a1 + 64) = *v79;
-        *(a1 + 75) = *&v79[11];
+        *(a1 + 64) = *v78;
+        *(a1 + 75) = *&v78[11];
       }
 
-      goto LABEL_52;
+      return 1;
     }
 
     if (v2 != 4)
@@ -2383,8 +299,8 @@ LABEL_50:
         goto LABEL_13;
       }
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, (a1 + 48), (a1 + 96), (a1 + 144), (a2 - 48));
-      goto LABEL_52;
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,0>(a1, (a1 + 48), (a1 + 96), (a1 + 144), a2 - 3);
+      return 1;
     }
 
     v20 = *(a1 + 56);
@@ -2395,27 +311,27 @@ LABEL_50:
       if (v22 < v20)
       {
         v32 = *(a1 + 48);
-        *v72 = *(a1 + 64);
-        *&v72[16] = *(a1 + 80);
+        *v71 = *(a1 + 64);
+        *&v71[16] = *(a1 + 80);
         v33 = *(a1 + 112);
         *(a1 + 48) = *(a1 + 96);
         *(a1 + 64) = v33;
         *(a1 + 75) = *(a1 + 123);
         *(a1 + 96) = v32;
-        *(a1 + 112) = *v72;
-        *(a1 + 123) = *&v72[11];
+        *(a1 + 112) = *v71;
+        *(a1 + 123) = *&v71[11];
         if (*(a1 + 56) < v21)
         {
           v34 = *a1;
-          *v73 = *(a1 + 16);
-          *&v73[16] = *(a1 + 32);
+          *v72 = *(a1 + 16);
+          *&v72[16] = *(a1 + 32);
           v35 = *(a1 + 64);
           *a1 = *(a1 + 48);
           *(a1 + 16) = v35;
           *(a1 + 27) = *(a1 + 75);
           *(a1 + 48) = v34;
-          *(a1 + 64) = *v73;
-          *(a1 + 75) = *&v73[11];
+          *(a1 + 64) = *v72;
+          *(a1 + 75) = *&v72[11];
         }
       }
 
@@ -2425,108 +341,108 @@ LABEL_50:
     if (v22 >= v20)
     {
       v52 = *a1;
-      *v76 = *(a1 + 16);
-      *&v76[16] = *(a1 + 32);
+      *v75 = *(a1 + 16);
+      *&v75[16] = *(a1 + 32);
       v53 = *(a1 + 64);
       *a1 = *(a1 + 48);
       *(a1 + 16) = v53;
       *(a1 + 27) = *(a1 + 75);
       *(a1 + 48) = v52;
-      *(a1 + 64) = *v76;
-      *(a1 + 75) = *&v76[11];
+      *(a1 + 64) = *v75;
+      *(a1 + 75) = *&v75[11];
       if (v22 >= *(a1 + 56))
       {
         goto LABEL_47;
       }
 
       v54 = *(a1 + 48);
-      *v68 = *(a1 + 64);
-      *&v68[16] = *(a1 + 80);
+      *v67 = *(a1 + 64);
+      *&v67[16] = *(a1 + 80);
       v55 = *(a1 + 112);
       *(a1 + 48) = *(a1 + 96);
       *(a1 + 64) = v55;
       *(a1 + 75) = *(a1 + 123);
       *(a1 + 96) = v54;
-      *(a1 + 112) = *v68;
+      *(a1 + 112) = *v67;
     }
 
     else
     {
       v23 = *a1;
-      *v68 = *(a1 + 16);
-      *&v68[16] = *(a1 + 32);
+      *v67 = *(a1 + 16);
+      *&v67[16] = *(a1 + 32);
       v24 = *(a1 + 112);
       *a1 = *(a1 + 96);
       *(a1 + 16) = v24;
       *(a1 + 27) = *(a1 + 123);
       *(a1 + 96) = v23;
-      *(a1 + 112) = *v68;
+      *(a1 + 112) = *v67;
     }
 
-    *(a1 + 123) = *&v68[11];
+    *(a1 + 123) = *&v67[11];
 LABEL_47:
-    if (*(a2 - 40) >= *(a1 + 104))
+    if (*(a2 - 5) >= *(a1 + 104))
     {
-      goto LABEL_52;
+      return 1;
     }
 
-    v56 = (a2 - 48);
+    v56 = a2 - 6;
     v57 = *(a1 + 96);
-    *v77 = *(a1 + 112);
-    *&v77[16] = *(a1 + 128);
+    *v76 = *(a1 + 112);
+    *&v76[16] = *(a1 + 128);
     v58 = *(a2 - 21);
-    v59 = *(a2 - 32);
-    *(a1 + 96) = *(a2 - 48);
+    v59 = *(a2 - 2);
+    *(a1 + 96) = *(a2 - 3);
     *(a1 + 112) = v59;
     *(a1 + 123) = v58;
     *v56 = v57;
-    v56[1] = *v77;
-    *(v56 + 27) = *&v77[11];
+    *(v56 + 1) = *v76;
+    *(v56 + 27) = *&v76[11];
     if (*(a1 + 104) >= *(a1 + 56))
     {
-      goto LABEL_52;
+      return 1;
     }
 
     v60 = *(a1 + 48);
-    *v78 = *(a1 + 64);
-    *&v78[16] = *(a1 + 80);
+    *v77 = *(a1 + 64);
+    *&v77[16] = *(a1 + 80);
     v61 = *(a1 + 112);
     *(a1 + 48) = *(a1 + 96);
     *(a1 + 64) = v61;
     *(a1 + 75) = *(a1 + 123);
     *(a1 + 96) = v60;
-    *(a1 + 112) = *v78;
-    *(a1 + 123) = *&v78[11];
+    *(a1 + 112) = *v77;
+    *(a1 + 123) = *&v77[11];
     goto LABEL_50;
   }
 
   if (v2 < 2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   if (v2 == 2)
   {
-    if (*(a2 - 40) < *(a1 + 8))
+    if (*(a2 - 5) < *(a1 + 8))
     {
       v3 = *a1;
-      *v67 = *(a1 + 16);
-      *&v67[16] = *(a1 + 32);
+      *v66 = *(a1 + 16);
+      *&v66[16] = *(a1 + 32);
       v4 = *(a2 - 21);
-      v5 = *(a2 - 32);
-      *a1 = *(a2 - 48);
+      v5 = *(a2 - 2);
+      *a1 = *(a2 - 3);
       *(a1 + 16) = v5;
       *(a1 + 27) = v4;
-      *(a2 - 48) = v3;
-      *(a2 - 32) = *v67;
-      *(a2 - 21) = *&v67[11];
+      *(a2 - 3) = v3;
+      *(a2 - 2) = *v66;
+      *(a2 - 21) = *&v66[11];
     }
 
-    goto LABEL_52;
+    return 1;
   }
 
 LABEL_13:
-  v13 = a1 + 96;
+  v13 = (a1 + 96);
   v14 = *(a1 + 56);
   v15 = *(a1 + 8);
   v16 = *(a1 + 104);
@@ -2535,27 +451,27 @@ LABEL_13:
     if (v16 < v14)
     {
       v28 = *(a1 + 48);
-      *v70 = *(a1 + 64);
-      *&v70[16] = *(a1 + 80);
+      *v69 = *(a1 + 64);
+      *&v69[16] = *(a1 + 80);
       v29 = *(a1 + 112);
       *(a1 + 48) = *v13;
       *(a1 + 64) = v29;
       *(a1 + 75) = *(a1 + 123);
       *v13 = v28;
-      *(a1 + 112) = *v70;
-      *(a1 + 123) = *&v70[11];
+      *(a1 + 112) = *v69;
+      *(a1 + 123) = *&v69[11];
       if (*(a1 + 56) < v15)
       {
         v30 = *a1;
-        *v71 = *(a1 + 16);
-        *&v71[16] = *(a1 + 32);
+        *v70 = *(a1 + 16);
+        *&v70[16] = *(a1 + 32);
         v31 = *(a1 + 64);
         *a1 = *(a1 + 48);
         *(a1 + 16) = v31;
         *(a1 + 27) = *(a1 + 75);
         *(a1 + 48) = v30;
-        *(a1 + 64) = *v71;
-        *(a1 + 75) = *&v71[11];
+        *(a1 + 64) = *v70;
+        *(a1 + 75) = *&v70[11];
       }
     }
   }
@@ -2565,15 +481,15 @@ LABEL_13:
     if (v16 >= v14)
     {
       v40 = *a1;
-      *v75 = *(a1 + 16);
-      *&v75[16] = *(a1 + 32);
+      *v74 = *(a1 + 16);
+      *&v74[16] = *(a1 + 32);
       v41 = *(a1 + 64);
       *a1 = *(a1 + 48);
       *(a1 + 16) = v41;
       *(a1 + 27) = *(a1 + 75);
       *(a1 + 48) = v40;
-      *(a1 + 64) = *v75;
-      *(a1 + 75) = *&v75[11];
+      *(a1 + 64) = *v74;
+      *(a1 + 75) = *&v74[11];
       if (v16 >= *(a1 + 56))
       {
         goto LABEL_33;
@@ -2581,8 +497,8 @@ LABEL_13:
 
       v17 = *(a1 + 64);
       v18 = *(a1 + 48);
-      *v81 = *(&v17 + 1);
-      *&v81[8] = *(a1 + 80);
+      *v80 = *(&v17 + 1);
+      *&v80[8] = *(a1 + 80);
       v42 = *(a1 + 112);
       *(a1 + 48) = *v13;
       *(a1 + 64) = v42;
@@ -2593,8 +509,8 @@ LABEL_13:
     {
       v17 = *(a1 + 16);
       v18 = *a1;
-      *v81 = *(&v17 + 1);
-      *&v81[8] = *(a1 + 32);
+      *v80 = *(&v17 + 1);
+      *&v80[8] = *(a1 + 32);
       v19 = *(a1 + 112);
       *a1 = *v13;
       *(a1 + 16) = v19;
@@ -2603,26 +519,26 @@ LABEL_13:
 
     *v13 = v18;
     *(a1 + 112) = v17;
-    *(a1 + 123) = *&v81[3];
+    *(a1 + 123) = *&v80[3];
   }
 
 LABEL_33:
-  v43 = a1 + 144;
-  if (a1 + 144 == a2)
+  v43 = (a1 + 144);
+  if ((a1 + 144) == a2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   v44 = 0;
   v45 = 0;
   while (1)
   {
-    v46 = *(v43 + 8);
-    if (v46 < *(v13 + 8))
+    v46 = v43[1];
+    if (v46 < v13[1])
     {
       v47 = *v43;
-      *v66 = *(v43 + 16);
-      *&v66[16] = *(v43 + 32);
+      *v65 = *(v43 + 1);
+      *&v65[16] = *(v43 + 2);
       v48 = v44;
       while (1)
       {
@@ -2648,27 +564,22 @@ LABEL_33:
 LABEL_41:
       *v51 = v47;
       *(v51 + 8) = v46;
-      *(v51 + 16) = *v66;
-      *(v51 + 27) = *&v66[11];
+      *(v51 + 16) = *v65;
+      *(v51 + 27) = *&v65[11];
       if (++v45 == 8)
       {
-        break;
+        return v43 + 6 == a2;
       }
     }
 
     v13 = v43;
     v44 += 48;
-    v43 += 48;
+    v43 += 6;
     if (v43 == a2)
     {
-      goto LABEL_52;
+      return 1;
     }
   }
-
-  result = v43 + 48 == a2;
-LABEL_53:
-  v65 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 __n128 HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::overallStatistics(uint64_t a1, uint64_t a2)
@@ -2692,7 +603,7 @@ __n128 HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatistics
   v8 = a1 + 128;
   v9 = *(a2 + 256);
   *(a1 + 144) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 128, v6, v9, (v9 - v6) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 128), v6, v9, (v9 - v6) >> 4);
   *(v8 + 24) = *(a2 + 272);
   result = *(a2 + 280);
   v11 = *(a2 + 296);
@@ -2702,11 +613,11 @@ __n128 HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatistics
   return result;
 }
 
-void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::statisticsByBundleIdentifier(uint64_t a1, uint64_t a2)
+void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::statisticsByBundleIdentifier(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   v2 = *(a2 + 320);
   v30 = (a2 + 328);
   if (v2 == (a2 + 328))
@@ -2714,7 +625,7 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTe
     return;
   }
 
-  v29 = a1 + 16;
+  v29 = a1 + 2;
   do
   {
     v4 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_bundleIdentifierForSourceID(a2, v2[4]);
@@ -2726,7 +637,7 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTe
 
     v6 = [v4 hash];
     v7 = v6;
-    v8 = *(a1 + 8);
+    v8 = a1[1];
     if (!*&v8)
     {
       goto LABEL_21;
@@ -2866,16 +777,16 @@ LABEL_25:
   while (v27 != v30);
 }
 
-void sub_228EE5E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_228EE5E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
 
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>>::~__hash_table(v6);
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>>::~__hash_table(v11);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2970,9 +881,9 @@ void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImple
   JUMPOUT(0x22AAC8590);
 }
 
-void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#1},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#1}>,HDStatisticsTimeInterval const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(void *a1)
+void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#1},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#1}>,HDStatisticsTimeInterval const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](a1 + 8);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -3031,9 +942,9 @@ void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImple
   JUMPOUT(0x22AAC8590);
 }
 
-void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#2},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#2}>,HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(void *a1)
+void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#2},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)#2}>,HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](a1 + 8);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -3107,8 +1018,9 @@ uint64_t std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporal
   return a1;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_primitiveAddSample(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_primitiveAddSample(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   if (*(a1 + 680) == 1)
   {
     if ((a3 & 1) == 0)
@@ -3117,92 +1029,87 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
       return 0;
     }
 
-    v8 = a2[1];
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_configureForStartTime(a1);
   }
 
-  v9 = *(a2 + 1);
-  v10 = *(a1 + 40);
-  if (v10)
+  v8 = *(a2 + 8);
+  v9 = *(a1 + 40);
+  if (v9)
   {
     if (*(a1 + 680))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
 
     else
     {
-      v11 = *(a1 + 176);
-      v13 = *(a1 + 120);
-      if (v11 <= v13)
+      v10 = *(a1 + 176);
+      v12 = *(a1 + 120);
+      if (v10 <= v12)
       {
-        v11 = -1.79769313e308;
+        v10 = -1.79769313e308;
       }
 
-      if (v11 < v13)
+      if (v10 < v12)
       {
-        v11 = *(a1 + 120);
+        v10 = *(a1 + 120);
       }
     }
   }
 
   else
   {
-    v11 = *(a1 + 176);
-    if (v11 <= *(a1 + 120))
+    v10 = *(a1 + 176);
+    if (v10 <= *(a1 + 120))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
   }
 
-  if (v9 >= v11)
+  if (v8 >= v10)
   {
-    if (v10 && a3)
+    if (v9 && v5)
     {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_advanceToTime(a1, v9);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_advanceToTime(a1, v8);
     }
 
-    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::addSample(a1 + 112, a2, a3);
+    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::addSample(a1 + 112, a2, v5);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_notifyForCurrentBucket(a1);
     return 1;
   }
 
   else
   {
-    v14 = a2[2];
-    v15 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
-    v12 = (*(*a1 + 128))(a1, v15, a4);
+    v13 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
+    v11 = (*(*a1 + 128))(a1, v13, a4);
   }
 
-  return v12;
+  return v11;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_advanceToTime(uint64_t result, double a2)
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_advanceToTime(uint64_t a1, double a2)
 {
-  if (*(result + 128) <= a2)
+  if (*(a1 + 128) <= a2)
   {
-    v2 = result;
-    if (*(v2 + 656) != *(v2 + 648))
+    if (*(a1 + 656) != *(a1 + 648))
     {
-      [*(result + 40) dateIntervalAtIndex:*(result + 112) + 1];
+      [*(a1 + 40) dateIntervalAtIndex:*(a1 + 112) + 1];
       objc_claimAutoreleasedReturnValue();
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_updateSourceOrder(v2 + 120);
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeThroughTime(v2 + 120, *(v2 + 128));
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(v2, (v2 + 120));
+      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_updateSourceOrder(a1 + 120);
+      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(a1, (a1 + 120));
     }
 
     v5 = 0;
-    v3 = *(result + 40);
+    v3 = *(a1 + 40);
     v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:a2];
     [v3 dateIntervalContainingDate:v4 index:&v5];
     objc_claimAutoreleasedReturnValue();
 
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_updateSourceOrder(v2 + 120);
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeThroughTime(v2 + 120, *(v2 + 128));
-    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(v2, (v2 + 120));
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_updateSourceOrder(a1 + 120);
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(a1, (a1 + 120));
   }
-
-  return result;
 }
 
 void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::addSample(uint64_t a1, uint64_t *a2, int a3)
@@ -3253,7 +1160,7 @@ void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDSt
     }
 
     *&v42 = v13;
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 352), v8);
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 352), v8, &v42 + 1);
     v14 = *(a1 + 112);
     if (v14 == *(a1 + 104) && *(a1 + 200) <= 0)
     {
@@ -3406,20 +1313,20 @@ LABEL_35:
     {
       v33 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_canonicalSourceIDForSourceID(a1 + 8, v8);
       v34 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_statisticsForSource(a1 + 8, v33);
-      if (!*(v34 + 192) || v34[21] <= v5)
+      if (!*(v34 + 192) || *(v34 + 21) <= v5)
       {
-        *(v34 + 20) = v6;
-        v34[21] = v5;
-        v34[22] = v7;
-        *(v34 + 23) = v8;
+        v34[20] = v6;
+        *(v34 + 21) = v5;
+        *(v34 + 22) = v7;
+        v34[23] = v8;
         *(v34 + 192) = v4;
         *(v34 + 193) = v9;
-        if (!*(v34 + 112) || v34[11] <= v5)
+        if (!*(v34 + 112) || *(v34 + 11) <= v5)
         {
-          *(v34 + 10) = v6;
-          v34[11] = v5;
-          v34[12] = v7;
-          *(v34 + 13) = v8;
+          v34[10] = v6;
+          *(v34 + 11) = v5;
+          *(v34 + 12) = v7;
+          v34[13] = v8;
           *(v34 + 112) = v4;
           *(v34 + 113) = v9;
         }
@@ -3470,12 +1377,12 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::advanceBucket(void *a1, double a2, double a3)
+void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::advanceBucket(uint64_t a1, double a2, double a3)
 {
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, a1[67], a1[68], 0xCCCCCCCCCCCCCCCDLL * ((a1[68] - a1[67]) >> 3));
+  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, *(a1 + 536), *(a1 + 544), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 544) - *(a1 + 536)) >> 3));
   HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::resetToBucket(a1, *a1 + 1, a2, a3);
   v6 = v9;
   v7 = v10;
@@ -3761,29 +1668,12 @@ void sub_228EE76CC(_Unwind_Exception *a1)
 void ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2)
 {
   v10 = a2;
-  if (!*(a1 + 32))
+  if (!*(a1 + 32) || ([v10 endDate], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "startDate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "hk_isBeforeOrEqualToDate:", v4), v4, v3, (v5 & 1) == 0) && (objc_msgSend(v10, "startDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterOrEqualToDate:", v7), v7, v6, (v8 & 1) == 0))
   {
-    goto LABEL_11;
-  }
-
-  v3 = [v10 endDate];
-  v4 = [*(a1 + 32) startDate];
-  v5 = [v3 hk_isBeforeOrEqualToDate:v4];
-
-  if ((v5 & 1) == 0)
-  {
-    v6 = [v10 startDate];
-    v7 = [*(a1 + 32) endDate];
-    v8 = [v6 hk_isAfterOrEqualToDate:v7];
-
-    if ((v8 & 1) == 0)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-LABEL_11:
-      v9 = *(a1 + 40);
-      if (v9)
-      {
-        (*(v9 + 16))(v9, v10);
-      }
+      (*(v9 + 16))(v9, v10);
     }
   }
 }
@@ -3838,7 +1728,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   return v14;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   if (*(a1 + 32) <= a6)
   {
@@ -3934,7 +1824,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   return v7;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   v10 = *(a1 + 32);
   *v14 = a5;
@@ -3964,22 +1854,21 @@ void HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeighte
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
   statistics::Statistics::makePrimaryStatistics(a1);
-  HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::archive(v6, &a2->i64[1]);
-  statistics::Statistics::operator=(*(a1 + 128), v6);
-  statistics::Statistics::~Statistics(v6);
+  HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::archive(&v6, &a2->i64[1]);
+  statistics::Statistics::operator=(*(a1 + 128), &v6);
+  statistics::Statistics::~Statistics(&v6);
   v5 = a2->i32[0];
   *(a1 + 204) |= 0x100u;
   *(a1 + 136) = v5;
   statistics::Statistics::makeMostRecentDatum(a1);
-  v6[0] = &unk_283BEB0A8;
-  v10 = 127;
-  v7 = vextq_s8(a2[10], a2[10], 8uLL);
-  v6[1] = a2[11].i64[0];
-  v6[2] = a2[11].i64[1];
-  v8 = 0;
+  v6 = &unk_283BEB0A8;
+  v11 = 127;
+  v8 = vextq_s8(a2[10], a2[10], 8uLL);
+  v7 = a2[11];
   v9 = 0;
-  statistics::RawQuantitySample::operator=(*v4, v6);
-  PB::Base::~Base(v6);
+  v10 = 0;
+  statistics::RawQuantitySample::operator=(*v4, &v6);
+  PB::Base::~Base(&v6);
 }
 
 void HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::archive(uint64_t a1, uint64_t a2)
@@ -4243,7 +2132,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCom
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::setDateInterval(uint64_t a1, void *a2)
 {
   v6 = a2;
-  v3 = [v6 copy];
+  v3 = objc_msgSend_copy(v6);
   v4 = *(a1 + 64);
   *(a1 + 64) = v3;
 
@@ -4312,7 +2201,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCom
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::setStatisticsHandler(uint64_t a1, void *a2)
 {
   v5 = a2;
-  v3 = [v5 copy];
+  v3 = objc_msgSend_copy(v5);
   v4 = *(a1 + 96);
   *(a1 + 96) = v3;
 }
@@ -4405,7 +2294,6 @@ LABEL_4:
 
       if (v15 > *(a2 + 8))
       {
-        v17 = *(a2 + 16);
         v8 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
         v14 = (*(*a1 + 128))(a1, v8, a3);
         goto LABEL_8;
@@ -4431,7 +2319,7 @@ LABEL_23:
 
 uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::performAddSampleTransaction(uint64_t a1, void *a2, uint64_t a3)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (*(a1 + 634) == 1)
@@ -4441,14 +2329,14 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCom
   }
 
   *(a1 + 634) = 1;
-  v61 = a3;
+  v60 = a3;
   if (!(*(v5 + 2))(v5, a3))
   {
     v7 = 0;
     goto LABEL_80;
   }
 
-  v60 = v6;
+  v59 = v6;
   if (*(a1 + 633))
   {
     goto LABEL_5;
@@ -4458,26 +2346,26 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCom
   if (!v9)
   {
     v8 = 0;
-    v62 = 0;
+    v61 = 0;
     goto LABEL_28;
   }
 
   if (!*(a1 + 40))
   {
 LABEL_5:
-    v62 = 0;
+    v61 = 0;
     v8 = 1;
     goto LABEL_28;
   }
 
   [v9 sortUsingComparator:&__block_literal_global_695];
-  v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
+  v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v10 = *(a1 + 656);
-  v11 = [v10 countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v62 objects:v66 count:16];
   if (!v11)
   {
 
@@ -4486,17 +2374,17 @@ LABEL_5:
   }
 
   v12 = 0;
-  v13 = *v64;
+  v13 = *v63;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v64 != v13)
+      if (*v63 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v63 + 1) + 8 * i);
+      v15 = *(*(&v62 + 1) + 8 * i);
       v16 = v15;
       if (v12)
       {
@@ -4523,7 +2411,7 @@ LABEL_5:
 
         else
         {
-          [v62 addObject:v12];
+          [v61 addObject:v12];
           v26 = v16;
         }
 
@@ -4538,14 +2426,14 @@ LABEL_5:
 LABEL_21:
     }
 
-    v11 = [v10 countByEnumeratingWithState:&v63 objects:v67 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v62 objects:v66 count:16];
   }
 
   while (v11);
 
   if (v12)
   {
-    [v62 addObject:v12];
+    [v61 addObject:v12];
   }
 
 LABEL_27:
@@ -4566,7 +2454,7 @@ LABEL_28:
     goto LABEL_46;
   }
 
-  v30 = [v62 lastObject];
+  v30 = [v61 lastObject];
   if (v30)
   {
     v31 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_currentBucketInterval(a1);
@@ -4633,32 +2521,32 @@ LABEL_44:
   *(a1 + 680) = 0;
   *(a1 + 664) = 0;
   *(a1 + 672) = 0;
-  if ([v62 count])
+  if ([v61 count])
   {
 LABEL_46:
-    v44 = v62;
+    v44 = v61;
     if (v44)
     {
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v45 = v44;
-      v46 = [v45 countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v62 objects:v66 count:16];
       if (v46)
       {
-        v47 = *v64;
+        v47 = *v63;
         while (2)
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v64 != v47)
+            if (*v63 != v47)
             {
               objc_enumerationMutation(v45);
             }
 
-            v49 = *(*(&v63 + 1) + 8 * j);
-            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(a1, v49, v61);
+            v49 = *(*(&v62 + 1) + 8 * j);
+            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(a1, v49, v60);
 
             if (!v50)
             {
@@ -4667,7 +2555,7 @@ LABEL_46:
             }
           }
 
-          v46 = [v45 countByEnumeratingWithState:&v63 objects:v67 count:16];
+          v46 = [v45 countByEnumeratingWithState:&v62 objects:v66 count:16];
           if (v46)
           {
             continue;
@@ -4680,7 +2568,7 @@ LABEL_46:
       goto LABEL_58;
     }
 
-    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(a1, 0, v61))
+    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(a1, 0, v60))
     {
       goto LABEL_58;
     }
@@ -4708,12 +2596,12 @@ LABEL_58:
     if (v29 != v28)
     {
       v55 = v28;
-      v51 = v61;
+      v51 = v60;
       do
       {
         v56 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveAddSample(a1, v55, 1, v51);
         v54 = v56;
-        v55 += 5;
+        v55 += 40;
         if (v55 == v29)
         {
           v57 = 0;
@@ -4724,7 +2612,7 @@ LABEL_58:
           v57 = v56;
         }
 
-        v51 = v61;
+        v51 = v60;
       }
 
       while ((v57 & 1) != 0);
@@ -4751,7 +2639,7 @@ LABEL_58:
     if (*(a1 + 636) == 1)
     {
       *(a1 + 636) = 0;
-      v6 = v60;
+      v6 = v59;
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_notifyForCurrentBucket(a1);
       v7 = 1;
       goto LABEL_80;
@@ -4765,12 +2653,11 @@ LABEL_58:
     v7 = 0;
   }
 
-  v6 = v60;
+  v6 = v59;
 LABEL_80:
   *(a1 + 634) = 0;
 LABEL_81:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -4886,97 +2773,91 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombine
   v3 = a2;
   [v3 encodeBool:*(a1 + 632) forKey:@"needs_config"];
   v13 = v3;
-  v33 = &unk_283BF1A08;
-  v34 = 0;
-  v39 = 0;
-  v37 = 0;
-  v38 = 0;
-  v4 = *(a1 + 112);
-  LOBYTE(v39) = 1;
-  v35 = v4;
-  v36 = 0;
-  statistics::StatisticsEngine::makeCurrentBucket(&v33);
-  v14 = &unk_283BE6258;
-  v18 = 0;
-  v19 = 0;
-  v17 = 0;
-  v32 = 511;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v27 = &unk_283BF1A08;
   v28 = 0;
+  v31 = 0;
+  v4 = *(a1 + 112);
+  LOBYTE(v31) = 1;
+  v29 = v4;
+  memset(v30, 0, sizeof(v30));
+  statistics::StatisticsEngine::makeCurrentBucket(&v27);
+  v14 = &unk_283BE6258;
+  memset(v17, 0, 24);
+  v26 = 511;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
   v5 = vextq_s8(*(a1 + 120), *(a1 + 120), 8uLL);
   v6 = *(a1 + 136);
-  v30 = *(a1 + 144);
-  v31 = *(a1 + 145);
-  v29 = *(a1 + 148) == 0;
+  v24 = *(a1 + 144);
+  v25 = *(a1 + 145);
+  v23 = *(a1 + 148) == 0;
   v7 = vextq_s8(*(a1 + 160), *(a1 + 160), 8uLL);
   v15 = v5;
   v16 = v7;
   v7.i64[0] = *(a1 + 176);
-  v20 = v6;
-  v21 = v7.i64[0];
+  v17[3] = v6;
+  v17[4] = v7.i64[0];
   v8 = *(a1 + 216);
   if (v8 != *(a1 + 224))
   {
-    v40 = &unk_283BEB0A8;
-    v45 = 127;
-    v42 = vextq_s8(*v8, *v8, 8uLL);
-    v41 = v8[1];
-    v44 = 0;
-    HIBYTE(v43) = v8[2].i8[9];
-    LOBYTE(v43) = v8[2].i8[10];
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>();
+    v32 = &unk_283BEB0A8;
+    v37 = 127;
+    v34 = vextq_s8(*v8, *v8, 8uLL);
+    v33 = v8[1];
+    v36 = 0;
+    HIBYTE(v35) = v8[2].i8[9];
+    LOBYTE(v35) = v8[2].i8[10];
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>(&v18, &v32);
   }
 
   statistics::StatisticsBucket::makeStatistics(&v14);
-  HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::archive(&v40, a1 + 240);
-  statistics::Statistics::operator=(*(&v23 + 1), &v40);
-  statistics::Statistics::~Statistics(&v40);
+  HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::archive(&v32, a1 + 240);
+  statistics::Statistics::operator=(*(&v19 + 1), &v32);
+  statistics::Statistics::~Statistics(&v32);
   v9 = *(a1 + 392);
   if (v9 != a1 + 400)
   {
-    HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::archive(&v40, v9 + 40);
+    HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::archive(&v32, v9 + 40);
     v10 = *(v9 + 32);
-    v47 |= 0x200u;
-    v46 = v10;
-    PB::PtrVector<statistics::Statistics>::emplace_back<statistics::Statistics&>();
+    v39 |= 0x200u;
+    v38 = v10;
+    PB::PtrVector<statistics::Statistics>::emplace_back<statistics::Statistics&>(v21 + 1, &v32);
   }
 
   v11 = *(a1 + 184);
   if (v11 != *(a1 + 192))
   {
-    v40 = &unk_283BF1F08;
-    v42.i32[0] = 3;
-    v41 = vextq_s8(*v11, *v11, 8uLL);
-    PB::PtrVector<statistics::Interval>::emplace_back<statistics::Interval&>();
+    v32 = &unk_283BF1F08;
+    v34.i32[0] = 3;
+    v33 = vextq_s8(*v11, *v11, 8uLL);
+    PB::PtrVector<statistics::Interval>::emplace_back<statistics::Interval&>(v17, &v32);
   }
 
-  statistics::StatisticsBucket::operator=(v34, &v14);
+  statistics::StatisticsBucket::operator=(v28, &v14);
   statistics::StatisticsBucket::~StatisticsBucket(&v14);
   v12 = *(a1 + 600);
   if (v12 != *(a1 + 608))
   {
-    v40 = &unk_283BEB0A8;
-    v45 = 127;
-    v42 = vextq_s8(*v12, *v12, 8uLL);
-    v41 = v12[1];
-    v43 = 0;
-    v44 = 0;
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample>();
+    v32 = &unk_283BEB0A8;
+    v37 = 127;
+    v34 = vextq_s8(*v12, *v12, 8uLL);
+    v33 = v12[1];
+    v35 = 0;
+    v36 = 0;
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample>(v30, &v32);
   }
 
-  PB::Writer::Writer(&v40);
-  statistics::StatisticsEngine::writeTo(&v33, &v40);
-  [v13 encodeBytes:v41.i64[0] length:&v40[-v41.i64[0]] forKey:@"hdsce_archived_representation"];
-  PB::Writer::~Writer(&v40);
-  statistics::StatisticsEngine::~StatisticsEngine(&v33);
+  PB::Writer::Writer(&v32);
+  statistics::StatisticsEngine::writeTo(&v27, &v32);
+  [v13 encodeBytes:v33.i64[0] length:v32 - v33.i64[0] forKey:@"hdsce_archived_representation"];
+  PB::Writer::~Writer(&v32);
+  statistics::StatisticsEngine::~StatisticsEngine(&v27);
 }
 
-void sub_228EE99B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_228EE99B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
 {
   statistics::StatisticsEngine::~StatisticsEngine(&a34);
 
@@ -4991,107 +2872,105 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombine
   HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::HDStatisticsBucket(v38, 0, -1.79769313e308, 1.79769313e308);
   v39 = 0u;
   v40 = 0u;
-  v82 = 0;
-  PB::Reader::Reader(v81, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v82]);
-  v74 = &unk_283BF1A08;
-  v75 = 0;
-  v79 = 0;
-  v77 = 0;
-  v78 = 0;
   v80 = 0;
-  statistics::StatisticsEngine::readFrom(&v74, v81);
-  v37 = v76;
-  if (v75)
+  PB::Reader::Reader(v79, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v80]);
+  v72 = &unk_283BF1A08;
+  v73 = 0;
+  v77 = 0;
+  v75 = 0;
+  v76 = 0;
+  v78 = 0;
+  statistics::StatisticsEngine::readFrom(&v72, v79);
+  v37 = v74;
+  if (v73)
   {
     v44 = 0;
-    v47 = 0uLL;
-    v48 = 0;
+    memset(v47, 0, sizeof(v47));
+    v48 = 0u;
+    *v49 = 0u;
+    *&v49[16] = 0xFFEFFFFFFFFFFFFFLL;
     v50 = 0u;
-    *v51 = 0u;
-    v49 = 0;
-    *&v51[16] = 0xFFEFFFFFFFFFFFFFLL;
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    memset(v56, 0, 26);
-    memset(&v56[2], 0, 32);
-    v59[0] = 0;
-    v59[1] = 0;
-    v57 = 0;
-    v58 = v59;
-    v60 = 0u;
+    memset(v54, 0, 26);
+    memset(&v54[2], 0, 32);
+    v57[0] = 0;
+    v57[1] = 0;
+    v55 = 0;
+    v56 = v57;
+    v58 = 0u;
+    v59 = 0u;
+    v60 = 1065353216;
     v61 = 0u;
-    v62 = 1065353216;
+    v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v65 = 0u;
-    v66 = 0;
-    v67 = 1065353216;
-    v68 = 0u;
+    v64 = 0;
+    v65 = 1065353216;
+    v66 = 0u;
+    v67 = 0u;
+    v68 = 1065353216;
     v69 = 0u;
-    v70 = 1065353216;
-    v71 = 0u;
-    v72 = 0u;
-    v73 = 1065353216;
-    v41 = vextq_s8(*(v75 + 8), *(v75 + 8), 8uLL);
-    v4 = *(v75 + 72);
-    v42 = *(v75 + 64);
-    LOWORD(v43) = *(v75 + 185);
-    v45 = vextq_s8(*(v75 + 24), *(v75 + 24), 8uLL);
+    v70 = 0u;
+    v71 = 1065353216;
+    v41 = vextq_s8(*(v73 + 8), *(v73 + 8), 8uLL);
+    v4 = *(v73 + 72);
+    v42 = *(v73 + 64);
+    LOWORD(v43) = *(v73 + 185);
+    v45 = vextq_s8(*(v73 + 24), *(v73 + 24), 8uLL);
     v46 = v4;
-    v5 = *(v75 + 80);
-    v6 = *(v75 + 88);
+    v5 = *(v73 + 80);
+    v6 = *(v73 + 88);
     v35 = v3;
-    for (i = v75; v5 != v6; ++v5)
+    for (i = v73; v5 != v6; ++v5)
     {
       v7 = *v5;
-      LOWORD(v85) = 1;
-      BYTE8(v85) = 0;
+      LOWORD(v83) = 1;
+      BYTE8(v83) = 0;
       v8 = *(v7 + 8);
       v9 = *(v7 + 16);
-      v83 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
-      *&v84 = v8;
-      *(&v84 + 1) = v9;
-      BYTE9(v85) = *(v7 + 41);
-      BYTE10(v85) = *(v7 + 40);
-      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](&v50, v83.i8);
+      v81 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
+      *&v82 = v8;
+      *(&v82 + 1) = v9;
+      BYTE9(v83) = *(v7 + 41);
+      BYTE10(v83) = *(v7 + 40);
+      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](&v48, v81.i8);
     }
 
     v34 = k;
     v10 = i[13];
     if (v10)
     {
-      HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::unarchive(&v83, *(v10 + 8), *(v10 + 128));
-      v54 = v86;
-      v55 = v87;
-      v56[0] = v88;
-      v56[1] = v89;
-      *&v51[8] = v83;
+      HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::unarchive(&v81, *(v10 + 8), *(v10 + 128));
       v52 = v84;
       v53 = v85;
-      *&v56[2] = v90;
-      if (*(&v56[2] + 1))
+      v54[0] = v86;
+      v54[1] = v87;
+      *&v49[8] = v81;
+      v50 = v82;
+      v51 = v83;
+      *&v54[2] = v88;
+      if (*(&v54[2] + 1))
       {
-        *&v56[3] = *(&v56[2] + 1);
-        operator delete(*(&v56[2] + 1));
+        *&v54[3] = *(&v54[2] + 1);
+        operator delete(*(&v54[2] + 1));
       }
 
-      *(&v56[2] + 8) = v91;
-      *(&v56[3] + 1) = v92;
-      v92 = 0;
-      v91 = 0uLL;
-      v57 = v93;
+      *(&v54[2] + 8) = v89;
+      *(&v54[3] + 1) = v90;
+      v90 = 0;
+      v89 = 0uLL;
+      v55 = v91;
     }
 
     v11 = i[17];
     for (j = i[18]; v11 != j; ++v11)
     {
       v13 = *v11;
-      HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::unarchive(&v83, *(*v11 + 8), *(*v11 + 128));
+      HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>::unarchive(&v81, *(*v11 + 8), *(*v11 + 128));
       v14 = *(v13 + 144);
-      v15 = v59[0];
-      if (!v59[0])
+      v15 = v57[0];
+      if (!v57[0])
       {
 LABEL_15:
         operator new();
@@ -5127,19 +3006,19 @@ LABEL_15:
         }
       }
 
-      v19 = v88;
-      v18 = v89;
-      v20 = v87;
-      *(v16 + 11) = v86;
+      v19 = v86;
+      v18 = v87;
+      v20 = v85;
+      *(v16 + 11) = v84;
       *(v16 + 13) = v20;
       *(v16 + 15) = v19;
       *(v16 + 17) = v18;
-      v21 = v84;
-      v22 = v85;
-      *(v16 + 5) = v83;
+      v21 = v82;
+      v22 = v83;
+      *(v16 + 5) = v81;
       *(v16 + 7) = v21;
       *(v16 + 9) = v22;
-      v16[19] = v90;
+      v16[19] = v88;
       v23 = v16[20];
       if (v23)
       {
@@ -5150,11 +3029,11 @@ LABEL_15:
         v16[22] = 0;
       }
 
-      *(v16 + 10) = v91;
-      v16[22] = v92;
-      v92 = 0;
-      v91 = 0uLL;
-      v16[23] = v93;
+      *(v16 + 10) = v89;
+      v16[22] = v90;
+      v90 = 0;
+      v89 = 0uLL;
+      v16[23] = v91;
     }
 
     v3 = v35;
@@ -5179,15 +3058,15 @@ LABEL_15:
         v26 = *(*v24 + 8);
       }
 
-      HKIntervalMask<double>::_insertInterval(&v47, v28, v26);
+      HKIntervalMask<double>::_insertInterval(v47, v28, v26);
     }
 
     HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::operator=(v38, &v41);
     HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::~HDStatisticsBucket(&v41);
   }
 
-  v29 = v77;
-  for (m = v78; v29 != m; v29 += 8)
+  v29 = v75;
+  for (m = v76; v29 != m; v29 += 8)
   {
     v31 = *(*v29 + 8);
     v32 = *(*v29 + 16);
@@ -5198,7 +3077,7 @@ LABEL_15:
     std::vector<HDRawQuantitySample>::push_back[abi:ne200100](&v39, v41.i8);
   }
 
-  statistics::StatisticsEngine::~StatisticsEngine(&v74);
+  statistics::StatisticsEngine::~StatisticsEngine(&v72);
 
   HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::operator=((k + 112), &v37);
   if (v39)
@@ -5210,41 +3089,41 @@ LABEL_15:
   HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::~HDStatisticsBucket(v38);
 }
 
-void sub_228EE9F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_228EE9F9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(a2);
+  va_start(va, a15);
+  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(a9);
   std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(&STACK[0x3D0]);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&STACK[0x3A8]);
-  v9 = STACK[0x390];
+  v16 = STACK[0x390];
   if (STACK[0x390])
   {
-    STACK[0x398] = v9;
-    operator delete(v9);
+    STACK[0x398] = v16;
+    operator delete(v16);
   }
 
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a3);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a10);
   std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::destroy(STACK[0x358]);
-  v10 = STACK[0x330];
+  v17 = STACK[0x330];
   if (STACK[0x330])
   {
-    STACK[0x338] = v10;
-    operator delete(v10);
+    STACK[0x338] = v17;
+    operator delete(v17);
   }
 
-  v11 = STACK[0x2A0];
+  v18 = STACK[0x2A0];
   if (STACK[0x2A0])
   {
-    STACK[0x2A8] = v11;
-    operator delete(v11);
+    STACK[0x2A8] = v18;
+    operator delete(v18);
   }
 
   objc_destroyWeak(&STACK[0x298]);
-  v12 = STACK[0x280];
+  v19 = STACK[0x280];
   if (STACK[0x280])
   {
-    STACK[0x288] = v12;
-    operator delete(v12);
+    STACK[0x288] = v19;
+    operator delete(v19);
   }
 
   statistics::StatisticsEngine::~StatisticsEngine(&STACK[0x420]);
@@ -5478,7 +3357,7 @@ uint64_t HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeigh
   *(a1 + 56) = v5;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 64, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 64), *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
   objc_copyWeak((a1 + 88), (a2 + 88));
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
@@ -5513,7 +3392,7 @@ uint64_t HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeigh
   *(a1 + 232) = v15;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 240, *(a2 + 240), *(a2 + 248), (*(a2 + 248) - *(a2 + 240)) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 240), *(a2 + 240), *(a2 + 248), (*(a2 + 248) - *(a2 + 240)) >> 4);
   *(a1 + 264) = *(a2 + 264);
   v16 = (a1 + 280);
   *(a1 + 280) = 0;
@@ -5655,7 +3534,7 @@ LABEL_23:
   *(a1 + 336) = 0;
   *(a1 + 344) = 0;
   *(a1 + 352) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 336, *(a2 + 336), *(a2 + 344), (*(a2 + 344) - *(a2 + 336)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 336), *(a2 + 336), *(a2 + 344), (*(a2 + 344) - *(a2 + 336)) >> 3);
   std::unordered_map<long long,long long>::unordered_map(a1 + 360, a2 + 360);
   std::unordered_map<NSString * {__strong},long long,HDStringHash,HDStringEqual,std::allocator<std::pair<NSString * const {__strong},long long>>>::unordered_map(a1 + 400, a2 + 400);
   std::unordered_map<long long,NSString * {__strong}>::unordered_map(a1 + 440, a2 + 440);
@@ -5777,7 +3656,7 @@ uint64_t HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeigh
 
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = objc_alloc(MEMORY[0x277CBEAA8]);
   v6 = 40;
@@ -5786,7 +3665,7 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombine
     v6 = 0;
   }
 
-  v22 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
+  v21 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
   if (*(a2 + 8) == 1.79769313e308)
   {
     v7 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:*(a2 + 48)];
@@ -5799,63 +3678,64 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombine
 
   v8 = v7;
   v9 = *(a1 + 16);
-  v10 = *(a1 + 16);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = *(a1 + 16);
-    if ([v11 shouldUseUnderlyingTypeForStatistics])
+    v10 = *(a1 + 16);
+    if ([v10 shouldUseUnderlyingTypeForStatistics])
     {
-      v12 = [v11 underlyingSampleType];
+      v11 = [v10 underlyingSampleType];
 
-      v9 = v12;
+      v9 = v11;
     }
   }
 
-  v13 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v9 startDate:v22 endDate:v8];
+  v12 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v9 startDate:v21 endDate:v8];
   if (*(a1 + 24))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
 
     if (WeakRetained)
     {
-      v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v16 = *(a2 + 336);
-      v17 = *(a2 + 344);
-      while (v16 != v17)
+      v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v15 = *(a2 + 336);
+      v16 = *(a2 + 344);
+      while (v15 != v16)
       {
-        v18 = *v16;
-        v19 = objc_loadWeakRetained((a1 + 48));
-        v20 = [v19 sourceForSourceID:v18];
+        v17 = *v15;
+        v18 = objc_loadWeakRetained((a1 + 48));
+        v19 = [v18 sourceForSourceID:v17];
 
-        if (v20)
+        if (v19)
         {
-          if (([v15 containsObject:v20] & 1) == 0)
+          if (([v14 containsObject:v19] & 1) == 0)
           {
-            [v15 addObject:v20];
+            [v14 addObject:v19];
           }
         }
 
-        ++v16;
+        ++v15;
       }
 
-      v21 = [v15 copy];
-      [v13 _setSources:v21];
+      v20 = objc_msgSend_copy(v14);
+      [v12 _setSources:v20];
     }
   }
 
-  v23[0] = &unk_283BEDC98;
-  v23[3] = v23;
-  v13;
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::__value_func[abi:ne200100](v24, v23);
-  v25 = 0;
+  v22[0] = &unk_283BEDC98;
+  v22[3] = v22;
+  v12;
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::__value_func[abi:ne200100](v23, v22);
+  v24 = 0;
   operator new();
 }
 
-void sub_228EEB7F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *a11, void *a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_228EEB7F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *a11, void *a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  std::__function::__value_func<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](v40 - 176);
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](&a37);
+  va_start(va, a36);
+
+  std::__function::__value_func<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](v39 - 176);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](va);
 
   std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](&a33);
   _Unwind_Resume(a1);
@@ -5896,12 +3776,12 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
   v5 = *(a1 + 56);
   if (v5 < a2)
   {
-    v74 = (a1 + 280);
+    v72 = (a1 + 280);
     while (1)
     {
       v6 = *(a1 + 96);
       v7 = *(a1 + 104);
-      v8 = 0xAAAAAAAAAAAAAAABLL * (v7 - v6);
+      v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4);
       if (v8 == 1)
       {
         break;
@@ -5920,16 +3800,16 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
       {
         do
         {
-          v13 = *(v12 + 8);
-          v14 = *(v12 + 16);
+          v13 = v12->n128_f64[1];
+          v14 = v12[1].n128_f64[0];
           if (v13 > v11 && v13 < v10)
           {
-            v10 = *(v12 + 8);
+            v10 = v12->n128_f64[1];
           }
 
           if (v14 > v5)
           {
-            v16 = *(v12 + 16);
+            v16 = v12[1].n128_f64[0];
           }
 
           else
@@ -5943,7 +3823,7 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
             v9 = v16;
           }
 
-          v12 += 48;
+          v12 += 3;
         }
 
         while (v12 != v7);
@@ -5982,7 +3862,7 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
       {
         if (v8 < 0x555555555555556)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(0xAAAAAAAAAAAAAAABLL * (v7 - v6));
+          std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4));
         }
 
         std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
@@ -5994,7 +3874,7 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
       v22 = __clz(v8);
       if (WeakRetained)
       {
-        *&v77.var0 = a1;
+        *&v75.var0 = a1;
         v23 = 126 - 2 * v22;
         if (v6 == v7)
         {
@@ -6006,12 +3886,12 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
           v24 = v23;
         }
 
-        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,false>(v6, v7, &v77, v24, 1);
+        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,false>(v6, v7, &v75, v24, 1);
       }
 
       else
       {
-        v51 = 126 - 2 * v22;
+        v49 = 126 - 2 * v22;
         if (v6 == v7)
         {
           v24 = 0;
@@ -6019,79 +3899,79 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
 
         else
         {
-          v24 = v51;
+          v24 = v49;
         }
       }
 
       std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#2} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>::_SampleRemainder*,false>(v6, v7, v24, 1);
       if (*(a1 + 25) == 1)
       {
-        v75 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v73 = objc_alloc_init(MEMORY[0x277CBEB38]);
       }
 
       else
       {
-        v75 = 0;
+        v73 = 0;
       }
 
       if (v6 != v7)
       {
-        v52 = 0;
-        v53 = 0;
-        v54 = v6;
+        v50 = 0;
+        v51 = 0;
+        v52 = v6;
         while (1)
         {
-          v55 = v54[1];
-          *&v77.var0 = *v54;
-          *&v77.var2 = v55;
-          *&v77.var4 = *(v54 + 4);
-          if (v77.var4 && v77.var1 <= v17)
+          v53 = *(v52 + 1);
+          *&v75.var0 = *v52;
+          *&v75.var2 = v53;
+          *&v75.var4 = v52[4];
+          if (v75.var4 && v75.var1 <= v17)
           {
             break;
           }
 
-          std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, v54);
+          std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, v52);
 LABEL_121:
-          v54 += 3;
-          if (v54 == v7)
+          v52 += 6;
+          if (v52 == v7)
           {
             goto LABEL_122;
           }
         }
 
-        var2 = v77.var2;
-        if (v77.var2 > v17)
+        var2 = v75.var2;
+        if (v75.var2 > v17)
         {
           var2 = v17;
         }
 
-        v77.var2 = var2;
-        for (i = *(a1 + 64); i != *(a1 + 72) && v77.var1 >= *i; i += 2)
+        v75.var2 = var2;
+        for (i = *(a1 + 64); i != *(a1 + 72) && v75.var1 >= *i; i += 2)
         {
-          if (v77.var1 < i[1])
+          if (v75.var1 < i[1])
           {
             goto LABEL_121;
           }
         }
 
-        v58 = *(v54 + 42);
-        v59 = *(v54 + 41);
-        if (v53)
+        v56 = *(v52 + 42);
+        v57 = *(v52 + 41);
+        if (v51)
         {
-          var3 = v77.var3;
-          if (v52 == v77.var3 || *(a1 + 24) == 1)
+          var3 = v75.var3;
+          if (v50 == v75.var3 || *(a1 + 24) == 1)
           {
-            HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(a1 + 120, &v77.var0);
-            HDStatisticsTimeInterval::addSample((a1 + 232), &v77, v58 ^ 1);
+            HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(a1 + 120, &v75.var0);
+            HDStatisticsTimeInterval::addSample((a1 + 232), &v75, v56 ^ 1);
           }
         }
 
         else
         {
-          HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(a1 + 120, &v77.var0);
-          HDStatisticsTimeInterval::addSample((a1 + 232), &v77, v58 ^ 1);
-          var3 = v77.var3;
-          v52 = v77.var3;
+          HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(a1 + 120, &v75.var0);
+          HDStatisticsTimeInterval::addSample((a1 + 232), &v75, v56 ^ 1);
+          var3 = v75.var3;
+          v50 = v75.var3;
         }
 
         if (*(a1 + 25) != 1)
@@ -6099,76 +3979,76 @@ LABEL_121:
           goto LABEL_120;
         }
 
-        v61 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_bundleIdentifierForSourceID(a1, var3);
-        if (!v61)
+        v59 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_bundleIdentifierForSourceID(a1, var3);
+        if (!v59)
         {
           goto LABEL_119;
         }
 
-        v62 = [v75 objectForKeyedSubscript:v61];
-        v63 = v62;
-        if (v62)
+        v60 = [v73 objectForKeyedSubscript:v59];
+        v61 = v60;
+        if (v60)
         {
-          if ([v62 longLongValue] != var3 && *(a1 + 24) != 1)
+          if ([v60 longLongValue] != var3 && *(a1 + 24) != 1)
           {
 LABEL_118:
 
 LABEL_119:
 LABEL_120:
-            v53 = 1;
+            v51 = 1;
             goto LABEL_121;
           }
         }
 
         else
         {
-          v64 = [MEMORY[0x277CCABB0] numberWithLongLong:var3];
-          [v75 setObject:v64 forKeyedSubscript:v61];
+          v62 = [MEMORY[0x277CCABB0] numberWithLongLong:var3];
+          [v73 setObject:v62 forKeyedSubscript:v59];
         }
 
-        v65 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1, var3);
-        v66 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsForSource(a1, v65);
-        HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(v66, &v77.var0);
-        HDStatisticsTimeInterval::addSample(v66 + 7, &v77, v59 ^ 1);
+        v63 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1, var3);
+        v64 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsForSource(a1, v63);
+        HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(v64, &v75.var0);
+        HDStatisticsTimeInterval::addSample(v64 + 14, &v75, v57 ^ 1);
         goto LABEL_118;
       }
 
 LABEL_122:
       *(a1 + 264) = HKIntervalMask<double>::removeIntervalsBefore((a1 + 240), v17) + *(a1 + 264);
-      v67 = *(a1 + 272);
-      if (v67 != v74)
+      v65 = *(a1 + 272);
+      if (v65 != v72)
       {
         do
         {
-          *(v67 + 23) = HKIntervalMask<double>::removeIntervalsBefore(v67 + 20, v17) + *(v67 + 23);
-          v68 = v67[1];
-          if (v68)
+          *(v65 + 23) = HKIntervalMask<double>::removeIntervalsBefore(v65 + 20, v17) + *(v65 + 23);
+          v66 = v65[1];
+          if (v66)
           {
             do
             {
-              v69 = v68;
-              v68 = *v68;
+              v67 = v66;
+              v66 = *v66;
             }
 
-            while (v68);
+            while (v66);
           }
 
           else
           {
             do
             {
-              v69 = v67[2];
-              v70 = *v69 == v67;
-              v67 = v69;
+              v67 = v65[2];
+              v68 = *v67 == v65;
+              v65 = v67;
             }
 
-            while (!v70);
+            while (!v68);
           }
 
-          v67 = v69;
+          v65 = v67;
         }
 
-        while (v69 != v74);
+        while (v67 != v72);
       }
 
       *(a1 + 56) = v17;
@@ -6179,18 +4059,18 @@ LABEL_122:
       }
 
 LABEL_131:
-      v71 = *(a1 + 56);
-      if (v71 == v5)
+      v69 = *(a1 + 56);
+      if (v69 == v5)
       {
-        v72 = [MEMORY[0x277CCA890] currentHandler];
-        v73 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>, HDStatisticsTimeInterval>>::_mergeThroughTime(double) [Statistics = HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>, HDStatisticsTimeInterval>]"}];
-        [v72 handleFailureInFunction:v73 file:@"HDStatisticsBucket.hpp" lineNumber:234 description:@"Failed to make forward progress during statistics merge."];
+        v70 = [MEMORY[0x277CCA890] currentHandler];
+        v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>, HDStatisticsTimeInterval>>::_mergeThroughTime(double) [Statistics = HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>, HDStatisticsTimeInterval>]"}];
+        [v70 handleFailureInFunction:v71 file:@"HDStatisticsBucket.hpp" lineNumber:234 description:@"Failed to make forward progress during statistics merge."];
 
-        v71 = *(a1 + 56);
+        v69 = *(a1 + 56);
       }
 
-      v5 = v71;
-      if (v71 >= a2)
+      v5 = v69;
+      if (v69 >= a2)
       {
         return;
       }
@@ -6199,51 +4079,69 @@ LABEL_131:
     v25 = *(v6 + 42);
     v26 = *(v6 + 41);
     v27 = *(v6 + 40);
-    v29 = *v6;
-    v28 = *(v6 + 1);
-    v30 = *(v6 + 2);
-    v31 = *(v6 + 3);
-    v32 = *(v6 + 32);
-    v33 = *(v6 + 33);
-    if (v30 <= a2)
+    v28 = v6[1];
+    v29 = v6[2];
+    v30 = *(v6 + 3);
+    v31 = *(v6 + 33);
+    if (v29 <= a2)
     {
-      v34 = *(v6 + 2);
+      v32 = v6[2];
     }
 
     else
     {
-      v34 = a2;
+      v32 = a2;
     }
 
     if (v28 < a2)
     {
-      v35 = *(v6 + 32);
+      v33 = *(v6 + 32);
     }
 
     else
+    {
+      v33 = 0;
+    }
+
+    if (v28 < a2)
+    {
+      v34 = 0;
+    }
+
+    else
+    {
+      v34 = *(v6 + 33);
+    }
+
+    if (v28 < a2)
     {
       v35 = 0;
     }
 
-    if (v28 < a2)
-    {
-      v36 = 0;
-    }
-
     else
     {
-      v36 = *(v6 + 33);
+      v32 = v6[2];
+      v35 = *(v6 + 3);
     }
 
     if (v28 < a2)
     {
-      v37 = 0;
+      v36 = 0.0;
     }
 
     else
     {
-      v34 = *(v6 + 2);
-      v37 = *(v6 + 3);
+      v36 = v6[2];
+    }
+
+    if (v28 < a2)
+    {
+      v37 = 0.0;
+    }
+
+    else
+    {
+      v37 = *v6;
     }
 
     if (v28 < a2)
@@ -6253,52 +4151,52 @@ LABEL_131:
 
     else
     {
-      v38 = *(v6 + 2);
+      v38 = v6[1];
     }
 
     if (v28 < a2)
     {
-      v39 = 0.0;
+      v39 = 0;
     }
 
     else
     {
-      v39 = *v6;
+      v39 = *(v6 + 32);
     }
 
-    if (v28 < a2)
+    if (v6[4])
+    {
+      v29 = v32;
+    }
+
+    else
+    {
+      v33 = *(v6 + 32);
+      v34 = 0;
+      v35 = 0;
+    }
+
+    if (v6[4])
+    {
+      v40 = v36;
+    }
+
+    else
     {
       v40 = 0.0;
     }
 
-    else
+    if (v6[4])
     {
-      v40 = *(v6 + 1);
-    }
-
-    if (v28 < a2)
-    {
-      v41 = 0;
+      v41 = v37;
     }
 
     else
     {
-      v41 = *(v6 + 32);
+      v41 = 0.0;
     }
 
-    if (v6[2])
-    {
-      v30 = v34;
-    }
-
-    else
-    {
-      v35 = *(v6 + 32);
-      v36 = 0;
-      v37 = 0;
-    }
-
-    if (v6[2])
+    if (v6[4])
     {
       v42 = v38;
     }
@@ -6308,50 +4206,30 @@ LABEL_131:
       v42 = 0.0;
     }
 
-    if (v6[2])
+    if (v6[4])
     {
       v43 = v39;
     }
 
     else
     {
-      v43 = 0.0;
+      v43 = 0;
     }
 
-    if (v6[2])
-    {
-      v44 = v40;
-    }
-
-    else
-    {
-      v44 = 0.0;
-    }
-
-    if (v6[2])
-    {
-      v45 = v41;
-    }
-
-    else
-    {
-      v45 = 0;
-    }
-
-    v77.var0 = *v6;
-    v77.var1 = v28;
-    v77.var2 = v30;
-    v77.var3 = v31;
-    v77.var4 = v35;
-    v77.var5 = v33;
-    *(&v77.var5 + 1) = *(v6 + 34);
-    *(&v77.var5 + 5) = *(v6 + 19);
-    *&v78 = v43;
-    *(&v78 + 1) = v44;
-    *&v79 = v42;
-    *(&v79 + 1) = v37;
-    LOBYTE(v80) = v45;
-    HIBYTE(v80) = v36;
+    v75.var0 = *v6;
+    v75.var1 = v28;
+    v75.var2 = v29;
+    v75.var3 = v30;
+    v75.var4 = v33;
+    v75.var5 = v31;
+    *(&v75.var5 + 1) = *(v6 + 34);
+    *(&v75.var5 + 5) = *(v6 + 19);
+    *&v76 = v41;
+    *(&v76 + 1) = v42;
+    *&v77 = v40;
+    *(&v77 + 1) = v35;
+    LOBYTE(v78) = v43;
+    HIBYTE(v78) = v34;
     for (j = *(a1 + 64); j != *(a1 + 72) && v28 >= *j; j += 2)
     {
       if (v28 < j[1])
@@ -6360,16 +4238,16 @@ LABEL_131:
       }
     }
 
-    if (v35)
+    if (v33)
     {
-      HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(a1 + 120, &v77.var0);
-      HDStatisticsTimeInterval::addSample((a1 + 232), &v77, v25 ^ 1);
+      HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(a1 + 120, &v75.var0);
+      HDStatisticsTimeInterval::addSample((a1 + 232), &v75, v25 ^ 1);
       if (*(a1 + 25) == 1)
       {
-        v47 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1, v31);
-        v48 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsForSource(a1, v47);
-        HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(v48, &v77.var0);
-        HDStatisticsTimeInterval::addSample(v48 + 7, &v77, v26 ^ 1);
+        v45 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1, v30);
+        v46 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsForSource(a1, v45);
+        HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>::addSample(v46, &v75.var0);
+        HDStatisticsTimeInterval::addSample(v46 + 14, &v75, v26 ^ 1);
       }
 
       v27 = 1;
@@ -6378,17 +4256,17 @@ LABEL_131:
     }
 
 LABEL_83:
-    if (v45)
+    if (v43)
     {
-      LOWORD(v76) = v80;
-      v49 = v79;
-      v50 = *(a1 + 96);
-      *v50 = v78;
-      *(v50 + 16) = v49;
-      *(v50 + 32) = v76;
-      *(v50 + 40) = v27;
-      *(v50 + 41) = v26;
-      *(v50 + 42) = v25;
+      LOWORD(v74) = v78;
+      v47 = v77;
+      v48 = *(a1 + 96);
+      *v48 = v76;
+      *(v48 + 16) = v47;
+      *(v48 + 32) = v74;
+      *(v48 + 40) = v27;
+      *(v48 + 41) = v26;
+      *(v48 + 42) = v25;
     }
 
     else
@@ -6402,7 +4280,7 @@ LABEL_86:
   }
 }
 
-void *HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsForSource(uint64_t a1, uint64_t a2)
+uint64_t **HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsForSource(uint64_t a1, uint64_t a2)
 {
   v7 = a2;
   v3 = *(a1 + 280);
@@ -6415,12 +4293,12 @@ void *HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeighted
   v5 = (a1 + 280);
   do
   {
-    if (v3[4] >= a2)
+    if (*(v3 + 32) >= a2)
     {
       v5 = v3;
     }
 
-    v3 = v3[v3[4] < a2];
+    v3 = *(v3 + 8 * (*(v3 + 32) < a2));
   }
 
   while (v3);
@@ -6428,9 +4306,9 @@ void *HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeighted
   {
 LABEL_8:
     v8 = &v7;
-    std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 272, a2);
+    std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 272), a2, &v8);
     v8 = &v7;
-    v5 = std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 272, v7);
+    v5 = std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 272), v7, &v8);
   }
 
   return v5 + 5;
@@ -6451,8 +4329,8 @@ uint64_t *HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeig
     else
     {
       v6 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_bundleIdentifierForSourceID(a1, a2);
-      v9[0] = v6;
-      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 400), v9);
+      v9 = v6;
+      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 400), &v9);
       if (v7)
       {
         a2 = v7[3];
@@ -6460,9 +4338,9 @@ uint64_t *HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeig
 
       else
       {
-        v9[1] = v9;
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 400), v9)[3] = a2;
-        v6 = v9[0];
+        v10 = &v9;
+        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 400), &v9, &v10)[3] = a2;
+        v6 = v9;
       }
     }
   }
@@ -6472,7 +4350,7 @@ uint64_t *HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeig
 
 id HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_bundleIdentifierForSourceID(uint64_t a1, unint64_t a2)
 {
-  v9[0] = a2;
+  v9 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
 
   if (WeakRetained)
@@ -6486,12 +4364,12 @@ id HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDis
     else
     {
       v6 = objc_loadWeakRetained((a1 + 88));
-      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9[0]}];
+      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9}];
 
       if (WeakRetained)
       {
-        v9[1] = v9;
-        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 440), a2);
+        v10 = &v9;
+        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 440), a2, &v10);
         objc_storeStrong(v7 + 3, WeakRetained);
       }
     }
@@ -6500,10 +4378,10 @@ id HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDis
   return WeakRetained;
 }
 
-void *std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t **std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -6513,1632 +4391,1630 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,false>(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5)
+__n128 std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,false>(unint64_t a1, __n128 *a2, uint64_t *a3, uint64_t a4, char a5)
 {
-  v256 = *MEMORY[0x277D85DE8];
-LABEL_2:
-  v10 = a2 - 3;
-  v11 = a1;
-  while (1)
+  while (2)
   {
-    a1 = v11;
-    v12 = a2 - v11;
-    v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 4);
-    if (v13 <= 2)
+    v10 = a2 - 3;
+    v11 = a1;
+    while (1)
     {
-      if (v13 < 2)
+      while (1)
       {
-        goto LABEL_375;
-      }
-
-      if (v13 == 2)
-      {
-        v104 = *(a2 - 3);
-        v105 = *(v11 + 24);
-        if (v104 != v105)
+        while (1)
         {
-          v106 = *(*a3 + 336);
-          v107 = *(*a3 + 344);
-          if (v106 == v107)
+          a1 = v11;
+          v12 = a2 - v11;
+          v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 4);
+          if (v13 > 2)
           {
-            v109 = *(*a3 + 336);
-            v108 = v109;
+            switch(v13)
+            {
+              case 3:
+
+                result.n128_u64[0] = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v11, (v11 + 48), &a2[-3], a3).n128_u64[0];
+                return result;
+              case 4:
+
+                result.n128_u64[0] = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v11, v11 + 48, v11 + 96, &a2[-3], a3).n128_u64[0];
+                return result;
+              case 5:
+
+                result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v11, (v11 + 48), (v11 + 96), (v11 + 144), &a2[-3], a3).n128_u64[0];
+                return result;
+            }
           }
 
           else
           {
-            v108 = *(*a3 + 336);
-            v109 = v108;
-            do
+            if (v13 < 2)
             {
-              if (*v109 == v104)
-              {
-                goto LABEL_189;
-              }
-
-              v109 += 8;
+              return result;
             }
 
-            while (v109 != v107);
-            v109 = *(*a3 + 344);
-LABEL_189:
-            while (*v108 != v105)
+            if (v13 == 2)
             {
-              v108 += 8;
-              if (v108 == v107)
+              v102 = a2[-2].n128_u64[1];
+              v103 = *(v11 + 24);
+              if (v102 != v103)
               {
-                v108 = *(*a3 + 344);
-                break;
+                v104 = *(*a3 + 336);
+                v105 = *(*a3 + 344);
+                if (v104 == v105)
+                {
+                  v107 = *(*a3 + 336);
+                  v106 = v107;
+                }
+
+                else
+                {
+                  v106 = *(*a3 + 336);
+                  v107 = v106;
+                  do
+                  {
+                    if (*v107 == v102)
+                    {
+                      goto LABEL_188;
+                    }
+
+                    v107 += 8;
+                  }
+
+                  while (v107 != v105);
+                  v107 = *(*a3 + 344);
+LABEL_188:
+                  while (*v106 != v103)
+                  {
+                    v106 += 8;
+                    if (v106 == v105)
+                    {
+                      v106 = *(*a3 + 344);
+                      break;
+                    }
+                  }
+                }
+
+                if (v107 - v104 < v106 - v104)
+                {
+                  *v236 = *(v11 + 16);
+                  *&v236[16] = *(v11 + 32);
+                  v228 = *v11;
+                  v220 = *v10;
+                  v221 = a2[-2];
+                  *(v11 + 27) = *(a2 - 21);
+                  *v11 = v220;
+                  *(v11 + 16) = v221;
+                  result = v228;
+                  *(a2 - 21) = *&v236[11];
+                  *v10 = v228;
+                  a2[-2] = *v236;
+                }
               }
+
+              return result;
             }
           }
 
-          if (v109 - v106 < v108 - v106)
+          if (v12 <= 1151)
           {
-            *v243 = *(v11 + 16);
-            *&v243[16] = *(v11 + 32);
-            v235 = *v11;
-            v226 = *v10;
-            v227 = *(a2 - 2);
-            *(v11 + 27) = *(a2 - 21);
-            *v11 = v226;
-            *(v11 + 16) = v227;
-            *(a2 - 21) = *&v243[11];
-            *v10 = v235;
-            *(a2 - 2) = *v243;
-          }
-        }
-
-LABEL_375:
-        v228 = *MEMORY[0x277D85DE8];
-        return;
-      }
-
-      goto LABEL_10;
-    }
-
-    if (v13 == 3)
-    {
-      break;
-    }
-
-    if (v13 == 4)
-    {
-      v111 = *MEMORY[0x277D85DE8];
-
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v11, v11 + 48, v11 + 96, (a2 - 3), a3);
-      return;
-    }
-
-    if (v13 == 5)
-    {
-      v110 = *MEMORY[0x277D85DE8];
-
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v11, v11 + 48, v11 + 96, v11 + 144, (a2 - 3), a3);
-      return;
-    }
-
-LABEL_10:
-    if (v12 <= 1151)
-    {
-      v112 = (v11 + 48);
-      v114 = v11 == a2 || v112 == a2;
-      if (a5)
-      {
-        if (!v114)
-        {
-          v115 = v11;
-          do
-          {
-            v116 = v115;
-            v115 = v112;
-            v117 = *(v116 + 72);
-            v118 = *(v116 + 24);
-            if (v117 != v118)
+            v108 = (v11 + 48);
+            v110 = v11 == a2 || v108 == a2;
+            if (a5)
             {
-              v119 = *(*a3 + 336);
-              v120 = *(*a3 + 344);
-              if (v119 == v120)
+              if (!v110)
               {
-                v122 = *(*a3 + 336);
-                v121 = v122;
-              }
-
-              else
-              {
-                v121 = *(*a3 + 336);
-                v122 = v121;
+                v111 = v11;
                 do
                 {
-                  if (*v122 == v117)
+                  v112 = v111;
+                  v111 = v108;
+                  v113 = v112[4].n128_i64[1];
+                  v114 = v112[1].n128_i64[1];
+                  if (v113 != v114)
                   {
-                    goto LABEL_213;
-                  }
-
-                  v122 += 8;
-                }
-
-                while (v122 != v120);
-                v122 = *(*a3 + 344);
-LABEL_213:
-                while (*v121 != v118)
-                {
-                  v121 += 8;
-                  if (v121 == v120)
-                  {
-                    v121 = *(*a3 + 344);
-                    break;
-                  }
-                }
-              }
-
-              if (v122 - v119 < v121 - v119)
-              {
-                v239 = *(v115 + 16);
-                v231 = *v115;
-                v249 = *(v116 + 80);
-                v123 = v115;
-                while (1)
-                {
-                  v124 = *(v116 + 16);
-                  *v123 = *v116;
-                  *(v123 + 16) = v124;
-                  *(v123 + 27) = *(v116 + 27);
-                  if (v116 == v11)
-                  {
-                    break;
-                  }
-
-                  v123 = v116;
-                  v125 = *(v116 - 24);
-                  if (v117 != v125)
-                  {
-                    v126 = *(*a3 + 336);
-                    v127 = *(*a3 + 344);
-                    if (v126 == v127)
+                    v115 = *(*a3 + 336);
+                    v116 = *(*a3 + 344);
+                    if (v115 == v116)
                     {
-                      v129 = *(*a3 + 336);
-                      v128 = v129;
+                      v118 = *(*a3 + 336);
+                      v117 = v118;
                     }
 
                     else
                     {
-                      v128 = *(*a3 + 336);
-                      v129 = v128;
+                      v117 = *(*a3 + 336);
+                      v118 = v117;
                       do
                       {
-                        if (*v129 == v117)
+                        if (*v118 == v113)
                         {
-                          goto LABEL_226;
+                          goto LABEL_212;
                         }
 
-                        v129 += 8;
+                        v118 += 8;
                       }
 
-                      while (v129 != v127);
-                      v129 = *(*a3 + 344);
-LABEL_226:
-                      while (*v128 != v125)
+                      while (v118 != v116);
+                      v118 = *(*a3 + 344);
+LABEL_212:
+                      while (*v117 != v114)
                       {
-                        v128 += 8;
-                        if (v128 == v127)
+                        v117 += 8;
+                        if (v117 == v116)
                         {
-                          v128 = *(*a3 + 344);
+                          v117 = *(*a3 + 344);
                           break;
                         }
                       }
                     }
 
-                    v116 = v123 - 48;
-                    if (v129 - v126 < v128 - v126)
+                    if (v118 - v115 < v117 - v115)
                     {
-                      continue;
-                    }
-                  }
-
-                  goto LABEL_233;
-                }
-
-                v123 = v11;
-LABEL_233:
-                *v123 = v231;
-                *(v123 + 16) = v239;
-                *(v123 + 24) = v117;
-                *(v123 + 32) = v249;
-                *(v123 + 39) = *(&v249 + 7);
-              }
-            }
-
-            v112 = (v115 + 48);
-          }
-
-          while ((v115 + 48) != a2);
-        }
-      }
-
-      else if (!v114)
-      {
-        do
-        {
-          v211 = a1;
-          a1 = v112;
-          v212 = *(v211 + 72);
-          v213 = *(v211 + 24);
-          if (v212 != v213)
-          {
-            v214 = *(*a3 + 336);
-            v215 = *(*a3 + 344);
-            if (v214 == v215)
-            {
-              v217 = *(*a3 + 336);
-              v216 = v217;
-            }
-
-            else
-            {
-              v216 = *(*a3 + 336);
-              v217 = v216;
-              do
-              {
-                if (*v217 == v212)
-                {
-                  goto LABEL_352;
-                }
-
-                v217 += 8;
-              }
-
-              while (v217 != v215);
-              v217 = *(*a3 + 344);
-LABEL_352:
-              while (*v216 != v213)
-              {
-                v216 += 8;
-                if (v216 == v215)
-                {
-                  v216 = *(*a3 + 344);
-                  break;
-                }
-              }
-            }
-
-            if (v217 - v214 < v216 - v214)
-            {
-              v242 = *(a1 + 16);
-              v234 = *a1;
-              v252 = *(v211 + 80);
-              v218 = a1;
-              do
-              {
-                v219 = v218;
-                v218 = v211;
-                v220 = *(v211 + 16);
-                *v219 = *v211;
-                v219[1] = v220;
-                *(v219 + 27) = *(v211 + 27);
-                v221 = *(v211 - 24);
-                if (v212 == v221)
-                {
-                  break;
-                }
-
-                v222 = *(*a3 + 336);
-                v223 = *(*a3 + 344);
-                if (v222 == v223)
-                {
-                  v225 = *(*a3 + 336);
-                  v224 = v225;
-                }
-
-                else
-                {
-                  v224 = *(*a3 + 336);
-                  v225 = v224;
-                  do
-                  {
-                    if (*v225 == v212)
-                    {
-                      goto LABEL_364;
-                    }
-
-                    v225 += 8;
-                  }
-
-                  while (v225 != v223);
-                  v225 = *(*a3 + 344);
-LABEL_364:
-                  while (*v224 != v221)
-                  {
-                    v224 += 8;
-                    if (v224 == v223)
-                    {
-                      v224 = *(*a3 + 344);
-                      break;
-                    }
-                  }
-                }
-
-                v211 = v218 - 48;
-              }
-
-              while (v225 - v222 < v224 - v222);
-              *v218 = v234;
-              *(v218 + 16) = v242;
-              *(v218 + 24) = v212;
-              *(v218 + 32) = v252;
-              *(v218 + 39) = *(&v252 + 7);
-            }
-          }
-
-          v112 = (a1 + 48);
-        }
-
-        while ((a1 + 48) != a2);
-      }
-
-      goto LABEL_375;
-    }
-
-    if (!a4)
-    {
-      if (v11 != a2)
-      {
-        v130 = (v13 - 2) >> 1;
-        v131 = v130;
-        do
-        {
-          v132 = v131;
-          if (v130 >= v131)
-          {
-            v133 = (2 * v131) | 1;
-            v134 = v11 + 48 * v133;
-            if (2 * v132 + 2 < v13)
-            {
-              v135 = *(v134 + 24);
-              v136 = *(v134 + 72);
-              if (v135 != v136)
-              {
-                v138 = *(*a3 + 336);
-                v137 = *(*a3 + 344);
-                if (v138 == v137)
-                {
-                  v140 = *(*a3 + 336);
-                  v139 = v140;
-                }
-
-                else
-                {
-                  v139 = *(*a3 + 336);
-                  v140 = v139;
-                  do
-                  {
-                    if (*v140 == v135)
-                    {
-                      goto LABEL_246;
-                    }
-
-                    v140 += 8;
-                  }
-
-                  while (v140 != v137);
-                  v140 = *(*a3 + 344);
-LABEL_246:
-                  while (*v139 != v136)
-                  {
-                    v139 += 8;
-                    if (v139 == v137)
-                    {
-                      v139 = *(*a3 + 344);
-                      break;
-                    }
-                  }
-                }
-
-                v141 = (v140 - v138);
-                v142 = (v139 - v138);
-                v143 = v141 < v142;
-                if (v141 >= v142)
-                {
-                  v144 = 0;
-                }
-
-                else
-                {
-                  v144 = 48;
-                }
-
-                v134 += v144;
-                if (v143)
-                {
-                  v133 = 2 * v132 + 2;
-                }
-              }
-            }
-
-            v145 = v11 + 48 * v132;
-            v146 = *(v134 + 24);
-            v147 = *(v145 + 24);
-            if (v146 == v147)
-            {
-              goto LABEL_266;
-            }
-
-            v149 = *(*a3 + 336);
-            v148 = *(*a3 + 344);
-            if (v149 == v148)
-            {
-              v151 = *(*a3 + 336);
-              v150 = v151;
-            }
-
-            else
-            {
-              v150 = *(*a3 + 336);
-              v151 = v150;
-              do
-              {
-                if (*v151 == v146)
-                {
-                  goto LABEL_261;
-                }
-
-                v151 += 8;
-              }
-
-              while (v151 != v148);
-              v151 = *(*a3 + 344);
-LABEL_261:
-              while (*v150 != v147)
-              {
-                v150 += 8;
-                if (v150 == v148)
-                {
-                  v150 = *(*a3 + 344);
-                  break;
-                }
-              }
-            }
-
-            if (v151 - v149 >= v150 - v149)
-            {
-LABEL_266:
-              v240 = *(v145 + 16);
-              v232 = *v145;
-              v250 = *(v145 + 32);
-              v152 = *v134;
-              v153 = *(v134 + 16);
-              *(v145 + 27) = *(v134 + 27);
-              *v145 = v152;
-              *(v145 + 16) = v153;
-              if (v130 >= v133)
-              {
-                while (1)
-                {
-                  v155 = 2 * v133;
-                  v133 = (2 * v133) | 1;
-                  v154 = v11 + 48 * v133;
-                  v156 = v155 + 2;
-                  if (v156 < v13)
-                  {
-                    v157 = *(v154 + 24);
-                    v158 = *(v154 + 72);
-                    if (v157 != v158)
-                    {
-                      v159 = *(*a3 + 336);
-                      v160 = *(*a3 + 344);
-                      if (v159 == v160)
+                      v232 = v111[1].n128_u64[0];
+                      v224 = *v111;
+                      v242 = v112[5];
+                      v119 = v111;
+                      while (1)
                       {
-                        v162 = *(*a3 + 336);
-                        v161 = v162;
+                        v120 = v112[1];
+                        *v119 = *v112;
+                        *(v119 + 16) = v120;
+                        *(v119 + 27) = *(v112 + 27);
+                        if (v112 == v11)
+                        {
+                          break;
+                        }
+
+                        v119 = v112;
+                        v121 = v112[-2].n128_i64[1];
+                        if (v113 != v121)
+                        {
+                          v122 = *(*a3 + 336);
+                          v123 = *(*a3 + 344);
+                          if (v122 == v123)
+                          {
+                            v125 = *(*a3 + 336);
+                            v124 = v125;
+                          }
+
+                          else
+                          {
+                            v124 = *(*a3 + 336);
+                            v125 = v124;
+                            do
+                            {
+                              if (*v125 == v113)
+                              {
+                                goto LABEL_225;
+                              }
+
+                              v125 += 8;
+                            }
+
+                            while (v125 != v123);
+                            v125 = *(*a3 + 344);
+LABEL_225:
+                            while (*v124 != v121)
+                            {
+                              v124 += 8;
+                              if (v124 == v123)
+                              {
+                                v124 = *(*a3 + 344);
+                                break;
+                              }
+                            }
+                          }
+
+                          v112 = (v119 - 48);
+                          if (v125 - v122 < v124 - v122)
+                          {
+                            continue;
+                          }
+                        }
+
+                        goto LABEL_232;
+                      }
+
+                      v119 = v11;
+LABEL_232:
+                      result = v224;
+                      *v119 = v224;
+                      *(v119 + 16) = v232;
+                      *(v119 + 24) = v113;
+                      *(v119 + 32) = v242.n128_u64[0];
+                      *(v119 + 39) = *(&v242.n128_u32[1] + 3);
+                    }
+                  }
+
+                  v108 = v111 + 3;
+                }
+
+                while (&v111[3] != a2);
+              }
+            }
+
+            else if (!v110)
+            {
+              do
+              {
+                v205 = a1;
+                a1 = v108;
+                v206 = *(v205 + 72);
+                v207 = *(v205 + 24);
+                if (v206 != v207)
+                {
+                  v208 = *(*a3 + 336);
+                  v209 = *(*a3 + 344);
+                  if (v208 == v209)
+                  {
+                    v211 = *(*a3 + 336);
+                    v210 = v211;
+                  }
+
+                  else
+                  {
+                    v210 = *(*a3 + 336);
+                    v211 = v210;
+                    do
+                    {
+                      if (*v211 == v206)
+                      {
+                        goto LABEL_351;
+                      }
+
+                      v211 += 8;
+                    }
+
+                    while (v211 != v209);
+                    v211 = *(*a3 + 344);
+LABEL_351:
+                    while (*v210 != v207)
+                    {
+                      v210 += 8;
+                      if (v210 == v209)
+                      {
+                        v210 = *(*a3 + 344);
+                        break;
+                      }
+                    }
+                  }
+
+                  if (v211 - v208 < v210 - v208)
+                  {
+                    v235 = *(a1 + 16);
+                    v227 = *a1;
+                    v245 = *(v205 + 80);
+                    v212 = a1;
+                    do
+                    {
+                      v213 = v212;
+                      v212 = v205;
+                      v214 = *(v205 + 16);
+                      *v213 = *v205;
+                      v213[1] = v214;
+                      *(v213 + 27) = *(v205 + 27);
+                      v215 = *(v205 - 24);
+                      if (v206 == v215)
+                      {
+                        break;
+                      }
+
+                      v216 = *(*a3 + 336);
+                      v217 = *(*a3 + 344);
+                      if (v216 == v217)
+                      {
+                        v219 = *(*a3 + 336);
+                        v218 = v219;
                       }
 
                       else
                       {
-                        v161 = *(*a3 + 336);
-                        v162 = v161;
+                        v218 = *(*a3 + 336);
+                        v219 = v218;
                         do
                         {
-                          if (*v162 == v157)
+                          if (*v219 == v206)
                           {
-                            goto LABEL_275;
+                            goto LABEL_363;
                           }
 
-                          v162 += 8;
+                          v219 += 8;
                         }
 
-                        while (v162 != v160);
-                        v162 = *(*a3 + 344);
-LABEL_275:
-                        while (*v161 != v158)
+                        while (v219 != v217);
+                        v219 = *(*a3 + 344);
+LABEL_363:
+                        while (*v218 != v215)
                         {
-                          v161 += 8;
-                          if (v161 == v160)
+                          v218 += 8;
+                          if (v218 == v217)
                           {
-                            v161 = *(*a3 + 344);
+                            v218 = *(*a3 + 344);
                             break;
                           }
                         }
                       }
 
-                      v163 = (v162 - v159);
-                      v164 = (v161 - v159);
-                      v165 = v163 < v164;
-                      if (v163 >= v164)
+                      v205 = v212 - 48;
+                    }
+
+                    while (v219 - v216 < v218 - v216);
+                    result = v227;
+                    *v212 = v227;
+                    *(v212 + 16) = v235;
+                    *(v212 + 24) = v206;
+                    *(v212 + 32) = v245;
+                    *(v212 + 39) = *(&v245 + 7);
+                  }
+                }
+
+                v108 = (a1 + 48);
+              }
+
+              while ((a1 + 48) != a2);
+            }
+
+            return result;
+          }
+
+          if (!a4)
+          {
+            if (v11 != a2)
+            {
+              v126 = (v13 - 2) >> 1;
+              v127 = v126;
+              do
+              {
+                v128 = v127;
+                if (v126 >= v127)
+                {
+                  v129 = (2 * v127) | 1;
+                  v130 = v11 + 48 * v129;
+                  if (2 * v128 + 2 < v13)
+                  {
+                    v131 = *(v130 + 24);
+                    v132 = *(v130 + 72);
+                    if (v131 != v132)
+                    {
+                      v134 = *(*a3 + 336);
+                      v133 = *(*a3 + 344);
+                      if (v134 == v133)
                       {
-                        v166 = 0;
+                        v136 = *(*a3 + 336);
+                        v135 = v136;
                       }
 
                       else
                       {
-                        v166 = 48;
+                        v135 = *(*a3 + 336);
+                        v136 = v135;
+                        do
+                        {
+                          if (*v136 == v131)
+                          {
+                            goto LABEL_245;
+                          }
+
+                          v136 += 8;
+                        }
+
+                        while (v136 != v133);
+                        v136 = *(*a3 + 344);
+LABEL_245:
+                        while (*v135 != v132)
+                        {
+                          v135 += 8;
+                          if (v135 == v133)
+                          {
+                            v135 = *(*a3 + 344);
+                            break;
+                          }
+                        }
                       }
 
-                      v154 += v166;
-                      if (v165)
+                      v137 = (v136 - v134);
+                      v138 = (v135 - v134);
+                      v139 = v137 < v138;
+                      if (v137 >= v138)
                       {
-                        v133 = v156;
+                        v140 = 0;
+                      }
+
+                      else
+                      {
+                        v140 = 48;
+                      }
+
+                      v130 += v140;
+                      if (v139)
+                      {
+                        v129 = 2 * v128 + 2;
                       }
                     }
                   }
 
-                  v167 = *(v154 + 24);
-                  if (v167 != v147)
+                  v141 = v11 + 48 * v128;
+                  v142 = *(v130 + 24);
+                  v143 = *(v141 + 24);
+                  if (v142 == v143)
                   {
-                    v169 = *(*a3 + 336);
-                    v168 = *(*a3 + 344);
-                    if (v169 == v168)
-                    {
-                      v171 = *(*a3 + 336);
-                      v170 = v171;
-                    }
+                    goto LABEL_265;
+                  }
 
-                    else
+                  v145 = *(*a3 + 336);
+                  v144 = *(*a3 + 344);
+                  if (v145 == v144)
+                  {
+                    v147 = *(*a3 + 336);
+                    v146 = v147;
+                  }
+
+                  else
+                  {
+                    v146 = *(*a3 + 336);
+                    v147 = v146;
+                    do
                     {
-                      v170 = *(*a3 + 336);
-                      v171 = v170;
-                      do
+                      if (*v147 == v142)
                       {
-                        if (*v171 == v167)
-                        {
-                          goto LABEL_290;
-                        }
-
-                        v171 += 8;
+                        goto LABEL_260;
                       }
 
-                      while (v171 != v168);
-                      v171 = *(*a3 + 344);
-LABEL_290:
-                      while (*v170 != v147)
-                      {
-                        v170 += 8;
-                        if (v170 == v168)
-                        {
-                          v170 = *(*a3 + 344);
-                          break;
-                        }
-                      }
+                      v147 += 8;
                     }
 
-                    if (v171 - v169 < v170 - v169)
+                    while (v147 != v144);
+                    v147 = *(*a3 + 344);
+LABEL_260:
+                    while (*v146 != v143)
                     {
-                      break;
+                      v146 += 8;
+                      if (v146 == v144)
+                      {
+                        v146 = *(*a3 + 344);
+                        break;
+                      }
                     }
                   }
 
-                  v172 = *v154;
-                  v173 = *(v154 + 16);
-                  *(v134 + 27) = *(v154 + 27);
-                  *v134 = v172;
-                  *(v134 + 16) = v173;
-                  v134 = v154;
-                  if (v130 < v133)
+                  if (v147 - v145 >= v146 - v145)
                   {
-                    goto LABEL_296;
+LABEL_265:
+                    v233 = *(v141 + 16);
+                    v225 = *v141;
+                    v243 = *(v141 + 32);
+                    v148 = *v130;
+                    v149 = *(v130 + 16);
+                    *(v141 + 27) = *(v130 + 27);
+                    *v141 = v148;
+                    *(v141 + 16) = v149;
+                    if (v126 >= v129)
+                    {
+                      while (1)
+                      {
+                        v151 = 2 * v129;
+                        v129 = (2 * v129) | 1;
+                        v150 = v11 + 48 * v129;
+                        v152 = v151 + 2;
+                        if (v152 < v13)
+                        {
+                          v153 = *(v150 + 24);
+                          v154 = *(v150 + 72);
+                          if (v153 != v154)
+                          {
+                            v155 = *(*a3 + 336);
+                            v156 = *(*a3 + 344);
+                            if (v155 == v156)
+                            {
+                              v158 = *(*a3 + 336);
+                              v157 = v158;
+                            }
+
+                            else
+                            {
+                              v157 = *(*a3 + 336);
+                              v158 = v157;
+                              do
+                              {
+                                if (*v158 == v153)
+                                {
+                                  goto LABEL_274;
+                                }
+
+                                v158 += 8;
+                              }
+
+                              while (v158 != v156);
+                              v158 = *(*a3 + 344);
+LABEL_274:
+                              while (*v157 != v154)
+                              {
+                                v157 += 8;
+                                if (v157 == v156)
+                                {
+                                  v157 = *(*a3 + 344);
+                                  break;
+                                }
+                              }
+                            }
+
+                            v159 = (v158 - v155);
+                            v160 = (v157 - v155);
+                            v161 = v159 < v160;
+                            if (v159 >= v160)
+                            {
+                              v162 = 0;
+                            }
+
+                            else
+                            {
+                              v162 = 48;
+                            }
+
+                            v150 += v162;
+                            if (v161)
+                            {
+                              v129 = v152;
+                            }
+                          }
+                        }
+
+                        v163 = *(v150 + 24);
+                        if (v163 != v143)
+                        {
+                          v165 = *(*a3 + 336);
+                          v164 = *(*a3 + 344);
+                          if (v165 == v164)
+                          {
+                            v167 = *(*a3 + 336);
+                            v166 = v167;
+                          }
+
+                          else
+                          {
+                            v166 = *(*a3 + 336);
+                            v167 = v166;
+                            do
+                            {
+                              if (*v167 == v163)
+                              {
+                                goto LABEL_289;
+                              }
+
+                              v167 += 8;
+                            }
+
+                            while (v167 != v164);
+                            v167 = *(*a3 + 344);
+LABEL_289:
+                            while (*v166 != v143)
+                            {
+                              v166 += 8;
+                              if (v166 == v164)
+                              {
+                                v166 = *(*a3 + 344);
+                                break;
+                              }
+                            }
+                          }
+
+                          if (v167 - v165 < v166 - v165)
+                          {
+                            break;
+                          }
+                        }
+
+                        v168 = *v150;
+                        v169 = *(v150 + 16);
+                        *(v130 + 27) = *(v150 + 27);
+                        *v130 = v168;
+                        *(v130 + 16) = v169;
+                        v130 = v150;
+                        if (v126 < v129)
+                        {
+                          goto LABEL_295;
+                        }
+                      }
+                    }
+
+                    v150 = v130;
+LABEL_295:
+                    *v150 = v225;
+                    *(v150 + 16) = v233;
+                    *(v150 + 24) = v143;
+                    *(v150 + 32) = v243;
+                    *(v150 + 39) = *(&v243 + 7);
                   }
                 }
+
+                v127 = v128 - 1;
               }
 
-              v154 = v134;
-LABEL_296:
-              *v154 = v232;
-              *(v154 + 16) = v240;
-              *(v154 + 24) = v147;
-              *(v154 + 32) = v250;
-              *(v154 + 39) = *(&v250 + 7);
-            }
-          }
-
-          v131 = v132 - 1;
-        }
-
-        while (v132);
-        v174 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 4);
-        do
-        {
-          v175 = 0;
-          v176 = *(v11 + 16);
-          *v241 = v176;
-          *&v241[16] = *(v11 + 32);
-          v233 = *v11;
-          v177 = v11;
-          do
-          {
-            v178 = v177;
-            v179 = v177 + 48 * v175;
-            v177 = v179 + 48;
-            v180 = 2 * v175;
-            v175 = (2 * v175) | 1;
-            v181 = v180 + 2;
-            if (v180 + 2 < v174)
-            {
-              v182 = *(v179 + 72);
-              v183 = *(v179 + 120);
-              if (v182 != v183)
+              while (v128);
+              v170 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 4);
+              do
               {
-                v185 = *(*a3 + 336);
-                v184 = *(*a3 + 344);
-                if (v185 == v184)
+                v171 = 0;
+                *v234 = *(v11 + 16);
+                *&v234[16] = *(v11 + 32);
+                v226 = *v11;
+                v172 = v11;
+                do
                 {
-                  v187 = *(*a3 + 336);
-                  v186 = v187;
+                  v173 = v172;
+                  v174 = v172 + 48 * v171;
+                  v172 = v174 + 48;
+                  v175 = 2 * v171;
+                  v171 = (2 * v171) | 1;
+                  v176 = v175 + 2;
+                  if (v175 + 2 < v170)
+                  {
+                    v177 = *(v174 + 72);
+                    v178 = *(v174 + 120);
+                    if (v177 != v178)
+                    {
+                      v180 = *(*a3 + 336);
+                      v179 = *(*a3 + 344);
+                      if (v180 == v179)
+                      {
+                        v182 = *(*a3 + 336);
+                        v181 = v182;
+                      }
+
+                      else
+                      {
+                        v181 = *(*a3 + 336);
+                        v182 = v181;
+                        do
+                        {
+                          if (*v182 == v177)
+                          {
+                            goto LABEL_306;
+                          }
+
+                          v182 += 8;
+                        }
+
+                        while (v182 != v179);
+                        v182 = *(*a3 + 344);
+LABEL_306:
+                        while (*v181 != v178)
+                        {
+                          v181 += 8;
+                          if (v181 == v179)
+                          {
+                            v181 = *(*a3 + 344);
+                            break;
+                          }
+                        }
+                      }
+
+                      v183 = v174 + 96;
+                      if (v182 - v180 < v181 - v180)
+                      {
+                        v172 = v183;
+                        v171 = v176;
+                      }
+                    }
+                  }
+
+                  v184 = *v172;
+                  v185 = *(v172 + 16);
+                  *(v173 + 27) = *(v172 + 27);
+                  *v173 = v184;
+                  v173[1] = v185;
+                }
+
+                while (v171 <= (v170 - 2) / 2);
+                a2 -= 3;
+                if (v172 == a2)
+                {
+                  result = v226;
+                  *(v172 + 27) = *&v234[11];
+                  *v172 = v226;
+                  *(v172 + 16) = *v234;
                 }
 
                 else
                 {
-                  v186 = *(*a3 + 336);
-                  v187 = v186;
-                  do
+                  v186 = *a2;
+                  v187 = a2[1];
+                  *(v172 + 27) = *(a2 + 27);
+                  *v172 = v186;
+                  *(v172 + 16) = v187;
+                  result = v226;
+                  *(a2 + 27) = *&v234[11];
+                  *a2 = v226;
+                  a2[1] = *v234;
+                  v188 = v172 - v11 + 48;
+                  if (v188 >= 49)
                   {
-                    if (*v187 == v182)
+                    v189 = (0xAAAAAAAAAAAAAAABLL * (v188 >> 4) - 2) >> 1;
+                    v190 = v11 + 48 * v189;
+                    v191 = *(v190 + 24);
+                    v192 = *(v172 + 24);
+                    if (v191 != v192)
                     {
-                      goto LABEL_307;
-                    }
+                      v194 = *(*a3 + 336);
+                      v193 = *(*a3 + 344);
+                      if (v194 == v193)
+                      {
+                        v196 = *(*a3 + 336);
+                        v195 = v196;
+                      }
 
-                    v187 += 8;
-                  }
+                      else
+                      {
+                        v195 = *(*a3 + 336);
+                        v196 = v195;
+                        do
+                        {
+                          if (*v196 == v191)
+                          {
+                            goto LABEL_321;
+                          }
 
-                  while (v187 != v184);
-                  v187 = *(*a3 + 344);
-LABEL_307:
-                  while (*v186 != v183)
-                  {
-                    v186 += 8;
-                    if (v186 == v184)
-                    {
-                      v186 = *(*a3 + 344);
-                      break;
+                          v196 += 8;
+                        }
+
+                        while (v196 != v193);
+                        v196 = *(*a3 + 344);
+LABEL_321:
+                        while (*v195 != v192)
+                        {
+                          v195 += 8;
+                          if (v195 == v193)
+                          {
+                            v195 = *(*a3 + 344);
+                            break;
+                          }
+                        }
+                      }
+
+                      if (v196 - v194 < v195 - v194)
+                      {
+                        v248 = *(v172 + 16);
+                        v239 = *(v172 + 32);
+                        v244 = *v172;
+                        do
+                        {
+                          v197 = v172;
+                          v172 = v190;
+                          v198 = *v190;
+                          v199 = *(v190 + 16);
+                          *(v197 + 27) = *(v190 + 27);
+                          *v197 = v198;
+                          v197[1] = v199;
+                          if (!v189)
+                          {
+                            break;
+                          }
+
+                          v189 = (v189 - 1) >> 1;
+                          v190 = v11 + 48 * v189;
+                          v200 = *(v190 + 24);
+                          if (v200 == v192)
+                          {
+                            break;
+                          }
+
+                          v202 = *(*a3 + 336);
+                          v201 = *(*a3 + 344);
+                          if (v202 == v201)
+                          {
+                            v204 = *(*a3 + 336);
+                            v203 = v204;
+                          }
+
+                          else
+                          {
+                            v203 = *(*a3 + 336);
+                            v204 = v203;
+                            do
+                            {
+                              if (*v204 == v200)
+                              {
+                                goto LABEL_338;
+                              }
+
+                              v204 += 8;
+                            }
+
+                            while (v204 != v201);
+                            v204 = *(*a3 + 344);
+LABEL_338:
+                            while (*v203 != v192)
+                            {
+                              v203 += 8;
+                              if (v203 == v201)
+                              {
+                                v203 = *(*a3 + 344);
+                                break;
+                              }
+                            }
+                          }
+                        }
+
+                        while (v204 - v202 < v203 - v202);
+                        result = v244;
+                        *v172 = v244;
+                        *(v172 + 16) = v248;
+                        *(v172 + 24) = v192;
+                        *(v172 + 32) = v239;
+                        *(v172 + 39) = *(&v239 + 7);
+                      }
                     }
                   }
                 }
 
-                v188 = v179 + 96;
-                if (v187 - v185 < v186 - v185)
-                {
-                  v177 = v188;
-                  v175 = v181;
-                }
+                v139 = v170-- <= 2;
               }
+
+              while (!v139);
             }
 
-            v189 = *v177;
-            v190 = *(v177 + 16);
-            *(v178 + 27) = *(v177 + 27);
-            *v178 = v189;
-            v178[1] = v190;
+            return result;
           }
 
-          while (v175 <= (v174 - 2) / 2);
-          a2 -= 3;
-          if (v177 == a2)
+          v14 = v13 >> 1;
+          v15 = (v11 + 48 * (v13 >> 1));
+          if (v12 < 0x1801)
           {
-            *(v177 + 27) = *&v241[11];
-            *v177 = v233;
-            *(v177 + 16) = *v241;
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v15, a1, &a2[-3], a3);
           }
 
           else
           {
-            v191 = *a2;
-            v192 = a2[1];
-            *(v177 + 27) = *(a2 + 27);
-            *v177 = v191;
-            *(v177 + 16) = v192;
-            *(a2 + 27) = *&v241[11];
-            *a2 = v233;
-            a2[1] = *v241;
-            v193 = v177 - v11 + 48;
-            if (v193 >= 49)
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(a1, v15, &a2[-3], a3);
+            v16 = 3 * v14;
+            v17 = (a1 + 48 * v14 - 48);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>((a1 + 48), v17, &a2[-6], a3);
+            v18 = (a1 + 48 + 16 * v16);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>((a1 + 96), v18, &a2[-9], a3);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v17, v15, v18, a3);
+            *v229 = *(a1 + 16);
+            *&v229[16] = *(a1 + 32);
+            v222 = *a1;
+            v19 = *(v15 + 27);
+            v20 = v15[1];
+            *a1 = *v15;
+            *(a1 + 16) = v20;
+            *(a1 + 27) = v19;
+            *(v15 + 27) = *&v229[11];
+            *v15 = v222;
+            v15[1] = *v229;
+          }
+
+          --a4;
+          if (a5)
+          {
+            v21 = *(a1 + 24);
+            v22 = *a3;
+            break;
+          }
+
+          v23 = *(a1 - 24);
+          v21 = *(a1 + 24);
+          if (v23 != v21)
+          {
+            v22 = *a3;
+            v24 = *(*a3 + 336);
+            v25 = *(*a3 + 344);
+            if (v24 == v25)
             {
-              v194 = (0xAAAAAAAAAAAAAAABLL * (v193 >> 4) - 2) >> 1;
-              v195 = v11 + 48 * v194;
-              v196 = *(v195 + 24);
-              v197 = *(v177 + 24);
-              if (v196 != v197)
+              v27 = *(*a3 + 336);
+              v26 = v27;
+            }
+
+            else
+            {
+              v26 = *(*a3 + 336);
+              v27 = v26;
+              do
               {
-                v199 = *(*a3 + 336);
-                v198 = *(*a3 + 344);
-                if (v199 == v198)
+                if (*v27 == v23)
                 {
-                  v201 = *(*a3 + 336);
-                  v200 = v201;
+                  goto LABEL_22;
                 }
 
-                else
+                v27 += 8;
+              }
+
+              while (v27 != v25);
+              v27 = *(*a3 + 344);
+LABEL_22:
+              while (*v26 != v21)
+              {
+                v26 += 8;
+                if (v26 == v25)
                 {
-                  v200 = *(*a3 + 336);
-                  v201 = v200;
-                  do
-                  {
-                    if (*v201 == v196)
-                    {
-                      goto LABEL_322;
-                    }
-
-                    v201 += 8;
-                  }
-
-                  while (v201 != v198);
-                  v201 = *(*a3 + 344);
-LABEL_322:
-                  while (*v200 != v197)
-                  {
-                    v200 += 8;
-                    if (v200 == v198)
-                    {
-                      v200 = *(*a3 + 344);
-                      break;
-                    }
-                  }
+                  v26 = *(*a3 + 344);
+                  break;
                 }
+              }
+            }
 
-                if (v201 - v199 < v200 - v199)
-                {
-                  v255 = *(v177 + 16);
-                  v202 = *(v177 + 32);
-                  v246 = v202;
-                  v251 = *v177;
-                  do
-                  {
-                    v203 = v177;
-                    v177 = v195;
-                    v204 = *v195;
-                    v205 = *(v195 + 16);
-                    *(v203 + 27) = *(v195 + 27);
-                    *v203 = v204;
-                    v203[1] = v205;
-                    if (!v194)
-                    {
-                      break;
-                    }
+            if (v27 - v24 < v26 - v24)
+            {
+              break;
+            }
+          }
 
-                    v194 = (v194 - 1) >> 1;
-                    v195 = v11 + 48 * v194;
-                    v206 = *(v195 + 24);
-                    if (v206 == v197)
-                    {
-                      break;
-                    }
+          v247 = *(a1 + 16);
+          v238 = *(a1 + 32);
+          v241 = *a1;
+          v66 = a2[-2].n128_u64[1];
+          if (v21 == v66)
+          {
+            goto LABEL_122;
+          }
 
-                    v208 = *(*a3 + 336);
-                    v207 = *(*a3 + 344);
-                    if (v208 == v207)
-                    {
-                      v210 = *(*a3 + 336);
-                      v209 = v210;
-                    }
+          v67 = *(*a3 + 336);
+          v68 = *(*a3 + 344);
+          v69 = v67;
+          if (v67 == v68)
+          {
+            v70 = *(*a3 + 336);
+          }
 
-                    else
-                    {
-                      v209 = *(*a3 + 336);
-                      v210 = v209;
-                      do
-                      {
-                        if (*v210 == v206)
-                        {
-                          goto LABEL_339;
-                        }
+          else
+          {
+            while (*v69 != v21)
+            {
+              v69 += 8;
+              if (v69 == v68)
+              {
+                v69 = *(*a3 + 344);
+                break;
+              }
+            }
 
-                        v210 += 8;
-                      }
-
-                      while (v210 != v207);
-                      v210 = *(*a3 + 344);
-LABEL_339:
-                      while (*v209 != v197)
-                      {
-                        v209 += 8;
-                        if (v209 == v207)
-                        {
-                          v209 = *(*a3 + 344);
-                          break;
-                        }
-                      }
-                    }
-                  }
-
-                  while (v210 - v208 < v209 - v208);
-                  *v177 = v251;
-                  *(v177 + 16) = v255;
-                  *(v177 + 24) = v197;
-                  *(v177 + 32) = v246;
-                  *(v177 + 39) = *(&v246 + 7);
-                }
+            v70 = *(*a3 + 336);
+            while (*v70 != v66)
+            {
+              v70 += 8;
+              if (v70 == v68)
+              {
+                v70 = *(*a3 + 344);
+                break;
               }
             }
           }
 
-          v143 = v174-- <= 2;
-        }
-
-        while (!v143);
-      }
-
-      goto LABEL_375;
-    }
-
-    v14 = v13 >> 1;
-    v15 = (v11 + 48 * (v13 >> 1));
-    if (v12 < 0x1801)
-    {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v15, a1, a2 - 3, a3);
-    }
-
-    else
-    {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(a1, v15, a2 - 3, a3);
-      v16 = 3 * v14;
-      v17 = (a1 + 48 * v14 - 48);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>((a1 + 48), v17, a2 - 6, a3);
-      v18 = (a1 + 48 + 16 * v16);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>((a1 + 96), v18, a2 - 9, a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v17, v15, v18, a3);
-      *v236 = *(a1 + 16);
-      *&v236[16] = *(a1 + 32);
-      v229 = *a1;
-      v19 = *(v15 + 27);
-      v20 = v15[1];
-      *a1 = *v15;
-      *(a1 + 16) = v20;
-      *(a1 + 27) = v19;
-      *(v15 + 27) = *&v236[11];
-      *v15 = v229;
-      v15[1] = *v236;
-    }
-
-    --a4;
-    if (a5)
-    {
-      v21 = *(a1 + 24);
-      v22 = *a3;
-      goto LABEL_28;
-    }
-
-    v23 = *(a1 - 24);
-    v21 = *(a1 + 24);
-    if (v23 == v21)
-    {
-      goto LABEL_99;
-    }
-
-    v22 = *a3;
-    v24 = *(*a3 + 336);
-    v25 = *(*a3 + 344);
-    if (v24 == v25)
-    {
-      v27 = *(*a3 + 336);
-      v26 = v27;
-    }
-
-    else
-    {
-      v26 = *(*a3 + 336);
-      v27 = v26;
-      do
-      {
-        if (*v27 == v23)
-        {
-          goto LABEL_23;
-        }
-
-        v27 += 8;
-      }
-
-      while (v27 != v25);
-      v27 = *(*a3 + 344);
-LABEL_23:
-      while (*v26 != v21)
-      {
-        v26 += 8;
-        if (v26 == v25)
-        {
-          v26 = *(*a3 + 344);
-          break;
-        }
-      }
-    }
-
-    if (v27 - v24 >= v26 - v24)
-    {
-LABEL_99:
-      v254 = *(a1 + 16);
-      v66 = *(a1 + 32);
-      v245 = v66;
-      v248 = *a1;
-      v67 = *(a2 - 3);
-      if (v21 == v67)
-      {
-        goto LABEL_123;
-      }
-
-      v68 = *(*a3 + 336);
-      v69 = *(*a3 + 344);
-      v70 = v68;
-      if (v68 == v69)
-      {
-        v71 = *(*a3 + 336);
-      }
-
-      else
-      {
-        while (*v70 != v21)
-        {
-          v70 += 8;
-          if (v70 == v69)
+          if (v69 - v67 >= v70 - v67)
           {
-            v70 = *(*a3 + 344);
-            break;
-          }
-        }
-
-        v71 = *(*a3 + 336);
-        while (*v71 != v67)
-        {
-          v71 += 8;
-          if (v71 == v69)
-          {
-            v71 = *(*a3 + 344);
-            break;
-          }
-        }
-      }
-
-      if (v70 - v68 >= v71 - v68)
-      {
-LABEL_123:
-        v11 = a1 + 48;
-        if (a1 + 48 < a2)
-        {
-          v75 = *a3;
-          v76 = a1;
-          do
-          {
-            v77 = *(v76 + 72);
-            v76 = v11;
-            if (v21 != v77)
+LABEL_122:
+            v11 = a1 + 48;
+            if (a1 + 48 < a2)
             {
-              v78 = *(v75 + 336);
-              v79 = *(v75 + 344);
-              if (v78 == v79)
+              v74 = *a3;
+              v75 = a1;
+              do
               {
-                v81 = *(v75 + 336);
-                v80 = v81;
+                v76 = *(v75 + 72);
+                v75 = v11;
+                if (v21 != v76)
+                {
+                  v77 = *(v74 + 336);
+                  v78 = *(v74 + 344);
+                  if (v77 == v78)
+                  {
+                    v80 = *(v74 + 336);
+                    v79 = v80;
+                  }
+
+                  else
+                  {
+                    v79 = *(v74 + 336);
+                    v80 = v79;
+                    do
+                    {
+                      if (*v80 == v21)
+                      {
+                        goto LABEL_130;
+                      }
+
+                      v80 += 8;
+                    }
+
+                    while (v80 != v78);
+                    v80 = *(v74 + 344);
+LABEL_130:
+                    while (*v79 != v76)
+                    {
+                      v79 += 8;
+                      if (v79 == v78)
+                      {
+                        v79 = *(v74 + 344);
+                        break;
+                      }
+                    }
+                  }
+
+                  if (v80 - v77 < v79 - v77)
+                  {
+                    break;
+                  }
+                }
+
+                v11 += 48;
+              }
+
+              while (v75 + 48 < a2);
+            }
+          }
+
+          else
+          {
+            v11 = a1;
+            do
+            {
+              do
+              {
+                v71 = *(v11 + 72);
+                v11 += 48;
+              }
+
+              while (v21 == v71);
+              v72 = *(*a3 + 336);
+              if (v67 == v68)
+              {
+                v73 = *(*a3 + 336);
               }
 
               else
               {
-                v80 = *(v75 + 336);
-                v81 = v80;
-                do
+                while (*v72 != v21)
                 {
-                  if (*v81 == v21)
+                  v72 += 8;
+                  if (v72 == v68)
                   {
-                    goto LABEL_131;
+                    v72 = *(*a3 + 344);
+                    break;
                   }
-
-                  v81 += 8;
                 }
 
-                while (v81 != v79);
-                v81 = *(v75 + 344);
-LABEL_131:
-                while (*v80 != v77)
+                v73 = *(*a3 + 336);
+                while (*v73 != v71)
                 {
-                  v80 += 8;
-                  if (v80 == v79)
+                  v73 += 8;
+                  if (v73 == v68)
                   {
-                    v80 = *(v75 + 344);
+                    v73 = *(*a3 + 344);
                     break;
                   }
                 }
               }
-
-              if (v81 - v78 < v80 - v78)
-              {
-                break;
-              }
             }
 
-            v11 += 48;
+            while (v72 - v67 >= v73 - v67);
           }
 
-          while (v76 + 48 < a2);
-        }
-      }
-
-      else
-      {
-        v11 = a1;
-        do
-        {
-          do
+          v81 = a2;
+          if (v11 < a2)
           {
-            v72 = *(v11 + 72);
-            v11 += 48;
-          }
-
-          while (v21 == v72);
-          v73 = *(*a3 + 336);
-          if (v68 == v69)
-          {
-            v74 = *(*a3 + 336);
-          }
-
-          else
-          {
-            while (*v73 != v21)
-            {
-              v73 += 8;
-              if (v73 == v69)
-              {
-                v73 = *(*a3 + 344);
-                break;
-              }
-            }
-
-            v74 = *(*a3 + 336);
-            while (*v74 != v72)
-            {
-              v74 += 8;
-              if (v74 == v69)
-              {
-                v74 = *(*a3 + 344);
-                break;
-              }
-            }
-          }
-        }
-
-        while (v73 - v68 >= v74 - v68);
-      }
-
-      v82 = a2;
-      if (v11 < a2)
-      {
-        v83 = *a3;
-        v82 = a2;
-        do
-        {
-          v84 = *(v82 - 3);
-          v82 -= 3;
-          if (v21 == v84)
-          {
-            break;
-          }
-
-          v85 = *(v83 + 336);
-          v86 = *(v83 + 344);
-          if (v85 == v86)
-          {
-            v88 = *(v83 + 336);
-            v87 = v88;
-          }
-
-          else
-          {
-            v87 = *(v83 + 336);
-            v88 = v87;
+            v82 = *a3;
+            v81 = a2;
             do
             {
-              if (*v88 == v21)
+              v83 = v81[-2].n128_u64[1];
+              v81 -= 3;
+              if (v21 == v83)
               {
-                goto LABEL_145;
-              }
-
-              v88 += 8;
-            }
-
-            while (v88 != v86);
-            v88 = *(v83 + 344);
-LABEL_145:
-            while (*v87 != v84)
-            {
-              v87 += 8;
-              if (v87 == v86)
-              {
-                v87 = *(v83 + 344);
                 break;
               }
+
+              v84 = *(v82 + 336);
+              v85 = *(v82 + 344);
+              if (v84 == v85)
+              {
+                v87 = *(v82 + 336);
+                v86 = v87;
+              }
+
+              else
+              {
+                v86 = *(v82 + 336);
+                v87 = v86;
+                do
+                {
+                  if (*v87 == v21)
+                  {
+                    goto LABEL_144;
+                  }
+
+                  v87 += 8;
+                }
+
+                while (v87 != v85);
+                v87 = *(v82 + 344);
+LABEL_144:
+                while (*v86 != v83)
+                {
+                  v86 += 8;
+                  if (v86 == v85)
+                  {
+                    v86 = *(v82 + 344);
+                    break;
+                  }
+                }
+              }
             }
+
+            while (v87 - v84 < v86 - v84);
           }
+
+          while (v11 < v81)
+          {
+            *v231 = *(v11 + 16);
+            *&v231[16] = *(v11 + 32);
+            v223 = *v11;
+            v88 = *v81;
+            v89 = v81[1];
+            *(v11 + 27) = *(v81 + 27);
+            *v11 = v88;
+            *(v11 + 16) = v89;
+            *(v81 + 27) = *&v231[11];
+            *v81 = v223;
+            v81[1] = *v231;
+            v90 = *a3;
+            do
+            {
+              do
+              {
+                v91 = *(v11 + 72);
+                v11 += 48;
+              }
+
+              while (v21 == v91);
+              v92 = *(v90 + 336);
+              v93 = *(v90 + 344);
+              v94 = v92;
+              if (v92 == v93)
+              {
+                v95 = *(v90 + 336);
+              }
+
+              else
+              {
+                while (*v94 != v21)
+                {
+                  v94 += 8;
+                  if (v94 == v93)
+                  {
+                    v94 = *(v90 + 344);
+                    break;
+                  }
+                }
+
+                v95 = *(v90 + 336);
+                while (*v95 != v91)
+                {
+                  v95 += 8;
+                  if (v95 == v93)
+                  {
+                    v95 = *(v90 + 344);
+                    break;
+                  }
+                }
+              }
+            }
+
+            while (v94 - v92 >= v95 - v92);
+            do
+            {
+              v96 = v81[-2].n128_u64[1];
+              v81 -= 3;
+              if (v21 == v96)
+              {
+                break;
+              }
+
+              v97 = v92;
+              if (v92 == v93)
+              {
+                v98 = v92;
+              }
+
+              else
+              {
+                while (*v97 != v21)
+                {
+                  v97 += 8;
+                  if (v97 == v93)
+                  {
+                    v97 = v93;
+                    break;
+                  }
+                }
+
+                v98 = v92;
+                while (*v98 != v96)
+                {
+                  v98 += 8;
+                  if (v98 == v93)
+                  {
+                    v98 = v93;
+                    break;
+                  }
+                }
+              }
+            }
+
+            while (v97 - v92 < v98 - v92);
+          }
+
+          v99 = (v11 - 48);
+          if (v11 - 48 != a1)
+          {
+            v100 = *v99;
+            v101 = *(v11 - 32);
+            *(a1 + 27) = *(v11 - 21);
+            *a1 = v100;
+            *(a1 + 16) = v101;
+          }
+
+          a5 = 0;
+          result = v241;
+          *v99 = v241;
+          *(v11 - 32) = v247;
+          *(v11 - 24) = v21;
+          *(v11 - 9) = *(&v238 + 7);
+          *(v11 - 16) = v238;
         }
 
-        while (v88 - v85 < v87 - v85);
-      }
-
-      while (v11 < v82)
-      {
-        *v238 = *(v11 + 16);
-        *&v238[16] = *(v11 + 32);
-        v230 = *v11;
-        v89 = *v82;
-        v90 = v82[1];
-        *(v11 + 27) = *(v82 + 27);
-        *v11 = v89;
-        *(v11 + 16) = v90;
-        *(v82 + 27) = *&v238[11];
-        *v82 = v230;
-        v82[1] = *v238;
-        v91 = *a3;
+        v246 = *(a1 + 16);
+        v237 = *(a1 + 32);
+        v240 = *a1;
+        v28 = a1;
         do
         {
-          do
-          {
-            v92 = *(v11 + 72);
-            v11 += 48;
-          }
-
-          while (v21 == v92);
-          v93 = *(v91 + 336);
-          v94 = *(v91 + 344);
-          v95 = v93;
-          if (v93 == v94)
-          {
-            v96 = *(v91 + 336);
-          }
-
-          else
-          {
-            while (*v95 != v21)
-            {
-              v95 += 8;
-              if (v95 == v94)
-              {
-                v95 = *(v91 + 344);
-                break;
-              }
-            }
-
-            v96 = *(v91 + 336);
-            while (*v96 != v92)
-            {
-              v96 += 8;
-              if (v96 == v94)
-              {
-                v96 = *(v91 + 344);
-                break;
-              }
-            }
-          }
-        }
-
-        while (v95 - v93 >= v96 - v93);
-        do
-        {
-          v97 = *(v82 - 3);
-          v82 -= 3;
-          if (v21 == v97)
+          v29 = v28;
+          v28 += 48;
+          v30 = *(v29 + 72);
+          if (v30 == v21)
           {
             break;
           }
 
-          v98 = v93;
-          if (v93 == v94)
+          v31 = *(v22 + 336);
+          v32 = *(v22 + 344);
+          if (v31 == v32)
           {
-            v99 = v93;
+            v34 = *(v22 + 336);
+            v33 = v34;
           }
 
           else
           {
-            while (*v98 != v21)
+            v33 = *(v22 + 336);
+            v34 = v33;
+            do
             {
-              v98 += 8;
-              if (v98 == v94)
+              if (*v34 == v30)
               {
-                v98 = v94;
-                break;
+                goto LABEL_34;
               }
+
+              v34 += 8;
             }
 
-            v99 = v93;
-            while (*v99 != v97)
+            while (v34 != v32);
+            v34 = *(v22 + 344);
+LABEL_34:
+            while (*v33 != v21)
             {
-              v99 += 8;
-              if (v99 == v94)
+              v33 += 8;
+              if (v33 == v32)
               {
-                v99 = v94;
+                v33 = *(v22 + 344);
                 break;
               }
             }
           }
         }
 
-        while (v98 - v93 < v99 - v93);
-      }
-
-      v100 = (v11 - 48);
-      if (v11 - 48 != a1)
-      {
-        v101 = *v100;
-        v102 = *(v11 - 32);
-        *(a1 + 27) = *(v11 - 21);
-        *a1 = v101;
-        *(a1 + 16) = v102;
-      }
-
-      a5 = 0;
-      *v100 = v248;
-      *(v11 - 32) = v254;
-      *(v11 - 24) = v21;
-      *(v11 - 9) = *(&v245 + 7);
-      *(v11 - 16) = v245;
-    }
-
-    else
-    {
-LABEL_28:
-      v253 = *(a1 + 16);
-      v28 = *(a1 + 32);
-      v244 = v28;
-      v247 = *a1;
-      v29 = a1;
-      do
-      {
-        v30 = v29;
-        v29 += 48;
-        v31 = *(v30 + 72);
-        if (v31 == v21)
+        while (v34 - v31 < v33 - v31);
+        v35 = a2;
+        if (v29 == a1)
         {
-          break;
-        }
+          v35 = a2;
+          if (v28 < a2)
+          {
+            v35 = a2;
+            do
+            {
+              v41 = v35[-2].n128_u64[1];
+              v35 -= 3;
+              if (v41 != v21)
+              {
+                v42 = *(v22 + 336);
+                v43 = *(v22 + 344);
+                if (v42 == v43)
+                {
+                  v45 = *(v22 + 336);
+                  v44 = v45;
+                }
 
-        v32 = *(v22 + 336);
-        v33 = *(v22 + 344);
-        if (v32 == v33)
-        {
-          v35 = *(v22 + 336);
-          v34 = v35;
+                else
+                {
+                  v44 = *(v22 + 336);
+                  v45 = v44;
+                  do
+                  {
+                    if (*v45 == v41)
+                    {
+                      goto LABEL_60;
+                    }
+
+                    v45 += 8;
+                  }
+
+                  while (v45 != v43);
+                  v45 = *(v22 + 344);
+LABEL_60:
+                  while (*v44 != v21)
+                  {
+                    v44 += 8;
+                    if (v44 == v43)
+                    {
+                      v44 = *(v22 + 344);
+                      break;
+                    }
+                  }
+                }
+
+                if (v45 - v42 < v44 - v42)
+                {
+                  break;
+                }
+              }
+            }
+
+            while (v28 < v35);
+          }
         }
 
         else
         {
-          v34 = *(v22 + 336);
-          v35 = v34;
           do
           {
-            if (*v35 == v31)
+            do
             {
-              goto LABEL_35;
+              v36 = v35[-2].n128_u64[1];
+              v35 -= 3;
             }
 
-            v35 += 8;
-          }
-
-          while (v35 != v33);
-          v35 = *(v22 + 344);
-LABEL_35:
-          while (*v34 != v21)
-          {
-            v34 += 8;
-            if (v34 == v33)
+            while (v36 == v21);
+            v37 = *(v22 + 336);
+            v38 = *(v22 + 344);
+            if (v37 == v38)
             {
-              v34 = *(v22 + 344);
-              break;
+              v40 = *(v22 + 336);
+              v39 = v40;
             }
-          }
-        }
-      }
 
-      while (v35 - v32 < v34 - v32);
-      v36 = a2;
-      if (v30 == a1)
-      {
-        v36 = a2;
-        if (v29 < a2)
-        {
-          v36 = a2;
-          do
-          {
-            v42 = *(v36 - 3);
-            v36 -= 3;
-            if (v42 != v21)
+            else
             {
-              v43 = *(v22 + 336);
-              v44 = *(v22 + 344);
-              if (v43 == v44)
+              v39 = *(v22 + 336);
+              v40 = v39;
+              do
               {
-                v46 = *(v22 + 336);
-                v45 = v46;
+                if (*v40 == v36)
+                {
+                  goto LABEL_46;
+                }
+
+                v40 += 8;
+              }
+
+              while (v40 != v38);
+              v40 = *(v22 + 344);
+LABEL_46:
+              while (*v39 != v21)
+              {
+                v39 += 8;
+                if (v39 == v38)
+                {
+                  v39 = *(v22 + 344);
+                  break;
+                }
+              }
+            }
+          }
+
+          while (v40 - v37 >= v39 - v37);
+        }
+
+        v11 = v28;
+        if (v28 < v35)
+        {
+          v46 = v35;
+          do
+          {
+            *v230 = *(v11 + 16);
+            *&v230[16] = *(v11 + 32);
+            v47 = *v11;
+            v49 = *v46;
+            v48 = v46[1];
+            *(v11 + 27) = *(v46 + 27);
+            *v11 = v49;
+            *(v11 + 16) = v48;
+            *(v46 + 27) = *&v230[11];
+            *v46 = v47;
+            v46[1] = *v230;
+            v50 = *a3;
+            do
+            {
+              v51 = *(v11 + 72);
+              v11 += 48;
+              if (v51 == v21)
+              {
+                break;
+              }
+
+              v52 = *(v50 + 336);
+              v53 = *(v50 + 344);
+              if (v52 == v53)
+              {
+                v55 = *(v50 + 336);
+                v54 = v55;
               }
 
               else
               {
-                v45 = *(v22 + 336);
-                v46 = v45;
+                v54 = *(v50 + 336);
+                v55 = v54;
                 do
                 {
-                  if (*v46 == v42)
+                  if (*v55 == v51)
                   {
-                    goto LABEL_61;
+                    goto LABEL_75;
                   }
 
-                  v46 += 8;
+                  v55 += 8;
                 }
 
-                while (v46 != v44);
-                v46 = *(v22 + 344);
-LABEL_61:
-                while (*v45 != v21)
+                while (v55 != v53);
+                v55 = *(v50 + 344);
+LABEL_75:
+                while (*v54 != v21)
                 {
-                  v45 += 8;
-                  if (v45 == v44)
+                  v54 += 8;
+                  if (v54 == v53)
                   {
-                    v45 = *(v22 + 344);
+                    v54 = *(v50 + 344);
                     break;
                   }
                 }
               }
-
-              if (v46 - v43 < v45 - v43)
-              {
-                break;
-              }
             }
-          }
 
-          while (v29 < v36);
-        }
-      }
-
-      else
-      {
-        do
-        {
-          do
-          {
-            v37 = *(v36 - 3);
-            v36 -= 3;
-          }
-
-          while (v37 == v21);
-          v38 = *(v22 + 336);
-          v39 = *(v22 + 344);
-          if (v38 == v39)
-          {
-            v41 = *(v22 + 336);
-            v40 = v41;
-          }
-
-          else
-          {
-            v40 = *(v22 + 336);
-            v41 = v40;
+            while (v55 - v52 < v54 - v52);
             do
             {
-              if (*v41 == v37)
-              {
-                goto LABEL_47;
-              }
-
-              v41 += 8;
-            }
-
-            while (v41 != v39);
-            v41 = *(v22 + 344);
-LABEL_47:
-            while (*v40 != v21)
-            {
-              v40 += 8;
-              if (v40 == v39)
-              {
-                v40 = *(v22 + 344);
-                break;
-              }
-            }
-          }
-        }
-
-        while (v41 - v38 >= v40 - v38);
-      }
-
-      v11 = v29;
-      if (v29 < v36)
-      {
-        v47 = v36;
-        do
-        {
-          *v237 = *(v11 + 16);
-          *&v237[16] = *(v11 + 32);
-          v48 = *v11;
-          v50 = *v47;
-          v49 = v47[1];
-          *(v11 + 27) = *(v47 + 27);
-          *v11 = v50;
-          *(v11 + 16) = v49;
-          *(v47 + 27) = *&v237[11];
-          *v47 = v48;
-          v47[1] = *v237;
-          v51 = *a3;
-          do
-          {
-            v52 = *(v11 + 72);
-            v11 += 48;
-            if (v52 == v21)
-            {
-              break;
-            }
-
-            v53 = *(v51 + 336);
-            v54 = *(v51 + 344);
-            if (v53 == v54)
-            {
-              v56 = *(v51 + 336);
-              v55 = v56;
-            }
-
-            else
-            {
-              v55 = *(v51 + 336);
-              v56 = v55;
               do
               {
-                if (*v56 == v52)
-                {
-                  goto LABEL_76;
-                }
-
-                v56 += 8;
+                v56 = *(v46 - 3);
+                v46 -= 3;
               }
 
-              while (v56 != v54);
-              v56 = *(v51 + 344);
-LABEL_76:
-              while (*v55 != v21)
+              while (v56 == v21);
+              v57 = *(v50 + 336);
+              v58 = *(v50 + 344);
+              if (v57 == v58)
               {
-                v55 += 8;
-                if (v55 == v54)
+                v60 = *(v50 + 336);
+                v59 = v60;
+              }
+
+              else
+              {
+                v59 = *(v50 + 336);
+                v60 = v59;
+                do
                 {
-                  v55 = *(v51 + 344);
-                  break;
+                  if (*v60 == v56)
+                  {
+                    goto LABEL_86;
+                  }
+
+                  v60 += 8;
+                }
+
+                while (v60 != v58);
+                v60 = *(v50 + 344);
+LABEL_86:
+                while (*v59 != v21)
+                {
+                  v59 += 8;
+                  if (v59 == v58)
+                  {
+                    v59 = *(v50 + 344);
+                    break;
+                  }
                 }
               }
             }
+
+            while (v60 - v57 >= v59 - v57);
           }
 
-          while (v56 - v53 < v55 - v53);
-          do
-          {
-            do
-            {
-              v57 = *(v47 - 3);
-              v47 -= 3;
-            }
-
-            while (v57 == v21);
-            v58 = *(v51 + 336);
-            v59 = *(v51 + 344);
-            if (v58 == v59)
-            {
-              v61 = *(v51 + 336);
-              v60 = v61;
-            }
-
-            else
-            {
-              v60 = *(v51 + 336);
-              v61 = v60;
-              do
-              {
-                if (*v61 == v57)
-                {
-                  goto LABEL_87;
-                }
-
-                v61 += 8;
-              }
-
-              while (v61 != v59);
-              v61 = *(v51 + 344);
-LABEL_87:
-              while (*v60 != v21)
-              {
-                v60 += 8;
-                if (v60 == v59)
-                {
-                  v60 = *(v51 + 344);
-                  break;
-                }
-              }
-            }
-          }
-
-          while (v61 - v58 >= v60 - v58);
+          while (v11 < v46);
         }
 
-        while (v11 < v47);
-      }
-
-      v62 = (v11 - 48);
-      if (v11 - 48 != a1)
-      {
-        v63 = *v62;
-        v64 = *(v11 - 32);
-        *(a1 + 27) = *(v11 - 21);
-        *a1 = v63;
-        *(a1 + 16) = v64;
-      }
-
-      *v62 = v247;
-      *(v11 - 32) = v253;
-      *(v11 - 24) = v21;
-      *(v11 - 9) = *(&v244 + 7);
-      *(v11 - 16) = v244;
-      if (v29 < v36)
-      {
-        goto LABEL_98;
-      }
-
-      v65 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*>(a1, v11 - 48, a3);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*>(v11, a2, a3))
-      {
-        a2 = (v11 - 48);
-        if (!v65)
+        v61 = (v11 - 48);
+        if (v11 - 48 != a1)
         {
-          goto LABEL_2;
+          v62 = *v61;
+          v63 = *(v11 - 32);
+          *(a1 + 27) = *(v11 - 21);
+          *a1 = v62;
+          *(a1 + 16) = v63;
         }
 
-        goto LABEL_375;
-      }
+        *v61 = v240;
+        *(v11 - 32) = v246;
+        *(v11 - 24) = v21;
+        *(v11 - 9) = *(&v237 + 7);
+        *(v11 - 16) = v237;
+        if (v28 >= v35)
+        {
+          break;
+        }
 
-      if (!v65)
-      {
-LABEL_98:
-        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,false>(a1, v11 - 48, a3, a4, a5 & 1);
+LABEL_97:
+        result.n128_u64[0] = std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,false>(a1, (v11 - 48), a3, a4, a5 & 1).n128_u64[0];
         a5 = 0;
       }
+
+      v64 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*>(a1, v11 - 48, a3);
+      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*>(v11, a2, a3))
+      {
+        break;
+      }
+
+      if (!v64)
+      {
+        goto LABEL_97;
+      }
     }
+
+    a2 = (v11 - 48);
+    if (!v64)
+    {
+      continue;
+    }
+
+    return result;
   }
-
-  v103 = *MEMORY[0x277D85DE8];
-
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(v11, (v11 + 48), a2 - 3, a3);
 }
 
 __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
@@ -8599,11 +6475,11 @@ LABEL_29:
   return result;
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(__int128 *a1, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5, uint64_t a6)
 {
   result.n128_u64[0] = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(a1, a2, a3, a4, a6).n128_u64[0];
-  v13 = *(a5 + 24);
-  v14 = *(a4 + 24);
+  v13 = *(a5 + 3);
+  v14 = *(a4 + 3);
   if (v13 != v14)
   {
     v15 = *(*a6 + 336);
@@ -8645,19 +6521,19 @@ LABEL_7:
     if (v18 - v15 < v17 - v15)
     {
       v19 = *a4;
-      *v49 = *(a4 + 16);
-      *&v49[16] = *(a4 + 32);
+      *v49 = a4[1];
+      *&v49[16] = a4[2];
       v20 = *(a5 + 27);
-      v21 = *(a5 + 16);
+      v21 = a5[1];
       *a4 = *a5;
-      *(a4 + 16) = v21;
+      a4[1] = v21;
       *(a4 + 27) = v20;
       *a5 = v19;
-      *(a5 + 16) = *v49;
+      a5[1] = *v49;
       result = *&v49[11];
       *(a5 + 27) = *&v49[11];
-      v22 = *(a4 + 24);
-      v23 = *(a3 + 24);
+      v22 = *(a4 + 3);
+      v23 = *(a3 + 3);
       if (v22 != v23)
       {
         v24 = *(*a6 + 336);
@@ -8699,19 +6575,19 @@ LABEL_18:
         if (v27 - v24 < v26 - v24)
         {
           v28 = *a3;
-          *v50 = *(a3 + 16);
-          *&v50[16] = *(a3 + 32);
+          *v50 = a3[1];
+          *&v50[16] = a3[2];
           v29 = *(a4 + 27);
-          v30 = *(a4 + 16);
+          v30 = a4[1];
           *a3 = *a4;
-          *(a3 + 16) = v30;
+          a3[1] = v30;
           *(a3 + 27) = v29;
           *a4 = v28;
-          *(a4 + 16) = *v50;
+          a4[1] = *v50;
           result = *&v50[11];
           *(a4 + 27) = *&v50[11];
-          v31 = *(a3 + 24);
-          v32 = *(a2 + 24);
+          v31 = *(a3 + 3);
+          v32 = *(a2 + 3);
           if (v31 != v32)
           {
             v33 = *(*a6 + 336);
@@ -8753,19 +6629,19 @@ LABEL_29:
             if (v36 - v33 < v35 - v33)
             {
               v37 = *a2;
-              *v51 = *(a2 + 16);
-              *&v51[16] = *(a2 + 32);
+              *v51 = a2[1];
+              *&v51[16] = a2[2];
               v38 = *(a3 + 27);
-              v39 = *(a3 + 16);
+              v39 = a3[1];
               *a2 = *a3;
-              *(a2 + 16) = v39;
+              a2[1] = v39;
               *(a2 + 27) = v38;
               *a3 = v37;
-              *(a3 + 16) = *v51;
+              a3[1] = *v51;
               result = *&v51[11];
               *(a3 + 27) = *&v51[11];
-              v40 = *(a2 + 24);
-              v41 = *(a1 + 24);
+              v40 = *(a2 + 3);
+              v41 = *(a1 + 3);
               if (v40 != v41)
               {
                 v42 = *(*a6 + 336);
@@ -8807,15 +6683,15 @@ LABEL_40:
                 if (v45 - v42 < v44 - v42)
                 {
                   v46 = *a1;
-                  *v52 = *(a1 + 16);
-                  *&v52[16] = *(a1 + 32);
+                  *v52 = a1[1];
+                  *&v52[16] = a1[2];
                   v47 = *(a2 + 27);
-                  v48 = *(a2 + 16);
+                  v48 = a2[1];
                   *a1 = *a2;
-                  *(a1 + 16) = v48;
+                  a1[1] = v48;
                   *(a1 + 27) = v47;
                   *a2 = v46;
-                  *(a2 + 16) = *v52;
+                  a2[1] = *v52;
                   result = *&v52[11];
                   *(a2 + 27) = *&v52[11];
                 }
@@ -8832,7 +6708,6 @@ LABEL_40:
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
   if (v6 <= 2)
   {
@@ -8882,43 +6757,41 @@ LABEL_10:
 
           if (v12 - v9 < v11 - v9)
           {
-            v31 = (a2 - 48);
-            v32 = *a1;
-            *v37 = *(a1 + 16);
-            *&v37[16] = *(a1 + 32);
-            v33 = *(a2 - 21);
-            v34 = *(a2 - 32);
+            v30 = (a2 - 48);
+            v31 = *a1;
+            *v36 = *(a1 + 16);
+            *&v36[16] = *(a1 + 32);
+            v32 = *(a2 - 21);
+            v33 = *(a2 - 32);
             *a1 = *(a2 - 48);
-            *(a1 + 16) = v34;
-            *(a1 + 27) = v33;
-            *v31 = v32;
-            v31[1] = *v37;
-            *(v31 + 27) = *&v37[11];
+            *(a1 + 16) = v33;
+            *(a1 + 27) = v32;
+            *v30 = v31;
+            v30[1] = *v36;
+            *(v30 + 27) = *&v36[11];
           }
         }
 
-        goto LABEL_50;
+        return 1;
       }
 
       goto LABEL_18;
     }
 
-LABEL_50:
-    result = 1;
-    goto LABEL_51;
+    return 1;
   }
 
   switch(v6)
   {
     case 3:
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(a1, (a1 + 48), (a2 - 48), a3);
-      goto LABEL_50;
+      return 1;
     case 4:
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(a1, a1 + 48, a1 + 96, a2 - 48, a3);
-      goto LABEL_50;
+      return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(a1, a1 + 48, a1 + 96, a1 + 144, a2 - 48, a3);
-      goto LABEL_50;
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_SampleRemainder*,0>(a1, (a1 + 48), (a1 + 96), (a1 + 144), (a2 - 48), a3);
+      return 1;
   }
 
 LABEL_18:
@@ -8927,7 +6800,7 @@ LABEL_18:
   v14 = a1 + 144;
   if (a1 + 144 == a2)
   {
-    goto LABEL_50;
+    return 1;
   }
 
   v15 = 0;
@@ -8975,9 +6848,9 @@ LABEL_26:
 
       if (v21 - v18 < v20 - v18)
       {
-        v35 = *v14;
-        v36 = *(v14 + 16);
-        v38 = *(v14 + 32);
+        v34 = *v14;
+        v35 = *(v14 + 16);
+        v37 = *(v14 + 32);
         v22 = v14;
         while (1)
         {
@@ -9042,14 +6915,14 @@ LABEL_39:
 
         v22 = a1;
 LABEL_46:
-        *v22 = v35;
-        *(v22 + 16) = v36;
+        *v22 = v34;
+        *(v22 + 16) = v35;
         *(v22 + 24) = v16;
-        *(v22 + 32) = v38;
-        *(v22 + 39) = *(&v38 + 7);
+        *(v22 + 32) = v37;
+        *(v22 + 39) = *(&v37 + 7);
         if (++v15 == 8)
         {
-          break;
+          return v14 + 48 == a2;
         }
       }
     }
@@ -9058,21 +6931,16 @@ LABEL_46:
     v14 += 48;
     if (v14 == a2)
     {
-      goto LABEL_50;
+      return 1;
     }
   }
-
-  result = v14 + 48 == a2;
-LABEL_51:
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::statisticsByBundleIdentifier(uint64_t a1, uint64_t a2)
+void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::statisticsByBundleIdentifier(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   v2 = *(a2 + 272);
   v28 = (a2 + 280);
   if (v2 == (a2 + 280))
@@ -9080,7 +6948,7 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
     return;
   }
 
-  v27 = a1 + 16;
+  v27 = a1 + 2;
   do
   {
     v4 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_bundleIdentifierForSourceID(a2, v2[4]);
@@ -9092,7 +6960,7 @@ void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedD
 
     v6 = [v4 hash];
     v7 = v6;
-    v8 = *(a1 + 8);
+    v8 = a1[1];
     if (!*&v8)
     {
       goto LABEL_21;
@@ -9226,16 +7094,16 @@ LABEL_25:
   while (v25 != v28);
 }
 
-void sub_228EEEAE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_228EEEAE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,void *>>>>::~unique_ptr[abi:ne200100](va);
 
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::~__hash_table(v6);
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::~__hash_table(v11);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<NSString * {__strong},HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9330,9 +7198,9 @@ void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImple
   JUMPOUT(0x22AAC8590);
 }
 
-void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#1},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#1}>,HDStatisticsTimeInterval const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::destroy_deallocate(void *a1)
+void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#1},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#1}>,HDStatisticsTimeInterval const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](a1 + 8);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -9391,9 +7259,9 @@ void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImple
   JUMPOUT(0x22AAC8590);
 }
 
-void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#2},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#2}>,HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::destroy_deallocate(void *a1)
+void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#2},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_addStatisticsFromFinishedBucket<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>> const&,std::function<HDStatisticsCombined const&<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)> const&)::{lambda(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)#2}>,HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](a1 + 8);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -9467,8 +7335,9 @@ uint64_t std::__function::__value_func<HDStatisticsCombined<HDStatisticsTemporal
   return a1;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveAddSample(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveAddSample(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   if (*(a1 + 632) == 1)
   {
     if ((a3 & 1) == 0)
@@ -9477,92 +7346,87 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCom
       return 0;
     }
 
-    v8 = a2[1];
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_configureForStartTime(a1);
   }
 
-  v9 = *(a2 + 1);
-  v10 = *(a1 + 40);
-  if (v10)
+  v8 = *(a2 + 8);
+  v9 = *(a1 + 40);
+  if (v9)
   {
     if (*(a1 + 632))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
 
     else
     {
-      v11 = *(a1 + 176);
-      v13 = *(a1 + 120);
-      if (v11 <= v13)
+      v10 = *(a1 + 176);
+      v12 = *(a1 + 120);
+      if (v10 <= v12)
       {
-        v11 = -1.79769313e308;
+        v10 = -1.79769313e308;
       }
 
-      if (v11 < v13)
+      if (v10 < v12)
       {
-        v11 = *(a1 + 120);
+        v10 = *(a1 + 120);
       }
     }
   }
 
   else
   {
-    v11 = *(a1 + 176);
-    if (v11 <= *(a1 + 120))
+    v10 = *(a1 + 176);
+    if (v10 <= *(a1 + 120))
     {
-      v11 = -1.79769313e308;
+      v10 = -1.79769313e308;
     }
   }
 
-  if (v9 >= v11)
+  if (v8 >= v10)
   {
-    if (v10 && a3)
+    if (v9 && v5)
     {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_advanceToTime(a1, v9);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_advanceToTime(a1, v8);
     }
 
-    HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::addSample(a1 + 112, a2, a3);
+    HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::addSample(a1 + 112, a2, v5);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_notifyForCurrentBucket(a1);
     return 1;
   }
 
   else
   {
-    v14 = a2[2];
-    v15 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
-    v12 = (*(*a1 + 128))(a1, v15, a4);
+    v13 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
+    v11 = (*(*a1 + 128))(a1, v13, a4);
   }
 
-  return v12;
+  return v11;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_advanceToTime(uint64_t result, double a2)
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_advanceToTime(uint64_t a1, double a2)
 {
-  if (*(result + 128) <= a2)
+  if (*(a1 + 128) <= a2)
   {
-    v2 = result;
-    if (*(v2 + 608) != *(v2 + 600))
+    if (*(a1 + 608) != *(a1 + 600))
     {
-      [*(result + 40) dateIntervalAtIndex:*(result + 112) + 1];
+      [*(a1 + 40) dateIntervalAtIndex:*(a1 + 112) + 1];
       objc_claimAutoreleasedReturnValue();
-      HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_updateSourceOrder(v2 + 120);
-      HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeThroughTime(v2 + 120, *(v2 + 128));
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(v2, v2 + 120);
+      HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_updateSourceOrder(a1 + 120);
+      HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(a1, a1 + 120);
     }
 
     v5 = 0;
-    v3 = *(result + 40);
+    v3 = *(a1 + 40);
     v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:a2];
     [v3 dateIntervalContainingDate:v4 index:&v5];
     objc_claimAutoreleasedReturnValue();
 
-    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_updateSourceOrder(v2 + 120);
-    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeThroughTime(v2 + 120, *(v2 + 128));
-    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(v2, v2 + 120);
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_updateSourceOrder(a1 + 120);
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(a1, a1 + 120);
   }
-
-  return result;
 }
 
 void HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::addSample(uint64_t a1, uint64_t *a2, int a3)
@@ -9613,7 +7477,7 @@ void HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucke
     }
 
     *&v42 = v13;
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 304), v8);
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 304), v8, &v42 + 1);
     v14 = *(a1 + 112);
     if (v14 == *(a1 + 104) && *(a1 + 192) <= 0)
     {
@@ -9757,12 +7621,12 @@ LABEL_35:
     {
       v33 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1 + 8, v8);
       v34 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsForSource(a1 + 8, v33);
-      if (!*(v34 + 104) || v34[10] <= v5)
+      if (!*(v34 + 104) || *(v34 + 10) <= v5)
       {
-        *(v34 + 9) = v6;
-        v34[10] = v5;
-        v34[11] = v7;
-        *(v34 + 12) = v8;
+        v34[9] = v6;
+        *(v34 + 10) = v5;
+        *(v34 + 11) = v7;
+        v34[12] = v8;
         *(v34 + 104) = v4;
         *(v34 + 105) = v9;
       }
@@ -9785,4 +7649,1938 @@ LABEL_4:
   {
     std::vector<HDRawQuantitySample>::push_back[abi:ne200100](a1 + 488, &v35);
   }
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_notifyForCurrentBucket(uint64_t a1)
+{
+  if (*(a1 + 634) == 1)
+  {
+    *(a1 + 636) = 1;
+  }
+
+  else
+  {
+    *(a1 + 636) = 0;
+    v2 = _Block_copy(*(a1 + 96));
+    if (v2)
+    {
+      v4 = v2;
+      v3 = (*(*a1 + 96))(a1);
+      if (v3)
+      {
+        v4[2](v4, v3);
+      }
+
+      v2 = v4;
+    }
+  }
+}
+
+void HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::advanceBucket(uint64_t a1, double a2, double a3)
+{
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, *(a1 + 488), *(a1 + 496), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 496) - *(a1 + 488)) >> 3));
+  HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::resetToBucket(a1, *a1 + 1, a2, a3);
+  v6 = v9;
+  v7 = v10;
+  if (v9 != v10)
+  {
+    v8 = v9;
+    do
+    {
+      HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::addSample(a1, v8, 1);
+      v8 += 5;
+    }
+
+    while (v8 != v7);
+  }
+
+  if (v6)
+  {
+
+    operator delete(v6);
+  }
+}
+
+void sub_228EEFBF8(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    operator delete(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::resetToBucket(uint64_t a1, uint64_t a2, double a3, double a4)
+{
+  v8 = (a1 + 40);
+  objc_storeStrong((a1 + 512), *(a1 + 40));
+  v9 = *(a1 + 248);
+  *(a1 + 8) = a3;
+  *(a1 + 16) = a4;
+  *(a1 + 64) = a3;
+  *(a1 + 112) = *(a1 + 104);
+  *(a1 + 128) = xmmword_229170D40;
+  v10 = 0uLL;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 240) = 0;
+  if (v9)
+  {
+    *(a1 + 256) = v9;
+    operator delete(v9);
+    v10 = 0uLL;
+  }
+
+  *(a1 + 248) = v10;
+  *(a1 + 264) = v10;
+  if (*(a1 + 296))
+  {
+    v11 = *(a1 + 280);
+    v12 = *(a1 + 288);
+    *(a1 + 280) = a1 + 288;
+    *(v12 + 16) = 0;
+    *(a1 + 288) = 0;
+    *(a1 + 296) = 0;
+    if (v11[1])
+    {
+      v13 = v11[1];
+    }
+
+    else
+    {
+      v13 = v11;
+    }
+
+    if (v13)
+    {
+      v14 = v13[2];
+      if (v14)
+      {
+        v15 = *v14;
+        if (*v14 == v13)
+        {
+          *v14 = 0;
+          while (1)
+          {
+            v17 = v14[1];
+            if (!v17)
+            {
+              break;
+            }
+
+            do
+            {
+              v14 = v17;
+              v17 = *v17;
+            }
+
+            while (v17);
+          }
+        }
+
+        else
+        {
+          for (v14[1] = 0; v15; v15 = v14[1])
+          {
+            do
+            {
+              v14 = v15;
+              v15 = *v15;
+            }
+
+            while (v15);
+          }
+        }
+
+        std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::destroy(v13);
+        for (i = v14[2]; i; i = i[2])
+        {
+          v14 = i;
+        }
+
+        v13 = v14;
+      }
+    }
+
+    std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>>>::destroy(v13);
+  }
+
+  objc_storeStrong(v8, *(a1 + 512));
+  *(a1 + 496) = *(a1 + 488);
+  *a1 = a2;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_didChangeBucket(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (*(a1 + 636) == 1)
+  {
+    if (v3)
+    {
+      v6 = v3;
+      v4 = _Block_copy(*(a1 + 96));
+      v5 = v4;
+      if (v4)
+      {
+        (*(v4 + 2))(v4, v6);
+      }
+
+      v3 = v6;
+    }
+
+    *(a1 + 636) = 0;
+  }
+}
+
+id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_currentBucketInterval(uint64_t a1)
+{
+  if (*(a1 + 632))
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:*(a1 + 120) end:{*(a1 + 128), v1}];
+  }
+
+  return v3;
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE38_collapsedPendingInvalidationIntervalsERb_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v4 = a3;
+  v5 = [a2 startDate];
+  v6 = [v4 startDate];
+  v7 = [v5 compare:v6];
+
+  return v7;
+}
+
+void sub_228EEFEC4(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(id *a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  WeakRetained = objc_loadWeakRetained(a1 + 13);
+  if (WeakRetained)
+  {
+    if (v5 && (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_currentBucketInterval(a1), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
+    {
+      v8 = [v5 endDate];
+      v9 = [v7 startDate];
+      if ([v8 hk_isAfterDate:v9])
+      {
+        v10 = [v5 startDate];
+        v11 = [v7 endDate];
+        v12 = [v10 hk_isBeforeOrEqualToDate:v11];
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      v13 = _Block_copy(a1[12]);
+      if ((v12 & 1) == 0)
+      {
+        operator new();
+      }
+    }
+
+    else
+    {
+      v13 = _Block_copy(a1[12]);
+    }
+
+    *(a1 + 632) = 1;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke;
+    v27[3] = &unk_278629370;
+    v15 = v5;
+    v28 = v15;
+    v16 = v13;
+    v29 = v16;
+    (*(*a1 + 9))(a1, v27);
+    if (v5)
+    {
+      v17 = [v15 startDate];
+      [v17 timeIntervalSinceReferenceDate];
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_configureForStartTime(a1);
+    }
+
+    else
+    {
+      v15 = (*(*a1 + 4))(a1);
+    }
+
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_2;
+    v21[3] = &unk_2786293D8;
+    v24 = a1;
+    v5 = v15;
+    v26 = 1;
+    v22 = v5;
+    v25 = a1;
+    v23 = WeakRetained;
+    v14 = (*(*a1 + 14))(a1, v21, a3);
+    v18 = _Block_copy(v16);
+    v19 = a1[12];
+    a1[12] = v18;
+  }
+
+  else
+  {
+    [MEMORY[0x277CCA9B8] hk_assignError:a3 code:3 format:@"Unable to invalidate interval: no data source available."];
+    v14 = 0;
+  }
+
+  return v14;
+}
+
+void sub_228EF0314(_Unwind_Exception *a1)
+{
+  MEMORY[0x22AAC8590](v4, 0x10F1C40C0BC8CBALL);
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2)
+{
+  v10 = a2;
+  if (!*(a1 + 32) || ([v10 endDate], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "startDate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "hk_isBeforeOrEqualToDate:", v4), v4, v3, (v5 & 1) == 0) && (objc_msgSend(v10, "startDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterOrEqualToDate:", v7), v7, v6, (v8 & 1) == 0))
+  {
+    v9 = *(a1 + 40);
+    if (v9)
+    {
+      (*(v9 + 16))(v9, v10);
+    }
+  }
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 48);
+  v5 = [*(a1 + 32) startDate];
+  [v5 timeIntervalSinceReferenceDate];
+  v7 = v6;
+
+  v8 = [*(a1 + 32) endDate];
+  [v8 timeIntervalSinceReferenceDate];
+  v10 = v9;
+
+  v11 = *(a1 + 40);
+  WeakRetained = objc_loadWeakRetained((v4 + 8));
+  v13 = *(a1 + 32);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3;
+  v20[3] = &__block_descriptor_57_e24_B52__0d8d16d24q32B40__44l;
+  v22 = *(a1 + 64);
+  v20[4] = v7;
+  v20[5] = v10;
+  v21 = *(a1 + 56);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_4;
+  v19[3] = &__block_descriptor_40_e8_v16__0d8l;
+  v19[4] = v21;
+  v14 = [v11 collectionCalculator:WeakRetained queryForInterval:v13 error:a2 sampleHandler:v20 mergeHandler:v19];
+
+  if (v14)
+  {
+    v15 = *(a1 + 56);
+    if (v15 != v4)
+    {
+      v16 = [*(a1 + 32) endDate];
+      [v16 timeIntervalSinceReferenceDate];
+      if (*(v15 + 40) && *(v15 + 120) < v17)
+      {
+        [*(v15 + 40) dateIntervalAtIndex:*(v15 + 112) + 1];
+        objc_claimAutoreleasedReturnValue();
+        HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_updateSourceOrder(v15 + 120);
+        HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeThroughTime(v15 + 120, *(v15 + 128));
+        _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(v15, v15 + 120);
+      }
+    }
+  }
+
+  return v14;
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
+{
+  if (*(a1 + 32) <= a6)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    a2 = 0;
+    v9 = 0;
+    a7 = 0.0;
+    a5 = 0.0;
+    a6 = 0.0;
+  }
+
+  v18 = v7;
+  v19 = v8;
+  v12 = a5;
+  v13 = a6;
+  v14 = a7;
+  v15 = a2;
+  v16 = v9;
+  v17 = 0;
+  if (*(a1 + 56))
+  {
+    if (v9)
+    {
+      return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveAddSample(*(a1 + 48), &v12, a3, a4);
+    }
+
+    return 1;
+  }
+
+  if (v9)
+  {
+    v11 = *(a1 + 40);
+    if (a6 < v11)
+    {
+      if (a7 <= v11)
+      {
+        v11 = a7;
+      }
+
+      v13 = a6;
+      v14 = v11;
+      v16 = v9;
+      return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveAddSample(*(a1 + 48), &v12, a3, a4);
+    }
+
+    return 1;
+  }
+
+  return 1;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeToTime(uint64_t a1, double a2)
+{
+  if (*(a1 + 632) == 1)
+  {
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_configureForStartTime(a1);
+  }
+
+  if (*(a1 + 40))
+  {
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_advanceToTime(a1, a2);
+  }
+
+  if (*(a1 + 128) > a2)
+  {
+
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_mergeThroughTime(a1 + 120, a2);
+  }
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke(void *a1, uint64_t a2)
+{
+  v3 = a1[5];
+  v4 = a1[6];
+  v5 = a1[4];
+  v6 = [v5 dateInterval];
+  v9[4] = v4;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2;
+  v10[3] = &__block_descriptor_40_e24_B52__0d8d16d24q32B40__44l;
+  v10[4] = v4;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_3;
+  v9[3] = &__block_descriptor_40_e8_v16__0d8l;
+  v7 = [v3 collectionCalculator:v5 queryForInterval:v6 error:a2 sampleHandler:v10 mergeHandler:v9];
+
+  return v7;
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersE24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
+{
+  v10 = *(a1 + 32);
+  *v14 = a5;
+  *&v14[1] = a6;
+  *&v14[2] = a7;
+  v14[3] = a2;
+  v15 = 1;
+  v11 = [MEMORY[0x277CBEAA8] distantFuture];
+  [v11 timeIntervalSinceReferenceDate];
+  v16 = v12 <= a7;
+
+  return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>,HDStatisticsTimeInterval>>::_primitiveAddSample(v10, v14, a3, a4);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_HDConcreteStatisticsCollectionCalculatorImplementation(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
+{
+  v6 = a3;
+  v8 = _HDStatisticsCollectionCalculatorImplementation::_HDStatisticsCollectionCalculatorImplementation(a1, a2, a3, a4, a5, a6);
+  *v8 = &unk_283BEDD48;
+  v9 = 900.0;
+  if ((v6 & 0x10) == 0)
+  {
+    v9 = 0.0;
+  }
+
+  *(v8 + 56) = v9;
+  *(v8 + 64) = 0u;
+  *(v8 + 80) = 0u;
+  *(v8 + 104) = 0;
+  *(v8 + 112) = 0;
+  *(v8 + 96) = 0;
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(v8 + 120, 0, -1.79769313e308, 1.79769313e308);
+  *(a1 + 608) = 0u;
+  *(a1 + 624) = 0u;
+  *(a1 + 640) = 1;
+  *(a1 + 642) = 0;
+  *(a1 + 644) = 0;
+  *(a1 + 648) = 0xFFEFFFFFFFFFFFFFLL;
+  *(a1 + 656) = 0u;
+  *(a1 + 672) = 0u;
+  *(a1 + 688) = 0;
+  return a1;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~_HDConcreteStatisticsCollectionCalculatorImplementation(uint64_t a1)
+{
+  _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~_HDConcreteStatisticsCollectionCalculatorImplementation(a1);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+{
+  *a1 = &unk_283BEDD48;
+  v2 = *(a1 + 672);
+  if (v2)
+  {
+    *(a1 + 680) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(a1 + 608);
+  if (v3)
+  {
+    *(a1 + 616) = v3;
+    operator delete(v3);
+  }
+
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(a1 + 120);
+  objc_destroyWeak((a1 + 104));
+
+  v4 = *(a1 + 72);
+  if (v4)
+  {
+    *(a1 + 80) = v4;
+    operator delete(v4);
+  }
+
+  _HDStatisticsCollectionCalculatorImplementation::~_HDStatisticsCollectionCalculatorImplementation(a1);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::setMergeGranularity(uint64_t result, double a2)
+{
+  if (*(result + 56) != a2)
+  {
+    *(result + 56) = a2;
+    *(result + 640) = 1;
+  }
+
+  return result;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::setDateInterval(uint64_t a1, void *a2)
+{
+  v6 = a2;
+  v3 = objc_msgSend_copy(v6);
+  v4 = *(a1 + 64);
+  *(a1 + 64) = v3;
+
+  v5 = [v6 startDate];
+  [v5 timeIntervalSinceReferenceDate];
+  _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_configureForStartTime(a1);
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::configureMergeAnchor(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (!*(a1 + 40))
+  {
+    v5 = v3;
+    [v3 timeIntervalSinceReferenceDate];
+    *(a1 + 648) = v4;
+    v3 = v5;
+  }
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::setStatisticsConfiguration(id *a1, void *a2)
+{
+  objc_storeStrong(a1 + 82, a2);
+  v7 = a2;
+  v4 = a1[82];
+  v5 = a1[79];
+  a1[79] = v4;
+  v6 = v4;
+
+  objc_storeStrong(a1 + 19, a1[79]);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::setIntervalMask(uint64_t a1, char **a2, uint64_t a3)
+{
+  v6 = (a1 + 72);
+  if (v6 != a2)
+  {
+    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(v6, *a2, a2[1], (a2[1] - *a2) >> 4);
+  }
+
+  if (*(a1 + 40))
+  {
+    return 1;
+  }
+
+  v7 = *(a1 + 224) == *(a1 + 216) && *(a1 + 312) < 1 || HKIntervalMask<double>::firstDifference(*(a1 + 184), *(a1 + 192), *a2, a2[1]) >= *(a1 + 176);
+  if ((a1 + 184) != a2)
+  {
+    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 184), *a2, a2[1], (a2[1] - *a2) >> 4);
+  }
+
+  if (v7)
+  {
+    return 1;
+  }
+
+  v9 = *(*a1 + 128);
+
+  return v9(a1, 0, a3);
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::setStatisticsHandler(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  v3 = objc_msgSend_copy(v5);
+  v4 = *(a1 + 96);
+  *(a1 + 96) = v3;
+}
+
+id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::dataSource(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 104));
+
+  return WeakRetained;
+}
+
+id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::currentStatistics(uint64_t a1)
+{
+  if (*(a1 + 640))
+  {
+    v1 = 0;
+  }
+
+  else
+  {
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(v4, a1 + 120);
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_updateSourceOrder(v4);
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_mergeThroughTime(v4, v5);
+    v1 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_statisticsFromFinishedBucket(a1, v4);
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(v4);
+  }
+
+  return v1;
+}
+
+void sub_228EF0FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::addSample(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(a1 + 64);
+  v7 = v6;
+  if (!v6)
+  {
+    goto LABEL_4;
+  }
+
+  v8 = [v6 startDate];
+  [v8 timeIntervalSinceReferenceDate];
+  if (v9 > *(a2 + 16))
+  {
+    v14 = 1;
+LABEL_8:
+
+    goto LABEL_23;
+  }
+
+  v10 = [v7 endDate];
+  [v10 timeIntervalSinceReferenceDate];
+  v12 = v11;
+  v13 = *(a2 + 8);
+
+  if (v12 >= v13)
+  {
+LABEL_4:
+    if (*(a1 + 642) == 1)
+    {
+      if (*(a1 + 641))
+      {
+        goto LABEL_6;
+      }
+
+      if (*(a1 + 40))
+      {
+        if (*(a1 + 640))
+        {
+          v15 = -1.79769313e308;
+        }
+
+        else
+        {
+          v16 = *(a1 + 176);
+          v15 = *(a1 + 120);
+          if (v16 <= v15)
+          {
+            v16 = -1.79769313e308;
+          }
+
+          if (v16 >= v15)
+          {
+            v15 = v16;
+          }
+        }
+      }
+
+      else
+      {
+        v15 = -1.79769313e308;
+        if (*(a1 + 176) > *(a1 + 120))
+        {
+          v15 = *(a1 + 176);
+        }
+      }
+
+      if (v15 > *(a2 + 8))
+      {
+        v8 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
+        v14 = (*(*a1 + 128))(a1, v8, a3);
+        goto LABEL_8;
+      }
+
+      if (*(a1 + 643) != 1)
+      {
+        std::vector<HDRawQuantitySample>::push_back[abi:ne200100](a1 + 672, a2);
+        goto LABEL_6;
+      }
+    }
+
+    v14 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_primitiveAddSample(a1, a2, 1, a3);
+    goto LABEL_23;
+  }
+
+LABEL_6:
+  v14 = 1;
+LABEL_23:
+
+  return v14;
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::performAddSampleTransaction(uint64_t a1, void *a2, uint64_t a3)
+{
+  v74 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = v5;
+  if (*(a1 + 642) == 1)
+  {
+    v7 = (*(v5 + 2))(v5, a3);
+    goto LABEL_81;
+  }
+
+  *(a1 + 642) = 1;
+  v67 = a3;
+  if (!(*(v5 + 2))(v5, a3))
+  {
+    v7 = 0;
+    goto LABEL_80;
+  }
+
+  v66 = v6;
+  if (*(a1 + 641))
+  {
+    goto LABEL_5;
+  }
+
+  v9 = *(a1 + 664);
+  if (!v9)
+  {
+    v8 = 0;
+    v68 = 0;
+    goto LABEL_28;
+  }
+
+  if (!*(a1 + 40))
+  {
+LABEL_5:
+    v68 = 0;
+    v8 = 1;
+    goto LABEL_28;
+  }
+
+  [v9 sortUsingComparator:&__block_literal_global_704];
+  v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v10 = *(a1 + 664);
+  v11 = [v10 countByEnumeratingWithState:&v69 objects:v73 count:16];
+  if (!v11)
+  {
+
+    v12 = 0;
+    goto LABEL_27;
+  }
+
+  v12 = 0;
+  v13 = *v70;
+  do
+  {
+    for (i = 0; i != v11; ++i)
+    {
+      if (*v70 != v13)
+      {
+        objc_enumerationMutation(v10);
+      }
+
+      v15 = *(*(&v69 + 1) + 8 * i);
+      v16 = v15;
+      if (v12)
+      {
+        v17 = [v15 startDate];
+        v18 = [v12 endDate];
+        v19 = [v17 hk_isBeforeOrEqualToDate:v18];
+
+        if (v19)
+        {
+          v20 = [v16 endDate];
+          v21 = [v12 endDate];
+          v22 = [v20 hk_isAfterDate:v21];
+
+          if (!v22)
+          {
+            goto LABEL_21;
+          }
+
+          v23 = objc_alloc(MEMORY[0x277CCA970]);
+          v24 = [v12 startDate];
+          v25 = [v16 endDate];
+          v26 = [v23 initWithStartDate:v24 endDate:v25];
+        }
+
+        else
+        {
+          [v68 addObject:v12];
+          v26 = v16;
+        }
+
+        v12 = v26;
+      }
+
+      else
+      {
+        v12 = v15;
+      }
+
+LABEL_21:
+    }
+
+    v11 = [v10 countByEnumeratingWithState:&v69 objects:v73 count:16];
+  }
+
+  while (v11);
+
+  if (v12)
+  {
+    [v68 addObject:v12];
+  }
+
+LABEL_27:
+
+  v8 = 0;
+LABEL_28:
+  v27 = *(a1 + 664);
+  *(a1 + 664) = 0;
+
+  *(a1 + 641) = 0;
+  if (v8)
+  {
+    v28 = *(a1 + 672);
+    *(a1 + 688) = 0;
+    *(a1 + 680) = 0;
+    *(a1 + 672) = 0;
+    v29 = v28;
+    goto LABEL_46;
+  }
+
+  v30 = [v68 lastObject];
+  if (v30)
+  {
+    v31 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_currentBucketInterval(a1);
+    v32 = [v31 endDate];
+    v33 = [v30 endDate];
+    v34 = [v32 hk_isBeforeOrEqualToDate:v33];
+
+    if (v34)
+    {
+      v35 = [v30 endDate];
+      [v35 timeIntervalSinceReferenceDate];
+      v37 = v36;
+
+      v38 = *(a1 + 672);
+      v39 = *(a1 + 680);
+      if (v38 != v39)
+      {
+        while (*(v38 + 8) >= v37)
+        {
+          v38 += 40;
+          if (v38 == v39)
+          {
+            goto LABEL_44;
+          }
+        }
+
+        if (v38 != v39)
+        {
+          v40 = (v38 + 40);
+          if ((v38 + 40) != v39)
+          {
+            do
+            {
+              if (*(v40 + 1) >= v37)
+              {
+                v41 = *v40;
+                v42 = v40[1];
+                *(v38 + 32) = *(v40 + 16);
+                *v38 = v41;
+                *(v38 + 16) = v42;
+                v38 += 40;
+              }
+
+              v40 = (v40 + 40);
+            }
+
+            while (v40 != v39);
+            v39 = *(a1 + 680);
+          }
+        }
+      }
+
+      if (v38 != v39)
+      {
+        *(a1 + 680) = v38;
+      }
+    }
+
+LABEL_44:
+  }
+
+  v28 = *(a1 + 672);
+  v29 = *(a1 + 680);
+  *(a1 + 688) = 0;
+  *(a1 + 672) = 0;
+  *(a1 + 680) = 0;
+  if ([v68 count])
+  {
+LABEL_46:
+    v44 = v68;
+    if (v44)
+    {
+      v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v45 = v44;
+      v46 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
+      if (v46)
+      {
+        v47 = *v70;
+        while (2)
+        {
+          for (j = 0; j != v46; ++j)
+          {
+            if (*v70 != v47)
+            {
+              objc_enumerationMutation(v45);
+            }
+
+            v49 = *(*(&v69 + 1) + 8 * j);
+            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_primitiveInvalidateInterval(a1, v49, v67);
+
+            if (!v50)
+            {
+
+              goto LABEL_68;
+            }
+          }
+
+          v46 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
+          if (v46)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+      goto LABEL_58;
+    }
+
+    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_primitiveInvalidateInterval(a1, 0, v67))
+    {
+      goto LABEL_58;
+    }
+
+LABEL_68:
+    v54 = 0;
+  }
+
+  else
+  {
+LABEL_58:
+    v52 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v29 - v28) >> 3));
+    if (v29 == v28)
+    {
+      v53 = 0;
+    }
+
+    else
+    {
+      v53 = v52;
+    }
+
+    v54 = 1;
+    std::__introsort<std::_ClassicAlgPolicy,_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_addPendingSamples(std::vector<HDRawQuantitySample> &,NSError * {__autoreleasing}*)::{lambda(HDRawQuantitySample const&,HDRawQuantitySample const&)#1} &,HDRawQuantitySample*,false>(v28, v29, v53, 1, v43);
+    if (v29 != v28)
+    {
+      v55 = v28;
+      v51 = v67;
+      do
+      {
+        v56 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_primitiveAddSample(a1, v55, 1, v51);
+        v54 = v56;
+        v55 += 40;
+        if (v55 == v29)
+        {
+          v57 = 0;
+        }
+
+        else
+        {
+          v57 = v56;
+        }
+
+        v51 = v67;
+      }
+
+      while ((v57 & 1) != 0);
+    }
+  }
+
+  if (*(a1 + 40))
+  {
+    while (*(a1 + 616) != *(a1 + 608))
+    {
+      v58 = [*(a1 + 40) dateIntervalAtIndex:{*(a1 + 112) + 1, v51}];
+      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_updateSourceOrder(a1 + 120);
+      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+      v59 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_statisticsFromFinishedBucket(a1, a1 + 120);
+      v60 = [v58 startDate];
+      [v60 timeIntervalSinceReferenceDate];
+      v62 = v61;
+      v63 = [v58 endDate];
+      [v63 timeIntervalSinceReferenceDate];
+      HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::advanceBucket(a1 + 112, v62, v64);
+
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_didChangeBucket(a1, v59);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_notifyForCurrentBucket(a1);
+    }
+  }
+
+  *(a1 + 642) = 0;
+  if (v28)
+  {
+    operator delete(v28);
+  }
+
+  if (v54)
+  {
+    if (*(a1 + 644) == 1)
+    {
+      *(a1 + 644) = 0;
+      v6 = v66;
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_notifyForCurrentBucket(a1);
+      v7 = 1;
+      goto LABEL_80;
+    }
+
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v6 = v66;
+LABEL_80:
+  *(a1 + 642) = 0;
+LABEL_81:
+
+  return v7;
+}
+
+void sub_228EF1874(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
+{
+  if (a2)
+  {
+
+    objc_begin_catch(exception_object);
+    *(v13 + 642) = 0;
+    objc_exception_rethrow();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::invalidateInterval(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  v6 = *(a1 + 40);
+  if (!v6)
+  {
+
+    goto LABEL_11;
+  }
+
+  if (!v5)
+  {
+LABEL_11:
+    if (*(a1 + 642))
+    {
+      goto LABEL_12;
+    }
+
+    v7 = 0;
+LABEL_14:
+    v11 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_primitiveInvalidateInterval(a1, v7, a3);
+    goto LABEL_15;
+  }
+
+  v7 = [v6 dateIntervalForIntervalsContainingInterval:v5];
+
+  if ((*(a1 + 642) & 1) == 0)
+  {
+    goto LABEL_14;
+  }
+
+  if (!v7)
+  {
+LABEL_12:
+    v12 = *(a1 + 664);
+    *(a1 + 664) = 0;
+
+    v7 = 0;
+    v11 = 1;
+    *(a1 + 641) = 1;
+    goto LABEL_15;
+  }
+
+  if ((*(a1 + 641) & 1) == 0)
+  {
+    v8 = *(a1 + 664);
+    if (!v8)
+    {
+      v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v10 = *(a1 + 664);
+      *(a1 + 664) = v9;
+
+      v8 = *(a1 + 664);
+    }
+
+    [v8 addObject:v7];
+  }
+
+  v11 = 1;
+LABEL_15:
+
+  return v11;
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::queryForInitialStatistics(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 104));
+  if (WeakRetained)
+  {
+    *(a1 + 640) = 1;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI42HDStatisticsTemporalBucketWeightedDiscreteI52HDStatisticsTemporalBucketWeightedDiscreteParametersEEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke;
+    v9[3] = &unk_278624840;
+    v12 = a1;
+    v10 = v5;
+    v11 = WeakRetained;
+    v7 = (*(*a1 + 112))(a1, v9, a3);
+    if (v7 && *(a1 + 640) == 1 && !*(a1 + 40))
+    {
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_configureForStartTime(a1);
+    }
+  }
+
+  else
+  {
+    [MEMORY[0x277CCA9B8] hk_assignError:a3 code:3 format:@"Unable to query for initial statistics: no data source available."];
+    v7 = 0;
+  }
+
+  return v7;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::encodeInternalsWithEncoder(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  [v3 encodeBool:*(a1 + 640) forKey:@"needs_config"];
+  v13 = v3;
+  v27 = &unk_283BF1A08;
+  v28 = 0;
+  v31 = 0;
+  v4 = *(a1 + 112);
+  LOBYTE(v31) = 1;
+  v29 = v4;
+  memset(v30, 0, sizeof(v30));
+  statistics::StatisticsEngine::makeCurrentBucket(&v27);
+  v14 = &unk_283BE6258;
+  memset(v17, 0, 24);
+  v26 = 511;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
+  v5 = vextq_s8(*(a1 + 120), *(a1 + 120), 8uLL);
+  v6 = *(a1 + 136);
+  v24 = *(a1 + 144);
+  v25 = *(a1 + 145);
+  v23 = *(a1 + 148) == 0;
+  v7 = vextq_s8(*(a1 + 160), *(a1 + 160), 8uLL);
+  v15 = v5;
+  v16 = v7;
+  v7.i64[0] = *(a1 + 176);
+  v17[3] = v6;
+  v17[4] = v7.i64[0];
+  v8 = *(a1 + 216);
+  if (v8 != *(a1 + 224))
+  {
+    v32 = &unk_283BEB0A8;
+    v37 = 127;
+    v34 = vextq_s8(*v8, *v8, 8uLL);
+    v33 = v8[1];
+    v36 = 0;
+    HIBYTE(v35) = v8[2].i8[9];
+    LOBYTE(v35) = v8[2].i8[10];
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>(&v18, &v32);
+  }
+
+  statistics::StatisticsBucket::makeStatistics(&v14);
+  HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>::archive(&v32, (a1 + 240));
+  statistics::Statistics::operator=(*(&v19 + 1), &v32);
+  statistics::Statistics::~Statistics(&v32);
+  v9 = *(a1 + 400);
+  if (v9 != a1 + 408)
+  {
+    HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>::archive(&v32, (v9 + 40));
+    v10 = *(v9 + 32);
+    v39 |= 0x200u;
+    v38 = v10;
+    PB::PtrVector<statistics::Statistics>::emplace_back<statistics::Statistics&>(v21 + 1, &v32);
+  }
+
+  v11 = *(a1 + 184);
+  if (v11 != *(a1 + 192))
+  {
+    v32 = &unk_283BF1F08;
+    v34.i32[0] = 3;
+    v33 = vextq_s8(*v11, *v11, 8uLL);
+    PB::PtrVector<statistics::Interval>::emplace_back<statistics::Interval&>(v17, &v32);
+  }
+
+  statistics::StatisticsBucket::operator=(v28, &v14);
+  statistics::StatisticsBucket::~StatisticsBucket(&v14);
+  v12 = *(a1 + 608);
+  if (v12 != *(a1 + 616))
+  {
+    v32 = &unk_283BEB0A8;
+    v37 = 127;
+    v34 = vextq_s8(*v12, *v12, 8uLL);
+    v33 = v12[1];
+    v35 = 0;
+    v36 = 0;
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample>(v30, &v32);
+  }
+
+  PB::Writer::Writer(&v32);
+  statistics::StatisticsEngine::writeTo(&v27, &v32);
+  [v13 encodeBytes:v33.i64[0] length:v32 - v33.i64[0] forKey:@"hdsce_archived_representation"];
+  PB::Writer::~Writer(&v32);
+  statistics::StatisticsEngine::~StatisticsEngine(&v27);
+}
+
+void sub_228EF20BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+{
+  statistics::StatisticsEngine::~StatisticsEngine(&a34);
+
+  _Unwind_Resume(a1);
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::decodeInternalsWithDecoder(uint64_t a1, void *a2)
+{
+  v34 = a2;
+  *(a1 + 640) = [v34 decodeBoolForKey:@"needs_config"];
+  v3 = v34;
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(&v37.n128_i64[1], 0, -1.79769313e308, 1.79769313e308);
+  *__p = 0u;
+  v39 = 0u;
+  v73 = 0;
+  PB::Reader::Reader(v72, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v73]);
+  v65 = &unk_283BF1A08;
+  v66 = 0;
+  v70 = 0;
+  v68 = 0;
+  v69 = 0;
+  v71 = 0;
+  statistics::StatisticsEngine::readFrom(&v65, v72);
+  v37.n128_u64[0] = v67;
+  if (v66)
+  {
+    v35 = v3;
+    v43 = 0;
+    memset(v46, 0, sizeof(v46));
+    memset(v47, 0, sizeof(v47));
+    *v48 = 0;
+    *&v48[8] = xmmword_229170D40;
+    memset(&v48[24], 0, 90);
+    memset(&v48[120], 0, 34);
+    v50[1] = 0;
+    v50[0] = 0;
+    v49 = v50;
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 1065353216;
+    v54 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v57 = 0;
+    v58 = 1065353216;
+    v59 = 0u;
+    v60 = 0u;
+    v61 = 1065353216;
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 1065353216;
+    v40 = vextq_s8(*(v66 + 8), *(v66 + 8), 8uLL);
+    v4 = *(v66 + 72);
+    v41 = *(v66 + 64);
+    LOWORD(v42) = *(v66 + 185);
+    v44 = vextq_s8(*(v66 + 24), *(v66 + 24), 8uLL);
+    v45 = v4;
+    v5 = *(v66 + 80);
+    v6 = *(v66 + 88);
+    for (i = v66; v5 != v6; ++v5)
+    {
+      v7 = *v5;
+      LOWORD(v76) = 1;
+      BYTE8(v76) = 0;
+      v8 = *(v7 + 8);
+      v9 = *(v7 + 16);
+      v74 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
+      *&v75 = v8;
+      *(&v75 + 1) = v9;
+      BYTE9(v76) = *(v7 + 41);
+      BYTE10(v76) = *(v7 + 40);
+      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](v47, v74.i8);
+    }
+
+    v10 = i[13];
+    if (v10)
+    {
+      HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>::unarchive(&v74, v10);
+      *&v48[96] = v80;
+      *&v48[112] = v81;
+      *&v48[128] = v82;
+      *&v48[144] = v83;
+      *&v48[32] = v76;
+      *&v48[48] = v77;
+      *&v48[64] = v78;
+      *&v48[80] = v79;
+      *v48 = v74;
+      *&v48[16] = v75;
+    }
+
+    v11 = i[17];
+    for (j = i[18]; v11 != j; *(v16 + 7) = v24)
+    {
+      v13 = *v11;
+      HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>::unarchive(&v74, *v11);
+      v14 = *(v13 + 144);
+      v15 = v50[0];
+      if (!v50[0])
+      {
+LABEL_13:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v16 = v15;
+          v17 = v15[4];
+          if (v17 <= v14)
+          {
+            break;
+          }
+
+          v15 = *v16;
+          if (!*v16)
+          {
+            goto LABEL_13;
+          }
+        }
+
+        if (v17 >= v14)
+        {
+          break;
+        }
+
+        v15 = v16[1];
+        if (!v15)
+        {
+          goto LABEL_13;
+        }
+      }
+
+      v19 = v82;
+      v18 = v83;
+      v20 = v81;
+      *(v16 + 17) = v80;
+      *(v16 + 19) = v20;
+      *(v16 + 21) = v19;
+      *(v16 + 23) = v18;
+      v22 = v78;
+      v21 = v79;
+      v23 = v77;
+      *(v16 + 9) = v76;
+      *(v16 + 11) = v23;
+      *(v16 + 13) = v22;
+      *(v16 + 15) = v21;
+      v24 = v75;
+      *(v16 + 5) = v74;
+      ++v11;
+    }
+
+    v25 = i[5];
+    for (k = i[6]; v25 != k; v25 += 8)
+    {
+      v28 = *(*v25 + 8);
+      v27 = *(*v25 + 16);
+      if (v28 >= v27)
+      {
+        v29 = *(*v25 + 16);
+      }
+
+      else
+      {
+        v29 = *(*v25 + 8);
+      }
+
+      if (v27 < v28)
+      {
+        v27 = *(*v25 + 8);
+      }
+
+      HKIntervalMask<double>::_insertInterval(v46, v29, v27);
+    }
+
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::operator=(&v37.n128_i64[1], &v40);
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(&v40);
+    v3 = v35;
+  }
+
+  v30 = v68;
+  for (m = v69; v30 != m; v30 += 8)
+  {
+    v32 = *(*v30 + 8);
+    v33 = *(*v30 + 16);
+    v40 = vextq_s8(*(*v30 + 24), *(*v30 + 24), 8uLL);
+    v41 = v32;
+    v42 = v33;
+    LOWORD(v43) = 1;
+    std::vector<HDRawQuantitySample>::push_back[abi:ne200100](__p, v40.i8);
+  }
+
+  statistics::StatisticsEngine::~StatisticsEngine(&v65);
+
+  HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::operator=((a1 + 112), &v37);
+  if (__p[0])
+  {
+    __p[1] = __p[0];
+    operator delete(__p[0]);
+  }
+
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(&v37.n128_i64[1]);
+}
+
+void sub_228EF2614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  statistics::StatisticsEngine::~StatisticsEngine(&STACK[0x430]);
+  HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsCollectionEngine(va);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(uint64_t a1, void *a2, double a3, double a4)
+{
+  *a1 = a3;
+  *(a1 + 8) = a4;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 257;
+  *(a1 + 28) = 1;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 56) = a3;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 64) = 0;
+  objc_initWeak((a1 + 88), a2);
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 128) = xmmword_229170D40;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 218) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 256) = 0u;
+  *(a1 + 272) = 0;
+  *(a1 + 288) = 0;
+  *(a1 + 296) = 0;
+  *(a1 + 280) = a1 + 288;
+  *(a1 + 304) = 0u;
+  *(a1 + 320) = 0u;
+  *(a1 + 336) = 1065353216;
+  *(a1 + 344) = 0u;
+  *(a1 + 360) = 0u;
+  *(a1 + 376) = 0u;
+  *(a1 + 392) = 0;
+  *(a1 + 400) = 1065353216;
+  *(a1 + 408) = 0u;
+  *(a1 + 424) = 0u;
+  *(a1 + 440) = 1065353216;
+  *(a1 + 448) = 0u;
+  *(a1 + 464) = 0u;
+  *(a1 + 480) = 1065353216;
+  return a1;
+}
+
+uint64_t HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsCollectionEngine(uint64_t a1)
+{
+  v2 = *(a1 + 496);
+  if (v2)
+  {
+    *(a1 + 504) = v2;
+    operator delete(v2);
+  }
+
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(a1 + 8);
+  return a1;
+}
+
+uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(a1 + 448);
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(a1 + 408);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a1 + 368);
+  v2 = *(a1 + 344);
+  if (v2)
+  {
+    *(a1 + 352) = v2;
+    operator delete(v2);
+  }
+
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a1 + 304);
+  std::__tree<long>::destroy(*(a1 + 288));
+  v3 = *(a1 + 96);
+  if (v3)
+  {
+    *(a1 + 104) = v3;
+    operator delete(v3);
+  }
+
+  objc_destroyWeak((a1 + 88));
+  v4 = *(a1 + 64);
+  if (v4)
+  {
+    *(a1 + 72) = v4;
+    operator delete(v4);
+  }
+
+  return a1;
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::_configureForStartTime(uint64_t a1)
+{
+  v28 = 0;
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
+    v4 = [v2 dateIntervalContainingDate:v3 index:&v28];
+
+    v5 = [v4 startDate];
+    [v5 timeIntervalSinceReferenceDate];
+    v7 = v6;
+
+    v8 = [v4 endDate];
+    [v8 timeIntervalSinceReferenceDate];
+LABEL_5:
+    v13 = v9;
+
+    goto LABEL_6;
+  }
+
+  v10 = *(a1 + 64);
+  v4 = v10;
+  if (v10)
+  {
+    v11 = [v10 startDate];
+    [v11 timeIntervalSinceReferenceDate];
+    v7 = v12;
+
+    v8 = [v4 endDate];
+    [v8 timeIntervalSinceReferenceDate];
+    goto LABEL_5;
+  }
+
+  v7 = -1.79769313e308;
+  v13 = 1.79769313e308;
+LABEL_6:
+
+  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(v21, WeakRetained, v7, v13);
+
+  if (*(a1 + 32) == 1)
+  {
+    v23 = 1;
+  }
+
+  v22 = *(a1 + 56);
+  v24 = *(a1 + 24) & 1;
+  if (v27 != (a1 + 72))
+  {
+    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(v27, *(a1 + 72), *(a1 + 80), (*(a1 + 80) - *(a1 + 72)) >> 4);
+  }
+
+  objc_storeStrong(&v26, *(a1 + 656));
+  if (!*(a1 + 40))
+  {
+    v25 = 0;
+  }
+
+  v15 = v28;
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(v17, v21);
+  v18.n128_u64[0] = v15;
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(&v18.n128_i64[1], v17);
+  __p = 0u;
+  v20 = 0u;
+  HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::operator=((a1 + 112), &v18);
+
+  if (__p)
+  {
+    *(&__p + 1) = __p;
+    operator delete(__p);
+  }
+
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(&v18.n128_i64[1]);
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(v17);
+  *(a1 + 640) = 0;
+  return HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::~HDStatisticsBucket(v21);
+}
+
+void *HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::operator=(void *a1, __n128 *a2)
+{
+  *a1 = a2->n128_u64[0];
+  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::operator=((a1 + 1), &a2->n128_i64[1]);
+  std::vector<HKRawInterval<double>>::__move_assign((a1 + 62), a2 + 31);
+  v4 = a2[32].n128_u64[1];
+  a2[32].n128_u64[1] = 0;
+  v5 = a1[65];
+  a1[65] = v4;
+
+  return a1;
+}
+
+uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsTemporalBucketWeightedDiscrete<HDStatisticsTemporalBucketWeightedDiscreteParameters>>>::HDStatisticsBucket(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v4;
+  *(a1 + 32) = *(a2 + 32);
+  v5 = *(a2 + 56);
+  v6 = *(a2 + 40);
+  *(a1 + 64) = 0;
+  *(a1 + 40) = v6;
+  *(a1 + 56) = v5;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 64), *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  objc_copyWeak((a1 + 88), (a2 + 88));
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  v8 = *(a2 + 96);
+  v7 = *(a2 + 104);
+  if (v7 != v8)
+  {
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v8) >> 4);
+    if (v9 < 0x555555555555556)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(v9);
+    }
+
+    std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
+  }
+
+  v10 = *(a2 + 120);
+  *(a1 + 136) = *(a2 + 136);
+  *(a1 + 120) = v10;
+  v11 = *(a2 + 152);
+  v12 = *(a2 + 168);
+  v13 = *(a2 + 184);
+  *(a1 + 200) = *(a2 + 200);
+  *(a1 + 184) = v13;
+  *(a1 + 168) = v12;
+  *(a1 + 152) = v11;
+  v14 = *(a2 + 216);
+  v15 = *(a2 + 232);
+  v16 = *(a2 + 248);
+  *(a1 + 264) = *(a2 + 264);
+  *(a1 + 248) = v16;
+  *(a1 + 232) = v15;
+  *(a1 + 216) = v14;
+  v17 = (a1 + 288);
+  *(a1 + 288) = 0;
+  *(a1 + 296) = 0;
+  *(a1 + 280) = a1 + 288;
+  v18 = *(a2 + 280);
+  if (v18 != (a2 + 288))
+  {
+    v19 = 0;
+    v20 = (a1 + 288);
+    while (1)
+    {
+      v21 = v18[4];
+      v22 = (a1 + 288);
+      if (v20 == v17)
+      {
+        goto LABEL_12;
+      }
+
+      v23 = v19;
+      v24 = (a1 + 288);
+      if (v19)
+      {
+        do
+        {
+          v22 = v23;
+          v23 = v23[1];
+        }
+
+        while (v23);
+      }
+
+      else
+      {
+        do
+        {
+          v22 = v24[2];
+          v25 = *v22 == v24;
+          v24 = v22;
+        }
+
+        while (v25);
+      }
+
+      if (v22[4] < v21)
+      {
+LABEL_12:
+        if (v19)
+        {
+          v26 = v22 + 1;
+        }
+
+        else
+        {
+          v26 = (a1 + 288);
+        }
+
+        if (!*v26)
+        {
+LABEL_23:
+          operator new();
+        }
+      }
+
+      else
+      {
+        if (!v19)
+        {
+          goto LABEL_23;
+        }
+
+        while (1)
+        {
+          while (1)
+          {
+            v27 = v19;
+            v28 = v19[4];
+            if (v28 <= v21)
+            {
+              break;
+            }
+
+            v19 = *v27;
+            if (!*v27)
+            {
+              goto LABEL_23;
+            }
+          }
+
+          if (v28 >= v21)
+          {
+            break;
+          }
+
+          v19 = v27[1];
+          if (!v19)
+          {
+            goto LABEL_23;
+          }
+        }
+      }
+
+      v29 = v18[1];
+      if (v29)
+      {
+        do
+        {
+          v30 = v29;
+          v29 = *v29;
+        }
+
+        while (v29);
+      }
+
+      else
+      {
+        do
+        {
+          v30 = v18[2];
+          v25 = *v30 == v18;
+          v18 = v30;
+        }
+
+        while (!v25);
+      }
+
+      if (v30 == (a2 + 288))
+      {
+        break;
+      }
+
+      v19 = *v17;
+      v20 = *(a1 + 280);
+      v18 = v30;
+    }
+  }
+
+  std::unordered_set<long long>::unordered_set(a1 + 304, a2 + 304);
+  *(a1 + 344) = 0;
+  *(a1 + 352) = 0;
+  *(a1 + 360) = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 344), *(a2 + 344), *(a2 + 352), (*(a2 + 352) - *(a2 + 344)) >> 3);
+  std::unordered_map<long long,long long>::unordered_map(a1 + 368, a2 + 368);
+  std::unordered_map<NSString * {__strong},long long,HDStringHash,HDStringEqual,std::allocator<std::pair<NSString * const {__strong},long long>>>::unordered_map(a1 + 408, a2 + 408);
+  std::unordered_map<long long,NSString * {__strong}>::unordered_map(a1 + 448, a2 + 448);
+  return a1;
+}
+
+void sub_228EF2F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+{
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(v10 + 408);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v10 + 368);
+  v14 = *(v10 + 344);
+  if (v14)
+  {
+    *(v10 + 352) = v14;
+    operator delete(v14);
+  }
+
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v10 + 304);
+  std::__tree<long>::destroy(*v12);
+  v15 = *a10;
+  if (*a10)
+  {
+    *(v10 + 104) = v15;
+    operator delete(v15);
+  }
+
+  objc_destroyWeak((v10 + 88));
+  v16 = *v11;
+  if (*v11)
+  {
+    *(v10 + 72) = v16;
+    operator delete(v16);
+  }
+
+  _Unwind_Resume(a1);
 }

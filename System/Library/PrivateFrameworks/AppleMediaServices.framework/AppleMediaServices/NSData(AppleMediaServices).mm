@@ -488,37 +488,37 @@ LABEL_6:
 
 + (id)ams_generateEncryptionKey
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v0 = [MEMORY[0x1E695DF88] dataWithLength:32];
-  Bytes = CCRandomGenerateBytes([v0 mutableBytes], 0x20uLL);
+  v12 = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E695DF88] dataWithLength:32];
+  Bytes = CCRandomGenerateBytes([v1 mutableBytes], 0x20uLL);
   if (Bytes)
   {
-    v2 = Bytes;
-    v3 = +[AMSLogConfig sharedConfig];
-    if (!v3)
+    v3 = Bytes;
+    v4 = +[AMSLogConfig sharedConfig];
+    if (!v4)
     {
-      v3 = +[AMSLogConfig sharedConfig];
+      v4 = +[AMSLogConfig sharedConfig];
     }
 
-    oSLogObject = [v3 OSLogObject];
+    oSLogObject = [v4 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543618;
-      v8 = objc_opt_class();
-      v9 = 1024;
-      v10 = v2;
-      _os_log_impl(&dword_192869000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: Failed to generate an encryption/decryption key. status = %d", &v7, 0x12u);
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 1024;
+      v11 = v3;
+      _os_log_impl(&dword_192869000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: Failed to generate an encryption/decryption key. status = %d", &v8, 0x12u);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = v0;
+    v6 = v1;
   }
 
-  return v5;
+  return v6;
 }
 
 + (uint64_t)_accessibleAttributeForDataProtectionClass:()AppleMediaServices

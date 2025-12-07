@@ -108,7 +108,7 @@
 
 - (id)addStateTransitionFrom:(id)from to:(id)to event:(int64_t)event label:(id)label
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   labelCopy = label;
@@ -126,7 +126,7 @@
     [HKStateMachine addStateTransitionFrom:a2 to:self event:fromCopy label:?];
   }
 
-  v37 = labelCopy;
+  v36 = labelCopy;
   v16 = self->_statesByIndex;
   v17 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(toCopy, "index")}];
   v18 = [(NSMutableDictionary *)v16 objectForKeyedSubscript:v17];
@@ -136,31 +136,31 @@
     [HKStateMachine addStateTransitionFrom:a2 to:self event:toCopy label:?];
   }
 
-  v35 = a2;
+  v34 = a2;
   selfCopy = self;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v19 = self->_transitions;
-  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (!v20)
   {
     goto LABEL_20;
   }
 
   v21 = v20;
-  v22 = *v40;
+  v22 = *v39;
   do
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v40 != v22)
+      if (*v39 != v22)
       {
         objc_enumerationMutation(v19);
       }
 
-      v24 = *(*(&v39 + 1) + 8 * i);
+      v24 = *(*(&v38 + 1) + 8 * i);
       fromState = [v24 fromState];
       index = [fromState index];
       if (index != [fromCopy index])
@@ -182,26 +182,24 @@ LABEL_17:
       if (event == event)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v31 = v37;
-        [currentHandler handleFailureInMethod:v35 object:selfCopy file:v37 lineNumber:fromCopy description:{toCopy, v24}];
+        v31 = v36;
+        [currentHandler handleFailureInMethod:v34 object:selfCopy file:v36 lineNumber:fromCopy description:{toCopy, v24}];
 
         v32 = 0;
         goto LABEL_21;
       }
     }
 
-    v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
   }
 
   while (v21);
 LABEL_20:
 
-  v31 = v37;
-  v32 = [[HKStateMachineTransition alloc] initWithEvent:event label:v37 from:fromCopy to:toCopy];
+  v31 = v36;
+  v32 = [[HKStateMachineTransition alloc] initWithEvent:event label:v36 from:fromCopy to:toCopy];
   [(NSMutableArray *)selfCopy->_transitions addObject:v32];
 LABEL_21:
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
@@ -218,7 +216,7 @@ LABEL_21:
 - (void)enterAtState:(int64_t)state
 {
   selfCopy2 = self;
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   p_currentState = &self->_currentState;
   if (self->_currentState)
   {
@@ -229,57 +227,57 @@ LABEL_21:
   p_isa = &selfCopy2->super.isa;
   statesByIndex = selfCopy2->_statesByIndex;
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{state, p_currentState}];
-  v38 = [(NSMutableDictionary *)statesByIndex objectForKeyedSubscript:v6];
+  v37 = [(NSMutableDictionary *)statesByIndex objectForKeyedSubscript:v6];
 
-  if (!v38)
+  if (!v37)
   {
     [HKStateMachine enterAtState:];
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = p_isa[1];
-  v41 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v40)
   {
-    v40 = *v50;
+    v39 = *v49;
     do
     {
       v7 = 0;
       do
       {
-        if (*v50 != v40)
+        if (*v49 != v39)
         {
           v8 = v7;
           objc_enumerationMutation(obj);
           v7 = v8;
         }
 
-        v42 = v7;
-        v9 = [p_isa[1] objectForKeyedSubscript:*(*(&v49 + 1) + 8 * v7)];
+        v41 = v7;
+        v9 = [p_isa[1] objectForKeyedSubscript:*(*(&v48 + 1) + 8 * v7)];
         v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
         v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         v12 = p_isa[2];
-        v13 = [v12 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v44 objects:v52 count:16];
         if (v13)
         {
-          v14 = *v46;
+          v14 = *v45;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v46 != v14)
+              if (*v45 != v14)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v16 = *(*(&v45 + 1) + 8 * i);
+              v16 = *(*(&v44 + 1) + 8 * i);
               fromState = [v16 fromState];
               v18 = fromState == v9;
 
@@ -299,7 +297,7 @@ LABEL_21:
               }
             }
 
-            v13 = [v12 countByEnumeratingWithState:&v45 objects:v53 count:16];
+            v13 = [v12 countByEnumeratingWithState:&v44 objects:v52 count:16];
           }
 
           while (v13);
@@ -311,14 +309,14 @@ LABEL_21:
         v24 = [v11 copy];
         [v9 setOutgoingTransitions:v24];
 
-        v7 = v42 + 1;
+        v7 = v41 + 1;
       }
 
-      while (v42 + 1 != v41);
-      v41 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+      while (v41 + 1 != v40);
+      v40 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
   objc_copyWeak(&to, p_isa + 7);
@@ -328,17 +326,17 @@ LABEL_21:
   if (v26)
   {
     v27 = objc_loadWeakRetained(&to);
-    [v27 stateMachine:p_isa willEnterState:v38 date:0 error:0];
+    [v27 stateMachine:p_isa willEnterState:v37 date:0 error:0];
   }
 
-  objc_storeStrong(v37, v38);
+  objc_storeStrong(v36, v37);
   v28 = objc_loadWeakRetained(&to);
   v29 = objc_opt_respondsToSelector();
 
   if (v29)
   {
     v30 = objc_loadWeakRetained(&to);
-    [v30 stateMachine:p_isa didEnterState:v38 date:0 error:0];
+    [v30 stateMachine:p_isa didEnterState:v37 date:0 error:0];
   }
 
   v31 = objc_loadWeakRetained(&to);
@@ -347,12 +345,10 @@ LABEL_21:
   if (v32)
   {
     v33 = objc_loadWeakRetained(&to);
-    [v33 stateMachine:p_isa didTransition:0 fromState:0 toState:v38 date:0 error:0];
+    [v33 stateMachine:p_isa didTransition:0 fromState:0 toState:v37 date:0 error:0];
   }
 
   objc_destroyWeak(&to);
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enqueueEvent:(int64_t)event date:(id)date error:(id)error completion:(id)completion
@@ -515,7 +511,7 @@ LABEL_21:
 
 - (id)graphDescription
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   allValues = [(NSMutableDictionary *)self->_statesByIndex allValues];
   v5 = [allValues sortedArrayUsingComparator:&__block_literal_global_51];
@@ -533,81 +529,80 @@ LABEL_21:
   }
 
   label = [(HKStateMachineState *)self->_currentState label];
-  v31 = v3;
+  v30 = v3;
   [v3 appendFormat:@"digraph %@ {\n   rankdir=LR;\n   node [shape=doublecircle width=1]; %@\n   node [shape=circle width=1];\n", v8, label];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = v5;
-  v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v28)
   {
-    v28 = *v37;
+    v27 = *v36;
     do
     {
       v10 = 0;
       do
       {
-        if (*v37 != v28)
+        if (*v36 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v10;
-        v11 = *(*(&v36 + 1) + 8 * v10);
+        v29 = v10;
+        v11 = *(*(&v35 + 1) + 8 * v10);
         outgoingTransitions = [v11 outgoingTransitions];
         allValues2 = [outgoingTransitions allValues];
         v14 = [allValues2 sortedArrayUsingComparator:&__block_literal_global_170];
 
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         v15 = v14;
-        v16 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v33;
+          v18 = *v32;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v33 != v18)
+              if (*v32 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v32 + 1) + 8 * i);
+              v20 = *(*(&v31 + 1) + 8 * i);
               label2 = [v11 label];
               toState = [v20 toState];
               label3 = [toState label];
               label4 = [v20 label];
-              [v31 appendFormat:@"   %@ -> %@ [ label = %@ (%ld) ];\n", label2, label3, label4, objc_msgSend(v20, "event")];
+              [v30 appendFormat:@"   %@ -> %@ [ label = %@ (%ld) ];\n", label2, label3, label4, objc_msgSend(v20, "event")];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
           }
 
           while (v17);
         }
 
-        v10 = v30 + 1;
+        v10 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      while (v29 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
-  [v31 appendString:@"}"];
-  v25 = *MEMORY[0x1E69E9840];
+  [v30 appendString:@"}"];
 
-  return v31;
+  return v30;
 }
 
 uint64_t __34__HKStateMachine_graphDescription__block_invoke(uint64_t a1, void *a2, void *a3)

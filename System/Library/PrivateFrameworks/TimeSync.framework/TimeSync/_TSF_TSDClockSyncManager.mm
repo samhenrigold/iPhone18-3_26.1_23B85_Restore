@@ -1,6 +1,7 @@
 @interface _TSF_TSDClockSyncManager
 + (id)sharedClockSyncManager;
 - (_TSF_TSDClockSyncManager)init;
+- (id)clockSyncForClockIdentifier:(unint64_t)identifier pid:(int)pid;
 - (void)releaseClockSyncForClockIdentifier:(unint64_t)identifier;
 @end
 
@@ -35,15 +36,40 @@
   return v2;
 }
 
+- (id)clockSyncForClockIdentifier:(unint64_t)identifier pid:(int)pid
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+  os_unfair_lock_lock(&self->_clockSyncsLock);
+  v6 = [(NSMutableDictionary *)self->_clockSyncs objectForKeyedSubscript:?];
+  if (v6)
+  {
+    v7 = v6;
+    [(_TSF_TSDClockSync *)v6 addReference];
+  }
+
+  else
+  {
+    v7 = [_TSF_TSDClockSync initWithClockIdentifier:"initWithClockIdentifier:pid:" pid:?];
+    if (v7)
+    {
+      [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_clockSyncsLock);
+
+  return v7;
+}
+
 - (void)releaseClockSyncForClockIdentifier:(unint64_t)identifier
 {
-  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:identifier];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
   os_unfair_lock_lock(&self->_clockSyncsLock);
-  v4 = [(NSMutableDictionary *)self->_clockSyncs objectForKeyedSubscript:v6];
+  v4 = [(NSMutableDictionary *)self->_clockSyncs objectForKeyedSubscript:?];
   v5 = v4;
   if (v4 && ![v4 releaseReference])
   {
-    [(NSMutableDictionary *)self->_clockSyncs removeObjectForKey:v6];
+    [(NSMutableDictionary *)self->_clockSyncs removeObjectForKey:?];
     [v5 finalizeNotifications];
   }
 

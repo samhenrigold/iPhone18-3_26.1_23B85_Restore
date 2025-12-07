@@ -117,7 +117,6 @@ LABEL_4:
   {
     if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 6))
     {
-      serviceName = self->_serviceName;
       _XPCLog(6, @"%@: Creating connection to service %@", v19, v20, v21, v22, v23, v24, self);
     }
 
@@ -131,10 +130,10 @@ LABEL_4:
     handler[1] = 3221225472;
     handler[2] = __70__XPCClientConnection__reallySendMessage_handler_sequence_retryCount___block_invoke;
     handler[3] = &unk_2798A5120;
-    objc_copyWeak(&v58, &location);
+    objc_copyWeak(&v57, &location);
     xpc_connection_set_event_handler(v27, handler);
     xpc_connection_resume(self->_connection);
-    objc_destroyWeak(&v58);
+    objc_destroyWeak(&v57);
     objc_destroyWeak(&location);
     if (sequence)
     {
@@ -171,18 +170,18 @@ LABEL_14:
 
   v47 = self->_connection;
   queue = self->_queue;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __70__XPCClientConnection__reallySendMessage_handler_sequence_retryCount___block_invoke_2;
-  v52[3] = &unk_2798A5148;
-  v54 = v12;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __70__XPCClientConnection__reallySendMessage_handler_sequence_retryCount___block_invoke_2;
+  v51[3] = &unk_2798A5148;
+  v53 = v12;
   sequenceCopy = sequence;
-  v52[4] = self;
-  v53 = messageCopy;
+  v51[4] = self;
+  v52 = messageCopy;
   countCopy = count;
   v49 = messageCopy;
   v50 = v12;
-  xpc_connection_send_message_with_reply(v47, v49, queue, v52);
+  xpc_connection_send_message_with_reply(v47, v49, queue, v51);
 }
 
 void __70__XPCClientConnection__reallySendMessage_handler_sequence_retryCount___block_invoke(uint64_t a1, void *a2)
@@ -200,7 +199,6 @@ uint64_t __70__XPCClientConnection__reallySendMessage_handler_sequence_retryCoun
   {
     if ((*(_shouldLogBlock + 16))())
     {
-      v75 = a1[7];
       _XPCLog(7, @"%@: Message sent: sequence: %llu.", v4, v5, v6, v7, v8, v9, a1[4]);
     }
 
@@ -231,11 +229,10 @@ uint64_t __70__XPCClientConnection__reallySendMessage_handler_sequence_retryCoun
       xpc_dictionary_get_uint64(xdict, "__xpcseq");
       if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 7))
       {
-        _XPCLog(7, @"%@ Handling reply for message with sequence %llu.", v50, v51, v52, v53, v54, v55, a1[4]);
+        _XPCLog(7, @"%@ Handling reply for message with sequence %llu.", v47, v48, v49, v50, v51, v52, a1[4]);
       }
 
-      v56 = a1[8];
-      v27 = *(a1[6] + 16);
+      v26 = *(a1[6] + 16);
     }
 
     else
@@ -247,29 +244,28 @@ uint64_t __70__XPCClientConnection__reallySendMessage_handler_sequence_retryCoun
       }
 
       free(v19);
-      v26 = a1[8];
-      v27 = *(a1[6] + 16);
+      v26 = *(a1[6] + 16);
     }
 
 LABEL_32:
-    v57 = v27();
+    v53 = v26();
     goto LABEL_33;
   }
 
   if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 3))
   {
-    v28 = a1[4];
+    v27 = a1[4];
     xpc_dictionary_get_string(xdict, *MEMORY[0x277D86400]);
-    _XPCLog(3, @"%@: Received an error when receiving reply. Error: %s", v29, v30, v31, v32, v33, v34, v28);
+    _XPCLog(3, @"%@: Received an error when receiving reply. Error: %s", v28, v29, v30, v31, v32, v33, v27);
   }
 
   if (xdict == MEMORY[0x277D863F8])
   {
     if (_shouldLogBlock && ((*(_shouldLogBlock + 16))(_shouldLogBlock, 6) & 1) != 0)
     {
-      v64 = @"%@: Connection invalid.";
+      v60 = @"%@: Connection invalid.";
 LABEL_42:
-      _XPCLog(6, v64, v58, v59, v60, v61, v62, v63, a1[4]);
+      _XPCLog(6, v60, v54, v55, v56, v57, v58, v59, a1[4]);
     }
   }
 
@@ -281,37 +277,33 @@ LABEL_42:
       {
         if ((*(_shouldLogBlock + 16))(_shouldLogBlock, 3))
         {
-          v35 = a1[4];
+          v34 = a1[4];
           xpc_dictionary_get_string(xdict, *MEMORY[0x277D86400]);
-          _XPCLog(3, @"%@: Unknown XPC error: %s", v36, v37, v38, v39, v40, v41, v35);
+          _XPCLog(3, @"%@: Unknown XPC error: %s", v35, v36, v37, v38, v39, v40, v34);
         }
 
         if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 3))
         {
-          _XPCLog(3, @"%@: Message send failed. Not retrying.", v42, v43, v44, v45, v46, v47, a1[4]);
+          _XPCLog(3, @"%@: Message send failed. Not retrying.", v41, v42, v43, v44, v45, v46, a1[4]);
         }
       }
 
-      v48 = a1[5];
-      v49 = a1[8];
-      v27 = *(a1[6] + 16);
+      v26 = *(a1[6] + 16);
       goto LABEL_32;
     }
 
     if (_shouldLogBlock && ((*(_shouldLogBlock + 16))(_shouldLogBlock, 6) & 1) != 0)
     {
-      v64 = @"%@: Connection interrupted.";
+      v60 = @"%@: Connection interrupted.";
       goto LABEL_42;
     }
   }
 
-  v65 = a1[5];
-  v66 = a1[8];
-  v67 = (*(a1[6] + 16))();
-  v57 = _shouldLogBlock;
+  v61 = (*(a1[6] + 16))();
+  v53 = _shouldLogBlock;
   if (!_shouldLogBlock)
   {
-    if ((v67 & 1) == 0)
+    if ((v61 & 1) == 0)
     {
       goto LABEL_33;
     }
@@ -319,27 +311,27 @@ LABEL_42:
     goto LABEL_48;
   }
 
-  v57 = (*(_shouldLogBlock + 16))(_shouldLogBlock, 6);
-  if (v67)
+  v53 = (*(_shouldLogBlock + 16))(_shouldLogBlock, 6);
+  if (v61)
   {
-    if (v57)
+    if (v53)
     {
-      _XPCLog(6, @"%@: Trying to resend last message.", v68, v69, v70, v71, v72, v73, a1[4]);
+      _XPCLog(6, @"%@: Trying to resend last message.", v62, v63, v64, v65, v66, v67, a1[4]);
     }
 
 LABEL_48:
-    v57 = [a1[4] _reallySendMessage:a1[5] handler:a1[6] sequence:a1[7] retryCount:a1[8] + 1];
+    v53 = [a1[4] _reallySendMessage:a1[5] handler:a1[6] sequence:a1[7] retryCount:a1[8] + 1];
     goto LABEL_33;
   }
 
-  if (v57)
+  if (v53)
   {
-    _XPCLog(6, @"%@: Did not want to retry sending the last message. Message send failed.", xdict, v69, v70, v71, v72, v73, a1[4]);
+    _XPCLog(6, @"%@: Did not want to retry sending the last message. Message send failed.", xdict, v63, v64, v65, v66, v67, a1[4]);
   }
 
 LABEL_33:
 
-  return MEMORY[0x2821F9730](v57);
+  return MEMORY[0x2821F9730](v53);
 }
 
 - (void)_handleIncomingMessage:(id)message

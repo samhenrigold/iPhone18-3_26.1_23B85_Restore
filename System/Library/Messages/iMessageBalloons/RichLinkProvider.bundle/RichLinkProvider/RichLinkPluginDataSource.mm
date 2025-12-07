@@ -166,8 +166,7 @@
 
       if (!hasReceivedAnyPayload)
       {
-        updateWatchdogDidFire = 0;
-        return updateWatchdogDidFire & 1;
+        return 0;
       }
     }
 
@@ -175,45 +174,18 @@
     {
     }
 
-    updateWatchdogDidFire = ![(RichLinkPluginDataSource *)self hasPendingFetch];
-    return updateWatchdogDidFire & 1;
+    return ![(RichLinkPluginDataSource *)self hasPendingFetch];
   }
 
-  if (!self->_hasReceivedAnyPayload)
+  if (self->_hasReceivedAnyPayload && (-[LPMessagesPayload metadata](self->_richLink, "metadata"), v6 = objc_claimAutoreleasedReturnValue(), v6, v6) && -[LPMessagesPayload isPlaceholder](self->_richLink, "isPlaceholder") && (-[RichLinkPluginDataSource imMessage](self, "imMessage"), v7 = objc_claimAutoreleasedReturnValue(), [v7 time], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "dateByAddingTimeInterval:", 15.0), v9 = objc_claimAutoreleasedReturnValue(), +[NSDate date](NSDate, "date"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "compare:", v10), v10, v9, v8, v7, v11 != -1))
   {
-    goto LABEL_10;
-  }
-
-  metadata = [(LPMessagesPayload *)self->_richLink metadata];
-
-  if (!metadata)
-  {
-    goto LABEL_10;
-  }
-
-  if (![(LPMessagesPayload *)self->_richLink isPlaceholder])
-  {
-    goto LABEL_10;
-  }
-
-  imMessage = [(RichLinkPluginDataSource *)self imMessage];
-  time = [imMessage time];
-  v9 = [time dateByAddingTimeInterval:15.0];
-  v10 = +[NSDate date];
-  v11 = [v9 compare:v10];
-
-  if (v11 != -1)
-  {
-    updateWatchdogDidFire = self->_updateWatchdogDidFire;
+    return self->_updateWatchdogDidFire;
   }
 
   else
   {
-LABEL_10:
-    updateWatchdogDidFire = 1;
+    return 1;
   }
-
-  return updateWatchdogDidFire & 1;
 }
 
 - (BOOL)isFromMe
@@ -962,18 +934,6 @@ LABEL_9:
 
 - (id)balloonMaskIncludingTail:(BOOL)tail userInterfaceStyle:(int64_t)style
 {
-  v10 = *(&CKBalloonDescriptorZero + 41);
-  v11 = *(&CKBalloonDescriptorZero + 57);
-  *v12 = *(&CKBalloonDescriptorZero + 73);
-  *&v12[15] = *(&CKBalloonDescriptorZero + 88);
-  v9 = *(&CKBalloonDescriptorZero + 25);
-  v14 = *(&CKBalloonDescriptorZero + 120);
-  v16 = *(&CKBalloonDescriptorZero + 63);
-  v15 = *(&CKBalloonDescriptorZero + 122);
-  v6 = *(&CKBalloonDescriptorZero + 2);
-  v7 = *(&CKBalloonDescriptorZero + 1);
-  v8 = *(&CKBalloonDescriptorZero + 2);
-  v13 = *(&CKBalloonDescriptorZero + 14);
   v4 = CKResizableBalloonMask();
 
   return v4;

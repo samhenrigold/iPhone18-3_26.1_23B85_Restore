@@ -42,10 +42,11 @@
 {
   length = range.length;
   location = range.location;
-  _sSo19HKFeatureIdentifiera18HealthExperienceUIE2idSSvg_0();
+  v9 = _sSo19HKFeatureIdentifiera18HealthExperienceUIE2idSSvg_0();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  LOBYTE(length) = sub_1BA352C4C(fieldCopy, location, length);
+  LOBYTE(length) = sub_1BA352C4C(fieldCopy, location, length, v9, v11);
 
   return length & 1;
 }

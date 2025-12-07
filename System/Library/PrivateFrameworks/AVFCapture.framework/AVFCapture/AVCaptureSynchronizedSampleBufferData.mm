@@ -11,7 +11,7 @@
   {
     v14 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v15, v16))
     {
       objc_exception_throw(v14);
     }
@@ -21,12 +21,12 @@
   }
 
   droppedCopy = dropped;
-  memset(&v18, 0, sizeof(v18));
-  CMSampleBufferGetPresentationTimeStamp(&v18, buffer);
-  v17.receiver = self;
-  v17.super_class = AVCaptureSynchronizedSampleBufferData;
-  v16 = v18;
-  v7 = [(AVCaptureSynchronizedData *)&v17 _initWithTimestamp:&v16];
+  memset(&v20, 0, sizeof(v20));
+  CMSampleBufferGetPresentationTimeStamp(&v20, buffer);
+  v19.receiver = self;
+  v19.super_class = AVCaptureSynchronizedSampleBufferData;
+  v18 = v20;
+  v7 = [(AVCaptureSynchronizedData *)&v19 _initWithTimestamp:&v18];
   if (!v7)
   {
     return v7;

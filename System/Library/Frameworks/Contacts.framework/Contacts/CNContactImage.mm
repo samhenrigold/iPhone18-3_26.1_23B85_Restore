@@ -40,12 +40,13 @@
   }
 
   v16 = v15;
-  if ((*(v6 + 16))(v6, v15))
+  v17 = (*(v6 + 16))(v6, v15);
+  if (v17)
   {
-    v17 = meCardSharingLogger();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = meCardSharingLogger(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(CNContactImage(MeCardSharing) *)v17 resizedContactImageToMaxEdgeWidth:v18, v19, v20, v21, v22, v23, v24];
+      [(CNContactImage(MeCardSharing) *)v18 resizedContactImageToMaxEdgeWidth:v19, v20, v21, v22, v23, v24, v25];
     }
 
 LABEL_21:
@@ -53,30 +54,32 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v45 = 0;
-  v46 = 0;
-  if (!CNImageUtilsCopyImageSourceAndGetSizeFromData(v16, 0, &v46, &v45))
+  v48 = 0;
+  v49 = 0;
+  SizeFromData = CNImageUtilsCopyImageSourceAndGetSizeFromData(v16, 0, &v49, &v48);
+  if (!SizeFromData)
   {
-    v17 = meCardSharingLogger();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = meCardSharingLogger(SizeFromData);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(CNContactImage(MeCardSharing) *)v17 resizedContactImageToMaxEdgeWidth:v36, v37, v38, v39, v40, v41, v42];
+      [(CNContactImage(MeCardSharing) *)v18 resizedContactImageToMaxEdgeWidth:v39, v40, v41, v42, v43, v44, v45];
     }
 
     goto LABEL_21;
   }
 
-  if (v46 > width || v45 > width)
+  if (v49 > width || v48 > width)
   {
-    v44 = 0x3FF0000000000000;
-    v25 = [(CNContactImage *)self source]!= 2;
-    v26 = CNImageUtilsImageDataByScalingImageData(v16, v25, width, &v44, v46, v45, 1.0);
-    if ((*(v6 + 16))(v6, v26))
+    v47 = 0x3FF0000000000000;
+    v27 = [(CNContactImage *)self source]!= 2;
+    v28 = CNImageUtilsImageDataByScalingImageData(v16, v27, width, &v47, v49, v48, 1.0);
+    v29 = (*(v6 + 16))(v6, v28);
+    if (v29)
     {
-      v27 = meCardSharingLogger();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v30 = meCardSharingLogger(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [(CNContactImage(MeCardSharing) *)v27 resizedContactImageToMaxEdgeWidth:v28, v29, v30, v31, v32, v33, v34];
+        [(CNContactImage(MeCardSharing) *)v30 resizedContactImageToMaxEdgeWidth:v31, v32, v33, v34, v35, v36, v37];
       }
 
       selfCopy2 = self;
@@ -84,7 +87,7 @@ LABEL_21:
 
     else
     {
-      selfCopy2 = [(CNContactImage *)self copyWithNewImageData:v26 cropRect:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+      selfCopy2 = [(CNContactImage *)self copyWithNewImageData:v28 cropRect:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
     }
 
     selfCopy3 = selfCopy2;

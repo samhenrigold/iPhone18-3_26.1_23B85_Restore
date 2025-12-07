@@ -91,12 +91,12 @@
   v3 = [location[0] decodeObjectForKey:@"sessionUUID"];
   sessionUUID = selfCopy->_sessionUUID;
   selfCopy->_sessionUUID = v3;
-  MEMORY[0x277D82BD8](sessionUUID);
+  *&v5 = MEMORY[0x277D82BD8](sessionUUID).n128_u64[0];
   [(NLSessionActivitySwimmingAccumulator *)selfCopy commonInit];
-  v6 = MEMORY[0x277D82BE0](selfCopy);
+  v7 = MEMORY[0x277D82BE0](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  return v6;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -149,7 +149,6 @@
   objc_destroyWeak(&from);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __81__NLSessionActivitySwimmingAccumulator__startSwimTrackerWithSessionUUID_handler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -182,32 +181,33 @@ void __81__NLSessionActivitySwimmingAccumulator__startSwimTrackerWithSessionUUID
   objc_storeStrong(location, 0);
 }
 
-uint64_t __81__NLSessionActivitySwimmingAccumulator__startSwimTrackerWithSessionUUID_handler___block_invoke_2(uint64_t a1)
+double __81__NLSessionActivitySwimmingAccumulator__startSwimTrackerWithSessionUUID_handler___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   [WeakRetained _handleSwimData:*(a1 + 32) error:*(a1 + 40) handler:*(a1 + 48)];
-  return MEMORY[0x277D82BD8](WeakRetained);
+  *&result = MEMORY[0x277D82BD8](WeakRetained).n128_u64[0];
+  return result;
 }
 
 - (void)_handleSwimData:(id)data error:(id)error handler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, data);
+  v12 = 0;
+  objc_storeStrong(&v12, error);
   v11 = 0;
-  objc_storeStrong(&v11, error);
-  v10 = 0;
-  objc_storeStrong(&v10, handler);
-  if (v11)
+  objc_storeStrong(&v11, handler);
+  if (v12)
   {
     _HKInitializeLogging();
     oslog = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_66(v14, v11);
-      _os_log_error_impl(&dword_20AEA4000, oslog, OS_LOG_TYPE_ERROR, "Live swim data query failed with error:%{public}@", v14, 0xCu);
+      __os_log_helper_16_2_1_8_66(v15, v12);
+      _os_log_error_impl(&dword_20AEA4000, oslog, OS_LOG_TYPE_ERROR, "Live swim data query failed with error:%{public}@", v15, 0xCu);
     }
 
     objc_storeStrong(&oslog, 0);
@@ -215,21 +215,20 @@ uint64_t __81__NLSessionActivitySwimmingAccumulator__startSwimTrackerWithSession
 
   if ([location[0] count])
   {
-    v5 = selfCopy;
+    v6 = selfCopy;
     lastObject = [location[0] lastObject];
-    [(NLSessionActivitySwimmingAccumulator *)v5 _accumulateSwimData:?];
-    MEMORY[0x277D82BD8](lastObject);
+    [(NLSessionActivitySwimmingAccumulator *)v6 _accumulateSwimData:?];
+    v5 = MEMORY[0x277D82BD8](lastObject);
   }
 
-  if (v10)
+  if (v11)
   {
-    (*(v10 + 2))();
+    (*(v11 + 2))(v5);
   }
 
-  objc_storeStrong(&v10, 0);
   objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_accumulateSwimData:(id)data

@@ -9,7 +9,6 @@
 - (id)replicaProviderForVariant:(int64_t)variant;
 - (id)requireWallpaperWithReason:(id)reason;
 - (id)succinctDescription;
-- (uint64_t)setRotation:(_OWORD *)rotation;
 - (void)_posterConfigsDidChange:(id)change withTransition:(id)transition;
 - (void)_posterControllerDidChange;
 - (void)_updateStyleForVariant:(int64_t)variant;
@@ -30,6 +29,7 @@
 - (void)setDeviceMotionEventGenerationActive:(BOOL)active;
 - (void)setDeviceMotionUpdateInterval:(double)interval;
 - (void)setDevicePitch:(double)pitch roll:(double)roll yaw:(double)yaw;
+- (void)setRotation:(_OWORD *)rotation;
 - (void)setSalientContentRectangle:(CGRect)rectangle;
 - (void)setUnlockProgress:(double)progress;
 - (void)setWakeSourceIsSwipeToUnlock:(BOOL)unlock;
@@ -60,9 +60,9 @@
 
 - (PBUIPosterWallpaperViewController)init
 {
-  v32.receiver = self;
-  v32.super_class = PBUIPosterWallpaperViewController;
-  v2 = [(PBUIPosterWallpaperViewController *)&v32 init];
+  v33.receiver = self;
+  v33.super_class = PBUIPosterWallpaperViewController;
+  v2 = [(PBUIPosterWallpaperViewController *)&v33 init];
   v3 = v2;
   if (v2)
   {
@@ -84,12 +84,12 @@
     objc_initWeak(&location, v3);
     getPRSWallpaperLocationStateObserverClass();
     v7 = objc_opt_new();
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __41__PBUIPosterWallpaperViewController_init__block_invoke;
-    v29[3] = &unk_2783631A8;
-    objc_copyWeak(&v30, &location);
-    [v7 setHandler:v29];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __41__PBUIPosterWallpaperViewController_init__block_invoke;
+    v30[3] = &unk_2783631A8;
+    objc_copyWeak(&v31, &location);
+    [v7 setHandler:v30];
     [v7 setLocations:12];
     [v7 setNeedsSandboxExtensions:1];
     v8 = objc_alloc_init(getPRSWallpaperObserverConfigurationClass());
@@ -109,20 +109,20 @@
 
     if (v10)
     {
-      v15 = PBUILogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = PBUILogCommon(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(PBUIPosterWallpaperViewController *)v15 init];
+        [(PBUIPosterWallpaperViewController *)v16 init];
       }
 
-      v16 = [(PBUIPosterWallpaperViewController *)v3 requireWallpaperWithReason:@"KeepForegroundRunning"];
+      v17 = [(PBUIPosterWallpaperViewController *)v3 requireWallpaperWithReason:@"KeepForegroundRunning"];
       keepForegroundRunning = v3->_keepForegroundRunning;
-      v3->_keepForegroundRunning = v16;
+      v3->_keepForegroundRunning = v17;
     }
 
-    v18 = objc_alloc_init(PBUIPosterViewController);
+    v19 = objc_alloc_init(PBUIPosterViewController);
     posterController = v3->_posterController;
-    v3->_posterController = v18;
+    v3->_posterController = v19;
 
     [(PBUIPosterViewController *)v3->_posterController setDelegate:v3];
     if (+[PBUIPosterWallpaperRemoteViewController supportsLandscapeWallpaperContents])
@@ -130,23 +130,23 @@
       -[PBUIPosterWallpaperViewController rotateToInterfaceOrientation:duration:](v3, "rotateToInterfaceOrientation:duration:", [*v4 activeInterfaceOrientation], 0.0);
     }
 
-    v20 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_14 snapshotProvider:&__block_literal_global_15];
+    v21 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_14 snapshotProvider:&__block_literal_global_15];
     lockPosterReplicaProvider = v3->_lockPosterReplicaProvider;
-    v3->_lockPosterReplicaProvider = v20;
+    v3->_lockPosterReplicaProvider = v21;
 
-    v22 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_17_0 snapshotProvider:&__block_literal_global_19];
+    v23 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_17_0 snapshotProvider:&__block_literal_global_19];
     homePosterReplicaProvider = v3->_homePosterReplicaProvider;
-    v3->_homePosterReplicaProvider = v22;
+    v3->_homePosterReplicaProvider = v23;
 
-    v24 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_21 snapshotProvider:0];
+    v25 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_21 snapshotProvider:0];
     lockFloatingLayerPosterReplicaProvider = v3->_lockFloatingLayerPosterReplicaProvider;
-    v3->_lockFloatingLayerPosterReplicaProvider = v24;
+    v3->_lockFloatingLayerPosterReplicaProvider = v25;
 
-    v26 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_23_0 snapshotProvider:&__block_literal_global_25];
+    v27 = [[PBUIDynamicProviderWrapper alloc] initWithRootObject:v3->_posterController portalProvider:&__block_literal_global_23_0 snapshotProvider:&__block_literal_global_25];
     activeVariantReplicaProvider = v3->_activeVariantReplicaProvider;
-    v3->_activeVariantReplicaProvider = v26;
+    v3->_activeVariantReplicaProvider = v27;
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
 
@@ -209,15 +209,16 @@ uint64_t __54__PBUIPosterWallpaperViewController_setActiveVariant___block_invoke
   self->_unlockProgress = progress;
   IsZero = BSFloatIsZero();
   IsOne = BSFloatIsOne();
+  v7 = IsOne;
   if (IsOne)
   {
-    v7 = PBUILogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PBUILogCommon(IsOne);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v8 = "Now all the way unlocked.";
+      v9 = "Now all the way unlocked.";
 LABEL_8:
-      _os_log_impl(&dword_21E67D000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
+      _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
     }
   }
 
@@ -227,46 +228,46 @@ LABEL_8:
     {
       if (!self->_transitioningLockState)
       {
-        v10 = [(PBUIPosterWallpaperViewController *)self requireWallpaperWithReason:@"LockUnlock"];
+        v11 = [(PBUIPosterWallpaperViewController *)self requireWallpaperWithReason:@"LockUnlock"];
         transitioningLockState = self->_transitioningLockState;
-        self->_transitioningLockState = v10;
+        self->_transitioningLockState = v11;
       }
 
-      v9 = 0;
+      v10 = 0;
       goto LABEL_13;
     }
 
-    v7 = PBUILogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PBUILogCommon(IsOne);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v8 = "Now all the way locked.";
+      v9 = "Now all the way locked.";
       goto LABEL_8;
     }
   }
 
-  v9 = IsZero | IsOne;
+  v10 = IsZero | v7;
 LABEL_13:
   posterController = self->_posterController;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __55__PBUIPosterWallpaperViewController_setUnlockProgress___block_invoke;
-  v15[3] = &__block_descriptor_40_e30_v16__0___PBUIPosterUpdating__8l;
-  *&v15[4] = progress;
-  [(PBUIPosterViewController *)posterController updatePoster:v15];
-  if (v9)
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __55__PBUIPosterWallpaperViewController_setUnlockProgress___block_invoke;
+  v16[3] = &__block_descriptor_40_e30_v16__0___PBUIPosterUpdating__8l;
+  *&v16[4] = progress;
+  [(PBUIPosterViewController *)posterController updatePoster:v16];
+  if (v10)
   {
-    v13 = self->_transitioningLockState;
-    if (v13)
+    v14 = self->_transitioningLockState;
+    if (v14)
     {
-      [(BSInvalidatable *)v13 invalidate];
-      v14 = self->_transitioningLockState;
+      [(BSInvalidatable *)v14 invalidate];
+      v15 = self->_transitioningLockState;
       self->_transitioningLockState = 0;
     }
   }
 }
 
-- (uint64_t)setRotation:(_OWORD *)rotation
+- (void)setRotation:(_OWORD *)rotation
 {
   v3 = *(self + 1000);
   v4 = rotation[1];
@@ -522,36 +523,36 @@ void __79__PBUIPosterWallpaperViewController_updateConfiguration_withAnimationSe
   }
 }
 
-void __79__PBUIPosterWallpaperViewController_updateConfiguration_withAnimationSettings___block_invoke_3(uint64_t a1)
+void __79__PBUIPosterWallpaperViewController_updateConfiguration_withAnimationSettings___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   BSDispatchQueueAssertMain();
-  v2 = *(a1 + 40);
-  if (*(*(a1 + 32) + 1000) == v2)
+  v3 = *(a1 + 40);
+  if (*(*(a1 + 32) + 1000) == v3)
   {
-    v4 = MEMORY[0x277CF0D38];
-    v5 = *(a1 + 48);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __79__PBUIPosterWallpaperViewController_updateConfiguration_withAnimationSettings___block_invoke_4;
-    v14[3] = &unk_278361E18;
-    v15 = v2;
-    v7 = MEMORY[0x277D85DD0];
-    v8 = 3221225472;
-    v9 = __79__PBUIPosterWallpaperViewController_updateConfiguration_withAnimationSettings___block_invoke_5;
-    v10 = &unk_2783632E8;
-    v6 = *(a1 + 40);
-    v11 = *(a1 + 32);
-    v12 = v6;
-    v13 = *(a1 + 56);
-    [v4 animateWithSettings:v5 actions:v14 completion:&v7];
+    v5 = MEMORY[0x277CF0D38];
+    v6 = *(a1 + 48);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __79__PBUIPosterWallpaperViewController_updateConfiguration_withAnimationSettings___block_invoke_4;
+    v15[3] = &unk_278361E18;
+    v16 = v3;
+    v8 = MEMORY[0x277D85DD0];
+    v9 = 3221225472;
+    v10 = __79__PBUIPosterWallpaperViewController_updateConfiguration_withAnimationSettings___block_invoke_5;
+    v11 = &unk_2783632E8;
+    v7 = *(a1 + 40);
+    v12 = *(a1 + 32);
+    v13 = v7;
+    v14 = *(a1 + 56);
+    [v5 animateWithSettings:v6 actions:v15 completion:&v8];
     [*(a1 + 32) _posterControllerDidChange];
   }
 
   else
   {
-    v3 = *(*(a1 + 56) + 16);
+    v4 = *(*(a1 + 56) + 16);
 
-    v3();
+    v4();
   }
 }
 
@@ -658,7 +659,7 @@ void __75__PBUIPosterWallpaperViewController_rotateToInterfaceOrientation_durati
 
 - (id)requireWallpaperWithReason:(id)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   BSDispatchQueueAssertMain();
   v6 = reasonCopy;
@@ -675,37 +676,37 @@ void __75__PBUIPosterWallpaperViewController_rotateToInterfaceOrientation_durati
 
   if (!self->_wallpaperRequiredAssertion)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___block_invoke;
-    v19[3] = &unk_2783633B0;
-    v19[4] = self;
-    v7 = [MEMORY[0x277CF0BD0] assertionWithIdentifier:@"WallpaperRequired" stateDidChangeHandler:v19];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___block_invoke;
+    v20[3] = &unk_2783633B0;
+    v20[4] = self;
+    v8 = [MEMORY[0x277CF0BD0] assertionWithIdentifier:@"WallpaperRequired" stateDidChangeHandler:v20];
     wallpaperRequiredAssertion = self->_wallpaperRequiredAssertion;
-    self->_wallpaperRequiredAssertion = v7;
+    self->_wallpaperRequiredAssertion = v8;
   }
 
-  v9 = PBUILogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PBUILogCommon(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v6;
-    _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_DEFAULT, "Requiring wallpaper for reason: %@", buf, 0xCu);
+    v22 = v6;
+    _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_DEFAULT, "Requiring wallpaper for reason: %@", buf, 0xCu);
   }
 
-  v10 = [(BSCompoundAssertion *)self->_wallpaperRequiredAssertion acquireForReason:v6];
-  v11 = objc_alloc(MEMORY[0x277CF0CE8]);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___block_invoke_81;
-  v16[3] = &unk_2783633D8;
-  v17 = v6;
-  v18 = v10;
-  v12 = v10;
-  v13 = v6;
-  v14 = [v11 initWithIdentifier:@"WallpaperRequired" forReason:v13 invalidationBlock:v16];
+  v11 = [(BSCompoundAssertion *)self->_wallpaperRequiredAssertion acquireForReason:v6];
+  v12 = objc_alloc(MEMORY[0x277CF0CE8]);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___block_invoke_81;
+  v17[3] = &unk_2783633D8;
+  v18 = v6;
+  v19 = v11;
+  v13 = v11;
+  v14 = v6;
+  v15 = [v12 initWithIdentifier:@"WallpaperRequired" forReason:v14 invalidationBlock:v17];
 
-  return v14;
+  return v15;
 }
 
 uint64_t __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___block_invoke_2(uint64_t a1)
@@ -713,7 +714,7 @@ uint64_t __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___bl
   v2 = *(a1 + 40);
   if ((v2 & 1) == 0)
   {
-    v3 = PBUILogCommon();
+    v3 = PBUILogCommon(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -750,7 +751,7 @@ void __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___block_
 uint64_t __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___block_invoke_81(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = PBUILogCommon();
+  v2 = PBUILogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -765,7 +766,7 @@ uint64_t __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___bl
 - (void)setWallpaperStyle:(int64_t)style forPriority:(int64_t)priority forVariant:(int64_t)variant
 {
   v19 = *MEMORY[0x277D85DE8];
-  v9 = PBUILogCommon();
+  v9 = PBUILogCommon(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = PBUIStringForWallpaperVariant(variant);
@@ -787,7 +788,7 @@ uint64_t __64__PBUIPosterWallpaperViewController_requireWallpaperWithReason___bl
 - (void)removeWallpaperStyleForPriority:(int64_t)priority forVariant:(int64_t)variant
 {
   v14 = *MEMORY[0x277D85DE8];
-  v7 = PBUILogCommon();
+  v7 = PBUILogCommon(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = PBUIStringForWallpaperVariant(variant);
@@ -951,7 +952,7 @@ void __76__PBUIPosterWallpaperViewController__posterConfigsDidChange_withTransit
 {
   requestedCopy = requested;
   v9 = *MEMORY[0x277D85DE8];
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -965,7 +966,7 @@ void __76__PBUIPosterWallpaperViewController__posterConfigsDidChange_withTransit
 
 - (void)posterComponent:(id)component didUpdateDeviceMotionMode:(unint64_t)mode
 {
-  v6 = PBUILogCommon();
+  v6 = PBUILogCommon(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [PBUIPosterWallpaperViewController posterComponent:mode didUpdateDeviceMotionMode:v6];
@@ -1134,7 +1135,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
 
 - (void)updateConfiguration:(char *)a1 withAnimationSettings:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1142,7 +1143,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1152,7 +1153,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
 
 - (void)updateConfiguration:(char *)a1 withAnimationSettings:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1160,7 +1161,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1170,7 +1171,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
 
 - (void)requireWallpaperWithReason:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1178,7 +1179,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1188,7 +1189,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
 
 - (void)requireWallpaperWithReason:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1196,7 +1197,7 @@ void __75__PBUIPosterWallpaperViewController_descriptionBuilderWithMultilinePref
     v3 = OUTLINED_FUNCTION_2_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_4(&dword_21E67D000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

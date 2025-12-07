@@ -1,39 +1,3 @@
-uint64_t wifi_manager_set_background_scan_networks(int a1, uint64_t a2, int a3)
-{
-  v5 = a2;
-  v6 = 27918592;
-  v7 = a3;
-  v8 = *MEMORY[0x277D85EF8];
-  v9 = a3;
-  *msg = 0xAAAAAAAA80000013;
-  *&msg[8] = a1;
-  *&msg[12] = xmmword_25A14BDD0;
-  if (MEMORY[0x28223BE58])
-  {
-    voucher_mach_msg_set(msg);
-  }
-
-  return mach_msg(msg, 2097153, 0x38u, 0, 0, 0, 0);
-}
-
-uint64_t wifi_manager_set_bgscan_cache_state(int a1, uint64_t a2, int a3)
-{
-  v5 = a2;
-  v6 = 27918592;
-  v7 = a3;
-  v8 = *MEMORY[0x277D85EF8];
-  v9 = a3;
-  *msg = 0xAAAAAAAA80000013;
-  *&msg[8] = a1;
-  *&msg[12] = xmmword_25A14BDE0;
-  if (MEMORY[0x28223BE58])
-  {
-    voucher_mach_msg_set(msg);
-  }
-
-  return mach_msg(msg, 2097153, 0x38u, 0, 0, 0, 0);
-}
-
 uint64_t wifi_manager_set_scan_backoff_report(mach_port_t a1, int a2)
 {
   v4 = *MEMORY[0x277D85EF8];
@@ -69,7 +33,7 @@ uint64_t wifi_manager_set_test_params(int a1, uint64_t a2, int a3)
   return mach_msg(msg, 2097153, 0x38u, 0, 0, 0, 0);
 }
 
-uint64_t wifi_manager_copy_test_params(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t wifi_manager_copy_test_params(int a1, uint64_t a2, int a3, uint64_t *a4, int *a5)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -170,11 +134,11 @@ LABEL_24:
 
 uint64_t wifi_manager_copy_version_info(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -234,15 +198,15 @@ uint64_t wifi_manager_copy_version_info(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -254,24 +218,22 @@ uint64_t wifi_manager_copy_version_info(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_manager_copy_client_names(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -331,15 +293,15 @@ uint64_t wifi_manager_copy_client_names(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -351,35 +313,33 @@ uint64_t wifi_manager_copy_client_names(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_manager_merge_known_networks(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x1108200000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x1108200000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -387,46 +347,46 @@ uint64_t wifi_manager_merge_known_networks(mach_port_t a1, uint64_t a2, int a3, 
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69862)
+      else if (v12.msgh_id == 69862)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -436,7 +396,7 @@ uint64_t wifi_manager_merge_known_networks(mach_port_t a1, uint64_t a2, int a3, 
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -452,35 +412,33 @@ uint64_t wifi_manager_merge_known_networks(mach_port_t a1, uint64_t a2, int a3, 
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t wifi_device_gas_start_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t a6, int a7, int *a8)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v18 = 3;
-  v19 = a2;
-  v20 = 27918592;
-  v21 = a3;
-  v22 = a4;
-  v23 = 27918592;
-  v24 = a5;
-  v25 = a6;
-  v26 = 27918592;
-  v27 = a7;
-  v28 = *MEMORY[0x277D85EF8];
-  v29 = a3;
-  v30 = a5;
-  v31 = a7;
+  v31 = *MEMORY[0x277D85DE8];
+  v17 = 3;
+  v18 = a2;
+  v19 = 27918592;
+  v20 = a3;
+  v21 = a4;
+  v22 = 27918592;
+  v23 = a5;
+  v24 = a6;
+  v25 = 27918592;
+  v26 = a7;
+  v27 = *MEMORY[0x277D85EF8];
+  v28 = a3;
+  v29 = a5;
+  v30 = a7;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -516,11 +474,11 @@ uint64_t wifi_device_gas_start_async(mach_port_t a1, uint64_t a2, int a3, uint64
           {
             if (!msg.msgh_remote_port)
             {
-              v13 = HIDWORD(v19);
-              if (!HIDWORD(v19))
+              v13 = HIDWORD(v18);
+              if (!HIDWORD(v18))
               {
-                *a8 = v20;
-                goto LABEL_24;
+                *a8 = v19;
+                return v13;
               }
 
               goto LABEL_23;
@@ -536,7 +494,7 @@ uint64_t wifi_device_gas_start_async(mach_port_t a1, uint64_t a2, int a3, uint64
 
             else
             {
-              v14 = HIDWORD(v19) == 0;
+              v14 = HIDWORD(v18) == 0;
             }
 
             if (v14)
@@ -546,7 +504,7 @@ uint64_t wifi_device_gas_start_async(mach_port_t a1, uint64_t a2, int a3, uint64
 
             else
             {
-              v13 = HIDWORD(v19);
+              v13 = HIDWORD(v18);
             }
 
             goto LABEL_23;
@@ -563,31 +521,29 @@ uint64_t wifi_device_gas_start_async(mach_port_t a1, uint64_t a2, int a3, uint64
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v13;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t wifi_device_set_rangeable(mach_port_t a1, uint64_t a2, int a3, int a4, uint64_t a5, int a6, int *a7)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v17 = 2;
-  v18 = a2;
-  v19 = 27918592;
-  v20 = a3;
-  v21 = a5;
-  v22 = 27918592;
-  v23 = a6;
-  v24 = *MEMORY[0x277D85EF8];
-  v25 = a3;
-  v26 = a4;
-  v27 = a6;
+  v27 = *MEMORY[0x277D85DE8];
+  v16 = 2;
+  v17 = a2;
+  v18 = 27918592;
+  v19 = a3;
+  v20 = a5;
+  v21 = 27918592;
+  v22 = a6;
+  v23 = *MEMORY[0x277D85EF8];
+  v24 = a3;
+  v25 = a4;
+  v26 = a6;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -623,11 +579,11 @@ uint64_t wifi_device_set_rangeable(mach_port_t a1, uint64_t a2, int a3, int a4, 
           {
             if (!msg.msgh_remote_port)
             {
-              v12 = HIDWORD(v18);
-              if (!HIDWORD(v18))
+              v12 = HIDWORD(v17);
+              if (!HIDWORD(v17))
               {
-                *a7 = v19;
-                goto LABEL_24;
+                *a7 = v18;
+                return v12;
               }
 
               goto LABEL_23;
@@ -643,7 +599,7 @@ uint64_t wifi_device_set_rangeable(mach_port_t a1, uint64_t a2, int a3, int a4, 
 
             else
             {
-              v13 = HIDWORD(v18) == 0;
+              v13 = HIDWORD(v17) == 0;
             }
 
             if (v13)
@@ -653,7 +609,7 @@ uint64_t wifi_device_set_rangeable(mach_port_t a1, uint64_t a2, int a3, int a4, 
 
             else
             {
-              v12 = HIDWORD(v18);
+              v12 = HIDWORD(v17);
             }
 
             goto LABEL_23;
@@ -670,31 +626,29 @@ uint64_t wifi_device_set_rangeable(mach_port_t a1, uint64_t a2, int a3, int a4, 
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v12;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t wifi_device_set_ranging_identifier(mach_port_t a1, uint64_t a2, int a3, int a4, uint64_t a5, int a6, int *a7)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v17 = 2;
-  v18 = a2;
-  v19 = 27918592;
-  v20 = a3;
-  v21 = a5;
-  v22 = 27918592;
-  v23 = a6;
-  v24 = *MEMORY[0x277D85EF8];
-  v25 = a3;
-  v26 = a4;
-  v27 = a6;
+  v27 = *MEMORY[0x277D85DE8];
+  v16 = 2;
+  v17 = a2;
+  v18 = 27918592;
+  v19 = a3;
+  v20 = a5;
+  v21 = 27918592;
+  v22 = a6;
+  v23 = *MEMORY[0x277D85EF8];
+  v24 = a3;
+  v25 = a4;
+  v26 = a6;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -730,11 +684,11 @@ uint64_t wifi_device_set_ranging_identifier(mach_port_t a1, uint64_t a2, int a3,
           {
             if (!msg.msgh_remote_port)
             {
-              v12 = HIDWORD(v18);
-              if (!HIDWORD(v18))
+              v12 = HIDWORD(v17);
+              if (!HIDWORD(v17))
               {
-                *a7 = v19;
-                goto LABEL_24;
+                *a7 = v18;
+                return v12;
               }
 
               goto LABEL_23;
@@ -750,7 +704,7 @@ uint64_t wifi_device_set_ranging_identifier(mach_port_t a1, uint64_t a2, int a3,
 
             else
             {
-              v13 = HIDWORD(v18) == 0;
+              v13 = HIDWORD(v17) == 0;
             }
 
             if (v13)
@@ -760,7 +714,7 @@ uint64_t wifi_device_set_ranging_identifier(mach_port_t a1, uint64_t a2, int a3,
 
             else
             {
-              v12 = HIDWORD(v18);
+              v12 = HIDWORD(v17);
             }
 
             goto LABEL_23;
@@ -777,31 +731,29 @@ uint64_t wifi_device_set_ranging_identifier(mach_port_t a1, uint64_t a2, int a3,
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v12;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t wifi_device_ranging_start_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int a6, int *a7)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v17 = 2;
-  v18 = a2;
-  v19 = 27918592;
-  v20 = a3;
-  v21 = a4;
-  v22 = 27918592;
-  v23 = a5;
-  v24 = *MEMORY[0x277D85EF8];
-  v25 = a3;
-  v26 = a5;
-  v27 = a6;
+  v27 = *MEMORY[0x277D85DE8];
+  v16 = 2;
+  v17 = a2;
+  v18 = 27918592;
+  v19 = a3;
+  v20 = a4;
+  v21 = 27918592;
+  v22 = a5;
+  v23 = *MEMORY[0x277D85EF8];
+  v24 = a3;
+  v25 = a5;
+  v26 = a6;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -837,11 +789,11 @@ uint64_t wifi_device_ranging_start_async(mach_port_t a1, uint64_t a2, int a3, ui
           {
             if (!msg.msgh_remote_port)
             {
-              v12 = HIDWORD(v18);
-              if (!HIDWORD(v18))
+              v12 = HIDWORD(v17);
+              if (!HIDWORD(v17))
               {
-                *a7 = v19;
-                goto LABEL_24;
+                *a7 = v18;
+                return v12;
               }
 
               goto LABEL_23;
@@ -857,7 +809,7 @@ uint64_t wifi_device_ranging_start_async(mach_port_t a1, uint64_t a2, int a3, ui
 
             else
             {
-              v13 = HIDWORD(v18) == 0;
+              v13 = HIDWORD(v17) == 0;
             }
 
             if (v13)
@@ -867,7 +819,7 @@ uint64_t wifi_device_ranging_start_async(mach_port_t a1, uint64_t a2, int a3, ui
 
             else
             {
-              v12 = HIDWORD(v18);
+              v12 = HIDWORD(v17);
             }
 
             goto LABEL_23;
@@ -884,18 +836,16 @@ uint64_t wifi_device_ranging_start_async(mach_port_t a1, uint64_t a2, int a3, ui
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v12;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-uint64_t wifi_device_debug_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7, _DWORD *a8)
+uint64_t wifi_device_debug_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t *a6, int *a7, int *a8)
 {
   v19 = 2;
   v20 = a2;
@@ -960,11 +910,11 @@ uint64_t wifi_device_debug_command(mach_port_t a1, uint64_t a2, int a3, uint64_t
             v15 = 4294966996;
           }
 
-          goto LABEL_24;
+          goto LABEL_25;
         }
 
         v15 = 4294966996;
-        if (v19 == 1 && *&v18.msgh_size == 60 && HIBYTE(v21) == 1)
+        if (v19 == 1 && v18.msgh_size == 60 && !v18.msgh_remote_port && HIBYTE(v21) == 1)
         {
           v16 = v22;
           if (v22 == v24)
@@ -983,7 +933,7 @@ uint64_t wifi_device_debug_command(mach_port_t a1, uint64_t a2, int a3, uint64_t
         v15 = 4294966995;
       }
 
-LABEL_24:
+LABEL_25:
       mach_msg_destroy(&v18);
       return v15;
     }
@@ -994,7 +944,7 @@ LABEL_24:
   return v15;
 }
 
-uint64_t wifi_device_copy_roam_stats(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t wifi_device_copy_roam_stats(int a1, uint64_t a2, int a3, uint64_t *a4, int *a5)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -1095,17 +1045,17 @@ LABEL_24:
 
 uint64_t wifi_device_set_trgdisc_params(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v16 = 2;
-  v17 = a2;
-  v18 = 27918592;
-  v19 = a3;
-  v20 = a4;
-  v21 = 27918592;
-  v22 = a5;
-  v23 = *MEMORY[0x277D85EF8];
-  v24 = a3;
-  v25 = a5;
+  v25 = *MEMORY[0x277D85DE8];
+  v15 = 2;
+  v16 = a2;
+  v17 = 27918592;
+  v18 = a3;
+  v19 = a4;
+  v20 = 27918592;
+  v21 = a5;
+  v22 = *MEMORY[0x277D85EF8];
+  v23 = a3;
+  v24 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -1141,11 +1091,11 @@ uint64_t wifi_device_set_trgdisc_params(mach_port_t a1, uint64_t a2, int a3, uin
           {
             if (!msg.msgh_remote_port)
             {
-              v11 = HIDWORD(v17);
-              if (!HIDWORD(v17))
+              v11 = HIDWORD(v16);
+              if (!HIDWORD(v16))
               {
-                *a6 = v18;
-                goto LABEL_24;
+                *a6 = v17;
+                return v11;
               }
 
               goto LABEL_23;
@@ -1161,7 +1111,7 @@ uint64_t wifi_device_set_trgdisc_params(mach_port_t a1, uint64_t a2, int a3, uin
 
             else
             {
-              v12 = HIDWORD(v17) == 0;
+              v12 = HIDWORD(v16) == 0;
             }
 
             if (v12)
@@ -1171,7 +1121,7 @@ uint64_t wifi_device_set_trgdisc_params(mach_port_t a1, uint64_t a2, int a3, uin
 
             else
             {
-              v11 = HIDWORD(v17);
+              v11 = HIDWORD(v16);
             }
 
             goto LABEL_23;
@@ -1188,18 +1138,16 @@ uint64_t wifi_device_set_trgdisc_params(mach_port_t a1, uint64_t a2, int a3, uin
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-uint64_t wifi_device_copy_interface_state_info(mach_port_t a1, uint64_t a2, unsigned int a3, unsigned int a4, void *a5, unsigned int *a6, _DWORD *a7)
+uint64_t wifi_device_copy_interface_state_info(mach_port_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t *a5, unsigned int *a6, _DWORD *a7)
 {
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -1358,11 +1306,11 @@ uint64_t wifi_manager_remove_policy(int a1, uint64_t a2, int a3, int a4)
 
 uint64_t wifi_manager_copy_policies(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -1422,15 +1370,15 @@ uint64_t wifi_manager_copy_policies(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -1442,14 +1390,12 @@ uint64_t wifi_manager_copy_policies(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1685,7 +1631,7 @@ LABEL_23:
   return v8;
 }
 
-uint64_t wifi_device_wowblacklist_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7, _DWORD *a8)
+uint64_t wifi_device_wowblacklist_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t *a6, int *a7, int *a8)
 {
   v19 = 2;
   v20 = a2;
@@ -1750,11 +1696,11 @@ uint64_t wifi_device_wowblacklist_command(mach_port_t a1, uint64_t a2, int a3, u
             v15 = 4294966996;
           }
 
-          goto LABEL_24;
+          goto LABEL_25;
         }
 
         v15 = 4294966996;
-        if (v19 == 1 && *&v18.msgh_size == 60 && HIBYTE(v21) == 1)
+        if (v19 == 1 && v18.msgh_size == 60 && !v18.msgh_remote_port && HIBYTE(v21) == 1)
         {
           v16 = v22;
           if (v22 == v24)
@@ -1773,7 +1719,7 @@ uint64_t wifi_device_wowblacklist_command(mach_port_t a1, uint64_t a2, int a3, u
         v15 = 4294966995;
       }
 
-LABEL_24:
+LABEL_25:
       mach_msg_destroy(&v18);
       return v15;
     }
@@ -1786,11 +1732,11 @@ LABEL_24:
 
 uint64_t wifi_manager_copy_leeched_location(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -1850,15 +1796,15 @@ uint64_t wifi_manager_copy_leeched_location(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -1870,18 +1816,16 @@ uint64_t wifi_manager_copy_leeched_location(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t wifi_manager_copy_geotags_for_network(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t wifi_manager_copy_geotags_for_network(int a1, uint64_t a2, int a3, uint64_t *a4, int *a5)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -2099,7 +2043,7 @@ LABEL_24:
   return v13;
 }
 
-uint64_t wifi_manager_copy_score_for_network(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t wifi_manager_copy_score_for_network(int a1, uint64_t a2, int a3, uint64_t *a4, int *a5)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -2200,17 +2144,17 @@ LABEL_24:
 
 uint64_t wifi_device_soft_error_notification(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v16 = 2;
-  v17 = a2;
-  v18 = 27918592;
-  v19 = a3;
-  v20 = a4;
-  v21 = 27918592;
-  v22 = a5;
-  v23 = *MEMORY[0x277D85EF8];
-  v24 = a3;
-  v25 = a5;
+  v25 = *MEMORY[0x277D85DE8];
+  v15 = 2;
+  v16 = a2;
+  v17 = 27918592;
+  v18 = a3;
+  v19 = a4;
+  v20 = 27918592;
+  v21 = a5;
+  v22 = *MEMORY[0x277D85EF8];
+  v23 = a3;
+  v24 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -2246,11 +2190,11 @@ uint64_t wifi_device_soft_error_notification(mach_port_t a1, uint64_t a2, int a3
           {
             if (!msg.msgh_remote_port)
             {
-              v11 = HIDWORD(v17);
-              if (!HIDWORD(v17))
+              v11 = HIDWORD(v16);
+              if (!HIDWORD(v16))
               {
-                *a6 = v18;
-                goto LABEL_24;
+                *a6 = v17;
+                return v11;
               }
 
               goto LABEL_23;
@@ -2266,7 +2210,7 @@ uint64_t wifi_device_soft_error_notification(mach_port_t a1, uint64_t a2, int a3
 
             else
             {
-              v12 = HIDWORD(v17) == 0;
+              v12 = HIDWORD(v16) == 0;
             }
 
             if (v12)
@@ -2276,7 +2220,7 @@ uint64_t wifi_device_soft_error_notification(mach_port_t a1, uint64_t a2, int a3
 
             else
             {
-              v11 = HIDWORD(v17);
+              v11 = HIDWORD(v16);
             }
 
             goto LABEL_23;
@@ -2293,24 +2237,22 @@ uint64_t wifi_device_soft_error_notification(mach_port_t a1, uint64_t a2, int a3
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t wifi_manager_copy_softerror_counters(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -2370,15 +2312,15 @@ uint64_t wifi_manager_copy_softerror_counters(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -2390,24 +2332,22 @@ uint64_t wifi_manager_copy_softerror_counters(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_manager_copy_current_session_based_network(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -2467,15 +2407,15 @@ uint64_t wifi_manager_copy_current_session_based_network(int a1, void *a2, _DWOR
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -2487,14 +2427,12 @@ uint64_t wifi_manager_copy_current_session_based_network(int a1, void *a2, _DWOR
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2708,7 +2646,7 @@ uint64_t wifi_manager_unschedule_unused_network_geotags_removal_test(mach_port_t
   return mach_msg(&msg, 2097153, 0x18u, 0, 0, 0, 0);
 }
 
-uint64_t wifi_device_autojoinblacklist_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7)
+uint64_t wifi_device_autojoinblacklist_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t *a6, int *a7)
 {
   v17 = 2;
   v18 = a2;
@@ -2773,11 +2711,11 @@ uint64_t wifi_device_autojoinblacklist_command(mach_port_t a1, uint64_t a2, int 
             v13 = 4294966996;
           }
 
-          goto LABEL_24;
+          goto LABEL_25;
         }
 
         v13 = 4294966996;
-        if (v17 == 1 && *&v16.msgh_size == 56 && HIBYTE(v19) == 1)
+        if (v17 == 1 && v16.msgh_size == 56 && !v16.msgh_remote_port && HIBYTE(v19) == 1)
         {
           v14 = v20;
           if (v20 == v22)
@@ -2795,7 +2733,7 @@ uint64_t wifi_device_autojoinblacklist_command(mach_port_t a1, uint64_t a2, int 
         v13 = 4294966995;
       }
 
-LABEL_24:
+LABEL_25:
       mach_msg_destroy(&v16);
       return v13;
     }
@@ -2831,22 +2769,22 @@ uint64_t wifi_manager_simulate_notification(int a1, uint64_t a2, int a3, int a4,
 
 uint64_t wifi_device_destroy_eap_trust_current_network(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x110A600000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x110A600000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -2854,46 +2792,46 @@ uint64_t wifi_device_destroy_eap_trust_current_network(mach_port_t a1, uint64_t 
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69898)
+      else if (v12.msgh_id == 69898)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -2903,7 +2841,7 @@ uint64_t wifi_device_destroy_eap_trust_current_network(mach_port_t a1, uint64_t 
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -2919,15 +2857,13 @@ uint64_t wifi_device_destroy_eap_trust_current_network(mach_port_t a1, uint64_t 
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2948,11 +2884,11 @@ uint64_t wifi_manager_tigger_gizmo_sync_password_check(mach_port_t a1)
 
 uint64_t wifi_manager_copy_ssid_most_used_geo_tagged_to_current_location(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -3012,15 +2948,15 @@ uint64_t wifi_manager_copy_ssid_most_used_geo_tagged_to_current_location(int a1,
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -3032,14 +2968,12 @@ uint64_t wifi_manager_copy_ssid_most_used_geo_tagged_to_current_location(int a1,
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -3701,14 +3635,14 @@ uint64_t wifi_manager_set_auto_instant_hotspot_trigger_interval(mach_port_t a1, 
 
 uint64_t wifi_device_get_event_interval(mach_port_t a1, uint64_t a2, int a3, int a4, int *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v15 = 1;
-  v16 = a2;
-  v17 = 27918592;
-  v18 = a3;
-  v19 = *MEMORY[0x277D85EF8];
-  v20 = a3;
-  v21 = a4;
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 1;
+  v15 = a2;
+  v16 = 27918592;
+  v17 = a3;
+  v18 = *MEMORY[0x277D85EF8];
+  v19 = a3;
+  v20 = a4;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -3744,11 +3678,11 @@ uint64_t wifi_device_get_event_interval(mach_port_t a1, uint64_t a2, int a3, int
           {
             if (!msg.msgh_remote_port)
             {
-              v10 = HIDWORD(v16);
-              if (!HIDWORD(v16))
+              v10 = HIDWORD(v15);
+              if (!HIDWORD(v15))
               {
-                *a5 = v17;
-                goto LABEL_24;
+                *a5 = v16;
+                return v10;
               }
 
               goto LABEL_23;
@@ -3764,7 +3698,7 @@ uint64_t wifi_device_get_event_interval(mach_port_t a1, uint64_t a2, int a3, int
 
             else
             {
-              v11 = HIDWORD(v16) == 0;
+              v11 = HIDWORD(v15) == 0;
             }
 
             if (v11)
@@ -3774,7 +3708,7 @@ uint64_t wifi_device_get_event_interval(mach_port_t a1, uint64_t a2, int a3, int
 
             else
             {
-              v10 = HIDWORD(v16);
+              v10 = HIDWORD(v15);
             }
 
             goto LABEL_23;
@@ -3791,37 +3725,35 @@ uint64_t wifi_device_get_event_interval(mach_port_t a1, uint64_t a2, int a3, int
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_device_set_event_interval(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v16 = 1;
-  v17 = a2;
-  v18 = 27918592;
-  v19 = a3;
-  v20 = *MEMORY[0x277D85EF8];
-  v21 = a3;
-  v22 = a4;
-  v23 = a5;
+  v23 = *MEMORY[0x277D85DE8];
+  v15 = 1;
+  v16 = a2;
+  v17 = 27918592;
+  v18 = a3;
+  v19 = *MEMORY[0x277D85EF8];
+  v20 = a3;
+  v21 = a4;
+  v22 = a5;
   special_reply_port = mig_get_special_reply_port();
-  *&v15.msgh_bits = 0xAAAAAAAA80001513;
-  v15.msgh_remote_port = a1;
-  v15.msgh_local_port = special_reply_port;
-  *&v15.msgh_voucher_port = 0x110B400000000;
+  *&v14.msgh_bits = 0xAAAAAAAA80001513;
+  v14.msgh_remote_port = a1;
+  v14.msgh_local_port = special_reply_port;
+  *&v14.msgh_voucher_port = 0x110B400000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v15);
-    msgh_local_port = v15.msgh_local_port;
+    voucher_mach_msg_set(&v14);
+    msgh_local_port = v14.msgh_local_port;
   }
 
   else
@@ -3829,46 +3761,46 @@ uint64_t wifi_device_set_event_interval(mach_port_t a1, uint64_t a2, int a3, uin
     msgh_local_port = special_reply_port;
   }
 
-  v10 = mach_msg(&v15, 3162115, 0x44u, 0x30u, msgh_local_port, 0, 0);
+  v10 = mach_msg(&v14, 3162115, 0x44u, 0x30u, msgh_local_port, 0, 0);
   v11 = v10;
   if ((v10 - 268435458) > 0xE || ((1 << (v10 - 2)) & 0x4003) == 0)
   {
     if (!v10)
     {
-      if (v15.msgh_id == 71)
+      if (v14.msgh_id == 71)
       {
         v11 = 4294966988;
       }
 
-      else if (v15.msgh_id == 69912)
+      else if (v14.msgh_id == 69912)
       {
-        if ((v15.msgh_bits & 0x80000000) == 0)
+        if ((v14.msgh_bits & 0x80000000) == 0)
         {
-          if (v15.msgh_size == 40)
+          if (v14.msgh_size == 40)
           {
-            if (!v15.msgh_remote_port)
+            if (!v14.msgh_remote_port)
             {
-              v11 = HIDWORD(v17);
-              if (!HIDWORD(v17))
+              v11 = HIDWORD(v16);
+              if (!HIDWORD(v16))
               {
-                *a6 = v18;
-                goto LABEL_24;
+                *a6 = v17;
+                return v11;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v15.msgh_size == 36)
+          else if (v14.msgh_size == 36)
           {
-            if (v15.msgh_remote_port)
+            if (v14.msgh_remote_port)
             {
               v12 = 1;
             }
 
             else
             {
-              v12 = HIDWORD(v17) == 0;
+              v12 = HIDWORD(v16) == 0;
             }
 
             if (v12)
@@ -3878,7 +3810,7 @@ uint64_t wifi_device_set_event_interval(mach_port_t a1, uint64_t a2, int a3, uin
 
             else
             {
-              v11 = HIDWORD(v17);
+              v11 = HIDWORD(v16);
             }
 
             goto LABEL_23;
@@ -3894,15 +3826,13 @@ uint64_t wifi_device_set_event_interval(mach_port_t a1, uint64_t a2, int a3, uin
       }
 
 LABEL_23:
-      mach_msg_destroy(&v15);
-      goto LABEL_24;
+      mach_msg_destroy(&v14);
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -4104,21 +4034,21 @@ LABEL_23:
 
 uint64_t wifi_manager_set_network_property(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t a6, int a7, int *a8)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v18 = 3;
-  v19 = a2;
-  v20 = 27918592;
-  v21 = a3;
-  v22 = a4;
-  v23 = 27918592;
-  v24 = a5;
-  v25 = a6;
-  v26 = 27918592;
-  v27 = a7;
-  v28 = *MEMORY[0x277D85EF8];
-  v29 = a3;
-  v30 = a5;
-  v31 = a7;
+  v31 = *MEMORY[0x277D85DE8];
+  v17 = 3;
+  v18 = a2;
+  v19 = 27918592;
+  v20 = a3;
+  v21 = a4;
+  v22 = 27918592;
+  v23 = a5;
+  v24 = a6;
+  v25 = 27918592;
+  v26 = a7;
+  v27 = *MEMORY[0x277D85EF8];
+  v28 = a3;
+  v29 = a5;
+  v30 = a7;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -4154,11 +4084,11 @@ uint64_t wifi_manager_set_network_property(mach_port_t a1, uint64_t a2, int a3, 
           {
             if (!msg.msgh_remote_port)
             {
-              v13 = HIDWORD(v19);
-              if (!HIDWORD(v19))
+              v13 = HIDWORD(v18);
+              if (!HIDWORD(v18))
               {
-                *a8 = v20;
-                goto LABEL_24;
+                *a8 = v19;
+                return v13;
               }
 
               goto LABEL_23;
@@ -4174,7 +4104,7 @@ uint64_t wifi_manager_set_network_property(mach_port_t a1, uint64_t a2, int a3, 
 
             else
             {
-              v14 = HIDWORD(v19) == 0;
+              v14 = HIDWORD(v18) == 0;
             }
 
             if (v14)
@@ -4184,7 +4114,7 @@ uint64_t wifi_manager_set_network_property(mach_port_t a1, uint64_t a2, int a3, 
 
             else
             {
-              v13 = HIDWORD(v19);
+              v13 = HIDWORD(v18);
             }
 
             goto LABEL_23;
@@ -4201,24 +4131,22 @@ uint64_t wifi_manager_set_network_property(mach_port_t a1, uint64_t a2, int a3, 
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v13;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t wifi_manager_copy_family_hotspot_preferences(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -4278,15 +4206,15 @@ uint64_t wifi_manager_copy_family_hotspot_preferences(int a1, void *a2, _DWORD *
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -4298,14 +4226,12 @@ uint64_t wifi_manager_copy_family_hotspot_preferences(int a1, void *a2, _DWORD *
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -4620,7 +4546,7 @@ LABEL_23:
   return v8;
 }
 
-uint64_t wifi_device_copy_network_recommendations(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t wifi_device_copy_network_recommendations(int a1, uint64_t a2, int a3, uint64_t *a4, int *a5)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -4773,7 +4699,7 @@ uint64_t wifi_manager_set_user_interaction_nw_override(int a1, uint64_t a2, int 
   return mach_msg(msg, 2097153, 0x38u, 0, 0, 0, 0);
 }
 
-uint64_t wifi_device_bssblacklist_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7)
+uint64_t wifi_device_bssblacklist_command(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, uint64_t *a6, int *a7)
 {
   v17 = 2;
   v18 = a2;
@@ -4838,11 +4764,11 @@ uint64_t wifi_device_bssblacklist_command(mach_port_t a1, uint64_t a2, int a3, u
             v13 = 4294966996;
           }
 
-          goto LABEL_24;
+          goto LABEL_25;
         }
 
         v13 = 4294966996;
-        if (v17 == 1 && *&v16.msgh_size == 56 && HIBYTE(v19) == 1)
+        if (v17 == 1 && v16.msgh_size == 56 && !v16.msgh_remote_port && HIBYTE(v19) == 1)
         {
           v14 = v20;
           if (v20 == v22)
@@ -4860,7 +4786,7 @@ uint64_t wifi_device_bssblacklist_command(mach_port_t a1, uint64_t a2, int a3, u
         v13 = 4294966995;
       }
 
-LABEL_24:
+LABEL_25:
       mach_msg_destroy(&v16);
       return v13;
     }
@@ -4873,18 +4799,18 @@ LABEL_24:
 
 uint64_t wifi_manager_set_private_mac_pref(mach_port_t a1, uint64_t a2, int a3, int a4, uint64_t a5, int a6, int *a7)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v17 = 2;
-  v18 = a2;
-  v19 = 27918592;
-  v20 = a3;
-  v21 = a5;
-  v22 = 27918592;
-  v23 = a6;
-  v24 = *MEMORY[0x277D85EF8];
-  v25 = a3;
-  v26 = a4;
-  v27 = a6;
+  v27 = *MEMORY[0x277D85DE8];
+  v16 = 2;
+  v17 = a2;
+  v18 = 27918592;
+  v19 = a3;
+  v20 = a5;
+  v21 = 27918592;
+  v22 = a6;
+  v23 = *MEMORY[0x277D85EF8];
+  v24 = a3;
+  v25 = a4;
+  v26 = a6;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -4920,11 +4846,11 @@ uint64_t wifi_manager_set_private_mac_pref(mach_port_t a1, uint64_t a2, int a3, 
           {
             if (!msg.msgh_remote_port)
             {
-              v12 = HIDWORD(v18);
-              if (!HIDWORD(v18))
+              v12 = HIDWORD(v17);
+              if (!HIDWORD(v17))
               {
-                *a7 = v19;
-                goto LABEL_24;
+                *a7 = v18;
+                return v12;
               }
 
               goto LABEL_23;
@@ -4940,7 +4866,7 @@ uint64_t wifi_manager_set_private_mac_pref(mach_port_t a1, uint64_t a2, int a3, 
 
             else
             {
-              v13 = HIDWORD(v18) == 0;
+              v13 = HIDWORD(v17) == 0;
             }
 
             if (v13)
@@ -4950,7 +4876,7 @@ uint64_t wifi_manager_set_private_mac_pref(mach_port_t a1, uint64_t a2, int a3, 
 
             else
             {
-              v12 = HIDWORD(v18);
+              v12 = HIDWORD(v17);
             }
 
             goto LABEL_23;
@@ -4967,14 +4893,12 @@ uint64_t wifi_manager_set_private_mac_pref(mach_port_t a1, uint64_t a2, int a3, 
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v12;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -5020,11 +4944,11 @@ uint64_t wifi_device_update_network_property(int a1, uint64_t a2, int a3, uint64
 
 uint64_t wifi_manager_get_mac_randomisation_parameters(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -5084,15 +5008,15 @@ uint64_t wifi_manager_get_mac_randomisation_parameters(int a1, void *a2, _DWORD 
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -5104,35 +5028,33 @@ uint64_t wifi_manager_get_mac_randomisation_parameters(int a1, void *a2, _DWORD 
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_manager_get_privatemac_network_switch_state(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x110C600000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x110C600000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -5140,46 +5062,46 @@ uint64_t wifi_manager_get_privatemac_network_switch_state(mach_port_t a1, uint64
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69930)
+      else if (v12.msgh_id == 69930)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -5189,7 +5111,7 @@ uint64_t wifi_manager_get_privatemac_network_switch_state(mach_port_t a1, uint64
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -5205,15 +5127,13 @@ uint64_t wifi_manager_get_privatemac_network_switch_state(mach_port_t a1, uint64
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -5237,22 +5157,22 @@ uint64_t wifi_manager_update_privateMac_network(int a1, uint64_t a2, int a3)
 
 uint64_t wifi_manager_private_mac_is_quick_probe_required(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x110C800000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x110C800000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -5260,46 +5180,46 @@ uint64_t wifi_manager_private_mac_is_quick_probe_required(mach_port_t a1, uint64
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69932)
+      else if (v12.msgh_id == 69932)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -5309,7 +5229,7 @@ uint64_t wifi_manager_private_mac_is_quick_probe_required(mach_port_t a1, uint64
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -5325,28 +5245,26 @@ uint64_t wifi_manager_private_mac_is_quick_probe_required(mach_port_t a1, uint64
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t wifi_manager_private_mac_probe_result(mach_port_t a1, int a2, uint64_t a3, int a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = 1;
-  v13 = a3;
-  v14 = 27918592;
-  v15 = a4;
-  v16 = *MEMORY[0x277D85EF8];
-  v17 = a2;
-  v18 = a4;
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 1;
+  v12 = a3;
+  v13 = 27918592;
+  v14 = a4;
+  v15 = *MEMORY[0x277D85EF8];
+  v16 = a2;
+  v17 = a4;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -5370,7 +5288,7 @@ uint64_t wifi_manager_private_mac_probe_result(mach_port_t a1, int a2, uint64_t 
     if (v7)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_18;
+      return v8;
     }
 
     if (msg.msgh_id == 71)
@@ -5383,10 +5301,10 @@ uint64_t wifi_manager_private_mac_probe_result(mach_port_t a1, int a2, uint64_t 
       v8 = 4294966996;
       if ((msg.msgh_bits & 0x80000000) == 0 && msg.msgh_size == 36 && !msg.msgh_remote_port)
       {
-        v8 = HIDWORD(v13);
-        if (!HIDWORD(v13))
+        v8 = HIDWORD(v12);
+        if (!HIDWORD(v12))
         {
-          goto LABEL_18;
+          return v8;
         }
       }
     }
@@ -5399,8 +5317,6 @@ uint64_t wifi_manager_private_mac_probe_result(mach_port_t a1, int a2, uint64_t 
     mach_msg_destroy(&msg);
   }
 
-LABEL_18:
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -5665,22 +5581,22 @@ uint64_t wifi_manager_cleanup_log_buffer_files(mach_port_t a1)
 
 uint64_t wifi_device_get_app_state(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x110D000000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x110D000000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -5688,46 +5604,46 @@ uint64_t wifi_device_get_app_state(mach_port_t a1, uint64_t a2, int a3, int *a4)
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69940)
+      else if (v12.msgh_id == 69940)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -5737,7 +5653,7 @@ uint64_t wifi_device_get_app_state(mach_port_t a1, uint64_t a2, int a3, int *a4)
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -5753,15 +5669,13 @@ uint64_t wifi_device_get_app_state(mach_port_t a1, uint64_t a2, int a3, int *a4)
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -5849,11 +5763,11 @@ uint64_t wifi_device_insert_missing_network_service(int a1, uint64_t a2, int a3)
 
 uint64_t wifi_manager_copy_movement_states(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -5913,15 +5827,15 @@ uint64_t wifi_manager_copy_movement_states(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -5933,35 +5847,33 @@ uint64_t wifi_manager_copy_movement_states(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_manager_set_simulated_movement_states(mach_port_t a1, uint64_t a2, int a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v11 = 1;
-  v12 = a2;
-  v13 = 27918592;
-  v14 = a3;
-  v15 = *MEMORY[0x277D85EF8];
-  v16 = a3;
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = 1;
+  v11 = a2;
+  v12 = 27918592;
+  v13 = a3;
+  v14 = *MEMORY[0x277D85EF8];
+  v15 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v10.msgh_bits = 0xAAAAAAAA80001513;
-  v10.msgh_remote_port = a1;
-  v10.msgh_local_port = special_reply_port;
-  *&v10.msgh_voucher_port = 0x110D400000000;
+  *&v9.msgh_bits = 0xAAAAAAAA80001513;
+  v9.msgh_remote_port = a1;
+  v9.msgh_local_port = special_reply_port;
+  *&v9.msgh_voucher_port = 0x110D400000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v10);
-    msgh_local_port = v10.msgh_local_port;
+    voucher_mach_msg_set(&v9);
+    msgh_local_port = v9.msgh_local_port;
   }
 
   else
@@ -5969,30 +5881,30 @@ uint64_t wifi_manager_set_simulated_movement_states(mach_port_t a1, uint64_t a2,
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
+  v6 = mach_msg(&v9, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
   v7 = v6;
   if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
   {
     if (v6)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_17;
+      return v7;
     }
 
-    if (v10.msgh_id == 71)
+    if (v9.msgh_id == 71)
     {
       v7 = 4294966988;
     }
 
-    else if (v10.msgh_id == 69944)
+    else if (v9.msgh_id == 69944)
     {
       v7 = 4294966996;
-      if ((v10.msgh_bits & 0x80000000) == 0 && *&v10.msgh_size == 36)
+      if ((v9.msgh_bits & 0x80000000) == 0 && v9.msgh_size == 36 && !v9.msgh_remote_port)
       {
-        v7 = HIDWORD(v12);
-        if (!HIDWORD(v12))
+        v7 = HIDWORD(v11);
+        if (!HIDWORD(v11))
         {
-          goto LABEL_17;
+          return v7;
         }
       }
     }
@@ -6002,11 +5914,9 @@ uint64_t wifi_manager_set_simulated_movement_states(mach_port_t a1, uint64_t a2,
       v7 = 4294966995;
     }
 
-    mach_msg_destroy(&v10);
+    mach_msg_destroy(&v9);
   }
 
-LABEL_17:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6531,31 +6441,26 @@ const __CFNumber *WiFiPrivateMacAddressType(const __CFNumber *result)
 
 void _WiFiCopyUnserialized_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "_WiFiCopyUnserialized";
-  _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Invalid buffer/buffersize.", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "_WiFiCopyUnserialized";
+  _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Invalid buffer/buffersize.", &v0, 0xCu);
 }
 
-void _WiFiCopyUnserialized_cold_2(uint64_t *a1)
+void _WiFiCopyUnserialized_cold_2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v3[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: CFPropertyListCreateWithData returned with error %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: CFPropertyListCreateWithData returned with error %@", v0, 0x16u);
 }
 
-void _CFPropertyListCreateBinaryData_cold_1(uint64_t *a1)
+void _CFPropertyListCreateBinaryData_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v3[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: CFPropertyListWrite returned with error %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: CFPropertyListWrite returned with error %@", v0, 0x16u);
 }
 
 void *WiFiMIGMachPortCreate(uint64_t a1, uint64_t a2, int a3, int a4)
@@ -7851,12 +7756,11 @@ void WiFiManagerClientRemovePolicy(uint64_t a1)
     }
   }
 
-  v8 = v3[1];
   CFDataGetBytePtr(BinaryData);
-  v9 = OUTLINED_FUNCTION_9();
-  CFDataGetLength(v9);
-  v10 = OUTLINED_FUNCTION_5();
-  wifi_manager_remove_policy(v10, v11, v12, 0);
+  v8 = OUTLINED_FUNCTION_9();
+  CFDataGetLength(v8);
+  v9 = OUTLINED_FUNCTION_5();
+  wifi_manager_remove_policy(v9, v10, v11, 0);
   CFRelease(BinaryData);
 LABEL_8:
   if (v6)
@@ -8070,11 +7974,10 @@ uint64_t _wifi_manager_client_dispatch_preferred_networks_change(unsigned int a1
     if (v5)
     {
       v6 = v5;
-      if ((*(v2 + 75) & 0x20) != 0 && v2[36])
+      if ((v2[75] & 0x20) != 0 && *(v2 + 36))
       {
-        v7 = v2[37];
-        v8 = OUTLINED_FUNCTION_8();
-        v9(v8);
+        v7 = OUTLINED_FUNCTION_8();
+        v8(v7);
       }
 
       CFRelease(v2);
@@ -8089,8 +7992,8 @@ uint64_t _wifi_manager_client_dispatch_preferred_networks_change(unsigned int a1
     CFRelease(v6);
   }
 
-  v10 = OUTLINED_FUNCTION_12();
-  _WiFiVMDealloc(v10, v11);
+  v9 = OUTLINED_FUNCTION_12();
+  _WiFiVMDealloc(v9, v10);
   return 0;
 }
 
@@ -8184,11 +8087,10 @@ uint64_t _wifi_manager_client_dispatch_ui_event(unsigned int a1)
     if (v5)
     {
       v6 = v5;
-      if ((*(v2 + 76) & 2) != 0 && v2[40])
+      if ((v2[76] & 2) != 0 && *(v2 + 40))
       {
-        v7 = v2[41];
-        v8 = OUTLINED_FUNCTION_8();
-        v9(v8);
+        v7 = OUTLINED_FUNCTION_8();
+        v8(v7);
       }
 
       CFRelease(v2);
@@ -8203,8 +8105,8 @@ uint64_t _wifi_manager_client_dispatch_ui_event(unsigned int a1)
     CFRelease(v6);
   }
 
-  v10 = OUTLINED_FUNCTION_12();
-  _WiFiVMDealloc(v10, v11);
+  v9 = OUTLINED_FUNCTION_12();
+  _WiFiVMDealloc(v9, v10);
   return 0;
 }
 
@@ -8316,18 +8218,11 @@ void WiFiManagerClientPrivateMacReportProbeResult(uint64_t a1, uint64_t a2, int 
   WiFiSendRightRelease(v5);
 }
 
-void __WiFiManagerClientServerTerminationCallback_cold_1(uint64_t a1)
+void __WiFiManagerClientServerTerminationCallback_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *(a1 + 4);
-  }
-
   OUTLINED_FUNCTION_22();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void WiFiManagerClientCopyMisPassword_cold_1(uint64_t a1)
@@ -8414,34 +8309,21 @@ void WiFiManagerClientCopyClientNames_cold_1(uint64_t a1)
 
 void WiFiManagerClientGetDevice_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __WiFiManagerClientAddDevice_cold_1(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *(a2 + 4);
-  OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __WiFiManagerClientAddDevice_cold_2()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_11_0();
-  _os_log_debug_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s: delaying attach callback for %@", v1, 0x16u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s: delaying attach callback for %@", v0, 0x16u);
 }
 
 uint64_t __WiFiManagerClientAddDevice_cold_3(CFDictionaryRef *a1, const void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = CFDictionaryGetValue(*a1, a2);
   if (result)
   {
@@ -8453,67 +8335,32 @@ uint64_t __WiFiManagerClientAddDevice_cold_3(CFDictionaryRef *a1, const void *a2
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         _WiFiDeviceClientGetServerPort(v5);
-        v13 = *(a3 + 4);
         OUTLINED_FUNCTION_4();
-        _os_log_error_impl(v8, v9, v10, v11, v12, 0x22u);
+        _os_log_error_impl(v7, v8, v9, v10, v11, 0x22u);
         v6 = *(a3 + 4);
       }
 
       _WiFiDeviceClientSetServerPort(v5, v6);
       _WiFiDeviceClientSendEventMaskToServer(v5);
-      result = _WiFiDeviceClientDispatchAssociationResult(v5, 0, 0, 5);
+      return _WiFiDeviceClientDispatchAssociationResult(v5, 0, 0, 5);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void WiFiManagerClientDispatchAttachmentEvent_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __WiFiManagerClientAvailableCallback_cold_1()
+void __WiFiManagerClientAvailableCallback_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __WiFiManagerClientAvailableCallback_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *(a1 + 4);
-  }
-
   OUTLINED_FUNCTION_22();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __WiFiManagerClientAvailableCallback_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void WiFiManagerClientUnscheduleFromRunLoop_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 const void *_wifi_manager_client_dispatch_event_cold_1(uint64_t a1, const void *a2, uint64_t a3)
@@ -8638,13 +8485,12 @@ void __WiFiManagerClientGetOrReconnectServerPort_cold_2()
 
 void __WiFiManagerClientGetOrReconnectServerPort_cold_3(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "__WiFiManagerClientGetOrReconnectServerPort";
-  v4 = 2048;
-  v5 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) - a1) / 0xF4240;
-  _os_log_debug_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s: wifi_manager_open | Duration: %lu ms", &v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "__WiFiManagerClientGetOrReconnectServerPort";
+  v3 = 2048;
+  v4 = (clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW) - a1) / 0xF4240;
+  _os_log_debug_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s: wifi_manager_open | Duration: %lu ms", &v1, 0x16u);
 }
 
 void __WiFiManagerClientGetOrReconnectServerPort_cold_4(uint8_t *buf, void *a2)
@@ -8749,11 +8595,10 @@ void WiFiDeviceClientSetProperty(uint64_t a1, const void *a2, const void *a3)
       CFDataGetLength(v11);
     }
 
-    v12 = *(a1 + 16);
     CFDataGetBytePtr(*(a1 + 48));
     CFDataGetLength(*(a1 + 48));
-    v13 = OUTLINED_FUNCTION_8_0();
-    wifi_device_set_property(v13, v14, v15, v16, v17, v18, v19);
+    v12 = OUTLINED_FUNCTION_8_0();
+    wifi_device_set_property(v12, v13, v14, v15, v16, v17, v18);
     if (v8)
     {
       CFRelease(v8);
@@ -8944,61 +8789,61 @@ void WiFiDeviceClientStopNetwork()
   OUTLINED_FUNCTION_24_0();
 }
 
-uint64_t WiFiDeviceClientCopyInterfaceStateInfo(uint64_t a1, uint64_t *a2)
+uint64_t WiFiDeviceClientCopyInterfaceStateInfo()
 {
-  OUTLINED_FUNCTION_18_0(a1, a2);
-  if (v3)
+  OUTLINED_FUNCTION_18_0();
+  if (v1)
   {
-    v14 = 22;
+    v12 = 22;
     goto LABEL_13;
   }
 
   OUTLINED_FUNCTION_11();
-  if (!_WiFiDeviceClientIsServerPortValid(v4))
+  if (!_WiFiDeviceClientIsServerPortValid(v2))
   {
-    v14 = -3902;
+    v12 = -3902;
     goto LABEL_13;
   }
 
   OUTLINED_FUNCTION_21_0();
   OUTLINED_FUNCTION_22_0();
-  v5 = OUTLINED_FUNCTION_7_0();
-  wifi_device_copy_interface_state_info(v5, v6, v7, v8, v9, v10, v11);
-  if (!v17)
+  v3 = OUTLINED_FUNCTION_7_0();
+  wifi_device_copy_interface_state_info(v3, v4, v5, v6, v7, v8, v9);
+  if (!v15)
   {
     if (length_4 && length)
     {
-      v12 = _WiFiCopyUnserialized(length_4, length);
-      if (v12)
+      v10 = _WiFiCopyUnserialized(length_4, length);
+      if (v10)
       {
-        *v2 = v12;
+        *v0 = v10;
         goto LABEL_8;
       }
 
-      v14 = 94;
+      v12 = 94;
     }
 
     else
     {
-      v14 = 5;
+      v12 = 5;
     }
 
 LABEL_13:
-    v17 = v14;
+    v15 = v12;
   }
 
 LABEL_8:
   _WiFiVMDealloc(length_4, length);
-  return v17;
+  return v15;
 }
 
 void _WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent(uint64_t a1, CFTypeRef cf)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   cfa = 0;
   if (!a1)
   {
-    goto LABEL_24;
+    return;
   }
 
   if (cf)
@@ -9021,9 +8866,9 @@ void _WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent(uint64_t a1, CFTypeR
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v27 = "_WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent";
-              v28 = 2048;
-              v29 = CFGetTypeID(v8);
+              v25 = "_WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent";
+              v26 = 2048;
+              v27 = CFGetTypeID(v8);
               _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: bad type %ld detected for APPLE80211KEY_STATE_CHANGED_IS_LINKDOWN", buf, 0x16u);
             }
 
@@ -9033,12 +8878,12 @@ void _WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent(uint64_t a1, CFTypeR
               cfa = 0;
             }
 
-            WiFiDeviceClientCopyInterfaceStateInfo(a1, &cfa);
+            WiFiDeviceClientCopyInterfaceStateInfo();
             v5 = cfa;
             if (!cfa)
             {
               objc_autoreleasePoolPop(objc_autoreleasePoolPush());
-              goto LABEL_24;
+              return;
             }
           }
         }
@@ -9082,11 +8927,11 @@ void _WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent(uint64_t a1, CFTypeR
                   {
                     Count = CFArrayGetCount(v14);
                     *buf = 134218498;
-                    v27 = (v15 + 1);
-                    v28 = 2048;
-                    v29 = Count;
-                    v30 = 2080;
-                    v31 = v20;
+                    v25 = (v15 + 1);
+                    v26 = 2048;
+                    v27 = Count;
+                    v28 = 2080;
+                    v29 = v20;
                     _os_log_impl(&dword_25A116000, v16, OS_LOG_TYPE_INFO, "Peer %ld of %ld: MAC:%s", buf, 0x20u);
                   }
                 }
@@ -9104,86 +8949,82 @@ void _WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent(uint64_t a1, CFTypeR
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "_WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent";
-      v28 = 2112;
-      v29 = cf;
+      v25 = "_WiFiDeviceClientDispatchVirtInterfaceStateChangeEvent";
+      v26 = 2112;
+      v27 = cf;
       _os_log_error_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: unexpected type for payload %@", buf, 0x16u);
     }
   }
 
 LABEL_20:
   v22 = *(a1 + 544);
-  v23 = cfa;
   if (v22)
   {
     v22(a1, cfa, *(a1 + 552));
   }
 
-  if (v23)
+  if (cfa)
   {
-    CFRelease(v23);
+    CFRelease(cfa);
   }
-
-LABEL_24:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t WiFiDeviceClientCopyHostedNetworks(uint64_t a1, uint64_t *a2)
+uint64_t WiFiDeviceClientCopyHostedNetworks()
 {
-  OUTLINED_FUNCTION_18_0(a1, a2);
-  if (v3)
+  OUTLINED_FUNCTION_18_0();
+  if (v1)
   {
-    v16 = 22;
+    v14 = 22;
 LABEL_15:
-    v19 = v16;
+    v17 = v14;
     goto LABEL_10;
   }
 
   OUTLINED_FUNCTION_11();
-  if (!_WiFiDeviceClientIsServerPortValid(v4))
+  if (!_WiFiDeviceClientIsServerPortValid(v2))
   {
-    v16 = -3902;
+    v14 = -3902;
     goto LABEL_15;
   }
 
   OUTLINED_FUNCTION_21_0();
   OUTLINED_FUNCTION_22_0();
-  v5 = OUTLINED_FUNCTION_7_0();
-  wifi_device_copy_networks(v5, v6, v7, v8, v9, v10, v11);
-  if (v19)
+  v3 = OUTLINED_FUNCTION_7_0();
+  wifi_device_copy_networks(v3, v4, v5, v6, v7, v8, v9);
+  if (v17)
   {
     goto LABEL_10;
   }
 
   if (!length_4 || !length)
   {
-    v16 = 5;
+    v14 = 5;
     goto LABEL_15;
   }
 
-  v12 = _WiFiCopyUnserialized(length_4, length);
-  if (!v12)
+  v10 = _WiFiCopyUnserialized(length_4, length);
+  if (!v10)
   {
-    v16 = 94;
+    v14 = 94;
     goto LABEL_15;
   }
 
-  v13 = v12;
-  NetworksFromRecords = _WiFiCreateNetworksFromRecords(v12);
+  v11 = v10;
+  NetworksFromRecords = _WiFiCreateNetworksFromRecords(v10);
   if (NetworksFromRecords)
   {
-    *v2 = NetworksFromRecords;
+    *v0 = NetworksFromRecords;
   }
 
   else
   {
-    v19 = 5;
+    v17 = 5;
   }
 
-  CFRelease(v13);
+  CFRelease(v11);
 LABEL_10:
   _WiFiVMDealloc(length_4, length);
-  return v19;
+  return v17;
 }
 
 void _WiFiDeviceClientDispatchScanCacheUpdateEvent(void *a1, CFDictionaryRef theDict)
@@ -9202,38 +9043,6 @@ void _WiFiDeviceClientDispatchScanCacheUpdateEvent(void *a1, CFDictionaryRef the
 
       if (a1[30])
       {
-        v11 = a1[31];
-        v12 = OUTLINED_FUNCTION_20_0();
-        v13(v12);
-      }
-
-      if (NetworksFromRecords)
-      {
-
-        CFRelease(NetworksFromRecords);
-      }
-    }
-
-    else
-    {
-      v14 = objc_autoreleasePoolPush();
-
-      objc_autoreleasePoolPop(v14);
-    }
-  }
-}
-
-void _WiFiDeviceClientDispatchScanUpdateEvent(uint64_t a1, CFDictionaryRef theDict)
-{
-  if (theDict)
-  {
-    Value = CFDictionaryGetValue(theDict, @"scanRequest");
-    if (Value && (v5 = CFGetTypeID(Value), v5 == CFDictionaryGetTypeID()) && (v6 = CFDictionaryGetValue(theDict, @"scanResults")) != 0 && (v7 = v6, v8 = CFGetTypeID(v6), v8 == CFArrayGetTypeID()))
-    {
-      NetworksFromRecords = _WiFiCreateNetworksFromRecords(v7);
-      if (*(a1 + 256))
-      {
-        v10 = *(a1 + 264);
         v11 = OUTLINED_FUNCTION_20_0();
         v12(v11);
       }
@@ -9250,6 +9059,36 @@ void _WiFiDeviceClientDispatchScanUpdateEvent(uint64_t a1, CFDictionaryRef theDi
       v13 = objc_autoreleasePoolPush();
 
       objc_autoreleasePoolPop(v13);
+    }
+  }
+}
+
+void _WiFiDeviceClientDispatchScanUpdateEvent(uint64_t a1, CFDictionaryRef theDict)
+{
+  if (theDict)
+  {
+    Value = CFDictionaryGetValue(theDict, @"scanRequest");
+    if (Value && (v5 = CFGetTypeID(Value), v5 == CFDictionaryGetTypeID()) && (v6 = CFDictionaryGetValue(theDict, @"scanResults")) != 0 && (v7 = v6, v8 = CFGetTypeID(v6), v8 == CFArrayGetTypeID()))
+    {
+      NetworksFromRecords = _WiFiCreateNetworksFromRecords(v7);
+      if (*(a1 + 256))
+      {
+        v10 = OUTLINED_FUNCTION_20_0();
+        v11(v10);
+      }
+
+      if (NetworksFromRecords)
+      {
+
+        CFRelease(NetworksFromRecords);
+      }
+    }
+
+    else
+    {
+      v12 = objc_autoreleasePoolPush();
+
+      objc_autoreleasePoolPop(v12);
     }
   }
 }
@@ -9360,11 +9199,10 @@ uint64_t WiFiDeviceClientRangingStartAsync(uint64_t a1, uint64_t a2, uint64_t a3
     v10 = result;
     CFDataGetBytePtr(result);
     OUTLINED_FUNCTION_16_0();
-    v11 = *(v5 + 16);
     CFDataGetBytePtr(*(v5 + 48));
     CFDataGetLength(*(v5 + 48));
-    v12 = OUTLINED_FUNCTION_4_0();
-    wifi_device_ranging_start_async(v12, v13, v14, v15, v16, v17, v18);
+    v11 = OUTLINED_FUNCTION_4_0();
+    wifi_device_ranging_start_async(v11, v12, v13, v14, v15, v16, v17);
     CFRelease(v10);
     return 0;
   }
@@ -9411,11 +9249,10 @@ void WiFiDeviceClientSetTrgDiscParams()
         v5 = BinaryData;
         CFDataGetBytePtr(BinaryData);
         OUTLINED_FUNCTION_16_0();
-        v6 = *(v1 + 16);
         CFDataGetBytePtr(*(v1 + 48));
         CFDataGetLength(*(v1 + 48));
-        v7 = OUTLINED_FUNCTION_4_0();
-        wifi_device_set_trgdisc_params(v7, v8, v9, v10, v11, v12);
+        v6 = OUTLINED_FUNCTION_4_0();
+        wifi_device_set_trgdisc_params(v6, v7, v8, v9, v10, v11);
         CFRelease(v5);
       }
     }
@@ -9424,7 +9261,7 @@ void WiFiDeviceClientSetTrgDiscParams()
   OUTLINED_FUNCTION_24_0();
 }
 
-uint64_t WiFiDeviceClientSendWoWBlacklistCommandAndCopyResponse(uint64_t a1, const void *a2, _DWORD *a3)
+uint64_t WiFiDeviceClientSendWoWBlacklistCommandAndCopyResponse(uint64_t a1, const void *a2, int *a3)
 {
   OUTLINED_FUNCTION_12_0();
   objc_autoreleasePoolPop(objc_autoreleasePoolPush());
@@ -9438,7 +9275,7 @@ uint64_t WiFiDeviceClientSendWoWBlacklistCommandAndCopyResponse(uint64_t a1, con
   if (!IsServerPortValid)
   {
 LABEL_12:
-    v24 = 0;
+    v23 = 0;
     goto LABEL_10;
   }
 
@@ -9450,20 +9287,19 @@ LABEL_12:
     CFDataGetLength(v15);
   }
 
-  v16 = *(a1 + 16);
   CFDataGetBytePtr(*(a1 + 48));
   CFDataGetLength(*(a1 + 48));
-  v17 = OUTLINED_FUNCTION_6_0();
-  wifi_device_wowblacklist_command(v17, v18, v19, v20, v21, v22, v23, a3);
-  v24 = 0;
+  v16 = OUTLINED_FUNCTION_6_0();
+  wifi_device_wowblacklist_command(v16, v17, v18, v19, v20, v21, v22, a3);
+  v23 = 0;
   IsServerPortValid = length_4;
   if (length_4)
   {
-    v7 = HIDWORD(v28);
-    if (HIDWORD(v28))
+    v7 = HIDWORD(v27);
+    if (HIDWORD(v27))
     {
-      IsServerPortValid = _WiFiCopyUnserialized(length_4, HIDWORD(v28));
-      v24 = IsServerPortValid;
+      IsServerPortValid = _WiFiCopyUnserialized(length_4, HIDWORD(v27));
+      v23 = IsServerPortValid;
     }
   }
 
@@ -9473,9 +9309,9 @@ LABEL_12:
   }
 
 LABEL_10:
-  v25 = OUTLINED_FUNCTION_2(IsServerPortValid, v7, v8, v9, v10, v11, v12, v13, v28, length_4);
-  _WiFiVMDealloc(v25, v26);
-  return v24;
+  v24 = OUTLINED_FUNCTION_2(IsServerPortValid, v7, v8, v9, v10, v11, v12, v13, v27, length_4);
+  _WiFiVMDealloc(v24, v25);
+  return v23;
 }
 
 uint64_t WiFiDeviceClientDestroyEAPTrustExceptionsForCurrentNetwork(uint64_t a1, int *a2)
@@ -9581,21 +9417,21 @@ uint64_t WiFiDeviceClientResetAvailabilityEngine(uint64_t a1)
 CFPropertyListRef WiFiDeviceClientCopyMimoStatus(uint64_t a1)
 {
   length_4 = 0;
-  v26 = 375;
+  v25 = 375;
   if (!_WiFiDeviceClientIsServerPortValid(a1))
   {
-    v24 = 0;
+    v23 = 0;
     v3 = 0;
 LABEL_14:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_11;
   }
 
   v2 = *MEMORY[0x277CBECE8];
-  v3 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, &v26);
+  v3 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, &v25);
   if (!v3)
   {
-    v24 = 0;
+    v23 = 0;
     goto LABEL_14;
   }
 
@@ -9608,15 +9444,14 @@ LABEL_14:
     CFDataGetLength(v6);
   }
 
-  v7 = *(a1 + 16);
   CFDataGetBytePtr(*(a1 + 48));
   CFDataGetLength(*(a1 + 48));
-  v8 = OUTLINED_FUNCTION_6_0();
-  wifi_device_copy_property(v8, v9, v10, v11, v12, v13, v14);
-  v15 = 0;
-  if (length_4 && HIDWORD(v26))
+  v7 = OUTLINED_FUNCTION_6_0();
+  wifi_device_copy_property(v7, v8, v9, v10, v11, v12, v13);
+  v14 = 0;
+  if (length_4 && HIDWORD(v25))
   {
-    v15 = _WiFiCopyUnserialized(length_4, HIDWORD(v26));
+    v14 = _WiFiCopyUnserialized(length_4, HIDWORD(v25));
   }
 
   if (v6)
@@ -9625,10 +9460,10 @@ LABEL_14:
   }
 
   CFRelease(v4);
-  v3 = OUTLINED_FUNCTION_2(v16, v17, v18, v19, v20, v21, v22, v23, v26, length_4);
+  v3 = OUTLINED_FUNCTION_2(v15, v16, v17, v18, v19, v20, v21, v22, v25, length_4);
 LABEL_11:
-  _WiFiVMDealloc(v3, v24);
-  return v15;
+  _WiFiVMDealloc(v3, v23);
+  return v14;
 }
 
 BOOL WiFiDeviceClientGetAppState(uint64_t a1)
@@ -9688,16 +9523,16 @@ void WiFiDeviceClientSet6GDisablementParams(uint64_t a1, uint64_t a2)
 
 void _WiFiDeviceClientIsServerPortValid_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], a3, "%s: server_port is invalid (NULL or DEAD)", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_WiFiDeviceClientIsServerPortValid";
+  OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], a3, "%s: server_port is invalid (NULL or DEAD)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _WiFiDeviceClientIsServerPortValid_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], a3, "%s: device is NULL", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_WiFiDeviceClientIsServerPortValid";
+  OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], a3, "%s: device is NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 uint64_t WiFiDeviceClientSetWiFiDirect_cold_1(uint64_t a1, unsigned __int8 a2, int *a3, int *a4)
@@ -9718,5 +9553,165 @@ uint64_t WiFiDeviceClientSetWiFiDirect_cold_1(uint64_t a1, unsigned __int8 a2, i
   }
 
   *a4 = v12;
+  return result;
+}
+
+void _WiFiDeviceClientDispatchStartNetworkResult_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_WiFiDeviceClientDispatchStartNetworkResult";
+  OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], a3, "%s: null callback.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void _WiFiDeviceClientDispatchStopNetworkResult_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_WiFiDeviceClientDispatchStopNetworkResult";
+  OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], a3, "%s: null callback.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void _WiFiDeviceClientDispatchAutoJoinNotification_cold_1()
+{
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "_WiFiDeviceClientDispatchAutoJoinNotification";
+    OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], v0, "%s: null notification dictionary.", v1, v2, v3, v4, v5, DWORD2(v5));
+  }
+}
+
+void _WiFiDeviceClientDispatchUserJoinNotification_cold_1()
+{
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "_WiFiDeviceClientDispatchUserJoinNotification";
+    OUTLINED_FUNCTION_5_0(&dword_25A116000, MEMORY[0x277D86220], v0, "%s: null notification dictionary.", v1, v2, v3, v4, v5, DWORD2(v5));
+  }
+}
+
+_WORD *WiFiNetworkCreateCopy(uint64_t a1, uint64_t a2)
+{
+  result = __WiFiNetworkCreate(*MEMORY[0x277CBECE8], *(a2 + 16), 0);
+  result[12] = *(a2 + 24);
+  return result;
+}
+
+_WORD *WiFiNetworkCreateDeepCopy(uint64_t a1, uint64_t a2)
+{
+  result = __WiFiNetworkCreate(*MEMORY[0x277CBECE8], *(a2 + 16), 1);
+  result[12] = *(a2 + 24);
+  return result;
+}
+
+CFDictionaryRef _copyDictionaryAddingMissingValuesFromSource(CFDictionaryRef result, CFDictionaryRef theDict)
+{
+  if (result)
+  {
+    v3 = result;
+    if (theDict && (Count = CFDictionaryGetCount(theDict), (v5 = Count) != 0))
+    {
+      v6 = 8 * Count;
+      v7 = malloc_type_malloc(v6, 0x6004044C4A2DFuLL);
+      v8 = malloc_type_malloc(v6, 0xC0040B8AA526DuLL);
+      Default = CFAllocatorGetDefault();
+      MutableCopy = CFDictionaryCreateMutableCopy(Default, 0, v3);
+      CFDictionaryGetKeysAndValues(theDict, v7, v8);
+      v11 = 0;
+      v12 = 8 * v5;
+      do
+      {
+        CFDictionaryGetValueIfPresent(MutableCopy, v7[v11 / 8], 0);
+        CFDictionaryAddValue(MutableCopy, v7[v11 / 8], v8[v11 / 8]);
+        v11 += 8;
+      }
+
+      while (v12 != v11);
+      free(v8);
+      free(v7);
+      v13 = CFAllocatorGetDefault();
+      Copy = CFDictionaryCreateCopy(v13, MutableCopy);
+      CFRelease(MutableCopy);
+      return Copy;
+    }
+
+    else
+    {
+      v15 = CFAllocatorGetDefault();
+
+      return CFDictionaryCreateCopy(v15, v3);
+    }
+  }
+
+  return result;
+}
+
+const __CFNumber *WiFiNetworkGetRSSI(const __CFNumber *result)
+{
+  if (result)
+  {
+    Property = WiFiNetworkGetProperty(result, @"RSSI");
+    return _CFTypeGetIntValue(Property);
+  }
+
+  return result;
+}
+
+const void *WiFiNetworkGetAPEnv(uint64_t a1)
+{
+  if (a1 && (v1 = *(a1 + 16)) != 0)
+  {
+    return CFDictionaryGetValue(v1, @"DiagnosticsBssEnv");
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+const __CFData *WiFiNetworkGetBtMacFromIe(uint64_t a1, uint64_t a2)
+{
+  result = CFDictionaryGetValue(*(a1 + 16), @"IE");
+  if (result)
+  {
+    result = CFDataGetBytePtr(result);
+    if (result)
+    {
+      v5 = OUTLINED_FUNCTION_11_1();
+      if (CFDataGetLength(v5) < 1)
+      {
+        return 0;
+      }
+
+      else
+      {
+        while (1)
+        {
+          OUTLINED_FUNCTION_17_1();
+          if (v8)
+          {
+            if (*(v2 + 1) == 13 && !OUTLINED_FUNCTION_25_0(v6, v7))
+            {
+              break;
+            }
+          }
+
+          OUTLINED_FUNCTION_3_0();
+          if (v9 == v10)
+          {
+            return 0;
+          }
+        }
+
+        v11 = *(v2 + 9);
+        *(a2 + 4) = *(v2 + 13);
+        *a2 = v11;
+        objc_autoreleasePoolPop(objc_autoreleasePoolPush());
+        return 1;
+      }
+    }
+  }
+
   return result;
 }

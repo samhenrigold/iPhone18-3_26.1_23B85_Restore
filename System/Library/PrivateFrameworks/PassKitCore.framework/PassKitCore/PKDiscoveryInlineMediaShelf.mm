@@ -30,16 +30,16 @@
     v6->_captionKey = v10;
 
     v12 = [dictionaryCopy PKStringForKey:@"inlineDisplayType"];
-    if ([@"inline" isEqualToString:v12])
+    if (objc_msgSend_isEqualToString_(@"inline"))
     {
       v13 = 1;
     }
 
     else
     {
-      v14 = [@"fullWidth" isEqualToString:v12];
+      isEqualToString = objc_msgSend_isEqualToString_(@"fullWidth");
       v13 = 2;
-      if (!v14)
+      if (!isEqualToString)
       {
         v13 = 0;
       }

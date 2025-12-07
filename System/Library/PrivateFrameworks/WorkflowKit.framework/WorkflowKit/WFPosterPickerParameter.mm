@@ -61,8 +61,8 @@
 
   v5 = v4;
 
-  v6 = [v5 isEqualToString:@"EligiblePhotos"];
-  return v6;
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
+  return isEqualToString;
 }
 
 @end

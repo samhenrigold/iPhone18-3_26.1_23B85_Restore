@@ -8,12 +8,12 @@
 
 - (TSIDSSimTransferringViewController)initWithTitle:(id)title subtitle:(id)subtitle
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   titleCopy = title;
   subtitleCopy = subtitle;
-  v45.receiver = self;
-  v45.super_class = TSIDSSimTransferringViewController;
-  v8 = [(TSIDSSimTransferringViewController *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = TSIDSSimTransferringViewController;
+  v8 = [(TSIDSSimTransferringViewController *)&v44 init];
   v9 = v8;
   if (v8)
   {
@@ -21,7 +21,7 @@
     [(TSIDSSimTransferringViewController *)v9 setSubtitle:subtitleCopy];
     v10 = objc_alloc(MEMORY[0x277D756B8]);
     v11 = [v10 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
-    v42 = titleCopy;
+    v41 = titleCopy;
     placeHolderLabel = v9->_placeHolderLabel;
     v9->_placeHolderLabel = v11;
 
@@ -35,16 +35,16 @@
     v9->_indicatorView = v13;
 
     [(UIActivityIndicatorView *)v9->_indicatorView setTranslatesAutoresizingMaskIntoConstraints:0];
-    CGAffineTransformMakeScale(&v44, 1.5, 1.5);
+    CGAffineTransformMakeScale(&v43, 1.5, 1.5);
     v15 = v9->_indicatorView;
-    v43 = v44;
-    [(UIActivityIndicatorView *)v15 setTransform:&v43];
+    v42 = v43;
+    [(UIActivityIndicatorView *)v15 setTransform:&v42];
     [(UIActivityIndicatorView *)v9->_indicatorView startAnimating];
-    v41 = subtitleCopy;
+    v40 = subtitleCopy;
     v16 = objc_alloc(MEMORY[0x277D75A68]);
-    v47[0] = v9->_placeHolderLabel;
-    v47[1] = v9->_indicatorView;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+    v46[0] = v9->_placeHolderLabel;
+    v46[1] = v9->_indicatorView;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
     v18 = [v16 initWithArrangedSubviews:v17];
     stackView = v9->_stackView;
     v9->_stackView = v18;
@@ -57,35 +57,34 @@
     [contentView addSubview:v9->_stackView];
 
     [(TSIDSSimTransferringViewController *)v9 setDismissalType:0];
-    v34 = MEMORY[0x277CCAAD0];
+    v33 = MEMORY[0x277CCAAD0];
     topAnchor = [(UIStackView *)v9->_stackView topAnchor];
     contentView2 = [(TSIDSSimTransferringViewController *)v9 contentView];
     mainContentGuide = [contentView2 mainContentGuide];
     topAnchor2 = [mainContentGuide topAnchor];
-    v36 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-    v46[0] = v36;
+    v35 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+    v45[0] = v35;
     centerXAnchor = [(UIStackView *)v9->_stackView centerXAnchor];
     contentView3 = [(TSIDSSimTransferringViewController *)v9 contentView];
     mainContentGuide2 = [contentView3 mainContentGuide];
     centerXAnchor2 = [mainContentGuide2 centerXAnchor];
     v23 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v46[1] = v23;
+    v45[1] = v23;
     centerYAnchor = [(UIStackView *)v9->_stackView centerYAnchor];
     contentView4 = [(TSIDSSimTransferringViewController *)v9 contentView];
     mainContentGuide3 = [contentView4 mainContentGuide];
     centerYAnchor2 = [mainContentGuide3 centerYAnchor];
     v28 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v46[2] = v28;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:3];
-    [v34 activateConstraints:v29];
+    v45[2] = v28;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
+    [v33 activateConstraints:v29];
 
-    subtitleCopy = v41;
-    titleCopy = v42;
+    subtitleCopy = v40;
+    titleCopy = v41;
 
     v30 = v9;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

@@ -219,7 +219,6 @@
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error
@@ -336,7 +335,6 @@ void __55__AKIDPHandler__completeWithACSPostRequestFromWebView___block_invoke(id
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_sanitizeError:(id)error
@@ -396,7 +394,6 @@ void __55__AKIDPHandler__completeWithACSPostRequestFromWebView___block_invoke(id
 
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v17;
 
   return v7;

@@ -72,17 +72,16 @@ void __52__TPSContentStatusCondition__valuesFromValuesArray___block_invoke(uint6
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = *(a1 + 32);
-    v5 = [objc_opt_class() _contextualEventFromConditionDictionary:v3];
-    [*(a1 + 40) addObject:v5];
+    v4 = [objc_opt_class() _contextualEventFromConditionDictionary:v3];
+    [*(a1 + 40) addObject:v4];
   }
 
   else
   {
-    v6 = [MEMORY[0x277D71778] targeting];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = [MEMORY[0x277D71778] targeting];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __52__TPSContentStatusCondition__valuesFromValuesArray___block_invoke_cold_1(v3, v6);
+      __52__TPSContentStatusCondition__valuesFromValuesArray___block_invoke_cold_1(v3, v5);
     }
   }
 }
@@ -104,11 +103,10 @@ void __52__TPSContentStatusCondition__valuesFromValuesArray___block_invoke(uint6
 
 void __52__TPSContentStatusCondition__valuesFromValuesArray___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unexpected value for content status condition: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232D6F000, a2, OS_LOG_TYPE_ERROR, "Unexpected value for content status condition: %@", &v2, 0xCu);
 }
 
 @end

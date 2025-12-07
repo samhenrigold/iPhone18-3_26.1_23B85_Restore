@@ -38,7 +38,7 @@
   {
     if (eventType == 3)
     {
-      v44 = __atxlog_handle_notification_management();
+      v44 = __atxlog_handle_notification_management(3);
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         [_ATXActiveDigestsTuple initWithPreviousTuple:v44 nextDigestEvent:?];
@@ -174,27 +174,17 @@ LABEL_35:
   if (eventType == 1)
   {
     activeUpcomingDigest9 = [tupleCopy activeUpcomingDigest];
-    if (!activeUpcomingDigest9)
+    if (activeUpcomingDigest9 && (v12 = activeUpcomingDigest9, [tupleCopy activeUpcomingDigest], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "digestTimeline"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "firstCollapsedViewTimestamp"), v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v13, v12, !v15))
     {
-      goto LABEL_6;
-    }
-
-    v12 = activeUpcomingDigest9;
-    activeUpcomingDigest10 = [tupleCopy activeUpcomingDigest];
-    digestTimeline10 = [activeUpcomingDigest10 digestTimeline];
-    firstCollapsedViewTimestamp = [digestTimeline10 firstCollapsedViewTimestamp];
-
-    if (!firstCollapsedViewTimestamp)
-    {
-      activeUpcomingDigest11 = [tupleCopy activeUpcomingDigest];
+      activeUpcomingDigest10 = [tupleCopy activeUpcomingDigest];
       notificationDigest4 = [eventCopy notificationDigest];
-      v64 = [activeUpcomingDigest11 doesDigestShareContentWithOtherDigest:notificationDigest4];
+      v64 = [activeUpcomingDigest10 doesDigestShareContentWithOtherDigest:notificationDigest4];
 
       if (v64)
       {
         activeUpcomingDigest = [eventCopy notificationDigest];
-        digestTimeline11 = [activeUpcomingDigest digestTimeline];
-        [digestTimeline11 setFirstCollapsedViewTimestamp:v9];
+        digestTimeline10 = [activeUpcomingDigest digestTimeline];
+        [digestTimeline10 setFirstCollapsedViewTimestamp:v9];
 
         activeScheduledDigest = [tupleCopy activeScheduledDigest];
         v27 = [(_ATXActiveDigestsTuple *)self initWithActiveUpcomingDigest:activeUpcomingDigest activeScheduledDigest:activeScheduledDigest justCompletedDigest:0];
@@ -204,16 +194,15 @@ LABEL_35:
 
     else
     {
-LABEL_6:
       activeScheduledDigest7 = [tupleCopy activeScheduledDigest];
       if (activeScheduledDigest7)
       {
         v17 = activeScheduledDigest7;
         activeScheduledDigest8 = [tupleCopy activeScheduledDigest];
-        digestTimeline12 = [activeScheduledDigest8 digestTimeline];
-        firstCollapsedViewTimestamp2 = [digestTimeline12 firstCollapsedViewTimestamp];
+        digestTimeline11 = [activeScheduledDigest8 digestTimeline];
+        firstCollapsedViewTimestamp = [digestTimeline11 firstCollapsedViewTimestamp];
 
-        if (!firstCollapsedViewTimestamp2)
+        if (!firstCollapsedViewTimestamp)
         {
           activeScheduledDigest9 = [tupleCopy activeScheduledDigest];
           notificationDigest5 = [eventCopy notificationDigest];
@@ -222,8 +211,8 @@ LABEL_6:
           if (v23)
           {
             activeUpcomingDigest = [eventCopy notificationDigest];
-            digestTimeline13 = [activeUpcomingDigest digestTimeline];
-            [digestTimeline13 setFirstCollapsedViewTimestamp:v9];
+            digestTimeline12 = [activeUpcomingDigest digestTimeline];
+            [digestTimeline12 setFirstCollapsedViewTimestamp:v9];
 
             activeScheduledDigest = [tupleCopy activeUpcomingDigest];
             v27 = [(_ATXActiveDigestsTuple *)self initWithActiveUpcomingDigest:activeScheduledDigest activeScheduledDigest:activeUpcomingDigest justCompletedDigest:0];
@@ -264,17 +253,17 @@ LABEL_36:
   v4 = MEMORY[0x277D42620];
   coderCopy = coder;
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   v8 = [v4 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForActiveUpcomingDigest" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXCompletedDigestBiomeStream" errorCode:-1 logHandle:v7];
 
   v9 = MEMORY[0x277D42620];
   v10 = objc_opt_class();
-  v11 = __atxlog_handle_notification_management();
+  v11 = __atxlog_handle_notification_management(v10);
   v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"codingKeyForActiveScheduledDigest" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXCompletedDigestBiomeStream" errorCode:-1 logHandle:v11];
 
   v13 = MEMORY[0x277D42620];
   v14 = objc_opt_class();
-  v15 = __atxlog_handle_notification_management();
+  v15 = __atxlog_handle_notification_management(v14);
   v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"codingKeyForJustCompletedDigest" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXCompletedDigestBiomeStream" errorCode:-1 logHandle:v15];
 
   v17 = [(_ATXActiveDigestsTuple *)self initWithActiveUpcomingDigest:v8 activeScheduledDigest:v12 justCompletedDigest:v16];

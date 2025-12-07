@@ -23,30 +23,27 @@
 
 void __50__AMSUIEngagementRemoteViewController_remoteProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedConfig];
-  if (!v4)
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = AMSLogKey();
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to retrieve remote proxy. Error: %{public}@", &v10, 0x20u);
+    v5 = objc_opt_class();
+    v6 = AMSLogKey();
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v2;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to retrieve remote proxy. Error: %{public}@", &v7, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewServiceDidTerminateWithError:(id)error
@@ -67,7 +64,7 @@ void __50__AMSUIEngagementRemoteViewController_remoteProxy__block_invoke(uint64_
 
 void __72__AMSUIEngagementRemoteViewController_viewServiceDidTerminateWithError___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v2)
   {
@@ -77,20 +74,17 @@ void __72__AMSUIEngagementRemoteViewController_viewServiceDidTerminateWithError_
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = AMSLogKey();
-    v7 = *(a1 + 40);
-    v9 = 138543874;
+    v4 = objc_opt_class();
+    v5 = AMSLogKey();
+    v6 = *(a1 + 40);
+    v7 = 138543874;
+    v8 = v4;
+    v9 = 2114;
     v10 = v5;
     v11 = 2114;
     v12 = v6;
-    v13 = 2114;
-    v14 = v7;
-    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] View service termination handled. Error: %{public}@", &v9, 0x20u);
+    _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] View service termination handled. Error: %{public}@", &v7, 0x20u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)engagementTaskDidFinishWithResult:(id)result error:(id)error completion:(id)completion

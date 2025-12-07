@@ -31,7 +31,7 @@
   if (v2)
   {
     v2->_accessorLock._os_unfair_lock_opaque = 0;
-    v4 = TUDefaultLog();
+    v4 = TUDefaultLog(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -51,7 +51,7 @@
     objc_copyWeak(&v12, buf);
     notify_register_dispatch("CSDCallHistoryControllerClientsShouldConnectNotification", &v3->_shouldConnectToken, v7, handler);
     WeakRetained = objc_loadWeakRetained(&sAsynchronousServer_4);
-    v9 = TUDefaultLog();
+    v9 = TUDefaultLog(WeakRetained);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(TUCallHistoryControllerXPCClient *)v3 init];
@@ -81,13 +81,13 @@
 
 void __40__TUCallHistoryControllerXPCClient_init__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "CSDCallHistoryControllerClientsShouldConnectNotification";
+    v7 = "CSDCallHistoryControllerClientsShouldConnectNotification";
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection for CallHistoryController", buf, 0xCu);
   }
 
@@ -98,11 +98,9 @@ void __40__TUCallHistoryControllerXPCClient_init__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __40__TUCallHistoryControllerXPCClient_init__block_invoke_2;
     block[3] = &unk_1E7424950;
-    v6 = WeakRetained;
+    v5 = WeakRetained;
     dispatch_async(v3, block);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -166,20 +164,18 @@ uint64_t __66__TUCallHistoryControllerXPCClient_registerWithCompletionHandler___
 
 void __55__TUCallHistoryControllerXPCClient_recentCallsDeleted___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error notifying CSD of deleted recent calls: %@ error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Error notifying CSD of deleted recent calls: %@ error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allCallHistoryDeleted
@@ -190,17 +186,15 @@ void __55__TUCallHistoryControllerXPCClient_recentCallsDeleted___block_invoke(ui
 
 void __57__TUCallHistoryControllerXPCClient_allCallHistoryDeleted__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error notifying CSD of all call history deleted error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Error notifying CSD of all call history deleted error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -251,16 +245,16 @@ void __57__TUCallHistoryControllerXPCClient_allCallHistoryDeleted__block_invoke(
   xpcConnection = self->_xpcConnection;
   if (!xpcConnection)
   {
-    v4 = TUDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = TUDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Starting XPC Connection.", buf, 2u);
+      _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Starting XPC Connection.", buf, 2u);
     }
 
-    v5 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.telephonyutilities.callservicesdaemon.callhistorycontroller" options:0];
-    v6 = self->_xpcConnection;
-    self->_xpcConnection = v5;
+    v6 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.telephonyutilities.callservicesdaemon.callhistorycontroller" options:0];
+    v7 = self->_xpcConnection;
+    self->_xpcConnection = v6;
 
     callHistoryControllerServerXPCInterface = [objc_opt_class() callHistoryControllerServerXPCInterface];
     [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:callHistoryControllerServerXPCInterface];
@@ -270,29 +264,29 @@ void __57__TUCallHistoryControllerXPCClient_allCallHistoryDeleted__block_invoke(
 
     [(NSXPCConnection *)self->_xpcConnection setExportedObject:self];
     objc_initWeak(buf, self);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke;
-    v16[3] = &unk_1E7424998;
-    objc_copyWeak(&v17, buf);
-    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v16];
-    v11 = MEMORY[0x1E69E9820];
-    v12 = 3221225472;
-    v13 = __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke_9;
-    v14 = &unk_1E7424998;
-    objc_copyWeak(&v15, buf);
-    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:&v11];
-    [(NSXPCConnection *)self->_xpcConnection resume:v11];
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke;
+    v17[3] = &unk_1E7424998;
+    objc_copyWeak(&v18, buf);
+    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v17];
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke_9;
+    v15 = &unk_1E7424998;
+    objc_copyWeak(&v16, buf);
+    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:&v12];
+    [(NSXPCConnection *)self->_xpcConnection resume:v12];
+    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
     xpcConnection = self->_xpcConnection;
   }
 
-  v9 = xpcConnection;
+  v10 = xpcConnection;
   os_unfair_lock_unlock(&self->_accessorLock);
 
-  return v9;
+  return v10;
 }
 
 void __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke(uint64_t a1)
@@ -313,7 +307,7 @@ void __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke(uint64_t
 
 void __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -343,7 +337,7 @@ void __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke_9(uint64
 
 uint64_t __49__TUCallHistoryControllerXPCClient_xpcConnection__block_invoke_2_10(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -485,13 +479,12 @@ void __75__TUCallHistoryControllerXPCClient_callHistoryControllerServerXPCInterf
 
 - (void)init
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218240;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218240;
   selfCopy = self;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1956FD000, log, OS_LOG_TYPE_DEBUG, "Registering TUCallHistoryControllerXPCClient %p with async server %p", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2048;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1956FD000, log, OS_LOG_TYPE_DEBUG, "Registering TUCallHistoryControllerXPCClient %p with async server %p", &v3, 0x16u);
 }
 
 @end

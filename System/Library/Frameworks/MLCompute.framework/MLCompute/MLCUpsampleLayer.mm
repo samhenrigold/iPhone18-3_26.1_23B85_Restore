@@ -1,5 +1,6 @@
 @interface MLCUpsampleLayer
 + (MLCUpsampleLayer)layerWithShape:(NSArray *)shape;
++ (MLCUpsampleLayer)layerWithShape:(NSArray *)shape sampleMode:(MLCSampleMode)sampleMode alignsCorners:(BOOL)alignsCorners;
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor;
 - (MLCUpsampleLayer)initWithShape:(id)shape sampleMode:(int)mode alignCorners:(BOOL)corners;
 - (id)description;
@@ -15,6 +16,16 @@
   v5 = [[self alloc] initWithShape:v4 sampleMode:0 alignCorners:0];
 
   return v5;
+}
+
++ (MLCUpsampleLayer)layerWithShape:(NSArray *)shape sampleMode:(MLCSampleMode)sampleMode alignsCorners:(BOOL)alignsCorners
+{
+  v5 = alignsCorners;
+  v6 = *&sampleMode;
+  v8 = shape;
+  v9 = [[self alloc] initWithShape:v8 sampleMode:v6 alignCorners:v5];
+
+  return v9;
 }
 
 - (MLCUpsampleLayer)initWithShape:(id)shape sampleMode:(int)mode alignCorners:(BOOL)corners
@@ -52,7 +63,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -67,11 +78,11 @@
     {
       v27 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v59 = v27;
-      v60 = 1024;
-      *v61 = dataType;
-      *&v61[4] = 2112;
-      *&v61[6] = deviceCopy;
+      v58 = v27;
+      v59 = 1024;
+      *v60 = dataType;
+      *&v60[4] = 2112;
+      *&v60[6] = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v26, OS_LOG_TYPE_ERROR, "%@: upsample layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
     }
 
@@ -156,11 +167,11 @@
     {
       v50 = NSStringFromSelector(aSelectora);
       *buf = 138412802;
-      v59 = v50;
-      v60 = 2048;
-      *v61 = unsignedIntegerValue4;
-      *&v61[8] = 2048;
-      *&v61[10] = [(MLCUpsampleLayer *)self upsampleWidth];
+      v58 = v50;
+      v59 = 2048;
+      *v60 = unsignedIntegerValue4;
+      *&v60[8] = 2048;
+      *&v60[10] = [(MLCUpsampleLayer *)self upsampleWidth];
       v51 = "%@: resultTensor width=%lu does not match value specified in shape=%lu";
 LABEL_25:
       _os_log_error_impl(&dword_238C1D000, v26, OS_LOG_TYPE_ERROR, v51, buf, 0x20u);
@@ -179,11 +190,11 @@ LABEL_29:
     {
       v50 = NSStringFromSelector(aSelectora);
       *buf = 138412802;
-      v59 = v50;
-      v60 = 2048;
-      *v61 = unsignedIntegerValue3;
-      *&v61[8] = 2048;
-      *&v61[10] = [(MLCUpsampleLayer *)self upsampleHeight];
+      v58 = v50;
+      v59 = 2048;
+      *v60 = unsignedIntegerValue3;
+      *&v60[8] = 2048;
+      *&v60[10] = [(MLCUpsampleLayer *)self upsampleHeight];
       v51 = "%@: resultTensor height=%lu does not match value specified in shape=%lu";
       goto LABEL_25;
     }
@@ -211,7 +222,7 @@ LABEL_29:
     v50 = +[MLCLog framework];
     if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      [MLCPaddingLayer compileForDevice:? sourceTensors:? resultTensor:?];
+      [MLCPaddingLayer compileForDevice:v26 sourceTensors:? resultTensor:?];
     }
 
     goto LABEL_28;
@@ -220,12 +231,11 @@ LABEL_29:
   computeEngine2 = [deviceCopy computeEngine];
   v49 = [computeEngine2 compileLayerDeviceOps:v26 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-  v57.receiver = self;
-  v57.super_class = MLCUpsampleLayer;
-  [(MLCLayer *)&v57 bindDevice:deviceCopy deviceOps:v26];
+  v56.receiver = self;
+  v56.super_class = MLCUpsampleLayer;
+  [(MLCLayer *)&v56 bindDevice:deviceCopy deviceOps:v26];
 LABEL_30:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v49;
 }
 

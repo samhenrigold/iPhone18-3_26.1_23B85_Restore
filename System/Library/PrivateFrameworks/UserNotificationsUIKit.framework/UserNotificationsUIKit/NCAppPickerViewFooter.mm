@@ -160,7 +160,7 @@
 
 + (id)_footnoteText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_SETTINGS_CHANGES" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -168,7 +168,7 @@
 
 + (id)_showMoreButtonText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_SETTINGS_SHOW_MORE" value:&stru_282FE84F8 table:0];
 
   return v3;

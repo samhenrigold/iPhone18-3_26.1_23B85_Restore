@@ -20,13 +20,13 @@
 - (NSString)learnMoreAboutBloodOxygenURL;
 - (NSString)recordingInactiveDescription;
 - (id)_settingsToObserve;
-- (uint64_t)_notifySettingsDidChange;
-- (uint64_t)_setBackgroundRecordingsDuringSleepMode:(uint64_t)result;
-- (uint64_t)_setBackgroundRecordingsDuringTheaterMode:(uint64_t)result;
-- (uint64_t)_setBackgroundRecordingsEnabled:(uint64_t)result;
-- (uint64_t)_setOxygenSaturationDisabled:(uint64_t)result;
 - (uint64_t)activateDefaultValuesIfNeeded;
 - (void)_loadFeatureStatus;
+- (void)_notifySettingsDidChange;
+- (void)_setBackgroundRecordingsDuringSleepMode:(void *)result;
+- (void)_setBackgroundRecordingsDuringTheaterMode:(void *)result;
+- (void)_setBackgroundRecordingsEnabled:(void *)result;
+- (void)_setOxygenSaturationDisabled:(void *)result;
 - (void)_startObservingDefaults;
 - (void)_stopObservingAllDefaults;
 - (void)activateDefaultValuesIfNeeded;
@@ -37,6 +37,7 @@
 - (void)setBackgroundRecordingsDuringSleepMode:(BOOL)mode;
 - (void)setBackgroundRecordingsDuringTheaterMode:(BOOL)mode;
 - (void)setBackgroundRecordingsEnabled:(BOOL)enabled;
+- (void)setOverrideIsRemoteDisabled:(BOOL)disabled;
 - (void)setOxygenSaturationDisabled:(BOOL)disabled;
 @end
 
@@ -162,30 +163,30 @@
 
 - (void)reset
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = [(NSUserDefaults *)self->_userDefaults persistentDomainForName:*MEMORY[0x277CCCD20]];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v21;
+    v7 = *v20;
     *&v5 = 138543618;
-    v19 = v5;
+    v18 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
-        if (([v9 hasPrefix:{@"HKRP", v19}] & 1) == 0)
+        v9 = *(*(&v19 + 1) + 8 * i);
+        if (([v9 hasPrefix:{@"HKRP", v18}] & 1) == 0)
         {
           [(NSUserDefaults *)self->_userDefaults removeObjectForKey:v9];
           v10 = [(NSUserDefaults *)self->_userDefaults objectForKey:v9];
@@ -198,10 +199,10 @@
             if (v12)
             {
               v13 = objc_opt_class();
-              *buf = v19;
-              v25 = v13;
-              v26 = 2114;
-              v27 = v9;
+              *buf = v18;
+              v24 = v13;
+              v25 = 2114;
+              v26 = v9;
               v14 = v13;
               v15 = v11;
               v16 = "[%{public}@] Attempted to remove key %{public}@ but it's still present, maybe it lives in the global domain?";
@@ -212,10 +213,10 @@
           else if (v12)
           {
             v17 = objc_opt_class();
-            *buf = v19;
-            v25 = v17;
-            v26 = 2114;
-            v27 = v9;
+            *buf = v18;
+            v24 = v17;
+            v25 = 2114;
+            v26 = v9;
             v14 = v17;
             v15 = v11;
             v16 = "[%{public}@] Removed key %{public}@";
@@ -227,13 +228,11 @@ LABEL_12:
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v6);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)overrideIsRemoteDisabled
@@ -242,6 +241,14 @@ LABEL_12:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setOverrideIsRemoteDisabled:(BOOL)disabled
+{
+  [(NSUserDefaults *)self->_userDefaults setBool:disabled forKey:@"OverrideIsRemoteDisabled"];
+  userDefaultsSyncProvider = self->_userDefaultsSyncProvider;
+  v5 = [MEMORY[0x277CBEB98] setWithObject:@"OverrideIsRemoteDisabled"];
+  [(HKRPUserDefaultsSyncProviding *)userDefaultsSyncProvider synchronizeKeys:v5];
 }
 
 - (void)addObserver:(id)observer queue:(id)queue
@@ -547,51 +554,47 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
 
 - (void)_startObservingDefaults
 {
-  v26 = *MEMORY[0x277D85DE8];
   if (self)
   {
     _settingsToObserve = [(HKRPOxygenSaturationSettings *)self _settingsToObserve];
-    v4 = OUTLINED_FUNCTION_3(_settingsToObserve, v3);
-    if (v4)
+    v10 = OUTLINED_FUNCTION_3(_settingsToObserve, v3, v4, v5, v6, v7, v8, v9, v22, v25, v28, v31, v34);
+    if (v10)
     {
-      v12 = v4;
-      v13 = *v18;
+      v11 = v10;
+      v12 = *v26;
       do
       {
-        v14 = 0;
+        v13 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v1);
           }
 
-          v4 = [OUTLINED_FUNCTION_4(v4 v5];
-          ++v14;
+          v14 = [OUTLINED_FUNCTION_4() addObserver:? forKeyPath:? options:? context:?];
+          ++v13;
         }
 
-        while (v12 != v14);
-        v4 = OUTLINED_FUNCTION_5(v4, v5, v6, v7, v8, v9, v10, v11, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25);
-        v12 = v4;
+        while (v11 != v13);
+        v11 = OUTLINED_FUNCTION_5(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, v26, v27, v29, v30, v32, v33, v35);
       }
 
-      while (v4);
+      while (v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadFeatureStatus
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 32));
     v2 = *(self + 40);
-    v9 = 0;
-    v3 = [v2 featureStatusWithError:&v9];
-    v4 = v9;
+    v8 = 0;
+    v3 = [v2 featureStatusWithError:&v8];
+    v4 = v8;
     v5 = *(self + 48);
     *(self + 48) = v3;
 
@@ -604,58 +607,51 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
         localizedDescription = [v4 localizedDescription];
         *buf = 138543618;
         selfCopy = self;
-        v12 = 2114;
-        v13 = localizedDescription;
+        v11 = 2114;
+        v12 = localizedDescription;
         _os_log_error_impl(&dword_262078000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to load feature status with error: %{public}@", buf, 0x16u);
       }
     }
 
     os_unfair_lock_unlock((self + 32));
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingAllDefaults
 {
-  v26 = *MEMORY[0x277D85DE8];
   if (self)
   {
     _settingsToObserve = [(HKRPOxygenSaturationSettings *)self _settingsToObserve];
-    v4 = OUTLINED_FUNCTION_3(_settingsToObserve, v3);
-    if (v4)
+    v10 = OUTLINED_FUNCTION_3(_settingsToObserve, v3, v4, v5, v6, v7, v8, v9, v22, v25, v28, v31, v34);
+    if (v10)
     {
-      v12 = v4;
-      v13 = *v18;
+      v11 = v10;
+      v12 = *v26;
       do
       {
-        v14 = 0;
+        v13 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v1);
           }
 
-          v4 = [OUTLINED_FUNCTION_4(v4 v5];
-          ++v14;
+          v14 = [OUTLINED_FUNCTION_4() removeObserver:? forKeyPath:?];
+          ++v13;
         }
 
-        while (v12 != v14);
-        v4 = OUTLINED_FUNCTION_5(v4, v5, v6, v7, v8, v9, v10, v11, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25);
-        v12 = v4;
+        while (v11 != v13);
+        v11 = OUTLINED_FUNCTION_5(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, v26, v27, v29, v30, v32, v33, v35);
       }
 
-      while (v4);
+      while (v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_setOxygenSaturationDisabled:(uint64_t)result
+- (void)_setOxygenSaturationDisabled:(void *)result
 {
-  v16 = *MEMORY[0x277D85DE8];
   if (result)
   {
     OUTLINED_FUNCTION_7();
@@ -665,19 +661,17 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
       v6 = objc_opt_class();
       v7 = [OUTLINED_FUNCTION_2() numberWithBool:?];
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting oxygen saturation sensor disabled: %{public}@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting oxygen saturation sensor disabled: %{public}@", v10, v11, v12, v13);
     }
 
-    result = [*(v2 + 16) setBool:v1 forKey:@"OxygenSaturationDisabled"];
+    return [*(v2 + 16) setBool:v1 forKey:@"OxygenSaturationDisabled"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (uint64_t)_setBackgroundRecordingsEnabled:(uint64_t)result
+- (void)_setBackgroundRecordingsEnabled:(void *)result
 {
-  v16 = *MEMORY[0x277D85DE8];
   if (result)
   {
     OUTLINED_FUNCTION_7();
@@ -687,19 +681,17 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
       v6 = objc_opt_class();
       v7 = [OUTLINED_FUNCTION_2() numberWithBool:?];
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting background recordings enabled: %{public}@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting background recordings enabled: %{public}@", v10, v11, v12, v13);
     }
 
-    result = [*(v2 + 16) setBool:v1 forKey:@"BackgroundMeasurementsEnabled"];
+    return [*(v2 + 16) setBool:v1 forKey:@"BackgroundMeasurementsEnabled"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (uint64_t)_setBackgroundRecordingsDuringSleepMode:(uint64_t)result
+- (void)_setBackgroundRecordingsDuringSleepMode:(void *)result
 {
-  v16 = *MEMORY[0x277D85DE8];
   if (result)
   {
     OUTLINED_FUNCTION_7();
@@ -709,19 +701,17 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
       v6 = objc_opt_class();
       v7 = [OUTLINED_FUNCTION_2() numberWithBool:?];
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting background recordings during sleep mode: %{public}@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting background recordings during sleep mode: %{public}@", v10, v11, v12, v13);
     }
 
-    result = [*(v2 + 16) setBool:v1 forKey:@"BackgroundMeasurementsDuringSleepMode"];
+    return [*(v2 + 16) setBool:v1 forKey:@"BackgroundMeasurementsDuringSleepMode"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (uint64_t)_setBackgroundRecordingsDuringTheaterMode:(uint64_t)result
+- (void)_setBackgroundRecordingsDuringTheaterMode:(void *)result
 {
-  v16 = *MEMORY[0x277D85DE8];
   if (result)
   {
     OUTLINED_FUNCTION_7();
@@ -731,21 +721,20 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
       v6 = objc_opt_class();
       v7 = [OUTLINED_FUNCTION_2() numberWithBool:?];
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting background recordings during theater mode: %{public}@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_1(&dword_262078000, v8, v9, "[%{public}@] Setting background recordings during theater mode: %{public}@", v10, v11, v12, v13);
     }
 
-    result = [*(v2 + 16) setBool:v1 forKey:@"BackgroundMeasurementsDuringTheaterMode"];
+    return [*(v2 + 16) setBool:v1 forKey:@"BackgroundMeasurementsDuringTheaterMode"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (uint64_t)_notifySettingsDidChange
+- (void)_notifySettingsDidChange
 {
   if (result)
   {
-    v1 = *(result + 8);
+    v1 = result[1];
     v2[0] = MEMORY[0x277D85DD0];
     v2[1] = 3221225472;
     v2[2] = __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke;
@@ -759,25 +748,23 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
 
 - (id)_settingsToObserve
 {
-  v3[5] = *MEMORY[0x277D85DE8];
+  v2[5] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v3[0] = @"OxygenSaturationDisabled";
-    v3[1] = @"BackgroundMeasurementsEnabled";
-    v3[2] = @"BackgroundMeasurementsDuringSleepMode";
-    v3[3] = @"BackgroundMeasurementsDuringTheaterMode";
-    v3[4] = @"OverrideIsRemoteDisabled";
-    self = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
+    v2[0] = @"OxygenSaturationDisabled";
+    v2[1] = @"BackgroundMeasurementsEnabled";
+    v2[2] = @"BackgroundMeasurementsDuringSleepMode";
+    v2[3] = @"BackgroundMeasurementsDuringTheaterMode";
+    v2[4] = @"OverrideIsRemoteDisabled";
+    self = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:5];
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 
   return self;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -791,13 +778,13 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
     v17 = [changeCopy objectForKeyedSubscript:v15];
     v18 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
     *buf = 138544130;
-    v24 = v14;
-    v25 = 2114;
-    v26 = pathCopy;
-    v27 = 2114;
-    v28 = v17;
-    v29 = 2114;
-    v30 = v18;
+    v23 = v14;
+    v24 = 2114;
+    v25 = pathCopy;
+    v26 = 2114;
+    v27 = v17;
+    v28 = 2114;
+    v29 = v18;
     _os_log_impl(&dword_262078000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ change to: %{public}@ -> %{public}@", buf, 0x2Au);
   }
 
@@ -811,12 +798,10 @@ void __56__HKRPOxygenSaturationSettings__notifySettingsDidChange__block_invoke(u
 
   else
   {
-    v22.receiver = self;
-    v22.super_class = HKRPOxygenSaturationSettings;
-    [(HKRPOxygenSaturationSettings *)&v22 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v21.receiver = self;
+    v21.super_class = HKRPOxygenSaturationSettings;
+    [(HKRPOxygenSaturationSettings *)&v21 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)activateDefaultValuesIfNeeded

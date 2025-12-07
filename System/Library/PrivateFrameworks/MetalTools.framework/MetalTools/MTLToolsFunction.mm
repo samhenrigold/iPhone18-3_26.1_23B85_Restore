@@ -23,6 +23,7 @@
 - (id)newArgumentEncoderWithBufferIndex:(unint64_t)index reflection:(id *)reflection;
 - (id)newArgumentEncoderWithBufferIndex:(unint64_t)index reflection:(id *)reflection binaryArchives:(id)archives;
 - (id)newArgumentEncoderWithBufferIndex:(unint64_t)index reflection:(id *)reflection pipelineLibrary:(id)library;
+- (id)newFunctionWithPluginData:(id)data bitcodeType:(unsigned __int8)type;
 - (id)precompiledOutput;
 - (id)reflectionWithOptions:(unint64_t)options;
 - (id)reflectionWithOptions:(unint64_t)options binaryArchives:(id)archives;
@@ -381,6 +382,20 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject bitCodeHash];
+}
+
+- (id)newFunctionWithPluginData:(id)data bitcodeType:(unsigned __int8)type
+{
+  result = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (result)
+  {
+    v6 = result;
+    v7 = [(MTLToolsObject *)[MTLToolsFunction alloc] initWithBaseObject:result parent:self];
+
+    return v7;
+  }
+
+  return result;
 }
 
 - (MTLFunctionHandle)functionHandle

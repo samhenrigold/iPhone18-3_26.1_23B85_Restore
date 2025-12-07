@@ -133,7 +133,7 @@
 {
   height = fits.height;
   width = fits.width;
-  v6 = MRUDefaultExpandedWidth(self);
+  v6 = MRUDefaultExpandedWidth(self, a2);
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 

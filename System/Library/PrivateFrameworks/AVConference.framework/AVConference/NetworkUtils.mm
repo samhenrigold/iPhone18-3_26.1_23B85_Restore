@@ -207,26 +207,26 @@ LABEL_6:
 
 + (id)securityKeyMaterialWithMediaKeyIndex:(id)index participantID:(id)d
 {
-  v9[5] = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = [NetworkUtils newEncryptionInfoWithMediaKeyIndex:index participantID:d];
-  v8[0] = @"SecurityKey";
-  v9[0] = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5008]];
-  v8[1] = @"SecuritySalt";
-  v9[1] = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5010]];
-  v8[2] = @"SecurityKeyIndex";
-  v9[2] = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5000]];
-  v8[3] = @"SecurityKeySetTime";
-  v9[3] = [MEMORY[0x1E696AD98] numberWithDouble:micro()];
-  v8[4] = @"SecurityLocallyGenerated";
-  v9[4] = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A4FF8]];
-  v5 = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:{5), "mutableCopy"}];
-  v6 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5020]];
-  if (v6)
+  v9[0] = @"SecurityKey";
+  v10[0] = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5008]];
+  v9[1] = @"SecuritySalt";
+  v10[1] = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5010]];
+  v9[2] = @"SecurityKeyIndex";
+  v11 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5000]];
+  v9[3] = @"SecurityKeySetTime";
+  v12 = [MEMORY[0x1E696AD98] numberWithDouble:{micro(v11, v5)}];
+  v9[4] = @"SecurityLocallyGenerated";
+  v13 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A4FF8]];
+  v6 = [objc_msgSend(MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:{5), "mutableCopy"}];
+  v7 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69A5020]];
+  if (v7)
   {
-    [v5 setObject:v6 forKeyedSubscript:@"SecurityIDSParticipantID"];
+    [v6 setObject:v7 forKeyedSubscript:@"SecurityIDSParticipantID"];
   }
 
-  return v5;
+  return v6;
 }
 
 + (id)newEncryptionInfoWithMediaKeyIndex:(id)index participantID:(id)d
@@ -260,7 +260,7 @@ LABEL_6:
   return [v4 objectAtIndexedSubscript:key == 1];
 }
 
-uint64_t __37__NetworkUtils_encryptionInfoForKey___block_invoke()
+void *__37__NetworkUtils_encryptionInfoForKey___block_invoke()
 {
   v14[4] = *MEMORY[0x1E69E9840];
   memset(v14, 170, 32);
@@ -644,7 +644,7 @@ LABEL_30:
       nw_release(v7);
       if (endpointsCopy)
       {
-        [(AVCEndpoint *)v9 setRtpSSRC:RTPGenerateSSRC()];
+        [(AVCEndpoint *)v9 setRtpSSRC:RTPGenerateSSRC(v10)];
       }
 
       [v4 addObject:v9];

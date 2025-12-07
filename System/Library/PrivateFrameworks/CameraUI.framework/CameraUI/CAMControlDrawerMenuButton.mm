@@ -458,7 +458,7 @@ LABEL_9:
   return v7;
 }
 
-uint64_t __68__CAMControlDrawerMenuButton__indexOfItemToTrackForTouchAtLocation___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__68__CAMControlDrawerMenuButton__indexOfItemToTrackForTouchAtLocation___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _shouldTrackView:a2 forTouchAtLocation:{*(a1 + 48), *(a1 + 56)}];
   if (result)

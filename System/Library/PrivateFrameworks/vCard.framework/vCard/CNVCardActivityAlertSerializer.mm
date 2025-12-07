@@ -7,34 +7,34 @@
 
 + (id)serializeDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   string = [MEMORY[0x277CCAB68] string];
   allKeys = [dictionaryCopy allKeys];
   v5 = [allKeys sortedArrayUsingComparator:&__block_literal_global_3];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     v10 = *MEMORY[0x277CFBD30];
-    v18 = *v22;
+    v17 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         v13 = [dictionaryCopy objectForKey:v12];
         if (((*(v10 + 16))(v10, v12) & 1) == 0 && ((*(v10 + 16))(v10, v13) & 1) == 0)
         {
@@ -50,17 +50,15 @@
           v15 = [self serializeString:v13];
           [string appendString:v15];
 
-          v9 = v18;
+          v9 = v17;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return string;
 }

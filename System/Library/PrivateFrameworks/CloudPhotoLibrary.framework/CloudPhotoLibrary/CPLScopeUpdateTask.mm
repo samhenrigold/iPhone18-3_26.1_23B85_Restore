@@ -63,7 +63,7 @@ void __45__CPLScopeUpdateTask_taskDidFinishWithError___block_invoke(uint64_t a1,
 
 void __45__CPLScopeUpdateTask_taskDidFinishWithError___block_invoke_5(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
@@ -77,22 +77,22 @@ void __45__CPLScopeUpdateTask_taskDidFinishWithError___block_invoke_5(uint64_t a
   {
     v6 = *(a1 + 32);
     v7 = [v3 error];
-    v16.receiver = v6;
-    v16.super_class = CPLScopeUpdateTask;
-    objc_msgSendSuper2(&v16, sel_taskDidFinishWithError_, v7);
+    v15.receiver = v6;
+    v15.super_class = CPLScopeUpdateTask;
+    objc_msgSendSuper2(&v15, sel_taskDidFinishWithError_, v7);
   }
 
   else
   {
     if (*(*(*(a1 + 40) + 8) + 24) != 1)
     {
-      v12 = [*(a1 + 32) engineLibrary];
-      v13 = [v12 supervisor];
-      [v13 scopeUpdateTaskDidFinishSuccessfully:*(a1 + 32)];
+      v11 = [*(a1 + 32) engineLibrary];
+      v12 = [v11 supervisor];
+      [v12 scopeUpdateTaskDidFinishSuccessfully:*(a1 + 32)];
 
-      v14.receiver = *(a1 + 32);
-      v14.super_class = CPLScopeUpdateTask;
-      objc_msgSendSuper2(&v14, sel_taskDidFinishWithError_, 0);
+      v13.receiver = *(a1 + 32);
+      v13.super_class = CPLScopeUpdateTask;
+      objc_msgSendSuper2(&v13, sel_taskDidFinishWithError_, 0);
       goto LABEL_12;
     }
 
@@ -103,47 +103,46 @@ void __45__CPLScopeUpdateTask_taskDidFinishWithError___block_invoke_5(uint64_t a
       {
         v9 = [CPLEngineSyncManager shortDescriptionForState:4];
         *buf = 138412290;
-        v18 = v9;
+        v17 = v9;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Restarting from %@ to verify all scopes", buf, 0xCu);
       }
     }
 
     v10 = *(a1 + 32);
     v7 = [CPLErrors cplErrorWithCode:10000 description:@"Need to verify all scopes"];
-    v15.receiver = v10;
-    v15.super_class = CPLScopeUpdateTask;
-    objc_msgSendSuper2(&v15, sel_taskDidFinishWithError_, v7);
+    v14.receiver = v10;
+    v14.super_class = CPLScopeUpdateTask;
+    objc_msgSendSuper2(&v14, sel_taskDidFinishWithError_, v7);
   }
 
 LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__CPLScopeUpdateTask_taskDidFinishWithError___block_invoke_2(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v4 = [*(a1 + 32) enumeratorForDeletedStagedScopes];
-  v5 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v5)
   {
     v6 = v5;
-    v28 = a2;
+    v27 = a2;
     v7 = 0;
-    v8 = *v32;
+    v8 = *v31;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v32 != v8)
+      if (*v31 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v31 + 1) + 8 * v9);
+      v10 = *(*(&v30 + 1) + 8 * v9);
       v11 = [*(a1 + 32) stagingScopeForScope:v10];
       if (v11)
       {
@@ -155,9 +154,9 @@ LABEL_3:
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v36 = v10;
-              v37 = 2112;
-              v38 = v11;
+              v35 = v10;
+              v36 = 2112;
+              v37 = v11;
               v13 = v12;
               v14 = "%@ has been deleted and staged to %@ but this scope has also been deleted - removing staged flag";
               v15 = 22;
@@ -185,7 +184,7 @@ LABEL_3:
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v36 = v10;
+              v35 = v10;
               v13 = v12;
               v14 = "%@ is staged and deleted with no corresponding staging scope - removing staged flag";
               v15 = 12;
@@ -198,20 +197,20 @@ LABEL_21:
 
 LABEL_22:
           v19 = *(a1 + 32);
-          v30 = v7;
-          v20 = [v19 setValue:0 forFlag:64 forScope:v10 error:&v30];
-          v21 = v30;
+          v29 = v7;
+          v20 = [v19 setValue:0 forFlag:64 forScope:v10 error:&v29];
+          v21 = v29;
 
           if (!v20)
           {
             v7 = v21;
 LABEL_30:
 
-            if (v28)
+            if (v27)
             {
               v25 = v7;
               v24 = 0;
-              *v28 = v7;
+              *v27 = v7;
             }
 
             else
@@ -223,9 +222,9 @@ LABEL_30:
           }
 
           v22 = *(a1 + 32);
-          v29 = v21;
-          v23 = [v22 setScopeNeedsToBePulledByClient:v10 error:&v29];
-          v7 = v29;
+          v28 = v21;
+          v23 = [v22 setScopeNeedsToBePulledByClient:v10 error:&v28];
+          v7 = v28;
 
           if (!v23)
           {
@@ -241,7 +240,7 @@ LABEL_30:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v36 = v10;
+            v35 = v10;
             _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEFAULT, "%@ has just been deleted with no corresponding staging scope - checking all scopes before discarding it", buf, 0xCu);
           }
         }
@@ -253,7 +252,7 @@ LABEL_24:
 
       if (v6 == ++v9)
       {
-        v6 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -269,7 +268,6 @@ LABEL_28:
   v24 = 1;
 LABEL_33:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

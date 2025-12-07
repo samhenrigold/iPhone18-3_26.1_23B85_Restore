@@ -554,7 +554,7 @@ void __72__CNGeminiManager_remoteBestSenderIdentityForHandle_contactStore_error_
     preferredChannel = [contactCopy preferredChannel];
     v17 = (*(v15 + 16))(v15, preferredChannel);
 
-    if ((v17 & 1) != 0 || ([contactCopy preferredChannel], v19 = objc_claimAutoreleasedReturnValue(), -[CNGeminiManager channelForPreferredChannelString:fromChannels:synthesizeMissingChannels:](self, v19, v12, 1), v20 = objc_claimAutoreleasedReturnValue(), v19, v21 = v20, -[CNGeminiManager geminiResultForChannel:usage:availableChannels:isUnknownNumber:](self, v20, 1, v14, objc_msgSend(contactCopy, "hasBeenPersisted") ^ 1), v8 = objc_claimAutoreleasedReturnValue(), v21, !v8))
+    if ((v17 & 1) != 0 || ([contactCopy preferredChannel], v19 = objc_claimAutoreleasedReturnValue(), -[CNGeminiManager channelForPreferredChannelString:fromChannels:synthesizeMissingChannels:](&self->super.isa, v19, v12, 1), v20 = objc_claimAutoreleasedReturnValue(), v19, v21 = v20, -[CNGeminiManager geminiResultForChannel:usage:availableChannels:isUnknownNumber:](self, v20, 1, v14, objc_msgSend(contactCopy, "hasBeenPersisted") ^ 1), v8 = objc_claimAutoreleasedReturnValue(), v21, !v8))
     {
       if (![objc_opt_class() deviceSupportsGemini])
       {
@@ -708,7 +708,7 @@ id __77__CNGeminiManager_geminiResultForContact_substituteDefaultForDangling_err
   if (self)
   {
     v7 = [MEMORY[0x1E695DFD8] setWithArray:v5];
-    if (!IMCoreLibraryCore() || !getIMSPIGetMostRecentIMEventForContactHandlesAndLocalLabelIDsSymbolLoc())
+    if (!IMCoreLibraryCore(0) || !getIMSPIGetMostRecentIMEventForContactHandlesAndLocalLabelIDsSymbolLoc())
     {
       v8 = 0;
 LABEL_5:
@@ -838,7 +838,7 @@ uint64_t __85__CNGeminiManager_mostRecentChannelIdentifierForPhoneNumbers_fromCh
     goto LABEL_8;
   }
 
-  if (!IMCoreLibraryCore())
+  if (!IMCoreLibraryCore(0))
   {
     goto LABEL_8;
   }
@@ -865,8 +865,8 @@ LABEL_8:
     return identifier != 0;
   }
 
-  MDItemUniqueIdentifier_cold_1 = getMDItemUniqueIdentifier_cold_1();
-  return [(CNGeminiManager *)MDItemUniqueIdentifier_cold_1 remapContactsHavingPreferredChannelIdentifier:v13 toPreferredChannelIdentifier:v14 contactStore:v15 error:v16, v17];
+  getMDItemUniqueIdentifier_cold_1();
+  return [(CNGeminiManager *)v12 remapContactsHavingPreferredChannelIdentifier:v13 toPreferredChannelIdentifier:v14 contactStore:v15 error:v16, v17];
 }
 
 - (BOOL)remapContactsHavingPreferredChannelIdentifier:(id)identifier toPreferredChannelIdentifier:(id)channelIdentifier contactStore:(id)store error:(id *)error
@@ -1757,7 +1757,7 @@ uint64_t __34__CNGeminiManager_removeDelegate___block_invoke(uint64_t a1)
   *a2 = v13;
 }
 
-- (void)channelIdentifierForMostRecentSMSFromPhoneNumbers:(void *)(a3 fromChannelIdentifiers:.cold.2(void *a1, void *a2, void (*a3)(void), uint64_t *a4)
+- (void)channelIdentifierForMostRecentSMSFromPhoneNumbers:(uint64_t *)(a3 fromChannelIdentifiers:.cold.2(void *a1, void *a2, uint64_t (*a3)(void), uint64_t *a4)
 {
   v6 = a3();
 

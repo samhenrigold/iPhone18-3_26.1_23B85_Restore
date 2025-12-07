@@ -1,811 +1,3 @@
-BOOL APSIsFBOPropertyAvailable(uint64_t a1, uint64_t a2)
-{
-  cf = 0;
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = v4(a1, a2, *MEMORY[0x277CBECE8], &cf) == 0;
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  return v5;
-}
-
-BOOL APSIsFBOPropertyEqual(uint64_t a1, uint64_t a2, CFTypeRef a3, int *a4)
-{
-  cf1 = 0;
-  if (a1)
-  {
-    v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v8)
-    {
-      v9 = v8(a1, a2, *MEMORY[0x277CBECE8], &cf1);
-      if (v9)
-      {
-        v10 = 0;
-      }
-
-      else
-      {
-        if (cf1 == a3)
-        {
-          v10 = 1;
-        }
-
-        else
-        {
-          v10 = 0;
-          if (a3 && cf1)
-          {
-            v10 = CFEqual(cf1, a3) != 0;
-          }
-        }
-
-        v9 = 0;
-      }
-    }
-
-    else
-    {
-      v10 = 0;
-      v9 = -12782;
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-    v9 = -6705;
-  }
-
-  if (a4)
-  {
-    *a4 = v9;
-  }
-
-  if (cf1)
-  {
-    CFRelease(cf1);
-  }
-
-  return v10;
-}
-
-uint64_t APSSetFBOPropertyCString(uint64_t a1, uint64_t a2, char *cStr, CFIndex numBytes)
-{
-  if (numBytes == -1)
-  {
-    v6 = CFStringCreateWithCString(0, cStr, 0x8000100u);
-    if (v6)
-    {
-      goto LABEL_3;
-    }
-
-    return 4294960596;
-  }
-
-  v6 = CFStringCreateWithBytes(0, cStr, numBytes, 0x8000100u, 0);
-  if (!v6)
-  {
-    return 4294960596;
-  }
-
-LABEL_3:
-  v7 = v6;
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 8) + 56);
-  if (v9)
-  {
-    v10 = *(VTable + 8) + 56;
-    v11 = v9(a1, a2, v7);
-  }
-
-  else
-  {
-    v11 = 4294954514;
-  }
-
-  CFRelease(v7);
-  return v11;
-}
-
-uint64_t APSSetFBOPropertyData(uint64_t a1, uint64_t a2, UInt8 *bytes, CFIndex length)
-{
-  v6 = CFDataCreate(0, bytes, length);
-  if (!v6)
-  {
-    return 4294960596;
-  }
-
-  v7 = v6;
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 8) + 56);
-  if (v9)
-  {
-    v10 = *(VTable + 8) + 56;
-    v11 = v9(a1, a2, v7);
-  }
-
-  else
-  {
-    v11 = 4294954514;
-  }
-
-  CFRelease(v7);
-  return v11;
-}
-
-uint64_t APSSetFBOPropertyDouble(uint64_t a1, uint64_t a2, double a3)
-{
-  valuePtr = a3;
-  v5 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-  if (!v5)
-  {
-    return 4294960568;
-  }
-
-  v6 = v5;
-  VTable = CMBaseObjectGetVTable();
-  v8 = *(*(VTable + 8) + 56);
-  if (v8)
-  {
-    v9 = *(VTable + 8) + 56;
-    v10 = v8(a1, a2, v6);
-  }
-
-  else
-  {
-    v10 = 4294954514;
-  }
-
-  CFRelease(v6);
-  return v10;
-}
-
-uint64_t APSSetFBOPropertyDictionary(uint64_t a1, uint64_t a2, CFDictionaryRef theDict)
-{
-  if (!theDict)
-  {
-    return 4294960591;
-  }
-
-  Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], theDict);
-  if (!Copy)
-  {
-    return 4294960568;
-  }
-
-  v6 = Copy;
-  VTable = CMBaseObjectGetVTable();
-  v8 = *(*(VTable + 8) + 56);
-  if (v8)
-  {
-    v9 = *(VTable + 8) + 56;
-    v10 = v8(a1, a2, v6);
-  }
-
-  else
-  {
-    v10 = 4294954514;
-  }
-
-  CFRelease(v6);
-  return v10;
-}
-
-uint64_t APSRecycleBinGetTypeID()
-{
-  if (gAPSRecycleBinInitOnce != -1)
-  {
-    dispatch_once_f(&gAPSRecycleBinInitOnce, 0, _APSRecycleBinGetTypeID);
-  }
-
-  return gAPSRecycleBinTypeID;
-}
-
-uint64_t _APSRecycleBinGetTypeID()
-{
-  result = _CFRuntimeRegisterClass();
-  gAPSRecycleBinTypeID = result;
-  return result;
-}
-
-void *_APSRecycleBinFinalize(void *a1)
-{
-  _X20 = 0;
-  v3 = a1[12];
-  _X21 = 0;
-  __asm { CASPA           X20, X21, X20, X21, [X8] }
-
-  if (_X20)
-  {
-    do
-    {
-      v10 = _X20[1];
-      v11 = a1[5];
-      if (v11)
-      {
-        v11(*_X20);
-      }
-
-      free(_X20);
-      _X20 = v10;
-    }
-
-    while (v10);
-  }
-
-  _X0 = 0;
-  _X1 = 0;
-  __asm { CASPA           X0, X1, X0, X1, [X8]; void * }
-
-  if (result)
-  {
-    do
-    {
-      v15 = result[1];
-      free(result);
-      result = v15;
-    }
-
-    while (v15);
-  }
-
-  v16 = a1[6];
-  if (v16)
-  {
-    v17 = a1[2];
-
-    return v16(v17);
-  }
-
-  return result;
-}
-
-uint64_t APSRecycleBinCreate(__int128 *a1, uint64_t a2, CFTypeRef *a3)
-{
-  if (!a3)
-  {
-    return 4294960591;
-  }
-
-  if (gAPSRecycleBinInitOnce != -1)
-  {
-    dispatch_once_f(&gAPSRecycleBinInitOnce, 0, _APSRecycleBinGetTypeID);
-  }
-
-  Instance = _CFRuntimeCreateInstance();
-  if (!Instance)
-  {
-    return 4294960568;
-  }
-
-  v7 = Instance;
-  _X0 = 0;
-  *(v7 + 16) = 0u;
-  *(v7 + 80) = 0u;
-  *(v7 + 96) = 0u;
-  *(v7 + 48) = 0u;
-  *(v7 + 64) = 0u;
-  *(v7 + 32) = 0u;
-  v9 = *(v7 + 64);
-  do
-  {
-    _X5 = *(v7 + 72);
-    __asm { CASPAL          X4, X5, X0, X1, [X9] }
-
-    _ZF = _X4 == v9;
-    v9 = _X4;
-  }
-
-  while (!_ZF);
-  _X0 = 0;
-  v17 = *(v7 + 80);
-  do
-  {
-    _X5 = *(v7 + 88);
-    __asm { CASPAL          X4, X5, X0, X1, [X9] }
-
-    _ZF = _X4 == v17;
-    v17 = _X4;
-  }
-
-  while (!_ZF);
-  atomic_store(0, (v7 + 96));
-  if (a1)
-  {
-    v20 = *a1;
-    v21 = a1[1];
-    *(v7 + 48) = *(a1 + 4);
-    *(v7 + 16) = v20;
-    *(v7 + 32) = v21;
-  }
-
-  if (a2)
-  {
-    if (*(v7 + 24))
-    {
-      v22 = 0;
-      v23 = 0;
-      while (1)
-      {
-        v24 = malloc_type_malloc(0x10uLL, 0xE0040CF218873uLL);
-        if (!v24)
-        {
-          break;
-        }
-
-        _X22 = v24;
-        v26 = (*(v7 + 24))(*(v7 + 16), v24);
-        if (v26)
-        {
-          v30 = v26;
-          free(_X22);
-          goto LABEL_25;
-        }
-
-        _X22[1] = v22;
-        v27 = *(v7 + 64);
-        do
-        {
-          _X3 = *(v7 + 72);
-          __asm { CASP            X2, X3, X22, X23, [X8] }
-
-          _ZF = _X2 == v27;
-          v27 = _X2;
-        }
-
-        while (!_ZF);
-        atomic_fetch_add_explicit((v7 + 96), 1uLL, memory_order_relaxed);
-        ++v23;
-        v22 = _X22;
-        if (v23 == a2)
-        {
-          __dmb(0xBu);
-          goto LABEL_23;
-        }
-      }
-
-      v30 = 4294960568;
-    }
-
-    else
-    {
-      v30 = 4294960561;
-    }
-  }
-
-  else
-  {
-LABEL_23:
-    v30 = 0;
-    *a3 = CFRetain(v7);
-  }
-
-LABEL_25:
-  CFRelease(v7);
-  return v30;
-}
-
-uint64_t APSRecycleBinTakeItem(uint64_t a1, void *a2)
-{
-  v22 = 0;
-  v2 = 4294960591;
-  if (a1 && a2)
-  {
-    _X4 = 0;
-    _X5 = 0;
-    __asm { CASP            X4, X5, X4, X5, [X8] }
-
-    _X6 = _X4;
-    while (_X6)
-    {
-      _X2 = _X6;
-      __dmb(9u);
-      _X8 = _X6[1];
-      _X7 = 0;
-      __asm { CASPA           X6, X7, X8, X9, [X10] }
-
-      if (_X6 == _X2)
-      {
-        _X4 = 0;
-        v22 = *_X2;
-        _X5 = 0;
-        __asm { CASP            X4, X5, X4, X5, [X8] }
-
-        do
-        {
-          _X2[1] = _X4;
-          _X1 = 0;
-          __asm { CASPL           X0, X1, X2, X3, [X8] }
-
-          _ZF = _X0 == _X4;
-          _X4 = _X0;
-        }
-
-        while (!_ZF);
-LABEL_12:
-        v2 = 0;
-        *a2 = v22;
-        return v2;
-      }
-    }
-
-    v20 = *(a1 + 24);
-    if (v20)
-    {
-      v2 = v20(*(a1 + 16), &v22);
-      if (v2)
-      {
-        return v2;
-      }
-
-      goto LABEL_12;
-    }
-
-    return 4294960546;
-  }
-
-  return v2;
-}
-
-uint64_t APSRecycleBinAddItem(uint64_t a1, uint64_t a2)
-{
-  result = 4294960591;
-  if (a1)
-  {
-    v4 = a2;
-    if (a2)
-    {
-      _X0 = 0;
-      _X1 = 0;
-      __asm { CASP            X0, X1, X0, X1, [X8] }
-
-      _X2 = _X0;
-      while (_X2)
-      {
-        _X20 = _X2;
-        __dmb(9u);
-        _X4 = _X2[1];
-        _X3 = 0;
-        __asm { CASP            X2, X3, X4, X5, [X8] }
-
-        if (_X2 == _X20)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      v16 = malloc_type_malloc(0x10uLL, 0xE0040CF218873uLL);
-      if (!v16)
-      {
-        return 4294960568;
-      }
-
-      _X20 = v16;
-      atomic_fetch_add_explicit((a1 + 96), 1uLL, memory_order_relaxed);
-LABEL_9:
-      v17 = *(a1 + 32);
-      if (v17)
-      {
-        v4 = v17(v4);
-      }
-
-      _X0 = 0;
-      *_X20 = v4;
-      _X1 = 0;
-      __asm { CASP            X0, X1, X0, X1, [X8] }
-
-      do
-      {
-        _X20[1] = _X0;
-        _X3 = 0;
-        __asm { CASPL           X2, X3, X20, X21, [X8] }
-
-        _ZF = _X2 == _X0;
-        _X0 = _X2;
-      }
-
-      while (!_ZF);
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t APSEventRecorderGetTypeID()
-{
-  if (APSEventRecorderGetTypeID_once != -1)
-  {
-    dispatch_once_f(&APSEventRecorderGetTypeID_once, &APSEventRecorderGetTypeID_typeID, eventRecorder_registerCMClass);
-  }
-
-  return APSEventRecorderGetTypeID_typeID;
-}
-
-uint64_t eventRecorder_registerCMClass(uint64_t *a1)
-{
-  result = _CFRuntimeRegisterClass();
-  *a1 = result;
-  return result;
-}
-
-uint64_t APSEventRecorderCreate(int a1, const void *a2, unsigned int a3, int *a4, uint64_t a5, uint64_t *a6)
-{
-  if (!a3 || !a6)
-  {
-    APSLogErrorAt(0);
-    return 4294895135;
-  }
-
-  v12 = *MEMORY[0x277CBECE8];
-  if (APSEventRecorderGetTypeID_once != -1)
-  {
-    dispatch_once_f(&APSEventRecorderGetTypeID_once, &APSEventRecorderGetTypeID_typeID, eventRecorder_registerCMClass);
-  }
-
-  Instance = _CFRuntimeCreateInstance();
-  if (!Instance)
-  {
-    v23 = 4294895136;
-    APSLogErrorAt(0);
-    return v23;
-  }
-
-  v14 = Instance;
-  *(Instance + 112) = 0;
-  *(Instance + 80) = 0u;
-  *(Instance + 96) = 0u;
-  *(Instance + 48) = 0u;
-  *(Instance + 64) = 0u;
-  *(Instance + 16) = 0u;
-  *(Instance + 32) = 0u;
-  Mutable = pthread_mutex_init((Instance + 40), 0);
-  if (Mutable)
-  {
-    v23 = Mutable;
-LABEL_31:
-    APSLogErrorAt(Mutable);
-    CFRelease(v14);
-    return v23;
-  }
-
-  v16 = a3;
-  Mutable = malloc_type_calloc(a3, 0x18uLL, 0x10000400CE834B2uLL);
-  *(v14 + 112) = Mutable;
-  if (!Mutable)
-  {
-    v23 = 4294895136;
-    goto LABEL_31;
-  }
-
-  Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  *(v14 + 32) = Mutable;
-  if (!Mutable)
-  {
-    v23 = 4294895136;
-    goto LABEL_31;
-  }
-
-  *(v14 + 104) = a3;
-  *(v14 + 16) = a1;
-  if (a2)
-  {
-    v17 = CFRetain(a2);
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *(v14 + 24) = v17;
-  if (a4)
-  {
-    v18 = (*(v14 + 112) + 16);
-    do
-    {
-      v19 = *a4++;
-      *v18 = v19;
-      v18 += 6;
-      --v16;
-    }
-
-    while (v16);
-  }
-
-  if (a5)
-  {
-    eventRecorder_addChildToParent(a5, v14);
-  }
-
-  if (gLogCategory_APSEventRecorder <= 30 && (gLogCategory_APSEventRecorder != -1 || _LogCategory_Initialize()))
-  {
-    v20 = *(v14 + 24);
-    v21 = *(v14 + 16);
-    if (a5)
-    {
-      v22 = *(a5 + 24);
-    }
-
-    v25 = *(v14 + 104);
-    LogPrintF();
-  }
-
-  v23 = 0;
-  *a6 = v14;
-  return v23;
-}
-
-uint64_t eventRecorder_addChildToParent(uint64_t a1, const void *a2)
-{
-  result = 4294895135;
-  if (a1)
-  {
-    if (a2)
-    {
-      pthread_mutex_lock((a1 + 40));
-      CFArrayAppendValue(*(a1 + 32), a2);
-      pthread_mutex_unlock((a1 + 40));
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t APSEventRecorderGetType(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 16);
-  }
-
-  return result;
-}
-
-uint64_t APSEventRecorderCopyName(uint64_t result, void *a2)
-{
-  if (result)
-  {
-    if (a2)
-    {
-      v3 = *(result + 24);
-      if (v3)
-      {
-        v4 = CFRetain(v3);
-      }
-
-      else
-      {
-        v4 = 0;
-      }
-
-      result = 0;
-      *a2 = v4;
-    }
-
-    else
-    {
-      APSLogErrorAt(0);
-      return 4294895135;
-    }
-  }
-
-  return result;
-}
-
-uint64_t APSEventRecorderGetEventTime(uint64_t result, int a2)
-{
-  if (result)
-  {
-    if ((a2 & 0xFFFF000) == *(result + 16) && (a2 & 0xFFFu) < *(result + 104))
-    {
-      v2 = (*(result + 112) + 24 * (a2 & 0xFFF));
-      result = *v2;
-      v3 = v2[1];
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t APSEventRecorderResetEvent(uint64_t result, int a2)
-{
-  if (result && (a2 & 0xFFFF000) == *(result + 16) && (a2 & 0xFFFu) < *(result + 104))
-  {
-    v2 = (*(result + 112) + 24 * (a2 & 0xFFF));
-    *v2 = 0;
-    v2[1] = 0;
-  }
-
-  return result;
-}
-
-uint64_t APSEventRecorderReset(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    v2 = *(result + 104);
-    if (v2)
-    {
-      v3 = 0;
-      v4 = 24 * v2;
-      do
-      {
-        v5 = (*(result + 112) + v3);
-        *v5 = 0;
-        v5[1] = 0;
-        v3 += 24;
-      }
-
-      while (v4 != v3);
-    }
-
-    pthread_mutex_lock((result + 40));
-    CFArrayRemoveAllValues(*(v1 + 32));
-
-    return pthread_mutex_unlock((v1 + 40));
-  }
-
-  return result;
-}
-
-uint64_t APSEventRecorderGetTimeBetweenEventsInMilliSecond(uint64_t a1, int a2, uint64_t a3, int a4)
-{
-  if (!a1 || !a3)
-  {
-    return 0;
-  }
-
-  if ((a2 & 0xFFFF000) == *(a1 + 16) && (a2 & 0xFFFu) < *(a1 + 104))
-  {
-    v5 = *(*(a1 + 112) + 24 * (a2 & 0xFFF));
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if ((a4 & 0xFFFF000) == *(a3 + 16) && (a4 & 0xFFFu) < *(a3 + 104))
-  {
-    v6 = *(*(a3 + 112) + 24 * (a4 & 0xFFF));
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (v6 < v5)
-  {
-    APSLogErrorAt(0);
-    return 0;
-  }
-
-  return UpTicksToMilliseconds();
-}
-
-uint64_t APSEventRecorderGetTimeBetweenEventsInMilliSecondRecursive(const void *a1, int a2, const void *a3, int a4)
-{
-  v5 = 0;
-  APSEventRecorderGetTimeBetweenEventsInMilliSecondRecursiveEx(a1, a2, a3, a4, 0, &v5);
-  return v5;
-}
-
 uint64_t APSEventRecorderGetTimeBetweenEventRecorderTimeAndEventInMilliSecond(unint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!a3)
@@ -838,11 +30,6 @@ uint64_t APSEventRecorderGetTimeSinceEventInMilliSecond(uint64_t a1, int a2)
   if (!a1)
   {
     return 0;
-  }
-
-  if ((a2 & 0xFFFF000) == *(a1 + 16) && (a2 & 0xFFFu) < *(a1 + 104))
-  {
-    v4 = *(*(a1 + 112) + 24 * (a2 & 0xFFF));
   }
 
   return UpTicksToMilliseconds();
@@ -907,7 +94,6 @@ uint64_t APSEventRecorderRemoveChildEventRecorderFromParent(uint64_t a1, uint64_
     if (a2)
     {
       pthread_mutex_lock((a1 + 40));
-      v4 = *(a1 + 32);
       FigCFArrayRemoveLastElementOfValue();
       pthread_mutex_unlock((a1 + 40));
       return 0;
@@ -917,16 +103,16 @@ uint64_t APSEventRecorderRemoveChildEventRecorderFromParent(uint64_t a1, uint64_
   return result;
 }
 
-uint64_t APSEventRecorderSetTimeInDictionary()
+uint64_t APSEventRecorderSetTimeInDictionary(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    v1 = Mutable;
+    v5 = Mutable;
     FigCFDictionarySetUInt64();
     FigCFDictionarySetDouble();
     FigCFDictionarySetValue();
-    CFRelease(v1);
+    CFRelease(v5);
     return 0;
   }
 
@@ -937,7 +123,7 @@ uint64_t APSEventRecorderSetTimeInDictionary()
   }
 }
 
-uint64_t APSEventRecorderGetTimeFromDictionaryIfPresent()
+uint64_t APSEventRecorderGetTimeFromDictionaryIfPresent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   CFDictionaryGetTypeID();
   CFDictionaryGetTypedValue();
@@ -964,8 +150,7 @@ uint64_t eventRecorder_applyForEachMatchingChildEventRecorder(uint64_t a1)
     pthread_mutex_unlock((a1 + 40));
     if (gLogCategory_APSEventRecorder <= 50 && (gLogCategory_APSEventRecorder != -1 || _LogCategory_Initialize()))
     {
-      v18 = *(a1 + 24);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEventRecorder, "void eventRecorderApplier_printAll(APSEventRecorderRef, void *)", 33554482, "[%@]\n", *(a1 + 24));
     }
 
     if (*(a1 + 104))
@@ -973,7 +158,8 @@ uint64_t eventRecorder_applyForEachMatchingChildEventRecorder(uint64_t a1)
       v6 = 0;
       for (i = 0; i < *(a1 + 104); ++i)
       {
-        if (!*(*(a1 + 112) + v6) || gLogCategory_APSEventRecorder > 50)
+        v8 = *(*(a1 + 112) + v6);
+        if (v8 == 0.0 || gLogCategory_APSEventRecorder > 50)
         {
           goto LABEL_13;
         }
@@ -988,7 +174,7 @@ uint64_t eventRecorder_applyForEachMatchingChildEventRecorder(uint64_t a1)
           v8 = *(*(a1 + 112) + v6);
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEventRecorder, "void eventRecorderApplier_printAll(APSEventRecorderRef, void *)", 33554482, "  %u = %0.6f\n", i, v8);
 LABEL_13:
         v6 += 24;
       }
@@ -1008,9 +194,7 @@ LABEL_13:
             v13 = ValueAtIndex;
             if (gLogCategory_APSEventRecorder != -1 || _LogCategory_Initialize())
             {
-              v19 = *(a1 + 24);
-              v20 = v13[3];
-              LogPrintF();
+              LogPrintF(&gLogCategory_APSEventRecorder, "void eventRecorderApplier_printAll(APSEventRecorderRef, void *)", 33554482, "  [%@] ---> [%@]\n", *(a1 + 24), v13[3]);
             }
           }
         }
@@ -1082,7 +266,7 @@ void reportingAgent_Finalize(void *a1)
 {
   if (gLogCategory_APSRTCReportingAgent <= 40 && (gLogCategory_APSRTCReportingAgent != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCReportingAgent, "void reportingAgent_Finalize(CFTypeRef)", 33554472, "[%{ptr}] APSRTCReportingAgent finalized\n", a1);
   }
 
   v2 = a1[7];
@@ -1233,25 +417,25 @@ LABEL_31:
   Value = CFDictionaryGetValue(cf, @"title");
   if (!Value)
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
     v10 = getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_ptr;
-    v44 = getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_ptr;
+    v42 = getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_ptr;
     if (!getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_ptr)
     {
-      v36 = MEMORY[0x277D85DD0];
-      v37 = 3221225472;
-      v38 = __getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_block_invoke;
-      v39 = &unk_2784A4060;
-      v40 = &v41;
+      v34 = MEMORY[0x277D85DD0];
+      v35 = 3221225472;
+      v36 = __getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_block_invoke;
+      v37 = &unk_2784A4060;
+      v38 = &v39;
       v11 = MediaRemoteLibrary();
-      v42[3] = dlsym(v11, "kMRMediaRemoteNowPlayingInfoTitle");
-      getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_ptr = *(v40[1] + 24);
-      v10 = v42[3];
+      v40[3] = dlsym(v11, "kMRMediaRemoteNowPlayingInfoTitle");
+      getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_ptr = *(v38[1] + 24);
+      v10 = v40[3];
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v39, 8);
     if (!v10)
     {
       goto LABEL_54;
@@ -1260,25 +444,25 @@ LABEL_31:
     Value = CFDictionaryGetValue(cf, *v10);
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v12 = getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_ptr;
-  v44 = getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_ptr;
+  v42 = getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_ptr;
   if (!getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_ptr)
   {
-    v36 = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_block_invoke;
-    v39 = &unk_2784A4060;
-    v40 = &v41;
+    v34 = MEMORY[0x277D85DD0];
+    v35 = 3221225472;
+    v36 = __getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_block_invoke;
+    v37 = &unk_2784A4060;
+    v38 = &v39;
     v13 = MediaRemoteLibrary();
-    v42[3] = dlsym(v13, "kMRMediaRemoteNowPlayingInfoClientPropertiesData");
-    getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_ptr = *(v40[1] + 24);
-    v12 = v42[3];
+    v40[3] = dlsym(v13, "kMRMediaRemoteNowPlayingInfoClientPropertiesData");
+    getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_ptr = *(v38[1] + 24);
+    v12 = v40[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v39, 8);
   if (!v12)
   {
     goto LABEL_54;
@@ -1297,25 +481,25 @@ LABEL_31:
     goto LABEL_28;
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v17 = getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_ptr;
-  v44 = getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_ptr;
+  v42 = getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_ptr;
   if (!getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_ptr)
   {
-    v36 = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_block_invoke;
-    v39 = &unk_2784A4060;
-    v40 = &v41;
+    v34 = MEMORY[0x277D85DD0];
+    v35 = 3221225472;
+    v36 = __getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_block_invoke;
+    v37 = &unk_2784A4060;
+    v38 = &v39;
     v18 = MediaRemoteLibrary();
-    v42[3] = dlsym(v18, "MRNowPlayingClientCreateFromExternalRepresentation");
-    getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_ptr = *(v40[1] + 24);
-    v17 = v42[3];
+    v40[3] = dlsym(v18, "MRNowPlayingClientCreateFromExternalRepresentation");
+    getMRNowPlayingClientCreateFromExternalRepresentationSymbolLoc_ptr = *(v38[1] + 24);
+    v17 = v40[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v39, 8);
   if (!v17)
   {
     goto LABEL_54;
@@ -1329,32 +513,32 @@ LABEL_31:
 
   v20 = v19;
   v21 = *(a1 + 80);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v22 = getMRNowPlayingClientGetDisplayNameSymbolLoc_ptr;
-  v44 = getMRNowPlayingClientGetDisplayNameSymbolLoc_ptr;
+  v42 = getMRNowPlayingClientGetDisplayNameSymbolLoc_ptr;
   if (!getMRNowPlayingClientGetDisplayNameSymbolLoc_ptr)
   {
-    v36 = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getMRNowPlayingClientGetDisplayNameSymbolLoc_block_invoke;
-    v39 = &unk_2784A4060;
-    v40 = &v41;
+    v34 = MEMORY[0x277D85DD0];
+    v35 = 3221225472;
+    v36 = __getMRNowPlayingClientGetDisplayNameSymbolLoc_block_invoke;
+    v37 = &unk_2784A4060;
+    v38 = &v39;
     v23 = MediaRemoteLibrary();
-    v42[3] = dlsym(v23, "MRNowPlayingClientGetDisplayName");
-    getMRNowPlayingClientGetDisplayNameSymbolLoc_ptr = *(v40[1] + 24);
-    v22 = v42[3];
+    v40[3] = dlsym(v23, "MRNowPlayingClientGetDisplayName");
+    getMRNowPlayingClientGetDisplayNameSymbolLoc_ptr = *(v38[1] + 24);
+    v22 = v40[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v39, 8);
   if (!v22)
   {
 LABEL_54:
-    dlerror();
-    v33 = abort_report_np();
-    _Block_object_dispose(&v41, 8);
-    _Unwind_Resume(v33);
+    v31 = dlerror();
+    v32 = abort_report_np("%s", v31);
+    _Block_object_dispose(&v39, 8);
+    _Unwind_Resume(v32);
   }
 
   v24 = v22(v20);
@@ -1389,34 +573,31 @@ LABEL_32:
     v26 = Mutable;
     if (gLogCategory_APSRTCReportingAgent <= 40 && (gLogCategory_APSRTCReportingAgent != -1 || _LogCategory_Initialize()))
     {
-      v34 = *(a1 + 56);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSRTCReportingAgent, "void APSRTCReportingAgentSendMediaEvent(APSRTCReportingAgentRef, CFDictionaryRef, CFStringRef, Boolean)", 33554472, "[%{ptr}] Asset title changed from %@ to %@\n", a1, *(a1 + 56), Value);
     }
 
-    v28 = *(a1 + 72);
     FigCFDictionarySetInt32();
     mach_absolute_time();
-    v29 = *(a1 + 64);
     UpTicksToSeconds();
     FigCFDictionarySetInt64();
-    v30 = *(a1 + 80);
-    if (v30)
+    v28 = *(a1 + 80);
+    if (v28)
     {
-      CFDictionarySetValue(v26, @"clientDisplayName", v30);
+      CFDictionarySetValue(v26, @"clientDisplayName", v28);
     }
 
     CFDictionarySetValue(v26, @"rtcAgentID", *(a1 + 24));
     CFDictionarySetValue(v26, @"sessionType", a3);
     CFRetain(a1);
     CFRetain(v26);
-    v31 = *(a1 + 16);
+    v29 = *(a1 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __APSRTCReportingAgentSendMediaEvent_block_invoke;
     block[3] = &__block_descriptor_48_e5_v8__0l;
     block[4] = a1;
     block[5] = v26;
-    dispatch_async(v31, block);
+    dispatch_async(v29, block);
     ++*(a1 + 72);
     *(a1 + 64) = mach_absolute_time();
   }
@@ -1431,16 +612,16 @@ LABEL_32:
     *(a1 + 64) = mach_absolute_time();
   }
 
-  v32 = *(a1 + 56);
+  v30 = *(a1 + 56);
   *(a1 + 56) = Value;
   if (Value)
   {
     CFRetain(Value);
   }
 
-  if (v32)
+  if (v30)
   {
-    CFRelease(v32);
+    CFRelease(v30);
   }
 
   if (v26)
@@ -1460,41 +641,38 @@ void *__getkMRMediaRemoteNowPlayingInfoTitleSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t MediaRemoteLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!MediaRemoteLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __MediaRemoteLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2784A4080;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __MediaRemoteLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2784A4080;
+    v5 = 0;
     MediaRemoteLibraryCore_frameworkLibrary = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = MediaRemoteLibraryCore_frameworkLibrary;
     if (MediaRemoteLibraryCore_frameworkLibrary)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = MediaRemoteLibraryCore_frameworkLibrary;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return MediaRemoteLibraryCore_frameworkLibrary;
 }
 
 void *__getkMRMediaRemoteNowPlayingInfoClientPropertiesDataSymbolLoc_block_invoke(uint64_t a1)
@@ -1541,19 +719,19 @@ void __APSRTCReportingAgentSendMediaEvent_block_invoke(uint64_t a1)
   }
 }
 
-void reportingAgent_SendReportToRTC(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4)
+void reportingAgent_SendReportToRTC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   cf = 0;
   if (a1)
   {
-    v7 = APSRTCReportingCreateOrCopy(*(a1 + 32), *(a1 + 40), 0, &cf, 0);
-    if (v7)
+    v8 = APSRTCReportingCreateOrCopy(*(a1 + 32), *(a1 + 40), 0, &cf, 0);
+    if (v8)
     {
-      v8 = v7;
-      APSLogErrorAt(v7);
+      v9 = v8;
+      APSLogErrorAt(v8);
       if (a4)
       {
-        (*(a4 + 16))(a4, 0, v8);
+        (*(a4 + 16))(a4, 0, v9);
       }
     }
 
@@ -1561,7 +739,7 @@ void reportingAgent_SendReportToRTC(uint64_t a1, __int16 a2, uint64_t a3, uint64
     {
       if (gLogCategory_APSRTCReportingAgent <= 40 && (gLogCategory_APSRTCReportingAgent != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSRTCReportingAgent, "void reportingAgent_SendReportToRTC(APSRTCReportingAgentRef, uint16_t, CFDictionaryRef, APSRTCReportingAgentCompletionHandler)", 33554472, "[%{ptr}] Sending event %u to APSRTCReporting [%{ptr}]: %@\n", a1, a2, cf, a3);
       }
 
       APSRTCReportingSendMsg(cf, a2, 1, a3, a4);
@@ -1576,11 +754,8 @@ void reportingAgent_SendReportToRTC(uint64_t a1, __int16 a2, uint64_t a3, uint64
 
 uint64_t __MediaRemoteLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaRemoteLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1609,23 +784,22 @@ void APSRTCReportingAgentSendEventWithCompletionHandler(uint64_t a1, __int16 a2,
       v14 = Value;
       if (CFStringCompare(Value, @"AudioBuffered", 0) == kCFCompareEqualTo || CFStringCompare(v14, @"AudioRealTime", 0) == kCFCompareEqualTo)
       {
-        v15 = *(a1 + 72);
         FigCFDictionarySetInt64();
       }
     }
 
     CFRetain(a1);
     CFRetain(v9);
-    v16 = *(a1 + 16);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __APSRTCReportingAgentSendEventWithCompletionHandler_block_invoke;
-    v18[3] = &unk_2784A4038;
-    v19 = a2;
-    v18[5] = v9;
-    v18[6] = a1;
-    v18[4] = a4;
-    dispatch_async(v16, v18);
+    v15 = *(a1 + 16);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __APSRTCReportingAgentSendEventWithCompletionHandler_block_invoke;
+    v17[3] = &unk_2784A4038;
+    v18 = a2;
+    v17[5] = v9;
+    v17[6] = a1;
+    v17[4] = a4;
+    dispatch_async(v15, v17);
     CFRelease(v9);
     if (v12)
     {
@@ -1635,9 +809,9 @@ void APSRTCReportingAgentSendEventWithCompletionHandler(uint64_t a1, __int16 a2,
 
   else if (a4)
   {
-    v17 = *(a4 + 16);
+    v16 = *(a4 + 16);
 
-    v17(a4, 0, 72303);
+    v16(a4, 0, 72303);
   }
 }
 
@@ -1646,31 +820,29 @@ void __APSRTCReportingAgentSendEventWithCompletionHandler_block_invoke(uint64_t 
   v2 = *(a1 + 56);
   if (v2 == 150 || v2 == 200)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 48) + 48);
     FigCFDictionarySetInt32();
-    v5 = *(a1 + 48);
-    ++*(v5 + 48);
-    LOWORD(v2) = *(a1 + 56);
+    v3 = *(a1 + 48);
+    ++*(v3 + 48);
+    v2 = *(a1 + 56);
   }
 
   else
   {
-    v5 = *(a1 + 48);
+    v3 = *(a1 + 48);
   }
 
-  reportingAgent_SendReportToRTC(v5, v2, *(a1 + 40), *(a1 + 32));
-  v6 = *(a1 + 40);
-  if (v6)
+  reportingAgent_SendReportToRTC(v3, v2, *(a1 + 40), *(a1 + 32));
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    CFRelease(v6);
+    CFRelease(v4);
   }
 
-  v7 = *(a1 + 48);
-  if (v7)
+  v5 = *(a1 + 48);
+  if (v5)
   {
 
-    CFRelease(v7);
+    CFRelease(v5);
   }
 }
 
@@ -1724,7 +896,7 @@ LABEL_16:
 
   if (gLogCategory_APSRTCReportingAgent <= 60 && (gLogCategory_APSRTCReportingAgent != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSRTCReportingAgent, "void APSRTCReportingAgentSendOfflineEvent(APSRTCReportingAgentRef, CFDictionaryRef)", 33554492, "[%{ptr}] Offline MPNonHLSJSEventID %u should be between %d and %d.\n", a1, Int64Ranged, 7000, 7099);
   }
 }
 
@@ -1738,20 +910,19 @@ void __APSRTCReportingAgentSendOfflineEvent_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = *(a1 + 32);
     FigReportingAgentOfflineAirPlayIssueReportingEvent();
   }
 
-  v4 = *(a1 + 32);
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  v4 = *(a1 + 40);
   if (v4)
   {
     CFRelease(v4);
-  }
-
-  v5 = *(a1 + 40);
-  if (v5)
-  {
-    CFRelease(v5);
   }
 }
 
@@ -2496,7 +1667,177 @@ uint64_t APSStreamingAudioRendererRender(uint64_t a1, int a2, uint64_t a3, int a
   __dst = 0;
   v35 = 0;
   v12 = APSRealTimeReadableRead(*(a1 + 120), &__dst);
-  if (!v12)
+  if (v12)
+  {
+    APSLogErrorAt(v12);
+    if (*(a1 + 132))
+    {
+LABEL_6:
+      v13 = (*(a1 + 128) + a2 + *(a1 + 116));
+      v14 = v13 + a4;
+      if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] window begTS=%u endTS=%u\n", a1, v13, (v13 + a4));
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v15 = *(a1 + 176);
+          if (v15)
+          {
+            break;
+          }
+
+          APSRTPPassThroughJitterBufferAcquireLowestInsertedNode(*(a1 + 104), (a1 + 176));
+          if (!*(a1 + 176))
+          {
+            goto LABEL_69;
+          }
+        }
+
+        v16 = *(v15 + 32);
+        v17 = (*(a1 + 44) + v16);
+        if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] node begTS=%u endTS=%u\n", a1, v16, v17);
+        }
+
+        if (v17 - v13 <= 0)
+        {
+          break;
+        }
+
+        if ((v16 - v14) >= 0)
+        {
+          if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] nodeBegTS >= windowEndTS, stop\n", a1);
+          }
+
+          goto LABEL_69;
+        }
+
+        v18 = *(a1 + 44);
+        LODWORD(v33.value) = v18;
+        v36.value = 0;
+        if (*(a1 + 168))
+        {
+LABEL_25:
+          if (v16 - v13 <= 0)
+          {
+            v24 = v13;
+          }
+
+          else
+          {
+            v24 = v16;
+          }
+
+          if ((v17 - v14) >= 0)
+          {
+            v25 = v14;
+          }
+
+          else
+          {
+            v25 = v17;
+          }
+
+          if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] render fill begTS=%u endTS=%u\n", a1, v24, v25);
+          }
+
+          memcpy(&a5[(*(a1 + 88) * (v24 - v13))], (*(a1 + 168) + (*(a1 + 88) * (v24 - v16))), (*(a1 + 88) * (v25 - v24)));
+          if (v25 == v17)
+          {
+            if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] node exhausted, toss\n", a1);
+            }
+
+            goto LABEL_48;
+          }
+
+          if ((v25 - v14) >= 0)
+          {
+            if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+            {
+              LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] fillEndTS >= windowEndTS, stop\n", a1);
+            }
+
+            goto LABEL_69;
+          }
+        }
+
+        else
+        {
+          v19 = *(a1 + 176);
+          if (v19)
+          {
+            if (*(a1 + 32) == 1819304813)
+            {
+              v23 = (v19 + 8);
+LABEL_24:
+              *(a1 + 168) = *v23;
+              goto LABEL_25;
+            }
+
+            v21 = *(a1 + 88);
+            v20 = *(a1 + 92);
+            LODWORD(v36.value) = 1;
+            v36.timescale = v20;
+            v36.flags = v21 * v18;
+            v36.epoch = *(a1 + 160);
+            *(a1 + 144) = 0;
+            *(a1 + 152) = 0;
+            v22 = AudioConverterFillComplexBuffer(*(a1 + 136), sar_nodeDecodeCallback, a1, &v33, &v36, 0);
+            if (!v22)
+            {
+              v23 = (a1 + 160);
+              if (LODWORD(v33.value) == *(a1 + 44))
+              {
+                goto LABEL_24;
+              }
+
+              v22 = 0;
+            }
+          }
+
+          else
+          {
+            v22 = 0;
+          }
+
+          APSLogErrorAt(v22);
+          if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] decode failed, toss\n", a1);
+          }
+
+LABEL_48:
+          v26 = *(a1 + 176);
+          if (v26)
+          {
+            APSRTPPassThroughJitterBufferRelinquishNode(*(a1 + 104), v26);
+            *(a1 + 168) = 0;
+            *(a1 + 176) = 0;
+          }
+        }
+      }
+
+      if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererRender(APSStreamingAudioRendererRef, uint32_t, uint64_t, Float64, uint32_t, uint8_t *)", 33554462, "[%{ptr}] nodeEndTS <= windowBegTS, toss\n", a1);
+      }
+
+      goto LABEL_48;
+    }
+  }
+
+  else
   {
     if (v35)
     {
@@ -2521,191 +1862,17 @@ uint64_t APSStreamingAudioRendererRender(uint64_t a1, int a2, uint64_t a3, int a
     }
 
     *(a1 + 132) = 0;
-LABEL_71:
-    v28 = *(a1 + 176);
-    if (v28)
-    {
-      APSRTPPassThroughJitterBufferRelinquishNode(*(a1 + 104), v28);
-      *(a1 + 168) = 0;
-      *(a1 + 176) = 0;
-    }
-
-    goto LABEL_66;
   }
 
-  APSLogErrorAt(v12);
-  if (!*(a1 + 132))
+  v28 = *(a1 + 176);
+  if (v28)
   {
-    goto LABEL_71;
+    APSRTPPassThroughJitterBufferRelinquishNode(*(a1 + 104), v28);
+    *(a1 + 168) = 0;
+    *(a1 + 176) = 0;
   }
 
-LABEL_6:
-  v13 = *(a1 + 128) + a2 + *(a1 + 116);
-  v14 = v13 + a4;
-  if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
-  }
-
-  while (1)
-  {
-    while (1)
-    {
-      while (1)
-      {
-        v15 = *(a1 + 176);
-        if (v15)
-        {
-          break;
-        }
-
-        APSRTPPassThroughJitterBufferAcquireLowestInsertedNode(*(a1 + 104), (a1 + 176));
-        if (!*(a1 + 176))
-        {
-          goto LABEL_66;
-        }
-      }
-
-      v16 = *(v15 + 32);
-      v17 = *(a1 + 44) + v16;
-      if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
-      {
-        LogPrintF();
-      }
-
-      if (v17 - v13 > 0)
-      {
-        break;
-      }
-
-      if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
-      {
-LABEL_41:
-        LogPrintF();
-      }
-
-LABEL_47:
-      v26 = *(a1 + 176);
-      if (v26)
-      {
-        APSRTPPassThroughJitterBufferRelinquishNode(*(a1 + 104), v26);
-        *(a1 + 168) = 0;
-        *(a1 + 176) = 0;
-      }
-    }
-
-    if (v16 - v14 >= 0)
-    {
-      break;
-    }
-
-    v18 = *(a1 + 44);
-    LODWORD(v33.value) = v18;
-    v36.value = 0;
-    if (*(a1 + 168))
-    {
-      goto LABEL_25;
-    }
-
-    v19 = *(a1 + 176);
-    if (!v19)
-    {
-      v22 = 0;
-LABEL_53:
-      APSLogErrorAt(v22);
-      if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
-      {
-        goto LABEL_41;
-      }
-
-      goto LABEL_47;
-    }
-
-    if (*(a1 + 32) == 1819304813)
-    {
-      v23 = (v19 + 8);
-      goto LABEL_24;
-    }
-
-    v21 = *(a1 + 88);
-    v20 = *(a1 + 92);
-    LODWORD(v36.value) = 1;
-    v36.timescale = v20;
-    v36.flags = v21 * v18;
-    v36.epoch = *(a1 + 160);
-    *(a1 + 144) = 0;
-    *(a1 + 152) = 0;
-    v22 = AudioConverterFillComplexBuffer(*(a1 + 136), sar_nodeDecodeCallback, a1, &v33, &v36, 0);
-    if (v22)
-    {
-      goto LABEL_53;
-    }
-
-    v23 = (a1 + 160);
-    if (LODWORD(v33.value) != *(a1 + 44))
-    {
-      v22 = 0;
-      goto LABEL_53;
-    }
-
-LABEL_24:
-    *(a1 + 168) = *v23;
-LABEL_25:
-    if (v16 - v13 <= 0)
-    {
-      v24 = v13;
-    }
-
-    else
-    {
-      v24 = v16;
-    }
-
-    if (v17 - v14 >= 0)
-    {
-      v25 = v13 + a4;
-    }
-
-    else
-    {
-      v25 = v17;
-    }
-
-    if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    memcpy(&a5[*(a1 + 88) * (v24 - v13)], (*(a1 + 168) + (*(a1 + 88) * (v24 - v16))), (*(a1 + 88) * (v25 - v24)));
-    if (v25 == v17)
-    {
-      if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
-      {
-        goto LABEL_41;
-      }
-
-      goto LABEL_47;
-    }
-
-    if (v25 - v14 >= 0)
-    {
-      if (gLogCategory_APSStreamingAudioRenderer > 30 || gLogCategory_APSStreamingAudioRenderer == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_66;
-      }
-
-LABEL_62:
-      LogPrintF();
-      goto LABEL_66;
-    }
-  }
-
-  if (gLogCategory_APSStreamingAudioRenderer <= 30 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
-  {
-    goto LABEL_62;
-  }
-
-LABEL_66:
+LABEL_69:
   result = 0;
   atomic_store(0, (a1 + 112));
   return result;
@@ -2744,34 +1911,33 @@ uint64_t sar_nodeDecodeCallback(uint64_t a1, _DWORD *a2, uint64_t a3, void *a4, 
   return result;
 }
 
-uint64_t APSStreamingAudioRendererSetSourceAnchor(uint64_t a1, int a2, uint64_t hostTime)
+uint64_t APSStreamingAudioRendererSetSourceAnchor(uint64_t a1, uint64_t a2, uint64_t hostTime)
 {
   if (gLogCategory_APSStreamingAudioRenderer <= 50 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
   {
     CMClockMakeHostTimeFromSystemUnits(&time, hostTime);
-    CMTimeGetSeconds(&time);
-    LogPrintF();
+    Seconds = CMTimeGetSeconds(&time);
+    LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererSetSourceAnchor(APSStreamingAudioRendererRef, uint32_t, uint64_t)", 33554482, "[%{ptr}] SetSourceAnchor rtp=%u host=%1.6f\n", a1, a2, *&Seconds);
   }
 
-  v6 = *(a1 + 120);
-  v10 = a2;
-  v11 = hostTime;
-  v7 = APSRealTimeReadableWrite(v6, &v10);
-  v8 = v7;
-  if (v7)
+  v7 = *(a1 + 120);
+  v11 = a2;
+  v12 = hostTime;
+  v8 = APSRealTimeReadableWrite(v7, &v11);
+  v9 = v8;
+  if (v8)
   {
-    APSLogErrorAt(v7);
+    APSLogErrorAt(v8);
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t APSStreamingAudioRendererSetRenderTSOffset(uint64_t a1, int a2)
+uint64_t APSStreamingAudioRendererSetRenderTSOffset(uint64_t a1, uint64_t a2)
 {
   if (gLogCategory_APSStreamingAudioRenderer <= 50 && (gLogCategory_APSStreamingAudioRenderer != -1 || _LogCategory_Initialize()))
   {
-    v5 = *(a1 + 64);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSStreamingAudioRenderer, "OSStatus APSStreamingAudioRendererSetRenderTSOffset(APSStreamingAudioRendererRef, int32_t)", 33554482, "[%{ptr}] SetRenderTSOffset( %d / %u)\n", a1, a2, *(a1 + 64));
   }
 
   *(a1 + 116) = a2;
@@ -3088,98 +2254,94 @@ LABEL_17:
 
 uint64_t APSSRTPBBufCopyRTPBBuf(OpaqueCMBlockBuffer *a1, const __CFAllocator *a2, uint64_t a3, CMBlockBufferRef *a4)
 {
-  v28 = 0;
+  v24 = 0;
   blockBufferOut = 0;
-  v26 = 0;
+  v22 = 0;
   PayloadOffset = 4294960591;
   if (a1 && a3 && a4)
   {
     DataLength = CMBlockBufferGetDataLength(a1);
-    VTable = CMBaseObjectGetVTable();
-    v11 = *(*(VTable + 16) + 8);
-    if (v11)
+    v10 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+    if (v10)
     {
-      v12 = *(VTable + 16) + 8;
-      v13 = v11(a3);
+      v11 = v10(a3);
     }
 
     else
     {
-      v13 = 0;
+      v11 = 0;
     }
 
-    if (DataLength < v13 + 12)
+    if (DataLength < v11 + 12)
     {
       return 4294960553;
     }
 
-    PayloadOffset = rtpBBufUtils_validateAndGetPayloadOffset(a1, 1, &v28, &v27);
+    PayloadOffset = rtpBBufUtils_validateAndGetPayloadOffset(a1, 1, &v24, &v23);
     if (!PayloadOffset)
     {
-      v14 = MEMORY[0x223DB3470](a2, DataLength, 3227126083, 0);
-      if (!v14)
+      v12 = MEMORY[0x223DB3470](a2, DataLength, 3227126083, 0);
+      if (!v12)
       {
         return 4294960568;
       }
 
-      v15 = v14;
-      v16 = CMBlockBufferCopyDataBytes(a1, 0, DataLength, v14);
-      if (!v16)
+      v13 = v12;
+      v14 = CMBlockBufferCopyDataBytes(a1, 0, DataLength, v12);
+      if (!v14)
       {
-        v17 = v28;
-        v18 = CMBaseObjectGetVTable();
-        v19 = *(*(v18 + 16) + 24);
-        if (!v19)
-        {
-          PayloadOffset = 4294954514;
-          goto LABEL_25;
-        }
-
-        v20 = *(v18 + 16) + 24;
-        v16 = v19(a3, v15, v17, &v15[v17], DataLength - v17, &v15[v17], DataLength - v13 - v17, &v26);
+        v15 = v24;
+        v16 = *(*(CMBaseObjectGetVTable() + 16) + 24);
         if (!v16)
         {
-          if (v26 + v17 != DataLength - v13)
+          PayloadOffset = 4294954514;
+          goto LABEL_23;
+        }
+
+        v14 = v16(a3, v13, v15, &v13[v15], DataLength - v15, &v13[v15], DataLength - v11 - v15, &v22);
+        if (!v14)
+        {
+          if (v22 + v15 != DataLength - v11)
           {
             PayloadOffset = 4294960534;
-            goto LABEL_25;
+            goto LABEL_23;
           }
 
-          if (v13)
+          if (v11)
           {
-            v21 = -v13;
+            v17 = -v11;
             do
             {
-              v15[DataLength + v21] = 0;
+              v13[DataLength + v17] = 0;
             }
 
-            while (!__CFADD__(v21++, 1));
+            while (!__CFADD__(v17++, 1));
           }
 
-          v16 = CMBlockBufferCreateWithMemoryBlock(a2, v15, DataLength, a2, 0, 0, DataLength - v13, 0, &blockBufferOut);
-          if (!v16)
+          v14 = CMBlockBufferCreateWithMemoryBlock(a2, v13, DataLength, a2, 0, 0, DataLength - v11, 0, &blockBufferOut);
+          if (!v14)
           {
-            PayloadOffset = rtpBBufUtils_validateAndGetPayloadOffset(blockBufferOut, 0, &v28, &v27);
-            v23 = blockBufferOut;
+            PayloadOffset = rtpBBufUtils_validateAndGetPayloadOffset(blockBufferOut, 0, &v24, &v23);
+            v19 = blockBufferOut;
             if (!PayloadOffset)
             {
               *a4 = blockBufferOut;
               return PayloadOffset;
             }
 
-            goto LABEL_26;
+            goto LABEL_24;
           }
         }
       }
 
-      PayloadOffset = v16;
-LABEL_25:
-      CFAllocatorDeallocate(a2, v15);
-      v23 = blockBufferOut;
-LABEL_26:
-      if (v23)
+      PayloadOffset = v14;
+LABEL_23:
+      CFAllocatorDeallocate(a2, v13);
+      v19 = blockBufferOut;
+LABEL_24:
+      if (v19)
       {
-        CFRelease(v23);
+        CFRelease(v19);
       }
     }
   }
@@ -3278,16 +2440,8 @@ uint64_t APSAPAPRTPBBufCopyAPAPBBuf(OpaqueCMBlockBuffer *a1, const __CFAllocator
       v9 = v15;
       appended = CMBlockBufferCreateEmpty(a2, 2u, 0, &blockBufferOut);
       v11 = blockBufferOut;
-      if (appended)
+      if (appended || (appended = CMBlockBufferAppendMemoryBlock(blockBufferOut, 0, 0xFuLL, a2, 0, 0, 0xFuLL, 1u), v11 = blockBufferOut, appended) || (destination = v13, v17[0] = blockBufferOut, v17[1] = 0, appended = APSAPAPEncodeHeader(&destination, 0, _APSAPAPBBufEncodeWriteCallback, v17), v11 = blockBufferOut, appended) || (appended = CMBlockBufferAppendBufferReference(blockBufferOut, a1, v9 + 8, v10 - 8, 0), v11 = blockBufferOut, appended))
       {
-        goto LABEL_13;
-      }
-
-      appended = CMBlockBufferAppendMemoryBlock(blockBufferOut, 0, 0xFuLL, a2, 0, 0, 0xFuLL, 1u);
-      v11 = blockBufferOut;
-      if (appended || (destination = v13, v17[0] = blockBufferOut, v17[1] = 0, appended = APSAPAPEncodeHeader(&destination, 0, _APSAPAPBBufEncodeWriteCallback, v17), v11 = blockBufferOut, appended) || (appended = CMBlockBufferAppendBufferReference(blockBufferOut, a1, v9 + 8, v10 - 8, 0), v11 = blockBufferOut, appended))
-      {
-LABEL_13:
         if (v11)
         {
           CFRelease(v11);
@@ -3617,13 +2771,13 @@ uint64_t APSAPAPRTPBBufCreateWithAPAPRTPFragmentBBufs(const __CFAllocator *a1, C
         {
           if (v10 != 112)
           {
-            goto LABEL_33;
+            goto LABEL_34;
           }
         }
 
         else if (v10 != 113)
         {
-LABEL_33:
+LABEL_34:
           v7 = 4294960579;
           goto LABEL_17;
         }
@@ -3645,7 +2799,7 @@ LABEL_33:
               {
                 if (Count < 2)
                 {
-LABEL_32:
+LABEL_33:
                   v7 = 0;
                   *a3 = blockBufferOut;
                   return v7;
@@ -3679,7 +2833,7 @@ LABEL_32:
 
                   if (v14 != (BYTE1(destination[0]) & 0x7F))
                   {
-                    goto LABEL_33;
+                    goto LABEL_34;
                   }
 
                   if (WORD1(destination[0]) != bswap32(v12 + (bswap32(WORD1(sourceBytes[0])) >> 16)) >> 16)
@@ -3688,7 +2842,7 @@ LABEL_32:
                     goto LABEL_17;
                   }
 
-                  if (*(destination + 4) != *(sourceBytes + 4))
+                  if (HIDWORD(destination[0]) != HIDWORD(sourceBytes[0]) || LODWORD(destination[1]) != LODWORD(sourceBytes[1]))
                   {
                     v7 = 4294960548;
                     goto LABEL_17;
@@ -3702,7 +2856,7 @@ LABEL_32:
 
                   if (Count == ++v12)
                   {
-                    goto LABEL_32;
+                    goto LABEL_33;
                   }
                 }
               }
@@ -3726,9 +2880,9 @@ LABEL_17:
 
 uint64_t APSEndpointStreamAudioHoseAUCreate(uint64_t a1, const void *a2, const void *a3, const void *a4, uint64_t a5, int a6, int a7, const void *a8, uint64_t a9, void *a10)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   cf = 0;
-  v35 = 0;
+  v33 = 0;
   if (!a4)
   {
     v30 = 4294894965;
@@ -3770,7 +2924,7 @@ uint64_t APSEndpointStreamAudioHoseAUCreate(uint64_t a1, const void *a2, const v
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  SNPrintF();
+  SNPrintF(label, 64, "HoseAU-%{ptr}-Notification");
   v19 = dispatch_queue_create(label, 0);
   *(DerivedStorage + 8) = v19;
   if (!v19)
@@ -3785,7 +2939,7 @@ uint64_t APSEndpointStreamAudioHoseAUCreate(uint64_t a1, const void *a2, const v
 
   if (hoseAU_amIAudioServer_iSureAm == 1)
   {
-    SNPrintF();
+    SNPrintF(label, 64, "HoseAU-%{ptr}-ACQAvoidance");
     v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
     v21 = dispatch_queue_create(label, v20);
     *(DerivedStorage + 16) = v21;
@@ -4396,7 +3550,7 @@ LABEL_169:
     goto LABEL_200;
   }
 
-  v17 = APAudioFormatToAudioChannelLayout(*(DerivedStorage + 56), (DerivedStorage + 144), &v35);
+  v17 = APAudioFormatToAudioChannelLayout(*(DerivedStorage + 56), (DerivedStorage + 144), &v33);
   if (v17)
   {
     v30 = v17;
@@ -4429,7 +3583,7 @@ LABEL_169:
   {
     if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_InitializeGraph(APSEndpointStreamAudioHoseAURef)", 33554482, "[%{ptr}] initializing Graph async...\n", v27);
     }
 
     if (v27)
@@ -4455,8 +3609,7 @@ LABEL_200:
 LABEL_187:
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    v34 = *(DerivedStorage + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus APSEndpointStreamAudioHoseAUCreate(CFAllocatorRef, CFStringRef, CFStringRef, APSNetworkClockRef, APAudioFormat, uint32_t, int32_t, APSCryptorRef, CFDictionaryRef, APSEndpointStreamAudioHoseAURef *)", 33554482, "[%{ptr}] created for %@ transportASBD=%{asbd}\n", cf, *(DerivedStorage + 32), DerivedStorage + 64);
   }
 
   v31 = cf;
@@ -4473,7 +3626,6 @@ LABEL_194:
     CFRelease(cf);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -4485,518 +3637,689 @@ uint64_t hoseAU_initializeGraph(uint64_t a1)
   outData = 0.0;
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeGraph(APSEndpointStreamAudioHoseAURef)", 33554482, "[%{ptr}] initializing Graph...\n", a1);
   }
 
   task_info_outCnt = 8;
   v3 = CMBaseObjectGetDerivedStorage();
-  v59 = 0;
+  v52 = 0;
   cf = 0;
-  v58 = 0.0;
+  v51 = 0.0;
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554482, "[%{ptr}] initializing AudioSession...\n", a1);
   }
 
-  v4 = (v3 + 192);
   if (*(v3 + 192))
   {
     HIDWORD(task_info_outCnt) = -6719;
-    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APSEndpointStreamAudioHoseAU <= 90 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_40;
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] AudioSession already initialized!\n", a1);
     }
-
-    goto LABEL_146;
   }
 
-  if (hoseAU_amIAudioServer_onceToken != -1)
+  else
   {
-    dispatch_once(&hoseAU_amIAudioServer_onceToken, &__block_literal_global_3106);
-  }
-
-  if (hoseAU_amIAudioServer_iSureAm == 1)
-  {
-    v5 = task_info(*MEMORY[0x277D85F48], 0xFu, (v3 + 196), &task_info_outCnt);
-    if (v5)
+    if (hoseAU_amIAudioServer_onceToken != -1)
     {
-      HIDWORD(task_info_outCnt) = -6762;
-      if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
-      {
-        goto LABEL_40;
-      }
-
-      v49 = v5;
-      if (gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_40;
-      }
-
-      mach_error_string(v49);
+      dispatch_once(&hoseAU_amIAudioServer_onceToken, &__block_literal_global_3106);
     }
 
-    else
+    if (hoseAU_amIAudioServer_iSureAm == 1)
     {
-      HIDWORD(task_info_outCnt) = AudioSessionCreateCoreMXSession();
-      if (!HIDWORD(task_info_outCnt))
+      v4 = task_info(*MEMORY[0x277D85F48], 0xFu, (v3 + 196), &task_info_outCnt);
+      if (!v4)
       {
-        v6 = CFStringCreateF();
+        CoreMXSession = AudioSessionCreateCoreMXSession();
+        HIDWORD(task_info_outCnt) = CoreMXSession;
+        if (CoreMXSession)
+        {
+          if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+          {
+            goto LABEL_41;
+          }
+
+          if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_41;
+            }
+
+            CoreMXSession = HIDWORD(task_info_outCnt);
+          }
+
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to create CoreMXSession err=%#m\n", a1, CoreMXSession);
+          goto LABEL_41;
+        }
+
+        v6 = CFStringCreateF(&task_info_outCnt + 4, "APSEndpointStreamAudioHoseAU-%{ptr}", a1);
         if (HIDWORD(task_info_outCnt))
         {
           APSLogErrorAt(HIDWORD(task_info_outCnt));
-          goto LABEL_38;
+          goto LABEL_39;
         }
 
-        v7 = *(v3 + 232);
-        v8 = *MEMORY[0x277D271E0];
-        HIDWORD(task_info_outCnt) = CMSessionSetProperty();
-        if (HIDWORD(task_info_outCnt))
+        v7 = CMSessionSetProperty();
+        HIDWORD(task_info_outCnt) = v7;
+        if (v7)
         {
-          if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+          if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
           {
-            goto LABEL_38;
+            goto LABEL_39;
           }
+
+          if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_39;
+            }
+
+            v7 = HIDWORD(task_info_outCnt);
+          }
+
+          v42 = *&v6;
+          v43 = v7;
+          v41 = a1;
+          v24 = "[%{ptr}] Failed to set ClientName='%@' on CMSession err=%#m\n";
         }
 
         else
         {
-          v9 = *(v3 + 232);
-          v10 = *MEMORY[0x277D27298];
-          v11 = *MEMORY[0x277CBED10];
-          HIDWORD(task_info_outCnt) = CMSessionSetProperty();
-          if (HIDWORD(task_info_outCnt))
+          v8 = CMSessionSetProperty();
+          HIDWORD(task_info_outCnt) = v8;
+          if (v8)
           {
-            if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+            if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
             {
-              goto LABEL_38;
+              goto LABEL_39;
             }
+
+            if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+            {
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_39;
+              }
+
+              v8 = HIDWORD(task_info_outCnt);
+            }
+
+            v41 = a1;
+            v42 = *&v8;
+            v24 = "[%{ptr}] Failed to set IsEligibleForNowPlayingAppConsideration='False' on CMSession err=%#m\n";
           }
 
           else
           {
-            v12 = *(v3 + 232);
-            v13 = *MEMORY[0x277D271A8];
-            v14 = *MEMORY[0x277D27060];
-            HIDWORD(task_info_outCnt) = CMSessionSetProperty();
-            if (HIDWORD(task_info_outCnt))
+            v9 = CMSessionSetProperty();
+            HIDWORD(task_info_outCnt) = v9;
+            if (v9)
             {
-              if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+              if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
               {
-                goto LABEL_38;
+                goto LABEL_39;
               }
+
+              if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+              {
+                if (!_LogCategory_Initialize())
+                {
+                  goto LABEL_39;
+                }
+
+                v9 = HIDWORD(task_info_outCnt);
+              }
+
+              v41 = a1;
+              v42 = *&v9;
+              v24 = "[%{ptr}] Failed to set AudioCategory='MediaPlayback' on CMSession err=%#m\n";
+            }
+
+            else if (FigCFEqual() && (v10 = CMSessionSetProperty(), (HIDWORD(task_info_outCnt) = v10) != 0))
+            {
+              if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+              {
+                goto LABEL_39;
+              }
+
+              if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+              {
+                if (!_LogCategory_Initialize())
+                {
+                  goto LABEL_39;
+                }
+
+                v10 = HIDWORD(task_info_outCnt);
+              }
+
+              v41 = a1;
+              v42 = *&v10;
+              v24 = "[%{ptr}] Failed to set AudioMode='LowLatency' on CMSession err=%#m\n";
             }
 
             else
             {
-              v15 = *(v3 + 32);
-              v16 = *MEMORY[0x277CC1970];
-              if (FigCFEqual() && (v17 = *(v3 + 232), v18 = *MEMORY[0x277D271B0], v19 = *MEMORY[0x277D270B0], (HIDWORD(task_info_outCnt) = CMSessionSetProperty()) != 0))
+              UInt32 = FigCFNumberCreateUInt32();
+              cf = UInt32;
+              if (!UInt32)
               {
-                if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+                APSLogErrorAt(0);
+                HIDWORD(task_info_outCnt) = -72330;
+                goto LABEL_39;
+              }
+
+              v12 = UInt32;
+              v13 = CMSessionSetProperty();
+              HIDWORD(task_info_outCnt) = v13;
+              if (v13)
+              {
+                if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
                 {
-                  goto LABEL_38;
+                  goto LABEL_39;
                 }
+
+                if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+                {
+                  if (!_LogCategory_Initialize())
+                  {
+                    goto LABEL_39;
+                  }
+
+                  v13 = HIDWORD(task_info_outCnt);
+                }
+
+                v41 = a1;
+                v42 = *&v13;
+                v24 = "[%{ptr}] Failed to set InterruptionStyle='MixWithEveryone' on CMSession err=%#m\n";
               }
 
               else
               {
-                v20 = *MEMORY[0x277CBECE8];
-                UInt32 = FigCFNumberCreateUInt32();
-                cf = UInt32;
-                if (!UInt32)
+                v14 = CMSessionBeginInterruption();
+                HIDWORD(task_info_outCnt) = v14;
+                if (v14)
                 {
-                  APSLogErrorAt(0);
-                  HIDWORD(task_info_outCnt) = -72330;
-                  goto LABEL_38;
-                }
-
-                v22 = UInt32;
-                v23 = *(v3 + 232);
-                v24 = *MEMORY[0x277D27280];
-                HIDWORD(task_info_outCnt) = CMSessionSetProperty();
-                if (HIDWORD(task_info_outCnt))
-                {
-                  if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+                  if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
                   {
-                    goto LABEL_38;
+                    goto LABEL_39;
                   }
+
+                  if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+                  {
+                    if (!_LogCategory_Initialize())
+                    {
+                      goto LABEL_39;
+                    }
+
+                    v14 = HIDWORD(task_info_outCnt);
+                  }
+
+                  v41 = a1;
+                  v42 = *&v14;
+                  v24 = "[%{ptr}] Failed to BeginInterruption on CMSession err=%#m\n";
                 }
 
                 else
                 {
-                  v25 = *(v3 + 232);
-                  HIDWORD(task_info_outCnt) = CMSessionBeginInterruption();
-                  if (HIDWORD(task_info_outCnt))
+                  CFRelease(v12);
+                  cf = 0;
+                  v15 = CMSessionCopyProperty();
+                  HIDWORD(task_info_outCnt) = v15;
+                  if (!v15)
                   {
-                    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+                    FigCFNumberGetFloat64();
+LABEL_34:
+                    *(v3 + 240) = v16;
+                    if (gLogCategory_APSEndpointStreamAudioHoseAU > 50)
                     {
-                      goto LABEL_38;
-                    }
-                  }
-
-                  else
-                  {
-                    CFRelease(v22);
-                    cf = 0;
-                    v26 = *(v3 + 232);
-                    v27 = *MEMORY[0x277D27228];
-                    HIDWORD(task_info_outCnt) = CMSessionCopyProperty();
-                    if (!HIDWORD(task_info_outCnt))
-                    {
-                      FigCFNumberGetFloat64();
-                      goto LABEL_34;
+                      goto LABEL_39;
                     }
 
-                    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+                    if (gLogCategory_APSEndpointStreamAudioHoseAU != -1)
                     {
-                      goto LABEL_38;
+                      goto LABEL_36;
                     }
+
+                    if (_LogCategory_Initialize())
+                    {
+                      v16 = *(v3 + 240);
+LABEL_36:
+                      v23 = 33554482;
+                      v42 = v16;
+                      v41 = a1;
+                      v24 = "[%{ptr}] AudioSession initialized, latency=%1.6f\n";
+LABEL_37:
+                      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", v23, v24, v41, *&v42, v43);
+                    }
+
+LABEL_39:
+                    if (v6)
+                    {
+                      CFRelease(v6);
+                    }
+
+                    goto LABEL_41;
                   }
+
+                  if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+                  {
+                    goto LABEL_39;
+                  }
+
+                  if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+                  {
+                    if (!_LogCategory_Initialize())
+                    {
+                      goto LABEL_39;
+                    }
+
+                    v15 = HIDWORD(task_info_outCnt);
+                  }
+
+                  v41 = a1;
+                  v42 = *&v15;
+                  v24 = "[%{ptr}] Failed to get CurrentOutputLatency from CMSession err=%#m\n";
                 }
               }
             }
           }
         }
 
-LABEL_36:
-        LogPrintF();
-        goto LABEL_38;
+        v23 = 33554522;
+        goto LABEL_37;
       }
 
-      if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+      HIDWORD(task_info_outCnt) = -6762;
+      if (gLogCategory_APSEndpointStreamAudioHoseAU <= 90)
       {
-        goto LABEL_40;
+        v39 = v4;
+        if (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize())
+        {
+          v44 = mach_error_string(v39);
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to get auditToken for task kr=%d '%s'\n", a1, v39, v44);
+        }
       }
     }
 
-LABEL_146:
-    LogPrintF();
-    goto LABEL_40;
-  }
-
-  HIDWORD(task_info_outCnt) = AudioSessionCreateSession_Priv();
-  if (HIDWORD(task_info_outCnt))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_40;
-    }
-
-    goto LABEL_146;
-  }
-
-  LODWORD(v59) = 1835361385;
-  v29 = *v4;
-  HIDWORD(task_info_outCnt) = AudioSessionSetProperty_Priv();
-  if (HIDWORD(task_info_outCnt))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_146;
-  }
-
-  v30 = *(v3 + 32);
-  v31 = *MEMORY[0x277CC1970];
-  if (FigCFEqual())
-  {
-    LODWORD(v59) = 1819047524;
-    v32 = *v4;
-    HIDWORD(task_info_outCnt) = AudioSessionSetProperty_Priv();
-    if (HIDWORD(task_info_outCnt))
-    {
-      if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
+      Session_Priv = AudioSessionCreateSession_Priv();
+      HIDWORD(task_info_outCnt) = Session_Priv;
+      if (!Session_Priv)
       {
-        goto LABEL_40;
+        LODWORD(v52) = 1835361385;
+        v18 = AudioSessionSetProperty_Priv();
+        HIDWORD(task_info_outCnt) = v18;
+        if (v18)
+        {
+          if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+          {
+            goto LABEL_41;
+          }
+
+          if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_41;
+            }
+
+            v18 = HIDWORD(task_info_outCnt);
+          }
+
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to set AudioCategory='MediaPlayback' on AudioSession err=%#m\n", a1, v18);
+          goto LABEL_41;
+        }
+
+        if (FigCFEqual())
+        {
+          LODWORD(v52) = 1819047524;
+          v19 = AudioSessionSetProperty_Priv();
+          HIDWORD(task_info_outCnt) = v19;
+          if (v19)
+          {
+            if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+            {
+              goto LABEL_41;
+            }
+
+            if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+            {
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_41;
+              }
+
+              v19 = HIDWORD(task_info_outCnt);
+            }
+
+            LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to set Mode='LowLatency' on AudioSession err=%#m\n", a1, v19);
+            goto LABEL_41;
+          }
+        }
+
+        LODWORD(v52) = 5;
+        v20 = AudioSessionSetProperty_Priv();
+        HIDWORD(task_info_outCnt) = v20;
+        if (v20)
+        {
+          if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+          {
+            goto LABEL_41;
+          }
+
+          if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_41;
+            }
+
+            v20 = HIDWORD(task_info_outCnt);
+          }
+
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to set InterruptionStyle='MixWithEveryone' on AudioSession err=%#m\n", a1, v20);
+          goto LABEL_41;
+        }
+
+        active = AudioSessionSetActive_Priv();
+        HIDWORD(task_info_outCnt) = active;
+        if (active)
+        {
+          if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+          {
+            goto LABEL_41;
+          }
+
+          if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_41;
+            }
+
+            active = HIDWORD(task_info_outCnt);
+          }
+
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to set Active='true' on AudioSession err=%#m\n", a1, active);
+          goto LABEL_41;
+        }
+
+        HIDWORD(v52) = 4;
+        v22 = AudioSessionCopyProperty_Priv();
+        HIDWORD(task_info_outCnt) = v22;
+        if (v22)
+        {
+          if (gLogCategory_APSEndpointStreamAudioHoseAU > 90)
+          {
+            goto LABEL_41;
+          }
+
+          if (gLogCategory_APSEndpointStreamAudioHoseAU == -1)
+          {
+            if (!_LogCategory_Initialize())
+            {
+              goto LABEL_41;
+            }
+
+            v22 = HIDWORD(task_info_outCnt);
+          }
+
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to get CurrentHardwareOutputLatency from AudioSession err=%#m\n", a1, v22);
+          goto LABEL_41;
+        }
+
+        v6 = 0;
+        v16 = v51;
+        goto LABEL_34;
       }
 
-      goto LABEL_146;
+      if (gLogCategory_APSEndpointStreamAudioHoseAU <= 90)
+      {
+        v40 = Session_Priv;
+        if (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize())
+        {
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] Failed to create Auxiliary AudioSession err=%#m\n", a1, v40);
+        }
+      }
     }
   }
 
-  LODWORD(v59) = 5;
-  v33 = *v4;
-  HIDWORD(task_info_outCnt) = AudioSessionSetProperty_Priv();
-  if (HIDWORD(task_info_outCnt))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_146;
-  }
-
-  v34 = *v4;
-  HIDWORD(task_info_outCnt) = AudioSessionSetActive_Priv();
-  if (HIDWORD(task_info_outCnt))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_146;
-  }
-
-  HIDWORD(v59) = 4;
-  v35 = *v4;
-  HIDWORD(task_info_outCnt) = AudioSessionCopyProperty_Priv();
-  if (HIDWORD(task_info_outCnt))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseAU > 90 || gLogCategory_APSEndpointStreamAudioHoseAU == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_146;
-  }
-
-  v6 = 0;
-  v28 = v58;
-LABEL_34:
-  *(v3 + 240) = v28;
-  if (gLogCategory_APSEndpointStreamAudioHoseAU > 50)
-  {
-    goto LABEL_38;
-  }
-
-  if (gLogCategory_APSEndpointStreamAudioHoseAU != -1)
-  {
-    goto LABEL_36;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    v50 = *(v3 + 240);
-    goto LABEL_36;
-  }
-
-LABEL_38:
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-
-LABEL_40:
+LABEL_41:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (HIDWORD(task_info_outCnt))
+  v25 = HIDWORD(task_info_outCnt);
+  if (!HIDWORD(task_info_outCnt))
   {
-    if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
+    goto LABEL_49;
+  }
+
+  if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50)
+  {
+    if (gLogCategory_APSEndpointStreamAudioHoseAU != -1)
     {
-      LogPrintF();
+LABEL_46:
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeAudioSession(APSEndpointStreamAudioHoseAURef)", 33554482, "[%{ptr}] failed initialize AudioSession err=%#m\n", a1, v25);
+      goto LABEL_48;
     }
 
-    hoseAU_destroyAudioSession();
-    v36 = HIDWORD(task_info_outCnt);
-    if (HIDWORD(task_info_outCnt))
+    if (_LogCategory_Initialize())
     {
-      Property = HIDWORD(task_info_outCnt);
-      goto LABEL_98;
+      v25 = HIDWORD(task_info_outCnt);
+      goto LABEL_46;
     }
   }
 
+LABEL_48:
+  hoseAU_destroyAudioSession(a1);
+  v26 = HIDWORD(task_info_outCnt);
+  if (HIDWORD(task_info_outCnt))
+  {
+    Property = HIDWORD(task_info_outCnt);
+    goto LABEL_99;
+  }
+
+LABEL_49:
   *&inDesc.componentType = xmmword_22234D430;
   inDesc.componentFlagsMask = 0;
   Next = AudioComponentFindNext(0, &inDesc);
   if (!Next)
   {
-    goto LABEL_84;
+    goto LABEL_85;
   }
 
   Property = AudioComponentInstanceNew(Next, (DerivedStorage + 248));
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitSetProperty(*(DerivedStorage + 248), 0x7E7u, 2u, 0, (DerivedStorage + 192), 4u);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   *&inDesc.componentType = xmmword_22234D440;
   inDesc.componentFlagsMask = 0;
-  v39 = AudioComponentFindNext(0, &inDesc);
-  if (!v39)
+  v29 = AudioComponentFindNext(0, &inDesc);
+  if (!v29)
   {
-    goto LABEL_84;
+    goto LABEL_85;
   }
 
-  Property = AudioComponentInstanceNew(v39, (DerivedStorage + 256));
+  Property = AudioComponentInstanceNew(v29, (DerivedStorage + 256));
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitSetProperty(*(DerivedStorage + 256), 0x13u, 1u, 0, (DerivedStorage + 144), 0x20u);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   *&inDesc.componentType = xmmword_22234D450;
   inDesc.componentFlagsMask = 0;
-  v40 = AudioComponentFindNext(0, &inDesc);
-  if (!v40)
+  v30 = AudioComponentFindNext(0, &inDesc);
+  if (!v30)
   {
-LABEL_84:
+LABEL_85:
     APSLogErrorAt(0);
     return 0;
   }
 
-  Property = AudioComponentInstanceNew(v40, (DerivedStorage + 264));
+  Property = AudioComponentInstanceNew(v30, (DerivedStorage + 264));
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitSetProperty(*(DerivedStorage + 264), 8u, 1u, 0, (DerivedStorage + 104), 0x28u);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
-  v41 = *(DerivedStorage + 248);
+  v31 = *(DerivedStorage + 248);
   inData[0] = *(DerivedStorage + 256);
   inData[1] = 0;
-  Property = AudioUnitSetProperty(v41, 1u, 1u, 0, inData, 0x10u);
+  Property = AudioUnitSetProperty(v31, 1u, 1u, 0, inData, 0x10u);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
-  v42 = *(DerivedStorage + 256);
-  v53[0] = *(DerivedStorage + 264);
-  v53[1] = 0;
-  Property = AudioUnitSetProperty(v42, 1u, 1u, 0, v53, 0x10u);
+  v32 = *(DerivedStorage + 256);
+  v46[0] = *(DerivedStorage + 264);
+  v46[1] = 0;
+  Property = AudioUnitSetProperty(v32, 1u, 1u, 0, v46, 0x10u);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
-  v43 = *(DerivedStorage + 264);
-  v52[0] = hoseAU_renderCallback;
-  v52[1] = a1;
-  Property = AudioUnitSetProperty(v43, 0x17u, 1u, 0, v52, 0x10u);
+  v33 = *(DerivedStorage + 264);
+  v45[0] = hoseAU_renderCallback;
+  v45[1] = a1;
+  Property = AudioUnitSetProperty(v33, 0x17u, 1u, 0, v45, 0x10u);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitInitialize(*(DerivedStorage + 248));
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitInitialize(*(DerivedStorage + 256));
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitInitialize(*(DerivedStorage + 264));
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitSetParameter(*(DerivedStorage + 256), 0, 1u, 0, 1.0, 0);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
   Property = AudioUnitSetParameter(*(DerivedStorage + 256), 0, 2u, 0, 1.0, 0);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
-  v44 = *(DerivedStorage + 240);
+  v34 = *(DerivedStorage + 240);
   ioDataSize = 8;
   Property = AudioUnitGetProperty(*(DerivedStorage + 248), 0xCu, 0, 0, &outData, &ioDataSize);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
-  v45 = outData;
+  v35 = outData;
   ioDataSize = 8;
   Property = AudioUnitGetProperty(*(DerivedStorage + 256), 0xCu, 0, 0, &outData, &ioDataSize);
   if (Property)
   {
-    v36 = Property;
-    goto LABEL_98;
+    v26 = Property;
+    goto LABEL_99;
   }
 
-  v46 = outData;
+  v36 = outData;
   ioDataSize = 8;
   Property = AudioUnitGetProperty(*(DerivedStorage + 264), 0xCu, 0, 0, &outData, &ioDataSize);
   if (Property)
   {
-    v36 = Property;
-LABEL_98:
+    v26 = Property;
+LABEL_99:
     APSLogErrorAt(Property);
     if (gLogCategory_APSEndpointStreamAudioHoseAU <= 90 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeGraph(APSEndpointStreamAudioHoseAURef)", 33554522, "[%{ptr}] failed initialize Graph err=%#m\n", a1, v26);
     }
 
-    hoseAU_destroyGraph();
-    return v36;
+    hoseAU_destroyGraph(a1);
+    return v26;
   }
 
-  v47 = ((v44 + 0.0 + v45 + v46 + outData) * *(DerivedStorage + 104));
+  v37 = ((v34 + 0.0 + v35 + v36 + outData) * *(DerivedStorage + 104));
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    v51 = *(DerivedStorage + 184);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_initializeGraph(APSEndpointStreamAudioHoseAURef)", 33554482, "[%{ptr}] starting Graph with latency=%u timelineOffset=%u\n", a1, v37, *(DerivedStorage + 184));
   }
 
-  APSStreamingAudioRendererSetRenderTSOffset(*(DerivedStorage + 280), *(DerivedStorage + 184) + v47);
+  APSStreamingAudioRendererSetRenderTSOffset(*(DerivedStorage + 280), (*(DerivedStorage + 184) + v37));
   Property = AudioOutputUnitStart(*(DerivedStorage + 248));
-  v36 = Property;
+  v26 = Property;
   if (Property)
   {
-    goto LABEL_98;
+    goto LABEL_99;
   }
 
-  return v36;
+  return v26;
 }
 
-uint64_t hoseAU_destroyAudioSession()
+uint64_t hoseAU_destroyAudioSession(uint64_t a1)
 {
   result = CMBaseObjectGetDerivedStorage();
   if (*(result + 192))
   {
-    v1 = result;
+    v3 = result;
     if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "void hoseAU_destroyAudioSession(APSEndpointStreamAudioHoseAURef)", 33554482, "[%{ptr}] destroying AudioSession\n", a1);
     }
 
     if (hoseAU_amIAudioServer_onceToken != -1)
@@ -5006,62 +4329,60 @@ uint64_t hoseAU_destroyAudioSession()
 
     if (hoseAU_amIAudioServer_iSureAm == 1)
     {
-      v2 = *(v1 + 232);
-      if (v2)
+      v4 = *(v3 + 232);
+      if (v4)
       {
-        CFRelease(v2);
-        *(v1 + 232) = 0;
+        CFRelease(v4);
+        *(v3 + 232) = 0;
       }
 
-      v3 = *(v1 + 192);
       result = AudioSessionDestroyCoreMXSession();
-      *(v1 + 196) = 0u;
-      *(v1 + 212) = 0u;
+      *(v3 + 196) = 0u;
+      *(v3 + 212) = 0u;
     }
 
     else
     {
-      v4 = *(v1 + 192);
       result = AudioSessionDestroySession_Priv();
     }
 
-    *(v1 + 192) = 0;
+    *(v3 + 192) = 0;
   }
 
   return result;
 }
 
-uint64_t hoseAU_destroyGraph()
+uint64_t hoseAU_destroyGraph(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "void hoseAU_destroyGraph(APSEndpointStreamAudioHoseAURef)", 33554482, "[%{ptr}] destroying Graph\n", a1);
   }
 
-  v1 = *(DerivedStorage + 248);
-  if (v1)
+  v3 = *(DerivedStorage + 248);
+  if (v3)
   {
-    AudioOutputUnitStop(v1);
+    AudioOutputUnitStop(v3);
     AudioComponentInstanceDispose(*(DerivedStorage + 248));
     *(DerivedStorage + 248) = 0;
   }
 
-  v2 = *(DerivedStorage + 256);
-  if (v2)
+  v4 = *(DerivedStorage + 256);
+  if (v4)
   {
-    AudioComponentInstanceDispose(v2);
+    AudioComponentInstanceDispose(v4);
     *(DerivedStorage + 256) = 0;
   }
 
-  v3 = *(DerivedStorage + 264);
-  if (v3)
+  v5 = *(DerivedStorage + 264);
+  if (v5)
   {
-    AudioComponentInstanceDispose(v3);
+    AudioComponentInstanceDispose(v5);
     *(DerivedStorage + 264) = 0;
   }
 
-  return hoseAU_destroyAudioSession();
+  return hoseAU_destroyAudioSession(a1);
 }
 
 uint64_t hoseAU_renderCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
@@ -5108,7 +4429,7 @@ const char *__hoseAU_amIAudioServer_block_invoke()
 uint64_t hoseAU_audioHoseFlush(const void *a1, int a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v11 = APSRTPPassThroughJitterBufferFlush(*(DerivedStorage + 272), *(a3 + 1), 3 * *(DerivedStorage + 176) + *(a3 + 1));
+  v11 = APSRTPPassThroughJitterBufferFlush(*(DerivedStorage + 272), *(a3 + 1), (3 * *(DerivedStorage + 176) + *(a3 + 1)));
   if (v11)
   {
     v16 = v11;
@@ -5183,12 +4504,12 @@ uint64_t hoseAU_audioHoseTimeAnnounce(uint64_t a1, int a2, OpaqueCMBlockBuffer *
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   hostTime = 0;
-  v6 = 4294960561;
+  v7 = 4294960561;
   if (a2 > 1952542317)
   {
     if (a2 != 1952542318)
     {
-      v7 = 1953526896;
+      v8 = 1953526896;
       goto LABEL_6;
     }
 
@@ -5197,15 +4518,15 @@ LABEL_9:
     DataPointer = CMBlockBufferGetDataPointer(a3, 0, 0, 0, &dataPointerOut);
     if (DataPointer)
     {
-      v6 = DataPointer;
+      v7 = DataPointer;
       goto LABEL_22;
     }
 
-    v9 = 0;
-    v13 = bswap32(*dataPointerOut.value);
-    v14 = bswap32(*(dataPointerOut.value + 4)) + bswap32(*(dataPointerOut.value + 8)) * 2.32830644e-10 + -2208988800.0;
-    v11 = floor(v14);
-    v12 = v14 - v11;
+    v10 = 0;
+    v14 = bswap32(*dataPointerOut.value);
+    v15 = bswap32(*(dataPointerOut.value + 4)) + bswap32(*(dataPointerOut.value + 8)) * 2.32830644e-10 + -2208988800.0;
+    v12 = floor(v15);
+    v13 = v15 - v12;
     goto LABEL_11;
   }
 
@@ -5214,39 +4535,39 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v7 = 1951421520;
+  v8 = 1951421520;
 LABEL_6:
-  if (a2 != v7)
+  if (a2 != v8)
   {
-    return v6;
+    return v7;
   }
 
   dataPointerOut.value = 0;
   DataPointer = CMBlockBufferGetDataPointer(a3, 0, 0, 0, &dataPointerOut);
   if (DataPointer)
   {
-    v6 = DataPointer;
+    v7 = DataPointer;
     goto LABEL_22;
   }
 
-  v9 = bswap64(*(dataPointerOut.value + 16));
-  v10 = bswap64(*(dataPointerOut.value + 4)) / 1000000000.0;
-  v11 = floor(v10);
-  v12 = v10 - v11;
-  v13 = bswap32(*dataPointerOut.value);
+  v10 = bswap64(*(dataPointerOut.value + 16));
+  v11 = bswap64(*(dataPointerOut.value + 4)) / 1000000000.0;
+  v12 = floor(v11);
+  v13 = v11 - v12;
+  v14 = bswap32(*dataPointerOut.value);
 LABEL_11:
-  v15 = *(DerivedStorage + 40);
-  v16 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-  if (!v16)
+  v16 = *(DerivedStorage + 40);
+  v17 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  if (!v17)
   {
     return 0;
   }
 
-  dataPointerOut.value = v9;
-  *&dataPointerOut.timescale = vcvtd_n_u64_f64(v12, 0x40uLL);
-  LODWORD(dataPointerOut.epoch) = v11;
+  dataPointerOut.value = v10;
+  *&dataPointerOut.timescale = vcvtd_n_u64_f64(v13, 0x40uLL);
+  LODWORD(dataPointerOut.epoch) = v12;
   HIDWORD(dataPointerOut.epoch) = 0;
-  if (v16(v15, &dataPointerOut, &hostTime))
+  if (v17(v16, &dataPointerOut, &hostTime))
   {
     return 0;
   }
@@ -5254,19 +4575,19 @@ LABEL_11:
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
     CMClockMakeHostTimeFromSystemUnits(&dataPointerOut, hostTime);
-    CMTimeGetSeconds(&dataPointerOut);
-    LogPrintF();
+    Seconds = CMTimeGetSeconds(&dataPointerOut);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_audioHoseTimeAnnounce(APSEndpointStreamAudioHoseRef, OSType, CMBlockBufferRef)", 33554482, "[%{ptr}] setting SAR source anchor to %u@%1.6f\n", a1, v14, *&Seconds);
   }
 
-  DataPointer = APSStreamingAudioRendererSetSourceAnchor(*(DerivedStorage + 280), v13, hostTime);
-  v6 = DataPointer;
+  DataPointer = APSStreamingAudioRendererSetSourceAnchor(*(DerivedStorage + 280), v14, hostTime);
+  v7 = DataPointer;
   if (DataPointer)
   {
 LABEL_22:
     APSLogErrorAt(DataPointer);
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t hoseAU_audioHoseSendAudio(uint64_t a1, int a2, OpaqueCMBlockBuffer *a3)
@@ -5384,12 +4705,12 @@ uint64_t hoseAU_SetProperty(uint64_t a1, const void *a2)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 30 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554462, "[%{ptr}] %###s propertyKey: '%@'\n", a1, "OSStatus hoseAU_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", a2);
   }
 
   if (atomic_load(DerivedStorage))
   {
-    v5 = 4294894964;
+    v6 = 4294894964;
     APSLogErrorAt(0);
   }
 
@@ -5404,7 +4725,7 @@ uint64_t hoseAU_SetProperty(uint64_t a1, const void *a2)
     {
       if (gLogCategory_APSEndpointStreamAudioHoseAU <= 30 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554462, "[%{ptr}] %###s %@ unsupported\n", a1, "OSStatus hoseAU_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", a2);
       }
 
       return 4294954512;
@@ -5417,7 +4738,7 @@ uint64_t hoseAU_SetProperty(uint64_t a1, const void *a2)
     return 4294894965;
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t hoseAU_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4)
@@ -5425,7 +4746,7 @@ uint64_t hoseAU_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 30 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", 33554462, "[%{ptr}] %###s propertyKey: '%@'\n", a1, "OSStatus hoseAU_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", a2);
   }
 
   if (atomic_load(DerivedStorage))
@@ -5436,15 +4757,15 @@ uint64_t hoseAU_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4)
 
   if (!a2)
   {
-    v8 = 4294894965;
+    v9 = 4294894965;
 LABEL_23:
     APSLogErrorAt(0);
-    return v8;
+    return v9;
   }
 
   if (!a4)
   {
-    v8 = 4294894965;
+    v9 = 4294894965;
     goto LABEL_23;
   }
 
@@ -5455,27 +4776,27 @@ LABEL_23:
 
   if (CFEqual(a2, @"APSEndpointStreamAudioHoseProtocolProperty_Name"))
   {
-    v9 = *(DerivedStorage + 24);
-    if (v9)
+    v10 = *(DerivedStorage + 24);
+    if (v10)
     {
-      v9 = CFRetain(v9);
+      v10 = CFRetain(v10);
     }
 
-    v8 = 0;
-    *a4 = v9;
+    v9 = 0;
+    *a4 = v10;
   }
 
   else
   {
     if (gLogCategory_APSEndpointStreamAudioHoseAU <= 30 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", 33554462, "[%{ptr}] %###s %@ unsupported", a1, "OSStatus hoseAU_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", a2);
     }
 
     return 4294954512;
   }
 
-  return v8;
+  return v9;
 }
 
 __CFString *hoseAU_CopyDebugDescription(uint64_t a1)
@@ -5486,12 +4807,12 @@ __CFString *hoseAU_CopyDebugDescription(uint64_t a1)
   return Mutable;
 }
 
-void hoseAU_Finalize()
+void hoseAU_Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "void hoseAU_Finalize(CMBaseObjectRef)", 33554482, "[%{ptr}] Finalize", a1);
   }
 
   if (!atomic_exchange_explicit(DerivedStorage, 1u, memory_order_acquire))
@@ -5503,61 +4824,61 @@ void hoseAU_Finalize()
 
     if (hoseAU_amIAudioServer_iSureAm == 1 && gLogCategory_APSEndpointStreamAudioHoseAU <= 60 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "void hoseAU_Finalize(CMBaseObjectRef)", 33554492, "[%{ptr}] Invalidate not called before Finalize, ACQ deadlock possible...", a1);
     }
 
-    hoseAU_destroyGraph();
+    hoseAU_destroyGraph(a1);
   }
 
-  v1 = *(DerivedStorage + 8);
-  if (v1)
+  v3 = *(DerivedStorage + 8);
+  if (v3)
   {
-    dispatch_release(v1);
+    dispatch_release(v3);
     *(DerivedStorage + 8) = 0;
   }
 
-  v2 = *(DerivedStorage + 16);
-  if (v2)
+  v4 = *(DerivedStorage + 16);
+  if (v4)
   {
-    dispatch_release(v2);
+    dispatch_release(v4);
     *(DerivedStorage + 16) = 0;
   }
 
-  v3 = *(DerivedStorage + 24);
-  if (v3)
-  {
-    CFRelease(v3);
-  }
-
-  v4 = *(DerivedStorage + 32);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  v5 = *(DerivedStorage + 40);
+  v5 = *(DerivedStorage + 24);
   if (v5)
   {
     CFRelease(v5);
   }
 
-  v6 = *(DerivedStorage + 48);
+  v6 = *(DerivedStorage + 32);
   if (v6)
   {
     CFRelease(v6);
   }
 
-  v7 = *(DerivedStorage + 272);
+  v7 = *(DerivedStorage + 40);
   if (v7)
   {
     CFRelease(v7);
   }
 
-  v8 = *(DerivedStorage + 280);
+  v8 = *(DerivedStorage + 48);
   if (v8)
   {
-
     CFRelease(v8);
+  }
+
+  v9 = *(DerivedStorage + 272);
+  if (v9)
+  {
+    CFRelease(v9);
+  }
+
+  v10 = *(DerivedStorage + 280);
+  if (v10)
+  {
+
+    CFRelease(v10);
   }
 }
 
@@ -5566,14 +4887,14 @@ uint64_t hoseAU_Invalidate(void *a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_Invalidate(CMBaseObjectRef)", 33554482, "[%{ptr}] Invalidate", a1);
   }
 
   if (atomic_exchange_explicit(DerivedStorage, 1u, memory_order_acquire))
   {
     if (gLogCategory_APSEndpointStreamAudioHoseAU <= 50 && (gLogCategory_APSEndpointStreamAudioHoseAU != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseAU, "OSStatus hoseAU_Invalidate(CMBaseObjectRef)", 33554482, "[%{ptr}] already invalidated!", a1);
     }
   }
 
@@ -5596,7 +4917,7 @@ uint64_t hoseAU_Invalidate(void *a1)
 
     else
     {
-      hoseAU_destroyGraph();
+      hoseAU_destroyGraph(a1);
     }
   }
 
@@ -5605,7 +4926,7 @@ uint64_t hoseAU_Invalidate(void *a1)
 
 void hoseAU_invalidateAsync(const void *a1)
 {
-  hoseAU_destroyGraph();
+  hoseAU_destroyGraph(a1);
   if (a1)
   {
 
@@ -6114,12 +5435,10 @@ uint64_t APSAPAPBBufEncodeGetMinBackingSize(uint64_t a1, uint64_t (*a2)(void, ui
   v9 = a1;
   if (a1)
   {
-    VTable = CMBaseObjectGetVTable();
-    v11 = *(*(VTable + 16) + 8);
-    if (v11)
+    v10 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+    if (v10)
     {
-      v12 = *(VTable + 16) + 8;
-      v9 = v11(v9);
+      v9 = v10(v9);
     }
 
     else
@@ -6133,20 +5452,20 @@ uint64_t APSAPAPBBufEncodeGetMinBackingSize(uint64_t a1, uint64_t (*a2)(void, ui
     return 4294960591;
   }
 
-  v14 = 0;
-  v15 = 0;
+  v12 = 0;
+  v13 = 0;
   if (!a2)
   {
     return 4294960591;
   }
 
-  result = a2(_APSAPAPGetEncodeSizeExtensionItemCallback, &v14, a3);
+  result = a2(_APSAPAPGetEncodeSizeExtensionItemCallback, &v12, a3);
   if (!result)
   {
-    result = v14;
-    if (!v14)
+    result = v12;
+    if (!v12)
     {
-      *a5 = a4 + v9 + v15 + 16;
+      *a5 = a4 + v9 + v13 + 16;
     }
   }
 
@@ -6174,7 +5493,7 @@ void _APSCMSampleBufferMergerFinalize(void *a1)
 {
   if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "void _APSCMSampleBufferMergerFinalize(CFTypeRef)", 33554462, "[%{ptr}] Finalized", a1);
   }
 
   v2 = a1[2];
@@ -6250,7 +5569,7 @@ uint64_t APSCMSampleBufferMergerCreate(char a1, const void *a2, uint64_t *a3)
   *(v7 + 48) = a1;
   if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "OSStatus APSCMSampleBufferMergerCreate(Boolean, CFArrayRef, APSCMSampleBufferMergerRef *)", 33554462, "[%{ptr}] Created", v7);
   }
 
   result = 0;
@@ -6274,7 +5593,7 @@ uint64_t APSCMSampleBufferMergerFlush(uint64_t a1)
   {
     if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "OSStatus APSCMSampleBufferMergerFlush(APSCMSampleBufferMergerRef)", 33554462, "[%{ptr}] Flush", a1);
     }
 
     v2 = *(a1 + 32);
@@ -6302,7 +5621,7 @@ uint64_t APSCMSampleBufferMergerFlush(uint64_t a1)
   }
 }
 
-uint64_t APSCMSampleBufferMergerTryMerge(uint64_t a1, opaqueCMSampleBuffer *a2)
+uint64_t APSCMSampleBufferMergerTryMerge(uint64_t a1, void *a2)
 {
   v2 = 0;
   if (!a1 || !a2)
@@ -6323,161 +5642,170 @@ uint64_t APSCMSampleBufferMergerTryMerge(uint64_t a1, opaqueCMSampleBuffer *a2)
 
   if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554462, "[%{ptr}] TryMerge inSBuf=%@", a1, a2);
   }
 
-  if (Count)
+  if (!Count)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 40), Count - 1);
-    if (sbufMerger_isSBufReTimed(ValueAtIndex))
+    v15 = *MEMORY[0x277CBECE8];
+    *(a1 + 24) = CMCopyDictionaryOfAttachments(*MEMORY[0x277CBECE8], a2, 0);
+    v16 = CMCopyDictionaryOfAttachments(v15, a2, 1u);
+    v11 = 0;
+    *(a1 + 32) = v16;
+    goto LABEL_30;
+  }
+
+  ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 40), Count - 1);
+  if (sbufMerger_isSBufReTimed(ValueAtIndex))
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
     {
-      if (gLogCategory_APSCMSampleBufferMerger > 50 || gLogCategory_APSCMSampleBufferMerger == -1 && !_LogCategory_Initialize())
-      {
-        return 0;
-      }
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: trimmed tailSBuf", a1);
     }
 
-    else if (sbufMerger_isSBufReTimed(a2))
-    {
-      if (gLogCategory_APSCMSampleBufferMerger > 50 || gLogCategory_APSCMSampleBufferMerger == -1 && !_LogCategory_Initialize())
-      {
-        return 0;
-      }
-    }
-
-    else if (CMSampleBufferGetNumSamples(ValueAtIndex) == 1)
-    {
-      if (CMSampleBufferGetNumSamples(a2) == 1)
-      {
-        CMSampleBufferGetPresentationTimeStamp(&lhs, ValueAtIndex);
-        CMSampleBufferGetDuration(&rhs, ValueAtIndex);
-        CMTimeAdd(&time1, &lhs, &rhs);
-        CMSampleBufferGetPresentationTimeStamp(&lhs, a2);
-        if (CMTimeCompare(&time1, &lhs))
-        {
-          if (gLogCategory_APSCMSampleBufferMerger > 50 || gLogCategory_APSCMSampleBufferMerger == -1 && !_LogCategory_Initialize())
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          FormatDescription = CMSampleBufferGetFormatDescription(ValueAtIndex);
-          v9 = CMSampleBufferGetFormatDescription(a2);
-          if (CMFormatDescriptionEqual(FormatDescription, v9))
-          {
-            FigSampleBufferGetDecryptor();
-            FigSampleBufferGetDecryptor();
-            if (FigCFEqual())
-            {
-              v10 = *MEMORY[0x277CBECE8];
-              v11 = CMCopyDictionaryOfAttachments(*MEMORY[0x277CBECE8], a2, 0);
-              if (!sbufMerger_areAttachmentsMergable(a1, *(a1 + 24), v11))
-              {
-                if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
-                {
-                  goto LABEL_67;
-                }
-
-                goto LABEL_68;
-              }
-
-              if (v11)
-              {
-                CFRelease(v11);
-              }
-
-              v11 = CMCopyDictionaryOfAttachments(v10, a2, 1u);
-              if (!sbufMerger_areAttachmentsMergable(a1, *(a1 + 32), v11))
-              {
-                if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
-                {
-                  goto LABEL_67;
-                }
-
-                goto LABEL_68;
-              }
-
-              v12 = *MEMORY[0x277CC0760];
-              v13 = CMGetAttachment(a2, *MEMORY[0x277CC0760], 0);
-              CMTimeMakeFromDictionary(&time1, v13);
-              if (*(a1 + 48) && (time1.flags & 1) != 0)
-              {
-                CMSampleBufferGetDuration(&time1, ValueAtIndex);
-                v14 = CMGetAttachment(ValueAtIndex, v12, 0);
-                CMTimeMakeFromDictionary(&lhs, v14);
-                if (CMTimeCompare(&time1, &lhs))
-                {
-                  if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
-                  {
-                    goto LABEL_67;
-                  }
-
-                  goto LABEL_68;
-                }
-
-                CMSampleBufferGetOutputDuration(&time1, ValueAtIndex);
-                lhs = **&MEMORY[0x277CC08F0];
-                if (CMTimeCompare(&time1, &lhs))
-                {
-                  if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
-                  {
-LABEL_67:
-                    LogPrintF();
-                  }
-
-LABEL_68:
-                  v2 = 0;
-                  if (!v11)
-                  {
-                    return v2;
-                  }
-
-                  goto LABEL_35;
-                }
-              }
-
-              goto LABEL_30;
-            }
-
-            if (gLogCategory_APSCMSampleBufferMerger > 50 || gLogCategory_APSCMSampleBufferMerger == -1 && !_LogCategory_Initialize())
-            {
-              return 0;
-            }
-          }
-
-          else if (gLogCategory_APSCMSampleBufferMerger > 50 || gLogCategory_APSCMSampleBufferMerger == -1 && !_LogCategory_Initialize())
-          {
-            return 0;
-          }
-        }
-      }
-
-      else if (gLogCategory_APSCMSampleBufferMerger > 50 || gLogCategory_APSCMSampleBufferMerger == -1 && !_LogCategory_Initialize())
-      {
-        return 0;
-      }
-    }
-
-    else if (gLogCategory_APSCMSampleBufferMerger > 50 || gLogCategory_APSCMSampleBufferMerger == -1 && !_LogCategory_Initialize())
-    {
-      return 0;
-    }
-
-    LogPrintF();
     return 0;
   }
 
-  v15 = *MEMORY[0x277CBECE8];
-  *(a1 + 24) = CMCopyDictionaryOfAttachments(*MEMORY[0x277CBECE8], a2, 0);
-  v16 = CMCopyDictionaryOfAttachments(v15, a2, 1u);
-  v11 = 0;
-  *(a1 + 32) = v16;
+  if (sbufMerger_isSBufReTimed(a2))
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: trimmed inSBuf", a1);
+    }
+
+    return 0;
+  }
+
+  if (CMSampleBufferGetNumSamples(ValueAtIndex) != 1)
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: tailSBuf is not single-sample", a1);
+    }
+
+    return 0;
+  }
+
+  if (CMSampleBufferGetNumSamples(a2) != 1)
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: inSBuf is not single-sample", a1);
+    }
+
+    return 0;
+  }
+
+  CMSampleBufferGetPresentationTimeStamp(&lhs, ValueAtIndex);
+  CMSampleBufferGetDuration(&rhs, ValueAtIndex);
+  CMTimeAdd(&time1, &lhs, &rhs);
+  CMSampleBufferGetPresentationTimeStamp(&lhs, a2);
+  if (CMTimeCompare(&time1, &lhs))
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: discontinuity", a1);
+    }
+
+    return 0;
+  }
+
+  FormatDescription = CMSampleBufferGetFormatDescription(ValueAtIndex);
+  v9 = CMSampleBufferGetFormatDescription(a2);
+  if (!CMFormatDescriptionEqual(FormatDescription, v9))
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: format mismatch", a1);
+    }
+
+    return 0;
+  }
+
+  FigSampleBufferGetDecryptor();
+  FigSampleBufferGetDecryptor();
+  if (!FigCFEqual())
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: cryptor mismatch", a1);
+    }
+
+    return 0;
+  }
+
+  v10 = *MEMORY[0x277CBECE8];
+  v11 = CMCopyDictionaryOfAttachments(*MEMORY[0x277CBECE8], a2, 0);
+  if (!sbufMerger_areAttachmentsMergable(a1, *(a1 + 24), v11))
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge Failed: non-propagatable attachments are not mergable", a1);
+    }
+
+    goto LABEL_68;
+  }
+
+  if (v11)
+  {
+    CFRelease(v11);
+  }
+
+  v11 = CMCopyDictionaryOfAttachments(v10, a2, 1u);
+  if (!sbufMerger_areAttachmentsMergable(a1, *(a1 + 32), v11))
+  {
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge failed: propagatable attachments are not mergable", a1);
+    }
+
+    goto LABEL_68;
+  }
+
+  v12 = *MEMORY[0x277CC0760];
+  v13 = CMGetAttachment(a2, *MEMORY[0x277CC0760], 0);
+  CMTimeMakeFromDictionary(&time1, v13);
+  if (*(a1 + 48) && (time1.flags & 1) != 0)
+  {
+    CMSampleBufferGetDuration(&time1, ValueAtIndex);
+    v14 = CMGetAttachment(ValueAtIndex, v12, 0);
+    CMTimeMakeFromDictionary(&lhs, v14);
+    if (!CMTimeCompare(&time1, &lhs))
+    {
+      CMSampleBufferGetOutputDuration(&time1, ValueAtIndex);
+      lhs = **&MEMORY[0x277CC08F0];
+      if (CMTimeCompare(&time1, &lhs))
+      {
+        if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge failed: tailSBuf's trimAtStart is not equal to it's duration", a1);
+        }
+
+        goto LABEL_68;
+      }
+
+      goto LABEL_30;
+    }
+
+    if (gLogCategory_APSCMSampleBufferMerger <= 50 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554482, "[%{ptr}] TryMerge failed: Sbuf does not have TrimAtStart attachment", a1);
+    }
+
+LABEL_68:
+    v2 = 0;
+    if (!v11)
+    {
+      return v2;
+    }
+
+    goto LABEL_35;
+  }
+
 LABEL_30:
   if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "Boolean APSCMSampleBufferMergerTryMerge(APSCMSampleBufferMergerRef, CMSampleBufferRef)", 33554462, "[%{ptr}] TryMerge successful", a1);
   }
 
   CFArrayAppendValue(*(a1 + 40), a2);
@@ -6579,31 +5907,27 @@ LABEL_14:
     return 0;
   }
 
-  v13 = *MEMORY[0x277CC0750];
-  v14 = v9 + -APSCFDictionaryPairIsKeyPresentAndEqual();
-  v15 = *MEMORY[0x277CC1AA8];
-  v16 = v14 + -APSCFDictionaryPairIsKeyPresentAndEqual();
-  v17 = *MEMORY[0x277CC0620];
-  v18 = v16 + -APSCFDictionaryPairIsKeyPresentAndEqual();
-  v19 = *MEMORY[0x277CC06A0];
-  v20 = v18 + -APSCFDictionaryPairIsKeyPresentAndEqual();
+  v13 = v9 + -APSCFDictionaryPairIsKeyPresentAndEqual(a2, a3, *MEMORY[0x277CC0750]);
+  v14 = v13 + -APSCFDictionaryPairIsKeyPresentAndEqual(a2, a3, *MEMORY[0x277CC1AA8]);
+  v15 = v14 + -APSCFDictionaryPairIsKeyPresentAndEqual(a2, a3, *MEMORY[0x277CC0620]);
+  v16 = v15 + -APSCFDictionaryPairIsKeyPresentAndEqual(a2, a3, *MEMORY[0x277CC06A0]);
   if (a2)
   {
     if (*(a1 + 48))
     {
-      v21 = *MEMORY[0x277CC0760];
-      v22 = CFDictionaryContainsKey(a2, *MEMORY[0x277CC0760]);
+      v17 = *MEMORY[0x277CC0760];
+      v18 = CFDictionaryContainsKey(a2, *MEMORY[0x277CC0760]);
       if (a3)
       {
-        if (v22)
+        if (v18)
         {
-          v20 -= CFDictionaryContainsKey(a3, v21) != 0;
+          v16 -= CFDictionaryContainsKey(a3, v17) != 0;
         }
       }
     }
   }
 
-  return v20 == 0;
+  return v16 == 0;
 }
 
 uint64_t APSCMSampleBufferMergerCopyMergedSBuf(uint64_t a1, CFTypeRef *a2)
@@ -6762,7 +6086,7 @@ uint64_t APSCMSampleBufferMergerCopyMergedSBuf(uint64_t a1, CFTypeRef *a2)
 
               if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "OSStatus APSCMSampleBufferMergerCopyMergedSBuf(APSCMSampleBufferMergerRef, CMSampleBufferRef *)", 33554462, "[%{ptr}] CopyMergedSBuf numSBufs=%zu mergedSBuf=%@", a1, v5, sampleBufferOut);
               }
 
               v34 = 0;
@@ -6802,7 +6126,7 @@ LABEL_36:
     *a2 = CFRetain(ValueAtIndex);
     if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "OSStatus APSCMSampleBufferMergerCopyMergedSBuf(APSCMSampleBufferMergerRef, CMSampleBufferRef *)", 33554462, "[%{ptr}] CopyMergedSBuf numSBufs=1 mergedSBuf=%@", a1, v7);
     }
 
     v34 = 0;
@@ -6813,7 +6137,7 @@ LABEL_36:
     APSLogErrorAt(0);
     if (gLogCategory_APSCMSampleBufferMerger <= 30 && (gLogCategory_APSCMSampleBufferMerger != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSCMSampleBufferMerger, "OSStatus APSCMSampleBufferMergerCopyMergedSBuf(APSCMSampleBufferMergerRef, CMSampleBufferRef *)", 33554462, "[%{ptr}] CopyMergedSBuf numSBufs=0 mergedSBuf=NULL", a1);
     }
 
     v34 = 4294960578;
@@ -6847,7 +6171,7 @@ uint64_t APSAudioProtocolDriverSenderAPATCreate(const __CFAllocator *a1, const v
   {
     if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 30 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus APSAudioProtocolDriverSenderAPATCreate(CFAllocatorRef, APSAudioHoseMetricCollectorRef, APSDataPacerRef, APSAudioProtocolDriverSenderRef *)", 33554462, "Creating Protocol Driver Sender APAT\n");
     }
 
     if (APSAudioProtocolDriverSenderGetClassID_sRegisterOnce != -1)
@@ -6906,7 +6230,7 @@ uint64_t APSAudioProtocolDriverSenderAPATCreate(const __CFAllocator *a1, const v
           *(DerivedStorage + 56) = CFRetain(a3);
           if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 50 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus APSAudioProtocolDriverSenderAPATCreate(CFAllocatorRef, APSAudioHoseMetricCollectorRef, APSDataPacerRef, APSAudioProtocolDriverSenderRef *)", 33554482, "[%{ptr}] Created\n", cf);
           }
 
           v12 = 0;
@@ -7032,28 +6356,26 @@ uint64_t protocolDriverSenderAPAT_txBufferItemRetain(uint64_t a1, _OWORD *a2)
 
 uint64_t protocolDriverSenderAPAT_GetFirstValidBufferTimestamp(uint64_t a1, CMTime *a2)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v13 = **&MEMORY[0x277CC0898];
-  v5 = *(DerivedStorage + 64);
+  CMBaseObjectGetDerivedStorage();
+  v8 = **&MEMORY[0x277CC0898];
   FigSimpleMutexLock();
   if (a1)
   {
     if (!a2)
     {
-      v10 = 4294894825;
+      v6 = 4294894825;
       APSLogErrorAt(0);
       goto LABEL_7;
     }
 
-    v6 = CMBaseObjectGetDerivedStorage();
-    TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal();
-    v14 = 0;
-    v8 = *(v6 + 64);
+    CMBaseObjectGetDerivedStorage();
+    TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1);
+    v9 = 0;
     FigSimpleMutexCheckIsLockedOnThisThread();
     if (TxBufferTotalItemCountInternal)
     {
-      TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 1, &v15, &v14);
-      v10 = TxBufferEndItemInternal;
+      TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 1, &v10, &v9);
+      v6 = TxBufferEndItemInternal;
       if (TxBufferEndItemInternal)
       {
         APSLogErrorAt(TxBufferEndItemInternal);
@@ -7061,19 +6383,19 @@ uint64_t protocolDriverSenderAPAT_GetFirstValidBufferTimestamp(uint64_t a1, CMTi
 
       else
       {
-        CMTimeMake(&v13, *(v14 + 8), *(v14 + 16));
+        CMTimeMake(&v8, *(v9 + 8), *(v9 + 16));
       }
     }
 
     else
     {
-      v10 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v10 = 4294894825;
+    v6 = 4294894825;
     APSLogErrorAt(0);
     if (!a2)
     {
@@ -7081,17 +6403,15 @@ uint64_t protocolDriverSenderAPAT_GetFirstValidBufferTimestamp(uint64_t a1, CMTi
     }
   }
 
-  *a2 = v13;
+  *a2 = v8;
 LABEL_7:
-  v11 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
-  return v10;
+  return v6;
 }
 
-uint64_t protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal()
+uint64_t protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 64);
   FigSimpleMutexCheckIsLockedOnThisThread();
   v2 = *(DerivedStorage + 80);
   if (v2)
@@ -7111,45 +6431,44 @@ uint64_t protocolDriverSenderAPAT_getTxBufferEndItemInternal(uint64_t a1, int a2
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   LOWORD(key) = 0;
-  v8 = *(DerivedStorage + 64);
   FigSimpleMutexCheckIsLockedOnThisThread();
-  v9 = *(DerivedStorage + 80);
+  v8 = *(DerivedStorage + 80);
   if (!a2)
   {
-    if (v9)
+    if (v8)
     {
-      LastSeqNum = APSRTPSeqNumRangeSetGetLastSeqNum(*(v9 + 16), &key);
+      LastSeqNum = APSRTPSeqNumRangeSetGetLastSeqNum(*(v8 + 16), &key);
       if (!LastSeqNum)
       {
         goto LABEL_6;
       }
 
-      v11 = LastSeqNum;
+      v10 = LastSeqNum;
     }
 
     else
     {
-      v11 = 4294960591;
+      v10 = 4294960591;
     }
 
-    FirstSeqNum = v11;
+    FirstSeqNum = v10;
     goto LABEL_13;
   }
 
-  FirstSeqNum = APSRTPSeqNumDictionaryGetFirstSeqNum(v9, &key);
+  FirstSeqNum = APSRTPSeqNumDictionaryGetFirstSeqNum(v8, &key);
   if (FirstSeqNum)
   {
-    v11 = FirstSeqNum;
+    v10 = FirstSeqNum;
 LABEL_13:
     APSLogErrorAt(FirstSeqNum);
-    return v11;
+    return v10;
   }
 
 LABEL_6:
-  v13 = *(DerivedStorage + 80);
-  if (v13)
+  v12 = *(DerivedStorage + 80);
+  if (v12)
   {
-    Value = CFDictionaryGetValue(*(v13 + 24), key);
+    Value = CFDictionaryGetValue(*(v12 + 24), key);
   }
 
   else
@@ -7157,30 +6476,29 @@ LABEL_6:
     Value = 0;
   }
 
-  v11 = 0;
+  v10 = 0;
   *a3 = key;
   *a4 = Value;
-  return v11;
+  return v10;
 }
 
 uint64_t protocolDriverSenderAPAT_GetLastDeliveredMediaTimeForHose(uint64_t a1, uint64_t a2, CMTime *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   LOWORD(key) = 0;
-  v21 = 0;
-  v20 = **&MEMORY[0x277CC0898];
-  v7 = DerivedStorage[8];
+  v18 = 0;
+  v17 = **&MEMORY[0x277CC0898];
   FigSimpleMutexLock();
   if (!a1)
   {
-    v17 = 4294894825;
+    v15 = 4294894825;
     PayloadType = 0;
     goto LABEL_22;
   }
 
   if (!a2)
   {
-    v17 = 4294894825;
+    v15 = 4294894825;
     PayloadType = 0;
 LABEL_22:
     APSLogErrorAt(PayloadType);
@@ -7194,32 +6512,31 @@ LABEL_22:
 
   if (!a3)
   {
-    v17 = 4294894825;
+    v15 = 4294894825;
     APSLogErrorAt(0);
     goto LABEL_19;
   }
 
-  v8 = DerivedStorage[9];
   Value = FigCFDictionaryGetValue();
   if (!Value)
   {
     APSLogErrorAt(0);
-    v17 = 4294960569;
+    v15 = 4294960569;
     goto LABEL_18;
   }
 
-  v10 = APSAudioProtocolDriverSenderHoseControllerAPATGetLastDeliveredSeqNum(*(Value + 16), &key);
-  if (v10)
+  v8 = APSAudioProtocolDriverSenderHoseControllerAPATGetLastDeliveredSeqNum(*(Value + 16), &key);
+  if (v8)
   {
-    v17 = v10;
-    if (v10 == -6727)
+    v15 = v8;
+    if (v8 == -6727)
     {
-      v17 = 0;
+      v15 = 0;
     }
 
     else
     {
-      APSLogErrorAt(v10);
+      APSLogErrorAt(v8);
     }
 
     goto LABEL_18;
@@ -7229,32 +6546,32 @@ LABEL_22:
   {
     while (1)
     {
-      v11 = DerivedStorage[10];
-      v12 = key;
-      if (!v11)
+      v9 = *(DerivedStorage + 80);
+      v10 = key;
+      if (!v9)
       {
-        v16 = 0;
+        v14 = 0;
         goto LABEL_14;
       }
 
-      v13 = CFDictionaryGetValue(*(v11 + 24), key);
-      if (!v13)
+      v11 = CFDictionaryGetValue(*(v9 + 24), key);
+      if (!v11)
       {
         break;
       }
 
-      v14 = v13;
-      PayloadType = APSRTPBBufGetPayloadType(*v13, &v21);
+      v12 = v11;
+      PayloadType = APSRTPBBufGetPayloadType(*v11, &v18);
       if (PayloadType)
       {
-        v17 = PayloadType;
+        v15 = PayloadType;
         goto LABEL_22;
       }
 
-      if (v21 == 115 || v21 == 112)
+      if (v18 == 115 || v18 == 112)
       {
-        CMTimeMake(&v20, v14[1], *(v14 + 4));
-        v17 = 0;
+        CMTimeMake(&v17, v12[1], *(v12 + 4));
+        v15 = 0;
         LOWORD(key) = key - 1;
         goto LABEL_18;
       }
@@ -7262,95 +6579,83 @@ LABEL_22:
       LOWORD(key) = key - 1;
     }
 
-    v16 = DerivedStorage[10];
-    v12 = key;
+    v14 = *(DerivedStorage + 80);
+    v10 = key;
 LABEL_14:
-    PayloadType = APSRTPSeqNumDictionaryGetSeqNumBeforeSeqNum(v16, v12, &key);
+    PayloadType = APSRTPSeqNumDictionaryGetSeqNumBeforeSeqNum(v14, v10, &key);
   }
 
   while (!PayloadType);
-  v17 = PayloadType;
+  v15 = PayloadType;
   if (PayloadType != -6750)
   {
     goto LABEL_22;
   }
 
-  v17 = 0;
+  v15 = 0;
 LABEL_18:
-  *a3 = v20;
+  *a3 = v17;
 LABEL_19:
-  v18 = DerivedStorage[8];
   FigSimpleMutexUnlock();
-  return v17;
+  return v15;
 }
 
 uint64_t protocolDriverSenderAPAT_NotifyFlushCompleteForHose(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
   Value = CFDictionaryGetValue(*(DerivedStorage + 72), a2);
   if (Value)
   {
-    v6 = Value[2];
-    v7 = *(v6 + 104);
+    v5 = Value[2];
     FigSimpleMutexLock();
-    --*(v6 + 120);
-    v8 = *(v6 + 104);
+    --*(v5 + 120);
     FigSimpleMutexUnlock();
-    v9 = 0;
+    v6 = 0;
   }
 
   else
   {
     APSLogErrorAt(0);
-    v9 = 4294894825;
+    v6 = 4294894825;
   }
 
-  v10 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
-  return v9;
+  return v6;
 }
 
 uint64_t protocolDriverSenderAPAT_NotifyPendingFlushForHose(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
   Value = CFDictionaryGetValue(*(DerivedStorage + 72), a2);
   if (Value)
   {
-    v6 = Value[2];
-    v7 = *(v6 + 104);
+    v5 = Value[2];
     FigSimpleMutexLock();
-    ++*(v6 + 120);
-    v8 = *(v6 + 104);
+    ++*(v5 + 120);
     FigSimpleMutexUnlock();
-    v9 = 0;
+    v6 = 0;
   }
 
   else
   {
     APSLogErrorAt(0);
-    v9 = 4294894825;
+    v6 = 4294894825;
   }
 
-  v10 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
-  return v9;
+  return v6;
 }
 
-uint64_t protocolDriverSenderAPAT_CancelAllForcedDataTransmissions()
+uint64_t protocolDriverSenderAPAT_CancelAllForcedDataTransmissions(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
   v2 = MEMORY[0x277CC0898];
   *(DerivedStorage + 92) = *MEMORY[0x277CC0898];
   *(DerivedStorage + 108) = *(v2 + 16);
-  v3 = *(DerivedStorage + 72);
   CFDictionaryApplyBlock();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
   return 0;
 }
@@ -7358,57 +6663,47 @@ uint64_t protocolDriverSenderAPAT_CancelAllForcedDataTransmissions()
 uint64_t protocolDriverSenderAPAT_ForceTransmitDataAtMediaTime(uint64_t a1, __int128 *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
-  v5 = *a2;
+  v4 = *a2;
   *(DerivedStorage + 108) = *(a2 + 2);
-  *(DerivedStorage + 92) = v5;
-  v6 = *(DerivedStorage + 72);
-  v9 = *a2;
-  v10 = *(a2 + 2);
+  *(DerivedStorage + 92) = v4;
   CFDictionaryApplyBlock();
-  v7 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
   return 0;
 }
 
-uint64_t protocolDriverSenderAPAT_TriggerBurst()
+uint64_t protocolDriverSenderAPAT_TriggerBurst(uint64_t a1)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 64);
+  CMBaseObjectGetDerivedStorage();
   FigSimpleMutexLock();
-  v2 = *(DerivedStorage + 72);
   CFDictionaryApplyBlock();
-  v3 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
   return 0;
 }
 
 uint64_t protocolDriverSenderAPAT_SendAudioData(uint64_t a1, OpaqueCMBlockBuffer *a2, uint64_t a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v50 = **&MEMORY[0x277CC0898];
+  v47 = **&MEMORY[0x277CC0898];
   theArray = 0;
   destinationBuffer = 0;
-  v47 = v50;
-  v6 = *(DerivedStorage + 64);
+  v44 = v47;
   FigSimpleMutexLock();
   if (!a2 || (*(a3 + 12) & 1) == 0)
   {
     APSLogErrorAt(0);
-    v12 = 4294894825;
+    v10 = 4294894825;
     goto LABEL_37;
   }
 
-  v7 = CMBaseObjectGetDerivedStorage();
-  v8 = *(v7 + 64);
+  v6 = CMBaseObjectGetDerivedStorage();
   FigSimpleMutexCheckIsLockedOnThisThread();
-  v9 = *(v7 + 80);
-  if (v9)
+  v7 = *(v6 + 80);
+  if (v7)
   {
-    v10 = APSRTPSeqNumRangeSetGetSpan(*(v9 + 16)) >> 16;
-    if (v10 == 0x8000)
+    v8 = APSRTPSeqNumRangeSetGetSpan(*(v7 + 16)) >> 16;
+    if (v8 == 0x8000)
     {
       goto LABEL_48;
     }
@@ -7416,25 +6711,25 @@ uint64_t protocolDriverSenderAPAT_SendAudioData(uint64_t a1, OpaqueCMBlockBuffer
 
   else
   {
-    LOWORD(v10) = 0;
+    LOWORD(v8) = 0;
   }
 
   *&sourceBytes.value = a2;
-  v11 = APSAPAPDecodeHeader(_APSAPAPBBufDecodeReadCallback, &sourceBytes, &v50, 0);
-  v12 = v11;
-  if (!v11 && *&sourceBytes.timescale != 15)
+  v9 = APSAPAPDecodeHeader(_APSAPAPBBufDecodeReadCallback, &sourceBytes, &v47, 0);
+  v10 = v9;
+  if (!v9 && *&sourceBytes.timescale != 15)
   {
-    v12 = 4294960587;
+    v10 = 4294960587;
     goto LABEL_57;
   }
 
-  if (v11)
+  if (v9)
   {
 LABEL_57:
-    v14 = v12;
+    v12 = v10;
 LABEL_47:
-    APSLogErrorAt(v14);
-    if (v12 != -72472)
+    APSLogErrorAt(v12);
+    if (v10 != -72472)
     {
       goto LABEL_37;
     }
@@ -7442,182 +6737,179 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  v13 = *MEMORY[0x277CBECE8];
-  v14 = APSAPAPRTPBBufCreateWithAPAPBBuf(*MEMORY[0x277CBECE8], a2, &destinationBuffer);
-  if (v14)
+  v11 = *MEMORY[0x277CBECE8];
+  v12 = APSAPAPRTPBBufCreateWithAPAPBBuf(*MEMORY[0x277CBECE8], a2, &destinationBuffer);
+  if (v12)
   {
-    v12 = v14;
+    v10 = v12;
     goto LABEL_47;
   }
 
   LODWORD(sourceBytes.value) = bswap32(*(DerivedStorage + 40)) >> 16;
   if (!destinationBuffer)
   {
-    v12 = 4294960591;
+    v10 = 4294960591;
 LABEL_52:
-    v14 = v12;
+    v12 = v10;
     goto LABEL_47;
   }
 
-  v15 = CMBlockBufferReplaceDataBytes(&sourceBytes, destinationBuffer, 8uLL, 4uLL);
-  if (v15)
+  v13 = CMBlockBufferReplaceDataBytes(&sourceBytes, destinationBuffer, 8uLL, 4uLL);
+  if (v13)
   {
-    v12 = v15;
+    v10 = v13;
     goto LABEL_52;
   }
 
   APAPRTPFragmentCount = APSAPAPRTPBBufGetAPAPRTPFragmentCount(destinationBuffer, (*(DerivedStorage + 120) - *(DerivedStorage + 124)));
-  if (APAPRTPFragmentCount > (0x8000 - v10))
+  if (APAPRTPFragmentCount > (0x8000 - v8))
   {
 LABEL_48:
-    v12 = 4294894824;
+    v10 = 4294894824;
     ++*(DerivedStorage + 136);
     goto LABEL_37;
   }
 
-  v17 = APAPRTPFragmentCount;
-  v14 = APSAPAPRTPBBufCopyAPAPRTPFragmentBBufs(destinationBuffer, v13, (*(DerivedStorage + 120) - *(DerivedStorage + 124)), &theArray);
-  if (v14)
+  v15 = APAPRTPFragmentCount;
+  v12 = APSAPAPRTPBBufCopyAPAPRTPFragmentBBufs(destinationBuffer, v11, (*(DerivedStorage + 120) - *(DerivedStorage + 124)), &theArray);
+  if (v12)
   {
-    v12 = v14;
+    v10 = v12;
     goto LABEL_47;
   }
 
-  if (CFArrayGetCount(theArray) != v17)
+  if (CFArrayGetCount(theArray) != v15)
   {
     APSLogErrorAt(0);
-    v12 = 4294960548;
+    v10 = 4294960548;
     goto LABEL_37;
   }
 
-  if (v17 < 1)
+  if (v15 < 1)
   {
     goto LABEL_36;
   }
 
-  v18 = 0;
-  for (i = 0; i != v17; ++i)
+  v16 = 0;
+  for (i = 0; i != v15; ++i)
   {
     ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
-    v18 += CMBlockBufferGetDataLength(ValueAtIndex);
+    v16 += CMBlockBufferGetDataLength(ValueAtIndex);
   }
 
-  if (v18 >> 31)
+  if (v16 >> 31)
   {
     APSLogErrorAt(0);
-    v12 = 4294960553;
+    v10 = 4294960553;
     goto LABEL_37;
   }
 
   target = a2;
-  v45 = DerivedStorage;
-  v21 = 0;
+  v41 = DerivedStorage;
+  v19 = 0;
   do
   {
-    v22 = v17;
-    v23 = CFArrayGetValueAtIndex(theArray, v21);
-    DataLength = CMBlockBufferGetDataLength(v23);
+    v20 = v15;
+    v21 = CFArrayGetValueAtIndex(theArray, v19);
+    DataLength = CMBlockBufferGetDataLength(v21);
     sourceBytes = *a3;
-    v25 = a3;
-    CMTimeMultiplyByRatio(&v47, &sourceBytes, DataLength, v18);
-    value = v50.value;
-    timescale = v50.timescale;
-    v55 = *(&v50 | 0xC);
-    v56 = *((&v50 | 0xC) + 8);
-    v46 = v47;
-    v28 = CMBaseObjectGetDerivedStorage();
-    v54 = 0;
-    v29 = *(v28 + 64);
+    v23 = a3;
+    CMTimeMultiplyByRatio(&v44, &sourceBytes, DataLength, v16);
+    value = v47.value;
+    timescale = v47.timescale;
+    v52 = *(&v47 | 0xC);
+    v53 = *((&v47 | 0xC) + 8);
+    v43 = v44;
+    v26 = CMBaseObjectGetDerivedStorage();
+    v51 = 0;
     FigSimpleMutexCheckIsLockedOnThisThread();
-    LOWORD(time.value) = bswap32(*(v28 + 88)) >> 16;
-    if (!v23)
+    LOWORD(time.value) = bswap32(*(v26 + 88)) >> 16;
+    if (!v21)
     {
-      v12 = 4294960591;
+      v10 = 4294960591;
 LABEL_43:
-      SeqNumBeforeSeqNum = v12;
+      SeqNumBeforeSeqNum = v10;
 LABEL_46:
       APSLogErrorAt(SeqNumBeforeSeqNum);
-      DerivedStorage = v45;
-      v14 = v12;
+      DerivedStorage = v41;
+      v12 = v10;
       goto LABEL_47;
     }
 
-    v30 = CMBlockBufferReplaceDataBytes(&time, v23, 2uLL, 2uLL);
-    if (v30)
+    v27 = CMBlockBufferReplaceDataBytes(&time, v21, 2uLL, 2uLL);
+    if (v27)
     {
-      v12 = v30;
+      v10 = v27;
       goto LABEL_43;
     }
 
-    v31 = *(v28 + 80);
-    if (v31 && CFDictionaryGetCount(*(v31 + 24)))
+    v28 = *(v26 + 80);
+    if (v28 && CFDictionaryGetCount(*(v28 + 24)))
     {
-      SeqNumBeforeSeqNum = APSRTPSeqNumDictionaryGetSeqNumBeforeSeqNum(*(v28 + 80), *(v28 + 88), &v54);
+      SeqNumBeforeSeqNum = APSRTPSeqNumDictionaryGetSeqNumBeforeSeqNum(*(v26 + 80), *(v26 + 88), &v51);
       if (SeqNumBeforeSeqNum)
       {
-        v12 = SeqNumBeforeSeqNum;
+        v10 = SeqNumBeforeSeqNum;
         goto LABEL_46;
       }
 
-      v33 = *(CFDictionaryGetValue(*(*(v28 + 80) + 24), v54) + 3);
+      v30 = *(CFDictionaryGetValue(*(*(v26 + 80) + 24), v51) + 3);
     }
 
     else
     {
-      v33 = 0;
+      v30 = 0;
     }
 
-    v34 = *(v28 + 48);
-    v35 = CMBlockBufferGetDataLength(v23);
-    time = v46;
-    APSAudioHoseMetricCollectorUpdatePacketSize(v34, v35, &time);
-    v36 = CMBlockBufferGetDataLength(v23) + v33;
-    sourceBytes.value = v23;
+    v31 = *(v26 + 48);
+    v32 = CMBlockBufferGetDataLength(v21);
+    time = v43;
+    APSAudioHoseMetricCollectorUpdatePacketSize(v31, v32, &time);
+    v33 = CMBlockBufferGetDataLength(v21) + v30;
+    sourceBytes.value = v21;
     *&sourceBytes.timescale = value;
     LODWORD(sourceBytes.epoch) = timescale;
-    time = v46;
+    time = v43;
     Seconds = CMTimeGetSeconds(&time);
     *(&sourceBytes.epoch + 1) = Seconds;
-    v53 = v36;
-    SeqNumBeforeSeqNum = APSRTPSeqNumDictionarySetValue(*(v28 + 80), *(v28 + 88), &sourceBytes);
+    v50 = v33;
+    SeqNumBeforeSeqNum = APSRTPSeqNumDictionarySetValue(*(v26 + 80), *(v26 + 88), &sourceBytes);
     if (SeqNumBeforeSeqNum)
     {
-      v12 = SeqNumBeforeSeqNum;
+      v10 = SeqNumBeforeSeqNum;
       goto LABEL_46;
     }
 
     if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 10 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
     {
-      v38 = *(v28 + 88);
+      v35 = sourceBytes.value;
+      v36 = *(v26 + 88);
       time.value = value;
       time.timescale = timescale;
-      *&time.flags = v55;
-      HIDWORD(time.epoch) = v56;
-      CMTimeGetSeconds(&time);
-      LogPrintF();
+      *&time.flags = v52;
+      HIDWORD(time.epoch) = v53;
+      v37 = CMTimeGetSeconds(&time);
+      LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_enqueueRTPPacketForSendingInternal(APSAudioProtocolDriverSenderRef, CMBlockBufferRef, CMTime, CMTime)", 33554442, "[%{ptr}] protocolDriverSenderAPAT_enqueueRTPPacketForSendingInternal rtpBBuf: [%{ptr}] seqNum:%u, timestamp: %1.3f [%lld/%d], relativeDuration: %1.3f", a1, v35, v36, *&v37, *&sourceBytes.timescale, LODWORD(sourceBytes.epoch), *(&sourceBytes.epoch + 1));
     }
 
-    ++*(v28 + 88);
-    ++v21;
-    v17 = v22;
-    a3 = v25;
+    ++*(v26 + 88);
+    ++v19;
+    v15 = v20;
+    a3 = v23;
   }
 
-  while (v22 != v21);
+  while (v20 != v19);
   CMGetAttachment(target, @"startWaterMark", 0);
-  v39 = *MEMORY[0x277CBED28];
-  DerivedStorage = v45;
+  v38 = *MEMORY[0x277CBED28];
   if (FigCFEqual())
   {
-    CMSetAttachment(v23, @"startWaterMark", v39, 1u);
+    CMSetAttachment(v21, @"startWaterMark", v38, 1u);
   }
 
 LABEL_36:
-  v40 = *(DerivedStorage + 72);
   CFDictionaryApplyBlock();
-  v12 = 0;
+  v10 = 0;
 LABEL_37:
-  v41 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
   if (destinationBuffer)
   {
@@ -7629,91 +6921,83 @@ LABEL_37:
     CFRelease(theArray);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v10;
 }
 
 uint64_t protocolDriverSenderAPAT_IsHoseRegistered(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
-  v5 = CFDictionaryContainsKey(*(DerivedStorage + 72), a2);
-  v6 = *(DerivedStorage + 64);
+  v4 = CFDictionaryContainsKey(*(DerivedStorage + 72), a2);
   FigSimpleMutexUnlock();
-  return v5;
+  return v4;
 }
 
 uint64_t protocolDriverSenderAPAT_DeregisterHose(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 50 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    CFDictionaryGetCount(*(DerivedStorage + 72));
-    LogPrintF();
+    Count = CFDictionaryGetCount(*(DerivedStorage + 72));
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_DeregisterHose(APSAudioProtocolDriverSenderRef, APSAudioProtocolDriverHoseRef)", 33554482, "[%{ptr}] Deregistering hoseData [%{ptr}] with protocolDriverSenderAPAT (current hoseCount = %d)\n", a1, a2, Count);
   }
 
-  v5 = CMBaseObjectGetDerivedStorage();
-  v6 = *(v5 + 64);
+  v6 = CMBaseObjectGetDerivedStorage();
   FigSimpleMutexCheckIsLockedOnThisThread();
-  v7 = CFDictionaryContainsKey(*(v5 + 72), a2);
+  v7 = CFDictionaryContainsKey(*(v6 + 72), a2);
   if (v7)
   {
-    CFDictionaryRemoveValue(*(v5 + 72), a2);
+    CFDictionaryRemoveValue(*(v6 + 72), a2);
     if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 50 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
     {
-      CFDictionaryGetCount(*(DerivedStorage + 72));
-      LogPrintF();
+      v8 = CFDictionaryGetCount(*(DerivedStorage + 72));
+      LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_DeregisterHose(APSAudioProtocolDriverSenderRef, APSAudioProtocolDriverHoseRef)", 33554482, "[%{ptr}] Deregistered hoseData [%{ptr}] with protocolDriverSenderAPAT (hosecount = %u)\n", a1, a2, v8);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = 4294894825;
+    v9 = 4294894825;
     APSLogErrorAt(v7);
-    APSSignalErrorAt(4294894825);
+    APSSignalErrorAt(0xFFFEE4E9, "Hose is not registererd.", "protocolDriverSenderAPAT_removeHose");
     APSLogErrorAt(4294894825);
   }
 
-  v9 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
-  return v8;
+  return v9;
 }
 
 uint64_t protocolDriverSenderAPAT_RegisterHose(uint64_t a1, const void *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 50 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    CFDictionaryGetCount(*(DerivedStorage + 72));
-    LogPrintF();
+    Count = CFDictionaryGetCount(*(DerivedStorage + 72));
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_RegisterHose(APSAudioProtocolDriverSenderRef, APSAudioProtocolDriverHoseRef)", 33554482, "[%{ptr}] Registering hoseData [%{ptr}] with protocolDriverSenderAPAT (current hoseCount = %d)\n", a1, a2, Count);
   }
 
-  v5 = CMBaseObjectGetDerivedStorage();
+  v6 = CMBaseObjectGetDerivedStorage();
   value[1] = 0;
-  v23 = 0;
+  v21 = 0;
   cf = 0;
-  v20 = 0;
-  v6 = *(v5 + 64);
+  v18 = 0;
   FigSimpleMutexCheckIsLockedOnThisThread();
-  if (CFDictionaryContainsKey(*(v5 + 72), a2))
+  if (CFDictionaryContainsKey(*(v6 + 72), a2))
   {
     v8 = 4294894825;
     APSLogErrorAt(0);
-    APSSignalErrorAt(4294894825);
+    APSSignalErrorAt(0xFFFEE4E9, "Hose is already registered", "protocolDriverSenderAPAT_addHose");
     goto LABEL_26;
   }
 
   value[0] = a2;
-  if (protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal())
+  if (protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1))
   {
-    FirstSeqNum = APSRTPSeqNumDictionaryGetFirstSeqNum(*(v5 + 80), &v20);
+    FirstSeqNum = APSRTPSeqNumDictionaryGetFirstSeqNum(*(v6 + 80), &v18);
     if (FirstSeqNum)
     {
       v8 = FirstSeqNum;
@@ -7726,7 +7010,7 @@ LABEL_26:
 
   else
   {
-    v20 = *(v5 + 88);
+    v18 = *(v6 + 88);
   }
 
   v9 = FigCFWeakReferenceHolderCreateWithReferencedObject();
@@ -7738,11 +7022,11 @@ LABEL_26:
   }
 
   v10 = v9;
-  v11 = *(v5 + 40);
-  *&v18 = protocolDriverSenderAPAT_CopyMessageAtOrNextValidSequenceNumber;
-  *(&v18 + 1) = protocolDriverSenderAPAT_CopyMessagesSessionStart;
-  v19 = protocolDriverSenderAPAT_CopyMessagesSessionEnd;
-  v12 = APSAudioProtocolDriverSenderHoseControllerAPATCreate(a2, v20, v11, &v18, v9, *(v5 + 44), *(v5 + 48), *(v5 + 56), &cf);
+  v11 = *(v6 + 40);
+  *&v16 = protocolDriverSenderAPAT_CopyMessageAtOrNextValidSequenceNumber;
+  *(&v16 + 1) = protocolDriverSenderAPAT_CopyMessagesSessionStart;
+  v17 = protocolDriverSenderAPAT_CopyMessagesSessionEnd;
+  v12 = APSAudioProtocolDriverSenderHoseControllerAPATCreate(a2, v18, v11, &v16, v9, *(v6 + 44), *(v6 + 48), *(v6 + 56), &cf);
   v8 = v12;
   if (v12)
   {
@@ -7751,21 +7035,19 @@ LABEL_26:
 
   else
   {
-    if (*(v5 + 104))
+    if (*(v6 + 104))
     {
       v13 = cf;
-      v18 = *(v5 + 92);
-      v19 = *(v5 + 108);
-      v14 = *(cf + 13);
+      v16 = *(v6 + 92);
+      v17 = *(v6 + 108);
       FigSimpleMutexLock();
-      *(v13 + 148) = v18;
-      *(v13 + 164) = v19;
-      v15 = *(v13 + 13);
+      *(v13 + 148) = v16;
+      *(v13 + 164) = v17;
       FigSimpleMutexUnlock();
     }
 
-    v23 = cf;
-    CFDictionaryAddValue(*(v5 + 72), a2, value);
+    v21 = cf;
+    CFDictionaryAddValue(*(v6 + 72), a2, value);
   }
 
   CFRelease(v10);
@@ -7781,53 +7063,51 @@ LABEL_26:
 
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 50 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    CFDictionaryGetCount(*(DerivedStorage + 72));
-    LogPrintF();
+    v14 = CFDictionaryGetCount(*(DerivedStorage + 72));
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_RegisterHose(APSAudioProtocolDriverSenderRef, APSAudioProtocolDriverHoseRef)", 33554482, "[%{ptr}] Registered hoseData [%{ptr}] with protocolDriverSenderAPAT (hosecount = %d).\n", a1, a2, v14);
   }
 
   v8 = 0;
 LABEL_23:
-  v16 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
   return v8;
 }
 
-uint64_t protocolDriverSenderAPAT_CopyMessagesSessionEnd()
+uint64_t protocolDriverSenderAPAT_CopyMessagesSessionEnd(uint64_t a1)
 {
-  v0 = FigCFWeakReferenceHolderCopyReferencedObject();
-  if (v0)
+  v1 = FigCFWeakReferenceHolderCopyReferencedObject();
+  if (v1)
   {
-    v1 = v0;
-    DerivedStorage = CMBaseObjectGetDerivedStorage();
-    v3 = *(DerivedStorage + 64);
+    v2 = v1;
+    CMBaseObjectGetDerivedStorage();
     FigSimpleMutexCheckIsLockedOnThisThread();
-    v4 = *(DerivedStorage + 64);
     FigSimpleMutexUnlock();
-    CFRelease(v1);
+    CFRelease(v2);
   }
 
   return 0;
 }
 
-uint64_t protocolDriverSenderAPAT_CopyMessagesSessionStart()
+uint64_t protocolDriverSenderAPAT_CopyMessagesSessionStart(uint64_t a1)
 {
-  v0 = FigCFWeakReferenceHolderCopyReferencedObject();
-  if (v0)
+  v1 = FigCFWeakReferenceHolderCopyReferencedObject();
+  if (v1)
   {
-    v1 = v0;
-    v2 = *(CMBaseObjectGetDerivedStorage() + 64);
+    v2 = v1;
+    CMBaseObjectGetDerivedStorage();
     FigSimpleMutexLock();
-    CFRelease(v1);
+    CFRelease(v2);
   }
 
   return 0;
 }
 
-uint64_t protocolDriverSenderAPAT_CopyMessageAtOrNextValidSequenceNumber(uint64_t a1, unsigned int a2, _WORD *a3, void *a4, CMTime *a5, double *a6, _WORD *a7, void *a8)
+uint64_t protocolDriverSenderAPAT_CopyMessageAtOrNextValidSequenceNumber(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, CMTime *a5, double *a6, _WORD *a7, void *a8)
 {
-  *&key[6] = 0;
-  *key = a2;
-  v42 = **&MEMORY[0x277CC0898];
+  *&key[3] = 0;
+  key[1] = 0;
+  key[0] = a2;
+  v41 = **&MEMORY[0x277CC0898];
   v15 = FigCFWeakReferenceHolderCopyReferencedObject();
   if (!v15)
   {
@@ -7836,50 +7116,49 @@ uint64_t protocolDriverSenderAPAT_CopyMessageAtOrNextValidSequenceNumber(uint64_
 
   v16 = v15;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v18 = *(DerivedStorage + 64);
   FigSimpleMutexCheckIsLockedOnThisThread();
-  v19 = *(DerivedStorage + 80);
-  if (!v19 || !CFDictionaryGetCount(*(v19 + 24)))
+  v18 = *(DerivedStorage + 80);
+  if (!v18 || !CFDictionaryGetCount(*(v18 + 24)))
   {
     if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 30 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_CopyMessageAtOrNextValidSequenceNumber(CFTypeRef, uint16_t, uint16_t *, uint64_t *, CMTime *, Float64 *, uint16_t *, CMBlockBufferRef *)", 33554462, "[%{ptr}] TXBuffer is empty, current query seqNumber: %d", v16, a2);
     }
 
-    v24 = 0;
+    v23 = 0;
     goto LABEL_21;
   }
 
-  v20 = *(DerivedStorage + 80);
-  if (v20)
+  v19 = *(DerivedStorage + 80);
+  if (v19)
   {
-    Value = CFDictionaryGetValue(*(v20 + 24), a2);
+    Value = CFDictionaryGetValue(*(v19 + 24), a2);
     if (Value)
     {
       goto LABEL_14;
     }
 
-    v22 = *(DerivedStorage + 80);
+    v21 = *(DerivedStorage + 80);
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  SeqNumAfterSeqNum = APSRTPSeqNumDictionaryGetSeqNumAfterSeqNum(v22, a2, key);
+  SeqNumAfterSeqNum = APSRTPSeqNumDictionaryGetSeqNumAfterSeqNum(v21, a2, key);
   if (SeqNumAfterSeqNum != -6750)
   {
-    v24 = SeqNumAfterSeqNum;
+    v23 = SeqNumAfterSeqNum;
     if (SeqNumAfterSeqNum)
     {
       goto LABEL_30;
     }
 
-    v25 = *(DerivedStorage + 80);
-    if (v25)
+    v24 = *(DerivedStorage + 80);
+    if (v24)
     {
-      Value = CFDictionaryGetValue(*(v25 + 24), *key);
+      Value = CFDictionaryGetValue(*(v24 + 24), key[0]);
     }
 
     else
@@ -7888,118 +7167,116 @@ uint64_t protocolDriverSenderAPAT_CopyMessageAtOrNextValidSequenceNumber(uint64_
     }
 
 LABEL_14:
-    SeqNumAfterSeqNum = protocolDriverSenderAPAT_getTxBufferEndItemInternal(v16, 1, &key[4], &key[6]);
+    SeqNumAfterSeqNum = protocolDriverSenderAPAT_getTxBufferEndItemInternal(v16, 1, &key[2], &key[3]);
     if (!SeqNumAfterSeqNum)
     {
-      v26 = a7;
-      v27 = a4;
-      v40 = a8;
-      v41 = v16;
-      v28 = a6;
-      v39 = v26;
-      v29 = *&key[6];
-      DataLength = CMBlockBufferGetDataLength(**&key[6]);
-      v31 = *(Value + 3);
-      v32 = *(v29 + 24);
-      CMTimeMake(&v42, *(Value + 1), *(Value + 4));
-      v33 = *(DerivedStorage + 80);
-      if (v33)
+      v25 = a7;
+      v26 = a4;
+      v39 = a8;
+      v40 = v16;
+      v27 = a6;
+      v38 = v25;
+      v28 = *&key[3];
+      DataLength = CMBlockBufferGetDataLength(**&key[3]);
+      v30 = *(Value + 3);
+      v31 = *(v28 + 24);
+      CMTimeMake(&v41, *(Value + 1), *(Value + 4));
+      v32 = *(DerivedStorage + 80);
+      if (v32)
       {
-        v34 = *(Value + 5);
-        LastSeqNum = APSRTPSeqNumRangeSetGetLastSeqNum(*(v33 + 16), &key[2]);
+        v33 = *(Value + 5);
+        LastSeqNum = APSRTPSeqNumRangeSetGetLastSeqNum(*(v32 + 16), &key[1]);
         if (!LastSeqNum)
         {
-          v36 = *&key[2] - *key;
-          *a3 = *key;
-          *v27 = v31 + DataLength - v32;
-          *a5 = v42;
-          *v28 = v34;
-          *v39 = v36;
-          v37 = *Value;
+          v35 = key[1] - key[0];
+          *a3 = key[0];
+          *v26 = v30 + DataLength - v31;
+          *a5 = v41;
+          *v27 = v33;
+          *v38 = v35;
+          v36 = *Value;
           if (*Value)
           {
-            v37 = CFRetain(v37);
+            v36 = CFRetain(v36);
           }
 
-          v24 = 0;
-          *v40 = v37;
+          v23 = 0;
+          *v39 = v36;
           goto LABEL_20;
         }
 
-        v24 = LastSeqNum;
+        v23 = LastSeqNum;
       }
 
       else
       {
-        v24 = 4294960591;
+        v23 = 4294960591;
       }
 
-      APSLogErrorAt(v24);
+      APSLogErrorAt(v23);
 LABEL_20:
-      v16 = v41;
+      v16 = v40;
       goto LABEL_21;
     }
 
-    v24 = SeqNumAfterSeqNum;
+    v23 = SeqNumAfterSeqNum;
 LABEL_30:
     APSLogErrorAt(SeqNumAfterSeqNum);
     goto LABEL_21;
   }
 
-  v24 = 0;
+  v23 = 0;
   *a8 = 0;
 LABEL_21:
   CFRelease(v16);
-  return v24;
+  return v23;
 }
 
 uint64_t protocolDriverSenderAPAT_FlushFromTime(uint64_t a1, __int128 *a2, _WORD *a3, _WORD *a4)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v9 = *(DerivedStorage + 88);
-  v10 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
-  if (!protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal())
+  if (!protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1))
   {
     goto LABEL_25;
   }
 
-  *&v30.value = *a2;
-  v30.epoch = *(a2 + 2);
-  v11 = CMBaseObjectGetDerivedStorage();
-  v47 = 0;
-  v46 = **&MEMORY[0x277CC0898];
-  v45 = 0;
-  *&v42 = 0;
-  *(&v42 + 1) = &v42;
-  v43 = 0x2000000000;
-  v44 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2000000000;
+  *&v24.value = *a2;
+  v24.epoch = *(a2 + 2);
+  v10 = CMBaseObjectGetDerivedStorage();
   v41 = 0;
-  TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal();
-  v13 = *(v11 + 64);
+  v40 = **&MEMORY[0x277CC0898];
+  v39 = 0;
+  *&v36 = 0;
+  *(&v36 + 1) = &v36;
+  v37 = 0x2000000000;
+  v38 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2000000000;
+  v35 = 0;
+  TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1);
   FigSimpleMutexCheckIsLockedOnThisThread();
   if (!TxBufferTotalItemCountInternal)
   {
     goto LABEL_20;
   }
 
-  TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 1, &v37, &v47);
+  TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 1, &v31, &v41);
   if (!TxBufferEndItemInternal)
   {
-    CMTimeMake(&v46, *(v47 + 8), *(v47 + 16));
-    time1 = v46;
-    time2 = v30;
-    v15 = CMTimeCompare(&time1, &time2);
-    v16 = *(v11 + 80);
-    if ((v15 & 0x80000000) == 0)
+    CMTimeMake(&v40, *(v41 + 8), *(v41 + 16));
+    time1 = v40;
+    time2 = v24;
+    v13 = CMTimeCompare(&time1, &time2);
+    v14 = *(v10 + 80);
+    if ((v13 & 0x80000000) == 0)
     {
-      if (v16)
+      if (v14)
       {
-        Span = APSRTPSeqNumRangeSetGetSpan(*(v16 + 16));
-        v16 = *(v11 + 80);
+        Span = APSRTPSeqNumRangeSetGetSpan(*(v14 + 16));
+        v14 = *(v10 + 80);
       }
 
       else
@@ -8007,104 +7284,102 @@ uint64_t protocolDriverSenderAPAT_FlushFromTime(uint64_t a1, __int128 *a2, _WORD
         Span = 0;
       }
 
-      APSRTPSeqNumDictionaryRemoveAllValues(v16);
-      v18 = 0;
+      APSRTPSeqNumDictionaryRemoveAllValues(v14);
+      v16 = 0;
       goto LABEL_22;
     }
 
     time1.value = MEMORY[0x277D85DD0];
     *&time1.timescale = 0x40000000;
     time1.epoch = __protcolDriverSenderAPAT_pruneTXBufferFromTimeInternal_block_invoke;
-    v32 = &unk_2784A42E0;
-    v34 = *&v30.value;
-    epoch = v30.epoch;
-    *&v33 = &v38;
-    *(&v33 + 1) = &v42;
-    TxBufferEndItemInternal = APSRTPSeqNumDictionaryApplyBlock(v16, 1u, &time1);
+    v26 = &unk_2784A42E0;
+    v28 = *&v24.value;
+    epoch = v24.epoch;
+    *&v27 = &v32;
+    *(&v27 + 1) = &v36;
+    TxBufferEndItemInternal = APSRTPSeqNumDictionaryApplyBlock(v14, 1, &time1);
     if (TxBufferEndItemInternal != -6723)
     {
-      v18 = TxBufferEndItemInternal;
+      v16 = TxBufferEndItemInternal;
       if (TxBufferEndItemInternal)
       {
         goto LABEL_19;
       }
     }
 
-    if (*(*(&v42 + 1) + 24))
+    if (*(*(&v36 + 1) + 24))
     {
-      v19 = *(v11 + 80);
-      if (v19)
+      v17 = *(v10 + 80);
+      if (v17)
       {
-        LastSeqNum = APSRTPSeqNumRangeSetGetLastSeqNum(*(v19 + 16), &v45);
+        LastSeqNum = APSRTPSeqNumRangeSetGetLastSeqNum(*(v17 + 16), &v39);
         if (!LastSeqNum)
         {
-          v21 = *(v39 + 12);
-          v22 = (v45 - v21);
-          v23 = (v21 | ((v45 - v21) << 16)) + 0x10000;
-          if (v22 < -1)
+          v19 = *(v33 + 12);
+          v20 = (v39 - v19);
+          v21 = (v19 | ((v39 - v19) << 16)) + 0x10000;
+          if (v20 < -1)
           {
             Span = -1;
           }
 
           else
           {
-            Span = v23;
+            Span = v21;
           }
 
-          v24 = APSRTPSeqNumDictionaryRemoveValuesWithinSeqNumRange(*(v11 + 80), Span);
-          v18 = v24;
-          if (v24)
+          v22 = APSRTPSeqNumDictionaryRemoveValuesWithinSeqNumRange(*(v10 + 80), Span);
+          v16 = v22;
+          if (v22)
           {
-            APSLogErrorAt(v24);
+            APSLogErrorAt(v22);
           }
 
           goto LABEL_22;
         }
 
-        v18 = LastSeqNum;
+        v16 = LastSeqNum;
       }
 
       else
       {
-        v18 = 4294960591;
+        v16 = 4294960591;
       }
 
-      TxBufferEndItemInternal = v18;
+      TxBufferEndItemInternal = v16;
       goto LABEL_19;
     }
 
 LABEL_20:
-    v18 = 0;
+    v16 = 0;
     goto LABEL_21;
   }
 
-  v18 = TxBufferEndItemInternal;
+  v16 = TxBufferEndItemInternal;
 LABEL_19:
   APSLogErrorAt(TxBufferEndItemInternal);
 LABEL_21:
   Span = -1;
 LABEL_22:
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
-  if (v18)
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
+  if (v16)
   {
-    APSLogErrorAt(v18);
+    APSLogErrorAt(v16);
     goto LABEL_29;
   }
 
-  protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange();
-  v42 = *a2;
-  v43 = *(a2 + 2);
-  v25 = CMBaseObjectGetDerivedStorage();
-  v26 = *(v25 + 64);
+  protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange(a1, Span);
+  v36 = *a2;
+  v37 = *(a2 + 2);
+  CMBaseObjectGetDerivedStorage();
   FigSimpleMutexCheckIsLockedOnThisThread();
-  v27 = *(v25 + 72);
   time1.value = MEMORY[0x277D85DD0];
   *&time1.timescale = 0x40000000;
   time1.epoch = __protocolDriverSenderAPAT_flushHoseControllersFromTime_block_invoke;
-  v32 = &__block_descriptor_tmp_20_3335;
-  v33 = v42;
-  *&v34 = v43;
+  v26 = &__block_descriptor_tmp_20_3335;
+  v27 = v36;
+  *&v28 = v37;
   CFDictionaryApplyBlock();
   if (Span < 0x80010000)
   {
@@ -8117,23 +7392,22 @@ LABEL_25:
     *a3 = v9;
   }
 
-  v18 = 0;
+  v16 = 0;
   if (a4)
   {
     *a4 = *(DerivedStorage + 88);
   }
 
 LABEL_29:
-  v28 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
-  return v18;
+  return v16;
 }
 
 uint64_t __protcolDriverSenderAPAT_pruneTXBufferFromTimeInternal_block_invoke(uint64_t a1, __int16 a2, uint64_t a3)
 {
-  memset(&v8, 0, sizeof(v8));
-  CMTimeMake(&v8, *(a3 + 8), *(a3 + 16));
-  time1 = v8;
+  memset(&v9, 0, sizeof(v9));
+  CMTimeMake(&v9, *(a3 + 8), *(a3 + 16));
+  time1 = v9;
   time2 = *(a1 + 48);
   if (CMTimeCompare(&time1, &time2) < 0)
   {
@@ -8142,9 +7416,9 @@ uint64_t __protcolDriverSenderAPAT_pruneTXBufferFromTimeInternal_block_invoke(ui
 
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 50 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    time1 = v8;
-    CMTimeGetSeconds(&time1);
-    LogPrintF();
+    time1 = v9;
+    Seconds = CMTimeGetSeconds(&time1);
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protcolDriverSenderAPAT_pruneTXBufferFromTimeInternal(APSAudioProtocolDriverSenderRef, CMTime, APSRTPSeqNumRange *)_block_invoke", 33554482, "Prune item in TX Buffer itemTime: %.6f", Seconds);
   }
 
   result = 0;
@@ -8153,12 +7427,10 @@ uint64_t __protcolDriverSenderAPAT_pruneTXBufferFromTimeInternal_block_invoke(ui
   return result;
 }
 
-uint64_t protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange()
+uint64_t protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange(uint64_t a1, int a2)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(DerivedStorage + 64);
+  CMBaseObjectGetDerivedStorage();
   FigSimpleMutexCheckIsLockedOnThisThread();
-  v2 = *(DerivedStorage + 72);
   return CFDictionaryApplyBlock();
 }
 
@@ -8185,175 +7457,157 @@ uint64_t __protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange_block_in
 uint64_t protocolDriverSenderAPAT_Flush(uint64_t a1, _WORD *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
-  if (!protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal())
+  if (protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1) && ((v5 = *(DerivedStorage + 80)) == 0 ? (Span = 0) : (Span = APSRTPSeqNumRangeSetGetSpan(*(v5 + 16))), protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange(a1, Span), CMBaseObjectGetDerivedStorage(), FigSimpleMutexCheckIsLockedOnThisThread(), CFDictionaryApplyBlock(), v7 = APSRTPSeqNumDictionaryRemoveAllValues(*(DerivedStorage + 80)), v7))
   {
-    goto LABEL_5;
-  }
-
-  v5 = *(DerivedStorage + 80);
-  if (v5)
-  {
-    APSRTPSeqNumRangeSetGetSpan(*(v5 + 16));
-  }
-
-  protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange();
-  v6 = CMBaseObjectGetDerivedStorage();
-  v7 = *(v6 + 64);
-  FigSimpleMutexCheckIsLockedOnThisThread();
-  v8 = *(v6 + 72);
-  CFDictionaryApplyBlock();
-  v9 = APSRTPSeqNumDictionaryRemoveAllValues(*(DerivedStorage + 80));
-  if (v9)
-  {
-    v10 = v9;
-    APSLogErrorAt(v9);
+    v8 = v7;
+    APSLogErrorAt(v7);
   }
 
   else
   {
-LABEL_5:
-    v10 = 0;
+    v8 = 0;
     if (a2)
     {
       *a2 = *(DerivedStorage + 88);
     }
   }
 
-  v11 = *(DerivedStorage + 64);
   FigSimpleMutexUnlock();
-  return v10;
+  return v8;
 }
 
 uint64_t protocolDriverSenderAPAT_Tick(uint64_t a1, uint64_t a2)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  CMBaseObjectGetDerivedStorage();
   if ((*(a2 + 12) & 1) == 0)
   {
     APSLogErrorAt(0);
     return 4294894825;
   }
 
-  v5 = DerivedStorage;
-  v6 = *(DerivedStorage + 64);
   FigSimpleMutexLock();
-  *&v25.value = *a2;
-  v25.epoch = *(a2 + 16);
-  v7 = CMBaseObjectGetDerivedStorage();
-  *&v28.value = *MEMORY[0x277CC0898];
-  v8 = *(MEMORY[0x277CC0898] + 16);
-  v28.epoch = v8;
-  v24 = *&v28.value;
-  *&v27.value = *&v28.value;
-  v27.epoch = v8;
-  v9 = *(v7 + 64);
+  *&v18.value = *a2;
+  v18.epoch = *(a2 + 16);
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  *&v21.value = *MEMORY[0x277CC0898];
+  v5 = *(MEMORY[0x277CC0898] + 16);
+  v21.epoch = v5;
+  v17 = *&v21.value;
+  *&v20.value = *&v21.value;
+  v20.epoch = v5;
   FigSimpleMutexCheckIsLockedOnThisThread();
-  CMTimeMake(&v28, *(v7 + 116), 1000);
-  lhs = v25;
-  rhs = v28;
-  CMTimeAdd(&v27, &lhs, &rhs);
+  CMTimeMake(&v21, *(DerivedStorage + 116), 1000);
+  lhs = v18;
+  rhs = v21;
+  CMTimeAdd(&v20, &lhs, &rhs);
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 30 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    lhs = v27;
-    CMTimeGetSeconds(&lhs);
-    LogPrintF();
+    lhs = v20;
+    Seconds = CMTimeGetSeconds(&lhs);
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_pruneTxBufferToMediaTimeWithMargin(APSAudioProtocolDriverSenderRef, CMTime, APSRTPSeqNumRange *)", 33554462, "Prune TxBuffer until pruneTime: %.6f", Seconds);
   }
 
-  v26 = v27;
-  v10 = CMBaseObjectGetDerivedStorage();
-  v43.epoch = v8;
-  v44 = 0;
-  *&v43.value = v24;
-  v42 = 0;
+  v19 = v20;
+  v7 = CMBaseObjectGetDerivedStorage();
+  v36.epoch = v5;
+  v37 = 0;
+  *&v36.value = v17;
+  v35 = 0;
   rhs.value = 0;
   *&rhs.timescale = &rhs;
   rhs.epoch = 0x2000000000;
-  v41 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2000000000;
-  v39 = 0;
-  TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal();
-  v12 = *(v10 + 64);
+  v34 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2000000000;
+  v32 = 0;
+  TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1);
   FigSimpleMutexCheckIsLockedOnThisThread();
-  if (TxBufferTotalItemCountInternal)
+  if (!TxBufferTotalItemCountInternal)
   {
-    TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 0, &v35, &v44);
-    if (TxBufferEndItemInternal)
-    {
-      TxBufferTotalItemCountInternal = TxBufferEndItemInternal;
-    }
+    goto LABEL_22;
+  }
 
-    else
+  TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 0, &v28, &v37);
+  if (TxBufferEndItemInternal)
+  {
+    TxBufferTotalItemCountInternal = TxBufferEndItemInternal;
+  }
+
+  else
+  {
+    CMTimeMake(&v36, *(v37 + 8), *(v37 + 16));
+    lhs = v36;
+    time2 = v19;
+    v10 = CMTimeCompare(&lhs, &time2);
+    v11 = *(v7 + 80);
+    if (v10 < 0)
     {
-      CMTimeMake(&v43, *(v44 + 8), *(v44 + 16));
-      lhs = v43;
-      time2 = v26;
-      v14 = CMTimeCompare(&lhs, &time2);
-      v15 = *(v10 + 80);
-      if (v14 < 0)
+      if (v11)
       {
-        if (v15)
-        {
-          APSRTPSeqNumRangeSetGetSpan(*(v15 + 16));
-          v15 = *(v10 + 80);
-        }
-
-        APSRTPSeqNumDictionaryRemoveAllValues(v15);
-        TxBufferTotalItemCountInternal = 0;
-        goto LABEL_24;
+        Span = APSRTPSeqNumRangeSetGetSpan(*(v11 + 16));
+        v11 = *(v7 + 80);
       }
 
-      lhs.value = MEMORY[0x277D85DD0];
-      *&lhs.timescale = 0x40000000;
-      lhs.epoch = __protocolDriverSenderAPAT_pruneTxBufferUntilTimeInternal_block_invoke;
-      v30 = &unk_2784A4278;
-      v33 = v26;
-      v31 = &v36;
-      p_rhs = &rhs;
-      TxBufferEndItemInternal = APSRTPSeqNumDictionaryApplyBlock(v15, 0, &lhs);
-      if (TxBufferEndItemInternal == -6723 || (TxBufferTotalItemCountInternal = TxBufferEndItemInternal, !TxBufferEndItemInternal))
+      else
       {
-        if (!*(*&rhs.timescale + 24))
-        {
-          TxBufferTotalItemCountInternal = 0;
-          goto LABEL_24;
-        }
+        Span = 0;
+      }
 
-        TxBufferEndItemInternal = APSRTPSeqNumDictionaryGetFirstSeqNum(*(v10 + 80), &v42);
-        if (TxBufferEndItemInternal)
+      APSRTPSeqNumDictionaryRemoveAllValues(v11);
+      TxBufferTotalItemCountInternal = 0;
+      goto LABEL_25;
+    }
+
+    lhs.value = MEMORY[0x277D85DD0];
+    *&lhs.timescale = 0x40000000;
+    lhs.epoch = __protocolDriverSenderAPAT_pruneTxBufferUntilTimeInternal_block_invoke;
+    v23 = &unk_2784A4278;
+    v26 = v19;
+    v24 = &v29;
+    p_rhs = &rhs;
+    TxBufferEndItemInternal = APSRTPSeqNumDictionaryApplyBlock(v11, 0, &lhs);
+    if (TxBufferEndItemInternal == -6723 || (TxBufferTotalItemCountInternal = TxBufferEndItemInternal, !TxBufferEndItemInternal))
+    {
+      if (!*(*&rhs.timescale + 24))
+      {
+        TxBufferTotalItemCountInternal = 0;
+        goto LABEL_22;
+      }
+
+      TxBufferEndItemInternal = APSRTPSeqNumDictionaryGetFirstSeqNum(*(v7 + 80), &v35);
+      if (!TxBufferEndItemInternal)
+      {
+        if ((*(v30 + 12) - v35) < -1)
         {
-          TxBufferTotalItemCountInternal = TxBufferEndItemInternal;
+          Span = -1;
         }
 
         else
         {
-          if ((*(v37 + 12) - v42) < -1)
-          {
-            v16 = -1;
-          }
-
-          else
-          {
-            v16 = (v42 | ((*(v37 + 12) - v42) << 16)) + 0x10000;
-          }
-
-          TxBufferEndItemInternal = APSRTPSeqNumDictionaryRemoveValuesWithinSeqNumRange(*(v10 + 80), v16);
-          TxBufferTotalItemCountInternal = TxBufferEndItemInternal;
-          if (!TxBufferEndItemInternal)
-          {
-            goto LABEL_24;
-          }
+          Span = (v35 | ((*(v30 + 12) - v35) << 16)) + 0x10000;
         }
-      }
-    }
 
-    APSLogErrorAt(TxBufferEndItemInternal);
+        v13 = APSRTPSeqNumDictionaryRemoveValuesWithinSeqNumRange(*(v7 + 80), Span);
+        TxBufferTotalItemCountInternal = v13;
+        if (v13)
+        {
+          APSLogErrorAt(v13);
+        }
+
+        goto LABEL_25;
+      }
+
+      TxBufferTotalItemCountInternal = TxBufferEndItemInternal;
+    }
   }
 
-LABEL_24:
-  _Block_object_dispose(&v36, 8);
+  APSLogErrorAt(TxBufferEndItemInternal);
+LABEL_22:
+  Span = -1;
+LABEL_25:
+  _Block_object_dispose(&v29, 8);
   _Block_object_dispose(&rhs, 8);
   if (TxBufferTotalItemCountInternal)
   {
@@ -8363,41 +7617,38 @@ LABEL_24:
 
   else
   {
-    protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange();
-    v17 = CMBaseObjectGetDerivedStorage();
-    v18 = v17[8];
+    protocolDriverSenderAPAT_pruneHoseControllersWithPacketRange(a1, Span);
+    v14 = CMBaseObjectGetDerivedStorage();
     FigSimpleMutexCheckIsLockedOnThisThread();
     mach_absolute_time();
-    if ((UpTicksToMilliseconds() - v17[16]) >= 0x3E9)
+    if ((UpTicksToMilliseconds() - v14[16]) >= 0x3E9)
     {
       if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 50 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
       {
-        v19 = v17[10];
-        if (v19)
+        v15 = v14[10];
+        if (v15)
         {
-          v20 = *(v19 + 16);
+          v15 = *(v15 + 16);
         }
 
-        v23 = v17[17];
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "void protocolDriverSenderAPAT_updateStateLoggingInternal(APSAudioProtocolDriverSenderRef)", 33554482, "[%{ptr}] TxBuffer: %@, Full TxBuffer Error Count: %llu", a1, v15, v14[17]);
       }
 
       mach_absolute_time();
-      v17[16] = UpTicksToMilliseconds();
-      v17[17] = 0;
+      v14[16] = UpTicksToMilliseconds();
+      v14[17] = 0;
     }
   }
 
-  v21 = *(v5 + 64);
   FigSimpleMutexUnlock();
   return TxBufferTotalItemCountInternal;
 }
 
 uint64_t __protocolDriverSenderAPAT_pruneTxBufferUntilTimeInternal_block_invoke(uint64_t a1, __int16 a2, uint64_t a3)
 {
-  memset(&v8, 0, sizeof(v8));
-  CMTimeMake(&v8, *(a3 + 8), *(a3 + 16));
-  time1 = v8;
+  memset(&v9, 0, sizeof(v9));
+  CMTimeMake(&v9, *(a3 + 8), *(a3 + 16));
+  time1 = v9;
   time2 = *(a1 + 48);
   if ((CMTimeCompare(&time1, &time2) & 0x80000000) == 0)
   {
@@ -8406,9 +7657,9 @@ uint64_t __protocolDriverSenderAPAT_pruneTxBufferUntilTimeInternal_block_invoke(
 
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 10 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    time1 = v8;
-    CMTimeGetSeconds(&time1);
-    LogPrintF();
+    time1 = v9;
+    Seconds = CMTimeGetSeconds(&time1);
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_pruneTxBufferUntilTimeInternal(APSAudioProtocolDriverSenderRef, CMTime, APSRTPSeqNumRange *)_block_invoke", 33554442, "Prune item in TX Buffer itemTime: %.6f", Seconds);
   }
 
   result = 0;
@@ -8422,32 +7673,30 @@ uint64_t protocolDriverSenderAPAT_SetProperty(uint64_t a1, const void *a2, const
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!a2)
   {
-    v14 = 4294894825;
+    v11 = 4294894825;
     goto LABEL_24;
   }
 
   if (!a3)
   {
-    v14 = 4294894825;
+    v11 = 4294894825;
     goto LABEL_24;
   }
 
-  v6 = DerivedStorage;
+  v7 = DerivedStorage;
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_PruneMarginMs"))
   {
-    v7 = CFGetTypeID(a3);
-    if (v7 == CFNumberGetTypeID())
+    v8 = CFGetTypeID(a3);
+    if (v8 == CFNumberGetTypeID())
     {
-      v8 = *(v6 + 64);
       FigSimpleMutexLock();
-      CFNumberGetValue(a3, kCFNumberSInt32Type, (v6 + 116));
+      CFNumberGetValue(a3, kCFNumberSInt32Type, v7 + 29);
 LABEL_12:
-      v13 = *(v6 + 64);
       FigSimpleMutexUnlock();
       return 0;
     }
 
-    v14 = 4294894825;
+    v11 = 4294894825;
     goto LABEL_24;
   }
 
@@ -8456,36 +7705,34 @@ LABEL_12:
     v9 = CFGetTypeID(a3);
     if (v9 == CFNumberGetTypeID())
     {
-      v10 = *(v6 + 64);
       FigSimpleMutexLock();
-      *(v6 + 120) = FigCFNumberGetUInt32();
+      v7[30] = FigCFNumberGetUInt32();
       goto LABEL_12;
     }
 
-    v14 = 4294894825;
+    v11 = 4294894825;
 LABEL_24:
     APSLogErrorAt(0);
-    return v14;
+    return v11;
   }
 
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_OutputCryptorOverhead"))
   {
-    v11 = CFGetTypeID(a3);
-    if (v11 == CFNumberGetTypeID())
+    v10 = CFGetTypeID(a3);
+    if (v10 == CFNumberGetTypeID())
     {
-      v12 = *(v6 + 64);
       FigSimpleMutexLock();
-      *(v6 + 124) = FigCFNumberGetUInt32();
+      v7[31] = FigCFNumberGetUInt32();
       goto LABEL_12;
     }
 
-    v14 = 4294894825;
+    v11 = 4294894825;
     goto LABEL_24;
   }
 
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 30 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_SetProperty(CMBaseObjectRef, CFStringRef, const void *)", 33554462, "[%{ptr}] %###s %@ unsupported", a1, "OSStatus protocolDriverSenderAPAT_SetProperty(CMBaseObjectRef, CFStringRef, const void *)", a2);
   }
 
   return 4294954509;
@@ -8493,107 +7740,94 @@ LABEL_24:
 
 uint64_t protocolDriverSenderAPAT_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, uint64_t *a4)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  CMBaseObjectGetDerivedStorage();
   if (!a2 || !a4)
   {
     APSLogErrorAt(0);
     return 4294894825;
   }
 
-  v8 = DerivedStorage;
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_BufferFullnessCount"))
   {
-    v9 = *(v8 + 8);
     FigSimpleMutexLock();
-    protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal();
+    protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1);
     *a4 = CFNumberCreateInt64();
-    v10 = *(v8 + 8);
     FigSimpleMutexUnlock();
     if (*a4)
     {
       return 0;
     }
 
-    v11 = 4294894826;
+    v7 = 4294894826;
     Int64 = 0;
-LABEL_40:
+LABEL_39:
     APSLogErrorAt(Int64);
-    return v11;
+    return v7;
   }
 
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_BufferFullnessBytes"))
   {
-    v12 = *(v8 + 8);
     FigSimpleMutexLock();
-    v13 = CMBaseObjectGetDerivedStorage();
-    TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal();
-    v41 = 0;
-    v39 = 0;
-    v15 = *(v13 + 64);
+    CMBaseObjectGetDerivedStorage();
+    TxBufferTotalItemCountInternal = protocolDriverSenderAPAT_getTxBufferTotalItemCountInternal(a1);
+    v14 = 0;
+    v12 = 0;
     FigSimpleMutexCheckIsLockedOnThisThread();
-    if (!TxBufferTotalItemCountInternal)
+    if (TxBufferTotalItemCountInternal)
     {
-      goto LABEL_12;
-    }
-
-    TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 1, &v42, &v41);
-    if (TxBufferEndItemInternal)
-    {
-      v11 = TxBufferEndItemInternal;
-    }
-
-    else
-    {
-      v17 = v41;
-      DataLength = CMBlockBufferGetDataLength(*v41);
-      if (TxBufferTotalItemCountInternal == 1)
+      TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 1, &v15, &v14);
+      if (TxBufferEndItemInternal)
       {
-LABEL_12:
-        v20 = *(v8 + 8);
-        FigSimpleMutexUnlock();
-        v11 = 0;
-        *a4 = CFNumberCreateInt64();
-        return v11;
+        v7 = TxBufferEndItemInternal;
       }
 
-      TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 0, &v40, &v39);
-      if (!TxBufferEndItemInternal)
+      else
       {
-        v19 = *(v39 + 24) + DataLength - v17[3];
-        goto LABEL_12;
+        CMBlockBufferGetDataLength(*v14);
+        if (TxBufferTotalItemCountInternal == 1)
+        {
+          goto LABEL_11;
+        }
+
+        TxBufferEndItemInternal = protocolDriverSenderAPAT_getTxBufferEndItemInternal(a1, 0, &v13, &v12);
+        if (!TxBufferEndItemInternal)
+        {
+          goto LABEL_11;
+        }
+
+        v7 = TxBufferEndItemInternal;
       }
 
-      v11 = TxBufferEndItemInternal;
+      APSLogErrorAt(TxBufferEndItemInternal);
+      FigSimpleMutexUnlock();
+      Int64 = v7;
+      goto LABEL_39;
     }
 
-    APSLogErrorAt(TxBufferEndItemInternal);
-    v38 = *(v8 + 8);
+LABEL_11:
     FigSimpleMutexUnlock();
-    Int64 = v11;
-    goto LABEL_40;
+    v7 = 0;
+    *a4 = CFNumberCreateInt64();
+    return v7;
   }
 
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_PruneMarginMs"))
   {
-    v22 = *(v8 + 8);
     FigSimpleMutexLock();
-    v23 = v8[29];
     *a4 = CFNumberCreateInt64();
-    v24 = *(v8 + 8);
     FigSimpleMutexUnlock();
     if (*a4)
     {
       return 0;
     }
 
-    v11 = 4294894826;
+    v7 = 4294894826;
     Int64 = 0;
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_PreferedTickIntervalMs"))
   {
-    v26 = *v8;
     Int64 = CFNumberCreateInt64();
     *a4 = Int64;
     if (Int64)
@@ -8601,69 +7835,58 @@ LABEL_12:
       return 0;
     }
 
-    v11 = 4294894826;
-    goto LABEL_40;
+    v7 = 4294894826;
+    goto LABEL_39;
   }
 
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_MaxPacketSize"))
   {
-    v27 = *(v8 + 8);
     FigSimpleMutexLock();
-    v28 = *MEMORY[0x277CBECE8];
-    v29 = v8[30];
     *a4 = FigCFNumberCreateUInt32();
-    v30 = *(v8 + 8);
     FigSimpleMutexUnlock();
     if (*a4)
     {
       return 0;
     }
 
-    v11 = 4294894826;
+    v7 = 4294894826;
     Int64 = 0;
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_NextSequenceNumber"))
   {
-    v31 = *(v8 + 8);
     FigSimpleMutexLock();
-    v32 = *(v8 + 44);
     *a4 = CFNumberCreateInt64();
-    v33 = *(v8 + 8);
     FigSimpleMutexUnlock();
     if (*a4)
     {
       return 0;
     }
 
-    v11 = 4294894826;
+    v7 = 4294894826;
     Int64 = 0;
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
   if (CFEqual(a2, @"kAPSAudioProtocolDriverSenderProperty_OutputCryptorOverhead"))
   {
-    v34 = *(v8 + 8);
     FigSimpleMutexLock();
-    v35 = *MEMORY[0x277CBECE8];
-    v36 = v8[31];
     *a4 = FigCFNumberCreateUInt32();
-    v37 = *(v8 + 8);
     FigSimpleMutexUnlock();
     if (*a4)
     {
       return 0;
     }
 
-    v11 = 4294894826;
+    v7 = 4294894826;
     Int64 = 0;
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
   if (gLogCategory_APSAudioProtocolDriverSenderAPAT <= 30 && (gLogCategory_APSAudioProtocolDriverSenderAPAT != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSAudioProtocolDriverSenderAPAT, "OSStatus protocolDriverSenderAPAT_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", 33554462, "[%{ptr}] %###s %@ unsupported", a1, "OSStatus protocolDriverSenderAPAT_CopyProperty(CMBaseObjectRef, CFStringRef, CFAllocatorRef, void *)", a2);
   }
 
   return 4294954509;
@@ -8676,10 +7899,10 @@ __CFString *protocolDriverSenderAPAT_CopyDebugDescription(uint64_t a1)
   return Mutable;
 }
 
-uint64_t protocolDriverSenderAPAT_Finalize()
+uint64_t protocolDriverSenderAPAT_Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *(CMBaseObjectGetDerivedStorage() + 72);
+  CMBaseObjectGetDerivedStorage();
   FigCFDictionaryRemoveAllValues();
   v2 = DerivedStorage[10];
   if (v2)
@@ -8708,8 +7931,6 @@ uint64_t protocolDriverSenderAPAT_Finalize()
     CFRelease(v5);
     DerivedStorage[7] = 0;
   }
-
-  v6 = DerivedStorage[8];
 
   return FigSimpleMutexDestroy();
 }
@@ -9000,7 +8221,7 @@ uint64_t audioFormat_Finalize(const void *a1)
 
   if (gLogCategory_APSAudioFormatDescription <= 30 && (gLogCategory_APSAudioFormatDescription != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSAudioFormatDescription, "void audioFormat_Finalize(CFTypeRef)", 33554462, "APSAudioFormatDescription %{ptr} Finalizing", a1);
   }
 
   FigSimpleMutexLock();
@@ -9028,18 +8249,18 @@ uint64_t APSAudioFormatDescriptionCreateWithAudioFormatIndex(uint64_t a1, uint64
     dispatch_once_f(&audioFormat_getCache_sOnce, &audioFormat_getCache_sCache, audioFormat_initCache);
   }
 
-  v18 = 0u;
-  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   value = 0u;
-  v17 = 0u;
+  v19 = 0u;
   if (!a4)
   {
     APSLogErrorAt(0);
     return 4294954516;
   }
 
-  v20 = a2;
-  v6 = APAudioFormatIndexToASBD(a2, &v17);
+  v22 = a2;
+  v6 = APAudioFormatIndexToASBD(a2, &v19);
   if (v6)
   {
     v8 = v6;
@@ -9049,13 +8270,13 @@ uint64_t APSAudioFormatDescriptionCreateWithAudioFormatIndex(uint64_t a1, uint64
   v7 = a2 - 2;
   if ((a2 - 2) >= 0x5D)
   {
-    DWORD2(v19) = -65536;
+    DWORD2(v21) = -65536;
     v8 = 4294960561;
     goto LABEL_24;
   }
 
   v8 = dword_22234D7DC[v7];
-  DWORD2(v19) = dword_22234D950[v7];
+  DWORD2(v21) = dword_22234D950[v7];
   if (v8)
   {
 LABEL_24:
@@ -9068,22 +8289,22 @@ LABEL_25:
   FigCFDictionaryGetBooleanIfPresent();
   if (FigCFDictionaryGetInt32IfPresent())
   {
-    LODWORD(v18) = 0;
+    LODWORD(v20) = 0;
   }
 
   if (FigCFDictionaryGetInt32IfPresent())
   {
-    DWORD1(v18) = 0;
+    DWORD1(v20) = 0;
   }
 
   if (FigCFDictionaryGetInt32IfPresent())
   {
-    DWORD2(v18) = 0;
+    DWORD2(v20) = 0;
   }
 
   if (FigCFDictionaryGetInt32IfPresent())
   {
-    LODWORD(v19) = 0;
+    LODWORD(v21) = 0;
   }
 
   FigSimpleMutexLock();
@@ -9099,15 +8320,15 @@ LABEL_25:
     if (!Instance)
     {
       APSLogErrorAt(0);
-      v8 = FigSignalErrorAtGM();
+      v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v17, 0);
       goto LABEL_22;
     }
 
     v10 = Instance;
-    v12 = v17;
-    v13 = v18;
-    v14 = v19;
-    *(Instance + 64) = v20;
+    v12 = v19;
+    v13 = v20;
+    v14 = v21;
+    *(Instance + 64) = v22;
     *(Instance + 32) = v13;
     *(Instance + 48) = v14;
     *(Instance + 16) = v12;
@@ -9121,7 +8342,7 @@ LABEL_22:
   return v8;
 }
 
-uint64_t APSAudioFormatDescriptionCreateWithASBD(const __CFAllocator *a1, _DWORD *a2, int a3, CFTypeRef *a4)
+uint64_t APSAudioFormatDescriptionCreateWithASBD(const __CFAllocator *a1, unsigned int *a2, uint64_t a3, CFTypeRef *a4)
 {
   v13 = 0;
   cf = 0;
@@ -9191,7 +8412,7 @@ LABEL_13:
   APSLogErrorAt(v7);
   if (gLogCategory_APSAudioFormatDescription <= 50 && (gLogCategory_APSAudioFormatDescription != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSAudioFormatDescription, "OSStatus APSAudioFormatDescriptionCreateWithASBD(CFAllocatorRef, AudioStreamBasicDescription, AudioChannelLayoutTag, APSAudioFormatDescriptionRef *)", 33554482, "APSAudioFormatDescriptionCreateWithASBD err on ASBD=%{asbd}", a2);
   }
 
   return v11;
@@ -9245,7 +8466,7 @@ uint64_t APSAudioFormatDescriptionCreateWithCMFormatDescription(const __CFAlloca
 
     else
     {
-      mChannelLayoutTag = -65536;
+      mChannelLayoutTag = 4294901760;
     }
 
     v9 = *&RichestDecodableFormat->mASBD.mSampleRate;
@@ -9820,4 +9041,788 @@ LABEL_70:
   }
 
   return result;
+}
+
+uint64_t APSAudioFormatDescriptionGetFormatID(uint64_t a1)
+{
+  if (a1)
+  {
+    return *(a1 + 24);
+  }
+
+  APSLogErrorAt(a1);
+  return 0;
+}
+
+uint64_t APSAudioFormatDescriptionGetFramesPerPacket(uint64_t a1)
+{
+  if (a1)
+  {
+    return *(a1 + 36);
+  }
+
+  APSLogErrorAt(a1);
+  return 0;
+}
+
+uint64_t APSAudioFormatDescriptionGetChannelCount(uint64_t a1)
+{
+  if (a1)
+  {
+    return *(a1 + 44);
+  }
+
+  APSLogErrorAt(a1);
+  return 0;
+}
+
+uint64_t APSAudioFormatDescriptionGetBitsPerChannel(uint64_t a1)
+{
+  if (a1)
+  {
+    return *(a1 + 48);
+  }
+
+  APSLogErrorAt(a1);
+  return 0;
+}
+
+uint64_t APSAudioFormatDescriptionCopyFigEndpointStreamAudioFormatDescription(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2 && a3)
+  {
+    v3 = FigEndpointStreamAudioFormatDescriptionCreate();
+    v4 = v3;
+    if (v3)
+    {
+      APSLogErrorAt(v3);
+    }
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294954516;
+  }
+
+  return v4;
+}
+
+uint64_t APSAPACApplyIndependentDecodableDependancy(opaqueCMSampleBuffer *a1)
+{
+  cf = 0;
+  if (!a1)
+  {
+    APSLogErrorAt(0);
+    return 0;
+  }
+
+  FormatDescription = CMSampleBufferGetFormatDescription(a1);
+  if (!FormatDescription)
+  {
+    return 0;
+  }
+
+  v3 = APSAudioFormatDescriptionCreateWithCMFormatDescription(*MEMORY[0x277CBECE8], FormatDescription, &cf);
+  if (v3)
+  {
+    v10 = v3;
+    APSLogErrorAt(v3);
+    SInt16 = 0;
+    goto LABEL_19;
+  }
+
+  v4 = cf;
+  if (cf)
+  {
+    v5 = *(cf + 6);
+    if (v5 != 1634754915 && v5 != 1902211171 && v5 != 1667330147)
+    {
+      SInt16 = 0;
+      v10 = 0;
+LABEL_20:
+      CFRelease(v4);
+LABEL_21:
+      if (SInt16)
+      {
+        CFRelease(SInt16);
+      }
+
+      return v10;
+    }
+
+    SInt16 = FigCFNumberCreateSInt16();
+    if (SInt16)
+    {
+      v8 = *MEMORY[0x277CBED10];
+      CMSetAttachment(a1, *MEMORY[0x277CC0620], SInt16, 1u);
+      CMSetAttachment(a1, *MEMORY[0x277CC06A0], v8, 1u);
+      if (gLogCategory_APSAPACSupport <= 10 && (gLogCategory_APSAPACSupport != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSAPACSupport, "OSStatus APSAPACApplyIndependentDecodableDependancy(CMSampleBufferRef)", 33554442, "APAC audioIndependentSampleDecoderRefreshCount %@, notsync %@", SInt16, v8);
+      }
+
+      v10 = 0;
+    }
+
+    else
+    {
+      APSLogErrorAt(0);
+      v10 = 4294954510;
+    }
+
+LABEL_19:
+    v4 = cf;
+    if (!cf)
+    {
+      goto LABEL_21;
+    }
+
+    goto LABEL_20;
+  }
+
+  result = APSLogErrorAt(0);
+  __break(1u);
+  return result;
+}
+
+uint64_t APSAudioFormatDescriptionListGetTypeID()
+{
+  if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
+  {
+    dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
+  }
+
+  return APSAudioFormatDescriptionListGetTypeID_sTypeID;
+}
+
+uint64_t audioFormatList_getTypeID(uint64_t *a1)
+{
+  result = _CFRuntimeRegisterClass();
+  *a1 = result;
+  return result;
+}
+
+__CFString *audioFormatList_CopyDebugDescription(uint64_t a1)
+{
+  Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
+  v3 = Mutable;
+  if (Mutable)
+  {
+    CFStringAppendFormat(Mutable, 0, @"<APSAudioFormatDescriptionList %p> %@", a1, *(a1 + 16));
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+  }
+
+  return v3;
+}
+
+BOOL audioFormatList_Equal(const void *a1, const void *a2)
+{
+  v15 = 0;
+  theArray = 0;
+  if (!a1)
+  {
+    goto LABEL_20;
+  }
+
+  v4 = CFGetTypeID(a1);
+  if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
+  {
+    dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
+  }
+
+  if (v4 != APSAudioFormatDescriptionListGetTypeID_sTypeID)
+  {
+LABEL_20:
+    v6 = 0;
+LABEL_22:
+    APSLogErrorAt(v6);
+    goto LABEL_23;
+  }
+
+  if (!a2)
+  {
+    goto LABEL_21;
+  }
+
+  v5 = CFGetTypeID(a2);
+  if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
+  {
+    dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
+  }
+
+  if (v5 != APSAudioFormatDescriptionListGetTypeID_sTypeID)
+  {
+LABEL_21:
+    v6 = 0;
+    goto LABEL_22;
+  }
+
+  v6 = APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(a1, &theArray);
+  if (v6)
+  {
+    goto LABEL_22;
+  }
+
+  v6 = APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(a2, &v15);
+  if (v6)
+  {
+    goto LABEL_22;
+  }
+
+  Count = CFArrayGetCount(theArray);
+  if (Count == CFArrayGetCount(v15))
+  {
+    v8 = *MEMORY[0x277CBECE8];
+    MutableCopy = CFArrayCreateMutableCopy(*MEMORY[0x277CBECE8], 0, theArray);
+    if (MutableCopy)
+    {
+      v10 = MutableCopy;
+      v11 = CFArrayCreateMutableCopy(v8, 0, v15);
+      if (v11)
+      {
+        v12 = v11;
+        v17.length = CFArrayGetCount(v10);
+        v17.location = 0;
+        CFArraySortValues(v10, v17, audioFormatList_objComparatorX, 0);
+        v18.length = CFArrayGetCount(v12);
+        v18.location = 0;
+        CFArraySortValues(v12, v18, audioFormatList_objComparatorX, 0);
+        v13 = CFEqual(v10, v12) != 0;
+        CFRelease(v10);
+        CFRelease(v12);
+        goto LABEL_15;
+      }
+
+      CFRelease(v10);
+    }
+  }
+
+LABEL_23:
+  v13 = 0;
+LABEL_15:
+  if (theArray)
+  {
+    CFRelease(theArray);
+  }
+
+  if (v15)
+  {
+    CFRelease(v15);
+  }
+
+  return v13;
+}
+
+uint64_t APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(uint64_t a1, CFTypeRef *a2)
+{
+  if (a1 && a2)
+  {
+    v3 = FigCFSetCopyValuesAsCFArray();
+    v4 = v3;
+    if (v3)
+    {
+      APSLogErrorAt(v3);
+    }
+
+    else
+    {
+      *a2 = 0;
+    }
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294954516;
+  }
+
+  return v4;
+}
+
+uint64_t audioFormatList_objComparatorX(uint64_t a1, uint64_t a2)
+{
+  if (a1)
+  {
+    v2 = *(a1 + 64);
+    if (a2)
+    {
+LABEL_3:
+      v3 = *(a2 + 64);
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+    v2 = 0;
+    if (a2)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v3 = 0;
+LABEL_4:
+  v4 = v2 > v3;
+  if (v2 >= v3)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = -1;
+  }
+
+  if (v4)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v5;
+  }
+}
+
+void audioFormatList_Finalize(void *a1)
+{
+  if (gLogCategory_APSAudioFormatDescriptionList <= 30 && (gLogCategory_APSAudioFormatDescriptionList != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APSAudioFormatDescriptionList, "void audioFormatList_Finalize(CFTypeRef)", 33554462, "APSAudioFormatDescriptionList %{ptr} Finalizing", a1);
+  }
+
+  v2 = a1[2];
+  if (v2)
+  {
+    CFRelease(v2);
+    a1[2] = 0;
+  }
+
+  v3 = a1[3];
+  if (v3)
+  {
+    CFRelease(v3);
+    a1[3] = 0;
+  }
+
+  v4 = a1[4];
+  if (v4)
+  {
+    CFRelease(v4);
+    a1[4] = 0;
+  }
+
+  v5 = a1[6];
+  if (v5)
+  {
+    CFRelease(v5);
+    a1[6] = 0;
+  }
+
+  v6 = a1[5];
+  if (v6)
+  {
+    CFRelease(v6);
+    a1[5] = 0;
+  }
+}
+
+uint64_t APSAudioFormatDescriptionListCreate(const __CFAllocator *a1, void *a2)
+{
+  if (a2)
+  {
+    if (APSAudioFormatDescriptionListGetTypeID_sInitOnce != -1)
+    {
+      dispatch_once_f(&APSAudioFormatDescriptionListGetTypeID_sInitOnce, &APSAudioFormatDescriptionListGetTypeID_sTypeID, audioFormatList_getTypeID);
+    }
+
+    Instance = _CFRuntimeCreateInstance();
+    if (Instance)
+    {
+      v6 = Instance;
+      Instance[2] = 0u;
+      Instance[3] = 0u;
+      Instance[1] = 0u;
+      Mutable = CFSetCreateMutable(a1, 0, MEMORY[0x277CBF158]);
+      *(v6 + 2) = Mutable;
+      if (Mutable && (v8 = CFSetCreateMutable(a1, 0, MEMORY[0x277CBF158]), (*(v6 + 6) = v8) != 0) && (v9 = CFSetCreateMutable(a1, 0, MEMORY[0x277CBF158]), (*(v6 + 5) = v9) != 0))
+      {
+        result = 0;
+        *(v6 + 14) = 0;
+        *(v6 + 30) = 0;
+        *(v6 + 3) = 0;
+        *(v6 + 4) = 0;
+        *a2 = v6;
+      }
+
+      else
+      {
+        APSLogErrorAt(0);
+        CFRelease(v6);
+        return 4294954510;
+      }
+    }
+
+    else
+    {
+      APSLogErrorAt(0);
+
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954510, "(Fig)", 143, v2);
+    }
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294954516;
+  }
+
+  return result;
+}
+
+void APSAudioFormatDescriptionListCopyDebugString(uint64_t a1, void *a2)
+{
+  cf = 0;
+  theArray = 0;
+  if (!a1 || !a2)
+  {
+    APSLogErrorAt(0);
+    goto LABEL_12;
+  }
+
+  Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
+  v5 = Mutable;
+  if (Mutable)
+  {
+    Mutable = APSAudioFormatDescriptionListCopyAudioFormatDescriptionsArray(a1, &theArray);
+    if (!Mutable)
+    {
+      Count = CFArrayGetCount(theArray);
+      if (Count >= 1)
+      {
+        v7 = Count;
+        v8 = 0;
+        do
+        {
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v8);
+          APSAudioFormatDescriptionCopyDebugString(ValueAtIndex, &cf);
+          Mutable = CFStringAppendF(v5, "[%@]", cf);
+          if (Mutable)
+          {
+            goto LABEL_20;
+          }
+
+          if (cf)
+          {
+            CFRelease(cf);
+            cf = 0;
+          }
+        }
+
+        while (v7 != ++v8);
+      }
+
+      *a2 = v5;
+LABEL_12:
+      v5 = 0;
+      goto LABEL_13;
+    }
+  }
+
+LABEL_20:
+  APSLogErrorAt(Mutable);
+LABEL_13:
+  if (theArray)
+  {
+    CFRelease(theArray);
+  }
+
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+}
+
+uint64_t APSAudioFormatDescriptionListCreateWithAudioFormatDescriptionArray(const __CFAllocator *a1, const __CFArray *a2, CFTypeRef *a3)
+{
+  cf = 0;
+  if (a3)
+  {
+    v5 = APSAudioFormatDescriptionListCreate(a1, &cf);
+    if (v5)
+    {
+      v12 = v5;
+LABEL_17:
+      APSLogErrorAt(v5);
+    }
+
+    else
+    {
+      v6 = 0;
+      while (1)
+      {
+        if (a2)
+        {
+          Count = CFArrayGetCount(a2);
+        }
+
+        else
+        {
+          Count = 0;
+        }
+
+        if (v6 >= Count)
+        {
+          v12 = 0;
+          *a3 = cf;
+          return v12;
+        }
+
+        ValueAtIndex = CFArrayGetValueAtIndex(a2, v6);
+        if (!ValueAtIndex)
+        {
+          break;
+        }
+
+        v9 = ValueAtIndex;
+        v10 = CFGetTypeID(ValueAtIndex);
+        if (APSAudioFormatDescriptionGetTypeID_sInitOnce != -1)
+        {
+          dispatch_once_f(&APSAudioFormatDescriptionGetTypeID_sInitOnce, &APSAudioFormatDescriptionGetTypeID_sTypeID, audioFormat_getTypeID);
+        }
+
+        if (v10 != APSAudioFormatDescriptionGetTypeID_sTypeID)
+        {
+          break;
+        }
+
+        v5 = APSAudioFormatDescriptionListAddFormat(cf, v9);
+        ++v6;
+        if (v5)
+        {
+          v12 = v5;
+          goto LABEL_17;
+        }
+      }
+
+      APSLogErrorAt(0);
+      v12 = 4294954516;
+    }
+
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 4294954516;
+  }
+
+  return v12;
+}
+
+uint64_t APSAudioFormatDescriptionListAddFormat(uint64_t a1, uint64_t a2)
+{
+  if (!a1 || !a2)
+  {
+    APSLogErrorAt(0);
+    return 4294954516;
+  }
+
+  v4 = *(a2 + 44);
+  if (*(a1 + 56) > v4)
+  {
+    v4 = *(a1 + 56);
+  }
+
+  *(a1 + 56) = v4;
+  v5 = *(a2 + 16);
+  if (v5 == 44100.0)
+  {
+    *(a1 + 61) = 1;
+  }
+
+  else if (v5 == 48000.0)
+  {
+    *(a1 + 60) = 1;
+  }
+
+  UInt32 = FigCFNumberCreateUInt32();
+  if (!UInt32)
+  {
+    APSLogErrorAt(0);
+    return 4294954510;
+  }
+
+  v7 = UInt32;
+  CFSetAddValue(*(a1 + 48), UInt32);
+  v8 = FigCFNumberCreateUInt32();
+  if (!v8)
+  {
+    APSLogErrorAt(0);
+    v15 = 4294954510;
+    goto LABEL_22;
+  }
+
+  v9 = v8;
+  CFSetAddValue(*(a1 + 40), v8);
+  v10 = *(a1 + 32);
+  if (!v10)
+  {
+    *(a1 + 32) = CFRetain(a2);
+    goto LABEL_21;
+  }
+
+  v11 = *(a2 + 44);
+  v12 = *(v10 + 44);
+  if (v11 <= v12)
+  {
+    if (v11 != v12)
+    {
+      goto LABEL_21;
+    }
+
+    if (v11 > 2)
+    {
+      v13 = *(v10 + 56);
+      FullRangeChannelCountFromChannelLayoutTag = APSAudioFormatGetFullRangeChannelCountFromChannelLayoutTag(*(a2 + 56));
+      if (FullRangeChannelCountFromChannelLayoutTag <= APSAudioFormatGetFullRangeChannelCountFromChannelLayoutTag(v13))
+      {
+        goto LABEL_21;
+      }
+
+      v10 = *(a1 + 32);
+      *(a1 + 32) = a2;
+      CFRetain(a2);
+      if (!v10)
+      {
+        goto LABEL_21;
+      }
+
+      goto LABEL_14;
+    }
+
+    if (*(a2 + 16) <= *(v10 + 16))
+    {
+      goto LABEL_21;
+    }
+  }
+
+  *(a1 + 32) = a2;
+  CFRetain(a2);
+LABEL_14:
+  CFRelease(v10);
+LABEL_21:
+  CFSetAddValue(*(a1 + 16), a2);
+  CFRelease(v9);
+  v15 = 0;
+LABEL_22:
+  CFRelease(v7);
+  return v15;
+}
+
+uint64_t APSAudioFormatDescriptionListContainsFormat(uint64_t a1, const void *a2)
+{
+  if (a1 && a2)
+  {
+    v2 = *(a1 + 16);
+
+    return CFSetContainsValue(v2, a2);
+  }
+
+  else
+  {
+    APSLogErrorAt(0);
+    return 0;
+  }
+}
+
+uint64_t APSAudioFormatDescriptionListAddListToSource(uint64_t a1, uint64_t a2)
+{
+  if (!a1 || !a2)
+  {
+    APSLogErrorAt(0);
+    return 4294954516;
+  }
+
+  v4 = *MEMORY[0x277CBECE8];
+  MutableCopy = CFSetCreateMutableCopy(*MEMORY[0x277CBECE8], 0, *(a1 + 16));
+  if (!MutableCopy)
+  {
+    APSLogErrorAt(0);
+    return 4294954510;
+  }
+
+  v6 = MutableCopy;
+  v7 = *(a2 + 16);
+  if (v7)
+  {
+    CFSetApplyFunction(v7, apsCFUtils_setAddSetApplier, v6);
+  }
+
+  v8 = *(a1 + 16);
+  *(a1 + 16) = v6;
+  CFRetain(v6);
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  v9 = CFSetCreateMutableCopy(v4, 0, *(a1 + 40));
+  if (!v9)
+  {
+    APSLogErrorAt(0);
+    CFRelease(v6);
+    return 4294954510;
+  }
+
+  v10 = v9;
+  v11 = *(a2 + 40);
+  if (v11)
+  {
+    CFSetApplyFunction(v11, apsCFUtils_setAddSetApplier, v10);
+  }
+
+  v12 = *(a1 + 40);
+  *(a1 + 40) = v10;
+  CFRetain(v10);
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
+  v13 = *(a1 + 56);
+  if (v13 <= *(a2 + 56))
+  {
+    v13 = *(a2 + 56);
+  }
+
+  *(a1 + 56) = v13;
+  if (*(a1 + 61) || *(a2 + 61))
+  {
+    *(a1 + 61) = 1;
+  }
+
+  if (*(a1 + 60) || *(a2 + 60))
+  {
+    *(a1 + 60) = 1;
+  }
+
+  CFRelease(v6);
+  CFRelease(v10);
+  return 0;
 }

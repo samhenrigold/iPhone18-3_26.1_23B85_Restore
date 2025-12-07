@@ -21,6 +21,7 @@
 - (void)reloadImagesForCurrentCharacter;
 - (void)setColor:(id)color;
 - (void)setGreyedOut:(BOOL)out;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)updateBackgroundMaterial:(id)material;
 @end
 
@@ -1058,11 +1059,11 @@ LABEL_22:
 
 - (id)initForCharacter:(int64_t)character style:(int64_t)style
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   [objc_opt_class() defaultSize];
-  v52.receiver = self;
-  v52.super_class = TPNumberPadButton;
-  v8 = [(TPNumberPadButton *)&v52 initWithFrame:0.0, 0.0, v6, v7];
+  v50.receiver = self;
+  v50.super_class = TPNumberPadButton;
+  v8 = [(TPNumberPadButton *)&v50 initWithFrame:0.0, 0.0, v6, v7];
   p_isa = &v8->super.super.super.super.isa;
   if (v8)
   {
@@ -1103,7 +1104,6 @@ LABEL_22:
       isUsingClearGlass = [objc_opt_class() isUsingClearGlass];
       if (color == clearColor)
       {
-        v33 = p_isa[61];
         if (isUsingClearGlass)
         {
           [p_isa[61] tuui_applyFlexibleSmallGlassBackground];
@@ -1128,7 +1128,7 @@ LABEL_22:
       {
         color3 = [p_isa color];
 
-        v35 = p_isa[61];
+        v34 = p_isa[61];
         if (!color3)
         {
           [p_isa[61] tuui_applyFlexibleClearGlassWithShadowBackground];
@@ -1136,7 +1136,7 @@ LABEL_22:
         }
 
         color2 = [p_isa color];
-        [v35 tuui_applyFlexibleRegularGlassBackgroundWithTintColor:color2];
+        [v34 tuui_applyFlexibleRegularGlassBackgroundWithTintColor:color2];
       }
 
 LABEL_26:
@@ -1151,62 +1151,62 @@ LABEL_26:
 
     if ([objc_opt_class() usesButtonColorMatrixFilters])
     {
-      v50 = 0u;
-      v51 = 0u;
       v48 = 0u;
       v49 = 0u;
+      v46 = 0u;
       v47 = 0u;
+      v45 = 0u;
       v26 = objc_opt_class();
       if (v26)
       {
-        [v26 buttonColorMatrix];
+        objc_msgSend_buttonColorMatrix(v26);
       }
 
       else
       {
-        v50 = 0u;
-        v51 = 0u;
         v48 = 0u;
         v49 = 0u;
+        v46 = 0u;
         v47 = 0u;
+        v45 = 0u;
       }
 
       if ([objc_opt_class() usesEmergencyCallButtonColorMatrixFilters])
       {
-        v47 = xmmword_1B48EBCB0;
-        v48 = xmmword_1B48EBCC0;
-        v49 = xmmword_1B48EBCD0;
-        v50 = xmmword_1B48EBCE0;
-        v51 = xmmword_1B48EBCF0;
+        v45 = xmmword_1B48EBCB0;
+        v46 = xmmword_1B48EBCC0;
+        v47 = xmmword_1B48EBCD0;
+        v48 = xmmword_1B48EBCE0;
+        v49 = xmmword_1B48EBCF0;
       }
 
-      v46[2] = v49;
-      v46[3] = v50;
-      v46[4] = v51;
-      v46[0] = v47;
-      v46[1] = v48;
-      v27 = [MEMORY[0x1E69DC898] _colorEffectCAMatrix:v46];
+      v44[2] = v47;
+      v44[3] = v48;
+      v44[4] = v49;
+      v44[0] = v45;
+      v44[1] = v46;
+      v27 = [MEMORY[0x1E69DC898] _colorEffectCAMatrix:v44];
       v28 = [objc_alloc(MEMORY[0x1E69DD298]) initWithEffect:0];
-      v55[0] = v27;
-      v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
-      [v28 setBackgroundEffects:v36];
+      v53[0] = v27;
+      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+      [v28 setBackgroundEffects:v35];
 
       if (([objc_opt_class() usesEmergencyCallButtonColorMatrixFilters] & 1) != 0 || objc_msgSend(objc_opt_class(), "usesButtonBlurEffect"))
       {
-        v37 = [MEMORY[0x1E69DC730] effectWithBlurRadius:100.0];
-        v54[0] = v27;
-        v54[1] = v37;
-        v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
-        [v28 setBackgroundEffects:v38];
+        v36 = [MEMORY[0x1E69DC730] effectWithBlurRadius:100.0];
+        v52[0] = v27;
+        v52[1] = v36;
+        v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
+        [v28 setBackgroundEffects:v37];
       }
 
       [p_isa[61] frame];
       [v28 setFrame:?];
       layer2 = [p_isa[61] layer];
       [layer2 cornerRadius];
-      v41 = v40;
+      v40 = v39;
       layer3 = [v28 layer];
-      [layer3 setCornerRadius:v41];
+      [layer3 setCornerRadius:v40];
 
       [v28 setClipsToBounds:1];
       [p_isa setBackDropVisualEffectView:v28];
@@ -1225,8 +1225,8 @@ LABEL_26:
       [v28 setName:@"saturation"];
       [v28 setValue:&unk_1F2CB1198 forKey:@"inputAmount"];
       v29 = objc_alloc_init(MEMORY[0x1E6979310]);
-      v53 = v28;
-      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
+      v51 = v28;
+      v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
       [v29 setFilters:v30];
 
       [p_isa[61] frame];
@@ -1247,10 +1247,9 @@ LABEL_26:
   }
 
 LABEL_27:
-  v43 = TPStringForNumberPadCharacter(character);
-  [p_isa setAccessibilityLabel:v43];
+  v42 = TPStringForNumberPadCharacter(character);
+  [p_isa setAccessibilityLabel:v42];
 
-  v44 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -1393,36 +1392,48 @@ void __50__TPNumberPadButton_highlightCircleView_animated___block_invoke(uint64_
 {
   v2 = [*(a1 + 32) circleView];
   v3 = *(a1 + 40);
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
+  v4 = objc_opt_class();
   if (v3 == 1)
   {
-    [v5 highlightedCircleViewAlpha];
+    [v4 highlightedCircleViewAlpha];
   }
 
   else
   {
-    [v5 unhighlightedCircleViewAlpha];
+    [v4 unhighlightedCircleViewAlpha];
   }
 
   [v2 setAlpha:?];
 
-  v6 = [*(a1 + 32) highlightedButtonColor];
+  v5 = [*(a1 + 32) highlightedButtonColor];
 
-  if (v6)
+  if (v5)
   {
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
     if (*(a1 + 40))
     {
-      [v7 highlightedButtonColor];
+      [v6 highlightedButtonColor];
     }
 
     else
     {
-      [v7 buttonColor];
+      [v6 buttonColor];
     }
-    v8 = ;
-    [*(a1 + 32) setColor:v8];
+    v7 = ;
+    [*(a1 + 32) setColor:v7];
+  }
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  isHighlighted = [(TPNumberPadButton *)self isHighlighted];
+  v6.receiver = self;
+  v6.super_class = TPNumberPadButton;
+  [(TPNumberPadButton *)&v6 setHighlighted:highlightedCopy];
+  if (isHighlighted != highlightedCopy)
+  {
+    [(TPNumberPadButton *)self highlightCircleView:highlightedCopy animated:1];
   }
 }
 

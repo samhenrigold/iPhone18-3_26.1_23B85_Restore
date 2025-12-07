@@ -7,12 +7,11 @@
 
 - (void)workflowRunnerClient:(id)client didFinishRunningWorkflowWithError:(id)error cancelled:(BOOL)cancelled
 {
-  v7 = *(&self->super.isa + OBJC_IVAR____TtCC10ChronoCore29InteractiveWidgetActionRunnerP33_BBEE03C4DECF2FA4D5B6D93BE2BEC2AD8Delegate_completion);
-  v6 = *&self->completion[OBJC_IVAR____TtCC10ChronoCore29InteractiveWidgetActionRunnerP33_BBEE03C4DECF2FA4D5B6D93BE2BEC2AD8Delegate_completion];
+  v6 = *(&self->super.isa + OBJC_IVAR____TtCC10ChronoCore29InteractiveWidgetActionRunnerP33_BBEE03C4DECF2FA4D5B6D93BE2BEC2AD8Delegate_completion);
   selfCopy = self;
   errorCopy = error;
 
-  v7(error);
+  v6(error);
 }
 
 - (_TtCC10ChronoCore29InteractiveWidgetActionRunnerP33_BBEE03C4DECF2FA4D5B6D93BE2BEC2AD8Delegate)init

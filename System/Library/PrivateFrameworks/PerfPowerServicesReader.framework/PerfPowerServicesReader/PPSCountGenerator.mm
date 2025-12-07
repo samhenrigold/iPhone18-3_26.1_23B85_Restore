@@ -140,29 +140,29 @@ void __69__PPSCountGenerator_countMapWithTimeSeries_block_groupingDimensions___b
 
 uint64_t __69__PPSCountGenerator_countMapWithTimeSeries_block_groupingDimensions___block_invoke_3(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v8);
+        v9 = *(*(&v16 + 1) + 8 * v8);
         v10 = [v3 metricKeysAndValues];
         v11 = [v10 objectForKeyedSubscript:v9];
         v12 = [*(a1 + 32) objectForKeyedSubscript:v9];
@@ -178,7 +178,7 @@ uint64_t __69__PPSCountGenerator_countMapWithTimeSeries_block_groupingDimensions
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -191,7 +191,6 @@ uint64_t __69__PPSCountGenerator_countMapWithTimeSeries_block_groupingDimensions
   v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

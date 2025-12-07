@@ -21,9 +21,9 @@
 
 - (void)shouldFireInResponseToEvent:()BiomeContext triggerIdentifier:completion:
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v7 = a3;
-  v34 = a4;
+  v33 = a4;
   v8 = a5;
   eventBody = [v7 eventBody];
   if (eventBody)
@@ -69,9 +69,9 @@ LABEL_8:
         *&buf[12] = 2112;
         *&buf[14] = eventBody;
         *&buf[22] = 2112;
-        v48 = passUniqueID2;
-        v49 = 2048;
-        v50 = transactionType2;
+        v47 = passUniqueID2;
+        v48 = 2048;
+        v49 = transactionType2;
         _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_DEFAULT, "%s Received wallet transaction event %@ for trigger. pass unique id: %@; transactionType: %lu", buf, 0x2Au);
       }
 
@@ -81,11 +81,11 @@ LABEL_8:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      LOBYTE(v48) = 1;
-      v43 = 0;
-      v44 = &v43;
-      v45 = 0x2020000000;
-      v46 = 1;
+      LOBYTE(v47) = 1;
+      v42 = 0;
+      v43 = &v42;
+      v44 = 0x2020000000;
+      v45 = 1;
       if ([eventBody transactionType] == 1)
       {
         selectedMerchantTypes = [self selectedMerchantTypes];
@@ -132,7 +132,7 @@ LABEL_8:
       {
         if (v23 && *(*&buf[8] + 24) == 1)
         {
-          v32 = *(v44 + 24);
+          v32 = *(v43 + 24);
         }
 
         else
@@ -145,21 +145,21 @@ LABEL_8:
       }
 
 LABEL_27:
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __101__WFWalletTransactionTrigger_BiomeContext__shouldFireInResponseToEvent_triggerIdentifier_completion___block_invoke;
-      v36[3] = &unk_2788FE590;
-      v40 = v23;
-      v41 = v28;
-      v37 = v8;
-      v38 = buf;
-      v36[4] = self;
-      v42 = v31;
-      v39 = &v43;
-      [self eventInfoForEvent:v7 completion:v36];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __101__WFWalletTransactionTrigger_BiomeContext__shouldFireInResponseToEvent_triggerIdentifier_completion___block_invoke;
+      v35[3] = &unk_2788FE590;
+      v39 = v23;
+      v40 = v28;
+      v36 = v8;
+      v37 = buf;
+      v35[4] = self;
+      v41 = v31;
+      v38 = &v42;
+      [self eventInfoForEvent:v7 completion:v35];
 
 LABEL_30:
-      _Block_object_dispose(&v43, 8);
+      _Block_object_dispose(&v42, 8);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_31;
@@ -176,8 +176,6 @@ LABEL_30:
 
   v8[2](v8, 0);
 LABEL_31:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionIdentifierWithEvent:()BiomeContext
@@ -301,16 +299,16 @@ LABEL_31:
 
 + (uint64_t)unregisterContextSyncClient
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = BiomeLibrary();
   wallet = [v0 Wallet];
   transaction = [wallet Transaction];
 
   dSLPublisher = [transaction DSLPublisher];
   v4 = [objc_alloc(MEMORY[0x277CFC748]) initWithClientName:@"com.apple.shortcuts"];
-  v15 = 0;
-  v5 = [v4 unregisterForUpdates:dSLPublisher withIdentifier:@"com.apple.shortcuts" forDeviceTypes:4 withError:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [v4 unregisterForUpdates:dSLPublisher withIdentifier:@"com.apple.shortcuts" forDeviceTypes:4 withError:&v14];
+  v6 = v14;
   v7 = getWFTriggersLogObject();
   v8 = v7;
   if (v5)
@@ -318,7 +316,7 @@ LABEL_31:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "+[WFWalletTransactionTrigger(BiomeContext) unregisterContextSyncClient]";
+      v16 = "+[WFWalletTransactionTrigger(BiomeContext) unregisterContextSyncClient]";
       v9 = "%s Successfully unregistered from context sync client";
       v10 = v8;
       v11 = OS_LOG_TYPE_DEFAULT;
@@ -331,9 +329,9 @@ LABEL_6:
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v17 = "+[WFWalletTransactionTrigger(BiomeContext) unregisterContextSyncClient]";
-    v18 = 2112;
-    v19 = v6;
+    v16 = "+[WFWalletTransactionTrigger(BiomeContext) unregisterContextSyncClient]";
+    v17 = 2112;
+    v18 = v6;
     v9 = "%s Failed to unregister client with error: %@";
     v10 = v8;
     v11 = OS_LOG_TYPE_ERROR;
@@ -341,22 +339,21 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (uint64_t)registerContextSyncClient
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = BiomeLibrary();
   wallet = [v0 Wallet];
   transaction = [wallet Transaction];
 
   dSLPublisher = [transaction DSLPublisher];
   v4 = [objc_alloc(MEMORY[0x277CFC748]) initWithClientName:@"com.apple.shortcuts"];
-  v15 = 0;
-  v5 = [v4 registerForUpdates:dSLPublisher withIdentifier:@"com.apple.shortcuts" shouldWake:1 forDeviceTypes:4 withError:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [v4 registerForUpdates:dSLPublisher withIdentifier:@"com.apple.shortcuts" shouldWake:1 forDeviceTypes:4 withError:&v14];
+  v6 = v14;
   v7 = getWFTriggersLogObject();
   v8 = v7;
   if (v5)
@@ -364,7 +361,7 @@ LABEL_6:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "+[WFWalletTransactionTrigger(BiomeContext) registerContextSyncClient]";
+      v16 = "+[WFWalletTransactionTrigger(BiomeContext) registerContextSyncClient]";
       v9 = "%s Successfully registered for updates with context sync client";
       v10 = v8;
       v11 = OS_LOG_TYPE_DEFAULT;
@@ -377,9 +374,9 @@ LABEL_6:
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v17 = "+[WFWalletTransactionTrigger(BiomeContext) registerContextSyncClient]";
-    v18 = 2112;
-    v19 = v6;
+    v16 = "+[WFWalletTransactionTrigger(BiomeContext) registerContextSyncClient]";
+    v17 = 2112;
+    v18 = v6;
     v9 = "%s Failed register for updates from context sync client with error: %@";
     v10 = v8;
     v11 = OS_LOG_TYPE_ERROR;
@@ -387,7 +384,6 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

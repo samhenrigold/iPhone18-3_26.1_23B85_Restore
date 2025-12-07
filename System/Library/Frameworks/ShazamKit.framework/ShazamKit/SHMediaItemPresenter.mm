@@ -10,6 +10,7 @@
 - (void)presentMediaItem:(id)item completionHandler:(id)handler;
 - (void)presentMediaItem:(id)item presentationSettings:(id)settings completionHandler:(id)handler;
 - (void)presentShazamAppFromShazamURL:(id)l completionHandler:(id)handler;
+- (void)presentTrackPageFromMediaItem:(id)item presentationSettings:(id)settings displayShazamUpsell:(BOOL)upsell completionHandler:(id)handler;
 @end
 
 @implementation SHMediaItemPresenter
@@ -345,6 +346,94 @@ LABEL_28:
   v10 = handlerCopy;
   v11 = lCopy;
   [LSAppLink openWithURL:v11 configuration:v8 completionHandler:v12];
+}
+
+- (void)presentTrackPageFromMediaItem:(id)item presentationSettings:(id)settings displayShazamUpsell:(BOOL)upsell completionHandler:(id)handler
+{
+  upsellCopy = upsell;
+  itemCopy = item;
+  handlerCopy = handler;
+  v11 = sh_log_object();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138412290;
+    v33 = itemCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Attempting to present native track page for media item %@", buf, 0xCu);
+  }
+
+  v12 = objc_alloc_init(_LSOpenConfiguration);
+  v38[0] = FBSOpenApplicationOptionKeyUnlockDevice;
+  v38[1] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
+  v39[0] = &__kCFBooleanTrue;
+  v39[1] = &__kCFBooleanTrue;
+  v13 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+  [v12 setFrontBoardOptions:v13];
+
+  v31 = 0;
+  v14 = [NSKeyedArchiver archivedDataWithRootObject:itemCopy requiringSecureCoding:1 error:&v31];
+  v15 = v31;
+  if (v15)
+  {
+    v16 = sh_log_object();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v33 = v15;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Error archiving SHMediaItem object: %@", buf, 0xCu);
+    }
+
+    webURL = [(__CFString *)itemCopy webURL];
+    handlerCopy[2](handlerCopy, 0, webURL, v15);
+  }
+
+  else
+  {
+    v18 = [NSMutableDictionary alloc];
+    v36[0] = @"mediaItem";
+    v36[1] = @"displayShazamUpsell";
+    v37[0] = v14;
+    v19 = [NSNumber numberWithBool:upsellCopy];
+    v37[1] = v19;
+    v20 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
+    webURL = [v18 initWithDictionary:v20];
+
+    bundleIdentifier = [(SHMediaItemPresenter *)self bundleIdentifier];
+    [webURL setValue:bundleIdentifier forKey:@"bundleIdentifier"];
+
+    v22 = [[NSUserActivity alloc] initWithActivityType:@"com.apple.musicrecognition.trackpage"];
+    [v22 setUserInfo:webURL];
+    v30 = 0;
+    v23 = [[LSApplicationRecord alloc] initWithBundleIdentifier:@"com.apple.musicrecognition" allowPlaceholder:0 error:&v30];
+    v24 = v30;
+    if (v24)
+    {
+      v25 = sh_log_object();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412546;
+        v33 = @"com.apple.musicrecognition";
+        v34 = 2112;
+        v35 = v24;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Error initializing launch services application error for %@ with error: %@", buf, 0x16u);
+      }
+
+      webURL2 = [(__CFString *)itemCopy webURL];
+      handlerCopy[2](handlerCopy, 0, webURL2, v24);
+    }
+
+    else
+    {
+      v27 = +[LSApplicationWorkspace defaultWorkspace];
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_100044400;
+      v28[3] = &unk_10007D3C8;
+      v29 = handlerCopy;
+      [v27 openUserActivity:v22 usingApplicationRecord:v23 configuration:v12 completionHandler:v28];
+
+      webURL2 = v29;
+    }
+  }
 }
 
 - (void)openURL:(id)l presentationSettings:(id)settings completionHandler:(id)handler

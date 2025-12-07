@@ -1137,7 +1137,7 @@ LABEL_10:
     v7 = WBS_LOG_CHANNEL_PREFIXBookmarks();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(buf[0]) = 0;
+      *buf = 0;
       _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_INFO, "Safari has already imported built-in bookmarks; No need to import them again", buf, 2u);
     }
 
@@ -1288,77 +1288,78 @@ LABEL_10:
 
 - (void)migrateYouTubeBookmarks
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  if (([standardUserDefaults BOOLForKey:@"DidMigrateYouTubeBookmarks"] & 1) == 0)
+  v3 = [standardUserDefaults BOOLForKey:@"DidMigrateYouTubeBookmarks"];
+  if ((v3 & 1) == 0)
   {
-    v3 = SafariNonContaineredLibraryPath();
-    v23 = [v3 stringByAppendingPathComponent:@"Preferences/com.apple.youtube.dp.plist"];
+    v4 = SafariNonContaineredLibraryPath(v3);
+    v26 = [v4 stringByAppendingPathComponent:@"Preferences/com.apple.youtube.dp.plist"];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    if ([defaultManager fileExistsAtPath:v23])
+    if ([defaultManager fileExistsAtPath:v26])
     {
-      v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v23];
-      v21 = v4;
-      if (v4)
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v26];
+      v24 = v5;
+      if (v5)
       {
-        v20 = [v4 objectForKey:@"Bookmarks"];
-        if ([v20 count])
+        v23 = [v5 objectForKey:@"Bookmarks"];
+        if ([v23 count])
         {
-          MEMORY[0x2160748B0](v31, @"com.apple.MobileSafari.BookmarkImporter");
+          MEMORY[0x2160748B0](v34, @"com.apple.MobileSafari.BookmarkImporter");
           if ([MEMORY[0x277D7B5A8] lockSync])
           {
-            v5 = objc_alloc(MEMORY[0x277D7B5A0]);
+            v6 = objc_alloc(MEMORY[0x277D7B5A0]);
             configuration = [(WebBookmarkCollection *)self->_collection configuration];
-            v26 = [v5 initFolderWithParentID:0 collectionType:{objc_msgSend(configuration, "collectionType")}];
+            v29 = [v6 initFolderWithParentID:0 collectionType:{objc_msgSend(configuration, "collectionType")}];
 
             _uniqueYouTubeBookmarkFolderName = [(BookmarkImporter *)self _uniqueYouTubeBookmarkFolderName];
-            [v26 setTitle:_uniqueYouTubeBookmarkFolderName];
+            [v29 setTitle:_uniqueYouTubeBookmarkFolderName];
 
-            [(WebBookmarkCollection *)self->_collection saveBookmark:v26];
-            v29 = 0u;
+            [(WebBookmarkCollection *)self->_collection saveBookmark:v29];
+            v32 = 0u;
+            v33 = 0u;
             v30 = 0u;
-            v27 = 0u;
-            v28 = 0u;
-            obj = v20;
-            v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
-            if (v8)
+            v31 = 0u;
+            obj = v23;
+            v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+            if (v9)
             {
-              v9 = *v28;
+              v10 = *v31;
               do
               {
-                for (i = 0; i != v8; ++i)
+                for (i = 0; i != v9; ++i)
                 {
-                  if (*v28 != v9)
+                  if (*v31 != v10)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v11 = *(*(&v27 + 1) + 8 * i);
-                  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"youtu.be/%@", v11];
-                  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"http://youtu.be/%@", v11];
-                  v14 = objc_alloc(MEMORY[0x277D7B5A0]);
+                  v12 = *(*(&v30 + 1) + 8 * i);
+                  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"youtu.be/%@", v12];
+                  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"http://youtu.be/%@", v12];
+                  v15 = objc_alloc(MEMORY[0x277D7B5A0]);
                   configuration2 = [(WebBookmarkCollection *)self->_collection configuration];
-                  v16 = [v14 initWithTitle:v12 address:v13 collectionType:{objc_msgSend(configuration2, "collectionType")}];
+                  v17 = [v15 initWithTitle:v13 address:v14 collectionType:{objc_msgSend(configuration2, "collectionType")}];
 
-                  -[WebBookmarkCollection moveBookmark:toFolderWithID:](self->_collection, "moveBookmark:toFolderWithID:", v16, [v26 identifier]);
-                  [(WebBookmarkCollection *)self->_collection saveBookmark:v16];
+                  -[WebBookmarkCollection moveBookmark:toFolderWithID:](self->_collection, "moveBookmark:toFolderWithID:", v17, [v29 identifier]);
+                  [(WebBookmarkCollection *)self->_collection saveBookmark:v17];
                 }
 
-                v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+                v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
               }
 
-              while (v8);
+              while (v9);
             }
 
             [MEMORY[0x277D7B5A8] unlockSync];
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-            v18 = [defaultManager2 _web_removeFileOnlyAtPath:v23];
+            v19 = [defaultManager2 _web_removeFileOnlyAtPath:v26];
 
-            if ((v18 & 1) == 0)
+            if ((v19 & 1) == 0)
             {
-              v19 = WBS_LOG_CHANNEL_PREFIXDataMigration();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              v22 = WBS_LOG_CHANNEL_PREFIXDataMigration(v20, v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 [BookmarkImporter migrateYouTubeBookmarks];
               }
@@ -1367,7 +1368,7 @@ LABEL_10:
             [standardUserDefaults setBool:1 forKey:@"DidMigrateYouTubeBookmarks"];
           }
 
-          SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v31);
+          SafariShared::SuddenTerminationDisabler::~SuddenTerminationDisabler(v34);
         }
 
         else

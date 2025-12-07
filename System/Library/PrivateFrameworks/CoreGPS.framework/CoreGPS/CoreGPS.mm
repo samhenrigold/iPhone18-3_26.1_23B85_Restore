@@ -1,23 +1,17 @@
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t CoreGPSDevice._client.getter()
+uint64_t CoreGPSDevice.sendRequest(request:)(uint64_t a1, uint64_t a2)
 {
-  swift_beginAccess();
-  v1 = *(v0 + 16);
-}
-
-uint64_t CoreGPSDevice.sendRequest(request:)()
-{
-  result = (*(*v0 + 88))();
+  result = (*(*v2 + 88))();
   if (result)
   {
     dispatch thunk of GPSXPCClient.send(_:)();
@@ -31,91 +25,90 @@ uint64_t GPSXPCClient.send(_:)(uint64_t a1, unint64_t a2)
   v3 = v2;
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20]();
-  v10 = v34 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v13 = v34 - v12;
-  v14 = *(v3 + 16);
+  MEMORY[0x28223BE20](v6);
+  v9 = v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = v33 - v11;
+  v13 = *(v3 + 16);
   aBlock[4] = partial apply for implicit closure #2 in implicit closure #1 in GPSXPCClient.send(_:);
   aBlock[5] = v3;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed Error) -> ();
   aBlock[3] = &block_descriptor_6;
-  v15 = _Block_copy(aBlock);
+  v14 = _Block_copy(aBlock);
 
-  v16 = [v14 remoteObjectProxyWithErrorHandler_];
-  _Block_release(v15);
+  v15 = [v13 remoteObjectProxyWithErrorHandler_];
+  _Block_release(v14);
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s6GPSXPC14GPSXPCProtocol_pMd, &_s6GPSXPC14GPSXPCProtocol_pMR);
   if (swift_dynamicCast())
   {
-    v17 = v34[1];
+    v16 = v33[1];
     isa = Data._bridgeToObjectiveC()().super.isa;
-    [v17 onData_];
+    [v16 onData_];
 
-    v19 = vxpclog.unsafeMutableAddressor();
-    outlined init with copy of Logger?(v19, v13);
-    if ((*(v7 + 48))(v13, 1, v6) == 1)
+    v18 = vxpclog.unsafeMutableAddressor();
+    outlined init with copy of Logger?(v18, v12);
+    if ((*(v7 + 48))(v12, 1, v6) == 1)
     {
       swift_unknownObjectRelease();
-      return outlined destroy of Logger?(v13, &_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+      return outlined destroy of Logger?(v12, &_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
     }
 
     else
     {
       outlined copy of Data._Representation(a1, a2);
-      v27 = Logger.logObject.getter();
-      v28 = static os_log_type_t.debug.getter();
+      v26 = Logger.logObject.getter();
+      v27 = static os_log_type_t.debug.getter();
       outlined consume of Data._Representation(a1, a2);
-      if (os_log_type_enabled(v27, v28))
+      if (os_log_type_enabled(v26, v27))
       {
+        v28 = swift_slowAlloc();
         v29 = swift_slowAlloc();
-        v30 = swift_slowAlloc();
-        aBlock[0] = v30;
-        *v29 = 136446210;
-        v31 = Data.description.getter();
-        v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, aBlock);
+        aBlock[0] = v29;
+        *v28 = 136446210;
+        v30 = Data.description.getter();
+        v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, aBlock);
 
-        *(v29 + 4) = v33;
-        _os_log_impl(&dword_22D06E000, v27, v28, "client,sent %{public}s", v29, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v30);
-        MEMORY[0x2318C7D60](v30, -1, -1);
+        *(v28 + 4) = v32;
+        _os_log_impl(&dword_22D06E000, v26, v27, "client,sent %{public}s", v28, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v29);
         MEMORY[0x2318C7D60](v29, -1, -1);
+        MEMORY[0x2318C7D60](v28, -1, -1);
       }
 
       swift_unknownObjectRelease();
 
-      return (*(v7 + 8))(v13, v6);
+      return (*(v7 + 8))(v12, v6);
     }
   }
 
   else
   {
-    v21 = xpclog.unsafeMutableAddressor();
-    (*(v7 + 16))(v10, v21, v6);
+    v20 = xpclog.unsafeMutableAddressor();
+    (*(v7 + 16))(v9, v20, v6);
 
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.error.getter();
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v22, v23))
+    if (os_log_type_enabled(v21, v22))
     {
+      v23 = swift_slowAlloc();
       v24 = swift_slowAlloc();
-      v25 = swift_slowAlloc();
-      *v24 = 138543362;
-      *(v24 + 4) = v14;
-      *v25 = v14;
-      v26 = v14;
-      _os_log_impl(&dword_22D06E000, v22, v23, "remoteObjectProxyWithErrorHandler failed%{public}@", v24, 0xCu);
-      outlined destroy of Logger?(v25, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x2318C7D60](v25, -1, -1);
+      *v23 = 138543362;
+      *(v23 + 4) = v13;
+      *v24 = v13;
+      v25 = v13;
+      _os_log_impl(&dword_22D06E000, v21, v22, "remoteObjectProxyWithErrorHandler failed%{public}@", v23, 0xCu);
+      outlined destroy of Logger?(v24, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x2318C7D60](v24, -1, -1);
+      MEMORY[0x2318C7D60](v23, -1, -1);
     }
 
-    return (*(v7 + 8))(v10, v6);
+    return (*(v7 + 8))(v9, v6);
   }
 }
 
@@ -153,18 +146,16 @@ uint64_t key path getter for CoreGPSDevice._client : CoreGPSDevice@<X0>(uint64_t
   return result;
 }
 
-uint64_t key path setter for CoreGPSDevice._client : CoreGPSDevice(uint64_t *a1, uint64_t a2)
+uint64_t key path setter for CoreGPSDevice._client : CoreGPSDevice(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 96);
+  v2 = *(**a2 + 96);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t CoreGPSDevice._client.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 16);
   *(v1 + 16) = a1;
 }
 
@@ -178,75 +169,63 @@ uint64_t CoreGPSDevice.__allocating_init(queue:callbackIndication:callbackInterr
 uint64_t CoreGPSDevice.init(queue:callbackIndication:callbackInterrupt:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = v5;
-  v37 = a2;
-  v38 = a3;
-  v36 = a1;
+  v32 = a2;
+  v33 = a3;
+  v31 = a1;
   v9 = type metadata accessor for Logger();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v34 - v15;
+  v11 = MEMORY[0x28223BE20](v9);
+  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v15 = &v29 - v14;
   *(v6 + 16) = 0;
   if (!isAvailable()())
   {
-    v17 = gpslog.unsafeMutableAddressor();
-    (*(v10 + 16))(v16, v17, v9);
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v18, v19))
+    v16 = gpslog.unsafeMutableAddressor();
+    (*(v10 + 16))(v15, v16, v9);
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v17, v18))
     {
-      v20 = swift_slowAlloc();
-      v35 = a4;
-      v21 = a5;
-      v22 = v20;
-      *v20 = 0;
-      _os_log_impl(&dword_22D06E000, v18, v19, "isAvailable() returned false. Please check this function before using CoreGPS. But inited anyway!!!", v20, 2u);
-      v23 = v22;
-      a5 = v21;
-      a4 = v35;
-      MEMORY[0x2318C7D60](v23, -1, -1);
+      v19 = swift_slowAlloc();
+      v30 = a4;
+      v20 = a5;
+      v21 = v19;
+      *v19 = 0;
+      _os_log_impl(&dword_22D06E000, v17, v18, "isAvailable() returned false. Please check this function before using CoreGPS. But inited anyway!!!", v19, 2u);
+      v22 = v21;
+      a5 = v20;
+      a4 = v30;
+      MEMORY[0x2318C7D60](v22, -1, -1);
     }
 
-    (*(v10 + 8))(v16, v9);
+    (*(v10 + 8))(v15, v9);
   }
 
-  v24 = gpslog.unsafeMutableAddressor();
-  (*(v10 + 16))(v14, v24, v9);
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v25, v26))
+  v23 = gpslog.unsafeMutableAddressor();
+  (*(v10 + 16))(v13, v23, v9);
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v24, v25))
   {
-    v27 = swift_slowAlloc();
-    *v27 = 0;
-    _os_log_impl(&dword_22D06E000, v25, v26, "CoreGPSDevice,init", v27, 2u);
-    MEMORY[0x2318C7D60](v27, -1, -1);
+    v26 = swift_slowAlloc();
+    *v26 = 0;
+    _os_log_impl(&dword_22D06E000, v24, v25, "CoreGPSDevice,init", v26, 2u);
+    MEMORY[0x2318C7D60](v26, -1, -1);
   }
 
-  (*(v10 + 8))(v14, v9);
-  v28 = type metadata accessor for GPSXPCClient();
-  v29 = *(v28 + 48);
-  v30 = *(v28 + 52);
+  (*(v10 + 8))(v13, v9);
+  type metadata accessor for GPSXPCClient();
   swift_allocObject();
-  v31 = GPSXPCClient.init(queue:onData:onInterrupt:)(v36, v37, v38, a4, a5);
+  v27 = GPSXPCClient.init(queue:onData:onInterrupt:)(v31, v32, v33, a4, a5);
   swift_beginAccess();
-  v32 = *(v6 + 16);
-  *(v6 + 16) = v31;
+  *(v6 + 16) = v27;
 
   return v6;
 }
 
-uint64_t CoreGPSDevice.deinit()
-{
-  v1 = *(v0 + 16);
-
-  return v0;
-}
-
 uint64_t CoreGPSDevice.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8D8](v0, 24, 7);
 }
@@ -436,7 +415,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -446,14 +424,11 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -462,7 +437,6 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 uint64_t GPSXPCClient._callbackData.getter()
 {
   v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
 
   return v1;
 }
@@ -470,7 +444,6 @@ uint64_t GPSXPCClient._callbackData.getter()
 uint64_t GPSXPCClient._callbackInterrupt.getter()
 {
   v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
 
   return v1;
 }
@@ -487,146 +460,144 @@ uint64_t GPSXPCClient.init(queue:onData:onInterrupt:)(void *a1, uint64_t a2, uin
   v6 = v5;
   v12 = type metadata accessor for Logger();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = (MEMORY[0x28223BE20])();
-  v58 = v54 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15);
-  v18 = v54 - v17;
+  v14 = MEMORY[0x28223BE20](v12);
+  v57 = v53 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v17 = v53 - v16;
   *(v6 + 24) = a2;
   *(v6 + 32) = a3;
   *(v6 + 40) = a4;
   *(v6 + 48) = a5;
   type metadata accessor for ALServiceDelegate();
-  v54[1] = a3;
+  v53[1] = a3;
 
-  v54[3] = a5;
+  v53[3] = a5;
 
-  v19 = static ALServiceDelegate.serviceName()();
-  v21 = v20;
-  v22 = xpclog.unsafeMutableAddressor();
-  v23 = *(v13 + 16);
-  v56 = v22;
-  v57 = v13 + 16;
-  v55 = v23;
-  (v23)(v18);
+  v18 = static ALServiceDelegate.serviceName()();
+  v20 = v19;
+  v21 = xpclog.unsafeMutableAddressor();
+  v22 = *(v13 + 16);
+  v55 = v21;
+  v56 = v13 + 16;
+  v54 = v22;
+  (v22)(v17);
 
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.info.getter();
+  v23 = Logger.logObject.getter();
+  v24 = static os_log_type_t.info.getter();
 
-  v26 = os_log_type_enabled(v24, v25);
-  v54[2] = v13;
-  if (v26)
+  v25 = os_log_type_enabled(v23, v24);
+  v53[2] = v13;
+  if (v25)
   {
-    v27 = swift_slowAlloc();
-    v54[0] = a1;
-    v28 = v12;
-    v29 = v13;
-    v30 = v27;
-    v31 = swift_slowAlloc();
-    aBlock = v31;
-    *v30 = 136446210;
-    *(v30 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &aBlock);
-    _os_log_impl(&dword_22D06E000, v24, v25, "Try connecting xpc service %{public}s", v30, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v31);
-    MEMORY[0x2318C7D60](v31, -1, -1);
+    v26 = swift_slowAlloc();
+    v53[0] = a1;
+    v27 = v12;
+    v28 = v13;
+    v29 = v26;
+    v30 = swift_slowAlloc();
+    aBlock = v30;
+    *v29 = 136446210;
+    *(v29 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v20, &aBlock);
+    _os_log_impl(&dword_22D06E000, v23, v24, "Try connecting xpc service %{public}s", v29, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v30);
     MEMORY[0x2318C7D60](v30, -1, -1);
+    MEMORY[0x2318C7D60](v29, -1, -1);
 
-    v32 = v29;
-    v12 = v28;
-    a1 = v54[0];
+    v31 = v28;
+    v12 = v27;
+    a1 = v53[0];
   }
 
   else
   {
 
-    v32 = v13;
+    v31 = v13;
   }
 
-  v33 = *(v32 + 8);
-  v33(v18, v12);
-  v34 = objc_allocWithZone(MEMORY[0x277CCAE80]);
-  v35 = MEMORY[0x2318C7960](v19, v21);
+  v32 = *(v31 + 8);
+  v32(v17, v12);
+  v33 = objc_allocWithZone(MEMORY[0x277CCAE80]);
+  v34 = MEMORY[0x2318C7960](v18, v20);
 
-  v36 = [v34 initWithMachServiceName:v35 options:0];
+  v35 = [v33 initWithMachServiceName:v34 options:0];
 
-  *(v6 + 16) = v36;
-  [v36 setExportedObject_];
-  v37 = *(v6 + 16);
-  v38 = objc_opt_self();
-  v39 = v37;
-  v40 = [v38 interfaceWithProtocol_];
-  [v39 setExportedInterface_];
+  *(v6 + 16) = v35;
+  [v35 setExportedObject_];
+  v36 = *(v6 + 16);
+  v37 = objc_opt_self();
+  v38 = v36;
+  v39 = [v37 interfaceWithProtocol_];
+  [v38 setExportedInterface_];
 
-  v41 = *(v6 + 16);
-  v42 = [v38 interfaceWithProtocol_];
-  [v41 setRemoteObjectInterface_];
+  v40 = *(v6 + 16);
+  v41 = [v37 interfaceWithProtocol_];
+  [v40 setRemoteObjectInterface_];
 
-  v43 = *(v6 + 16);
-  v63 = partial apply for implicit closure #3 in implicit closure #2 in GPSXPCClient.init(queue:onData:onInterrupt:);
-  v64 = v6;
+  v42 = *(v6 + 16);
+  v62 = partial apply for implicit closure #3 in implicit closure #2 in GPSXPCClient.init(queue:onData:onInterrupt:);
+  v63 = v6;
   aBlock = MEMORY[0x277D85DD0];
-  v60 = 1107296256;
-  v61 = thunk for @escaping @callee_guaranteed () -> ();
-  v62 = &block_descriptor;
-  v44 = _Block_copy(&aBlock);
-  v45 = v43;
+  v59 = 1107296256;
+  v60 = thunk for @escaping @callee_guaranteed () -> ();
+  v61 = &block_descriptor;
+  v43 = _Block_copy(&aBlock);
+  v44 = v42;
 
-  [v45 setInterruptionHandler_];
-  _Block_release(v44);
+  [v44 setInterruptionHandler_];
+  _Block_release(v43);
 
-  v46 = *(v6 + 16);
-  v63 = partial apply for implicit closure #5 in implicit closure #4 in GPSXPCClient.init(queue:onData:onInterrupt:);
-  v64 = v6;
+  v45 = *(v6 + 16);
+  v62 = partial apply for implicit closure #5 in implicit closure #4 in GPSXPCClient.init(queue:onData:onInterrupt:);
+  v63 = v6;
   aBlock = MEMORY[0x277D85DD0];
-  v60 = 1107296256;
-  v61 = thunk for @escaping @callee_guaranteed () -> ();
-  v62 = &block_descriptor_3;
-  v47 = _Block_copy(&aBlock);
+  v59 = 1107296256;
+  v60 = thunk for @escaping @callee_guaranteed () -> ();
+  v61 = &block_descriptor_3;
+  v46 = _Block_copy(&aBlock);
 
-  v48 = v46;
+  v47 = v45;
 
-  [v48 setInvalidationHandler_];
-  _Block_release(v47);
+  [v47 setInvalidationHandler_];
+  _Block_release(v46);
 
   [*(v6 + 16) _setQueue_];
-  v49 = v58;
+  v48 = v57;
   [*(v6 + 16) activate];
-  v55(v49, v56, v12);
+  v54(v48, v55, v12);
 
-  v50 = Logger.logObject.getter();
-  v51 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v50, v51))
+  v49 = Logger.logObject.getter();
+  v50 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v49, v50))
   {
-    v52 = swift_slowAlloc();
-    *v52 = 67240192;
-    *(v52 + 4) = [*(v6 + 16) processIdentifier];
+    v51 = swift_slowAlloc();
+    *v51 = 67240192;
+    *(v51 + 4) = [*(v6 + 16) processIdentifier];
 
-    _os_log_impl(&dword_22D06E000, v50, v51, "Connected to xpc service pid: %{public}d", v52, 8u);
-    MEMORY[0x2318C7D60](v52, -1, -1);
+    _os_log_impl(&dword_22D06E000, v49, v50, "Connected to xpc service pid: %{public}d", v51, 8u);
+    MEMORY[0x2318C7D60](v51, -1, -1);
   }
 
   else
   {
   }
 
-  v33(v49, v12);
+  v32(v48, v12);
   return v6;
 }
 
 uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t GPSXPCClient.onData(_:)(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v8 = &v23 - v7;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v22 - v7;
   v9 = vxpclog.unsafeMutableAddressor();
   outlined init with copy of Logger?(v9, v8);
   v10 = type metadata accessor for Logger();
@@ -645,20 +616,20 @@ uint64_t GPSXPCClient.onData(_:)(uint64_t a1, unint64_t a2)
     if (os_log_type_enabled(v12, v13))
     {
       v14 = swift_slowAlloc();
-      v25 = v13;
+      v24 = v13;
       v15 = v14;
-      v24 = swift_slowAlloc();
-      v26 = v24;
+      v23 = swift_slowAlloc();
+      v25 = v23;
       *v15 = 136315138;
       v16 = Data.description.getter();
       v18 = v3;
-      v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v26);
+      v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v25);
 
       *(v15 + 4) = v19;
       v3 = v18;
-      _os_log_impl(&dword_22D06E000, v12, v25, "client,receive %s", v15, 0xCu);
-      v20 = v24;
-      __swift_destroy_boxed_opaque_existential_0(v24);
+      _os_log_impl(&dword_22D06E000, v12, v24, "client,receive %s", v15, 0xCu);
+      v20 = v23;
+      __swift_destroy_boxed_opaque_existential_0(v23);
       MEMORY[0x2318C7D60](v20, -1, -1);
       MEMORY[0x2318C7D60](v15, -1, -1);
     }
@@ -666,17 +637,15 @@ uint64_t GPSXPCClient.onData(_:)(uint64_t a1, unint64_t a2)
     (*(v11 + 8))(v8, v10);
   }
 
-  v21 = *(v3 + 32);
   return (*(v3 + 24))(a1, a2);
 }
 
 void thunk for @escaping @callee_guaranteed (@guaranteed Error) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 uint64_t GPSXPCClient.interruptionHandler()()
@@ -684,33 +653,31 @@ uint64_t GPSXPCClient.interruptionHandler()()
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = xpclog.unsafeMutableAddressor();
-  (*(v3 + 16))(v6, v7, v2);
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = xpclog.unsafeMutableAddressor();
+  (*(v3 + 16))(v5, v6, v2);
 
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v8, v9))
+  if (os_log_type_enabled(v7, v8))
   {
+    v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    *v10 = 138543362;
-    v12 = *(v1 + 16);
-    *(v10 + 4) = v12;
-    *v11 = v12;
-    v13 = v12;
-    _os_log_impl(&dword_22D06E000, v8, v9, "client,interruptionHandler %{public}@", v10, 0xCu);
-    outlined destroy of Logger?(v11, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x2318C7D60](v11, -1, -1);
+    *v9 = 138543362;
+    v11 = *(v1 + 16);
+    *(v9 + 4) = v11;
+    *v10 = v11;
+    v12 = v11;
+    _os_log_impl(&dword_22D06E000, v7, v8, "client,interruptionHandler %{public}@", v9, 0xCu);
+    outlined destroy of Logger?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x2318C7D60](v10, -1, -1);
+    MEMORY[0x2318C7D60](v9, -1, -1);
   }
 
-  v14 = (*(v3 + 8))(v6, v2);
-  v15 = *(v1 + 48);
-  return (*(v1 + 40))(v14);
+  v13 = (*(v3 + 8))(v5, v2);
+  return (*(v1 + 40))(v13);
 }
 
 uint64_t GPSXPCClient.invalidationHandler()()
@@ -718,92 +685,84 @@ uint64_t GPSXPCClient.invalidationHandler()()
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = xpclog.unsafeMutableAddressor();
-  (*(v3 + 16))(v6, v7, v2);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = xpclog.unsafeMutableAddressor();
+  (*(v3 + 16))(v5, v6, v2);
   swift_retain_n();
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v8, v9))
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v7, v8))
   {
+    v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    *v10 = 138412546;
-    v12 = *(v1 + 16);
-    *(v10 + 4) = v12;
-    *v11 = v12;
-    *(v10 + 12) = 1024;
-    v13 = [v12 processIdentifier];
+    *v9 = 138412546;
+    v11 = *(v1 + 16);
+    *(v9 + 4) = v11;
+    *v10 = v11;
+    *(v9 + 12) = 1024;
+    v12 = [v11 processIdentifier];
 
-    *(v10 + 14) = v13;
+    *(v9 + 14) = v12;
 
-    _os_log_impl(&dword_22D06E000, v8, v9, "client,invalidationHandler %@, pid %d exits", v10, 0x12u);
-    outlined destroy of Logger?(v11, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x2318C7D60](v11, -1, -1);
+    _os_log_impl(&dword_22D06E000, v7, v8, "client,invalidationHandler %@, pid %d exits", v9, 0x12u);
+    outlined destroy of Logger?(v10, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x2318C7D60](v10, -1, -1);
+    MEMORY[0x2318C7D60](v9, -1, -1);
   }
 
   else
   {
   }
 
-  return (*(v3 + 8))(v6, v2);
+  return (*(v3 + 8))(v5, v2);
 }
 
 uint64_t GPSXPCClient.proxyErrorHandler(error:)(void *a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = xpclog.unsafeMutableAddressor();
-  (*(v3 + 16))(v6, v7, v2);
-  v8 = a1;
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.fault.getter();
+  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = xpclog.unsafeMutableAddressor();
+  (*(v3 + 16))(v5, v6, v2);
+  v7 = a1;
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.fault.getter();
 
-  if (os_log_type_enabled(v9, v10))
+  if (os_log_type_enabled(v8, v9))
   {
+    v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v18 = v12;
-    *v11 = 136315138;
+    v17 = v11;
+    *v10 = 136315138;
     swift_getErrorValue();
-    v13 = Error.localizedDescription.getter();
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v18);
+    v12 = Error.localizedDescription.getter();
+    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v17);
 
-    *(v11 + 4) = v15;
-    _os_log_impl(&dword_22D06E000, v9, v10, "proxyErrorHandler: %s", v11, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v12);
-    MEMORY[0x2318C7D60](v12, -1, -1);
+    *(v10 + 4) = v14;
+    _os_log_impl(&dword_22D06E000, v8, v9, "proxyErrorHandler: %s", v10, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v11);
     MEMORY[0x2318C7D60](v11, -1, -1);
+    MEMORY[0x2318C7D60](v10, -1, -1);
   }
 
-  return (*(v3 + 8))(v6, v2);
+  return (*(v3 + 8))(v5, v2);
 }
 
 uint64_t GPSXPCClient.deinit()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   return v0;
 }
 
 uint64_t GPSXPCClient.__deallocating_deinit()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8D8](v0, 56, 7);
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -901,16 +860,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1007,7 +964,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1021,15 +977,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1044,15 +1000,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1061,12 +1017,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1173,15 +1129,17 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of Logger?(uint64_t a1, uint64_t a2)
@@ -1191,13 +1149,13 @@ uint64_t outlined init with copy of Logger?(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -1255,16 +1213,16 @@ uint64_t one-time initialization function for xpclog()
   return v3(v1, v2, v0);
 }
 
-uint64_t GPSXPCLogger.xpc.unsafeMutableAddressor(void *a1, uint64_t a2)
+uint64_t GPSXPCLogger.xpc.unsafeMutableAddressor(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = type metadata accessor for Logger();
+  v4 = type metadata accessor for Logger();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
 uint64_t xpclog.getter@<X0>(uint64_t a1@<X8>)
@@ -1413,7 +1371,7 @@ uint64_t ALServiceDelegate._dataService.setter(__int128 *a1)
   return swift_endAccess();
 }
 
-char *ALServiceDelegate.init(queue:dataService:)(void *a1, uint64_t *a2)
+char *ALServiceDelegate.init(queue:dataService:)(void *a1, void *a2)
 {
   *&v2[OBJC_IVAR____TtC6GPSXPC17ALServiceDelegate__queue] = a1;
   outlined init with copy of GPSXPCDataService(a2, &v2[OBJC_IVAR____TtC6GPSXPC17ALServiceDelegate__dataService]);
@@ -1580,7 +1538,7 @@ Swift::Void __swiftcall ALServiceDelegate.onInterrupt()()
   }
 }
 
-void ALServiceDelegate.interruptionHandler(_:)(void *a1, const char *a2)
+void ALServiceDelegate.interruptionHandler(_:)(void *a1, const char *a2, ...)
 {
   if (one-time initialization token for xpclog != -1)
   {
@@ -1677,11 +1635,11 @@ void ALServiceDelegate.disconnectHandler(_:)(void *a1)
   }
 }
 
-id ALServiceDelegate.__deallocating_deinit()
+id ALServiceDelegate.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ALServiceDelegate();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for ALServiceDelegate();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 uint64_t outlined init with copy of GPSXPCDataService(uint64_t a1, uint64_t a2)
@@ -1841,15 +1799,12 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
 
 uint64_t objectdestroy_10Tm()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 void partial apply for closure #1 in ALServiceDelegate.listener(_:shouldAcceptNewConnection:)(void (*a1)(void))
 {
-  v4 = *(v1 + 16);
-  v3 = *(v1 + 24);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   a1();

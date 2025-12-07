@@ -24,7 +24,18 @@
   {
     info = [payload info];
     options = [responseCopy options];
-    _os_log_send_and_compose_impl();
+    v15 = 136316162;
+    v16 = "[W5PeerGenericRequest handleResponse:]";
+    v17 = 2080;
+    v18 = "W5PeerGenericRequest.m";
+    v19 = 1024;
+    v20 = 27;
+    v21 = 2114;
+    v22 = info;
+    v23 = 2114;
+    v24 = options;
+    v14 = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) RECV RESPONSE (info=%{public}@, options=%{public}@)", &v15, v14);
   }
 
   responseHandler = [(W5PeerGenericRequest *)self responseHandler];

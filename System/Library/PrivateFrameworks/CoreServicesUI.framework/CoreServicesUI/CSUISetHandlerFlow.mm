@@ -91,29 +91,28 @@
 - (void)openWithMenuFromConstructor:(id)constructor didSelectBoundBundle:(id)bundle
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE551E0, &qword_2478DBE38);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v15 - v8;
+  v8 = &v14 - v7;
   sub_2478D8B4C();
   sub_2478D8B3C();
-  v10 = MEMORY[0x277D85700];
+  v9 = MEMORY[0x277D85700];
   sub_2478D8AFC();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v11 = sub_2478D8B6C();
-  (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+  v10 = sub_2478D8B6C();
+  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   swift_unknownObjectRetain_n();
   selfCopy = self;
-  v13 = sub_2478D8B3C();
-  v14 = swift_allocObject();
-  v14[2] = v13;
-  v14[3] = v10;
-  v14[4] = selfCopy;
-  v14[5] = bundle;
-  sub_2478D791C(0, 0, v9, &unk_2478DBF28, v14);
+  v12 = sub_2478D8B3C();
+  v13 = swift_allocObject();
+  v13[2] = v12;
+  v13[3] = v9;
+  v13[4] = selfCopy;
+  v13[5] = bundle;
+  sub_2478D791C(0, 0, v8, &unk_2478DBF28, v13);
 
   swift_unknownObjectRelease();
 }

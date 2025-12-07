@@ -553,7 +553,7 @@ uint64_t __72___UINavigationBarVisualProviderModernIOS_animateForSearchPresentat
   return [UIView addKeyframeWithRelativeStartTime:v3 relativeDuration:0.333333333 animations:0.333333333];
 }
 
-uint64_t __72___UINavigationBarVisualProviderModernIOS_animateForSearchPresentation___block_invoke_4(uint64_t a1)
+void *__72___UINavigationBarVisualProviderModernIOS_animateForSearchPresentation___block_invoke_4(uint64_t a1)
 {
   [*(*(a1 + 32) + 48) setAlpha:*(a1 + 40)];
   result = [*(*(a1 + 32) + 56) setAlpha:*(a1 + 48)];

@@ -745,13 +745,13 @@ LABEL_16:
     if (v7 > cursor)
     {
 LABEL_7:
-      *(self + 24) = 2;
+      self[3] = 2;
       return;
     }
 
     if (*(v6 + 1) == 1)
     {
-      [*(self + 32) setCropRect:{*(v6 + 2), *(v6 + 6), *(v6 + 10), *(v6 + 10)}];
+      [self[4] setCropRect:{*(v6 + 2), *(v6 + 6), *(v6 + 10), *(v6 + 10)}];
     }
 
     v8 = *(v6 + 18);

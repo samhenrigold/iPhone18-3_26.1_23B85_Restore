@@ -32,7 +32,7 @@
 
 - (BOOL)encodeObjectChange:(id)change
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -67,20 +67,20 @@
       recordType = [record2 recordType];
       recordName = [(HMDCloudRecord *)selfCopy recordName];
       *buf = 138544130;
-      v37 = v18;
-      v38 = 2112;
-      v39 = recordType;
-      v40 = 2112;
-      v41 = recordName;
-      v42 = 2048;
-      v43 = v12;
+      v36 = v18;
+      v37 = 2112;
+      v38 = recordType;
+      v39 = 2112;
+      v40 = recordName;
+      v41 = 2048;
+      v42 = v12;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Legacy metadata record %@/%@ %lu bytes", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v15);
-    v35 = 0;
-    v22 = [changeCopy encodeWithEncoding:1 error:&v35];
-    v23 = v35;
+    v34 = 0;
+    v22 = [changeCopy encodeWithEncoding:1 error:&v34];
+    v23 = v34;
     [(HMDCloudRecord *)selfCopy setCachedData:v22];
 
     v24 = v23 == 0;
@@ -93,9 +93,9 @@
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v37 = v28;
-        v38 = 2112;
-        v39 = v23;
+        v36 = v28;
+        v37 = 2112;
+        v38 = v23;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode object change with %@", buf, 0x16u);
       }
 
@@ -112,7 +112,7 @@
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v32;
+      v36 = v32;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@No data to encode into the legacy metadata record", buf, 0xCu);
     }
 
@@ -120,13 +120,12 @@
     v24 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (id)extractObjectChange
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   cachedData = [(HMDCloudRecord *)self cachedData];
   if (cachedData)
   {
@@ -147,9 +146,9 @@
       v6 = 0;
     }
 
-    v31 = 0;
-    v13 = [v6 encodeWithEncoding:1 error:&v31];
-    v14 = v31;
+    v30 = 0;
+    v13 = [v6 encodeWithEncoding:1 error:&v30];
+    v14 = v30;
     [(HMDCloudRecord *)self setCachedData:v13];
 
     if (v14)
@@ -161,9 +160,9 @@
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v33 = v18;
-        v34 = 2112;
-        v35 = v14;
+        v32 = v18;
+        v33 = 2112;
+        v34 = v14;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode object change with %@", buf, 0x16u);
       }
 
@@ -177,9 +176,9 @@
   }
 
   cachedData2 = [(HMDCloudRecord *)self cachedData];
-  v30 = 0;
-  v6 = [HMDBackingStoreModelObject objectFromData:cachedData2 encoding:1 error:&v30];
-  v8 = v30;
+  v29 = 0;
+  v6 = [HMDBackingStoreModelObject objectFromData:cachedData2 encoding:1 error:&v29];
+  v8 = v29;
 
   if (v8)
   {
@@ -190,9 +189,9 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v12;
-      v34 = 2112;
-      v35 = v8;
+      v32 = v12;
+      v33 = 2112;
+      v34 = v8;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode object change with %@", buf, 0x16u);
     }
 
@@ -214,7 +213,7 @@ LABEL_17:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v27;
+      v32 = v27;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Cloud legacy metadata record was not loaded from disk or fetch from cloud, no cached data", buf, 0xCu);
     }
 
@@ -236,8 +235,6 @@ LABEL_17:
   v6 = v6;
   v23 = v6;
 LABEL_26:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

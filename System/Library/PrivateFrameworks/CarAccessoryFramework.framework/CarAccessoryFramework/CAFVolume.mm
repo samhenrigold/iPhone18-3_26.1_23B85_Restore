@@ -18,7 +18,10 @@
 - (int64_t)typeCompare:(id)compare;
 - (unsigned)volume;
 - (unsigned)volumeType;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setMute:(BOOL)mute;
+- (void)setVolume:(unsigned __int8)volume;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -198,6 +201,13 @@
   return uint8Value;
 }
 
+- (void)setVolume:(unsigned __int8)volume
+{
+  volumeCopy = volume;
+  volumeCharacteristic = [(CAFVolume *)self volumeCharacteristic];
+  [volumeCharacteristic setUint8Value:volumeCopy];
+}
+
 - (CAFUInt8Range)volumeRange
 {
   volumeCharacteristic = [(CAFVolume *)self volumeCharacteristic];
@@ -290,12 +300,117 @@
   return bOOLValue;
 }
 
+- (void)setMute:(BOOL)mute
+{
+  muteCopy = mute;
+  muteCharacteristic = [(CAFVolume *)self muteCharacteristic];
+  [muteCharacteristic setBoolValue:muteCopy];
+}
+
 - (BOOL)hasMute
 {
   muteCharacteristic = [(CAFVolume *)self muteCharacteristic];
   v3 = muteCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000033000005"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    volumeTypeCharacteristic = [(CAFVolume *)self volumeTypeCharacteristic];
+    uniqueIdentifier2 = [volumeTypeCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers volumeService:self didUpdateVolumeType:{-[CAFVolume volumeType](self, "volumeType")}];
+LABEL_12:
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFVolume *)self name];
+      [observers2 volumeService:self didUpdateName:name];
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000033000006"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    volumeCharacteristic = [(CAFVolume *)self volumeCharacteristic];
+    uniqueIdentifier4 = [volumeCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 volumeService:self didUpdateVolume:{-[CAFVolume volume](self, "volume")}];
+LABEL_17:
+
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000001"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleLabelCharacteristic = [(CAFVolume *)self userVisibleLabelCharacteristic];
+    uniqueIdentifier6 = [userVisibleLabelCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFVolume *)self userVisibleLabel];
+      [observers volumeService:self didUpdateUserVisibleLabel:userVisibleLabel];
+
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x0000000033000009"])
+  {
+    goto LABEL_17;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  muteCharacteristic = [(CAFVolume *)self muteCharacteristic];
+  uniqueIdentifier8 = [muteCharacteristic uniqueIdentifier];
+  v29 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v29)
+  {
+    observers2 = [(CAFService *)self observers];
+    [observers2 volumeService:self didUpdateMute:{-[CAFVolume mute](self, "mute")}];
+    goto LABEL_17;
+  }
+
+LABEL_18:
+  v30.receiver = self;
+  v30.super_class = CAFVolume;
+  [(CAFService *)&v30 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForVolumeType

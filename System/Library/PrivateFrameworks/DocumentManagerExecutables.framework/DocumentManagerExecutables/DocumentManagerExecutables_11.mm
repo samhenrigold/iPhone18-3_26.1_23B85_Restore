@@ -1,1512 +1,3 @@
-void DOCHierarchyController.locations.modify(uint64_t a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 24);
-  if (a2)
-  {
-
-    DOCHierarchyController.locations.setter(v4);
-  }
-
-  else
-  {
-    DOCHierarchyController.locations.setter(v3);
-  }
-
-  free(v2);
-}
-
-uint64_t DOCHierarchyController.effectiveLocations.getter()
-{
-  v2 = v0;
-  v3 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
-  swift_beginAccess();
-  v4 = *(v0 + v3);
-
-  v5 = DOCHierarchyController.effectiveRootLocation.getter();
-  if (!v5)
-  {
-    return v4;
-  }
-
-  v6 = v5;
-  v7 = *(v0 + v3);
-
-  v8 = specialized Collection<>.firstIndex(of:)(v6, v7, &lazy cache variable for type metadata for DOCConcreteLocation);
-  v10 = v9;
-
-  if (v10)
-  {
-LABEL_45:
-
-    return v4;
-  }
-
-  v11 = *(v2 + v3);
-  if (v11 >> 62)
-  {
-    if (!__CocoaSet.count.getter())
-    {
-      goto LABEL_11;
-    }
-  }
-
-  else if (!*((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    goto LABEL_11;
-  }
-
-  if ((v11 & 0xC000000000000001) != 0)
-  {
-    goto LABEL_60;
-  }
-
-  if (!*((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    __break(1u);
-LABEL_62:
-    __break(1u);
-LABEL_63:
-    __break(1u);
-    goto LABEL_64;
-  }
-
-  v12 = *(v11 + 32);
-  while (1)
-  {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
-    v1 = v6;
-    v13 = static NSObject.== infix(_:_:)();
-
-    if (v13)
-    {
-
-      return v4;
-    }
-
-LABEL_11:
-
-    if (v8 < 0)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v4 = *(v2 + v3);
-      v1 = (v4 >> 62);
-      if (!(v4 >> 62))
-      {
-        v10 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        goto LABEL_14;
-      }
-    }
-
-    v10 = __CocoaSet.count.getter();
-LABEL_14:
-    if (v10 >= v8)
-    {
-      v14 = v8;
-    }
-
-    else
-    {
-      v14 = v10;
-    }
-
-    if (v10 < 0)
-    {
-      v14 = v8;
-    }
-
-    if (v8)
-    {
-      v11 = v14;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    if (v10 < v11)
-    {
-      __break(1u);
-LABEL_57:
-      __break(1u);
-LABEL_58:
-      __break(1u);
-      goto LABEL_59;
-    }
-
-    if (v1)
-    {
-      if (v4 < 0)
-      {
-        v2 = v4;
-      }
-
-      else
-      {
-        v2 = v4 & 0xFFFFFFFFFFFFFF8;
-      }
-
-      if (__CocoaSet.count.getter() < v11)
-      {
-        goto LABEL_57;
-      }
-
-      v15 = __CocoaSet.count.getter();
-    }
-
-    else
-    {
-      v15 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v15 < v11)
-      {
-        goto LABEL_57;
-      }
-    }
-
-    if (v15 < v10)
-    {
-      goto LABEL_58;
-    }
-
-    if ((v10 & 0x8000000000000000) == 0)
-    {
-      break;
-    }
-
-LABEL_59:
-    __break(1u);
-LABEL_60:
-
-    v12 = MEMORY[0x24C1FC540](0, v11);
-  }
-
-  if ((v4 & 0xC000000000000001) == 0 || v11 == v10)
-  {
-    swift_bridgeObjectRetain_n();
-    goto LABEL_40;
-  }
-
-  if (v11 >= v10)
-  {
-    goto LABEL_62;
-  }
-
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
-  swift_bridgeObjectRetain_n();
-  v16 = v11;
-  do
-  {
-    v17 = v16 + 1;
-    _ArrayBuffer._typeCheckSlowPath(_:)(v16);
-    v16 = v17;
-  }
-
-  while (v10 != v17);
-LABEL_40:
-
-  if (v1)
-  {
-    v2 = _CocoaArrayWrapper.subscript.getter();
-    v8 = v18;
-    v11 = v19;
-    v10 = v20;
-
-    if (v10)
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_44;
-  }
-
-  v2 = v4 & 0xFFFFFFFFFFFFFF8;
-  v8 = (v4 & 0xFFFFFFFFFFFFFF8) + 32;
-  v10 = (2 * v10) | 1;
-  if ((v10 & 1) == 0)
-  {
-LABEL_44:
-    specialized _copyCollectionToContiguousArray<A>(_:)(v2, v8, v11, v10, &lazy cache variable for type metadata for DOCConcreteLocation);
-    v4 = v21;
-    swift_unknownObjectRelease();
-    goto LABEL_45;
-  }
-
-LABEL_46:
-  type metadata accessor for __ContiguousArrayStorageBase();
-  swift_unknownObjectRetain_n();
-  v22 = swift_dynamicCastClass();
-  if (!v22)
-  {
-    swift_unknownObjectRelease();
-    v22 = MEMORY[0x277D84F90];
-  }
-
-  v23 = *(v22 + 16);
-
-  if (__OFSUB__(v10 >> 1, v11))
-  {
-    goto LABEL_63;
-  }
-
-  if (v23 != (v10 >> 1) - v11)
-  {
-LABEL_64:
-    swift_unknownObjectRelease_n();
-    goto LABEL_44;
-  }
-
-  v4 = swift_dynamicCastClass();
-
-  swift_unknownObjectRelease();
-  if (!v4)
-  {
-    swift_unknownObjectRelease();
-    v4 = MEMORY[0x277D84F90];
-  }
-
-  swift_unknownObjectRelease();
-  return v4;
-}
-
-unint64_t specialized Collection<>.firstIndex(of:)(uint64_t a1, unint64_t a2)
-{
-  return specialized Collection<>.firstIndex(of:)(a1, a2, &lazy cache variable for type metadata for UIView);
-}
-
-{
-  return specialized Collection<>.firstIndex(of:)(a1, a2, &lazy cache variable for type metadata for DOCConcreteLocation);
-}
-
-{
-  return specialized Collection<>.firstIndex(of:)(a1, a2, &lazy cache variable for type metadata for FPItem);
-}
-
-{
-  return specialized Collection<>.firstIndex(of:)(a1, a2, &lazy cache variable for type metadata for FPTag);
-}
-
-{
-  v3 = a2 & 0xFFFFFFFFFFFFFF8;
-  if (a2 >> 62)
-  {
-LABEL_17:
-    v4 = __CocoaSet.count.getter();
-  }
-
-  else
-  {
-    v4 = *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
-
-  v5 = 0;
-  while (1)
-  {
-    if (v4 == v5)
-    {
-      return 0;
-    }
-
-    if ((a2 & 0xC000000000000001) != 0)
-    {
-      v6 = MEMORY[0x24C1FC540](v5, a2);
-    }
-
-    else
-    {
-      if (v5 >= *(v3 + 16))
-      {
-        __break(1u);
-LABEL_16:
-        __break(1u);
-        goto LABEL_17;
-      }
-
-      v6 = *(a2 + 8 * v5 + 32);
-    }
-
-    v7 = v6;
-    type metadata accessor for DOCBrowserContainerController();
-    v8 = static NSObject.== infix(_:_:)();
-
-    if (v8)
-    {
-      return v5;
-    }
-
-    if (__OFADD__(v5++, 1))
-    {
-      goto LABEL_16;
-    }
-  }
-}
-
-{
-  return specialized Collection<>.firstIndex(of:)(a1, a2, &lazy cache variable for type metadata for FINode);
-}
-
-{
-  return specialized Collection<>.firstIndex(of:)(a1, a2, &lazy cache variable for type metadata for DOCTag);
-}
-
-uint64_t specialized Collection<>.firstIndex(of:)(uint64_t *a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  v3 = 0;
-  if (v2)
-  {
-    v4 = *a1;
-    v5 = a1[1];
-    for (i = (a2 + 40); ; i += 5)
-    {
-      v7 = *(i - 1) == v4 && *i == v5;
-      if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-      {
-        break;
-      }
-
-      if (v2 == ++v3)
-      {
-        return 0;
-      }
-    }
-  }
-
-  return v3;
-}
-
-unint64_t specialized Collection<>.firstIndex(of:)(uint64_t a1, unint64_t a2, unint64_t *a3)
-{
-  v5 = a2 & 0xFFFFFFFFFFFFFF8;
-  if (a2 >> 62)
-  {
-LABEL_17:
-    v6 = __CocoaSet.count.getter();
-  }
-
-  else
-  {
-    v6 = *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
-
-  v7 = 0;
-  while (1)
-  {
-    if (v6 == v7)
-    {
-      return 0;
-    }
-
-    if ((a2 & 0xC000000000000001) != 0)
-    {
-      v8 = MEMORY[0x24C1FC540](v7, a2);
-    }
-
-    else
-    {
-      if (v7 >= *(v5 + 16))
-      {
-        __break(1u);
-LABEL_16:
-        __break(1u);
-        goto LABEL_17;
-      }
-
-      v8 = *(a2 + 8 * v7 + 32);
-    }
-
-    v9 = v8;
-    type metadata accessor for NSMutableAttributedString(0, a3);
-    v10 = static NSObject.== infix(_:_:)();
-
-    if (v10)
-    {
-      return v7;
-    }
-
-    if (__OFADD__(v7++, 1))
-    {
-      goto LABEL_16;
-    }
-  }
-}
-
-uint64_t specialized Collection<>.firstIndex(of:)(uint64_t a1, unint64_t a2, uint64_t a3)
-{
-  v3 = *(a3 + 16);
-  if (!v3)
-  {
-    return 0;
-  }
-
-  v6 = 0;
-  for (i = (a3 + 40); ; i += 2)
-  {
-    v8 = *(i - 1);
-    v9 = *i;
-    if (*i <= 3)
-    {
-      if (v9 > 1)
-      {
-        if (v9 == 2)
-        {
-          if (a2 == 2)
-          {
-            v12 = *(i - 1);
-            v13 = 2;
-            goto LABEL_53;
-          }
-
-          outlined copy of ColumnType(a1, a2);
-          v10 = 2;
-          goto LABEL_35;
-        }
-
-        if (v9 == 3)
-        {
-          if (a2 == 3)
-          {
-            v12 = *(i - 1);
-            v13 = 3;
-            goto LABEL_53;
-          }
-
-          outlined copy of ColumnType(a1, a2);
-          v10 = 3;
-          goto LABEL_35;
-        }
-      }
-
-      else
-      {
-        if (!v9)
-        {
-          if (!a2)
-          {
-            v12 = *(i - 1);
-            v13 = 0;
-            goto LABEL_53;
-          }
-
-          outlined copy of ColumnType(a1, a2);
-          v10 = 0;
-          goto LABEL_35;
-        }
-
-        if (v9 == 1)
-        {
-          if (a2 == 1)
-          {
-            v12 = *(i - 1);
-            v13 = 1;
-            goto LABEL_53;
-          }
-
-          outlined copy of ColumnType(a1, a2);
-          v10 = 1;
-          goto LABEL_35;
-        }
-      }
-    }
-
-    else if (v9 <= 5)
-    {
-      if (v9 == 4)
-      {
-        if (a2 == 4)
-        {
-          v12 = *(i - 1);
-          v13 = 4;
-          goto LABEL_53;
-        }
-
-        outlined copy of ColumnType(a1, a2);
-        v10 = 4;
-        goto LABEL_35;
-      }
-
-      if (v9 == 5)
-      {
-        if (a2 == 5)
-        {
-          v12 = *(i - 1);
-          v13 = 5;
-          goto LABEL_53;
-        }
-
-        outlined copy of ColumnType(a1, a2);
-        v10 = 5;
-        goto LABEL_35;
-      }
-    }
-
-    else
-    {
-      switch(v9)
-      {
-        case 6:
-          if (a2 == 6)
-          {
-            v12 = *(i - 1);
-            v13 = 6;
-            goto LABEL_53;
-          }
-
-          outlined copy of ColumnType(a1, a2);
-          v10 = 6;
-          goto LABEL_35;
-        case 7:
-          if (a2 == 7)
-          {
-            v12 = *(i - 1);
-            v13 = 7;
-            goto LABEL_53;
-          }
-
-          outlined copy of ColumnType(a1, a2);
-          v10 = 7;
-          goto LABEL_35;
-        case 8:
-          if (a2 == 8)
-          {
-            v12 = *(i - 1);
-            v13 = 8;
-            goto LABEL_53;
-          }
-
-          outlined copy of ColumnType(a1, a2);
-          v10 = 8;
-          goto LABEL_35;
-      }
-    }
-
-    if (a2 < 9)
-    {
-      outlined copy of ColumnType(a1, a2);
-      outlined copy of ColumnType(v8, v9);
-      v10 = v9;
-LABEL_35:
-      outlined consume of ColumnType(v8, v10);
-      outlined consume of ColumnType(a1, a2);
-      goto LABEL_36;
-    }
-
-    if (v8 == a1 && v9 == a2)
-    {
-      break;
-    }
-
-    v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    outlined copy of ColumnType(a1, a2);
-    outlined copy of ColumnType(v8, v9);
-    outlined consume of ColumnType(v8, v9);
-    outlined consume of ColumnType(a1, a2);
-    if (v11)
-    {
-      return v6;
-    }
-
-LABEL_36:
-    if (v3 == ++v6)
-    {
-      return 0;
-    }
-  }
-
-  outlined copy of ColumnType(a1, a2);
-  outlined copy of ColumnType(a1, a2);
-  v12 = a1;
-  v13 = a2;
-LABEL_53:
-  outlined consume of ColumnType(v12, v13);
-  outlined consume of ColumnType(a1, a2);
-  return v6;
-}
-
-uint64_t specialized Collection<>.firstIndex(of:)(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = 0;
-  for (i = (a2 + 32); ; i += 3)
-  {
-    v5 = i[1];
-    v13 = *i;
-    v14[0] = v5;
-    *(v14 + 9) = *(i + 25);
-    outlined init with copy of DOCSidebarItem(&v13, &v12);
-    v6 = DOCSidebarItem.hashComparableValue.getter();
-    v8 = v7;
-    if (v6 == DOCSidebarItem.hashComparableValue.getter() && v8 == v9)
-    {
-      break;
-    }
-
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    outlined destroy of DOCSidebarItem(&v13);
-    if (v10)
-    {
-      return v3;
-    }
-
-    if (v2 == ++v3)
-    {
-      return 0;
-    }
-  }
-
-  outlined destroy of DOCSidebarItem(&v13);
-  return v3;
-}
-
-{
-  v2 = *(a2 + 16);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v4 = *(type metadata accessor for URL() - 8);
-  v5 = a2 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-  v6 = *(v4 + 72);
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-  v7 = 0;
-  while ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
-  {
-    ++v7;
-    v5 += v6;
-    if (v2 == v7)
-    {
-      return 0;
-    }
-  }
-
-  return v7;
-}
-
-uint64_t DOCHierarchyController._lastBrowsedStateByTab.setter(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController__lastBrowsedStateByTab;
-  swift_beginAccess();
-  *(v1 + v3) = a1;
-}
-
-uint64_t DOCHierarchyController.defaultTab.getter()
-{
-  v1 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_defaultTab;
-  swift_beginAccess();
-  return *(v0 + v1);
-}
-
-uint64_t DOCHierarchyController.defaultTab.setter(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_defaultTab;
-  result = swift_beginAccess();
-  *(v1 + v3) = a1;
-  return result;
-}
-
-uint64_t DOCHierarchyController.endUpdateExpectation(_:)(uint64_t a1)
-{
-  v52 = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  MEMORY[0x28223BE20](v2 - 8, v3);
-  v49 = &v44 - v4;
-  v5 = type metadata accessor for UUID();
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5, v7);
-  v45 = &v44 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd);
-  MEMORY[0x28223BE20](v9, v10);
-  v53 = &v44 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
-  MEMORY[0x28223BE20](v12 - 8, v13);
-  v50 = &v44 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15, v16);
-  v18 = &v44 - v17;
-  MEMORY[0x28223BE20](v19, v20);
-  v22 = &v44 - v21;
-  v23 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController__currentUpdateExpectation;
-  swift_beginAccess();
-  updated = type metadata accessor for DOCHierarchyController.UpdateExpectation(0);
-  v46 = *(updated - 8);
-  v47 = updated;
-  v25 = *(v46 + 48);
-  v51 = v1;
-  v26 = v25(v1 + v23, 1);
-  v48 = v23;
-  if (v26)
-  {
-    v27 = *(v6 + 56);
-    v27(v22, 1, 1, v5);
-    (*(v6 + 16))(v18, v52, v5);
-  }
-
-  else
-  {
-    v28 = *(v6 + 16);
-    v28(v22, v51 + v23, v5);
-    v27 = *(v6 + 56);
-    v27(v22, 0, 1, v5);
-    v28(v18, v52, v5);
-  }
-
-  v27(v18, 0, 1, v5);
-  v29 = *(v9 + 48);
-  v30 = v53;
-  outlined init with copy of DOCGridLayout.Spec?(v22, v53, &_s10Foundation4UUIDVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v18, v30 + v29, &_s10Foundation4UUIDVSgMd);
-  v31 = *(v6 + 48);
-  if (v31(v30, 1, v5) != 1)
-  {
-    v52 = v22;
-    v34 = v30;
-    v33 = v30;
-    v35 = v50;
-    outlined init with copy of DOCGridLayout.Spec?(v34, v50, &_s10Foundation4UUIDVSgMd);
-    if (v31(v33 + v29, 1, v5) != 1)
-    {
-      v37 = v33 + v29;
-      v38 = v45;
-      (*(v6 + 32))(v45, v37, v5);
-      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-      v39 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v40 = *(v6 + 8);
-      v40(v38, v5);
-      outlined destroy of CharacterSet?(v18, &_s10Foundation4UUIDVSgMd);
-      outlined destroy of CharacterSet?(v52, &_s10Foundation4UUIDVSgMd);
-      v40(v35, v5);
-      result = outlined destroy of CharacterSet?(v33, &_s10Foundation4UUIDVSgMd);
-      if ((v39 & 1) == 0)
-      {
-        return result;
-      }
-
-      goto LABEL_11;
-    }
-
-    outlined destroy of CharacterSet?(v18, &_s10Foundation4UUIDVSgMd);
-    outlined destroy of CharacterSet?(v52, &_s10Foundation4UUIDVSgMd);
-    (*(v6 + 8))(v35, v5);
-    return outlined destroy of CharacterSet?(v33, &_s10Foundation4UUIDVSg_ADtMd);
-  }
-
-  outlined destroy of CharacterSet?(v18, &_s10Foundation4UUIDVSgMd);
-  v32 = v22;
-  v33 = v53;
-  outlined destroy of CharacterSet?(v32, &_s10Foundation4UUIDVSgMd);
-  if (v31(v33 + v29, 1, v5) != 1)
-  {
-    return outlined destroy of CharacterSet?(v33, &_s10Foundation4UUIDVSg_ADtMd);
-  }
-
-  outlined destroy of CharacterSet?(v33, &_s10Foundation4UUIDVSgMd);
-LABEL_11:
-  v41 = v49;
-  (*(v46 + 56))(v49, 1, 1, v47);
-  v42 = v48;
-  v43 = v51;
-  swift_beginAccess();
-  outlined assign with take of DOCHierarchyController.UpdateExpectation?(v41, v43 + v42);
-  return swift_endAccess();
-}
-
-BOOL DOCHierarchyController.hasPendingLocationChange.getter()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  MEMORY[0x28223BE20](v1 - 8, v2);
-  v4 = &v9 - v3;
-  v5 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
-  swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(v0 + v5, v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  v6 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-  v7 = (*(*(v6 - 8) + 48))(v4, 1, v6) != 1;
-  outlined destroy of CharacterSet?(v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  return v7;
-}
-
-uint64_t DOCHierarchyController.locationsBeingRestored.setter(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locationsBeingRestored;
-  swift_beginAccess();
-  *(v1 + v3) = a1;
-}
-
-uint64_t DOCHierarchyController.locationForDeterminingCurrentEffectiveTab.getter()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  MEMORY[0x28223BE20](v1 - 8, v2);
-  v4 = &v19 - v3;
-  v5 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-  v6 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5, v7);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
-  swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(v0 + v10, v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  if ((*(v6 + 48))(v4, 1, v5) == 1)
-  {
-    outlined destroy of CharacterSet?(v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    goto LABEL_5;
-  }
-
-  outlined init with take of DOCHierarchyController.FetchingOperationToken(v4, v9, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  if (v9[*(v5 + 20)])
-  {
-    outlined destroy of DOCHierarchyController.FetchingOperationToken(v9, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-LABEL_5:
-    v11 = MEMORY[0x277D84F90];
-    if (!(MEMORY[0x277D84F90] >> 62))
-    {
-      goto LABEL_6;
-    }
-
-LABEL_19:
-    if (__CocoaSet.count.getter())
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_7;
-  }
-
-  v11 = *&v9[*(v5 + 28)];
-
-  outlined destroy of DOCHierarchyController.FetchingOperationToken(v9, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  if (v11 >> 62)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_6:
-  if (*((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    goto LABEL_9;
-  }
-
-LABEL_7:
-  v12 = v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController__currentUpdateExpectation;
-  swift_beginAccess();
-  updated = type metadata accessor for DOCHierarchyController.UpdateExpectation(0);
-  if (!(*(*(updated - 8) + 48))(v12, 1, updated))
-  {
-    v14 = *(v12 + *(updated + 20));
-
-    v11 = v14;
-  }
-
-LABEL_9:
-  if (!(v11 >> 62))
-  {
-    if (*((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_11;
-  }
-
-  if (!__CocoaSet.count.getter())
-  {
-LABEL_11:
-
-    v15 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
-    swift_beginAccess();
-    v11 = *(v0 + v15);
-  }
-
-LABEL_12:
-  if (!(v11 >> 62))
-  {
-    result = *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (result)
-    {
-      goto LABEL_14;
-    }
-
-LABEL_24:
-
-    return 0;
-  }
-
-  result = __CocoaSet.count.getter();
-  if (!result)
-  {
-    goto LABEL_24;
-  }
-
-LABEL_14:
-  if ((v11 & 0xC000000000000001) != 0)
-  {
-    v17 = MEMORY[0x24C1FC540](0, v11);
-    goto LABEL_17;
-  }
-
-  if (*((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    v17 = *(v11 + 32);
-LABEL_17:
-    v18 = v17;
-
-    return v18;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t DOCConcreteLocation.isRootOrTrash.getter()
-{
-  if ([v0 isRoot])
-  {
-    v1 = 1;
-  }
-
-  else
-  {
-    v2 = [v0 sourceIdentifier];
-    v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v5 = v4;
-    if (v3 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v5 == v6)
-    {
-      v1 = 1;
-    }
-
-    else
-    {
-      v1 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    }
-  }
-
-  return v1 & 1;
-}
-
-void *DOCHierarchyController.effectiveRootLocationCandidate.getter()
-{
-  v1 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-  v3 = v2;
-  return v2;
-}
-
-uint64_t key path setter for DOCHierarchyController.effectiveRootLocationCandidate : DOCHierarchyController(void **a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  swift_getKeyPath();
-  _KeyValueCodingAndObserving.willChangeValue<A>(for:)();
-  v4 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
-  swift_beginAccess();
-  v5 = *(v3 + v4);
-  *(v3 + v4) = v2;
-  v6 = v2;
-
-  swift_getKeyPath();
-  return _KeyValueCodingAndObserving.didChangeValue<A>(for:)();
-}
-
-void DOCHierarchyController.effectiveRootLocationCandidate.setter(void *a1)
-{
-  v2 = v1;
-  swift_getKeyPath();
-  _KeyValueCodingAndObserving.willChangeValue<A>(for:)();
-  v4 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
-  swift_beginAccess();
-  v5 = *(v2 + v4);
-  *(v2 + v4) = a1;
-  v6 = a1;
-
-  swift_getKeyPath();
-  _KeyValueCodingAndObserving.didChangeValue<A>(for:)();
-}
-
-void (*DOCHierarchyController.effectiveRootLocationCandidate.modify(uint64_t *a1))(uint64_t a1, char a2)
-{
-  if (MEMORY[0x277D84FD8])
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x38uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  v5 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
-  *(v3 + 40) = v1;
-  *(v3 + 48) = v5;
-  swift_beginAccess();
-  v6 = *(v1 + v5);
-  *(v4 + 24) = v6;
-  v7 = v6;
-  return DOCHierarchyController.effectiveRootLocationCandidate.modify;
-}
-
-void DOCHierarchyController.effectiveRootLocationCandidate.modify(uint64_t a1, char a2)
-{
-  v3 = *a1;
-  v4 = (*a1 + 24);
-  v5 = *v4;
-  v6 = *(*a1 + 40);
-  v7 = *(*a1 + 48);
-  v3[4] = v6;
-  v8 = v3 + 4;
-  swift_getKeyPath();
-  if (a2)
-  {
-    v9 = v5;
-    _KeyValueCodingAndObserving.willChangeValue<A>(for:)();
-    v10 = *(v6 + v7);
-    *(v6 + v7) = v5;
-    v11 = v9;
-
-    *v8 = v6;
-    swift_getKeyPath();
-    _KeyValueCodingAndObserving.didChangeValue<A>(for:)();
-  }
-
-  else
-  {
-    _KeyValueCodingAndObserving.willChangeValue<A>(for:)();
-    v12 = *(v6 + v7);
-    *(v6 + v7) = v5;
-    v13 = v5;
-
-    *v8 = v6;
-    swift_getKeyPath();
-    _KeyValueCodingAndObserving.didChangeValue<A>(for:)();
-  }
-
-  free(v3);
-}
-
-char *DOCHierarchyController.lastLocation.getter()
-{
-  v1 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-  if (!(v2 >> 62))
-  {
-    result = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!result)
-    {
-      return result;
-    }
-
-LABEL_3:
-    v4 = result - 1;
-    if (__OFSUB__(result, 1))
-    {
-      __break(1u);
-    }
-
-    else if ((v2 & 0xC000000000000001) == 0)
-    {
-      if ((v4 & 0x8000000000000000) != 0)
-      {
-        __break(1u);
-      }
-
-      else if (v4 < *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
-      {
-        return *(v2 + 8 * v4 + 32);
-      }
-
-      __break(1u);
-      return result;
-    }
-
-    v5 = MEMORY[0x24C1FC540](v4, v2);
-
-    return v5;
-  }
-
-  result = __CocoaSet.count.getter();
-  if (result)
-  {
-    goto LABEL_3;
-  }
-
-  return result;
-}
-
-unint64_t DOCHierarchyController.effectiveRootLocationIsHidingParentLocations.getter()
-{
-  v1 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-  if (!(v2 >> 62))
-  {
-    result = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (result)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_7:
-    v4 = 0;
-    goto LABEL_8;
-  }
-
-  result = __CocoaSet.count.getter();
-  if (!result)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_3:
-  if ((v2 & 0xC000000000000001) != 0)
-  {
-
-    v4 = MEMORY[0x24C1FC540](0, v2);
-  }
-
-  else
-  {
-    if (!*((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      __break(1u);
-      goto LABEL_27;
-    }
-
-    v4 = *(v2 + 32);
-  }
-
-LABEL_8:
-  result = DOCHierarchyController.effectiveLocations.getter();
-  if (result >> 62)
-  {
-    v9 = result;
-    v10 = __CocoaSet.count.getter();
-    result = v9;
-    if (v10)
-    {
-      goto LABEL_10;
-    }
-
-LABEL_19:
-
-    if (v4)
-    {
-LABEL_20:
-
-      goto LABEL_21;
-    }
-
-LABEL_22:
-    v8 = 0;
-    return v8 & 1;
-  }
-
-  if (!*((result & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    goto LABEL_19;
-  }
-
-LABEL_10:
-  if ((result & 0xC000000000000001) != 0)
-  {
-    v5 = MEMORY[0x24C1FC540](0);
-    goto LABEL_13;
-  }
-
-  if (*((result & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    v5 = *(result + 32);
-LABEL_13:
-    v6 = v5;
-
-    if (v4)
-    {
-      if (v6)
-      {
-        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
-        v7 = static NSObject.== infix(_:_:)();
-
-        v8 = v7 ^ 1;
-        return v8 & 1;
-      }
-
-      goto LABEL_20;
-    }
-
-    if (v6)
-    {
-
-LABEL_21:
-      v8 = 1;
-      return v8 & 1;
-    }
-
-    goto LABEL_22;
-  }
-
-LABEL_27:
-  __break(1u);
-  return result;
-}
-
-void DOCHierarchyController.loadAllParentsHiddenByEffectiveRootLocation(_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  MEMORY[0x28223BE20](v6 - 8, v7);
-  v9 = &v47 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10, v11);
-  v13 = &v47 - v12;
-  v14 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
-  swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(&v3[v14], v9, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  v15 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 48);
-  if (v17(v9, 1, v15) == 1)
-  {
-    v18 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
-    swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(&v3[v18], v13, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    if (v17(v9, 1, v15) != 1)
-    {
-      outlined destroy of CharacterSet?(v9, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    }
-  }
-
-  else
-  {
-    outlined init with take of DOCHierarchyController.FetchingOperationToken(v9, v13, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-    (*(v16 + 56))(v13, 0, 1, v15);
-  }
-
-  if (v17(v13, 1, v15) == 1)
-  {
-    outlined destroy of CharacterSet?(v13, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  }
-
-  else
-  {
-    v19 = v13[*(v15 + 24)];
-    outlined destroy of DOCHierarchyController.FetchingOperationToken(v13, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-    if (v19)
-    {
-      return;
-    }
-  }
-
-  v20 = DOCHierarchyController.effectiveRootLocation.getter();
-  if (v20)
-  {
-    v21 = v20;
-    v22 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
-    swift_beginAccess();
-    v23 = *&v3[v22];
-
-    v24 = specialized Collection<>.firstIndex(of:)(v21, v23, &lazy cache variable for type metadata for DOCConcreteLocation);
-    v26 = v25;
-
-    if (v26)
-    {
-LABEL_24:
-
-      return;
-    }
-
-    v49 = a2;
-    v27 = DOCHierarchyController.preventImmediateChangeRequests(reason:)(0xD00000000000002BLL, 0x8000000249BCC5E0);
-    aBlock[0] = v3;
-    swift_getKeyPath();
-    v28 = MEMORY[0x277CC9DF8];
-    _KeyValueCodingAndObserving.willChangeValue<A>(for:)();
-    v29 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
-    swift_beginAccess();
-    v30 = *&v3[v29];
-    *&v3[v29] = 0;
-
-    aBlock[0] = v3;
-    swift_getKeyPath();
-    v31 = aBlock;
-    _KeyValueCodingAndObserving.didChangeValue<A>(for:)();
-    if (v24 < 0)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      swift_beginAccess();
-      v31 = *&v3[v22];
-      v28 = v31 >> 62;
-      if (!(v31 >> 62))
-      {
-        if (*((v31 & 0xFFFFFFFFFFFFFF8) + 0x10) >= v24)
-        {
-          goto LABEL_13;
-        }
-
-        goto LABEL_29;
-      }
-    }
-
-    if (__CocoaSet.count.getter() < 0)
-    {
-LABEL_32:
-      __break(1u);
-      return;
-    }
-
-    if (__CocoaSet.count.getter() >= v24)
-    {
-LABEL_13:
-      if ((v31 & 0xC000000000000001) != 0 && v24)
-      {
-        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
-
-        v32 = 0;
-        do
-        {
-          v33 = v32 + 1;
-          _ArrayBuffer._typeCheckSlowPath(_:)(v32);
-          v32 = v33;
-        }
-
-        while (v24 != v33);
-        if (!v28)
-        {
-          goto LABEL_18;
-        }
-      }
-
-      else
-      {
-
-        if (!v28)
-        {
-LABEL_18:
-          v34 = 0;
-          v35 = v31 & 0xFFFFFFFFFFFFFF8;
-          v36 = v35 + 32;
-          v37 = (2 * v24) | 1;
-          goto LABEL_21;
-        }
-      }
-
-      v35 = _CocoaArrayWrapper.subscript.getter();
-      v36 = v38;
-      v34 = v39;
-      v37 = v40;
-LABEL_21:
-      swift_endAccess();
-      if (v34 != v37 >> 1)
-      {
-        if (v34 < (v37 >> 1))
-        {
-          v41 = *(v36 + 8 * v34);
-          v42 = swift_allocObject();
-          v42[2] = v3;
-          v42[3] = v27;
-          v42[4] = a1;
-          v42[5] = v49;
-          v42[6] = v35;
-          v42[7] = v36;
-          v42[8] = v34;
-          v42[9] = v37;
-          v48 = *&v3[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_sourceObserver];
-          v43 = swift_allocObject();
-          v43[2] = partial apply for closure #1 in DOCHierarchyController.loadAllParentsHiddenByEffectiveRootLocation(_:);
-          v43[3] = v42;
-          v43[4] = v41;
-          aBlock[4] = partial apply for closure #1 in DOCHierarchyController.getSource(for:completion:);
-          aBlock[5] = v43;
-          aBlock[0] = MEMORY[0x277D85DD0];
-          aBlock[1] = 1107296256;
-          aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [DOCDocumentSource], @guaranteed Error?) -> ();
-          aBlock[3] = &block_descriptor_11;
-          v44 = _Block_copy(aBlock);
-          v45 = v41;
-          v46 = v3;
-
-          swift_unknownObjectRetain();
-
-          [v48 retrieveAllSourcesCompletionBlock_];
-          _Block_release(v44);
-
-          swift_unknownObjectRelease();
-
-          goto LABEL_24;
-        }
-
-        goto LABEL_31;
-      }
-
-LABEL_30:
-      __break(1u);
-LABEL_31:
-      __break(1u);
-      goto LABEL_32;
-    }
-
-LABEL_29:
-    __break(1u);
-    goto LABEL_30;
-  }
-}
-
-uint64_t DOCHierarchyController.isFetchingLocations.getter()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  MEMORY[0x28223BE20](v1 - 8, v2);
-  v4 = &v16[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v5, v6);
-  v8 = &v16[-v7];
-  v9 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
-  swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(v0 + v9, v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  v10 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 48);
-  if (v12(v4, 1, v10) == 1)
-  {
-    v13 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
-    swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(v0 + v13, v8, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    if (v12(v4, 1, v10) != 1)
-    {
-      outlined destroy of CharacterSet?(v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    }
-  }
-
-  else
-  {
-    outlined init with take of DOCHierarchyController.FetchingOperationToken(v4, v8, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-    (*(v11 + 56))(v8, 0, 1, v10);
-  }
-
-  if (v12(v8, 1, v10) == 1)
-  {
-    outlined destroy of CharacterSet?(v8, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    return 0;
-  }
-
-  else
-  {
-    v14 = v8[*(v10 + 24)];
-    outlined destroy of DOCHierarchyController.FetchingOperationToken(v8, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  }
-
-  return v14;
-}
-
 uint64_t DOCHierarchyController.preventImmediateChangeRequests(reason:)(uint64_t a1, uint64_t a2)
 {
   v5 = type metadata accessor for DispatchWorkItemFlags();
@@ -1545,7 +36,7 @@ uint64_t DOCHierarchyController.preventImmediateChangeRequests(reason:)(uint64_t
     *v24 = v20;
     v25 = v20;
     _os_log_impl(&dword_2493AC000, v21, v22, "Suspending work (locationChangePreparationQueue) in hierarchy controller %@", v23, 0xCu);
-    outlined destroy of CharacterSet?(v24, &_sSo8NSObjectCSgMd);
+    outlined destroy of CharacterSet?(v24, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x24C1FE850](v24, -1, -1);
     MEMORY[0x24C1FE850](v23, -1, -1);
   }
@@ -1571,7 +62,7 @@ uint64_t DOCHierarchyController.preventImmediateChangeRequests(reason:)(uint64_t
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
   swift_endAccess();
   dispatch_suspend(*(v20 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locationChangePreparationQueue));
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   v31 = static OS_dispatch_queue.main.getter();
   static DispatchTime.now()();
   + infix(_:_:)();
@@ -1594,9 +85,9 @@ uint64_t DOCHierarchyController.preventImmediateChangeRequests(reason:)(uint64_t
   v35 = v43;
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   v36 = v44;
   v37 = v48;
   dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -1641,7 +132,7 @@ void DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isT
       *v15 = v11;
       v16 = v11;
       _os_log_impl(&dword_2493AC000, v12, v13, "Resuming work (locationChangePreparationQueue) in hierarchy controller %@", v14, 0xCu);
-      outlined destroy of CharacterSet?(v15, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x24C1FE850](v15, -1, -1);
       MEMORY[0x24C1FE850](v14, -1, -1);
     }
@@ -1651,13 +142,13 @@ void DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isT
     v17 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_preventImmediateChangeAssertions;
     swift_beginAccess();
 
-    v18 = specialized MutableCollection._halfStablePartition(isSuffixElement:)(&v11[v17]);
+    v18 = specialized MutableCollection._halfStablePartition(isSuffixElement:)(&v11[v17], a1);
 
-    v19 = *&v11[v17];
-    if (v19 >> 62)
+    v20 = *&v11[v17];
+    if (v20 >> 62)
     {
-      v20 = __CocoaSet.count.getter();
-      if (v20 >= v18)
+      v21 = __CocoaSet.count.getter();
+      if (v21 >= v18)
       {
         goto LABEL_8;
       }
@@ -1665,11 +156,11 @@ void DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isT
 
     else
     {
-      v20 = *((v19 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v20 >= v18)
+      v21 = *((v20 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v21 >= v18)
       {
 LABEL_8:
-        specialized Array.replaceSubrange<A>(_:with:)(v18, v20);
+        specialized Array.replaceSubrange<A>(_:with:)(v18, v19, v21);
         swift_endAccess();
         dispatch_resume(*&v11[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locationChangePreparationQueue]);
         return;
@@ -1733,9 +224,9 @@ void closure #1 in DOCHierarchyController.loadAllParentsHiddenByEffectiveRootLoc
       v18 = a1;
     }
 
-    specialized _copyCollectionToContiguousArray<A>(_:)(a6, a7, a8, a9, &lazy cache variable for type metadata for DOCConcreteLocation);
+    specialized _copyCollectionToContiguousArray<A>(_:)(a6, a7, a8, a9, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
 LABEL_14:
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     v24 = a1;
@@ -1768,80 +259,83 @@ uint64_t DOCHierarchyController.isResetBeingPerformed.setter(char a1)
 
 uint64_t DOCHierarchyController.loadingDisabledOperation.setter(uint64_t a1, uint64_t *a2)
 {
-  v33 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-  v5 = *(v33 - 8);
-  MEMORY[0x28223BE20](v33, v6);
-  v31 = &v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+  v34 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+  v5 = *(v34 - 8);
+  MEMORY[0x28223BE20](v34, v6);
+  v32 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
   v9 = v8 - 8;
   MEMORY[0x28223BE20](v8, v10);
-  v12 = &v30 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v12 = &v31 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v13 - 8, v14);
-  v32 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v16, v17);
-  v19 = &v30 - v18;
+  v19 = &v31 - v18;
   v20 = *a2;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(v2 + v20, v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v2 + v20, v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   swift_beginAccess();
   v21 = a1;
   outlined assign with copy of DOCHierarchyController.FetchingOperationToken?(a1, v2 + v20);
   swift_endAccess();
   v22 = *(v9 + 56);
-  outlined init with copy of DOCGridLayout.Spec?(v19, v12, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  v23 = v33;
-  outlined init with copy of DOCGridLayout.Spec?(v2 + v20, &v12[v22], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v19, v12, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v23 = v34;
+  outlined init with copy of DOCGridLayout.Spec?(v2 + v20, &v12[v22], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v24 = *(v5 + 48);
   if (v24(v12, 1, v23) != 1)
   {
-    v27 = v32;
-    outlined init with copy of DOCGridLayout.Spec?(v12, v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    v28 = v33;
+    outlined init with copy of DOCGridLayout.Spec?(v12, v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v24(&v12[v22], 1, v23) != 1)
     {
-      v28 = v31;
-      outlined init with take of DOCHierarchyController.FetchingOperationToken(&v12[v22], v31, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      v29 = v32;
+      outlined init with take of DOCHierarchyController.FetchingOperationToken(&v12[v22], v32, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
       static UUID.== infix(_:_:)();
-      outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of DOCHierarchyController.FetchingOperationToken(v29, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       outlined destroy of DOCHierarchyController.FetchingOperationToken(v28, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-      outlined destroy of DOCHierarchyController.FetchingOperationToken(v27, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      v26 = v12;
+      v27 = v12;
       v25 = &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd;
-      return outlined destroy of CharacterSet?(v26, v25);
+      v26 = &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR;
+      return outlined destroy of CharacterSet?(v27, v25, v26);
     }
 
-    outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of DOCHierarchyController.FetchingOperationToken(v27, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+    outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of DOCHierarchyController.FetchingOperationToken(v28, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
     goto LABEL_6;
   }
 
-  outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v24(&v12[v22], 1, v23) != 1)
   {
 LABEL_6:
     v25 = &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd;
-    v26 = v12;
-    return outlined destroy of CharacterSet?(v26, v25);
+    v26 = &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR;
+    v27 = v12;
+    return outlined destroy of CharacterSet?(v27, v25, v26);
   }
 
   v25 = &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd;
-  v26 = v12;
-  return outlined destroy of CharacterSet?(v26, v25);
+  v26 = &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR;
+  v27 = v12;
+  return outlined destroy of CharacterSet?(v27, v25, v26);
 }
 
 uint64_t DOCHierarchyController.isLoadingDisabled.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v1 - 8, v2);
   v4 = &v17[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v5, v6);
   v8 = &v17[-v7];
   v9 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(v0 + v9, v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v0 + v9, v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v10 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
   v11 = *(v10 - 8);
   v12 = *(v11 + 48);
@@ -1849,10 +343,10 @@ uint64_t DOCHierarchyController.isLoadingDisabled.getter()
   {
     v13 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(v0 + v13, v8, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(v0 + v13, v8, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v12(v4, 1, v10) != 1)
     {
-      outlined destroy of CharacterSet?(v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v4, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -1864,7 +358,7 @@ uint64_t DOCHierarchyController.isLoadingDisabled.getter()
 
   if (v12(v8, 1, v10) == 1)
   {
-    outlined destroy of CharacterSet?(v8, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v8, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v14 = 0;
   }
 
@@ -1915,59 +409,61 @@ uint64_t DOCHierarchyController.registerLoadingDisabledAssertion(_:)(uint64_t a1
   (*(*v2 + 136))(a1, 0, 1);
 }
 
-void closure #1 in DOCHierarchyController.loadingDisabledAssertions.getter()
+void closure #1 in DOCHierarchyController.loadingDisabledAssertions.getter(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     DOCHierarchyController.loadingDisabledAssertionsStateDidChange()();
   }
 }
 
 uint64_t DOCHierarchyController.loadingDisabledAssertionsStateDidChange()()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  v3 = MEMORY[0x28223BE20](v1 - 8, v2);
-  v5 = &v17 - v4;
-  v6 = DOCHierarchyController.loadingDisabledAssertions.getter(v3);
-  v7 = (*(*v6 + 152))(v6);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  MEMORY[0x28223BE20](v1 - 8, v2);
+  v4 = &v18 - v3;
+  v5 = DOCHierarchyController.loadingDisabledAssertions.getter();
+  v6 = (*(*v5 + 152))(v5);
 
-  if (v7)
+  if (v6)
   {
     UUID.init()();
-    v8 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-    v5[v8[5]] = 0;
-    v5[v8[6]] = 0;
-    *&v5[v8[7]] = MEMORY[0x277D84F90];
-    (*(*(v8 - 1) + 56))(v5, 0, 1, v8);
+    v7 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+    v4[v7[5]] = 0;
+    v4[v7[6]] = 0;
+    *&v4[v7[7]] = MEMORY[0x277D84F90];
+    (*(*(v7 - 1) + 56))(v4, 0, 1, v7);
   }
 
   else
   {
-    v9 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-    (*(*(v9 - 8) + 56))(v5, 1, 1, v9);
+    v8 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+    (*(*(v8 - 8) + 56))(v4, 1, 1, v8);
   }
 
-  DOCHierarchyController.loadingDisabledOperation.setter(v5, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation);
-  v10 = *(**(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController____lazy_storage___loadingDisabledAssertions) + 152);
+  DOCHierarchyController.loadingDisabledOperation.setter(v4, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation);
+  v9 = *(**(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController____lazy_storage___loadingDisabledAssertions) + 152);
 
-  LOBYTE(v10) = v10(v11);
+  LOBYTE(v9) = v9(v10);
 
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v13 = (v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock);
-    v14 = *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock);
-    if (v14)
+    v12 = (v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock);
+    v13 = *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock);
+    if (v13)
     {
+      v14 = v12[1];
 
-      v14(v15);
-      outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v14);
-      v16 = *v13;
-      *v13 = 0;
-      v13[1] = 0;
-      return outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v16);
+      v13(v15);
+      outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v13, v14);
+      v16 = *v12;
+      v17 = v12[1];
+      *v12 = 0;
+      v12[1] = 0;
+      return outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v16, v17);
     }
   }
 
@@ -2101,7 +597,7 @@ uint64_t DOCHierarchyController.userDefaultsObservedContent.getter()
   return v2;
 }
 
-uint64_t (*DOCHierarchyController.userDefaultsObservedContent.modify(uint64_t *a1))(void *a1)
+uint64_t (*DOCHierarchyController.userDefaultsObservedContent.modify(uint64_t *a1))(uint64_t *a1)
 {
   a1[1] = v1;
   *a1 = DOCHierarchyController.userDefaultsObservedContent.getter();
@@ -2194,13 +690,13 @@ char *DOCHierarchyController.init(configuration:sourceObserver:minParentLocation
   *&v6[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController____lazy_storage___loadingDisabledAssertions] = 0;
   v6[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_shouldForceChangeInPreparationQueue] = 0;
   v62 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locationChangePreparationQueue;
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   v61 = static OS_dispatch_queue.main.getter();
   static DispatchQoS.unspecified.getter();
   aBlock[0] = v18;
-  v60 = lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
-  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
-  v74 = lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+  v60 = lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230], MEMORY[0x277D85238]);
+  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
+  v74 = lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR, MEMORY[0x277D83970]);
   v59 = v12;
   dispatch thunk of SetAlgebra.init<A>(_:)();
   v58 = *MEMORY[0x277D85260];
@@ -2399,16 +895,16 @@ LABEL_63:
         }
 
         v48 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        v111._rawValue = rawValue;
+        v115._rawValue = rawValue;
         if (v48)
         {
           goto LABEL_62;
         }
 
 LABEL_118:
-        v94 = MEMORY[0x277D84F90];
+        v98 = MEMORY[0x277D84F90];
 LABEL_119:
-        if (v94 < 0 || (v94 & 0x4000000000000000) != 0)
+        if (v98 < 0 || (v98 & 0x4000000000000000) != 0)
         {
           if (__CocoaSet.count.getter())
           {
@@ -2416,50 +912,50 @@ LABEL_119:
           }
         }
 
-        else if (*(v94 + 16))
+        else if (*(v98 + 16))
         {
 LABEL_122:
-          if ((v94 & 0xC000000000000001) != 0)
+          if ((v98 & 0xC000000000000001) != 0)
           {
-            v95 = MEMORY[0x24C1FC540](0, v94);
+            v99 = MEMORY[0x24C1FC540](0, v98);
           }
 
           else
           {
-            if (!*(v94 + 16))
+            if (!*(v98 + 16))
             {
               __break(1u);
               return;
             }
 
-            v95 = *(v94 + 32);
+            v99 = *(v98 + 32);
           }
 
-          v96 = v95;
+          v100 = v99;
 
-          v97 = DOCDocumentSource.representedLocation.getter();
-          DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(v97, 0, 0, 1, 0, 0, 0);
+          v101 = DOCDocumentSource.representedLocation.getter();
+          DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(v101, 0, 0, 1, 0, 0, 0);
 
 LABEL_53:
           return;
         }
 
-        v98 = [*(v2 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration) defaultEffectiveTabIdentifierForLocationRestore];
-        v99 = DOCTabIdentifier.tab.getter();
-        v101 = v100;
-
-        if (v101)
-        {
-          v102 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_defaultTab;
-          swift_beginAccess();
-          v99 = *(v2 + v102);
-          rawValue = v111._rawValue;
-        }
-
-        v103 = DOCHierarchyController._defaultBrowsedStateIgnoringAnySavedState(forTab:)(v99);
+        v102 = [*(v2 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration) defaultEffectiveTabIdentifierForLocationRestore];
+        v103 = DOCTabIdentifier.tab.getter(v102);
         v105 = v104;
 
-        DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(v103, 0, 0, 1, 0, 0, 0);
+        if (v105)
+        {
+          v106 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_defaultTab;
+          swift_beginAccess();
+          v103 = *(v2 + v106);
+          rawValue = v115._rawValue;
+        }
+
+        v107 = DOCHierarchyController._defaultBrowsedStateIgnoringAnySavedState(forTab:)(v103);
+        v109 = v108;
+
+        DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(v107, 0, 0, 1, 0, 0, 0);
         goto LABEL_53;
       }
 
@@ -2474,10 +970,10 @@ LABEL_53:
 
 LABEL_3:
   v6 = [*(v2 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration) defaultEffectiveTabIdentifierForLocationRestore];
-  v7 = DOCTabIdentifier.tab.getter();
+  v7 = DOCTabIdentifier.tab.getter(v6);
   v9 = v8;
 
-  v111._rawValue = rawValue;
+  v115._rawValue = rawValue;
   if (v9)
   {
     v10 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_defaultTab;
@@ -2486,9 +982,9 @@ LABEL_3:
   }
 
   v11 = DOCHierarchyController._defaultBrowsedState(forTab:checkPersistentStorage:checkLiveCachedStorage:)(v7, 1, 1);
-  v112 = v12;
-  v114 = v13;
-  v116 = MEMORY[0x277D84F90];
+  v116 = v12;
+  v118 = v13;
+  v120 = MEMORY[0x277D84F90];
   if (a1 >> 62)
   {
     v27 = v11;
@@ -2501,8 +997,8 @@ LABEL_3:
     v14 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v113 = v11;
-  v115 = v2;
+  v117 = v11;
+  v119 = v2;
   rawValue = MEMORY[0x277D84F90];
   if (!v14)
   {
@@ -2528,14 +1024,14 @@ LABEL_38:
 
     v21 = MEMORY[0x277D84F90];
 LABEL_39:
-    v28 = v113;
-    v29 = [v113 sourceIdentifier];
-    v116 = v29;
+    v28 = v117;
+    v29 = [v117 sourceIdentifier];
+    v120 = v29;
     MEMORY[0x28223BE20](v29, v30);
-    v106[2] = &v116;
-    v31 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v106, v21);
+    v110[2] = &v120;
+    v31 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v110, v21);
 
-    v2 = v115;
+    v2 = v119;
     if ((v31 & 1) == 0)
     {
       DOCHierarchyController.clearLastVisitedBrowseState(clearPersistentStorage:clearLiveCachedStorage:)(1, 1);
@@ -2543,7 +1039,7 @@ LABEL_39:
       return;
     }
 
-    rawValue = v111._rawValue;
+    rawValue = v115._rawValue;
     goto LABEL_41;
   }
 
@@ -2598,9 +1094,9 @@ LABEL_34:
   }
 
   while (v2 != v14);
-  v18 = v116;
+  v18 = v120;
   rawValue = MEMORY[0x277D84F90];
-  if ((v116 & 0x8000000000000000) == 0)
+  if ((v120 & 0x8000000000000000) == 0)
   {
     goto LABEL_21;
   }
@@ -2613,12 +1109,12 @@ LABEL_37:
   }
 
 LABEL_23:
-  v116 = rawValue;
+  v120 = rawValue;
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19 & ~(v19 >> 63), 0);
   if ((v19 & 0x8000000000000000) == 0)
   {
     v20 = 0;
-    v21 = v116;
+    v21 = v120;
     do
     {
       if ((v18 & 0xC000000000000001) != 0)
@@ -2634,13 +1130,13 @@ LABEL_23:
       v23 = v22;
       v24 = [v22 identifier];
 
-      v116 = v21;
+      v120 = v21;
       v26 = *(v21 + 16);
       v25 = *(v21 + 24);
       if (v26 >= v25 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v26 + 1, 1);
-        v21 = v116;
+        v21 = v120;
       }
 
       ++v20;
@@ -2667,7 +1163,7 @@ LABEL_116:
       __break(1u);
 LABEL_117:
       v48 = __CocoaSet.count.getter();
-      v111._rawValue = rawValue;
+      v115._rawValue = rawValue;
       if (!v48)
       {
         goto LABEL_118;
@@ -2675,19 +1171,19 @@ LABEL_117:
 
 LABEL_62:
       v49 = 0;
-      v114 = (a1 & 0xC000000000000001);
-      v115 = v2;
-      v112 = v48;
-      v113 = (a1 & 0xFFFFFFFFFFFFFF8);
+      v118 = (a1 & 0xC000000000000001);
+      v119 = v2;
+      v116 = v48;
+      v117 = (a1 & 0xFFFFFFFFFFFFFF8);
 LABEL_67:
-      if (v114)
+      if (v118)
       {
         v50 = MEMORY[0x24C1FC540](v49, a1);
       }
 
       else
       {
-        if (v49 >= *(v113 + 2))
+        if (v49 >= *(v117 + 2))
         {
           continue;
         }
@@ -2732,12 +1228,12 @@ LABEL_67:
         if (DOCProviderDomainIsSharedServerDomain())
         {
           v64 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v108 = v65;
-          v109 = v64;
+          v112 = v65;
+          v113 = v64;
           v66 = v59;
           v67 = [v63 identifier];
           v68 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v107 = v63;
+          v111 = v63;
           v69 = v68;
           v71 = v70;
 
@@ -2746,7 +1242,7 @@ LABEL_67:
           v72._object = v71;
           LOBYTE(v69) = String.hasPrefix(_:)(v72);
 
-          v48 = v112;
+          v48 = v116;
 
           if (v69)
           {
@@ -2767,18 +1263,18 @@ LABEL_67:
     }
 
     v2 = 0;
-    v116 = MEMORY[0x277D84F90];
-    v110 = v59;
+    v120 = MEMORY[0x277D84F90];
+    v114 = v59;
     while (2)
     {
-      if (v114)
+      if (v118)
       {
         v82 = MEMORY[0x24C1FC540](v2, a1);
       }
 
       else
       {
-        if (v2 >= *(v113 + 2))
+        if (v2 >= *(v117 + 2))
         {
           goto LABEL_116;
         }
@@ -2802,8 +1298,8 @@ LABEL_67:
         {
           v88 = v83;
           v89 = v87;
-          rawValue = v111._rawValue;
-          v90 = FPProviderDomain.matches(iCloudSourceIdentifier:)(v111);
+          rawValue = v115._rawValue;
+          v90 = FPProviderDomain.matches(iCloudSourceIdentifier:)(v115);
 
           if (v90)
           {
@@ -2815,14 +1311,15 @@ LABEL_67:
         else
         {
           v91 = v83;
-          rawValue = v111._rawValue;
+          rawValue = v115._rawValue;
         }
 
         v92 = [v86 identifier];
-        static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v93 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v95 = v94;
 
-        static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v93 = specialized Sequence<>.starts<A>(with:)();
+        v96 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        LOBYTE(v93) = specialized Sequence<>.starts<A>(with:)(v96, v97, v93, v95);
 
         if (v93)
         {
@@ -2837,7 +1334,7 @@ LABEL_101:
         {
         }
 
-        v48 = v112;
+        v48 = v116;
       }
 
       else
@@ -2847,8 +1344,8 @@ LABEL_101:
       ++v2;
       if (v84 == v48)
       {
-        v94 = v116;
-        v2 = v115;
+        v98 = v120;
+        v2 = v119;
         goto LABEL_119;
       }
 
@@ -2863,10 +1360,10 @@ LABEL_83:
     goto LABEL_53;
   }
 
-  v73 = v115;
+  v73 = v119;
   DOCHierarchyController.clearLastVisitedBrowseState(clearPersistentStorage:clearLiveCachedStorage:)(1, 1);
   v74 = [*(v73 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration) defaultEffectiveTabIdentifierForLocationRestore];
-  v75 = DOCTabIdentifier.tab.getter();
+  v75 = DOCTabIdentifier.tab.getter(v74);
   v77 = v76;
 
   if (v77)
@@ -3001,7 +1498,7 @@ LABEL_8:
       *v20 = v38;
       v21 = v16;
       _os_log_impl(&dword_2493AC000, v17, v18, "Resuming work (locationChangePreparationQueue) in hierarchy controller %@", v19, 0xCu);
-      outlined destroy of CharacterSet?(v20, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v20, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       v22 = v20;
       v1 = v38;
       MEMORY[0x24C1FE850](v22, -1, -1);
@@ -3014,7 +1511,7 @@ LABEL_8:
     *(v7 + v11) = 1;
     swift_beginAccess();
 
-    v24 = specialized MutableCollection._halfStablePartition(isSuffixElement:)(&v1[v2]);
+    v24 = specialized MutableCollection._halfStablePartition(isSuffixElement:)(&v1[v2], v7);
 
     v2 = *&v1[v2];
     v25 = v2 >> 62;
@@ -3181,7 +1678,7 @@ Swift::Void __swiftcall DOCHierarchyController.resetWithDefaultLocation(animated
   swift_getObjectType();
   v3 = *&v1[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration];
   v4 = [v3 defaultEffectiveTabIdentifierForLocationRestore];
-  v5 = DOCTabIdentifier.tab.getter();
+  v5 = DOCTabIdentifier.tab.getter(v4);
   v7 = v6;
 
   if (v7)
@@ -3232,7 +1729,7 @@ Swift::Void __swiftcall DOCHierarchyController.resetWithDefaultLocation(animated
     *v21 = v16;
     v22 = v16;
     _os_log_impl(&dword_2493AC000, v17, v18, "0. Will reset initially selected location (browser: %@)", v19, 0xCu);
-    outlined destroy of CharacterSet?(v21, &_sSo8NSObjectCSgMd);
+    outlined destroy of CharacterSet?(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     v23 = v21;
     animated = v20;
     MEMORY[0x24C1FE850](v23, -1, -1);
@@ -3263,7 +1760,7 @@ Swift::Void __swiftcall DOCHierarchyController.resetWithDefaultLocation(animated
         v32 = v26;
         v33 = v27;
         _os_log_impl(&dword_2493AC000, v28, v29, "1. Will reset to configuration's defaultLocation (browser: %@, location: %@)", v30, 0x16u);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         swift_arrayDestroy();
         MEMORY[0x24C1FE850](v31, -1, -1);
         MEMORY[0x24C1FE850](v30, -1, -1);
@@ -3294,7 +1791,7 @@ Swift::Void __swiftcall DOCHierarchyController.resetWithDefaultLocation(animated
     *v39 = v34;
     v40 = v34;
     _os_log_impl(&dword_2493AC000, v35, v36, "2 Will reset using picker strategy (browser: %@)", v37, 0xCu);
-    outlined destroy of CharacterSet?(v39, &_sSo8NSObjectCSgMd);
+    outlined destroy of CharacterSet?(v39, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     v41 = v39;
     animated = v38;
     MEMORY[0x24C1FE850](v41, -1, -1);
@@ -3317,13 +1814,13 @@ LABEL_35:
       *v64 = v60;
       v65 = v60;
       _os_log_impl(&dword_2493AC000, v61, v62, "2.2 lastUsedOpenSaveLocation couldn't be found or used. Will fetch from getSaveLocation (browser: %@)", v63, 0xCu);
-      outlined destroy of CharacterSet?(v64, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v64, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x24C1FE850](v64, -1, -1);
       MEMORY[0x24C1FE850](v63, -1, -1);
     }
 
     v66 = [v3 defaultEffectiveTabIdentifierForLocationRestore];
-    v67 = DOCTabIdentifier.tab.getter();
+    v67 = DOCTabIdentifier.tab.getter(v66);
     v69 = v68;
 
     if (v69)
@@ -3403,8 +1900,8 @@ LABEL_45:
           goto LABEL_64;
         }
 
-        v100 = v60;
-        v101 = v3;
+        v101 = v60;
+        v102 = v3;
 
         v85 = MEMORY[0x24C1FC540](v81, v79);
 
@@ -3415,18 +1912,19 @@ LABEL_50:
           v87 = v86;
           v88 = animated;
           v89 = *MEMORY[0x277CC6028];
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
           inited = swift_initStackObject();
           *(inited + 16) = xmmword_249BA0290;
           *(inited + 32) = v87;
           v91 = v87;
-          LOBYTE(v89) = specialized static DOCActionManager.canPerform(_:on:)(v89, inited);
+          specialized static DOCActionManager.canPerform(_:on:)(v89, inited);
+          LOBYTE(v89) = v92;
           swift_setDeallocating();
           swift_arrayDestroy();
 
           if (v89)
           {
-            v92 = v85;
+            v93 = v85;
             specialized closure #1 in DOCHierarchyController.resetWithDefaultLocation(animated:)(v85, v67, v3, v60, v88);
 
 LABEL_59:
@@ -3436,16 +1934,16 @@ LABEL_59:
         }
 
 LABEL_58:
-        v95 = *&v60[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_sourceObserver];
-        v96 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_pickerContext;
+        v96 = *&v60[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_sourceObserver];
+        v97 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_pickerContext;
         swift_beginAccess();
-        v97 = *&v60[v96];
-        v98 = swift_allocObject();
-        *(v98 + 16) = partial apply for specialized closure #1 in DOCHierarchyController.resetWithDefaultLocation(animated:);
-        *(v98 + 24) = v77;
-        v99 = v97;
+        v98 = *&v60[v97];
+        v99 = swift_allocObject();
+        *(v99 + 16) = partial apply for specialized closure #1 in DOCHierarchyController.resetWithDefaultLocation(animated:);
+        *(v99 + 24) = v77;
+        v100 = v98;
 
-        static DOCHierarchyController.getDefaultSaveLocation(configuration:sourceObserver:pickerContext:completionBlock:)(v3, v95, v97, partial apply for closure #1 in DOCHierarchyController.getSaveLocationForCurrentBrowserOrDefaultSaveLocation(completionBlock:), v98);
+        static DOCHierarchyController.getDefaultSaveLocation(configuration:sourceObserver:pickerContext:completionBlock:)(v3, v96, v98, partial apply for closure #1 in DOCHierarchyController.getSaveLocationForCurrentBrowserOrDefaultSaveLocation(completionBlock:), v99);
 
         goto LABEL_59;
       }
@@ -3460,14 +1958,14 @@ LABEL_58:
       }
     }
 
-    v93 = v60;
-    v94 = v3;
+    v94 = v60;
+    v95 = v3;
     goto LABEL_58;
   }
 
   v43 = UsedOpenSave;
-  v102 = animated;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  v103 = animated;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v44 = swift_allocObject();
   *(v44 + 16) = xmmword_249BA0290;
   *(v44 + 32) = v43;
@@ -3495,7 +1993,7 @@ LABEL_65:
   if (v5 != [v49 effectiveTabSwitcherTab] || !objc_msgSend(v46, sel_canBeRestored) || !objc_msgSend(v3, sel_allowsDisplaying_, v46))
   {
 
-    animated = v102;
+    animated = v103;
     goto LABEL_35;
   }
 
@@ -3518,7 +2016,7 @@ LABEL_65:
     v57 = v51;
     v58 = v52;
     _os_log_impl(&dword_2493AC000, v53, v54, "2.1 Will reset to lastUsedOpenSaveLocation (browser: %@, location: %@)", v55, 0x16u);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     swift_arrayDestroy();
     MEMORY[0x24C1FE850](v56, -1, -1);
     MEMORY[0x24C1FE850](v55, -1, -1);
@@ -3534,7 +2032,7 @@ LABEL_65:
     v59 = 0;
   }
 
-  DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(v52, v59, v102, 0, 1, 0, 0);
+  DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(v52, v59, v103, 0, 1, 0, 0);
 }
 
 uint64_t DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(void *a1, void *a2, int a3, int a4, int a5, void (*a6)(void), uint64_t a7)
@@ -3559,7 +2057,7 @@ uint64_t DOCHierarchyController.reset(with:effectiveRootLocation:animated:should
   v14 = *(v13 - 1);
   MEMORY[0x28223BE20](v13, v15);
   v100 = &v99 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v17 - 8, v18);
   v103 = &v99 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v20, v21);
@@ -3599,7 +2097,7 @@ uint64_t DOCHierarchyController.reset(with:effectiveRootLocation:animated:should
   v8[v35] = 1;
   v42 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(&v8[v42], v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&v8[v42], v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v43 = v14;
   v44 = *(v14 + 48);
   if (v44(v30, 1, v13) == 1)
@@ -3608,10 +2106,10 @@ uint64_t DOCHierarchyController.reset(with:effectiveRootLocation:animated:should
     swift_beginAccess();
     v46 = &v8[v45];
     v43 = v14;
-    outlined init with copy of DOCGridLayout.Spec?(v46, v34, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(v46, v34, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v44(v30, 1, v13) != 1)
     {
-      outlined destroy of CharacterSet?(v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -3623,7 +2121,7 @@ uint64_t DOCHierarchyController.reset(with:effectiveRootLocation:animated:should
 
   if (v44(v34, 1, v13) == 1)
   {
-    outlined destroy of CharacterSet?(v34, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v34, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   }
 
   else
@@ -3656,13 +2154,13 @@ LABEL_15:
       v55 = v53;
       v56 = v50;
       v57 = v8;
-      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v51);
+      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v51, v52);
       v58 = v104;
       static DispatchQoS.unspecified.getter();
       v118 = MEMORY[0x277D84F90];
-      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-      lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+      lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
       v59 = v106;
       v60 = v109;
       dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -3680,18 +2178,18 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  outlined init with copy of DOCGridLayout.Spec?(&v8[v42], v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&v8[v42], v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v44(v23, 1, v13) == 1)
   {
     v61 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
     v62 = v102;
-    outlined init with copy of DOCGridLayout.Spec?(&v8[v61], v102, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&v8[v61], v102, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v63 = v44(v23, 1, v13);
     v64 = v103;
     if (v63 != 1)
     {
-      outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -3705,7 +2203,7 @@ LABEL_15:
 
   if (v44(v62, 1, v13) == 1)
   {
-    outlined destroy of CharacterSet?(v62, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v62, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v65 = 1;
   }
 
@@ -3749,7 +2247,7 @@ LABEL_15:
     *(v76 + 56) = v116;
     v110 = swift_allocBox();
     v80 = v79;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v81 = swift_allocObject();
     v108 = v69;
     v82 = v81;
@@ -3760,7 +2258,7 @@ LABEL_15:
 
     v84 = v67;
     v85 = v68;
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v78);
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v78, v116);
     UUID.init()();
     *(v80 + v13[5]) = 0;
     *(v80 + v13[6]) = 1;
@@ -3812,7 +2310,7 @@ LABEL_15:
       *v96 = v92;
       v97 = v92;
       _os_log_impl(&dword_2493AC000, v93, v94, "Tried to reset with location %@, which is not allowed by the configuration", v95, 0xCu);
-      outlined destroy of CharacterSet?(v96, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v96, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x24C1FE850](v96, -1, -1);
       MEMORY[0x24C1FE850](v95, -1, -1);
     }
@@ -3848,7 +2346,7 @@ void specialized closure #1 in DOCHierarchyController.resetWithDefaultLocation(a
     v10 = [objc_opt_self() defaultLocation];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_249BA0290;
   *(v11 + 32) = v10;
@@ -3895,7 +2393,7 @@ void specialized closure #1 in DOCHierarchyController.resetWithDefaultLocation(a
         v26 = v20;
         v27 = v21;
         _os_log_impl(&dword_2493AC000, v22, v23, "2.2.2 Will use getSaveLocation's suggested location (browser: %@, location: %@)", v24, 0x16u);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         swift_arrayDestroy();
         MEMORY[0x24C1FE850](v25, -1, -1);
         MEMORY[0x24C1FE850](v24, -1, -1);
@@ -3926,7 +2424,7 @@ void specialized closure #1 in DOCHierarchyController.resetWithDefaultLocation(a
         *v33 = v29;
         v34 = v29;
         _os_log_impl(&dword_2493AC000, v30, v31, "2.2.1 Location from getSaveLocation isn't appropriate, falling back to standard restore (browse: %@)", v32, 0xCu);
-        outlined destroy of CharacterSet?(v33, &_sSo8NSObjectCSgMd);
+        outlined destroy of CharacterSet?(v33, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x24C1FE850](v33, -1, -1);
         MEMORY[0x24C1FE850](v32, -1, -1);
       }
@@ -3987,7 +2485,7 @@ void DOCHierarchyController.resetToDefaultBrowsedStateForEffectiveTab(animated:)
       *(v14 + 14) = v21;
       v10 = v31;
       _os_log_impl(&dword_2493AC000, v12, v13, "3. Using last visited information to perform restoration (browser:%@, restoreState: %s)", v14, 0x16u);
-      outlined destroy of CharacterSet?(v29, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v29, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x24C1FE850](v29, -1, -1);
       __swift_destroy_boxed_opaque_existential_0(v30);
       MEMORY[0x24C1FE850](v30, -1, -1);
@@ -4019,7 +2517,7 @@ void DOCHierarchyController.resetToDefaultBrowsedStateForEffectiveTab(animated:)
       *v27 = v23;
       v28 = v23;
       _os_log_impl(&dword_2493AC000, v24, v25, "4. Will use emptyLocation as initially selected location since no other cases are valid (browser:%@)", v26, 0xCu);
-      outlined destroy of CharacterSet?(v27, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v27, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x24C1FE850](v27, -1, -1);
       MEMORY[0x24C1FE850](v26, -1, -1);
     }
@@ -4045,17 +2543,17 @@ void DOCHierarchyController.getSaveLocationForCurrentBrowserOrDefaultSaveLocatio
     }
 
 LABEL_12:
-    v17 = *(v3 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration);
-    v18 = *(v3 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_sourceObserver);
-    v19 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_pickerContext;
+    v18 = *(v3 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration);
+    v19 = *(v3 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_sourceObserver);
+    v20 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_pickerContext;
     swift_beginAccess();
-    v20 = *(v3 + v19);
-    v21 = swift_allocObject();
-    *(v21 + 16) = a1;
-    *(v21 + 24) = a2;
-    v22 = v20;
+    v21 = *(v3 + v20);
+    v22 = swift_allocObject();
+    *(v22 + 16) = a1;
+    *(v22 + 24) = a2;
+    v23 = v21;
 
-    static DOCHierarchyController.getDefaultSaveLocation(configuration:sourceObserver:pickerContext:completionBlock:)(v17, v18, v20, closure #1 in DOCHierarchyController.getSaveLocationForCurrentBrowserOrDefaultSaveLocation(completionBlock:)partial apply, v21);
+    static DOCHierarchyController.getDefaultSaveLocation(configuration:sourceObserver:pickerContext:completionBlock:)(v18, v19, v21, closure #1 in DOCHierarchyController.getSaveLocationForCurrentBrowserOrDefaultSaveLocation(completionBlock:)partial apply, v22);
 
     return;
   }
@@ -4086,18 +2584,19 @@ LABEL_8:
     {
       v12 = v11;
       v13 = *MEMORY[0x277CC6028];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_249BA0290;
       *(inited + 32) = v12;
       v15 = v12;
-      LOBYTE(v13) = specialized static DOCActionManager.canPerform(_:on:)(v13, inited);
+      specialized static DOCActionManager.canPerform(_:on:)(v13, inited);
+      LOBYTE(v13) = v16;
       swift_setDeallocating();
       swift_arrayDestroy();
 
       if (v13)
       {
-        v16 = v10;
+        v17 = v10;
         a1(v10);
 
         return;
@@ -4125,7 +2624,7 @@ DOCConcreteLocation *DOCHierarchyController.browseStateForResetToDefaultLocation
 {
   v1 = *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration);
   v2 = [v1 defaultEffectiveTabIdentifierForLocationRestore];
-  v3 = DOCTabIdentifier.tab.getter();
+  v3 = DOCTabIdentifier.tab.getter(v2);
   v5 = v4;
 
   if (v5)
@@ -4164,33 +2663,34 @@ void DOCHierarchyController.resetFromRoot(with:animated:completionHandler:)(void
     *(v13 + 48) = a4;
     v14 = (v5 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock);
     v15 = *(v5 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock);
+    v16 = v14[1];
     *v14 = partial apply for closure #1 in DOCHierarchyController.resetFromRoot(with:animated:completionHandler:);
     v14[1] = v13;
 
-    v16 = a1;
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a3);
-    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v15);
+    v17 = a1;
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a3, a4);
+    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v15, v16);
 
     return;
   }
 
-  v17 = [a1 fileProviderItem];
-  if (v17)
+  v18 = [a1 fileProviderItem];
+  if (v18)
   {
-    v18 = v17;
-    v19 = [v17 providerDomainID];
+    v19 = v18;
+    v20 = [v18 providerDomainID];
 
-    v21 = [objc_allocWithZone(MEMORY[0x277D05EA8]) initWithSourceIdentifier:v19 node:0];
-    DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(a1, v21, a2 & 1, 1, 0, a3, a4);
+    v22 = [objc_allocWithZone(MEMORY[0x277D05EA8]) initWithSourceIdentifier:v20 node:0];
+    DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(a1, v22, a2 & 1, 1, 0, a3, a4);
 
-    v20 = v21;
+    v21 = v22;
 LABEL_8:
 
     return;
   }
 
-  v20 = [a1 fileProviderItem];
-  if (v20)
+  v21 = [a1 fileProviderItem];
+  if (v21)
   {
     goto LABEL_8;
   }
@@ -4198,7 +2698,7 @@ LABEL_8:
   DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(a1, a1, a2 & 1, 1, 0, a3, a4);
 }
 
-void closure #1 in DOCHierarchyController.resetFromRoot(with:animated:completionHandler:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
+void closure #1 in DOCHierarchyController.resetFromRoot(with:animated:completionHandler:)(uint64_t a1, void *a2, char a3, void (*a4)(void), uint64_t a5)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -4209,7 +2709,7 @@ void closure #1 in DOCHierarchyController.resetFromRoot(with:animated:completion
   }
 }
 
-uint64_t closure #1 in performChange #1 () in DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(char a1, void *a2, char *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void closure #1 in performChange #1 () in DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(char a1, void *a2, char *a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -4223,8 +2723,7 @@ uint64_t closure #1 in performChange #1 () in DOCHierarchyController.reset(with:
     v16 = *&a3[v15];
     if (v16 >> 62)
     {
-      result = __CocoaSet.count.getter();
-      if (result)
+      if (__CocoaSet.count.getter())
       {
 LABEL_6:
         if ((v16 & 0xC000000000000001) != 0)
@@ -4234,27 +2733,23 @@ LABEL_6:
 
         if (*((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
-          v18 = *(v16 + 32);
+          v17 = *(v16 + 32);
           goto LABEL_11;
         }
 
         __break(1u);
 LABEL_33:
         __break(1u);
-        return result;
+        return;
       }
     }
 
-    else
+    else if (*((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      result = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (result)
-      {
-        goto LABEL_6;
-      }
+      goto LABEL_6;
     }
 
-    v18 = 0;
+    v17 = 0;
     goto LABEL_11;
   }
 
@@ -4275,13 +2770,13 @@ LABEL_33:
     _KeyValueCodingAndObserving.didChangeValue<A>(for:)();
 
 LABEL_13:
-    v21 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
+    v20 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
     swift_beginAccess();
-    v16 = *&a3[v21];
+    v16 = *&a3[v20];
     if (v16 >> 62)
     {
-      v22 = __CocoaSet.count.getter();
-      if (!v22)
+      v21 = __CocoaSet.count.getter();
+      if (!v21)
       {
         goto LABEL_23;
       }
@@ -4289,15 +2784,15 @@ LABEL_13:
 
     else
     {
-      v22 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (!v22)
+      v21 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (!v21)
       {
         goto LABEL_23;
       }
     }
 
-    v23 = v22 - 1;
-    if (__OFSUB__(v22, 1))
+    v22 = v21 - 1;
+    if (__OFSUB__(v21, 1))
     {
       break;
     }
@@ -4307,14 +2802,14 @@ LABEL_13:
       goto LABEL_27;
     }
 
-    if ((v23 & 0x8000000000000000) != 0)
+    if ((v22 & 0x8000000000000000) != 0)
     {
       __break(1u);
     }
 
-    else if (v23 < *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    else if (v22 < *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v24 = *(v16 + 8 * v23 + 32);
+      v23 = *(v16 + 8 * v22 + 32);
       if (a4)
       {
         goto LABEL_22;
@@ -4326,17 +2821,17 @@ LABEL_13:
     __break(1u);
 LABEL_31:
 
-    v18 = MEMORY[0x24C1FC540](0, v16);
+    v17 = MEMORY[0x24C1FC540](0, v16);
 
 LABEL_11:
     aBlock[0] = a3;
     swift_getKeyPath();
     _KeyValueCodingAndObserving.willChangeValue<A>(for:)();
-    v19 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
+    v18 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
     swift_beginAccess();
-    v20 = *&a3[v19];
-    *&a3[v19] = v18;
-    v14 = v18;
+    v19 = *&a3[v18];
+    *&a3[v18] = v17;
+    v14 = v17;
 
     aBlock[0] = a3;
     swift_getKeyPath();
@@ -4345,7 +2840,7 @@ LABEL_11:
   __break(1u);
 LABEL_27:
 
-  v24 = MEMORY[0x24C1FC540](v23, v16);
+  v23 = MEMORY[0x24C1FC540](v22, v16);
 
   if (a4)
   {
@@ -4353,48 +2848,48 @@ LABEL_27:
   }
 
 LABEL_20:
-  v25 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
+  v24 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
   swift_beginAccess();
-  v26 = *&a3[v25];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-  v27 = swift_allocObject();
-  *(v27 + 16) = xmmword_249BA0290;
-  *(v27 + 32) = v24;
-  v28 = v26;
-  v29 = v24;
-  v30 = specialized static DOCHierarchyController.BrowsedState.state(locations:anchorLocation:)(v27, v26);
-  v32 = v31;
-  v24 = v33;
+  v25 = *&a3[v24];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v26 = swift_allocObject();
+  *(v26 + 16) = xmmword_249BA0290;
+  *(v26 + 32) = v23;
+  v27 = v25;
+  v28 = v23;
+  v29 = specialized static DOCHierarchyController.BrowsedState.state(locations:anchorLocation:)(v26, v25);
+  v31 = v30;
+  v23 = v32;
 
-  if (!v30)
+  if (!v29)
   {
     goto LABEL_33;
   }
 
-  DOCHierarchyController.sendDelegateDidUpdateLastDisplayedLocationPath(browsedState:)(v30, v32, v24);
+  DOCHierarchyController.sendDelegateDidUpdateLastDisplayedLocationPath(browsedState:)(v29, v31, v23);
 
 LABEL_22:
 LABEL_23:
-  v34 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
-  v35 = swift_allocObject();
-  v35[2] = a3;
-  v35[3] = a5;
-  v35[4] = a6;
-  v35[5] = a7;
+  v33 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
+  v34 = swift_allocObject();
+  v34[2] = a3;
+  v34[3] = a5;
+  v34[4] = a6;
+  v34[5] = a7;
   aBlock[4] = partial apply for closure #1 in closure #1 in performChange #1 () in DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:);
-  aBlock[5] = v35;
+  aBlock[5] = v34;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
   aBlock[3] = &block_descriptor_869;
-  v36 = _Block_copy(aBlock);
-  v37 = a3;
+  v35 = _Block_copy(aBlock);
+  v36 = a3;
 
-  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a6);
+  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a6, a7);
 
-  [v34 animateAlongsideTransition:0 completion:v36];
-  _Block_release(v36);
-  return swift_unknownObjectRelease();
+  [v33 animateAlongsideTransition:0 completion:v35];
+  _Block_release(v35);
+  swift_unknownObjectRelease();
 }
 
 void DOCHierarchyController.sendDelegateDidUpdateLastDisplayedLocationPath(browsedState:)(id a1, uint64_t a2, void *a3)
@@ -4485,7 +2980,7 @@ LABEL_11:
     if (Strong)
     {
       v23 = Strong;
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
 
       isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -4525,7 +3020,7 @@ uint64_t thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTra
   return swift_unknownObjectRelease();
 }
 
-uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(void *a1, void *a2, void (*a3)(void), uint64_t a4, int a5, int a6, int a7, void *a8)
+uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(char *a1, void *a2, void (*a3)(void), uint64_t a4, int a5, int a6, int a7, void *a8)
 {
   v75 = a8;
   v76 = a7;
@@ -4537,7 +3032,7 @@ uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:a
   v11 = *(v10 - 1);
   MEMORY[0x28223BE20](v10, v12);
   v73 = v71 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v14 - 8, v15);
   v17 = v71 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v18, v19);
@@ -4546,19 +3041,19 @@ uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:a
   v25 = v71 - v24;
   v26 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(a1 + v26, v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&a1[v26], v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v27 = *(v11 + 48);
   if (v27(v21, 1, v10) == 1)
   {
     v28 = v11;
     v29 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    v30 = a1 + v29;
+    v30 = &a1[v29];
     v11 = v28;
-    outlined init with copy of DOCGridLayout.Spec?(v30, v25, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(v30, v25, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v27(v21, 1, v10) != 1)
     {
-      outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -4570,7 +3065,7 @@ uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:a
 
   if (v27(v25, 1, v10) == 1)
   {
-    outlined destroy of CharacterSet?(v25, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v25, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v31 = 1;
   }
 
@@ -4617,7 +3112,7 @@ uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:a
     v74 = swift_allocBox();
     v71[1] = v36;
     v49 = v48;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v50 = swift_allocObject();
     v71[0] = v37;
     v51 = v33;
@@ -4630,7 +3125,7 @@ uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:a
     v54 = v34;
     v55 = v35;
     v56 = v77;
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v79);
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v79, v47);
     UUID.init()();
     *(v49 + v10[5]) = 0;
     *(v49 + v10[6]) = 1;
@@ -4681,7 +3176,7 @@ uint64_t closure #1 in DOCHierarchyController.reset(with:effectiveRootLocation:a
       *v66 = v62;
       v67 = v62;
       _os_log_impl(&dword_2493AC000, v63, v64, "Tried to reset with location %@, which is not allowed by the configuration", v65, 0xCu);
-      outlined destroy of CharacterSet?(v66, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v66, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x24C1FE850](v66, -1, -1);
       MEMORY[0x24C1FE850](v65, -1, -1);
     }
@@ -4702,7 +3197,7 @@ void DOCHierarchyController.revealLocation(_:animated:completion:)(void *a1, int
   v68 = a3;
   v69 = a4;
   v67 = a2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v66[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v12 = MEMORY[0x28223BE20](v10, v11);
@@ -4763,7 +3258,7 @@ void DOCHierarchyController.revealLocation(_:animated:completion:)(void *a1, int
       {
         if (i)
         {
-          type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemID);
+          type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemID, 0x277CC6400);
           v28 = i;
           v29 = static NSObject.== infix(_:_:)();
 
@@ -4838,7 +3333,7 @@ LABEL_39:
 
     v47 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
     swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(v30 + v47, v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(v30 + v47, v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v48 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
     v49 = *(v48 - 8);
     v50 = *(v49 + 48);
@@ -4846,12 +3341,12 @@ LABEL_39:
     {
       v51 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
       swift_beginAccess();
-      outlined init with copy of DOCGridLayout.Spec?(v30 + v51, v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined init with copy of DOCGridLayout.Spec?(v30 + v51, v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       LODWORD(v51) = v50(v33, 1, v48);
       v52 = v23;
       if (v51 != 1)
       {
-        outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+        outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       }
     }
 
@@ -4865,7 +3360,7 @@ LABEL_39:
     if (v50(v32, 1, v48) == 1)
     {
 
-      outlined destroy of CharacterSet?(v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
 
     else
@@ -4901,7 +3396,7 @@ LABEL_39:
       {
         if (v60)
         {
-          type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemID);
+          type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItemID, 0x277CC6400);
           v61 = static NSObject.== infix(_:_:)();
 
           if (v61)
@@ -4910,7 +3405,7 @@ LABEL_39:
           }
 
 LABEL_60:
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
           v62 = swift_allocObject();
           *(v62 + 16) = xmmword_249BA0290;
           *(v62 + 32) = v31;
@@ -4996,67 +3491,67 @@ LABEL_37:
 
 uint64_t DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:)(unint64_t a1, void *a2, int a3, int a4, uint64_t a5, int a6, void (*a7)(void), uint64_t a8)
 {
-  v210 = a8;
-  v211 = a7;
-  v205 = a6;
-  v204 = a4;
-  LODWORD(v206) = a3;
-  v214 = a2;
-  v216 = a1;
+  v211 = a8;
+  v212 = a7;
+  v206 = a6;
+  v205 = a4;
+  LODWORD(v207) = a3;
+  v215 = a2;
+  v217 = a1;
   v10 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10, v12);
-  v189 = &v183[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v201 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
-  MEMORY[0x28223BE20](v201, v14);
-  v191 = &v183[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v190 = &v184[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v202 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+  MEMORY[0x28223BE20](v202, v14);
+  v192 = &v184[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v16, v17);
-  v196 = &v183[-v18];
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v197 = &v184[-v18];
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v19 - 8, v20);
-  v188 = &v183[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v189 = &v184[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v22, v23);
-  v197 = &v183[-v24];
+  v198 = &v184[-v24];
   MEMORY[0x28223BE20](v25, v26);
-  v192 = &v183[-v27];
+  v193 = &v184[-v27];
   MEMORY[0x28223BE20](v28, v29);
-  v190 = &v183[-v30];
+  v191 = &v184[-v30];
   MEMORY[0x28223BE20](v31, v32);
-  v198 = &v183[-v33];
+  v199 = &v184[-v33];
   MEMORY[0x28223BE20](v34, v35);
-  v195 = &v183[-v36];
+  v196 = &v184[-v36];
   MEMORY[0x28223BE20](v37, v38);
-  v199 = &v183[-v39];
+  v200 = &v184[-v39];
   MEMORY[0x28223BE20](v40, v41);
-  v207 = &v183[-v42];
+  v208 = &v184[-v42];
   MEMORY[0x28223BE20](v43, v44);
-  v46 = &v183[-v45];
+  v46 = &v184[-v45];
   MEMORY[0x28223BE20](v47, v48);
-  v50 = &v183[-v49];
+  v50 = &v184[-v49];
   v51 = swift_allocObject();
   *(v51 + 16) = 0;
-  v209 = (v51 + 16);
+  v210 = (v51 + 16);
   v52 = &v8[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_activeSemanticNavigationOperation];
   swift_beginAccess();
   *v52 = a5;
-  v200 = v52;
+  v201 = v52;
   v52[8] = 0;
   v53 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
-  v194 = v53;
-  outlined init with copy of DOCGridLayout.Spec?(&v8[v53], v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v195 = v53;
+  outlined init with copy of DOCGridLayout.Spec?(&v8[v53], v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v54 = v11 + 48;
   v55 = *(v11 + 48);
   v56 = v55(v46, 1, v10);
-  v212 = v11;
+  v213 = v11;
   if (v56 == 1)
   {
     v57 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(&v8[v57], v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&v8[v57], v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v55(v46, 1, v10) != 1)
     {
-      outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -5067,46 +3562,46 @@ uint64_t DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:
   }
 
   v58 = v55(v50, 1, v10);
-  v215 = v8;
-  v213 = v51;
+  v216 = v8;
+  v214 = v51;
   if (v58 == 1)
   {
-    outlined destroy of CharacterSet?(v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    v59 = v214;
+    outlined destroy of CharacterSet?(v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v59 = v215;
     goto LABEL_13;
   }
 
   v60 = v50[*(v10 + 24)];
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v50, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  v59 = v214;
+  v59 = v215;
   if ((v60 & 1) == 0)
   {
 LABEL_13:
-    v202 = v55;
-    v208 = v10;
-    v219 = 0;
-    v220 = 0xE000000000000000;
+    v203 = v55;
+    v209 = v10;
+    v220 = 0;
+    v221 = 0xE000000000000000;
     _StringGuts.grow(_:)(32);
 
-    v219 = 0xD00000000000001DLL;
-    v220 = 0x8000000249BCC750;
-    v66 = v216;
-    if (v216 >> 62)
+    v220 = 0xD00000000000001DLL;
+    v221 = 0x8000000249BCC750;
+    v66 = v217;
+    if (v217 >> 62)
     {
       v67 = __CocoaSet.count.getter();
     }
 
     else
     {
-      v67 = *((v216 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v67 = *((v217 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
     v68 = MEMORY[0x277D84F90];
-    v203 = v54;
+    v204 = v54;
     if (v67)
     {
-      v218 = MEMORY[0x277D84F90];
-      v69 = &v218;
+      v219 = MEMORY[0x277D84F90];
+      v69 = &v219;
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v67 & ~(v67 >> 63), 0);
       if (v67 < 0)
       {
@@ -5115,7 +3610,7 @@ LABEL_13:
       }
 
       v70 = 0;
-      v68 = v218;
+      v68 = v219;
       v71 = v66;
       do
       {
@@ -5134,13 +3629,13 @@ LABEL_13:
         v75 = static String._unconditionallyBridgeFromObjectiveC(_:)();
         v77 = v76;
 
-        v218 = v68;
+        v219 = v68;
         v79 = *(v68 + 16);
         v78 = *(v68 + 24);
         if (v79 >= v78 >> 1)
         {
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v78 > 1), v79 + 1, 1);
-          v68 = v218;
+          v68 = v219;
         }
 
         ++v70;
@@ -5148,12 +3643,12 @@ LABEL_13:
         v80 = v68 + 16 * v79;
         *(v80 + 32) = v75;
         *(v80 + 40) = v77;
-        v71 = v216;
+        v71 = v217;
       }
 
       while (v67 != v70);
-      v66 = v216;
-      v59 = v214;
+      v66 = v217;
+      v59 = v215;
     }
 
     v81 = MEMORY[0x24C1FB0D0](v68, MEMORY[0x277D837D0]);
@@ -5162,12 +3657,12 @@ LABEL_13:
     MEMORY[0x24C1FAEA0](v81, v83);
 
     MEMORY[0x24C1FAEA0](41, 0xE100000000000000);
-    v69 = v215;
-    v84 = DOCHierarchyController.preventImmediateChangeRequests(reason:)(v219, v220);
+    v69 = v216;
+    v84 = DOCHierarchyController.preventImmediateChangeRequests(reason:)(v220, v221);
 
-    *v209 = v84;
+    *v210 = v84;
 
-    v85 = v208;
+    v85 = v209;
     v55 = swift_allocBox();
     v87 = v86;
 
@@ -5176,11 +3671,11 @@ LABEL_13:
     v89 = v85[6];
     *(v87 + v85[7]) = v66;
     *(v87 + v88) = 1;
-    *(v87 + v89) = (v206 & 1) == 0;
-    v90 = v207;
-    outlined init with copy of DOCHierarchyController.FetchingOperationToken(v87, v207, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-    v91 = *(v212 + 56);
-    v212 += 56;
+    *(v87 + v89) = (v207 & 1) == 0;
+    v90 = v208;
+    outlined init with copy of DOCHierarchyController.FetchingOperationToken(v87, v208, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+    v91 = *(v213 + 56);
+    v213 += 56;
     v91(v90, 0, 1, v85);
     DOCHierarchyController.loadingDisabledOperation.setter(v90, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
     v54 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
@@ -5196,9 +3691,9 @@ LABEL_13:
       v93 = *((v92 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v193 = v91;
-    v186 = v54;
-    v187 = v87;
+    v194 = v91;
+    v187 = v54;
+    v188 = v87;
     if (v93 < 2)
     {
       v94 = 0;
@@ -5219,9 +3714,9 @@ LABEL_13:
     }
 
 LABEL_76:
-    v182 = __CocoaSet.count.getter();
-    v97 = v182 - 2;
-    if (!__OFSUB__(v182, 2))
+    v183 = __CocoaSet.count.getter();
+    v97 = v183 - 2;
+    if (!__OFSUB__(v183, 2))
     {
 LABEL_31:
       swift_beginAccess();
@@ -5241,7 +3736,7 @@ LABEL_35:
           swift_endAccess();
           if (v59)
           {
-            type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+            type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
             v101 = v59;
             v94 = static NSObject.== infix(_:_:)();
 
@@ -5255,168 +3750,169 @@ LABEL_35:
 
 LABEL_39:
           v102 = swift_allocObject();
-          *(v102 + 16) = v215;
+          *(v102 + 16) = v216;
           *(v102 + 24) = v55;
-          v103 = v211;
-          *(v102 + 32) = v213;
+          v103 = v212;
+          *(v102 + 32) = v214;
           *(v102 + 40) = v103;
-          *(v102 + 48) = v210;
-          v104 = v204 & 1;
-          *(v102 + 56) = v104;
-          v105 = v94 & 1;
+          v104 = v211;
+          *(v102 + 48) = v211;
+          v105 = v205 & 1;
+          *(v102 + 56) = v105;
+          v106 = v94 & 1;
           *(v102 + 57) = v94 & 1;
-          v206 = v55;
-          v106 = v205 & 1;
-          *(v102 + 58) = v106;
-          v107 = v214;
-          *(v102 + 64) = v214;
-          v217 = v216;
-          v108 = swift_allocObject();
-          v109 = v108;
-          *(v108 + 16) = MEMORY[0x277D84F90];
+          v207 = v55;
+          v107 = v206 & 1;
+          *(v102 + 58) = v107;
+          v108 = v215;
+          *(v102 + 64) = v215;
+          v218 = v217;
+          v109 = swift_allocObject();
+          v110 = v109;
+          *(v109 + 16) = MEMORY[0x277D84F90];
           if (v67)
           {
-            v110 = v107;
+            v111 = v108;
 
-            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v103);
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v103, v104);
 
-            v111 = v215;
-            v112 = v109;
+            v112 = v216;
+            v113 = v110;
             specialized RangeReplaceableCollection.removeFirst()();
-            v114 = v113;
-            v115 = v217;
-            v116 = swift_allocObject();
-            *(v116 + 16) = v112;
-            *(v116 + 24) = v111;
-            *(v116 + 32) = v115;
-            *(v116 + 40) = 1;
-            *(v116 + 48) = partial apply for closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:);
-            *(v116 + 56) = v102;
-            v117 = v111;
+            v115 = v114;
+            v116 = v218;
+            v117 = swift_allocObject();
+            *(v117 + 16) = v113;
+            *(v117 + 24) = v112;
+            *(v117 + 32) = v116;
+            *(v117 + 40) = 1;
+            *(v117 + 48) = partial apply for closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:);
+            *(v117 + 56) = v102;
+            v118 = v112;
 
-            specialized DOCHierarchyController._resolveLocationInformation(for:tryToFetchLocationInformation:completion:)(v114, 1, v117, partial apply for specialized closure #1 in DOCHierarchyController.resolveLocationInformation(for:tryToFetchLocationInformation:completion:), v116);
+            specialized DOCHierarchyController._resolveLocationInformation(for:tryToFetchLocationInformation:completion:)(v115, 1, v118, partial apply for specialized closure #1 in DOCHierarchyController.resolveLocationInformation(for:tryToFetchLocationInformation:completion:), v117);
 
 LABEL_71:
           }
 
-          v184 = v106;
-          v204 = v105;
-          v205 = v104;
-          v216 = v108;
-          v118 = v215;
-          v119 = v195;
-          outlined init with copy of DOCGridLayout.Spec?(v215 + v194, v195, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-          v120 = v208;
-          v121 = v202;
-          v122 = v202(v119, 1, v208);
-          v185 = v102;
-          if (v122 == 1)
+          v185 = v107;
+          v205 = v106;
+          v206 = v105;
+          v217 = v109;
+          v119 = v216;
+          v120 = v196;
+          outlined init with copy of DOCGridLayout.Spec?(v216 + v195, v196, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          v121 = v209;
+          v122 = v203;
+          v123 = v203(v120, 1, v209);
+          v186 = v102;
+          if (v123 == 1)
           {
-            v123 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
+            v124 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
             swift_beginAccess();
-            v124 = v199;
-            outlined init with copy of DOCGridLayout.Spec?(v118 + v123, v199, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            LODWORD(v123) = v121(v119, 1, v120);
-            v125 = v214;
-            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v211);
+            v125 = v200;
+            outlined init with copy of DOCGridLayout.Spec?(v119 + v124, v200, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            LODWORD(v124) = v122(v120, 1, v121);
+            v126 = v215;
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v212, v211);
 
-            v126 = v118;
-            v127 = v196;
-            v128 = v198;
-            v129 = v193;
-            v130 = v187;
-            if (v123 != 1)
+            v127 = v119;
+            v128 = v197;
+            v129 = v199;
+            v130 = v194;
+            v131 = v188;
+            if (v124 != 1)
             {
-              outlined destroy of CharacterSet?(v119, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+              outlined destroy of CharacterSet?(v120, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
             }
           }
 
           else
           {
-            v124 = v199;
-            outlined init with take of DOCHierarchyController.FetchingOperationToken(v119, v199, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-            v129 = v193;
-            v193(v124, 0, 1, v120);
-            v131 = v214;
-            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v211);
+            v125 = v200;
+            outlined init with take of DOCHierarchyController.FetchingOperationToken(v120, v200, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+            v130 = v194;
+            v194(v125, 0, 1, v121);
+            v132 = v215;
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v212, v211);
 
-            v132 = v118;
-            v127 = v196;
-            v128 = v198;
-            v130 = v187;
+            v133 = v119;
+            v128 = v197;
+            v129 = v199;
+            v131 = v188;
           }
 
           swift_beginAccess();
-          outlined init with copy of DOCHierarchyController.FetchingOperationToken(v130, v128, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-          v129(v128, 0, 1, v120);
-          v133 = *(v201 + 48);
-          outlined init with copy of DOCGridLayout.Spec?(v124, v127, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-          outlined init with copy of DOCGridLayout.Spec?(v128, v127 + v133, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-          v134 = v124;
-          v135 = v202;
-          v136 = v202(v127, 1, v120);
-          v137 = v197;
-          if (v136 == 1)
+          outlined init with copy of DOCHierarchyController.FetchingOperationToken(v131, v129, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+          v130(v129, 0, 1, v121);
+          v134 = *(v202 + 48);
+          outlined init with copy of DOCGridLayout.Spec?(v125, v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          outlined init with copy of DOCGridLayout.Spec?(v129, v128 + v134, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          v135 = v125;
+          v136 = v203;
+          v137 = v203(v128, 1, v121);
+          v138 = v198;
+          if (v137 == 1)
           {
-            outlined destroy of CharacterSet?(v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            outlined destroy of CharacterSet?(v134, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            if (v135(v127 + v133, 1, v120) == 1)
+            outlined destroy of CharacterSet?(v129, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            outlined destroy of CharacterSet?(v135, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            if (v136(v128 + v134, 1, v121) == 1)
             {
-              outlined destroy of CharacterSet?(v127, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+              outlined destroy of CharacterSet?(v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_58:
-              *(v130 + v120[6]) = 0;
-              v153 = v215;
+              *(v131 + v121[6]) = 0;
+              v154 = v216;
 
-              v155 = specialized DOCHierarchyController.locationsAreInsideTrash(_:)(v154);
+              v156 = specialized DOCHierarchyController.locationsAreInsideTrash(_:)(v155);
 
-              v156 = swift_allocObject();
-              v157 = MEMORY[0x277D84F90];
-              *(v156 + 16) = MEMORY[0x277D84F90];
-              *(v156 + 24) = v153;
-              v158 = v213;
-              *(v156 + 32) = v206;
-              *(v156 + 40) = v158;
-              v159 = v211;
-              v160 = v210;
-              *(v156 + 48) = v211;
-              *(v156 + 56) = v160;
-              *(v156 + 64) = v204;
-              *(v156 + 65) = v184;
-              v161 = v214;
-              *(v156 + 72) = v214;
+              v157 = swift_allocObject();
+              v158 = MEMORY[0x277D84F90];
+              *(v157 + 16) = MEMORY[0x277D84F90];
+              *(v157 + 24) = v154;
+              v159 = v214;
+              *(v157 + 32) = v207;
+              *(v157 + 40) = v159;
+              v160 = v212;
+              v161 = v211;
+              *(v157 + 48) = v212;
+              *(v157 + 56) = v161;
+              *(v157 + 64) = v205;
+              *(v157 + 65) = v185;
+              v162 = v215;
+              *(v157 + 72) = v215;
               type metadata accessor for BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
-              v162 = swift_allocObject();
-              *(v162 + 40) = DOCGridLayout.specIconWidth.modify;
-              *(v162 + 48) = 0;
-              *(v162 + 56) = v157;
-              *(v162 + 64) = 0;
-              *(v162 + 16) = v153;
-              *(v162 + 24) = v157;
-              *(v162 + 32) = v205;
-              *(v162 + 33) = v155;
               v163 = swift_allocObject();
-              swift_weakInit();
+              *(v163 + 40) = DOCGridLayout.specIconWidth.modify;
+              *(v163 + 48) = 0;
+              *(v163 + 56) = v158;
+              *(v163 + 64) = 0;
+              *(v163 + 16) = v154;
+              *(v163 + 24) = v158;
+              *(v163 + 32) = v206;
+              *(v163 + 33) = v156;
               v164 = swift_allocObject();
-              v164[2] = v163;
-              v164[3] = partial apply for closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:);
-              v164[4] = v156;
-              v212 = *(v162 + 64);
-              *(v162 + 64) = v162;
-              v165 = v161;
-              v166 = v153;
-              outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v159);
+              swift_weakInit();
+              v165 = swift_allocObject();
+              v165[2] = v164;
+              v165[3] = partial apply for closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:);
+              v165[4] = v157;
+              v213 = *(v163 + 64);
+              *(v163 + 64) = v163;
+              v166 = v162;
+              v167 = v154;
+              outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v160, v161);
 
-              v167 = v166;
+              v168 = v167;
 
               swift_unknownObjectRelease();
-              v168 = swift_allocObject();
-              swift_weakInit();
               v169 = swift_allocObject();
-              v169[2] = partial apply for closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:);
-              v169[3] = v164;
-              v169[4] = v168;
-              *(v162 + 40) = partial apply for closure #1 in run(withCompletionHandler:) in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:);
-              *(v162 + 48) = v169;
+              swift_weakInit();
+              v170 = swift_allocObject();
+              v170[2] = partial apply for closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:);
+              v170[3] = v165;
+              v170[4] = v169;
+              *(v163 + 40) = partial apply for closure #1 in run(withCompletionHandler:) in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:);
+              *(v163 + 48) = v170;
 
               tryNextBatch() in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
 
@@ -5426,113 +3922,113 @@ LABEL_58:
 
           else
           {
-            v138 = v190;
-            outlined init with copy of DOCGridLayout.Spec?(v127, v190, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            if (v135(v127 + v133, 1, v120) != 1)
+            v139 = v191;
+            outlined init with copy of DOCGridLayout.Spec?(v128, v191, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            if (v136(v128 + v134, 1, v121) != 1)
             {
-              v149 = v127 + v133;
-              v150 = v189;
-              outlined init with take of DOCHierarchyController.FetchingOperationToken(v149, v189, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-              v151 = v138;
-              v152 = static UUID.== infix(_:_:)();
-              outlined destroy of DOCHierarchyController.FetchingOperationToken(v150, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-              outlined destroy of CharacterSet?(v198, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-              outlined destroy of CharacterSet?(v199, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+              v150 = v128 + v134;
+              v151 = v190;
+              outlined init with take of DOCHierarchyController.FetchingOperationToken(v150, v190, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+              v152 = v139;
+              v153 = static UUID.== infix(_:_:)();
               outlined destroy of DOCHierarchyController.FetchingOperationToken(v151, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-              v137 = v197;
-              v120 = v208;
-              outlined destroy of CharacterSet?(v127, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-              if (v152)
+              outlined destroy of CharacterSet?(v199, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              outlined destroy of CharacterSet?(v200, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              outlined destroy of DOCHierarchyController.FetchingOperationToken(v152, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+              v138 = v198;
+              v121 = v209;
+              outlined destroy of CharacterSet?(v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              if (v153)
               {
                 goto LABEL_58;
               }
 
 LABEL_51:
-              v139 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
-              v140 = v215;
+              v140 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
+              v141 = v216;
               swift_beginAccess();
-              v141 = v140 + v139;
-              v142 = v192;
-              outlined init with copy of DOCGridLayout.Spec?(v141, v192, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-              outlined init with copy of DOCHierarchyController.FetchingOperationToken(v130, v137, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-              v143 = v120;
-              v193(v137, 0, 1, v120);
-              v144 = *(v201 + 48);
-              v145 = v191;
-              outlined init with copy of DOCGridLayout.Spec?(v142, v191, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-              outlined init with copy of DOCGridLayout.Spec?(v137, &v145[v144], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-              v146 = v202;
-              if (v202(v145, 1, v143) == 1)
+              v142 = v141 + v140;
+              v143 = v193;
+              outlined init with copy of DOCGridLayout.Spec?(v142, v193, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              outlined init with copy of DOCHierarchyController.FetchingOperationToken(v131, v138, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+              v144 = v121;
+              v194(v138, 0, 1, v121);
+              v145 = *(v202 + 48);
+              v146 = v192;
+              outlined init with copy of DOCGridLayout.Spec?(v143, v192, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              outlined init with copy of DOCGridLayout.Spec?(v138, &v146[v145], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              v147 = v203;
+              if (v203(v146, 1, v144) == 1)
               {
-                outlined destroy of CharacterSet?(v137, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                outlined destroy of CharacterSet?(v142, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                v147 = v143;
-                if (v146(&v145[v144], 1, v143) == 1)
+                outlined destroy of CharacterSet?(v138, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                outlined destroy of CharacterSet?(v143, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                v148 = v144;
+                if (v147(&v146[v145], 1, v144) == 1)
                 {
-                  outlined destroy of CharacterSet?(v145, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+                  outlined destroy of CharacterSet?(v146, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_65:
-                  v176 = v207;
-                  v193(v207, 1, 1, v147);
-                  DOCHierarchyController.loadingDisabledOperation.setter(v176, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
+                  v177 = v208;
+                  v194(v208, 1, 1, v148);
+                  DOCHierarchyController.loadingDisabledOperation.setter(v177, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
                   goto LABEL_66;
                 }
               }
 
               else
               {
-                v148 = v188;
-                outlined init with copy of DOCGridLayout.Spec?(v145, v188, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                v147 = v143;
-                if (v146(&v145[v144], 1, v143) != 1)
+                v149 = v189;
+                outlined init with copy of DOCGridLayout.Spec?(v146, v189, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                v148 = v144;
+                if (v147(&v146[v145], 1, v144) != 1)
                 {
-                  v174 = v189;
-                  outlined init with take of DOCHierarchyController.FetchingOperationToken(&v145[v144], v189, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-                  v175 = static UUID.== infix(_:_:)();
-                  outlined destroy of DOCHierarchyController.FetchingOperationToken(v174, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-                  outlined destroy of CharacterSet?(v137, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                  outlined destroy of CharacterSet?(v192, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                  outlined destroy of DOCHierarchyController.FetchingOperationToken(v148, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-                  outlined destroy of CharacterSet?(v145, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                  if (v175)
+                  v175 = v190;
+                  outlined init with take of DOCHierarchyController.FetchingOperationToken(&v146[v145], v190, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+                  v176 = static UUID.== infix(_:_:)();
+                  outlined destroy of DOCHierarchyController.FetchingOperationToken(v175, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+                  outlined destroy of CharacterSet?(v138, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                  outlined destroy of CharacterSet?(v193, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                  outlined destroy of DOCHierarchyController.FetchingOperationToken(v149, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+                  outlined destroy of CharacterSet?(v146, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                  if (v176)
                   {
                     goto LABEL_65;
                   }
 
 LABEL_66:
-                  v177 = v200;
-                  *v200 = 0;
-                  v177[8] = 1;
-                  v178 = v209;
-                  v179 = swift_beginAccess();
-                  if (*v178)
+                  v178 = v201;
+                  *v201 = 0;
+                  v178[8] = 1;
+                  v179 = v210;
+                  v180 = swift_beginAccess();
+                  if (*v179)
                   {
 
-                    DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v180, 0);
+                    DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v181, 0);
                   }
 
-                  if (v211)
+                  if (v212)
                   {
-                    v211(v179);
+                    v212(v180);
                   }
 
                   goto LABEL_71;
                 }
 
-                outlined destroy of CharacterSet?(v137, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                outlined destroy of CharacterSet?(v192, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                outlined destroy of DOCHierarchyController.FetchingOperationToken(v148, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+                outlined destroy of CharacterSet?(v138, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                outlined destroy of CharacterSet?(v193, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                outlined destroy of DOCHierarchyController.FetchingOperationToken(v149, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
               }
 
-              outlined destroy of CharacterSet?(v145, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+              outlined destroy of CharacterSet?(v146, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
               goto LABEL_66;
             }
 
-            outlined destroy of CharacterSet?(v198, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            outlined destroy of CharacterSet?(v199, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            outlined destroy of DOCHierarchyController.FetchingOperationToken(v138, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+            outlined destroy of CharacterSet?(v199, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            outlined destroy of CharacterSet?(v200, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            outlined destroy of DOCHierarchyController.FetchingOperationToken(v139, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
           }
 
-          outlined destroy of CharacterSet?(v127, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+          outlined destroy of CharacterSet?(v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
           goto LABEL_51;
         }
 
@@ -5563,9 +4059,9 @@ LABEL_10:
       {
         v64 = swift_slowAlloc();
         v65 = swift_slowAlloc();
-        v219 = v65;
+        v220 = v65;
         *v64 = 136315138;
-        *(v64 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000040, 0x8000000249BCC770, &v219);
+        *(v64 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000040, 0x8000000249BCC770, &v220);
         _os_log_impl(&dword_2493AC000, v62, v63, "assertion failure: %s", v64, 0xCu);
         __swift_destroy_boxed_opaque_existential_0(v65);
         MEMORY[0x24C1FE850](v65, -1, -1);
@@ -5581,27 +4077,27 @@ LABEL_82:
   }
 
 LABEL_60:
-  v170 = v200;
-  *v200 = 0;
-  v170[8] = 1;
-  v171 = v209;
-  v172 = swift_beginAccess();
-  if (*v171)
+  v171 = v201;
+  *v201 = 0;
+  v171[8] = 1;
+  v172 = v210;
+  v173 = swift_beginAccess();
+  if (*v172)
   {
 
-    DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v173, 0);
+    DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v174, 0);
   }
 
-  if (v211)
+  if (v212)
   {
-    v211(v172);
+    v212(v173);
   }
 }
 
 Swift::Void __swiftcall DOCHierarchyController.reset()()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v2 - 8, v3);
   v5 = v9 - v4;
   v6 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
@@ -5731,7 +4227,7 @@ LABEL_18:
     if (Strong)
     {
       v28 = Strong;
-      type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+      type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
       isa = Array._bridgeToObjectiveC()().super.isa;
       [v28 hierarchyController:v5 willSet:isa animated:a2 & 1];
 
@@ -5743,7 +4239,7 @@ LABEL_18:
     if (v30)
     {
       v31 = v30;
-      type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+      type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
       v32 = Array._bridgeToObjectiveC()().super.isa;
 
       [v31 hierarchyController:v5 didSet:v32 animated:a2 & 1];
@@ -5900,31 +4396,32 @@ id DOCHierarchyController.appendOneLocation(_:viewController:animated:)(id a1, v
   v13 = MEMORY[0x24C1FC540](v12, v10);
 
 LABEL_10:
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
   if (static NSObject.== infix(_:_:)())
   {
-    v32 = a3;
+    v34 = a3;
     if (one-time initialization token for UI != -1)
     {
       swift_once();
     }
 
-    static os_log_type_t.fault.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    v33 = static DOCLog.UI;
+    v32 = static os_log_type_t.fault.getter();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v14 = swift_allocObject();
     *(v14 + 16) = xmmword_249B9FA70;
-    *(v14 + 56) = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
-    *(v14 + 64) = lazy protocol witness table accessor for type NSItemProvider and conformance NSObject(&lazy protocol witness table cache variable for type DOCConcreteLocation and conformance NSObject, &lazy cache variable for type metadata for DOCConcreteLocation);
+    *(v14 + 56) = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
+    *(v14 + 64) = lazy protocol witness table accessor for type NSItemProvider and conformance NSObject(&lazy protocol witness table cache variable for type DOCConcreteLocation and conformance NSObject, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
     *(v14 + 32) = a1;
     v15 = *(v4 + v9);
-    *(v14 + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo19DOCConcreteLocationCGMd);
-    *(v14 + 104) = lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DOCConcreteLocation] and conformance [A], &_sSaySo19DOCConcreteLocationCGMd);
+    *(v14 + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo19DOCConcreteLocationCGMd, &_sSaySo19DOCConcreteLocationCGMR);
+    *(v14 + 104) = lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DOCConcreteLocation] and conformance [A], &_sSaySo19DOCConcreteLocationCGMd, &_sSaySo19DOCConcreteLocationCGMR, MEMORY[0x277CC9C50]);
     *(v14 + 72) = v15;
     v16 = a1;
 
-    os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("Likely performance/correctness bug: appending a location %@ which is already the currently shown location. Currently shown locations: %@", 136, 2, &dword_2493AC000, v33, v32, v14);
 
-    a3 = v32;
+    a3 = v34;
   }
 
   else
@@ -5932,17 +4429,17 @@ LABEL_10:
   }
 
 LABEL_15:
-  v33 = *(v4 + v9);
+  v35 = *(v4 + v9);
   a1 = a1;
 
   MEMORY[0x24C1FB090](v17);
-  if (*((v33 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v33 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  if (*((v35 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v35 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  DOCHierarchyController.locations.setter(v33);
+  DOCHierarchyController.locations.setter(v35);
   v18 = swift_unknownObjectWeakLoadStrong();
   if (v18)
   {
@@ -5968,14 +4465,14 @@ LABEL_21:
         v25 = swift_slowAlloc();
         v26 = swift_slowAlloc();
         v27 = swift_slowAlloc();
-        v33 = v27;
+        v35 = v27;
         *v25 = 136315650;
-        *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002DLL, 0x8000000249BCD710, &v33);
+        *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002DLL, 0x8000000249BCD710, &v35);
         *(v25 + 12) = 2080;
         [v21 node];
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd, &_sSo7DOCNode_pSgMR);
         v28 = String.init<A>(describing:)();
-        v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, &v33);
+        v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, &v35);
 
         *(v25 + 14) = v30;
         *(v25 + 22) = 2112;
@@ -5983,7 +4480,7 @@ LABEL_21:
         *v26 = v22;
         v31 = v22;
         _os_log_impl(&dword_2493AC000, v23, v24, "[PROTECTED APPS] %s start authentication for node: %s viewController: %@", v25, 0x20u);
-        outlined destroy of CharacterSet?(v26, &_sSo8NSObjectCSgMd);
+        outlined destroy of CharacterSet?(v26, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         MEMORY[0x24C1FE850](v26, -1, -1);
         swift_arrayDestroy();
         MEMORY[0x24C1FE850](v27, -1, -1);
@@ -6004,7 +4501,7 @@ LABEL_31:
 
 uint64_t closure #3 in DOCHierarchyController.replaceTrailingLocationsCount(_:with:animated:completion:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, char a5, unint64_t a6, uint64_t (*a7)(void))
 {
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v13 - 8, v14);
   v16 = &v29 - v15;
   v17 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
@@ -6012,20 +4509,20 @@ uint64_t closure #3 in DOCHierarchyController.replaceTrailingLocationsCount(_:wi
   DOCHierarchyController.loadingDisabledOperation.setter(v16, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
   v18 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
   swift_beginAccess();
-  v31 = *(a1 + v18);
+  v31[0] = *(a1 + v18);
 
   specialized RangeReplaceableCollection<>.removeLast(_:)(a2, v19, v20);
-  DOCHierarchyController.locations.setter(v31);
-  v31 = *(a1 + v18);
+  DOCHierarchyController.locations.setter(v31[0]);
+  v31[0] = *(a1 + v18);
 
   specialized Array.append<A>(contentsOf:)(a3);
-  DOCHierarchyController.locations.setter(v31);
+  DOCHierarchyController.locations.setter(v31[0]);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
     v22 = Strong;
-    type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
+    type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
     isa = Array._bridgeToObjectiveC()().super.isa;
     [v22 hierarchyController:a1 didReplaceTrailingLocations:a2 with:isa animated:a5 & 1];
 
@@ -6090,7 +4587,7 @@ LABEL_16:
 void DOCHierarchyController.removeTrailingLocations(_:animated:)(uint64_t a1, char a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v15 - v8;
   if (a1 >= 1)
@@ -6354,7 +4851,7 @@ void DOCHierarchyController.remove(after:animated:completion:)(void *a1, char a2
   swift_beginAccess();
   v11 = *&v5[v10];
 
-  v12 = specialized Collection<>.firstIndex(of:)(a1, v11, &lazy cache variable for type metadata for DOCConcreteLocation);
+  v12 = specialized Collection<>.firstIndex(of:)(a1, v11, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
   v14 = v13;
 
   if ((v14 & 1) == 0)
@@ -6408,7 +4905,7 @@ void DOCHierarchyController.remove(after:animated:completion:)(void *a1, char a2
 
       *&aBlock = v31;
       *(&aBlock + 1) = v34;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
       v35 = String.init<A>(describing:)();
       v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v36, v71);
 
@@ -6476,7 +4973,7 @@ LABEL_18:
             v67 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
             v68 = &block_descriptor_86;
             v55 = _Block_copy(&aBlock);
-            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v65);
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v65, v48);
             v56 = v5;
 
             [v53 hierarchyController:v56 willPopLocations:v41 animated:v51 completion:v55];
@@ -6484,7 +4981,7 @@ LABEL_18:
 
           else
           {
-            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v65);
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v65, v48);
             v57 = v5;
 
             DOCHierarchyController.removeTrailingLocations(_:animated:)(v41, v51);
@@ -6502,7 +4999,7 @@ LABEL_18:
             v67 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
             v68 = &block_descriptor_80;
             v55 = _Block_copy(&aBlock);
-            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v65);
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v65, v48);
             v60 = v57;
 
             [v58 animateAlongsideTransition:0 completion:v55];
@@ -6576,7 +5073,7 @@ uint64_t closure #1 in DOCHierarchyController.remove(after:animated:completion:)
   v12 = _Block_copy(v15);
   v13 = a1;
 
-  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a5);
+  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a5, a6);
 
   [v10 animateAlongsideTransition:0 completion:v12];
   _Block_release(v12);
@@ -6603,7 +5100,7 @@ void DOCHierarchyController.goToEnclosing(location:animated:completion:)(void *a
 
 Swift::Void __swiftcall DOCHierarchyController.discardPendingOperations(forScheduleHierarchyOperation:)(DocumentManagerExecutables::DOCHierarchyController::DOCHierarchyOperationType forScheduleHierarchyOperation)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v10 - v5;
   v7 = v1 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
@@ -6636,12 +5133,12 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:
   v13 = *(v12 - 8);
   MEMORY[0x28223BE20](v12, v14);
   v99 = &v92 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
   MEMORY[0x28223BE20](v111, v16);
   v102 = &v92 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v18, v19);
   v21 = &v92 - v20;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v22 - 8, v23);
   v93 = &v92 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v25, v26);
@@ -6662,7 +5159,7 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:
   v112 = swift_projectBox();
   v49 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(&a2[v49], v44, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&a2[v49], v44, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v50 = *(v13 + 48);
   v51 = v50(v44, 1, v12);
   v110 = v50;
@@ -6671,10 +5168,10 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:
   {
     v52 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(&a2[v52], v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&a2[v52], v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v50(v44, 1, v12) != 1)
     {
-      outlined destroy of CharacterSet?(v44, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v44, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -6692,16 +5189,16 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:
   v103 = v54;
   v54(v40, 0, 1, v12);
   v55 = v111[12];
-  outlined init with copy of DOCGridLayout.Spec?(v48, v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v40, &v21[v55], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v48, v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v40, &v21[v55], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v56 = v110;
   if (v110(v21, 1, v12) == 1)
   {
-    outlined destroy of CharacterSet?(v40, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v40, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v56(&v21[v55], 1, v12) == 1)
     {
-      outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       v57 = v106;
 LABEL_18:
       v111 = a10;
@@ -6746,7 +5243,7 @@ LABEL_18:
       swift_bridgeObjectRetain_n();
       v80 = v57;
 
-      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v75);
+      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v75, v109);
       v81 = v111;
 
       swift_unknownObjectRelease();
@@ -6766,14 +5263,14 @@ LABEL_18:
   }
 
   v58 = v100;
-  outlined init with copy of DOCGridLayout.Spec?(v21, v100, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v21, v100, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v56(&v21[v55], 1, v12) == 1)
   {
-    outlined destroy of CharacterSet?(v40, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v40, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v58, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
 LABEL_10:
-    outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+    outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
     v57 = v106;
     goto LABEL_11;
   }
@@ -6782,10 +5279,10 @@ LABEL_10:
   outlined init with take of DOCHierarchyController.FetchingOperationToken(&v21[v55], v99, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v68 = static UUID.== infix(_:_:)();
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v67, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v40, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v40, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v48, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v58, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v21, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v57 = v106;
   if (v68)
   {
@@ -6796,7 +5293,7 @@ LABEL_11:
   v59 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
   swift_beginAccess();
   v60 = v101;
-  outlined init with copy of DOCGridLayout.Spec?(&v57[v59], v101, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&v57[v59], v101, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v61 = v112;
   swift_beginAccess();
   v62 = v105;
@@ -6804,16 +5301,16 @@ LABEL_11:
   v103(v62, 0, 1, v12);
   v63 = v111[12];
   v64 = v102;
-  outlined init with copy of DOCGridLayout.Spec?(v60, v102, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v62, v64 + v63, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v60, v102, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v62, v64 + v63, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v65 = v110;
   if (v110(v64, 1, v12) == 1)
   {
-    outlined destroy of CharacterSet?(v62, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v60, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v62, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v60, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v65(v64 + v63, 1, v12) == 1)
     {
-      outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_20:
       v88 = v93;
       v103(v93, 1, 1, v12);
@@ -6825,14 +5322,14 @@ LABEL_20:
   }
 
   v66 = v94;
-  outlined init with copy of DOCGridLayout.Spec?(v64, v94, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v64, v94, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v65(v64 + v63, 1, v12) == 1)
   {
-    outlined destroy of CharacterSet?(v105, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v60, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v105, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v60, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v66, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
 LABEL_16:
-    outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+    outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
     goto LABEL_21;
   }
 
@@ -6841,10 +5338,10 @@ LABEL_16:
   outlined init with take of DOCHierarchyController.FetchingOperationToken(v85, v99, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v87 = static UUID.== infix(_:_:)();
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v86, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v105, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v60, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v105, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v60, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v66, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v87)
   {
     goto LABEL_20;
@@ -6871,37 +5368,37 @@ LABEL_21:
   return result;
 }
 
-uint64_t closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:)(unint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t), uint64_t a7, int a8, char a9, void *a10)
+void closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:)(unint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, void (*a6)(uint64_t), uint64_t a7, int a8, char a9, void *a10)
 {
-  v104 = a8;
-  v106 = a7;
-  v109 = a6;
-  v111 = a5;
+  v106 = a8;
+  v108 = a7;
+  v111 = a6;
+  v113 = a5;
   v13 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-  v113 = *(v13 - 8);
+  v115 = *(v13 - 8);
   MEMORY[0x28223BE20](v13, v14);
-  v102 = &v102 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
-  MEMORY[0x28223BE20](v108, v16);
-  v18 = &v102 - v17;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v104 = &v104 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+  MEMORY[0x28223BE20](v110, v16);
+  v18 = &v104 - v17;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v19 - 8, v20);
-  v103 = &v102 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v105 = &v104 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v22, v23);
-  v105 = &v102 - v24;
+  v107 = &v104 - v24;
   MEMORY[0x28223BE20](v25, v26);
-  v28 = &v102 - v27;
+  v28 = &v104 - v27;
   MEMORY[0x28223BE20](v29, v30);
-  v32 = &v102 - v31;
+  v32 = &v104 - v31;
   MEMORY[0x28223BE20](v33, v34);
-  v36 = &v102 - v35;
-  v107 = swift_projectBox();
+  v36 = &v104 - v35;
+  v109 = swift_projectBox();
   v37 = *(a2 + 16);
   v38 = MEMORY[0x277D84F90];
-  v112 = a3;
+  v114 = a3;
   if (v37)
   {
-    v110 = a1;
+    v112 = a1;
     aBlock = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
     v39 = (a2 + 32);
@@ -6919,27 +5416,27 @@ uint64_t closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLo
 
     while (v37);
     v38 = aBlock;
-    a3 = v112;
-    a1 = v110;
+    a3 = v114;
+    a1 = v112;
   }
 
-  v110 = _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSaySo011DOCConcreteD0CG_SaySo06UIViewG0CGtFZAD_Tt1g5(v38, a1);
+  v112 = _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSaySo011DOCConcreteD0CG_SaySo06UIViewG0CGtFZAD_Tt1g5(v38, a1);
 
   v42 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(&a3[v42], v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  v43 = v113;
-  v44 = *(v113 + 48);
+  outlined init with copy of DOCGridLayout.Spec?(&a3[v42], v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v43 = v115;
+  v44 = *(v115 + 48);
   if (v44(v32, 1, v13) == 1)
   {
     v45 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(&a3[v45], v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&a3[v45], v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v46 = v44(v32, 1, v13);
-    v47 = v108;
+    v47 = v110;
     if (v46 != 1)
     {
-      outlined destroy of CharacterSet?(v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v32, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -6947,81 +5444,85 @@ uint64_t closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLo
   {
     outlined init with take of DOCHierarchyController.FetchingOperationToken(v32, v36, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
     (*(v43 + 56))(v36, 0, 1, v13);
-    v47 = v108;
+    v47 = v110;
   }
 
-  v48 = v107;
+  v48 = v109;
   swift_beginAccess();
   outlined init with copy of DOCHierarchyController.FetchingOperationToken(v48, v28, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v49 = *(v43 + 56);
-  v113 = v43 + 56;
+  v115 = v43 + 56;
   v49(v28, 0, 1, v13);
   v50 = *(v47 + 48);
-  outlined init with copy of DOCGridLayout.Spec?(v36, v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v28, &v18[v50], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v36, v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v28, &v18[v50], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v44(v18, 1, v13) == 1)
   {
-    outlined destroy of CharacterSet?(v28, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v28, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v44(&v18[v50], 1, v13) == 1)
     {
-      outlined destroy of CharacterSet?(v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-      v51 = v109;
-      v52 = v110;
-      v53 = v112;
+      outlined destroy of CharacterSet?(v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v51 = v111;
+      v52 = v112;
+      v53 = v114;
       goto LABEL_20;
     }
 
     goto LABEL_14;
   }
 
-  v108 = v49;
-  v54 = v105;
-  outlined init with copy of DOCGridLayout.Spec?(v18, v105, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v110 = v49;
+  v54 = v107;
+  outlined init with copy of DOCGridLayout.Spec?(v18, v107, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v44(&v18[v50], 1, v13) == 1)
   {
-    outlined destroy of CharacterSet?(v28, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v28, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v54, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
 LABEL_14:
-    outlined destroy of CharacterSet?(v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
-    v51 = v109;
-    v53 = v112;
+    outlined destroy of CharacterSet?(v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+    v51 = v111;
+    v53 = v114;
     goto LABEL_15;
   }
 
-  v59 = v102;
-  outlined init with take of DOCHierarchyController.FetchingOperationToken(&v18[v50], v102, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  v59 = v104;
+  outlined init with take of DOCHierarchyController.FetchingOperationToken(&v18[v50], v104, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v60 = static UUID.== infix(_:_:)();
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v59, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v28, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v28, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v36, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v54, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  v51 = v109;
-  v52 = v110;
-  v53 = v112;
-  v49 = v108;
+  outlined destroy of CharacterSet?(v18, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v51 = v111;
+  v52 = v112;
+  v53 = v114;
+  v49 = v110;
   if (v60)
   {
 LABEL_20:
     v61 = swift_allocObject();
-    v62 = v111;
+    v62 = v113;
     v61[2] = v53;
     v61[3] = v62;
-    v63 = v106;
+    v63 = v108;
     v61[4] = v51;
     v61[5] = v63;
-    v64 = v103;
-    v49(v103, 1, 1, v13);
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v51);
+    v64 = v105;
+    v49(v105, 1, 1, v13);
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v51, v63);
 
     v65 = v53;
     DOCHierarchyController.loadingDisabledOperation.setter(v64, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
-    if (v104)
+    if (v106)
     {
 
       specialized DOCHierarchyController.replaceTrailingLocationsCount(_:with:animated:completion:)(1, v52, a9 & 1, v65, partial apply for closure #2 in closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:), v61);
+
+LABEL_58:
+
+      return;
     }
 
     v66 = swift_allocObject();
@@ -7041,11 +5542,11 @@ LABEL_24:
           v51 = *&v65[v69];
           aBlock = a10;
           MEMORY[0x28223BE20](v70, v71);
-          *(&v102 - 2) = &aBlock;
+          *(&v104 - 2) = &aBlock;
           swift_retain_n();
 
           v72 = a10;
-          v73 = specialized BidirectionalCollection.lastIndex(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, (&v102 - 4), v51);
+          v73 = specialized BidirectionalCollection.lastIndex(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, (&v104 - 4), v51);
           v75 = v74;
 
           v76 = *&v65[v69];
@@ -7062,13 +5563,13 @@ LABEL_24:
               v78 = *((v76 & 0xFFFFFFFFFFFFFF8) + 0x10);
             }
 
-            v52 = v110;
+            v52 = v112;
             v68 = &_sSo9NSCopying_pMd;
 LABEL_39:
-            v81 = v68[276];
+            v82 = v68[276];
             swift_beginAccess();
-            v82 = *&v65[v81];
-            if (v82 >> 62)
+            v83 = *&v65[v82];
+            if (v83 >> 62)
             {
               if (v78 == __CocoaSet.count.getter())
               {
@@ -7076,33 +5577,37 @@ LABEL_39:
               }
             }
 
-            else if (v78 == *((v82 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            else if (v78 == *((v83 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
 LABEL_41:
               DOCHierarchyController.setLocationPairedViewControllers(_:animated:completion:)(v52, a9 & 1, thunk for @callee_guaranteed () -> ()partial apply, v66);
+
+              return;
             }
 
             specialized DOCHierarchyController.replaceTrailingLocationsCount(_:with:animated:completion:)(v78, v52, a9 & 1, v65, partial apply for closure #2 in closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:), v61);
+
+            goto LABEL_58;
           }
 
           if (v77)
           {
-            v79 = __CocoaSet.count.getter();
+            v80 = __CocoaSet.count.getter();
           }
 
           else
           {
-            v79 = *((v76 & 0xFFFFFFFFFFFFFF8) + 0x10);
+            v80 = *((v76 & 0xFFFFFFFFFFFFFF8) + 0x10);
           }
 
           v68 = &_sSo9NSCopying_pMd;
 
-          v80 = v79 - v73;
-          if (!__OFSUB__(v79, v73))
+          v81 = v80 - v73;
+          if (!__OFSUB__(v80, v73))
           {
-            v78 = v80 - 1;
-            v52 = v110;
-            if (!__OFSUB__(v80, 1))
+            v78 = v81 - 1;
+            v52 = v112;
+            if (!__OFSUB__(v81, 1))
             {
               goto LABEL_39;
             }
@@ -7125,28 +5630,28 @@ LABEL_38:
 
         if (v52 >> 62)
         {
-          result = __CocoaSet.count.getter();
+          v79 = __CocoaSet.count.getter();
         }
 
         else
         {
-          result = *((v52 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v79 = *((v52 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        if (result)
+        if (v79)
         {
           if ((v52 & 0xC000000000000001) == 0)
           {
             if (!*((v52 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
               __break(1u);
-              return result;
+              return;
             }
 
-            v83 = *(v52 + 32);
-            v84 = *(v83 + 16);
+            v84 = *(v52 + 32);
+            v85 = *(v84 + 16);
             swift_retain_n();
-            v85 = v84;
+            v86 = v85;
 
             goto LABEL_47;
           }
@@ -7158,41 +5663,43 @@ LABEL_38:
         }
 
         swift_retain_n();
-        v85 = *(MEMORY[0x24C1FC540](0, v52) + 16);
+        v86 = *(MEMORY[0x24C1FC540](0, v52) + 16);
         swift_unknownObjectRelease();
-        v83 = MEMORY[0x24C1FC540](0, v52);
+        v84 = MEMORY[0x24C1FC540](0, v52);
 LABEL_47:
 
-        v86 = *(v83 + 24);
+        v87 = *(v84 + 24);
 
-        DOCHierarchyController.appendOneLocation(_:viewController:animated:)(v85, v86, a9 & 1);
+        DOCHierarchyController.appendOneLocation(_:viewController:animated:)(v86, v87, a9 & 1);
 
         DOCHierarchyController.saveLastVisitedLocationIfNeeded()();
-        v87 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
-        v88 = swift_allocObject();
-        v89 = v111;
-        v88[2] = v65;
-        v88[3] = v89;
-        v88[4] = v51;
-        v90 = v51;
-        v88[5] = v106;
-        v118 = closure #1 in closure #2 in closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:)partial apply;
-        v119 = v88;
+        v88 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
+        v89 = swift_allocObject();
+        v90 = v113;
+        v89[2] = v65;
+        v89[3] = v90;
+        v89[4] = v51;
+        v91 = v51;
+        v92 = v108;
+        v89[5] = v108;
+        v120 = closure #1 in closure #2 in closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:)partial apply;
+        v121 = v89;
         aBlock = MEMORY[0x277D85DD0];
-        v115 = 1107296256;
-        v91 = &block_descriptor_483;
+        v117 = 1107296256;
+        v93 = &block_descriptor_483;
 LABEL_55:
-        v116 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
-        v117 = v91;
-        v100 = _Block_copy(&aBlock);
-        outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v90);
+        v118 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+        v119 = v93;
+        v102 = _Block_copy(&aBlock);
+        outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v91, v92);
 
-        v101 = v65;
+        v103 = v65;
 
-        [v87 animateAlongsideTransition:0 completion:v100];
-        _Block_release(v100);
+        [v88 animateAlongsideTransition:0 completion:v102];
+        _Block_release(v102);
 
-        return swift_unknownObjectRelease();
+        swift_unknownObjectRelease();
+        return;
       }
     }
 
@@ -7211,42 +5718,43 @@ LABEL_55:
     {
 LABEL_54:
       DOCHierarchyController.saveLastVisitedLocationIfNeeded()();
-      v87 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
-      v98 = swift_allocObject();
-      v99 = v111;
-      v98[2] = v65;
-      v98[3] = v99;
-      v98[4] = v51;
-      v90 = v51;
-      v98[5] = v106;
-      v118 = partial apply for closure #1 in closure #2 in closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:);
-      v119 = v98;
+      v88 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
+      v100 = swift_allocObject();
+      v101 = v113;
+      v100[2] = v65;
+      v100[3] = v101;
+      v100[4] = v51;
+      v91 = v51;
+      v92 = v108;
+      v100[5] = v108;
+      v120 = partial apply for closure #1 in closure #2 in closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:);
+      v121 = v100;
       aBlock = MEMORY[0x277D85DD0];
-      v115 = 1107296256;
-      v91 = &block_descriptor_476;
+      v117 = 1107296256;
+      v93 = &block_descriptor_476;
       goto LABEL_55;
     }
 
     if (one-time initialization token for UI == -1)
     {
 LABEL_51:
-      v92 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v92, static Logger.UI);
-      v93 = Logger.logObject.getter();
-      v94 = static os_log_type_t.fault.getter();
-      if (os_log_type_enabled(v93, v94))
+      v94 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v94, static Logger.UI);
+      v95 = Logger.logObject.getter();
+      v96 = static os_log_type_t.fault.getter();
+      if (os_log_type_enabled(v95, v96))
       {
-        v95 = swift_slowAlloc();
-        v96 = swift_slowAlloc();
-        aBlock = v96;
-        *v95 = 136315138;
-        *(v95 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000018, 0x8000000249BCD680, &aBlock);
-        _os_log_impl(&dword_2493AC000, v93, v94, "assertion failure: %s", v95, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v96);
-        v97 = v96;
-        v51 = v109;
+        v97 = swift_slowAlloc();
+        v98 = swift_slowAlloc();
+        aBlock = v98;
+        *v97 = 136315138;
+        *(v97 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000018, 0x8000000249BCD680, &aBlock);
+        _os_log_impl(&dword_2493AC000, v95, v96, "assertion failure: %s", v97, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v98);
+        v99 = v98;
+        v51 = v111;
+        MEMORY[0x24C1FE850](v99, -1, -1);
         MEMORY[0x24C1FE850](v97, -1, -1);
-        MEMORY[0x24C1FE850](v95, -1, -1);
       }
 
       goto LABEL_54;
@@ -7263,8 +5771,8 @@ LABEL_15:
   swift_beginAccess();
   *v55 = 0;
   v55[8] = 1;
-  v56 = v111;
-  result = swift_beginAccess();
+  v56 = v113;
+  v57 = swift_beginAccess();
   if (*(v56 + 16))
   {
 
@@ -7273,10 +5781,8 @@ LABEL_15:
 
   if (v51)
   {
-    return v51(result);
+    v51(v57);
   }
-
-  return result;
 }
 
 uint64_t _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSaySo011DOCConcreteD0CG_SaySo06UIViewG0CGtFZAD_Tt1g5(unint64_t a1, unint64_t a2)
@@ -7462,97 +5968,97 @@ uint64_t closure #1 in closure #2 in closure #1 in closure #2 in DOCHierarchyCon
   return result;
 }
 
-void DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(unint64_t a1, void *a2, int a3, int a4, int a5, uint64_t a6, uint64_t a7)
+void DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(unint64_t a1, void *a2, int a3, int a4, int a5, void (*a6)(uint64_t), uint64_t a7)
 {
-  v246 = a7;
-  v247 = a6;
-  LODWORD(v238) = a5;
-  v237 = a4;
-  LODWORD(v240) = a3;
+  v247 = a7;
+  v248 = a6;
+  LODWORD(v239) = a5;
+  v238 = a4;
+  LODWORD(v241) = a3;
   updated = type metadata accessor for DOCHierarchyController.UpdateExpectation(0);
   v9 = *(updated - 8);
   MEMORY[0x28223BE20](updated, v10);
-  v224 = &v212 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v225 = &v213 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v12, v13);
-  v15 = &v212 - v14;
-  v233 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
-  MEMORY[0x28223BE20](v233, v16);
-  v229 = &v212 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v213 - v14;
+  v234 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+  MEMORY[0x28223BE20](v234, v16);
+  v230 = &v213 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v18, v19);
-  v232 = &v212 - v20;
-  v249 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
-  v251 = *(v249 - 8);
-  MEMORY[0x28223BE20](v249, v21);
-  v23 = &v212 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v233 = &v213 - v20;
+  v250 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+  v252 = *(v250 - 8);
+  MEMORY[0x28223BE20](v250, v21);
+  v23 = &v213 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v24, v25);
-  v239 = &v212 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v240 = &v213 - v26;
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v27, v28);
-  v230 = &v212 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v231 = &v213 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v30, v31);
-  v228 = &v212 - v32;
+  v229 = &v213 - v32;
   MEMORY[0x28223BE20](v33, v34);
-  v241 = &v212 - v35;
+  v242 = &v213 - v35;
   MEMORY[0x28223BE20](v36, v37);
-  v39 = &v212 - v38;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v39 = &v213 - v38;
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v40 - 8, v41);
   MEMORY[0x28223BE20](v42, v43);
   MEMORY[0x28223BE20](v44, v45);
   MEMORY[0x28223BE20](v46, v47);
-  v49 = &v212 - v48;
+  v49 = &v213 - v48;
   MEMORY[0x28223BE20](v50, v51);
-  MEMORY[0x28223BE20](v53, &v212 - v52);
-  v231 = &v212 - v54;
+  MEMORY[0x28223BE20](v53, &v213 - v52);
+  v232 = &v213 - v54;
   MEMORY[0x28223BE20](v55, v56);
   MEMORY[0x28223BE20](v57, v58);
-  v242 = &v212 - v59;
+  v243 = &v213 - v59;
   MEMORY[0x28223BE20](v60, v61);
-  v63 = &v212 - v62;
+  v63 = &v213 - v62;
   MEMORY[0x28223BE20](v64, v65);
-  v72 = &v212 - v71;
+  v72 = &v213 - v71;
   v73 = a1 >> 62;
   if (a1 >> 62)
   {
-    v214 = v68;
-    v218 = v69;
-    v217 = v70;
-    v220 = v67;
-    v221 = v66;
-    v227 = a1 >> 62;
+    v215 = v68;
+    v219 = v69;
+    v218 = v70;
+    v221 = v67;
+    v222 = v66;
+    v228 = a1 >> 62;
     v74 = __CocoaSet.count.getter();
-    v73 = v227;
-    v66 = v221;
-    v67 = v220;
-    v70 = v217;
-    v69 = v218;
-    v68 = v214;
+    v73 = v228;
+    v66 = v222;
+    v67 = v221;
+    v70 = v218;
+    v69 = v219;
+    v68 = v215;
     if (v74)
     {
 LABEL_3:
-      v227 = v73;
-      v225 = v74;
-      v221 = v66;
-      v220 = v67;
-      v215 = v49;
-      v217 = v70;
-      v218 = v69;
-      v214 = v68;
-      v216 = v23;
-      v234 = a2;
-      v213 = v15;
-      v244 = swift_allocBox();
-      v223 = v9;
+      v228 = v73;
+      v226 = v74;
+      v222 = v66;
+      v221 = v67;
+      v216 = v49;
+      v218 = v70;
+      v219 = v69;
+      v215 = v68;
+      v217 = v23;
+      v235 = a2;
+      v214 = v15;
+      v245 = swift_allocBox();
+      v224 = v9;
       v75 = *(v9 + 56);
-      v236 = v76;
-      v226 = v75;
+      v237 = v76;
+      v227 = v75;
       v75(v76, 1, 1, updated);
       v77 = swift_allocObject();
-      v245 = v77;
+      v246 = v77;
       *(v77 + 16) = 0;
-      v235 = (v77 + 16);
-      v78 = v250;
-      v79 = &v250[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_activeSemanticNavigationOperation];
+      v236 = (v77 + 16);
+      v78 = v251;
+      v79 = &v251[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_activeSemanticNavigationOperation];
       swift_beginAccess();
       v80 = *v79;
       if (v79[8])
@@ -7561,27 +6067,27 @@ LABEL_3:
       }
 
       *v79 = v80;
-      v222 = v79;
+      v223 = v79;
       v79[8] = 0;
       v81 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
       swift_beginAccess();
-      v219 = v81;
-      outlined init with copy of DOCGridLayout.Spec?(&v78[v81], v63, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-      v82 = v251;
-      v84 = v251 + 6;
-      isa = v251[6].isa;
-      v85 = v249;
-      v86 = (isa)(v63, 1, v249);
-      v243 = v84;
+      v220 = v81;
+      outlined init with copy of DOCGridLayout.Spec?(&v78[v81], v63, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v82 = v252;
+      v84 = v252 + 6;
+      isa = v252[6].isa;
+      v85 = v250;
+      v86 = (isa)(v63, 1, v250);
+      v244 = v84;
       if (v86 == 1)
       {
         v87 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
         swift_beginAccess();
-        outlined init with copy of DOCGridLayout.Spec?(&v78[v87], v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+        outlined init with copy of DOCGridLayout.Spec?(&v78[v87], v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
         v88 = isa;
         if ((isa)(v63, 1, v85) != 1)
         {
-          outlined destroy of CharacterSet?(v63, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+          outlined destroy of CharacterSet?(v63, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
         }
       }
 
@@ -7594,7 +6100,7 @@ LABEL_3:
 
       if ((v88)(v72, 1, v85) == 1)
       {
-        outlined destroy of CharacterSet?(v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+        outlined destroy of CharacterSet?(v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       }
 
       else
@@ -7604,17 +6110,17 @@ LABEL_3:
         if ((v89 & 1) == 0)
         {
           v150 = DOCIsInternalBuild();
-          v93 = v247;
-          v96 = v230;
+          v93 = v248;
+          v96 = v231;
           if (v150)
           {
 LABEL_40:
-            if ((v222[8] & 1) == 0 && !*v222)
+            if ((v223[8] & 1) == 0 && !*v223)
             {
-              v222[8] = 1;
+              v223[8] = 1;
             }
 
-            v157 = v235;
+            v157 = v236;
             swift_beginAccess();
             if (*v157)
             {
@@ -7622,18 +6128,18 @@ LABEL_40:
               DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v158, 0);
             }
 
-            v159 = v236;
+            v159 = v237;
             swift_beginAccess();
-            outlined init with copy of DOCGridLayout.Spec?(v159, v96, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            if ((*(v223 + 48))(v96, 1, updated) == 1)
+            outlined init with copy of DOCGridLayout.Spec?(v159, v96, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            if ((*(v224 + 48))(v96, 1, updated) == 1)
             {
-              v160 = outlined destroy of CharacterSet?(v96, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+              v160 = outlined destroy of CharacterSet?(v96, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
             }
 
             else
             {
-              v180 = v224;
-              outlined init with take of DOCHierarchyController.FetchingOperationToken(v96, v224, type metadata accessor for DOCHierarchyController.UpdateExpectation);
+              v180 = v225;
+              outlined init with take of DOCHierarchyController.FetchingOperationToken(v96, v225, type metadata accessor for DOCHierarchyController.UpdateExpectation);
               DOCHierarchyController.endUpdateExpectation(_:)(v180);
               v160 = outlined destroy of DOCHierarchyController.FetchingOperationToken(v180, type metadata accessor for DOCHierarchyController.UpdateExpectation);
             }
@@ -7657,13 +6163,13 @@ LABEL_37:
             {
               v154 = swift_slowAlloc();
               v155 = swift_slowAlloc();
-              v254 = v155;
+              v255 = v155;
               *v154 = 136315138;
-              *(v154 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000003DLL, 0x8000000249BCC850, &v254);
+              *(v154 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000003DLL, 0x8000000249BCC850, &v255);
               _os_log_impl(&dword_2493AC000, v152, v153, "assertion failure: %s", v154, 0xCu);
               __swift_destroy_boxed_opaque_existential_0(v155);
               v156 = v155;
-              v93 = v247;
+              v93 = v248;
               MEMORY[0x24C1FE850](v156, -1, -1);
               MEMORY[0x24C1FE850](v154, -1, -1);
             }
@@ -7680,24 +6186,24 @@ LABEL_93:
       UUID.init()();
       v90 = updated;
       *&v39[*(updated + 20)] = a1;
-      v91 = v241;
-      outlined init with copy of DOCHierarchyController.FetchingOperationToken(v39, v241, type metadata accessor for DOCHierarchyController.UpdateExpectation);
-      v92 = v226;
-      v226(v91, 0, 1, v90);
+      v91 = v242;
+      outlined init with copy of DOCHierarchyController.FetchingOperationToken(v39, v242, type metadata accessor for DOCHierarchyController.UpdateExpectation);
+      v92 = v227;
+      v227(v91, 0, 1, v90);
       v93 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController__currentUpdateExpectation;
-      v94 = v250;
+      v94 = v251;
       swift_beginAccess();
       outlined assign with take of DOCHierarchyController.UpdateExpectation?(v91, v93 + v94);
       swift_endAccess();
       v92(v39, 0, 1, v90);
-      outlined assign with take of DOCHierarchyController.UpdateExpectation?(v39, v236);
-      v254 = 0;
-      v255 = 0xE000000000000000;
+      outlined assign with take of DOCHierarchyController.UpdateExpectation?(v39, v237);
+      v255 = 0;
+      v256 = 0xE000000000000000;
       _StringGuts.grow(_:)(29);
 
-      v254 = 0xD00000000000001ALL;
-      v255 = 0x8000000249BCC830;
-      if (v227)
+      v255 = 0xD00000000000001ALL;
+      v256 = 0x8000000249BCC830;
+      if (v228)
       {
         v95 = __CocoaSet.count.getter();
       }
@@ -7707,20 +6213,20 @@ LABEL_93:
         v95 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
-      v96 = v247;
+      v96 = v248;
       v97 = MEMORY[0x277D84F90];
-      v230 = v88;
+      v231 = v88;
       if (!v95)
       {
         goto LABEL_25;
       }
 
-      v252 = MEMORY[0x277D84F90];
+      v253 = MEMORY[0x277D84F90];
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v95 & ~(v95 >> 63), 0);
       if ((v95 & 0x8000000000000000) == 0)
       {
         v98 = 0;
-        v97 = v252;
+        v97 = v253;
         do
         {
           if ((a1 & 0xC000000000000001) != 0)
@@ -7738,13 +6244,13 @@ LABEL_93:
           v102 = static String._unconditionallyBridgeFromObjectiveC(_:)();
           v104 = v103;
 
-          v252 = v97;
+          v253 = v97;
           v106 = *(v97 + 16);
           v105 = *(v97 + 24);
           if (v106 >= v105 >> 1)
           {
             specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v105 > 1), v106 + 1, 1);
-            v97 = v252;
+            v97 = v253;
           }
 
           ++v98;
@@ -7755,8 +6261,8 @@ LABEL_93:
         }
 
         while (v95 != v98);
-        v96 = v247;
-        v94 = v250;
+        v96 = v248;
+        v94 = v251;
 LABEL_25:
         v108 = MEMORY[0x24C1FB0D0](v97, MEMORY[0x277D837D0]);
         v110 = v109;
@@ -7764,11 +6270,11 @@ LABEL_25:
         MEMORY[0x24C1FAEA0](v108, v110);
 
         MEMORY[0x24C1FAEA0](41, 0xE100000000000000);
-        v111 = DOCHierarchyController.preventImmediateChangeRequests(reason:)(v254, v255);
+        v111 = DOCHierarchyController.preventImmediateChangeRequests(reason:)(v255, v256);
 
-        *v235 = v111;
+        *v236 = v111;
 
-        v112 = v249;
+        v112 = v250;
         v113 = swift_allocBox();
         v115 = v114;
 
@@ -7777,25 +6283,25 @@ LABEL_25:
         v117 = v112[6];
         *(v115 + v112[7]) = a1;
         *(v115 + v116) = 0;
-        *(v115 + v117) = (v240 & 1) == 0;
-        v118 = v242;
-        outlined init with copy of DOCHierarchyController.FetchingOperationToken(v115, v242, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-        v119 = v251[7].isa;
-        v251 += 7;
-        v240 = v119;
+        *(v115 + v117) = (v241 & 1) == 0;
+        v118 = v243;
+        outlined init with copy of DOCHierarchyController.FetchingOperationToken(v115, v243, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+        v119 = v252[7].isa;
+        v252 += 7;
+        v241 = v119;
         (v119)(v118, 0, 1, v112);
         DOCHierarchyController.loadingDisabledOperation.setter(v118, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
-        v120 = v239;
-        outlined init with copy of DOCHierarchyController.FetchingOperationToken(v115, v239, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-        v121 = v225 - 1;
-        if (__OFSUB__(v225, 1))
+        v120 = v240;
+        outlined init with copy of DOCHierarchyController.FetchingOperationToken(v115, v240, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+        v121 = v226 - 1;
+        if (__OFSUB__(v226, 1))
         {
           __break(1u);
         }
 
         else
         {
-          v227 = v115;
+          v228 = v115;
           if ((a1 & 0xC000000000000001) == 0)
           {
             if ((v121 & 0x8000000000000000) != 0)
@@ -7823,21 +6329,21 @@ LABEL_30:
         v124 = swift_allocObject();
         *(v124 + 16) = v94;
         *(v124 + 24) = v113;
-        v241 = v113;
-        v125 = v244;
-        *(v124 + 32) = v245;
+        v242 = v113;
+        v125 = v245;
+        *(v124 + 32) = v246;
         *(v124 + 40) = v125;
-        v126 = v246;
+        v126 = v247;
         *(v124 + 48) = v96;
         *(v124 + 56) = v126;
-        v127 = v234;
-        *(v124 + 64) = v234;
-        v128 = v237 & 1;
+        v127 = v235;
+        *(v124 + 64) = v235;
+        v128 = v238 & 1;
         *(v124 + 72) = v128;
         *(v124 + 80) = a1;
-        v129 = v238 & 1;
-        *(v124 + 88) = v238 & 1;
-        v253 = a1;
+        v129 = v239 & 1;
+        *(v124 + 88) = v239 & 1;
+        v254 = a1;
         v130 = swift_allocObject();
         v131 = v96;
         v132 = v130;
@@ -7846,12 +6352,12 @@ LABEL_30:
         {
           v133 = v127;
           swift_bridgeObjectRetain_n();
-          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v131);
+          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v131, v126);
 
           v134 = v94;
           specialized RangeReplaceableCollection.removeFirst()();
           v136 = v135;
-          v137 = v253;
+          v137 = v254;
           v138 = swift_allocObject();
           *(v138 + 16) = v132;
           *(v138 + 24) = v134;
@@ -7868,115 +6374,116 @@ LABEL_79:
           return;
         }
 
-        LODWORD(v226) = v129;
-        v237 = v128;
-        v238 = v130;
-        v239 = v124;
-        v140 = v231;
-        outlined init with copy of DOCGridLayout.Spec?(v94 + v219, v231, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-        v141 = v249;
-        v142 = v230;
-        if ((v230)(v140, 1, v249) == 1)
+        LODWORD(v227) = v129;
+        v238 = v128;
+        v239 = v130;
+        v240 = v124;
+        v140 = v232;
+        outlined init with copy of DOCGridLayout.Spec?(v94 + v220, v232, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        v141 = v250;
+        v142 = v231;
+        if ((v231)(v140, 1, v250) == 1)
         {
           v143 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
           swift_beginAccess();
-          v144 = v220;
-          outlined init with copy of DOCGridLayout.Spec?(v94 + v143, v220, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+          v144 = v221;
+          outlined init with copy of DOCGridLayout.Spec?(v94 + v143, v221, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
           LODWORD(v143) = v142(v140, 1, v141);
-          v145 = v234;
+          v145 = v235;
 
-          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v247);
+          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v248, v247);
 
           v146 = v94;
           v147 = v143 == 1;
-          v148 = v232;
-          v149 = v227;
+          v148 = v233;
+          v149 = v228;
           if (!v147)
           {
-            outlined destroy of CharacterSet?(v140, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+            outlined destroy of CharacterSet?(v140, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
           }
         }
 
         else
         {
-          v144 = v220;
-          outlined init with take of DOCHierarchyController.FetchingOperationToken(v140, v220, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-          v240(v144, 0, 1, v141);
-          v161 = v234;
+          v144 = v221;
+          outlined init with take of DOCHierarchyController.FetchingOperationToken(v140, v221, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+          v241(v144, 0, 1, v141);
+          v161 = v235;
 
-          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v247);
+          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v248, v247);
 
           v162 = v94;
-          v148 = v232;
-          v149 = v227;
+          v148 = v233;
+          v149 = v228;
         }
 
         swift_beginAccess();
-        v163 = v221;
-        outlined init with copy of DOCHierarchyController.FetchingOperationToken(v149, v221, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-        v240(v163, 0, 1, v141);
-        v164 = *(v233 + 48);
-        outlined init with copy of DOCGridLayout.Spec?(v144, v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-        outlined init with copy of DOCGridLayout.Spec?(v163, v148 + v164, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-        v165 = v230;
-        if ((v230)(v148, 1, v141) == 1)
+        v163 = v222;
+        outlined init with copy of DOCHierarchyController.FetchingOperationToken(v149, v222, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+        v241(v163, 0, 1, v141);
+        v164 = *(v234 + 48);
+        outlined init with copy of DOCGridLayout.Spec?(v144, v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        outlined init with copy of DOCGridLayout.Spec?(v163, v148 + v164, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        v165 = v231;
+        if ((v231)(v148, 1, v141) == 1)
         {
-          outlined destroy of CharacterSet?(v163, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-          outlined destroy of CharacterSet?(v144, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+          outlined destroy of CharacterSet?(v163, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          outlined destroy of CharacterSet?(v144, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
           if (v165(v148 + v164, 1, v141) == 1)
           {
-            outlined destroy of CharacterSet?(v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+            outlined destroy of CharacterSet?(v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_65:
-            *(v227 + *(v249 + 24)) = 0;
+            *(v228 + *(v250 + 24)) = 0;
             v183 = specialized DOCHierarchyController.locationsAreInsideTrash(_:)(a1);
             v184 = swift_allocObject();
             v185 = MEMORY[0x277D84F90];
-            v186 = v250;
+            v186 = v251;
             *(v184 + 16) = MEMORY[0x277D84F90];
             *(v184 + 24) = v186;
-            v187 = v245;
-            *(v184 + 32) = v241;
+            v187 = v246;
+            *(v184 + 32) = v242;
             *(v184 + 40) = v187;
-            v188 = v247;
-            *(v184 + 48) = v244;
+            v188 = v248;
+            *(v184 + 48) = v245;
             *(v184 + 56) = v188;
-            v189 = v234;
-            *(v184 + 64) = v246;
-            *(v184 + 72) = v189;
-            *(v184 + 80) = v226;
+            v189 = v247;
+            v190 = v235;
+            *(v184 + 64) = v247;
+            *(v184 + 72) = v190;
+            *(v184 + 80) = v227;
             *(v184 + 88) = v185;
             type metadata accessor for BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
-            v190 = swift_allocObject();
-            *(v190 + 40) = DOCGridLayout.specIconWidth.modify;
-            *(v190 + 48) = 0;
-            *(v190 + 56) = v185;
-            *(v190 + 64) = 0;
-            *(v190 + 16) = v186;
-            *(v190 + 24) = v185;
-            *(v190 + 32) = v237;
-            *(v190 + 33) = v183;
             v191 = swift_allocObject();
-            swift_weakInit();
+            *(v191 + 40) = DOCGridLayout.specIconWidth.modify;
+            *(v191 + 48) = 0;
+            *(v191 + 56) = v185;
+            *(v191 + 64) = 0;
+            *(v191 + 16) = v186;
+            *(v191 + 24) = v185;
+            *(v191 + 32) = v238;
+            *(v191 + 33) = v183;
             v192 = swift_allocObject();
-            v192[2] = v191;
-            v192[3] = partial apply for closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:);
-            v192[4] = v184;
-            *(v190 + 64) = v190;
-            v193 = v186;
-            v194 = v189;
-            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v188);
+            swift_weakInit();
+            v193 = swift_allocObject();
+            v193[2] = v192;
+            v193[3] = partial apply for closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:);
+            v193[4] = v184;
+            *(v191 + 64) = v191;
+            v194 = v186;
+            v195 = v190;
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v188, v189);
 
-            v195 = v193;
+            v196 = v194;
 
             swift_unknownObjectRelease();
-            v196 = swift_allocObject();
-            swift_weakInit();
             v197 = swift_allocObject();
-            v197[2] = closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
-            v197[3] = v192;
-            v197[4] = v196;
-            *(v190 + 40) = closure #1 in run(withCompletionHandler:) in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
-            *(v190 + 48) = v197;
+            swift_weakInit();
+            v198 = swift_allocObject();
+            v198[2] = closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+            v198[3] = v193;
+            v198[4] = v197;
+            *(v191 + 40) = closure #1 in run(withCompletionHandler:) in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+            *(v191 + 48) = v198;
 
             tryNextBatch() in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
 
@@ -7986,20 +6493,20 @@ LABEL_65:
 
         else
         {
-          v166 = v215;
-          outlined init with copy of DOCGridLayout.Spec?(v148, v215, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+          v166 = v216;
+          outlined init with copy of DOCGridLayout.Spec?(v148, v216, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
           v167 = v165(v148 + v164, 1, v141);
-          v168 = v216;
+          v168 = v217;
           if (v167 != 1)
           {
-            outlined init with take of DOCHierarchyController.FetchingOperationToken(v148 + v164, v216, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+            outlined init with take of DOCHierarchyController.FetchingOperationToken(v148 + v164, v217, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
             v182 = static UUID.== infix(_:_:)();
             outlined destroy of DOCHierarchyController.FetchingOperationToken(v168, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-            outlined destroy of CharacterSet?(v221, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            outlined destroy of CharacterSet?(v220, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+            outlined destroy of CharacterSet?(v222, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            outlined destroy of CharacterSet?(v221, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
             outlined destroy of DOCHierarchyController.FetchingOperationToken(v166, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-            outlined destroy of CharacterSet?(v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            v169 = v229;
+            outlined destroy of CharacterSet?(v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            v169 = v230;
             if (v182)
             {
               goto LABEL_65;
@@ -8007,66 +6514,66 @@ LABEL_65:
 
 LABEL_54:
             v170 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
-            v171 = v250;
+            v171 = v251;
             swift_beginAccess();
-            v172 = v218;
-            outlined init with copy of DOCGridLayout.Spec?(&v171[v170], v218, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            v173 = v217;
-            outlined init with copy of DOCHierarchyController.FetchingOperationToken(v227, v217, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-            v174 = v249;
-            v240(v173, 0, 1, v249);
-            v175 = *(v233 + 48);
-            outlined init with copy of DOCGridLayout.Spec?(v172, v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            outlined init with copy of DOCGridLayout.Spec?(v173, v169 + v175, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-            v176 = v230;
-            if ((v230)(v169, 1, v174) == 1)
+            v172 = v219;
+            outlined init with copy of DOCGridLayout.Spec?(&v171[v170], v219, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            v173 = v218;
+            outlined init with copy of DOCHierarchyController.FetchingOperationToken(v228, v218, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+            v174 = v250;
+            v241(v173, 0, 1, v250);
+            v175 = *(v234 + 48);
+            outlined init with copy of DOCGridLayout.Spec?(v172, v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            outlined init with copy of DOCGridLayout.Spec?(v173, v169 + v175, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+            v176 = v231;
+            if ((v231)(v169, 1, v174) == 1)
             {
-              outlined destroy of CharacterSet?(v173, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-              outlined destroy of CharacterSet?(v172, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+              outlined destroy of CharacterSet?(v173, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              outlined destroy of CharacterSet?(v172, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
               v177 = v176(v169 + v175, 1, v174);
-              v178 = v228;
+              v178 = v229;
               if (v177 == 1)
               {
-                outlined destroy of CharacterSet?(v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                v179 = v247;
+                outlined destroy of CharacterSet?(v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                v179 = v248;
 LABEL_67:
-                v201 = v242;
-                v240(v242, 1, 1, v174);
-                DOCHierarchyController.loadingDisabledOperation.setter(v201, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
+                v202 = v243;
+                v241(v243, 1, 1, v174);
+                DOCHierarchyController.loadingDisabledOperation.setter(v202, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
 LABEL_68:
-                if ((v222[8] & 1) == 0 && !*v222)
+                if ((v223[8] & 1) == 0 && !*v223)
                 {
-                  v222[8] = 1;
+                  v223[8] = 1;
                 }
 
-                v202 = v235;
+                v203 = v236;
                 swift_beginAccess();
-                if (*v202)
+                if (*v203)
                 {
 
-                  DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v203, 0);
+                  DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v204, 0);
                 }
 
-                v204 = v236;
+                v205 = v237;
                 swift_beginAccess();
-                outlined init with copy of DOCGridLayout.Spec?(v204, v178, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                if ((*(v223 + 48))(v178, 1, updated) == 1)
+                outlined init with copy of DOCGridLayout.Spec?(v205, v178, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                if ((*(v224 + 48))(v178, 1, updated) == 1)
                 {
-                  v205 = outlined destroy of CharacterSet?(v178, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+                  v206 = outlined destroy of CharacterSet?(v178, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
                 }
 
                 else
                 {
-                  v206 = v178;
-                  v207 = v213;
-                  outlined init with take of DOCHierarchyController.FetchingOperationToken(v206, v213, type metadata accessor for DOCHierarchyController.UpdateExpectation);
-                  DOCHierarchyController.endUpdateExpectation(_:)(v207);
-                  v205 = outlined destroy of DOCHierarchyController.FetchingOperationToken(v207, type metadata accessor for DOCHierarchyController.UpdateExpectation);
+                  v207 = v178;
+                  v208 = v214;
+                  outlined init with take of DOCHierarchyController.FetchingOperationToken(v207, v214, type metadata accessor for DOCHierarchyController.UpdateExpectation);
+                  DOCHierarchyController.endUpdateExpectation(_:)(v208);
+                  v206 = outlined destroy of DOCHierarchyController.FetchingOperationToken(v208, type metadata accessor for DOCHierarchyController.UpdateExpectation);
                 }
 
                 if (v179)
                 {
-                  v179(v205);
+                  v179(v206);
                 }
 
                 goto LABEL_79;
@@ -8075,23 +6582,23 @@ LABEL_68:
 
             else
             {
-              v181 = v214;
-              outlined init with copy of DOCGridLayout.Spec?(v169, v214, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+              v181 = v215;
+              outlined init with copy of DOCGridLayout.Spec?(v169, v215, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
               if (v176(v169 + v175, 1, v174) != 1)
               {
-                v198 = v169 + v175;
-                v199 = v216;
-                outlined init with take of DOCHierarchyController.FetchingOperationToken(v198, v216, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-                v200 = static UUID.== infix(_:_:)();
-                outlined destroy of DOCHierarchyController.FetchingOperationToken(v199, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-                outlined destroy of CharacterSet?(v217, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                outlined destroy of CharacterSet?(v218, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+                v199 = v169 + v175;
+                v200 = v217;
+                outlined init with take of DOCHierarchyController.FetchingOperationToken(v199, v217, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+                v201 = static UUID.== infix(_:_:)();
+                outlined destroy of DOCHierarchyController.FetchingOperationToken(v200, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+                outlined destroy of CharacterSet?(v218, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                outlined destroy of CharacterSet?(v219, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
                 outlined destroy of DOCHierarchyController.FetchingOperationToken(v181, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-                v174 = v249;
-                outlined destroy of CharacterSet?(v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-                v179 = v247;
-                v178 = v228;
-                if ((v200 & 1) == 0)
+                v174 = v250;
+                outlined destroy of CharacterSet?(v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+                v179 = v248;
+                v178 = v229;
+                if ((v201 & 1) == 0)
                 {
                   goto LABEL_68;
                 }
@@ -8099,24 +6606,24 @@ LABEL_68:
                 goto LABEL_67;
               }
 
-              outlined destroy of CharacterSet?(v217, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-              outlined destroy of CharacterSet?(v218, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+              outlined destroy of CharacterSet?(v218, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+              outlined destroy of CharacterSet?(v219, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
               outlined destroy of DOCHierarchyController.FetchingOperationToken(v181, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-              v178 = v228;
+              v178 = v229;
             }
 
-            outlined destroy of CharacterSet?(v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
-            v179 = v247;
+            outlined destroy of CharacterSet?(v169, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+            v179 = v248;
             goto LABEL_68;
           }
 
-          outlined destroy of CharacterSet?(v221, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-          outlined destroy of CharacterSet?(v220, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+          outlined destroy of CharacterSet?(v222, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          outlined destroy of CharacterSet?(v221, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
           outlined destroy of DOCHierarchyController.FetchingOperationToken(v166, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
         }
 
-        outlined destroy of CharacterSet?(v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
-        v169 = v229;
+        outlined destroy of CharacterSet?(v148, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+        v169 = v230;
         goto LABEL_54;
       }
 
@@ -8140,19 +6647,19 @@ LABEL_91:
     swift_once();
   }
 
-  v208 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v208, static Logger.UI);
-  v251 = Logger.logObject.getter();
-  v209 = static os_log_type_t.fault.getter();
-  if (os_log_type_enabled(v251, v209))
+  v209 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v209, static Logger.UI);
+  v252 = Logger.logObject.getter();
+  v210 = static os_log_type_t.fault.getter();
+  if (os_log_type_enabled(v252, v210))
   {
-    v210 = swift_slowAlloc();
-    *v210 = 0;
-    _os_log_impl(&dword_2493AC000, v251, v209, "Unexpected: got call to applyUpdate() with empty locations array", v210, 2u);
-    MEMORY[0x24C1FE850](v210, -1, -1);
+    v211 = swift_slowAlloc();
+    *v211 = 0;
+    _os_log_impl(&dword_2493AC000, v252, v210, "Unexpected: got call to applyUpdate() with empty locations array", v211, 2u);
+    MEMORY[0x24C1FE850](v211, -1, -1);
   }
 
-  v211 = v251;
+  v212 = v252;
 }
 
 uint64_t DOCHierarchyController.loadPlaceholderLocationIfNecessary(forLoadOperation:location:animated:)(uint64_t a1, void *a2, int a3)
@@ -8210,7 +6717,7 @@ uint64_t DOCHierarchyController.loadPlaceholderLocationIfNecessary(forLoadOperat
   v26 = v24 + ((v23 + 15) & 0xFFFFFFFFFFFFFFF8);
   *v26 = v15;
   *(v26 + 8) = v37 & 1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMd, &_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMR);
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_249B9A480;
   *(v27 + 32) = v15;
@@ -8255,7 +6762,7 @@ uint64_t DOCHierarchyController.loadPlaceholderLocationIfNecessary(forLoadOperat
   *(v25 + 16) = 0;
 }
 
-uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void), uint64_t a7, void *a8, unsigned __int8 a9, unint64_t a10, unsigned __int8 a11)
+uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(void), uint64_t a7, void *a8, unsigned __int8 a9, unint64_t a10, unsigned __int8 a11)
 {
   v135 = a8;
   v139 = a7;
@@ -8263,7 +6770,7 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effective
   v136 = a5;
   v137 = a4;
   v123 = a1;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v13 - 8, v14);
   v131 = &v117[-v15];
   updated = type metadata accessor for DOCHierarchyController.UpdateExpectation(0);
@@ -8274,12 +6781,12 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effective
   v19 = *(v18 - 8);
   MEMORY[0x28223BE20](v18, v20);
   v125 = &v117[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+  v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
   MEMORY[0x28223BE20](v141, v22);
   v128 = &v117[-((v23 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v24, v25);
   v27 = &v117[-v26];
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v28 - 8, v29);
   v119 = &v117[-((v30 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x28223BE20](v31, v32);
@@ -8301,7 +6808,7 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effective
   v55 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
   v56 = v19;
-  outlined init with copy of DOCGridLayout.Spec?(a2 + v55, v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&a2[v55], v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v57 = *(v19 + 48);
   v58 = v57(v50, 1, v18);
   v138 = a2;
@@ -8309,10 +6816,10 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effective
   {
     v59 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(a2 + v59, v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&a2[v59], v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v57(v50, 1, v18) != 1)
     {
-      outlined destroy of CharacterSet?(v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v50, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -8330,15 +6837,15 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effective
   v133 = v61;
   v61(v46, 0, 1, v18);
   v62 = *(v141 + 48);
-  outlined init with copy of DOCGridLayout.Spec?(v54, v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v46, &v27[v62], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v54, v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v46, &v27[v62], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v57(v27, 1, v18) == 1)
   {
-    outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v57(&v27[v62], 1, v18) == 1)
     {
-      outlined destroy of CharacterSet?(v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       goto LABEL_18;
     }
 
@@ -8346,15 +6853,15 @@ uint64_t closure #2 in DOCHierarchyController.applyUpdate(setLocations:effective
   }
 
   v63 = v126;
-  outlined init with copy of DOCGridLayout.Spec?(v27, v126, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v27, v126, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v57(&v27[v62], 1, v18) == 1)
   {
-    outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v63, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
 LABEL_10:
     v122 = v57;
-    outlined destroy of CharacterSet?(v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+    outlined destroy of CharacterSet?(v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
     goto LABEL_11;
   }
 
@@ -8363,10 +6870,10 @@ LABEL_10:
   outlined init with take of DOCHierarchyController.FetchingOperationToken(&v27[v62], v125, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v118 = static UUID.== infix(_:_:)();
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v73, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v63, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v27, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v118)
   {
 LABEL_18:
@@ -8383,7 +6890,7 @@ LABEL_18:
       v78 = v135;
       if (v77)
       {
-        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject);
+        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
         v79 = 0;
         v80 = 0;
         while (1)
@@ -8469,7 +6976,7 @@ LABEL_25:
     v98 = v93;
     v99 = v97;
 
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v140);
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v140, v139);
 
     swift_unknownObjectRelease();
     v100 = swift_allocObject();
@@ -8489,7 +6996,7 @@ LABEL_11:
   v65 = v138;
   swift_beginAccess();
   v66 = v127;
-  outlined init with copy of DOCGridLayout.Spec?(v65 + v64, v127, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&v65[v64], v127, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v67 = v142;
   swift_beginAccess();
   v68 = v134;
@@ -8497,23 +7004,23 @@ LABEL_11:
   v133(v68, 0, 1, v18);
   v69 = *(v141 + 48);
   v70 = v128;
-  outlined init with copy of DOCGridLayout.Spec?(v66, v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v68, &v70[v69], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v66, v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v68, &v70[v69], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v71 = v122;
   if (v122(v70, 1, v18) != 1)
   {
     v72 = v120;
-    outlined init with copy of DOCGridLayout.Spec?(v70, v120, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(v70, v120, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v71(&v70[v69], 1, v18) != 1)
     {
       v103 = v125;
       outlined init with take of DOCHierarchyController.FetchingOperationToken(&v70[v69], v125, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
       v104 = static UUID.== infix(_:_:)();
       outlined destroy of DOCHierarchyController.FetchingOperationToken(v103, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      outlined destroy of CharacterSet?(v134, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-      outlined destroy of CharacterSet?(v66, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v134, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of CharacterSet?(v66, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       outlined destroy of DOCHierarchyController.FetchingOperationToken(v72, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       if ((v104 & 1) == 0)
       {
         goto LABEL_28;
@@ -8522,33 +7029,33 @@ LABEL_11:
       goto LABEL_27;
     }
 
-    outlined destroy of CharacterSet?(v134, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v66, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v134, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v66, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v72, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
 LABEL_16:
-    outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+    outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
     goto LABEL_28;
   }
 
-  outlined destroy of CharacterSet?(v68, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v66, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v68, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v66, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v71(&v70[v69], 1, v18) != 1)
   {
     goto LABEL_16;
   }
 
-  outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_27:
   v105 = v119;
   v133(v119, 1, 1, v18);
   DOCHierarchyController.loadingDisabledOperation.setter(v105, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
 LABEL_28:
   v106 = swift_projectBox();
-  v107 = v65 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_activeSemanticNavigationOperation;
+  v107 = &v65[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_activeSemanticNavigationOperation];
   swift_beginAccess();
-  if ((*(v107 + 8) & 1) == 0 && !*v107)
+  if ((v107[8] & 1) == 0 && !*v107)
   {
-    *(v107 + 8) = 1;
+    v107[8] = 1;
   }
 
   v108 = v137;
@@ -8561,10 +7068,10 @@ LABEL_28:
 
   swift_beginAccess();
   v110 = v131;
-  outlined init with copy of DOCGridLayout.Spec?(v106, v131, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v106, v131, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if ((*(v129 + 48))(v110, 1, updated) == 1)
   {
-    result = outlined destroy of CharacterSet?(v110, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    result = outlined destroy of CharacterSet?(v110, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   }
 
   else
@@ -8586,54 +7093,54 @@ LABEL_28:
 
 void closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(unint64_t a1, void (*a2)(char *, uint64_t, uint64_t, uint64_t), char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, unsigned __int8 a10, uint64_t a11)
 {
-  v86 = a8;
-  v98 = a7;
-  v94 = a6;
-  v96 = a5;
-  v91 = a2;
-  v95 = a1;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v87 = a8;
+  v99 = a7;
+  v95 = a6;
+  v97 = a5;
+  v92 = a2;
+  v96 = a1;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v12 - 8, v13);
-  v89 = &v82 - v14;
+  v90 = &v83 - v14;
   updated = type metadata accessor for DOCHierarchyController.UpdateExpectation(0);
-  v87 = *(updated - 8);
+  v88 = *(updated - 8);
   MEMORY[0x28223BE20](updated, v15);
-  v85 = &v82 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v86 = &v83 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
   v18 = *(v17 - 8);
   MEMORY[0x28223BE20](v17, v19);
-  v84 = &v82 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
-  MEMORY[0x28223BE20](v92, v21);
-  v23 = &v82 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v85 = &v83 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+  MEMORY[0x28223BE20](v93, v21);
+  v23 = &v83 - v22;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v24 - 8, v25);
-  v83 = &v82 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v84 = &v83 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v27, v28);
-  v93 = &v82 - v29;
+  v94 = &v83 - v29;
   MEMORY[0x28223BE20](v30, v31);
-  v33 = &v82 - v32;
+  v33 = &v83 - v32;
   MEMORY[0x28223BE20](v34, v35);
-  v37 = &v82 - v36;
+  v37 = &v83 - v36;
   MEMORY[0x28223BE20](v38, v39);
-  v41 = &v82 - v40;
-  v90 = swift_projectBox();
-  v95 = _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSayAA012DOCHierarchyG0C08ResolvedD4InfoACLLVG_SaySo06UIViewG0CGtFZAD_Tt1g5(v91, v95);
+  v41 = &v83 - v40;
+  v91 = swift_projectBox();
+  v96 = _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSayAA012DOCHierarchyG0C08ResolvedD4InfoACLLVG_SaySo06UIViewG0CGtFZAD_Tt1g5(v92, v96);
   v42 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(&a3[v42], v37, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&a3[v42], v37, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v43 = *(v18 + 48);
   v44 = v43(v37, 1, v17);
-  v97 = a3;
+  v98 = a3;
   if (v44 == 1)
   {
     v45 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(&a3[v45], v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&a3[v45], v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v46 = v41;
     if (v43(v37, 1, v17) != 1)
     {
-      outlined destroy of CharacterSet?(v37, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v37, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -8644,36 +7151,36 @@ void closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations
     v46 = v41;
   }
 
-  v47 = v90;
+  v47 = v91;
   swift_beginAccess();
   outlined init with copy of DOCHierarchyController.FetchingOperationToken(v47, v33, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v49 = *(v18 + 56);
   v48 = v18 + 56;
-  v91 = v49;
+  v92 = v49;
   v49(v33, 0, 1, v17);
-  v50 = *(v92 + 48);
-  outlined init with copy of DOCGridLayout.Spec?(v46, v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v33, &v23[v50], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v50 = *(v93 + 48);
+  outlined init with copy of DOCGridLayout.Spec?(v46, v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v33, &v23[v50], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v51 = v43(v23, 1, v17);
-  v52 = v93;
+  v52 = v94;
   if (v51 != 1)
   {
-    v92 = v46;
-    outlined init with copy of DOCGridLayout.Spec?(v23, v93, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    v93 = v46;
+    outlined init with copy of DOCGridLayout.Spec?(v23, v94, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v43(&v23[v50], 1, v17) != 1)
     {
-      v90 = v17;
-      v82 = v48;
-      v56 = v84;
-      outlined init with take of DOCHierarchyController.FetchingOperationToken(&v23[v50], v84, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      v91 = v17;
+      v83 = v48;
+      v56 = v85;
+      outlined init with take of DOCHierarchyController.FetchingOperationToken(&v23[v50], v85, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
       v57 = static UUID.== infix(_:_:)();
       outlined destroy of DOCHierarchyController.FetchingOperationToken(v56, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-      outlined destroy of CharacterSet?(v92, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of CharacterSet?(v93, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       outlined destroy of DOCHierarchyController.FetchingOperationToken(v52, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-      v54 = v97;
-      v55 = v95;
+      outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v54 = v98;
+      v55 = v96;
       if ((v57 & 1) == 0)
       {
         goto LABEL_20;
@@ -8682,28 +7189,28 @@ void closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations
       goto LABEL_12;
     }
 
-    outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v92, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v93, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v52, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-    v54 = v97;
+    v54 = v98;
 LABEL_10:
-    outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+    outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
     goto LABEL_20;
   }
 
-  outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v33, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v46, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v53 = v43(&v23[v50], 1, v17);
-  v54 = v97;
-  v55 = v95;
+  v54 = v98;
+  v55 = v96;
   if (v53 != 1)
   {
     goto LABEL_10;
   }
 
-  v90 = v17;
-  v82 = v48;
-  outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v91 = v17;
+  v83 = v48;
+  outlined destroy of CharacterSet?(v23, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_12:
   if (v55 >> 62)
   {
@@ -8717,65 +7224,66 @@ LABEL_12:
   {
 LABEL_14:
     v58 = swift_allocObject();
-    v59 = v96;
+    v59 = v97;
     v58[2] = v54;
     v58[3] = v59;
-    v60 = v98;
-    v58[4] = v94;
+    v60 = v99;
+    v58[4] = v95;
     v58[5] = v60;
-    v58[6] = v86;
-    v61 = v83;
-    v91(v83, 1, 1, v90);
-    v62 = v54;
+    v61 = v87;
+    v58[6] = v87;
+    v62 = v84;
+    v92(v84, 1, 1, v91);
+    v63 = v54;
 
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v60);
-    DOCHierarchyController.loadingDisabledOperation.setter(v61, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
-    v63 = a9;
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v60, v61);
+    DOCHierarchyController.loadingDisabledOperation.setter(v62, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
+    v64 = a9;
     if (a9)
     {
 LABEL_18:
-      LODWORD(v98) = a10;
-      LODWORD(v97) = a9 == 0;
-      v100 = v62;
+      LODWORD(v99) = a10;
+      LODWORD(v98) = a9 == 0;
+      v101 = v63;
       swift_getKeyPath();
-      v65 = v55;
-      v66 = v63;
-      v67 = a9;
+      v66 = v55;
+      v67 = v64;
+      v68 = a9;
       _KeyValueCodingAndObserving.willChangeValue<A>(for:)();
-      v68 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
+      v69 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_effectiveRootLocationCandidate;
       swift_beginAccess();
-      v69 = *&v62[v68];
-      *&v62[v68] = v63;
-      v70 = v66;
+      v70 = *&v63[v69];
+      *&v63[v69] = v64;
+      v71 = v67;
 
-      v99 = v62;
+      v100 = v63;
       swift_getKeyPath();
       _KeyValueCodingAndObserving.didChangeValue<A>(for:)();
 
-      v71 = swift_allocObject();
-      *(v71 + 16) = a11;
-      *(v71 + 24) = v62;
-      *(v71 + 32) = partial apply for closure #1 in closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:);
-      *(v71 + 40) = v58;
-      *(v71 + 48) = v97;
-      v72 = v62;
+      v72 = swift_allocObject();
+      *(v72 + 16) = a11;
+      *(v72 + 24) = v63;
+      *(v72 + 32) = partial apply for closure #1 in closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:);
+      *(v72 + 40) = v58;
+      *(v72 + 48) = v98;
+      v73 = v63;
 
-      DOCHierarchyController.setLocationPairedViewControllers(_:animated:completion:)(v65, v98 & 1, partial apply for specialized closure #2 in closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:), v71);
+      DOCHierarchyController.setLocationPairedViewControllers(_:animated:completion:)(v66, v99 & 1, partial apply for specialized closure #2 in closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:), v72);
 
       return;
     }
 
     if ((v55 & 0xC000000000000001) != 0)
     {
-      v63 = *(MEMORY[0x24C1FC540](0, v55) + 16);
+      v64 = *(MEMORY[0x24C1FC540](0, v55) + 16);
       swift_unknownObjectRelease();
       goto LABEL_18;
     }
 
     if (*((v55 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v63 = *(*(v55 + 32) + 16);
-      v64 = v63;
+      v64 = *(*(v55 + 32) + 16);
+      v65 = v64;
       goto LABEL_18;
     }
 
@@ -8785,30 +7293,30 @@ LABEL_18:
 
 LABEL_20:
 
-  v73 = swift_projectBox();
-  v74 = &v54[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_activeSemanticNavigationOperation];
+  v74 = swift_projectBox();
+  v75 = &v54[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_activeSemanticNavigationOperation];
   swift_beginAccess();
-  if ((v74[8] & 1) == 0 && !*v74)
+  if ((v75[8] & 1) == 0 && !*v75)
   {
-    v74[8] = 1;
+    v75[8] = 1;
   }
 
-  v75 = v96;
+  v76 = v97;
   swift_beginAccess();
-  if (*(v75 + 16))
+  if (*(v76 + 16))
   {
 
-    DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v76, 0);
+    DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v77, 0);
   }
 
   swift_beginAccess();
-  v77 = v89;
-  outlined init with copy of DOCGridLayout.Spec?(v73, v89, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  if ((*(v87 + 48))(v77, 1, updated) == 1)
+  v78 = v90;
+  outlined init with copy of DOCGridLayout.Spec?(v74, v90, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  if ((*(v88 + 48))(v78, 1, updated) == 1)
   {
-    v78 = outlined destroy of CharacterSet?(v77, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    v79 = v98;
-    if (!v98)
+    v79 = outlined destroy of CharacterSet?(v78, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v80 = v99;
+    if (!v99)
     {
       return;
     }
@@ -8816,19 +7324,19 @@ LABEL_20:
 
   else
   {
-    v80 = v77;
-    v81 = v85;
-    outlined init with take of DOCHierarchyController.FetchingOperationToken(v80, v85, type metadata accessor for DOCHierarchyController.UpdateExpectation);
-    DOCHierarchyController.endUpdateExpectation(_:)(v81);
-    v78 = outlined destroy of DOCHierarchyController.FetchingOperationToken(v81, type metadata accessor for DOCHierarchyController.UpdateExpectation);
-    v79 = v98;
-    if (!v98)
+    v81 = v78;
+    v82 = v86;
+    outlined init with take of DOCHierarchyController.FetchingOperationToken(v81, v86, type metadata accessor for DOCHierarchyController.UpdateExpectation);
+    DOCHierarchyController.endUpdateExpectation(_:)(v82);
+    v79 = outlined destroy of DOCHierarchyController.FetchingOperationToken(v82, type metadata accessor for DOCHierarchyController.UpdateExpectation);
+    v80 = v99;
+    if (!v99)
     {
       return;
     }
   }
 
-  v79(v78);
+  v80(v79);
 }
 
 uint64_t _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSayAA012DOCHierarchyG0C08ResolvedD4InfoACLLVG_SaySo06UIViewG0CGtFZAD_Tt1g5(uint64_t a1, unint64_t a2)
@@ -8882,7 +7390,7 @@ uint64_t closure #1 in closure #2 in closure #2 in DOCHierarchyController.applyU
   v12 = _Block_copy(v15);
   v13 = a1;
 
-  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a4);
+  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a4, a5);
 
   [v10 animateAlongsideTransition:0 completion:v12];
   _Block_release(v12);
@@ -8891,7 +7399,7 @@ uint64_t closure #1 in closure #2 in closure #2 in DOCHierarchyController.applyU
 
 uint64_t closure #1 in closure #1 in closure #2 in closure #2 in DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t))
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v8 - 8, v9);
   v11 = &v21 - v10;
   updated = type metadata accessor for DOCHierarchyController.UpdateExpectation(0);
@@ -8914,7 +7422,7 @@ uint64_t closure #1 in closure #1 in closure #2 in closure #2 in DOCHierarchyCon
   }
 
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(v17, v11, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v17, v11, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if ((*(v13 + 48))(v11, 1, updated) != 1)
   {
     outlined init with take of DOCHierarchyController.FetchingOperationToken(v11, v16, type metadata accessor for DOCHierarchyController.UpdateExpectation);
@@ -8928,7 +7436,7 @@ uint64_t closure #1 in closure #1 in closure #2 in closure #2 in DOCHierarchyCon
     return a5(result);
   }
 
-  result = outlined destroy of CharacterSet?(v11, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  result = outlined destroy of CharacterSet?(v11, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC17UpdateExpectation33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (a5)
   {
     return a5(result);
@@ -9024,8 +7532,8 @@ LABEL_13:
 void DOCHierarchyController.applyUpdate(popToLocation:animated:completion:)(void *a1, int a2, void (*a3)(void), uint64_t a4)
 {
   v5 = v4;
-  v51 = a4;
-  v49 = a2;
+  v52 = a4;
+  v50 = a2;
   if (one-time initialization token for UI != -1)
   {
     swift_once();
@@ -9040,9 +7548,9 @@ void DOCHierarchyController.applyUpdate(popToLocation:animated:completion:)(void
     v11 = swift_slowAlloc();
     v12 = a1;
     v13 = swift_slowAlloc();
-    v53[0] = v13;
+    v54[0] = v13;
     *v11 = 136315138;
-    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002FLL, 0x8000000249BCC890, v53);
+    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002FLL, 0x8000000249BCC890, v54);
     _os_log_impl(&dword_2493AC000, v9, v10, "[PROTECTED APPS] BTBT: %s", v11, 0xCu);
     __swift_destroy_boxed_opaque_existential_0(v13);
     v14 = v13;
@@ -9058,27 +7566,28 @@ void DOCHierarchyController.applyUpdate(popToLocation:animated:completion:)(void
   v16 = swift_allocObject();
   v16[2] = v4;
   v16[3] = a3;
-  v50 = v16;
-  v16[4] = v51;
-  v17 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
+  v17 = v52;
+  v51 = v16;
+  v16[4] = v52;
+  v18 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
   swift_beginAccess();
-  v18 = *&v4[v17];
-  v19 = v4;
+  v19 = *&v4[v18];
+  v20 = v4;
 
-  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a3);
-  v20 = specialized Collection<>.firstIndex(of:)(a1, v18, &lazy cache variable for type metadata for DOCConcreteLocation);
-  v22 = v21;
+  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a3, v17);
+  v21 = specialized Collection<>.firstIndex(of:)(a1, v19, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
+  v23 = v22;
 
-  if (v22)
+  if (v23)
   {
-    v23 = Logger.logObject.getter();
-    v24 = static os_log_type_t.fault.getter();
-    if (os_log_type_enabled(v23, v24))
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.fault.getter();
+    if (os_log_type_enabled(v24, v25))
     {
-      v25 = swift_slowAlloc();
-      *v25 = 0;
-      _os_log_impl(&dword_2493AC000, v23, v24, "Cannot pop to a location not present in the locations array", v25, 2u);
-      MEMORY[0x24C1FE850](v25, -1, -1);
+      v26 = swift_slowAlloc();
+      *v26 = 0;
+      _os_log_impl(&dword_2493AC000, v24, v25, "Cannot pop to a location not present in the locations array", v26, 2u);
+      MEMORY[0x24C1FE850](v26, -1, -1);
     }
 
     *v15 = 0;
@@ -9091,24 +7600,24 @@ void DOCHierarchyController.applyUpdate(popToLocation:animated:completion:)(void
     return;
   }
 
-  v26 = DOCHierarchyController.effectiveLocations.getter();
-  v27 = &v48;
-  v52 = a1;
-  MEMORY[0x28223BE20](v26, v28);
-  v47[2] = &v52;
-  v29 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v47, v26);
+  v27 = DOCHierarchyController.effectiveLocations.getter();
+  v28 = &v49;
+  v53 = a1;
+  MEMORY[0x28223BE20](v27, v29);
+  v48[2] = &v53;
+  v30 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v48, v27);
 
-  if (v29)
+  if (v30)
   {
-    v31 = v50;
+    v32 = v51;
 
-    DOCHierarchyController.remove(after:animated:completion:)(a1, v49 & 1, partial apply for closure #1 in DOCHierarchyController.applyUpdate(popToLocation:animated:completion:), v31);
+    DOCHierarchyController.remove(after:animated:completion:)(a1, v50 & 1, partial apply for closure #1 in DOCHierarchyController.applyUpdate(popToLocation:animated:completion:), v32);
 
     return;
   }
 
-  i = v20 + 1;
-  if (__OFADD__(v20, 1))
+  i = v21 + 1;
+  if (__OFADD__(v21, 1))
   {
     __break(1u);
     goto LABEL_45;
@@ -9119,14 +7628,14 @@ void DOCHierarchyController.applyUpdate(popToLocation:animated:completion:)(void
 LABEL_45:
     __break(1u);
 LABEL_46:
-    if (v27 < 0)
+    if (v28 < 0)
     {
-      v5 = v27;
+      v5 = v28;
     }
 
     else
     {
-      v5 = v30;
+      v5 = v31;
     }
 
     if (__CocoaSet.count.getter() < 0)
@@ -9145,46 +7654,46 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  v27 = *&v4[v17];
-  v30 = v27 & 0xFFFFFFFFFFFFFF8;
-  v26 = v27 >> 62;
-  if (v27 >> 62)
+  v28 = *&v4[v18];
+  v31 = v28 & 0xFFFFFFFFFFFFFF8;
+  v27 = v28 >> 62;
+  if (v28 >> 62)
   {
     goto LABEL_46;
   }
 
-  if (*((v27 & 0xFFFFFFFFFFFFFF8) + 0x10) < i)
+  if (*((v28 & 0xFFFFFFFFFFFFFF8) + 0x10) < i)
   {
     goto LABEL_51;
   }
 
 LABEL_17:
-  if ((v27 & 0xC000000000000001) == 0 || v20 == -1)
+  if ((v28 & 0xC000000000000001) == 0 || v21 == -1)
   {
     swift_bridgeObjectRetain_n();
   }
 
   else
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
     swift_bridgeObjectRetain_n();
-    v33 = 0;
+    v34 = 0;
     do
     {
-      v34 = v33 + 1;
-      _ArrayBuffer._typeCheckSlowPath(_:)(v33);
-      v33 = v34;
+      v35 = v34 + 1;
+      _ArrayBuffer._typeCheckSlowPath(_:)(v34);
+      v34 = v35;
     }
 
-    while (i != v34);
+    while (i != v35);
   }
 
-  if (v26)
+  if (v27)
   {
-    v22 = _CocoaArrayWrapper.subscript.getter();
-    v17 = v35;
-    v5 = v36;
-    i = v37;
+    v23 = _CocoaArrayWrapper.subscript.getter();
+    v18 = v36;
+    v5 = v37;
+    i = v38;
 
     if ((i & 1) == 0)
     {
@@ -9195,8 +7704,8 @@ LABEL_17:
   else
   {
     v5 = 0;
-    v22 = v27 & 0xFFFFFFFFFFFFFF8;
-    v17 = (v27 & 0xFFFFFFFFFFFFFF8) + 32;
+    v23 = v28 & 0xFFFFFFFFFFFFFF8;
+    v18 = (v28 & 0xFFFFFFFFFFFFFF8) + 32;
     i = (2 * i) | 1;
     if ((i & 1) == 0)
     {
@@ -9206,21 +7715,21 @@ LABEL_17:
 
   type metadata accessor for __ContiguousArrayStorageBase();
   swift_unknownObjectRetain_n();
-  v39 = swift_dynamicCastClass();
-  if (!v39)
+  v40 = swift_dynamicCastClass();
+  if (!v40)
   {
     swift_unknownObjectRelease();
-    v39 = MEMORY[0x277D84F90];
+    v40 = MEMORY[0x277D84F90];
   }
 
-  v40 = *(v39 + 16);
+  v41 = *(v40 + 16);
 
   if (__OFSUB__(i >> 1, v5))
   {
     goto LABEL_59;
   }
 
-  if (v40 != (i >> 1) - v5)
+  if (v41 != (i >> 1) - v5)
   {
     goto LABEL_60;
   }
@@ -9232,27 +7741,27 @@ LABEL_17:
     goto LABEL_35;
   }
 
-  for (i = MEMORY[0x277D84F90]; ; i = v38)
+  for (i = MEMORY[0x277D84F90]; ; i = v39)
   {
     swift_unknownObjectRelease();
 LABEL_35:
 
-    v41 = *(i + 16);
-    if (!v41)
+    v42 = *(i + 16);
+    if (!v42)
     {
       goto LABEL_53;
     }
 
 LABEL_38:
-    v42 = __OFSUB__(v41, 1);
-    v43 = v41 - 1;
-    if (v42)
+    v43 = __OFSUB__(v42, 1);
+    v44 = v42 - 1;
+    if (v43)
     {
       __break(1u);
 LABEL_56:
-      v44 = MEMORY[0x24C1FC540](v43, i);
+      v45 = MEMORY[0x24C1FC540](v44, i);
 LABEL_43:
-      v45 = v44;
+      v46 = v45;
       goto LABEL_54;
     }
 
@@ -9261,14 +7770,14 @@ LABEL_43:
       goto LABEL_56;
     }
 
-    if ((v43 & 0x8000000000000000) != 0)
+    if ((v44 & 0x8000000000000000) != 0)
     {
       __break(1u);
     }
 
-    else if (v43 < *(i + 16))
+    else if (v44 < *(i + 16))
     {
-      v44 = *(i + 8 * v43 + 32);
+      v45 = *(i + 8 * v44 + 32);
       goto LABEL_43;
     }
 
@@ -9278,22 +7787,22 @@ LABEL_59:
 LABEL_60:
     swift_unknownObjectRelease_n();
 LABEL_27:
-    specialized _copyCollectionToContiguousArray<A>(_:)(v22, v17, v5, i, &lazy cache variable for type metadata for DOCConcreteLocation);
+    specialized _copyCollectionToContiguousArray<A>(_:)(v23, v18, v5, i, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
   }
 
 LABEL_52:
-  v41 = __CocoaSet.count.getter();
-  if (v41)
+  v42 = __CocoaSet.count.getter();
+  if (v42)
   {
     goto LABEL_38;
   }
 
 LABEL_53:
-  v45 = 0;
+  v46 = 0;
 LABEL_54:
-  v46 = v50;
+  v47 = v51;
 
-  DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(i, v45, 1, 1, v49 & 1, partial apply for closure #1 in DOCHierarchyController.applyUpdate(popToLocation:animated:completion:), v46);
+  DOCHierarchyController.applyUpdate(setLocations:effectiveRootLocation:interruptable:isUserInteraction:animated:completion:)(i, v46, 1, 1, v50 & 1, partial apply for closure #1 in DOCHierarchyController.applyUpdate(popToLocation:animated:completion:), v47);
 }
 
 void closure #1 in DOCHierarchyController.prepareController(forResolvedLocationInfo:isUserInteraction:isBrowsingTrash:completion:)(unint64_t a1, void (*a2)(void))
@@ -9355,11 +7864,10 @@ LABEL_17:
   v2(a2);
 }
 
-uint64_t closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)(uint64_t a1, void (*a2)(uint64_t))
+double closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)(uint64_t a1, void (*a2)(uint64_t))
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
     swift_beginAccess();
 
@@ -9369,7 +7877,7 @@ uint64_t closure #1 in DOCHierarchyController.prepareControllers(forResolvedLoca
   return result;
 }
 
-uint64_t closure #1 in DOCHierarchyController.___prepareControllers(for:_:isUserInteraction:isBrowsingTrash:completion:)(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t (*a4)(unint64_t))
+uint64_t closure #1 in DOCHierarchyController.___prepareControllers(for:_:isUserInteraction:isBrowsingTrash:completion:)(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
 {
   v6 = a2;
   v8 = (a2 >> 62);
@@ -9515,7 +8023,7 @@ LABEL_16:
         v31 = v24;
         v32 = v25;
         _os_log_impl(&dword_2493AC000, v26, v27, "[PROTECTED APPS] %s requiresAuthentication: %{BOOL}d location: %@ viewController: %@", v29, 0x26u);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         swift_arrayDestroy();
         MEMORY[0x24C1FE850](v30, -1, -1);
         __swift_destroy_boxed_opaque_existential_0(v8);
@@ -9623,13 +8131,15 @@ LABEL_30:
   return a4(a1);
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed [UIViewController]) -> ()(uint64_t a1)
+double thunk for @escaping @callee_guaranteed (@guaranteed [UIViewController]) -> ()(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController);
-  v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v2 = *(a1 + 32);
+  type metadata accessor for NSMutableAttributedString(0, lazy cache variable for type metadata for UIViewController, 0x277D75D28);
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v1(v2);
+  v2(v3);
+
+  return result;
 }
 
 uint64_t DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:)(void *a1, void *a2, char a3, int a4, int a5, uint64_t a6, uint64_t a7)
@@ -9639,7 +8149,7 @@ uint64_t DOCHierarchyController.append(location:after:interruptable:isUserIntera
   v51 = a7;
   v48 = a4;
   v49 = a5;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v12 - 8, v13);
   v15 = &v47 - v14;
   v52 = 0;
@@ -9660,7 +8170,7 @@ uint64_t DOCHierarchyController.append(location:after:interruptable:isUserIntera
   v21 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
   v22 = swift_allocBox();
   v24 = v23;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v25 = swift_allocObject();
   *(v25 + 16) = xmmword_249BA0290;
   *(v25 + 32) = a1;
@@ -9707,7 +8217,7 @@ LABEL_15:
 
     v45 = v8;
 
-    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v43);
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v43, v42);
     specialized DOCHierarchyController._resolveLocationInformation(for:tryToFetchLocationInformation:completion:)(v26, 1, v45, partial apply for closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:), v41);
   }
 
@@ -9756,7 +8266,7 @@ LABEL_11:
     swift_endAccess();
     if (a2)
     {
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
       v40 = a2;
       v31 = static NSObject.== infix(_:_:)();
 
@@ -9777,7 +8287,7 @@ LABEL_11:
   return result;
 }
 
-void closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:)(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void (*a6)(void), uint64_t a7, int a8, char a9, char a10, char *a11)
+void closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:)(void *a1, void *a2, char *a3, uint64_t a4, uint64_t a5, void (*a6)(void), uint64_t a7, int a8, char a9, char a10, char *a11)
 {
   v108 = a8;
   v119 = a7;
@@ -9789,12 +8299,12 @@ void closure #1 in DOCHierarchyController.append(location:after:interruptable:is
   v14 = *(v13 - 8);
   MEMORY[0x28223BE20](v13, v15);
   v112 = &v106 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+  v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
   MEMORY[0x28223BE20](v122, v17);
   v19 = &v106 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v20, v21);
   v125 = &v106 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v23 - 8, v24);
   v106 = &v106 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v26, v27);
@@ -9816,7 +8326,7 @@ void closure #1 in DOCHierarchyController.append(location:after:interruptable:is
   v50 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
   swift_beginAccess();
   v51 = v14;
-  outlined init with copy of DOCGridLayout.Spec?(a3 + v50, v45, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&a3[v50], v45, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v52 = *(v14 + 48);
   v53 = v52(v45, 1, v13);
   v123 = v52;
@@ -9827,15 +8337,15 @@ void closure #1 in DOCHierarchyController.append(location:after:interruptable:is
     v55 = v51;
     v56 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
     swift_beginAccess();
-    v57 = a3 + v56;
+    v57 = &a3[v56];
     v51 = v55;
     v19 = v54;
-    outlined init with copy of DOCGridLayout.Spec?(v57, v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(v57, v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v58 = v52(v45, 1, v13);
     v59 = v13;
     if (v58 != 1)
     {
-      outlined destroy of CharacterSet?(v45, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v45, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     }
   }
 
@@ -9856,18 +8366,18 @@ void closure #1 in DOCHierarchyController.append(location:after:interruptable:is
   v62 = v122;
   v63 = *(v122 + 48);
   v64 = v125;
-  outlined init with copy of DOCGridLayout.Spec?(v49, v125, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v41, &v64[v63], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v49, v125, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v41, &v64[v63], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v65 = v123;
   if (v123(v64, 1, v59) == 1)
   {
-    outlined destroy of CharacterSet?(v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     v66 = v65(&v125[v63], 1, v59);
     v64 = v125;
     if (v66 == 1)
     {
-      outlined destroy of CharacterSet?(v125, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v125, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_18:
       v125 = a11;
       v78 = v124;
@@ -9893,7 +8403,7 @@ LABEL_18:
       *(v82 + 64) = a9 & 1;
       *(v82 + 65) = a10 & 1;
       *(v82 + 72) = a11;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMd, &_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMR);
       v88 = swift_allocObject();
       *(v88 + 16) = xmmword_249B9A480;
       v89 = v111;
@@ -9923,7 +8433,7 @@ LABEL_18:
       v95 = v84;
       v96 = v94;
 
-      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v121);
+      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v121, v119);
       v97 = v125;
       v98 = v89;
 
@@ -9946,15 +8456,15 @@ LABEL_18:
   }
 
   v67 = v113;
-  outlined init with copy of DOCGridLayout.Spec?(v64, v113, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v64, v113, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v65(&v64[v63], 1, v59) == 1)
   {
-    outlined destroy of CharacterSet?(v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v67, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
     v62 = v122;
 LABEL_10:
-    outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+    outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
     goto LABEL_11;
   }
 
@@ -9962,10 +8472,10 @@ LABEL_10:
   outlined init with take of DOCHierarchyController.FetchingOperationToken(&v64[v63], v112, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v77 = static UUID.== infix(_:_:)();
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v76, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v41, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   outlined destroy of DOCHierarchyController.FetchingOperationToken(v67, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-  outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v62 = v122;
   if (v77)
   {
@@ -9977,20 +8487,20 @@ LABEL_11:
   v69 = v118;
   swift_beginAccess();
   v70 = v115;
-  outlined init with copy of DOCGridLayout.Spec?(v69 + v68, v115, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(&v69[v68], v115, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v71 = v124;
   swift_beginAccess();
   v72 = v114;
   outlined init with copy of DOCHierarchyController.FetchingOperationToken(v71, v114, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
   v116(v72, 0, 1, v59);
   v73 = *(v62 + 48);
-  outlined init with copy of DOCGridLayout.Spec?(v70, v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined init with copy of DOCGridLayout.Spec?(v72, &v19[v73], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v70, v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v72, &v19[v73], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v74 = v123;
   if (v123(v19, 1, v59) != 1)
   {
     v75 = v107;
-    outlined init with copy of DOCGridLayout.Spec?(v19, v107, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(v19, v107, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     if (v74(&v19[v73], 1, v59) != 1)
     {
       v101 = &v19[v73];
@@ -9999,10 +8509,10 @@ LABEL_11:
       v103 = v72;
       v104 = static UUID.== infix(_:_:)();
       outlined destroy of DOCHierarchyController.FetchingOperationToken(v102, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      outlined destroy of CharacterSet?(v103, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-      outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v103, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       outlined destroy of DOCHierarchyController.FetchingOperationToken(v75, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
-      outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+      outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
       if ((v104 & 1) == 0)
       {
         goto LABEL_21;
@@ -10011,22 +8521,22 @@ LABEL_11:
       goto LABEL_20;
     }
 
-    outlined destroy of CharacterSet?(v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-    outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+    outlined destroy of CharacterSet?(v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
     outlined destroy of DOCHierarchyController.FetchingOperationToken(v75, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
 LABEL_16:
-    outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd);
+    outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
     goto LABEL_21;
   }
 
-  outlined destroy of CharacterSet?(v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
-  outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v72, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v70, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   if (v74(&v19[v73], 1, v59) != 1)
   {
     goto LABEL_16;
   }
 
-  outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v19, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
 LABEL_20:
   v105 = v106;
   v116(v106, 1, 1, v59);
@@ -10037,4 +8547,1426 @@ LABEL_21:
   {
     v121();
   }
+}
+
+void closure #1 in closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:)(void *a1, char *a2, uint64_t a3, void *a4, void *a5, void (*a6)(void), uint64_t a7, int a8, unsigned __int8 a9, void *a10)
+{
+  v117 = a8;
+  v119 = a7;
+  v120 = a6;
+  v122 = a5;
+  v114 = a4;
+  v115 = a1;
+  v11 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+  v124 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11, v12);
+  v113 = &v111 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+  MEMORY[0x28223BE20](v14, v15);
+  *&v123 = &v111 - v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  MEMORY[0x28223BE20](v17 - 8, v18);
+  v116 = &v111 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v20, v21);
+  v118 = (&v111 - v22);
+  MEMORY[0x28223BE20](v23, v24);
+  v26 = &v111 - v25;
+  MEMORY[0x28223BE20](v27, v28);
+  v30 = &v111 - v29;
+  MEMORY[0x28223BE20](v31, v32);
+  v34 = &v111 - v33;
+  v35 = swift_projectBox();
+  v36 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
+  swift_beginAccess();
+  v37 = v124;
+  outlined init with copy of DOCGridLayout.Spec?(&a2[v36], v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v38 = *(v37 + 48);
+  v39 = v38(v30, 1, v11);
+  v121 = a2;
+  if (v39 == 1)
+  {
+    v112 = v26;
+    v40 = v38;
+    v41 = v35;
+    v42 = v14;
+    v43 = v37;
+    v44 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
+    swift_beginAccess();
+    v45 = &a2[v44];
+    v37 = v43;
+    v14 = v42;
+    v35 = v41;
+    v38 = v40;
+    v26 = v112;
+    outlined init with copy of DOCGridLayout.Spec?(v45, v34, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    if (v38(v30, 1, v11) != 1)
+    {
+      outlined destroy of CharacterSet?(v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of DOCHierarchyController.FetchingOperationToken(v30, v34, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+    (*(v37 + 56))(v34, 0, 1, v11);
+  }
+
+  swift_beginAccess();
+  outlined init with copy of DOCHierarchyController.FetchingOperationToken(v35, v26, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  v46 = *(v37 + 56);
+  v124 = v37 + 56;
+  (v46)(v26, 0, 1, v11);
+  v47 = *(v14 + 48);
+  v48 = v123;
+  outlined init with copy of DOCGridLayout.Spec?(v34, v123, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v26, v48 + v47, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  if (v38(v48, 1, v11) == 1)
+  {
+    outlined destroy of CharacterSet?(v26, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v49 = v123;
+    outlined destroy of CharacterSet?(v34, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    if (v38((v49 + v47), 1, v11) == 1)
+    {
+      outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v50 = v121;
+      goto LABEL_14;
+    }
+
+    goto LABEL_10;
+  }
+
+  v112 = v46;
+  v51 = v34;
+  v52 = v118;
+  outlined init with copy of DOCGridLayout.Spec?(v48, v118, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  if (v38((v48 + v47), 1, v11) == 1)
+  {
+    outlined destroy of CharacterSet?(v26, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v49 = v123;
+    outlined destroy of CharacterSet?(v51, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of DOCHierarchyController.FetchingOperationToken(v52, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+LABEL_10:
+    outlined destroy of CharacterSet?(v49, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+    goto LABEL_11;
+  }
+
+  v53 = v113;
+  outlined init with take of DOCHierarchyController.FetchingOperationToken(v48 + v47, v113, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  v54 = v48;
+  v55 = static UUID.== infix(_:_:)();
+  outlined destroy of DOCHierarchyController.FetchingOperationToken(v53, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  outlined destroy of CharacterSet?(v26, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v51, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of DOCHierarchyController.FetchingOperationToken(v52, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  outlined destroy of CharacterSet?(v54, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v50 = v121;
+  v46 = v112;
+  if (v55)
+  {
+LABEL_14:
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+    v56 = v11;
+    inited = swift_initStackObject();
+    v123 = xmmword_249BA0290;
+    *(inited + 16) = xmmword_249BA0290;
+    v58 = v114;
+    *(inited + 32) = v114;
+    v59 = swift_initStackObject();
+    *(v59 + 16) = v123;
+    v60 = v115;
+    *(v59 + 32) = v115;
+    v61 = v58;
+    v62 = v60;
+    v63 = _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSaySo011DOCConcreteD0CG_SaySo06UIViewG0CGtFZAD_Tt1g5(inited, v59);
+
+    swift_setDeallocating();
+    swift_arrayDestroy();
+    v64 = v116;
+    (v46)(v116, 1, 1, v56);
+    DOCHierarchyController.loadingDisabledOperation.setter(v64, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
+    v65 = swift_allocObject();
+    v66 = v122;
+    v65[2] = v50;
+    v65[3] = v66;
+    v67 = v120;
+    v68 = v119;
+    v65[4] = v120;
+    v65[5] = v68;
+    if (v117)
+    {
+
+      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v67, v68);
+
+      specialized DOCHierarchyController.replaceTrailingLocationsCount(_:with:animated:completion:)(1, v63, a9 & 1, v50, partial apply for closure #1 in closure #1 in closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:), v65);
+
+LABEL_50:
+
+      return;
+    }
+
+    v69 = swift_allocObject();
+    *(v69 + 16) = partial apply for closure #1 in closure #1 in closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:);
+    *(v69 + 24) = v65;
+    if (v63 >> 62)
+    {
+      v70 = __CocoaSet.count.getter();
+      if (v70 >= 1)
+      {
+LABEL_18:
+        LODWORD(v124) = a9;
+        if (a10)
+        {
+          *&v123 = v69;
+          v71 = v67;
+          v67 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
+          v72 = swift_beginAccess();
+          v118 = &v111;
+          v73 = *&v50[v67];
+          aBlock = a10;
+          MEMORY[0x28223BE20](v72, v74);
+          *(&v111 - 2) = &aBlock;
+          swift_retain_n();
+          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v71, v68);
+
+          v75 = v50;
+
+          v66 = a10;
+          v76 = specialized BidirectionalCollection.lastIndex(where:)(partial apply for specialized closure #1 in BidirectionalCollection<>.lastIndex(of:), (&v111 - 4), v73);
+          v78 = v77;
+
+          v79 = *&v50[v67];
+          v80 = v79 >> 62;
+          if (v78)
+          {
+            v81 = v124;
+            if (v80)
+            {
+              v76 = __CocoaSet.count.getter();
+            }
+
+            else
+            {
+              v76 = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
+            }
+
+            v69 = v123;
+            goto LABEL_30;
+          }
+
+          v81 = v124;
+          if (v80)
+          {
+            v83 = __CocoaSet.count.getter();
+          }
+
+          else
+          {
+            v83 = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          }
+
+          v69 = v123;
+
+          v84 = v83 - v76;
+          if (__OFSUB__(v83, v76))
+          {
+            __break(1u);
+          }
+
+          else
+          {
+            v76 = (v84 - 1);
+            if (!__OFSUB__(v84, 1))
+            {
+LABEL_30:
+              v85 = &_sSo9NSCopying_pMd;
+              goto LABEL_32;
+            }
+          }
+
+          __break(1u);
+          goto LABEL_56;
+        }
+
+        if (v70 != 1)
+        {
+          swift_retain_n();
+          outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v67, v68);
+
+          v86 = v50;
+          v85 = &_sSo9NSCopying_pMd;
+          v76 = 0;
+          v81 = v124;
+LABEL_32:
+          v87 = v85[276];
+          swift_beginAccess();
+          v88 = *&v50[v87];
+          if (v88 >> 62)
+          {
+            if (v76 == __CocoaSet.count.getter())
+            {
+              goto LABEL_34;
+            }
+          }
+
+          else if (v76 == *((v88 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          {
+LABEL_34:
+            DOCHierarchyController.setLocationPairedViewControllers(_:animated:completion:)(v63, v81 & 1, thunk for @callee_guaranteed () -> ()partial apply, v69);
+
+            return;
+          }
+
+          specialized DOCHierarchyController.replaceTrailingLocationsCount(_:with:animated:completion:)(v76, v63, v81 & 1, v50, partial apply for closure #1 in closure #1 in closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:), v65);
+
+          goto LABEL_50;
+        }
+
+        if (v63 >> 62)
+        {
+          v82 = __CocoaSet.count.getter();
+        }
+
+        else
+        {
+          v82 = *((v63 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        }
+
+        if (v82)
+        {
+          if ((v63 & 0xC000000000000001) == 0)
+          {
+            if (!*((v63 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            {
+              __break(1u);
+              return;
+            }
+
+            v89 = *(v63 + 32);
+            v90 = *(v89 + 16);
+            swift_retain_n();
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v67, v68);
+
+            v91 = v50;
+            v92 = v90;
+
+LABEL_40:
+            v93 = v68;
+
+            v94 = *(v89 + 24);
+
+            DOCHierarchyController.appendOneLocation(_:viewController:animated:)(v92, v94, v124 & 1);
+
+            DOCHierarchyController.saveLastVisitedLocationIfNeeded()();
+            v95 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
+            v96 = swift_allocObject();
+            v96[2] = v50;
+            v96[3] = v66;
+            v96[4] = v67;
+            v96[5] = v93;
+            v129 = partial apply for closure #1 in closure #1 in DOCHierarchyController.remove(after:animated:completion:);
+            v130 = v96;
+            aBlock = MEMORY[0x277D85DD0];
+            v126 = 1107296256;
+            v127 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+            v128 = &block_descriptor_328;
+            v97 = _Block_copy(&aBlock);
+            outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v67, v93);
+
+            v98 = v50;
+
+            [v95 animateAlongsideTransition:0 completion:v97];
+            _Block_release(v97);
+
+            swift_unknownObjectRelease();
+            return;
+          }
+        }
+
+        else
+        {
+          __break(1u);
+        }
+
+        swift_retain_n();
+        outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v67, v68);
+
+        v110 = v50;
+        v92 = *(MEMORY[0x24C1FC540](0, v63) + 16);
+        swift_unknownObjectRelease();
+        v89 = MEMORY[0x24C1FC540](0, v63);
+        goto LABEL_40;
+      }
+    }
+
+    else
+    {
+      v70 = *((v63 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v70 >= 1)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    swift_retain_n();
+    outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v67, v68);
+
+    v76 = v50;
+
+    if (DOCIsInternalBuild())
+    {
+LABEL_47:
+      DOCHierarchyController.saveLastVisitedLocationIfNeeded()();
+      v104 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
+      v105 = swift_allocObject();
+      v105[2] = v76;
+      v105[3] = v66;
+      v105[4] = v67;
+      v105[5] = v68;
+      v129 = partial apply for closure #1 in closure #1 in closure #1 in closure #1 in DOCHierarchyController.append(location:after:interruptable:isUserInteraction:animated:completion:);
+      v130 = v105;
+      aBlock = MEMORY[0x277D85DD0];
+      v126 = 1107296256;
+      v127 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+      v128 = &block_descriptor_321;
+      v106 = _Block_copy(&aBlock);
+      v107 = v68;
+      v108 = v106;
+      outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v67, v107);
+
+      v109 = v76;
+
+      [v104 animateAlongsideTransition:0 completion:v108];
+      _Block_release(v108);
+
+      swift_unknownObjectRelease();
+      return;
+    }
+
+    if (one-time initialization token for UI == -1)
+    {
+LABEL_44:
+      v99 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v99, static Logger.UI);
+      v100 = Logger.logObject.getter();
+      v101 = static os_log_type_t.fault.getter();
+      if (os_log_type_enabled(v100, v101))
+      {
+        v102 = swift_slowAlloc();
+        v103 = swift_slowAlloc();
+        aBlock = v103;
+        *v102 = 136315138;
+        *(v102 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000018, 0x8000000249BCD680, &aBlock);
+        _os_log_impl(&dword_2493AC000, v100, v101, "assertion failure: %s", v102, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v103);
+        MEMORY[0x24C1FE850](v103, -1, -1);
+        MEMORY[0x24C1FE850](v102, -1, -1);
+      }
+
+      v68 = v119;
+      goto LABEL_47;
+    }
+
+LABEL_56:
+    swift_once();
+    goto LABEL_44;
+  }
+
+LABEL_11:
+  DOCHierarchyController.allowImmediateChangeRequests(preventionAssertion:isTimeoutAutoDeactivate:)(v122, 0);
+  if (v120)
+  {
+    v120();
+  }
+}
+
+uint64_t closure #2 in closure #1 in closure #2 in DOCHierarchyController.applyUpdate(appendLocations:after:interruptable:isUserInteraction:semanticNavigationOperation:animated:completion:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  DOCHierarchyController.saveLastVisitedLocationIfNeeded()();
+  v13 = DOCHierarchyController.hierarchyChangeTransitionCoordinator.getter();
+  v14 = swift_allocObject();
+  v14[2] = a1;
+  v14[3] = a2;
+  v14[4] = a3;
+  v14[5] = a4;
+  v18[4] = a6;
+  v18[5] = v14;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 1107296256;
+  v18[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+  v18[3] = a7;
+  v15 = _Block_copy(v18);
+  v16 = a1;
+
+  outlined copy of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(a3, a4);
+
+  [v13 animateAlongsideTransition:0 completion:v15];
+  _Block_release(v15);
+  return swift_unknownObjectRelease();
+}
+
+void closure #1 in DOCHierarchyController.loadInitialLocation(from:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(char *a1, char *a2, char *a3, uint64_t a4, void (*a5)(uint64_t), uint64_t a6, int a7, int a8)
+{
+  LODWORD(v202) = a8;
+  LODWORD(v201) = a7;
+  v213 = a6;
+  v211 = a5;
+  v212 = a2;
+  v209 = a1;
+  v10 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10, v12);
+  v196 = &v190 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v208 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+  MEMORY[0x28223BE20](v208, v14);
+  v195 = &v190 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16, v17);
+  v205 = &v190 - v18;
+  MEMORY[0x28223BE20](v19, v20);
+  v22 = &v190 - v21;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  MEMORY[0x28223BE20](v23 - 8, v24);
+  v191 = &v190 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v26, v27);
+  v29 = &v190 - v28;
+  MEMORY[0x28223BE20](v30, v31);
+  v194 = &v190 - v32;
+  MEMORY[0x28223BE20](v33, v34);
+  v199 = &v190 - v35;
+  MEMORY[0x28223BE20](v36, v37);
+  v203 = &v190 - v38;
+  MEMORY[0x28223BE20](v39, v40);
+  v42 = &v190 - v41;
+  MEMORY[0x28223BE20](v43, v44);
+  v204 = (&v190 - v45);
+  MEMORY[0x28223BE20](v46, v47);
+  v49 = &v190 - v48;
+  MEMORY[0x28223BE20](v50, v51);
+  v192 = &v190 - v52;
+  MEMORY[0x28223BE20](v53, v54);
+  v197 = &v190 - v55;
+  MEMORY[0x28223BE20](v56, v57);
+  v59 = &v190 - v58;
+  v210 = swift_projectBox();
+  v60 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_locations;
+  swift_beginAccess();
+  v61 = *&a3[v60];
+  if (v61 >> 62)
+  {
+    v62 = __CocoaSet.count.getter();
+  }
+
+  else
+  {
+    v62 = *((v61 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  }
+
+  v206 = a4;
+  v214 = v10;
+  v198 = v29;
+  v193 = v49;
+  if (v62 >= 2)
+  {
+    v190 = v59;
+    v64 = *&a3[v60];
+    v65 = v64 >> 62;
+    if (v64 >> 62)
+    {
+      goto LABEL_96;
+    }
+
+    v66 = *((v64 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v67 = -v66;
+    if (!__OFSUB__(0, v66))
+    {
+      goto LABEL_7;
+    }
+
+LABEL_98:
+    __break(1u);
+LABEL_99:
+    __break(1u);
+LABEL_100:
+    __break(1u);
+LABEL_101:
+    __break(1u);
+LABEL_102:
+    __break(1u);
+LABEL_103:
+    __break(1u);
+LABEL_104:
+    __break(1u);
+LABEL_105:
+    __break(1u);
+LABEL_106:
+    __break(1u);
+LABEL_107:
+    __break(1u);
+    return;
+  }
+
+  v63 = 0;
+  while (1)
+  {
+    v64 = *&a3[v60];
+    v65 = v22;
+    if (v64 >> 62)
+    {
+      v86 = __CocoaSet.count.getter();
+    }
+
+    else
+    {
+      v86 = *((v64 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    }
+
+    v60 = v209;
+    v22 = v212;
+    if (!v86)
+    {
+      goto LABEL_53;
+    }
+
+    v87 = v11;
+    v11 = v86 - 1;
+    if (__OFSUB__(v86, 1))
+    {
+      break;
+    }
+
+    if ((v64 & 0xC000000000000001) != 0)
+    {
+      goto LABEL_93;
+    }
+
+    if ((v11 & 0x8000000000000000) != 0)
+    {
+      __break(1u);
+    }
+
+    else if (v11 < *((v64 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    {
+      v88 = *(v64 + 8 * v11 + 32);
+      goto LABEL_51;
+    }
+
+    __break(1u);
+LABEL_96:
+    v66 = __CocoaSet.count.getter();
+    v67 = -v66;
+    if (__OFSUB__(0, v66))
+    {
+      goto LABEL_98;
+    }
+
+LABEL_7:
+    if ((v67 + 1) >= 2)
+    {
+      v68 = v66 - 2;
+      if (__OFSUB__(v66, 2))
+      {
+        goto LABEL_104;
+      }
+
+      if (v66 < v68)
+      {
+        goto LABEL_105;
+      }
+
+      if (!v65)
+      {
+LABEL_10:
+        v69 = *((v64 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      if (v66 < 0)
+      {
+        goto LABEL_103;
+      }
+
+      v68 = 0;
+      if (!v65)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    v69 = __CocoaSet.count.getter();
+LABEL_15:
+    if (v69 < v68)
+    {
+      goto LABEL_99;
+    }
+
+    if (v68 < 0)
+    {
+      goto LABEL_100;
+    }
+
+    if (v65)
+    {
+      v70 = __CocoaSet.count.getter();
+    }
+
+    else
+    {
+      v70 = *((v64 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    }
+
+    if (v70 < v66)
+    {
+      goto LABEL_101;
+    }
+
+    if (v66 < 0)
+    {
+      goto LABEL_102;
+    }
+
+    v207 = v11;
+    if ((v64 & 0xC000000000000001) == 0 || v68 == v66)
+    {
+      swift_bridgeObjectRetain_n();
+    }
+
+    else
+    {
+      if (v68 >= v66)
+      {
+        goto LABEL_106;
+      }
+
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
+      swift_bridgeObjectRetain_n();
+      v71 = v68;
+      do
+      {
+        v72 = v71 + 1;
+        _ArrayBuffer._typeCheckSlowPath(_:)(v71);
+        v71 = v72;
+      }
+
+      while (v66 != v72);
+    }
+
+    if (v65)
+    {
+      _CocoaArrayWrapper.subscript.getter();
+      v73 = v82;
+      v68 = v83;
+      v85 = v84;
+
+      v85 = v85 >> 1;
+      v74 = v68 < v85;
+      if (v68 == v85)
+      {
+LABEL_39:
+        swift_unknownObjectRelease();
+        v63 = 0;
+        goto LABEL_42;
+      }
+    }
+
+    else
+    {
+      v73 = (v64 & 0xFFFFFFFFFFFFFF8) + 32;
+      v74 = v68 < v66;
+      if (v68 == v66)
+      {
+        goto LABEL_39;
+      }
+    }
+
+    if (!v74)
+    {
+      goto LABEL_107;
+    }
+
+    v75 = *(v73 + 8 * v68);
+    swift_unknownObjectRelease();
+    v76 = [v75 sourceIdentifier];
+    v77 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v79 = v78;
+    if (v77 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v79 == v80)
+    {
+      v63 = 1;
+    }
+
+    else
+    {
+      v63 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+
+LABEL_42:
+    v11 = v207;
+    v59 = v190;
+  }
+
+  __break(1u);
+LABEL_93:
+
+  v88 = MEMORY[0x24C1FC540](v11, v64);
+
+LABEL_51:
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSObject, 0x277D82BB8);
+  v89 = static NSObject.== infix(_:_:)();
+  v90 = v88;
+  v11 = v87;
+  if (!(v63 & 1 | ((v89 & 1) == 0)))
+  {
+    v212 = v90;
+    v127 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
+    swift_beginAccess();
+    v128 = v59;
+    outlined init with copy of DOCGridLayout.Spec?(&a3[v127], v59, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v129 = v210;
+    swift_beginAccess();
+    v130 = v197;
+    outlined init with copy of DOCHierarchyController.FetchingOperationToken(v129, v197, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+    v210 = *(v87 + 56);
+    (v210)(v130, 0, 1, v214);
+    v131 = *(v208 + 48);
+    outlined init with copy of DOCGridLayout.Spec?(v128, v65, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v132 = v214;
+    outlined init with copy of DOCGridLayout.Spec?(v130, v65 + v131, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v133 = *(v11 + 48);
+    if (v133(v65, 1, v132) == 1)
+    {
+      outlined destroy of CharacterSet?(v130, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v134 = v214;
+      outlined destroy of CharacterSet?(v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v135 = v133(v65 + v131, 1, v134);
+      v136 = v212;
+      if (v135 == 1)
+      {
+        outlined destroy of CharacterSet?(v65, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+LABEL_83:
+        v184 = v193;
+        (v210)(v193, 1, 1, v134);
+        DOCHierarchyController.loadingDisabledOperation.setter(v184, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
+        goto LABEL_84;
+      }
+    }
+
+    else
+    {
+      v177 = v192;
+      outlined init with copy of DOCGridLayout.Spec?(v65, v192, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      if (v133(v65 + v131, 1, v132) != 1)
+      {
+        v180 = v65 + v131;
+        v181 = v196;
+        outlined init with take of DOCHierarchyController.FetchingOperationToken(v180, v196, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+        v182 = v177;
+        v183 = static UUID.== infix(_:_:)();
+        outlined destroy of DOCHierarchyController.FetchingOperationToken(v181, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+        outlined destroy of CharacterSet?(v130, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        outlined destroy of CharacterSet?(v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        v134 = v214;
+        outlined destroy of DOCHierarchyController.FetchingOperationToken(v182, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+        outlined destroy of CharacterSet?(v65, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        v136 = v212;
+        if (v183)
+        {
+          goto LABEL_83;
+        }
+
+LABEL_84:
+        v211(1);
+
+        return;
+      }
+
+      outlined destroy of CharacterSet?(v130, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of CharacterSet?(v128, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of DOCHierarchyController.FetchingOperationToken(v177, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      v136 = v212;
+    }
+
+    outlined destroy of CharacterSet?(v65, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+    goto LABEL_84;
+  }
+
+LABEL_53:
+  v91 = swift_allocObject();
+  *(v91 + 16) = v206;
+  *(v91 + 24) = a3;
+  *(v91 + 32) = v60;
+  *(v91 + 40) = v22;
+  v92 = v211;
+  *(v91 + 48) = v60;
+  *(v91 + 56) = v92;
+  *(v91 + 64) = v213;
+  LODWORD(v197) = v201 & 1;
+  *(v91 + 72) = v201 & 1;
+  v201 = v91;
+  LODWORD(v192) = v202 & 1;
+  *(v91 + 73) = v202 & 1;
+  v93 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
+  swift_beginAccess();
+  v94 = &a3[v93];
+  v95 = v214;
+  outlined init with copy of DOCGridLayout.Spec?(v94, v42, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v96 = v42;
+  v97 = *(v11 + 48);
+  v98 = v97(v96, 1, v95);
+  v202 = v97;
+  v200 = a3;
+  if (v98 == 1)
+  {
+    v99 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
+    swift_beginAccess();
+    v100 = &a3[v99];
+    v95 = v214;
+    v101 = v204;
+    outlined init with copy of DOCGridLayout.Spec?(v100, v204, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v102 = v97(v96, 1, v95);
+    v103 = v22;
+    v104 = v102;
+    v105 = v103;
+    v106 = a3;
+
+    v107 = v60;
+    if (v104 != 1)
+    {
+      outlined destroy of CharacterSet?(v96, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    }
+  }
+
+  else
+  {
+    v101 = v204;
+    outlined init with take of DOCHierarchyController.FetchingOperationToken(v96, v204, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+    (*(v11 + 56))(v101, 0, 1, v95);
+    v108 = v22;
+    v109 = a3;
+
+    v110 = v60;
+  }
+
+  v111 = v210;
+  swift_beginAccess();
+  v112 = v203;
+  outlined init with copy of DOCHierarchyController.FetchingOperationToken(v111, v203, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  v113 = *(v11 + 56);
+  v207 = v11 + 56;
+  v204 = v113;
+  (v113)(v112, 0, 1, v95);
+  v114 = v208;
+  v115 = *(v208 + 48);
+  v116 = v205;
+  outlined init with copy of DOCGridLayout.Spec?(v101, v205, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v112, v116 + v115, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v117 = v202;
+  if (v202(v116, 1, v95) != 1)
+  {
+    v118 = v199;
+    outlined init with copy of DOCGridLayout.Spec?(v116, v199, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    if (v117(v116 + v115, 1, v95) != 1)
+    {
+      v149 = v196;
+      outlined init with take of DOCHierarchyController.FetchingOperationToken(v116 + v115, v196, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      v150 = static UUID.== infix(_:_:)();
+      outlined destroy of DOCHierarchyController.FetchingOperationToken(v149, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      outlined destroy of CharacterSet?(v112, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of CharacterSet?(v101, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      outlined destroy of DOCHierarchyController.FetchingOperationToken(v118, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      v95 = v214;
+      outlined destroy of CharacterSet?(v116, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      if (v150)
+      {
+        goto LABEL_72;
+      }
+
+LABEL_63:
+      v119 = v200;
+      v120 = DOCHierarchyController.loadingDisabledAssertions.getter();
+      v121 = (*(*v120 + 152))(v120);
+
+      if (v121)
+      {
+        v122 = swift_allocObject();
+        v123 = v201;
+        *(v122 + 16) = partial apply for closure #1 in closure #1 in DOCHierarchyController.loadInitialLocation(from:animated:shouldSave:shouldShowPlaceholder:completionHandler:);
+        *(v122 + 24) = v123;
+        v124 = &v119[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock];
+        v126 = *&v119[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock];
+        v125 = *&v119[OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_delayedLoadingBlock + 8];
+        *v124 = thunk for @callee_guaranteed () -> ()partial apply;
+        *(v124 + 1) = v122;
+        outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v126, v125);
+        return;
+      }
+
+      v137 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
+      swift_beginAccess();
+      v138 = v194;
+      outlined init with copy of DOCGridLayout.Spec?(&v119[v137], v194, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v139 = v210;
+      swift_beginAccess();
+      v140 = v198;
+      outlined init with copy of DOCHierarchyController.FetchingOperationToken(v139, v198, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      v141 = v214;
+      (v204)(v140, 0, 1, v214);
+      v142 = *(v114 + 48);
+      v143 = v138;
+      v144 = v138;
+      v145 = v195;
+      outlined init with copy of DOCGridLayout.Spec?(v143, v195, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v146 = v145;
+      outlined init with copy of DOCGridLayout.Spec?(v140, v145 + v142, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+      v147 = v202;
+      if (v202(v145, 1, v141) == 1)
+      {
+        outlined destroy of CharacterSet?(v140, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        v148 = v214;
+        outlined destroy of CharacterSet?(v144, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        if (v147(v145 + v142, 1, v148) == 1)
+        {
+          outlined destroy of CharacterSet?(v145, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+LABEL_86:
+          v189 = v193;
+          (v204)(v193, 1, 1, v148);
+          DOCHierarchyController.loadingDisabledOperation.setter(v189, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
+          goto LABEL_87;
+        }
+      }
+
+      else
+      {
+        v178 = v145;
+        v179 = v191;
+        outlined init with copy of DOCGridLayout.Spec?(v178, v191, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        if (v147(v146 + v142, 1, v141) != 1)
+        {
+          v185 = v146 + v142;
+          v186 = v196;
+          outlined init with take of DOCHierarchyController.FetchingOperationToken(v185, v196, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+          v187 = v179;
+          v188 = static UUID.== infix(_:_:)();
+          outlined destroy of DOCHierarchyController.FetchingOperationToken(v186, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+          outlined destroy of CharacterSet?(v198, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          outlined destroy of CharacterSet?(v144, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          v148 = v214;
+          outlined destroy of DOCHierarchyController.FetchingOperationToken(v187, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+          outlined destroy of CharacterSet?(v146, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+          if (v188)
+          {
+            goto LABEL_86;
+          }
+
+LABEL_87:
+          v211(0);
+          goto LABEL_88;
+        }
+
+        outlined destroy of CharacterSet?(v198, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        outlined destroy of CharacterSet?(v144, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+        outlined destroy of DOCHierarchyController.FetchingOperationToken(v179, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+      }
+
+      outlined destroy of CharacterSet?(v146, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+      goto LABEL_87;
+    }
+
+    outlined destroy of CharacterSet?(v112, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v101, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of DOCHierarchyController.FetchingOperationToken(v118, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+LABEL_62:
+    outlined destroy of CharacterSet?(v116, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+    goto LABEL_63;
+  }
+
+  outlined destroy of CharacterSet?(v112, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v101, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  if (v117(v116 + v115, 1, v95) != 1)
+  {
+    goto LABEL_62;
+  }
+
+  outlined destroy of CharacterSet?(v116, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+LABEL_72:
+  v151 = 1;
+  v152 = v210;
+  swift_beginAccess();
+  v152[*(v95 + 24)] = 0;
+  v153 = v209;
+  v154 = [v209 sourceIdentifier];
+  v155 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v157 = v156;
+  if (v155 != static String._unconditionallyBridgeFromObjectiveC(_:)() || v157 != v158)
+  {
+    v151 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  v159 = swift_allocObject();
+  v160 = v200;
+  *(v159 + 16) = v153;
+  *(v159 + 24) = v160;
+  v161 = v211;
+  *(v159 + 32) = v206;
+  *(v159 + 40) = v161;
+  *(v159 + 48) = v213;
+  *(v159 + 56) = v197;
+  *(v159 + 57) = v192;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMd, &_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMR);
+  v162 = swift_allocObject();
+  *(v162 + 16) = xmmword_249B9A480;
+  v163 = v212;
+  *(v162 + 32) = v153;
+  *(v162 + 40) = v163;
+  v164 = swift_allocObject();
+  *(v164 + 16) = partial apply for closure #1 in closure #1 in closure #1 in DOCHierarchyController.loadInitialLocation(from:animated:shouldSave:shouldShowPlaceholder:completionHandler:);
+  *(v164 + 24) = v159;
+  type metadata accessor for BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
+  v165 = swift_allocObject();
+  *(v165 + 40) = DOCGridLayout.specIconWidth.modify;
+  *(v165 + 48) = 0;
+  *(v165 + 56) = MEMORY[0x277D84F90];
+  *(v165 + 64) = 0;
+  *(v165 + 16) = v160;
+  *(v165 + 24) = v162;
+  *(v165 + 32) = 0;
+  *(v165 + 33) = v151 & 1;
+  v166 = swift_allocObject();
+  swift_weakInit();
+  v167 = swift_allocObject();
+  v168 = v153;
+  v169 = v167;
+  v167[2] = v166;
+  v167[3] = closure #1 in DOCHierarchyController.prepareController(forResolvedLocationInfo:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+  v167[4] = v164;
+  *(v165 + 64) = v165;
+  v170 = v168;
+  v171 = v160;
+  v172 = v170;
+  v173 = v212;
+  v174 = v171;
+
+  swift_unknownObjectRelease();
+  v175 = swift_allocObject();
+  swift_weakInit();
+  v176 = swift_allocObject();
+  v176[2] = closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+  v176[3] = v169;
+  v176[4] = v175;
+  *(v165 + 40) = closure #1 in run(withCompletionHandler:) in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+  *(v165 + 48) = v176;
+
+  tryNextBatch() in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
+
+LABEL_88:
+}
+
+uint64_t closure #1 in closure #1 in DOCHierarchyController.loadInitialLocation(from:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, uint64_t a7, char a8, char a9)
+{
+  v13 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+  v14 = a1;
+  v15 = swift_projectBox();
+  v16 = 1;
+  swift_beginAccess();
+  *(v15 + *(v13 + 24)) = 0;
+  v17 = [a5 sourceIdentifier];
+  v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v20 = v19;
+  if (v18 != static String._unconditionallyBridgeFromObjectiveC(_:)() || v20 != v21)
+  {
+    v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  v23 = swift_allocObject();
+  *(v23 + 16) = a5;
+  *(v23 + 24) = a2;
+  v24 = v16;
+  v25 = a2;
+  *(v23 + 32) = v14;
+  *(v23 + 40) = a6;
+  *(v23 + 48) = a7;
+  *(v23 + 56) = a8 & 1;
+  *(v23 + 57) = a9 & 1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMd, &_ss23_ContiguousArrayStorageCy26DocumentManagerExecutables22DOCHierarchyControllerC20ResolvedLocationInfo33_3085D686B27B1518531DD3257B8A8BC0LLVGMR);
+  v26 = swift_allocObject();
+  *(v26 + 16) = xmmword_249B9A480;
+  *(v26 + 32) = a3;
+  *(v26 + 40) = a4;
+  v27 = swift_allocObject();
+  *(v27 + 16) = closure #1 in closure #1 in closure #1 in DOCHierarchyController.loadInitialLocation(from:animated:shouldSave:shouldShowPlaceholder:completionHandler:)partial apply;
+  *(v27 + 24) = v23;
+  type metadata accessor for BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
+  v28 = swift_allocObject();
+  *(v28 + 40) = DOCGridLayout.specIconWidth.modify;
+  *(v28 + 48) = 0;
+  *(v28 + 56) = MEMORY[0x277D84F90];
+  *(v28 + 64) = 0;
+  *(v28 + 16) = a2;
+  *(v28 + 24) = v26;
+  *(v28 + 32) = 0;
+  *(v28 + 33) = v24 & 1;
+  v29 = swift_allocObject();
+  swift_weakInit();
+  v30 = swift_allocObject();
+  v30[2] = v29;
+  v30[3] = closure #1 in DOCHierarchyController.prepareController(forResolvedLocationInfo:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+  v30[4] = v27;
+  *(v28 + 64) = v28;
+  v31 = v25;
+  v32 = a5;
+
+  v33 = a3;
+  v34 = a4;
+
+  swift_unknownObjectRelease();
+  v35 = swift_allocObject();
+  swift_weakInit();
+  v36 = swift_allocObject();
+  v36[2] = closure #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+  v36[3] = v30;
+  v36[4] = v35;
+  *(v28 + 40) = closure #1 in run(withCompletionHandler:) in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)partial apply;
+  *(v28 + 48) = v36;
+
+  tryNextBatch() in BatchedLocationViewControllerDriver #1 in DOCHierarchyController.prepareControllers(forResolvedLocationInfos:isUserInteraction:isBrowsingTrash:completion:)();
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in DOCHierarchyController.loadInitialLocation(from:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), uint64_t a6, int a7, int a8)
+{
+  v93 = a8;
+  v92 = a7;
+  v99 = a6;
+  v97 = a1;
+  v11 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
+  *&v103 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11, v12);
+  v90 = &v85[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+  MEMORY[0x28223BE20](v14, v15);
+  v17 = &v85[-v16];
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  MEMORY[0x28223BE20](v18 - 8, v19);
+  v91 = &v85[-((v20 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v21, v22);
+  v94 = &v85[-v23];
+  MEMORY[0x28223BE20](v24, v25);
+  v101 = &v85[-v26];
+  MEMORY[0x28223BE20](v27, v28);
+  v30 = &v85[-v29];
+  MEMORY[0x28223BE20](v31, v32);
+  v102 = &v85[-v33];
+  v95 = swift_projectBox();
+  v96 = a2;
+  v34 = [a2 node];
+  v100 = a5;
+  v98 = a3;
+  if (v34)
+  {
+    v35 = v34;
+    v36 = *(a3 + OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_configuration);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_249BA0290;
+    *(inited + 32) = v35;
+    swift_unknownObjectRetain();
+    DOCAnalyticsActionEvent.FileProvider.init(nodes:)(inited);
+    v88 = v107[0];
+    v38 = objc_opt_self();
+    v39 = [v38 mainBundle];
+
+    DOCAnalyticsActionEvent.Source.init(sourceIdentifier:)([v96 sourceIdentifier]);
+    v87 = v106[0];
+    type metadata accessor for DOCBrowserContainerController();
+    v40 = swift_dynamicCastClass();
+    if (v40 && (v41 = (*((*MEMORY[0x277D85000] & *v40) + 0xE8))()) != 0)
+    {
+      v42 = v41;
+      type metadata accessor for DOCItemCollectionViewController(0);
+      v43 = swift_dynamicCastClass();
+      if (v43)
+      {
+        v44 = (*((*MEMORY[0x277D85000] & *v43) + 0xBD8))();
+
+        if (v44 >= 4)
+        {
+          v108[0] = v44;
+          result = _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+          __break(1u);
+          return result;
+        }
+
+        v86 = 0x3020201u >> (8 * v44);
+      }
+
+      else
+      {
+
+        v86 = 0;
+      }
+    }
+
+    else
+    {
+      v86 = 0;
+    }
+
+    v45 = [v38 mainBundle];
+    v46 = [v45 bundleIdentifier];
+
+    v89 = v14;
+    if (v46)
+    {
+      v47 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v49 = v48;
+    }
+
+    else
+    {
+      v47 = 0;
+      v49 = 0;
+    }
+
+    v50 = v36;
+    DOCAnalyticsActionEvent.Client.init(configuration:bundleIdentifier:)(v50, v47, v49, v108);
+    v51 = v108[0];
+    v52 = v50;
+    DOCAnalyticsActionEvent.SortMode.init(configuration:)(v52, &v105);
+    v53 = v105;
+    v54 = v52;
+    DOCAnalyticsActionEvent.SortOrder.init(configuration:)(v54, &v104);
+    v55 = v104;
+    v56 = [v54 hostIdentifier];
+    v57 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v59 = v58;
+
+    v108[0] = 0xD000000000000032;
+    v108[1] = 0x8000000249BCDC20;
+    v108[2] = v57;
+    v108[3] = v59;
+    v109 = 4;
+    v110 = v51;
+    v111 = v88;
+    v112 = v87;
+    v113 = v86;
+    v114 = v53;
+    v115 = v55;
+    if (one-time initialization token for shared != -1)
+    {
+      swift_once();
+    }
+
+    specialized DOCAnalyticsManager.sendEvent(_:)(v108, static DOCAnalyticsManager.shared);
+    swift_unknownObjectRelease();
+    outlined destroy of DOCAnalyticsActionEvent(v108);
+    a3 = v98;
+    v14 = v89;
+  }
+
+  v60 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_loadingDisabledOperation;
+  swift_beginAccess();
+  outlined init with copy of DOCGridLayout.Spec?(a3 + v60, v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  v61 = v103;
+  v62 = *(v103 + 48);
+  if (v62(v30, 1, v11) == 1)
+  {
+    v63 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
+    swift_beginAccess();
+    v64 = v102;
+    outlined init with copy of DOCGridLayout.Spec?(a3 + v63, v102, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    v65 = v62(v30, 1, v11);
+    v66 = v101;
+    if (v65 != 1)
+    {
+      outlined destroy of CharacterSet?(v30, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    }
+  }
+
+  else
+  {
+    v64 = v102;
+    outlined init with take of DOCHierarchyController.FetchingOperationToken(v30, v102, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+    (*(v61 + 56))(v64, 0, 1, v11);
+    v66 = v101;
+  }
+
+  v67 = v95;
+  swift_beginAccess();
+  outlined init with copy of DOCHierarchyController.FetchingOperationToken(v67, v66, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  v68 = *(v61 + 56);
+  *&v103 = v61 + 56;
+  v68(v66, 0, 1, v11);
+  v69 = *(v14 + 48);
+  outlined init with copy of DOCGridLayout.Spec?(v64, v17, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined init with copy of DOCGridLayout.Spec?(v66, &v17[v69], &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  if (v62(v17, 1, v11) == 1)
+  {
+    outlined destroy of CharacterSet?(v66, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v64, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    if (v62(&v17[v69], 1, v11) == 1)
+    {
+      outlined destroy of CharacterSet?(v17, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+LABEL_26:
+      v76 = v91;
+      v68(v91, 1, 1, v11);
+      DOCHierarchyController.loadingDisabledOperation.setter(v76, &OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+      v77 = swift_initStackObject();
+      v103 = xmmword_249BA0290;
+      *(v77 + 16) = xmmword_249BA0290;
+      v78 = v96;
+      *(v77 + 32) = v96;
+      v79 = swift_initStackObject();
+      *(v79 + 16) = v103;
+      v80 = v97;
+      *(v79 + 32) = v97;
+      v81 = v78;
+      v82 = v80;
+      v83 = _sSa26DocumentManagerExecutablesAA28LocationPairedViewController33_3085D686B27B1518531DD3257B8A8BC0LLCRbzlE8pairingsACLLySayADGSaySo011DOCConcreteD0CG_SaySo06UIViewG0CGtFZAD_Tt1g5(v77, v79);
+
+      swift_setDeallocating();
+      swift_arrayDestroy();
+      DOCHierarchyController.setLocationPairedViewControllers(_:animated:completion:)(v83, v92 & 1, DOCGridLayout.specIconWidth.modify, 0);
+
+      if (v93)
+      {
+        DOCHierarchyController.saveLastVisitedLocationIfNeeded()();
+      }
+
+      DOCHierarchyController.loadParentIfNeeded()();
+      v71 = 1;
+      return v100(v71);
+    }
+
+LABEL_24:
+    outlined destroy of CharacterSet?(v17, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSg_AGtMR);
+    v71 = 0;
+    return v100(v71);
+  }
+
+  v70 = v94;
+  outlined init with copy of DOCGridLayout.Spec?(v17, v94, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  if (v62(&v17[v69], 1, v11) == 1)
+  {
+    outlined destroy of CharacterSet?(v101, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of CharacterSet?(v102, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+    outlined destroy of DOCHierarchyController.FetchingOperationToken(v70, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+    goto LABEL_24;
+  }
+
+  v72 = &v17[v69];
+  v73 = v90;
+  outlined init with take of DOCHierarchyController.FetchingOperationToken(v72, v90, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  v74 = v70;
+  v75 = static UUID.== infix(_:_:)();
+  outlined destroy of DOCHierarchyController.FetchingOperationToken(v73, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  outlined destroy of CharacterSet?(v101, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of CharacterSet?(v102, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  outlined destroy of DOCHierarchyController.FetchingOperationToken(v74, type metadata accessor for DOCHierarchyController.FetchingOperationToken);
+  outlined destroy of CharacterSet?(v17, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
+  if (v75)
+  {
+    goto LABEL_26;
+  }
+
+  return v100(0);
 }

@@ -66,18 +66,21 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = sub_1004A547C;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = sub_1004A547C;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
   sub_1004A52D0();
-  sub_10000C840(v5);
+  sub_10000C840(v7, v6);
 }
 
 - (ICEditSmartFolderActivity)initWithPerformActivity:(id)activity

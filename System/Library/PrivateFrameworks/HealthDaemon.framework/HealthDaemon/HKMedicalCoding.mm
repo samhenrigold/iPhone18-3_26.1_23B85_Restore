@@ -7,7 +7,7 @@
 
 + (id)_medicalCodingsWithCodable:(uint64_t)codable
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_self();
   objc_opt_class();
@@ -15,26 +15,26 @@
   {
     v4 = v2;
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     items = [v4 items];
-    v7 = [items countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(items);
           }
 
-          v11 = [v3 createWithCodable:*(*(&v16 + 1) + 8 * i)];
+          v11 = [v3 createWithCodable:*(*(&v15 + 1) + 8 * i)];
           if (!v11)
           {
 
@@ -46,7 +46,7 @@
           [v5 addObject:v11];
         }
 
-        v8 = [items countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           continue;
@@ -56,7 +56,7 @@
       }
     }
 
-    v13 = [v5 copy];
+    v13 = objc_msgSend_copy(v5);
 LABEL_13:
   }
 
@@ -64,8 +64,6 @@ LABEL_13:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

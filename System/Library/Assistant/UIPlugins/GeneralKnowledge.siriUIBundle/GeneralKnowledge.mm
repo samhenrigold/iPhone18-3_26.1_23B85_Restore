@@ -71,11 +71,12 @@ LABEL_10:
   return v16;
 }
 
-void sub_5C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, char a20)
+void sub_5C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, ...)
 {
-  objc_destroyWeak((v20 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v19 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a20, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 

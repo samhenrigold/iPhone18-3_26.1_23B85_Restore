@@ -640,7 +640,7 @@ LABEL_68:
   return v53 - 1;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,wchar_t *>(_DWORD *a1, int *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,wchar_t *>(int *a1, int *a2)
 {
   v2 = a2 - a1;
   if (v2 > 2)
@@ -4695,7 +4695,7 @@ unsigned int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAl
   v2 = *a1;
   if (*a1 >= *(a2 - 1))
   {
-    v5 = (a1 + 1);
+    v5 = a1 + 1;
     do
     {
       v3 = v5;
@@ -5540,7 +5540,7 @@ LABEL_91:
   return v39 + 1 == a2;
 }
 
-unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,unsigned int *,unsigned int *>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4)
+int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,unsigned int *,unsigned int *>(unsigned int *a1, unsigned int *a2, int *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -6158,7 +6158,7 @@ LABEL_68:
   return v38 - 1;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,long *>(void *a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less,long *>(uint64_t *a1, uint64_t *a2)
 {
   v2 = a2 - a1;
   if (v2 > 2)
@@ -6816,7 +6816,7 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   v2 = *a1;
   if (*a1 >= *(a2 - 1))
   {
-    v5 = (a1 + 1);
+    v5 = a1 + 1;
     do
     {
       v3 = v5;
@@ -7636,7 +7636,7 @@ LABEL_91:
   return v39 + 1 == a2;
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,unsigned long *,unsigned long *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ranges::less &,unsigned long *,unsigned long *>(unint64_t *a1, unint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -7910,7 +7910,7 @@ int64_t *std::__bitset_partition[abi:ne200100]<std::_ClassicAlgPolicy,long long 
     *a2 = v8;
   }
 
-  v9 = (a2 - 1);
+  v9 = a2 - 1;
   v10 = (a2 - 1) - v7;
   if (v10 < 1009)
   {
@@ -7961,16 +7961,16 @@ LABEL_16:
     }
 
     v18 = 0uLL;
-    v19 = -8;
+    v19 = 0x1FFFFFFFFFFFFFFFLL;
     v20 = xmmword_1922FB310;
     do
     {
       v18 = vorrq_s8(vshlq_u64(vandq_s8(vcgtq_s64(v13, vextq_s8(*&v9[v19], *&v9[v19], 8uLL)), vdupq_n_s64(1uLL)), v20), v18);
       v20 = vaddq_s64(v20, vdupq_n_s64(2uLL));
-      v19 -= 16;
+      v19 -= 2;
     }
 
-    while (v19 != -520);
+    while (v19 != -65);
     v11 = vorr_s8(*v18.i8, *&vextq_s8(v18, v18, 8uLL));
     if (!v12)
     {
@@ -7984,7 +7984,7 @@ LABEL_24:
       {
         v21 = __clz(__rbit64(v12));
         v12 &= v12 - 1;
-        v22 = &v9[-8 * __clz(__rbit64(v11))];
+        v22 = &v9[-__clz(__rbit64(v11))];
         v23 = v7[v21];
         v7[v21] = *v22;
         *v22 = v23;
@@ -8007,11 +8007,11 @@ LABEL_27:
       v25 = -512;
     }
 
-    v9 += v25;
+    v9 = (v9 + v25);
   }
 
   while (v9 - v7 > 1008);
-  v26 = (v9 - v7) >> 3;
+  v26 = v9 - v7;
   if (!(v12 | v11))
   {
 LABEL_36:
@@ -8078,7 +8078,7 @@ LABEL_46:
     {
       v35 = __clz(__rbit64(v12));
       v12 &= v12 - 1;
-      v36 = &v9[-8 * __clz(__rbit64(v11))];
+      v36 = &v9[-__clz(__rbit64(v11))];
       v37 = v7[v35];
       v7[v35] = *v36;
       *v36 = v37;
@@ -8099,7 +8099,7 @@ LABEL_46:
     v27 = 0;
   }
 
-  v39 = &v9[-8 * v27];
+  v39 = &v9[-v27];
   if (v12)
   {
     do
@@ -8114,11 +8114,11 @@ LABEL_46:
       }
 
       v12 &= ~(-1 << v40);
-      v39 -= 8;
+      --v39;
     }
 
     while (v12);
-    v38 = (v39 + 8);
+    v38 = v39 + 1;
   }
 
   else
@@ -8126,7 +8126,7 @@ LABEL_46:
     for (; v11; ++v38)
     {
       v43 = __clz(v11) ^ 0x3F;
-      v44 = &v39[-8 * v43];
+      v44 = &v39[-v43];
       if (v38 != v44)
       {
         v45 = *v44;
@@ -8199,7 +8199,7 @@ unint64_t *std::__bitset_partition[abi:ne200100]<std::_ClassicAlgPolicy,unsigned
     *a2 = v8;
   }
 
-  v9 = (a2 - 1);
+  v9 = a2 - 1;
   v10 = (a2 - 1) - v7;
   if (v10 < 1009)
   {
@@ -8250,16 +8250,16 @@ LABEL_16:
     }
 
     v18 = 0uLL;
-    v19 = -8;
+    v19 = 0x1FFFFFFFFFFFFFFFLL;
     v20 = xmmword_1922FB310;
     do
     {
       v18 = vorrq_s8(vshlq_u64(vandq_s8(vcgtq_u64(v13, vextq_s8(*&v9[v19], *&v9[v19], 8uLL)), vdupq_n_s64(1uLL)), v20), v18);
       v20 = vaddq_s64(v20, vdupq_n_s64(2uLL));
-      v19 -= 16;
+      v19 -= 2;
     }
 
-    while (v19 != -520);
+    while (v19 != -65);
     v11 = vorr_s8(*v18.i8, *&vextq_s8(v18, v18, 8uLL));
     if (!v12)
     {
@@ -8273,7 +8273,7 @@ LABEL_24:
       {
         v21 = __clz(__rbit64(v12));
         v12 &= v12 - 1;
-        v22 = &v9[-8 * __clz(__rbit64(v11))];
+        v22 = &v9[-__clz(__rbit64(v11))];
         v23 = v7[v21];
         v7[v21] = *v22;
         *v22 = v23;
@@ -8296,11 +8296,11 @@ LABEL_27:
       v25 = -512;
     }
 
-    v9 += v25;
+    v9 = (v9 + v25);
   }
 
   while (v9 - v7 > 1008);
-  v26 = (v9 - v7) >> 3;
+  v26 = v9 - v7;
   if (!(v12 | v11))
   {
 LABEL_36:
@@ -8367,7 +8367,7 @@ LABEL_46:
     {
       v35 = __clz(__rbit64(v12));
       v12 &= v12 - 1;
-      v36 = &v9[-8 * __clz(__rbit64(v11))];
+      v36 = &v9[-__clz(__rbit64(v11))];
       v37 = v7[v35];
       v7[v35] = *v36;
       *v36 = v37;
@@ -8388,7 +8388,7 @@ LABEL_46:
     v27 = 0;
   }
 
-  v39 = &v9[-8 * v27];
+  v39 = &v9[-v27];
   if (v12)
   {
     do
@@ -8403,11 +8403,11 @@ LABEL_46:
       }
 
       v12 &= ~(-1 << v40);
-      v39 -= 8;
+      --v39;
     }
 
     while (v12);
-    v38 = (v39 + 8);
+    v38 = v39 + 1;
   }
 
   else
@@ -8415,7 +8415,7 @@ LABEL_46:
     for (; v11; ++v38)
     {
       v43 = __clz(v11) ^ 0x3F;
-      v44 = &v39[-8 * v43];
+      v44 = &v39[-v43];
       if (v38 != v44)
       {
         v45 = *v44;
@@ -8905,7 +8905,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v30 = a1[1];
         if (v29 >= v30)
         {
-          v31 = a1[1];
+          v31 = *(a1 + 1);
           v30 = v29;
         }
 
@@ -8922,7 +8922,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v49 = a1[2];
+          v49 = *(a1 + 2);
         }
 
         if (*a1 >= v47)
@@ -9014,16 +9014,16 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v7 = a1[1];
+          v7 = *(a1 + 1);
         }
 
         if (*a1 < v6)
         {
-          v5 = a1[1];
+          v5 = *(a1 + 1);
         }
 
         *a1 = v7;
-        a1[1] = v5;
+        *(a1 + 1) = v5;
         v8 = a1[3];
         v9 = *(a2 - 1);
         if (v8 < v9)
@@ -9109,7 +9109,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         if (v22 >= v21)
         {
-          v19 = a1[2];
+          v19 = *(a1 + 2);
           v21 = v22;
         }
 
@@ -9893,7 +9893,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v30 = a1[1];
         if (v29 >= v30)
         {
-          v31 = a1[1];
+          v31 = *(a1 + 1);
           v30 = v29;
         }
 
@@ -9910,7 +9910,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v49 = a1[2];
+          v49 = *(a1 + 2);
         }
 
         if (*a1 >= v47)
@@ -10002,16 +10002,16 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v7 = a1[1];
+          v7 = *(a1 + 1);
         }
 
         if (*a1 < v6)
         {
-          v5 = a1[1];
+          v5 = *(a1 + 1);
         }
 
         *a1 = v7;
-        a1[1] = v5;
+        *(a1 + 1) = v5;
         v8 = a1[3];
         v9 = *(a2 - 1);
         if (v8 < v9)
@@ -10097,7 +10097,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         if (v22 >= v21)
         {
-          v19 = a1[2];
+          v19 = *(a1 + 2);
           v21 = v22;
         }
 

@@ -545,16 +545,16 @@ void __66__PXVerticalFeedLayoutGenerator__addRowWithContiguousTiles_count___bloc
 
 - (BOOL)_isAtEndOfRow
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   v4 = [(PXFeedLayoutGenerator *)self isAtEnd]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0];
-  [(PXFeedLayoutGenerator *)self setScanState:scanState];
+  [(PXFeedLayoutGenerator *)self setScanState:v3];
 
   return v4;
 }
 
 - (BOOL)_hasLeftSuboptimalRow
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   if ([(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:0])
   {
     _isAtEndOfRow = [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow];
@@ -565,7 +565,7 @@ void __66__PXVerticalFeedLayoutGenerator__addRowWithContiguousTiles_count___bloc
     _isAtEndOfRow = 0;
   }
 
-  [(PXFeedLayoutGenerator *)self setScanState:scanState];
+  [(PXFeedLayoutGenerator *)self setScanState:v3];
 
   return _isAtEndOfRow;
 }
@@ -578,15 +578,15 @@ void __66__PXVerticalFeedLayoutGenerator__addRowWithContiguousTiles_count___bloc
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXVerticalFeedLayoutGenerator.m" lineNumber:598 description:{@"Invalid parameter not satisfying: %@", @"tileInfos != NULL"}];
   }
 
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
-  if (![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:rearrangment]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&rearrangment[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&rearrangment[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]|| ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:rearrangment]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&rearrangment[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&rearrangment[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow])
+  v5 = objc_msgSend_scanState(self, a2);
+  if (![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:rearrangment]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&rearrangment[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&rearrangment[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]|| ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:rearrangment]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&rearrangment[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&rearrangment[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow])
   {
     v6 = 1;
   }
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v5];
     v6 = 0;
   }
 
@@ -601,25 +601,25 @@ void __66__PXVerticalFeedLayoutGenerator__addRowWithContiguousTiles_count___bloc
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXVerticalFeedLayoutGenerator.m" lineNumber:469 description:{@"Invalid parameter not satisfying: %@", @"tileInfos != NULL"}];
   }
 
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v5 = objc_msgSend_scanState(self, a2);
   if (![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow])
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& ![(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXVerticalFeedLayoutGenerator *)self _isAtEndOfRow])
   {
     v6 = 1;
   }
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v5];
     v6 = 0;
   }
 
@@ -635,11 +635,11 @@ void __66__PXVerticalFeedLayoutGenerator__addRowWithContiguousTiles_count___bloc
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXVerticalFeedLayoutGenerator.m" lineNumber:443 description:{@"Invalid parameter not satisfying: %@", @"count >= 2"}];
   }
 
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v8 = objc_msgSend_scanState(self);
   if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]|| (v15 = 0, ![(PXFeedLayoutGenerator *)self scanTile:sequence type:&v15]) || (v15 - 5) > 0xFFFFFFFFFFFFFFFDLL)
   {
 LABEL_15:
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v8];
     v11 = 0;
     goto LABEL_16;
   }
@@ -674,7 +674,7 @@ LABEL_16:
 
 - (BOOL)_scanSpecialSequenceRow:(PXTileInfo *)row count:(int64_t *)count
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v7 = objc_msgSend_scanState(self, a2);
   if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:row])
   {
     v8 = 1;
@@ -682,7 +682,7 @@ LABEL_16:
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v7];
     if ([(PXVerticalFeedLayoutGenerator *)self _scanNonPanoramaSequence:row count:3]&& ![(PXVerticalFeedLayoutGenerator *)self _hasLeftSuboptimalRow])
     {
       v8 = 3;
@@ -690,10 +690,10 @@ LABEL_16:
 
     else
     {
-      [(PXFeedLayoutGenerator *)self setScanState:scanState];
+      [(PXFeedLayoutGenerator *)self setScanState:v7];
       if (![(PXVerticalFeedLayoutGenerator *)self _scanNonPanoramaSequence:row count:2]|| [(PXVerticalFeedLayoutGenerator *)self _hasLeftSuboptimalRow])
       {
-        [(PXFeedLayoutGenerator *)self setScanState:scanState];
+        [(PXFeedLayoutGenerator *)self setScanState:v7];
         v9 = 0;
         goto LABEL_11;
       }
@@ -715,10 +715,10 @@ LABEL_11:
 
 - (BOOL)_scanTileTriplet:(PXTileInfo *)triplet
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v5 = objc_msgSend_scanState(self, a2);
   if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:triplet]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| (triplet ? (v6 = triplet + 1) : (v6 = 0), ![(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v6]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| (triplet ? (v7 = triplet + 2) : (v7 = 0), ![(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v7]|| [(PXVerticalFeedLayoutGenerator *)self _hasLeftSuboptimalRow])))
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v5];
     v8 = 0;
   }
 
@@ -732,10 +732,10 @@ LABEL_11:
 
 - (BOOL)_scanTilePair:(PXTileInfo *)pair
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v5 = objc_msgSend_scanState(self, a2);
   if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]|| ![(PXFeedLayoutGenerator *)self scanAnyTile:pair]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| (pair ? (v6 = pair + 1) : (v6 = 0), ![(PXFeedLayoutGenerator *)self scanAnyTile:v6]))
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v5];
     v7 = 0;
   }
 
@@ -749,7 +749,7 @@ LABEL_11:
 
 - (BOOL)_scanTileRequiringNewRow:(PXTileInfo *)row
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v5 = objc_msgSend_scanState(self, a2);
   if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:row])
   {
     goto LABEL_2;
@@ -765,9 +765,9 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ((BYTE8(v9) & 1) == 0 && (![scanState scannedBatchHasCaption] || (BYTE8(v10) & 1) == 0))
+  if ((BYTE8(v9) & 1) == 0 && (![v5 scannedBatchHasCaption] || (BYTE8(v10) & 1) == 0))
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v5];
     goto LABEL_8;
   }
 
@@ -781,10 +781,10 @@ LABEL_9:
 - (BOOL)_parseSpecialSubsequenceWithRowRequired:(BOOL)required rowParsed:(BOOL *)parsed
 {
   v15 = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v7 = objc_msgSend_scanState(self, a2);
   if ([(PXVerticalFeedLayoutGenerator *)self _scanSpecialSequenceBlock:v14])
   {
-    scanState2 = [(PXFeedLayoutGenerator *)self scanState];
+    v8 = objc_msgSend_scanState(self);
     v12 = 0;
     if ([(PXVerticalFeedLayoutGenerator *)self _scanSpecialSequenceRow:v13 count:&v12])
     {
@@ -797,7 +797,7 @@ LABEL_9:
 
         else
         {
-          [(PXFeedLayoutGenerator *)self setScanState:scanState2];
+          [(PXFeedLayoutGenerator *)self setScanState:v8];
           v9 = 0;
         }
 
@@ -836,7 +836,7 @@ LABEL_15:
 LABEL_16:
   if (!v10)
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v7];
   }
 
   return v10;
@@ -872,16 +872,16 @@ LABEL_16:
 - (BOOL)_parseSpecialTileTriplet
 {
   v60 = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v57]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v58]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v59]|| [(PXVerticalFeedLayoutGenerator *)self _hasLeftSuboptimalRow]|| ([(PXFeedLayoutGenerator *)self interTileSpacing], v5 = v4, v7 = v6, [(PXVerticalFeedLayoutGenerator *)self referenceWidth], v9 = v8 - v5, v10 = v9 * 0.75, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v9 * 0.5], v12 = v11 + v11, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v10 * 0.5], v14 = v13 + v13, v15 = v5 + v12 * 0.5, [(PXVerticalFeedLayoutGenerator *)self referenceWidth:0], v51 = *&v15, *&v52 = v16 - v15, *(&v52 + 1) = v14 * 0.5, [(PXVerticalFeedLayoutGenerator *)self referenceWidth], *&v53 = v15, *(&v53 + 1) = v7 + v14 * 0.5, *&v54 = v17 - v15, *(&v54 + 1) = v14 * 0.5, ![(PXVerticalFeedLayoutGenerator *)self _addRowWithTiles:v57 imageFrames:&v49 count:3]))
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v3];
     if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v57]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v58]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v59]|| [(PXVerticalFeedLayoutGenerator *)self _hasLeftSuboptimalRow]|| ([(PXFeedLayoutGenerator *)self interTileSpacing], v19 = v18, v21 = v20, [(PXVerticalFeedLayoutGenerator *)self referenceWidth], v23 = v22 - v19, v24 = v23 * 0.75, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v23 * 0.5], v26 = v25 + v25, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v24 * 0.5], v28 = v27 + v27, v29 = v26 * 0.5, v30 = (v27 + v27) * 0.5, *&v50 = v26 * 0.5, *(&v50 + 1) = v30, *&v31 = v19 + v26 * 0.5, [(PXVerticalFeedLayoutGenerator *)self referenceWidth:0], v51 = v31, *&v52 = v32 - *&v31, *(&v52 + 1) = v21 + v28, *&v53 = 0, *(&v53 + 1) = v19 + v28 * 0.5, *&v54 = v29, *(&v54 + 1) = v30, ![(PXVerticalFeedLayoutGenerator *)self _addRowWithTiles:v57 imageFrames:&v49 count:3]))
     {
-      [(PXFeedLayoutGenerator *)self setScanState:scanState];
+      [(PXFeedLayoutGenerator *)self setScanState:v3];
       if ([(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringFullWidth:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v57]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v58]|| [(PXVerticalFeedLayoutGenerator *)self _scanTileRequiringNewRow:0]|| ![(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v59]|| [(PXVerticalFeedLayoutGenerator *)self _hasLeftSuboptimalRow]|| ([(PXFeedLayoutGenerator *)self interTileSpacing], v34 = v33, v36 = v35, [(PXVerticalFeedLayoutGenerator *)self referenceWidth], v38 = v37 - v34, v39 = v38 * 0.75, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v38 * 0.5], v41 = v40 + v40, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v39 * 0.5], v43 = v42 + v42, *(&v51 + 1) = v34 + (v42 + v42) * 0.5, *(&v52 + 1) = (v42 + v42) * 0.5, *&v44 = v34 + v41 * 0.5, [(PXVerticalFeedLayoutGenerator *)self referenceWidth:0], v53 = v44, *&v54 = v45 - *&v44, *(&v54 + 1) = v36 + v43, ![(PXVerticalFeedLayoutGenerator *)self _addRowWithTiles:v57 imageFrames:&v49 count:3]))
       {
-        [(PXFeedLayoutGenerator *)self setScanState:scanState];
+        [(PXFeedLayoutGenerator *)self setScanState:v3];
         if ([(PXVerticalFeedLayoutGenerator *)self _scanTripletWithLargeLead:v57])
         {
           v46 = 1;
@@ -898,10 +898,10 @@ LABEL_16:
 
         else
         {
-          [(PXFeedLayoutGenerator *)self setScanState:scanState];
+          [(PXFeedLayoutGenerator *)self setScanState:v3];
           if (![(PXVerticalFeedLayoutGenerator *)self _scanTripletWithRearrangment:v57]|| (v49 = v57[0], v50 = v57[1], v51 = v57[2], v52 = v57[3], v53 = v59[0], v54 = v59[1], v55 = v59[2], v56 = v59[3], ![(PXVerticalFeedLayoutGenerator *)self _addRowWithContiguousTiles:&v49 count:2]))
           {
-            [(PXFeedLayoutGenerator *)self setScanState:scanState];
+            [(PXFeedLayoutGenerator *)self setScanState:v3];
             v46 = 0;
             goto LABEL_34;
           }
@@ -937,7 +937,7 @@ LABEL_34:
 - (BOOL)_parseTileTriplet
 {
   v7 = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   if (![(PXVerticalFeedLayoutGenerator *)self _scanTileTriplet:v6])
   {
     goto LABEL_5;
@@ -945,7 +945,7 @@ LABEL_34:
 
   if (![(PXVerticalFeedLayoutGenerator *)self _addRowWithContiguousTiles:v6 count:3])
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v3];
 LABEL_5:
     v4 = 0;
     goto LABEL_6;
@@ -960,7 +960,7 @@ LABEL_6:
 - (BOOL)_parseTilePair
 {
   v7 = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   if (![(PXVerticalFeedLayoutGenerator *)self _scanTilePair:v6])
   {
     goto LABEL_5;
@@ -968,7 +968,7 @@ LABEL_6:
 
   if (![(PXVerticalFeedLayoutGenerator *)self _addRowWithContiguousTiles:v6 count:2])
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v3];
 LABEL_5:
     v4 = 0;
     goto LABEL_6;

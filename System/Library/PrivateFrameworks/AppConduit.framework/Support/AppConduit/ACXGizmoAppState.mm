@@ -131,29 +131,8 @@
         watchKitAppExecutableHash = watchAppBundleID;
         v10 = watchAppBundleID2;
         watchKitAppExecutableHash2 = v10;
-        if ((watchKitAppExecutableHash != 0) != (v10 != 0) || watchKitAppExecutableHash && v10 && ![watchKitAppExecutableHash isEqual:v10])
+        if ((watchKitAppExecutableHash != 0) != (v10 != 0) || watchKitAppExecutableHash && v10 && ![watchKitAppExecutableHash isEqual:v10] || (watchKitAppExecutableHash2, watchKitAppExecutableHash, watchKitAppExecutableHash2, watchKitAppExecutableHash, -[ACXGizmoAppState companionAppBundleID](self, "companionAppBundleID"), v12 = objc_claimAutoreleasedReturnValue(), -[ACXGizmoAppState companionAppBundleID](v5, "companionAppBundleID"), v13 = objc_claimAutoreleasedReturnValue(), watchKitAppExecutableHash = v12, v14 = v13, watchKitAppExecutableHash2 = v14, (watchKitAppExecutableHash != 0) ^ (v14 != 0)) || watchKitAppExecutableHash && v14 && !objc_msgSend(watchKitAppExecutableHash, "isEqual:", v14) || (watchKitAppExecutableHash2, watchKitAppExecutableHash, watchKitAppExecutableHash2, watchKitAppExecutableHash, -[ACXGizmoAppState uniqueInstallID](self, "uniqueInstallID"), v15 = objc_claimAutoreleasedReturnValue(), -[ACXGizmoAppState uniqueInstallID](v5, "uniqueInstallID"), v16 = objc_claimAutoreleasedReturnValue(), watchKitAppExecutableHash = v15, v17 = v16, watchKitAppExecutableHash2 = v17, (watchKitAppExecutableHash != 0) ^ (v17 != 0)) || watchKitAppExecutableHash && v17 && !objc_msgSend(watchKitAppExecutableHash, "isEqual:", v17))
         {
-          goto LABEL_13;
-        }
-
-        companionAppBundleID = [(ACXGizmoAppState *)self companionAppBundleID];
-        companionAppBundleID2 = [(ACXGizmoAppState *)v5 companionAppBundleID];
-        watchKitAppExecutableHash = companionAppBundleID;
-        v14 = companionAppBundleID2;
-        watchKitAppExecutableHash2 = v14;
-        if ((watchKitAppExecutableHash != 0) != (v14 != 0) || watchKitAppExecutableHash && v14 && ![watchKitAppExecutableHash isEqual:v14])
-        {
-          goto LABEL_13;
-        }
-
-        uniqueInstallID = [(ACXGizmoAppState *)self uniqueInstallID];
-        uniqueInstallID2 = [(ACXGizmoAppState *)v5 uniqueInstallID];
-        watchKitAppExecutableHash = uniqueInstallID;
-        v17 = uniqueInstallID2;
-        watchKitAppExecutableHash2 = v17;
-        if ((watchKitAppExecutableHash != 0) != (v17 != 0) || watchKitAppExecutableHash && v17 && ![watchKitAppExecutableHash isEqual:v17])
-        {
-LABEL_13:
 
           v18 = 0;
         }

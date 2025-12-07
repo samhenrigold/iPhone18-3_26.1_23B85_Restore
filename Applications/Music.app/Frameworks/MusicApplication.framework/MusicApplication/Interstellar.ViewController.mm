@@ -59,24 +59,23 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v7.receiver = self;
-  v7.super_class = _s14ViewControllerCMa();
-  v4 = v7.receiver;
-  [(Interstellar.ViewController *)&v7 viewDidDisappear:disappearCopy];
+  v5.receiver = self;
+  v5.super_class = _s14ViewControllerCMa();
+  v4 = v5.receiver;
+  [(Interstellar.ViewController *)&v5 viewDidDisappear:disappearCopy];
   sub_28C1E0();
   RequestResponse.Controller.isAutomaticReloadingEnabled.setter(0);
 
   sub_289E34();
-  v5 = sub_28C2C8();
-  *(v5 + 145) = 0;
-  sub_35BD84(v5, v6);
+  *(sub_28C2C8() + 145) = 0;
+  sub_35BD84();
 }
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
+  __chkstk_darwin();
   v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -92,22 +91,22 @@
 {
   v8 = sub_AB3820();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   cellCopy = cell;
   pathCopy = path;
   selfCopy = self;
   sub_28C2C8();
-  sub_470E1C(v11);
-  (*(v9 + 8))(v11, v8);
+  v15 = sub_470E1C(v11);
+  (*(v9 + 8))(v11, v8, v15);
 }
 
 - (BOOL)collectionView:(id)view shouldSelectItemAtIndexPath:(id)path
 {
   v6 = sub_AB3820();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -122,12 +121,12 @@
 {
   v6 = sub_AB3820();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   pathCopy = path;
   selfCopy = self;
-  sub_28ACE4();
+  sub_28ACE4(v9);
   (*(v7 + 8))(v9, v6);
 }
 

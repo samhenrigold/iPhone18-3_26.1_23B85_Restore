@@ -42,7 +42,7 @@
 
 - (void)exitState:(id)state exitTime:(unint64_t)time exitData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   dataCopy = data;
   openStates = [(HMMStateTracker *)self openStates];
@@ -71,22 +71,20 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2112;
-      v23 = stateCopy;
-      _os_log_impl(&dword_22B074000, v17, OS_LOG_TYPE_ERROR, "%{public}@Exiting state %@ that hasn't been entered", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v18;
+      v21 = 2112;
+      v22 = stateCopy;
+      _os_log_impl(&dword_22B074000, v17, OS_LOG_TYPE_ERROR, "%{public}@Exiting state %@ that hasn't been entered", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enterState:(id)state enterTime:(unint64_t)time enterData:(id)data
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   dataCopy = data;
   if (![(HMMStateTracker *)self isStarted])
@@ -98,31 +96,31 @@
   v11 = [openStates count];
   if ([(HMMStateTracker *)self autoStopPreviousState]&& v11)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     allValues = [openStates allValues];
-    v13 = [allValues countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v13 = [allValues countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         v16 = 0;
         do
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [(HMMStateTracker *)self _exitState:*(*(&v25 + 1) + 8 * v16++) exitTime:time exitData:0];
+          [(HMMStateTracker *)self _exitState:*(*(&v24 + 1) + 8 * v16++) exitTime:time exitData:0];
         }
 
         while (v14 != v16);
-        v14 = [allValues countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v14 = [allValues countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v14);
@@ -142,9 +140,9 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v21;
-      v31 = 2112;
-      v32 = stateCopy;
+      v29 = v21;
+      v30 = 2112;
+      v31 = stateCopy;
       _os_log_impl(&dword_22B074000, v20, OS_LOG_TYPE_ERROR, "%{public}@State %@ has already been entered", buf, 0x16u);
     }
 
@@ -169,13 +167,11 @@
       [(HMMStateTracker *)self setStateEntryTransitionTime:time];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endWithTime:(unint64_t)time
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self->_started)
   {
     self->_started = 0;
@@ -193,7 +189,7 @@
       {
         v8 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v8;
+        v30 = v8;
         _os_log_impl(&dword_22B074000, v7, OS_LOG_TYPE_ERROR, "%{public}@State tracker end time less than start time", buf, 0xCu);
       }
 
@@ -205,29 +201,29 @@
 
     if (v15)
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       openStates2 = [(HMMStateTracker *)self openStates];
       allValues = [openStates2 allValues];
 
-      v18 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v18 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v26;
+        v20 = *v25;
         do
         {
           v21 = 0;
           do
           {
-            if (*v26 != v20)
+            if (*v25 != v20)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v22 = *(*(&v25 + 1) + 8 * v21);
+            v22 = *(*(&v24 + 1) + 8 * v21);
             if ([(HMMStateTracker *)self autoStopPreviousState])
             {
               [(HMMStateTracker *)self _exitState:v22 exitTime:time exitData:0];
@@ -244,7 +240,7 @@
           }
 
           while (v19 != v21);
-          v19 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v19 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v19);
@@ -264,16 +260,14 @@
       v12 = HMFGetLogIdentifier();
       states = [(HMMStateTracker *)selfCopy2 states];
       *buf = 138543618;
-      v31 = v12;
-      v32 = 2112;
-      v33 = states;
+      v30 = v12;
+      v31 = 2112;
+      v32 = states;
       _os_log_impl(&dword_22B074000, v11, OS_LOG_TYPE_ERROR, "%{public}@Trying to end a state tracker that is already closed with states %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initAutoStopPreviousState:(BOOL)state

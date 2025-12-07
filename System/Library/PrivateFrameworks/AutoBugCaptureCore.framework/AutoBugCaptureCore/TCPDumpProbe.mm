@@ -26,11 +26,11 @@
 
 - (void)startTCPDumpWithDuration:(double)duration destinationPath:(id)path tcpDumpStarted:(id)started tcpDumpCompleted:(id)completed
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   completedCopy = completed;
   pathCopy = path;
-  v13 = symptomsLogHandle();
+  v13 = symptomsLogHandle(pathCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -46,65 +46,64 @@
   aBlock[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke;
   aBlock[3] = &unk_278CF05C0;
   aBlock[4] = self;
-  v24 = completedCopy;
+  v23 = completedCopy;
   v14 = startedCopy;
-  v25 = v14;
+  v24 = v14;
   v15 = completedCopy;
   v16 = _Block_copy(aBlock);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_193;
-  v20[3] = &unk_278CF05E8;
-  v20[4] = self;
-  v21 = v14;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_193;
+  v19[3] = &unk_278CF05E8;
+  v19[4] = self;
+  v20 = v14;
   v17 = v16;
-  v22 = v17;
+  v21 = v17;
   v18 = v14;
-  if (![(NetDiagnosticProbe *)self netDiagnosticsTaskInProgress:v20])
+  if (![(NetDiagnosticProbe *)self netDiagnosticsTaskInProgress:v19])
   {
     v17[2](v17);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_2;
-  v6[3] = &unk_278CF0598;
-  v6[4] = v2;
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  if (([v2 startNetDiagnosticsTask:v6] & 1) == 0)
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_2;
+  v7[3] = &unk_278CF0598;
+  v7[4] = v2;
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  v3 = [v2 startNetDiagnosticsTask:v7];
+  if ((v3 & 1) == 0)
   {
-    v3 = symptomsLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = symptomsLogHandle(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_241804000, v3, OS_LOG_TYPE_DEFAULT, "Could not even start the TCP Dump", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "Could not even start the TCP Dump", v6, 2u);
     }
 
-    v4 = *(a1 + 48);
-    if (v4)
+    v5 = *(a1 + 48);
+    if (v5)
     {
-      (*(v4 + 16))(v4, 3);
+      (*(v5 + 16))(v5, 3);
     }
   }
 }
 
 uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = symptomsLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = symptomsLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [TestProbe testProbeStatusString:a2];
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "startTCPDumpWithDuration Status Update %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "startTCPDumpWithDuration Status Update %@", &v8, 0xCu);
   }
 
   if ((a2 - 3) > 2)
@@ -124,49 +123,47 @@ uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStar
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_193(uint64_t result, int a2)
+void *__89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_193(void *result, int a2)
 {
   if ((a2 + 1) <= 6)
   {
     v2 = result;
     if (((1 << (a2 + 1)) & 0x1B) != 0)
     {
-      v3 = *(result + 48);
-      v4 = *(*(v2 + 48) + 16);
+      v3 = *(result[6] + 16);
 
-      return v4();
+      return v3();
     }
 
     else if (a2 == 1)
     {
-      v6 = symptomsLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = symptomsLogHandle(result);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_DEFAULT, "A TCP Dump is already in progress. We cannot stop it.", v8, 2u);
+        *v7 = 0;
+        _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "A TCP Dump is already in progress. We cannot stop it.", v7, 2u);
       }
 
-      v7 = *(v2 + 40);
-      if (v7)
+      v6 = v2[5];
+      if (v6)
       {
-        (*(v7 + 16))(v7, 3);
+        (*(v6 + 16))(v6, 3);
       }
 
-      return [*(v2 + 32) disconnectFromNetDiagnostics];
+      return [v2[4] disconnectFromNetDiagnostics];
     }
 
     else if (a2 == 5)
     {
-      v5 = *(result + 32);
+      v4 = result[4];
 
-      return [v5 disconnectFromNetDiagnostics];
+      return [v4 disconnectFromNetDiagnostics];
     }
   }
 
@@ -185,41 +182,40 @@ uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStar
   duration = self->_duration;
   if (duration < 5.0 || duration > 900.0)
   {
-    v7 = symptomsLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = symptomsLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = self->_duration;
+      v9 = self->_duration;
       *buf = 134218240;
-      v17 = v8;
+      v17 = v9;
       v18 = 2048;
       v19 = 0x403E000000000000;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Unsupported TCP dump duration (%f) request. Resetting to %f", buf, 0x16u);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Unsupported TCP dump duration (%f) request. Resetting to %f", buf, 0x16u);
     }
 
     self->_duration = 30.0;
   }
 
   queue = [(TestProbe *)self queue];
-  v10 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, queue);
+  v11 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, queue);
 
-  v11 = dispatch_time(0, (self->_duration * 1000000000.0));
-  dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0);
+  v12 = dispatch_time(0, (self->_duration * 1000000000.0));
+  dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __40__TCPDumpProbe_startNetDiagnosticsTask___block_invoke;
   handler[3] = &unk_278CEFE88;
   handler[4] = self;
-  dispatch_source_set_event_handler(v10, handler);
-  [(TCPDumpProbe *)self setTcpDumpTimer:v10];
-  dispatch_resume(v10);
+  dispatch_source_set_event_handler(v11, handler);
+  [(TCPDumpProbe *)self setTcpDumpTimer:v11];
+  dispatch_resume(v11);
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __40__TCPDumpProbe_startNetDiagnosticsTask___block_invoke(uint64_t a1)
 {
-  v2 = symptomsLogHandle();
+  v2 = symptomsLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -232,7 +228,7 @@ uint64_t __40__TCPDumpProbe_startNetDiagnosticsTask___block_invoke(uint64_t a1)
 - (BOOL)stopNetDiagnosticsTask:(id)task
 {
   taskCopy = task;
-  v5 = symptomsLogHandle();
+  v5 = symptomsLogHandle(taskCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -313,59 +309,59 @@ LABEL_6:
     else
     {
 
-      v11 = symptomsLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = symptomsLogHandle(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_INFO, "Could not parse pcapng file name", buf, 2u);
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "Could not parse pcapng file name", buf, 2u);
       }
 
       v10 = 0;
     }
 
-    v12 = MEMORY[0x277CBEBC0];
+    v13 = MEMORY[0x277CBEBC0];
     stringByDeletingLastPathComponent = [v5 stringByDeletingLastPathComponent];
-    v14 = [v12 URLWithString:stringByDeletingLastPathComponent];
+    v15 = [v13 URLWithString:stringByDeletingLastPathComponent];
 
-    if (v14)
+    if (v15)
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v16 = [defaultManager enumeratorAtURL:v14 includingPropertiesForKeys:0 options:1 errorHandler:0];
+      v17 = [defaultManager enumeratorAtURL:v15 includingPropertiesForKeys:0 options:1 errorHandler:0];
 
-      if (v16)
+      if (v17)
       {
-        nextObject = [v16 nextObject];
+        nextObject = [v17 nextObject];
         if (nextObject)
         {
-          v18 = nextObject;
-          v27 = v14;
-          v19 = array;
+          v19 = nextObject;
+          v28 = v15;
+          v20 = array;
           lastPathComponent2 = 0;
           do
           {
-            v21 = lastPathComponent2;
-            v22 = objc_autoreleasePoolPush();
-            lastPathComponent2 = [v18 lastPathComponent];
+            v22 = lastPathComponent2;
+            v23 = objc_autoreleasePoolPush();
+            lastPathComponent2 = [v19 lastPathComponent];
 
             pathExtension = [lastPathComponent2 pathExtension];
-            LODWORD(v21) = [pathExtension isEqualToString:@"pcapng"];
+            LODWORD(v22) = [pathExtension isEqualToString:@"pcapng"];
 
-            if (v21 && (!v10 || [lastPathComponent2 containsString:v10]))
+            if (v22 && (!v10 || [lastPathComponent2 containsString:v10]))
             {
-              path = [v18 path];
-              [v19 addObject:path];
+              path = [v19 path];
+              [v20 addObject:path];
             }
 
-            objc_autoreleasePoolPop(v22);
-            nextObject2 = [v16 nextObject];
+            objc_autoreleasePoolPop(v23);
+            nextObject2 = [v17 nextObject];
 
-            v18 = nextObject2;
+            v19 = nextObject2;
           }
 
           while (nextObject2);
 
-          array = v19;
-          v14 = v27;
+          array = v20;
+          v15 = v28;
         }
       }
     }

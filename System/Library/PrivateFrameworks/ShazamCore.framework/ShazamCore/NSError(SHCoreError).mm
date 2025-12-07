@@ -1,16 +1,16 @@
 @interface NSError(SHCoreError)
-- (uint64_t)sh_isCoreCompressionError;
-- (uint64_t)sh_isCoreDaemonExit;
-- (uint64_t)sh_isCoreDecompressionError;
-- (uint64_t)sh_isCoreFailedToStartAudioRecording;
-- (uint64_t)sh_isCoreJSONLFileParsingError;
-- (uint64_t)sh_isCoreMatchAttemptRejectedError;
-- (uint64_t)sh_isCoreMediaItemMissingRequiredProperties;
-- (uint64_t)sh_isCoreMissingEntitlementsError;
-- (uint64_t)sh_isCoreServerResponseMissingRequiredProperties;
-- (uint64_t)sh_isCoreServerResponseWorkerAlreadyRegistered;
-- (uint64_t)sh_isCoreToldNotToResumeAudioRecordingAfterInterruption;
 - (uint64_t)sh_isShazamCoreError;
+- (void)sh_isCoreCompressionError;
+- (void)sh_isCoreDaemonExit;
+- (void)sh_isCoreDecompressionError;
+- (void)sh_isCoreFailedToStartAudioRecording;
+- (void)sh_isCoreJSONLFileParsingError;
+- (void)sh_isCoreMatchAttemptRejectedError;
+- (void)sh_isCoreMediaItemMissingRequiredProperties;
+- (void)sh_isCoreMissingEntitlementsError;
+- (void)sh_isCoreServerResponseMissingRequiredProperties;
+- (void)sh_isCoreServerResponseWorkerAlreadyRegistered;
+- (void)sh_isCoreToldNotToResumeAudioRecordingAfterInterruption;
 @end
 
 @implementation NSError(SHCoreError)
@@ -23,122 +23,122 @@
   return v2;
 }
 
-- (uint64_t)sh_isCoreJSONLFileParsingError
+- (void)sh_isCoreJSONLFileParsingError
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 300;
+    return ([self code] == 300);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreCompressionError
+- (void)sh_isCoreCompressionError
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 301;
+    return ([self code] == 301);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreDecompressionError
+- (void)sh_isCoreDecompressionError
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 302;
+    return ([self code] == 302);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreDaemonExit
+- (void)sh_isCoreDaemonExit
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 100;
+    return ([self code] == 100);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreMatchAttemptRejectedError
+- (void)sh_isCoreMatchAttemptRejectedError
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 101;
+    return ([self code] == 101);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreMissingEntitlementsError
+- (void)sh_isCoreMissingEntitlementsError
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 102;
+    return ([self code] == 102);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreMediaItemMissingRequiredProperties
+- (void)sh_isCoreMediaItemMissingRequiredProperties
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 400;
+    return ([self code] == 400);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreServerResponseMissingRequiredProperties
+- (void)sh_isCoreServerResponseMissingRequiredProperties
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 401;
+    return ([self code] == 401);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreFailedToStartAudioRecording
+- (void)sh_isCoreFailedToStartAudioRecording
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 104;
+    return ([self code] == 104);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreToldNotToResumeAudioRecordingAfterInterruption
+- (void)sh_isCoreToldNotToResumeAudioRecordingAfterInterruption
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 105;
+    return ([self code] == 105);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isCoreServerResponseWorkerAlreadyRegistered
+- (void)sh_isCoreServerResponseWorkerAlreadyRegistered
 {
   result = [self sh_isShazamCoreError];
   if (result)
   {
-    return [self code] == 106;
+    return ([self code] == 106);
   }
 
   return result;

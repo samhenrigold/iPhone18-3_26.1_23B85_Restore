@@ -1,1891 +1,9 @@
-void sub_29632BAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_29632DDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
-  QMux::~QMux((v10 + 56));
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](v10 + 40);
+  va_start(va, a32);
+  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](v32 + 32);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
-  qmi::MutableMessageBase::~MutableMessageBase(va1);
-  QMux::~QMux((v11 - 104));
-  _Unwind_Resume(a1);
-}
-
-void sub_29632BAEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
-{
-  va_start(va, a17);
-  qmi::MutableMessageBase::~MutableMessageBase(va);
-  QMux::~QMux((v17 - 104));
-  _Unwind_Resume(a1);
-}
-
-void ___ZN10QMIControl20requestClientId_syncEN3qmi11ServiceTypeE_block_invoke_2(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 64);
-  v6 = *(a2 + 8);
-  v10 = *a2;
-  v11 = v6;
-  v7 = *(a2 + 16);
-  v12 = v7;
-  if (v7)
-  {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  qmi::MessageBase::validateMsgId(&v10);
-  QMIControl::handleClientIdRequest_sync(v4, v5, &v10);
-  qmi::MessageBase::~MessageBase(&v10);
-  v8 = *(a1 + 48);
-  if (v8)
-  {
-    v9 = *(a1 + 56);
-    v10 = v8;
-    v11 = v9;
-    if (v9)
-    {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    QMux::State::notifyControlMessageError_sync(v8, *(a2 + 4));
-    if (v9)
-    {
-      if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v9->__on_zero_shared)(v9);
-        std::__shared_weak_count::__release_weak(v9);
-      }
-    }
-  }
-}
-
-void sub_29632BC18(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_29632BC2C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  qmi::MessageBase::~MessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_29632BC40(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  qmi::MessageBase::~MessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void QMIControl::handleClientIdRequest_sync(uint64_t a1, unsigned int a2, qmi::MessageBase *a3)
-{
-  v63 = *MEMORY[0x29EDCA608];
-  v60 = 0;
-  v61 = 0;
-  v6 = *(a1 + 80);
-  if (!v6)
-  {
-    v7 = 0;
-LABEL_6:
-    v8 = 0;
-    if (*(a3 + 1) != 31)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_7;
-  }
-
-  v7 = std::__shared_weak_count::lock(v6);
-  v61 = v7;
-  if (!v7)
-  {
-    goto LABEL_6;
-  }
-
-  v8 = *(a1 + 72);
-  v60 = v8;
-  if (*(a3 + 1) != 31)
-  {
-LABEL_12:
-    v57 = 0xAAAAAAAAAAAAAAAALL;
-    v58 = 0xAAAAAAAAAAAAAAAALL;
-    QMIControl::ClientIdRequests::popClientForSvcType(a1 + 128, a2, &v57);
-    v13 = v57;
-    v14 = *(a3 + 1);
-    if (!v57)
-    {
-      if (!v14)
-      {
-        v44[0] = MEMORY[0x29EDCA5F8];
-        v44[1] = 0x40000000;
-        v45 = ___ZN10QMIControl26handleClientIdRequest_syncEN3qmi11ServiceTypeERKN3ctl11GetClientId8ResponseE_block_invoke_64;
-        v46 = &__block_descriptor_tmp_65;
-        v47 = a1;
-        TlvValue = qmi::MessageBase::findTlvValue(a3);
-        v21 = TlvValue;
-        if (TlvValue)
-        {
-          v22 = v20;
-          tlv::throwIfNotEnoughBytes(TlvValue, TlvValue + v20, 1);
-          v23 = *v21;
-          tlv::throwIfNotEnoughBytes((v21 + 1), v21 + v22, 1);
-          *buf = v23 | (*(v21 + 1) << 8);
-          v45(v44, buf);
-        }
-      }
-
-      goto LABEL_56;
-    }
-
-    if (!v14)
-    {
-      if (!v8)
-      {
-        v35 = *(a1 + 48);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-        {
-          v36 = (a1 + 8);
-          if (*(a1 + 31) < 0)
-          {
-            v36 = *v36;
-          }
-
-          *buf = 136315138;
-          *&buf[4] = v36;
-          _os_log_impl(&dword_2962DD000, v35, OS_LOG_TYPE_DEFAULT, "#I handleClientIdRequest received, but QMux is dead; dropping [%s]", buf, 0xCu);
-        }
-
-        goto LABEL_56;
-      }
-
-      v48[0] = MEMORY[0x29EDCA5F8];
-      v48[1] = 1174405120;
-      v49 = ___ZN10QMIControl26handleClientIdRequest_syncEN3qmi11ServiceTypeERKN3ctl11GetClientId8ResponseE_block_invoke_62;
-      v50 = &__block_descriptor_tmp_63;
-      v51 = v8;
-      v52 = v7;
-      if (v7)
-      {
-        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v53 = v13;
-      v54 = v58;
-      if (v58)
-      {
-        atomic_fetch_add_explicit((v58 + 8), 1uLL, memory_order_relaxed);
-      }
-
-      v24 = qmi::MessageBase::findTlvValue(a3);
-      v26 = v24;
-      if (v24)
-      {
-        v27 = v25;
-        tlv::throwIfNotEnoughBytes(v24, v24 + v25, 1);
-        v28 = *v26;
-        tlv::throwIfNotEnoughBytes((v26 + 1), v26 + v27, 1);
-        *buf = v28 | (*(v26 + 1) << 8);
-        v49(v48, buf);
-      }
-
-      v29 = v54;
-      if (v54 && !atomic_fetch_add(&v54->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v29->__on_zero_shared)(v29);
-        std::__shared_weak_count::__release_weak(v29);
-      }
-
-      v30 = v52;
-      if (!v52)
-      {
-LABEL_56:
-        v39 = v58;
-        if (v58 && !atomic_fetch_add((v58 + 8), 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v39->__on_zero_shared)(v39);
-          std::__shared_weak_count::__release_weak(v39);
-        }
-
-        v7 = v61;
-        goto LABEL_60;
-      }
-
-LABEL_54:
-      if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v30->__on_zero_shared)(v30);
-        std::__shared_weak_count::__release_weak(v30);
-      }
-
-      goto LABEL_56;
-    }
-
-    if (!v8)
-    {
-      v31 = *(a1 + 48);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-      {
-        v32 = qmi::asString();
-        v33 = v13[32];
-        v34 = (a1 + 8);
-        if (*(a1 + 31) < 0)
-        {
-          v34 = *v34;
-        }
-
-        *buf = 67109890;
-        *&buf[4] = v14;
-        *&buf[8] = 2080;
-        *&buf[10] = v32;
-        *&buf[18] = 1024;
-        *&buf[20] = v33;
-        *&buf[24] = 2080;
-        *&buf[26] = v34;
-        _os_log_error_impl(&dword_2962DD000, v31, OS_LOG_TYPE_ERROR, "ERROR: handleClientIdRequest: 0x%x (%s) for type: %d; QMux dead; nothing happens now [%s]", buf, 0x22u);
-      }
-
-      goto LABEL_56;
-    }
-
-    if (v14 == 31 || v14 == 5)
-    {
-      v15 = *(a1 + 48);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
-      {
-        v16 = (a1 + 8);
-        if (*(a1 + 31) < 0)
-        {
-          v16 = *v16;
-        }
-
-        v17 = qmi::asString();
-        v18 = qmi::asShortString();
-        *buf = 136315906;
-        *&buf[4] = v16;
-        *&buf[12] = 2080;
-        *&buf[14] = v18;
-        *&buf[22] = 1024;
-        *&buf[24] = v14;
-        *&buf[28] = 2080;
-        *&buf[30] = v17;
-        _os_log_fault_impl(&dword_2962DD000, v15, OS_LOG_TYPE_FAULT, "[%s] Baseband did not allocate client for svc type: %s, error: 0x%x (%s)", buf, 0x26u);
-        *buf = v8;
-        *&buf[8] = v7;
-        if (!v7)
-        {
-          goto LABEL_48;
-        }
-
-        goto LABEL_47;
-      }
-    }
-
-    else
-    {
-      v37 = *(a1 + 48);
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-      {
-        v41 = (a1 + 8);
-        if (*(a1 + 31) < 0)
-        {
-          v41 = *v41;
-        }
-
-        v42 = qmi::asString();
-        v43 = qmi::asShortString();
-        *buf = 136315906;
-        *&buf[4] = v41;
-        *&buf[12] = 2080;
-        *&buf[14] = v43;
-        *&buf[22] = 1024;
-        *&buf[24] = v14;
-        *&buf[28] = 2080;
-        *&buf[30] = v42;
-        _os_log_error_impl(&dword_2962DD000, v37, OS_LOG_TYPE_ERROR, "[%s] Baseband did not allocate client for svc type: %s, error: 0x%x (%s)", buf, 0x26u);
-        *buf = v8;
-        *&buf[8] = v7;
-        if (!v7)
-        {
-LABEL_48:
-          v38 = v58;
-          v55 = v13;
-          v56 = v58;
-          if (v58)
-          {
-            atomic_fetch_add_explicit((v58 + 8), 1uLL, memory_order_relaxed);
-          }
-
-          (*(*v13 + 24))(v13, *(a3 + 1));
-          if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            (v38->__on_zero_shared)(v38);
-            std::__shared_weak_count::__release_weak(v38);
-          }
-
-          v30 = *&buf[8];
-          if (!*&buf[8])
-          {
-            goto LABEL_56;
-          }
-
-          goto LABEL_54;
-        }
-
-LABEL_47:
-        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-        goto LABEL_48;
-      }
-    }
-
-    *buf = v8;
-    *&buf[8] = v7;
-    if (!v7)
-    {
-      goto LABEL_48;
-    }
-
-    goto LABEL_47;
-  }
-
-LABEL_7:
-  QMIControl::ClientIdRequests::addFailedRequestForSvcType(a1 + 128, a2);
-  v59[0] = MEMORY[0x29EDCA5F8];
-  v59[1] = 0x40000000;
-  v59[2] = ___ZN10QMIControl26handleClientIdRequest_syncEN3qmi11ServiceTypeERKN3ctl11GetClientId8ResponseE_block_invoke;
-  v59[3] = &__block_descriptor_tmp_61;
-  v59[4] = a1;
-  if (!QMIControl::startRetryTimer_sync(a1, v59))
-  {
-    goto LABEL_12;
-  }
-
-  v9 = *(a1 + 48);
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    v10 = (a1 + 8);
-    if (*(a1 + 31) < 0)
-    {
-      v10 = *v10;
-    }
-
-    v11 = *(a3 + 1);
-    v12 = qmi::asString();
-    *buf = 136316162;
-    *&buf[4] = v10;
-    *&buf[12] = 1024;
-    *&buf[14] = v11;
-    *&buf[18] = 2080;
-    *&buf[20] = v12;
-    *&buf[28] = 1024;
-    *&buf[30] = a2;
-    *&buf[34] = 1024;
-    *&buf[36] = 50;
-    _os_log_error_impl(&dword_2962DD000, v9, OS_LOG_TYPE_ERROR, "[%s] Got error 0x%x (%s), will retry client request for svc type: %d in %d msec", buf, 0x28u);
-  }
-
-LABEL_60:
-  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-  }
-
-  v40 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29632C3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
-{
-  va_start(va, a16);
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
-  QMux::~QMux((v16 - 160));
-  _Unwind_Resume(a1);
-}
-
-void *__copy_helper_block_e8_32c38_ZTSNSt3__110shared_ptrI10QMIControlEE48c9_ZTS4QMux(void *result, void *a2)
-{
-  v2 = a2[5];
-  result[4] = a2[4];
-  result[5] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v3 = a2[7];
-  result[6] = a2[6];
-  result[7] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void __destroy_helper_block_e8_32c38_ZTSNSt3__110shared_ptrI10QMIControlEE48c9_ZTS4QMux(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v1->__on_zero_shared)(v1);
-    std::__shared_weak_count::__release_weak(v1);
-    v2 = *(a1 + 40);
-    if (!v2)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-    v2 = *(a1 + 40);
-    if (!v2)
-    {
-      return;
-    }
-  }
-
-  if (!atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v2->__on_zero_shared)(v2);
-
-    std::__shared_weak_count::__release_weak(v2);
-  }
-}
-
-uint64_t ___ZN10QMIControl20releaseClientId_syncEN3qmi11ServiceTypeEh_block_invoke(uint64_t result, _BYTE *a2)
-{
-  *a2 = *(result + 32);
-  a2[1] = *(result + 33);
-  return result;
-}
-
-void ___ZN10QMIControl20releaseClientId_syncEN3qmi11ServiceTypeEh_block_invoke_2(void *a1, uint64_t a2)
-{
-  v16 = *MEMORY[0x29EDCA608];
-  v2 = *(a2 + 4);
-  if (!v2)
-  {
-    goto LABEL_9;
-  }
-
-  v5 = *(a1[4] + 48);
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    v6 = a1[7];
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_4;
-  }
-
-  v9 = qmi::asString();
-  v10 = a1[5];
-  v11 = (v10 + 8);
-  if (*(v10 + 31) < 0)
-  {
-    v11 = *v11;
-  }
-
-  LODWORD(v12) = 67109634;
-  HIDWORD(v12) = v2;
-  *v13 = 2080;
-  *&v13[2] = v9;
-  v14 = 2080;
-  v15 = v11;
-  _os_log_error_impl(&dword_2962DD000, v5, OS_LOG_TYPE_ERROR, "ReleaseClientId::Response returned error 0x%x (%s) during removeClient_sync [%s]", &v12, 0x1Cu);
-  v6 = a1[7];
-  if (v6)
-  {
-LABEL_4:
-    v7 = a1[8];
-    v12 = v6;
-    *v13 = v7;
-    if (v7)
-    {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    QMux::State::notifyControlMessageError_sync(v6, *(a2 + 4));
-    if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-  }
-
-LABEL_9:
-  v8 = *MEMORY[0x29EDCA608];
-}
-
-void *__copy_helper_block_e8_40c38_ZTSNSt3__110shared_ptrI10QMIControlEE56c9_ZTS4QMux(void *result, void *a2)
-{
-  v2 = a2[6];
-  result[5] = a2[5];
-  result[6] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v3 = a2[8];
-  result[7] = a2[7];
-  result[8] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void __destroy_helper_block_e8_40c38_ZTSNSt3__110shared_ptrI10QMIControlEE56c9_ZTS4QMux(uint64_t a1)
-{
-  v1 = *(a1 + 64);
-  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v1->__on_zero_shared)(v1);
-    std::__shared_weak_count::__release_weak(v1);
-    v2 = *(a1 + 48);
-    if (!v2)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-    v2 = *(a1 + 48);
-    if (!v2)
-    {
-      return;
-    }
-  }
-
-  if (!atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v2->__on_zero_shared)(v2);
-
-    std::__shared_weak_count::__release_weak(v2);
-  }
-}
-
-void QMIControl::sendSync_sync(QMIControl *this)
-{
-  v29 = 0;
-  v30 = 0;
-  v2 = *(this + 10);
-  if (v2)
-  {
-    v3 = std::__shared_weak_count::lock(v2);
-    v30 = v3;
-    if (v3)
-    {
-      v4 = *(this + 9);
-      v29 = v4;
-      if (!*(this + 60))
-      {
-LABEL_6:
-        if (*(this + 124) != 1)
-        {
-          goto LABEL_13;
-        }
-
-        goto LABEL_12;
-      }
-    }
-
-    else
-    {
-      v4 = 0;
-      if (!*(this + 60))
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-    v4 = 0;
-    if (!*(this + 60))
-    {
-      goto LABEL_6;
-    }
-  }
-
-  memset(v28, 170, 24);
-  qmi::MessageBase::MessageBase();
-  v5 = *(this + 60);
-  current_queue = dispatch_get_current_queue();
-  v11 = *(this + 13);
-  if (current_queue != *(v11 + 3))
-  {
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMITransactionQueue.cpp", 0x227, "dispatch_get_current_queue()==fState->queue()", "is not", "true", v8);
-    v11 = *(this + 13);
-  }
-
-  qmi::TransactionQueue::State::sendTransactionResponse_sync(v11, v5, v28, v6, v7, v8, v9);
-  qmi::MessageBase::~MessageBase(v28);
-  if (*(this + 124) == 1)
-  {
-LABEL_12:
-    (*(*this + 48))(this);
-  }
-
-LABEL_13:
-  *&v12 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v28 = v12;
-  *&v28[16] = v12;
-  qmi::MutableMessageBase::MutableMessageBase(v28);
-  v14 = *(this + 7);
-  v13 = *(this + 8);
-  v26 = v14;
-  if (!v13 || (v15 = std::__shared_weak_count::lock(v13), (v27 = v15) == 0))
-  {
-    std::__throw_bad_weak_ptr[abi:ne200100]();
-  }
-
-  v22[0] = MEMORY[0x29EDCA5F8];
-  v22[1] = 1174405120;
-  v22[2] = ___ZN10QMIControl13sendSync_syncEv_block_invoke;
-  v22[3] = &__block_descriptor_tmp_27_0;
-  v22[4] = v14;
-  v23 = v15;
-  atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-  v24 = v4;
-  v25 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v16 = qmi::TransactionQueue::forceSend_sync(this + 13, v28, 2000, v22);
-  *(this + 60) = v16;
-  if (*(this + 61))
-  {
-    if (*(this + 61) == v16)
-    {
-      *(this + 124) = 1;
-    }
-
-    v17 = v25;
-    if (!v25)
-    {
-      goto LABEL_29;
-    }
-
-LABEL_27:
-    if (!atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v17->__on_zero_shared)(v17);
-      std::__shared_weak_count::__release_weak(v17);
-    }
-
-    goto LABEL_29;
-  }
-
-  v18 = v16 + 224;
-  if (((v16 + 224) & 0xFF00) != 0)
-  {
-    v18 = v16 - 32;
-  }
-
-  if ((v18 & 0xFFFE) == 0)
-  {
-    v18 = 1;
-  }
-
-  *(this + 61) = v18;
-  v17 = v25;
-  if (v25)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_29:
-  v19 = v23;
-  if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v19->__on_zero_shared)(v19);
-    std::__shared_weak_count::__release_weak(v19);
-  }
-
-  v20 = v27;
-  if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v20->__on_zero_shared)(v20);
-    std::__shared_weak_count::__release_weak(v20);
-  }
-
-  qmi::MutableMessageBase::~MutableMessageBase(v28);
-  v21 = v30;
-  if (v30)
-  {
-    if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v21->__on_zero_shared)(v21);
-      std::__shared_weak_count::__release_weak(v21);
-    }
-  }
-}
-
-void sub_29632CBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  QMux::~QMux((v9 + 48));
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](v9 + 32);
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
-  qmi::MutableMessageBase::~MutableMessageBase(va1);
-  QMux::~QMux((v10 - 64));
-  _Unwind_Resume(a1);
-}
-
-void sub_29632CC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  qmi::MessageBase::~MessageBase(va);
-  QMux::~QMux((v11 - 64));
-  _Unwind_Resume(a1);
-}
-
-void sub_29632CC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  qmi::MutableMessageBase::~MutableMessageBase(va);
-  QMux::~QMux((v11 - 64));
-  _Unwind_Resume(a1);
-}
-
-void ___ZN10QMIControl13sendSync_syncEv_block_invoke(void *a1, uint64_t a2)
-{
-  v4 = a1[4];
-  v5 = *(a2 + 8);
-  v9 = *a2;
-  v10 = v5;
-  v6 = *(a2 + 16);
-  v11 = v6;
-  if (v6)
-  {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  qmi::MessageBase::validateMsgId(&v9);
-  QMIControl::handleSyncResponse_sync(v4, &v9);
-  qmi::MessageBase::~MessageBase(&v9);
-  v7 = a1[6];
-  if (v7)
-  {
-    v8 = a1[7];
-    v9 = v7;
-    v10 = v8;
-    if (v8)
-    {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    QMux::State::notifyControlMessageError_sync(v7, *(a2 + 4));
-    if (v8)
-    {
-      if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v8->__on_zero_shared)(v8);
-        std::__shared_weak_count::__release_weak(v8);
-      }
-    }
-  }
-}
-
-void sub_29632CD3C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_29632CD50(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  qmi::MessageBase::~MessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_29632CD64(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  qmi::MessageBase::~MessageBase(va);
-  _Unwind_Resume(a1);
-}
-
-void QMIControl::handleSyncResponse_sync(uint64_t a1, uint64_t a2)
-{
-  v21 = *MEMORY[0x29EDCA608];
-  v17 = 0;
-  v3 = *(a1 + 80);
-  if (!v3)
-  {
-    goto LABEL_21;
-  }
-
-  v5 = std::__shared_weak_count::lock(v3);
-  v17 = v5;
-  if (!v5)
-  {
-    goto LABEL_24;
-  }
-
-  v6 = *(a1 + 72);
-  if (!v6)
-  {
-    goto LABEL_21;
-  }
-
-  v7 = *(a2 + 4);
-  if (v7 == 65539)
-  {
-    goto LABEL_21;
-  }
-
-  v8 = v5;
-  if (v7 == 65537)
-  {
-    v9 = *(a1 + 48);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      v14 = (a1 + 8);
-      if (*(a1 + 31) < 0)
-      {
-        v14 = *v14;
-      }
-
-      *buf = 136315138;
-      *&buf[4] = v14;
-      _os_log_error_impl(&dword_2962DD000, v9, OS_LOG_TYPE_ERROR, "Timeout waiting for response to QMI_CTL_SYNC; retrying ([%s])", buf, 0xCu);
-    }
-
-    *buf = v6;
-    *&buf[8] = v8;
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    v10 = *(v6 + 208);
-    if (v10 != 1)
-    {
-      if (v10 == 5)
-      {
-        goto LABEL_19;
-      }
-
-      _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMux.cpp", 0x2A8, "fMainState", "==", "kSync", v10, 1);
-    }
-  }
-
-  else
-  {
-    if (!v7)
-    {
-      *buf = *(a1 + 72);
-      *&buf[8] = v5;
-      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      QMux::State::notifySyncSuccess_sync(v6);
-      if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        goto LABEL_20;
-      }
-
-      goto LABEL_21;
-    }
-
-    v11 = *(a1 + 48);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      v15 = qmi::asString();
-      v16 = (a1 + 8);
-      if (*(a1 + 31) < 0)
-      {
-        v16 = *v16;
-      }
-
-      *buf = 67109634;
-      *&buf[4] = v7;
-      *&buf[8] = 2080;
-      *&buf[10] = v15;
-      v19 = 2080;
-      v20 = v16;
-      _os_log_error_impl(&dword_2962DD000, v11, OS_LOG_TYPE_ERROR, "Unable to synchronize with baseband QMI: error=%d (%s); retrying ([%s])", buf, 0x1Cu);
-    }
-
-    *buf = v6;
-    *&buf[8] = v8;
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    v12 = *(v6 + 208);
-    if (v12 != 1)
-    {
-      if (v12 == 5)
-      {
-        goto LABEL_19;
-      }
-
-      _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMux.cpp", 0x2A8, "fMainState", "==", "kSync", v12, 1);
-    }
-  }
-
-  QMIControl::sendSync_sync(*(v6 + 72));
-LABEL_19:
-  if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-LABEL_20:
-    (v8->__on_zero_shared)(v8);
-    std::__shared_weak_count::__release_weak(v8);
-  }
-
-LABEL_21:
-  if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v17->__on_zero_shared)(v17);
-    std::__shared_weak_count::__release_weak(v17);
-  }
-
-LABEL_24:
-  v13 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29632D074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
-{
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a11);
-  QMux::~QMux(&a9);
-  _Unwind_Resume(a1);
-}
-
-void QMIControl::configurePowerMode_sync(uint64_t i, char *a2, unsigned int a3, char *a4)
-{
-  if (a2 != 1)
-  {
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMIControl.cpp", 0x141, "profile", "==", "qmi::kQMIPower_Low", a2, 1);
-  }
-
-  v8 = i + 208;
-  v7 = *(i + 208);
-  if (v7)
-  {
-    v9 = i + 208;
-    v10 = *(i + 208);
-    do
-    {
-      v11 = *(v10 + 32);
-      v12 = v11 >= a3;
-      v13 = v11 < a3;
-      if (v12)
-      {
-        v9 = v10;
-      }
-
-      v10 = *(v10 + 8 * v13);
-    }
-
-    while (v10);
-    if (v9 != v8 && *(v9 + 32) <= a3)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  v9 = i + 208;
-  v14 = (i + 208);
-  v15 = (i + 208);
-  if (v7)
-  {
-LABEL_15:
-    while (1)
-    {
-      while (1)
-      {
-        v15 = v7;
-        v16 = *(v7 + 32);
-        if (v16 <= a3)
-        {
-          break;
-        }
-
-        v7 = *v15;
-        v14 = v15;
-        if (!*v15)
-        {
-          goto LABEL_18;
-        }
-      }
-
-      if (v16 >= a3)
-      {
-        break;
-      }
-
-      v7 = *(v15 + 1);
-      if (!v7)
-      {
-        v14 = v15 + 8;
-        goto LABEL_18;
-      }
-    }
-  }
-
-  else
-  {
-LABEL_18:
-    v17 = v15;
-    v15 = operator new(0x40uLL);
-    v15[32] = a3;
-    *(v15 + 7) = 0;
-    *(v15 + 6) = 0;
-    *(v15 + 5) = v15 + 48;
-    *v15 = 0;
-    *(v15 + 1) = 0;
-    *(v15 + 2) = v17;
-    *v14 = v15;
-    v18 = **(i + 200);
-    if (v18)
-    {
-      *(i + 200) = v18;
-    }
-
-    std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(*(i + 208), v15);
-    ++*(i + 216);
-  }
-
-  if (v9 != v8 && *(v15 + 7) == *(a4 + 2))
-  {
-    v19 = *(v15 + 5);
-    if (v19 == v15 + 48)
-    {
-      return;
-    }
-
-    v20 = *a4;
-    while (*(v19 + 13) == *(v20 + 13))
-    {
-      v21 = *(v19 + 1);
-      v22 = v19;
-      if (v21)
-      {
-        do
-        {
-          v19 = v21;
-          v21 = *v21;
-        }
-
-        while (v21);
-      }
-
-      else
-      {
-        do
-        {
-          v19 = *(v22 + 2);
-          v23 = *v19 == v22;
-          v22 = v19;
-        }
-
-        while (!v23);
-      }
-
-      v24 = v20[1];
-      if (v24)
-      {
-        do
-        {
-          v25 = v24;
-          v24 = *v24;
-        }
-
-        while (v24);
-      }
-
-      else
-      {
-        do
-        {
-          v25 = v20[2];
-          v23 = *v25 == v20;
-          v20 = v25;
-        }
-
-        while (!v23);
-      }
-
-      v20 = v25;
-      if (v19 == v15 + 48)
-      {
-        return;
-      }
-    }
-  }
-
-  v26 = (v15 + 40);
-  if (v15 + 40 != a4)
-  {
-    v28 = a4 + 8;
-    v27 = *a4;
-    if (*(v15 + 7))
-    {
-      v113 = i;
-      v30 = (v15 + 48);
-      v29 = *(v15 + 6);
-      v31 = *(v15 + 5);
-      *(v15 + 5) = v15 + 48;
-      *(v29 + 16) = 0;
-      *(v15 + 6) = 0;
-      *(v15 + 7) = 0;
-      if (v31[1])
-      {
-        v32 = v31[1];
-      }
-
-      else
-      {
-        v32 = v31;
-      }
-
-      if (v32)
-      {
-        v33 = v32[2];
-        if (v33)
-        {
-          v34 = *v33;
-          if (*v33 == v32)
-          {
-            *v33 = 0;
-            while (1)
-            {
-              v102 = v33[1];
-              if (!v102)
-              {
-                break;
-              }
-
-              do
-              {
-                v33 = v102;
-                v102 = *v102;
-              }
-
-              while (v102);
-            }
-          }
-
-          else
-          {
-            for (v33[1] = 0; v34; v34 = v33[1])
-            {
-              do
-              {
-                v33 = v34;
-                v34 = *v34;
-              }
-
-              while (v34);
-            }
-          }
-        }
-
-        if (v27 != v28)
-        {
-          while (1)
-          {
-            v35 = v33;
-            v36 = *(v27 + 13);
-            *(v32 + 13) = v36;
-            v37 = *v30;
-            v38 = v15 + 48;
-            v39 = v15 + 48;
-            if (*v30)
-            {
-              break;
-            }
-
-LABEL_51:
-            *v32 = 0;
-            v32[1] = 0;
-            v32[2] = v38;
-            *v39 = v32;
-            v40 = **v26;
-            if (v40)
-            {
-              goto LABEL_52;
-            }
-
-LABEL_53:
-            std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(*(v15 + 6), v32);
-            ++*(v15 + 7);
-            if (v33)
-            {
-              v33 = v33[2];
-              if (v33)
-              {
-                v43 = *v33;
-                if (*v33 == v35)
-                {
-                  *v33 = 0;
-                  while (1)
-                  {
-                    v44 = v33[1];
-                    if (!v44)
-                    {
-                      break;
-                    }
-
-                    do
-                    {
-                      v33 = v44;
-                      v44 = *v44;
-                    }
-
-                    while (v44);
-                  }
-                }
-
-                else
-                {
-                  for (v33[1] = 0; v43; v43 = v33[1])
-                  {
-                    do
-                    {
-                      v33 = v43;
-                      v43 = *v43;
-                    }
-
-                    while (v43);
-                  }
-                }
-              }
-            }
-
-            else
-            {
-              v33 = 0;
-            }
-
-            v41 = v27[1];
-            if (v41)
-            {
-              do
-              {
-                v42 = v41;
-                v41 = *v41;
-              }
-
-              while (v41);
-            }
-
-            else
-            {
-              do
-              {
-                v42 = v27[2];
-                v23 = *v42 == v27;
-                v27 = v42;
-              }
-
-              while (!v23);
-            }
-
-            if (v35)
-            {
-              v27 = v42;
-              v32 = v35;
-              if (v42 != v28)
-              {
-                continue;
-              }
-            }
-
-            goto LABEL_84;
-          }
-
-          do
-          {
-            while (1)
-            {
-              v38 = v37;
-              if (v36 >= *(v37 + 13))
-              {
-                break;
-              }
-
-              v37 = *v37;
-              v39 = v38;
-              if (!*v38)
-              {
-                goto LABEL_51;
-              }
-            }
-
-            v37 = v37[1];
-          }
-
-          while (v37);
-          *v32 = 0;
-          v32[1] = 0;
-          v32[2] = v38;
-          v38[1] = v32;
-          v40 = **v26;
-          if (!v40)
-          {
-            goto LABEL_53;
-          }
-
-LABEL_52:
-          *v26 = v40;
-          goto LABEL_53;
-        }
-
-        v35 = v32;
-        v42 = v27;
-LABEL_84:
-        std::__tree<unsigned short>::destroy((v15 + 40), v35);
-        if (v33)
-        {
-          v45 = v33[2];
-          for (i = v113; v45; v45 = v45[2])
-          {
-            v33 = v45;
-          }
-
-          std::__tree<unsigned short>::destroy((v15 + 40), v33);
-          if (v42 == v28)
-          {
-            goto LABEL_107;
-          }
-        }
-
-        else
-        {
-          i = v113;
-          if (v42 == v28)
-          {
-            goto LABEL_107;
-          }
-        }
-      }
-
-      else
-      {
-        v42 = v27;
-        i = v113;
-        if (v27 == v28)
-        {
-          goto LABEL_107;
-        }
-      }
-    }
-
-    else
-    {
-      v42 = *a4;
-      if (v27 == v28)
-      {
-        goto LABEL_107;
-      }
-    }
-
-    v46 = (v15 + 48);
-    while (1)
-    {
-      v47 = operator new(0x20uLL);
-      v48 = *(v42 + 13);
-      v47[13] = v48;
-      v49 = *v46;
-      v50 = v15 + 48;
-      v51 = v15 + 48;
-      if (*v46)
-      {
-        break;
-      }
-
-LABEL_93:
-      *v47 = 0;
-      *(v47 + 1) = 0;
-      *(v47 + 2) = v50;
-      *v51 = v47;
-      v52 = **v26;
-      if (v52)
-      {
-        goto LABEL_94;
-      }
-
-LABEL_95:
-      std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<void *> *>(*(v15 + 6), v47);
-      ++*(v15 + 7);
-      v53 = v42[1];
-      if (v53)
-      {
-        do
-        {
-          v54 = v53;
-          v53 = *v53;
-        }
-
-        while (v53);
-      }
-
-      else
-      {
-        do
-        {
-          v54 = v42[2];
-          v23 = *v54 == v42;
-          v42 = v54;
-        }
-
-        while (!v23);
-      }
-
-      v42 = v54;
-      if (v54 == v28)
-      {
-        goto LABEL_107;
-      }
-    }
-
-    do
-    {
-      while (1)
-      {
-        v50 = v49;
-        if (v48 >= *(v49 + 13))
-        {
-          break;
-        }
-
-        v49 = *v49;
-        v51 = v50;
-        if (!*v50)
-        {
-          goto LABEL_93;
-        }
-      }
-
-      v49 = v49[1];
-    }
-
-    while (v49);
-    *v47 = 0;
-    *(v47 + 1) = 0;
-    *(v47 + 2) = v50;
-    v50[1] = v47;
-    v52 = **v26;
-    if (!v52)
-    {
-      goto LABEL_95;
-    }
-
-LABEL_94:
-    *v26 = v52;
-    goto LABEL_95;
-  }
-
-LABEL_107:
-  v55 = *(a4 + 2);
-  if (v55 <= 0xA)
-  {
-    *&v56 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v56 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v136 = v56;
-    v137 = v56;
-    qmi::MutableMessageBase::MutableMessageBase(&v136);
-    v132[0] = MEMORY[0x29EDCA5F8];
-    v132[1] = 0x40000000;
-    v57 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke;
-    v133 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke;
-    v134 = &__block_descriptor_tmp_32;
-    v135 = a3;
-    v58 = *(&v136 + 1);
-    if (*(&v136 + 1) != v137)
-    {
-      while (*(*v58 + 8) != 1)
-      {
-        if (++v58 == v137)
-        {
-          goto LABEL_120;
-        }
-      }
-    }
-
-    if (v58 == v137)
-    {
-LABEL_120:
-      v64 = qmi::MutableMessageBase::createTLV<ctl::tlv::PowerSaveDescriptor>(&v136);
-      v57 = v133;
-    }
-
-    else
-    {
-      v62 = ***v58;
-      if (!v63)
-      {
-        goto LABEL_196;
-      }
-
-      v64 = v63 + 12;
-    }
-
-    v57(v132, v64);
-    v128[0] = MEMORY[0x29EDCA5F8];
-    v128[1] = 0x40000000;
-    v65 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_2;
-    v129 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_2;
-    v130 = &__block_descriptor_tmp_34;
-    v131 = v15 + 40;
-    v67 = *(&v136 + 1);
-    v66 = v137;
-    v68 = *(&v136 + 1);
-    if (*(&v136 + 1) != v137)
-    {
-      v68 = *(&v136 + 1);
-      while (*(*v68 + 8) != 17)
-      {
-        if (++v68 == v137)
-        {
-          goto LABEL_129;
-        }
-      }
-    }
-
-    if (v68 == v137)
-    {
-LABEL_129:
-      v72 = operator new(0x28uLL);
-      v72[8] = 17;
-      *v72 = &unk_2A1D49A90;
-      *(v72 + 2) = 0;
-      v71 = v72 + 16;
-      *(v72 + 3) = 0;
-      *(v72 + 4) = 0;
-      if (v66 >= *(&v137 + 1))
-      {
-        v86 = v66 - v67;
-        v87 = (v66 - v67) >> 3;
-        v88 = v87 + 1;
-        if ((v87 + 1) >> 61)
-        {
-          std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-        }
-
-        v89 = *(&v137 + 1) - v67;
-        if ((*(&v137 + 1) - v67) >> 2 > v88)
-        {
-          v88 = v89 >> 2;
-        }
-
-        if (v89 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v90 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v90 = v88;
-        }
-
-        if (v90)
-        {
-          if (v90 >> 61)
-          {
-            std::__throw_bad_array_new_length[abi:ne200100]();
-          }
-
-          v91 = v72;
-          v92 = v72 + 16;
-          v93 = operator new(8 * v90);
-          v72 = v91;
-        }
-
-        else
-        {
-          v92 = v72 + 16;
-          v93 = 0;
-        }
-
-        v103 = &v93[8 * v87];
-        *v103 = v72;
-        v73 = v103 + 8;
-        memcpy(v93, v67, v86);
-        *(&v136 + 1) = v93;
-        *&v137 = v73;
-        *(&v137 + 1) = &v93[8 * v90];
-        if (v67)
-        {
-          operator delete(v67);
-        }
-
-        v71 = v92;
-      }
-
-      else
-      {
-        *v66 = v72;
-        v73 = v66 + 8;
-      }
-
-      *&v137 = v73;
-      v65 = v129;
-LABEL_175:
-      v65(v128, v71);
-      v105 = *(i + 56);
-      v104 = *(i + 64);
-      v126 = v105;
-      if (!v104 || (v106 = std::__shared_weak_count::lock(v104), (v127 = v106) == 0))
-      {
-        std::__throw_bad_weak_ptr[abi:ne200100]();
-      }
-
-      v124[0] = MEMORY[0x29EDCA5F8];
-      v124[1] = 1174405120;
-      v124[2] = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_3;
-      v124[3] = &__block_descriptor_tmp_36_0;
-      v124[4] = v105;
-      v125 = v106;
-      atomic_fetch_add_explicit(&v106->__shared_owners_, 1uLL, memory_order_relaxed);
-      qmi::TransactionQueue::forceSend_sync((i + 104), &v136, 25000, v124);
-      v107 = v125;
-      if (!v125)
-      {
-        goto LABEL_189;
-      }
-
-      goto LABEL_187;
-    }
-
-    v69 = ***v68;
-    if (v70)
-    {
-      v71 = v70 + 16;
-      goto LABEL_175;
-    }
-
-LABEL_196:
-    __cxa_bad_cast();
-  }
-
-  if (v55 <= 0xFF)
-  {
-    *&v59 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v59 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v136 = v59;
-    v137 = v59;
-    qmi::MutableMessageBase::MutableMessageBase(&v136);
-    v120[0] = MEMORY[0x29EDCA5F8];
-    v120[1] = 0x40000000;
-    v60 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_37;
-    v121 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_37;
-    v122 = &__block_descriptor_tmp_38;
-    v123 = a3;
-    v61 = *(&v136 + 1);
-    if (*(&v136 + 1) != v137)
-    {
-      while (*(*v61 + 8) != 1)
-      {
-        if (++v61 == v137)
-        {
-          goto LABEL_137;
-        }
-      }
-    }
-
-    if (v61 == v137)
-    {
-LABEL_137:
-      v76 = qmi::MutableMessageBase::createTLV<ctl::tlv::PowerSaveDescriptor>(&v136);
-      v60 = v121;
-    }
-
-    else
-    {
-      v74 = ***v61;
-      if (!v75)
-      {
-        goto LABEL_197;
-      }
-
-      v76 = v75 + 12;
-    }
-
-    v60(v120, v76);
-    v116[0] = MEMORY[0x29EDCA5F8];
-    v116[1] = 0x40000000;
-    v77 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_2_39;
-    v117 = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_2_39;
-    v118 = &__block_descriptor_tmp_40;
-    v119 = v15 + 40;
-    v79 = *(&v136 + 1);
-    v78 = v137;
-    v80 = *(&v136 + 1);
-    if (*(&v136 + 1) != v137)
-    {
-      v80 = *(&v136 + 1);
-      while (*(*v80 + 8) != 16)
-      {
-        if (++v80 == v137)
-        {
-          goto LABEL_146;
-        }
-      }
-    }
-
-    if (v80 == v137)
-    {
-LABEL_146:
-      v84 = operator new(0x28uLL);
-      v84[8] = 16;
-      *v84 = &unk_2A1D49AE0;
-      *(v84 + 2) = 0;
-      v83 = v84 + 16;
-      *(v84 + 3) = 0;
-      *(v84 + 4) = 0;
-      if (v78 >= *(&v137 + 1))
-      {
-        v94 = v78 - v79;
-        v95 = (v78 - v79) >> 3;
-        v96 = v95 + 1;
-        if ((v95 + 1) >> 61)
-        {
-          std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-        }
-
-        v97 = *(&v137 + 1) - v79;
-        if ((*(&v137 + 1) - v79) >> 2 > v96)
-        {
-          v96 = v97 >> 2;
-        }
-
-        if (v97 >= 0x7FFFFFFFFFFFFFF8)
-        {
-          v98 = 0x1FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v98 = v96;
-        }
-
-        if (v98)
-        {
-          if (v98 >> 61)
-          {
-            std::__throw_bad_array_new_length[abi:ne200100]();
-          }
-
-          v99 = v84;
-          v100 = v84 + 16;
-          v101 = operator new(8 * v98);
-          v84 = v99;
-        }
-
-        else
-        {
-          v100 = v84 + 16;
-          v101 = 0;
-        }
-
-        v108 = &v101[8 * v95];
-        *v108 = v84;
-        v85 = v108 + 8;
-        memcpy(v101, v79, v94);
-        *(&v136 + 1) = v101;
-        *&v137 = v85;
-        *(&v137 + 1) = &v101[8 * v98];
-        if (v79)
-        {
-          operator delete(v79);
-        }
-
-        v83 = v100;
-      }
-
-      else
-      {
-        *v78 = v84;
-        v85 = v78 + 8;
-      }
-
-      *&v137 = v85;
-      v77 = v117;
-LABEL_184:
-      v77(v116, v83);
-      v110 = *(i + 56);
-      v109 = *(i + 64);
-      v126 = v110;
-      if (!v109 || (v111 = std::__shared_weak_count::lock(v109), (v127 = v111) == 0))
-      {
-        std::__throw_bad_weak_ptr[abi:ne200100]();
-      }
-
-      v114[0] = MEMORY[0x29EDCA5F8];
-      v114[1] = 1174405120;
-      v114[2] = ___ZN10QMIControl23configurePowerMode_syncEN3qmi12PowerProfileENS0_11ServiceTypeERKNSt3__13setItNS3_4lessItEENS3_9allocatorItEEEE_block_invoke_3_41;
-      v114[3] = &__block_descriptor_tmp_44;
-      v114[4] = v110;
-      v115 = v111;
-      atomic_fetch_add_explicit(&v111->__shared_owners_, 1uLL, memory_order_relaxed);
-      qmi::TransactionQueue::forceSend_sync((i + 104), &v136, 25000, v114);
-      v107 = v115;
-      if (!v115)
-      {
-        goto LABEL_189;
-      }
-
-LABEL_187:
-      if (!atomic_fetch_add(&v107->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v107->__on_zero_shared)(v107);
-        std::__shared_weak_count::__release_weak(v107);
-      }
-
-LABEL_189:
-      v112 = v127;
-      if (v127 && !atomic_fetch_add(&v127->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v112->__on_zero_shared)(v112);
-        std::__shared_weak_count::__release_weak(v112);
-      }
-
-      qmi::MutableMessageBase::~MutableMessageBase(&v136);
-      return;
-    }
-
-    v81 = ***v80;
-    if (v82)
-    {
-      v83 = v82 + 16;
-      goto LABEL_184;
-    }
-
-LABEL_197:
-    __cxa_bad_cast();
-  }
-
-  _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMIControl.cpp", 0x17B, "indSet.size()", "<=", "255", v55, 0xFF);
-}
-
-void sub_29632DDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
-{
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](v33 + 32);
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](&a33);
-  qmi::MutableMessageBase::~MutableMessageBase((v34 - 144));
+  qmi::MutableMessageBase::~MutableMessageBase((v33 - 144));
   _Unwind_Resume(a1);
 }
 
@@ -2071,49 +189,49 @@ void QMIControl::handleReceivedData_sync(uint64_t a1, int a2, uint64_t a3, uint6
   qmi::MessageBase::~MessageBase(v12);
 }
 
-void sub_29632E174(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29632E174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   qmi::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
 }
 
 void QMIControl::handleInd_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 48);
   if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
+    *&v7 = 0xAAAAAAAAAAAAAAAALL;
     v3 = *(a1 + 80);
     if (!v3)
     {
-      goto LABEL_8;
+      return;
     }
 
     goto LABEL_3;
   }
 
-  v7 = (a1 + 8);
+  v6 = (a1 + 8);
   if (*(a1 + 31) < 0)
   {
-    v7 = *v7;
+    v6 = *v6;
   }
 
-  LODWORD(v8) = 136315138;
-  *(&v8 + 4) = v7;
-  _os_log_debug_impl(&dword_2962DD000, v2, OS_LOG_TYPE_DEBUG, "#D Received ctl::Sync::Indication [%s]\n", &v8, 0xCu);
-  *&v8 = 0xAAAAAAAAAAAAAAAALL;
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = v6;
+  _os_log_debug_impl(&dword_2962DD000, v2, OS_LOG_TYPE_DEBUG, "#D Received ctl::Sync::Indication [%s]\n", &v7, 0xCu);
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
   v3 = *(a1 + 80);
   if (v3)
   {
 LABEL_3:
     v4 = std::__shared_weak_count::lock(v3);
-    *(&v8 + 1) = v4;
+    *(&v7 + 1) = v4;
     if (v4)
     {
-      *&v8 = *(a1 + 72);
-      if (!v8 || (QMux::restart(&v8), (v4 = *(&v8 + 1)) != 0))
+      *&v7 = *(a1 + 72);
+      if (!v7 || (QMux::restart(&v7), (v4 = *(&v7 + 1)) != 0))
       {
         if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
@@ -2124,14 +242,11 @@ LABEL_3:
       }
     }
   }
-
-LABEL_8:
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void QMIControl::handleInd_sync(uint64_t a1, qmi::MessageBase *a2)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 48);
   if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
@@ -2167,12 +282,12 @@ LABEL_3:
       *buf = v7;
       if (v7)
       {
-        v17[0] = MEMORY[0x29EDCA5F8];
-        v17[1] = 1174405120;
-        v18 = ___ZN10QMIControl14handleInd_syncERKN3ctl14RevokeClientId10IndicationE_block_invoke;
-        v19 = &__block_descriptor_tmp_56;
-        v20 = v7;
-        v21 = v6;
+        v16[0] = MEMORY[0x29EDCA5F8];
+        v16[1] = 1174405120;
+        v17 = ___ZN10QMIControl14handleInd_syncERKN3ctl14RevokeClientId10IndicationE_block_invoke;
+        v18 = &__block_descriptor_tmp_56;
+        v19 = v7;
+        v20 = v6;
         atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
         TlvValue = qmi::MessageBase::findTlvValue(a2);
         v10 = TlvValue;
@@ -2182,12 +297,12 @@ LABEL_3:
           tlv::throwIfNotEnoughBytes(TlvValue, TlvValue + v9, 1);
           v12 = *v10;
           tlv::throwIfNotEnoughBytes((v10 + 1), v10 + v11, 1);
-          v22 = v12 | (*(v10 + 1) << 8);
-          v18(v17, &v22);
+          v21 = v12 | (*(v10 + 1) << 8);
+          v17(v16, &v21);
         }
 
-        v13 = v21;
-        if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v13 = v20;
+        if (v20 && !atomic_fetch_add(&v20->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v13->__on_zero_shared)(v13);
           std::__shared_weak_count::__release_weak(v13);
@@ -2198,13 +313,14 @@ LABEL_3:
 
 LABEL_13:
   v15 = *&buf[8];
-  if (*&buf[8] && !atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
+  if (*&buf[8])
   {
-    (v15->__on_zero_shared)(v15);
-    std::__shared_weak_count::__release_weak(v15);
+    if (!atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v15->__on_zero_shared)(v15);
+      std::__shared_weak_count::__release_weak(v15);
+    }
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29632E510(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
@@ -2262,12 +378,12 @@ void __destroy_helper_block_e8_32c9_ZTS4QMux(uint64_t a1)
   }
 }
 
-void QMIControl::handleReceivedIndication_sync(uint64_t a1, const void *a2)
+void QMIControl::handleReceivedIndication_sync(uint64_t a1, const void *a2, unint64_t a3)
 {
   v10 = *MEMORY[0x29EDCA608];
   memset(v7, 170, sizeof(v7));
   qmi::MessageBase::MessageBase(v7, a2);
-  v3 = LOWORD(v7[0]);
+  v4 = LOWORD(v7[0]);
   if (LOWORD(v7[0]) == 36)
   {
     *buf = v7[0];
@@ -2298,8 +414,8 @@ LABEL_9:
     goto LABEL_11;
   }
 
-  v4 = *(a1 + 48);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = *(a1 + 48);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = (a1 + 8);
     if (*(a1 + 31) < 0)
@@ -2308,24 +424,23 @@ LABEL_9:
     }
 
     *buf = 67109378;
-    *&buf[4] = v3;
+    *&buf[4] = v4;
     LOWORD(v9) = 2080;
     *(&v9 + 2) = v6;
-    _os_log_debug_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEBUG, "#D Received unknown QMI CTL indication (0x%04x) [%s]", buf, 0x12u);
+    _os_log_debug_impl(&dword_2962DD000, v5, OS_LOG_TYPE_DEBUG, "#D Received unknown QMI CTL indication (0x%04x) [%s]", buf, 0x12u);
   }
 
 LABEL_11:
   qmi::MessageBase::~MessageBase(v7);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29632E838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29632E838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   qmi::MessageBase::~MessageBase(va1);
   qmi::MessageBase::~MessageBase(va);
   _Unwind_Resume(a1);
@@ -2335,7 +450,7 @@ void QMIControl::handleSentData_sync(QMIControl *this, int a2)
 {
   current_queue = dispatch_get_current_queue();
   v6 = *(this + 13);
-  if (current_queue != *(v6 + 3))
+  if (current_queue != v6[3])
   {
     _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMITransactionQueue.cpp", 0x221, "dispatch_get_current_queue()==fState->queue()", "is not", "true", v4);
     v6 = *(this + 13);
@@ -2346,10 +461,10 @@ void QMIControl::handleSentData_sync(QMIControl *this, int a2)
 
 void QMIControl::handleTimeout(QMIControl *this, uint64_t a2, int a3)
 {
-  v48 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   if (*(this + 44) != 1)
   {
-    goto LABEL_44;
+    return;
   }
 
   if (a3 == 39)
@@ -2368,13 +483,13 @@ void QMIControl::handleTimeout(QMIControl *this, uint64_t a2, int a3)
       _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I ATCS_TIMEOUT was for a ctl::Sync message; this is expected sometimes [%s]\n", buf, 0xCu);
     }
 
-    goto LABEL_44;
+    return;
   }
 
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
   v6 = *(this + 10);
-  if (!v6 || (v38 = std::__shared_weak_count::lock(v6)) == 0 || (v37 = *(this + 9)) == 0)
+  if (!v6 || (v37 = std::__shared_weak_count::lock(v6)) == 0 || (v36 = *(this + 9)) == 0)
   {
     v27 = *(this + 6);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -2393,25 +508,25 @@ void QMIControl::handleTimeout(QMIControl *this, uint64_t a2, int a3)
     goto LABEL_41;
   }
 
-  v47 = 0xAAAAAAAAAAAAAAAALL;
+  v46 = 0xAAAAAAAAAAAAAAAALL;
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v46[7] = v8;
-  v46[8] = v8;
-  v46[5] = v8;
-  v46[6] = v8;
-  v46[3] = v8;
-  v46[4] = v8;
-  v46[1] = v8;
-  v46[2] = v8;
-  v45 = v8;
-  v46[0] = v8;
-  *__p = v8;
+  v45[7] = v8;
+  v45[8] = v8;
+  v45[5] = v8;
+  v45[6] = v8;
+  v45[3] = v8;
+  v45[4] = v8;
+  v45[1] = v8;
+  v45[2] = v8;
   v44 = v8;
-  v41 = v8;
-  v42 = v8;
-  *buf = v8;
+  v45[0] = v8;
+  *__p = v8;
+  v43 = v8;
   v40 = v8;
+  v41 = v8;
+  *buf = v8;
+  v39 = v8;
   std::ostringstream::basic_ostringstream[abi:ne200100](buf);
   v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "ATCS_TIMEOUT on message for svc=", 32);
   v10 = MEMORY[0x29C259270](v9, *(this + 32));
@@ -2450,30 +565,30 @@ void QMIControl::handleTimeout(QMIControl *this, uint64_t a2, int a3)
 
   v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v22, v23);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "]", 1);
-  if ((BYTE8(v45) & 0x10) != 0)
+  if ((BYTE8(v44) & 0x10) != 0)
   {
-    v29 = v45;
-    if (v45 < *(&v42 + 1))
+    v29 = v44;
+    if (v44 < *(&v41 + 1))
     {
-      *&v45 = *(&v42 + 1);
-      v29 = *(&v42 + 1);
+      *&v44 = *(&v41 + 1);
+      v29 = *(&v41 + 1);
     }
 
-    v30 = &v42;
+    v30 = &v41;
   }
 
   else
   {
-    if ((BYTE8(v45) & 8) == 0)
+    if ((BYTE8(v44) & 8) == 0)
     {
       v25 = 0;
-      HIBYTE(v36) = 0;
+      HIBYTE(v35) = 0;
       v26 = __dst;
       goto LABEL_36;
     }
 
-    v30 = &v40 + 1;
-    v29 = *(&v41 + 1);
+    v30 = &v39 + 1;
+    v29 = *(&v40 + 1);
   }
 
   v31 = *v30;
@@ -2497,13 +612,13 @@ void QMIControl::handleTimeout(QMIControl *this, uint64_t a2, int a3)
 
     v26 = operator new(v32);
     __dst[1] = v25;
-    v36 = v32 | 0x8000000000000000;
+    v35 = v32 | 0x8000000000000000;
     __dst[0] = v26;
   }
 
   else
   {
-    HIBYTE(v36) = v29 - *v30;
+    HIBYTE(v35) = v29 - *v30;
     v26 = __dst;
     if (!v25)
     {
@@ -2514,8 +629,8 @@ void QMIControl::handleTimeout(QMIControl *this, uint64_t a2, int a3)
   memmove(v26, v31, v25);
 LABEL_36:
   *(v26 + v25) = 0;
-  QMux::invokeReset(&v37, __dst, 0);
-  if (SHIBYTE(v36) < 0)
+  QMux::invokeReset(&v36, __dst, 0);
+  if (SHIBYTE(v35) < 0)
   {
     operator delete(__dst[0]);
   }
@@ -2523,28 +638,25 @@ LABEL_36:
   *buf = *MEMORY[0x29EDC9538];
   *&buf[*(*buf - 24)] = *(MEMORY[0x29EDC9538] + 24);
   *&buf[8] = MEMORY[0x29EDC9570] + 16;
-  if (SHIBYTE(v44) < 0)
+  if (SHIBYTE(v43) < 0)
   {
     operator delete(__p[1]);
   }
 
   *&buf[8] = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(&v40);
+  std::locale::~locale(&v39);
   std::ostream::~ostream();
-  MEMORY[0x29C259330](v46);
+  MEMORY[0x29C259330](v45);
 LABEL_41:
-  v33 = v38;
-  if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v33 = v37;
+  if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v33->__on_zero_shared)(v33);
     std::__shared_weak_count::__release_weak(v33);
   }
-
-LABEL_44:
-  v34 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29632ED88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, char a18)
+void sub_29632ED88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
 {
   if (a15 < 0)
   {
@@ -2776,7 +888,7 @@ void sub_29632F050(_Unwind_Exception *a1)
 
 BOOL QMIControl::startRetryTimer_sync(uint64_t a1, uint64_t a2)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   if (!*(a1 + 184))
   {
     v3 = *(a1 + 192);
@@ -2820,7 +932,7 @@ BOOL QMIControl::startRetryTimer_sync(uint64_t a1, uint64_t a2)
         handler[3] = &__block_descriptor_tmp_68_0;
         handler[5] = a1;
         handler[6] = v9;
-        v22 = v11;
+        v21 = v11;
         atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
         object = v6;
         dispatch_retain(v6);
@@ -2834,9 +946,9 @@ BOOL QMIControl::startRetryTimer_sync(uint64_t a1, uint64_t a2)
           dispatch_release(object);
         }
 
-        if (v22)
+        if (v21)
         {
-          std::__shared_weak_count::__release_weak(v22);
+          std::__shared_weak_count::__release_weak(v21);
         }
 
         std::__shared_weak_count::__release_weak(v11);
@@ -2863,24 +975,22 @@ BOOL QMIControl::startRetryTimer_sync(uint64_t a1, uint64_t a2)
       v17 = " ";
     }
 
-    v25 = v16;
-    v26 = 2080;
-    v27 = v17;
-    v28 = 1024;
-    v29 = v18;
-    v30 = 1024;
-    v31 = 10;
+    v24 = v16;
+    v25 = 2080;
+    v26 = v17;
+    v27 = 1024;
+    v28 = v18;
+    v29 = 1024;
+    v30 = 10;
     _os_log_impl(&dword_2962DD000, v15, OS_LOG_TYPE_DEFAULT, "#I [%s] Retry timer is%sactive, retry attempts %d of max %d", buf, 0x22u);
   }
 
-  result = v14 != 0;
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
+  return v14 != 0;
 }
 
 uint64_t ___ZN10QMIControl26handleClientIdRequest_syncEN3qmi11ServiceTypeERKN3ctl11GetClientId8ResponseE_block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 32);
   for (result = QMIControl::ClientIdRequests::popFailedRequest((v1 + 128)); result != 255; result = QMIControl::ClientIdRequests::popFailedRequest((v1 + 128)))
   {
@@ -2895,16 +1005,15 @@ uint64_t ___ZN10QMIControl26handleClientIdRequest_syncEN3qmi11ServiceTypeERKN3ct
       }
 
       *buf = 136315394;
-      v8 = v5;
-      v9 = 1024;
-      v10 = v3;
+      v7 = v5;
+      v8 = 1024;
+      v9 = v3;
       _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I [%s] Retrying request for client, svc type: %d", buf, 0x12u);
     }
 
     QMIControl::requestClientId_sync(v1, v3);
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2916,7 +1025,7 @@ uint64_t QMIControl::ClientIdRequests::popFailedRequest(pthread_mutex_t **this)
   v3 = this[6];
   if (v3)
   {
-    v5 = (this + 5);
+    v5 = this + 5;
     v4 = this[5];
     v6 = this[4];
     v7 = v6->__opaque[20];
@@ -2926,11 +1035,11 @@ uint64_t QMIControl::ClientIdRequests::popFailedRequest(pthread_mutex_t **this)
     {
       if (v4)
       {
-        v15 = (this + 5);
+        v15 = this + 5;
         v16 = this[5];
         do
         {
-          v17 = v16[28];
+          v17 = v16->__opaque[20];
           v18 = v17 >= v7;
           v19 = v17 < v7;
           if (v18)
@@ -2938,13 +1047,13 @@ uint64_t QMIControl::ClientIdRequests::popFailedRequest(pthread_mutex_t **this)
             v15 = v16;
           }
 
-          v16 = *&v16[8 * v19];
+          v16 = *(&v16->__sig + v19);
         }
 
         while (v16);
-        if (v15 != v5 && v7 >= v15[28])
+        if (v15 != v5 && v7 >= *(v15 + 28))
         {
-          v20 = *(v15 + 1);
+          v20 = v15[1];
           if (v20)
           {
             do
@@ -2983,7 +1092,7 @@ uint64_t QMIControl::ClientIdRequests::popFailedRequest(pthread_mutex_t **this)
 
     else
     {
-      v10 = (this + 5);
+      v10 = this + 5;
       if (v4)
       {
         while (1)
@@ -2991,13 +1100,13 @@ uint64_t QMIControl::ClientIdRequests::popFailedRequest(pthread_mutex_t **this)
           while (1)
           {
             v10 = v4;
-            v11 = *(v4 + 28);
+            v11 = v4->__opaque[20];
             if (v7 >= v11)
             {
               break;
             }
 
-            v4 = *v4;
+            v4 = v4->__sig;
             v5 = v10;
             if (!*v10)
             {
@@ -3010,7 +1119,7 @@ uint64_t QMIControl::ClientIdRequests::popFailedRequest(pthread_mutex_t **this)
             break;
           }
 
-          v4 = v4[1];
+          v4 = *v4->__opaque;
           if (!v4)
           {
             v5 = v10 + 1;
@@ -3018,7 +1127,7 @@ uint64_t QMIControl::ClientIdRequests::popFailedRequest(pthread_mutex_t **this)
           }
         }
 
-        *(v4 + 8) = v9;
+        *&v4->__opaque[24] = v9;
       }
 
       else
@@ -3316,7 +1425,7 @@ void __destroy_helper_block_e8_32c9_ZTS4QMux48c49_ZTSNSt3__110shared_ptrIN3qmi15
 
 void ___ZN10QMIControl26handleClientIdRequest_syncEN3qmi11ServiceTypeERKN3ctl11GetClientId8ResponseE_block_invoke_64(uint64_t a1, char *a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 32);
   v4 = *(v3 + 48);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -3329,17 +1438,16 @@ void ___ZN10QMIControl26handleClientIdRequest_syncEN3qmi11ServiceTypeERKN3ctl11G
       v7 = *v7;
     }
 
-    v9[0] = 67109634;
-    v9[1] = v5;
-    v10 = 1024;
-    v11 = v6;
-    v12 = 2080;
-    v13 = v7;
-    _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I Stale client id request received (no client still wants it: svc=%d new_id=%d); releasing it [%s]", v9, 0x18u);
+    v8[0] = 67109634;
+    v8[1] = v5;
+    v9 = 1024;
+    v10 = v6;
+    v11 = 2080;
+    v12 = v7;
+    _os_log_impl(&dword_2962DD000, v4, OS_LOG_TYPE_DEFAULT, "#I Stale client id request received (no client still wants it: svc=%d new_id=%d); releasing it [%s]", v8, 0x18u);
   }
 
   QMIControl::releaseClientId_sync(v3, *a2, a2[1]);
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void QMIControl::flush(QMIControl *this, NSObject *a2)
@@ -3370,21 +1478,21 @@ void QMIControl::flush_sync(QMIControl *this, NSObject *a2)
 
 void QMIControl::dumpState_sync(QMIControl *this)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v1 = *(this + 25);
   memset(&__p, 0, sizeof(__p));
   v2 = this + 208;
   if (v1 != this + 208)
   {
     std::pair<qmi::ServiceType,std::set<unsigned short>>::pair[abi:ne200100]<qmi::ServiceType const,std::set<unsigned short>,0>(buf, (v1 + 32));
-    QMIControl::dumpState_sync(void)const::$_0::operator()(&v36, buf);
+    QMIControl::dumpState_sync(void)const::$_0::operator()(&v35, buf);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    __p = v36;
-    std::__tree<unsigned short>::destroy(&v38 + 4, *&v40[2]);
+    __p = v35;
+    std::__tree<unsigned short>::destroy(&v37 + 4, *&v39[2]);
     v3 = *(v1 + 1);
     if (v3)
     {
@@ -3475,32 +1583,32 @@ LABEL_27:
 LABEL_37:
         *v16 = 0;
         std::pair<qmi::ServiceType,std::set<unsigned short>>::pair[abi:ne200100]<qmi::ServiceType const,std::set<unsigned short>,0>(buf, (v4 + 32));
-        QMIControl::dumpState_sync(void)const::$_0::operator()(&v36, buf);
-        if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        QMIControl::dumpState_sync(void)const::$_0::operator()(&v35, buf);
+        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v19 = &v36;
+          v19 = &v35;
         }
 
         else
         {
-          v19 = v36.__r_.__value_.__r.__words[0];
+          v19 = v35.__r_.__value_.__r.__words[0];
         }
 
-        if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v20 = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+          v20 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v20 = v36.__r_.__value_.__l.__size_;
+          v20 = v35.__r_.__value_.__l.__size_;
         }
 
         std::string::append(&__p, v19, v20);
-        if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v36.__r_.__value_.__l.__data_);
-          std::__tree<unsigned short>::destroy(&v38 + 4, *&v40[2]);
+          operator delete(v35.__r_.__value_.__l.__data_);
+          std::__tree<unsigned short>::destroy(&v37 + 4, *&v39[2]);
           v21 = *(v4 + 1);
           if (v21)
           {
@@ -3518,7 +1626,7 @@ LABEL_47:
 
         else
         {
-          std::__tree<unsigned short>::destroy(&v38 + 4, *&v40[2]);
+          std::__tree<unsigned short>::destroy(&v37 + 4, *&v39[2]);
           v21 = *(v4 + 1);
           if (v21)
           {
@@ -3592,67 +1700,67 @@ LABEL_18:
 
 LABEL_53:
   v23 = *(this + 6);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = (this + 8);
-    if (*(this + 31) < 0)
-    {
-      v24 = *v24;
-    }
-
-    v25 = *(this + 16);
-    pthread_mutex_lock(v25);
-    v25[1].__sig = pthread_self();
-    v26 = *(this + 19);
-    v27 = *(this + 16);
-    pthread_self();
-    v27[1].__sig = 0;
-    pthread_mutex_unlock(v27);
-    current_queue = dispatch_get_current_queue();
-    v30 = *(this + 13);
-    if (current_queue != *(v30 + 3))
-    {
-      _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMITransactionQueue.cpp", 0x259, "dispatch_get_current_queue()==fState->queue()", "is not", "true", v28);
-      v30 = *(this + 13);
-    }
-
-    qmi::TransactionQueue::State::dumpState_sync(v30, &v36);
-    v31 = (v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v36 : v36.__r_.__value_.__r.__words[0];
-    v32 = &__p;
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v32 = __p.__r_.__value_.__r.__words[0];
-    }
-
-    *buf = 136315906;
-    v38 = v24;
-    v39 = 2048;
-    *v40 = v26;
-    *&v40[8] = 2080;
-    v41 = v31;
-    v42 = 2080;
-    v43 = v32;
-    _os_log_impl(&dword_2962DD000, v23, OS_LOG_TYPE_DEFAULT, "#I [%s]   QMIControl(%zd clients pending) %s\n    ind_wake={%s}\n", buf, 0x2Au);
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v36.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-        goto LABEL_66;
-      }
-
-      goto LABEL_65;
-    }
+    goto LABEL_64;
   }
 
+  v24 = (this + 8);
+  if (*(this + 31) < 0)
+  {
+    v24 = *v24;
+  }
+
+  v25 = *(this + 16);
+  pthread_mutex_lock(v25);
+  v25[1].__sig = pthread_self();
+  v26 = *(this + 19);
+  v27 = *(this + 16);
+  pthread_self();
+  v27[1].__sig = 0;
+  pthread_mutex_unlock(v27);
+  current_queue = dispatch_get_current_queue();
+  v30 = *(this + 13);
+  if (current_queue != *(v30 + 3))
+  {
+    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/QMI/QMITransactionQueue.cpp", 0x259, "dispatch_get_current_queue()==fState->queue()", "is not", "true", v28);
+    v30 = *(this + 13);
+  }
+
+  qmi::TransactionQueue::State::dumpState_sync(v30, &v35);
+  v31 = (v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v35 : v35.__r_.__value_.__r.__words[0];
+  v32 = &__p;
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v32 = __p.__r_.__value_.__r.__words[0];
+  }
+
+  *buf = 136315906;
+  v37 = v24;
+  v38 = 2048;
+  *v39 = v26;
+  *&v39[8] = 2080;
+  v40 = v31;
+  v41 = 2080;
+  v42 = v32;
+  _os_log_impl(&dword_2962DD000, v23, OS_LOG_TYPE_DEFAULT, "#I [%s]   QMIControl(%zd clients pending) %s\n    ind_wake={%s}\n", buf, 0x2Au);
+  if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+LABEL_64:
+    if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_65;
+  }
+
+  operator delete(v35.__r_.__value_.__l.__data_);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_65:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-LABEL_66:
-  v33 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2963300B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24, void *a25)
@@ -5284,15 +3392,15 @@ pthread_t ATCSThreadedIPCDriver::startWorkersIfNeeded_nl(pthread_t result, int a
       _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSThreadedIPCDriver.cpp", 0x50, "fRunningWorkers", "==", "kNobody", v3, 0);
     }
 
-    *(v2 + 76) = 3;
-    *(v2 + 48) = ATCSThreadSpawn("atcsfdipc reader", ATCSThreadedIPCDriver::readWorkerStatic, v2, 0);
+    *&v2->__opaque[60] = 3;
+    *&v2->__opaque[32] = ATCSThreadSpawn("atcsfdipc reader", ATCSThreadedIPCDriver::readWorkerStatic, v2, 0);
     result = ATCSThreadSpawn("atcsfdipc writer", ATCSThreadedIPCDriver::writeWorkerStatic, v2, 0);
-    for (*(v2 + 56) = result; (*(v2 + 76) & 3) != 0; v4[1].__sig = v5)
+    for (*&v2->__opaque[40] = result; (v2->__opaque[60] & 3) != 0; v4[1].__sig = v5)
     {
-      v4 = *(v2 + 40);
+      v4 = *&v2->__opaque[24];
       v5 = pthread_self();
       v4[1].__sig = 0;
-      result = pthread_cond_wait(*(v2 + 64), v4);
+      result = pthread_cond_wait(*&v2->__opaque[48], v4);
     }
   }
 
@@ -5600,9 +3708,9 @@ void ATCSRouterIPCDriver::~ATCSRouterIPCDriver(dispatch_object_t *this)
   *this = &unk_2A1D49C80;
   dispatch_release(this[4]);
   v2 = this[14];
-  if (v2 == (this + 11))
+  if (v2 == this + 11)
   {
-    (*(*v2 + 32))(v2);
+    ((*v2)[4].isa)(v2);
     v3 = this[8];
     if (!v3)
     {
@@ -5614,7 +3722,7 @@ void ATCSRouterIPCDriver::~ATCSRouterIPCDriver(dispatch_object_t *this)
 
   if (v2)
   {
-    (*(*v2 + 40))(v2);
+    ((*v2)[5].isa)(v2);
   }
 
   v3 = this[8];
@@ -5686,22 +3794,20 @@ void ___ZN19ATCSRouterIPCDriver4initEv_block_invoke(uint64_t a1)
   }
 }
 
-void ATCSRouterIPCDriver::setCallback_sync(uint64_t a1, uint64_t a2, unsigned int a3)
+void ATCSRouterIPCDriver::setCallback_sync(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(*(a1 + 64) + 8 * a3) = a2;
-  v4 = *(*(a1 + 40) + 16);
-  v5 = mav_router_service_register_receive();
-  if (v5)
+  v3 = mav_router_service_register_receive();
+  if (v3)
   {
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x52, "result", "==", "MAV_ROUTER_SUCCESS", v5, 0);
+    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x52, "result", "==", "MAV_ROUTER_SUCCESS", v3, 0);
   }
 
-  v6 = *(*(a1 + 40) + 16);
-  v7 = mav_router_service_register_error_handler();
-  if (v7)
+  v4 = mav_router_service_register_error_handler();
+  if (v4)
   {
 
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x58, "result", "==", "MAV_ROUTER_SUCCESS", v7, 0);
+    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x58, "result", "==", "MAV_ROUTER_SUCCESS", v4, 0);
   }
 }
 
@@ -5825,12 +3931,12 @@ LABEL_27:
   return 0;
 }
 
-void sub_296332DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_296332DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](v11 + 32);
+  va_start(va, a17);
+  std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](v18 + 32);
   std::shared_ptr<ATCSAdaptiveTimer>::~shared_ptr[abi:ne200100](va);
-  operator delete(v10);
+  operator delete(v17);
   _Unwind_Resume(a1);
 }
 
@@ -5990,21 +4096,18 @@ void ATCSRouterIPCDriver::registerDispatcher(ATCSRouterIPCDriver *this, ATCSDisp
 
 void ___ZN19ATCSRouterIPCDriver18registerDispatcherEP22ATCSDispatcherCallbackPvRS2__block_invoke(void *a1)
 {
-  v1 = a1[4];
-  *(*(v1 + 64) + 8 * a1[5]) = a1[6];
-  v2 = *(*(v1 + 40) + 16);
-  v3 = mav_router_service_register_receive();
-  if (v3)
+  *(*(a1[4] + 64) + 8 * a1[5]) = a1[6];
+  v1 = mav_router_service_register_receive();
+  if (v1)
   {
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x52, "result", "==", "MAV_ROUTER_SUCCESS", v3, 0);
+    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x52, "result", "==", "MAV_ROUTER_SUCCESS", v1, 0);
   }
 
-  v4 = *(*(v1 + 40) + 16);
-  v5 = mav_router_service_register_error_handler();
-  if (v5)
+  v2 = mav_router_service_register_error_handler();
+  if (v2)
   {
 
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x58, "result", "==", "MAV_ROUTER_SUCCESS", v5, 0);
+    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x58, "result", "==", "MAV_ROUTER_SUCCESS", v2, 0);
   }
 }
 
@@ -6022,186 +4125,175 @@ void ATCSRouterIPCDriver::unregisterDispatcher(ATCSRouterIPCDriver *this, ATCSDi
 
 void ___ZN19ATCSRouterIPCDriver20unregisterDispatcherEP22ATCSDispatcherCallbackRPv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  *(*(v1 + 64) + 8 * **(a1 + 40)) = 0;
-  v2 = *(*(v1 + 40) + 16);
-  v3 = mav_router_service_register_receive();
-  if (v3)
+  *(*(*(a1 + 32) + 64) + 8 * **(a1 + 40)) = 0;
+  v1 = mav_router_service_register_receive();
+  if (v1)
   {
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x52, "result", "==", "MAV_ROUTER_SUCCESS", v3, 0);
+    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x52, "result", "==", "MAV_ROUTER_SUCCESS", v1, 0);
   }
 
-  v4 = *(*(v1 + 40) + 16);
-  v5 = mav_router_service_register_error_handler();
-  if (v5)
+  v2 = mav_router_service_register_error_handler();
+  if (v2)
   {
 
-    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x58, "result", "==", "MAV_ROUTER_SUCCESS", v5, 0);
+    _ATCSException::triggerAssertion("/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/ATCommandStudio/Common/IPCDriver/ATCSRouterIPCDriver.cpp", 0x58, "result", "==", "MAV_ROUTER_SUCCESS", v2, 0);
   }
 }
 
-uint64_t ATCSRouterIPCDriver::setErrorHandler(uint64_t a1, uint64_t a2)
+_BYTE *ATCSRouterIPCDriver::setErrorHandler(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 1174405120;
-  v6[2] = ___ZN19ATCSRouterIPCDriver15setErrorHandlerENSt3__18functionIFvNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEEEE_block_invoke;
-  v6[3] = &__block_descriptor_tmp_16_1;
-  v6[4] = a1;
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 1174405120;
+  v5[2] = ___ZN19ATCSRouterIPCDriver15setErrorHandlerENSt3__18functionIFvNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEEEE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_16_1;
+  v5[4] = a1;
   v3 = *(a2 + 24);
   if (!v3)
   {
-    v8 = 0;
-    dispatch_sync(v2, v6);
-    result = v8;
-    if (v8 != v7)
+    v7 = 0;
+    dispatch_sync(v2, v5);
+    result = v7;
+    if (v7 != v6)
     {
       goto LABEL_6;
     }
 
-    goto LABEL_9;
+    return (*(*result + 32))(result);
   }
 
   if (v3 == a2)
   {
-    v8 = v7;
-    (*(*v3 + 24))(v3, v7);
-    dispatch_sync(v2, v6);
-    result = v8;
-    if (v8 != v7)
+    v7 = v6;
+    (*(*v3 + 24))(v3, v6);
+    dispatch_sync(v2, v5);
+    result = v7;
+    if (v7 != v6)
     {
       goto LABEL_6;
     }
 
-LABEL_9:
-    result = (*(*result + 32))(result);
-    goto LABEL_10;
+    return (*(*result + 32))(result);
   }
 
-  v8 = (*(*v3 + 16))(v3);
-  dispatch_sync(v2, v6);
-  result = v8;
-  if (v8 == v7)
+  v7 = (*(*v3 + 16))(v3);
+  dispatch_sync(v2, v5);
+  result = v7;
+  if (v7 == v6)
   {
-    goto LABEL_9;
+    return (*(*result + 32))(result);
   }
 
 LABEL_6:
   if (result)
   {
-    result = (*(*result + 40))(result);
+    return (*(*result + 40))(result);
   }
 
-LABEL_10:
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t ___ZN19ATCSRouterIPCDriver15setErrorHandlerENSt3__18functionIFvNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEEEE_block_invoke(uint64_t a1)
+_BYTE *___ZN19ATCSRouterIPCDriver15setErrorHandlerENSt3__18functionIFvNS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEEEE_block_invoke(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x29EDCA608];
+  v11[3] = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
   v3 = *(a1 + 64);
   if (v3)
   {
     if (v3 == a1 + 40)
     {
-      v11 = v10;
-      (*(*v3 + 24))(v3, v10);
+      v10 = v9;
+      (*(*v3 + 24))(v3, v9);
     }
 
     else
     {
-      v11 = (*(*v3 + 16))(v3);
+      v10 = (*(*v3 + 16))(v3);
     }
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   v4 = (v2 + 88);
-  if ((v2 + 88) == v10)
+  if ((v2 + 88) == v9)
   {
 LABEL_15:
-    result = v11;
-    if (v11 != v10)
+    result = v10;
+    if (v10 != v9)
     {
       goto LABEL_16;
     }
 
-    goto LABEL_19;
+    return (*(*result + 32))(result);
   }
 
-  v5 = v11;
+  v5 = v10;
   v6 = *(v2 + 112);
-  if (v11 == v10)
+  if (v10 == v9)
   {
     if (v6 != v4)
     {
-      (*(*v11 + 24))();
-      (*(*v11 + 32))(v11);
-      v11 = *(v2 + 112);
-      v8 = v11;
+      (*(*v10 + 24))();
+      (*(*v10 + 32))(v10);
+      v10 = *(v2 + 112);
+      v8 = v10;
       *(v2 + 112) = v4;
       result = v8;
-      if (v8 == v10)
+      if (v8 == v9)
       {
-        goto LABEL_19;
+        return (*(*result + 32))(result);
       }
 
       goto LABEL_16;
     }
 
-    memset(v12, 170, 24);
-    (*(*v11 + 24))();
-    (*(*v11 + 32))(v11);
-    v11 = 0;
-    (*(**(v2 + 112) + 24))(*(v2 + 112), v10);
+    memset(v11, 170, 24);
+    (*(*v10 + 24))();
+    (*(*v10 + 32))(v10);
+    v10 = 0;
+    (*(**(v2 + 112) + 24))(*(v2 + 112), v9);
     (*(**(v2 + 112) + 32))(*(v2 + 112));
     *(v2 + 112) = 0;
-    v11 = v10;
-    (*(v12[0] + 24))(v12, v2 + 88);
-    (*(v12[0] + 32))(v12);
+    v10 = v9;
+    (*(v11[0] + 24))(v11, v2 + 88);
+    (*(v11[0] + 32))(v11);
     *(v2 + 112) = v4;
-    result = v11;
-    if (v11 != v10)
+    result = v10;
+    if (v10 != v9)
     {
       goto LABEL_16;
     }
 
-LABEL_19:
-    result = (*(*result + 32))(result);
-    goto LABEL_20;
+    return (*(*result + 32))(result);
   }
 
   if (v6 == v4)
   {
-    (*(*v6 + 24))(*(v2 + 112), v10);
+    (*(*v6 + 24))(*(v2 + 112), v9);
     (*(**(v2 + 112) + 32))(*(v2 + 112));
-    *(v2 + 112) = v11;
-    v11 = v10;
+    *(v2 + 112) = v10;
+    v10 = v9;
     goto LABEL_15;
   }
 
-  v11 = *(v2 + 112);
+  v10 = *(v2 + 112);
   *(v2 + 112) = v5;
   result = v6;
-  if (v6 == v10)
+  if (v6 == v9)
   {
-    goto LABEL_19;
+    return (*(*result + 32))(result);
   }
 
 LABEL_16:
   if (result)
   {
-    result = (*(*result + 40))(result);
+    return (*(*result + 40))(result);
   }
 
-LABEL_20:
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -6409,7 +4501,7 @@ void ATCSCounted::decRef(atomic_uint *this)
   }
 }
 
-void CallbacksHandler::registerSendCallback(uint64_t **a1, unsigned int a2, void *aBlock)
+void CallbacksHandler::registerSendCallback(uint64_t ***a1, unsigned int a2, void *aBlock)
 {
   if (aBlock)
   {
@@ -6629,14 +4721,14 @@ LABEL_10:
   return result;
 }
 
-char *ctl::parseField(tlv *a1, const unsigned __int8 *a2, _DWORD *a3)
+char *ctl::parseField(tlv *a1, const unsigned __int8 *a2, _DWORD *a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 2);
   *a3 = *a1;
   return a1 + 2;
 }
 
-uint64_t ctl::tlv::parseField(uint64_t a1, const unsigned __int8 *a2, _BYTE *a3)
+uint64_t ctl::tlv::parseField(uint64_t a1, const unsigned __int8 *a2, _BYTE *a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 1);
   *a3 = *a1;
@@ -6682,16 +4774,16 @@ uint64_t ctl::tlv::getFieldSize()
   return 4;
 }
 
-uint64_t tlv::parseV<ctl::tlv::AssignedId>(tlv **a1, int a2)
+uint64_t tlv::parseV<ctl::tlv::AssignedId>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
-  v4 = *a1 + a2;
-  tlv::throwIfNotEnoughBytes(*a1, v4, 1);
-  v5 = *v3;
-  tlv::throwIfNotEnoughBytes((v3 + 1), v4, 1);
-  v6 = *(v3 + 1);
-  *a1 = (v3 + 2);
-  return v5 | (v6 << 8);
+  v5 = *a1;
+  v6 = *a1 + a2;
+  tlv::throwIfNotEnoughBytes(*a1, v6, 1);
+  v7 = *v5;
+  tlv::throwIfNotEnoughBytes((v5 + 1), v6, 1);
+  v8 = *(v5 + 1);
+  *a1 = (v5 + 2);
+  return v7 | (v8 << 8);
 }
 
 uint64_t sub_296334318(void *a1)
@@ -6711,7 +4803,7 @@ _BYTE **tlv::writeV<ctl::tlv::AssignedId>(_BYTE **result, _BYTE *a2)
   return result;
 }
 
-char *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, _DWORD *a3)
+char *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, _DWORD *a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 2);
   *a3 = *a1;
@@ -6730,12 +4822,12 @@ char *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, _DWORD *a3)
   return a1 + 4;
 }
 
-uint64_t tlv::parseV<ctl::tlv::LinkLayerProtocol>(tlv **a1, int a2)
+uint64_t tlv::parseV<ctl::tlv::LinkLayerProtocol>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 2);
-  result = *v3;
-  *a1 = (v3 + 2);
+  result = *v5;
+  *a1 = (v5 + 2);
   return result;
 }
 
@@ -6755,7 +4847,7 @@ _WORD **tlv::writeV<ctl::tlv::LinkLayerProtocol>(_WORD **result, _DWORD *a2)
   return result;
 }
 
-uint64_t ctl::tlv::parseField(uint64_t a1, const unsigned __int8 *a2, uint64_t a3)
+uint64_t ctl::tlv::parseField(uint64_t a1, const unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 4);
   *a3 = *a1;
@@ -6771,16 +4863,16 @@ uint64_t ctl::tlv::writeField(uint64_t a1, uint64_t a2)
   return a1 + 5;
 }
 
-unint64_t tlv::parseV<ctl::tlv::PowerSaveDescriptor>(tlv **a1, int a2)
+unint64_t tlv::parseV<ctl::tlv::PowerSaveDescriptor>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
-  v4 = *a1 + a2;
-  tlv::throwIfNotEnoughBytes(*a1, v4, 4);
-  v5 = *v3;
-  tlv::throwIfNotEnoughBytes((v3 + 4), v4, 1);
-  v6 = *(v3 + 4);
-  *a1 = (v3 + 5);
-  return (v6 << 32) | 0xAAAAAA0000000000 | v5;
+  v5 = *a1;
+  v6 = *a1 + a2;
+  tlv::throwIfNotEnoughBytes(*a1, v6, 4);
+  v7 = *v5;
+  tlv::throwIfNotEnoughBytes((v5 + 4), v6, 1);
+  v8 = *(v5 + 4);
+  *a1 = (v5 + 5);
+  return (v8 << 32) | 0xAAAAAA0000000000 | v7;
 }
 
 void sub_296334520(void *a1)
@@ -6800,56 +4892,56 @@ uint64_t *tlv::writeV<ctl::tlv::PowerSaveDescriptor>(uint64_t *result, uint64_t 
   return result;
 }
 
-const unsigned __int8 *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, char **a3)
+const unsigned __int8 *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, char **a3, unint64_t a4)
 {
   tlv::throwIfNotAligned(a1, a2, 2);
-  v6 = (a2 - a1) >> 1;
-  v7 = *a3;
-  v8 = (a3[1] - *a3) >> 1;
-  if (v6 <= v8)
+  v7 = (a2 - a1) >> 1;
+  v8 = *a3;
+  v9 = (a3[1] - *a3) >> 1;
+  if (v7 <= v9)
   {
-    if (v6 < v8)
+    if (v7 < v9)
     {
-      a3[1] = &v7[2 * v6];
+      a3[1] = &v8[2 * v7];
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a3, v6 - v8);
-    v7 = *a3;
+    std::vector<unsigned short>::__append(a3, v7 - v9);
+    v8 = *a3;
   }
 
-  memcpy(v7, a1, a2 - a1);
+  memcpy(v8, a1, a2 - a1);
   return a2;
 }
 
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 1);
-  v8 = *a1;
-  v6 = (a1 + 1);
-  v7 = v8;
-  v9 = (2 * v8);
-  tlv::throwIfNotEnoughBytes(v6, a2, v9);
-  v10 = *a3;
-  v11 = (a3[1] - *a3) >> 1;
-  v12 = v8 - v11;
-  if (v8 <= v11)
+  v9 = *a1;
+  v7 = (a1 + 1);
+  v8 = v9;
+  v10 = (2 * v9);
+  tlv::throwIfNotEnoughBytes(v7, a2, v10);
+  v11 = *a3;
+  v12 = (a3[1] - *a3) >> 1;
+  v13 = v9 - v12;
+  if (v9 <= v12)
   {
-    if (v7 < v11)
+    if (v8 < v12)
     {
-      a3[1] = &v10[2 * v7];
+      a3[1] = &v11[2 * v8];
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a3, v12);
-    v10 = *a3;
+    std::vector<unsigned short>::__append(a3, v13);
+    v11 = *a3;
   }
 
-  memcpy(v10, v6, v9);
-  return &v9[v6];
+  memcpy(v11, v7, v10);
+  return &v10[v7];
 }
 
 char *ctl::tlv::writeField(char *a1, uint64_t a2)
@@ -6869,28 +4961,28 @@ uint64_t ctl::tlv::getFieldSize(void *a1)
   return a1[1] - *a1 + 1;
 }
 
-void *tlv::parseV<ctl::tlv::IndicationSet>@<X0>(tlv **a1@<X0>, signed int a2@<W1>, void **a3@<X8>)
+void *tlv::parseV<ctl::tlv::IndicationSet>@<X0>(tlv **a1@<X0>, unsigned int a2@<W1>, void **a4@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  v6 = *a1;
-  v7 = a2;
-  v8 = *a1 + a2;
-  tlv::throwIfNotAligned(*a1, v8, 2);
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  v7 = *a1;
+  v8 = a2;
+  v9 = *a1 + a2;
+  tlv::throwIfNotAligned(*a1, v9, 2);
   if (a2 >= 2)
   {
-    std::vector<unsigned short>::__append(a3, v7 >> 1);
-    v9 = *a3;
+    std::vector<unsigned short>::__append(a4, v8 >> 1);
+    v10 = *a4;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  result = memcpy(v9, v6, v7);
-  *a1 = v8;
+  result = memcpy(v10, v7, v8);
+  *a1 = v9;
   return result;
 }
 
@@ -6939,32 +5031,32 @@ _BYTE *ctl::tlv::writeField(_BYTE *a1, _DWORD *a2)
   return a1 + 1;
 }
 
-void *tlv::parseV<ctl::tlv::IndicationSetExt>@<X0>(tlv **a1@<X0>, int a2@<W1>, void **a3@<X8>)
+void *tlv::parseV<ctl::tlv::IndicationSetExt>@<X0>(tlv **a1@<X0>, int a2@<W1>, void **a4@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  v5 = *a1;
-  v6 = *a1 + a2;
-  tlv::throwIfNotEnoughBytes(*a1, v6, 1);
-  v9 = *v5;
-  v7 = (v5 + 1);
-  v8 = v9;
-  v10 = (2 * v9);
-  tlv::throwIfNotEnoughBytes(v7, v6, v10);
-  if (v9)
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  v6 = *a1;
+  v7 = *a1 + a2;
+  tlv::throwIfNotEnoughBytes(*a1, v7, 1);
+  v10 = *v6;
+  v8 = (v6 + 1);
+  v9 = v10;
+  v11 = (2 * v10);
+  tlv::throwIfNotEnoughBytes(v8, v7, v11);
+  if (v10)
   {
-    std::vector<unsigned short>::__append(a3, v8);
-    v11 = *a3;
+    std::vector<unsigned short>::__append(a4, v9);
+    v12 = *a4;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  result = memcpy(v11, v7, v10);
-  *a1 = &v10[v7];
+  result = memcpy(v12, v8, v11);
+  *a1 = &v11[v8];
   return result;
 }
 
@@ -6999,19 +5091,19 @@ void *tlv::writeV<ctl::tlv::IndicationSetExt>(_BYTE **a1, _DWORD *a2)
   return result;
 }
 
-char *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, _BYTE *a3)
+char *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, _BYTE *a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 1);
   *a3 = *a1;
   return a1 + 1;
 }
 
-uint64_t tlv::parseV<ctl::tlv::ServiceType>(tlv **a1, int a2)
+uint64_t tlv::parseV<ctl::tlv::ServiceType>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 1);
-  result = *v3;
-  *a1 = (v3 + 1);
+  result = *v5;
+  *a1 = (v5 + 1);
   return result;
 }
 
@@ -7031,12 +5123,12 @@ _BYTE **tlv::writeV<ctl::tlv::ServiceType>(_BYTE **result, _BYTE *a2)
   return result;
 }
 
-uint64_t tlv::parseV<ctl::tlv::DataFormat>(tlv **a1, int a2)
+uint64_t tlv::parseV<ctl::tlv::DataFormat>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 1);
-  result = *v3;
-  *a1 = (v3 + 1);
+  result = *v5;
+  *a1 = (v5 + 1);
   return result;
 }
 
@@ -7056,12 +5148,12 @@ _BYTE **tlv::writeV<ctl::tlv::DataFormat>(_BYTE **result, _DWORD *a2)
   return result;
 }
 
-uint64_t tlv::parseV<ctl::tlv::PowerSaveState>(tlv **a1, int a2)
+uint64_t tlv::parseV<ctl::tlv::PowerSaveState>(tlv **a1, int a2, uint64_t a3, unint64_t a4)
 {
-  v3 = *a1;
+  v5 = *a1;
   tlv::throwIfNotEnoughBytes(*a1, *a1 + a2, 4);
-  result = *v3;
-  *a1 = (v3 + 4);
+  result = *v5;
+  *a1 = (v5 + 4);
   return result;
 }
 

@@ -25,14 +25,14 @@
 
 - (VMUClassPatternMatcher)initWithPattern:(id)pattern forArgument:(id)argument error:(id *)error
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   patternCopy = pattern;
   argumentCopy = argument;
   if (patternCopy)
   {
-    v50.receiver = self;
-    v50.super_class = VMUClassPatternMatcher;
-    self = [(VMUClassPatternMatcher *)&v50 init];
+    v49.receiver = self;
+    v49.super_class = VMUClassPatternMatcher;
+    self = [(VMUClassPatternMatcher *)&v49 init];
     if (self)
     {
       if (!argumentCopy)
@@ -104,15 +104,15 @@ LABEL_24:
 
       else
       {
-        v33 = malloc_type_malloc(0x20uLL, 0x10700404B019E81uLL);
-        self->_classesRegex = v33;
-        v34 = regcomp(v33, [(__CFString *)v28 UTF8String], 1);
-        if (v34)
+        v32 = malloc_type_malloc(0x20uLL, 0x10700404B019E81uLL);
+        self->_classesRegex = v32;
+        v33 = regcomp(v32, [(__CFString *)v28 UTF8String], 1);
+        if (v33)
         {
           if (error)
           {
-            regerror(v34, self->_classesRegex, v51, 0x800uLL);
-            *error = VMUOptionParserError(-1, @"error in %@ <classes> pattern '%@': %s", v38, v39, v40, v41, v42, v43, argumentCopy);
+            regerror(v33, self->_classesRegex, v50, 0x800uLL);
+            *error = VMUOptionParserError(-1, @"error in %@ <classes> pattern '%@': %s", v37, v38, v39, v40, v41, v42, argumentCopy);
           }
 
           patternCopy = v28;
@@ -141,18 +141,18 @@ LABEL_24:
 
         if (([patternCopy hasSuffix:@".*"] & 1) == 0)
         {
-          v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.*", patternCopy];
+          v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.*", patternCopy];
 
-          patternCopy = v36;
+          patternCopy = v35;
         }
 
-        v37 = regcomp(self->_vmRegionsRegex, [patternCopy UTF8String], 1);
-        if (v37)
+        v36 = regcomp(self->_vmRegionsRegex, [patternCopy UTF8String], 1);
+        if (v36)
         {
           if (error)
           {
-            regerror(v37, self->_vmRegionsRegex, v51, 0x800uLL);
-            *error = VMUOptionParserError(-1, @"error in % <region-description> pattern '%@': %s", v44, v45, v46, v47, v48, v49, argumentCopy);
+            regerror(v36, self->_vmRegionsRegex, v50, 0x800uLL);
+            *error = VMUOptionParserError(-1, @"error in % <region-description> pattern '%@': %s", v43, v44, v45, v46, v47, v48, argumentCopy);
           }
 
           goto LABEL_9;
@@ -171,7 +171,6 @@ LABEL_24:
   selfCopy = 0;
 LABEL_25:
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -254,7 +253,6 @@ LABEL_25:
         goto LABEL_19;
       }
 
-      allocationSizeLowerBound = self->_allocationSizeLowerBound;
       VMUOptionParserError(-1, @"error in malloc size pattern '%@': lower bound of size (%llu) should be <= upper bound of size (%llu)", v15, v16, v17, v18, v19, v20, patternCopy);
     }
 
@@ -304,15 +302,15 @@ LABEL_31:
 
   if ((v26 & 1) == 0)
   {
-    v31 = self->_allocationSizeLowerBound;
-    if (v31 <= 0xF)
+    allocationSizeLowerBound = self->_allocationSizeLowerBound;
+    if (allocationSizeLowerBound <= 0xF)
     {
       VMUOptionParserError(-1, @"error in malloc size pattern '%@':  size must be %llu or more", v15, v16, v17, v18, v19, v20, patternCopy);
       v32 = LABEL_30:;
       goto LABEL_31;
     }
 
-    if ((v31 & 0xF) != 0)
+    if ((allocationSizeLowerBound & 0xF) != 0)
     {
       VMUOptionParserError(-1, @"error in malloc size pattern '%@':  size must be a multiple of %llu, or a range like '[lowerSizeBound-upperSizeBound]'", v15, v16, v17, v18, v19, v20, patternCopy);
       goto LABEL_30;
@@ -371,36 +369,20 @@ LABEL_32:
       className = [infoCopy className];
       LOBYTE(classesRegex) = [(VMUClassPatternMatcher *)self _regex:classesRegex matchesName:className];
 
-      if (classesRegex)
+      v8 = 1;
+      if ((classesRegex & 1) == 0)
       {
-        goto LABEL_5;
-      }
+        className2 = [infoCopy className];
+        displayName = [infoCopy displayName];
+        v12 = [className2 isEqualToString:displayName];
 
-      className2 = [infoCopy className];
-      displayName = [infoCopy displayName];
-      v12 = [className2 isEqualToString:displayName];
-
-      if ((v12 & 1) == 0)
-      {
-        v13 = self->_classesRegex;
-        displayName2 = [infoCopy displayName];
-        LOBYTE(v13) = [(VMUClassPatternMatcher *)self _regex:v13 matchesName:displayName2];
-
-        if (v13)
+        if ((v12 & 1) != 0 || (v13 = self->_classesRegex, [infoCopy displayName], v14 = objc_claimAutoreleasedReturnValue(), LOBYTE(v13) = -[VMUClassPatternMatcher _regex:matchesName:](self, "_regex:matchesName:", v13, v14), v14, (v13 & 1) == 0))
         {
-          goto LABEL_5;
+          if (!self->_matchingKindOfClass || ([infoCopy superclassInfo], v15 = objc_claimAutoreleasedReturnValue(), v16 = -[VMUClassPatternMatcher _matchesClassInfo:](self, "_matchesClassInfo:", v15), v15, !v16))
+          {
+            v8 = 0;
+          }
         }
-      }
-
-      if (self->_matchingKindOfClass && ([infoCopy superclassInfo], v15 = objc_claimAutoreleasedReturnValue(), v16 = -[VMUClassPatternMatcher _matchesClassInfo:](self, "_matchesClassInfo:", v15), v15, v16))
-      {
-LABEL_5:
-        v8 = 1;
-      }
-
-      else
-      {
-        v8 = 0;
       }
 
       value = v8;
@@ -473,16 +455,14 @@ void __63__VMUClassPatternMatcher_matchesNodeDetails_orNodeDescription___block_i
 
 - (void)_regex:(int)a1 matchesName:(const regex_t *)a2 .cold.1(int a1, const regex_t *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  regerror(a1, a2, v3, 0x800uLL);
+  v5 = *MEMORY[0x1E69E9840];
+  regerror(a1, a2, v2, 0x800uLL);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v5 = v3;
+    v4 = v2;
     _os_log_error_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s\n", buf, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

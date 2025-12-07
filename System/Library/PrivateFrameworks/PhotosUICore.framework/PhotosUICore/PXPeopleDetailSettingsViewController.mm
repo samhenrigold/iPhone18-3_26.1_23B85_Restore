@@ -246,7 +246,7 @@ void __78__PXPeopleDetailSettingsViewController_collectionView_cellForItemAtInde
   px_dispatch_on_main_queue();
 }
 
-uint64_t __78__PXPeopleDetailSettingsViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
+void *__78__PXPeopleDetailSettingsViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) tag];
   if (result == *(a1 + 48))

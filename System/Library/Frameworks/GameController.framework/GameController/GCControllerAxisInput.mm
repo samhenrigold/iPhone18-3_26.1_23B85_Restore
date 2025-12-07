@@ -97,7 +97,7 @@
 
 - (BOOL)_setValue:(float)value queue:(id)queue
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   selfCopy = self;
   v8 = queueCopy;
@@ -122,9 +122,9 @@
       *&block[12] = 2117;
       *&block[14] = primaryAlias;
       *&block[22] = 2048;
-      v39 = v16;
-      LOWORD(v40) = 2053;
-      *(&v40 + 2) = value;
+      v38 = v16;
+      LOWORD(v39) = 2053;
+      *(&v39 + 2) = value;
       _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GCPhysicalInputProfile.Axis.value.set", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}f}", block, 0x2Au);
     }
 
@@ -150,25 +150,25 @@
 
       if (v29)
       {
-        v34 = v10;
-        v35 = v34;
+        v33 = v10;
+        v34 = v33;
         if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          log = v34;
-          v36 = os_signpost_enabled(v34);
-          v35 = log;
-          if (v36)
+          log = v33;
+          v35 = os_signpost_enabled(v33);
+          v34 = log;
+          if (v35)
           {
             *block = 134218755;
             *&block[4] = device;
             *&block[12] = 2117;
             *&block[14] = primaryAlias;
             *&block[22] = 2048;
-            v39 = v16;
-            LOWORD(v40) = 2053;
-            *(&v40 + 2) = value;
+            v38 = v16;
+            LOWORD(v39) = 2053;
+            *(&v39 + 2) = value;
             _os_signpost_emit_with_name_impl(&dword_1D2CD5000, log, OS_SIGNPOST_INTERVAL_BEGIN, v27, "GCPhysicalInputProfile.Axis.value.callback", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}f}", block, 0x2Au);
-            v35 = log;
+            v34 = log;
           }
         }
       }
@@ -176,12 +176,12 @@
       *block = MEMORY[0x1E69E9820];
       *&block[8] = 3221225472;
       *&block[16] = __ControllerAxisInputSetValue_block_invoke;
-      v39 = &unk_1E84192E0;
-      v41 = v26;
-      *&v40 = selfCopy;
+      v38 = &unk_1E84192E0;
+      v40 = v26;
+      *&v39 = selfCopy;
       valueCopy = value;
-      *(&v40 + 1) = v10;
-      v42 = v27;
+      *(&v39 + 1) = v10;
+      v41 = v27;
       dispatch_async(v8, block);
     }
 
@@ -194,7 +194,6 @@
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return value != value;
 }
 
@@ -303,7 +302,7 @@ LABEL_9:
 
 - (void)value
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = _gc_log_signpost();
   if (os_signpost_enabled(v4))
   {
@@ -312,18 +311,16 @@ LABEL_9:
     device2 = [self device];
     physicalInputProfile = [device2 physicalInputProfile];
     [physicalInputProfile lastEventTimestamp];
-    v11 = 134218755;
-    v12 = device;
-    v13 = 2117;
-    v14 = primaryAlias;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2053;
-    v18 = a2;
-    _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GCPhysicalInputProfile.Axis.value.read", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}f}", &v11, 0x2Au);
+    v10 = 134218755;
+    v11 = device;
+    v12 = 2117;
+    v13 = primaryAlias;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2053;
+    v17 = a2;
+    _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GCPhysicalInputProfile.Axis.value.read", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}f}", &v10, 0x2Au);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,4 +1,6 @@
 @interface UsageHelperBinEdges
++ (id)binEdgesWithLowerEdgeIncluded:(BOOL)included;
+- (UsageHelperBinEdges)initWithLowerEdgeIncluded:(BOOL)included;
 - (id)description;
 - (id)greaterOrEqualTo;
 - (id)greaterThan;
@@ -27,7 +29,7 @@
 
 - (id)greaterOrEqualTo
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_lowerEdgeIncluded)
   {
     v2 = self->_lowerEdge;
@@ -35,27 +37,25 @@
 
   else
   {
-    v5 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136446466;
-      v7 = "[UsageHelperBinEdges greaterOrEqualTo]";
-      v8 = 1024;
-      v9 = 33;
-      _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use greaterThan instead", &v6, 0x12u);
+      v5 = 136446466;
+      v6 = "[UsageHelperBinEdges greaterOrEqualTo]";
+      v7 = 1024;
+      v8 = 33;
+      _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use greaterThan instead", &v5, 0x12u);
     }
 
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (void)setGreaterOrEqualTo:(id)to
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_lowerEdgeIncluded)
   {
@@ -64,23 +64,21 @@
 
   else
   {
-    v7 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 136446466;
-      v9 = "[UsageHelperBinEdges setGreaterOrEqualTo:]";
-      v10 = 1024;
-      v11 = 39;
-      _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use setGreaterThan: instead", &v8, 0x12u);
+      v7 = 136446466;
+      v8 = "[UsageHelperBinEdges setGreaterOrEqualTo:]";
+      v9 = 1024;
+      v10 = 39;
+      _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use setGreaterThan: instead", &v7, 0x12u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lowerThan
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_lowerEdgeIncluded)
   {
     v2 = self->_upperEdge;
@@ -88,27 +86,25 @@
 
   else
   {
-    v5 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136446466;
-      v7 = "[UsageHelperBinEdges lowerThan]";
-      v8 = 1024;
-      v9 = 46;
-      _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use lowerOrEqualTo instead", &v6, 0x12u);
+      v5 = 136446466;
+      v6 = "[UsageHelperBinEdges lowerThan]";
+      v7 = 1024;
+      v8 = 46;
+      _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use lowerOrEqualTo instead", &v5, 0x12u);
     }
 
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (void)setLowerThan:(id)than
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   thanCopy = than;
   if (self->_lowerEdgeIncluded)
   {
@@ -117,33 +113,31 @@
 
   else
   {
-    v7 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 136446466;
-      v9 = "[UsageHelperBinEdges setLowerThan:]";
-      v10 = 1024;
-      v11 = 52;
-      _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use setLowerOrEqualTo: instead", &v8, 0x12u);
+      v7 = 136446466;
+      v8 = "[UsageHelperBinEdges setLowerThan:]";
+      v9 = 1024;
+      v10 = 52;
+      _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as NOT lowerEdgeIncluded, use setLowerOrEqualTo: instead", &v7, 0x12u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)greaterThan
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_lowerEdgeIncluded)
   {
-    v5 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136446466;
-      v7 = "[UsageHelperBinEdges greaterThan]";
-      v8 = 1024;
-      v9 = 59;
-      _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use greaterOrEqualTo instead", &v6, 0x12u);
+      v5 = 136446466;
+      v6 = "[UsageHelperBinEdges greaterThan]";
+      v7 = 1024;
+      v8 = 59;
+      _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use greaterOrEqualTo instead", &v5, 0x12u);
     }
 
     v2 = 0;
@@ -154,25 +148,23 @@
     v2 = self->_lowerEdge;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (void)setGreaterThan:(id)than
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   thanCopy = than;
   if (self->_lowerEdgeIncluded)
   {
-    v7 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 136446466;
-      v9 = "[UsageHelperBinEdges setGreaterThan:]";
-      v10 = 1024;
-      v11 = 65;
-      _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use setGreaterOrEqualTo: instead", &v8, 0x12u);
+      v7 = 136446466;
+      v8 = "[UsageHelperBinEdges setGreaterThan:]";
+      v9 = 1024;
+      v10 = 65;
+      _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use setGreaterOrEqualTo: instead", &v7, 0x12u);
     }
   }
 
@@ -180,23 +172,21 @@
   {
     objc_storeStrong(&self->_lowerEdge, than);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lowerOrEqualTo
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_lowerEdgeIncluded)
   {
-    v5 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v6 = 136446466;
-      v7 = "[UsageHelperBinEdges lowerOrEqualTo]";
-      v8 = 1024;
-      v9 = 72;
-      _os_log_impl(&dword_1C8460000, v5, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use lessThan instead", &v6, 0x12u);
+      v5 = 136446466;
+      v6 = "[UsageHelperBinEdges lowerOrEqualTo]";
+      v7 = 1024;
+      v8 = 72;
+      _os_log_impl(&dword_1C8460000, v4, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use lessThan instead", &v5, 0x12u);
     }
 
     v2 = 0;
@@ -207,25 +197,23 @@
     v2 = self->_upperEdge;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (void)setLowerOrEqualTo:(id)to
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_lowerEdgeIncluded)
   {
-    v7 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 136446466;
-      v9 = "[UsageHelperBinEdges setLowerOrEqualTo:]";
-      v10 = 1024;
-      v11 = 78;
-      _os_log_impl(&dword_1C8460000, v7, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use setLessThan: instead", &v8, 0x12u);
+      v7 = 136446466;
+      v8 = "[UsageHelperBinEdges setLowerOrEqualTo:]";
+      v9 = 1024;
+      v10 = 78;
+      _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_FAULT, "%{public}s::%d:This bin has been created as lowerEdgeIncluded, use setLessThan: instead", &v7, 0x12u);
     }
   }
 
@@ -233,8 +221,23 @@
   {
     objc_storeStrong(&self->_upperEdge, to);
   }
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (UsageHelperBinEdges)initWithLowerEdgeIncluded:(BOOL)included
+{
+  includedCopy = included;
+  v6.receiver = self;
+  v6.super_class = UsageHelperBinEdges;
+  v4 = [(UsageHelperBinEdges *)&v6 init];
+  [(UsageHelperBinEdges *)v4 setLowerEdgeIncluded:includedCopy];
+  return v4;
+}
+
++ (id)binEdgesWithLowerEdgeIncluded:(BOOL)included
+{
+  v3 = [[UsageHelperBinEdges alloc] initWithLowerEdgeIncluded:included];
+
+  return v3;
 }
 
 @end

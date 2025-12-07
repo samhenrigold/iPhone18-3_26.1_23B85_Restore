@@ -105,13 +105,12 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = SNConnectionTCPInfoMetrics;
-  v4 = [(SNConnectionTCPInfoMetrics *)&v8 description];
-  synRetransmits = self->_synRetransmits;
-  v6 = [v3 stringWithFormat:@"%@ {interfaceName = %@, rttCurrent = %@, rttSmoothed = %@, rttVariance = %@, rttBest = %@, packetsSent = %@, bytesSent = %@, bytesRetransmitted = %@, bytesUnacked = %@, packetsReceived = %@, bytesReceived = %@, duplicateBytesReceived = %@, outOfOrderBytesReceived = %@, sendBufferBytes = %@, sendBandwidth = %@, synRetransmits = %@ tfoSynDataAcked = %@}", v4, self->_interfaceName, self->_rttCurrent, self->_rttSmoothed, self->_rttVariance, self->_rttBest, self->_packetsSent, self->_bytesSent, self->_bytesRetransmitted, self->_bytesUnacked, self->_packetsReceived, self->_bytesReceived, self->_duplicateBytesReceived, self->_outOfOrderBytesReceived, self->_sendBufferBytes, self->_sendBandwidth, synRetransmits, self->_tfoSynDataAcked];
+  v7.receiver = self;
+  v7.super_class = SNConnectionTCPInfoMetrics;
+  v4 = [(SNConnectionTCPInfoMetrics *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@ {interfaceName = %@, rttCurrent = %@, rttSmoothed = %@, rttVariance = %@, rttBest = %@, packetsSent = %@, bytesSent = %@, bytesRetransmitted = %@, bytesUnacked = %@, packetsReceived = %@, bytesReceived = %@, duplicateBytesReceived = %@, outOfOrderBytesReceived = %@, sendBufferBytes = %@, sendBandwidth = %@, synRetransmits = %@ tfoSynDataAcked = %@}", v4, self->_interfaceName, self->_rttCurrent, self->_rttSmoothed, self->_rttVariance, self->_rttBest, self->_packetsSent, self->_bytesSent, self->_bytesRetransmitted, self->_bytesUnacked, self->_packetsReceived, self->_bytesReceived, self->_duplicateBytesReceived, self->_outOfOrderBytesReceived, self->_sendBufferBytes, self->_sendBandwidth, self->_synRetransmits, self->_tfoSynDataAcked];
 
-  return v6;
+  return v5;
 }
 
 @end

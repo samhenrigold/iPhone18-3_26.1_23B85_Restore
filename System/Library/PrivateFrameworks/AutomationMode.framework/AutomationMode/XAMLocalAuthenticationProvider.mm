@@ -18,7 +18,7 @@
 - (id)_makeAuthorizationContext
 {
   v2 = objc_opt_new();
-  v3 = XAMLog();
+  v3 = XAMLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -70,28 +70,27 @@ uint64_t __64__XAMLocalAuthenticationProvider_requestAuthorizationWithReply___bl
   v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v8 = [_makeAuthorizationContext evaluatePolicy:2 options:v7 error:error];
 
-  v9 = XAMLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = XAMLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138543362;
     v15 = v8;
-    _os_log_impl(&dword_241927000, v9, OS_LOG_TYPE_DEFAULT, "Sync evaluate policy returned %{public}@", &v14, 0xCu);
+    _os_log_impl(&dword_241927000, v10, OS_LOG_TYPE_DEFAULT, "Sync evaluate policy returned %{public}@", &v14, 0xCu);
   }
 
   if (v8)
   {
-    v10 = _makeAuthorizationContext;
+    v11 = _makeAuthorizationContext;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = v10;
+  v12 = v11;
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 @end

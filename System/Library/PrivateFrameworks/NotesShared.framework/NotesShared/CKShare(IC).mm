@@ -13,15 +13,15 @@
 
 + (CKShareSystemFieldsTransformer)ic_systemFieldsValueTransformer
 {
-  v0 = objc_opt_class();
-  if (v0 != objc_opt_class())
+  v2 = objc_opt_class();
+  if (v2 != objc_opt_class())
   {
     [MEMORY[0x277D36198] handleFailedAssertWithCondition:"[self class] == [CKShare class]" functionName:"+[CKShare(IC) ic_systemFieldsValueTransformer]" simulateCrash:1 showAlert:0 format:{@"-ic_systemFieldsValueTransformer must be overridden, and must not call super: %@", objc_opt_class()}];
   }
 
-  v1 = objc_alloc_init(CKShareSystemFieldsTransformer);
+  v3 = objc_alloc_init(CKShareSystemFieldsTransformer);
 
-  return v1;
+  return v3;
 }
 
 - (id)ic_nonCurrentUserParticipants

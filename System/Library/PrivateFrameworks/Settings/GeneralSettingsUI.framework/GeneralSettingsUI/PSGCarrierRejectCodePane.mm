@@ -8,9 +8,9 @@
 
 - (void)setPreferenceSpecifier:(id)specifier
 {
-  v11.receiver = self;
-  v11.super_class = PSGCarrierRejectCodePane;
-  [(PSEditingPane *)&v11 setPreferenceSpecifier:specifier];
+  v12.receiver = self;
+  v12.super_class = PSGCarrierRejectCodePane;
+  [(PSEditingPane *)&v12 setPreferenceSpecifier:specifier];
   preferenceSpecifier = [(PSEditingPane *)self preferenceSpecifier];
   v5 = [preferenceSpecifier propertyForKey:@"CauseCode"];
   intValue = [v5 intValue];
@@ -18,22 +18,22 @@
   switch(intValue)
   {
     case 6:
-      v7 = PSG_BundleForGeneralSettingsUIFramework();
-      v8 = v7;
-      v9 = @"REGISTRATION_CAUSE_CODE_6";
+      v8 = PSG_BundleForGeneralSettingsUIFramework(v7);
+      v9 = v8;
+      v10 = @"REGISTRATION_CAUSE_CODE_6";
       goto LABEL_7;
     case 3:
-      v7 = PSG_BundleForGeneralSettingsUIFramework();
-      v8 = v7;
-      v9 = @"REGISTRATION_CAUSE_CODE_3";
+      v8 = PSG_BundleForGeneralSettingsUIFramework(v7);
+      v9 = v8;
+      v10 = @"REGISTRATION_CAUSE_CODE_3";
       goto LABEL_7;
     case 2:
-      v7 = PSG_BundleForGeneralSettingsUIFramework();
-      v8 = v7;
-      v9 = @"REGISTRATION_CAUSE_CODE_2";
+      v8 = PSG_BundleForGeneralSettingsUIFramework(v7);
+      v9 = v8;
+      v10 = @"REGISTRATION_CAUSE_CODE_2";
 LABEL_7:
-      v10 = [v7 localizedStringForKey:v9 value:&stru_282E88A90 table:0];
-      [(UILabel *)self->_rejectMessage setText:v10];
+      v11 = [v8 localizedStringForKey:v10 value:&stru_282E88A90 table:0];
+      [(UILabel *)self->_rejectMessage setText:v11];
 
       return;
   }

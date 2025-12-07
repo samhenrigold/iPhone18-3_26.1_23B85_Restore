@@ -6,196 +6,195 @@
 
 - (MDLMaterialPropertyNode)initWithInputs:(NSArray *)inputs outputs:(NSArray *)outputs evaluationFunction:(void *)function
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v222 = *MEMORY[0x277D85DE8];
   v9 = inputs;
-  v76 = outputs;
-  v74 = function;
-  v91 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v94 = 0u;
+  v199 = outputs;
+  v197 = function;
+  v214 = 0u;
+  v215 = 0u;
+  v216 = 0u;
+  v217 = 0u;
   obj = v9;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v91, v98, 16);
-  if (v11)
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v214, v221, v14, v15, v16, v17, 16, v11, v12, v13);
+  if (v18)
   {
-    v12 = *v92;
+    v19 = *v215;
     do
     {
-      v13 = 0;
+      v20 = 0;
       do
       {
-        if (*v92 != v12)
+        if (*v215 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v91 + 1) + 8 * v13);
-        WeakRetained = objc_loadWeakRetained((v14 + 160));
-        v16 = WeakRetained == 0;
+        v21 = *(*(&v214 + 1) + 8 * v20);
+        WeakRetained = objc_loadWeakRetained((v21 + 160));
+        v23 = WeakRetained == 0;
 
-        if (!v16)
+        if (!v23)
         {
-          v18 = MEMORY[0x277CBEAD8];
-          v19 = objc_opt_class();
-          v20 = NSStringFromClass(v19);
-          v21 = NSStringFromSelector(a2);
-          objc_msgSend_raise_format_(v18, v22, @"ModelIOException", @"[%@ %@]: input cannot be assigned to multiple nodes", v20, v21);
+          v34 = MEMORY[0x277CBEAD8];
+          v35 = objc_opt_class();
+          v36 = NSStringFromClass(v35);
+          v37 = NSStringFromSelector(a2);
+          objc_msgSend_raise_format_(v34, v38, @"ModelIOException", @"[%@ %@]: input cannot be assigned to multiple nodes", v43, v44, v45, v46, v39, v40, v41, v42, v36, v37);
         }
 
-        if (objc_msgSend_containsObject_(v76, v17, v14))
+        if (objc_msgSend_containsObject_(v199, v24, v21, v25, v30, v31, v32, v33, v26, v27, v28, v29))
         {
-          v24 = MEMORY[0x277CBEAD8];
-          v25 = objc_opt_class();
-          v26 = NSStringFromClass(v25);
-          v27 = NSStringFromSelector(a2);
-          objc_msgSend_raise_format_(v24, v28, @"ModelIOException", @"[%@ %@]: input appears in output array", v26, v27);
+          v55 = MEMORY[0x277CBEAD8];
+          v56 = objc_opt_class();
+          v57 = NSStringFromClass(v56);
+          v58 = NSStringFromSelector(a2);
+          objc_msgSend_raise_format_(v55, v59, @"ModelIOException", @"[%@ %@]: input appears in output array", v64, v65, v66, v67, v60, v61, v62, v63, v57, v58);
         }
 
-        ++v13;
+        ++v20;
       }
 
-      while (v11 != v13);
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v91, v98, 16);
+      while (v18 != v20);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v47, &v214, v221, v51, v52, v53, v54, 16, v48, v49, v50);
     }
 
-    while (v11);
+    while (v18);
   }
 
-  v89 = 0u;
-  v90 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v75 = v76;
-  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v29, &v87, v97, 16);
-  if (v30)
+  v212 = 0u;
+  v213 = 0u;
+  v210 = 0u;
+  v211 = 0u;
+  v198 = v199;
+  v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v198, v68, &v210, v220, v72, v73, v74, v75, 16, v69, v70, v71);
+  if (v76)
   {
-    v31 = *v88;
+    v77 = *v211;
     do
     {
-      v32 = 0;
+      v78 = 0;
       do
       {
-        if (*v88 != v31)
+        if (*v211 != v77)
         {
-          objc_enumerationMutation(v75);
+          objc_enumerationMutation(v198);
         }
 
-        v33 = *(*(&v87 + 1) + 8 * v32);
-        v34 = objc_loadWeakRetained((v33 + 160));
-        v35 = v34 == 0;
+        v79 = *(*(&v210 + 1) + 8 * v78);
+        v80 = objc_loadWeakRetained((v79 + 160));
+        v81 = v80 == 0;
 
-        if (!v35)
+        if (!v81)
         {
-          v37 = MEMORY[0x277CBEAD8];
-          v38 = objc_opt_class();
-          v39 = NSStringFromClass(v38);
-          v40 = NSStringFromSelector(a2);
-          objc_msgSend_raise_format_(v37, v41, @"ModelIOException", @"[%@ %@]: output cannot be assigned to multiple nodes", v39, v40);
+          v92 = MEMORY[0x277CBEAD8];
+          v93 = objc_opt_class();
+          v94 = NSStringFromClass(v93);
+          v95 = NSStringFromSelector(a2);
+          objc_msgSend_raise_format_(v92, v96, @"ModelIOException", @"[%@ %@]: output cannot be assigned to multiple nodes", v101, v102, v103, v104, v97, v98, v99, v100, v94, v95);
         }
 
-        if (objc_msgSend_containsObject_(obj, v36, v33))
+        if (objc_msgSend_containsObject_(obj, v82, v79, v83, v88, v89, v90, v91, v84, v85, v86, v87))
         {
-          v43 = MEMORY[0x277CBEAD8];
-          v44 = objc_opt_class();
-          v45 = NSStringFromClass(v44);
-          v46 = NSStringFromSelector(a2);
-          objc_msgSend_raise_format_(v43, v47, @"ModelIOException", @"[%@ %@]: output appears in input array", v45, v46);
+          v113 = MEMORY[0x277CBEAD8];
+          v114 = objc_opt_class();
+          v115 = NSStringFromClass(v114);
+          v116 = NSStringFromSelector(a2);
+          objc_msgSend_raise_format_(v113, v117, @"ModelIOException", @"[%@ %@]: output appears in input array", v122, v123, v124, v125, v118, v119, v120, v121, v115, v116);
         }
 
-        ++v32;
+        ++v78;
       }
 
-      while (v30 != v32);
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v42, &v87, v97, 16);
+      while (v76 != v78);
+      v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v198, v105, &v210, v220, v109, v110, v111, v112, 16, v106, v107, v108);
     }
 
-    while (v30);
+    while (v76);
   }
 
-  v86.receiver = self;
-  v86.super_class = MDLMaterialPropertyNode;
-  v49 = [(MDLMaterialPropertyNode *)&v86 init];
-  if (v49)
+  v209.receiver = self;
+  v209.super_class = MDLMaterialPropertyNode;
+  v132 = [(MDLMaterialPropertyNode *)&v209 init];
+  if (v132)
   {
-    v50 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v48, obj);
-    v51 = v49->_inputs;
-    v49->_inputs = v50;
+    v137 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v126, obj, v127, v133, v134, v135, v136, v128, v129, v130, v131);
+    v138 = v132->_inputs;
+    v132->_inputs = v137;
 
-    v53 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v52, v75);
-    v54 = v49->_outputs;
-    v49->_outputs = v53;
+    v149 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v139, v198, v140, v145, v146, v147, v148, v141, v142, v143, v144);
+    v150 = v132->_outputs;
+    v132->_outputs = v149;
 
-    v55 = MEMORY[0x23EE80910](v74);
-    evaluationFunction = v49->_evaluationFunction;
-    v49->_evaluationFunction = v55;
+    v151 = MEMORY[0x23EE80910](v197);
+    evaluationFunction = v132->_evaluationFunction;
+    v132->_evaluationFunction = v151;
 
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v57 = obj;
-    v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v57, v58, &v82, v96, 16);
-    if (v59)
+    v207 = 0u;
+    v208 = 0u;
+    v205 = 0u;
+    v206 = 0u;
+    v153 = obj;
+    v162 = objc_msgSend_countByEnumeratingWithState_objects_count_(v153, v154, &v205, v219, v158, v159, v160, v161, 16, v155, v156, v157);
+    if (v162)
     {
-      v60 = *v83;
+      v163 = *v206;
       do
       {
-        v61 = 0;
+        v164 = 0;
         do
         {
-          if (*v83 != v60)
+          if (*v206 != v163)
           {
-            objc_enumerationMutation(v57);
+            objc_enumerationMutation(v153);
           }
 
-          objc_storeWeak((*(*(&v82 + 1) + 8 * v61++) + 160), v49);
+          objc_storeWeak((*(*(&v205 + 1) + 8 * v164++) + 160), v132);
         }
 
-        while (v59 != v61);
-        v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v57, v62, &v82, v96, 16);
+        while (v162 != v164);
+        v162 = objc_msgSend_countByEnumeratingWithState_objects_count_(v153, v165, &v205, v219, v169, v170, v171, v172, 16, v166, v167, v168);
       }
 
-      while (v59);
+      while (v162);
     }
 
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v63 = v75;
-    v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v78, v95, 16);
-    if (v65)
+    v203 = 0u;
+    v204 = 0u;
+    v201 = 0u;
+    v202 = 0u;
+    v173 = v198;
+    v182 = objc_msgSend_countByEnumeratingWithState_objects_count_(v173, v174, &v201, v218, v178, v179, v180, v181, 16, v175, v176, v177);
+    if (v182)
     {
-      v66 = *v79;
+      v183 = *v202;
       do
       {
-        v67 = 0;
+        v184 = 0;
         do
         {
-          if (*v79 != v66)
+          if (*v202 != v183)
           {
-            objc_enumerationMutation(v63);
+            objc_enumerationMutation(v173);
           }
 
-          objc_storeWeak((*(*(&v78 + 1) + 8 * v67++) + 160), v49);
+          objc_storeWeak((*(*(&v201 + 1) + 8 * v184++) + 160), v132);
         }
 
-        while (v65 != v67);
-        v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v68, &v78, v95, 16);
+        while (v182 != v184);
+        v182 = objc_msgSend_countByEnumeratingWithState_objects_count_(v173, v185, &v201, v218, v189, v190, v191, v192, 16, v186, v187, v188);
       }
 
-      while (v65);
+      while (v182);
     }
 
-    v69 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    inputNodes = v49->_inputNodes;
-    v49->_inputNodes = v69;
+    v193 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    inputNodes = v132->_inputNodes;
+    v132->_inputNodes = v193;
 
-    v71 = v49;
+    v195 = v132;
   }
 
-  v72 = *MEMORY[0x277D85DE8];
-  return v49;
+  return v132;
 }
 
 @end

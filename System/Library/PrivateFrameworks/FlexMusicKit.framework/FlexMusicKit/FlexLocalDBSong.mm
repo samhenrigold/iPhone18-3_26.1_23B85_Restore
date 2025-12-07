@@ -13,32 +13,32 @@
 
 - (NSSet)tagIDs
 {
-  v172 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_set(MEMORY[0x277CBEB58], a2, v2, v3, v4);
+  v165 = 0u;
   v166 = 0u;
   v167 = 0u;
   v168 = 0u;
-  v169 = 0u;
   v11 = objc_msgSend_genres(self, v7, v8, v9, v10);
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v166, v171, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v165, v170, 16);
   if (v13)
   {
     v18 = v13;
-    v19 = *v167;
+    v19 = *v166;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v167 != v19)
+        if (*v166 != v19)
         {
           objc_enumerationMutation(v11);
         }
 
-        v21 = objc_msgSend_genreTag(*(*(&v166 + 1) + 8 * i), v14, v15, v16, v17);
+        v21 = objc_msgSend_genreTag(*(*(&v165 + 1) + 8 * i), v14, v15, v16, v17);
         objc_msgSend_addObject_(v6, v22, v21, v23, v24);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v166, v171, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v165, v170, 16);
     }
 
     while (v18);
@@ -82,30 +82,30 @@
   v91 = objc_msgSend_stringWithFormat_(v86, v88, @"%@%lld", v89, v90, @"Style_", v87);
   objc_msgSend_addObject_(v6, v92, v91, v93, v94);
 
-  v164 = 0u;
-  v165 = 0u;
-  v162 = 0u;
   v163 = 0u;
+  v164 = 0u;
+  v161 = 0u;
+  v162 = 0u;
   v99 = objc_msgSend_regions(self, v95, v96, v97, v98);
-  v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v100, &v162, v170, 16);
+  v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v100, &v161, v169, 16);
   if (v101)
   {
     v106 = v101;
-    v107 = *v163;
+    v107 = *v162;
     do
     {
       for (j = 0; j != v106; ++j)
       {
-        if (*v163 != v107)
+        if (*v162 != v107)
         {
           objc_enumerationMutation(v99);
         }
 
-        v109 = objc_msgSend_countryCode(*(*(&v162 + 1) + 8 * j), v102, v103, v104, v105);
+        v109 = objc_msgSend_countryCode(*(*(&v161 + 1) + 8 * j), v102, v103, v104, v105);
         objc_msgSend_addObject_(v6, v110, v109, v111, v112);
       }
 
-      v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v102, &v162, v170, 16);
+      v106 = objc_msgSend_countByEnumeratingWithState_objects_count_(v99, v102, &v161, v169, 16);
     }
 
     while (v106);
@@ -140,42 +140,38 @@
 
   v159 = objc_msgSend_copy(v6, v145, v146, v147, v148);
 
-  v160 = *MEMORY[0x277D85DE8];
-
   return v159;
 }
 
 - (void)setRecordID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v4 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x277CCAAB0], a2, d, 1, &v11);
-  v8 = v11;
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v4 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x277CCAAB0], a2, d, 1, &v10);
+  v8 = v10;
   if (v8)
   {
     v9 = FlexLogForCategory(3uLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_24B7E5000, v9, OS_LOG_TYPE_DEFAULT, "Error %@ archiving record ID", buf, 0xCu);
     }
   }
 
   objc_msgSend_setRecordData_(self, v5, v4, v6, v7);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (CKRecordID)recordID
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAC8];
   v4 = objc_opt_class();
   v9 = objc_msgSend_recordData(self, v5, v6, v7, v8);
-  v16 = 0;
-  v11 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v3, v10, v4, v9, &v16);
-  v12 = v16;
+  v15 = 0;
+  v11 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v3, v10, v4, v9, &v15);
+  v12 = v15;
 
   if (v12)
   {
@@ -183,28 +179,26 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v12;
+      v17 = v12;
       _os_log_impl(&dword_24B7E5000, v13, OS_LOG_TYPE_DEFAULT, "Error %@ archiving record ID", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (NSSet)genreStrings
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_set(MEMORY[0x277CBEB58], a2, v2, v3, v4);
   v11 = objc_msgSend_managedObjectContext(self, v7, v8, v9, v10);
   v15 = objc_msgSend_fetchRequestWithEntityName_(MEMORY[0x277CBE428], v12, @"Genres", v13, v14);
   v19 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v16, @"song == %@", v17, v18, self);
   objc_msgSend_setPredicate_(v15, v20, v19, v21, v22);
 
-  v49 = 0;
-  v25 = objc_msgSend_executeFetchRequest_error_(v11, v23, v15, &v49, v24);
-  v26 = v49;
+  v48 = 0;
+  v25 = objc_msgSend_executeFetchRequest_error_(v11, v23, v15, &v48, v24);
+  v26 = v48;
   v27 = v26;
   if (v25)
   {
@@ -218,30 +212,30 @@
 
   if (v28)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v29 = v25;
-    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v45, v50, 16);
+    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v44, v49, 16);
     if (v31)
     {
       v36 = v31;
-      v37 = *v46;
+      v37 = *v45;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v46 != v37)
+          if (*v45 != v37)
           {
             objc_enumerationMutation(v29);
           }
 
-          v39 = objc_msgSend_genreTag(*(*(&v45 + 1) + 8 * i), v32, v33, v34, v35);
+          v39 = objc_msgSend_genreTag(*(*(&v44 + 1) + 8 * i), v32, v33, v34, v35);
           objc_msgSend_addObject_(v6, v40, v39, v41, v42);
         }
 
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v45, v50, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v44, v49, 16);
       }
 
       while (v36);
@@ -257,47 +251,45 @@
     }
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)setGenreStrings:(id)strings
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   selfCopy = self;
   v9 = objc_msgSend_managedObjectContext(self, v5, v6, v7, v8);
   v10 = MEMORY[0x277CBEB58];
   v15 = objc_msgSend_count(stringsCopy, v11, v12, v13, v14);
-  v75 = objc_msgSend_setWithCapacity_(v10, v16, v15, v17, v18);
+  v74 = objc_msgSend_setWithCapacity_(v10, v16, v15, v17, v18);
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   obj = stringsCopy;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v79, v85, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v78, v84, 16);
   if (v20)
   {
     v24 = v20;
-    v25 = *v80;
+    v25 = *v79;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v80 != v25)
+        if (*v79 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v79 + 1) + 8 * i);
+        v27 = *(*(&v78 + 1) + 8 * i);
         v28 = objc_msgSend_fetchRequestWithEntityName_(MEMORY[0x277CBE428], v21, @"Genres", v22, v23);
         v32 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v29, @"(song == %@) AND (genreTag == %@)", v30, v31, selfCopy, v27);
         objc_msgSend_setPredicate_(v28, v33, v32, v34, v35);
 
-        v78 = 0;
-        v38 = objc_msgSend_executeFetchRequest_error_(v9, v36, v28, &v78, v37);
-        v39 = v78;
+        v77 = 0;
+        v38 = objc_msgSend_executeFetchRequest_error_(v9, v36, v28, &v77, v37);
+        v39 = v77;
         v44 = v39;
         if (v38)
         {
@@ -318,7 +310,7 @@
           }
 
           *buf = 138412290;
-          v84 = v44;
+          v83 = v44;
           v47 = v46;
           v48 = "Failed to fetch genre:\n%@";
           goto LABEL_19;
@@ -329,7 +321,7 @@
           if (objc_msgSend_count(v38, v49, v50, v51, v52) == 1)
           {
             v46 = objc_msgSend_firstObject(v38, v53, v54, v55, v56);
-            objc_msgSend_addObject_(v75, v57, v46, v58, v59);
+            objc_msgSend_addObject_(v74, v57, v46, v58, v59);
             goto LABEL_20;
           }
 
@@ -337,7 +329,7 @@
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v84 = v38;
+            v83 = v38;
             v47 = v46;
             v48 = "Duplicate genres:\n%@";
 LABEL_19:
@@ -349,36 +341,34 @@ LABEL_19:
         {
           v46 = objc_msgSend_insertNewObjectForEntityForName_inManagedObjectContext_(MEMORY[0x277CBE408], v49, @"Genres", v9, v52);
           objc_msgSend_setGenreTag_(v46, v60, v27, v61, v62);
-          objc_msgSend_addObject_(v75, v63, v46, v64, v65);
+          objc_msgSend_addObject_(v74, v63, v46, v64, v65);
         }
 
 LABEL_20:
       }
 
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v79, v85, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v78, v84, 16);
     }
 
     while (v24);
   }
 
-  v70 = objc_msgSend_copy(v75, v66, v67, v68, v69);
+  v70 = objc_msgSend_copy(v74, v66, v67, v68, v69);
   objc_msgSend_setGenres_(selfCopy, v71, v70, v72, v73);
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)regionStrings
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_set(MEMORY[0x277CBEB58], a2, v2, v3, v4);
   v11 = objc_msgSend_managedObjectContext(self, v7, v8, v9, v10);
   v15 = objc_msgSend_fetchRequestWithEntityName_(MEMORY[0x277CBE428], v12, @"Regions", v13, v14);
   v19 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v16, @"song == %@", v17, v18, self);
   objc_msgSend_setPredicate_(v15, v20, v19, v21, v22);
 
-  v49 = 0;
-  v25 = objc_msgSend_executeFetchRequest_error_(v11, v23, v15, &v49, v24);
-  v26 = v49;
+  v48 = 0;
+  v25 = objc_msgSend_executeFetchRequest_error_(v11, v23, v15, &v48, v24);
+  v26 = v48;
   v27 = v26;
   if (v25)
   {
@@ -392,30 +382,30 @@ LABEL_20:
 
   if (v28)
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v29 = v25;
-    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v45, v50, 16);
+    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v44, v49, 16);
     if (v31)
     {
       v36 = v31;
-      v37 = *v46;
+      v37 = *v45;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v46 != v37)
+          if (*v45 != v37)
           {
             objc_enumerationMutation(v29);
           }
 
-          v39 = objc_msgSend_countryCode(*(*(&v45 + 1) + 8 * i), v32, v33, v34, v35);
+          v39 = objc_msgSend_countryCode(*(*(&v44 + 1) + 8 * i), v32, v33, v34, v35);
           objc_msgSend_addObject_(v6, v40, v39, v41, v42);
         }
 
-        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v45, v50, 16);
+        v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v32, &v44, v49, 16);
       }
 
       while (v36);
@@ -431,47 +421,45 @@ LABEL_20:
     }
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)setRegionStrings:(id)strings
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   selfCopy = self;
   v9 = objc_msgSend_managedObjectContext(self, v5, v6, v7, v8);
   v10 = MEMORY[0x277CBEB58];
   v15 = objc_msgSend_count(stringsCopy, v11, v12, v13, v14);
-  v75 = objc_msgSend_setWithCapacity_(v10, v16, v15, v17, v18);
+  v74 = objc_msgSend_setWithCapacity_(v10, v16, v15, v17, v18);
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   obj = stringsCopy;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v79, v85, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v78, v84, 16);
   if (v20)
   {
     v24 = v20;
-    v25 = *v80;
+    v25 = *v79;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v80 != v25)
+        if (*v79 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v79 + 1) + 8 * i);
+        v27 = *(*(&v78 + 1) + 8 * i);
         v28 = objc_msgSend_fetchRequestWithEntityName_(MEMORY[0x277CBE428], v21, @"Regions", v22, v23);
         v32 = objc_msgSend_predicateWithFormat_(MEMORY[0x277CCAC30], v29, @"(song == %@) AND (countryCode == %@)", v30, v31, selfCopy, v27);
         objc_msgSend_setPredicate_(v28, v33, v32, v34, v35);
 
-        v78 = 0;
-        v38 = objc_msgSend_executeFetchRequest_error_(v9, v36, v28, &v78, v37);
-        v39 = v78;
+        v77 = 0;
+        v38 = objc_msgSend_executeFetchRequest_error_(v9, v36, v28, &v77, v37);
+        v39 = v77;
         v44 = v39;
         if (v38)
         {
@@ -492,7 +480,7 @@ LABEL_20:
           }
 
           *buf = 138412290;
-          v84 = v44;
+          v83 = v44;
           v47 = v46;
           v48 = "Failed to fetch region:\n%@";
           goto LABEL_19;
@@ -503,7 +491,7 @@ LABEL_20:
           if (objc_msgSend_count(v38, v49, v50, v51, v52) == 1)
           {
             v46 = objc_msgSend_firstObject(v38, v53, v54, v55, v56);
-            objc_msgSend_addObject_(v75, v57, v46, v58, v59);
+            objc_msgSend_addObject_(v74, v57, v46, v58, v59);
             goto LABEL_20;
           }
 
@@ -511,7 +499,7 @@ LABEL_20:
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v84 = v38;
+            v83 = v38;
             v47 = v46;
             v48 = "Duplicate regions:\n%@";
 LABEL_19:
@@ -523,22 +511,20 @@ LABEL_19:
         {
           v46 = objc_msgSend_insertNewObjectForEntityForName_inManagedObjectContext_(MEMORY[0x277CBE408], v49, @"Regions", v9, v52);
           objc_msgSend_setCountryCode_(v46, v60, v27, v61, v62);
-          objc_msgSend_addObject_(v75, v63, v46, v64, v65);
+          objc_msgSend_addObject_(v74, v63, v46, v64, v65);
         }
 
 LABEL_20:
       }
 
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v79, v85, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v78, v84, 16);
     }
 
     while (v24);
   }
 
-  v70 = objc_msgSend_copy(v75, v66, v67, v68, v69);
+  v70 = objc_msgSend_copy(v74, v66, v67, v68, v69);
   objc_msgSend_setRegions_(selfCopy, v71, v70, v72, v73);
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canPlay

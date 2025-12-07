@@ -18,11 +18,11 @@
 
 - (TRIPushServiceConnection)initWithDelegate:(id)delegate
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v24.receiver = self;
-  v24.super_class = TRIPushServiceConnection;
-  v6 = [(TRIPushServiceConnection *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = TRIPushServiceConnection;
+  v6 = [(TRIPushServiceConnection *)&v23 init];
   v7 = v6;
   if (v6)
   {
@@ -46,8 +46,8 @@
 
     if (connection)
     {
-      v25[0] = @"com.apple.triald";
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = @"com.apple.triald";
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       connection2 = [(TRIPushServiceConnection *)v7 connection];
       [connection2 _setOpportunisticTopics:v18];
 
@@ -60,13 +60,12 @@
       connection3 = TRILogCategory_Server();
       if (os_log_type_enabled(connection3, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 0;
-        _os_log_error_impl(&dword_26F567000, connection3, OS_LOG_TYPE_ERROR, "Failed to create an APSConnection", v23, 2u);
+        *v22 = 0;
+        _os_log_error_impl(&dword_26F567000, connection3, OS_LOG_TYPE_ERROR, "Failed to create an APSConnection", v22, 2u);
       }
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -111,7 +110,7 @@
 
 - (void)_subscribeToChannels:(id)channels
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   if ([channelsCopy count])
   {
@@ -125,15 +124,15 @@
         v8 = TRILogCategory_Server();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
-          v13 = 134218752;
-          v14 = _subscribedChannelCount;
-          v15 = 2048;
-          v16 = [channelsCopy count];
-          v17 = 2048;
-          v18 = [v6 count];
-          v19 = 2048;
-          v20 = 100;
-          _os_log_fault_impl(&dword_26F567000, v8, OS_LOG_TYPE_FAULT, "Only some of the requested channels will be subscribed since we reached the channel limit (current: %tu, wanted to subscribe: %tu, actual to be subscribed: %tu, limit: %tu)", &v13, 0x2Au);
+          v12 = 134218752;
+          v13 = _subscribedChannelCount;
+          v14 = 2048;
+          v15 = [channelsCopy count];
+          v16 = 2048;
+          v17 = [v6 count];
+          v18 = 2048;
+          v19 = 100;
+          _os_log_fault_impl(&dword_26F567000, v8, OS_LOG_TYPE_FAULT, "Only some of the requested channels will be subscribed since we reached the channel limit (current: %tu, wanted to subscribe: %tu, actual to be subscribed: %tu, limit: %tu)", &v12, 0x2Au);
         }
       }
 
@@ -141,9 +140,9 @@
       v10 = TRILogCategory_Server();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = v6;
-        _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, "Subscribing to channels: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v6;
+        _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, "Subscribing to channels: %@", &v12, 0xCu);
       }
 
       connection = [(TRIPushServiceConnection *)self connection];
@@ -155,16 +154,14 @@
       v9 = TRILogCategory_Server();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        v13 = 134218240;
-        v14 = _subscribedChannelCount;
-        v15 = 2048;
-        v16 = 100;
-        _os_log_fault_impl(&dword_26F567000, v9, OS_LOG_TYPE_FAULT, "New subscription denied since we reached the channel limit (current: %tu, limit: %tu)", &v13, 0x16u);
+        v12 = 134218240;
+        v13 = _subscribedChannelCount;
+        v14 = 2048;
+        v15 = 100;
+        _os_log_fault_impl(&dword_26F567000, v9, OS_LOG_TYPE_FAULT, "New subscription denied since we reached the channel limit (current: %tu, limit: %tu)", &v12, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a1, void *a2)
@@ -181,7 +178,7 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
 
 + (id)_validateChannelId:(id)id
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([idCopy type] == 1)
   {
@@ -199,13 +196,13 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
       v7 = TRILogCategory_Server();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412802;
-        v12 = idCopy;
-        v13 = 2048;
-        v14 = [v6 length];
-        v15 = 2048;
-        v16 = 16;
-        _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Received channel id %@ with length %tu > %tu", &v11, 0x20u);
+        v10 = 138412802;
+        v11 = idCopy;
+        v12 = 2048;
+        v13 = [v6 length];
+        v14 = 2048;
+        v15 = 16;
+        _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Received channel id %@ with length %tu > %tu", &v10, 0x20u);
       }
 
       v8 = 0;
@@ -216,8 +213,6 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
   {
     v8 = idCopy;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -238,7 +233,7 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
 
 - (void)_unsubscribeFromChannel:(id)channel
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   v5 = [(TRIPushServiceConnection *)self _publicChannelForChannelId:channelCopy];
   v6 = TRILogCategory_Server();
@@ -247,9 +242,9 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = channelCopy;
-      _os_log_impl(&dword_26F567000, connection, OS_LOG_TYPE_DEFAULT, "Unsubscribing from channel %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = channelCopy;
+      _os_log_impl(&dword_26F567000, connection, OS_LOG_TYPE_DEFAULT, "Unsubscribing from channel %@", &v8, 0xCu);
     }
 
     connection = [(TRIPushServiceConnection *)self connection];
@@ -258,17 +253,15 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412290;
-    v10 = channelCopy;
-    _os_log_error_impl(&dword_26F567000, connection, OS_LOG_TYPE_ERROR, "Could not unsubscribe from channel %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = channelCopy;
+    _os_log_error_impl(&dword_26F567000, connection, OS_LOG_TYPE_ERROR, "Could not unsubscribe from channel %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_publicChannelForChannelId:(id)id
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([idCopy type] == 1)
   {
@@ -281,13 +274,13 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
       v7 = TRILogCategory_Server();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412802;
-        v14 = idCopy;
-        v15 = 2048;
-        v16 = [v6 length];
-        v17 = 2048;
-        v18 = 16;
-        _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Received channel id %@ with length %tu > %tu", &v13, 0x20u);
+        v12 = 138412802;
+        v13 = idCopy;
+        v14 = 2048;
+        v15 = [v6 length];
+        v16 = 2048;
+        v17 = 16;
+        _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Received channel id %@ with length %tu > %tu", &v12, 0x20u);
       }
     }
   }
@@ -296,18 +289,16 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
   identifier2 = [idCopy identifier];
   v10 = [v8 initWithChannelID:identifier2];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)subscribedChannelIds
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   connection = [(TRIPushServiceConnection *)self connection];
-  v9 = 0;
-  v3 = [connection registeredChannelsForTopic:@"com.apple.triald" error:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [connection registeredChannelsForTopic:@"com.apple.triald" error:&v8];
+  v4 = v8;
 
   if (v3)
   {
@@ -320,14 +311,12 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v4;
+      v10 = v4;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Couldn't get registered channels: %{public}@", buf, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -361,22 +350,20 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
 
 - (void)connection:(id)connection channelSubscriptionsFailedWithFailures:(id)failures
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   failuresCopy = failures;
   v5 = TRILogCategory_Server();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = failuresCopy;
-    _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Failed to subscribe to some channels: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = failuresCopy;
+    _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Failed to subscribe to some channels: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = messageCopy;
   if (messageCopy)
@@ -389,9 +376,9 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
       v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v8 options:0];
       if (v9)
       {
-        v20 = 0;
-        channelID2 = [objc_alloc(MEMORY[0x277D73BA8]) initWithData:v9 error:&v20];
-        userInfo3 = v20;
+        v19 = 0;
+        channelID2 = [objc_alloc(MEMORY[0x277D73BA8]) initWithData:v9 error:&v19];
+        userInfo3 = v19;
         v12 = TRILogCategory_Server();
         triDelegate = v12;
         if (channelID2)
@@ -400,7 +387,7 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
           {
             v14 = [channelID2 description];
             *buf = 138412290;
-            v22 = v14;
+            v21 = v14;
             _os_log_impl(&dword_26F567000, triDelegate, OS_LOG_TYPE_DEFAULT, "Received notification: %@", buf, 0xCu);
           }
 
@@ -413,11 +400,11 @@ id __49__TRIPushServiceConnection__subscribeToChannels___block_invoke(uint64_t a
           userInfo2 = [v6 userInfo];
           channelID = [v6 channelID];
           *buf = 138412802;
-          v22 = userInfo3;
-          v23 = 2112;
-          v24 = userInfo2;
-          v25 = 2112;
-          v26 = channelID;
+          v21 = userInfo3;
+          v22 = 2112;
+          v23 = userInfo2;
+          v24 = 2112;
+          v25 = channelID;
           _os_log_error_impl(&dword_26F567000, triDelegate, OS_LOG_TYPE_ERROR, "Unable to deserialize push notification with decode error %@. Received %@ on channel %@", buf, 0x20u);
         }
 
@@ -434,9 +421,9 @@ LABEL_19:
 
       channelID2 = [v6 channelID];
       *buf = 138412546;
-      v22 = v8;
-      v23 = 2112;
-      v24 = channelID2;
+      v21 = v8;
+      v22 = 2112;
+      v23 = channelID2;
       v15 = "Received invalid base 64 notification content. Received %@ on channel %@";
       v16 = userInfo3;
     }
@@ -454,9 +441,9 @@ LABEL_20:
       userInfo3 = [v6 userInfo];
       channelID2 = [v6 channelID];
       *buf = 138543618;
-      v22 = userInfo3;
-      v23 = 2114;
-      v24 = channelID2;
+      v21 = userInfo3;
+      v22 = 2114;
+      v23 = channelID2;
       v15 = "Expected notification content not found. Received %{public}@ on channel %{public}@";
       v16 = v9;
     }
@@ -475,8 +462,6 @@ LABEL_18:
   }
 
 LABEL_21:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

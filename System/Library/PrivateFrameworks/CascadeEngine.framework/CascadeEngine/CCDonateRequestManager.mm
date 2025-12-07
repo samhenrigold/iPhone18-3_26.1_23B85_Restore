@@ -18,10 +18,9 @@
 
 - (void)_beginTransaction
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0_2(&dword_1DA444000, a2, a3, "Acquired OS transaction: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_2(&dword_1DA444000, a2, a3, "Acquired OS transaction: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_handleNextRequest
@@ -108,27 +107,24 @@
 
 uint64_t __44__CCDonateRequestManager__handleNextRequest__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = __biome_log_for_category();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1DA444000, v2, OS_LOG_TYPE_DEFAULT, "Handling donate request %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1DA444000, v2, OS_LOG_TYPE_DEFAULT, "Handling donate request %@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) handle];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) handle];
 }
 
 - (void)_endTransaction
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(self + 16));
-  OUTLINED_FUNCTION_0_2(&dword_1DA444000, a2, a3, "Releasing OS transaction: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(self + 16);
+  OUTLINED_FUNCTION_0_2(&dword_1DA444000, a2, a3, "Releasing OS transaction: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (CCDonateRequestManager)init
@@ -252,7 +248,7 @@ uint64_t __40__CCDonateRequestManager_submitRequest___block_invoke(uint64_t a1)
 
 void __42__CCDonateRequestManager_completeRequest___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 40);
   v3 = [*(a1 + 32) _isActiveRequestId:{objc_msgSend(*(a1 + 40), "requestId")}];
   v4 = __biome_log_for_category();
@@ -262,9 +258,9 @@ void __42__CCDonateRequestManager_completeRequest___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *v2;
-      v16 = 138412290;
-      v17 = v6;
-      _os_log_impl(&dword_1DA444000, v5, OS_LOG_TYPE_DEFAULT, "Donate request %@ handling complete", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v6;
+      _os_log_impl(&dword_1DA444000, v5, OS_LOG_TYPE_DEFAULT, "Donate request %@ handling complete", &v15, 0xCu);
     }
 
     v7 = *(a1 + 32);
@@ -282,8 +278,6 @@ void __42__CCDonateRequestManager_completeRequest___block_invoke(uint64_t a1)
       __42__CCDonateRequestManager_completeRequest___block_invoke_cold_1(v2, v5, v9, v10, v11, v12, v13, v14);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isActiveRequestId:(unsigned int)id
@@ -319,7 +313,7 @@ void __42__CCDonateRequestManager_completeRequest___block_invoke(uint64_t a1)
   dispatch_async(registryQueue, block);
 }
 
-uint64_t __44__CCDonateRequestManager__handleNextRequest__block_invoke_23(uint64_t a1)
+void *__44__CCDonateRequestManager__handleNextRequest__block_invoke_23(uint64_t a1)
 {
   v1 = (a1 + 32);
   result = [*(a1 + 32) _isActiveRequestId:*(a1 + 40)];
@@ -339,23 +333,21 @@ uint64_t __44__CCDonateRequestManager__handleNextRequest__block_invoke_23(uint64
 
 void __42__CCDonateRequestManager_completeRequest___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_2(&dword_1DA444000, a2, a3, "Donate request %@ no longer active.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_2(&dword_1DA444000, a2, a3, "Donate request %@ no longer active.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __44__CCDonateRequestManager__handleNextRequest__block_invoke_23_cold_1(int *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *(*a2 + 24);
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 2048;
-  v8 = v4;
-  _os_log_error_impl(&dword_1DA444000, log, OS_LOG_TYPE_ERROR, "Expiring Donate requestId: %u after %lf seconds", v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 2048;
+  v7 = v4;
+  _os_log_error_impl(&dword_1DA444000, log, OS_LOG_TYPE_ERROR, "Expiring Donate requestId: %u after %lf seconds", v5, 0x12u);
 }
 
 @end

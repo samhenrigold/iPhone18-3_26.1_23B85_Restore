@@ -327,23 +327,24 @@ LABEL_10:
     v7 = [(CKMessageEntryRichTextView *)self _rangeFromUITextRange:range];
     v9 = v8;
     [(CKMessageEntryRichTextView *)self unmarkText];
-    if (!CKIsRunningInMacCatalyst())
+    v10 = CKIsRunningInMacCatalyst();
+    if (!v10)
     {
-      v10 = CKFrameworkBundle();
-      v11 = [v10 localizedStringForKey:@"PASTE" value:&stru_1F04268F8 table:@"ChatKit"];
-      [(CKMessageEntryRichTextView *)self _registerUndoOperationForReplacementWithActionName:v11 replacementText:stringCopy];
+      v11 = CKFrameworkBundle(v10);
+      v12 = [v11 localizedStringForKey:@"PASTE" value:&stru_1F04268F8 table:@"ChatKit"];
+      [(CKMessageEntryRichTextView *)self _registerUndoOperationForReplacementWithActionName:v12 replacementText:stringCopy];
     }
 
     attributedText = [(CKMessageEntryRichTextView *)self attributedText];
-    v13 = [attributedText mutableCopy];
+    v14 = [attributedText mutableCopy];
 
-    [v13 replaceCharactersInRange:v7 withAttributedString:{v9, stringCopy}];
-    v15[0] = v7;
-    v15[1] = v9;
-    v14 = CKSeparatedTextForTextInView(v13, v15, 0);
-    [(CKMessageEntryRichTextView *)self setAttributedText:v14];
+    [v14 replaceCharactersInRange:v7 withAttributedString:{v9, stringCopy}];
+    v16[0] = v7;
+    v16[1] = v9;
+    v15 = CKSeparatedTextForTextInView(v14, v16, 0);
+    [(CKMessageEntryRichTextView *)self setAttributedText:v15];
 
-    -[CKMessageEntryRichTextView setSelectedRange:](self, "setSelectedRange:", [stringCopy length] + v15[0], 0);
+    -[CKMessageEntryRichTextView setSelectedRange:](self, "setSelectedRange:", [stringCopy length] + v16[0], 0);
   }
 }
 
@@ -470,31 +471,31 @@ void __72__CKMessageEntryRichTextView__ck_beginPasteOperationAndPasteAsRichText_
   }
 }
 
-void __72__CKMessageEntryRichTextView__ck_beginPasteOperationAndPasteAsRichText___block_invoke_2(uint64_t a1)
+void __72__CKMessageEntryRichTextView__ck_beginPasteOperationAndPasteAsRichText___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v9 = "[CKMessageEntryRichTextView _ck_beginPasteOperationAndPasteAsRichText:]_block_invoke_2";
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "%s - Pasting rich text", buf, 0xCu);
+      v10 = "[CKMessageEntryRichTextView _ck_beginPasteOperationAndPasteAsRichText:]_block_invoke_2";
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "%s - Pasting rich text", buf, 0xCu);
     }
   }
 
-  v3 = *(a1 + 32);
-  v7.receiver = *(a1 + 40);
-  v7.super_class = CKMessageEntryRichTextView;
-  objc_msgSendSuper2(&v7, sel__pasteAttributedString_pasteAsRichText_, v3, 1);
-  v4 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
-  v5 = [v4 isExpressiveTextEnabled];
+  v4 = *(a1 + 32);
+  v8.receiver = *(a1 + 40);
+  v8.super_class = CKMessageEntryRichTextView;
+  objc_msgSendSuper2(&v8, sel__pasteAttributedString_pasteAsRichText_, v4, 1);
+  v5 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  v6 = [v5 isExpressiveTextEnabled];
 
-  if (v5)
+  if (v6)
   {
-    v6 = [*(a1 + 40) textStorage];
-    [v6 ck_repairTextEffects];
+    v7 = [*(a1 + 40) textStorage];
+    [v7 ck_repairTextEffects];
   }
 }
 

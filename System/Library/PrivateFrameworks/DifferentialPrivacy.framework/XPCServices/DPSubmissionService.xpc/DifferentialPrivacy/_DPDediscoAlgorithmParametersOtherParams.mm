@@ -20,22 +20,21 @@
 
 - (id)serializeAndReturnError:(id *)error
 {
-  v4 = type metadata accessor for DediscoAlgorithmParametersOtherParams();
-  v5 = *(*(v4 - 8) + 64);
+  v4 = type metadata accessor for DediscoAlgorithmParametersOtherParams(0);
   __chkstk_darwin(v4);
-  v7 = &v14[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = &v13[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   selfCopy = self;
   sub_1000385AC();
   selfCopy2 = self;
   sub_1000504E0();
-  v9 = sub_1000504B0();
-  v11 = v10;
+  v8 = sub_1000504B0();
+  v10 = v9;
 
-  sub_100038604(v7);
-  v12.super.isa = sub_1000502F0().super.isa;
-  sub_100013E20(v9, v11);
+  sub_100038604(v6);
+  v11.super.isa = sub_1000502F0().super.isa;
+  sub_100013E20(v8, v10);
 
-  return v12.super.isa;
+  return v11.super.isa;
 }
 
 - (_DPDediscoAlgorithmParametersOtherParams)init

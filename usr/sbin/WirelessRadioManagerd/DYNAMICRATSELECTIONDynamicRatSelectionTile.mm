@@ -61,30 +61,29 @@
 
 - (void)writeTo:(id)to
 {
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   dratsTiles = self->_dratsTiles;
-  v4 = [(NSMutableArray *)dratsTiles countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)dratsTiles countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(dratsTiles);
         }
 
-        v8 = *(*(&v9 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v5 = [(NSMutableArray *)dratsTiles countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)dratsTiles countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);

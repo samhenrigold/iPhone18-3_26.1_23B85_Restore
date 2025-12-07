@@ -21,6 +21,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)traitCollectionDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WDStoredDataByCategoryViewController
@@ -86,16 +87,16 @@ void __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke(uint64
   objc_destroyWeak(&v13);
 }
 
-void __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2(uint64_t a1)
+void __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
     _HKInitializeLogging();
-    v2 = HKLogWellnessDashboard();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = HKLogWellnessDashboard();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2_cold_1(v1, v2);
+      __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2_cold_1(v3, v4);
     }
   }
 
@@ -104,6 +105,14 @@ void __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2(uint
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [WeakRetained handleSamplesQueryResults:*(a1 + 40)];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WDStoredDataByCategoryViewController;
+  [(WDStoredDataByCategoryViewController *)&v4 viewWillAppear:appear];
+  [(WDStoredDataByCategoryViewController *)self fetchEnabledStatusForPeripheral];
 }
 
 - (void)_displayTypeStringsChanged:(id)changed
@@ -147,107 +156,107 @@ void __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2(uint
 
 - (id)reduceCategoriesForCapturedSampleTypes:(id)types
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   typesCopy = types;
-  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   obj = [MEMORY[0x277D12828] sortedCategories];
-  v36 = [obj countByEnumeratingWithState:&v56 objects:v63 count:16];
-  if (v36)
+  v35 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+  if (v35)
   {
-    v34 = *v57;
-    v38 = typesCopy;
+    v33 = *v56;
+    v37 = typesCopy;
     do
     {
       v4 = 0;
       do
       {
-        if (*v57 != v34)
+        if (*v56 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = v4;
-        v5 = *(*(&v56 + 1) + 8 * v4);
+        v36 = v4;
+        v5 = *(*(&v55 + 1) + 8 * v4);
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v55 = 0u;
         v6 = MEMORY[0x277D12840];
         profile = [(WDStoredDataByCategoryViewController *)self profile];
         healthStore = [profile healthStore];
         v9 = [v6 sharedInstanceForHealthStore:healthStore];
         v10 = [v9 displayTypesForCategoryIdentifier:{objc_msgSend(v5, "categoryID")}];
 
-        v40 = v10;
-        v42 = [v10 countByEnumeratingWithState:&v52 objects:v62 count:16];
-        if (v42)
+        v39 = v10;
+        v41 = [v10 countByEnumeratingWithState:&v51 objects:v61 count:16];
+        if (v41)
         {
-          v11 = *v53;
-          v39 = *v53;
+          v11 = *v52;
+          v38 = *v52;
           do
           {
             v12 = 0;
             do
             {
-              if (*v53 != v11)
+              if (*v52 != v11)
               {
-                objc_enumerationMutation(v40);
+                objc_enumerationMutation(v39);
               }
 
-              v43 = v12;
-              v13 = *(*(&v52 + 1) + 8 * v12);
+              v42 = v12;
+              v13 = *(*(&v51 + 1) + 8 * v12);
+              v47 = 0u;
               v48 = 0u;
               v49 = 0u;
               v50 = 0u;
-              v51 = 0u;
               v14 = typesCopy;
-              v15 = [v14 countByEnumeratingWithState:&v48 objects:v61 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v47 objects:v60 count:16];
               if (!v15)
               {
                 goto LABEL_34;
               }
 
               v16 = v15;
-              v17 = *v49;
+              v17 = *v48;
               while (2)
               {
                 for (i = 0; i != v16; ++i)
                 {
-                  if (*v49 != v17)
+                  if (*v48 != v17)
                   {
                     objc_enumerationMutation(v14);
                   }
 
-                  v19 = *(*(&v48 + 1) + 8 * i);
+                  v19 = *(*(&v47 + 1) + 8 * i);
                   sampleType = [v13 sampleType];
 
                   if (v19 == sampleType)
                   {
-                    v46 = 0u;
-                    v47 = 0u;
-                    v44 = 0u;
                     v45 = 0u;
-                    v21 = v41;
-                    v22 = [v21 countByEnumeratingWithState:&v44 objects:v60 count:16];
+                    v46 = 0u;
+                    v43 = 0u;
+                    v44 = 0u;
+                    v21 = v40;
+                    v22 = [v21 countByEnumeratingWithState:&v43 objects:v59 count:16];
                     if (v22)
                     {
                       v23 = v22;
                       v24 = 0;
-                      v25 = *v45;
+                      v25 = *v44;
                       do
                       {
                         for (j = 0; j != v23; ++j)
                         {
-                          if (*v45 != v25)
+                          if (*v44 != v25)
                           {
                             objc_enumerationMutation(v21);
                           }
 
-                          v27 = *(*(&v44 + 1) + 8 * j);
+                          v27 = *(*(&v43 + 1) + 8 * j);
                           category = [v27 category];
 
                           if (category == v5)
@@ -258,13 +267,13 @@ void __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2(uint
                           }
                         }
 
-                        v23 = [v21 countByEnumeratingWithState:&v44 objects:v60 count:16];
+                        v23 = [v21 countByEnumeratingWithState:&v43 objects:v59 count:16];
                       }
 
                       while (v23);
 
-                      typesCopy = v38;
-                      v11 = v39;
+                      typesCopy = v37;
+                      v11 = v38;
                       if (!v24)
                       {
 LABEL_32:
@@ -283,7 +292,7 @@ LABEL_32:
                   }
                 }
 
-                v16 = [v14 countByEnumeratingWithState:&v48 objects:v61 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v47 objects:v60 count:16];
                 if (v16)
                 {
                   continue;
@@ -294,29 +303,27 @@ LABEL_32:
 
 LABEL_34:
 
-              v12 = v43 + 1;
+              v12 = v42 + 1;
             }
 
-            while (v43 + 1 != v42);
-            v42 = [v40 countByEnumeratingWithState:&v52 objects:v62 count:16];
+            while (v42 + 1 != v41);
+            v41 = [v39 countByEnumeratingWithState:&v51 objects:v61 count:16];
           }
 
-          while (v42);
+          while (v41);
         }
 
-        v4 = v37 + 1;
+        v4 = v36 + 1;
       }
 
-      while (v37 + 1 != v36);
-      v36 = [obj countByEnumeratingWithState:&v56 objects:v63 count:16];
+      while (v36 + 1 != v35);
+      v35 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 - (void)presentDeleteConfirmationFromSender:(id)sender
@@ -836,7 +843,7 @@ LABEL_14:
 
 - (NSPredicate)storedDataPredicate
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_4();
   NSRequestConcreteImplementation();
   v2 = objc_alloc_init(MEMORY[0x277CCAC30]);
@@ -846,7 +853,7 @@ LABEL_14:
 
 - (NSString)storedDataDisplayName
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_4();
   NSRequestConcreteImplementation();
   return &stru_28641D9B8;
@@ -854,7 +861,7 @@ LABEL_14:
 
 - (BOOL)shouldShowDeleteAllDataButton
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_4();
   NSRequestConcreteImplementation();
   return 0;
@@ -862,7 +869,7 @@ LABEL_14:
 
 - (void)deleteAllStoredData
 {
-  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_1_1(self);
   OUTLINED_FUNCTION_0_4();
 
   NSRequestConcreteImplementation();
@@ -870,32 +877,30 @@ LABEL_14:
 
 void __51__WDStoredDataByCategoryViewController_viewDidLoad__block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "_HKSampleTypeQuery failed with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "_HKSampleTypeQuery failed with error: %@", &v3, 0xCu);
 }
 
 void __71__WDStoredDataByCategoryViewController_fetchEnabledStatusForPeripheral__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "fetchEnabledStatusForPeripheral getEnabledStatusForPeripheral failed: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "fetchEnabledStatusForPeripheral getEnabledStatusForPeripheral failed: %{public}@", &v2, 0xCu);
 }
 
 void __69__WDStoredDataByCategoryViewController_switchCellValueChanged_value___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [a1 deviceIdentifier];
   v7 = [a1 title];
   v8 = v7;
   v9 = *(a2 + 40);
-  v12 = 138543874;
-  v13 = v6;
+  v11 = 138543874;
+  v12 = v6;
   if (v9)
   {
     v10 = @"ON";
@@ -906,13 +911,11 @@ void __69__WDStoredDataByCategoryViewController_switchCellValueChanged_value___b
     v10 = @"OFF";
   }
 
-  v14 = 2114;
-  v15 = v7;
-  v16 = 2114;
-  v17 = v10;
-  _os_log_error_impl(&dword_251E85000, a3, OS_LOG_TYPE_ERROR, "Could not set the enabled status of device %{public}@, '%{public}@', to %{public}@", &v12, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = 2114;
+  v14 = v7;
+  v15 = 2114;
+  v16 = v10;
+  _os_log_error_impl(&dword_251E85000, a3, OS_LOG_TYPE_ERROR, "Could not set the enabled status of device %{public}@, '%{public}@', to %{public}@", &v11, 0x20u);
 }
 
 @end

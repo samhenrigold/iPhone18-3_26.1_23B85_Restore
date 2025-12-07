@@ -8,12 +8,12 @@
 
 - (NSString)variantVersion
 {
-  v2 = *(self + OBJC_IVAR___BAUpSellData_variantVersion);
-  v3 = *(self + OBJC_IVAR___BAUpSellData_variantVersion + 8);
+  v2 = *(self + OBJC_IVAR___BAUpSellData_variantVersion + 8);
 
-  v4 = sub_1E1770();
+  v3 = sub_1E1770();
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
-  return v4;
+  return v3;
 }
 
 - (BAUpSellData)initWithLocation:(int64_t)location variant:(int64_t)variant variantVersion:(id)version

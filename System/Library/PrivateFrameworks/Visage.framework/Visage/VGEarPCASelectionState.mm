@@ -25,7 +25,7 @@
   v10 = *&self[1]._pose.lmPCA.__elems_[1];
   *&retstr[4].lmPCA.__elems_[1] = 0;
   retstr[4].faceYawAngle = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&retstr[4], v9, v10, (v10 - v9) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&retstr[4].side, v9, v10, (v10 - v9) >> 2);
   *&retstr[4].yawAngle = 0;
   *&retstr[5].side = 0;
   *&retstr[5].lmPCA.__elems_[1] = 0;

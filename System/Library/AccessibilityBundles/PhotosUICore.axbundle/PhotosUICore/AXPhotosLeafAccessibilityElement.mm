@@ -598,7 +598,7 @@ LABEL_4:
   _Block_object_dispose(v5, 8);
 }
 
-uint64_t __52__AXPhotosLeafAccessibilityElement__axExpandLibrary__block_invoke(uint64_t a1)
+void *__52__AXPhotosLeafAccessibilityElement__axExpandLibrary__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) curatedLibraryViewControllerExpand:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -607,7 +607,7 @@ uint64_t __52__AXPhotosLeafAccessibilityElement__axExpandLibrary__block_invoke(u
 
 - (id)accessibilityCustomActions
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   _accessibilityCuratedLibraryUIViewController = [(AXPhotosLeafAccessibilityElement *)self _accessibilityCuratedLibraryUIViewController];
   v4 = [_accessibilityCuratedLibraryUIViewController safeValueForKey:@"viewProvider"];
   v5 = [v4 safeValueForKey:@"viewModel"];
@@ -623,11 +623,9 @@ uint64_t __52__AXPhotosLeafAccessibilityElement__axExpandLibrary__block_invoke(u
     v8 = accessibilityPULocalizedString(@"expand.library");
     v9 = [v7 initWithName:v8 target:self selector:sel__axExpandLibrary];
 
-    v12[0] = v9;
-    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+    v11[0] = v9;
+    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v6;
 }

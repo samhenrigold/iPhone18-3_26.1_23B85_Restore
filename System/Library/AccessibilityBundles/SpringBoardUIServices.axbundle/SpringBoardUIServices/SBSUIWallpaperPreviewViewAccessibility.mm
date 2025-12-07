@@ -1,5 +1,6 @@
 @interface SBSUIWallpaperPreviewViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (SBSUIWallpaperPreviewViewAccessibility)initWithFrame:(CGRect)frame wallpaperView:(id)view disableParallax:(BOOL)parallax;
 - (void)_accessibilityLoadAccessibilityInformation;
 @end
 
@@ -25,6 +26,16 @@
   v5 = accessibilitySBLocalizedString(@"live.photo.button.for.wallpaper");
   v6 = [(SBSUIWallpaperPreviewViewAccessibility *)self safeUIViewForKey:@"irisButton"];
   [v6 setAccessibilityLabel:v5];
+}
+
+- (SBSUIWallpaperPreviewViewAccessibility)initWithFrame:(CGRect)frame wallpaperView:(id)view disableParallax:(BOOL)parallax
+{
+  v7.receiver = self;
+  v7.super_class = SBSUIWallpaperPreviewViewAccessibility;
+  v5 = [(SBSUIWallpaperPreviewViewAccessibility *)&v7 initWithFrame:view wallpaperView:parallax disableParallax:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  [(SBSUIWallpaperPreviewViewAccessibility *)v5 _accessibilityLoadAccessibilityInformation];
+
+  return v5;
 }
 
 @end

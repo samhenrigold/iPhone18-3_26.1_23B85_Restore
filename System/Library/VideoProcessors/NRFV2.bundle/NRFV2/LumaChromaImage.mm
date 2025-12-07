@@ -158,7 +158,7 @@ LABEL_9:
   v15 = v17;
   if (v13)
   {
-    sub_2958CD490();
+    sub_2958CD490(v13);
     goto LABEL_5;
   }
 

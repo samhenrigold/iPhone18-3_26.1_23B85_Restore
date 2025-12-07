@@ -31,38 +31,38 @@
   coreAnalyticsEventDictionary = [eventCopy coreAnalyticsEventDictionary];
 
   [dictionary addEntriesFromDictionary:coreAnalyticsEventDictionary];
-  v9 = [dictionary copy];
+  v9 = objc_msgSend_copy(dictionary);
 
   return v9;
 }
 
 - (id)serializeLogEvents:(id)events
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if ([eventsCopy count])
   {
     array = [MEMORY[0x277CBEB18] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v6 = eventsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -85,9 +85,9 @@
             {
               v19 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v29 = v19;
-              v30 = 2112;
-              v31 = v11;
+              v28 = v19;
+              v29 = 2112;
+              v30 = v11;
               _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Log event is not HMDHouseholdHomeActivityStateTransitionLogEvent: %@", buf, 0x16u);
             }
 
@@ -96,11 +96,11 @@
             goto LABEL_17;
           }
 
-          v14 = [(HMDHouseholdHomeActivityStateTransitionLogEventFactory *)self serializedLogEvent:v13, v22];
+          v14 = [(HMDHouseholdHomeActivityStateTransitionLogEventFactory *)self serializedLogEvent:v13, v21];
           [array addObject:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v22 objects:v32 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
         if (v8)
         {
           continue;
@@ -110,10 +110,10 @@
       }
     }
 
-    v26 = @"HMDHouseholdHomeActivityStateTransitionLogEvent";
-    v6 = [array copy];
-    v27 = v6;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = @"HMDHouseholdHomeActivityStateTransitionLogEvent";
+    v6 = objc_msgSend_copy(array);
+    v26 = v6;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
 LABEL_17:
   }
 
@@ -122,14 +122,12 @@ LABEL_17:
     v15 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)logEventsFromDictionary:(id)dictionary
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"HMDHouseholdHomeActivityStateTransitionLogEvent"];
   objc_opt_class();
@@ -148,28 +146,28 @@ LABEL_17:
   if (v7)
   {
     selfCopy = self;
-    v31 = dictionaryCopy;
+    v30 = dictionaryCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v33;
+      v12 = *v32;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v33 != v12)
+          if (*v32 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v32 + 1) + 8 * i);
+          v14 = *(*(&v31 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -195,9 +193,9 @@ LABEL_17:
               {
                 v27 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v38 = v27;
-                v39 = 2112;
-                v40 = v16;
+                v37 = v27;
+                v38 = 2112;
+                v39 = v16;
                 _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HMDHouseholdHomeActivityStateTransitionLogEvent from dictionary: %@", buf, 0x16u);
               }
 
@@ -211,7 +209,7 @@ LABEL_17:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v11)
         {
           continue;
@@ -221,9 +219,9 @@ LABEL_17:
       }
     }
 
-    v19 = [array copy];
+    v19 = objc_msgSend_copy(array);
 LABEL_25:
-    dictionaryCopy = v31;
+    dictionaryCopy = v30;
   }
 
   else
@@ -235,9 +233,9 @@ LABEL_25:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v38 = v23;
-      v39 = 2112;
-      v40 = dictionaryCopy;
+      v37 = v23;
+      v38 = 2112;
+      v39 = dictionaryCopy;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@HMDHouseholdHomeActivityStateTransitionLogEventKey is not an array in dictionary: %@", buf, 0x16u);
     }
 
@@ -245,46 +243,44 @@ LABEL_25:
     v19 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)coalescedLogEventsFromLogEvents:(id)events homeUUID:(id)d
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dCopy = d;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = eventsCopy;
-  v6 = [eventsCopy countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v6 = [eventsCopy countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v28 = 0;
-    v29 = 0;
-    v26 = 0;
     v27 = 0;
-    v24 = 0;
+    v28 = 0;
     v25 = 0;
+    v26 = 0;
+    v23 = 0;
+    v24 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = *v32;
+    v12 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v31 + 1) + 8 * i);
+        v14 = *(*(&v30 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -308,18 +304,18 @@ LABEL_25:
             v11 += [v16 homeCount];
             v10 += [v16 awayCount];
             v9 += [v16 vacationCount];
-            v25 += [v16 comingHomeCount];
-            v27 += [v16 comingHomeFromVacationCount];
-            v29 += [v16 automatedCount];
-            v28 += [v16 automatedHoldEndCount];
-            v26 += [v16 manualHoldEndCount];
-            v24 += [v16 manualHoldStartCount];
+            v24 += [v16 comingHomeCount];
+            v26 += [v16 comingHomeFromVacationCount];
+            v28 += [v16 automatedCount];
+            v27 += [v16 automatedHoldEndCount];
+            v25 += [v16 manualHoldEndCount];
+            v23 += [v16 manualHoldStartCount];
             v8 += [v16 otherCount];
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
@@ -327,30 +323,28 @@ LABEL_25:
 
   else
   {
-    v28 = 0;
-    v29 = 0;
-    v26 = 0;
     v27 = 0;
-    v24 = 0;
+    v28 = 0;
     v25 = 0;
+    v26 = 0;
+    v23 = 0;
+    v24 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
   }
 
-  v19 = [[HMDHouseholdHomeActivityStateTransitionLogEvent alloc] initWithHomeUUID:dCopy homeCount:v11 awayCount:v10 vacationCount:v9 comingHomeCount:v25 comingHomeFromVacationCount:v27 automatedCount:v29 automatedHoldEndCount:v28 manualHoldEndCount:v26 manualHoldStartCount:v24 otherCount:v8];
-  v35 = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = [[HMDHouseholdHomeActivityStateTransitionLogEvent alloc] initWithHomeUUID:dCopy homeCount:v11 awayCount:v10 vacationCount:v9 comingHomeCount:v24 comingHomeFromVacationCount:v26 automatedCount:v28 automatedHoldEndCount:v27 manualHoldEndCount:v25 manualHoldStartCount:v23 otherCount:v8];
+  v34 = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
 
   return v20;
 }
 
 - (id)logEventsPopulatedForHomeWithUUID:(id)d associatedWithDate:(id)date
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   analyzer = [(HMDHouseholdHomeActivityStateTransitionLogEventFactory *)self analyzer];
@@ -358,16 +352,14 @@ LABEL_25:
 
   if (v9)
   {
-    v13[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

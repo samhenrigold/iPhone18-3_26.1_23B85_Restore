@@ -1,4 +1,5 @@
 @interface SADistance
++ (id)localizedStringForDistanceInMeters:(double)meters forCity:(BOOL)city;
 - (BOOL)isImperialUnit;
 - (BOOL)isWithinMaxDistanceToShow;
 - (double)distanceInMeters;
@@ -8,6 +9,34 @@
 @end
 
 @implementation SADistance
+
++ (id)localizedStringForDistanceInMeters:(double)meters forCity:(BOOL)city
+{
+  cityCopy = city;
+  v6 = +[NSLocale _ma_locale];
+  v7 = [v6 _navigation_distanceUsesMetricSystemIgnoringUserPreference:1];
+
+  v8 = objc_alloc_init(SADistance);
+  metersCopy = meters * 0.000621371192;
+  if (v7)
+  {
+    metersCopy = meters;
+    v10 = &SADistanceUnitMetersValue;
+  }
+
+  else
+  {
+    v10 = &SADistanceUnitMilesValue;
+  }
+
+  v11 = [NSNumber numberWithDouble:metersCopy];
+  [v8 setValue:v11];
+
+  [v8 setUnit:*v10];
+  v12 = [v8 localizedDistanceStringForCity:cityCopy forceUnit:0];
+
+  return v12;
+}
 
 - (id)localizedDistanceStringForCity:(BOOL)city forceUnit:(BOOL)unit
 {

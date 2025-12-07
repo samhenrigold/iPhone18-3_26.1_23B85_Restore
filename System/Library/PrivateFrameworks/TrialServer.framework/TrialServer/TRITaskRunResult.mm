@@ -1,9 +1,12 @@
 @interface TRITaskRunResult
++ (id)resultWithRunStatus:(int)status reportResultToServer:(BOOL)server nextTasks:(id)tasks earliestRetryDate:(id)date;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToResult:(id)result;
 - (TRITaskRunResult)initWithRunStatus:(int)status reportResultToServer:(BOOL)server nextTasks:(id)tasks earliestRetryDate:(id)date;
 - (id)copyWithReplacementEarliestRetryDate:(id)date;
 - (id)copyWithReplacementNextTasks:(id)tasks;
+- (id)copyWithReplacementReportResultToServer:(BOOL)server;
+- (id)copyWithReplacementRunStatus:(int)status;
 - (id)description;
 - (unint64_t)hash;
 @end
@@ -35,6 +38,39 @@
   return v15;
 }
 
++ (id)resultWithRunStatus:(int)status reportResultToServer:(BOOL)server nextTasks:(id)tasks earliestRetryDate:(id)date
+{
+  serverCopy = server;
+  v8 = *&status;
+  dateCopy = date;
+  tasksCopy = tasks;
+  v12 = [[self alloc] initWithRunStatus:v8 reportResultToServer:serverCopy nextTasks:tasksCopy earliestRetryDate:dateCopy];
+
+  return v12;
+}
+
+- (id)copyWithReplacementRunStatus:(int)status
+{
+  v3 = *&status;
+  v5 = objc_alloc(objc_opt_class());
+  reportResultToServer = self->_reportResultToServer;
+  nextTasks = self->_nextTasks;
+  earliestRetryDate = self->_earliestRetryDate;
+
+  return [v5 initWithRunStatus:v3 reportResultToServer:reportResultToServer nextTasks:nextTasks earliestRetryDate:earliestRetryDate];
+}
+
+- (id)copyWithReplacementReportResultToServer:(BOOL)server
+{
+  serverCopy = server;
+  v5 = objc_alloc(objc_opt_class());
+  runStatus = self->_runStatus;
+  nextTasks = self->_nextTasks;
+  earliestRetryDate = self->_earliestRetryDate;
+
+  return [v5 initWithRunStatus:runStatus reportResultToServer:serverCopy nextTasks:nextTasks earliestRetryDate:earliestRetryDate];
+}
+
 - (id)copyWithReplacementNextTasks:(id)tasks
 {
   tasksCopy = tasks;
@@ -55,55 +91,13 @@
 {
   resultCopy = result;
   v5 = resultCopy;
-  if (!resultCopy)
-  {
-    goto LABEL_10;
-  }
-
-  runStatus = self->_runStatus;
-  if (runStatus != [resultCopy runStatus])
-  {
-    goto LABEL_10;
-  }
-
-  reportResultToServer = self->_reportResultToServer;
-  if (reportResultToServer != [v5 reportResultToServer])
-  {
-    goto LABEL_10;
-  }
-
-  v8 = self->_nextTasks == 0;
-  nextTasks = [v5 nextTasks];
-  v10 = nextTasks != 0;
-
-  if (v8 == v10)
-  {
-    goto LABEL_10;
-  }
-
-  nextTasks = self->_nextTasks;
-  if (nextTasks)
-  {
-    nextTasks2 = [v5 nextTasks];
-    v13 = [(NSArray *)nextTasks isEqual:nextTasks2];
-
-    if (!v13)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  v14 = self->_earliestRetryDate == 0;
-  earliestRetryDate = [v5 earliestRetryDate];
-  v16 = earliestRetryDate != 0;
-
-  if (v14 != v16)
+  if (resultCopy && (runStatus = self->_runStatus, runStatus == [resultCopy runStatus]) && (reportResultToServer = self->_reportResultToServer, reportResultToServer == objc_msgSend(v5, "reportResultToServer")) && (v8 = self->_nextTasks == 0, objc_msgSend(v5, "nextTasks"), v9 = objc_claimAutoreleasedReturnValue(), v10 = v9 != 0, v9, v8 != v10) && ((nextTasks = self->_nextTasks) == 0 || (objc_msgSend(v5, "nextTasks"), v12 = objc_claimAutoreleasedReturnValue(), v13 = -[NSArray isEqual:](nextTasks, "isEqual:", v12), v12, v13)) && (v14 = self->_earliestRetryDate == 0, objc_msgSend(v5, "earliestRetryDate"), v15 = objc_claimAutoreleasedReturnValue(), v16 = v15 != 0, v15, v14 != v16))
   {
     earliestRetryDate = self->_earliestRetryDate;
     if (earliestRetryDate)
     {
-      earliestRetryDate2 = [v5 earliestRetryDate];
-      v19 = [(NSDate *)earliestRetryDate isEqual:earliestRetryDate2];
+      earliestRetryDate = [v5 earliestRetryDate];
+      v19 = [(NSDate *)earliestRetryDate isEqual:earliestRetryDate];
     }
 
     else
@@ -114,7 +108,6 @@
 
   else
   {
-LABEL_10:
     v19 = 0;
   }
 

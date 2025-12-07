@@ -504,7 +504,7 @@ LABEL_10:
   }
 }
 
-uint64_t __53__UIMultiColumnViewController_viewWillLayoutSubviews__block_invoke(uint64_t a1)
+void *__53__UIMultiColumnViewController_viewWillLayoutSubviews__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _willShowColumnCount:*(a1 + 40)];
   *(*(a1 + 32) + 992) = *(a1 + 40);
@@ -570,7 +570,7 @@ void __53__UIMultiColumnViewController_viewWillLayoutSubviews__block_invoke_2(ui
   }
 }
 
-void __53__UIMultiColumnViewController_viewWillLayoutSubviews__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
+void __53__UIMultiColumnViewController_viewWillLayoutSubviews__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v9 = a2;
   v5 = [*(a1 + 32) view];

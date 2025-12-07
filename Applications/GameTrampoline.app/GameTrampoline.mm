@@ -8,14 +8,11 @@ uint64_t sub_100001400()
 
 uint64_t *sub_100001484(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -34,57 +31,56 @@ uint64_t sub_1000014E8(uint64_t a1, uint64_t a2)
 void sub_100001520(uint64_t a1)
 {
   v2 = type metadata accessor for URL();
-  v3 = sub_1000026B8(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v3);
-  v9 = aBlock - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1000026B8();
+  v4 = v3;
+  __chkstk_darwin(v5);
+  v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_1000080A8 != -1)
   {
     swift_once();
   }
 
-  v10 = type metadata accessor for Logger();
-  sub_1000014E8(v10, qword_100008280);
-  (*(v5 + 16))(v9, a1, v2);
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v11, v12))
+  v8 = type metadata accessor for Logger();
+  sub_1000014E8(v8, qword_100008280);
+  (*(v4 + 16))(v7, a1, v2);
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v9, v10))
   {
-    v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    aBlock[0] = v14;
-    *v13 = 136315138;
-    v15 = URL.absoluteString.getter();
-    v17 = v16;
-    (*(v5 + 8))(v9, v2);
-    v18 = sub_100002030(v15, v17, aBlock);
+    v11 = swift_slowAlloc();
+    v12 = swift_slowAlloc();
+    aBlock[0] = v12;
+    *v11 = 136315138;
+    v13 = URL.absoluteString.getter();
+    v15 = v14;
+    (*(v4 + 8))(v7, v2);
+    v16 = sub_100002030(v13, v15, aBlock);
 
-    *(v13 + 4) = v18;
-    _os_log_impl(&_mh_execute_header, v11, v12, "Routing game activity universalLink to gamed: %s", v13, 0xCu);
-    sub_1000025A0(v14);
+    *(v11 + 4) = v16;
+    _os_log_impl(&_mh_execute_header, v9, v10, "Routing game activity universalLink to gamed: %s", v11, 0xCu);
+    sub_1000025A0(v12);
   }
 
   else
   {
 
-    (*(v5 + 8))(v9, v2);
+    (*(v4 + 8))(v7, v2);
   }
 
-  v19 = [objc_opt_self() proxyForLocalPlayer];
-  v20 = [v19 utilityServicePrivate];
+  v17 = [objc_opt_self() proxyForLocalPlayer];
+  v18 = [v17 utilityServicePrivate];
 
-  URL._bridgeToObjectiveC()(v21);
-  v23 = v22;
+  URL._bridgeToObjectiveC()(v19);
+  v21 = v20;
   aBlock[4] = sub_100001820;
   aBlock[5] = 0;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_100001ADC;
   aBlock[3] = &unk_1000043D0;
-  v24 = _Block_copy(aBlock);
-  [v20 invokeGameTrampolineWithURL:v23 handler:v24];
-  _Block_release(v24);
+  v22 = _Block_copy(aBlock);
+  [v18 invokeGameTrampolineWithURL:v21 handler:v22];
+  _Block_release(v22);
   swift_unknownObjectRelease();
 }
 
@@ -151,30 +147,28 @@ LABEL_12:
 
 void sub_100001ADC(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 uint64_t sub_100001B48()
 {
   v0 = sub_100001EC8(&qword_1000080B8, &qword_100002B88);
-  v1 = sub_1000026B8(v0);
-  v3 = v2;
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v1);
-  v7 = v10 - v6;
+  sub_1000026B8();
+  v2 = v1;
+  __chkstk_darwin(v3);
+  v5 = v8 - v4;
   sub_100001EC8(&qword_1000080C0, &qword_100002B90);
-  v8 = sub_100001F14();
-  v10[0] = &type metadata for ContentView;
-  v10[1] = v8;
+  v6 = sub_100001F14();
+  v8[0] = &type metadata for ContentView;
+  v8[1] = v6;
   swift_getOpaqueTypeConformance2();
   WindowGroup.init(id:title:lazyContent:)();
   sub_100001F68();
   static SceneBuilder.buildBlock<A>(_:)();
-  return (*(v3 + 8))(v7, v0);
+  return (*(v2 + 8))(v5, v0);
 }
 
 uint64_t sub_100001CAC()
@@ -228,7 +222,6 @@ uint64_t sub_100001EC8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -266,7 +259,6 @@ uint64_t sub_100001FCC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -281,7 +273,7 @@ uint64_t sub_100002018(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_100002030(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100002030(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_1000020F4(v11, 0, 0, 1, a1, a2);
@@ -374,16 +366,14 @@ LABEL_8:
 
 char *sub_1000021F4(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100002240(a1, a2);
+  v3 = sub_100002240(a1, a2);
   sub_100002358(&off_100004368);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100002240(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -433,8 +423,8 @@ char *sub_100002240(uint64_t a1, unint64_t a2)
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -486,21 +476,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = sub_1000024AC(result, v8, 1, v3);
+    result = sub_1000024AC(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -515,15 +504,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -532,12 +521,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -644,15 +633,17 @@ char *sub_1000024AC(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_1000025A0(uint64_t *a1)
+uint64_t sub_1000025A0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_1000025EC(uint64_t a1, uint64_t a2)

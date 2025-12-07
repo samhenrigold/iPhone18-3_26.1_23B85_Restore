@@ -295,7 +295,7 @@ LABEL_4:
   {
     if (v15)
     {
-      [v15 videoDuration];
+      objc_msgSend_videoDuration(v15);
     }
 
     else
@@ -312,7 +312,7 @@ LABEL_4:
   {
     if (v15)
     {
-      [v15 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v15);
     }
 
     else

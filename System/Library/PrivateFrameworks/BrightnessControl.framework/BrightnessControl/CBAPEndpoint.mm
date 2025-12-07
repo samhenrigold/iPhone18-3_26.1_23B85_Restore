@@ -1,4 +1,7 @@
 @interface CBAPEndpoint
+- (BOOL)enqueueCommandSync:(int)sync inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size responseObj:(id *)obj options:(unsigned int)options;
+- (BOOL)sendCommand:(int)command inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size;
+- (BOOL)sendOOBCommand:(int)command inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size;
 - (BOOL)setProperty:(id)property property:(id)a4;
 - (CBAPEndpoint)initWithServiceName:(id)name role:(id)role;
 - (id)copyProperty:(id)property;
@@ -105,7 +108,7 @@ LABEL_14:
 
 - (BOOL)setProperty:(id)property property:(id)a4
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   logHandle = self->_logHandle;
   if (!logHandle)
   {
@@ -118,15 +121,15 @@ LABEL_14:
 
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 136315906;
-    v22 = [objc_msgSend(objc_opt_class() "description")];
-    v23 = 2080;
-    v24 = "[CBAPEndpoint setProperty:property:]";
-    v25 = 2080;
+    v20 = 136315906;
+    v21 = [objc_msgSend(objc_opt_class() "description")];
+    v22 = 2080;
+    v23 = "[CBAPEndpoint setProperty:property:]";
+    v24 = 2080;
     uTF8String = [property UTF8String];
-    v27 = 2112;
-    v28 = a4;
-    _os_log_impl(&dword_223D10000, logHandle, OS_LOG_TYPE_DEFAULT, "%s:%s called for key: %s, property: %@", &v21, 0x2Au);
+    v26 = 2112;
+    v27 = a4;
+    _os_log_impl(&dword_223D10000, logHandle, OS_LOG_TYPE_DEFAULT, "%s:%s called for key: %s, property: %@", &v20, 0x2Au);
   }
 
   v8 = 0;
@@ -167,7 +170,7 @@ LABEL_14:
         v8 = [(CBAPEndpoint *)self enqueueCommandSync:67 inputBuffer:v14 inputBufferSize:v13 + 5 responseObj:0 options:0];
         free(v14);
 
-        goto LABEL_29;
+        return v8;
       }
 
       v16 = self->_logHandle;
@@ -183,14 +186,14 @@ LABEL_14:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         uTF8String2 = [property UTF8String];
-        v20 = [(__CFData *)v12 length];
-        v21 = 136315650;
-        v22 = uTF8String2;
-        v23 = 2048;
-        v24 = (486 - v9);
-        v25 = 2048;
-        uTF8String = v20;
-        _os_log_error_impl(&dword_223D10000, v16, OS_LOG_TYPE_ERROR, "Data for setting property %s is too long, max payload %lu, needed size %lu\n", &v21, 0x20u);
+        v19 = [(__CFData *)v12 length];
+        v20 = 136315650;
+        v21 = uTF8String2;
+        v22 = 2048;
+        v23 = (486 - v9);
+        v24 = 2048;
+        uTF8String = v19;
+        _os_log_error_impl(&dword_223D10000, v16, OS_LOG_TYPE_ERROR, "Data for setting property %s is too long, max payload %lu, needed size %lu\n", &v20, 0x20u);
       }
     }
 
@@ -212,17 +215,15 @@ LABEL_14:
       }
     }
 
-    v8 = 0;
+    return 0;
   }
 
-LABEL_29:
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)copyProperty:(id)property
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   logHandle = self->_logHandle;
   if (!logHandle)
   {
@@ -246,20 +247,20 @@ LABEL_29:
 
   if ([property lengthOfBytesUsingEncoding:4] < 0x40)
   {
+    v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
     memset(buf, 0, sizeof(buf));
     [property UTF8String];
     __strlcpy_chk();
-    v9 = 0;
-    if ([(CBAPEndpoint *)self enqueueCommandSync:66 inputBuffer:buf inputBufferSize:64 responseObj:&v9 options:0])
+    v8 = 0;
+    if ([(CBAPEndpoint *)self enqueueCommandSync:66 inputBuffer:buf inputBufferSize:64 responseObj:&v8 options:0])
     {
-      result = v9;
+      return v8;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
@@ -280,25 +281,197 @@ LABEL_29:
       [CBAPEndpoint copyProperty:property];
     }
 
-    result = 0;
+    return 0;
+  }
+}
+
+- (BOOL)sendCommand:(int)command inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size
+{
+  result = 0;
+  if (buffer && size)
+  {
+    v9 = *&command;
+    logHandle = self->_logHandle;
+    if (!logHandle)
+    {
+      logHandle = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        logHandle = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [CBAPEndpoint sendCommand:v9 inputBuffer:logHandle inputBufferSize:?];
+    }
+
+    return [(CBAPEndpoint *)self enqueueCommandSync:v9 inputBuffer:buffer inputBufferSize:size responseObj:0 options:0];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+- (BOOL)sendOOBCommand:(int)command inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size
+{
+  result = 0;
+  if (buffer && size)
+  {
+    v9 = *&command;
+    logHandle = self->_logHandle;
+    if (!logHandle)
+    {
+      logHandle = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        logHandle = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      [CBAPEndpoint sendOOBCommand:v9 inputBuffer:logHandle inputBufferSize:?];
+    }
+
+    return [(CBAPEndpoint *)self enqueueCommandSync:v9 inputBuffer:buffer inputBufferSize:size responseObj:0 options:1];
+  }
+
+  return result;
+}
+
+- (BOOL)enqueueCommandSync:(int)sync inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size responseObj:(id *)obj options:(unsigned int)options
+{
+  v11 = *&sync;
+  v30 = *MEMORY[0x277D85DE8];
+  logHandle = self->_logHandle;
+  if (!logHandle)
+  {
+    logHandle = _COREBRIGHTNESS_LOG_DEFAULT;
+    if (!_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      logHandle = init_default_corebrightness_log();
+    }
+  }
+
+  if (os_signpost_enabled(logHandle))
+  {
+    *buf = 67109120;
+    *&buf[4] = v11;
+    _os_signpost_emit_with_name_impl(&dword_223D10000, logHandle, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "enqueueCommandSync", "0x%x", buf, 8u);
+  }
+
+  bufferSize = 486;
+  v14 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:486];
+  v25 = 0;
+  if (obj)
+  {
+    *obj = 0;
+  }
+
+  LODWORD(v24) = options;
+  v15 = -[AFKEndpointInterface enqueueCommandSync:timestamp:inputBuffer:inputBufferSize:responseTimestamp:outputBuffer:inOutBufferSize:options:](self->_endpoint, "enqueueCommandSync:timestamp:inputBuffer:inputBufferSize:responseTimestamp:outputBuffer:inOutBufferSize:options:", v11, mach_continuous_time(), buffer, size, &v25, [v14 mutableBytes], &bufferSize, v24);
+  if (v15)
+  {
+    v16 = v15;
+    inited = self->_logHandle;
+    if (!inited)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        inited = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
+    {
+      [CBAPEndpoint enqueueCommandSync:v16 inputBuffer:inited inputBufferSize:? responseObj:? options:?];
+    }
+
+    v18 = 0;
+  }
+
+  else
+  {
+    mutableBytes = [v14 mutableBytes];
+    v18 = 1;
+    if (obj && mutableBytes)
+    {
+      *buf = 0;
+      mutableBytes2 = [v14 mutableBytes];
+      *obj = IOCFUnserializeBinary(mutableBytes2, bufferSize, *MEMORY[0x277CBECE8], 0, buf);
+      v18 = *buf == 0;
+      v23 = self->_logHandle;
+      if (*buf)
+      {
+        if (!v23)
+        {
+          v23 = _COREBRIGHTNESS_LOG_DEFAULT;
+          if (!_COREBRIGHTNESS_LOG_DEFAULT)
+          {
+            v23 = init_default_corebrightness_log();
+          }
+        }
+
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          [CBAPEndpoint enqueueCommandSync:buf inputBuffer:v23 inputBufferSize:? responseObj:? options:?];
+        }
+      }
+
+      else
+      {
+        if (!v23)
+        {
+          v23 = _COREBRIGHTNESS_LOG_DEFAULT;
+          if (!_COREBRIGHTNESS_LOG_DEFAULT)
+          {
+            v23 = init_default_corebrightness_log();
+          }
+        }
+
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        {
+          [CBAPEndpoint enqueueCommandSync:obj inputBuffer:v23 inputBufferSize:? responseObj:? options:?];
+        }
+      }
+    }
+  }
+
+  v19 = self->_logHandle;
+  if (!v19)
+  {
+    v19 = _COREBRIGHTNESS_LOG_DEFAULT;
+    if (!_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      v19 = init_default_corebrightness_log();
+    }
+  }
+
+  if (os_signpost_enabled(v19))
+  {
+    *buf = 67109376;
+    *&buf[4] = v11;
+    v28 = 1024;
+    v29 = v18;
+    _os_signpost_emit_with_name_impl(&dword_223D10000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "enqueueCommandSync", "0x%x, status: %d", buf, 0xEu);
+  }
+
+  return v18;
 }
 
 - (unsigned)findDCPServiceWithName:(id)name role:(id)role
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v7 = IOServiceMatching("AFKEndpointInterface");
   roleCopy = role;
-  v17[0] = @"IOPropertyMatch";
-  v15 = @"role";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&roleCopy forKeys:&v15 count:1];
-  v17[1] = @"IONameMatch";
-  v18[0] = v8;
-  v18[1] = name;
-  -[__CFDictionary addEntriesFromDictionary:](v7, "addEntriesFromDictionary:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2]);
+  v16[0] = @"IOPropertyMatch";
+  v14 = @"role";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&roleCopy forKeys:&v14 count:1];
+  v16[1] = @"IONameMatch";
+  v17[0] = v8;
+  v17[1] = name;
+  -[__CFDictionary addEntriesFromDictionary:](v7, "addEntriesFromDictionary:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2]);
   existing = 0;
   if (IOServiceGetMatchingServices(*MEMORY[0x277CD2898], v7, &existing))
   {
@@ -312,9 +485,7 @@ LABEL_29:
 
   if (v9)
   {
-LABEL_11:
-    v10 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   v10 = IOIteratorNext(existing);
@@ -336,110 +507,94 @@ LABEL_11:
       [CBAPEndpoint findDCPServiceWithName:name role:?];
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)initWithServiceName:(void *)a1 role:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setProperty:(NSObject *)a3 property:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_1();
-  v7 = 2080;
-  v8 = a2;
-  _os_log_debug_impl(&dword_223D10000, a3, OS_LOG_TYPE_DEBUG, "WARNING: Property name is too long it will be truncated, %s -> %s\n", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 2080;
+  v7 = a2;
+  _os_log_debug_impl(&dword_223D10000, a3, OS_LOG_TYPE_DEBUG, "WARNING: Property name is too long it will be truncated, %s -> %s\n", v5, 0x16u);
 }
 
 - (void)setProperty:(void *)a1 property:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyProperty:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCommand:(int)a1 inputBuffer:(NSObject *)a2 inputBufferSize:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_223D10000, a2, OS_LOG_TYPE_DEBUG, "Send command = 0x%x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_223D10000, a2, OS_LOG_TYPE_DEBUG, "Send command = 0x%x", v2, 8u);
 }
 
 - (void)sendOOBCommand:(int)a1 inputBuffer:(NSObject *)a2 inputBufferSize:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_223D10000, a2, OS_LOG_TYPE_DEBUG, "Send OOB command = 0x%x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_223D10000, a2, OS_LOG_TYPE_DEBUG, "Send OOB command = 0x%x", v2, 8u);
 }
 
 - (void)enqueueCommandSync:(int)a1 inputBuffer:(NSObject *)a2 inputBufferSize:responseObj:options:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_223D10000, a2, OS_LOG_TYPE_ERROR, "ERROR! enqueueCommandSync failed result:0x%x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_223D10000, a2, OS_LOG_TYPE_ERROR, "ERROR! enqueueCommandSync failed result:0x%x", v2, 8u);
 }
 
 - (void)enqueueCommandSync:(uint64_t *)a1 inputBuffer:(NSObject *)a2 inputBufferSize:responseObj:options:.cold.2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_223D10000, a2, OS_LOG_TYPE_ERROR, "ERROR: unable to serialize outputBuffer: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_223D10000, a2, OS_LOG_TYPE_ERROR, "ERROR: unable to serialize outputBuffer: %@", &v3, 0xCu);
 }
 
 - (void)enqueueCommandSync:(uint64_t *)a1 inputBuffer:(NSObject *)a2 inputBufferSize:responseObj:options:.cold.3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_223D10000, a2, OS_LOG_TYPE_DEBUG, "Response received from DCP: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_223D10000, a2, OS_LOG_TYPE_DEBUG, "Response received from DCP: %@", &v3, 0xCu);
 }
 
 - (void)findDCPServiceWithName:(void *)a1 role:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 UTF8String];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -14,13 +14,13 @@
 
 - (NPKIDVRemoteDeviceService)initWithServiceName:(id)name delegate:(id)delegate callbackQueue:(id)queue
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   delegateCopy = delegate;
   queueCopy = queue;
-  v23.receiver = self;
-  v23.super_class = NPKIDVRemoteDeviceService;
-  v11 = [(NPKIDVRemoteDeviceService *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = NPKIDVRemoteDeviceService;
+  v11 = [(NPKIDVRemoteDeviceService *)&v24 init];
   if (v11)
   {
     v12 = [nameCopy copy];
@@ -40,24 +40,23 @@
     v18 = v16;
 
     [(NSXPCListener *)v18 resume];
-    v19 = pk_Payment_log();
-    LODWORD(xpcListener) = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v20 = pk_Payment_log(v19);
+    LODWORD(xpcListener) = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
     if (xpcListener)
     {
-      v20 = pk_Payment_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = pk_Payment_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v25 = v11;
-        v26 = 2112;
-        v27 = nameCopy;
-        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: New Remote Device service Listener created:%@ with serviceName:%@", buf, 0x16u);
+        v26 = v11;
+        v27 = 2112;
+        v28 = nameCopy;
+        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: New Remote Device service Listener created:%@ with serviceName:%@", buf, 0x16u);
       }
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -127,45 +126,45 @@ void __36__NPKIDVRemoteDeviceService_dealloc__block_invoke(uint64_t a1, void *a2
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   xpcListener = self->_xpcListener;
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(connectionCopy);
   v10 = v9;
   if (xpcListener == listenerCopy)
   {
-    v12 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v13 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v13 = pk_Payment_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = pk_Payment_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = connectionCopy;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested new connection:%@", &v19, 0xCu);
+        v22 = 138412290;
+        v23 = connectionCopy;
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Requested new connection:%@", &v22, 0xCu);
       }
     }
 
-    v11 = [(NSXPCListener *)connectionCopy valueForEntitlement:@"com.apple.NanoPassbook.IDVRemoteDeviceService.client"];
-    if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([v11 BOOLValue]& 1) != 0)
+    v12 = [(NSXPCListener *)connectionCopy valueForEntitlement:@"com.apple.NanoPassbook.IDVRemoteDeviceService.client"];
+    if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v16 = [v12 BOOLValue], (v16 & 1) != 0))
     {
       [(NPKIDVRemoteDeviceService *)self _addConnection:connectionCopy];
       LOBYTE(self) = 1;
       goto LABEL_14;
     }
 
-    v16 = pk_Payment_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    v18 = pk_Payment_log(v16);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
 
-    if (v17)
+    if (v19)
     {
-      v18 = pk_Payment_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = pk_Payment_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: client doesn't have required entitlement to establish the connection", &v19, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: client doesn't have required entitlement to establish the connection", &v22, 2u);
       }
     }
 
@@ -180,12 +179,12 @@ LABEL_14:
 
   if (self)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412290;
-      v20 = listenerCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Unknown requested connection from listener:%@", &v19, 0xCu);
+      v22 = 138412290;
+      v23 = listenerCopy;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_ERROR, "Error: NPKIDVRemoteDeviceService: Unknown requested connection from listener:%@", &v22, 0xCu);
     }
 
     goto LABEL_5;
@@ -193,7 +192,6 @@ LABEL_14:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -227,21 +225,20 @@ LABEL_15:
   v17 = v8;
   [connectionCopy setInterruptionHandler:&v13];
   [(NPKIDVRemoteDeviceService *)self _addServer:v8, v13, v14, v15, v16];
-  [connectionCopy resume];
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log([connectionCopy resume]);
   LODWORD(v6) = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       processIdentifier = [connectionCopy processIdentifier];
       *buf = 138412546;
       v27 = connectionCopy;
       v28 = 1024;
       v29 = processIdentifier;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Added new connection:{%@, PID:%d}", buf, 0x12u);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Added new connection:{%@, PID:%d}", buf, 0x12u);
     }
   }
 
@@ -252,8 +249,6 @@ LABEL_15:
   objc_destroyWeak(&v22);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NPKIDVRemoteDeviceService__addConnection___block_invoke(uint64_t a1)
@@ -261,14 +256,13 @@ void __44__NPKIDVRemoteDeviceService__addConnection___block_invoke(uint64_t a1)
   v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
-  [v3 _removeServer:*(a1 + 32)];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log([v3 _removeServer:*(a1 + 32)]);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412802;
       v9 = v3;
@@ -276,11 +270,9 @@ void __44__NPKIDVRemoteDeviceService__addConnection___block_invoke(uint64_t a1)
       v11 = WeakRetained;
       v12 = 1024;
       v13 = [WeakRetained processIdentifier];
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: %@ Connection invalidated:{%@, PID:%d}", &v8, 0x1Cu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: %@ Connection invalidated:{%@, PID:%d}", &v8, 0x1Cu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NPKIDVRemoteDeviceService__addConnection___block_invoke_20(uint64_t a1)
@@ -288,14 +280,13 @@ void __44__NPKIDVRemoteDeviceService__addConnection___block_invoke_20(uint64_t a
   v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
-  [v3 _removeServer:*(a1 + 32)];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log([v3 _removeServer:*(a1 + 32)]);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412802;
       v9 = v3;
@@ -303,11 +294,9 @@ void __44__NPKIDVRemoteDeviceService__addConnection___block_invoke_20(uint64_t a
       v11 = WeakRetained;
       v12 = 1024;
       v13 = [WeakRetained processIdentifier];
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: %@ Connection interrupted:{%@, PID:%d}", &v8, 0x1Cu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: %@ Connection interrupted:{%@, PID:%d}", &v8, 0x1Cu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addServer:(id)server
@@ -348,7 +337,7 @@ void __44__NPKIDVRemoteDeviceService__addConnection___block_invoke_20(uint64_t a
 
 void __115__NPKIDVRemoteDeviceService_identityRemoteDeviceServiceServer_didReceiveEvent_fromRemoteDeviceWithID_eventContext___block_invoke(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1[4] + 32));
   v3 = objc_opt_respondsToSelector();
 
@@ -357,59 +346,57 @@ void __115__NPKIDVRemoteDeviceService_identityRemoteDeviceServiceServer_didRecei
     v4 = objc_loadWeakRetained((a1[4] + 32));
     [v4 identityRemoteDeviceService:a1[4] didReceiveEvent:a1[7] fromRemoteDeviceWithID:a1[5] eventContext:a1[6]];
 
-    v5 = pk_Payment_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = pk_Payment_log(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v7)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = pk_Payment_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = objc_loadWeakRetained((a1[4] + 32));
-        v9 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(a1[7]);
-        v10 = a1[5];
-        v21 = 138412802;
-        v22 = v8;
-        v23 = 2112;
-        v24 = v9;
-        v25 = 2112;
-        v26 = v10;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did notify delegate:%@ received event: %@ from remote Device with ID:%@ with context", &v21, 0x20u);
+        v10 = objc_loadWeakRetained((a1[4] + 32));
+        v11 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(a1[7]);
+        v12 = a1[5];
+        v24 = 138412802;
+        v25 = v10;
+        v26 = 2112;
+        v27 = v11;
+        v28 = 2112;
+        v29 = v12;
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did notify delegate:%@ received event: %@ from remote Device with ID:%@ with context", &v24, 0x20u);
       }
     }
   }
 
-  v11 = objc_loadWeakRetained((a1[4] + 32));
-  v12 = objc_opt_respondsToSelector();
+  v13 = objc_loadWeakRetained((a1[4] + 32));
+  v14 = objc_opt_respondsToSelector();
 
-  if (v12)
+  if (v14)
   {
-    v13 = objc_loadWeakRetained((a1[4] + 32));
-    [v13 identityRemoteDeviceService:a1[4] didReceiveEvent:a1[7] fromRemoteDeviceWithID:a1[5]];
+    v15 = objc_loadWeakRetained((a1[4] + 32));
+    [v15 identityRemoteDeviceService:a1[4] didReceiveEvent:a1[7] fromRemoteDeviceWithID:a1[5]];
 
-    v14 = pk_Payment_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v17 = pk_Payment_log(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v18)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v20 = pk_Payment_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = objc_loadWeakRetained((a1[4] + 32));
-        v18 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(a1[7]);
-        v19 = a1[5];
-        v21 = 138412802;
-        v22 = v17;
-        v23 = 2112;
-        v24 = v18;
-        v25 = 2112;
-        v26 = v19;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did notify delegate:%@ received event: %@ from remote Device with ID:%@", &v21, 0x20u);
+        v21 = objc_loadWeakRetained((a1[4] + 32));
+        v22 = stringsArrayFromNPKIDVRemoteDeviceServiceEvents(a1[7]);
+        v23 = a1[5];
+        v24 = 138412802;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v22;
+        v28 = 2112;
+        v29 = v23;
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Did notify delegate:%@ received event: %@ from remote Device with ID:%@", &v24, 0x20u);
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

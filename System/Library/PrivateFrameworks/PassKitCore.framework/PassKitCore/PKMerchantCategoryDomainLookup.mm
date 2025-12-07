@@ -8,7 +8,7 @@
 {
   domainCopy = domain;
   completionCopy = completion;
-  v6 = objc_alloc_init(getMCCSecretAgentControllerClass[0]());
+  v6 = objc_alloc_init(getMCCSecretAgentControllerClass());
   v7 = v6;
   if (v6)
   {

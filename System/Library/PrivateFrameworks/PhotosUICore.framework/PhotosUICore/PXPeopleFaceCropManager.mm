@@ -136,9 +136,9 @@ LABEL_9:
     }
 
     v12 = *(*(&v44 + 1) + 8 * v11);
-    options = [v12 options];
-    person = [options person];
-    face = [options face];
+    v13 = objc_msgSend_options(v12);
+    person = [v13 person];
+    face = [v13 face];
     assetObjectID = [v12 assetObjectID];
     v17 = [updatedObjectIDs containsObject:assetObjectID];
     v18 = [PXPeopleFaceCropManager _change:changeCopy containsVisibleChangesToAssetWithOID:assetObjectID];
@@ -241,7 +241,7 @@ void __56__PXPeopleFaceCropManager_prepareForPhotoLibraryChange___block_invoke(u
 {
   v10 = a2;
   v3 = [v10 firstObject];
-  v4 = [v3 options];
+  v4 = objc_msgSend_options(v3);
 
   v5 = [v4 cacheKey];
   v6 = [v4 person];
@@ -387,7 +387,7 @@ void __99__PXPeopleFaceCropManager__invalidateCacheForLocalIdentifiers_wantsNoti
 {
   v8 = a2;
   v5 = *(a1 + 32);
-  v6 = [a3 options];
+  v6 = objc_msgSend_options(a3);
   v7 = [v6 cacheKey];
   LODWORD(v5) = [v5 containsObject:v7];
 
@@ -413,11 +413,11 @@ void __99__PXPeopleFaceCropManager__invalidateCacheForLocalIdentifiers_wantsNoti
 - (void)_cacheResult:(id)result
 {
   resultCopy = result;
-  options = [resultCopy options];
-  cacheKey = [options cacheKey];
+  v4 = objc_msgSend_options(resultCopy);
+  cacheKey = [v4 cacheKey];
   if ([cacheKey length])
   {
-    v6 = [(PXPeopleFaceCropManager *)self _cachedResultForOptions:options];
+    v6 = [(PXPeopleFaceCropManager *)self _cachedResultForOptions:v4];
     os_unfair_lock_lock(&self->_faceCropCacheLock);
     v7 = [(NSCache *)self->_faceCropCache objectForKey:cacheKey];
     if (v7)
@@ -489,8 +489,8 @@ LABEL_10:
           }
 
           v10 = *(*(&v14 + 1) + 8 * i);
-          options = [v10 options];
-          v12 = [options areFetchParametersEqualtoFetchParametersOfOptions:optionsCopy];
+          v11 = objc_msgSend_options(v10, v14);
+          v12 = [v11 areFetchParametersEqualtoFetchParametersOfOptions:optionsCopy];
 
           if (v12)
           {
@@ -647,14 +647,14 @@ LABEL_18:
 {
   imageCopy = image;
   requestCopy = request;
-  options = [requestCopy options];
-  if ([PXPeopleFaceCropManager _shouldCacheResultForOptions:options isDegraded:0 isCropped:1 isForCleanup:1])
+  v7 = objc_msgSend_options(requestCopy);
+  if ([PXPeopleFaceCropManager _shouldCacheResultForOptions:v7 isDegraded:0 isCropped:1 isForCleanup:1])
   {
     asset = [requestCopy asset];
     v9 = [PXPeopleFaceCropFetchResult alloc];
     objectID = [asset objectID];
     localIdentifier = [asset localIdentifier];
-    v12 = [(PXPeopleFaceCropFetchResult *)v9 initWithImage:imageCopy assetObjectID:objectID assetLocalIdentifier:localIdentifier faceRect:1 isCropped:0 isDegraded:options options:*off_1E77221F8, *(off_1E77221F8 + 1), *(off_1E77221F8 + 2), *(off_1E77221F8 + 3)];
+    v12 = [(PXPeopleFaceCropFetchResult *)v9 initWithImage:imageCopy assetObjectID:objectID assetLocalIdentifier:localIdentifier faceRect:1 isCropped:0 isDegraded:v7 options:*off_1E77221F8, *(off_1E77221F8 + 1), *(off_1E77221F8 + 2), *(off_1E77221F8 + 3)];
 
     [(PXPeopleFaceCropManager *)self _cacheResult:v12];
   }
@@ -680,7 +680,7 @@ LABEL_18:
     _os_signpost_emit_with_name_impl(&dword_1A3C1C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "compressImage", "", buf, 2u);
   }
 
-  options = [requestCopy options];
+  v15 = objc_msgSend_options(requestCopy);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __64__PXPeopleFaceCropManager__compressImage_request_resultHandler___block_invoke;
@@ -692,7 +692,7 @@ LABEL_18:
   v18 = v14;
   v26 = v18;
   v30 = v12;
-  v19 = options;
+  v19 = v15;
   v27 = v19;
   v20 = handlerCopy;
   selfCopy = self;
@@ -773,7 +773,7 @@ void __64__PXPeopleFaceCropManager__compressImage_request_resultHandler___block_
     _os_signpost_emit_with_name_impl(&dword_1A3C1C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "imageCrop", "", buf, 2u);
   }
 
-  options = [requestCopy options];
+  v15 = objc_msgSend_options(requestCopy);
   cGImage = [imageCopy CGImage];
   Width = CGImageGetWidth(cGImage);
   Height = CGImageGetHeight(cGImage);
@@ -787,7 +787,7 @@ void __64__PXPeopleFaceCropManager__compressImage_request_resultHandler___block_
   v27 = v19;
   v35 = Width;
   v36 = Height;
-  v20 = options;
+  v20 = v15;
   v28 = v20;
   v21 = imageCopy;
   v29 = v21;
@@ -810,16 +810,13 @@ void __64__PXPeopleFaceCropManager__compressImage_request_resultHandler___block_
   }
 }
 
-uint64_t __60__PXPeopleFaceCropManager__cropImage_request_resultHandler___block_invoke(uint64_t a1)
+void __60__PXPeopleFaceCropManager__cropImage_request_resultHandler___block_invoke(uint64_t a1)
 {
-  result = [*(a1 + 32) canceled];
-  if ((result & 1) == 0)
+  if (([*(a1 + 32) canceled] & 1) == 0)
   {
     [*(a1 + 32) normalizedEdgeAdjustedCropRect];
     PXRectDenormalize();
   }
-
-  return result;
 }
 
 - (void)_handleImage:(id)image info:(id)info faceCropRequest:(id)request resultHandler:(id)handler
@@ -838,7 +835,7 @@ uint64_t __60__PXPeopleFaceCropManager__cropImage_request_resultHandler___block_
     _os_signpost_emit_with_name_impl(&dword_1A3C1C000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "handleResponse", "", buf, 2u);
   }
 
-  [requestCopy options];
+  objc_msgSend_options(requestCopy);
   objc_claimAutoreleasedReturnValue();
   [requestCopy targetSizeToUse];
   asset = [requestCopy asset];
@@ -874,7 +871,7 @@ void __75__PXPeopleFaceCropManager__handleImage_info_faceCropRequest_resultHandl
     _os_signpost_emit_with_name_impl(&dword_1A3C1C000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "executeRequest", "", buf, 2u);
   }
 
-  options = [requestCopy options];
+  v12 = objc_msgSend_options(requestCopy);
   [requestCopy targetSizeToUse];
   v14 = v13;
   v16 = v15;
@@ -882,15 +879,15 @@ void __75__PXPeopleFaceCropManager__handleImage_info_faceCropRequest_resultHandl
   [PXPeopleFaceCropManager _constrainedSizeForDesiredSize:ceil(v14 / v17), ceil(v16 / v18)];
   v20 = v19;
   v22 = v21;
-  isSynchronous = [options isSynchronous];
+  isSynchronous = [v12 isSynchronous];
   v24 = objc_alloc_init(MEMORY[0x1E6978868]);
-  [v24 setDeliveryMode:{objc_msgSend(options, "deliveryMode")}];
+  [v24 setDeliveryMode:{objc_msgSend(v12, "deliveryMode")}];
   [v24 setSynchronous:isSynchronous];
-  [v24 setUseLowMemoryMode:{objc_msgSend(options, "useLowMemoryMode")}];
+  [v24 setUseLowMemoryMode:{objc_msgSend(v12, "useLowMemoryMode")}];
   [v24 setNetworkAccessAllowed:1];
   [v24 setAllowSecondaryDegradedImage:1];
   [v24 setResizeMode:1];
-  if ([options useLowMemoryMode])
+  if ([v12 useLowMemoryMode])
   {
     v25 = 0;
   }

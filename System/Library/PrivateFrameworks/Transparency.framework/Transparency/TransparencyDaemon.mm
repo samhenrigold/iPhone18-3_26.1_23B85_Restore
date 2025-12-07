@@ -330,36 +330,36 @@ uint64_t __50__TransparencyDaemon_transparencySysDiagnoseData___block_invoke_4()
 
 void __50__TransparencyDaemon_transparencySysDiagnoseData___block_invoke_401(uint64_t a1, void *a2, uint64_t a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v4 = [a2 registrationData];
     v5 = [v4 allValues];
 
     obj = v5;
-    v6 = [v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = @"app";
       v9 = @"YES";
-      v10 = *v41;
+      v10 = *v40;
       do
       {
         v11 = 0;
-        v38 = v7;
+        v37 = v7;
         do
         {
-          if (*v41 != v10)
+          if (*v40 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * v11);
+          v12 = *(*(&v39 + 1) + 8 * v11);
           v13 = [MEMORY[0x1E695DF90] dictionary];
           v14 = [v12 application];
           [v13 setObject:v14 forKeyedSubscript:v8];
@@ -412,7 +412,7 @@ void __50__TransparencyDaemon_transparencySysDiagnoseData___block_invoke_401(uin
               v9 = v30;
               a1 = v29;
               v10 = v28;
-              v7 = v38;
+              v7 = v37;
             }
           }
 
@@ -425,14 +425,12 @@ void __50__TransparencyDaemon_transparencySysDiagnoseData___block_invoke_401(uin
         }
 
         while (v7 != v11);
-        v7 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v7 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v7);
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transparencyFetchIDMS:(id)s
@@ -635,7 +633,7 @@ uint64_t __45__TransparencyDaemon_maybeUpdateMonitorState__block_invoke_2()
 
 void __45__TransparencyDaemon_maybeUpdateMonitorState__block_invoke_436(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_5 != -1)
   {
@@ -645,12 +643,10 @@ void __45__TransparencyDaemon_maybeUpdateMonitorState__block_invoke_436(uint64_t
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_5;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_5, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "maybeUpdateMonitorState failed with: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "maybeUpdateMonitorState failed with: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__TransparencyDaemon_maybeUpdateMonitorState__block_invoke_2_439()
@@ -745,7 +741,7 @@ void __49__TransparencyDaemon_transparencyIDMSDeviceList___block_invoke_444(uint
 
 void __49__TransparencyDaemon_transparencyIDMSDeviceList___block_invoke_2_446(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_5 != -1)
   {
@@ -755,12 +751,10 @@ void __49__TransparencyDaemon_transparencyIDMSDeviceList___block_invoke_2_446(ui
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_5;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_5, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "deviceStatus failed with: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "deviceStatus failed with: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__TransparencyDaemon_transparencyIDMSDeviceList___block_invoke_3()
@@ -988,7 +982,7 @@ uint64_t __61__TransparencyDaemon_transparencyCheckKTAccountKey_complete___block
 
 void __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1002,7 +996,7 @@ void __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_inv
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_5, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v14 = v6;
+      v13 = v6;
       _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_INFO, "ktTTR: failed send %{public}@", buf, 0xCu);
     }
 
@@ -1013,15 +1007,13 @@ void __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_inv
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke_465;
-    v11[3] = &unk_1E87013C8;
-    v12 = *(a1 + 48);
-    [v5 ttr:v8 fromHandle:v9 complete:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke_465;
+    v10[3] = &unk_1E87013C8;
+    v11 = *(a1 + 48);
+    [v5 ttr:v8 fromHandle:v9 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke_2()
@@ -1033,7 +1025,7 @@ uint64_t __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block
 
 void __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke_465(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -1045,15 +1037,13 @@ void __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_inv
     v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_5;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_5, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "ktTTR: trigger ttr %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "ktTTR: trigger ttr %{public}@", &v5, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke_2_466()
@@ -1065,7 +1055,7 @@ uint64_t __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block
 
 void __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke_470(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_5 != -1)
   {
@@ -1075,14 +1065,12 @@ void __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_inv
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_5;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_5, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "ktTTR: error handler %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "ktTTR: error handler %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__TransparencyDaemon_transparencyTriggerTTR_handle_complete___block_invoke_2_471()
@@ -1489,7 +1477,7 @@ uint64_t __47__TransparencyDaemon_transparencyCloudDevices___block_invoke_2()
 
 void __48__TransparencyDaemon_clearPeerState_uris_block___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_5 != -1)
@@ -1511,16 +1499,15 @@ void __48__TransparencyDaemon_clearPeerState_uris_block___block_invoke(uint64_t 
       v9 = @"all peers";
     }
 
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_INFO, "Sending clearPeerState for %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_INFO, "Sending clearPeerState for %@", &v10, 0xCu);
     if (v8)
     {
     }
   }
 
   [v5 clearPeerState:*(a1 + 40) uris:*(a1 + 32) block:*(a1 + 48)];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__TransparencyDaemon_clearPeerState_uris_block___block_invoke_2()
@@ -1599,7 +1586,7 @@ uint64_t __60__TransparencyDaemon_transparencyTriggerOperation_complete___block_
 
 void __60__TransparencyDaemon_changeOptInState_application_complete___block_invoke(void *a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_5 != -1)
@@ -1611,14 +1598,12 @@ void __60__TransparencyDaemon_changeOptInState_application_complete___block_invo
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_5, OS_LOG_TYPE_INFO))
   {
     v8 = a1[6];
-    v10[0] = 67109120;
-    v10[1] = v8;
-    _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_INFO, "Sending changeOptInState:complete: %d", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = v8;
+    _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_INFO, "Sending changeOptInState:complete: %d", v9, 8u);
   }
 
   [v5 changeOptInState:a1[6] application:a1[4] completionBlock:a1[5]];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__TransparencyDaemon_changeOptInState_application_complete___block_invoke_2()
@@ -1650,7 +1635,7 @@ uint64_t __60__TransparencyDaemon_changeOptInState_application_complete___block_
 
 void __45__TransparencyDaemon_getOptInState_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_5 != -1)
@@ -1664,14 +1649,12 @@ void __45__TransparencyDaemon_getOptInState_complete___block_invoke(uint64_t a1,
     v8 = *(a1 + 32);
     v9 = v7;
     v10 = [v8 application];
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_INFO, "Sending getOptInState:complete: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_INFO, "Sending getOptInState:complete: %@", &v11, 0xCu);
   }
 
   [v5 getOptInStateForAccount:*(a1 + 32) complete:*(a1 + 40)];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__TransparencyDaemon_getOptInState_complete___block_invoke_2()

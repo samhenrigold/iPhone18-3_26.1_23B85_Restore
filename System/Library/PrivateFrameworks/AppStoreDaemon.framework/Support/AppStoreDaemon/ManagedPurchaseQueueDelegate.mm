@@ -9,7 +9,7 @@
   requestCopy = request;
   purchaseCopy = purchase;
   completionCopy = completion;
-  v11 = sub_10037F164();
+  v11 = sub_10037F164(Daemon);
   v12 = sub_10037F344(v11);
 
   if (v12)

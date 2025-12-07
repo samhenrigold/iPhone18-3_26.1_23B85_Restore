@@ -12,7 +12,7 @@
   v4 = a3;
   if (![v4 count])
   {
-    v5 = _NDOLogSystem();
+    v5 = _NDOLogSystem(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [NSMutableURLRequest(NDO) addAllHeadersFrom:v5];
@@ -45,19 +45,19 @@
 
         if (v13)
         {
-          v14 = _NDOLogSystem();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = _NDOLogSystem(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v17;
             v23 = "[NSMutableURLRequest(NDO) addAllHeadersFrom:]";
             v24 = 2112;
             v25 = v12;
-            _os_log_impl(&dword_25BD52000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Overriding previously set value for key %@", buf, 0x16u);
+            _os_log_impl(&dword_25BD52000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: Overriding previously set value for key %@", buf, 0x16u);
           }
         }
 
-        v15 = [v6 objectForKeyedSubscript:v12];
-        [self setValue:v15 forHTTPHeaderField:v12];
+        v16 = [v6 objectForKeyedSubscript:v12];
+        [self setValue:v16 forHTTPHeaderField:v12];
       }
 
       v9 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
@@ -65,8 +65,6 @@
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)headerDescription
@@ -89,11 +87,10 @@
 
 - (void)addAllHeadersFrom:()NDO .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "[NSMutableURLRequest(NDO) addAllHeadersFrom:]";
-  _os_log_error_impl(&dword_25BD52000, log, OS_LOG_TYPE_ERROR, "%{public}s: No headers to add to request", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "[NSMutableURLRequest(NDO) addAllHeadersFrom:]";
+  _os_log_error_impl(&dword_25BD52000, log, OS_LOG_TYPE_ERROR, "%{public}s: No headers to add to request", &v1, 0xCu);
 }
 
 @end

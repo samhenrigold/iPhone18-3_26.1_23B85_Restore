@@ -89,7 +89,7 @@
     if (!self->_updating)
     {
       self->_updating = 1;
-      [(VKCamera *)self cameraState];
+      objc_msgSend_cameraState(self, a2);
       v150 = v157;
       v152 = v159;
       v151 = v158;
@@ -666,7 +666,7 @@
   cntrl = a3.__cntrl_;
   ptr = a3.__ptr_;
   v18 = *MEMORY[0x1E69E9840];
-  [(VKCamera *)self cameraFrame:**a3.__ptr_ == 0, a3.__cntrl_, a4];
+  objc_msgSend_cameraFrame_(self, a2, **a3.__ptr_ == 0, a3.__cntrl_, a4);
   v7 = *ptr;
   v8 = *(ptr + 1);
   v11 = v7;
@@ -704,7 +704,7 @@
   v17 = log(v16);
   *&v18 = gdc::Camera::setCameraFrame(*ptr, cntrl).n128_u64[0];
   v19 = *ptr;
-  [(VKCamera *)self verticalFieldOfView];
+  objc_msgSend_verticalFieldOfView(self, v18);
   gdc::Camera::setVerticalFieldOfView(v19, &v37);
   v20 = +[VKDebugSettings sharedSettings];
   shouldFreezeLayoutCamera = [v20 shouldFreezeLayoutCamera];
@@ -788,7 +788,7 @@
   retstr->_pitch._value = v14;
   [(VKCamera *)self yaw];
   retstr->_heading._value = -v15;
-  v16 = *([(VKCamera *)self position]+ 16);
+  v16 = *(objc_msgSend_position(self) + 16);
   [(VKCamera *)self pitch];
   v18 = v17;
   if (a4)
@@ -829,7 +829,7 @@
   v16 = self->_transform._translation._e[2];
   v15 = *self->_transform._translation._e;
   forward = self->_forward;
-  [(VKCamera *)self groundPointFromScreenPoint:point.x, point.y];
+  objc_msgSend_groundPointFromScreenPoint_(self, a2, point.x, point.y);
   if (v13[24])
   {
     for (i = 0; i != 24; i += 8)
@@ -866,7 +866,7 @@
   v4 = *&v14;
   v5 = *&v14 + -1.0;
   v6 = *&v14 + 1.0;
-  v7 = [(VKCamera *)self position:v14];
+  v7 = objc_msgSend_position(self, a2, v14, *(point + 2));
   v8 = vabdd_f64(*v7, v4);
   v9 = vabdd_f64(*v7, v5);
   v10 = vabdd_f64(*v7, v6);

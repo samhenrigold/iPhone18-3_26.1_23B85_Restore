@@ -748,31 +748,31 @@ id __28__UICommand__leafAlternates__block_invoke(uint64_t a1, void *a2)
       v12 = v11;
       if (v10 == v11)
       {
-        v5 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v5 = 0;
+        isEqual = 0;
         if (v10 && v11)
         {
-          v5 = [v10 isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(v10);
         }
       }
     }
 
     else
     {
-      v5 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (NSString)description

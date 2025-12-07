@@ -34,7 +34,8 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self && (currentProcessIsGameControllerDaemon() & 1) == 0)
+  v3 = objc_opt_class();
+  if (v3 == self && (currentProcessIsGameControllerDaemon(v3, v4) & 1) == 0)
   {
     GCLookupSetFallbackProvider();
 
@@ -266,19 +267,17 @@ void __53__GCDeviceSession_initWithConfiguration_environment___block_invoke()
 
 void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A588];
-  v7[0] = *MEMORY[0x1E696A578];
-  v7[1] = v3;
-  v8[0] = @"Session activation request failed.";
-  v8[1] = @"Session has already been activated or was invalidated prior to activation.";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v6[0] = *MEMORY[0x1E696A578];
+  v6[1] = v3;
+  v7[0] = @"Session activation request failed.";
+  v7[1] = @"Session has already been activated or was invalidated prior to activation.";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
   v5 = [v2 gc_sessionError:0 userInfo:v4];
   (*(v1 + 16))(v1, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -299,7 +298,7 @@ void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_3(uint64
 {
   v72 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) deviceProviderTypes];
-  v3 = _gc_log_session();
+  v3 = _gc_log_session(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_3_cold_1(v2, v3);
@@ -340,10 +339,11 @@ LABEL_11:
           goto LABEL_12;
         }
 
-        if (os_variant_has_internal_diagnostics())
+        has_internal_diagnostics = os_variant_has_internal_diagnostics();
+        if (has_internal_diagnostics)
         {
           v44 = v10;
-          v11 = _gc_log_session();
+          v11 = _gc_log_session(has_internal_diagnostics);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
@@ -359,109 +359,109 @@ LABEL_12:
       }
 
       while (v7 != v9);
-      v12 = [v5 countByEnumeratingWithState:&v62 objects:v71 count:16];
-      v7 = v12;
+      v13 = [v5 countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v7 = v13;
     }
 
-    while (v12);
+    while (v13);
   }
 
-  v13 = [v4 copy];
-  v14 = *(a1 + 32);
-  v15 = *(v14 + 104);
-  *(v14 + 104) = v13;
+  v14 = [v4 copy];
+  v15 = *(a1 + 32);
+  v16 = *(v15 + 104);
+  *(v15 + 104) = v14;
 
   v60 = 0u;
   v61 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v16 = v4;
-  v17 = [v16 countByEnumeratingWithState:&v58 objects:v68 count:16];
-  if (v17)
+  v17 = v4;
+  v18 = [v17 countByEnumeratingWithState:&v58 objects:v68 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v59;
+    v19 = v18;
+    v20 = *v59;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v59 != v19)
+        if (*v59 != v20)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v58 + 1) + 8 * i);
+        v22 = *(*(&v58 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v21 awakeWithSession:*(a1 + 32) environment:*(a1 + 32)];
+          [v22 awakeWithSession:*(a1 + 32) environment:*(a1 + 32)];
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v58 objects:v68 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v58 objects:v68 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
-  v22 = objc_opt_new();
+  v23 = objc_opt_new();
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v23 = *(*(a1 + 32) + 104);
-  v24 = [v23 countByEnumeratingWithState:&v54 objects:v67 count:16];
-  if (v24)
+  v24 = *(*(a1 + 32) + 104);
+  v25 = [v24 countByEnumeratingWithState:&v54 objects:v67 count:16];
+  if (v25)
   {
-    v25 = v24;
-    v26 = *v55;
+    v26 = v25;
+    v27 = *v55;
     do
     {
-      for (j = 0; j != v25; ++j)
+      for (j = 0; j != v26; ++j)
       {
-        if (*v55 != v26)
+        if (*v55 != v27)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v24);
         }
 
-        v28 = *(*(&v54 + 1) + 8 * j);
+        v29 = *(*(&v54 + 1) + 8 * j);
         if (objc_opt_respondsToSelector())
         {
-          v29 = [v28 matchingHIDServiceAttributes];
-          [v22 addObjectsFromArray:v29];
+          v30 = [v29 matchingHIDServiceAttributes];
+          [v23 addObjectsFromArray:v30];
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v54 objects:v67 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v54 objects:v67 count:16];
     }
 
-    while (v25);
+    while (v26);
   }
 
-  [*(*(a1 + 32) + 88) setMatchingMultiple:v22];
-  v30 = dispatch_group_create();
+  [*(*(a1 + 32) + 88) setMatchingMultiple:v23];
+  v31 = dispatch_group_create();
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v31 = *(*(a1 + 32) + 104);
-  v32 = [v31 countByEnumeratingWithState:&v50 objects:v66 count:16];
-  if (v32)
+  v32 = *(*(a1 + 32) + 104);
+  v33 = [v32 countByEnumeratingWithState:&v50 objects:v66 count:16];
+  if (v33)
   {
-    v33 = v32;
-    v34 = *v51;
+    v34 = v33;
+    v35 = *v51;
     do
     {
-      for (k = 0; k != v33; ++k)
+      for (k = 0; k != v34; ++k)
       {
-        if (*v51 != v34)
+        if (*v51 != v35)
         {
-          objc_enumerationMutation(v31);
+          objc_enumerationMutation(v32);
         }
 
-        v36 = *(*(&v50 + 1) + 8 * k);
+        v37 = *(*(&v50 + 1) + 8 * k);
         if (objc_opt_respondsToSelector())
         {
-          v37 = [v36 activateWithSession:*(a1 + 32) environment:*(a1 + 32) options:0];
+          v38 = [v37 activateWithSession:*(a1 + 32) environment:*(a1 + 32) options:0];
         }
 
         else
@@ -471,47 +471,45 @@ LABEL_12:
             continue;
           }
 
-          v37 = [v36 activateWithSession:*(a1 + 32) environment:*(a1 + 32)];
+          v38 = [v37 activateWithSession:*(a1 + 32) environment:*(a1 + 32)];
         }
 
-        v38 = v37;
-        if (v37)
+        v39 = v38;
+        if (v38)
         {
-          dispatch_group_enter(v30);
-          v39 = *(*(a1 + 32) + 24);
+          dispatch_group_enter(v31);
+          v40 = *(*(a1 + 32) + 24);
           v48[0] = MEMORY[0x1E69E9820];
           v48[1] = 3221225472;
           v48[2] = __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_192;
           v48[3] = &unk_1E84191E8;
-          v49 = v30;
-          [v38 observeFinishOnQueue:v39 withOptions:0 block:v48];
+          v49 = v31;
+          [v39 observeFinishOnQueue:v40 withOptions:0 block:v48];
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v50 objects:v66 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v50 objects:v66 count:16];
     }
 
-    while (v33);
+    while (v34);
   }
 
-  v40 = *(a1 + 32);
-  v41 = *(v40 + 24);
+  v41 = *(a1 + 32);
+  v42 = *(v41 + 24);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194;
   block[3] = &unk_1E8419210;
-  block[4] = v40;
+  block[4] = v41;
   v45 = *(a1 + 40);
-  v42 = v45;
+  v43 = v45;
   v47 = v45;
-  dispatch_group_notify(v30, v41, block);
-
-  v43 = *MEMORY[0x1E69E9840];
+  dispatch_group_notify(v31, v42, block);
 }
 
 void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = 2;
   atomic_compare_exchange_strong((*(a1 + 32) + 56), &v3, 3u);
@@ -527,28 +525,28 @@ void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194(ui
     (*(v4 + 16))(v4, *v2, v5);
   }
 
-  v14 = v4;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v13 = v4;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = *(*v2 + 104);
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
           [v11 addObserver:*v2 forKeyPath:@"devices" options:7 context:0];
@@ -558,7 +556,7 @@ void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194(ui
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -566,15 +564,13 @@ void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194(ui
 
   [*(*v2 + 64) addObserver:?];
   [*(*v2 + 72) addObserver:?];
-  [*(*v2 + 88) activate];
-  v12 = _gc_log_session();
+  v12 = _gc_log_session([*(*v2 + 88) activate]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194_cold_2(v2, v12);
   }
 
   (*(*(a1 + 40) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -597,30 +593,30 @@ void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194(ui
 
 void __29__GCDeviceSession_invalidate__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = dispatch_group_create();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v3 = *(*(a1 + 32) + 104);
-  v4 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
-    v15 = v19;
+    v6 = *v21;
+    v14 = v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * v7);
+        v8 = *(*(&v20 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           v9 = [v8 invalidateWithSession:*(a1 + 32) environment:*(a1 + 32) options:0];
@@ -633,7 +629,7 @@ void __29__GCDeviceSession_invalidate__block_invoke(uint64_t a1)
             goto LABEL_12;
           }
 
-          v9 = [v8 invalidateWithSession:*(a1 + 32) environment:{*(a1 + 32), v15}];
+          v9 = [v8 invalidateWithSession:*(a1 + 32) environment:{*(a1 + 32), v14}];
         }
 
         v10 = v9;
@@ -641,12 +637,12 @@ void __29__GCDeviceSession_invalidate__block_invoke(uint64_t a1)
         {
           dispatch_group_enter(v2);
           v11 = *(*(a1 + 32) + 24);
-          v18[0] = MEMORY[0x1E69E9820];
-          v18[1] = 3221225472;
-          v19[0] = __29__GCDeviceSession_invalidate__block_invoke_2;
-          v19[1] = &unk_1E84191E8;
-          v20 = v2;
-          [v10 observeFinishOnQueue:v11 withOptions:0 block:v18];
+          v17[0] = MEMORY[0x1E69E9820];
+          v17[1] = 3221225472;
+          v18[0] = __29__GCDeviceSession_invalidate__block_invoke_2;
+          v18[1] = &unk_1E84191E8;
+          v19 = v2;
+          [v10 observeFinishOnQueue:v11 withOptions:0 block:v17];
         }
 
 LABEL_12:
@@ -654,7 +650,7 @@ LABEL_12:
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v5);
@@ -666,10 +662,8 @@ LABEL_12:
   v13 = *(*(a1 + 32) + 24);
   block[2] = __29__GCDeviceSession_invalidate__block_invoke_3;
   block[3] = &unk_1E84191C0;
-  v17 = v12;
+  v16 = v12;
   dispatch_group_notify(v2, v13, block);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __29__GCDeviceSession_invalidate__block_invoke_3(uint64_t a1)
@@ -717,21 +711,19 @@ void __29__GCDeviceSession_invalidate__block_invoke_3(uint64_t a1)
   [(GCDeviceSession *)*(a1 + 32) _refreshDevicesAndNotify:?];
   [*(a1 + 32) willChangeValueForKey:@"eventHandler"];
   objc_setProperty_atomic(*(a1 + 32), *(a1 + 40), 0, 112);
-  [*(a1 + 32) didChangeValueForKey:@"eventHandler"];
+  v11 = [*(a1 + 32) didChangeValueForKey:@"eventHandler"];
   if (v2)
   {
-    v11 = [[GCDeviceSessionEvent alloc] initWithType:2 device:0];
-    (v2)[2](v2, *(a1 + 32), v11);
+    v12 = [[GCDeviceSessionEvent alloc] initWithType:2 device:0];
+    (v2)[2](v2, *(a1 + 32), v12);
   }
 
   atomic_store(5u, (*(a1 + 32) + 56));
-  v12 = _gc_log_session();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _gc_log_session(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    __29__GCDeviceSession_invalidate__block_invoke_3_cold_1(v12);
+    __29__GCDeviceSession_invalidate__block_invoke_3_cold_1(v13);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshDevicesAndNotify:(uint64_t)notify
@@ -867,25 +859,25 @@ void __29__GCDeviceSession_invalidate__block_invoke_3(uint64_t a1)
 
     if (a2)
     {
-      v19 = _gc_log_session();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = _gc_log_session(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [v14 count];
-        v21 = [v50 count];
-        v22 = [obj count];
+        v21 = [v14 count];
+        v22 = [v50 count];
+        v23 = [obj count];
         *buf = 134218754;
-        v79 = v20;
+        v79 = v21;
         v80 = 2048;
-        v81 = v21;
+        v81 = v22;
         v82 = 2048;
-        v83 = v22;
+        v83 = v23;
         v84 = 2114;
         v85 = obj;
-        _os_log_impl(&dword_1D2CD5000, v19, OS_LOG_TYPE_DEFAULT, "Connected devices changed (%zd added, %zd removed) -> [%zd] %{public}@", buf, 0x2Au);
+        _os_log_impl(&dword_1D2CD5000, v20, OS_LOG_TYPE_DEFAULT, "Connected devices changed (%zd added, %zd removed) -> [%zd] %{public}@", buf, 0x2Au);
       }
     }
 
-    v23 = v14;
+    v24 = v14;
     if ([v50 count] || objc_msgSend(v14, "count"))
     {
       objc_storeStrong((notify + 136), v8);
@@ -900,119 +892,119 @@ void __29__GCDeviceSession_invalidate__block_invoke_3(uint64_t a1)
       }
 
       objc_setProperty_atomic(notify, sel_devices, obj, 136);
-      v25 = v90;
-      v26 = 7;
+      v26 = v90;
+      v27 = 7;
       do
       {
-        v27 = _Block_copy(*(v25 - 1));
-        v28 = MEMORY[0x1E696AE18];
+        v28 = _Block_copy(*(v26 - 1));
+        v29 = MEMORY[0x1E696AE18];
         v62[0] = MEMORY[0x1E69E9820];
         v62[1] = 3221225472;
         v62[2] = __44__GCDeviceSession__refreshDevicesAndNotify___block_invoke_268;
         v62[3] = &unk_1E8419258;
-        v29 = v27;
-        v63 = v29;
-        v30 = [v28 predicateWithBlock:v62];
-        v31 = [obj filteredSetUsingPredicate:v30];
+        v30 = v28;
+        v63 = v30;
+        v31 = [v29 predicateWithBlock:v62];
+        v32 = [obj filteredSetUsingPredicate:v31];
 
-        v32 = [[GCDeviceCollection alloc] initWithUnderlyingCollection:v31];
-        objc_setProperty_atomic(notify, *(v25 - 2), v32, *v25);
+        v33 = [[GCDeviceCollection alloc] initWithUnderlyingCollection:v32];
+        objc_setProperty_atomic(notify, *(v26 - 2), v33, *v26);
 
-        v25 += 4;
-        --v26;
+        v26 += 4;
+        --v27;
       }
 
-      while (v26);
-      v33 = 0;
-      v23 = v14;
+      while (v27);
+      v34 = 0;
+      v24 = v14;
       do
       {
-        [notify didChangeValueForKey:v89[v33]];
-        v33 += 4;
+        [notify didChangeValueForKey:v89[v34]];
+        v34 += 4;
       }
 
-      while (v33 != 28);
+      while (v34 != 28);
       if (a2)
       {
         [notify didChangeValueForKey:@"allDevices"];
-        v34 = objc_getProperty(notify, sel__refreshDevicesAndNotify_, 112, 1);
-        v35 = objc_getProperty(notify, sel__refreshDevicesAndNotify_, 120, 1);
-        if (v34 | v35)
+        v35 = objc_getProperty(notify, sel__refreshDevicesAndNotify_, 112, 1);
+        v36 = objc_getProperty(notify, sel__refreshDevicesAndNotify_, 120, 1);
+        if (v35 | v36)
         {
           v60 = 0u;
           v61 = 0u;
           v58 = 0u;
           v59 = 0u;
-          v36 = v50;
-          v37 = [v36 countByEnumeratingWithState:&v58 objects:v77 count:16];
-          if (v37)
+          v37 = v50;
+          v38 = [v37 countByEnumeratingWithState:&v58 objects:v77 count:16];
+          if (v38)
           {
-            v38 = *v59;
+            v39 = *v59;
             do
             {
-              for (n = 0; n != v37; ++n)
+              for (n = 0; n != v38; ++n)
               {
-                if (*v59 != v38)
+                if (*v59 != v39)
                 {
-                  objc_enumerationMutation(v36);
+                  objc_enumerationMutation(v37);
                 }
 
-                v40 = [[GCDeviceSessionEvent alloc] initWithType:101 device:*(*(&v58 + 1) + 8 * n)];
+                v41 = [[GCDeviceSessionEvent alloc] initWithType:101 device:*(*(&v58 + 1) + 8 * n)];
+                if (v36)
+                {
+                  (*(v36 + 16))(v36, notify, v41);
+                }
+
                 if (v35)
                 {
-                  (*(v35 + 16))(v35, notify, v40);
-                }
-
-                if (v34)
-                {
-                  (*(v34 + 16))(v34, notify, v40);
+                  (*(v35 + 16))(v35, notify, v41);
                 }
               }
 
-              v37 = [v36 countByEnumeratingWithState:&v58 objects:v77 count:16];
+              v38 = [v37 countByEnumeratingWithState:&v58 objects:v77 count:16];
             }
 
-            while (v37);
+            while (v38);
           }
 
           v56 = 0u;
           v57 = 0u;
           v54 = 0u;
           v55 = 0u;
-          v41 = v49;
-          v42 = [v41 countByEnumeratingWithState:&v54 objects:v76 count:16];
-          if (v42)
+          v42 = v49;
+          v43 = [v42 countByEnumeratingWithState:&v54 objects:v76 count:16];
+          if (v43)
           {
-            v43 = *v55;
+            v44 = *v55;
             do
             {
-              for (ii = 0; ii != v42; ++ii)
+              for (ii = 0; ii != v43; ++ii)
               {
-                if (*v55 != v43)
+                if (*v55 != v44)
                 {
-                  objc_enumerationMutation(v41);
+                  objc_enumerationMutation(v42);
                 }
 
-                v45 = [[GCDeviceSessionEvent alloc] initWithType:100 device:*(*(&v54 + 1) + 8 * ii)];
+                v46 = [[GCDeviceSessionEvent alloc] initWithType:100 device:*(*(&v54 + 1) + 8 * ii)];
+                if (v36)
+                {
+                  (*(v36 + 16))(v36, notify, v46);
+                }
+
                 if (v35)
                 {
-                  (*(v35 + 16))(v35, notify, v45);
-                }
-
-                if (v34)
-                {
-                  (*(v34 + 16))(v34, notify, v45);
+                  (*(v35 + 16))(v35, notify, v46);
                 }
               }
 
-              v42 = [v41 countByEnumeratingWithState:&v54 objects:v76 count:16];
+              v43 = [v42 countByEnumeratingWithState:&v54 objects:v76 count:16];
             }
 
-            while (v42);
+            while (v43);
           }
         }
 
-        v23 = v49;
+        v24 = v49;
       }
     }
 
@@ -1020,14 +1012,12 @@ void __29__GCDeviceSession_invalidate__block_invoke_3(uint64_t a1)
     {
     }
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observerDeliveryPolicyDidChange:(id)change
 {
   changeCopy = change;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(changeCopy, v5))
   {
     [(GCDeviceSession *)self observerDeliveryPolicyDidChange:changeCopy];
   }
@@ -1035,58 +1025,55 @@ void __29__GCDeviceSession_invalidate__block_invoke_3(uint64_t a1)
   if (self->_hidObserverWasActive && ([changeCopy canReceiveEvents] & 1) == 0)
   {
     mach_absolute_time();
-    v5 = IOHIDEventCreate();
+    v6 = IOHIDEventCreate();
     IOHIDEventSetSenderID();
-    [(_GCHIDEventSubject *)self->_hidEventSource publishHIDEvent:v5];
-    CFRelease(v5);
+    [(_GCHIDEventSubject *)self->_hidEventSource publishHIDEvent:v6];
+    CFRelease(v6);
     self->_hidObserverWasActive = 0;
   }
 }
 
 uint64_t __39__GCDeviceSession__updateEventDelivery__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = _gc_log_session();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = _gc_log_session(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = v3;
-    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Session event delivery policy will change: %{public}@", &v10, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Session event delivery policy will change: %{public}@", &v8, 0xCu);
   }
 
   v4 = [*(a1 + 32) count];
   if ((((v4 == 0) ^ [*(*(a1 + 40) + 96) isPaused]) & 1) == 0 && objc_msgSend(*(a1 + 32), "count"))
   {
-    v5 = *MEMORY[0x1E695E480];
+    mach_absolute_time();
+    v5 = IOHIDEventCreate();
+    IOHIDEventSetSenderID();
+    [*(*(a1 + 40) + 96) publishHIDEvent:v5];
+    CFRelease(v5);
     mach_absolute_time();
     v6 = IOHIDEventCreate();
     IOHIDEventSetSenderID();
+    IOHIDEventSetIntegerValue();
+    IOHIDEventSetIntegerValue();
+    IOHIDEventSetIntegerValue();
+    IOHIDEventSetIntegerValue();
+    [*(*(a1 + 40) + 96) publishHIDEvent:v6];
+    IOHIDEventSetIntegerValue();
+    IOHIDEventSetIntegerValue();
+    [*(*(a1 + 40) + 96) publishHIDEvent:v6];
+    IOHIDEventSetIntegerValue();
+    IOHIDEventSetIntegerValue();
+    [*(*(a1 + 40) + 96) publishHIDEvent:v6];
+    IOHIDEventSetIntegerValue();
+    IOHIDEventSetIntegerValue();
     [*(*(a1 + 40) + 96) publishHIDEvent:v6];
     CFRelease(v6);
-    mach_absolute_time();
-    v7 = IOHIDEventCreate();
-    IOHIDEventSetSenderID();
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetIntegerValue();
-    [*(*(a1 + 40) + 96) publishHIDEvent:v7];
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetIntegerValue();
-    [*(*(a1 + 40) + 96) publishHIDEvent:v7];
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetIntegerValue();
-    [*(*(a1 + 40) + 96) publishHIDEvent:v7];
-    IOHIDEventSetIntegerValue();
-    IOHIDEventSetIntegerValue();
-    [*(*(a1 + 40) + 96) publishHIDEvent:v7];
-    CFRelease(v7);
   }
 
-  result = [*(*(a1 + 40) + 96) setPausedForReasons:*(a1 + 32)];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 40) + 96) setPausedForReasons:*(a1 + 32)];
 }
 
 uint64_t __44__GCDeviceSession__refreshDevicesAndNotify___block_invoke_2(uint64_t a1, void *a2)
@@ -1244,10 +1231,10 @@ uint64_t __44__GCDeviceSession__refreshDevicesAndNotify___block_invoke_7(uint64_
 
 + (id)deviceProviderTypesForConfiguration:(id)configuration
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v11[0] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   if ([configurationCopy isNonUI])
   {
     v6 = MEMORY[0x1E695E0F0];
@@ -1262,8 +1249,6 @@ uint64_t __44__GCDeviceSession__refreshDevicesAndNotify___block_invoke_7(uint64_
   [v7 addObjectsFromArray:v5];
   [v7 addObjectsFromArray:v6];
   v8 = [v7 copy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1372,18 +1357,18 @@ LABEL_6:
 
     if ((bOOLValue & 1) == 0)
     {
-      v9 = _gc_log_session();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = _gc_log_session(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         v13 = 138412546;
         v14 = changeCopy;
         v15 = 2112;
         v16 = v5;
-        _os_log_debug_impl(&dword_1D2CD5000, v9, OS_LOG_TYPE_DEBUG, "%@ devices did change: %@", &v13, 0x16u);
+        _os_log_debug_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEBUG, "%@ devices did change: %@", &v13, 0x16u);
       }
 
-      v10 = [v5 objectForKeyedSubscript:*MEMORY[0x1E696A4E8]];
-      unsignedIntegerValue = [v10 unsignedIntegerValue];
+      v11 = [v5 objectForKeyedSubscript:*MEMORY[0x1E696A4E8]];
+      unsignedIntegerValue = [v11 unsignedIntegerValue];
 
       if (unsignedIntegerValue <= 1)
       {
@@ -1393,8 +1378,6 @@ LABEL_6:
       [(GCDeviceSession *)self _refreshDevicesAndNotify:?];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_swift_EventHandler
@@ -1436,11 +1419,10 @@ LABEL_6:
 
 void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "Preparing GCDeviceSession with providers: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "Preparing GCDeviceSession with providers: %{public}@", &v2, 0xCu);
 }
 
 void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194_cold_1(uint64_t a1, void *a2)
@@ -1451,29 +1433,26 @@ void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194_co
 
 void __49__GCDeviceSession_activateWithCompletionHandler___block_invoke_2_194_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 136);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "GCDeviceSession activated with initial devices: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "GCDeviceSession activated with initial devices: %{public}@", &v3, 0xCu);
 }
 
 - (void)observerDeliveryPolicyDidChange:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = getGCLogger();
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = getGCLogger(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 80);
-    v7[0] = 67109376;
-    v7[1] = v5;
-    v8 = 1024;
-    v9 = [a2 canReceiveEvents];
-    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "BKSHIDEventDeliveryPolicy did change %{BOOL}d -> %{BOOL}d", v7, 0xEu);
+    v6[0] = 67109376;
+    v6[1] = v5;
+    v7 = 1024;
+    v8 = [a2 canReceiveEvents];
+    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "BKSHIDEventDeliveryPolicy did change %{BOOL}d -> %{BOOL}d", v6, 0xEu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEventHandler:.cold.1()

@@ -9,7 +9,7 @@
 - (void)searchBar:(id)bar textDidChange:(id)change
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100009F70(&qword_10021EDF8);
+  sub_100009F70(&qword_10021EDF8, &qword_1001B6DA0);
   Binding.wrappedValue.setter();
 }
 

@@ -45,13 +45,13 @@
 
 - (NLGazetteer)initWithContentsOfURL:(NSURL *)url error:(NSError *)error
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   v6 = url;
   path = [(NSURL *)v6 path];
   pathExtension = [path pathExtension];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v27 = 0;
-  if (([defaultManager fileExistsAtPath:path isDirectory:&v27] & 1) == 0)
+  v26 = 0;
+  if (([defaultManager fileExistsAtPath:path isDirectory:&v26] & 1) == 0)
   {
     if (!error)
     {
@@ -59,15 +59,15 @@
     }
 
     v13 = MEMORY[0x1E696ABC0];
-    v34 = *MEMORY[0x1E696A578];
-    v35[0] = @"Could not find gazetteer file";
+    v33 = *MEMORY[0x1E696A578];
+    v34[0] = @"Could not find gazetteer file";
     v14 = MEMORY[0x1E695DF20];
-    v15 = v35;
-    v16 = &v34;
+    v15 = v34;
+    v16 = &v33;
     goto LABEL_8;
   }
 
-  if (v27)
+  if (v26)
   {
     goto LABEL_3;
   }
@@ -80,11 +80,11 @@
     }
 
     v13 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A578];
-    v33 = @"Cannot load gazetteer from uncompiled mlmodel file";
+    v31 = *MEMORY[0x1E696A578];
+    v32 = @"Cannot load gazetteer from uncompiled mlmodel file";
     v14 = MEMORY[0x1E695DF20];
-    v15 = &v33;
-    v16 = &v32;
+    v15 = &v32;
+    v16 = &v31;
 LABEL_8:
     v17 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
     *error = [v13 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v17];
@@ -92,35 +92,35 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ((v27 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
-    v26 = 0;
-    v30 = *MEMORY[0x1E6998140];
-    v31 = v6;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-    v20 = NLGazetteerCreate();
-    if (v20)
+    v25 = 0;
+    v29 = *MEMORY[0x1E6998140];
+    v30 = v6;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v19 = NLGazetteerCreate();
+    if (v19)
     {
-      v21 = v20;
-      v25.receiver = self;
-      v25.super_class = NLGazetteer;
-      v22 = [(NLGazetteer *)&v25 init];
-      if (v22)
+      v20 = v19;
+      v24.receiver = self;
+      v24.super_class = NLGazetteer;
+      v21 = [(NLGazetteer *)&v24 init];
+      if (v21)
       {
-        v22->_gazetteer = v21;
+        v21->_gazetteer = v20;
       }
 
-      v12 = v22;
+      v12 = v21;
       goto LABEL_5;
     }
 
     if (error)
     {
-      v23 = MEMORY[0x1E696ABC0];
-      v28 = *MEMORY[0x1E696A578];
-      v29 = @"Failed to load gazetteer file";
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      *error = [v23 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v24];
+      v22 = MEMORY[0x1E696ABC0];
+      v27 = *MEMORY[0x1E696A578];
+      v28 = @"Failed to load gazetteer file";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      *error = [v22 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v23];
     }
   }
 
@@ -141,25 +141,24 @@ LABEL_5:
   error = self;
 LABEL_10:
 
-  v18 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (NLGazetteer)initWithData:(NSData *)data error:(NSError *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v6 = data;
-  v19 = 0;
-  v22 = *MEMORY[0x1E6998138];
-  v23[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v18 = 0;
+  v21 = *MEMORY[0x1E6998138];
+  v22[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v8 = NLGazetteerCreate();
   if (v8)
   {
     v9 = v8;
-    v18.receiver = self;
-    v18.super_class = NLGazetteer;
-    v10 = [(NLGazetteer *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = NLGazetteer;
+    v10 = [(NLGazetteer *)&v17 init];
     if (v10)
     {
       v10->_gazetteer = v9;
@@ -172,9 +171,9 @@ LABEL_10:
   else
   {
     v12 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21 = @"Failed to load gazetteer data";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20 = @"Failed to load gazetteer data";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     *error = [v12 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:5 userInfo:v13];
 
     v14 = [NLModel modelWithData:v6 error:error];
@@ -192,22 +191,21 @@ LABEL_10:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 - (NLGazetteer)initWithNLModel:(id)model error:(id *)p_isa
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   gazetteer = [modelCopy gazetteer];
   _gazetteerRef = [gazetteer _gazetteerRef];
 
   if (_gazetteerRef)
   {
-    v15.receiver = self;
-    v15.super_class = NLGazetteer;
-    v10 = [(NLGazetteer *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = NLGazetteer;
+    v10 = [(NLGazetteer *)&v14 init];
     if (v10)
     {
       v10->_gazetteer = CFRetain(_gazetteerRef);
@@ -221,15 +219,14 @@ LABEL_10:
   else if (p_isa)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A578];
-    v17[0] = @"Failed to load gazetteer file";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A578];
+    v16[0] = @"Failed to load gazetteer file";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *p_isa = [v11 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:6 userInfo:v12];
 
     p_isa = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -305,26 +302,23 @@ LABEL_10:
 
 - (NSString)labelForString:(NSString *)string
 {
-  gazetteer = self->_gazetteer;
-  v4 = NLGazetteerCopyLabel();
+  v3 = NLGazetteerCopyLabel();
 
-  return v4;
+  return v3;
 }
 
 - (id)labels
 {
-  gazetteer = self->_gazetteer;
-  v3 = NLGazetteerCopyAvailableLabels();
+  v2 = NLGazetteerCopyAvailableLabels();
 
-  return v3;
+  return v2;
 }
 
 - (NSData)data
 {
-  gazetteer = self->_gazetteer;
-  v3 = NLGazetteerCopyCompressedModel();
+  v2 = NLGazetteerCopyCompressedModel();
 
-  return v3;
+  return v2;
 }
 
 + (BOOL)writeGazetteerForDictionary:(NSDictionary *)dictionary language:(NLLanguage)language toURL:(NSURL *)url error:(NSError *)error

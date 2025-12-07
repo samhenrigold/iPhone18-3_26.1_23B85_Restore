@@ -27,34 +27,34 @@
 - (void)main
 {
   selfCopy = self;
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
   configuration = [(HDCloudSyncOperation *)selfCopy configuration];
   repository = [configuration repository];
   allCKContainers = [repository allCKContainers];
 
   obj = allCKContainers;
-  v65 = [allCKContainers countByEnumeratingWithState:&v74 objects:v104 count:16];
-  if (v65)
+  v64 = [allCKContainers countByEnumeratingWithState:&v73 objects:v103 count:16];
+  if (v64)
   {
-    v64 = *v75;
+    v63 = *v74;
     v6 = 0x277CBE000uLL;
     p_isa = &selfCopy->super.super.isa;
     do
     {
-      for (i = 0; i != v65; i = v19 + 1)
+      for (i = 0; i != v64; i = v19 + 1)
       {
-        if (*v75 != v64)
+        if (*v74 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v69 = i;
-        v8 = *(*(&v74 + 1) + 8 * i);
+        v68 = i;
+        v8 = *(*(&v73 + 1) + 8 * i);
         [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
         configuration2 = [(HDCloudSyncOperation *)selfCopy configuration];
         cachedCloudState = [configuration2 cachedCloudState];
@@ -62,19 +62,19 @@
         configuration3 = [(HDCloudSyncOperation *)selfCopy configuration];
         repository2 = [configuration3 repository];
         profileIdentifier = [repository2 profileIdentifier];
-        v68 = v8;
+        v67 = v8;
         v15 = HDDatabaseForContainer(v8, profileIdentifier);
         databaseScope = [v15 databaseScope];
-        v86 = 0;
-        v17 = [cachedCloudState zoneIdentifiersWithIdentityLossForContainerIdentifier:containerIdentifier databaseScope:databaseScope error:&v86];
-        v18 = v86;
+        v85 = 0;
+        v17 = [cachedCloudState zoneIdentifiersWithIdentityLossForContainerIdentifier:containerIdentifier databaseScope:databaseScope error:&v85];
+        v18 = v85;
 
         if (!v17 && v18)
         {
           selfCopy = p_isa;
           [p_isa[13] failTaskWithError:v18];
-          v20 = v68;
-          v19 = v69;
+          v20 = v67;
+          v19 = v68;
           goto LABEL_46;
         }
 
@@ -83,41 +83,41 @@
           _HKInitializeLogging();
           v59 = *MEMORY[0x277CCC328];
           selfCopy = p_isa;
-          v20 = v68;
+          v20 = v67;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v107 = p_isa;
+            v106 = p_isa;
             _os_log_debug_impl(&dword_228986000, v59, OS_LOG_TYPE_DEBUG, "%{public}@: Nothing to delete.", buf, 0xCu);
           }
 
           [p_isa[13] finishTask];
-          v19 = v69;
+          v19 = v68;
           goto LABEL_46;
         }
 
-        v62 = v18;
+        v61 = v18;
         v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v81 = 0u;
         v82 = 0u;
         v83 = 0u;
         v84 = 0u;
-        v85 = 0u;
         v22 = v17;
-        v23 = [v22 countByEnumeratingWithState:&v82 objects:buf count:16];
+        v23 = [v22 countByEnumeratingWithState:&v81 objects:buf count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v83;
+          v25 = *v82;
           do
           {
             for (j = 0; j != v24; ++j)
             {
-              if (*v83 != v25)
+              if (*v82 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v27 = *(*(&v82 + 1) + 8 * j);
+              v27 = *(*(&v81 + 1) + 8 * j);
               containerIdentifier2 = [v27 containerIdentifier];
               v29 = [v21 objectForKeyedSubscript:containerIdentifier2];
 
@@ -131,39 +131,39 @@
               [v29 addObject:v27];
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v82 objects:buf count:16];
+            v24 = [v22 countByEnumeratingWithState:&v81 objects:buf count:16];
           }
 
           while (v24);
         }
 
-        v63 = v17;
+        v62 = v17;
 
-        v80 = 0u;
-        v81 = 0u;
-        v78 = 0u;
         v79 = 0u;
+        v80 = 0u;
+        v77 = 0u;
+        v78 = 0u;
         v31 = v21;
         selfCopy = p_isa;
-        v73 = [v31 countByEnumeratingWithState:&v78 objects:v105 count:16];
-        if (!v73)
+        v72 = [v31 countByEnumeratingWithState:&v77 objects:v104 count:16];
+        if (!v72)
         {
           goto LABEL_40;
         }
 
-        v72 = *v79;
-        v70 = v31;
+        v71 = *v78;
+        v69 = v31;
         do
         {
           v32 = 0;
           do
           {
-            if (*v79 != v72)
+            if (*v78 != v71)
             {
               objc_enumerationMutation(v31);
             }
 
-            v33 = *(*(&v78 + 1) + 8 * v32);
+            v33 = *(*(&v77 + 1) + 8 * v32);
             configuration4 = [(HDCloudSyncOperation *)selfCopy configuration];
             repository3 = [configuration4 repository];
             v36 = [repository3 containerForContainerIdentifier:v33];
@@ -189,12 +189,12 @@
               if (databaseScope2 == 3)
               {
                 currentHandler = v38;
-                v87 = MEMORY[0x277D85DD0];
-                v88 = 3221225472;
-                v89 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostManateeIdentitiesInZones_container_database___block_invoke;
-                v90 = &unk_27861EAE8;
-                v91 = selfCopy;
-                v45 = [v37 hk_map:&v87];
+                v86 = MEMORY[0x277D85DD0];
+                v87 = 3221225472;
+                v88 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostManateeIdentitiesInZones_container_database___block_invoke;
+                v89 = &unk_27861EAE8;
+                v90 = selfCopy;
+                v45 = [v37 hk_map:&v86];
                 if ([v45 count])
                 {
                   [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
@@ -204,21 +204,21 @@
 
                   selfCopy = p_isa;
                   [(HDCloudSyncModifyRecordsOperation *)v56 setMarkAsParticipantNeedsNewInvitationToken:1];
-                  v99 = MEMORY[0x277D85DD0];
-                  v100 = 3221225472;
-                  v101 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostManateeIdentitiesInZones_container_database___block_invoke_314;
-                  v102 = &unk_278613088;
-                  v103 = p_isa;
-                  [(HDCloudSyncOperation *)v56 setOnError:&v99];
-                  v94 = MEMORY[0x277D85DD0];
-                  v95 = 3221225472;
-                  v96 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostManateeIdentitiesInZones_container_database___block_invoke_2;
-                  v97 = &unk_278613060;
-                  v98 = p_isa;
-                  [(HDCloudSyncOperation *)v56 setOnSuccess:&v94];
+                  v98 = MEMORY[0x277D85DD0];
+                  v99 = 3221225472;
+                  v100 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostManateeIdentitiesInZones_container_database___block_invoke_314;
+                  v101 = &unk_278613088;
+                  v102 = p_isa;
+                  [(HDCloudSyncOperation *)v56 setOnError:&v98];
+                  v93 = MEMORY[0x277D85DD0];
+                  v94 = 3221225472;
+                  v95 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostManateeIdentitiesInZones_container_database___block_invoke_2;
+                  v96 = &unk_278613060;
+                  v97 = p_isa;
+                  [(HDCloudSyncOperation *)v56 setOnSuccess:&v93];
                   [(HDCloudSyncOperation *)v56 start];
 
-                  v31 = v70;
+                  v31 = v69;
                 }
               }
 
@@ -234,15 +234,15 @@
                 v46 = v42;
                 if ([currentHandler count])
                 {
-                  v87 = MEMORY[0x277D85DD0];
-                  v88 = 3221225472;
-                  v89 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostManateeIdentitiesInZones_container_database___block_invoke;
-                  v90 = &unk_27862EBD0;
-                  v91 = selfCopy;
-                  v66 = v45;
-                  v92 = v66;
-                  v93 = v46;
-                  v67 = [currentHandler hk_map:&v87];
+                  v86 = MEMORY[0x277D85DD0];
+                  v87 = 3221225472;
+                  v88 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostManateeIdentitiesInZones_container_database___block_invoke;
+                  v89 = &unk_27862EBD0;
+                  v90 = selfCopy;
+                  v65 = v45;
+                  v91 = v65;
+                  v92 = v46;
+                  v66 = [currentHandler hk_map:&v86];
                   [(HDSynchronousTaskGroup *)selfCopy->_taskGroup beginTask];
                   v47 = [HDCloudSyncModifyRecordZonesOperation alloc];
                   [p_isa configuration];
@@ -251,27 +251,27 @@
                   v51 = v50 = v45;
                   v52 = v47;
                   selfCopy = p_isa;
-                  v53 = [(HDCloudSyncModifyRecordZonesOperation *)v52 initWithConfiguration:v51 container:v66 recordZonesToSave:0 recordZoneIDsToDelete:v67];
+                  v53 = [(HDCloudSyncModifyRecordZonesOperation *)v52 initWithConfiguration:v51 container:v65 recordZonesToSave:0 recordZoneIDsToDelete:v66];
 
                   v45 = v50;
                   v46 = v49;
                   currentHandler = v48;
                   v6 = 0x277CBE000;
-                  v99 = MEMORY[0x277D85DD0];
-                  v100 = 3221225472;
-                  v101 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostManateeIdentitiesInZones_container_database___block_invoke_309;
-                  v102 = &unk_278613088;
-                  v103 = p_isa;
-                  [(HDCloudSyncOperation *)v53 setOnError:&v99];
-                  v94 = MEMORY[0x277D85DD0];
-                  v95 = 3221225472;
-                  v96 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostManateeIdentitiesInZones_container_database___block_invoke_2;
-                  v97 = &unk_278613060;
-                  v98 = p_isa;
-                  [(HDCloudSyncOperation *)v53 setOnSuccess:&v94];
+                  v98 = MEMORY[0x277D85DD0];
+                  v99 = 3221225472;
+                  v100 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostManateeIdentitiesInZones_container_database___block_invoke_309;
+                  v101 = &unk_278613088;
+                  v102 = p_isa;
+                  [(HDCloudSyncOperation *)v53 setOnError:&v98];
+                  v93 = MEMORY[0x277D85DD0];
+                  v94 = 3221225472;
+                  v95 = __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostManateeIdentitiesInZones_container_database___block_invoke_2;
+                  v96 = &unk_278613060;
+                  v97 = p_isa;
+                  [(HDCloudSyncOperation *)v53 setOnSuccess:&v93];
                   [(HDCloudSyncOperation *)v53 start];
 
-                  v31 = v70;
+                  v31 = v69;
                 }
               }
 
@@ -290,9 +290,9 @@ LABEL_36:
             ++v32;
           }
 
-          while (v73 != v32);
-          v57 = [v31 countByEnumeratingWithState:&v78 objects:v105 count:16];
-          v73 = v57;
+          while (v72 != v32);
+          v57 = [v31 countByEnumeratingWithState:&v77 objects:v104 count:16];
+          v72 = v57;
         }
 
         while (v57);
@@ -301,39 +301,38 @@ LABEL_40:
         [(HDSynchronousTaskGroup *)selfCopy->_taskGroup finishTask];
 LABEL_42:
 
-        v20 = v68;
-        v19 = v69;
-        v18 = v62;
-        v17 = v63;
+        v20 = v67;
+        v19 = v68;
+        v18 = v61;
+        v17 = v62;
 LABEL_46:
       }
 
-      v65 = [obj countByEnumeratingWithState:&v74 objects:v104 count:16];
+      v64 = [obj countByEnumeratingWithState:&v73 objects:v103 count:16];
     }
 
-    while (v65);
+    while (v64);
   }
 
   [(HDSynchronousTaskGroup *)selfCopy->_taskGroup finishTask];
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 id __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostManateeIdentitiesInZones_container_database___block_invoke(id *a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v16 = a1[4];
-    v17 = v4;
-    v18 = [v3 zoneIdentifier];
-    v19 = 138543618;
-    v20 = v16;
-    v21 = 2114;
-    v22 = v18;
-    _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Zone %{public}@ is missing manatee identity and will be deleted", &v19, 0x16u);
+    v15 = a1[4];
+    v16 = v4;
+    v17 = [v3 zoneIdentifier];
+    v18 = 138543618;
+    v19 = v15;
+    v20 = 2114;
+    v21 = v17;
+    _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Zone %{public}@ is missing manatee identity and will be deleted", &v18, 0x16u);
   }
 
   v5 = [a1[4] configuration];
@@ -348,14 +347,12 @@ id __115__HDCloudSyncHandleMissingManateeIdentityOperation__deleteZonesForLostMa
 
   v13 = [v3 zoneIdentifier];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 id __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostManateeIdentitiesInZones_container_database___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [HDCloudSyncCachedZone alloc];
   v5 = [*(a1 + 32) configuration];
@@ -364,9 +361,9 @@ id __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostMa
   v8 = [v7 accessibilityAssertion];
   v9 = [(HDCloudSyncCachedZone *)v4 initForZoneIdentifier:v3 repository:v6 accessibilityAssertion:v8];
 
-  v23 = 0;
-  v10 = [v9 zoneShareWithError:&v23];
-  v11 = v23;
+  v22 = 0;
+  v10 = [v9 zoneShareWithError:&v22];
+  v11 = v22;
   _HKInitializeLogging();
   v12 = *MEMORY[0x277CCC328];
   v13 = os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR);
@@ -374,14 +371,14 @@ id __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostMa
   {
     if (v13)
     {
-      v17 = *(a1 + 32);
-      v18 = v12;
-      v19 = [v3 zoneIdentifier];
+      v16 = *(a1 + 32);
+      v17 = v12;
+      v18 = [v3 zoneIdentifier];
       *buf = 138543618;
-      v25 = v17;
-      v26 = 2114;
-      v27 = v19;
-      _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Zone %{public}@ is missing manatee identity; removing the share.", buf, 0x16u);
+      v24 = v16;
+      v25 = 2114;
+      v26 = v18;
+      _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Zone %{public}@ is missing manatee identity; removing the share.", buf, 0x16u);
     }
 
     v14 = [v10 recordID];
@@ -391,20 +388,18 @@ id __115__HDCloudSyncHandleMissingManateeIdentityOperation__leaveSharesForLostMa
   {
     if (v13)
     {
-      v20 = *(a1 + 32);
-      v21 = v12;
-      v22 = [v3 zoneIdentifier];
+      v19 = *(a1 + 32);
+      v20 = v12;
+      v21 = [v3 zoneIdentifier];
       *buf = 138543618;
-      v25 = v20;
-      v26 = 2114;
-      v27 = v22;
-      _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@: Failed to retrieve share from zone %{public}@ with missing manatee identity.", buf, 0x16u);
+      v24 = v19;
+      v25 = 2114;
+      v26 = v21;
+      _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Failed to retrieve share from zone %{public}@ with missing manatee identity.", buf, 0x16u);
     }
 
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    earfcn = self->_earfcn;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  eutraBand = self->_eutraBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  rsrp = self->_rsrp;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    rsrq = self->_rsrq;
     PBDataWriterWriteSint32Field();
   }
 

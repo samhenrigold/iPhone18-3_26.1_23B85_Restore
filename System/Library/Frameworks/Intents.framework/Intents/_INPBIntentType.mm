@@ -104,7 +104,6 @@ LABEL_8:
 
   if (type)
   {
-    type = self->_type;
     PBDataWriterWriteStringField();
   }
 }

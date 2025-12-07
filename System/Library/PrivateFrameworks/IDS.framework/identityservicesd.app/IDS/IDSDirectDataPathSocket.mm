@@ -286,9 +286,9 @@ LABEL_21:
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
   {
     v9 = self->_streamSocket ? @"YES" : @"NO";
-    v23 = self->_trafficClass;
-    v24 = v9;
-    v22 = self->_nwConnection;
+    v24 = self->_trafficClass;
+    v25 = v9;
+    v23 = self->_nwConnection;
     _IDSLogTransport();
     if (_IDSShouldLog())
     {
@@ -302,14 +302,14 @@ LABEL_21:
         v10 = @"NO";
       }
 
-      v23 = self->_trafficClass;
-      v24 = v10;
-      v22 = self->_nwConnection;
+      v24 = self->_trafficClass;
+      v25 = v10;
+      v23 = self->_nwConnection;
       _IDSLogV();
     }
   }
 
-  *v28 = 0xAAAAAAAAAAAAAAAALL;
+  *v29 = 0xAAAAAAAAAAAAAAAALL;
   if (self->_streamSocket)
   {
     v11 = 1;
@@ -320,32 +320,32 @@ LABEL_21:
     v11 = 2;
   }
 
-  if (socketpair(1, v11, 0, v28) < 0)
+  if (socketpair(1, v11, 0, v29) < 0)
   {
-    v17 = *__error();
-    v18 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v18 = *__error();
+    v19 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = v17;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "IDSDirectDataPathSocket:startSocket: error %d in creating sockets", buf, 8u);
+      *&buf[4] = v18;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "IDSDirectDataPathSocket:startSocket: error %d in creating sockets", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v22 = v17;
+        v23 = v18;
         _IDSLogTransport();
         if (_IDSShouldLog())
         {
-          v22 = v17;
+          v23 = v18;
           _IDSLogV();
         }
       }
     }
 
-    [(IDSDirectDataPathSocket *)self shutdownSocket:v22];
+    [(IDSDirectDataPathSocket *)self shutdownSocket:v23];
     if (!self->_completionSent)
     {
       goto LABEL_33;
@@ -354,9 +354,9 @@ LABEL_21:
 
   else
   {
-    if (([(IDSDirectDataPathSocket *)self setSocketOptionsForSocket:v28[0] bufferSize:0x40000]& 0x80000000) == 0 && ([(IDSDirectDataPathSocket *)self setSocketOptionsForSocket:v28[1] bufferSize:0x40000]& 0x80000000) == 0)
+    if (([(IDSDirectDataPathSocket *)self setSocketOptionsForSocket:v29[0] bufferSize:0x40000]& 0x80000000) == 0 && ([(IDSDirectDataPathSocket *)self setSocketOptionsForSocket:v29[1] bufferSize:0x40000]& 0x80000000) == 0)
     {
-      *&self->_socket = vrev64_s32(*v28);
+      *&self->_socket = vrev64_s32(*v29);
       os_unfair_lock_lock(&self->_lock);
       socketQueue = self->_socketQueue;
       if (socketQueue)
@@ -372,14 +372,14 @@ LABEL_21:
       os_unfair_lock_unlock(&self->_lock);
       if (self->_serviceConnectorConnection)
       {
-        v13 = sub_100518A18();
-        options = nw_framer_create_options(v13);
+        v14 = sub_100518A18(v13);
+        options = nw_framer_create_options(v14);
 
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
         buf[24] = 0;
-        v15 = options;
+        v16 = options;
         nw_connection_modify_connected_protocol_stack();
 
         _Block_object_dispose(buf, 8);
@@ -387,28 +387,28 @@ LABEL_21:
 
       else
       {
-        v15 = nw_connection_copy_parameters(self->_nwConnection);
-        v19 = nw_parameters_copy_default_protocol_stack(v15);
-        v20 = sub_100518A18();
-        v21 = nw_framer_create_options(v20);
+        v16 = nw_connection_copy_parameters(self->_nwConnection);
+        v20 = nw_parameters_copy_default_protocol_stack(v16);
+        v21 = sub_100518A18(v20);
+        v22 = nw_framer_create_options(v21);
 
-        nw_protocol_stack_prepend_application_protocol(v19, v21);
+        nw_protocol_stack_prepend_application_protocol(v20, v22);
       }
 
       CFAbsoluteTimeGetCurrent();
       nw_connection_set_queue(self->_nwConnection, self->_priorityQueue);
-      v25 = socketCopy;
+      v26 = socketCopy;
       nw_connection_set_event_handler();
       nw_connection_start(self->_nwConnection);
 
       goto LABEL_44;
     }
 
-    v16 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "IDSDirectDataPathSocket:startSocket: error in setBufferSize", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "IDSDirectDataPathSocket:startSocket: error in setBufferSize", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
@@ -423,7 +423,7 @@ LABEL_21:
       }
     }
 
-    [(IDSDirectDataPathSocket *)self shutdownSocket:v22];
+    [(IDSDirectDataPathSocket *)self shutdownSocket:v23];
     if (!self->_completionSent)
     {
 LABEL_33:
@@ -556,7 +556,7 @@ LABEL_34:
 
 - (void)writeToNWConnection
 {
-  v2 = __chkstk_darwin(self);
+  __chkstk_darwin(self);
   v3 = (v2 + 24);
   v4 = *(v2 + 24);
   if (v4 < 0)

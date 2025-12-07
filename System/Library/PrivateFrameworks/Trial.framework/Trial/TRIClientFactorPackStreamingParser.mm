@@ -60,30 +60,30 @@
 
 - (unsigned)_fieldTagForFieldName:(id)name
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = objc_autoreleasePoolPush();
   descriptor = [MEMORY[0x277D73AD8] descriptor];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   fields = [descriptor fields];
-  v7 = [fields countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [fields countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(fields);
       }
 
-      name = [*(*(&v19 + 1) + 8 * v10) name];
+      name = [*(*(&v18 + 1) + 8 * v10) name];
       v12 = [nameCopy isEqualToString:name];
 
       if (v12)
@@ -93,7 +93,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [fields countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [fields countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -123,13 +123,12 @@ LABEL_10:
   }
 
   objc_autoreleasePoolPop(v4);
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)_parseWithHandleFactorLevel:(id)level
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   context = objc_autoreleasePoolPush();
   v5 = [(TRIClientFactorPackStreamingParser *)self _fieldTagForFieldName:@"factorPackId"];
@@ -141,7 +140,7 @@ LABEL_10:
   {
     readTag2 = readTag;
     *&v10 = 67109120;
-    v25 = v10;
+    v24 = v10;
     do
     {
       if (readTag2 == v5)
@@ -151,7 +150,7 @@ LABEL_10:
           v12 = v8;
           v13 = v5;
 LABEL_21:
-          [v12 skipField:{v13, v25}];
+          [v12 skipField:{v13, v24}];
           goto LABEL_22;
         }
 
@@ -197,8 +196,8 @@ LABEL_21:
               v20 = TRILogCategory_ClientFramework();
               if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
               {
-                *buf = v25;
-                v28 = readTag2;
+                *buf = v24;
+                v27 = readTag2;
                 _os_log_impl(&dword_22EA6B000, v20, OS_LOG_TYPE_INFO, "TRIClientFactorPackStreamingParser: skipping unrecognized tag: %u", buf, 8u);
               }
 
@@ -236,7 +235,6 @@ LABEL_22:
   }
 
   objc_autoreleasePoolPop(context);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)downloadedFactorsWithPaths:(id)paths

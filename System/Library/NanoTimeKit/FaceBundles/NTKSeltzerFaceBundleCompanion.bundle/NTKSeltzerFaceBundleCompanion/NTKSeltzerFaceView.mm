@@ -26,6 +26,7 @@
 - (void)_loadTimeView;
 - (void)_loadUI;
 - (void)_prepareForEditing;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadBackgroundView;
 - (void)_unloadCornerOverlayView;
 - (void)_unloadDialView;
@@ -105,6 +106,16 @@ LABEL_6:
   }
 
   [(NTKSeltzerTimeView *)self->_seltzerTimeView applyDataMode:v4];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKSeltzerFaceView;
+  groupCopy = group;
+  [(NTKSeltzerFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(NTKSeltzerTimeView *)self->_seltzerTimeView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (void)_loadUI
@@ -203,7 +214,7 @@ LABEL_6:
 {
   device = [(NTKSeltzerFaceView *)self device];
   sub_4944(device, v11);
-  v3 = v11[0];
+  v3 = *v11;
   v4 = [NTKSeltzerDialView alloc];
   calendar = self->_calendar;
   colorPalette = [(NTKSeltzerFaceView *)self colorPalette];
@@ -409,7 +420,7 @@ LABEL_6:
   if (mode == 10)
   {
     device = [(NTKSeltzerFaceView *)self device];
-    sub_4944(device, &v7);
+    sub_4944(device, v7);
     v5 = &v8;
     goto LABEL_5;
   }
@@ -418,7 +429,7 @@ LABEL_6:
   if (mode == 15)
   {
     device = [(NTKSeltzerFaceView *)self device];
-    sub_4944(device, &v9);
+    sub_4944(device, v9);
     v5 = &v10;
 LABEL_5:
     v3 = *v5;
@@ -476,25 +487,23 @@ LABEL_5:
 
 - (void)_applyBreathingAndRubberBandingForEditMode:(int64_t)mode
 {
-  breathingFraction = self->_breathingFraction;
   NTKLargeElementScaleForBreathingFraction();
-  v7 = v6;
-  rubberBandingFraction = self->_rubberBandingFraction;
+  v6 = v5;
   NTKScaleForRubberBandingFraction();
-  memset(&v15, 0, sizeof(v15));
-  CGAffineTransformMakeScale(&v15, v7 * v9, v7 * v9);
+  memset(&v13, 0, sizeof(v13));
+  CGAffineTransformMakeScale(&v13, v6 * v7, v6 * v7);
   if (mode == 10)
   {
 LABEL_4:
-    v14 = v15;
+    v12 = v13;
     contentView = [(NTKSeltzerFaceView *)self contentView];
-    v13 = v14;
-    [contentView setTransform:&v13];
+    v11 = v12;
+    [contentView setTransform:&v11];
 
-    v12 = v15;
+    v10 = v13;
     complicationContainerView = [(NTKSeltzerFaceView *)self complicationContainerView];
-    v13 = v12;
-    [complicationContainerView setTransform:&v13];
+    v11 = v10;
+    [complicationContainerView setTransform:&v11];
 
     return;
   }
@@ -509,8 +518,8 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v13 = v15;
-  [(UIView *)self->_timeViewContainerView setTransform:&v13];
+  v11 = v13;
+  [(UIView *)self->_timeViewContainerView setTransform:&v11];
 }
 
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot

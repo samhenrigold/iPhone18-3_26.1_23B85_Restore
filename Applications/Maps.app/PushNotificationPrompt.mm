@@ -381,8 +381,8 @@ LABEL_11:
   v15 = [UIButton buttonWithConfiguration:v13 primaryAction:v14];
 
   [v15 setTranslatesAutoresizingMaskIntoConstraints:0];
-  configuration = [v15 configuration];
-  [configuration setButtonSize:3];
+  v16 = objc_msgSend_configuration(v15);
+  [v16 setButtonSize:3];
 
   view5 = [(PushNotificationPrompt *)self view];
   [view5 addSubview:v15];

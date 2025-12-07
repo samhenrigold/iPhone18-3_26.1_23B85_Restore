@@ -34,12 +34,12 @@
   v9.super_class = SBContinuousExposeAppToInlineAppExposeSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v9 transitionWillBegin];
   v4 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-  v5 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+  v5 = SBAppendSwitcherModifierResponse();
 
   if ([(SBTransitionSwitcherModifier *)self transitionPhase]== 1)
   {
     v6 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-    v7 = SBAppendSwitcherModifierResponse(v6, v5);
+    v7 = SBAppendSwitcherModifierResponse();
 
     v5 = v7;
   }

@@ -18,25 +18,25 @@
 
 + (id)coordinatedLayoutStateTransitionContextForMovingDisplayItems:(id)items toSwitcherController:(id)controller toAppLayout:(id)layout withApplicationController:(id)applicationController
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   controllerCopy = controller;
   layoutCopy = layout;
   applicationControllerCopy = applicationController;
   _managedMainDisplayItems = [controllerCopy _managedMainDisplayItems];
-  v40 = itemsCopy;
+  v43 = itemsCopy;
   v12 = [itemsCopy mutableCopy];
-  v37 = _managedMainDisplayItems;
+  v40 = _managedMainDisplayItems;
   [v12 minusSet:_managedMainDisplayItems];
   switcherCoordinator = [controllerCopy switcherCoordinator];
   coordinatedSwitcherControllers = [switcherCoordinator coordinatedSwitcherControllers];
 
-  v44 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v46 = 0u;
   v15 = coordinatedSwitcherControllers;
-  v16 = [v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (!v16)
   {
     v24 = 0;
@@ -45,17 +45,17 @@
   }
 
   v17 = v16;
-  v18 = *v43;
+  v18 = *v46;
   while (2)
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v43 != v18)
+      if (*v46 != v18)
       {
         objc_enumerationMutation(v15);
       }
 
-      v20 = *(*(&v42 + 1) + 8 * i);
+      v20 = *(*(&v45 + 1) + 8 * i);
       _managedMainDisplayItems2 = [v20 _managedMainDisplayItems];
       if ([v12 isSubsetOfSet:_managedMainDisplayItems2])
       {
@@ -76,7 +76,7 @@ LABEL_14:
       }
     }
 
-    v17 = [v15 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v17 = [v15 countByEnumeratingWithState:&v45 objects:v49 count:16];
     v24 = 0;
     v20 = 0;
     if (v17)
@@ -89,42 +89,42 @@ LABEL_14:
 
 LABEL_15:
 
-  if (!controllerCopy || !v20 || !v24 || ![v40 count])
+  if (!controllerCopy || !v20 || !v24 || ![v43 count])
   {
-    bs_array = [v40 bs_array];
-    v36 = [bs_array bs_map:&__block_literal_global_86];
+    bs_array = [v43 bs_array];
+    v39 = [bs_array bs_map:&__block_literal_global_86];
 
     v27 = [v15 bs_compactMap:&__block_literal_global_3];
     succinctDescription = [v24 succinctDescription];
     succinctDescription2 = [layoutCopy succinctDescription];
-    v30 = SBLogAppSwitcher();
+    v30 = SBLogAppSwitcher(succinctDescription2);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [SBSwitcherCoordinatedLayoutStateTransitionContext coordinatedLayoutStateTransitionContextForMovingDisplayItems:v30 toSwitcherController:? toAppLayout:? withApplicationController:?];
     }
 
-    v31 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-    {
-      [SBSwitcherCoordinatedLayoutStateTransitionContext coordinatedLayoutStateTransitionContextForMovingDisplayItems:v36 toSwitcherController:v31 toAppLayout:? withApplicationController:?];
-    }
-
-    v32 = SBLogAppSwitcher();
+    v32 = SBLogAppSwitcher(v31);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      [SBSwitcherCoordinatedLayoutStateTransitionContext coordinatedLayoutStateTransitionContextForMovingDisplayItems:v27 toSwitcherController:v32 toAppLayout:? withApplicationController:?];
+      [SBSwitcherCoordinatedLayoutStateTransitionContext coordinatedLayoutStateTransitionContextForMovingDisplayItems:v39 toSwitcherController:v32 toAppLayout:? withApplicationController:?];
     }
 
-    v33 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = SBLogAppSwitcher(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      [SBSwitcherCoordinatedLayoutStateTransitionContext coordinatedLayoutStateTransitionContextForMovingDisplayItems:succinctDescription toSwitcherController:succinctDescription2 toAppLayout:v33 withApplicationController:?];
+      [SBSwitcherCoordinatedLayoutStateTransitionContext coordinatedLayoutStateTransitionContextForMovingDisplayItems:v27 toSwitcherController:v34 toAppLayout:? withApplicationController:?];
+    }
+
+    v36 = SBLogAppSwitcher(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    {
+      [SBSwitcherCoordinatedLayoutStateTransitionContext coordinatedLayoutStateTransitionContextForMovingDisplayItems:succinctDescription toSwitcherController:succinctDescription2 toAppLayout:v36 withApplicationController:?];
     }
   }
 
-  v34 = [self coordinatedLayoutStateTransitionContextForMovingDisplayItems:v40 fromSwitcherController:v20 fromAppLayout:v24 toAppLayout:layoutCopy toSwitcherController:controllerCopy withApplicationController:{applicationControllerCopy, v36}];
+  v37 = [self coordinatedLayoutStateTransitionContextForMovingDisplayItems:v43 fromSwitcherController:v20 fromAppLayout:v24 toAppLayout:layoutCopy toSwitcherController:controllerCopy withApplicationController:{applicationControllerCopy, v39}];
 
-  return v34;
+  return v37;
 }
 
 id __173__SBSwitcherCoordinatedLayoutStateTransitionContext_coordinatedLayoutStateTransitionContextForMovingDisplayItems_toSwitcherController_toAppLayout_withApplicationController___block_invoke_2(uint64_t a1, void *a2)

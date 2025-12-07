@@ -291,19 +291,8 @@ LABEL_22:
             v24 = [uUID isEqual:v23];
 
             v25 = @"AICSInterface";
-            if (v24)
+            if (v24 & 1) != 0 || ([v19 UUID], v26 = objc_claimAutoreleasedReturnValue(), +[CBUUID UUIDWithString:](CBUUID, "UUIDWithString:", v49), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v26, "isEqual:", v27), v27, v26, v25 = @"VOCSInterface", (v28))
             {
-              goto LABEL_12;
-            }
-
-            uUID2 = [v19 UUID];
-            v27 = [CBUUID UUIDWithString:v49];
-            v28 = [uUID2 isEqual:v27];
-
-            v25 = @"VOCSInterface";
-            if (v28)
-            {
-LABEL_12:
               v29 = NSClassFromString(&v25->isa);
               if (v29)
               {
@@ -321,11 +310,11 @@ LABEL_12:
                 {
                   v34 = v33;
                   name = [peripheralCopy name];
-                  uUID3 = [v19 UUID];
+                  uUID2 = [v19 UUID];
                   *buf = 138412802;
                   v60 = name;
                   v61 = 2114;
-                  v62 = uUID3;
+                  v62 = uUID2;
                   v63 = 2112;
                   v64 = v19;
                   _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Peripheral %@ supports included service %{public}@. %@", buf, 0x20u);
@@ -342,11 +331,11 @@ LABEL_12:
                   if (os_log_type_enabled(*v32, OS_LOG_TYPE_DEFAULT))
                   {
                     v39 = v38;
-                    uUID4 = [v19 UUID];
+                    uUID3 = [v19 UUID];
                     peripheral = [(ServiceInterface *)self peripheral];
                     name2 = [peripheral name];
                     *buf = 138412546;
-                    v60 = uUID4;
+                    v60 = uUID3;
                     v61 = 2112;
                     v62 = name2;
                     _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Starting included service %@ on peripheral %@", buf, 0x16u);

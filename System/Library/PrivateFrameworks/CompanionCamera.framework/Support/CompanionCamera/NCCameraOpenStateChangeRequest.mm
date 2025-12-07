@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)openStateAsString:(int)string;
 - (int)StringAsOpenState:(id)state;
 - (int)openState;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 2;
   }
+}
+
+- (id)openStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100034BC8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsOpenState:(id)state
@@ -95,18 +111,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    openState = self->_openState;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_internalState)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -152,7 +167,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0 || self->_openState != *(equalCopy + 4))
@@ -164,24 +178,24 @@
   else if (*(equalCopy + 20))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   internalState = self->_internalState;
   if (internalState | *(equalCopy + 1))
   {
-    v7 = [(NCCameraStateChangedRequest *)internalState isEqual:?];
+    v6 = [(NCCameraStateChangedRequest *)internalState isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

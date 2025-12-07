@@ -6,12 +6,12 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
   getActivePairedDevice = [mEMORY[0x277D2BCF8] getActivePairedDevice];
 
-  v35 = getActivePairedDevice;
+  v34 = getActivePairedDevice;
   if (getActivePairedDevice)
   {
     queries = [(TPSDeviceCapabilityValidation *)self queries];
@@ -19,38 +19,38 @@
 
     if (v8)
     {
-      v33 = completionCopy;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
+      v32 = completionCopy;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       queries2 = [(TPSDeviceCapabilityValidation *)self queries];
       allKeys = [queries2 allKeys];
 
       obj = allKeys;
-      v11 = [allKeys countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v35 objects:v47 count:16];
       if (v11)
       {
         v13 = v11;
-        v14 = *v37;
+        v14 = *v36;
         LOBYTE(v15) = 1;
         *&v12 = 138412546;
-        v32 = v12;
+        v31 = v12;
         do
         {
           v16 = 0;
           do
           {
-            if (*v37 != v14)
+            if (*v36 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v36 + 1) + 8 * v16);
+            v17 = *(*(&v35 + 1) + 8 * v16);
             v18 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v17];
             if (v18)
             {
-              v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v35, "supportsCapability:", v18)}];
+              v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v34, "supportsCapability:", v18)}];
               queries3 = [(TPSDeviceCapabilityValidation *)self queries];
               v21 = [queries3 objectForKeyedSubscript:v17];
 
@@ -59,13 +59,13 @@
               {
                 v25 = objc_opt_class();
                 *buf = 138413058;
-                v41 = v25;
-                v42 = 2112;
-                v43 = v17;
-                v44 = 2112;
-                v45 = v19;
-                v46 = 2112;
-                v47 = v21;
+                v40 = v25;
+                v41 = 2112;
+                v42 = v17;
+                v43 = 2112;
+                v44 = v19;
+                v45 = 2112;
+                v46 = v21;
                 v26 = v25;
                 _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking %@...Answer: %@. Expected: %@", buf, 0x2Au);
               }
@@ -110,10 +110,10 @@ LABEL_32:
               if (os_log_type_enabled(targeting2, OS_LOG_TYPE_ERROR))
               {
                 v27 = objc_opt_class();
-                *buf = v32;
-                v41 = v27;
-                v42 = 2112;
-                v43 = v17;
+                *buf = v31;
+                v40 = v27;
+                v41 = 2112;
+                v42 = v17;
                 v28 = v27;
                 _os_log_error_impl(&dword_232D6F000, targeting2, OS_LOG_TYPE_ERROR, "%@ - Invalid Key: %@", buf, 0x16u);
               }
@@ -130,7 +130,7 @@ LABEL_32:
           }
 
           while (v13 != v16);
-          v29 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+          v29 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
           v13 = v29;
         }
 
@@ -144,8 +144,8 @@ LABEL_32:
 
 LABEL_33:
 
-      completionCopy = v33;
-      v33[2](v33, v15, 0);
+      completionCopy = v32;
+      v32[2](v32, v15, 0);
     }
 
     else
@@ -164,19 +164,15 @@ LABEL_33:
 
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - No active paired device", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - No active paired device", &v4, 0xCu);
 }
 
 @end

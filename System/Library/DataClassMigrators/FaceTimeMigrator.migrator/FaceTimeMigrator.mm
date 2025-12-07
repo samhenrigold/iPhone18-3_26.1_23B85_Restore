@@ -20,7 +20,7 @@ void sub_23396DC2C()
 
 void sub_23396DC9C(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277D19298] registration];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -31,12 +31,10 @@ void sub_23396DC9C(uint64_t a1, int a2)
       v5 = @"YES";
     }
 
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_23396C000, v4, OS_LOG_TYPE_DEFAULT, "ProfileID save completed, success %@, account %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_23396C000, v4, OS_LOG_TYPE_DEFAULT, "ProfileID save completed, success %@, account %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }

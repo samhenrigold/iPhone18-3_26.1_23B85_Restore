@@ -111,32 +111,32 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v13.receiver = self;
-  v13.super_class = PHVoicemailInboxListViewController;
-  [(MPVoicemailTableViewController *)&v13 viewWillAppear:appear];
+  v14.receiver = self;
+  v14.super_class = PHVoicemailInboxListViewController;
+  [(MPVoicemailTableViewController *)&v14 viewWillAppear:appear];
   v4 = objc_alloc_init(TUFeatureFlags);
   nameAndPhotoEnabledC3 = [v4 nameAndPhotoEnabledC3];
 
   if (nameAndPhotoEnabledC3)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PHDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Going to present CNKCNSharedProfileOnboardingController on launch", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Going to present CNKCNSharedProfileOnboardingController on launch", v13, 2u);
     }
 
     onboardingController = [(PHVoicemailInboxListViewController *)self onboardingController];
 
     if (!onboardingController)
     {
-      v8 = objc_opt_new();
-      [(PHVoicemailInboxListViewController *)self setOnboardingController:v8];
+      v9 = objc_opt_new();
+      [(PHVoicemailInboxListViewController *)self setOnboardingController:v9];
     }
 
     onboardingController2 = [(PHVoicemailInboxListViewController *)self onboardingController];
-    v10 = +[TUCallCenter sharedInstance];
-    contactStore = [v10 contactStore];
+    v11 = +[TUCallCenter sharedInstance];
+    contactStore = [v11 contactStore];
     [onboardingController2 presentOnboardingControllerOnLaunchIfNeededFrom:self withContactStore:contactStore];
   }
 }
@@ -875,17 +875,17 @@ LABEL_6:
   v11 = [(MPVoicemailTableViewController *)self voicemails:voicemailsCopy passingTest:v10];
 
   [(PHVoicemailInboxListViewController *)self setBlockedVoicemails:v11];
-  v12 = PHDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = PHDefaultLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     trashVoicemails = [(PHVoicemailInboxListViewController *)self trashVoicemails];
-    v14 = [trashVoicemails count];
+    v15 = [trashVoicemails count];
     blockedVoicemails = [(PHVoicemailInboxListViewController *)self blockedVoicemails];
-    v16 = 134218240;
-    v17 = v14;
-    v18 = 2048;
-    v19 = [blockedVoicemails count];
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Found trashVoicemails.count: %ld blockedVoicemails.count: %ld", &v16, 0x16u);
+    v17 = 134218240;
+    v18 = v15;
+    v19 = 2048;
+    v20 = [blockedVoicemails count];
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Found trashVoicemails.count: %ld blockedVoicemails.count: %ld", &v17, 0x16u);
   }
 }
 
@@ -1072,7 +1072,7 @@ void __46__PHVoicemailInboxListViewController__delete___block_invoke(uint64_t a1
 
 - (void)hideTipViewWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

@@ -24,7 +24,7 @@
 
 + (id)propertyListBodyWithTransaction:(id)transaction
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   clientItemVersionAnchor = [transactionCopy clientItemVersionAnchor];
   v5 = clientItemVersionAnchor;
@@ -36,18 +36,16 @@
 
   v7 = v6;
 
-  v13[0] = @"domain";
+  v12[0] = @"domain";
   domain = [transactionCopy domain];
-  v14[0] = domain;
-  v14[1] = v7;
-  v13[1] = @"since-version";
-  v13[2] = @"key";
+  v13[0] = domain;
+  v13[1] = v7;
+  v12[1] = @"since-version";
+  v12[2] = @"key";
   requestedKey = [transactionCopy requestedKey];
 
-  v14[2] = requestedKey;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[2] = requestedKey;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
   return v10;
 }

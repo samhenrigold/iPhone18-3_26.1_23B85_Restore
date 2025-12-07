@@ -121,7 +121,7 @@ LABEL_5:
     v9 = v7 * v8;
 
     v10 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBFullScreenToPeekSwitcherModifierTimerEventReason" reason:v9];
-    v11 = SBAppendSwitcherModifierResponse(v10, transitionWillUpdate);
+    v11 = SBAppendSwitcherModifierResponse();
 
     transitionWillUpdate = v11;
   }
@@ -140,7 +140,7 @@ LABEL_5:
     v5 = objc_alloc_init(SBSlideOverAppsInFullScreenSwitcherSwitcherModifier);
     v6 = [(SBAddModifierSwitcherEventResponse *)v4 initWithModifier:v5 level:3];
 
-    v7 = SBAppendSwitcherModifierResponse(v6, transitionDidEnd);
+    v7 = SBAppendSwitcherModifierResponse();
 
     transitionDidEnd = v7;
   }
@@ -161,7 +161,7 @@ LABEL_5:
   {
     self->_animationPhase = 1;
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }
@@ -182,7 +182,7 @@ LABEL_5:
   if (selfCopy)
   {
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }
@@ -206,7 +206,7 @@ LABEL_5:
   {
     self->_resizedEnoughToUnblur = 1;
     v8 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-    v9 = SBAppendSwitcherModifierResponse(v8, v5);
+    v9 = SBAppendSwitcherModifierResponse();
 
     v5 = v9;
   }

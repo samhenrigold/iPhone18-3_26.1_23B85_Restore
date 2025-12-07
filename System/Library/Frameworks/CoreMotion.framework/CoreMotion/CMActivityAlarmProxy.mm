@@ -101,41 +101,41 @@
     }
 
     LOWORD(v21) = 0;
-    v18 = _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2878, 0, "#Warning Was not able to listen for alarm.  Activity alarms are not available for this system.", &v21, 2);
+    v19 = v18;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMActivityAlarmProxy listenForActivityAlarm:]", "CoreLocation: %s\n", v18);
-    if (v18 != buf)
+    if (v19 != buf)
     {
-      free(v18);
+      free(v19);
     }
   }
 
   objc_sync_exit(self);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopListeningForActivityAlarm:(id)alarm
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
-  v39 = 0u;
-  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   fAlarms = self->fAlarms;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(fAlarms, v6, &v39, v47, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(fAlarms, v6, &v41, v49, 16);
   if (v8)
   {
-    v9 = *v40;
+    v9 = *v42;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v40 != v9)
+        if (*v42 != v9)
         {
           objc_enumerationMutation(fAlarms);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * i);
+        v11 = *(*(&v41 + 1) + 8 * i);
         if (objc_msgSend_objectForKeyedSubscript_(self->fAlarms, v7, v11) == alarm)
         {
           v13 = v11;
@@ -143,14 +143,14 @@
           {
             objc_msgSend_removeObjectForKey_(self->fAlarms, v12, v13);
             sub_19B431640(&buf);
-            LODWORD(v37) = objc_msgSend_intValue(v13, v14, v15);
-            v38 = objc_msgSend_trigger(alarm, v16, v17);
+            LODWORD(v39) = objc_msgSend_intValue(v13, v14, v15);
+            v40 = objc_msgSend_trigger(alarm, v16, v17);
             objc_msgSend_duration(alarm, v18, v19);
-            v43 = v20;
-            sub_19B6E74A8(&v37, &v38, &v43, &buf);
-            LOBYTE(v43) = 0;
-            sub_19B5EE5B0(&buf, "kCLConnectionMessageSubscribeKey", &v43);
-            v37 = v46[0];
+            v45 = v20;
+            sub_19B6E74A8(&v39, &v40, &v45, &buf);
+            LOBYTE(v45) = 0;
+            sub_19B5EE5B0(&buf, "kCLConnectionMessageSubscribeKey", &v45);
+            v39 = v48[0];
             sub_19B6F3270();
           }
 
@@ -158,7 +158,7 @@
         }
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(fAlarms, v7, &v39, v47, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(fAlarms, v7, &v41, v49, 16);
       if (v8)
       {
         continue;
@@ -181,8 +181,8 @@ LABEL_12:
     objc_msgSend_duration(alarm, v25, v26);
     LODWORD(buf) = 67109376;
     HIDWORD(buf) = v24;
-    LOWORD(v46[0]) = 2048;
-    *(v46 + 2) = v27;
+    LOWORD(v48[0]) = 2048;
+    *(v48 + 2) = v27;
     _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_DEFAULT, "#Warning Cannot unsubscribe from activity alarm (Trigger:%d, Duration:%f).  This alarm is not being listened for.", &buf, 0x12u);
   }
 
@@ -195,22 +195,24 @@ LABEL_12:
       dispatch_once(&qword_1EAFE2858, &unk_1F0E3B5B8);
     }
 
-    v31 = objc_msgSend_trigger(alarm, v29, v30);
-    objc_msgSend_duration(alarm, v32, v33);
-    LODWORD(v43) = 67109376;
-    HIDWORD(v43) = v31;
-    v44[0] = 2048;
-    *&v44[1] = v34;
-    v35 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMActivityAlarmProxy stopListeningForActivityAlarm:]", "CoreLocation: %s\n", v35);
-    if (v35 != &buf)
+    v31 = qword_1EAFE2878;
+    v32 = objc_msgSend_trigger(alarm, v29, v30);
+    objc_msgSend_duration(alarm, v33, v34);
+    LODWORD(v45) = 67109376;
+    HIDWORD(v45) = v32;
+    v46[0] = 2048;
+    *&v46[1] = v35;
+    LODWORD(v38) = 18;
+    _os_log_send_and_compose_impl(2, 0, &buf, 1628, &dword_19B41C000, v31, 0, "#Warning Cannot unsubscribe from activity alarm (Trigger:%d, Duration:%f).  This alarm is not being listened for.", &v45, v38);
+    v37 = v36;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMActivityAlarmProxy stopListeningForActivityAlarm:]", "CoreLocation: %s\n", v36);
+    if (v37 != &buf)
     {
-      free(v35);
+      free(v37);
     }
   }
 
   objc_sync_exit(self);
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 @end

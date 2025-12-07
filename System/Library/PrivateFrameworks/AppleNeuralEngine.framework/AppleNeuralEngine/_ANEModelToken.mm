@@ -1,6 +1,9 @@
 @interface _ANEModelToken
 + (id)codeSigningIDFor:(id *)for processIdentifier:(int)identifier;
 + (id)teamIDFor:(id *)for processIdentifier:(int)identifier;
++ (id)tokenWithAuditToken:(id *)token modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier;
++ (id)tokenWithCsIdentity:(id)identity teamIdentity:(id)teamIdentity modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier;
+- (_ANEModelToken)initWithAuditToken:(id *)token modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier;
 - (_ANEModelToken)initWithCsIdentity:(id)identity teamIdentity:(id)teamIdentity modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier;
 - (id)description;
 @end
@@ -9,7 +12,7 @@
 
 + (id)codeSigningIDFor:(id *)for processIdentifier:(int)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E695E480];
   v6 = *&for->var0[4];
   *token.val = *for->var0;
@@ -60,14 +63,12 @@
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)teamIDFor:(id *)for processIdentifier:(int)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E695E480];
   v6 = *&for->var0[4];
   *token.val = *for->var0;
@@ -112,9 +113,26 @@
     v10 = &stru_1F224D6A0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v10;
+}
+
+- (_ANEModelToken)initWithAuditToken:(id *)token modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier
+{
+  v5 = *&processIdentifier;
+  identifierCopy = identifier;
+  v9 = objc_opt_class();
+  v10 = *&token->var0[4];
+  v17 = *token->var0;
+  v18 = v10;
+  v11 = [v9 teamIDFor:&v17 processIdentifier:v5];
+  v12 = objc_opt_class();
+  v13 = *&token->var0[4];
+  v17 = *token->var0;
+  v18 = v13;
+  v14 = [v12 codeSigningIDFor:&v17 processIdentifier:v5];
+  v15 = [(_ANEModelToken *)self initWithCsIdentity:v14 teamIdentity:v11 modelIdentifier:identifierCopy processIdentifier:v5];
+
+  return v15;
 }
 
 - (_ANEModelToken)initWithCsIdentity:(id)identity teamIdentity:(id)teamIdentity modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier
@@ -137,6 +155,30 @@
   return v15;
 }
 
++ (id)tokenWithCsIdentity:(id)identity teamIdentity:(id)teamIdentity modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier
+{
+  v6 = *&processIdentifier;
+  identifierCopy = identifier;
+  teamIdentityCopy = teamIdentity;
+  identityCopy = identity;
+  v12 = [[_ANEModelToken alloc] initWithCsIdentity:identityCopy teamIdentity:teamIdentityCopy modelIdentifier:identifierCopy processIdentifier:v6];
+
+  return v12;
+}
+
++ (id)tokenWithAuditToken:(id *)token modelIdentifier:(id)identifier processIdentifier:(int)processIdentifier
+{
+  v5 = *&processIdentifier;
+  identifierCopy = identifier;
+  v8 = [_ANEModelToken alloc];
+  v9 = *&token->var0[4];
+  v12[0] = *token->var0;
+  v12[1] = v9;
+  v10 = [(_ANEModelToken *)v8 initWithAuditToken:v12 modelIdentifier:identifierCopy processIdentifier:v5];
+
+  return v10;
+}
+
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
@@ -150,34 +192,25 @@
 + (void)codeSigningIDFor:processIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1AD246000, v2, v3, "%@: client(%d) : missing signingIdentifier", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AD246000, v2, v3, "%@: client(%d) : missing signingIdentifier", v4, v5, v6, v7);
 }
 
 + (void)codeSigningIDFor:processIdentifier:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1AD246000, v2, v3, "%@: client(%d) : SecTaskCreateWithAuditToken() failed", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AD246000, v2, v3, "%@: client(%d) : SecTaskCreateWithAuditToken() failed", v4, v5, v6, v7);
 }
 
 + (void)teamIDFor:processIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1AD246000, v2, v3, "%@: client(%d) : missing teamIdentity", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1AD246000, v2, v3, "%@: client(%d) : missing teamIdentity", v4, v5, v6, v7);
 }
 
 @end

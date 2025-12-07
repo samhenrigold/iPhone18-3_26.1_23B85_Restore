@@ -1,12 +1,12 @@
 @interface AEXPCProxy
+- (id)connection;
 - (id)initWithOrigin:(void *)origin interface:;
 - (id)makeConnection;
-- (void)connection;
+- (id)remoteObjectProxyWithErrorHandler:(id *)handler;
+- (id)synchronousRemoteObjectProxyWithErrorHandler:(id *)handler;
 - (void)connectionDidInterrupt;
 - (void)connectionDidInvalidate;
 - (void)dealloc;
-- (void)remoteObjectProxyWithErrorHandler:(void *)handler;
-- (void)synchronousRemoteObjectProxyWithErrorHandler:(void *)handler;
 @end
 
 @implementation AEXPCProxy
@@ -88,7 +88,7 @@ void __28__AEXPCProxy_makeConnection__block_invoke_2(uint64_t a1)
   return self;
 }
 
-- (void)remoteObjectProxyWithErrorHandler:(void *)handler
+- (id)remoteObjectProxyWithErrorHandler:(id *)handler
 {
   handlerCopy = handler;
   if (handler)
@@ -101,7 +101,7 @@ void __28__AEXPCProxy_makeConnection__block_invoke_2(uint64_t a1)
   return handlerCopy;
 }
 
-- (void)connection
+- (id)connection
 {
   if (val)
   {
@@ -123,7 +123,7 @@ void __28__AEXPCProxy_makeConnection__block_invoke_2(uint64_t a1)
   return val;
 }
 
-- (void)synchronousRemoteObjectProxyWithErrorHandler:(void *)handler
+- (id)synchronousRemoteObjectProxyWithErrorHandler:(id *)handler
 {
   handlerCopy = handler;
   if (handler)

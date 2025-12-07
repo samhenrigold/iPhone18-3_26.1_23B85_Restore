@@ -305,28 +305,26 @@ void __92__STStatusBarDataAdditionsStatusDomainData__descriptionBuilderWithMulti
 
 void __65__STStatusBarDataAdditionsStatusDomainData__expectedClassForKey___block_invoke()
 {
-  v4[8] = *MEMORY[0x1E69E9840];
-  v3[0] = @"activityEntry";
-  v4[0] = objc_opt_class();
-  v3[1] = @"bluetoothEntry";
-  v4[1] = objc_opt_class();
-  v3[2] = @"focusModeEntry";
-  v4[2] = objc_opt_class();
-  v3[3] = @"lockEntry";
-  v4[3] = objc_opt_class();
-  v3[4] = @"personNameEntry";
-  v4[4] = objc_opt_class();
-  v3[5] = @"tetheringEntry";
-  v4[5] = objc_opt_class();
-  v3[6] = @"thermalEntry";
-  v4[6] = objc_opt_class();
-  v3[7] = @"ringerSilenceEntry";
-  v4[7] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:8];
+  v3[8] = *MEMORY[0x1E69E9840];
+  v2[0] = @"activityEntry";
+  v3[0] = objc_opt_class();
+  v2[1] = @"bluetoothEntry";
+  v3[1] = objc_opt_class();
+  v2[2] = @"focusModeEntry";
+  v3[2] = objc_opt_class();
+  v2[3] = @"lockEntry";
+  v3[3] = objc_opt_class();
+  v2[4] = @"personNameEntry";
+  v3[4] = objc_opt_class();
+  v2[5] = @"tetheringEntry";
+  v3[5] = objc_opt_class();
+  v2[6] = @"thermalEntry";
+  v3[6] = objc_opt_class();
+  v2[7] = @"ringerSilenceEntry";
+  v3[7] = objc_opt_class();
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:8];
   v1 = qword_1ED7F5CD8;
   qword_1ED7F5CD8 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (STStatusBarDataAdditionsStatusDomainData)initWithCoder:(id)coder

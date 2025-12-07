@@ -40,7 +40,7 @@
   minorVersion = [(PFStoryConcreteRecipe *)self minorVersion];
   libraries = [(PFStoryConcreteRecipe *)self libraries];
   assets = [(PFStoryConcreteRecipe *)self assets];
-  [(PFStoryConcreteRecipe *)self overallDurationInfo];
+  objc_msgSend_overallDurationInfo(self);
   currentStyle = [(PFStoryConcreteRecipe *)self currentStyle];
   seedSongIdentifiersByCatalog = [(PFStoryConcreteRecipe *)self seedSongIdentifiersByCatalog];
   autoEditDecisionLists = [(PFStoryConcreteRecipe *)self autoEditDecisionLists];
@@ -145,7 +145,7 @@ void __67__PFStoryConcreteRecipe__isArray_equalToArray_usingObjectEquality___blo
     contentIdentifier2 = [(PFStoryConcreteRecipe *)recipeCopy contentIdentifier];
     v7 = [contentIdentifier isEqualToString:contentIdentifier2];
 
-    if (!v7 || (v8 = [(PFStoryConcreteRecipe *)self majorVersion], v8 != [(PFStoryConcreteRecipe *)recipeCopy majorVersion]) || (v9 = [(PFStoryConcreteRecipe *)self minorVersion], v9 != [(PFStoryConcreteRecipe *)recipeCopy minorVersion]) || (v10 = [(PFStoryConcreteRecipe *)self numberOfAssets], v10 != [(PFStoryConcreteRecipe *)recipeCopy numberOfAssets]) || (v11 = [(PFStoryConcreteRecipe *)self numberOfPresentations], v11 != [(PFStoryConcreteRecipe *)recipeCopy numberOfPresentations]) || (([(PFStoryConcreteRecipe *)self overallDurationInfo], !recipeCopy) ? (v12 = 0, memset(v43, 0, sizeof(v43))) : ([(PFStoryConcreteRecipe *)recipeCopy overallDurationInfo], v12 = *&v43[0]), v44 != v12 || (v54 = v48, v51 = *(&v43[3] + 8), *&v53[16] = v47, v52 = v45, *v53 = v46, *&v50[16] = *(&v43[2] + 8), v49 = *(v43 + 8), *v50 = *(&v43[1] + 8), *&time1.value = v45, time1.epoch = v46, time2 = *(v43 + 8), CMTimeCompare(&time1, &time2)) || (time1 = *&v53[8], time2 = *&v50[8], CMTimeCompare(&time1, &time2)) || (time1 = v54, time2 = v51, CMTimeCompare(&time1, &time2))))
+    if (!v7 || (v8 = [(PFStoryConcreteRecipe *)self majorVersion], v8 != [(PFStoryConcreteRecipe *)recipeCopy majorVersion]) || (v9 = [(PFStoryConcreteRecipe *)self minorVersion], v9 != [(PFStoryConcreteRecipe *)recipeCopy minorVersion]) || (v10 = [(PFStoryConcreteRecipe *)self numberOfAssets], v10 != [(PFStoryConcreteRecipe *)recipeCopy numberOfAssets]) || (v11 = [(PFStoryConcreteRecipe *)self numberOfPresentations], v11 != [(PFStoryConcreteRecipe *)recipeCopy numberOfPresentations]) || ((objc_msgSend_overallDurationInfo(self), !recipeCopy) ? (v12 = 0, memset(v43, 0, sizeof(v43))) : (objc_msgSend_overallDurationInfo(recipeCopy), v12 = *&v43[0]), v44 != v12 || (v54 = v48, v51 = *(&v43[3] + 8), *&v53[16] = v47, v52 = v45, *v53 = v46, *&v50[16] = *(&v43[2] + 8), v49 = *(v43 + 8), *v50 = *(&v43[1] + 8), *&time1.value = v45, time1.epoch = v46, time2 = *(v43 + 8), CMTimeCompare(&time1, &time2)) || (time1 = *&v53[8], time2 = *&v50[8], CMTimeCompare(&time1, &time2)) || (time1 = v54, time2 = v51, CMTimeCompare(&time1, &time2))))
     {
       v13 = 0;
       goto LABEL_16;

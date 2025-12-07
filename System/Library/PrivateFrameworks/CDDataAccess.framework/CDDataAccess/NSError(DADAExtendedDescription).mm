@@ -6,7 +6,7 @@
 
 - (id)DAExtendedDescription
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [self description];
   userInfo = [self userInfo];
   objc_opt_class();
@@ -17,26 +17,26 @@
     {
       v5 = [v2 stringByAppendingString:@"NSDetailedErrors: "];
 
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v6 = v4;
-      v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v22;
+        v9 = *v21;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v22 != v9)
+            if (*v21 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            dAExtendedDescription = [*(*(&v21 + 1) + 8 * i) DAExtendedDescription];
+            dAExtendedDescription = [*(*(&v20 + 1) + 8 * i) DAExtendedDescription];
             if (dAExtendedDescription)
             {
               v12 = [v5 stringByAppendingString:dAExtendedDescription];
@@ -45,7 +45,7 @@
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v8);
@@ -82,8 +82,6 @@
 
     v5 = v2;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

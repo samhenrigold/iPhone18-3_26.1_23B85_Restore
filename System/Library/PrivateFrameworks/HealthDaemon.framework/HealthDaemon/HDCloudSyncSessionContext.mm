@@ -97,35 +97,35 @@
 
 - (BOOL)addChangeData:(id)data changes:(id)changes sessionIdentifier:(id)identifier outError:(id *)error
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   changesCopy = changes;
   if ([(HDCloudSyncSessionContext *)self resetInvalidArchiveCreatorWithSessionUUID:identifier error:error])
   {
     errorCopy = error;
-    v68 = changesCopy;
-    v69 = dataCopy;
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v67 = changesCopy;
+    v68 = dataCopy;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     v12 = changesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v71 objects:v77 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v70 objects:v76 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v72;
-      v70 = v12;
+      v15 = *v71;
+      v69 = v12;
 LABEL_4:
       v16 = 0;
       while (1)
       {
-        if (*v72 != v15)
+        if (*v71 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v71 + 1) + 8 * v16);
+        v17 = *(*(&v70 + 1) + 8 * v16);
         syncEntityClassesWithProcessedChanges = self->_syncEntityClassesWithProcessedChanges;
         WeakRetained = objc_loadWeakRetained(&self->_profile);
         LOBYTE(syncEntityClassesWithProcessedChanges) = -[NSMutableSet containsObject:](syncEntityClassesWithProcessedChanges, "containsObject:", [v17 syncEntityClassForProfile:WeakRetained]);
@@ -154,10 +154,10 @@ LABEL_4:
         v25 = self->_pendingAnchorRangeMap;
         v26 = v17;
         objc_opt_self();
+        v74 = 0;
         v75 = 0;
-        v76 = 0;
         syncEntityIdentifier = [v26 syncEntityIdentifier];
-        v28 = [(HDSyncAnchorRangeMap *)v25 getAnchorRange:&v75 forSyncEntityIdentifier:syncEntityIdentifier];
+        v28 = [(HDSyncAnchorRangeMap *)v25 getAnchorRange:&v74 forSyncEntityIdentifier:syncEntityIdentifier];
 
         if (v28)
         {
@@ -169,23 +169,23 @@ LABEL_4:
           else
           {
             syncAnchorRange = [v26 syncAnchorRange];
-            v38 = v76;
+            v38 = v75;
 
             v39 = syncAnchorRange == v38;
-            v12 = v70;
+            v12 = v69;
             if (!v39)
             {
               v57 = MEMORY[0x277CCA9B8];
               v58 = objc_opt_class();
               syncAnchorRange2 = [v26 syncAnchorRange];
-              v60 = v76;
+              v60 = v75;
               sequenceNumber2 = [v26 sequenceNumber];
               [v57 hk_errorForInvalidArgument:@"@" class:v58 selector:sel__updateAnchorRangeMap_withChange_outError_ format:{@"startAnchor (%lld) != previous endAnchor (%lld), sequence (%@)", syncAnchorRange2, v60, sequenceNumber2}];
               v62 = LABEL_30:;
               v63 = v62;
               if (v62)
               {
-                changesCopy = v68;
+                changesCopy = v67;
                 if (errorCopy)
                 {
                   v64 = v62;
@@ -200,12 +200,12 @@ LABEL_4:
 
               else
               {
-                changesCopy = v68;
+                changesCopy = v67;
               }
 
               v51 = 0;
-              dataCopy = v69;
-              v47 = v70;
+              dataCopy = v68;
+              v47 = v69;
               goto LABEL_36;
             }
           }
@@ -219,17 +219,17 @@ LABEL_4:
           {
             [v26 syncAnchorRange];
             v42 = v41;
-            v43 = v76;
+            v43 = v75;
 
             v39 = v42 == v43;
-            v12 = v70;
+            v12 = v69;
             if (!v39)
             {
               v52 = MEMORY[0x277CCA9B8];
               v53 = objc_opt_class();
               [v26 syncAnchorRange];
               v55 = v54;
-              v56 = v76;
+              v56 = v75;
               sequenceNumber2 = [v26 sequenceNumber];
               [v52 hk_errorForInvalidArgument:@"@" class:v53 selector:sel__updateAnchorRangeMap_withChange_outError_ format:{@"endAnchor (%lld) != previous endAnchor (%lld), sequence (%@)", v55, v56, sequenceNumber2}];
               goto LABEL_30;
@@ -237,10 +237,10 @@ LABEL_4:
           }
 
           [v26 syncAnchorRange];
-          v76 = v44;
+          v75 = v44;
           syncEntityIdentifier2 = [v26 syncEntityIdentifier];
-          v35 = v75;
-          v36 = v76;
+          v35 = v74;
+          v36 = v75;
           v34 = v25;
         }
 
@@ -271,7 +271,7 @@ LABEL_4:
 
         if (v14 == ++v16)
         {
-          v14 = [v12 countByEnumeratingWithState:&v71 objects:v77 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v70 objects:v76 count:16];
           if (v14)
           {
             goto LABEL_4;
@@ -286,12 +286,12 @@ LABEL_4:
     archiveCreator = self->_archiveCreator;
     v49 = [MEMORY[0x277CBEBC0] fileURLWithPath:v47 isDirectory:0];
     v50 = archiveCreator;
-    dataCopy = v69;
-    [(_HKArchiveCreator *)v50 addDataToArchive:v69 pathInArchive:v49];
+    dataCopy = v68;
+    [(_HKArchiveCreator *)v50 addDataToArchive:v68 pathInArchive:v49];
 
     ++self->_changesetCount;
     v51 = 1;
-    changesCopy = v68;
+    changesCopy = v67;
 LABEL_36:
   }
 
@@ -300,7 +300,6 @@ LABEL_36:
     v51 = 0;
   }
 
-  v65 = *MEMORY[0x277D85DE8];
   return v51;
 }
 
@@ -308,7 +307,7 @@ LABEL_36:
 {
   progress = self->_progress;
   self->_progress = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, progress);
 }
 
 - (HDProfile)profile

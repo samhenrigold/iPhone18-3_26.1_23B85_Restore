@@ -13,11 +13,10 @@
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"query_identifier";
-  v5[1] = @"source_id";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"query_identifier";
+  v4[1] = @"source_id";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -113,7 +112,7 @@ void __71__HDCachedQueryMetadataEntity_insertCachedQueryMetadata_profile_error__
 
 + (BOOL)updateCachedQueryMetadata:(id)metadata profile:(id)profile error:(id *)error
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   profileCopy = profile;
   v11 = profileCopy;
@@ -148,28 +147,27 @@ LABEL_3:
   v17 = [v15 predicateWithProperty:@"source_id" equalToValue:v16];
 
   v18 = MEMORY[0x277D10B20];
-  v32[0] = v14;
-  v32[1] = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[0] = v14;
+  v31[1] = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
   v20 = [v18 predicateMatchingAllPredicates:v19];
 
-  v31[0] = @"generation_number";
-  v31[1] = @"max_anchor";
-  v31[2] = @"last_query_start_index";
-  v31[3] = @"last_query_end_index";
-  v31[4] = @"last_updated_date";
-  v31[5] = @"build_version";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:6];
+  v30[0] = @"generation_number";
+  v30[1] = @"max_anchor";
+  v30[2] = @"last_query_start_index";
+  v30[3] = @"last_query_end_index";
+  v30[4] = @"last_updated_date";
+  v30[5] = @"build_version";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:6];
   database = [v11 database];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __71__HDCachedQueryMetadataEntity_updateCachedQueryMetadata_profile_error___block_invoke;
-  v29[3] = &unk_278614508;
-  v30 = metadataCopy;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __71__HDCachedQueryMetadataEntity_updateCachedQueryMetadata_profile_error___block_invoke;
+  v28[3] = &unk_278614508;
+  v29 = metadataCopy;
   v23 = metadataCopy;
-  v24 = [self updateProperties:v21 predicate:v20 healthDatabase:database error:error bindingHandler:v29];
+  v24 = [self updateProperties:v21 predicate:v20 healthDatabase:database error:error bindingHandler:v28];
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -228,44 +226,42 @@ void __71__HDCachedQueryMetadataEntity_updateCachedQueryMetadata_profile_error__
   return v17;
 }
 
-uint64_t __96__HDCachedQueryMetadataEntity_cachedQueryMetadataForQueryIdentifier_sourceEntity_profile_error___block_invoke(uint64_t a1)
+uint64_t __96__HDCachedQueryMetadataEntity_cachedQueryMetadataForQueryIdentifier_sourceEntity_profile_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
+  v26 = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v2 = HDSQLiteColumnWithNameAsString();
-  v19 = HDSQLiteColumnWithNameAsInt64();
-  v3 = HDSQLiteColumnWithNameAsNumber();
-  v4 = HDSQLiteColumnWithNameAsNumber();
-  v17 = HDSQLiteColumnWithNameAsInt64();
-  v5 = HDSQLiteColumnWithNameAsInt64();
-  v6 = HDSQLiteColumnWithNameAsString();
-  v7 = HDSQLiteColumnWithNameAsDate();
-  v8 = HDSQLiteColumnWithNameAsData();
-  v20 = 0;
-  v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v20];
-  v10 = v20;
-  if (v10)
+  v4 = HDSQLiteColumnWithNameAsString();
+  v20 = HDSQLiteColumnWithNameAsInt64();
+  v5 = HDSQLiteColumnWithNameAsNumber();
+  v6 = HDSQLiteColumnWithNameAsNumber();
+  v18 = HDSQLiteColumnWithNameAsInt64();
+  v7 = HDSQLiteColumnWithNameAsInt64();
+  v8 = HDSQLiteColumnWithNameAsString();
+  v9 = HDSQLiteColumnWithNameAsDate();
+  v10 = HDSQLiteColumnWithNameAsData();
+  v21 = 0;
+  v11 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v10 error:&v21];
+  v12 = v21;
+  if (v12)
   {
     _HKInitializeLogging();
-    v11 = *MEMORY[0x277CCC2B0];
+    v13 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v22 = v2;
-      v23 = 2048;
-      v24 = v19;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "Failed to unarchive intervalComponents for cached query entry: <%@, %lld>", buf, 0x16u);
+      v23 = v4;
+      v24 = 2048;
+      v25 = v20;
+      _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Failed to unarchive intervalComponents for cached query entry: <%@, %lld>", buf, 0x16u);
     }
   }
 
-  v12 = [[HDCachedQueryMetadata alloc] initWithCachingIdentifier:v2 sourceEntityPersistentID:v19 maxAnchor:v17 queryStartIndex:v3 queryEndIndex:v4 generationNumber:v5 buildVersion:v6 anchorDate:v7 intervalComponents:v9];
+  v14 = [[HDCachedQueryMetadata alloc] initWithCachingIdentifier:v4 sourceEntityPersistentID:v20 maxAnchor:v18 queryStartIndex:v5 queryEndIndex:v6 generationNumber:v7 buildVersion:v8 anchorDate:v9 intervalComponents:v11];
 
-  v13 = *(*(a1 + 32) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  v15 = *(*(a1 + 32) + 8);
+  v16 = *(v15 + 40);
+  *(v15 + 40) = v14;
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -376,7 +372,7 @@ uint64_t __92__HDCachedQueryMetadataEntity_lastUpdatedDateForQueryIdentifier_sou
 
 + (id)pruneWithProfile:(id)profile nowDate:(id)date limit:(unint64_t)limit error:(id *)error
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   dateCopy = date;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
@@ -393,30 +389,30 @@ uint64_t __92__HDCachedQueryMetadataEntity_lastUpdatedDateForQueryIdentifier_sou
   v20 = [v16 predicateWithProperty:@"build_version" notEqualToValue:currentOSBuild];
 
   v21 = MEMORY[0x277D10B20];
-  v39[0] = v15;
-  v39[1] = v20;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v38[0] = v15;
+  v38[1] = v20;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
   v23 = [v21 predicateMatchingAnyPredicates:v22];
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
   database = [profileCopy database];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __68__HDCachedQueryMetadataEntity_pruneWithProfile_nowDate_limit_error___block_invoke;
-  v30[3] = &unk_27861F0A0;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __68__HDCachedQueryMetadataEntity_pruneWithProfile_nowDate_limit_error___block_invoke;
+  v29[3] = &unk_27861F0A0;
   selfCopy = self;
   v25 = v23;
   limitCopy = limit;
-  v31 = v25;
-  v32 = &v35;
-  LODWORD(v22) = [self performWriteTransactionWithHealthDatabase:database error:error block:v30];
+  v30 = v25;
+  v31 = &v34;
+  LODWORD(v22) = [self performWriteTransactionWithHealthDatabase:database error:error block:v29];
 
   if (v22)
   {
-    v26 = [MEMORY[0x277CCABB0] numberWithInt:*(v36 + 6)];
+    v26 = [MEMORY[0x277CCABB0] numberWithInt:*(v35 + 6)];
   }
 
   else
@@ -424,8 +420,7 @@ uint64_t __92__HDCachedQueryMetadataEntity_lastUpdatedDateForQueryIdentifier_sou
     v26 = 0;
   }
 
-  _Block_object_dispose(&v35, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v34, 8);
 
   return v26;
 }

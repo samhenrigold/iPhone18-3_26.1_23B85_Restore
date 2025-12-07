@@ -36,7 +36,7 @@
 
 - (NTTagSectionFetchDescriptor)initWithTagConfiguration:(id)configuration appConfiguration:(id)appConfiguration purchasedTagIDs:(id)ds bundleSubscriptionProvider:(id)provider
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   appConfigurationCopy = appConfiguration;
   dsCopy = ds;
@@ -61,9 +61,9 @@
   }
 
 LABEL_6:
-  v31.receiver = self;
-  v31.super_class = NTTagSectionFetchDescriptor;
-  v14 = [(NTTagSectionFetchDescriptor *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = NTTagSectionFetchDescriptor;
+  v14 = [(NTTagSectionFetchDescriptor *)&v30 init];
   if (v14)
   {
     tagID = [configurationCopy tagID];
@@ -78,17 +78,17 @@ LABEL_6:
     [v18 setFeedItemMaxCount:0];
     [v18 setSubscriptionsFetchCount:1];
     [v18 setFetchingBin:{objc_msgSend(configurationCopy, "fetchingBin")}];
-    v30 = appConfigurationCopy;
+    v29 = appConfigurationCopy;
     v19 = [NTForYouRequest alloc];
     v20 = providerCopy;
     v21 = dsCopy;
     v22 = objc_opt_new();
     v23 = objc_opt_new();
-    v32[0] = tagID;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31[0] = tagID;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     v25 = v19;
-    appConfigurationCopy = v30;
-    v26 = [(NTForYouRequest *)v25 initWithForYouTodaySectionSpecificConfig:v18 appConfiguration:v30 topStoriesChannelID:0 localNewsTagID:0 hiddenFeedIDs:v22 allowPaidBundleFeed:0 mutedTagIDs:v23 purchasedTagIDs:v21 rankedAllSubscribedTagIDs:v24 bundleSubscriptionProvider:v20 throttlingIdentifier:tagID];
+    appConfigurationCopy = v29;
+    v26 = [(NTForYouRequest *)v25 initWithForYouTodaySectionSpecificConfig:v18 appConfiguration:v29 topStoriesChannelID:0 localNewsTagID:0 hiddenFeedIDs:v22 allowPaidBundleFeed:0 mutedTagIDs:v23 purchasedTagIDs:v21 rankedAllSubscribedTagIDs:v24 bundleSubscriptionProvider:v20 throttlingIdentifier:tagID];
     forYouRequest = v14->_forYouRequest;
     v14->_forYouRequest = v26;
 
@@ -96,7 +96,6 @@ LABEL_6:
     providerCopy = v20;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -131,32 +130,28 @@ LABEL_6:
 
 - (void)initWithTagConfiguration:appConfiguration:purchasedTagIDs:bundleSubscriptionProvider:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "tagConfiguration"];
   *buf = 136315906;
-  v3 = "[NTTagSectionFetchDescriptor initWithTagConfiguration:appConfiguration:purchasedTagIDs:bundleSubscriptionProvider:]";
-  v4 = 2080;
-  v5 = "NTTagSectionFetchDescriptor.m";
-  v6 = 1024;
+  v2 = "[NTTagSectionFetchDescriptor initWithTagConfiguration:appConfiguration:purchasedTagIDs:bundleSubscriptionProvider:]";
+  v3 = 2080;
+  v4 = "NTTagSectionFetchDescriptor.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithTagConfiguration:appConfiguration:purchasedTagIDs:bundleSubscriptionProvider:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfiguration"];
   *buf = 136315906;
-  v3 = "[NTTagSectionFetchDescriptor initWithTagConfiguration:appConfiguration:purchasedTagIDs:bundleSubscriptionProvider:]";
-  v4 = 2080;
-  v5 = "NTTagSectionFetchDescriptor.m";
-  v6 = 1024;
+  v2 = "[NTTagSectionFetchDescriptor initWithTagConfiguration:appConfiguration:purchasedTagIDs:bundleSubscriptionProvider:]";
+  v3 = 2080;
+  v4 = "NTTagSectionFetchDescriptor.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

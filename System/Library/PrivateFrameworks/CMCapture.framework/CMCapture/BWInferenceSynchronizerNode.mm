@@ -4,9 +4,9 @@
 - (BWNodeInput)inputProvidingOnlyInferences;
 - (BWNodeInput)inputProvidingOutputSampleBuffer;
 - (BWNodeInput)inputProvidingPreferredInferences;
-- (uint64_t)_synchronizedBufferFromQueue:(int)queue withIdentifier:(uint64_t)identifier andPortType:;
 - (void)_attemptBufferOrErrorEmission;
 - (void)_mergeInferencesForPreferredInferencesSampleBuffer:(CMAttachmentBearerRef)buffer otherSampleBuffer:(CMAttachmentBearerRef)sampleBuffer attachingSampleBuffer:(int)attachingSampleBuffer synchronizesTopLevelAttachments:(void *)attachments attachedMediaKeysToSkip:;
+- (void)_synchronizedBufferFromQueue:(int)queue withIdentifier:(uint64_t)identifier andPortType:;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
 - (void)didReachEndOfDataForConfigurationID:(id)d input:(id)input;
@@ -205,7 +205,7 @@
   {
     if (dword_1EB58E3A0)
     {
-      v21 = 0;
+      v21[0] = 0;
       v20 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -290,9 +290,9 @@ uint64_t __87__BWInferenceSynchronizerNode__synchronizedBufferFromQueue_withIden
 
   v4 = CMGetAttachment(target, *off_1E798A3C8, 0);
   v5 = *(a1 + 32);
-  v6 = [v4 objectForKeyedSubscript:*off_1E798B540];
+  [v4 objectForKeyedSubscript:*off_1E798B540];
 
-  return [v5 isEqualToString:v6];
+  return objc_msgSend_isEqualToString_(v5);
 }
 
 BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invoke(uint64_t a1, CMAttachmentBearerRef target)
@@ -384,10 +384,10 @@ BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invo
 
         if (!*(self + 238) && dword_1EB58E3A0)
         {
-          v69 = 0;
+          v69[0] = 0;
           v68 = OS_LOG_TYPE_DEFAULT;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v22 = v69;
+          v22 = v69[0];
           if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v68))
           {
             v23 = v22;
@@ -506,7 +506,7 @@ BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invo
   }
 }
 
-- (uint64_t)_synchronizedBufferFromQueue:(int)queue withIdentifier:(uint64_t)identifier andPortType:
+- (void)_synchronizedBufferFromQueue:(int)queue withIdentifier:(uint64_t)identifier andPortType:
 {
   if (result)
   {
@@ -585,7 +585,7 @@ BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invo
 
     v21 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v20];
     v22 = [v21 addEntriesFromDictionary:v18];
-    v30 = OUTLINED_FUNCTION_1_1(v22, v23, v24, v25, v26, v27, v28, v29, v74, v77, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v134, v136, v138, v140, v142, v144, v146);
+    v30 = OUTLINED_FUNCTION_1_1(v22, v23, v24, v25, v26, v27, v28, v29, v74, v77, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v129, v131, v133, v135, v137, v139, v141, v143);
     if (v30)
     {
       v31 = v30;
@@ -607,7 +607,7 @@ BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invo
           }
         }
 
-        v31 = OUTLINED_FUNCTION_1_1(v35, v36, v37, v38, v39, v40, v41, v42, v75, v78, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v130, v133, v135, v137, v139, v141, v143, v145, v147);
+        v31 = OUTLINED_FUNCTION_1_1(v35, v36, v37, v38, v39, v40, v41, v42, v75, v78, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v130, v132, v134, v136, v138, v140, v142, v144);
       }
 
       while (v31);
@@ -646,7 +646,7 @@ BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invo
       v51 = [MEMORY[0x1E695DFA8] setWithSet:v48];
       [v51 unionSet:v49];
       v52 = [v51 minusSet:v50];
-      v60 = OUTLINED_FUNCTION_14_8(v52, v53, v54, v55, v56, v57, v58, v59, v75, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, 0);
+      v60 = OUTLINED_FUNCTION_14_8(v52, v53, v54, v55, v56, v57, v58, v59, v75, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127);
       if (v60)
       {
         v61 = v60;
@@ -661,8 +661,8 @@ BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invo
             }
 
             v64 = *(8 * j);
-            v65 = [(__CFString *)v64 isEqualToString:@"NonProcessedReferenceFrame"];
-            if ((v65 & 1) == 0)
+            isEqualToString = objc_msgSend_isEqualToString_(v64);
+            if ((isEqualToString & 1) == 0)
             {
               v73 = CMGetAttachment(target, v64, 0);
               if (!v73)
@@ -674,7 +674,7 @@ BOOL __60__BWInferenceSynchronizerNode__attemptBufferOrErrorEmission__block_invo
             }
           }
 
-          v61 = OUTLINED_FUNCTION_14_8(v65, v66, v67, v68, v69, v70, v71, v72, v76, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v131);
+          v61 = OUTLINED_FUNCTION_14_8(isEqualToString, v66, v67, v68, v69, v70, v71, v72, v76, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128);
         }
 
         while (v61);

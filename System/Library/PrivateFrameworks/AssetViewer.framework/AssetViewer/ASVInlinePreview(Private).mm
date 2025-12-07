@@ -40,40 +40,41 @@
 
 - (void)setAnimationObserverBlock:()Private
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = _asvLogHandle;
+  v6 = v4;
+  v7 = _asvLogHandle;
   if (!_asvLogHandle)
   {
-    ASVInitLogging();
-    v5 = _asvLogHandle;
+    ASVInitLogging(v4, v5);
+    v7 = _asvLogHandle;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 67109120;
-    HIDWORD(buf) = v4 == 0;
-    _os_log_impl(&dword_241215000, v5, OS_LOG_TYPE_INFO, "#Inline: setAnimationObserverBlock: isnil? %d", &buf, 8u);
+    HIDWORD(buf) = v6 == 0;
+    _os_log_impl(&dword_241215000, v7, OS_LOG_TYPE_INFO, "#Inline: setAnimationObserverBlock: isnil? %d", &buf, 8u);
   }
 
-  v6 = _Block_copy(v4);
+  v8 = _Block_copy(v6);
   animationObserverBlock = self->_animationObserverBlock;
-  self->_animationObserverBlock = v6;
+  self->_animationObserverBlock = v8;
 
-  if (v4)
+  if (v6)
   {
     objc_initWeak(&buf, self);
-    v8 = MEMORY[0x277CBEBB8];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __55__ASVInlinePreview_Private__setAnimationObserverBlock___block_invoke;
-    v11[3] = &unk_278CCAED0;
-    objc_copyWeak(&v12, &buf);
-    v9 = [v8 scheduledTimerWithTimeInterval:1 repeats:v11 block:0.5];
+    v10 = MEMORY[0x277CBEBB8];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __55__ASVInlinePreview_Private__setAnimationObserverBlock___block_invoke;
+    v13[3] = &unk_278CCAED0;
+    objc_copyWeak(&v14, &buf);
+    v11 = [v10 scheduledTimerWithTimeInterval:1 repeats:v13 block:0.5];
     animationUpdateTimer = self->_animationUpdateTimer;
-    self->_animationUpdateTimer = v9;
+    self->_animationUpdateTimer = v11;
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&buf);
   }
 

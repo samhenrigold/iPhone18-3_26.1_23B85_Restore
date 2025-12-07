@@ -79,7 +79,6 @@
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __74__AKAutoBugCapture_triggerAutoBugCaptureWithSubType_andBundleID_userInfo___block_invoke()
@@ -106,7 +105,6 @@ void __74__AKAutoBugCapture_triggerAutoBugCaptureWithSubType_andBundleID_userInf
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)shouldCapturePromptBugForContext:(id)context
@@ -290,7 +288,6 @@ void __74__AKAutoBugCapture_triggerAutoBugCaptureWithSubType_andBundleID_userInf
   MEMORY[0x1E69E5920](v19);
   MEMORY[0x1E69E5920](v18);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v9 = v33;
 
   return v9;

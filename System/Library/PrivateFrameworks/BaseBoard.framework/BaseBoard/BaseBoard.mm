@@ -448,7 +448,7 @@ LABEL_8:
       v28 = v27;
       if (v27)
       {
-        *(v27 + 1) = v14;
+        v27[1] = v14;
       }
     }
 
@@ -610,7 +610,7 @@ dispatch_queue_t BSDispatchQueueCreate(void *a1, void *a2)
 LABEL_6:
     v11 = [v3 UTF8String];
     v8 = [(dispatch_queue_t *)v4 attributes];
-    v9 = BSDispatchQueueCreateWithQualityOfService(v11, v8, QOS_CLASS_UNSPECIFIED, 0);
+    v9 = BSDispatchQueueCreateWithQualityOfService(v11, v8, 0, 0);
     goto LABEL_7;
   }
 
@@ -623,7 +623,7 @@ LABEL_7:
   return v12;
 }
 
-dispatch_queue_t BSDispatchQueueCreateWithQualityOfService(const char *a1, void *a2, dispatch_qos_class_t a3, int a4)
+dispatch_queue_t BSDispatchQueueCreateWithQualityOfService(const char *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v5 = _BSDispatchQueueAttributesForAttributes(a2, a3, a4);
   v6 = dispatch_queue_create(a1, v5);
@@ -910,7 +910,7 @@ double BSDeserializeCGSizeFromXPCObject(void *a1)
   return v3;
 }
 
-uint64_t BSIntegerMapCount(void *a1)
+char *BSIntegerMapCount(void *a1)
 {
   v1 = a1;
   v2 = v1;
@@ -996,9 +996,9 @@ void sub_18FEFB494(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-double BSRectRoundForScale(double a1, double a2, double a3, double a4, double a5)
+double BSRectRoundForScale(__n128 a1, double a2, double a3, double a4, double a5)
 {
-  v9 = BSFloatRoundForScale(a1, a5);
+  v9 = BSFloatRoundForScale(a1.n128_f64[0], a5);
   BSFloatRoundForScale(a2, a5);
   BSFloatRoundForScale(a3, a5);
   BSFloatRoundForScale(a4, a5);
@@ -1055,35 +1055,35 @@ uint64_t BSEqualSets(CFSetRef theSet, const __CFSet *a2)
   return result;
 }
 
-uint64_t BSDescribeTruncationCommit(uint64_t result)
+char *BSDescribeTruncationCommit(char *result)
 {
-  if (*(result + 1096) >= 2)
+  if (*(result + 137) >= 2)
   {
     v12 = v2;
     v13 = v1;
     v7 = result;
-    v8 = *(result + 1040);
+    v8 = *(result + 130);
     if (v8 >= 1)
     {
-      *(result + 16 + v8) = 0;
-      CFStringAppendCString(*(result + 1064), (result + 16), 0x8000100u);
-      *(v7 + 1040) = 0;
+      result[v8 + 16] = 0;
+      CFStringAppendCString(*(result + 133), result + 16, 0x8000100u);
+      *(v7 + 130) = 0;
     }
 
-    v9 = *(v7 + 1080);
-    result = [*(v7 + 1064) length];
-    v10 = result - v9 - *(v7 + 1088);
+    v9 = *(v7 + 135);
+    result = [*(v7 + 133) length];
+    v10 = &result[-v9 - *(v7 + 136)];
     if (v10 < 1)
     {
       goto LABEL_12;
     }
 
-    v11 = *(v7 + 1096);
+    v11 = *(v7 + 137);
     if (v11 != 2)
     {
       if (v11 == 3)
       {
-        v9 = v9 + (result - v9) / 2 - (v10 >> 1);
+        v9 = v9 + &result[-v9] / 2 - (v10 >> 1);
       }
 
       else
@@ -1091,23 +1091,23 @@ uint64_t BSDescribeTruncationCommit(uint64_t result)
         if (v11 != 4)
         {
 LABEL_12:
-          *(v7 + 1088) = 0;
-          *(v7 + 1096) = 0;
+          *(v7 + 136) = 0;
+          *(v7 + 137) = 0;
           return result;
         }
 
-        v9 += *(v7 + 1088);
+        v9 += *(v7 + 136);
       }
     }
 
-    result = [*(v7 + 1064) replaceCharactersInRange:v9 withString:?];
+    result = [*(v7 + 133) replaceCharactersInRange:v9 withString:?];
     goto LABEL_12;
   }
 
   return result;
 }
 
-uint64_t BSRectEqualToRect(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
+BOOL BSRectEqualToRect(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
 {
   if (CGRectEqualToRect(*&a1, *&a5))
   {
@@ -1275,9 +1275,9 @@ LABEL_3:
 LABEL_6:
 }
 
-double BSSizeRoundForScale(double a1, double a2, double a3)
+double BSSizeRoundForScale(__n128 a1, double a2, double a3)
 {
-  v5 = BSFloatRoundForScale(a1, a3);
+  v5 = BSFloatRoundForScale(a1.n128_f64[0], a3);
   BSFloatRoundForScale(a2, a3);
   return v5;
 }
@@ -1508,7 +1508,7 @@ LABEL_41:
   *(a1 + 1104) = 4;
 }
 
-uint64_t __BSDescribeAppendObjectDescription_block_invoke_3(uint64_t a1, __CFString *a2)
+char *__BSDescribeAppendObjectDescription_block_invoke_3(uint64_t a1, __CFString *a2)
 {
   v4 = *(a1 + 32);
   v5 = *(v4 + 8);
@@ -3008,7 +3008,7 @@ LABEL_230:
   return 1;
 }
 
-uint64_t _BSProtobufDecodeObjectWithClassOverride(void *a1, void *a2, void **a3, void *a4)
+uint64_t _BSProtobufDecodeObjectWithClassOverride(void *a1, void *a2, void *a3, void *a4)
 {
   v12[1] = 0;
   v12[2] = 0;
@@ -3521,24 +3521,24 @@ LABEL_18:
   return 1;
 }
 
-uint64_t _BSProtobufEncodePOD(uint64_t a1, uint64_t a2)
+uint64_t _BSProtobufEncodePOD(uint64_t a1, unsigned int *a2, double *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 8);
-  v3 = *v2;
-  if (v3 > 0x63)
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = *(a2 + 1);
+  v4 = *v3;
+  if (v4 > 0x63)
   {
-    if (*v2 <= 0x6Bu)
+    if (*v3 <= 0x6Bu)
     {
-      if (v3 != 100)
+      if (v4 != 100)
       {
-        if (v3 == 102)
+        if (v4 == 102)
         {
           PBDataWriterWriteFloatField();
           return 1;
         }
 
-        if (v3 != 105)
+        if (v4 != 105)
         {
           goto LABEL_40;
         }
@@ -3549,9 +3549,9 @@ uint64_t _BSProtobufEncodePOD(uint64_t a1, uint64_t a2)
 
     else
     {
-      if (*v2 <= 0x72u)
+      if (*v3 <= 0x72u)
       {
-        if (v3 == 108 || v3 == 113)
+        if (v4 == 108 || v4 == 113)
         {
           goto LABEL_31;
         }
@@ -3559,29 +3559,29 @@ uint64_t _BSProtobufEncodePOD(uint64_t a1, uint64_t a2)
         goto LABEL_40;
       }
 
-      if (v3 == 115)
+      if (v4 == 115)
       {
         goto LABEL_31;
       }
 
-      if (v3 != 123)
+      if (v4 != 123)
       {
         goto LABEL_40;
       }
 
-      if (!strncmp("{CGPoint=", *(a2 + 8), 9uLL) || !strncmp("{CGSize=", v2, 8uLL))
+      if (!strncmp("{CGPoint=", *(a2 + 1), 9uLL) || !strncmp("{CGSize=", v3, 8uLL))
       {
         PBDataWriterWriteDoubleField();
       }
 
-      else if (!strncmp("{CGRect=", v2, 8uLL))
+      else if (!strncmp("{CGRect=", v3, 8uLL))
       {
         PBDataWriterWriteDoubleField();
         PBDataWriterWriteDoubleField();
         PBDataWriterWriteDoubleField();
       }
 
-      else if (!strncmp("{CGAffineTransform=", v2, 0x13uLL))
+      else if (!strncmp("{CGAffineTransform=", v3, 0x13uLL))
       {
         PBDataWriterWriteDoubleField();
         PBDataWriterWriteDoubleField();
@@ -3592,24 +3592,24 @@ uint64_t _BSProtobufEncodePOD(uint64_t a1, uint64_t a2)
 
       else
       {
-        if (strncmp("{CATransform3D=", v2, 0xFuLL))
+        if (strncmp("{CATransform3D=", v3, 0xFuLL))
         {
-          v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unsupported encoding:%s", v2];
+          v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unsupported encoding:%s", v3];
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 138544130;
-            v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _BSProtobufEncodePOD(PBDataWriter *, _BSProtobufFieldEntry *, void *, NSError **)"}];
-            v8 = 2114;
-            v9 = @"BSProtobufSerialization.m";
-            v10 = 1024;
-            v11 = 893;
-            v12 = 2114;
-            v13 = v5;
+            v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _BSProtobufEncodePOD(PBDataWriter *, _BSProtobufFieldEntry *, void *, NSError **)"}];
+            v9 = 2114;
+            v10 = @"BSProtobufSerialization.m";
+            v11 = 1024;
+            v12 = 893;
+            v13 = 2114;
+            v14 = v6;
             _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
           }
 
 LABEL_45:
-          qword_1EAD33B00 = [v5 UTF8String];
+          qword_1EAD33B00 = [v6 UTF8String];
           __break(0);
           JUMPOUT(0x18FEFFE74);
         }
@@ -3636,40 +3636,40 @@ LABEL_45:
     return 1;
   }
 
-  if (*v2 <= 0x4Bu)
+  if (*v3 <= 0x4Bu)
   {
-    if (v3 == 66)
+    if (v4 == 66)
     {
       PBDataWriterWriteBOOLField();
       return 1;
     }
 
-    if (v3 == 67 || v3 == 73)
+    if (v4 == 67 || v4 == 73)
     {
       goto LABEL_31;
     }
 
 LABEL_40:
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unsupported encoding:%s", *(a2 + 8)];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unsupported encoding:%s", *(a2 + 1)];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138544130;
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _BSProtobufEncodePOD(PBDataWriter *, _BSProtobufFieldEntry *, void *, NSError **)"}];
-      v8 = 2114;
-      v9 = @"BSProtobufSerialization.m";
-      v10 = 1024;
-      v11 = 899;
-      v12 = 2114;
-      v13 = v5;
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _BSProtobufEncodePOD(PBDataWriter *, _BSProtobufFieldEntry *, void *, NSError **)"}];
+      v9 = 2114;
+      v10 = @"BSProtobufSerialization.m";
+      v11 = 1024;
+      v12 = 899;
+      v13 = 2114;
+      v14 = v6;
       _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
     goto LABEL_45;
   }
 
-  if (*v2 <= 0x52u)
+  if (*v3 <= 0x52u)
   {
-    if (v3 != 76 && v3 != 81)
+    if (v4 != 76 && v4 != 81)
     {
       goto LABEL_40;
     }
@@ -3677,7 +3677,7 @@ LABEL_40:
     goto LABEL_31;
   }
 
-  if (v3 != 83 && v3 != 99)
+  if (v4 != 83 && v4 != 99)
   {
     goto LABEL_40;
   }
@@ -3827,7 +3827,7 @@ BOOL BSProtobufClassImplmementsProtobufSchema(void *a1)
   return v6;
 }
 
-uint64_t _BSProtobufEncodeRepeatFieldObject(uint64_t a1, uint64_t a2, void **a3, uint64_t a4)
+uint64_t _BSProtobufEncodeRepeatFieldObject(uint64_t a1, id *a2, void **a3, uint64_t a4)
 {
   v23 = *MEMORY[0x1E69E9840];
   v7 = *a3;
@@ -3854,19 +3854,19 @@ LABEL_3:
     }
 
     v12 = *(*(&v18 + 1) + 8 * v11);
-    v13 = [*(a2 + 32) protobufSchema];
-    if (*(a2 + 64) >= 1)
+    v13 = [a2[4] protobufSchema];
+    if (a2[8] >= 1)
     {
       v14 = 0;
       while (1)
       {
-        v15 = *(*(a2 + 72) + 8 * v14);
+        v15 = *(a2[9] + v14);
         if ([objc_opt_class() isEqual:*(v15 + 32)])
         {
           break;
         }
 
-        if (++v14 >= *(a2 + 64))
+        if (++v14 >= a2[8])
         {
           goto LABEL_12;
         }
@@ -3897,13 +3897,13 @@ LABEL_12:
   }
 }
 
-uint64_t _BSProtobufEncodeObject(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+uint64_t _BSProtobufEncodeObject(uint64_t a1, id *a2, uint64_t *a3, uint64_t a4)
 {
   v4 = *a3;
   if (*a3)
   {
     PBDataWriterPlaceMark();
-    result = _BSProtobufSchemaEncodeMessage([*(a2 + 32) protobufSchema], v4, a1, a4);
+    result = _BSProtobufSchemaEncodeMessage([a2[4] protobufSchema], v4, a1, a4);
     if (!result)
     {
       return result;
@@ -4950,18 +4950,19 @@ LABEL_72:
 LABEL_77:
 }
 
-uint64_t _BSShortBSDProcessInfoForPID(int a1, void *a2)
+uint64_t _BSShortBSDProcessInfoForPID(uint64_t a1, void *a2)
 {
+  v2 = a1;
   result = 0;
   v11 = *MEMORY[0x1E69E9840];
-  if (a1 >= 1)
+  if (v2 >= 1)
   {
     if (a2)
     {
-      result = BSSandboxCanGetProcessInfo(a1);
+      result = BSSandboxCanGetProcessInfo(v2);
       if (result)
       {
-        if (proc_pidinfo(a1, 13, 0, a2, 64) == 64)
+        if (proc_pidinfo(v2, 13, 0, a2, 64) == 64)
         {
           return 1;
         }
@@ -4974,7 +4975,7 @@ uint64_t _BSShortBSDProcessInfoForPID(int a1, void *a2)
             v6 = __error();
             v7 = strerror(*v6);
             v8[0] = 67109378;
-            v8[1] = a1;
+            v8[1] = v2;
             v9 = 2082;
             v10 = v7;
             _os_log_error_impl(&dword_18FEF6000, v5, OS_LOG_TYPE_ERROR, "Unable to get short BSD proc info for %d: %{public}s", v8, 0x12u);
@@ -4989,7 +4990,7 @@ uint64_t _BSShortBSDProcessInfoForPID(int a1, void *a2)
   return result;
 }
 
-id _BSMachPortRightDescription(unsigned int a1, int a2, uint64_t a3, uint64_t a4, void *a5)
+id _BSMachPortRightDescription(int a1, int a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v10 = MEMORY[0x1E696AEC0];
   v11 = getpid();
@@ -5061,7 +5062,7 @@ uint64_t BSSandboxCanGetMachTaskName(int a1)
   return v1 & 1;
 }
 
-id BSProcessNameForPID(int a1)
+id BSProcessNameForPID(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (getpid() == a1)
@@ -5102,7 +5103,7 @@ id BSProcessNameForPID(int a1)
 
     if (![v3 length])
     {
-      v5 = BSExecutablePathForPID();
+      v5 = BSExecutablePathForPID(a1);
       v6 = [v5 lastPathComponent];
 
       v3 = v6;
@@ -5145,7 +5146,7 @@ id BSBundleIDForAuditToken(__int128 *a1)
     v5 = a1[1];
     v8 = *a1;
     v9 = v5;
-    v4 = BSExecutablePathForAuditToken();
+    v4 = BSExecutablePathForAuditToken(&v8);
     BSBundleIDForExecutablePath(v4);
   }
   v6 = ;
@@ -5173,34 +5174,34 @@ uint64_t BSSandboxCanGetProcessInfo(int a1)
   return v1 & 1;
 }
 
-id BSExecutablePathForAuditToken()
+id BSExecutablePathForAuditToken(uint64_t a1)
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = BSPIDForAuditToken(v0);
-  if (v1 < 1)
+  v1 = MEMORY[0x1EEE9AC00](a1);
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = BSPIDForAuditToken(v1);
+  if (v2 < 1)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v2 = objc_autoreleasePoolPush();
-    if (BSSandboxCanGetProcessInfo(v1) && (v3 = proc_pidpath_audittoken(v0, buffer, 0x1000u), v3 >= 1))
+    v3 = objc_autoreleasePoolPush();
+    if (BSSandboxCanGetProcessInfo(v2) && (v4 = proc_pidpath_audittoken(v1, buffer, 0x1000u), v4 >= 1))
     {
-      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:v3 encoding:4];
-      v5 = [v4 stringByStandardizingPath];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:v4 encoding:4];
+      v6 = [v5 stringByStandardizingPath];
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
-    objc_autoreleasePoolPop(v2);
+    objc_autoreleasePoolPop(v3);
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t BSGetVersionedPID()
@@ -5323,7 +5324,7 @@ BOOL BSSandboxCanAccessPath(void *a1)
   return v2;
 }
 
-uint64_t BSVersionedPIDForAuditToken(uint64_t a1)
+unint64_t BSVersionedPIDForAuditToken(uint64_t a1)
 {
   if (!BSAuditTokenIsValid(a1))
   {
@@ -5353,9 +5354,9 @@ uint64_t BSPIDForAuditToken(uint64_t a1)
   return audit_token_to_pid(&v4);
 }
 
-void sub_18FF0461C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18FF0461C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5886,7 +5887,7 @@ void BSStoreRealTokenToVar(uint64_t a1, void **a2)
     memset(buf, 0, 32);
     if (v4)
     {
-      [v4 realToken];
+      objc_msgSend_realToken(v4);
     }
 
     else
@@ -5939,9 +5940,9 @@ id getCAMediaTimingFunctionClass()
   return v1;
 }
 
-void sub_18FF05DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18FF05DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6168,57 +6169,57 @@ void sub_18FF0681C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void BSStoreTokenFromMessageToVar(uint64_t a1, void **a2)
+void BSStoreTokenFromMessageToVar(uint64_t a1, void **a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"message must not be nil"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"message must not be nil", a4];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v6 = 138544130;
-      *&v6[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromMessageToVar(xpc_object_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
-      *&v6[12] = 2114;
-      *&v6[14] = @"BSAuditTokenCaching.m";
-      *&v6[22] = 1024;
-      *&v6[24] = 170;
-      *&v6[28] = 2114;
-      *&v6[30] = v4;
-      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v6, 0x26u);
+      *v8 = 138544130;
+      *&v8[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromMessageToVar(xpc_object_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
+      *&v8[12] = 2114;
+      *&v8[14] = @"BSAuditTokenCaching.m";
+      *&v8[22] = 1024;
+      *&v8[24] = 170;
+      *&v8[28] = 2114;
+      *&v8[30] = v6;
+      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v8, 0x26u);
     }
 
-    qword_1EAD33B00 = [v4 UTF8String];
+    qword_1EAD33B00 = [v6 UTF8String];
     __break(0);
     JUMPOUT(0x18FF06968);
   }
 
   if (!a2)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"var must not be nil"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"var must not be nil", a4];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v6 = 138544130;
-      *&v6[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromMessageToVar(xpc_object_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
-      *&v6[12] = 2114;
-      *&v6[14] = @"BSAuditTokenCaching.m";
-      *&v6[22] = 1024;
-      *&v6[24] = 171;
-      *&v6[28] = 2114;
-      *&v6[30] = v5;
-      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v6, 0x26u);
+      *v8 = 138544130;
+      *&v8[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromMessageToVar(xpc_object_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
+      *&v8[12] = 2114;
+      *&v8[14] = @"BSAuditTokenCaching.m";
+      *&v8[22] = 1024;
+      *&v8[24] = 171;
+      *&v8[28] = 2114;
+      *&v8[30] = v7;
+      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v8, 0x26u);
     }
 
-    qword_1EAD33B00 = [v5 UTF8String];
+    qword_1EAD33B00 = [v7 UTF8String];
     __break(0);
     JUMPOUT(0x18FF06A20);
   }
 
-  *&v3 = -1;
-  *(&v3 + 1) = -1;
-  *v6 = v3;
-  *&v6[16] = v3;
+  *&v5 = -1;
+  *(&v5 + 1) = -1;
+  *v8 = v5;
+  *&v8[16] = v5;
   xpc_dictionary_get_audit_token();
-  BSStoreRealTokenToVar(v6, a2);
+  BSStoreRealTokenToVar(v8, a2);
 }
 
 id BSCollectionMap(objc_class *a1, void *a2, void *a3)
@@ -6289,10 +6290,10 @@ void BSDispatchQueueAssertNot(void *a1)
   }
 }
 
-void sub_18FF06DCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_18FF06DCC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = BSCFBundle;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6967,9 +6968,9 @@ id getCATransactionClass()
   return v1;
 }
 
-void sub_18FF08D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18FF08D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6998,9 +6999,9 @@ id getCASpringAnimationClass()
   return v1;
 }
 
-void sub_18FF08E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18FF08E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7073,20 +7074,21 @@ id _BSXPCDecodeObjectForKey(uint64_t a1, void *a2, objc_class *a3, _BYTE *a4)
   return v17;
 }
 
-BOOL BSMachPortIsType(mach_port_name_t name, int a2)
+BOOL BSMachPortIsType(uint64_t name, int a2)
 {
-  if (name - 1 > 0xFFFFFFFD)
+  if ((name - 1) > 0xFFFFFFFD)
   {
     return 0;
   }
 
   v9 = v2;
   v10 = v3;
+  v5 = name;
   ptype = 0;
   v6 = mach_port_type(*MEMORY[0x1E69E9A60], name, &ptype);
   if (v6)
   {
-    _BSMachError(name, v6, @"Port has no valid type");
+    _BSMachError(v5, v6, @"Port has no valid type");
   }
 
   return (ptype & a2) != 0;
@@ -7270,7 +7272,7 @@ uint64_t _BSMachPortTypeDecode(int a1, id a2)
   }
 }
 
-uint64_t BSPIDExists(int a1)
+uint64_t BSPIDExists(uint64_t a1)
 {
   v4 = *MEMORY[0x1E69E9840];
   if (getpid() == a1)
@@ -7328,12 +7330,12 @@ LABEL_12:
   return v9;
 }
 
-void sub_18FF09C30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_18FF09C30(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = BSProcessHandle;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7352,10 +7354,10 @@ id BSIntegerMapAllValues(void *a1)
   return v2;
 }
 
-BOOL BSMachSendRightRelease(mach_port_name_t name)
+BOOL BSMachSendRightRelease(uint64_t name)
 {
   v1 = name;
-  if (name - 1 <= 0xFFFFFFFD)
+  if ((name - 1) <= 0xFFFFFFFD)
   {
     v2 = mach_port_deallocate(*MEMORY[0x1E69E9A60], name);
     if (v2)
@@ -7368,12 +7370,12 @@ BOOL BSMachSendRightRelease(mach_port_name_t name)
   return (v1 - 1) < 0xFFFFFFFE;
 }
 
-void sub_18FF09EB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_18FF09EB8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = BSMachPortRight;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7498,7 +7500,7 @@ void BSXPCAutoCodingInitialize(uint64_t a1, uint64_t a2)
   _BSXPCAutoCodingInitialize(a1, v4);
 }
 
-uint64_t __BSXPCAutoCodingsDefault_block_invoke()
+void *__BSXPCAutoCodingsDefault_block_invoke()
 {
   v2[2] = *MEMORY[0x1E69E9840];
   v0 = objc_alloc(MEMORY[0x1E695DEC8]);
@@ -7561,7 +7563,7 @@ void BSClearTokenVar(void **a1)
   }
 }
 
-BOOL _BSXPCAutoCodingInitialize(uint64_t a1, void *a2)
+uint64_t _BSXPCAutoCodingInitialize(uint64_t a1, void *a2)
 {
   v2 = a1;
   v69 = *MEMORY[0x1E69E9840];
@@ -7948,7 +7950,7 @@ LABEL_72:
   return v2;
 }
 
-uint64_t BSObjCClassImplementsSelector(objc_class *a1, const char *a2, IMP *a3)
+BOOL BSObjCClassImplementsSelector(objc_class *a1, const char *a2, IMP *a3)
 {
   MethodImplementation = class_getMethodImplementation(a1, a2);
   Superclass = class_getSuperclass(a1);
@@ -8023,12 +8025,12 @@ BOOL BSAuditTokenForCurrentProcess@<W0>(_OWORD *a1@<X8>)
   return result;
 }
 
-void sub_18FF0B930(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_18FF0B930(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = BSEventQueueLock;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8176,19 +8178,19 @@ id BSStackFrameInfoForAddresss(const void *a1)
       {
         v10 = objc_alloc(MEMORY[0x1E696AEC0]);
         v11 = [v10 initWithUTF8String:v26.dli_fname];
-        v12 = *(v9 + 4);
-        *(v9 + 4) = v11;
+        v12 = v9[4];
+        v9[4] = v11;
       }
 
       if (v26.dli_sname)
       {
         v13 = objc_alloc(MEMORY[0x1E696AEC0]);
         v14 = [v13 initWithUTF8String:v26.dli_sname];
-        v15 = *(v9 + 1);
-        *(v9 + 1) = v14;
+        v15 = v9[1];
+        v9[1] = v14;
       }
 
-      v16 = *(v9 + 1);
+      v16 = v9[1];
       if (!v16)
       {
         goto LABEL_20;
@@ -8196,20 +8198,20 @@ id BSStackFrameInfoForAddresss(const void *a1)
 
       v17 = BSPrettyFunctionName([v16 UTF8String]);
       v18 = [v17 copy];
-      v19 = *(v9 + 3);
-      *(v9 + 3) = v18;
+      v19 = v9[3];
+      v9[3] = v18;
 
-      v20 = [*(v9 + 3) rangeOfString:@"["];
-      v21 = [*(v9 + 3) rangeOfString:@" "];
+      v20 = [v9[3] rangeOfString:@"["];
+      v21 = [v9[3] rangeOfString:@" "];
       v22 = 0;
       if (v20 != 0x7FFFFFFFFFFFFFFFLL && v21 != 0x7FFFFFFFFFFFFFFFLL && v20 < v21)
       {
-        v22 = [*(v9 + 3) substringWithRange:{v20 + 1, v21 + ~v20}];
+        v22 = [v9[3] substringWithRange:{v20 + 1, v21 + ~v20}];
       }
 
       v23 = [v22 copy];
-      v24 = *(v9 + 5);
-      *(v9 + 5) = v23;
+      v24 = v9[5];
+      v9[5] = v23;
     }
 
     else
@@ -8267,103 +8269,104 @@ id _BSBundleIDForXPCConnectionAndIKnowWhatImDoingISwear(void *a1)
   return v3;
 }
 
-void BSStoreTokenFromXPCConnectionToVar(uint64_t a1, void **a2)
+void BSStoreTokenFromXPCConnectionToVar(uint64_t a1, void **a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"connection must not be nil"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"connection must not be nil", a4];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v6 = 138544130;
-      *&v6[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromXPCConnectionToVar(xpc_connection_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
-      *&v6[12] = 2114;
-      *&v6[14] = @"BSAuditTokenCaching.m";
-      *&v6[22] = 1024;
-      *&v6[24] = 161;
-      *&v6[28] = 2114;
-      *&v6[30] = v4;
-      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v6, 0x26u);
+      *v8 = 138544130;
+      *&v8[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromXPCConnectionToVar(xpc_connection_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
+      *&v8[12] = 2114;
+      *&v8[14] = @"BSAuditTokenCaching.m";
+      *&v8[22] = 1024;
+      *&v8[24] = 161;
+      *&v8[28] = 2114;
+      *&v8[30] = v6;
+      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v8, 0x26u);
     }
 
-    qword_1EAD33B00 = [v4 UTF8String];
+    qword_1EAD33B00 = [v6 UTF8String];
     __break(0);
     JUMPOUT(0x18FF0C760);
   }
 
   if (!a2)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"var must not be nil"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"var must not be nil", a4];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v6 = 138544130;
-      *&v6[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromXPCConnectionToVar(xpc_connection_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
-      *&v6[12] = 2114;
-      *&v6[14] = @"BSAuditTokenCaching.m";
-      *&v6[22] = 1024;
-      *&v6[24] = 162;
-      *&v6[28] = 2114;
-      *&v6[30] = v5;
-      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v6, 0x26u);
+      *v8 = 138544130;
+      *&v8[4] = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BSStoreTokenFromXPCConnectionToVar(xpc_connection_t _Nonnull, BSAuditToken * _Nullable * _Nonnull)"}];
+      *&v8[12] = 2114;
+      *&v8[14] = @"BSAuditTokenCaching.m";
+      *&v8[22] = 1024;
+      *&v8[24] = 162;
+      *&v8[28] = 2114;
+      *&v8[30] = v7;
+      _os_log_error_impl(&dword_18FEF6000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", v8, 0x26u);
     }
 
-    qword_1EAD33B00 = [v5 UTF8String];
+    qword_1EAD33B00 = [v7 UTF8String];
     __break(0);
     JUMPOUT(0x18FF0C818);
   }
 
-  *&v3 = -1;
-  *(&v3 + 1) = -1;
-  *v6 = v3;
-  *&v6[16] = v3;
+  *&v5 = -1;
+  *(&v5 + 1) = -1;
+  *v8 = v5;
+  *&v8[16] = v5;
   xpc_connection_get_audit_token();
-  BSStoreRealTokenToVar(v6, a2);
+  BSStoreRealTokenToVar(v8, a2);
 }
 
-id BSDescribeAppendFieldFormat(uint64_t a1, __CFString *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+id BSDescribeAppendFieldFormat(uint64_t a1, __CFString *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v12 = *(a1 + 8);
-  v13 = *(a1 + 1104);
-  if (v13 > 2)
+  va_start(va, a8);
+  v11 = *(a1 + 8);
+  v12 = *(a1 + 1104);
+  if (v12 > 2)
   {
-    if (v13 != 3)
+    if (v12 != 3)
     {
-      if (v13 != 4)
+      if (v12 != 4)
       {
         goto LABEL_8;
       }
 
 LABEL_20:
-      v24 = *(a1 + 1072);
-      if (v24 < 1)
+      v23 = *(a1 + 1072);
+      if (v23 < 1)
       {
         goto LABEL_31;
       }
 
-      if (v24 >= 8)
+      if (v23 >= 8)
       {
-        v24 = 8;
+        v23 = 8;
       }
 
-      v25 = *(&sIndentSpaceStrings + v24);
-      v26 = strlen(v25);
-      v14 = (a1 + 1040);
-      v27 = *(a1 + 1040);
-      if ((v27 + v26) <= 1023)
+      v24 = *(&sIndentSpaceStrings + v23);
+      v25 = strlen(v24);
+      v13 = (a1 + 1040);
+      v26 = *(a1 + 1040);
+      if ((v26 + v25) <= 1023)
       {
-        v17 = v26;
-        memcpy((a1 + v27 + 16), v25, v26);
+        v16 = v25;
+        memcpy((a1 + v26 + 16), v24, v25);
         goto LABEL_25;
       }
 
-      if (v27 >= 1)
+      if (v26 >= 1)
       {
-        *(a1 + 16 + v27) = 0;
+        *(a1 + 16 + v26) = 0;
         CFStringAppendCString(*(a1 + 1064), (a1 + 16), 0x8000100u);
-        *v14 = 0;
+        *v13 = 0;
       }
 
-      CFStringAppendCString(*(a1 + 1064), v25, 0x8000100u);
+      CFStringAppendCString(*(a1 + 1064), v24, 0x8000100u);
 LABEL_31:
       *(a1 + 1104) = 0;
       if (!a2)
@@ -8375,84 +8378,84 @@ LABEL_31:
     }
 
 LABEL_17:
-    v22 = *(a1 + 1040);
-    v23 = (a1 + 16);
-    if (v22 > 1022)
+    v21 = *(a1 + 1040);
+    v22 = (a1 + 16);
+    if (v21 > 1022)
     {
-      v23[v22] = 0;
-      CFStringAppendCString(*(a1 + 1064), v23, 0x8000100u);
+      v22[v21] = 0;
+      CFStringAppendCString(*(a1 + 1064), v22, 0x8000100u);
       *(a1 + 1040) = 0;
       CFStringAppendCString(*(a1 + 1064), "\n", 0x8000100u);
     }
 
     else
     {
-      v23[v22] = 10;
+      v22[v21] = 10;
       ++*(a1 + 1040);
     }
 
     goto LABEL_20;
   }
 
-  if (v13 == 1)
+  if (v12 == 1)
   {
-    v14 = (a1 + 1040);
-    v18 = *(a1 + 1040);
-    v19 = (a1 + 16);
+    v13 = (a1 + 1040);
+    v17 = *(a1 + 1040);
+    v18 = (a1 + 16);
     if (*(*(a1 + 8) + 24) != 3)
     {
-      if (v18 <= 1021)
+      if (v17 <= 1021)
       {
-        *&v19[v18] = 8251;
-        v17 = 2;
+        *&v18[v17] = 8251;
+        v16 = 2;
         goto LABEL_25;
       }
 
-      v19[v18] = 0;
-      CFStringAppendCString(*(a1 + 1064), v19, 0x8000100u);
-      v20 = (a1 + 1064);
-      v21 = "; ";
+      v18[v17] = 0;
+      CFStringAppendCString(*(a1 + 1064), v18, 0x8000100u);
+      v19 = (a1 + 1064);
+      v20 = "; ";
       goto LABEL_30;
     }
 
-    if (v18 > 1022)
+    if (v17 > 1022)
     {
-      v19[v18] = 0;
-      CFStringAppendCString(*(a1 + 1064), v19, 0x8000100u);
+      v18[v17] = 0;
+      CFStringAppendCString(*(a1 + 1064), v18, 0x8000100u);
       *(a1 + 1040) = 0;
       CFStringAppendCString(*(a1 + 1064), ";", 0x8000100u);
     }
 
     else
     {
-      v19[v18] = 59;
-      ++*v14;
+      v18[v17] = 59;
+      ++*v13;
     }
 
     goto LABEL_17;
   }
 
-  if (v13 == 2)
+  if (v12 == 2)
   {
-    v14 = (a1 + 1040);
-    v15 = *(a1 + 1040);
-    v16 = (a1 + 16);
-    if (v15 <= 1022)
+    v13 = (a1 + 1040);
+    v14 = *(a1 + 1040);
+    v15 = (a1 + 16);
+    if (v14 <= 1022)
     {
-      v16[v15] = 32;
-      v17 = 1;
+      v15[v14] = 32;
+      v16 = 1;
 LABEL_25:
-      *v14 += v17;
+      *v13 += v16;
       goto LABEL_31;
     }
 
-    v16[v15] = 0;
-    CFStringAppendCString(*(a1 + 1064), v16, 0x8000100u);
-    v20 = (a1 + 1064);
-    v21 = " ";
+    v15[v14] = 0;
+    CFStringAppendCString(*(a1 + 1064), v15, 0x8000100u);
+    v19 = (a1 + 1064);
+    v20 = " ";
 LABEL_30:
-    *v14 = 0;
-    CFStringAppendCString(*v20, v21, 0x8000100u);
+    *v13 = 0;
+    CFStringAppendCString(*v19, v20, 0x8000100u);
     goto LABEL_31;
   }
 
@@ -8463,32 +8466,32 @@ LABEL_8:
   }
 
 LABEL_32:
-  v28 = v12[6];
-  v29 = v12[7];
-  if (v28 < 2 || v29 < 1)
+  v27 = v11[6];
+  v28 = v11[7];
+  if (v27 < 2 || v28 < 1)
   {
     *(a1 + 1096) = 0;
   }
 
   else
   {
-    *(a1 + 1096) = v28;
+    *(a1 + 1096) = v27;
     *(a1 + 1080) = *(a1 + 1040) + [*(a1 + 1064) length];
-    *(a1 + 1088) = v29;
+    *(a1 + 1088) = v28;
   }
 
-  v31 = [(__CFString *)a2 length];
-  v32 = *(a1 + 1040);
-  if (v32 + 3 * v31 > 1023)
+  v30 = [(__CFString *)a2 length];
+  v31 = *(a1 + 1040);
+  if (v31 + 3 * v30 > 1023)
   {
-    if (v32 >= 1)
+    if (v31 >= 1)
     {
-      *(a1 + 16 + v32) = 0;
+      *(a1 + 16 + v31) = 0;
       CFStringAppendCString(*(a1 + 1064), (a1 + 16), 0x8000100u);
       *(a1 + 1040) = 0;
     }
 
-    if (v31 > 341)
+    if (v30 > 341)
     {
       [*(a1 + 1064) appendString:a2];
       goto LABEL_46;
@@ -8496,125 +8499,125 @@ LABEL_32:
 
     usedBufLen = 0;
     v54.location = 0;
-    v54.length = v31;
+    v54.length = v30;
     CFStringGetBytes(a2, v54, 0x8000100u, 0, 0, (a1 + 16), 1024, &usedBufLen);
-    v33 = usedBufLen;
+    v32 = usedBufLen;
   }
 
   else
   {
     usedBufLen = 0;
     v53.location = 0;
-    v53.length = v31;
-    CFStringGetBytes(a2, v53, 0x8000100u, 0, 0, (a1 + v32 + 16), 1024 - v32, &usedBufLen);
-    v33 = *(a1 + 1040) + usedBufLen;
+    v53.length = v30;
+    CFStringGetBytes(a2, v53, 0x8000100u, 0, 0, (a1 + v31 + 16), 1024 - v31, &usedBufLen);
+    v32 = *(a1 + 1040) + usedBufLen;
   }
 
-  *(a1 + 1040) = v33;
+  *(a1 + 1040) = v32;
 LABEL_46:
   BSDescribeTruncationCommit(a1);
   if (*(a1 + 1048) <= 0)
   {
-    v34 = &OBJC_IVAR___BSDescriptionStyle__bodyItemSeparator;
+    v33 = &OBJC_IVAR___BSDescriptionStyle__bodyItemSeparator;
   }
 
   else
   {
-    v34 = &OBJC_IVAR___BSDescriptionStyle__proemItemSeparator;
+    v33 = &OBJC_IVAR___BSDescriptionStyle__proemItemSeparator;
   }
 
-  v35 = *(*(a1 + 8) + *v34);
-  if (v35 < 2)
+  v34 = *(*(a1 + 8) + *v33);
+  if (v34 < 2)
   {
-    v39 = *(a1 + 1040);
-    v40 = (a1 + 16);
-    if (v39 <= 1021)
+    v38 = *(a1 + 1040);
+    v39 = (a1 + 16);
+    if (v38 <= 1021)
     {
-      *&v40[v39] = 8250;
-      v38 = 2;
+      *&v39[v38] = 8250;
+      v37 = 2;
       goto LABEL_58;
     }
 
-    v40[v39] = 0;
-    CFStringAppendCString(*(a1 + 1064), v40, 0x8000100u);
-    v43 = ": ";
+    v39[v38] = 0;
+    CFStringAppendCString(*(a1 + 1064), v39, 0x8000100u);
+    v42 = ": ";
   }
 
-  else if (v35 == 2)
+  else if (v34 == 2)
   {
-    v41 = *(a1 + 1040);
-    v42 = a1 + 16 + v41;
-    if (v41 <= 1020)
+    v40 = *(a1 + 1040);
+    v41 = a1 + 16 + v40;
+    if (v40 <= 1020)
     {
-      *(v42 + 2) = 32;
-      *v42 = 15648;
-      v38 = 3;
+      *(v41 + 2) = 32;
+      *v41 = 15648;
+      v37 = 3;
       goto LABEL_58;
     }
 
-    *v42 = 0;
+    *v41 = 0;
     CFStringAppendCString(*(a1 + 1064), (a1 + 16), 0x8000100u);
-    v43 = " = ";
+    v42 = " = ";
   }
 
   else
   {
-    if (v35 != 3)
+    if (v34 != 3)
     {
       goto LABEL_63;
     }
 
-    v36 = *(a1 + 1040);
-    v37 = (a1 + 16);
-    if (v36 <= 1019)
+    v35 = *(a1 + 1040);
+    v36 = (a1 + 16);
+    if (v35 <= 1019)
     {
-      *&v37[v36] = 540945696;
-      v38 = 4;
+      *&v36[v35] = 540945696;
+      v37 = 4;
 LABEL_58:
-      *(a1 + 1040) += v38;
+      *(a1 + 1040) += v37;
       goto LABEL_63;
     }
 
-    v37[v36] = 0;
-    CFStringAppendCString(*(a1 + 1064), v37, 0x8000100u);
-    v43 = " -> ";
+    v36[v35] = 0;
+    CFStringAppendCString(*(a1 + 1064), v36, 0x8000100u);
+    v42 = " -> ";
   }
 
   *(a1 + 1040) = 0;
-  CFStringAppendCString(*(a1 + 1064), v43, 0x8000100u);
+  CFStringAppendCString(*(a1 + 1064), v42, 0x8000100u);
 LABEL_63:
-  v44 = v12[8];
-  v45 = v12[9];
-  if (v44 <= 1 || v45 < 1)
+  v43 = v11[8];
+  v44 = v11[9];
+  if (v43 <= 1 || v44 < 1)
   {
-    v45 = 0;
-    v47 = 1096;
+    v44 = 0;
+    v46 = 1096;
   }
 
   else
   {
-    *(a1 + 1096) = v44;
+    *(a1 + 1096) = v43;
     *(a1 + 1080) = *(a1 + 1040) + [*(a1 + 1064) length];
-    v47 = 1088;
+    v46 = 1088;
   }
 
-  *(a1 + v47) = v45;
+  *(a1 + v46) = v44;
 
-  v48 = *(a1 + 1040);
-  if (v48 >= 1)
+  v47 = *(a1 + 1040);
+  if (v47 >= 1)
   {
-    *(a1 + 16 + v48) = 0;
+    *(a1 + 16 + v47) = 0;
     CFStringAppendCString(*(a1 + 1064), (a1 + 16), 0x8000100u);
     *(a1 + 1040) = 0;
   }
 
-  usedBufLen = &a9;
-  CFStringAppendFormatAndArguments(*(a1 + 1064), 0, a3, &a9);
+  va_copy(usedBufLen, va);
+  CFStringAppendFormatAndArguments(*(a1 + 1064), 0, a3, va);
   *(a1 + 1104) = 1;
   BSDescribeTruncationCommit(a1);
-  v49 = a1;
+  v48 = a1;
 
-  return v49;
+  return v48;
 }
 
 id BSCollectionPartition(objc_class *a1, void *a2, void *a3)
@@ -8845,7 +8848,7 @@ uint64_t __BSSandboxCanGetMachTaskName_block_invoke()
   return result;
 }
 
-uint64_t _bsxpc_auditToken_init()
+void *_bsxpc_auditToken_init()
 {
   v0 = [BSAuditToken alloc];
   *&v1 = -1;
@@ -9086,7 +9089,7 @@ LABEL_25:
   return v14;
 }
 
-uint64_t __BSDescribeAppendObjectDescription_block_invoke(uint64_t a1, __CFString *a2, __CFString *a3)
+char *__BSDescribeAppendObjectDescription_block_invoke(uint64_t a1, __CFString *a2, __CFString *a3)
 {
   v6 = *(a1 + 32);
   v7 = *(v6 + 8);

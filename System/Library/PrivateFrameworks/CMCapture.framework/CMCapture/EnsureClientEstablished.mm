@@ -52,20 +52,4 @@ void __remoteExternalStorageDeviceManagerClient_EnsureClientEstablished_block_in
   }
 }
 
-uint64_t __remoteExternalStorageDeviceManagerClient_EnsureClientEstablished_block_invoke_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t __remoteExternalStorageDeviceManagerClient_EnsureClientEstablished_block_invoke_cold_2(uint64_t a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  result = FigDebugAssert3();
-  *(*(*(a1 + 32) + 8) + 24) = -16150;
-  return result;
-}
-
 @end

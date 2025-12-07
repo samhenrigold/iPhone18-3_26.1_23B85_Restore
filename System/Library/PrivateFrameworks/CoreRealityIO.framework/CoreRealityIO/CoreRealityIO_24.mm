@@ -1,4 +1,422 @@
-void sub_2476210A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, void *a23)
+void sub_24761F61C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, realityio::TextureBuilder::TextureDataT *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+{
+  pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&STACK[0x2D0]);
+  if ((a65 & 7) != 0)
+  {
+    atomic_fetch_add_explicit((a65 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+  }
+
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&a55);
+  pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&STACK[0x2C0]);
+  _Unwind_Resume(a1);
+}
+
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::SdfPath>(pxrInternal__aapl__pxrReserved__::VtValue *a1)
+{
+  v1 = *(a1 + 1);
+  if (!v1)
+  {
+    return 0;
+  }
+
+  if (!strcmp((*(*(v1 & 0xFFFFFFFFFFFFFFF8) + 8) & 0x7FFFFFFFFFFFFFFFLL), ("N32pxrInternal__aapl__pxrReserved__7SdfPathE" & 0x7FFFFFFFFFFFFFFFLL)))
+  {
+    return 1;
+  }
+
+  if ((v1 & 4) == 0)
+  {
+    return 0;
+  }
+}
+
+void anonymous namespace::uvNameAndTransformForTextureInput(uint64_t a1, uint64_t *a2, uint64_t a3, _OWORD *a4, void *a5, void *a6, void *a7)
+{
+  v122 = *MEMORY[0x277D85DE8];
+  v13 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(a1, a2);
+  if ((a1 + 8) == v13 || (v14 = v13, !pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>((v13 + 5))))
+  {
+
+    JUMPOUT(0x24C1A8D40);
+  }
+
+  v15 = v14[6];
+  if ((v15 & 4) != 0)
+  {
+    v16 = (*((v15 & 0xFFFFFFFFFFFFFFF8) + 168))(v14 + 5);
+  }
+
+  else
+  {
+    v16 = v14[5];
+  }
+
+  v86 = a4;
+  v87 = a6;
+  std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>::map[abi:ne200100](&v89, v16);
+  v17 = v89;
+  if (v89 != v90)
+  {
+    __asm { FMOV            V8.2S, #1.0 }
+
+    do
+    {
+      v23 = std::pair<pxrInternal__aapl__pxrReserved__::TfToken const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v119, v17 + 4);
+      if ((v119 & 0xFFFFFFFFFFFFFFF8) != 0)
+      {
+        EmptyString = (v119 & 0xFFFFFFFFFFFFFFF8) + 16;
+      }
+
+      else
+      {
+        EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v23);
+      }
+
+      v25 = *(EmptyString + 23);
+      v26 = v25;
+      if ((v25 & 0x80u) != 0)
+      {
+        v25 = *(EmptyString + 8);
+      }
+
+      if (v25 >= 8)
+      {
+        if (v26 < 0)
+        {
+          EmptyString = *EmptyString;
+        }
+
+        if (!strncmp(EmptyString, "outputs:", 8uLL) && pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>(&v120))
+        {
+          if ((v121 & 4) != 0)
+          {
+            v27 = (*((v121 & 0xFFFFFFFFFFFFFFF8) + 168))(&v120);
+          }
+
+          else
+          {
+            v27 = v120;
+          }
+
+          MEMORY[0x24C1A5DE0](&v116, "inputs:wrapS");
+          v28 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v27, &v116);
+          v29 = v28;
+          if ((v116 & 7) != 0)
+          {
+            atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+
+          v30 = (v27 + 8);
+          if ((v27 + 8) != v28)
+          {
+            v31 = v28 + 5;
+            if (pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::TfToken>((v28 + 5)))
+            {
+              v32 = v29[6];
+              if ((v32 & 4) != 0)
+              {
+                v31 = (*((v32 & 0xFFFFFFFFFFFFFFF8) + 168))(v29 + 5);
+              }
+
+              pxrInternal__aapl__pxrReserved__::TfToken::operator=(v87, v31);
+            }
+          }
+
+          MEMORY[0x24C1A5DE0](&v116, "inputs:wrapT");
+          v33 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v27, &v116);
+          v34 = v33;
+          if ((v116 & 7) != 0)
+          {
+            atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+
+          if (v30 != v33)
+          {
+            v35 = v33 + 5;
+            if (pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::TfToken>((v33 + 5)))
+            {
+              v36 = v34[6];
+              if ((v36 & 4) != 0)
+              {
+                v35 = (*((v36 & 0xFFFFFFFFFFFFFFF8) + 168))(v34 + 5);
+              }
+
+              pxrInternal__aapl__pxrReserved__::TfToken::operator=(a7, v35);
+            }
+          }
+
+          MEMORY[0x24C1A5DE0](&v116, "inputs:st");
+          v37 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v27, &v116);
+          v38 = v37;
+          if ((v116 & 7) != 0)
+          {
+            atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          }
+
+          if (v30 != v37 && pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>((v37 + 5)))
+          {
+            v39 = v38[6];
+            if ((v39 & 4) != 0)
+            {
+              v40 = (*((v39 & 0xFFFFFFFFFFFFFFF8) + 168))(v38 + 5);
+            }
+
+            else
+            {
+              v40 = v38[5];
+            }
+
+            MEMORY[0x24C1A5DE0](&v116, "outputs:result");
+            v41 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v40, &v116);
+            v42 = v41;
+            if ((v116 & 7) != 0)
+            {
+              atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            }
+
+            if ((v40 + 8) != v41 && pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>((v41 + 5)))
+            {
+              v43 = v42[6];
+              if ((v43 & 4) != 0)
+              {
+                v44 = (*((v43 & 0xFFFFFFFFFFFFFFF8) + 168))(v42 + 5);
+              }
+
+              else
+              {
+                v44 = v42[5];
+              }
+
+              MEMORY[0x24C1A5DE0](&v116, "inputs:varname");
+              v45 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v44, &v116);
+              v46 = v45;
+              if ((v116 & 7) != 0)
+              {
+                atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+              }
+
+              v47 = (v44 + 8);
+              if ((v44 + 8) != v45)
+              {
+                v48 = v45 + 5;
+                if (pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::TfToken>((v45 + 5)))
+                {
+                  v49 = v46[6];
+                  if ((v49 & 4) != 0)
+                  {
+                    v48 = (*((v49 & 0xFFFFFFFFFFFFFFF8) + 168))(v46 + 5);
+                  }
+
+                  v50 = *v48 & 0xFFFFFFFFFFFFFFF8;
+                  if (v50)
+                  {
+                    v51 = (v50 + 16);
+                    if (*(v50 + 39) < 0)
+                    {
+                      v51 = *v51;
+                    }
+                  }
+
+                  else
+                  {
+                    v51 = "";
+                  }
+
+                  MEMORY[0x24C1A8D40](a3, v51);
+                }
+              }
+
+              MEMORY[0x24C1A5DE0](&v116, "inputs:scale");
+              v52 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v44, &v116);
+              v53 = v52;
+              if ((v116 & 7) != 0)
+              {
+                atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+              }
+
+              v54 = _D8;
+              if (v47 != v52)
+              {
+                v55 = v52 + 5;
+                v54 = _D8;
+                if (pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec2f>((v52 + 5)))
+                {
+                  v56 = v53[6];
+                  if ((v56 & 4) != 0)
+                  {
+                    v55 = (*((v56 & 0xFFFFFFFFFFFFFFF8) + 168))(v53 + 5);
+                  }
+
+                  v54 = *v55;
+                }
+              }
+
+              MEMORY[0x24C1A5DE0](&v116, "inputs:translation");
+              v57 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v44, &v116);
+              v58 = v57;
+              if ((v116 & 7) != 0)
+              {
+                atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+              }
+
+              v59 = 0;
+              if (v47 != v57)
+              {
+                v60 = v57 + 5;
+                if (pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec2f>((v57 + 5)))
+                {
+                  v61 = v58[6];
+                  if ((v61 & 4) != 0)
+                  {
+                    v60 = (*((v61 & 0xFFFFFFFFFFFFFFF8) + 168))(v58 + 5);
+                  }
+
+                  v59 = *v60;
+                }
+              }
+
+              MEMORY[0x24C1A5DE0](&v116, "inputs:rotation");
+              v62 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v44, &v116);
+              v63 = v62;
+              if ((v116 & 7) != 0)
+              {
+                atomic_fetch_add_explicit((v116 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+              }
+
+              v64 = 0.0;
+              if (v47 != v62)
+              {
+                v65 = (v62 + 5);
+                if (pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<float>((v62 + 5)))
+                {
+                  v66 = v63[6];
+                  if ((v66 & 4) != 0)
+                  {
+                    v65 = (*((v66 & 0xFFFFFFFFFFFFFFF8) + 168))(v63 + 5);
+                  }
+
+                  v64 = *v65;
+                }
+              }
+
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::SetDiagonal(v97, 1.0);
+              *&v116 = v54;
+              DWORD2(v116) = 1065353216;
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::SetScale();
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::SetDiagonal(&v94, 1.0);
+              v67 = v64 / 180.0 * 3.14159265;
+              v69 = __sincosf_stret(v67 * 0.5);
+              cosval = v69.__cosval;
+              _Q0 = vmulq_n_f32(xmmword_247753B70, v69.__sinval);
+              _S2 = _Q0.i32[1];
+              _S4 = _Q0.i32[2];
+              __asm { FMLS            S3, S4, V0.S[2] }
+
+              v74 = _S3 + (cosval * cosval);
+              v75 = vmuls_lane_f32(v69.__cosval, _Q0, 2);
+              v76 = vmuls_lane_f32(v69.__cosval, *_Q0.f32, 1);
+              __asm { FMLA            S5, S2, V0.S[1] }
+
+              v78 = (_S5 + (cosval * cosval)) - (_Q0.f32[0] * _Q0.f32[0]);
+              __asm
+              {
+                FMLA            S18, S4, V0.S[1]
+                FMLA            S19, S4, V0.S[1]
+                FMLA            S1, S4, V0.S[2]
+              }
+
+              *&v94 = v74;
+              *(&v94 + 1) = (v75 + (_Q0.f32[0] * _Q0.f32[1])) + (v75 + (_Q0.f32[0] * _Q0.f32[1]));
+              *(&v94 + 2) = -(v76 - (_Q0.f32[0] * _Q0.f32[2])) - (v76 - (_Q0.f32[0] * _Q0.f32[2]));
+              *(&v94 + 3) = -(v75 - (_Q0.f32[0] * _Q0.f32[1])) - (v75 - (_Q0.f32[0] * _Q0.f32[1]));
+              *&v95 = v78;
+              *(&v95 + 1) = _S18 + _S18;
+              __asm { FMLS            S1, S2, V0.S[1] }
+
+              *(&v95 + 2) = (v76 + (_Q0.f32[2] * _Q0.f32[0])) + (v76 + (_Q0.f32[2] * _Q0.f32[0]));
+              *(&v95 + 3) = _S19 + _S19;
+              v96 = _S1;
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::SetDiagonal(&v91, 1.0);
+              *(&v92 + 1) = v59;
+              v116 = v91;
+              v117 = v92;
+              v118 = v93;
+              *(&v117 + 3) = -*(&v59 + 1);
+              v113 = v94;
+              v114 = v95;
+              v115 = v96;
+              *(&v113 + 1) = -*(&v94 + 1);
+              *(&v113 + 3) = -*(&v94 + 3);
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::SetDiagonal(&v110, 1.0);
+              *(&v111 + 1) = 0xBF80000000000000;
+              v112 = 1065353216;
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::SetDiagonal(v107, 1.0);
+              v108 = 0x3F80000000000000;
+              v109 = 1065353216;
+              v98 = v110;
+              v99 = v111;
+              v100 = v112;
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::operator*=();
+              v101 = v98;
+              v102 = v99;
+              v103 = v100;
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::operator*=();
+              v104 = v101;
+              v105 = v102;
+              v106 = v103;
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::operator*=();
+              *v88 = v104;
+              *&v88[16] = v105;
+              pxrInternal__aapl__pxrReserved__::GfMatrix3f::operator*=();
+              *&v83 = *v88;
+              *(&v83 + 1) = *&v88[12];
+              *v86 = v83;
+              *a5 = *&v88[24];
+            }
+          }
+        }
+      }
+
+      pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&v120);
+      if ((v119 & 7) != 0)
+      {
+        atomic_fetch_add_explicit((v119 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      }
+
+      v84 = v17[1];
+      if (v84)
+      {
+        do
+        {
+          v85 = v84;
+          v84 = *v84;
+        }
+
+        while (v84);
+      }
+
+      else
+      {
+        do
+        {
+          v85 = v17[2];
+          _ZF = *v85 == v17;
+          v17 = v85;
+        }
+
+        while (!_ZF);
+      }
+
+      v17 = v85;
+    }
+
+    while (v85 != v90);
+  }
+
+  std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::destroy(&v89, v90[0]);
+}
+
+void sub_2476210A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
 {
   pxrInternal__aapl__pxrReserved__::VtValue::~VtValue((v23 + 8));
   v26 = *(v24 - 192);
@@ -89,16 +507,7 @@ void anonymous namespace::getTextureFromConnection(void *a1, uint64_t a2, uint64
         v18 = v17;
         v19 = v16 + 4;
         v20 = std::less<pxrInternal__aapl__pxrReserved__::TfToken>::operator()[abi:ne200100](&v28, v16 + 4, &v27);
-        if (v20)
-        {
-          v21 = 1;
-        }
-
-        else
-        {
-          v21 = 0;
-        }
-
+        v21 = v20;
         if (!v20)
         {
           v17 = v16;
@@ -176,7 +585,7 @@ LABEL_32:
   *a1 = 0;
 }
 
-void sub_2476214B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11)
+void sub_2476214B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
 {
   if ((a9 & 7) != 0)
   {
@@ -206,7 +615,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<realityio::Wrapped
   }
 }
 
-uint64_t anonymous namespace::getTextureFromTokValMapAtValue(uint64_t result, void *a2, uint64_t a3)
+void *anonymous namespace::getTextureFromTokValMapAtValue(void *result, void *a2, uint64_t a3)
 {
   v3 = result;
   v5 = a2 + 1;
@@ -330,9 +739,9 @@ LABEL_8:
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::pair<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>>>::__emplace_unique_key_args<pxrInternal__aapl__pxrReserved__::TfToken,std::pair<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>>(uint64_t **a1, uint64_t *a2, uint64_t a3)
 {
-  result = *std::__tree<pxrInternal__aapl__pxrReserved__::TfToken>::__find_equal<pxrInternal__aapl__pxrReserved__::TfToken>(a1, &v3, a2);
+  result = *std::__tree<pxrInternal__aapl__pxrReserved__::TfToken>::__find_equal<pxrInternal__aapl__pxrReserved__::TfToken>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>>>::__construct_node<std::pair<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::SdfPath>>();
@@ -386,16 +795,16 @@ uint64_t std::pair<pxrInternal__aapl__pxrReserved__::SdfPath,std::map<std::strin
   return pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(a1);
 }
 
-void anonymous namespace::getTextureInfoFromConnection(uint64_t *a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, int32x4_t *a6, void *a7, void *a8, _BYTE *a9, _BYTE *a10)
+void anonymous namespace::getTextureInfoFromConnection(uint64_t *a1, uint64_t a2, uint64_t *a3, void *a4, int32x4_t *a5, int32x4_t *a6, int32x4_t *a7, void *a8, _BYTE *a9, _BYTE *a10)
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   *a5 = xmmword_247757270;
   __asm { FMOV            V0.4S, #1.0 }
 
-  v74 = _Q0;
+  v73 = _Q0;
   *a6 = _Q0;
-  *a7 = 0;
-  a7[1] = 0;
+  a7->i64[0] = 0;
+  a7->i64[1] = 0;
   if ((*a8 & 7) != 0)
   {
     atomic_fetch_add_explicit((*a8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -426,19 +835,19 @@ void anonymous namespace::getTextureInfoFromConnection(uint64_t *a1, uint64_t a2
 
       std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>::map[abi:ne200100](&__p, v23);
       v24 = __p;
-      if (__p == &v82)
+      if (__p == &v81)
       {
 LABEL_93:
-        std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::destroy(&__p, v82);
-        goto LABEL_148;
+        std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::destroy(&__p, v81);
+        return;
       }
 
       while (1)
       {
-        v25 = std::pair<pxrInternal__aapl__pxrReserved__::TfToken const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v87, v24 + 4);
-        if ((v87 & 0xFFFFFFFFFFFFFFF8) != 0)
+        v25 = std::pair<pxrInternal__aapl__pxrReserved__::TfToken const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v86, v24 + 4);
+        if ((v86 & 0xFFFFFFFFFFFFFFF8) != 0)
         {
-          EmptyString = (v87 & 0xFFFFFFFFFFFFFFF8) + 16;
+          EmptyString = (v86 & 0xFFFFFFFFFFFFFFF8) + 16;
         }
 
         else
@@ -466,33 +875,33 @@ LABEL_93:
         if (strncmp(EmptyString, "outputs:", 8uLL))
         {
 LABEL_17:
-          MEMORY[0x24C1A5DE0](&v84, "__value");
-          if ((v84 ^ v87) > 7)
+          MEMORY[0x24C1A5DE0](&v83, "__value");
+          if ((v83 ^ v86) > 7)
           {
-            if ((v84 & 7) != 0)
+            if ((v83 & 7) != 0)
             {
-              atomic_fetch_add_explicit((v84 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+              atomic_fetch_add_explicit((v83 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
             }
           }
 
           else
           {
-            v29 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<realityio::WrappedRERef<REAsset *>>(&v88);
-            if ((v84 & 7) != 0)
+            v29 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<realityio::WrappedRERef<REAsset *>>(&v87);
+            if ((v83 & 7) != 0)
             {
-              atomic_fetch_add_explicit((v84 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+              atomic_fetch_add_explicit((v83 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
             }
 
             if (v29)
             {
-              if ((v89 & 4) != 0)
+              if ((v88 & 4) != 0)
               {
-                v30 = (*((v89 & 0xFFFFFFFFFFFFFFF8) + 168))(&v88);
+                v30 = (*((v88 & 0xFFFFFFFFFFFFFFF8) + 168))(&v87);
               }
 
               else
               {
-                v30 = v88;
+                v30 = v87;
               }
 
               realityio::WrappedRERef<REAsset *>::operator=(a1, v30);
@@ -503,8 +912,8 @@ LABEL_17:
         }
 
         *a9 = 1;
-        pxrInternal__aapl__pxrReserved__::TfToken::operator=(a4, &v87);
-        v31 = ((v89 & 4) != 0 ? (*((v89 & 0xFFFFFFFFFFFFFFF8) + 168))(&v88) : v88);
+        pxrInternal__aapl__pxrReserved__::TfToken::operator=(a4, &v86);
+        v31 = ((v88 & 4) != 0 ? (*((v88 & 0xFFFFFFFFFFFFFFF8) + 168))(&v87) : v87);
         v34 = *v31;
         v33 = v31 + 1;
         v32 = v34;
@@ -514,10 +923,10 @@ LABEL_17:
         }
 
 LABEL_78:
-        pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&v88);
-        if ((v87 & 7) != 0)
+        pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&v87);
+        if ((v86 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v87 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v86 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         v47 = v24[1];
@@ -545,7 +954,7 @@ LABEL_78:
         }
 
         v24 = v48;
-        if (v48 == &v82)
+        if (v48 == &v81)
         {
           goto LABEL_93;
         }
@@ -553,34 +962,34 @@ LABEL_78:
 
       while (1)
       {
-        std::pair<pxrInternal__aapl__pxrReserved__::TfToken const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v84, v32 + 4);
-        MEMORY[0x24C1A5DE0](&v80, "inputs:scale");
-        if ((v80 ^ v84) > 7)
+        std::pair<pxrInternal__aapl__pxrReserved__::TfToken const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v83, v32 + 4);
+        MEMORY[0x24C1A5DE0](&v79, "inputs:scale");
+        if ((v79 ^ v83) > 7)
         {
-          if ((v80 & 7) != 0)
+          if ((v79 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
         }
 
         else
         {
-          v35 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v85);
-          if ((v80 & 7) != 0)
+          v35 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v84);
+          if ((v79 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
 
           if (v35)
           {
-            if ((v86 & 4) != 0)
+            if ((v85 & 4) != 0)
             {
-              v36 = (*((v86 & 0xFFFFFFFFFFFFFFF8) + 168))(&v85);
+              v36 = (*((v85 & 0xFFFFFFFFFFFFFFF8) + 168))(&v84);
             }
 
             else
             {
-              v36 = v85;
+              v36 = v84;
             }
 
             *a6 = *v36;
@@ -588,16 +997,16 @@ LABEL_78:
           }
         }
 
-        MEMORY[0x24C1A5DE0](&v80, "inputs:fallback");
-        if ((v80 ^ v84) > 7)
+        MEMORY[0x24C1A5DE0](&v79, "inputs:fallback");
+        if ((v79 ^ v83) > 7)
         {
           break;
         }
 
-        v37 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v85);
-        if ((v80 & 7) != 0)
+        v37 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v84);
+        if ((v79 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         if (!v37)
@@ -605,14 +1014,14 @@ LABEL_78:
           goto LABEL_47;
         }
 
-        if ((v86 & 4) != 0)
+        if ((v85 & 4) != 0)
         {
-          v38 = (*((v86 & 0xFFFFFFFFFFFFFFF8) + 168))(&v85);
+          v38 = (*((v85 & 0xFFFFFFFFFFFFFFF8) + 168))(&v84);
         }
 
         else
         {
-          v38 = v85;
+          v38 = v84;
         }
 
         v39 = *v38;
@@ -620,10 +1029,10 @@ LABEL_78:
 LABEL_54:
         *v40 = v39;
 LABEL_66:
-        pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&v85);
-        if ((v84 & 7) != 0)
+        pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&v84);
+        if ((v83 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v84 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v83 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         v45 = v32[1];
@@ -657,44 +1066,44 @@ LABEL_66:
         }
       }
 
-      if ((v80 & 7) != 0)
+      if ((v79 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
 LABEL_47:
-      MEMORY[0x24C1A5DE0](&v80, "inputs:bias");
-      if ((v80 ^ v84) > 7)
+      MEMORY[0x24C1A5DE0](&v79, "inputs:bias");
+      if ((v79 ^ v83) > 7)
       {
-        if ((v80 & 7) != 0)
+        if ((v79 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
 LABEL_57:
-        MEMORY[0x24C1A5DE0](&v80, "inputs:sourceColorSpace");
-        if ((v80 ^ v84) > 7)
+        MEMORY[0x24C1A5DE0](&v79, "inputs:sourceColorSpace");
+        if ((v79 ^ v83) > 7)
         {
-          if ((v80 & 7) != 0)
+          if ((v79 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
         }
 
         else
         {
-          v43 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::TfToken>(&v85);
-          if ((v80 & 7) != 0)
+          v43 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::TfToken>(&v84);
+          if ((v79 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
 
           if (v43)
           {
-            v44 = &v85;
-            if ((v86 & 4) != 0)
+            v44 = &v84;
+            if ((v85 & 4) != 0)
             {
-              v44 = (*((v86 & 0xFFFFFFFFFFFFFFF8) + 168))(&v85, &v85);
+              v44 = (*((v85 & 0xFFFFFFFFFFFFFFF8) + 168))(&v84, &v84);
             }
 
             pxrInternal__aapl__pxrReserved__::TfToken::operator=(a8, v44);
@@ -704,10 +1113,10 @@ LABEL_57:
         goto LABEL_66;
       }
 
-      v41 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v85);
-      if ((v80 & 7) != 0)
+      v41 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v84);
+      if ((v79 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v80 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v79 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
       if (!v41)
@@ -715,14 +1124,14 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      if ((v86 & 4) != 0)
+      if ((v85 & 4) != 0)
       {
-        v42 = (*((v86 & 0xFFFFFFFFFFFFFFF8) + 168))(&v85);
+        v42 = (*((v85 & 0xFFFFFFFFFFFFFFF8) + 168))(&v84);
       }
 
       else
       {
-        v42 = v85;
+        v42 = v84;
       }
 
       v39 = *v42;
@@ -739,7 +1148,7 @@ LABEL_57:
         v21 = (*((v49 & 0xFFFFFFFFFFFFFFF8) + 168))(v19 + 5);
       }
 
-      v50 = v74;
+      v50 = v73;
       v50.i32[0] = *v21;
       v51 = vzip1q_s32(v50, v50);
       v51.i32[2] = *v21;
@@ -783,7 +1192,7 @@ LABEL_57:
       }
 
       std::string::basic_string[abi:ne200100](&__p, v59 + 12);
-      if (v83 >= 0)
+      if (v82 >= 0)
       {
         p_p = &__p;
       }
@@ -809,14 +1218,14 @@ LABEL_57:
       }
 
       strcpy(p_p + v59, "__colorSpace");
-      MEMORY[0x24C1A5E00](&v87, &__p);
-      v62 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(a2, &v87);
-      if ((v87 & 7) != 0)
+      MEMORY[0x24C1A5E00](&v86, &__p);
+      v62 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(a2, &v86);
+      if ((v86 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v87 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v86 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
-      if (v83 < 0)
+      if (v82 < 0)
       {
         operator delete(__p);
       }
@@ -836,9 +1245,9 @@ LABEL_57:
         }
       }
 
-      *a5 = v54;
-      *(a5 + 8) = v55;
-      *(a5 + 12) = 1065353216;
+      a5->i64[0] = v54;
+      a5->i32[2] = v55;
+      a5->i32[3] = 1065353216;
     }
 
     else
@@ -868,7 +1277,7 @@ LABEL_57:
         }
 
         std::string::basic_string[abi:ne200100](&__p, v65 + 12);
-        if (v83 >= 0)
+        if (v82 >= 0)
         {
           v66 = &__p;
         }
@@ -894,14 +1303,14 @@ LABEL_57:
         }
 
         strcpy(v66 + v65, "__colorSpace");
-        MEMORY[0x24C1A5E00](&v87, &__p);
-        v68 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(a2, &v87);
-        if ((v87 & 7) != 0)
+        MEMORY[0x24C1A5E00](&v86, &__p);
+        v68 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(a2, &v86);
+        if ((v86 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v87 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v86 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        if (v83 < 0)
+        if (v82 < 0)
         {
           operator delete(__p);
         }
@@ -936,44 +1345,25 @@ LABEL_57:
       }
     }
   }
-
-LABEL_148:
-  v73 = *MEMORY[0x277D85DE8];
 }
 
-void *anonymous namespace::setFloatMaterialConstantScale(float a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+void *anonymous namespace::setFloatMaterialConstantScale(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, float a5)
 {
-  v18 = a1;
-  v13 = 0;
-  v14 = 0;
-  v12 = 0;
-  v11 = 0;
-  if (*(a5 + 23) < 0)
-  {
-    v6 = *a5;
-  }
-
-  if (v11)
-  {
-    v7 = &v16;
-  }
-
-  else
-  {
-    v7 = &v12;
-  }
-
-  v8 = *v7;
+  v14 = a5;
+  v9 = 0;
+  v10 = 0;
+  v8 = 0;
+  v7 = 0;
   REMaterialAssetBuilderSetFloat();
-  result = realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v10);
-  if ((v13 & 7) != 0)
+  result = realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v6);
+  if ((v9 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v13 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if ((v14 & 7) != 0)
+  if ((v10 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v14 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v10 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   return result;
@@ -1001,7 +1391,7 @@ float anonymous namespace::getShadeInputValueWithFallback<float>(uint64_t a1, ui
   if ((a1 + 8) != v5)
   {
     v6 = v5;
-    v7 = v5 + 5;
+    v7 = (v5 + 5);
     if (pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<float>((v5 + 5)))
     {
       v8 = v6[6];
@@ -1155,21 +1545,21 @@ const void **anonymous namespace::assignGamutFromValueAndGamut(const void **resu
   return result;
 }
 
-void sub_247622740(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247622740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, const void *);
-  v8 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, const void *);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   realityio::WrappedCFRef<CGColor *>::~WrappedCFRef(va);
   realityio::WrappedCFRef<CGColorSpace *>::~WrappedCFRef(va1);
-  realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef((v4 - 40));
-  if ((v2 & 7) != 0)
+  realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef((v5 - 40));
+  if ((v3 & 7) != 0)
   {
-    atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_release);
   }
 
   _Unwind_Resume(a1);
@@ -1189,7 +1579,7 @@ const void **realityio::WrappedCFRef<CGColorSpace *>::~WrappedCFRef(const void *
 
 void anonymous namespace::getTextureInfoOrDefaultValueFromConnection<float>(uint64_t *a1, uint64_t a2, uint64_t *a3, void *a4, _OWORD *a5, _OWORD *a6, void *a7, void *a8, _DWORD *a9, int *a10, _BYTE *a11)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   *a5 = xmmword_247757270;
   __asm { FMOV            V0.4S, #1.0 }
 
@@ -1230,12 +1620,12 @@ LABEL_90:
     v48 = *a10;
 LABEL_91:
     *a9 = v48;
-    goto LABEL_93;
+    return;
   }
 
   *a11 = 1;
   v24 = v22[6];
-  v50 = a1;
+  v49 = a1;
   if ((v24 & 4) != 0)
   {
     v25 = (*((v24 & 0xFFFFFFFFFFFFFFF8) + 168))(v22 + 5);
@@ -1246,16 +1636,16 @@ LABEL_91:
     v25 = *v23;
   }
 
-  std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>::map[abi:ne200100](&v53, v25);
-  v26 = v53;
-  if (v53 != v54)
+  std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>::map[abi:ne200100](&v52, v25);
+  v26 = v52;
+  if (v52 != v53)
   {
     while (1)
     {
-      v27 = std::pair<pxrInternal__aapl__pxrReserved__::TfToken const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v56, v26 + 4);
-      if ((v56 & 0xFFFFFFFFFFFFFFF8) != 0)
+      v27 = std::pair<pxrInternal__aapl__pxrReserved__::TfToken const,pxrInternal__aapl__pxrReserved__::VtValue>::pair[abi:ne200100](&v55, v26 + 4);
+      if ((v55 & 0xFFFFFFFFFFFFFFF8) != 0)
       {
-        EmptyString = (v56 & 0xFFFFFFFFFFFFFFF8) + 16;
+        EmptyString = (v55 & 0xFFFFFFFFFFFFFFF8) + 16;
       }
 
       else
@@ -1283,67 +1673,67 @@ LABEL_91:
         }
       }
 
-      MEMORY[0x24C1A5DE0](&v55, "__value");
-      if ((v55 ^ v56) > 7)
+      MEMORY[0x24C1A5DE0](&v54, "__value");
+      if ((v54 ^ v55) > 7)
       {
-        if ((v55 & 7) != 0)
+        if ((v54 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
       }
 
       else
       {
-        v31 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<realityio::WrappedRERef<REAsset *>>(&v57);
-        if ((v55 & 7) != 0)
+        v31 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<realityio::WrappedRERef<REAsset *>>(&v56);
+        if ((v54 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         if (v31)
         {
-          if ((v58 & 4) != 0)
+          if ((v57 & 4) != 0)
           {
-            v32 = (*((v58 & 0xFFFFFFFFFFFFFFF8) + 168))(&v57);
+            v32 = (*((v57 & 0xFFFFFFFFFFFFFFF8) + 168))(&v56);
           }
 
           else
           {
-            v32 = v57;
+            v32 = v56;
           }
 
-          realityio::WrappedRERef<REAsset *>::operator=(v50, v32);
+          realityio::WrappedRERef<REAsset *>::operator=(v49, v32);
           goto LABEL_71;
         }
       }
 
-      MEMORY[0x24C1A5DE0](&v55, "inputs:fallback");
-      if ((v55 ^ v56) > 7)
+      MEMORY[0x24C1A5DE0](&v54, "inputs:fallback");
+      if ((v54 ^ v55) > 7)
       {
-        if ((v55 & 7) != 0)
+        if ((v54 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
       }
 
       else
       {
-        v33 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v57);
-        if ((v55 & 7) != 0)
+        v33 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v56);
+        if ((v54 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         if (v33)
         {
-          if ((v58 & 4) != 0)
+          if ((v57 & 4) != 0)
           {
-            v34 = (*((v58 & 0xFFFFFFFFFFFFFFF8) + 168))(&v57);
+            v34 = (*((v57 & 0xFFFFFFFFFFFFFFF8) + 168))(&v56);
           }
 
           else
           {
-            v34 = v57;
+            v34 = v56;
           }
 
           *a5 = *v34;
@@ -1351,33 +1741,33 @@ LABEL_91:
         }
       }
 
-      MEMORY[0x24C1A5DE0](&v55, "inputs:scale");
-      if ((v55 ^ v56) > 7)
+      MEMORY[0x24C1A5DE0](&v54, "inputs:scale");
+      if ((v54 ^ v55) > 7)
       {
-        if ((v55 & 7) != 0)
+        if ((v54 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
       }
 
       else
       {
-        v35 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v57);
-        if ((v55 & 7) != 0)
+        v35 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v56);
+        if ((v54 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
         if (v35)
         {
-          if ((v58 & 4) != 0)
+          if ((v57 & 4) != 0)
           {
-            v36 = (*((v58 & 0xFFFFFFFFFFFFFFF8) + 168))(&v57);
+            v36 = (*((v57 & 0xFFFFFFFFFFFFFFF8) + 168))(&v56);
           }
 
           else
           {
-            v36 = v57;
+            v36 = v56;
           }
 
 LABEL_59:
@@ -1386,38 +1776,38 @@ LABEL_59:
         }
       }
 
-      MEMORY[0x24C1A5DE0](&v55, "inputs:bias");
-      if ((v55 ^ v56) > 7)
+      MEMORY[0x24C1A5DE0](&v54, "inputs:bias");
+      if ((v54 ^ v55) > 7)
       {
-        if ((v55 & 7) != 0)
+        if ((v54 & 7) != 0)
         {
-          atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+          atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
 LABEL_62:
-        MEMORY[0x24C1A5DE0](&v55, "inputs:sourceColorSpace");
-        if ((v55 ^ v56) > 7)
+        MEMORY[0x24C1A5DE0](&v54, "inputs:sourceColorSpace");
+        if ((v54 ^ v55) > 7)
         {
-          if ((v55 & 7) != 0)
+          if ((v54 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
         }
 
         else
         {
-          v43 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::TfToken>(&v57);
-          if ((v55 & 7) != 0)
+          v43 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::TfToken>(&v56);
+          if ((v54 & 7) != 0)
           {
-            atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+            atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
           }
 
           if (v43)
           {
-            v44 = &v57;
-            if ((v58 & 4) != 0)
+            v44 = &v56;
+            if ((v57 & 4) != 0)
             {
-              v44 = (*((v58 & 0xFFFFFFFFFFFFFFF8) + 168))(&v57, &v57);
+              v44 = (*((v57 & 0xFFFFFFFFFFFFFFF8) + 168))(&v56, &v56);
             }
 
             pxrInternal__aapl__pxrReserved__::TfToken::operator=(a8, v44);
@@ -1427,10 +1817,10 @@ LABEL_62:
         goto LABEL_71;
       }
 
-      v37 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v57);
-      if ((v55 & 7) != 0)
+      v37 = pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>(&v56);
+      if ((v54 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
       if (!v37)
@@ -1438,22 +1828,22 @@ LABEL_62:
         goto LABEL_62;
       }
 
-      if ((v58 & 4) != 0)
+      if ((v57 & 4) != 0)
       {
-        v38 = (*((v58 & 0xFFFFFFFFFFFFFFF8) + 168))(&v57);
+        v38 = (*((v57 & 0xFFFFFFFFFFFFFFF8) + 168))(&v56);
       }
 
       else
       {
-        v38 = v57;
+        v38 = v56;
       }
 
       *a7 = *v38;
 LABEL_71:
-      pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&v57);
-      if ((v56 & 7) != 0)
+      pxrInternal__aapl__pxrReserved__::VtValue::~VtValue(&v56);
+      if ((v55 & 7) != 0)
       {
-        atomic_fetch_add_explicit((v56 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
       }
 
       v45 = v26[1];
@@ -1481,34 +1871,34 @@ LABEL_71:
       }
 
       v26 = v46;
-      if (v46 == v54)
+      if (v46 == v53)
       {
         goto LABEL_92;
       }
     }
 
-    pxrInternal__aapl__pxrReserved__::TfToken::operator=(a4, &v56);
-    if (!pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>(&v57))
+    pxrInternal__aapl__pxrReserved__::TfToken::operator=(a4, &v55);
+    if (!pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<std::map<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>(&v56))
     {
       goto LABEL_71;
     }
 
-    if ((v58 & 4) != 0)
+    if ((v57 & 4) != 0)
     {
-      v39 = (*((v58 & 0xFFFFFFFFFFFFFFF8) + 168))(&v57);
+      v39 = (*((v57 & 0xFFFFFFFFFFFFFFF8) + 168))(&v56);
     }
 
     else
     {
-      v39 = v57;
+      v39 = v56;
     }
 
-    MEMORY[0x24C1A5DE0](&v55, "inputs:scale");
-    v40 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v39, &v55);
+    MEMORY[0x24C1A5DE0](&v54, "inputs:scale");
+    v40 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::find<pxrInternal__aapl__pxrReserved__::TfToken>(v39, &v54);
     v41 = v40;
-    if ((v55 & 7) != 0)
+    if ((v54 & 7) != 0)
     {
-      atomic_fetch_add_explicit((v55 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      atomic_fetch_add_explicit((v54 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
     }
 
     if ((v39 + 8) == v40 || !pxrInternal__aapl__pxrReserved__::VtValue::IsHolding<pxrInternal__aapl__pxrReserved__::GfVec4f>((v40 + 5)))
@@ -1531,31 +1921,24 @@ LABEL_71:
   }
 
 LABEL_92:
-  std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::destroy(&v53, v54[0]);
-LABEL_93:
-  v49 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::TfToken,std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>,std::less<pxrInternal__aapl__pxrReserved__::TfToken>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::VtValue>>>::destroy(&v52, v53[0]);
 }
 
 uint64_t anonymous namespace::setIfConnectedToTexture(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v12 = 0;
-  v11 = 0;
+  v10 = 0;
+  v9 = 0;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle();
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle();
-  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v9);
+  realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v7);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v10);
-  if (*(a3 + 23) < 0)
-  {
-    v7 = *a3;
-  }
-
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v8);
   return REMaterialAssetBuilderSetFunctionConstant();
 }
 
-void sub_247622EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_247622EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   pxrInternal__aapl__pxrReserved__::SdfPath::~SdfPath(va);
   _Unwind_Resume(a1);
 }
@@ -1665,23 +2048,22 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeInfoImpl<realityio::Mat
   return pxrInternal__aapl__pxrReserved__::TfDelegatedCountPtr<pxrInternal__aapl__pxrReserved__::VtValue::_Counted<realityio::MaterialAssetPair>>::_DecrementIfValid(0);
 }
 
-uint64_t *pxrInternal__aapl__pxrReserved__::VtValue::_TypeInfoImpl<realityio::MaterialAssetPair,pxrInternal__aapl__pxrReserved__::TfDelegatedCountPtr<pxrInternal__aapl__pxrReserved__::VtValue::_Counted<realityio::MaterialAssetPair>>,pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::MaterialAssetPair>>::_MakeMutable(uint64_t *result)
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_TypeInfoImpl<realityio::MaterialAssetPair,pxrInternal__aapl__pxrReserved__::TfDelegatedCountPtr<pxrInternal__aapl__pxrReserved__::VtValue::_Counted<realityio::MaterialAssetPair>>,pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::MaterialAssetPair>>::_MakeMutable(uint64_t result)
 {
   v1 = atomic_load((*result + 16));
   if (v1 != 1)
   {
-    v2 = *result;
     operator new();
   }
 
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::VtValue::_TypeInfoImpl<realityio::MaterialAssetPair,pxrInternal__aapl__pxrReserved__::TfDelegatedCountPtr<pxrInternal__aapl__pxrReserved__::VtValue::_Counted<realityio::MaterialAssetPair>>,pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::MaterialAssetPair>>::_GetProxiedAsVtValue(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::VtValue::_TypeInfoImpl<realityio::MaterialAssetPair,pxrInternal__aapl__pxrReserved__::TfDelegatedCountPtr<pxrInternal__aapl__pxrReserved__::VtValue::_Counted<realityio::MaterialAssetPair>>,pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::MaterialAssetPair>>::_GetProxiedAsVtValue(uint64_t **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
-  *(a2 + 8) = &pxrInternal__aapl__pxrReserved__::VtValue::GetTypeInfo<realityio::MaterialAssetPair>(void)::ti;
-  pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::MaterialAssetPair>::_PlaceCopy();
+  a2[1] = &pxrInternal__aapl__pxrReserved__::VtValue::GetTypeInfo<realityio::MaterialAssetPair>(void)::ti;
+  pxrInternal__aapl__pxrReserved__::VtValue::_RemoteTypeInfo<realityio::MaterialAssetPair>::_PlaceCopy(a2, v2);
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::TfDelegatedCountPtr<pxrInternal__aapl__pxrReserved__::VtValue::_Counted<realityio::MaterialAssetPair>>::_DecrementIfValid(uint64_t result)
@@ -1795,14 +2177,14 @@ void sub_2476236F4(_Unwind_Exception *a1)
 void realityio::TransformAnimationAggregationBuilder::TransformAnimationAggregationBuilder(realityio::TransformAnimationAggregationBuilder *this, const pxrInternal__aapl__pxrReserved__::SdfPath *a2)
 {
   v8[4] = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(&v6, "TransformAnimationAggregationBuilder");
-  std::string::basic_string[abi:ne200100]<0>(&__p, realityio::kTransformAnimationAggregationBuilderIdentifier);
+  std::string::basic_string[abi:ne200100]<0>(v6, "TransformAnimationAggregationBuilder");
+  std::string::basic_string[abi:ne200100]<0>(__p, realityio::kTransformAnimationAggregationBuilderIdentifier);
   realityio::generateTransformAnimationDirtyStageSubscription(&v4);
   v8[0] = &unk_2859559C0;
   v8[3] = v8;
   v7[0] = &unk_285955A40;
   v7[3] = v7;
-  realityio::DynamicBuilder::DynamicBuilder(this, a2);
+  realityio::DynamicBuilder::DynamicBuilder(this, a2, v6, __p, &v4, v8, v7);
 }
 
 void sub_247623894(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24)
@@ -1816,10 +2198,10 @@ uint64_t realityio::TransformAnimationAggregationBuilder::run(realityio::Transfo
 {
   v58 = *MEMORY[0x277D85DE8];
   v4 = (a2 + 32);
-  v5 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
   pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v48, v5, v4);
   v6 = *a2;
-  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v48, &v43);
+  pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(&v43, &v48);
   v7 = std::__tree<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::__map_value_compare<pxrInternal__aapl__pxrReserved__::SdfPath,std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>,std::less<pxrInternal__aapl__pxrReserved__::SdfPath>,true>,std::allocator<std::__value_type<pxrInternal__aapl__pxrReserved__::SdfPath,std::set<pxrInternal__aapl__pxrReserved__::TfToken>>>>::find<pxrInternal__aapl__pxrReserved__::SdfPath>(v6 + 64, &v43);
   v8 = v6 + 72 != v7 && *(*(v6 + 40) + 104 * *(v7 + 40) + 24) == v43;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
@@ -1830,7 +2212,7 @@ uint64_t realityio::TransformAnimationAggregationBuilder::run(realityio::Transfo
     v46 = MEMORY[0x277D86748] + 16;
     if (v47 && (*(v47 + 57) & 8) == 0 && ((*(MEMORY[0x277D86748] + 48))(&v46) & 1) != 0 && pxrInternal__aapl__pxrReserved__::UsdGeomXformable::TransformMightBeTimeVarying(&v46))
     {
-      v9 = realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v45, 2028, this);
+      v9 = realityio::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(v45, 2028, this, 0, 0, 0);
       v10 = realityio::EntityBuilder::kInputName(v9);
       realityio::Inputs::_getValue<realityio::WrappedRERef<REEntity *>>(a2, v10, &v43);
       if (v43)
@@ -1871,51 +2253,51 @@ uint64_t realityio::TransformAnimationAggregationBuilder::run(realityio::Transfo
               }
 
               v41 = v16;
-              v25 = *v13;
+              v26 = *v13;
               if (*v13 != v17)
               {
                 *v13 = v17;
-                v40 = v25;
+                v40 = v26;
               }
 
               *(this + 36) = v16;
-              v26 = realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v40);
-              v28 = *(this + 2);
-              v27 = *(this + 3);
-              if (v27)
+              v27 = realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v40);
+              v29 = *(this + 2);
+              v28 = *(this + 3);
+              if (v28)
               {
-                atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
+                atomic_fetch_add_explicit((v28 + 8), 1uLL, memory_order_relaxed);
               }
 
-              realityio::TransformAnimationAggregationBuilder::kOutputName(v26);
+              v30 = realityio::TransformAnimationAggregationBuilder::kOutputName(v27);
               v40 = this + 280;
-              realityio::Outputs::storeValue<realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT *>(v28);
+              realityio::Outputs::storeValue<realityio::TransformAnimationAggregationBuilder::TransformAnimationSceneDataT *>(v29, v30, &v40);
             }
           }
 
-          v29 = realityio::TransformAnimationAssetBuilder::kOutputLibraryName(v15);
-          realityio::Inputs::_getValue<std::map<std::string,realityio::WrappedRERef<REAsset *>> *>(a2, v29, &v40);
+          v31 = realityio::TransformAnimationAssetBuilder::kOutputLibraryName(v15);
+          realityio::Inputs::_getValue<std::map<std::string,realityio::WrappedRERef<REAsset *>> *>(a2, v31, &v40);
           if (v40)
           {
-            v30 = v41;
+            v32 = v41;
           }
 
           else
           {
-            v30 = 0;
+            v32 = 0;
           }
 
           REAnimationLibraryDefinitionCreate();
-          if (v30)
+          if (v32)
           {
-            v33 = *v30;
-            v31 = (v30 + 1);
-            v32 = v33;
-            if (v33 != v31)
+            v35 = *v32;
+            v33 = (v32 + 1);
+            v34 = v35;
+            if (v35 != v33)
             {
               do
               {
-                std::pair<std::string const,realityio::WrappedRERef<REAsset *>>::pair[abi:ne200100](&v52, v32 + 2);
+                std::pair<std::string const,realityio::WrappedRERef<REAsset *>>::pair[abi:ne200100](&v52, v34 + 2);
                 REAnimationLibraryDefinitionAddEntryAsset();
                 REAnimationLibraryDefinitionAddKeyedEntryIndex();
                 realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v53);
@@ -1924,41 +2306,39 @@ uint64_t realityio::TransformAnimationAggregationBuilder::run(realityio::Transfo
                   operator delete(v52.__r_.__value_.__l.__data_);
                 }
 
-                v34 = *(v32 + 1);
-                if (v34)
+                v36 = *(v34 + 1);
+                if (v36)
                 {
                   do
                   {
-                    v35 = v34;
-                    v34 = *v34;
+                    v37 = v36;
+                    v36 = *v36;
                   }
 
-                  while (v34);
+                  while (v36);
                 }
 
                 else
                 {
                   do
                   {
-                    v35 = *(v32 + 2);
-                    v36 = *v35 == v32;
-                    v32 = v35;
+                    v37 = *(v34 + 2);
+                    v38 = *v37 == v34;
+                    v34 = v37;
                   }
 
-                  while (!v36);
+                  while (!v38);
                 }
 
-                v32 = v35;
+                v34 = v37;
               }
 
-              while (v35 != v31);
+              while (v37 != v33);
             }
           }
 
-          v37 = *(*(*(a2 + 5) + 16) + 16);
           ServiceLocator = REEngineGetServiceLocator();
           MEMORY[0x24C1A4230](ServiceLocator);
-          v39 = *(a2 + 6);
           v53 = 0;
           operator new();
         }
@@ -1969,7 +2349,7 @@ uint64_t realityio::TransformAnimationAggregationBuilder::run(realityio::Transfo
         v42 = 0;
       }
 
-      v18 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
+      pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*a2 + 8));
       pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(buf, v18, v4);
       PrimPath = pxrInternal__aapl__pxrReserved__::UsdObject::GetPrimPath(buf);
       if ((v57 & 7) != 0)
@@ -1996,7 +2376,7 @@ uint64_t realityio::TransformAnimationAggregationBuilder::run(realityio::Transfo
 
       realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v42);
       realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(&v43);
-      realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v45);
+      realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(v45, v22, v23);
     }
 
     MEMORY[0x24C1A54D0](&v46);
@@ -2012,57 +2392,54 @@ uint64_t realityio::TransformAnimationAggregationBuilder::run(realityio::Transfo
   result = v49;
   if (v49)
   {
-    result = pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v49);
+    return pxrInternal__aapl__pxrReserved__::TfDelegatedCountDecrement(v49);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_247623E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, char a39)
+void sub_247623E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
 {
   realityio::WrappedRERef<REEntity *>::~WrappedRERef(&a25);
   realityio::Result<realityio::WrappedRERef<REEntity *>,realityio::DetailedError>::~Result(&a26);
-  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(&a34);
+  realityio::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(&a34, v40, v41);
   MEMORY[0x24C1A54D0](&a36);
   pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(&a39);
   _Unwind_Resume(a1);
 }
 
-void *realityio::TransformAnimationAggregationBuilder::clear(realityio::TransformAnimationAggregationBuilder *this, realityio::Inputs *a2)
+uint64_t *realityio::TransformAnimationAggregationBuilder::clear(realityio::TransformAnimationAggregationBuilder *this, realityio::Inputs *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 6);
-  v7 = a2;
-  v8 = &unk_285955CC0;
-  v9 = &v7;
-  v10 = this;
-  v11 = &v8;
-  (*(*v3 + 16))(v3, &v8);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v8);
+  v6 = a2;
+  v7 = &unk_285955CC0;
+  v8 = &v6;
+  v9 = this;
+  v10 = &v7;
+  (*(*v3 + 16))(v3, &v7);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v7);
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
   v4 = *(this + 35);
   if (v4)
   {
     *(this + 35) = 0;
-    v8 = v4;
+    v7 = v4;
   }
 
   *(this + 36) = 0;
-  result = realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v8);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return realityio::WrappedRERef<REEntity *>::~WrappedRERef(&v7);
 }
 
-void sub_24762418C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24762418C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void realityio::TransformAnimationAggregationBuilder::~TransformAnimationAggregationBuilder(void **this)
+void realityio::TransformAnimationAggregationBuilder::~TransformAnimationAggregationBuilder(realityio::TransformAnimationAggregationBuilder *this)
 {
   realityio::TransformAnimationAggregationBuilder::~TransformAnimationAggregationBuilder(this);
 
@@ -2072,34 +2449,34 @@ void realityio::TransformAnimationAggregationBuilder::~TransformAnimationAggrega
 {
   *this = &unk_285955948;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl((this + 43));
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(this + 344);
   if (*(this + 343) < 0)
   {
-    operator delete(this[40]);
+    operator delete(*(this + 40));
   }
 
   if (*(this + 319) < 0)
   {
-    operator delete(this[37]);
+    operator delete(*(this + 37));
   }
 
   realityio::WrappedRERef<REEntity *>::~WrappedRERef(this + 35);
   *this = &unk_285943338;
-  std::__function::__value_func<std::shared_ptr<realityio::OutputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100]((this + 31));
-  std::__function::__value_func<std::shared_ptr<realityio::InputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100]((this + 27));
-  v2 = this[26];
+  std::__function::__value_func<std::shared_ptr<realityio::OutputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](this + 248);
+  std::__function::__value_func<std::shared_ptr<realityio::InputsDescriptor const> ()(pxrInternal__aapl__pxrReserved__::SdfPath const&)>::~__value_func[abi:ne200100](this + 216);
+  v2 = *(this + 26);
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  v3 = this[24];
+  v3 = *(this + 24);
   if ((v3 & 7) != 0)
   {
     atomic_fetch_add_explicit((v3 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  v4 = this[23];
+  v4 = *(this + 23);
   if ((v4 & 7) != 0)
   {
     atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
@@ -2174,34 +2551,34 @@ uint64_t std::__function::__func<realityio::TransformAnimationAggregationBuilder
   }
 }
 
-void realityio::Inputs::_getValue<realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT const*>(uint64_t a1, uint64_t a2, uint64_t a3)
+void realityio::Inputs::_getValue<realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT const*>(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
+  v47 = 0;
   v48 = 0;
-  v49 = 0;
-  v8 = *(a2 + 24);
+  v8 = a2[3];
   if (v8)
   {
-    v49 = std::__shared_weak_count::lock(v8);
-    if (v49)
+    v48 = std::__shared_weak_count::lock(v8);
+    if (v48)
     {
-      v48 = *(a2 + 16);
+      v47 = a2[2];
     }
   }
 
-  MEMORY[0x24C1A5E00](&v50, a3);
-  v9 = std::__hash_table<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::__unordered_map_hasher<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,std::equal_to<realityio::BuilderAndIOName>,true>,std::__unordered_map_equal<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::equal_to<realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,true>,std::allocator<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>>>::__equal_range_multi<realityio::BuilderAndIOName>(*(a2 + 8), &v48);
+  MEMORY[0x24C1A5E00](&v49, a3);
+  v9 = std::__hash_table<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::__unordered_map_hasher<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,std::equal_to<realityio::BuilderAndIOName>,true>,std::__unordered_map_equal<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::equal_to<realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,true>,std::allocator<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>>>::__equal_range_multi<realityio::BuilderAndIOName>(a2[1], &v47);
   if (v9 == v10)
   {
     std::operator+<char>();
-    v11 = std::string::append(&v45, ") at prim path (");
+    v11 = std::string::append(&v44, ") at prim path (");
     v12 = *&v11->__r_.__value_.__l.__data_;
-    v46.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-    *&v46.__r_.__value_.__l.__data_ = v12;
+    v45.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+    *&v45.__r_.__value_.__l.__data_ = v12;
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
-    String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString((a2 + 32));
+    String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString((a2 + 4));
     v14 = *(String + 23);
     if (v14 >= 0)
     {
@@ -2223,14 +2600,14 @@ void realityio::Inputs::_getValue<realityio::TransformAnimationAssetBuilder::Tra
       v16 = *(String + 8);
     }
 
-    v17 = std::string::append(&v46, v15, v16);
+    v17 = std::string::append(&v45, v15, v16);
     v18 = *&v17->__r_.__value_.__l.__data_;
-    v47.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-    *&v47.__r_.__value_.__l.__data_ = v18;
+    v46.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+    *&v46.__r_.__value_.__l.__data_ = v18;
     v17->__r_.__value_.__l.__size_ = 0;
     v17->__r_.__value_.__r.__words[2] = 0;
     v17->__r_.__value_.__r.__words[0] = 0;
-    v19 = std::string::append(&v47, ")");
+    v19 = std::string::append(&v46, ")");
     goto LABEL_22;
   }
 
@@ -2246,14 +2623,14 @@ void realityio::Inputs::_getValue<realityio::TransformAnimationAssetBuilder::Tra
   if (v20)
   {
     std::operator+<char>();
-    v22 = std::string::append(&v45, ") at prim path (");
+    v22 = std::string::append(&v44, ") at prim path (");
     v23 = *&v22->__r_.__value_.__l.__data_;
-    v46.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-    *&v46.__r_.__value_.__l.__data_ = v23;
+    v45.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+    *&v45.__r_.__value_.__l.__data_ = v23;
     v22->__r_.__value_.__l.__size_ = 0;
     v22->__r_.__value_.__r.__words[2] = 0;
     v22->__r_.__value_.__r.__words[0] = 0;
-    v24 = pxrInternal__aapl__pxrReserved__::SdfPath::GetString((a2 + 32));
+    v24 = pxrInternal__aapl__pxrReserved__::SdfPath::GetString((a2 + 4));
     v25 = *(v24 + 23);
     if (v25 >= 0)
     {
@@ -2275,42 +2652,37 @@ void realityio::Inputs::_getValue<realityio::TransformAnimationAssetBuilder::Tra
       v27 = *(v24 + 8);
     }
 
-    v28 = std::string::append(&v46, v26, v27);
+    v28 = std::string::append(&v45, v26, v27);
     v29 = *&v28->__r_.__value_.__l.__data_;
-    v47.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-    *&v47.__r_.__value_.__l.__data_ = v29;
+    v46.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+    *&v46.__r_.__value_.__l.__data_ = v29;
     v28->__r_.__value_.__l.__size_ = 0;
     v28->__r_.__value_.__r.__words[2] = 0;
     v28->__r_.__value_.__r.__words[0] = 0;
-    v19 = std::string::append(&v47, ") because more than one connected builder produced the same output type");
+    v19 = std::string::append(&v46, ") because more than one connected builder produced the same output type");
 LABEL_22:
     v30 = *&v19->__r_.__value_.__l.__data_;
-    v52.__r_.__value_.__r.__words[0] = v19->__r_.__value_.__r.__words[2];
+    v51.__r_.__value_.__r.__words[0] = v19->__r_.__value_.__r.__words[2];
     *__p = v30;
     v19->__r_.__value_.__l.__size_ = 0;
     v19->__r_.__value_.__r.__words[2] = 0;
     v19->__r_.__value_.__r.__words[0] = 0;
-    realityio::DetailedError::DetailedError(v53, 204, &realityio::FoundationErrorCategory(void)::instance, __p);
-    *(a1 + 8) = *v53;
-    v31 = *&v53[16];
-    v54[0] = *&v53[24];
-    *(v54 + 7) = *&v53[31];
-    v32 = v53[39];
-    memset(&v53[16], 0, 24);
+    realityio::DetailedError::DetailedError(v52, 204, &realityio::FoundationErrorCategory(void)::instance, __p);
+    *(a1 + 8) = *v52;
+    v31 = *&v52[16];
+    v53[0] = *&v52[24];
+    *(v53 + 7) = *&v52[31];
+    v32 = v52[39];
+    memset(&v52[16], 0, 24);
     *a1 = 0;
-    *(a1 + 39) = *(v54 + 7);
-    v33 = v54[0];
+    *(a1 + 39) = *(v53 + 7);
+    v33 = v53[0];
     *(a1 + 24) = v31;
     *(a1 + 32) = v33;
     *(a1 + 47) = v32;
-    if (v52.__r_.__value_.__s.__data_[7] < 0)
+    if (v51.__r_.__value_.__s.__data_[7] < 0)
     {
       operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v47.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
@@ -2320,7 +2692,12 @@ LABEL_22:
 
     if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      v34 = v45.__r_.__value_.__r.__words[0];
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v34 = v44.__r_.__value_.__r.__words[0];
 LABEL_30:
       operator delete(v34);
       goto LABEL_49;
@@ -2347,47 +2724,47 @@ LABEL_30:
     EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v9);
   }
 
-  realityio::Outputs::getRawValue<realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT const*>(v37, EmptyString, v53);
-  v40 = v53[0];
-  if (v53[0])
+  realityio::Outputs::getRawValue<realityio::TransformAnimationAssetBuilder::TransformAnimationAssetDataT const*>(v37, EmptyString, v52);
+  v40 = v52[0];
+  if (v52[0])
   {
-    *&v39 = *&v53[8];
+    *&v39 = *&v52[8];
   }
 
   else
   {
-    *__p = *&v53[8];
-    if ((v53[47] & 0x80000000) != 0)
+    *__p = *&v52[8];
+    if ((v52[47] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(&v52, *&v53[24], *&v53[32]);
-      v41 = v53[0] | (v53[47] >= 0);
+      std::string::__init_copy_ctor_external(&v51, *&v52[24], *&v52[32]);
+      v41 = v52[0] | (v52[47] >= 0);
     }
 
     else
     {
-      v52 = *&v53[24];
+      v51 = *&v52[24];
       v41 = 1;
     }
 
     v39 = *__p;
-    size = v52.__r_.__value_.__l.__size_;
-    v37 = v52.__r_.__value_.__r.__words[0];
-    LODWORD(v47.__r_.__value_.__l.__data_) = v52.__r_.__value_.__r.__words[2];
-    *(v47.__r_.__value_.__r.__words + 3) = *(&v52.__r_.__value_.__r.__words[2] + 3);
-    v4 = HIBYTE(v52.__r_.__value_.__r.__words[2]);
+    size = v51.__r_.__value_.__l.__size_;
+    v37 = v51.__r_.__value_.__r.__words[0];
+    LODWORD(v46.__r_.__value_.__l.__data_) = v51.__r_.__value_.__r.__words[2];
+    *(v46.__r_.__value_.__r.__words + 3) = *(&v51.__r_.__value_.__r.__words[2] + 3);
+    v4 = HIBYTE(v51.__r_.__value_.__r.__words[2]);
     if ((v41 & 1) == 0)
     {
-      v43 = *__p;
-      operator delete(*&v53[24]);
-      v39 = v43;
+      v42 = *__p;
+      operator delete(*&v52[24]);
+      v39 = v42;
     }
   }
 
   if (v36)
   {
-    v44 = v39;
+    v43 = v39;
     std::__shared_weak_count::__release_shared[abi:ne200100](v36);
-    v39 = v44;
+    v39 = v43;
   }
 
   if (v40)
@@ -2398,41 +2775,39 @@ LABEL_30:
 
   else
   {
-    *v53 = v39;
+    *v52 = v39;
     if (v4 < 0)
     {
-      std::string::__init_copy_ctor_external(&v53[16], v37, size);
+      std::string::__init_copy_ctor_external(&v52[16], v37, size);
       *a1 = 0;
-      *(a1 + 8) = *v53;
-      *(a1 + 24) = *&v53[16];
-      *(a1 + 40) = *&v53[32];
+      *(a1 + 8) = *v52;
+      *(a1 + 24) = *&v52[16];
+      *(a1 + 40) = *&v52[32];
       v34 = v37;
       goto LABEL_30;
     }
 
-    *&v53[16] = v37;
-    *&v53[24] = size;
-    *&v53[32] = v47.__r_.__value_.__l.__data_;
-    *&v53[35] = *(v47.__r_.__value_.__r.__words + 3);
-    v53[39] = v4;
+    *&v52[16] = v37;
+    *&v52[24] = size;
+    *&v52[32] = v46.__r_.__value_.__l.__data_;
+    *&v52[35] = *(v46.__r_.__value_.__r.__words + 3);
+    v52[39] = v4;
     *a1 = 0;
-    *(a1 + 8) = *v53;
-    *(a1 + 24) = *&v53[16];
-    *(a1 + 40) = *&v53[32];
+    *(a1 + 8) = *v52;
+    *(a1 + 24) = *&v52[16];
+    *(a1 + 40) = *&v52[32];
   }
 
 LABEL_49:
-  if ((v50 & 7) != 0)
+  if ((v49 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v50 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v49 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if (v49)
+  if (v48)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v48);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247624CA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, std::__shared_weak_count *a32, uint64_t a33)
@@ -2474,107 +2849,100 @@ __n128 std::__function::__func<realityio::TransformAnimationAggregationBuilder::
 
 void *std::__function::__func<realityio::TransformAnimationAggregationBuilder::run(realityio::Inputs *)::$_0,std::allocator<realityio::TransformAnimationAggregationBuilder::run(realityio::Inputs *)::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
-  v21 = 0;
+  v15 = 0;
   if (**(a1 + 16) == 1)
   {
-    v3 = *(a1 + 32);
-    v4 = **(a1 + 24);
-    v5 = *v3;
     AnimationLibraryAsset = REAnimationLibraryDefinitionCreateAnimationLibraryAsset();
-    v25[0] = AnimationLibraryAsset;
-    v7 = v21;
-    if (v21 != AnimationLibraryAsset)
+    v19[0] = AnimationLibraryAsset;
+    v4 = v15;
+    if (v15 != AnimationLibraryAsset)
     {
-      v21 = AnimationLibraryAsset;
-      v25[0] = v7;
+      v15 = AnimationLibraryAsset;
+      v19[0] = v4;
     }
 
-    realityio::WrappedRERef<REAsset *>::~WrappedRERef(v25);
-    if (v21)
+    realityio::WrappedRERef<REAsset *>::~WrappedRERef(v19);
+    if (v15)
     {
-      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(*(a1 + 40), v25);
-      String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(v25);
-      v9 = String;
+      pxrInternal__aapl__pxrReserved__::UsdObject::GetPath(v19, *(a1 + 40));
+      String = pxrInternal__aapl__pxrReserved__::SdfPath::GetString(v19);
+      v6 = String;
       if (*(String + 23) >= 0)
       {
-        v10 = *(String + 23);
+        v7 = *(String + 23);
       }
 
       else
       {
-        v10 = *(String + 8);
+        v7 = *(String + 8);
       }
 
-      v11 = __p;
-      std::string::basic_string[abi:ne200100](__p, v10 + 17);
-      if (v23 < 0)
+      v8 = __p;
+      std::string::basic_string[abi:ne200100](__p, v7 + 17);
+      if (v17 < 0)
       {
-        v11 = __p[0];
+        v8 = __p[0];
       }
 
-      if (v10)
+      if (v7)
       {
-        if (v9[23] >= 0)
+        if (v6[23] >= 0)
         {
-          v12 = v9;
+          v9 = v6;
         }
 
         else
         {
-          v12 = *v9;
+          v9 = *v6;
         }
 
-        memmove(v11, v12, v10);
+        memmove(v8, v9, v7);
       }
 
-      strcpy(v11 + v10, "_animationLibrary");
+      strcpy(v8 + v7, "_animationLibrary");
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL();
-      pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v25);
-      v20 = v21;
+      pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::~Sdf_PathNodeHandleImpl(v19);
+      v14 = v15;
       RERetain();
-      if (v23 >= 0)
+      if (v17 >= 0)
       {
-        v13 = __p;
+        v10 = __p;
       }
 
       else
       {
-        v13 = __p[0];
+        v10 = __p[0];
       }
 
-      realityio::Builder::addAsset(v2, &v20, v13);
-      realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v20);
-      v14 = **(a1 + 56);
+      realityio::Builder::addAsset(v2, &v14, v10);
+      realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v14);
       REAnimationLibraryComponentGetComponentType();
-      v25[0] = &unk_285955BB0;
-      v25[1] = v2;
-      v25[2] = &v21;
-      v25[3] = v25;
-      v15 = REEntityGetOrAddComponentByClass();
-      std::function<void ()(REComponent *)>::operator()(v25, v15);
+      v19[0] = &unk_285955BB0;
+      v19[1] = v2;
+      v19[2] = &v15;
+      v19[3] = v19;
+      v11 = REEntityGetOrAddComponentByClass();
+      std::function<void ()(REComponent *)>::operator()(v19, v11);
       RENetworkMarkComponentDirty();
-      std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v25);
-      if (v23 < 0)
+      std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](v19);
+      if (v17 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  v16 = **(a1 + 56);
   REAnimationComponentGetComponentType();
   __p[0] = &unk_285955C30;
   __p[1] = v2;
-  v24 = __p;
-  v17 = REEntityGetOrAddComponentByClass();
-  std::function<void ()(REComponent *)>::operator()(__p, v17);
+  v18 = __p;
+  v12 = REEntityGetOrAddComponentByClass();
+  std::function<void ()(REComponent *)>::operator()(__p, v12);
   RENetworkMarkComponentDirty();
   std::__function::__value_func<void ()(REComponent *)>::~__value_func[abi:ne200100](__p);
-  result = realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v21);
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return realityio::WrappedRERef<REAsset *>::~WrappedRERef(&v15);
 }
 
 void sub_24762512C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, char a19)
@@ -2612,7 +2980,6 @@ __n128 _ZNKSt3__110__function6__funcIZZN9realityio36TransformAnimationAggregatio
 uint64_t _ZNSt3__110__function6__funcIZZN9realityio36TransformAnimationAggregationBuilder3runEPNS2_6InputsEENK3__0clEvEUlT_E_NS_9allocatorIS8_EEFvP11REComponentEEclEOSC_(uint64_t a1, uint64_t *a2)
 {
   realityio::Builder::addComponent(*(a1 + 8), *a2);
-  v3 = **(a1 + 16);
 
   return REAnimationLibraryComponentAssignAnimationLibraryAsset();
 }
@@ -2982,8 +3349,8 @@ BOOL RIOBuilderInputsHasValueWithName(uint64_t a1, __CFString *this)
   v2 = 0;
   if (a1 && this)
   {
-    realityio::CFStringCopyUTF8String(this, v12);
-    if (v12[0] == 1)
+    realityio::CFStringCopyUTF8String(&v12, this);
+    if (v12 == 1)
     {
       if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -3042,7 +3409,7 @@ BOOL RIOBuilderInputsHasValueWithName(uint64_t a1, __CFString *this)
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if ((v12[0] & 1) != 0 && SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+      if ((v12 & 1) != 0 && SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v13.__r_.__value_.__l.__data_);
       }
@@ -3075,8 +3442,8 @@ const void **RIOBuilderInputsGetValueWithName(uint64_t a1, __CFString *this)
     return EmptyString;
   }
 
-  realityio::CFStringCopyUTF8String(this, v22);
-  if (v22[0] != 1)
+  realityio::CFStringCopyUTF8String(&v22, this);
+  if (v22 != 1)
   {
     return 0;
   }
@@ -3224,7 +3591,7 @@ LABEL_16:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if ((v22[0] & 1) != 0 && SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+  if ((v22 & 1) != 0 && SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v23.__r_.__value_.__l.__data_);
   }
@@ -3275,16 +3642,17 @@ uint64_t RIOBuilderInputsCopyStage(uint64_t a1)
     return 0;
   }
 
-  v3 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((**(a1 + 16) + 8));
-  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::_AddRef(&v3);
-  v1 = RIOPxrUsdStageCreate<pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage> &>(&v3);
-  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&v3);
-  return v1;
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((**(a1 + 16) + 8));
+  v4 = v1;
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::_AddRef(&v4);
+  v2 = RIOPxrUsdStageCreate<pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage> &>(&v4);
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(&v4);
+  return v2;
 }
 
-void sub_247626020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247626020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::~TfRefPtr(va);
   _Unwind_Resume(a1);
 }
@@ -3297,7 +3665,7 @@ uint64_t RIOBuilderInputsCopyPrim(uint64_t a1)
   }
 
   v1 = *(a1 + 16);
-  v2 = pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*v1 + 8));
+  pxrInternal__aapl__pxrReserved__::TfRefPtr<pxrInternal__aapl__pxrReserved__::UsdStage>::operator->((*v1 + 8));
   pxrInternal__aapl__pxrReserved__::UsdStage::GetPrimAtPath(&v5, v2, (v1 + 32));
   v9 = 1;
   v3 = RIOPxrUsdObjectCreate<pxrInternal__aapl__pxrReserved__::UsdPrim const&,realityio::RIOPxrUsdObjectHierarchyType>(&v5, &v9);
@@ -3316,9 +3684,9 @@ uint64_t RIOBuilderInputsCopyPrim(uint64_t a1)
   return v3;
 }
 
-void sub_2476260DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2476260DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   pxrInternal__aapl__pxrReserved__::UsdPrim::~UsdPrim(va);
   _Unwind_Resume(a1);
 }
@@ -3333,62 +3701,61 @@ uint64_t RIOBuilderInputsCopyPrimPath(uint64_t result)
   return result;
 }
 
-void *RIOBuilderInputsCopyStageDelta(uint64_t a1)
+uint64_t *RIOBuilderInputsCopyStageDelta(uint64_t a1)
 {
   if (!a1)
   {
     return 0;
   }
 
-  memset(v12, 0, sizeof(v12));
-  v13 = 1065353216;
-  memset(v6, 0, sizeof(v6));
-  v7 = 1065353216;
+  memset(v11, 0, sizeof(v11));
+  v12 = 1065353216;
   memset(v5, 0, sizeof(v5));
-  std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v8, v6);
+  v6 = 1065353216;
+  memset(v4, 0, sizeof(v4));
+  std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v7, v5);
+  v8 = 0;
   v9 = 0;
   v10 = 0;
-  v11 = 0;
-  std::vector<realityio::PropertyDelta>::__init_with_size[abi:ne200100]<realityio::PropertyDelta*,realityio::PropertyDelta*>(&v9, 0, 0, 0);
-  std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v14, v12);
-  std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v15, v8);
+  std::vector<realityio::PropertyDelta>::__init_with_size[abi:ne200100]<realityio::PropertyDelta*,realityio::PropertyDelta*>(&v8, 0, 0, 0);
+  std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v13, v11);
+  std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(v14, v7);
+  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
-  std::vector<realityio::PropertyDelta>::__init_with_size[abi:ne200100]<realityio::PropertyDelta*,realityio::PropertyDelta*>(&v16, v9, v10, 0xAAAAAAAAAAAAAAABLL * ((v10 - v9) >> 4));
-  v1 = *MEMORY[0x277CBECE8];
+  std::vector<realityio::PropertyDelta>::__init_with_size[abi:ne200100]<realityio::PropertyDelta*,realityio::PropertyDelta*>(&v15, v8, v9, 0xAAAAAAAAAAAAAAABLL * ((v9 - v8) >> 4));
   if (RIOBuilderStageDeltaGetTypeID::onceToken != -1)
   {
     dispatch_once(&RIOBuilderStageDeltaGetTypeID::onceToken, &__block_literal_global_10);
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v3 = Instance;
+  v2 = Instance;
   if (Instance)
   {
-    std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(Instance + 16, v14);
-    std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set((v3 + 7), v15);
-    v3[12] = 0;
-    v3[13] = 0;
-    v3[14] = 0;
-    std::vector<realityio::PropertyDelta>::__init_with_size[abi:ne200100]<realityio::PropertyDelta*,realityio::PropertyDelta*>((v3 + 12), v16, v17, 0xAAAAAAAAAAAAAAABLL * ((v17 - v16) >> 4));
+    std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set(Instance + 16, v13);
+    std::unordered_set<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::unordered_set((v2 + 7), v14);
+    v2[12] = 0;
+    v2[13] = 0;
+    v2[14] = 0;
+    std::vector<realityio::PropertyDelta>::__init_with_size[abi:ne200100]<realityio::PropertyDelta*,realityio::PropertyDelta*>(v2 + 12, v15, v16, 0xAAAAAAAAAAAAAAABLL * ((v16 - v15) >> 4));
   }
 
-  realityio::StageDelta::~StageDelta(v14);
-  v19 = &v9;
-  std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](&v19);
-  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v8);
-  v19 = v5;
-  std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](&v19);
-  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v6);
-  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v12);
-  return v3;
+  realityio::StageDelta::~StageDelta(v13);
+  v18 = &v8;
+  std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](&v18);
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v7);
+  v18 = v4;
+  std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](&v18);
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v5);
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v11);
+  return v2;
 }
 
-void sub_2476262AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_2476262AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27)
 {
-  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v27 + 56);
-  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(v27 + 16);
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table((v27 + 56));
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table((v27 + 16));
   realityio::StageDelta::~StageDelta((v28 - 144));
   realityio::PrimDelta::~PrimDelta(&a19);
   *(v28 - 40) = &a10;
@@ -3398,17 +3765,17 @@ void sub_2476262AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void realityio::StageDelta::~StageDelta(realityio::StageDelta *this)
+void realityio::StageDelta::~StageDelta(void **this)
 {
-  v2 = (this + 80);
+  v2 = this + 10;
   std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](&v2);
-  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(this + 40);
+  std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(this + 5);
   std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(this);
 }
 
-void realityio::PrimDelta::~PrimDelta(realityio::PrimDelta *this)
+void realityio::PrimDelta::~PrimDelta(void **this)
 {
-  v2 = (this + 40);
+  v2 = this + 5;
   std::vector<realityio::PropertyDelta>::__destroy_vector::operator()[abi:ne200100](&v2);
   std::__hash_table<pxrInternal__aapl__pxrReserved__::TfToken,pxrInternal__aapl__pxrReserved__::TfToken::HashFunctor,std::equal_to<pxrInternal__aapl__pxrReserved__::TfToken>,std::allocator<pxrInternal__aapl__pxrReserved__::TfToken>>::~__hash_table(this);
 }
@@ -3423,7 +3790,7 @@ uint64_t RIOBuilderInputsGetEngine(uint64_t result)
   return result;
 }
 
-std::string::size_type RIOBuilderInputsCreateStandardTextureAsset(uint64_t a1, std::string::size_type a2, uint64_t a3)
+uint64_t RIOBuilderInputsCreateStandardTextureAsset(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -3518,7 +3885,7 @@ void sub_247626578(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string::size_type RIOBuilderInputsCreateCubeMapTextureAsset(uint64_t a1, std::string::size_type a2, uint64_t a3)
+uint64_t RIOBuilderInputsCreateCubeMapTextureAsset(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -3595,106 +3962,98 @@ uint64_t RIOBuilderInputsGetAllBuildersAndOutputNamesProvidingValuesWithName(uin
     if (this)
     {
       v7 = *(a1 + 16);
-      realityio::CFStringCopyUTF8String(this, v27);
-      v4 = v27[0];
-      if (v27[0] == 1)
+      realityio::CFStringCopyUTF8String(&v26, this);
+      v4 = v26;
+      if (v26 == 1)
       {
-        MEMORY[0x24C1A5E00](&v26, &__p);
+        MEMORY[0x24C1A5E00](&v25, &__p);
+        v22 = 0;
         v23 = 0;
-        v24 = 0;
         v8 = *(v7 + 24);
         if (v8)
         {
-          v24 = std::__shared_weak_count::lock(v8);
-          if (v24)
+          v23 = std::__shared_weak_count::lock(v8);
+          if (v23)
           {
-            v23 = *(v7 + 16);
+            v22 = *(v7 + 16);
           }
         }
 
-        v25 = v26;
-        if ((v26 & 7) != 0 && (atomic_fetch_add_explicit((v26 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
+        v24 = v25;
+        if ((v25 & 7) != 0 && (atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 2u, memory_order_relaxed) & 1) == 0)
         {
-          v25 &= 0xFFFFFFFFFFFFFFF8;
+          v24 &= 0xFFFFFFFFFFFFFFF8;
         }
 
-        v9 = std::__hash_table<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::__unordered_map_hasher<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,std::equal_to<realityio::BuilderAndIOName>,true>,std::__unordered_map_equal<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::equal_to<realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,true>,std::allocator<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>>>::__equal_range_multi<realityio::BuilderAndIOName>(*(v7 + 8), &v23);
+        v9 = std::__hash_table<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::__unordered_map_hasher<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,std::equal_to<realityio::BuilderAndIOName>,true>,std::__unordered_map_equal<realityio::BuilderAndIOName,std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>,std::equal_to<realityio::BuilderAndIOName>,realityio::BuilderAndIOName::Hash,true>,std::allocator<std::__hash_value_type<realityio::BuilderAndIOName,realityio::BuilderAndIOName>>>::__equal_range_multi<realityio::BuilderAndIOName>(*(v7 + 8), &v22);
         v11 = v10;
-        v20 = a4;
+        v19 = a4;
         Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-        v13 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-        if (v9 != v11)
+        for (i = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]); v9 != v11; v9 = *v9)
         {
-          v15 = *MEMORY[0x277CBECE8];
-          do
+          if (RIOBuilderGetTypeID::onceToken != -1)
           {
-            if (RIOBuilderGetTypeID::onceToken != -1)
-            {
-              dispatch_once(&RIOBuilderGetTypeID::onceToken, &__block_literal_global_35);
-            }
-
-            Instance = _CFRuntimeCreateInstance();
-            if (Instance)
-            {
-              v17 = v9[6];
-              Instance[2] = v9[5];
-              Instance[3] = v17;
-              if (v17)
-              {
-                atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
-              }
-            }
-
-            value = Instance;
-            if ((v9[7] & 0xFFFFFFFFFFFFFFF8) != 0)
-            {
-              EmptyString = (v9[7] & 0xFFFFFFFFFFFFFFF8) + 16;
-            }
-
-            else
-            {
-              EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(Instance);
-            }
-
-            if (*(EmptyString + 23) >= 0)
-            {
-              v19 = EmptyString;
-            }
-
-            else
-            {
-              v19 = *EmptyString;
-            }
-
-            v21 = CFStringCreateWithCString(0, v19, 0x8000100u);
-            CFArrayAppendValue(Mutable, value);
-            CFArrayAppendValue(v13, v21);
-            realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(&v21);
-            realityio::WrappedCFRef<RIOBuilder const*>::~WrappedCFRef(&value);
-            v9 = *v9;
+            dispatch_once(&RIOBuilderGetTypeID::onceToken, &__block_literal_global_35);
           }
 
-          while (v9 != v11);
+          Instance = _CFRuntimeCreateInstance();
+          if (Instance)
+          {
+            v16 = v9[6];
+            Instance[2] = v9[5];
+            Instance[3] = v16;
+            if (v16)
+            {
+              atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
+            }
+          }
+
+          value = Instance;
+          if ((v9[7] & 0xFFFFFFFFFFFFFFF8) != 0)
+          {
+            EmptyString = (v9[7] & 0xFFFFFFFFFFFFFFF8) + 16;
+          }
+
+          else
+          {
+            EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(Instance);
+          }
+
+          if (*(EmptyString + 23) >= 0)
+          {
+            v18 = EmptyString;
+          }
+
+          else
+          {
+            v18 = *EmptyString;
+          }
+
+          v20 = CFStringCreateWithCString(0, v18, 0x8000100u);
+          CFArrayAppendValue(Mutable, value);
+          CFArrayAppendValue(i, v20);
+          realityio::WrappedCFRef<__CFString const*>::~WrappedCFRef(&v20);
+          realityio::WrappedCFRef<RIOBuilder const*>::~WrappedCFRef(&value);
         }
 
         *a3 = Mutable;
-        *v20 = v13;
+        *v19 = i;
+        if ((v24 & 7) != 0)
+        {
+          atomic_fetch_add_explicit((v24 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+        }
+
+        if (v23)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+        }
+
         if ((v25 & 7) != 0)
         {
           atomic_fetch_add_explicit((v25 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
         }
 
-        if (v24)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v24);
-        }
-
-        if ((v26 & 7) != 0)
-        {
-          atomic_fetch_add_explicit((v26 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
-        }
-
-        if ((v27[0] & 1) != 0 && v29 < 0)
+        if ((v26 & 1) != 0 && v28 < 0)
         {
           operator delete(__p);
         }
@@ -3732,26 +4091,24 @@ void sub_247626960(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void RIOBuilderInputsPerformBlockSyncOnEngineQueue(uint64_t a1, void *a2)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v6 = v3;
+  v5 = v3;
   if (a1 && v3)
   {
     v4 = *(*(a1 + 16) + 48);
-    v7[0] = &unk_285955DC0;
-    v7[1] = &v6;
-    v7[3] = v7;
-    (*(*v4 + 16))(v4, v7);
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
-    v3 = v6;
+    v6[0] = &unk_285955DC0;
+    v6[1] = &v5;
+    v6[3] = v6;
+    (*(*v4 + 16))(v4, v6);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
+    v3 = v5;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void sub_247626AC4(_Unwind_Exception *a1, void *a2, ...)
+void sub_247626AC4(_Unwind_Exception *a1, void *a2, void *a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -3828,7 +4185,7 @@ uint64_t pugi::impl::anonymous namespace::strcpy_insitu<char *,unsigned long>(co
 
       else
       {
-        v28 = *(v27 - 16);
+        v28 = *(v27 - 2);
       }
 
       v25 = *a2;
@@ -3844,7 +4201,6 @@ uint64_t pugi::impl::anonymous namespace::strcpy_insitu<char *,unsigned long>(co
   if (*a1)
   {
     v12 = (*a2 & 0x40) == 0;
-    *a2;
   }
 
   else
@@ -3906,7 +4262,7 @@ LABEL_13:
 
       else
       {
-        v24 = *(v23 - 16);
+        v24 = *(v23 - 2);
       }
 
       v22 = *a2;
@@ -3929,7 +4285,7 @@ LABEL_29:
   return result;
 }
 
-uint64_t (*pugi::xml_node::operator void (*)(pugi::xml_node***)(void *a1))(pugi *__hidden this, pugi::xml_node ***)
+void (*pugi::xml_node::operator void (*)(pugi::xml_node***)(void *a1))()
 {
   if (*a1)
   {
@@ -4017,7 +4373,7 @@ uint64_t pugi::xml_node::set_value(pugi::xml_node *this, char *__s)
   v5 = strlen(__s);
 }
 
-char *pugi::xml_node::append_attribute(pugi::xml_node *this, char *__s)
+uint64_t pugi::xml_node::append_attribute(pugi::xml_node *this, char *__s)
 {
   v2 = *this;
   if (!*this)
@@ -4047,7 +4403,7 @@ char *pugi::xml_node::append_attribute(pugi::xml_node *this, char *__s)
   else
   {
     v9 = *v7;
-    v10 = &v8[*v7 + 40];
+    v10 = *v7 + v8 + 40;
     v7[1] = v8 + 40;
   }
 
@@ -4061,7 +4417,7 @@ char *pugi::xml_node::append_attribute(pugi::xml_node *this, char *__s)
     v13 = *(v11 + 24);
     v12 = (v11 + 24);
     *(v13 + 32) = v10;
-    *(v10 + 3) = v13;
+    *(v10 + 24) = v13;
   }
 
   else
@@ -4075,7 +4431,7 @@ char *pugi::xml_node::append_attribute(pugi::xml_node *this, char *__s)
   return v10;
 }
 
-char *pugi::xml_node::append_child(void **a1, unsigned int a2)
+uint64_t pugi::xml_node::append_child(void **a1, unsigned int a2)
 {
   v2 = *a1;
   if (!*a1)
@@ -4114,25 +4470,25 @@ char *pugi::xml_node::append_child(void **a1, unsigned int a2)
       else
       {
         v8 = *v6;
-        v3 = &v7[*v6 + 40];
+        v3 = *v6 + v7 + 40;
         v6[1] = v7 + 64;
       }
 
-      *(v3 + 7) = 0;
+      *(v3 + 56) = 0;
       *(v3 + 40) = 0u;
       *(v3 + 24) = 0u;
       *(v3 + 8) = 0u;
       *v3 = a2 | ((v3 - v8) << 8);
       v15 = v3;
       v9 = *a1;
-      *(v3 + 3) = *a1;
+      *(v3 + 24) = *a1;
       v10 = v9[4];
       if (v10)
       {
         v12 = *(v10 + 40);
         v11 = (v10 + 40);
         *(v12 + 48) = v3;
-        *(v3 + 5) = v12;
+        *(v3 + 40) = v12;
       }
 
       else
@@ -4152,7 +4508,7 @@ char *pugi::xml_node::append_child(void **a1, unsigned int a2)
   return v3;
 }
 
-uint64_t pugi::xml_node::remove_child(pugi::xml_node *this, uint64_t **a2)
+uint64_t pugi::xml_node::remove_child(pugi::xml_node *this, unint64_t **a2)
 {
   v2 = *this;
   if (!*this)
@@ -4197,7 +4553,7 @@ uint64_t pugi::xml_node::remove_child(pugi::xml_node *this, uint64_t **a2)
   return 1;
 }
 
-void pugi::impl::anonymous namespace::destroy_node(uint64_t *a1, uint64_t a2)
+void pugi::impl::anonymous namespace::destroy_node(unint64_t *a1, uint64_t a2)
 {
   v4 = *a1;
   if ((*a1 & 0x20) != 0)
@@ -4296,7 +4652,7 @@ void pugi::impl::anonymous namespace::destroy_node(uint64_t *a1, uint64_t a2)
   {
     do
     {
-      v29 = *(v28 + 48);
+      v29 = v28[6];
       v28 = v29;
     }
 
@@ -4321,13 +4677,13 @@ LABEL_557:
     return;
   }
 
-  v231 = buffer_encoding;
-  v232 = a3;
+  v232 = buffer_encoding;
+  v233 = a3;
   if (buffer_encoding == 1)
   {
     if (a7)
     {
-      v20 = this;
+      v21 = this;
       goto LABEL_123;
     }
 
@@ -4336,126 +4692,131 @@ LABEL_557:
 
   if ((buffer_encoding & 0xFFFFFFFE) == 2)
   {
-    v21 = v13 >> 1;
+    v22 = v13 >> 1;
     if (buffer_encoding == 2)
     {
       if (v13 >= 2)
       {
-        v22 = 0;
-        v23 = this;
-        v24 = v13 >> 1;
+        v23 = 0;
+        v24 = this;
+        v25 = v13 >> 1;
         while (1)
         {
-          v25 = *v23;
-          if (v25 >> 11 > 0x1A)
+          v26 = *v24;
+          if (v26 >> 11 > 0x1A)
           {
-            if ((~v25 & 0xE000) != 0)
+            if ((~v26 & 0xE000) != 0)
             {
-              v27 = (v23 + 2);
-              v28 = -1;
-              if (v24 != 1 && (v25 & 0xFC00) == 0xD800)
+              v28 = (v24 + 2);
+              v29 = -1;
+              if (v25 != 1)
               {
-                v29 = *v27 & 0xFC00;
-                v30 = v29 == 56320;
-                v31 = (v23 + 4);
-                if (v29 == 56320)
+                v26 = v26 & 0xFC00;
+                if (v26 == 55296)
                 {
-                  v28 = -2;
-                }
+                  v30 = *v28 & 0xFC00;
+                  v31 = v30 == 56320;
+                  v26 = v23 + 4;
+                  v32 = (v24 + 4);
+                  if (v30 == 56320)
+                  {
+                    v29 = -2;
+                  }
 
-                else
-                {
-                  v28 = -1;
-                }
+                  else
+                  {
+                    v29 = -1;
+                  }
 
-                if (v30)
-                {
-                  v22 += 4;
-                }
+                  if (v31)
+                  {
+                    v23 += 4;
+                  }
 
-                if (v30)
-                {
-                  v27 = v31;
+                  if (v31)
+                  {
+                    v28 = v32;
+                  }
                 }
               }
 
               goto LABEL_21;
             }
 
-            v22 += 3;
+            v23 += 3;
           }
 
           else
           {
-            if (v25 < 0x800)
+            if (v26 < 0x800)
             {
-              v26 = 2;
+              v27 = 2;
             }
 
             else
             {
-              v26 = 3;
+              v27 = 3;
             }
 
-            if (v25 < 0x80)
+            if (v26 < 0x80)
             {
-              v26 = 1;
+              v27 = 1;
             }
 
-            v22 += v26;
+            v23 += v27;
           }
 
-          v27 = (v23 + 2);
-          v28 = -1;
+          v28 = (v24 + 2);
+          v29 = -1;
 LABEL_21:
-          v23 = v27;
-          v24 += v28;
-          if (!v24)
+          v24 = v28;
+          v25 += v29;
+          if (!v25)
           {
-            v45 = v22 + 1;
-            if (!v46)
+            v46 = v23 + 1;
+            if (!v47)
             {
               goto LABEL_556;
             }
 
-            v47 = this;
-            v225 = v46;
+            v48 = this;
+            v226 = v47;
             while (2)
             {
-              v48 = *v47;
-              if (v48 >> 11 <= 0x1A || (~v48 & 0xE000) == 0)
+              v49 = *v48;
+              if (v49 >> 11 <= 0x1A || (~v49 & 0xE000) == 0)
               {
-                v49 = (v47 + 2);
+                v50 = (v48 + 2);
                 goto LABEL_67;
               }
 
-              v49 = (v47 + 2);
-              v50 = -1;
-              if (v21 != 1 && (v48 & 0xFC00) == 0xD800)
+              v50 = (v48 + 2);
+              v51 = -1;
+              if (v22 != 1 && (v49 & 0xFC00) == 0xD800)
               {
-                v51 = *v49;
-                if ((*v49 & 0xFC00) == 0xDC00)
+                v52 = *v50;
+                if ((*v50 & 0xFC00) == 0xDC00)
                 {
-                  v52 = ((v48 << 10) & 0xFFC00) + 0x10000;
-                  *v46 = (v52 >> 18) | 0xF0;
-                  v46[1] = (v52 >> 12) & 0x3F | 0x80;
-                  v46[2] = (((v48 << 10) | v51 & 0x3FFu) >> 6) & 0x3F | 0x80;
-                  v46[3] = v51 & 0x3F | 0x80;
-                  v46 += 4;
-                  v49 = (v47 + 4);
-                  v50 = -2;
+                  v53 = ((v49 << 10) & 0xFFC00) + 0x10000;
+                  *v47 = (v53 >> 18) | 0xF0;
+                  v47[1] = (v53 >> 12) & 0x3F | 0x80;
+                  v47[2] = (((v49 << 10) | v52 & 0x3FFu) >> 6) & 0x3F | 0x80;
+                  v47[3] = v52 & 0x3F | 0x80;
+                  v47 += 4;
+                  v50 = (v48 + 4);
+                  v51 = -2;
                 }
 
                 else
                 {
 LABEL_67:
-                  v50 = -1;
+                  v51 = -1;
                 }
               }
 
-              v47 = v49;
-              v21 += v50;
-              if (!v21)
+              v48 = v50;
+              v22 += v51;
+              if (!v22)
               {
                 goto LABEL_113;
               }
@@ -4467,10 +4828,10 @@ LABEL_67:
       }
 
 LABEL_55:
-      v45 = 1;
-      if (v46)
+      v46 = 1;
+      if (v47)
       {
-        v20 = v46;
+        v21 = v47;
         goto LABEL_121;
       }
 
@@ -4482,126 +4843,126 @@ LABEL_55:
       goto LABEL_55;
     }
 
-    v53 = 0;
-    v54 = this;
-    v55 = v13 >> 1;
+    v54 = 0;
+    v55 = this;
+    v56 = v13 >> 1;
     while (1)
     {
-      v56 = bswap32(*v54);
-      v57 = HIWORD(v56);
-      if (v56 >> 27 > 0x1A)
+      v57 = bswap32(*v55);
+      v58 = HIWORD(v57);
+      if (v57 >> 27 > 0x1A)
       {
-        if ((~v57 & 0xE000) != 0)
+        if ((~v58 & 0xE000) != 0)
         {
-          v59 = (v54 + 2);
-          v60 = -1;
-          if (v55 != 1 && (v57 & 0xFC00) == 0xD800)
+          v60 = (v55 + 2);
+          v61 = -1;
+          if (v56 != 1 && (v58 & 0xFC00) == 0xD800)
           {
-            v61 = *v59 & 0xFC;
-            v62 = v61 == 220;
-            v63 = (v54 + 4);
-            if (v61 == 220)
+            v62 = *v60 & 0xFC;
+            v63 = v62 == 220;
+            v64 = (v55 + 4);
+            if (v62 == 220)
             {
-              v60 = -2;
+              v61 = -2;
             }
 
             else
             {
-              v60 = -1;
+              v61 = -1;
             }
 
-            if (v62)
+            if (v63)
             {
-              v53 += 4;
+              v54 += 4;
             }
 
-            if (v62)
+            if (v63)
             {
-              v59 = v63;
+              v60 = v64;
             }
           }
 
           goto LABEL_88;
         }
 
-        v53 += 3;
+        v54 += 3;
       }
 
       else
       {
-        if (v57 < 0x800)
+        if (v58 < 0x800)
         {
-          v58 = 2;
+          v59 = 2;
         }
 
         else
         {
-          v58 = 3;
+          v59 = 3;
         }
 
-        if (v57 < 0x80)
+        if (v58 < 0x80)
         {
-          v58 = 1;
+          v59 = 1;
         }
 
-        v53 += v58;
+        v54 += v59;
       }
 
-      v59 = (v54 + 2);
-      v60 = -1;
+      v60 = (v55 + 2);
+      v61 = -1;
 LABEL_88:
-      v54 = v59;
-      v55 += v60;
-      if (!v55)
+      v55 = v60;
+      v56 += v61;
+      if (!v56)
       {
-        v45 = v53 + 1;
-        if (!v46)
+        v46 = v54 + 1;
+        if (!v47)
         {
           goto LABEL_556;
         }
 
-        v64 = this;
-        v225 = v46;
+        v65 = this;
+        v226 = v47;
         while (2)
         {
-          v65 = bswap32(*v64);
-          v66 = HIWORD(v65);
-          if (v65 >> 27 <= 0x1A || (~v66 & 0xE000) == 0)
+          v66 = bswap32(*v65);
+          v67 = HIWORD(v66);
+          if (v66 >> 27 <= 0x1A || (~v67 & 0xE000) == 0)
           {
-            v67 = (v64 + 2);
+            v68 = (v65 + 2);
             goto LABEL_106;
           }
 
-          v67 = (v64 + 2);
-          v68 = -1;
-          if (v21 != 1 && (v66 & 0xFC00) == 0xD800)
+          v68 = (v65 + 2);
+          v69 = -1;
+          if (v22 != 1 && (v67 & 0xFC00) == 0xD800)
           {
-            v69 = bswap32(*v67) >> 16;
-            if ((v69 & 0xFC00) == 0xDC00)
+            v70 = bswap32(*v68) >> 16;
+            if ((v70 & 0xFC00) == 0xDC00)
             {
-              v70 = ((v66 << 10) & 0xFFC00) + 0x10000;
-              *v46 = (v70 >> 18) | 0xF0;
-              v46[1] = (v70 >> 12) & 0x3F | 0x80;
-              v46[2] = (((v66 << 10) | v69 & 0x3FF) >> 6) & 0x3F | 0x80;
-              v46[3] = v69 & 0x3F | 0x80;
-              v46 += 4;
-              v67 = (v64 + 4);
-              v68 = -2;
+              v71 = ((v67 << 10) & 0xFFC00) + 0x10000;
+              *v47 = (v71 >> 18) | 0xF0;
+              v47[1] = (v71 >> 12) & 0x3F | 0x80;
+              v47[2] = (((v67 << 10) | v70 & 0x3FF) >> 6) & 0x3F | 0x80;
+              v47[3] = v70 & 0x3F | 0x80;
+              v47 += 4;
+              v68 = (v65 + 4);
+              v69 = -2;
             }
 
             else
             {
 LABEL_106:
-              v68 = -1;
+              v69 = -1;
             }
           }
 
-          v64 = v67;
-          v21 += v68;
-          if (!v21)
+          v65 = v68;
+          v22 += v69;
+          if (!v22)
           {
 LABEL_113:
-            v20 = v225;
+            v21 = v226;
             goto LABEL_122;
           }
 
@@ -4613,77 +4974,77 @@ LABEL_113:
 
   if ((buffer_encoding - 5) <= 1)
   {
-    v32 = v13 >> 2;
+    v33 = v13 >> 2;
     if (buffer_encoding == 5)
     {
       if (v13 >= 4)
       {
-        v33 = 0;
-        v34 = this;
-        v35 = v13 >> 2;
+        v34 = 0;
+        v35 = this;
+        v36 = v13 >> 2;
         do
         {
-          v37 = *v34;
-          v34 = (v34 + 4);
-          v36 = v37;
-          v38 = HIWORD(v37);
-          v39 = v33 + 4;
-          if (v37 < 0x800)
+          v38 = *v35;
+          v35 = (v35 + 4);
+          v37 = v38;
+          v39 = HIWORD(v38);
+          v40 = v34 + 4;
+          if (v38 < 0x800)
           {
-            v40 = 2;
+            v41 = 2;
           }
 
           else
           {
-            v40 = 3;
+            v41 = 3;
           }
 
-          if (v36 < 0x80)
+          if (v37 < 0x80)
           {
-            v41 = 1;
+            v42 = 1;
           }
 
           else
           {
-            v41 = v40;
+            v42 = v41;
           }
 
-          v33 += v41;
-          if (v38)
+          v34 += v42;
+          if (v39)
           {
-            v33 = v39;
+            v34 = v40;
           }
 
-          --v35;
+          --v36;
         }
 
-        while (v35);
-        v45 = v33 + 1;
-        if (v46)
+        while (v36);
+        v46 = v34 + 1;
+        if (v47)
         {
-          v20 = v46;
-          v42 = this;
+          v21 = v47;
+          v43 = this;
           do
           {
-            v43 = *v42;
-            if (v43 >> 16)
+            v44 = *v43;
+            if (v44 >> 16)
             {
-              *v46 = (v43 >> 18) | 0xF0;
-              v46[1] = (v43 >> 12) & 0x3F | 0x80;
-              v46[2] = (v43 >> 6) & 0x3F | 0x80;
-              v46[3] = v43 & 0x3F | 0x80;
-              v46 += 4;
+              *v47 = (v44 >> 18) | 0xF0;
+              v47[1] = (v44 >> 12) & 0x3F | 0x80;
+              v47[2] = (v44 >> 6) & 0x3F | 0x80;
+              v47[3] = v44 & 0x3F | 0x80;
+              v47 += 4;
             }
 
             else
             {
             }
 
-            v42 = (v42 + 4);
-            --v32;
+            v43 = (v43 + 4);
+            --v33;
           }
 
-          while (v32);
+          while (v33);
           goto LABEL_121;
         }
 
@@ -4693,83 +5054,83 @@ LABEL_113:
 
     else if (v13 >= 4)
     {
-      v201 = 0;
-      v202 = this;
-      v203 = v13 >> 2;
+      v202 = 0;
+      v203 = this;
+      v204 = v13 >> 2;
       do
       {
-        v204 = bswap32(*v202);
-        if (HIWORD(v204))
+        v205 = bswap32(*v203);
+        if (HIWORD(v205))
         {
-          v201 += 4;
+          v202 += 4;
         }
 
         else
         {
-          if (v204 < 0x800)
+          if (v205 < 0x800)
           {
-            v205 = 2;
+            v206 = 2;
           }
 
           else
           {
-            v205 = 3;
+            v206 = 3;
           }
 
-          if (v204 < 0x80)
+          if (v205 < 0x80)
           {
-            v206 = 1;
+            v207 = 1;
           }
 
           else
           {
-            v206 = v205;
+            v207 = v206;
           }
 
-          v201 += v206;
+          v202 += v207;
         }
 
-        ++v202;
-        --v203;
+        ++v203;
+        --v204;
       }
 
-      while (v203);
-      v45 = v201 + 1;
-      if (v46)
+      while (v204);
+      v46 = v202 + 1;
+      if (v47)
       {
-        v20 = v46;
-        v207 = this;
+        v21 = v47;
+        v208 = this;
         do
         {
-          v208 = bswap32(*v207);
-          if (v208 >> 16)
+          v209 = bswap32(*v208);
+          if (v209 >> 16)
           {
-            *v46 = (v208 >> 18) | 0xF0;
-            v46[1] = (v208 >> 12) & 0x3F | 0x80;
-            v46[2] = (v208 >> 6) & 0x3F | 0x80;
-            v46[3] = v208 & 0x3F | 0x80;
-            v46 += 4;
+            *v47 = (v209 >> 18) | 0xF0;
+            v47[1] = (v209 >> 12) & 0x3F | 0x80;
+            v47[2] = (v209 >> 6) & 0x3F | 0x80;
+            v47[3] = v209 & 0x3F | 0x80;
+            v47 += 4;
           }
 
           else
           {
           }
 
-          ++v207;
-          --v32;
+          ++v208;
+          --v33;
         }
 
-        while (v32);
+        while (v33);
         goto LABEL_121;
       }
 
       goto LABEL_556;
     }
 
-    v45 = 1;
-    if (v46)
+    v46 = 1;
+    if (v47)
     {
-      v20 = v46;
+      v21 = v47;
       goto LABEL_121;
     }
 
@@ -4781,39 +5142,39 @@ LABEL_113:
     goto LABEL_556;
   }
 
-  v44 = 0;
+  v45 = 0;
   if (v13)
   {
-    while ((*(this + v44) & 0x80000000) == 0)
+    while ((*(this + v45) & 0x80000000) == 0)
     {
-      if (v13 == ++v44)
+      if (v13 == ++v45)
       {
         goto LABEL_115;
       }
     }
   }
 
-  v71 = v13 - v44;
-  if (v13 == v44)
+  v72 = v13 - v45;
+  if (v13 == v45)
   {
 LABEL_115:
     if (a7)
     {
-      v20 = this;
+      v21 = this;
       goto LABEL_123;
     }
 
 LABEL_117:
-    v45 = v13 + 1;
-    if (v72)
+    v46 = v13 + 1;
+    if (v73)
     {
-      v20 = v72;
+      v21 = v73;
       if (this)
       {
-        memcpy(v72, this, v13);
+        memcpy(v73, this, v13);
       }
 
-      v46 = &v20[v13];
+      v47 = &v21[v13];
       goto LABEL_121;
     }
 
@@ -4823,77 +5184,77 @@ LABEL_556:
     goto LABEL_557;
   }
 
-  v209 = this + v44;
-  if (v71)
+  v210 = this + v45;
+  if (v72)
   {
-    v71 = 0;
-    v210 = v44 - v13;
-    v211 = this + v44;
+    v72 = 0;
+    v211 = v45 - v13;
+    v212 = this + v45;
     do
     {
-      v212 = *v211++;
-      if (v212 >= 0)
+      v213 = *v212++;
+      if (v213 >= 0)
       {
-        v213 = 1;
+        v214 = 1;
       }
 
       else
       {
-        v213 = 2;
+        v214 = 2;
       }
 
-      v71 += v213;
-      v214 = __CFADD__(v210++, 1);
+      v72 += v214;
+      v215 = __CFADD__(v211++, 1);
     }
 
-    while (!v214);
+    while (!v215);
   }
 
-  v45 = v44 + v71 + 1;
-  if (!v215)
+  v46 = v45 + v72 + 1;
+  if (!v216)
   {
     goto LABEL_556;
   }
 
-  v20 = v215;
-  memcpy(v215, this, v44);
-  v46 = &v20[v44];
-  if (v13 != v44)
+  v21 = v216;
+  memcpy(v216, this, v45);
+  v47 = &v21[v45];
+  if (v13 != v45)
   {
-    v216 = v44 - v13;
+    v217 = v45 - v13;
     do
     {
-      v217 = *v209++;
-      v214 = __CFADD__(v216++, 1);
+      v218 = *v210++;
+      v215 = __CFADD__(v217++, 1);
     }
 
-    while (!v214);
+    while (!v215);
   }
 
 LABEL_121:
-  a3 = v232;
+  a3 = v233;
 LABEL_122:
-  *v46 = 0;
-  v13 = v45;
+  *v47 = 0;
+  v13 = v46;
 LABEL_123:
   if (a8)
   {
-    v73 = v231;
-    if (this && v20 != this)
+    v74 = v232;
+    if (this && v21 != this)
     {
     }
 
     goto LABEL_128;
   }
 
-  v73 = v231;
-  if (v20 != this)
+  v74 = v232;
+  if (v21 != this)
   {
 LABEL_128:
-    *a10 = v20;
+    *a10 = v21;
   }
 
-  *(a3 + 80) = v20;
+  *(a3 + 80) = v21;
   if (!v13)
   {
     *v17 = ~(v12 >> 8) & 0x10;
@@ -4901,40 +5262,40 @@ LABEL_128:
     goto LABEL_617;
   }
 
-  v74 = *(a4 + 32);
-  if (v74)
+  v75 = *(a4 + 32);
+  if (v75)
   {
-    v227 = *(v74 + 40);
+    v228 = *(v75 + 40);
   }
 
   else
   {
-    v227 = 0;
+    v228 = 0;
   }
 
-  v75 = v13 - 1;
-  v230 = v20[v13 - 1];
-  v20[v13 - 1] = 0;
-  v76 = v20;
-  if (*v20 == 239)
+  v76 = v13 - 1;
+  v231 = v21[v13 - 1];
+  v21[v13 - 1] = 0;
+  v77 = v21;
+  if (*v21 == 239)
   {
-    v76 = v20;
-    if (v20[1] == 187)
+    v77 = v21;
+    if (v21[1] == 187)
     {
-      v77 = 3;
-      if (v20[2] != 191)
+      v78 = 3;
+      if (v21[2] != 191)
       {
-        v77 = 0;
+        v78 = 0;
       }
 
-      v76 = &v20[v77];
+      v77 = &v21[v78];
     }
   }
 
-  v228 = *(&off_285955F00 + ((v12 >> 9) & 4 | (v12 >> 4) & 3));
-  v229 = *(&off_285955E80 + (v12 >> 4));
-  v78 = (v12 & 0x800) == 0 && (v12 & 0x408) != 0;
-  v79 = a4;
+  v229 = *(&off_285955F00 + ((v12 >> 9) & 4 | (v12 >> 4) & 3));
+  v230 = *(&off_285955E80 + (v12 >> 4));
+  v79 = (v12 & 0x800) == 0 && (v12 & 0x408) != 0;
+  v80 = a4;
 LABEL_143:
   while (2)
   {
@@ -4950,184 +5311,184 @@ LABEL_143:
             {
               while (2)
               {
-                v80 = *v76;
+                v81 = *v77;
                 do
                 {
-                  v81 = v76;
-                  if (!v80)
+                  v82 = v77;
+                  if (!v81)
                   {
                     goto LABEL_509;
                   }
 
-                  if (v80 == 60)
+                  if (v81 == 60)
                   {
-                    v85 = v232;
+                    v86 = v233;
 LABEL_167:
-                    v87 = *++v81;
-                    v86 = v87;
+                    v88 = *++v82;
+                    v87 = v88;
                     goto LABEL_175;
                   }
 
                   {
                     do
                     {
-                      v82 = *++v76;
-                      v80 = v82;
+                      v83 = *++v77;
+                      v81 = v83;
                     }
                   }
 
-                  v83 = v80 == 60 || v80 == 0;
+                  v84 = v81 == 60 || v81 == 0;
                 }
 
-                while (v83 && (!v78 || (v12 & 0x400) != 0 && (v80 != 60 || v76[1] != 47 || *(v79 + 4))));
+                while (v84 && (!v79 || (v12 & 0x400) != 0 && (v81 != 60 || v77[1] != 47 || v80[4])));
                 if ((v12 & 0x800) != 0)
                 {
-                  v81 = v76;
+                  v82 = v77;
                 }
 
-                v84 = *(v79 + 3);
-                if ((v12 & 0x1000) == 0 && !v84)
+                v85 = v80[3];
+                if ((v12 & 0x1000) == 0 && !v85)
                 {
-                  v85 = v232;
-                  while (*v81)
+                  v86 = v233;
+                  while (*v82)
                   {
-                    if (*v81 == 60)
+                    if (*v82 == 60)
                     {
                       goto LABEL_167;
                     }
 
-                    ++v81;
+                    ++v82;
                   }
 
 LABEL_509:
-                  if (v79 != a4)
+                  if (v80 != a4)
                   {
-                    v88 = 14;
+                    v89 = 14;
                     goto LABEL_511;
                   }
 
-                  v73 = v231;
-                  if (v230 == 60)
+                  v74 = v232;
+                  if (v231 == 60)
                   {
-                    v198 = 5;
+                    v199 = 5;
 LABEL_522:
-                    *v17 = v198;
-                    *(v17 + 8) = v75;
+                    *v17 = v199;
+                    *(v17 + 8) = v76;
                     goto LABEL_617;
                   }
 
                   if ((v12 & 0x1000) == 0)
                   {
-                    v199 = (v227 + 48);
-                    if (!v227)
+                    v200 = (v228 + 48);
+                    if (!v228)
                     {
-                      v199 = (a4 + 32);
+                      v200 = (a4 + 32);
                     }
 
-                    v200 = *v199;
-                    if (!v200)
+                    v201 = *v200;
+                    if (!v201)
                     {
 LABEL_521:
-                      v198 = 16;
+                      v199 = 16;
                       goto LABEL_522;
                     }
 
-                    while ((*v200 & 0xFLL) != 2)
+                    while ((*v201 & 0xFLL) != 2)
                     {
-                      v200 = v200[6];
-                      if (!v200)
+                      v201 = v201[6];
+                      if (!v201)
                       {
                         goto LABEL_521;
                       }
                     }
                   }
 
-                  v88 = 0;
+                  v89 = 0;
 LABEL_542:
-                  v197 = 0;
+                  v198 = 0;
                   goto LABEL_616;
                 }
 
-                if ((v12 & 0x2000) != 0 && v84 && !*(v79 + 4) && !*(v79 + 2))
+                if ((v12 & 0x2000) != 0 && v85 && !v80[4] && !v80[2])
                 {
-                  v90 = v79;
-                  *(v79 + 2) = v81;
+                  v91 = v80;
+                  v80[2] = v82;
                   goto LABEL_174;
                 }
 
-                v88 = 3;
+                v89 = 3;
                 if (!appended)
                 {
                   goto LABEL_511;
                 }
 
-                *(appended + 2) = v81;
-                v90 = *(appended + 3);
+                *(appended + 16) = v82;
+                v91 = *(appended + 24);
 LABEL_174:
-                v81 = v228(v81);
-                v86 = *v81;
-                v85 = v232;
-                v79 = v90;
-                if (!*v81)
+                v82 = v229(v82);
+                v87 = *v82;
+                v86 = v233;
+                v80 = v91;
+                if (!*v82)
                 {
                   goto LABEL_509;
                 }
 
 LABEL_175:
                 {
-                  if (v79)
+                  if (v80)
                   {
-                    *(v79 + 1) = v81;
-                    i = v81 + 1;
+                    v80[1] = v82;
+                    i = v82 + 1;
                     while (1)
                     {
-                      v95 = *(i - 1);
-                      if ((v96 & 0x40) == 0)
+                      v96 = *(i - 1);
+                      if ((v97 & 0x40) == 0)
                       {
                         break;
                       }
 
-                      v95 = *i;
-                      if ((v96 & 0x40) == 0)
+                      v96 = *i;
+                      if ((v97 & 0x40) == 0)
                       {
                         goto LABEL_265;
                       }
 
-                      v95 = i[1];
-                      if ((v96 & 0x40) == 0)
+                      v96 = i[1];
+                      if ((v97 & 0x40) == 0)
                       {
                         ++i;
 LABEL_265:
                         *i = 0;
-                        v76 = i + 1;
-                        if (v95 != 62)
+                        v77 = i + 1;
+                        if (v96 != 62)
                         {
-                          if ((v96 & 8) != 0)
+                          if ((v97 & 8) != 0)
                           {
                             goto LABEL_417;
                           }
 
-                          if (v95)
+                          if (v96)
                           {
-                            if (v95 != 47 || ((v131 = *v76, v230 == 62) ? (v132 = v131 == 0) : (v132 = 0), !v132 ? (v133 = 0) : (v133 = 1), v131 != 62 && !v133))
+                            if (v96 != 47 || ((v132 = *v77, v231 == 62) ? (v133 = v132 == 0) : (v133 = 0), !v133 ? (v134 = 0) : (v134 = 1), v132 != 62 && !v134))
                             {
-                              v88 = 11;
+                              v89 = 11;
                               goto LABEL_606;
                             }
 
-                            v79 = *(v79 + 3);
-                            if (v131 == 62)
+                            v80 = v80[3];
+                            if (v132 == 62)
                             {
-                              v76 = i + 2;
+                              v77 = i + 2;
                             }
                           }
 
                           else
                           {
-                            v76 = i;
-                            if (v230 != 62)
+                            v77 = i;
+                            if (v231 != 62)
                             {
-                              v88 = 11;
+                              v89 = 11;
                               goto LABEL_607;
                             }
                           }
@@ -5136,9 +5497,9 @@ LABEL_265:
                         goto LABEL_143;
                       }
 
-                      v95 = i[2];
+                      v96 = i[2];
                       i += 4;
-                      if ((v96 & 0x40) == 0)
+                      if ((v97 & 0x40) == 0)
                       {
                         i -= 2;
                         goto LABEL_265;
@@ -5149,156 +5510,156 @@ LABEL_265:
                     goto LABEL_265;
                   }
 
-                  v88 = 3;
+                  v89 = 3;
                   goto LABEL_576;
                 }
 
-                if (v86 == 33)
+                if (v87 == 33)
                 {
-                  v76 = v81 + 1;
-                  v111 = v81[1];
-                  if (v111 != 91)
+                  v77 = v82 + 1;
+                  v112 = v82[1];
+                  if (v112 != 91)
                   {
-                    if (v111 != 68)
+                    if (v112 != 68)
                     {
-                      if (v111 == 45)
+                      if (v112 == 45)
                       {
-                        if (v81[2] != 45)
+                        if (v82[2] != 45)
                         {
-                          i = v81 + 2;
+                          i = v82 + 2;
 LABEL_588:
-                          v88 = 7;
+                          v89 = 7;
                           goto LABEL_607;
                         }
 
-                        i = v81 + 3;
-                        v112 = v79;
+                        i = v82 + 3;
+                        v113 = v80;
                         if ((v12 & 2) == 0)
                         {
                           goto LABEL_212;
                         }
 
-                        v113 = v79;
-                        if (v114)
+                        v114 = v80;
+                        if (v115)
                         {
-                          v112 = v114;
-                          *(v114 + 2) = i;
-                          v79 = v113;
+                          v113 = v115;
+                          *(v115 + 16) = i;
+                          v80 = v114;
 LABEL_212:
                           if ((v12 & 0x22) == 0x22)
                           {
-                            v224 = v75;
-                            v115 = 0;
+                            v225 = v76;
                             v116 = 0;
+                            v117 = 0;
                             while (1)
                             {
                               while (1)
                               {
-                                v117 = *i;
+                                v118 = *i;
                                 {
-                                  v118 = i;
+                                  v119 = i;
                                 }
 
                                 else
                                 {
-                                  v118 = i + 2;
+                                  v119 = i + 2;
                                   while (1)
                                   {
-                                    v117 = *(v118 - 1);
+                                    v118 = *(v119 - 1);
                                     {
-                                      --v118;
+                                      --v119;
                                       goto LABEL_223;
                                     }
 
-                                    v117 = *v118;
+                                    v118 = *v119;
                                     {
                                       goto LABEL_223;
                                     }
 
-                                    v117 = v118[1];
+                                    v118 = v119[1];
                                     {
                                       break;
                                     }
 
-                                    v117 = v118[2];
-                                    v118 += 4;
+                                    v118 = v119[2];
+                                    v119 += 4;
                                     {
-                                      v118 -= 2;
+                                      v119 -= 2;
                                       goto LABEL_223;
                                     }
                                   }
 
-                                  ++v118;
+                                  ++v119;
                                 }
 
 LABEL_223:
-                                if (v117 != 13)
+                                if (v118 != 13)
                                 {
                                   break;
                                 }
 
-                                i = v118 + 1;
-                                v122 = v118[1];
-                                *v118 = 10;
-                                if (v122 == 10)
+                                i = v119 + 1;
+                                v123 = v119[1];
+                                *v119 = 10;
+                                if (v123 == 10)
                                 {
-                                  if (v115)
+                                  if (v116)
                                   {
-                                    v123 = v79;
-                                    v124 = i - v115;
-                                    v125 = v116;
-                                    memmove(&v115[-v116], v115, v124);
-                                    v116 = v125;
-                                    v79 = v123;
+                                    v124 = v80;
+                                    v125 = i - v116;
+                                    v126 = v117;
+                                    memmove(&v116[-v117], v116, v125);
+                                    v117 = v126;
+                                    v80 = v124;
                                   }
 
-                                  i = v118 + 2;
-                                  ++v116;
-                                  v115 = v118 + 2;
+                                  i = v119 + 2;
+                                  ++v117;
+                                  v116 = v119 + 2;
                                 }
                               }
 
-                              if (v117 == 45)
+                              if (v118 == 45)
                               {
-                                if (v118[1] == 45)
+                                if (v119[1] == 45)
                                 {
-                                  v119 = v118[2];
-                                  v120 = v230 == 62 && v119 == 0;
-                                  v121 = v120;
-                                  if (v119 == 62 || v121)
+                                  v120 = v119[2];
+                                  v121 = v231 == 62 && v120 == 0;
+                                  v122 = v121;
+                                  if (v120 == 62 || v122)
                                   {
-                                    v189 = v118;
-                                    if (v115)
+                                    v190 = v119;
+                                    if (v116)
                                     {
-                                      v190 = v79;
-                                      v191 = v116;
-                                      memmove(&v115[-v116], v115, v118 - v115);
-                                      v79 = v190;
-                                      v189 = &v118[-v191];
+                                      v191 = v80;
+                                      v192 = v117;
+                                      memmove(&v116[-v117], v116, v119 - v116);
+                                      v80 = v191;
+                                      v190 = &v119[-v192];
                                     }
 
-                                    *v189 = 0;
-                                    v192 = 2;
-                                    if (v118[2] == 62)
+                                    *v190 = 0;
+                                    v193 = 2;
+                                    if (v119[2] == 62)
                                     {
-                                      v192 = 3;
+                                      v193 = 3;
                                     }
 
-                                    v76 = &v118[v192];
-                                    v75 = v224;
+                                    v77 = &v119[v193];
+                                    v76 = v225;
                                     goto LABEL_143;
                                   }
                                 }
                               }
 
-                              else if (!v117)
+                              else if (!v118)
                               {
-                                v88 = 7;
-                                v75 = v224;
+                                v89 = 7;
+                                v76 = v225;
                                 goto LABEL_566;
                               }
 
-                              i = v118 + 1;
+                              i = v119 + 1;
                             }
                           }
 
@@ -5308,25 +5669,25 @@ LABEL_223:
                             {
                               if (i[1] == 45)
                               {
-                                v177 = i[2];
-                                v178 = v230 == 62 && v177 == 0;
-                                v179 = !v178;
-                                if (v177 == 62 || !v179)
+                                v178 = i[2];
+                                v179 = v231 == 62 && v178 == 0;
+                                v180 = !v179;
+                                if (v178 == 62 || !v180)
                                 {
                                   if ((v12 & 2) != 0)
                                   {
                                     *i = 0;
                                   }
 
-                                  v187 = v177 == 62;
-                                  v188 = 2;
+                                  v188 = v178 == 62;
+                                  v189 = 2;
 LABEL_497:
-                                  if (v187)
+                                  if (v188)
                                   {
-                                    ++v188;
+                                    ++v189;
                                   }
 
-                                  v76 = &i[v188];
+                                  v77 = &i[v189];
                                   goto LABEL_143;
                                 }
                               }
@@ -5342,63 +5703,63 @@ LABEL_497:
                         }
 
 LABEL_562:
-                        v88 = 3;
+                        v89 = 3;
                         goto LABEL_607;
                       }
 
-                      if (v230 == 45 && !v81[1])
+                      if (v231 == 45 && !v82[1])
                       {
-                        v88 = 7;
+                        v89 = 7;
                         goto LABEL_606;
                       }
 
-                      if (v230 == 91 && !v81[1])
+                      if (v231 == 91 && !v82[1])
                       {
-                        v88 = 8;
+                        v89 = 8;
                         goto LABEL_606;
                       }
 
 LABEL_605:
-                      v88 = 5;
+                      v89 = 5;
                       goto LABEL_606;
                     }
 
-                    if (v81[2] != 79 || v81[3] != 67 || v81[4] != 84 || v81[5] != 89 || v81[6] != 80)
+                    if (v82[2] != 79 || v82[3] != 67 || v82[4] != 84 || v82[5] != 89 || v82[6] != 80)
                     {
                       goto LABEL_605;
                     }
 
-                    v138 = v81[7];
-                    v139 = v230 == 69 && v138 == 0;
-                    v140 = v139;
-                    if (v138 != 69 && !v140)
+                    v139 = v82[7];
+                    v140 = v231 == 69 && v139 == 0;
+                    v141 = v140;
+                    if (v139 != 69 && !v141)
                     {
                       goto LABEL_605;
                     }
 
-                    v141 = *(v79 + 3);
-                    if (v141)
+                    v142 = v80[3];
+                    if (v142)
                     {
-                      i = v81 - 1;
+                      i = v82 - 1;
                       goto LABEL_598;
                     }
 
-                    v142 = 68;
+                    v143 = 68;
 LABEL_310:
-                    if (v142 > 59)
+                    if (v143 > 59)
                     {
-                      if (v142 == 60)
+                      if (v143 == 60)
                       {
-                        v146 = v76[1];
-                        if (v146 == 63)
+                        v147 = v77[1];
+                        if (v147 == 63)
                         {
-                          for (i = v76 + 2; ; ++i)
+                          for (i = v77 + 2; ; ++i)
                           {
                             if (*i == 63)
                             {
                               if (i[1] == 62)
                               {
-                                v76 = i + 2;
+                                v77 = i + 2;
                                 goto LABEL_347;
                               }
                             }
@@ -5410,23 +5771,23 @@ LABEL_310:
                           }
                         }
 
-                        if (v146 != 33)
+                        if (v147 != 33)
                         {
                           goto LABEL_599;
                         }
 
-                        v147 = v76[2];
-                        if (v147 == 45)
+                        v148 = v77[2];
+                        if (v148 == 45)
                         {
-                          if (v76[3] == 45)
+                          if (v77[3] == 45)
                           {
-                            for (i = v76 + 4; ; ++i)
+                            for (i = v77 + 4; ; ++i)
                             {
                               if (*i == 45)
                               {
                                 if (i[1] == 45 && i[2] == 62)
                                 {
-                                  v76 = i + 3;
+                                  v77 = i + 3;
                                   goto LABEL_347;
                                 }
                               }
@@ -5439,119 +5800,119 @@ LABEL_310:
                           }
 
 LABEL_599:
-                          v88 = 9;
+                          v89 = 9;
                           goto LABEL_606;
                         }
 
-                        if (v147 != 91)
+                        if (v148 != 91)
                         {
-                          ++v141;
-                          v76 += 2;
+                          ++v142;
+                          v77 += 2;
                           goto LABEL_347;
                         }
 
-                        v148 = 0;
-                        v76 += 3;
+                        v149 = 0;
+                        v77 += 3;
 LABEL_330:
-                        for (v76 += 3; ; ++v76)
+                        for (v77 += 3; ; ++v77)
                         {
-                          v149 = *(v76 - 3);
-                          if (v149 == 60)
+                          v150 = *(v77 - 3);
+                          if (v150 == 60)
                           {
-                            if (*(v76 - 2) == 33 && *(v76 - 1) == 91)
+                            if (*(v77 - 2) == 33 && *(v77 - 1) == 91)
                             {
-                              v150 = 1;
+                              v151 = 1;
 LABEL_344:
-                              v148 += v150;
+                              v149 += v151;
                               goto LABEL_330;
                             }
                           }
 
-                          else if (v149 == 93)
+                          else if (v150 == 93)
                           {
-                            if (*(v76 - 2) == 93 && *(v76 - 1) == 62)
+                            if (*(v77 - 2) == 93 && *(v77 - 1) == 62)
                             {
-                              if (v148)
+                              if (v149)
                               {
-                                v150 = -1;
+                                v151 = -1;
                                 goto LABEL_344;
                               }
 
 LABEL_347:
-                              v142 = *v76;
+                              v143 = *v77;
                               goto LABEL_310;
                             }
                           }
 
-                          else if (!*(v76 - 3))
+                          else if (!*(v77 - 3))
                           {
-                            i = v76 - 3;
+                            i = v77 - 3;
                             goto LABEL_598;
                           }
                         }
                       }
 
-                      if (v142 != 62)
+                      if (v143 != 62)
                       {
 LABEL_346:
-                        ++v76;
+                        ++v77;
                         goto LABEL_347;
-                      }
-
-                      if (v141)
-                      {
-                        --v141;
-                        goto LABEL_346;
-                      }
-
-                      *v76++ = 0;
-                    }
-
-                    else
-                    {
-                      if (v142 == 34 || v142 == 39)
-                      {
-                        ++v76;
-                        do
-                        {
-                          v144 = *v76++;
-                          v143 = v144;
-                          if (v144)
-                          {
-                            v145 = v143 == v142;
-                          }
-
-                          else
-                          {
-                            v145 = 1;
-                          }
-                        }
-
-                        while (!v145);
-                        if (v143)
-                        {
-                          goto LABEL_347;
-                        }
-
-                        i = v76 - 1;
-LABEL_598:
-                        v88 = 9;
-                        goto LABEL_607;
                       }
 
                       if (v142)
                       {
+                        --v142;
                         goto LABEL_346;
                       }
 
-                      v88 = 9;
-                      if (v230 != 62)
+                      *v77++ = 0;
+                    }
+
+                    else
+                    {
+                      if (v143 == 34 || v143 == 39)
+                      {
+                        ++v77;
+                        do
+                        {
+                          v145 = *v77++;
+                          v144 = v145;
+                          if (v145)
+                          {
+                            v146 = v144 == v143;
+                          }
+
+                          else
+                          {
+                            v146 = 1;
+                          }
+                        }
+
+                        while (!v146);
+                        if (v144)
+                        {
+                          goto LABEL_347;
+                        }
+
+                        i = v77 - 1;
+LABEL_598:
+                        v89 = 9;
+                        goto LABEL_607;
+                      }
+
+                      if (v143)
+                      {
+                        goto LABEL_346;
+                      }
+
+                      v89 = 9;
+                      if (v231 != 62)
                       {
                         goto LABEL_606;
                       }
 
-                      i = v76;
-                      if (v141)
+                      i = v77;
+                      if (v142)
                       {
                         goto LABEL_607;
                       }
@@ -5559,39 +5920,39 @@ LABEL_598:
 
                     if ((v12 & 0x200) != 0)
                     {
-                      v193 = v81 + 7;
+                      v194 = v82 + 7;
                       do
                       {
-                        v194 = *++v193;
+                        v195 = *++v194;
                       }
 
-                      v195 = v79;
-                      if (!v196)
+                      v196 = v80;
+                      if (!v197)
                       {
-                        v88 = 3;
+                        v89 = 3;
                         goto LABEL_606;
                       }
 
-                      *(v196 + 2) = v193;
-                      v79 = v195;
+                      *(v197 + 16) = v194;
+                      v80 = v196;
                     }
 
                     continue;
                   }
 
-                  if (v81[2] == 67)
+                  if (v82[2] == 67)
                   {
-                    if (v81[3] == 68)
+                    if (v82[3] == 68)
                     {
-                      if (v81[4] == 65)
+                      if (v82[4] == 65)
                       {
-                        if (v81[5] == 84)
+                        if (v82[5] == 84)
                         {
-                          if (v81[6] == 65)
+                          if (v82[6] == 65)
                           {
-                            if (v81[7] == 91)
+                            if (v82[7] == 91)
                             {
-                              i = v81 + 8;
+                              i = v82 + 8;
                               if ((v12 & 4) == 0)
                               {
                                 while (1)
@@ -5600,10 +5961,10 @@ LABEL_598:
                                   {
                                     if (i[1] == 93)
                                     {
-                                      v151 = i[2];
-                                      v152 = v230 == 62 && v151 == 0;
-                                      v153 = !v152;
-                                      if (v151 == 62 || !v153)
+                                      v152 = i[2];
+                                      v153 = v231 == 62 && v152 == 0;
+                                      v154 = !v153;
+                                      if (v152 == 62 || !v154)
                                       {
                                         ++i;
                                         goto LABEL_496;
@@ -5620,27 +5981,27 @@ LABEL_598:
                                 }
                               }
 
-                              v181 = v79;
-                              if (!v182)
+                              v182 = v80;
+                              if (!v183)
                               {
                                 goto LABEL_562;
                               }
 
-                              v112 = v182;
-                              *(v182 + 2) = i;
+                              v113 = v183;
+                              *(v183 + 16) = i;
                               if ((v12 & 0x20) == 0)
                               {
-                                v79 = v181;
+                                v80 = v182;
                                 while (1)
                                 {
                                   if (*i == 93)
                                   {
                                     if (i[1] == 93)
                                     {
-                                      v183 = i[2];
-                                      v184 = v230 == 62 && v183 == 0;
-                                      v185 = !v184;
-                                      if (v183 == 62 || !v185)
+                                      v184 = i[2];
+                                      v185 = v231 == 62 && v184 == 0;
+                                      v186 = !v185;
+                                      if (v184 == 62 || !v186)
                                       {
                                         *i++ = 0;
                                         goto LABEL_496;
@@ -5657,387 +6018,387 @@ LABEL_598:
                                 }
                               }
 
-                              v79 = v181;
+                              v80 = v182;
                               if (i)
                               {
 LABEL_496:
-                                v187 = i[1] == 62;
-                                v188 = 1;
+                                v188 = i[1] == 62;
+                                v189 = 1;
                                 goto LABEL_497;
                               }
 
-                              v88 = 8;
+                              v89 = 8;
 LABEL_566:
-                              v81 = *(v112 + 2);
+                              v82 = v113[2];
 LABEL_511:
-                              v73 = v231;
-                              if (v81)
+                              v74 = v232;
+                              if (v82)
                               {
-                                v197 = v81 - v20;
+                                v198 = v82 - v21;
                                 goto LABEL_608;
                               }
 
                               goto LABEL_542;
                             }
 
-                            i = v81 + 7;
+                            i = v82 + 7;
                           }
 
                           else
                           {
-                            i = v81 + 6;
+                            i = v82 + 6;
                           }
                         }
 
                         else
                         {
-                          i = v81 + 5;
+                          i = v82 + 5;
                         }
                       }
 
                       else
                       {
-                        i = v81 + 4;
+                        i = v82 + 4;
                       }
                     }
 
                     else
                     {
-                      i = v81 + 3;
+                      i = v82 + 3;
                     }
                   }
 
                   else
                   {
-                    i = v81 + 2;
+                    i = v82 + 2;
                   }
 
 LABEL_596:
-                  v88 = 8;
+                  v89 = 8;
                   goto LABEL_607;
                 }
 
                 break;
               }
 
-              if (v86 != 63)
+              if (v87 != 63)
               {
-                if (v86 == 47)
+                if (v87 == 47)
                 {
-                  i = v81 + 1;
-                  v92 = *(v79 + 1);
-                  if (v92)
+                  i = v82 + 1;
+                  v93 = v80[1];
+                  if (v93)
                   {
-                    v76 = v81 + 1;
+                    v77 = v82 + 1;
                     while (1)
                     {
-                      v93 = *v76;
+                      v94 = *v77;
                       {
                         break;
                       }
 
-                      ++v76;
-                      v94 = *v92++;
-                      if (v93 != v94)
+                      ++v77;
+                      v95 = *v93++;
+                      if (v94 != v95)
                       {
                         goto LABEL_581;
                       }
                     }
 
-                    if (!*v92)
+                    if (!*v93)
                     {
-                      v79 = *(v79 + 3);
+                      v80 = v80[3];
                       do
                       {
-                        i = v76;
-                        v130 = *v76++;
-                        v129 = v130;
+                        i = v77;
+                        v131 = *v77++;
+                        v130 = v131;
                       }
 
-                      if (v129)
+                      if (v130)
                       {
-                        if (v129 != 62)
+                        if (v130 != 62)
                         {
-                          v88 = 13;
+                          v89 = 13;
                           goto LABEL_607;
                         }
 
                         continue;
                       }
 
-                      --v76;
-                      if (v230 == 62)
+                      --v77;
+                      if (v231 == 62)
                       {
                         continue;
                       }
 
 LABEL_590:
-                      v88 = 13;
+                      v89 = 13;
                       goto LABEL_606;
                     }
 
-                    if (!*v76 && *v92 == v230 && !v92[1])
+                    if (!*v77 && *v93 == v231 && !v93[1])
                     {
                       goto LABEL_590;
                     }
                   }
 
 LABEL_581:
-                  v88 = 14;
+                  v89 = 14;
                   goto LABEL_607;
                 }
 
-                if (v86)
+                if (v87)
                 {
-                  v218 = 0;
+                  v219 = 0;
                 }
 
                 else
                 {
-                  v218 = v230 == 63;
+                  v219 = v231 == 63;
                 }
 
-                if (v218)
+                if (v219)
                 {
-                  v88 = 6;
+                  v89 = 6;
                 }
 
                 else
                 {
-                  v88 = 5;
+                  v89 = 5;
                 }
 
 LABEL_576:
-                i = v81;
+                i = v82;
                 goto LABEL_607;
               }
 
               break;
             }
 
-            i = v81 + 1;
+            i = v82 + 1;
             {
 LABEL_565:
-              v88 = 6;
+              v89 = 6;
               goto LABEL_607;
             }
 
-            v223 = v75;
-            v226 = v20;
-            v97 = v81 + 1;
-            v98 = v81 + 3;
-            v99 = 4;
-            v100 = 1;
+            v224 = v76;
+            v227 = v21;
+            v98 = v82 + 1;
+            v99 = v82 + 3;
+            v100 = 4;
+            v101 = 1;
             do
             {
-              v101 = v100;
-              v76 = v97;
-              v103 = *v97++;
-              v102 = v103;
-              v104 = v98;
-              ++v100;
-              --v99;
-              ++v98;
+              v102 = v101;
+              v77 = v98;
+              v104 = *v98++;
+              v103 = v104;
+              v105 = v99;
+              ++v101;
+              --v100;
+              ++v99;
             }
 
-            v105 = &v81[v101];
-            if (!v102)
+            v106 = &v82[v102];
+            if (!v103)
             {
-              v88 = 6;
-              i = v105;
+              v89 = 6;
+              i = v106;
               goto LABEL_560;
             }
 
-            v222 = v105;
-            v106 = v97 - 1;
-            if ((v81[1] & 0xDF) != 0x58 || (v81[2] & 0xDF) != 0x4D)
+            v223 = v106;
+            v107 = v98 - 1;
+            if ((v82[1] & 0xDF) != 0x58 || (v82[2] & 0xDF) != 0x4D)
             {
-              v109 = v230;
+              v110 = v231;
               if ((v12 & 1) == 0)
               {
                 goto LABEL_243;
               }
 
 LABEL_280:
-              if (v79)
+              if (v80)
               {
-                v110 = 0;
-                v20 = v226;
+                v111 = 0;
+                v21 = v227;
                 goto LABEL_282;
               }
 
-              v88 = 3;
+              v89 = 3;
 LABEL_559:
-              i = v106;
+              i = v107;
 LABEL_560:
-              v75 = v223;
-              v20 = v226;
+              v76 = v224;
+              v21 = v227;
               goto LABEL_607;
             }
 
-            v107 = v99 == 0 && (v81[3] & 0xDF) == 76;
-            if (v107)
+            v108 = v100 == 0 && (v82[3] & 0xDF) == 76;
+            if (v108)
             {
-              v108 = 256;
+              v109 = 256;
             }
 
             else
             {
-              v108 = 1;
+              v109 = 1;
             }
 
-            v109 = v230;
-            if ((v108 & v12) == 0)
+            v110 = v231;
+            if ((v109 & v12) == 0)
             {
               while (1)
               {
 LABEL_243:
-                if (v102 == 63)
+                if (v103 == 63)
                 {
-                  v102 = v106[1];
-                  v127 = v109 != 62 || v102 != 0;
-                  if (v102 == 62 || !v127)
+                  v103 = v107[1];
+                  v128 = v110 != 62 || v103 != 0;
+                  if (v103 == 62 || !v128)
                   {
-                    v30 = v102 == 62;
-                    v161 = 1;
-                    if (v30)
+                    v31 = v103 == 62;
+                    v162 = 1;
+                    if (v31)
                     {
-                      v161 = 2;
+                      v162 = 2;
                     }
 
-                    v76 = &v106[v161];
-                    v20 = v226;
+                    v77 = &v107[v162];
+                    v21 = v227;
                     goto LABEL_415;
                   }
                 }
 
                 else
                 {
-                  if (!v102)
+                  if (!v103)
                   {
-                    v88 = 6;
+                    v89 = 6;
                     goto LABEL_559;
                   }
 
-                  v102 = v106[1];
+                  v103 = v107[1];
                 }
 
-                ++v106;
+                ++v107;
               }
             }
 
-            if (!v107)
+            if (!v108)
             {
               goto LABEL_280;
             }
 
-            if (*(v79 + 3))
+            if (v80[3])
             {
-              v88 = 6;
-              i = v105;
+              v89 = 6;
+              i = v106;
               goto LABEL_560;
             }
 
-            v20 = v226;
-            if (!v79)
+            v21 = v227;
+            if (!v80)
             {
-              v88 = 3;
-              i = v222;
-              v75 = v223;
+              v89 = 3;
+              i = v223;
+              v76 = v224;
               goto LABEL_607;
             }
 
-            v110 = 1;
+            v111 = 1;
 LABEL_282:
-            *(v79 + 1) = i;
-            v134 = *(v97 - 1);
-            *(v97 - 1) = 0;
-            if (v134 == 63)
+            v80[1] = i;
+            v135 = *(v98 - 1);
+            *(v98 - 1) = 0;
+            if (v135 == 63)
             {
-              v135 = *v97;
-              v137 = v109 == 62 && v135 == 0;
-              if (v135 != 62 && !v137)
+              v136 = *v98;
+              v138 = v110 == 62 && v136 == 0;
+              if (v136 != 62 && !v138)
               {
-                v88 = 6;
-                i = v97;
-                v75 = v223;
+                v89 = 6;
+                i = v98;
+                v76 = v224;
                 goto LABEL_607;
               }
 
-              if (v135 == 62)
+              if (v136 == 62)
               {
-                v76 = v97 + 1;
+                v77 = v98 + 1;
               }
 
               else
               {
-                v76 = v97;
+                v77 = v98;
               }
 
-              v79 = *(v79 + 3);
+              v80 = v80[3];
 LABEL_415:
-              v75 = v223;
+              v76 = v224;
               goto LABEL_416;
             }
 
             {
-              v75 = v223;
-              i = v222 + 1;
+              v76 = v224;
+              i = v223 + 1;
               goto LABEL_565;
             }
 
-            v75 = v223;
+            v76 = v224;
             do
             {
-              v155 = v104;
-              v157 = *++v76;
-              v156 = v157;
-              ++v104;
+              v156 = v105;
+              v158 = *++v77;
+              v157 = v158;
+              ++v105;
             }
 
-            while (v156 != 63)
+            while (v157 != 63)
             {
-              if (!v156)
+              if (!v157)
               {
-                i = v155 - 1;
+                i = v156 - 1;
                 goto LABEL_565;
               }
 
-              v156 = *v155;
+              v157 = *v156;
 LABEL_391:
-              ++v155;
+              ++v156;
             }
 
-            v156 = *v155;
-            v159 = v109 != 62 || v156 != 0;
-            if (v156 != 62 && v159)
+            v157 = *v156;
+            v160 = v110 != 62 || v157 != 0;
+            if (v157 != 62 && v160)
             {
               goto LABEL_391;
             }
 
-            if (v110)
+            if (v111)
             {
-              *(v155 - 1) = 47;
+              *(v156 - 1) = 47;
             }
 
             else
             {
-              *(v79 + 2) = v76;
-              v79 = *(v79 + 3);
-              *(v155 - 1) = 0;
-              if (*v155 == 62)
+              v80[2] = v77;
+              v80 = v80[3];
+              *(v156 - 1) = 0;
+              if (*v156 == 62)
               {
-                v76 = v155 + 1;
+                v77 = v156 + 1;
               }
 
               else
               {
-                v76 = v155;
+                v77 = v156;
               }
             }
 
 LABEL_416:
-            if ((*v79 & 0xFLL) != 7)
+            if ((*v80 & 0xFLL) != 7)
             {
               continue;
             }
@@ -6050,116 +6411,116 @@ LABEL_416:
             do
             {
 LABEL_417:
-              i = v76;
-              v163 = *v76++;
-              v162 = v163;
+              i = v77;
+              v164 = *v77++;
+              v163 = v164;
             }
 
-            while ((v164 & 8) != 0);
-            if ((v164 & 0x80) == 0)
+            while ((v165 & 8) != 0);
+            if ((v165 & 0x80) == 0)
             {
               break;
             }
 
-            v165 = v17;
-            v166 = v75;
-            v167 = v79;
-            if (!v168)
+            v166 = v17;
+            v167 = v76;
+            v168 = v80;
+            if (!v169)
             {
-              v75 = v166;
-              v17 = v165;
+              v76 = v167;
+              v17 = v166;
               goto LABEL_562;
             }
 
-            v112 = v168;
-            *(v168 + 1) = i;
-            v169 = i + 1;
+            v113 = v169;
+            *(v169 + 8) = i;
+            v170 = i + 1;
             while (1)
             {
-              v170 = *(v169 - 1);
-              if ((v171 & 0x40) == 0)
+              v171 = *(v170 - 1);
+              if ((v172 & 0x40) == 0)
               {
-                --v169;
+                --v170;
                 goto LABEL_428;
               }
 
-              v170 = *v169;
-              if ((v171 & 0x40) == 0)
+              v171 = *v170;
+              if ((v172 & 0x40) == 0)
               {
                 goto LABEL_428;
               }
 
-              v170 = v169[1];
-              if ((v171 & 0x40) == 0)
+              v171 = v170[1];
+              if ((v172 & 0x40) == 0)
               {
                 break;
               }
 
-              v170 = v169[2];
-              v169 += 4;
-              if ((v171 & 0x40) == 0)
+              v171 = v170[2];
+              v170 += 4;
+              if ((v172 & 0x40) == 0)
               {
-                v169 -= 2;
+                v170 -= 2;
                 goto LABEL_428;
               }
             }
 
-            ++v169;
+            ++v170;
 LABEL_428:
-            *v169 = 0;
-            i = v169 + 1;
-            if ((v171 & 8) != 0)
+            *v170 = 0;
+            i = v170 + 1;
+            if ((v172 & 8) != 0)
             {
               do
               {
-                v172 = *i++;
-                v170 = v172;
+                v173 = *i++;
+                v171 = v173;
               }
             }
 
-            if (v170 != 61)
+            if (v171 != 61)
             {
               goto LABEL_568;
             }
 
             do
             {
-              v174 = *i++;
-              v173 = v174;
+              v175 = *i++;
+              v174 = v175;
             }
 
-            if (v173 != 34 && v173 != 39)
+            if (v174 != 34 && v174 != 39)
             {
               --i;
 LABEL_568:
-              v75 = v166;
-              v17 = v165;
-              v88 = 12;
+              v76 = v167;
+              v17 = v166;
+              v89 = 12;
               goto LABEL_607;
             }
 
-            *(v168 + 2) = i;
-            v175 = v229(i, v173);
-            if (!v175)
+            *(v169 + 16) = i;
+            v176 = v230(i, v174);
+            if (!v176)
             {
-              v75 = v166;
-              v17 = v165;
-              v88 = 12;
+              v76 = v167;
+              v17 = v166;
+              v89 = 12;
               goto LABEL_566;
             }
 
-            v76 = v175;
-            v79 = v167;
-            v75 = v166;
-            v17 = v165;
-            if (v176 < 0)
+            v77 = v176;
+            v80 = v168;
+            v76 = v167;
+            v17 = v166;
+            if (v177 < 0)
             {
-              v88 = 12;
+              v89 = 12;
               goto LABEL_606;
             }
           }
 
-          if (v162 == 62)
+          if (v163 == 62)
           {
             continue;
           }
@@ -6167,16 +6528,16 @@ LABEL_568:
           break;
         }
 
-        if (v162 != 47)
+        if (v163 != 47)
         {
-          v88 = 11;
-          if (v230 != 62)
+          v89 = 11;
+          if (v231 != 62)
           {
             goto LABEL_607;
           }
 
-          v76 = i;
-          if (v162)
+          v77 = i;
+          if (v163)
           {
             goto LABEL_607;
           }
@@ -6187,20 +6548,20 @@ LABEL_568:
         break;
       }
 
-      if (*v76 == 62)
+      if (*v77 == 62)
       {
-        v79 = *(v79 + 3);
-        v76 = i + 2;
+        v80 = v80[3];
+        v77 = i + 2;
         continue;
       }
 
       break;
     }
 
-    v88 = 11;
-    if (v230 == 62 && !*v76)
+    v89 = 11;
+    if (v231 == 62 && !*v77)
     {
-      v79 = *(v79 + 3);
+      v80 = v80[3];
       continue;
     }
 
@@ -6208,33 +6569,33 @@ LABEL_568:
   }
 
 LABEL_606:
-  i = v76;
+  i = v77;
 LABEL_607:
-  v197 = i - v20;
-  v73 = v231;
+  v198 = i - v21;
+  v74 = v232;
 LABEL_608:
-  if (v230)
+  if (v231)
   {
-    v219 = 0;
+    v220 = 0;
   }
 
   else
   {
-    v219 = v197 == v75;
+    v220 = v198 == v76;
   }
 
-  v220 = v219;
-  v221 = v197 - v220;
-  if (v197 >= 1)
+  v221 = v220;
+  v222 = v198 - v221;
+  if (v198 >= 1)
   {
-    v197 = v221;
+    v198 = v222;
   }
 
 LABEL_616:
-  *v17 = v88;
-  *(v17 + 8) = v197;
+  *v17 = v89;
+  *(v17 + 8) = v198;
 LABEL_617:
-  *(v17 + 16) = v73;
+  *(v17 + 16) = v74;
 }
 
 const char *pugi::xml_parse_result::description(pugi::xml_parse_result *this)
@@ -6294,7 +6655,6 @@ void *pugi::xml_document::_destroy(pugi::xml_document *this)
 
 void pugi::xml_document::load(uint64_t a1@<X0>, void *a2@<X1>, unint64_t *a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>)
 {
-  v37 = *MEMORY[0x277D85DE8];
   pugi::xml_document::_destroy(a1);
   *(a1 + 40) = 0u;
   *(a1 + 24) = 0u;
@@ -6317,86 +6677,86 @@ void pugi::xml_document::load(uint64_t a1@<X0>, void *a2@<X1>, unint64_t *a3@<X2
     *a5 = 2;
 LABEL_40:
     *(a5 + 8) = 0;
-    goto LABEL_41;
+    return;
   }
 
-  v34 = a4;
+  v35 = a4;
   std::istream::tellg();
-  if (v36 < 0)
+  if (v37 < 0)
   {
     std::ios_base::clear((a2 + *(*a2 - 24)), 0);
-    v33 = a3;
-    v16 = 0;
-    v17 = 0;
-    v14 = 0;
-    v19 = a2 + 4;
-    v18 = *a2;
-    while ((*(v19 + *(v18 - 24)) & 2) == 0)
+    v34 = a3;
+    v18 = 0;
+    v19 = 0;
+    v15 = 0;
+    v21 = a2 + 4;
+    v20 = *a2;
+    while ((*(v21 + *(v20 - 24)) & 2) == 0)
     {
-      v12 = v20;
-      if (!v20)
+      v13 = v22;
+      if (!v22)
       {
         goto LABEL_32;
       }
 
-      *v20 = 0;
-      v20[1] = 0;
-      v21 = v20;
-      if (v17)
+      *v22 = 0;
+      v22[1] = 0;
+      v23 = v22;
+      if (v19)
       {
-        *v17 = v20;
-        v21 = v16;
+        *v19 = v22;
+        v23 = v18;
       }
 
       std::istream::read();
-      v22 = a2[1];
-      v12[1] = v22;
-      v18 = *a2;
-      v13 = 2;
-      if ((*(v19 + *(*a2 - 24)) & 1) != 0 || (*(v19 + *(*a2 - 24)) & 6) == 4)
+      v24 = a2[1];
+      *(v13 + 8) = v24;
+      v20 = *a2;
+      v14 = 2;
+      if ((*(v21 + *(*a2 - 24)) & 1) != 0 || (*(v21 + *(*a2 - 24)) & 6) == 4)
       {
-        v12 = 0;
-        v14 = 0;
+        v13 = 0;
+        v15 = 0;
 LABEL_35:
-        v16 = v21;
-        while (v16)
+        v18 = v23;
+        while (v18)
         {
 LABEL_36:
-          v30 = v16;
-          v16 = *v16;
+          v32 = v18;
+          v18 = *v18;
         }
 
 LABEL_37:
-        a3 = v33;
+        a3 = v34;
         goto LABEL_38;
       }
 
-      v23 = __CFADD__(v22, v14);
-      v24 = &v14[v22];
-      v25 = v23;
-      if (v24 > v14)
+      v25 = __CFADD__(v24, v15);
+      v26 = &v15[v24];
+      v27 = v25;
+      if (v26 > v15)
       {
-        v14 = v24;
+        v15 = v26;
       }
 
-      v16 = v21;
-      v17 = v12;
-      if (v25)
+      v18 = v23;
+      v19 = v13;
+      if (v27)
       {
-        v12 = 0;
-        v14 = 0;
-        v13 = 3;
+        v13 = 0;
+        v15 = 0;
+        v14 = 3;
         goto LABEL_35;
       }
     }
 
-    v12 = v26;
-    if (!v26)
+    v13 = v28;
+    if (!v28)
     {
 LABEL_32:
-      v14 = 0;
-      v13 = 3;
-      if (v16)
+      v15 = 0;
+      v14 = 3;
+      if (v18)
       {
         goto LABEL_36;
       }
@@ -6404,74 +6764,71 @@ LABEL_32:
       goto LABEL_37;
     }
 
-    if (v16)
+    if (v18)
     {
-      v27 = v16;
-      v28 = v26;
+      v29 = v18;
+      v30 = v28;
       do
       {
-        memcpy(v28, v27 + 2, v27[1]);
-        v29 = v27;
-        v27 = *v27;
-        v28 += v29[1];
+        memcpy(v30, v29 + 2, v29[1]);
+        v31 = v29;
+        v29 = *v29;
+        v30 += v31[1];
       }
 
-      while (v27);
-      v13 = 0;
+      while (v29);
+      v14 = 0;
       goto LABEL_36;
     }
 
-    a3 = v33;
-    goto LABEL_44;
+    a3 = v34;
+    goto LABEL_43;
   }
 
   std::istream::tellg();
   std::istream::seekg();
   std::istream::tellg();
   std::istream::seekg();
-  v12 = 0;
-  v13 = 2;
+  v13 = 0;
+  v14 = 2;
   if ((*(a2 + *(*a2 - 24) + 32) & 5) != 0)
   {
     goto LABEL_39;
   }
 
-  v14 = 0;
-  if (v36 < 0)
+  v15 = 0;
+  if (v37 < 0)
   {
 LABEL_38:
-    if (!v13)
+    if (!v14)
     {
-      goto LABEL_44;
+      goto LABEL_43;
     }
 
 LABEL_39:
     *(a5 + 16) = 0;
-    *a5 = v13;
+    *a5 = v14;
     goto LABEL_40;
   }
 
   {
-    v13 = 3;
+    v14 = 3;
     goto LABEL_39;
   }
 
   std::istream::read();
   if ((*(a2 + *(*a2 - 24) + 32) & 1) != 0 || (*(a2 + *(*a2 - 24) + 32) & 6) == 4)
   {
-    v15(v12);
+    v16(v13);
     goto LABEL_39;
   }
 
-  v14 = a2[1];
-LABEL_44:
+  v15 = a2[1];
+LABEL_43:
   if (buffer_encoding == 1)
   {
-    (v14++)[v12] = 0;
+    (v15++)[v13] = 0;
   }
-
-LABEL_41:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247629024(_Unwind_Exception *exception_object, int a2)
@@ -6525,9 +6882,9 @@ void pugi::impl::anonymous namespace::load_file_impl(FILE *a1@<X1>, uint64_t a2@
   if (!a1)
   {
     *(a6 + 16) = 0;
-    v18 = 1;
+    v19 = 1;
 LABEL_12:
-    *a6 = v18;
+    *a6 = v19;
     goto LABEL_13;
   }
 
@@ -6543,24 +6900,24 @@ LABEL_13:
     return;
   }
 
-  if (!v13)
+  if (!v14)
   {
     *(a6 + 16) = 0;
-    v18 = 3;
+    v19 = 3;
     goto LABEL_12;
   }
 
-  v14 = v13;
-  if (fread(v13, 1uLL, v12, a1) != v12)
+  v15 = v14;
+  if (fread(v14, 1uLL, v12, a1) != v12)
   {
     *(a6 + 16) = 0;
-    v18 = 2;
+    v19 = 2;
     goto LABEL_12;
   }
 
   if (buffer_encoding == 1)
   {
-    *(v14 + v12++) = 0;
+    *(v15 + v12++) = 0;
   }
 }
 
@@ -6571,9 +6928,9 @@ uint64_t pugi::xml_document::save(uint64_t a1, uint64_t a2)
   v6 = v3;
   __s = v7;
   v8 = v2;
-  v40 = *MEMORY[0x277D85DE8];
-  v37 = v9;
-  v38 = 0;
+  v39 = *MEMORY[0x277D85DE8];
+  v36 = v9;
+  v37 = 0;
   v10 = v4;
   if (v4 <= 8)
   {
@@ -6584,12 +6941,12 @@ uint64_t pugi::xml_document::save(uint64_t a1, uint64_t a2)
     }
   }
 
-  v39 = v10;
+  v38 = v10;
   if ((v3 & 2) != 0 && v4 != 9)
   {
-    *v36 = -17425;
-    v36[2] = -65;
-    v38 = 3;
+    *v35 = -17425;
+    v35[2] = -65;
+    v37 = 3;
   }
 
   if ((v3 & 8) == 0)
@@ -6611,15 +6968,15 @@ uint64_t pugi::xml_document::save(uint64_t a1, uint64_t a2)
     {
     }
 
-    v12 = v38;
-    if (v38 >= 0x7FF)
+    v12 = v37;
+    if (v37 >= 0x7FF)
     {
       v12 = 0;
     }
 
-    *&v36[v12] = 15935;
+    *&v35[v12] = 15935;
     v13 = v12 + 2;
-    v38 = v12 + 2;
+    v37 = v12 + 2;
     if ((v6 & 4) == 0)
     {
       if (v12 >= 0x7FE)
@@ -6627,8 +6984,8 @@ uint64_t pugi::xml_document::save(uint64_t a1, uint64_t a2)
         v13 = 0;
       }
 
-      v36[v13] = 10;
-      v38 = v13 + 1;
+      v35[v13] = 10;
+      v37 = v13 + 1;
     }
   }
 
@@ -6653,14 +7010,14 @@ LABEL_20:
 
     if (v6 & 4) == 0 && (v17)
     {
-      v19 = v38;
-      if (v38 >= 0x800)
+      v19 = v37;
+      if (v37 >= 0x800)
       {
         v19 = 0;
       }
 
-      v36[v19] = 10;
-      v38 = v19 + 1;
+      v35[v19] = 10;
+      v37 = v19 + 1;
     }
 
     if ((v17 & 2) != 0 && v14)
@@ -6686,14 +7043,14 @@ LABEL_94:
         v20 = ":anonymous";
       }
 
-      v21 = v38;
-      if (v38 >= 0x800)
+      v21 = v37;
+      if (v37 >= 0x800)
       {
         v21 = 0;
       }
 
-      v36[v21] = 60;
-      v38 = v21 + 1;
+      v35[v21] = 60;
+      v37 = v21 + 1;
       v22 = *(v18 + 56);
       if (v22)
       {
@@ -6701,14 +7058,14 @@ LABEL_94:
 
       if (*(v18 + 16))
       {
-        v23 = v38;
-        if (v38 >= 0x800)
+        v23 = v37;
+        if (v37 >= 0x800)
         {
           v23 = 0;
         }
 
-        v36[v23] = 62;
-        v38 = v23 + 1;
+        v35[v23] = 62;
+        v37 = v23 + 1;
         v24 = *(v18 + 32);
         if (!v24)
         {
@@ -6718,16 +7075,16 @@ LABEL_94:
         goto LABEL_55;
       }
 
-      v25 = v38;
+      v25 = v37;
       if (*(v18 + 32))
       {
-        if (v38 >= 0x800)
+        if (v37 >= 0x800)
         {
           v25 = 0;
         }
 
-        v36[v25] = 62;
-        v38 = v25 + 1;
+        v35[v25] = 62;
+        v37 = v25 + 1;
         v24 = *(v18 + 32);
 LABEL_55:
         if (*(v18 + 16))
@@ -6748,13 +7105,13 @@ LABEL_55:
       {
         if ((v6 & 4) == 0)
         {
-          if (v38 >= 0x800)
+          if (v37 >= 0x800)
           {
             v25 = 0;
           }
 
-          v36[v25++] = 32;
-          v38 = v25;
+          v35[v25++] = 32;
+          v37 = v25;
         }
 
         if (v25 >= 0x7FF)
@@ -6762,32 +7119,32 @@ LABEL_55:
           v25 = 0;
         }
 
-        *&v36[v25] = 15919;
+        *&v35[v25] = 15919;
         v26 = v25 + 2;
         goto LABEL_93;
       }
 
-      if (v38 >= 0x7FE)
+      if (v37 >= 0x7FE)
       {
         v25 = 0;
       }
 
-      v27 = &v36[v25];
+      v27 = &v35[v25];
       *v27 = 15422;
       v27[2] = 47;
       v28 = v25 + 3;
 LABEL_90:
-      v38 = v28;
-      v31 = v38;
-      if (v38 >= 0x800)
+      v37 = v28;
+      v31 = v37;
+      if (v37 >= 0x800)
       {
         v31 = 0;
       }
 
-      v36[v31] = 62;
+      v35[v31] = 62;
       v26 = v31 + 1;
 LABEL_93:
-      v38 = v26;
+      v37 = v26;
       goto LABEL_94;
     }
 
@@ -6815,14 +7172,14 @@ LABEL_73:
       while ((*v18 & 0xFLL) != 2);
       if (v6 & 4) == 0 && (v17)
       {
-        v29 = v38;
-        if (v38 >= 0x800)
+        v29 = v37;
+        if (v37 >= 0x800)
         {
           v29 = 0;
         }
 
-        v36[v29] = 10;
-        v38 = v29 + 1;
+        v35[v29] = 10;
+        v37 = v29 + 1;
       }
 
       --v16;
@@ -6841,13 +7198,13 @@ LABEL_73:
       }
 
 LABEL_87:
-      v30 = v38;
-      if (v38 >= 0x7FF)
+      v30 = v37;
+      if (v37 >= 0x7FF)
       {
         v30 = 0;
       }
 
-      *&v36[v30] = 12092;
+      *&v35[v30] = 12092;
       v28 = v30 + 2;
       goto LABEL_90;
     }
@@ -6859,26 +7216,23 @@ LABEL_60:
   }
 
   while (v18 != v15);
-  v32 = v38;
+  v32 = v37;
   if (v6 & 4) == 0 && (v17)
   {
-    if (v38 >= 0x800)
+    if (v37 >= 0x800)
     {
       v32 = 0;
     }
 
-    v36[v32++] = 10;
-    v38 = v32;
+    v35[v32++] = 10;
+    v37 = v32;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-unint64_t *pugi::impl::anonymous namespace::xml_buffered_writer::write_string(unint64_t *this, const char *__s)
+pugi::impl::_anonymous_namespace_::xml_buffered_writer *pugi::impl::anonymous namespace::xml_buffered_writer::write_string(pugi::impl::_anonymous_namespace_::xml_buffered_writer *this, const char *__s)
 {
   v2 = this;
-  v3 = this[1281];
+  v3 = *(this + 1281);
   LOBYTE(v4) = *__s;
   v5 = v3 < 0x800;
   if (*__s && v3 <= 0x7FF)
@@ -6897,12 +7251,12 @@ unint64_t *pugi::impl::anonymous namespace::xml_buffered_writer::write_string(un
 
   if (v5)
   {
-    this[1281] = v3;
+    *(this + 1281) = v3;
   }
 
   else
   {
-    v9 = this[1281];
+    v9 = *(this + 1281);
     v10 = v3 - v9;
     if (v3 - v9 >= 5)
     {
@@ -6925,7 +7279,7 @@ unint64_t *pugi::impl::anonymous namespace::xml_buffered_writer::write_string(un
       v11 = 0;
     }
 
-    this[1281] = v3 - (v10 - v11);
+    *(this + 1281) = v3 - (v10 - v11);
     v13 = &__s[-(v10 - v11)];
     v14 = strlen(__s) + v10 - v11;
   }
@@ -6933,7 +7287,7 @@ unint64_t *pugi::impl::anonymous namespace::xml_buffered_writer::write_string(un
   return this;
 }
 
-char *pugi::impl::anonymous namespace::append_new_node(uint64_t a1, uint64_t *a2, unsigned int a3)
+uint64_t pugi::impl::anonymous namespace::append_new_node(uint64_t a1, uint64_t *a2, unsigned int a3)
 {
   v5 = a2[1];
   if ((v5 + 64) > 0x7FD8)
@@ -6950,23 +7304,23 @@ char *pugi::impl::anonymous namespace::append_new_node(uint64_t a1, uint64_t *a2
   else
   {
     v6 = *a2;
-    result = (*a2 + v5 + 40);
+    result = *a2 + v5 + 40;
     a2[1] = v5 + 64;
   }
 
-  *(result + 7) = 0;
+  *(result + 56) = 0;
   *(result + 40) = 0u;
   *(result + 24) = 0u;
   *(result + 8) = 0u;
-  *result = a3 | (&result[-v6] << 8);
-  *(result + 3) = a1;
+  *result = a3 | ((result - v6) << 8);
+  *(result + 24) = a1;
   v8 = *(a1 + 32);
   if (v8)
   {
     v10 = *(v8 + 40);
     v9 = (v8 + 40);
     *(v10 + 48) = result;
-    *(result + 5) = v10;
+    *(result + 40) = v10;
   }
 
   else
@@ -6979,7 +7333,7 @@ char *pugi::impl::anonymous namespace::append_new_node(uint64_t a1, uint64_t *a2
   return result;
 }
 
-char *pugi::impl::anonymous namespace::append_new_attribute(uint64_t a1, uint64_t *a2)
+uint64_t pugi::impl::anonymous namespace::append_new_attribute(uint64_t a1, uint64_t *a2)
 {
   v3 = a2[1];
   if ((v3 + 40) > 0x7FD8)
@@ -6996,20 +7350,20 @@ char *pugi::impl::anonymous namespace::append_new_attribute(uint64_t a1, uint64_
   else
   {
     v4 = *a2;
-    result = (*a2 + v3 + 40);
+    result = *a2 + v3 + 40;
     a2[1] = v3 + 40;
   }
 
   *(result + 24) = 0u;
   *(result + 8) = 0u;
-  *result = &result[-v4] << 8;
+  *result = (result - v4) << 8;
   v6 = *(a1 + 56);
   if (v6)
   {
     v8 = *(v6 + 24);
     v7 = (v6 + 24);
     *(v8 + 32) = result;
-    *(result + 3) = v8;
+    *(result + 24) = v8;
   }
 
   else
@@ -7056,7 +7410,7 @@ void pugi::impl::anonymous namespace::xml_allocator::deallocate_memory(uint64_t 
   }
 }
 
-char *pugi::impl::anonymous namespace::xml_allocator::allocate_memory_oob(uint64_t a1, unint64_t a2, void *a3)
+uint64_t pugi::impl::anonymous namespace::xml_allocator::allocate_memory_oob(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
   if (a2 >= 0x1FF7)
   {
@@ -7070,17 +7424,17 @@ char *pugi::impl::anonymous namespace::xml_allocator::allocate_memory_oob(uint64
 
   if (result)
   {
-    *(result + 4) = 0;
+    *(result + 32) = 0;
     *result = 0u;
-    *(result + 1) = 0u;
+    *(result + 16) = 0u;
     *result = **a1;
     *a3 = result;
     if (a2 > 0x1FF6)
     {
       v11 = *a1;
       v12 = *(*a1 + 8);
-      *(result + 1) = v12;
-      *(result + 2) = v11;
+      *(result + 8) = v12;
+      *(result + 16) = v11;
       *(v12 + 16) = result;
       v11[1] = result;
       v8 = (result + 24);
@@ -7091,7 +7445,7 @@ char *pugi::impl::anonymous namespace::xml_allocator::allocate_memory_oob(uint64
       v8 = (a1 + 8);
       v9 = *(a1 + 8);
       v10 = *a1;
-      *(result + 1) = *a1;
+      *(result + 8) = *a1;
       v10[2] = result;
       v10[3] = v9;
       *a1 = result;
@@ -8645,7 +8999,7 @@ LABEL_11:
   return v4;
 }
 
-unsigned __int8 *pugi::impl::anonymous namespace::strconv_pcdata_impl<pugi::impl::anonymous namespace::opt_false,pugi::impl::anonymous namespace::opt_true,pugi::impl::anonymous namespace::opt_true>::parse(char *a1)
+char *pugi::impl::anonymous namespace::strconv_pcdata_impl<pugi::impl::anonymous namespace::opt_false,pugi::impl::anonymous namespace::opt_true,pugi::impl::anonymous namespace::opt_true>::parse(char *a1)
 {
   __src = 0;
   v11 = 0;
@@ -8660,7 +9014,7 @@ unsigned __int8 *pugi::impl::anonymous namespace::strconv_pcdata_impl<pugi::impl
 
       else
       {
-        v2 = (a1 + 2);
+        v2 = a1 + 2;
         while (1)
         {
           v1 = *(v2 - 1);
@@ -8698,7 +9052,7 @@ LABEL_11:
 
       if (v1 == 13)
       {
-        a1 = (v2 + 1);
+        a1 = v2 + 1;
         v3 = v2[1];
         *v2 = 10;
         if (v3 == 10)
@@ -8709,7 +9063,7 @@ LABEL_11:
             memmove(__src - v11, __src, a1 - __src);
           }
 
-          a1 = (v2 + 2);
+          a1 = v2 + 2;
           __src = v2 + 2;
           v11 = v4 + 1;
         }
@@ -8732,7 +9086,7 @@ LABEL_11:
         }
 
 LABEL_22:
-        a1 = (v2 + 1);
+        a1 = v2 + 1;
       }
     }
 
@@ -9041,7 +9395,7 @@ LABEL_11:
   return v6;
 }
 
-unsigned __int8 *pugi::impl::anonymous namespace::strconv_pcdata_impl<pugi::impl::anonymous namespace::opt_true,pugi::impl::anonymous namespace::opt_true,pugi::impl::anonymous namespace::opt_true>::parse(char *a1)
+char *pugi::impl::anonymous namespace::strconv_pcdata_impl<pugi::impl::anonymous namespace::opt_true,pugi::impl::anonymous namespace::opt_true,pugi::impl::anonymous namespace::opt_true>::parse(char *a1)
 {
   v1 = a1;
   __src = 0;
@@ -9057,7 +9411,7 @@ unsigned __int8 *pugi::impl::anonymous namespace::strconv_pcdata_impl<pugi::impl
 
       else
       {
-        v3 = (a1 + 2);
+        v3 = a1 + 2;
         while (1)
         {
           v2 = *(v3 - 1);
@@ -9095,7 +9449,7 @@ LABEL_11:
 
       if (v2 == 13)
       {
-        a1 = (v3 + 1);
+        a1 = v3 + 1;
         v4 = v3[1];
         *v3 = 10;
         if (v4 == 10)
@@ -9106,7 +9460,7 @@ LABEL_11:
             memmove(__src - v14, __src, a1 - __src);
           }
 
-          a1 = (v3 + 2);
+          a1 = v3 + 2;
           __src = v3 + 2;
           v14 = v5 + 1;
         }
@@ -9140,7 +9494,7 @@ LABEL_11:
         }
 
 LABEL_22:
-        a1 = (v3 + 1);
+        a1 = v3 + 1;
       }
     }
 
@@ -9284,7 +9638,7 @@ LABEL_24:
   return v11;
 }
 
-unint64_t *pugi::impl::anonymous namespace::node_output_simple(unint64_t *this, uint64_t a2, char a3)
+pugi::impl::_anonymous_namespace_::xml_buffered_writer *pugi::impl::anonymous namespace::node_output_simple(pugi::impl::_anonymous_namespace_::xml_buffered_writer *this, uint64_t a2, char a3)
 {
   v5 = this;
   v6 = *a2 & 0xF;
@@ -9294,7 +9648,7 @@ unint64_t *pugi::impl::anonymous namespace::node_output_simple(unint64_t *this, 
     {
       if (v6 == 7)
       {
-        v42 = this[1281];
+        v42 = *(this + 1281);
         if (v42 >= 0x7FF)
         {
           v42 = 0;
@@ -9321,7 +9675,7 @@ unint64_t *pugi::impl::anonymous namespace::node_output_simple(unint64_t *this, 
         return this;
       }
 
-      v15 = this[1281];
+      v15 = *(this + 1281);
       if (v15 >= 0x7FC)
       {
         v15 = 0;
@@ -9364,7 +9718,7 @@ LABEL_104:
       return this;
     }
 
-    v21 = this[1281];
+    v21 = *(this + 1281);
     if (v21 >= 0x7FF)
     {
       v21 = 0;
@@ -9491,7 +9845,7 @@ LABEL_97:
         v7 = &str_16;
       }
 
-      v8 = this[1281];
+      v8 = *(this + 1281);
       if (v8 >= 0x7FD)
       {
         v8 = 0;
@@ -9586,7 +9940,7 @@ LABEL_101:
       v31 = &str_16;
     }
 
-    v32 = this[1281];
+    v32 = *(this + 1281);
     while (1)
     {
       if (v32 >= 0x7FC)
@@ -9672,149 +10026,4 @@ LABEL_84:
   {
     v20 = &str_16;
   }
-}
-
-uint64_t pugi::impl::anonymous namespace::text_output_indent(uint64_t this, char *a2, int64_t a3, int a4)
-{
-  v5 = a4;
-  v8 = this;
-  if (a3 > 2)
-  {
-    if (a3 == 3)
-    {
-      if (a4)
-      {
-        v19 = *(this + 10248);
-        do
-        {
-          v20 = *a2;
-          v21 = a2[1];
-          v22 = a2[2];
-          if (v19 >= 0x7FE)
-          {
-            v19 = 0;
-          }
-
-          v23 = (v8 + v19);
-          *v23 = v20;
-          v23[1] = v21;
-          v23[2] = v22;
-          v19 += 3;
-          *(v8 + 10248) = v19;
-          --v5;
-        }
-
-        while (v5);
-      }
-    }
-
-    else
-    {
-      if (a3 != 4)
-      {
-LABEL_18:
-        if (a4)
-        {
-          do
-          {
-            v15 = *(v8 + 10248);
-            v16 = v15 + a3;
-            if ((v15 + a3) > 0x800)
-            {
-            }
-
-            else
-            {
-              this = memcpy((v8 + v15), a2, a3);
-              *(v8 + 10248) = v16;
-            }
-
-            --v5;
-          }
-
-          while (v5);
-        }
-
-        return this;
-      }
-
-      if (a4)
-      {
-        v13 = *(this + 10248);
-        do
-        {
-          v4.i32[0] = *a2;
-          if (v13 >= 0x7FD)
-          {
-            v13 = 0;
-          }
-
-          v14 = vmovl_u8(v4).u64[0];
-          *(v8 + v13) = vuzp1_s8(v14, v14).u32[0];
-          v13 += 4;
-          *(v8 + 10248) = v13;
-          --v5;
-        }
-
-        while (v5);
-      }
-    }
-  }
-
-  else
-  {
-    if (a3 != 1)
-    {
-      if (a3 == 2)
-      {
-        if (a4)
-        {
-          v9 = *(this + 10248);
-          do
-          {
-            v10 = *a2;
-            v11 = a2[1];
-            if (v9 >= 0x7FF)
-            {
-              v9 = 0;
-            }
-
-            v12 = (v8 + v9);
-            *v12 = v10;
-            v12[1] = v11;
-            v9 += 2;
-            *(v8 + 10248) = v9;
-            --v5;
-          }
-
-          while (v5);
-        }
-
-        return this;
-      }
-
-      goto LABEL_18;
-    }
-
-    if (a4)
-    {
-      v17 = *(this + 10248);
-      do
-      {
-        v18 = *a2;
-        if (v17 >= 0x800)
-        {
-          v17 = 0;
-        }
-
-        *(v8 + v17++) = v18;
-        *(v8 + 10248) = v17;
-        --v5;
-      }
-
-      while (v5);
-    }
-  }
-
-  return this;
 }

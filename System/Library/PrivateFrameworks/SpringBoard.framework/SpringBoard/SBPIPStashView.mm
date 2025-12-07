@@ -268,7 +268,7 @@
   v15 = self->_backdropView;
   if (v15)
   {
-    [(SBPIPBackdropView *)v15 transform];
+    objc_msgSend_transform(v15);
   }
 
   else
@@ -281,7 +281,7 @@
   v17 = self->_backdropView;
   if (v17)
   {
-    [(SBPIPBackdropView *)v17 transform];
+    objc_msgSend_transform(v17);
   }
 
   else

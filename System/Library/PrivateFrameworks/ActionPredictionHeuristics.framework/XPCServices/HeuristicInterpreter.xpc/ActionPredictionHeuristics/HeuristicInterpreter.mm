@@ -17,31 +17,31 @@
 - (void)ping:(id)ping
 {
   pingCopy = ping;
-  v4 = sub_1000018B8();
+  v4 = sub_1000018B8(pingCopy);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = sub_1000018B8();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = sub_1000018B8(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "ping", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "ping", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v8 = sub_100001940();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100001940(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Pinged", v12, 2u);
+    *v15 = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Pinged", v15, 2u);
   }
 
   pingCopy[2](pingCopy, 0);
-  v9 = sub_1000018B8();
-  v10 = v9;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v12 = sub_1000018B8(v11);
+  v13 = v12;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    *v11 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_END, v5, "ping", " enableTelemetry=YES ", v11, 2u);
+    *v14 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_END, v5, "ping", " enableTelemetry=YES ", v14, 2u);
   }
 }
 
@@ -52,7 +52,7 @@
   nowCopy = now;
   endpointCopy = endpoint;
   replyCopy = reply;
-  v16 = sub_1000036B0();
+  v16 = sub_1000036B0(replyCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000036F4;
@@ -77,7 +77,7 @@
   nowCopy = now;
   endpointCopy = endpoint;
   replyCopy = reply;
-  v16 = sub_1000036B0();
+  v16 = sub_1000036B0(replyCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100003D38;

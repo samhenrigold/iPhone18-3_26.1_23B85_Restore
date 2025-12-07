@@ -37,23 +37,23 @@ uint64_t __40__ARUISpriteSheetFactory_sharedInstance__block_invoke()
 
 - (id)defaultSpriteTexture
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_defaultSpriteTexture);
   if (!WeakRetained)
   {
-    v4 = arui_rings_log();
+    v4 = arui_rings_log(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = @"ringIconSprite";
-      _os_log_impl(&dword_1CFD67000, v4, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = @"ringIconSprite";
+      _os_log_impl(&dword_1CFD67000, v4, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v11, 0xCu);
     }
 
     v5 = MEMORY[0x1E69DCAB8];
-    v6 = ActivityRingsUIFrameworkBundle();
-    v7 = [v5 imageNamed:@"ringIconSprite" inBundle:v6 compatibleWithTraitCollection:0];
+    v8 = ActivityRingsUIFrameworkBundle(v6, v7);
+    v9 = [v5 imageNamed:@"ringIconSprite" inBundle:v8 compatibleWithTraitCollection:0];
 
-    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v7];
+    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v9];
     objc_storeWeak(&self->_defaultSpriteTexture, WeakRetained);
   }
 
@@ -100,23 +100,23 @@ uint64_t __40__ARUISpriteSheetFactory_sharedInstance__block_invoke()
 
 - (id)wheelchairSpriteTexture
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_wheelchairSpriteTexture);
   if (!WeakRetained)
   {
-    v4 = arui_rings_log();
+    v4 = arui_rings_log(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = @"ringIconSprite_WHEELCHAIR";
-      _os_log_impl(&dword_1CFD67000, v4, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = @"ringIconSprite_WHEELCHAIR";
+      _os_log_impl(&dword_1CFD67000, v4, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v11, 0xCu);
     }
 
     v5 = MEMORY[0x1E69DCAB8];
-    v6 = ActivityRingsUIFrameworkBundle();
-    v7 = [v5 imageNamed:@"ringIconSprite_WHEELCHAIR" inBundle:v6 compatibleWithTraitCollection:0];
+    v8 = ActivityRingsUIFrameworkBundle(v6, v7);
+    v9 = [v5 imageNamed:@"ringIconSprite_WHEELCHAIR" inBundle:v8 compatibleWithTraitCollection:0];
 
-    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v7];
+    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v9];
     objc_storeWeak(&self->_wheelchairSpriteTexture, WeakRetained);
   }
 
@@ -163,24 +163,24 @@ uint64_t __40__ARUISpriteSheetFactory_sharedInstance__block_invoke()
 
 - (id)sharingSpriteTexture
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_sharingSpriteTexture);
   if (!WeakRetained)
   {
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"sharingRingIconSprite"];
-    v5 = arui_rings_log();
+    v5 = arui_rings_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_1CFD67000, v5, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v10, 0xCu);
+      v12 = 138412290;
+      v13 = v4;
+      _os_log_impl(&dword_1CFD67000, v5, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v12, 0xCu);
     }
 
     v6 = MEMORY[0x1E69DCAB8];
-    v7 = ActivityRingsUIFrameworkBundle();
-    v8 = [v6 imageNamed:v4 inBundle:v7 compatibleWithTraitCollection:0];
+    v9 = ActivityRingsUIFrameworkBundle(v7, v8);
+    v10 = [v6 imageNamed:v4 inBundle:v9 compatibleWithTraitCollection:0];
 
-    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v8];
+    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v10];
     objc_storeWeak(&self->_sharingSpriteTexture, WeakRetained);
   }
 
@@ -202,24 +202,24 @@ uint64_t __40__ARUISpriteSheetFactory_sharedInstance__block_invoke()
 
 - (id)wheelchairSharingSpriteTexture
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_wheelchairSharingSpriteTexture);
   if (!WeakRetained)
   {
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"sharingRingIconSprite_WHEELCHAIR"];
-    v5 = arui_rings_log();
+    v5 = arui_rings_log(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_1CFD67000, v5, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v10, 0xCu);
+      v12 = 138412290;
+      v13 = v4;
+      _os_log_impl(&dword_1CFD67000, v5, OS_LOG_TYPE_DEFAULT, "Loading texture with image format: %@", &v12, 0xCu);
     }
 
     v6 = MEMORY[0x1E69DCAB8];
-    v7 = ActivityRingsUIFrameworkBundle();
-    v8 = [v6 imageNamed:v4 inBundle:v7 compatibleWithTraitCollection:0];
+    v9 = ActivityRingsUIFrameworkBundle(v7, v8);
+    v10 = [v6 imageNamed:v4 inBundle:v9 compatibleWithTraitCollection:0];
 
-    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v8];
+    WeakRetained = [[ARUISpriteTexture alloc] initWithImage:v10];
     objc_storeWeak(&self->_wheelchairSharingSpriteTexture, WeakRetained);
   }
 

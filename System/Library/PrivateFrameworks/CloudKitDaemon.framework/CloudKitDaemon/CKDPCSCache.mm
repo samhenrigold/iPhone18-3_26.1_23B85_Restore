@@ -170,7 +170,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -184,10 +184,9 @@
     _os_log_debug_impl(&dword_22506F000, v3, OS_LOG_TYPE_DEBUG, "PCS cache deallocating: %p", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = CKDPCSCache;
-  [(CKDPCSCache *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = CKDPCSCache;
+  [(CKDPCSCache *)&v4 dealloc];
 }
 
 - (void)runMemoryCacheEviction
@@ -315,7 +314,7 @@
 
 - (id)_lockedGetOutstandingFetchForOperation:(id)operation options:(unint64_t)options itemIDString:(id)string
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   stringCopy = string;
   v12 = objc_msgSend_fetchQueue(self, v10, v11);
@@ -328,26 +327,26 @@
     v20 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v19, @"%lu-%@", v18, stringCopy);
     v22 = objc_msgSend_objectForKeyedSubscript_(v15, v21, v20);
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v23 = v22;
-    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v34, v38, 16);
+    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v33, v37, 16);
     if (v25)
     {
       v27 = v25;
-      v28 = *v35;
+      v28 = *v34;
       while (2)
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v35 != v28)
+          if (*v34 != v28)
           {
             objc_enumerationMutation(v23);
           }
 
-          v30 = *(*(&v34 + 1) + 8 * i);
+          v30 = *(*(&v33 + 1) + 8 * i);
           if (objc_msgSend_canBeUsedForOperation_withOptions_(v30, v26, operationCopy, options))
           {
             v31 = v30;
@@ -355,7 +354,7 @@
           }
         }
 
-        v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v34, v38, 16);
+        v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v33, v37, 16);
         if (v27)
         {
           continue;
@@ -373,8 +372,6 @@ LABEL_12:
   {
     v31 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -403,7 +400,7 @@ LABEL_12:
 
 - (void)_lockedInvalidateAllOutstandingPCSFetchesForItemIDString:(id)string databaseScope:(int64_t)scope
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v9 = objc_msgSend_fetchQueue(self, v7, v8);
   dispatch_assert_queue_V2(v9);
@@ -412,57 +409,55 @@ LABEL_12:
   v14 = objc_msgSend_outstandingFetches(self, v12, v13);
   v16 = objc_msgSend_objectForKeyedSubscript_(v14, v15, v11);
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v17 = v16;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v25, v29, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v24, v28, 16);
   if (v19)
   {
     v21 = v19;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       v23 = 0;
       do
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v17);
         }
 
-        objc_msgSend_setPcsDataInvalidated_(*(*(&v25 + 1) + 8 * v23++), v20, 1);
+        objc_msgSend_setPcsDataInvalidated_(*(*(&v24 + 1) + 8 * v23++), v20, 1);
       }
 
       while (v21 != v23);
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v25, v29, 16);
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v24, v28, 16);
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lockedCreatePCSCacheFetchOfItem:(id)item forOperation:(id)operation options:(unint64_t)options fetchCreator:(id)creator withCompletionHandler:(id)handler
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   operationCopy = operation;
   creatorCopy = creator;
   handlerCopy = handler;
   v17 = objc_msgSend_databaseScope(operationCopy, v15, v16);
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x3032000000;
-  v87 = sub_225074110;
-  v88 = sub_225073614;
-  v89 = objc_msgSend__lockedGetOutstandingFetchForOperation_options_itemIDString_(self, v18, operationCopy, options, itemCopy);
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = sub_225074110;
+  v87 = sub_225073614;
+  v88 = objc_msgSend__lockedGetOutstandingFetchForOperation_options_itemIDString_(self, v18, operationCopy, options, itemCopy);
   v23 = objc_msgSend_parentOperation(operationCopy, v19, v20);
   if (v23)
   {
-    v24 = objc_msgSend_operationID(v85[5], v21, v22);
+    v24 = objc_msgSend_operationID(v84[5], v21, v22);
     v27 = objc_msgSend_operationID(v23, v25, v26);
     isEqualToString = objc_msgSend_isEqualToString_(v24, v28, v27);
   }
@@ -472,12 +467,12 @@ LABEL_12:
     isEqualToString = 0;
   }
 
-  v30 = objc_msgSend_operationID(v85[5], v21, v22);
+  v30 = objc_msgSend_operationID(v84[5], v21, v22);
   v33 = objc_msgSend_operationID(operationCopy, v31, v32);
   v35 = objc_msgSend_isEqualToString_(v30, v34, v33);
 
-  v38 = v85[5];
-  if (!v38 || (objc_msgSend_isPCSDataInvalidated(v38, v36, v37) & 1) != 0 || ((objc_msgSend_isCancelled(v85[5], v39, v40) | isEqualToString | v35) & 1) != 0)
+  v38 = v84[5];
+  if (!v38 || (objc_msgSend_isPCSDataInvalidated(v38, v36, v37) & 1) != 0 || ((objc_msgSend_isCancelled(v84[5], v39, v40) | isEqualToString | v35) & 1) != 0)
   {
 LABEL_13:
     if (*MEMORY[0x277CBC880] != -1)
@@ -489,25 +484,25 @@ LABEL_13:
     if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v91 = itemCopy;
+      v90 = itemCopy;
       _os_log_debug_impl(&dword_22506F000, v54, OS_LOG_TYPE_DEBUG, "Creating a new fetch operation for %{public}@", buf, 0xCu);
     }
 
-    v76[0] = MEMORY[0x277D85DD0];
-    v76[1] = 3221225472;
-    v76[2] = sub_2252757AC;
-    v76[3] = &unk_27854B740;
-    v79 = &v84;
-    v76[4] = self;
-    v77 = itemCopy;
-    v80 = v17;
-    v78 = handlerCopy;
-    creatorCopy[2](creatorCopy, v76);
+    v75[0] = MEMORY[0x277D85DD0];
+    v75[1] = 3221225472;
+    v75[2] = sub_2252757AC;
+    v75[3] = &unk_27854B740;
+    v78 = &v83;
+    v75[4] = self;
+    v76 = itemCopy;
+    v79 = v17;
+    v77 = handlerCopy;
+    creatorCopy[2](creatorCopy, v75);
 
     goto LABEL_18;
   }
 
-  v43 = objc_msgSend_parentOperation(v85[5], v41, v42);
+  v43 = objc_msgSend_parentOperation(v84[5], v41, v42);
   v46 = objc_msgSend_container(v43, v44, v45);
   v49 = objc_msgSend_fetchAggregator(v46, v47, v48);
 
@@ -521,14 +516,14 @@ LABEL_13:
     v51 = *MEMORY[0x277CBC858];
     if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
     {
-      v65 = objc_msgSend_operationID(v85[5], v52, v53);
-      v68 = objc_msgSend_operationID(operationCopy, v66, v67);
+      v64 = objc_msgSend_operationID(v84[5], v52, v53);
+      v67 = objc_msgSend_operationID(operationCopy, v65, v66);
       *buf = 138543618;
-      v91 = v65;
-      v92 = 2114;
-      v93 = v68;
-      v74 = v65;
-      v69 = v68;
+      v90 = v64;
+      v91 = 2114;
+      v92 = v67;
+      v73 = v64;
+      v68 = v67;
       _os_log_debug_impl(&dword_22506F000, v51, OS_LOG_TYPE_DEBUG, "Not adding callback to existing fetch operation %{public}@ for operation %{public}@ as it would create a dependency cycle", buf, 0x16u);
     }
 
@@ -540,32 +535,30 @@ LABEL_13:
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
   }
 
-  v56 = *MEMORY[0x277CBC858];
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+  v55 = *MEMORY[0x277CBC858];
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
   {
-    v70 = objc_msgSend_operationID(v85[5], v57, v58);
-    v73 = objc_msgSend_operationID(operationCopy, v71, v72);
+    v69 = objc_msgSend_operationID(v84[5], v56, v57);
+    v72 = objc_msgSend_operationID(operationCopy, v70, v71);
     *buf = 138543618;
-    v91 = v70;
-    v92 = 2114;
-    v93 = v73;
-    _os_log_debug_impl(&dword_22506F000, v56, OS_LOG_TYPE_DEBUG, "Adding callback to existing fetch operation %{public}@ for operation %{public}@", buf, 0x16u);
+    v90 = v69;
+    v91 = 2114;
+    v92 = v72;
+    _os_log_debug_impl(&dword_22506F000, v55, OS_LOG_TYPE_DEBUG, "Adding callback to existing fetch operation %{public}@ for operation %{public}@", buf, 0x16u);
   }
 
-  v61 = objc_msgSend_fetchGroup(v85[5], v59, v60);
-  v64 = objc_msgSend_callbackQueue(self, v62, v63);
+  v60 = objc_msgSend_fetchGroup(v84[5], v58, v59);
+  v63 = objc_msgSend_callbackQueue(self, v61, v62);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_225275710;
   block[3] = &unk_27854B6F0;
-  v82 = handlerCopy;
-  v83 = &v84;
-  dispatch_group_notify(v61, v64, block);
+  v81 = handlerCopy;
+  v82 = &v83;
+  dispatch_group_notify(v60, v63, block);
 
 LABEL_18:
-  _Block_object_dispose(&v84, 8);
-
-  v55 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v83, 8);
 }
 
 - (void)_lockedFetchPCSForItem:(id)item memoryCache:(id)cache forOperation:(id)operation options:(unint64_t)options fetchCreator:(id)creator withCompletionHandler:(id)handler
@@ -966,7 +959,7 @@ LABEL_18:
 - (void)clearInvalidatedPCSSQLCacheEntriesWithSkipZonePCS:(BOOL)s completionHandler:(id)handler
 {
   sCopy = s;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -976,27 +969,25 @@ LABEL_18:
   v7 = *MEMORY[0x277CBC858];
   if (os_log_type_enabled(*MEMORY[0x277CBC858], OS_LOG_TYPE_DEBUG))
   {
-    v11 = @"NO";
+    v10 = @"NO";
     if (sCopy)
     {
-      v11 = @"YES";
+      v10 = @"YES";
     }
 
     *buf = 138412290;
-    v16 = v11;
+    v15 = v10;
     _os_log_debug_impl(&dword_22506F000, v7, OS_LOG_TYPE_DEBUG, "Clearing invalidated PCS SQL cache entries. Skipping zone pcs: %@", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_2252790B4;
-  v12[3] = &unk_27854B858;
-  v14 = sCopy;
-  v13 = handlerCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_2252790B4;
+  v11[3] = &unk_27854B858;
+  v13 = sCopy;
+  v12 = handlerCopy;
   v8 = handlerCopy;
-  objc_msgSend_getSQLCache_(self, v9, v12);
-
-  v10 = *MEMORY[0x277D85DE8];
+  objc_msgSend_getSQLCache_(self, v9, v11);
 }
 
 @end

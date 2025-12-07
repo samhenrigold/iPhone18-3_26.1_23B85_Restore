@@ -73,40 +73,38 @@ void __26__EMDiagnosticsHelper_log__block_invoke(uint64_t a1)
 
 - (id)registerDiagnosticFileProvider:(id)provider
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   v5 = +[EMDiagnosticsHelper log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = providerCopy;
+    v17 = providerCopy;
     _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "Registering a diagnostic file provider: %@", buf, 0xCu);
   }
 
   providers = [(EMDiagnosticsHelper *)self providers];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke;
-  v15[3] = &unk_1E826CE90;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke;
+  v14[3] = &unk_1E826CE90;
   v7 = providerCopy;
-  v16 = v7;
-  [providers performWhileLocked:v15];
+  v15 = v7;
+  [providers performWhileLocked:v14];
 
   v8 = objc_alloc_init(MEMORY[0x1E699B7F8]);
   objc_initWeak(buf, self);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke_2;
-  v12[3] = &unk_1E826CA80;
-  objc_copyWeak(&v14, buf);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke_2;
+  v11[3] = &unk_1E826CA80;
+  objc_copyWeak(&v13, buf);
   v9 = v7;
-  v13 = v9;
-  [v8 addCancelationBlock:v12];
+  v12 = v9;
+  [v8 addCancelationBlock:v11];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -129,7 +127,7 @@ void __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke_2(u
 
 - (void)provideDiagnosticsAt:(id)at options:(unint64_t)options completion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   atCopy = at;
   completionCopy = completion;
   if (options)
@@ -138,53 +136,53 @@ void __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke_2(u
     getObject = [providers getObject];
 
     v11 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     obj = getObject;
-    v12 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v12 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v12)
     {
-      v13 = *v31;
+      v13 = *v30;
       do
       {
         v14 = 0;
         do
         {
-          if (*v31 != v13)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = [*(*(&v30 + 1) + 8 * v14) messageListItemsForDiagnosticsHelper:{self, getObject, atCopy}];
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
+          v15 = [*(*(&v29 + 1) + 8 * v14) messageListItemsForDiagnosticsHelper:{self, getObject, atCopy}];
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           v16 = v15;
-          v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v17)
           {
-            v18 = *v27;
+            v18 = *v26;
             do
             {
               v19 = 0;
               do
               {
-                if (*v27 != v18)
+                if (*v26 != v18)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                displayMessageObjectID = [*(*(&v26 + 1) + 8 * v19) displayMessageObjectID];
+                displayMessageObjectID = [*(*(&v25 + 1) + 8 * v19) displayMessageObjectID];
                 [v11 addObject:displayMessageObjectID];
 
                 ++v19;
               }
 
               while (v17 != v19);
-              v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
             while (v17);
@@ -194,7 +192,7 @@ void __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke_2(u
         }
 
         while (v14 != v12);
-        v12 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v12 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v12);
@@ -219,8 +217,6 @@ void __54__EMDiagnosticsHelper_registerDiagnosticFileProvider___block_invoke_2(u
     v9 = [MEMORY[0x1E695DFD8] set];
     completionCopy[2](completionCopy, v9, 0);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

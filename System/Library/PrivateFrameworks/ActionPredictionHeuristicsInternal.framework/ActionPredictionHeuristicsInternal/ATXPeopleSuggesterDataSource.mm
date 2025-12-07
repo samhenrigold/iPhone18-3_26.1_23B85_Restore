@@ -45,7 +45,7 @@
 
 void __62__ATXPeopleSuggesterDataSource_peopleSuggestionsWithCallback___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -54,30 +54,30 @@ void __62__ATXPeopleSuggesterDataSource_peopleSuggestionsWithCallback___block_in
 
   else
   {
-    v29 = a1;
+    v28 = a1;
     v6 = [MEMORY[0x277CBEB18] array];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v30 = v5;
+    v29 = v5;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v32;
+      v10 = *v31;
       do
       {
         v11 = 0;
         do
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v31 + 1) + 8 * v11) contact];
+          v12 = [*(*(&v30 + 1) + 8 * v11) contact];
           v13 = MEMORY[0x277CBEB38];
           v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "type")}];
           v15 = [v13 dictionaryWithObject:v14 forKey:@"type"];
@@ -124,17 +124,15 @@ void __62__ATXPeopleSuggesterDataSource_peopleSuggestionsWithCallback___block_in
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v9);
     }
 
-    (*(*(v29 + 32) + 16))();
-    v5 = v30;
+    (*(*(v28 + 32) + 16))();
+    v5 = v29;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

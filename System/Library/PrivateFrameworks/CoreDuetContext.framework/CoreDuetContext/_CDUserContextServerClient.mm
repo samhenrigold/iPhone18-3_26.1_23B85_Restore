@@ -172,7 +172,7 @@
 
 - (void)hasKnowledgeOfPath:(id)path handler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   handlerCopy = handler;
   if ([(_CDUserContextService *)self->_service remoteDevicesHaveBeenActivated]|| ![(_CDUserContextServerClient *)self isMDCSNeededForKeyPath:pathCopy])
@@ -186,39 +186,35 @@
     if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = pathCopy;
+      v14 = pathCopy;
       _os_log_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEFAULT, "Requesting activate devices for %@", buf, 0xCu);
     }
 
     service = self->_service;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __57___CDUserContextServerClient_hasKnowledgeOfPath_handler___block_invoke;
-    v11[3] = &unk_1E7886BC8;
-    v11[4] = self;
-    v12 = pathCopy;
-    v13 = handlerCopy;
-    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __57___CDUserContextServerClient_hasKnowledgeOfPath_handler___block_invoke;
+    v10[3] = &unk_1E7886BC8;
+    v10[4] = self;
+    v11 = pathCopy;
+    v12 = handlerCopy;
+    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_hasKnowledgeOfPath:(id)path handler:(id)handler
 {
   pathCopy = path;
   handlerCopy = handler;
-  activateMonitorQueue = self->_activateMonitorQueue;
-  v12 = handlerCopy;
-  v11 = pathCopy;
-  v9 = handlerCopy;
-  v10 = pathCopy;
+  v8 = pathCopy;
+  v6 = handlerCopy;
+  v7 = pathCopy;
   cd_dispatch_async_xpc();
 }
 
 - (void)propertiesOfPath:(id)path handler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   handlerCopy = handler;
   if ([(_CDUserContextService *)self->_service remoteDevicesHaveBeenActivated]|| ![(_CDUserContextServerClient *)self isMDCSNeededForKeyPath:pathCopy])
@@ -232,22 +228,20 @@
     if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = pathCopy;
+      v14 = pathCopy;
       _os_log_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEFAULT, "Requesting activate devices for %@", buf, 0xCu);
     }
 
     service = self->_service;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __55___CDUserContextServerClient_propertiesOfPath_handler___block_invoke;
-    v11[3] = &unk_1E7886BC8;
-    v11[4] = self;
-    v12 = pathCopy;
-    v13 = handlerCopy;
-    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __55___CDUserContextServerClient_propertiesOfPath_handler___block_invoke;
+    v10[3] = &unk_1E7886BC8;
+    v10[4] = self;
+    v11 = pathCopy;
+    v12 = handlerCopy;
+    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_propertiesOfPath:(id)path handler:(id)handler
@@ -266,17 +260,14 @@
 {
   pathCopy = path;
   handlerCopy = handler;
-  activateMonitorQueue = self->_activateMonitorQueue;
-  v11 = pathCopy;
-  v12 = handlerCopy;
-  v9 = handlerCopy;
-  v10 = pathCopy;
+  v5 = handlerCopy;
+  v6 = pathCopy;
   cd_dispatch_async_xpc();
 }
 
 - (void)propertiesOfRemotePath:(id)path handler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   handlerCopy = handler;
   if ([(_CDUserContextService *)self->_service remoteDevicesHaveBeenActivated]|| ![(_CDUserContextServerClient *)self isMDCSNeededForKeyPath:pathCopy])
@@ -290,22 +281,20 @@
     if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = pathCopy;
+      v14 = pathCopy;
       _os_log_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEFAULT, "Requesting activate devices for %@", buf, 0xCu);
     }
 
     service = self->_service;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __61___CDUserContextServerClient_propertiesOfRemotePath_handler___block_invoke;
-    v11[3] = &unk_1E7886BC8;
-    v11[4] = self;
-    v12 = pathCopy;
-    v13 = handlerCopy;
-    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __61___CDUserContextServerClient_propertiesOfRemotePath_handler___block_invoke;
+    v10[3] = &unk_1E7886BC8;
+    v10[4] = self;
+    v11 = pathCopy;
+    v12 = handlerCopy;
+    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_propertiesOfRemotePath:(id)path handler:(id)handler
@@ -322,7 +311,7 @@
 
 - (void)_valueForRemotePath:(id)path handler:(id)handler
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   handlerCopy = handler;
   if ([pathCopy isMultiDeviceKeyPath])
@@ -348,16 +337,16 @@
       }
     }
 
-    v19[0] = pathCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke;
-    v16[3] = &unk_1E7886C40;
-    v16[4] = self;
-    v17 = pathCopy;
-    v18 = handlerCopy;
-    [(_CDUserContextServerClient *)self fetchPropertiesOfRemoteKeyPaths:v9 handler:v16];
+    v18[0] = pathCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke;
+    v15[3] = &unk_1E7886C40;
+    v15[4] = self;
+    v16 = pathCopy;
+    v17 = handlerCopy;
+    [(_CDUserContextServerClient *)self fetchPropertiesOfRemoteKeyPaths:v9 handler:v15];
 
 LABEL_12:
     goto LABEL_13;
@@ -371,8 +360,6 @@ LABEL_12:
 
   handlerCopy[2](handlerCopy, 0);
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePreviouslyFiredRegistration:(id)registration info:(id)info
@@ -399,7 +386,7 @@ LABEL_13:
 
 - (void)registerCallback:(id)callback
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   isMultiDeviceRegistration = [callbackCopy isMultiDeviceRegistration];
   if (isMultiDeviceRegistration)
@@ -415,9 +402,9 @@ LABEL_13:
   objc_initWeak(&location, callbackCopy);
   [(_CDUserContextService *)self->_service removeOpenRegistration:callbackCopy];
   service = self->_service;
-  v28 = 0;
-  v8 = [(_CDUserContextService *)service obtainFiredRegistrationMatchingRegistration:callbackCopy info:&v28];
-  v9 = v28;
+  v27 = 0;
+  v8 = [(_CDUserContextService *)service obtainFiredRegistrationMatchingRegistration:callbackCopy info:&v27];
+  v9 = v27;
   if (v8)
   {
     [(_CDUserContextServerClient *)self handlePreviouslyFiredRegistration:callbackCopy info:v9];
@@ -442,30 +429,30 @@ LABEL_13:
     objc_sync_exit(v10);
 
     objc_initWeak(&from, self);
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __47___CDUserContextServerClient_registerCallback___block_invoke;
-    v24[3] = &unk_1E7886CD8;
-    objc_copyWeak(&v25, &from);
-    objc_copyWeak(&v26, &location);
-    [callbackCopy setInformativeCallback:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __47___CDUserContextServerClient_registerCallback___block_invoke;
+    v23[3] = &unk_1E7886CD8;
+    objc_copyWeak(&v24, &from);
+    objc_copyWeak(&v25, &location);
+    [callbackCopy setInformativeCallback:v23];
     activateMonitorQueue = self->_activateMonitorQueue;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __47___CDUserContextServerClient_registerCallback___block_invoke_2;
-    v21[3] = &unk_1E7886250;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __47___CDUserContextServerClient_registerCallback___block_invoke_2;
+    v20[3] = &unk_1E7886250;
     v12 = callbackCopy;
-    v22 = v12;
+    v21 = v12;
     selfCopy = self;
-    v13 = v21;
+    v13 = v20;
     v14 = activateMonitorQueue;
     v15 = os_transaction_create();
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v31 = __cd_dispatch_async_capture_tx_block_invoke_0;
-    v32 = &unk_1E7886668;
-    v33 = v15;
-    v34 = v13;
+    v30 = __cd_dispatch_async_capture_tx_block_invoke_0;
+    v31 = &unk_1E7886668;
+    v32 = v15;
+    v33 = v13;
     v16 = v15;
     dispatch_async(v14, &block);
 
@@ -498,13 +485,12 @@ LABEL_13:
       }
     }
 
-    objc_destroyWeak(&v26);
     objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&from);
   }
 
   objc_destroyWeak(&location);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performRegistrationCallbackWithRegistration:(id)registration info:(id)info
@@ -527,7 +513,7 @@ LABEL_13:
 - (void)deregisterAllCallbacks:(BOOL)callbacks
 {
   callbacksCopy = callbacks;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   hasMultiDeviceRegistrations = [(_CDInMemoryUserContext *)self->_userContext hasMultiDeviceRegistrations];
   v6 = 56;
   if (callbacksCopy)
@@ -541,27 +527,27 @@ LABEL_13:
   [v7 removeAllObjects];
   objc_sync_exit(v7);
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v20;
+    v11 = *v19;
     v12 = !hasMultiDeviceRegistrations;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
+        v14 = *(*(&v18 + 1) + 8 * v13);
         persistence = [(_CDUserContextService *)self->_service persistence];
         [persistence deleteRegistration:v14];
 
@@ -572,7 +558,7 @@ LABEL_13:
           if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v24 = v14;
+            v23 = v14;
             _os_log_debug_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEBUG, "Deregistering multi-device callback: %@", buf, 0xCu);
           }
 
@@ -592,13 +578,11 @@ LABEL_13:
       }
 
       while (v10 != v13);
-      v10 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deregisterCallback:(id)callback
@@ -659,7 +643,7 @@ LABEL_13:
 
 - (void)setObject:(id)object lastModifiedDate:(id)date forContextualKeyPath:(id)path handler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   dateCopy = date;
   pathCopy = path;
@@ -667,14 +651,14 @@ LABEL_13:
   mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
   if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEBUG))
   {
-    v19 = _CDRedactedObjectForKeyPath(pathCopy, objectCopy);
-    v20 = 138412802;
-    v21 = pathCopy;
-    v22 = 2112;
-    v23 = v19;
-    v24 = 2112;
-    v25 = dateCopy;
-    _os_log_debug_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEBUG, "CDUserContext: SET %@ => %@ / %@", &v20, 0x20u);
+    v18 = _CDRedactedObjectForKeyPath(pathCopy, objectCopy);
+    v19 = 138412802;
+    v20 = pathCopy;
+    v21 = 2112;
+    v22 = v18;
+    v23 = 2112;
+    v24 = dateCopy;
+    _os_log_debug_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEBUG, "CDUserContext: SET %@ => %@ / %@", &v19, 0x20u);
   }
 
   v15 = [(_CDInMemoryUserContext *)self->_userContext setObject:objectCopy returningMetadataForContextualKeyPath:pathCopy];
@@ -691,60 +675,56 @@ LABEL_13:
   }
 
   handlerCopy[2](handlerCopy, v16 != 0);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)proxyTokenDidUpdate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = self->_devicesToActivateByRemoteUserContextProxySourceDeviceUUID;
   objc_sync_enter(v3);
   v4 = [(NSMutableDictionary *)self->_devicesToActivateByRemoteUserContextProxySourceDeviceUUID copy];
   objc_sync_exit(v3);
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        v10 = [v5 objectForKeyedSubscript:{v9, v12}];
+        v9 = *(*(&v11 + 1) + 8 * i);
+        v10 = [v5 objectForKeyedSubscript:{v9, v11}];
         [(_CDUserContextServerClient *)self activateDevices:v10 remoteUserContextProxySourceDeviceUUID:v9];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activateDevices:(id)devices remoteUserContextProxySourceDeviceUUID:(id)d
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   dCopy = d;
   effectiveUserIdentifier = [(NSXPCConnection *)self->_clientConnection effectiveUserIdentifier];
-  v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
   v6 = self->_devicesToActivateByRemoteUserContextProxySourceDeviceUUID;
   objc_sync_enter(v6);
-  v7 = [_CDContextQueries keyPathForMDCSProxyTokenWithUserID:v34];
+  v7 = [_CDContextQueries keyPathForMDCSProxyTokenWithUserID:v33];
   v8 = [(_CDInMemoryUserContext *)self->_userContext objectForKeyedSubscript:v7];
   if (v8)
   {
@@ -757,7 +737,7 @@ LABEL_13:
     if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEBUG))
     {
       uUIDString = [dCopy UUIDString];
-      -[_CDUserContextServerClient activateDevices:remoteUserContextProxySourceDeviceUUID:].cold.1(uUIDString, [devicesCopy count], v49, mdcsChannel);
+      -[_CDUserContextServerClient activateDevices:remoteUserContextProxySourceDeviceUUID:].cold.1(uUIDString, [devicesCopy count], v48, mdcsChannel);
     }
 
     v9 = devicesCopy;
@@ -779,31 +759,31 @@ LABEL_13:
         [_CDUserContextServerClient activateDevices:devicesCopy remoteUserContextProxySourceDeviceUUID:?];
       }
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v15 = devicesCopy;
-      v16 = [v15 countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v40 objects:v47 count:16];
       if (v16)
       {
-        v17 = *v42;
+        v17 = *v41;
         do
         {
           v18 = 0;
           do
           {
-            if (*v42 != v17)
+            if (*v41 != v17)
             {
               objc_enumerationMutation(v15);
             }
 
-            v19 = *(*(&v41 + 1) + 8 * v18);
+            v19 = *(*(&v40 + 1) + 8 * v18);
             mdcsChannel4 = [MEMORY[0x1E6997908] mdcsChannel];
             if (os_log_type_enabled(mdcsChannel4, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v47 = v19;
+              v46 = v19;
               _os_log_debug_impl(&dword_1A9611000, mdcsChannel4, OS_LOG_TYPE_DEBUG, "Activating device %{public}@", buf, 0xCu);
             }
 
@@ -811,7 +791,7 @@ LABEL_13:
           }
 
           while (v16 != v18);
-          v16 = [v15 countByEnumeratingWithState:&v41 objects:v48 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v40 objects:v47 count:16];
         }
 
         while (v16);
@@ -820,31 +800,31 @@ LABEL_13:
 
     remoteDevicesByDeviceID = [(_CDUserContextService *)self->_service remoteDevicesByDeviceID];
     objc_sync_enter(remoteDevicesByDeviceID);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v22 = devicesCopy;
-    v23 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v23)
     {
-      v24 = *v38;
+      v24 = *v37;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v38 != v24)
+          if (*v37 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v37 + 1) + 8 * i);
+          v26 = *(*(&v36 + 1) + 8 * i);
           remoteDevicesByDeviceID2 = [(_CDUserContextService *)self->_service remoteDevicesByDeviceID];
           deviceID = [v26 deviceID];
           [remoteDevicesByDeviceID2 setObject:v26 forKeyedSubscript:deviceID];
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v23);
@@ -869,13 +849,11 @@ LABEL_13:
 
     [(_CDInMemoryUserContext *)self->_userContext activateDevices:v22 remoteUserContextProxySourceDeviceUUID:dCopy];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deactivateDevices:(id)devices remoteUserContextProxySourceDeviceUUID:(id)d
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   dCopy = d;
   mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
@@ -883,7 +861,7 @@ LABEL_13:
 
   if (v9)
   {
-    v19 = dCopy;
+    v18 = dCopy;
     selfCopy = self;
     mdcsChannel2 = [MEMORY[0x1E6997908] mdcsChannel];
     if (os_log_type_enabled(mdcsChannel2, OS_LOG_TYPE_DEBUG))
@@ -891,32 +869,32 @@ LABEL_13:
       [_CDUserContextServerClient deactivateDevices:devicesCopy remoteUserContextProxySourceDeviceUUID:?];
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v11 = devicesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         v15 = 0;
         do
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * v15);
+          v16 = *(*(&v20 + 1) + 8 * v15);
           mdcsChannel3 = [MEMORY[0x1E6997908] mdcsChannel];
           if (os_log_type_enabled(mdcsChannel3, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v26 = v16;
+            v25 = v16;
             _os_log_debug_impl(&dword_1A9611000, mdcsChannel3, OS_LOG_TYPE_DEBUG, "Deactivating device %{public}@", buf, 0xCu);
           }
 
@@ -924,24 +902,22 @@ LABEL_13:
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
       while (v13);
     }
 
-    dCopy = v19;
+    dCopy = v18;
     self = selfCopy;
   }
 
   [(_CDInMemoryUserContext *)self->_userContext deactivateDevices:devicesCopy remoteUserContextProxySourceDeviceUUID:dCopy];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPropertiesOfRemoteKeyPaths:(id)paths handler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   handlerCopy = handler;
   mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
@@ -957,52 +933,52 @@ LABEL_13:
     goto LABEL_20;
   }
 
-  v27 = handlerCopy;
-  v25 = pathsCopy;
+  v26 = handlerCopy;
+  v24 = pathsCopy;
   v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v9, "count")}];
-  v26 = [MEMORY[0x1E695DFA8] setWithCapacity:1];
+  v25 = [MEMORY[0x1E695DFA8] setWithCapacity:1];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v24 = v9;
+  v23 = v9;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (!v12)
   {
     goto LABEL_18;
   }
 
   v13 = v12;
-  v14 = *v35;
+  v14 = *v34;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v35 != v14)
+      if (*v34 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v34 + 1) + 8 * i);
-      v17 = [v11 objectForKeyedSubscript:{v16, v24}];
+      v16 = *(*(&v33 + 1) + 8 * i);
+      v17 = [v11 objectForKeyedSubscript:{v16, v23}];
       firstObject = [v17 firstObject];
       v19 = [(_CDUserContextServerClient *)self remoteUserContextProxySourceDeviceUUIDForKeyPath:firstObject];
 
       if (v19)
       {
-        v28[0] = MEMORY[0x1E69E9820];
-        v28[1] = 3221225472;
-        v28[2] = __70___CDUserContextServerClient_fetchPropertiesOfRemoteKeyPaths_handler___block_invoke;
-        v28[3] = &unk_1E7886D00;
-        v29 = v26;
-        v30 = v10;
-        v31 = v16;
-        v32 = v11;
-        v33 = v27;
-        [(_CDUserContextServerClient *)self fetchPropertiesOfRemoteKeyPaths:v17 remoteUserContextProxySourceDeviceUUID:v19 handler:v28];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __70___CDUserContextServerClient_fetchPropertiesOfRemoteKeyPaths_handler___block_invoke;
+        v27[3] = &unk_1E7886D00;
+        v28 = v25;
+        v29 = v10;
+        v30 = v16;
+        v31 = v11;
+        v32 = v26;
+        [(_CDUserContextServerClient *)self fetchPropertiesOfRemoteKeyPaths:v17 remoteUserContextProxySourceDeviceUUID:v19 handler:v27];
 
-        anyObject = v29;
+        anyObject = v28;
 LABEL_15:
 
         goto LABEL_16;
@@ -1012,7 +988,7 @@ LABEL_15:
       if (os_log_type_enabled(mdcsChannel2, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v39 = v16;
+        v38 = v16;
         _os_log_debug_impl(&dword_1A9611000, mdcsChannel2, OS_LOG_TYPE_DEBUG, "CDUserContext: Unknown device specified: %@", buf, 0xCu);
       }
 
@@ -1020,26 +996,24 @@ LABEL_15:
       v22 = [v10 count];
       if (v22 == [v11 count])
       {
-        anyObject = [v26 anyObject];
-        (v27)[2](v27, anyObject);
+        anyObject = [v25 anyObject];
+        (v26)[2](v26, anyObject);
         goto LABEL_15;
       }
 
 LABEL_16:
     }
 
-    v13 = [v11 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v13 = [v11 countByEnumeratingWithState:&v33 objects:v39 count:16];
   }
 
   while (v13);
 LABEL_18:
 
-  v9 = v24;
-  pathsCopy = v25;
-  handlerCopy = v27;
+  v9 = v23;
+  pathsCopy = v24;
+  handlerCopy = v26;
 LABEL_20:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPropertiesOfRemoteKeyPaths:(id)paths remoteUserContextProxySourceDeviceUUID:(id)d handler:(id)handler
@@ -1082,7 +1056,7 @@ LABEL_20:
 
 - (void)subscribeToContextValueNotificationsWithRegistration:(id)registration deviceIDs:(id)ds
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   dsCopy = ds;
   mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
@@ -1093,42 +1067,42 @@ LABEL_20:
 
   selfCopy = self;
   v8 = [(_CDUserContextServerClient *)self deviceIDsSortedByRemoteUserContextProxySourceDeviceUUIDFromDeviceIDs:dsCopy];
-  v25 = dsCopy;
+  v24 = dsCopy;
   v9 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * i);
+        v15 = *(*(&v32 + 1) + 8 * i);
         v16 = [v10 objectForKeyedSubscript:v15];
-        v32 = 0;
-        v17 = [_CDXPCContextCodecs subscribeToContextValueNotificationsEventWithRegistration:registrationCopy deviceIDs:v16 error:&v32];
-        v18 = v32;
+        v31 = 0;
+        v17 = [_CDXPCContextCodecs subscribeToContextValueNotificationsEventWithRegistration:registrationCopy deviceIDs:v16 error:&v31];
+        v18 = v31;
         if (v17)
         {
           service = selfCopy->_service;
-          v30[0] = MEMORY[0x1E69E9820];
-          v30[1] = 3221225472;
-          v30[2] = __93___CDUserContextServerClient_subscribeToContextValueNotificationsWithRegistration_deviceIDs___block_invoke;
-          v30[3] = &unk_1E7886D50;
-          v31 = v16;
-          [(_CDUserContextService *)service sendEvent:v17 toProxy:v15 replyHandler:v30];
-          mdcsChannel2 = v31;
+          v29[0] = MEMORY[0x1E69E9820];
+          v29[1] = 3221225472;
+          v29[2] = __93___CDUserContextServerClient_subscribeToContextValueNotificationsWithRegistration_deviceIDs___block_invoke;
+          v29[3] = &unk_1E7886D50;
+          v30 = v16;
+          [(_CDUserContextService *)service sendEvent:v17 toProxy:v15 replyHandler:v29];
+          mdcsChannel2 = v30;
         }
 
         else
@@ -1136,23 +1110,23 @@ LABEL_20:
           mdcsChannel2 = [MEMORY[0x1E6997908] mdcsChannel];
           if (os_log_type_enabled(mdcsChannel2, OS_LOG_TYPE_ERROR))
           {
-            [(_CDUserContextServerClient *)&v28 subscribeToContextValueNotificationsWithRegistration:v29 deviceIDs:mdcsChannel2];
+            [(_CDUserContextServerClient *)&v27 subscribeToContextValueNotificationsWithRegistration:v28 deviceIDs:mdcsChannel2];
           }
         }
 
         [v9 addObjectsFromArray:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v12);
   }
 
   v21 = [v9 count];
-  if (v21 != [v25 count])
+  if (v21 != [v24 count])
   {
-    v22 = [v25 mutableCopy];
+    v22 = [v24 mutableCopy];
     [v22 minusSet:v9];
     mdcsChannel3 = [MEMORY[0x1E6997908] mdcsChannel];
     if (os_log_type_enabled(mdcsChannel3, OS_LOG_TYPE_ERROR))
@@ -1160,13 +1134,11 @@ LABEL_20:
       [_CDUserContextServerClient subscribeToContextValueNotificationsWithRegistration:deviceIDs:];
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromContextValueNotificationsWithRegistration:(id)registration deviceIDs:(id)ds
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   registrationCopy = registration;
   dsCopy = ds;
   mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
@@ -1177,49 +1149,49 @@ LABEL_20:
 
   selfCopy = self;
   v9 = [(_CDUserContextServerClient *)self deviceIDsSortedByRemoteUserContextProxySourceDeviceUUIDFromDeviceIDs:dsCopy];
-  v28 = dsCopy;
+  v27 = dsCopy;
   v10 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(dsCopy, "count")}];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
-  v30 = v11;
+  v12 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v29 = v11;
   if (v12)
   {
     v13 = v12;
-    v31 = *v39;
+    v30 = *v38;
     v14 = registrationCopy;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v39 != v31)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * i);
+        v16 = *(*(&v37 + 1) + 8 * i);
         v17 = [v11 objectForKeyedSubscript:v16];
-        v37 = 0;
-        [_CDXPCContextCodecs unsubscribeFromContextValueNotificationsEventWithRegistration:registrationCopy deviceIDs:v17 error:&v37];
+        v36 = 0;
+        [_CDXPCContextCodecs unsubscribeFromContextValueNotificationsEventWithRegistration:registrationCopy deviceIDs:v17 error:&v36];
         v19 = v18 = registrationCopy;
-        v20 = v37;
+        v20 = v36;
         if (v19)
         {
           service = selfCopy->_service;
-          v34[0] = MEMORY[0x1E69E9820];
-          v34[1] = 3221225472;
-          v34[2] = __97___CDUserContextServerClient_unsubscribeFromContextValueNotificationsWithRegistration_deviceIDs___block_invoke;
-          v34[3] = &unk_1E7886D78;
-          v35 = v17;
-          v36 = v18;
+          v33[0] = MEMORY[0x1E69E9820];
+          v33[1] = 3221225472;
+          v33[2] = __97___CDUserContextServerClient_unsubscribeFromContextValueNotificationsWithRegistration_deviceIDs___block_invoke;
+          v33[3] = &unk_1E7886D78;
+          v34 = v17;
+          v35 = v18;
           v22 = service;
-          v11 = v30;
-          [(_CDUserContextService *)v22 sendEvent:v19 toProxy:v16 replyHandler:v34];
+          v11 = v29;
+          [(_CDUserContextService *)v22 sendEvent:v19 toProxy:v16 replyHandler:v33];
 
-          mdcsChannel2 = v35;
+          mdcsChannel2 = v34;
         }
 
         else
@@ -1227,7 +1199,7 @@ LABEL_20:
           mdcsChannel2 = [MEMORY[0x1E6997908] mdcsChannel];
           if (os_log_type_enabled(mdcsChannel2, OS_LOG_TYPE_ERROR))
           {
-            [(_CDUserContextServerClient *)&v32 unsubscribeFromContextValueNotificationsWithRegistration:v33 deviceIDs:mdcsChannel2];
+            [(_CDUserContextServerClient *)&v31 unsubscribeFromContextValueNotificationsWithRegistration:v32 deviceIDs:mdcsChannel2];
           }
         }
 
@@ -1235,16 +1207,16 @@ LABEL_20:
         registrationCopy = v14;
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v13);
   }
 
   v24 = [v10 count];
-  if (v24 != [v28 count])
+  if (v24 != [v27 count])
   {
-    v25 = [v28 mutableCopy];
+    v25 = [v27 mutableCopy];
     [v25 minusSet:v10];
     mdcsChannel3 = [MEMORY[0x1E6997908] mdcsChannel];
     if (os_log_type_enabled(mdcsChannel3, OS_LOG_TYPE_ERROR))
@@ -1252,53 +1224,51 @@ LABEL_20:
       [_CDUserContextServerClient unsubscribeFromContextValueNotificationsWithRegistration:deviceIDs:];
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToDeviceStatusChangeNotificationsForDeviceTypes:(unint64_t)types
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
   if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEBUG))
   {
     [_CDUserContextServerClient subscribeToDeviceStatusChangeNotificationsForDeviceTypes:];
   }
 
-  v21 = 0;
-  v6 = [(_CDXPCCodecs *)_CDXPCContextCodecs keepAliveEventWithKeepAlive:types != 0 error:&v21];
-  v7 = v21;
+  v20 = 0;
+  v6 = [(_CDXPCCodecs *)_CDXPCContextCodecs keepAliveEventWithKeepAlive:types != 0 error:&v20];
+  v7 = v20;
   if (v6)
   {
     mdcsChannel2 = +[_CDContextQueries keyPathForMDCSProxies];
     v9 = [(_CDInMemoryUserContext *)self->_userContext objectForKeyedSubscript:mdcsChannel2];
     v10 = [v9 copy];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(_CDUserContextService *)self->_service sendEvent:v6 toProxy:*(*(&v17 + 1) + 8 * v15++) replyHandler:&__block_literal_global_146_0, v17];
+          [(_CDUserContextService *)self->_service sendEvent:v6 toProxy:*(*(&v16 + 1) + 8 * v15++) replyHandler:&__block_literal_global_146_0, v16];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v13);
@@ -1313,13 +1283,11 @@ LABEL_20:
       [_CDUserContextServerClient subscribeToDeviceStatusChangeNotificationsForDeviceTypes:];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)remoteUserContextProxySourceDeviceUUIDForKeyPath:(id)path
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   deviceID = [path deviceID];
   if (deviceID)
   {
@@ -1327,30 +1295,30 @@ LABEL_20:
     v6 = [(_CDInMemoryUserContext *)self->_userContext objectForKeyedSubscript:v5];
     v7 = [v6 copy];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v20;
+      v12 = *v19;
 LABEL_4:
       v13 = 0;
       v14 = v11;
       while (1)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v13);
+        v11 = *(*(&v18 + 1) + 8 * v13);
 
-        v15 = [(_CDUserContextServerClient *)self remoteDeviceIDsForRemoteUserContextProxySourceDeviceUUID:v11, v19];
+        v15 = [(_CDUserContextServerClient *)self remoteDeviceIDsForRemoteUserContextProxySourceDeviceUUID:v11, v18];
         v16 = [v15 containsObject:deviceID];
 
         if (v16)
@@ -1362,7 +1330,7 @@ LABEL_4:
         v14 = v11;
         if (v10 == v13)
         {
-          v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v10)
           {
             goto LABEL_4;
@@ -1384,8 +1352,6 @@ LABEL_11:
   {
     v11 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1416,7 +1382,7 @@ LABEL_11:
 
 - (id)remoteDevicesForRemoteUserContextProxySourceDeviceUUID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   remoteDevicesByDeviceID = [(_CDUserContextService *)self->_service remoteDevicesByDeviceID];
   objc_sync_enter(remoteDevicesByDeviceID);
@@ -1425,24 +1391,24 @@ LABEL_11:
   v8 = [v6 arrayWithCapacity:{objc_msgSend(remoteDevicesByDeviceID2, "count")}];
 
   [(_CDUserContextServerClient *)self remoteDeviceIDsForRemoteUserContextProxySourceDeviceUUID:dCopy];
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v9 = v20 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v18 = 0u;
+  v9 = v19 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         remoteDevicesByDeviceID3 = [(_CDUserContextService *)self->_service remoteDevicesByDeviceID];
         v15 = [remoteDevicesByDeviceID3 objectForKeyedSubscript:v13];
 
@@ -1452,7 +1418,7 @@ LABEL_11:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -1460,8 +1426,6 @@ LABEL_11:
 
   v16 = [v8 copy];
   objc_sync_exit(remoteDevicesByDeviceID);
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1477,37 +1441,37 @@ LABEL_11:
 
 - (id)deviceIDsForDeviceTypes:(unint64_t)types
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   remoteDevices = [(_CDUserContextServerClient *)self remoteDevices];
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(remoteDevices, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = remoteDevices;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
-        if ([v11 matchesDeviceTypes:{types, v19}])
+        v11 = *(*(&v18 + 1) + 8 * i);
+        if ([v11 matchesDeviceTypes:{types, v18}])
         {
           deviceID = [v11 deviceID];
           [v5 addObject:deviceID];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
     }
 
     while (v8);
@@ -1516,50 +1480,48 @@ LABEL_11:
   mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
   if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEBUG))
   {
-    v16 = [v5 count];
-    v17 = [v6 count];
-    v18 = _CDPrettyPrintCollection();
+    v15 = [v5 count];
+    v16 = [v6 count];
+    v17 = _CDPrettyPrintCollection();
     *buf = 67109890;
-    v24 = v16;
-    v25 = 1024;
-    v26 = v17;
-    v27 = 1024;
+    v23 = v15;
+    v24 = 1024;
+    v25 = v16;
+    v26 = 1024;
     typesCopy = types;
-    v29 = 2114;
-    v30 = v18;
+    v28 = 2114;
+    v29 = v17;
     _os_log_debug_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEBUG, "Found %d out of %d device IDs for device types %X: %{public}@", buf, 0x1Eu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)keyPathsSortedByDeviceID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = dCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         deviceID = [v10 deviceID];
         if (deviceID)
         {
@@ -1574,114 +1536,110 @@ LABEL_11:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)remoteUserContextProxySourceDeviceUUIDByDeviceID
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
-  v18 = +[_CDContextQueries keyPathForMDCSProxies];
+  v17 = +[_CDContextQueries keyPathForMDCSProxies];
   v4 = [(_CDInMemoryUserContext *)self->_userContext objectForKeyedSubscript:?];
   v5 = [v4 copy];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         v11 = [(_CDUserContextServerClient *)self remoteDeviceIDsForRemoteUserContextProxySourceDeviceUUID:v10];
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
-        v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v21;
+          v14 = *v20;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v21 != v14)
+              if (*v20 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              [v3 setObject:v10 forKeyedSubscript:*(*(&v20 + 1) + 8 * j)];
+              [v3 setObject:v10 forKeyedSubscript:*(*(&v19 + 1) + 8 * j)];
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v13);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)deviceIDsSortedByRemoteUserContextProxySourceDeviceUUIDFromDeviceIDs:(id)ds
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
   remoteUserContextProxySourceDeviceUUIDByDeviceID = [(_CDUserContextServerClient *)self remoteUserContextProxySourceDeviceUUIDByDeviceID];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = dsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v20;
+    v11 = *v19;
     *&v9 = 138543362;
-    v18 = v9;
+    v17 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
-        v14 = [remoteUserContextProxySourceDeviceUUIDByDeviceID objectForKeyedSubscript:{v13, v18, v19}];
+        v13 = *(*(&v18 + 1) + 8 * i);
+        v14 = [remoteUserContextProxySourceDeviceUUIDByDeviceID objectForKeyedSubscript:{v13, v17, v18}];
         if (v14)
         {
           mdcsChannel = [v5 objectForKeyedSubscript:v14];
@@ -1699,20 +1657,18 @@ LABEL_11:
           mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
           if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_ERROR))
           {
-            *buf = v18;
-            v24 = v13;
+            *buf = v17;
+            v23 = v13;
             _os_log_error_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_ERROR, "Unknown device id: %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1738,34 +1694,34 @@ LABEL_11:
 
 - (BOOL)isMDCSNeededForKeyPathInKeyPaths:(id)paths
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pathsCopy = paths;
-  v5 = [pathsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [pathsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(pathsCopy);
         }
 
-        if ([(_CDUserContextServerClient *)self isMDCSNeededForKeyPath:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(_CDUserContextServerClient *)self isMDCSNeededForKeyPath:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [pathsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [pathsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -1778,7 +1734,6 @@ LABEL_11:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1822,7 +1777,7 @@ LABEL_10:
 
 - (void)addObjects:(id)objects andRemoveObjects:(id)removeObjects forArrayAtPath:(id)path handler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   removeObjectsCopy = removeObjects;
   pathCopy = path;
@@ -1832,13 +1787,13 @@ LABEL_10:
   {
     v15 = _CDRedactedObjectForKeyPath(pathCopy, objectsCopy);
     v16 = _CDRedactedObjectForKeyPath(pathCopy, removeObjectsCopy);
-    v24 = 138412802;
-    v25 = pathCopy;
-    v26 = 2112;
-    v27 = v15;
-    v28 = 2112;
-    v29 = v16;
-    _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "CDUserContext: %@ => ADD %@, REMOVE %@", &v24, 0x20u);
+    v23 = 138412802;
+    v24 = pathCopy;
+    v25 = 2112;
+    v26 = v15;
+    v27 = 2112;
+    v28 = v16;
+    _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "CDUserContext: %@ => ADD %@, REMOVE %@", &v23, 0x20u);
   }
 
   v17 = +[_CDContextQueries keyPathForAppWebUsageDataDictionaries];
@@ -1857,26 +1812,25 @@ LABEL_10:
   {
   }
 
-  LOBYTE(v24) = 0;
-  v20 = [(_CDInMemoryUserContext *)self->_userContext addObjects:objectsCopy andRemoveObjects:removeObjectsCopy fromArrayAtKeyPath:pathCopy valueDidChange:&v24];
+  LOBYTE(v23) = 0;
+  v20 = [(_CDInMemoryUserContext *)self->_userContext addObjects:objectsCopy andRemoveObjects:removeObjectsCopy fromArrayAtKeyPath:pathCopy valueDidChange:&v23];
   v21 = 0;
-  if (v24 == 1)
+  if (v23 == 1)
   {
     persistence = [(_CDUserContextService *)self->_service persistence];
     [persistence saveValue:v20 forKeyPath:pathCopy];
 
-    v21 = v24;
+    v21 = v23;
   }
 
   handlerCopy[2](handlerCopy, v21 & 1);
 
 LABEL_11:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObjects:(id)objects toArrayAtPath:(id)path handler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   pathCopy = path;
   handlerCopy = handler;
@@ -1884,11 +1838,11 @@ LABEL_11:
   if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_DEFAULT))
   {
     v12 = _CDRedactedObjectForKeyPath(pathCopy, objectsCopy);
-    v19 = 138412546;
-    v20 = pathCopy;
-    v21 = 2112;
-    v22 = v12;
-    _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "CDUserContext: ADD %@ => %@", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = pathCopy;
+    v20 = 2112;
+    v21 = v12;
+    _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "CDUserContext: ADD %@ => %@", &v18, 0x16u);
   }
 
   v13 = +[_CDContextQueries keyPathForAppWebUsageDataDictionaries];
@@ -1906,26 +1860,25 @@ LABEL_11:
   {
   }
 
-  LOBYTE(v19) = 0;
-  v15 = [(_CDInMemoryUserContext *)self->_userContext addObjects:objectsCopy andRemoveObjects:0 fromArrayAtKeyPath:pathCopy valueDidChange:&v19];
+  LOBYTE(v18) = 0;
+  v15 = [(_CDInMemoryUserContext *)self->_userContext addObjects:objectsCopy andRemoveObjects:0 fromArrayAtKeyPath:pathCopy valueDidChange:&v18];
   v16 = 0;
-  if (v19 == 1)
+  if (v18 == 1)
   {
     persistence = [(_CDUserContextService *)self->_service persistence];
     [persistence saveValue:v15 forKeyPath:pathCopy];
 
-    v16 = v19;
+    v16 = v18;
   }
 
   handlerCopy[2](handlerCopy, v16 & 1);
 
 LABEL_10:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjects:(id)objects fromArrayAtPath:(id)path handler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   pathCopy = path;
   handlerCopy = handler;
@@ -1933,32 +1886,30 @@ LABEL_10:
   if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_DEFAULT))
   {
     v12 = _CDRedactedObjectForKeyPath(pathCopy, objectsCopy);
-    v17 = 138412546;
-    v18 = pathCopy;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "CDUserContext: REMOVE %@ => %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = pathCopy;
+    v18 = 2112;
+    v19 = v12;
+    _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "CDUserContext: REMOVE %@ => %@", &v16, 0x16u);
   }
 
-  LOBYTE(v17) = 0;
-  v13 = [(_CDInMemoryUserContext *)self->_userContext addObjects:0 andRemoveObjects:objectsCopy fromArrayAtKeyPath:pathCopy valueDidChange:&v17];
+  LOBYTE(v16) = 0;
+  v13 = [(_CDInMemoryUserContext *)self->_userContext addObjects:0 andRemoveObjects:objectsCopy fromArrayAtKeyPath:pathCopy valueDidChange:&v16];
   v14 = 0;
-  if (v17 == 1)
+  if (v16 == 1)
   {
     persistence = [(_CDUserContextService *)self->_service persistence];
     [persistence saveValue:v13 forKeyPath:pathCopy];
 
-    v14 = v17;
+    v14 = v16;
   }
 
   handlerCopy[2](handlerCopy, v14 & 1);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjectsMatchingPredicate:(id)predicate fromArrayAtPath:(id)path handler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   pathCopy = path;
   handlerCopy = handler;
@@ -1966,9 +1917,9 @@ LABEL_10:
   if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = pathCopy;
-    v21 = 2112;
-    v22 = predicateCopy;
+    v19 = pathCopy;
+    v20 = 2112;
+    v21 = predicateCopy;
     _os_log_impl(&dword_1A9611000, contextChannel, OS_LOG_TYPE_DEFAULT, "CDUserContext: Remove object matching predicate %@ => %@", buf, 0x16u);
   }
 
@@ -2005,9 +1956,9 @@ LABEL_14:
 
 LABEL_7:
   userContext = self->_userContext;
-  v18 = 0;
-  v13 = [(_CDInMemoryUserContext *)userContext removeObjectsMatchingPredicate:predicateCopy fromArrayAtKeyPath:pathCopy removedObjects:&v18];
-  v14 = v18;
+  v17 = 0;
+  v13 = [(_CDInMemoryUserContext *)userContext removeObjectsMatchingPredicate:predicateCopy fromArrayAtKeyPath:pathCopy removedObjects:&v17];
+  v14 = v17;
   if ([v14 count])
   {
     persistence = [(_CDUserContextService *)self->_service persistence];
@@ -2017,7 +1968,6 @@ LABEL_7:
   (handlerCopy)[2](handlerCopy, v14);
 
 LABEL_15:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)valuesForPaths:(id)paths inContextsMatching:(id)matching handler:(id)handler
@@ -2030,7 +1980,7 @@ LABEL_15:
 
 - (void)valuesForPaths:(id)paths handler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   handlerCopy = handler;
   if ([(_CDUserContextService *)self->_service remoteDevicesHaveBeenActivated]|| ![(_CDUserContextServerClient *)self isMDCSNeededForKeyPathInKeyPaths:pathsCopy])
@@ -2044,22 +1994,20 @@ LABEL_15:
     if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = pathsCopy;
+      v14 = pathsCopy;
       _os_log_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_DEFAULT, "Requesting activate devices for %@", buf, 0xCu);
     }
 
     service = self->_service;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __53___CDUserContextServerClient_valuesForPaths_handler___block_invoke;
-    v11[3] = &unk_1E7886BC8;
-    v11[4] = self;
-    v12 = pathsCopy;
-    v13 = handlerCopy;
-    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __53___CDUserContextServerClient_valuesForPaths_handler___block_invoke;
+    v10[3] = &unk_1E7886BC8;
+    v10[4] = self;
+    v11 = pathsCopy;
+    v12 = handlerCopy;
+    [(_CDUserContextService *)service requestActivateDevicesFromAllSubscribersWithHandler:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_valuesForPaths:(id)paths handler:(id)handler
@@ -2070,42 +2018,41 @@ LABEL_15:
   if (v8)
   {
     v9 = v8;
-    v24[0] = 0;
-    v24[1] = v24;
-    v24[2] = 0x3032000000;
-    v24[3] = __Block_byref_object_copy__2;
-    v24[4] = __Block_byref_object_dispose__2;
-    v25 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v8];
     v23[0] = 0;
     v23[1] = v23;
-    v23[2] = 0x2020000000;
-    v23[3] = 0;
-    v21[0] = 0;
-    v21[1] = v21;
-    v21[2] = 0x3032000000;
-    v21[3] = __Block_byref_object_copy__2;
-    v21[4] = __Block_byref_object_dispose__2;
-    v22 = os_transaction_create();
+    v23[2] = 0x3032000000;
+    v23[3] = __Block_byref_object_copy__2;
+    v23[4] = __Block_byref_object_dispose__2;
+    v24 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v8];
+    v22[0] = 0;
+    v22[1] = v22;
+    v22[2] = 0x2020000000;
+    v22[3] = 0;
+    v20[0] = 0;
+    v20[1] = v20;
+    v20[2] = 0x3032000000;
+    v20[3] = __Block_byref_object_copy__2;
+    v20[4] = __Block_byref_object_dispose__2;
+    v21 = os_transaction_create();
     v10 = dispatch_time(0, 10000000000);
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke;
     block[3] = &unk_1E7886DC0;
-    v18 = v24;
-    v20 = v9;
+    v17 = v23;
+    v19 = v9;
     v12 = handlerCopy;
-    v17 = v12;
-    v19 = v21;
+    v16 = v12;
+    v18 = v20;
     dispatch_after(v10, queue, block);
-    activateMonitorQueue = self->_activateMonitorQueue;
-    v14 = pathsCopy;
-    v15 = v12;
+    v13 = pathsCopy;
+    v14 = v12;
     cd_dispatch_async_xpc();
 
-    _Block_object_dispose(v21, 8);
+    _Block_object_dispose(v20, 8);
+    _Block_object_dispose(v22, 8);
     _Block_object_dispose(v23, 8);
-    _Block_object_dispose(v24, 8);
   }
 
   else
@@ -2116,40 +2063,31 @@ LABEL_15:
 
 - (void)_valueForRemotePath:handler:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_valueForRemotePath:(void *)a1 handler:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = _CDRedactedObjectForKeyPath(a1, a2);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerCallback:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deregisterCallback:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_8_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activateDevices:(uint8_t *)buf remoteUserContextProxySourceDeviceUUID:(os_log_t)log .cold.1(void *a1, int a2, uint8_t *buf, os_log_t log)
@@ -2163,79 +2101,60 @@ LABEL_15:
 
 - (void)activateDevices:(void *)a1 remoteUserContextProxySourceDeviceUUID:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activateDevices:(void *)a1 remoteUserContextProxySourceDeviceUUID:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 UUIDString];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deactivateDevices:(void *)a1 remoteUserContextProxySourceDeviceUUID:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPropertiesOfRemoteKeyPaths:handler:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   v0 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPropertiesOfRemoteKeyPaths:remoteUserContextProxySourceDeviceUUID:handler:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
-  v6 = _CDPrettyPrintCollection();
+  v5 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPropertiesOfRemoteKeyPaths:remoteUserContextProxySourceDeviceUUID:handler:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   v0 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToContextValueNotificationsWithRegistration:deviceIDs:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   v0 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToContextValueNotificationsWithRegistration:(NSObject *)a3 deviceIDs:.cold.2(uint8_t *a1, _BYTE *a2, NSObject *a3)
@@ -2247,27 +2166,21 @@ LABEL_15:
 
 - (void)subscribeToContextValueNotificationsWithRegistration:deviceIDs:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   v0 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromContextValueNotificationsWithRegistration:deviceIDs:.cold.1()
 {
   OUTLINED_FUNCTION_10();
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   v0 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromContextValueNotificationsWithRegistration:(NSObject *)a3 deviceIDs:.cold.2(uint8_t *a1, _BYTE *a2, NSObject *a3)
@@ -2280,14 +2193,11 @@ LABEL_15:
 - (void)unsubscribeFromContextValueNotificationsWithRegistration:deviceIDs:.cold.3()
 {
   OUTLINED_FUNCTION_10();
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   v0 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToDeviceStatusChangeNotificationsForDeviceTypes:.cold.1()
@@ -2299,29 +2209,24 @@ LABEL_15:
 
 - (void)setObject:(void *)a1 forPath:(void *)a2 handler:.cold.1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = _CDRedactedObjectForKeyPath(a1, a2);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjectsMatchingPredicate:fromArrayAtPath:handler:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "Client provided invalid predicate to removeObjectsMatchingPredicate:fromArrayAtPath:handler: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "Client provided invalid predicate to removeObjectsMatchingPredicate:fromArrayAtPath:handler: %@", v1, 0xCu);
 }
 
 - (void)removeObjectsMatchingPredicate:fromArrayAtPath:handler:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "Client provided invalid predicate %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A9611000, v0, OS_LOG_TYPE_FAULT, "Client provided invalid predicate %@", v1, 0xCu);
 }
 
 @end

@@ -18,7 +18,7 @@
 
 + (id)an_errorWithCode:()Announce_Private component:description:
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v7 = a5;
   v8 = v7;
   if (a4)
@@ -34,14 +34,12 @@
   v10 = v9;
   v11 = MEMORY[0x277CCA9B8];
   v12 = *MEMORY[0x277CCA068];
-  v17[0] = *MEMORY[0x277CCA450];
-  v17[1] = v12;
-  v18[0] = v8;
-  v18[1] = v9;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = *MEMORY[0x277CCA450];
+  v16[1] = v12;
+  v17[0] = v8;
+  v17[1] = v9;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v14 = [v11 errorWithDomain:@"com.apple.announce" code:a3 userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -92,7 +92,7 @@
 
 - (uint64_t)safari_protocolAsSecAttrProtocolValue
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   protocol = [self protocol];
   if ([protocol isEqualToString:*MEMORY[0x1E695AB98]])
   {
@@ -101,24 +101,24 @@
 
   else
   {
-    if (([protocol isEqualToString:*MEMORY[0x1E695ABA0]] & 1) == 0)
+    v3 = [protocol isEqualToString:*MEMORY[0x1E695ABA0]];
+    if ((v3 & 1) == 0)
     {
-      v3 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v7 = 138543362;
-        v8 = protocol;
-        _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_INFO, "Unsupported protocol %{public}@", &v7, 0xCu);
+        v8 = 138543362;
+        v9 = protocol;
+        _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_INFO, "Unsupported protocol %{public}@", &v8, 0xCu);
       }
     }
 
     v2 = MEMORY[0x1E697AE30];
   }
 
-  v4 = *v2;
+  v6 = *v2;
 
-  v5 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v6;
 }
 
 - (id)safari_protectionSpaceByReplacingHostWithHighlevelDomain
@@ -294,36 +294,36 @@
 
 - (id)safari_creationDateOfCredentialWithUser:()SafariCoreExtras
 {
-  v21[8] = *MEMORY[0x1E69E9840];
+  v20[8] = *MEMORY[0x1E69E9840];
   v4 = a3;
   cf = 0;
   v5 = *MEMORY[0x1E697B018];
   v6 = *MEMORY[0x1E697AC50];
-  v20[0] = *MEMORY[0x1E697AFF8];
-  v20[1] = v6;
+  v19[0] = *MEMORY[0x1E697AFF8];
+  v19[1] = v6;
   v7 = *MEMORY[0x1E697AC60];
-  v21[0] = v5;
-  v21[1] = v7;
+  v20[0] = v5;
+  v20[1] = v7;
   v8 = *MEMORY[0x1E697AC30];
-  v21[2] = v4;
+  v20[2] = v4;
   v9 = *MEMORY[0x1E697AE00];
-  v20[2] = v8;
-  v20[3] = v9;
-  v21[3] = [self safari_protocolAsSecAttrProtocolValue];
-  v20[4] = *MEMORY[0x1E697AE80];
+  v19[2] = v8;
+  v19[3] = v9;
+  v20[3] = [self safari_protocolAsSecAttrProtocolValue];
+  v19[4] = *MEMORY[0x1E697AE80];
   host = [self host];
   v11 = *MEMORY[0x1E697AEB0];
   v12 = *MEMORY[0x1E697AEB8];
-  v21[4] = host;
-  v21[5] = v12;
+  v20[4] = host;
+  v20[5] = v12;
   v13 = *MEMORY[0x1E697B310];
-  v20[5] = v11;
-  v20[6] = v13;
-  v20[7] = *MEMORY[0x1E697B260];
+  v19[5] = v11;
+  v19[6] = v13;
+  v19[7] = *MEMORY[0x1E697B260];
   v14 = *MEMORY[0x1E697B270];
-  v21[6] = MEMORY[0x1E695E118];
-  v21[7] = v14;
-  v15 = SecItemCopyMatching([MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:8], &cf);
+  v20[6] = MEMORY[0x1E695E118];
+  v20[7] = v14;
+  v15 = SecItemCopyMatching([MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:8], &cf);
 
   v16 = 0;
   if (!v15)
@@ -331,8 +331,6 @@
     v16 = [cf objectForKey:*MEMORY[0x1E697ACD0]];
     CFRelease(cf);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

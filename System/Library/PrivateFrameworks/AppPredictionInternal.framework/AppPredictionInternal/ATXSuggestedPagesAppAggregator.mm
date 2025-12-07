@@ -16,7 +16,7 @@
 
 - (ATXSuggestedPagesAppAggregator)init
 {
-  v14[7] = *MEMORY[0x277D85DE8];
+  v13[7] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   v5 = objc_opt_new();
@@ -24,17 +24,16 @@
   v7 = objc_opt_new();
   v8 = objc_opt_new();
   v9 = objc_opt_new();
-  v14[0] = v3;
-  v14[1] = v4;
-  v14[2] = v5;
-  v14[3] = v6;
-  v14[4] = v7;
-  v14[5] = v8;
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:7];
+  v13[0] = v3;
+  v13[1] = v4;
+  v13[2] = v5;
+  v13[3] = v6;
+  v13[4] = v7;
+  v13[5] = v8;
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:7];
   v11 = [(ATXSuggestedPagesAppAggregator *)self initWithSources:v10];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -62,32 +61,32 @@
 
 - (id)provideAppsForSuggestedPageType:(int64_t)type candidateApps:(id)apps environment:(id)environment
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   environmentCopy = environment;
   v9 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   selfCopy = self;
   v10 = self->_sources;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v40;
+    v13 = *v39;
     v14 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v40 != v13)
+        if (*v39 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = [*(*(&v39 + 1) + 8 * i) provideAppsForSuggestedPageType:type environment:{environmentCopy, selfCopy}];
+        v16 = [*(*(&v38 + 1) + 8 * i) provideAppsForSuggestedPageType:type environment:{environmentCopy, selfCopy}];
         v17 = v16;
         if (v16)
         {
@@ -104,7 +103,7 @@
         [v9 addObjectsFromArray:v19];
       }
 
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v12);
@@ -113,29 +112,29 @@
   if ([appsCopy count])
   {
     [v9 intersectSet:appsCopy];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v20 = appsCopy;
-    v21 = [v20 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v36;
+      v23 = *v35;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v36 != v23)
+          if (*v35 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          [*(*(&v35 + 1) + 8 * j) setPredictionSource:{@"User", selfCopy}];
+          [*(*(&v34 + 1) + 8 * j) setPredictionSource:{@"User", selfCopy}];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v22);
@@ -154,19 +153,17 @@
   appLaunchCounts2 = [environmentCopy appLaunchCounts];
   v30 = [(ATXSuggestedPagesAppAggregator *)v25 _sortedApps:array sortedFirstPageApps:_sortedAppsOnFirstHomeScreenPage appLaunchCounts:appLaunchCounts2];
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 - (void)_validateApps:(id)apps pageType:(int64_t)type
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   v7 = objc_opt_new();
   _dockedApps = [(ATXSuggestedPagesAppAggregator *)self _dockedApps];
   v8 = [ATXSuggestedPagesUtils semanticTypeForSuggestedPageType:type];
-  v36 = v8;
+  v41 = v8;
   if (v8)
   {
     v9 = v8;
@@ -175,75 +172,75 @@
 
     if ([v11 count])
     {
-      v39 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v11];
+      v44 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v11];
     }
 
     else
     {
-      v39 = 0;
+      v44 = 0;
     }
   }
 
   else
   {
-    v39 = 0;
+    v44 = 0;
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v12 = appsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v42;
-    v38 = *MEMORY[0x277CBF040];
-    v37 = *MEMORY[0x277CBF010];
+    v15 = *v47;
+    v43 = *MEMORY[0x277CBF040];
+    v42 = *MEMORY[0x277CBF010];
     do
     {
       v16 = 0;
       do
       {
-        if (*v42 != v15)
+        if (*v47 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * v16);
+        v17 = *(*(&v46 + 1) + 8 * v16);
         v18 = MEMORY[0x277CEB3B8];
         bundleId = [v17 bundleId];
         LOBYTE(v18) = [v18 isInstalledAndNotRestrictedForBundle:bundleId];
 
         if ((v18 & 1) == 0)
         {
-          v22 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_modes(v20);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v17;
-            v23 = v22;
-            v24 = "ATXSuggestedPagesAppAggregator: app (%@) is not installed or restricted";
+            v51 = v17;
+            v25 = v24;
+            v26 = "ATXSuggestedPagesAppAggregator: app (%@) is not installed or restricted";
             goto LABEL_18;
           }
 
           goto LABEL_19;
         }
 
-        v20 = MEMORY[0x277CEB3B8];
+        v21 = MEMORY[0x277CEB3B8];
         bundleId2 = [v17 bundleId];
-        LODWORD(v20) = [v20 isHiddenFromSpringBoardWithBundleId:bundleId2];
+        LODWORD(v21) = [v21 isHiddenFromSpringBoardWithBundleId:bundleId2];
 
-        if (v20)
+        if (v21)
         {
-          v22 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_modes(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v17;
-            v23 = v22;
-            v24 = "ATXSuggestedPagesAppAggregator: app (%@) is hidden from SpringBoard";
+            v51 = v17;
+            v25 = v24;
+            v26 = "ATXSuggestedPagesAppAggregator: app (%@) is hidden from SpringBoard";
             goto LABEL_18;
           }
 
@@ -251,17 +248,17 @@
         }
 
         bundleId3 = [v17 bundleId];
-        v26 = [_dockedApps containsObject:bundleId3];
+        v28 = [_dockedApps containsObject:bundleId3];
 
-        if (v26)
+        if (v28)
         {
-          v22 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_modes(v29);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v17;
-            v23 = v22;
-            v24 = "ATXSuggestedPagesAppAggregator: app (%@) is already in the Dock";
+            v51 = v17;
+            v25 = v24;
+            v26 = "ATXSuggestedPagesAppAggregator: app (%@) is already in the Dock";
             goto LABEL_18;
           }
 
@@ -269,17 +266,17 @@
         }
 
         bundleId4 = [v17 bundleId];
-        v28 = [v39 containsObject:bundleId4];
+        v31 = [v44 containsObject:bundleId4];
 
-        if (v28)
+        if (v31)
         {
-          v22 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_modes(v32);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v17;
-            v23 = v22;
-            v24 = "ATXSuggestedPagesAppAggregator: app (%@) is on silence list in Focus settings";
+            v51 = v17;
+            v25 = v24;
+            v26 = "ATXSuggestedPagesAppAggregator: app (%@) is on silence list in Focus settings";
             goto LABEL_18;
           }
 
@@ -287,39 +284,39 @@
         }
 
         bundleId5 = [v17 bundleId];
-        v30 = CFPreferencesCopyValue(@"SBSearchSuggestAppDisabled", @"com.apple.spotlightui", v38, v37);
-        v31 = [v30 containsObject:bundleId5];
+        v34 = CFPreferencesCopyValue(@"SBSearchSuggestAppDisabled", @"com.apple.spotlightui", v43, v42);
+        v35 = [v34 containsObject:bundleId5];
 
-        if (v31)
+        if (v35)
         {
-          v22 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_modes(v36);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v17;
-            v23 = v22;
-            v24 = "ATXSuggestedPagesAppAggregator: app (%@) is turned off in Siri settings";
+            v51 = v17;
+            v25 = v24;
+            v26 = "ATXSuggestedPagesAppAggregator: app (%@) is turned off in Siri settings";
             goto LABEL_18;
           }
 
           goto LABEL_19;
         }
 
-        v32 = MEMORY[0x277CEB3B8];
+        v37 = MEMORY[0x277CEB3B8];
         bundleId6 = [v17 bundleId];
-        LODWORD(v32) = [v32 isInternalAppForBundleId:bundleId6];
+        LODWORD(v37) = [v37 isInternalAppForBundleId:bundleId6];
 
-        if (v32)
+        if (v37)
         {
-          v22 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v24 = __atxlog_handle_modes(v39);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v46 = v17;
-            v23 = v22;
-            v24 = "ATXSuggestedPagesAppAggregator: app (%@) is an internal app";
+            v51 = v17;
+            v25 = v24;
+            v26 = "ATXSuggestedPagesAppAggregator: app (%@) is an internal app";
 LABEL_18:
-            _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, v24, buf, 0xCu);
+            _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
           }
 
 LABEL_19:
@@ -331,19 +328,17 @@ LABEL_19:
       }
 
       while (v14 != v16);
-      v34 = [v12 countByEnumeratingWithState:&v41 objects:v47 count:16];
-      v14 = v34;
+      v40 = [v12 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v14 = v40;
     }
 
-    while (v34);
+    while (v40);
   }
 
   if ([v7 count])
   {
     [v12 minusSet:v7];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateApps:(id)apps withAppLaunchCounts:(id)counts
@@ -409,14 +404,15 @@ LABEL_19:
 
         v24 = v23;
 
-        if (([v24 isGreaterThanOrEqualToData:v20] & 1) == 0)
+        v25 = [v24 isGreaterThanOrEqualToData:v20];
+        if ((v25 & 1) == 0)
         {
-          v25 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v26 = __atxlog_handle_modes(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v27;
             v35 = v15;
-            _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesAppAggregator: app (%@) does not meet launch count threshold", buf, 0xCu);
+            _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesAppAggregator: app (%@) does not meet launch count threshold", buf, 0xCu);
           }
 
           [v28 addObject:v15];
@@ -434,23 +430,22 @@ LABEL_19:
   {
     [v9 minusSet:v28];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dockedApps
 {
   v2 = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CEB568]);
-  v8 = 0;
-  v4 = [v3 loadDockAppListWithError:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [v3 loadDockAppListWithError:&v9];
+  v5 = v9;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_modes(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ATXSuggestedPagesAppAggregator *)v5 _dockedApps];
+      [(ATXSuggestedPagesAppAggregator *)v6 _dockedApps];
     }
   }
 
@@ -463,38 +458,39 @@ LABEL_19:
 {
   v2 = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CEB568]);
-  v13 = 0;
-  v4 = [v3 loadHomeScreenPageConfigurationsWithError:&v13];
-  v5 = v13;
+  v14 = 0;
+  v4 = [v3 loadHomeScreenPageConfigurationsWithError:&v14];
+  v5 = v14;
+  v6 = v5;
   if (v5)
   {
-    v6 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_modes(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ATXSuggestedPagesAppAggregator *)v5 _sortedAppsOnFirstHomeScreenPage];
+      [(ATXSuggestedPagesAppAggregator *)v6 _sortedAppsOnFirstHomeScreenPage];
     }
 
-    v7 = MEMORY[0x277CBEBF8];
+    v8 = MEMORY[0x277CBEBF8];
   }
 
   else
   {
-    v8 = objc_opt_new();
+    v9 = objc_opt_new();
     firstObject = [v4 firstObject];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __66__ATXSuggestedPagesAppAggregator__sortedAppsOnFirstHomeScreenPage__block_invoke;
-    v11[3] = &unk_278597D68;
-    v7 = v8;
-    v12 = v7;
-    [firstObject enumerateAppsConsideringFolders:0 block:v11];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __66__ATXSuggestedPagesAppAggregator__sortedAppsOnFirstHomeScreenPage__block_invoke;
+    v12[3] = &unk_278597D68;
+    v8 = v9;
+    v13 = v8;
+    [firstObject enumerateAppsConsideringFolders:0 block:v12];
 
-    v6 = v12;
+    v7 = v13;
   }
 
   objc_autoreleasePoolPop(v2);
 
-  return v7;
+  return v8;
 }
 
 void __66__ATXSuggestedPagesAppAggregator__sortedAppsOnFirstHomeScreenPage__block_invoke(uint64_t a1, void *a2)
@@ -623,20 +619,18 @@ uint64_t __82__ATXSuggestedPagesAppAggregator__sortedApps_sortedFirstPageApps_ap
 
 - (void)_dockedApps
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesAppAggregator: could not fetch Dock apps: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesAppAggregator: could not fetch Dock apps: %@", &v2, 0xCu);
 }
 
 - (void)_sortedAppsOnFirstHomeScreenPage
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesAppAggregator: could not load home screen configuration: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesAppAggregator: could not load home screen configuration: %@", &v2, 0xCu);
 }
 
 @end

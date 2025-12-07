@@ -48,8 +48,8 @@
   targets = [(MTRAccessControlClusterAccessControlEntryStruct *)self targets];
   [(MTRAccessControlClusterAccessControlEntryStruct *)v4 setTargets:targets];
 
-  fabricIndex = [(MTRAccessControlClusterAccessControlEntryStruct *)self fabricIndex];
-  [(MTRAccessControlClusterAccessControlEntryStruct *)v4 setFabricIndex:fabricIndex];
+  v9 = objc_msgSend_fabricIndex(self);
+  [(MTRAccessControlClusterAccessControlEntryStruct *)v4 setFabricIndex:v9];
 
   return v4;
 }

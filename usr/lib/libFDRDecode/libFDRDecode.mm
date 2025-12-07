@@ -1,4 +1,4 @@
-uint64_t _AMFDRDecodeVerifyChain(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, uint64_t a8)
+uint64_t _AMFDRDecodeVerifyChain(uint64_t a1, uint64_t a2, DERByte **a3, DERSize *a4, DERByte **a5, DERSize *a6, uint64_t a7, uint64_t a8)
 {
   v67 = 0;
   memset(v66, 170, sizeof(v66));
@@ -51,13 +51,13 @@ uint64_t _AMFDRDecodeVerifyChain(uint64_t a1, uint64_t a2, void *a3, void *a4, v
 
   if (!a1 || !a2)
   {
-    AMFDRDecodeLogInternal(3, "%s: chain_blob must be non NULL and chain_blob_length must be non 0");
+    AMFDRDecodeLogInternal(3, "%s: chain_blob must be non NULL and chain_blob_length must be non 0", a3);
     goto LABEL_9;
   }
 
   if (!a5 || !a6)
   {
-    AMFDRDecodeLogInternal(3, "%s: outImg4Blob must be non NULL and outImg4BlobLength must be non 0");
+    AMFDRDecodeLogInternal(3, "%s: outImg4Blob must be non NULL and outImg4BlobLength must be non 0", a3);
 LABEL_9:
     *a8 |= 1uLL;
     return 6;
@@ -195,12 +195,12 @@ LABEL_22:
         }
       }
 
-      *a3 = *(v21 + 208);
-      *a4 = *(v21 + 216);
-      *a5 = *(v21 + 288);
-      *a6 = *(v21 + 296);
-      v42 = *(v21 + 240);
-      *(a8 + 312) = *(v21 + 224);
+      *a3 = v21[13].data;
+      *a4 = v21[13].length;
+      *a5 = v21[18].data;
+      *a6 = v21[18].length;
+      v42 = v21[15];
+      *(a8 + 312) = v21[14];
       *(a8 + 328) = v42;
       AMFDRDecodeLogInternal(7, "%s: PKI: check payload hash with signature (success)", "_AMFDRDecodeVerifyChain");
       return 0;
@@ -278,7 +278,7 @@ LABEL_51:
       break;
     }
 
-    while (!DEROidCompare((v45 + 1), (*(&kAMFDRDecodeEcdsaInfoList + v35))[3]) || !DEROidCompare(v44, (*(&kAMFDRDecodeEcdsaInfoList + v35))[2]))
+    while (!DEROidCompare(&v45[1], (*(&kAMFDRDecodeEcdsaInfoList + v35))[3]) || !DEROidCompare(v44, (*(&kAMFDRDecodeEcdsaInfoList + v35))[2]))
     {
       v35 += 8;
       if (v35 == 24)
@@ -396,11 +396,9 @@ uint64_t _AMFDRDecodeVerifySignature(const void *a1, size_t a2, uint64_t a3, uin
 
             if (a7 == kAMFDRDecodeImplementationSha384 || a7 == kAMFDRDecodeImplementationOffline)
             {
-              v18 = oidEcPrime256v1;
+              v16 = oidEcPrime256v1;
               if ((*(a8 + 2017) & 1) == 0)
               {
-                v13 = *(a8 + 664);
-                v14 = *(a8 + 672);
                 if (AMSupportDigestSha256())
                 {
                   goto LABEL_33;
@@ -434,26 +432,26 @@ LABEL_39:
 
               if (*(a8 + 336))
               {
-                v16 = 0;
-                v18 = *(a8 + 328);
-                while (!DEROidCompare(&v18, (*(&kAMFDRDecodeEcdsaInfoList + v16))[2]))
+                v14 = 0;
+                v16 = *(a8 + 328);
+                while (!DEROidCompare(&v16, (*(&kAMFDRDecodeEcdsaInfoList + v14))[2]))
                 {
-                  v16 += 8;
-                  if (v16 == 24)
+                  v14 += 8;
+                  if (v14 == 24)
                   {
                     goto LABEL_28;
                   }
                 }
 
-                v17 = *(&kAMFDRDecodeEcdsaInfoList + v16);
-                if (!*(v17 + 8))
+                v15 = *(&kAMFDRDecodeEcdsaInfoList + v14);
+                if (!*(v15 + 8))
                 {
 LABEL_28:
                   _AMFDRDecodeVerifySignature_cold_1();
                   goto LABEL_38;
                 }
 
-                if (AMFDRDecodeDigestByLength(*(a8 + 664), *(a8 + 672), a8 + 776, *(v17 + 8)))
+                if (AMFDRDecodeDigestByLength(*(a8 + 664), *(a8 + 672), a8 + 776, *(v15 + 8)))
                 {
                   goto LABEL_33;
                 }
@@ -511,13 +509,13 @@ LABEL_38:
 
 uint64_t _AMFDRDecodeEvaluateCertificateProperties(uint64_t a1, uint64_t a2)
 {
-  memset(v22, 170, 32);
-  memset(v20, 170, sizeof(v20));
-  memset(v19, 170, sizeof(v19));
+  memset(v19, 170, 32);
+  memset(v17, 170, sizeof(v17));
+  memset(v16, 170, sizeof(v16));
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v18 = v3;
+  *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v15 = v3;
   v4 = 6;
   if (!a1 || !a2)
   {
@@ -527,34 +525,34 @@ uint64_t _AMFDRDecodeEvaluateCertificateProperties(uint64_t a1, uint64_t a2)
   if (!*(a1 + 320) || !*(a1 + 312))
   {
     v4 = 0;
-    v14 = 0x200000000000;
+    v12 = 0x200000000000;
     goto LABEL_21;
   }
 
-  v21 = 0xAAAAAAAAAAAAAAAALL;
-  v6 = DERDecodeSeqInit(a1 + 312, &v21, &v22[2]);
-  if (v6)
+  v18 = 0xAAAAAAAAAAAAAAAALL;
+  v5 = DERDecodeSeqInit(a1 + 312, &v18, &v19[2]);
+  if (v5)
   {
-    v4 = v6;
+    v4 = v5;
     _AMFDRDecodeEvaluateCertificateProperties_cold_1();
     goto LABEL_29;
   }
 
-  if (v21 != 0x2000000000000011)
+  if (v18 != 0x2000000000000011)
   {
     v4 = 2;
     goto LABEL_29;
   }
 
-  v7 = 0;
+  v6 = 0;
   do
   {
-    v8 = DERDecodeSeqNext(&v22[2], v20);
-    if (v8)
+    v7 = DERDecodeSeqNext(&v19[2], v17);
+    if (v7)
     {
-      if (v8 == 1)
+      if (v7 == 1)
       {
-        if (v7)
+        if (v6)
         {
           return 0;
         }
@@ -570,48 +568,44 @@ uint64_t _AMFDRDecodeEvaluateCertificateProperties(uint64_t a1, uint64_t a2)
       goto LABEL_38;
     }
 
-    ++v7;
-    v9 = (a1 + 56);
-    if (v20[0] == 0xE00000004D414E50)
+    ++v6;
+    if (v17[0] == 0xE00000004D414E50)
     {
       break;
     }
 
-    if (v20[0] != 0xE00000004F424A50)
+    if (v17[0] != 0xE00000004F424A50)
     {
       goto LABEL_26;
     }
-
-    v9 = (a1 + 72);
   }
 
   while ((*(a2 + 2016) & 0x80) != 0);
-  v16 = *v9;
-  v10 = DERImg4DecodeProperty();
-  if (v10)
+  v8 = DERImg4DecodeProperty();
+  if (v8)
   {
-    v4 = v10;
+    v4 = v8;
     _AMFDRDecodeEvaluateCertificateProperties_cold_3();
     goto LABEL_28;
   }
 
-  if (*(&v18 + 1) != 0x2000000000000011)
+  if (*(&v15 + 1) != 0x2000000000000011)
   {
     goto LABEL_27;
   }
 
-  v11 = DERDecodeSeqContentInit(&v17 + 1, v22);
-  if (v11)
+  v9 = DERDecodeSeqContentInit(&v14 + 1, v19);
+  if (v9)
   {
-    v4 = v11;
+    v4 = v9;
     _AMFDRDecodeEvaluateCertificateProperties_cold_4();
     goto LABEL_28;
   }
 
-  v12 = DERDecodeSeqNext(v22, v19);
-  if (v12)
+  v10 = DERDecodeSeqNext(v19, v16);
+  if (v10)
   {
-    if (v12 == 1)
+    if (v10 == 1)
     {
       _AMFDRDecodeEvaluateCertificateProperties_cold_5();
     }
@@ -626,8 +620,8 @@ LABEL_38:
     goto LABEL_28;
   }
 
-  v13 = DERImg4DecodeProperty();
-  if (!v13)
+  v11 = DERImg4DecodeProperty();
+  if (!v11)
   {
     DERImg4DecodeContentFindItemWithTag();
 LABEL_26:
@@ -637,15 +631,15 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v4 = v13;
+  v4 = v11;
   _AMFDRDecodeEvaluateCertificateProperties_cold_6();
 LABEL_28:
   if (a2)
   {
 LABEL_29:
-    v14 = 0x800000000000;
+    v12 = 0x800000000000;
 LABEL_21:
-    *a2 |= v14;
+    *a2 |= v12;
   }
 
   return v4;
@@ -653,22 +647,22 @@ LABEL_21:
 
 uint64_t _AMFDRDecodeVerifyChainOffline(uint64_t a1, uint64_t a2, unint64_t *a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  memset(v22, 170, sizeof(v22));
+  memset(v20, 170, sizeof(v20));
   if (a8)
   {
     *&v11 = 0xAAAAAAAAAAAAAAAALL;
     *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
     *__s1 = v11;
-    v23[0] = a1;
-    v23[1] = a2;
-    if (DERDecodeItem(v23, v22))
+    v21[0] = a1;
+    v21[1] = a2;
+    if (DERDecodeItem(v21, v20))
     {
       v12 = "%s: malformed offline signing public key";
     }
 
     else
     {
-      if (v22[0] != 2)
+      if (v20[0] != 2)
       {
         v13 = 3;
         AMFDRDecodeLogInternal(3, "%s: malformed offline signing public key tag", "_AMFDRDecodeVerifyChainOffline");
@@ -676,34 +670,32 @@ uint64_t _AMFDRDecodeVerifyChainOffline(uint64_t a1, uint64_t a2, unint64_t *a3,
         goto LABEL_8;
       }
 
-      v16 = *(a8 + 296);
-      v17 = *(a8 + 304);
       if (!AMFDRDecodeCertificate())
       {
         *a8 |= 0x100uLL;
-        v18 = v22[2];
-        if (v22[2] == __s1[1])
+        v16 = v20[2];
+        if (v20[2] == __s1[1])
         {
-          v19 = v22[1];
-          if (!memcmp(__s1[0], v22[1], v22[2]))
+          v17 = v20[1];
+          if (!memcmp(__s1[0], v20[1], v20[2]))
           {
             v13 = 0;
-            *a3 = v19;
-            *a4 = v18;
+            *a3 = v17;
+            *a4 = v16;
             *(a8 + 312) = oidEcPubKey;
             return v13;
           }
 
-          v20 = "%s: offline signing public key mismatch";
+          v18 = "%s: offline signing public key mismatch";
         }
 
         else
         {
-          v20 = "%s: offline signing public key length mismatch";
+          v18 = "%s: offline signing public key length mismatch";
         }
 
         v13 = 3;
-        AMFDRDecodeLogInternal(3, v20, "_AMFDRDecodeVerifyChainOffline");
+        AMFDRDecodeLogInternal(3, v18, "_AMFDRDecodeVerifyChainOffline");
         v14 = *a8 | 0x20000000000000;
         goto LABEL_8;
       }
@@ -723,10 +715,10 @@ LABEL_8:
   return 6;
 }
 
-uint64_t _AMFDRDecodeVerifyDataCallback(int a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t _AMFDRDecodeVerifyDataCallback(int a1, uint64_t a2, size_t a3, uint64_t a4)
 {
-  v41 = 0;
   v40 = 0;
+  v39 = 0;
   if (!a4)
   {
     AMFDRDecodeLogInternal(3, "%s: fdrDecode is NULL", "_AMFDRDecodeVerifyDataCallback");
@@ -783,29 +775,29 @@ uint64_t _AMFDRDecodeVerifyDataCallback(int a1, uint64_t a2, int a3, uint64_t a4
         {
           if (*(a4 + 400))
           {
-            if (**(*(a4 + 2008) + 32) == v41)
+            if (**(*(a4 + 2008) + 32) == v40)
             {
-              if (!memcmp(v40, (a4 + 584), v41))
+              if (!memcmp(v39, (a4 + 584), v40))
               {
                 return 0;
               }
 
-              v28 = "%s: propertyValue != fdrDecode->sealingManifestImg4.payload.hash";
+              v27 = "%s: propertyValue != fdrDecode->sealingManifestImg4.payload.hash";
             }
 
             else
             {
-              v28 = "%s: propertyLength != implementation->digestInfo->digestOutputSize";
+              v27 = "%s: propertyLength != implementation->digestInfo->digestOutputSize";
             }
           }
 
           else
           {
-            v28 = "%s: fdrDecode->sealingManifestImg4.payload_hashed is false";
+            v27 = "%s: fdrDecode->sealingManifestImg4.payload_hashed is false";
           }
 
           v6 = 3;
-          AMFDRDecodeLogInternal(3, v28, "_AMFDRDecodeVerifyDataCallback");
+          AMFDRDecodeLogInternal(3, v27, "_AMFDRDecodeVerifyDataCallback");
         }
 
 LABEL_90:
@@ -831,20 +823,20 @@ LABEL_90:
         goto LABEL_90;
       }
 
-      v20 = v41;
-      *(a4 + 360) = v40;
+      v20 = v40;
+      *(a4 + 360) = v39;
       *(a4 + 368) = v20;
       if ((*(a4 + 2017) & 0x10) != 0)
       {
         if (*(a4 + 128))
         {
-          v26 = *(a4 + 120);
-          if (v26)
+          v25 = *(a4 + 120);
+          if (v25)
           {
             __s1 = 0;
             __n = 0;
-            v27 = AMFDRTagsStringToTag(v26);
-            if (_AMFDRDecodeSearchEntryFromPropertyList(*(a4 + 360), *(a4 + 368), v27, &__s1))
+            v26 = AMFDRTagsStringToTag(v25);
+            if (_AMFDRDecodeSearchEntryFromPropertyList(*(a4 + 360), *(a4 + 368), v26, &__s1))
             {
               v6 = 0;
               AMFDRDecodeLogInternal(3, "%s: failed to find subCC digest");
@@ -907,27 +899,27 @@ LABEL_90:
         goto LABEL_33;
       }
 
-      v21 = *(a4 + 224);
-      if (v21)
+      a3 = *(a4 + 224);
+      if (a3)
       {
-        if (v21 == v41)
+        if (a3 == v40)
         {
-          v22 = *(a4 + 216);
-          if (v22 && !memcmp(v22, v40, v21))
+          v21 = *(a4 + 216);
+          if (v21 && !memcmp(v21, v39, a3))
           {
             return 0;
           }
 
-          v23 = "%s: kFDRTag_asid property != fdrDecode->assemblyID";
+          v22 = "%s: kFDRTag_asid property != fdrDecode->assemblyID";
         }
 
         else
         {
-          v23 = "%s: kFDRTag_asid property length != fdrDecode->assemblyID.length";
+          v22 = "%s: kFDRTag_asid property length != fdrDecode->assemblyID.length";
         }
 
         v6 = 3;
-        AMFDRDecodeLogInternal(3, v23, "_AMFDRDecodeVerifyDataCallback");
+        AMFDRDecodeLogInternal(3, v22, "_AMFDRDecodeVerifyDataCallback");
         v11 = *a4 | 0x200000000000000;
         goto LABEL_91;
       }
@@ -945,12 +937,12 @@ LABEL_90:
 
       else
       {
-        v34 = v41;
+        v33 = v40;
         v9 = "%s: propertyValue must be non NULL with a non-zero length (length=%u)";
       }
 
       v6 = 3;
-      AMFDRDecodeLogInternal(3, v9, "_AMFDRDecodeVerifyDataCallback", v34);
+      AMFDRDecodeLogInternal(3, v9, "_AMFDRDecodeVerifyDataCallback", v33);
       v11 = *a4 | 0x400;
       goto LABEL_91;
     }
@@ -973,15 +965,15 @@ LABEL_37:
       }
     }
 
-    v36 = (a1 >> 8);
-    v37 = a1;
-    v34 = (a1 >> 24);
-    v35 = (a1 << 8 >> 24);
+    v35 = (a1 >> 8);
+    v36 = a1;
+    v33 = (a1 >> 24);
+    v34 = (a1 << 8 >> 24);
     v18 = "%s: Unsupported tag found in manifest '%c%c%c%c'";
 LABEL_42:
     v19 = 7;
 LABEL_47:
-    AMFDRDecodeLogInternal(v19, v18, "_AMFDRDecodeVerifyDataCallback", v34, v35, v36, v37);
+    AMFDRDecodeLogInternal(v19, v18, a3, "_AMFDRDecodeVerifyDataCallback", v33, v34, v35, v36);
     return 0;
   }
 
@@ -989,6 +981,7 @@ LABEL_47:
   {
     if (a1 == 1768846196)
     {
+      v13 = a3;
       v14 = Img4DecodeGetPropertyData();
       if (v14)
       {
@@ -998,9 +991,9 @@ LABEL_47:
 
       else
       {
-        if (a3 != 1)
+        if (v13 != 1)
         {
-          if (!a3 && (_AMFDRDecodeInstPropertyMatchingWithType(v40, v41, *(a4 + 136), *(a4 + 144), *(a4 + 168), *(a4 + 176), 0, a4) & 1) == 0)
+          if (!v13 && (_AMFDRDecodeInstPropertyMatchingWithType(v39, v40, *(a4 + 136), *(a4 + 144), *(a4 + 168), *(a4 + 176), 0, a4) & 1) == 0)
           {
             AMFDRDecodeLogInternal(3, "%s: kFDRTag_inst property != fdrDecode->manifestUniqueID", "_AMFDRDecodeVerifyDataCallback");
             v6 = 0;
@@ -1011,10 +1004,10 @@ LABEL_47:
           return 0;
         }
 
-        v29 = *(a4 + 104);
-        if (v29 && (v30 = *(a4 + 112)) != 0)
+        v28 = *(a4 + 104);
+        if (v28 && (v29 = *(a4 + 112)) != 0)
         {
-          if (_AMFDRDecodeInstPropertyMatchingWithType(v40, v41, v29, v30, *(a4 + 184), *(a4 + 192), 1, a4))
+          if (_AMFDRDecodeInstPropertyMatchingWithType(v39, v40, v28, v29, *(a4 + 184), *(a4 + 192), 1, a4))
           {
             return 0;
           }
@@ -1026,7 +1019,7 @@ LABEL_47:
         {
           if ((*(a4 + 2017) & 0x20) != 0)
           {
-            AMFDRDecodeLogInternal(3, "%s: no uniqueID is specified, but this is allowed, skip comparing kFDRTag_inst object property");
+            AMFDRDecodeLogInternal(3, "%s: no uniqueID is specified, but this is allowed, skip comparing kFDRTag_inst object property", v28);
             return 0;
           }
 
@@ -1052,10 +1045,10 @@ LABEL_33:
         goto LABEL_91;
       }
 
+      v23 = v39;
       v24 = v40;
-      v25 = v41;
-      *(a4 + 200) = v40;
-      *(a4 + 208) = v25;
+      *(a4 + 200) = v39;
+      *(a4 + 208) = v24;
       if (!*(a4 + 1944) || !*(a4 + 1952))
       {
         AMFDRDecodeLogInternal(4, "%s: Skipping revocation check (trustobject unset)", "_AMFDRDecodeVerifyDataCallback");
@@ -1064,13 +1057,13 @@ LABEL_33:
         goto LABEL_91;
       }
 
-      v32 = AMFDRDecodeCheckProducerIDRevocation(a4 + 1768, v24, v25);
-      if (v32)
+      v31 = AMFDRDecodeCheckProducerIDRevocation(a4 + 1768, v23, v24);
+      if (v31)
       {
-        v33 = v32;
+        v32 = v31;
         v6 = 3;
-        AMFDRDecodeLogInternal(3, "%s: AMFDRDecodeCheckProducerIDRevocation failed with error 0x%016llX", "_AMFDRDecodeVerifyDataCallback", v32);
-        v11 = *a4 | v33;
+        AMFDRDecodeLogInternal(3, "%s: AMFDRDecodeCheckProducerIDRevocation failed with error 0x%016llX", "_AMFDRDecodeVerifyDataCallback", v31);
+        v11 = *a4 | v32;
         goto LABEL_91;
       }
 
@@ -1219,36 +1212,28 @@ LABEL_22:
   return 6;
 }
 
-uint64_t AMFDRDecodeTrustObject(unsigned __int8 **a1, uint64_t a2, unsigned int a3)
+uint64_t AMFDRDecodeTrustObject(unint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v10[0] = a2;
-  v10[1] = a3;
-  if (DERParseSequenceToObject(v10, 5u, &DERFDRTrustObjectItemSpecs, a1, 0x90uLL, 0))
+  v5[0] = a2;
+  v5[1] = a3;
+  if (DERParseSequenceToObject(v5, 5u, &DERFDRTrustObjectItemSpecs, a1, 0x90uLL, 0))
   {
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object Format");
   }
 
+  else if (*a1 && *(a1 + 8) == 4)
+  {
+    if (**a1 == *"secb")
+    {
+      return 0;
+    }
+
+    AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object, expected tag %c%c%c%c found tag %c%c%c%c", "AMFDRDecodeTrustObject", kFDRTagStr_secb[0], kFDRTagStr_secb[1]);
+  }
+
   else
   {
-    v4 = *a1;
-    if (*a1 && a1[1] == 4)
-    {
-      if (*v4 == *"secb")
-      {
-        return 0;
-      }
-
-      v8 = v4[2];
-      v9 = v4[3];
-      v6 = *v4;
-      v7 = v4[1];
-      AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object, expected tag %c%c%c%c found tag %c%c%c%c", "AMFDRDecodeTrustObject", kFDRTagStr_secb[0], kFDRTagStr_secb[1]);
-    }
-
-    else
-    {
-      AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object, invalid tag length");
-    }
+    AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object, invalid tag length");
   }
 
   return 0x400000;
@@ -1257,38 +1242,35 @@ uint64_t AMFDRDecodeTrustObject(unsigned __int8 **a1, uint64_t a2, unsigned int 
 uint64_t AMFDRDecodeLogInternal(uint64_t a1, char *__format, ...)
 {
   va_start(va, __format);
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20 = v3;
-  v21 = v3;
-  v18 = v3;
   v19 = v3;
-  v16 = v3;
+  v20 = v3;
   v17 = v3;
-  v14 = v3;
+  v18 = v3;
   v15 = v3;
-  v12 = v3;
+  v16 = v3;
   v13 = v3;
-  v10 = v3;
+  v14 = v3;
   v11 = v3;
-  v8 = v3;
+  v12 = v3;
   v9 = v3;
-  *__str = v3;
+  v10 = v3;
   v7 = v3;
+  v8 = v3;
+  *__str = v3;
+  v6 = v3;
   vsnprintf(__str, 0x100uLL, __format, va);
   if (_logHandler)
   {
-    result = _logHandler(a1, __str);
+    return _logHandler(a1, __str);
   }
 
   else
   {
-    result = AMSupportLogFormat();
+    return AMSupportLogFormat("%s", __str);
   }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t AMFDRDecodeVerifySealingManifest(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7, unsigned int a8, uint64_t a9, uint64_t a10)
@@ -1530,7 +1512,6 @@ LABEL_18:
     {
       if (!Img4DecodeInit())
       {
-        v26 = v20[251];
         if (Img4DecodePerformTrustEvaluatation())
         {
           AMFDRDecodeLogInternal(3, "%s: FDR Sealing Request trust evaluation failed.", "_AMFDRDecodeVerifySealingRequestInternal");
@@ -1574,7 +1555,7 @@ LABEL_17:
   return 0x80000000000002;
 }
 
-uint64_t AMFDRDecodeSealingRequest(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int a6, const void *a7, unsigned int a8, uint64_t a9, uint64_t a10)
+uint64_t AMFDRDecodeSealingRequest(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   memset(v24, 170, 24);
   memset(v23, 170, sizeof(v23));
@@ -1583,6 +1564,9 @@ uint64_t AMFDRDecodeSealingRequest(uint64_t a1, unsigned int a2, uint64_t a3, un
   v21[1] = a2;
   if (a1 && a2)
   {
+    v10 = a8;
+    v12 = a6;
+    v14 = a4;
     v22 = 0xAAAAAAAAAAAAAAAALL;
     if (DERDecodeSeqInit(v21, &v22, v23))
     {
@@ -1608,7 +1592,7 @@ uint64_t AMFDRDecodeSealingRequest(uint64_t a1, unsigned int a2, uint64_t a3, un
       return 0x400000000;
     }
 
-    if (v24[2] != a8)
+    if (v24[2] != v10)
     {
       AMFDRDecodeLogInternal(3, "%s: uniqueIDInfo.content.length != uniqueIDLength");
       return 0x2000000000;
@@ -1646,7 +1630,7 @@ uint64_t AMFDRDecodeSealingRequest(uint64_t a1, unsigned int a2, uint64_t a3, un
         return 0x400000000;
       }
 
-      v19 = AMFDRDecodeVerifyTestStationManifest(v20[0], v20[1], a3, a4, a5, a6, a7, a8, a9, a10);
+      v19 = AMFDRDecodeVerifyTestStationManifest(v20[0], v20[1], a3, v14, a5, v12, a7, v10, a9, a10);
       if (v19)
       {
         break;
@@ -1973,14 +1957,14 @@ uint64_t AMFDRDecodeEvaluateTrustCombinedWithSik(uint64_t a1, unsigned int a2, u
   return v23;
 }
 
-uint64_t AMFDRDecodeEvaluateTrustInternal(uint64_t a1)
+uint64_t AMFDRDecodeEvaluateTrustInternal(uint64_t *a1)
 {
-  if (!*(a1 + 72) || !*(a1 + 80))
+  if (!a1[9] || !a1[10])
   {
     *a1 |= 0x40000uLL;
   }
 
-  if ((!*(a1 + 104) || !*(a1 + 112)) && (*(a1 + 2017) & 0x20) == 0)
+  if ((!a1[13] || !a1[14]) && (*(a1 + 2017) & 0x20) == 0)
   {
     AMFDRDecodeLogInternal(3, "%s: fdrDecode->uniqueID is NULL or 0 size", "AMFDRDecodeEvaluateTrustInternal");
     result = *a1 | 1;
@@ -1989,20 +1973,20 @@ LABEL_12:
     return result;
   }
 
-  if (*(a1 + 8) && *(a1 + 16))
+  if (a1[1] && a1[2])
   {
     if (_AMFDRDecodeCombined(a1))
     {
       AMFDRDecodeLogInternal(4, "%s: data is unwrapped", "AMFDRDecodeEvaluateTrustInternal");
       v3 = *a1;
-      *(a1 + 1912) = *(a1 + 8);
-      *(a1 + 1920) = *(a1 + 16);
+      a1[239] = a1[1];
+      a1[240] = a1[2];
       result = v3 | 0x5A01C00;
       goto LABEL_12;
     }
   }
 
-  else if (!*(a1 + 1944) || !*(a1 + 1952))
+  else if (!a1[243] || !a1[244])
   {
     *a1 |= 0x200000uLL;
   }
@@ -2021,13 +2005,13 @@ LABEL_12:
 
   v25 = 0;
   v24 = 0;
-  if ((!*(a1 + 344) || !*(a1 + 352)) && (!*(a1 + 232) || !*(a1 + 240)))
+  if ((!a1[43] || !*(a1 + 88)) && (!a1[29] || !a1[30]))
   {
     AMFDRDecodeLogInternal(6, "%s: No need to verify subCC and asid");
     goto LABEL_25;
   }
 
-  v6 = AMFDRDecodeIterateSysconfigBegin(*(a1 + 1912), *(a1 + 1920), &v25, &v24);
+  v6 = AMFDRDecodeIterateSysconfigBegin(a1[239], *(a1 + 480), &v25, &v24);
   v7 = v25;
   if (!v25 || v6)
   {
@@ -2047,7 +2031,7 @@ LABEL_12:
     {
       if (v9 == 0x40000000000000)
       {
-        if (*(a1 + 232) && !((*(a1 + 240) == 0) | v8 & 1))
+        if (a1[29] && !((a1[30] == 0) | v8 & 1))
         {
           AMFDRDecodeLogInternal(4, "%s: kFDRTag_asid doesn't exist, but this is allowed");
         }
@@ -2064,17 +2048,17 @@ LABEL_54:
     v10 = AMFDRTagsStringToTag(&v23);
     if (v10 == 1634953572)
     {
-      v11 = *(a1 + 232);
+      v11 = a1[29];
       if (v11)
       {
-        v12 = *(a1 + 240);
+        v12 = a1[30];
         if (v12)
         {
           if (v12 != __n)
           {
             AMFDRDecodeLogInternal(3, "%s: asid subCC length != fdrDecode->asidSubCCID.length", "_AMFDRDecodeVerifySubCC");
             *a1 |= 0x200000000000000uLL;
-            v11 = *(a1 + 232);
+            v11 = a1[29];
             v12 = __n;
           }
 
@@ -2089,9 +2073,9 @@ LABEL_54:
       }
     }
 
-    if (*(a1 + 344))
+    if (a1[43])
     {
-      v13 = *(a1 + 352);
+      v13 = *(a1 + 88);
       if (v13)
       {
         break;
@@ -2103,7 +2087,7 @@ LABEL_52:
   }
 
   v14 = 0;
-  while (*(*(a1 + 344) + 4 * v14) != v10)
+  while (*(a1[43] + 4 * v14) != v10)
   {
 LABEL_51:
     if (++v14 >= v13)
@@ -2112,8 +2096,8 @@ LABEL_51:
     }
   }
 
-  v15 = *(a1 + 360);
-  if (!v15 || (v16 = *(a1 + 368)) == 0)
+  v15 = a1[45];
+  if (!v15 || (v16 = a1[46]) == 0)
   {
     AMFDRDecodeLogInternal(3, "%s: No SCDG in manifest, subCC digest missing");
     goto LABEL_57;
@@ -2123,7 +2107,7 @@ LABEL_51:
   v19 = 0;
   if (!_AMFDRDecodeSearchEntryFromPropertyList(v15, v16, v10, &v18) && v19 && v18)
   {
-    v13 = *(a1 + 352);
+    v13 = *(a1 + 88);
     goto LABEL_51;
   }
 
@@ -2258,91 +2242,87 @@ LABEL_12:
 
 uint64_t _AMFDRDecodeCombined(uint64_t a1)
 {
-  memset(v25, 170, sizeof(v25));
-  v23 = 0u;
-  *v24 = 0u;
-  v22 = 0u;
-  if (DERDecodeItem(a1 + 8, v25))
+  memset(v17, 170, sizeof(v17));
+  v15 = 0u;
+  *v16 = 0u;
+  v14 = 0u;
+  if (DERDecodeItem(a1 + 8, v17))
   {
     AMFDRDecodeLogInternal(3, "%s: failed to decode FDR Combined Format", "_AMFDRDecodeCombined");
     *a1 |= 0x80uLL;
     return 128;
   }
 
-  if (v25[0] != 0x2000000000000010)
+  if (v17[0] != 0x2000000000000010)
   {
-    AMFDRDecodeLogInternal(3, "%s: FDR Combined Format unexpected tag: %llu", "_AMFDRDecodeCombined", v25[0]);
+    AMFDRDecodeLogInternal(3, "%s: FDR Combined Format unexpected tag: %llu", "_AMFDRDecodeCombined", v17[0]);
     *a1 |= 0x10000uLL;
     return 0x10000;
   }
 
   v3 = *(a1 + 16);
   v4 = *(a1 + 8) + v3;
-  if (v4 < v25[1] + v25[2])
+  if (v4 < v17[1] + v17[2])
   {
     AMFDRDecodeLogInternal(3, "%s: item is bigger on the inside", "_AMFDRDecodeCombined");
     *a1 |= 4uLL;
     return 4;
   }
 
-  if (v4 > v25[1] + v25[2])
+  if (v4 > v17[1] + v17[2])
   {
-    AMFDRDecodeLogInternal(3, "%s: Buffer contains %lu unused bytes", "_AMFDRDecodeCombined", v3 - v25[2]);
+    AMFDRDecodeLogInternal(3, "%s: Buffer contains %lu unused bytes", "_AMFDRDecodeCombined", v3 - v17[2]);
     *a1 |= 8uLL;
     return 8;
   }
 
-  if (DERParseSequenceContentToObject(&v25[1], 3u, &DERFDRCombinedItemSpecs, &v22, 0x30uLL, 0))
+  if (DERParseSequenceContentToObject(&v17[1], 3u, &DERFDRCombinedItemSpecs, &v14, 0x30uLL, 0))
   {
     goto LABEL_30;
   }
 
-  if (!v22 || *(&v22 + 1) != 4)
+  if (!v14 || *(&v14 + 1) != 4)
   {
     goto LABEL_29;
   }
 
-  if (*v22 != *"comb")
+  if (*v14 != *"comb")
   {
 LABEL_30:
     *a1 |= 0x20000uLL;
     return 0x20000;
   }
 
-  if (!v23 || !*(&v23 + 1))
+  if (!v15 || !*(&v15 + 1))
   {
     *a1 |= 0x200uLL;
     DataFromMultiCombined = 512;
     goto LABEL_20;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  if (DERParseSequenceContentToObject(&v23, 2u, &DERFDRItemSpecs, &v20, 0x20uLL, 0))
+  v12 = 0u;
+  v13 = 0u;
+  if (DERParseSequenceContentToObject(&v15, 2u, &DERFDRItemSpecs, &v12, 0x20uLL, 0))
   {
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Combined Format (DERFDRItemSpecs)");
     goto LABEL_30;
   }
 
-  if (!v20 || *(&v20 + 1) != 4)
+  if (!v12 || *(&v12 + 1) != 4)
   {
 LABEL_29:
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Combined Format, invalid tag length");
     goto LABEL_30;
   }
 
-  if (*v20 != *"fdrd")
+  if (*v12 != *"fdrd")
   {
-    v16 = *(v20 + 2);
-    v18 = *(v20 + 3);
-    v12 = *v20;
-    v14 = *(v20 + 1);
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Combined Format, expected tag %c%c%c%c found tag %c%c%c%c", "_AMFDRDecodeCombined", kFDRTagStr_fdrd[0], kFDRTagStr_fdrd[1]);
     goto LABEL_30;
   }
 
-  v9 = *(&v21 + 1);
-  *(a1 + 24) = v21;
+  v9 = *(&v13 + 1);
+  *(a1 + 24) = v13;
   *(a1 + 32) = v9;
   if ((*(a1 + 2017) & 8) != 0)
   {
@@ -2350,8 +2330,8 @@ LABEL_29:
     if (DataFromMultiCombined)
     {
       AMFDRDecodeLogInternal(4, "%s: cannot decode to a multicombined data, proceed with combined format", "_AMFDRDecodeCombined");
-      v11 = *(&v21 + 1);
-      *(a1 + 24) = v21;
+      v11 = *(&v13 + 1);
+      *(a1 + 24) = v13;
       *(a1 + 32) = v11;
     }
   }
@@ -2362,7 +2342,7 @@ LABEL_29:
   }
 
 LABEL_20:
-  if (!v24[0] || !v24[1])
+  if (!v16[0] || !v16[1])
   {
     v7 = *a1 | 0x200000;
 LABEL_38:
@@ -2370,9 +2350,9 @@ LABEL_38:
     return DataFromMultiCombined;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  if (DERParseSequenceContentToObject(v24, 2u, &DERFDRItemSpecs, &v20, 0x20uLL, 0))
+  v12 = 0u;
+  v13 = 0u;
+  if (DERParseSequenceContentToObject(v16, 2u, &DERFDRItemSpecs, &v12, 0x20uLL, 0))
   {
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Combined Format (trustObject)");
 LABEL_36:
@@ -2383,24 +2363,20 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  if (!v20 || *(&v20 + 1) != 4)
+  if (!v12 || *(&v12 + 1) != 4)
   {
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Combined Format (trustObject), invalid tag length");
     goto LABEL_36;
   }
 
-  if (*v20 != *"secb")
+  if (*v12 != *"secb")
   {
-    v17 = *(v20 + 2);
-    v19 = *(v20 + 3);
-    v13 = *v20;
-    v15 = *(v20 + 1);
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Combined Format (trustObject), expected tag %c%c%c%c found tag %c%c%c%c", "_AMFDRDecodeCombined", kFDRTagStr_secb[0], kFDRTagStr_secb[1]);
     goto LABEL_36;
   }
 
-  v10 = v21;
-  *(a1 + 1944) = v21;
+  v10 = v13;
+  *(a1 + 1944) = v13;
   v8 = 0x200000;
   if (!v10 || !*(&v10 + 1))
   {
@@ -2410,141 +2386,135 @@ LABEL_37:
   return DataFromMultiCombined;
 }
 
-uint64_t _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(uint64_t a1, _OWORD *a2)
+double _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(uint64_t a1, _OWORD *a2)
 {
-  v48 = *MEMORY[0x29EDCA608];
-  v15[0] = 0xAAAAAAAAAAAAAAAALL;
-  v15[1] = 0xAAAAAAAAAAAAAAAALL;
-  v47 = 0xAAAAAAAAAAAAAAAALL;
+  v47 = *MEMORY[0x29EDCA608];
+  v14[0] = 0xAAAAAAAAAAAAAAAALL;
+  v14[1] = 0xAAAAAAAAAAAAAAAALL;
+  v46 = 0xAAAAAAAAAAAAAAAALL;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v45 = v4;
-  v46 = v4;
-  v43 = v4;
   v44 = v4;
-  v41 = v4;
+  v45 = v4;
   v42 = v4;
-  v39 = v4;
+  v43 = v4;
   v40 = v4;
-  v37 = v4;
+  v41 = v4;
   v38 = v4;
-  v35 = v4;
+  v39 = v4;
   v36 = v4;
-  v33 = v4;
+  v37 = v4;
   v34 = v4;
-  v31 = v4;
+  v35 = v4;
   v32 = v4;
-  v29 = v4;
+  v33 = v4;
   v30 = v4;
-  v27 = v4;
+  v31 = v4;
   v28 = v4;
-  v25 = v4;
+  v29 = v4;
   v26 = v4;
-  v23 = v4;
+  v27 = v4;
   v24 = v4;
+  v25 = v4;
   v22 = v4;
-  v20 = v4;
+  v23 = v4;
   v21 = v4;
   v19 = v4;
-  v14 = 0;
-  v13 = 0xAAAAAAAAAAAAAAAALL;
-  v12 = 0;
-  memset(v11, 170, sizeof(v11));
-  v17 = 0;
-  v18 = 0;
+  v20 = v4;
+  v18 = v4;
+  v13 = 0;
+  v12 = 0xAAAAAAAAAAAAAAAALL;
+  v11 = 0;
+  memset(v10, 170, sizeof(v10));
   v16 = 0;
-  if (DERDecodeItem(a1 + 24, &v16))
+  v17 = 0;
+  v15 = 0;
+  if (DERDecodeItem(a1 + 24, &v15))
   {
     AMFDRDecodeLogInternal(3, "%s: failed to decode FDR Multi Combined Format", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData");
     *a1 |= 0x80uLL;
-    result = 128;
-    goto LABEL_7;
+    return result;
   }
 
-  if (v16 != 0x2000000000000010)
+  if (v15 == 0x2000000000000010)
   {
-    AMFDRDecodeLogInternal(3, "%s: FDR Multi Combined Format unexpected tag: %llu", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData", v16);
-    *a1 |= 0x10000uLL;
-    result = 0x10000;
-    goto LABEL_7;
-  }
-
-  v6 = *(a1 + 24);
-  v7 = *(a1 + 32);
-  if (v6 + v7 < (v17 + v18))
-  {
-    AMFDRDecodeLogInternal(3, "%s: item is bigger on the inside", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData");
-    *a1 |= 4uLL;
-    result = 4;
-    goto LABEL_7;
-  }
-
-  if (v6 + v7 > (v17 + v18))
-  {
-    AMFDRDecodeLogInternal(3, "%s: Buffer contains %lu unused bytes", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData", v7 - v18);
-    *a1 |= 8uLL;
-    result = 8;
-    goto LABEL_7;
-  }
-
-  if (Img4DecodeInit())
-  {
-    AMFDRDecodeLogInternal(3, "%s: FDR failed to decode multi combined Data img4");
-LABEL_19:
-    result = 0x2000;
-    goto LABEL_7;
-  }
-
-  if (Img4DecodeGetManifest())
-  {
-    if ((*(a1 + 2016) & 2) == 0)
+    v6 = *(a1 + 24);
+    v7 = *(a1 + 32);
+    if (v6 + v7 < (v16 + v17))
     {
-      AMFDRDecodeLogInternal(3, "%s: FDR failed to get restitched manifest from multi combined data");
-      goto LABEL_19;
+      AMFDRDecodeLogInternal(3, "%s: item is bigger on the inside", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData");
+      *a1 |= 4uLL;
+      return result;
     }
 
-    AMFDRDecodeLogInternal(3, "%s: No restitch manifest, but allow unsealed, try to proceed with the data manifest...", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData");
-    v13 = 0;
-    v14 = 0;
+    if (v6 + v7 > (v16 + v17))
+    {
+      AMFDRDecodeLogInternal(3, "%s: Buffer contains %lu unused bytes", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData", v7 - v17);
+      *a1 |= 8uLL;
+      return result;
+    }
+
+    if (Img4DecodeInit())
+    {
+      AMFDRDecodeLogInternal(3, "%s: FDR failed to decode multi combined Data img4");
+      return result;
+    }
+
+    if (Img4DecodeGetManifest())
+    {
+      if ((*(a1 + 2016) & 2) == 0)
+      {
+        AMFDRDecodeLogInternal(3, "%s: FDR failed to get restitched manifest from multi combined data");
+        return result;
+      }
+
+      AMFDRDecodeLogInternal(3, "%s: No restitch manifest, but allow unsealed, try to proceed with the data manifest...", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData");
+      v12 = 0;
+      v13 = 0;
+    }
+
+    if (Img4DecodeGetPayloadType())
+    {
+      AMFDRDecodeLogInternal(3, "%s: FDR failed to get payload type from multi combined data");
+    }
+
+    else if (v11 == AMFDRTagsStringToTag("mcmb"))
+    {
+      if (Img4DecodeGetPayload())
+      {
+        AMFDRDecodeLogInternal(3, "%s: FDR failed to get payload from multi combined data");
+      }
+
+      else if (DERDecodeSeqInit(v14, &v10[16], v10) || *&v10[16] != 0x2000000000000011)
+      {
+        _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData_cold_1();
+      }
+
+      else
+      {
+        v9 = v13;
+        *(a1 + 280) = v12;
+        *(a1 + 288) = v9;
+        if (a2)
+        {
+          result = *v10;
+          *a2 = *v10;
+        }
+      }
+    }
+
+    else
+    {
+      AMFDRDecodeLogInternal(3, "%s: multi combined payload type is not mcmb", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData");
+    }
   }
 
-  if (Img4DecodeGetPayloadType())
+  else
   {
-    AMFDRDecodeLogInternal(3, "%s: FDR failed to get payload type from multi combined data");
-    goto LABEL_19;
+    AMFDRDecodeLogInternal(3, "%s: FDR Multi Combined Format unexpected tag: %llu", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData", v15);
+    *a1 |= 0x10000uLL;
   }
 
-  if (v12 != AMFDRTagsStringToTag("mcmb"))
-  {
-    AMFDRDecodeLogInternal(3, "%s: multi combined payload type is not mcmb", "_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData");
-LABEL_24:
-    result = 0x20000;
-    goto LABEL_7;
-  }
-
-  if (Img4DecodeGetPayload())
-  {
-    AMFDRDecodeLogInternal(3, "%s: FDR failed to get payload from multi combined data");
-    goto LABEL_19;
-  }
-
-  if (DERDecodeSeqInit(v15, &v11[16], v11) || *&v11[16] != 0x2000000000000011)
-  {
-    _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData_cold_1();
-    goto LABEL_24;
-  }
-
-  v10 = v14;
-  *(a1 + 280) = v13;
-  *(a1 + 288) = v10;
-  result = 0;
-  if (a2)
-  {
-    *a2 = *v11;
-  }
-
-LABEL_7:
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2561,7 +2531,7 @@ void AMFDRDecodeIterateMultiCombinedDataDestroy(void **a1)
   }
 }
 
-uint64_t AMFDRDecodeVerifyMultiCombinedDataIntegrity(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7)
+unint64_t AMFDRDecodeVerifyMultiCombinedDataIntegrity(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7)
 {
   v14 = malloc(0x7F8uLL);
   if (v14)
@@ -2587,8 +2557,8 @@ uint64_t AMFDRDecodeVerifyMultiCombinedDataIntegrity(uint64_t a1, unsigned int a
     }
 
     *(v15 + 2008) = v16;
-    *&v32 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v33 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v33 + 1) = 0xAAAAAAAAAAAAAAAALL;
     if (!a1 || !a2)
     {
       AMFDRDecodeLogInternal(3, "%s: combinedData is required to be set", "_AMFDRDecodeVerifyMultiCombinedDataInternal");
@@ -2619,55 +2589,56 @@ LABEL_15:
       *v15 |= v21;
     }
 
-    if (_AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(v15, &v32))
+    _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(v15, &v33);
+    if (v22)
     {
-      v22 = "%s: Failed to get payload sequence and set manifest from multi combined data";
+      v23 = "%s: Failed to get payload sequence and set manifest from multi combined data";
     }
 
     else
     {
-      v30 = 0;
-      v31[0] = 0;
-      v31[1] = 0;
-      if (DERDecodeSeqNext(&v32, &v30))
+      v31 = 0;
+      v32[0] = 0;
+      v32[1] = 0;
+      if (DERDecodeSeqNext(&v33, &v31))
       {
         goto LABEL_41;
       }
 
-      v22 = "%s: MultiCombinedItem malformed for multi combined data";
+      v23 = "%s: MultiCombinedItem malformed for multi combined data";
       while (1)
       {
-        v23 = *(v15 + 2016);
-        v26 = 0u;
+        v24 = *(v15 + 2016);
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        if (DERParseSequenceContentToObject(v31, 4u, &DERFDRMultiCombinedItemSpecs, &v26, 0x40uLL, 0))
+        v30 = 0u;
+        if (DERParseSequenceContentToObject(v32, 4u, &DERFDRMultiCombinedItemSpecs, &v27, 0x40uLL, 0))
         {
           break;
         }
 
-        if (v26)
+        if (v27)
         {
-          v24 = *(&v26 + 1) == 0;
+          v25 = *(&v27 + 1) == 0;
         }
 
         else
         {
-          v24 = 1;
+          v25 = 1;
         }
 
-        if (v24)
+        if (v25)
         {
           AMFDRDecodeLogInternal(3, "%s: found an empty data class in multi combined data", "_AMFDRDecodeVerifyMultiCombinedDataInternal");
           v18 = *v15 | 0x20000;
           goto LABEL_15;
         }
 
-        *(v15 + 88) = v26;
-        if (v28 && *(&v28 + 1))
+        *(v15 + 88) = v27;
+        if (v29 && *(&v29 + 1))
         {
-          *(v15 + 104) = v28;
+          *(v15 + 104) = v29;
         }
 
         else
@@ -2675,17 +2646,17 @@ LABEL_15:
           *(v15 + 2016) |= 0x2000uLL;
         }
 
-        if (v29 && *(&v29 + 1))
+        if (v30 && *(&v30 + 1))
         {
-          *(v15 + 120) = v29;
+          *(v15 + 120) = v30;
           *(v15 + 2016) |= 0x1000uLL;
         }
 
-        *(v15 + 24) = v27;
-        v25 = _AMFDRDecodeVerifyData(v15);
-        if (v25)
+        *(v15 + 24) = v28;
+        v26 = _AMFDRDecodeVerifyData(v15);
+        if (v26)
         {
-          *v15 |= v25;
+          *v15 |= v26;
         }
 
         if (*(v15 + 2032) == 1)
@@ -2693,15 +2664,15 @@ LABEL_15:
           *(v15 + 2024) = v15 + 728;
         }
 
-        *(v15 + 2016) = v23;
-        if (DERDecodeSeqNext(&v32, &v30))
+        *(v15 + 2016) = v24;
+        if (DERDecodeSeqNext(&v33, &v31))
         {
           goto LABEL_41;
         }
       }
     }
 
-    AMFDRDecodeVerifyMultiCombinedDataIntegrity_cold_1(v15, v22);
+    AMFDRDecodeVerifyMultiCombinedDataIntegrity_cold_1(v15, v23);
 LABEL_41:
     v18 = *v15;
     if (!*v15)
@@ -2827,97 +2798,95 @@ LABEL_15:
 
 uint64_t AMFDRDecodeCheckCertRevocation(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   __n = 0;
   __s2 = 0;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
   __s1[0] = v4;
   __s1[1] = v4;
-  v21[0] = v4;
-  v21[1] = v4;
+  v16[0] = v4;
+  v16[1] = v4;
   __n_4[0] = v4;
   __n_4[1] = v4;
-  v5 = a2[32];
-  v6 = a2[33];
-  v7 = AMSupportDigestSha256();
-  if (v7 || (v8 = a2[18], v9 = a2[19], (v7 = AMSupportDigestSha256()) != 0))
+  v5 = AMSupportDigestSha256();
+  if (v5 || (v5 = AMSupportDigestSha256()) != 0)
   {
 LABEL_6:
-    v10 = v7;
-    v11 = "%s: AMSupportDigestSha256 failed";
+    v6 = v5;
+    v7 = "%s: AMSupportDigestSha256 failed";
 LABEL_7:
-    AMFDRDecodeLogInternal(3, v11, "AMFDRDecodeCheckCertRevocation");
-    goto LABEL_8;
+    AMFDRDecodeLogInternal(3, v7, "AMFDRDecodeCheckCertRevocation");
+    return v6;
   }
 
   if (a2[34] && a2[35])
   {
-    v7 = AMSupportDigestSha256();
-    if (v7)
+    v5 = AMSupportDigestSha256();
+    if (v5)
     {
       goto LABEL_6;
     }
 
-    v14 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v14 = 0;
+    v9 = 0;
   }
 
-  v15 = AMFDRDecodeIterateTrustObjectRevokedBegin(a1);
-  if (v15)
+  v10 = AMFDRDecodeIterateTrustObjectRevokedBegin(a1);
+  if (v10)
   {
-    v10 = v15;
+    v6 = v10;
     AMFDRDecodeLogInternal(3, "%s: AMFDRDecodeIterateTrustObjectRevokedBegin failed");
   }
 
   else
   {
-    v16 = AMFDRDecodeIterateTrustObjectRevokedNext(a1, &__s2, &__n);
-    if (v16)
+    v11 = AMFDRDecodeIterateTrustObjectRevokedNext(a1, &__s2, &__n);
+    if (v11)
     {
-      v10 = v16;
+      v6 = v11;
       AMFDRDecodeLogInternal(3, "%s: AMFDRDecodeIterateTrustObjectRevokedNext failed");
     }
 
     else
     {
-      v11 = "%s: AMFDRDecodeIterateTrustObjectRevokedNext failed";
+      v7 = "%s: AMFDRDecodeIterateTrustObjectRevokedNext failed";
       while (1)
       {
-        v10 = __s2;
+        v6 = __s2;
         if (!__s2)
         {
           break;
         }
 
-        v17 = __n;
+        v12 = __n;
         if (!memcmp(__s1, __s2, __n))
         {
-          v10 = 0x10000000000;
+          v6 = 0x10000000000;
           AMFDRDecodeLogInternal(3, "%s: FDR Trust Object revoked certificate found");
-          break;
+          return v6;
         }
 
-        if (!memcmp(v21, v10, v17))
+        if (!memcmp(v16, v6, v12))
         {
-          v10 = 0x10000000000;
+          v6 = 0x10000000000;
           AMFDRDecodeLogInternal(3, "%s: FDR Trust Object revoked public key found");
-          break;
+          return v6;
         }
 
-        if (v14 && !memcmp(__n_4, v10, v17))
+        if (v9 && !memcmp(__n_4, v6, v12))
         {
-          v10 = 0x10000000000;
+          v6 = 0x10000000000;
           AMFDRDecodeLogInternal(3, "%s: FDR Trust Object revoked client ID found");
-          break;
+          return v6;
         }
 
-        v10 = AMFDRDecodeIterateTrustObjectRevokedNext(a1, &__s2, &__n);
-        if (v10)
+        v6 = AMFDRDecodeIterateTrustObjectRevokedNext(a1, &__s2, &__n);
+        if (v6)
         {
           goto LABEL_7;
         }
@@ -2925,12 +2894,10 @@ LABEL_7:
     }
   }
 
-LABEL_8:
-  v12 = *MEMORY[0x29EDCA608];
-  return v10;
+  return v6;
 }
 
-uint64_t AMFDRDecodeVerifyCertIssuerWithOptions(uint64_t a1, uint64_t a2, uint64_t a3, __int16 a4, void *a5)
+uint64_t AMFDRDecodeVerifyCertIssuerWithOptions(void *a1, uint64_t a2, uint64_t a3, __int16 a4, void *a5)
 {
   if (!a3)
   {
@@ -2940,13 +2907,13 @@ uint64_t AMFDRDecodeVerifyCertIssuerWithOptions(uint64_t a1, uint64_t a2, uint64
 
   if ((a4 & 0x100) != 0)
   {
-    v8 = *(a1 + 24);
+    v8 = a1[3];
     if (v8)
     {
-      v9 = *(a1 + 40);
+      v9 = a1[5];
       if (v9)
       {
-        if (_AMFDRDecodeVerifySignatureDataWithOid(*(a2 + 208), *(a2 + 216), *(a1 + 32), v9, *a1, *(a1 + 8), *(a1 + 16), v8, a2 + 240, 1, a5))
+        if (_AMFDRDecodeVerifySignatureDataWithOid(*(a2 + 208), *(a2 + 216), a1[4], v9, *a1, *(a1 + 2), a1[2], v8, (a2 + 240), 1, a5))
         {
           v10 = 0x20000000000;
           AMFDRDecodeLogInternal(3, "%s: PKI: im4c cert signature validation with issuer pubkey failed");
@@ -2982,7 +2949,7 @@ uint64_t AMFDRDecodeVerifyCertIssuerWithOptions(uint64_t a1, uint64_t a2, uint64
   return _AMFDRDecodeVerifyCertIssuerInternal(a1, a2, a3, a5);
 }
 
-uint64_t _AMFDRDecodeVerifyCertIssuerInternal(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t _AMFDRDecodeVerifyCertIssuerInternal(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -2991,7 +2958,7 @@ uint64_t _AMFDRDecodeVerifyCertIssuerInternal(uint64_t a1, uint64_t a2, uint64_t
   v16 = 0xAAAAAAAAAAAAAAAALL;
   v17 = 0xAAAAAAAAAAAAAAAALL;
   v8 = *(a2 + 136);
-  if (v8 != *(a1 + 104) || memcmp(*(a2 + 128), *(a1 + 96), v8))
+  if (v8 != a1[13] || memcmp(*(a2 + 128), a1[12], v8))
   {
     AMFDRDecodeLogInternal(3, "%s: PKI: cert was not issued by issuer (subject != issuer)", "_AMFDRDecodeVerifyCertIssuerInternal");
     v10 = malloc(0x100uLL);
@@ -3006,7 +2973,7 @@ uint64_t _AMFDRDecodeVerifyCertIssuerInternal(uint64_t a1, uint64_t a2, uint64_t
     }
 
     v12 = malloc(0x100uLL);
-    if (_AMFDRDecodeSequenceString(*(a1 + 96), *(a1 + 104), v12))
+    if (_AMFDRDecodeSequenceString(a1[12], a1[13], v12))
     {
       v13 = "decode error";
     }
@@ -3031,13 +2998,13 @@ uint64_t _AMFDRDecodeVerifyCertIssuerInternal(uint64_t a1, uint64_t a2, uint64_t
   }
 
   v18 = -86;
-  if (DERParseSequenceContentToObject((a1 + 16), DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, v19, 0x20uLL, 0x20uLL))
+  if (DERParseSequenceContentToObject(a1 + 2, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, v19, 0x20uLL, 0x20uLL))
   {
     AMFDRDecodeLogInternal(3, "%s: decodeAlgId failed");
     return 0x40000000000;
   }
 
-  if (DERParseBitString(a1 + 32, &v16, &v18))
+  if (DERParseBitString((a1 + 4), &v16, &v18))
   {
     AMFDRDecodeLogInternal(3, "%s: DERParseBitString(sig) failed");
     return 0x40000000000;
@@ -3049,7 +3016,7 @@ uint64_t _AMFDRDecodeVerifyCertIssuerInternal(uint64_t a1, uint64_t a2, uint64_t
     return 0x40000000000;
   }
 
-  if (_AMFDRDecodeVerifySignatureDataWithOid(*(a2 + 208), *(a2 + 216), v16, v17, *a1, *(a1 + 8), *&v19[0], DWORD2(v19[0]), a1 + 240, 0, a4))
+  if (_AMFDRDecodeVerifySignatureDataWithOid(*(a2 + 208), *(a2 + 216), v16, v17, *a1, *(a1 + 2), *&v19[0], DWORD2(v19[0]), a1 + 15, 0, a4))
   {
     AMFDRDecodeLogInternal(3, "%s: PKI: cert signature validation with issuer pubkey failed", "_AMFDRDecodeVerifyCertIssuerInternal");
     return 0x20000000000;
@@ -3273,7 +3240,7 @@ LABEL_5:
   return v15;
 }
 
-uint64_t AMFDRDecodeTrustEvaluation(uint64_t *a1, void *a2, _DWORD *a3)
+unint64_t AMFDRDecodeTrustEvaluation(uint64_t *a1, void *a2, _DWORD *a3)
 {
   v6 = malloc(0x7F8uLL);
   if (v6)
@@ -3290,28 +3257,28 @@ uint64_t AMFDRDecodeTrustEvaluation(uint64_t *a1, void *a2, _DWORD *a3)
           v10 = a1[18];
           if ((v10 & 0x801) != 0)
           {
-            *(v7 + 8) = v8;
+            *(v7 + 1) = v8;
             v11 = 16;
           }
 
           else
           {
-            *(v7 + 1944) = a1[2];
-            *(v7 + 1952) = *(a1 + 6);
-            *(v7 + 24) = v8;
-            *(v7 + 32) = v9;
-            *(v7 + 280) = a1[4];
+            *(v7 + 243) = a1[2];
+            *(v7 + 244) = *(a1 + 6);
+            *(v7 + 3) = v8;
+            *(v7 + 4) = v9;
+            *(v7 + 35) = a1[4];
             LODWORD(v9) = *(a1 + 10);
             v11 = 288;
           }
 
-          *(v7 + v11) = v9;
+          *&v7[v11] = v9;
           v14 = *(a1 + 14);
-          *(v7 + 72) = a1[6];
-          *(v7 + 80) = v14;
+          *(v7 + 9) = a1[6];
+          *(v7 + 10) = v14;
           v15 = *(a1 + 18);
-          *(v7 + 88) = a1[8];
-          *(v7 + 96) = v15;
+          *(v7 + 11) = a1[8];
+          *(v7 + 12) = v15;
           if ((v10 & 0x80) != 0)
           {
             v18 = a1[12];
@@ -3328,34 +3295,34 @@ uint64_t AMFDRDecodeTrustEvaluation(uint64_t *a1, void *a2, _DWORD *a3)
             v19 = *(a1 + 26);
           }
 
-          *(v7 + 104) = v16;
-          *(v7 + 112) = v17;
+          *(v7 + 13) = v16;
+          *(v7 + 14) = v17;
           v20 = *(a1 + 34);
-          *(v7 + 216) = a1[16];
-          *(v7 + 224) = v20;
+          *(v7 + 27) = a1[16];
+          *(v7 + 28) = v20;
           v21 = *(a1 + 66);
-          *(v7 + 232) = a1[32];
-          *(v7 + 240) = v21;
-          *(v7 + 136) = v18;
-          *(v7 + 144) = v19;
+          *(v7 + 29) = a1[32];
+          *(v7 + 30) = v21;
+          *(v7 + 17) = v18;
+          *(v7 + 18) = v19;
           v22 = a1[14];
           v23 = *(a1 + 30);
-          *(v7 + 168) = v22;
-          *(v7 + 176) = v23;
+          *(v7 + 21) = v22;
+          *(v7 + 22) = v23;
           v24 = a1[26];
           if (v24 && (v25 = *(a1 + 54), v25))
           {
-            *(v7 + 184) = v24;
+            *(v7 + 23) = v24;
             v23 = v25;
           }
 
           else
           {
-            *(v7 + 184) = v22;
+            *(v7 + 23) = v22;
           }
 
-          *(v7 + 192) = v23;
-          *(v7 + 2016) = v10;
+          *(v7 + 24) = v23;
+          *(v7 + 252) = v10;
           v26 = v14 != 48 && (v10 & 0x20 | v22) == 0;
           v27 = kAMFDRDecodeImplementationSha1;
           if (!v26)
@@ -3363,38 +3330,38 @@ uint64_t AMFDRDecodeTrustEvaluation(uint64_t *a1, void *a2, _DWORD *a3)
             v27 = kAMFDRDecodeImplementationSha384;
           }
 
-          *(v7 + 2008) = v27;
+          *(v7 + 251) = v27;
           if ((v10 & 0x100) != 0)
           {
-            *(v7 + 2008) = kAMFDRDecodeImplementationSha384;
+            *(v7 + 251) = kAMFDRDecodeImplementationSha384;
             v28 = *(a1 + 58);
-            *(v7 + 152) = a1[28];
-            *(v7 + 160) = v28;
+            *(v7 + 19) = a1[28];
+            *(v7 + 20) = v28;
           }
 
           if ((v10 & 0x1000) != 0)
           {
             v29 = *(a1 + 62);
-            *(v7 + 120) = a1[30];
-            *(v7 + 128) = v29;
+            *(v7 + 15) = a1[30];
+            *(v7 + 16) = v29;
           }
 
-          *(v7 + 2024) = a1[19];
+          *(v7 + 253) = a1[19];
           v30 = a1[34];
           if (v30)
           {
             v31 = *(a1 + 70);
             if (v31)
             {
-              *(v7 + 344) = v30;
-              *(v7 + 352) = v31;
+              *(v7 + 43) = v30;
+              *(v7 + 88) = v31;
             }
           }
 
           v32 = AMFDRDecodeEvaluateTrustInternal(v7);
-          *a2 = *(v7 + 1912);
-          *a3 = *(v7 + 1920);
-          if (*(v7 + 2032) == 1)
+          *a2 = *(v7 + 239);
+          *a3 = *(v7 + 240);
+          if (v7[2032] == 1)
           {
             v33 = *(v7 + 744);
             *(a1 + 10) = *(v7 + 728);
@@ -3439,36 +3406,36 @@ LABEL_14:
   return 0x80000000000000;
 }
 
-uint64_t AMFDRDecodeManifestBody(unint64_t **a1)
+uint64_t AMFDRDecodeManifestBody(unint64_t **a1, uint64_t a2, unsigned int a3)
 {
-  *&v2 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v8 = v2;
-  *&v8[16] = v2;
-  v7 = v2;
-  memset(v6, 170, sizeof(v6));
-  v5 = 0;
-  v3 = malloc(0x1D8uLL);
-  *a1 = v3;
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *v10 = v4;
+  *&v10[16] = v4;
+  v9 = v4;
+  memset(v8, 170, sizeof(v8));
+  v7 = 0;
+  v5 = malloc(0x1D8uLL);
+  *a1 = v5;
   if (Img4DecodeInitManifest())
   {
     AMFDRDecodeManifestBody_cold_1();
     return 2;
   }
 
-  if (DERDecodeItem((v3 + 35), v6))
+  if (DERDecodeItem((v5 + 35), v8))
   {
     AMFDRDecodeManifestBody_cold_2();
     return 2;
   }
 
-  if (v6[0] != 0x2000000000000011)
+  if (v8[0] != 0x2000000000000011)
   {
     AMFDRDecodeManifestBody_cold_3();
     return 2;
   }
 
-  if (DERParseInteger((v3 + 33), &v5))
+  if (DERParseInteger((v5 + 33), &v7))
   {
     AMFDRDecodeManifestBody_cold_4();
     return 2;
@@ -3480,8 +3447,8 @@ uint64_t AMFDRDecodeManifestBody(unint64_t **a1)
     return 2;
   }
 
-  *(v3 + 7) = *&v8[8];
-  if (DERDecodeSeqContentInit(v3 + 7, v3))
+  *(v5 + 7) = *&v10[8];
+  if (DERDecodeSeqContentInit(v5 + 7, v5))
   {
     AMFDRDecodeManifestBody_cold_6();
     return 2;
@@ -3717,7 +3684,7 @@ void AMFDRDecodeDestoryCertificateChain(void *a1)
 
 uint64_t _AMFDRDecodeVerifyTrustObject(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 1944);
   if (!v2)
   {
@@ -3726,7 +3693,7 @@ uint64_t _AMFDRDecodeVerifyTrustObject(uint64_t a1)
     goto LABEL_5;
   }
 
-  v3 = AMFDRDecodeTrustObject((a1 + 1768), v2, *(a1 + 1952));
+  v3 = AMFDRDecodeTrustObject(a1 + 1768, v2, *(a1 + 1952));
   if (!v3)
   {
     if (!*(a1 + 72))
@@ -3736,16 +3703,14 @@ uint64_t _AMFDRDecodeVerifyTrustObject(uint64_t a1)
       goto LABEL_5;
     }
 
-    *&v7 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    __s2[1] = v7;
-    __s2[2] = v7;
-    __s2[0] = v7;
-    v8 = *(a1 + 80);
-    if (v8 == 48)
+    *&v6 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    __s2[1] = v6;
+    __s2[2] = v6;
+    __s2[0] = v6;
+    v7 = *(a1 + 80);
+    if (v7 == 48)
     {
-      v11 = *(a1 + 1944);
-      v12 = *(a1 + 1952);
       if (AMSupportDigestSha384())
       {
 LABEL_11:
@@ -3758,15 +3723,13 @@ LABEL_16:
 
     else
     {
-      if (v8 != 32)
+      if (v7 != 32)
       {
-        AMFDRDecodeLogInternal(3, "%s: FDR Trust Object digest size not supported. digest is of size %zu", "_AMFDRDecodeVerifyTrustObject", v8);
+        AMFDRDecodeLogInternal(3, "%s: FDR Trust Object digest size not supported. digest is of size %zu", "_AMFDRDecodeVerifyTrustObject", v7);
         v4 = 0x80000;
         goto LABEL_5;
       }
 
-      v9 = *(a1 + 1944);
-      v10 = *(a1 + 1952);
       if (AMSupportDigestSha256())
       {
         goto LABEL_11;
@@ -3775,8 +3738,7 @@ LABEL_16:
 
     if (!memcmp(*(a1 + 72), __s2, *(a1 + 80)))
     {
-      v4 = 0;
-      goto LABEL_6;
+      return 0;
     }
 
     AMFDRDecodeLogInternal(3, "%s: FDR Trust Object digest mismatch.");
@@ -3787,8 +3749,6 @@ LABEL_16:
   AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object Format", "_AMFDRDecodeVerifyTrustObject");
 LABEL_5:
   *a1 |= v4;
-LABEL_6:
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -4271,7 +4231,7 @@ LABEL_8:
 
 uint64_t _AMFDRDecodeVerifyData(uint64_t *a1)
 {
-  v28 = 0;
+  v23 = 0;
   v2 = a1[252];
   if ((~*(a1 + 504) & 0x1080) == 0)
   {
@@ -4281,8 +4241,6 @@ uint64_t _AMFDRDecodeVerifyData(uint64_t *a1)
 
   if ((v2 & 0x80) != 0)
   {
-    v5 = a1[3];
-    v6 = a1[4];
     if (!Img4DecodeInitManifest())
     {
       goto LABEL_5;
@@ -4305,14 +4263,14 @@ LABEL_5:
 LABEL_7:
     AMFDRDecodeLogInternal(3, "%s: FDR failed to decode Data img4");
 LABEL_18:
-    v8 = *a1;
-    v9 = 83901440;
+    v6 = *a1;
+    v7 = 83901440;
 LABEL_19:
-    result = v8 | v9;
-    *a1 = v8 | v9;
-    v11 = a1[4];
+    result = v6 | v7;
+    *a1 = v6 | v7;
+    v9 = a1[4];
     a1[239] = a1[3];
-    a1[240] = v11;
+    a1[240] = v9;
     return result;
   }
 
@@ -4352,10 +4310,10 @@ LABEL_19:
   a1[67] = v3;
   a1[68] = v4;
 LABEL_9:
-  v7 = a1[35];
+  v5 = a1[35];
   if ((v2 & 0x1000) != 0)
   {
-    if (v7)
+    if (v5)
     {
       goto LABEL_16;
     }
@@ -4366,7 +4324,7 @@ LABEL_68:
     goto LABEL_36;
   }
 
-  if (!v7)
+  if (!v5)
   {
     if ((v2 & 0x1000) == 0)
     {
@@ -4374,7 +4332,7 @@ LABEL_68:
     }
 
 LABEL_21:
-    v28 = AMFDRTagsStringToTag(a1[11]);
+    v23 = AMFDRTagsStringToTag(a1[11]);
     goto LABEL_22;
   }
 
@@ -4403,27 +4361,26 @@ LABEL_12:
 
     if (a1[66] != 3)
     {
-      v27 = a1[66];
       AMFDRDecodeLogInternal(3, "%s: Payload version is wrong size. got %zu expected %d");
       goto LABEL_50;
     }
 
-    v20 = a1[65];
-    v21 = *v20;
-    v22 = *(v20 + 2);
-    if (v21 != 11825 || v22 != 48)
+    v16 = a1[65];
+    v17 = *v16;
+    v18 = *(v16 + 2);
+    if (v17 != 11825 || v18 != 48)
     {
       AMFDRDecodeLogInternal(3, "%s: Payload version mismatch");
 LABEL_50:
-      v8 = *a1;
-      v9 = 0x8005001C00;
+      v6 = *a1;
+      v7 = 0x8005001C00;
       goto LABEL_19;
     }
   }
 
 LABEL_22:
-  v12 = a1[11];
-  if (!v12)
+  v10 = a1[11];
+  if (!v10)
   {
     goto LABEL_25;
   }
@@ -4438,33 +4395,28 @@ LABEL_36:
     return result;
   }
 
-  if (AMFDRTagsStringToTag(v12) != v28)
+  if (AMFDRTagsStringToTag(v10) != v23)
   {
     AMFDRDecodeLogInternal(3, "%s: Payload type mismatch");
     goto LABEL_35;
   }
 
 LABEL_25:
-  v13 = *a1;
+  v11 = *a1;
   if ((a1[252] & 0x80) != 0)
   {
-    v15 = a1[251];
     if (!Img4DecodePerformManifestTrustEvaluationWithCallbacks())
     {
       goto LABEL_59;
     }
   }
 
-  else
+  else if (!Img4DecodePerformTrustEvaluationWithCallbacks())
   {
-    v14 = a1[251];
-    if (!Img4DecodePerformTrustEvaluationWithCallbacks())
-    {
-      goto LABEL_59;
-    }
+    goto LABEL_59;
   }
 
-  v16 = *a1;
+  v12 = *a1;
   if ((*a1 & 0x1000000000000) == 0)
   {
 LABEL_54:
@@ -4477,46 +4429,46 @@ LABEL_54:
     goto LABEL_61;
   }
 
-  v17 = a1[251];
-  if (v17 == kAMFDRDecodeImplementationSha1)
+  v13 = a1[251];
+  if (v13 == kAMFDRDecodeImplementationSha1)
   {
-    v18 = "%s: Evaluation returned code=0x%016llX, re-evaluate with FDR 2.0 format";
-    v19 = kAMFDRDecodeImplementationSha384;
+    v14 = "%s: Evaluation returned code=0x%016llX, re-evaluate with FDR 2.0 format";
+    v15 = kAMFDRDecodeImplementationSha384;
     goto LABEL_44;
   }
 
-  if (v17 == kAMFDRDecodeImplementationSha384)
+  if (v13 == kAMFDRDecodeImplementationSha384)
   {
-    v18 = "%s: Evaluation returned code=0x%016llX, re-evaluate with FDR 1.0 format";
-    v19 = kAMFDRDecodeImplementationSha1;
+    v14 = "%s: Evaluation returned code=0x%016llX, re-evaluate with FDR 1.0 format";
+    v15 = kAMFDRDecodeImplementationSha1;
 LABEL_44:
-    a1[251] = v19;
-    AMFDRDecodeLogInternal(4, v18, "_AMFDRDecodeVerifyData", v16);
+    a1[251] = v15;
+    AMFDRDecodeLogInternal(4, v14, "_AMFDRDecodeVerifyData", v12);
   }
 
-  v24 = a1[251];
-  if (v24 != kAMFDRDecodeImplementationSha1 && v24 != kAMFDRDecodeImplementationSha384)
+  v20 = a1[251];
+  if (v20 != kAMFDRDecodeImplementationSha1 && v20 != kAMFDRDecodeImplementationSha384)
   {
     goto LABEL_54;
   }
 
-  v25 = *a1;
-  *a1 = v13;
+  v21 = *a1;
+  *a1 = v11;
   *(a1 + 400) = 0;
   if ((a1[252] & 0x80) != 0)
   {
-    v26 = Img4DecodePerformManifestTrustEvaluationWithCallbacks();
+    v22 = Img4DecodePerformManifestTrustEvaluationWithCallbacks();
   }
 
   else
   {
-    v26 = Img4DecodePerformTrustEvaluationWithCallbacks();
+    v22 = Img4DecodePerformTrustEvaluationWithCallbacks();
   }
 
-  if (v26)
+  if (v22)
   {
     AMFDRDecodeLogInternal(4, "%s: Re-evaluation returned code=0x%016llX", "_AMFDRDecodeVerifyData", *a1);
-    *a1 = v25;
+    *a1 = v21;
     goto LABEL_54;
   }
 
@@ -4571,10 +4523,10 @@ uint64_t _AMFDRDecodeFindDataFromMultiCombined(uint64_t a1)
   v18[0] = 0;
   v18[1] = 0;
   v17 = 0;
-  PayloadSeqAndSetManifestFromMultiCombinedData = _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(a1, &v16);
-  if (PayloadSeqAndSetManifestFromMultiCombinedData)
+  _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(a1, &v16);
+  if (v3)
   {
-    v10 = PayloadSeqAndSetManifestFromMultiCombinedData;
+    v10 = v3;
     _AMFDRDecodeFindDataFromMultiCombined_cold_1(a1);
     return v10;
   }
@@ -4687,17 +4639,17 @@ LABEL_36:
   return 512;
 }
 
-uint64_t _AMFDRDecodeVerifySignatureDataWithOid(const void *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int a8, uint64_t a9, char a10, void *a11)
+uint64_t _AMFDRDecodeVerifySignatureDataWithOid(const void *a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5, unsigned int a6, uint64_t a7, unsigned int a8, __int128 *a9, char a10, void *a11)
 {
-  v25 = *MEMORY[0x29EDCA608];
-  *&v23[0] = a7;
-  *(&v23[0] + 1) = a8;
-  if (DEROidCompare(v23, &oidSha1Rsa))
+  v24 = *MEMORY[0x29EDCA608];
+  *&v22[0] = a7;
+  *(&v22[0] + 1) = a8;
+  if (DEROidCompare(v22, &oidSha1Rsa))
   {
-    memset(&v23[1], 170, 20);
+    memset(&v22[1], 170, 20);
     if (AMSupportDigestSha1())
     {
-      goto LABEL_33;
+      return 0xFFFFFFFFLL;
     }
 
     result = AMSupportRsaVerifySignatureSha1();
@@ -4713,20 +4665,18 @@ LABEL_31:
     }
 
     *a11 |= 0x80000000000000uLL;
-LABEL_33:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_35;
+    return 0xFFFFFFFFLL;
   }
 
-  if (DEROidCompare(v23, &oidSha256Rsa))
+  if (DEROidCompare(v22, &oidSha256Rsa))
   {
     *&v14 = 0xAAAAAAAAAAAAAAAALL;
     *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23[1] = v14;
-    v23[2] = v14;
+    v22[1] = v14;
+    v22[2] = v14;
     if (AMSupportDigestSha256())
     {
-      goto LABEL_33;
+      return 0xFFFFFFFFLL;
     }
 
     result = AMSupportRsaVerifySignatureSha256();
@@ -4738,110 +4688,87 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  if (DEROidCompare(v23, &oidSha384Rsa))
+  if (!DEROidCompare(v22, &oidSha384Rsa))
   {
-    *&v15 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23[2] = v15;
-    v24 = v15;
-    v23[1] = v15;
-    if (AMSupportDigestSha384())
+    if (DEROidCompare(v22, &oidSha256Ecdsa))
     {
-      goto LABEL_33;
-    }
-
-    result = AMSupportRsaVerifySignatureSha384();
-    if (a11)
-    {
-      goto LABEL_31;
-    }
-
-LABEL_34:
-    if (!result)
-    {
-      goto LABEL_35;
-    }
-
-    goto LABEL_33;
-  }
-
-  if (DEROidCompare(v23, &oidSha256Ecdsa))
-  {
-    *&v16 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23[1] = v16;
-    v23[2] = v16;
-    v21 = 0;
-    v22 = 0uLL;
-    if (!a9)
-    {
-      _AMFDRDecodeVerifySignatureDataWithOid_cold_4();
-      goto LABEL_33;
-    }
-
-    if (!a10)
-    {
-      if (DERDecodeItem(a9, &v21))
+      *&v16 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v22[1] = v16;
+      v22[2] = v16;
+      v20 = 0;
+      v21 = 0uLL;
+      if (!a9)
       {
-        goto LABEL_33;
+        _AMFDRDecodeVerifySignatureDataWithOid_cold_4();
+        return 0xFFFFFFFFLL;
       }
 
-      goto LABEL_25;
-    }
+      if (!a10)
+      {
+        if (DERDecodeItem(a9, &v20))
+        {
+          return 0xFFFFFFFFLL;
+        }
 
-    if (*(a9 + 8))
-    {
-      v22 = *a9;
+        goto LABEL_25;
+      }
+
+      if (*(a9 + 1))
+      {
+        v21 = *a9;
 LABEL_25:
-      if (AMSupportDigestSha256())
-      {
-        goto LABEL_33;
-      }
+        if (AMSupportDigestSha256())
+        {
+          return 0xFFFFFFFFLL;
+        }
 
-      v18 = a2;
-      v19 = a1;
-      goto LABEL_30;
-    }
+        v18 = a2;
+        v19 = a1;
+        goto LABEL_30;
+      }
 
 LABEL_38:
-    _AMFDRDecodeVerifySignatureDataWithOid_cold_1();
-    result = 6;
-    goto LABEL_35;
-  }
+      _AMFDRDecodeVerifySignatureDataWithOid_cold_1();
+      return 6;
+    }
 
-  if (DEROidCompare(v23, &oidSha384Ecdsa))
-  {
+    if (!DEROidCompare(v22, &oidSha384Ecdsa))
+    {
+      return 4;
+    }
+
     *&v17 = 0xAAAAAAAAAAAAAAAALL;
     *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23[2] = v17;
-    v24 = v17;
-    v23[1] = v17;
-    v21 = 0;
-    v22 = 0uLL;
+    v22[2] = v17;
+    v23 = v17;
+    v22[1] = v17;
+    v20 = 0;
+    v21 = 0uLL;
     if (!a9)
     {
       _AMFDRDecodeVerifySignatureDataWithOid_cold_2();
-      goto LABEL_33;
+      return 0xFFFFFFFFLL;
     }
 
     if (a10)
     {
-      if (!*(a9 + 8))
+      if (!*(a9 + 1))
       {
         goto LABEL_38;
       }
 
-      v22 = *a9;
+      v21 = *a9;
     }
 
-    else if (DERDecodeItem(a9, &v21))
+    else if (DERDecodeItem(a9, &v20))
     {
-      goto LABEL_33;
+      return 0xFFFFFFFFLL;
     }
 
     if (AMSupportDigestSha384())
     {
-      goto LABEL_33;
+      return 0xFFFFFFFFLL;
     }
 
     v18 = a2;
@@ -4856,9 +4783,28 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  result = 4;
-LABEL_35:
-  v20 = *MEMORY[0x29EDCA608];
+  *&v15 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v22[2] = v15;
+  v23 = v15;
+  v22[1] = v15;
+  if (AMSupportDigestSha384())
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  result = AMSupportRsaVerifySignatureSha384();
+  if (a11)
+  {
+    goto LABEL_31;
+  }
+
+LABEL_34:
+  if (result)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
   return result;
 }
 
@@ -5004,18 +4950,6 @@ uint64_t AMFDRDecodeDigestByLength(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   return 1;
 }
 
-void OUTLINED_FUNCTION_0(unsigned __int8 *a1@<X8>)
-{
-  v8 = a1[2];
-  v9 = a1[3];
-  v6 = *a1;
-  v7 = a1[1];
-  v4 = v1[2];
-  v5 = v1[3];
-  v2 = *v1;
-  v3 = v1[1];
-}
-
 uint64_t OUTLINED_FUNCTION_2@<X0>(int a1@<W8>)
 {
   result = 0;
@@ -5031,31 +4965,24 @@ void OUTLINED_FUNCTION_4()
   *(v0 - 24) = 0;
 }
 
-void OUTLINED_FUNCTION_8(unsigned __int8 *a1@<X8>)
+uint64_t OUTLINED_FUNCTION_12(unint64_t *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  v3 = a1[2];
-  v4 = a1[3];
-  v1 = *a1;
-  v2 = a1[1];
+  va_start(va, a16);
+
+  return DERParseSequenceContentToObject(a1, 4u, v16, va, 0x40uLL, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_12(unint64_t *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+uint64_t OUTLINED_FUNCTION_13(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-
-  return DERParseSequenceContentToObject(a1, 4u, v17, &a17, 0x40uLL, 0);
-}
-
-uint64_t OUTLINED_FUNCTION_13(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v9 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
 
   return DERParseSequenceContentToObject(va, 3u, a3, va1, 0x30uLL, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_22(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, unint64_t a14, uint64_t a15, unint64_t a16, uint64_t a17, uint64_t a18)
+uint64_t OUTLINED_FUNCTION_22(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, unint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   a16 = 0;
   a17 = 0;
@@ -5374,24 +5301,23 @@ LABEL_9:
 
 uint64_t DERParseInteger(uint64_t a1, _DWORD *a2)
 {
-  v5[1] = *MEMORY[0x29EDCA608];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  result = DERParseInteger64(a1, v5);
+  v4[1] = *MEMORY[0x29EDCA608];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  result = DERParseInteger64(a1, v4);
   if (!result)
   {
-    if (HIDWORD(v5[0]))
+    if (HIDWORD(v4[0]))
     {
-      result = 7;
+      return 7;
     }
 
     else
     {
       result = 0;
-      *a2 = v5[0];
+      *a2 = v4[0];
     }
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5457,42 +5383,41 @@ LABEL_7:
 
 uint64_t DERDecodeSeqInit(uint64_t a1, void *a2, void *a3)
 {
-  v9[3] = *MEMORY[0x29EDCA608];
-  memset(v9, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v9, 0);
-  if (result)
+  v8[3] = *MEMORY[0x29EDCA608];
+  memset(v8, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v8, 0);
+  if (!result)
   {
-    goto LABEL_7;
-  }
-
-  v6 = v9[0];
-  *a2 = v9[0];
-  if (v6 >> 1 != 0x1000000000000008)
-  {
-    result = 2;
-    goto LABEL_7;
-  }
-
-  if (__CFADD__(v9[1], v9[2]))
-  {
-    __break(0x5513u);
-  }
-
-  else
-  {
-    v7 = v9[1] + v9[2];
-    if (v9[1] <= v9[1] + v9[2])
+    v6 = v8[0];
+    *a2 = v8[0];
+    if (v6 >> 1 == 0x1000000000000008)
     {
-      result = 0;
-      *a3 = v9[1];
-      a3[1] = v7;
-LABEL_7:
-      v8 = *MEMORY[0x29EDCA608];
-      return result;
+      if (__CFADD__(v8[1], v8[2]))
+      {
+        __break(0x5513u);
+      }
+
+      else
+      {
+        v7 = v8[1] + v8[2];
+        if (v8[1] <= v8[1] + v8[2])
+        {
+          result = 0;
+          *a3 = v8[1];
+          a3[1] = v7;
+          return result;
+        }
+      }
+
+      __break(0x5519u);
+    }
+
+    else
+    {
+      return 2;
     }
   }
 
-  __break(0x5519u);
   return result;
 }
 
@@ -5522,71 +5447,66 @@ unint64_t *DERDecodeSeqContentInit(unint64_t *result, unint64_t *a2)
 
 uint64_t DERDecodeSeqNext(unint64_t *a1, unint64_t *a2)
 {
-  v11[2] = *MEMORY[0x29EDCA608];
-  v11[0] = 0;
+  v10[2] = *MEMORY[0x29EDCA608];
+  v10[0] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 >= v3)
   {
-    result = 1;
-    goto LABEL_8;
+    return 1;
   }
 
-  v11[0] = *a1;
-  v11[1] = v3 - v2;
-  result = DERDecodeItemPartialBufferGetLength(v11, a2, 0);
-  if (result)
+  v10[0] = *a1;
+  v10[1] = v3 - v2;
+  result = DERDecodeItemPartialBufferGetLength(v10, a2, 0);
+  if (!result)
   {
-LABEL_8:
-    v10 = *MEMORY[0x29EDCA608];
-    return result;
-  }
-
-  v8 = a2[1];
-  v7 = a2[2];
-  if (!__CFADD__(v8, v7))
-  {
-    v9 = v8 + v7;
-    if (v9 <= a1[1] && *a1 <= v9)
+    v8 = a2[1];
+    v7 = a2[2];
+    if (!__CFADD__(v8, v7))
     {
-      result = 0;
-      *a1 = v9;
-      goto LABEL_8;
+      v9 = v8 + v7;
+      if (v9 <= a1[1] && *a1 <= v9)
+      {
+        result = 0;
+        *a1 = v9;
+        return result;
+      }
+
+      __break(0x5519u);
     }
 
-    __break(0x5519u);
+    __break(0x5513u);
   }
 
-  __break(0x5513u);
   return result;
 }
 
 uint64_t DERParseSequenceToObject(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5, size_t a6)
 {
-  v13[3] = *MEMORY[0x29EDCA608];
-  memset(v13, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v13, 0);
+  v12[3] = *MEMORY[0x29EDCA608];
+  memset(v12, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v12, 0);
   if (!result)
   {
-    if (v13[0] == 0x2000000000000010)
+    if (v12[0] == 0x2000000000000010)
     {
-      result = DERParseSequenceContentToObject(&v13[1], a2, a3, a4, a5, a6);
+      return DERParseSequenceContentToObject(&v12[1], a2, a3, a4, a5, a6);
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t DERParseSequenceContentToObject(unint64_t *a1, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5, size_t a6)
 {
-  v38 = *MEMORY[0x29EDCA608];
-  v36 = 0;
+  v37 = *MEMORY[0x29EDCA608];
+  v35 = 0;
   if (a6)
   {
     if (a6 > a5)
@@ -5615,177 +5535,175 @@ LABEL_59:
     __break(0x5519u);
   }
 
-  v36 = *a1;
-  v37 = v13;
-  if (a2)
+  v35 = *a1;
+  v36 = v13;
+  if (!a2)
   {
-    v14 = 0;
-    while (1)
+LABEL_48:
+    if (v11 == v13)
     {
-      memset(v35, 170, sizeof(v35));
-      v16 = v36;
-      v15 = v37;
-      result = DERDecodeSeqNext(&v36, v35);
-      if (result)
-      {
-        if (result == 1)
-        {
-          if (a2 <= v14)
-          {
-            result = 0;
-          }
+      return 0;
+    }
 
-          else
-          {
-            v29 = (a3 + 24 * v14 + 16);
-            v30 = a2 - v14;
-            result = 0;
-            while (1)
-            {
-              v31 = *v29;
-              v29 += 12;
-              if ((v31 & 1) == 0)
-              {
-                break;
-              }
-
-              if (!--v30)
-              {
-                goto LABEL_51;
-              }
-            }
-
-            result = 5;
-          }
-        }
-
-        goto LABEL_51;
-      }
-
-      if (a2 <= v14)
-      {
-        result = 2;
-        goto LABEL_51;
-      }
-
-      while (1)
-      {
-        if (24 * v14 > ~a3)
-        {
-          goto LABEL_58;
-        }
-
-        v18 = a3 + 24 * v14;
-        v19 = *(v18 + 16);
-        if ((v19 & 2) != 0 || v35[0] == *(v18 + 8))
-        {
-          break;
-        }
-
-        result = 2;
-        if ((v19 & 1) != 0 && a2 > ++v14)
-        {
-          continue;
-        }
-
-        goto LABEL_51;
-      }
-
-      if ((v19 & 4) == 0)
-      {
-        v20 = *v18;
-        v21 = *v18 + 16;
-        if (v20 > 0xFFFFFFFFFFFFFFEFLL || v21 > a5)
-        {
-          result = 7;
-          goto LABEL_51;
-        }
-
-        if (v20 > ~a4)
-        {
-          goto LABEL_58;
-        }
-
-        v23 = (a4 + v20);
-        v24 = v23 + 16;
-        if (v23 < a4 || v24 > a4 + a5 || v23 >= v24)
-        {
-          goto LABEL_59;
-        }
-
-        *v23 = *&v35[1];
-        if ((v19 & 8) != 0)
-        {
-          if (v16 >= v35[1])
-          {
-            if (v15 < v16 || *(v23 + 1) > v15 - v16)
-            {
-              goto LABEL_59;
-            }
-
-            *v23 = v16;
-            result = 3;
-            goto LABEL_51;
-          }
-
-          v27 = *(v23 + 1);
-          v28 = v27 + v35[1] - v16;
-          if (__CFADD__(v27, v35[1] - v16))
-          {
-            __break(0x5500u);
-            return result;
-          }
-
-          if (v15 < v16 || v28 > v15 - v16)
-          {
-            goto LABEL_59;
-          }
-
-          *v23 = v16;
-          *(v23 + 1) = v28;
-        }
-      }
-
-      if (a2 == ++v14)
-      {
-        if (!__CFADD__(v35[1], v35[2]))
-        {
-          v32 = a1[1];
-          if (!__CFADD__(*a1, v32))
-          {
-            v11 = v35[1] + v35[2];
-            v13 = *a1 + v32;
-            break;
-          }
-        }
-
-LABEL_58:
-        __break(0x5513u);
-        goto LABEL_59;
-      }
-
-      if (a2 <= v14)
-      {
-        v11 = v36;
-        v13 = v37;
-        break;
-      }
+    else
+    {
+      return 3;
     }
   }
 
-  if (v11 == v13)
+  v14 = 0;
+  while (1)
   {
-    result = 0;
+    memset(v34, 170, sizeof(v34));
+    v16 = v35;
+    v15 = v36;
+    result = DERDecodeSeqNext(&v35, v34);
+    if (result)
+    {
+      if (result == 1)
+      {
+        if (a2 <= v14)
+        {
+          return 0;
+        }
+
+        else
+        {
+          v29 = (a3 + 24 * v14 + 16);
+          v30 = a2 - v14;
+          result = 0;
+          while (1)
+          {
+            v31 = *v29;
+            v29 += 12;
+            if ((v31 & 1) == 0)
+            {
+              break;
+            }
+
+            if (!--v30)
+            {
+              return result;
+            }
+          }
+
+          return 5;
+        }
+      }
+
+      return result;
+    }
+
+    if (a2 <= v14)
+    {
+      return 2;
+    }
+
+    while (1)
+    {
+      if (24 * v14 > ~a3)
+      {
+        goto LABEL_58;
+      }
+
+      v18 = a3 + 24 * v14;
+      v19 = *(v18 + 16);
+      if ((v19 & 2) != 0 || v34[0] == *(v18 + 8))
+      {
+        break;
+      }
+
+      result = 2;
+      if ((v19 & 1) != 0 && a2 > ++v14)
+      {
+        continue;
+      }
+
+      return result;
+    }
+
+    if ((v19 & 4) == 0)
+    {
+      v20 = *v18;
+      v21 = *v18 + 16;
+      if (v20 > 0xFFFFFFFFFFFFFFEFLL || v21 > a5)
+      {
+        return 7;
+      }
+
+      if (v20 > ~a4)
+      {
+        goto LABEL_58;
+      }
+
+      v23 = (a4 + v20);
+      v24 = v23 + 16;
+      if (v23 < a4 || v24 > a4 + a5 || v23 >= v24)
+      {
+        goto LABEL_59;
+      }
+
+      *v23 = *&v34[1];
+      if ((v19 & 8) != 0)
+      {
+        break;
+      }
+    }
+
+LABEL_35:
+    if (a2 == ++v14)
+    {
+      if (!__CFADD__(v34[1], v34[2]))
+      {
+        v32 = a1[1];
+        if (!__CFADD__(*a1, v32))
+        {
+          v11 = v34[1] + v34[2];
+          v13 = *a1 + v32;
+          goto LABEL_48;
+        }
+      }
+
+LABEL_58:
+      __break(0x5513u);
+      goto LABEL_59;
+    }
+
+    if (a2 <= v14)
+    {
+      v11 = v35;
+      v13 = v36;
+      goto LABEL_48;
+    }
   }
 
-  else
+  if (v16 < v34[1])
   {
-    result = 3;
+    v27 = *(v23 + 1);
+    v28 = v27 + v34[1] - v16;
+    if (__CFADD__(v27, v34[1] - v16))
+    {
+      __break(0x5500u);
+      return result;
+    }
+
+    if (v15 < v16 || v28 > v15 - v16)
+    {
+      goto LABEL_59;
+    }
+
+    *v23 = v16;
+    *(v23 + 1) = v28;
+    goto LABEL_35;
   }
 
-LABEL_51:
-  v33 = *MEMORY[0x29EDCA608];
-  return result;
+  if (v15 < v16 || *(v23 + 1) > v15 - v16)
+  {
+    goto LABEL_59;
+  }
+
+  *v23 = v16;
+  return 3;
 }
 
 BOOL DEROidCompare(uint64_t a1, uint64_t a2)
@@ -5872,20 +5790,20 @@ uint64_t AMFDRDecodeIterateTrustObjectTrustedBegin(uint64_t a1)
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Trust Object trusted sequence");
   }
 
-  else if (DERDecodeSeqNext((v1 + 64), v7))
+  else if (DERDecodeSeqNext((v1 + 64), v5))
   {
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Trust Object trusted");
   }
 
-  else if (v7[1] && (OUTLINED_FUNCTION_19(), v4))
+  else if (v5[1] && (OUTLINED_FUNCTION_19(), v3))
   {
-    OUTLINED_FUNCTION_3(v3);
-    if (v4)
+    OUTLINED_FUNCTION_3();
+    if (v3)
     {
       return 0;
     }
 
-    OUTLINED_FUNCTION_0(v5);
+    OUTLINED_FUNCTION_0();
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object trusted, expected tag %c%c%c%c found tag %c%c%c%c", "AMFDRDecodeIterateTrustObjectTrustedBegin");
   }
 
@@ -5940,7 +5858,7 @@ uint64_t AMFDRDecodeIterateTrustObjectTrustedKeyBegin(uint64_t a1)
 
   else
   {
-    v4 = DERDecodeSeqNext((v1 + 128), v8);
+    v4 = DERDecodeSeqNext((v1 + 128), v6);
     if (v4)
     {
       if (v4 == 1)
@@ -5951,15 +5869,15 @@ uint64_t AMFDRDecodeIterateTrustObjectTrustedKeyBegin(uint64_t a1)
       AMFDRDecodeLogInternal(3, "%s: can't parse FDR Trust Object trusted key: %d");
     }
 
-    else if (v8[1] && (OUTLINED_FUNCTION_19(), v6))
+    else if (v6[1] && (OUTLINED_FUNCTION_19(), v5))
     {
-      OUTLINED_FUNCTION_3(v5);
-      if (v6)
+      OUTLINED_FUNCTION_3();
+      if (v5)
       {
         return 0;
       }
 
-      OUTLINED_FUNCTION_0(v7);
+      OUTLINED_FUNCTION_0();
       AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object trusted key, expected tag %c%c%c%c found tag %c%c%c%c", "AMFDRDecodeIterateTrustObjectTrustedKeyBegin");
     }
 
@@ -6013,20 +5931,20 @@ uint64_t AMFDRDecodeIterateTrustObjectRevokedBegin(uint64_t a1)
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Trust Object Revoked sequence");
   }
 
-  else if (DERDecodeSeqNext((v1 + 80), v7))
+  else if (DERDecodeSeqNext((v1 + 80), v5))
   {
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Trust Object Revoked");
   }
 
-  else if (v7[1] && (OUTLINED_FUNCTION_19(), v4))
+  else if (v5[1] && (OUTLINED_FUNCTION_19(), v3))
   {
-    OUTLINED_FUNCTION_3(v3);
-    if (v4)
+    OUTLINED_FUNCTION_3();
+    if (v3)
     {
       return 0;
     }
 
-    OUTLINED_FUNCTION_0(v5);
+    OUTLINED_FUNCTION_0();
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object Revoked, expected tag %c%c%c%c found tag %c%c%c%c", "AMFDRDecodeIterateTrustObjectRevokedBegin");
   }
 
@@ -6082,20 +6000,20 @@ uint64_t AMFDRDecodeIterateTrustObjectSslRootBegin(uint64_t a1)
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Trust Object SslRoot sequence");
   }
 
-  else if (DERDecodeSeqNext((v1 + 96), v7))
+  else if (DERDecodeSeqNext((v1 + 96), v5))
   {
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Trust Object SslRoot");
   }
 
-  else if (v7[1] && (OUTLINED_FUNCTION_19(), v4))
+  else if (v5[1] && (OUTLINED_FUNCTION_19(), v3))
   {
-    OUTLINED_FUNCTION_3(v3);
-    if (v4)
+    OUTLINED_FUNCTION_3();
+    if (v3)
     {
       return 0;
     }
 
-    OUTLINED_FUNCTION_0(v5);
+    OUTLINED_FUNCTION_0();
     AMFDRDecodeLogInternal(3, "%s: malformed FDR Trust Object SslRoot, expected tag %c%c%c%c found tag %c%c%c%c", "AMFDRDecodeIterateTrustObjectSslRootBegin");
   }
 
@@ -6333,10 +6251,10 @@ uint64_t AMFDRDecodeIterateMultiCombinedDataBeginWithRawData(void *a1, uint64_t 
 
     else
     {
-      PayloadSeqAndSetManifestFromMultiCombinedData = _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(v11, &v15);
-      if (PayloadSeqAndSetManifestFromMultiCombinedData)
+      _AMFDRDecodeGetPayloadSeqAndSetManifestFromMultiCombinedData(v11, &v15);
+      if (v13)
       {
-        v4 = PayloadSeqAndSetManifestFromMultiCombinedData | 0x20000;
+        v4 = v13 | 0x20000;
         AMFDRDecodeLogInternal(3, "%s: Failed to get payload sequence and set manifest from multi combined data", "AMFDRDecodeIterateMultiCombinedDataBeginWithRawData");
       }
 
@@ -6787,7 +6705,7 @@ LABEL_28:
 
                     else
                     {
-                      OUTLINED_FUNCTION_8(v32);
+                      OUTLINED_FUNCTION_8();
                       AMFDRDecodeLogInternal(3, "%s: malformed cert property key: %c%c%c%c");
                     }
                   }
@@ -6808,7 +6726,7 @@ LABEL_28:
 
           else
           {
-            OUTLINED_FUNCTION_8(*&v36[0]);
+            OUTLINED_FUNCTION_8();
             AMFDRDecodeLogInternal(3, "%s: malformed im4c tag: %c%c%c%c");
           }
         }
@@ -6841,9 +6759,9 @@ uint64_t AMFDRDecodeIterateCertChainBegin(void *a1, uint64_t a2, unsigned int a3
   return result;
 }
 
-void AMFDRDecodeIterateCertChainNextWithOptions(uint64_t a1, uint64_t a2, uint64_t *a3)
+void AMFDRDecodeIterateCertChainNextWithOptions(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = 0;
+  v14 = 0;
   if (a1)
   {
     OUTLINED_FUNCTION_20();
@@ -6856,10 +6774,8 @@ void AMFDRDecodeIterateCertChainNextWithOptions(uint64_t a1, uint64_t a2, uint64
         if (v9)
         {
           v10 = v6;
-          if (!AMFDRDecodeParseDERLengthFromBuffer(*v3, v9, &v16) && *(v3 + 8) >= v16)
+          if (!AMFDRDecodeParseDERLengthFromBuffer(*v3, v9, &v14) && *(v3 + 8) >= v14)
           {
-            v11 = *a3;
-            v12 = *v3;
             if ((v8 & 0x100) != 0)
             {
               AMFDRDecodeImage4Certificate();
@@ -6867,17 +6783,17 @@ void AMFDRDecodeIterateCertChainNextWithOptions(uint64_t a1, uint64_t a2, uint64
 
             else
             {
-              v13 = AMFDRDecodeCertificate();
+              v11 = AMFDRDecodeCertificate();
             }
 
-            if (!v13)
+            if (!v11)
             {
-              v14 = *(v3 + 16);
-              *(v3 + 16) = v14 + 1;
-              *v10 = v14;
-              v15 = *(v3 + 8) - v16;
-              *v3 += v16;
-              *(v3 + 8) = v15;
+              v12 = *(v3 + 16);
+              *(v3 + 16) = v12 + 1;
+              *v10 = v12;
+              v13 = *(v3 + 8) - v14;
+              *v3 += v14;
+              *(v3 + 8) = v13;
             }
           }
         }
@@ -6929,22 +6845,22 @@ uint64_t AMFDRDecodeMultiSealingResponse(uint64_t a1, int a2, _BYTE *a3)
       return 16;
     }
 
-    if (OUTLINED_FUNCTION_13(v11, v12, &DERFDRMultiSealingResponsePayloadItemSpecs, v13, v14))
+    if (OUTLINED_FUNCTION_13(v11, v12, &DERFDRMultiSealingResponsePayloadItemSpecs, v13, v14, v15, v16))
     {
       AMFDRDecodeLogInternal(3, "%s: malformed FDR Multi-Response Payload Format");
       return 16;
     }
 
-    if (v25 && (v16 = OUTLINED_FUNCTION_16(), (v19 = _AMFDRDecodeMultiSealingResposeRecords(v16, v17, v18)) != 0) || v26 && (v20 = OUTLINED_FUNCTION_15(), (v19 = _AMFDRDecodeMultiSealingResposeRecords(v20, v21, v22)) != 0))
+    if (v27 && (v18 = OUTLINED_FUNCTION_16(), (v21 = _AMFDRDecodeMultiSealingResposeRecords(v18, v19, v20)) != 0) || v28 && (v22 = OUTLINED_FUNCTION_15(), (v21 = _AMFDRDecodeMultiSealingResposeRecords(v22, v23, v24)) != 0))
     {
-      v3 = v19;
-      AMFDRDecodeLogInternal(3, "%s: _AMFDRDecodeMultiSealingResposeRecords failed with error 0x%llX", "AMFDRDecodeMultiSealingResponse", v19);
+      v3 = v21;
+      AMFDRDecodeLogInternal(3, "%s: _AMFDRDecodeMultiSealingResposeRecords failed with error 0x%llX", "AMFDRDecodeMultiSealingResponse", v21);
     }
 
-    else if (v23 && v24 == 1)
+    else if (v25 && v26 == 1)
     {
       v3 = 0;
-      *a3 = *v23;
+      *a3 = *v25;
     }
 
     else
@@ -6959,18 +6875,18 @@ uint64_t AMFDRDecodeMultiSealingResponse(uint64_t a1, int a2, _BYTE *a3)
 
 uint64_t _AMFDRDecodeMultiSealingResposeRecords(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
-  *&v49 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v49 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v48 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
   if (!a2 || !*a2 || !a2[1])
   {
     return 1;
   }
 
-  v48[0] = 0;
-  v48[1] = 0;
-  v47 = 0uLL;
-  v46 = 0;
-  if (DERDecodeSeqContentInit(a2, v48))
+  v47[0] = 0;
+  v47[1] = 0;
+  v46 = 0uLL;
+  v45 = 0;
+  if (DERDecodeSeqContentInit(a2, v47))
   {
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Multi-response payload");
     return 16;
@@ -6983,67 +6899,67 @@ uint64_t _AMFDRDecodeMultiSealingResposeRecords(uint64_t a1, unint64_t *a2, uint
     while (1)
     {
       v42 = v5;
+      v43 = v5;
       v44 = v5;
-      v45 = v5;
       *v36 = v5;
       v39 = v5;
-      v6 = DERDecodeSeqNext(v48, &v46);
+      v6 = DERDecodeSeqNext(v47, &v45);
       if (v6)
       {
         break;
       }
 
-      if (!*(&v47 + 1))
+      if (!*(&v46 + 1))
       {
         return v4;
       }
 
-      if (v46 != 0x2000000000000010)
+      if (v45 != 0x2000000000000010)
       {
         AMFDRDecodeLogInternal(3, "%s: Record must be SEQUENCE Container");
         return 32;
       }
 
-      v49 = v47;
-      v14 = OUTLINED_FUNCTION_12(&v49, v7, v8, v9, v10, v11, v12, v13, v32, v33, v34, v35, v36[0], v36[1], v39, *(&v39 + 1), v42);
+      v48 = v46;
+      v14 = OUTLINED_FUNCTION_12(&v48, v7, v8, v9, v10, v11, v12, v13, v32, v33, v34, v35, v36[0], v36[1], v39, *(&v39 + 1));
       if (v14)
       {
         AMFDRDecodeLogInternal(3, "%s: malformed FDR Multi-Response Payload Record Format");
         return 16;
       }
 
-      if (v44)
+      if (v43)
       {
-        v49 = v44;
-        v14 = DERDecodeItem(&v49, &v46);
+        v48 = v43;
+        v14 = DERDecodeItem(&v48, &v45);
         if (v14)
         {
           AMFDRDecodeLogInternal(3, "%s: malformed FDR Multi-Response value Format");
           return 32;
         }
 
-        if (v46 != 4)
+        if (v45 != 4)
         {
           AMFDRDecodeLogInternal(3, "%s: Record value must be OCTET_STRING", "_AMFDRDecodeMultiSealingResposeRecords");
           return 64;
         }
 
-        if (!v47)
+        if (!v46)
         {
           AMFDRDecodeLogInternal(3, "%s: Record value is NULL");
           return 32;
         }
 
-        if (!*(&v47 + 1))
+        if (!*(&v46 + 1))
         {
           AMFDRDecodeLogInternal(3, "%s: Record value length is 0");
           return 32;
         }
       }
 
-      if (v45)
+      if (v44)
       {
-        v49 = v45;
+        v48 = v44;
         OUTLINED_FUNCTION_6();
         v14 = DERParseSequenceToObject(v22, v23, v24, v25, v26, v27);
         if (v14)
@@ -7061,7 +6977,7 @@ uint64_t _AMFDRDecodeMultiSealingResposeRecords(uint64_t a1, unint64_t *a2, uint
 
       if (a3)
       {
-        v28 = OUTLINED_FUNCTION_1(v14, v15, v16, v17, v18, v19, v20, v21, v32, v33, v34, v35, v37, v38, v40, v41, v43);
+        v28 = OUTLINED_FUNCTION_1(v14, v15, v16, v17, v18, v19, v20, v21, v32, v33, v34, v35, v37, v38, v40, v41, v42);
         v29 = a3(v28);
         if (v29)
         {
@@ -7097,22 +7013,22 @@ uint64_t AMFDRDecodeMultiResponse(uint64_t a1, int a2, _BYTE *a3)
       return 16;
     }
 
-    if (OUTLINED_FUNCTION_13(v11, v12, &DERFDRMultiResponsePayloadItemSpecs, v13, v14))
+    if (OUTLINED_FUNCTION_13(v11, v12, &DERFDRMultiResponsePayloadItemSpecs, v13, v14, v15, v16))
     {
       AMFDRDecodeLogInternal(3, "%s: malformed FDR Multi-Response Payload Format");
       return 16;
     }
 
-    if (v25 && (v16 = OUTLINED_FUNCTION_16(), (v19 = _AMFDRDecodeMultiResposeRecords(v16, v17, v18)) != 0) || v26 && (v20 = OUTLINED_FUNCTION_15(), (v19 = _AMFDRDecodeMultiResposeRecords(v20, v21, v22)) != 0))
+    if (v27 && (v18 = OUTLINED_FUNCTION_16(), (v21 = _AMFDRDecodeMultiResposeRecords(v18, v19, v20)) != 0) || v28 && (v22 = OUTLINED_FUNCTION_15(), (v21 = _AMFDRDecodeMultiResposeRecords(v22, v23, v24)) != 0))
     {
-      v3 = v19;
-      AMFDRDecodeLogInternal(3, "%s: _AMFDRDecodeMultiResposeRecords failed with error 0x%llX", "AMFDRDecodeMultiResponse", v19);
+      v3 = v21;
+      AMFDRDecodeLogInternal(3, "%s: _AMFDRDecodeMultiResposeRecords failed with error 0x%llX", "AMFDRDecodeMultiResponse", v21);
     }
 
-    else if (v23 && v24 == 1)
+    else if (v25 && v26 == 1)
     {
       v3 = 0;
-      *a3 = *v23;
+      *a3 = *v25;
     }
 
     else
@@ -7127,92 +7043,92 @@ uint64_t AMFDRDecodeMultiResponse(uint64_t a1, int a2, _BYTE *a3)
 
 uint64_t _AMFDRDecodeMultiResposeRecords(uint64_t a1, void *a2, uint64_t (*a3)(uint64_t))
 {
-  *(&v49 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v50 = 0;
-  *&v49 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v48 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v49 = 0;
+  *&v48 = 0xAAAAAAAAAAAAAAAALL;
   if (!a2 || !*a2 || !a2[1])
   {
     return 1;
   }
 
-  v48[0] = 0;
-  v48[1] = 0;
-  v47 = 0uLL;
-  v46 = 0;
-  if (DERDecodeSeqInit(a2, &v50, v48))
+  v47[0] = 0;
+  v47[1] = 0;
+  v46 = 0uLL;
+  v45 = 0;
+  if (DERDecodeSeqInit(a2, &v49, v47))
   {
     AMFDRDecodeLogInternal(3, "%s: can't parse FDR Multi-response payload");
     return 16;
   }
 
-  else if (v50 == 0x2000000000000011)
+  else if (v49 == 0x2000000000000011)
   {
     v5 = 0uLL;
     v4 = 16;
     while (1)
     {
       v42 = v5;
+      v43 = v5;
       v44 = v5;
-      v45 = v5;
       *v36 = v5;
       v39 = v5;
-      v6 = DERDecodeSeqNext(v48, &v46);
+      v6 = DERDecodeSeqNext(v47, &v45);
       if (v6)
       {
         break;
       }
 
-      if (!*(&v47 + 1))
+      if (!*(&v46 + 1))
       {
         return v4;
       }
 
-      if (v46 != 0x2000000000000010)
+      if (v45 != 0x2000000000000010)
       {
         AMFDRDecodeLogInternal(3, "%s: Record must be SEQUENCE Container");
         return 32;
       }
 
-      v49 = v47;
-      v14 = OUTLINED_FUNCTION_12(&v49, v7, v8, v9, v10, v11, v12, v13, v32, v33, v34, v35, v36[0], v36[1], v39, *(&v39 + 1), v42);
+      v48 = v46;
+      v14 = OUTLINED_FUNCTION_12(&v48, v7, v8, v9, v10, v11, v12, v13, v32, v33, v34, v35, v36[0], v36[1], v39, *(&v39 + 1));
       if (v14)
       {
         AMFDRDecodeLogInternal(3, "%s: malformed FDR Multi-Response Payload Record Format");
         return 16;
       }
 
-      if (v44)
+      if (v43)
       {
-        v49 = v44;
-        v14 = DERDecodeItem(&v49, &v46);
+        v48 = v43;
+        v14 = DERDecodeItem(&v48, &v45);
         if (v14)
         {
           AMFDRDecodeLogInternal(3, "%s: malformed FDR Multi-Response value Format");
           return 32;
         }
 
-        if (v46 != 4)
+        if (v45 != 4)
         {
           AMFDRDecodeLogInternal(3, "%s: Record value must be OCTET_STRING", "_AMFDRDecodeMultiResposeRecords");
           return 64;
         }
 
-        if (!v47)
+        if (!v46)
         {
           AMFDRDecodeLogInternal(3, "%s: Record value is NULL");
           return 32;
         }
 
-        if (!*(&v47 + 1))
+        if (!*(&v46 + 1))
         {
           AMFDRDecodeLogInternal(3, "%s: Record value length is 0");
           return 32;
         }
       }
 
-      if (v45)
+      if (v44)
       {
-        v49 = v45;
+        v48 = v44;
         OUTLINED_FUNCTION_6();
         v14 = DERParseSequenceToObject(v22, v23, v24, v25, v26, v27);
         if (v14)
@@ -7230,7 +7146,7 @@ uint64_t _AMFDRDecodeMultiResposeRecords(uint64_t a1, void *a2, uint64_t (*a3)(u
 
       if (a3)
       {
-        v28 = OUTLINED_FUNCTION_1(v14, v15, v16, v17, v18, v19, v20, v21, v32, v33, v34, v35, v37, v38, v40, v41, v43);
+        v28 = OUTLINED_FUNCTION_1(v14, v15, v16, v17, v18, v19, v20, v21, v32, v33, v34, v35, v37, v38, v40, v41, v42);
         v29 = a3(v28);
         if (v29)
         {
@@ -7342,37 +7258,39 @@ uint64_t AMFDRDecodeMetadata(uint64_t a1, int a2)
   return v4;
 }
 
-uint64_t AMFDRDecodeGetImg4RawData(uint64_t a1, int a2)
+uint64_t AMFDRDecodeGetImg4RawData(uint64_t a1, unsigned int a2)
 {
-  v8[57] = *MEMORY[0x29EDCA608];
+  v7[57] = *MEMORY[0x29EDCA608];
   result = 1;
   if (a1 && a2)
   {
     OUTLINED_FUNCTION_21();
-    memset(v8, 170, 0x1C8uLL);
+    memset(v7, 170, 0x1C8uLL);
     if (Img4DecodeInit())
     {
-      result = 0x2000;
+      return 0x2000;
     }
 
     else
     {
       result = 0;
-      if (v3 && v2)
+      if (v3)
       {
-        result = 0;
-        v6 = v8[18];
-        *v3 = v8[17];
-        *v2 = v6;
+        if (v2)
+        {
+          result = 0;
+          v6 = v7[18];
+          *v3 = v7[17];
+          *v2 = v6;
+        }
       }
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t AMFDRDecodeGetImg4Manifest(uint64_t a1, int a2)
+uint64_t AMFDRDecodeGetImg4Manifest(uint64_t a1, unsigned int a2)
 {
   __b[57] = *MEMORY[0x29EDCA608];
   result = 1;
@@ -7383,23 +7301,25 @@ uint64_t AMFDRDecodeGetImg4Manifest(uint64_t a1, int a2)
     if (Img4DecodeInit())
     {
       AMFDRDecodeLogInternal(3, "%s: FDR failed to decode Data img4", "AMFDRDecodeGetImg4Manifest");
-      result = 0x2000;
+      return 0x2000;
     }
 
     else
     {
       result = 0;
-      if (v3 && v2)
+      if (v3)
       {
-        result = 0;
-        v6 = __b[4];
-        *v3 = __b[3];
-        *v2 = v6;
+        if (v2)
+        {
+          result = 0;
+          v6 = __b[4];
+          *v3 = __b[3];
+          *v2 = v6;
+        }
       }
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 

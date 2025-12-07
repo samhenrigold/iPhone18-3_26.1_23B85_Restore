@@ -5152,7 +5152,7 @@
 
 + (unint64_t)mappingForDayOfWeekDistributionSignals:(unint64_t)signals forScoreInputCategory:(unint64_t)category
 {
-  v18[7] = *MEMORY[0x277D85DE8];
+  v17[7] = *MEMORY[0x277D85DE8];
   if (signals >= 7)
   {
     +[_ATXScoreTypes mappingForDayOfWeekDistributionSignals:forScoreInputCategory:];
@@ -5160,50 +5160,49 @@
 
   if (category == 1)
   {
-    v15[0] = &unk_283A54968;
-    v15[1] = &unk_283A54998;
-    v16[0] = &unk_283A54AB8;
-    v16[1] = &unk_283A54AD0;
-    v15[2] = &unk_283A549C8;
-    v15[3] = &unk_283A549F8;
-    v16[2] = &unk_283A54AE8;
-    v16[3] = &unk_283A54B00;
-    v15[4] = &unk_283A54A28;
-    v15[5] = &unk_283A54A58;
-    v16[4] = &unk_283A54B18;
-    v16[5] = &unk_283A54B30;
-    v15[6] = &unk_283A54A88;
-    v16[6] = &unk_283A54B48;
+    v14[0] = &unk_283A54968;
+    v14[1] = &unk_283A54998;
+    v15[0] = &unk_283A54AB8;
+    v15[1] = &unk_283A54AD0;
+    v14[2] = &unk_283A549C8;
+    v14[3] = &unk_283A549F8;
+    v15[2] = &unk_283A54AE8;
+    v15[3] = &unk_283A54B00;
+    v14[4] = &unk_283A54A28;
+    v14[5] = &unk_283A54A58;
+    v15[4] = &unk_283A54B18;
+    v15[5] = &unk_283A54B30;
+    v14[6] = &unk_283A54A88;
+    v15[6] = &unk_283A54B48;
     v6 = MEMORY[0x277CBEAC0];
-    v7 = v16;
-    v8 = v15;
+    v7 = v15;
+    v8 = v14;
   }
 
   else
   {
     if (category)
     {
-      intValue = 0xFFFFFFFFLL;
-      goto LABEL_9;
+      return 0xFFFFFFFFLL;
     }
 
-    v17[0] = &unk_283A54968;
-    v17[1] = &unk_283A54998;
-    v18[0] = &unk_283A54980;
-    v18[1] = &unk_283A549B0;
-    v17[2] = &unk_283A549C8;
-    v17[3] = &unk_283A549F8;
-    v18[2] = &unk_283A549E0;
-    v18[3] = &unk_283A54A10;
-    v17[4] = &unk_283A54A28;
-    v17[5] = &unk_283A54A58;
-    v18[4] = &unk_283A54A40;
-    v18[5] = &unk_283A54A70;
-    v17[6] = &unk_283A54A88;
-    v18[6] = &unk_283A54AA0;
+    v16[0] = &unk_283A54968;
+    v16[1] = &unk_283A54998;
+    v17[0] = &unk_283A54980;
+    v17[1] = &unk_283A549B0;
+    v16[2] = &unk_283A549C8;
+    v16[3] = &unk_283A549F8;
+    v17[2] = &unk_283A549E0;
+    v17[3] = &unk_283A54A10;
+    v16[4] = &unk_283A54A28;
+    v16[5] = &unk_283A54A58;
+    v17[4] = &unk_283A54A40;
+    v17[5] = &unk_283A54A70;
+    v16[6] = &unk_283A54A88;
+    v17[6] = &unk_283A54AA0;
     v6 = MEMORY[0x277CBEAC0];
-    v7 = v18;
-    v8 = v17;
+    v7 = v17;
+    v8 = v16;
   }
 
   v9 = [v6 dictionaryWithObjects:v7 forKeys:v8 count:7];
@@ -5211,14 +5210,12 @@
   v11 = [v9 objectForKeyedSubscript:v10];
   intValue = [v11 intValue];
 
-LABEL_9:
-  v13 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 + (unint64_t)mappingForTopRankedSpecificGeoHashSignals:(unint64_t)signals forScoreInputCategory:(unint64_t)category
 {
-  v17[15] = *MEMORY[0x277D85DE8];
+  v16[15] = *MEMORY[0x277D85DE8];
   if (category == 1)
   {
     if (signals >= 0xF)
@@ -5226,47 +5223,46 @@ LABEL_9:
       +[_ATXScoreTypes mappingForTopRankedSpecificGeoHashSignals:forScoreInputCategory:];
     }
 
-    v14[0] = &unk_283A54968;
-    v14[1] = &unk_283A54998;
-    v15[0] = &unk_283A54D88;
-    v15[1] = &unk_283A54DA0;
-    v14[2] = &unk_283A549C8;
-    v14[3] = &unk_283A549F8;
-    v15[2] = &unk_283A54DB8;
-    v15[3] = &unk_283A54DD0;
-    v14[4] = &unk_283A54A28;
-    v14[5] = &unk_283A54A58;
-    v15[4] = &unk_283A54DE8;
-    v15[5] = &unk_283A54E00;
-    v14[6] = &unk_283A54A88;
-    v14[7] = &unk_283A54C08;
-    v15[6] = &unk_283A54E18;
-    v15[7] = &unk_283A54E30;
-    v14[8] = &unk_283A54C38;
-    v14[9] = &unk_283A54C68;
-    v15[8] = &unk_283A54E48;
-    v15[9] = &unk_283A54E60;
-    v14[10] = &unk_283A54C98;
-    v14[11] = &unk_283A54CC8;
-    v15[10] = &unk_283A54E78;
-    v15[11] = &unk_283A54E90;
-    v14[12] = &unk_283A54CF8;
-    v14[13] = &unk_283A54D28;
-    v15[12] = &unk_283A54EA8;
-    v15[13] = &unk_283A54EC0;
-    v14[14] = &unk_283A54D58;
-    v15[14] = &unk_283A54ED8;
+    v13[0] = &unk_283A54968;
+    v13[1] = &unk_283A54998;
+    v14[0] = &unk_283A54D88;
+    v14[1] = &unk_283A54DA0;
+    v13[2] = &unk_283A549C8;
+    v13[3] = &unk_283A549F8;
+    v14[2] = &unk_283A54DB8;
+    v14[3] = &unk_283A54DD0;
+    v13[4] = &unk_283A54A28;
+    v13[5] = &unk_283A54A58;
+    v14[4] = &unk_283A54DE8;
+    v14[5] = &unk_283A54E00;
+    v13[6] = &unk_283A54A88;
+    v13[7] = &unk_283A54C08;
+    v14[6] = &unk_283A54E18;
+    v14[7] = &unk_283A54E30;
+    v13[8] = &unk_283A54C38;
+    v13[9] = &unk_283A54C68;
+    v14[8] = &unk_283A54E48;
+    v14[9] = &unk_283A54E60;
+    v13[10] = &unk_283A54C98;
+    v13[11] = &unk_283A54CC8;
+    v14[10] = &unk_283A54E78;
+    v14[11] = &unk_283A54E90;
+    v13[12] = &unk_283A54CF8;
+    v13[13] = &unk_283A54D28;
+    v14[12] = &unk_283A54EA8;
+    v14[13] = &unk_283A54EC0;
+    v13[14] = &unk_283A54D58;
+    v14[14] = &unk_283A54ED8;
     v5 = MEMORY[0x277CBEAC0];
-    v6 = v15;
-    v7 = v14;
+    v6 = v14;
+    v7 = v13;
   }
 
   else
   {
     if (category)
     {
-      intValue = 0xFFFFFFFFLL;
-      goto LABEL_11;
+      return 0xFFFFFFFFLL;
     }
 
     if (signals >= 0xF)
@@ -5274,39 +5270,39 @@ LABEL_9:
       +[_ATXScoreTypes mappingForTopRankedSpecificGeoHashSignals:forScoreInputCategory:];
     }
 
-    v16[0] = &unk_283A54968;
-    v16[1] = &unk_283A54998;
-    v17[0] = &unk_283A54B60;
-    v17[1] = &unk_283A54B78;
-    v16[2] = &unk_283A549C8;
-    v16[3] = &unk_283A549F8;
-    v17[2] = &unk_283A54B90;
-    v17[3] = &unk_283A54BA8;
-    v16[4] = &unk_283A54A28;
-    v16[5] = &unk_283A54A58;
-    v17[4] = &unk_283A54BC0;
-    v17[5] = &unk_283A54BD8;
-    v16[6] = &unk_283A54A88;
-    v16[7] = &unk_283A54C08;
-    v17[6] = &unk_283A54BF0;
-    v17[7] = &unk_283A54C20;
-    v16[8] = &unk_283A54C38;
-    v16[9] = &unk_283A54C68;
-    v17[8] = &unk_283A54C50;
-    v17[9] = &unk_283A54C80;
-    v16[10] = &unk_283A54C98;
-    v16[11] = &unk_283A54CC8;
-    v17[10] = &unk_283A54CB0;
-    v17[11] = &unk_283A54CE0;
-    v16[12] = &unk_283A54CF8;
-    v16[13] = &unk_283A54D28;
-    v17[12] = &unk_283A54D10;
-    v17[13] = &unk_283A54D40;
-    v16[14] = &unk_283A54D58;
-    v17[14] = &unk_283A54D70;
+    v15[0] = &unk_283A54968;
+    v15[1] = &unk_283A54998;
+    v16[0] = &unk_283A54B60;
+    v16[1] = &unk_283A54B78;
+    v15[2] = &unk_283A549C8;
+    v15[3] = &unk_283A549F8;
+    v16[2] = &unk_283A54B90;
+    v16[3] = &unk_283A54BA8;
+    v15[4] = &unk_283A54A28;
+    v15[5] = &unk_283A54A58;
+    v16[4] = &unk_283A54BC0;
+    v16[5] = &unk_283A54BD8;
+    v15[6] = &unk_283A54A88;
+    v15[7] = &unk_283A54C08;
+    v16[6] = &unk_283A54BF0;
+    v16[7] = &unk_283A54C20;
+    v15[8] = &unk_283A54C38;
+    v15[9] = &unk_283A54C68;
+    v16[8] = &unk_283A54C50;
+    v16[9] = &unk_283A54C80;
+    v15[10] = &unk_283A54C98;
+    v15[11] = &unk_283A54CC8;
+    v16[10] = &unk_283A54CB0;
+    v16[11] = &unk_283A54CE0;
+    v15[12] = &unk_283A54CF8;
+    v15[13] = &unk_283A54D28;
+    v16[12] = &unk_283A54D10;
+    v16[13] = &unk_283A54D40;
+    v15[14] = &unk_283A54D58;
+    v16[14] = &unk_283A54D70;
     v5 = MEMORY[0x277CBEAC0];
-    v6 = v17;
-    v7 = v16;
+    v6 = v16;
+    v7 = v15;
   }
 
   v8 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:15];
@@ -5314,14 +5310,12 @@ LABEL_9:
   v10 = [v8 objectForKeyedSubscript:v9];
   intValue = [v10 intValue];
 
-LABEL_11:
-  v12 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 + (unint64_t)mappingForTopRankedCoarseGeoHashSignals:(unint64_t)signals forScoreInputCategory:(unint64_t)category
 {
-  v17[10] = *MEMORY[0x277D85DE8];
+  v16[10] = *MEMORY[0x277D85DE8];
   if (category == 1)
   {
     if (signals >= 0xA)
@@ -5329,37 +5323,36 @@ LABEL_11:
       +[_ATXScoreTypes mappingForTopRankedCoarseGeoHashSignals:forScoreInputCategory:];
     }
 
-    v14[0] = &unk_283A54968;
-    v14[1] = &unk_283A54998;
-    v15[0] = &unk_283A54FE0;
-    v15[1] = &unk_283A54FF8;
-    v14[2] = &unk_283A549C8;
-    v14[3] = &unk_283A549F8;
-    v15[2] = &unk_283A55010;
-    v15[3] = &unk_283A55028;
-    v14[4] = &unk_283A54A28;
-    v14[5] = &unk_283A54A58;
-    v15[4] = &unk_283A55040;
-    v15[5] = &unk_283A55058;
-    v14[6] = &unk_283A54A88;
-    v14[7] = &unk_283A54C08;
-    v15[6] = &unk_283A55070;
-    v15[7] = &unk_283A55088;
-    v14[8] = &unk_283A54C38;
-    v14[9] = &unk_283A54C68;
-    v15[8] = &unk_283A550A0;
-    v15[9] = &unk_283A550B8;
+    v13[0] = &unk_283A54968;
+    v13[1] = &unk_283A54998;
+    v14[0] = &unk_283A54FE0;
+    v14[1] = &unk_283A54FF8;
+    v13[2] = &unk_283A549C8;
+    v13[3] = &unk_283A549F8;
+    v14[2] = &unk_283A55010;
+    v14[3] = &unk_283A55028;
+    v13[4] = &unk_283A54A28;
+    v13[5] = &unk_283A54A58;
+    v14[4] = &unk_283A55040;
+    v14[5] = &unk_283A55058;
+    v13[6] = &unk_283A54A88;
+    v13[7] = &unk_283A54C08;
+    v14[6] = &unk_283A55070;
+    v14[7] = &unk_283A55088;
+    v13[8] = &unk_283A54C38;
+    v13[9] = &unk_283A54C68;
+    v14[8] = &unk_283A550A0;
+    v14[9] = &unk_283A550B8;
     v5 = MEMORY[0x277CBEAC0];
-    v6 = v15;
-    v7 = v14;
+    v6 = v14;
+    v7 = v13;
   }
 
   else
   {
     if (category)
     {
-      intValue = 0xFFFFFFFFLL;
-      goto LABEL_11;
+      return 0xFFFFFFFFLL;
     }
 
     if (signals >= 0xA)
@@ -5367,29 +5360,29 @@ LABEL_11:
       +[_ATXScoreTypes mappingForTopRankedCoarseGeoHashSignals:forScoreInputCategory:];
     }
 
-    v16[0] = &unk_283A54968;
-    v16[1] = &unk_283A54998;
-    v17[0] = &unk_283A54EF0;
-    v17[1] = &unk_283A54F08;
-    v16[2] = &unk_283A549C8;
-    v16[3] = &unk_283A549F8;
-    v17[2] = &unk_283A54F20;
-    v17[3] = &unk_283A54F38;
-    v16[4] = &unk_283A54A28;
-    v16[5] = &unk_283A54A58;
-    v17[4] = &unk_283A54F50;
-    v17[5] = &unk_283A54F68;
-    v16[6] = &unk_283A54A88;
-    v16[7] = &unk_283A54C08;
-    v17[6] = &unk_283A54F80;
-    v17[7] = &unk_283A54F98;
-    v16[8] = &unk_283A54C38;
-    v16[9] = &unk_283A54C68;
-    v17[8] = &unk_283A54FB0;
-    v17[9] = &unk_283A54FC8;
+    v15[0] = &unk_283A54968;
+    v15[1] = &unk_283A54998;
+    v16[0] = &unk_283A54EF0;
+    v16[1] = &unk_283A54F08;
+    v15[2] = &unk_283A549C8;
+    v15[3] = &unk_283A549F8;
+    v16[2] = &unk_283A54F20;
+    v16[3] = &unk_283A54F38;
+    v15[4] = &unk_283A54A28;
+    v15[5] = &unk_283A54A58;
+    v16[4] = &unk_283A54F50;
+    v16[5] = &unk_283A54F68;
+    v15[6] = &unk_283A54A88;
+    v15[7] = &unk_283A54C08;
+    v16[6] = &unk_283A54F80;
+    v16[7] = &unk_283A54F98;
+    v15[8] = &unk_283A54C38;
+    v15[9] = &unk_283A54C68;
+    v16[8] = &unk_283A54FB0;
+    v16[9] = &unk_283A54FC8;
     v5 = MEMORY[0x277CBEAC0];
-    v6 = v17;
-    v7 = v16;
+    v6 = v16;
+    v7 = v15;
   }
 
   v8 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:10];
@@ -5397,45 +5390,42 @@ LABEL_11:
   v10 = [v8 objectForKeyedSubscript:v9];
   intValue = [v10 intValue];
 
-LABEL_11:
-  v12 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 + (unint64_t)mappingForTopRankedZoom7GeoHashSignals:(unint64_t)signals
 {
-  v11[10] = *MEMORY[0x277D85DE8];
+  v10[10] = *MEMORY[0x277D85DE8];
   if (signals >= 0xA)
   {
     +[_ATXScoreTypes mappingForTopRankedZoom7GeoHashSignals:];
   }
 
-  v10[0] = &unk_283A54968;
-  v10[1] = &unk_283A54998;
-  v11[0] = &unk_283A550D0;
-  v11[1] = &unk_283A550E8;
-  v10[2] = &unk_283A549C8;
-  v10[3] = &unk_283A549F8;
-  v11[2] = &unk_283A55100;
-  v11[3] = &unk_283A55118;
-  v10[4] = &unk_283A54A28;
-  v10[5] = &unk_283A54A58;
-  v11[4] = &unk_283A55130;
-  v11[5] = &unk_283A55148;
-  v10[6] = &unk_283A54A88;
-  v10[7] = &unk_283A54C08;
-  v11[6] = &unk_283A55160;
-  v11[7] = &unk_283A55178;
-  v10[8] = &unk_283A54C38;
-  v10[9] = &unk_283A54C68;
-  v11[8] = &unk_283A55190;
-  v11[9] = &unk_283A551A8;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:10];
+  v9[0] = &unk_283A54968;
+  v9[1] = &unk_283A54998;
+  v10[0] = &unk_283A550D0;
+  v10[1] = &unk_283A550E8;
+  v9[2] = &unk_283A549C8;
+  v9[3] = &unk_283A549F8;
+  v10[2] = &unk_283A55100;
+  v10[3] = &unk_283A55118;
+  v9[4] = &unk_283A54A28;
+  v9[5] = &unk_283A54A58;
+  v10[4] = &unk_283A55130;
+  v10[5] = &unk_283A55148;
+  v9[6] = &unk_283A54A88;
+  v9[7] = &unk_283A54C08;
+  v10[6] = &unk_283A55160;
+  v10[7] = &unk_283A55178;
+  v9[8] = &unk_283A54C38;
+  v9[9] = &unk_283A54C68;
+  v10[8] = &unk_283A55190;
+  v10[9] = &unk_283A551A8;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:10];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:signals];
   v6 = [v4 objectForKeyedSubscript:v5];
   intValue = [v6 intValue];
 
-  v8 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 

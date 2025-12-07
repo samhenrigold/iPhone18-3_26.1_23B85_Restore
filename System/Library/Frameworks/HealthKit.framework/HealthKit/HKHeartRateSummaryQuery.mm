@@ -60,18 +60,16 @@ void __59__HKHeartRateSummaryQuery_client_deliverSummary_queryUUID___block_invok
   }
 }
 
-uint64_t __59__HKHeartRateSummaryQuery_client_deliverSummary_queryUUID___block_invoke_2(void *a1)
+uint64_t __59__HKHeartRateSummaryQuery_client_deliverSummary_queryUUID___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
-  v2 = HKLogHeartRate;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogHeartRate;
   if (os_log_type_enabled(HKLogHeartRate, OS_LOG_TYPE_DEBUG))
   {
-    __59__HKHeartRateSummaryQuery_client_deliverSummary_queryUUID___block_invoke_2_cold_1(a1, v2);
+    __59__HKHeartRateSummaryQuery_client_deliverSummary_queryUUID___block_invoke_2_cold_1(a1, v3);
   }
 
-  v3 = a1[5];
-  v4 = a1[4];
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)queue_deliverError:(id)error
@@ -107,25 +105,22 @@ uint64_t __59__HKHeartRateSummaryQuery_client_deliverSummary_queryUUID___block_i
 {
   updateHandler = self->_updateHandler;
   self->_updateHandler = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, updateHandler);
 }
 
 void __59__HKHeartRateSummaryQuery_client_deliverSummary_queryUUID___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = *(a1 + 48);
-  v7 = v5;
-  v8 = _Block_copy(v6);
-  v10 = 138412546;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_debug_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEBUG, "%@ calling update handler: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = *(a1 + 48);
+  v6 = v4;
+  v7 = _Block_copy(v5);
+  v8 = 138412546;
+  v9 = v4;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_debug_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEBUG, "%@ calling update handler: %@", &v8, 0x16u);
 }
 
 @end

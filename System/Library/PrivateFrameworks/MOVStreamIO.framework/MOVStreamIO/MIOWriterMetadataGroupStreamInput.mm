@@ -62,7 +62,7 @@ LABEL_6:
   v7 = metadataCopy;
   if (metadataCopy)
   {
-    [metadataCopy timeRange];
+    objc_msgSend_timeRange(metadataCopy);
   }
 
   else

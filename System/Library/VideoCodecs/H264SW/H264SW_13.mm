@@ -2007,7 +2007,7 @@ LABEL_185:
   return result;
 }
 
-uint64_t sub_2773605C8(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, int16x8_t a7, int16x8_t a8)
+uint64_t sub_2773605C8(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, int32x4_t a7, int16x8_t a8)
 {
   v234 = *MEMORY[0x277D85DE8];
   v8 = *(a2 + 72);
@@ -2213,7 +2213,7 @@ LABEL_42:
   v42.i64[0] = 0x2000200020002;
   v42.i64[1] = 0x2000200020002;
   v43 = 5 * v13;
-  v44 = (&unk_2773B4DA4 + 4 * v35);
+  v44 = &dword_2773B4DA4[v35];
   v45.i64[0] = 0x1000100010001;
   v45.i64[1] = 0x1000100010001;
   v46 = &byte_2773B4DA0;
@@ -2784,7 +2784,7 @@ LABEL_120:
   return result;
 }
 
-uint64_t sub_277361EE8(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, int16x8_t a7, int16x8_t a8)
+uint64_t sub_277361EE8(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, int32x4_t a7, int16x8_t a8)
 {
   v234 = *MEMORY[0x277D85DE8];
   v8 = *(a2 + 72);
@@ -2970,7 +2970,7 @@ LABEL_40:
   v42.i64[0] = 0x2000200020002;
   v42.i64[1] = 0x2000200020002;
   v43 = 5 * v13;
-  v44 = (&unk_2773B4DA4 + 4 * v35);
+  v44 = &dword_2773B4DA4[v35];
   v45.i64[0] = 0x1000100010001;
   v45.i64[1] = 0x1000100010001;
   v46 = &byte_2773B4DA0;
@@ -3586,7 +3586,7 @@ LABEL_9:
     v9 = *(v7 + 32) + 32 * v8 * (v11 / (2 * *(a2 + 16))) + ((8 * (v11 % (2 * *(a2 + 16)))) & 0xFFFFFFF0);
     if (v11)
     {
-      v10 = 16 * v8;
+      v10 = (16 * v8);
     }
 
     else
@@ -3598,7 +3598,7 @@ LABEL_9:
   else
   {
     v9 = *(v7 + 32) + (16 * *(a1 + 824));
-    v10 = 16 * *(a1 + 828) * v8;
+    v10 = (16 * *(a1 + 828) * v8);
   }
 
   result = sub_27729FA50((v9 + v10), v8, a2 + 112, v6, v4, byte_2773BA2F0[*(a1 + 834)]);
@@ -3714,7 +3714,7 @@ LABEL_6:
   return sub_27729FDF8(a1, a2, a2 + 39, v5, v3, *(a1 + 1121));
 }
 
-int *sub_277363A54(int *result, uint64_t a2, double a3, double a4, double a5, double a6, int16x8_t a7, int16x8_t a8)
+int *sub_277363A54(int *result, uint64_t a2, double a3, double a4, double a5, double a6, int32x4_t a7, int16x8_t a8)
 {
   v233 = *MEMORY[0x277D85DE8];
   v8 = *(result + 27);
@@ -4002,7 +4002,7 @@ LABEL_59:
   v50 = 5 * v13;
   v51.i64[0] = 0x2000200020002;
   v51.i64[1] = 0x2000200020002;
-  v52 = (&unk_2773B4DA4 + 4 * v39);
+  v52 = &dword_2773B4DA4[v39];
   v53.i64[0] = 0x1000100010001;
   v53.i64[1] = 0x1000100010001;
   v54 = &byte_2773B4DA0;

@@ -119,7 +119,7 @@ HFDemoModeFaceRecognitionItem *__52__HFDemoModeFaceRecognitionItemProvider_reloa
   v6 = v5;
 
   v7 = [HFDemoModeFaceRecognitionItem alloc];
-  v8 = [*(a1 + 32) home];
+  v8 = objc_msgSend_home(*(a1 + 32));
   v9 = [(HFDemoModeFaceRecognitionItem *)v7 initWithRecentsData:v6 home:v8];
 
   return v9;

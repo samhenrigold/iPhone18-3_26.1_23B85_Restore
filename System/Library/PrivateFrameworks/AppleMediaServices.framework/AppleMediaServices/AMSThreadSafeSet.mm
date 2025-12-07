@@ -74,7 +74,7 @@ uint64_t __30__AMSThreadSafeSet_allObjects__block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t __25__AMSThreadSafeSet_count__block_invoke(uint64_t a1, void *a2)
+void *__25__AMSThreadSafeSet_count__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -146,7 +146,7 @@ id __33__AMSThreadSafeSet_removeObject___block_invoke(uint64_t a1, void *a2)
   return backingSet;
 }
 
-uint64_t __35__AMSThreadSafeSet_containsObject___block_invoke(uint64_t a1, void *a2)
+void *__35__AMSThreadSafeSet_containsObject___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;

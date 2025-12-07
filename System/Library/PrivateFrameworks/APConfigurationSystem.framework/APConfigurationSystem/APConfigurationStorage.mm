@@ -25,7 +25,7 @@
 
 - (BOOL)resetConfigurationSystem
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = APLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -39,7 +39,7 @@
     v9 = objc_msgSend_lock(self, v6, v7);
     objc_msgSend_lock(v9, v10, v11);
     v14 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v12, v13);
-    if (objc_msgSend_fileExistsAtPath_(v14, v15, v8) && (v27 = 0, objc_msgSend_removeItemAtPath_error_(v14, v16, v8, &v27), (v18 = v27) != 0))
+    if (objc_msgSend_fileExistsAtPath_(v14, v15, v8) && (v26 = 0, objc_msgSend_removeItemAtPath_error_(v14, v16, v8, &v26), (v18 = v26) != 0))
     {
       v19 = v18;
       objc_msgSend_unlock(v9, v16, v17);
@@ -48,7 +48,7 @@
       {
         v23 = objc_msgSend_description(v19, v21, v22);
         *buf = 138543362;
-        v29 = v23;
+        v28 = v23;
         _os_log_impl(&dword_1CA1CE000, v20, OS_LOG_TYPE_ERROR, "Reset Configuration System: Could not remove current configuration, error: %{public}@.", buf, 0xCu);
       }
 
@@ -81,7 +81,6 @@
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

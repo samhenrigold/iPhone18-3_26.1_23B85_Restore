@@ -673,15 +673,15 @@ LABEL_15:
   }
 }
 
-uint64_t __49__TUISystemInputAssistantView_setNeedsValidation__block_invoke(uint64_t result)
+id *__49__TUISystemInputAssistantView_setNeedsValidation__block_invoke(id *result)
 {
-  if (atomic_fetch_add_explicit((*(result + 32) + 412), 0xFFFFFFFF, memory_order_relaxed) == 1)
+  if (atomic_fetch_add_explicit(result[4] + 103, 0xFFFFFFFF, memory_order_relaxed) == 1)
   {
     v1 = result;
-    result = [*(result + 32) validateIfNeeded];
+    result = [result[4] validateIfNeeded];
     if (result)
     {
-      v2 = *(v1 + 32);
+      v2 = v1[4];
 
       return [v2 setNeedsLayout];
     }

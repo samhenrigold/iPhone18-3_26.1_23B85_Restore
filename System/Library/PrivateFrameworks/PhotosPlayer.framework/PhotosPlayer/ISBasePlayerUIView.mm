@@ -166,7 +166,7 @@ LABEL_9:
     v30 = 0;
     if (photoView)
     {
-      [photoView currentTime];
+      objc_msgSend_currentTime(photoView);
     }
 
     v12 = [objc_alloc(MEMORY[0x277CE6408]) initWithAsset:asset];
@@ -449,18 +449,17 @@ LABEL_6:
 
 void __41__ISBasePlayerUIView__updateAudioSession__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() livePhotoAudioSession];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2;
-  v5[3] = &unk_279A2A1A8;
-  objc_copyWeak(&v7, (a1 + 40));
-  v6 = v3;
-  v4 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], v5);
+  v2 = [objc_opt_class() livePhotoAudioSession];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2;
+  v4[3] = &unk_279A2A1A8;
+  objc_copyWeak(&v6, (a1 + 40));
+  v5 = v2;
+  v3 = v2;
+  dispatch_async(MEMORY[0x277D85CD0], v4);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
 }
 
 void __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2(uint64_t a1)
@@ -815,7 +814,7 @@ void __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2(uint64_t a1)
 
 - (void)_performCommonInitialization
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   p_contentsRect = &self->_contentsRect;
   self->_contentsRect = *ISRectUnit;
   v4 = objc_alloc_init(MEMORY[0x277D3CAE0]);
@@ -855,12 +854,12 @@ void __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2(uint64_t a1)
   [layer2 setContentsRect:{v17, v18, v19, v20}];
 
   objc_initWeak(&location, self);
-  v35 = MEMORY[0x277D85DD0];
-  v36 = 3221225472;
-  v37 = __50__ISBasePlayerUIView__performCommonInitialization__block_invoke;
-  v38 = &unk_279A2A3C0;
-  objc_copyWeak(&v39, &location);
-  [(ISVideoPlayerUIView *)self->_videoView setVideoLayerReadyForDisplayChangeHandler:&v35];
+  v34 = MEMORY[0x277D85DD0];
+  v35 = 3221225472;
+  v36 = __50__ISBasePlayerUIView__performCommonInitialization__block_invoke;
+  v37 = &unk_279A2A3C0;
+  objc_copyWeak(&v38, &location);
+  [(ISVideoPlayerUIView *)self->_videoView setVideoLayerReadyForDisplayChangeHandler:&v34];
   v22 = objc_alloc_init(ISVideoPlayerUIView);
   videoBlurView = self->_videoBlurView;
   self->_videoBlurView = v22;
@@ -869,7 +868,7 @@ void __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2(uint64_t a1)
   v25 = p_contentsRect->origin.y;
   v26 = p_contentsRect->size.width;
   v27 = p_contentsRect->size.height;
-  v28 = [(ISVideoPlayerUIView *)self->_videoBlurView layer:v35];
+  v28 = [(ISVideoPlayerUIView *)self->_videoBlurView layer:v34];
   [v28 setContentsRect:{v24, v25, v26, v27}];
 
   v29 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA328]];
@@ -878,8 +877,8 @@ void __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2(uint64_t a1)
   [v29 setValue:&unk_28705CDF0 forKey:@"inputRadius"];
   [v29 setValue:MEMORY[0x277CBEC38] forKey:@"inputHardEdges"];
   [v29 setValue:@"medium" forKey:@"inputQuality"];
-  v41[0] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+  v40[0] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
   layer3 = [(ISVideoPlayerUIView *)self->_videoBlurView layer];
   [layer3 setFilters:v30];
 
@@ -893,9 +892,8 @@ void __41__ISBasePlayerUIView__updateAudioSession__block_invoke_2(uint64_t a1)
   [(UIView *)self->_containerView addSubview:self->_videoContainerView];
   [(ISBasePlayerUIView *)self _updatePhotoViewDynamicRange];
 
-  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v38);
   objc_destroyWeak(&location);
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __50__ISBasePlayerUIView__performCommonInitialization__block_invoke(uint64_t a1)
@@ -946,7 +944,7 @@ void __56__ISBasePlayerUIView__handleAVResourceReclamationEvent___block_invoke()
 
 + (id)livePhotoAudioSession
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   audioSessionQueue = [self audioSessionQueue];
   dispatch_assert_queue_V2(audioSessionQueue);
 
@@ -967,24 +965,22 @@ void __56__ISBasePlayerUIView__handleAVResourceReclamationEvent___block_invoke()
 
     v11 = *MEMORY[0x277CB8020];
     v12 = *MEMORY[0x277CB80A8];
-    v18 = 0;
-    v13 = [SharedAudioSession setCategory:v11 mode:v12 routeSharingPolicy:0 options:0 error:&v18];
-    v14 = v18;
+    v17 = 0;
+    v13 = [SharedAudioSession setCategory:v11 mode:v12 routeSharingPolicy:0 options:0 error:&v17];
+    v14 = v17;
     if ((v13 & 1) == 0)
     {
       v15 = ISGetLog();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v14;
+        v19 = v14;
         _os_log_error_impl(&dword_25E667000, v15, OS_LOG_TYPE_ERROR, "Failed configuring AVAudioSession for Live Photo playback. Error: %@", buf, 0xCu);
       }
     }
 
     v4 = SharedAudioSession;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -135,7 +135,7 @@ void __55__NPFamilyEligibilityProvider_requestFamilyEligibility__block_invoke_37
 
   v12 = v5 && ([v5 eligible] & 1) != 0;
   v13 = *(a1 + 40);
-  v14 = [MEMORY[0x1E696AD98] numberWithBool:{v12, *v15}];
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:{v12, *v15, *&v15[8]}];
   (*(v13 + 16))(v13, v14);
 }
 

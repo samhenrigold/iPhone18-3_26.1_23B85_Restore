@@ -38,7 +38,7 @@
 - (void)runWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     pairingCheckRequestInfo = [(FMDPairingCheckCommandAction *)self pairingCheckRequestInfo];
@@ -85,26 +85,19 @@
 {
   actionCopy = action;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v10 = 0;
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_4;
-  }
+    pairingCheckRequestInfo = [actionCopy pairingCheckRequestInfo];
+    pairingCheckToken = [pairingCheckRequestInfo pairingCheckToken];
+    pairingCheckRequestInfo2 = [(FMDPairingCheckCommandAction *)self pairingCheckRequestInfo];
+    pairingCheckToken2 = [pairingCheckRequestInfo2 pairingCheckToken];
+    v9 = [pairingCheckToken isEqualToString:pairingCheckToken2];
 
-  pairingCheckRequestInfo = [actionCopy pairingCheckRequestInfo];
-  pairingCheckToken = [pairingCheckRequestInfo pairingCheckToken];
-  pairingCheckRequestInfo2 = [(FMDPairingCheckCommandAction *)self pairingCheckRequestInfo];
-  pairingCheckToken2 = [pairingCheckRequestInfo2 pairingCheckToken];
-  v9 = [pairingCheckToken isEqualToString:pairingCheckToken2];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v10 = 0;
+    if (v9)
+    {
+      v10 = 1;
+    }
   }
 
   return v10;

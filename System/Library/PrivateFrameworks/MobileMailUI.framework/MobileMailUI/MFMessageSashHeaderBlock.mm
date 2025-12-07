@@ -196,10 +196,10 @@ double __55__MFMessageSashHeaderBlock_heightForCurrentFontMetrics__block_invoke_
 
 - (void)initializePrimaryLayoutConstraints
 {
-  v42[5] = *MEMORY[0x277D85DE8];
-  v41.receiver = self;
-  v41.super_class = MFMessageSashHeaderBlock;
-  [(MFMessageHeaderViewBlock *)&v41 initializePrimaryLayoutConstraints];
+  v41[5] = *MEMORY[0x277D85DE8];
+  v40.receiver = self;
+  v40.super_class = MFMessageSashHeaderBlock;
+  [(MFMessageHeaderViewBlock *)&v40 initializePrimaryLayoutConstraints];
   titleLabel = [(MFMessageSashHeaderBlock *)self titleLabel];
   firstBaselineAnchor = [titleLabel firstBaselineAnchor];
   topAnchor = [(MFMessageSashHeaderBlock *)self topAnchor];
@@ -229,18 +229,18 @@ double __55__MFMessageSashHeaderBlock_heightForCurrentFontMetrics__block_invoke_
   [(MFMessageSashHeaderBlock *)self setIconVerticalConstraint:v23];
 
   v24 = objc_alloc(MEMORY[0x277CBEB18]);
-  v42[0] = v15;
+  v41[0] = v15;
   titleLabelTop = [(MFMessageSashHeaderBlock *)self titleLabelTop];
-  v42[1] = titleLabelTop;
+  v41[1] = titleLabelTop;
   iconVerticalConstraint = [(MFMessageSashHeaderBlock *)self iconVerticalConstraint];
-  v42[2] = iconVerticalConstraint;
+  v41[2] = iconVerticalConstraint;
   iconImageView3 = [(MFMessageSashHeaderBlock *)self iconImageView];
   heightAnchor = [iconImageView3 heightAnchor];
   v29 = [heightAnchor constraintEqualToConstant:22.0];
-  v42[3] = v29;
+  v41[3] = v29;
   titleLabelBottom = [(MFMessageSashHeaderBlock *)self titleLabelBottom];
-  v42[4] = titleLabelBottom;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:5];
+  v41[4] = titleLabelBottom;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:5];
   v32 = [v24 initWithArray:v31];
 
   if (MUISolariumFeatureEnabled())
@@ -267,47 +267,45 @@ double __55__MFMessageSashHeaderBlock_heightForCurrentFontMetrics__block_invoke_
   v38 = MEMORY[0x277CCAAD0];
   v39 = [v32 copy];
   [v38 activateConstraints:v39];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateConstraints
 {
-  v26[2] = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = MFMessageSashHeaderBlock;
-  [(MFMessageHeaderViewBlock *)&v25 updateConstraints];
+  v25[2] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = MFMessageSashHeaderBlock;
+  [(MFMessageHeaderViewBlock *)&v24 updateConstraints];
   titleLabel = [(MFMessageSashHeaderBlock *)self titleLabel];
   text = [titleLabel text];
   v5 = [text length];
 
   titleLabelTop = [(MFMessageSashHeaderBlock *)self titleLabelTop];
-  v26[0] = titleLabelTop;
+  v25[0] = titleLabelTop;
   titleLabelBottom = [(MFMessageSashHeaderBlock *)self titleLabelBottom];
-  v26[1] = titleLabelBottom;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[1] = titleLabelBottom;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
 
   if (v5)
   {
     [MEMORY[0x277CCAAD0] activateConstraints:v8];
     mEMORY[0x277CD6870] = [MEMORY[0x277CD6870] sharedFontMetricCache];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __45__MFMessageSashHeaderBlock_updateConstraints__block_invoke;
-    v24[3] = &unk_278181B68;
-    v24[4] = self;
-    [mEMORY[0x277CD6870] cachedFloat:v24 forKey:@"messageSashHeaderBlock.titleLabel.top"];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __45__MFMessageSashHeaderBlock_updateConstraints__block_invoke;
+    v23[3] = &unk_278181B68;
+    v23[4] = self;
+    [mEMORY[0x277CD6870] cachedFloat:v23 forKey:@"messageSashHeaderBlock.titleLabel.top"];
     v11 = v10;
     titleLabelTop2 = [(MFMessageSashHeaderBlock *)self titleLabelTop];
     [titleLabelTop2 setConstant:v11];
 
     mEMORY[0x277CD6870]2 = [MEMORY[0x277CD6870] sharedFontMetricCache];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __45__MFMessageSashHeaderBlock_updateConstraints__block_invoke_2;
-    v23[3] = &unk_278181B68;
-    v23[4] = self;
-    [mEMORY[0x277CD6870]2 cachedFloat:v23 forKey:@"messageSashHeaderBlock.titleLabel.bottom"];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __45__MFMessageSashHeaderBlock_updateConstraints__block_invoke_2;
+    v22[3] = &unk_278181B68;
+    v22[4] = self;
+    [mEMORY[0x277CD6870]2 cachedFloat:v22 forKey:@"messageSashHeaderBlock.titleLabel.bottom"];
     v15 = v14;
     titleLabelBottom2 = [(MFMessageSashHeaderBlock *)self titleLabelBottom];
     [titleLabelBottom2 setConstant:v15];
@@ -324,28 +322,24 @@ double __55__MFMessageSashHeaderBlock_heightForCurrentFontMetrics__block_invoke_
   v20 = v19;
   iconVerticalConstraint = [(MFMessageSashHeaderBlock *)self iconVerticalConstraint];
   [iconVerticalConstraint setConstant:v20 * -0.5];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 double __45__MFMessageSashHeaderBlock_updateConstraints__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() titleFont];
-  [v2 _scaledValueForValue:20.0];
-  v4 = v3;
+  v1 = [objc_opt_class() titleFont];
+  [v1 _scaledValueForValue:20.0];
+  v3 = v2;
 
-  return v4;
+  return v3;
 }
 
 double __45__MFMessageSashHeaderBlock_updateConstraints__block_invoke_2(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() titleFont];
-  [v2 _scaledValueForValue:11.0];
-  v4 = v3;
+  v1 = [objc_opt_class() titleFont];
+  [v1 _scaledValueForValue:11.0];
+  v3 = v2;
 
-  return v4;
+  return v3;
 }
 
 - (void)setDisplayMetrics:(id)metrics

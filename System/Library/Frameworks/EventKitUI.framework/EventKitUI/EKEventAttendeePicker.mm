@@ -1858,7 +1858,7 @@ uint64_t __48__EKEventAttendeePicker__adjustLayoutOfSubviews__block_invoke(uint6
   [(EKEventAttendeePicker *)self _adjustLayoutOfSubviews:v8];
 }
 
-uint64_t __57__EKEventAttendeePicker_composeHeaderView_didChangeSize___block_invoke(uint64_t a1)
+void *__57__EKEventAttendeePicker_composeHeaderView_didChangeSize___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1000) frame];
   [*(*(a1 + 32) + 1000) setFrame:?];

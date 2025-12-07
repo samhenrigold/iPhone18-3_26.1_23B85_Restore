@@ -29,21 +29,21 @@
 
 - (MRDiscoveredGroupSession)initWithData:(id)data
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = MSVPropertyListDataClasses();
   v6 = [v5 mutableCopy];
 
-  v15[0] = objc_opt_class();
+  v14[0] = objc_opt_class();
   v7 = objc_opt_self();
-  v15[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   [v6 addObjectsFromArray:v8];
 
-  v14 = 0;
-  v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v6 fromData:dataCopy error:&v14];
+  v13 = 0;
+  v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v6 fromData:dataCopy error:&v13];
 
-  v10 = v14;
+  v10 = v13;
   if (v10)
   {
     v11 = _MRLogForCategory(0xCuLL);
@@ -53,7 +53,6 @@
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -143,14 +142,6 @@
   source = self->_source;
 
   return [(MRDiscoveredGroupSession *)v4 initWithIdentifier:identifier hostInfo:hostInfo source:source];
-}
-
-- (void)initWithData:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRGroupSession] Failed to decode MRDiscoveredGroupSession: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

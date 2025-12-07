@@ -45,12 +45,12 @@
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v19 = objc_opt_class();
+  v20 = objc_opt_class();
   v12 = v5;
-  v13 = [NSSet setWithObjects:v6, v7, v8, v9, v10, v11, v19, objc_opt_class(), 0];
-  v21 = storeCopy;
-  v14 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v13 fromData:v5 error:&v21];
-  v15 = v21;
+  v13 = [NSSet setWithObjects:v6, v7, v8, v9, v10, v11, v20, objc_opt_class(), 0];
+  v22 = storeCopy;
+  v14 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v13 fromData:v5 error:&v22];
+  v15 = v22;
 
   if (!v14)
   {
@@ -58,19 +58,20 @@
     v18 = sub_100098A04();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136316418;
-      v23 = "[W5DiagnosticsModeLocalStore _getCachedLocalStore:]";
-      v24 = 2080;
-      v25 = "W5DiagnosticsModeManager.m";
-      v26 = 1024;
-      v27 = 1636;
-      v28 = 2114;
-      v29 = 0;
-      v30 = 2114;
-      v31 = v12;
-      v32 = 2114;
-      v33 = v15;
-      _os_log_send_and_compose_impl();
+      v23 = 136316418;
+      v24 = "[W5DiagnosticsModeLocalStore _getCachedLocalStore:]";
+      v25 = 2080;
+      v26 = "W5DiagnosticsModeManager.m";
+      v27 = 1024;
+      v28 = 1636;
+      v29 = 2114;
+      v30 = 0;
+      v31 = 2114;
+      v32 = v12;
+      v33 = 2114;
+      v34 = v15;
+      LODWORD(v19) = 58;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] %s (%s:%u) failed to decode configuration data='%{public}@' from dictionary='%{public}@' with error='%{public}@'", &v23, v19);
     }
 
     v4 = v17;
@@ -94,7 +95,13 @@
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v10 = 136315650;
+      v11 = "[W5DiagnosticsModeLocalStore infoMatchingDiagnosticMode:]";
+      v12 = 2080;
+      v13 = "W5DiagnosticsModeManager.m";
+      v14 = 1024;
+      v15 = 1644;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) nil mode provided", &v10, 28);
     }
 
     v7 = 0;
@@ -110,10 +117,15 @@
   v8 = v7;
   if (!infoCopy)
   {
-    v19 = sub_100098A04();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100098A04();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_13;
+      *v22 = 136315906;
+      *&v22[4] = "[W5DiagnosticsModeLocalStore updateStoreWithInfo:info:]";
+      *&v22[12] = 2080;
+      *&v22[14] = "W5DiagnosticsModeManager.m";
+      *&v22[22] = 1024;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] %s (%s:%u) %s: nil mode provided", v22, 38, *v22, *&v22[8]);
     }
 
     goto LABEL_14;
@@ -121,16 +133,18 @@
 
   if (!v7)
   {
-    v19 = sub_100098A04();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100098A04();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-LABEL_13:
-      _os_log_send_and_compose_impl();
+      *v22 = 136315906;
+      *&v22[4] = "[W5DiagnosticsModeLocalStore updateStoreWithInfo:info:]";
+      *&v22[12] = 2080;
+      *&v22[14] = "W5DiagnosticsModeManager.m";
+      *&v22[22] = 1024;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] %s (%s:%u) %s: nil info provided", v22, 38, *v22, *&v22[8]);
     }
 
-LABEL_14:
-
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   localDiagnosticsStore = [(W5DiagnosticsModeLocalStore *)self localDiagnosticsStore];
@@ -152,24 +166,42 @@ LABEL_14:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     uuid4 = [infoCopy uuid];
-    _os_log_send_and_compose_impl();
+    *v22 = 136316162;
+    *&v22[4] = "[W5DiagnosticsModeLocalStore updateStoreWithInfo:info:]";
+    *&v22[12] = 2080;
+    *&v22[14] = "W5DiagnosticsModeManager.m";
+    *&v22[22] = 1024;
+    LODWORD(v23) = 1670;
+    WORD2(v23) = 2112;
+    *(&v23 + 6) = uuid4;
+    HIWORD(v23) = 2112;
+    v24 = v8;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) [DM] updating local store for DM: %@ with info: %@", v22, 48);
   }
 
   localDiagnosticsStore4 = [(W5DiagnosticsModeLocalStore *)self localDiagnosticsStore];
-  v18 = [(W5DiagnosticsModeLocalStore *)self _updateCachedLocalStore:localDiagnosticsStore4 error:0];
+  v19 = [(W5DiagnosticsModeLocalStore *)self _updateCachedLocalStore:localDiagnosticsStore4 error:0];
 
-  if ((v18 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
-    v19 = sub_100098A04();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100098A04();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_13;
+      *v22 = 136316162;
+      *&v22[4] = "[W5DiagnosticsModeLocalStore updateStoreWithInfo:info:]";
+      *&v22[12] = 2080;
+      *&v22[14] = "W5DiagnosticsModeManager.m";
+      *&v22[22] = 1024;
+      LODWORD(v23) = 1673;
+      WORD2(v23) = 2080;
+      *(&v23 + 6) = "[W5DiagnosticsModeLocalStore updateStoreWithInfo:info:]";
+      HIWORD(v23) = 2114;
+      LODWORD(v21) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] %s (%s:%u) %s: [DM] failed to update local cache with error='%{public}@'", v22, v21, *v22, *&v22[8], v23, 0);
     }
 
-    goto LABEL_14;
+LABEL_14:
   }
-
-LABEL_15:
 }
 
 - (void)addToStore:(id)store newInfo:(id)info
@@ -205,19 +237,17 @@ LABEL_15:
   v8 = sub_100098A04();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136316162;
-    v18 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
-    v19 = 2080;
-    v20 = "W5DiagnosticsModeManager.m";
-    v21 = 1024;
-    v22 = 1691;
-    v23 = 2080;
-    v24 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
-    v25 = 2114;
-    v26 = storeCopy;
-    LODWORD(v15) = 48;
-    v14 = &v17;
-    _os_log_send_and_compose_impl();
+    v16 = 136316162;
+    v17 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
+    v18 = 2080;
+    v19 = "W5DiagnosticsModeManager.m";
+    v20 = 1024;
+    v21 = 1691;
+    v22 = 2080;
+    v23 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
+    v24 = 2114;
+    v25 = storeCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) %s: [DM] updating cached local store with '%{public}@'", &v16, 48);
   }
 
   if (!storeCopy)
@@ -227,30 +257,31 @@ LABEL_15:
     goto LABEL_7;
   }
 
-  v16 = 0;
-  v9 = [NSKeyedArchiver archivedDataWithRootObject:storeCopy requiringSecureCoding:1 error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [NSKeyedArchiver archivedDataWithRootObject:storeCopy requiringSecureCoding:1 error:&v15];
+  v10 = v15;
   if (v9)
   {
     [v7 setObject:v9 forKeyedSubscript:@"CachedDiagnosticsModeLocalStore"];
 LABEL_7:
-    v11 = [NSUserDefaults standardUserDefaults:v14];
+    v11 = +[NSUserDefaults standardUserDefaults];
     [v11 setPersistentDomain:v7 forName:@"com.apple.wifi.diagnosticsMode"];
 
     v12 = sub_100098A04();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136316162;
-      v18 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
-      v19 = 2080;
-      v20 = "W5DiagnosticsModeManager.m";
-      v21 = 1024;
-      v22 = 1706;
-      v23 = 2080;
-      v24 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
-      v25 = 2114;
-      v26 = v10;
-      _os_log_send_and_compose_impl();
+      v16 = 136316162;
+      v17 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
+      v18 = 2080;
+      v19 = "W5DiagnosticsModeManager.m";
+      v20 = 1024;
+      v21 = 1706;
+      v22 = 2080;
+      v23 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
+      v24 = 2114;
+      v25 = v10;
+      LODWORD(v14) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] %s (%s:%u) %s: [DM] successfully encoded error='%{public}@'", &v16, v14);
     }
 
     goto LABEL_10;
@@ -259,15 +290,16 @@ LABEL_7:
   v9 = sub_100098A04();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315906;
-    v18 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
-    v19 = 2080;
-    v20 = "W5DiagnosticsModeManager.m";
-    v21 = 1024;
-    v22 = 1700;
-    v23 = 2114;
-    v24 = v10;
-    _os_log_send_and_compose_impl();
+    v16 = 136315906;
+    v17 = "[W5DiagnosticsModeLocalStore _updateCachedLocalStore:error:]";
+    v18 = 2080;
+    v19 = "W5DiagnosticsModeManager.m";
+    v20 = 1024;
+    v21 = 1700;
+    v22 = 2114;
+    v23 = v10;
+    LODWORD(v14) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) failed to encode configuration with error='%{public}@'", &v16, v14);
   }
 
 LABEL_10:

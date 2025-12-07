@@ -9,10 +9,10 @@
 
 - (PBBridgeProgressView)initWithStyle:(unint64_t)style andVersion:(unint64_t)version overrideSize:(unint64_t)size
 {
-  v35[2] = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = PBBridgeProgressView;
-  v8 = [(PBBridgeProgressView *)&v34 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v34[2] = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = PBBridgeProgressView;
+  v8 = [(PBBridgeProgressView *)&v33 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v9 = v8;
   if (v8)
   {
@@ -63,21 +63,21 @@
 
       [(UIImageView *)v9->_appleLogo setTranslatesAutoresizingMaskIntoConstraints:0];
       [(PBBridgeProgressView *)v9 addSubview:v9->_appleLogo];
-      v33 = v11;
+      v32 = v11;
       v20 = v13;
       v21 = MEMORY[0x277CCAAD0];
       centerXAnchor = [(UIImageView *)v9->_appleLogo centerXAnchor];
       centerXAnchor2 = [(PBBridgeProgressView *)v9 centerXAnchor];
       v24 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-      v35[0] = v24;
+      v34[0] = v24;
       centerYAnchor = [(UIImageView *)v9->_appleLogo centerYAnchor];
       centerYAnchor2 = [(PBBridgeProgressView *)v9 centerYAnchor];
       v27 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-      v35[1] = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+      v34[1] = v27;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
       v29 = v21;
       v13 = v20;
-      v11 = v33;
+      v11 = v32;
       [v29 activateConstraints:v28];
     }
 
@@ -85,7 +85,6 @@
     [(PBBridgeProgressView *)v9 setBackgroundColor:greenColor];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -129,7 +128,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   CurrentContext = UIGraphicsGetCurrentContext();
   style = self->_style;
   [(PBBridgeProgressView *)self _size];
@@ -138,11 +137,11 @@
   blackColor = [MEMORY[0x277D75348] blackColor];
   [blackColor setFill];
 
-  v33.origin.x = 0.0;
-  v33.origin.y = 0.0;
-  v33.size.width = v7;
-  v33.size.height = v9;
-  CGContextFillRect(CurrentContext, v33);
+  v32.origin.x = 0.0;
+  v32.origin.y = 0.0;
+  v32.size.width = v7;
+  v32.size.height = v9;
+  CGContextFillRect(CurrentContext, v32);
   v11 = 2.0;
   if (style != 1)
   {
@@ -156,10 +155,10 @@
   v16 = v15;
   CGContextSaveGState(CurrentContext);
   *components = xmmword_25DEB4EF0;
-  v31 = unk_25DEB4F00;
+  v30 = unk_25DEB4F00;
   tickCount = self->_tickCount;
-  v28 = xmmword_25DEB4F10;
-  v29 = unk_25DEB4F20;
+  v27 = xmmword_25DEB4F10;
+  v28 = unk_25DEB4F20;
   if (self->_style == 2)
   {
     v18 = 36;
@@ -206,7 +205,7 @@
     {
       if (v23 > v26 && (v24 & 1) == 0)
       {
-        CGContextSetStrokeColor(CurrentContext, &v28);
+        CGContextSetStrokeColor(CurrentContext, &v27);
         v24 = 1;
       }
 
@@ -221,7 +220,6 @@
   }
 
   CGContextRestoreGState(CurrentContext);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)_size

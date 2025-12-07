@@ -15,22 +15,20 @@
 
 - (void)request:(id)request didFailWithError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   errorCopy = error;
   v7 = NviLogContextFacility;
   if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[NviDirectionalitySignalProvider request:didFailWithError:]";
-    v11 = 2114;
-    v12 = requestCopy;
-    v13 = 2114;
-    v14 = errorCopy;
-    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s request: %{public}@, returnedError: %{public}@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[NviDirectionalitySignalProvider request:didFailWithError:]";
+    v10 = 2114;
+    v11 = requestCopy;
+    v12 = 2114;
+    v13 = errorCopy;
+    _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEFAULT, "%s request: %{public}@, returnedError: %{public}@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)request:(id)request didProduceResult:(id)result
@@ -47,102 +45,100 @@
   dispatch_async(queue, v8);
 }
 
-void __60__NviDirectionalitySignalProvider_request_didProduceResult___block_invoke(uint64_t a1)
+void __60__NviDirectionalitySignalProvider_request_didProduceResult___block_invoke(uint64_t a1, const char *a2)
 {
   v37 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 timeRange];
-    v3 = *(a1 + 32);
-    v4 = v33;
-    if (v3)
+    objc_msgSend_timeRange(v3, a2);
+    v4 = *(a1 + 32);
+    v5 = v33;
+    if (v4)
     {
-      [v3 timeRange];
-      v5 = *(&v31 + 1);
-      v6 = *(a1 + 32);
+      objc_msgSend_timeRange(v4);
+      v6 = *(&v31 + 1);
+      v7 = *(a1 + 32);
       goto LABEL_6;
     }
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
     v34 = 0u;
     v35 = 0u;
     v33 = 0u;
   }
 
+  v7 = 0;
   v6 = 0;
-  v5 = 0;
   v31 = 0u;
   v32 = 0u;
   v30 = 0u;
 LABEL_6:
-  v7 = *(*(a1 + 40) + 12);
-  [v6 azimuth];
-  *(*(a1 + 40) + 16) = ((1.0 - *(*(a1 + 40) + 12)) * *(*(a1 + 40) + 16)) + (v7 * v8);
+  v8 = *(*(a1 + 40) + 12);
+  [v7 azimuth];
+  *(*(a1 + 40) + 16) = ((1.0 - *(*(a1 + 40) + 12)) * *(*(a1 + 40) + 16)) + (v8 * v9);
   [*(*(a1 + 40) + 80) setSigGenTs:mach_absolute_time()];
-  v9 = *(a1 + 32);
-  if (v9)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    [v9 timeRange];
-    v10 = v27;
+    objc_msgSend_timeRange(v10);
+    v11 = v27;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
     v28 = 0u;
     v29 = 0u;
     v27 = 0u;
   }
 
-  [*(*(a1 + 40) + 80) setStartSample:v10];
-  [*(*(a1 + 40) + 80) setEndSample:v5 + v4];
+  [*(*(a1 + 40) + 80) setStartSample:v11];
+  [*(*(a1 + 40) + 80) setEndSample:v6 + v5];
   [*(a1 + 32) azimuth];
   [*(*(a1 + 40) + 80) setAzimuth:?];
-  v11 = *(a1 + 40);
-  LODWORD(v12) = *(v11 + 16);
-  [*(v11 + 80) setEstimatedAzimuth:v12];
+  v12 = *(a1 + 40);
+  LODWORD(v13) = *(v12 + 16);
+  [*(v12 + 80) setEstimatedAzimuth:v13];
   [*(*(a1 + 40) + 80) setProcessedAudioDurMs:{(*(*(a1 + 40) + 72) / objc_msgSend(*(*(a1 + 40) + 24), "sampleRate")) * 1000.0}];
-  v13 = [*(a1 + 32) spatialSpectrum];
-  [*(*(a1 + 40) + 80) setSpatialSpectrumData:v13];
+  v14 = [*(a1 + 32) spatialSpectrum];
+  [*(*(a1 + 40) + 80) setSpatialSpectrumData:v14];
 
   v25 = 0u;
   v26 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v14 = *(*(a1 + 40) + 48);
-  v15 = [v14 countByEnumeratingWithState:&v23 objects:v36 count:16];
-  if (v15)
+  v15 = *(*(a1 + 40) + 48);
+  v16 = [v15 countByEnumeratingWithState:&v23 objects:v36 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = *v24;
+    v17 = v16;
+    v18 = *v24;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v24 != v17)
+        if (*v24 != v18)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
         [*(*(&v23 + 1) + 8 * i) signalProvider:*(a1 + 40) hasSignalData:{*(*(a1 + 40) + 80), v23}];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v23 objects:v36 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v23 objects:v36 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 
-  v19 = *(a1 + 40);
-  v20 = *(v19 + 88);
-  v21 = [*(v19 + 80) stringForLogging];
-  [v20 logData:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *(a1 + 40);
+  v21 = *(v20 + 88);
+  v22 = [*(v20 + 80) stringForLogging];
+  [v21 logData:v22];
 }
 
 - (void)audioChunkAvailable:(id)available numChannels:(unint64_t)channels numSamplesPerChannel:(unint64_t)channel startSampleId:(unint64_t)id atAbsMachTimestamp:(unint64_t)timestamp
@@ -164,7 +160,7 @@ LABEL_6:
 
 void __121__NviDirectionalitySignalProvider_audioChunkAvailable_numChannels_numSamplesPerChannel_startSampleId_atAbsMachTimestamp___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if ((*(v1 + 8) & 1) == 0)
   {
@@ -184,17 +180,17 @@ void __121__NviDirectionalitySignalProvider_audioChunkAvailable_numChannels_numS
         v9 = *(a1 + 64);
         v10 = *(a1 + 48);
         v11 = v6;
-        v29 = 136316162;
-        v30 = "[NviDirectionalitySignalProvider audioChunkAvailable:numChannels:numSamplesPerChannel:startSampleId:atAbsMachTimestamp:]_block_invoke";
-        v31 = 2050;
-        v32 = v8;
-        v33 = 2050;
-        v34 = v9;
-        v35 = 2050;
-        v36 = v10;
-        v37 = 2050;
-        v38 = [v7 length];
-        _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Dir: firstSample: %{public}lu, numChannels=%{public}lu, numSamplesPerChannel: %{public}lu, length: %{public}lu", &v29, 0x34u);
+        v28 = 136316162;
+        v29 = "[NviDirectionalitySignalProvider audioChunkAvailable:numChannels:numSamplesPerChannel:startSampleId:atAbsMachTimestamp:]_block_invoke";
+        v30 = 2050;
+        v31 = v8;
+        v32 = 2050;
+        v33 = v9;
+        v34 = 2050;
+        v35 = v10;
+        v36 = 2050;
+        v37 = [v7 length];
+        _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_DEFAULT, "%s Dir: firstSample: %{public}lu, numChannels=%{public}lu, numSamplesPerChannel: %{public}lu, length: %{public}lu", &v28, 0x34u);
       }
     }
 
@@ -240,8 +236,6 @@ void __121__NviDirectionalitySignalProvider_audioChunkAvailable_numChannels_numS
     [*(*(a1 + 32) + 56) analyzeAudioBuffer:v15 atAudioFramePosition:*(*(a1 + 32) + 72)];
     *(*(a1 + 32) + 72) += *(a1 + 48);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -315,7 +309,7 @@ uint64_t __58__NviDirectionalitySignalProvider_stopWithDidStopHandler___block_in
 
 void __71__NviDirectionalitySignalProvider_startWithNviContext_didStartHandler___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 40), *(a1 + 40));
   [*(*(a1 + 32) + 32) dirAzimuthEMAParam];
   *(*(a1 + 32) + 12) = v2;
@@ -333,9 +327,9 @@ void __71__NviDirectionalitySignalProvider_startWithNviContext_didStartHandler__
   v8 = objc_alloc_init(MEMORY[0x277CDC930]);
   v9 = *(a1 + 32);
   v10 = *(v9 + 56);
-  v39 = 0;
-  v11 = [v10 addRequest:v8 withObserver:v9 error:&v39];
-  v12 = v39;
+  v38 = 0;
+  v11 = [v10 addRequest:v8 withObserver:v9 error:&v38];
+  v12 = v38;
   v13 = v12;
   if (!v11 || v12)
   {
@@ -366,21 +360,21 @@ void __71__NviDirectionalitySignalProvider_startWithNviContext_didStartHandler__
     v19 = [v18 stringByAppendingPathComponent:@"dir.wav"];
 
     v20 = [MEMORY[0x277CBEBC0] fileURLWithPath:v19];
-    v41 = 0;
+    v40 = 0;
     memset(buf, 0, sizeof(buf));
-    +[NviConstants nviDirectionalityLpcmNonInterleavedASBD];
-    v38 = 0;
+    objc_msgSend_nviDirectionalityLpcmNonInterleavedASBD(NviConstants);
+    v37 = 0;
+    v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    +[NviConstants nviDirectionalityLpcmInterleavedASBD];
+    objc_msgSend_nviDirectionalityLpcmInterleavedASBD(NviConstants);
     v21 = [NviAudioFileWriter alloc];
-    v34[0] = *buf;
-    v34[1] = *&buf[16];
-    v35 = v41;
-    v32[0] = v36;
-    v32[1] = v37;
-    v33 = v38;
-    v22 = [(NviAudioFileWriter *)v21 initWithURL:v20 inputFormat:v34 outputFormat:v32];
+    v33[0] = *buf;
+    v33[1] = *&buf[16];
+    v34 = v40;
+    v31[0] = v35;
+    v31[1] = v36;
+    v32 = v37;
+    v22 = [(NviAudioFileWriter *)v21 initWithURL:v20 inputFormat:v33 outputFormat:v31];
     v23 = *(a1 + 32);
     v24 = *(v23 + 96);
     *(v23 + 96) = v22;
@@ -397,8 +391,6 @@ void __71__NviDirectionalitySignalProvider_startWithNviContext_didStartHandler__
 
   [*(*(a1 + 32) + 24) addReceiver:?];
   (*(*(a1 + 48) + 16))();
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDelegate:(id)delegate
@@ -431,31 +423,30 @@ void __71__NviDirectionalitySignalProvider_startWithNviContext_didStartHandler__
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = NviLogContextFacility;
   if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v7 = "[NviDirectionalitySignalProvider dealloc]";
-    v8 = 2112;
+    v6 = "[NviDirectionalitySignalProvider dealloc]";
+    v7 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
 
-  v5.receiver = self;
-  v5.super_class = NviDirectionalitySignalProvider;
-  [(NviDirectionalitySignalProvider *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = NviDirectionalitySignalProvider;
+  [(NviDirectionalitySignalProvider *)&v4 dealloc];
 }
 
 - (NviDirectionalitySignalProvider)initWithDataSource:(id)source assetsProvider:(id)provider
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   providerCopy = provider;
-  v18.receiver = self;
-  v18.super_class = NviDirectionalitySignalProvider;
-  v9 = [(NviDirectionalitySignalProvider *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = NviDirectionalitySignalProvider;
+  v9 = [(NviDirectionalitySignalProvider *)&v17 init];
   v10 = v9;
   if (v9)
   {
@@ -474,14 +465,13 @@ void __71__NviDirectionalitySignalProvider_startWithNviContext_didStartHandler__
     if (os_log_type_enabled(NviLogContextFacility, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v20 = "[NviDirectionalitySignalProvider initWithDataSource:assetsProvider:]";
-      v21 = 2048;
-      v22 = v10;
+      v19 = "[NviDirectionalitySignalProvider initWithDataSource:assetsProvider:]";
+      v20 = 2048;
+      v21 = v10;
       _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s nvidir=%p", buf, 0x16u);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

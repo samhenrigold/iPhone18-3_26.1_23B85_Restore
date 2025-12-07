@@ -74,7 +74,7 @@ void __27__AXMService_xpcConnection__block_invoke(uint64_t a1)
   {
     v2 = objc_alloc(MEMORY[0x1E696B0B8]);
     v3 = [v2 initWithServiceName:AXMServiceIdentifier];
-    v4 = AXMServiceInterface();
+    v4 = AXMServiceInterface(v3);
     [v3 setRemoteObjectInterface:v4];
 
     v5 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F240EE48];

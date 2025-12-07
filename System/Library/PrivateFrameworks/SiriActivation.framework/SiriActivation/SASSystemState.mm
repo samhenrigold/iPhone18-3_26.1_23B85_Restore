@@ -28,6 +28,7 @@
 - (unint64_t)carDNDStatus;
 - (void)_fetchOEMAppContext;
 - (void)_fetchVehicleInformation;
+- (void)_setCarPlayConnectionState:(int)state;
 - (void)_updateAccessibilityState;
 - (void)_updateCarPlayConnectionState;
 - (void)_updateEnhancedVoiceTriggerMode;
@@ -47,7 +48,7 @@
 
 void __22__SASSystemState_init__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -57,11 +58,11 @@ void __22__SASSystemState_init__block_invoke(uint64_t a1, void *a2, void *a3, vo
     v11 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315394;
-      v17 = "[SASSystemState init]_block_invoke";
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #modes DisplayTransition called transition=%@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[SASSystemState init]_block_invoke";
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #modes DisplayTransition called transition=%@", &v15, 0x16u);
     }
 
     v12 = [v9 transitionReasons];
@@ -71,9 +72,9 @@ void __22__SASSystemState_init__block_invoke(uint64_t a1, void *a2, void *a3, vo
       v13 = *v10;
       if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315138;
-        v17 = "[SASSystemState init]_block_invoke";
-        _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #modes Device went through liftToWake transition setLiftToWake:YES", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = "[SASSystemState init]_block_invoke";
+        _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #modes Device went through liftToWake transition setLiftToWake:YES", &v15, 0xCu);
       }
     }
 
@@ -82,16 +83,14 @@ void __22__SASSystemState_init__block_invoke(uint64_t a1, void *a2, void *a3, vo
       v14 = *v10;
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315138;
-        v17 = "[SASSystemState init]_block_invoke";
-        _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #modes Device went to sleep or went through another transition setLiftToWake:NO", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = "[SASSystemState init]_block_invoke";
+        _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #modes Device went to sleep or went through another transition setLiftToWake:NO", &v15, 0xCu);
       }
 
       [*(a1 + 32) setLiftToWakeDetected:0];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)siriIsEnabled
@@ -104,21 +103,19 @@ void __22__SASSystemState_init__block_invoke(uint64_t a1, void *a2, void *a3, vo
 
 - (BOOL)isInActiveCall
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [(NSMutableSet *)self->_activeCalls count];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[SASSystemState isInActiveCall]";
-    v8 = 2048;
-    v9 = v2;
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s CXCallObserver activeCalls:%lu", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SASSystemState isInActiveCall]";
+    v7 = 2048;
+    v8 = v2;
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s CXCallObserver activeCalls:%lu", &v5, 0x16u);
   }
 
-  result = v2 != 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 != 0;
 }
 
 - (BOOL)deviceIsPasscodeLocked
@@ -159,35 +156,35 @@ void __22__SASSystemState_init__block_invoke(uint64_t a1, void *a2, void *a3, vo
 
 - (BOOL)isConnectedToEyesFreeDevice
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   mEMORY[0x1E698F468] = [MEMORY[0x1E698F468] sharedInstance];
   connectedDevices = [mEMORY[0x1E698F468] connectedDevices];
 
-  v4 = [connectedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [connectedDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(connectedDevices);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) ac_isEyesFree])
+        if ([*(*(&v8 + 1) + 8 * i) ac_isEyesFree])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [connectedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [connectedDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -199,7 +196,6 @@ void __22__SASSystemState_init__block_invoke(uint64_t a1, void *a2, void *a3, vo
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -425,7 +421,7 @@ uint64_t __22__SASSystemState_init__block_invoke_2(uint64_t a1)
 
 - (void)callObserver:(id)observer callChanged:(id)changed
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   hasEnded = [changedCopy hasEnded];
   v7 = *MEMORY[0x1E698D0A0];
@@ -437,9 +433,9 @@ uint64_t __22__SASSystemState_init__block_invoke_2(uint64_t a1)
       v9 = v7;
       uUID = [changedCopy UUID];
       *buf = 136315394;
-      v29 = "[SASSystemState callObserver:callChanged:]";
-      v30 = 2112;
-      v31 = uUID;
+      v28 = "[SASSystemState callObserver:callChanged:]";
+      v29 = 2112;
+      v30 = uUID;
       _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s CXCallObserver Ended:%@", buf, 0x16u);
     }
 
@@ -455,9 +451,9 @@ uint64_t __22__SASSystemState_init__block_invoke_2(uint64_t a1)
       v13 = v7;
       uUID3 = [changedCopy UUID];
       *buf = 136315394;
-      v29 = "[SASSystemState callObserver:callChanged:]";
-      v30 = 2112;
-      v31 = uUID3;
+      v28 = "[SASSystemState callObserver:callChanged:]";
+      v29 = 2112;
+      v30 = uUID3;
       _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s CXCallObserver Changed:%@", buf, 0x16u);
     }
 
@@ -466,27 +462,27 @@ uint64_t __22__SASSystemState_init__block_invoke_2(uint64_t a1)
     [(NSMutableSet *)v15 addObject:uUID2];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   listeners = [(SASSystemState *)self listeners];
-  v17 = [listeners countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v17 = [listeners countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       v20 = 0;
       do
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(listeners);
         }
 
-        v21 = *(*(&v23 + 1) + 8 * v20);
+        v21 = *(*(&v22 + 1) + 8 * v20);
         if (objc_opt_respondsToSelector())
         {
           [v21 callStateChangedToIsActive:-[SASSystemState isInActiveCall](self isOutgoing:{"isInActiveCall"), objc_msgSend(changedCopy, "isOutgoing")}];
@@ -496,7 +492,7 @@ uint64_t __22__SASSystemState_init__block_invoke_2(uint64_t a1)
       }
 
       while (v18 != v20);
-      v18 = [listeners countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v18 = [listeners countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v18);
@@ -511,32 +507,30 @@ uint64_t __22__SASSystemState_init__block_invoke_2(uint64_t a1)
   {
     [(SASCallRouteObserver *)self->_callRouteObserver stopObserving];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasRingingCall
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   calls = [(CXCallObserver *)self->_callObserver calls];
-  v3 = [calls countByEnumeratingWithState:&v11 objects:v19 count:16];
+  v3 = [calls countByEnumeratingWithState:&v10 objects:v18 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(calls);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         if (([v6 hasConnected] & 1) == 0 && !objc_msgSend(v6, "hasEnded"))
         {
           LODWORD(v3) = 1;
@@ -544,7 +538,7 @@ uint64_t __22__SASSystemState_init__block_invoke_2(uint64_t a1)
         }
       }
 
-      v3 = [calls countByEnumeratingWithState:&v11 objects:v19 count:16];
+      v3 = [calls countByEnumeratingWithState:&v10 objects:v18 count:16];
       if (v3)
       {
         continue;
@@ -566,19 +560,18 @@ LABEL_12:
     }
 
     *buf = 136315394;
-    v16 = "[SASSystemState hasRingingCall]";
-    v17 = 2112;
-    v18 = v8;
+    v15 = "[SASSystemState hasRingingCall]";
+    v16 = 2112;
+    v17 = v8;
     _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s CXCallObserver hasRingingCall:%@", buf, 0x16u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)isCallAudioRouteAllowed
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   isCallAudioRouteAllowed = [(SASCallRouteObserver *)self->_callRouteObserver isCallAudioRouteAllowed];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -589,53 +582,48 @@ LABEL_12:
       v4 = @"YES";
     }
 
-    v7 = 136315394;
-    v8 = "[SASSystemState isCallAudioRouteAllowed]";
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SASSystemState isCallAudioRouteAllowed]";
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return isCallAudioRouteAllowed;
 }
 
 - (BOOL)isWirelessSplitterOn
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   state = [(AFNotifyObserver *)self->_observerWirelessSplitter state];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[SASSystemState isWirelessSplitterOn]";
-    v8 = 1024;
-    v9 = state != 0;
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s %i", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[SASSystemState isWirelessSplitterOn]";
+    v7 = 1024;
+    v8 = state != 0;
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s %i", &v5, 0x12u);
   }
 
-  result = state != 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return state != 0;
 }
 
 - (BOOL)isGuestConnected
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   state = [(AFNotifyObserver *)self->_observerBluetoothGuestConnected state];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[SASSystemState isGuestConnected]";
-    v8 = 1024;
-    v9 = state != 0;
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s %i", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "[SASSystemState isGuestConnected]";
+    v7 = 1024;
+    v8 = state != 0;
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s %i", &v5, 0x12u);
   }
 
-  result = state != 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return state != 0;
 }
 
 - (void)registerForGameMonitoring
@@ -657,7 +645,7 @@ LABEL_12:
 
 void __43__SASSystemState_registerForGameMonitoring__block_invoke(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -674,27 +662,27 @@ void __43__SASSystemState_registerForGameMonitoring__block_invoke(uint64_t a1, i
       if (v6 != v5)
       {
         v7 = v6;
-        v17 = 0u;
-        v18 = 0u;
-        v15 = 0u;
         v16 = 0u;
+        v17 = 0u;
+        v14 = 0u;
+        v15 = 0u;
         v8 = [*(a1 + 32) listeners];
-        v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v16;
+          v11 = *v15;
           do
           {
             v12 = 0;
             do
             {
-              if (*v16 != v11)
+              if (*v15 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v15 + 1) + 8 * v12);
+              v13 = *(*(&v14 + 1) + 8 * v12);
               if (objc_opt_respondsToSelector())
               {
                 [v13 gameStateDidChange:v7];
@@ -704,7 +692,7 @@ void __43__SASSystemState_registerForGameMonitoring__block_invoke(uint64_t a1, i
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
           }
 
           while (v10);
@@ -712,8 +700,6 @@ void __43__SASSystemState_registerForGameMonitoring__block_invoke(uint64_t a1, i
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)carDNDActiveOrEyesFreeAndShouldHaveFullScreenPresentation:(BOOL)presentation
@@ -736,30 +722,30 @@ void __43__SASSystemState_registerForGameMonitoring__block_invoke(uint64_t a1, i
 
 - (BOOL)_mapsAppIsVisibleOnLockscreen
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   displayLayoutMonitor = [(SASSystemState *)self displayLayoutMonitor];
   currentLayout = [displayLayoutMonitor currentLayout];
   elements = [currentLayout elements];
 
-  v5 = [elements countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [elements countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(elements);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           identifier = [v9 identifier];
@@ -776,7 +762,7 @@ void __43__SASSystemState_registerForGameMonitoring__block_invoke(uint64_t a1, i
         }
       }
 
-      v6 = [elements countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [elements countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -789,7 +775,6 @@ void __43__SASSystemState_registerForGameMonitoring__block_invoke(uint64_t a1, i
   v12 = 0;
 LABEL_13:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -818,6 +803,94 @@ LABEL_13:
 
     defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter2 addObserver:self selector:sel__voiceTriggerModeChanged_ name:*MEMORY[0x1E6993940] object:0];
+  }
+}
+
+- (void)_setCarPlayConnectionState:(int)state
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (self->_carPlayConnectionState == state)
+  {
+    return;
+  }
+
+  v3 = *&state;
+  self->_carPlayConnectionState = state;
+  if (state == 2)
+  {
+    v5 = *MEMORY[0x1E698D0A0];
+    if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v19 = "[SASSystemState _setCarPlayConnectionState:]";
+      v6 = "%s Paired to a trusted CarPlay device.";
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    if (state != 1)
+    {
+      if (state)
+      {
+        goto LABEL_12;
+      }
+
+      v5 = *MEMORY[0x1E698D0A0];
+      if (!os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_12;
+      }
+
+      *buf = 136315138;
+      v19 = "[SASSystemState _setCarPlayConnectionState:]";
+      v6 = "%s Disconnected from CarPlay display.";
+      goto LABEL_11;
+    }
+
+    v5 = *MEMORY[0x1E698D0A0];
+    if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v19 = "[SASSystemState _setCarPlayConnectionState:]";
+      v6 = "%s Paired to an untrusted CarPlay device.";
+LABEL_11:
+      _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
+    }
+  }
+
+LABEL_12:
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  listeners = [(SASSystemState *)self listeners];
+  v8 = [listeners countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v14;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v14 != v10)
+        {
+          objc_enumerationMutation(listeners);
+        }
+
+        v12 = *(*(&v13 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          [v12 carPlayConnectionStateDidChange:v3];
+        }
+      }
+
+      v9 = [listeners countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v9);
   }
 }
 
@@ -952,7 +1025,7 @@ void __42__SASSystemState__fetchVehicleInformation__block_invoke(uint64_t a1, vo
 
 - (void)_updateEnhancedVoiceTriggerMode
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   currentSession = [(CARSessionStatus *)self->_carPlaySessionStatus currentSession];
   deviceSupportedCarPlayFeatures = [(CRFeatureAvailability *)self->_carFeatureAvailability deviceSupportedCarPlayFeatures];
   if (!currentSession)
@@ -960,8 +1033,8 @@ void __42__SASSystemState__fetchVehicleInformation__block_invoke(uint64_t a1, vo
     v5 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
+      v12 = 136315138;
+      v13 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
       v6 = "%s #CarPlay CARSession is currently nil, setting mode to be not applicable.";
       goto LABEL_7;
     }
@@ -976,11 +1049,11 @@ LABEL_8:
     v5 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
+      v12 = 136315138;
+      v13 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
       v6 = "%s #CarPlay Enhanced Siri is not supported, setting mode to be not applicable.";
 LABEL_7:
-      _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_INFO, v6, &v13, 0xCu);
+      _os_log_impl(&dword_1C8137000, v5, OS_LOG_TYPE_INFO, v6, &v12, 0xCu);
       goto LABEL_8;
     }
 
@@ -991,35 +1064,35 @@ LABEL_7:
   switch(voiceTriggerMode)
   {
     case 2:
-      v12 = *MEMORY[0x1E698D0A0];
+      v11 = *MEMORY[0x1E698D0A0];
       v7 = 1;
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
       {
-        v13 = 136315138;
-        v14 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
+        v12 = 136315138;
+        v13 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
         v7 = 1;
-        _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode is activity detection", &v13, 0xCu);
+        _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode is activity detection", &v12, 0xCu);
       }
 
       break;
     case 1:
-      v11 = *MEMORY[0x1E698D0A0];
+      v10 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
       {
-        v13 = 136315138;
-        v14 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
-        _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode is trigger detection", &v13, 0xCu);
+        v12 = 136315138;
+        v13 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
+        _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode is trigger detection", &v12, 0xCu);
       }
 
       v7 = 2;
       break;
     case -1:
-      v10 = *MEMORY[0x1E698D0A0];
+      v9 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
       {
-        v13 = 136315138;
-        v14 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
-        _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode is disabled", &v13, 0xCu);
+        v12 = 136315138;
+        v13 = "[SASSystemState _updateEnhancedVoiceTriggerMode]";
+        _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode is disabled", &v12, 0xCu);
       }
 
       v7 = 3;
@@ -1031,8 +1104,6 @@ LABEL_7:
 LABEL_9:
   self->_carPlayEnhancedVoiceTriggerMode = v7;
 LABEL_10:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_carPlayTransportTypeFromConfiguration:(id)configuration
@@ -1084,7 +1155,7 @@ LABEL_10:
 
 void __37__SASSystemState__fetchOEMAppContext__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x1E698D0A0];
@@ -1110,14 +1181,12 @@ void __37__SASSystemState__fetchOEMAppContext__block_invoke(uint64_t a1, void *a
     v12 = *(a1 + 32);
     v13 = v11;
     v14 = [v12 currentCarPlaySupportedOEMAppIdList];
-    v16 = 136315394;
-    v17 = "[SASSystemState _fetchOEMAppContext]_block_invoke";
-    v18 = 2112;
-    v19 = v14;
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_INFO, "%s #CarPlay supported OEM apps: %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[SASSystemState _fetchOEMAppContext]_block_invoke";
+    v17 = 2112;
+    v18 = v14;
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_INFO, "%s #CarPlay supported OEM apps: %@", &v15, 0x16u);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)carPlaySupportsEnhancedSiriCharacteristic:(unint64_t)characteristic
@@ -1137,17 +1206,16 @@ void __37__SASSystemState__fetchOEMAppContext__block_invoke(uint64_t a1, void *a
 
 - (void)_voiceTriggerModeChanged:(id)changed
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SASSystemState _voiceTriggerModeChanged:]";
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode changed", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SASSystemState _voiceTriggerModeChanged:]";
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_INFO, "%s #CarPlay Enhanced Siri voice trigger mode changed", &v5, 0xCu);
   }
 
   [(SASSystemState *)self _updateEnhancedVoiceTriggerMode];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionDidDisconnect:(id)disconnect
@@ -1160,7 +1228,7 @@ void __37__SASSystemState__fetchOEMAppContext__block_invoke(uint64_t a1, void *a
 
 - (void)_updateAccessibilityState
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = _AXSTripleClickCopyOptions();
   -[SASSystemState setAccessibilityShortcutEnabled:](self, "setAccessibilityShortcutEnabled:", [v3 count] != 0);
 
@@ -1173,47 +1241,45 @@ void __37__SASSystemState__fetchOEMAppContext__block_invoke(uint64_t a1, void *a
       v5 = @"YES";
     }
 
-    v7 = 136315394;
-    v8 = "[SASSystemState _updateAccessibilityState]";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s Enabled:%@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SASSystemState _updateAccessibilityState]";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s Enabled:%@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isConnectedToBluetoothVehicle
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   mEMORY[0x1E698F468] = [MEMORY[0x1E698F468] sharedInstance];
   connectedDevices = [mEMORY[0x1E698F468] connectedDevices];
 
-  v4 = [connectedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [connectedDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(connectedDevices);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) ac_isBluetoothVehicle])
+        if ([*(*(&v8 + 1) + 8 * i) ac_isBluetoothVehicle])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [connectedDevices countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [connectedDevices countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1225,7 +1291,6 @@ void __37__SASSystemState__fetchOEMAppContext__block_invoke(uint64_t a1, void *a
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -1275,7 +1340,7 @@ LABEL_11:
 
 void __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1283,43 +1348,43 @@ void __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion_
     [WeakRetained setDidAssessmentModeRecieveInitialStateUpdate:1];
     [v3 setIsAssessmentModeActive:1];
     v4 = dispatch_group_create();
-    v22[0] = 0;
-    v22[1] = v22;
-    v22[2] = 0x2020000000;
-    v23 = 1;
+    v21[0] = 0;
+    v21[1] = v21;
+    v21[2] = 0x2020000000;
+    v22 = 1;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v5 = [v3 listeners];
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v6)
     {
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             dispatch_group_enter(v4);
-            v15[0] = MEMORY[0x1E69E9820];
-            v15[1] = 3221225472;
-            v15[2] = __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke_2;
-            v15[3] = &unk_1E82F46E0;
-            v17 = v22;
-            v16 = v4;
-            [v9 assessmentModeChangedToIsActive:1 completion:v15];
+            v14[0] = MEMORY[0x1E69E9820];
+            v14[1] = 3221225472;
+            v14[2] = __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke_2;
+            v14[3] = &unk_1E82F46E0;
+            v16 = v21;
+            v15 = v4;
+            [v9 assessmentModeChangedToIsActive:1 completion:v14];
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
       while (v6);
@@ -1330,19 +1395,17 @@ void __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion_
     block[1] = 3221225472;
     block[2] = __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke_3;
     block[3] = &unk_1E82F4708;
-    v14 = v22;
-    v13 = *(a1 + 32);
+    v13 = v21;
+    v12 = *(a1 + 32);
     dispatch_group_notify(v4, v10, block);
 
-    _Block_object_dispose(v22, 8);
+    _Block_object_dispose(v21, 8);
   }
 
   else
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke_2(uint64_t a1, char a2)
@@ -1358,29 +1421,26 @@ void __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion_
 
 void __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke_3(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
     v2 = *(v1 + 16);
-    v3 = *MEMORY[0x1E69E9840];
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    v2(v4, 0);
+    v2(v3, 0);
   }
 
   else
   {
-    v5 = MEMORY[0x1E696ABC0];
-    v6 = *MEMORY[0x1E698D280];
-    v11 = *MEMORY[0x1E696A278];
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to deactivate assistant"];
-    v12[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    v9 = [v5 errorWithDomain:v6 code:0 userInfo:v8];
-    (*(v1 + 16))(v1, v9);
-
-    v10 = *MEMORY[0x1E69E9840];
+    v4 = MEMORY[0x1E696ABC0];
+    v5 = *MEMORY[0x1E698D280];
+    v9 = *MEMORY[0x1E696A278];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to deactivate assistant"];
+    v10[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = [v4 errorWithDomain:v5 code:0 userInfo:v7];
+    (*(v1 + 16))(v1, v8);
   }
 }
 
@@ -1403,34 +1463,34 @@ void __72__SASSystemState_shouldBeginRestrictingForAssessmentModeWithCompletion_
 
 void __70__SASSystemState_shouldEndRestrictingForAssessmentModeWithCompletion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained setDidAssessmentModeRecieveInitialStateUpdate:1];
     [v3 setIsAssessmentModeActive:0];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = [v3 listeners];
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         v8 = 0;
         do
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v11 + 1) + 8 * v8);
+          v9 = *(*(&v10 + 1) + 8 * v8);
           if (objc_opt_respondsToSelector())
           {
             [v9 assessmentModeChangedToIsActive:0 completion:0];
@@ -1440,7 +1500,7 @@ void __70__SASSystemState_shouldEndRestrictingForAssessmentModeWithCompletion___
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -1448,8 +1508,6 @@ void __70__SASSystemState_shouldEndRestrictingForAssessmentModeWithCompletion___
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)carPlayPrimaryScreenPhysicalSize
@@ -1463,13 +1521,12 @@ void __70__SASSystemState_shouldEndRestrictingForAssessmentModeWithCompletion___
 
 void __37__SASSystemState__fetchOEMAppContext__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SASSystemState _fetchOEMAppContext]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #CarPlay failed to lookup car intent extensions: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SASSystemState _fetchOEMAppContext]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1C8137000, a2, OS_LOG_TYPE_ERROR, "%s #CarPlay failed to lookup car intent extensions: %@", &v2, 0x16u);
 }
 
 @end

@@ -6,7 +6,7 @@
 
 + (id)previewSummary
 {
-  v2 = IMSharedUtilitiesFrameworkBundle();
+  v2 = IMSharedUtilitiesFrameworkBundle(self, a2);
 
   return [v2 localizedStringForKey:@"Photo Message" value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
 }

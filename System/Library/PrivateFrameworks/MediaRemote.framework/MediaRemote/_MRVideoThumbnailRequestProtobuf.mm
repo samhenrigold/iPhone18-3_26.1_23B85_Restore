@@ -94,15 +94,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v7 = toCopy;
   if (self->_timeIntervals.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_timeIntervals.list[v5];
       PBDataWriterWriteDoubleField();
-      toCopy = v10;
+      toCopy = v7;
       ++v5;
     }
 
@@ -112,17 +111,15 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    thumbnailsWidth = self->_thumbnailsWidth;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v7;
     has = self->_has;
   }
 
   if (has)
   {
-    thumbnailsHeight = self->_thumbnailsHeight;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v7;
   }
 }
 

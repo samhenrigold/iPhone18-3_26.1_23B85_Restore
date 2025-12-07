@@ -24,12 +24,26 @@
 
 - (void)setBoxName:(id)name ofEndpoint:(unsigned int)endpoint
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (!nameCopy)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v12 = 0;
+    memset(v15, 0, sizeof(v15));
+    v9 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    v13 = 134217984;
+    v14 = 0;
+    _os_log_send_and_compose_impl(v10, &v12, v15, 80, &dword_1C91AE000, v9, 16, "assertion failure: name -> %llu", &v13);
     _os_crash_msg();
     __break(1u);
   }
@@ -43,7 +57,6 @@
   }
 
   std::string::__assign_external(&self->super._this.source.name.__rep_.__s.__data_[v8], uTF8String);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

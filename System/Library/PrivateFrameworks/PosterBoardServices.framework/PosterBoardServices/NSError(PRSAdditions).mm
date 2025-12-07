@@ -8,7 +8,7 @@
 
 + (id)prs_errorWithCode:()PRSAdditions
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = @"the 'currentConfiguration' argument was invalid.";
   if (a3 != 1)
   {
@@ -20,15 +20,13 @@
     v5 = @"an entitlement was not found which was needed.";
   }
 
-  v12 = *MEMORY[0x1E696A588];
-  v13[0] = v5;
+  v11 = *MEMORY[0x1E696A588];
+  v12[0] = v5;
   v6 = MEMORY[0x1E695DF20];
   v7 = v5;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v9 = [self prs_errorWithCode:a3 underlyingError:0 userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -79,14 +77,12 @@
 
 + (id)prs_entitlementFailureErrorWithFile:()PRSAdditions line:
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%u", a3, a4];
-  v10 = *MEMORY[0x1E696A578];
-  v11[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A578];
+  v10[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [self prs_errorWithCode:2 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

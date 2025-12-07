@@ -2476,19 +2476,19 @@ LABEL_99:
 
 - (void)_update:
 {
-  v0 = fieldRepresentedObject();
-  v1 = v0;
-  if (v0)
+  v2 = fieldRepresentedObject();
+  v3 = v2;
+  if (v2)
   {
-    v5 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     v6 = 0u;
-    v4 = 0u;
-    SKCNode::resolveWorldPositionRotationAndScale([v0 _backingNode], &v6, &v5, &v4);
-    field = [v1 field];
-    [field setPosition:*&v6];
-    LODWORD(v3) = DWORD2(v5);
-    [field setRotation:v3];
-    [field setScale:*&v4];
+    SKCNode::resolveWorldPositionRotationAndScale([v2 _backingNode], &v8, &v7, &v6);
+    field = [v3 field];
+    [field setPosition:*&v8];
+    LODWORD(v5) = DWORD2(v7);
+    [field setRotation:v5];
+    [field setScale:*&v6];
   }
 }
 

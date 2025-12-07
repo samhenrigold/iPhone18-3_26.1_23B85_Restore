@@ -172,7 +172,7 @@
     v17 = self->_values;
     if (v17)
     {
-      [(BSUIVibrancyEffectValues *)v17 backdropColorMatrix];
+      objc_msgSend_backdropColorMatrix(v17);
     }
 
     [v16 setName:@"color"];
@@ -202,7 +202,7 @@
       v24 = self->_values;
       if (v24)
       {
-        [(BSUIVibrancyEffectValues *)v24 vibrantColorMatrix];
+        objc_msgSend_vibrantColorMatrix(v24);
       }
 
       else
@@ -282,7 +282,7 @@ LABEL_22:
     v32 = self->_values;
     if (v32)
     {
-      [(BSUIVibrancyEffectValues *)v32 vibrantColorMatrix];
+      objc_msgSend_vibrantColorMatrix(v32);
     }
 
     else

@@ -20,14 +20,14 @@
 
 - (VFXRenderGraph)init
 {
-  v11.receiver = self;
-  v11.super_class = VFXRenderGraph;
-  v2 = [(VFXRenderGraph *)&v11 init];
+  v9.receiver = self;
+  v9.super_class = VFXRenderGraph;
+  v2 = [(VFXRenderGraph *)&v9 init];
   if (v2)
   {
     v2->_authoringGraph = sub_1AF3C3044();
-    v6 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v3, v4, v5);
-    v2->_identifier = objc_msgSend_UUIDString(v6, v7, v8, v9);
+    v5 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v3, v4);
+    v2->_identifier = objc_msgSend_UUIDString(v5, v6, v7);
   }
 
   return v2;
@@ -43,12 +43,12 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_msgSend_allocWithZone_(VFXRenderGraph, a2, zone, v3);
-  v9 = objc_msgSend_init(v5, v6, v7, v8);
+  v4 = objc_msgSend_allocWithZone_(VFXRenderGraph, a2, zone);
+  v7 = objc_msgSend_init(v4, v5, v6);
 
-  *(v9 + 8) = sub_1AF3C4D38();
-  *(v9 + 40) = objc_msgSend_copy(self->_name, v10, v11, v12);
-  return v9;
+  *(v7 + 8) = sub_1AF3C4D38(self->_authoringGraph, v8);
+  *(v7 + 40) = objc_msgSend_copy(self->_name, v9, v10);
+  return v7;
 }
 
 - (void)addWorldReference:(id)reference
@@ -56,7 +56,7 @@
   world = self->_world;
   if (world == reference)
   {
-    v6 = self->_worldReferenceCounter + 1;
+    v5 = self->_worldReferenceCounter + 1;
   }
 
   else
@@ -66,11 +66,11 @@
       self->_worldReferenceCounter = 0;
     }
 
-    objc_msgSend_setWorld_(self, a2, reference, v3);
-    v6 = 1;
+    objc_msgSend_setWorld_(self, a2, reference);
+    v5 = 1;
   }
 
-  self->_worldReferenceCounter = v6;
+  self->_worldReferenceCounter = v5;
 }
 
 - (void)removeWorldReference:(id)reference
@@ -81,21 +81,21 @@
     worldReferenceCounter = self->_worldReferenceCounter;
     if (worldReferenceCounter)
     {
-      v7 = worldReferenceCounter - 1;
-      self->_worldReferenceCounter = v7;
-      if (!v7)
+      v6 = worldReferenceCounter - 1;
+      self->_worldReferenceCounter = v6;
+      if (!v6)
       {
 
-        objc_msgSend_setWorld_(self, a2, 0, v3);
+        objc_msgSend_setWorld_(self, a2, 0);
       }
     }
 
     else
     {
-      v8 = sub_1AF0D5194();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = sub_1AF0D5194(self, a2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDF4930(self, p_world, v8);
+        sub_1AFDF4930(self, p_world, v7);
       }
     }
   }
@@ -138,7 +138,7 @@
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -150,9 +150,9 @@
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 - (void)setAuthoringGraph:(id)graph
@@ -202,31 +202,31 @@
 
 - (NSArray)attachments
 {
-  objc_msgSend_graph(self, a2, v2, v3);
+  v3 = objc_msgSend_graph(self, a2, v2);
 
-  return sub_1AF3D4238();
+  return sub_1AF3D4238(v3, v4);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v6 = objc_msgSend_valueForKey_(VFXTransaction, a2, @"serializationContext", v3);
-  if (objc_msgSend_authoringGraph(self, v7, v8, v9))
+  v5 = objc_msgSend_valueForKey_(VFXTransaction, a2, @"serializationContext");
+  if (objc_msgSend_authoringGraph(self, v6, v7))
   {
-    if (v6)
+    if (v5)
     {
-      v13 = objc_msgSend_authoringGraph(self, v10, v11, v12);
-      v14 = sub_1AF3D41AC(v13, v6);
-      if (v14)
+      v10 = objc_msgSend_authoringGraph(self, v8, v9);
+      v11 = sub_1AF3D41AC(v10, v5);
+      if (v11)
       {
-        objc_msgSend_encodeObject_forKey_(coder, v10, v14, @"authoringGraph");
+        objc_msgSend_encodeObject_forKey_(coder, v8, v11, @"authoringGraph");
       }
     }
   }
 
-  objc_msgSend_encodeObject_forKey_(coder, v10, self->_name, @"name");
+  objc_msgSend_encodeObject_forKey_(coder, v8, self->_name, @"name");
   identifier = self->_identifier;
 
-  objc_msgSend_encodeObject_forKey_(coder, v15, identifier, @"identifier");
+  objc_msgSend_encodeObject_forKey_(coder, v12, identifier, @"identifier");
 }
 
 - (VFXRenderGraph)initWithCoder:(id)coder

@@ -2,6 +2,7 @@
 - (void)_setupTitleCellTextWithDefaultFileName:(id)name;
 - (void)loadView;
 - (void)setSharedFileName:(id)name;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RCShareTableViewController
@@ -36,6 +37,17 @@
   [(UITextField *)self->_voiceMemoTitleText setAutoresizingMask:18];
   contentView2 = [(UITableViewCell *)self->_voiceMemoTitleCell contentView];
   [contentView2 addSubview:self->_voiceMemoTitleText];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = RCShareTableViewController;
+  [(RCShareTableViewController *)&v4 viewWillAppear:appear];
+  if (self->_sharedFileName)
+  {
+    [(RCShareTableViewController *)self _setupTitleCellTextWithDefaultFileName:?];
+  }
 }
 
 - (void)setSharedFileName:(id)name

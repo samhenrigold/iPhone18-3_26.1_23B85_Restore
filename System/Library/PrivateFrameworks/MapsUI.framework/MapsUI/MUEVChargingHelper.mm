@@ -7,7 +7,7 @@
 
 + (id)localizedStringForAvailableChargers:(unint64_t)chargers outOfTotal:(unint64_t)total radiowavesSymbolScale:(int64_t)scale
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   v6 = [self localizedStringForAvailableChargers:chargers outOfTotal:total];
   v7 = MEMORY[0x1E69DCAB8];
   v8 = [MEMORY[0x1E69DCAD8] configurationWithScale:scale];
@@ -19,13 +19,11 @@
 
   v13 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v6];
   v14 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:{@" ", v13}];
-  v20[1] = v14;
+  v19[1] = v14;
   v15 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v12];
-  v20[2] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[2] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   v17 = [MapsUILayout buildAttributedDisplayStringForComponents:v16 reverseIfRTLLayout:0];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

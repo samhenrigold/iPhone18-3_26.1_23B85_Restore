@@ -10,12 +10,7 @@
 - (uint64_t)_QLIsDataLess;
 - (uint64_t)_QLNeedsCoordination;
 - (uint64_t)_QLNeedsDownload;
-- (void)_QLFileSize;
-- (void)_QLIsDataLess;
-- (void)_QLNeedsDownload;
-- (void)_QLUrlFileSize;
 - (void)_qlFastRealpathURL;
-- (void)ql_realpathURL;
 @end
 
 @implementation NSURL(_QLUtilities)
@@ -36,9 +31,9 @@
 
 - (uint64_t)_QLIsDataLess
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   startAccessingSecurityScopedResource = [self startAccessingSecurityScopedResource];
-  v3 = lstat([self fileSystemRepresentation], &v9);
+  v3 = lstat([self fileSystemRepresentation], &v8);
   if (startAccessingSecurityScopedResource)
   {
     [self stopAccessingSecurityScopedResource];
@@ -53,8 +48,8 @@
       v6 = *__error();
       *buf = 138412546;
       selfCopy = self;
-      v12 = 1024;
-      v13 = v6;
+      v11 = 1024;
+      v12 = v6;
       v5 = 1;
       _os_log_impl(&dword_1CA1E7000, v4, OS_LOG_TYPE_INFO, "stat for %@ failed with errno %{darwin.errno}d; returning YES for _QLIsDataLess", buf, 0x12u);
     }
@@ -62,7 +57,7 @@
 
   else
   {
-    v5 = (v9.st_flags >> 30) & 1;
+    v5 = (v8.st_flags >> 30) & 1;
     v4 = _log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
@@ -70,16 +65,15 @@
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)_QLIsThumbnailableWithError:()_QLUtilities
 {
-  v26[1] = *MEMORY[0x1E69E9840];
-  memset(&v20, 0, sizeof(v20));
+  v25[1] = *MEMORY[0x1E69E9840];
+  memset(&v19, 0, sizeof(v19));
   startAccessingSecurityScopedResource = [self startAccessingSecurityScopedResource];
-  v6 = lstat([self fileSystemRepresentation], &v20);
+  v6 = lstat([self fileSystemRepresentation], &v19);
   v7 = v6 != 0;
   if (startAccessingSecurityScopedResource)
   {
@@ -94,18 +88,17 @@
       v9 = *__error();
       *buf = 138412546;
       selfCopy = self;
-      v23 = 1024;
-      v24 = v9;
+      v22 = 1024;
+      v23 = v9;
       _os_log_impl(&dword_1CA1E7000, v8, OS_LOG_TYPE_INFO, "stat for %@ failed with errno %{darwin.errno}d; returning YES for _QLIsThumbnailable", buf, 0x12u);
     }
 
 LABEL_21:
 
-    v12 = v7;
-    goto LABEL_22;
+    return v7;
   }
 
-  v10 = v20.st_mode & 0xF000;
+  v10 = v19.st_mode & 0xF000;
   v12 = v10 == 0x8000 || v10 == 0x4000;
   v13 = _log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
@@ -133,25 +126,23 @@ LABEL_21:
 
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot thumbnail %@ which is not a regular file", self];
     v16 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A278];
-    v26[0] = v8;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A278];
+    v25[0] = v8;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     *a3 = [v16 errorWithDomain:@"QLThumbnailErrorDomain" code:4 userInfo:v17];
 
     goto LABEL_21;
   }
 
-LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (uint64_t)_QLNeedsDownload
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   startAccessingSecurityScopedResource = [self startAccessingSecurityScopedResource];
-  memset(&v9, 0, sizeof(v9));
-  v3 = lstat([self fileSystemRepresentation], &v9);
+  memset(&v8, 0, sizeof(v8));
+  v3 = lstat([self fileSystemRepresentation], &v8);
   if (startAccessingSecurityScopedResource)
   {
     [self stopAccessingSecurityScopedResource];
@@ -166,8 +157,8 @@ LABEL_22:
       v6 = *__error();
       *buf = 138412546;
       selfCopy = self;
-      v12 = 1024;
-      v13 = v6;
+      v11 = 1024;
+      v12 = v6;
       v5 = 1;
       _os_log_impl(&dword_1CA1E7000, v4, OS_LOG_TYPE_INFO, "stat for %@ failed with errno %{darwin.errno}d; returning YES for _QLNeedsDownload", buf, 0x12u);
     }
@@ -175,7 +166,7 @@ LABEL_22:
 
   else
   {
-    v5 = (v9.st_flags >> 30) & 1;
+    v5 = (v8.st_flags >> 30) & 1;
     v4 = _log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
@@ -183,7 +174,6 @@ LABEL_22:
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -210,18 +200,18 @@ LABEL_22:
 - (id)_QLUrlFileSize
 {
   selfCopy = self;
-  v44[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   if ([self _QLNeedsDownload])
   {
     goto LABEL_25;
   }
 
-  v38 = 0;
-  v2 = *MEMORY[0x1E695DB78];
   v37 = 0;
-  v29 = v2;
-  v3 = [selfCopy getResourceValue:&v38 forKey:? error:?];
-  v4 = v38;
+  v2 = *MEMORY[0x1E695DB78];
+  v36 = 0;
+  v28 = v2;
+  v3 = [selfCopy getResourceValue:&v37 forKey:? error:?];
+  v4 = v37;
   v5 = 0;
   if ((v3 & 1) == 0)
   {
@@ -245,23 +235,23 @@ LABEL_25:
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v7 = *MEMORY[0x1E695DB50];
-  v44[0] = v29;
-  v44[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
-  v28 = selfCopy;
+  v43[0] = v28;
+  v43[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+  v27 = selfCopy;
   v9 = [defaultManager enumeratorAtURL:selfCopy includingPropertiesForKeys:v8 options:0 errorHandler:&__block_literal_global_12];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+  v10 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       v14 = 0;
@@ -269,27 +259,27 @@ LABEL_25:
       v16 = v4;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v33 + 1) + 8 * v14);
+        v17 = *(*(&v32 + 1) + 8 * v14);
+        v30 = 0;
         v31 = 0;
-        v32 = 0;
-        v18 = [v17 getResourceValue:&v32 forKey:v29 error:&v31];
-        v4 = v32;
+        v18 = [v17 getResourceValue:&v31 forKey:v28 error:&v30];
+        v4 = v31;
 
-        v5 = v31;
+        v5 = v30;
         if ((v18 & 1) == 0)
         {
           v19 = _log();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v40 = v17;
-            v41 = 2112;
-            v42 = v5;
+            v39 = v17;
+            v40 = 2112;
+            v41 = v5;
             _os_log_error_impl(&dword_1CA1E7000, v19, OS_LOG_TYPE_ERROR, "Failed to determine if the url(%@) is a directory error: %@", buf, 0x16u);
           }
         }
@@ -320,7 +310,7 @@ LABEL_25:
       }
 
       while (v11 != v14);
-      v11 = [obj countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v11 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
     }
 
     while (v11);
@@ -333,14 +323,13 @@ LABEL_25:
 
   _QLFileSize = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v12];
 
-  selfCopy = v28;
+  selfCopy = v27;
   if (!_QLFileSize)
   {
     goto LABEL_25;
   }
 
 LABEL_26:
-  v26 = *MEMORY[0x1E69E9840];
 
   return _QLFileSize;
 }
@@ -348,26 +337,26 @@ LABEL_26:
 - (id)_QLIssueFileExtensionWithSandboxType:()_QLUtilities
 {
   [self fileSystemRepresentation];
-  v1 = sandbox_extension_issue_file();
-  if (v1)
+  v3 = sandbox_extension_issue_file();
+  if (v3)
   {
-    v2 = v1;
-    v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v1 encoding:4];
-    free(v2);
+    v4 = v3;
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v3 encoding:4];
+    free(v4);
   }
 
   else
   {
-    v4 = _log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [NSURL(_QLUtilities) _QLIssueFileExtensionWithSandboxType:];
     }
 
-    v3 = 0;
+    v5 = 0;
   }
 
-  return v3;
+  return v5;
 }
 
 + (id)_QLTemporaryURLWithExtension:()_QLUtilities openingFileHandle:inDirectoryAtURL:
@@ -500,11 +489,11 @@ LABEL_14:
 
 - (id)_qlFastRealpathURL
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6 = xmmword_1CA21FED8;
-  v7 = 0;
-  memset(v8, 0, 512);
-  if (getattrlist([self fileSystemRepresentation], &v6, v8, 0x410uLL, 0x20u) < 0)
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = xmmword_1CA21FED8;
+  v6 = 0;
+  memset(v7, 0, 512);
+  if (getattrlist([self fileSystemRepresentation], &v5, v7, 0x410uLL, 0x20u) < 0)
   {
     v3 = _log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -517,10 +506,8 @@ LABEL_14:
 
   else
   {
-    selfCopy = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v8 + SDWORD2(v8[0]) + 8 isDirectory:DWORD1(v8[0]) == 2 relativeToURL:0];
+    selfCopy = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:v7 + SDWORD2(v7[0]) + 8 isDirectory:DWORD1(v7[0]) == 2 relativeToURL:0];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -546,7 +533,6 @@ LABEL_14:
       _qlFastRealpathURL = [v3 _qlFastRealpathURL];
       if (_qlFastRealpathURL)
       {
-        cf = 0;
         v6 = _CFURLCopyLogicalURLOfPromiseAtURL();
         v7 = v6;
         if (!v6)
@@ -554,15 +540,10 @@ LABEL_14:
           v8 = _log();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
-            [(NSURL(_QLUtilities) *)_qlFastRealpathURL ql_realpathURL];
+            [NSURL(_QLUtilities) ql_realpathURL];
           }
 
           v7 = _qlFastRealpathURL;
-          if (cf)
-          {
-            CFRelease(cf);
-            v7 = _qlFastRealpathURL;
-          }
         }
 
         selfCopy = v7;
@@ -584,112 +565,30 @@ LABEL_14:
   return selfCopy;
 }
 
-- (void)_QLIsDataLess
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4_0(&dword_1CA1E7000, v0, v1, "stat for %@ succeeded; dataless = %d");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_QLIsThumbnailableWithError:()_QLUtilities .cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4_0(&dword_1CA1E7000, v0, v1, "stat for %@ succeeded; thumbnailable = %d");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_QLIsThumbnailableWithError:()_QLUtilities .cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Cannot thumbnail %@ which is not a regular file", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_QLNeedsDownload
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4_0(&dword_1CA1E7000, v0, v1, "stat for %@ succeeded; downloaded = %d");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_QLFileSize
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Error getting the size of file(%@) with error (%@)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_QLUrlFileSize
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Failed to determine if the url(%@) is a directory error:%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_QLIssueFileExtensionWithSandboxType:()_QLUtilities .cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Couldn't issue file extension for url: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)_QLTemporaryURLWithExtension:()_QLUtilities openingFileHandle:inDirectoryAtURL:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = *__error();
-  v6 = 136315394;
-  v7 = a1;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Could not make temporary file at %s: %{darwin.errno}d", &v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_QLCreateTemporaryReplacementURLForOriginalFileAtURL:()_QLUtilities withExtension:temporaryDirectoryURL:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Could not create temporary file on the same volume as %@: mkstemps failed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_QLCreateTemporaryReplacementURLForOriginalFileAtURL:()_QLUtilities withExtension:temporaryDirectoryURL:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could not create temporary directory on the same voume as %@. URLForDirectory failed with error: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v5 = 136315394;
+  v6 = a1;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Could not make temporary file at %s: %{darwin.errno}d", &v5, 0x12u);
 }
 
 - (void)_qlFastRealpathURL
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = *__error();
   v5 = __error();
   v6 = strerror(*v5);
-  v8 = 138412802;
+  v7 = 138412802;
   selfCopy = self;
-  v10 = 1024;
-  v11 = v4;
-  v12 = 2080;
-  v13 = v6;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "getattrlist() failed for %@: %d (%s)", &v8, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)ql_realpathURL
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1CA1E7000, v0, v1, "Failed to get realpath of %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v9 = 1024;
+  v10 = v4;
+  v11 = 2080;
+  v12 = v6;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "getattrlist() failed for %@: %d (%s)", &v7, 0x1Cu);
 }
 
 @end

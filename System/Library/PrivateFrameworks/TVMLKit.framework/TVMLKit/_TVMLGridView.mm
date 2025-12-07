@@ -50,7 +50,7 @@
 
   if (collectionViewLayout)
   {
-    [collectionViewLayout cellMetrics];
+    objc_msgSend_cellMetrics(collectionViewLayout);
     v15 = *&v68;
   }
 
@@ -170,7 +170,7 @@
   memset(v64, 0, sizeof(v64));
   if (collectionViewLayout)
   {
-    [collectionViewLayout cellMetrics];
+    objc_msgSend_cellMetrics(collectionViewLayout);
   }
 
   else

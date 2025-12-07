@@ -273,15 +273,15 @@ uint64_t __59__UIKeyboardHiddenViewController_presentSelfWithAnimation___block_i
   }
 }
 
-uint64_t __49__UIKeyboardHiddenViewController__sceneDidChange__block_invoke(uint64_t result)
+id *__49__UIKeyboardHiddenViewController__sceneDidChange__block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 40) == 1)
   {
-    result = [*(result + 32) presentSelfWithAnimation:0];
+    result = [result[4] presentSelfWithAnimation:0];
   }
 
-  *(*(v1 + 32) + 1001) = 0;
+  *(v1[4] + 1001) = 0;
   return result;
 }
 

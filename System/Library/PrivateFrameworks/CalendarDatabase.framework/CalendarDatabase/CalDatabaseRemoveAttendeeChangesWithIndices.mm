@@ -15,7 +15,6 @@ uint64_t ___CalDatabaseRemoveAttendeeChangesWithIndices_block_invoke(void *a1)
     }
   }
 
-  v5 = a1[6];
   result = CPRecordStoreDeleteChangesForClassWithIndices();
   *(*(a1[4] + 8) + 24) = result;
   return result;

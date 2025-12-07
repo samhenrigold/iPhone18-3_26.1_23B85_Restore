@@ -353,9 +353,9 @@ LABEL_21:
           case 4:
             v30 = [CCToolKitToolDisplayRepresentationImage alloc];
             title = CCPBReaderReadDataNoCopy();
-            v48 = 0;
-            v26 = [(CCItemMessage *)v30 initWithData:title error:&v48];
-            v8 = v48;
+            v45 = 0;
+            v26 = [(CCItemMessage *)v30 initWithData:title error:&v45];
+            v8 = v45;
             v27 = 40;
             goto LABEL_35;
           case 5:
@@ -375,9 +375,9 @@ LABEL_21:
           case 6:
             v28 = [CCToolKitToolPluginModelData alloc];
             title = CCPBReaderReadDataNoCopy();
-            v47 = 0;
-            v26 = [(CCItemMessage *)v28 initWithData:title error:&v47];
-            v8 = v47;
+            v44 = 0;
+            v26 = [(CCItemMessage *)v28 initWithData:title error:&v44];
+            v8 = v44;
             v27 = 56;
             goto LABEL_35;
         }
@@ -396,17 +396,17 @@ LABEL_21:
           case 2:
             v31 = [CCToolKitToolDisplayRepresentationSubtitle alloc];
             title = CCPBReaderReadDataNoCopy();
-            v50 = 0;
-            v26 = [(CCItemMessage *)v31 initWithData:title error:&v50];
-            v8 = v50;
+            v47 = 0;
+            v26 = [(CCItemMessage *)v31 initWithData:title error:&v47];
+            v8 = v47;
             v27 = 24;
             goto LABEL_35;
           case 3:
             v24 = [CCToolKitToolDisplayRepresentationAltText alloc];
             title = CCPBReaderReadDataNoCopy();
-            v49 = 0;
-            v26 = [(CCItemMessage *)v24 initWithData:title error:&v49];
-            v8 = v49;
+            v46 = 0;
+            v26 = [(CCItemMessage *)v24 initWithData:title error:&v46];
+            v8 = v46;
             v27 = 32;
 LABEL_35:
             v32 = *(&self->super.super.isa + v27);
@@ -424,7 +424,6 @@ LABEL_35:
 
       v33 = objc_opt_class();
       title = NSStringFromClass(v33);
-      v34 = *&v5[*v10];
       v8 = CCSkipFieldErrorForMessage();
 LABEL_36:
 
@@ -442,44 +441,42 @@ LABEL_37:
 LABEL_46:
   v8 = 0;
 LABEL_47:
-  v35 = [v9 copy];
+  v34 = [v9 copy];
   synonyms = self->_synonyms;
-  self->_synonyms = v35;
+  self->_synonyms = v34;
 
   if (v8)
   {
     CCSetError();
-    v37 = 0;
-    v38 = dataCopy;
+    v36 = 0;
+    v37 = dataCopy;
   }
 
   else
   {
-    v39 = MEMORY[0x1E6993AA8];
-    v38 = dataCopy;
+    v37 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
-      v42 = *&v5[*v39];
-      v43 = CCInvalidBufferErrorForMessage();
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
+      v40 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v37 = 0;
+      v36 = 0;
     }
 
     else
     {
-      v37 = 1;
+      v36 = 1;
     }
   }
 
-  return v37;
+  return v36;
 }
 
 - (CCToolKitToolDisplayRepresentation)initWithTitle:(id)title subtitle:(id)subtitle altText:(id)text image:(id)image synonyms:(id)synonyms snippetPluginModel:(id)model error:(id *)error
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   titleCopy = title;
   subtitleCopy = subtitle;
   textCopy = text;
@@ -491,11 +488,11 @@ LABEL_47:
   {
     v23 = 0;
 LABEL_5:
-    v46 = modelCopy;
+    v44 = modelCopy;
     if (subtitleCopy)
     {
       objc_opt_class();
-      v54 = v23;
+      v52 = v23;
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
       v25 = v23;
 
@@ -530,7 +527,7 @@ LABEL_8:
     }
 
     objc_opt_class();
-    v53 = v25;
+    v51 = v25;
     v30 = CCValidateIsInstanceOfExpectedClass();
     v23 = v25;
 
@@ -546,7 +543,7 @@ LABEL_8:
     {
 LABEL_9:
       objc_opt_class();
-      v52 = v23;
+      v50 = v23;
       v27 = CCValidateIsInstanceOfExpectedClass();
       v25 = v23;
 
@@ -560,8 +557,8 @@ LABEL_9:
 LABEL_11:
           v23 = v25;
 LABEL_26:
-          modelCopy = v46;
-          if (!v46)
+          modelCopy = v44;
+          if (!v44)
           {
 LABEL_29:
             immutableData = [v21 immutableData];
@@ -572,16 +569,16 @@ LABEL_29:
           }
 
           objc_opt_class();
-          v39 = CCValidateIsInstanceOfExpectedClass();
+          v38 = CCValidateIsInstanceOfExpectedClass();
           v25 = v23;
 
-          if (v39)
+          if (v38)
           {
-            data4 = [v46 data];
+            data4 = [v44 data];
             CCPBDataWriterWriteDataField();
 
             v23 = v25;
-            modelCopy = v46;
+            modelCopy = v44;
             goto LABEL_29;
           }
 
@@ -596,7 +593,7 @@ LABEL_30:
       selfCopy = 0;
       v23 = v25;
 LABEL_32:
-      modelCopy = v46;
+      modelCopy = v44;
       goto LABEL_33;
     }
 
@@ -609,44 +606,43 @@ LABEL_16:
 
 LABEL_17:
     objc_opt_class();
-    v51 = v25;
+    v49 = v25;
     v32 = CCValidateArrayValues();
     v23 = v25;
 
     if (v32)
     {
-      v44 = synonymsCopy;
+      v42 = synonymsCopy;
       selfCopy2 = self;
-      v49 = 0u;
-      v50 = 0u;
       v47 = 0u;
       v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       v33 = synonymsCopy;
-      v34 = [v33 countByEnumeratingWithState:&v47 objects:v56 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v45 objects:v54 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v48;
+        v36 = *v46;
         do
         {
           for (i = 0; i != v35; ++i)
           {
-            if (*v48 != v36)
+            if (*v46 != v36)
             {
               objc_enumerationMutation(v33);
             }
 
-            v38 = *(*(&v47 + 1) + 8 * i);
             CCPBDataWriterWriteStringField();
           }
 
-          v35 = [v33 countByEnumeratingWithState:&v47 objects:v56 count:16];
+          v35 = [v33 countByEnumeratingWithState:&v45 objects:v54 count:16];
         }
 
         while (v35);
       }
 
-      synonymsCopy = v44;
+      synonymsCopy = v42;
       self = selfCopy2;
       goto LABEL_26;
     }
@@ -658,7 +654,7 @@ LABEL_31:
   }
 
   objc_opt_class();
-  v55 = 0;
+  v53 = 0;
   v22 = CCValidateIsInstanceOfExpectedClass();
   v23 = 0;
   if (v22)
@@ -671,7 +667,6 @@ LABEL_31:
   selfCopy = 0;
 LABEL_33:
 
-  v42 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

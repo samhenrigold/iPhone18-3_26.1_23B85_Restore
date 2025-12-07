@@ -5,22 +5,22 @@
 
 void __100___ANEProgramForEvaluation_processRequest_model_qos_qIndex_modelStringID_options_returnValue_error___block_invoke(uint64_t a1, unsigned int *a2)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v4 = +[_ANELog common];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v75 = NSStringFromSelector(*(a1 + 96));
-    v77 = *a2;
-    v76 = a2[1];
-    v78 = *(a1 + 120);
+    v59 = NSStringFromSelector(*(a1 + 96));
+    v61 = *a2;
+    v60 = a2[1];
+    v62 = *(a1 + 120);
     *buf = 138413058;
-    *v80 = v75;
-    *&v80[8] = 1024;
-    *&v80[10] = v76;
-    *&v80[14] = 1024;
-    *&v80[16] = v77;
-    *&v80[20] = 1024;
-    *&v80[22] = v78;
+    *v64 = v59;
+    *&v64[8] = 1024;
+    *&v64[10] = v60;
+    *&v64[14] = 1024;
+    *&v64[16] = v61;
+    *&v64[20] = 1024;
+    *&v64[22] = v62;
     _os_log_debug_impl(&dword_1AD246000, v4, OS_LOG_TYPE_DEBUG, "-----> %@: ANEProgramProcessRequestDirect() status=0x%x : statusType=0x%x : qos=0x%x", buf, 0x1Eu);
   }
 
@@ -45,7 +45,7 @@ void __100___ANEProgramForEvaluation_processRequest_model_qos_qIndex_modelString
         [_ANEDataReporter addValue:1 forScalarKey:@"InferenceOverflowed"];
 LABEL_39:
 
-        goto LABEL_40;
+        return;
       }
 
       v23 = [v6 stringWithFormat:@"%@: Expecting EventPayLoad 0x%x", v7, *a2];
@@ -125,130 +125,112 @@ LABEL_21:
   v22 = 0;
   v24 = 1;
 LABEL_22:
-  v33 = *(a1 + 120);
-  v34 = *(a1 + 104);
-  v35 = *(a1 + 48);
-  v36 = *(a1 + 56);
   kdebug_trace();
-  v37 = +[_ANELog common];
-  v38 = v37;
-  v39 = *(a1 + 112);
-  if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+  v33 = +[_ANELog common];
+  v34 = v33;
+  v35 = *(a1 + 112);
+  if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
   {
-    v40 = *(a1 + 120);
-    v41 = *(a1 + 104);
-    v42 = *(a1 + 48);
-    v43 = MEMORY[0x1B26F37D0](*(a1 + 56));
+    v36 = *(a1 + 120);
+    v37 = *(a1 + 104);
+    v38 = *(a1 + 48);
+    v39 = MEMORY[0x1B26F37D0](*(a1 + 56));
     *buf = 67109888;
-    *v80 = v40;
-    *&v80[4] = 2048;
-    *&v80[6] = v42;
-    *&v80[14] = 2048;
-    *&v80[16] = v41;
-    *&v80[24] = 2048;
-    *&v80[26] = v43;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v38, OS_SIGNPOST_EVENT, v39, "_ANEF_MODEL_EVAL_DRIVER_REQUEST", "qos:%u r:%p modelStringID:%llu completion:%p", buf, 0x26u);
+    *v64 = v36;
+    *&v64[4] = 2048;
+    *&v64[6] = v38;
+    *&v64[14] = 2048;
+    *&v64[16] = v37;
+    *&v64[24] = 2048;
+    *&v64[26] = v39;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v34, OS_SIGNPOST_EVENT, v35, "_ANEF_MODEL_EVAL_DRIVER_REQUEST", "qos:%u r:%p modelStringID:%llu completion:%p", buf, 0x26u);
   }
 
   if (*(a1 + 124) == 1)
   {
-    v44 = *(a1 + 120);
-    v45 = *(a1 + 48);
-    v46 = *(a1 + 104);
     kdebug_trace();
-    v47 = +[_ANELog common];
-    v9 = v47;
-    v48 = *(a1 + 112);
-    if (v48 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v47))
+    v40 = +[_ANELog common];
+    v9 = v40;
+    v41 = *(a1 + 112);
+    if (v41 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v40))
     {
       goto LABEL_39;
     }
 
-    v49 = *(a1 + 120);
-    v50 = *(a1 + 48);
-    v51 = *(a1 + 104);
+    v42 = *(a1 + 120);
+    v43 = *(a1 + 48);
+    v44 = *(a1 + 104);
     *buf = 67109888;
-    *v80 = v49;
-    *&v80[4] = 2048;
-    *&v80[6] = v50;
-    *&v80[14] = 2048;
-    *&v80[16] = v51;
-    *&v80[24] = 2048;
-    *&v80[26] = v22;
-    v52 = "qos:%u r:%p modelStringID:%llu hwExecutionNS:%lu";
+    *v64 = v42;
+    *&v64[4] = 2048;
+    *&v64[6] = v43;
+    *&v64[14] = 2048;
+    *&v64[16] = v44;
+    *&v64[24] = 2048;
+    *&v64[26] = v22;
+    v45 = "qos:%u r:%p modelStringID:%llu hwExecutionNS:%lu";
     goto LABEL_38;
   }
 
   if (v24)
   {
-    v53 = *(*(*(a1 + 64) + 8) + 24);
-    v54 = *(*(*(a1 + 72) + 8) + 40);
     (*(*(a1 + 56) + 16))();
   }
 
-  v55 = *(a1 + 120);
-  v56 = *(a1 + 48);
-  v57 = *(a1 + 104);
   kdebug_trace();
-  v58 = +[_ANELog common];
-  v59 = v58;
-  v60 = *(a1 + 112);
-  if (v60 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
+  v46 = +[_ANELog common];
+  v47 = v46;
+  v48 = *(a1 + 112);
+  if (v48 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
   {
-    v61 = *(a1 + 120);
-    v62 = *(a1 + 48);
-    v63 = *(a1 + 104);
+    v49 = *(a1 + 120);
+    v50 = *(a1 + 48);
+    v51 = *(a1 + 104);
     *buf = 67109888;
-    *v80 = v61;
-    *&v80[4] = 2048;
-    *&v80[6] = v62;
-    *&v80[14] = 2048;
-    *&v80[16] = v63;
-    *&v80[24] = 2048;
-    *&v80[26] = v22;
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v59, OS_SIGNPOST_EVENT, v60, "_ANEF_MODEL_EVAL_DRIVER_REQUEST", "qos:%u r:%p modelStringID:%llu hwExecutionNS:%lu", buf, 0x26u);
+    *v64 = v49;
+    *&v64[4] = 2048;
+    *&v64[6] = v50;
+    *&v64[14] = 2048;
+    *&v64[16] = v51;
+    *&v64[24] = 2048;
+    *&v64[26] = v22;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v47, OS_SIGNPOST_EVENT, v48, "_ANEF_MODEL_EVAL_DRIVER_REQUEST", "qos:%u r:%p modelStringID:%llu hwExecutionNS:%lu", buf, 0x26u);
   }
 
   *(*(*(a1 + 88) + 8) + 24) = 1;
-  v64 = [*(a1 + 40) requestsInFlight];
-  dispatch_semaphore_signal(v64);
+  v52 = [*(a1 + 40) requestsInFlight];
+  dispatch_semaphore_signal(v52);
 
   [*(a1 + 40) setCurrentAsyncRequestsInFlight:{objc_msgSend(*(a1 + 40), "currentAsyncRequestsInFlight") - 1}];
-  v65 = [_ANEQoSMapper queueIndexForQoS:*(a1 + 120)];
+  v53 = [_ANEQoSMapper queueIndexForQoS:*(a1 + 120)];
   if (kdebug_is_enabled())
   {
-    v66 = v65 | (*(a1 + 120) << 32);
-    v67 = *(a1 + 48);
-    v68 = *(a1 + 104);
-    v69 = *(*(*(a1 + 64) + 8) + 24);
+    v54 = v53 | (*(a1 + 120) << 32);
     kdebug_trace();
-    v70 = +[_ANELog common];
-    v9 = v70;
-    v48 = *(a1 + 112);
-    if (v48 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v70))
+    v55 = +[_ANELog common];
+    v9 = v55;
+    v41 = *(a1 + 112);
+    if (v41 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v55))
     {
       goto LABEL_39;
     }
 
-    v71 = *(a1 + 48);
-    v72 = *(a1 + 104);
-    v73 = *(*(*(a1 + 64) + 8) + 24);
+    v56 = *(a1 + 48);
+    v57 = *(a1 + 104);
+    v58 = *(*(*(a1 + 64) + 8) + 24);
     *buf = 134218752;
-    *v80 = v71;
-    *&v80[8] = 2048;
-    *&v80[10] = v66;
-    *&v80[18] = 2048;
-    *&v80[20] = v72;
-    *&v80[28] = 1024;
-    *&v80[30] = v73;
-    v52 = " r:%p packedQOSandQID:%llu modelStringID:%llu ok:%u";
+    *v64 = v56;
+    *&v64[8] = 2048;
+    *&v64[10] = v54;
+    *&v64[18] = 2048;
+    *&v64[20] = v57;
+    *&v64[28] = 1024;
+    *&v64[30] = v58;
+    v45 = " r:%p packedQOSandQID:%llu modelStringID:%llu ok:%u";
 LABEL_38:
-    _os_signpost_emit_with_name_impl(&dword_1AD246000, v9, OS_SIGNPOST_EVENT, v48, "_ANEF_MODEL_EVAL_DRIVER_REQUEST", v52, buf, 0x26u);
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v9, OS_SIGNPOST_EVENT, v41, "_ANEF_MODEL_EVAL_DRIVER_REQUEST", v45, buf, 0x26u);
     goto LABEL_39;
   }
-
-LABEL_40:
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 void __100___ANEProgramForEvaluation_processRequest_model_qos_qIndex_modelStringID_options_returnValue_error___block_invoke_cold_1()

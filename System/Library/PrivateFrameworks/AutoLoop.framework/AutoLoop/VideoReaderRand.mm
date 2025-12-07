@@ -24,8 +24,8 @@
       sub_2418DF350(v7 + 40, *times, *(times + 1), 0xAAAAAAAAAAAAAAABLL * ((*(times + 1) - *times) >> 3));
     }
 
-    v8[87] = -1431655765 * ((v9[1] - *v9) >> 3);
-    v8[86] = -1;
+    *(v8 + 87) = -1431655765 * ((v9[1] - *v9) >> 3);
+    *(v8 + 86) = -1;
     [v8 setReadAheadEnable:0];
     v10 = v8;
   }
@@ -159,7 +159,7 @@ LABEL_7:
       break;
     }
 
-    [(VideoReader *)self lastPresentationTime];
+    objc_msgSend_lastPresentationTime(self);
     time2 = v20;
     result = CMTimeCompare(&time1, &time2);
     if (result >= 1)

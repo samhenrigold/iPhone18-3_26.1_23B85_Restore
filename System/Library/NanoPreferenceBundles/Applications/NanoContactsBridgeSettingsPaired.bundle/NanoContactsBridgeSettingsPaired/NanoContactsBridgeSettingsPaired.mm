@@ -1,13 +1,13 @@
-id NanoContactsSettingsPairedBundle()
+id NanoContactsSettingsPairedBundle(uint64_t a1)
 {
   if (qword_C6C8 != -1)
   {
     sub_33B0();
   }
 
-  v1 = qword_C6C0;
+  v2 = qword_C6C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_E24(id a1)

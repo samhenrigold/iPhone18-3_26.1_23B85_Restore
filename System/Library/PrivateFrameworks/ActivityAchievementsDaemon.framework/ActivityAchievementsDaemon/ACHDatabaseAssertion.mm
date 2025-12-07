@@ -9,11 +9,11 @@
 
 + (id)assertionWithDatabase:(id)database identifier:(id)identifier timeout:(double)timeout error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v18 = 0;
-  v10 = [database takeAccessibilityAssertionWithOwnerIdentifier:identifierCopy timeout:&v18 error:timeout];
-  v11 = v18;
+  v17 = 0;
+  v10 = [database takeAccessibilityAssertionWithOwnerIdentifier:identifierCopy timeout:&v17 error:timeout];
+  v11 = v17;
   if (v10)
   {
     v12 = [[ACHDatabaseAssertion alloc] initWithHDAssertion:v10];
@@ -25,11 +25,11 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v20 = identifierCopy;
-      v21 = 2048;
+      v19 = identifierCopy;
+      v20 = 2048;
       timeoutCopy = timeout;
-      v23 = 2114;
-      v24 = v11;
+      v22 = 2114;
+      v23 = v11;
       _os_log_impl(&dword_221DDC000, v13, OS_LOG_TYPE_DEFAULT, "Failed to get accessibility assertion for %{public}@ with %lf second timeout with error %{public}@", buf, 0x20u);
     }
 
@@ -50,8 +50,6 @@
 
     v12 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

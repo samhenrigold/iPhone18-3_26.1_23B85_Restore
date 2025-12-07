@@ -113,22 +113,21 @@ void __97__WFActionContentPermissionRequestor__allowNetworkAccessAfterPromptingF
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 32) + 16);
+    v3 = *(*(a1 + 32) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [MEMORY[0x1E69E0C70] sharedManager];
-    v6 = [MEMORY[0x1E695DFD8] setWithObject:@"WFRemoteServerAccessResource"];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __97__WFActionContentPermissionRequestor__allowNetworkAccessAfterPromptingForURLs_completionHandler___block_invoke_4;
-    v7[3] = &unk_1E837D0D0;
-    v8 = *(a1 + 40);
-    [v5 requestSandboxExtensionForRunningActionWithAccessResources:v6 completion:v7];
+    v4 = [MEMORY[0x1E69E0C70] sharedManager];
+    v5 = [MEMORY[0x1E695DFD8] setWithObject:@"WFRemoteServerAccessResource"];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __97__WFActionContentPermissionRequestor__allowNetworkAccessAfterPromptingForURLs_completionHandler___block_invoke_4;
+    v6[3] = &unk_1E837D0D0;
+    v7 = *(a1 + 40);
+    [v4 requestSandboxExtensionForRunningActionWithAccessResources:v5 completion:v6];
   }
 }
 
@@ -149,16 +148,16 @@ void __97__WFActionContentPermissionRequestor__allowNetworkAccessAfterPromptingF
     if (!webpagesLocation)
     {
       scheme = [lCopy scheme];
-      if ([scheme isEqualToString:@"data"])
+      if (objc_msgSend_isEqualToString_(scheme))
       {
       }
 
       else
       {
         scheme2 = [lCopy scheme];
-        v12 = [scheme2 isEqualToString:@"about"];
+        isEqualToString = objc_msgSend_isEqualToString_(scheme2);
 
-        if (!v12)
+        if (!isEqualToString)
         {
           handlerCopy[2](handlerCopy, 0, v9);
           goto LABEL_10;
@@ -220,11 +219,11 @@ void __79__WFActionContentPermissionRequestor_allowContactsAccessWithCompletionH
 
 - (WFActionContentPermissionRequestor)initWithAction:(id)action
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   actionCopy = action;
-  v13.receiver = self;
-  v13.super_class = WFActionContentPermissionRequestor;
-  v5 = [(WFActionContentPermissionRequestor *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = WFActionContentPermissionRequestor;
+  v5 = [(WFActionContentPermissionRequestor *)&v12 init];
   v6 = v5;
   if (v5)
   {
@@ -239,7 +238,7 @@ void __79__WFActionContentPermissionRequestor_allowContactsAccessWithCompletionH
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v15 = "[WFActionContentPermissionRequestor initWithAction:]";
+        v14 = "[WFActionContentPermissionRequestor initWithAction:]";
         _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Creating a WFActionContentPermissionRequestor without userInterface. We won't be able to present any prompts, and requests will be denied.", buf, 0xCu);
       }
     }
@@ -247,7 +246,6 @@ void __79__WFActionContentPermissionRequestor_allowContactsAccessWithCompletionH
     v10 = v6;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

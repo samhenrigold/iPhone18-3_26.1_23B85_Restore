@@ -32,14 +32,14 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"executable" withCoder:coderCopy expectNonNull:1 errorDomain:@"kATXEngagementRecord" errorCode:1 logHandle:v7];
 
   if (v8)
   {
     v9 = MEMORY[0x1E69C5D78];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_home_screen();
+    v11 = __atxlog_handle_home_screen(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"dateEngaged" withCoder:coderCopy expectNonNull:1 errorDomain:@"kATXEngagementRecord" errorCode:2 logHandle:v11];
 
     if (v12)

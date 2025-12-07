@@ -62,7 +62,7 @@
     systemGraph = [(PSSystemGraphClientInterface *)v4 systemGraph];
     [systemGraph registerClient];
 
-    v10 = ps_util_create_serial_dispatch_queue("com.apple.polaris.systemgraph-tx");
+    v10 = ps_util_create_serial_dispatch_queue("com.apple.polaris.systemgraph-tx", 60);
     [(PSSystemGraphClientInterface *)v4 setBlockingCallsQueue:v10];
   }
 
@@ -238,28 +238,27 @@
   v57 = 0;
   v40 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v46 requiringSecureCoding:1 error:&v57];
   v41 = v57;
+  v42 = v41;
   if (v41)
   {
-    v42 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v43 = __PLSLogSharedInstance(v41);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v71 = v41;
-      _os_log_impl(&dword_25EA3A000, v42, OS_LOG_TYPE_ERROR, "encoded streams error:%@", buf, 0xCu);
+      v71 = v42;
+      _os_log_impl(&dword_25EA3A000, v43, OS_LOG_TYPE_ERROR, "encoded streams error:%@", buf, 0xCu);
     }
   }
 
   else
   {
-    v42 = objc_alloc_init(MEMORY[0x277D3E810]);
-    [v42 setKeys:obj];
-    [v42 setEncodedStreams:v40];
-    [v42 setKeysWithOptions:dictionary];
+    v43 = objc_alloc_init(MEMORY[0x277D3E810]);
+    [v43 setKeys:obj];
+    [v43 setEncodedStreams:v40];
+    [v43 setKeysWithOptions:dictionary];
     systemGraph = [(PSSystemGraphClientInterface *)self systemGraph];
-    [systemGraph publishContext:v42];
+    [systemGraph publishContext:v43];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestTransitionWithAddedKeys:(id)keys removedKeys:(id)removedKeys
@@ -290,40 +289,38 @@
 
 - (void)addResourceStreamsForResourceKeys:(id)keys toContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [(PSSystemGraphClientInterface *)self fetchContextsForSessionsProvidingKeys:keys];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         v13 = [v7 objectForKeyedSubscript:v12];
         encodedStreams = [v13 encodedStreams];
         [contextCopy addEncodedResourceStreams:encodedStreams forExecutionSession:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resourceRequestWithStridesCompleted:(id)completed
@@ -433,41 +430,41 @@
 
 - (void)didReceiveResponseForResourceRequest:(id)request
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   requestState = [(PSSystemGraphClientInterface *)self requestState];
   resourcesWanted = [requestCopy resourcesWanted];
   [requestState markCompleted:resourcesWanted];
 
   v7 = [MEMORY[0x277CBEB58] set];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   resourcesWantedWithStrides = [requestCopy resourcesWantedWithStrides];
-  v9 = [resourcesWantedWithStrides countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [resourcesWantedWithStrides countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(resourcesWantedWithStrides);
         }
 
-        resourceKey = [*(*(&v16 + 1) + 8 * v12) resourceKey];
+        resourceKey = [*(*(&v15 + 1) + 8 * v12) resourceKey];
         [v7 addObject:resourceKey];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [resourcesWantedWithStrides countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [resourcesWantedWithStrides countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -475,8 +472,6 @@
 
   requestState2 = [(PSSystemGraphClientInterface *)self requestState];
   [requestState2 markCompleted:v7];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverRequestedResourcesWithStrides:(id)strides
@@ -695,7 +690,6 @@
       }
 
 LABEL_43:
-      v57 = *MEMORY[0x277D85DE8];
       return;
     }
   }
@@ -705,8 +699,8 @@ LABEL_43:
     [PSSystemGraphClientInterface serverRequestedResourcesWithStrides:?];
   }
 
-  v58 = [PSSystemGraphClientInterface serverRequestedResourcesWithStrides:?];
-  __68__PSSystemGraphClientInterface_serverRequestedResourcesWithStrides___block_invoke(v58);
+  v57 = [PSSystemGraphClientInterface serverRequestedResourcesWithStrides:?];
+  __68__PSSystemGraphClientInterface_serverRequestedResourcesWithStrides___block_invoke(v57, v58);
 }
 
 void __68__PSSystemGraphClientInterface_serverRequestedResourcesWithStrides___block_invoke(uint64_t a1, void *a2)
@@ -721,60 +715,58 @@ void __68__PSSystemGraphClientInterface_serverRequestedResourcesWithStrides___bl
 
 - (void)serverRequestedCurrentGraphs
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   executionSession = [(PSSystemGraphClientInterface *)self executionSession];
   dashboard = [executionSession dashboard];
 
   getRunningGraphs = [dashboard getRunningGraphs];
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(getRunningGraphs, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = getRunningGraphs;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        jSONObject = [*(*(&v19 + 1) + 8 * v11) JSONObject];
+        jSONObject = [*(*(&v18 + 1) + 8 * v11) JSONObject];
         [v6 addObject:jSONObject];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v9);
   }
 
-  v23[0] = @"lastTransitionCompletionTimestamp";
+  v22[0] = @"lastTransitionCompletionTimestamp";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(dashboard, "lastTransitionCompletionTimestamp")}];
-  v24[0] = v13;
-  v23[1] = @"completedTransitionsCount";
+  v23[0] = v13;
+  v22[1] = @"completedTransitionsCount";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(dashboard, "completedTransitionsCount")}];
-  v23[2] = @"graphs";
-  v24[1] = v14;
-  v24[2] = v6;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v22[2] = @"graphs";
+  v23[1] = v14;
+  v23[2] = v6;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
 
   v16 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v15 options:2 error:0];
   systemGraph = [(PSSystemGraphClientInterface *)self systemGraph];
   [systemGraph publishCurrentGraphs:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemReplayStarting
@@ -918,7 +910,7 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
 - (void)extractGraphState:(id)state toState:(pssh_graph_state_s *)toState isRunning:(BOOL)running
 {
   runningCopy = running;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   name = [stateCopy name];
   [name UTF8String];
@@ -941,27 +933,27 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
     toState->var8[0] = [stateCopy criticalityCPU];
     toState->var8[1] = [stateCopy criticalityGPU];
     toState->var8[2] = [stateCopy criticalityANE];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     tasks = [stateCopy tasks];
-    v14 = [tasks countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v14 = [tasks countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       var9 = toState->var9;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(tasks);
           }
 
-          computeAgent = [*(*(&v22 + 1) + 8 * i) computeAgent];
+          computeAgent = [*(*(&v21 + 1) + 8 * i) computeAgent];
           if (computeAgent >= 4)
           {
             [PSSystemGraphClientInterface extractGraphState:? toState:? isRunning:?];
@@ -970,19 +962,17 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
           ++var9[computeAgent];
         }
 
-        v15 = [tasks countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [tasks countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v15);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateGraphStateWithAdded:(id)added removed:(id)removed getLivenessNode:(id)node
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   removedCopy = removed;
   nodeCopy = node;
@@ -991,47 +981,47 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
   v13 = v12 + v11;
   if (v12 + v11)
   {
-    v34 = malloc_type_calloc(v12 + v11, 0x178uLL, 0x1000040A31A6D41uLL);
-    if (!v34)
+    v33 = malloc_type_calloc(v12 + v11, 0x178uLL, 0x1000040A31A6D41uLL);
+    if (!v33)
     {
       [PSSystemGraphClientInterface updateGraphStateWithAdded:buf removed:? getLivenessNode:?];
     }
 
-    v31 = v13;
-    v32 = removedCopy;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v30 = v13;
+    v31 = removedCopy;
     v40 = 0u;
-    v33 = addedCopy;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v32 = addedCopy;
     v14 = addedCopy;
-    v15 = [v14 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v40;
+      v18 = *v39;
       do
       {
         v19 = 0;
-        v20 = &v34[376 * v17];
+        v20 = &v33[376 * v17];
         v17 += v16;
         do
         {
-          if (*v40 != v18)
+          if (*v39 != v18)
           {
             objc_enumerationMutation(v14);
           }
 
-          v21 = *(*(&v39 + 1) + 8 * v19);
-          [(PSSystemGraphClientInterface *)self extractGraphState:v21 toState:v20 isRunning:1, v31];
+          v21 = *(*(&v38 + 1) + 8 * v19);
+          [(PSSystemGraphClientInterface *)self extractGraphState:v21 toState:v20 isRunning:1, v30];
           *(v20 + 93) = nodeCopy[2](nodeCopy, v21);
           ++v19;
           v20 += 376;
         }
 
         while (v16 != v19);
-        v16 = [v14 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v16);
@@ -1042,58 +1032,56 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
       v17 = 0;
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    removedCopy = v32;
-    v23 = v32;
-    v24 = [v23 countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    removedCopy = v31;
+    v23 = v31;
+    v24 = [v23 countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v36;
+      v26 = *v35;
       do
       {
         v27 = 0;
-        v28 = &v34[376 * v17];
+        v28 = &v33[376 * v17];
         v17 += v25;
         do
         {
-          if (*v36 != v26)
+          if (*v35 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          [(PSSystemGraphClientInterface *)self extractGraphState:*(*(&v35 + 1) + 8 * v27++) toState:v28 isRunning:0, v31];
+          [(PSSystemGraphClientInterface *)self extractGraphState:*(*(&v34 + 1) + 8 * v27++) toState:v28 isRunning:0, v30];
           v28 += 376;
         }
 
         while (v25 != v27);
-        v25 = [v23 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v25);
     }
 
     systemGraph = [(PSSystemGraphClientInterface *)self systemGraph];
-    v29 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v34 length:376 * v31 freeWhenDone:1];
+    v29 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v33 length:376 * v30 freeWhenDone:1];
     [systemGraph updateGraphs:v29];
 
-    addedCopy = v33;
+    addedCopy = v32;
   }
 
   else
   {
-    systemGraph = __PLSLogSharedInstance();
+    systemGraph = __PLSLogSharedInstance(v12);
     if (os_log_type_enabled(systemGraph, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
       _os_log_impl(&dword_25EA3A000, systemGraph, OS_LOG_TYPE_INFO, "No graph state to update", buf, 2u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSystemReplay
@@ -1110,35 +1098,35 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
 
 - (void)resourceAvailabilityHasChangedTo:(id)to
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   toCopy = to;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = toCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "availability", v16)}];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "availability", v15)}];
         v13 = [v11 key];
         [v5 setObject:v12 forKeyedSubscript:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -1146,8 +1134,6 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
 
   systemGraph = [(PSSystemGraphClientInterface *)self systemGraph];
   [systemGraph resourceAvailabilityHasChangedTo:v5];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForResourceAvailabilityUpdates:(id)updates context:(id)context
@@ -1198,27 +1184,27 @@ void __70__PSSystemGraphClientInterface_fetchContextsForSessionsProvidingKeys___
 
         if (unsignedIntValue == 1)
         {
-          v15 = v5;
+          v16 = v5;
           goto LABEL_10;
         }
 
         if (!unsignedIntValue)
         {
-          v15 = v6;
+          v16 = v6;
 LABEL_10:
-          [v15 addObject:v12];
+          [v16 addObject:v12];
           continue;
         }
 
-        v16 = __PLSLogSharedInstance();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = __PLSLogSharedInstance(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           uTF8String = [v12 UTF8String];
           *buf = 136315394;
           v27 = "[PSSystemGraphClientInterface didReceiveResourceAvailabilityUpdates:]";
           v28 = 2080;
           v29 = uTF8String;
-          _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_ERROR, "(%s) Unknown resouce availability state for resource %s", buf, 0x16u);
+          _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_ERROR, "(%s) Unknown resouce availability state for resource %s", buf, 0x16u);
         }
       }
 
@@ -1239,8 +1225,6 @@ LABEL_10:
     transitionManager2 = [(PSSystemGraphClientInterface *)selfCopy transitionManager];
     [transitionManager2 deliverDynamicResourcesNoLongerAvailableNotification:v6];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (PSTransitionManager)transitionManager
@@ -1259,22 +1243,26 @@ LABEL_10:
 
 - (uint64_t)serverRequestedResourcesWithStrides:(char *)a1 .cold.2(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "callback was not registered for execution session");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "callback was not registered for execution session");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d callback was not registered for execution session", v5, v6, v7, v8, 2u);
+    *v20 = 136315394;
+    *&v20[4] = "[PSSystemGraphClientInterface serverRequestedResourcesWithStrides:]";
+    *&v20[12] = 1024;
+    *&v20[14] = 369;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d callback was not registered for execution session", v6, v7, v8, v9, *v20, *&v20[8], *&v20[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -1283,28 +1271,32 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return [PSSystemGraphClientInterface serverRequestedResourcesWithStrides:v16];
+  v18 = OUTLINED_FUNCTION_0();
+  return [PSSystemGraphClientInterface serverRequestedResourcesWithStrides:v18];
 }
 
 - (uint64_t)serverRequestedResourcesWithStrides:(char *)a1 .cold.3(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "OOM!");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "OOM!");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d OOM!", v5, v6, v7, v8, 2u);
+    *v20 = 136315394;
+    *&v20[4] = "[PSSystemGraphClientInterface serverRequestedResourcesWithStrides:]";
+    *&v20[12] = 1024;
+    *&v20[14] = 345;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d OOM!", v6, v7, v8, v9, *v20, *&v20[8], *&v20[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -1313,28 +1305,32 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return [PSSystemGraphClientInterface extractGraphState:v16 toState:? isRunning:?];
+  v18 = OUTLINED_FUNCTION_0();
+  return [PSSystemGraphClientInterface extractGraphState:v18 toState:? isRunning:?];
 }
 
-- (uint64_t)extractGraphState:(char *)a1 toState:isRunning:.cold.1(char **a1)
+- (void)extractGraphState:(char *)a1 toState:isRunning:.cold.1(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Unknown compute agent");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Unknown compute agent");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d Unknown compute agent", v5, v6, v7, v8, 2u);
+    *v19 = 136315394;
+    *&v19[4] = "[PSSystemGraphClientInterface extractGraphState:toState:isRunning:]";
+    *&v19[12] = 1024;
+    *&v19[14] = 484;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Unknown compute agent", v6, v7, v8, v9, *v19, *&v19[8], *&v19[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -1343,28 +1339,32 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return [PSSystemGraphClientInterface updateGraphStateWithAdded:v16 removed:? getLivenessNode:?];
+  v18 = OUTLINED_FUNCTION_0();
+  [PSSystemGraphClientInterface updateGraphStateWithAdded:v18 removed:? getLivenessNode:?];
 }
 
 - (void)updateGraphStateWithAdded:(char *)a1 removed:getLivenessNode:.cold.1(char **a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "No memory for sending graph state to system graph");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "No memory for sending graph state to system graph");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d No memory for sending graph state to system graph", v5, v6, v7, v8, 2u);
+    *v18 = 136315394;
+    *&v18[4] = "[PSSystemGraphClientInterface updateGraphStateWithAdded:removed:getLivenessNode:]";
+    *&v18[12] = 1024;
+    *&v18[14] = 504;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d No memory for sending graph state to system graph", v6, v7, v8, v9, *v18, *&v18[8], *&v18[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v17);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -1373,8 +1373,8 @@ LABEL_10:
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  [PSGSTManager initSharedTrigger:v16 threadPoolID:? pid:?];
+  OUTLINED_FUNCTION_0();
+  [PSGSTManager initSharedTrigger:threadPoolID:pid:];
 }
 
 @end

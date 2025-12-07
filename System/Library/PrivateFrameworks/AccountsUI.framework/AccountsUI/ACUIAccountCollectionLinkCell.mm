@@ -151,7 +151,6 @@
   MEMORY[0x277D82BD8](v7);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }

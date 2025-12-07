@@ -22,6 +22,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ISLocaleController
@@ -287,6 +288,16 @@
   [(ISLocaleController *)self setTitle:v4];
 
   [(ISLocaleController *)self emitNavigationEventForLocaleController];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ISLocaleController;
+  [(ISLocaleController *)&v4 viewWillAppear:appear];
+  [(ISLocaleController *)self loadRegions];
+  [(ISLocaleController *)self loadSections];
+  [(ISLocaleController *)self setShouldReloadAndScrollToCurrentRegion:1];
 }
 
 - (void)emitNavigationEventForLocaleController

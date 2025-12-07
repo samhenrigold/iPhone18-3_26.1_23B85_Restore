@@ -196,21 +196,20 @@ void __58__WFWorkoutGoalQuantityFieldParameter_updatePossibleUnits__block_invoke
   if (*(*(*(a1 + 72) + 8) + 40))
   {
     v2 = *(a1 + 48);
-    v3 = *(a1 + 56);
 
     [v2 updateCurrentStateWithNewUnitString:? currentState:?];
   }
 
   else
   {
-    v4 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 40)];
-    v5 = [v4 containsObject:*(a1 + 64)];
+    v3 = [MEMORY[0x277CBEB98] setWithArray:*(a1 + 40)];
+    v4 = [v3 containsObject:*(a1 + 64)];
 
-    if ((v5 & 1) == 0)
+    if ((v4 & 1) == 0)
     {
-      v6 = *(a1 + 48);
-      v7 = [*(a1 + 40) firstObject];
-      [v6 updateCurrentStateWithNewUnitString:v7 currentState:*(a1 + 56)];
+      v5 = *(a1 + 48);
+      v6 = [*(a1 + 40) firstObject];
+      [v5 updateCurrentStateWithNewUnitString:v6 currentState:*(a1 + 56)];
     }
   }
 }
@@ -231,7 +230,7 @@ void __58__WFWorkoutGoalQuantityFieldParameter_updatePossibleUnits__block_invoke
 
 - (id)defaultState
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   definition = [(WFWorkoutGoalQuantityFieldParameter *)self definition];
   v4 = [definition objectForKey:*MEMORY[0x277D7CE00]];
   v5 = objc_opt_class();
@@ -241,16 +240,16 @@ void __58__WFWorkoutGoalQuantityFieldParameter_updatePossibleUnits__block_invoke
     v8 = getWFGeneralLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v16 = 136315906;
-      v17 = "WFEnforceClass";
-      v18 = 2114;
-      v19 = v6;
-      v20 = 2114;
-      v21 = objc_opt_class();
-      v22 = 2114;
-      v23 = v5;
-      v9 = v21;
-      _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v16, 0x2Au);
+      v15 = 136315906;
+      v16 = "WFEnforceClass";
+      v17 = 2114;
+      v18 = v6;
+      v19 = 2114;
+      v20 = objc_opt_class();
+      v21 = 2114;
+      v22 = v5;
+      v9 = v20;
+      _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v15, 0x2Au);
     }
 
     v7 = 0;
@@ -275,8 +274,6 @@ void __58__WFWorkoutGoalQuantityFieldParameter_updatePossibleUnits__block_invoke
   }
 
   v13 = [objc_alloc(MEMORY[0x277D7C788]) initWithMagnitudeState:v12 unitString:firstObject];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -360,7 +357,7 @@ void __58__WFWorkoutGoalQuantityFieldParameter_updatePossibleUnits__block_invoke
 
 + (id)unitConversion
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   largeCalorieUnit = [MEMORY[0x277CCDAB0] largeCalorieUnit];
   kilocalorieUnit = [MEMORY[0x277CCDAB0] kilocalorieUnit];
   v4 = [MEMORY[0x277CCDAB0] jouleUnitWithMetricPrefix:9];
@@ -369,36 +366,34 @@ void __58__WFWorkoutGoalQuantityFieldParameter_updatePossibleUnits__block_invoke
   mileUnit = [MEMORY[0x277CCDAB0] mileUnit];
   meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
   yardUnit = [MEMORY[0x277CCDAB0] yardUnit];
-  v23 = largeCalorieUnit;
-  v24[0] = largeCalorieUnit;
-  v20 = [v5 setByRemovingObject:largeCalorieUnit];
-  v25[0] = v20;
-  v22 = kilocalorieUnit;
-  v24[1] = kilocalorieUnit;
+  v22 = largeCalorieUnit;
+  v23[0] = largeCalorieUnit;
+  v19 = [v5 setByRemovingObject:largeCalorieUnit];
+  v24[0] = v19;
+  v21 = kilocalorieUnit;
+  v23[1] = kilocalorieUnit;
   v10 = [v5 setByRemovingObject:kilocalorieUnit];
-  v25[1] = v10;
-  v21 = v4;
-  v24[2] = v4;
+  v24[1] = v10;
+  v20 = v4;
+  v23[2] = v4;
   v11 = [v5 setByRemovingObject:v4];
-  v25[2] = v11;
-  v19 = v6;
-  v24[3] = v6;
+  v24[2] = v11;
+  v18 = v6;
+  v23[3] = v6;
   v12 = [MEMORY[0x277CBEB98] setWithObject:mileUnit];
-  v25[3] = v12;
-  v24[4] = mileUnit;
+  v24[3] = v12;
+  v23[4] = mileUnit;
   v13 = [MEMORY[0x277CBEB98] setWithObject:v6];
-  v25[4] = v13;
-  v24[5] = meterUnit;
+  v24[4] = v13;
+  v23[5] = meterUnit;
   v14 = [MEMORY[0x277CBEB98] setWithObject:yardUnit];
-  v25[5] = v14;
-  v24[6] = yardUnit;
+  v24[5] = v14;
+  v23[6] = yardUnit;
   v15 = [MEMORY[0x277CBEB98] setWithObject:meterUnit];
-  v25[6] = v15;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[6] = v15;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 @end

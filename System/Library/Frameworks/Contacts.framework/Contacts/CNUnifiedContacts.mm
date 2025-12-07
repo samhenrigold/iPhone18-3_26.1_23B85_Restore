@@ -3,7 +3,7 @@
 + (BOOL)doesMultiValue:(id)value needLabeledValue:(id)labeledValue fromMultiValue:(id)multiValue forProperty:(id)property;
 + (BOOL)shouldIncludeLabeledValue:(id)value fromSource:(id)source inDestination:(id)destination forProperty:(id)property;
 + (BOOL)shouldLabeledValue:(id)value replaceInferiorValueInMultiValue:(id)multiValue forProperty:(id)property;
-+ (id)_unifyContactsSortedByPreference:(void *)preference options:;
++ (CNMutableContact)_unifyContactsSortedByPreference:(void *)preference options:;
 + (id)findFirstIdentifier:(void *)identifier inMultiValue:;
 + (id)firstNonNilValueForProperty:(id)property inContacts:(id)contacts;
 + (id)identifierMapForUnifiedContact:(void *)contact backingContacts:;
@@ -243,7 +243,7 @@ void __50__CNUnifiedContacts_wallpaperValuePropertiesByKey__block_invoke()
   return v5;
 }
 
-+ (id)_unifyContactsSortedByPreference:(void *)preference options:
++ (CNMutableContact)_unifyContactsSortedByPreference:(void *)preference options:
 {
   v4 = a2;
   preferenceCopy = preference;

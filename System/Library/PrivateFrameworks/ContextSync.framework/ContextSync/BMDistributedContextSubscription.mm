@@ -86,12 +86,12 @@
 
 - (id)dictionaryRepresentation
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v18[5] = *MEMORY[0x277D85DE8];
   identifier = self->_identifier;
   dsl = self->_dsl;
-  v19[0] = identifier;
-  v18[0] = @"identifier";
-  v18[1] = @"dsl";
+  v18[0] = identifier;
+  v17[0] = @"identifier";
+  v17[1] = @"dsl";
   bmdsl_serialize = [(BMDSL *)dsl bmdsl_serialize];
   data = bmdsl_serialize;
   if (!bmdsl_serialize)
@@ -101,30 +101,28 @@
 
   subscribingDevice = self->_subscribingDevice;
   subscribedDevice = self->_subscribedDevice;
-  v19[1] = data;
-  v19[2] = subscribingDevice;
-  v18[2] = @"subscribingDevice";
-  v18[3] = @"subscribedDevice";
-  v19[3] = subscribedDevice;
-  v18[4] = @"configuration";
-  v16[0] = @"wakeState";
+  v18[1] = data;
+  v18[2] = subscribingDevice;
+  v17[2] = @"subscribingDevice";
+  v17[3] = @"subscribedDevice";
+  v18[3] = subscribedDevice;
+  v17[4] = @"configuration";
+  v15[0] = @"wakeState";
   wakeState = [(BMDistributedContextSubscriptionConfiguration *)self->_configuration wakeState];
-  v17[0] = wakeState;
-  v16[1] = @"oneOff";
+  v16[0] = wakeState;
+  v15[1] = @"oneOff";
   oneOffSubscription = [(BMDistributedContextSubscriptionConfiguration *)self->_configuration oneOffSubscription];
-  v17[1] = oneOffSubscription;
-  v16[2] = @"lastChangedDate";
+  v16[1] = oneOffSubscription;
+  v15[2] = @"lastChangedDate";
   lastChangedDate = [(BMDistributedContextSubscriptionConfiguration *)self->_configuration lastChangedDate];
-  v17[2] = lastChangedDate;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
-  v19[4] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v16[2] = lastChangedDate;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v18[4] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
 
   if (!bmdsl_serialize)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

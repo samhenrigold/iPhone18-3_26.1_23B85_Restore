@@ -62,27 +62,27 @@
 
 - (BOOL)wasRevised
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allEdits = [(TIWordEntry *)self allEdits];
-  v4 = [allEdits countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [allEdits countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(allEdits);
         }
 
-        acceptedString = [*(*(&v14 + 1) + 8 * i) acceptedString];
+        acceptedString = [*(*(&v13 + 1) + 8 * i) acceptedString];
         acceptedString2 = [(TIWordEntry *)self acceptedString];
         v10 = [acceptedString isEqual:acceptedString2];
 
@@ -93,7 +93,7 @@
         }
       }
 
-      v5 = [allEdits countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [allEdits countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -106,73 +106,71 @@
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)textFromResolvedKeyboardInputs:(id)inputs
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   v5 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = inputsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         if (([v11 isBackspace] & 1) == 0)
         {
           inputTriggeredTextAccepted = [(TIWordEntry *)self inputTriggeredTextAccepted];
 
           if (v11 != inputTriggeredTextAccepted)
           {
-            string = [v11 string];
-            [v5 appendString:string];
+            v13 = objc_msgSend_string(v11);
+            [v5 appendString:v13];
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (int)leadingBackspaceCountFromResolvedKeyboardInputs:(id)inputs
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   inputsCopy = inputs;
-  v4 = [inputsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [inputsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       v8 = 0;
@@ -180,12 +178,12 @@ LABEL_11:
       v6 += v5;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(inputsCopy);
         }
 
-        if (![*(*(&v12 + 1) + 8 * v8) isBackspace])
+        if (![*(*(&v11 + 1) + 8 * v8) isBackspace])
         {
           v6 = v9;
           goto LABEL_12;
@@ -196,7 +194,7 @@ LABEL_11:
       }
 
       while (v5 != v8);
-      v5 = [inputsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [inputsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -213,7 +211,6 @@ LABEL_11:
 
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -232,8 +229,8 @@ LABEL_12:
         break;
       }
 
-      string = [v7 string];
-      v9 = [string stringByTrimmingCharactersInSet:charactersCopy];
+      v8 = objc_msgSend_string(v7);
+      v9 = [v8 stringByTrimmingCharactersInSet:charactersCopy];
       v10 = [v9 length];
 
       if (v10)
@@ -261,8 +258,8 @@ LABEL_12:
         break;
       }
 
-      string2 = [v13 string];
-      v15 = [string2 stringByTrimmingCharactersInSet:charactersCopy];
+      v14 = objc_msgSend_string(v13);
+      v15 = [v14 stringByTrimmingCharactersInSet:charactersCopy];
       v16 = [v15 length];
 
       if (v16)
@@ -282,29 +279,29 @@ LABEL_12:
 
 - (id)resolveBackspacesInKeyboardInputs
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allKeyboardInputs = [(TIWordEntry *)self allKeyboardInputs];
-  v5 = [allKeyboardInputs countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [allKeyboardInputs countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allKeyboardInputs);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         lastObject = [array lastObject];
         if (lastObject && [v9 isBackspace] && (objc_msgSend(lastObject, "isBackspace") & 1) == 0)
         {
@@ -320,41 +317,39 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v11 = [allKeyboardInputs countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v11 = [allKeyboardInputs countByEnumeratingWithState:&v13 objects:v17 count:16];
       v6 = v11;
     }
 
     while (v11);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (BOOL)candidateContainsEmoji
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allKeyboardInputsM = [(TIWordEntry *)self allKeyboardInputsM];
-  v3 = [allKeyboardInputsM countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allKeyboardInputsM countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(allKeyboardInputsM);
         }
 
-        string = [*(*(&v10 + 1) + 8 * i) string];
-        _containsEmoji = [string _containsEmoji];
+        v6 = objc_msgSend_string(*(*(&v9 + 1) + 8 * i));
+        _containsEmoji = [v6 _containsEmoji];
 
         if (_containsEmoji)
         {
@@ -363,7 +358,7 @@ LABEL_12:
         }
       }
 
-      v3 = [allKeyboardInputsM countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [allKeyboardInputsM countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -375,7 +370,6 @@ LABEL_12:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -399,9 +393,9 @@ LABEL_11:
     {
       acceptedString = [(TIWordEntry *)self acceptedString];
       acceptedString2 = [editCopy acceptedString];
-      v8 = [acceptedString isEqualToString:acceptedString2];
+      isEqualToString = objc_msgSend_isEqualToString_(acceptedString);
 
-      if (v8)
+      if (isEqualToString)
       {
         v9 = 2;
       }
@@ -422,18 +416,18 @@ LABEL_11:
 - (BOOL)isPeriodFromDoubleSpaceEntry
 {
   candidate = [(TIKeyboardCandidate *)self->_acceptedCandidate candidate];
-  if ([candidate isEqualToString:@"."])
+  if (objc_msgSend_isEqualToString_(candidate))
   {
     input = [(TIKeyboardCandidate *)self->_acceptedCandidate input];
-    v5 = [input isEqualToString:@" "];
+    isEqualToString = objc_msgSend_isEqualToString_(input);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)endsWithNewLine
@@ -455,13 +449,13 @@ LABEL_11:
         allKeyboardInputs2 = [(TIWordEntry *)self allKeyboardInputs];
         v10 = [allKeyboardInputs2 objectAtIndex:v6];
 
-        string = [v10 string];
+        v11 = objc_msgSend_string(v10);
 
-        if (string)
+        if (v11)
         {
           v12 = MEMORY[0x277CCA900];
-          string2 = [v10 string];
-          v14 = [v12 characterSetWithCharactersInString:string2];
+          v13 = objc_msgSend_string(v10);
+          v14 = [v12 characterSetWithCharactersInString:v13];
 
           newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
           v16 = [newlineCharacterSet isSupersetOfSet:v14];
@@ -521,13 +515,13 @@ LABEL_15:
         allKeyboardInputs2 = [(TIWordEntry *)self allKeyboardInputs];
         v10 = [allKeyboardInputs2 objectAtIndex:v6];
 
-        string = [v10 string];
+        v11 = objc_msgSend_string(v10);
 
-        if (string)
+        if (v11)
         {
           v12 = MEMORY[0x277CCA900];
-          string2 = [v10 string];
-          v14 = [v12 characterSetWithCharactersInString:string2];
+          v13 = objc_msgSend_string(v10);
+          v14 = [v12 characterSetWithCharactersInString:v13];
 
           newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
           v16 = [newlineCharacterSet isSupersetOfSet:v14];

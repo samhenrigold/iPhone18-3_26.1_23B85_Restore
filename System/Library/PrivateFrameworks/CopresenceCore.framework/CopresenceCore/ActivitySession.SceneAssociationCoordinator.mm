@@ -13,7 +13,7 @@
   selfCopy = self;
   [v2 removeDelegate_];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for ActivitySession.SceneAssociationCoordinator();
+  v4.super_class = type metadata accessor for ActivitySession.SceneAssociationCoordinator(0);
   [(ActivitySession.SceneAssociationCoordinator *)&v4 dealloc];
 }
 

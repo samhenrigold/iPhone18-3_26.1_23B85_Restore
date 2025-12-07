@@ -22,12 +22,12 @@
   v6 = [stagingRootPath stringByAppendingPathComponent:fileHash];
   profileIdentifier = [context profileIdentifier];
   v8 = [[MSDConfigurationProfile alloc] initWithFile:v6 andIdentifier:profileIdentifier];
-  v9 = sub_100063A54();
+  v9 = sub_100063A54(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [context identifier];
     *buf = 138543362;
-    v21 = identifier;
+    v23 = identifier;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Installing standalone configuration profile: %{public}@", buf, 0xCu);
   }
 
@@ -36,37 +36,38 @@
 
   if (v12)
   {
-    v13 = +[MSDConfigurationProfileManager sharedInstance];
-    v14 = [v13 installConfigurationProfile:v8];
+    v14 = +[MSDConfigurationProfileManager sharedInstance];
+    v15 = [v14 installConfigurationProfile:v8];
   }
 
   else
   {
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100063A54(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C57EC(fileHash, v13);
+      sub_1000C57EC(fileHash, v14);
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
   if ([v3 fileExistsAtPath:v6])
   {
-    v19 = 0;
-    v15 = [v3 removeItemAtPath:v6 error:&v19];
-    v16 = v19;
-    if ((v15 & 1) == 0)
+    v21 = 0;
+    v16 = [v3 removeItemAtPath:v6 error:&v21];
+    v17 = v21;
+    v18 = v17;
+    if ((v16 & 1) == 0)
     {
-      v17 = sub_100063A54();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = sub_100063A54(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_1000C5864(v16, v17);
+        sub_1000C5864(v18, v19);
       }
     }
   }
 
-  return v14;
+  return v15;
 }
 
 @end

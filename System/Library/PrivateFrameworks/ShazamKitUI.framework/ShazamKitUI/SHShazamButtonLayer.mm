@@ -371,7 +371,7 @@ uint64_t __75__SHShazamButtonLayer_removeTransparentShapeWithDuration_delay_comp
 
 - (void)drawSolidShapeWithDuration:(double)duration delay:(double)delay completion:(id)completion
 {
-  v36[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [MEMORY[0x277CD9FF0] begin];
   topStrokeLongPath = [(SHShazamButtonLayer *)self topStrokeLongPath];
@@ -415,18 +415,18 @@ uint64_t __75__SHShazamButtonLayer_removeTransparentShapeWithDuration_delay_comp
   [v26 setFillMode:v25];
   [v26 setBeginTime:delay];
   v27 = MEMORY[0x277CD9FF0];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __67__SHShazamButtonLayer_drawSolidShapeWithDuration_delay_completion___block_invoke;
-  v34[3] = &unk_279BBFC10;
-  v34[4] = self;
-  v35 = completionCopy;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __67__SHShazamButtonLayer_drawSolidShapeWithDuration_delay_completion___block_invoke;
+  v33[3] = &unk_279BBFC10;
+  v33[4] = self;
+  v34 = completionCopy;
   v28 = completionCopy;
-  [v27 setCompletionBlock:v34];
+  [v27 setCompletionBlock:v33];
   animation = [MEMORY[0x277CD9E00] animation];
-  v36[0] = v26;
-  v36[1] = v24;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  v35[0] = v26;
+  v35[1] = v24;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
   [animation setAnimations:v30];
 
   [animation setDuration:duration + delay];
@@ -439,7 +439,6 @@ uint64_t __75__SHShazamButtonLayer_removeTransparentShapeWithDuration_delay_comp
   [bottomSolidLayer2 addAnimation:animation forKey:0];
 
   [MEMORY[0x277CD9FF0] commit];
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__SHShazamButtonLayer_drawSolidShapeWithDuration_delay_completion___block_invoke(uint64_t a1)

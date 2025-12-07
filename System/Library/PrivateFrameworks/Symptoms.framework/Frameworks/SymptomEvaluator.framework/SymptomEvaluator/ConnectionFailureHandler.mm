@@ -5,6 +5,7 @@
 - (ConnectionFailureHandler)init;
 - (void)completeInitialization;
 - (void)handleFailureOrStallSymptom:(id)symptom;
+- (void)postConnectionFailureMetrics:(unsigned __int8)metrics;
 - (void)setUpNumericAccumulator;
 @end
 
@@ -180,24 +181,24 @@ id __50__ConnectionFailureHandler_completeInitialization__block_invoke_3(uint64_
 
 - (void)handleFailureOrStallSymptom:(id)symptom
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   v5 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v12 = symptomCopy;
+    v11 = symptomCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "ConnectionFailureHandler: EventDescription: %@", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __56__ConnectionFailureHandler_handleFailureOrStallSymptom___block_invoke;
-  v9[3] = &unk_27898BE68;
-  v9[4] = self;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __56__ConnectionFailureHandler_handleFailureOrStallSymptom___block_invoke;
+  v8[3] = &unk_27898BE68;
+  v8[4] = self;
   v6 = symptomCopy;
-  v10 = v6;
-  if ((libnetcoreSymptomTrampoline(v6, 0, 0, 1, MEMORY[0x277D85CD0], v9) & 1) == 0)
+  v9 = v6;
+  if ((libnetcoreSymptomTrampoline(v6, 0, 0, 1, MEMORY[0x277D85CD0], v8) & 1) == 0)
   {
     v7 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
@@ -206,8 +207,6 @@ id __50__ConnectionFailureHandler_completeInitialization__block_invoke_3(uint64_
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "ConnectionFailureHandler: Libnetcore trampoline failed.", buf, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__ConnectionFailureHandler_handleFailureOrStallSymptom___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, int a12, void *a13)
@@ -344,57 +343,116 @@ LABEL_11:
 LABEL_17:
 }
 
+- (void)postConnectionFailureMetrics:(unsigned __int8)metrics
+{
+  metricsCopy = metrics;
+  v27 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 1;
+  dictionaryRepresentation = [(NWNumericAccumulator *)self->_stallAccumulator dictionaryRepresentation];
+  v7 = [dictionaryRepresentation objectForKeyedSubscript:@"states"];
+  v8 = otherLogHandle;
+  if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v26 = v7;
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "ConnectionFailureHandler: StateArray: %@", buf, 0xCu);
+  }
+
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_133;
+  v14[3] = &unk_27898E588;
+  v17 = &__block_literal_global_122;
+  v9 = v7;
+  v15 = v9;
+  selfCopy = self;
+  v18 = &__block_literal_global_110_0;
+  v19 = &__block_literal_global_126;
+  v20 = &v21;
+  [v9 enumerateObjectsUsingBlock:v14];
+  if (*(v22 + 24) == 1)
+  {
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_174;
+    v13[3] = &unk_27898A0C8;
+    v13[4] = self;
+    sf_synchronize(&self->_privacyProxyLock, v13);
+  }
+
+  else
+  {
+    v10 = otherLogHandle;
+    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "ConnectionFailureHandler: Failure posting CA events.", buf, 2u);
+    }
+  }
+
+  _Block_object_dispose(&v21, 8);
+  objc_autoreleasePoolPop(v5);
+  [(NWNumericAccumulator *)self->_stallAccumulator reset];
+  stallAccumulator = self->_stallAccumulator;
+  v12 = [MEMORY[0x277D6B3E0] stringForFunctionalInterfaceType:metricsCopy];
+  [(NWNumericAccumulator *)stallAccumulator updateState:v12 forName:@"interfaceType"];
+}
+
 id __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = v5;
   v7 = 0;
   if (v4 && v5)
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__11;
-    v29 = __Block_byref_object_dispose__11;
-    v30 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__11;
+    v28 = __Block_byref_object_dispose__11;
+    v29 = 0;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v31 count:16];
-    v17 = v6;
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
+    v16 = v6;
     if (v9)
     {
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_117;
-          v18[3] = &unk_27898E518;
-          v19 = v4;
-          v20 = &v25;
-          [v12 enumerateKeysAndObjectsUsingBlock:v18];
+          v12 = *(*(&v20 + 1) + 8 * i);
+          v17[0] = MEMORY[0x277D85DD0];
+          v17[1] = 3221225472;
+          v17[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_117;
+          v17[3] = &unk_27898E518;
+          v18 = v4;
+          v19 = &v24;
+          [v12 enumerateKeysAndObjectsUsingBlock:v17];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
       }
 
       while (v9);
     }
 
-    v14 = v26[5];
+    v14 = v25[5];
     if (v14)
     {
       v7 = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_2(v13, v14);
@@ -405,12 +463,10 @@ id __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke(ui
       v7 = 0;
     }
 
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
 
-    v6 = v17;
+    v6 = v16;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -486,57 +542,55 @@ void __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_
 
 id __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_2_120(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = 0;
   if (v4 && v5)
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v14 = v5;
+    v13 = v5;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v8)
     {
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
-          v15[0] = MEMORY[0x277D85DD0];
-          v15[1] = 3221225472;
-          v15[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_3_123;
-          v15[3] = &unk_27898E518;
-          v16 = v4;
-          v17 = &v22;
-          [v11 enumerateKeysAndObjectsUsingBlock:v15];
+          v11 = *(*(&v17 + 1) + 8 * i);
+          v14[0] = MEMORY[0x277D85DD0];
+          v14[1] = 3221225472;
+          v14[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_3_123;
+          v14[3] = &unk_27898E518;
+          v15 = v4;
+          v16 = &v21;
+          [v11 enumerateKeysAndObjectsUsingBlock:v14];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
       while (v8);
     }
 
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v23[3]];
-    _Block_object_dispose(&v22, 8);
-    v5 = v14;
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v22[3]];
+    _Block_object_dispose(&v21, 8);
+    v5 = v13;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -570,11 +624,10 @@ void __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_
   v7 = *(a1 + 48);
   v8 = *(a1 + 32);
   v9 = *(a1 + 56);
-  v10 = *(a1 + 40);
-  *&v11 = v7;
-  *(&v11 + 1) = v9;
-  v12 = v11;
-  v13 = *(a1 + 64);
+  *&v10 = v7;
+  *(&v10 + 1) = v9;
+  v11 = v10;
+  v12 = *(a1 + 64);
   if ((AnalyticsSendEventLazy() & 1) == 0)
   {
     *(*(*(a1 + 72) + 8) + 24) = 0;
@@ -584,7 +637,7 @@ void __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_
 
 id __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_2_134(uint64_t a1)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"cellMCC"];
   [v2 setObject:v3 forKeyedSubscript:@"cellMCC"];
@@ -610,119 +663,97 @@ id __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_2_
   v10 = [*(a1 + 32) objectForKeyedSubscript:@"privacyProxyServiceStatus"];
   [v2 setObject:v10 forKeyedSubscript:@"privacyProxyServiceStatus"];
 
-  v11 = *(a1 + 40);
+  v11 = (*(*(a1 + 56) + 16))();
+  [v2 setObject:v11 forKeyedSubscript:@"dnsStall"];
+
   v12 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v12 forKeyedSubscript:@"dnsStall"];
+  [v2 setObject:v12 forKeyedSubscript:@"setupStall"];
 
-  v13 = *(a1 + 40);
+  v13 = (*(*(a1 + 56) + 16))();
+  [v2 setObject:v13 forKeyedSubscript:@"proxyFailed"];
+
   v14 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v14 forKeyedSubscript:@"setupStall"];
+  [v2 setObject:v14 forKeyedSubscript:@"httpFailed"];
 
-  v15 = *(a1 + 40);
+  v15 = (*(*(a1 + 56) + 16))();
+  [v2 setObject:v15 forKeyedSubscript:@"connectionFailed"];
+
   v16 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v16 forKeyedSubscript:@"proxyFailed"];
+  [v2 setObject:v16 forKeyedSubscript:@"dnsStallProxied"];
 
-  v17 = *(a1 + 40);
+  v17 = (*(*(a1 + 56) + 16))();
+  [v2 setObject:v17 forKeyedSubscript:@"setupStallProxied"];
+
   v18 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v18 forKeyedSubscript:@"httpFailed"];
+  [v2 setObject:v18 forKeyedSubscript:@"proxyFailedProxied"];
 
-  v19 = *(a1 + 40);
+  v19 = (*(*(a1 + 56) + 16))();
+  [v2 setObject:v19 forKeyedSubscript:@"httpFailedProxied"];
+
   v20 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v20 forKeyedSubscript:@"connectionFailed"];
+  [v2 setObject:v20 forKeyedSubscript:@"connectionFailedProxied"];
 
-  v21 = *(a1 + 40);
-  v22 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v22 forKeyedSubscript:@"dnsStallProxied"];
+  v21 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v21 forKeyedSubscript:@"dnsStallMostCommonError"];
 
-  v23 = *(a1 + 40);
-  v24 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v24 forKeyedSubscript:@"setupStallProxied"];
+  v22 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v22 forKeyedSubscript:@"setupStallMostCommonError"];
 
-  v25 = *(a1 + 40);
-  v26 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v26 forKeyedSubscript:@"proxyFailedProxied"];
+  v23 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v23 forKeyedSubscript:@"proxyFailedMostCommonError"];
 
-  v27 = *(a1 + 40);
-  v28 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v28 forKeyedSubscript:@"httpFailedProxied"];
+  v24 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v24 forKeyedSubscript:@"httpFailedMostCommonError"];
 
-  v29 = *(a1 + 40);
-  v30 = (*(*(a1 + 56) + 16))();
-  [v2 setObject:v30 forKeyedSubscript:@"connectionFailedProxied"];
+  v25 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v25 forKeyedSubscript:@"connectionFailedMostCommonError"];
 
-  v31 = *(a1 + 40);
-  v32 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v32 forKeyedSubscript:@"dnsStallMostCommonError"];
+  v26 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v26 forKeyedSubscript:@"dnsStallProxiedMostCommonError"];
 
-  v33 = *(a1 + 40);
-  v34 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v34 forKeyedSubscript:@"setupStallMostCommonError"];
+  v27 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v27 forKeyedSubscript:@"setupStallProxiedMostCommonError"];
 
-  v35 = *(a1 + 40);
-  v36 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v36 forKeyedSubscript:@"proxyFailedMostCommonError"];
+  v28 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v28 forKeyedSubscript:@"proxyFailedProxiedMostCommonError"];
 
-  v37 = *(a1 + 40);
-  v38 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v38 forKeyedSubscript:@"httpFailedMostCommonError"];
+  v29 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v29 forKeyedSubscript:@"httpFailedProxiedMostCommonError"];
 
-  v39 = *(a1 + 40);
-  v40 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v40 forKeyedSubscript:@"connectionFailedMostCommonError"];
+  v30 = (*(*(a1 + 64) + 16))();
+  [v2 setObject:v30 forKeyedSubscript:@"connectionFailedProxiedMostCommonError"];
 
-  v41 = *(a1 + 40);
-  v42 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v42 forKeyedSubscript:@"dnsStallProxiedMostCommonError"];
-
-  v43 = *(a1 + 40);
-  v44 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v44 forKeyedSubscript:@"setupStallProxiedMostCommonError"];
-
-  v45 = *(a1 + 40);
-  v46 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v46 forKeyedSubscript:@"proxyFailedProxiedMostCommonError"];
-
-  v47 = *(a1 + 40);
-  v48 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v48 forKeyedSubscript:@"httpFailedProxiedMostCommonError"];
-
-  v49 = *(a1 + 40);
-  v50 = (*(*(a1 + 64) + 16))();
-  [v2 setObject:v50 forKeyedSubscript:@"connectionFailedProxiedMostCommonError"];
-
-  v51 = *(a1 + 48);
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_3_168;
-  v59[3] = &unk_27898DE08;
-  v52 = v2;
-  v60 = v52;
-  v53 = *(a1 + 72);
-  v61 = *(a1 + 48);
-  v62 = v53;
-  sf_synchronize(v51 + 8, v59);
-  v54 = otherLogHandle;
+  v31 = *(a1 + 48);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_3_168;
+  v38[3] = &unk_27898DE08;
+  v32 = v2;
+  v39 = v32;
+  v33 = *(a1 + 72);
+  v40 = *(a1 + 48);
+  v41 = v33;
+  sf_synchronize(v31 + 8, v38);
+  v34 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v55 = *(*(a1 + 48) + 24);
+    v35 = *(*(a1 + 48) + 24);
     *buf = 138412546;
-    v64 = v52;
-    v65 = 2112;
-    v66 = v55;
-    _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEBUG, "ConnectionFailureHandler: EventDict: %@, PrivacyProxiesUsed: %@", buf, 0x16u);
+    v43 = v32;
+    v44 = 2112;
+    v45 = v35;
+    _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "ConnectionFailureHandler: EventDict: %@, PrivacyProxiesUsed: %@", buf, 0x16u);
   }
 
-  v56 = v52;
+  v36 = v32;
 
-  v57 = *MEMORY[0x277D85DE8];
-  return v52;
+  return v32;
 }
 
 void __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_3_168(uint64_t a1)
 {
-  v2 = *(*(a1 + 40) + 24);
-  v3 = (*(*(a1 + 48) + 16))();
-  [*(a1 + 32) setObject:v3 forKeyedSubscript:@"privacyProxiesUsed"];
+  v2 = (*(*(a1 + 48) + 16))();
+  [*(a1 + 32) setObject:v2 forKeyedSubscript:@"privacyProxiesUsed"];
 }
 
 void __57__ConnectionFailureHandler_postConnectionFailureMetrics___block_invoke_174(uint64_t a1)

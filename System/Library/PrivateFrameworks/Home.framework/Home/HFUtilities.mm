@@ -56,6 +56,8 @@
 + (int64_t)outputGenderFromString:(id)string;
 + (unint64_t)enabledPerformanceUpgrades;
 + (void)setDateOfLastRecommendationUIOpened:(id)opened;
++ (void)setShowEducationTip:(BOOL)tip;
++ (void)updateSiriForiCloudEnabled:(BOOL)enabled completionHandler:(id)handler;
 + (void)warmUpStaticPreferences;
 @end
 
@@ -265,17 +267,15 @@ uint64_t __32__HFUtilities_isInternalInstall__block_invoke()
 
 void __37__HFUtilities_hasInternalDiagnostics__block_invoke()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   byte_280E02AF9 = os_variant_has_internal_diagnostics();
   v0 = HFLogForCategory(0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    v2[0] = 67109120;
-    v2[1] = byte_280E02AF9;
-    _os_log_impl(&dword_20D9BF000, v0, OS_LOG_TYPE_INFO, "hasInternalDiagnostics: %{BOOL}d", v2, 8u);
+    v1[0] = 67109120;
+    v1[1] = byte_280E02AF9;
+    _os_log_impl(&dword_20D9BF000, v0, OS_LOG_TYPE_INFO, "hasInternalDiagnostics: %{BOOL}d", v1, 8u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isAnIPhone
@@ -288,7 +288,7 @@ void __37__HFUtilities_hasInternalDiagnostics__block_invoke()
 
 + (BOOL)isMonitoredInterfaceWifiOrEthernet
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   default_evaluator = nw_path_create_default_evaluator();
   v3 = nw_path_evaluator_copy_path();
   v4 = MEMORY[0x20F327280](v3, 1);
@@ -296,16 +296,15 @@ void __37__HFUtilities_hasInternalDiagnostics__block_invoke()
   v6 = HFLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "+[HFUtilities isMonitoredInterfaceWifiOrEthernet]";
-    v11 = 1024;
-    v12 = v4;
-    v13 = 1024;
-    v14 = v5;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%s, isConnectedOverWiFi: %d, isConnectedOverEthernet: %d", &v9, 0x18u);
+    v8 = 136315650;
+    v9 = "+[HFUtilities isMonitoredInterfaceWifiOrEthernet]";
+    v10 = 1024;
+    v11 = v4;
+    v12 = 1024;
+    v13 = v5;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "%s, isConnectedOverWiFi: %d, isConnectedOverEthernet: %d", &v8, 0x18u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return (v4 | v5) & 1;
 }
 
@@ -512,7 +511,7 @@ uint64_t __57__HFUtilities_shouldShowFakeContentForPerformanceTesting__block_inv
   return byte_280E02B00;
 }
 
-uint64_t __39__HFUtilities_isRunningInStoreDemoMode__block_invoke()
+void *__39__HFUtilities_isRunningInStoreDemoMode__block_invoke()
 {
   result = [MEMORY[0x277D75128] isRunningInStoreDemoMode];
   byte_280E02B00 = result;
@@ -599,9 +598,105 @@ uint64_t __39__HFUtilities_isRunningInStoreDemoMode__block_invoke()
   return v5;
 }
 
++ (void)updateSiriForiCloudEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  v25 = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  v6 = +[HFMediaDispatcher sharedDispatcher];
+  isUsingiCloud = [v6 isUsingiCloud];
+
+  if (isUsingiCloud)
+  {
+    v8 = objc_autoreleasePoolPush();
+    v9 = objc_alloc_init(MEMORY[0x277CB8F48]);
+    aa_primaryAppleAccount = [v9 aa_primaryAppleAccount];
+    v11 = aa_primaryAppleAccount;
+    if (aa_primaryAppleAccount)
+    {
+      if (!enabledCopy || ([aa_primaryAppleAccount isProvisionedForDataclass:*MEMORY[0x277CB9138]] & 1) != 0)
+      {
+        v12 = HFLogForCategory(0);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          v13 = @"disabled";
+          if (enabledCopy)
+          {
+            v13 = @"enabled";
+          }
+
+          *buf = 138412290;
+          v24 = v13;
+          _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Updating Siri iCloud setting to %@", buf, 0xCu);
+        }
+
+        [v11 setEnabled:enabledCopy forDataclass:*MEMORY[0x277CB91C0]];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invoke;
+        v20[3] = &unk_277DF3EE8;
+        v22 = enabledCopy;
+        v21 = handlerCopy;
+        [v9 saveVerifiedAccount:v11 withCompletionHandler:v20];
+        v14 = v21;
+        goto LABEL_21;
+      }
+
+      v19 = HFLogForCategory(0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "Unable to enable Siri iCloud switch for account. Account currently unprovisioned for data class Siri", buf, 2u);
+      }
+
+      if (!handlerCopy)
+      {
+        goto LABEL_22;
+      }
+
+      v17 = MEMORY[0x277CCA9B8];
+      v18 = 97;
+    }
+
+    else
+    {
+      v16 = HFLogForCategory(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Failed to update Siri iCloud setting, there is no primary account", buf, 2u);
+      }
+
+      if (!handlerCopy)
+      {
+        goto LABEL_22;
+      }
+
+      v17 = MEMORY[0x277CCA9B8];
+      v18 = 30;
+    }
+
+    v14 = [v17 hf_errorWithCode:v18];
+    (*(handlerCopy + 2))(handlerCopy, v14);
+LABEL_21:
+
+LABEL_22:
+    objc_autoreleasePoolPop(v8);
+    goto LABEL_23;
+  }
+
+  if (handlerCopy)
+  {
+    v15 = [MEMORY[0x277CCA9B8] hf_errorWithCode:79];
+    (*(handlerCopy + 2))(handlerCopy, v15);
+  }
+
+LABEL_23:
+}
+
 void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = HFLogForCategory(0);
   v7 = v6;
@@ -620,7 +715,7 @@ void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invo
       }
 
       *buf = 138412290;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Saved account setting change for Siri iCloud setting, new value: %@", buf, 0xCu);
     }
   }
@@ -628,28 +723,26 @@ void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invo
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v15 = v5;
+    v14 = v5;
     _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Failed to save iCloud setting with error: %@", buf, 0xCu);
   }
 
   v9 = *(a1 + 32);
   if (v9)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invoke_128;
-    v11[3] = &unk_277DF2AD8;
-    v13 = v9;
-    v12 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invoke_128;
+    v10[3] = &unk_277DF2AD8;
+    v12 = v9;
+    v11 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isCurrentAccount2FAEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CB8F48]);
   aa_primaryAppleAccount = [v2 aa_primaryAppleAccount];
   mEMORY[0x277CF0130] = [MEMORY[0x277CF0130] sharedInstance];
@@ -662,9 +755,9 @@ void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invo
     v8 = HFLogForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = v7;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "primary iCloud account level: %lu", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = v7;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "primary iCloud account level: %lu", &v12, 0xCu);
     }
 
     v9 = v7 > 2;
@@ -675,14 +768,13 @@ void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invo
     v10 = HFLogForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Failed to find a primary iCloud account, there is no primary account", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Failed to find a primary iCloud account, there is no primary account", &v12, 2u);
     }
 
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -695,7 +787,7 @@ void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invo
 
 + (id)sanitizeAutoGeneratedHomeKitName:(id)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   alphanumericCharacterSet = [MEMORY[0x277CCAB50] alphanumericCharacterSet];
   v5 = [(__CFString *)nameCopy rangeOfCharacterFromSet:alphanumericCharacterSet options:129];
@@ -704,11 +796,11 @@ void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invo
     v16 = HFLogForCategory(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v19 = 136315394;
-      v20 = "+[HFUtilities sanitizeAutoGeneratedHomeKitName:]";
-      v21 = 2112;
-      v22 = nameCopy;
-      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_INFO, "%s attempted to sanitize a name consisting exlusively of invalid characters: %@, returning an empty string", &v19, 0x16u);
+      v18 = 136315394;
+      v19 = "+[HFUtilities sanitizeAutoGeneratedHomeKitName:]";
+      v20 = 2112;
+      v21 = nameCopy;
+      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_INFO, "%s attempted to sanitize a name consisting exlusively of invalid characters: %@, returning an empty string", &v18, 0x16u);
     }
 
     v15 = &stru_2824B1A78;
@@ -735,8 +827,6 @@ void __60__HFUtilities_updateSiriForiCloudEnabled_completionHandler___block_invo
     v14 = v13;
     v15 = v14;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -954,7 +1044,7 @@ void *__48__HFUtilities_sanitizeAutoGeneratedHomeKitName___block_invoke(uint64_t
 
 + (id)wallpaperURL
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([self isAMac])
   {
     [self applicationSupportDirectoryURL];
@@ -978,15 +1068,15 @@ void *__48__HFUtilities_sanitizeAutoGeneratedHomeKitName___block_invoke(uint64_t
     {
       path2 = [v5 path];
       *buf = 138412290;
-      v20 = path2;
+      v19 = path2;
       _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "Unable to access wallpaper directory at path %@", buf, 0xCu);
     }
   }
 
   path3 = [v5 path];
-  v18 = 0;
-  v11 = [defaultManager createDirectoryAtPath:path3 withIntermediateDirectories:1 attributes:0 error:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [defaultManager createDirectoryAtPath:path3 withIntermediateDirectories:1 attributes:0 error:&v17];
+  v12 = v17;
 
   if ((v11 & 1) == 0)
   {
@@ -995,19 +1085,17 @@ void *__48__HFUtilities_sanitizeAutoGeneratedHomeKitName___block_invoke(uint64_t
     {
       path4 = [v5 path];
       *buf = 138412290;
-      v20 = path4;
+      v19 = path4;
       _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Unable to create wallpaper directory at path%@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)demoModeDirectoryURL
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sharedApplicationSupportDirectoryURL = [self sharedApplicationSupportDirectoryURL];
   v3 = [sharedApplicationSupportDirectoryURL URLByAppendingPathComponent:@"com.apple.Home"];
 
@@ -1024,9 +1112,9 @@ void *__48__HFUtilities_sanitizeAutoGeneratedHomeKitName___block_invoke(uint64_t
   else
   {
     path2 = [v4 path];
-    v15 = 0;
-    v10 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v10 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v14];
+    v8 = v14;
 
     if ((v10 & 1) == 0)
     {
@@ -1035,28 +1123,26 @@ void *__48__HFUtilities_sanitizeAutoGeneratedHomeKitName___block_invoke(uint64_t
       {
         path3 = [v4 path];
         *buf = 138412290;
-        v17 = path3;
+        v16 = path3;
         _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Unable to create demoMode directory at %@", buf, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)preferredNameFromUserID:(id)d
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v4 = *MEMORY[0x277CBD000];
-  v14[0] = *MEMORY[0x277CBD078];
-  v14[1] = v4;
-  v14[2] = *MEMORY[0x277CBCFF8];
+  v13[0] = *MEMORY[0x277CBD078];
+  v13[1] = v4;
+  v13[2] = *MEMORY[0x277CBCFF8];
   v5 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-  v14[3] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
+  v13[3] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
 
   if ([dCopy hf_isEmail])
   {
@@ -1093,7 +1179,6 @@ LABEL_9:
   v11 = givenName;
 
 LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1159,7 +1244,7 @@ LABEL_10:
 
 + (id)networkSSID
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D02B18]) initWithServiceType:3];
   [v2 resume];
   networkName = [v2 networkName];
@@ -1170,17 +1255,15 @@ LABEL_10:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       networkName2 = [v2 networkName];
-      v9 = 138412546;
-      v10 = v2;
-      v11 = 2112;
-      v12 = networkName2;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Can't find WiFi network SSID name: interface = %@, name = %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v2;
+      v10 = 2112;
+      v11 = networkName2;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Can't find WiFi network SSID name: interface = %@, name = %@", &v8, 0x16u);
     }
   }
 
   [v2 invalidate];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1226,7 +1309,7 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
 
 + (BOOL)showEducationTip
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v3 = [standardUserDefaults objectForKey:@"showEnergyEducationTip"];
 
@@ -1243,20 +1326,42 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
   v5 = HFLogForCategory(0x24uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "+[HFUtilities showEducationTip]";
-    v10 = 1024;
-    v11 = v4;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s Show education tip? --> %{BOOL}d", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "+[HFUtilities showEducationTip]";
+    v9 = 1024;
+    v10 = v4;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s Show education tip? --> %{BOOL}d", &v7, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
+}
+
++ (void)setShowEducationTip:(BOOL)tip
+{
+  tipCopy = tip;
+  v9 = *MEMORY[0x277D85DE8];
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v5 = standardUserDefaults;
+  if (standardUserDefaults)
+  {
+    [standardUserDefaults setBool:tipCopy forKey:@"showEnergyEducationTip"];
+  }
+
+  else
+  {
+    v6 = HFLogForCategory(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 136315138;
+      v8 = "+[HFUtilities setShowEducationTip:]";
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s Failed to fetch shared app suite user defaults!", &v7, 0xCu);
+    }
+  }
 }
 
 + (BOOL)forceTestUtilityMode
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([self isInternalInstall])
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1275,11 +1380,11 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     v5 = HFLogForCategory(0x24uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "+[HFUtilities forceTestUtilityMode]";
-      v10 = 1024;
-      v11 = v4;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s Force Utility to QAUtility1 --> %{BOOL}d", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "+[HFUtilities forceTestUtilityMode]";
+      v9 = 1024;
+      v10 = v4;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s Force Utility to QAUtility1 --> %{BOOL}d", &v7, 0x12u);
     }
   }
 
@@ -1288,13 +1393,12 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     LOBYTE(v4) = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (id)utilityOverride
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([self isInternalInstall])
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1302,11 +1406,11 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     v4 = HFLogForCategory(0x22uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "+[HFUtilities utilityOverride]";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%s Override Utility --> %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[HFUtilities utilityOverride]";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%s Override Utility --> %@", &v6, 0x16u);
     }
   }
 
@@ -1315,14 +1419,12 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     v3 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 + (id)utilityLookupOverride
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([self isInternalInstall])
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1330,11 +1432,11 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     v4 = HFLogForCategory(0x22uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "+[HFUtilities utilityLookupOverride]";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%s Override Utility Lookup --> %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "+[HFUtilities utilityLookupOverride]";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%s Override Utility Lookup --> %@", &v6, 0x16u);
     }
   }
 
@@ -1343,14 +1445,12 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     v3 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 + (id)OAuthURLOverride
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([self isInternalInstall])
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1371,11 +1471,11 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     v7 = HFLogForCategory(0x22uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "+[HFUtilities OAuthURLOverride]";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%s OAuthURL --> %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "+[HFUtilities OAuthURLOverride]";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%s OAuthURL --> %@", &v9, 0x16u);
     }
   }
 
@@ -1384,23 +1484,21 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)sortedLockAccessoryArrayForSetup:(id)setup
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   setupCopy = setup;
   v4 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "+[HFUtilities sortedLockAccessoryArrayForSetup:]";
-    v17 = 2112;
-    v18 = setupCopy;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) accessories = %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "+[HFUtilities sortedLockAccessoryArrayForSetup:]";
+    v16 = 2112;
+    v17 = setupCopy;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "(%s) accessories = %@", &v14, 0x16u);
   }
 
   v5 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -1423,14 +1521,12 @@ void __39__HFUtilities_narrowNoBreakSpaceString__block_invoke()
   v12 = HFLogForCategory(0x49uLL);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "+[HFUtilities sortedLockAccessoryArrayForSetup:]";
-    v17 = 2112;
-    v18 = v11;
-    _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "(%s) result = %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "+[HFUtilities sortedLockAccessoryArrayForSetup:]";
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "(%s) result = %@", &v14, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

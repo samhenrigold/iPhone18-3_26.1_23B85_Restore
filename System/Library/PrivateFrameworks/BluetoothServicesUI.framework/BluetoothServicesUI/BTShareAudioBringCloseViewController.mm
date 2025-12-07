@@ -2,16 +2,69 @@
 - (void)_cycleProductImage;
 - (void)eventCancel:(id)cancel;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation BTShareAudioBringCloseViewController
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  selfCopy = self;
+  if (gLogCategory_BTShareAudioViewController <= 30)
+  {
+    if (gLogCategory_BTShareAudioViewController != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(BTShareAudioBringCloseViewController *)self viewWillAppear:a2, appear];
+    }
+  }
+
+  v9.receiver = selfCopy;
+  v9.super_class = BTShareAudioBringCloseViewController;
+  [(BTShareAudioBaseViewController *)&v9 viewWillAppear:appearCopy];
+  mainBundle = [(BTShareAudioViewController *)selfCopy->super._mainController mainBundle];
+  v6 = CULocalizedStringEx();
+  [(UILabel *)selfCopy->super._titleLabel setText:v6];
+
+  [(BTShareAudioBringCloseViewController *)selfCopy _cycleProductImage];
+  mainBundle2 = [(BTShareAudioViewController *)selfCopy->super._mainController mainBundle];
+  v8 = CULocalizedStringEx();
+
+  [(UIButton *)selfCopy->_cancelButton setTitle:v8 forState:0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  selfCopy = self;
+  if (gLogCategory_BTShareAudioViewController <= 30)
+  {
+    if (gLogCategory_BTShareAudioViewController != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(BTShareAudioBringCloseViewController *)self viewWillDisappear:a2, disappear];
+    }
+  }
+
+  v8.receiver = selfCopy;
+  v8.super_class = BTShareAudioBringCloseViewController;
+  [(BTShareAudioBaseViewController *)&v8 viewWillDisappear:disappearCopy];
+  cycleImageTimer = selfCopy->_cycleImageTimer;
+  if (cycleImageTimer)
+  {
+    v6 = cycleImageTimer;
+    dispatch_source_cancel(v6);
+    v7 = selfCopy->_cycleImageTimer;
+    selfCopy->_cycleImageTimer = 0;
+  }
+}
+
 - (void)viewDidLayoutSubviews
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = BTShareAudioBringCloseViewController;
-  [(BTShareAudioBringCloseViewController *)&v11 viewDidLayoutSubviews];
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = BTShareAudioBringCloseViewController;
+  [(BTShareAudioBringCloseViewController *)&v10 viewDidLayoutSubviews];
   layer = [(UIView *)self->_productImageContainerView layer];
   mask = [layer mask];
 
@@ -21,10 +74,10 @@
     [(UIView *)self->_productImageContainerView bounds];
     [layer2 setFrame:?];
     v6 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.0];
-    v12[0] = [v6 CGColor];
+    v11[0] = [v6 CGColor];
     v7 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:1.0];
-    v12[1] = [v7 CGColor];
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[1] = [v7 CGColor];
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     [layer2 setColors:v8];
 
     [layer2 setLocations:&unk_2853D5898];
@@ -33,16 +86,18 @@
     layer3 = [(UIView *)self->_productImageContainerView layer];
     [layer3 setMask:layer2];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eventCancel:(id)cancel
 {
   cancelCopy = cancel;
-  if (gLogCategory_BTShareAudioViewController <= 30 && (gLogCategory_BTShareAudioViewController != -1 || _LogCategory_Initialize()))
+  v7 = cancelCopy;
+  if (gLogCategory_BTShareAudioViewController <= 30)
   {
-    [BTShareAudioBringCloseViewController eventCancel:];
+    if (gLogCategory_BTShareAudioViewController != -1 || (cancelCopy = _LogCategory_Initialize(), cancelCopy))
+    {
+      [(BTShareAudioBringCloseViewController *)cancelCopy eventCancel:v5, v6];
+    }
   }
 
   [(BTShareAudioViewController *)self->super._mainController reportUserCancelled];
@@ -50,40 +105,40 @@
 
 - (void)_cycleProductImage
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (!self->_cycleImageArray)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
     cycleImageArray = self->_cycleImageArray;
     self->_cycleImageArray = v3;
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v5 = [&unk_2853D58B0 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v5 = [&unk_2853D58B0 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v27;
+      v7 = *v26;
       do
       {
         v8 = 0;
         do
         {
-          if (*v27 != v7)
+          if (*v26 != v7)
           {
             objc_enumerationMutation(&unk_2853D58B0);
           }
 
-          v9 = [MEMORY[0x277D755B8] systemImageNamed:*(*(&v26 + 1) + 8 * v8)];
+          v9 = [MEMORY[0x277D755B8] systemImageNamed:*(*(&v25 + 1) + 8 * v8)];
           [(NSMutableArray *)self->_cycleImageArray addObject:v9];
 
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [&unk_2853D58B0 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v6 = [&unk_2853D58B0 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v6);
@@ -141,8 +196,6 @@
 
     self->_cycleNextIndex %= [(NSMutableArray *)self->_cycleImageArray count];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

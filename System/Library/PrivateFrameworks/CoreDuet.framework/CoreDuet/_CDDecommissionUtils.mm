@@ -121,14 +121,12 @@ LABEL_4:
 
 + (id)knowledgeStoreDisabledError
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"Knowledge store has been decomissioned";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A578];
+  v7[0] = @"Knowledge store has been decomissioned";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.coreduet.knowledge" code:10 userInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

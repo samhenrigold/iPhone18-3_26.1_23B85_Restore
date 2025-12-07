@@ -8,11 +8,10 @@
 
 - (NSArray)inputShares
 {
-  v2 = *(self + OBJC_IVAR____DPPINEShardResult_inputShares);
 
-  v3 = sub_22628EB4C();
+  v2 = sub_22628EB4C();
 
-  return v3;
+  return v2;
 }
 
 - (_DPPINEShardResult)initWithPublicShare:(id)share inputShares:(id)shares nonce:(id)nonce dimension:(int64_t)dimension chunkLength:(int64_t)length chunkLengthNormEquality:(int64_t)equality l2NormBoundInt:(unint64_t)int fractionalBitCount:(int64_t)self0

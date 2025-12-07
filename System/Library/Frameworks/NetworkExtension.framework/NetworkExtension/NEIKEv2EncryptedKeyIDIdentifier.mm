@@ -368,15 +368,15 @@ LABEL_4:
 
 - (NEIKEv2EncryptedKeyIDIdentifier)initWithKeyIDString:(id)string aad:(id)aad key:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   aadCopy = aad;
   keyCopy = key;
   v11 = keyCopy;
   if (!keyCopy)
   {
-    v16 = ne_log_obj();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
 LABEL_8:
 
@@ -384,25 +384,25 @@ LABEL_8:
       goto LABEL_4;
     }
 
-    v18 = 136315138;
-    v19 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyIDString:aad:key:]";
-    v17 = "%s called with null key";
+    v17 = 136315138;
+    v18 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyIDString:aad:key:]";
+    v16 = "%s called with null key";
 LABEL_10:
-    _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, v17, &v18, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, v16, &v17, 0xCu);
     goto LABEL_8;
   }
 
   if ([keyCopy length] != 32)
   {
-    v16 = ne_log_obj();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_8;
     }
 
-    v18 = 134217984;
-    v19 = [v11 length];
-    v17 = "Invalid key length %tu!";
+    v17 = 134217984;
+    v18 = [v11 length];
+    v16 = "Invalid key length %tu!";
     goto LABEL_10;
   }
 
@@ -413,13 +413,12 @@ LABEL_10:
   selfCopy = self;
 LABEL_4:
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEIKEv2EncryptedKeyIDIdentifier)initWithKeyIDString:(id)string aad:(id)aad keyRef:(__SecKey *)ref
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   aadCopy = aad;
   if (ref)
   {
@@ -437,32 +436,31 @@ LABEL_4:
 
   else
   {
-    v16 = ne_log_obj();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v17 = 136315138;
-      v18 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyIDString:aad:keyRef:]";
-      _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, "%s called with null keyRef", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyIDString:aad:keyRef:]";
+      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null keyRef", &v16, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEIKEv2EncryptedKeyIDIdentifier)initWithKeyID:(id)d aad:(id)aad key:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   aadCopy = aad;
   keyCopy = key;
   v11 = keyCopy;
   if (!keyCopy)
   {
-    v16 = ne_log_obj();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
 LABEL_8:
 
@@ -470,25 +468,25 @@ LABEL_8:
       goto LABEL_4;
     }
 
-    v18 = 136315138;
-    v19 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyID:aad:key:]";
-    v17 = "%s called with null key";
+    v17 = 136315138;
+    v18 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyID:aad:key:]";
+    v16 = "%s called with null key";
 LABEL_10:
-    _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, v17, &v18, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, v16, &v17, 0xCu);
     goto LABEL_8;
   }
 
   if ([keyCopy length] != 32)
   {
-    v16 = ne_log_obj();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_8;
     }
 
-    v18 = 134217984;
-    v19 = [v11 length];
-    v17 = "Invalid key length %tu!";
+    v17 = 134217984;
+    v18 = [v11 length];
+    v16 = "Invalid key length %tu!";
     goto LABEL_10;
   }
 
@@ -499,13 +497,12 @@ LABEL_10:
   selfCopy = self;
 LABEL_4:
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEIKEv2EncryptedKeyIDIdentifier)initWithKeyID:(id)d aad:(id)aad keyRef:(__SecKey *)ref
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   aadCopy = aad;
   if (ref)
   {
@@ -523,18 +520,17 @@ LABEL_4:
 
   else
   {
-    v16 = ne_log_obj();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v15 = ne_log_obj();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v17 = 136315138;
-      v18 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyID:aad:keyRef:]";
-      _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, "%s called with null keyRef", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[NEIKEv2EncryptedKeyIDIdentifier initWithKeyID:aad:keyRef:]";
+      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null keyRef", &v16, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

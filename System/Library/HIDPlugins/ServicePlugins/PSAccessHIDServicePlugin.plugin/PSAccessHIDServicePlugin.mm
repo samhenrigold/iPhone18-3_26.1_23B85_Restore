@@ -1,4 +1,4 @@
-uint64_t sub_DC0()
+uint64_t sub_DC0(uint64_t a1, uint64_t a2)
 {
   if (qword_16A70 != -1)
   {
@@ -8,16 +8,16 @@ uint64_t sub_DC0()
   return byte_16A68;
 }
 
-id sub_E20()
+id sub_E20(uint64_t a1)
 {
   if (qword_16A80 != -1)
   {
     sub_79BC();
   }
 
-  v1 = qword_16A78;
+  v2 = qword_16A78;
 
-  return v1;
+  return v2;
 }
 
 void sub_E64(id a1)
@@ -27,16 +27,16 @@ void sub_E64(id a1)
   qword_16A78 = v1;
 }
 
-id sub_EA8()
+id sub_EA8(uint64_t a1)
 {
   if (qword_16A90 != -1)
   {
     sub_79D0();
   }
 
-  v1 = qword_16A88;
+  v2 = qword_16A88;
 
-  return v1;
+  return v2;
 }
 
 void sub_EEC(id a1)
@@ -46,16 +46,16 @@ void sub_EEC(id a1)
   qword_16A88 = v1;
 }
 
-id sub_F30()
+id sub_F30(uint64_t a1)
 {
   if (qword_16AA0 != -1)
   {
     sub_79E4();
   }
 
-  v1 = qword_16A98;
+  v2 = qword_16A98;
 
-  return v1;
+  return v2;
 }
 
 void sub_F74(id a1)
@@ -65,16 +65,16 @@ void sub_F74(id a1)
   qword_16A98 = v1;
 }
 
-id sub_FB8()
+id sub_FB8(uint64_t a1)
 {
   if (qword_16AB0 != -1)
   {
     sub_79F8();
   }
 
-  v1 = qword_16AA8;
+  v2 = qword_16AA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_FFC(id a1)
@@ -91,16 +91,16 @@ void sub_1040(char *category)
   qword_16AB8 = v1;
 }
 
-id sub_1080()
+id sub_1080(uint64_t a1)
 {
   if (qword_16AC0 != -1)
   {
     sub_7A0C();
   }
 
-  v1 = qword_16AB8;
+  v2 = qword_16AB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10C4(id a1)
@@ -111,16 +111,16 @@ void sub_10C4(id a1)
   }
 }
 
-id sub_10E8()
+id sub_10E8(uint64_t a1)
 {
   if (qword_16AD0 != -1)
   {
     sub_7A20();
   }
 
-  v1 = qword_16AC8;
+  v2 = qword_16AC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_112C(id a1)
@@ -130,16 +130,16 @@ void sub_112C(id a1)
   qword_16AC8 = v1;
 }
 
-id sub_1170()
+id sub_1170(uint64_t a1)
 {
   if (qword_16AE0 != -1)
   {
     sub_7A34();
   }
 
-  v1 = qword_16AD8;
+  v2 = qword_16AD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_11B4(id a1)
@@ -149,16 +149,16 @@ void sub_11B4(id a1)
   qword_16AD8 = v1;
 }
 
-id sub_11F8()
+id sub_11F8(uint64_t a1)
 {
   if (qword_16AF0 != -1)
   {
     sub_7A48();
   }
 
-  v1 = qword_16AE8;
+  v2 = qword_16AE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_123C(id a1)
@@ -194,7 +194,7 @@ void sub_1528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_1558(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1080();
+  v2 = sub_1080(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -209,7 +209,7 @@ void sub_1558(uint64_t a1)
 void sub_15F0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_1080();
+  v2 = sub_1080(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -220,9 +220,9 @@ void sub_15F0(uint64_t a1)
   [v3 driverCheckIn];
 }
 
-void sub_1D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -237,7 +237,7 @@ uint64_t sub_1D84(uint64_t result, uint64_t a2)
 void sub_1D9C(uint64_t a1)
 {
   v2 = [NSString stringWithCString:dispatch_queue_get_label(*(a1 + 32)) encoding:4];
-  v3 = sub_1080();
+  v3 = sub_1080(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -279,18 +279,19 @@ void sub_2744(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_2768(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_1080();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_1080(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v5, 2u);
     }
 
-    (*(WeakRetained[1] + 16))();
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    (*(v2[1] + 16))();
+    v4 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -366,19 +367,20 @@ void sub_48E8(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5 = 0uLL;
-    clock_gettime(_CLOCK_MONOTONIC_RAW, &v5);
-    if ((*(&v5 + 1) + v5 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
+    v6 = 0uLL;
+    clock_gettime(_CLOCK_MONOTONIC_RAW, &v6);
+    if ((*(&v6 + 1) + v6 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
     {
-      *(WeakRetained + 504) = v5;
+      *(WeakRetained + 504) = v6;
       v2 = [WeakRetained isAnyHapticMotorEnabled];
-      v3 = sub_1080();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-      if (v2)
+      v3 = v2;
+      v4 = sub_1080(v2);
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+      if (v3)
       {
-        if (v4)
+        if (v5)
         {
-          sub_7E84(v3);
+          sub_7E84(v4);
         }
 
         *(WeakRetained + 121) = 0;
@@ -387,9 +389,9 @@ void sub_48E8(uint64_t a1)
 
       else
       {
-        if (v4)
+        if (v5)
         {
-          sub_7E40(v3);
+          sub_7E40(v4);
         }
 
         [WeakRetained stopHaptics];
@@ -398,7 +400,7 @@ void sub_48E8(uint64_t a1)
   }
 }
 
-uint64_t sub_4FC8()
+uint64_t sub_4FC8(unsigned int a1)
 {
 
   return kdebug_trace();
@@ -406,7 +408,6 @@ uint64_t sub_4FC8()
 
 id sub_4FF0(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 656);
 
   return [a2 timestamp];
 }
@@ -519,7 +520,7 @@ void sub_64D0(uint64_t a1, uint64_t a2, void *a3)
     *v45 = *a2;
     *&v45[7] = *(a2 + 7);
     v43 = *(a2 + 11);
-    v8 = sub_1080();
+    v8 = sub_1080(WeakRetained);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v13 = *(a2 + 19);
@@ -592,7 +593,7 @@ void sub_6934(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, v
   if (WeakRetained)
   {
     sub_7B0C(WeakRetained);
-    kdebug_trace();
+    v13 = kdebug_trace();
     if (a5 == 49)
     {
       [v12 handleBluetoothInputPayload:49 withData:v10 timestamp:a3];
@@ -605,18 +606,18 @@ void sub_6934(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, v
 
     else
     {
-      v13 = sub_1080();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = sub_1080(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v14 = 134218755;
-        v15 = a4;
-        v16 = 2048;
-        v17 = a5;
-        v18 = 1040;
-        v19 = [v10 length];
-        v20 = 2097;
-        v21 = [v10 bytes];
-        _os_log_debug_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "Received unknown report: type = %li, reportID = %#lx, bytes = %{private}.*P", &v14, 0x26u);
+        v15 = 134218755;
+        v16 = a4;
+        v17 = 2048;
+        v18 = a5;
+        v19 = 1040;
+        v20 = [v10 length];
+        v21 = 2097;
+        v22 = [v10 bytes];
+        _os_log_debug_impl(&dword_0, v14, OS_LOG_TYPE_DEBUG, "Received unknown report: type = %li, reportID = %#lx, bytes = %{private}.*P", &v15, 0x26u);
       }
     }
 
@@ -696,47 +697,48 @@ void sub_6B90(void *a1, uint64_t a2, uint64_t a3, double a4, uint16x8_t a5)
 void sub_6E7C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v7 = v6;
   if (a2)
   {
-    v7 = *(*(a1 + 32) + 16);
+    v8 = *(*(a1 + 32) + 16);
   }
 
   else
   {
-    v8 = sub_1080();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_1080(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_8394(v6, v8);
+      sub_8394(v7, v9);
     }
 
-    v7 = *(*(a1 + 32) + 16);
+    v8 = *(*(a1 + 32) + 16);
   }
 
-  v7();
+  v8();
 }
 
 void sub_6F14(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a2)
   {
-    v7 = [[NSString alloc] initWithFormat:@"I/O Error %#0.8x", a2];
-    v8 = [NSError alloc];
-    v23 = NSLocalizedFailureErrorKey;
-    v24 = v7;
-    v9 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v10 = [v8 initWithDomain:@"PSAccessError" code:1 userInfo:v9];
+    v6 = [[NSString alloc] initWithFormat:@"I/O Error %#0.8x", a2];
+    v7 = [NSError alloc];
+    v24 = NSLocalizedFailureErrorKey;
+    v25 = v6;
+    v8 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v9 = [v7 initWithDomain:@"PSAccessError" code:1 userInfo:v8];
 
-    v11 = sub_1080();
+    v11 = sub_1080(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      sub_842C(a1, v10);
+      sub_842C(a1, v9);
     }
 
     free(*(a1 + 40));
     v12 = *(a1 + 32);
     if (v12)
     {
-      (*(v12 + 16))(v12, 0, 0, v10);
+      (*(v12 + 16))(v12, 0, 0, v9);
     }
   }
 
@@ -746,38 +748,37 @@ void sub_6F14(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
     {
       v13 = [[NSString alloc] initWithFormat:@"Report [%#0.2x] response has length [%zu bytes], which is less than the expected length [%zu bytes].", *(a1 + 56), a4, *(a1 + 48)];
       v14 = [NSError alloc];
-      v19 = NSLocalizedFailureErrorKey;
-      v20 = v13;
-      v15 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v20 = NSLocalizedFailureErrorKey;
+      v21 = v13;
+      v15 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       v16 = [v14 initWithDomain:@"PSAccessError" code:0 userInfo:v15];
 
-      v17 = sub_1080();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v18 = sub_1080(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        sub_84C8((a1 + 56), v16);
+        sub_84C8(a1 + 56, v16);
       }
 
       free(*(a1 + 40));
-      v18 = *(a1 + 32);
-      if (v18)
+      v19 = *(a1 + 32);
+      if (v19)
       {
-        (*(v18 + 16))(v18, 0, 0, v16);
+        (*(v19 + 16))(v19, 0, 0, v16);
       }
     }
 
     else
     {
-      v5 = *(a1 + 32);
       (*(*(a1 + 32) + 16))();
-      v6 = *(a1 + 40);
+      v5 = *(a1 + 40);
 
-      free(v6);
+      free(v5);
     }
   }
 
   else
   {
-    sub_8564(a1, &v21, &v22);
+    sub_8564(a1, &v22, &v23);
   }
 }
 
@@ -805,9 +806,9 @@ void sub_71DC(uint64_t a1)
   }
 }
 
-id hexStringFromByteArray(uint64_t a1, int a2)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  v4 = [NSMutableString stringWithCapacity:2 * a2];
+  v4 = [NSMutableString stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -838,7 +839,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_16B08 != -1)
   {
@@ -851,13 +852,14 @@ uint64_t isPartnerSupportEnabled()
 void sub_74C0(id a1)
 {
   v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.GameController"];
-  byte_16B10 = [v1 BOOLForKey:@"GCPartnersEnable"];
-  v2 = sub_1080();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 BOOLForKey:@"GCPartnersEnable"];
+  byte_16B10 = v2;
+  v3 = sub_1080(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = byte_16B10;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    v4[0] = 67109120;
+    v4[1] = byte_16B10;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v4, 8u);
   }
 }
 
@@ -920,20 +922,19 @@ void sub_7A5C(uint64_t a1, void *a2, int a3)
   v5 = a2;
   if (a1)
   {
-    v8 = v5;
+    v7 = v5;
     if (a3)
     {
       *(a1 + 664) = [v5 timestamp];
     }
 
-    v6 = *(a1 + 656);
-    [v8 timestamp];
-    [v8 type];
+    [v7 timestamp];
+    [v7 type];
     kdebug_trace();
     WeakRetained = objc_loadWeakRetained((a1 + 624));
-    [WeakRetained dispatchEvent:v8];
+    [WeakRetained dispatchEvent:v7];
 
-    v5 = v8;
+    v5 = v7;
   }
 }
 
@@ -949,7 +950,7 @@ uint64_t sub_7B0C(uint64_t result)
 
 void sub_7BC0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1080();
+  v6 = sub_1080(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 656);
@@ -966,8 +967,7 @@ void sub_7BC0(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_7CA4(uint64_t a1, void *a2)
 {
   sub_4FF0(a1, a2);
-  [v3 type];
-  sub_4FC8();
+  sub_4FC8([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -982,8 +982,7 @@ void sub_7CA4(uint64_t a1, void *a2)
 void sub_7D54(uint64_t a1, void *a2)
 {
   sub_4FF0(a1, a2);
-  [v3 type];
-  sub_4FC8();
+  sub_4FC8([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -995,34 +994,25 @@ void sub_7D54(uint64_t a1, void *a2)
   sub_5018(v3);
 }
 
-uint64_t sub_7E04(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 656);
-  }
-
-  return kdebug_trace();
-}
-
 void sub_7EC8(void *a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (a1)
   {
-    v5 = sub_1080();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_1080(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "Request Firmware Info", buf, 2u);
+      _os_log_debug_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "Request Firmware Info", buf, 2u);
     }
 
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_6E7C;
-    v7[3] = &unk_10688;
-    v8 = v4;
-    sub_7FB4(a1, 0x20u, 64, v6, v7);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_6E7C;
+    v8[3] = &unk_10688;
+    v9 = v5;
+    sub_7FB4(a1, 0x20u, 64, v7, v8);
   }
 }
 
@@ -1031,45 +1021,45 @@ void sub_7FB4(void *a1, unsigned int a2, uint64_t a3, uint64_t a4, void *a5)
   v8 = a5;
   if (a1)
   {
-    v25 = 64;
+    v26 = 64;
     v9 = malloc_type_calloc(1uLL, 0x40uLL, 0xAB5D2DA5uLL);
     v10 = [a1 device];
-    v24 = 0;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_6F14;
-    v19[3] = &unk_106B0;
-    v23 = a2;
-    v21 = v9;
+    v25 = 0;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_6F14;
+    v20[3] = &unk_106B0;
+    v24 = a2;
+    v22 = v9;
     v11 = v8;
-    v20 = v11;
-    v22 = a3;
-    v12 = [v10 getReport:v9 reportLength:&v25 withIdentifier:a2 forType:2 error:&v24 timeout:1000 callback:v19];
-    v13 = v24;
+    v21 = v11;
+    v23 = a3;
+    v12 = [v10 getReport:v9 reportLength:&v26 withIdentifier:a2 forType:2 error:&v25 timeout:1000 callback:v20];
+    v13 = v25;
 
     if ((v12 & 1) == 0)
     {
-      v14 = sub_1080();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = sub_1080(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109378;
-        v27 = a2;
-        v28 = 2114;
-        v29 = v13;
-        _os_log_debug_impl(&dword_0, v14, OS_LOG_TYPE_DEBUG, "Get feature report %#0.2x failed: %{public}@", buf, 0x12u);
+        v28 = a2;
+        v29 = 2114;
+        v30 = v13;
+        _os_log_debug_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "Get feature report %#0.2x failed: %{public}@", buf, 0x12u);
       }
 
       free(v9);
       if (v11)
       {
-        v15 = [a1 dispatchQueue];
+        v16 = [a1 dispatchQueue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_71DC;
         block[3] = &unk_106D8;
-        v18 = v11;
-        v17 = v13;
-        dispatch_async(v15, block);
+        v19 = v11;
+        v18 = v13;
+        dispatch_async(v16, block);
       }
     }
   }
@@ -1077,7 +1067,7 @@ void sub_7FB4(void *a1, unsigned int a2, uint64_t a3, uint64_t a4, void *a5)
 
 uint64_t sub_8210(void *a1, uint64_t a2)
 {
-  v4 = sub_1080();
+  v4 = sub_1080(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = [a1 localizedDescription];
@@ -1095,14 +1085,14 @@ uint64_t sub_8210(void *a1, uint64_t a2)
   return result;
 }
 
-void sub_82EC()
+void sub_82EC(uint64_t a1)
 {
-  v0 = sub_1080();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = sub_1080(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_7340();
     sub_7330();
-    _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
+    _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
   }
 }
 
@@ -1116,20 +1106,18 @@ void sub_8394(void *a1, NSObject *a2)
 
 void sub_842C(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 56);
-  v3 = [a2 localizedDescription];
+  v2 = [a2 localizedDescription];
   sub_7364();
   sub_7330();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
-void sub_84C8(unsigned __int8 *a1, void *a2)
+void sub_84C8(uint64_t a1, void *a2)
 {
-  v2 = *a1;
-  v3 = [a2 localizedDescription];
+  v2 = [a2 localizedDescription];
   sub_7364();
   sub_7330();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
 void sub_8564(uint64_t a1, NSErrorUserInfoKey *a2, void *a3)
@@ -1141,22 +1129,22 @@ void sub_8564(uint64_t a1, NSErrorUserInfoKey *a2, void *a3)
   v8 = [NSDictionary dictionaryWithObjects:a3 forKeys:a2 count:1];
   v9 = [v7 initWithDomain:@"PSAccessError" code:0 userInfo:v8];
 
-  v10 = sub_1080();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = sub_1080(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(a1 + 56);
-    v13 = [v9 localizedDescription];
+    v13 = *(a1 + 56);
+    v14 = [v9 localizedDescription];
     *buf = 67109378;
-    v15 = v12;
-    v16 = 2114;
-    v17 = v13;
-    _os_log_debug_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "Get feature report %#0.2x error: %{public}@", buf, 0x12u);
+    v16 = v13;
+    v17 = 2114;
+    v18 = v14;
+    _os_log_debug_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "Get feature report %#0.2x error: %{public}@", buf, 0x12u);
   }
 
   free(*(a1 + 40));
-  v11 = *(a1 + 32);
-  if (v11)
+  v12 = *(a1 + 32);
+  if (v12)
   {
-    (*(v11 + 16))(v11, 0, 0, v9);
+    (*(v12 + 16))(v12, 0, 0, v9);
   }
 }

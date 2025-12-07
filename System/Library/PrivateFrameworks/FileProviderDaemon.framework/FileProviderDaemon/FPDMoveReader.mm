@@ -1,5 +1,6 @@
 @interface FPDMoveReader
 + (BOOL)_hasDiskWriterSupportForDomain:(id)domain;
+- (BOOL)_enqueueItem:(id)item forRoot:(id)root atomically:(BOOL)atomically useDiskWriter:(BOOL)writer;
 - (BOOL)_isCancelled;
 - (BOOL)_isRootCancelled:(id)cancelled;
 - (BOOL)_isSingleMoveForRoot:(id)root;
@@ -10,6 +11,7 @@
 - (FPDMoveReader)init;
 - (FPDMoveReader)initWithMoveWriter:(id)writer operation:(id)operation queue:(id)queue;
 - (id)_getTargetFolderFor:(id)for root:(id)root error:(id *)error;
+- (id)_iteratorForRoot:(id)root enforceFPItem:(BOOL)item error:(id *)error;
 - (id)_targetNameForSource:(id)source;
 - (int64_t)_fileSizeBitsSupportAtPath:(id)path;
 - (void)_bailOutOfRoot:(id)root;
@@ -143,29 +145,28 @@ void __33__FPDMoveReader_verifyTargetURL___block_invoke(uint64_t a1, uint64_t a2
 {
   if (a2)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a3 url];
-    v7 = [*(*(a1 + 32) + 16) targetFolder];
-    v8 = [v7 asFPItem];
-    [v8 setFileURL:v6];
+    v5 = [a3 url];
+    v6 = [*(*(a1 + 32) + 16) targetFolder];
+    v7 = [v6 asFPItem];
+    [v7 setFileURL:v5];
 
-    v9 = [*(*(a1 + 32) + 16) targetFolder];
-    v10 = [v9 asFPItem];
-    v11 = [v10 fileURL];
-    [v11 stopAccessingSecurityScopedResource];
+    v8 = [*(*(a1 + 32) + 16) targetFolder];
+    v9 = [v8 asFPItem];
+    v10 = [v9 fileURL];
+    [v10 stopAccessingSecurityScopedResource];
 
-    v12 = *(a1 + 40);
-    v15 = [*(*(a1 + 32) + 16) targetFolder];
-    v13 = [v15 asFPItem];
-    v14 = [v13 fileURL];
-    (*(v12 + 16))(v12, v14, 0);
+    v11 = *(a1 + 40);
+    v14 = [*(*(a1 + 32) + 16) targetFolder];
+    v12 = [v14 asFPItem];
+    v13 = [v12 fileURL];
+    (*(v11 + 16))(v11, v13, 0);
   }
 }
 
@@ -204,28 +205,28 @@ void __22__FPDMoveReader_start__block_invoke(uint64_t a1, void *a2, void *a3)
   dispatch_async(v9, v11);
 }
 
-uint64_t __22__FPDMoveReader_start__block_invoke_6(uint64_t a1)
+uint64_t __22__FPDMoveReader_start__block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v13 = *(*(a1 + 32) + 88);
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v14 = *(*(a1 + 32) + 88);
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __22__FPDMoveReader_start__block_invoke_6_cold_1();
   }
 
-  v3 = [*(a1 + 40) startAccessingSecurityScopedResource];
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __22__FPDMoveReader_start__block_invoke_7;
-  v9[3] = &unk_1E83BFB10;
-  v12 = v3;
-  v6 = v4;
-  v7 = *(a1 + 32);
-  v10 = v6;
+  v4 = [*(a1 + 40) startAccessingSecurityScopedResource];
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __22__FPDMoveReader_start__block_invoke_7;
+  v10[3] = &unk_1E83BFB10;
+  v13 = v4;
+  v7 = v5;
+  v8 = *(a1 + 32);
   v11 = v7;
-  [v5 _progressComputationPreflight:v6 completion:v9];
+  v12 = v8;
+  [v6 _progressComputationPreflight:v7 completion:v10];
 
   return __fp_leave_section_Debug();
 }
@@ -286,9 +287,70 @@ uint64_t __22__FPDMoveReader_start__block_invoke_7(uint64_t a1)
   }
 }
 
+- (id)_iteratorForRoot:(id)root enforceFPItem:(BOOL)item error:(id *)error
+{
+  itemCopy = item;
+  rootCopy = root;
+  if ([rootCopy isProviderItem])
+  {
+    asFPItem = [rootCopy asFPItem];
+    v25 = 0;
+    WeakRetained = objc_loadWeakRetained(&self->_operation);
+    manager = [WeakRetained manager];
+    itemID = [asFPItem itemID];
+    providerDomainID = [itemID providerDomainID];
+    v14 = [manager domainWithID:providerDomainID reason:&v25];
+
+    if (v14)
+    {
+      if ([v14 isUsingFPFS])
+      {
+        v15 = [FPDIterator hybridIteratorForItem:asFPItem domain:v14 enforceFPItem:itemCopy];
+      }
+
+      else
+      {
+        v21 = objc_loadWeakRetained(&self->_operation);
+        manager2 = [v21 manager];
+        v15 = [FPDIterator iteratorForLocator:rootCopy manager:manager2];
+
+        asFPItem2 = [rootCopy asFPItem];
+        [v15 setShouldDecorateItems:{objc_msgSend(asFPItem2, "isRecursivelyDownloaded") ^ 1}];
+      }
+    }
+
+    else
+    {
+      if (error)
+      {
+        itemID2 = [asFPItem itemID];
+        providerDomainID2 = [itemID2 providerDomainID];
+        *error = FPProviderNotFoundError();
+      }
+
+      v20 = fp_current_or_default_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        [FPDMoveReader _iteratorForRoot:asFPItem enforceFPItem:? error:?];
+      }
+
+      v15 = 0;
+    }
+  }
+
+  else
+  {
+    v16 = objc_loadWeakRetained(&self->_operation);
+    manager3 = [v16 manager];
+    v15 = [FPDIterator iteratorForLocator:rootCopy manager:manager3];
+  }
+
+  return v15;
+}
+
 - (void)_progressComputationPreflight:(id)preflight completion:(id)completion
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   preflightCopy = preflight;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
@@ -303,34 +365,34 @@ uint64_t __22__FPDMoveReader_start__block_invoke_7(uint64_t a1)
   self->_isTargetFolderMaterialized = [targetFolder isDownloaded];
 
   path = [preflightCopy path];
-  v62 = [(FPDMoveReader *)self _fileSizeBitsSupportAtPath:path];
+  v61 = [(FPDMoveReader *)self _fileSizeBitsSupportAtPath:path];
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   roots = [(FPMoveInfo *)self->_info roots];
-  v11 = [roots countByEnumeratingWithState:&v75 objects:v91 count:16];
+  v11 = [roots countByEnumeratingWithState:&v74 objects:v90 count:16];
   if (v11)
   {
     v12 = v11;
-    v65 = 0;
-    v13 = *v76;
+    v64 = 0;
+    v13 = *v75;
     selfCopy = self;
-    v57 = roots;
-    v58 = preflightCopy;
-    v55 = *v76;
+    v56 = roots;
+    v57 = preflightCopy;
+    v54 = *v75;
 LABEL_5:
     v14 = 0;
-    v56 = v12;
+    v55 = v12;
     while (1)
     {
-      if (*v76 != v13)
+      if (*v75 != v13)
       {
         objc_enumerationMutation(roots);
       }
 
-      v15 = *(*(&v75 + 1) + 8 * v14);
+      v15 = *(*(&v74 + 1) + 8 * v14);
       if ([(FPDMoveReader *)self _isCancelled])
       {
         break;
@@ -355,9 +417,9 @@ LABEL_5:
         {
           willMaterializeTargetFolder = self->_willMaterializeTargetFolder;
           *buf = 138412546;
-          v80 = v15;
-          v81 = 1024;
-          LODWORD(v82) = willMaterializeTargetFolder;
+          v79 = v15;
+          v80 = 1024;
+          LODWORD(v81) = willMaterializeTargetFolder;
           _os_log_debug_impl(&dword_1CEFC7000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: preflight for root: %@, atomic move, willMaterializeTargetFolder=%{BOOL}d", buf, 0x12u);
         }
 
@@ -367,9 +429,9 @@ LABEL_5:
 
       else
       {
-        v74 = 0;
-        v22 = [(FPDMoveReader *)self _iteratorForRoot:v15 enforceFPItem:0 error:&v74];
-        v23 = v74;
+        v73 = 0;
+        v22 = [(FPDMoveReader *)self _iteratorForRoot:v15 enforceFPItem:0 error:&v73];
+        v23 = v73;
         v24 = v23;
         if (!v22)
         {
@@ -379,19 +441,19 @@ LABEL_5:
           goto LABEL_68;
         }
 
-        v59 = v14;
-        v60 = v23;
+        v58 = v14;
+        v59 = v23;
         v25 = [(FPDMoveReader *)self _shouldCheckFileSystemBitsForRoot:v15 targetFolderURL:preflightCopy];
-        v66 = [(FPDMoveReader *)self _shouldCheckSpaceForRoot:v15 targetFolderURL:preflightCopy];
+        v65 = [(FPDMoveReader *)self _shouldCheckSpaceForRoot:v15 targetFolderURL:preflightCopy];
         if (([v22 done] & 1) == 0)
         {
           v27 = 0;
-          v67 = 0;
+          v66 = 0;
           v26 = 0;
-          v61 = 0;
-          v28 = v62 > 0 && v25;
-          v64 = v28;
-          v63 = v22;
+          v60 = 0;
+          v28 = v61 > 0 && v25;
+          v63 = v28;
+          v62 = v22;
           while (1)
           {
             v29 = objc_autoreleasePoolPush();
@@ -404,24 +466,24 @@ LABEL_5:
 
             if ([(FPDMoveReader *)self _isRootCancelled:v15])
             {
-              v67 = 0;
+              v66 = 0;
               v27 = 0;
 LABEL_46:
               objc_autoreleasePoolPop(v29);
               goto LABEL_47;
             }
 
-            v73 = 0;
-            v30 = [v22 nextWithError:&v73];
-            v31 = v73;
-            if (v64 && [v30 size] > v62)
+            v72 = 0;
+            v30 = [v22 nextWithError:&v72];
+            v31 = v72;
+            if (v63 && [v30 size] > v61)
             {
               break;
             }
 
             if (v30)
             {
-              v32 = v66;
+              v32 = v65;
             }
 
             else
@@ -431,7 +493,7 @@ LABEL_46:
 
             if (v32)
             {
-              v65 += [v30 size];
+              v64 += [v30 size];
             }
 
             else if (!v30 && v31)
@@ -458,8 +520,8 @@ LABEL_46:
             v33 = v26;
             targetFolder3 = [(FPMoveInfo *)selfCopy->_info targetFolder];
             filename = [v30 filename];
-            LOBYTE(v53) = 0;
-            v36 = [FPDMoveAtom atomForMoving:v30 toTargetFolder:targetFolder3 as:filename root:v15 atomically:0 sourceMaterializeOption:0 targetMaterializeOption:0 useDiskWriter:v53];
+            LOBYTE(v52) = 0;
+            v36 = [FPDMoveAtom atomForMoving:v30 toTargetFolder:targetFolder3 as:filename root:v15 atomically:0 sourceMaterializeOption:0 targetMaterializeOption:0 useDiskWriter:v52];
 
             info = selfCopy->_info;
             v38 = objc_loadWeakRetained(&selfCopy->_operation);
@@ -468,8 +530,8 @@ LABEL_46:
 
             if (info)
             {
-              v67 += [v30 size];
-              v61 = 1;
+              v66 += [v30 size];
+              v60 = 1;
             }
 
             self = selfCopy;
@@ -484,9 +546,9 @@ LABEL_46:
             }
 
             objc_autoreleasePoolPop(v29);
-            v22 = v63;
+            v22 = v62;
             ++v27;
-            if ([v63 done])
+            if ([v62 done])
             {
               goto LABEL_47;
             }
@@ -507,14 +569,14 @@ LABEL_66:
 LABEL_67:
           objc_autoreleasePoolPop(v29);
 
-          roots = v57;
-          preflightCopy = v58;
+          roots = v56;
+          preflightCopy = v57;
           goto LABEL_68;
         }
 
-        v61 = 0;
+        v60 = 0;
         v26 = 0;
-        v67 = 0;
+        v66 = 0;
         v27 = 0;
 LABEL_47:
         v42 = fp_current_or_default_log();
@@ -522,34 +584,34 @@ LABEL_47:
         {
           v45 = self->_willMaterializeTargetFolder;
           *buf = 138413570;
-          v80 = v15;
-          v81 = 2048;
-          v82 = v27;
-          v83 = 2048;
-          v84 = v67;
-          v85 = 2048;
-          v86 = v26;
-          v87 = 1024;
-          v88 = v61 & 1;
-          v89 = 1024;
-          v90 = v45;
+          v79 = v15;
+          v80 = 2048;
+          v81 = v27;
+          v82 = 2048;
+          v83 = v66;
+          v84 = 2048;
+          v85 = v26;
+          v86 = 1024;
+          v87 = v60 & 1;
+          v88 = 1024;
+          v89 = v45;
           _os_log_debug_impl(&dword_1CEFC7000, v42, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: preflight for root: %@, numItems:%lu, undownloadedSize:%lu, crossDeviceCopySize:%lu,                   isRequiringDownload:%{BOOL}d, willMaterializeTargetFolder:%{BOOL}d", buf, 0x36u);
         }
 
         rootPreflightCompletionBlock2 = [(FPDMoveReader *)self rootPreflightCompletionBlock];
-        rootPreflightCompletionBlock2[2](rootPreflightCompletionBlock2, v15, v27, v67, v26);
+        rootPreflightCompletionBlock2[2](rootPreflightCompletionBlock2, v15, v27, v66, v26);
 
-        roots = v57;
-        preflightCopy = v58;
-        v13 = v55;
-        v12 = v56;
-        v14 = v59;
-        rootPreflightCompletionBlock = v60;
+        roots = v56;
+        preflightCopy = v57;
+        v13 = v54;
+        v12 = v55;
+        v14 = v58;
+        rootPreflightCompletionBlock = v59;
       }
 
       if (++v14 == v12)
       {
-        v12 = [roots countByEnumeratingWithState:&v75 objects:v91 count:16];
+        v12 = [roots countByEnumeratingWithState:&v74 objects:v90 count:16];
         if (v12)
         {
           goto LABEL_5;
@@ -566,7 +628,7 @@ LABEL_68:
     goto LABEL_69;
   }
 
-  v65 = 0;
+  v64 = 0;
 LABEL_54:
 
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -576,17 +638,17 @@ LABEL_54:
   aBlock[4] = self;
   v46 = _Block_copy(aBlock);
   v47 = v46;
-  if (v65)
+  if (v64)
   {
-    v69[0] = MEMORY[0x1E69E9820];
-    v69[1] = 3221225472;
-    v69[2] = __58__FPDMoveReader__progressComputationPreflight_completion___block_invoke_13;
-    v69[3] = &unk_1E83BFB60;
-    v69[4] = self;
+    v68[0] = MEMORY[0x1E69E9820];
+    v68[1] = 3221225472;
+    v68[2] = __58__FPDMoveReader__progressComputationPreflight_completion___block_invoke_13;
+    v68[3] = &unk_1E83BFB60;
+    v68[4] = self;
     v48 = completionCopy;
-    v70 = completionCopy;
-    v71 = v47;
-    [(FPDMoveReader *)self _getSpaceForWriteSize:v65 atTargetPath:preflightCopy completion:v69];
+    v69 = completionCopy;
+    v70 = v47;
+    [(FPDMoveReader *)self _getSpaceForWriteSize:v64 atTargetPath:preflightCopy completion:v68];
   }
 
   else
@@ -597,19 +659,18 @@ LABEL_54:
   }
 
 LABEL_69:
-  v52 = *MEMORY[0x1E69E9840];
 }
 
-void __58__FPDMoveReader__progressComputationPreflight_completion___block_invoke(uint64_t a1)
+void __58__FPDMoveReader__progressComputationPreflight_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __58__FPDMoveReader__progressComputationPreflight_completion___block_invoke_cold_1(a1);
+    __58__FPDMoveReader__progressComputationPreflight_completion___block_invoke_cold_1();
   }
 
-  v3 = [*(a1 + 32) preflightCompletionBlock];
-  v3[2]();
+  v4 = [*(a1 + 32) preflightCompletionBlock];
+  v4[2]();
 
   *(*(a1 + 32) + 41) = 1;
 }
@@ -672,21 +733,21 @@ uint64_t __58__FPDMoveReader__progressComputationPreflight_completion___block_in
 
 - (void)_getSpaceForWriteSize:(int64_t)size atTargetPath:(id)path completion:(id)completion
 {
-  v46[3] = *MEMORY[0x1E69E9840];
+  v45[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   completionCopy = completion;
   if (pathCopy)
   {
     v9 = *MEMORY[0x1E695DD50];
     v10 = *MEMORY[0x1E695DD60];
-    v46[0] = *MEMORY[0x1E695DD50];
-    v46[1] = v10;
+    v45[0] = *MEMORY[0x1E695DD50];
+    v45[1] = v10;
     v11 = *MEMORY[0x1E695DDA8];
-    v46[2] = *MEMORY[0x1E695DDA8];
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
-    v41 = 0;
-    v13 = [pathCopy resourceValuesForKeys:v12 error:&v41];
-    v14 = v41;
+    v45[2] = *MEMORY[0x1E695DDA8];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
+    v40 = 0;
+    v13 = [pathCopy resourceValuesForKeys:v12 error:&v40];
+    v14 = v40;
     v15 = v14;
     if (v13)
     {
@@ -737,7 +798,7 @@ LABEL_3:
         aBlock[1] = 3221225472;
         aBlock[2] = __63__FPDMoveReader__getSpaceForWriteSize_atTargetPath_completion___block_invoke;
         aBlock[3] = &unk_1E83BFB88;
-        v38 = completionCopy;
+        v37 = completionCopy;
         sizeCopy = size;
         v29 = _Block_copy(aBlock);
         v30 = fp_current_or_default_log();
@@ -748,13 +809,13 @@ LABEL_3:
           _os_log_impl(&dword_1CEFC7000, v30, OS_LOG_TYPE_INFO, "[INFO] Low disk space: purging to make room for %ld bytes", buf, 0xCu);
         }
 
-        v42[0] = @"CACHE_DELETE_VOLUME";
+        v41[0] = @"CACHE_DELETE_VOLUME";
         path = [pathCopy path];
-        v42[1] = @"CACHE_DELETE_AMOUNT";
-        v43[0] = path;
+        v41[1] = @"CACHE_DELETE_AMOUNT";
+        v42[0] = path;
         10485760 = [MEMORY[0x1E696AD98] numberWithInteger:size + 10485760];
-        v43[1] = 10485760;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:2];
+        v42[1] = 10485760;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
         v33 = CacheDeletePurgeSpaceWithInfo();
       }
 
@@ -770,21 +831,21 @@ LABEL_32:
       if (code == 260)
       {
         uRLByDeletingLastPathComponent = [pathCopy URLByDeletingLastPathComponent];
-        v40 = v15;
-        v13 = [uRLByDeletingLastPathComponent resourceValuesForKeys:v12 error:&v40];
-        v36 = v40;
+        v39 = v15;
+        v13 = [uRLByDeletingLastPathComponent resourceValuesForKeys:v12 error:&v39];
+        v35 = v39;
 
         uRLByDeletingLastPathComponent2 = [pathCopy URLByDeletingLastPathComponent];
 
         if (v13)
         {
-          v15 = v36;
+          v15 = v35;
           pathCopy = uRLByDeletingLastPathComponent2;
           goto LABEL_3;
         }
 
         pathCopy = uRLByDeletingLastPathComponent2;
-        v15 = v36;
+        v15 = v35;
       }
     }
 
@@ -810,8 +871,6 @@ LABEL_32:
 
   completionCopy[2](completionCopy, 1);
 LABEL_33:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__FPDMoveReader__getSpaceForWriteSize_atTargetPath_completion___block_invoke(uint64_t a1, void *a2)
@@ -819,18 +878,17 @@ uint64_t __63__FPDMoveReader__getSpaceForWriteSize_atTargetPath_completion___blo
   if (a2)
   {
     v3 = [a2 objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
-    v4 = [v3 longLongValue];
+    [v3 longLongValue];
 
-    v5 = v4 >= *(a1 + 40);
-    v6 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    return v6();
+    return v4();
   }
 
   else
   {
-    v8 = fp_current_or_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = fp_current_or_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __63__FPDMoveReader__getSpaceForWriteSize_atTargetPath_completion___block_invoke_cold_1();
     }
@@ -916,29 +974,8 @@ LABEL_10:
     goto LABEL_22;
   }
 
-  if (![rootCopy isProviderItem])
+  if (![rootCopy isProviderItem] || (-[FPMoveInfo targetFolder](self->_info, "targetFolder"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isProviderItem"), v10, !v11) || (objc_msgSend(rootCopy, "asFPItem"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "providerDomainID"), v13 = objc_claimAutoreleasedReturnValue(), -[FPMoveInfo targetFolder](self->_info, "targetFolder"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "asFPItem"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "providerDomainID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v13, "isEqualToString:", v16), v16, v15, v14, v13, v12, (v17 & 1) == 0))
   {
-    goto LABEL_8;
-  }
-
-  targetFolder = [(FPMoveInfo *)self->_info targetFolder];
-  isProviderItem = [targetFolder isProviderItem];
-
-  if (!isProviderItem)
-  {
-    goto LABEL_8;
-  }
-
-  asFPItem = [rootCopy asFPItem];
-  providerDomainID = [asFPItem providerDomainID];
-  targetFolder2 = [(FPMoveInfo *)self->_info targetFolder];
-  asFPItem2 = [targetFolder2 asFPItem];
-  providerDomainID2 = [asFPItem2 providerDomainID];
-  v17 = [providerDomainID isEqualToString:providerDomainID2];
-
-  if ((v17 & 1) == 0)
-  {
-LABEL_8:
     if ([rootCopy isExternalURL])
     {
       path = [rootCopy asURL];
@@ -946,8 +983,8 @@ LABEL_8:
 
     else
     {
-      asFPItem3 = [rootCopy asFPItem];
-      path = [asFPItem3 fileURL];
+      asFPItem = [rootCopy asFPItem];
+      path = [asFPItem fileURL];
     }
 
     v29 = 0;
@@ -978,34 +1015,13 @@ LABEL_23:
 {
   rootCopy = root;
   lCopy = l;
-  if (![rootCopy isProviderItem])
-  {
-    goto LABEL_5;
-  }
-
-  targetFolder = [(FPMoveInfo *)self->_info targetFolder];
-  isProviderItem = [targetFolder isProviderItem];
-
-  if (!isProviderItem)
-  {
-    goto LABEL_5;
-  }
-
-  asFPItem = [rootCopy asFPItem];
-  providerDomainID = [asFPItem providerDomainID];
-  targetFolder2 = [(FPMoveInfo *)self->_info targetFolder];
-  asFPItem2 = [targetFolder2 asFPItem];
-  providerDomainID2 = [asFPItem2 providerDomainID];
-  v15 = [providerDomainID isEqualToString:providerDomainID2];
-
-  if (v15)
+  if ([rootCopy isProviderItem] && (-[FPMoveInfo targetFolder](self->_info, "targetFolder"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isProviderItem"), v8, v9) && (objc_msgSend(rootCopy, "asFPItem"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "providerDomainID"), v11 = objc_claimAutoreleasedReturnValue(), -[FPMoveInfo targetFolder](self->_info, "targetFolder"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "asFPItem"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "providerDomainID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v11, "isEqualToString:", v14), v14, v13, v12, v11, v10, (v15 & 1) != 0))
   {
     LOBYTE(v16) = 0;
   }
 
   else
   {
-LABEL_5:
     if ([rootCopy isExternalURL])
     {
       asURL = [rootCopy asURL];
@@ -1013,8 +1029,8 @@ LABEL_5:
 
     else
     {
-      asFPItem3 = [rootCopy asFPItem];
-      asURL = [asFPItem3 fileURL];
+      asFPItem = [rootCopy asFPItem];
+      asURL = [asFPItem fileURL];
     }
 
     v27 = 0;
@@ -1082,9 +1098,65 @@ LABEL_5:
   return filename;
 }
 
+- (BOOL)_enqueueItem:(id)item forRoot:(id)root atomically:(BOOL)atomically useDiskWriter:(BOOL)writer
+{
+  atomicallyCopy = atomically;
+  itemCopy = item;
+  rootCopy = root;
+  v33 = 0;
+  v12 = [(FPDMoveReader *)self _getTargetFolderFor:itemCopy root:rootCopy error:&v33];
+  v13 = v33;
+  v14 = v13;
+  if (v12)
+  {
+    v32 = v13;
+    v31 = [(FPDMoveReader *)self _targetNameForSource:itemCopy];
+    targetFolder = [(FPMoveInfo *)self->_info targetFolder];
+    byCopy = [(FPMoveInfo *)self->_info byCopy];
+    v17 = rootCopy;
+    writerCopy = writer;
+    WeakRetained = objc_loadWeakRetained(&self->_operation);
+    manager = [WeakRetained manager];
+    v21 = [itemCopy materializeOptionForDestinationItem:targetFolder recursively:atomicallyCopy isCopy:byCopy extensionManager:manager];
+
+    LOBYTE(v30) = writerCopy;
+    rootCopy = v17;
+    v22 = v31;
+    v23 = [FPDMoveAtom atomForMoving:itemCopy toTargetFolder:v12 as:v31 root:rootCopy atomically:atomicallyCopy sourceMaterializeOption:v21 targetMaterializeOption:self->_willMaterializeTargetFolder useDiskWriter:v30];
+    if (v21)
+    {
+      startDownloadBlock = [(FPDMoveReader *)self startDownloadBlock];
+
+      if (startDownloadBlock)
+      {
+        startDownloadBlock2 = [(FPDMoveReader *)self startDownloadBlock];
+        source = [v23 source];
+        asFPItem = [source asFPItem];
+        (startDownloadBlock2)[2](startDownloadBlock2, asFPItem, v21 == 2, 0);
+      }
+    }
+
+    v28 = objc_loadWeakRetained(&self->_moveQueue);
+    [v28 enqueue:v23];
+
+    v14 = v32;
+  }
+
+  else
+  {
+    v22 = fp_current_or_default_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      [FPDMoveReader _enqueueItem:itemCopy forRoot:v14 atomically:? useDiskWriter:?];
+    }
+  }
+
+  return v12 != 0;
+}
+
 - (void)_bailOutOfRoot:(id)root
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   rootCopy = root;
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -1101,7 +1173,7 @@ LABEL_5:
       {
         depth = self->_depth;
         *buf = 67109120;
-        v13 = depth;
+        v12 = depth;
         _os_log_debug_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader:_bailOutOfRoot: adding atomForPostFolder %d", buf, 8u);
       }
 
@@ -1115,8 +1187,6 @@ LABEL_5:
 
     while (v9);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isSingleMoveForRoot:(id)root
@@ -1135,32 +1205,7 @@ LABEL_16:
     goto LABEL_32;
   }
 
-  if (![(FPMoveInfo *)self->_info byMoving])
-  {
-    goto LABEL_11;
-  }
-
-  if (![rootCopy isProviderItem])
-  {
-    goto LABEL_11;
-  }
-
-  targetFolder = [(FPMoveInfo *)self->_info targetFolder];
-  isProviderItem = [targetFolder isProviderItem];
-
-  if (!isProviderItem)
-  {
-    goto LABEL_11;
-  }
-
-  asFPItem = [rootCopy asFPItem];
-  providerDomainID = [asFPItem providerDomainID];
-  targetFolder2 = [(FPMoveInfo *)self->_info targetFolder];
-  asFPItem2 = [targetFolder2 asFPItem];
-  providerDomainID2 = [asFPItem2 providerDomainID];
-  v13 = [providerDomainID isEqualToString:providerDomainID2];
-
-  if (v13)
+  if (-[FPMoveInfo byMoving](self->_info, "byMoving") && [rootCopy isProviderItem] && (-[FPMoveInfo targetFolder](self->_info, "targetFolder"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isProviderItem"), v6, v7) && (objc_msgSend(rootCopy, "asFPItem"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "providerDomainID"), v9 = objc_claimAutoreleasedReturnValue(), -[FPMoveInfo targetFolder](self->_info, "targetFolder"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "asFPItem"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "providerDomainID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v9, "isEqualToString:", v12), v12, v11, v10, v9, v8, v13))
   {
     asURL = fp_current_or_default_log();
     if (os_log_type_enabled(asURL, OS_LOG_TYPE_DEBUG))
@@ -1173,7 +1218,6 @@ LABEL_16:
 
   else
   {
-LABEL_11:
     if (![(FPDMoveReader *)self _shouldUseDiskWriterToPerformMoveForItem:rootCopy])
     {
       asURL = fp_current_or_default_log();
@@ -1192,23 +1236,23 @@ LABEL_11:
 
     else
     {
-      asFPItem3 = [rootCopy asFPItem];
-      asURL = [asFPItem3 fileURL];
+      asFPItem = [rootCopy asFPItem];
+      asURL = [asFPItem fileURL];
     }
 
-    targetFolder3 = [(FPMoveInfo *)self->_info targetFolder];
-    isExternalURL = [targetFolder3 isExternalURL];
-    targetFolder4 = [(FPMoveInfo *)self->_info targetFolder];
-    v19 = targetFolder4;
+    targetFolder = [(FPMoveInfo *)self->_info targetFolder];
+    isExternalURL = [targetFolder isExternalURL];
+    targetFolder2 = [(FPMoveInfo *)self->_info targetFolder];
+    v19 = targetFolder2;
     if (isExternalURL)
     {
-      asURL2 = [targetFolder4 asURL];
+      asURL2 = [targetFolder2 asURL];
     }
 
     else
     {
-      asFPItem4 = [targetFolder4 asFPItem];
-      asURL2 = [asFPItem4 fileURL];
+      asFPItem2 = [targetFolder2 asFPItem];
+      asURL2 = [asFPItem2 fileURL];
     }
 
     v32 = 0;
@@ -1301,7 +1345,7 @@ LABEL_32:
 
 - (BOOL)_shouldUseDiskWriterToPerformMoveForItem:(id)item
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if ([itemCopy isProviderItem])
   {
@@ -1378,13 +1422,13 @@ LABEL_12:
           v18 = 0;
         }
 
-        v28 = !self->_isTargetFolderMaterialized && !self->_willMaterializeTargetFolder;
-        if (((v18 | v28) & 1) == 0)
+        v27 = !self->_isTargetFolderMaterialized && !self->_willMaterializeTargetFolder;
+        if (((v18 | v27) & 1) == 0)
         {
           targetFolder4 = [(FPMoveInfo *)self->_info targetFolder];
           isExternalURL = [targetFolder4 isExternalURL];
           targetFolder5 = [(FPMoveInfo *)self->_info targetFolder];
-          v32 = targetFolder5;
+          v31 = targetFolder5;
           if (isExternalURL)
           {
             asURL = [targetFolder5 asURL];
@@ -1409,77 +1453,77 @@ LABEL_12:
 
           if (!asURL2)
           {
-            v37 = objc_loadWeakRetained(&self->_operation);
-            manager3 = [v37 manager];
-            v39 = [itemCopy materializedURLWithExtensionManager:manager3];
+            v36 = objc_loadWeakRetained(&self->_operation);
+            manager3 = [v36 manager];
+            v38 = [itemCopy materializedURLWithExtensionManager:manager3];
 
-            asURL2 = v39;
+            asURL2 = v38;
           }
 
           if (!asURL)
           {
             targetFolder6 = [(FPMoveInfo *)self->_info targetFolder];
-            v41 = objc_loadWeakRetained(&self->_operation);
-            [v41 manager];
-            v43 = v42 = asURL2;
-            asURL = [targetFolder6 materializedURLWithExtensionManager:v43];
+            v40 = objc_loadWeakRetained(&self->_operation);
+            [v40 manager];
+            v42 = v41 = asURL2;
+            asURL = [targetFolder6 materializedURLWithExtensionManager:v42];
 
-            asURL2 = v42;
+            asURL2 = v41;
           }
 
-          v61 = 0;
-          v44 = *MEMORY[0x1E695DD70];
           v60 = 0;
-          [asURL2 getResourceValue:&v61 forKey:v44 error:{&v60, asURL2}];
-          v45 = v61;
-          v46 = v60;
-          v47 = fp_current_or_default_log();
-          v57 = asURL;
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+          v43 = *MEMORY[0x1E695DD70];
+          v59 = 0;
+          [asURL2 getResourceValue:&v60 forKey:v43 error:{&v59, asURL2}];
+          v44 = v60;
+          v45 = v59;
+          v46 = fp_current_or_default_log();
+          v56 = asURL;
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
           {
-            fp_prettyDescription = [v46 fp_prettyDescription];
+            fp_prettyDescription = [v45 fp_prettyDescription];
             *buf = 138412802;
-            v63 = v55;
-            v64 = 2112;
-            v65 = v45;
-            v66 = 2112;
-            v67 = fp_prettyDescription;
-            _os_log_debug_impl(&dword_1CEFC7000, v47, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: sourceURL %@ sourceVolume %@ error %@", buf, 0x20u);
+            v62 = v54;
+            v63 = 2112;
+            v64 = v44;
+            v65 = 2112;
+            v66 = fp_prettyDescription;
+            _os_log_debug_impl(&dword_1CEFC7000, v46, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: sourceURL %@ sourceVolume %@ error %@", buf, 0x20u);
 
-            asURL = v57;
+            asURL = v56;
           }
 
+          v57 = 0;
           v58 = 0;
-          v59 = 0;
-          [asURL getResourceValue:&v59 forKey:v44 error:&v58];
-          v48 = v59;
-          v49 = v58;
+          [asURL getResourceValue:&v58 forKey:v43 error:&v57];
+          v47 = v58;
+          v48 = v57;
 
-          v50 = fp_current_or_default_log();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+          v49 = fp_current_or_default_log();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
           {
-            fp_prettyDescription2 = [v49 fp_prettyDescription];
+            fp_prettyDescription2 = [v48 fp_prettyDescription];
             *buf = 138412802;
-            v63 = v57;
-            v64 = 2112;
-            v65 = v48;
-            v66 = 2112;
-            v67 = fp_prettyDescription2;
-            _os_log_debug_impl(&dword_1CEFC7000, v50, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: targetFolderURL %@ destVolume %@ error %@", buf, 0x20u);
+            v62 = v56;
+            v63 = 2112;
+            v64 = v47;
+            v65 = 2112;
+            v66 = fp_prettyDescription2;
+            _os_log_debug_impl(&dword_1CEFC7000, v49, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: targetFolderURL %@ destVolume %@ error %@", buf, 0x20u);
           }
 
           LOBYTE(v18) = 0;
-          if (v49)
+          if (v48)
           {
-            v51 = v55;
+            v50 = v54;
           }
 
           else
           {
-            v51 = v55;
-            if (v45 && v48)
+            v50 = v54;
+            if (v44 && v47)
             {
-              LOBYTE(v18) = [v45 isEqual:v48];
+              LOBYTE(v18) = [v44 isEqual:v47];
             }
           }
         }
@@ -1497,13 +1541,12 @@ LABEL_12:
     LOBYTE(v18) = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (void)_enqueueAtomsForRoot:(id)root
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   rootCopy = root;
   if ([(FPDMoveReader *)self _isRootCancelled:rootCopy])
   {
@@ -1545,16 +1588,16 @@ LABEL_12:
     }
 
     self->_depth = 0;
-    v36 = 0;
-    v14 = [(FPDMoveReader *)self _iteratorForRoot:rootCopy enforceFPItem:1 error:&v36];
-    v13 = v36;
+    v35 = 0;
+    v14 = [(FPDMoveReader *)self _iteratorForRoot:rootCopy enforceFPItem:1 error:&v35];
+    v13 = v35;
     if (v14)
     {
       if (([v14 done] & 1) == 0)
       {
-        v33 = v13;
+        v32 = v13;
         *&v15 = 138412546;
-        v32 = v15;
+        v31 = v15;
         while (1)
         {
           v16 = objc_autoreleasePoolPush();
@@ -1570,13 +1613,13 @@ LABEL_12:
 LABEL_41:
             objc_autoreleasePoolPop(v16);
 LABEL_42:
-            v13 = v33;
+            v13 = v32;
             goto LABEL_51;
           }
 
-          v35 = 0;
-          v17 = [v14 nextWithError:&v35];
-          v18 = v35;
+          v34 = 0;
+          v17 = [v14 nextWithError:&v34];
+          v18 = v34;
           v19 = v18;
           if (!v17)
           {
@@ -1586,7 +1629,7 @@ LABEL_42:
             }
           }
 
-          v34 = v16;
+          v33 = v16;
           v20 = v18;
           for (i = [v14 numFoldersPopped]; i; --i)
           {
@@ -1595,7 +1638,7 @@ LABEL_42:
             {
               depth = self->_depth;
               *buf = 67109120;
-              LODWORD(v38) = depth;
+              LODWORD(v37) = depth;
               _os_log_debug_impl(&dword_1CEFC7000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: adding atomForPostFolder %d", buf, 8u);
             }
 
@@ -1610,7 +1653,7 @@ LABEL_42:
           {
             v19 = v20;
 LABEL_47:
-            v16 = v34;
+            v16 = v33;
             goto LABEL_49;
           }
 
@@ -1621,14 +1664,14 @@ LABEL_47:
           }
 
           v26 = fp_current_or_default_log();
-          v16 = v34;
+          v16 = v33;
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             identifier = [v17 identifier];
-            *buf = v32;
-            v38 = identifier;
-            v39 = 1024;
-            v40 = v5;
+            *buf = v31;
+            v37 = identifier;
+            v38 = 1024;
+            v39 = v5;
             _os_log_debug_impl(&dword_1CEFC7000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: itemID %@ shouldUseDiskWriterToPerformMoveForItem %{BOOL}d", buf, 0x12u);
           }
 
@@ -1645,7 +1688,7 @@ LABEL_49:
             ++self->_depth;
           }
 
-          objc_autoreleasePoolPop(v34);
+          objc_autoreleasePoolPop(v33);
           if ([v14 done])
           {
             goto LABEL_42;
@@ -1660,7 +1703,7 @@ LABEL_49:
 
         [(FPDMoveReader *)self _finishWithError:v19];
 LABEL_50:
-        v13 = v33;
+        v13 = v32;
 
         objc_autoreleasePoolPop(v16);
       }
@@ -1681,14 +1724,14 @@ LABEL_50:
 
   if (![(FPDMoveReader *)self _enqueueItem:rootCopy forRoot:rootCopy atomically:1 useDiskWriter:v5])
   {
-    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ enqueuing a root should never fail"];
-    v31 = fp_current_or_default_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ enqueuing a root should never fail"];
+    v30 = fp_current_or_default_log();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
       +[FPDVolume prettyNameForDomain:];
     }
 
-    __assert_rtn("-[FPDMoveReader _enqueueAtomsForRoot:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/action operation engine/move/FPDMoveReader.m", 727, [v30 UTF8String]);
+    __assert_rtn("-[FPDMoveReader _enqueueAtomsForRoot:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/action operation engine/move/FPDMoveReader.m", 727, [v29 UTF8String]);
   }
 
   if ([rootCopy isFolder])
@@ -1706,8 +1749,6 @@ LABEL_51:
   }
 
 LABEL_52:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_runWithDownloadedTarget:(id)target
@@ -1744,9 +1785,8 @@ LABEL_52:
 void __42__FPDMoveReader__runWithDownloadedTarget___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v6 = *(a1 + 40);
-  v5 = v3;
+  v5 = *(a1 + 40);
+  v4 = v3;
   fp_dispatch_async_with_logs();
 }
 
@@ -1776,43 +1816,41 @@ uint64_t __42__FPDMoveReader__runWithDownloadedTarget___block_invoke_2(void *a1)
 
 - (void)_run
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __21__FPDMoveReader__run__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v22 = *MEMORY[0x1E69E9840];
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v2 = [*(*(a1 + 32) + 16) roots];
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
+        v7 = *(*(&v15 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
         v9 = fp_current_or_default_log();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v21 = v7;
+          v20 = v7;
           _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] move-reader: looking at root %@", buf, 0xCu);
         }
 
@@ -1825,7 +1863,7 @@ void __21__FPDMoveReader__run__block_invoke(uint64_t a1)
           }
 
           objc_autoreleasePoolPop(v8);
-          goto LABEL_20;
+          return;
         }
 
         if ([*(a1 + 32) _isRootCancelled:v7])
@@ -1833,7 +1871,7 @@ void __21__FPDMoveReader__run__block_invoke(uint64_t a1)
           v10 = fp_current_or_default_log();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
-            __21__FPDMoveReader__run__block_invoke_cold_1(&v14, v15, v10);
+            __21__FPDMoveReader__run__block_invoke_cold_1(&v13, v14, v10);
           }
         }
 
@@ -1847,7 +1885,7 @@ void __21__FPDMoveReader__run__block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
       if (v4)
       {
         continue;
@@ -1861,8 +1899,6 @@ void __21__FPDMoveReader__run__block_invoke(uint64_t a1)
   [WeakRetained finishedEnqueuing];
 
   [*(a1 + 32) _finishWithError:0];
-LABEL_20:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_t_waitForUnblock
@@ -1982,194 +2018,140 @@ void __23__FPDMoveReader_cancel__block_invoke(uint64_t a1)
 
 - (void)initWithMoveWriter:operation:queue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __22__FPDMoveReader_start__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __22__FPDMoveReader_start__block_invoke_6_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishWithError:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_iteratorForRoot:(void *)a1 enforceFPItem:error:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 providerDomainID];
   v2 = [v1 fp_obfuscatedProviderDomainID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_progressComputationPreflight:(void *)a1 completion:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_progressComputationPreflight:completion:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_error_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Filesystem only supports %ld file size bits but we need %ld", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __58__FPDMoveReader__progressComputationPreflight_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v8 = *(v1 + 43);
-  v9 = *(v1 + 42);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
-  v7 = *MEMORY[0x1E69E9840];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Filesystem only supports %ld file size bits but we need %ld", v2, 0x16u);
 }
 
 - (void)_getSpaceForWriteSize:(uint64_t)a1 atTargetPath:(void *)a2 completion:.cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [a2 localizedDescription];
-  v10 = [a2 userInfo];
+  v9 = [a2 userInfo];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __63__FPDMoveReader__getSpaceForWriteSize_atTargetPath_completion___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [0 objectForKeyedSubscript:@"CACHE_DELETE_ERROR"];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fileSizeBitsSupportAtPath:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fileSizeBitsSupportAtPath:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_shouldCheckSpaceForRoot:(void *)a1 targetFolderURL:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   [a1 fileSystemRepresentation];
   v1 = __error();
   strerror(*v1);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enqueueItem:(uint64_t)a1 forRoot:(void *)a2 atomically:useDiskWriter:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [a2 fp_prettyDescription];
+  v7 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enqueueAtomsForRoot:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enqueueAtomsForRoot:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enqueueAtomsForRoot:(void *)a1 .cold.6(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_runWithDownloadedTarget:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __21__FPDMoveReader__run__block_invoke_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)

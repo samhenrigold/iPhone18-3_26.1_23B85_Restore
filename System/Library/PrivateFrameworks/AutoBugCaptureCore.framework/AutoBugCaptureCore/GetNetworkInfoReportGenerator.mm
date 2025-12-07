@@ -1,6 +1,9 @@
 @interface GetNetworkInfoReportGenerator
 - (GetNetworkInfoReportGenerator)initWithQueue:(id)queue;
 - (void)setDefaults;
+- (void)setGNINDFInfoOption:(BOOL)option;
+- (void)setGNISensitiveOption:(BOOL)option;
+- (void)setGNISysConfigOption:(BOOL)option;
 @end
 
 @implementation GetNetworkInfoReportGenerator
@@ -30,6 +33,27 @@
   [(GetNetworkInfoReportGenerator *)self setGNISysConfigOption:1];
 
   [(GetNetworkInfoReportGenerator *)self setGNINDFInfoOption:1];
+}
+
+- (void)setGNISensitiveOption:(BOOL)option
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:option];
+  options = [(NetworkDiagnosticsReportGenerator *)self options];
+  [options setObject:v5 forKeyedSubscript:@"taskGNISensitive"];
+}
+
+- (void)setGNISysConfigOption:(BOOL)option
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:option];
+  options = [(NetworkDiagnosticsReportGenerator *)self options];
+  [options setObject:v5 forKeyedSubscript:@"taskGNISysConfig"];
+}
+
+- (void)setGNINDFInfoOption:(BOOL)option
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:option];
+  options = [(NetworkDiagnosticsReportGenerator *)self options];
+  [options setObject:v5 forKeyedSubscript:@"taskGNINDFInfo"];
 }
 
 @end

@@ -150,7 +150,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -170,7 +169,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  activationsSinceLastReport = self->_activationsSinceLastReport;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -182,7 +180,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    longestActiveDurationSinceLastReport = self->_longestActiveDurationSinceLastReport;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -193,7 +190,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  totalActiveDurationSinceLastReport = self->_totalActiveDurationSinceLastReport;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if (has)
@@ -208,7 +204,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  shortestActiveDurationSinceLastReport = self->_shortestActiveDurationSinceLastReport;
 
   PBDataWriterWriteUint64Field();
 }

@@ -208,7 +208,6 @@
 
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)generatePerformanceDict
@@ -322,7 +321,6 @@
   }
 
   objc_storeStrong(v39, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v40;
 
   return v4;
@@ -375,7 +373,6 @@
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)log:(id)log atLevel:(int)level
@@ -415,7 +412,6 @@
 
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

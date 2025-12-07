@@ -438,7 +438,7 @@ LABEL_5:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __58__ICDocCamExtractedDocumentViewController_defaultsChanged__block_invoke(uint64_t a1)
+void *__58__ICDocCamExtractedDocumentViewController_defaultsChanged__block_invoke(uint64_t a1)
 {
   if ([MEMORY[0x277D755C8] isSourceTypeAvailable:1] && (v2 = (a1 + 32), (objc_msgSend(*(a1 + 32), "cameraDisabled") & 1) == 0))
   {
@@ -481,30 +481,30 @@ uint64_t __58__ICDocCamExtractedDocumentViewController_defaultsChanged__block_in
 
 - (void)viewDidLoad
 {
-  v94 = *MEMORY[0x277D85DE8];
-  v84.receiver = self;
-  v84.super_class = ICDocCamExtractedDocumentViewController;
-  [(ICDocCamExtractedDocumentViewController *)&v84 viewDidLoad];
-  v85[0] = 0;
+  v93 = *MEMORY[0x277D85DE8];
+  v83.receiver = self;
+  v83.super_class = ICDocCamExtractedDocumentViewController;
+  [(ICDocCamExtractedDocumentViewController *)&v83 viewDidLoad];
+  v84[0] = 0;
   if (UIAccessibilityLibraryCore_frameworkLibrary)
   {
     v3 = UIAccessibilityLibraryCore_frameworkLibrary;
     goto LABEL_5;
   }
 
-  v85[1] = MEMORY[0x277D85DD0];
-  v85[2] = 3221225472;
-  v85[3] = __UIAccessibilityLibraryCore_block_invoke;
-  v85[4] = &__block_descriptor_40_e5_v8__0l;
-  v85[5] = v85;
-  v92 = xmmword_278F93050;
-  v93 = 0;
+  v84[1] = MEMORY[0x277D85DD0];
+  v84[2] = 3221225472;
+  v84[3] = __UIAccessibilityLibraryCore_block_invoke;
+  v84[4] = &__block_descriptor_40_e5_v8__0l;
+  v84[5] = v84;
+  v91 = xmmword_278F93050;
+  v92 = 0;
   UIAccessibilityLibraryCore_frameworkLibrary = _sl_dlopen();
-  v4 = v85[0];
+  v4 = v84[0];
   v3 = UIAccessibilityLibraryCore_frameworkLibrary;
   if (UIAccessibilityLibraryCore_frameworkLibrary)
   {
-    if (!v85[0])
+    if (!v84[0])
     {
       goto LABEL_5;
     }
@@ -512,8 +512,7 @@ uint64_t __58__ICDocCamExtractedDocumentViewController_defaultsChanged__block_in
 
   else
   {
-    v83 = v85[0];
-    v4 = abort_report_np();
+    v4 = abort_report_np("%s", v84[0]);
   }
 
   free(v4);
@@ -564,9 +563,9 @@ LABEL_5:
   [(ICDocCamExtractedDocumentViewController *)self setEdgesForExtendedLayout:15];
   [(ICDocCamExtractedDocumentViewController *)self setExtendedLayoutIncludesOpaqueBars:1];
   v20 = objc_alloc(MEMORY[0x277D757F0]);
-  v90 = *MEMORY[0x277D76DB0];
-  v91 = &unk_285C6D218;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+  v89 = *MEMORY[0x277D76DB0];
+  v90 = &unk_285C6D218;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
   v22 = [v20 initWithTransitionStyle:1 navigationOrientation:0 options:v21];
   [(ICDocCamExtractedDocumentViewController *)self setPageViewController:v22];
 
@@ -592,19 +591,19 @@ LABEL_5:
   [pageViewControllerContainerView2 setBackgroundColor:currentBackgroundColor];
 
   v32 = MEMORY[0x277CCAAD0];
-  v88 = @"childView";
+  v87 = @"childView";
   pageViewController6 = [(ICDocCamExtractedDocumentViewController *)self pageViewController];
   view3 = [pageViewController6 view];
-  v89 = view3;
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+  v88 = view3;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
   v36 = [v32 constraintsWithVisualFormat:@"H:|[childView]|" options:0 metrics:0 views:v35];
 
   v37 = MEMORY[0x277CCAAD0];
-  v86 = @"childView";
+  v85 = @"childView";
   pageViewController7 = [(ICDocCamExtractedDocumentViewController *)self pageViewController];
   view4 = [pageViewController7 view];
-  v87 = view4;
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+  v86 = view4;
+  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
   v41 = [v37 constraintsWithVisualFormat:@"V:|[childView]|" options:0 metrics:0 views:v40];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v36];
@@ -3037,7 +3036,7 @@ LABEL_19:
   v32 = layer;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else

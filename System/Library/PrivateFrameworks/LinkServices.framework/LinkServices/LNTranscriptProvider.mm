@@ -1,12 +1,15 @@
 @interface LNTranscriptProvider
 + (id)createStreamsWithStreamURL:(id)l;
++ (id)publisherForStream:(id)stream fromDate:(id)date toDate:(id)toDate maxEvents:(id)events reversed:(BOOL)reversed;
 - (LNTranscriptProvider)init;
 - (NSXPCConnection)connection;
 - (id)transcriptPublisherFromDate:(id)date error:(id *)error;
+- (id)transcriptPublisherFromDate:(id)date toDate:(id)toDate maxEvents:(id)events reversed:(BOOL)reversed error:(id *)error;
 - (void)configureConnection:(id)connection;
 - (void)dealloc;
 - (void)deleteAllRecordsWithReply:(id)reply;
 - (void)deleteRecordsWithMatchingPredicate:(id)predicate reply:(id)reply;
+- (void)donateActionRecordData:(id)data writeImmediately:(BOOL)immediately reply:(id)reply;
 - (void)donateWithActionRecord:(id)record reply:(id)reply;
 @end
 
@@ -105,38 +108,35 @@ void __34__LNTranscriptProvider_connection__block_invoke(uint64_t a1)
 
 void __50__LNTranscriptProvider_deleteAllRecordsWithReply___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing deleteAllRecordsWithReply. error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing deleteAllRecordsWithReply. error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __50__LNTranscriptProvider_deleteAllRecordsWithReply___block_invoke_28(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = getLNLogCategoryGeneral();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Error when executing deleteAllRecordsWithReply. error: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Error when executing deleteAllRecordsWithReply. error: %@", &v5, 0xCu);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteRecordsWithMatchingPredicate:(id)predicate reply:(id)reply
@@ -163,23 +163,22 @@ void __50__LNTranscriptProvider_deleteAllRecordsWithReply___block_invoke_28(uint
 
 void __65__LNTranscriptProvider_deleteRecordsWithMatchingPredicate_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing deleteRecordsWithMatchingPredicate. error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing deleteRecordsWithMatchingPredicate. error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __65__LNTranscriptProvider_deleteRecordsWithMatchingPredicate_reply___block_invoke_26(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -187,35 +186,82 @@ void __65__LNTranscriptProvider_deleteRecordsWithMatchingPredicate_reply___block
     v7 = getLNLogCategoryGeneral();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_INFO, "Error when executing deleteRecordsWithMatchingPredicate. error: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_INFO, "Error when executing deleteRecordsWithMatchingPredicate. error: %@", &v8, 0xCu);
     }
   }
 
   (*(*(a1 + 40) + 16))();
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (id)transcriptPublisherFromDate:(id)date toDate:(id)toDate maxEvents:(id)events reversed:(BOOL)reversed error:(id *)error
+{
+  reversedCopy = reversed;
+  dateCopy = date;
+  toDateCopy = toDate;
+  eventsCopy = events;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__7818;
+  v33 = __Block_byref_object_dispose__7819;
+  v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__7818;
+  v27 = __Block_byref_object_dispose__7819;
+  v28 = 0;
+  connection = [(LNTranscriptProvider *)self connection];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __84__LNTranscriptProvider_transcriptPublisherFromDate_toDate_maxEvents_reversed_error___block_invoke;
+  v22[3] = &unk_1E74B2658;
+  v22[4] = &v23;
+  v16 = [connection synchronousRemoteObjectProxyWithErrorHandler:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __84__LNTranscriptProvider_transcriptPublisherFromDate_toDate_maxEvents_reversed_error___block_invoke_25;
+  v21[3] = &unk_1E74B2680;
+  v21[4] = &v23;
+  v21[5] = &v29;
+  [v16 requestReadAccessWithReply:v21];
+
+  if (error)
+  {
+    v17 = v24[5];
+    if (v17)
+    {
+      *error = v17;
+    }
+  }
+
+  v18 = [v30[5] url];
+  v19 = [LNTranscriptProvider publisherForStream:v18 fromDate:dateCopy toDate:toDateCopy maxEvents:eventsCopy reversed:reversedCopy];
+
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v29, 8);
+
+  return v19;
 }
 
 void __84__LNTranscriptProvider_transcriptPublisherFromDate_toDate_maxEvents_reversed_error___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Error when executing requestReadAccessWithReply. error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Error when executing requestReadAccessWithReply. error: %@", &v8, 0xCu);
   }
 
   v5 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"LNTranscriptErrorDomain" code:1004 userInfo:0];
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __84__LNTranscriptProvider_transcriptPublisherFromDate_toDate_maxEvents_reversed_error___block_invoke_25(uint64_t a1, void *a2, void *a3)
@@ -278,22 +324,20 @@ void __84__LNTranscriptProvider_transcriptPublisherFromDate_toDate_maxEvents_rev
 
 void __58__LNTranscriptProvider_transcriptPublisherFromDate_error___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Error when executing requestReadAccessWithReply. error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Error when executing requestReadAccessWithReply. error: %@", &v8, 0xCu);
   }
 
   v5 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"LNTranscriptErrorDomain" code:1004 userInfo:0];
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __58__LNTranscriptProvider_transcriptPublisherFromDate_error___block_invoke_22(uint64_t a1, void *a2, void *a3)
@@ -306,16 +350,49 @@ void __58__LNTranscriptProvider_transcriptPublisherFromDate_error___block_invoke
   *(v6 + 40) = v5;
 }
 
+- (void)donateActionRecordData:(id)data writeImmediately:(BOOL)immediately reply:(id)reply
+{
+  immediatelyCopy = immediately;
+  replyCopy = reply;
+  dataCopy = data;
+  v10 = getLNLogCategoryExecution();
+  v11 = v10;
+  if (data + 1 >= 2 && os_signpost_enabled(v10))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v11, OS_SIGNPOST_INTERVAL_BEGIN, data, "donating", "", buf, 2u);
+  }
+
+  connection = [(LNTranscriptProvider *)self connection];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __70__LNTranscriptProvider_donateActionRecordData_writeImmediately_reply___block_invoke;
+  v19[3] = &unk_1E74B2870;
+  v13 = replyCopy;
+  v20 = v13;
+  dataCopy2 = data;
+  v14 = [connection remoteObjectProxyWithErrorHandler:v19];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __70__LNTranscriptProvider_donateActionRecordData_writeImmediately_reply___block_invoke_20;
+  v16[3] = &unk_1E74B14D0;
+  v17 = v13;
+  dataCopy3 = data;
+  v16[4] = self;
+  v15 = v13;
+  [v14 donateActionRecordData:dataCopy writeImmediately:immediatelyCopy reply:v16];
+}
+
 void __70__LNTranscriptProvider_donateActionRecordData_writeImmediately_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing donateActionRecordData. error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing donateActionRecordData. error: %@", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -324,25 +401,23 @@ void __70__LNTranscriptProvider_donateActionRecordData_writeImmediately_reply___
   v7 = *(a1 + 40);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __70__LNTranscriptProvider_donateActionRecordData_writeImmediately_reply___block_invoke_20(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = getLNLogCategoryGeneral();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Error when executing donateActionRecordData. error: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Error when executing donateActionRecordData. error: %@", &v8, 0xCu);
     }
   }
 
@@ -352,11 +427,9 @@ void __70__LNTranscriptProvider_donateActionRecordData_writeImmediately_reply___
   v7 = *(a1 + 48);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)donateWithActionRecord:(id)record reply:(id)reply
@@ -393,14 +466,14 @@ void __70__LNTranscriptProvider_donateActionRecordData_writeImmediately_reply___
 
 void __53__LNTranscriptProvider_donateWithActionRecord_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing donateWithActionRecord. error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "XPC Error when executing donateWithActionRecord. error: %@", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -409,25 +482,23 @@ void __53__LNTranscriptProvider_donateWithActionRecord_reply___block_invoke(uint
   v7 = *(a1 + 40);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __53__LNTranscriptProvider_donateWithActionRecord_reply___block_invoke_19(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = getLNLogCategoryGeneral();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Error when executing donateWithActionRecord. error: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Error when executing donateWithActionRecord. error: %@", &v8, 0xCu);
     }
   }
 
@@ -437,11 +508,9 @@ void __53__LNTranscriptProvider_donateWithActionRecord_reply___block_invoke_19(u
   v7 = *(a1 + 48);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19763D000, v6, OS_SIGNPOST_INTERVAL_END, v7, "donating", "", &v8, 2u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureConnection:(id)connection
@@ -472,41 +541,66 @@ void __53__LNTranscriptProvider_donateWithActionRecord_reply___block_invoke_19(u
   objc_destroyWeak(&location);
 }
 
-void __44__LNTranscriptProvider_configureConnection___block_invoke(uint64_t a1)
+void __44__LNTranscriptProvider_configureConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = getLNLogCategoryGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = getLNLogCategoryGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_ERROR, "XPC connection has been interrupted", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_ERROR, "XPC connection has been interrupted", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     [*(WeakRetained + 1) invalidate];
-    v5 = v4[1];
-    v4[1] = 0;
+    v6 = v5[1];
+    v5[1] = 0;
   }
 }
 
-void __44__LNTranscriptProvider_configureConnection___block_invoke_17(uint64_t a1)
+void __44__LNTranscriptProvider_configureConnection___block_invoke_17(uint64_t a1, uint64_t a2)
 {
-  v2 = getLNLogCategoryGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = getLNLogCategoryGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "XPC connection has been invalidated", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "XPC connection has been invalidated", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = *(WeakRetained + 1);
+    v6 = *(WeakRetained + 1);
     *(WeakRetained + 1) = 0;
   }
+}
+
++ (id)publisherForStream:(id)stream fromDate:(id)date toDate:(id)toDate maxEvents:(id)events reversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  streamCopy = stream;
+  eventsCopy = events;
+  toDateCopy = toDate;
+  dateCopy = date;
+  [streamCopy startAccessingSecurityScopedResource];
+  v15 = [objc_opt_class() createStreamsWithStreamURL:streamCopy];
+  v16 = objc_alloc(MEMORY[0x1E698F2D0]);
+  unsignedLongLongValue = [eventsCopy unsignedLongLongValue];
+
+  v18 = [v16 initWithStartDate:dateCopy endDate:toDateCopy maxEvents:unsignedLongLongValue lastN:0 reversed:reversedCopy];
+  v19 = [v15 publisherWithOptions:v18];
+  v20 = [LNDeallocationHandler alloc];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __78__LNTranscriptProvider_publisherForStream_fromDate_toDate_maxEvents_reversed___block_invoke;
+  v23[3] = &unk_1E74B2318;
+  v24 = streamCopy;
+  v21 = streamCopy;
+
+  return v19;
 }
 
 + (id)createStreamsWithStreamURL:(id)l

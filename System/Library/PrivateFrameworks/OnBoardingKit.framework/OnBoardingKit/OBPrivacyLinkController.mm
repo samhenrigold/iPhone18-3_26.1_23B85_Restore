@@ -12,6 +12,7 @@
 - (OBPrivacyLinkController)initWithPrivacyBundles:(id)bundles;
 - (id)_privacyPresenter;
 - (void)_linkPressed;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation OBPrivacyLinkController
@@ -50,40 +51,39 @@
 
 + (id)linkWithBundlesAtPaths:(id)paths
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [OBBundle bundleAtPath:*(*(&v15 + 1) + 8 * i), v15];
+        v11 = [OBBundle bundleAtPath:*(*(&v14 + 1) + 8 * i), v14];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [objc_alloc(objc_msgSend(self "_platformSpecificClass"))];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -136,21 +136,20 @@
 
 - (OBPrivacyLinkController)initWithPrivacyBundle:(id)bundle
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   selfCopy = [bundleCopy privacyFlow];
 
   if (selfCopy)
   {
-    v10[0] = bundleCopy;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = bundleCopy;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     v7 = [(OBPrivacyLinkController *)self initWithPrivacyBundles:v6];
 
     self = v7;
     selfCopy = self;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -226,10 +225,10 @@
 
           if (!privacyFlow)
           {
-            v22 = _OBLoggingFacility();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v23 = _OBLoggingFacility(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              [(OBPrivacyLinkController *)v37 initWithBundleIdentifiers:v20, &v38, v22];
+              [(OBPrivacyLinkController *)v37 initWithBundleIdentifiers:v20, &v38, v23];
             }
           }
         }
@@ -240,22 +239,22 @@
       while (v17);
     }
 
-    v23 = [(OBPrivacyLinkController *)self initWithPrivacyBundles:v15];
-    if (v23)
+    v24 = [(OBPrivacyLinkController *)self initWithPrivacyBundles:v15];
+    if (v24)
     {
-      v24 = [v7 copy];
-      bundleIdentifiers = v23->_bundleIdentifiers;
-      v23->_bundleIdentifiers = v24;
+      v25 = [v7 copy];
+      bundleIdentifiers = v24->_bundleIdentifiers;
+      v24->_bundleIdentifiers = v25;
     }
 
-    self = v23;
+    self = v24;
     selfCopy = self;
     identifiersCopy = v28;
   }
 
   else
   {
-    v7 = _OBLoggingFacility();
+    v7 = _OBLoggingFacility(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(OBPrivacyLinkController *)identifiersCopy initWithBundleIdentifiers:v7];
@@ -264,7 +263,6 @@
     selfCopy = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -285,9 +283,23 @@
   return privacyFlow;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = OBPrivacyLinkController;
+  [(OBPrivacyLinkController *)&v7 viewDidAppear:appear];
+  if ([(OBPrivacyLinkController *)self isMovingToParentViewController])
+  {
+    v4 = +[OBAnalyticsManager sharedManager];
+    bundle = [(OBPrivacyLinkController *)self bundle];
+    identifier = [bundle identifier];
+    [v4 logPresentationOfPrivacyLinkWithIdentifier:identifier];
+  }
+}
+
 - (id)_privacyPresenter
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_bundleIdentifiers count]>= 2)
   {
     bundles = [(OBPrivacyLinkController *)self bundles];
@@ -325,31 +337,31 @@ LABEL_16:
   }
 
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   bundles3 = [(OBPrivacyLinkController *)self bundles];
-  v12 = [bundles3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [bundles3 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(bundles3);
         }
 
-        underlyingBundle2 = [*(*(&v22 + 1) + 8 * i) underlyingBundle];
+        underlyingBundle2 = [*(*(&v21 + 1) + 8 * i) underlyingBundle];
         bundlePath2 = [underlyingBundle2 bundlePath];
         [v10 addObject:bundlePath2];
       }
 
-      v13 = [bundles3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [bundles3 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -358,14 +370,13 @@ LABEL_16:
   v4 = [OBPrivacyPresenter presenterForPrivacyUnifiedAboutWithBundlesAtPaths:v10];
 
 LABEL_18:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)_linkPressed
 {
-  v3 = _OBLoggingFacility();
+  v3 = _OBLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v23 = 0;
@@ -433,11 +444,10 @@ LABEL_18:
 
 - (void)initWithBundleIdentifiers:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "No bundles found for bundle identifiers: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B4FB6000, a2, OS_LOG_TYPE_ERROR, "No bundles found for bundle identifiers: %@", &v2, 0xCu);
 }
 
 @end

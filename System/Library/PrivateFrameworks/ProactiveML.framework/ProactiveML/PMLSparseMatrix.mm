@@ -101,7 +101,7 @@ uint64_t __27__PMLSparseMatrix_minValue__block_invoke(uint64_t result, float a2)
 
 - (void)enumerateNonZeroValuesForRow:(unint64_t)row withBlock:(id)block
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = malloc_type_malloc(4 * [(PMLSparseMatrix *)self numberOfColumns], 0x100004052888210uLL);
   v8 = malloc_type_malloc(8 * [(PMLSparseMatrix *)self numberOfColumns], 0x100004000313F17uLL);
@@ -113,7 +113,7 @@ uint64_t __27__PMLSparseMatrix_minValue__block_invoke(uint64_t result, float a2)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v20 = v10;
+      v19 = v10;
       _os_log_error_impl(&dword_260D68000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error extracting floats from sparse rows, status: %d", buf, 8u);
     }
   }
@@ -137,8 +137,6 @@ uint64_t __27__PMLSparseMatrix_minValue__block_invoke(uint64_t result, float a2)
 
   free(v7);
   free(v8);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateNonZeroValuesWithBlock:(id)block
@@ -153,7 +151,7 @@ uint64_t __27__PMLSparseMatrix_minValue__block_invoke(uint64_t result, float a2)
   [(PMLSparseMatrix *)self _enumerateSparseRowsWithBlock:v6];
 }
 
-uint64_t __51__PMLSparseMatrix_enumerateNonZeroValuesWithBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, float *a4, uint64_t *a5)
+uint64_t __51__PMLSparseMatrix_enumerateNonZeroValuesWithBlock___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, float *a4, uint64_t a5)
 {
   if (a3)
   {
@@ -162,9 +160,8 @@ uint64_t __51__PMLSparseMatrix_enumerateNonZeroValuesWithBlock___block_invoke(ui
     do
     {
       v9 = *a4++;
-      v10 = v9;
-      v11 = *a5++;
-      result = (*(*(v8 + 32) + 16))(v10);
+      a5 += 8;
+      result = (*(*(v8 + 32) + 16))(v9);
       --v7;
     }
 
@@ -176,7 +173,7 @@ uint64_t __51__PMLSparseMatrix_enumerateNonZeroValuesWithBlock___block_invoke(ui
 
 - (void)_enumerateSparseRowsWithBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = malloc_type_malloc(4 * [(PMLSparseMatrix *)self numberOfColumns], 0x100004052888210uLL);
   v6 = malloc_type_malloc(8 * [(PMLSparseMatrix *)self numberOfColumns], 0x100004000313F17uLL);
@@ -187,7 +184,7 @@ uint64_t __51__PMLSparseMatrix_enumerateNonZeroValuesWithBlock___block_invoke(ui
     v10 = 0;
     v11 = MEMORY[0x277D86220];
     *&v8 = 67109120;
-    v16 = v8;
+    v15 = v8;
     do
     {
       column_end = 0;
@@ -197,8 +194,8 @@ uint64_t __51__PMLSparseMatrix_enumerateNonZeroValuesWithBlock___block_invoke(ui
       {
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          *buf = v16;
-          v19 = v13;
+          *buf = v15;
+          v18 = v13;
           _os_log_error_impl(&dword_260D68000, v11, OS_LOG_TYPE_ERROR, "Error extracting floats from sparse rows, status: %d", buf, 8u);
         }
 
@@ -218,8 +215,6 @@ uint64_t __51__PMLSparseMatrix_enumerateNonZeroValuesWithBlock___block_invoke(ui
 
   free(v5);
   free(v6);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (float)valueAtRow:(unint64_t)row column:(unint64_t)column

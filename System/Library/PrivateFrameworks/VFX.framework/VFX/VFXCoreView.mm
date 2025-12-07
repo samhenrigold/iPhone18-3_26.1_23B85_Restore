@@ -25,7 +25,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1AF0D4478(0, &unk_1EB632A50);
+  sub_1AF0D4478(0, &unk_1EB632A50, 0x1E69793F0);
 
   return swift_getObjCClassFromMetadata();
 }

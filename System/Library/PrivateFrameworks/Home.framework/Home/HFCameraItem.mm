@@ -98,15 +98,15 @@ void __27__HFCameraItem_description__block_invoke_2()
 
 + (BOOL)shouldReportNotificationsAsDisabledForProfile:(id)profile
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v4 = HFLogForCategory(0xEuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     userSettings = [profileCopy userSettings];
-    v13 = 138412290;
-    v14 = userSettings;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "cameraProfile userSettings = %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = userSettings;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "cameraProfile userSettings = %@", &v12, 0xCu);
   }
 
   userSettings2 = [profileCopy userSettings];
@@ -132,13 +132,12 @@ void __27__HFCameraItem_description__block_invoke_2()
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   profile = [(HFAccessoryProfileItem *)self profile];
   accessory = [profile accessory];
@@ -149,16 +148,16 @@ void __27__HFCameraItem_description__block_invoke_2()
     if (valueSource)
     {
       objc_initWeak(location, self);
-      v21.receiver = self;
-      v21.super_class = HFCameraItem;
-      v8 = [(HFAccessoryProfileItem *)&v21 _subclass_updateWithOptions:optionsCopy];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __44__HFCameraItem__subclass_updateWithOptions___block_invoke;
-      v19[3] = &unk_277DF5A08;
-      objc_copyWeak(&v20, location);
-      v9 = [v8 flatMap:v19];
-      objc_destroyWeak(&v20);
+      v20.receiver = self;
+      v20.super_class = HFCameraItem;
+      v8 = [(HFAccessoryProfileItem *)&v20 _subclass_updateWithOptions:optionsCopy];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __44__HFCameraItem__subclass_updateWithOptions___block_invoke;
+      v18[3] = &unk_277DF5A08;
+      objc_copyWeak(&v19, location);
+      v9 = [v8 flatMap:v18];
+      objc_destroyWeak(&v19);
 
       objc_destroyWeak(location);
       goto LABEL_8;
@@ -177,27 +176,26 @@ void __27__HFCameraItem_description__block_invoke_2()
     valueSource2 = [(HFAccessoryProfileItem *)self valueSource];
     *location = 138412546;
     *&location[4] = accessory2;
-    v25 = 2112;
-    v26 = valueSource2;
+    v24 = 2112;
+    v25 = valueSource2;
     _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Camera Item: Missing profile accessory:%@ or value source:%@", location, 0x16u);
   }
 
   v14 = MEMORY[0x277D2C900];
-  v22 = @"hidden";
-  v23 = MEMORY[0x277CBEC38];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v21 = @"hidden";
+  v22 = MEMORY[0x277CBEC38];
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   v16 = [HFItemUpdateOutcome outcomeWithResults:v15];
   v9 = [v14 futureWithResult:v16];
 
 LABEL_8:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 id __44__HFCameraItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [v3 mutableCopy];
@@ -290,9 +288,9 @@ id __44__HFCameraItem__subclass_updateWithOptions___block_invoke(uint64_t a1, vo
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v61 = v39;
-      v62 = 2112;
-      v63 = v41;
+      v60 = v39;
+      v61 = 2112;
+      v62 = v41;
       _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "Snapshot:%@ and movie:%@", buf, 0x16u);
     }
   }
@@ -325,11 +323,11 @@ LABEL_18:
 
   if (v51 && [v51 code] != 23)
   {
+    v57 = 0;
     v58 = 0;
-    v59 = 0;
-    [objc_opt_class() getErrorDescription:&v59 detailedErrorDescription:&v58 forCameraStreamError:v51];
-    v52 = v59;
-    v53 = v58;
+    [objc_opt_class() getErrorDescription:&v58 detailedErrorDescription:&v57 forCameraStreamError:v51];
+    v52 = v58;
+    v53 = v57;
     v54 = v52;
     [v5 setObject:v54 forKeyedSubscript:@"errorDescription"];
     [v5 setObject:v53 forKeyedSubscript:@"longErrorDescription"];
@@ -339,8 +337,6 @@ LABEL_18:
 
 LABEL_23:
   v55 = [MEMORY[0x277D2C900] futureWithResult:v5];
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v55;
 }

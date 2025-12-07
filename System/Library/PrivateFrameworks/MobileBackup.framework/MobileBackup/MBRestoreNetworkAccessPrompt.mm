@@ -69,7 +69,7 @@
     *buf = 67109120;
     v11 = blockingCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Attempting to cancel restore network prompt, blocking:%d", buf, 8u);
-    _MBLog();
+    _MBLog(@"Df", "Attempting to cancel restore network prompt, blocking:%d", blockingCopy);
   }
 
   selfCopy = self;
@@ -94,8 +94,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Cancelled active restore network prompt", buf, 2u);
-LABEL_10:
-      _MBLog();
+      _MBLog(@"Df", "Cancelled active restore network prompt");
     }
   }
 
@@ -106,7 +105,7 @@ LABEL_10:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "No active network prompt to cancel", buf, 2u);
-      goto LABEL_10;
+      _MBLog(@"Df", "No active network prompt to cancel");
     }
   }
 }
@@ -127,7 +126,7 @@ LABEL_10:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Creating cellular prompt", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Creating cellular prompt");
     }
 
     *buf = 0;
@@ -191,7 +190,7 @@ LABEL_10:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Creating WiFi prompt", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Creating WiFi prompt");
     }
 
     mb_stringByAppendingGreenteaSuffix = [@"MBS_WIFI_NEEDED_ALERT_TITLE" mb_stringByAppendingGreenteaSuffix];
@@ -293,7 +292,7 @@ LABEL_10:
     *buf = 138543362;
     v6 = errorCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "MBPrebuddyFollowUpController finish XPC with error: %{public}@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "MBPrebuddyFollowUpController finish XPC with error: %{public}@", errorCopy);
   }
 }
 

@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setRequestIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  requestIdentifier = self->_requestIdentifier;
-  self->_requestIdentifier = v4;
+  self->_requestIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

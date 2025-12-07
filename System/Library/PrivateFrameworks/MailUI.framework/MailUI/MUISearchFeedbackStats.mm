@@ -87,7 +87,7 @@ LABEL_14:
         v22 = [*(v6 + 2752) dictionaryWithObjects:v38 forKeys:v37 count:2];
         v23 = [v21 dictionaryWithDictionary:v22];
         v24 = v5->_daysOfWeek;
-        v25 = DayToStringMap();
+        v25 = DayToStringMap(v23);
         v26 = [MEMORY[0x277CCABB0] numberWithInteger:j];
         [v25 objectForKeyedSubscript:v26];
         v27 = v6;
@@ -111,7 +111,7 @@ LABEL_14:
   failureCopy = failure;
   v7 = MEMORY[0x277CCABB0];
   daysOfWeek = self->_daysOfWeek;
-  v21 = DayToStringMap();
+  v21 = DayToStringMap(self);
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:day];
   v10 = [v21 objectForKeyedSubscript:v9];
   v11 = [(NSMutableDictionary *)daysOfWeek objectForKeyedSubscript:v10];
@@ -129,7 +129,7 @@ LABEL_14:
   v14 = [v11 objectForKeyedSubscript:v13];
   v15 = [v7 numberWithInteger:{objc_msgSend(v14, "integerValue") + 1}];
   v16 = self->_daysOfWeek;
-  v17 = DayToStringMap();
+  v17 = DayToStringMap(v15);
   v18 = [MEMORY[0x277CCABB0] numberWithInteger:day];
   v19 = [v17 objectForKeyedSubscript:v18];
   v20 = [(NSMutableDictionary *)v16 objectForKeyedSubscript:v19];

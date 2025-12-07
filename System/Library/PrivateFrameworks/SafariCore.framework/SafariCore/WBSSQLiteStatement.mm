@@ -145,7 +145,6 @@ LABEL_6:
 - (void)bindString:(id)string atParameterIndex:(unint64_t)index
 {
   indexCopy = index;
-  v9 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (sqlite3_bind_text(self->_handle, indexCopy, [stringCopy UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -157,13 +156,10 @@ LABEL_6:
       [WBSSQLiteStatement bindString:atParameterIndex:];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bindInt:(int)int atParameterIndex:(unint64_t)index
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (sqlite3_bind_int(self->_handle, index, int))
   {
     v5 = WBS_LOG_CHANNEL_PREFIXSQLite();
@@ -174,13 +170,10 @@ LABEL_6:
       [WBSSQLiteStatement bindInt:atParameterIndex:];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bindInt64:(int64_t)int64 atParameterIndex:(unint64_t)index
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (sqlite3_bind_int64(self->_handle, index, int64))
   {
     v5 = WBS_LOG_CHANNEL_PREFIXSQLite();
@@ -191,13 +184,10 @@ LABEL_6:
       [WBSSQLiteStatement bindInt64:atParameterIndex:];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bindDouble:(double)double atParameterIndex:(unint64_t)index
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (sqlite3_bind_double(self->_handle, index, double))
   {
     v5 = WBS_LOG_CHANNEL_PREFIXSQLite();
@@ -208,14 +198,11 @@ LABEL_6:
       [WBSSQLiteStatement bindDouble:atParameterIndex:];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bindData:(id)data atParameterIndex:(unint64_t)index
 {
   indexCopy = index;
-  v9 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (sqlite3_bind_blob(self->_handle, indexCopy, [dataCopy bytes], objc_msgSend(dataCopy, "length"), 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -227,13 +214,10 @@ LABEL_6:
       [WBSSQLiteStatement bindData:atParameterIndex:];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bindNullAtParameterIndex:(unint64_t)index
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (sqlite3_bind_null(self->_handle, index))
   {
     v4 = WBS_LOG_CHANNEL_PREFIXSQLite();
@@ -244,8 +228,6 @@ LABEL_6:
       [WBSSQLiteStatement bindNullAtParameterIndex:];
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)columnNamesToIndexes

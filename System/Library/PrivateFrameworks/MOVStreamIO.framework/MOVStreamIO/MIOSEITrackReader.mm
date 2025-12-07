@@ -328,11 +328,11 @@ LABEL_18:
     v24 = v23;
     if (v23)
     {
-      [v23 maxCurrentPts];
+      objc_msgSend_maxCurrentPts(v23);
 
       if ((v31 & 0x100000000) != 0)
       {
-        [(MIOSEITrackReader *)self maxCurrentPts];
+        objc_msgSend_maxCurrentPts(self);
         time1 = v34;
         if (CMTimeCompare(&time1, &time) == 1)
         {

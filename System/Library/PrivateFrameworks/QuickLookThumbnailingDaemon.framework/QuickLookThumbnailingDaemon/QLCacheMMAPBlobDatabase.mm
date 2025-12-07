@@ -53,10 +53,9 @@
 
 - (void)markPurgeable
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_2615D3000, v0, OS_LOG_TYPE_DEBUG, "Marked %s  purgeable", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2615D3000, v0, OS_LOG_TYPE_DEBUG, "Marked %s  purgeable", v1, 0xCu);
 }
 
 - (QLCacheMMAPBlobDatabase)initWithPath:(id)path cacheSize:(int64_t)size cacheThread:(id)thread
@@ -268,31 +267,31 @@ LABEL_10:
 
 - (BOOL)deleteBlobsWithArray:(id)array
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v8 &= [(QLCacheMMAPBlobDatabase *)self deleteBlobWithInfo:*(*(&v12 + 1) + 8 * i)];
+        v8 &= [(QLCacheMMAPBlobDatabase *)self deleteBlobWithInfo:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v6 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [arrayCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -303,7 +302,6 @@ LABEL_10:
     LOBYTE(v8) = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -345,10 +343,9 @@ LABEL_10:
 
 - (void)open
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_2615D3000, v0, OS_LOG_TYPE_ERROR, "can not create %s", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2615D3000, v0, OS_LOG_TYPE_ERROR, "can not create %s", v1, 0xCu);
 }
 
 - (BOOL)isValid
@@ -445,7 +442,7 @@ LABEL_27:
 
 - (id)checkConsistency:(id)consistency
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = [consistency sortedArrayWithOptions:1 usingComparator:&__block_literal_global_5];
   v5 = [QLCacheFragHandler alloc];
   cacheThread = [(QLCacheMMAPBlobDatabase *)self cacheThread];
@@ -466,10 +463,10 @@ LABEL_27:
     [string appendFormat:@"inconsistent frag handler"];
   }
 
-  memset(&v44, 0, sizeof(v44));
+  memset(&v43, 0, sizeof(v43));
   totalLen = [(QLCacheFragHandler *)self->_fragHandler totalLen];
   v11 = [(NSString *)self->_path stringByAppendingPathExtension:@"data"];
-  v12 = lstat([v11 fileSystemRepresentation], &v44);
+  v12 = lstat([v11 fileSystemRepresentation], &v43);
 
   if (v12)
   {
@@ -480,7 +477,7 @@ LABEL_27:
 LABEL_8:
         v13 = @"blob file unreadable";
 LABEL_15:
-        [string appendFormat:v13, st_size, v35];
+        [string appendFormat:v13, st_size, v34];
         v14 = 1;
         goto LABEL_16;
       }
@@ -499,7 +496,7 @@ LABEL_15:
     goto LABEL_8;
   }
 
-  if (v44.st_size < totalLen)
+  if (v43.st_size < totalLen)
   {
     if (!string)
     {
@@ -511,22 +508,22 @@ LABEL_15:
       [string appendString:@" - "];
     }
 
-    st_size = v44.st_size;
-    v35 = totalLen;
+    st_size = v43.st_size;
+    v34 = totalLen;
     v13 = @"inconsistent blob length (%llu vs. %llu)";
     goto LABEL_15;
   }
 
   v14 = !checkConsistency;
-  v37 = totalLen;
-  v38 = v7;
+  v36 = totalLen;
+  v37 = v7;
   [(QLCacheFragHandler *)v7 allocateSpaceForLength:totalLen added:0];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = v4;
-  v15 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v15 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (!v15)
   {
     v17 = 0;
@@ -534,19 +531,19 @@ LABEL_15:
   }
 
   v16 = v15;
-  v36 = v4;
+  v35 = v4;
   v17 = 0;
-  v18 = *v41;
+  v18 = *v40;
   while (2)
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v41 != v18)
+      if (*v40 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v40 + 1) + 8 * i);
+      v20 = *(*(&v39 + 1) + 8 * i);
       v21 = [v20 length];
       location = [v20 location];
       v23 = location;
@@ -562,8 +559,8 @@ LABEL_15:
           string = [MEMORY[0x277CCAB68] string];
         }
 
-        v4 = v36;
-        v7 = v38;
+        v4 = v35;
+        v7 = v37;
         if (!checkConsistency)
         {
           [string appendString:@" - "];
@@ -583,8 +580,8 @@ LABEL_51:
           string = [MEMORY[0x277CCAB68] string];
         }
 
-        v4 = v36;
-        v7 = v38;
+        v4 = v35;
+        v7 = v37;
         if (!checkConsistency)
         {
           [string appendString:@" - "];
@@ -603,8 +600,8 @@ LABEL_51:
           string = [MEMORY[0x277CCAB68] string];
         }
 
-        v4 = v36;
-        v7 = v38;
+        v4 = v35;
+        v7 = v37;
         if (!checkConsistency)
         {
           [string appendString:{@" - ", v25}];
@@ -617,13 +614,13 @@ LABEL_51:
       v26 = v24;
       if (v23 - 8 > v17)
       {
-        [(QLCacheFragHandler *)v38 releaseSpaceAtPos:v17 withLen:v25];
+        [(QLCacheFragHandler *)v37 releaseSpaceAtPos:v17 withLen:v25];
       }
 
       v17 = v23 + v26 + 8;
     }
 
-    v16 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v16 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v16)
     {
       continue;
@@ -632,14 +629,14 @@ LABEL_51:
     break;
   }
 
-  v4 = v36;
-  v7 = v38;
+  v4 = v35;
+  v7 = v37;
   v14 = !checkConsistency;
 LABEL_52:
 
-  if (!string && v37 > v17)
+  if (!string && v36 > v17)
   {
-    [(QLCacheFragHandler *)v7 releaseSpaceAtPos:v17 withLen:v37 - v17];
+    [(QLCacheFragHandler *)v7 releaseSpaceAtPos:v17 withLen:v36 - v17];
     goto LABEL_55;
   }
 
@@ -673,8 +670,6 @@ LABEL_55:
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return string;
 }
 
@@ -697,11 +692,9 @@ uint64_t __44__QLCacheMMAPBlobDatabase_checkConsistency___block_invoke(uint64_t 
 
 - (void)close
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -722,7 +715,7 @@ uint64_t __44__QLCacheMMAPBlobDatabase_checkConsistency___block_invoke(uint64_t 
 
 - (id)reserveBufferWithLength:(unint64_t)length
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   totalLen = [(QLCacheFragHandler *)self->_fragHandler totalLen];
   if (!length)
   {
@@ -732,9 +725,9 @@ LABEL_6:
   }
 
   v6 = totalLen;
-  v23 = 0;
+  v22 = 0;
   v7 = length + 16;
-  v8 = [(QLCacheFragHandler *)self->_fragHandler allocateSpaceForLength:length + 16 added:&v23];
+  v8 = [(QLCacheFragHandler *)self->_fragHandler allocateSpaceForLength:length + 16 added:&v22];
   if ([(QLCacheFragHandler *)self->_fragHandler totalLen]> self->_maxSize)
   {
     [(QLCacheFragHandler *)self->_fragHandler releaseSpaceAtPos:v8 withLen:length + 16];
@@ -743,31 +736,31 @@ LABEL_6:
     {
       maxSize = self->_maxSize;
       *buf = 134218496;
-      v25 = v8;
-      v26 = 2048;
+      v24 = v8;
+      v25 = 2048;
       lengthCopy = length;
-      v28 = 2048;
-      v29 = maxSize;
+      v27 = 2048;
+      v28 = maxSize;
       _os_log_impl(&dword_2615D3000, v9, OS_LOG_TYPE_INFO, "we can't write the blob, it's out of the limit location %llu length %llu limit %llu", buf, 0x20u);
     }
 
     goto LABEL_6;
   }
 
-  if (v23 == 1)
+  if (v22 == 1)
   {
     v12 = _log_7();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v25 = v7 + v8;
+      v24 = v7 + v8;
       _os_log_debug_impl(&dword_2615D3000, v12, OS_LOG_TYPE_DEBUG, "new file size %lld", buf, 0xCu);
     }
 
     if (ftruncate(self->_file, [(QLCacheFragHandler *)self->_fragHandler totalLen]) == -1)
     {
-      v22 = _log_7();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = _log_7();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [QLCacheMMAPBlobDatabase reserveBufferWithLength:];
       }
@@ -819,7 +812,6 @@ LABEL_6:
   [(QLCacheBlobInfo *)v11 setLength:length];
   [(NSMutableArray *)self->_reservedBuffers addObject:v11];
 LABEL_21:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -869,97 +861,80 @@ LABEL_21:
 
 - (void)copyBlobWithInfo:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x34u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyBlobWithInfo:.cold.2()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 location];
   [OUTLINED_FUNCTION_6_1() length];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyBlobWithInfo:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 length];
-  v7 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyBlobWithInfo:.cold.4()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x34u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyBlobWithInfo:.cold.5()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 location];
   [OUTLINED_FUNCTION_6_1() length];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyBlobWithInfo:.cold.6()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 location];
   [OUTLINED_FUNCTION_6_1() length];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyBlobWithInfo:.cold.7()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 location];
   [OUTLINED_FUNCTION_6_1() length];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBlobWithInfo:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 location];
   [OUTLINED_FUNCTION_6_1() length];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_9(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBlobWithInfo:(void *)a1 .cold.2(void *a1, id *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   [a1 location];
   [a1 length];
   [a1 location];
@@ -967,65 +942,53 @@ LABEL_21:
   [*a2 totalLen];
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doesExist
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = @"YES";
-  v6 = 2112;
-  v7 = @"YES";
-  OUTLINED_FUNCTION_9(&dword_2615D3000, self, a3, "data file exists %@, frag handler file exists %@", &v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = @"YES";
+  v5 = 2112;
+  v6 = @"YES";
+  OUTLINED_FUNCTION_9(&dword_2615D3000, self, a3, "data file exists %@, frag handler file exists %@", &v3);
 }
 
 - (void)isValid
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *self;
   [*a2 totalLen];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)checkConsistency:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 description];
   objc_claimAutoreleasedReturnValue();
-  v8 = [OUTLINED_FUNCTION_6_1() description];
+  v7 = [OUTLINED_FUNCTION_6_1() description];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_9(v2, v3, v4, v5, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discardReservedBufferWithBlobInfo:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 location];
   [OUTLINED_FUNCTION_6_1() length];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_9(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateReservedBufferWithBlobInfo:.cold.1()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 location];
   [OUTLINED_FUNCTION_6_1() length];
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_9(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

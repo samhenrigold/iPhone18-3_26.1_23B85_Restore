@@ -137,7 +137,7 @@ LABEL_17:
 - (unint64_t)propertySource
 {
   v3 = self->_command;
-  if (v3 == @"fetchProperty" || (v4 = v3) != 0 && (v5 = [(__CFString *)v3 isEqualToString:@"fetchProperty"], v4, v5))
+  if (v3 == @"fetchProperty" || (v4 = v3) != 0 && (v5 = objc_msgSend_isEqualToString_(v3), v4, v5))
   {
     v6 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"propertySource"];
     if (v6 != @"FinHealth")
@@ -148,9 +148,9 @@ LABEL_17:
         return 1;
       }
 
-      v8 = [(__CFString *)v6 isEqualToString:@"FinHealth"];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-      if (!v8)
+      if (!isEqualToString)
       {
         return 1;
       }
@@ -168,7 +168,7 @@ LABEL_17:
   v11 = v10;
   if (v10)
   {
-    v12 = [(__CFString *)v10 isEqualToString:@"fetchFinHealthProperty"];
+    v12 = objc_msgSend_isEqualToString_(v10);
 
     if (v12)
     {

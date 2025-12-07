@@ -8,8 +8,10 @@
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)_actionButtonPressed:(id)pressed;
 - (void)_doneButtonPressed:(id)pressed;
+- (void)setActionButtonTitle:(id)title destructive:(BOOL)destructive animated:(BOOL)animated;
 - (void)setShowsDoneButton:(BOOL)button;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation CertInfoTrustSummaryController
@@ -91,6 +93,15 @@ LABEL_10:
   [navigationItem2 setRightBarButtonItem:doneButton];
 }
 
+- (void)setActionButtonTitle:(id)title destructive:(BOOL)destructive animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  destructiveCopy = destructive;
+  titleCopy = title;
+  v9 = [(CertInfoTrustSummaryController *)self _cellForReuseIdentifier:@"kCertInfoTrustSummaryHeaderIdentifier"];
+  [v9 setActionButtonTitle:titleCopy destructive:destructiveCopy animated:animatedCopy];
+}
+
 - (void)_doneButtonPressed:(id)pressed
 {
   delegate = [(CertInfoTrustSummaryController *)self delegate];
@@ -112,6 +123,18 @@ LABEL_10:
   {
     delegate2 = [(CertInfoTrustSummaryController *)self delegate];
     [delegate2 trustSummaryControllerPerformAction:self];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  tableView = [(CertInfoTrustSummaryController *)self tableView];
+  indexPathForSelectedRow = [tableView indexPathForSelectedRow];
+
+  if (indexPathForSelectedRow)
+  {
+    tableView2 = [(CertInfoTrustSummaryController *)self tableView];
+    [tableView2 deselectRowAtIndexPath:indexPathForSelectedRow animated:1];
   }
 }
 

@@ -60,7 +60,7 @@ LABEL_7:
 
   else
   {
-    v16 = MSPGetMSPAuthFeedbackReportTicketLog();
+    v16 = MSPGetMSPAuthFeedbackReportTicketLog(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -78,14 +78,15 @@ void __79__MSPAuthFeedbackReportTicket_submitWithCallbackQueue_handler_networkAc
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (v9)
   {
-    v10 = MSPGetMSPAuthFeedbackReportTicketLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MSPGetMSPAuthFeedbackReportTicketLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = v9;
-      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "Failed certificate fetch with error %@", buf, 0xCu);
+      v26 = v10;
+      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "Failed certificate fetch with error %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -93,34 +94,32 @@ void __79__MSPAuthFeedbackReportTicket_submitWithCallbackQueue_handler_networkAc
 
   else
   {
-    v11 = [*(a1 + 32) userInfo];
-    v12 = [v11 tdmUserInfo];
+    v12 = [*(a1 + 32) userInfo];
+    v13 = [v12 tdmUserInfo];
 
-    if (!v12)
+    if (!v13)
     {
-      v13 = objc_alloc_init(MEMORY[0x277D0ECA0]);
-      v14 = [*(a1 + 32) userInfo];
-      [v14 setTdmUserInfo:v13];
+      v14 = objc_alloc_init(MEMORY[0x277D0ECA0]);
+      v15 = [*(a1 + 32) userInfo];
+      [v15 setTdmUserInfo:v14];
     }
 
-    v15 = [v7 copy];
-    v16 = [*(a1 + 32) userInfo];
-    v17 = [v16 tdmUserInfo];
-    [v17 setBaaCertificates:v15];
+    v16 = [v7 copy];
+    v17 = [*(a1 + 32) userInfo];
+    v18 = [v17 tdmUserInfo];
+    [v18 setBaaCertificates:v16];
 
-    v18 = [*(a1 + 32) userInfo];
-    v19 = [v18 tdmUserInfo];
-    [v19 setBaaSignature:v8];
+    v19 = [*(a1 + 32) userInfo];
+    v20 = [v19 tdmUserInfo];
+    [v20 setBaaSignature:v8];
 
-    v20 = *(a1 + 40);
-    v21 = *(a1 + 48);
-    v22 = *(a1 + 56);
+    v21 = *(a1 + 40);
+    v22 = *(a1 + 48);
+    v23 = *(a1 + 56);
     v24.receiver = *(a1 + 32);
     v24.super_class = MSPAuthFeedbackReportTicket;
-    objc_msgSendSuper2(&v24, sel_submitWithCallbackQueue_handler_networkActivity_, v20, v21, v22);
+    objc_msgSendSuper2(&v24, sel_submitWithCallbackQueue_handler_networkActivity_, v21, v22, v23);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

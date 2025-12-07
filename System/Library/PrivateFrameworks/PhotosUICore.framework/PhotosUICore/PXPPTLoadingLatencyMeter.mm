@@ -12,7 +12,7 @@
 
 - (id)_measurementsDictionaryForOutputQuality:(int64_t)quality
 {
-  [(PXPPTLoadingLatencyMeter *)self measurementsForOutputQuality:?];
+  objc_msgSend_measurementsForOutputQuality_(self, a2);
   v3 = MEMORY[0x1E695E0F8];
 
   return v3;

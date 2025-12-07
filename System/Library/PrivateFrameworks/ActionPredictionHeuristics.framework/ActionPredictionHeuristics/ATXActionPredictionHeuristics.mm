@@ -8,17 +8,17 @@
 
 + (id)actionsWithLocationManager:(id)manager
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   context = objc_autoreleasePoolPush();
   mEMORY[0x277CE8A40] = [MEMORY[0x277CE8A40] sharedInstance];
   heuristicsCached = [mEMORY[0x277CE8A40] heuristicsCached];
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x3032000000;
-  v82 = __Block_byref_object_copy__0;
-  v83 = __Block_byref_object_dispose__0;
-  v84 = 0;
+  v82 = 0;
+  v83 = &v82;
+  v84 = 0x3032000000;
+  v85 = __Block_byref_object_copy__0;
+  v86 = __Block_byref_object_dispose__0;
+  v87 = 0;
   v3 = objc_autoreleasePoolPush();
   v4 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.proactive.HeuristicInterpreter"];
   v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2850AE370];
@@ -36,244 +36,241 @@
   v13 = ATXHeuristicsBundlePath();
   v14 = [v10 now];
   listenerEndpoint = [v11 listenerEndpoint];
-  v78[0] = MEMORY[0x277D85DD0];
-  v78[1] = 3221225472;
-  v78[2] = __60__ATXActionPredictionHeuristics_actionsWithLocationManager___block_invoke_38;
-  v78[3] = &unk_278C3BD90;
-  v78[4] = &v79;
-  [v12 actionsAndExpirersForHeuristicsExcept:heuristicsCached bundlePath:v13 now:v14 dataSourcesEndpoint:listenerEndpoint reply:v78];
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __60__ATXActionPredictionHeuristics_actionsWithLocationManager___block_invoke_38;
+  v81[3] = &unk_278C3BD90;
+  v81[4] = &v82;
+  [v12 actionsAndExpirersForHeuristicsExcept:heuristicsCached bundlePath:v13 now:v14 dataSourcesEndpoint:listenerEndpoint reply:v81];
 
   [v4 invalidate];
   objc_autoreleasePoolPop(v3);
-  if (v80[5])
+  if (v83[5])
   {
-    v16 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = __atxlog_handle_heuristic(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      allKeys = [v80[5] allKeys];
+      allKeys = [v83[5] allKeys];
       *buf = 138412290;
-      v94 = allKeys;
-      _os_log_impl(&dword_23E3DF000, v16, OS_LOG_TYPE_DEFAULT, "Received results from HeuristicInterpreter: %@", buf, 0xCu);
+      v97 = allKeys;
+      _os_log_impl(&dword_23E3DF000, v17, OS_LOG_TYPE_DEFAULT, "Received results from HeuristicInterpreter: %@", buf, 0xCu);
     }
 
-    v18 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = __atxlog_handle_heuristic(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v94 = heuristicsCached;
-      _os_log_impl(&dword_23E3DF000, v18, OS_LOG_TYPE_DEFAULT, "Using cached results: %@", buf, 0xCu);
+      v97 = heuristicsCached;
+      _os_log_impl(&dword_23E3DF000, v20, OS_LOG_TYPE_DEFAULT, "Using cached results: %@", buf, 0xCu);
     }
 
-    v19 = objc_opt_new();
-    v20 = objc_opt_new();
-    v76 = 0u;
+    v21 = objc_opt_new();
+    v22 = objc_opt_new();
+    v79 = 0u;
+    v80 = 0u;
     v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    obj = v80[5];
-    v55 = [obj countByEnumeratingWithState:&v74 objects:v92 count:16];
-    if (v55)
+    v78 = 0u;
+    obj = v83[5];
+    v58 = [obj countByEnumeratingWithState:&v77 objects:v95 count:16];
+    if (v58)
     {
-      v53 = *v75;
+      v56 = *v78;
       do
       {
-        for (i = 0; i != v55; ++i)
+        for (i = 0; i != v58; ++i)
         {
-          if (*v75 != v53)
+          if (*v78 != v56)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v74 + 1) + 8 * i);
-          v58 = [v80[5] objectForKeyedSubscript:v21];
-          actionMakers = [v58 actionMakers];
-          v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(actionMakers, "count")}];
-          v87 = 0u;
+          v23 = *(*(&v77 + 1) + 8 * i);
+          v61 = [v83[5] objectForKeyedSubscript:v23];
+          actionMakers = [v61 actionMakers];
+          v25 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(actionMakers, "count")}];
+          v90 = 0u;
+          v91 = 0u;
           v88 = 0u;
-          v85 = 0u;
-          v86 = 0u;
-          v24 = actionMakers;
-          v25 = [v24 countByEnumeratingWithState:&v85 objects:buf count:16];
-          if (v25)
+          v89 = 0u;
+          v26 = actionMakers;
+          v27 = [v26 countByEnumeratingWithState:&v88 objects:buf count:16];
+          if (v27)
           {
-            v26 = *v86;
+            v28 = *v89;
             do
             {
-              for (j = 0; j != v25; ++j)
+              for (j = 0; j != v27; ++j)
               {
-                if (*v86 != v26)
+                if (*v89 != v28)
                 {
-                  objc_enumerationMutation(v24);
+                  objc_enumerationMutation(v26);
                 }
 
-                action = [*(*(&v85 + 1) + 8 * j) action];
+                action = [*(*(&v88 + 1) + 8 * j) action];
                 if (action)
                 {
-                  [v23 addObject:action];
+                  [v25 addObject:action];
                 }
               }
 
-              v25 = [v24 countByEnumeratingWithState:&v85 objects:buf count:16];
+              v27 = [v26 countByEnumeratingWithState:&v88 objects:buf count:16];
             }
 
-            while (v25);
+            while (v27);
           }
 
-          expirers = [v58 expirers];
-          [mEMORY[0x277CE8A40] setObject:v23 expirers:expirers forKey:v21];
+          expirers = [v61 expirers];
+          [mEMORY[0x277CE8A40] setObject:v25 expirers:expirers forKey:v23];
 
-          v72 = 0u;
+          v75 = 0u;
+          v76 = 0u;
           v73 = 0u;
-          v70 = 0u;
-          v71 = 0u;
-          v30 = v23;
-          v31 = [v30 countByEnumeratingWithState:&v70 objects:v91 count:16];
-          if (v31)
+          v74 = 0u;
+          v32 = v25;
+          v33 = [v32 countByEnumeratingWithState:&v73 objects:v94 count:16];
+          if (v33)
           {
-            v32 = *v71;
+            v34 = *v74;
             do
             {
-              for (k = 0; k != v31; ++k)
+              for (k = 0; k != v33; ++k)
               {
-                if (*v71 != v32)
+                if (*v74 != v34)
                 {
-                  objc_enumerationMutation(v30);
+                  objc_enumerationMutation(v32);
                 }
 
-                v34 = *(*(&v70 + 1) + 8 * k);
-                criteria = [v34 criteria];
-                v36 = [criteria isRelevant:v20];
+                v36 = *(*(&v73 + 1) + 8 * k);
+                criteria = [v36 criteria];
+                v38 = [criteria isRelevant:v22];
 
-                if (v36)
+                if (v38)
                 {
-                  [v19 addObject:v34];
+                  [v21 addObject:v36];
                 }
 
                 else
                 {
-                  v37 = __atxlog_handle_heuristic();
-                  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+                  v40 = __atxlog_handle_heuristic(v39);
+                  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v94 = v34;
-                    _os_log_impl(&dword_23E3DF000, v37, OS_LOG_TYPE_DEFAULT, "Action is not relevant: %@", buf, 0xCu);
+                    v97 = v36;
+                    _os_log_impl(&dword_23E3DF000, v40, OS_LOG_TYPE_DEFAULT, "Action is not relevant: %@", buf, 0xCu);
                   }
                 }
               }
 
-              v31 = [v30 countByEnumeratingWithState:&v70 objects:v91 count:16];
+              v33 = [v32 countByEnumeratingWithState:&v73 objects:v94 count:16];
             }
 
-            while (v31);
+            while (v33);
           }
         }
 
-        v55 = [obj countByEnumeratingWithState:&v74 objects:v92 count:16];
+        v58 = [obj countByEnumeratingWithState:&v77 objects:v95 count:16];
       }
 
-      while (v55);
+      while (v58);
     }
 
-    v68 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v54 = heuristicsCached;
-    v59 = [v54 countByEnumeratingWithState:&v66 objects:v90 count:16];
-    if (v59)
+    v70 = 0u;
+    v57 = heuristicsCached;
+    v62 = [v57 countByEnumeratingWithState:&v69 objects:v93 count:16];
+    if (v62)
     {
-      v56 = *v67;
+      v59 = *v70;
       do
       {
-        for (m = 0; m != v59; ++m)
+        for (m = 0; m != v62; ++m)
         {
-          if (*v67 != v56)
+          if (*v70 != v59)
           {
-            objc_enumerationMutation(v54);
+            objc_enumerationMutation(v57);
           }
 
-          v38 = [mEMORY[0x277CE8A40] objectForKey:*(*(&v66 + 1) + 8 * m) found:0];
-          v64 = 0u;
+          v41 = [mEMORY[0x277CE8A40] objectForKey:*(*(&v69 + 1) + 8 * m) found:0];
+          v67 = 0u;
+          v68 = 0u;
           v65 = 0u;
-          v62 = 0u;
-          v63 = 0u;
-          v39 = v38;
-          v40 = [v39 countByEnumeratingWithState:&v62 objects:v89 count:16];
-          if (v40)
+          v66 = 0u;
+          v42 = v41;
+          v43 = [v42 countByEnumeratingWithState:&v65 objects:v92 count:16];
+          if (v43)
           {
-            v41 = *v63;
+            v44 = *v66;
             do
             {
-              for (n = 0; n != v40; ++n)
+              for (n = 0; n != v43; ++n)
               {
-                if (*v63 != v41)
+                if (*v66 != v44)
                 {
-                  objc_enumerationMutation(v39);
+                  objc_enumerationMutation(v42);
                 }
 
-                v43 = *(*(&v62 + 1) + 8 * n);
-                criteria2 = [v43 criteria];
-                v45 = [criteria2 isRelevant:v20];
+                v46 = *(*(&v65 + 1) + 8 * n);
+                criteria2 = [v46 criteria];
+                v48 = [criteria2 isRelevant:v22];
 
-                if (v45)
+                if (v48)
                 {
-                  [v19 addObject:v43];
+                  [v21 addObject:v46];
                 }
 
                 else
                 {
-                  v46 = __atxlog_handle_heuristic();
-                  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+                  v50 = __atxlog_handle_heuristic(v49);
+                  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v94 = v43;
-                    _os_log_impl(&dword_23E3DF000, v46, OS_LOG_TYPE_DEFAULT, "Action is no longer relevant: %@", buf, 0xCu);
+                    v97 = v46;
+                    _os_log_impl(&dword_23E3DF000, v50, OS_LOG_TYPE_DEFAULT, "Action is no longer relevant: %@", buf, 0xCu);
                   }
                 }
               }
 
-              v40 = [v39 countByEnumeratingWithState:&v62 objects:v89 count:16];
+              v43 = [v42 countByEnumeratingWithState:&v65 objects:v92 count:16];
             }
 
-            while (v40);
+            while (v43);
           }
         }
 
-        v59 = [v54 countByEnumeratingWithState:&v66 objects:v90 count:16];
+        v62 = [v57 countByEnumeratingWithState:&v69 objects:v93 count:16];
       }
 
-      while (v59);
+      while (v62);
     }
 
-    [v19 sortWithOptions:16 usingComparator:&__block_literal_global_45];
+    [v21 sortWithOptions:16 usingComparator:&__block_literal_global_45];
   }
 
   else
   {
-    v19 = 0;
+    v21 = 0;
   }
 
-  _Block_object_dispose(&v79, 8);
+  _Block_object_dispose(&v82, 8);
 
   objc_autoreleasePoolPop(context);
-  v47 = *MEMORY[0x277D85DE8];
 
-  return v19;
+  return v21;
 }
 
 void __60__ATXActionPredictionHeuristics_actionsWithLocationManager___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = __atxlog_handle_heuristic();
+  v3 = __atxlog_handle_heuristic(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23E3DF000, v3, OS_LOG_TYPE_DEFAULT, "Error getting heuristic results - unable to establish XPC connection: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23E3DF000, v3, OS_LOG_TYPE_DEFAULT, "Error getting heuristic results - unable to establish XPC connection: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ATXActionPredictionHeuristics_actionsWithLocationManager___block_invoke_38(uint64_t a1, void *a2, void *a3)
@@ -287,16 +284,14 @@ void __60__ATXActionPredictionHeuristics_actionsWithLocationManager___block_invo
 
   if (!v5)
   {
-    v9 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_heuristic(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = v6;
-      _os_log_impl(&dword_23E3DF000, v9, OS_LOG_TYPE_DEFAULT, "Error getting heuristic results - failed to compute actions and expirers for heuristics: %@", &v11, 0xCu);
+      _os_log_impl(&dword_23E3DF000, v10, OS_LOG_TYPE_DEFAULT, "Error getting heuristic results - failed to compute actions and expirers for heuristics: %@", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__ATXActionPredictionHeuristics_actionsWithLocationManager___block_invoke_42(uint64_t a1, void *a2, void *a3)

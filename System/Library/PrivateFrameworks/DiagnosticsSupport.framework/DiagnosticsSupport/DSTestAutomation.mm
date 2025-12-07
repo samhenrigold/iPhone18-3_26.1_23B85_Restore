@@ -56,7 +56,7 @@ uint64_t __34__DSTestAutomation_sharedInstance__block_invoke()
 
 + (void)postInteractiveTestEvent:(id)event info:(id)info
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   infoCopy = info;
   v7 = +[DSTestAutomation sharedInstance];
@@ -64,41 +64,37 @@ uint64_t __34__DSTestAutomation_sharedInstance__block_invoke()
 
   if (testAutomationEnabled)
   {
-    v11[0] = @"event";
-    v11[1] = @"type";
-    v12[0] = @"DSTestAutomationEvent";
-    v12[1] = @"InteractiveTestEvent";
-    v11[2] = @"interactiveEvent";
-    v11[3] = @"info";
-    v12[2] = eventCopy;
-    v12[3] = infoCopy;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
+    v10[0] = @"event";
+    v10[1] = @"type";
+    v11[0] = @"DSTestAutomationEvent";
+    v11[1] = @"InteractiveTestEvent";
+    v10[2] = @"interactiveEvent";
+    v10[3] = @"info";
+    v11[2] = eventCopy;
+    v11[3] = infoCopy;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
     UIAccessibilityPostNotification(0xFA2u, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)postConfiguration:(id)configuration
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v4 = +[DSTestAutomation sharedInstance];
   testAutomationEnabled = [v4 testAutomationEnabled];
 
   if (testAutomationEnabled)
   {
-    v8[0] = @"event";
-    v8[1] = @"type";
-    v9[0] = @"DSTestAutomationEvent";
-    v9[1] = @"Configuration";
-    v8[2] = @"info";
-    v9[2] = configurationCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v7[0] = @"event";
+    v7[1] = @"type";
+    v8[0] = @"DSTestAutomationEvent";
+    v8[1] = @"Configuration";
+    v7[2] = @"info";
+    v8[2] = configurationCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
     UIAccessibilityPostNotification(0xFA2u, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

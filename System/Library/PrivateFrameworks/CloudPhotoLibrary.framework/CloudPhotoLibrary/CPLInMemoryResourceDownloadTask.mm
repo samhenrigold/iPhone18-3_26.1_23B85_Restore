@@ -31,7 +31,7 @@
   dispatch_async(v7, v9);
 }
 
-uint64_t __55__CPLInMemoryResourceDownloadTask_launchTransportTask___block_invoke(uint64_t a1)
+void *__55__CPLInMemoryResourceDownloadTask_launchTransportTask___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCancelled];
   if ((result & 1) == 0)
@@ -70,14 +70,12 @@ uint64_t __55__CPLInMemoryResourceDownloadTask_launchTransportTask___block_invok
   dispatch_async(v10, v13);
 }
 
-void __56__CPLInMemoryResourceDownloadTask_finishWithData_error___block_invoke(void *a1)
+void __56__CPLInMemoryResourceDownloadTask_finishWithData_error___block_invoke(uint64_t a1)
 {
-  v2 = a1[5];
-  v3 = a1[6];
-  (*(*(a1[4] + 88) + 16))();
-  v4 = a1[4];
-  v5 = *(v4 + 56);
-  *(v4 + 56) = 0;
+  (*(*(*(a1 + 32) + 88) + 16))();
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 56);
+  *(v2 + 56) = 0;
 }
 
 - (void)cancelTask

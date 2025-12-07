@@ -6,8 +6,10 @@
 - (void)_receivePayloadData:(id)data fromID:(id)d serverReceivedTime:(id)time;
 - (void)dealloc;
 - (void)invalidate;
+- (void)resolveTransportDestinations:(id)destinations toLocal:(BOOL)local persistenceController:(id)controller completion:(id)completion;
 - (void)resume;
 - (void)sendPayload:(id)payload;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context;
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l fromID:(id)d context:(id)context;
@@ -211,94 +213,93 @@
     v14 = [NSSet setWithArray:v13];
 
     v15 = objc_opt_new();
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v8 = v14;
-    v16 = [v8 countByEnumeratingWithState:&v44 objects:v56 count:16];
+    v16 = [v8 countByEnumeratingWithState:&v43 objects:v55 count:16];
     if (v16)
     {
-      v17 = *v45;
+      v17 = *v44;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v45 != v17)
+          if (*v44 != v17)
           {
             objc_enumerationMutation(v8);
           }
 
-          v19 = *(*(&v44 + 1) + 8 * i);
-          v20 = IDSCopyAddressDestinationForDestination();
-          [v15 addObject:v20];
+          v19 = IDSCopyAddressDestinationForDestination();
+          [v15 addObject:v19];
         }
 
-        v16 = [v8 countByEnumeratingWithState:&v44 objects:v56 count:16];
+        v16 = [v8 countByEnumeratingWithState:&v43 objects:v55 count:16];
       }
 
       while (v16);
     }
 
-    v21 = dispatch_semaphore_create(0);
+    v20 = dispatch_semaphore_create(0);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v53 = sub_100043A08;
-    v54 = sub_100043A18;
-    v55 = objc_opt_new();
-    v22 = +[IDSIDQueryController sharedInstance];
+    v52 = sub_100043A08;
+    v53 = sub_100043A18;
+    v54 = objc_opt_new();
+    v21 = +[IDSIDQueryController sharedInstance];
     allObjects = [v15 allObjects];
     serviceQueue = [(STIDSTransport *)self serviceQueue];
-    v41[0] = _NSConcreteStackBlock;
-    v41[1] = 3221225472;
-    v41[2] = sub_100043A20;
-    v41[3] = &unk_1001A42B8;
-    v43 = buf;
-    v25 = v21;
-    v42 = v25;
-    [v22 refreshIDStatusForDestinations:allObjects service:@"com.apple.private.alloy.digitalhealth" listenerID:@"STAgent" queue:serviceQueue completionBlock:v41];
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_100043A20;
+    v40[3] = &unk_1001A42B8;
+    v42 = buf;
+    v24 = v20;
+    v41 = v24;
+    [v21 refreshIDStatusForDestinations:allObjects service:@"com.apple.private.alloy.digitalhealth" listenerID:@"STAgent" queue:serviceQueue completionBlock:v40];
 
-    dispatch_semaphore_wait(v25, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
     if ([*(*&buf[8] + 40) count])
     {
-      v26 = +[STLog idsTransport];
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v25 = +[STLog idsTransport];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [*(*&buf[8] + 40) count];
-        *v48 = 136446466;
-        v49 = "[STIDSTransport sendPayload:]";
-        v50 = 2048;
-        v51 = v27;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[v1] %{public}s: \nReachable destinations: %lu", v48, 0x16u);
+        v26 = [*(*&buf[8] + 40) count];
+        *v47 = 136446466;
+        v48 = "[STIDSTransport sendPayload:]";
+        v49 = 2048;
+        v50 = v26;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[v1] %{public}s: \nReachable destinations: %lu", v47, 0x16u);
       }
 
-      v28 = [STSendPayloadWithIDSTransportOperation alloc];
-      v29 = *(*&buf[8] + 40);
+      v27 = [STSendPayloadWithIDSTransportOperation alloc];
+      v28 = *(*&buf[8] + 40);
       service = [(STIDSTransport *)self service];
-      v31 = [(STSendPayloadWithIDSTransportOperation *)v28 initWithPayload:payloadCopy destinations:v29 service:service];
+      v30 = [(STSendPayloadWithIDSTransportOperation *)v27 initWithPayload:payloadCopy destinations:v28 service:service];
 
       operationQueue = [(STIDSTransport *)self operationQueue];
-      [operationQueue addOperation:v31];
+      [operationQueue addOperation:v30];
 
       operationQueue2 = [(STIDSTransport *)self operationQueue];
-      v37[0] = _NSConcreteStackBlock;
-      v37[1] = 3221225472;
-      v37[2] = sub_100043B44;
-      v37[3] = &unk_1001A42E0;
-      v38 = payloadCopy;
-      delegate = v31;
-      v39 = delegate;
+      v36[0] = _NSConcreteStackBlock;
+      v36[1] = 3221225472;
+      v36[2] = sub_100043B44;
+      v36[3] = &unk_1001A42E0;
+      v37 = payloadCopy;
+      delegate = v30;
+      v38 = delegate;
       selfCopy = self;
-      [operationQueue2 addOperationWithBlock:v37];
+      [operationQueue2 addOperationWithBlock:v36];
 
-      uUID = v38;
+      uUID = v37;
     }
 
     else
     {
-      v36 = +[STLog idsTransport];
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v35 = +[STLog idsTransport];
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         sub_100117A2C();
       }
@@ -358,6 +359,117 @@
     delegate = [(STIDSTransport *)self delegate];
     [delegate transport:self didReceiveData:dataCopy altURI:dCopy appleID:v13 serverReceivedTime:timeCopy];
   }
+}
+
+- (void)resolveTransportDestinations:(id)destinations toLocal:(BOOL)local persistenceController:(id)controller completion:(id)completion
+{
+  localCopy = local;
+  destinationsCopy = destinations;
+  controllerCopy = controller;
+  completionCopy = completion;
+  v13 = +[STLog familyMessaging];
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = "NO";
+    v29 = "[STIDSTransport resolveTransportDestinations:toLocal:persistenceController:completion:]";
+    *buf = 136446722;
+    if (localCopy)
+    {
+      v14 = "YES";
+    }
+
+    v30 = 2112;
+    v31 = destinationsCopy;
+    v32 = 2082;
+    v33 = v14;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[v1] %{public}s: \ndestinations: %@, \ntoLocal: %{public}s", buf, 0x20u);
+  }
+
+  if (destinationsCopy)
+  {
+    v15 = [STResolveIDSDestinationsOperation alloc];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_10004425C;
+    v24[3] = &unk_1001A4308;
+    v25 = [(STResolveIDSDestinationsOperation *)v15 initWithDestinations:destinationsCopy toLocal:localCopy organizationIdentifier:STOrganizationIdentifierFamily persistenceController:controllerCopy];
+    v26 = completionCopy;
+    v16 = completionCopy;
+    v17 = v25;
+    v18 = [NSBlockOperation blockOperationWithBlock:v24];
+    operationQueue = [(STIDSTransport *)self operationQueue];
+    v27[0] = v17;
+    v27[1] = v18;
+    v20 = [NSArray arrayWithObjects:v27 count:2];
+    [operationQueue addOperations:v20 waitUntilFinished:0];
+  }
+
+  else
+  {
+    operationQueue2 = [(STIDSTransport *)self operationQueue];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100044398;
+    v22[3] = &unk_1001A4330;
+    v23 = completionCopy;
+    v17 = completionCopy;
+    [operationQueue2 addOperationWithBlock:v22];
+
+    v16 = v23;
+  }
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
+{
+  successCopy = success;
+  accountCopy = account;
+  identifierCopy = identifier;
+  errorCopy = error;
+  v15 = +[STLog familyMessaging];
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = [NSNumber numberWithBool:successCopy];
+    *buf = 136446979;
+    v28 = "[STIDSTransport service:account:identifier:didSendWithSuccess:error:context:]";
+    v29 = 2113;
+    v30 = accountCopy;
+    v31 = 2114;
+    v32 = identifierCopy;
+    v33 = 2114;
+    v34 = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[v1] %{public}s: \naccount: %{private}@, \nidentifier: %{public}@, \ndidSendWithSuccess: %{public}@", buf, 0x2Au);
+  }
+
+  if (errorCopy)
+  {
+    v17 = +[STLog familyMessaging];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      sub_100117C08();
+    }
+  }
+
+  if (!successCopy)
+  {
+    v18 = +[STLog idsTransport];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_100117C8C();
+    }
+  }
+
+  operationQueue = [(STIDSTransport *)self operationQueue];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1000445E8;
+  v22[3] = &unk_1001A4358;
+  v26 = successCopy;
+  v23 = identifierCopy;
+  v24 = errorCopy;
+  selfCopy = self;
+  v20 = errorCopy;
+  v21 = identifierCopy;
+  [operationQueue addOperationWithBlock:v22];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier hasBeenDeliveredWithContext:(id)context

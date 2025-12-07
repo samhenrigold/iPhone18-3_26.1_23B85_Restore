@@ -331,7 +331,6 @@
   *&v18 = MEMORY[0x277D82BD8](minimumHeightConstraint).n128_u64[0];
   [MEMORY[0x277CCAAD0] activateConstraints:{v112[0], v18}];
   objc_storeStrong(v112, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_newLabel

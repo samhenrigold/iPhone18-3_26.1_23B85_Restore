@@ -7,7 +7,7 @@ int main(int argc, const char **argv, const char **envp)
   return v4;
 }
 
-uint64_t sub_100000F14()
+uint64_t sub_100000F14(uint64_t a1, uint64_t a2)
 {
   if (qword_10000CF40 != -1)
   {

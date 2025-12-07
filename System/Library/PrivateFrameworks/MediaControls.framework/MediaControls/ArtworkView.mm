@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A2122BF0();
+  sub_1A2122BF0(selfCopy, v2);
 }
 
 - (void)userInterfaceStyleChanged

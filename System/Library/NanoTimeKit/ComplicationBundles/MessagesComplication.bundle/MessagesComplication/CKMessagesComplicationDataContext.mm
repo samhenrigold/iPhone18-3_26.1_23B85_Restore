@@ -15,65 +15,59 @@
 {
   height = size.height;
   width = size.width;
-  v199 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   specsCopy = specs;
-  v190.receiver = self;
-  v190.super_class = CKMessagesComplicationDataContext;
-  v15 = [(CKMessagesComplicationDataContext *)&v190 init];
+  v79.receiver = self;
+  v79.super_class = CKMessagesComplicationDataContext;
+  v15 = [(CKMessagesComplicationDataContext *)&v79 init];
   if (v15)
   {
     v16 = os_log_create("com.apple.Messages", "CKMessagesComplicationDataContext");
     *(v15 + 1) = family;
     *(v15 + 2) = count;
-    if ((objc_msgSend_unreadCountShouldBeDrawnOnBubbleForFamily_(specsCopy, v17, v18, v19, v20, v21, family) & 1) == 0)
+    if (([specsCopy unreadCountShouldBeDrawnOnBubbleForFamily:family] & 1) == 0)
     {
       *(v15 + 2) = 0;
     }
 
-    objc_msgSend_canvasSizeForFamily_andTemplate_(specsCopy, v22, v23, v24, v25, v26, family, templateCopy);
-    v31 = v30;
-    v32 = *MEMORY[0x277CBF3A8];
-    v33 = *(MEMORY[0x277CBF3A8] + 8);
-    if (v28 == *MEMORY[0x277CBF3A8] && v31 == v33)
+    [specsCopy canvasSizeForFamily:family andTemplate:templateCopy];
+    v19 = v18;
+    if (v17 == *MEMORY[0x277CBF3A8] && v18 == *(MEMORY[0x277CBF3A8] + 8))
     {
       sub_23BD2116C();
     }
 
     *(v15 + 7) = 0;
     *(v15 + 8) = 0;
-    v35 = v15 + 56;
-    *(v15 + 9) = v28;
-    *(v15 + 10) = v31;
-    objc_msgSend_imageFramePaddingForFamily_(specsCopy, v27, v28, v32, v33, v29, family);
-    if (v37 <= 0.0)
+    v21 = v15 + 56;
+    *(v15 + 9) = v17;
+    *(v15 + 10) = v18;
+    [specsCopy imageFramePaddingForFamily:family];
+    if (v22 <= 0.0)
     {
-      v43 = *(v15 + 72);
-      *(v15 + 88) = *v35;
-      *(v15 + 104) = v43;
+      v24 = *(v15 + 72);
+      *(v15 + 88) = *v21;
+      *(v15 + 104) = v24;
     }
 
     else
     {
-      v40 = floor(v31 * v37);
-      *(&v38 - 2) = CGRectInset(*(v15 + 56), v40, v40);
-      *(v15 + 11) = v41;
-      *(v15 + 12) = v42;
-      *(v15 + 13) = v38;
-      *(v15 + 14) = v39;
+      v23 = floor(v19 * v22);
+      *(v15 + 88) = CGRectInset(*(v15 + 56), v23, v23);
     }
 
-    objc_msgSend__scaledImageFramePerAspectRatioForFamily_specs_imageSize_(v15, v36, width, height, v38, v39, family, specsCopy);
-    *(v15 + 11) = v44;
-    *(v15 + 12) = v45;
-    v46 = v15 + 88;
-    *(v15 + 13) = v47;
-    *(v15 + 14) = v48;
-    if (objc_msgSend_needToScaleToFillForFamily_(specsCopy, v49, v44, v45, v47, v48, family))
+    [v15 _scaledImageFramePerAspectRatioForFamily:family specs:specsCopy imageSize:{width, height}];
+    *(v15 + 11) = v25;
+    *(v15 + 12) = v26;
+    v27 = v15 + 88;
+    *(v15 + 13) = v28;
+    *(v15 + 14) = v29;
+    if ([specsCopy needToScaleToFillForFamily:family])
     {
-      v50 = *(v15 + 104);
-      *v35 = *v46;
-      *(v15 + 72) = v50;
+      v30 = *(v15 + 104);
+      *v21 = *v27;
+      *(v15 + 72) = v30;
     }
 
     if (*(v15 + 2))
@@ -82,121 +76,116 @@
       {
         *buf = 134349312;
         countCopy = count;
-        v197 = 2050;
+        v86 = 2050;
         familyCopy = family;
         _os_log_impl(&dword_23BD1C000, v16, OS_LOG_TYPE_DEFAULT, "drawing unread count %{public}lu onto image for family %{public}lu", buf, 0x16u);
       }
 
       if (count >= 0x63)
       {
-        objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v51, v52, v53, v54, v55, 99);
+        countCopy2 = 99;
       }
 
       else
       {
-        objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v51, v52, v53, v54, v55, count);
+        countCopy2 = count;
       }
-      v56 = ;
-      v188 = v56;
+
+      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:countCopy2];
+      v77 = v32;
       if (count < 0x64)
       {
-        v92 = objc_msgSend_localizedStringFromNumber_numberStyle_(MEMORY[0x277CCABB8], v57, v58, v59, v60, v61, v56, 0);
-        v82 = *(v15 + 3);
-        *(v15 + 3) = v92;
+        v41 = [MEMORY[0x277CCABB8] localizedStringFromNumber:v32 numberStyle:0];
+        v36 = *(v15 + 3);
+        *(v15 + 3) = v41;
       }
 
       else
       {
-        v62 = MEMORY[0x277CCACA8];
-        v63 = MEMORY[0x277CCA8D8];
-        v64 = objc_opt_class();
-        v70 = objc_msgSend_bundleForClass_(v63, v65, v66, v67, v68, v69, v64);
-        v76 = objc_msgSend_localizedStringForKey_value_table_(v70, v71, v72, v73, v74, v75, @"99+_UNREAD", &stru_284E7EA48, @"MessagesComplication");
-        v82 = objc_msgSend_stringWithFormat_(v62, v77, v78, v79, v80, v81, v76, 99);
+        v33 = MEMORY[0x277CCACA8];
+        v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v35 = [v34 localizedStringForKey:@"99+_UNREAD" value:&stru_284E7EA48 table:@"MessagesComplication"];
+        v36 = [v33 stringWithFormat:v35, 99];
 
-        v88 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v83, v84, v85, v86, v87, @"\u200E%@", v82);
-        v89 = *(v15 + 3);
-        *(v15 + 3) = v88;
+        v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"\u200E%@", v36];
+        v38 = *(v15 + 3);
+        *(v15 + 3) = v37;
       }
 
-      v189 = templateCopy;
+      v78 = templateCopy;
 
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v96 = *(v15 + 3);
+        v42 = *(v15 + 3);
         *buf = 138543362;
-        countCopy = v96;
+        countCopy = v42;
         _os_log_impl(&dword_23BD1C000, v16, OS_LOG_TYPE_DEFAULT, "got formatted unread count: %{public}@", buf, 0xCu);
       }
 
-      v97 = *MEMORY[0x277D74420];
-      v98 = objc_msgSend_systemFontOfSize_weight_(MEMORY[0x277D74300], v93, 12.0, *MEMORY[0x277D74420], v94, v95);
-      v99 = v16;
-      v193 = *MEMORY[0x277D740A8];
-      v100 = v193;
-      v194 = v98;
-      v106 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v101, v102, v103, v104, v105, &v194, &v193, 1);
-      objc_msgSend_sizeWithAttributes_(*(v15 + 3), v107, v108, v109, v110, v111, v106);
-      v113 = 12.0 / v112;
-      v114 = CGRectGetHeight(*(v15 + 88));
-      v118 = objc_msgSend_systemFontOfSize_weight_(MEMORY[0x277D74300], v115, ceil(v113 * v114 * 0.5), v97, v116, v117);
+      v43 = *MEMORY[0x277D74420];
+      v44 = [MEMORY[0x277D74300] systemFontOfSize:12.0 weight:*MEMORY[0x277D74420]];
+      v45 = v16;
+      v82 = *MEMORY[0x277D740A8];
+      v46 = v82;
+      v83 = v44;
+      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+      [*(v15 + 3) sizeWithAttributes:v47];
+      v49 = [MEMORY[0x277D74300] systemFontOfSize:ceil(12.0 / v48 * CGRectGetHeight(*(v15 + 88)) * 0.5) weight:v43];
 
-      objc_msgSend_pointSize(v118, v119, v120, v121, v122, v123);
-      v192[0] = v118;
-      v125 = *MEMORY[0x277D740D0];
-      v191[0] = v100;
-      v191[1] = v125;
-      v129 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v126, v124 * -30.0 / 1000.0, 1000.0, v127, v128);
-      v192[1] = v129;
-      v191[2] = *MEMORY[0x277D740C0];
-      v135 = objc_msgSend_blackColor(MEMORY[0x277D75348], v130, v131, v132, v133, v134);
-      v192[2] = v135;
-      v141 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v136, v137, v138, v139, v140, v192, v191, 3);
-      v142 = *(v15 + 4);
-      *(v15 + 4) = v141;
+      [v49 pointSize];
+      v81[0] = v49;
+      v51 = *MEMORY[0x277D740D0];
+      v80[0] = v46;
+      v80[1] = v51;
+      v52 = [MEMORY[0x277CCABB0] numberWithDouble:v50 * -30.0 / 1000.0];
+      v81[1] = v52;
+      v80[2] = *MEMORY[0x277D740C0];
+      blackColor = [MEMORY[0x277D75348] blackColor];
+      v81[2] = blackColor;
+      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:3];
+      v55 = *(v15 + 4);
+      *(v15 + 4) = v54;
 
-      v16 = v99;
-      v143 = *v46;
+      v16 = v45;
+      v56 = *v27;
       *(v15 + 136) = *(v15 + 104);
-      *(v15 + 120) = v143;
-      v144 = *(v15 + 17);
-      v145 = *(v15 + 18);
-      *&v143 = floor(v145 / 1.12);
-      *(v15 + 18) = v143;
-      objc_msgSend_boundingRectWithSize_options_attributes_context_(*(v15 + 3), v146, v144, *&v143, v145, v147, 1, *(v15 + 4), 0);
-      v153 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], v148, v149, v150, v151, v152);
-      objc_msgSend_scale(v153, v154, v155, v156, v157, v158);
+      *(v15 + 120) = v56;
+      v57 = *(v15 + 17);
+      *(v15 + 18) = floor(*(v15 + 18) / 1.12);
+      [*(v15 + 3) boundingRectWithSize:1 options:*(v15 + 4) attributes:0 context:v57];
+      mainScreen = [MEMORY[0x277D759A0] mainScreen];
+      [mainScreen scale];
       UIRectIntegralWithScale();
-      v160 = v159;
-      v162 = v161;
-      v164 = v163;
-      v166 = v165;
+      v60 = v59;
+      v62 = v61;
+      v64 = v63;
+      v66 = v65;
 
-      v172 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], v167, v168, v169, v170, v171);
-      objc_msgSend_scale(v172, v173, v174, v175, v176, v177);
-      v187 = v178;
+      mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
+      [mainScreen2 scale];
+      v76 = v68;
       UIRectCenteredIntegralRectScale();
-      *(v15 + 19) = v179;
-      *(v15 + 20) = v180;
-      *(v15 + 21) = v181;
-      *(v15 + 22) = v182;
+      *(v15 + 19) = v69;
+      *(v15 + 20) = v70;
+      *(v15 + 21) = v71;
+      *(v15 + 22) = v72;
 
-      v91 = *(v15 + 19);
-      v183 = *(v15 + 20);
-      objc_msgSend_verticalTextOffsetForFamily_withTextBounds_(specsCopy, v184, v160, v162, v164, v166, family, v187);
-      v90 = v183 + v185;
+      v40 = *(v15 + 19);
+      v73 = *(v15 + 20);
+      [specsCopy verticalTextOffsetForFamily:family withTextBounds:{v60, v62, v64, v66, v76}];
+      v39 = v73 + v74;
 
-      templateCopy = v189;
+      templateCopy = v78;
     }
 
     else
     {
-      v91 = *(v15 + 11);
-      v90 = *(v15 + 12);
+      v40 = *(v15 + 11);
+      v39 = *(v15 + 12);
     }
 
-    *(v15 + 5) = v91;
-    *(v15 + 6) = v90;
+    *(v15 + 5) = v40;
+    *(v15 + 6) = v39;
   }
 
   return v15;
@@ -208,30 +197,30 @@
   y = self->_imageFrame.origin.y;
   width = self->_imageFrame.size.width;
   height = self->_imageFrame.size.height;
-  v11 = size.width / size.height;
+  v9 = size.width / size.height;
   if (size.width / size.height > 1.0)
   {
-    if (objc_msgSend_needToScaleToFillForFamily_(specs, a2, 1.0, size.height, v5, v6, family))
+    if ([specs needToScaleToFillForFamily:family])
     {
-      width = ceil(v11 * self->_imageFrame.size.width);
+      width = ceil(v9 * self->_imageFrame.size.width);
     }
 
     else
     {
-      v13 = self->_imageFrame.size.height;
-      height = floor(v13 / v11);
-      y = self->_imageFrame.origin.y + (v13 - height) * 0.5;
+      v11 = self->_imageFrame.size.height;
+      height = floor(v11 / v9);
+      y = self->_imageFrame.origin.y + (v11 - height) * 0.5;
     }
   }
 
-  v14 = x;
-  v15 = y;
-  v16 = width;
-  v17 = height;
-  result.size.height = v17;
-  result.size.width = v16;
-  result.origin.y = v15;
-  result.origin.x = v14;
+  v12 = x;
+  v13 = y;
+  v14 = width;
+  v15 = height;
+  result.size.height = v15;
+  result.size.width = v14;
+  result.origin.y = v13;
+  result.origin.x = v12;
   return result;
 }
 
@@ -243,28 +232,28 @@
   {
     v5 = equalCopy;
     family = self->_family;
-    if (family == objc_msgSend_family(v5, v7, v8, v9, v10, v11) && (unreadCount = self->_unreadCount, unreadCount == objc_msgSend_unreadCount(v5, v12, v13, v14, v15, v16)) && (objc_msgSend_backgroundFrame(v5, v18, v19, v20, v21, v22), v47.origin.x = v23, v47.origin.y = v24, v47.size.width = v25, v47.size.height = v26, CGRectEqualToRect(self->_backgroundFrame, v47)) && (objc_msgSend_bubbleFrame(v5, v27, v28, v29, v30, v31), v48.origin.x = v32, v48.origin.y = v33, v48.size.width = v34, v48.size.height = v35, CGRectEqualToRect(self->_bubbleFrame, v48)))
+    if (family == [v5 family] && (unreadCount = self->_unreadCount, unreadCount == objc_msgSend(v5, "unreadCount")) && (objc_msgSend(v5, "backgroundFrame"), v22.origin.x = v8, v22.origin.y = v9, v22.size.width = v10, v22.size.height = v11, CGRectEqualToRect(self->_backgroundFrame, v22)) && (objc_msgSend(v5, "bubbleFrame"), v23.origin.x = v12, v23.origin.y = v13, v23.size.width = v14, v23.size.height = v15, CGRectEqualToRect(self->_bubbleFrame, v23)))
     {
-      objc_msgSend_imageFrame(v5, v36, v37, v38, v39, v40);
-      v49.origin.x = v41;
-      v49.origin.y = v42;
-      v49.size.width = v43;
-      v49.size.height = v44;
-      v45 = CGRectEqualToRect(self->_imageFrame, v49);
+      [v5 imageFrame];
+      v24.origin.x = v16;
+      v24.origin.y = v17;
+      v24.size.width = v18;
+      v24.size.height = v19;
+      v20 = CGRectEqualToRect(self->_imageFrame, v24);
     }
 
     else
     {
-      v45 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    v45 = 0;
+    v20 = 0;
   }
 
-  return v45;
+  return v20;
 }
 
 - (CGRect)backgroundFrame

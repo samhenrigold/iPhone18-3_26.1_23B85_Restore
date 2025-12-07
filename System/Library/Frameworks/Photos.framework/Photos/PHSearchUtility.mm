@@ -95,7 +95,7 @@
 
 void __39__PHSearchUtility__tokenHasSuggestion___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [a2 objectForKeyedSubscript:@"PHSearchQueryAttributeKey"];
+  v7 = [a2 objectForKeyedSubscript:{@"PHSearchQueryAttributeKey", a4}];
 
   if (v7)
   {

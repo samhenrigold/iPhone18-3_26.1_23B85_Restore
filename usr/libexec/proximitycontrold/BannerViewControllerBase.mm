@@ -27,12 +27,10 @@
 
 - (NSString)requestIdentifier
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC17proximitycontrold24BannerViewControllerBase_requestID);
-  v3 = *&self->requestID[OBJC_IVAR____TtC17proximitycontrold24BannerViewControllerBase_requestID];
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)description

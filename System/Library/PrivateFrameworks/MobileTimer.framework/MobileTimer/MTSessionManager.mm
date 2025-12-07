@@ -23,9 +23,8 @@
     _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ warming...", &v7, 0xCu);
   }
 
-  v4 = MTSessionServerInterface();
-  v5 = MTSessionClientInterface();
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = MTSessionServerInterface(v4);
+  v6 = MTSessionClientInterface(v5);
 }
 
 - (MTSessionManager)init
@@ -38,7 +37,7 @@
 
 - (void)endAlertingSession
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -48,22 +47,20 @@
   }
 
   connectionProvider = [(MTSessionManager *)self connectionProvider];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __38__MTSessionManager_endAlertingSession__block_invoke_2;
-  v6[3] = &unk_1E7B0D658;
-  v6[4] = self;
-  [connectionProvider performRemoteBlock:&__block_literal_global_16_0 withErrorHandler:v6];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __38__MTSessionManager_endAlertingSession__block_invoke_2;
+  v5[3] = &unk_1E7B0D658;
+  v5[4] = self;
+  [connectionProvider performRemoteBlock:&__block_literal_global_16_0 withErrorHandler:v5];
 }
 
 id __36__MTSessionManager_initWithMetrics___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = MTSessionServerInterface();
+  v3 = MTSessionServerInterface(v2);
   v4 = [v2 exportedObject];
-  v5 = MTSessionClientInterface();
+  v5 = MTSessionClientInterface(v4);
   v6 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.sessionserver" remoteObjectInterface:v3 exportedObject:v4 exportedObjectInterface:v5 lifecycleNotification:@"com.apple.MTSessionServer.wakeup" requiredEntitlement:0 options:4096];
 
   objc_initWeak(&location, v2);
@@ -126,20 +123,20 @@ void __36__MTSessionManager_initWithMetrics___block_invoke_2(uint64_t a1)
 
 - (id)_initWithConnectionProvidingBlock:(id)block metrics:(id)metrics notificationCenter:(id)center
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   metricsCopy = metrics;
   centerCopy = center;
-  v19.receiver = self;
-  v19.super_class = MTSessionManager;
-  v11 = [(MTSessionManager *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MTSessionManager;
+  v11 = [(MTSessionManager *)&v18 init];
   if (v11)
   {
     v12 = MTLogForCategory(4);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing...", buf, 0xCu);
     }
 
@@ -154,13 +151,12 @@ void __36__MTSessionManager_initWithMetrics___block_invoke_2(uint64_t a1)
     v11->_connectionProvider = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -170,10 +166,9 @@ void __36__MTSessionManager_initWithMetrics___block_invoke_2(uint64_t a1)
   }
 
   [(MTXPCConnectionProvider *)self->_connectionProvider invalidate];
-  v5.receiver = self;
-  v5.super_class = MTSessionManager;
-  [(MTSessionManager *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MTSessionManager;
+  [(MTSessionManager *)&v4 dealloc];
 }
 
 - (void)reconnect
@@ -194,14 +189,13 @@ void __38__MTSessionManager_endAlertingSession__block_invoke_2(uint64_t a1, void
 
 void __38__MTSessionManager_endAlertingSession__block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ ending alerting session failed with error %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ ending alerting session failed with error %{public}@", &v4, 0x16u);
 }
 
 @end

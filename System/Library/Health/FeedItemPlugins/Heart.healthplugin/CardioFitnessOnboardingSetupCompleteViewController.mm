@@ -3,6 +3,7 @@
 - (_TtC5Heart50CardioFitnessOnboardingSetupCompleteViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout;
 - (void)hxui_primaryFooterButtonTapped;
 - (void)hxui_secondaryFooterButtonTapped;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -11,7 +12,17 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29D888800();
+  sub_29D888800(v2);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CardioFitnessOnboardingSetupCompleteViewController();
+  v4 = v5.receiver;
+  [(OBBaseWelcomeController *)&v5 viewDidAppear:appearCopy];
+  sub_29D7B87DC();
 }
 
 - (void)hxui_primaryFooterButtonTapped
@@ -21,7 +32,7 @@
   {
     v4 = Strong;
     selfCopy = self;
-    sub_29D888C68(selfCopy, v4, 3u, &off_2A244AFE8);
+    sub_29D888C68(selfCopy, v4, 3, &off_2A244AFE8);
     sub_29D936978();
   }
 }

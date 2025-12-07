@@ -216,7 +216,7 @@ void __51__SASBulletinManager_observer_addBulletin_forFeed___block_invoke(uint64
 
 - (void)observer:(id)observer modifyBulletin:(id)bulletin
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   bulletinCopy = bulletin;
   bulletinCache = self->_bulletinCache;
   bulletinID = [bulletinCopy bulletinID];
@@ -237,13 +237,13 @@ void __51__SASBulletinManager_observer_addBulletin_forFeed___block_invoke(uint64
     block[1] = 3221225472;
     block[2] = __46__SASBulletinManager_observer_modifyBulletin___block_invoke;
     block[3] = &unk_1E82F3C90;
-    objc_copyWeak(&v21, location);
-    v19 = v11;
-    v20 = bulletinCopy;
+    objc_copyWeak(&v20, location);
+    v18 = v11;
+    v19 = bulletinCopy;
     v13 = v11;
     dispatch_async(v12, block);
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(location);
   }
 
@@ -256,13 +256,11 @@ void __51__SASBulletinManager_observer_addBulletin_forFeed___block_invoke(uint64
       bulletinID3 = [bulletinCopy bulletinID];
       *location = 136315394;
       *&location[4] = "[SASBulletinManager observer:modifyBulletin:]";
-      v23 = 2112;
-      v24 = bulletinID3;
+      v22 = 2112;
+      v23 = bulletinID3;
       _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_DEFAULT, "%s ACAssistantBBObserver: Trying to modify a bulletin %@ that I don't already have.", location, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __46__SASBulletinManager_observer_modifyBulletin___block_invoke(uint64_t a1)
@@ -313,7 +311,7 @@ void __46__SASBulletinManager_observer_modifyBulletin___block_invoke(uint64_t a1
 - (void)observer:(id)observer removeBulletin:(id)bulletin forFeed:(unint64_t)feed
 {
   feedCopy = feed;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   bulletinCopy = bulletin;
   v8 = bulletinCopy;
   if ((feedCopy & 8) != 0)
@@ -336,20 +334,18 @@ void __46__SASBulletinManager_observer_modifyBulletin___block_invoke(uint64_t a1
 
     else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315394;
-      v15 = "[SASBulletinManager observer:removeBulletin:forFeed:]";
-      v16 = 2112;
-      v17 = bulletinID;
-      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s ACAssistantBBObserver: Asked to remove a bulletin from lock screen %@ that I don't already have.", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[SASBulletinManager observer:removeBulletin:forFeed:]";
+      v15 = 2112;
+      v16 = bulletinID;
+      _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s ACAssistantBBObserver: Asked to remove a bulletin from lock screen %@ that I don't already have.", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observer:(id)observer purgeReferencesToBulletinID:(id)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = [(SASBulletinCache *)self->_bulletinCache cachedBulletinForID:dCopy];
 
@@ -365,52 +361,48 @@ void __46__SASBulletinManager_observer_modifyBulletin___block_invoke(uint64_t a1
     v7 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "[SASBulletinManager observer:purgeReferencesToBulletinID:]";
-      v11 = 2112;
-      v12 = dCopy;
-      _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s ACAssistantBBObserver: Asked to remove a bulletin %@ that I don't already have.", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SASBulletinManager observer:purgeReferencesToBulletinID:]";
+      v10 = 2112;
+      v11 = dCopy;
+      _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s ACAssistantBBObserver: Asked to remove a bulletin %@ that I don't already have.", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observer:(id)observer noteInvalidatedBulletinIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   dsCopy = ds;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = [dsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [dsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        [(SASBulletinManager *)self observer:observerCopy purgeReferencesToBulletinID:*(*(&v13 + 1) + 8 * v11++)];
+        [(SASBulletinManager *)self observer:observerCopy purgeReferencesToBulletinID:*(*(&v12 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [dsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [dsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (SASBulletinManagerDelegate)delegate
@@ -422,42 +414,37 @@ void __46__SASBulletinManager_observer_modifyBulletin___block_invoke(uint64_t a1
 
 - (void)bulletinForIdentifier:(void *)a3 .cold.1(uint64_t a1, void **a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = *a2;
   v5 = a3;
   v6 = [v4 allBulletins];
   v7 = [v6 allKeys];
-  v11[0] = 136315650;
+  v10[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v12 = a1;
-  v13 = v8;
-  v14 = v9;
-  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s Bulletin with identifier: %@ not found in cache with bulletinIDs: %@", v11, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = a1;
+  v12 = v8;
+  v13 = v9;
+  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s Bulletin with identifier: %@ not found in cache with bulletinIDs: %@", v10, 0x20u);
 }
 
 - (void)addBulletinCompletionWithBulletin:(void *)a1 forFeed:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 bbBulletin];
-  v7[0] = 136315394;
+  v6[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  v8 = v5;
-  _os_log_debug_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEBUG, "%s %@ added to lock screen feed", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = v5;
+  _os_log_debug_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEBUG, "%s %@ added to lock screen feed", v6, 0x16u);
 }
 
 - (void)observer:removeBulletin:forFeed:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = 136315394;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  v4 = v0;
-  _os_log_debug_impl(&dword_1C8137000, v1, OS_LOG_TYPE_DEBUG, "%s %@ removed from lock screen feed", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_debug_impl(&dword_1C8137000, v1, OS_LOG_TYPE_DEBUG, "%s %@ removed from lock screen feed", v2, 0x16u);
 }
 
 @end

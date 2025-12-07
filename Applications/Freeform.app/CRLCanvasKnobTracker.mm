@@ -224,7 +224,7 @@ LABEL_24:
   if (layout)
   {
     v6 = layout;
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
     layout = v6;
   }
 

@@ -11,10 +11,10 @@
 
 - (CRSUIVolumeNotificationAssertion)init
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = CRSUIVolumeNotificationAssertion;
-  v2 = [(CRSUIVolumeNotificationAssertion *)&v20 init];
+  v22 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = CRSUIVolumeNotificationAssertion;
+  v2 = [(CRSUIVolumeNotificationAssertion *)&v19 init];
   if (v2)
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
@@ -33,29 +33,28 @@
 
     objc_initWeak(&location, v2);
     v11 = v2->_connection;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __40__CRSUIVolumeNotificationAssertion_init__block_invoke;
-    v16[3] = &unk_278DA0B58;
-    v17 = v2;
-    objc_copyWeak(&v18, &location);
-    [(BSServiceConnection *)v11 configureConnection:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __40__CRSUIVolumeNotificationAssertion_init__block_invoke;
+    v15[3] = &unk_278DA0B58;
+    v16 = v2;
+    objc_copyWeak(&v17, &location);
+    [(BSServiceConnection *)v11 configureConnection:v15];
     v12 = CRSUILogForCategory(1uLL);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = v2->_connection;
       *buf = 138412290;
-      v22 = v13;
+      v21 = v13;
       _os_log_impl(&dword_243218000, v12, OS_LOG_TYPE_DEFAULT, "Volume notification activating connection! %@", buf, 0xCu);
     }
 
     [(BSServiceConnection *)v2->_connection activate];
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
 
     objc_destroyWeak(&location);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -82,20 +81,18 @@ void __40__CRSUIVolumeNotificationAssertion_init__block_invoke(uint64_t a1, void
 
 void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = CRSUILogForCategory(2uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Volume notification connection activated! %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Volume notification connection activated! %@", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _handleConnectionActivated];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_5(uint64_t a1, void *a2)
@@ -156,7 +153,7 @@ void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_6(uint64_t a1, vo
 
 - (void)cancelSuspension
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_acquired && !self->_lock_invalidated)
   {
@@ -166,11 +163,11 @@ void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_6(uint64_t a1, vo
       connection = [(CRSUIVolumeNotificationAssertion *)self connection];
       connection2 = [(CRSUIVolumeNotificationAssertion *)self connection];
       remoteTarget = [connection2 remoteTarget];
-      v10 = 138412546;
-      v11 = connection;
-      v12 = 2112;
-      v13 = remoteTarget;
-      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Relinquishing volume notification assertion connection: %@. Remote target: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = connection;
+      v11 = 2112;
+      v12 = remoteTarget;
+      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Relinquishing volume notification assertion connection: %@. Remote target: %@", &v9, 0x16u);
     }
 
     connection3 = [(CRSUIVolumeNotificationAssertion *)self connection];
@@ -181,12 +178,11 @@ void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_6(uint64_t a1, vo
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_invalidated)
   {
@@ -194,9 +190,9 @@ void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_6(uint64_t a1, vo
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       connection = self->_connection;
-      v6 = 138412290;
-      v7 = connection;
-      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = connection;
+      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v5, 0xCu);
     }
 
     [(BSServiceConnection *)self->_connection invalidate];
@@ -205,7 +201,6 @@ void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_6(uint64_t a1, vo
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConnectionActivated
@@ -234,20 +229,18 @@ void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_6(uint64_t a1, vo
 
 void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_5_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Volume notification connection interrupted! %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Volume notification connection interrupted! %@", &v2, 0xCu);
 }
 
 void __40__CRSUIVolumeNotificationAssertion_init__block_invoke_6_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Volume notification connection Volume invalidated! %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Volume notification connection Volume invalidated! %@", &v2, 0xCu);
 }
 
 @end

@@ -57,7 +57,7 @@
   zones = self->_zones;
   self->_zones = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, zones);
 }
 
 - (BOOL)isEquivalent:(id)equivalent

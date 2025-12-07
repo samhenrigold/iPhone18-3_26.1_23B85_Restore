@@ -294,9 +294,7 @@ LABEL_18:
 
 - (void)setDisplayStatus:(id)status
 {
-  v4 = [status copy];
-  displayStatus = self->_displayStatus;
-  self->_displayStatus = v4;
+  self->_displayStatus = [status copy];
 
   MEMORY[0x1EEE66BB8]();
 }

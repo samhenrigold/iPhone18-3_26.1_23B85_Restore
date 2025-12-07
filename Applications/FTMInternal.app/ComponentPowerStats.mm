@@ -134,7 +134,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    peakPowerMw = self->_peakPowerMw;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -154,7 +153,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  avgActivePowerMw = self->_avgActivePowerMw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -169,12 +167,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  cumulatedEnergyMj = self->_cumulatedEnergyMj;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_5:
-    avgPowerMw = self->_avgPowerMw;
     PBDataWriterWriteUint32Field();
   }
 

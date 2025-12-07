@@ -4,12 +4,15 @@
 - (BOOL)sendProtobuf:(id)protobuf toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error;
 - (id)_lightsAndSirensRequestForProtobuf:(id)protobuf;
 - (unint64_t)_randomValueBetweenMin:(unint64_t)min max:(unint64_t)max;
+- (void)_callDelegateActionForProtobuf:(id)protobuf delegate:(id)delegate identifier:(id)identifier type:(unsigned __int16)type isResponse:(BOOL)response;
 - (void)_handleProtobuf:(id)protobuf identifier:(id)identifier sendDelay:(unint64_t)delay;
 - (void)_sendBlockToAllDelegatesAfterTime:(unint64_t)time block:(id)block;
 - (void)_sendLightsAndSirensRequestForProtobuf:(id)protobuf identifier:(id)identifier sendDelay:(unint64_t)delay;
 - (void)_sendSetSectionInfoResponseWithIdentifier:(id)identifier sendDelay:(unint64_t)delay;
 - (void)addDelegate:(id)delegate queue:(id)queue;
 - (void)removeDelegate:(id)delegate;
+- (void)setProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type;
+- (void)setProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type;
 @end
 
 @implementation BLTTestIDSService
@@ -103,6 +106,24 @@ void __36__BLTTestIDSService_removeDelegate___block_invoke(uint64_t a1, void *a2
     *(*(*(a1 + 40) + 8) + 24) = a3;
     *a4 = 1;
   }
+}
+
+- (void)setProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  v8 = [MEMORY[0x277CCAE60] valueWithPointer:action];
+  actionsByRequestType = self->_actionsByRequestType;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:typeCopy];
+  [(NSMutableDictionary *)actionsByRequestType setObject:v8 forKeyedSubscript:v7];
+}
+
+- (void)setProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  v8 = [MEMORY[0x277CCAE60] valueWithPointer:action];
+  actionsByResponseType = self->_actionsByResponseType;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:typeCopy];
+  [(NSMutableDictionary *)actionsByResponseType setObject:v8 forKeyedSubscript:v7];
 }
 
 - (BOOL)sendProtobuf:(id)protobuf toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error
@@ -287,6 +308,39 @@ void __73__BLTTestIDSService__sendSetSectionInfoResponseWithIdentifier_sendDelay
   v5 = objc_alloc_init(BLTPBSetSectionInfoResponse);
   v4 = [[BLTPBProtobuf alloc] initWithProtobuf:v5 type:13 isResponse:1 sequenceNumberManager:*(*(a1 + 32) + 48)];
   [*(a1 + 32) _callDelegateActionForProtobuf:v4 delegate:v3 identifier:*(a1 + 40) type:13 isResponse:1];
+}
+
+- (void)_callDelegateActionForProtobuf:(id)protobuf delegate:(id)delegate identifier:(id)identifier type:(unsigned __int16)type isResponse:(BOOL)response
+{
+  responseCopy = response;
+  typeCopy = type;
+  protobufCopy = protobuf;
+  delegateCopy = delegate;
+  v13 = MEMORY[0x277D189D8];
+  identifierCopy = identifier;
+  v15 = objc_alloc_init(v13);
+  [v15 setIncomingResponseIdentifier:identifierCopy];
+  [v15 setOutgoingResponseIdentifier:identifierCopy];
+
+  v16 = 16;
+  if (responseCopy)
+  {
+    v16 = 24;
+  }
+
+  v17 = *(&self->super.isa + v16);
+  [protobufCopy setContext:v15];
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:typeCopy];
+  v19 = [v17 objectForKeyedSubscript:v18];
+
+  pointerValue = [v19 pointerValue];
+  v21 = delegateCopy;
+  if (objc_opt_respondsToSelector())
+  {
+    ([v21 methodForSelector:pointerValue])(v21, pointerValue, protobufCopy);
+  }
+
+  [protobufCopy setContext:0];
 }
 
 - (unint64_t)_randomValueBetweenMin:(unint64_t)min max:(unint64_t)max

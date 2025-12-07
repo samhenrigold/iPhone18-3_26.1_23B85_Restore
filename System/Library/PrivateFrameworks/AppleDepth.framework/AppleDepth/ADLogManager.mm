@@ -6,8 +6,6 @@
 - (int64_t)addHandler:(id)handler;
 - (int64_t)setHostName:(id)name;
 - (int64_t)setLogFolder:(id)folder;
-- (uint64_t)logMatrix4x3:(__n128)matrix4x3 name:(__n128)name priority:(__n128)priority;
-- (uint64_t)logMatrix4x4:(__n128)matrix4x4 name:(__n128)name priority:(__n128)priority;
 - (void)applyConfigurationToNewHandler:(id)handler;
 - (void)disable:(id)disable;
 - (void)disableAll;
@@ -21,7 +19,9 @@
 - (void)logCalibration:(id)calibration name:(const char *)name priority:(unint64_t)priority timestamp:(double)timestamp;
 - (void)logDictionary:(id)dictionary name:(const char *)name priority:(unint64_t)priority;
 - (void)logDictionary:(id)dictionary name:(const char *)name priority:(unint64_t)priority timestamp:(double)timestamp;
-- (void)logMatrix4x3:(double)matrix4x3 name:(double)name priority:(double)priority timestamp:(double)timestamp;
+- (void)logMatrix4x3:(__n128)matrix4x3 name:(__n128)name priority:(__n128)priority;
+- (void)logMatrix4x3:(double)matrix4x3 name:(double)name priority:(double)priority timestamp:(uint64_t)timestamp;
+- (void)logMatrix4x4:(__n128)matrix4x4 name:(__n128)name priority:(__n128)priority;
 - (void)logMatrix4x4:(__n128)matrix4x4 name:(__n128)name priority:(__n128)priority timestamp:(double)timestamp;
 - (void)logPixelBuffer:(__CVBuffer *)buffer name:(const char *)name priority:(unint64_t)priority;
 - (void)logPixelBuffer:(__CVBuffer *)buffer name:(const char *)name priority:(unint64_t)priority timestamp:(double)timestamp;
@@ -227,19 +227,19 @@
   }
 }
 
-- (void)logMatrix4x3:(double)matrix4x3 name:(double)name priority:(double)priority timestamp:(double)timestamp
+- (void)logMatrix4x3:(double)matrix4x3 name:(double)name priority:(double)priority timestamp:(uint64_t)timestamp
 {
-  if (*(self + 2) >= 1 && (*(self + 10) >= a8 || *(self + 48) == 1))
+  if (*(result + 2) >= 1 && (*(result + 10) >= a8 || *(result + 48) == 1))
   {
-    return [self logMatrix4x4:matrix4x3 name:name priority:priority timestamp:timestamp];
+    return [result logMatrix4x4:a7 name:a2 priority:matrix4x3 timestamp:{name, priority}];
   }
 
-  return self;
+  return result;
 }
 
-- (uint64_t)logMatrix4x3:(__n128)matrix4x3 name:(__n128)name priority:(__n128)priority
+- (void)logMatrix4x3:(__n128)matrix4x3 name:(__n128)name priority:(__n128)priority
 {
-  if (*(result + 8) >= 1 && (*(result + 80) >= a8 || *(result + 48) == 1))
+  if (*(result + 2) >= 1 && (*(result + 10) >= a8 || *(result + 48) == 1))
   {
     v8 = result;
     processInfo = [MEMORY[0x277CCAC38] processInfo];
@@ -252,9 +252,9 @@
   return result;
 }
 
-- (uint64_t)logMatrix4x4:(__n128)matrix4x4 name:(__n128)name priority:(__n128)priority
+- (void)logMatrix4x4:(__n128)matrix4x4 name:(__n128)name priority:(__n128)priority
 {
-  if (*(result + 8) >= 1 && (*(result + 80) >= a8 || *(result + 48) == 1))
+  if (*(result + 2) >= 1 && (*(result + 10) >= a8 || *(result + 48) == 1))
   {
     v8 = result;
     processInfo = [MEMORY[0x277CCAC38] processInfo];

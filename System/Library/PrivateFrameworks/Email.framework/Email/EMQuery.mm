@@ -21,34 +21,34 @@
 
 - (unint64_t)hash
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromClass([(EMQuery *)self targetClass]);
   v4 = [v3 hash];
 
   predicate = [(EMQuery *)self predicate];
   v6 = hashForPredicate(predicate);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   sortDescriptors = [(EMQuery *)self sortDescriptors];
-  v8 = [sortDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [sortDescriptors countByEnumeratingWithState:&v19 objects:v23 count:16];
   v9 = 33 * v4 + v6 + 5859909;
   if (v8)
   {
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(sortDescriptors);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v11);
+        v12 = *(*(&v19 + 1) + 8 * v11);
         v13 = [v12 hash];
 
         v9 = v13 + 33 * v9;
@@ -56,7 +56,7 @@
       }
 
       while (v8 != v11);
-      v8 = [sortDescriptors countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [sortDescriptors countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -71,7 +71,6 @@
     limit = -limit;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return 33 * (33 * (limit + 33 * v9) + queryOptions) + v17;
 }
 
@@ -311,13 +310,13 @@ LABEL_5:
 
 - (EMQuery)initWithCoder:(id)coder
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   selfCopy = self;
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"EFPropertyKey_targetClass"];
   v5 = NSClassFromString(v4);
 
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"EFPropertyKey_predicate"];
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"EFPropertyKey_predicate"];
   v6 = MEMORY[0x1E695DFD8];
   v7 = objc_opt_class();
   v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
@@ -326,25 +325,25 @@ LABEL_5:
   if (v9)
   {
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v12)
     {
-      v13 = *v27;
+      v13 = *v26;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v13)
+          if (*v26 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v26 + 1) + 8 * i);
+          v15 = *(*(&v25 + 1) + 8 * i);
           if ([EMQuery _isValidSortDescriptor:v15 forTargetClass:v5])
           {
             [v15 allowEvaluation];
@@ -357,9 +356,9 @@ LABEL_5:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
             {
               *buf = 138543618;
-              v31 = v15;
-              v32 = 2114;
-              v33 = v5;
+              v30 = v15;
+              v31 = 2114;
+              v32 = v5;
               _os_log_fault_impl(&dword_1C6655000, v16, OS_LOG_TYPE_FAULT, "%{public}@ is not a valid sort descriptor for target class %{public}@", buf, 0x16u);
             }
 
@@ -367,7 +366,7 @@ LABEL_5:
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v12);
@@ -379,15 +378,14 @@ LABEL_5:
     v10 = 0;
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __25__EMQuery_initWithCoder___block_invoke;
-  v24[3] = &unk_1E826F260;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __25__EMQuery_initWithCoder___block_invoke;
+  v23[3] = &unk_1E826F260;
   v17 = coderCopy;
-  v25 = v17;
-  v18 = [(EMQuery *)selfCopy initWithTargetClass:v5 predicate:v22 sortDescriptors:v10 builder:v24];
+  v24 = v17;
+  v18 = [(EMQuery *)selfCopy initWithTargetClass:v5 predicate:v21 sortDescriptors:v10 builder:v23];
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

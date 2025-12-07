@@ -21,6 +21,7 @@
 - (void)generateEvent:(id)event;
 - (void)generateMetadata:(id)metadata;
 - (void)hktest_setStateTransitionCompletionHandler:(id)handler;
+- (void)notifyClientsOfGeneratedTypesUpdate:(id)update configuration:(id)configuration didUpdateActivity:(BOOL)activity earliestSampleDate:(id)date;
 - (void)workoutSessionServer:(id)server accumulatorDidChange:(id)change;
 - (void)workoutSessionServer:(id)server didChangeConfiguration:(id)configuration;
 - (void)workoutSessionServer:(id)server didTransitionFromState:(int64_t)state toState:(int64_t)toState date:(id)date;
@@ -304,6 +305,16 @@
   v5 = fitnessMachineSessionUUID != 0;
 
   return v5;
+}
+
+- (void)notifyClientsOfGeneratedTypesUpdate:(id)update configuration:(id)configuration didUpdateActivity:(BOOL)activity earliestSampleDate:(id)date
+{
+  activityCopy = activity;
+  dateCopy = date;
+  configurationCopy = configuration;
+  updateCopy = update;
+  WeakRetained = objc_loadWeakRetained(&self->_sessionStateController);
+  [WeakRetained notifyClientsOfGeneratedTypesUpdate:updateCopy configuration:configurationCopy didUpdateActivity:activityCopy earliestSampleDate:dateCopy];
 }
 
 - (void)hktest_setStateTransitionCompletionHandler:(id)handler

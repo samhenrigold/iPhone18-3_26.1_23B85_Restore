@@ -7276,7 +7276,7 @@ void sub_1DDE0D23C(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-_BYTE *applesauce::CF::details::pretty_print(applesauce::CF::details *this, const __CFString *a2)
+void *applesauce::CF::details::pretty_print(applesauce::CF::details *this, const __CFString *a2)
 {
   if (a2)
   {

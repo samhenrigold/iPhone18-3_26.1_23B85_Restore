@@ -46,15 +46,13 @@
 
 - (void)_registerXPCRelayForMessageName:(id)name
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   msgDispatcher = [(HMDRemoteLoginAnisetteDataProviderBridge *)self msgDispatcher];
   v6 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v9[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [msgDispatcher registerForMessage:nameCopy receiver:self policies:v7 selector:sel__handleMessage_];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessages
@@ -122,12 +120,11 @@
 
 uint64_t __55__HMDRemoteLoginAnisetteDataProviderBridge_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_109102;
-  logCategory__hmf_once_v1_109102 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_109102;
+  logCategory__hmf_once_v1_109102 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

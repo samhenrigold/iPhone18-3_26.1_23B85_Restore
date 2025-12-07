@@ -8,7 +8,7 @@
 
 - (OrgApacheLuceneUtilFstForwardBytesReader)initWithByteArray:(id)array
 {
-  OrgApacheLuceneUtilFstFST_BytesReader_init(self, a2);
+  OrgApacheLuceneUtilFstFST_BytesReader_init();
   JreStrongAssign(&self->bytes_, array);
   return self;
 }

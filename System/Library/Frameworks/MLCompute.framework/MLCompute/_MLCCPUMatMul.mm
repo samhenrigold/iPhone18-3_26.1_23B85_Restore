@@ -1,19 +1,30 @@
 @interface _MLCCPUMatMul
 + (BOOL)compileWithDevice:(id)device deviceOps:(id)ops sourceTensors:(id)tensors resultTensor:(id)tensor;
++ (id)layerWithDevice:(id)device descriptor:(id)descriptor inferenceOnly:(BOOL)only;
 - (_MLCCPUMatMul)initWithDevice:(id)device descriptor:(id)descriptor inferenceOnly:(BOOL)only;
 @end
 
 @implementation _MLCCPUMatMul
 
++ (id)layerWithDevice:(id)device descriptor:(id)descriptor inferenceOnly:(BOOL)only
+{
+  onlyCopy = only;
+  descriptorCopy = descriptor;
+  deviceCopy = device;
+  v10 = [[self alloc] initWithDevice:deviceCopy descriptor:descriptorCopy inferenceOnly:onlyCopy];
+
+  return v10;
+}
+
 - (_MLCCPUMatMul)initWithDevice:(id)device descriptor:(id)descriptor inferenceOnly:(BOOL)only
 {
   onlyCopy = only;
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   deviceCopy = device;
   v8 = [MEMORY[0x277CBEBF8] mutableCopy];
-  bzero(v26, 0x220uLL);
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v26 length:544];
+  bzero(v25, 0x220uLL);
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:544];
   bytes = [v9 bytes];
   [descriptorCopy alpha];
   *bytes = v11;
@@ -22,15 +33,15 @@
   *(bytes + 9) = [descriptorCopy transposesY];
   *(bytes + 10) = 0;
   *(bytes + 12) = 0;
-  memset(v25, 0, sizeof(v25));
-  v12 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:176];
-  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:176];
-  v14 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:176];
-  v28[0] = v12;
-  v28[1] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-  v27 = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  memset(v24, 0, sizeof(v24));
+  v12 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:176];
+  v13 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:176];
+  v14 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:176];
+  v27[0] = v12;
+  v27[1] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26 = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
   v17 = [MLCCPUDeviceOps deviceOpsWithType:45 params:v9 inDeltaData:v15 outDeltaData:v16 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v17)
@@ -42,11 +53,10 @@
   }
 
   v18 = [v8 copy];
-  v24.receiver = self;
-  v24.super_class = _MLCCPUMatMul;
-  v19 = [(_MLCCPULayer *)&v24 initWithDevice:deviceCopy deviceOps:v18];
+  v23.receiver = self;
+  v23.super_class = _MLCCPUMatMul;
+  v19 = [(_MLCCPULayer *)&v23 initWithDevice:deviceCopy deviceOps:v18];
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -54,8 +64,8 @@
 {
   tensorsCopy = tensors;
   tensorCopy = tensor;
-  v169 = [ops objectAtIndexedSubscript:0];
-  params = [v169 params];
+  v167 = [ops objectAtIndexedSubscript:0];
+  params = [v167 params];
   layer_params = [params bytes];
   v9 = [tensorsCopy objectAtIndexedSubscript:0];
   v10 = [tensorsCopy objectAtIndexedSubscript:1];
@@ -133,51 +143,22 @@
   stride = [descriptor8 stride];
   descriptor9 = [v9 descriptor];
   dataType = [descriptor9 dataType];
-  v165 = v9;
+  v163 = v9;
   descriptor10 = [v9 descriptor];
-  v39 = CPU_BuildBNNSNDArrayDescriptorRowMajor(&layer_params->iA_desc, shape3, stride, 0, dataType, [descriptor10 dimensionCount], 0);
+  LODWORD(dataType) = CPU_BuildBNNSNDArrayDescriptorRowMajor(&layer_params->iA_desc, shape3, stride, 0, dataType, [descriptor10 dimensionCount], 0);
 
-  if (!v39)
+  if (!dataType || ([v15 descriptor], v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v39, "shape"), v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "descriptor"), v41 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v41, "stride"), v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "descriptor"), v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(v43, "dataType"), objc_msgSend(v15, "descriptor"), v45 = objc_claimAutoreleasedReturnValue(), LODWORD(v44) = CPU_BuildBNNSNDArrayDescriptorRowMajor(&layer_params->iB_desc, v40, v42, 0, v44, objc_msgSend(v45, "dimensionCount"), 0), v45, v43, v42, v41, v40, v39, !v44) || (objc_msgSend(tensorCopy, "descriptor"), v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "shape"), v47 = objc_claimAutoreleasedReturnValue(), objc_msgSend(tensorCopy, "descriptor"), v48 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v48, "stride"), v49 = objc_claimAutoreleasedReturnValue(), objc_msgSend(tensorCopy, "descriptor"), v50 = objc_claimAutoreleasedReturnValue(), v51 = objc_msgSend(v50, "dataType"), objc_msgSend(tensorCopy, "descriptor"), v52 = objc_claimAutoreleasedReturnValue(), LODWORD(v51) = CPU_BuildBNNSNDArrayDescriptorRowMajor(&layer_params->o_desc, v47, v49, 0, v51, objc_msgSend(v52, "dimensionCount"), 0), v52, v50, v49, v48, v47, v46, !v51))
   {
-    goto LABEL_23;
-  }
-
-  descriptor11 = [v15 descriptor];
-  shape4 = [descriptor11 shape];
-  descriptor12 = [v15 descriptor];
-  stride2 = [descriptor12 stride];
-  descriptor13 = [v15 descriptor];
-  dataType2 = [descriptor13 dataType];
-  descriptor14 = [v15 descriptor];
-  v47 = CPU_BuildBNNSNDArrayDescriptorRowMajor(&layer_params->iB_desc, shape4, stride2, 0, dataType2, [descriptor14 dimensionCount], 0);
-
-  if (!v47)
-  {
-    goto LABEL_23;
-  }
-
-  descriptor15 = [tensorCopy descriptor];
-  shape5 = [descriptor15 shape];
-  descriptor16 = [tensorCopy descriptor];
-  stride3 = [descriptor16 stride];
-  descriptor17 = [tensorCopy descriptor];
-  dataType3 = [descriptor17 dataType];
-  descriptor18 = [tensorCopy descriptor];
-  v55 = CPU_BuildBNNSNDArrayDescriptorRowMajor(&layer_params->o_desc, shape5, stride3, 0, dataType3, [descriptor18 dimensionCount], 0);
-
-  if (!v55)
-  {
-LABEL_23:
-    v72 = 0;
-    v59 = tensorCopy;
-    v57 = v15;
+    v69 = 0;
+    v56 = tensorCopy;
+    v54 = v15;
 LABEL_24:
-    v73 = v165;
+    v70 = v163;
     goto LABEL_25;
   }
 
   p_alpha = &layer_params->alpha;
-  v57 = v15;
+  v54 = v15;
   if ([tensorsCopy count] == 3)
   {
     layer_params->beta = 1.0;
@@ -185,293 +166,291 @@ LABEL_24:
 
   memset(&filter_params, 0, sizeof(filter_params));
   filter_params.flags = 1;
-  v58 = BNNSFilterCreateLayerBroadcastMatMul(layer_params, &filter_params);
-  v59 = tensorCopy;
-  if (v58)
+  v55 = BNNSFilterCreateLayerBroadcastMatMul(layer_params, &filter_params);
+  v56 = tensorCopy;
+  if (v55)
   {
-    v60 = [tensorsCopy objectAtIndexedSubscript:0];
-    descriptor19 = [v60 descriptor];
-    dimensionCount3 = [descriptor19 dimensionCount];
+    v57 = [tensorsCopy objectAtIndexedSubscript:0];
+    descriptor11 = [v57 descriptor];
+    dimensionCount3 = [descriptor11 dimensionCount];
 
     if (dimensionCount3)
     {
-      v63 = 0;
-      v64 = 1;
+      v60 = 0;
+      v61 = 1;
       do
       {
-        v65 = [tensorsCopy objectAtIndexedSubscript:0];
-        descriptor20 = [v65 descriptor];
-        shape6 = [descriptor20 shape];
-        v68 = [shape6 objectAtIndexedSubscript:v63];
-        v64 *= [v68 unsignedIntegerValue];
+        v62 = [tensorsCopy objectAtIndexedSubscript:0];
+        descriptor12 = [v62 descriptor];
+        shape4 = [descriptor12 shape];
+        v65 = [shape4 objectAtIndexedSubscript:v60];
+        v61 *= [v65 unsignedIntegerValue];
 
-        ++v63;
-        v69 = [tensorsCopy objectAtIndexedSubscript:0];
-        descriptor21 = [v69 descriptor];
-        dimensionCount4 = [descriptor21 dimensionCount];
+        ++v60;
+        v66 = [tensorsCopy objectAtIndexedSubscript:0];
+        descriptor13 = [v66 descriptor];
+        dimensionCount4 = [descriptor13 dimensionCount];
       }
 
-      while (v63 < dimensionCount4);
+      while (v60 < dimensionCount4);
     }
 
     else
     {
-      v64 = 1;
+      v61 = 1;
     }
 
-    [v169 setSourceStride:v64];
-    v75 = 1;
-    v76 = [tensorsCopy objectAtIndexedSubscript:1];
-    descriptor22 = [v76 descriptor];
-    dimensionCount5 = [descriptor22 dimensionCount];
+    [v167 setSourceStride:v61];
+    v72 = 1;
+    v73 = [tensorsCopy objectAtIndexedSubscript:1];
+    descriptor14 = [v73 descriptor];
+    dimensionCount5 = [descriptor14 dimensionCount];
 
     if (dimensionCount5)
     {
-      v79 = 0;
-      v75 = 1;
+      v76 = 0;
+      v72 = 1;
       do
       {
-        v80 = [tensorsCopy objectAtIndexedSubscript:1];
-        descriptor23 = [v80 descriptor];
-        shape7 = [descriptor23 shape];
-        v83 = [shape7 objectAtIndexedSubscript:v79];
-        v75 *= [v83 unsignedIntegerValue];
+        v77 = [tensorsCopy objectAtIndexedSubscript:1];
+        descriptor15 = [v77 descriptor];
+        shape5 = [descriptor15 shape];
+        v80 = [shape5 objectAtIndexedSubscript:v76];
+        v72 *= [v80 unsignedIntegerValue];
 
-        ++v79;
-        v84 = [tensorsCopy objectAtIndexedSubscript:1];
-        descriptor24 = [v84 descriptor];
-        dimensionCount6 = [descriptor24 dimensionCount];
+        ++v76;
+        v81 = [tensorsCopy objectAtIndexedSubscript:1];
+        descriptor16 = [v81 descriptor];
+        dimensionCount6 = [descriptor16 dimensionCount];
       }
 
-      while (v79 < dimensionCount6);
+      while (v76 < dimensionCount6);
     }
 
-    [v169 setSourceStrideSecondary:v75];
-    v59 = tensorCopy;
-    descriptor25 = [tensorCopy descriptor];
-    dimensionCount7 = [descriptor25 dimensionCount];
+    [v167 setSourceStrideSecondary:v72];
+    v56 = tensorCopy;
+    descriptor17 = [tensorCopy descriptor];
+    dimensionCount7 = [descriptor17 dimensionCount];
 
     if (dimensionCount7)
     {
-      v89 = 0;
-      v90 = 1;
+      v86 = 0;
+      v87 = 1;
       do
       {
-        descriptor26 = [tensorCopy descriptor];
-        shape8 = [descriptor26 shape];
-        v93 = [shape8 objectAtIndexedSubscript:v89];
-        v90 *= [v93 unsignedIntegerValue];
+        descriptor18 = [tensorCopy descriptor];
+        shape6 = [descriptor18 shape];
+        v90 = [shape6 objectAtIndexedSubscript:v86];
+        v87 *= [v90 unsignedIntegerValue];
 
-        ++v89;
-        descriptor27 = [tensorCopy descriptor];
-        dimensionCount8 = [descriptor27 dimensionCount];
+        ++v86;
+        descriptor19 = [tensorCopy descriptor];
+        dimensionCount8 = [descriptor19 dimensionCount];
       }
 
-      while (v89 < dimensionCount8);
+      while (v86 < dimensionCount8);
     }
 
     else
     {
-      v90 = 1;
+      v87 = 1;
     }
 
-    [v169 setResultStride:v90];
+    [v167 setResultStride:v87];
     p_alpha = &layer_params->alpha;
   }
 
   objc_opt_class();
-  v96 = objc_opt_new();
-  [v169 setLayer:v96];
+  v93 = objc_opt_new();
+  [v167 setLayer:v93];
 
-  layer = [v169 layer];
-  [layer setFilter:v58];
+  layer = [v167 layer];
+  [layer setFilter:v55];
 
-  if (([v169 inferenceOnly] & 1) == 0)
+  if (([v167 inferenceOnly] & 1) == 0)
   {
-    inDeltaData = [v169 inDeltaData];
-    v99 = [inDeltaData objectAtIndexedSubscript:0];
-    bytes = [v99 bytes];
+    inDeltaData = [v167 inDeltaData];
+    v96 = [inDeltaData objectAtIndexedSubscript:0];
+    bytes = [v96 bytes];
 
-    v101 = p_alpha[1];
-    v102 = p_alpha[3];
+    v98 = p_alpha[1];
+    v99 = p_alpha[3];
     bytes[1] = p_alpha[2];
-    bytes[2] = v102;
-    *bytes = v101;
-    v103 = p_alpha[4];
-    v104 = p_alpha[5];
-    v105 = p_alpha[7];
+    bytes[2] = v99;
+    *bytes = v98;
+    v100 = p_alpha[4];
+    v101 = p_alpha[5];
+    v102 = p_alpha[7];
     bytes[5] = p_alpha[6];
-    bytes[6] = v105;
-    bytes[3] = v103;
-    bytes[4] = v104;
-    v106 = p_alpha[8];
-    v107 = p_alpha[9];
-    v108 = p_alpha[11];
+    bytes[6] = v102;
+    bytes[3] = v100;
+    bytes[4] = v101;
+    v103 = p_alpha[8];
+    v104 = p_alpha[9];
+    v105 = p_alpha[11];
     bytes[9] = p_alpha[10];
-    bytes[10] = v108;
-    bytes[7] = v106;
-    bytes[8] = v107;
-    inDeltaData2 = [v169 inDeltaData];
-    v110 = [inDeltaData2 objectAtIndexedSubscript:1];
-    bytes2 = [v110 bytes];
+    bytes[10] = v105;
+    bytes[7] = v103;
+    bytes[8] = v104;
+    inDeltaData2 = [v167 inDeltaData];
+    v107 = [inDeltaData2 objectAtIndexedSubscript:1];
+    bytes2 = [v107 bytes];
 
-    v112 = p_alpha[12];
-    v113 = p_alpha[14];
+    v109 = p_alpha[12];
+    v110 = p_alpha[14];
     bytes2[1] = p_alpha[13];
-    bytes2[2] = v113;
-    *bytes2 = v112;
-    v114 = p_alpha[15];
-    v115 = p_alpha[16];
-    v116 = p_alpha[18];
+    bytes2[2] = v110;
+    *bytes2 = v109;
+    v111 = p_alpha[15];
+    v112 = p_alpha[16];
+    v113 = p_alpha[18];
     bytes2[5] = p_alpha[17];
-    bytes2[6] = v116;
-    bytes2[3] = v114;
-    bytes2[4] = v115;
-    v117 = p_alpha[19];
-    v118 = p_alpha[20];
-    v119 = p_alpha[22];
+    bytes2[6] = v113;
+    bytes2[3] = v111;
+    bytes2[4] = v112;
+    v114 = p_alpha[19];
+    v115 = p_alpha[20];
+    v116 = p_alpha[22];
     bytes2[9] = p_alpha[21];
-    bytes2[10] = v119;
-    bytes2[7] = v117;
-    bytes2[8] = v118;
-    outDeltaData = [v169 outDeltaData];
-    v121 = [outDeltaData objectAtIndexedSubscript:0];
-    bytes3 = [v121 bytes];
+    bytes2[10] = v116;
+    bytes2[7] = v114;
+    bytes2[8] = v115;
+    outDeltaData = [v167 outDeltaData];
+    v118 = [outDeltaData objectAtIndexedSubscript:0];
+    bytes3 = [v118 bytes];
 
-    v123 = p_alpha[23];
-    v124 = p_alpha[25];
+    v120 = p_alpha[23];
+    v121 = p_alpha[25];
     bytes3[1] = p_alpha[24];
-    bytes3[2] = v124;
-    *bytes3 = v123;
-    v125 = p_alpha[26];
-    v126 = p_alpha[27];
-    v127 = p_alpha[29];
+    bytes3[2] = v121;
+    *bytes3 = v120;
+    v122 = p_alpha[26];
+    v123 = p_alpha[27];
+    v124 = p_alpha[29];
     bytes3[5] = p_alpha[28];
-    bytes3[6] = v127;
-    bytes3[3] = v125;
-    bytes3[4] = v126;
-    v128 = p_alpha[30];
-    v129 = p_alpha[31];
-    v130 = p_alpha[33];
+    bytes3[6] = v124;
+    bytes3[3] = v122;
+    bytes3[4] = v123;
+    v125 = p_alpha[30];
+    v126 = p_alpha[31];
+    v127 = p_alpha[33];
     bytes3[9] = p_alpha[32];
-    bytes3[10] = v130;
-    bytes3[7] = v128;
-    bytes3[8] = v129;
+    bytes3[10] = v127;
+    bytes3[7] = v125;
+    bytes3[8] = v126;
   }
 
   if ([tensorsCopy count] == 2)
   {
-    v72 = 1;
+    v69 = 1;
     goto LABEL_24;
   }
 
-  bzero(v170, 0x218uLL);
-  v162 = [MEMORY[0x277CBEA90] dataWithBytes:v170 length:536];
-  bytes4 = [v162 bytes];
-  v131 = [tensorsCopy objectAtIndexedSubscript:2];
-  descriptor28 = [v131 descriptor];
-  shape9 = [descriptor28 shape];
-  v134 = [shape9 mutableCopy];
+  bzero(v168, 0x218uLL);
+  v160 = [MEMORY[0x277CBEA90] dataWithBytes:v168 length:536];
+  bytes4 = [v160 bytes];
+  v128 = [tensorsCopy objectAtIndexedSubscript:2];
+  descriptor20 = [v128 descriptor];
+  shape7 = [descriptor20 shape];
+  v131 = [shape7 mutableCopy];
 
-  v135 = [v134 count];
-  descriptor29 = [v59 descriptor];
-  dimensionCount9 = [descriptor29 dimensionCount];
+  v132 = [v131 count];
+  descriptor21 = [v56 descriptor];
+  dimensionCount9 = [descriptor21 dimensionCount];
 
-  if (v135 < dimensionCount9)
+  if (v132 < dimensionCount9)
   {
     do
     {
-      [v134 insertObject:&unk_284BA5870 atIndex:0];
-      ++v135;
-      descriptor30 = [v59 descriptor];
-      dimensionCount10 = [descriptor30 dimensionCount];
+      [v131 insertObject:&unk_284BA5870 atIndex:0];
+      ++v132;
+      descriptor22 = [v56 descriptor];
+      dimensionCount10 = [descriptor22 dimensionCount];
     }
 
-    while (v135 < dimensionCount10);
+    while (v132 < dimensionCount10);
   }
 
-  descriptor31 = [v59 descriptor];
-  v141 = +[MLCTensorDescriptor descriptorWithShape:dataType:](MLCTensorDescriptor, "descriptorWithShape:dataType:", v134, [descriptor31 dataType]);
-  v142 = [MLCTensor tensorWithDescriptor:v141];
+  descriptor23 = [v56 descriptor];
+  v138 = +[MLCTensorDescriptor descriptorWithShape:dataType:](MLCTensorDescriptor, "descriptorWithShape:dataType:", v131, [descriptor23 dataType]);
+  v139 = [MLCTensor tensorWithDescriptor:v138];
 
-  descriptor32 = [v142 descriptor];
-  shape10 = [descriptor32 shape];
-  descriptor33 = [v142 descriptor];
-  stride4 = [descriptor33 stride];
-  descriptor34 = [v142 descriptor];
-  LODWORD(v141) = [descriptor34 dataType];
-  v161 = v142;
-  descriptor35 = [v142 descriptor];
-  LOBYTE(v141) = CPU_BuildBNNSNDArrayDescriptorRowMajor(bytes4 + 176, shape10, stride4, 0, v141, [descriptor35 dimensionCount], 0);
+  descriptor24 = [v139 descriptor];
+  shape8 = [descriptor24 shape];
+  descriptor25 = [v139 descriptor];
+  stride2 = [descriptor25 stride];
+  descriptor26 = [v139 descriptor];
+  dataType2 = [descriptor26 dataType];
+  v159 = v139;
+  descriptor27 = [v139 descriptor];
+  LOBYTE(dataType2) = CPU_BuildBNNSNDArrayDescriptorRowMajor(bytes4 + 176, shape8, stride2, 0, dataType2, [descriptor27 dimensionCount], 0);
 
-  if (v141)
+  if (dataType2)
   {
-    v148 = *&layer_params->o_desc.flags;
-    v149 = *&layer_params->o_desc.size[3];
+    v146 = *&layer_params->o_desc.flags;
+    v147 = *&layer_params->o_desc.size[3];
     *(bytes4 + 16) = *&layer_params->o_desc.size[1];
-    *(bytes4 + 32) = v149;
-    *bytes4 = v148;
-    v150 = *&layer_params->o_desc.size[5];
-    v151 = *&layer_params->o_desc.size[7];
-    v152 = *&layer_params->o_desc.stride[3];
+    *(bytes4 + 32) = v147;
+    *bytes4 = v146;
+    v148 = *&layer_params->o_desc.size[5];
+    v149 = *&layer_params->o_desc.size[7];
+    v150 = *&layer_params->o_desc.stride[3];
     *(bytes4 + 80) = *&layer_params->o_desc.stride[1];
-    *(bytes4 + 96) = v152;
-    *(bytes4 + 48) = v150;
-    *(bytes4 + 64) = v151;
-    v153 = *&layer_params->o_desc.stride[5];
-    v154 = *&layer_params->o_desc.stride[7];
-    v155 = *&layer_params->o_desc.table_data_type;
+    *(bytes4 + 96) = v150;
+    *(bytes4 + 48) = v148;
+    *(bytes4 + 64) = v149;
+    v151 = *&layer_params->o_desc.stride[5];
+    v152 = *&layer_params->o_desc.stride[7];
+    v153 = *&layer_params->o_desc.table_data_type;
     *(bytes4 + 144) = *&layer_params->o_desc.data_type;
-    *(bytes4 + 160) = v155;
-    *(bytes4 + 112) = v153;
-    *(bytes4 + 128) = v154;
+    *(bytes4 + 160) = v153;
+    *(bytes4 + 112) = v151;
+    *(bytes4 + 128) = v152;
     *(bytes4 + 528) = 6;
-    v156 = MEMORY[0x23EE75CE0](bytes4, &filter_params);
-    v72 = v156 != 0;
-    v157 = v162;
-    if (v156)
+    v154 = MEMORY[0x23EE75CE0](bytes4, &filter_params);
+    v69 = v154 != 0;
+    v155 = v160;
+    if (v154)
     {
-      v158 = v156;
-      [v169 setFusedPrimitiveParams:v162];
-      layer2 = [v169 layer];
-      [layer2 setSecondaryFilter:v158];
-      v59 = tensorCopy;
+      v156 = v154;
+      [v167 setFusedPrimitiveParams:v160];
+      layer2 = [v167 layer];
+      [layer2 setSecondaryFilter:v156];
+      v56 = tensorCopy;
     }
 
     else
     {
       layer2 = +[MLCLog framework];
-      v59 = tensorCopy;
+      v56 = tensorCopy;
       if (os_log_type_enabled(layer2, OS_LOG_TYPE_ERROR))
       {
         [_MLCCPUMatMul compileWithDevice:a2 deviceOps:layer2 sourceTensors:? resultTensor:?];
       }
     }
 
-    v73 = v165;
+    v70 = v163;
   }
 
   else
   {
-    v72 = 0;
-    v59 = tensorCopy;
-    v73 = v165;
-    v157 = v162;
+    v69 = 0;
+    v56 = tensorCopy;
+    v70 = v163;
+    v155 = v160;
   }
 
 LABEL_25:
-  return v72;
+  return v69;
 }
 
 + (void)compileWithDevice:(const char *)a1 deviceOps:(NSObject *)a2 sourceTensors:resultTensor:.cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: failed to create reduction filter", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%@: failed to create reduction filter", &v4, 0xCu);
 }
 
 @end

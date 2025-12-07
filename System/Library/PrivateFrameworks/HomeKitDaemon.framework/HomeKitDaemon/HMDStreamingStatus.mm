@@ -49,10 +49,10 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"kStreamingStatus_Status"];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v5 = [(HAPTLVBase *)self _parse:v4];
   if (v5)
   {
@@ -60,7 +60,6 @@
     self->_streamingStatus = [field unsignedIntegerValue];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

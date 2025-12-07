@@ -2,6 +2,7 @@
 - (BOOL)_isEqualToNOI:(id)i;
 - (BOOL)isEqual:(id)equal;
 - (NWNetworkOfInterest)initWithCoder:(id)coder;
+- (NWNetworkOfInterest)initWithSpec:(unsigned __int8)spec isAny:(BOOL)any isBuiltin:(BOOL)builtin scopedToLOI:(int64_t)i flags:(int64_t)flags hasCustomSignature:(id)signature;
 - (id)_descriptionFull:(BOOL)full;
 - (id)_thinCopy;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -34,6 +35,30 @@
   v3->_isThinnedOut = 1;
 
   return v3;
+}
+
+- (NWNetworkOfInterest)initWithSpec:(unsigned __int8)spec isAny:(BOOL)any isBuiltin:(BOOL)builtin scopedToLOI:(int64_t)i flags:(int64_t)flags hasCustomSignature:(id)signature
+{
+  specCopy = spec;
+  signatureCopy = signature;
+  v19.receiver = self;
+  v19.super_class = NWNetworkOfInterest;
+  v16 = [(NWNetworkOfInterest *)&v19 init];
+  v17 = v16;
+  if (v16)
+  {
+    v16->_version = 0;
+    v16->_functionalInterfaceType = specCopy;
+    v16->_interface = [FunctionalInterfaceUtils nwInterfaceTypeForNWFunctionalInterfaceType:specCopy];
+    v17->_interfaceSubtype = [FunctionalInterfaceUtils nwInterfaceSubtypeForNWFunctionalInterfaceType:v17->_functionalInterfaceType];
+    v17->_isAny = any;
+    v17->_isBuiltin = builtin;
+    v17->_scopedToLOI = i;
+    v17->_flags = flags;
+    objc_storeStrong(&v17->_customSignature, signature);
+  }
+
+  return v17;
 }
 
 - (NWNetworkOfInterest)initWithCoder:(id)coder

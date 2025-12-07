@@ -6,8 +6,8 @@
 
 - (void)sbui_updateConfiguration
 {
-  configuration = [self configuration];
-  v7 = [configuration copy];
+  v2 = objc_msgSend_configuration(self);
+  v7 = [v2 copy];
 
   v3 = MEMORY[0x1E69DB878];
   traitCollection = [self traitCollection];

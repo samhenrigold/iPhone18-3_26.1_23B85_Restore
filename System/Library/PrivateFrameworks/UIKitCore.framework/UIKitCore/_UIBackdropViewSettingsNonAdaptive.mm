@@ -23,7 +23,7 @@
   [(_UIBackdropViewSettings *)self setSaturationDeltaFactor:1.5];
   [(_UIBackdropViewSettings *)self setFilterMaskAlpha:1.0];
   [(_UIBackdropViewSettings *)self setFilterMaskImage:0];
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   [(_UIBackdropViewSettings *)self setLegibleColor:v3];
 }
 

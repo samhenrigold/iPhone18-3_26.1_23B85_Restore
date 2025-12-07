@@ -37,7 +37,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CRLiOSSidebarViewController();
+  v5.super_class = type metadata accessor for CRLiOSSidebarViewController(0);
   v4 = v5.receiver;
   [(CRLiOSSidebarViewController *)&v5 viewDidAppear:appearCopy];
   [objc_opt_self() addKeyboardObserver:{v4, v5.receiver, v5.super_class}];
@@ -61,32 +61,32 @@
 
   else
   {
-    memset(v15, 0, sizeof(v15));
+    memset(v16, 0, sizeof(v16));
     selfCopy2 = self;
   }
 
-  sub_10061E248(action, v15, &v16);
+  sub_10061E248(action, v16, &v17);
 
-  sub_10000CAAC(v15, &unk_1019F4D00);
-  v8 = v17;
-  if (v17)
+  sub_10000CAAC(v16, &unk_1019F4D00, &unk_10146E7F0);
+  v8 = v18;
+  if (v18)
   {
-    v9 = sub_100020E58(&v16, v17);
+    v9 = sub_100020E58(&v17, v18);
     v10 = *(v8 - 8);
-    __chkstk_darwin(v9);
-    v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v10 + 16))(v12);
-    v13 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v10 + 8))(v12, v8);
-    sub_100005070(&v16);
+    v11 = __chkstk_darwin(v9);
+    v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v10 + 16))(v13, v11);
+    v14 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v10 + 8))(v13, v8);
+    sub_100005070(&v17);
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (_TtC8Freeform27CRLiOSSidebarViewController)initWithCollectionViewLayout:(id)layout
@@ -108,11 +108,12 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_10062BC3C();
+  sub_10062BC3C(v9);
+  LOBYTE(self) = v12;
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -127,7 +128,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10062C398();
+  sub_10062C398(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -145,15 +146,16 @@
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_10062D174();
+  sub_10062D174(v10);
+  v14 = v13;
 
   (*(v8 + 8))(v10, v7);
 
-  return v13;
+  return v14;
 }
 
 - (id)collectionView:(id)view itemsForBeginningDragSession:(id)session atIndexPath:(id)path
@@ -166,11 +168,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10062DB14(session);
+  sub_10062DB14(session, v11);
 
   swift_unknownObjectRelease();
   (*(v9 + 8))(v11, v8);
-  sub_100006370(0, &qword_1019F6698);
+  sub_100006370(0, &qword_1019F6698, UIDragItem_ptr);
   v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v14.super.isa;
@@ -186,11 +188,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10062E3AC(session);
+  sub_10062E3AC(session, v12);
 
   swift_unknownObjectRelease();
   (*(v10 + 8))(v12, v9);
-  sub_100006370(0, &qword_1019F6698);
+  sub_100006370(0, &qword_1019F6698, UIDragItem_ptr);
   v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v15.super.isa;
@@ -198,7 +200,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = sub_1005B981C(&unk_101A23C40);
+  v9 = sub_1005B981C(&unk_101A23C40, &unk_10146F200);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -220,7 +222,7 @@
   v16 = sub_10061FD70(viewCopy, update, v11);
 
   swift_unknownObjectRelease();
-  sub_10000CAAC(v11, &unk_101A23C40);
+  sub_10000CAAC(v11, &unk_101A23C40, &unk_10146F200);
 
   return v16;
 }
@@ -263,7 +265,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100621074();
+  sub_100621074(v7);
 
   (*(v5 + 8))(v7, v4);
 }

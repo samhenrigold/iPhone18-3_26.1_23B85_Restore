@@ -9,7 +9,7 @@
 
 - (id)triLogDesc
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_getAssociatedObject(self, "triLogDesc");
   if (!v3)
   {
@@ -22,26 +22,26 @@
 
     selfCopy = self;
     v5 = objc_opt_new();
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     obj = [selfCopy subpredicates];
-    v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v24;
+      v8 = *v23;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v24 != v8)
+          if (*v23 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v23 + 1) + 8 * i);
+          v10 = *(*(&v22 + 1) + 8 * i);
           v11 = objc_alloc(MEMORY[0x277CCACA8]);
           triLogDesc = [v10 triLogDesc];
           v13 = triLogDesc;
@@ -59,7 +59,7 @@
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v7);
@@ -100,14 +100,12 @@ LABEL_23:
 LABEL_24:
   v19 = v3;
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (void)_triAnnotatePredicate:()TRI format:usingArgs:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = objc_opt_new();
@@ -124,7 +122,7 @@ LABEL_15:
   while (1)
   {
     v11 = [v8 characterAtIndex:v10];
-    v23 = v11;
+    v22 = v11;
     if (v11 == 37)
     {
       v12 = v10 + 1;
@@ -134,7 +132,7 @@ LABEL_15:
       }
     }
 
-    v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v23 length:1];
+    v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v22 length:1];
     [v9 appendString:v16];
 
     v12 = v10;
@@ -146,9 +144,9 @@ LABEL_14:
     }
   }
 
-  v23 = [v8 characterAtIndex:v10 + 1];
-  v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v23 length:1];
-  if (v23 == 75)
+  v22 = [v8 characterAtIndex:v10 + 1];
+  v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCharacters:&v22 length:1];
+  if (v22 == 75)
   {
     v17 = objc_alloc(MEMORY[0x277CCACA8]);
     v18 = *a5;
@@ -160,7 +158,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (v23 == 37)
+  if (v22 == 37)
   {
     v14 = v9;
     v15 = v13;
@@ -177,18 +175,17 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v22 = TRILogCategory_Server();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v21 = TRILogCategory_Server();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v25 = "+[NSPredicate(TRI) _triAnnotatePredicate:format:usingArgs:]";
-    v26 = 2112;
-    v27 = v8;
-    _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, "%s: unsupported format specifier %@", buf, 0x16u);
+    v24 = "+[NSPredicate(TRI) _triAnnotatePredicate:format:usingArgs:]";
+    v25 = 2112;
+    v26 = v8;
+    _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "%s: unsupported format specifier %@", buf, 0x16u);
   }
 
 LABEL_16:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)triLoggablePredicateWithFormat:()TRI

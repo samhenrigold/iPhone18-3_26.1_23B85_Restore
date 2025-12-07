@@ -55,29 +55,29 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   currentSettings = [MEMORY[0x1E69B0B08] currentSettings];
   verboseImageLoadingLogging = [currentSettings verboseImageLoadingLogging];
 
   if (verboseImageLoadingLogging)
   {
-    v5 = MCLogCategoryImageLoading();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MCLogCategoryImageLoading(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v9 = objc_opt_class();
-      v10 = 2048;
+      v10 = objc_opt_class();
+      v11 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> deallocating.", buf, 0x16u);
+      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> deallocating.", buf, 0x16u);
     }
   }
 
-  v6 = +[MRUImageLoaderCoordinator sharedCoordinator];
-  [v6 unregisterLoader:self];
+  v7 = +[MRUImageLoaderCoordinator sharedCoordinator];
+  [v7 unregisterLoader:self];
 
-  v7.receiver = self;
-  v7.super_class = MRUImageLoader;
-  [(MRUImageLoader *)&v7 dealloc];
+  v8.receiver = self;
+  v8.super_class = MRUImageLoader;
+  [(MRUImageLoader *)&v8 dealloc];
 }
 
 - (BOOL)wouldLoadNewImageForCatalog:(id)catalog
@@ -87,7 +87,7 @@
   destination = [(MRUImageLoader *)self destination];
   if (destination)
   {
-    if ([(MRUImageLoader *)self state]== 2)
+    if (objc_msgSend_state(self) == 2)
     {
       if (NSClassFromString(&cfstr_Mpcmrcontentit.isa) && ((objc_opt_isKindOfClass() & 1) != 0 || ([destination artworkCatalog], v6 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0)))
       {
@@ -177,7 +177,7 @@
 
 - (void)updateCatalog:(id)catalog
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   catalogCopy = catalog;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   catalog = [(MRUImageLoader *)self catalog];
@@ -205,14 +205,14 @@
 
           if (verboseImageLoadingLogging)
           {
-            v9 = MCLogCategoryImageLoading();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+            v10 = MCLogCategoryImageLoading(v9);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              v12 = 138412546;
-              v13 = objc_opt_class();
-              v14 = 2048;
+              v13 = 138412546;
+              v14 = objc_opt_class();
+              v15 = 2048;
               selfCopy = self;
-              _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update with nil catalog.", &v12, 0x16u);
+              _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update with nil catalog.", &v13, 0x16u);
             }
           }
 
@@ -236,7 +236,7 @@
 {
   height = size.height;
   width = size.width;
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   [(MRUImageLoader *)self deferredFittingSize];
   v10 = v9 == width && v8 == height;
@@ -247,22 +247,22 @@
 
     if (verboseImageLoadingLogging)
     {
-      v14 = MCLogCategoryImageLoading();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = MCLogCategoryImageLoading(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = objc_opt_class();
-        v28.width = width;
-        v28.height = height;
-        v16 = NSStringFromCGSize(v28);
+        v16 = objc_opt_class();
+        v29.width = width;
+        v29.height = height;
+        v17 = NSStringFromCGSize(v29);
         *buf = 138413058;
-        v20 = v15;
-        v21 = 2048;
+        v21 = v16;
+        v22 = 2048;
         selfCopy = self;
-        v23 = 2112;
-        v24 = v16;
-        v25 = 2048;
+        v24 = 2112;
+        v25 = v17;
+        v26 = 2048;
         scaleCopy = scale;
-        _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update deferred fitting size: %@, scale: %lf.", buf, 0x2Au);
+        _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update deferred fitting size: %@, scale: %lf.", buf, 0x2Au);
       }
     }
 
@@ -276,7 +276,7 @@
       block[2] = __42__MRUImageLoader_updateFittingSize_scale___block_invoke;
       block[3] = &unk_1E7663898;
       block[4] = self;
-      v17 = MEMORY[0x1E69E96A0];
+      v18 = MEMORY[0x1E69E96A0];
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
   }
@@ -284,7 +284,7 @@
 
 - (void)deferredUpdateFittingSize
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   [(MRUImageLoader *)self deferredFittingSize];
   v4 = v3;
   v6 = v5;
@@ -304,28 +304,28 @@
 
     if (verboseImageLoadingLogging)
     {
-      v17 = MCLogCategoryImageLoading();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = MCLogCategoryImageLoading(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
+        v19 = objc_opt_class();
         [(MRUImageLoader *)self fittingSize];
-        v19 = NSStringFromCGSize(v50);
+        v20 = NSStringFromCGSize(v52);
         [(MRUImageLoader *)self scale];
         *buf = 138413058;
-        v42 = v18;
-        v43 = 2048;
+        v44 = v19;
+        v45 = 2048;
         selfCopy2 = self;
-        v45 = 2112;
-        v46 = v19;
-        v47 = 2048;
+        v47 = 2112;
         v48 = v20;
-        _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update fitting size: %@, scale: %lf.", buf, 0x2Au);
+        v49 = 2048;
+        v50 = v21;
+        _os_log_impl(&dword_1A20FC000, v18, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update fitting size: %@, scale: %lf.", buf, 0x2Au);
       }
     }
 
     destination = [(MRUImageLoader *)self destination];
-    v22 = +[MRUImageLoaderCoordinator sharedCoordinator];
-    [v22 registeredLoaderFittingSizeDidChange:self];
+    v23 = +[MRUImageLoaderCoordinator sharedCoordinator];
+    [v23 registeredLoaderFittingSizeDidChange:self];
 
     if (destination && ![(MRUImageLoader *)self vendCachedImageIfPossible])
     {
@@ -338,17 +338,17 @@
         {
           if (+[MRUFeatureFlagProvider isImageCachingEnabled])
           {
-            v25 = +[MRUImageLoaderCoordinator sharedCoordinator];
-            [v25 requestSize];
-            v27 = v26;
-            v29 = v28;
+            v26 = +[MRUImageLoaderCoordinator sharedCoordinator];
+            [v26 requestSize];
+            v28 = v27;
+            v30 = v29;
           }
 
           else
           {
             [(MRUImageLoader *)self scaledFittingSize];
-            v27 = v30;
-            v29 = v31;
+            v28 = v31;
+            v30 = v32;
           }
 
           currentSettings2 = [MEMORY[0x1E69B0B08] currentSettings];
@@ -356,36 +356,36 @@
 
           if (verboseImageLoadingLogging2)
           {
-            v34 = MCLogCategoryImageLoading();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            v36 = MCLogCategoryImageLoading(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              v35 = objc_opt_class();
-              v51.width = v27;
-              v51.height = v29;
-              v36 = NSStringFromCGSize(v51);
+              v37 = objc_opt_class();
+              v53.width = v28;
+              v53.height = v30;
+              v38 = NSStringFromCGSize(v53);
               *buf = 138413058;
-              v42 = v35;
-              v43 = 2048;
+              v44 = v37;
+              v45 = 2048;
               selfCopy2 = self;
-              v45 = 2112;
-              v46 = v36;
-              v47 = 2048;
-              v48 = artworkCatalog;
-              _os_log_impl(&dword_1A20FC000, v34, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update fitting size: %@ on associated catalog: %p", buf, 0x2Au);
+              v47 = 2112;
+              v48 = v38;
+              v49 = 2048;
+              v50 = artworkCatalog;
+              _os_log_impl(&dword_1A20FC000, v36, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> update fitting size: %@ on associated catalog: %p", buf, 0x2Au);
             }
           }
 
           [(MRUImageLoader *)self scaledFittingSize];
           [(MRUImageLoader *)self setTargetFittingSizeForCurrentCatalogConfiguration:?];
           [(MRUImageLoader *)self setState:2];
-          v37[0] = MEMORY[0x1E69E9820];
-          v37[1] = 3221225472;
-          v37[2] = __43__MRUImageLoader_deferredUpdateFittingSize__block_invoke;
-          v37[3] = &unk_1E7665B38;
-          v38 = artworkCatalog;
-          v39 = v27;
-          v40 = v29;
-          [(MRUImageLoader *)self withNoEscapeCheck:v37];
+          v39[0] = MEMORY[0x1E69E9820];
+          v39[1] = 3221225472;
+          v39[2] = __43__MRUImageLoader_deferredUpdateFittingSize__block_invoke;
+          v39[3] = &unk_1E7665B38;
+          v40 = artworkCatalog;
+          v41 = v28;
+          v42 = v30;
+          [(MRUImageLoader *)self withNoEscapeCheck:v39];
         }
       }
 
@@ -399,7 +399,7 @@
 
 - (BOOL)vendCachedImageIfPossible
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   catalog = [(MRUImageLoader *)self catalog];
   overlayDelegate = [catalog overlayDelegate];
 
@@ -433,18 +433,18 @@
 
           if (verboseImageLoadingLogging)
           {
-            v15 = MCLogCategoryImageLoading();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v16 = MCLogCategoryImageLoading(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
-              v20 = 138413058;
-              v21 = objc_opt_class();
-              v22 = 2048;
+              v21 = 138413058;
+              v22 = objc_opt_class();
+              v23 = 2048;
               selfCopy = self;
-              v24 = 2112;
-              v25 = catalog2;
-              v26 = 2112;
-              v27 = destination;
-              _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> Vending cached image %@ to destination %@.", &v20, 0x2Au);
+              v25 = 2112;
+              v26 = catalog2;
+              v27 = 2112;
+              v28 = destination;
+              _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> Vending cached image %@ to destination %@.", &v21, 0x2Au);
             }
           }
 
@@ -486,46 +486,46 @@
 
 - (void)setState:(int64_t)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   currentSettings = [MEMORY[0x1E69B0B08] currentSettings];
   verboseImageLoadingLogging = [currentSettings verboseImageLoadingLogging];
 
   if (verboseImageLoadingLogging)
   {
-    v7 = MCLogCategoryImageLoading();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MCLogCategoryImageLoading(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = self->_state - 2;
-      if (v9 > 4)
-      {
-        v10 = @"initial";
-      }
-
-      else
-      {
-        v10 = off_1E7665E68[v9];
-      }
-
-      if ((state - 2) > 4)
+      v9 = objc_opt_class();
+      v10 = self->_state - 2;
+      if (v10 > 4)
       {
         v11 = @"initial";
       }
 
       else
       {
-        v11 = off_1E7665E68[state - 2];
+        v11 = off_1E7665E68[v10];
       }
 
-      v12 = 138413058;
-      v13 = v8;
-      v14 = 2048;
+      if ((state - 2) > 4)
+      {
+        v12 = @"initial";
+      }
+
+      else
+      {
+        v12 = off_1E7665E68[state - 2];
+      }
+
+      v13 = 138413058;
+      v14 = v9;
+      v15 = 2048;
       selfCopy = self;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> transition %@ -> %@.", &v12, 0x2Au);
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> transition %@ -> %@.", &v13, 0x2Au);
     }
   }
 
@@ -543,11 +543,11 @@
 
 - (void)configureCatalog
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   destination = [(MRUImageLoader *)self destination];
   catalog = [(MRUImageLoader *)self catalog];
   visualIdenticalityIdentifier = [catalog visualIdenticalityIdentifier];
-  if ([(MRUImageLoader *)self state]== 4)
+  if (objc_msgSend_state(self) == 4)
   {
     stringRepresentation = [visualIdenticalityIdentifier stringRepresentation];
     lastFailedArtworkIdentifier = [(MRUImageLoader *)self lastFailedArtworkIdentifier];
@@ -575,16 +575,16 @@
       goto LABEL_31;
     }
 
-    v15 = MCLogCategoryImageLoading();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = MCLogCategoryImageLoading(v20);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v33 = objc_opt_class();
-      v34 = 2048;
+      v36 = objc_opt_class();
+      v37 = 2048;
       selfCopy3 = self;
-      v36 = 2048;
-      v37 = catalog;
-      _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> will not configure catalog %p vending oversized artwork.", buf, 0x20u);
+      v39 = 2048;
+      v40 = catalog;
+      _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> will not configure catalog %p vending oversized artwork.", buf, 0x20u);
     }
 
     goto LABEL_13;
@@ -608,7 +608,7 @@ LABEL_4:
     }
   }
 
-  if ([(MRUImageLoader *)self state]== 3 && [(MRUImageLoader *)self failedLoadingCount]>= 3)
+  if (objc_msgSend_state(self) == 3 && [(MRUImageLoader *)self failedLoadingCount]>= 3)
   {
     currentSettings2 = [MEMORY[0x1E69B0B08] currentSettings];
     verboseImageLoadingLogging2 = [currentSettings2 verboseImageLoadingLogging];
@@ -618,16 +618,16 @@ LABEL_4:
       goto LABEL_31;
     }
 
-    v15 = MCLogCategoryImageLoading();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = MCLogCategoryImageLoading(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v33 = objc_opt_class();
-      v34 = 2048;
+      v36 = objc_opt_class();
+      v37 = 2048;
       selfCopy3 = self;
-      v36 = 2048;
-      v37 = catalog;
-      _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> exhausted retries, will not configure catalog %p.", buf, 0x20u);
+      v39 = 2048;
+      v40 = catalog;
+      _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> exhausted retries, will not configure catalog %p.", buf, 0x20u);
     }
 
 LABEL_13:
@@ -642,8 +642,8 @@ LABEL_14:
     [(MRUImageLoader *)self setState:2];
     [(MRUImageLoader *)self scaledFittingSize];
     [(MRUImageLoader *)self setTargetFittingSizeForCurrentCatalogConfiguration:?];
-    v16 = +[MRUFeatureFlagProvider isImageCachingEnabled];
-    if (v16)
+    v17 = +[MRUFeatureFlagProvider isImageCachingEnabled];
+    if (v17)
     {
       lastFailedArtworkIdentifier = +[MRUImageLoaderCoordinator sharedCoordinator];
       [lastFailedArtworkIdentifier requestSize];
@@ -655,7 +655,7 @@ LABEL_14:
     }
 
     [catalog setFittingSize:?];
-    if (v16)
+    if (v17)
     {
     }
 
@@ -664,41 +664,41 @@ LABEL_14:
 
     if (verboseImageLoadingLogging3)
     {
-      v21 = MCLogCategoryImageLoading();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = MCLogCategoryImageLoading(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = objc_opt_class();
+        v25 = objc_opt_class();
         visualIdenticalityIdentifier2 = [catalog visualIdenticalityIdentifier];
         stringRepresentation3 = [visualIdenticalityIdentifier2 stringRepresentation];
         [catalog fittingSize];
-        v25 = NSStringFromCGSize(v45);
+        v28 = NSStringFromCGSize(v48);
         [(MRUImageLoader *)self scaledFittingSize];
-        v26 = NSStringFromCGSize(v46);
+        v29 = NSStringFromCGSize(v49);
         *buf = 138413570;
-        v33 = v22;
-        v34 = 2048;
+        v36 = v25;
+        v37 = 2048;
         selfCopy3 = self;
-        v36 = 2048;
-        v37 = catalog;
-        v38 = 2112;
-        v39 = stringRepresentation3;
-        v40 = 2112;
-        v41 = v25;
-        v42 = 2112;
-        v43 = v26;
-        _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> configuring catalog %p, with identifier: %@, request size: %@, scaled fitting size: %@.", buf, 0x3Eu);
+        v39 = 2048;
+        v40 = catalog;
+        v41 = 2112;
+        v42 = stringRepresentation3;
+        v43 = 2112;
+        v44 = v28;
+        v45 = 2112;
+        v46 = v29;
+        _os_log_impl(&dword_1A20FC000, v24, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> configuring catalog %p, with identifier: %@, request size: %@, scaled fitting size: %@.", buf, 0x3Eu);
       }
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __34__MRUImageLoader_configureCatalog__block_invoke;
-    v27[3] = &unk_1E7665E48;
-    v28 = catalog;
-    v29 = destination;
-    objc_copyWeak(&v30, &location);
-    [(MRUImageLoader *)self withNoEscapeCheck:v27];
-    objc_destroyWeak(&v30);
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __34__MRUImageLoader_configureCatalog__block_invoke;
+    v30[3] = &unk_1E7665E48;
+    v31 = catalog;
+    v32 = destination;
+    objc_copyWeak(&v33, &location);
+    [(MRUImageLoader *)self withNoEscapeCheck:v30];
+    objc_destroyWeak(&v33);
 
     objc_destroyWeak(&location);
   }
@@ -721,7 +721,7 @@ void __34__MRUImageLoader_configureCatalog__block_invoke(uint64_t a1)
 
 void __34__MRUImageLoader_configureCatalog__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -756,63 +756,63 @@ void __34__MRUImageLoader_configureCatalog__block_invoke_2(uint64_t a1, void *a2
         {
           if (![WeakRetained runningSynchronously])
           {
-            v35 = 1;
+            v37 = 1;
 LABEL_24:
             if ([WeakRetained formatImages])
             {
-              v36 = [v8 visualIdenticalityIdentifier];
-              v37 = [v36 stringRepresentation];
-              v28 = [MRUImageUtilities formatImage:v6 withIdentifier:v37 forDisplayAtSize:v35 useCache:v17, v19];
+              v38 = [v8 visualIdenticalityIdentifier];
+              v39 = [v38 stringRepresentation];
+              v30 = [MRUImageUtilities formatImage:v6 withIdentifier:v39 forDisplayAtSize:v37 useCache:v17, v19];
 
-              if (v28)
+              if (v30)
               {
 LABEL_30:
-                v40 = [MEMORY[0x1E69B0B08] currentSettings];
-                v41 = [v40 verboseImageLoadingLogging];
+                v43 = [MEMORY[0x1E69B0B08] currentSettings];
+                v44 = [v43 verboseImageLoadingLogging];
 
-                if (v41)
+                if (v44)
                 {
-                  v42 = MCLogCategoryImageLoading();
-                  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+                  v46 = MCLogCategoryImageLoading(v45);
+                  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
                   {
-                    v43 = objc_opt_class();
-                    v45 = 138413058;
-                    v46 = v43;
-                    v47 = 2048;
-                    v48 = WeakRetained;
-                    v49 = 2112;
-                    v50 = v28;
-                    v51 = 2112;
-                    v52 = v5;
-                    _os_log_impl(&dword_1A20FC000, v42, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> Vending formatted image %@ to destination %@.", &v45, 0x2Au);
+                    v47 = objc_opt_class();
+                    v49 = 138413058;
+                    v50 = v47;
+                    v51 = 2048;
+                    v52 = WeakRetained;
+                    v53 = 2112;
+                    v54 = v30;
+                    v55 = 2112;
+                    v56 = v5;
+                    _os_log_impl(&dword_1A20FC000, v46, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> Vending formatted image %@ to destination %@.", &v49, 0x2Au);
                   }
                 }
 
                 [WeakRetained setState:5];
                 [WeakRetained setFailedLoadingCount:0];
                 [WeakRetained setLastFailedArtworkIdentifier:0];
-                v44 = [v8 visualIdenticalityIdentifier];
-                [WeakRetained setLastVendedArtworkIdentifier:v44];
+                v48 = [v8 visualIdenticalityIdentifier];
+                [WeakRetained setLastVendedArtworkIdentifier:v48];
 
                 [WeakRetained setLastVendedScaledFittingSize:{v17, v19}];
-                v34 = [WeakRetained imageHandler];
-                (v34)[2](v34, v28, 0);
+                v36 = [WeakRetained imageHandler];
+                (v36)[2](v36, v30, 0);
                 goto LABEL_35;
               }
 
-              v38 = MCLogCategoryImageLoading();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              v41 = MCLogCategoryImageLoading(v40);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
               {
-                v39 = objc_opt_class();
-                v45 = 138412546;
-                v46 = v39;
-                v47 = 2048;
-                v48 = WeakRetained;
-                _os_log_impl(&dword_1A20FC000, v38, OS_LOG_TYPE_ERROR, "[MRUImageLoader] %@<%p> Failed to format image. Will use original.", &v45, 0x16u);
+                v42 = objc_opt_class();
+                v49 = 138412546;
+                v50 = v42;
+                v51 = 2048;
+                v52 = WeakRetained;
+                _os_log_impl(&dword_1A20FC000, v41, OS_LOG_TYPE_ERROR, "[MRUImageLoader] %@<%p> Failed to format image. Will use original.", &v49, 0x16u);
               }
             }
 
-            v28 = v6;
+            v30 = v6;
             goto LABEL_30;
           }
 
@@ -821,81 +821,81 @@ LABEL_30:
 
           if (v24)
           {
-            v25 = MCLogCategoryImageLoading();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v26 = MCLogCategoryImageLoading(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
-              v45 = 138412802;
-              v46 = objc_opt_class();
-              v47 = 2048;
-              v48 = WeakRetained;
-              v49 = 2112;
-              v50 = v6;
-              _os_log_impl(&dword_1A20FC000, v25, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> skip caching for image that is already cached in catalog: %@.", &v45, 0x20u);
+              v49 = 138412802;
+              v50 = objc_opt_class();
+              v51 = 2048;
+              v52 = WeakRetained;
+              v53 = 2112;
+              v54 = v6;
+              _os_log_impl(&dword_1A20FC000, v26, OS_LOG_TYPE_DEFAULT, "[MRUImageLoader] %@<%p> skip caching for image that is already cached in catalog: %@.", &v49, 0x20u);
             }
           }
         }
 
-        v35 = 0;
+        v37 = 0;
         goto LABEL_24;
       }
 
       [WeakRetained setLastVendedArtworkIdentifier:0];
-      v32 = [v8 visualIdenticalityIdentifier];
-      [WeakRetained setLastFailedArtworkIdentifier:v32];
+      v34 = [v8 visualIdenticalityIdentifier];
+      [WeakRetained setLastFailedArtworkIdentifier:v34];
 
-      [WeakRetained setState:4];
-      v33 = MCLogCategoryImageLoading();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v35 = MCLogCategoryImageLoading([WeakRetained setState:4]);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v45 = 138412802;
-        v46 = objc_opt_class();
-        v47 = 2048;
-        v48 = WeakRetained;
-        v49 = 2048;
-        v50 = v8;
-        _os_log_impl(&dword_1A20FC000, v33, OS_LOG_TYPE_ERROR, "[MRUImageLoader] %@<%p> Disassociating catalog %p due to oversized artwork.", &v45, 0x20u);
+        v49 = 138412802;
+        v50 = objc_opt_class();
+        v51 = 2048;
+        v52 = WeakRetained;
+        v53 = 2048;
+        v54 = v8;
+        _os_log_impl(&dword_1A20FC000, v35, OS_LOG_TYPE_ERROR, "[MRUImageLoader] %@<%p> Disassociating catalog %p due to oversized artwork.", &v49, 0x20u);
       }
 
       [v5 clearArtworkCatalogs];
-      v28 = [WeakRetained imageHandler];
-      v29 = MEMORY[0x1E696ABC0];
-      v30 = @"Image exceeds max allowed size.";
-      v31 = 200;
+      v30 = [WeakRetained imageHandler];
+      v31 = MEMORY[0x1E696ABC0];
+      v32 = @"Image exceeds max allowed size.";
+      v33 = 200;
     }
 
     else
     {
       [WeakRetained setLastVendedArtworkIdentifier:0];
-      v26 = [v8 visualIdenticalityIdentifier];
-      [WeakRetained setLastFailedArtworkIdentifier:v26];
+      v27 = [v8 visualIdenticalityIdentifier];
+      [WeakRetained setLastFailedArtworkIdentifier:v27];
 
       [WeakRetained setState:3];
       [WeakRetained setFailedLoadingCount:{objc_msgSend(WeakRetained, "failedLoadingCount") + 1}];
-      if ([WeakRetained failedLoadingCount] >= 3)
+      v28 = [WeakRetained failedLoadingCount];
+      if (v28 >= 3)
       {
-        v27 = MCLogCategoryImageLoading();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v29 = MCLogCategoryImageLoading(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v45 = 138412802;
-          v46 = objc_opt_class();
-          v47 = 2048;
-          v48 = WeakRetained;
-          v49 = 2048;
-          v50 = v8;
-          _os_log_impl(&dword_1A20FC000, v27, OS_LOG_TYPE_ERROR, "[MRUImageLoader] %@<%p> Disassociating catalog %p due to repeated failures.", &v45, 0x20u);
+          v49 = 138412802;
+          v50 = objc_opt_class();
+          v51 = 2048;
+          v52 = WeakRetained;
+          v53 = 2048;
+          v54 = v8;
+          _os_log_impl(&dword_1A20FC000, v29, OS_LOG_TYPE_ERROR, "[MRUImageLoader] %@<%p> Disassociating catalog %p due to repeated failures.", &v49, 0x20u);
         }
 
         [v5 clearArtworkCatalogs];
       }
 
-      v28 = [WeakRetained imageHandler];
-      v29 = MEMORY[0x1E696ABC0];
-      v30 = @"Catalog returned nil image.";
-      v31 = 100;
+      v30 = [WeakRetained imageHandler];
+      v31 = MEMORY[0x1E696ABC0];
+      v32 = @"Catalog returned nil image.";
+      v33 = 100;
     }
 
-    v34 = [v29 msv_errorWithDomain:@"MRUImageLoaderError" code:v31 debugDescription:v30];
-    (*(v28 + 2))(v28, 0, v34);
+    v36 = [v31 msv_errorWithDomain:@"MRUImageLoaderError" code:v33 debugDescription:v32];
+    (*(v30 + 2))(v30, 0, v36);
 LABEL_35:
   }
 }

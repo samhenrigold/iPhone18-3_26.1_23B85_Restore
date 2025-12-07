@@ -13,10 +13,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -110,23 +109,21 @@
 
 void __71__HDConceptStoreTaskServer_conceptIndexManagerDidChangeExecutionState___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = v4;
-    v8 = HKSensitiveLogItem();
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v8;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call HKOntologyTaskServerClient clientRemote_conceptIndexManagerDidChangeState: with error: %{public}@", &v9, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = HKSensitiveLogItem();
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call HKOntologyTaskServerClient clientRemote_conceptIndexManagerDidChangeState: with error: %{public}@", &v8, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

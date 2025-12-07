@@ -119,10 +119,9 @@
 
 - (void)main
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: No share and no error%@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AE2A9000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: No share and no error%@", v1, 0xCu);
 }
 
 void __36__BRShareCopyShareURLOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -178,14 +177,6 @@ void __36__BRShareCopyShareURLOperation_main__block_invoke(uint64_t a1, void *a2
   v13.receiver = self;
   v13.super_class = BRShareCopyShareURLOperation;
   [(BROperation *)&v13 finishWithResult:resultCopy error:errorCopy];
-}
-
-- (void)initWithShare:documentType:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_7_0(&dword_1AE2A9000, v0, v1, "[ERROR] CKShare wasn't returned by BRShareCopyShareOperation%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

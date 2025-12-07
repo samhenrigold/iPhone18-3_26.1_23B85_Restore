@@ -115,19 +115,19 @@
 
 - (void)setTexture:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF505468] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF505468, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLRenderPassColorAttachmentDescriptorInternal setTexture:]", 953, @"texture is not a MTLTextureImplementation.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLRenderPassColorAttachmentDescriptorInternal setTexture:]", 953, @"texture is not a MTLTextureImplementation.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)setResolveTexture:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF505468] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF505468, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLRenderPassColorAttachmentDescriptorInternal setResolveTexture:]", 954, @"resolveTexture is not a MTLTextureImplementation.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLRenderPassColorAttachmentDescriptorInternal setResolveTexture:]", 954, @"resolveTexture is not a MTLTextureImplementation.", v9, v10, v11, v12, a9);
   }
 }
 

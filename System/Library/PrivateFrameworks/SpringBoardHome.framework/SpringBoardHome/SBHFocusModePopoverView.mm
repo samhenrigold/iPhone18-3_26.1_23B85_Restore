@@ -31,7 +31,7 @@
     [(SBHFocusModePopoverView *)v8 addSubview:v11];
     v12 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     v13 = MEMORY[0x1E696AEC0];
-    v14 = SBHBundle();
+    v14 = SBHBundle(v12);
     v15 = [v14 localizedStringForKey:@"FOCUS_MODE_POPOVER_BODY" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     v128 = name;
     v16 = [v13 stringWithFormat:v15, name];
@@ -47,8 +47,7 @@
     v135 = v12;
     [v11 addSubview:v12];
     v19 = [MEMORY[0x1E69DC738] buttonWithType:1];
-    [v19 addTarget:v8 action:sel__editPageButtonTapped_ forControlEvents:0x2000];
-    v20 = SBHBundle();
+    v20 = SBHBundle([v19 addTarget:v8 action:sel__editPageButtonTapped_ forControlEvents:0x2000]);
     v21 = [v20 localizedStringForKey:@"EDIT_PAGES" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
     [v19 setTitle:v21 forState:0];
 

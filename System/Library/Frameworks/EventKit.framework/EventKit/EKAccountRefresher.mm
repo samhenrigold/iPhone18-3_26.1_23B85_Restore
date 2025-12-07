@@ -37,7 +37,7 @@
 
 - (void)_eventStoreChanged:(id)changed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self->_refreshing)
   {
     _areAnySourcesCurrentlySyncing = [(EKAccountRefresher *)self _areAnySourcesCurrentlySyncing];
@@ -50,13 +50,13 @@
     {
       if (v9)
       {
-        v12 = 67109632;
-        v13 = _areAnySourcesCurrentlySyncing || _areAnyCalendarsCurrentlySyncing;
-        v14 = 1024;
-        v15 = _areAnySourcesCurrentlySyncing;
-        v16 = 1024;
-        v17 = _areAnyCalendarsCurrentlySyncing;
-        _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "[EKAccountRefresher _eventStoreChanged], and _currentlySyncing is still %{BOOL}i (sources=%{BOOL}i; calendars=%{BOOL}i)", &v12, 0x14u);
+        v11 = 67109632;
+        v12 = _areAnySourcesCurrentlySyncing || _areAnyCalendarsCurrentlySyncing;
+        v13 = 1024;
+        v14 = _areAnySourcesCurrentlySyncing;
+        v15 = 1024;
+        v16 = _areAnyCalendarsCurrentlySyncing;
+        _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "[EKAccountRefresher _eventStoreChanged], and _currentlySyncing is still %{BOOL}i (sources=%{BOOL}i; calendars=%{BOOL}i)", &v11, 0x14u);
       }
     }
 
@@ -65,15 +65,15 @@
       if (v9)
       {
         v10 = self->_currentlySyncing;
-        v12 = 67109888;
-        v13 = v10;
-        v14 = 1024;
-        v15 = _areAnySourcesCurrentlySyncing || _areAnyCalendarsCurrentlySyncing;
-        v16 = 1024;
-        v17 = _areAnySourcesCurrentlySyncing;
-        v18 = 1024;
-        v19 = _areAnyCalendarsCurrentlySyncing;
-        _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "[EKAccountRefresher _eventStoreChanged], and _currentlySyncing changed from %{BOOL}i to %{BOOL}i (sources=%{BOOL}i; calendars=%{BOOL}i)", &v12, 0x1Au);
+        v11 = 67109888;
+        v12 = v10;
+        v13 = 1024;
+        v14 = _areAnySourcesCurrentlySyncing || _areAnyCalendarsCurrentlySyncing;
+        v15 = 1024;
+        v16 = _areAnySourcesCurrentlySyncing;
+        v17 = 1024;
+        v18 = _areAnyCalendarsCurrentlySyncing;
+        _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_DEFAULT, "[EKAccountRefresher _eventStoreChanged], and _currentlySyncing changed from %{BOOL}i to %{BOOL}i (sources=%{BOOL}i; calendars=%{BOOL}i)", &v11, 0x1Au);
       }
 
       self->_currentlySyncing = v6;
@@ -88,8 +88,6 @@
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_syncDidEnd
@@ -109,35 +107,35 @@
 
 - (BOOL)_allSourcesRefreshed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_refreshingSources;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        if (![(EKAccountRefresher *)self sourceFinishedRefreshing:v8, v13])
+        v8 = *(*(&v12 + 1) + 8 * i);
+        if (![(EKAccountRefresher *)self sourceFinishedRefreshing:v8, v12])
         {
           v10 = EKLogHandle;
           v9 = 0;
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v18 = v8;
+            v17 = v8;
             _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_DEFAULT, "%@ has not yet finished refreshing", buf, 0xCu);
             v9 = 0;
           }
@@ -146,7 +144,7 @@
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -159,39 +157,38 @@
   v9 = 1;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)_areAnySourcesCurrentlySyncing
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_refreshingSources;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isSyncing])
+        if ([*(*(&v7 + 1) + 8 * i) isSyncing])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -203,41 +200,40 @@ LABEL_12:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (BOOL)_allCalendarsRefreshed
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_refreshingCalendars;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        if (![(EKAccountRefresher *)self calendarFinishedRefreshing:v8, v13])
+        v8 = *(*(&v12 + 1) + 8 * i);
+        if (![(EKAccountRefresher *)self calendarFinishedRefreshing:v8, v12])
         {
           v10 = EKLogHandle;
           v9 = 0;
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v18 = v8;
+            v17 = v8;
             _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_DEFAULT, "%@ has not yet finished refreshing", buf, 0xCu);
             v9 = 0;
           }
@@ -246,7 +242,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -259,39 +255,38 @@ LABEL_11:
   v9 = 1;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)_areAnyCalendarsCurrentlySyncing
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_refreshingCalendars;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isSyncing])
+        if ([*(*(&v7 + 1) + 8 * i) isSyncing])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -303,13 +298,12 @@ LABEL_12:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)refresh
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (self->_refreshStartDate)
   {
     v2 = EKLogHandle;
@@ -337,60 +331,60 @@ LABEL_11:
     v8 = [v7 mutableCopy];
 
     v9 = objc_opt_new();
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v36;
+      v13 = *v35;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * i);
+          v15 = *(*(&v34 + 1) + 8 * i);
+          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           v16 = [v15 calendarsForEntityType:0];
-          v17 = [v16 countByEnumeratingWithState:&v31 objects:v43 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v30 objects:v42 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v32;
+            v19 = *v31;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v32 != v19)
+                if (*v31 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v31 + 1) + 8 * j);
+                v21 = *(*(&v30 + 1) + 8 * j);
                 if ([v21 isSubscribed] && (objc_msgSend(v21, "isSubscribedHolidayCalendar") & 1) == 0)
                 {
                   [v9 addObject:v21];
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v31 objects:v43 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v30 objects:v42 count:16];
             }
 
             while (v18);
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v12);
@@ -406,9 +400,9 @@ LABEL_11:
       v25 = [v10 count];
       v26 = [v9 count];
       *buf = 134218240;
-      v40 = v25;
-      v41 = 2048;
-      v42 = v26;
+      v39 = v25;
+      v40 = 2048;
+      v41 = v26;
       _os_log_impl(&dword_1A805E000, v24, OS_LOG_TYPE_DEFAULT, "Started a refresh of %lu accounts and %lu subscribed calendars", buf, 0x16u);
     }
 
@@ -422,8 +416,6 @@ LABEL_11:
       [(EKAccountRefresher *)selfCopy _syncCompleted];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_refreshControlMaximumVisibleTimeElapsed
@@ -464,16 +456,16 @@ LABEL_11:
 
 - (void)_syncCompleted
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     refreshStartDate = self->_refreshStartDate;
     v5 = v3;
     [(NSDate *)refreshStartDate timeIntervalSinceNow];
-    v9 = 134217984;
-    v10 = -v6;
-    _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_DEFAULT, "Hiding sync spinner after %fs", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = -v6;
+    _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_DEFAULT, "Hiding sync spinner after %fs", &v8, 0xCu);
   }
 
   [(EKAccountRefresher *)self _cancelSyncStartTimeout];
@@ -481,8 +473,6 @@ LABEL_11:
   self->_refreshing = 0;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained accountRefreshFinished:self];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sourceFinishedRefreshing:(id)refreshing
@@ -533,29 +523,29 @@ LABEL_11:
 
 - (BOOL)allAccountsOffline
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self->_refreshing && self->_refreshStartDate && ([(NSArray *)self->_refreshingSources count]|| [(NSArray *)self->_refreshingCalendars count]))
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v3 = self->_refreshingSources;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v22;
+      v6 = *v21;
 LABEL_7:
       v7 = 0;
       while (1)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * v7);
+        v8 = *(*(&v20 + 1) + 8 * v7);
         if (!-[EKAccountRefresher sourceFinishedRefreshing:](self, "sourceFinishedRefreshing:", v8) || [v8 lastSyncError] != 3)
         {
           break;
@@ -563,7 +553,7 @@ LABEL_7:
 
         if (v5 == ++v7)
         {
-          v5 = [(NSArray *)v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v5 = [(NSArray *)v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
           if (v5)
           {
             goto LABEL_7;
@@ -578,12 +568,12 @@ LABEL_7:
     {
 LABEL_14:
 
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v3 = self->_refreshingCalendars;
-      v9 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v9 = [(NSArray *)v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
       if (!v9)
       {
         v14 = 1;
@@ -591,25 +581,25 @@ LABEL_14:
       }
 
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
 LABEL_16:
       v12 = 0;
       while (1)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v3);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
-        if (!-[EKAccountRefresher calendarFinishedRefreshing:](self, "calendarFinishedRefreshing:", v13, v17) || [v13 lastSyncError] != 3)
+        v13 = *(*(&v16 + 1) + 8 * v12);
+        if (!-[EKAccountRefresher calendarFinishedRefreshing:](self, "calendarFinishedRefreshing:", v13, v16) || [v13 lastSyncError] != 3)
         {
           break;
         }
 
         if (v10 == ++v12)
         {
-          v10 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v10 = [(NSArray *)v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
           v14 = 1;
           if (v10)
           {
@@ -624,13 +614,10 @@ LABEL_16:
     v14 = 0;
 LABEL_26:
 
-    goto LABEL_27;
+    return v14;
   }
 
-  v14 = 0;
-LABEL_27:
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return 0;
 }
 
 - (EKAccountRefresherDelegate)delegate

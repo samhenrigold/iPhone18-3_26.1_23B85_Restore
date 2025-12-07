@@ -3,6 +3,9 @@
 + (void)configure;
 - (id)methodSignatureForSelector:(SEL)selector;
 - (void)configureAlbumListStackViewPhonePhotoDecoration:(id)decoration;
+- (void)configureAlbumListSubtitleLabel:(id)label asOpaque:(BOOL)opaque;
+- (void)configureAlbumListTitleLabel:(id)label asOpaque:(BOOL)opaque;
+- (void)configureAlbumListTitleTextField:(id)field asOpaque:(BOOL)opaque;
 @end
 
 @implementation NPTOBridgeInterfaceTheme
@@ -47,6 +50,45 @@
   }
 
   return v5;
+}
+
+- (void)configureAlbumListTitleTextField:(id)field asOpaque:(BOOL)opaque
+{
+  opaqueCopy = opaque;
+  v5 = qword_12F58;
+  fieldCopy = field;
+  [v5 configureAlbumListTitleTextField:fieldCopy asOpaque:opaqueCopy];
+  v7 = BPSTextColor();
+  [fieldCopy setTextColor:v7];
+
+  v8 = +[UIColor clearColor];
+  [fieldCopy setBackgroundColor:v8];
+}
+
+- (void)configureAlbumListTitleLabel:(id)label asOpaque:(BOOL)opaque
+{
+  opaqueCopy = opaque;
+  v5 = qword_12F58;
+  labelCopy = label;
+  [v5 configureAlbumListTitleLabel:labelCopy asOpaque:opaqueCopy];
+  v7 = BPSTextColor();
+  [labelCopy setTextColor:v7];
+
+  v8 = +[UIColor clearColor];
+  [labelCopy setBackgroundColor:v8];
+}
+
+- (void)configureAlbumListSubtitleLabel:(id)label asOpaque:(BOOL)opaque
+{
+  opaqueCopy = opaque;
+  v5 = qword_12F58;
+  labelCopy = label;
+  [v5 configureAlbumListSubtitleLabel:labelCopy asOpaque:opaqueCopy];
+  v7 = +[UIColor clearColor];
+  [labelCopy setBackgroundColor:v7];
+
+  v8 = BPSDetailTextColor();
+  [labelCopy setTextColor:v8];
 }
 
 - (void)configureAlbumListStackViewPhonePhotoDecoration:(id)decoration

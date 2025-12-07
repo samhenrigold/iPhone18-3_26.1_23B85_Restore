@@ -105,7 +105,7 @@
     policyData = self->_policyData;
     self->_policyData = v4;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, policyData);
   }
 }
 
@@ -195,7 +195,7 @@
 
 - (id)perDomainDictsForPolicy
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   TranslatePolicyWBXMLDCCPT(self->_policyData, v3, 14, @"DevicePasswordEnabled");
   TranslatePolicyWBXMLDCCPT(self->_policyData, v3, 15, @"AlphanumericPasswordEnabled");
@@ -245,9 +245,9 @@
   v5 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v4, v5))
   {
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_24A0AC000, v4, v5, "Processed policy data %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v3;
+    _os_log_impl(&dword_24A0AC000, v4, v5, "Processed policy data %@", &v10, 0xCu);
   }
 
   v6 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
@@ -262,8 +262,6 @@
   {
     [v6 setObject:v8 forKeyedSubscript:@"ASPolicyPerAccountEASPolicies"];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

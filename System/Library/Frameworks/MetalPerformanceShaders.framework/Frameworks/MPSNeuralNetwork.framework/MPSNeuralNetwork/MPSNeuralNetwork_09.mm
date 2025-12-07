@@ -1,4 +1,4 @@
-int8x8_t *sub_239C49BA4(int8x8_t *result, unsigned __int8 *a2, uint64_t a3, int16x8_t a4, double a5, double a6, int8x16_t a7, int8x16_t a8, int8x16_t a9, __n128 a10, uint16x8_t a11)
+int8x8_t *sub_239C49BA4(int8x8_t *result, unsigned __int8 *a2, uint64_t a3, int16x8_t a4, double a5, double a6, int8x16_t a7, int8x16_t a8, int8x16_t a9, __n128 a10, int8x16_t a11)
 {
   v13 = *(a3 + 8);
   v14 = *(a3 + 32);
@@ -2048,10 +2048,10 @@ LABEL_306:
                     result->i8[1] = v304[v305 - 2];
                     result->i8[2] = v304[v305 - 1];
                     result->i8[3] = v304[v305];
-                    result->i8[4] = *(v302 + v305 - 1);
-                    result->i8[5] = *(v302 + v305);
-                    result->i8[6] = *(v302 + v305 + 1);
-                    result->i8[7] = *(v302 + v305 + 2);
+                    result->i8[4] = v302[v305 - 1];
+                    result->i8[5] = v302[v305];
+                    result->i8[6] = v302[v305 + 1];
+                    result->i8[7] = v302[v305 + 2];
                     result[1].i8[0] = v303[v305];
                     result[1].i8[1] = v303[v305 + 1];
                     result[1].i8[2] = v303[v305 + 2];
@@ -3064,7 +3064,7 @@ LABEL_12:
   return result;
 }
 
-__n128 *sub_239C4C3E4(__n128 *result, _BYTE *a2, uint64_t a3, int16x8_t a4, double a5, int8x16_t a6, uint16x8_t a7, int8x16_t a8, int8x16_t a9, int8x16_t a10, uint16x8_t a11)
+__n128 *sub_239C4C3E4(__n128 *result, _BYTE *a2, uint64_t a3, int16x8_t a4, double a5, int8x16_t a6, uint16x8_t a7, uint16x8_t a8, int8x16_t a9, int8x16_t a10, int8x16_t a11)
 {
   v12 = *(a3 + 8);
   v13 = *(a3 + 32);
@@ -3171,7 +3171,7 @@ __n128 *sub_239C4C3E4(__n128 *result, _BYTE *a2, uint64_t a3, int16x8_t a4, doub
             if ((v119 | 1) < v13 && (v123 + 1) % v110 < v111)
             {
               v139 = 0;
-              v140 = &v122->n128_u8[1];
+              v140 = &v122->n128_i8[1];
               v141 = v121;
               do
               {
@@ -3236,7 +3236,7 @@ __n128 *sub_239C4C3E4(__n128 *result, _BYTE *a2, uint64_t a3, int16x8_t a4, doub
             if ((v119 | 2) < v13 && (v123 + 2) % v110 < v111)
             {
               v154 = 0;
-              v155 = &v122->n128_u8[2];
+              v155 = &v122->n128_i8[2];
               v156 = v121;
               do
               {
@@ -3301,7 +3301,7 @@ __n128 *sub_239C4C3E4(__n128 *result, _BYTE *a2, uint64_t a3, int16x8_t a4, doub
             if ((v119 | 3) < v13 && (v123 + 3) % v110 < v111)
             {
               v169 = 0;
-              v170 = &v122->n128_u8[3];
+              v170 = &v122->n128_i8[3];
               v171 = v121;
               do
               {
@@ -4937,10 +4937,7 @@ LABEL_300:
                 v225 = v223;
                 do
                 {
-                  result->n128_u8[0] = *(v225 - 3);
-                  result->n128_u8[1] = *(v225 - 2);
-                  result->n128_u8[2] = *(v225 - 1);
-                  result->n128_u8[3] = *v225;
+                  result->n128_u32[0] = *(v225 - 3);
                   ++result;
                   v225 -= v13;
                   --v224;
@@ -4966,14 +4963,8 @@ LABEL_300:
                 v231 = v557;
                 do
                 {
-                  result->n128_u8[0] = *(v230 - 3);
-                  result->n128_u8[1] = *(v230 - 2);
-                  result->n128_u8[2] = *(v230 - 1);
-                  result->n128_u8[3] = *v230;
-                  result->n128_u8[4] = *(v229 - 3);
-                  result->n128_u8[5] = *(v229 - 2);
-                  result->n128_u8[6] = *(v229 - 1);
-                  result->n128_u8[7] = *v229;
+                  result->n128_u32[0] = *(v230 - 3);
+                  result->n128_u32[1] = *(v229 - 3);
                   ++result;
                   v230 -= v13;
                   v229 -= v13;
@@ -5001,18 +4992,9 @@ LABEL_300:
                 v237 = v557;
                 do
                 {
-                  result->n128_u8[0] = v235[v236 - 3];
-                  result->n128_u8[1] = v235[v236 - 2];
-                  result->n128_u8[2] = v235[v236 - 1];
-                  result->n128_u8[3] = v235[v236];
-                  result->n128_u8[4] = v233[v236 - 1];
-                  result->n128_u8[5] = v233[v236];
-                  result->n128_u8[6] = v233[v236 + 1];
-                  result->n128_u8[7] = v233[v236 + 2];
-                  result->n128_u8[8] = v234[v236];
-                  result->n128_u8[9] = v234[v236 + 1];
-                  result->n128_u8[10] = v234[v236 + 2];
-                  result->n128_u8[11] = v234[v236 + 3];
+                  result->n128_u32[0] = *&v235[v236 - 3];
+                  result->n128_u32[1] = *&v233[v236 - 1];
+                  result->n128_u32[2] = *&v234[v236];
                   ++result;
                   v236 -= v13;
                   --v237;
@@ -5041,22 +5023,10 @@ LABEL_300:
                 v221 = v557;
                 do
                 {
-                  result->n128_u8[0] = v219[v220 - 3];
-                  result->n128_u8[1] = v219[v220 - 2];
-                  result->n128_u8[2] = v219[v220 - 1];
-                  result->n128_u8[3] = v219[v220];
-                  result->n128_u8[4] = v217[v220 - 3];
-                  result->n128_u8[5] = v217[v220 - 2];
-                  result->n128_u8[6] = v217[v220 - 1];
-                  result->n128_u8[7] = v217[v220];
-                  result->n128_u8[8] = *(v216 + v220 - 1);
-                  result->n128_u8[9] = *(v216 + v220);
-                  result->n128_u8[10] = *(v216 + v220 + 1);
-                  result->n128_u8[11] = *(v216 + v220 + 2);
-                  result->n128_u8[12] = v218[v220];
-                  result->n128_u8[13] = v218[v220 + 1];
-                  result->n128_u8[14] = v218[v220 + 2];
-                  result->n128_u8[15] = v218[v220 + 3];
+                  result->n128_u32[0] = *&v219[v220 - 3];
+                  result->n128_u32[1] = *&v217[v220 - 3];
+                  result->n128_u32[2] = *&v216[v220 - 1];
+                  result->n128_u32[3] = *&v218[v220];
                   ++result;
                   v220 -= v13;
                   --v221;
@@ -5347,7 +5317,7 @@ LABEL_186:
       v196 = &v539[v203];
       v197 = &v536[v203];
       v199 = &v531[v203];
-      v202 = v526 + v203;
+      v202 = &v526[v203];
       if (v184 == v436)
       {
         return result;
@@ -8941,16 +8911,10 @@ LABEL_273:
         v297 = v915;
         while (1)
         {
-          result->i8[0] = *(v295 + v296 - 3);
-          result->i8[1] = *(v295 + v296 - 2);
-          result->i8[2] = *(v295 + v296 - 1);
-          result->i8[3] = *(v295 + v296);
+          result->i32[0] = *(v295 + v296 - 3);
           if ((v279 | 1) < v4)
           {
-            result->i8[4] = *(v280 + v296 - 3);
-            result->i8[5] = *(v280 + v296 - 2);
-            result->i8[6] = *(v280 + v296 - 1);
-            result->i8[7] = *(v280 + v296);
+            result->i32[1] = *(v280 + v296 - 3);
             if (v285 >= v4)
             {
 LABEL_277:
@@ -8968,10 +8932,7 @@ LABEL_277:
             goto LABEL_277;
           }
 
-          result->i8[8] = *(v281 + v296 - 3);
-          result->i8[9] = *(v281 + v296 - 2);
-          result->i8[10] = *(v281 + v296 - 1);
-          result->i8[11] = *(v281 + v296);
+          result->i32[2] = *(v281 + v296 - 3);
           if (v286 >= v4)
           {
 LABEL_278:
@@ -8984,10 +8945,7 @@ LABEL_278:
           }
 
 LABEL_285:
-          result->i8[12] = *(v282 + v296 - 3);
-          result->i8[13] = *(v282 + v296 - 2);
-          result->i8[14] = *(v282 + v296 - 1);
-          result->i8[15] = *(v282 + v296);
+          result->i32[3] = *(v282 + v296 - 3);
           if (v287 >= v4)
           {
 LABEL_279:
@@ -9000,10 +8958,7 @@ LABEL_279:
           }
 
 LABEL_286:
-          result[1].i8[0] = *(v291 + v296 - 3);
-          result[1].i8[1] = *(v291 + v296 - 2);
-          result[1].i8[2] = *(v291 + v296 - 1);
-          result[1].i8[3] = *(v291 + v296);
+          result[1].i32[0] = *(v291 + v296 - 3);
           if (v288 >= v4)
           {
 LABEL_280:
@@ -9016,10 +8971,7 @@ LABEL_280:
           }
 
 LABEL_287:
-          result[1].i8[4] = *(v292 + v296 - 3);
-          result[1].i8[5] = *(v292 + v296 - 2);
-          result[1].i8[6] = *(v292 + v296 - 1);
-          result[1].i8[7] = *(v292 + v296);
+          result[1].i32[1] = *(v292 + v296 - 3);
           if (v289 >= v4)
           {
 LABEL_281:
@@ -9032,17 +8984,11 @@ LABEL_281:
           }
 
 LABEL_288:
-          result[1].i8[8] = *(v293 + v296 - 3);
-          result[1].i8[9] = *(v293 + v296 - 2);
-          result[1].i8[10] = *(v293 + v296 - 1);
-          result[1].i8[11] = *(v293 + v296);
+          result[1].i32[2] = *(v293 + v296 - 3);
           if (v290 < v4)
           {
 LABEL_289:
-            result[1].i8[12] = *(v294 + v296 - 3);
-            result[1].i8[13] = *(v294 + v296 - 2);
-            result[1].i8[14] = *(v294 + v296 - 1);
-            result[1].i8[15] = *(v294 + v296);
+            result[1].i32[3] = *(v294 + v296 - 3);
           }
 
 LABEL_274:

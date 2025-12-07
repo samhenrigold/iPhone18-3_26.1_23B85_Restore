@@ -128,7 +128,7 @@
 
 - (BOOL)requireInexpensiveNetworking
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(_HKBehavior *)self->_behavior isAppleWatch]&& ![(_HKBehavior *)self->_behavior tinkerModeEnabled])
   {
     goto LABEL_10;
@@ -138,64 +138,59 @@
   if (tinkerModeEnabled)
   {
     WeakRetained = objc_loadWeakRetained(&self->_profile);
-    v14 = 0;
-    v5 = HDUpgradedToSyncIdentity(WeakRetained, &v14);
-    v6 = v14;
+    v13 = 0;
+    v5 = HDUpgradedToSyncIdentity(WeakRetained, &v13);
+    v6 = v13;
 
     if (v6)
     {
       _HKInitializeLogging();
       v7 = *MEMORY[0x277CCC328];
-      if (!os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-LABEL_9:
-
-LABEL_10:
-        LOBYTE(tinkerModeEnabled) = 1;
-        goto LABEL_11;
-      }
-
-      *buf = 138543362;
-      v16 = v6;
-      v8 = "Failed to read hasUpgradedToSyncIdentity with error: %{public}@.";
-    }
-
-    else
-    {
-      v9 = objc_loadWeakRetained(&self->_profile);
-      v13 = 0;
-      v10 = HDCompletedTransitionToSyncIdentity(v9, &v13);
-      v6 = v13;
-
-      if (!v6)
-      {
-        if (v10 & 1 | ((v5 & 1) == 0))
-        {
-          LOBYTE(tinkerModeEnabled) = 0;
-          goto LABEL_11;
-        }
-
-        goto LABEL_10;
-      }
-
-      _HKInitializeLogging();
-      v7 = *MEMORY[0x277CCC328];
-      if (!os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
-      {
+        *buf = 138543362;
+        v15 = v6;
+        v8 = "Failed to read hasUpgradedToSyncIdentity with error: %{public}@.";
+LABEL_15:
+        _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, v8, buf, 0xCu);
         goto LABEL_9;
       }
 
-      *buf = 138543362;
-      v16 = v6;
-      v8 = "Failed to read completedtransitionToSyncIdentity with error: %{public}@.";
+      goto LABEL_9;
     }
 
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, v8, buf, 0xCu);
-    goto LABEL_9;
+    v9 = objc_loadWeakRetained(&self->_profile);
+    v12 = 0;
+    v10 = HDCompletedTransitionToSyncIdentity(v9, &v12);
+    v6 = v12;
+
+    if (v6)
+    {
+      _HKInitializeLogging();
+      v7 = *MEMORY[0x277CCC328];
+      if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        v15 = v6;
+        v8 = "Failed to read completedtransitionToSyncIdentity with error: %{public}@.";
+        goto LABEL_15;
+      }
+
+LABEL_9:
+
+LABEL_10:
+      LOBYTE(tinkerModeEnabled) = 1;
+      return tinkerModeEnabled;
+    }
+
+    if (!(v10 & 1 | ((v5 & 1) == 0)))
+    {
+      goto LABEL_10;
+    }
+
+    LOBYTE(tinkerModeEnabled) = 0;
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return tinkerModeEnabled;
 }
 
@@ -230,10 +225,10 @@ LABEL_11:
 
 - (BOOL)isConfiguredForLiteSync
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v37 = *MEMORY[0x277D85DE8];
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
   allowLiteSync = self->_allowLiteSync;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [standardUserDefaults integerForKey:*MEMORY[0x277CCE2B0]];
@@ -257,14 +252,14 @@ LABEL_11:
 
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     deviceContextManager = [WeakRetained deviceContextManager];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __59__HDCloudSyncPlatformConfiguration_isConfiguredForLiteSync__block_invoke;
-    v28[3] = &unk_27861D3E0;
-    v28[4] = &v30;
-    v29 = 0;
-    v10 = [deviceContextManager enumerateAllEntriesWithError:&v29 handler:v28];
-    v11 = v29;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __59__HDCloudSyncPlatformConfiguration_isConfiguredForLiteSync__block_invoke;
+    v27[3] = &unk_27861D3E0;
+    v27[4] = &v29;
+    v28 = 0;
+    v10 = [deviceContextManager enumerateAllEntriesWithError:&v28 handler:v27];
+    v11 = v28;
 
     if ((v10 & 1) == 0)
     {
@@ -274,8 +269,8 @@ LABEL_11:
       {
         *buf = 138543618;
         selfCopy3 = self;
-        v36 = 2114;
-        v37 = v11;
+        v35 = 2114;
+        v36 = v11;
         _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to query database for device context objects %{public}@.", buf, 0x16u);
       }
     }
@@ -285,9 +280,9 @@ LABEL_11:
     v15 = [(HDKeyValueDomain *)v13 initWithCategory:0 domainName:@"CloudSyncCoordinator" profile:v14];
 
     v16 = *MEMORY[0x277CCE390];
-    v27 = v11;
-    v17 = [(HDKeyValueDomain *)v15 numberForKey:v16 error:&v27];
-    v18 = v27;
+    v26 = v11;
+    v17 = [(HDKeyValueDomain *)v15 numberForKey:v16 error:&v26];
+    v18 = v26;
 
     if (v17 || !v18)
     {
@@ -306,15 +301,15 @@ LABEL_11:
       {
         *buf = 138543618;
         selfCopy3 = self;
-        v36 = 2114;
-        v37 = v18;
+        v35 = 2114;
+        v36 = v18;
         _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Could not read lite synced on watch key %{public}@.", buf, 0x16u);
       }
     }
 
     bOOLValue = 0;
 LABEL_18:
-    if ((v31[3] & 1) != 0 || ([(_HKBehavior *)self->_behavior isAppleWatch]& bOOLValue) == 1)
+    if ((v30[3] & 1) != 0 || ([(_HKBehavior *)self->_behavior isAppleWatch]& bOOLValue) == 1)
     {
       if (bOOLValue & 1 | (([(_HKBehavior *)self->_behavior isAppleWatch]& 1) == 0))
       {
@@ -323,9 +318,9 @@ LABEL_18:
 
       else
       {
-        v26 = v18;
-        v21 = [(HDKeyValueDomain *)v15 setNumber:MEMORY[0x277CBEC38] forKey:v16 error:&v26];
-        v22 = v26;
+        v25 = v18;
+        v21 = [(HDKeyValueDomain *)v15 setNumber:MEMORY[0x277CBEC38] forKey:v16 error:&v25];
+        v22 = v25;
 
         if (!v21)
         {
@@ -335,8 +330,8 @@ LABEL_18:
           {
             *buf = 138543618;
             selfCopy3 = self;
-            v36 = 2114;
-            v37 = v22;
+            v35 = 2114;
+            v36 = v22;
             _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set lite synced on watch flag %{public}@.", buf, 0x16u);
           }
         }
@@ -364,8 +359,7 @@ LABEL_18:
 
   v6 = 1;
 LABEL_28:
-  _Block_object_dispose(&v30, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
   return v6;
 }
 

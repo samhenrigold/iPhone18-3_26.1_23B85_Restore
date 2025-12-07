@@ -24,59 +24,58 @@
 
 - (IMDIndexingMessageScrutinyController)init
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = IMDIndexingMessageScrutinyController;
-  v2 = [(IMDIndexingMessageScrutinyController *)&v17 init];
+  v21 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = IMDIndexingMessageScrutinyController;
+  v2 = [(IMDIndexingMessageScrutinyController *)&v18 init];
   if (v2)
   {
     v3 = IMGetCachedDomainValueForKey();
-    v6 = objc_msgSend_count(v3, v4, v5);
+    v7 = objc_msgSend_count(v3, v4, v5, v6);
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v19 = v6;
-        _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "Current blocklist size is %lu", buf, 0xCu);
+        v20 = v7;
+        _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "Current blocklist size is %lu", buf, 0xCu);
       }
     }
 
-    if (v6 >= 0xC9)
+    if (v7 >= 0xC9)
     {
       if (IMOSLoggingEnabled())
       {
-        v9 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v10 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          LODWORD(v19) = 200;
-          _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "Blocklist size > %d on load, truncating", buf, 8u);
+          LODWORD(v20) = 200;
+          _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Blocklist size > %d on load, truncating", buf, 8u);
         }
       }
 
-      v10 = objc_msgSend_subarrayWithRange_(v3, v8, v6 - 200, 200);
+      v11 = objc_msgSend_subarrayWithRange_(v3, v9, v7 - 200, 200);
 
-      v3 = v10;
+      v3 = v11;
     }
 
     if (v3)
     {
-      v11 = objc_alloc(MEMORY[0x1E695DFA0]);
-      v13 = objc_msgSend_initWithArray_(v11, v12, v3);
+      v12 = objc_alloc(MEMORY[0x1E695DFA0]);
+      v15 = objc_msgSend_initWithArray_(v12, v13, v3, v14);
     }
 
     else
     {
-      v13 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+      v15 = objc_alloc_init(MEMORY[0x1E695DFA0]);
     }
 
     blocklistMessageGUIDs = v2->_blocklistMessageGUIDs;
-    v2->_blocklistMessageGUIDs = v13;
+    v2->_blocklistMessageGUIDs = v15;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -94,107 +93,103 @@
 
 - (NSMutableOrderedSet)blocklistMessageGUIDs
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x3032000000;
-  v11 = sub_1B7AE1B00;
-  v12 = sub_1B7AE2588;
-  v13 = 0;
-  v4 = objc_msgSend__scrutinyMessagesQueue(self, a2, v2);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1B7BC9974;
-  v7[3] = &unk_1E7CBB6F0;
-  v7[4] = self;
-  v7[5] = &v8;
-  dispatch_sync(v4, v7);
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = sub_1B7AE1B00;
+  v13 = sub_1B7AE2588;
+  v14 = 0;
+  v5 = objc_msgSend__scrutinyMessagesQueue(self, a2, v2, v3);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1B7BC9974;
+  v8[3] = &unk_1E7CBB6F0;
+  v8[4] = self;
+  v8[5] = &v9;
+  dispatch_sync(v5, v8);
 
-  v5 = v9[5];
-  _Block_object_dispose(&v8, 8);
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
 
-  return v5;
+  return v6;
 }
 
 - (void)setMessageGUIDUnderScrutiny:(id)scrutiny
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   scrutinyCopy = scrutiny;
-  if (objc_msgSend_length(scrutinyCopy, v5, v6))
+  if (objc_msgSend_length(scrutinyCopy, v5, v6, v7))
   {
-    v9 = objc_msgSend__scrutinyMessagesQueue(self, v7, v8);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_1B7BC9B2C;
-    v12[3] = &unk_1E7CB6770;
-    v12[4] = self;
-    v13 = scrutinyCopy;
-    dispatch_barrier_sync(v9, v12);
+    v11 = objc_msgSend__scrutinyMessagesQueue(self, v8, v9, v10);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_1B7BC9B2C;
+    v13[3] = &unk_1E7CB6770;
+    v13[4] = self;
+    v14 = scrutinyCopy;
+    dispatch_barrier_sync(v11, v13);
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v10 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v15 = "[IMDIndexingMessageScrutinyController setMessageGUIDUnderScrutiny:]";
-      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Invalid guid passed in. Skipping %s", buf, 0xCu);
+      v16 = "[IMDIndexingMessageScrutinyController setMessageGUIDUnderScrutiny:]";
+      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Invalid guid passed in. Skipping %s", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearMessageGUIDFromScrutiny:(id)scrutiny
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   scrutinyCopy = scrutiny;
-  if (objc_msgSend_length(scrutinyCopy, v5, v6))
+  if (objc_msgSend_length(scrutinyCopy, v5, v6, v7))
   {
-    v9 = objc_msgSend__scrutinyMessagesQueue(self, v7, v8);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_1B7BC9D0C;
-    v12[3] = &unk_1E7CB6770;
-    v12[4] = self;
-    v13 = scrutinyCopy;
-    dispatch_barrier_sync(v9, v12);
+    v11 = objc_msgSend__scrutinyMessagesQueue(self, v8, v9, v10);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_1B7BC9D0C;
+    v13[3] = &unk_1E7CB6770;
+    v13[4] = self;
+    v14 = scrutinyCopy;
+    dispatch_barrier_sync(v11, v13);
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v10 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v15 = "[IMDIndexingMessageScrutinyController clearMessageGUIDFromScrutiny:]";
-      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Invalid guid passed in. Skipping %s", buf, 0xCu);
+      v16 = "[IMDIndexingMessageScrutinyController clearMessageGUIDFromScrutiny:]";
+      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Invalid guid passed in. Skipping %s", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isMessageBlocklisted:(id)blocklisted
 {
   blocklistedCopy = blocklisted;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v7 = objc_msgSend__scrutinyMessagesQueue(self, v5, v6);
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  v8 = objc_msgSend__scrutinyMessagesQueue(self, v5, v6, v7);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1B7BC9F78;
   block[3] = &unk_1E7CBC338;
-  v11 = blocklistedCopy;
-  v12 = &v13;
+  v12 = blocklistedCopy;
+  v13 = &v14;
   block[4] = self;
-  v8 = blocklistedCopy;
-  dispatch_barrier_sync(v7, block);
+  v9 = blocklistedCopy;
+  dispatch_barrier_sync(v8, block);
 
-  LOBYTE(blocklistedCopy) = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
+  LOBYTE(blocklistedCopy) = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
   return blocklistedCopy;
 }
 

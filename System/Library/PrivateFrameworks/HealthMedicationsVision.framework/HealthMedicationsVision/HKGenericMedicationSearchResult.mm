@@ -75,38 +75,38 @@
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   ingredients = [(HKGenericMedicationSearchResult *)self ingredients];
-  v5 = [ingredients countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v5 = [ingredients countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(ingredients);
         }
 
-        dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
         [v3 addObject:dictionaryRepresentation];
       }
 
-      v6 = [ingredients countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v6 = [ingredients countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v26[0] = @"genericMedicationId";
+  v25[0] = @"genericMedicationId";
   genericMedicationId = [(HKGenericMedicationSearchResult *)self genericMedicationId];
   v11 = genericMedicationId;
   if (genericMedicationId)
@@ -119,8 +119,8 @@
     v12 = @"(null)";
   }
 
-  v27[0] = v12;
-  v26[1] = @"genericMedicationName";
+  v26[0] = v12;
+  v25[1] = @"genericMedicationName";
   genericMedicationName = [(HKGenericMedicationSearchResult *)self genericMedicationName];
   v14 = genericMedicationName;
   if (genericMedicationName)
@@ -133,8 +133,8 @@
     v15 = @"(null)";
   }
 
-  v27[1] = v15;
-  v26[2] = @"brandName";
+  v26[1] = v15;
+  v25[2] = @"brandName";
   brandName = [(HKGenericMedicationSearchResult *)self brandName];
   v17 = brandName;
   if (brandName)
@@ -147,12 +147,10 @@
     v18 = @"(null)";
   }
 
-  v26[3] = @"ingredients";
-  v27[2] = v18;
-  v27[3] = v3;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v25[3] = @"ingredients";
+  v26[2] = v18;
+  v26[3] = v3;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
 
   return v19;
 }

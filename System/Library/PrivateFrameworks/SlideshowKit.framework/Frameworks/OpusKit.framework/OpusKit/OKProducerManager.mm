@@ -1217,9 +1217,9 @@ LABEL_12:
   dispatch_async(serialCloudServicePreparationQueue, block);
 }
 
-uint64_t __48__OKProducerManager_prepareCloudServiceIfNeeded__block_invoke(uint64_t result)
+void *__48__OKProducerManager_prepareCloudServiceIfNeeded__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 57))
   {
     if (*(v1 + 40) < *(v1 + 72))
@@ -1231,7 +1231,7 @@ uint64_t __48__OKProducerManager_prepareCloudServiceIfNeeded__block_invoke(uint6
   else
   {
     *(v1 + 56) = 1;
-    *(*(result + 32) + 56) = 0;
+    *(result[4] + 56) = 0;
   }
 
   return result;
@@ -2509,7 +2509,7 @@ uint64_t __137__OKProducerManager_createPresentationWithPluginIdentifier_guideli
   [v20 performAsynchronousFileAccessUsingBlock:v23];
 }
 
-uint64_t __219__OKProducerManager_createDocumentAtDirectoryURL_withPluginIdentifier_guidelines_mediaURLs_mediaItemLookupDelegate_flattenMedia_flattenProducer_prepareCaches_format_keepOpen_documentClass_progressBlock_completionBlock___block_invoke(uint64_t a1, void *a2)
+uint64_t (**__219__OKProducerManager_createDocumentAtDirectoryURL_withPluginIdentifier_guidelines_mediaURLs_mediaItemLookupDelegate_flattenMedia_flattenProducer_prepareCaches_format_keepOpen_documentClass_progressBlock_completionBlock___block_invoke(uint64_t a1, void *a2))(void *, void)
 {
   v7 = 0;
   v3 = [a2 uniqueFileURLForFileName:objc_msgSend(objc_msgSend(*(a1 + 32) inDirectoryURL:"localizedNameForPluginIdentifier:" error:{*(a1 + 40)), "stringByAppendingPathExtension:", @"opus", *(a1 + 48), &v7}];
@@ -2518,7 +2518,7 @@ uint64_t __219__OKProducerManager_createDocumentAtDirectoryURL_withPluginIdentif
     result = *(a1 + 88);
     if (result)
     {
-      return (*(result + 16))(result, 0);
+      return result[2](result, 0);
     }
   }
 

@@ -73,7 +73,6 @@
       sub_100085848(v5, log);
     }
 
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [(UARPEndpointPacketCaptureDelegateProtocol *)self->_delegate updateFilepath:v5 uuid:self->_uuid];

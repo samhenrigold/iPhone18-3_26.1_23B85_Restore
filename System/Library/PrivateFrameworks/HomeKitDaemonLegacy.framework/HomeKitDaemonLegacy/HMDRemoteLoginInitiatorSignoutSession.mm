@@ -16,7 +16,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -24,17 +24,16 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = selfCopy;
+    v9 = v6;
+    v10 = 2112;
+    v11 = selfCopy;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Dealloc %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDRemoteLoginInitiatorSignoutSession;
-  [(HMDRemoteLoginInitiatorSignoutSession *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDRemoteLoginInitiatorSignoutSession;
+  [(HMDRemoteLoginInitiatorSignoutSession *)&v7 dealloc];
 }
 
 @end

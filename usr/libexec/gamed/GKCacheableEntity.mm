@@ -7,13 +7,14 @@
 
 + (id)createWithEntityID:(id)d entity:(id)entity
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
   swift_getObjCClassMetadata();
   swift_unknownObjectRetain();
-  v4 = sub_100204FD4();
+  v8 = sub_100204FD4(v5, v7, entity);
   swift_unknownObjectRelease();
 
-  return v4;
+  return v8;
 }
 
 + (id)createWithBagKey:(id)key entityID:(id)d entity:(id)entity

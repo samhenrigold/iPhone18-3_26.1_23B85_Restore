@@ -2,93 +2,23 @@
 + (id)_reportingWorkloop;
 - (BOOL)encodeResultOntoReply:(id)reply;
 - (MCMResultDiskUsageForContainer)initWithDiskUsageBytes:(unint64_t)bytes descendants:(unint64_t)descendants containerClass:(unint64_t)class personaType:(int)type;
-- (int)personaType;
 - (unint64_t)_roundToTwoSignificantDigitsWithNumber:(unint64_t)number;
-- (unint64_t)containerClass;
-- (unint64_t)descendants;
-- (unint64_t)diskUsageBytes;
 - (void)_report;
-- (void)setContainerClass:(unint64_t)class;
-- (void)setDescendants:(unint64_t)descendants;
-- (void)setDiskUsageBytes:(unint64_t)bytes;
-- (void)setPersonaType:(int)type;
 @end
 
 @implementation MCMResultDiskUsageForContainer
 
-- (void)setPersonaType:(int)type
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_personaType = type;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (int)personaType
-{
-  result = self->_personaType;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)setContainerClass:(unint64_t)class
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_containerClass = class;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (unint64_t)containerClass
-{
-  result = self->_containerClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)setDescendants:(unint64_t)descendants
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_descendants = descendants;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (unint64_t)descendants
-{
-  result = self->_descendants;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)setDiskUsageBytes:(unint64_t)bytes
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_diskUsageBytes = bytes;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (unint64_t)diskUsageBytes
-{
-  result = self->_diskUsageBytes;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (unint64_t)_roundToTwoSignificantDigitsWithNumber:(unint64_t)number
 {
-  v8 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   v4 = log10(number);
   v5 = __exp10(ceil(v4) + -2.0);
-  v6 = *MEMORY[0x1E69E9840];
   return (v5 * floor(numberCopy / v5 + 0.5));
 }
 
 - (void)_report
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = [(MCMResultDiskUsageForContainer *)self _roundToTwoSignificantDigitsWithNumber:self->_descendants];
   v4 = [(MCMResultDiskUsageForContainer *)self _roundToTwoSignificantDigitsWithNumber:self->_diskUsageBytes];
   personaType = self->_personaType;
@@ -97,70 +27,26 @@
   v8 = os_signpost_id_make_with_pointer(v7, self);
 
   _reportingWorkloop = [objc_opt_class() _reportingWorkloop];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __41__MCMResultDiskUsageForContainer__report__block_invoke;
-  v11[3] = &__block_descriptor_68_e5_v8__0l;
-  v12 = personaType;
-  v11[4] = containerClass;
-  v11[5] = v8;
-  v11[6] = v3;
-  v11[7] = v4;
-  dispatch_async(_reportingWorkloop, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __41__MCMResultDiskUsageForContainer__report__block_invoke;
+  v10[3] = &__block_descriptor_68_e5_v8__0l;
+  v11 = personaType;
+  v10[4] = containerClass;
+  v10[5] = v8;
+  v10[6] = v3;
+  v10[7] = v4;
+  dispatch_async(_reportingWorkloop, v10);
 }
 
 void __41__MCMResultDiskUsageForContainer__report__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  switch(v2)
+  if (v2 != 7)
   {
-    case 7:
-      v14 = *(a1 + 64);
-      if (v14 == 1)
-      {
-        v21 = container_log_handle_for_category();
-        v5 = v21;
-        v6 = *(a1 + 40);
-        if (v6 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v21))
-        {
-          goto LABEL_29;
-        }
-
-        v22 = *(a1 + 48);
-        v23 = *(a1 + 56);
-        v28 = 134349312;
-        v29 = v22;
-        v30 = 2050;
-        v31 = v23;
-        v9 = "DiskUsage_Managed_appGroup";
-        goto LABEL_28;
-      }
-
-      if (!v14)
-      {
-        v15 = container_log_handle_for_category();
-        v5 = v15;
-        v6 = *(a1 + 40);
-        if (v6 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v15))
-        {
-          goto LABEL_29;
-        }
-
-        v16 = *(a1 + 48);
-        v17 = *(a1 + 56);
-        v28 = 134349312;
-        v29 = v16;
-        v30 = 2050;
-        v31 = v17;
-        v9 = "DiskUsage_appGroup";
-        goto LABEL_28;
-      }
-
-      break;
-    case 4:
+    if (v2 == 4)
+    {
       v10 = *(a1 + 64);
       if (v10 == 1)
       {
@@ -174,16 +60,20 @@ void __41__MCMResultDiskUsageForContainer__report__block_invoke(uint64_t a1)
 
         v19 = *(a1 + 48);
         v20 = *(a1 + 56);
-        v28 = 134349312;
-        v29 = v19;
-        v30 = 2050;
-        v31 = v20;
+        v27 = 134349312;
+        v28 = v19;
+        v29 = 2050;
+        v30 = v20;
         v9 = "DiskUsage_Managed_pluginData";
-        goto LABEL_28;
       }
 
-      if (!v10)
+      else
       {
+        if (v10)
+        {
+          return;
+        }
+
         v11 = container_log_handle_for_category();
         v5 = v11;
         v6 = *(a1 + 40);
@@ -194,16 +84,21 @@ void __41__MCMResultDiskUsageForContainer__report__block_invoke(uint64_t a1)
 
         v12 = *(a1 + 48);
         v13 = *(a1 + 56);
-        v28 = 134349312;
-        v29 = v12;
-        v30 = 2050;
-        v31 = v13;
+        v27 = 134349312;
+        v28 = v12;
+        v29 = 2050;
+        v30 = v13;
         v9 = "DiskUsage_pluginData";
-        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      if (v2 != 2)
+      {
+        return;
       }
 
-      break;
-    case 2:
       v3 = *(a1 + 64);
       if (v3 == 1)
       {
@@ -217,16 +112,20 @@ void __41__MCMResultDiskUsageForContainer__report__block_invoke(uint64_t a1)
 
         v25 = *(a1 + 48);
         v26 = *(a1 + 56);
-        v28 = 134349312;
-        v29 = v25;
-        v30 = 2050;
-        v31 = v26;
+        v27 = 134349312;
+        v28 = v25;
+        v29 = 2050;
+        v30 = v26;
         v9 = "DiskUsage_Managed_appData";
-        goto LABEL_28;
       }
 
-      if (!v3)
+      else
       {
+        if (v3)
+        {
+          return;
+        }
+
         v4 = container_log_handle_for_category();
         v5 = v4;
         v6 = *(a1 + 40);
@@ -237,29 +136,69 @@ void __41__MCMResultDiskUsageForContainer__report__block_invoke(uint64_t a1)
 
         v7 = *(a1 + 48);
         v8 = *(a1 + 56);
-        v28 = 134349312;
-        v29 = v7;
-        v30 = 2050;
-        v31 = v8;
+        v27 = 134349312;
+        v28 = v7;
+        v29 = 2050;
+        v30 = v8;
         v9 = "DiskUsage_appData";
-LABEL_28:
-        _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v5, OS_SIGNPOST_EVENT, v6, v9, " enableTelemetry=YES  descendants=%{public, signpost.telemetry:number1}llu bytes=%{public, signpost.telemetry:number2}llu", &v28, 0x16u);
-LABEL_29:
       }
+    }
 
-      break;
+    goto LABEL_28;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
+  v14 = *(a1 + 64);
+  if (v14 == 1)
+  {
+    v21 = container_log_handle_for_category();
+    v5 = v21;
+    v6 = *(a1 + 40);
+    if (v6 - 1 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v21))
+    {
+      goto LABEL_29;
+    }
+
+    v22 = *(a1 + 48);
+    v23 = *(a1 + 56);
+    v27 = 134349312;
+    v28 = v22;
+    v29 = 2050;
+    v30 = v23;
+    v9 = "DiskUsage_Managed_appGroup";
+    goto LABEL_28;
+  }
+
+  if (v14)
+  {
+    return;
+  }
+
+  v15 = container_log_handle_for_category();
+  v5 = v15;
+  v6 = *(a1 + 40);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  {
+    v16 = *(a1 + 48);
+    v17 = *(a1 + 56);
+    v27 = 134349312;
+    v28 = v16;
+    v29 = 2050;
+    v30 = v17;
+    v9 = "DiskUsage_appGroup";
+LABEL_28:
+    _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v5, OS_SIGNPOST_EVENT, v6, v9, " enableTelemetry=YES  descendants=%{public, signpost.telemetry:number1}llu bytes=%{public, signpost.telemetry:number2}llu", &v27, 0x16u);
+  }
+
+LABEL_29:
 }
 
 - (BOOL)encodeResultOntoReply:(id)reply
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v9.receiver = self;
-  v9.super_class = MCMResultDiskUsageForContainer;
-  v5 = [(MCMResultBase *)&v9 encodeResultOntoReply:replyCopy];
+  v8.receiver = self;
+  v8.super_class = MCMResultDiskUsageForContainer;
+  v5 = [(MCMResultBase *)&v8 encodeResultOntoReply:replyCopy];
   if (v5)
   {
     error = [(MCMResultBase *)self error];
@@ -270,16 +209,15 @@ LABEL_29:
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (MCMResultDiskUsageForContainer)initWithDiskUsageBytes:(unint64_t)bytes descendants:(unint64_t)descendants containerClass:(unint64_t)class personaType:(int)type
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = MCMResultDiskUsageForContainer;
-  v10 = [(MCMResultBase *)&v14 init];
+  v14 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = MCMResultDiskUsageForContainer;
+  v10 = [(MCMResultBase *)&v13 init];
   v11 = v10;
   if (v10)
   {
@@ -290,29 +228,24 @@ LABEL_29:
     [(MCMResultDiskUsageForContainer *)v10 _report];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (id)_reportingWorkloop
 {
-  v5 = *MEMORY[0x1E69E9840];
   if (_reportingWorkloop_onceToken != -1)
   {
     dispatch_once(&_reportingWorkloop_onceToken, &__block_literal_global_14728);
   }
 
   v2 = _reportingWorkloop_workloop;
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 uint64_t __52__MCMResultDiskUsageForContainer__reportingWorkloop__block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   _reportingWorkloop_workloop = dispatch_workloop_create("com.apple.containermanagerd.disk-usage-reporting");
-  v0 = *MEMORY[0x1E69E9840];
 
   return MEMORY[0x1EEE66BB8]();
 }

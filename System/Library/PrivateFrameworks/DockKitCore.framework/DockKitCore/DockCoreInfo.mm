@@ -91,7 +91,7 @@
   sub_2246287D8();
   MEMORY[0x22AA51BF0](*(self + OBJC_IVAR____TtC11DockKitCore12DockCoreInfo_type));
   sub_224627188();
-  sub_224534E68(&qword_27D0C8C60, 255, MEMORY[0x277CC95F0]);
+  sub_224534E68(&qword_27D0C8C60, 255, MEMORY[0x277CC95F0], MEMORY[0x277CC9600]);
   selfCopy = self;
   sub_224627C88();
   v4 = sub_2246287B8();

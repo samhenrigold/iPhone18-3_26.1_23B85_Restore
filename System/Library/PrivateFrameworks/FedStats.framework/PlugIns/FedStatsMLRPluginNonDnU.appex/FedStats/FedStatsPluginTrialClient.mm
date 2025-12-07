@@ -193,32 +193,30 @@ LABEL_24:
 
 - (void)loadRecipeWithError:(id *)error
 {
-  p_recipeURL = &self->_recipeURL;
-  v6 = [NSData dataWithContentsOfURL:self->_recipeURL options:1 error:error];
-  if (v6)
+  v5 = [NSData dataWithContentsOfURL:self->_recipeURL options:1 error:error];
+  if (v5)
   {
-    v7 = [NSJSONSerialization JSONObjectWithData:v6 options:0 error:error];
+    v6 = [NSJSONSerialization JSONObjectWithData:v5 options:0 error:error];
     recipeDictionary = self->_recipeDictionary;
     p_recipeDictionary = &self->_recipeDictionary;
-    *p_recipeDictionary = v7;
+    *p_recipeDictionary = v6;
 
-    v10 = +[FedStatsPluginLog logger];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v9 = +[FedStatsPluginLog logger];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_100002F60(p_recipeURL, p_recipeDictionary);
+      sub_100002F60();
     }
 
-    v11 = *p_recipeDictionary;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v12 = +[FedStatsPluginLog logger];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v10 = +[FedStatsPluginLog logger];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_100002FE0(v12);
+        sub_100002FE0(v10);
       }
 
-      v13 = *p_recipeDictionary;
+      v11 = *p_recipeDictionary;
       *p_recipeDictionary = 0;
 
       if (error)
@@ -230,10 +228,10 @@ LABEL_24:
 
   else
   {
-    v14 = +[FedStatsPluginLog logger];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v12 = +[FedStatsPluginLog logger];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_100003024(v14);
+      sub_100003024(v12);
     }
   }
 }

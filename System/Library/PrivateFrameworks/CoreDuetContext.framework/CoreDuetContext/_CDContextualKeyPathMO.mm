@@ -70,15 +70,13 @@
 
 + (void)hydrateMO:(objc_class *)a1 fromKeyPath:(uint64_t)a2 andValue:.cold.1(objc_class *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromClass(a1);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@: Error setting mo.value: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1A9611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@: Error setting mo.value: %@", &v4, 0x16u);
 }
 
 @end

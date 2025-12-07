@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)accessibilityElements;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)reloadDataWithAnimated:(BOOL)animated;
 @end
 
 @implementation ActivityStandChartViewAccessibility
@@ -129,6 +130,14 @@
 
   [(ActivityStandChartViewAccessibility *)selfCopy2 _accessibilitySetRetainedValue:v8 forKey:@"kAXDayViewCellGraphElements"];
   [(ActivityStandChartViewAccessibility *)self _accessibilitySetRetainedValue:0 forKey:kUIAccessibilityStorageKeyChildren];
+}
+
+- (void)reloadDataWithAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = ActivityStandChartViewAccessibility;
+  [(ActivityStandChartViewAccessibility *)&v4 reloadDataWithAnimated:animated];
+  [(ActivityStandChartViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

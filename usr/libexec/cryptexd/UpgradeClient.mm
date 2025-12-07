@@ -82,9 +82,7 @@ void __25__UpgradeClient_activate__block_invoke(uint64_t a1, void *a2)
 
 - (void)onCancel:(id)cancel
 {
-  v4 = objc_retainBlock(cancel);
-  cancelHandler = self->_cancelHandler;
-  self->_cancelHandler = v4;
+  self->_cancelHandler = objc_retainBlock(cancel);
 
   _objc_release_x1();
 }
@@ -213,7 +211,7 @@ void __25__UpgradeClient_activate__block_invoke(uint64_t a1, void *a2)
   [(UpgradeClient *)&v4 dealloc];
 }
 
-- (void)initWithConn:(uint64_t *)a1 log:(_OWORD *)a2 .cold.1(uint64_t *a1, _OWORD *a2)
+- (void)initWithConn:(void *)a1 log:(_OWORD *)a2 .cold.1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -221,11 +219,19 @@ void __25__UpgradeClient_activate__block_invoke(uint64_t a1, void *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  v3 = __error();
-  strerror(*v3);
-  OUTLINED_FUNCTION_0();
-  v4 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  v5 = __error();
+  strerror(*v5);
+  OUTLINED_FUNCTION_0(v4, a1, a2, v6, &_mh_execute_header, v7, v8, "allocation failed: obj = %s, size = %lu, error = %s");
   _os_crash_msg();
   __break(1u);
 }

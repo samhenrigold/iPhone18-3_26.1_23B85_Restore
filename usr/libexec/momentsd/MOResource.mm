@@ -109,7 +109,7 @@ BOOL __48__MOResource_MOResourceMO__isExtendedLogEnabled__block_invoke(uint64_t 
       v10 = [photoAssetCloudIdentifier length];
       if ([v5 type] == 2 && v10)
       {
-        v11 = get_system_photo_library();
+        v11 = get_system_photo_library(2);
         v12 = [[PHCloudIdentifier alloc] initWithStringValue:v9];
         v48 = v12;
         v13 = [NSArray arrayWithObjects:&v48 count:1];

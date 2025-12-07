@@ -32,8 +32,8 @@
 
     if (!self->_svgDocument || (self->_fileData, self->_fileData = 0, (svgDocument = self->_svgDocument) == 0))
     {
-      [(CUIThemeRendition *)self name];
-      _CUILog(4, "CoreUI: %s '%@' couldn't create SVGDocument (%f) from data", v12, v13, v14, v15, v16, v17, "[_CUIThemeSVGRendition svgDocument]");
+      name = [(CUIThemeRendition *)self name];
+      _CUILog(4, "CoreUI: %s '%@' couldn't create SVGDocument (%f) from data", "[_CUIThemeSVGRendition svgDocument]", name, CoreSVGVersionNumber);
       return self->_svgDocument;
     }
 
@@ -43,8 +43,7 @@ LABEL_2:
     return self->_svgDocument;
   }
 
-  [(CUIThemeRendition *)self name];
-  _CUILog(4, "CoreUI: %s '%@' couldn't create SVGDocument from null data", v6, v7, v8, v9, v10, v11, "[_CUIThemeSVGRendition svgDocument]");
+  _CUILog(4, "CoreUI: %s '%@' couldn't create SVGDocument from null data", "[_CUIThemeSVGRendition svgDocument]", [(CUIThemeRendition *)self name]);
   return 0;
 }
 

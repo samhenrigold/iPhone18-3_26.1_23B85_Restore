@@ -11,7 +11,7 @@
 
 - (NSArray)standardLabels
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF80, &unk_20D5BB540);
   v3 = swift_allocObject();
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6HomeUI19TileCellContentView_prefixLabel);
   *(v3 + 16) = xmmword_20D5BECD0;
@@ -20,7 +20,7 @@
   *(v3 + 40) = v5;
   v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6HomeUI19TileCellContentView_descriptionLabel);
   *(v3 + 48) = v6;
-  sub_20CECF940(0, &unk_28111FB30);
+  sub_20CECF940(0, &unk_28111FB30, 0x277D756B8);
   v7 = v4;
   v8 = v5;
   v9 = v6;

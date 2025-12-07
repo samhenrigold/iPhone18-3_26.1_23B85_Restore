@@ -22,7 +22,7 @@
   *&self->_TtC23ShelfKitCollectionViews11ArtworkView_opaque[OBJC_IVAR____TtC23ShelfKitCollectionViews18CachingArtworkView_pageRenderController] = 0;
   *&self->_TtC23ShelfKitCollectionViews11ArtworkView_opaque[OBJC_IVAR____TtC23ShelfKitCollectionViews18CachingArtworkView_objectGraph] = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CachingArtworkView();
+  v7.super_class = type metadata accessor for CachingArtworkView(0);
   return [(ArtworkView *)&v7 initWithFrame:0.0, 0.0, 0.0, 0.0];
 }
 

@@ -1107,9 +1107,11 @@ LABEL_11:
     self->_deletedItems = 0;
   }
 
-  self->_propertyItems = [(CNCardPropertyGroup *)self _loadPropertyItems];
+  _loadPropertyItems = [(CNCardPropertyGroup *)self _loadPropertyItems];
+  propertyItems = self->_propertyItems;
+  self->_propertyItems = _loadPropertyItems;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](_loadPropertyItems, propertyItems);
 }
 
 - (int64_t)valueEditingItemsCount

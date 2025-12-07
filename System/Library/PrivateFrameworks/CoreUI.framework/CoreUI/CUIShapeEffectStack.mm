@@ -186,7 +186,7 @@
   return gSharedCIContext;
 }
 
-CIContext *__38__CUIShapeEffectStack_sharedCIContext__block_invoke()
+CIContext *__38__CUIShapeEffectStack_sharedCIContext__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = +[CIContext contextWithOptions:](CIContext, "contextWithOptions:", [objc_opt_class() preferredCIContextOptions]);
   gSharedCIContext = result;
@@ -1562,7 +1562,6 @@ LABEL_66:
 {
   if (blend)
   {
-    blendCopy = blend;
     if (over)
     {
       if (kind > 1749903735)
@@ -1573,39 +1572,39 @@ LABEL_66:
           {
             if (kind <= 1768188277)
             {
-              v18 = @"CIHueBlendMode";
+              v16 = @"CIHueBlendMode";
               if (kind != 1752524064)
               {
-                v18 = 0;
+                v16 = 0;
               }
 
               if (kind == 1749903736)
               {
-                blend = @"CIHardMixBlendMode";
+                v11 = @"CIHardMixBlendMode";
               }
 
               else
               {
-                blend = v18;
+                v11 = v16;
               }
             }
 
             else if (kind == 1768188278)
             {
-              blend = @"CIColorBurnBlendMode";
+              v11 = @"CIColorBurnBlendMode";
             }
 
             else if (kind == 1816947060)
             {
-              blend = @"CILinearLightBlendMode";
+              v11 = @"CILinearLightBlendMode";
             }
 
             else
             {
-              blend = 0;
+              v11 = 0;
               if (kind == 1818391150)
               {
-                blend = @"CILinearBurnBlendMode";
+                v11 = @"CILinearBurnBlendMode";
               }
             }
 
@@ -1616,20 +1615,20 @@ LABEL_66:
           {
             if (kind == 1818850405)
             {
-              blend = @"CILightenBlendMode";
+              v11 = @"CILightenBlendMode";
             }
 
             else if (kind == 1819634976)
             {
-              blend = @"CILuminosityBlendMode";
+              v11 = @"CILuminosityBlendMode";
             }
 
             else
             {
-              blend = 0;
+              v11 = 0;
               if (kind == 1836411936)
               {
-                blend = @"CIMultiplyBlendMode";
+                v11 = @"CIMultiplyBlendMode";
               }
             }
 
@@ -1638,14 +1637,14 @@ LABEL_66:
 
           if (kind == 1818518631)
           {
-            blend = @"CILinearDodgeBlendMode";
+            v11 = @"CILinearDodgeBlendMode";
             goto LABEL_69;
           }
 
-          blend = 0;
-          v14 = 1818706796;
+          v11 = 0;
+          v12 = 1818706796;
 LABEL_66:
-          if (kind != v14)
+          if (kind != v12)
           {
             goto LABEL_69;
           }
@@ -1659,20 +1658,20 @@ LABEL_66:
           {
             if (kind == 1935766560)
             {
-              blend = @"CISaturationBlendMode";
+              v11 = @"CISaturationBlendMode";
             }
 
             else if (kind == 1935897198)
             {
-              blend = @"CIScreenBlendMode";
+              v11 = @"CIScreenBlendMode";
             }
 
             else
             {
-              blend = 0;
+              v11 = 0;
               if (kind == 1936553316)
               {
-                blend = @"CIExclusionBlendMode";
+                v11 = @"CIExclusionBlendMode";
               }
             }
 
@@ -1681,7 +1680,7 @@ LABEL_66:
 
           if (kind == 1984719220)
           {
-            blend = @"CIVividLightBlendMode";
+            v11 = @"CIVividLightBlendMode";
             goto LABEL_69;
           }
 
@@ -1690,55 +1689,55 @@ LABEL_66:
             goto LABEL_68;
           }
 
-          blend = 0;
+          v11 = 0;
           if (kind == 1986229103)
           {
             goto LABEL_68;
           }
 
 LABEL_69:
-          v19 = [CIFilter filterWithName:blend keysAndValues:@"inputImage", blendCopy, @"inputBackgroundImage", over, 0];
+          v17 = [CIFilter filterWithName:v11 keysAndValues:@"inputImage", blend, @"inputBackgroundImage", over, 0];
 
-          return [(CIFilter *)v19 valueForKey:@"outputImage"];
+          return [(CIFilter *)v17 valueForKey:@"outputImage"];
         }
 
         if (kind <= 1884055923)
         {
           if (kind != 1852797549)
           {
-            v10 = kind == 1870030194;
-            v11 = @"CIOverlayBlendMode";
+            v7 = kind == 1870030194;
+            v8 = @"CIOverlayBlendMode";
 LABEL_74:
-            if (v10)
+            if (v7)
             {
-              blend = v11;
+              v11 = v8;
             }
 
             else
             {
-              blend = 0;
+              v11 = 0;
             }
 
             goto LABEL_69;
           }
 
 LABEL_68:
-          blend = @"CISourceOverCompositing";
+          v11 = @"CISourceOverCompositing";
           goto LABEL_69;
         }
 
         if (kind == 1884055924)
         {
-          blend = @"CIPinLightBlendMode";
+          v11 = @"CIPinLightBlendMode";
           goto LABEL_69;
         }
 
         if (kind != 1885434739)
         {
-          blend = 0;
+          v11 = 0;
           if (kind == 1934387572)
           {
-            blend = @"CISoftLightBlendMode";
+            v11 = @"CISoftLightBlendMode";
           }
 
           goto LABEL_69;
@@ -1755,8 +1754,8 @@ LABEL_68:
             {
               if (kind)
               {
-                v10 = kind == 18;
-                v11 = @"CISourceInCompositing";
+                v7 = kind == 18;
+                v8 = @"CISourceInCompositing";
                 goto LABEL_74;
               }
 
@@ -1771,14 +1770,14 @@ LABEL_68:
             goto LABEL_67;
           }
 
-          v15 = @"CISourceOutCompositing";
-          v16 = @"CISourceAtopCompositing";
+          v13 = @"CISourceOutCompositing";
+          v14 = @"CISourceAtopCompositing";
           if (kind != 20)
           {
-            v16 = 0;
+            v14 = 0;
           }
 
-          v17 = kind == 19;
+          v15 = kind == 19;
           goto LABEL_80;
         }
 
@@ -1788,43 +1787,43 @@ LABEL_68:
           {
             if (kind == 1668246642)
             {
-              blend = @"CIColorBlendMode";
+              v11 = @"CIColorBlendMode";
             }
 
             else if (kind == 1684107883)
             {
-              blend = @"CIDarkenBlendMode";
+              v11 = @"CIDarkenBlendMode";
             }
 
             else
             {
-              blend = 0;
+              v11 = 0;
               if (kind == 1684629094)
               {
-                blend = @"CIDifferenceBlendMode";
+                v11 = @"CIDifferenceBlendMode";
               }
             }
 
             goto LABEL_69;
           }
 
-          v15 = @"CIPlusDarkerCompositing";
-          v16 = @"CIAdditionCompositing";
+          v13 = @"CIPlusDarkerCompositing";
+          v14 = @"CIAdditionCompositing";
           if (kind != 27)
           {
-            v16 = 0;
+            v14 = 0;
           }
 
-          v17 = kind == 26;
+          v15 = kind == 26;
 LABEL_80:
-          if (v17)
+          if (v15)
           {
-            blend = v15;
+            v11 = v13;
           }
 
           else
           {
-            blend = v16;
+            v11 = v14;
           }
 
           goto LABEL_69;
@@ -1836,15 +1835,15 @@ LABEL_80:
           {
             if (kind == 1718842722)
             {
-              blend = @"CISubtractBlendMode";
+              v11 = @"CISubtractBlendMode";
             }
 
             else
             {
-              blend = 0;
+              v11 = 0;
               if (kind == 1749838196)
               {
-                blend = @"CIHardLightBlendMode";
+                v11 = @"CIHardLightBlendMode";
               }
             }
 
@@ -1858,18 +1857,18 @@ LABEL_80:
         {
           if (kind == 1684633120)
           {
-            blend = @"CIColorDodgeBlendMode";
+            v11 = @"CIColorDodgeBlendMode";
             goto LABEL_69;
           }
 
-          blend = 0;
-          v14 = 1684751212;
+          v11 = 0;
+          v12 = 1684751212;
           goto LABEL_66;
         }
       }
 
 LABEL_67:
-      _CUILog(4, "CUIShapeEffectStack: Unsupported blend mode %d encountered. Using SourceOver instead.", blend, over, *&kind, v5, v6, v7, *&kind);
+      _CUILog(4, "CUIShapeEffectStack: Unsupported blend mode %d encountered. Using SourceOver instead.", kind);
       goto LABEL_68;
     }
 
@@ -2106,35 +2105,33 @@ LABEL_67:
     switch(style)
     {
       case 2u:
-        v19 = "Emboss bevel style isn't yet implemented";
-        goto LABEL_18;
+        _CUILog(4, "Emboss bevel style isn't yet implemented", from, *&size, *&soften);
+        return from;
       case 3u:
-        v19 = "Pillow emboss bevel style isn't yet implemented";
-        goto LABEL_18;
+        _CUILog(4, "Pillow emboss bevel style isn't yet implemented", from, *&size, *&soften);
+        return from;
       case 4u:
-        v19 = "Stroke emboss bevel style isn't yet implemented";
-LABEL_18:
-        _CUILog(4, v19, from, *&size, *&soften, *&style, v16, v17, v37);
+        _CUILog(4, "Stroke emboss bevel style isn't yet implemented", from, *&size, *&soften);
         return from;
     }
 
 LABEL_17:
-    v19 = "unrecognized bevel style";
-    goto LABEL_18;
+    _CUILog(4, "unrecognized bevel style", from, *&size, *&soften);
+    return from;
   }
 
-  v27 = *&soften;
-  v28 = *&size;
+  v24 = *&soften;
+  v25 = *&size;
   if (!style)
   {
     shadowBlueCopy2 = shadowBlue;
-    v29 = [CIFilter filterWithName:@"CUIOuterBevelEmbossFilter"];
-    if (v29)
+    v26 = [CIFilter filterWithName:@"CUIOuterBevelEmbossFilter"];
+    if (v26)
     {
       goto LABEL_15;
     }
 
-    v30 = @"CUIOuterBevelEmbossFilterLocal";
+    v27 = @"CUIOuterBevelEmbossFilterLocal";
     goto LABEL_14;
   }
 
@@ -2144,42 +2141,42 @@ LABEL_17:
   }
 
   shadowBlueCopy2 = shadowBlue;
-  v29 = [CIFilter filterWithName:@"CUIInnerBevelEmbossFilter"];
-  if (!v29)
+  v26 = [CIFilter filterWithName:@"CUIInnerBevelEmbossFilter"];
+  if (!v26)
   {
-    v30 = @"CUIInnerBevelEmbossFilterLocal";
+    v27 = @"CUIInnerBevelEmbossFilterLocal";
 LABEL_14:
-    v29 = [CIFilter filterWithName:v30];
-    if (!v29)
+    v26 = [CIFilter filterWithName:v27];
+    if (!v26)
     {
       return from;
     }
   }
 
 LABEL_15:
-  v31 = v29;
-  [(CIFilter *)v29 setValue:from forKey:@"inputImage"];
-  if ([(NSDictionary *)[(CIFilter *)v31 attributes] valueForKey:@"inputSize"])
+  v28 = v26;
+  [(CIFilter *)v26 setValue:from forKey:@"inputImage"];
+  if ([(NSDictionary *)[(CIFilter *)v28 attributes] valueForKey:@"inputSize"])
   {
-    [(CIFilter *)v31 setValue:[NSNumber forKey:"numberWithUnsignedInt:" numberWithUnsignedInt:v28], @"inputSize"];
-    v33 = [NSNumber numberWithUnsignedInt:v27];
+    [(CIFilter *)v28 setValue:[NSNumber forKey:"numberWithUnsignedInt:" numberWithUnsignedInt:v25], @"inputSize"];
+    v30 = [NSNumber numberWithUnsignedInt:v24];
   }
 
   else
   {
-    *&v32 = v28 / 2.853;
-    [(CIFilter *)v31 setValue:[NSNumber forKey:"numberWithFloat:" numberWithFloat:v32], @"inputRadius"];
-    *&v35 = v27 / 2.853;
-    v33 = [NSNumber numberWithFloat:v35];
+    *&v29 = v25 / 2.853;
+    [(CIFilter *)v28 setValue:[NSNumber forKey:"numberWithFloat:" numberWithFloat:v29], @"inputRadius"];
+    *&v32 = v24 / 2.853;
+    v30 = [NSNumber numberWithFloat:v32];
   }
 
-  [(CIFilter *)v31 setValue:v33 forKey:@"inputSoften"];
-  *&v36 = angle;
-  [(CIFilter *)v31 setValue:[NSNumber forKey:"numberWithFloat:" numberWithFloat:v36], @"inputAngle"];
-  [(CIFilter *)v31 setValue:[CIColor forKey:"colorWithSRGBRed:green:blue:alpha:" colorWithSRGBRed:red green:green blue:blue alpha:opacity], @"inputHighlightColor"];
-  [(CIFilter *)v31 setValue:[CIColor forKey:"colorWithSRGBRed:green:blue:alpha:" colorWithSRGBRed:shadowRed green:shadowGreen blue:shadowBlueCopy2 alpha:shadowOpacity], @"inputShadowColor"];
+  [(CIFilter *)v28 setValue:v30 forKey:@"inputSoften"];
+  *&v33 = angle;
+  [(CIFilter *)v28 setValue:[NSNumber forKey:"numberWithFloat:" numberWithFloat:v33], @"inputAngle"];
+  [(CIFilter *)v28 setValue:[CIColor forKey:"colorWithSRGBRed:green:blue:alpha:" colorWithSRGBRed:red green:green blue:blue alpha:opacity], @"inputHighlightColor"];
+  [(CIFilter *)v28 setValue:[CIColor forKey:"colorWithSRGBRed:green:blue:alpha:" colorWithSRGBRed:shadowRed green:shadowGreen blue:shadowBlueCopy2 alpha:shadowOpacity], @"inputShadowColor"];
 
-  return [(CIFilter *)v31 valueForKey:@"outputImage"];
+  return [(CIFilter *)v28 valueForKey:@"outputImage"];
 }
 
 + (id)hueSaturationFrom:(id)from withCenterAngle:(double)angle width:(double)width tintRed:(float)red tintGreen:(float)green tintBlue:(float)blue
@@ -2752,41 +2749,41 @@ LABEL_5:
     Model = CGColorSpaceGetModel(ColorSpace);
     if (Model)
     {
-      if (Model == kCGColorSpaceModelRGB)
+      if (Model == 1)
       {
         Components = CGColorGetComponents(color);
-        v11 = *Components;
-        v10 = Components[1];
-        v12 = Components[2];
+        v12 = *Components;
+        v11 = Components[1];
+        v13 = Components[2];
         Alpha = CGColorGetAlpha(color);
       }
 
       else
       {
-        SRGB = _CUIColorSpaceGetSRGB();
+        SRGB = _CUIColorSpaceGetSRGB(Model, v9);
         MEMORY[0x193AC52E0](SRGB, 0);
-        v15 = CGColorTransformConvertColor();
+        v16 = CGColorTransformConvertColor();
         CGColorTransformRelease();
-        if (!v15)
+        if (!v16)
         {
           return;
         }
 
-        v16 = CGColorGetComponents(v15);
-        v11 = *v16;
-        v10 = v16[1];
-        v12 = v16[2];
-        Alpha = CGColorGetAlpha(v15);
-        CGColorRelease(v15);
+        v17 = CGColorGetComponents(v16);
+        v12 = *v17;
+        v11 = v17[1];
+        v13 = v17[2];
+        Alpha = CGColorGetAlpha(v16);
+        CGColorRelease(v16);
       }
     }
 
     else
     {
-      v12 = *CGColorGetComponents(color);
+      v13 = *CGColorGetComponents(color);
       Alpha = CGColorGetAlpha(color);
-      v10 = v12;
-      v11 = v12;
+      v11 = v13;
+      v12 = v13;
     }
 
     anyEffectAllowsTintSubstitution = [(CUIShapeEffectStack *)self anyEffectAllowsTintSubstitution];
@@ -2802,25 +2799,25 @@ LABEL_5:
           {
             if (*p_var5)
             {
-              v19 = v11;
-              *(p_var5 - 4) = v19;
-              v20 = v10;
-              *(p_var5 - 3) = v20;
-              v23 = *(p_var5 - 1);
-              if (v23 <= 0.0)
+              v20 = v12;
+              *(p_var5 - 4) = v20;
+              v21 = v11;
+              *(p_var5 - 3) = v21;
+              v24 = *(p_var5 - 1);
+              if (v24 <= 0.0)
               {
-                v24 = Alpha;
+                v25 = Alpha;
               }
 
               else
               {
-                v24 = Alpha * v23;
+                v25 = Alpha * v24;
               }
 
-              v25 = v24;
-              v21 = v12;
-              *(p_var5 - 2) = v21;
-              *(p_var5 - 1) = v25;
+              v26 = v25;
+              v22 = v13;
+              *(p_var5 - 2) = v22;
+              *(p_var5 - 1) = v26;
             }
 
             p_var5 += 24;
@@ -2836,14 +2833,14 @@ LABEL_5:
           p_var3 = &self->_hueSaturation->var3;
           do
           {
-            if (*(p_var3 + 8) == 1 && (vabdd_f64(v11, *(p_var3 - 1)) > 0.00000011920929 || vabdd_f64(v10, *p_var3) > 0.00000011920929 || vabdd_f64(v12, p_var3[1]) > 0.00000011920929))
+            if (*(p_var3 + 8) == 1 && (vabdd_f64(v12, *(p_var3 - 1)) > 0.00000011920929 || vabdd_f64(v11, *p_var3) > 0.00000011920929 || vabdd_f64(v13, p_var3[1]) > 0.00000011920929))
             {
-              v27 = v11;
-              *(p_var3 - 1) = v27;
-              v28 = v10;
-              *p_var3 = v28;
-              v29 = v12;
-              p_var3[1] = v29;
+              v28 = v12;
+              *(p_var3 - 1) = v28;
+              v29 = v11;
+              *p_var3 = v29;
+              v30 = v13;
+              p_var3[1] = v30;
               *(p_var3 + 9) = 1;
             }
 
@@ -2857,41 +2854,41 @@ LABEL_5:
 
       else
       {
-        v31 = Alpha;
-        self->_outputOpacity = v31;
-        v32 = self->_colorOverlayCount;
-        if (v32)
+        v32 = Alpha;
+        self->_outputOpacity = v32;
+        v33 = self->_colorOverlayCount;
+        if (v33)
         {
           p_var4 = &self->_colorOverlay->var4;
           do
           {
-            v33 = v11;
-            *(p_var4 - 3) = v33;
-            v34 = v10;
-            *(p_var4 - 2) = v34;
-            v35 = v12;
-            *(p_var4 - 1) = v35;
-            *p_var4 = v31;
+            v34 = v12;
+            *(p_var4 - 3) = v34;
+            v35 = v11;
+            *(p_var4 - 2) = v35;
+            v36 = v13;
+            *(p_var4 - 1) = v36;
+            *p_var4 = v32;
             p_var4 += 6;
-            --v32;
+            --v33;
           }
 
-          while (v32);
+          while (v33);
         }
 
         innerGlowCount = self->_innerGlowCount;
         if (innerGlowCount)
         {
-          v41 = &self->_innerGlow->var3;
+          v42 = &self->_innerGlow->var3;
           do
           {
-            v38 = v11;
-            *(v41 - 2) = v38;
-            v39 = v10;
-            *(v41 - 1) = v39;
-            v40 = v12;
-            *v41 = v40;
-            v41 += 6;
+            v39 = v12;
+            *(v42 - 2) = v39;
+            v40 = v11;
+            *(v42 - 1) = v40;
+            v41 = v13;
+            *v42 = v41;
+            v42 += 6;
             --innerGlowCount;
           }
 
@@ -2901,16 +2898,16 @@ LABEL_5:
         innerShadowCount = self->_innerShadowCount;
         if (innerShadowCount)
         {
-          v46 = &self->_innerShadow->var3;
+          v47 = &self->_innerShadow->var3;
           do
           {
-            v43 = v11;
-            *(v46 - 2) = v43;
-            v44 = v10;
-            *(v46 - 1) = v44;
-            v45 = v12;
-            *v46 = v45;
-            v46 += 12;
+            v44 = v12;
+            *(v47 - 2) = v44;
+            v45 = v11;
+            *(v47 - 1) = v45;
+            v46 = v13;
+            *v47 = v46;
+            v47 += 12;
             --innerShadowCount;
           }
 
@@ -2923,12 +2920,12 @@ LABEL_5:
           p_var2 = &self->_outerGlow->var2;
           do
           {
-            v48 = v11;
-            *(p_var2 - 2) = v48;
-            v49 = v10;
-            *(p_var2 - 1) = v49;
-            v50 = v12;
-            *p_var2 = v50;
+            v49 = v12;
+            *(p_var2 - 2) = v49;
+            v50 = v11;
+            *(p_var2 - 1) = v50;
+            v51 = v13;
+            *p_var2 = v51;
             p_var2 += 6;
             --outerGlowCount;
           }
@@ -2939,16 +2936,16 @@ LABEL_5:
         engraveShadowCount = self->_engraveShadowCount;
         if (engraveShadowCount)
         {
-          v56 = &self->_engraveShadow->var2;
+          v57 = &self->_engraveShadow->var2;
           do
           {
-            v53 = v11;
-            *(v56 - 2) = v53;
-            v54 = v10;
-            *(v56 - 1) = v54;
-            v55 = v12;
-            *v56 = v55;
-            v56 += 12;
+            v54 = v12;
+            *(v57 - 2) = v54;
+            v55 = v11;
+            *(v57 - 1) = v55;
+            v56 = v13;
+            *v57 = v56;
+            v57 += 12;
             --engraveShadowCount;
           }
 
@@ -2958,16 +2955,16 @@ LABEL_5:
         extraShadowCount = self->_extraShadowCount;
         if (extraShadowCount)
         {
-          v61 = &self->_extraShadow->var2;
+          v62 = &self->_extraShadow->var2;
           do
           {
-            v58 = v11;
-            *(v61 - 2) = v58;
-            v59 = v10;
-            *(v61 - 1) = v59;
-            v60 = v12;
-            *v61 = v60;
-            v61 += 12;
+            v59 = v12;
+            *(v62 - 2) = v59;
+            v60 = v11;
+            *(v62 - 1) = v60;
+            v61 = v13;
+            *v62 = v61;
+            v62 += 12;
             --extraShadowCount;
           }
 
@@ -2983,22 +2980,22 @@ LABEL_5:
         innerGradientCount = self->_innerGradientCount;
         if (innerGradientCount)
         {
-          v65 = &self->_innerGradient->var5;
+          v66 = &self->_innerGradient->var5;
           do
           {
-            v66 = v65[2];
-            v63.f64[1] = (1.0 - Alpha) * v11;
-            v63.f64[0] = (1.0 - Alpha) * v12;
-            v64.f64[1] = (1.0 - Alpha) * v10;
-            v64.f64[0] = v63.f64[1];
-            *(v65 - 1) = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_n_f64(v64, vcvtq_f64_f32(*(v65 - 4)), v66)), vmlaq_n_f64(v63, vcvt_hight_f64_f32(*(v65 - 4)), v66));
-            v67 = v65[1];
-            v68 = v64.f64[1] + v66 * *v65;
-            *v65 = v68;
-            v69.f64[0] = v63.f64[0] + v66 * v67;
-            v69.f64[1] = 1.0 - Alpha + v66;
-            *(v65 + 1) = vcvt_f32_f64(v69);
-            v65 += 8;
+            v67 = v66[2];
+            v64.f64[1] = (1.0 - Alpha) * v12;
+            v64.f64[0] = (1.0 - Alpha) * v13;
+            v65.f64[1] = (1.0 - Alpha) * v11;
+            v65.f64[0] = v64.f64[1];
+            *(v66 - 1) = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_n_f64(v65, vcvtq_f64_f32(*(v66 - 4)), v67)), vmlaq_n_f64(v64, vcvt_hight_f64_f32(*(v66 - 4)), v67));
+            v68 = v66[1];
+            v69 = v65.f64[1] + v67 * *v66;
+            *v66 = v69;
+            v70.f64[0] = v64.f64[0] + v67 * v68;
+            v70.f64[1] = 1.0 - Alpha + v67;
+            *(v66 + 1) = vcvt_f32_f64(v70);
+            v66 += 8;
             --innerGradientCount;
           }
 
@@ -3008,39 +3005,39 @@ LABEL_5:
 
       else if ([(CUIShapeEffectStack *)self hasColorOverlay])
       {
-        v70 = self->_colorOverlayCount;
-        if (v70)
+        v71 = self->_colorOverlayCount;
+        if (v71)
         {
-          v71 = &self->_colorOverlay->var2;
+          v72 = &self->_colorOverlay->var2;
           do
           {
-            v72 = v71[2];
-            v73.f64[0] = (1.0 - Alpha) * v11 + v72 * *(v71 - 1);
-            v74.f64[0] = (1.0 - Alpha) * v12 + v72 * v71[1];
-            v73.f64[1] = (1.0 - Alpha) * v10 + v72 * *v71;
-            v74.f64[1] = 1.0 - Alpha + v72;
-            *(v71 - 1) = vcvt_hight_f32_f64(vcvt_f32_f64(v73), v74);
-            v71 += 6;
-            --v70;
+            v73 = v72[2];
+            v74.f64[0] = (1.0 - Alpha) * v12 + v73 * *(v72 - 1);
+            v75.f64[0] = (1.0 - Alpha) * v13 + v73 * v72[1];
+            v74.f64[1] = (1.0 - Alpha) * v11 + v73 * *v72;
+            v75.f64[1] = 1.0 - Alpha + v73;
+            *(v72 - 1) = vcvt_hight_f32_f64(vcvt_f32_f64(v74), v75);
+            v72 += 6;
+            --v71;
           }
 
-          while (v70);
+          while (v71);
         }
       }
 
       else
       {
         self->_colorOverlayCount = 1;
-        v75 = malloc_type_calloc(1uLL, 0x18uLL, 0x10000402C707793uLL);
-        self->_colorOverlay = v75;
-        v76 = v11;
-        v77 = v10;
-        v75->var1 = v76;
-        v75->var2 = v77;
-        v78 = v12;
-        v79 = Alpha;
-        v75->var3 = v78;
-        v75->var4 = v79;
+        v76 = malloc_type_calloc(1uLL, 0x18uLL, 0x10000402C707793uLL);
+        self->_colorOverlay = v76;
+        v77 = v12;
+        v78 = v11;
+        v76->var1 = v77;
+        v76->var2 = v78;
+        v79 = v13;
+        v80 = Alpha;
+        v76->var3 = v79;
+        v76->var4 = v80;
       }
     }
   }
@@ -3683,14 +3680,14 @@ LABEL_10:
   {
     v11 = [[CIImage alloc] initWithCGImage:image];
     v12 = [(CUIShapeEffectStack *)self compositeEffectStackWithShapeImage:v11 withScale:0 blendOntoImage:scale];
-    [v12 extent];
-    v14 = v13;
-    v16 = v15;
-    v18 = v17;
-    v20 = v19;
-    SRGB = _CUIColorSpaceGetSRGB();
+    extent = [v12 extent];
+    v15 = v14;
+    v17 = v16;
+    v19 = v18;
+    v21 = v20;
+    SRGB = _CUIColorSpaceGetSRGB(extent, v22);
     sharedCIContext = [objc_opt_class() sharedCIContext];
-    v10 = [sharedCIContext createCGImage:v12 fromRect:objc_msgSend(sharedCIContext format:"workingFormat") colorSpace:SRGB deferred:{1, v14, v16, v18, v20}];
+    v10 = [sharedCIContext createCGImage:v12 fromRect:objc_msgSend(sharedCIContext format:"workingFormat") colorSpace:SRGB deferred:{1, v15, v17, v19, v21}];
 
     if (cacheCopy)
     {
@@ -3714,20 +3711,20 @@ LABEL_10:
   [v10 extent];
   v13 = v12;
   v15 = v14;
-  [(CUIShapeEffectStack *)self effectPaddingWithScale:scale];
-  v17 = v16;
-  v19 = v18;
-  v21 = v13 + v20;
-  v23 = v15 + v22;
-  SRGB = _CUIColorSpaceGetSRGB();
+  v16 = [(CUIShapeEffectStack *)self effectPaddingWithScale:scale];
+  v18 = v17;
+  v20 = v19;
+  v22 = v13 + v21;
+  v24 = v15 + v23;
+  SRGB = _CUIColorSpaceGetSRGB(v16, v25);
   AlignedBytesPerRow = CGBitmapGetAlignedBytesPerRow();
   Data = CGBitmapAllocateData();
-  [context render:v11 toBitmap:Data rowBytes:AlignedBytesPerRow bounds:kCIFormatBGRA8 format:SRGB colorSpace:{v17, v19, v21, v23}];
-  v27 = CGDataProviderCreateWithData(0, Data, (v23 * AlignedBytesPerRow), CGBitmapDataProviderReleaseData);
-  v28 = CGImageCreate(v21, v23, 8uLL, 0x20uLL, AlignedBytesPerRow, SRGB, 0x2002u, v27, 0, 0, kCGRenderingIntentDefault);
-  CGDataProviderRelease(v27);
+  [context render:v11 toBitmap:Data rowBytes:AlignedBytesPerRow bounds:kCIFormatBGRA8 format:SRGB colorSpace:{v18, v20, v22, v24}];
+  v29 = CGDataProviderCreateWithData(0, Data, (v24 * AlignedBytesPerRow), CGBitmapDataProviderReleaseData);
+  v30 = CGImageCreate(v22, v24, 8uLL, 0x20uLL, AlignedBytesPerRow, SRGB, 0x2002u, v29, 0, 0, kCGRenderingIntentDefault);
+  CGDataProviderRelease(v29);
 
-  return v28;
+  return v30;
 }
 
 - (BOOL)expressableByColorFillCheckingOutputBlending:(BOOL)blending
@@ -3811,7 +3808,7 @@ LABEL_10:
 
   darkerCopy = darker;
   CopyByMatchingToColorSpace = color;
-  SRGB = _CUIColorSpaceGetSRGB();
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
   CGColorGetColorSpace(CopyByMatchingToColorSpace);
   if (!CGColorSpaceEqualToColorSpace())
   {

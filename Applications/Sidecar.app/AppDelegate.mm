@@ -16,7 +16,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_100003AB8(&qword_100025F90, type metadata accessor for LaunchOptionsKey);
+    sub_100003AB8(&qword_100025F90, type metadata accessor for LaunchOptionsKey, &unk_100017A78);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -33,7 +33,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_100003AB8(&qword_100025F90, type metadata accessor for LaunchOptionsKey);
+    sub_100003AB8(&qword_100025F90, type metadata accessor for LaunchOptionsKey, &unk_100017A78);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -80,14 +80,13 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100002864(v8);
+  sub_100002864(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)sidecarServicePresenterTerminate

@@ -32,69 +32,53 @@
 
 - (void)migrateWorkflow
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v3)
   {
     v4 = v3;
-    v25 = *v27;
+    v24 = *v26;
     v5 = @"WFDateActionDate";
     do
     {
       for (i = 0; i != v4; ++i)
       {
         v7 = v5;
-        if (*v27 != v25)
+        if (*v26 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v10 = [v8 objectForKey:actionIdentifierKey];
 
-        if ([v10 isEqualToString:@"is.workflow.actions.currentdate"])
+        if ((objc_msgSend_isEqualToString_(v10) & 1) != 0 || objc_msgSend_isEqualToString_(v10) && (-[WFWorkflowMigration actionParametersKey](self, "actionParametersKey"), v14 = objc_claimAutoreleasedReturnValue(), [v8 objectForKeyedSubscript:v14], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "objectForKeyedSubscript:", v5), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, !v16))
         {
-          goto LABEL_7;
-        }
-
-        if (![v10 isEqualToString:@"is.workflow.actions.date"])
-        {
-          goto LABEL_10;
-        }
-
-        actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
-        v15 = [v8 objectForKeyedSubscript:actionParametersKey];
-        v16 = [v15 objectForKeyedSubscript:v5];
-
-        if (!v16)
-        {
-LABEL_7:
           actionIdentifierKey2 = [(WFWorkflowMigration *)self actionIdentifierKey];
           [v8 setObject:@"is.workflow.actions.date" forKeyedSubscript:actionIdentifierKey2];
 
-          actionParametersKey2 = [(WFWorkflowMigration *)self actionParametersKey];
-          v13 = [v8 objectForKeyedSubscript:actionParametersKey2];
+          actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
+          v13 = [v8 objectForKeyedSubscript:actionParametersKey];
 
           [v13 setObject:@"Current Date" forKeyedSubscript:@"WFDateActionMode"];
         }
 
         else
         {
-LABEL_10:
           v5 = v7;
-          if (![v10 isEqualToString:@"is.workflow.actions.date"])
+          if (!objc_msgSend_isEqualToString_(v10))
           {
             goto LABEL_14;
           }
 
-          actionParametersKey3 = [(WFWorkflowMigration *)self actionParametersKey];
-          v13 = [v8 objectForKey:actionParametersKey3];
+          actionParametersKey2 = [(WFWorkflowMigration *)self actionParametersKey];
+          v13 = [v8 objectForKey:actionParametersKey2];
 
           [v13 setObject:@"Specified Date" forKeyedSubscript:@"WFDateActionMode"];
           v18 = [v13 objectForKeyedSubscript:v7];
@@ -114,14 +98,13 @@ LABEL_10:
 LABEL_14:
       }
 
-      v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v4);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDateFormatter)dateFormatter

@@ -7,7 +7,7 @@
 
 - (void)shouldFireInResponseToEvent:()BiomeContext triggerIdentifier:completion:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -17,26 +17,16 @@
     v12 = getWFTriggersLogObject();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 136315394;
-      v31 = "[WFWifiTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
-      v32 = 2112;
-      v33 = eventBody;
-      _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_DEFAULT, "%s Received WiFi connection event %@ for trigger with setting", &v30, 0x16u);
+      v29 = 136315394;
+      v30 = "[WFWifiTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+      v31 = 2112;
+      v32 = eventBody;
+      _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_DEFAULT, "%s Received WiFi connection event %@ for trigger with setting", &v29, 0x16u);
     }
 
     starting = [eventBody starting];
-    if (starting != [self onConnect])
+    if (starting != [self onConnect] && (v14 = objc_msgSend(eventBody, "starting"), v14 == objc_msgSend(self, "onDisconnect")) || objc_msgSend(self, "selection") == 1 && (objc_msgSend(self, "selectedNetworks"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(eventBody, "SSID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "containsObject:", v16), v16, v15, (v17 & 1) == 0))
     {
-      starting2 = [eventBody starting];
-      if (starting2 == [self onDisconnect])
-      {
-        goto LABEL_15;
-      }
-    }
-
-    if ([self selection] == 1 && (objc_msgSend(self, "selectedNetworks"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(eventBody, "SSID"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "containsObject:", v16), v16, v15, (v17 & 1) == 0))
-    {
-LABEL_15:
       v10[2](v10, 0);
     }
 
@@ -82,15 +72,13 @@ LABEL_15:
     v19 = getWFTriggersLogObject();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 136315138;
-      v31 = "[WFWifiTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
-      _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_DEFAULT, "%s No WiFi event received for trigger; not firing.", &v30, 0xCu);
+      v29 = 136315138;
+      v30 = "[WFWifiTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+      _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_DEFAULT, "%s No WiFi event received for trigger; not firing.", &v29, 0xCu);
     }
 
     v10[2](v10, 0);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)publisherWithScheduler:()BiomeContext

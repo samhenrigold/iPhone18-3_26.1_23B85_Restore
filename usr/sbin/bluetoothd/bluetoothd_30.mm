@@ -60,9 +60,9 @@ void sub_100222088(void *ptr)
 
 uint64_t sub_100222140(unsigned __int8 *a1, uint64_t a2)
 {
-  v46 = 0;
-  v45 = 0;
-  v44 = 0;
+  v18 = 0;
+  v17 = 0;
+  v16 = 0;
   if (*a1 == 1)
   {
     if (a1[408])
@@ -78,16 +78,16 @@ uint64_t sub_100222140(unsigned __int8 *a1, uint64_t a2)
 
         else if (sub_10000C240())
         {
-          sub_10000AF54("Unknown application parameter %d", v6, v7, v8, v9, v10, v11, v12, *v5);
-          v13 = sub_10000C050(0x50u);
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Unknown application parameter %d", *v5);
+          v6 = sub_10000C050(0x50u);
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
           {
-            v14 = sub_10000C0FC();
+            v7 = sub_10000C0FC();
             *buf = 136446466;
-            v48 = v14;
-            v49 = 1024;
-            v50 = 0xFFFF;
-            _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+            v20 = v7;
+            v21 = 1024;
+            v22 = 0xFFFF;
+            _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
           }
         }
 
@@ -98,15 +98,15 @@ uint64_t sub_100222140(unsigned __int8 *a1, uint64_t a2)
       while (v4 < a1[408]);
     }
 
-    v24 = sub_1001C28A0(a2, 0, 0);
-    if (v24)
+    v10 = sub_1001C28A0(a2, 0, 0);
+    if (v10)
     {
-      v23 = v24;
+      v9 = v10;
       if (sub_10000C240())
       {
-        sub_10000AF54("Could not send PUT response : %!", v25, v26, v27, v28, v29, v30, v31, v23);
-        v32 = sub_10000C050(0x50u);
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Could not send PUT response : %!", v9);
+        v11 = sub_10000C050(0x50u);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -115,15 +115,15 @@ uint64_t sub_100222140(unsigned __int8 *a1, uint64_t a2)
 
     else
     {
-      v33 = sub_1001C32B4(a2, &v44);
-      if (v33)
+      v12 = sub_1001C32B4(a2, &v16);
+      if (v12)
       {
-        v23 = v33;
+        v9 = v12;
         if (sub_10000C240())
         {
-          sub_10000AF54("Could get address from connection %d : %!", v34, v35, v36, v37, v38, v39, v40, a2);
-          v41 = sub_10000C050(0x50u);
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Could get address from connection %d : %!", a2, v9);
+          v13 = sub_10000C050(0x50u);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
@@ -132,20 +132,20 @@ uint64_t sub_100222140(unsigned __int8 *a1, uint64_t a2)
 
       else
       {
-        v42 = *(qword_100B5EF98 + 320);
-        if (v42)
+        v14 = *(qword_100B5EF98 + 320);
+        if (v14)
         {
-          v42(a2, v46);
+          v14(a2, v18);
         }
 
-        if (v46)
+        if (v18)
         {
-          return sub_10021E9EC(&v44);
+          return sub_10021E9EC(&v16);
         }
 
         else
         {
-          sub_10021EF24(&v44);
+          sub_10021EF24(&v16);
           return 0;
         }
       }
@@ -156,9 +156,9 @@ uint64_t sub_100222140(unsigned __int8 *a1, uint64_t a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Send events should be PUT, not %d", v15, v16, v17, v18, v19, v20, v21, *a1);
-      v22 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Send events should be PUT, not %d", *a1);
+      v8 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -167,7 +167,7 @@ uint64_t sub_100222140(unsigned __int8 *a1, uint64_t a2)
     return 1720;
   }
 
-  return v23;
+  return v9;
 }
 
 uint64_t sub_100222404(unsigned __int8 *a1, uint64_t a2)
@@ -222,14 +222,14 @@ uint64_t sub_100222404(unsigned __int8 *a1, uint64_t a2)
       LOWORD(v5) = 0;
     }
 
-    v18 = *(qword_100B5EF98 + 280);
-    if (!v18)
+    v11 = *(qword_100B5EF98 + 280);
+    if (!v11)
     {
       sub_1000D660C();
-      v18 = *(qword_100B5EF98 + 280);
+      v11 = *(qword_100B5EF98 + 280);
     }
 
-    v18(a2, v6, v5);
+    v11(a2, v6, v5);
     return 0;
   }
 
@@ -237,9 +237,9 @@ uint64_t sub_100222404(unsigned __int8 *a1, uint64_t a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Send events should be GET, not %d", v9, v10, v11, v12, v13, v14, v15, *a1);
-      v16 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Send events should be GET, not %d", *a1);
+      v9 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -251,10 +251,10 @@ uint64_t sub_100222404(unsigned __int8 *a1, uint64_t a2)
 
 uint64_t sub_100222550(unsigned __int8 *a1, uint64_t a2)
 {
-  memset(v38, 0, 32);
-  memset(v37, 0, sizeof(v37));
-  memset(v36, 0, 255);
-  memset(v35, 0, 255);
+  memset(v24, 0, 32);
+  memset(v23, 0, sizeof(v23));
+  memset(v22, 0, 255);
+  memset(v21, 0, 255);
   if (*a1 == 2)
   {
     v4 = *(a1 + 1);
@@ -344,20 +344,20 @@ LABEL_30:
 LABEL_32:
             if (sub_10000C240())
             {
-              v18 = v4;
-              sub_10000AF54("Unknown application parameter %d", v11, v12, v13, v14, v15, v16, v17, *(v8 - 16));
-              v19 = sub_10000C050(0x50u);
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              v11 = v4;
+              sub_10000AF54("Unknown application parameter %d", *(v8 - 16));
+              v12 = sub_10000C050(0x50u);
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
               {
-                v20 = sub_10000C0FC();
+                v13 = sub_10000C0FC();
                 *buf = 136446466;
-                v32 = v20;
-                v33 = 1024;
-                v34 = 0xFFFF;
-                _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+                v18 = v13;
+                v19 = 1024;
+                v20 = 0xFFFF;
+                _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
               }
 
-              v4 = v18;
+              v4 = v11;
             }
 
             goto LABEL_30;
@@ -377,14 +377,14 @@ LABEL_32:
     LOWORD(v6) = 0;
     LOWORD(v9) = 1024;
 LABEL_43:
-    v30 = *(qword_100B5EF98 + 272);
-    if (!v30)
+    v16 = *(qword_100B5EF98 + 272);
+    if (!v16)
     {
       sub_1000D660C();
-      v30 = *(qword_100B5EF98 + 272);
+      v16 = *(qword_100B5EF98 + 272);
     }
 
-    v30(a2, v4, v9, v6, 255, v7, 12, v38, v37, 0, v36, v35, 0);
+    v16(a2, v4, v9, v6, 255, v7, 12, v24, v23, 0, v22, v21, 0);
     return 0;
   }
 
@@ -392,9 +392,9 @@ LABEL_43:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Send events should be GET, not %d", v21, v22, v23, v24, v25, v26, v27, *a1);
-      v28 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Send events should be GET, not %d", *a1);
+      v14 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -412,23 +412,23 @@ uint64_t sub_100222978(unsigned __int8 *a1, uint64_t a2)
     if (!a1[408])
     {
 LABEL_44:
-      v72 = *(qword_100B5EF98 + 264);
-      if (!v72)
+      v16 = *(qword_100B5EF98 + 264);
+      if (!v16)
       {
         sub_1000D660C();
-        v72 = *(qword_100B5EF98 + 264);
+        v16 = *(qword_100B5EF98 + 264);
       }
 
-      v72(a2, *(a1 + 52), *(a1 + 212));
+      v16(a2, *(a1 + 52), *(a1 + 212));
       return 0;
     }
 
-    v39 = 0;
-    v40 = a1 + 40;
+    v11 = 0;
+    v12 = a1 + 40;
     while (1)
     {
-      v41 = *(v40 - 16);
-      switch(v41)
+      v13 = *(v12 - 16);
+      switch(v13)
       {
         case 20:
           __memmove_chk();
@@ -437,9 +437,9 @@ LABEL_44:
             goto LABEL_41;
           }
 
-          sub_10000AF54("Charset is set to %s", v57, v58, v59, v60, v61, v62, v63, "UTF8");
-          v49 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Charset is set to %s", "UTF8");
+          v14 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_41;
           }
@@ -452,9 +452,9 @@ LABEL_44:
             goto LABEL_41;
           }
 
-          sub_10000AF54("Retry is set to %s", v50, v51, v52, v53, v54, v55, v56, "ON");
-          v49 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Retry is set to %s", "ON");
+          v14 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_41;
           }
@@ -467,9 +467,9 @@ LABEL_44:
             goto LABEL_41;
           }
 
-          sub_10000AF54("Transparent is set to %s", v42, v43, v44, v45, v46, v47, v48, "OFF");
-          v49 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Transparent is set to %s", "OFF");
+          v14 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_41;
           }
@@ -481,9 +481,9 @@ LABEL_44:
             goto LABEL_41;
           }
 
-          sub_10000AF54("Unknown application parameter %d", v64, v65, v66, v67, v68, v69, v70, *(v40 - 16));
-          v49 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Unknown application parameter %d", *(v12 - 16));
+          v14 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_41;
           }
@@ -491,16 +491,16 @@ LABEL_44:
           break;
       }
 
-      v71 = sub_10000C0FC();
+      v15 = sub_10000C0FC();
       *buf = 136446466;
-      v84 = v71;
-      v85 = 1024;
-      v86 = 0xFFFF;
-      _os_log_error_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+      v21 = v15;
+      v22 = 1024;
+      v23 = 0xFFFF;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
 LABEL_41:
-      ++v39;
-      v40 += 24;
-      if (v39 >= a1[408])
+      ++v11;
+      v12 += 24;
+      if (v11 >= a1[408])
       {
         goto LABEL_44;
       }
@@ -511,12 +511,12 @@ LABEL_41:
   {
     if (sub_10000C240())
     {
-      v73 = 1720;
-      sub_10000AF54("Error in GET or PUT message : %!", v74, v75, v76, v77, v78, v79, v80, 1720);
-      v81 = sub_10000C050(0x50u);
-      if (!os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+      v17 = 1720;
+      sub_10000AF54("Error in GET or PUT message : %!", 1720);
+      v18 = sub_10000C050(0x50u);
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        return v73;
+        return v17;
       }
 
       sub_10080F7A0();
@@ -541,9 +541,9 @@ LABEL_41:
             goto LABEL_19;
           }
 
-          sub_10000AF54("Fraction set to %s", v23, v24, v25, v26, v27, v28, v29, "First");
-          v15 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Fraction set to %s", "First");
+          v8 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_19;
           }
@@ -556,9 +556,9 @@ LABEL_41:
             goto LABEL_19;
           }
 
-          sub_10000AF54("Charset is set to %s", v16, v17, v18, v19, v20, v21, v22, "UTF8");
-          v15 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Charset is set to %s", "UTF8");
+          v8 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_19;
           }
@@ -571,9 +571,9 @@ LABEL_41:
             goto LABEL_19;
           }
 
-          sub_10000AF54("Attachement is set to %s", v8, v9, v10, v11, v12, v13, v14, "OFF");
-          v15 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Attachement is set to %s", "OFF");
+          v8 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_19;
           }
@@ -585,9 +585,9 @@ LABEL_41:
             goto LABEL_19;
           }
 
-          sub_10000AF54("Unknown application parameter %d", v30, v31, v32, v33, v34, v35, v36, *(v6 - 16));
-          v15 = sub_10000C050(0x50u);
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Unknown application parameter %d", *(v6 - 16));
+          v8 = sub_10000C050(0x50u);
+          if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_19;
           }
@@ -595,12 +595,12 @@ LABEL_41:
           break;
       }
 
-      v37 = sub_10000C0FC();
+      v9 = sub_10000C0FC();
       *buf = 136446466;
-      v84 = v37;
-      v85 = 1024;
-      v86 = 0xFFFF;
-      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+      v21 = v9;
+      v22 = 1024;
+      v23 = 0xFFFF;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
 LABEL_19:
       ++v5;
       v6 += 24;
@@ -609,14 +609,14 @@ LABEL_19:
     while (v5 < a1[408]);
   }
 
-  v38 = *(qword_100B5EF98 + 256);
-  if (!v38)
+  v10 = *(qword_100B5EF98 + 256);
+  if (!v10)
   {
     sub_1000D660C();
-    v38 = *(qword_100B5EF98 + 256);
+    v10 = *(qword_100B5EF98 + 256);
   }
 
-  v38(a2, *(a1 + 1), 0, 1, 1);
+  v10(a2, *(a1 + 1), 0, 1, 1);
   return 0;
 }
 
@@ -626,9 +626,9 @@ uint64_t sub_100223078(unsigned __int8 *a1, uint64_t a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Send events should be PUT, not %d", v32, v33, v34, v35, v36, v37, v38, *a1);
-      v39 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Send events should be PUT, not %d", *a1);
+      v11 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -641,9 +641,9 @@ uint64_t sub_100223078(unsigned __int8 *a1, uint64_t a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Message handle is NULL", v46, v47, v48, v49, v50, v51, v52, v54);
-      v53 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Message handle is NULL");
+      v18 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -654,7 +654,7 @@ uint64_t sub_100223078(unsigned __int8 *a1, uint64_t a2)
 
   if (!a1[408])
   {
-    v41 = 0;
+    v13 = 0;
     goto LABEL_36;
   }
 
@@ -675,17 +675,17 @@ uint64_t sub_100223078(unsigned __int8 *a1, uint64_t a2)
 
       if (sub_10000C240())
       {
-        sub_10000AF54("Invalid msg of len %d for MapTagStatusValue", v24, v25, v26, v27, v28, v29, v30, *v7);
-        v16 = sub_10000C050(0x50u);
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Invalid msg of len %d for MapTagStatusValue", *v7);
+        v9 = sub_10000C050(0x50u);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
 LABEL_21:
-          v31 = sub_10000C0FC();
+          v10 = sub_10000C0FC();
           *buf = 136446466;
-          v56 = v31;
-          v57 = 1024;
-          v58 = 0xFFFF;
-          _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+          v20 = v10;
+          v21 = 1024;
+          v22 = 0xFFFF;
+          _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
         }
       }
     }
@@ -700,9 +700,9 @@ LABEL_21:
 
       if (sub_10000C240())
       {
-        sub_10000AF54("Invalid msg of len %d for MapTagStatusIndicator", v17, v18, v19, v20, v21, v22, v23, *v7);
-        v16 = sub_10000C050(0x50u);
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Invalid msg of len %d for MapTagStatusIndicator", *v7);
+        v9 = sub_10000C050(0x50u);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_21;
         }
@@ -711,9 +711,9 @@ LABEL_21:
 
     else if (sub_10000C240())
     {
-      sub_10000AF54("Unknown application parameter %d", v9, v10, v11, v12, v13, v14, v15, *(v7 - 16));
-      v16 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unknown application parameter %d", *(v7 - 16));
+      v9 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_21;
       }
@@ -725,21 +725,21 @@ LABEL_19:
   }
 
   while (v4 < a1[408]);
-  v41 = v6 != 0;
+  v13 = v6 != 0;
   if (v5)
   {
     if (v5)
     {
-      v42 = *(qword_100B5EF98 + 312);
-      if (!v42)
+      v14 = *(qword_100B5EF98 + 312);
+      if (!v14)
       {
         sub_1000D660C();
-        v42 = *(qword_100B5EF98 + 312);
+        v14 = *(qword_100B5EF98 + 312);
       }
 
-      v43 = v6 != 0;
-      v44 = *(a1 + 1);
-      v45 = a2;
+      v15 = v6 != 0;
+      v16 = *(a1 + 1);
+      v17 = a2;
       goto LABEL_39;
     }
 
@@ -747,22 +747,22 @@ LABEL_19:
   }
 
 LABEL_36:
-  v42 = *(qword_100B5EF98 + 304);
-  if (!v42)
+  v14 = *(qword_100B5EF98 + 304);
+  if (!v14)
   {
     sub_1000D660C();
-    v42 = *(qword_100B5EF98 + 304);
+    v14 = *(qword_100B5EF98 + 304);
   }
 
-  v44 = *(a1 + 1);
-  v45 = a2;
-  v43 = v41;
+  v16 = *(a1 + 1);
+  v17 = a2;
+  v15 = v13;
 LABEL_39:
-  v42(v45, v43, v44);
+  v14(v17, v15, v16);
   return 0;
 }
 
-uint64_t sub_100223418(_BYTE *a1, unsigned int a2)
+uint64_t sub_100223418(unsigned __int8 *a1, unsigned int a2)
 {
   if (*a1 == 1)
   {
@@ -777,9 +777,9 @@ uint64_t sub_100223418(_BYTE *a1, unsigned int a2)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Could not send PUT response : %!", v5, v6, v7, v8, v9, v10, v11, v4);
-        v12 = sub_10000C050(0x50u);
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Could not send PUT response : %!", v4);
+        v5 = sub_10000C050(0x50u);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -791,9 +791,9 @@ uint64_t sub_100223418(_BYTE *a1, unsigned int a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Send events should be PUT, not %d", v14, v15, v16, v17, v18, v19, v20, *a1);
-      v21 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Send events should be PUT, not %d", *a1);
+      v7 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -820,16 +820,16 @@ uint64_t sub_100223510(unsigned __int8 *a1, uint64_t a2)
           __memmove_chk();
           if (sub_10000C240())
           {
-            sub_10000AF54("NotificationFilter is set to 0x%x", v6, v7, v8, v9, v10, v11, v12, 0);
-            v13 = sub_10000C050(0x50u);
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("NotificationFilter is set to 0x%x", 0);
+            v6 = sub_10000C050(0x50u);
+            if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
             {
-              v14 = sub_10000C0FC();
+              v7 = sub_10000C0FC();
               *buf = 136446466;
-              v25 = v14;
-              v26 = 1024;
-              v27 = 0xFFFF;
-              _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+              v11 = v7;
+              v12 = 1024;
+              v13 = 0xFFFF;
+              _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
             }
           }
         }
@@ -849,9 +849,9 @@ uint64_t sub_100223510(unsigned __int8 *a1, uint64_t a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Send events should be PUT, not %d", v15, v16, v17, v18, v19, v20, v21, *a1);
-      v22 = sub_10000C050(0x50u);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Send events should be PUT, not %d", *a1);
+      v8 = sub_10000C050(0x50u);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -863,18 +863,18 @@ uint64_t sub_100223510(unsigned __int8 *a1, uint64_t a2)
 
 void sub_100223714(uint64_t a1, uint64_t a2)
 {
-  v30 = a1;
-  v31 = WORD2(a1);
+  LODWORD(v8) = a1;
+  WORD2(v8) = WORD2(a1);
   if (qword_100B5EF98)
   {
-    v3 = sub_10021F660(&v30);
+    v3 = sub_10021F660(&v8);
     if (v3 == 7)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Invalid connection ID %:.", v4, v5, v6, v7, v8, v9, v10, &v30);
-        v11 = sub_10000C050(0x50u);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Invalid connection ID %:.", &v8);
+        v4 = sub_10000C050(0x50u);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -883,33 +883,33 @@ void sub_100223714(uint64_t a1, uint64_t a2)
 
     else
     {
-      v20 = v3;
+      v6 = v3;
       if (a2)
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("BT Map Send failed with status %!", v21, v22, v23, v24, v25, v26, v27, a2);
-          v28 = sub_10000C050(0x50u);
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("BT Map Send failed with status %!", a2, v8);
+          v7 = sub_10000C050(0x50u);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
         }
       }
 
-      sub_1000BB054(*(qword_100B5EF98 + 32 * v20 + 32), 1);
-      if (sub_10000C248(*(qword_100B5EF98 + 32 * v20 + 32)))
+      sub_1000BB054(*(qword_100B5EF98 + 32 * v6 + 32), 1);
+      if (sub_10000C248(*(qword_100B5EF98 + 32 * v6 + 32)))
       {
-        sub_100220050(*(qword_100B5EF98 + 32 * v20 + 16));
+        sub_100220050(*(qword_100B5EF98 + 32 * v6 + 16));
       }
     }
   }
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("MAP is not initialized", v12, v13, v14, v15, v16, v17, v18, v29);
-    v19 = sub_10000C050(0x50u);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("MAP is not initialized");
+    v5 = sub_10000C050(0x50u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -1224,20 +1224,20 @@ uint64_t sub_100223DE4(uint64_t a1)
 {
   for (i = 0; i != 6; ++i)
   {
-    v3 = qword_100B5F1E8[i];
-    if (!v3)
+    v2 = qword_100B5F1E8[i];
+    if (!v2)
     {
       qword_100B5F1E8[i] = a1;
       *(a1 + 280) = i;
-      return v3;
+      return v2;
     }
   }
 
   if (sub_10000C240())
   {
-    sub_10000AF54("No more OBEX handles available!", v4, v5, v6, v7, v8, v9, v10, v1);
-    v11 = sub_10000C050(0x17u);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("No more OBEX handles available!");
+    v3 = sub_10000C050(0x17u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -1264,9 +1264,9 @@ unsigned __int16 *sub_100223E78(int a1)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("GetObexCliConnectionByLinkHandle - context not found", v3, v4, v5, v6, v7, v8, v9, v12);
-        v10 = sub_10000C050(0x17u);
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("GetObexCliConnectionByLinkHandle - context not found");
+        v3 = sub_10000C050(0x17u);
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -1396,9 +1396,9 @@ void sub_1002240F8(unsigned __int16 *a1, uint64_t a2)
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("OBEX client error %!", v4, v5, v6, v7, v8, v9, v10, a2);
-    v11 = sub_10000C050(0x17u);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("OBEX client error %!", a2);
+    v4 = sub_10000C050(0x17u);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -1412,23 +1412,23 @@ void sub_1002240F8(unsigned __int16 *a1, uint64_t a2)
   }
 
   *(a1 + 268) = 1;
-  v12 = *(a1 + 1);
-  if (v12 == 1)
+  v5 = *(a1 + 1);
+  if (v5 == 1)
   {
-    v13 = sub_10029104C(*a1, 436);
+    v6 = sub_10029104C(*a1, 436);
   }
 
   else
   {
-    if (v12)
+    if (v5)
     {
-      v14 = 101;
+      v7 = 101;
 LABEL_12:
       if (sub_10000C240())
       {
-        sub_10000AF54("Transport disconnect failed %!", v15, v16, v17, v18, v19, v20, v21, v14);
-        v22 = sub_10000C050(0x17u);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Transport disconnect failed %!", v7);
+        v8 = sub_10000C050(0x17u);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -1439,11 +1439,11 @@ LABEL_15:
       return;
     }
 
-    v13 = sub_1002EFF1C(*a1, 926);
+    v6 = sub_1002EFF1C(*a1, 926);
   }
 
-  v14 = v13;
-  if (v13)
+  v7 = v6;
+  if (v6)
   {
     goto LABEL_12;
   }
@@ -1510,18 +1510,18 @@ LABEL_32:
     return 0;
   }
 
-  v34 = 0;
-  v35 = 0;
-  v36 = 0;
-  v33[0] = 0;
-  v33[1] = 0;
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  v19[0] = 0;
+  v19[1] = 0;
   if (a4 && a4 != 1701)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("OBEX client terminating PUT operation with error %!", v15, v16, v17, v18, v19, v20, v21, a4);
-      v22 = sub_10000C050(0x17u);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("OBEX client terminating PUT operation with error %!", a4);
+      v15 = sub_10000C050(0x17u);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -1536,7 +1536,7 @@ LABEL_32:
     return 101;
   }
 
-  sub_100225AF4(v9, v4, v33);
+  sub_100225AF4(v9, v4, v19);
   if (*(v9 + 276) == 4)
   {
     v13 = *(v9 + 260);
@@ -1547,8 +1547,8 @@ LABEL_32:
 
     else
     {
-      LOBYTE(v34) = -53;
-      LODWORD(v35) = v13;
+      LOBYTE(v20) = -53;
+      LODWORD(v21) = v13;
       v14 = 1;
     }
 
@@ -1560,10 +1560,10 @@ LABEL_32:
     v14 = 0;
   }
 
-  v23 = sub_100225400(v9, v33, &v34, v14, a2);
-  if (v23)
+  v16 = sub_100225400(v9, v19, &v20, v14, a2);
+  if (v16)
   {
-    v11 = v23;
+    v11 = v16;
   }
 
   else
@@ -1577,9 +1577,9 @@ LABEL_32:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("OBEXCLI_PutReq %!", v24, v25, v26, v27, v28, v29, v30, v11);
-    v31 = sub_10000C050(0x17u);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("OBEXCLI_PutReq %!", v11);
+    v17 = sub_10000C050(0x17u);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -1595,9 +1595,9 @@ void sub_100224468(uint64_t a1)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Could not send abort command", v2, v3, v4, v5, v6, v7, v8, v10);
-      v9 = sub_10000C050(0x17u);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Could not send abort command");
+      v2 = sub_10000C050(0x17u);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -1612,7 +1612,7 @@ void sub_100224468(uint64_t a1)
   }
 }
 
-uint64_t sub_1002244F0(unsigned __int16 *a1, int a2)
+uint64_t sub_1002244F0(unsigned __int16 *a1, uint64_t a2)
 {
   v4 = *(a1 + 1);
   if (v4 == 1)
@@ -1658,7 +1658,7 @@ LABEL_9:
   return 0;
 }
 
-uint64_t sub_1002245E8(uint64_t a1, int a2)
+uint64_t sub_1002245E8(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 276) != 2)
   {
@@ -1673,7 +1673,7 @@ uint64_t sub_1002245E8(uint64_t a1, int a2)
   sub_100225AF4(a1, 128, &v13);
   if (HIBYTE(v14))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 1084, "OI_STATUS SendConnectRequest(OBEXCLI_CONNECTION *, OI_INTERVAL)");
     goto LABEL_21;
   }
 
@@ -1696,7 +1696,7 @@ LABEL_23:
   *(v13 + v4) = 16;
   if (HIBYTE(v14))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 1085, "OI_STATUS SendConnectRequest(OBEXCLI_CONNECTION *, OI_INTERVAL)");
     goto LABEL_25;
   }
 
@@ -1719,7 +1719,7 @@ LABEL_27:
   *(v13 + v5) = 0;
   if (HIBYTE(v14))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 1086, "OI_STATUS SendConnectRequest(OBEXCLI_CONNECTION *, OI_INTERVAL)");
     goto LABEL_29;
   }
 
@@ -1790,9 +1790,9 @@ void sub_100224890(uint64_t a1, void *a2, size_t a3)
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("OBEX received data for unknown connection [%d]", v5, v6, v7, v8, v9, v10, v11, &link);
-    v12 = sub_10000C050(0x17u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("OBEX received data for unknown connection [%d]", &link);
+    v5 = sub_10000C050(0x17u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -1808,7 +1808,7 @@ void sub_100224974(unsigned __int16 *a1)
 
   if (*(a1 + 31))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 1268, "void HandleResponsePkt(OBEXCLI_CONNECTION *)");
     goto LABEL_110;
   }
 
@@ -1817,15 +1817,15 @@ void sub_100224974(unsigned __int16 *a1)
   if (v2 <= v3)
   {
 LABEL_110:
-    v57 = "ByteStream_NumReadBytesAvail(connection->common.rcvPacket) >= 1";
+    v37 = "ByteStream_NumReadBytesAvail(connection->common.rcvPacket) >= 1";
     goto LABEL_112;
   }
 
   if (*(a1 + 30) != 1)
   {
-    v57 = "(connection->common.rcvPacket).__RWFlag == BYTESTREAM_READ";
+    v37 = "(connection->common.rcvPacket).__RWFlag == BYTESTREAM_READ";
 LABEL_112:
-    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 1268, v57);
+    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 1268, v37);
   }
 
   v4 = *(a1 + 2);
@@ -1848,43 +1848,43 @@ LABEL_112:
       {
         if (v6 == 3)
         {
-          v25 = sub_100225224(v5, 1705);
-          if (v25)
+          v18 = sub_100225224(v5, 1705);
+          if (v18)
           {
-            v24 = v25;
-            v23 = a1;
+            v17 = v18;
+            v16 = a1;
           }
 
           else
           {
             *(a1 + 268) = 1;
-            v27 = *(a1 + 1);
-            if (v27 == 1)
+            v20 = *(a1 + 1);
+            if (v20 == 1)
             {
-              v28 = sub_10029104C(*a1, 436);
+              v21 = sub_10029104C(*a1, 436);
             }
 
             else
             {
-              if (v27)
+              if (v20)
               {
                 goto LABEL_84;
               }
 
-              v28 = sub_1002EFF1C(*a1, 926);
+              v21 = sub_1002EFF1C(*a1, 926);
             }
 
-            if (!v28)
+            if (!v21)
             {
               goto LABEL_84;
             }
 
-            v23 = a1;
-            v24 = 1705;
+            v16 = a1;
+            v17 = 1705;
           }
 
 LABEL_83:
-          sub_1002240F8(v23, v24);
+          sub_1002240F8(v16, v17);
           goto LABEL_84;
         }
 
@@ -1895,10 +1895,10 @@ LABEL_83:
           if ((v7 - 3) < 2)
           {
             *(a1 + 66) = 0;
-            v26 = *(a1 + 19);
-            if (v26)
+            v19 = *(a1 + 19);
+            if (v19)
             {
-              v26(a1[140]);
+              v19(a1[140]);
             }
           }
 
@@ -1914,21 +1914,21 @@ LABEL_83:
 LABEL_35:
         if (sub_10000C240())
         {
-          sub_10000AF54("Unexpected response packet", v15, v16, v17, v18, v19, v20, v21, v58);
-          v22 = sub_10000C050(0x17u);
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Unexpected response packet");
+          v15 = sub_10000C050(0x17u);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
         }
 
-        v23 = a1;
-        v24 = 1706;
+        v16 = a1;
+        v17 = 1706;
         goto LABEL_83;
       }
 
       ptr = 0;
-      v60 = 0;
+      v39 = 0;
       v11 = sub_100225224(v5, 1704);
       if (v11)
       {
@@ -1938,16 +1938,16 @@ LABEL_35:
 LABEL_79:
           if (sub_10000C240())
           {
-            sub_10000AF54("OBEX Client connection failed %!", v43, v44, v45, v46, v47, v48, v49, v12);
-            v50 = sub_10000C050(0x17u);
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("OBEX Client connection failed %!", v12);
+            v30 = sub_10000C050(0x17u);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               sub_10080F7A0();
             }
           }
 
-          v23 = a1;
-          v24 = v12;
+          v16 = a1;
+          v17 = v12;
           goto LABEL_83;
         }
 
@@ -1966,16 +1966,17 @@ LABEL_79:
 
       if (*(a1 + 31))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 891, "void ConnectResponse(OBEXCLI_CONNECTION *, uint8_t)");
 LABEL_72:
-        v33 = 0;
+        v27 = 0;
+        LOBYTE(v26) = 0;
         *(a1 + 31) = 1;
 LABEL_73:
         if (sub_10000C240())
         {
-          sub_10000AF54("OBEX Client connect - version mismatch %d.%d", v35, v36, v37, v38, v39, v40, v41, v33);
-          v42 = sub_10000C050(0x17u);
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("OBEX Client connect - version mismatch %d.%d", v27, v26 & 0xF);
+          v29 = sub_10000C050(0x17u);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
@@ -1985,38 +1986,39 @@ LABEL_73:
         goto LABEL_77;
       }
 
-      v30 = a1[13];
-      v31 = a1[14];
-      if (v30 <= v31)
+      v23 = a1[13];
+      v24 = a1[14];
+      if (v23 <= v24)
       {
         goto LABEL_72;
       }
 
-      v32 = *(a1 + 2);
-      a1[14] = v31 + 1;
-      v33 = *(v32 + v31) >> 4;
-      if (v33 != 1)
+      v25 = *(a1 + 2);
+      a1[14] = v24 + 1;
+      v26 = *(v25 + v24);
+      v27 = v26 >> 4;
+      if (v26 >> 4 != 1)
       {
         goto LABEL_73;
       }
 
-      if (v30 <= (v31 + 1))
+      if (v23 <= (v24 + 1))
       {
         sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcli_common.c", 907, "ByteStream_NumReadBytesAvail(connection->common.rcvPacket) >= (1)");
       }
 
-      a1[14] = v31 + 2;
-      if ((v30 - (v31 + 2)) <= 1)
+      a1[14] = v24 + 2;
+      if ((v23 - (v24 + 2)) <= 1)
       {
         *(a1 + 31) = 1;
         v12 = 1707;
         goto LABEL_77;
       }
 
-      v34 = __rev16(*(v32 + v31 + 2));
-      a1[38] = v34;
-      a1[14] = v31 + 4;
-      if (v34 < 0xC8)
+      v28 = __rev16(*(v25 + v24 + 2));
+      a1[38] = v28;
+      a1[14] = v24 + 4;
+      if (v28 < 0xC8)
       {
         v12 = 1736;
         goto LABEL_77;
@@ -2038,19 +2040,19 @@ LABEL_77:
       if (v13)
       {
         *(a1 + 56) = 1;
-        v51 = sub_100225E80(&ptr, 77);
-        if (v51)
+        v31 = sub_100225E80(&ptr, 77);
+        if (v31)
         {
           if (*(a1 + 8))
           {
-            sub_10022394C(a1, v51);
-            v52 = *(a1 + 18);
-            if (v52)
+            sub_10022394C(a1, v31);
+            v32 = *(a1 + 18);
+            if (v32)
             {
-              v52(a1[140], *(*(a1 + 8) + 60));
+              v32(a1[140], *(*(a1 + 8) + 60));
             }
 
-            v29 = ptr;
+            v22 = ptr;
             goto LABEL_65;
           }
 
@@ -2063,23 +2065,23 @@ LABEL_106:
         goto LABEL_77;
       }
 
-      v53 = sub_100225E80(&ptr, 203);
-      if (v53)
+      v33 = sub_100225E80(&ptr, 203);
+      if (v33)
       {
-        *(a1 + 65) = *(v53 + 2);
+        *(a1 + 65) = *(v33 + 2);
       }
 
       if (*(a1 + 68))
       {
-        v54 = sub_100225E80(&ptr, 78);
-        if (!v54)
+        v34 = sub_100225E80(&ptr, 78);
+        if (!v34)
         {
           goto LABEL_106;
         }
 
-        sub_100223A20(a1, v54);
-        v55 = *(a1 + 8);
-        if (*(v55 + 59) == 1 && ((v56 = *(v55 + 58), !*(v55 + 58)) || *(v55 + 37) != v56 || strncmp((v55 + 17), (v55 + 38), v56)) || sub_100223D04(a1))
+        sub_100223A20(a1, v34);
+        v35 = *(a1 + 8);
+        if (*(v35 + 59) == 1 && ((v36 = *(v35 + 58), !*(v35 + 58)) || *(v35 + 37) != v36 || strncmp((v35 + 17), (v35 + 38), v36)) || sub_100223D04(a1))
         {
           sub_10022387C(a1);
           v12 = 1735;
@@ -2090,14 +2092,14 @@ LABEL_106:
       *(a1 + 69) = 4;
       (*(a1 + 19))(a1[140], *(a1 + 57), 0);
 LABEL_64:
-      v29 = ptr;
+      v22 = ptr;
       if (!ptr)
       {
         goto LABEL_84;
       }
 
 LABEL_65:
-      sub_10000C1E8(v29);
+      sub_10000C1E8(v22);
       goto LABEL_84;
     }
 
@@ -2105,7 +2107,7 @@ LABEL_65:
     {
       case 6:
         ptr = 0;
-        v60 = 0;
+        v39 = 0;
         v14 = sub_100225EAC(&ptr, a1 + 2);
         if (!v14)
         {
@@ -2152,7 +2154,7 @@ LABEL_62:
         break;
       case 7:
         ptr = 0;
-        v60 = 0;
+        v39 = 0;
         v14 = sub_100225EAC(&ptr, a1 + 2);
         if (!v14)
         {
@@ -2236,9 +2238,9 @@ void sub_100224FE0(uint64_t a1, void *a2, uint64_t a3)
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("Write confirmation for unknown link [%d]", v5, v6, v7, v8, v9, v10, v11, &link);
-    v12 = sub_10000C050(0x17u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Write confirmation for unknown link [%d]", &link);
+    v5 = sub_10000C050(0x17u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -2290,7 +2292,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_100225160(uint64_t a1, char a2, uint64_t a3)
+uint64_t sub_100225160(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v9 = 0;
   v10 = 0;
@@ -2404,12 +2406,12 @@ uint64_t sub_100225224(int a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_1002252F0(uint64_t a1)
+uint64_t sub_1002252F0(unsigned __int16 *a1)
 {
   result = sub_100225A60(a1);
   if (!result)
   {
-    v3 = *(a1 + 128);
+    v3 = a1[64];
 
     return sub_1002244F0(a1, v3);
   }
@@ -2419,10 +2421,10 @@ uint64_t sub_1002252F0(uint64_t a1)
 
 uint64_t sub_10022533C(unsigned __int8 *a1)
 {
-  v2 = *a1 >> 6;
-  if (v2 > 1)
+  v1 = *a1 >> 6;
+  if (v1 > 1)
   {
-    if (v2 == 2)
+    if (v1 == 2)
     {
       return 2;
     }
@@ -2435,9 +2437,9 @@ uint64_t sub_10022533C(unsigned __int8 *a1)
 
   else
   {
-    if (v2)
+    if (v1)
     {
-      v12 = *(a1 + 4);
+      v4 = *(a1 + 4);
     }
 
     else
@@ -2451,23 +2453,23 @@ uint64_t sub_10022533C(unsigned __int8 *a1)
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("OBEX unicode must be NUL terminated", v4, v5, v6, v7, v8, v9, v10, v1);
-          v11 = sub_10000C050(0x18u);
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("OBEX unicode must be NUL terminated");
+          v3 = sub_10000C050(0x18u);
+          if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
         }
       }
 
-      v12 = 2 * *(a1 + 4);
+      v4 = 2 * *(a1 + 4);
     }
 
-    return (v12 + 3);
+    return (v4 + 3);
   }
 }
 
-uint64_t sub_100225400(uint64_t a1, uint64_t a2, unsigned __int8 *a3, unsigned int a4, uint64_t a5)
+uint64_t sub_100225400(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, uint64_t a5)
 {
   if (a5)
   {
@@ -2600,7 +2602,7 @@ LABEL_27:
 
       if (*(a2 + 15))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 403, "OI_STATUS OI_OBEXCOMMON_MarshalPacket(OBEX_COMMON *, OI_BYTE_STREAM *, OI_OBEX_HEADER *, uint16_t, const OI_OBEX_HEADER_LIST *)");
       }
 
       else if (*(a2 + 10))
@@ -2617,7 +2619,7 @@ LABEL_43:
         *v30 = v27;
         if (*(a2 + 15))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 407, "OI_STATUS OI_OBEXCOMMON_MarshalPacket(OBEX_COMMON *, OI_BYTE_STREAM *, OI_OBEX_HEADER *, uint16_t, const OI_OBEX_HEADER_LIST *)");
         }
 
         else
@@ -2673,7 +2675,7 @@ LABEL_60:
 
     if (*(a2 + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 405, "OI_STATUS OI_OBEXCOMMON_MarshalPacket(OBEX_COMMON *, OI_BYTE_STREAM *, OI_OBEX_HEADER *, uint16_t, const OI_OBEX_HEADER_LIST *)");
     }
 
     else if (*(a2 + 10))
@@ -2834,14 +2836,14 @@ LABEL_20:
 
 uint64_t sub_100225A60(uint64_t a1)
 {
-  v2 = a1 + 80;
+  v2 = (a1 + 80);
   if ((*(a1 + 80) & 0xFE) != 0x48)
   {
     sub_1000D660C();
   }
 
   v4 = *v2;
-  v5 = *(v2 + 16);
+  v5 = *(v2 + 2);
   *(a1 + 40) = 0;
   *(a1 + 80) = 0;
   v6 = a1 + 48;
@@ -2873,9 +2875,9 @@ uint64_t sub_100225B28(uint64_t a1, void *__src, size_t __len)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("OBEXCOMMON ReassemblePacket discarding data", v7, v8, v9, v10, v11, v12, v13, v54);
-        v14 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("OBEXCOMMON ReassemblePacket discarding data");
+        v7 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -2884,76 +2886,76 @@ uint64_t sub_100225B28(uint64_t a1, void *__src, size_t __len)
       goto LABEL_17;
     }
 
-    v17 = *(a1 + 28);
-    v16 = *(a1 + 26);
+    v10 = *(a1 + 28);
+    v9 = *(a1 + 26);
   }
 
   else
   {
-    v15 = *(a1 + 8);
-    if (!v15)
+    v8 = *(a1 + 8);
+    if (!v8)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("OBEXCOMMON ReassemblePacket received dual DISCONNECT messages!", v44, v45, v46, v47, v48, v49, v50, v54);
-        v51 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("OBEXCOMMON ReassemblePacket received dual DISCONNECT messages!");
+        v23 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
       }
 
-      v22 = 1709;
+      v15 = 1709;
       goto LABEL_18;
     }
 
-    v16 = *(a1 + 74);
+    v9 = *(a1 + 74);
     if (!*(a1 + 74))
     {
       sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 518, "(common->maxRecvPktLen) > 0");
     }
 
-    v17 = 0;
-    *(a1 + 16) = v15;
-    *(a1 + 24) = v16;
+    v10 = 0;
+    *(a1 + 16) = v8;
+    *(a1 + 24) = v9;
     *(a1 + 28) = 0x100020000;
-    *(a1 + 26) = v16;
+    *(a1 + 26) = v9;
   }
 
-  v18 = v17;
-  v20 = v17 < 3 && v17 + __len > 2;
-  v21 = v16 - v17;
-  if (v21 >= __len)
+  v11 = v10;
+  v13 = v10 < 3 && v10 + __len > 2;
+  v14 = v9 - v10;
+  if (v14 >= __len)
   {
-    v32 = *(a1 + 16);
+    v18 = *(a1 + 16);
     if (*(a1 + 31))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
-      v21 = 0;
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 536, "OI_STATUS OI_OBEXCOMMON_ReassemblePacket(OBEX_COMMON *, uint8_t *, uint16_t)");
+      v14 = 0;
     }
 
-    if (v21 < v3)
+    if (v14 < v3)
     {
-      v52 = "ByteStream_NumReadBytesAvail(common->rcvPacket) >= (dataLen)";
+      v24 = "ByteStream_NumReadBytesAvail(common->rcvPacket) >= (dataLen)";
     }
 
     else
     {
       if (*(a1 + 30) == 2)
       {
-        memmove((v32 + v18), __src, v3);
-        v33 = *(a1 + 28) + v3;
-        *(a1 + 28) = v33;
-        if (v20)
+        memmove((v18 + v11), __src, v3);
+        v19 = *(a1 + 28) + v3;
+        *(a1 + 28) = v19;
+        if (v13)
         {
-          v34 = __rev16(*(*(a1 + 16) + 1));
-          if (v34 > *(a1 + 74))
+          v20 = __rev16(*(*(a1 + 16) + 1));
+          if (v20 > *(a1 + 74))
           {
             if (sub_10000C240())
             {
-              sub_10000AF54("OI_OBEXCOMMON_ReassemblePacket packet len %d exceeds buffer len %d\n", v35, v36, v37, v38, v39, v40, v41, v34);
-              v42 = sub_10000C050(0x18u);
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+              sub_10000AF54("OI_OBEXCOMMON_ReassemblePacket packet len %d exceeds buffer len %d\n", v20, *(a1 + 74));
+              v21 = sub_10000C050(0x18u);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 sub_10080F7A0();
               }
@@ -2962,69 +2964,69 @@ uint64_t sub_100225B28(uint64_t a1, void *__src, size_t __len)
             goto LABEL_46;
           }
 
-          if (v34 < v3)
+          if (v20 < v3)
           {
 LABEL_46:
-            v22 = 1720;
+            v15 = 1720;
             goto LABEL_18;
           }
 
-          if (v34 > *(a1 + 24) || v34 < v33)
+          if (v20 > *(a1 + 24) || v20 < v19)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 555, "((pktLen) <= (common->rcvPacket).__trueSize) && ((pktLen) >= (common->rcvPacket).__pos)");
           }
 
-          *(a1 + 26) = v34;
+          *(a1 + 26) = v20;
         }
 
         else
         {
-          LODWORD(v34) = *(a1 + 26);
+          v20 = *(a1 + 26);
         }
 
-        if (v34 != v33)
+        if (v20 != v19)
         {
           return 0;
         }
 
         if (*(a1 + 30) == 2)
         {
-          *(a1 + 26) = v33;
+          *(a1 + 26) = v19;
         }
 
         *(a1 + 30) = 15;
-        v43 = *(a1 + 8);
-        if (v43)
+        v22 = *(a1 + 8);
+        if (v22)
         {
-          if (v33)
+          if (v19)
           {
-            v22 = 0;
-            *(a1 + 16) = v43;
-            *(a1 + 24) = v33;
+            v15 = 0;
+            *(a1 + 16) = v22;
+            *(a1 + 24) = v19;
             *(a1 + 28) = 0x200010000;
-            *(a1 + 26) = v33;
-            return v22;
+            *(a1 + 26) = v19;
+            return v15;
           }
 
-          v53 = "(pktLen) > 0";
+          v25 = "(pktLen) > 0";
         }
 
         else
         {
-          v53 = "common->rcvBuffer";
+          v25 = "common->rcvBuffer";
         }
 
-        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 567, v53);
+        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 567, v25);
       }
 
-      v52 = "(common->rcvPacket).__RWFlag == BYTESTREAM_WRITE";
+      v24 = "(common->rcvPacket).__RWFlag == BYTESTREAM_WRITE";
     }
 
-    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 536, v52);
+    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 536, v24);
   }
 
 LABEL_17:
-  v22 = 1737;
+  v15 = 1737;
 LABEL_18:
   if (*(a1 + 32) == 1)
   {
@@ -3033,15 +3035,15 @@ LABEL_18:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("OBEXCOMMON Received Packet error %!", v23, v24, v25, v26, v27, v28, v29, v22);
-    v30 = sub_10000C050(0x18u);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("OBEXCOMMON Received Packet error %!", v15);
+    v16 = sub_10000C050(0x18u);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
   }
 
-  return v22;
+  return v15;
 }
 
 unsigned __int8 *sub_100225E80(unsigned __int8 **a1, int a2)
@@ -3070,7 +3072,7 @@ uint64_t sub_100225EAC(uint64_t a1, uint64_t *a2)
   v4 = *(a2 + 6);
   if (*(a2 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 740, "OI_STATUS OI_OBEXCOMMON_ParseHeaderList(OI_OBEX_HEADER_LIST *, OI_BYTE_STREAM *)");
     v5 = *(a2 + 5);
     goto LABEL_19;
   }
@@ -3115,11 +3117,11 @@ LABEL_60:
     {
       if (*(a2 + 15))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 644, "void ParseHeader(OI_BYTE_STREAM *, OI_OBEX_HEADER *)");
 LABEL_77:
-        v75 = "ByteStream_NumReadBytesAvail(*bs) >= 1";
+        v40 = "ByteStream_NumReadBytesAvail(*bs) >= 1";
 LABEL_78:
-        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 644, v75);
+        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 644, v40);
       }
 
       v17 = *(a2 + 5);
@@ -3131,7 +3133,7 @@ LABEL_78:
 
       if (*(a2 + 14) != 1)
       {
-        v75 = "(*bs).__RWFlag == BYTESTREAM_READ";
+        v40 = "(*bs).__RWFlag == BYTESTREAM_READ";
         goto LABEL_78;
       }
 
@@ -3194,7 +3196,7 @@ LABEL_78:
           {
             if (*(a2 + 15))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 668, "void ParseHeader(OI_BYTE_STREAM *, OI_OBEX_HEADER *)");
             }
 
             else
@@ -3218,15 +3220,15 @@ LABEL_78:
               }
             }
 
-            v76 = "ByteStream_NumReadBytesAvail(*bs) >= 2";
+            v41 = "ByteStream_NumReadBytesAvail(*bs) >= 2";
           }
 
           else
           {
-            v76 = "(*bs).__RWFlag == BYTESTREAM_READ";
+            v41 = "(*bs).__RWFlag == BYTESTREAM_READ";
           }
 
-          sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 668, v76);
+          sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 668, v41);
         }
 
         goto LABEL_59;
@@ -3236,9 +3238,9 @@ LABEL_78:
       *(v19 + 16) = 0;
       if (sub_10000C240())
       {
-        sub_10000AF54("Bad OBEX len: %d for header ID: %d", v33, v34, v35, v36, v37, v38, v39, v24);
-        v40 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Bad OBEX len: %d for header ID: %d", v24, *v19 & 0xC0);
+        v33 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_54;
         }
@@ -3265,7 +3267,7 @@ LABEL_59:
       *(v19 + 16) = *a2 + *(a2 + 6);
       if (*(a2 + 15))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/obex/obexcommon.c", 683, "void ParseHeader(OI_BYTE_STREAM *, OI_OBEX_HEADER *)");
         v31 = 0;
       }
 
@@ -3292,20 +3294,20 @@ LABEL_58:
       goto LABEL_59;
     }
 
-    sub_10000AF54("Bad OBEX len: %d for header ID: %d", v41, v42, v43, v44, v45, v46, v47, v29);
-    v40 = sub_10000C050(0x18u);
-    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Bad OBEX len: %d for header ID: %d", v29, *v19 & 0xC0);
+    v33 = sub_10000C050(0x18u);
+    if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_59;
     }
 
 LABEL_54:
-    v48 = sub_10000C0FC();
+    v34 = sub_10000C0FC();
     *buf = 136446466;
-    v78 = v48;
-    v79 = 1024;
-    v80 = 0xFFFF;
-    _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+    v43 = v34;
+    v44 = 1024;
+    v45 = 0xFFFF;
+    _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
     goto LABEL_59;
   }
 
@@ -3345,9 +3347,9 @@ LABEL_54:
 LABEL_68:
       if (sub_10000C240())
       {
-        sub_10000AF54("Bad OBEX Unicode len: %d, at least: %d \n", v58, v59, v60, v61, v62, v63, v64, v12);
-        v65 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Bad OBEX Unicode len: %d, at least: %d \n", v12, 3);
+        v37 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_73;
         }
@@ -3376,9 +3378,9 @@ LABEL_17:
       *(a2 + 15) = 1;
       if (sub_10000C240())
       {
-        sub_10000AF54("Bad OBEX Header:(%2x) len: (%d)\n", v50, v51, v52, v53, v54, v55, v56, v11);
-        v57 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Bad OBEX Header:(%2x) len: (%d)\n", v11, v13);
+        v36 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_73;
         }
@@ -3398,9 +3400,9 @@ LABEL_17:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Bad OBEX Unicode len: %d (odd)\n", v67, v68, v69, v70, v71, v72, v73, v13);
-    v74 = sub_10000C050(0x18u);
-    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Bad OBEX Unicode len: %d (odd)\n", v13);
+    v39 = sub_10000C050(0x18u);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
 LABEL_73:
       sub_10080F7A0();
@@ -3419,7 +3421,7 @@ void sub_1002265BC(int a1, void *a2, uint64_t a3)
   sub_1001C10D8(v5, a2, a3);
 }
 
-uint64_t sub_1002265FC(uint64_t a1, uint64_t a2, int a3, _BYTE *a4, uint64_t a5)
+uint64_t sub_1002265FC(uint64_t a1, uint64_t a2, int a3, unsigned __int8 *a4, uint64_t a5)
 {
   if (!a5)
   {
@@ -3446,13 +3448,13 @@ uint64_t sub_1002265FC(uint64_t a1, uint64_t a2, int a3, _BYTE *a4, uint64_t a5)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Registered channel number %d", v15, v16, v17, v18, v19, v20, v21, *a4);
-        v22 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        sub_10000AF54("Registered channel number %d", *a4);
+        v15 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 136446210;
-          v32 = sub_10000C0FC();
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, " %{public}s", buf, 0xCu);
+          v18 = sub_10000C0FC();
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, " %{public}s", buf, 0xCu);
         }
       }
 
@@ -3487,9 +3489,9 @@ uint64_t sub_1002265FC(uint64_t a1, uint64_t a2, int a3, _BYTE *a4, uint64_t a5)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("OI_OBEXSRV_RegisterServer error %!", v23, v24, v25, v26, v27, v28, v29, v13);
-    v30 = sub_10000C050(0x18u);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("OI_OBEXSRV_RegisterServer error %!", v13);
+    v16 = sub_10000C050(0x18u);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
       if (!v10)
@@ -3510,20 +3512,20 @@ LABEL_21:
   return v13;
 }
 
-void sub_10022682C(uint64_t a1)
+void sub_10022682C(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_1001C0CEC(a1);
-  if (v2)
+  v4 = sub_1001C0CEC(a1);
+  if (v4)
   {
 
-    sub_1001C2348(v2);
+    sub_1001C2348(v4);
   }
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("OBEX server RFCOMM disconnect on bogus link handle %x %!", v3, v4, v5, v6, v7, v8, v9, a1);
-    v10 = sub_10000C050(0x18u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("OBEX server RFCOMM disconnect on bogus link handle %x %!", a1, a2);
+    v5 = sub_10000C050(0x18u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -3537,13 +3539,14 @@ void sub_1002268D4(int a1, void *a2, size_t a3)
   sub_1001C2418(v5, a2, a3);
 }
 
-void sub_100226914(int *a1, int a2, uint64_t a3, unsigned int a4)
+void sub_100226914(int *a1, int a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = sub_1001C0D7C(a2);
   if (!v6)
   {
 LABEL_14:
-    sub_1002EFBAC(0, a4, 0);
+    sub_1002EFBAC(0, v4, 0);
     return;
   }
 
@@ -3578,14 +3581,14 @@ LABEL_12:
   v10 = *a1;
   *(v7 + 108) = *(a1 + 2);
   *(v7 + 104) = v10;
-  *v7 = a4;
+  *v7 = v4;
   *(v7 + 4) = 0;
   *(v7 + 76) = 200;
   v11 = *(sub_1003045A0(0x18u) + 8);
   *(v7 + 74) = v11;
   *(v7 + 8) = sub_100007618(v11, 0x8F40D109uLL);
   *(v7 + 204) = 1;
-  v12 = sub_1002EFBAC(sub_100226C4C, a4, 1);
+  v12 = sub_1002EFBAC(sub_100226C4C, v4, 1);
   if (v12)
   {
     v13 = v12;
@@ -3598,9 +3601,9 @@ LABEL_12:
 
     if (sub_10000C240())
     {
-      sub_10000AF54("OBEX server error %! accepting link request from %:", v15, v16, v17, v18, v19, v20, v21, v13);
-      v22 = sub_10000C050(0x18u);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("OBEX server error %! accepting link request from %:", v13, a1);
+      v15 = sub_10000C050(0x18u);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -3610,7 +3613,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  if (sub_1002F000C(a4, v7))
+  if (sub_1002F000C(v4, v7))
   {
 
     sub_1000D660C();
@@ -3624,12 +3627,12 @@ uint64_t sub_100226A9C(uint64_t a1)
   {
     if (sub_10000C240())
     {
-      v11 = 1715;
-      sub_10000AF54("OI_RFCOMM_DeregisterServer channel %d failed %!", v13, v14, v15, v16, v17, v18, v19, a1);
-      v20 = sub_10000C050(0x18u);
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v4 = 1715;
+      sub_10000AF54("OI_RFCOMM_DeregisterServer channel %d failed %!", a1, 1715);
+      v6 = sub_10000C050(0x18u);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        return v11;
+        return v4;
       }
 
       sub_10080F7A0();
@@ -3646,10 +3649,10 @@ uint64_t sub_100226A9C(uint64_t a1)
       return 141;
     }
 
-    v11 = 141;
-    sub_10000AF54("OI_RFCOMM_DeregisterServer channel %d failed %!", v4, v5, v6, v7, v8, v9, v10, a1);
-    v12 = sub_10000C050(0x18u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v4 = 141;
+    sub_10000AF54("OI_RFCOMM_DeregisterServer channel %d failed %!", a1, 141);
+    v5 = sub_10000C050(0x18u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
       return 141;
@@ -3658,14 +3661,14 @@ uint64_t sub_100226A9C(uint64_t a1)
 
   else
   {
-    v11 = sub_1002EF558(a1);
-    if (v11)
+    v4 = sub_1002EF558(a1);
+    if (v4)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("OI_RFCOMM_DeregisterServer channel %d failed %!", v21, v22, v23, v24, v25, v26, v27, a1);
-        v28 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("OI_RFCOMM_DeregisterServer channel %d failed %!", a1, v4);
+        v7 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -3674,17 +3677,17 @@ uint64_t sub_100226A9C(uint64_t a1)
 
     else
     {
-      v29 = *(v3 + 160);
-      if (v29)
+      v8 = *(v3 + 160);
+      if (v8)
       {
         do
         {
-          v30 = v29[4];
-          sub_10000C1E8(v29);
-          v29 = v30;
+          v9 = v8[4];
+          sub_10000C1E8(v8);
+          v8 = v9;
         }
 
-        while (v30);
+        while (v9);
       }
 
       --dword_100BCE290;
@@ -3693,7 +3696,7 @@ uint64_t sub_100226A9C(uint64_t a1)
     sub_1001C0E0C(a1);
   }
 
-  return v11;
+  return v4;
 }
 
 uint64_t sub_100226C0C(unsigned int a1, _BYTE *a2)
@@ -3710,11 +3713,11 @@ uint64_t sub_100226C0C(unsigned int a1, _BYTE *a2)
   return result;
 }
 
-void sub_100226C4C(uint64_t a1, unsigned __int16 a2, uint64_t a3)
+void sub_100226C4C(int a1, unsigned __int16 a2, uint64_t a3)
 {
-  v40 = a1;
+  v19 = a1;
   v6 = sub_1001C0CEC(a1);
-  v39[0] = 0;
+  v18[0] = 0;
   if (v6)
   {
     v7 = v6;
@@ -3722,48 +3725,48 @@ void sub_100226C4C(uint64_t a1, unsigned __int16 a2, uint64_t a3)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("OBEX server RFCOMM connection failed: %!", v8, v9, v10, v11, v12, v13, v14, a3);
-        v15 = sub_10000C050(0x18u);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("OBEX server RFCOMM connection failed: %!", a3, v18[0]);
+        v8 = sub_10000C050(0x18u);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
       }
 
       *(v7 + 51) = 0;
-      v16 = *(v7 + 1);
-      if (v16)
+      v9 = *(v7 + 1);
+      if (v9)
       {
-        sub_10000C1E8(v16);
+        sub_10000C1E8(v9);
         *(v7 + 1) = 0;
       }
     }
 
     else
     {
-      v26 = (v6 + 88);
-      v25 = *(v6 + 44);
+      v12 = (v6 + 88);
+      v11 = *(v6 + 44);
       v7[36] = a2;
       *(v7 + 51) = 2;
-      if (v25)
+      if (v11)
       {
-        sub_10002242C(v25);
-        *v26 = 0;
+        sub_10002242C(v11);
+        *v12 = 0;
       }
 
-      v27 = *(v7 + 38) != 0;
-      v28 = *(sub_1003045A0(0x18u) + 2 * v27);
-      v39[1] = &v40;
-      LOWORD(v39[0]) = 2;
-      v29 = sub_10002195C(sub_100226DE8, v39, v28, v26);
-      if (v29)
+      v13 = *(v7 + 38) != 0;
+      v14 = *(sub_1003045A0(0x18u) + 2 * v13);
+      v18[1] = &v19;
+      LOWORD(v18[0]) = 2;
+      v15 = sub_10002195C(sub_100226DE8, v18, v14, v12);
+      if (v15)
       {
-        v30 = v29;
+        v16 = v15;
         if (sub_10000C240())
         {
-          sub_10000AF54("Register connect timeout handler failed %!\n", v31, v32, v33, v34, v35, v36, v37, v30);
-          v38 = sub_10000C050(0x18u);
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Register connect timeout handler failed %!\n", v16);
+          v17 = sub_10000C050(0x18u);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
@@ -3774,9 +3777,9 @@ void sub_100226C4C(uint64_t a1, unsigned __int16 a2, uint64_t a3)
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("RFCOMM connect confirm called for bogus link handle %x", v17, v18, v19, v20, v21, v22, v23, a1);
-    v24 = sub_10000C050(0x18u);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("RFCOMM connect confirm called for bogus link handle %x", a1);
+    v10 = sub_10000C050(0x18u);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -3799,9 +3802,9 @@ uint64_t sub_100226DE8(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Connection timeout: RFCOMM disconnect on link %x!", v3, v4, v5, v6, v7, v8, v9, v1);
-    v10 = sub_10000C050(0x18u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Connection timeout: RFCOMM disconnect on link %x!", v1);
+    v3 = sub_10000C050(0x18u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -3900,12 +3903,12 @@ uint64_t sub_100226FFC(int a1)
     result = sub_10000C240();
     if (result)
     {
-      sub_10000AF54("OI_DEVMGR_DeregisterServiceClass failed in internalTerminate - %!\n", v7, v8, v9, v10, v11, v12, v13, v6);
-      v14 = sub_10000C050(0x1Bu);
-      result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
+      sub_10000AF54("OI_DEVMGR_DeregisterServiceClass failed in internalTerminate - %!\n", v6);
+      v7 = sub_10000C050(0x1Bu);
+      result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
       if (result)
       {
-        sub_100810070(v14);
+        sub_100810070(v7);
         return 0;
       }
     }
@@ -3967,7 +3970,7 @@ uint64_t sub_1002270DC(int a1, int a2)
   return result;
 }
 
-uint64_t sub_10022718C(unsigned int a1, int a2, uint64_t a3, uint64_t (*a4)(uint64_t (*)(uint64_t a1, unsigned int a2)), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9)
+uint64_t sub_10022718C(uint64_t a1, int a2, uint64_t a3, uint64_t (*a4)(uint64_t (*)()), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9)
 {
   v9 = 101;
   if (a7 && a6 && a4 && a5 && a3 && a8)
@@ -3997,7 +4000,7 @@ uint64_t sub_10022718C(unsigned int a1, int a2, uint64_t a3, uint64_t (*a4)(uint
   return v9;
 }
 
-uint64_t sub_100227254(int a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_t (*a6)(uint64_t (*)(uint64_t a1, unsigned int a2)), uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t sub_100227254(int a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t (*)()), uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a9)
   {
@@ -4024,6 +4027,7 @@ uint64_t sub_100227254(int a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_
     return 2202;
   }
 
+  v19 = a4;
   *qword_100B5F218 = 0;
   if (a1 != 8)
   {
@@ -4044,7 +4048,7 @@ uint64_t sub_100227254(int a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_
             v21 = 4375;
 LABEL_41:
 
-            return sub_10022A11C(v21, a3, a4, a5, a6, a7, a8, a9, a10);
+            return sub_10022A11C(v21, a3, v19, a5, a6, a7, a8, a9, a10);
           }
 
           sub_1000D660C();
@@ -4371,9 +4375,9 @@ void sub_100227820(uint64_t a1, const void *a2, uint64_t a3)
 LABEL_5:
     if (sub_10000C240())
     {
-      sub_10000AF54("Filter net type request for non-existent connection handle\n", v8, v9, v10, v11, v12, v13, v14, v19);
-      v15 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Filter net type request for non-existent connection handle\n");
+      v8 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -4401,27 +4405,27 @@ LABEL_5:
   *(v7 + 8) = a3;
   if (a3)
   {
-    v16 = sub_100007618(4 * a3, 0x100004052888210uLL);
-    *v7 = v16;
-    if (!v16)
+    v9 = sub_100007618(4 * a3, 0x100004052888210uLL);
+    *v7 = v9;
+    if (!v9)
     {
-      v18 = 2023;
+      v11 = 2023;
       goto LABEL_21;
     }
 
-    memmove(v16, a2, 4 * a3);
+    memmove(v9, a2, 4 * a3);
   }
 
-  if (*(qword_100B5F220 + 1164) == 4 && (v17 = *(qword_100B5F220 + 16)) != 0 || (v17 = *(qword_100B5F220 + 24)) != 0)
+  if (*(qword_100B5F220 + 1164) == 4 && (v10 = *(qword_100B5F220 + 16)) != 0 || (v10 = *(qword_100B5F220 + 24)) != 0)
   {
 
-    v17(a1, a2, a3);
+    v10(a1, a2, a3);
     return;
   }
 
-  v18 = 2021;
+  v11 = 2021;
 LABEL_21:
-  sub_10020B528(a1, v18);
+  sub_10020B528(a1, v11);
   if (*v7)
   {
     sub_10000C1E8(*v7);
@@ -4439,9 +4443,9 @@ void sub_100227984(uint64_t a1, const void *a2, uint64_t a3)
 LABEL_5:
     if (sub_10000C240())
     {
-      sub_10000AF54("Filter net type request for non-existent connection handle\n", v8, v9, v10, v11, v12, v13, v14, v19);
-      v15 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Filter net type request for non-existent connection handle\n");
+      v8 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -4469,27 +4473,27 @@ LABEL_5:
   *(v7 + 8) = a3;
   if (a3)
   {
-    v16 = sub_100007618(12 * a3, 0x10000403E1C8BA9uLL);
-    *v7 = v16;
-    if (!v16)
+    v9 = sub_100007618(12 * a3, 0x10000403E1C8BA9uLL);
+    *v7 = v9;
+    if (!v9)
     {
-      v18 = 2033;
+      v11 = 2033;
       goto LABEL_21;
     }
 
-    memmove(v16, a2, 12 * a3);
+    memmove(v9, a2, 12 * a3);
   }
 
-  if (*(qword_100B5F220 + 1164) == 4 && (v17 = *(qword_100B5F220 + 32)) != 0 || (v17 = *(qword_100B5F220 + 40)) != 0)
+  if (*(qword_100B5F220 + 1164) == 4 && (v10 = *(qword_100B5F220 + 32)) != 0 || (v10 = *(qword_100B5F220 + 40)) != 0)
   {
 
-    v17(a1, a2, a3);
+    v10(a1, a2, a3);
     return;
   }
 
-  v18 = 2031;
+  v11 = 2031;
 LABEL_21:
-  sub_10020B590(a1, v18);
+  sub_10020B590(a1, v11);
   if (*v7)
   {
     sub_10000C1E8(*v7);
@@ -4525,9 +4529,9 @@ uint64_t sub_100227AEC(int a1)
 LABEL_8:
     if (sub_10000C240())
     {
-      sub_10000AF54("PAN_RegisterRole inside GN/NAP internalInit failed - %!\n", v5, v6, v7, v8, v9, v10, v11, v2);
-      v12 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("PAN_RegisterRole inside GN/NAP internalInit failed - %!\n", v2);
+      v5 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -4541,20 +4545,20 @@ LABEL_8:
     return 0;
   }
 
-  v14 = sub_1001BBBD8(0x4F0uLL, 0x10F204096FD3389uLL);
-  qword_100B5F220 = v14;
-  if (v14)
+  v7 = sub_1001BBBD8(0x4F0uLL, 0x10F204096FD3389uLL);
+  qword_100B5F220 = v7;
+  if (v7)
   {
-    sub_1003051D8(v14 + 10);
+    sub_1003051D8(v7 + 10);
     v2 = 0;
-    v15 = qword_100B5F220;
+    v8 = qword_100B5F220;
     *(qword_100B5F220 + 1168) = *&off_100AE7A18;
-    *(v15 + 1184) = *&off_100AE7A28;
-    *(v15 + 1200) = xmmword_100AE7A38;
-    *(v15 + 1216) = unk_100AE7A48;
-    *(v15 + 1161) = 0;
-    *(v15 + 1164) = 0;
-    *(v15 + 1232) = unk_100AE7A58;
+    *(v8 + 1184) = *&off_100AE7A28;
+    *(v8 + 1200) = xmmword_100AE7A38;
+    *(v8 + 1216) = unk_100AE7A48;
+    *(v8 + 1161) = 0;
+    *(v8 + 1164) = 0;
+    *(v8 + 1232) = unk_100AE7A58;
   }
 
   else
@@ -4562,9 +4566,9 @@ LABEL_8:
     sub_100226FFC(a1);
     if (sub_10000C240())
     {
-      sub_10000AF54("GN/NAP internalInit out of memory\n", v16, v17, v18, v19, v20, v21, v22, v24);
-      v23 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("GN/NAP internalInit out of memory\n");
+      v9 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -4576,7 +4580,7 @@ LABEL_8:
   return v2;
 }
 
-void sub_100227C74(uint64_t a1, uint64_t a2, int a3, int a4)
+void sub_100227C74(uint64_t a1, int *a2, int a3, int a4)
 {
   v8 = sub_100229230(a2);
   v9 = qword_100B5F220;
@@ -4586,7 +4590,7 @@ void sub_100227C74(uint64_t a1, uint64_t a2, int a3, int a4)
     v10 = (v11 + 96);
     ++*(qword_100B5F220 + 1160);
     v12 = *a2;
-    *(v11 + 106) = *(a2 + 4);
+    *(v11 + 106) = *(a2 + 2);
     *(v11 + 102) = v12;
     *(v11 + 112) = 0;
     *(v11 + 100) = a1;
@@ -4602,7 +4606,7 @@ void sub_100227C74(uint64_t a1, uint64_t a2, int a3, int a4)
 LABEL_7:
     if (a3 == 4375)
     {
-      v35 = *v9;
+      v21 = *v9;
       v13 = sub_100226E88(a4);
       v14 = a1;
       v15 = a2;
@@ -4611,14 +4615,14 @@ LABEL_7:
 
     else
     {
-      v35 = *(v9 + 8);
+      v21 = *(v9 + 8);
       v13 = sub_100226E88(a4);
       v14 = a1;
       v15 = a2;
       v16 = 8;
     }
 
-    v35(v14, v15, v16, v13);
+    v21(v14, v15, v16, v13);
     return;
   }
 
@@ -4630,23 +4634,23 @@ LABEL_7:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Device for connection to %: in invalid state to accept incoming connect request\n", v17, v18, v19, v20, v21, v22, v23, a2);
-    v24 = sub_10000C050(0x1Bu);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Device for connection to %: in invalid state to accept incoming connect request\n", a2);
+    v17 = sub_10000C050(0x1Bu);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
   }
 
-  v25 = sub_10020B028(a1, 0, 0, 0, (qword_100B5F220 + 1200));
-  if (v25)
+  v18 = sub_10020B028(a1, 0, 0, 0, (qword_100B5F220 + 1200));
+  if (v18)
   {
-    v26 = v25;
+    v19 = v18;
     if (sub_10000C240())
     {
-      sub_10000AF54("Reject incoming connection failed - %!\n", v27, v28, v29, v30, v31, v32, v33, v26);
-      v34 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Reject incoming connection failed - %!\n", v19);
+      v20 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -4664,9 +4668,9 @@ void sub_100227E54(int a1)
       v3 = v2;
       if (sub_10000C240())
       {
-        sub_10000AF54("PAN_DeregisterRole failed inside GN/NAP internalTerminate - %!\n", v4, v5, v6, v7, v8, v9, v10, v3);
-        v11 = sub_10000C050(0x1Bu);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("PAN_DeregisterRole failed inside GN/NAP internalTerminate - %!\n", v3);
+        v4 = sub_10000C050(0x1Bu);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -4853,7 +4857,7 @@ uint64_t sub_100228164(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   return v13;
 }
 
-uint64_t sub_1002282E4(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t sub_1002282E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
   v17 = sub_100229230(a1);
   if (v17 == -1)
@@ -4923,9 +4927,9 @@ uint64_t sub_100228494(unsigned int a1, int a2)
 LABEL_5:
     if (sub_10000C240())
     {
-      sub_10000AF54("Filter net type request for non-existent connection handle\n", v5, v6, v7, v8, v9, v10, v11, v16);
-      v12 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Filter net type request for non-existent connection handle\n");
+      v5 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -4946,14 +4950,14 @@ LABEL_5:
 
   if (!a2)
   {
-    v14 = 56;
+    v7 = 56;
     if (*(qword_100B5F220 + 1164) == 4)
     {
-      v14 = 48;
+      v7 = 48;
     }
 
-    v13 = sub_100227630(v4, (v4 - 4), *(qword_100B5F220 + v14));
-    if (v13)
+    v6 = sub_100227630(v4, (v4 - 4), *(qword_100B5F220 + v7));
+    if (v6)
     {
       goto LABEL_14;
     }
@@ -4961,7 +4965,7 @@ LABEL_5:
     a2 = 0;
   }
 
-  v13 = sub_10020B528(a1, a2);
+  v6 = sub_10020B528(a1, a2);
 LABEL_14:
   if (*v4)
   {
@@ -4969,7 +4973,7 @@ LABEL_14:
     *v4 = 0;
   }
 
-  return v13;
+  return v6;
 }
 
 uint64_t sub_10022858C(unsigned int a1, int a2)
@@ -4980,9 +4984,9 @@ uint64_t sub_10022858C(unsigned int a1, int a2)
 LABEL_5:
     if (sub_10000C240())
     {
-      sub_10000AF54("Filter multicast request for non-existent connection handle\n", v5, v6, v7, v8, v9, v10, v11, v16);
-      v12 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Filter multicast request for non-existent connection handle\n");
+      v5 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -5003,14 +5007,14 @@ LABEL_5:
 
   if (!a2)
   {
-    v14 = 72;
+    v7 = 72;
     if (*(qword_100B5F220 + 1164) == 4)
     {
-      v14 = 64;
+      v7 = 64;
     }
 
-    v13 = sub_100227724(v4, (v4 - 4), *(qword_100B5F220 + v14));
-    if (v13)
+    v6 = sub_100227724(v4, (v4 - 4), *(qword_100B5F220 + v7));
+    if (v6)
     {
       goto LABEL_14;
     }
@@ -5018,7 +5022,7 @@ LABEL_5:
     a2 = 0;
   }
 
-  v13 = sub_10020B590(a1, a2);
+  v6 = sub_10020B590(a1, a2);
 LABEL_14:
   if (*v4)
   {
@@ -5026,7 +5030,7 @@ LABEL_14:
     *v4 = 0;
   }
 
-  return v13;
+  return v6;
 }
 
 uint64_t sub_100228684(_DWORD *a1)
@@ -5058,32 +5062,32 @@ void sub_1002286CC(uint64_t a1, uint64_t a2)
       }
     }
 
-    v15 = *(qword_100B5F220 + 80);
-    if (v15 != (qword_100B5F220 + 80))
+    v8 = *(qword_100B5F220 + 80);
+    if (v8 != (qword_100B5F220 + 80))
     {
-      v16 = 1 << v5;
+      v9 = 1 << v5;
       do
       {
-        v17 = *v15;
-        if ((v16 & *(v15 - 6)) != 0)
+        v10 = *v8;
+        if ((v9 & *(v8 - 6)) != 0)
         {
-          *(v6 + 16) = v15 - 194;
+          *(v6 + 16) = v8 - 194;
           sub_100228A94(a1);
           v2 = qword_100B5F220;
         }
 
-        v15 = v17;
+        v8 = v10;
       }
 
-      while (v17 != (v2 + 80));
+      while (v10 != (v2 + 80));
     }
 
     *v6 = 0;
     sub_100228BC4(v6);
-    v19 = *(v6 + 64);
+    v11 = *(v6 + 64);
     sub_100228C34(v6);
 
-    v19(a1, a2);
+    v11(a1, a2);
   }
 
   else
@@ -5091,9 +5095,9 @@ void sub_1002286CC(uint64_t a1, uint64_t a2)
 LABEL_5:
     if (sub_10000C240())
     {
-      sub_10000AF54("DisconnectCB issued but no connection\n", v7, v8, v9, v10, v11, v12, v13, v18);
-      v14 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("DisconnectCB issued but no connection\n");
+      v7 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -5101,7 +5105,7 @@ LABEL_5:
   }
 }
 
-void sub_100228818(int a1, uint64_t a2, uint64_t a3, __int16 a4, const void *a5, unsigned int a6, void *__src, size_t __len)
+void sub_100228818(int a1, int *a2, int *a3, __int16 a4, const void *a5, unsigned int a6, void *__src, size_t __len)
 {
   v8 = *(qword_100B5F220 + 1160);
   if (*(qword_100B5F220 + 1160))
@@ -5117,39 +5121,39 @@ void sub_100228818(int a1, uint64_t a2, uint64_t a3, __int16 a4, const void *a5,
       }
     }
 
-    v25 = qword_100BC9C50;
+    v18 = qword_100BC9C50;
     if (!qword_100BC9C50)
     {
       sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pan/pan_gn.c", 1018, "PAN_RecvBuf");
     }
 
-    v26 = *a2;
-    *(qword_100BC9C50 + 4) = *(a2 + 4);
-    *v25 = v26;
-    v27 = *a3;
-    *(v25 + 10) = *(a3 + 4);
-    *(v25 + 6) = v27;
-    *(v25 + 12) = __rev16(a4);
+    v19 = *a2;
+    *(qword_100BC9C50 + 4) = *(a2 + 2);
+    *v18 = v19;
+    v20 = *a3;
+    *(v18 + 10) = *(a3 + 2);
+    *(v18 + 6) = v20;
+    *(v18 + 12) = __rev16(a4);
     if (__len >= 0x5DD)
     {
       sub_1000D660C();
       sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pan/pan_gn.c", 1031, "ByteStream_NumReadBytesAvail(bs) >= (dataLen)");
     }
 
-    memmove((v25 + 14), __src, __len);
-    if (*(qword_100B5F220 + 1256) == 1 || (*a2 & 1) != 0 || (*a2 == xmmword_100BCDFD8 ? (v28 = *(a2 + 4) == WORD2(xmmword_100BCDFD8)) : (v28 = 0), v28))
+    memmove((v18 + 14), __src, __len);
+    if (*(qword_100B5F220 + 1256) == 1 || (*a2 & 1) != 0 || (*a2 == xmmword_100BCDFD8 ? (v21 = *(a2 + 2) == WORD2(xmmword_100BCDFD8)) : (v21 = 0), v21))
     {
-      if (*a3 != xmmword_100BCDFD8 || *(a3 + 4) != WORD2(xmmword_100BCDFD8))
+      if (*a3 != xmmword_100BCDFD8 || *(a3 + 2) != WORD2(xmmword_100BCDFD8))
       {
-        v30 = (*(v16 + 48))(v25, (v9 + 14));
-        if (v30)
+        v23 = (*(v16 + 48))(v18, (v9 + 14));
+        if (v23)
         {
-          v31 = v30;
+          v24 = v23;
           if (sub_10000C240())
           {
-            sub_10000AF54("Forwarding packet to host failed - %!\n", v32, v33, v34, v35, v36, v37, v38, v31);
-            v39 = sub_10000C050(0x1Bu);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Forwarding packet to host failed - %!\n", v24);
+            v25 = sub_10000C050(0x1Bu);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               sub_10080F7A0();
             }
@@ -5159,15 +5163,15 @@ void sub_100228818(int a1, uint64_t a2, uint64_t a3, __int16 a4, const void *a5,
     }
 
     LOWORD(__lena) = v9;
-    v40 = sub_100228DF8(v16, 0, a2, a3, a4, a5, a6, __src, __lena);
-    if (v40)
+    v26 = sub_100228DF8(v16, 0, a2, a3, a4, a5, a6, __src, __lena);
+    if (v26)
     {
-      v41 = v40;
+      v27 = v26;
       if (sub_10000C240())
       {
-        sub_10000AF54("Forwarding packet to other BT devices failed - %!\n", v42, v43, v44, v45, v46, v47, v48, v41);
-        v49 = sub_10000C050(0x1Bu);
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Forwarding packet to other BT devices failed - %!\n", v27);
+        v28 = sub_10000C050(0x1Bu);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_28;
         }
@@ -5180,9 +5184,9 @@ void sub_100228818(int a1, uint64_t a2, uint64_t a3, __int16 a4, const void *a5,
 LABEL_5:
     if (sub_10000C240())
     {
-      sub_10000AF54("Unknown handle\n", v17, v18, v19, v20, v21, v22, v23, __lena);
-      v24 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unknown handle\n");
+      v17 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
 LABEL_28:
         sub_10080F7A0();
@@ -5191,7 +5195,7 @@ LABEL_28:
   }
 }
 
-void sub_100228A94(int a1)
+void sub_100228A94(uint64_t result)
 {
   if (!*(qword_100B5F220 + 1160))
   {
@@ -5201,9 +5205,9 @@ LABEL_5:
       return;
     }
 
-    sub_10000AF54("BNEP write completed for non-existent connection handle\n", v3, v4, v5, v6, v7, v8, v9, v21);
-    v10 = sub_10000C050(0x1Bu);
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("BNEP write completed for non-existent connection handle\n");
+    v3 = sub_10000C050(0x1Bu);
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -5213,7 +5217,7 @@ LABEL_5:
 
   v1 = 0;
   v2 = (qword_100B5F220 + 100);
-  while (*v2 != a1)
+  while (*v2 != result)
   {
     ++v1;
     v2 += 76;
@@ -5223,17 +5227,17 @@ LABEL_5:
     }
   }
 
-  v11 = *(v2 + 6);
-  if (!v11)
+  v4 = *(v2 + 6);
+  if (!v4)
   {
     if (!sub_10000C240())
     {
       return;
     }
 
-    sub_10000AF54("FinishSend called on NULL packet\n", v13, v14, v15, v16, v17, v18, v19, v21);
-    v20 = sub_10000C050(0x1Bu);
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("FinishSend called on NULL packet\n");
+    v6 = sub_10000C050(0x1Bu);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -5244,18 +5248,18 @@ LABEL_17:
   }
 
   *(v2 + 6) = 0;
-  v12 = *(v11 + 1546) & ~(1 << v1);
-  *(v11 + 1546) = v12;
-  if (!v12)
+  v5 = *(v4 + 1546) & ~(1 << v1);
+  *(v4 + 1546) = v5;
+  if (!v5)
   {
-    if (*(v11 + 1568) == 1)
+    if (*(v4 + 1568) == 1)
     {
       (*(v2 + 26))();
     }
 
-    sub_100305208((v11 + 1552));
+    sub_100305208((v4 + 1552));
 
-    sub_100228DB4(v11);
+    sub_100228DB4(v4);
   }
 }
 
@@ -5430,7 +5434,7 @@ LABEL_6:
     goto LABEL_30;
   }
 
-  v40 = a1;
+  v34 = a1;
   v24 = 0;
   v25 = 0;
   do
@@ -5446,22 +5450,23 @@ LABEL_6:
           v22 = sub_1002290C4(v18, v23 + v24 + 96);
           if (v22 != 2041)
           {
+            v30 = v22;
             if (v22)
             {
               v22 = sub_10000C240();
               if (v22)
               {
-                sub_10000AF54("Forwarding packet to %: failed - %!\n", v30, v31, v32, v33, v34, v35, v36, v28);
-                v37 = sub_10000C050(0x1Bu);
-                v22 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
+                sub_10000AF54("Forwarding packet to %: failed - %!\n", v28, v30);
+                v31 = sub_10000C050(0x1Bu);
+                v22 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
                 if (v22)
                 {
-                  v38 = sub_10000C0FC();
+                  v32 = sub_10000C0FC();
                   *buf = 136446466;
-                  v42 = v38;
-                  v43 = 1024;
-                  v44 = 0xFFFF;
-                  _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+                  v36 = v32;
+                  v37 = 1024;
+                  v38 = 0xFFFF;
+                  _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
                 }
               }
             }
@@ -5482,7 +5487,7 @@ LABEL_6:
   }
 
   while (v25 < *(qword_100B5F220 + 1160));
-  a1 = v40;
+  a1 = v34;
   if (*(v18 + 1546))
   {
     sub_1003051F4(v18 + 194, qword_100B5F220 + 80);
@@ -5525,7 +5530,7 @@ uint64_t sub_1002290C4(uint64_t a1, uint64_t a2)
   return 2041;
 }
 
-void sub_10022915C(int a1)
+void sub_10022915C(uint64_t a1)
 {
   sub_100228A94(a1);
   v2 = qword_100B5F220;
@@ -5552,8 +5557,9 @@ void sub_10022915C(int a1)
         v7 = *v5;
         if ((v6 & *(v5 - 6)) != 0)
         {
-          *(v2 + v4 + 112) = v5 - 194;
-          if (!sub_1002290C4())
+          v8 = v2 + v4;
+          *(v8 + 112) = v5 - 194;
+          if (!sub_1002290C4((v5 - 194), v8 + 96))
           {
             return;
           }
@@ -5623,9 +5629,9 @@ uint64_t sub_100229280(uint64_t a1, int a2)
   {
 LABEL_13:
     v5 = 0;
-    v17 = qword_100B5F220;
+    v10 = qword_100B5F220;
     *(qword_100B5F220 + 1164) = a2;
-    ++*(v17 + 1161);
+    ++*(v10 + 1161);
     return v5;
   }
 
@@ -5636,9 +5642,9 @@ LABEL_13:
     v8 = v7;
     if (sub_10000C240())
     {
-      sub_10000AF54("Could not revert role - %!\n", v9, v10, v11, v12, v13, v14, v15, v8);
-      v16 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Could not revert role - %!\n", v8);
+      v9 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -5663,10 +5669,10 @@ void sub_1002293A4(uint64_t a1, int *a2, uint64_t a3)
     if (a3)
     {
       *(v7 + 96) = 0;
-      v23 = v8;
+      v16 = v8;
       sub_100228BC4(v7 + 96);
       sub_100228C34((v7 + 96));
-      v8 = v23;
+      v8 = v16;
 LABEL_22:
 
       v8(a1, a2, a3);
@@ -5674,28 +5680,28 @@ LABEL_22:
     }
 
     *(v7 + 100) = a1;
-    v17 = qword_100B5F220;
+    v10 = qword_100B5F220;
     if (*(qword_100B5F220 + 1164) == 4)
     {
-      v18 = *(qword_100B5F220 + 48);
-      if (v18)
+      v11 = *(qword_100B5F220 + 48);
+      if (v11)
       {
-        v19 = *v18;
-        *(v7 + 176) = *(v18 + 4);
+        v12 = *v11;
+        *(v7 + 176) = *(v11 + 4);
       }
 
       else
       {
-        v19 = 0;
+        v12 = 0;
       }
 
-      *(v7 + 168) = v19;
-      v22 = *(v17 + 64);
-      if (v22)
+      *(v7 + 168) = v12;
+      v15 = *(v10 + 64);
+      if (v15)
       {
 LABEL_17:
-        *(v7 + 184) = *v22;
-        *(v7 + 192) = *(v22 + 8);
+        *(v7 + 184) = *v15;
+        *(v7 + 192) = *(v15 + 8);
 LABEL_21:
         *(v7 + 96) = 3;
         goto LABEL_22;
@@ -5704,21 +5710,21 @@ LABEL_21:
 
     else
     {
-      v20 = *(qword_100B5F220 + 56);
-      if (v20)
+      v13 = *(qword_100B5F220 + 56);
+      if (v13)
       {
-        v21 = *v20;
-        *(v7 + 176) = *(v20 + 4);
+        v14 = *v13;
+        *(v7 + 176) = *(v13 + 4);
       }
 
       else
       {
-        v21 = 0;
+        v14 = 0;
       }
 
-      *(v7 + 168) = v21;
-      v22 = *(v17 + 72);
-      if (v22)
+      *(v7 + 168) = v14;
+      v15 = *(v10 + 72);
+      if (v15)
       {
         goto LABEL_17;
       }
@@ -5730,9 +5736,9 @@ LABEL_21:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Connection %d not found for %:\n", v9, v10, v11, v12, v13, v14, v15, a1);
-    v16 = sub_10000C050(0x1Bu);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Connection %d not found for %:\n", a1, a2);
+    v9 = sub_10000C050(0x1Bu);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -5743,16 +5749,16 @@ uint64_t sub_10022953C(uint64_t a1, unsigned int a2)
 {
   if (!a1)
   {
-    v17 = "data";
+    v10 = "data";
     goto LABEL_18;
   }
 
   v2 = a2;
   if (!a2)
   {
-    v17 = "(dataLen) > 0";
+    v10 = "(dataLen) > 0";
 LABEL_18:
-    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pan/pan_gn.c", 753, v17);
+    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pan/pan_gn.c", 753, v10);
   }
 
   if (a2 <= 5)
@@ -5760,22 +5766,22 @@ LABEL_18:
     sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pan/pan_gn.c", 757, "ByteStream_NumReadBytesAvail(bs) >= OI_BD_ADDR_BYTE_SIZE");
   }
 
-  v21 = *a1;
-  v22 = *(a1 + 4);
+  v14 = *a1;
+  v15 = *(a1 + 4);
   if (a2 <= 0xB)
   {
     sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pan/pan_gn.c", 758, "ByteStream_NumReadBytesAvail(bs) >= OI_BD_ADDR_BYTE_SIZE");
   }
 
-  v19 = *(a1 + 6);
-  v20 = *(a1 + 10);
+  v12 = *(a1 + 6);
+  v13 = *(a1 + 10);
   if (a2 <= 0xD)
   {
     sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pan/pan_gn.c", 759, "ByteStream_NumReadBytesAvail(bs) >= 2");
   }
 
   v4 = *(a1 + 12);
-  v5 = sub_100229230(&v21);
+  v5 = sub_100229230(&v14);
   if ((v5 & 0x80000000) == 0)
   {
     goto LABEL_9;
@@ -5788,7 +5794,7 @@ LABEL_9:
     v6 = bswap32(v4) >> 16;
     v7 = qword_100B5F220 + 152 * v5;
     LOWORD(__len) = v2 - 14;
-    result = sub_100228DF8(v7 + 96, 1, &v21, &v19, v6, 0, 0, (a1 + 14), __len);
+    result = sub_100228DF8(v7 + 96, 1, &v14, &v12, v6, 0, 0, (a1 + 14), __len);
     if (result)
     {
       (*(v7 + 152))();
@@ -5800,9 +5806,9 @@ LABEL_9:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("BNEP write completed for non-existent connection handle\n", v9, v10, v11, v12, v13, v14, v15, __len);
-    v16 = sub_10000C050(0x1Bu);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("BNEP write completed for non-existent connection handle\n");
+    v9 = sub_10000C050(0x1Bu);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -5916,8 +5922,8 @@ uint64_t sub_1002298D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 119;
   }
 
-  v27 = 0u;
-  v28 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   if (sub_100226F1C(2))
   {
     v15 = qword_100B5F258;
@@ -5931,9 +5937,9 @@ uint64_t sub_1002298D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       v14 = v17;
       if (sub_10000C240())
       {
-        sub_10000AF54("PAN_RegisterRole inside PANU internalInit failed - %!\n", v18, v19, v20, v21, v22, v23, v24, v14);
-        v25 = sub_10000C050(0x1Bu);
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("PAN_RegisterRole inside PANU internalInit failed - %!\n", v14);
+        v18 = sub_10000C050(0x1Bu);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -5986,14 +5992,14 @@ uint64_t sub_1002298D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 0;
   }
 
-  *&v27 = &unk_100AE7AC8;
-  WORD4(v27) = 4;
-  *&v28 = *a6;
-  WORD4(v28) = *(a6 + 8);
+  *&v20 = &unk_100AE7AC8;
+  WORD4(v20) = 4;
+  *&v21 = *a6;
+  WORD4(v21) = *(a6 + 8);
   byte_100B5F260 = 1;
   word_100B5F262 = 2;
   dword_100B5F268 = a7;
-  v14 = sub_1002F7E1C(&v27, (v16 + 592));
+  v14 = sub_1002F7E1C(&v20, (v16 + 592));
   if (v14)
   {
     sub_10020AA28(4111, 4373);
@@ -6004,7 +6010,7 @@ LABEL_21:
   return v14;
 }
 
-void sub_100229AF8(uint64_t a1, uint64_t a2, int a3, int a4)
+void sub_100229AF8(uint64_t a1, int *a2, int a3, int a4)
 {
   v8 = sub_10022A2F0(a2);
   v9 = qword_100B5F258;
@@ -6019,7 +6025,7 @@ void sub_100229AF8(uint64_t a1, uint64_t a2, int a3, int a4)
     *(qword_100B5F258 + 560) = v11 + 1;
     v10 = v9 + 80 * v11;
     v12 = *a2;
-    *(v10 + 10) = *(a2 + 4);
+    *(v10 + 10) = *(a2 + 2);
     *(v10 + 6) = v12;
     *(v10 + 12) = 0;
     *(v10 + 16) = 0;
@@ -6040,11 +6046,11 @@ void sub_100229AF8(uint64_t a1, uint64_t a2, int a3, int a4)
   if (*v10 == 1)
   {
 LABEL_9:
-    v25 = *(v9 + 568);
+    v18 = *(v9 + 568);
     v13 = sub_100226E88(a3);
     v14 = sub_100226E88(a4);
 
-    v25(a1, a2, v13, v14);
+    v18(a1, a2, v13, v14);
     return;
   }
 
@@ -6061,9 +6067,9 @@ LABEL_12:
     v16 = v15;
     if (sub_10000C240())
     {
-      sub_10000AF54("Reject incoming connection failed - %!\n", v17, v18, v19, v20, v21, v22, v23, v16);
-      v24 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Reject incoming connection failed - %!\n", v16);
+      v17 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -6084,9 +6090,9 @@ void sub_100229C84()
     v1 = v0;
     if (sub_10000C240())
     {
-      sub_10000AF54("PAN_DeregisterRole failed inside PANU internalTerminate - %!\n", v2, v3, v4, v5, v6, v7, v8, v1);
-      v9 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("PAN_DeregisterRole failed inside PANU internalTerminate - %!\n", v1);
+      v2 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -6095,59 +6101,59 @@ void sub_100229C84()
     return;
   }
 
-  v10 = qword_100B5F258;
-  v11 = *(qword_100B5F258 + 696);
-  v12 = *(qword_100B5F258 + 632);
-  if (v11)
+  v3 = qword_100B5F258;
+  v4 = *(qword_100B5F258 + 696);
+  v5 = *(qword_100B5F258 + 632);
+  if (v4)
   {
-    if (v12 != *v11 && v12 != 0)
+    if (v5 != *v4 && v5 != 0)
     {
       goto LABEL_11;
     }
   }
 
-  else if (v12)
+  else if (v5)
   {
 LABEL_11:
     sub_10000C1E8(*(qword_100B5F258 + 632));
-    v10 = qword_100B5F258;
+    v3 = qword_100B5F258;
     *(qword_100B5F258 + 632) = 0;
   }
 
-  v14 = *(v10 + 704);
-  v15 = *(v10 + 648);
-  if (v14)
+  v7 = *(v3 + 704);
+  v8 = *(v3 + 648);
+  if (v7)
   {
-    if (v15 == *v14 || v15 == 0)
+    if (v8 == *v7 || v8 == 0)
     {
       goto LABEL_18;
     }
   }
 
-  else if (!v15)
+  else if (!v8)
   {
     goto LABEL_18;
   }
 
-  sub_10000C1E8(*(v10 + 648));
-  v10 = qword_100B5F258;
+  sub_10000C1E8(*(v3 + 648));
+  v3 = qword_100B5F258;
   *(qword_100B5F258 + 648) = 0;
 LABEL_18:
-  if (*(v10 + 664))
+  if (*(v3 + 664))
   {
-    sub_10000C1E8(*(v10 + 664));
-    v10 = qword_100B5F258;
+    sub_10000C1E8(*(v3 + 664));
+    v3 = qword_100B5F258;
     *(qword_100B5F258 + 664) = 0;
   }
 
-  if (*(v10 + 680))
+  if (*(v3 + 680))
   {
-    sub_10000C1E8(*(v10 + 680));
-    v10 = qword_100B5F258;
+    sub_10000C1E8(*(v3 + 680));
+    v3 = qword_100B5F258;
     *(qword_100B5F258 + 680) = 0;
   }
 
-  sub_10000C1E8(v10);
+  sub_10000C1E8(v3);
   qword_100B5F258 = 0;
 }
 
@@ -6172,7 +6178,7 @@ uint64_t sub_100229DB0()
   return result;
 }
 
-uint64_t sub_100229E08(unsigned int a1, uint64_t a2, uint64_t (*a3)(uint64_t (*)(uint64_t a1, unsigned int a2)), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+uint64_t sub_100229E08(unsigned int a1, uint64_t a2, uint64_t (*a3)(uint64_t (*)()), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
 {
   v8 = qword_100B5F258;
   v9 = *(qword_100B5F258 + 560);
@@ -6259,9 +6265,9 @@ void sub_100229F30(uint64_t a1, int *a2, uint64_t a3)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Connection %d not found for %:\n", v8, v9, v10, v11, v12, v13, v14, a1);
-      v15 = sub_10000C050(0x1Bu);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Connection %d not found for %:\n", a1, a2);
+      v8 = sub_10000C050(0x1Bu);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -6292,9 +6298,9 @@ void sub_100229F30(uint64_t a1, int *a2, uint64_t a3)
       *(v7 + 73) = 1;
       if (!*(qword_100B5F258 + 712) && *(v7 + 72) == 1)
       {
-        v16 = (qword_100B5F258 + 712);
+        v9 = (qword_100B5F258 + 712);
 
-        sub_10002195C(sub_10022A914, 0, 1200, v16);
+        sub_10002195C(sub_10022A914, 0, 1200, v9);
       }
     }
   }
@@ -6327,7 +6333,7 @@ uint64_t sub_10022A0AC(uint64_t result)
   return result;
 }
 
-uint64_t sub_10022A11C(__int16 a1, uint64_t a2, int a3, uint64_t a4, uint64_t (*a5)(uint64_t (*)(uint64_t a1, unsigned int a2)), uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t sub_10022A11C(__int16 a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t (*a5)(uint64_t (*)()), uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v17 = sub_10022A2F0(a2);
   v18 = qword_100B5F258;
@@ -6583,9 +6589,9 @@ void sub_10022A4E4(int a1, int *a2, int *a3, unsigned int a4, int a5, int a6, vo
       v21 = v20;
       if (sub_10000C240())
       {
-        sub_10000AF54("Forwarding packet to host failed - %!\n", v22, v23, v24, v25, v26, v27, v28, v21);
-        v29 = sub_10000C050(0x1Bu);
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Forwarding packet to host failed - %!\n", v21);
+        v22 = sub_10000C050(0x1Bu);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -6794,8 +6800,9 @@ void sub_10022A9FC(uint64_t a1)
   }
 }
 
-uint64_t sub_10022AA8C(unsigned int a1, uint64_t a2, int a3)
+uint64_t sub_10022AA8C(unsigned int a1, uint64_t *a2, uint64_t a3)
 {
+  v3 = a3;
   if (a3 != 1752 && a3 != 1701)
   {
     v8 = 0;
@@ -6826,9 +6833,9 @@ uint64_t sub_10022AA8C(unsigned int a1, uint64_t a2, int a3)
         {
           if (sub_10000C240())
           {
-            sub_10000AF54("Failed to inform client of read failure", v36, v37, v38, v39, v40, v41, v42, v76);
-            v43 = sub_10000C050(0x1Du);
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Failed to inform client of read failure");
+            v29 = sub_10000C050(0x1Du);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_78;
             }
@@ -6953,9 +6960,9 @@ LABEL_75:
 LABEL_76:
             if (sub_10000C240())
             {
-              sub_10000AF54("Failed to parse OBEX header", v51, v52, v53, v54, v55, v56, v57, v76);
-              v58 = sub_10000C050(0x1Du);
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+              sub_10000AF54("Failed to parse OBEX header");
+              v37 = sub_10000C050(0x1Du);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
 LABEL_78:
                 sub_100812934();
@@ -6963,38 +6970,38 @@ LABEL_78:
             }
 
 LABEL_102:
-            v69 = qword_100B5F278;
+            v48 = qword_100B5F278;
             if ((*(qword_100B5F278 + 201) & 1) == 0 && *qword_100B5F278 >= 2u)
             {
-              v70 = *(qword_100B5F278 + 8);
-              if (v70)
+              v49 = *(qword_100B5F278 + 8);
+              if (v49)
               {
                 *(qword_100B5F278 + 8) = 0;
-                sub_10022B448(v70, *(v69 + 26), a3);
-                v69 = qword_100B5F278;
+                sub_10022B448(v49, *(v48 + 26), v3);
+                v48 = qword_100B5F278;
               }
             }
 
-            v71 = *(v69 + 80);
-            if (v71)
+            v50 = *(v48 + 80);
+            if (v50)
             {
-              sub_10000C1E8(v71);
-              v69 = qword_100B5F278;
+              sub_10000C1E8(v50);
+              v48 = qword_100B5F278;
               *(qword_100B5F278 + 80) = 0;
             }
 
-            *(v69 + 112) = 0;
-            v72 = *(v69 + 152);
-            if (v72)
+            *(v48 + 112) = 0;
+            v51 = *(v48 + 152);
+            if (v51)
             {
-              sub_10000C1E8(v72);
-              v69 = qword_100B5F278;
+              sub_10000C1E8(v51);
+              v48 = qword_100B5F278;
               *(qword_100B5F278 + 152) = 0;
             }
 
-            *(v69 + 201) = 0;
-            *v69 = 1;
-            *(v69 + 128) = 0;
+            *(v48 + 201) = 0;
+            *v48 = 1;
+            *(v48 + 128) = 0;
             return v8;
           }
         }
@@ -7034,8 +7041,8 @@ LABEL_40:
     }
   }
 
-  *(v6 + 201) = a3 == 1752;
-  if (a3 != 1752)
+  *(v6 + 201) = v3 == 1752;
+  if (v3 != 1752)
   {
     if (*(v6 + 164) == 1 && !*(v6 + 162))
     {
@@ -7046,63 +7053,63 @@ LABEL_101:
         goto LABEL_102;
       }
 
-      v74 = qword_100B5F278;
-      v75 = *(qword_100B5F278 + 80);
-      if (v75)
+      v53 = qword_100B5F278;
+      v54 = *(qword_100B5F278 + 80);
+      if (v54)
       {
-        sub_10000C1E8(v75);
-        v74 = qword_100B5F278;
+        sub_10000C1E8(v54);
+        v53 = qword_100B5F278;
         *(qword_100B5F278 + 80) = 0;
       }
 
       v8 = 0;
-      *(v74 + 112) = 0;
+      *(v53 + 112) = 0;
       return v8;
     }
 
-    v77 = 0;
-    v31 = *(v6 + 124);
-    if (v31 != 1)
+    v55 = 0;
+    v24 = *(v6 + 124);
+    if (v24 != 1)
     {
-      v32 = (v6 + 68);
-      if (!v31)
+      v25 = (v6 + 68);
+      if (!v24)
       {
-        v33 = sub_10022D3F0(&v77, v32);
-        if (!v33)
+        v26 = sub_10022D3F0(&v55, v25);
+        if (!v26)
         {
-          v34 = qword_100B5F278;
+          v27 = qword_100B5F278;
           if (*(qword_100B5F278 + 68) == 3)
           {
             *(qword_100B5F278 + 120) = 1;
           }
 
-          *v34 = 4;
-          v35 = (**(v34 + 16))(v77);
+          *v27 = 4;
+          v28 = (**(v27 + 16))(v55);
           goto LABEL_82;
         }
 
         goto LABEL_73;
       }
 
-      v33 = sub_10022D4CC(&v77, v32);
-      if (v33)
+      v26 = sub_10022D4CC(&v55, v25);
+      if (v26)
       {
 LABEL_73:
-        v8 = v33;
+        v8 = v26;
         goto LABEL_100;
       }
 
-      v59 = qword_100B5F278;
+      v38 = qword_100B5F278;
       if (*(qword_100B5F278 + 68) == 3)
       {
         *(qword_100B5F278 + 120) = 1;
       }
 
-      *v59 = 2;
-      v35 = (*(*(v59 + 16) + 8))(v77);
+      *v38 = 2;
+      v28 = (*(*(v38 + 16) + 8))(v55);
 LABEL_82:
-      v8 = v35;
-      if (!v35)
+      v8 = v28;
+      if (!v28)
       {
         goto LABEL_101;
       }
@@ -7110,15 +7117,15 @@ LABEL_82:
       goto LABEL_100;
     }
 
-    v44 = sub_100306FE4(".");
-    v45 = sub_10022D5A0((qword_100B5F278 + 80), *(qword_100B5F278 + 112), &v77);
-    v46 = qword_100B5F278;
-    v47 = *(qword_100B5F278 + 112);
-    v48 = v77;
-    if (v47 != 4 || v77 != 0)
+    v30 = sub_100306FE4(".");
+    v31 = sub_10022D5A0((qword_100B5F278 + 80), *(qword_100B5F278 + 112), &v55);
+    v32 = qword_100B5F278;
+    v33 = *(qword_100B5F278 + 112);
+    v34 = v55;
+    if (v33 != 4 || v55 != 0)
     {
-      v8 = v45;
-      if (v45)
+      v8 = v31;
+      if (v31)
       {
 LABEL_100:
         *qword_100B5F278 = 1;
@@ -7127,76 +7134,76 @@ LABEL_100:
 
       if (*(qword_100B5F278 + 73) == 1)
       {
-        if (v47 == 1)
+        if (v33 == 1)
         {
-          v50 = 0;
+          v36 = 0;
           *(v6 + 68) = *(qword_100B5F278 + 68);
 LABEL_87:
-          v60 = *(v46 + 8 * v50 + 80);
-          v61 = sub_100306FE4(v60);
-          v62 = v61 - v44;
-          v63 = sub_10030701C(&v60[v62], ".");
+          v39 = *(v32 + 8 * v36 + 80);
+          v40 = sub_100306FE4(v39);
+          v41 = v40 - v30;
+          v42 = sub_10030701C(&v39[v41], ".");
           v8 = 1724;
-          if (v61 > 0xF || v63)
+          if (v40 > 0xF || v42)
           {
             goto LABEL_100;
           }
 
-          if (v61 == v44)
+          if (v40 == v30)
           {
-            v64 = 0;
+            v43 = 0;
           }
 
           else
           {
-            LODWORD(v64) = 0;
+            LODWORD(v43) = 0;
             do
             {
-              v66 = *v60++;
-              v65 = v66;
-              v67 = v66 - 48;
-              if ((v66 - 48) >= 0xA)
+              v45 = *v39++;
+              v44 = v45;
+              v46 = v45 - 48;
+              if ((v45 - 48) >= 0xA)
               {
-                if ((v65 - 71) > 0xFFFFFFF9)
+                if ((v44 - 71) > 0xFFFFFFF9)
                 {
-                  v67 = v65 - 55;
+                  v46 = v44 - 55;
                 }
 
                 else
                 {
-                  if ((v65 - 103) < 0xFFFFFFFA)
+                  if ((v44 - 103) < 0xFFFFFFFA)
                   {
                     goto LABEL_99;
                   }
 
-                  v67 = v65 - 87;
+                  v46 = v44 - 87;
                 }
               }
 
-              v64 = (v67 + 16 * v64);
-              --v62;
+              v43 = (v46 + 16 * v43);
+              --v41;
             }
 
-            while (v62);
+            while (v41);
           }
 
-          v68 = qword_100B5F278;
+          v47 = qword_100B5F278;
           *qword_100B5F278 = 5;
-          v35 = (*(*(v68 + 16) + 16))(v48, *(v68 + 68), v64, v68 + 172, *(v68 + 184), sub_10022D6C0, *(v68 + 26));
+          v28 = (*(*(v47 + 16) + 16))(v34, *(v47 + 68), v43, v47 + 172, *(v47 + 184), sub_10022D6C0, *(v47 + 26));
           goto LABEL_82;
         }
       }
 
-      else if (v47 >= 2)
+      else if (v33 >= 2)
       {
-        v33 = sub_10022D644(*(qword_100B5F278 + 8 * (v47 - 2) + 80), (v6 + 68));
-        if (v33)
+        v26 = sub_10022D644(*(qword_100B5F278 + 8 * (v33 - 2) + 80), (v6 + 68));
+        if (v26)
         {
           goto LABEL_73;
         }
 
-        v46 = qword_100B5F278;
-        v50 = *(qword_100B5F278 + 112) - 1;
+        v32 = qword_100B5F278;
+        v36 = *(qword_100B5F278 + 112) - 1;
         goto LABEL_87;
       }
     }
@@ -7211,9 +7218,9 @@ LABEL_99:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Failed to send OBEX GET repsonse", v23, v24, v25, v26, v27, v28, v29, v76);
-      v30 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Failed to send OBEX GET repsonse");
+      v23 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_78;
       }
@@ -7225,11 +7232,11 @@ LABEL_99:
   return v8;
 }
 
-void sub_10022B18C(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
+void sub_10022B18C(uint64_t result, uint64_t a2, __int16 a3, uint64_t a4)
 {
-  v43 = 0;
-  v44 = 0;
-  v42 = 0;
+  v21 = 0;
+  v22 = 0;
+  v20 = 0;
   v4 = qword_100B5F278;
   if (*qword_100B5F278 > 5u || ((1 << *qword_100B5F278) & 0x34) == 0)
   {
@@ -7237,14 +7244,14 @@ void sub_10022B18C(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
   }
 
   v6 = *(qword_100B5F278 + 8);
-  if (v6 != a1)
+  if (v6 != result)
   {
     return;
   }
 
   if (!a4)
   {
-    LOBYTE(v43) = 72;
+    LOBYTE(v21) = 72;
     v8 = 1701;
     goto LABEL_11;
   }
@@ -7252,45 +7259,45 @@ void sub_10022B18C(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
   if (a4 == 135)
   {
     v8 = 0;
-    LOBYTE(v43) = 73;
+    LOBYTE(v21) = 73;
     *(qword_100B5F278 + 128) = 0;
 LABEL_11:
-    v45 = a2;
-    LOWORD(v44) = a3;
-    v41 = &v43;
-    LOBYTE(v42) = 1;
-    v9 = sub_1001C25BC(*(v4 + 26), &v41, v8);
+    v23 = a2;
+    LOWORD(v22) = a3;
+    v19 = &v21;
+    LOBYTE(v20) = 1;
+    v9 = sub_1001C25BC(*(v4 + 26), &v19, v8);
     if (v9)
     {
       v10 = v9;
       if (sub_10000C240())
       {
-        sub_10000AF54("OI_OBEXSRV_GetResponse failed with error %!", v11, v12, v13, v14, v15, v16, v17, v10);
-        v18 = sub_10000C050(0x1Du);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("OI_OBEXSRV_GetResponse failed with error %!", v10);
+        v11 = sub_10000C050(0x1Du);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1008140F0();
         }
       }
 
-      v19 = qword_100B5F278;
-      v20 = *(qword_100B5F278 + 8);
+      v12 = qword_100B5F278;
+      v13 = *(qword_100B5F278 + 8);
       *(qword_100B5F278 + 8) = 0;
-      sub_10022B448(v20, *(v19 + 26), v10);
-      v21 = qword_100B5F278;
+      sub_10022B448(v13, *(v12 + 26), v10);
+      v14 = qword_100B5F278;
       *qword_100B5F278 = 1;
     }
 
     else
     {
-      v21 = qword_100B5F278;
+      v14 = qword_100B5F278;
     }
 
-    if (*(v21 + 128) == 4)
+    if (*(v14 + 128) == 4)
     {
-      v40[0] = 0;
-      v40[1] = 0;
-      sub_10022AA8C(*(v21 + 26), v40, 1701);
+      v18[0] = 0;
+      v18[1] = 0;
+      sub_10022AA8C(*(v14 + 26), v18, 1701);
     }
 
     return;
@@ -7298,24 +7305,24 @@ LABEL_11:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("File read error", v22, v23, v24, v25, v26, v27, v28, v39);
-    v29 = sub_10000C050(0x1Du);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("File read error");
+    v15 = sub_10000C050(0x1Du);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100812934();
     }
   }
 
-  v30 = qword_100B5F278;
+  v16 = qword_100B5F278;
   *(qword_100B5F278 + 8) = 0;
-  sub_10022B448(v6, *(v30 + 26), a4);
+  sub_10022B448(v6, *(v16 + 26), a4);
   if (sub_1001C25BC(*(qword_100B5F278 + 26), 0, a4))
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Failed to inform client of Read Failure (%!)", v31, v32, v33, v34, v35, v36, v37, a4);
-      v38 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Failed to inform client of Read Failure (%!)", a4);
+      v17 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_100812934();
       }
@@ -7360,42 +7367,42 @@ uint64_t sub_10022B3B8()
 
 void sub_10022B448(uint64_t a1, unsigned __int16 a2, int a3)
 {
-  v12 = a1;
-  v13 = a3;
-  v14 = a2;
-  v11[1] = &v12;
-  v11[0] = 16;
-  if (sub_1000228C0(sub_10022DA3C, v11, 0) && sub_10000C240())
+  v5 = a1;
+  v6 = a3;
+  v7 = a2;
+  v4[1] = &v5;
+  v4[0] = 16;
+  if (sub_1000228C0(sub_10022DA3C, v4, 0) && sub_10000C240())
   {
-    sub_10000AF54("Failed to register deferred close", v3, v4, v5, v6, v7, v8, v9, v11[0]);
-    v10 = sub_10000C050(0x1Du);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Failed to register deferred close");
+    v3 = sub_10000C050(0x1Du);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_100812934();
     }
   }
 }
 
-uint64_t sub_10022B4F0(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int a8, int a9)
+uint64_t sub_10022B4F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, int a8, int a9)
 {
-  v54 = unk_100AE7C08;
+  v32 = unk_100AE7C08;
   if (!a6 || !a3 || !a2 || !a5)
   {
     sub_1000D660C();
     return 101;
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   if (dword_100BCE2A4)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("OI_PBAPServer_Register is already registered.", v12, v13, v14, v15, v16, v17, v18, v49);
-      v19 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("OI_PBAPServer_Register is already registered.");
+      v12 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1008140F0();
       }
@@ -7404,26 +7411,27 @@ uint64_t sub_10022B4F0(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
     return 119;
   }
 
-  v27 = sub_1001BBBD8(0xD0uLL, 0x10F0040065A2C0CuLL);
-  qword_100B5F278 = v27;
-  v27[4] = a2;
-  v27[5] = a3;
-  v27[6] = a4;
-  v27[1] = 0;
-  v27[2] = a5;
-  v28 = sub_1003045A0(0x1Du);
-  v29 = qword_100B5F278;
-  *(qword_100B5F278 + 60) = *v28;
-  v30 = sub_1002265FC(&v54, off_100B52178, a1, (v29 + 60), &unk_1008A3E80);
-  if (v30 || (v30 = sub_100307CB0(&v54, off_100B52178, a1, (qword_100B5F278 + 62), &unk_1008A3E80, 1), v30))
+  v19 = a1;
+  v20 = sub_1001BBBD8(0xD0uLL, 0x10F0040065A2C0CuLL);
+  qword_100B5F278 = v20;
+  v20[4] = a2;
+  v20[5] = a3;
+  v20[6] = a4;
+  v20[1] = 0;
+  v20[2] = a5;
+  v21 = sub_1003045A0(0x1Du);
+  v22 = qword_100B5F278;
+  *(qword_100B5F278 + 60) = *v21;
+  v23 = sub_1002265FC(&v32, off_100B52178, v19, (v22 + 60), &unk_1008A3E80);
+  if (v23 || (v23 = sub_100307CB0(&v32, off_100B52178, v19, (qword_100B5F278 + 62), &unk_1008A3E80, 1), v23))
   {
-    v20 = v30;
+    v13 = v23;
 LABEL_15:
     if (sub_10000C240())
     {
-      sub_10000AF54("OI_PBAPServer_Register failed", v31, v32, v33, v34, v35, v36, v37, v49);
-      v38 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("OI_PBAPServer_Register failed");
+      v24 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_100812934();
       }
@@ -7432,23 +7440,23 @@ LABEL_15:
     if (qword_100B5F278)
     {
       sub_1002448C8(0x100000);
-      v39 = qword_100B5F278;
+      v25 = qword_100B5F278;
       if (*(qword_100B5F278 + 60))
       {
         sub_100226A9C(*(qword_100B5F278 + 60));
-        v39 = qword_100B5F278;
+        v25 = qword_100B5F278;
       }
 
-      if (v39[14])
+      if (v25[14])
       {
-        sub_1002F8018(v39[14]);
-        v39 = qword_100B5F278;
+        sub_1002F8018(v25[14]);
+        v25 = qword_100B5F278;
       }
 
-      sub_10000C1E8(v39);
+      sub_10000C1E8(v25);
     }
 
-    return v20;
+    return v13;
   }
 
   byte_100B5F280 = 1;
@@ -7466,23 +7474,23 @@ LABEL_15:
   byte_100B5F2C0 = 1;
   word_100B5F2C2 = 1;
   dword_100B5F2C8 = 1;
-  *&v52 = &unk_100AE7C18;
-  WORD4(v52) = 6;
-  *&v53 = *a6;
-  WORD4(v53) = *(a6 + 8);
-  *&v50 = &unk_100AE7CA8;
-  WORD4(v50) = 4;
-  *&v51 = v53;
-  WORD4(v51) = WORD4(v53);
-  v40 = sub_1002F7E1C(&v52, (qword_100B5F278 + 56));
-  if (v40)
+  *&v30 = &unk_100AE7C18;
+  WORD4(v30) = 6;
+  *&v31 = *a6;
+  WORD4(v31) = *(a6 + 8);
+  *&v28 = &unk_100AE7CA8;
+  WORD4(v28) = 4;
+  *&v29 = v31;
+  WORD4(v29) = WORD4(v31);
+  v26 = sub_1002F7E1C(&v30, (qword_100B5F278 + 56));
+  if (v26)
   {
-    v20 = v40;
+    v13 = v26;
     if (sub_10000C240())
     {
-      sub_10000AF54("OI_SDPDB_AddServiceRecord failed: %!", v41, v42, v43, v44, v45, v46, v47, v20);
-      v48 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("OI_SDPDB_AddServiceRecord failed: %!", v13);
+      v27 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_1008140F0();
       }
@@ -7491,16 +7499,16 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  sub_1002F8134(*(qword_100B5F278 + 56), &v50);
+  sub_1002F8134(*(qword_100B5F278 + 56), &v28);
   sub_100244814(0x100000);
   ++dword_100BCE2A4;
-  v20 = 0;
+  v13 = 0;
   if (a7)
   {
     *a7 = *(qword_100B5F278 + 56);
   }
 
-  return v20;
+  return v13;
 }
 
 void sub_10022B84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7517,15 +7525,15 @@ void sub_10022B84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     *(qword_100B5F278 + 192) = 0;
   }
 
-  v44 = 0;
-  v43 = 0;
+  v15 = 0;
+  v14 = 0;
   if (*v9)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("PBAP server already in use", v10, v11, v12, v13, v14, v15, v16, v42);
-      v17 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("PBAP server already in use");
+      v10 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1008140F0();
       }
@@ -7533,9 +7541,9 @@ void sub_10022B84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     if (sub_1001C2ABC(a1, 0, 104) && sub_10000C240())
     {
-      sub_10000AF54("Failed to inform client of connection failure", v18, v19, v20, v21, v22, v23, v24, v42);
-      v25 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Failed to inform client of connection failure");
+      v11 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100812934();
       }
@@ -7546,13 +7554,13 @@ void sub_10022B84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   {
     *(v9 + 200) = a2;
     *(v9 + 26) = a1;
-    if (sub_1001C32B4(a1, &v43))
+    if (sub_1001C32B4(a1, &v14))
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Failed to get client address", v26, v27, v28, v29, v30, v31, v32, v42);
-        v33 = sub_10000C050(0x1Du);
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Failed to get client address");
+        v12 = sub_10000C050(0x1Du);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           sub_100812934();
         }
@@ -7562,9 +7570,9 @@ void sub_10022B84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("Failed to inform client of connection failure", v34, v35, v36, v37, v38, v39, v40, v42);
-          v41 = sub_10000C050(0x1Du);
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Failed to inform client of connection failure");
+          v13 = sub_10000C050(0x1Du);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             sub_100812934();
           }
@@ -7574,12 +7582,12 @@ void sub_10022B84C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     else
     {
-      (*(qword_100B5F278 + 32))(&v43, a2, a3, a4, a1);
+      (*(qword_100B5F278 + 32))(&v14, a2, a3, a4, a1);
     }
   }
 }
 
-void sub_10022BA40(uint64_t a1)
+void sub_10022BA40(int a1)
 {
   v2 = qword_100B5F278;
   if (*(qword_100B5F278 + 26) == a1)
@@ -7592,9 +7600,9 @@ void sub_10022BA40(uint64_t a1)
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("Received disconnect indication from invalid connectionId %d", v4, v5, v6, v7, v8, v9, v10, a1);
-    v11 = sub_10000C050(0x1Du);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Received disconnect indication from invalid connectionId %d", a1);
+    v4 = sub_10000C050(0x1Du);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1008140F0();
     }
@@ -7680,14 +7688,14 @@ LABEL_17:
 
   ptr[1] = 0;
   ptr[2] = 0;
-  v29 = 3;
+  v22 = 3;
   if (!*a2 || (*(qword_100B5F278 + 73) & 1) != 0)
   {
     goto LABEL_17;
   }
 
   ptr[0] = 0;
-  v6 = sub_10022C90C(a2, ptr, &v29);
+  v6 = sub_10022C90C(a2, ptr, &v22);
   if (v6)
   {
 LABEL_9:
@@ -7695,8 +7703,8 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v20 = v29;
-  if (v29 + *(qword_100B5F278 + 74) > 3)
+  v13 = v22;
+  if (v22 + *(qword_100B5F278 + 74) > 3)
   {
     v7 = ptr[0];
     v4 = 1724;
@@ -7708,38 +7716,38 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  if (!v29)
+  if (!v22)
   {
 LABEL_52:
     v4 = 0;
     goto LABEL_10;
   }
 
-  v21 = 0;
+  v14 = 0;
   while (1)
   {
-    v22 = qword_100B5F278;
-    v23 = *(qword_100B5F278 + 74);
-    if (v23 == 2)
+    v15 = qword_100B5F278;
+    v16 = *(qword_100B5F278 + 74);
+    if (v16 == 2)
     {
       break;
     }
 
-    if (v23 == 1)
+    if (v16 == 1)
     {
-      v25 = ptr[v21];
-      if (*(qword_100B5F278 + 64) != 1 || (v26 = sub_10030701C(ptr[v21], "t"), v22 = qword_100B5F278, v26))
+      v18 = ptr[v14];
+      if (*(qword_100B5F278 + 64) != 1 || (v19 = sub_10030701C(ptr[v14], "t"), v15 = qword_100B5F278, v19))
       {
-        v27 = (v22 + 68);
-        v28 = v25;
+        v20 = (v15 + 68);
+        v21 = v18;
 LABEL_47:
-        v6 = sub_10022D644(v28, v27);
+        v6 = sub_10022D644(v21, v20);
         if (v6)
         {
           goto LABEL_9;
         }
 
-        v22 = qword_100B5F278;
+        v15 = qword_100B5F278;
         *(qword_100B5F278 + 73) = 1;
         goto LABEL_51;
       }
@@ -7752,27 +7760,27 @@ LABEL_47:
         goto LABEL_53;
       }
 
-      v24 = ptr[v21];
-      if (!sub_10030701C(v24, L"SIM1"))
+      v17 = ptr[v14];
+      if (!sub_10030701C(v17, L"SIM1"))
       {
-        v22 = qword_100B5F278;
+        v15 = qword_100B5F278;
         *(qword_100B5F278 + 64) = 1;
         goto LABEL_51;
       }
 
-      if (sub_10030701C(v24, "t"))
+      if (sub_10030701C(v17, "t"))
       {
         goto LABEL_53;
       }
 
-      v22 = qword_100B5F278;
+      v15 = qword_100B5F278;
       *(qword_100B5F278 + 64) = 0;
     }
 
-    *(v22 + 72) = 1;
+    *(v15 + 72) = 1;
 LABEL_51:
-    ++*(v22 + 74);
-    if (++v21 >= v20)
+    ++*(v15 + 74);
+    if (++v14 >= v13)
     {
       goto LABEL_52;
     }
@@ -7780,8 +7788,8 @@ LABEL_51:
 
   if (*(qword_100B5F278 + 64))
   {
-    v28 = ptr[v21];
-    v27 = (qword_100B5F278 + 68);
+    v21 = ptr[v14];
+    v20 = (qword_100B5F278 + 68);
     goto LABEL_47;
   }
 
@@ -7800,9 +7808,9 @@ LABEL_18:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Failed to confirm (%!) the set path operation with the client", v10, v11, v12, v13, v14, v15, v16, v4);
-      v17 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Failed to confirm (%!) the set path operation with the client", v4);
+      v10 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_100812934();
       }
@@ -7825,9 +7833,9 @@ uint64_t sub_10022BDE4()
     v1 = v0;
     if (sub_10000C240())
     {
-      sub_10000AF54("Error deregistering RFCOMM server", v2, v3, v4, v5, v6, v7, v8, v38);
-      v9 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Error deregistering RFCOMM server");
+      v2 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
 LABEL_19:
         sub_100812934();
@@ -7837,15 +7845,15 @@ LABEL_19:
 
   else
   {
-    v11 = sub_100308060(*(qword_100B5F278 + 62));
-    if (v11)
+    v4 = sub_100308060(*(qword_100B5F278 + 62));
+    if (v4)
     {
-      v1 = v11;
+      v1 = v4;
       if (sub_10000C240())
       {
-        sub_10000AF54("Error deregistering L2CAP server", v12, v13, v14, v15, v16, v17, v18, v38);
-        v19 = sub_10000C050(0x1Du);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Error deregistering L2CAP server");
+        v5 = sub_10000C050(0x1Du);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_19;
         }
@@ -7854,15 +7862,15 @@ LABEL_19:
 
     else
     {
-      v20 = sub_1002448C8(0x100000);
-      if (v20)
+      v6 = sub_1002448C8(0x100000);
+      if (v6)
       {
-        v1 = v20;
+        v1 = v6;
         if (sub_10000C240())
         {
-          sub_10000AF54("Error deregistering service class", v21, v22, v23, v24, v25, v26, v27, v38);
-          v28 = sub_10000C050(0x1Du);
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Error deregistering service class");
+          v7 = sub_10000C050(0x1Du);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_19;
           }
@@ -7871,15 +7879,15 @@ LABEL_19:
 
       else
       {
-        v29 = sub_1002F8018(*(qword_100B5F278 + 56));
-        if (v29)
+        v8 = sub_1002F8018(*(qword_100B5F278 + 56));
+        if (v8)
         {
-          v1 = v29;
+          v1 = v8;
           if (sub_10000C240())
           {
-            sub_10000AF54("Error removing service record", v30, v31, v32, v33, v34, v35, v36, v38);
-            v37 = sub_10000C050(0x1Du);
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Error removing service record");
+            v9 = sub_10000C050(0x1Du);
+            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_19;
             }
@@ -7904,7 +7912,7 @@ LABEL_19:
   return v1;
 }
 
-uint64_t sub_10022BFA4(unsigned int a1, char a2, int a3, int a4)
+uint64_t sub_10022BFA4(uint64_t a1, char a2, int a3, uint64_t a4)
 {
   if (!dword_100BCE2A4)
   {
@@ -7912,7 +7920,13 @@ uint64_t sub_10022BFA4(unsigned int a1, char a2, int a3, int a4)
   }
 
   v4 = qword_100B5F278;
-  if (*qword_100B5F278 || *(qword_100B5F278 + 26) != a1)
+  if (*qword_100B5F278)
+  {
+    return 1745;
+  }
+
+  v5 = a1;
+  if (*(qword_100B5F278 + 26) != a1)
   {
     return 1745;
   }
@@ -7924,9 +7938,9 @@ uint64_t sub_10022BFA4(unsigned int a1, char a2, int a3, int a4)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Failed to inform client of connection rejection", v17, v18, v19, v20, v21, v22, v23, v27);
-        v24 = sub_10000C050(0x1Du);
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Failed to inform client of connection rejection");
+        v10 = sub_10000C050(0x1Du);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_9;
         }
@@ -7946,9 +7960,9 @@ uint64_t sub_10022BFA4(unsigned int a1, char a2, int a3, int a4)
       v7 = v6;
       if (sub_10000C240())
       {
-        sub_10000AF54("PBAP: Failed to accept connection", v8, v9, v10, v11, v12, v13, v14, v27);
-        v15 = sub_10000C050(0x1Du);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("PBAP: Failed to accept connection");
+        v8 = sub_10000C050(0x1Du);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
 LABEL_9:
           sub_100812934();
@@ -7958,12 +7972,12 @@ LABEL_9:
 
     else
     {
-      v25 = qword_100B5F278;
+      v11 = qword_100B5F278;
       *qword_100B5F278 = 1;
-      *(qword_100B5F278 + 24) = sub_1001C3258(*(v25 + 26));
-      v28 = 0;
-      sub_1001C3310(a1, &v28);
-      if (*(qword_100B5F278 + 24) > 0x1000u && v28 == 0)
+      *(qword_100B5F278 + 24) = sub_1001C3258(*(v11 + 26));
+      v13 = 0;
+      sub_1001C3310(v5, &v13);
+      if (*(qword_100B5F278 + 24) > 0x1000u && v13 == 0)
       {
         *(qword_100B5F278 + 24) = 4096;
       }
@@ -8004,17 +8018,17 @@ uint64_t sub_10022C138(unsigned int a1, const void *a2, unsigned int a3, char *a
   return result;
 }
 
-uint64_t sub_10022C1F8(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t sub_10022C1F8(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
-  v37[0] = a3;
-  v37[1] = a4;
-  v36[0] = a5;
-  v36[1] = a6;
-  v35[0] = a7;
-  v35[1] = a8;
-  memset(v38, 0, sizeof(v38));
-  v33 = v38;
-  v34 = 0;
+  v30[0] = a3;
+  v30[1] = a4;
+  v29[0] = a5;
+  v29[1] = a6;
+  v28[0] = a7;
+  v28[1] = a8;
+  memset(v31, 0, sizeof(v31));
+  v26 = v31;
+  v27 = 0;
   v9 = qword_100B5F278;
   if (*qword_100B5F278 == 3)
   {
@@ -8028,19 +8042,19 @@ uint64_t sub_10022C1F8(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4, uint64
 
     else
     {
-      v22 = *(qword_100B5F278 + 128);
-      if (v22)
+      v15 = *(qword_100B5F278 + 128);
+      if (v15)
       {
-        LOBYTE(v38[0]) = -105;
-        v23 = 1;
-        BYTE8(v38[0]) = 1;
-        LOBYTE(v34) = 1;
-        *(qword_100B5F278 + 128) = v22 & 0xFA | 4;
+        LOBYTE(v31[0]) = -105;
+        v16 = 1;
+        BYTE8(v31[0]) = 1;
+        LOBYTE(v27) = 1;
+        *(qword_100B5F278 + 128) = v15 & 0xFA | 4;
       }
 
       else
       {
-        v23 = 0;
+        v16 = 0;
       }
 
       qword_100B5F2D0 = &word_100B5F2E0;
@@ -8053,63 +8067,63 @@ uint64_t sub_10022C1F8(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4, uint64
       if (*(v9 + 120) == 1)
       {
         word_100B5F2E4 = 265;
-        v26 = *(v9 + 121);
-        v27 = 7;
+        v19 = *(v9 + 121);
+        v20 = 7;
         word_100B5F2DC = 7;
-        byte_100B5F2E6 = v26;
+        byte_100B5F2E6 = v19;
       }
 
       else
       {
-        v27 = 4;
+        v20 = 4;
       }
 
       if ((*(v9 + 192) & 8) != 0)
       {
-        sub_10022C4B8(&qword_100B5F2D0, 10, v37);
+        sub_10022C4B8(&qword_100B5F2D0, 10, v30);
         v9 = qword_100B5F278;
-        v28 = *(qword_100B5F278 + 68);
-        if (v28 != 5 && v28)
+        v21 = *(qword_100B5F278 + 68);
+        if (v21 != 5 && v21)
         {
-          v27 += 18;
+          v20 += 18;
         }
 
         else
         {
-          sub_10022C4B8(&qword_100B5F2D0, 11, v36);
-          v27 += 36;
+          sub_10022C4B8(&qword_100B5F2D0, 11, v29);
+          v20 += 36;
           v9 = qword_100B5F278;
         }
       }
 
       if ((*(v9 + 192) & 4) != 0)
       {
-        v29 = *(v9 + 68);
-        v30 = v35;
-        if (v29 && v29 != 5)
+        v22 = *(v9 + 68);
+        v23 = v28;
+        if (v22 && v22 != 5)
         {
-          v30 = &unk_100BC9C58;
+          v23 = &unk_100BC9C58;
         }
 
-        sub_10022C4B8(&qword_100B5F2D0, 13, v30);
-        v27 += 18;
+        sub_10022C4B8(&qword_100B5F2D0, 13, v23);
+        v20 += 18;
       }
 
-      v31 = v38 + 24 * v23;
-      *v31 = 76;
-      *(v31 + 4) = v27;
-      *(v31 + 2) = qword_100B5F2D0;
-      LOBYTE(v34) = v23 + 1;
+      v24 = v31 + 24 * v16;
+      *v24 = 76;
+      *(v24 + 4) = v20;
+      *(v24 + 2) = qword_100B5F2D0;
+      LOBYTE(v27) = v16 + 1;
       if (word_100B5F2DE == 2)
       {
         word_100B5F2DA = word_100B5F2DC;
       }
 
       LOBYTE(word_100B5F2DE) = 15;
-      v32 = qword_100B5F278;
+      v25 = qword_100B5F278;
       *qword_100B5F278 = 1;
-      v11 = *(v32 + 26);
-      v12 = &v33;
+      v11 = *(v25 + 26);
+      v12 = &v26;
       v10 = 0;
     }
 
@@ -8120,11 +8134,11 @@ uint64_t sub_10022C1F8(uint64_t a1, __int16 a2, uint64_t a3, uint64_t a4, uint64
   {
     if (sub_10000C240())
     {
-      v20 = *qword_100B5F278;
-      v21 = v20 > 5 ? "<unknown state>" : off_100AE7D78[v20];
-      sub_10000AF54("Server state is %s, ignoring getsize response", v13, v14, v15, v16, v17, v18, v19, v21);
-      v24 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v13 = *qword_100B5F278;
+      v14 = v13 > 5 ? "<unknown state>" : off_100AE7D78[v13];
+      sub_10000AF54("Server state is %s, ignoring getsize response", v14);
+      v17 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_1008140F0();
       }
@@ -8138,7 +8152,7 @@ uint64_t *sub_10022C4B8(uint64_t *result, char a2, uint64_t a3)
 {
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 294, "uint16_t AppendApplicationParameter(OI_BYTE_STREAM *, OI_PBAP_APPLICATION_PARAM_TAG_IDS, OI_UINT128 *)");
     goto LABEL_21;
   }
 
@@ -8162,7 +8176,7 @@ LABEL_23:
   *(v4 + v3) = a2;
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 295, "uint16_t AppendApplicationParameter(OI_BYTE_STREAM *, OI_PBAP_APPLICATION_PARAM_TAG_IDS, OI_UINT128 *)");
     goto LABEL_25;
   }
 
@@ -8186,7 +8200,7 @@ LABEL_27:
   *(v6 + v5) = 16;
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 296, "uint16_t AppendApplicationParameter(OI_BYTE_STREAM *, OI_PBAP_APPLICATION_PARAM_TAG_IDS, OI_UINT128 *)");
     goto LABEL_29;
   }
 
@@ -8213,7 +8227,7 @@ LABEL_31:
   *(result + 6) = v8;
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 297, "uint16_t AppendApplicationParameter(OI_BYTE_STREAM *, OI_PBAP_APPLICATION_PARAM_TAG_IDS, OI_UINT128 *)");
     goto LABEL_33;
   }
 
@@ -8239,7 +8253,7 @@ LABEL_35:
   *(result + 6) = v9;
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 298, "uint16_t AppendApplicationParameter(OI_BYTE_STREAM *, OI_PBAP_APPLICATION_PARAM_TAG_IDS, OI_UINT128 *)");
     goto LABEL_37;
   }
 
@@ -8265,7 +8279,7 @@ LABEL_39:
   *(result + 6) = v10;
   if (*(result + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 299, "uint16_t AppendApplicationParameter(OI_BYTE_STREAM *, OI_PBAP_APPLICATION_PARAM_TAG_IDS, OI_UINT128 *)");
     goto LABEL_41;
   }
 
@@ -8377,16 +8391,16 @@ uint64_t sub_10022CA08(unsigned __int16 *a1)
   v1 = *(a1 + 1);
   if (!v1)
   {
-    v119 = "appParams->data";
-    goto LABEL_167;
+    v52 = "appParams->data";
+    goto LABEL_170;
   }
 
   v2 = *a1;
   if (!*a1)
   {
-    v119 = "(appParams->len) > 0";
-LABEL_167:
-    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 676, v119);
+    v52 = "(appParams->len) > 0";
+LABEL_170:
+    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 676, v52);
   }
 
   v3 = 0;
@@ -8394,8 +8408,8 @@ LABEL_167:
   v5 = v2 - 3;
   v6 = v2 - 1;
   v7 = v2 - 4;
-  v122 = v2 - 8;
-  v123 = v2 - 2;
+  v54 = v2 - 8;
+  v55 = v2 - 2;
   while (1)
   {
     while (1)
@@ -8441,40 +8455,41 @@ LABEL_167:
                   return 1741;
                 }
 
-                sub_10000AF54("PBAP: Format has wrong length", v63, v64, v65, v66, v67, v68, v69, v120);
-                v70 = sub_10000C050(0x1Du);
-                if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+                sub_10000AF54("PBAP: Format has wrong length");
+                v45 = sub_10000C050(0x1Du);
+                if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                 {
                   return 1741;
                 }
 
-                goto LABEL_132;
+                goto LABEL_135;
               }
 
-              v21 = qword_100B5F278;
+              v24 = qword_100B5F278;
               if (*(qword_100B5F278 + 188) == 1)
               {
                 if (v2 > v9)
                 {
 LABEL_49:
-                  v22 = v2 > v3;
+                  v25 = v2 > v3;
                   if (v2 <= v3)
                   {
                     v10 = 1;
                   }
 
-                  goto LABEL_85;
+                  goto LABEL_88;
                 }
 
-LABEL_84:
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-                v22 = 0;
+                v20 = 812;
+LABEL_87:
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", v20, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+                v25 = 0;
                 v10 = 1;
-LABEL_85:
-                v3 += v22;
+LABEL_88:
+                v3 += v25;
                 if (v10)
                 {
-                  goto LABEL_130;
+                  goto LABEL_133;
                 }
               }
 
@@ -8482,42 +8497,42 @@ LABEL_85:
               {
                 if (v2 <= v9)
                 {
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-                  v21 = qword_100B5F278;
-LABEL_158:
-                  *(v21 + 184) = 7;
-LABEL_159:
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 814, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+                  v24 = qword_100B5F278;
+LABEL_161:
+                  *(v24 + 184) = 7;
+LABEL_162:
                   if (!sub_10000C240())
                   {
                     return 1741;
                   }
 
-                  sub_10000AF54("PBAP: client sent invalid Format: %d\n", v103, v104, v105, v106, v107, v108, v109, *(qword_100B5F278 + 184));
-                  v110 = sub_10000C050(0x1Du);
-                  if (!os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+                  sub_10000AF54("PBAP: client sent invalid Format: %d\n", *(qword_100B5F278 + 184));
+                  v50 = sub_10000C050(0x1Du);
+                  if (!os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
                   {
                     return 1741;
                   }
 
-LABEL_132:
+LABEL_135:
                   sub_10081416C();
                   return 1741;
                 }
 
                 if (v2 <= v3)
                 {
-                  goto LABEL_158;
+                  goto LABEL_161;
                 }
 
-                v31 = *(v1 + v3);
-                *(qword_100B5F278 + 184) = v31;
-                if (v31 >= 2)
+                v34 = *(v1 + v3);
+                *(qword_100B5F278 + 184) = v34;
+                if (v34 >= 2)
                 {
-                  goto LABEL_159;
+                  goto LABEL_162;
                 }
 
                 ++v3;
-                *(v21 + 188) = 1;
+                *(v24 + 188) = 1;
               }
             }
 
@@ -8525,7 +8540,7 @@ LABEL_132:
             {
               if (v11 != 16)
               {
-                goto LABEL_123;
+                goto LABEL_126;
               }
 
               if (v4 != 4)
@@ -8535,58 +8550,58 @@ LABEL_132:
                   return 1741;
                 }
 
-                sub_10000AF54("PBAP: Supported Features has wrong length", v87, v88, v89, v90, v91, v92, v93, v120);
-                v94 = sub_10000C050(0x1Du);
-                if (!os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+                sub_10000AF54("PBAP: Supported Features has wrong length");
+                v48 = sub_10000C050(0x1Du);
+                if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                 {
                   return 1741;
                 }
 
-                goto LABEL_132;
+                goto LABEL_135;
               }
 
-              v16 = qword_100B5F278;
+              v18 = qword_100B5F278;
               if (*(qword_100B5F278 + 196) == 1)
               {
                 if (v2 > v9)
                 {
-                  v13 = v7 < v3;
-                  v14 = v3 + 4;
+                  v14 = v7 < v3;
+                  v15 = v3 + 4;
                   if (v7 >= v3)
                   {
-                    goto LABEL_99;
+                    goto LABEL_102;
                   }
 
-                  goto LABEL_98;
+                  goto LABEL_101;
                 }
 
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-                v14 = v3 + 4;
-                goto LABEL_97;
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 837, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+                v15 = v3 + 4;
+                goto LABEL_100;
               }
 
               if (v2 <= v9)
               {
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-                v16 = qword_100B5F278;
-LABEL_115:
-                v34 = 1;
-                goto LABEL_116;
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 840, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+                v18 = qword_100B5F278;
+LABEL_118:
+                v37 = 1;
+                goto LABEL_119;
               }
 
               if (v5 <= v3)
               {
-                goto LABEL_115;
+                goto LABEL_118;
               }
 
-              v34 = 0;
+              v37 = 0;
               *(qword_100B5F278 + 192) = bswap32(*(v1 + v3));
               v3 += 4;
-LABEL_116:
-              *(v16 + 196) = 1;
-              if (v34)
+LABEL_119:
+              *(v18 + 196) = 1;
+              if (v37)
               {
-                goto LABEL_130;
+                goto LABEL_133;
               }
             }
           }
@@ -8600,57 +8615,58 @@ LABEL_116:
                 return 1741;
               }
 
-              sub_10000AF54("PBAP: ListStartOffset value has wrong length", v47, v48, v49, v50, v51, v52, v53, v120);
-              v54 = sub_10000C050(0x1Du);
-              if (!os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+              sub_10000AF54("PBAP: ListStartOffset value has wrong length");
+              v43 = sub_10000C050(0x1Du);
+              if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
               {
                 return 1741;
               }
 
-              goto LABEL_132;
+              goto LABEL_135;
             }
 
-            v18 = qword_100B5F278;
+            v21 = qword_100B5F278;
             if (*(qword_100B5F278 + 168) == 1)
             {
               if (v2 > v9)
               {
 LABEL_41:
-                v13 = v123 < v3;
-                v14 = v3 + 2;
-                if (v123 >= v3)
+                v14 = v55 < v3;
+                v15 = v3 + 2;
+                if (v55 >= v3)
                 {
-                  goto LABEL_99;
+                  goto LABEL_102;
                 }
 
-                goto LABEL_98;
+                goto LABEL_101;
               }
 
-              goto LABEL_83;
+              v17 = 775;
+              goto LABEL_85;
             }
 
             if (v2 <= v9)
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-              v18 = qword_100B5F278;
-LABEL_92:
-              v30 = 1;
-              goto LABEL_93;
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 778, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+              v21 = qword_100B5F278;
+LABEL_95:
+              v33 = 1;
+              goto LABEL_96;
             }
 
             if (v6 <= v3)
             {
-              goto LABEL_92;
+              goto LABEL_95;
             }
 
-            v30 = 0;
+            v33 = 0;
             *(qword_100B5F278 + 166) = bswap32(*(v1 + v3)) >> 16;
             v3 += 2;
-LABEL_93:
-            *(v18 + 168) = 1;
-            if (v30)
+LABEL_96:
+            *(v21 + 168) = 1;
+            if (v33)
             {
-              goto LABEL_130;
+              goto LABEL_133;
             }
           }
 
@@ -8663,39 +8679,39 @@ LABEL_93:
                 return 1741;
               }
 
-              sub_10000AF54("PBAP: Filter value has wrong length", v71, v72, v73, v74, v75, v76, v77, v120);
-              v78 = sub_10000C050(0x1Du);
-              if (!os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+              sub_10000AF54("PBAP: Filter value has wrong length");
+              v46 = sub_10000C050(0x1Du);
+              if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
                 return 1741;
               }
 
-              goto LABEL_132;
+              goto LABEL_135;
             }
 
-            v12 = qword_100B5F278;
+            v13 = qword_100B5F278;
             if (*(qword_100B5F278 + 180) == 1)
             {
               if (v2 > v9)
               {
-                v13 = v122 < v3;
-                v14 = v3 + 8;
-                if (v122 >= v3)
+                v14 = v54 < v3;
+                v15 = v3 + 8;
+                if (v54 >= v3)
                 {
-                  goto LABEL_99;
+                  goto LABEL_102;
                 }
 
-                goto LABEL_98;
+                goto LABEL_101;
               }
 
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-              v14 = v3 + 8;
-              goto LABEL_97;
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 793, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+              v15 = v3 + 8;
+              goto LABEL_100;
             }
 
             if (v2 <= v9)
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 796, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
             }
 
             else if (v5 > v3)
@@ -8703,28 +8719,28 @@ LABEL_93:
               *(qword_100B5F278 + 172) = bswap32(*(v1 + v3));
               if (v5 <= (v3 + 4))
               {
-                v32 = 1;
+                v35 = 1;
                 v3 += 4;
               }
 
               else
               {
-                v32 = 0;
-                *(v12 + 176) = bswap32(*(v1 + (v3 + 4)));
+                v35 = 0;
+                *(v13 + 176) = bswap32(*(v1 + (v3 + 4)));
                 v3 += 8;
               }
 
-              goto LABEL_108;
+              goto LABEL_111;
             }
 
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-            v12 = qword_100B5F278;
-            v32 = 1;
-LABEL_108:
-            *(v12 + 180) = 1;
-            if (v32)
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 798, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+            v13 = qword_100B5F278;
+            v35 = 1;
+LABEL_111:
+            *(v13 + 180) = 1;
+            if (v35)
             {
-              goto LABEL_130;
+              goto LABEL_133;
             }
           }
         }
@@ -8736,29 +8752,30 @@ LABEL_108:
 
         if (v11 == 3)
         {
-          v19 = qword_100B5F278;
+          v22 = qword_100B5F278;
           if (*(qword_100B5F278 + 148) == 1)
           {
             if (v2 > v9)
             {
 LABEL_45:
-              v20 = v2 - v3;
-              goto LABEL_79;
+              v23 = v2 - v3;
+              goto LABEL_80;
             }
 
-LABEL_78:
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-            v20 = 0;
+            v12 = 735;
 LABEL_79:
-            if (v20 < v4)
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", v12, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+            v23 = 0;
+LABEL_80:
+            if (v23 < v4)
             {
-              goto LABEL_130;
+              goto LABEL_133;
             }
 
             v3 += v4;
             if (v10)
             {
-              goto LABEL_130;
+              goto LABEL_133;
             }
           }
 
@@ -8766,28 +8783,28 @@ LABEL_79:
           {
             if (v2 <= v9)
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-              v24 = 0;
-              v19 = qword_100B5F278;
-LABEL_126:
-              v23 = 1;
-              goto LABEL_127;
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 741, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+              v27 = 0;
+              v22 = qword_100B5F278;
+LABEL_129:
+              v26 = 1;
+              goto LABEL_130;
             }
 
             if (v2 <= v3)
             {
-              v24 = 0;
-              goto LABEL_126;
+              v27 = 0;
+              goto LABEL_129;
             }
 
-            v23 = 0;
-            v24 = *(v1 + v3++);
-LABEL_127:
-            *(v19 + 144) = v24;
-            *(v19 + 148) = 1;
-            if (v23)
+            v26 = 0;
+            v27 = *(v1 + v3++);
+LABEL_130:
+            *(v22 + 144) = v27;
+            *(v22 + 148) = 1;
+            if (v26)
             {
-              goto LABEL_130;
+              goto LABEL_133;
             }
           }
         }
@@ -8801,17 +8818,17 @@ LABEL_127:
               return 1741;
             }
 
-            sub_10000AF54("PBAP: MaxListCount value has wrong length", v79, v80, v81, v82, v83, v84, v85, v120);
-            v86 = sub_10000C050(0x1Du);
-            if (!os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("PBAP: MaxListCount value has wrong length");
+            v47 = sub_10000C050(0x1Du);
+            if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
               return 1741;
             }
 
-            goto LABEL_132;
+            goto LABEL_135;
           }
 
-          v15 = qword_100B5F278;
+          v16 = qword_100B5F278;
           if (*(qword_100B5F278 + 164) == 1)
           {
             if (v2 > v9)
@@ -8819,30 +8836,31 @@ LABEL_127:
               goto LABEL_41;
             }
 
-LABEL_83:
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-            v14 = v3 + 2;
-LABEL_97:
-            v13 = 1;
-LABEL_98:
+            v17 = 757;
+LABEL_85:
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", v17, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+            v15 = v3 + 2;
+LABEL_100:
+            v14 = 1;
+LABEL_101:
             v10 = 1;
-LABEL_99:
-            if (!v13)
+LABEL_102:
+            if (!v14)
             {
-              v3 = v14;
+              v3 = v15;
             }
 
             if (v10)
             {
-LABEL_130:
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
+LABEL_133:
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 679, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
               if (sub_10000C240())
               {
-                sub_10000AF54("PBAP: Application parameters are corrupted", v38, v39, v40, v41, v42, v43, v44, v120);
-                v45 = sub_10000C050(0x1Du);
-                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                sub_10000AF54("PBAP: Application parameters are corrupted");
+                v41 = sub_10000C050(0x1Du);
+                if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
                 {
-                  goto LABEL_132;
+                  goto LABEL_135;
                 }
               }
 
@@ -8854,26 +8872,26 @@ LABEL_130:
           {
             if (v2 <= v9)
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-              v15 = qword_100B5F278;
-LABEL_111:
-              v33 = 1;
-              goto LABEL_112;
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 760, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+              v16 = qword_100B5F278;
+LABEL_114:
+              v36 = 1;
+              goto LABEL_115;
             }
 
             if (v6 <= v3)
             {
-              goto LABEL_111;
+              goto LABEL_114;
             }
 
-            v33 = 0;
+            v36 = 0;
             *(qword_100B5F278 + 162) = bswap32(*(v1 + v3)) >> 16;
             v3 += 2;
-LABEL_112:
-            *(v15 + 164) = 1;
-            if (v33)
+LABEL_115:
+            *(v16 + 164) = 1;
+            if (v36)
             {
-              goto LABEL_130;
+              goto LABEL_133;
             }
           }
         }
@@ -8891,17 +8909,17 @@ LABEL_112:
           return 1741;
         }
 
-        sub_10000AF54("PBAP: Order value has wrong length", v55, v56, v57, v58, v59, v60, v61, v120);
-        v62 = sub_10000C050(0x1Du);
-        if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("PBAP: Order value has wrong length");
+        v44 = sub_10000C050(0x1Du);
+        if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           return 1741;
         }
 
-        goto LABEL_132;
+        goto LABEL_135;
       }
 
-      v17 = qword_100B5F278;
+      v19 = qword_100B5F278;
       if (*(qword_100B5F278 + 140) == 1)
       {
         if (v2 > v9)
@@ -8909,50 +8927,51 @@ LABEL_112:
           goto LABEL_49;
         }
 
-        goto LABEL_84;
+        v20 = 695;
+        goto LABEL_87;
       }
 
       if (v2 <= v9)
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-        v17 = qword_100B5F278;
-LABEL_88:
-        v29 = 1;
-        *(v17 + 136) = 1;
-        goto LABEL_89;
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 697, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+        v19 = qword_100B5F278;
+LABEL_91:
+        v32 = 1;
+        *(v19 + 136) = 1;
+        goto LABEL_92;
       }
 
       if (v2 <= v3)
       {
-        goto LABEL_88;
+        goto LABEL_91;
       }
 
-      v28 = *(v1 + v3);
-      *(qword_100B5F278 + 136) = v28;
-      if (v28 >= 3)
+      v31 = *(v1 + v3);
+      *(qword_100B5F278 + 136) = v31;
+      if (v31 >= 3)
       {
         if (!sub_10000C240())
         {
           return 1741;
         }
 
-        sub_10000AF54("PBAP: client sent invalid order value: %d\n", v111, v112, v113, v114, v115, v116, v117, *(qword_100B5F278 + 136));
-        v118 = sub_10000C050(0x1Du);
-        if (!os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("PBAP: client sent invalid order value: %d\n", *(qword_100B5F278 + 136));
+        v51 = sub_10000C050(0x1Du);
+        if (!os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
           return 1741;
         }
 
-        goto LABEL_132;
+        goto LABEL_135;
       }
 
-      v29 = 0;
+      v32 = 0;
       ++v3;
-LABEL_89:
-      *(v17 + 140) = 1;
-      if (v29)
+LABEL_92:
+      *(v19 + 140) = 1;
+      if (v32)
       {
-        goto LABEL_130;
+        goto LABEL_133;
       }
     }
 
@@ -8961,10 +8980,10 @@ LABEL_89:
       break;
     }
 
-LABEL_123:
+LABEL_126:
     if (v10)
     {
-      goto LABEL_130;
+      goto LABEL_133;
     }
   }
 
@@ -8975,40 +8994,41 @@ LABEL_123:
       goto LABEL_45;
     }
 
-    goto LABEL_78;
+    v12 = 716;
+    goto LABEL_79;
   }
 
-  v121 = v5;
+  v53 = v5;
   *(qword_100B5F278 + 160) = v4;
-  v25 = sub_100007618(v4, 0xCA2F805BuLL);
-  *(qword_100B5F278 + 152) = v25;
-  if (v25)
+  v28 = sub_100007618(v4, 0xCA2F805BuLL);
+  *(qword_100B5F278 + 152) = v28;
+  if (v28)
   {
-    v26 = v25;
+    v29 = v28;
     if (v2 <= v9)
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c");
-      v27 = 0;
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/profiles/pbap/pbap_server.c", 726, "OI_STATUS ParseAppParams(const OI_OBEX_BYTESEQ *)");
+      v30 = 0;
     }
 
     else
     {
-      v27 = v2 - v3;
+      v30 = v2 - v3;
     }
 
-    if (v27 >= v4)
+    if (v30 >= v4)
     {
       if (v4)
       {
-        v35 = (v1 + v3);
-        v36 = &v26[v4];
+        v38 = (v1 + v3);
+        v39 = &v29[v4];
         do
         {
-          v37 = *v35++;
-          *v26++ = v37;
+          v40 = *v38++;
+          *v29++ = v40;
         }
 
-        while (v26 < v36);
+        while (v29 < v39);
       }
 
       v3 += v4;
@@ -9020,15 +9040,15 @@ LABEL_123:
     }
 
     *(qword_100B5F278 + 161) = 1;
-    v5 = v121;
-    goto LABEL_123;
+    v5 = v53;
+    goto LABEL_126;
   }
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Failed to allocate memory for SearchValue", v95, v96, v97, v98, v99, v100, v101, v120);
-    v102 = sub_10000C050(0x1Du);
-    if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Failed to allocate memory for SearchValue");
+    v49 = sub_10000C050(0x1Du);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
       sub_100813FF0();
     }
@@ -9037,7 +9057,7 @@ LABEL_123:
   return 106;
 }
 
-uint64_t sub_10022D3F0(int *a1, unsigned int *a2)
+uint64_t sub_10022D3F0(int *a1, _DWORD *a2)
 {
   v4 = qword_100B5F278;
   if (*(qword_100B5F278 + 73) == 1)
@@ -9080,7 +9100,7 @@ uint64_t sub_10022D3F0(int *a1, unsigned int *a2)
   return result;
 }
 
-uint64_t sub_10022D4CC(int *a1, _DWORD *a2)
+uint64_t sub_10022D4CC(int *a1, unsigned int *a2)
 {
   v3 = *(qword_100B5F278 + 112);
   if (*(qword_100B5F278 + 73) == 1 && v3 < 2)
@@ -9171,15 +9191,15 @@ uint64_t sub_10022D644(unsigned __int16 *a1, _DWORD *a2)
 
 void sub_10022D6C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v49[0] = a2;
-  v49[1] = a3;
-  v48[0] = a4;
-  v48[1] = a5;
-  v47[0] = a6;
-  v47[1] = a7;
-  memset(v50, 0, sizeof(v50));
-  v45 = v50;
-  v46 = 0;
+  v34[0] = a2;
+  v34[1] = a3;
+  v33[0] = a4;
+  v33[1] = a5;
+  v32[0] = a6;
+  v32[1] = a7;
+  memset(v35, 0, sizeof(v35));
+  v30 = v35;
+  v31 = 0;
   v8 = qword_100B5F278;
   v9 = *qword_100B5F278;
   if (*qword_100B5F278 > 5u || ((1 << *qword_100B5F278) & 0x34) == 0)
@@ -9198,9 +9218,9 @@ void sub_10022D6C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     sub_1000D660C();
     if (sub_10000C240())
     {
-      sub_10000AF54("Invalid handle", v26, v27, v28, v29, v30, v31, v32, v43);
-      v33 = sub_10000C050(0x1Du);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid handle");
+      v19 = sub_10000C050(0x1Du);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_1008141E8();
       }
@@ -9214,23 +9234,23 @@ LABEL_6:
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Failed to inform the client of the open failure (%!)", v14, v15, v16, v17, v18, v19, v20, a8);
-        v21 = sub_10000C050(0x1Du);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Failed to inform the client of the open failure (%!)", a8);
+        v14 = sub_10000C050(0x1Du);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           sub_100812934();
         }
       }
     }
 
-    v22 = qword_100B5F278;
+    v15 = qword_100B5F278;
     if (*(qword_100B5F278 + 161) == 1)
     {
       *(qword_100B5F278 + 161) = 0;
-      v23 = *(v22 + 152);
-      if (v23)
+      v16 = *(v15 + 152);
+      if (v16)
       {
-        sub_10000C1E8(v23);
+        sub_10000C1E8(v16);
         *(qword_100B5F278 + 152) = 0;
       }
     }
@@ -9239,20 +9259,20 @@ LABEL_6:
   }
 
   *(qword_100B5F278 + 8) = a1;
-  v24 = *(v8 + 128);
-  if (v24)
+  v17 = *(v8 + 128);
+  if (v17)
   {
-    LOBYTE(v50[0]) = -105;
-    v25 = 1;
-    BYTE8(v50[0]) = 1;
-    LOBYTE(v46) = 1;
-    *(v8 + 128) = v24 & 0xFA | 4;
+    LOBYTE(v35[0]) = -105;
+    v18 = 1;
+    BYTE8(v35[0]) = 1;
+    LOBYTE(v31) = 1;
+    *(v8 + 128) = v17 & 0xFA | 4;
     v9 = *v8;
   }
 
   else
   {
-    v25 = 0;
+    v18 = 0;
   }
 
   qword_100B5F320 = &word_100B5F330;
@@ -9262,38 +9282,38 @@ LABEL_6:
     if (*(v8 + 120) == 1)
     {
       word_100B5F330 = 265;
-      v35 = *(v8 + 121);
-      v36 = 3;
+      v21 = *(v8 + 121);
+      v22 = 3;
       word_100B5F32C = 3;
-      byte_100B5F332 = v35;
+      byte_100B5F332 = v21;
     }
 
     else
     {
-      v36 = 0;
+      v22 = 0;
     }
 
     if ((*(v8 + 192) & 8) != 0)
     {
-      sub_10022C4B8(&qword_100B5F320, 10, v49);
+      sub_10022C4B8(&qword_100B5F320, 10, v34);
       v8 = qword_100B5F278;
-      v37 = *(qword_100B5F278 + 68);
-      if (v37 != 5 && v37)
+      v23 = *(qword_100B5F278 + 68);
+      if (v23 != 5 && v23)
       {
-        v36 += 18;
+        v22 += 18;
       }
 
       else
       {
-        sub_10022C4B8(&qword_100B5F320, 11, v48);
-        v36 |= 0x24u;
+        sub_10022C4B8(&qword_100B5F320, 11, v33);
+        v22 |= 0x24u;
         v8 = qword_100B5F278;
       }
     }
 
     if ((*(v8 + 192) & 4) == 0)
     {
-      if (!v36)
+      if (!v22)
       {
         goto LABEL_44;
       }
@@ -9302,27 +9322,27 @@ LABEL_6:
     }
 
 LABEL_39:
-    v38 = *(v8 + 68);
-    v39 = v47;
-    if (v38 && v38 != 5)
+    v24 = *(v8 + 68);
+    v25 = v32;
+    if (v24 && v24 != 5)
     {
-      v39 = &unk_100BC9C58;
+      v25 = &unk_100BC9C58;
     }
 
-    sub_10022C4B8(&qword_100B5F320, 13, v39);
-    LOWORD(v36) = v36 + 18;
+    sub_10022C4B8(&qword_100B5F320, 13, v25);
+    LOWORD(v22) = v22 + 18;
 LABEL_43:
-    v40 = v50 + 24 * v25;
-    *v40 = 76;
-    *(v40 + 4) = v36;
-    *(v40 + 2) = qword_100B5F320;
-    LOBYTE(v46) = v25 + 1;
+    v26 = v35 + 24 * v18;
+    *v26 = 76;
+    *(v26 + 4) = v22;
+    *(v26 + 2) = qword_100B5F320;
+    LOBYTE(v31) = v18 + 1;
     goto LABEL_44;
   }
 
   if ((*(v8 + 192) & 4) != 0)
   {
-    LOWORD(v36) = 0;
+    LOWORD(v22) = 0;
     goto LABEL_39;
   }
 
@@ -9333,21 +9353,21 @@ LABEL_44:
   }
 
   byte_100B5F32E = 15;
-  v41 = sub_1001C25BC(*(qword_100B5F278 + 26), &v45, 1701);
-  v42 = qword_100B5F278;
-  if (v41)
+  v27 = sub_1001C25BC(*(qword_100B5F278 + 26), &v30, 1701);
+  v28 = qword_100B5F278;
+  if (v27)
   {
-    sub_10022B448(*(qword_100B5F278 + 8), *(qword_100B5F278 + 26), v41);
-    v42 = qword_100B5F278;
+    sub_10022B448(*(qword_100B5F278 + 8), *(qword_100B5F278 + 26), v27);
+    v28 = qword_100B5F278;
     *(qword_100B5F278 + 8) = 0;
-    *v42 = 1;
+    *v28 = 1;
   }
 
-  if (*(v42 + 128) == 4)
+  if (*(v28 + 128) == 4)
   {
-    v44[0] = 0;
-    v44[1] = 0;
-    sub_10022AA8C(*(v42 + 26), v44, 1701);
+    v29[0] = 0;
+    v29[1] = 0;
+    sub_10022AA8C(*(v28 + 26), v29, 1701);
   }
 }
 
@@ -9630,34 +9650,14 @@ void sub_10022E010()
     v1 = v0;
     if (sub_10000C240())
     {
-      sub_10000AF54("OI_DEVMGR_WriteStaticSettings", v2, v3, v4, v5, v6, v7, v8, v10);
-      v9 = sub_10000C050(0x4Eu);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("OI_DEVMGR_WriteStaticSettings");
+      v2 = sub_10000C050(0x4Eu);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         sub_100812934();
       }
     }
 
     sub_1003044D0(off_100AE7DA8, v1);
-  }
-}
-
-void sub_10022E0C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = sub_10024DE00(sub_10022E3B8, a2, a3, a4, a5, a6, a7, a8, v18);
-  if (v8)
-  {
-    v9 = v8;
-    if (sub_10000C240())
-    {
-      sub_10000AF54("OI_HCI_ReadLocalName", v10, v11, v12, v13, v14, v15, v16, v19);
-      v17 = sub_10000C050(0x4Eu);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-      {
-        sub_100812934();
-      }
-    }
-
-    sub_1003044D0(off_100AE7DA8, v9);
   }
 }

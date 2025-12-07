@@ -12,7 +12,7 @@
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection, a2);
   }
 
   else

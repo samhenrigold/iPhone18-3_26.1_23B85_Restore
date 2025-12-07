@@ -10,7 +10,7 @@
 
 - (id)clone
 {
-  if (([NSCopying_class_() isInstance:self] & 1) == 0)
+  if (([NSCopying_class_(self a2)] & 1) == 0)
   {
     objc_exception_throw(objc_alloc_init(JavaLangCloneNotSupportedException));
   }

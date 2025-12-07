@@ -106,8 +106,9 @@
 
 - (id)popToRootViewControllerAnimated:(BOOL)animated
 {
+  animatedCopy = animated;
   selfCopy = self;
-  v5 = sub_100474CBC(animated);
+  v5 = sub_100474CBC(animatedCopy);
 
   if (v5)
   {
@@ -141,7 +142,7 @@
 
   v8 = sub_100474E94(action, v10);
 
-  sub_10002B894(v10, &unk_1009711D0);
+  sub_10002B894(v10, &unk_1009711D0, &unk_1007B1A10);
   return v8;
 }
 

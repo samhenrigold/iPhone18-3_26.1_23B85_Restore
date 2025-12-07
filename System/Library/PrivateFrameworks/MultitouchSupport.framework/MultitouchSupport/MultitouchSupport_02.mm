@@ -1,103 +1,3 @@
-uint64_t mt_CalculateMTPreciseContactVelocity(uint64_t result, uint64_t a2, double a3)
-{
-  if (result && a2)
-  {
-    if (*(a2 + 1) - 7 < 0xFFFFFFFD || *(a2 + 12) == 3.4028e38 && *(a2 + 16) == 3.4028e38)
-    {
-      *(a2 + 12) = 0;
-      *(a2 + 16) = 0;
-    }
-
-    else
-    {
-      v3 = vdup_n_s32(0x447A0000u);
-      v4 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(vmul_f32(vsub_f32(vdiv_f32(*(a2 + 4), v3), *(result + 68)), v3)), vdupq_lane_s64(COERCE__INT64(a3 - *(result + 8)), 0)));
-      *(a2 + 12) = v4;
-      if (v4.f32[0] == 0.0 && v4.f32[1] == 0.0)
-      {
-        *(a2 + 12) = 1123680256;
-      }
-    }
-  }
-
-  return result;
-}
-
-float mt_FillMTContactDirectFromBinary(unsigned __int16 *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, char a5, double a6)
-{
-  if (a1 && a2 && a3)
-  {
-    v9 = *(a2 + 8);
-    v10 = *(a2 + 20);
-    *a2 = a4;
-    *(a2 + 8) = a6;
-    v11 = v10 - 3;
-    v12 = a6 - v9;
-    if (v12 < 0.04 && v11 < 2 && a3[1] == 0)
-    {
-      v15 = 7;
-    }
-
-    else
-    {
-      v15 = a3[1];
-    }
-
-    *(a2 + 16) = *a3;
-    *(a2 + 20) = v15;
-    v16 = a3[3];
-    *(a2 + 24) = a3[2];
-    *(a2 + 28) = v16;
-    LOWORD(v12) = *(a3 + 13);
-    v17 = LODWORD(v12);
-    *(a2 + 48) = vcvts_n_f32_u32(*(a3 + 9), 8uLL);
-    *(a2 + 52) = v17;
-    LOWORD(v17) = *(a3 + 10);
-    v18.f32[0] = *(a3 + 12) * 3.1416;
-    v18.f32[1] = LODWORD(v17);
-    *(a2 + 88) = vmul_f32(v18, 0x3B80000038000000);
-    v19.i32[0] = *(a3 + 4);
-    v19.i32[1] = *(a3 + 5);
-    v20 = vcvt_f32_s32(vadd_s32(v19, v19));
-    *(a2 + 76) = vmul_f32(v20, vdup_n_s32(0x3D800000u));
-    v21 = a1[1];
-    v22 = (*a1 - v21);
-    v23 = (v20.f32[0] / 160.0) * 1000.0 / v22;
-    v24 = a1[3];
-    v25 = (a1[2] - v24);
-    *&v26 = (v20.f32[1] / 160.0) * 1000.0 / v25;
-    *(a2 + 40) = v23;
-    *(a2 + 44) = *&v26;
-    HIWORD(v26) = 14336;
-    *&v27 = (*(a3 + 8) * 3.1416) * 0.000030518;
-    LOWORD(v26) = *(a3 + 6);
-    *(a2 + 56) = *&v27;
-    *(a2 + 60) = v26 / 100.0;
-    LOWORD(v27) = *(a3 + 7);
-    *(a2 + 64) = v27 / 100.0;
-    v28 = *(a3 + 2);
-    v29 = *(a3 + 3);
-    if ((a5 & 1) == 0)
-    {
-      v28 = alg_ClipPosPointToScreenEdge(v28 | (v29 << 16), a1);
-      v29 = HIWORD(v28);
-      v21 = a1[1];
-      v24 = a1[3];
-      v22 = (*a1 - v21);
-      v25 = (a1[2] - v24);
-    }
-
-    *(a2 + 68) = v28 / 100.0;
-    *(a2 + 72) = v29 / 100.0;
-    *&a6 = (v28 - v21) / v22;
-    *(a2 + 32) = LODWORD(a6);
-    *(a2 + 36) = (v29 - v24) / v25;
-    *(a2 + 84) = *(a3 + 14);
-  }
-
-  return *&a6;
-}
-
 uint64_t MTDeviceBeginRecordingToFile(uint64_t a1, const char *a2, int a3)
 {
   result = 3758097090;
@@ -536,7 +436,7 @@ intptr_t MTDeviceMarkRecording(intptr_t result, const char *a2)
   return result;
 }
 
-NSObject *MTDeviceSetRecordingDesiredFrameCount(NSObject *result, uint64_t a2)
+NSObject *MTDeviceSetRecordingDesiredFrameCount(NSObject *result, objc_class *a2)
 {
   if (result)
   {
@@ -545,36 +445,37 @@ NSObject *MTDeviceSetRecordingDesiredFrameCount(NSObject *result, uint64_t a2)
     if (result)
     {
       dispatch_semaphore_wait(result, 0xFFFFFFFFFFFFFFFFLL);
-      *(v2 + 2200) = a2;
-      if (*(v2 + 2168) == 1)
+      v2[275].isa = a2;
+      if (LOBYTE(v2[271].isa) == 1)
       {
         _mt_truncateRecordingIfNeeded(v2);
       }
 
-      v4 = *(v2 + 2176);
+      isa = v2[272].isa;
 
-      return dispatch_semaphore_signal(v4);
+      return dispatch_semaphore_signal(isa);
     }
   }
 
   return result;
 }
 
-CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
+CFDataRef MTPlayerCreateFromData(CFDataRef theData, uint64_t a2)
 {
   v2 = theData;
-  v139 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   if (!theData)
   {
-    goto LABEL_34;
+    return v2;
   }
 
+  v3 = a2;
   BytePtr = CFDataGetBytePtr(theData);
   v5 = CFDataGetLength(v2);
   v6 = v5;
   if (!v5)
   {
-    goto LABEL_33;
+    return 0;
   }
 
   v7 = *BytePtr;
@@ -586,22 +487,23 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
       memset(__src, 0, sizeof(__src));
       if (v8 >= 0x21C)
       {
-        v136 = 0uLL;
-        v137 = 0uLL;
-        v134 = 0uLL;
         v135 = 0uLL;
-        v132 = 0uLL;
+        v136 = 0uLL;
         v133 = 0uLL;
-        v130 = 0uLL;
+        v134 = 0uLL;
         v131 = 0uLL;
-        v128 = 0uLL;
+        v132 = 0uLL;
         v129 = 0uLL;
-        v126 = 0uLL;
+        v130 = 0uLL;
         v127 = 0uLL;
-        v124 = 0uLL;
+        v128 = 0uLL;
         v125 = 0uLL;
-        v122 = 0uLL;
+        v126 = 0uLL;
         v123 = 0uLL;
+        v124 = 0uLL;
+        v121 = 0uLL;
+        v122 = 0uLL;
+        v106 = 0uLL;
         v107 = 0uLL;
         v108 = 0uLL;
         v109 = 0uLL;
@@ -615,9 +517,8 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
         v117 = 0uLL;
         v118 = 0uLL;
         v119 = 0uLL;
-        v120 = 0uLL;
         v9 = v5 - 13;
-        v121 = 0uLL;
+        v120 = 0uLL;
         if (v5 - 13 >= 0x21C)
         {
           v18 = *(BytePtr + 13);
@@ -626,49 +527,49 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
           v21 = *(BytePtr + 241);
           v22 = *(BytePtr + 161);
           v23 = *(BytePtr + 193);
-          v131 = *(BytePtr + 177);
-          v132 = v23;
-          v133 = *(BytePtr + 209);
-          v134 = v20;
+          v130 = *(BytePtr + 177);
+          v131 = v23;
+          v132 = *(BytePtr + 209);
+          v133 = v20;
           v24 = *(BytePtr + 97);
           v25 = *(BytePtr + 129);
-          v127 = *(BytePtr + 113);
-          v128 = v25;
-          v129 = *(BytePtr + 145);
-          v130 = v22;
+          v126 = *(BytePtr + 113);
+          v127 = v25;
+          v128 = *(BytePtr + 145);
+          v129 = v22;
           v26 = *(BytePtr + 33);
           v27 = *(BytePtr + 65);
-          v123 = *(BytePtr + 49);
-          v124 = v27;
-          v125 = *(BytePtr + 81);
-          v126 = v24;
+          v122 = *(BytePtr + 49);
+          v123 = v27;
+          v124 = *(BytePtr + 81);
+          v125 = v24;
           v28 = *(BytePtr + 257);
           v29 = *(BytePtr + 273);
-          v135 = v21;
-          v136 = v28;
-          v137 = v29;
+          v134 = v21;
+          v135 = v28;
+          v136 = v29;
           v30 = *(BytePtr + 289);
           v31 = *(BytePtr + 501);
-          v119 = *(BytePtr + 485);
-          v120 = v31;
-          v121 = *(BytePtr + 517);
-          v122 = v26;
+          v118 = *(BytePtr + 485);
+          v119 = v31;
+          v120 = *(BytePtr + 517);
+          v121 = v26;
           v32 = *(BytePtr + 437);
-          v115 = *(BytePtr + 421);
-          v116 = v32;
+          v114 = *(BytePtr + 421);
+          v115 = v32;
           v33 = *(BytePtr + 469);
-          v117 = *(BytePtr + 453);
-          v118 = v33;
+          v116 = *(BytePtr + 453);
+          v117 = v33;
           v34 = *(BytePtr + 373);
-          v111 = *(BytePtr + 357);
-          v112 = v34;
+          v110 = *(BytePtr + 357);
+          v111 = v34;
           v35 = *(BytePtr + 405);
-          v113 = *(BytePtr + 389);
-          v114 = v35;
+          v112 = *(BytePtr + 389);
+          v113 = v35;
           v37 = *(BytePtr + 309);
-          v107 = *(BytePtr + 293);
-          v36 = v107;
-          v108 = v37;
+          v106 = *(BytePtr + 293);
+          v36 = v106;
+          v107 = v37;
           v13 = *(BytePtr + 549);
           v14 = BytePtr + 553;
           v36.i32[0] = -1;
@@ -678,8 +579,8 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
           v9 = v5 - 553;
           v40 = bswap32(v19);
           v41 = bswap32(v30);
-          v109 = *(BytePtr + 325);
-          v110 = v39;
+          v108 = *(BytePtr + 325);
+          v109 = v39;
           if (v13 == -1)
           {
             v10 = v41;
@@ -695,16 +596,16 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
           *bytes = v38;
           if (v9 >= 0x200 && v12 == 1)
           {
-            v97 = *v14;
+            v96 = *v14;
             v14 = BytePtr + 1065;
             v9 = v5 - 1065;
-            v99 = 1;
+            v98 = 1;
           }
 
           else
           {
-            v99 = 0;
-            v97 = 0u;
+            v98 = 0;
+            v96 = 0u;
           }
 
           v11 = v40;
@@ -712,9 +613,9 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
 
         else
         {
-          v97 = 0uLL;
+          v96 = 0uLL;
           *bytes = 0uLL;
-          v99 = 0;
+          v98 = 0;
           v10 = 0;
           v11 = 0;
           LOBYTE(v12) = 0;
@@ -722,158 +623,158 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
           v14 = BytePtr + 13;
         }
 
-        v100 = *(BytePtr + 1);
-        v60 = *MEMORY[0x277CBECE8];
+        v99 = *(BytePtr + 1);
+        v59 = *MEMORY[0x277CBECE8];
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        v102 = *bytes;
-        *&length[244] = v137;
-        *&length[196] = v134;
-        *&length[212] = v135;
-        *&length[228] = v136;
-        *&length[132] = v130;
-        *&length[148] = v131;
-        *&length[164] = v132;
-        *&length[180] = v133;
-        *&length[68] = v126;
-        *&length[84] = v127;
-        *&length[100] = v128;
-        *&length[116] = v129;
-        *&length[4] = v122;
-        *&length[20] = v123;
+        v101 = *bytes;
+        *&length[244] = v136;
+        *&length[196] = v133;
+        *&length[212] = v134;
+        *&length[228] = v135;
+        *&length[132] = v129;
+        *&length[148] = v130;
+        *&length[164] = v131;
+        *&length[180] = v132;
+        *&length[68] = v125;
+        *&length[84] = v126;
+        *&length[100] = v127;
+        *&length[116] = v128;
+        *&length[4] = v121;
+        *&length[20] = v122;
         *length = v11;
-        *&length[36] = v124;
-        *&length[52] = v125;
+        *&length[36] = v123;
+        *&length[52] = v124;
         *&length[260] = v10;
-        *&length[456] = v119;
-        *&length[472] = v120;
-        *&length[488] = v121;
-        *&length[392] = v115;
-        *&length[408] = v116;
-        *&length[424] = v117;
-        *&length[440] = v118;
-        *&length[328] = v111;
-        *&length[344] = v112;
-        *&length[360] = v113;
-        *&length[376] = v114;
-        *&length[264] = v107;
-        *&length[280] = v108;
-        *&length[296] = v109;
-        *&length[312] = v110;
-        v104 = v12;
-        memset(v105, 0, sizeof(v105));
-        v106 = v13;
+        *&length[456] = v118;
+        *&length[472] = v119;
+        *&length[488] = v120;
+        *&length[392] = v114;
+        *&length[408] = v115;
+        *&length[424] = v116;
+        *&length[440] = v117;
+        *&length[328] = v110;
+        *&length[344] = v111;
+        *&length[360] = v112;
+        *&length[376] = v113;
+        *&length[264] = v106;
+        *&length[280] = v107;
+        *&length[296] = v108;
+        *&length[312] = v109;
+        v103 = v12;
+        memset(v104, 0, sizeof(v104));
+        v105 = v13;
         valuePtr = 2880294925;
-        v62 = CFNumberCreate(v60, kCFNumberSInt64Type, &valuePtr);
-        if (v62)
+        v61 = CFNumberCreate(v59, kCFNumberSInt64Type, &valuePtr);
+        if (v61)
         {
-          v63 = v62;
-          CFDictionarySetValue(Mutable, @"LocationID", v62);
-          CFRelease(v63);
+          v62 = v61;
+          CFDictionarySetValue(Mutable, @"LocationID", v61);
+          CFRelease(v62);
         }
 
         CFDictionarySetValue(Mutable, @"Transport", @"Dummy");
         CFDictionarySetValue(Mutable, @"HIDServiceSupport", *MEMORY[0x277CBED28]);
-        v64 = CFDictionaryCreateMutable(v60, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        if (v64)
+        v63 = CFDictionaryCreateMutable(v59, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        if (v63)
         {
-          v65 = v64;
-          CFDictionaryAddValue(v64, @"0516B563-B15B-11DA-96EB-0014519758EF", @"AppleMultitouchDriver.kext/Contents/PlugIns/MultitouchHID.plugin");
-          CFDictionarySetValue(Mutable, @"IOCFPlugInTypes", v65);
-          CFRelease(v65);
+          v64 = v63;
+          CFDictionaryAddValue(v63, @"0516B563-B15B-11DA-96EB-0014519758EF", @"AppleMultitouchDriver.kext/Contents/PlugIns/MultitouchHID.plugin");
+          CFDictionarySetValue(Mutable, @"IOCFPlugInTypes", v64);
+          CFRelease(v64);
         }
 
-        v66 = CFNumberCreate(v60, kCFNumberSInt32Type, &v102);
-        if (v66)
+        v65 = CFNumberCreate(v59, kCFNumberSInt32Type, &v101);
+        if (v65)
         {
-          v67 = v66;
-          CFDictionarySetValue(Mutable, @"Family ID", v66);
-          CFRelease(v67);
+          v66 = v65;
+          CFDictionarySetValue(Mutable, @"Family ID", v65);
+          CFRelease(v66);
         }
 
-        v68 = CFNumberCreate(v60, kCFNumberSInt32Type, &v102 + 4);
-        if (v68)
+        v67 = CFNumberCreate(v59, kCFNumberSInt32Type, &v101 + 4);
+        if (v67)
         {
-          v69 = v68;
-          CFDictionarySetValue(Mutable, @"Sensor Rows", v68);
-          CFRelease(v69);
+          v68 = v67;
+          CFDictionarySetValue(Mutable, @"Sensor Rows", v67);
+          CFRelease(v68);
         }
 
-        v70 = CFNumberCreate(v60, kCFNumberSInt32Type, &v102 + 8);
-        if (v70)
+        v69 = CFNumberCreate(v59, kCFNumberSInt32Type, &v101 + 8);
+        if (v69)
         {
-          v71 = v70;
-          CFDictionarySetValue(Mutable, @"Sensor Columns", v70);
-          CFRelease(v71);
+          v70 = v69;
+          CFDictionarySetValue(Mutable, @"Sensor Columns", v69);
+          CFRelease(v70);
         }
 
-        v72 = CFNumberCreate(v60, kCFNumberSInt32Type, (&v102 | 0xC));
-        if (v72)
+        v71 = CFNumberCreate(v59, kCFNumberSInt32Type, (&v101 | 0xC));
+        if (v71)
         {
-          v73 = v72;
-          CFDictionarySetValue(Mutable, @"bcdVersion", v72);
-          CFRelease(v73);
+          v72 = v71;
+          CFDictionarySetValue(Mutable, @"bcdVersion", v71);
+          CFRelease(v72);
         }
 
-        v74 = CFDataCreate(v60, &length[4], *length);
-        if (v74)
+        v73 = CFDataCreate(v59, &length[4], *length);
+        if (v73)
         {
-          v75 = v74;
-          CFDictionarySetValue(Mutable, @"Sensor Region Descriptor", v74);
-          CFRelease(v75);
+          v74 = v73;
+          CFDictionarySetValue(Mutable, @"Sensor Region Descriptor", v73);
+          CFRelease(v74);
         }
 
-        v76 = CFDataCreate(v60, &length[264], *&length[260]);
-        if (v76)
+        v75 = CFDataCreate(v59, &length[264], *&length[260]);
+        if (v75)
         {
-          v77 = v76;
-          CFDictionarySetValue(Mutable, @"Sensor Region Param", v76);
-          CFRelease(v77);
+          v76 = v75;
+          CFDictionarySetValue(Mutable, @"Sensor Region Param", v75);
+          CFRelease(v76);
         }
 
-        if (v99)
+        if (v98)
         {
-          v102 = v97;
+          v101 = v96;
           memcpy(length, __src, 0x1F0uLL);
-          v78 = CFNumberCreate(v60, kCFNumberSInt32Type, &v102);
-          if (v78)
+          v77 = CFNumberCreate(v59, kCFNumberSInt32Type, &v101);
+          if (v77)
           {
-            v79 = v78;
-            CFDictionarySetValue(Mutable, @"Sensor Surface Width", v78);
-            CFRelease(v79);
+            v78 = v77;
+            CFDictionarySetValue(Mutable, @"Sensor Surface Width", v77);
+            CFRelease(v78);
           }
 
-          v80 = CFNumberCreate(v60, kCFNumberSInt32Type, &v102 + 4);
-          if (v80)
+          v79 = CFNumberCreate(v59, kCFNumberSInt32Type, &v101 + 4);
+          if (v79)
           {
-            v81 = v80;
-            CFDictionarySetValue(Mutable, @"Sensor Surface Height", v80);
-            CFRelease(v81);
+            v80 = v79;
+            CFDictionarySetValue(Mutable, @"Sensor Surface Height", v79);
+            CFRelease(v80);
           }
 
-          v82 = CFNumberCreate(v60, kCFNumberSInt32Type, &v102 + 8);
-          if (v82)
+          v81 = CFNumberCreate(v59, kCFNumberSInt32Type, &v101 + 8);
+          if (v81)
           {
-            v83 = v82;
-            CFDictionarySetValue(Mutable, @"parser-type", v82);
-            CFRelease(v83);
+            v82 = v81;
+            CFDictionarySetValue(Mutable, @"parser-type", v81);
+            CFRelease(v82);
           }
 
-          v84 = CFNumberCreate(v60, kCFNumberSInt32Type, (&v102 | 0xC));
-          if (v84)
+          v83 = CFNumberCreate(v59, kCFNumberSInt32Type, (&v101 | 0xC));
+          if (v83)
           {
-            v85 = v84;
-            CFDictionarySetValue(Mutable, @"parser-options", v84);
-            CFRelease(v85);
+            v84 = v83;
+            CFDictionarySetValue(Mutable, @"parser-options", v83);
+            CFRelease(v84);
           }
         }
 
-        v2 = MTPlayerCreate(Mutable, a2);
+        v2 = MTPlayerCreate(Mutable, v3);
         CFRelease(Mutable);
         if (v2)
         {
           if (v9 >= 8)
           {
-            v86 = 0;
+            v85 = 0;
             do
             {
               if ((v9 & 0xFFFFFFFC) == 8)
@@ -881,47 +782,47 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
                 break;
               }
 
-              v87 = *(v14 + 2);
-              v88 = v9 - 12;
-              v89 = bswap64(*v14);
-              v90 = bswap32(v87);
-              v91 = v100 == -1 ? v89 : *v14;
-              v92 = v100 == -1 ? v90 : v87;
-              v9 = v88 - v92;
-              if (v88 < v92)
+              v86 = *(v14 + 2);
+              v87 = v9 - 12;
+              v88 = bswap64(*v14);
+              v89 = bswap32(v86);
+              v90 = v99 == -1 ? v88 : *v14;
+              v91 = v99 == -1 ? v89 : v86;
+              v9 = v87 - v91;
+              if (v87 < v91)
               {
                 break;
               }
 
-              v93 = malloc_type_malloc(0x28uLL, 0x1030040B1B30B78uLL);
-              v93[28] = 0;
-              *v93 = 0;
-              *(v93 + 1) = *(v2 + 7);
-              v94 = malloc_type_malloc(v92, 0x274ED21CuLL);
-              *(v93 + 2) = v94;
-              memcpy(v94, v14 + 12, v92);
-              *(v93 + 6) = v92;
+              v92 = malloc_type_malloc(0x28uLL, 0x1030040B1B30B78uLL);
+              v92[28] = 0;
+              *v92 = 0;
+              *(v92 + 1) = *(v2 + 7);
+              v93 = malloc_type_malloc(v91, 0x274ED21CuLL);
+              *(v92 + 2) = v93;
+              memcpy(v93, v14 + 12, v91);
+              *(v92 + 6) = v91;
               if (*(v2 + 6))
               {
-                v95 = (v91 - v86) / 1000.0;
+                v94 = (v90 - v85) / 1000.0;
               }
 
               else
               {
-                v86 = (v91 / 1000.0);
-                v95 = v86;
-                *(v2 + 6) = v93;
+                v85 = (v90 / 1000.0);
+                v94 = v85;
+                *(v2 + 6) = v92;
               }
 
-              *(v93 + 4) = v95;
-              v96 = *(v2 + 7);
-              if (v96)
+              *(v92 + 4) = v94;
+              v95 = *(v2 + 7);
+              if (v95)
               {
-                *v96 = v93;
+                *v95 = v92;
               }
 
-              v14 += v92 + 12;
-              *(v2 + 7) = v93;
+              v14 += v91 + 12;
+              *(v2 + 7) = v92;
             }
 
             while (v9 > 7);
@@ -929,27 +830,25 @@ CFDataRef MTPlayerCreateFromData(CFDataRef theData, char a2)
 
 LABEL_79:
           *(v2 + 8) = *(v2 + 6);
-          goto LABEL_34;
+          return v2;
         }
 
-        goto LABEL_34;
+        return v2;
       }
     }
 
-LABEL_33:
-    v2 = 0;
-    goto LABEL_34;
+    return 0;
   }
 
   v2 = 0;
   if (v5 < 9)
   {
-    goto LABEL_34;
+    return v2;
   }
 
   if ((v8 & 0xFFFFFFFC) == 8)
   {
-    goto LABEL_34;
+    return v2;
   }
 
   v15 = *(BytePtr + 9);
@@ -957,14 +856,14 @@ LABEL_33:
   v2 = v16;
   if (!v16)
   {
-    goto LABEL_34;
+    return v2;
   }
 
   v17 = v6 - 13;
   if (v6 - 13 < v15)
   {
     free(v16);
-    goto LABEL_33;
+    return 0;
   }
 
   v42 = (BytePtr + 13);
@@ -973,7 +872,7 @@ LABEL_33:
   v44 = CFDataCreate(*MEMORY[0x277CBECE8], v2, v15);
   if (!v44)
   {
-    goto LABEL_33;
+    return 0;
   }
 
   v45 = v44;
@@ -982,10 +881,10 @@ LABEL_33:
   free(v2);
   if (!v46)
   {
-    goto LABEL_33;
+    return 0;
   }
 
-  v2 = MTPlayerCreate(v46, a2);
+  v2 = MTPlayerCreate(v46, v3);
   CFRelease(v46);
   if (v2)
   {
@@ -1048,12 +947,10 @@ LABEL_33:
     goto LABEL_79;
   }
 
-LABEL_34:
-  v58 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-CFDataRef MTPlayerCreateFromFile(const char *a1, char a2)
+CFDataRef MTPlayerCreateFromFile(const char *a1, uint64_t a2)
 {
   v3 = open(a1, 0);
   if (v3 < 0)
@@ -1442,11 +1339,10 @@ uint64_t mt_PlayerDispatchFrame(uint64_t a1, const void *a2, unsigned int a3)
 
     else
     {
-      v3 = 3758097128;
+      return 3758097128;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -2030,7 +1926,7 @@ uint64_t mtalg_FillinValidPixelRange(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t mt_ForwardSpecificImageRegion()
+_BYTE *mt_ForwardSpecificImageRegion()
 {
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
@@ -2041,21 +1937,21 @@ uint64_t mt_ForwardSpecificImageRegion()
   v12 = v11;
   v14 = v13;
   v15 = v0;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   memset(__b, 170, sizeof(__b));
   v16 = *(v6 + 12);
+  v31 = 0xAAAAAAAAAAAAAAAALL;
   v32 = 0xAAAAAAAAAAAAAAAALL;
-  v33 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v28 + 1) = v16 / 1000.0;
-  *&v28 = *(v6 + 4);
-  v31 = 1 << *v10;
-  LODWORD(v32) = v4;
+  *(&v27 + 1) = v16 / 1000.0;
+  *&v27 = *(v6 + 4);
+  v30 = 1 << *v10;
+  LODWORD(v31) = v4;
   v17 = v10[5];
-  v29 = v10[5];
+  v28 = v10[5];
   v18 = v10[2];
-  v30 = v10[2];
-  WORD2(v33) = v8;
-  BYTE6(v33) = v2;
+  v29 = v10[2];
+  WORD2(v32) = v8;
+  BYTE6(v32) = v2;
   if (v18)
   {
     v19 = 0;
@@ -2086,32 +1982,30 @@ uint64_t mt_ForwardSpecificImageRegion()
     while (v19 < v18);
   }
 
-  result = MTAlg_IssueImageCallbacks(v15, __b, &v28);
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return MTAlg_IssueImageCallbacks(v15, __b, &v27);
 }
 
-uint64_t mt_ForwardCombinedImageRegions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11)
+_BYTE *mt_ForwardCombinedImageRegions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11)
 {
-  v11 = MEMORY[0x28223BE20]();
+  v11 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
   v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
   v21 = v20;
   v22 = v11;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v23 = *(a9 + 12);
+  v45 = 0xAAAAAAAAAAAAAAAALL;
   v46 = 0xAAAAAAAAAAAAAAAALL;
-  v47 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v42 + 1) = v23 / 1000.0;
-  *&v42 = *(a9 + 4);
-  LODWORD(v46) = a10;
-  v43 = v12;
-  v44 = v24;
-  WORD2(v47) = v25;
-  BYTE6(v47) = a11;
-  bzero(v48, 0x8000uLL);
+  *(&v41 + 1) = v23 / 1000.0;
+  *&v41 = *(a9 + 4);
+  LODWORD(v45) = a10;
+  v42 = v12;
+  v43 = v24;
+  WORD2(v46) = v25;
+  BYTE6(v46) = a11;
+  bzero(v47, 0x8000uLL);
   if (v15 < 1)
   {
     v29 = 0;
@@ -2156,7 +2050,7 @@ uint64_t mt_ForwardCombinedImageRegions(uint64_t a1, uint64_t a2, uint64_t a3, u
             v39 = v35;
             do
             {
-              v48[v39++] = *(v21 + 2 * v37++);
+              v47[v39++] = *(v21 + 2 * v37++);
               --v38;
             }
 
@@ -2178,15 +2072,13 @@ uint64_t mt_ForwardCombinedImageRegions(uint64_t a1, uint64_t a2, uint64_t a3, u
     while (v26 != v15);
   }
 
-  v45 = v29;
-  result = MTAlg_IssueImageCallbacks(v22, v48, &v42);
-  v41 = *MEMORY[0x277D85DE8];
-  return result;
+  v44 = v29;
+  return MTAlg_IssueImageCallbacks(v22, v47, &v41);
 }
 
-uint64_t mt_ForwardImageRegion(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+_BYTE *mt_ForwardImageRegion(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
-  v9 = MEMORY[0x28223BE20]();
+  v9 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5, a6, a7, a8);
   v11 = v10;
   v13 = v12;
   v15 = v14;
@@ -2195,32 +2087,31 @@ uint64_t mt_ForwardImageRegion(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   v21 = v20;
   v23 = v22;
   v24 = v9;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   memset(__b, 170, sizeof(__b));
-  *(v44 + 3) = -1431655766;
-  v44[0] = -1431655766;
-  result = MTDeviceGetSensorRegionOfType(v24, v44, v23);
+  memset(v43, 170, 7);
+  result = MTDeviceGetSensorRegionOfType(v24, v43, v23);
   if (!result)
   {
+    v41 = 0xAAAAAAAAAAAAAAAALL;
     v42 = 0xAAAAAAAAAAAAAAAALL;
-    v43 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v38 + 1) = *(v15 + 12) / 1000.0;
-    *&v38 = *(v15 + 4);
-    v41 = v21;
-    LODWORD(v42) = v13;
-    v26 = BYTE1(v44[1]);
-    v39 = BYTE1(v44[1]);
-    v27 = BYTE2(v44[0]);
-    v40 = BYTE2(v44[0]);
-    WORD2(v43) = v11;
-    BYTE6(v43) = a9;
-    if (BYTE2(v44[0]))
+    *(&v37 + 1) = *(v15 + 12) / 1000.0;
+    *&v37 = *(v15 + 4);
+    v40 = v21;
+    LODWORD(v41) = v13;
+    v26 = BYTE1(v43[1]);
+    v38 = BYTE1(v43[1]);
+    v27 = BYTE2(v43[0]);
+    v39 = BYTE2(v43[0]);
+    WORD2(v42) = v11;
+    BYTE6(v42) = a9;
+    if (BYTE2(v43[0]))
     {
       v28 = 0;
-      v29 = HIBYTE(v44[0]);
-      v30 = 2 * BYTE1(v44[1]) * HIBYTE(v44[0]);
-      v31 = LOBYTE(v44[1]) + v17 * BYTE1(v44[0]);
-      v32 = v17 * HIBYTE(v44[0]);
+      v29 = HIBYTE(v43[0]);
+      v30 = 2 * BYTE1(v43[1]) * HIBYTE(v43[0]);
+      v31 = LOBYTE(v43[1]) + v17 * BYTE1(v43[0]);
+      v32 = v17 * HIBYTE(v43[0]);
       v33 = __b;
       do
       {
@@ -2246,10 +2137,9 @@ uint64_t mt_ForwardImageRegion(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
       while (v28 < v27);
     }
 
-    result = MTAlg_IssueImageCallbacks(v24, __b, &v38);
+    return MTAlg_IssueImageCallbacks(v24, __b, &v37);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2284,7 +2174,7 @@ uint64_t mtp_ForwardDeviceImageSubRegions(uint64_t a1)
   return result;
 }
 
-uint64_t mtp_ForwardDeviceImageBuffer(uint64_t a1, const void *a2, __int16 a3, __int16 a4, uint64_t a5, int a6, int a7, int a8, int a9, char a10)
+_BYTE *mtp_ForwardDeviceImageBuffer(_BYTE *a1, const void *a2, __int16 a3, __int16 a4, uint64_t a5, int a6, int a7, int a8, int a9, char a10)
 {
   v11 = *(a5 + 12);
   v20 = 0xAAAAAAAAAAAAAAAALL;
@@ -2338,7 +2228,6 @@ uint64_t __MTActuatorRegister()
 
 uint64_t MTActuatorCreate(io_object_t a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x277CBECE8];
   if (!__kMTActuatorTypeID)
   {
     pthread_once(&__actuatorTypeInit, __MTActuatorRegister);
@@ -2363,134 +2252,127 @@ uint64_t MTActuatorCreate(io_object_t a1, uint64_t a2)
   return Instance;
 }
 
-uint64_t MTActuatorSetFirmwareClicks(uint64_t a1, char a2)
+uint64_t MTActuatorSetFirmwareClicks(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = 3758097084;
-  if (a1)
+  if (!a1)
   {
-    if (MTActuatorIsOpen(a1))
+    return 3758097090;
+  }
+
+  if (!MTActuatorIsOpen(a1))
+  {
+    return 3758097101;
+  }
+
+  v5 = *(a1 + 40);
+  if (v5)
+  {
+    if ((a2 & 8) != 0)
     {
-      v5 = *(a1 + 40);
-      if (v5)
-      {
-        if ((a2 & 8) != 0)
-        {
-          v6 = 4294967294;
-        }
-
-        else
-        {
-          v6 = 2;
-        }
-
-        v7 = [MEMORY[0x277CCABB0] numberWithInt:v6];
-        v8 = [v5 objectForKeyedSubscript:v7];
-
-        if (v8)
-        {
-          v9 = MTActuationSetFirmwareDownClick(v8, a1);
-          if (v9)
-          {
-            v10 = v9;
-            v11 = MTLoggingFramework();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-            {
-              v20 = 67109120;
-              v21 = v10;
-              _os_log_impl(&dword_25AD59000, v11, OS_LOG_TYPE_ERROR, "Error updating firmware primary down click, 0x%08x", &v20, 8u);
-            }
-          }
-        }
-
-        if ((a2 & 8) != 0)
-        {
-          v12 = 0xFFFFFFFFLL;
-        }
-
-        else
-        {
-          v12 = 1;
-        }
-
-        v13 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-        v14 = [v5 objectForKeyedSubscript:v13];
-
-        if (v14)
-        {
-          v15 = MTActuationSetFirmwareUpClick(v14, a1);
-          if (v15)
-          {
-            v16 = v15;
-            v17 = MTLoggingFramework();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-            {
-              v20 = 67109120;
-              v21 = v16;
-              _os_log_impl(&dword_25AD59000, v17, OS_LOG_TYPE_ERROR, "Error updating firmware primary up click, 0x%08x", &v20, 8u);
-            }
-          }
-        }
-
-        v2 = 0;
-      }
+      v6 = 4294967294;
     }
 
     else
     {
-      v2 = 3758097101;
+      v6 = 2;
     }
+
+    v7 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    v8 = [v5 objectForKeyedSubscript:v7];
+
+    if (v8)
+    {
+      v14 = MTActuationSetFirmwareDownClick(v8, a1, a2, v9, v10, v11, v12, v13);
+      if (v14)
+      {
+        v16 = v14;
+        v17 = MTLoggingFramework(v14, v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          v31 = 67109120;
+          v32 = v16;
+          _os_log_impl(&dword_25AD59000, v17, OS_LOG_TYPE_ERROR, "Error updating firmware primary down click, 0x%08x", &v31, 8u);
+        }
+      }
+    }
+
+    if ((a2 & 8) != 0)
+    {
+      v18 = 0xFFFFFFFFLL;
+    }
+
+    else
+    {
+      v18 = 1;
+    }
+
+    v19 = [MEMORY[0x277CCABB0] numberWithInt:v18];
+    v20 = [v5 objectForKeyedSubscript:v19];
+
+    if (v20)
+    {
+      v26 = MTActuationSetFirmwareUpClick(v20, a1, a2, v21, v22, v23, v24, v25);
+      if (v26)
+      {
+        v28 = v26;
+        v29 = MTLoggingFramework(v26, v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          v31 = 67109120;
+          v32 = v28;
+          _os_log_impl(&dword_25AD59000, v29, OS_LOG_TYPE_ERROR, "Error updating firmware primary up click, 0x%08x", &v31, 8u);
+        }
+      }
+    }
+
+    v2 = 0;
   }
 
-  else
-  {
-    v2 = 3758097090;
-  }
-
-  v18 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-uint64_t MTActuatorActuate(uint64_t a1, unsigned int a2, char a3)
+uint64_t MTActuatorActuate(uint64_t a1, unsigned int a2, uint64_t a3, float a4, float a5)
 {
-  v3 = 3758097090;
+  v5 = 3758097090;
   if (a1)
   {
     if (MTActuatorIsOpen(a1))
     {
-      v7 = *(a1 + 40);
-      if (v7)
+      v9 = *(a1 + 40);
+      if (v9)
       {
         if (a2 <= 0x24)
         {
           if ((a3 & 8) != 0)
           {
-            v8 = -a2;
+            v10 = -a2;
           }
 
           else
           {
-            v8 = a2;
+            v10 = a2;
           }
 
-          v9 = [MEMORY[0x277CCABB0] numberWithInt:v8];
-          v10 = [v7 objectForKeyedSubscript:v9];
+          v11 = [MEMORY[0x277CCABB0] numberWithInt:v10];
+          v12 = [v9 objectForKeyedSubscript:v11];
 
-          if (v10)
+          if (v12)
           {
-            v3 = MTActuationActuate(v10, a1);
+            v5 = MTActuationActuate(v12, a1, a3, v13, v14, v15, v16, v17);
           }
 
           else
           {
-            v3 = 3758097136;
+            v5 = 3758097136;
           }
         }
       }
 
       else
       {
-        v3 = 3758097084;
+        v5 = 3758097084;
       }
     }
 
@@ -2500,12 +2382,12 @@ uint64_t MTActuatorActuate(uint64_t a1, unsigned int a2, char a3)
     }
   }
 
-  return v3;
+  return v5;
 }
 
 void _MTActuationLoadActuationsFromPropertyListV2orV3(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -2514,110 +2396,111 @@ void _MTActuationLoadActuationsFromPropertyListV2orV3(uint64_t a1, void *a2, voi
     v8 = [v5 objectForKeyedSubscript:v7];
     if (v8 || ([v5 objectForKeyedSubscript:@"Default"], (v8 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v9 = v8;
-      v31 = v7;
-      v32 = v5;
-      v10 = *(a1 + 40);
-      v34 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v34 objects:v40 count:16];
-      if (!v12)
+      v10 = v8;
+      v37 = v7;
+      v38 = v5;
+      v11 = *(a1 + 40);
+      v40 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v12 = v10;
+      v13 = [v12 countByEnumeratingWithState:&v40 objects:v46 count:16];
+      if (!v13)
       {
         goto LABEL_29;
       }
 
-      v13 = v12;
-      v14 = *v35;
-      obj = v11;
+      v14 = v13;
+      v15 = *v41;
+      obj = v12;
       while (1)
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v35 != v14)
+          if (*v41 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v34 + 1) + 8 * i);
-          v17 = [v16 objectForKeyedSubscript:@"ActuationID"];
-          v18 = [MEMORY[0x277CCABB0] numberWithInt:{-objc_msgSend(v17, "intValue")}];
+          v17 = *(*(&v40 + 1) + 8 * i);
+          v18 = [v17 objectForKeyedSubscript:@"ActuationID"];
+          v19 = [MEMORY[0x277CCABB0] numberWithInt:{-objc_msgSend(v18, "intValue")}];
           if ([v6 intValue] == 3)
           {
-            v19 = [v16 objectForKeyedSubscript:@"Default"];
+            v20 = [v17 objectForKeyedSubscript:@"Default"];
           }
 
           else
           {
-            v19 = v16;
+            v20 = v17;
           }
 
-          v20 = v19;
-          v21 = [v16 objectForKeyedSubscript:@"Silent"];
-          if (([v17 intValue] & 0x80000000) != 0 || !v20)
+          v21 = v20;
+          v22 = [v17 objectForKeyedSubscript:@"Silent"];
+          v23 = [v18 intValue];
+          if ((v23 & 0x80000000) != 0 || !v21)
           {
-            v26 = MTLoggingFramework();
-            if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v33 = MTLoggingFramework(v23, v24);
+            if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_26;
             }
 
             *buf = 67109376;
-            *v39 = v17 == 0;
-            *&v39[4] = 1024;
-            *&v39[6] = v20 == 0;
-            v27 = v26;
-            v28 = "Error parsing click playlist, unable to determine actuation id(%d) or default waveform not defined(%d)";
-            v29 = 14;
+            *v45 = v18 == 0;
+            *&v45[4] = 1024;
+            *&v45[6] = v21 == 0;
+            v34 = v33;
+            v35 = "Error parsing click playlist, unable to determine actuation id(%d) or default waveform not defined(%d)";
+            v36 = 14;
 LABEL_25:
-            _os_log_impl(&dword_25AD59000, v27, OS_LOG_TYPE_ERROR, v28, buf, v29);
+            _os_log_impl(&dword_25AD59000, v34, OS_LOG_TYPE_ERROR, v35, buf, v36);
             goto LABEL_26;
           }
 
-          v22 = MTActuationCreateFromDictionary(v20, 0);
-          [v10 setObject:v22 forKeyedSubscript:v17];
+          v25 = MTActuationCreateFromDictionary(v21, 0);
+          [v11 setObject:v25 forKeyedSubscript:v18];
 
-          v23 = [v10 objectForKeyedSubscript:v17];
+          v26 = [v11 objectForKeyedSubscript:v18];
 
-          if (!v23)
+          if (!v26)
           {
-            v26 = MTLoggingFramework();
-            if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v33 = MTLoggingFramework(v27, v28);
+            if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_26;
             }
 
             *buf = 138412290;
-            *v39 = v17;
-            v27 = v26;
-            v28 = "Error parsing click playlist, failed to create default waveform for actuationID=%@";
+            *v45 = v18;
+            v34 = v33;
+            v35 = "Error parsing click playlist, failed to create default waveform for actuationID=%@";
 LABEL_24:
-            v29 = 12;
+            v36 = 12;
             goto LABEL_25;
           }
 
-          if (!v21)
+          if (!v22)
           {
-            v21 = v20;
+            v22 = v21;
           }
 
-          v24 = MTActuationCreateFromDictionary(v21, 0);
-          [v10 setObject:v24 forKeyedSubscript:v18];
+          v29 = MTActuationCreateFromDictionary(v22, 0);
+          [v11 setObject:v29 forKeyedSubscript:v19];
 
-          v25 = [v10 objectForKeyedSubscript:v18];
+          v30 = [v11 objectForKeyedSubscript:v19];
 
-          if (!v25)
+          if (!v30)
           {
-            [v10 setObject:0 forKeyedSubscript:v17];
-            v26 = MTLoggingFramework();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v31 = [v11 setObject:0 forKeyedSubscript:v18];
+            v33 = MTLoggingFramework(v31, v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v39 = v18;
-              v27 = v26;
-              v28 = "Error parsing click playlist, failed to create silent waveform for actuationID=%@";
+              *v45 = v19;
+              v34 = v33;
+              v35 = "Error parsing click playlist, failed to create silent waveform for actuationID=%@";
               goto LABEL_24;
             }
 
@@ -2625,58 +2508,57 @@ LABEL_26:
           }
         }
 
-        v11 = obj;
-        v13 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
-        if (!v13)
+        v12 = obj;
+        v14 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+        if (!v14)
         {
 LABEL_29:
 
-          v7 = v31;
-          v5 = v32;
+          v7 = v37;
+          v5 = v38;
           goto LABEL_30;
         }
       }
     }
 
-    v11 = MTLoggingFramework();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = MTLoggingFramework(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v39 = v6;
-      _os_log_impl(&dword_25AD59000, v11, OS_LOG_TYPE_ERROR, "Error parsing click playlist, revision %@ and default not found", buf, 0xCu);
+      *v45 = v6;
+      _os_log_impl(&dword_25AD59000, v12, OS_LOG_TYPE_ERROR, "Error parsing click playlist, revision %@ and default not found", buf, 0xCu);
     }
 
 LABEL_30:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-void _MTActuationLoadActuationsFromPropertyList(uint64_t a1, void *cf)
+void _MTActuationLoadActuationsFromPropertyList(CFTypeID TypeID, void *cf)
 {
-  if (cf && (v4 = CFGetTypeID(cf), v4 == CFDictionaryGetTypeID()))
+  if (cf && (v3 = TypeID, v4 = CFGetTypeID(cf), TypeID = CFDictionaryGetTypeID(), v4 == TypeID))
   {
     v5 = cf;
     v6 = [v5 objectForKeyedSubscript:@"Version"];
-    if (([v6 intValue] & 0xFFFFFFFE) == 2)
+    v7 = [v6 intValue];
+    if ((v7 & 0xFFFFFFFE) == 2)
     {
-      _MTActuationLoadActuationsFromPropertyListV2orV3(a1, v5, v6);
+      _MTActuationLoadActuationsFromPropertyListV2orV3(v3, v5, v6);
     }
 
     else
     {
-      v7 = MTLoggingFramework();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = MTLoggingFramework(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_25AD59000, v7, OS_LOG_TYPE_ERROR, "Error parsing click playlist, unknown version", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_25AD59000, v9, OS_LOG_TYPE_ERROR, "Error parsing click playlist, unknown version", v10, 2u);
       }
     }
   }
 
   else
   {
-    v5 = MTLoggingFramework();
+    v5 = MTLoggingFramework(TypeID, cf);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -2685,7 +2567,7 @@ void _MTActuationLoadActuationsFromPropertyList(uint64_t a1, void *cf)
   }
 }
 
-void MTActuatorLoadActuations(uint64_t a1)
+void MTActuatorLoadActuations(CFTypeID a1)
 {
   if (a1)
   {
@@ -2860,7 +2742,7 @@ uint64_t __MTActuationRegister()
   return result;
 }
 
-const __CFDictionary *MTActuationCreateFromDictionary(const void *a1, int a2)
+const __CFDictionary *MTActuationCreateFromDictionary(const void *a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -2888,13 +2770,14 @@ const __CFDictionary *MTActuationCreateFromDictionary(const void *a1, int a2)
   return _MTActuationCreateFromParameterizedWaveform(a1, a2);
 }
 
-const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDictionary *result, int a2)
+const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDictionary *result, uint64_t a2)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v76 = 0.0;
+  v80 = *MEMORY[0x277D85DE8];
+  v75 = 0.0;
   valuePtr = 0.0;
   if (result)
   {
+    v2 = a2;
     v3 = result;
     result = CFDictionaryGetValue(result, @"BaseWaveform");
     if (result)
@@ -2943,22 +2826,22 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
           v15 = CFGetTypeID(v13);
           if (v15 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v14, kCFNumberDoubleType, &v76);
+            CFNumberGetValue(v14, kCFNumberDoubleType, &v75);
           }
         }
 
-        v16 = v76;
+        v16 = v75;
         v17 = valuePtr;
-        MTActuationWaveformCreateWithBase(v8, v74, v16, v17);
-        v78[5] = v74[5];
-        v78[6] = v74[6];
-        v79[0] = v75[0];
-        *(v79 + 12) = *(v75 + 12);
-        v78[2] = v74[2];
-        v78[3] = v74[3];
-        v78[4] = v74[4];
+        MTActuationWaveformCreateWithBase(v8, v73, v16, v17);
+        v77[5] = v73[5];
+        v77[6] = v73[6];
         v78[0] = v74[0];
-        v78[1] = v74[1];
+        *(v78 + 12) = *(v74 + 12);
+        v77[2] = v73[2];
+        v77[3] = v73[3];
+        v77[4] = v73[4];
+        v77[0] = v73[0];
+        v77[1] = v73[1];
         v18 = CFDictionaryGetValue(v3, @"Tones");
         if (v18)
         {
@@ -2976,10 +2859,10 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
                 v24 = CFGetTypeID(ValueAtIndex);
                 if (v24 == CFDictionaryGetTypeID())
                 {
-                  v73 = 0.0;
-                  *&v74[0] = 0;
-                  v71 = 0.0;
                   v72 = 0.0;
+                  *&v73[0] = 0;
+                  v70 = 0.0;
+                  v71 = 0.0;
                   v25 = CFDictionaryGetValue(v23, @"Type");
                   v26 = v25;
                   if (v25)
@@ -3003,7 +2886,7 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
                     v30 = CFGetTypeID(v28);
                     if (v30 == CFNumberGetTypeID())
                     {
-                      CFNumberGetValue(v29, kCFNumberDoubleType, v74);
+                      CFNumberGetValue(v29, kCFNumberDoubleType, v73);
                     }
                   }
 
@@ -3014,7 +2897,7 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
                     v33 = CFGetTypeID(v31);
                     if (v33 == CFNumberGetTypeID())
                     {
-                      CFNumberGetValue(v32, kCFNumberDoubleType, &v73);
+                      CFNumberGetValue(v32, kCFNumberDoubleType, &v72);
                     }
                   }
 
@@ -3025,7 +2908,7 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
                     v36 = CFGetTypeID(v34);
                     if (v36 == CFNumberGetTypeID())
                     {
-                      CFNumberGetValue(v35, kCFNumberDoubleType, &v72);
+                      CFNumberGetValue(v35, kCFNumberDoubleType, &v71);
                     }
                   }
 
@@ -3036,15 +2919,15 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
                     v39 = CFGetTypeID(v37);
                     if (v39 == CFNumberGetTypeID())
                     {
-                      CFNumberGetValue(v38, kCFNumberDoubleType, &v71);
+                      CFNumberGetValue(v38, kCFNumberDoubleType, &v70);
                     }
                   }
 
-                  v40 = *v74;
-                  v41 = v73;
-                  v42 = v72;
-                  v43 = v71;
-                  MTActuationAppendToWaveform(v78, v26, v40, v41, v42, v43);
+                  v40 = *v73;
+                  v41 = v72;
+                  v42 = v71;
+                  v43 = v70;
+                  MTActuationAppendToWaveform(v77, v26, v40, v41, v42, v43);
                 }
               }
 
@@ -3062,9 +2945,9 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
           v46 = CFGetTypeID(v44);
           if (v46 == CFDictionaryGetTypeID())
           {
-            LODWORD(v74[0]) = 1065353216;
-            LODWORD(v73) = 1065353216;
+            LODWORD(v73[0]) = 1065353216;
             LODWORD(v72) = 1065353216;
+            LODWORD(v71) = 1065353216;
             v47 = CFDictionaryGetValue(v45, @"Light");
             if (v47)
             {
@@ -3072,7 +2955,7 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
               v49 = CFGetTypeID(v47);
               if (v49 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v48, kCFNumberFloatType, v74);
+                CFNumberGetValue(v48, kCFNumberFloatType, v73);
               }
             }
 
@@ -3083,7 +2966,7 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
               v52 = CFGetTypeID(v50);
               if (v52 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v51, kCFNumberFloatType, &v73);
+                CFNumberGetValue(v51, kCFNumberFloatType, &v72);
               }
             }
 
@@ -3095,12 +2978,12 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
               v56 = CFGetTypeID(v53);
               if (v56 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v55, kCFNumberFloatType, &v72);
-                v54 = *&v72;
+                CFNumberGetValue(v55, kCFNumberFloatType, &v71);
+                v54 = *&v71;
               }
             }
 
-            MTActuationSetBaseMultipliers(v78, *v74, *&v73, v54);
+            MTActuationSetBaseMultipliers(v77, *v73, *&v72, v54);
           }
         }
 
@@ -3111,9 +2994,9 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
           v59 = CFGetTypeID(v57);
           if (v59 == CFDictionaryGetTypeID())
           {
-            LODWORD(v74[0]) = 1065353216;
-            LODWORD(v73) = 1065353216;
+            LODWORD(v73[0]) = 1065353216;
             LODWORD(v72) = 1065353216;
+            LODWORD(v71) = 1065353216;
             v60 = CFDictionaryGetValue(v58, @"Light");
             if (v60)
             {
@@ -3121,7 +3004,7 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
               v62 = CFGetTypeID(v60);
               if (v62 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v61, kCFNumberFloatType, v74);
+                CFNumberGetValue(v61, kCFNumberFloatType, v73);
               }
             }
 
@@ -3132,7 +3015,7 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
               v65 = CFGetTypeID(v63);
               if (v65 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v64, kCFNumberFloatType, &v73);
+                CFNumberGetValue(v64, kCFNumberFloatType, &v72);
               }
             }
 
@@ -3144,65 +3027,63 @@ const __CFDictionary *_MTActuationCreateFromParameterizedWaveform(const __CFDict
               v69 = CFGetTypeID(v66);
               if (v69 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v68, kCFNumberFloatType, &v72);
-                v67 = *&v72;
+                CFNumberGetValue(v68, kCFNumberFloatType, &v71);
+                v67 = *&v71;
               }
             }
 
-            MTActuationSetToneMultipliers(v78, *v74, *&v73, v67);
+            MTActuationSetToneMultipliers(v77, *v73, *&v72, v67);
           }
         }
 
-        result = _MTActuationCreateFromWaveform(v78, a2);
+        return _MTActuationCreateFromWaveform(v77, v2);
       }
 
       else
       {
-        result = 0;
+        return 0;
       }
     }
   }
 
-  v70 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _MTActuationCreateFromWaveform(_OWORD *a1, int a2)
 {
-  v4 = *MEMORY[0x277CBECE8];
   if (!__kMTActuationTypeID)
   {
     pthread_once(&__actuationTypeInit, __MTActuationRegister);
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v6 = 0;
+  v5 = 0;
   if (a1 && Instance)
   {
     *(Instance + 24) = *a1;
-    v7 = a1[1];
-    v8 = a1[2];
-    v9 = a1[3];
+    v6 = a1[1];
+    v7 = a1[2];
+    v8 = a1[3];
     *(Instance + 88) = a1[4];
-    *(Instance + 72) = v9;
-    *(Instance + 56) = v8;
-    *(Instance + 40) = v7;
-    v10 = a1[5];
-    v11 = a1[6];
-    v12 = a1[7];
+    *(Instance + 72) = v8;
+    *(Instance + 56) = v7;
+    *(Instance + 40) = v6;
+    v9 = a1[5];
+    v10 = a1[6];
+    v11 = a1[7];
     *(Instance + 148) = *(a1 + 124);
-    *(Instance + 136) = v12;
-    *(Instance + 120) = v11;
-    *(Instance + 104) = v10;
+    *(Instance + 136) = v11;
+    *(Instance + 120) = v10;
+    *(Instance + 104) = v9;
     *(Instance + 16) = 2;
     *(Instance + 20) = a2;
     return Instance;
   }
 
-  return v6;
+  return v5;
 }
 
-uint64_t MTActuationCalculateWaveform(uint64_t result, _BYTE *a2, float a3, float a4, uint64_t a5, char a6)
+unint64_t MTActuationCalculateWaveform(unint64_t result, _BYTE *a2, float a3, float a4, uint64_t a5, char a6)
 {
   if (!result)
   {
@@ -3291,91 +3172,88 @@ LABEL_10:
   return MTActuationFillParametricBufferWithWaveform(v20, a2, 0.041667, v16, v15, a4);
 }
 
-uint64_t MTActuationSetFirmwareDownClick(uint64_t a1, uint64_t a2)
+uint64_t MTActuationSetFirmwareDownClick(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = 3758097090;
+  v19 = *MEMORY[0x277D85DE8];
+  v8 = 3758097090;
   if (a1 && a2)
   {
-    v4 = MEMORY[0x28223BE20]();
-    *&v5 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&v13[12] = v5;
-    v12[1] = v5;
-    *v13 = v5;
-    v12[0] = v5;
-    v9 = MTActuationCalculateWaveform(v4, v12, v7, v8, 60, v6);
-    if (v9 < 1)
+    v10 = MEMORY[0x28223BE20](a1, a2, a3, a3, a5, a6, a7, a8);
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v18[12] = v11;
+    v17[1] = v11;
+    *v18 = v11;
+    v17[0] = v11;
+    v15 = MTActuationCalculateWaveform(v10, v17, v13, v14, 60, v12);
+    if (v15 < 1)
     {
-      v2 = 3758097084;
+      return 3758097084;
     }
 
     else
     {
-      v2 = MTActuatorSetReport(a2, 34, v12, v9);
+      return MTActuatorSetReport(a2, 34, v17, v15);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v8;
 }
 
-uint64_t MTActuationSetFirmwareUpClick(uint64_t a1, uint64_t a2)
+uint64_t MTActuationSetFirmwareUpClick(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = 3758097090;
+  v19 = *MEMORY[0x277D85DE8];
+  v8 = 3758097090;
   if (a1 && a2)
   {
-    v4 = MEMORY[0x28223BE20]();
-    *&v5 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&v13[12] = v5;
-    v12[1] = v5;
-    *v13 = v5;
-    v12[0] = v5;
-    v9 = MTActuationCalculateWaveform(v4, v12, v7, v8, 60, v6);
-    if (v9 < 1)
+    v10 = MEMORY[0x28223BE20](a1, a2, a3, a3, a5, a6, a7, a8);
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v18[12] = v11;
+    v17[1] = v11;
+    *v18 = v11;
+    v17[0] = v11;
+    v15 = MTActuationCalculateWaveform(v10, v17, v13, v14, 60, v12);
+    if (v15 < 1)
     {
-      v2 = 3758097084;
+      return 3758097084;
     }
 
     else
     {
-      v2 = MTActuatorSetReport(a2, 35, v12, v9);
+      return MTActuatorSetReport(a2, 35, v17, v15);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v8;
 }
 
-uint64_t MTActuationActuate(uint64_t a1, uint64_t a2)
+uint64_t MTActuationActuate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = 3758097090;
+  v19 = *MEMORY[0x277D85DE8];
+  v8 = 3758097090;
   if (a1 && a2)
   {
-    v4 = MEMORY[0x28223BE20]();
-    *&v5 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&v13[12] = v5;
-    v12[1] = v5;
-    *v13 = v5;
-    v12[0] = v5;
-    v9 = MTActuationCalculateWaveform(v4, v12, v7, v8, 60, v6);
-    if (v9 < 1)
+    v10 = MEMORY[0x28223BE20](a1, a2, a3, a3, a5, a6, a7, a8);
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v18[12] = v11;
+    v17[1] = v11;
+    *v18 = v11;
+    v17[0] = v11;
+    v15 = MTActuationCalculateWaveform(v10, v17, v13, v14, 60, v12);
+    if (v15 < 1)
     {
-      v2 = 3758097084;
+      return 3758097084;
     }
 
     else
     {
-      v2 = MTActuatorSetWaveform(a2, 83, v12, v9);
+      return MTActuatorSetWaveform(a2, 83, v17, v15);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v8;
 }
 
 double __MTActuationInit(uint64_t a1)
@@ -3635,7 +3513,7 @@ LABEL_97:
         }
       }
 
-      v41 = a1 + 10 * v39;
+      v41 = (a1 + 10 * v39);
       v42 = *(v41 + 8);
       v43 = __clz(__rbit32(v12 | 0x10000));
       if (v43 > 0xF)
@@ -3718,7 +3596,7 @@ LABEL_97:
       v51 = v48 & 1;
       v52 = (v48 >> 1) ^ -v51;
       v54 = *v41;
-      v53 = *(v41 + 4);
+      v53 = v41[1];
       v55 = *(v41 + 9) + 1;
       *(v41 + 9) = v55;
       v56 = v52 >= 0 ? v52 : -v52;
@@ -3790,7 +3668,7 @@ LABEL_82:
 
     v57 = 1;
 LABEL_81:
-    *(v41 + 4) = v53 + v57;
+    v41[1] = v53 + v57;
     goto LABEL_82;
   }
 
@@ -4486,33 +4364,32 @@ uint64_t codecGetFooterID(uint64_t a1)
   return (-1640531535 * v2) >> 20;
 }
 
-void __MTDeviceCreateMultitouchDispatchSource_block_invoke_cold_1(int a1)
+void __MTDeviceCreateMultitouchDispatchSource_block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   v5 = *MEMORY[0x277D85DE8];
-  v2 = MTLoggingFramework();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v3 = MTLoggingFramework(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     v4[0] = 67109120;
-    v4[1] = a1;
-    _os_log_impl(&dword_25AD59000, v2, OS_LOG_TYPE_FAULT, "mach_msg failed: 0x%08x", v4, 8u);
+    v4[1] = v2;
+    _os_log_impl(&dword_25AD59000, v3, OS_LOG_TYPE_FAULT, "mach_msg failed: 0x%08x", v4, 8u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void mt_CreateBinaryFilters_cold_1()
+void mt_CreateBinaryFilters_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = MTLoggingFramework();
-  if (OUTLINED_FUNCTION_1(v1))
+  v3 = MTLoggingFramework(a1, a2);
+  if (OUTLINED_FUNCTION_1(v3))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v4, v5, v6, v7, v8, 2u);
   }
 }
 
-void mt_CreateBinaryFilters_cold_2(uint8_t *a1, uint64_t a2, void *a3)
+void mt_CreateBinaryFilters_cold_2(uint8_t *a1, uint64_t a2, uint64_t *a3)
 {
-  v7 = MTLoggingFramework();
+  v7 = MTLoggingFramework(a1, a2);
   if (OUTLINED_FUNCTION_1(v7))
   {
     *a1 = 138543362;
@@ -4524,7 +4401,7 @@ void mt_CreateBinaryFilters_cold_2(uint8_t *a1, uint64_t a2, void *a3)
 
 void mt_CreateBinaryFilters_cold_3(uint8_t *a1, _BYTE *a2)
 {
-  v5 = MTLoggingFramework();
+  v5 = MTLoggingFramework(a1, a2);
   if (OUTLINED_FUNCTION_1(v5))
   {
     *a1 = 0;
@@ -4536,7 +4413,7 @@ void mt_CreateBinaryFilters_cold_3(uint8_t *a1, _BYTE *a2)
 
 void mt_CreateBinaryFilters_cold_4(uint8_t *a1, void *a2, void *a3)
 {
-  v7 = MTLoggingFramework();
+  v7 = MTLoggingFramework(a1, a2);
   if (OUTLINED_FUNCTION_1(v7))
   {
     v8 = [a2 objectForKeyedSubscript:@"Name"];
@@ -4547,33 +4424,29 @@ void mt_CreateBinaryFilters_cold_4(uint8_t *a1, void *a2, void *a3)
   }
 }
 
-void mt_CreateBinaryFilters_cold_5(void *a1)
+void mt_CreateBinaryFilters_cold_5(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = MTLoggingFramework();
-  if (OUTLINED_FUNCTION_1(v3))
+  v4 = MTLoggingFramework(a1, a2);
+  if (OUTLINED_FUNCTION_1(v4))
   {
     [a1 count];
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v4, v5, v6, v7, v8, 0xEu);
+    _os_log_impl(v5, v6, v7, v8, v9, 0xEu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void mt_UpdateMaxPacketSize_cold_1(void *a1, NSObject **a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = MTLoggingFramework();
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = MTLoggingFramework(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6[0] = 67109120;
-    v6[1] = [a1 maxFrameSize];
-    _os_log_impl(&dword_25AD59000, v4, OS_LOG_TYPE_DEBUG, "Setting a max injection packet size of %u", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = [a1 maxFrameSize];
+    _os_log_impl(&dword_25AD59000, v4, OS_LOG_TYPE_DEBUG, "Setting a max injection packet size of %u", v5, 8u);
   }
 
   *a2 = v4;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 __double2 __sincos_stret(double a1)

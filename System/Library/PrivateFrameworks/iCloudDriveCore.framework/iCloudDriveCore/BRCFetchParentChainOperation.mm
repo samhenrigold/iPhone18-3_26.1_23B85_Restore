@@ -1,4 +1,5 @@
 @interface BRCFetchParentChainOperation
+- (BRCFetchParentChainOperation)initWithParentID:(id)d sessionContext:(id)context zone:(id)zone isUserWaiting:(BOOL)waiting;
 - (BRCItemID)parentIDToList;
 - (id)createActivity;
 - (void)_fetchParentChain:(id)chain;
@@ -17,6 +18,42 @@
   v4 = [(CKRecordID *)parentRecordID brc_itemIDWithZoneAppRetriever:zoneAppRetriever];
 
   return v4;
+}
+
+- (BRCFetchParentChainOperation)initWithParentID:(id)d sessionContext:(id)context zone:(id)zone isUserWaiting:(BOOL)waiting
+{
+  waitingCopy = waiting;
+  dCopy = d;
+  contextCopy = context;
+  zoneCopy = zone;
+  debugItemIDString = [dCopy debugItemIDString];
+  v15 = [@"fetch-parent/" stringByAppendingString:debugItemIDString];
+
+  metadataSyncContext = [zoneCopy metadataSyncContext];
+  v24.receiver = self;
+  v24.super_class = BRCFetchParentChainOperation;
+  v17 = [(_BRCOperation *)&v24 initWithName:v15 syncContext:metadataSyncContext sessionContext:contextCopy];
+
+  if (v17)
+  {
+    br_fetchParentChain = [MEMORY[0x277CBC4F8] br_fetchParentChain];
+    [(_BRCOperation *)v17 setGroup:br_fetchParentChain];
+
+    [(_BRCOperation *)v17 setNonDiscretionary:waitingCopy];
+    v19 = objc_opt_new();
+    fetchParentChainCompletionBlocks = v17->_fetchParentChainCompletionBlocks;
+    v17->_fetchParentChainCompletionBlocks = v19;
+
+    objc_storeStrong(&v17->_parentID, d);
+    v21 = [dCopy directoryStructureRecordIDInZone:zoneCopy];
+    parentRecordID = v17->_parentRecordID;
+    v17->_parentRecordID = v21;
+
+    objc_storeStrong(&v17->_serverZone, zone);
+    objc_storeStrong(&v17->_sessionContext, context);
+  }
+
+  return v17;
 }
 
 - (id)createActivity
@@ -161,14 +198,13 @@ void __50__BRCFetchParentChainOperation__fetchParentChain___block_invoke_3(uint6
 
 - (void)main
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(self + 528);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetching parent chain of %@%@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetching parent chain of %@%@", &v4, 0x16u);
 }
 
 void __36__BRCFetchParentChainOperation_main__block_invoke(uint64_t a1)
@@ -227,11 +263,11 @@ void __67__BRCFetchParentChainOperation_addFetchParentChainCompletionBlock___blo
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v24.receiver = self;
-  v24.super_class = BRCFetchParentChainOperation;
-  [(_BRCOperation *)&v24 finishWithResult:result error:errorCopy];
+  v23.receiver = self;
+  v23.super_class = BRCFetchParentChainOperation;
+  [(_BRCOperation *)&v23 finishWithResult:result error:errorCopy];
   if (!errorCopy && [(_BRCOperation *)self nonDiscretionary])
   {
     v7 = brc_bread_crumbs();
@@ -254,43 +290,41 @@ void __67__BRCFetchParentChainOperation_addFetchParentChainCompletionBlock___blo
   selfCopy->_fetchParentChainCompletionBlocks = 0;
 
   objc_sync_exit(selfCopy);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v14 = v12;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       v18 = 0;
       do
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        (*(*(*(&v20 + 1) + 8 * v18) + 16))(*(*(&v20 + 1) + 8 * v18));
+        (*(*(*(&v19 + 1) + 8 * v18) + 16))(*(*(&v19 + 1) + 8 * v18));
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelToBeReplacedByOperation:(id)operation
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
@@ -298,10 +332,10 @@ void __67__BRCFetchParentChainOperation_addFetchParentChainCompletionBlock___blo
   {
     *buf = 138412802;
     selfCopy = self;
-    v31 = 2112;
-    v32 = operationCopy;
-    v33 = 2112;
-    v34 = v5;
+    v30 = 2112;
+    v31 = operationCopy;
+    v32 = 2112;
+    v33 = v5;
     _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Cancelling %@ to be replaced by %@%@", buf, 0x20u);
   }
 
@@ -309,30 +343,30 @@ void __67__BRCFetchParentChainOperation_addFetchParentChainCompletionBlock___blo
   {
     selfCopy2 = self;
     objc_sync_enter(selfCopy2);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     dependencies = [(BRCFetchParentChainOperation *)selfCopy2 dependencies];
-    v9 = [dependencies countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v9 = [dependencies countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v9)
     {
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(dependencies);
           }
 
-          [operationCopy addDependency:*(*(&v23 + 1) + 8 * v11++)];
+          [operationCopy addDependency:*(*(&v22 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [dependencies countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v9 = [dependencies countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v9);
@@ -343,30 +377,30 @@ void __67__BRCFetchParentChainOperation_addFetchParentChainCompletionBlock___blo
     selfCopy2->_fetchParentChainCompletionBlocks = 0;
 
     objc_sync_exit(selfCopy2);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v14 = v12;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v15)
     {
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         v17 = 0;
         do
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          [operationCopy addFetchParentChainCompletionBlock:{*(*(&v19 + 1) + 8 * v17++), v19}];
+          [operationCopy addFetchParentChainCompletionBlock:{*(*(&v18 + 1) + 8 * v17++), v18}];
         }
 
         while (v15 != v17);
-        v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v15);
@@ -383,51 +417,45 @@ void __67__BRCFetchParentChainOperation_addFetchParentChainCompletionBlock___blo
   {
     [(_BRCOperation *)self cancel];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchParentChain:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] found zone root record ID%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] found zone root record ID%@", &v2, 0xCu);
 }
 
 void __50__BRCFetchParentChainOperation__fetchParentChain___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Couldn't allocate ranks when fetching parent chain%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Couldn't allocate ranks when fetching parent chain%@", &v2, 0xCu);
 }
 
 - (void)finishWithResult:(NSObject *)a3 error:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = [*(a1 + 528) debugDescription];
   [a1 executionTimeInSec];
   v7 = *(a1 + 504);
   v8 = *(a1 + 512);
   v9 = *(a1 + 520);
-  v12 = 138413570;
-  v13 = v6;
-  v14 = 2048;
-  v15 = v10;
-  v16 = 2048;
-  v17 = v7;
-  v18 = 2048;
-  v19 = v8;
-  v20 = 2048;
-  v21 = v9;
-  v22 = 2112;
-  v23 = a2;
-  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetch parent chain of %@ took [%f] Secs and fetched [%llu,%llu] records [%llu] xattrs%@", &v12, 0x3Eu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 138413570;
+  v12 = v6;
+  v13 = 2048;
+  v14 = v10;
+  v15 = 2048;
+  v16 = v7;
+  v17 = 2048;
+  v18 = v8;
+  v19 = 2048;
+  v20 = v9;
+  v21 = 2112;
+  v22 = a2;
+  _os_log_debug_impl(&dword_223E7A000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] Fetch parent chain of %@ took [%f] Secs and fetched [%llu,%llu] records [%llu] xattrs%@", &v11, 0x3Eu);
 }
 
 @end

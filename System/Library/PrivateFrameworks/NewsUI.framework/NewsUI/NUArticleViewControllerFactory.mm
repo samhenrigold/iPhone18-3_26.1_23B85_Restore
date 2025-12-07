@@ -143,7 +143,7 @@ void __130__NUArticleViewControllerFactory_createArticleViewControllerWithArticl
 
 void __130__NUArticleViewControllerFactory_createArticleViewControllerWithArticle_issue_context_relativePriority_articleHostViewController___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 useObject:*(a1 + 32) forProtocol:&unk_286E3D2C8];
   [v3 useObject:*(a1 + 40) forProtocol:&unk_286E386F0];
@@ -158,37 +158,35 @@ void __130__NUArticleViewControllerFactory_createArticleViewControllerWithArticl
     [v3 useObject:v5 forClass:objc_opt_class()];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = [*(a1 + 80) linkedContentProviders];
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v3 useObject:*(*(&v12 + 1) + 8 * v10++) forClass:objc_opt_class()];
+        [v3 useObject:*(*(&v11 + 1) + 8 * v10++) forClass:objc_opt_class()];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

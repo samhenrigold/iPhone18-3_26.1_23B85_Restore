@@ -216,7 +216,7 @@ id __31__HDSPDemoModeEnvironment_init__block_invoke_18(uint64_t a1, void *a2)
   return v4;
 }
 
-id __52__HDSPDemoModeEnvironment__sleepModeManagerProvider__block_invoke(uint64_t a1, void *a2)
+HDSPSleepModeManager *__52__HDSPDemoModeEnvironment__sleepModeManagerProvider__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = [v2 isUnitTestEnvironment];
@@ -254,7 +254,7 @@ id __52__HDSPDemoModeEnvironment__sleepModeManagerProvider__block_invoke(uint64_
 
 - (void)setInitialSchedule
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   sleepScheduleModelManager = [(HDSPEnvironment *)self sleepScheduleModelManager];
   sleepSchedule = [sleepScheduleModelManager sleepSchedule];
 
@@ -263,62 +263,58 @@ id __52__HDSPDemoModeEnvironment__sleepModeManagerProvider__block_invoke(uint64_
     v5 = HKSPLogForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
-      v9 = objc_opt_class();
-      v6 = v9;
-      _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] setting initial demo schedule", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = objc_opt_class();
+      v6 = v8;
+      _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] setting initial demo schedule", &v7, 0xCu);
     }
 
     [(HDSPDemoModeEnvironment *)self resetDemoMode];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetDemoMode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v9 = objc_opt_class();
-    v4 = v9;
+    v8 = objc_opt_class();
+    v4 = v8;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetDemoMode", buf, 0xCu);
   }
 
   sleepModeManager = [(HDSPEnvironment *)self sleepModeManager];
   [sleepModeManager setSleepMode:0];
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __40__HDSPDemoModeEnvironment_resetDemoMode__block_invoke;
-  v7[3] = &unk_279C7B108;
-  v7[4] = self;
-  [(HDSPEnvironment *)self perform:v7 withSource:self];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __40__HDSPDemoModeEnvironment_resetDemoMode__block_invoke;
+  v6[3] = &unk_279C7B108;
+  v6[4] = self;
+  [(HDSPEnvironment *)self perform:v6 withSource:self];
 }
 
 void __40__HDSPDemoModeEnvironment_resetDemoMode__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sleepScheduleModelManager];
-  v18 = 0;
-  v3 = [v2 saveSleepSchedule:0 error:&v18];
-  v4 = v18;
+  v15 = 0;
+  v3 = [v2 saveSleepSchedule:0 error:&v15];
+  v4 = v15;
 
   if ((v3 & 1) == 0)
   {
     v9 = HKSPLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 138543618;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v4;
-      v13 = v12;
+      v17 = v10;
+      v18 = 2114;
+      v19 = v4;
+      v11 = v10;
       _os_log_error_impl(&dword_269B11000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] failed to delete schedule with error %{public}@", buf, 0x16u);
     }
 
@@ -327,22 +323,21 @@ void __40__HDSPDemoModeEnvironment_resetDemoMode__block_invoke(uint64_t a1)
 
   v5 = [*(a1 + 32) sleepScheduleModelManager];
   v6 = [*(a1 + 32) demoScheduleModel];
-  v17 = v4;
-  v7 = [v5 saveSleepScheduleModel:v6 error:&v17];
-  v8 = v17;
+  v14 = v4;
+  v7 = [v5 saveSleepScheduleModel:v6 error:&v14];
+  v8 = v14;
 
   if ((v7 & 1) == 0)
   {
     v9 = HKSPLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = objc_opt_class();
+      v12 = objc_opt_class();
       *buf = 138543618;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v8;
-      v16 = v15;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v8;
+      v13 = v12;
       _os_log_error_impl(&dword_269B11000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] failed to save model with error %{public}@", buf, 0x16u);
     }
 
@@ -351,8 +346,6 @@ LABEL_8:
 
     v8 = v4;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)demoScheduleModel

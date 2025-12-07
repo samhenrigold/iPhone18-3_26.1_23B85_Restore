@@ -63,7 +63,7 @@
   return v17;
 }
 
-uint64_t __97__PHASharingSuggestionGenerationTask_generateSuggestionsWithGraphManager_progressReporter_error___block_invoke(uint64_t a1, _BYTE *a2)
+void *__97__PHASharingSuggestionGenerationTask_generateSuggestionsWithGraphManager_progressReporter_error___block_invoke(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelledWithProgress:?];
   *a2 = result;

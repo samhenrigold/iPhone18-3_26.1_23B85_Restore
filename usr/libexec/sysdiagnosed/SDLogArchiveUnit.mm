@@ -28,54 +28,54 @@
 
   if (archive_arguments)
   {
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v18 = overrideCopy;
+    v21 = 0u;
+    v19 = overrideCopy;
     v6 = overrideCopy;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v20 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v20 + 1) + 8 * i);
           archive_arguments2 = [(SDLogArchiveUnit *)self archive_arguments];
           v13 = [v6 objectForKeyedSubscript:v11];
           [archive_arguments2 setValue:v13 forKey:v11];
 
-          v14 = sub_1000278E8();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = sub_1000278E8(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = [v6 objectForKeyedSubscript:v11];
+            v16 = [v6 objectForKeyedSubscript:v11];
             *buf = 138412546;
-            v24 = v11;
-            v25 = 2112;
-            v26 = v15;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Updated %@ to %@", buf, 0x16u);
+            v25 = v11;
+            v26 = 2112;
+            v27 = v16;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Updated %@ to %@", buf, 0x16u);
           }
 
-          v16 = +[SDResourceManager sharedResourceManager];
-          v17 = [v6 objectForKeyedSubscript:v11];
-          [v16 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Updated %@ to %@", v11, v17}];
+          v17 = +[SDResourceManager sharedResourceManager];
+          v18 = [v6 objectForKeyedSubscript:v11];
+          [v17 logWithSubsystem:"com.apple.sysdiagnose" category:"containers" msg:{@"Updated %@ to %@", v11, v18}];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v8);
     }
 
-    overrideCopy = v18;
+    overrideCopy = v19;
   }
 }
 

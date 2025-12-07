@@ -10,9 +10,10 @@
 {
   if (self->super._title != title)
   {
-    self->super._title = [title copy];
+    v5 = [title copy];
+    self->super._title = v5;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5);
   }
 }
 
@@ -20,9 +21,10 @@
 {
   if (self->super._value != value)
   {
-    self->super._value = [value copy];
+    v5 = [value copy];
+    self->super._value = v5;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5);
   }
 }
 

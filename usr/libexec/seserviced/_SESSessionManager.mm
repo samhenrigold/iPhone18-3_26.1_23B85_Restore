@@ -50,9 +50,9 @@
 
 - (id)init:(id)init
 {
-  v18.receiver = self;
-  v18.super_class = _SESSessionManager;
-  v3 = [(_SESSessionManager *)&v18 initWithMachServiceName:init];
+  v17.receiver = self;
+  v17.super_class = _SESSessionManager;
+  v3 = [(_SESSessionManager *)&v17 initWithMachServiceName:init];
   v4 = v3;
   if (v3)
   {
@@ -77,8 +77,7 @@
     v4->_appStateObserver = v13;
 
     +[_TtC10seserviced17CarKeyAppLauncher kickOff];
-    v15 = v4->_queue;
-    v17 = v4;
+    v16 = v4;
     os_state_add_handler();
   }
 

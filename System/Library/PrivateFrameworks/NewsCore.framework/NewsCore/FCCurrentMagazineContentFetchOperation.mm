@@ -72,7 +72,7 @@
 
 - (BOOL)validateOperation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     v3 = 1;
@@ -82,16 +82,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires a context"];
-      v11 = 136315906;
-      v12 = "[FCCurrentMagazineContentFetchOperation validateOperation]";
-      v13 = 2080;
-      v14 = "FCCurrentMagazineContentFetchOperation.m";
-      v15 = 1024;
-      v16 = 84;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires a context"];
+      v10 = 136315906;
+      v11 = "[FCCurrentMagazineContentFetchOperation validateOperation]";
+      v12 = 2080;
+      v13 = "FCCurrentMagazineContentFetchOperation.m";
+      v14 = 1024;
+      v15 = 84;
+      v16 = 2114;
+      v17 = v7;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
     }
 
     v3 = 0;
@@ -100,16 +100,16 @@
 LABEL_9:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires config issue IDs"];
-        v11 = 136315906;
-        v12 = "[FCCurrentMagazineContentFetchOperation validateOperation]";
-        v13 = 2080;
-        v14 = "FCCurrentMagazineContentFetchOperation.m";
-        v15 = 1024;
-        v16 = 88;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+        v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires config issue IDs"];
+        v10 = 136315906;
+        v11 = "[FCCurrentMagazineContentFetchOperation validateOperation]";
+        v12 = 2080;
+        v13 = "FCCurrentMagazineContentFetchOperation.m";
+        v14 = 1024;
+        v15 = 88;
+        v16 = 2114;
+        v17 = v8;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
       }
 
       v4 = 0;
@@ -132,27 +132,25 @@ LABEL_12:
   if (self->_configArticleIDs)
   {
     v5 = 1;
-    goto LABEL_17;
+    return v5 & v4 & v3;
   }
 
 LABEL_14:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires config article IDs"];
-    v11 = 136315906;
-    v12 = "[FCCurrentMagazineContentFetchOperation validateOperation]";
-    v13 = 2080;
-    v14 = "FCCurrentMagazineContentFetchOperation.m";
-    v15 = 1024;
-    v16 = 92;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"current magazine content fetch operation requires config article IDs"];
+    v10 = 136315906;
+    v11 = "[FCCurrentMagazineContentFetchOperation validateOperation]";
+    v12 = 2080;
+    v13 = "FCCurrentMagazineContentFetchOperation.m";
+    v14 = 1024;
+    v15 = 92;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
   }
 
   v5 = 0;
-LABEL_17:
-  v6 = *MEMORY[0x1E69E9840];
   return v5 & v4 & v3;
 }
 
@@ -412,7 +410,7 @@ uint64_t __58__FCCurrentMagazineContentFetchOperation_performOperation__block_in
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -431,7 +429,7 @@ uint64_t __58__FCCurrentMagazineContentFetchOperation_performOperation__block_in
       }
 
       v7 = resultConfigIssues;
-      v23 = [(NSArray *)v7 count];
+      v22 = [(NSArray *)v7 count];
       if (self)
       {
         resultConfigHeadlines = self->_resultConfigHeadlines;
@@ -468,15 +466,15 @@ uint64_t __58__FCCurrentMagazineContentFetchOperation_performOperation__block_in
 
       v15 = resultTrendingHeadlines;
       *buf = 138544386;
-      v26 = shortOperationDescription;
-      v27 = 2048;
-      v28 = v23;
-      v29 = 2048;
-      v30 = v10;
-      v31 = 2048;
-      v32 = v13;
-      v33 = 2048;
-      v34 = [(NSArray *)v15 count];
+      v25 = shortOperationDescription;
+      v26 = 2048;
+      v27 = v22;
+      v28 = 2048;
+      v29 = v10;
+      v30 = 2048;
+      v31 = v13;
+      v32 = 2048;
+      v33 = [(NSArray *)v15 count];
       _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ finished with %lu config issues, %lu config headlines, %lu current issues, and %lu trending headlines", buf, 0x34u);
     }
   }
@@ -504,23 +502,21 @@ uint64_t __58__FCCurrentMagazineContentFetchOperation_performOperation__block_in
 
     (fetchCompletionHandler2)[2](fetchCompletionHandler2, v18, v19, v20, v21, errorCopy);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v34[5] = *MEMORY[0x1E69E9840];
+  v33[5] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E695DEC8];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_2;
-  v26[3] = &unk_1E7C3B110;
-  v26[4] = *(a1 + 32);
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_2;
+  v25[3] = &unk_1E7C3B110;
+  v25[4] = *(a1 + 32);
   v5 = v3;
-  v27 = v5;
-  v6 = [v4 fc_array:v26];
+  v26 = v5;
+  v6 = [v4 fc_array:v25];
   if ([v6 count])
   {
     v7 = objc_alloc_init(FCRecordChainFetchOperation);
@@ -538,65 +534,63 @@ void __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentI
 
     [(FCRecordChainFetchOperation *)v7 setContext:v10];
     [(FCRecordChainFetchOperation *)v8 setTopLevelRecordIDs:v6];
-    v33[0] = @"TagList";
-    v32 = @"tagIDs";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
-    v34[0] = v11;
-    v33[1] = @"Tag";
-    v31 = @"latestIssueIDs";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-    v34[1] = v12;
-    v33[2] = @"Issue";
-    v30 = @"channelTagID";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
-    v34[2] = v13;
-    v33[3] = @"Article";
-    v29[0] = @"sourceChannelTagID";
-    v29[1] = @"parentIssueID";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
-    v34[3] = v14;
-    v33[4] = @"ArticleList";
-    v28 = @"articleIDs";
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-    v34[4] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:5];
+    v32[0] = @"TagList";
+    v31 = @"tagIDs";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+    v33[0] = v11;
+    v32[1] = @"Tag";
+    v30 = @"latestIssueIDs";
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+    v33[1] = v12;
+    v32[2] = @"Issue";
+    v29 = @"channelTagID";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+    v33[2] = v13;
+    v32[3] = @"Article";
+    v28[0] = @"sourceChannelTagID";
+    v28[1] = @"parentIssueID";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+    v33[3] = v14;
+    v32[4] = @"ArticleList";
+    v27 = @"articleIDs";
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+    v33[4] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:5];
     [(FCRecordChainFetchOperation *)v8 setLinkKeysByRecordType:v16];
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_4;
-    v24[3] = &unk_1E7C3B138;
-    v24[4] = *(a1 + 32);
-    [(FCRecordChainFetchOperation *)v8 setDynamicCachePolicyBlock:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_4;
+    v23[3] = &unk_1E7C3B138;
+    v23[4] = *(a1 + 32);
+    [(FCRecordChainFetchOperation *)v8 setDynamicCachePolicyBlock:v23];
     v17 = +[FCEdgeCacheHint edgeCacheHintForMagazineContent];
     [(FCRecordChainFetchOperation *)v8 setEdgeCacheHint:v17];
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_5;
-    v21[3] = &unk_1E7C3B220;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_5;
+    v20[3] = &unk_1E7C3B220;
     v18 = *(a1 + 40);
     v19 = *(a1 + 32);
-    v23 = v18;
-    v21[4] = v19;
-    v22 = v5;
-    [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v21];
+    v22 = v18;
+    v20[4] = v19;
+    v21 = v5;
+    [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v20];
     [*(a1 + 32) associateChildOperation:v8];
     [(FCOperation *)v8 start];
   }
 
   else
   {
-    v24[5] = MEMORY[0x1E69E9820];
-    v24[6] = 3221225472;
-    v24[7] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_3;
-    v24[8] = &unk_1E7C379C8;
-    v25 = *(a1 + 40);
-    (*(v25 + 2))(v25, MEMORY[0x1E695E0F0], MEMORY[0x1E695E0F0], MEMORY[0x1E695E0F0], MEMORY[0x1E695E0F0], 0);
-    v8 = v25;
+    v23[5] = MEMORY[0x1E69E9820];
+    v23[6] = 3221225472;
+    v23[7] = __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_3;
+    v23[8] = &unk_1E7C379C8;
+    v24 = *(a1 + 40);
+    (*(v24 + 2))(v24, MEMORY[0x1E695E0F0], MEMORY[0x1E695E0F0], MEMORY[0x1E695E0F0], MEMORY[0x1E695E0F0], 0);
+    v8 = v24;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -946,32 +940,32 @@ FCArticleList *__92__FCCurrentMagazineContentFetchOperation__fetchConfigContentA
 
 void __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentIssuesWithCompletion___block_invoke_6_52(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = [*(a1 + 32) allRecords];
   v5 = [v4 firstObject];
   v6 = [v5 tagIDs];
 
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       v10 = 0;
       do
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(a1 + 40) objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v10)];
+        v11 = [*(a1 + 40) objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v10)];
         v12 = v11;
         if (v11)
         {
@@ -985,13 +979,11 @@ void __92__FCCurrentMagazineContentFetchOperation__fetchConfigContentAndCurrentI
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -9,17 +9,17 @@
   Unique = _CFBundleCreateUnique();
   if (Unique)
   {
-    v1 = Unique;
-    v2 = CFBundleCopyExecutableURL(Unique);
-    CFRelease(v1);
+    v2 = Unique;
+    v3 = CFBundleCopyExecutableURL(Unique);
+    CFRelease(v2);
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 @end

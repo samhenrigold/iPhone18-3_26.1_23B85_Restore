@@ -107,37 +107,37 @@
   self->_buyStateBackgroundFillColor = v21;
 
   self->_buttonState = 0;
-  v23 = IMCommonCoreBundle();
-  v24 = [v23 localizedStringForKey:@"READ" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v24 = IMCommonCoreBundle(v23);
+  v25 = [v24 localizedStringForKey:@"READ" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   readDefaultTitle = self->_readDefaultTitle;
-  self->_readDefaultTitle = v24;
+  self->_readDefaultTitle = v25;
 
-  v26 = IMCommonCoreBundle();
-  v27 = [v26 localizedStringForKey:@"LISTEN" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v28 = IMCommonCoreBundle(v27);
+  v29 = [v28 localizedStringForKey:@"LISTEN" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   listenDefaultTitle = self->_listenDefaultTitle;
-  self->_listenDefaultTitle = v27;
+  self->_listenDefaultTitle = v29;
 
-  v29 = IMCommonCoreBundle();
-  v30 = [v29 localizedStringForKey:@"BUY" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v32 = IMCommonCoreBundle(v31);
+  v33 = [v32 localizedStringForKey:@"BUY" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   buyDefaultTitle = self->_buyDefaultTitle;
-  self->_buyDefaultTitle = v30;
+  self->_buyDefaultTitle = v33;
 
-  v32 = IMCommonCoreBundle();
-  v33 = [v32 localizedStringForKey:@"PRE-ORDER" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v36 = IMCommonCoreBundle(v35);
+  v37 = [v36 localizedStringForKey:@"PRE-ORDER" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   canPreorderDefaultTitle = self->_canPreorderDefaultTitle;
-  self->_canPreorderDefaultTitle = v33;
+  self->_canPreorderDefaultTitle = v37;
 
-  v35 = IMCommonCoreBundle();
-  v36 = [v35 localizedStringForKey:@" PRE-ORDERED" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v40 = IMCommonCoreBundle(v39);
+  v41 = [v40 localizedStringForKey:@" PRE-ORDERED" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   preorderedDefaultTitle = self->_preorderedDefaultTitle;
-  self->_preorderedDefaultTitle = v36;
+  self->_preorderedDefaultTitle = v41;
 
-  v38 = +[UIButtonConfiguration plainButtonConfiguration];
-  [v38 setCornerStyle:4];
-  [v38 setMacIdiomStyle:1];
-  [v38 setButtonSize:3];
-  [v38 setContentInsets:{6.0, 20.0, 6.0, 20.0}];
-  [(BCBuyGetTwoStateButton *)self setConfiguration:v38];
+  v43 = +[UIButtonConfiguration plainButtonConfiguration];
+  [v43 setCornerStyle:4];
+  [v43 setMacIdiomStyle:1];
+  [v43 setButtonSize:3];
+  [v43 setContentInsets:{6.0, 20.0, 6.0, 20.0}];
+  [(BCBuyGetTwoStateButton *)self setConfiguration:v43];
 }
 
 - (CGRect)alignmentFrame

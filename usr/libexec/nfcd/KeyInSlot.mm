@@ -13,7 +13,7 @@
   v5 = [(NFTrustObject *)&v10 initWithCoder:coderCopy];
   if (v5)
   {
-    v6 = sub_10001F2FC();
+    v6 = sub_10001F2FC(NFTrustDataBase);
     v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"keyUniqueIdentifier"];
     keyIdentifier = v5->_keyIdentifier;
     v5->_keyIdentifier = v7;

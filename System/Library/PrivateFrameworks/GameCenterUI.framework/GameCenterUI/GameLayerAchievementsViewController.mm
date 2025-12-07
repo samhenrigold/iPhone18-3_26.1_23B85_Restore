@@ -35,7 +35,7 @@
   selfCopy = self;
   GameLayerAchievementsViewController.preferredFocusEnvironments.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1DFF70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1DFF70, &qword_24E38CB50);
   v3 = sub_24E347EE8();
 
   return v3;

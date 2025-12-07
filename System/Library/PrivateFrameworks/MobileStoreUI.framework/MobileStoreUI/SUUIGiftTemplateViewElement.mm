@@ -15,7 +15,7 @@
   if (v9)
   {
     v10 = [elementCopy getAttribute:@"type"];
-    v9->_giftType = [v10 isEqualToString:@"product"];
+    v9->_giftType = objc_msgSend_isEqualToString_(v10);
     v11 = [elementCopy getAttribute:@"buyParams"];
     productBuyParams = v9->_productBuyParams;
     v9->_productBuyParams = v11;

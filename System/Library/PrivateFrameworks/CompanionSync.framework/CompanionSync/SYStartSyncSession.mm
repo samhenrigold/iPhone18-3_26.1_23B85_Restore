@@ -74,9 +74,8 @@
     [SYStartSyncSession writeTo:];
   }
 
-  v9 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteSubmessage();
-  isResetSync = self->_isResetSync;
   PBDataWriterWriteBOOLField();
   if (!self->_sessionID)
   {
@@ -84,11 +83,8 @@
   }
 
   PBDataWriterWriteStringField();
-  expectsRollbackSupport = self->_expectsRollbackSupport;
   PBDataWriterWriteBOOLField();
-  expectsRestartSupport = self->_expectsRestartSupport;
   PBDataWriterWriteBOOLField();
-  sessionTimeout = self->_sessionTimeout;
   PBDataWriterWriteDoubleField();
   if (self->_metadata)
   {
@@ -167,7 +163,6 @@
     }
   }
 
-  v6 = *(equalCopy + 50);
   if (self->_isResetSync)
   {
     if ((*(equalCopy + 50) & 1) == 0)
@@ -187,7 +182,6 @@
     goto LABEL_23;
   }
 
-  v8 = *(equalCopy + 49);
   if (self->_expectsRollbackSupport)
   {
     if ((*(equalCopy + 49) & 1) == 0)
@@ -201,7 +195,6 @@
     goto LABEL_23;
   }
 
-  v9 = *(equalCopy + 48);
   if (!self->_expectsRestartSupport)
   {
     if ((*(equalCopy + 48) & 1) == 0)
@@ -210,7 +203,7 @@
     }
 
 LABEL_23:
-    v12 = 0;
+    v9 = 0;
     goto LABEL_24;
   }
 
@@ -237,17 +230,17 @@ LABEL_18:
   reason = self->_reason;
   if (reason | *(equalCopy + 4))
   {
-    v12 = [(NSString *)reason isEqual:?];
+    v9 = [(NSString *)reason isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v9 = 1;
   }
 
 LABEL_24:
 
-  return v12;
+  return v9;
 }
 
 - (unint64_t)hash

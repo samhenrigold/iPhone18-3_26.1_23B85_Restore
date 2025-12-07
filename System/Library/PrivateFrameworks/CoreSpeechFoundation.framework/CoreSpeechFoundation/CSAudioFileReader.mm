@@ -37,12 +37,12 @@
 
 - (void)stopRecording
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[CSAudioFileReader stopRecording]";
+    v8 = "[CSAudioFileReader stopRecording]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Stopping audio file feed timer", buf, 0xCu);
   }
 
@@ -58,7 +58,6 @@
   block[4] = self;
   dispatch_async(queue, block);
   ExtAudioFileSeek(self->_fFile, 0);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __34__CSAudioFileReader_stopRecording__block_invoke(uint64_t a1)
@@ -75,7 +74,7 @@ void __34__CSAudioFileReader_stopRecording__block_invoke(uint64_t a1)
 
 - (void)_readAudioBufferAndFeed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   mSampleRate = self->_outASBD.mSampleRate;
   v5 = self->_bufferDuration * mSampleRate;
   LODWORD(mSampleRate) = self->_outASBD.mBytesPerFrame;
@@ -97,9 +96,9 @@ void __34__CSAudioFileReader_stopRecording__block_invoke(uint64_t a1)
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "[CSAudioFileReader _readAudioBufferAndFeed]";
-        v19 = 1024;
-        v20 = v8;
+        v17 = "[CSAudioFileReader _readAudioBufferAndFeed]";
+        v18 = 1024;
+        v19 = v8;
         _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s ::: Error reading data from audio file : %d", buf, 0x12u);
       }
     }
@@ -109,9 +108,9 @@ void __34__CSAudioFileReader_stopRecording__block_invoke(uint64_t a1)
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v18 = "[CSAudioFileReader _readAudioBufferAndFeed]";
-        v19 = 1024;
-        v20 = v9;
+        v17 = "[CSAudioFileReader _readAudioBufferAndFeed]";
+        v18 = 1024;
+        v19 = v9;
         _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Reach to EOF, chunkSize = %d", buf, 0x12u);
       }
 
@@ -127,13 +126,11 @@ void __34__CSAudioFileReader_stopRecording__block_invoke(uint64_t a1)
     v13 = objc_loadWeakRetained(&self->_delegate);
     [v13 audioFileReaderBufferAvailable:self buffer:v7 atTime:mach_absolute_time()];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)startRecording
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
@@ -142,15 +139,15 @@ void __34__CSAudioFileReader_stopRecording__block_invoke(uint64_t a1)
     mBytesPerFrame = self->_outASBD.mBytesPerFrame;
     mChannelsPerFrame = self->_outASBD.mChannelsPerFrame;
     *buf = 136316162;
-    v18 = "[CSAudioFileReader startRecording]";
-    v19 = 2048;
-    v20 = bufferDuration;
-    v21 = 2048;
-    v22 = mSampleRate;
-    v23 = 1024;
-    v24 = mBytesPerFrame;
-    v25 = 1024;
-    v26 = mChannelsPerFrame;
+    v17 = "[CSAudioFileReader startRecording]";
+    v18 = 2048;
+    v19 = bufferDuration;
+    v20 = 2048;
+    v21 = mSampleRate;
+    v22 = 1024;
+    v23 = mBytesPerFrame;
+    v24 = 1024;
+    v25 = mChannelsPerFrame;
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting audio file feed timer, bufferDuration = %f sampleRate = %f, bytesPerFrame = %d, channelsPerFrame = %d", buf, 0x2Cu);
   }
 
@@ -165,19 +162,18 @@ void __34__CSAudioFileReader_stopRecording__block_invoke(uint64_t a1)
   handler[1] = 3221225472;
   handler[2] = __35__CSAudioFileReader_startRecording__block_invoke;
   handler[3] = &unk_1E865CA40;
-  objc_copyWeak(&v16, buf);
+  objc_copyWeak(&v15, buf);
   dispatch_source_set_event_handler(v10, handler);
   dispatch_resume(self->_audioFeedTimer);
   queue = self->_queue;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __35__CSAudioFileReader_startRecording__block_invoke_2;
-  v14[3] = &unk_1E865CB68;
-  v14[4] = self;
-  dispatch_async(queue, v14);
-  objc_destroyWeak(&v16);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __35__CSAudioFileReader_startRecording__block_invoke_2;
+  v13[3] = &unk_1E865CB68;
+  v13[4] = self;
+  dispatch_async(queue, v13);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -201,7 +197,7 @@ void __35__CSAudioFileReader_startRecording__block_invoke_2(uint64_t a1)
 
 - (BOOL)prepareRecording:(id)recording
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   recordingCopy = recording;
   v5 = recordingCopy;
   if (!recordingCopy)
@@ -212,8 +208,8 @@ void __35__CSAudioFileReader_startRecording__block_invoke_2(uint64_t a1)
       goto LABEL_22;
     }
 
-    v41 = 136315138;
-    v42 = "[CSAudioFileReader prepareRecording:]";
+    v40 = 136315138;
+    v41 = "[CSAudioFileReader prepareRecording:]";
     v20 = "%s CSAudioFileReader requires prepare recording settings to feed audio";
     goto LABEL_18;
   }
@@ -234,14 +230,14 @@ void __35__CSAudioFileReader_startRecording__block_invoke_2(uint64_t a1)
         goto LABEL_22;
       }
 
-      v41 = 136315138;
-      v42 = "[CSAudioFileReader prepareRecording:]";
+      v40 = 136315138;
+      v41 = "[CSAudioFileReader prepareRecording:]";
       v20 = "%s CSAudioFileReader only support LinearPCM to feed";
 LABEL_18:
       v33 = v19;
       v34 = 12;
 LABEL_26:
-      _os_log_error_impl(&dword_1DDA4B000, v33, OS_LOG_TYPE_ERROR, v20, &v41, v34);
+      _os_log_error_impl(&dword_1DDA4B000, v33, OS_LOG_TYPE_ERROR, v20, &v40, v34);
       goto LABEL_22;
     }
   }
@@ -307,10 +303,10 @@ LABEL_26:
   v37 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
   {
-    v41 = 136315394;
-    v42 = "[CSAudioFileReader prepareRecording:]";
-    v43 = 1024;
-    v44 = v36;
+    v40 = 136315394;
+    v41 = "[CSAudioFileReader prepareRecording:]";
+    v42 = 1024;
+    v43 = v36;
     v20 = "%s Setting ExtAudioFileSetProperty failed : %d";
     v33 = v37;
     v34 = 18;
@@ -321,17 +317,16 @@ LABEL_22:
   v38 = 0;
 LABEL_23:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v38;
 }
 
 - (CSAudioFileReader)initWithURL:(id)l
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v14.receiver = self;
-  v14.super_class = CSAudioFileReader;
-  v5 = [(CSAudioFileReader *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = CSAudioFileReader;
+  v5 = [(CSAudioFileReader *)&v13 init];
   if (v5 && (v6 = dispatch_queue_create("CSAudioFileReader Queue", 0), queue = v5->_queue, v5->_queue = v6, queue, (v8 = ExtAudioFileOpenURL(lCopy, &v5->_fFile)) != 0))
   {
     v9 = v8;
@@ -339,11 +334,11 @@ LABEL_23:
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v16 = "[CSAudioFileReader initWithURL:]";
-      v17 = 2112;
-      v18 = lCopy;
-      v19 = 1024;
-      v20 = v9;
+      v15 = "[CSAudioFileReader initWithURL:]";
+      v16 = 2112;
+      v17 = lCopy;
+      v18 = 1024;
+      v19 = v9;
       _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, "%s ::: Error reading file %@, err: %d", buf, 0x1Cu);
     }
 
@@ -355,7 +350,6 @@ LABEL_23:
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

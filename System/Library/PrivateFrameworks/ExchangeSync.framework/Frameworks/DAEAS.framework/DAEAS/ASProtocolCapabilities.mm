@@ -10,52 +10,25 @@
 
 - (ASProtocolCapabilities)initWithProtocolVersionString:(id)string
 {
-  v16 = *MEMORY[0x277D85DE8];
-  stringCopy = string;
-  if ([stringCopy isEqualToString:@"16.1"])
-  {
-    v5 = off_278FC6F70;
-  }
-
-  else if ([stringCopy isEqualToString:@"16.0"])
-  {
-    v5 = off_278FC6F68;
-  }
-
-  else if ([stringCopy isEqualToString:@"14.1"])
-  {
-    v5 = off_278FC6F60;
-  }
-
-  else if ([stringCopy isEqualToString:@"14.0"])
-  {
-    v5 = off_278FC6F58;
-  }
-
-  else
-  {
-    v6 = [stringCopy isEqualToString:@"12.1"];
-    v5 = off_278FC6F48;
-    if (v6)
-    {
-      v5 = off_278FC6F50;
-    }
-  }
-
-  v7 = *v5;
-  v8 = objc_opt_class();
-  v9 = DALoggingwithCategory();
-  v10 = *(MEMORY[0x277D03988] + 6);
-  if (os_log_type_enabled(v9, v10))
-  {
-    v14 = 138412290;
-    v15 = v8;
-    _os_log_impl(&dword_24A0AC000, v9, v10, "Capabilities set to %@", &v14, 0xCu);
-  }
-
-  v11 = objc_opt_new();
   v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  stringCopy = string;
+  if (([stringCopy isEqualToString:@"16.1"] & 1) == 0 && (objc_msgSend(stringCopy, "isEqualToString:", @"16.0") & 1) == 0 && (objc_msgSend(stringCopy, "isEqualToString:", @"14.1") & 1) == 0 && (objc_msgSend(stringCopy, "isEqualToString:", @"14.0") & 1) == 0)
+  {
+    [stringCopy isEqualToString:@"12.1"];
+  }
+
+  v5 = objc_opt_class();
+  v6 = DALoggingwithCategory();
+  v7 = *(MEMORY[0x277D03988] + 6);
+  if (os_log_type_enabled(v6, v7))
+  {
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_24A0AC000, v6, v7, "Capabilities set to %@", &v10, 0xCu);
+  }
+
+  v8 = objc_opt_new();
+  return v8;
 }
 
 - (id)_calConstraintsPlistPath

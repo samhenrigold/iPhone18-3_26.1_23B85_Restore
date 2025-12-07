@@ -71,7 +71,7 @@
   {
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
       v15 = *buf;
     }
 
@@ -107,7 +107,7 @@
 
     if (managerCopy)
     {
-      [managerCopy powerBudgetProvider];
+      objc_msgSend_powerBudgetProvider(managerCopy);
       v24 = *buf;
     }
 
@@ -278,8 +278,8 @@
   v3 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#ses-carkey,configure", buf, 2u);
+    LOWORD(buf) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#ses-carkey,configure", &buf, 2u);
   }
 
   vehicleIdentifier = [(NICarKeyConfiguration *)self->_configuration vehicleIdentifier];
@@ -306,8 +306,8 @@
       operator new();
     }
 
-    sub_100340E38(buf);
-    if (*buf)
+    sub_100340E38(&buf);
+    if (buf)
     {
       v6 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
@@ -839,7 +839,7 @@ LABEL_38:
     goto LABEL_14;
   }
 
-  v3 = sub_1003A6784(ptr);
+  v3 = sub_1003A6784(ptr, a2);
   if (v3)
   {
     sub_1003A03C4(v3, __p);
@@ -1225,11 +1225,12 @@ LABEL_70:
 
 - (void)_alishaSessionInvalidatedWithReason:(int)reason
 {
+  v3 = *&reason;
   v5 = qword_1009F9820;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_100342FC8(reason, v9);
-    sub_1004B8D04(v9);
+    sub_100342FC8(v3, v9);
+    sub_1004B8D04();
   }
 
   [(NIServerCarKeySession *)self invalidate];
@@ -1347,7 +1348,7 @@ LABEL_70:
   [@"com.apple.nearbyd" UTF8String];
   if ((os_variant_allows_internal_security_policies() & 1) == 0)
   {
-    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:0];
+    v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:0];
     goto LABEL_66;
   }
 
@@ -1356,20 +1357,20 @@ LABEL_70:
   {
     anchorSimulation = self->_passthroughParams.anchorSimulation;
     *buf = 67109120;
-    v80 = anchorSimulation;
+    v79 = anchorSimulation;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#ses-carkey,_configureForPassthroughSession. Anchor: %d", buf, 8u);
   }
 
   if (!self->_configuration)
   {
-    v71 = +[NSAssertionHandler currentHandler];
-    [v71 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1000 description:{@"Invalid parameter not satisfying: %@", @"_configuration"}];
+    v70 = +[NSAssertionHandler currentHandler];
+    [v70 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1000 description:{@"Invalid parameter not satisfying: %@", @"_configuration"}];
   }
 
   if (!self->_cachedCapabilities.__engaged_)
   {
-    v72 = +[NSAssertionHandler currentHandler];
-    [v72 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1001 description:{@"Invalid parameter not satisfying: %@", @"_cachedCapabilities.has_value()"}];
+    v71 = +[NSAssertionHandler currentHandler];
+    [v71 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1001 description:{@"Invalid parameter not satisfying: %@", @"_cachedCapabilities.has_value()"}];
   }
 
   debugOptions = [(NICarKeyConfiguration *)self->_configuration debugOptions];
@@ -1377,10 +1378,10 @@ LABEL_70:
 
   if (v7)
   {
-    v89 = NSLocalizedDescriptionKey;
-    v90 = @"Passthrough configuration must have debugOptions.";
-    v21 = [NSDictionary dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v21];
+    v87 = NSLocalizedDescriptionKey;
+    v88 = @"Passthrough configuration must have debugOptions.";
+    v20 = [NSDictionary dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+    v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v20];
 
     goto LABEL_66;
   }
@@ -1389,44 +1390,43 @@ LABEL_70:
   v9 = [debugOptions2 objectForKeyedSubscript:@"BypassBluetoothTimesync"];
   self->_passthroughParams.bypassBluetoothTimesync = [v9 BOOLValue];
 
-  bypassBluetoothTimesync = self->_passthroughParams.bypassBluetoothTimesync;
   if (self->_passthroughParams.anchorSimulation)
   {
     if (!self->_passthroughParams.bypassBluetoothTimesync)
     {
       debugOptions3 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v12 = [debugOptions3 objectForKeyedSubscript:@"DckTimeSyncBtEventLocalClock"];
+      v11 = [debugOptions3 objectForKeyedSubscript:@"DckTimeSyncBtEventLocalClock"];
 
-      if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v43 = qword_1009F9820;
+        v42 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
-          sub_1004B8EB0(v43, v44, v45, v46, v47, v48, v49, v50);
+          sub_1004B8EB0(v42, v43, v44, v45, v46, v47, v48, v49);
         }
 
-        v85 = NSLocalizedDescriptionKey;
-        v86 = @"Anchor simulation must provide DckTimeSyncBtEventLocalClock in debug options.";
-        v51 = [NSDictionary dictionaryWithObjects:&v86 forKeys:&v85 count:1];
-        v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v51];
+        v83 = NSLocalizedDescriptionKey;
+        v84 = @"Anchor simulation must provide DckTimeSyncBtEventLocalClock in debug options.";
+        v50 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+        v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v50];
 
         goto LABEL_66;
       }
 
-      unsignedLongLongValue = [v12 unsignedLongLongValue];
-      v14 = sub_1000054A8();
-      v15 = sub_100460AB0(v14);
+      unsignedLongLongValue = [v11 unsignedLongLongValue];
+      v13 = sub_1000054A8();
+      v14 = sub_100460AB0(v13);
       engaged = self->_passthroughParams.dckTimeSyncBtEvent.__engaged_;
-      v17 = 7500 * unsignedLongLongValue;
-      if (v15)
+      v16 = 7500 * unsignedLongLongValue;
+      if (v14)
       {
-        v17 = unsignedLongLongValue;
+        v16 = unsignedLongLongValue;
       }
 
       *&self->_passthroughParams.dckTimeSyncBtEvent.var0.__null_state_ = 0x10000008ALL;
       self->_passthroughParams.dckTimeSyncBtEvent.var0.__val_.bluetoothTicks.var0.__null_state_ = 0;
       self->_passthroughParams.dckTimeSyncBtEvent.var0.__val_.bluetoothTicks.__engaged_ = 0;
-      self->_passthroughParams.dckTimeSyncBtEvent.var0.__val_.gtbTicks.var0.__val_.__rep_ = v17;
+      self->_passthroughParams.dckTimeSyncBtEvent.var0.__val_.gtbTicks.var0.__val_.__rep_ = v16;
       self->_passthroughParams.dckTimeSyncBtEvent.var0.__val_.gtbTicks.__engaged_ = 1;
       self->_passthroughParams.dckTimeSyncBtEvent.var0.__val_.eventCounter = 0;
       self->_passthroughParams.dckTimeSyncBtEvent.var0.__val_.monotonicTimeSec = 0.0;
@@ -1436,83 +1436,83 @@ LABEL_70:
       }
 
       debugOptions4 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v19 = [debugOptions4 objectForKeyedSubscript:@"DckTimeSyncUwbDeviceTime"];
+      v18 = [debugOptions4 objectForKeyedSubscript:@"DckTimeSyncUwbDeviceTime"];
 
-      if (!v19 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if (!v18 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v61 = qword_1009F9820;
+        v60 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
-          sub_1004B8E38(v61, v62, v63, v64, v65, v66, v67, v68);
+          sub_1004B8E38(v60, v61, v62, v63, v64, v65, v66, v67);
         }
 
-        v83 = NSLocalizedDescriptionKey;
-        v84 = @"Anchor simulation must provide DckTimeSyncUwbDeviceTime in debug options.";
-        v69 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-        v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v69];
+        v81 = NSLocalizedDescriptionKey;
+        v82 = @"Anchor simulation must provide DckTimeSyncUwbDeviceTime in debug options.";
+        v68 = [NSDictionary dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+        v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v68];
 
         goto LABEL_66;
       }
 
-      self->_passthroughParams.dckTimeSyncUwbDeviceTimeUsec.var0.__val_ = [v19 unsignedLongLongValue];
+      self->_passthroughParams.dckTimeSyncUwbDeviceTimeUsec.var0.__val_ = [v18 unsignedLongLongValue];
       self->_passthroughParams.dckTimeSyncUwbDeviceTimeUsec.__engaged_ = 1;
     }
   }
 
   else if (!self->_passthroughParams.bypassBluetoothTimesync)
   {
-    v34 = qword_1009F9820;
+    v33 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B8DC0(v34, v35, v36, v37, v38, v39, v40, v41);
+      sub_1004B8DC0(v33, v34, v35, v36, v37, v38, v39, v40);
     }
 
-    v87 = NSLocalizedDescriptionKey;
-    v88 = @"Passthrough session in mobile role must bypass BT timesync.";
-    v42 = [NSDictionary dictionaryWithObjects:&v88 forKeys:&v87 count:1];
-    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v42];
+    v85 = NSLocalizedDescriptionKey;
+    v86 = @"Passthrough session in mobile role must bypass BT timesync.";
+    v41 = [NSDictionary dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+    v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v41];
 
     goto LABEL_66;
   }
 
   debugOptions5 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-  [(NIServerCarKeySession *)self _passthroughSessionServiceRequest:debugOptions5];
+  objc_msgSend__passthroughSessionServiceRequest_(self);
 
-  if (v82)
+  if (v80)
   {
-    v23 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v23 = -1004;
+    v22 = -1004;
   }
 
   if (*buf)
   {
-    v24 = *buf;
+    v23 = *buf;
   }
 
   else
   {
-    v24 = v23;
+    v23 = v22;
   }
 
-  if (*buf || (v82 & 1) == 0)
+  if (*buf || (v80 & 1) == 0)
   {
-    sub_1003A03C4(v24, __p);
-    if (v74 >= 0)
+    sub_1003A03C4(v23, __p);
+    if (v73 >= 0)
     {
-      v30 = __p;
+      v29 = __p;
     }
 
     else
     {
-      v30 = __p[0];
+      v29 = __p[0];
     }
 
-    v31 = [NSString stringWithFormat:@"Failed to create alisha service request. %s", v30];
-    if (v74 < 0)
+    v30 = [NSString stringWithFormat:@"Failed to create alisha service request. %s", v29];
+    if (v73 < 0)
     {
       operator delete(__p[0]);
     }
@@ -1522,20 +1522,20 @@ LABEL_70:
       sub_1004B879C();
     }
 
-    v77 = NSLocalizedDescriptionKey;
-    v78 = v31;
-    v32 = [NSDictionary dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-    if ((v24 + 1016) < 3)
+    v76 = NSLocalizedDescriptionKey;
+    v77 = v30;
+    v31 = [NSDictionary dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+    if ((v23 + 1016) < 3)
     {
-      v33 = -5888;
+      v32 = -5888;
     }
 
     else
     {
-      v33 = -5887;
+      v32 = -5887;
     }
 
-    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:v33 userInfo:v32];
+    v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:v32 userInfo:v31];
   }
 
   else
@@ -1554,20 +1554,20 @@ LABEL_70:
       }
     }
 
-    if ((v82 & 1) == 0)
+    if ((v80 & 1) == 0)
     {
       sub_1000195BC();
     }
 
-    [(NIServerCarKeySession *)self _buildAlishaSession:&v81];
-    v28 = *__p;
+    objc_msgSend__buildAlishaSession_(self);
+    v27 = *__p;
     __p[0] = 0;
     __p[1] = 0;
-    v29 = self->_standaloneAlishaSession.__cntrl_;
-    *p_standaloneAlishaSession = v28;
-    if (v29)
+    v28 = self->_standaloneAlishaSession.__cntrl_;
+    *p_standaloneAlishaSession = v27;
+    if (v28)
     {
-      sub_10000AD84(v29);
+      sub_10000AD84(v28);
       if (__p[1])
       {
         sub_10000AD84(__p[1]);
@@ -1579,7 +1579,7 @@ LABEL_70:
       }
     }
 
-    else if (v28.__ptr_)
+    else if (v27.__ptr_)
     {
 LABEL_39:
       if (!self->_certLogger.__ptr_)
@@ -1589,25 +1589,25 @@ LABEL_39:
         sub_1002C96AC();
       }
 
-      v20 = 0;
+      v19 = 0;
       goto LABEL_66;
     }
 
-    v52 = qword_1009F9820;
+    v51 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004B8F28(v52, v53, v54, v55, v56, v57, v58, v59);
+      sub_1004B8F28(v51, v52, v53, v54, v55, v56, v57, v58);
     }
 
-    v75 = NSLocalizedDescriptionKey;
-    v76 = @"Failed to create alisha standalone session.";
-    v60 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v60];
+    v74 = NSLocalizedDescriptionKey;
+    v75 = @"Failed to create alisha standalone session.";
+    v59 = [NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+    v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v59];
   }
 
 LABEL_66:
 
-  return v20;
+  return v19;
 }
 
 - (id)_configureForLabTestModeSession
@@ -1622,27 +1622,27 @@ LABEL_66:
   configuration = self->_configuration;
   if (!configuration)
   {
-    v125 = +[NSAssertionHandler currentHandler];
-    [v125 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1087 description:{@"Invalid parameter not satisfying: %@", @"_configuration"}];
+    v124 = +[NSAssertionHandler currentHandler];
+    [v124 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1087 description:{@"Invalid parameter not satisfying: %@", @"_configuration"}];
 
     configuration = self->_configuration;
   }
 
   if ([(NICarKeyConfiguration *)configuration configurationType]!= 3)
   {
-    v126 = +[NSAssertionHandler currentHandler];
-    [v126 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1088 description:{@"Invalid parameter not satisfying: %@", @"_configuration.configurationType == _NICarKeyConfigurationTypeLabTestMode"}];
+    v125 = +[NSAssertionHandler currentHandler];
+    [v125 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1088 description:{@"Invalid parameter not satisfying: %@", @"_configuration.configurationType == _NICarKeyConfigurationTypeLabTestMode"}];
   }
 
   if (!self->_alishaSystem.__ptr_)
   {
-    v127 = +[NSAssertionHandler currentHandler];
-    [v127 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1089 description:{@"Invalid parameter not satisfying: %@", @"_alishaSystem"}];
+    v126 = +[NSAssertionHandler currentHandler];
+    [v126 handleFailureInMethod:a2 object:self file:@"NIServerCarKeySession.mm" lineNumber:1089 description:{@"Invalid parameter not satisfying: %@", @"_alishaSystem"}];
   }
 
-  v166.receiver = self;
-  v166.super_class = NIServerCarKeySession;
-  resourcesManager = [(NIServerBaseSession *)&v166 resourcesManager];
+  v165.receiver = self;
+  v165.super_class = NIServerCarKeySession;
+  resourcesManager = [(NIServerBaseSession *)&v165 resourcesManager];
   if ([resourcesManager entitlementGranted:7])
   {
     v7 = sub_10035D02C();
@@ -1656,9 +1656,9 @@ LABEL_66:
         sub_1004B9018(v10, v11, v12, v13, v14, v15, v16, v17);
       }
 
-      v185 = NSLocalizedDescriptionKey;
-      v186 = @"Current test mode undetermined.";
-      v18 = [NSDictionary dictionaryWithObjects:&v186 forKeys:&v185 count:1];
+      v184 = NSLocalizedDescriptionKey;
+      v185 = @"Current test mode undetermined.";
+      v18 = [NSDictionary dictionaryWithObjects:&v185 forKeys:&v184 count:1];
       v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v18];
 
       goto LABEL_17;
@@ -1674,7 +1674,7 @@ LABEL_66:
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v170 = v9;
+      v169 = v9;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#ses-carkey,#lab-test current test mode: %d", buf, 8u);
     }
 
@@ -1683,58 +1683,57 @@ LABEL_66:
       goto LABEL_24;
     }
 
-    ptr = self->_alishaSystem.__ptr_;
     if (sub_100341188())
     {
-      v49 = qword_1009F9820;
+      v48 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B9090(v49, v50, v51, v52, v53, v54, v55, v56);
+        sub_1004B9090(v48, v49, v50, v51, v52, v53, v54, v55);
       }
 
-      v183 = NSLocalizedDescriptionKey;
-      v184 = @"Failed to delete keys.";
-      v57 = [NSDictionary dictionaryWithObjects:&v184 forKeys:&v183 count:1];
-      v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v57];
+      v182 = NSLocalizedDescriptionKey;
+      v183 = @"Failed to delete keys.";
+      v56 = [NSDictionary dictionaryWithObjects:&v183 forKeys:&v182 count:1];
+      v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v56];
 
       goto LABEL_17;
     }
 
-    v60 = sub_10035D02C();
-    if (sub_10035D260(v60, 1))
+    v59 = sub_10035D02C();
+    if (sub_10035D260(v59, 1))
     {
-      v61 = qword_1009F9820;
+      v60 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B9108(v61, v62, v63, v64, v65, v66, v67, v68);
+        sub_1004B9108(v60, v61, v62, v63, v64, v65, v66, v67);
       }
 
-      v181 = NSLocalizedDescriptionKey;
-      v182 = @"Failed to set test mode.";
-      v69 = [NSDictionary dictionaryWithObjects:&v182 forKeys:&v181 count:1];
-      v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v69];
+      v180 = NSLocalizedDescriptionKey;
+      v181 = @"Failed to set test mode.";
+      v68 = [NSDictionary dictionaryWithObjects:&v181 forKeys:&v180 count:1];
+      v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v68];
 
       goto LABEL_17;
     }
 
-    v97 = sub_10035D02C();
-    if ((sub_10035D268(v97) & 0x101FFFFFFFFLL) == 0x10100000000)
+    v96 = sub_10035D02C();
+    if ((sub_10035D268(v96) & 0x101FFFFFFFFLL) == 0x10100000000)
     {
 LABEL_24:
       debugOptions = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v139 = sub_1002C49C8(debugOptions, @"AlishaProtocolVersion", 0x100);
+      v138 = sub_1002C49C8(debugOptions, @"AlishaProtocolVersion", 0x100);
 
       debugOptions2 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v138 = sub_1002C49C8(debugOptions2, @"UWBConfigId", 1);
+      v137 = sub_1002C49C8(debugOptions2, @"UWBConfigId", 1);
 
       debugOptions3 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v137 = sub_1002C49C8(debugOptions3, @"PulseShapeCombo", 0);
+      v136 = sub_1002C49C8(debugOptions3, @"PulseShapeCombo", 0);
 
       debugOptions4 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v136 = sub_1002C49C8(debugOptions4, @"HopConfigBitmask", 0x80);
+      v135 = sub_1002C49C8(debugOptions4, @"HopConfigBitmask", 0x80);
 
       debugOptions5 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v135 = sub_1002C49C8(debugOptions5, @"AnchorHopKey", 0);
+      v134 = sub_1002C49C8(debugOptions5, @"AnchorHopKey", 0);
 
       debugOptions6 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
       v38 = sub_1002C49C8(debugOptions6, @"RFChannel", 1);
@@ -1743,13 +1742,13 @@ LABEL_24:
       v40 = sub_1002C49C8(debugOptions7, @"SyncCodeIndex", 9);
 
       debugOptions8 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v134 = sub_1002C49C8(debugOptions8, @"SessionRANMultiplier", 1);
+      v133 = sub_1002C49C8(debugOptions8, @"SessionRANMultiplier", 1);
 
       debugOptions9 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v133 = sub_1002C49C8(debugOptions9, @"ChapsPerSlot", 6);
+      v132 = sub_1002C49C8(debugOptions9, @"ChapsPerSlot", 6);
 
       debugOptions10 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-      v132 = sub_1002C49C8(debugOptions10, @"SlotsPerRound", 0xC);
+      v131 = sub_1002C49C8(debugOptions10, @"SlotsPerRound", 0xC);
 
       debugOptions11 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
       v45 = sub_1002C49C8(debugOptions11, @"NumResponderNodes", 6);
@@ -1757,22 +1756,22 @@ LABEL_24:
       v46 = v40 - 9;
       if ((v40 - 9) >= 4u)
       {
-        v58 = [NSString stringWithFormat:@"Invalid sync code index %d", v40];
+        v57 = [NSString stringWithFormat:@"Invalid sync code index %d", v40];
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
           sub_1004B91F8();
         }
 
-        v177 = NSLocalizedDescriptionKey;
-        v178 = v58;
-        v59 = [NSDictionary dictionaryWithObjects:&v178 forKeys:&v177 count:1];
-        v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v59];
+        v176 = NSLocalizedDescriptionKey;
+        v177 = v57;
+        v58 = [NSDictionary dictionaryWithObjects:&v177 forKeys:&v176 count:1];
+        v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v58];
       }
 
       else
       {
-        v165 = 0;
         v164 = 0;
+        v163 = 0;
         if (!v38)
         {
           v47 = 5;
@@ -1783,91 +1782,91 @@ LABEL_24:
         {
           v47 = 9;
 LABEL_40:
-          v70 = sub_10035D02C();
-          v71 = *(v70 + 406);
-          v72 = *(v70 + 407);
-          if (v72)
+          v69 = sub_10035D02C();
+          v70 = *(v69 + 406);
+          v71 = *(v69 + 407);
+          if (v71)
           {
-            atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v73 = sub_1003299D8(v71, &v165, &v164, 0);
-          if (v72)
+          v72 = sub_1003299D8(v70, &v164, &v163, 0);
+          if (v71)
           {
-            sub_10000AD84(v72);
+            sub_10000AD84(v71);
           }
 
-          if (v73)
+          if (v72)
           {
-            if (v47 == v165 || HIBYTE(v164) == 1 && v47 == v164)
+            if (v47 == v164 || HIBYTE(v163) == 1 && v47 == v163)
             {
               debugOptions12 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-              v130 = sub_1002C49C8(debugOptions12, @"DisableUWBEncryption", 0) != 0;
+              v129 = sub_1002C49C8(debugOptions12, @"DisableUWBEncryption", 0) != 0;
 
               debugOptions13 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-              v129 = sub_1002C49C8(debugOptions13, @"DisableSecureToF", 0) != 0;
+              v128 = sub_1002C49C8(debugOptions13, @"DisableSecureToF", 0) != 0;
 
               debugOptions14 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-              v131 = sub_1002C49C8(debugOptions14, @"ForceAntennaSelection", 0) != 0;
+              v130 = sub_1002C49C8(debugOptions14, @"ForceAntennaSelection", 0) != 0;
 
-              v77 = v131;
-              if (v131)
+              v76 = v130;
+              if (v130)
               {
                 debugOptions15 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-                v128 = sub_1002C49C8(debugOptions15, @"TxAntennaMask", 0);
+                v127 = sub_1002C49C8(debugOptions15, @"TxAntennaMask", 0);
 
                 debugOptions16 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-                v80 = sub_1002C49C8(debugOptions16, @"RxAntennaMask", 0);
+                v79 = sub_1002C49C8(debugOptions16, @"RxAntennaMask", 0);
 
                 debugOptions17 = [(NICarKeyConfiguration *)self->_configuration debugOptions];
-                v82 = sub_1002C49C8(debugOptions17, @"RxSyncSearchAntennaMask", 0);
+                v81 = sub_1002C49C8(debugOptions17, @"RxSyncSearchAntennaMask", 0);
 
-                v77 = 1;
-                v84 = v129;
-                v83 = v130;
-                v85 = v128;
+                v76 = 1;
+                v83 = v128;
+                v82 = v129;
+                v84 = v127;
               }
 
               else
               {
-                v82 = 0;
-                v80 = 0;
-                v85 = 0;
-                v84 = v129;
-                v83 = v130;
+                v81 = 0;
+                v79 = 0;
+                v84 = 0;
+                v83 = v128;
+                v82 = v129;
               }
 
-              v153[0] = 0x1000000;
-              v153[1] = 305419896;
-              v154 = 1;
-              v155 = v135;
-              v156 = 1;
-              v157 = v131;
-              v158 = v85 | ((v77 & 1) << 8);
-              v159 = v80 | ((v77 & 1) << 8);
-              v160 = v82 | (v77 << 8);
+              v152[0] = 0x1000000;
+              v152[1] = 305419896;
+              v153 = 1;
+              v154 = v134;
+              v155 = 1;
+              v156 = v130;
+              v157 = v84 | ((v76 & 1) << 8);
+              v158 = v79 | ((v76 & 1) << 8);
+              v159 = v81 | (v76 << 8);
+              v160 = v82;
               v161 = v83;
-              v162 = v84;
-              v163 = 5;
-              v141 = -2023406815;
-              v142 = v38;
-              v143 = v46;
-              v144 = v139;
-              v145 = v138;
-              v146 = v134;
-              v147 = v133;
-              v148 = v132;
-              v149 = v45;
+              v162 = 5;
+              v140 = -2023406815;
+              v141 = v38;
+              v142 = v46;
+              v143 = v138;
+              v144 = v137;
+              v145 = v133;
+              v146 = v132;
+              v147 = v131;
+              v148 = v45;
+              v149 = v135;
               v150 = v136;
-              v151 = v137;
-              v152 = 0;
-              +[NIServerCarKeySession _aopJobConfigWithTimeouts];
-              *&v107 = sub_10019CFAC(&v141, 102, &v140, v153, buf).n128_u64[0];
+              v151 = 0;
+              objc_msgSend__aopJobConfigWithTimeouts(NIServerCarKeySession);
+              *&v106 = sub_10019CFAC(&v140, 102, &v139, v152, buf).n128_u64[0];
               p_standaloneAlishaSession = &self->_standaloneAlishaSession;
-              v109 = self->_standaloneAlishaSession.__ptr_;
-              if (v109)
+              ptr = self->_standaloneAlishaSession.__ptr_;
+              if (ptr)
               {
-                sub_10033B864(v109);
+                sub_10033B864(ptr);
                 cntrl = self->_standaloneAlishaSession.__cntrl_;
                 p_standaloneAlishaSession->__ptr_ = 0;
                 self->_standaloneAlishaSession.__cntrl_ = 0;
@@ -1877,28 +1876,29 @@ LABEL_40:
                 }
               }
 
-              [(NIServerCarKeySession *)self _buildAlishaSession:buf, v107];
-              v111 = v140;
-              v140 = 0;
-              v112 = self->_standaloneAlishaSession.__cntrl_;
-              *p_standaloneAlishaSession = v111;
-              if (v112)
+              objc_msgSend__buildAlishaSession_(self, v106);
+              v110 = v139;
+              v139.__ptr_ = 0;
+              v139.__cntrl_ = 0;
+              v111 = self->_standaloneAlishaSession.__cntrl_;
+              *p_standaloneAlishaSession = v110;
+              if (v111)
               {
-                sub_10000AD84(v112);
-                if (v140.__cntrl_)
+                sub_10000AD84(v111);
+                if (v139.__cntrl_)
                 {
-                  sub_10000AD84(v140.__cntrl_);
+                  sub_10000AD84(v139.__cntrl_);
                 }
 
-                v113 = p_standaloneAlishaSession->__ptr_;
+                v112 = p_standaloneAlishaSession->__ptr_;
               }
 
               else
               {
-                v113 = v111.__ptr_;
+                v112 = v110.__ptr_;
               }
 
-              if (v113)
+              if (v112)
               {
                 if (!self->_certLogger.__ptr_)
                 {
@@ -1912,76 +1912,76 @@ LABEL_40:
 
               else
               {
-                v114 = qword_1009F9820;
+                v113 = qword_1009F9820;
                 if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
                 {
-                  sub_1004B92D8(v114, v115, v116, v117, v118, v119, v120, v121);
+                  sub_1004B92D8(v113, v114, v115, v116, v117, v118, v119, v120);
                 }
 
-                v167 = NSLocalizedDescriptionKey;
-                v168 = @"Failed to create standalone session.";
-                v122 = [NSDictionary dictionaryWithObjects:&v168 forKeys:&v167 count:1];
-                v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v122];
+                v166 = NSLocalizedDescriptionKey;
+                v167 = @"Failed to create standalone session.";
+                v121 = [NSDictionary dictionaryWithObjects:&v167 forKeys:&v166 count:1];
+                v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v121];
               }
             }
 
             else
             {
-              v123 = [NSString stringWithFormat:@"RF channel %d not allowed", v38];
+              v122 = [NSString stringWithFormat:@"RF channel %d not allowed", v38];
               if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
               {
                 sub_1004B91F8();
               }
 
-              v171 = NSLocalizedDescriptionKey;
-              v172 = v123;
-              v124 = [NSDictionary dictionaryWithObjects:&v172 forKeys:&v171 count:1];
-              v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v124];
+              v170 = NSLocalizedDescriptionKey;
+              v171 = v122;
+              v123 = [NSDictionary dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+              v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v123];
             }
           }
 
           else
           {
-            v88 = qword_1009F9820;
+            v87 = qword_1009F9820;
             if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
             {
-              sub_1004B9260(v88, v89, v90, v91, v92, v93, v94, v95);
+              sub_1004B9260(v87, v88, v89, v90, v91, v92, v93, v94);
             }
 
-            v173 = NSLocalizedDescriptionKey;
-            v174 = @"Could not get currently allowed RF channels";
-            v96 = [NSDictionary dictionaryWithObjects:&v174 forKeys:&v173 count:1];
-            v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v96];
+            v172 = NSLocalizedDescriptionKey;
+            v173 = @"Could not get currently allowed RF channels";
+            v95 = [NSDictionary dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+            v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v95];
           }
 
           goto LABEL_17;
         }
 
-        v86 = [NSString stringWithFormat:@"Invalid specified RF channel %d", v38];
+        v85 = [NSString stringWithFormat:@"Invalid specified RF channel %d", v38];
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
           sub_1004B91F8();
         }
 
-        v175 = NSLocalizedDescriptionKey;
-        v176 = v86;
-        v87 = [NSDictionary dictionaryWithObjects:&v176 forKeys:&v175 count:1];
-        v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v87];
+        v174 = NSLocalizedDescriptionKey;
+        v175 = v85;
+        v86 = [NSDictionary dictionaryWithObjects:&v175 forKeys:&v174 count:1];
+        v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v86];
       }
     }
 
     else
     {
-      v98 = qword_1009F9820;
+      v97 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004B9180(v98, v99, v100, v101, v102, v103, v104, v105);
+        sub_1004B9180(v97, v98, v99, v100, v101, v102, v103, v104);
       }
 
-      v179 = NSLocalizedDescriptionKey;
-      v180 = @"Failed to enable test mode.";
-      v106 = [NSDictionary dictionaryWithObjects:&v180 forKeys:&v179 count:1];
-      v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v106];
+      v178 = NSLocalizedDescriptionKey;
+      v179 = @"Failed to enable test mode.";
+      v105 = [NSDictionary dictionaryWithObjects:&v179 forKeys:&v178 count:1];
+      v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v105];
     }
   }
 
@@ -1993,9 +1993,9 @@ LABEL_40:
       sub_1004B8FA0(v20, v21, v22, v23, v24, v25, v26, v27);
     }
 
-    v187 = NSLocalizedDescriptionKey;
-    v188 = @"Not authorized.";
-    v28 = [NSDictionary dictionaryWithObjects:&v188 forKeys:&v187 count:1];
+    v186 = NSLocalizedDescriptionKey;
+    v187 = @"Not authorized.";
+    v28 = [NSDictionary dictionaryWithObjects:&v187 forKeys:&v186 count:1];
     v19 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:v28];
   }
 
@@ -2135,7 +2135,7 @@ LABEL_17:
   [@"com.apple.nearbyd" UTF8String];
   if ((os_variant_allows_internal_security_policies() & 1) == 0)
   {
-    v8 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:0];
+    v7 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5888 userInfo:0];
     goto LABEL_16;
   }
 
@@ -2156,23 +2156,22 @@ LABEL_17:
     sub_1004B93E4();
   }
 
-  ptr = self->_alishaSystem.__ptr_;
-  sub_100340940(self->_passthroughParams.passthroughUwbSessionId.var0.__val_, v35);
-  if (v35[0])
+  sub_100340940(self->_passthroughParams.passthroughUwbSessionId.var0.__val_, &v34);
+  if (v34)
   {
-    sub_1003A03C4(v35[0], buf);
-    if (v41 >= 0)
+    sub_1003A03C4(v34, buf);
+    if (v40 >= 0)
     {
-      v5 = buf;
+      v4 = buf;
     }
 
     else
     {
-      v5 = *buf;
+      v4 = *buf;
     }
 
-    v6 = [NSString stringWithFormat:@"Failed to get key for passthrough session. Error: %s", v5];
-    if (SHIBYTE(v41) < 0)
+    v5 = [NSString stringWithFormat:@"Failed to get key for passthrough session. Error: %s", v4];
+    if (SHIBYTE(v40) < 0)
     {
       operator delete(*buf);
     }
@@ -2182,54 +2181,54 @@ LABEL_17:
       sub_1004B879C();
     }
 
-    v45 = NSLocalizedDescriptionKey;
-    v46 = v6;
-    v7 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-    v8 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v7];
+    v44 = NSLocalizedDescriptionKey;
+    v45 = v5;
+    v6 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v7 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v6];
 
     goto LABEL_16;
   }
 
-  v10 = qword_1009F9820;
+  v9 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#ses-carkey,GetKey operation succeeded. Proceeding.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#ses-carkey,GetKey operation succeeded. Proceeding.", buf, 2u);
   }
 
   if (self->_passthroughParams.bypassBluetoothTimesync)
   {
-    v11 = qword_1009F9820;
+    v10 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#ses-carkey,DCK time sync bypass", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#ses-carkey,DCK time sync bypass", buf, 2u);
     }
 
-    v12 = 3000000.0;
+    v11 = 3000000.0;
     if (self->_passthroughParams.anchorSimulation)
     {
-      v12 = 250000.0;
+      v11 = 250000.0;
     }
 
-    sub_100341A28(self->_standaloneAlishaSession.__ptr_, llround(v12), buf);
-    v13 = *buf;
+    sub_100341A28(self->_standaloneAlishaSession.__ptr_, llround(v11), buf);
+    v12 = *buf;
     if (*buf)
     {
 LABEL_27:
-      sub_1003A03C4(v13, buf);
-      if (v41 >= 0)
+      sub_1003A03C4(v12, buf);
+      if (v40 >= 0)
       {
-        v14 = buf;
+        v13 = buf;
       }
 
       else
       {
-        v14 = *buf;
+        v13 = *buf;
       }
 
-      v15 = [NSString stringWithFormat:@"Failed to start Alisha standalone ranging session. Error: %s", v14];
-      if (SHIBYTE(v41) < 0)
+      v14 = [NSString stringWithFormat:@"Failed to start Alisha standalone ranging session. Error: %s", v13];
+      if (SHIBYTE(v40) < 0)
       {
         operator delete(*buf);
       }
@@ -2239,10 +2238,10 @@ LABEL_27:
         sub_1004B950C();
       }
 
-      v36 = NSLocalizedDescriptionKey;
-      v37 = v15;
-      v16 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-      v8 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v16];
+      v35 = NSLocalizedDescriptionKey;
+      v36 = v14;
+      v15 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v7 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v15];
 
       goto LABEL_16;
     }
@@ -2266,7 +2265,7 @@ LABEL_27:
     sub_1004B9468();
   }
 
-  v18 = sub_1002C5608(&self->_passthroughParams.dckTimeSyncBtEvent, engaged);
+  v17 = sub_1002C5608(&self->_passthroughParams.dckTimeSyncBtEvent, engaged);
   if (!self->_passthroughParams.dckTimeSyncUwbDeviceTimeUsec.__engaged_)
   {
     sub_1000195BC();
@@ -2278,68 +2277,68 @@ LABEL_27:
   }
 
   val = self->_passthroughParams.dckTimeSyncUwbDeviceTimeUsec.var0.__val_;
-  v20 = self->_passthroughParams.passthroughUwbTime0.var0.__val_;
-  if (v20 >= val)
+  v19 = self->_passthroughParams.passthroughUwbTime0.var0.__val_;
+  if (v19 >= val)
   {
-    v30 = v18;
-    v31 = v20 - val + v18;
-    v32 = qword_1009F9820;
+    v29 = v17;
+    v30 = v19 - val + v17;
+    v31 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      *&buf[4] = v30;
-      v39 = 2048;
-      v40 = val;
-      v41 = 2048;
-      v42 = v20;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#ses-carkey,DCK time sync BT event = %lluus, DCK time sync UWB device time = %lluus, UWB Time 0 = %lluus", buf, 0x20u);
+      *&buf[4] = v29;
+      v38 = 2048;
+      v39 = val;
+      v40 = 2048;
+      v41 = v19;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#ses-carkey,DCK time sync BT event = %lluus, DCK time sync UWB device time = %lluus, UWB Time 0 = %lluus", buf, 0x20u);
     }
 
     if (self->_passthroughParams.anchorSimulation)
     {
-      v33 = qword_1009F9820;
+      v32 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         *&buf[4] = 20000;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#ses-carkey,Anchor simulation start time leeway of %lluus", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "#ses-carkey,Anchor simulation start time leeway of %lluus", buf, 0xCu);
       }
 
-      v31 -= 20000;
+      v30 -= 20000;
     }
 
-    v13 = sub_1003426D0(self->_standaloneAlishaSession.__ptr_, v31);
-    if (v13)
+    v12 = sub_1003426D0(self->_standaloneAlishaSession.__ptr_, v30);
+    if (v12)
     {
       goto LABEL_27;
     }
 
 LABEL_51:
-    v34 = qword_1009F9820;
+    v33 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#ses-carkey,Range enable succeeded.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#ses-carkey,Range enable succeeded.", buf, 2u);
     }
 
-    v8 = 0;
+    v7 = 0;
     goto LABEL_16;
   }
 
-  v21 = qword_1009F9820;
+  v20 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004B9494(v21, v22, v23, v24, v25, v26, v27, v28);
+    sub_1004B9494(v20, v21, v22, v23, v24, v25, v26, v27);
   }
 
-  v43 = NSLocalizedDescriptionKey;
-  v44 = @"UWB Time 0 must be greater than UWB Device Time from the DCK time sync event.";
-  v29 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-  v8 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v29];
+  v42 = NSLocalizedDescriptionKey;
+  v43 = @"UWB Time 0 must be greater than UWB Device Time from the DCK time sync event.";
+  v28 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  v7 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v28];
 
 LABEL_16:
 
-  return v8;
+  return v7;
 }
 
 - (id)_pausePassthroughOrLabTestModeSession
@@ -2407,17 +2406,17 @@ LABEL_16:
   v3 = qword_1009F9820;
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#ses-carkey,pause owner session", buf, 2u);
+    LOWORD(buf) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#ses-carkey,pause owner session", &buf, 2u);
   }
 
   ptr = self->_alishaManager.__ptr_;
   if (ptr)
   {
-    sub_1003A59B0(ptr, buf);
-    if (*buf)
+    sub_1003A59B0(ptr, &buf);
+    if (buf)
     {
-      sub_1003A03C4(*buf, __p);
+      sub_1003A03C4(buf, __p);
       if (v12 >= 0)
       {
         v5 = __p;
@@ -2467,8 +2466,8 @@ LABEL_16:
     v9 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#ses-carkey,Pause but no Alisha manager. Returning.", buf, 2u);
+      LOWORD(buf) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#ses-carkey,Pause but no Alisha manager. Returning.", &buf, 2u);
     }
 
     v8 = 0;
@@ -2909,7 +2908,7 @@ LABEL_12:
       v97 = unsignedIntegerValue10;
       v98 = unsignedIntegerValue11;
       v99 = (v75 && v66) & 0xFFFFC0FF | ((unsignedIntValue2 & 0x3F) << 8) | v65;
-      +[NIServerCarKeySession _aopJobConfigWithTimeouts];
+      objc_msgSend__aopJobConfigWithTimeouts(NIServerCarKeySession);
       sub_10019CFAC(&v88, 102, v87, &v100, buf);
       memcpy(&retstr->var1, buf, 0x240uLL);
       retstr->var0 = 0;
@@ -3072,11 +3071,12 @@ LABEL_13:
 
 - (void)_handleTimeoutEvent:(int)event time:(double)time
 {
+  v5 = *&event;
   dispatch_assert_queue_V2(self->_clientQueue);
   v7 = qword_1009F9820;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100004A08(__p, (&off_1009A3088)[event]);
+    sub_100004A08(__p, (&off_1009A3088)[v5]);
     v8 = v20 >= 0 ? __p : __p[0];
     containerUniqueIdentifier = self->_containerUniqueIdentifier;
     *buf = 136315650;
@@ -3095,7 +3095,7 @@ LABEL_13:
   ptr = self->_alishaManager.__ptr_;
   if (ptr)
   {
-    sub_1003A6444(ptr, event, buf);
+    sub_1003A6444(ptr, v5, buf);
     v11 = *buf;
     if (*buf)
     {

@@ -2,8 +2,10 @@
 - (MFiAccessoryConnection)init;
 - (id)accClientPropertyStringFromCharacteristicString:(id)string;
 - (id)accConnTypeToString:(unsigned __int8)string;
+- (void)activateAuthEndpointWithType:(unsigned __int8)type andChannel:(id)channel;
 - (void)activateConnectionWithIdentifier:(id)identifier;
 - (void)activateGenericEndpoint;
+- (void)createAuthEndpointWithType:(unsigned __int8)type channel:(id)channel;
 - (void)deactivate;
 - (void)dealloc;
 - (void)sendDataToGenericEndpoint:(id)endpoint withProperty:(id)property;
@@ -49,6 +51,14 @@
   }
 }
 
+- (void)activateAuthEndpointWithType:(unsigned __int8)type andChannel:(id)channel
+{
+  typeCopy = type;
+  channelCopy = channel;
+  [(MFiAccessoryConnection *)self setUpPeerChannel:channelCopy];
+  [(MFiAccessoryConnection *)self createAuthEndpointWithType:typeCopy channel:channelCopy];
+}
+
 - (void)activateGenericEndpoint
 {
   v3 = qword_1000DDBC8;
@@ -62,6 +72,43 @@
   v5 = [v4 createEndpointWithTransportType:3 andProtocol:18 andIdentifier:0 andDataOutHandler:0 forConnectionWithUUID:self->_connectionUUID publishConnection:1];
   genericMFiEndpointUUID = self->_genericMFiEndpointUUID;
   self->_genericMFiEndpointUUID = v5;
+}
+
+- (void)createAuthEndpointWithType:(unsigned __int8)type channel:(id)channel
+{
+  typeCopy = type;
+  channelCopy = channel;
+  v7 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    v9 = [(MFiAccessoryConnection *)self accConnTypeToString:typeCopy];
+    *buf = 138412290;
+    v19 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Creating accTransportClient endpoint for auth with type %@", buf, 0xCu);
+  }
+
+  if (typeCopy == 1)
+  {
+    v10 = 14;
+  }
+
+  else
+  {
+    v10 = 4 * (typeCopy == 2);
+  }
+
+  v11 = +[ACCTransportClient sharedClient];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10002D6E0;
+  v16[3] = &unk_1000BDB78;
+  v17 = channelCopy;
+  connectionUUID = self->_connectionUUID;
+  v13 = channelCopy;
+  v14 = [v11 createEndpointWithTransportType:3 andProtocol:v10 andIdentifier:0 andDataOutHandler:v16 forConnectionWithUUID:connectionUUID publishConnection:1];
+  endpointUUID = self->_endpointUUID;
+  self->_endpointUUID = v14;
 }
 
 - (void)sendDataToGenericEndpoint:(id)endpoint withProperty:(id)property

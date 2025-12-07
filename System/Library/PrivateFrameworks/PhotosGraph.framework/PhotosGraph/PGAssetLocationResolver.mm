@@ -83,7 +83,7 @@ void __113__PGAssetLocationResolver_closestAddressNodeFromMomentNodes_toLocation
 
 + (id)closestAssetLocationForAsset:(id)asset inAssetCollection:(id)collection
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   collectionCopy = collection;
   clsLocation = [assetCopy clsLocation];
@@ -99,8 +99,8 @@ void __113__PGAssetLocationResolver_closestAddressNodeFromMomentNodes_toLocation
 
   [librarySpecificFetchOptions setIncludeGuestAssets:1];
   v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:1];
-  v47[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+  v46[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
   [librarySpecificFetchOptions setSortDescriptors:v13];
 
   v14 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:collectionCopy options:librarySpecificFetchOptions];
@@ -108,8 +108,8 @@ void __113__PGAssetLocationResolver_closestAddressNodeFromMomentNodes_toLocation
   if (v15 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v16 = v15;
-    v41 = librarySpecificFetchOptions;
-    v42 = collectionCopy;
+    v40 = librarySpecificFetchOptions;
+    v41 = collectionCopy;
     creationDate = [assetCopy creationDate];
     [creationDate timeIntervalSinceReferenceDate];
     v19 = v18;
@@ -119,10 +119,10 @@ void __113__PGAssetLocationResolver_closestAddressNodeFromMomentNodes_toLocation
     aBlock[1] = 3221225472;
     aBlock[2] = __74__PGAssetLocationResolver_closestAssetLocationForAsset_inAssetCollection___block_invoke;
     aBlock[3] = &unk_2788821A0;
-    v40 = v14;
+    v39 = v14;
     v21 = v14;
-    v45 = v21;
-    v46 = v19;
+    v44 = v21;
+    v45 = v19;
     v22 = _Block_copy(aBlock);
     v23 = v20;
     v24 = v22;
@@ -130,7 +130,7 @@ void __113__PGAssetLocationResolver_closestAddressNodeFromMomentNodes_toLocation
     v26 = v16 > 0;
     v27 = v16 + 1;
     v28 = v16 - 1;
-    v43 = v23;
+    v42 = v23;
     if (v16 < 1)
     {
       if (v16 >= v23)
@@ -139,19 +139,19 @@ void __113__PGAssetLocationResolver_closestAddressNodeFromMomentNodes_toLocation
 LABEL_32:
 
         v8 = 0;
-        collectionCopy = v42;
-        v14 = v40;
-        librarySpecificFetchOptions = v41;
+        collectionCopy = v41;
+        v14 = v39;
+        librarySpecificFetchOptions = v40;
         goto LABEL_33;
       }
 
-      v39 = assetCopy;
+      v38 = assetCopy;
       v30 = 1.79769313e308;
     }
 
     else
     {
-      v39 = assetCopy;
+      v38 = assetCopy;
       v29 = v23;
       v30 = (*(v22 + 2))(v22, v16 - 1);
       if (v16 >= v29)
@@ -162,7 +162,7 @@ LABEL_11:
         {
           v32 = v25 && v26 ? v30 < v31 : !v25;
           v33 = v32 ? v28 : v27;
-          v34 = [v21 objectAtIndexedSubscript:{v33, v39}];
+          v34 = [v21 objectAtIndexedSubscript:{v33, v38}];
           clsLocation2 = [v34 clsLocation];
           if (clsLocation2)
           {
@@ -185,7 +185,7 @@ LABEL_11:
 
           else
           {
-            if (v27 >= v43)
+            if (v27 >= v42)
             {
               v25 = 0;
             }
@@ -209,7 +209,7 @@ LABEL_11:
         v9 = clsLocation2;
 
 LABEL_31:
-        assetCopy = v39;
+        assetCopy = v38;
         goto LABEL_32;
       }
     }
@@ -222,7 +222,6 @@ LABEL_31:
 LABEL_33:
 
 LABEL_34:
-  v37 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

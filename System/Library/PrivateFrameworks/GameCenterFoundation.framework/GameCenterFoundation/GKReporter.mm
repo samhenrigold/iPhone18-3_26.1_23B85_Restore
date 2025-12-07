@@ -59,7 +59,7 @@ uint64_t __22__GKReporter_reporter__block_invoke()
 
 - (void)reportEvent:(id)event payload:(id)payload
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   payloadCopy = payload;
   if (!os_log_GKGeneral)
@@ -70,30 +70,27 @@ uint64_t __22__GKReporter_reporter__block_invoke()
   v8 = os_log_GKTrace;
   if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = eventCopy;
-    v12 = 2112;
-    v13 = payloadCopy;
-    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_INFO, "GKReporter: report domain: %@, payload: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = eventCopy;
+    v11 = 2112;
+    v12 = payloadCopy;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_INFO, "GKReporter: report domain: %@, payload: %@", &v9, 0x16u);
   }
 
   AnalyticsSendEvent();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = @"eventType";
-  v12[0] = type;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"eventType";
+  v11[0] = type;
   v6 = MEMORY[0x277CBEAC0];
   typeCopy = type;
   eventCopy = event;
-  v9 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v9 = [v6 dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   [(GKReporter *)self reportEvent:eventCopy payload:v9];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type startTime:(id)time refApp:(id)app
@@ -115,66 +112,63 @@ uint64_t __22__GKReporter_reporter__block_invoke()
 
 - (void)reportEvent:(id)event type:(id)type bundleID:(id)d
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = @"eventType";
-  v13[1] = @"bundleID";
-  v14[0] = type;
-  v14[1] = d;
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = @"eventType";
+  v12[1] = @"bundleID";
+  v13[0] = type;
+  v13[1] = d;
   v7 = MEMORY[0x277CBEAC0];
   dCopy = d;
   typeCopy = type;
   eventCopy = event;
-  v11 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v11 = [v7 dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   AnalyticsSendEvent();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type adamID:(id)d
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if (d)
   {
-    v17[0] = @"eventType";
-    v17[1] = @"adamID";
-    v18[0] = type;
+    v16[0] = @"eventType";
+    v16[1] = @"adamID";
+    v17[0] = type;
     typeCopy = type;
     eventCopy = event;
     stringValue = [d stringValue];
-    v18[1] = stringValue;
-    eventCopy2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[1] = stringValue;
+    eventCopy2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
     [(GKReporter *)self reportEvent:eventCopy payload:eventCopy2];
   }
 
   else
   {
-    v15 = @"eventType";
+    v14 = @"eventType";
     typeCopy2 = type;
     v12 = MEMORY[0x277CBEAC0];
     typeCopy3 = type;
     eventCopy2 = event;
-    stringValue = [v12 dictionaryWithObjects:&typeCopy2 forKeys:&v15 count:1];
+    stringValue = [v12 dictionaryWithObjects:&typeCopy2 forKeys:&v14 count:1];
 
     [(GKReporter *)self reportEvent:eventCopy2 payload:stringValue];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type payload:(id)payload
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   payloadCopy = payload;
   v10 = payloadCopy;
   if (type)
   {
-    v16 = @"eventType";
-    v17[0] = type;
+    v15 = @"eventType";
+    v16[0] = type;
     v11 = MEMORY[0x277CBEAC0];
     typeCopy = type;
-    v13 = [v11 dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v13 = [v11 dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
     v14 = [v13 mutableCopy];
     [v14 addEntriesFromDictionary:v10];
@@ -186,119 +180,112 @@ uint64_t __22__GKReporter_reporter__block_invoke()
   }
 
   [(GKReporter *)self reportEvent:eventCopy payload:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type friendsPlayedThisGame:(id)game
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"eventType";
-  v14[1] = @"friendsPlayedThisGame";
-  v15[0] = type;
-  v15[1] = game;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"eventType";
+  v13[1] = @"friendsPlayedThisGame";
+  v14[0] = type;
+  v14[1] = game;
   v8 = MEMORY[0x277CBEAC0];
   gameCopy = game;
   typeCopy = type;
   eventCopy = event;
-  v12 = [v8 dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v12 = [v8 dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   [(GKReporter *)self reportEvent:eventCopy payload:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type count:(int64_t)count
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"eventType";
-  v14[1] = @"count";
-  v15[0] = type;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"eventType";
+  v13[1] = @"count";
+  v14[0] = type;
   v8 = MEMORY[0x277CCABB0];
   typeCopy = type;
   eventCopy = event;
   v11 = [v8 numberWithInteger:count];
-  v15[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   [(GKReporter *)self reportEvent:eventCopy payload:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type inboxFriendRequestCount:(int64_t)count
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"eventType";
-  v14[1] = @"inboxFriendRequestCount";
-  v15[0] = type;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"eventType";
+  v13[1] = @"inboxFriendRequestCount";
+  v14[0] = type;
   v8 = MEMORY[0x277CCABB0];
   typeCopy = type;
   eventCopy = event;
   v11 = [v8 numberWithInteger:count];
-  v15[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   [(GKReporter *)self reportEvent:eventCopy payload:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event type:(id)type scoreRank:(id)rank
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"eventType";
-  v14[1] = @"scoreRank";
-  v15[0] = type;
-  v15[1] = rank;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"eventType";
+  v13[1] = @"scoreRank";
+  v14[0] = type;
+  v14[1] = rank;
   v8 = MEMORY[0x277CBEAC0];
   rankCopy = rank;
   typeCopy = type;
   eventCopy = event;
-  v12 = [v8 dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v12 = [v8 dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   [(GKReporter *)self reportEvent:eventCopy payload:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event target:(id)target keyPath:(id)path
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   eventCopy = event;
   v10 = [target valueForKeyPath:pathCopy];
-  v14 = pathCopy;
+  v13 = pathCopy;
   v11 = [v10 description];
-  v15[0] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   [(GKReporter *)self reportEvent:eventCopy payload:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEvent:(id)event reportable:(id)reportable
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   reportableCopy = reportable;
   reportableKeyPaths = [objc_opt_class() reportableKeyPaths];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [reportableKeyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [reportableKeyPaths countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(reportableKeyPaths);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         v13 = +[GKReporter reporter];
         [v13 reportEvent:eventCopy target:reportableCopy keyPath:v12];
 
@@ -306,13 +293,11 @@ uint64_t __22__GKReporter_reporter__block_invoke()
       }
 
       while (v9 != v11);
-      v9 = [reportableKeyPaths countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [reportableKeyPaths countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordAuthenticateResponseTimestamp
@@ -463,21 +448,19 @@ uint64_t __22__GKReporter_reporter__block_invoke()
 
 - (void)reportScreenTimeEventForType:(id)type withStartTimestamp:(double)timestamp
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v7 = CFAbsoluteTimeGetCurrent() - timestamp;
   if ([(GKReporter *)self isTimeSpanValid:v7 maxDuration:600.0])
   {
-    v11[0] = @"eventType";
-    v11[1] = @"timeSpan";
-    v12[0] = typeCopy;
+    v10[0] = @"eventType";
+    v10[1] = @"timeSpan";
+    v11[0] = typeCopy;
     v8 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-    v12[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v11[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
     [(GKReporter *)self reportEvent:@"com.apple.GameKit.GameLayerDashboard" payload:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportOnboardingEventForType:(id)type withStartTimestamp:(double)timestamp refApp:(id)app
@@ -510,22 +493,20 @@ uint64_t __22__GKReporter_reporter__block_invoke()
 
 - (void)reportDurationForEvent:(id)event eventType:(id)type withStartTimestamp:(double)timestamp
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   typeCopy = type;
   v10 = CFAbsoluteTimeGetCurrent() - timestamp;
   if ([(GKReporter *)self isTimeSpanValid:v10 maxDuration:3600.0])
   {
-    v14[0] = @"eventType";
-    v14[1] = @"timeSpan";
-    v15[0] = typeCopy;
+    v13[0] = @"eventType";
+    v13[1] = @"timeSpan";
+    v14[0] = typeCopy;
     v11 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
-    v15[1] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[1] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
     [(GKReporter *)self reportEvent:eventCopy payload:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportPlayerAuthenticationFailure:(id)failure

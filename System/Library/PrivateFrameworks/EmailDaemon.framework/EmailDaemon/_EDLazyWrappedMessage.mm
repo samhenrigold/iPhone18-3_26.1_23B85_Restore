@@ -23,15 +23,15 @@
 
 - (int64_t)databaseID
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   result = self->super._databaseID;
   if (result == *MEMORY[0x1E699A728])
   {
     messagePersistence = [(_EDLazyWrappedMessage *)self messagePersistence];
     message = [(_EDWrappedMessage *)self message];
     objectID = [message objectID];
-    v12[0] = objectID;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = objectID;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v8 = [messagePersistence databaseIDsDictionaryForMessageObjectIDs:v7];
     keyEnumerator = [v8 keyEnumerator];
     nextObject = [keyEnumerator nextObject];
@@ -41,10 +41,9 @@
       self->super._databaseID = [nextObject longLongValue];
     }
 
-    result = self->super._databaseID;
+    return self->super._databaseID;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 

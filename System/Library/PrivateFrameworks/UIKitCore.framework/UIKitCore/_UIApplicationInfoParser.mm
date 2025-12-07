@@ -357,8 +357,8 @@ LABEL_26:
             }
 
             v75 = [v61 objectForKeyedSubscript:@"CFBundleTypeRole"];
-            v76 = [v75 isEqualToString:@"Viewer"];
-            if ((v76 & 1) != 0 || [v75 isEqualToString:@"Editor"])
+            isEqualToString = objc_msgSend_isEqualToString_(v75);
+            if ((isEqualToString & 1) != 0 || objc_msgSend_isEqualToString_(v75))
             {
               v104 = v75;
               v109 = 0u;
@@ -371,7 +371,7 @@ LABEL_26:
               {
                 v79 = v78;
                 v80 = *v108;
-                if (v76)
+                if (isEqualToString)
                 {
                   v81 = v100;
                 }
@@ -598,14 +598,14 @@ LABEL_32:
   }
 
   v7 = v4;
-  if ([(__CFString *)v4 isEqualToString:@"Automatic"])
+  if (objc_msgSend_isEqualToString_(v4))
   {
     self->_supportedUserInterfaceStyle = 0;
   }
 
   else
   {
-    if ([(__CFString *)v7 isEqualToString:@"Dark"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v6 = 2;
     }

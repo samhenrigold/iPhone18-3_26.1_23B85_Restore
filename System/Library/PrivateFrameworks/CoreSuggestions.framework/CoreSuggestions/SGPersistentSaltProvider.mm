@@ -15,28 +15,28 @@
 
 - (void)_deleteSalt
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v14[0]) = 0;
-    _os_log_impl(&dword_1BA729000, v3, OS_LOG_TYPE_INFO, "Will delete salt", v14, 2u);
+    LOWORD(v13[0]) = 0;
+    _os_log_impl(&dword_1BA729000, v3, OS_LOG_TYPE_INFO, "Will delete salt", v13, 2u);
   }
 
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697ABD0];
-  v15[0] = *MEMORY[0x1E697AFF8];
-  v15[1] = v5;
+  v14[0] = *MEMORY[0x1E697AFF8];
+  v14[1] = v5;
   serviceIdentifier = self->_serviceIdentifier;
   accessGroup = self->_accessGroup;
-  v16[0] = v4;
-  v16[1] = accessGroup;
+  v15[0] = v4;
+  v15[1] = accessGroup;
   v8 = *MEMORY[0x1E697AEB0];
-  v15[2] = *MEMORY[0x1E697AE88];
-  v15[3] = v8;
-  v16[2] = serviceIdentifier;
-  v16[3] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v14[2] = *MEMORY[0x1E697AE88];
+  v14[3] = v8;
+  v15[2] = serviceIdentifier;
+  v15[3] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
   v10 = SecItemDelete(v9);
   if (v10)
   {
@@ -44,18 +44,16 @@
     v12 = sgLogHandle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14[0] = 67109120;
-      v14[1] = v11;
-      _os_log_error_impl(&dword_1BA729000, v12, OS_LOG_TYPE_ERROR, "Error deleting salt: %d", v14, 8u);
+      v13[0] = 67109120;
+      v13[1] = v11;
+      _os_log_error_impl(&dword_1BA729000, v12, OS_LOG_TYPE_ERROR, "Error deleting salt: %d", v13, 8u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createSalt
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -64,35 +62,35 @@
   }
 
   *buf = 0u;
-  v26 = 0u;
+  v25 = 0u;
   arc4random_buf(buf, 0x20uLL);
   v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:32];
   v5 = [SGPersistentSaltProvider hexStringForData:v4];
   v6 = [v5 dataUsingEncoding:4];
 
   v7 = *MEMORY[0x1E697AFF8];
-  v23[0] = *MEMORY[0x1E697B3C0];
-  v23[1] = v7;
+  v22[0] = *MEMORY[0x1E697B3C0];
+  v22[1] = v7;
   v8 = *MEMORY[0x1E697B008];
-  v24[0] = v6;
-  v24[1] = v8;
+  v23[0] = v6;
+  v23[1] = v8;
   v9 = *MEMORY[0x1E697AE88];
-  v23[2] = *MEMORY[0x1E697ABD0];
-  v23[3] = v9;
+  v22[2] = *MEMORY[0x1E697ABD0];
+  v22[3] = v9;
   serviceIdentifier = self->_serviceIdentifier;
-  v24[2] = self->_accessGroup;
-  v24[3] = serviceIdentifier;
-  v23[4] = *MEMORY[0x1E697AD00];
+  v23[2] = self->_accessGroup;
+  v23[3] = serviceIdentifier;
+  v22[4] = *MEMORY[0x1E697AD00];
   v11 = [MEMORY[0x1E696AD98] numberWithInt:os_variant_has_internal_diagnostics() ^ 1];
   v12 = *MEMORY[0x1E697ABD8];
   v13 = *MEMORY[0x1E697ABE0];
-  v24[4] = v11;
-  v24[5] = v13;
+  v23[4] = v11;
+  v23[5] = v13;
   v14 = *MEMORY[0x1E697AEB0];
-  v23[5] = v12;
-  v23[6] = v14;
-  v24[6] = MEMORY[0x1E695E118];
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
+  v22[5] = v12;
+  v22[6] = v14;
+  v23[6] = MEMORY[0x1E695E118];
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:7];
 
   v16 = SecItemAdd(v15, 0);
   if (v16)
@@ -101,9 +99,9 @@
     v18 = sgLogHandle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v22[0] = 67109120;
-      v22[1] = v17;
-      _os_log_error_impl(&dword_1BA729000, v18, OS_LOG_TYPE_ERROR, "Error creating new salt: %d", v22, 8u);
+      v21[0] = 67109120;
+      v21[1] = v17;
+      _os_log_error_impl(&dword_1BA729000, v18, OS_LOG_TYPE_ERROR, "Error creating new salt: %d", v21, 8u);
     }
 
     v19 = 0;
@@ -114,14 +112,12 @@
     v19 = v4;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (id)_findExistingSaltError:(id *)error
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v4 = [(SGPersistentSaltProvider *)self _queryKeychainError:?];
   if (v4)
   {
@@ -139,9 +135,9 @@
         v10 = 0;
         do
         {
-          v19 = 0;
-          [v8 getBytes:&v19 range:{v10, 2}];
-          if ((v19 & 0x10) != 0)
+          v18 = 0;
+          [v8 getBytes:&v18 range:{v10, 2}];
+          if ((v18 & 0x10) != 0)
           {
             v11 = 0;
           }
@@ -151,8 +147,8 @@
             v11 = 9;
           }
 
-          v12 = v11 + v19;
-          if ((v19 & 0x1000) != 0)
+          v12 = v11 + v18;
+          if ((v18 & 0x1000) != 0)
           {
             v13 = -16;
           }
@@ -162,18 +158,18 @@
             v13 = 9;
           }
 
-          v18 = v13 + (HIBYTE(v19) & 0x1F) + 16 * v12;
-          [v9 appendBytes:&v18 length:1];
+          v17 = v13 + (HIBYTE(v18) & 0x1F) + 16 * v12;
+          [v9 appendBytes:&v17 length:1];
           v10 += 2;
         }
 
         while (v10 < [v8 length]);
       }
 
-      v20[0] = v9;
+      v19[0] = v9;
       firstObject2 = [v6 firstObject];
-      v20[1] = firstObject2;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+      v19[1] = firstObject2;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     }
 
     else
@@ -190,8 +186,6 @@
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -236,25 +230,25 @@ uint64_t __51__SGPersistentSaltProvider__findExistingSaltError___block_invoke(ui
 
 - (id)_queryKeychainError:(id *)error
 {
-  v21[6] = *MEMORY[0x1E69E9840];
+  v20[6] = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AE88];
-  v20[0] = *MEMORY[0x1E697AFF8];
-  v20[1] = v5;
+  v19[0] = *MEMORY[0x1E697AFF8];
+  v19[1] = v5;
   serviceIdentifier = self->_serviceIdentifier;
-  v21[0] = v4;
-  v21[1] = serviceIdentifier;
+  v20[0] = v4;
+  v20[1] = serviceIdentifier;
   v7 = *MEMORY[0x1E697B318];
-  v20[2] = *MEMORY[0x1E697AEB0];
-  v20[3] = v7;
-  v21[2] = MEMORY[0x1E695E118];
-  v21[3] = MEMORY[0x1E695E118];
+  v19[2] = *MEMORY[0x1E697AEB0];
+  v19[3] = v7;
+  v20[2] = MEMORY[0x1E695E118];
+  v20[3] = MEMORY[0x1E695E118];
   v8 = *MEMORY[0x1E697B260];
-  v20[4] = *MEMORY[0x1E697B310];
-  v20[5] = v8;
-  v21[4] = MEMORY[0x1E695E118];
-  v21[5] = &unk_1F38742B0;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:6];
+  v19[4] = *MEMORY[0x1E697B310];
+  v19[5] = v8;
+  v20[4] = MEMORY[0x1E695E118];
+  v20[5] = &unk_1F38742B0;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:6];
   result = 0;
   v10 = SecItemCopyMatching(v9, &result);
   if (v10)
@@ -276,7 +270,7 @@ uint64_t __51__SGPersistentSaltProvider__findExistingSaltError___block_invoke(ui
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v19 = v11;
+        v18 = v11;
         _os_log_error_impl(&dword_1BA729000, v14, OS_LOG_TYPE_ERROR, "Error finding existing salt: %d", buf, 8u);
       }
 
@@ -298,8 +292,6 @@ uint64_t __51__SGPersistentSaltProvider__findExistingSaltError___block_invoke(ui
 
   v13 = 0;
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -38,27 +38,8 @@
 
 - (void)_initSKUILockupItemCellLayout
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUILockupItemCellLayout *)v3 _initSKUILockupItemCellLayout:v4];
-      }
-    }
-  }
-
-  v11 = objc_alloc_init(SKUILockupMetadataView);
-  metadataView = self->_metadataView;
-  self->_metadataView = v11;
-
-  v13 = self->_metadataView;
-  v14 = SKUILockupStyleDefault(v16);
-  [(SKUILockupMetadataView *)v13 setVisibleFields:v17, v14];
-  contentView = [(SKUICellLayout *)self contentView];
-  [contentView addSubview:self->_metadataView];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUILockupItemCellLayout _initSKUILockupItemCellLayout]";
 }
 
 - (SKUILockupItemCellLayout)initWithCollectionViewCell:(id)cell
@@ -141,7 +122,7 @@ LABEL_7:
   }
 
 LABEL_5:
-  [componentCopy lockupStyle];
+  objc_msgSend_lockupStyle(componentCopy);
 LABEL_8:
   item = [componentCopy item];
   editorial = [componentCopy editorial];
@@ -331,12 +312,12 @@ LABEL_34:
 {
   schemeCopy = scheme;
   [(SKUILockupMetadataView *)self->_metadataView setColoringWithColorScheme:schemeCopy];
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v5 = objc_msgSend_primaryTextColor(schemeCopy);
   itemOfferNoticeLabel = [(SKUIItemCellLayout *)self itemOfferNoticeLabel];
   v7 = itemOfferNoticeLabel;
-  if (primaryTextColor)
+  if (v5)
   {
-    [itemOfferNoticeLabel setTextColor:primaryTextColor];
+    [itemOfferNoticeLabel setTextColor:v5];
   }
 
   else
@@ -1004,10 +985,10 @@ LABEL_52:
     v91 = floorf(v90);
     v92 = v87;
     MaxY = CGRectGetMaxY(*(&v86 - 2));
-    primaryTextColor = [(SKUILockupMetadataView *)self->_metadataView primaryTextColor];
-    if (primaryTextColor)
+    v94 = objc_msgSend_primaryTextColor(self->_metadataView);
+    if (v94)
     {
-      [itemOfferNoticeLabel setTextColor:primaryTextColor];
+      [itemOfferNoticeLabel setTextColor:v94];
     }
 
     else
@@ -1260,10 +1241,10 @@ LABEL_24:
 
     v48 = (v46 - v22) * 0.5;
     [itemOfferNoticeLabel setFrame:{v44 + floorf(v48), CGRectGetMaxY(*&v44) + 3.0, v22, v52}];
-    primaryTextColor = [(SKUILockupMetadataView *)self->_metadataView primaryTextColor];
-    if (primaryTextColor)
+    v49 = objc_msgSend_primaryTextColor(self->_metadataView);
+    if (v49)
     {
-      [itemOfferNoticeLabel setTextColor:primaryTextColor];
+      [itemOfferNoticeLabel setTextColor:v49];
     }
 
     else
@@ -1319,6 +1300,24 @@ LABEL_24:
   result.height = height;
   result.width = width;
   return result;
+}
+
++ (void)heightForLockupComponent:(uint64_t)a3 clientContext:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUILockupItemCellLayout heightForLockupComponent:clientContext:]";
+}
+
++ (void)heightForLockupStyle:(uint64_t)a3 item:(uint64_t)a4 editorial:(uint64_t)a5 clientContext:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUILockupItemCellLayout heightForLockupStyle:item:editorial:clientContext:]";
+}
+
++ (void)videoThumbnailSizeForVideo:(uint64_t)a3 clientContext:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUILockupItemCellLayout videoThumbnailSizeForVideo:clientContext:]";
 }
 
 @end

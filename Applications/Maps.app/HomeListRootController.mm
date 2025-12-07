@@ -92,7 +92,7 @@
 
 - (NSArray)keyCommands
 {
-  sub_100014C84(0, &qword_101917320);
+  sub_100014C84(0, &qword_101917320, UIKeyCommand_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -101,7 +101,7 @@
 
 - (void)setKeyCommands:(id)commands
 {
-  sub_100014C84(0, &qword_101917320);
+  sub_100014C84(0, &qword_101917320, UIKeyCommand_ptr);
   *(self + OBJC_IVAR____TtC4Maps22HomeListRootController_keyCommands) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
@@ -117,8 +117,8 @@
 - (void)setNeedsUpdate
 {
   selfCopy = self;
-  sub_1000CE6B8(&qword_10191C2E0);
-  sub_1000414C8(&qword_10191C2E8, &qword_10191C2E0);
+  sub_1000CE6B8(&qword_10191C2E0, &qword_1011FED38);
+  sub_1000414C8(&qword_10191C2E8, &qword_10191C2E0, &qword_1011FED38, &protocol conformance descriptor for PassthroughSubject<A, B>);
   Subject<>.send()();
 }
 
@@ -140,7 +140,7 @@
 
   v7 = sub_10037E080(v9);
 
-  sub_100024F64(v9, &unk_101908380);
+  sub_100024F64(v9, &unk_101908380, &unk_1011E6860);
   return v7 & 1;
 }
 
@@ -163,7 +163,7 @@
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   swift_unknownObjectRetain();
@@ -252,11 +252,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10037E1E4(viewCopy);
+  sub_10037E1E4(viewCopy, v10);
 
   swift_unknownObjectRelease();
   (*(v8 + 8))(v10, v7);
-  sub_100014C84(0, &unk_10191C210);
+  sub_100014C84(0, &unk_10191C210, UIDragItem_ptr);
   v13.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v13.super.isa;

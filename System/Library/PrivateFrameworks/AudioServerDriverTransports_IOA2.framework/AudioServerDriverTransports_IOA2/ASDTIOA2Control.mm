@@ -41,7 +41,7 @@
   {
     if (ControlInfo_BaseClass == 1651273579)
     {
-      v25 = [[ASDTIOA2BlockControl alloc] initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1u forElement:ControlInfo_Element inScope:ControlInfo_Scope objectClassID:ControlInfo_Class];
+      v26 = [[ASDTIOA2BlockControl alloc] initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1 forElement:ControlInfo_Element inScope:ControlInfo_Scope objectClassID:ControlInfo_Class];
       goto LABEL_39;
     }
 
@@ -50,32 +50,32 @@
       goto LABEL_20;
     }
 
-    v24 = off_278CE8970;
+    v25 = off_278CE8970;
 LABEL_18:
-    v25 = [objc_alloc(*v24) initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1u forElement:ControlInfo_Element inScope:ControlInfo_Scope objectClassID:ControlInfo_Class dictionary:v8];
+    v26 = [objc_alloc(*v25) initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1 forElement:ControlInfo_Element inScope:ControlInfo_Scope objectClassID:ControlInfo_Class dictionary:v8];
     goto LABEL_39;
   }
 
   switch(ControlInfo_BaseClass)
   {
     case 1936483188:
-      v24 = off_278CE8990;
+      v25 = off_278CE8990;
       goto LABEL_18;
     case 1936483442:
-      v24 = off_278CE89A0;
+      v25 = off_278CE89A0;
       goto LABEL_18;
     case 1953458028:
       if (ControlInfo_Class > 1885888877)
       {
         if (ControlInfo_Class == 1885888878)
         {
-          v23 = off_278CE8980;
+          v24 = off_278CE8980;
           goto LABEL_38;
         }
 
         if (ControlInfo_Class == 1885893481)
         {
-          v23 = off_278CE8988;
+          v24 = off_278CE8988;
           goto LABEL_38;
         }
       }
@@ -84,80 +84,78 @@ LABEL_18:
       {
         if (ControlInfo_Class == 1784767339)
         {
-          v23 = off_278CE8968;
+          v24 = off_278CE8968;
           goto LABEL_38;
         }
 
         if (ControlInfo_Class == 1836414053)
         {
-          v23 = off_278CE8978;
+          v24 = off_278CE8978;
 LABEL_38:
-          v25 = [objc_alloc(*v23) initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1u element:ControlInfo_Element scope:ControlInfo_Scope dictionary:v8];
+          v26 = [objc_alloc(*v24) initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1 element:ControlInfo_Element scope:ControlInfo_Scope dictionary:v8];
           goto LABEL_39;
         }
       }
 
-      v25 = [[ASDTIOA2BooleanControl alloc] initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1u element:ControlInfo_Element scope:ControlInfo_Scope objectClassID:ControlInfo_Class dictionary:v8];
+      v26 = [[ASDTIOA2BooleanControl alloc] initWithIOA2Device:deviceCopy userClientID:unsignedIntValue isSettable:Only ^ 1 element:ControlInfo_Element scope:ControlInfo_Scope objectClassID:ControlInfo_Class dictionary:v8];
 LABEL_39:
-      v31 = v25;
+      v32 = v26;
       goto LABEL_40;
   }
 
 LABEL_20:
-  v26 = ASDTIOA2LogType();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v27 = ASDTIOA2LogType(Only, v23);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = HIBYTE(ControlInfo_BaseClass);
+    v28 = HIBYTE(ControlInfo_BaseClass);
     if ((ControlInfo_BaseClass - 0x20000000) >> 24 >= 0x5F)
-    {
-      v27 = 32;
-    }
-
-    v28 = BYTE2(ControlInfo_BaseClass);
-    if (BYTE2(ControlInfo_BaseClass) - 32 >= 0x5F)
     {
       v28 = 32;
     }
 
-    v29 = BYTE1(ControlInfo_BaseClass);
-    if (BYTE1(ControlInfo_BaseClass) - 32 >= 0x5F)
+    v29 = BYTE2(ControlInfo_BaseClass);
+    if (BYTE2(ControlInfo_BaseClass) - 32 >= 0x5F)
     {
       v29 = 32;
+    }
+
+    v30 = BYTE1(ControlInfo_BaseClass);
+    if (BYTE1(ControlInfo_BaseClass) - 32 >= 0x5F)
+    {
+      v30 = 32;
     }
 
     *buf = 67110144;
     v36 = ControlInfo_BaseClass;
     v37 = 1024;
-    v38 = v27;
+    v38 = v28;
     v39 = 1024;
-    v40 = v28;
+    v40 = v29;
     v41 = 1024;
-    v42 = v29;
+    v42 = v30;
     if (ControlInfo_BaseClass - 32 >= 0x5F)
     {
-      v30 = 32;
+      v31 = 32;
     }
 
     else
     {
-      v30 = ControlInfo_BaseClass;
+      v31 = ControlInfo_BaseClass;
     }
 
     v43 = 1024;
-    v44 = v30;
-    _os_log_impl(&dword_2416BA000, v26, OS_LOG_TYPE_DEFAULT, "Warning: Control base class %x ('%c%c%c%c') not supported", buf, 0x20u);
+    v44 = v31;
+    _os_log_impl(&dword_2416BA000, v27, OS_LOG_TYPE_DEFAULT, "Warning: Control base class %x ('%c%c%c%c') not supported", buf, 0x20u);
   }
 
-  v31 = 0;
+  v32 = 0;
 LABEL_40:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v32;
 }
 
 @end

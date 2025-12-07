@@ -1047,9 +1047,9 @@ LABEL_21:
       case 1u:
         v23 = [CCToolKitToolTypeInstance alloc];
         v24 = CCPBReaderReadDataNoCopy();
-        v234 = 0;
-        v25 = [(CCItemMessage *)v23 initWithData:v24 error:&v234];
-        v10 = v234;
+        v232 = 0;
+        v25 = [(CCItemMessage *)v23 initWithData:v24 error:&v232];
+        v10 = v232;
         equalTo = self->_equalTo;
         self->_equalTo = v25;
 
@@ -1066,9 +1066,9 @@ LABEL_21:
       case 2u:
         v118 = [CCToolKitToolTypeInstance alloc];
         v119 = CCPBReaderReadDataNoCopy();
-        v233 = 0;
-        v120 = [(CCItemMessage *)v118 initWithData:v119 error:&v233];
-        v10 = v233;
+        v231 = 0;
+        v120 = [(CCItemMessage *)v118 initWithData:v119 error:&v231];
+        v10 = v231;
         v121 = self->_notEqualTo;
         self->_notEqualTo = v120;
 
@@ -1128,10 +1128,10 @@ LABEL_87:
 
 LABEL_89:
         self->_hasValue = v81;
-        v201 = self->_equalTo;
+        v200 = self->_equalTo;
         self->_equalTo = 0;
 
-        v202 = self->_notEqualTo;
+        v201 = self->_notEqualTo;
         self->_notEqualTo = 0;
 
         self->_kindType = 3;
@@ -1180,16 +1180,16 @@ LABEL_89:
 
 LABEL_93:
         self->_hasNoValue = v104;
-        v203 = self->_equalTo;
+        v202 = self->_equalTo;
         self->_equalTo = 0;
 
-        v204 = self->_notEqualTo;
+        v203 = self->_notEqualTo;
         self->_notEqualTo = 0;
 
         self->_hasValue = 0;
         self->_kindType = 4;
 LABEL_94:
-        v205 = self->_greaterThan;
+        v204 = self->_greaterThan;
         self->_greaterThan = 0;
 
         greaterThanOrEqualTo = self->_greaterThanOrEqualTo;
@@ -1224,9 +1224,9 @@ LABEL_94:
       case 5u:
         v48 = [CCToolKitToolTypeInstance alloc];
         v49 = CCPBReaderReadDataNoCopy();
-        v232 = 0;
-        v50 = [(CCItemMessage *)v48 initWithData:v49 error:&v232];
-        v10 = v232;
+        v230 = 0;
+        v50 = [(CCItemMessage *)v48 initWithData:v49 error:&v230];
+        v10 = v230;
         v51 = self->_greaterThan;
         self->_greaterThan = v50;
 
@@ -1252,9 +1252,9 @@ LABEL_60:
       case 6u:
         v125 = [CCToolKitToolTypeInstance alloc];
         v126 = CCPBReaderReadDataNoCopy();
-        v231 = 0;
-        v127 = [(CCItemMessage *)v125 initWithData:v126 error:&v231];
-        v10 = v231;
+        v229 = 0;
+        v127 = [(CCItemMessage *)v125 initWithData:v126 error:&v229];
+        v10 = v229;
         v128 = self->_greaterThanOrEqualTo;
         self->_greaterThanOrEqualTo = v127;
 
@@ -1283,9 +1283,9 @@ LABEL_63:
       case 7u:
         v156 = [CCToolKitToolTypeInstance alloc];
         v157 = CCPBReaderReadDataNoCopy();
-        v230 = 0;
-        v158 = [(CCItemMessage *)v156 initWithData:v157 error:&v230];
-        v10 = v230;
+        v228 = 0;
+        v158 = [(CCItemMessage *)v156 initWithData:v157 error:&v228];
+        v10 = v228;
         v159 = self->_lessThan;
         self->_lessThan = v158;
 
@@ -1317,9 +1317,9 @@ LABEL_64:
       case 8u:
         v109 = [CCToolKitToolTypeInstance alloc];
         v110 = CCPBReaderReadDataNoCopy();
-        v229 = 0;
-        v111 = [(CCItemMessage *)v109 initWithData:v110 error:&v229];
-        v10 = v229;
+        v227 = 0;
+        v111 = [(CCItemMessage *)v109 initWithData:v110 error:&v227];
+        v10 = v227;
         v112 = self->_lessThanOrEqualTo;
         self->_lessThanOrEqualTo = v111;
 
@@ -1354,9 +1354,9 @@ LABEL_65:
       case 9u:
         v176 = [CCToolKitToolTypeInstance alloc];
         v177 = CCPBReaderReadDataNoCopy();
-        v228 = 0;
-        v178 = [(CCItemMessage *)v176 initWithData:v177 error:&v228];
-        v10 = v228;
+        v226 = 0;
+        v178 = [(CCItemMessage *)v176 initWithData:v177 error:&v226];
+        v10 = v226;
         v179 = self->_contains;
         self->_contains = v178;
 
@@ -1394,9 +1394,9 @@ LABEL_66:
       case 0xAu:
         v68 = [CCToolKitToolTypeInstance alloc];
         v69 = CCPBReaderReadDataNoCopy();
-        v227 = 0;
-        v70 = [(CCItemMessage *)v68 initWithData:v69 error:&v227];
-        v10 = v227;
+        v225 = 0;
+        v70 = [(CCItemMessage *)v68 initWithData:v69 error:&v225];
+        v10 = v225;
         v71 = self->_notContains;
         self->_notContains = v70;
 
@@ -1437,9 +1437,9 @@ LABEL_67:
       case 0xBu:
         v164 = [CCToolKitToolTypeInstance alloc];
         v165 = CCPBReaderReadDataNoCopy();
-        v226 = 0;
-        v166 = [(CCItemMessage *)v164 initWithData:v165 error:&v226];
-        v10 = v226;
+        v224 = 0;
+        v166 = [(CCItemMessage *)v164 initWithData:v165 error:&v224];
+        v10 = v224;
         v167 = self->_beginsWith;
         self->_beginsWith = v166;
 
@@ -1483,9 +1483,9 @@ LABEL_68:
       case 0xCu:
         v35 = [CCToolKitToolTypeInstance alloc];
         v36 = CCPBReaderReadDataNoCopy();
-        v225 = 0;
-        v37 = [(CCItemMessage *)v35 initWithData:v36 error:&v225];
-        v10 = v225;
+        v223 = 0;
+        v37 = [(CCItemMessage *)v35 initWithData:v36 error:&v223];
+        v10 = v223;
         v38 = self->_endsWith;
         self->_endsWith = v37;
 
@@ -1532,9 +1532,9 @@ LABEL_69:
       case 0xDu:
         v54 = [CCToolKitToolTypeInstance alloc];
         v55 = CCPBReaderReadDataNoCopy();
-        v224 = 0;
-        v56 = [(CCItemMessage *)v54 initWithData:v55 error:&v224];
-        v10 = v224;
+        v222 = 0;
+        v56 = [(CCItemMessage *)v54 initWithData:v55 error:&v222];
+        v10 = v222;
         v57 = self->_inTheNext;
         self->_inTheNext = v56;
 
@@ -1584,9 +1584,9 @@ LABEL_70:
       case 0xEu:
         v141 = [CCToolKitToolTypeInstance alloc];
         v142 = CCPBReaderReadDataNoCopy();
-        v223 = 0;
-        v143 = [(CCItemMessage *)v141 initWithData:v142 error:&v223];
-        v10 = v223;
+        v221 = 0;
+        v143 = [(CCItemMessage *)v141 initWithData:v142 error:&v221];
+        v10 = v221;
         v144 = self->_inTheLast;
         self->_inTheLast = v143;
 
@@ -1645,9 +1645,9 @@ LABEL_71:
       case 0x10u:
         v86 = [CCToolKitToolTypeInstance alloc];
         v87 = CCPBReaderReadDataNoCopy();
-        v222 = 0;
-        v88 = [(CCItemMessage *)v86 initWithData:v87 error:&v222];
-        v10 = v222;
+        v220 = 0;
+        v88 = [(CCItemMessage *)v86 initWithData:v87 error:&v220];
+        v10 = v220;
         v89 = self->_isBetween;
         self->_isBetween = v88;
 
@@ -1704,7 +1704,6 @@ LABEL_71:
 
         v186 = objc_opt_class();
         v187 = NSStringFromClass(v186);
-        v188 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         continue;
@@ -1746,47 +1745,47 @@ LABEL_83:
 
 LABEL_85:
     self->_isToday = v30;
-    v189 = self->_equalTo;
+    v188 = self->_equalTo;
     self->_equalTo = 0;
 
-    v190 = self->_notEqualTo;
+    v189 = self->_notEqualTo;
     self->_notEqualTo = 0;
 
     self->_hasValue = 0;
     self->_hasNoValue = 0;
-    v191 = self->_greaterThan;
+    v190 = self->_greaterThan;
     self->_greaterThan = 0;
 
-    v192 = self->_greaterThanOrEqualTo;
+    v191 = self->_greaterThanOrEqualTo;
     self->_greaterThanOrEqualTo = 0;
 
-    v193 = self->_lessThan;
+    v192 = self->_lessThan;
     self->_lessThan = 0;
 
-    v194 = self->_lessThanOrEqualTo;
+    v193 = self->_lessThanOrEqualTo;
     self->_lessThanOrEqualTo = 0;
 
-    v195 = self->_contains;
+    v194 = self->_contains;
     self->_contains = 0;
 
-    v196 = self->_notContains;
+    v195 = self->_notContains;
     self->_notContains = 0;
 
-    v197 = self->_beginsWith;
+    v196 = self->_beginsWith;
     self->_beginsWith = 0;
 
-    v198 = self->_endsWith;
+    v197 = self->_endsWith;
     self->_endsWith = 0;
 
-    v199 = self->_inTheNext;
+    v198 = self->_inTheNext;
     self->_inTheNext = 0;
 
-    v200 = self->_inTheLast;
+    v199 = self->_inTheLast;
     self->_inTheLast = 0;
 
     self->_kindType = 15;
 LABEL_95:
-    v215 = self->_isBetween;
+    v214 = self->_isBetween;
     self->_isBetween = 0;
 
 LABEL_96:
@@ -1805,24 +1804,23 @@ LABEL_100:
     if (!*&v6[*v9])
     {
       v10 = 0;
-      v220 = 1;
+      v218 = 1;
       goto LABEL_104;
     }
 
 LABEL_101:
-    v216 = objc_opt_class();
-    v217 = NSStringFromClass(v216);
-    v218 = *&v6[*v9];
-    v219 = CCInvalidBufferErrorForMessage();
+    v215 = objc_opt_class();
+    v216 = NSStringFromClass(v215);
+    v217 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v10 = 0;
   }
 
-  v220 = 0;
+  v218 = 0;
 LABEL_104:
 
-  return v220;
+  return v218;
 }
 
 - (CCToolKitToolComparisonPredicateComparisonTemplate)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

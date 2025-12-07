@@ -19,7 +19,7 @@
 - (id)_buildGraphEdgeDescriptionWithType:(uint64_t)type fromTransaction:(id)transaction toTransaction:(void *)toTransaction;
 - (id)_childTransactionsWithSchedulingPolicy:(uint64_t)policy;
 - (id)_createErrorWithCode:(uint64_t)code reason:(uint64_t)reason description:(uint64_t)description precipitatingError:;
-- (id)_descriptionForDebugging:(uint64_t)debugging indentLevel:(int)level;
+- (id)_descriptionForDebugging:(uint64_t)debugging indentLevel:(uint64_t)level;
 - (id)_descriptionForDebugging:(uint64_t)debugging indentLevel:(void *)level visited:;
 - (id)_graphNodeDebugName;
 - (id)_graphNodeIdentifier;
@@ -28,11 +28,10 @@
 - (id)childTransactionsOfClass:(Class)class;
 - (id)completionBlock;
 - (uint64_t)_areConcurrentChildTransactionsFinishedWorking;
-- (uint64_t)_beginIfPossible;
 - (uint64_t)_evaluateParentTransactionsWithSchedulingPolicy:(uint64_t)policy evaluator:;
-- (uint64_t)_terminateNow;
 - (void)_addAuditHistoryItem:(id)item;
 - (void)_addDebugLogCategory:(id)category;
+- (void)_beginIfPossible;
 - (void)_checkAndReportIfCompleted;
 - (void)_childRelationshipForTransaction:(uint64_t)transaction;
 - (void)_enumerateObserversWithBlock:(id)block;
@@ -52,6 +51,7 @@
 - (void)_removeDebugLogCategory:(id)category;
 - (void)_removeParentTransaction:(uint64_t)transaction;
 - (void)_setState:(uint64_t)state;
+- (void)_terminateNow;
 - (void)_unsafe_enumerateChildTransactionsWithBlock:(uint64_t)block;
 - (void)_unsafe_enumerateParentTransactionsWithBlock:(uint64_t)block;
 - (void)addChildTransaction:(id)transaction withSchedulingPolicy:(unint64_t)policy;
@@ -145,9 +145,9 @@
     dispatch_once(&qword_1ED44FD80, &__block_literal_global_118);
   }
 
-  v0 = qword_1ED44FD78;
+  v1 = qword_1ED44FD78;
 
-  return v0;
+  return v1;
 }
 
 - (void)_initializeAuditHistoryIfNecessary
@@ -239,12 +239,12 @@ uint64_t __22__BSTransaction_begin__block_invoke(uint64_t a1)
   return self->_state == 3 || self->_failed || self->_aborted;
 }
 
-- (uint64_t)_beginIfPossible
+- (void)_beginIfPossible
 {
   if (result)
   {
     v1 = result;
-    if (!*(result + 72))
+    if (!result[9])
     {
       result = [(BSTransaction *)result _evaluateParentTransactionsWithSchedulingPolicy:&__block_literal_global_320 evaluator:?];
       if (result)
@@ -734,7 +734,7 @@ uint64_t __22__BSTransaction_begin__block_invoke_2(uint64_t a1, void *a2)
   return [(NSMutableArray *)self->_parentTransactionRelationships count]== 0;
 }
 
-uint64_t __63__BSTransaction__areConcurrentChildTransactionsFinishedWorking__block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__BSTransaction__areConcurrentChildTransactionsFinishedWorking__block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
   if (!a3)
   {
@@ -742,7 +742,7 @@ uint64_t __63__BSTransaction__areConcurrentChildTransactionsFinishedWorking__blo
     result = [a2 isFinishedWorking];
     if ((result & 1) == 0)
     {
-      *(*(*(v5 + 32) + 8) + 24) = 0;
+      *(*(v5[4] + 8) + 24) = 0;
       *a4 = 1;
     }
   }
@@ -750,7 +750,7 @@ uint64_t __63__BSTransaction__areConcurrentChildTransactionsFinishedWorking__blo
   return result;
 }
 
-uint64_t __46__BSTransaction__areChildTransactionsComplete__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46__BSTransaction__areChildTransactionsComplete__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isComplete];
   if ((result & 1) == 0)
@@ -2125,7 +2125,7 @@ LABEL_11:
   return v5 & 1;
 }
 
-uint64_t __32__BSTransaction_isInterruptible__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__32__BSTransaction_isInterruptible__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isComplete];
   if ((result & 1) == 0)
@@ -2711,12 +2711,13 @@ void __49__BSTransaction_evaluateMilestone_withEvaluator___block_invoke(uint64_t
   }
 }
 
-- (id)_descriptionForDebugging:(uint64_t)debugging indentLevel:(int)level
+- (id)_descriptionForDebugging:(uint64_t)debugging indentLevel:(uint64_t)level
 {
   if (debugging)
   {
+    levelCopy = level;
     v4 = [MEMORY[0x1E695DFA8] set];
-    v5 = [(BSTransaction *)debugging _descriptionForDebugging:level indentLevel:0 visited:v4];
+    v5 = [(BSTransaction *)debugging _descriptionForDebugging:levelCopy indentLevel:0 visited:v4];
   }
 
   else
@@ -2915,7 +2916,7 @@ LABEL_28:
   }
 }
 
-uint64_t __54__BSTransaction__sanitizedCustomDescriptionProperties__block_invoke(uint64_t a1, void *a2, void *a3)
+void *__54__BSTransaction__sanitizedCustomDescriptionProperties__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [a2 bs_isPlistableType];
   if (result)
@@ -3344,7 +3345,7 @@ void __62__BSTransaction__descriptionForDebugging_indentLevel_visited___block_in
   *(v21 + 24) = v22;
 }
 
-uint64_t __62__BSTransaction__descriptionForDebugging_indentLevel_visited___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__62__BSTransaction__descriptionForDebugging_indentLevel_visited___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) appendFormat:@"%@%@ = %@", *(a1 + 40), a2, a3];
   v5 = *(*(a1 + 48) + 8);
@@ -3493,29 +3494,29 @@ LABEL_5:
   }
 }
 
-uint64_t __57__BSTransaction__parentTransactionsWithSchedulingPolicy___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__57__BSTransaction__parentTransactionsWithSchedulingPolicy___block_invoke(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 40) == a3)
+  if (result[5] == a3)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-uint64_t __56__BSTransaction__childTransactionsWithSchedulingPolicy___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__56__BSTransaction__childTransactionsWithSchedulingPolicy___block_invoke(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 40) == a3)
+  if (result[5] == a3)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-- (uint64_t)_terminateNow
+- (void)_terminateNow
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (*(self + 137) == 1)
   {
     userInfo = [*(self + 144) userInfo];
@@ -3524,29 +3525,29 @@ uint64_t __56__BSTransaction__childTransactionsWithSchedulingPolicy___block_invo
   }
 
   [self _willComplete];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   childTransactions = [self childTransactions];
-  v5 = [childTransactions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [childTransactions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(childTransactions);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         if (v8)
         {
           v9 = *(self + 144);
-          queue = [*(*(&v18 + 1) + 8 * i) queue];
+          queue = [*(*(&v17 + 1) + 8 * i) queue];
           BSDispatchQueueAssert(queue);
 
           if ((*(v8 + 24) & 1) == 0 && (*(v8 + 137) & 1) == 0 && ([v8 isComplete] & 1) == 0)
@@ -3573,11 +3574,11 @@ uint64_t __56__BSTransaction__childTransactionsWithSchedulingPolicy___block_invo
                 v15 = objc_opt_class();
                 v16 = [*(v8 + 144) description];
                 *buf = 138543874;
-                v24 = v15;
-                v25 = 2048;
-                v26 = v8;
-                v27 = 2114;
-                v28 = v16;
+                v23 = v15;
+                v24 = 2048;
+                v25 = v8;
+                v26 = 2114;
+                v27 = v16;
                 _os_log_impl(&dword_18FEF6000, v14, OS_LOG_TYPE_INFO, "<%{public}@:%p> Aborting with error: %{public}@", buf, 0x20u);
               }
             }
@@ -3590,13 +3591,13 @@ uint64_t __56__BSTransaction__childTransactionsWithSchedulingPolicy___block_invo
         }
       }
 
-      v5 = [childTransactions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [childTransactions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
-  return [(BSTransaction *)self _noteCompleted];
+  [(BSTransaction *)self _noteCompleted];
 }
 
 uint64_t __44__BSTransaction__interruptWithReason_force___block_invoke(uint64_t a1)

@@ -45,9 +45,9 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  VCRemoteImageQueue_Destroy(&self->_senderQueue);
-  VCRemoteImageQueue_Destroy(&self->_receiverQueue);
+  v6 = *MEMORY[0x1E69E9840];
+  VCRemoteImageQueue_Destroy(&self->_senderQueue, a2);
+  VCRemoteImageQueue_Destroy(&self->_receiverQueue, v3);
   lastReceivedPixelBuffer = self->_lastReceivedPixelBuffer;
   if (lastReceivedPixelBuffer)
   {
@@ -59,9 +59,9 @@
   [(VCEffectsManager *)self setReportingAgent:0];
   pthread_mutex_destroy(&self->_loggingLock);
   objc_storeWeak(&self->_delegate, 0);
-  v4.receiver = self;
-  v4.super_class = VCEffectsManager;
-  [(VCEffectsManager *)&v4 dealloc];
+  v5.receiver = self;
+  v5.super_class = VCEffectsManager;
+  [(VCEffectsManager *)&v5 dealloc];
 }
 
 - (BOOL)initializeReceiveQueue:(id)queue error:(id *)error
@@ -507,7 +507,7 @@ CFIndex __VCEffectsManager_IsEffectsOn_block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __45__VCEffectsManager_isFaceMeshTrackingEnabled__block_invoke(uint64_t a1)
+void *__45__VCEffectsManager_isFaceMeshTrackingEnabled__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -537,7 +537,7 @@ uint64_t __45__VCEffectsManager_isFaceMeshTrackingEnabled__block_invoke(uint64_t
           return result;
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -654,25 +654,25 @@ void __39__VCEffectsManager_updateThermalLevel___block_invoke(uint64_t a1)
 
 - (void)tearDownRemoteQueues
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v3 = VRTraceErrorLogLevelToCSTR();
-    v4 = *MEMORY[0x1E6986650];
+    v4 = VRTraceErrorLogLevelToCSTR();
+    v5 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315650;
-      v6 = v3;
-      v7 = 2080;
-      v8 = "[VCEffectsManager tearDownRemoteQueues]";
-      v9 = 1024;
-      v10 = 426;
-      _os_log_impl(&dword_1DB56E000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Tearing down queues", &v5, 0x1Cu);
+      v7 = 136315650;
+      v8 = v4;
+      v9 = 2080;
+      v10 = "[VCEffectsManager tearDownRemoteQueues]";
+      v11 = 1024;
+      v12 = 426;
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Tearing down queues", &v7, 0x1Cu);
     }
   }
 
-  VCRemoteImageQueue_Destroy(&self->_senderQueue);
-  VCRemoteImageQueue_Destroy(&self->_receiverQueue);
+  VCRemoteImageQueue_Destroy(&self->_senderQueue, v3);
+  VCRemoteImageQueue_Destroy(&self->_receiverQueue, v6);
 }
 
 - (void)flushRemoteQueue
@@ -687,7 +687,7 @@ void __39__VCEffectsManager_updateThermalLevel___block_invoke(uint64_t a1)
   dispatch_async(xpcCommandQueue, v3);
 }
 
-uint64_t __36__VCEffectsManager_flushRemoteQueue__block_invoke(uint64_t a1)
+void *__36__VCEffectsManager_flushRemoteQueue__block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
   VCRemoteImageQueue_ReleaseIOSurfaces(*(*(a1 + 32) + 208));
@@ -750,7 +750,7 @@ uint64_t __36__VCEffectsManager_flushRemoteQueue__block_invoke(uint64_t a1)
         }
 
         [+[AVConferenceXPCServer AVConferenceXPCServerSingleton](AVConferenceXPCServer AVConferenceXPCServerSingleton];
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -1136,28 +1136,28 @@ void __44__VCEffectsManager_registerBlocksForService__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d Client has died. Cleaning up VCEffectsMananger by removing associated objects", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d Client has died. Cleaning up VCEffectsMananger by removing associated objects", v2, v3, v4, v5);
 }
 
 void __44__VCEffectsManager_registerBlocksForService__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d RemoteImageQueue could not be made", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d RemoteImageQueue could not be made", v2, v3, v4, v5);
 }
 
 void __44__VCEffectsManager_registerBlocksForService__block_invoke_cold_3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error getting the client pid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error getting the client pid", v2, v3, v4, v5);
 }
 
 void __44__VCEffectsManager_registerBlocksForService__block_invoke_33_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d xpcClientQueue was null, cannot make the remote queue", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d xpcClientQueue was null, cannot make the remote queue", v2, v3, v4, v5);
 }
 
 - (void)remoteQueueOperationHandlerWithError:operation:.cold.1()
@@ -1184,14 +1184,14 @@ void ___VCEffectsManager_PixelBufferToClient_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create sample buffer", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create sample buffer", v2, v3, v4, v5);
 }
 
 void ___VCEffectsManager_PixelBufferToClient_block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create sample buffer", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create sample buffer", v2, v3, v4, v5);
 }
 
 void ___VCEffectsManager_PixelBufferToClient_block_invoke_cold_3()
@@ -1205,7 +1205,7 @@ void ___VCEffectsManager_PixelBufferToClient_block_invoke_cold_4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Disabling effects mode", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Disabling effects mode", v2, v3, v4, v5);
 }
 
 @end

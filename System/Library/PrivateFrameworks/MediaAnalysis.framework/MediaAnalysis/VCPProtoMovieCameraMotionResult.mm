@@ -142,11 +142,11 @@ LABEL_3:
     v5 = qword_1C9F62DA8[v4];
   }
 
-  timeRange = [(VCPProtoMovieCameraMotionResult *)self timeRange];
-  v7 = timeRange;
-  if (timeRange)
+  v6 = objc_msgSend_timeRange(self);
+  v7 = v6;
+  if (v6)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v6);
   }
 
   else

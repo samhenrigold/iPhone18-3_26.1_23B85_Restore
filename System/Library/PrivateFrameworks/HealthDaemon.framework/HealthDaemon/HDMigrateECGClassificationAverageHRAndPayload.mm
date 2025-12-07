@@ -5,14 +5,14 @@
 
 uint64_t ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v104 = *MEMORY[0x277D85DE8];
-  v58 = HDSQLiteColumnAsInt64();
-  v56 = MEMORY[0x22AAC6C30](a2, 1);
+  v103 = *MEMORY[0x277D85DE8];
+  v57 = HDSQLiteColumnAsInt64();
+  v55 = MEMORY[0x22AAC6C30](a2, 1);
   v4 = MEMORY[0x22AAC6C50](a2, 2);
-  v55 = HDSQLiteColumnAsInt64();
+  v54 = HDSQLiteColumnAsInt64();
   v5 = MEMORY[0x22AAC6C50](a2, 4);
   v6 = MEMORY[0x22AAC6C50](a2, 5);
-  v57 = MEMORY[0x22AAC6C30](a2, 6);
+  v56 = MEMORY[0x22AAC6C30](a2, 6);
   if (MEMORY[0x22AAC6CD0](a2, 7))
   {
     v7 = 0;
@@ -29,12 +29,12 @@ uint64_t ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke(uint64_t 
   v11 = HDSQLiteColumnAsInt64();
   v12 = [*(a1 + 32) protectedDatabase];
   v13 = *(a1 + 40);
-  v73[0] = MEMORY[0x277D85DD0];
-  v73[1] = 3221225472;
-  v73[2] = ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke_2;
-  v73[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v73[4] = v58;
-  v14 = [v12 executeSQL:v13 error:a3 bindingHandler:v73 enumerationHandler:0];
+  v72[0] = MEMORY[0x277D85DD0];
+  v72[1] = 3221225472;
+  v72[2] = ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke_2;
+  v72[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+  v72[4] = v57;
+  v14 = [v12 executeSQL:v13 error:a3 bindingHandler:v72 enumerationHandler:0];
 
   if (!v14)
   {
@@ -64,17 +64,17 @@ uint64_t ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke(uint64_t 
 
   v17 = [*(a1 + 32) protectedDatabase];
   v18 = *(a1 + 48);
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke_3;
-  v66[3] = &unk_278619DD0;
-  v68 = v58;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke_3;
+  v65[3] = &unk_278619DD0;
   v67 = v57;
-  v69 = v7;
-  v72 = v8 ^ 1;
-  v70 = v9;
-  v71 = v16;
-  v19 = [v17 executeSQL:v18 error:a3 bindingHandler:v66 enumerationHandler:0];
+  v66 = v56;
+  v68 = v7;
+  v71 = v8 ^ 1;
+  v69 = v9;
+  v70 = v16;
+  v19 = [v17 executeSQL:v18 error:a3 bindingHandler:v65 enumerationHandler:0];
 
   if (!v19)
   {
@@ -97,30 +97,30 @@ uint64_t ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke(uint64_t 
     goto LABEL_80;
   }
 
-  v63 = *(a1 + 32);
-  v62 = v56;
+  v62 = *(a1 + 32);
+  v61 = v55;
   v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
   v100 = 0u;
-  v22 = [&unk_283CAEEC0 countByEnumeratingWithState:&v99 objects:v103 count:16];
+  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
+  v22 = [&unk_283CAEEC0 countByEnumeratingWithState:&v98 objects:v102 count:16];
   if (!v22)
   {
     goto LABEL_49;
   }
 
-  v23 = *v100;
+  v23 = *v99;
   do
   {
     for (i = 0; i != v22; ++i)
     {
-      if (*v100 != v23)
+      if (*v99 != v23)
       {
         objc_enumerationMutation(&unk_283CAEEC0);
       }
 
-      v25 = *(*(&v99 + 1) + 8 * i);
+      v25 = *(*(&v98 + 1) + 8 * i);
       v26 = [v25 integerValue];
       if (v26 > 204)
       {
@@ -188,67 +188,67 @@ LABEL_46:
       }
     }
 
-    v22 = [&unk_283CAEEC0 countByEnumeratingWithState:&v99 objects:v103 count:16];
+    v22 = [&unk_283CAEEC0 countByEnumeratingWithState:&v98 objects:v102 count:16];
   }
 
   while (v22);
 LABEL_49:
+  v98 = 0u;
   v99 = 0u;
   v100 = 0u;
   v101 = 0u;
-  v102 = 0u;
   obj = v21;
-  v27 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
+  v27 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
   if (v27)
   {
-    v61 = *v100;
+    v60 = *v99;
     while (2)
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v100 != v61)
+        if (*v99 != v60)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v99 + 1) + 8 * j);
-        v98 = [v29 integerValue];
-        v30 = [MEMORY[0x277CBEA90] dataWithBytes:&v98 length:1];
-        v31 = [MEMORY[0x277CCAD78] hk_v3UUIDWithNameSpace:v62 name:v30];
-        v94 = 0;
-        v95 = &v94;
-        v96 = 0x2020000000;
-        v97 = 0;
+        v29 = *(*(&v98 + 1) + 8 * j);
+        v97 = [v29 integerValue];
+        v30 = [MEMORY[0x277CBEA90] dataWithBytes:&v97 length:1];
+        v31 = [MEMORY[0x277CCAD78] hk_v3UUIDWithNameSpace:v61 name:v30];
+        v93 = 0;
+        v94 = &v93;
+        v95 = 0x2020000000;
+        v96 = 0;
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke;
         aBlock[3] = &unk_278614620;
-        aBlock[4] = &v94;
+        aBlock[4] = &v93;
         v32 = _Block_copy(aBlock);
-        v33 = [v63 protectedDatabase];
-        v91[0] = MEMORY[0x277D85DD0];
-        v91[1] = 3221225472;
-        v91[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_2;
-        v91[3] = &unk_278614860;
+        v33 = [v62 protectedDatabase];
+        v90[0] = MEMORY[0x277D85DD0];
+        v90[1] = 3221225472;
+        v90[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_2;
+        v90[3] = &unk_278614860;
         v34 = v31;
-        v92 = v34;
-        v35 = [v33 executeSQL:@"SELECT COUNT(*) FROM objects WHERE uuid=?" error:a3 bindingHandler:v91 enumerationHandler:v32];
+        v91 = v34;
+        v35 = [v33 executeSQL:@"SELECT COUNT(*) FROM objects WHERE uuid=?" error:a3 bindingHandler:v90 enumerationHandler:v32];
 
         if (v35)
         {
-          if (v95[3] <= 0)
+          if (v94[3] <= 0)
           {
-            v37 = [v63 protectedDatabase];
-            v87[0] = MEMORY[0x277D85DD0];
-            v87[1] = 3221225472;
-            v87[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_3;
-            v87[3] = &unk_278619A20;
-            v88 = v34;
-            v89 = v55;
-            v90 = v4;
-            v38 = [v37 executeSQL:@"INSERT INTO objects (uuid error:provenance bindingHandler:creation_date) VALUES (? enumerationHandler:{?, ?)", a3, v87, 0}];
+            v37 = [v62 protectedDatabase];
+            v86[0] = MEMORY[0x277D85DD0];
+            v86[1] = 3221225472;
+            v86[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_3;
+            v86[3] = &unk_278619A20;
+            v87 = v34;
+            v88 = v54;
+            v89 = v4;
+            v38 = [v37 executeSQL:@"INSERT INTO objects (uuid error:provenance bindingHandler:creation_date) VALUES (? enumerationHandler:{?, ?)", a3, v86, 0}];
 
-            v39 = [v63 protectedDatabase];
+            v39 = [v62 protectedDatabase];
             v40 = [v39 lastInsertRowID];
 
             if (v40)
@@ -263,42 +263,42 @@ LABEL_49:
 
             if (v41)
             {
-              v42 = [v63 protectedDatabase];
-              v82[0] = MEMORY[0x277D85DD0];
-              v82[1] = 3221225472;
-              v82[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_4;
-              v82[3] = &unk_2786214F8;
+              v42 = [v62 protectedDatabase];
+              v81[0] = MEMORY[0x277D85DD0];
+              v81[1] = 3221225472;
+              v81[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_4;
+              v81[3] = &unk_2786214F8;
               v43 = v40;
-              v85 = v5;
-              v86 = v6;
-              v83 = v43;
-              v84 = v29;
-              v44 = [v42 executeSQL:@"INSERT INTO samples (data_id error:start_date bindingHandler:end_date enumerationHandler:{data_type) VALUES (?, ?, ?, ?)", a3, v82, 0}];
+              v84 = v5;
+              v85 = v6;
+              v82 = v43;
+              v83 = v29;
+              v44 = [v42 executeSQL:@"INSERT INTO samples (data_id error:start_date bindingHandler:end_date enumerationHandler:{data_type) VALUES (?, ?, ?, ?)", a3, v81, 0}];
 
               if (v44)
               {
-                v45 = [v63 protectedDatabase];
-                v78[0] = MEMORY[0x277D85DD0];
-                v78[1] = 3221225472;
-                v78[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_5;
-                v78[3] = &unk_278613528;
+                v45 = [v62 protectedDatabase];
+                v77[0] = MEMORY[0x277D85DD0];
+                v77[1] = 3221225472;
+                v77[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_5;
+                v77[3] = &unk_278613528;
                 v46 = v43;
-                v79 = v46;
-                v80 = obj;
-                v81 = v29;
-                v47 = [v45 executeSQL:@"INSERT INTO category_samples (data_id error:value) VALUES (? bindingHandler:?)" enumerationHandler:{a3, v78, 0}];
+                v78 = v46;
+                v79 = obj;
+                v80 = v29;
+                v47 = [v45 executeSQL:@"INSERT INTO category_samples (data_id error:value) VALUES (? bindingHandler:?)" enumerationHandler:{a3, v77, 0}];
 
                 if (v47)
                 {
-                  v48 = [v63 protectedDatabase];
-                  v74[0] = MEMORY[0x277D85DD0];
-                  v74[1] = 3221225472;
-                  v74[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_6;
-                  v74[3] = &unk_278619A20;
-                  v76 = v58;
-                  v75 = v46;
-                  v77 = v55;
-                  v49 = [v48 executeSQL:@"INSERT INTO correlations (correlation error:object bindingHandler:provenance) VALUES (? enumerationHandler:{?, ?)", a3, v74, 0}];
+                  v48 = [v62 protectedDatabase];
+                  v73[0] = MEMORY[0x277D85DD0];
+                  v73[1] = 3221225472;
+                  v73[2] = ___HDInsertECGSymptomsAndCreateAssociationWithECGSamples_block_invoke_6;
+                  v73[3] = &unk_278619A20;
+                  v75 = v57;
+                  v74 = v46;
+                  v76 = v54;
+                  v49 = [v48 executeSQL:@"INSERT INTO correlations (correlation error:object bindingHandler:provenance) VALUES (? enumerationHandler:{?, ?)", a3, v73, 0}];
 
                   v36 = v49 ^ 1;
                 }
@@ -332,7 +332,7 @@ LABEL_49:
           v36 = 1;
         }
 
-        _Block_object_dispose(&v94, 8);
+        _Block_object_dispose(&v93, 8);
         if (v36 != 3 && v36)
         {
           v50 = 0;
@@ -340,7 +340,7 @@ LABEL_49:
         }
       }
 
-      v27 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
+      v27 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
       if (v27)
       {
         continue;
@@ -358,18 +358,17 @@ LABEL_79:
 LABEL_80:
     v51 = [*(a1 + 32) protectedDatabase];
     v52 = *(a1 + 56);
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke_4;
-    v65[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v65[4] = v58;
-    v50 = [v51 executeSQL:v52 error:a3 bindingHandler:v65 enumerationHandler:0];
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = ___HDMigrateECGClassificationAverageHRAndPayload_block_invoke_4;
+    v64[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
+    v64[4] = v57;
+    v50 = [v51 executeSQL:v52 error:a3 bindingHandler:v64 enumerationHandler:0];
   }
 
 LABEL_81:
 
 LABEL_82:
-  v53 = *MEMORY[0x277D85DE8];
   return v50;
 }
 

@@ -4,6 +4,7 @@
 - (void)_beginUpdates;
 - (void)_buildData:(id)data timestamp:(unint64_t)timestamp cpuLoad:(processor_cpu_load_info *)load;
 - (void)_buildData:(id)data timestamp:(unint64_t)timestamp loadInfo:(processor_set_load_info *)info;
+- (void)_buildData:(id)data timestamp:(unint64_t)timestamp processorCount:(unsigned int)count;
 - (void)_gatherConstantSystemProperties;
 - (void)_pollProcessorLoadInformationWithData:(id)data;
 - (void)_pollSystemHostProcessorInfoWithData:(id)data;
@@ -36,6 +37,14 @@
   }
 
   return v3;
+}
+
+- (void)_buildData:(id)data timestamp:(unint64_t)timestamp processorCount:(unsigned int)count
+{
+  v5 = *&count;
+  dataCopy = data;
+  v7 = +[MXMSystemSampleTag CPUCoresLogical];
+  v8 = [dataCopy appendUnsignedIntValue:v5 tag:v7 timestamp:timestamp];
 }
 
 - (void)_buildData:(id)data timestamp:(unint64_t)timestamp cpuLoad:(processor_cpu_load_info *)load
@@ -185,29 +194,29 @@ LABEL_4:
 
 - (void)_pollSystemHostProcessorInfoWithData:(id)data
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v35[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v33[0] = &unk_286A26088;
-  v33[1] = &unk_286A260B8;
-  v34[0] = &unk_286A260A0;
-  v34[1] = &unk_286A260D0;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+  v34[0] = &unk_286A26088;
+  v34[1] = &unk_286A260B8;
+  v35[0] = &unk_286A260A0;
+  v35[1] = &unk_286A260D0;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
   allKeys = [v5 allKeys];
   v7 = [allKeys count];
 
   if (v7)
   {
     v8 = 0;
-    v27 = v5;
+    v28 = v5;
     do
     {
       allKeys2 = [v5 allKeys];
       v10 = [allKeys2 objectAtIndexedSubscript:v8];
 
       v11 = [v5 objectForKeyedSubscript:v10];
-      v29 = v10;
+      v30 = v10;
       intValue = [v10 intValue];
-      v28 = v11;
+      v29 = v11;
       integerValue = [v11 integerValue];
       v14 = malloc_type_malloc(integerValue, 0x18C85E1CuLL);
       *out_processor_infoCnt = 0;
@@ -224,8 +233,8 @@ LABEL_4:
       {
         if ((intValue - 1) > 1)
         {
-          v26 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MetricMeasurement" reason:@"Invalid Processor Flavor Value" userInfo:0];
-          objc_exception_throw(v26);
+          v27 = [MEMORY[0x277CBEAD8] exceptionWithName:@"MetricMeasurement" reason:@"Invalid Processor Flavor Value" userInfo:0];
+          objc_exception_throw(v27);
         }
 
         v17 = 0;
@@ -253,25 +262,24 @@ LABEL_4:
       }
 
       v21 = mach_vm_deallocate(*MEMORY[0x277D85F48], *v14, integerValue);
-      v22 = _MXMGetLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v22 = v21;
+      v24 = _MXMGetLog(v21, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        v32 = v21;
-        _os_log_impl(&dword_258DAA000, v22, OS_LOG_TYPE_DEBUG, "Recieved non-success kernel return from mach_vm_deallocate (%i).", buf, 8u);
+        v33 = v22;
+        _os_log_impl(&dword_258DAA000, v24, OS_LOG_TYPE_DEBUG, "Recieved non-success kernel return from mach_vm_deallocate (%i).", buf, 8u);
       }
 
       free(v14);
       ++v8;
-      v5 = v27;
-      allKeys3 = [v27 allKeys];
-      v24 = [allKeys3 count];
+      v5 = v28;
+      allKeys3 = [v28 allKeys];
+      v26 = [allKeys3 count];
     }
 
-    while (v8 < v24);
+    while (v8 < v26);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pollProcessorLoadInformationWithData:(id)data

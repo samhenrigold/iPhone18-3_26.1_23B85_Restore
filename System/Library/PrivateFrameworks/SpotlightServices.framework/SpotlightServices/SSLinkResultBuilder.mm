@@ -161,32 +161,30 @@
 
 - (id)buildBadgingImageWithThumbnail:(id)thumbnail
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   thumbnailCopy = thumbnail;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 || (-[SSLinkResultBuilder senderContactIdentifiers](self, "senderContactIdentifiers"), v5 = objc_claimAutoreleasedReturnValue(), [v5 firstObject], v6 = objc_claimAutoreleasedReturnValue(), v5, !v6))
   {
-    v11.receiver = self;
-    v11.super_class = SSLinkResultBuilder;
-    v7 = [(SSResultBuilder *)&v11 buildBadgingImageWithThumbnail:thumbnailCopy];
+    v10.receiver = self;
+    v10.super_class = SSLinkResultBuilder;
+    v7 = [(SSResultBuilder *)&v10 buildBadgingImageWithThumbnail:thumbnailCopy];
   }
 
   else
   {
     v7 = objc_opt_new();
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     [v7 setContactIdentifiers:v8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)buildDescriptions
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"Shared Link" value:0 table:0];
 
@@ -195,9 +193,9 @@
 
   if (host)
   {
-    v14[0] = host;
-    v14[1] = v4;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+    v13[0] = host;
+    v13[1] = v4;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
     v8 = [v7 componentsJoinedByString:@" · "];
   }
 
@@ -207,44 +205,42 @@
   }
 
   v9 = [MEMORY[0x1E69CA3A0] textWithString:host];
-  v13 = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
 
   return v10;
 }
 
 - (id)subclassBuildHorizontallyScrollingCardSection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   senderContactIdentifiers = [(SSLinkResultBuilder *)self senderContactIdentifiers];
-  v5 = [senderContactIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [senderContactIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(senderContactIdentifiers);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = objc_opt_new();
         [v10 setContactIdentifier:v9];
         [v3 addObject:v10];
       }
 
-      v6 = [senderContactIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [senderContactIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -255,7 +251,7 @@
   absoluteString = [v12 absoluteString];
   [v11 setUrl:absoluteString];
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v14 = v3;
   }
@@ -270,7 +266,6 @@
   [v11 setCoreSpotlightIdentifier:coreSpotlightId];
 
   [v11 setIsHighlighted:{-[SSLinkResultBuilder syndicationStatus](self, "syndicationStatus") == 2}];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

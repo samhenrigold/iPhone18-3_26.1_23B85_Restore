@@ -66,7 +66,7 @@
   if (messagePartHighlightChatItem)
   {
     v6 = messagePartHighlightChatItem;
-    [messagePartHighlightChatItem geometryDescriptor];
+    objc_msgSend_geometryDescriptor(messagePartHighlightChatItem);
     messagePartHighlightChatItem = v6;
   }
 

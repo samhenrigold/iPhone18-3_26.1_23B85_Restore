@@ -12,7 +12,7 @@
 
 - (PanoramaGyroStage)init
 {
-  objc_msgSend_resetState(self, a2, v2, v3);
+  [(PanoramaGyroStage *)self resetState];
   fig_note_initialize_category_with_default_work();
   return self;
 }
@@ -45,42 +45,42 @@
 {
   dCopy = d;
   v6 = *&type;
-  v51[16] = *MEMORY[0x277D85DE8];
+  v24[16] = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v11 = updateCopy;
+  v9 = updateCopy;
   if (updateCopy)
   {
     self->_motionSource = 0;
-    v12 = objc_msgSend_objectForKey_(updateCopy, v9, @"Attitude", v10);
+    v10 = [updateCopy objectForKey:@"Attitude"];
 
-    if (v12)
+    if (v10)
     {
-      v15 = objc_msgSend_objectForKeyedSubscript_(v11, v13, @"Attitude", v14);
-      if (objc_msgSend_length(v15, v16, v17, v18) == 24)
+      v11 = [v9 objectForKeyedSubscript:@"Attitude"];
+      if ([v11 length] == 24)
       {
-        v51[0] = 0.0;
-        objc_msgSend_getBytes_length_(v15, v19, v51, 8);
-        self->_curRotationRate = fabs(v51[0] * 30.0);
-        v22 = objc_msgSend_objectForKeyedSubscript_(v11, v20, @"ExposureTime", v21);
-        v26 = v22;
-        if (v22)
+        v24[0] = 0.0;
+        [v11 getBytes:v24 length:8];
+        self->_curRotationRate = fabs(v24[0] * 30.0);
+        v12 = [v9 objectForKeyedSubscript:@"ExposureTime"];
+        v13 = v12;
+        if (v12)
         {
-          objc_msgSend_floatValue(v22, v23, v24, v25);
-          self->_curRotationRate = self->_curRotationRate * (v27 * 0.02632 + 0.7368);
+          [v12 floatValue];
+          self->_curRotationRate = self->_curRotationRate * (v14 * 0.02632 + 0.7368);
         }
       }
     }
 
-    v28 = objc_msgSend_objectForKey_(v11, v13, @"TransformMatrix", v14);
+    v15 = [v9 objectForKey:@"TransformMatrix"];
 
-    if (v28)
+    if (v15)
     {
-      v31 = objc_msgSend_objectForKeyedSubscript_(v11, v29, @"TransformMatrix", v30);
-      if (objc_msgSend_length(v31, v32, v33, v34) == 36)
+      v16 = [v9 objectForKeyedSubscript:@"TransformMatrix"];
+      if ([v16 length] == 36)
       {
-        objc_msgSend_getBytes_length_(v31, v35, v51, 36);
-        LODWORD(v28) = objc_msgSend_updateWithTransformMatrix_sliceType_(self, v36, v51, v6);
-        if (!v28)
+        [v16 getBytes:v24 length:36];
+        LODWORD(v15) = [(PanoramaGyroStage *)self updateWithTransformMatrix:v24 sliceType:v6];
+        if (!v15)
         {
           self->_motionSource |= 2u;
         }
@@ -91,46 +91,46 @@
 
       else
       {
-        LODWORD(v28) = 0;
+        LODWORD(v15) = 0;
       }
     }
 
-    v38 = objc_msgSend_objectForKey_(v11, v29, @"Translation", v30);
+    v18 = [v9 objectForKey:@"Translation"];
 
-    if (v38)
+    if (v18)
     {
-      v41 = objc_msgSend_objectForKeyedSubscript_(v11, v39, @"Translation", v40);
-      if (objc_msgSend_length(v41, v42, v43, v44) == 8)
+      v19 = [v9 objectForKeyedSubscript:@"Translation"];
+      if ([v19 length] == 8)
       {
-        objc_msgSend_getBytes_length_(v41, v45, v51, 8);
-        LODWORD(v28) = objc_msgSend_updateWithTranslation_sliceType_(self, v46, v51, v6);
-        if (!v28)
+        [v19 getBytes:v24 length:8];
+        LODWORD(v15) = [(PanoramaGyroStage *)self updateWithTranslation:v24 sliceType:v6];
+        if (!v15)
         {
           self->_motionSource |= 1u;
         }
 
-        v47 = ACT_getHostTime();
-        panoLog(32, "FrameID:%04d time %.3f: gyro updated with txty = %f %f\n", dCopy, v47, *v51, *(v51 + 1));
+        v20 = ACT_getHostTime();
+        panoLog(32, "FrameID:%04d time %.3f: gyro updated with txty = %f %f\n", dCopy, v20, *v24, *(v24 + 1));
       }
     }
 
     if (!self->_motionSource)
     {
-      v48 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT);
+      v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-      v49 = ACT_getHostTime();
-      panoLog(4, "FrameID:%04d time %.3f: NO motion data available\n", dCopy, v49);
+      v22 = ACT_getHostTime();
+      panoLog(4, "FrameID:%04d time %.3f: NO motion data available\n", dCopy, v22);
     }
   }
 
   else
   {
-    LODWORD(v28) = 2;
+    LODWORD(v15) = 2;
   }
 
-  return v28;
+  return v15;
 }
 
 - (int)updateWithTranslation:(float *)translation sliceType:(int)type

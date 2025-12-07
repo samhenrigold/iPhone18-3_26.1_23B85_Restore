@@ -32,7 +32,7 @@
 {
   eligibilityCopy = eligibility;
   completionCopy = completion;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(completionCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100075CF4;
@@ -47,7 +47,7 @@
 
 - (void)_popEligibilityQueue
 {
-  v3 = PDDefaultQueue();
+  v3 = PDDefaultQueue(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100076010;

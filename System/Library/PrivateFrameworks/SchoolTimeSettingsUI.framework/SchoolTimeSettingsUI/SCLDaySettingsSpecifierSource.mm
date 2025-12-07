@@ -12,12 +12,12 @@
 
 - (SCLDaySettingsSpecifierSource)initWithListController:(id)controller viewModel:(id)model
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   modelCopy = model;
-  v23.receiver = self;
-  v23.super_class = SCLDaySettingsSpecifierSource;
-  v8 = [(SCLSpecifierDataSource *)&v23 initWithListController:controllerCopy viewModel:modelCopy];
+  v22.receiver = self;
+  v22.super_class = SCLDaySettingsSpecifierSource;
+  v8 = [(SCLSpecifierDataSource *)&v22 initWithListController:controllerCopy viewModel:modelCopy];
   if (v8)
   {
     v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -31,8 +31,8 @@
     if (![timeIntervals count])
     {
       v14 = +[SCLTimeIntervalModel defaultTimeInterval];
-      v25[0] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
 
       timeIntervals = v15;
     }
@@ -46,15 +46,14 @@
     customDayDataSource = v8->_customDayDataSource;
     v8->_customDayDataSource = v18;
 
-    v24[0] = v8->_repeatedDaySource;
-    v24[1] = v8->_customDayDataSource;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = v8->_repeatedDaySource;
+    v23[1] = v8->_customDayDataSource;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     [(SCLSpecifierDataSource *)v8 setChildDataSources:v20];
 
     [modelCopy addObserver:v8 forKeyPath:@"scheduleType" options:5 context:kScheduleTypeContext];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -88,7 +87,7 @@
 
 - (void)updateScheduleType:(unint64_t)type
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   listController = [(SCLSpecifierDataSource *)self listController];
   [listController beginUpdates];
 
@@ -132,29 +131,29 @@ LABEL_8:
   [customDayDataSource setActive:v9];
 
 LABEL_9:
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   selfCopy = self;
   obj = [(SCLSpecifierDataSource *)self specifiers];
-  v16 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v16 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v32;
+    v18 = *v31;
     v19 = *MEMORY[0x277D401A8];
-    v28 = *MEMORY[0x277D40090];
+    v27 = *MEMORY[0x277D40090];
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v32 != v18)
+        if (*v31 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * i);
+        v21 = *(*(&v30 + 1) + 8 * i);
         v22 = [v21 propertyForKey:v19];
         typeCopy = type;
         v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
@@ -162,13 +161,13 @@ LABEL_9:
 
         if (v25)
         {
-          [(PSSpecifier *)selfCopy->_groupSpecifier setProperty:v21 forKey:v28];
+          [(PSSpecifier *)selfCopy->_groupSpecifier setProperty:v21 forKey:v27];
         }
 
         type = typeCopy;
       }
 
-      v17 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v17 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v17);
@@ -176,16 +175,14 @@ LABEL_9:
 
   listController2 = [(SCLSpecifierDataSource *)selfCopy listController];
   [listController2 endUpdates];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path specifier:(id)specifier
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = SCLDaySettingsSpecifierSource;
-  [(SCLSpecifierDataSource *)&v25 tableView:view didSelectRowAtIndexPath:path specifier:specifier];
+  v29 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = SCLDaySettingsSpecifierSource;
+  [(SCLSpecifierDataSource *)&v24 tableView:view didSelectRowAtIndexPath:path specifier:specifier];
   groupSpecifier = [(SCLDaySettingsSpecifierSource *)self groupSpecifier];
   v7 = [groupSpecifier propertyForKey:*MEMORY[0x277D40090]];
 
@@ -213,9 +210,9 @@ LABEL_9:
       v13 = NSStringFromSCLSettingsViewModelScheduleType(scheduleType);
       v14 = NSStringFromSCLSettingsViewModelScheduleType(integerValue);
       *buf = 138412546;
-      v27 = v13;
-      v28 = 2112;
-      v29 = v14;
+      v26 = v13;
+      v27 = 2112;
+      v28 = v14;
       _os_log_impl(&dword_26486D000, v12, OS_LOG_TYPE_DEFAULT, "Switching from schedule type %@ to %@", buf, 0x16u);
     }
 
@@ -269,8 +266,6 @@ LABEL_20:
 
 LABEL_21:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)repeatScheduleForRepeatingScheduleType:(unint64_t)type

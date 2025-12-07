@@ -56,7 +56,7 @@ void __64__TRIEagerExitManager_initWithExitCooldown_monitoringTaskQueue___block_
 
 - (void)handleTaskQueueEmptyNotificationWithCooldown:(double)cooldown
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_eagerExitQueue);
   v5 = TRILogCategory_Server();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -91,24 +91,22 @@ void __64__TRIEagerExitManager_initWithExitCooldown_monitoringTaskQueue___block_
     dispatch_source_set_timer(self->_eagerExitSource, [MEMORY[0x277D425A0] dispatchTimeWithSecondsFromNow:cooldown], 0xFFFFFFFFFFFFFFFFLL, 0x2540BE400uLL);
     objc_initWeak(buf, self);
     v9 = self->_eagerExitSource;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __68__TRIEagerExitManager_handleTaskQueueEmptyNotificationWithCooldown___block_invoke;
-    v11[3] = &unk_279DE54A0;
-    objc_copyWeak(v12, buf);
-    v12[1] = *&cooldown;
-    dispatch_source_set_event_handler(v9, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __68__TRIEagerExitManager_handleTaskQueueEmptyNotificationWithCooldown___block_invoke;
+    v10[3] = &unk_279DE54A0;
+    objc_copyWeak(v11, buf);
+    v11[1] = *&cooldown;
+    dispatch_source_set_event_handler(v9, v10);
     dispatch_activate(self->_eagerExitSource);
-    objc_destroyWeak(v12);
+    objc_destroyWeak(v11);
     objc_destroyWeak(buf);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __68__TRIEagerExitManager_handleTaskQueueEmptyNotificationWithCooldown___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [(dispatch_source_t *)WeakRetained taskQueue];
   v4 = v3;
@@ -117,9 +115,9 @@ void __68__TRIEagerExitManager_handleTaskQueueEmptyNotificationWithCooldown___bl
     v5 = TRILogCategory_Server();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = [v4 count];
-      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Eager exit: task queue has %lu tasks in progress, cancelling eager exit.", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = [v4 count];
+      _os_log_impl(&dword_26F567000, v5, OS_LOG_TYPE_DEFAULT, "Eager exit: task queue has %lu tasks in progress, cancelling eager exit.", &v8, 0xCu);
     }
 
     dispatch_source_cancel(WeakRetained[2]);
@@ -131,15 +129,13 @@ void __68__TRIEagerExitManager_handleTaskQueueEmptyNotificationWithCooldown___bl
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 40);
-      v9 = 134217984;
-      v10 = v7;
-      _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Eager exit: Task queue has been empty for %f seconds. Triald is idle and will exit.", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = v7;
+      _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Eager exit: Task queue has been empty for %f seconds. Triald is idle and will exit.", &v8, 0xCu);
     }
 
     [(dispatch_source_t *)WeakRetained exitTrialdCleanly];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)exitTrialdCleanly

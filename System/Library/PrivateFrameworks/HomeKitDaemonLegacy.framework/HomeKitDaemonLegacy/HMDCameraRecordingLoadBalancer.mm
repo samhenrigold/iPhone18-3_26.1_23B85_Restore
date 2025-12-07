@@ -15,6 +15,7 @@
 - (void)recordingDidEndForCameraWithUUID:(id)d;
 - (void)recordingDidStartForCameraWithUUID:(id)d;
 - (void)removeDataForCameraWithUUID:(id)d;
+- (void)setReadyToRecord:(BOOL)record forCameraWithUUID:(id)d;
 - (void)start;
 - (void)systemResourceUsageDidUpdate:(int64_t)update maxNumberOfAnalyzers:(unint64_t)analyzers maxAnalysisFPS:(float)s;
 @end
@@ -30,7 +31,7 @@
 
 - (void)systemResourceUsageDidUpdate:(int64_t)update maxNumberOfAnalyzers:(unint64_t)analyzers maxAnalysisFPS:(float)s
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v9 = objc_autoreleasePoolPush();
   selfCopy = self;
   v11 = HMFGetOSLogHandle();
@@ -38,15 +39,15 @@
   {
     v12 = HMFGetLogIdentifier();
     v13 = systemResourceUsageLevelAsString();
-    v22 = 138544130;
-    v23 = v12;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 2048;
+    v21 = 138544130;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v13;
+    v25 = 2048;
     analyzersCopy = analyzers;
-    v28 = 2048;
+    v27 = 2048;
     sCopy = s;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating resource usage to usageLevel:%@ maxNumberOfAnalyzers:%lu maxAnalysisFPS:%f", &v22, 0x2Au);
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating resource usage to usageLevel:%@ maxNumberOfAnalyzers:%lu maxAnalysisFPS:%f", &v21, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -64,8 +65,6 @@
   *&v19 = s;
   v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
   [residentMesh setMetricForCurrentDevice:@"maximumAnalysisFPS" withValue:v20 isUrgent:v16];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResidentMeshInitialized:(id)initialized
@@ -94,7 +93,7 @@
 {
   os_unfair_lock_lock_with_options();
   readyToRecordByCameraUUIDString = [(HMDCameraRecordingLoadBalancer *)self readyToRecordByCameraUUIDString];
-  v6 = [readyToRecordByCameraUUIDString copy];
+  v6 = objc_msgSend_copy(readyToRecordByCameraUUIDString);
 
   os_unfair_lock_unlock(&self->_lock);
   homeManager = [(HMDCameraRecordingLoadBalancer *)self homeManager];
@@ -180,58 +179,58 @@
 
 - (id)_makeLoadBalancingDecisionForCamera:(id)camera deviceFilter:(id)filter
 {
-  v166 = *MEMORY[0x277D85DE8];
+  v165 = *MEMORY[0x277D85DE8];
   cameraCopy = camera;
   filterCopy = filter;
   os_unfair_lock_assert_owner(&self->_lock);
-  v156 = 0u;
-  v157 = 0u;
-  v154 = 0u;
   v155 = 0u;
+  v156 = 0u;
+  v153 = 0u;
+  v154 = 0u;
   selfCopy = self;
   pendingDecisionsByCameraUUIDByDeviceUUID = [(HMDCameraRecordingLoadBalancer *)self pendingDecisionsByCameraUUIDByDeviceUUID];
   obj = [pendingDecisionsByCameraUUIDByDeviceUUID allKeys];
 
-  v124 = [obj countByEnumeratingWithState:&v154 objects:v165 count:16];
-  if (v124)
+  v123 = [obj countByEnumeratingWithState:&v153 objects:v164 count:16];
+  if (v123)
   {
-    v123 = *v155;
+    v122 = *v154;
     do
     {
       v7 = 0;
       do
       {
-        if (*v155 != v123)
+        if (*v154 != v122)
         {
           v8 = v7;
           objc_enumerationMutation(obj);
           v7 = v8;
         }
 
-        v125 = v7;
-        v126 = *(*(&v154 + 1) + 8 * v7);
+        v124 = v7;
+        v125 = *(*(&v153 + 1) + 8 * v7);
         pendingDecisionsByCameraUUIDByDeviceUUID2 = [(HMDCameraRecordingLoadBalancer *)selfCopy pendingDecisionsByCameraUUIDByDeviceUUID];
-        v10 = [pendingDecisionsByCameraUUIDByDeviceUUID2 objectForKeyedSubscript:v126];
+        v10 = [pendingDecisionsByCameraUUIDByDeviceUUID2 objectForKeyedSubscript:v125];
 
-        v152 = 0u;
-        v153 = 0u;
-        v150 = 0u;
         v151 = 0u;
+        v152 = 0u;
+        v149 = 0u;
+        v150 = 0u;
         allKeys = [v10 allKeys];
-        v11 = [allKeys countByEnumeratingWithState:&v150 objects:v164 count:16];
+        v11 = [allKeys countByEnumeratingWithState:&v149 objects:v163 count:16];
         if (v11)
         {
-          v132 = *v151;
+          v131 = *v150;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v151 != v132)
+              if (*v150 != v131)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v13 = *(*(&v150 + 1) + 8 * i);
+              v13 = *(*(&v149 + 1) + 8 * i);
               v14 = [v10 objectForKeyedSubscript:v13];
               isExpired = [v14 isExpired];
 
@@ -257,7 +256,7 @@
               }
             }
 
-            v11 = [allKeys countByEnumeratingWithState:&v150 objects:v164 count:16];
+            v11 = [allKeys countByEnumeratingWithState:&v149 objects:v163 count:16];
           }
 
           while (v11);
@@ -266,17 +265,17 @@
         if (![v10 count])
         {
           pendingDecisionsByCameraUUIDByDeviceUUID3 = [(HMDCameraRecordingLoadBalancer *)selfCopy pendingDecisionsByCameraUUIDByDeviceUUID];
-          [pendingDecisionsByCameraUUIDByDeviceUUID3 setObject:0 forKeyedSubscript:v126];
+          [pendingDecisionsByCameraUUIDByDeviceUUID3 setObject:0 forKeyedSubscript:v125];
         }
 
-        v7 = v125 + 1;
+        v7 = v124 + 1;
       }
 
-      while (v125 + 1 != v124);
-      v124 = [obj countByEnumeratingWithState:&v154 objects:v165 count:16];
+      while (v124 + 1 != v123);
+      v123 = [obj countByEnumeratingWithState:&v153 objects:v164 count:16];
     }
 
-    while (v124);
+    while (v123);
   }
 
   lastDecisionByCameraUUID = [(HMDCameraRecordingLoadBalancer *)selfCopy lastDecisionByCameraUUID];
@@ -286,17 +285,17 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v161 = __Block_byref_object_copy__186896;
-  v162 = __Block_byref_object_dispose__186897;
-  v163 = 0;
+  v160 = __Block_byref_object_copy__186896;
+  v161 = __Block_byref_object_dispose__186897;
+  v162 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke;
   aBlock[3] = &unk_279734A78;
-  v149 = buf;
-  v127 = v25;
-  v148 = v127;
-  v128 = _Block_copy(aBlock);
+  v148 = buf;
+  v126 = v25;
+  v147 = v126;
+  v127 = _Block_copy(aBlock);
   homeManager = [(HMDCameraRecordingLoadBalancer *)selfCopy homeManager];
   residentMesh = [homeManager residentMesh];
   pendingDecisionsByCameraUUIDByDeviceUUID4 = [(HMDCameraRecordingLoadBalancer *)selfCopy pendingDecisionsByCameraUUIDByDeviceUUID];
@@ -304,37 +303,37 @@
   v30 = [v29 mutableCopy];
 
   preferences = [(HMDCameraRecordingLoadBalancer *)selfCopy preferences];
-  v133 = [preferences preferenceForKey:@"loadBalancerOverrideAllowedDeviceNames"];
+  v132 = [preferences preferenceForKey:@"loadBalancerOverrideAllowedDeviceNames"];
 
   preferences2 = [(HMDCameraRecordingLoadBalancer *)selfCopy preferences];
-  v131 = [preferences2 preferenceForKey:@"loadBalancerOverrideDeniedDeviceNames"];
+  v130 = [preferences2 preferenceForKey:@"loadBalancerOverrideDeniedDeviceNames"];
 
-  value = [v133 value];
+  value = [v132 value];
   if (value)
   {
   }
 
   else
   {
-    value2 = [v131 value];
+    value2 = [v130 value];
     v35 = value2 == 0;
 
     if (v35)
     {
-      v145[0] = MEMORY[0x277D85DD0];
-      v145[1] = 3221225472;
-      v145[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_2;
-      v145[3] = &unk_279734AA0;
-      v146 = filterCopy;
-      v117 = _Block_copy(v145);
-      v143[0] = MEMORY[0x277D85DD0];
-      v143[1] = 3221225472;
-      v143[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_3;
-      v143[3] = &unk_279734AC8;
-      v118 = v117;
-      v144 = v118;
-      v119 = [v30 indexesOfObjectsPassingTest:v143];
-      [v30 removeObjectsAtIndexes:v119];
+      v144[0] = MEMORY[0x277D85DD0];
+      v144[1] = 3221225472;
+      v144[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_2;
+      v144[3] = &unk_279734AA0;
+      v145 = filterCopy;
+      v116 = _Block_copy(v144);
+      v142[0] = MEMORY[0x277D85DD0];
+      v142[1] = 3221225472;
+      v142[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_3;
+      v142[3] = &unk_279734AC8;
+      v117 = v116;
+      v143 = v117;
+      v118 = [v30 indexesOfObjectsPassingTest:v142];
+      [v30 removeObjectsAtIndexes:v118];
 
       goto LABEL_27;
     }
@@ -346,18 +345,18 @@
   if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     v39 = HMFGetLogIdentifier();
-    *v158 = 138543362;
-    *&v158[4] = v39;
-    _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Skipping applying exclusion filter because override is set.", v158, 0xCu);
+    *v157 = 138543362;
+    *&v157[4] = v39;
+    _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Skipping applying exclusion filter because override is set.", v157, 0xCu);
   }
 
   objc_autoreleasePoolPop(v36);
 LABEL_27:
-  value3 = [v133 value];
+  value3 = [v132 value];
 
   if (value3)
   {
-    value4 = [v133 value];
+    value4 = [v132 value];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -379,20 +378,20 @@ LABEL_27:
       if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         v47 = HMFGetLogIdentifier();
-        *v158 = 138543618;
-        *&v158[4] = v47;
-        *&v158[12] = 2112;
-        *&v158[14] = v43;
-        _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Applying load balancer override with allow list: %@", v158, 0x16u);
+        *v157 = 138543618;
+        *&v157[4] = v47;
+        *&v157[12] = 2112;
+        *&v157[14] = v43;
+        _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Applying load balancer override with allow list: %@", v157, 0x16u);
       }
 
       objc_autoreleasePoolPop(v44);
-      v141[0] = MEMORY[0x277D85DD0];
-      v141[1] = 3221225472;
-      v141[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_15;
-      v141[3] = &unk_279734AF0;
-      v142 = v43;
-      v48 = [v30 na_filter:v141];
+      v140[0] = MEMORY[0x277D85DD0];
+      v140[1] = 3221225472;
+      v140[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_15;
+      v140[3] = &unk_279734AF0;
+      v141 = v43;
+      v48 = [v30 na_filter:v140];
       v49 = [v48 mutableCopy];
 
       v30 = v49;
@@ -404,27 +403,27 @@ LABEL_27:
       if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         v51 = HMFGetLogIdentifier();
-        value5 = [v133 value];
+        value5 = [v132 value];
         v53 = objc_opt_class();
-        value6 = [v133 value];
-        *v158 = 138543874;
-        *&v158[4] = v51;
-        *&v158[12] = 2112;
-        *&v158[14] = v53;
-        *&v158[22] = 2112;
-        v159 = value6;
-        _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_ERROR, "%{public}@Device names allow list was not an array (%@): %@", v158, 0x20u);
+        value6 = [v132 value];
+        *v157 = 138543874;
+        *&v157[4] = v51;
+        *&v157[12] = 2112;
+        *&v157[14] = v53;
+        *&v157[22] = 2112;
+        v158 = value6;
+        _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_ERROR, "%{public}@Device names allow list was not an array (%@): %@", v157, 0x20u);
       }
 
       objc_autoreleasePoolPop(v44);
     }
   }
 
-  value7 = [v131 value];
+  value7 = [v130 value];
 
   if (value7)
   {
-    value8 = [v131 value];
+    value8 = [v130 value];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -446,20 +445,20 @@ LABEL_27:
       if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
         v62 = HMFGetLogIdentifier();
-        *v158 = 138543618;
-        *&v158[4] = v62;
-        *&v158[12] = 2112;
-        *&v158[14] = v58;
-        _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_INFO, "%{public}@Applying load balancer override with deny list: %@", v158, 0x16u);
+        *v157 = 138543618;
+        *&v157[4] = v62;
+        *&v157[12] = 2112;
+        *&v157[14] = v58;
+        _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_INFO, "%{public}@Applying load balancer override with deny list: %@", v157, 0x16u);
       }
 
       objc_autoreleasePoolPop(v59);
-      v139[0] = MEMORY[0x277D85DD0];
-      v139[1] = 3221225472;
-      v139[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_16;
-      v139[3] = &unk_279734AF0;
-      v140 = v58;
-      v63 = [v30 na_filter:v139];
+      v138[0] = MEMORY[0x277D85DD0];
+      v138[1] = 3221225472;
+      v138[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_16;
+      v138[3] = &unk_279734AF0;
+      v139 = v58;
+      v63 = [v30 na_filter:v138];
       v64 = [v63 mutableCopy];
 
       v30 = v64;
@@ -471,23 +470,23 @@ LABEL_27:
       if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         v66 = HMFGetLogIdentifier();
-        value9 = [v131 value];
+        value9 = [v130 value];
         v68 = objc_opt_class();
-        value10 = [v131 value];
-        *v158 = 138543874;
-        *&v158[4] = v66;
-        *&v158[12] = 2112;
-        *&v158[14] = v68;
-        *&v158[22] = 2112;
-        v159 = value10;
-        _os_log_impl(&dword_2531F8000, v65, OS_LOG_TYPE_ERROR, "%{public}@Device names deny list was not an array (%@): %@", v158, 0x20u);
+        value10 = [v130 value];
+        *v157 = 138543874;
+        *&v157[4] = v66;
+        *&v157[12] = 2112;
+        *&v157[14] = v68;
+        *&v157[22] = 2112;
+        v158 = value10;
+        _os_log_impl(&dword_2531F8000, v65, OS_LOG_TYPE_ERROR, "%{public}@Device names deny list was not an array (%@): %@", v157, 0x20u);
       }
 
       objc_autoreleasePoolPop(v59);
     }
   }
 
-  v70 = [v30 sortedArrayUsingComparator:v128];
+  v70 = [v30 sortedArrayUsingComparator:v127];
   v71 = [v70 mutableCopy];
 
   v72 = selfCopy;
@@ -505,13 +504,13 @@ LABEL_27:
       uniqueIdentifier2 = [cameraCopy uniqueIdentifier];
       uUIDString = [uniqueIdentifier2 UUIDString];
       v81 = -[HMDCameraRecordingLoadBalancer _loadBalancingDescriptionFromSortedNodes:limit:](v76, "_loadBalancingDescriptionFromSortedNodes:limit:", v71, [v71 count]);
-      *v158 = 138543874;
-      *&v158[4] = v78;
-      *&v158[12] = 2112;
-      *&v158[14] = uUIDString;
-      *&v158[22] = 2112;
-      v159 = v81;
-      _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_DEBUG, "%{public}@Residents sorted for camera (%@): %@", v158, 0x20u);
+      *v157 = 138543874;
+      *&v157[4] = v78;
+      *&v157[12] = 2112;
+      *&v157[14] = uUIDString;
+      *&v157[22] = 2112;
+      v158 = v81;
+      _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_DEBUG, "%{public}@Residents sorted for camera (%@): %@", v157, 0x20u);
     }
   }
 
@@ -524,32 +523,32 @@ LABEL_27:
       uniqueIdentifier3 = [cameraCopy uniqueIdentifier];
       uUIDString2 = [uniqueIdentifier3 UUIDString];
       v85 = [(HMDCameraRecordingLoadBalancer *)v76 _loadBalancingDescriptionFromSortedNodes:v71 limit:5];
-      *v158 = 138543874;
-      *&v158[4] = v82;
-      *&v158[12] = 2112;
-      *&v158[14] = uUIDString2;
-      *&v158[22] = 2112;
-      v159 = v85;
-      _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_INFO, "%{public}@Residents sorted for camera (%@): %@", v158, 0x20u);
+      *v157 = 138543874;
+      *&v157[4] = v82;
+      *&v157[12] = 2112;
+      *&v157[14] = uUIDString2;
+      *&v157[22] = 2112;
+      v158 = v85;
+      _os_log_impl(&dword_2531F8000, v77, OS_LOG_TYPE_INFO, "%{public}@Residents sorted for camera (%@): %@", v157, 0x20u);
     }
   }
 
   objc_autoreleasePoolPop(v75);
-  *v158 = 0;
-  *&v158[8] = v158;
-  *&v158[16] = 0x2020000000;
-  v159 = 0;
-  v135 = 0;
-  v136 = &v135;
-  v137 = 0x2020000000;
-  v138 = 0;
-  v134[0] = MEMORY[0x277D85DD0];
-  v134[1] = 3221225472;
-  v134[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_17;
-  v134[3] = &unk_279734B18;
-  v134[4] = v158;
-  v134[5] = &v135;
-  [v71 na_each:v134];
+  *v157 = 0;
+  *&v157[8] = v157;
+  *&v157[16] = 0x2020000000;
+  v158 = 0;
+  v134 = 0;
+  v135 = &v134;
+  v136 = 0x2020000000;
+  v137 = 0;
+  v133[0] = MEMORY[0x277D85DD0];
+  v133[1] = 3221225472;
+  v133[2] = __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_deviceFilter___block_invoke_17;
+  v133[3] = &unk_279734B18;
+  v133[4] = v157;
+  v133[5] = &v134;
+  [v71 na_each:v133];
   v86 = *(*&buf[8] + 40);
   if (!v86)
   {
@@ -583,8 +582,8 @@ LABEL_63:
   v92 = [HMDCameraRecordingLoadBalancerDecision alloc];
   uniqueIdentifier4 = [cameraCopy uniqueIdentifier];
   v94 = [v71 count];
-  v95 = *(*&v158[8] + 24);
-  v96 = v136[3];
+  v95 = *(*&v157[8] + 24);
+  v96 = v135[3];
   firstObject3 = [v71 firstObject];
   v98 = [MEMORY[0x277CBEAA8] now];
   v99 = [(HMDCameraRecordingLoadBalancerDecision *)v92 initWithCameraUUID:uniqueIdentifier4 numberOfAvailableDevices:v94 totalNumberOfJobSlots:v95 remainingNumberOfJobSlots:v96 analysisNode:firstObject3 decisionDate:v98 deviceWithSessionToHandOff:device];
@@ -630,11 +629,10 @@ LABEL_63:
   }
 
 LABEL_70:
-  _Block_object_dispose(&v135, 8);
-  _Block_object_dispose(v158, 8);
+  _Block_object_dispose(&v134, 8);
+  _Block_object_dispose(v157, 8);
 
   _Block_object_dispose(buf, 8);
-  v115 = *MEMORY[0x277D85DE8];
 
   return v99;
 }
@@ -1057,7 +1055,7 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
 
 - (void)handleRecordingSessionForwardingSuccessForDecision:(id)decision
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   decisionCopy = decision;
   os_unfair_lock_lock_with_options();
   v5 = objc_autoreleasePoolPush();
@@ -1066,11 +1064,11 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = decisionCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling successful load balancing decision: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = decisionCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling successful load balancing decision: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1079,7 +1077,6 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
   [lastDecisionByCameraUUID setObject:decisionCopy forKeyedSubscript:cameraUUID];
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)makeLoadBalancingDecisionForCamera:(id)camera deviceFilter:(id)filter
@@ -1118,6 +1115,38 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
   [(HMDCameraRecordingLoadBalancer *)self _updateReadyToRecordMetric];
 }
 
+- (void)setReadyToRecord:(BOOL)record forCameraWithUUID:(id)d
+{
+  recordCopy = record;
+  v21 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v7 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = HMFGetLogIdentifier();
+    v11 = HMFBooleanToString();
+    v15 = 138543874;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v11;
+    v19 = 2112;
+    v20 = dCopy;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Setting ready to record to %@ for camera with UUID %@", &v15, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v7);
+  os_unfair_lock_lock_with_options();
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:recordCopy];
+  readyToRecordByCameraUUIDString = [(HMDCameraRecordingLoadBalancer *)selfCopy readyToRecordByCameraUUIDString];
+  uUIDString = [dCopy UUIDString];
+  [readyToRecordByCameraUUIDString setObject:v12 forKeyedSubscript:uUIDString];
+
+  os_unfair_lock_unlock(&selfCopy->_lock);
+  [(HMDCameraRecordingLoadBalancer *)selfCopy _updateReadyToRecordMetric];
+}
+
 - (BOOL)isReadyToRecordForCameraWithUUID:(id)d
 {
   dCopy = d;
@@ -1133,7 +1162,7 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
 
 - (void)recordingDidEndForCameraWithUUID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCameraRecordingLoadBalancer *)self homeManager];
   if (homeManager)
@@ -1153,11 +1182,11 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v10;
-        v29 = 2112;
-        v30 = dCopy;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Got recordingDidEndForCamera: %@ with numberOfActiveRecordingSessions == 0", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v10;
+        v28 = 2112;
+        v29 = dCopy;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Got recordingDidEndForCamera: %@ with numberOfActiveRecordingSessions == 0", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -1177,11 +1206,11 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v18;
-        v29 = 2112;
-        v30 = dCopy;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Got recordingDidEndForCamera: %@ with no corresponding entry in recordingSessionSummariesByCameraUUIDString", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v18;
+        v28 = 2112;
+        v29 = dCopy;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Got recordingDidEndForCamera: %@ with no corresponding entry in recordingSessionSummariesByCameraUUIDString", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -1192,7 +1221,7 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
     [recordingSessionSummariesByCameraUUIDString2 setObject:0 forKeyedSubscript:uUIDString2];
 
     recordingSessionSummariesByCameraUUIDString3 = [(HMDCameraRecordingLoadBalancer *)self recordingSessionSummariesByCameraUUIDString];
-    v22 = [recordingSessionSummariesByCameraUUIDString3 copy];
+    v22 = objc_msgSend_copy(recordingSessionSummariesByCameraUUIDString3);
 
     os_unfair_lock_unlock(&self->_lock);
     residentMesh = [homeManager residentMesh];
@@ -1202,8 +1231,6 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
     residentMesh2 = [homeManager residentMesh];
     [residentMesh2 setMetricForCurrentDevice:@"recordingSessionSummaries" withValue:v22 isUrgent:0];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordingDidStartForCameraWithUUID:(id)d
@@ -1220,7 +1247,7 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
     [recordingSessionSummariesByCameraUUIDString setObject:MEMORY[0x277CBEC10] forKeyedSubscript:uUIDString];
 
     recordingSessionSummariesByCameraUUIDString2 = [(HMDCameraRecordingLoadBalancer *)self recordingSessionSummariesByCameraUUIDString];
-    v9 = [recordingSessionSummariesByCameraUUIDString2 copy];
+    v9 = objc_msgSend_copy(recordingSessionSummariesByCameraUUIDString2);
 
     os_unfair_lock_unlock(&self->_lock);
     residentMesh = [homeManager residentMesh];
@@ -1296,12 +1323,11 @@ void __83__HMDCameraRecordingLoadBalancer__makeLoadBalancingDecisionForCamera_de
 
 uint64_t __45__HMDCameraRecordingLoadBalancer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v30_186930;
-  logCategory__hmf_once_v30_186930 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v30_186930;
+  logCategory__hmf_once_v30_186930 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

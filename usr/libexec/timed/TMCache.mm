@@ -32,10 +32,11 @@
 - (TMCache)initWithPath:(id)path clock:(id)clock
 {
   v7 = qword_100033218;
-  if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
+  v8 = os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO);
+  if (v8)
   {
     *buf = 67109120;
-    LODWORD(v15) = sub_100005F84();
+    LODWORD(v17) = sub_100005F84(v8, v9);
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "PMU presence: %d", buf, 8u);
     v7 = qword_100033218;
   }
@@ -45,28 +46,28 @@
     sub_100012240();
   }
 
-  v13 = 0;
-  v8 = [[NSDictionary alloc] initWithContentsOfURL:+[NSURL fileURLWithPath:](NSURL error:{"fileURLWithPath:", path), &v13}];
-  v9 = qword_100033218;
-  if (!v8 && os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
+  v15 = 0;
+  v10 = [[NSDictionary alloc] initWithContentsOfURL:+[NSURL fileURLWithPath:](NSURL error:{"fileURLWithPath:", path), &v15}];
+  v11 = qword_100033218;
+  if (!v10 && os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
   {
-    userInfo = [v13 userInfo];
+    userInfo = [v15 userInfo];
     *buf = 138412290;
-    v15 = userInfo;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed to read cache: %@", buf, 0xCu);
-    v9 = qword_100033218;
+    v17 = userInfo;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed to read cache: %@", buf, 0xCu);
+    v11 = qword_100033218;
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v15 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "read cache: %@", buf, 0xCu);
+    v17 = v10;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "read cache: %@", buf, 0xCu);
   }
 
-  v11 = [(TMCache *)self initWithDictionary:v8 clock:clock];
+  v13 = [(TMCache *)self initWithDictionary:v10 clock:clock];
 
-  return v11;
+  return v13;
 }
 
 - (TMCache)initWithDictionary:(id)dictionary clock:(id)clock
@@ -277,8 +278,8 @@ LABEL_15:
     v15 = qword_100033218;
     if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Cache is empty.", &v25, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Cache is empty.", &v27, 2u);
     }
 
     goto LABEL_11;
@@ -295,10 +296,10 @@ LABEL_15:
       return v14;
     }
 
-    v25 = 134218240;
-    v26 = v16;
-    v27 = 2048;
-    v28 = 18;
+    v27 = 134218240;
+    v28 = v16;
+    v29 = 2048;
+    v30 = 18;
     v18 = "Cache format changed from %ld to %ld. Cache invalid.";
     goto LABEL_14;
   }
@@ -310,22 +311,23 @@ LABEL_15:
   v12 = qword_100033218;
   if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_INFO))
   {
-    v25 = 134218240;
-    v26 = v11;
-    v27 = 2048;
-    v28 = *&v9;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Current RTC: %lf Cached RTC: %lf", &v25, 0x16u);
+    v27 = 134218240;
+    v28 = v11;
+    v29 = 2048;
+    v30 = *&v9;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Current RTC: %lf Cached RTC: %lf", &v27, 0x16u);
   }
 
   if (v9 <= v11)
   {
-    if (sub_100003B58(0))
+    v21 = sub_100003B58(0);
+    if (v21)
     {
-      if (sub_100005F84())
+      if (sub_100005F84(v21, v22))
       {
-        v21 = COERCE_DOUBLE([cache objectForKeyedSubscript:@"HostUUID"]);
+        v23 = COERCE_DOUBLE([cache objectForKeyedSubscript:@"HostUUID"]);
         uUIDString = [(NSUUID *)[(TMCache *)self hostUUID] UUIDString];
-        if (([*&v21 isEqual:uUIDString] & 1) == 0)
+        if (([*&v23 isEqual:uUIDString] & 1) == 0)
         {
           v17 = qword_100033218;
           v14 = os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT);
@@ -334,16 +336,16 @@ LABEL_15:
             return v14;
           }
 
-          v25 = 138412546;
-          v26 = v21;
-          v27 = 2112;
-          v28 = uUIDString;
+          v27 = 138412546;
+          v28 = v23;
+          v29 = 2112;
+          v30 = uUIDString;
           v18 = "Host UUID has changed. Cache Invalid. Cached:%@ Host:%@";
 LABEL_14:
           v19 = v17;
           v20 = 22;
 LABEL_25:
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, &v25, v20);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, &v27, v20);
           LOBYTE(v14) = 0;
           return v14;
         }
@@ -353,31 +355,31 @@ LABEL_11:
         return v14;
       }
 
-      v23 = qword_100033218;
+      v25 = qword_100033218;
       v14 = os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT);
       if (!v14)
       {
         return v14;
       }
 
-      LOWORD(v25) = 0;
+      LOWORD(v27) = 0;
       v18 = "This platform is not equipped with a PMU RTC. Cache invalid.";
     }
 
     else
     {
-      v23 = qword_100033218;
+      v25 = qword_100033218;
       v14 = os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT);
       if (!v14)
       {
         return v14;
       }
 
-      LOWORD(v25) = 0;
+      LOWORD(v27) = 0;
       v18 = "Current RTC offset is zero. RTC reset likely. Cache invalid.";
     }
 
-    v19 = v23;
+    v19 = v25;
     v20 = 2;
     goto LABEL_25;
   }
@@ -385,8 +387,8 @@ LABEL_11:
   v13 = qword_100033218;
   if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v25) = 0;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Current RTC value older than cache. RTC reset likely. Cache invalid.", &v25, 2u);
+    LOWORD(v27) = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Current RTC value older than cache. RTC reset likely. Cache invalid.", &v27, 2u);
   }
 
   LOBYTE(v14) = 0;

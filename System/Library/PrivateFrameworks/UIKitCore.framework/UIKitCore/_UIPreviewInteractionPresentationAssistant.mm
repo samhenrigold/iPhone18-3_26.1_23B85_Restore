@@ -34,8 +34,8 @@
   completionCopy = completion;
   previewCopy = preview;
   controllerCopy = controller;
-  presentation = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
+  v11 = objc_msgSend_presentation(self);
+  viewController = [v11 viewController];
 
   [(_UIPreviewInteractionPresentationAssistant *)self _stashParentViewControllerIfNecessary];
   [viewController _setOverrideUseCustomPresentation:1];
@@ -63,14 +63,14 @@
       v12[3] = &unk_1E70F3590;
       v12[4] = self;
       [UIView performWithoutAnimation:v12];
-      presentation = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-      appearanceTransition = [presentation appearanceTransition];
+      v5 = objc_msgSend_presentation(self);
+      appearanceTransition = [v5 appearanceTransition];
       v7 = objc_opt_respondsToSelector();
 
       if (v7)
       {
-        presentation2 = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-        appearanceTransition2 = [presentation2 appearanceTransition];
+        v8 = objc_msgSend_presentation(self);
+        appearanceTransition2 = [v8 appearanceTransition];
         [appearanceTransition2 transitionWillReverse];
       }
 
@@ -81,7 +81,7 @@
 
     else
     {
-      timingParameters = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
+      timingParameters = objc_msgSend_presentation(self);
       viewController = [timingParameters viewController];
       [viewController dismissViewControllerAnimated:1 completion:0];
     }
@@ -90,8 +90,8 @@
 
 - (void)_stashParentViewControllerIfNecessary
 {
-  presentation = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
+  v3 = objc_msgSend_presentation(self, a2);
+  viewController = [v3 viewController];
 
   parentViewController = [viewController parentViewController];
 
@@ -115,8 +115,8 @@
 
   if (stashedParentViewController)
   {
-    presentation = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-    viewController = [presentation viewController];
+    v4 = objc_msgSend_presentation(self);
+    viewController = [v4 viewController];
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
@@ -161,7 +161,7 @@
   v8 = target;
   if (target)
   {
-    [target transform];
+    objc_msgSend_transform(target);
   }
 
   else
@@ -186,8 +186,8 @@
   controllerCopy = controller;
   viewControllerCopy = viewController;
   sourceViewControllerCopy = sourceViewController;
-  presentation = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-  presentationController = [presentation presentationController];
+  v11 = objc_msgSend_presentation(self);
+  presentationController = [v11 presentationController];
 
   if (!presentationController)
   {
@@ -197,8 +197,8 @@
   [(UIPresentationController *)presentationController _setShouldContinueTouchesOnTargetViewController:1];
   [(UIPresentationController *)presentationController _setContainerIgnoresDirectTouchEvents:0];
   [(UIPreviewPresentationController *)presentationController setAppliesVisualEffectsToPresentingView:0];
-  presentation2 = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-  customViewForTouchContinuation = [presentation2 customViewForTouchContinuation];
+  v13 = objc_msgSend_presentation(self);
+  customViewForTouchContinuation = [v13 customViewForTouchContinuation];
   [(UIPresentationController *)presentationController _setCustomViewForTouchContinuation:customViewForTouchContinuation];
 
   _sourcePreviewPortal = [(_UIPreviewInteractionPresentationAssistant *)self _sourcePreviewPortal];
@@ -206,13 +206,13 @@
 
   objc_initWeak(&location, presentationController);
   objc_initWeak(&from, self);
-  presentation3 = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-  customContainerView = [presentation3 customContainerView];
+  v16 = objc_msgSend_presentation(self);
+  customContainerView = [v16 customContainerView];
 
   if (customContainerView)
   {
-    presentation4 = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-    customContainerView2 = [presentation4 customContainerView];
+    highlighter2 = objc_msgSend_presentation(self);
+    customContainerView2 = [highlighter2 customContainerView];
   }
 
   else
@@ -226,8 +226,8 @@
       goto LABEL_10;
     }
 
-    presentation4 = [(_UIPreviewInteractionPresentationAssistant *)self highlighter];
-    customContainerView2 = [presentation4 customContainerView];
+    highlighter2 = [(_UIPreviewInteractionPresentationAssistant *)self highlighter];
+    customContainerView2 = [highlighter2 customContainerView];
   }
 
   v22 = customContainerView2;
@@ -292,16 +292,16 @@ LABEL_10:
   [containerView setUserInteractionEnabled:isAppearing];
   v9 = [transitionCopy viewForKey:@"UITransitionContextFromView"];
   v10 = [transitionCopy viewForKey:@"UITransitionContextToView"];
-  presentation = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-  v12 = presentation;
+  v11 = objc_msgSend_presentation(self);
+  v12 = v11;
   if (isAppearing)
   {
-    [presentation appearanceTransition];
+    [v11 appearanceTransition];
   }
 
   else
   {
-    [presentation disappearanceTransition];
+    [v11 disappearanceTransition];
   }
   v13 = ;
 
@@ -358,8 +358,8 @@ LABEL_10:
     v25[2] = __64___UIPreviewInteractionPresentationAssistant_animateTransition___block_invoke_16;
     v25[3] = &unk_1E70F3668;
     objc_copyWeak(&v26, &location);
-    presentation2 = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-    [presentation2 setPrivatePresentationCompletionBlock:v25];
+    v22 = objc_msgSend_presentation(self);
+    [v22 setPrivatePresentationCompletionBlock:v25];
 
     objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
@@ -399,8 +399,8 @@ LABEL_10:
 
   [(_UIPreviewInteractionPresentationAssistant *)self setPresentationSourcePortalView:0];
   [(_UIPreviewInteractionPresentationAssistant *)self setSourcePreview:0];
-  presentation = [(_UIPreviewInteractionPresentationAssistant *)self presentation];
-  viewController = [presentation viewController];
+  v5 = objc_msgSend_presentation(self);
+  viewController = [v5 viewController];
 
   [viewController _setOverrideUseCustomPresentation:0];
   [viewController _setOverrideTransitioningDelegate:0];

@@ -83,7 +83,8 @@ LABEL_22:
       if ((v9 != 13 || !optimizedEnhancedResolutionDepthPipelineEnabled) && ([CMGetAttachment(buffer @"NonProcessedReferenceFrame"] & 1) == 0)
       {
         v11 = [v7 objectForKeyedSubscript:*off_1E798B540];
-        if ([v11 isEqualToString:{objc_msgSend(objc_msgSend(v6, "captureSettings"), "masterPortType")}])
+        [objc_msgSend(v6 "captureSettings")];
+        if (objc_msgSend_isEqualToString_(v11))
         {
           v12 = [(BWPhotoEncoderController *)self->_photoEncoderController inputForStillImageSettings:v6 portType:v11 portraitAdjustedImage:0 optionalSampleBuffer:0 forEarlyEncoding:1];
           if (v12)

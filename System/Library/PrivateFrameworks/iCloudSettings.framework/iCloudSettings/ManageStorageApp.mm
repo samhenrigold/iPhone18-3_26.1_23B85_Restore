@@ -8,18 +8,15 @@
 
 - (NSArray)bundleIds
 {
-  v2 = *(self + OBJC_IVAR____TtC14iCloudSettings16ManageStorageApp_bundleIds);
 
-  v3 = sub_2759BA3D8();
+  v2 = sub_2759BA3D8();
 
-  return v3;
+  return v2;
 }
 
 - (void)setBundleIds:(id)ids
 {
-  v4 = sub_2759BA3E8();
-  v5 = *(self + OBJC_IVAR____TtC14iCloudSettings16ManageStorageApp_bundleIds);
-  *(self + OBJC_IVAR____TtC14iCloudSettings16ManageStorageApp_bundleIds) = v4;
+  *(self + OBJC_IVAR____TtC14iCloudSettings16ManageStorageApp_bundleIds) = sub_2759BA3E8();
 }
 
 - (_TtC14iCloudSettings16ManageStorageApp)init

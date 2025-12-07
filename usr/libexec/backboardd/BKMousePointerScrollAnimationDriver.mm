@@ -18,20 +18,14 @@
 
 - (BOOL)isComplete
 {
-  p_currentTranslation = &self->_currentTranslation;
-  x = self->_currentTranslation.x;
-  p_target = &self->_target;
-  v5 = self->_target.x;
-  v6 = BSFloatApproximatelyEqualToFloat();
-  if (v6)
+  v2 = BSFloatApproximatelyEqualToFloat();
+  if (v2)
   {
-    y = p_currentTranslation->y;
-    v8 = p_target->y;
 
-    LOBYTE(v6) = BSFloatApproximatelyEqualToFloat();
+    LOBYTE(v2) = BSFloatApproximatelyEqualToFloat();
   }
 
-  return v6;
+  return v2;
 }
 
 - (void)applyForTime:(double)time

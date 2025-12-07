@@ -3,13 +3,53 @@
 - (BOOL)handleSleep;
 - (NESMVPNSessionStateReasserting)init;
 - (void)enterWithSession:(id)session;
+- (void)handleInterfaceAvailable:(id)available changed:(BOOL)changed;
 - (void)handlePluginStatusDidChangeToConnected:(id)connected;
+- (void)handleSetConfigurationResult:(BOOL)result;
 - (void)handleTimeout;
 - (void)handleUserLogout;
 - (void)handleUserSwitch;
 @end
 
 @implementation NESMVPNSessionStateReasserting
+
+- (void)handleSetConfigurationResult:(BOOL)result
+{
+  v10.receiver = self;
+  v10.super_class = NESMVPNSessionStateReasserting;
+  [(NESMVPNSessionState *)&v10 handleSetConfigurationResult:result];
+  if (self)
+  {
+    self->_setConfigurationInProgress = 0;
+    Property = objc_getProperty(self, v4, 16, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  primaryTunnelPlugin = [Property primaryTunnelPlugin];
+  if (primaryTunnelPlugin)
+  {
+    v7 = primaryTunnelPlugin[16];
+
+    if (v7 == 4)
+    {
+      if (self)
+      {
+        v9 = objc_getProperty(self, v8, 16, 1);
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      [v9 setState:4];
+    }
+  }
+}
 
 - (BOOL)handleSetConfiguration
 {
@@ -141,6 +181,76 @@
   }
 
   [Property setState:5];
+}
+
+- (void)handleInterfaceAvailable:(id)available changed:(BOOL)changed
+{
+  v18.receiver = self;
+  v18.super_class = NESMVPNSessionStateReasserting;
+  [(NESMVPNSessionState *)&v18 handleInterfaceAvailable:available changed:changed];
+  if (self)
+  {
+    Property = objc_getProperty(self, v5, 16, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  primaryTunnelPlugin = [Property primaryTunnelPlugin];
+  if (primaryTunnelPlugin)
+  {
+    v9 = primaryTunnelPlugin[16];
+
+    if (v9 == 5)
+    {
+      return;
+    }
+  }
+
+  if (!self)
+  {
+    reassertedByPlugin = [0 reassertedByPlugin];
+    v16 = 0;
+    if (reassertedByPlugin)
+    {
+      goto LABEL_7;
+    }
+
+LABEL_13:
+    [v16 setState:4];
+    return;
+  }
+
+  if (![objc_getProperty(self v8])
+  {
+    v16 = objc_getProperty(self, v10, 16, 1);
+    goto LABEL_13;
+  }
+
+LABEL_7:
+  v11 = ne_log_obj();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    if (self)
+    {
+      v13 = objc_getProperty(self, v12, 16, 1);
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    *buf = 138412546;
+    v20 = v13;
+    v21 = 2112;
+    v22 = v15;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@ in state %@: skipping a transition to running, because the plugin reasserted us", buf, 0x16u);
+  }
 }
 
 - (void)enterWithSession:(id)session

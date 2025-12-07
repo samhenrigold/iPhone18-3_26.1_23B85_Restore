@@ -1,4 +1,4 @@
-uint64_t PartRenderer.Instruction.init(op:params:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, __n128 a4@<Q1>)
+uint64_t PartRenderer.Instruction.init(op:params:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, __n128 a5@<Q1>)
 {
   if (!result)
   {
@@ -7,17 +7,17 @@ LABEL_23:
     {
       if (result)
       {
-        v5 = 5;
+        v6 = 5;
       }
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
 
-      a4.n128_u64[0] = *a2;
-      v6 = 0uLL;
-      v4 = 0uLL;
+      a5.n128_u64[0] = *a2;
+      v7 = 0uLL;
+      v5 = 0uLL;
       goto LABEL_31;
     }
 
@@ -25,7 +25,7 @@ LABEL_23:
     goto LABEL_33;
   }
 
-  v4 = 0uLL;
+  v5 = 0uLL;
   if (result <= 4)
   {
     if (result > 2)
@@ -39,9 +39,9 @@ LABEL_36:
           goto LABEL_37;
         }
 
-        a4 = *a2;
-        v6 = *(a2 + 16);
-        v5 = 3;
+        a5 = *a2;
+        v7 = *(a2 + 16);
+        v6 = 3;
         goto LABEL_31;
       }
 
@@ -54,14 +54,14 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      a4 = *a2;
-      v5 = 2;
+      a5 = *a2;
+      v6 = 2;
     }
 
     else if (result == 1)
     {
-      v5 = 6;
-      a4 = 0uLL;
+      v6 = 6;
+      a5 = 0uLL;
     }
 
     else
@@ -78,12 +78,12 @@ LABEL_35:
         goto LABEL_36;
       }
 
-      a4 = *a2;
-      v5 = 1;
+      a5 = *a2;
+      v6 = 1;
     }
 
 LABEL_30:
-    v6 = 0uLL;
+    v7 = 0uLL;
     goto LABEL_31;
   }
 
@@ -91,7 +91,7 @@ LABEL_30:
   {
     if (result != 5)
     {
-      a4 = xmmword_298AD1960;
+      a5 = xmmword_298AD1960;
       goto LABEL_29;
     }
 
@@ -100,27 +100,27 @@ LABEL_30:
       goto LABEL_34;
     }
 
-    a4 = *a2;
-    v6 = *(a2 + 16);
-    v5 = 4;
-    v4 = *(a2 + 32);
+    a5 = *a2;
+    v7 = *(a2 + 16);
+    v6 = 4;
+    v5 = *(a2 + 32);
 LABEL_31:
-    *a3 = a4;
-    *(a3 + 16) = v6;
-    *(a3 + 32) = v4;
-    *(a3 + 48) = v5;
+    *a3 = a5;
+    *(a3 + 16) = v7;
+    *(a3 + 32) = v5;
+    *(a3 + 48) = v6;
     return result;
   }
 
   switch(result)
   {
     case 7:
-      a4 = xmmword_298AD1950;
+      a5 = xmmword_298AD1950;
       goto LABEL_29;
     case 9:
-      a4 = xmmword_298AD1940;
+      a5 = xmmword_298AD1940;
 LABEL_29:
-      v5 = 6;
+      v6 = 6;
       goto LABEL_30;
     case 8:
       goto LABEL_23;
@@ -134,7 +134,6 @@ LABEL_37:
 
 uint64_t RenderContextTrampoline.__deallocating_deinit()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2A1C73398](v0, 32, 7);
 }
@@ -310,12 +309,12 @@ uint64_t storeEnumTagSinglePayload for HVF.LoaderHVGL(uint64_t result, int a2, i
   return result;
 }
 
-void type metadata accessor for HVF.PartTransformRenderer(uint64_t a1, unint64_t *a2)
+void type metadata accessor for HVF.PartTransformRenderer(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -334,12 +333,12 @@ HVF::PartTransformRenderer *HVF::PartTransformRenderer::PartTransformRenderer(HV
   *(this + 4) = v4;
   *(this + 12) = 0;
   *(this + 13) = 0;
-  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(this + 88, *(a2 + 11), *(a2 + 12), (*(a2 + 12) - *(a2 + 11)) >> 3);
+  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(this + 11, *(a2 + 11), *(a2 + 12), (*(a2 + 12) - *(a2 + 11)) >> 3);
   *(this + 14) = 0;
   *(this + 15) = 0;
   *(this + 16) = 0;
-  std::vector<simd::double3x3>::__init_with_size[abi:ne200100]<simd::double3x3*,simd::double3x3*>(this + 112, *(a2 + 14), *(a2 + 15), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 15) - *(a2 + 14)) >> 5));
-  HVF::BlendContext::BlendContext(this + 17, a2 + 17);
+  std::vector<simd::double3x3>::__init_with_size[abi:ne200100]<simd::double3x3*,simd::double3x3*>(this + 14, *(a2 + 14), *(a2 + 15), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 15) - *(a2 + 14)) >> 5));
+  HVF::BlendContext::BlendContext(this + 17, a2 + 136);
   return this;
 }
 
@@ -397,7 +396,7 @@ void *std::map<unsigned long,std::variant<HVF::Shape,HVF::Composite>>::map[abi:n
   return a1;
 }
 
-uint64_t std::map<unsigned long,std::variant<HVF::Shape,HVF::Composite>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *> *,long>>>(uint64_t result, void *a2, void *a3)
+void *std::map<unsigned long,std::variant<HVF::Shape,HVF::Composite>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *> *,long>>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -405,7 +404,7 @@ uint64_t std::map<unsigned long,std::variant<HVF::Shape,HVF::Composite>>::insert
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::variant<HVF::Shape,HVF::Composite>> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::variant<HVF::Shape,HVF::Composite>> const&>(v5, v5 + 1, v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -439,15 +438,15 @@ uint64_t std::map<unsigned long,std::variant<HVF::Shape,HVF::Composite>>::insert
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::variant<HVF::Shape,HVF::Composite>> const&>(void *a1, void *a2, unint64_t *a3)
+uint64_t std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_hint_unique_key_args<unsigned long,std::pair<unsigned long const,std::variant<HVF::Shape,HVF::Composite>> const&>(void *a1, void *a2, unint64_t *a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__find_equal<unsigned long>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__find_equal<unsigned long>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__construct_node<std::pair<unsigned long const,std::variant<HVF::Shape,HVF::Composite>> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__find_equal<unsigned long>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -641,7 +640,7 @@ LABEL_48:
   return a4;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -659,7 +658,7 @@ uint64_t *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HV
   return result;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -667,7 +666,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<unsigned long,std::v
   {
     if (*(a1 + 16) == 1)
     {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v2 + 10);
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]((v2 + 40));
     }
 
     operator delete(v2);
@@ -683,15 +682,15 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-unsigned int *std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](unsigned int *a1, uint64_t a2)
+HVF::Shape *std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](HVF::Shape *a1, uint64_t a2)
 {
   *a1 = 0;
-  a1[70] = -1;
+  *(a1 + 70) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1> const&>(a1, a2);
   return a1;
 }
 
-unsigned int *std::__variant_detail::__ctor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1> const&>(unsigned int *a1, uint64_t a2)
+HVF::Shape *std::__variant_detail::__ctor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>>::__generic_construct[abi:ne200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1> const&>(HVF::Shape *a1, uint64_t a2)
 {
   result = std::__variant_detail::__dtor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1);
   v5 = *(a2 + 280);
@@ -699,22 +698,22 @@ unsigned int *std::__variant_detail::__ctor<std::__variant_detail::__traits<HVF:
   {
     v6 = a1;
     result = (*(&off_2A1F19490 + v5))(&v6, a2);
-    a1[70] = v5;
+    *(a1 + 70) = v5;
   }
 
   return result;
 }
 
-unsigned int *std::__variant_detail::__dtor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](unsigned int *result)
+HVF::Shape *std::__variant_detail::__dtor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](HVF::Shape *result)
 {
   v1 = result;
-  v2 = result[70];
+  v2 = *(result + 70);
   if (v2 != -1)
   {
     result = off_2A1F19480[v2](&v3, result);
   }
 
-  v1[70] = -1;
+  *(v1 + 70) = -1;
   return result;
 }
 
@@ -778,7 +777,7 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10_
   return result;
 }
 
-void std::vector<std::any>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::any>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -900,12 +899,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -919,22 +918,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -968,13 +967,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1016,13 +1015,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy(uint64_t a1, unsigned int *a2)
+void std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy(uint64_t a1, unsigned int **a2)
 {
   if (a2)
   {
     std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy(a1, *(a2 + 1));
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a2 + 10);
+    std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy(a1, a2[1]);
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<HVF::Shape,HVF::Composite>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100]((a2 + 5));
 
     operator delete(a2);
   }
@@ -1044,7 +1043,7 @@ uint64_t std::__function::__value_func<HVF::Part const* ()(unsigned long,HVF::Pa
   return a1;
 }
 
-uint64_t std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1066,7 +1065,7 @@ void sub_298ABE164(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double,default_init_allocator<double,std::allocator<double>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double,default_init_allocator<double,std::allocator<double>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1086,7 +1085,7 @@ void std::__allocate_at_least[abi:ne200100]<default_init_allocator<double,std::a
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<simd::double3x3>::__init_with_size[abi:ne200100]<simd::double3x3*,simd::double3x3*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<simd::double3x3>::__init_with_size[abi:ne200100]<simd::double3x3*,simd::double3x3*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1108,7 +1107,7 @@ void sub_298ABE264(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<simd::double3x3>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<simd::double3x3>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2AAAAAAAAAAAAABLL)
   {
@@ -1128,24 +1127,24 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<simd::double3x3>>(uin
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *HVF::BlendContext::BlendContext(void *a1, uint64_t *a2)
+uint64_t *HVF::BlendContext::BlendContext(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(a1, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<simd::double3x3>::__init_with_size[abi:ne200100]<simd::double3x3*,simd::double3x3*>((a1 + 3), a2[3], a2[4], 0xAAAAAAAAAAAAAAABLL * ((a2[4] - a2[3]) >> 5));
+  std::vector<simd::double3x3>::__init_with_size[abi:ne200100]<simd::double3x3*,simd::double3x3*>(a1 + 3, *(a2 + 24), *(a2 + 32), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 32) - *(a2 + 24)) >> 5));
   a1[6] = 0;
   a1[7] = 0;
   a1[8] = 0;
-  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>((a1 + 6), a2[6], a2[7], (a2[7] - a2[6]) >> 3);
+  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(a1 + 6, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 3);
   a1[9] = 0;
   a1[10] = 0;
   a1[11] = 0;
-  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>((a1 + 9), a2[9], a2[10], (a2[10] - a2[9]) >> 3);
+  std::vector<double,default_init_allocator<double,std::allocator<double>>>::__init_with_size[abi:ne200100]<double *,double *>(a1 + 9, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 3);
   return a1;
 }
 
@@ -1183,13 +1182,13 @@ uint64_t std::unordered_set<unsigned long>::unordered_set(uint64_t a1, uint64_t 
   std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a1, i + 2);
+    std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(a1, i + 2, i + 2);
   }
 
   return a1;
 }
 
-void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1205,7 +1204,7 @@ void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsi
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1213,7 +1212,7 @@ void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsi
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1237,7 +1236,7 @@ void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsi
     {
 LABEL_6:
 
-      std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -1308,11 +1307,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AxisExt
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AxisExtremum()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AxisExtremum(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x29C293C10](v1);
+  MEMORY[0x29C293C10](v2);
   return Hasher._finalize()();
 }
 
@@ -1524,11 +1523,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Segment
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SegmentBlendType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SegmentBlendType(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -1551,6 +1550,80 @@ hvf::SegmentPoint_optional __swiftcall SegmentPoint.init(rawValue:)(Swift::Int r
 
   *v1 = v2;
   return rawValue;
+}
+
+Swift::Int __swiftcall ShapeWriter.masterOffset(segment:point:coordinate:)(Swift::Int segment, hvf::SegmentPoint point, hvf::PointCoordinate coordinate)
+{
+  if ((segment - 0x2000000000000000) >> 62 == 3)
+  {
+    v3 = 2;
+    if (!*point)
+    {
+      v3 = 0;
+    }
+
+    return v3 | (4 * segment) | *coordinate;
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return segment;
+}
+
+Swift::Int __swiftcall ShapeWriter.denseDeltaOffset(axis:extremum:segment:point:coordinate:)(Swift::Int axis, hvf::AxisExtremum extremum, Swift::Int segment, hvf::SegmentPoint point, hvf::PointCoordinate coordinate)
+{
+  if (axis + 0x4000000000000000 < 0)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  v7 = *point;
+  v8 = *coordinate;
+  v9 = *extremum | (2 * axis);
+  axis = (*(v5 + 32))();
+  v10 = v9 * axis;
+  if ((v9 * axis) >> 64 != (v9 * axis) >> 63)
+  {
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  if ((v10 - 0x2000000000000000) >> 62 != 3)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  if ((segment - 0x2000000000000000) >> 62 != 3)
+  {
+LABEL_12:
+    __break(1u);
+LABEL_13:
+    __break(1u);
+    return axis;
+  }
+
+  v11 = 4 * v10;
+  v12 = 2;
+  if (!v7)
+  {
+    v12 = 0;
+  }
+
+  v13 = v12 | (4 * segment) | v8;
+  axis = v11 + v13;
+  if (__OFADD__(v11, v13))
+  {
+    goto LABEL_13;
+  }
+
+  return axis;
 }
 
 unint64_t lazy protocol witness table accessor for type SegmentBlendType and conformance SegmentBlendType()
@@ -1855,13 +1928,6 @@ Swift::Bool __swiftcall LoadShapeWriter.finalize()()
 
 uint64_t LoadShapeWriter.__deallocating_deinit()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
-
-  v4 = v0[5];
 
   return MEMORY[0x2A1C73398](v0, 64, 7);
 }
@@ -1881,7 +1947,7 @@ uint64_t protocol witness for ShapeWriter.axisCount.setter in conformance LoadSh
   return result;
 }
 
-void (*protocol witness for ShapeWriter.axisCount.modify in conformance LoadShapeWriter(uint64_t *a1))(void **a1)
+uint64_t (*protocol witness for ShapeWriter.axisCount.modify in conformance LoadShapeWriter(uint64_t *a1))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1924,7 +1990,7 @@ uint64_t protocol witness for ShapeWriter.totalSegmentCount.setter in conformanc
   return result;
 }
 
-void (*protocol witness for ShapeWriter.totalSegmentCount.modify in conformance LoadShapeWriter(uint64_t *a1))(void **a1)
+uint64_t (*protocol witness for ShapeWriter.totalSegmentCount.modify in conformance LoadShapeWriter(uint64_t *a1))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -1952,157 +2018,84 @@ void protocol witness for ShapeWriter.totalSegmentCount.modify in conformance Lo
   free(v1);
 }
 
-uint64_t protocol witness for ShapeWriter.pathSizes.getter in conformance LoadShapeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 16);
-}
-
 uint64_t protocol witness for ShapeWriter.pathSizes.setter in conformance LoadShapeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 16);
   *(v3 + 16) = a1;
-}
-
-uint64_t (*protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for ShapeWriter.blendTypes.getter in conformance LoadShapeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 24);
 }
 
 uint64_t protocol witness for ShapeWriter.blendTypes.setter in conformance LoadShapeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 24);
   *(v3 + 24) = a1;
-}
-
-uint64_t (*protocol witness for ShapeWriter.blendTypes.modify in conformance LoadShapeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.blendTypes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for ShapeWriter.masterVector.getter in conformance LoadShapeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 32);
 }
 
 uint64_t protocol witness for ShapeWriter.masterVector.setter in conformance LoadShapeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 32);
   *(v3 + 32) = a1;
-}
-
-uint64_t (*protocol witness for ShapeWriter.masterVector.modify in conformance LoadShapeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for ShapeWriter.denseDeltaMatrix.getter in conformance LoadShapeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 40);
 }
 
 uint64_t protocol witness for ShapeWriter.denseDeltaMatrix.setter in conformance LoadShapeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 40);
   *(v3 + 40) = a1;
 }
 
-uint64_t (*protocol witness for ShapeWriter.denseDeltaMatrix.modify in conformance LoadShapeWriter())()
+void std::vector<unsigned short>::reserve(void *a1, unint64_t a2)
 {
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-void *std::vector<unsigned short>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 1)
+  if (a2 > (a1[2] - *a1) >> 1)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(a1, a2);
     }
 
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<HVF::Shape::BlendType>::reserve(void *result, unint64_t a2)
+void std::vector<HVF::Shape::BlendType>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<double>::reserve(void *result, unint64_t a2)
+void std::vector<double>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<default_init_allocator<double,std::allocator<double>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<default_init_allocator<double,std::allocator<double>>>(a1, a2);
     }
 
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<double,default_init_allocator<double,std::allocator<double>>>::reserve(void *result, unint64_t a2)
+void std::vector<double,default_init_allocator<double,std::allocator<double>>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
-      std::__allocate_at_least[abi:ne200100]<default_init_allocator<double,std::allocator<double>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<default_init_allocator<double,std::allocator<double>>>(a1, a2);
     }
 
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_298ABFB3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -2115,7 +2108,7 @@ void sub_298ABFB3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2177,7 +2170,7 @@ void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD
   a1[1] = v6;
 }
 
-void std::vector<HVF::Shape::BlendType>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<HVF::Shape::BlendType>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -2234,7 +2227,7 @@ void std::vector<HVF::Shape::BlendType>::push_back[abi:ne200100](uint64_t a1, _B
   *(a1 + 8) = v5;
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2283,13 +2276,13 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-uint64_t std::vector<double,default_init_allocator<double,std::allocator<double>>>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void *std::vector<double,default_init_allocator<double,std::allocator<double>>>::push_back[abi:ne200100](uint64_t a1, void *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -2300,7 +2293,7 @@ uint64_t std::vector<double,default_init_allocator<double,std::allocator<double>
   else
   {
     *v3 = *a2;
-    result = (v3 + 1);
+    result = v3 + 1;
   }
 
   *(a1 + 8) = result;
@@ -2461,15 +2454,15 @@ void protocol witness for Hashable.hash(into:) in conformance CompositeSubpart()
   Hasher._combine(_:)(v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CompositeSubpart()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CompositeSubpart(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 4);
-  v3 = *(v0 + 6);
+  v2 = *v1;
+  v3 = *(v1 + 4);
+  v4 = *(v1 + 6);
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
   Hasher._combine(_:)(v2);
   Hasher._combine(_:)(v3);
+  Hasher._combine(_:)(v4);
   return Hasher._finalize()();
 }
 
@@ -2537,15 +2530,13 @@ Swift::Int CompositeSubpartTranslation.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance CompositeSubpartTranslation()
 {
-  v2 = *v0;
   Hasher.init(_seed:)();
   CompositeSubpartTranslation.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CompositeSubpartTranslation()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CompositeSubpartTranslation(uint64_t a1)
 {
-  v2 = *v0;
   Hasher.init(_seed:)();
   CompositeSubpartTranslation.hash(into:)();
   return Hasher._finalize()();
@@ -2592,14 +2583,25 @@ void protocol witness for Hashable.hash(into:) in conformance CompositeExtremumI
   Hasher._combine(_:)(v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CompositeExtremumIndex()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CompositeExtremumIndex(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
   Hasher._combine(_:)(v2);
+  Hasher._combine(_:)(v3);
   return Hasher._finalize()();
+}
+
+Swift::Int __swiftcall CompositeWriter.column(axis:extremum:)(Swift::Int axis, hvf::AxisExtremum extremum)
+{
+  if (axis + 0x4000000000000000 >= 0)
+  {
+    return *extremum | (2 * axis);
+  }
+
+  __break(1u);
+  return axis;
 }
 
 unint64_t lazy protocol witness table accessor for type CompositeSubpart and conformance CompositeSubpart()
@@ -3086,33 +3088,6 @@ void *LoadCompositeWriter.init(composite:)(HVF::Composite *a1)
 
 void *LoadCompositeWriter.deinit()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
-
-  v4 = v0[5];
-
-  v5 = v0[6];
-
-  v6 = v0[7];
-
-  v7 = v0[8];
-
-  v8 = v0[9];
-
-  v9 = v0[10];
-
-  v10 = v0[11];
-
-  v11 = v0[12];
-
-  v12 = v0[13];
-
-  v13 = v0[14];
-
-  v14 = v0[15];
 
   return v0;
 }
@@ -3154,7 +3129,7 @@ unint64_t protocol witness for CompositeWriter.axisCount.setter in conformance L
   return result;
 }
 
-void (*protocol witness for CompositeWriter.axisCount.modify in conformance LoadCompositeWriter(uint64_t *a1))(void **a1, char a2)
+uint64_t (*protocol witness for CompositeWriter.axisCount.modify in conformance LoadCompositeWriter(uint64_t *a1))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -3244,7 +3219,7 @@ unint64_t protocol witness for CompositeWriter.subpartCount.setter in conformanc
   return result;
 }
 
-void (*protocol witness for CompositeWriter.subpartCount.modify in conformance LoadCompositeWriter(uint64_t *a1))(void **a1, char a2)
+uint64_t (*protocol witness for CompositeWriter.subpartCount.modify in conformance LoadCompositeWriter(uint64_t *a1))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -3334,7 +3309,7 @@ unint64_t protocol witness for CompositeWriter.totalPartCount.setter in conforma
   return result;
 }
 
-void (*protocol witness for CompositeWriter.totalPartCount.modify in conformance LoadCompositeWriter(uint64_t *a1))(void **a1, char a2)
+uint64_t (*protocol witness for CompositeWriter.totalPartCount.modify in conformance LoadCompositeWriter(uint64_t *a1))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -3424,7 +3399,7 @@ unint64_t protocol witness for CompositeWriter.totalAxisCount.setter in conforma
   return result;
 }
 
-void (*protocol witness for CompositeWriter.totalAxisCount.modify in conformance LoadCompositeWriter(uint64_t *a1))(void **a1, char a2)
+uint64_t (*protocol witness for CompositeWriter.totalAxisCount.modify in conformance LoadCompositeWriter(uint64_t *a1))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -3514,7 +3489,7 @@ unint64_t protocol witness for CompositeWriter.maximumExtremumCount.setter in co
   return result;
 }
 
-void (*protocol witness for CompositeWriter.maximumExtremumCount.modify in conformance LoadCompositeWriter(uint64_t *a1))(void **a1, char a2)
+uint64_t (*protocol witness for CompositeWriter.maximumExtremumCount.modify in conformance LoadCompositeWriter(uint64_t *a1))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -3574,247 +3549,87 @@ LABEL_10:
   __break(1u);
 }
 
-uint64_t (*protocol witness for CompositeWriter.extremumCSCColumnStarts.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.masterCSCAxisValues.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 48);
-}
-
 uint64_t protocol witness for CompositeWriter.masterCSCAxisValues.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 48);
   *(v3 + 48) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.masterCSCAxisValues.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.extremumCSCAxisValues.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 56);
 }
 
 uint64_t protocol witness for CompositeWriter.extremumCSCAxisValues.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 56);
   *(v3 + 56) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.extremumCSCAxisValues.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.masterTranslationIndices.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 64);
 }
 
 uint64_t protocol witness for CompositeWriter.masterTranslationIndices.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 64);
   *(v3 + 64) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.masterTranslationIndices.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.masterTranslations.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 72);
 }
 
 uint64_t protocol witness for CompositeWriter.masterTranslations.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 72);
   *(v3 + 72) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.masterTranslations.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.masterRotationIndices.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 80);
 }
 
 uint64_t protocol witness for CompositeWriter.masterRotationIndices.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 80);
   *(v3 + 80) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.masterRotationIndices.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.masterRotations.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 88);
 }
 
 uint64_t protocol witness for CompositeWriter.masterRotations.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 88);
   *(v3 + 88) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.masterRotations.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.blendTypes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.extremumTranslationIndices.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 96);
 }
 
 uint64_t protocol witness for CompositeWriter.extremumTranslationIndices.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 96);
   *(v3 + 96) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.extremumTranslationIndices.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.extremumTranslations.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 104);
 }
 
 uint64_t protocol witness for CompositeWriter.extremumTranslations.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 104);
   *(v3 + 104) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.extremumTranslations.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.extremumRotationIndices.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 112);
 }
 
 uint64_t protocol witness for CompositeWriter.extremumRotationIndices.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 112);
   *(v3 + 112) = a1;
-}
-
-uint64_t (*protocol witness for CompositeWriter.extremumRotationIndices.modify in conformance LoadCompositeWriter())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-uint64_t protocol witness for CompositeWriter.extremumRotations.getter in conformance LoadCompositeWriter()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  v2 = *(v1 + 120);
 }
 
 uint64_t protocol witness for CompositeWriter.extremumRotations.setter in conformance LoadCompositeWriter(uint64_t a1)
 {
   v3 = *v1;
   swift_beginAccess();
-  v4 = *(v3 + 120);
   *(v3 + 120) = a1;
 }
 
-uint64_t (*protocol witness for CompositeWriter.extremumRotations.modify in conformance LoadCompositeWriter())()
+void std::vector<float>::reserve(void *a1, unint64_t a2)
 {
-  v1 = *v0;
-  swift_beginAccess();
-  return protocol witness for ShapeWriter.pathSizes.modify in conformance LoadShapeWriter;
-}
-
-void *std::vector<float>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, a2);
     }
 
     std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<HVF::Composite::Subpart>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -3876,7 +3691,7 @@ void std::vector<HVF::Composite::Subpart>::push_back[abi:ne200100](uint64_t a1, 
   *(a1 + 8) = v6;
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4000,79 +3815,76 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(uint64_t a1, 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t protocol witness for PartGenerator.makeShape(_:) in conformance PartCacheTrampoline@<X0>(void *a1@<X8>)
+uint64_t protocol witness for PartGenerator.makeShape(_:) in conformance PartCacheTrampoline@<X0>(void *a2@<X8>)
 {
-  v3 = HVF::PartCache::__synthesizedVirtualCall_newShape(*v1);
+  v4 = HVF::PartCache::__synthesizedVirtualCall_newShape(*v2);
   ShapeWriter = type metadata accessor for LoadShapeWriter();
-  v5 = swift_allocObject();
-  v5[6] = v3;
-  result = HVF::Shape::shim(v3);
-  v5[7] = result;
-  v7 = MEMORY[0x29EDCA190];
-  v5[2] = MEMORY[0x29EDCA190];
-  v5[3] = v7;
-  v5[4] = v7;
-  v5[5] = v7;
-  a1[3] = ShapeWriter;
-  a1[4] = &protocol witness table for LoadShapeWriter;
-  *a1 = v5;
+  v6 = swift_allocObject();
+  v6[6] = v4;
+  result = HVF::Shape::shim(v4);
+  v6[7] = result;
+  v8 = MEMORY[0x29EDCA190];
+  v6[2] = MEMORY[0x29EDCA190];
+  v6[3] = v8;
+  v6[4] = v8;
+  v6[5] = v8;
+  a2[3] = ShapeWriter;
+  a2[4] = &protocol witness table for LoadShapeWriter;
+  *a2 = v6;
   return result;
 }
 
-void *protocol witness for PartGenerator.makeComposite(_:) in conformance PartCacheTrampoline@<X0>(void *a1@<X8>)
+void *protocol witness for PartGenerator.makeComposite(_:) in conformance PartCacheTrampoline@<X0>(void *a2@<X8>)
 {
-  v3 = HVF::PartCache::__synthesizedVirtualCall_newComposite(*v1);
+  v4 = HVF::PartCache::__synthesizedVirtualCall_newComposite(*v2);
   CompositeWriter = type metadata accessor for LoadCompositeWriter();
   swift_allocObject();
-  result = LoadCompositeWriter.init(composite:)(v3);
-  a1[3] = CompositeWriter;
-  a1[4] = &protocol witness table for LoadCompositeWriter;
-  *a1 = result;
+  result = LoadCompositeWriter.init(composite:)(v4);
+  a2[3] = CompositeWriter;
+  a2[4] = &protocol witness table for LoadCompositeWriter;
+  *a2 = result;
   return result;
 }
 
 uint64_t CustomLoaderTrampoline.loadPartAtIndex(partIndex:cache:)(uint64_t a1, uint64_t a2)
 {
   v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  v12[3] = &type metadata for PartCacheTrampoline;
-  v12[4] = &protocol witness table for PartCacheTrampoline;
-  v12[0] = a2;
-  v3(v13, a1, v12);
-  __swift_destroy_boxed_opaque_existential_1(v12);
-  if (v14)
+  v8[3] = &type metadata for PartCacheTrampoline;
+  v8[4] = &protocol witness table for PartCacheTrampoline;
+  v8[0] = a2;
+  v3(v9, a1, v8);
+  __swift_destroy_boxed_opaque_existential_1(v8);
+  if (v10)
   {
-    if (v14 != 1)
+    if (v10 != 1)
     {
-      outlined destroy of PartResult(v13);
+      outlined destroy of PartResult(v9);
       return 0;
     }
 
-    _s3hvf15CompositeWriter_pWOb_0(v13, v12);
-    outlined init with copy of CompositeWriter(v12, v11);
+    _s3hvf15CompositeWriter_pWOb_0(v9, v8);
+    outlined init with copy of CompositeWriter(v8, v7);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s3hvf15CompositeWriter_pMd, &_s3hvf15CompositeWriter_pMR);
     type metadata accessor for LoadCompositeWriter();
     swift_dynamicCast();
-    v5 = *(v10 + 128);
 
-    v6 = destructiveProjectEnumData for AxisExtremum(v5);
+    destructiveProjectEnumData for AxisExtremum();
   }
 
   else
   {
-    _s3hvf15CompositeWriter_pWOb_0(v13, v12);
-    outlined init with copy of CompositeWriter(v12, v11);
+    _s3hvf15CompositeWriter_pWOb_0(v9, v8);
+    outlined init with copy of CompositeWriter(v8, v7);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s3hvf11ShapeWriter_pMd, &_s3hvf11ShapeWriter_pMR);
     type metadata accessor for LoadShapeWriter();
     swift_dynamicCast();
-    v7 = *(v10 + 48);
 
-    v6 = destructiveProjectEnumData for AxisExtremum(v7);
+    destructiveProjectEnumData for AxisExtremum();
   }
 
-  v8 = v6;
-  __swift_destroy_boxed_opaque_existential_1(v12);
-  return v8;
+  v5 = v4;
+  __swift_destroy_boxed_opaque_existential_1(v8);
+  return v5;
 }
 
 uint64_t HVGLPartLoader.tableVersion.getter()
@@ -4281,31 +4093,33 @@ uint64_t initializeBufferWithCopyOfBuffer for PartResult(uint64_t *a1, uint64_t 
   return v2 + 16;
 }
 
-uint64_t *destroy for PartResult(uint64_t *a1)
+uint64_t destroy for PartResult(uint64_t result)
 {
-  v1 = *(a1 + 40);
+  v1 = *(result + 40);
   if (v1 >= 2)
   {
-    v1 = *a1 + 2;
+    v1 = *result + 2;
   }
 
   if (v1 <= 1)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    return __swift_destroy_boxed_opaque_existential_1(result);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 __n128 initializeWithCopy for PartResult(uint64_t a1, uint64_t a2)
@@ -4567,7 +4381,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4720,22 +4533,11 @@ Swift::Int PartRenderer.Translation.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PartRenderer.Translation()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PartRenderer.Translation(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  if (v1 == 0.0)
-  {
-    v3 = 0.0;
-  }
-
-  else
-  {
-    v3 = v1;
-  }
-
-  MEMORY[0x29C293C50](*&v3);
   if (v2 == 0.0)
   {
     v4 = 0.0;
@@ -4747,6 +4549,17 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Par
   }
 
   MEMORY[0x29C293C50](*&v4);
+  if (v3 == 0.0)
+  {
+    v5 = 0.0;
+  }
+
+  else
+  {
+    v5 = v3;
+  }
+
+  MEMORY[0x29C293C50](*&v5);
   return Hasher._finalize()();
 }
 
@@ -4843,7 +4656,6 @@ Swift::Double __swiftcall PartRenderer.AxisValues.blendedValue(axis:)(Swift::Int
 
 uint64_t PartRenderer.AxisValues.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2A1C73398](v0, 64, 7);
 }
@@ -4859,12 +4671,12 @@ uint64_t (*protocol witness for MutableCollection.subscript.modify in conformanc
   return PartRenderer.AxisValues.subscript.modify;
 }
 
-uint64_t protocol witness for MutableCollection.subscript.setter in conformance PartRenderer.AxisValues(int64_t *a1, uint64_t a2)
+uint64_t protocol witness for MutableCollection.subscript.setter in conformance PartRenderer.AxisValues(int64_t *a1, unint64_t *a2)
 {
-  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, *(a2 + 8), *a1, a1[1], a1[2]);
+  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, a2[1], *a1, a1[1], a1[2]);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance PartRenderer.AxisValues(void *a1, uint64_t *a2))(void *a1)
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance PartRenderer.AxisValues(void *a1, uint64_t *a2))()
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -4889,7 +4701,7 @@ void protocol witness for MutableCollection.subscript.modify in conformance Part
   free(v1);
 }
 
-void (*specialized MutableCollection<>.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(int64_t **a1, char a2)
+void (*specialized MutableCollection<>.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t **a1, char a2)
 {
   if (MEMORY[0x29EDCA1B0])
   {
@@ -4935,7 +4747,7 @@ LABEL_10:
   return result;
 }
 
-void MutableCollection<>.subscript.modifyspecialized (int64_t **a1, char a2)
+void MutableCollection<>.subscript.modifyspecialized (uint64_t **a1, char a2)
 {
   v2 = *a1;
   v3 = **a1;
@@ -4946,7 +4758,6 @@ void MutableCollection<>.subscript.modifyspecialized (int64_t **a1, char a2)
   v8 = (*a1)[3];
   if (a2)
   {
-    v9 = (*a1)[2];
 
     specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v6, v8, v5, v3, v4, v7);
   }
@@ -4956,17 +4767,15 @@ void MutableCollection<>.subscript.modifyspecialized (int64_t **a1, char a2)
     specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)((*a1)[5], v8, v5, v3, v4, v7);
   }
 
-  v10 = v2[2];
-
   free(v2);
 }
 
-uint64_t protocol witness for MutableCollection.partition(by:) in conformance PartRenderer.AxisValues@<X0>(uint64_t (*a1)(void *)@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for MutableCollection.partition(by:) in conformance PartRenderer.AxisValues@<X0>(uint64_t *a1@<X8>, uint64_t (*a2)(void *)@<X0>)
 {
-  result = specialized MutableCollection._halfStablePartition(isSuffixElement:)(a1);
+  result = specialized MutableCollection._halfStablePartition(isSuffixElement:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -4974,26 +4783,24 @@ uint64_t protocol witness for MutableCollection.partition(by:) in conformance Pa
 
 unint64_t *protocol witness for MutableCollection.swapAt(_:_:) in conformance PartRenderer.AxisValues(unint64_t *result, unint64_t *a2)
 {
-  v3 = *result;
-  v4 = *a2;
+  v2 = *result;
+  v3 = *a2;
   if (*result != *a2)
   {
-    v5 = *v2;
     PartRenderer.AxisValues.subscript.getter(*result);
-    v7 = v6;
-    PartRenderer.AxisValues.subscript.getter(v4);
-    PartRenderer.AxisValues.subscript.setter(v3, v8);
-    return PartRenderer.AxisValues.subscript.setter(v4, v7);
+    v5 = v4;
+    PartRenderer.AxisValues.subscript.getter(v3);
+    PartRenderer.AxisValues.subscript.setter(v2, v6);
+    return PartRenderer.AxisValues.subscript.setter(v3, v5);
   }
 
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance PartRenderer.AxisValues(void *a1, unint64_t *a2))(void)
+void (*protocol witness for Collection.subscript.read in conformance PartRenderer.AxisValues(void *a1, unint64_t *a2))()
 {
-  v4 = *v2;
   PartRenderer.AxisValues.subscript.getter(*a2);
-  *a1 = v5;
+  *a1 = v3;
   return destructiveProjectEnumData for AxisExtremum;
 }
 
@@ -5064,7 +4871,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conformance PartRenderer.AxisValues@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+unint64_t protocol witness for Collection.index(_:offsetBy:limitedBy:) in conformance PartRenderer.AxisValues@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   result = specialized Collection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
@@ -5404,9 +5211,9 @@ uint64_t PartRenderer.PartParameters.translation.setter(uint64_t *a1)
   return result;
 }
 
-uint64_t (*PartRenderer.PartParameters.translation.modify(uint64_t a1))(uint64_t *a1)
+uint64_t (*PartRenderer.PartParameters.translation.modify(double *a1))(uint64_t *a1)
 {
-  *(a1 + 16) = v1;
+  *(a1 + 2) = v1;
   PartRenderer.PartParameters.translation.getter(a1);
   return PartRenderer.PartParameters.translation.modify;
 }
@@ -5414,10 +5221,9 @@ uint64_t (*PartRenderer.PartParameters.translation.modify(uint64_t a1))(uint64_t
 uint64_t PartRenderer.PartParameters.translation.modify(uint64_t *a1)
 {
   v1 = a1[1];
-  v2 = a1[2];
-  v4[0] = *a1;
-  v4[1] = v1;
-  return PartRenderer.PartParameters.translation.setter(v4);
+  v3[0] = *a1;
+  v3[1] = v1;
+  return PartRenderer.PartParameters.translation.setter(v3);
 }
 
 void PartRenderer.PartParameters.rotation.getter()
@@ -5468,7 +5274,7 @@ uint64_t PartRenderer.PartParameters.rotation.setter(double a1)
   return result;
 }
 
-uint64_t (*PartRenderer.PartParameters.rotation.modify(void *a1))(uint64_t a1)
+uint64_t (*PartRenderer.PartParameters.rotation.modify(void *a1))(double *a1)
 {
   a1[1] = v1;
   PartRenderer.PartParameters.rotation.getter();
@@ -5530,16 +5336,8 @@ uint64_t PartRenderer.PartParameters.subparts.getter@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t PartRenderer.PartParameters.deinit()
-{
-  v1 = *(v0 + 16);
-
-  return v0;
-}
-
 uint64_t PartRenderer.PartParameters.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2A1C73398](v0, 56, 7);
 }
@@ -5768,13 +5566,9 @@ void *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conforma
 
 uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance PartRenderer.Subparts@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
-  v8 = *v4;
-  v9 = v4[1];
-  v10 = v4[2];
-  v11 = *(v4 + 6);
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
-  *(a4 + 8) = v7 & 1;
+  *(a4 + 8) = v6 & 1;
   return result;
 }
 
@@ -5834,7 +5628,7 @@ LABEL_5:
   return result;
 }
 
-void *protocol witness for Sequence._copyToContiguousArray() in conformance PartRenderer.Subparts()
+uint64_t *protocol witness for Sequence._copyToContiguousArray() in conformance PartRenderer.Subparts()
 {
   v1 = *(v0 + 16);
   v4[0] = *v0;
@@ -5846,51 +5640,44 @@ void *protocol witness for Sequence._copyToContiguousArray() in conformance Part
   return v2;
 }
 
-uint64_t protocol witness for Sequence._copyContents(initializing:) in conformance PartRenderer.Subparts(uint64_t a1, uint64_t a2, uint64_t a3)
+void *PartRenderer.__allocating_init(hvglLoader:reusable:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *v3;
-  v6 = v3[1];
-  v7 = v3[2];
-  v8 = *(v3 + 6);
-  return specialized Sequence._copySequenceContents(initializing:)(a1, a2, a3);
-}
-
-void *PartRenderer.__allocating_init(hvglLoader:reusable:)(uint64_t a1, char a2)
-{
+  v2 = a2;
   swift_allocObject();
-  v4 = specialized PartRenderer.init(hvglLoader:reusable:)(a1, a2);
+  v4 = specialized PartRenderer.init(hvglLoader:reusable:)(a1, v2);
 
   return v4;
 }
 
-void *PartRenderer.init(hvglLoader:reusable:)(uint64_t a1, char a2)
+void *PartRenderer.init(hvglLoader:reusable:)(uint64_t a1, uint64_t a2)
 {
   v2 = specialized PartRenderer.init(hvglLoader:reusable:)(a1, a2);
 
   return v2;
 }
 
-void *PartRenderer.__allocating_init(custom:reusable:)(uint64_t a1, uint64_t a2, char a3)
+void *PartRenderer.__allocating_init(custom:reusable:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   swift_allocObject();
-  v6 = specialized PartRenderer.init(custom:reusable:)(a1, a2, a3);
+  v6 = specialized PartRenderer.init(custom:reusable:)(a1, a2, v3);
 
   return v6;
 }
 
-void *PartRenderer.init(custom:reusable:)(uint64_t a1, uint64_t a2, char a3)
+void *PartRenderer.init(custom:reusable:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = specialized PartRenderer.init(custom:reusable:)(a1, a2, a3);
 
   return v3;
 }
 
-uint64_t @objc closure #1 in PartRenderer.init(custom:reusable:)(uint64_t a1, uint64_t a2)
+uint64_t @objc closure #1 in PartRenderer.init(custom:reusable:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
-  v4 = CustomLoaderTrampoline.loadPartAtIndex(partIndex:cache:)(a1, a2);
+  v5 = CustomLoaderTrampoline.loadPartAtIndex(partIndex:cache:)(a1, a2);
 
-  return v4;
+  return v5;
 }
 
 uint64_t key path setter for PartRenderer.partIndex : PartRenderer(char **a1, uint64_t *a2)
@@ -5966,12 +5753,11 @@ void *PartRenderer.parameters.getter()
 void PartRenderer.blendedAxisValueBounds.getter()
 {
   swift_beginAccess();
-  HVF::PartTransformRenderer::PartTransformRenderer(v5, (v0 + 16));
-  HVF::PartTransformRenderer::blendedAxisValueBounds(v5);
-  v2 = v1;
-  v4 = v3;
-  HVF::PartTransformRenderer::~PartTransformRenderer(v5);
-  if (v2 > v4)
+  HVF::PartTransformRenderer::PartTransformRenderer(v4, (v0 + 16));
+  v1 = HVF::PartTransformRenderer::blendedAxisValueBounds(v4);
+  v3 = v2;
+  HVF::PartTransformRenderer::~PartTransformRenderer(v4);
+  if (v1 > v3)
   {
     __break(1u);
   }
@@ -6008,27 +5794,26 @@ uint64_t closure #1 in closure #1 in PartRenderer.render(to:)(uint64_t result, u
   {
     v5 = result;
 
-    v8 = *(a3 + 16);
-    v7 = *(a3 + 24);
+    v7 = *(a3 + 16);
     if (a2)
     {
-      v9 = a2;
+      v8 = a2;
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    PartRenderer.Instruction.init(op:params:)(v5, v9, v14, v6);
-    v10 = v14[0];
-    v11 = v14[1];
-    v12 = v14[2];
-    v13 = v15;
-    v8(&v16, &v10);
-    outlined consume of PartRenderer.Instruction(v10, *(&v10 + 1), v11, *(&v11 + 1), v12, *(&v12 + 1), v13);
+    PartRenderer.Instruction.init(op:params:)(v5, v8, v13, v6);
+    v9 = v13[0];
+    v10 = v13[1];
+    v11 = v13[2];
+    v12 = v14;
+    v7(&v15, &v9);
+    outlined consume of PartRenderer.Instruction(v9, *(&v9 + 1), v10, *(&v10 + 1), v11, *(&v11 + 1), v12);
 
-    return v16;
+    return v15;
   }
 
   else
@@ -6041,25 +5826,19 @@ uint64_t closure #1 in closure #1 in PartRenderer.render(to:)(uint64_t result, u
 
 void *PartRenderer.deinit()
 {
-  HVF::PartTransformRenderer::~PartTransformRenderer((v0 + 2));
-  v1 = v0[31];
-
-  v2 = v0[32];
+  HVF::PartTransformRenderer::~PartTransformRenderer((v0 + 16));
 
   return v0;
 }
 
 uint64_t PartRenderer.__deallocating_deinit()
 {
-  HVF::PartTransformRenderer::~PartTransformRenderer((v0 + 2));
-  v1 = v0[31];
-
-  v2 = v0[32];
+  HVF::PartTransformRenderer::~PartTransformRenderer((v0 + 16));
 
   return MEMORY[0x2A1C73398](v0, 272, 7);
 }
 
-uint64_t specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t result, unint64_t a2, uint64_t a3, int64_t a4, int64_t a5, uint64_t a6)
+uint64_t *specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t *result, unint64_t a2, uint64_t a3, int64_t a4, int64_t a5, uint64_t a6)
 {
   v6 = *result;
   v7 = *(*result + 40);
@@ -6404,7 +6183,7 @@ LABEL_53:
   return 0;
 }
 
-void *specialized _copyCollectionToContiguousArray<A>(_:)(void *result)
+uint64_t *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t *result)
 {
   v2 = result[5];
   v1 = result[6];
@@ -6616,7 +6395,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t specialized Collection.index(_:offsetBy:limitedBy:)(uint64_t result, uint64_t a2, uint64_t a3)
+unint64_t specialized Collection.index(_:offsetBy:limitedBy:)(unint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a2 < 0)
   {
@@ -6628,12 +6407,12 @@ LABEL_21:
   if (a2)
   {
     v3 = a3 - result;
-    if (a3 - result >= (a2 - 1))
+    if (a3 - result >= a2 - 1)
     {
       v3 = a2 - 1;
     }
 
-    if (v3 >= (result ^ 0x7FFFFFFFFFFFFFFFuLL))
+    if (v3 >= (result ^ 0x7FFFFFFFFFFFFFFFLL))
     {
       v3 = result ^ 0x7FFFFFFFFFFFFFFFLL;
     }
@@ -6708,7 +6487,7 @@ void *specialized PartRenderer.init(hvglLoader:reusable:)(uint64_t a1, char a2)
   v2[31] = 0;
   swift_beginAccess();
 
-  HVF::LoaderHVGL::asPartLoader(a1 + 16, v6);
+  HVF::LoaderHVGL::asPartLoader(v6, (a1 + 16));
   swift_endAccess();
   HVF::PartTransformRenderer::PartTransformRenderer(v7, v6, a2 & 1);
   std::function<HVF::Part const* ()(unsigned long,HVF::PartCache &)>::~function(v6);
@@ -6727,7 +6506,7 @@ void *specialized PartRenderer.init(custom:reusable:)(uint64_t a1, uint64_t a2, 
   *(v7 + 24) = a2;
   v3[31] = v7;
 
-  HVF::wrapCustomLoader(@objc closure #1 in PartRenderer.init(custom:reusable:), v7, v9);
+  HVF::wrapCustomLoader(v9, @objc closure #1 in PartRenderer.init(custom:reusable:), v7);
   HVF::PartTransformRenderer::PartTransformRenderer(v10, v9, a3 & 1);
   std::function<HVF::Part const* ()(unsigned long,HVF::PartCache &)>::~function(v9);
   HVF::PartTransformRenderer::PartTransformRenderer((v3 + 2), v10);
@@ -6777,7 +6556,7 @@ unint64_t lazy protocol witness table accessor for type Slice<PartRenderer.AxisV
   if (!lazy protocol witness table cache variable for type Slice<PartRenderer.AxisValues> and conformance <> Slice<A>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy3hvf12PartRendererC10AxisValuesCGMd, &_ss5SliceVy3hvf12PartRendererC10AxisValuesCGMR);
-    lazy protocol witness table accessor for type PartRenderer.AxisValues and conformance PartRenderer.AxisValues(&lazy protocol witness table cache variable for type PartRenderer.AxisValues and conformance PartRenderer.AxisValues);
+    lazy protocol witness table accessor for type PartRenderer.AxisValues and conformance PartRenderer.AxisValues(&lazy protocol witness table cache variable for type PartRenderer.AxisValues and conformance PartRenderer.AxisValues, &protocol conformance descriptor for PartRenderer.AxisValues);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Slice<PartRenderer.AxisValues> and conformance <> Slice<A>);
   }
@@ -6790,7 +6569,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -6798,7 +6576,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type PartRenderer.AxisValues and conformance PartRenderer.AxisValues(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type PartRenderer.AxisValues and conformance PartRenderer.AxisValues(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -6868,7 +6646,7 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<PartRenderer.Subparts> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<PartRenderer.Subparts> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6882,7 +6660,7 @@ uint64_t lazy protocol witness table accessor for type Slice<PartRenderer.Subpar
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -6896,7 +6674,7 @@ uint64_t lazy protocol witness table accessor for type Range<Int> and conformanc
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type DefaultIndices<PartRenderer.AxisValues> and conformance DefaultIndices<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type DefaultIndices<PartRenderer.AxisValues> and conformance DefaultIndices<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -6926,34 +6704,12 @@ uint64_t sub_298AC7428(char *a1, uint64_t *a2)
   return result;
 }
 
-void sub_298AC746C(uint64_t *a1@<X0>, unint64_t *a2@<X1>, void *a3@<X8>)
+double sub_298AC74DC@<D0>(_OWORD *a1@<X8>)
 {
-  v4 = *a1;
-  PartRenderer.AxisValues.subscript.getter(*a2);
-  *a3 = v5;
-}
-
-double sub_298AC74DC@<D0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
-{
-  v3 = *a1;
-  PartRenderer.PartParameters.translation.getter(&v5);
-  result = *&v5;
-  *a2 = v5;
+  PartRenderer.PartParameters.translation.getter(&v3);
+  result = *&v3;
+  *a1 = v3;
   return result;
-}
-
-uint64_t sub_298AC7518(__int128 *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v4 = *a1;
-  return PartRenderer.PartParameters.translation.setter(&v4);
-}
-
-void sub_298AC7550(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v3 = *a1;
-  PartRenderer.PartParameters.rotation.getter();
-  *a2 = v4;
 }
 
 uint64_t sub_298AC75A4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -7356,19 +7112,18 @@ LABEL_20:
   return result;
 }
 
-uint64_t initializeWithCopy for PartRenderer.Subparts(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for PartRenderer.Subparts(uint64_t a1, uint64_t *a2)
 {
   *a1 = *a2;
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 8) = *(a2 + 1);
+  *(a1 + 24) = *(a2 + 3);
+  *(a1 + 40) = *(a2 + 5);
 
   return a1;
 }
 
 uint64_t *assignWithCopy for PartRenderer.Subparts(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
   a1[1] = a2[1];
@@ -7394,7 +7149,6 @@ __n128 __swift_memcpy56_8(uint64_t a1, uint64_t a2)
 
 uint64_t *assignWithTake for PartRenderer.Subparts(uint64_t *a1, uint64_t *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
   *(a1 + 1) = *(a2 + 1);
@@ -7462,21 +7216,14 @@ LABEL_8:
   return result;
 }
 
-uint64_t outlined init with copy of PartRenderer.Subparts(uint64_t a1, uint64_t a2)
+uint64_t outlined init with copy of PartRenderer.Subparts(uint64_t *a1, uint64_t a2)
 {
   *a2 = *a1;
-  *(a2 + 8) = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 8) = *(a1 + 1);
+  *(a2 + 24) = *(a1 + 3);
+  *(a2 + 40) = *(a1 + 5);
 
   return a2;
-}
-
-uint64_t *outlined destroy of PartRenderer.Subparts(uint64_t *a1)
-{
-  v2 = *a1;
-
-  return a1;
 }
 
 uint64_t outlined destroy of IndexingIterator<PartRenderer.Subparts>(uint64_t a1)
@@ -7527,12 +7274,12 @@ uint64_t std::__function::__value_func<HVFPartRenderAction ()(HVFPartRenderInstr
   return a1;
 }
 
-uint64_t HVF::wrapCustomLoader@<X0>(uint64_t this@<X0>, const HVF::Part *(*a2)(unint64_t, HVF::PartCache *, void *)@<X1>, void *a3@<X8>)
+uint64_t *HVF::wrapCustomLoader@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, const HVF::Part *(*a3)(unint64_t, HVF::PartCache *, void *)@<X1>)
 {
-  *a3 = &unk_2A1F1A010;
-  a3[1] = a2;
-  a3[2] = this;
-  a3[3] = a3;
+  *a1 = &unk_2A1F1A010;
+  a1[1] = a3;
+  a1[2] = this;
+  a1[3] = a1;
   return this;
 }
 
@@ -7575,7 +7322,7 @@ void *HVF::FlatPartCache::FlatPartCache(void *result, uint64_t a2)
   return result;
 }
 
-void *HVF::FlatPartCache::newShape(HVF::FlatPartCache *this, unint64_t a2)
+uint64_t *HVF::FlatPartCache::newShape(uint64_t **this, unint64_t a2)
 {
   v12 = a2;
   v7 = 0;
@@ -7586,7 +7333,7 @@ void *HVF::FlatPartCache::newShape(HVF::FlatPartCache *this, unint64_t a2)
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v2 = std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Shape>(this + 40, &v12);
+  v2 = std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Shape>(this + 5, &v12, &v12, &v4);
   if (*(v2 + 80))
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -7596,14 +7343,14 @@ void *HVF::FlatPartCache::newShape(HVF::FlatPartCache *this, unint64_t a2)
   return v2 + 5;
 }
 
-void sub_298AC8474(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298AC8474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HVF::Shape::~Shape(va);
   _Unwind_Resume(a1);
 }
 
-void *HVF::FlatPartCache::newComposite(HVF::FlatPartCache *this, unint64_t a2)
+uint64_t *HVF::FlatPartCache::newComposite(uint64_t **this, unint64_t a2)
 {
   v22 = a2;
   v7 = 0u;
@@ -7624,7 +7371,7 @@ void *HVF::FlatPartCache::newComposite(HVF::FlatPartCache *this, unint64_t a2)
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v2 = std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Composite>(this + 40, &v22);
+  v2 = std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Composite>(this + 5, &v22, &v22, &v4);
   if (*(v2 + 80) != 1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -7697,14 +7444,14 @@ void HVF::FlatPartCache::~FlatPartCache(unsigned int **this)
   *this = &unk_2A1F19EF0;
   std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy((this + 5), this[6]);
   v2 = this[4];
-  if (v2 == (this + 1))
+  if (v2 == this + 1)
   {
-    (*(*v2 + 32))(v2);
+    (*(*v2 + 4))(v2);
   }
 
   else if (v2)
   {
-    (*(*v2 + 40))(v2);
+    (*(*v2 + 5))(v2);
   }
 }
 
@@ -7712,14 +7459,14 @@ void HVF::FlatPartCache::~FlatPartCache(unsigned int **this)
   *this = &unk_2A1F19EF0;
   std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy((this + 5), this[6]);
   v2 = this[4];
-  if (v2 == (this + 1))
+  if (v2 == this + 1)
   {
-    (*(*v2 + 32))(v2);
+    (*(*v2 + 4))(v2);
   }
 
   else if (v2)
   {
-    (*(*v2 + 40))(v2);
+    (*(*v2 + 5))(v2);
   }
 
   JUMPOUT(0x29C293CF0);
@@ -7729,23 +7476,20 @@ void HVF::FlatPartCache::~FlatPartCache(unsigned int **this)
   *this = &unk_2A1F19EF0;
   std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::destroy((this + 5), this[6]);
   v2 = this[4];
-  if (v2 == (this + 1))
+  if (v2 == this + 1)
   {
-    (*(*v2 + 32))(v2);
-    v3 = this;
+    (*(*v2 + 4))(v2);
   }
 
   else
   {
     if (v2)
     {
-      (*(*v2 + 40))(v2);
+      (*(*v2 + 5))(v2);
     }
-
-    v3 = this;
   }
 
-  destructiveProjectEnumData for AxisExtremum(v3);
+  destructiveProjectEnumData for AxisExtremum();
 }
 
 void std::__throw_bad_variant_access[abi:ne200100]()
@@ -7787,55 +7531,55 @@ uint64_t std::__function::__func<HVF::wrapCustomLoader(HVF::Part const* (*)(unsi
   return 0;
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Shape>(uint64_t a1, unint64_t *a2)
+uint64_t *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Shape>(uint64_t **a1, unint64_t *a2, void *a3, _OWORD *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_7:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_7;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_7;
     }
   }
 }
 
-void sub_298AC8AF4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298AC8AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::any>::__init_with_size[abi:ne200100]<std::any*,std::any*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::any>::__init_with_size[abi:ne200100]<std::any*,std::any*>(uint64_t result, uint64_t (**a2)(uint64_t, void), uint64_t (**a3)(uint64_t, void), unint64_t a4)
 {
   if (a4)
   {
@@ -7848,10 +7592,11 @@ void std::vector<std::any>::__init_with_size[abi:ne200100]<std::any*,std::any*>(
   }
 }
 
-void sub_298AC8C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, char a11)
+void sub_298AC8C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::any>,std::any*>>::~__exception_guard_exceptions[abi:ne200100](&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::any>,std::any*>>::~__exception_guard_exceptions[abi:ne200100](va);
+  *(v10 + 8) = v11;
   std::__exception_guard_exceptions<std::vector<std::any>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -7919,50 +7664,50 @@ void ***std::__exception_guard_exceptions<std::vector<std::any>::__destroy_vecto
   return a1;
 }
 
-void *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Composite>(uint64_t a1, unint64_t *a2)
+uint64_t *std::__tree<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>>>::__emplace_unique_key_args<unsigned long,unsigned long &,HVF::Composite>(uint64_t **a1, unint64_t *a2, void *a3, uint64_t a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_7:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_7;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_7;
     }
   }
 }
 
-void sub_298AC8F14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298AC8F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned long,std::variant<HVF::Shape,HVF::Composite>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7974,7 +7719,7 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x29EDC9450], MEMORY[0x29EDC93B0]);
 }
 
-void HVF::Loader::withTableData(HVF::Loader *this, const void *a2)
+void HVF::Loader::withTableData(HVF::Loader *this, unint64_t a2)
 {
   if (this && a2)
   {
@@ -8154,15 +7899,15 @@ LABEL_36:
 void sub_298AC95A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::~__hash_table(a10 + 96);
-  destructiveProjectEnumData for AxisExtremum(a10);
+  destructiveProjectEnumData for AxisExtremum();
   _Unwind_Resume(a1);
 }
 
-uint64_t HVF::LoaderHVGL::asPartLoader@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *HVF::LoaderHVGL::asPartLoader@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *a2 = &unk_2A1F1A100;
-  a2[1] = this;
-  a2[3] = a2;
+  *a1 = &unk_2A1F1A100;
+  a1[1] = this;
+  a1[3] = a1;
   return this;
 }
 
@@ -8189,7 +7934,7 @@ void HVF::LoaderHVGL::~LoaderHVGL(HVF::LoaderHVGL *this)
     operator delete(v4);
   }
 
-  destructiveProjectEnumData for AxisExtremum(this);
+  destructiveProjectEnumData for AxisExtremum();
 }
 
 {
@@ -8214,7 +7959,7 @@ void HVF::LoaderHVGL::~LoaderHVGL(HVF::LoaderHVGL *this)
     operator delete(v4);
   }
 
-  destructiveProjectEnumData for AxisExtremum(this);
+  destructiveProjectEnumData for AxisExtremum();
 }
 
 {
@@ -8239,15 +7984,15 @@ void HVF::LoaderHVGL::~LoaderHVGL(HVF::LoaderHVGL *this)
     operator delete(v4);
   }
 
-  destructiveProjectEnumData for AxisExtremum(this);
+  destructiveProjectEnumData for AxisExtremum();
 
   JUMPOUT(0x29C293CF0);
 }
 
-void *HVF::LoaderHVGL::loadPartAtIndex(HVF::LoaderHVGL *this, unint64_t a2, HVF::PartCache *a3)
+void *HVF::LoaderHVGL::loadPartAtIndex(int8x8_t *this, unint64_t a2, HVF::PartCache *a3)
 {
   v70 = a2;
-  v5 = *(this + 104);
+  v5 = this[13];
   if (v5)
   {
     v6 = vcnt_s8(v5);
@@ -8266,7 +8011,7 @@ void *HVF::LoaderHVGL::loadPartAtIndex(HVF::LoaderHVGL *this, unint64_t a2, HVF:
       v7 = (*&v5 - 1) & a2;
     }
 
-    v8 = *(*(this + 12) + 8 * v7);
+    v8 = *(*&this[12] + 8 * v7);
     if (v8)
     {
       v9 = *v8;
@@ -8342,7 +8087,7 @@ LABEL_22:
 
   v15 = v13;
   v16 = v14;
-  std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(this + 12, &v70);
+  std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&this[12], &v70, &v70);
   if ((v15->i16[0] & 1) == 0)
   {
     result = 0;
@@ -8499,7 +8244,7 @@ LABEL_51:
 
   result = HVF::LoaderHVGL::loadComposite(this, v69, v70, a3);
 LABEL_52:
-  v58 = *(this + 104);
+  v58 = this[13];
   if (v58)
   {
     v59 = vcnt_s8(v58);
@@ -8518,7 +8263,7 @@ LABEL_52:
       v60 = (*&v58 - 1) & v70;
     }
 
-    v61 = *(*(this + 12) + 8 * v60);
+    v61 = *(*&this[12] + 8 * v60);
     if (v61)
     {
       v62 = *v61;
@@ -8560,7 +8305,7 @@ LABEL_52:
             {
 LABEL_72:
               v66 = result;
-              std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::remove(this + 12, v62, &__p);
+              std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::remove(&this[12], v62, &__p);
               v67 = __p;
               __p = 0;
               if (v67)
@@ -8750,20 +8495,19 @@ uint64_t HVF::LoaderHVGL::loadComposite(uint64_t a1, void *a2, uint64_t a3, uint
           result = 0;
           if (v4 <= v35 + 2 * v18)
           {
-            v94 = v15 | 1;
+            v93 = v15 | 1;
             v37 = v4[14];
             v38 = v4[15];
-            v39 = v4[16];
-            v40 = 2 * v12;
-            v95 = v35 + 2 * v18;
-            if (2 * v12 + v95 <= v29)
+            v39 = 2 * v12;
+            v94 = v35 + 2 * v18;
+            if (2 * v12 + v94 <= v29)
             {
               if (v4[6])
               {
-                v41 = &v34[v15 | 1];
-                while (*v41 < v20)
+                v40 = &v34[v15 | 1];
+                while (*v40 < v20)
                 {
-                  ++v41;
+                  ++v40;
                   v36 -= 2;
                   if (!v36)
                   {
@@ -8777,12 +8521,12 @@ uint64_t HVF::LoaderHVGL::loadComposite(uint64_t a1, void *a2, uint64_t a3, uint
 LABEL_46:
               if (v4[7])
               {
-                v42 = (v35 + 2 * v18);
-                while (*v42 < v20)
+                v41 = (v35 + 2 * v18);
+                while (*v41 < v20)
                 {
-                  ++v42;
-                  v40 -= 2;
-                  if (!v40)
+                  ++v41;
+                  v39 -= 2;
+                  if (!v39)
                   {
                     goto LABEL_50;
                   }
@@ -8794,23 +8538,23 @@ LABEL_46:
 LABEL_50:
               if (v4[1])
               {
-                v43 = 0;
-                v44 = 4 * v8;
-                v45 = &v4[2 * v4[13]];
+                v42 = 0;
+                v43 = 4 * v8;
+                v44 = &v4[2 * v4[13]];
                 do
                 {
-                  v46 = *v45;
-                  if (v46 > v12 || v46 < v43)
+                  v45 = *v44;
+                  if (v45 > v12 || v45 < v42)
                   {
                     return 0;
                   }
 
-                  ++v45;
-                  v43 = v46;
-                  v44 -= 2;
+                  ++v44;
+                  v42 = v45;
+                  v43 -= 2;
                 }
 
-                while (v44);
+                while (v43);
               }
 
               if (*(v35 - 2) != v12)
@@ -8828,213 +8572,213 @@ LABEL_50:
                 return 0;
               }
 
-              v88 = &v4[2 * v38];
-              v89 = &v4[2 * v37];
-              v86 = &v4[2 * v4[13]];
-              v87 = &v34[v15 | 1];
-              v83 = &v4[2 * v4[12]];
-              v84 = v4[7];
-              v81 = v4[3];
-              v82 = v4[5];
-              v85 = v4[6];
-              v78 = v4[1];
-              v79 = v4[2];
-              v80 = v4[4];
-              v92 = v4[8];
-              v93 = v4[10];
-              v90 = v4[11];
-              v91 = v4[9];
-              v48 = &v4[2 * v4[16]];
-              v49 = &v48[4 * v13];
-              if (v49 > v29)
+              v87 = &v4[2 * v38];
+              v88 = &v4[2 * v37];
+              v85 = &v4[2 * v4[13]];
+              v86 = &v34[v15 | 1];
+              v82 = &v4[2 * v4[12]];
+              v83 = v4[7];
+              v80 = v4[3];
+              v81 = v4[5];
+              v84 = v4[6];
+              v77 = v4[1];
+              v78 = v4[2];
+              v79 = v4[4];
+              v91 = v4[8];
+              v92 = v4[10];
+              v89 = v4[11];
+              v90 = v4[9];
+              v47 = &v4[2 * v4[16]];
+              v48 = &v47[4 * v13];
+              if (v48 > v29)
               {
                 return 0;
               }
 
               result = 0;
-              v50 = v49 + 8 * v17;
-              if (v4 > v50)
+              v49 = v48 + 8 * v17;
+              if (v4 > v49)
               {
                 return result;
               }
 
-              v51 = (v50 + 4 * v17);
-              if (v51 > v29)
+              v50 = (v49 + 4 * v17);
+              if (v50 > v29)
               {
                 return result;
               }
 
               if (v4[10])
               {
-                v52 = 0;
-                v53 = -1;
-                v54 = (v49 + 8 * v17);
+                v51 = 0;
+                v52 = -1;
+                v53 = (v48 + 8 * v17);
                 do
                 {
-                  v55 = *v54;
-                  if (v55 >= v19)
+                  v54 = *v53;
+                  if (v54 >= v19)
                   {
                     return 0;
                   }
 
-                  v56 = v54[1];
-                  if (v56 >= v15)
+                  v55 = v53[1];
+                  if (v55 >= v15)
                   {
                     return 0;
                   }
 
-                  if (v53 >= v55 && (v53 != v55 || v52 >= v56))
+                  if (v52 >= v54 && (v52 != v54 || v51 >= v55))
                   {
                     return 0;
                   }
 
-                  v54 += 2;
-                  v53 = v55;
-                  v52 = v56;
+                  v53 += 2;
+                  v52 = v54;
+                  v51 = v55;
                 }
 
-                while (v54 != v51);
+                while (v53 != v50);
               }
 
               result = 0;
-              if (v4 > v51)
+              if (v4 > v50)
               {
                 return result;
               }
 
-              v58 = 2 * v92;
-              if (&v51[v92] > v29)
+              v57 = 2 * v91;
+              if (&v50[v91] > v29)
               {
                 return result;
               }
 
               if (v4[8])
               {
-                v59 = -1;
-                v60 = (v50 + 4 * v17);
+                v58 = -1;
+                v59 = (v49 + 4 * v17);
                 do
                 {
-                  v61 = v59;
-                  v59 = *v60;
-                  if (v59 >= v19 || v61 >= v59)
+                  v60 = v58;
+                  v58 = *v59;
+                  if (v58 >= v19 || v60 >= v58)
                   {
                     return 0;
                   }
 
-                  ++v60;
-                  v58 -= 2;
+                  ++v59;
+                  v57 -= 2;
                 }
 
-                while (v58);
+                while (v57);
               }
 
-              v63 = &v4[2 * v4[17]];
-              v64 = &v63[2 * v14];
-              if (v64 > v29)
+              v62 = &v4[2 * v4[17]];
+              v63 = &v62[2 * v14];
+              if (v63 > v29)
               {
                 return 0;
               }
 
               result = 0;
-              if (v4 <= v64 && 4 * v16 + v64 <= v29)
+              if (v4 <= v63 && 4 * v16 + v63 <= v29)
               {
                 result = 0;
-                v65 = v64 + 4 * v16;
-                if (v4 <= v65 && 4 * v16 + v65 <= v29)
+                v64 = v63 + 4 * v16;
+                if (v4 <= v64 && 4 * v16 + v64 <= v29)
                 {
-                  v66 = (v65 + 4 * v16);
+                  v65 = (v64 + 4 * v16);
                   if (v4[11])
                   {
-                    v67 = 0;
-                    v68 = -1;
-                    v69 = (v64 + 4 * v16);
+                    v66 = 0;
+                    v67 = -1;
+                    v68 = (v63 + 4 * v16);
                     do
                     {
-                      v70 = *v69;
-                      if (v70 >= v19)
+                      v69 = *v68;
+                      if (v69 >= v19)
                       {
                         return 0;
                       }
 
-                      v71 = v69[1];
-                      if (v71 >= v15)
+                      v70 = v68[1];
+                      if (v70 >= v15)
                       {
                         return 0;
                       }
 
-                      if (v68 >= v70 && (v68 != v70 || v67 >= v71))
+                      if (v67 >= v69 && (v67 != v69 || v66 >= v70))
                       {
                         return 0;
                       }
 
-                      v69 += 2;
-                      v68 = v70;
-                      v67 = v71;
+                      v68 += 2;
+                      v67 = v69;
+                      v66 = v70;
                     }
 
-                    while (v69 != v66);
+                    while (v68 != v65);
                   }
 
                   result = 0;
-                  if (v4 <= v66)
+                  if (v4 <= v65)
                   {
-                    v73 = 2 * v14;
-                    if (&v66[v14] <= v29)
+                    v72 = 2 * v14;
+                    if (&v65[v14] <= v29)
                     {
                       if (!v14)
                       {
 LABEL_113:
                         result = (*(*a4 + 24))(a4, a3);
-                        *(result + 32) = v78;
-                        *(result + 36) = v79;
-                        *(result + 40) = v81;
-                        *(result + 44) = v80;
-                        *(result + 48) = v82;
-                        *(result + 56) = v83;
-                        *(result + 64) = v79;
-                        *(result + 72) = v86;
-                        *(result + 80) = v94;
-                        *(result + 88) = v87;
-                        *(result + 96) = v85;
-                        *(result + 104) = v95;
-                        *(result + 112) = v84;
-                        *(result + 120) = v89;
-                        *(result + 128) = v85;
-                        *(result + 136) = v88;
-                        *(result + 144) = v84;
-                        *(result + 152) = v51;
-                        *(result + 160) = v92;
-                        *(result + 168) = v48;
-                        *(result + 176) = v92;
-                        *(result + 184) = v66;
-                        *(result + 192) = v91;
-                        *(result + 200) = v63;
-                        *(result + 208) = v91;
-                        *(result + 216) = v50;
-                        *(result + 224) = v93;
-                        *(result + 232) = v49;
-                        *(result + 240) = v93;
-                        *(result + 248) = v65;
-                        *(result + 256) = v90;
-                        *(result + 264) = v64;
-                        *(result + 272) = v90;
+                        *(result + 32) = v77;
+                        *(result + 36) = v78;
+                        *(result + 40) = v80;
+                        *(result + 44) = v79;
+                        *(result + 48) = v81;
+                        *(result + 56) = v82;
+                        *(result + 64) = v78;
+                        *(result + 72) = v85;
+                        *(result + 80) = v93;
+                        *(result + 88) = v86;
+                        *(result + 96) = v84;
+                        *(result + 104) = v94;
+                        *(result + 112) = v83;
+                        *(result + 120) = v88;
+                        *(result + 128) = v84;
+                        *(result + 136) = v87;
+                        *(result + 144) = v83;
+                        *(result + 152) = v50;
+                        *(result + 160) = v91;
+                        *(result + 168) = v47;
+                        *(result + 176) = v91;
+                        *(result + 184) = v65;
+                        *(result + 192) = v90;
+                        *(result + 200) = v62;
+                        *(result + 208) = v90;
+                        *(result + 216) = v49;
+                        *(result + 224) = v92;
+                        *(result + 232) = v48;
+                        *(result + 240) = v92;
+                        *(result + 248) = v64;
+                        *(result + 256) = v89;
+                        *(result + 264) = v63;
+                        *(result + 272) = v89;
                         return result;
                       }
 
-                      v74 = -1;
-                      v75 = (v65 + 4 * v16);
+                      v73 = -1;
+                      v74 = (v64 + 4 * v16);
                       while (1)
                       {
-                        v76 = v74;
-                        v74 = *v75;
-                        if (v74 >= v19 || v76 >= v74)
+                        v75 = v73;
+                        v73 = *v74;
+                        if (v73 >= v19 || v75 >= v73)
                         {
                           return 0;
                         }
 
-                        ++v75;
-                        v73 -= 2;
-                        if (!v73)
+                        ++v74;
+                        v72 -= 2;
+                        if (!v72)
                         {
                           goto LABEL_113;
                         }
@@ -9254,58 +8998,58 @@ uint64_t std::__function::__func<HVF::Loader::operator std::function<HVF::Part c
   return 0;
 }
 
-void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(float *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_23;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v4.u32[0] < 2uLL)
+  if (v5.u32[0] < 2uLL)
   {
     while (1)
     {
-      v9 = v7[1];
-      if (v9 == v2)
+      v10 = v8[1];
+      if (v10 == v3)
       {
-        if (v7[2] == v2)
+        if (v8[2] == v3)
         {
-          return v7;
+          return v8;
         }
       }
 
-      else if ((v9 & (*&v3 - 1)) != v5)
+      else if ((v10 & (*&v4 - 1)) != v6)
       {
         goto LABEL_23;
       }
 
-      v7 = *v7;
-      if (!v7)
+      v8 = *v8;
+      if (!v8)
       {
         goto LABEL_23;
       }
@@ -9314,36 +9058,36 @@ LABEL_23:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v8 >= *&v3)
+    if (v9 >= *&v4)
     {
-      v8 %= *&v3;
+      v9 %= *&v4;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_23;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_12;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__do_rehash<true>(uint64_t a1, unint64_t a2)
@@ -9523,6 +9267,12 @@ uint64_t HVF::Shape::shim(HVF::Shape *this)
   v2 = *(this + 2);
   if (v1 == v2)
   {
+    *__p = 0u;
+    v9 = 0u;
+    v6 = 0u;
+    *v7 = 0u;
+    *v4 = 0u;
+    *v5 = 0u;
     if (v1 < *(this + 3))
     {
       *v2 = 0;
@@ -9530,7 +9280,7 @@ uint64_t HVF::Shape::shim(HVF::Shape *this)
       operator new();
     }
 
-    std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftShapeShim>(this + 1);
+    std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftShapeShim>(this + 1, v4);
   }
 
   return (*v1)(3);
@@ -9547,7 +9297,7 @@ uint64_t HVF::Shape::finalizeShim(double **this)
 {
   v2 = HVF::Shape::shim(this);
   v3 = *v2;
-  v4 = v2[1];
+  v4 = *(v2 + 8);
   if (*v2 == v4)
   {
     v6 = 0;
@@ -9568,7 +9318,7 @@ uint64_t HVF::Shape::finalizeShim(double **this)
     v10 = 0uLL;
     v9 = v8 & 0xFFFFFFFFFFFFFFF0;
     v11 = 0uLL;
-    v12 = v3 + 2;
+    v12 = (v3 + 2);
     v13 = v8 & 0xFFFFFFFFFFFFFFF0;
     v14 = 0uLL;
     v15 = 0uLL;
@@ -9650,8 +9400,8 @@ LABEL_17:
     return 0;
   }
 
-  v32 = v2[3];
-  if (v2[4] - v32 != v6 || v2[7] - v2[6] != 4 * v6 || v2[10] - v2[9] != 8 * v6 * this[4])
+  v32 = *(v2 + 24);
+  if (*(v2 + 32) - v32 != v6 || (*(v2 + 56) - *(v2 + 48)) >> 3 != 4 * v6 || (*(v2 + 80) - *(v2 + 72)) >> 3 != 8 * v6 * this[4])
   {
     return 0;
   }
@@ -9730,12 +9480,12 @@ LABEL_44:
   this[7] = ((v4 - v3) >> 1);
   this[8] = v32;
   this[9] = v6;
-  v44 = v2[6];
-  v45 = (v2[7] - v44) >> 3;
+  v44 = *(v2 + 48);
+  v45 = (*(v2 + 56) - v44) >> 3;
   this[10] = v44;
   this[11] = v45;
-  v46 = v2[9];
-  v47 = (v2[10] - v46) >> 3;
+  v46 = *(v2 + 72);
+  v47 = (*(v2 + 80) - v46) >> 3;
   this[12] = v46;
   this[13] = v47;
   return 1;
@@ -9751,31 +9501,31 @@ void HVF::SwiftShapeShim::zeroDenseDeltas(HVF::SwiftShapeShim *this, unint64_t a
   }
 }
 
-void std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftShapeShim>(void *a1)
+void std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftShapeShim>(char **a1, uint64_t a2)
 {
-  v1 = (a1[1] - *a1) >> 5;
-  v2 = v1 + 1;
-  if (!((v1 + 1) >> 59))
+  v2 = (a1[1] - *a1) >> 5;
+  v3 = v2 + 1;
+  if (!((v2 + 1) >> 59))
   {
-    v3 = a1[2] - *a1;
-    if (v3 >> 4 > v2)
+    v4 = a1[2] - *a1;
+    if (v4 >> 4 > v3)
     {
-      v2 = v3 >> 4;
+      v3 = v4 >> 4;
     }
 
-    if (v3 >= 0x7FFFFFFFFFFFFFE0)
+    if (v4 >= 0x7FFFFFFFFFFFFFE0)
     {
-      v4 = 0x7FFFFFFFFFFFFFFLL;
+      v5 = 0x7FFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v4 = v2;
+      v5 = v3;
     }
 
-    if (v4)
+    if (v5)
     {
-      if (!(v4 >> 59))
+      if (!(v5 >> 59))
       {
         operator new();
       }
@@ -9783,18 +9533,18 @@ void std::vector<std::any>::__emplace_back_slow_path<HVF::SwiftShapeShim>(void *
       std::__throw_bad_array_new_length[abi:ne200100]();
     }
 
-    v5 = (32 * v1);
-    *v5 = 0;
-    v5[1] = 0;
+    v6 = (32 * v2);
+    *v6 = 0;
+    v6[1] = 0;
     operator new();
   }
 
   std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_298ACB4A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_298ACB4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::any>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9805,7 +9555,6 @@ void *std::__any_imp::_LargeHandler<HVF::SwiftShapeShim>::__handle[abi:ne200100]
   {
     if (a1)
     {
-      v14 = a2[1];
       operator new();
     }
 
@@ -9870,10 +9619,10 @@ void *std::__any_imp::_LargeHandler<HVF::SwiftShapeShim>::__handle[abi:ne200100]
           return 0;
         }
 
-        v15 = a2;
-        v16 = strcmp((v5 & 0x7FFFFFFFFFFFFFFFLL), ("N3HVF14SwiftShapeShimE" & 0x7FFFFFFFFFFFFFFFLL));
-        a2 = v15;
-        if (v16)
+        v14 = a2;
+        v15 = strcmp((v5 & 0x7FFFFFFFFFFFFFFFLL), ("N3HVF14SwiftShapeShimE" & 0x7FFFFFFFFFFFFFFFLL));
+        a2 = v14;
+        if (v15)
         {
           return 0;
         }
@@ -9889,4 +9638,195 @@ void *std::__any_imp::_LargeHandler<HVF::SwiftShapeShim>::__handle[abi:ne200100]
   }
 
   return result;
+}
+
+HVF::SwiftShapeShim *HVF::SwiftShapeShim::SwiftShapeShim(HVF::SwiftShapeShim *this, const HVF::SwiftShapeShim *a2)
+{
+  *this = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  v2 = *(a2 + 1);
+  if (v2 != *a2)
+  {
+    if (((v2 - *a2) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
+  }
+
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 5) = 0;
+  v4 = *(a2 + 3);
+  v3 = *(a2 + 4);
+  if (v3 != v4)
+  {
+    if (((v3 - v4) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
+  }
+
+  *(this + 6) = 0;
+  *(this + 7) = 0;
+  *(this + 8) = 0;
+  v6 = *(a2 + 6);
+  v5 = *(a2 + 7);
+  if (v5 != v6)
+  {
+    if (((v5 - v6) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::vector<simd::double3x3>::__throw_length_error[abi:ne200100]();
+  }
+
+  *(this + 9) = 0;
+  *(this + 10) = 0;
+  *(this + 11) = 0;
+  v8 = *(a2 + 9);
+  v7 = *(a2 + 10);
+  if (v7 != v8)
+  {
+    if (((v7 - v8) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::vector<double,default_init_allocator<double,std::allocator<double>>>::__throw_length_error[abi:ne200100]();
+  }
+
+  return this;
+}
+
+void sub_298ACB840(_Unwind_Exception *exception_object)
+{
+  v6 = *v4;
+  if (*v4)
+  {
+    *(v1 + 80) = v6;
+    operator delete(v6);
+    v7 = *v3;
+    if (!*v3)
+    {
+LABEL_3:
+      v8 = *v2;
+      if (!*v2)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v7 = *v3;
+    if (!*v3)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  *(v1 + 56) = v7;
+  operator delete(v7);
+  v8 = *v2;
+  if (!*v2)
+  {
+LABEL_4:
+    v9 = *v1;
+    if (!*v1)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+LABEL_9:
+  *(v1 + 32) = v8;
+  operator delete(v8);
+  v9 = *v1;
+  if (!*v1)
+  {
+LABEL_6:
+    _Unwind_Resume(exception_object);
+  }
+
+LABEL_5:
+  *(v1 + 8) = v9;
+  operator delete(v9);
+  goto LABEL_6;
+}
+
+void sub_298ACB8C8()
+{
+  if (!*v0)
+  {
+    JUMPOUT(0x298ACB86CLL);
+  }
+
+  JUMPOUT(0x298ACB864);
+}
+
+uint64_t std::__split_buffer<std::any>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  while (v2 != v3)
+  {
+    v5 = *(v2 - 32);
+    v2 -= 32;
+    v4 = v5;
+    *(a1 + 16) = v2;
+    if (v5)
+    {
+      v4(0);
+      v2 = *(a1 + 16);
+    }
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void HVF::SwiftShapeShim::~SwiftShapeShim(HVF::SwiftShapeShim *this)
+{
+  v2 = *(this + 9);
+  if (v2)
+  {
+    *(this + 10) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 6);
+  if (v3)
+  {
+    *(this + 7) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(this + 3);
+  if (v4)
+  {
+    *(this + 4) = v4;
+    operator delete(v4);
+  }
+
+  v5 = *this;
+  if (*this)
+  {
+    *(this + 1) = v5;
+    operator delete(v5);
+  }
 }

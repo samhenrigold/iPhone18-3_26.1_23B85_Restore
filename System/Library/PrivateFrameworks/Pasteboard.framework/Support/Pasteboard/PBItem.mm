@@ -2,6 +2,7 @@
 - (id)persistentBookmarkFileNameForType:(id)type;
 - (id)persistentFileNameForType:(id)type;
 - (void)_saveRepresentationsToBaseURL:(id)l types:(id)types fileProtectionType:(id)type allowedToCopyOnPaste:(BOOL)paste completionBlock:(id)block;
+- (void)saveRepresentationsToStorageBaseURL:(id)l fileProtectionType:(id)type allowedToCopyOnPaste:(BOOL)paste completionBlock:(id)block;
 - (void)setStorageBaseURL:(id)l;
 @end
 
@@ -215,6 +216,42 @@ LABEL_25:
     firstObject = v43;
 LABEL_26:
   }
+}
+
+- (void)saveRepresentationsToStorageBaseURL:(id)l fileProtectionType:(id)type allowedToCopyOnPaste:(BOOL)paste completionBlock:(id)block
+{
+  pasteCopy = paste;
+  lCopy = l;
+  typeCopy = type;
+  blockCopy = block;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_100016A78;
+  v25 = sub_100016A88;
+  v26 = 0;
+  v13 = PBItemQueue();
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100016A90;
+  block[3] = &unk_100030D70;
+  block[4] = self;
+  block[5] = &v21;
+  dispatch_sync(v13, block);
+
+  v14 = v22[5];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100016AF8;
+  v17[3] = &unk_100031BA8;
+  v17[4] = self;
+  v15 = lCopy;
+  v18 = v15;
+  v16 = blockCopy;
+  v19 = v16;
+  [(PBItem *)self _saveRepresentationsToBaseURL:v15 types:v14 fileProtectionType:typeCopy allowedToCopyOnPaste:pasteCopy completionBlock:v17];
+
+  _Block_object_dispose(&v21, 8);
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation AXSMotionCuesShouldShowBanner
 
-uint64_t ___AXSMotionCuesShouldShowBanner_block_invoke()
+void *___AXSMotionCuesShouldShowBanner_block_invoke()
 {
   if (_kAXSCacheMotionCuesShouldShowBannerDidChangeNotification && !_processIsResponsibleForPreferenceObserving())
   {

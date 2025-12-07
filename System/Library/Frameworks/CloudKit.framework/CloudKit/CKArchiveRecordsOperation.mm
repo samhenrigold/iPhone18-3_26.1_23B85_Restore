@@ -51,7 +51,7 @@
 - (void)setRecordArchivedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -82,7 +82,7 @@ LABEL_9:
 
 - (id)recordArchivedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -119,7 +119,7 @@ LABEL_9:
 - (void)setArchiveRecordsCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -150,7 +150,7 @@ LABEL_9:
 
 - (id)archiveRecordsCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -232,46 +232,46 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_recordIDs(self, a2, run);
   v8 = objc_msgSend_count(v5, v6, v7);
 
   if (v8)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v11 = objc_msgSend_recordIDs(self, v9, v10);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v28, v32, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v27, v31, 16);
     if (v13)
     {
       v16 = v13;
-      v17 = *v29;
+      v17 = *v28;
       while (2)
       {
         v18 = 0;
         do
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(v11);
           }
 
-          v19 = objc_msgSend_zoneID(*(*(&v28 + 1) + 8 * v18), v14, v15);
+          v19 = objc_msgSend_zoneID(*(*(&v27 + 1) + 8 * v18), v14, v15);
           v21 = objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v20, v19, run);
 
           if (!v21)
           {
 
-            goto LABEL_14;
+            return 0;
           }
 
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v28, v32, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v27, v31, 16);
         if (v16)
         {
           continue;
@@ -281,9 +281,9 @@ LABEL_9:
       }
     }
 
-    v27.receiver = self;
-    v27.super_class = CKArchiveRecordsOperation;
-    result = [(CKDatabaseOperation *)&v27 CKOperationShouldRun:run];
+    v26.receiver = self;
+    v26.super_class = CKArchiveRecordsOperation;
+    return [(CKDatabaseOperation *)&v26 CKOperationShouldRun:run];
   }
 
   else
@@ -295,17 +295,13 @@ LABEL_9:
       *run = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v25, @"CKErrorDomain", 12, @"You must pass at least one record ID to %@", v24);
     }
 
-LABEL_14:
-    result = 0;
+    return 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)handleRecordArchivalForRecordID:(id)d error:(id)error
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
   v10 = objc_msgSend_CKClientSuitableError(errorCopy, v8, v9);
@@ -353,11 +349,11 @@ LABEL_14:
 
       if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
       {
-        v47 = 138412546;
-        v48 = dCopy;
-        v49 = 2112;
-        v50 = v10;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v19, OS_SIGNPOST_EVENT, v24, "CKArchiveRecordsOperation", "Record %@ archived with error: %@", &v47, 0x16u);
+        v46 = 138412546;
+        v47 = dCopy;
+        v48 = 2112;
+        v49 = v10;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v19, OS_SIGNPOST_EVENT, v24, "CKArchiveRecordsOperation", "Record %@ archived with error: %@", &v46, 0x16u);
       }
     }
 
@@ -372,35 +368,35 @@ LABEL_14:
   {
     if (self)
     {
-      v34 = self->super.super._signpost;
+      v33 = self->super.super._signpost;
     }
 
     else
     {
-      v34 = 0;
+      v33 = 0;
     }
 
-    v35 = v34;
-    v25 = objc_msgSend_log(v35, v36, v37);
+    v34 = v33;
+    v25 = objc_msgSend_log(v34, v35, v36);
 
     if (self)
     {
-      v38 = self->super.super._signpost;
+      v37 = self->super.super._signpost;
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
     }
 
-    v39 = v38;
-    v42 = objc_msgSend_identifier(v39, v40, v41);
+    v38 = v37;
+    v41 = objc_msgSend_identifier(v38, v39, v40);
 
-    if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
-      v47 = 138412290;
-      v48 = dCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v25, OS_SIGNPOST_EVENT, v42, "CKArchiveRecordsOperation", "Record %@ archived", &v47, 0xCu);
+      v46 = 138412290;
+      v47 = dCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v25, OS_SIGNPOST_EVENT, v41, "CKArchiveRecordsOperation", "Record %@ archived", &v46, 0xCu);
     }
 
     goto LABEL_14;
@@ -419,13 +415,13 @@ LABEL_15:
     v28 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v43 = v28;
-      v46 = objc_msgSend_operationID(self, v44, v45);
-      v47 = 138543618;
-      v48 = v46;
-      v49 = 2112;
-      v50 = dCopy;
-      _os_log_debug_impl(&dword_1883EA000, v43, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about an archived record with id %@", &v47, 0x16u);
+      v42 = v28;
+      v45 = objc_msgSend_operationID(self, v43, v44);
+      v46 = 138543618;
+      v47 = v45;
+      v48 = 2112;
+      v49 = dCopy;
+      _os_log_debug_impl(&dword_1883EA000, v42, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about an archived record with id %@", &v46, 0x16u);
     }
 
     v31 = objc_msgSend_recordArchivedBlock(self, v29, v30);
@@ -440,17 +436,15 @@ LABEL_15:
   v32 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v47 = 138412290;
-    v48 = dCopy;
-    _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, "Progress callback for record id %@ is done", &v47, 0xCu);
+    v46 = 138412290;
+    v47 = dCopy;
+    _os_log_debug_impl(&dword_1883EA000, v32, OS_LOG_TYPE_DEBUG, "Progress callback for record id %@ is done", &v46, 0xCu);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -520,30 +514,30 @@ LABEL_15:
   }
 
   v31 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   v34 = objc_msgSend_recordIDs(self, v32, v33);
-  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v80, v90, 16);
+  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v79, v89, 16);
   if (v36)
   {
     v39 = v36;
-    v40 = *v81;
+    v40 = *v80;
     do
     {
       for (i = 0; i != v39; ++i)
       {
-        if (*v81 != v40)
+        if (*v80 != v40)
         {
           objc_enumerationMutation(v34);
         }
 
-        v42 = objc_msgSend_zoneID(*(*(&v80 + 1) + 8 * i), v37, v38);
+        v42 = objc_msgSend_zoneID(*(*(&v79 + 1) + 8 * i), v37, v38);
         objc_msgSend_addObject_(v31, v43, v42);
       }
 
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v37, &v80, v90, 16);
+      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v37, &v79, v89, 16);
     }
 
     while (v39);
@@ -568,29 +562,29 @@ LABEL_15:
     v54 = ck_log_facility_ck;
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
-      v71 = objc_msgSend_operationID(self, v55, v56);
-      v72 = &stru_1EFA32970;
+      v70 = objc_msgSend_operationID(self, v55, v56);
+      v71 = &stru_1EFA32970;
       if (errorCopy)
       {
-        v73 = @" Error was: ";
+        v72 = @" Error was: ";
       }
 
       else
       {
-        v73 = &stru_1EFA32970;
+        v72 = &stru_1EFA32970;
       }
 
       if (errorCopy)
       {
-        v72 = objc_msgSend_CKClientSuitableError(errorCopy, v69, v70);
+        v71 = objc_msgSend_CKClientSuitableError(errorCopy, v68, v69);
       }
 
       *buf = 138543874;
-      v85 = v71;
-      v86 = 2112;
-      v87 = v73;
-      v88 = 2112;
-      v89 = v72;
+      v84 = v70;
+      v85 = 2112;
+      v86 = v72;
+      v87 = 2112;
+      v88 = v71;
       _os_log_debug_impl(&dword_1883EA000, v54, OS_LOG_TYPE_DEBUG, "Operation %{public}@ has completed. %@%@", buf, 0x20u);
       if (errorCopy)
       {
@@ -614,29 +608,29 @@ LABEL_15:
     v65 = ck_log_facility_ck;
     if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
     {
-      v76 = objc_msgSend_operationID(self, v66, v67);
-      v77 = &stru_1EFA32970;
+      v75 = objc_msgSend_operationID(self, v66, v67);
+      v76 = &stru_1EFA32970;
       if (errorCopy)
       {
-        v78 = @" Error was: ";
+        v77 = @" Error was: ";
       }
 
       else
       {
-        v78 = &stru_1EFA32970;
+        v77 = &stru_1EFA32970;
       }
 
       if (errorCopy)
       {
-        v77 = objc_msgSend_CKClientSuitableError(errorCopy, v74, v75);
+        v76 = objc_msgSend_CKClientSuitableError(errorCopy, v73, v74);
       }
 
       *buf = 138543874;
-      v85 = v76;
-      v86 = 2112;
-      v87 = v78;
-      v88 = 2112;
-      v89 = v77;
+      v84 = v75;
+      v85 = 2112;
+      v86 = v77;
+      v87 = 2112;
+      v88 = v76;
       _os_log_debug_impl(&dword_1883EA000, v65, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished but no archiveRecordsCompletionBlock was set.%@%@", buf, 0x20u);
       if (errorCopy)
       {
@@ -645,16 +639,14 @@ LABEL_15:
   }
 
   objc_msgSend_setRecordArchivedBlock_(self, v64, 0);
-  v79.receiver = self;
-  v79.super_class = CKArchiveRecordsOperation;
-  [(CKOperation *)&v79 _finishOnCallbackQueueWithError:errorCopy];
-
-  v68 = *MEMORY[0x1E69E9840];
+  v78.receiver = self;
+  v78.super_class = CKArchiveRecordsOperation;
+  [(CKOperation *)&v78 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -707,28 +699,26 @@ LABEL_15:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKArchiveRecordsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKArchiveRecordsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -772,13 +762,11 @@ LABEL_15:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKArchiveRecordsOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKArchiveRecordsOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

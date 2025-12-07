@@ -159,21 +159,20 @@
     {
       if (!allocations[v7])
       {
-        v9 = v7;
+        v8 = v7;
         MTLReportFailure();
-        v8 = allocations[v7];
       }
 
-      [(MTLDebugResidencySet *)self validateAllocation:v9];
+      [(MTLDebugResidencySet *)self validateAllocation:v8];
       ++v7;
     }
 
     while (count != v7);
   }
 
-  v10.receiver = self;
-  v10.super_class = MTLDebugResidencySet;
-  [(MTLToolsResidencySet *)&v10 addAllocations:allocations count:count];
+  v9.receiver = self;
+  v9.super_class = MTLDebugResidencySet;
+  [(MTLToolsResidencySet *)&v9 addAllocations:allocations count:count];
   atomic_fetch_and(&self->_accessStatus, 0x7FFFFFFFu);
 }
 

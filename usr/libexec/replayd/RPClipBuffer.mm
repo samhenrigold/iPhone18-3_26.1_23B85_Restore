@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initForVideo:(BOOL)video;
 - (opaqueCMFormatDescription)getFormatDescription;
+- (void)addFrameToBuffer:(opaqueCMSampleBuffer *)buffer isKeyFrame:(BOOL)frame;
 - (void)flushBuffer;
 @end
 
@@ -43,6 +44,151 @@
   }
 
   return v4;
+}
+
+- (void)addFrameToBuffer:(opaqueCMSampleBuffer *)buffer isKeyFrame:(BOOL)frame
+{
+  if (buffer)
+  {
+    frameCopy = frame;
+    memset(&v23, 0, sizeof(v23));
+    CMSampleBufferGetPresentationTimeStamp(&v23, buffer);
+    v7 = v23.value / v23.timescale;
+    if (self->_firstSampleReceived)
+    {
+      if (v7 <= self->_newestSeconds)
+      {
+        if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+        {
+          newestSeconds = self->_newestSeconds;
+          *buf = 136446978;
+          v25 = "[RPClipBuffer addFrameToBuffer:isKeyFrame:]";
+          v26 = 1024;
+          v27 = 80;
+          v28 = 2048;
+          v29 = v7;
+          v30 = 2048;
+          v31 = newestSeconds;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d discarding %f older than %f", buf, 0x26u);
+        }
+
+        return;
+      }
+    }
+
+    else
+    {
+      self->_firstSampleReceived = 1;
+      self->_oldestSeconds = v7;
+    }
+
+    self->_newestSeconds = v7;
+    v9 = objc_alloc_init(RPClipSample);
+    CFRetain(buffer);
+    [(RPClipSample *)v9 setSampleBuffer:buffer];
+    *&v10 = v7;
+    [(RPClipSample *)v9 setSeconds:v10];
+    [(RPClipSample *)v9 setIsKeyFrame:frameCopy];
+    [(NSMutableArray *)self->_bufferArray addObject:v9];
+    v11 = 0.0;
+    if ((self->_newestSeconds - self->_oldestSeconds) <= 15.0)
+    {
+      if (dword_1000B6840)
+      {
+LABEL_30:
+
+        return;
+      }
+    }
+
+    else
+    {
+      v12 = 0;
+      do
+      {
+        v13 = [(NSMutableArray *)self->_bufferArray objectAtIndex:v12];
+        v14 = v13;
+        if (self->_isVideo && [v13 isKeyFrame])
+        {
+          if (v11 != 0.0)
+          {
+            CFRelease([*&v11 sampleBuffer]);
+            [(NSMutableArray *)self->_bufferArray removeObjectAtIndex:0];
+          }
+
+          v15 = v14;
+
+          v11 = *&v15;
+        }
+
+        else
+        {
+          CFRelease([v14 sampleBuffer]);
+          [(NSMutableArray *)self->_bufferArray removeObjectAtIndex:v12];
+        }
+
+        v12 = *&v11 != 0;
+        v16 = [(NSMutableArray *)self->_bufferArray objectAtIndex:v12];
+        [v16 seconds];
+        self->_oldestSeconds = v17;
+      }
+
+      while ((self->_newestSeconds - self->_oldestSeconds) > 15.0);
+      v18 = dword_1000B6840;
+      if (v11 != 0.0 && !dword_1000B6840)
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+        {
+          [*&v11 seconds];
+          oldestSeconds = self->_oldestSeconds;
+          *buf = 136447234;
+          v25 = "[RPClipBuffer addFrameToBuffer:isKeyFrame:]";
+          v26 = 1024;
+          v27 = 117;
+          v28 = 2048;
+          v29 = v11;
+          v30 = 2048;
+          v31 = v20;
+          v32 = 2048;
+          *v33 = oldestSeconds;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d keeping key frame:%p with time:%f outside of expected buffer start time:%f", buf, 0x30u);
+        }
+
+        v18 = dword_1000B6840;
+      }
+
+      if (v18)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = COERCE_DOUBLE([(NSMutableArray *)self->_bufferArray count]);
+      v22 = (self->_newestSeconds - self->_oldestSeconds);
+      *buf = 136447490;
+      v25 = "[RPClipBuffer addFrameToBuffer:isKeyFrame:]";
+      v26 = 1024;
+      v27 = 119;
+      v28 = 2048;
+      v29 = v21;
+      v30 = 2048;
+      v31 = v22;
+      v32 = 1024;
+      LODWORD(v33[0]) = frameCopy;
+      WORD2(v33[0]) = 2048;
+      *(v33 + 6) = v7;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d buffer count %lu size %f isKeyFrame %d current time %f", buf, 0x36u);
+    }
+
+    goto LABEL_30;
+  }
+
+  if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E9B8();
+  }
 }
 
 - (opaqueCMFormatDescription)getFormatDescription

@@ -57,58 +57,58 @@
 
 - (id)debugDescription
 {
-  v30[10] = *MEMORY[0x277D85DE8];
+  v29[10] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAB68] stringWithString:@"<"];
   v4 = [objc_opt_class() description];
   [v3 appendString:v4];
 
-  v24 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"deviceIsPad" BOOLValue:[(SRCompactViewControllerContentTesterState *)self deviceIsPad]];
-  v30[0] = v24;
-  v23 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"navigationStackIsPopping" BOOLValue:[(SRCompactViewControllerContentTesterState *)self deviceIsPad]];
-  v30[1] = v23;
+  v23 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"deviceIsPad" BOOLValue:[(SRCompactViewControllerContentTesterState *)self deviceIsPad]];
+  v29[0] = v23;
+  v22 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"navigationStackIsPopping" BOOLValue:[(SRCompactViewControllerContentTesterState *)self deviceIsPad]];
+  v29[1] = v22;
   v5 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"navigationStackSize" integerValue:[(SRCompactViewControllerContentTesterState *)self navigationStackSize]];
-  v30[2] = v5;
+  v29[2] = v5;
   v6 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"navigationBarHasContent" BOOLValue:[(SRCompactViewControllerContentTesterState *)self navigationBarHasContent]];
-  v30[3] = v6;
+  v29[3] = v6;
   v7 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"multiLevelViewHasContent" BOOLValue:[(SRCompactViewControllerContentTesterState *)self multiLevelViewHasContent]];
-  v30[4] = v7;
+  v29[4] = v7;
   v8 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"editableUtteranceViewHasContent" BOOLValue:[(SRCompactViewControllerContentTesterState *)self editableUtteranceViewHasContent]];
-  v30[5] = v8;
+  v29[5] = v8;
   v9 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"compactViewHasContent" BOOLValue:[(SRCompactViewControllerContentTesterState *)self compactViewHasContent]];
-  v30[6] = v9;
+  v29[6] = v9;
   v10 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"siriViewControllerIsEditing" BOOLValue:[(SRCompactViewControllerContentTesterState *)self siriViewControllerIsEditing]];
-  v30[7] = v10;
+  v29[7] = v10;
   v11 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"keyboardHasContent" BOOLValue:[(SRCompactViewControllerContentTesterState *)self keyboardHasContent]];
-  v30[8] = v11;
+  v29[8] = v11;
   v12 = [(SRCompactViewControllerContentTesterState *)self _debugDescriptionForProperty:@"contextMenuIsPresented" BOOLValue:[(SRCompactViewControllerContentTesterState *)self contextMenuIsPresented]];
-  v30[9] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:10];
+  v29[9] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:10];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v26;
+    v17 = *v25;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * i);
+        v19 = *(*(&v24 + 1) + 8 * i);
         [v3 appendString:@"\n\t"];
         [v3 appendString:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v16);
@@ -116,8 +116,6 @@
 
   [v3 appendString:@"\n>"];
   v20 = [v3 mutableCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

@@ -66,7 +66,7 @@
 
 + (void)_axConfigureGraphViewInfoFromData:(id)data forGraphView:(id)view
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   dataCopy = data;
   viewCopy = view;
   MEMORY[0x29C2D9130](@"HKAccessibilityData");
@@ -74,34 +74,34 @@
   {
     v7 = [dataCopy safeDictionaryForKey:@"accessibilitySpans"];
     v8 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [v9 objectForKeyedSubscript:{*(*(&v21 + 1) + 8 * v13), v21}];
+          v14 = [v9 objectForKeyedSubscript:{*(*(&v20 + 1) + 8 * v13), v20}];
           [v8 addObject:v14];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v11);
@@ -121,7 +121,7 @@
         v17 = &unk_2A21BBCB8;
       }
 
-      [viewCopy _accessibilitySetRetainedValue:v17 forKey:{@"kAXGraphViewYAxisMin", v21}];
+      [viewCopy _accessibilitySetRetainedValue:v17 forKey:{@"kAXGraphViewYAxisMin", v20}];
       v18 = [firstObject safeValueForKey:@"dataComprehensionMaxYValue"];
       [viewCopy _accessibilitySetRetainedValue:v18 forKey:@"kAXGraphViewYAxisMax"];
 
@@ -131,84 +131,82 @@
       [viewCopy _accessibilitySetIntegerValue:objc_msgSend(firstObject forKey:{"safeIntegerForKey:", @"dataSeriesType", @"kAXGraphViewDataSeriesType"}];
     }
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 + (void)_axConfigureGraphAccessibilityFromData:(id)data forGraphView:(id)view
 {
-  v62 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   dataCopy = data;
   viewCopy = view;
   MEMORY[0x29C2D9130](@"HKAccessibilityData");
   if (objc_opt_isKindOfClass())
   {
     selfCopy = self;
-    v43 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
     v42 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
     v41 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v37 = dataCopy;
+    v40 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+    v36 = dataCopy;
     [dataCopy safeArrayForKey:@"accessibilityPointData"];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
-    obj = v59 = 0u;
-    v8 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+    obj = v58 = 0u;
+    v8 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
     if (!v8)
     {
       goto LABEL_26;
     }
 
     v9 = v8;
-    v10 = *v57;
-    v38 = *v57;
-    v39 = viewCopy;
+    v10 = *v56;
+    v37 = *v56;
+    v38 = viewCopy;
     while (1)
     {
       v11 = 0;
-      v40 = v9;
+      v39 = v9;
       do
       {
-        if (*v57 != v10)
+        if (*v56 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v56 + 1) + 8 * v11);
+        v12 = *(*(&v55 + 1) + 8 * v11);
         MEMORY[0x29C2D9130](@"HKAccessibilityPointData");
         if (objc_opt_isKindOfClass())
         {
           v13 = [objc_alloc(MEMORY[0x29EDC78F8]) initWithAccessibilityContainer:viewCopy];
-          v48 = [v12 safeStringForKey:@"horizontalTimeCoordinate"];
-          v49 = v13;
+          v47 = [v12 safeStringForKey:@"horizontalTimeCoordinate"];
+          v48 = v13;
           [v13 setAccessibilityLabel:?];
-          v47 = v12;
+          v46 = v12;
           v14 = [v12 safeArrayForKey:@"values"];
           v15 = objc_opt_new();
-          v46 = v14;
+          v45 = v14;
           if ([v14 count])
           {
-            v45 = v11;
-            v54 = 0u;
-            v55 = 0u;
-            v52 = 0u;
+            v44 = v11;
             v53 = 0u;
+            v54 = 0u;
+            v51 = 0u;
+            v52 = 0u;
             v16 = v14;
-            v17 = [v16 countByEnumeratingWithState:&v52 objects:v60 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v51 objects:v59 count:16];
             if (v17)
             {
               v18 = v17;
-              v19 = *v53;
+              v19 = *v52;
               do
               {
                 for (i = 0; i != v18; ++i)
                 {
-                  if (*v53 != v19)
+                  if (*v52 != v19)
                   {
                     objc_enumerationMutation(v16);
                   }
 
-                  v21 = *(*(&v52 + 1) + 8 * i);
+                  v21 = *(*(&v51 + 1) + 8 * i);
                   v22 = [v21 safeStringForKey:{@"valueTitle", selfCopy}];
                   if (([v15 containsObject:v22] & 1) == 0)
                   {
@@ -222,7 +220,7 @@
                   [v15 axSafelyAddObject:v24];
                 }
 
-                v18 = [v16 countByEnumeratingWithState:&v52 objects:v60 count:16];
+                v18 = [v16 countByEnumeratingWithState:&v51 objects:v59 count:16];
               }
 
               while (v18);
@@ -234,30 +232,30 @@
 
             if (null)
             {
-              [v41 addObject:null];
-              v10 = v38;
-              viewCopy = v39;
-              v9 = v40;
-              v11 = v45;
+              [v40 addObject:null];
+              v10 = v37;
+              viewCopy = v38;
+              v9 = v39;
+              v11 = v44;
 LABEL_23:
 
-              [v42 addObject:v48];
-              [v49 setAccessibilityValue:v25];
-              [v47 safeCGFloatForKey:@"horizontalScreenCoordinate"];
+              [v41 addObject:v47];
+              [v48 setAccessibilityValue:v25];
+              [v46 safeCGFloatForKey:@"horizontalScreenCoordinate"];
               v29 = v28 + -5.0;
               [viewCopy frame];
               v31 = v30;
               [viewCopy frame];
-              [v49 setAccessibilityFrameInContainerSpace:{v29, v31, 10.0}];
-              [v43 addObject:v49];
+              [v48 setAccessibilityFrameInContainerSpace:{v29, v31, 10.0}];
+              [v42 addObject:v48];
 
               goto LABEL_24;
             }
 
-            v10 = v38;
-            viewCopy = v39;
-            v9 = v40;
-            v11 = v45;
+            v10 = v37;
+            viewCopy = v38;
+            v9 = v39;
+            v11 = v44;
           }
 
           else
@@ -266,7 +264,7 @@ LABEL_23:
           }
 
           null = [MEMORY[0x29EDB8E28] null];
-          [v41 addObject:null];
+          [v40 addObject:null];
           goto LABEL_23;
         }
 
@@ -275,27 +273,25 @@ LABEL_24:
       }
 
       while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v9 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
       if (!v9)
       {
 LABEL_26:
-        [viewCopy setAccessibilityElements:{v43, selfCopy}];
-        v50 = v42;
-        v51 = v41;
-        [v36 _axTrimAndInterpolateValues:&v51 withXvalues:&v50];
-        v32 = v51;
+        [viewCopy setAccessibilityElements:{v42, selfCopy}];
+        v49 = v41;
+        v50 = v40;
+        [v35 _axTrimAndInterpolateValues:&v50 withXvalues:&v49];
+        v32 = v50;
 
-        v33 = v50;
+        v33 = v49;
         [viewCopy _accessibilitySetRetainedValue:v32 forKey:@"kAXGraphViewGraphElementsYValues"];
         [viewCopy _accessibilitySetRetainedValue:v33 forKey:@"kAXGraphViewGraphElementsXValues"];
 
-        dataCopy = v37;
+        dataCopy = v36;
         break;
       }
     }
   }
-
-  v34 = *MEMORY[0x29EDCA608];
 }
 
 + (void)_axTrimAndInterpolateValues:(id *)values withXvalues:(id *)xvalues
@@ -496,12 +492,11 @@ LABEL_13:
 void __117__HKInteractiveChartViewControllerAccessibility__replacePrimaryGraphViewControllerWithTimeScope_anchorDate_animated___block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsClass();
-  v4 = [v3 view];
-  v5 = [v4 _accessibilityViewAncestorIsKindOf:objc_opt_class()];
+  v1 = __UIAccessibilityCastAsClass();
+  v2 = [v1 view];
+  v3 = [v2 _accessibilityViewAncestorIsKindOf:objc_opt_class()];
 
-  [v5 _accessibilityClearChildren];
+  [v3 _accessibilityClearChildren];
   UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 

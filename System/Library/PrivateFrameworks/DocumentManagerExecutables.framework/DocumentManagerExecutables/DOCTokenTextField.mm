@@ -118,7 +118,7 @@
 
   v8 = DOCTokenTextField.canPerformAction(_:withSender:)(action, v10);
 
-  outlined destroy of CharacterSet?(v10, &_sypSgMd);
+  outlined destroy of CharacterSet?(v10, &_sypSgMd, &_sypSgMR);
   return v8 & 1;
 }
 

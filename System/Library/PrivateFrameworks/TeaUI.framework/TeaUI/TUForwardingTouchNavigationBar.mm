@@ -55,16 +55,11 @@
 {
   if (elements)
   {
-    v4 = sub_1D8191314();
-  }
-
-  else
-  {
-    v4 = 0;
+    sub_1D8191314();
   }
 
   selfCopy = self;
-  ForwardingTouchNavigationBar.accessibilityElements.setter(v4);
+  ForwardingTouchNavigationBar.accessibilityElements.setter();
 }
 
 @end

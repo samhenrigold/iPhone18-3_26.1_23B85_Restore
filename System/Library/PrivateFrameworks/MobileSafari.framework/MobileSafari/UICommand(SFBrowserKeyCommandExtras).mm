@@ -9,15 +9,15 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v0 = @"keyboard shortcut";
+    v1 = @"keyboard shortcut";
   }
 
   else
   {
-    v0 = @"context menu";
+    v1 = @"context menu";
   }
 
-  return v0;
+  return v1;
 }
 
 @end

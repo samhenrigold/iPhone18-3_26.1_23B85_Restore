@@ -1,11 +1,30 @@
 @interface CTSIMToolkitItem
 - (CTSIMToolkitItem)initWithCoder:(id)coder;
+- (CTSIMToolkitItem)initWithText:(id)text selected:(BOOL)selected;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation CTSIMToolkitItem
+
+- (CTSIMToolkitItem)initWithText:(id)text selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  textCopy = text;
+  v10.receiver = self;
+  v10.super_class = CTSIMToolkitItem;
+  v7 = [(CTSIMToolkitItem *)&v10 init];
+  if (v7)
+  {
+    v8 = [textCopy copy];
+    [(CTSIMToolkitItem *)v7 setText:v8];
+
+    [(CTSIMToolkitItem *)v7 setSelected:selectedCopy];
+  }
+
+  return v7;
+}
 
 - (id)description
 {

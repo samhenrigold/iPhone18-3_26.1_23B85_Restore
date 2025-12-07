@@ -28,11 +28,11 @@
 
 - (void)didResignCurrent
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  v2 = v3.receiver;
-  [(ContaineeViewController *)&v3 didResignCurrent];
-  sub_10035435C();
+  v4.receiver = self;
+  v4.super_class = swift_getObjectType();
+  v2 = v4.receiver;
+  didResignCurrent = [(ContaineeViewController *)&v4 didResignCurrent];
+  sub_10035435C(didResignCurrent);
 }
 
 - (void)viewDidLoad
@@ -77,7 +77,7 @@
 
   swift_unknownObjectWeakInit();
   v9 = OBJC_IVAR____TtC4Maps33ARPHistoryContaineeViewController_viewModel;
-  type metadata accessor for ARPHistoryViewModel();
+  type metadata accessor for ARPHistoryViewModel(0);
   swift_allocObject();
   bundleCopy = bundle;
   *(self + v9) = sub_100354AE8();
@@ -103,7 +103,7 @@
   ObjectType = swift_getObjectType();
   swift_unknownObjectWeakInit();
   v6 = OBJC_IVAR____TtC4Maps33ARPHistoryContaineeViewController_viewModel;
-  type metadata accessor for ARPHistoryViewModel();
+  type metadata accessor for ARPHistoryViewModel(0);
   swift_allocObject();
   coderCopy = coder;
   *(self + v6) = sub_100354AE8();

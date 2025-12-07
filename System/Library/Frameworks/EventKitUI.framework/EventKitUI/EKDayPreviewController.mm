@@ -494,36 +494,36 @@ void __156__EKDayPreviewController_initWithDate_event_overriddenEventStartDate_o
 
 - (void)_setupAutoLayout
 {
-  v76[4] = *MEMORY[0x1E69E9840];
+  v78[4] = *MEMORY[0x1E69E9840];
   if ([(EKDayPreviewController *)self style]== 2)
   {
-    v61 = MEMORY[0x1E696ACD8];
+    v63 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(EKDayView *)self->_dayView leadingAnchor];
     view = [(EKDayPreviewController *)self view];
     safeAreaLayoutGuide = [view safeAreaLayoutGuide];
     leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
-    v66 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v76[0] = v66;
+    v68 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v78[0] = v68;
     trailingAnchor = [(EKDayView *)self->_dayView trailingAnchor];
     view2 = [(EKDayPreviewController *)self view];
     safeAreaLayoutGuide2 = [view2 safeAreaLayoutGuide];
     trailingAnchor2 = [safeAreaLayoutGuide2 trailingAnchor];
-    v59 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v76[1] = v59;
+    v61 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v78[1] = v61;
     topAnchor = [(EKDayView *)self->_dayView topAnchor];
     view3 = [(EKDayPreviewController *)self view];
     safeAreaLayoutGuide3 = [view3 safeAreaLayoutGuide];
     topAnchor2 = [safeAreaLayoutGuide3 topAnchor];
     v6 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v76[2] = v6;
+    v78[2] = v6;
     bottomAnchor = [(EKDayView *)self->_dayView bottomAnchor];
     view4 = [(EKDayPreviewController *)self view];
     safeAreaLayoutGuide4 = [view4 safeAreaLayoutGuide];
     bottomAnchor2 = [safeAreaLayoutGuide4 bottomAnchor];
     v11 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v76[3] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:4];
-    [v61 activateConstraints:v12];
+    v78[3] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:4];
+    [v63 activateConstraints:v12];
 
     v13 = leadingAnchor;
     v14 = view;
@@ -560,47 +560,28 @@ void __156__EKDayPreviewController_initWithDate_event_overriddenEventStartDate_o
       v24 = 16.0;
     }
 
-    if (MEMORY[0x1D38B98D0]())
+    v25 = MEMORY[0x1D38B98D0]();
+    if (v25)
     {
-      v25 = 0.0;
+      v27 = 0.0;
     }
 
     else
     {
-      v25 = 28.0;
+      v27 = 28.0;
     }
 
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(v25, v26))
     {
-      v26 = -4.0;
+      v28 = -4.0;
     }
 
     else
     {
-      v26 = 1.0;
+      v28 = 1.0;
     }
 
     style = [(EKDayPreviewController *)self style];
-    if (style == 1)
-    {
-      v28 = 0.0;
-    }
-
-    else
-    {
-      v28 = v24;
-    }
-
-    if (style == 1)
-    {
-      v29 = 0.0;
-    }
-
-    else
-    {
-      v29 = v25;
-    }
-
     if (style == 1)
     {
       v30 = 0.0;
@@ -608,106 +589,126 @@ void __156__EKDayPreviewController_initWithDate_event_overriddenEventStartDate_o
 
     else
     {
-      v30 = v26;
+      v30 = v24;
     }
 
     if (style == 1)
-    {
-      v31 = -1.0;
-    }
-
-    else
     {
       v31 = 0.0;
     }
 
+    else
+    {
+      v31 = v27;
+    }
+
     if (style == 1)
     {
-      v23 = 0.0;
       v32 = 0.0;
     }
 
     else
     {
-      v32 = v21;
+      v32 = v28;
+    }
+
+    if (style == 1)
+    {
+      v33 = -1.0;
+    }
+
+    else
+    {
+      v33 = 0.0;
+    }
+
+    if (style == 1)
+    {
+      v23 = 0.0;
+      v34 = 0.0;
+    }
+
+    else
+    {
+      v34 = v21;
     }
 
     style2 = [(EKDayPreviewController *)self style];
     if (style2)
     {
-      v34 = v23;
+      v36 = v23;
     }
 
     else
     {
-      v34 = 0.0;
+      v36 = 0.0;
     }
 
     if (style2)
     {
-      v35 = v32;
+      v37 = v34;
     }
 
     else
     {
-      v35 = 0.0;
+      v37 = 0.0;
     }
 
-    v36 = kEKUILogHandle;
+    v38 = kEKUILogHandle;
     if (os_log_type_enabled(kEKUILogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v37 = MEMORY[0x1E696AD98];
-      v38 = v36;
-      v39 = [v37 numberWithDouble:v35];
-      v40 = [MEMORY[0x1E696AD98] numberWithDouble:v34];
+      v39 = MEMORY[0x1E696AD98];
+      v40 = v38;
+      v41 = [v39 numberWithDouble:v37];
+      v42 = [MEMORY[0x1E696AD98] numberWithDouble:v36];
       hostingViewController3 = [(EKDayPreviewController *)self hostingViewController];
       *buf = 138412802;
-      v71 = v39;
-      v72 = 2112;
-      v73 = v40;
+      v73 = v41;
       v74 = 2112;
-      v75 = hostingViewController3;
-      _os_log_impl(&dword_1D3400000, v38, OS_LOG_TYPE_DEBUG, "left %@ right %@ host %@", buf, 0x20u);
+      v75 = v42;
+      v76 = 2112;
+      v77 = hostingViewController3;
+      _os_log_impl(&dword_1D3400000, v40, OS_LOG_TYPE_DEBUG, "left %@ right %@ host %@", buf, 0x20u);
     }
 
-    v42 = _NSDictionaryOfVariableBindings(&cfstr_Roundedview.isa, self->_roundedView, 0);
-    v68[0] = @"leftMargin";
-    v43 = [MEMORY[0x1E696AD98] numberWithDouble:v35];
-    v69[0] = v43;
-    v68[1] = @"rightMargin";
-    v44 = [MEMORY[0x1E696AD98] numberWithDouble:v34];
-    v69[1] = v44;
-    v68[2] = @"topContentInset";
-    v45 = [MEMORY[0x1E696AD98] numberWithDouble:v28];
-    v69[2] = v45;
-    v68[3] = @"bottomContentInset";
-    v46 = [MEMORY[0x1E696AD98] numberWithDouble:v29];
-    v69[3] = v46;
-    v68[4] = @"leftContentInset";
+    v44 = _NSDictionaryOfVariableBindings(&cfstr_Roundedview.isa, self->_roundedView, 0);
+    v70[0] = @"leftMargin";
+    v45 = [MEMORY[0x1E696AD98] numberWithDouble:v37];
+    v71[0] = v45;
+    v70[1] = @"rightMargin";
+    v46 = [MEMORY[0x1E696AD98] numberWithDouble:v36];
+    v71[1] = v46;
+    v70[2] = @"topContentInset";
     v47 = [MEMORY[0x1E696AD98] numberWithDouble:v30];
-    v69[4] = v47;
-    v68[5] = @"rightContentInset";
+    v71[2] = v47;
+    v70[3] = @"bottomContentInset";
     v48 = [MEMORY[0x1E696AD98] numberWithDouble:v31];
-    v69[5] = v48;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:6];
-
-    v49 = MEMORY[0x1E696ACD8];
-    v50 = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:@"H:|-(leftMargin)-[_roundedView]-(rightMargin)-|" options:0 metrics:v14 views:v42];
-    [v49 activateConstraints:v50];
+    v71[3] = v48;
+    v70[4] = @"leftContentInset";
+    v49 = [MEMORY[0x1E696AD98] numberWithDouble:v32];
+    v71[4] = v49;
+    v70[5] = @"rightContentInset";
+    v50 = [MEMORY[0x1E696AD98] numberWithDouble:v33];
+    v71[5] = v50;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:6];
 
     v51 = MEMORY[0x1E696ACD8];
-    v52 = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:@"V:|-(topContentInset)-[_roundedView]-(bottomContentInset)-|" options:0 metrics:v14 views:v42];
+    v52 = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:@"H:|-(leftMargin)-[_roundedView]-(rightMargin)-|" options:0 metrics:v14 views:v44];
     [v51 activateConstraints:v52];
+
+    v53 = MEMORY[0x1E696ACD8];
+    v54 = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:@"V:|-(topContentInset)-[_roundedView]-(bottomContentInset)-|" options:0 metrics:v14 views:v44];
+    [v53 activateConstraints:v54];
 
     v13 = _NSDictionaryOfVariableBindings(&cfstr_Dayview.isa, self->_dayView, 0);
 
-    v53 = MEMORY[0x1E696ACD8];
-    v54 = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:@"H:|-(leftContentInset)-[_dayView]-(rightContentInset)-|" options:0 metrics:v14 views:v13];
-    [v53 activateConstraints:v54];
-
     v55 = MEMORY[0x1E696ACD8];
+    v56 = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:@"H:|-(leftContentInset)-[_dayView]-(rightContentInset)-|" options:0 metrics:v14 views:v13];
+    [v55 activateConstraints:v56];
+
+    v57 = MEMORY[0x1E696ACD8];
     safeAreaLayoutGuide = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:@"V:|[_dayView]|" options:0 metrics:0 views:v13];
-    [v55 activateConstraints:safeAreaLayoutGuide];
+    [v57 activateConstraints:safeAreaLayoutGuide];
   }
 }
 
@@ -1370,15 +1371,15 @@ LABEL_10:
   return result;
 }
 
-uint64_t __46__EKDayPreviewController__displayedHoursRange__block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__46__EKDayPreviewController__displayedHoursRange__block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(*(*(result + 32) + 8) + 24) == -1)
+  if (*(*(result[4] + 8) + 24) == -1)
   {
     v5 = result;
     result = [a2 BOOLValue];
     if (result)
     {
-      *(*(*(v5 + 32) + 8) + 24) = a3;
+      *(*(v5[4] + 8) + 24) = a3;
     }
   }
 

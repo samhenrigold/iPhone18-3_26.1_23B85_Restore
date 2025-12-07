@@ -3,6 +3,8 @@
 - (BOOL)isEqualToControlSessionIdentifier:(id)identifier;
 - (DMFControlGroupIdentifier)groupIdentifier;
 - (DMFControlSessionIdentifier)initWithCoder:(id)coder;
+- (DMFControlSessionIdentifier)initWithOrganizationUUID:(id)d groupID:(unsigned __int16)iD;
+- (DMFControlSessionIdentifier)initWithOrganizationUUID:(id)d groupID:(unsigned __int16)iD leaderIP:(unsigned int)p port:(unsigned __int16)port;
 - (DMFControlSessionIdentifier)initWithString:(id)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)stringValue;
@@ -31,6 +33,20 @@
   v5 = [(DMFControlGroupIdentifier *)v3 initWithOrganizationUUID:organizationUUID groupID:[(DMFControlGroupIdentifier *)self groupID]];
 
   return v5;
+}
+
+- (DMFControlSessionIdentifier)initWithOrganizationUUID:(id)d groupID:(unsigned __int16)iD
+{
+  iDCopy = iD;
+  v7 = MEMORY[0x1E696AAA8];
+  dCopy = d;
+  currentHandler = [v7 currentHandler];
+  v10 = objc_opt_class();
+  v11 = NSStringFromSelector(a2);
+  [currentHandler handleFailureInMethod:a2 object:self file:@"DMFControlSessionIdentifier.m" lineNumber:35 description:{@"%@ cannot call %@", v10, v11}];
+
+  v12 = [(DMFControlSessionIdentifier *)self initWithOrganizationUUID:dCopy groupID:iDCopy leaderIP:0 port:3283];
+  return v12;
 }
 
 - (DMFControlSessionIdentifier)initWithString:(id)string
@@ -111,6 +127,20 @@
   }
 
   return selfCopy;
+}
+
+- (DMFControlSessionIdentifier)initWithOrganizationUUID:(id)d groupID:(unsigned __int16)iD leaderIP:(unsigned int)p port:(unsigned __int16)port
+{
+  v9.receiver = self;
+  v9.super_class = DMFControlSessionIdentifier;
+  result = [(DMFControlGroupIdentifier *)&v9 initWithOrganizationUUID:d groupID:iD];
+  if (result)
+  {
+    result->_leaderIP = p;
+    result->_port = port;
+  }
+
+  return result;
 }
 
 - (unint64_t)hash

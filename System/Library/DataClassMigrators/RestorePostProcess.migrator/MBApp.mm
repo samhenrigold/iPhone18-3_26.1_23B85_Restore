@@ -269,14 +269,14 @@
   containerDir = [(MBContainer *)self containerDir];
   v6 = [MBDomain appDomainWithIdentifier:bundleID volumeMountPoint:volumeMountPoint rootPath:containerDir];
 
-  v7 = sub_2D38();
-  [v6 setRelativePathsToBackupAndRestore:v7];
+  v8 = sub_2D38(v7);
+  [v6 setRelativePathsToBackupAndRestore:v8];
 
-  v8 = sub_2D7C();
-  [v6 setRelativePathsNotToBackup:v8];
+  v10 = sub_2D7C(v9);
+  [v6 setRelativePathsNotToBackup:v10];
 
-  v9 = sub_2DC0();
-  [v6 setRelativePathsNotToRestore:v9];
+  v12 = sub_2DC0(v11);
+  [v6 setRelativePathsNotToRestore:v12];
 
   [v6 setShouldDigest:0];
 

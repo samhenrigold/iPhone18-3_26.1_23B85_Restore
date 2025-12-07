@@ -13,34 +13,34 @@
 
 + (unordered_set<std::string,)_loadAppShortcutAlwaysTriggeredAllowList
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = +[SNLPSSUConfig loadAppShortcutAlwaysTriggeredAllowList];
   retstr->var0.var0 = 0u;
   *&retstr->var0.var1.var0 = 0u;
   retstr->var0.var3 = 1.0;
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__rehash<true>(retstr, [v4 count]);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v13 + 1) + 8 * v8) UTF8String]);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(retstr, __p);
-        if (v12 < 0)
+        std::string::basic_string[abi:ne200100]<0>(__p, [*(*(&v12 + 1) + 8 * v8) UTF8String]);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(retstr, __p, __p);
+        if (v11 < 0)
         {
           operator delete(__p[0]);
         }
@@ -49,81 +49,80 @@
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)_performFullCacheUpdateInnerWithUserShortcuts:(id)shortcuts applicationInfos:(id)infos error:(id *)error
 {
-  v95[2] = *MEMORY[0x277D85DE8];
+  v94[2] = *MEMORY[0x277D85DE8];
   shortcutsCopy = shortcuts;
   infosCopy = infos;
   selfCopy = self;
-  v66 = self->__systemEventLock;
-  objc_sync_enter(v66);
-  v68 = shortcutsCopy;
-  v95[0] = snlp::ssu::selflogging::logBackgroundUpdateStarted(3);
-  v95[1] = v8;
-  LOBYTE(v83) = 0;
-  v85 = 0;
+  v65 = self->__systemEventLock;
+  objc_sync_enter(v65);
+  v67 = shortcutsCopy;
+  v94[0] = snlp::ssu::selflogging::logBackgroundUpdateStarted(3);
+  v94[1] = v8;
+  LOBYTE(v82) = 0;
+  v84 = 0;
   if (shortcutsCopy)
   {
-    v83 = 0;
-    v84 = 0uLL;
-    v85 = 1;
-    std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::reserve(&v83, [shortcutsCopy count]);
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
+    v82 = 0;
+    v83 = 0uLL;
+    v84 = 1;
+    std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::reserve(&v82, [shortcutsCopy count]);
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     obj = shortcutsCopy;
-    v9 = [obj countByEnumeratingWithState:&v79 objects:v94 count:16];
+    v9 = [obj countByEnumeratingWithState:&v78 objects:v93 count:16];
     if (v9)
     {
-      v10 = *v80;
+      v10 = *v79;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v80 != v10)
+          if (*v79 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          if ((v85 & 1) == 0)
+          if ((v84 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
-          v12 = *(*(&v79 + 1) + 8 * i);
+          v12 = *(*(&v78 + 1) + 8 * i);
           identifier = [v12 identifier];
           v14 = identifier;
           std::string::basic_string[abi:ne200100]<0>(buf, [identifier UTF8String]);
           phrase = [v12 phrase];
           v16 = phrase;
           std::string::basic_string[abi:ne200100]<0>(&__p, [phrase UTF8String]);
-          v17 = v84;
-          if (v84 >= *(&v84 + 1))
+          v17 = v83;
+          if (v83 >= *(&v83 + 1))
           {
-            v20 = 0xAAAAAAAAAAAAAAABLL * ((v84 - v83) >> 4);
+            v20 = 0xAAAAAAAAAAAAAAABLL * ((v83 - v82) >> 4);
             v21 = v20 + 1;
             if (v20 + 1 > 0x555555555555555)
             {
               std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
             }
 
-            if (0x5555555555555556 * ((*(&v84 + 1) - v83) >> 4) > v21)
+            if (0x5555555555555556 * ((*(&v83 + 1) - v82) >> 4) > v21)
             {
-              v21 = 0x5555555555555556 * ((*(&v84 + 1) - v83) >> 4);
+              v21 = 0x5555555555555556 * ((*(&v83 + 1) - v82) >> 4);
             }
 
-            if (0xAAAAAAAAAAAAAAABLL * ((*(&v84 + 1) - v83) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+            if (0xAAAAAAAAAAAAAAABLL * ((*(&v83 + 1) - v82) >> 4) >= 0x2AAAAAAAAAAAAAALL)
             {
               v22 = 0x555555555555555;
             }
@@ -133,39 +132,39 @@
               v22 = v21;
             }
 
-            v87 = &v83;
+            v86 = &v82;
             if (v22)
             {
               std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>>(v22);
             }
 
-            v23 = 16 * ((v84 - v83) >> 4);
-            *v86 = 0;
-            *&v86[8] = v23;
-            *&v86[24] = 0;
+            v23 = 16 * ((v83 - v82) >> 4);
+            *v85 = 0;
+            *&v85[8] = v23;
+            *&v85[24] = 0;
             v24 = *buf;
-            *(v23 + 16) = v92;
+            *(v23 + 16) = v91;
             *v23 = v24;
-            v92 = 0;
+            v91 = 0;
             memset(buf, 0, sizeof(buf));
             v25 = *&__p.__r_.__value_.__l.__data_;
             *(v23 + 40) = *(&__p.__r_.__value_.__l + 2);
             *(v23 + 24) = v25;
             memset(&__p, 0, sizeof(__p));
-            *&v86[16] = 48 * v20 + 48;
-            v26 = 48 * v20 + v83 - v84;
-            std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>,snlp::ssu::cache::SSUCacheObjectParameter*>(&v83, v83, v84, v23 + v83 - v84);
-            v27 = v83;
-            v28 = *(&v84 + 1);
-            v83 = v26;
-            v71 = *&v86[16];
-            v84 = *&v86[16];
-            *&v86[16] = v27;
-            *&v86[24] = v28;
-            *v86 = v27;
-            *&v86[8] = v27;
-            std::__split_buffer<snlp::ssu::cache::SSUCacheObjectParameter>::~__split_buffer(v86);
-            *&v84 = v71;
+            *&v85[16] = 48 * v20 + 48;
+            v26 = 48 * v20 + v82 - v83;
+            std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>,snlp::ssu::cache::SSUCacheObjectParameter*>(&v82, v82, v83, v23 + v82 - v83);
+            v27 = v82;
+            v28 = *(&v83 + 1);
+            v82 = v26;
+            v70 = *&v85[16];
+            v83 = *&v85[16];
+            *&v85[16] = v27;
+            *&v85[24] = v28;
+            *v85 = v27;
+            *&v85[8] = v27;
+            std::__split_buffer<snlp::ssu::cache::SSUCacheObjectParameter>::~__split_buffer(v85);
+            *&v83 = v70;
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
@@ -175,38 +174,38 @@
           else
           {
             v18 = *buf;
-            *(v84 + 16) = v92;
+            *(v83 + 16) = v91;
             *v17 = v18;
-            v92 = 0;
+            v91 = 0;
             memset(buf, 0, sizeof(buf));
             v19 = __p.__r_.__value_.__r.__words[2];
             *(v17 + 24) = *&__p.__r_.__value_.__l.__data_;
             *(v17 + 40) = v19;
             memset(&__p, 0, sizeof(__p));
-            *&v84 = v17 + 48;
+            *&v83 = v17 + 48;
           }
 
-          if (SHIBYTE(v92) < 0)
+          if (SHIBYTE(v91) < 0)
           {
             operator delete(*buf);
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v79 objects:v94 count:16];
+        v9 = [obj countByEnumeratingWithState:&v78 objects:v93 count:16];
       }
 
       while (v9);
     }
   }
 
-  v77 = 0;
-  v78 = 0uLL;
+  v76 = 0;
+  v77 = 0uLL;
   v29 = [infosCopy count];
   if (v29)
   {
     if (v29 <= 0x555555555555555)
     {
-      __p.__r_.__value_.__l.__size_ = &v77;
+      __p.__r_.__value_.__l.__size_ = &v76;
       std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>>(v29);
     }
 
@@ -214,45 +213,45 @@
   }
 
   v30 = [MEMORY[0x277CBEB58] set];
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   obja = infosCopy;
-  v31 = [obja countByEnumeratingWithState:&v73 objects:v90 count:16];
+  v31 = [obja countByEnumeratingWithState:&v72 objects:v89 count:16];
   if (v31)
   {
-    v32 = *v74;
+    v32 = *v73;
     while (2)
     {
       for (j = 0; j != v31; ++j)
       {
-        if (*v74 != v32)
+        if (*v73 != v32)
         {
           objc_enumerationMutation(obja);
         }
 
-        v34 = *(*(&v73 + 1) + 8 * j);
+        v34 = *(*(&v72 + 1) + 8 * j);
         bundleIdentifier = [v34 bundleIdentifier];
         if ([v30 containsObject:bundleIdentifier])
         {
           if (error)
           {
             v57 = *MEMORY[0x277CCA450];
-            v89[0] = @"Could not perform full cache update.";
+            v88[0] = @"Could not perform full cache update.";
             v58 = *MEMORY[0x277CCA470];
-            v88[0] = v57;
-            v88[1] = v58;
+            v87[0] = v57;
+            v87[1] = v58;
             v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"There was a duplicate app bundle ID in applicationInfos: %@.", bundleIdentifier];
-            v88[2] = *MEMORY[0x277CCA498];
-            v89[1] = v59;
-            v89[2] = @"Ensure that only unique apps are passed.";
-            v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:3];
+            v87[2] = *MEMORY[0x277CCA498];
+            v88[1] = v59;
+            v88[2] = @"Ensure that only unique apps are passed.";
+            v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:3];
 
             *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"SNLPSSUErrorDomain" code:2 userInfo:v60];
           }
 
-          snlp::ssu::selflogging::logBackgroundUpdateFailed(v95);
+          snlp::ssu::selflogging::logBackgroundUpdateFailed(v94);
 
           v61 = 0;
           goto LABEL_66;
@@ -265,25 +264,25 @@
         assetURL = [v34 assetURL];
         path = [assetURL path];
         v40 = path;
-        *v86 = [path UTF8String];
-        std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&__p, v86);
+        *v85 = [path UTF8String];
+        std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&__p, v85);
 
-        v41 = v78;
-        if (v78 >= *(&v78 + 1))
+        v41 = v77;
+        if (v77 >= *(&v77 + 1))
         {
-          v44 = 0xAAAAAAAAAAAAAAABLL * ((v78 - v77) >> 4);
+          v44 = 0xAAAAAAAAAAAAAAABLL * ((v77 - v76) >> 4);
           v45 = v44 + 1;
           if (v44 + 1 > 0x555555555555555)
           {
             std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((*(&v78 + 1) - v77) >> 4) > v45)
+          if (0x5555555555555556 * ((*(&v77 + 1) - v76) >> 4) > v45)
           {
-            v45 = 0x5555555555555556 * ((*(&v78 + 1) - v77) >> 4);
+            v45 = 0x5555555555555556 * ((*(&v77 + 1) - v76) >> 4);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((*(&v78 + 1) - v77) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+          if (0xAAAAAAAAAAAAAAABLL * ((*(&v77 + 1) - v76) >> 4) >= 0x2AAAAAAAAAAAAAALL)
           {
             v46 = 0x555555555555555;
           }
@@ -293,39 +292,39 @@
             v46 = v45;
           }
 
-          v87 = &v77;
+          v86 = &v76;
           if (v46)
           {
             std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>>(v46);
           }
 
-          v47 = 16 * ((v78 - v77) >> 4);
-          *v86 = 0;
-          *&v86[8] = v47;
-          *&v86[24] = 0;
+          v47 = 16 * ((v77 - v76) >> 4);
+          *v85 = 0;
+          *&v85[8] = v47;
+          *&v85[24] = 0;
           v48 = *buf;
-          *(v47 + 16) = v92;
+          *(v47 + 16) = v91;
           *v47 = v48;
-          v92 = 0;
+          v91 = 0;
           memset(buf, 0, sizeof(buf));
           v49 = *&__p.__r_.__value_.__l.__data_;
           *(v47 + 40) = *(&__p.__r_.__value_.__l + 2);
           *(v47 + 24) = v49;
           memset(&__p, 0, sizeof(__p));
-          *&v86[16] = 48 * v44 + 48;
-          v50 = &v77[48 * v44 - v78];
-          std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>,snlp::ssu::cache::SSUCacheObjectParameter*>(&v77, v77, v78, v50);
-          v51 = v77;
-          v52 = *(&v78 + 1);
-          v77 = v50;
-          v72 = *&v86[16];
-          v78 = *&v86[16];
-          *&v86[16] = v51;
-          *&v86[24] = v52;
-          *v86 = v51;
-          *&v86[8] = v51;
-          std::__split_buffer<snlp::ssu::cache::SSUCacheObjectParameter>::~__split_buffer(v86);
-          *&v78 = v72;
+          *&v85[16] = 48 * v44 + 48;
+          v50 = &v76[48 * v44 - v77];
+          std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>,snlp::ssu::cache::SSUCacheObjectParameter*>(&v76, v76, v77, v50);
+          v51 = v76;
+          v52 = *(&v77 + 1);
+          v76 = v50;
+          v71 = *&v85[16];
+          v77 = *&v85[16];
+          *&v85[16] = v51;
+          *&v85[24] = v52;
+          *v85 = v51;
+          *&v85[8] = v51;
+          std::__split_buffer<snlp::ssu::cache::SSUCacheObjectParameter>::~__split_buffer(v85);
+          *&v77 = v71;
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
@@ -335,24 +334,24 @@
         else
         {
           v42 = *buf;
-          *(v78 + 16) = v92;
+          *(v77 + 16) = v91;
           *v41 = v42;
-          v92 = 0;
+          v91 = 0;
           memset(buf, 0, sizeof(buf));
           v43 = __p.__r_.__value_.__r.__words[2];
           *(v41 + 24) = *&__p.__r_.__value_.__l.__data_;
           *(v41 + 40) = v43;
           memset(&__p, 0, sizeof(__p));
-          *&v78 = v41 + 48;
+          *&v77 = v41 + 48;
         }
 
-        if (SHIBYTE(v92) < 0)
+        if (SHIBYTE(v91) < 0)
         {
           operator delete(*buf);
         }
       }
 
-      v31 = [obja countByEnumeratingWithState:&v73 objects:v90 count:16];
+      v31 = [obja countByEnumeratingWithState:&v72 objects:v89 count:16];
       if (v31)
       {
         continue;
@@ -366,62 +365,61 @@
   if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    *&buf[4] = 0xAAAAAAAAAAAAAAABLL * ((v78 - v77) >> 4);
+    *&buf[4] = 0xAAAAAAAAAAAAAAABLL * ((v77 - v76) >> 4);
     _os_log_impl(&dword_22284A000, v53, OS_LOG_TYPE_DEBUG, "Performing full cache update for %lu applications", buf, 0xCu);
   }
 
-  if (v85 == 1)
+  if (v84 == 1)
   {
     v54 = SNLPOSLoggerForCategory(8);
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
-      if ((v85 & 1) == 0)
+      if ((v84 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
       *buf = 134217984;
-      *&buf[4] = 0xAAAAAAAAAAAAAAABLL * ((v84 - v83) >> 4);
+      *&buf[4] = 0xAAAAAAAAAAAAAAABLL * ((v83 - v82) >> 4);
       _os_log_impl(&dword_22284A000, v54, OS_LOG_TYPE_DEBUG, "Performing full cache update for %lu configured user shortcuts", buf, 0xCu);
     }
   }
 
-  snlp::ssu::matcher::SSUMatcher::performFullCacheUpdate(selfCopy->_cppMatcher.__ptr_, &v77, &v83, buf);
+  snlp::ssu::matcher::SSUMatcher::performFullCacheUpdate(selfCopy->_cppMatcher.__ptr_, &v76, &v82, buf);
   ptr = selfCopy->_cppMatcher.__ptr_;
   if (*(ptr + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(v86, *ptr, *(ptr + 1));
+    std::string::__init_copy_ctor_external(v85, *ptr, *(ptr + 1));
   }
 
   else
   {
     v56 = *ptr;
-    *&v86[16] = *(ptr + 2);
-    *v86 = v56;
+    *&v85[16] = *(ptr + 2);
+    *v85 = v56;
   }
 
-  snlp::ssu::selflogging::logBackgroundUpdateEnded(v95, v86, buf);
-  if ((v86[23] & 0x80000000) != 0)
+  snlp::ssu::selflogging::logBackgroundUpdateEnded(v94, v85, buf);
+  if ((v85[23] & 0x80000000) != 0)
   {
-    operator delete(*v86);
+    operator delete(*v85);
   }
 
-  *v86 = buf;
-  std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__destroy_vector::operator()[abi:ne200100](v86);
+  *v85 = buf;
+  std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__destroy_vector::operator()[abi:ne200100](v85);
   v61 = 1;
 LABEL_66:
 
-  *buf = &v77;
+  *buf = &v76;
   std::vector<snlp::ssu::app::SSUAppParameter>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (v85 == 1)
+  if (v84 == 1)
   {
-    *buf = &v83;
+    *buf = &v82;
     std::vector<snlp::ssu::app::SSUAppParameter>::__destroy_vector::operator()[abi:ne200100](buf);
   }
 
-  objc_sync_exit(v66);
+  objc_sync_exit(v65);
 
-  v62 = *MEMORY[0x277D85DE8];
   return v61;
 }
 
@@ -445,7 +443,7 @@ LABEL_66:
 
 - (id)responseForRequest:(id)request error:(id *)error
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v6 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -472,10 +470,10 @@ LABEL_66:
     _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN SNLPSSUMatcher responseForRequest", buf, 2u);
   }
 
-  [MEMORY[0x277D5DF00] convertSSURequestFromObjCToCpp:requestCopy];
-  if (v23)
+  objc_msgSend_convertSSURequestFromObjCToCpp_(MEMORY[0x277D5DF00]);
+  if (v22)
   {
-    if (*(v23 + 48))
+    if (*(v22 + 48))
     {
       MEMORY[0x223DC30E0](buf);
       snlp::ssu::selflogging::logUserRequestStarted(buf, v12);
@@ -487,12 +485,12 @@ LABEL_66:
     }
 
     v16 = *MEMORY[0x277CCA470];
-    v24[0] = *MEMORY[0x277CCA450];
-    v24[1] = v16;
-    v25[0] = @"Could not produce an SSU response for the given request.";
+    v23[0] = *MEMORY[0x277CCA450];
+    v23[1] = v16;
+    v24[0] = @"Could not produce an SSU response for the given request.";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"The SSU request has no request ID"];
-    v25[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v24[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
 
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"SNLPSSUErrorDomain" code:10 userInfo:v18];
   }
@@ -505,28 +503,26 @@ LABEL_66:
     }
 
     v13 = *MEMORY[0x277CCA470];
-    v26[0] = *MEMORY[0x277CCA450];
-    v26[1] = v13;
-    v27[0] = @"Could not produce an SSU response for the given request.";
+    v25[0] = *MEMORY[0x277CCA450];
+    v25[1] = v13;
+    v26[0] = @"Could not produce an SSU response for the given request.";
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not convert ObjC proto SSU request to C++ proto SSU request"];
-    v27[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
 
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"SNLPSSUErrorDomain" code:5 userInfo:v15];
   }
 
   error = 0;
 LABEL_16:
-  v19 = v23;
-  v23 = 0;
+  v19 = v22;
+  v22 = 0;
   if (v19)
   {
     (*(*v19 + 8))(v19);
   }
 
 LABEL_18:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -694,7 +690,7 @@ LABEL_18:
   std::string::basic_string[abi:ne200100]<0>(&v18, [appCopy UTF8String]);
   snlp::ssu::matcher::SSUMatcher::deregisterApp(ptr, &v18, &v21);
   std::__optional_storage_base<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo,false>>(&buf, &v21);
-  if (v24 == 1)
+  if (v24[0] == 1)
   {
     if (__p[0])
     {
@@ -740,7 +736,8 @@ LABEL_18:
     v22 = v26;
     memset(__p, 0, sizeof(__p));
     std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(__p, v27, v28, (v28 - v27) >> 4);
-    std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*,snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*>();
+    memset(v17, 0, sizeof(v17));
+    std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*,snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*>(v17, &v21, v24);
   }
 
   snlp::ssu::selflogging::logBackgroundUpdateFailed(v30);
@@ -760,7 +757,6 @@ LABEL_18:
 
   objc_sync_exit(v7);
 
-  v16 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -793,7 +789,7 @@ LABEL_18:
   v30 = 0;
   snlp::ssu::matcher::SSUMatcher::registerApp(self->_cppMatcher.__ptr_, v19, &v22);
   std::__optional_storage_base<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo,false>>(&buf, &v22);
-  if (v25 == 1)
+  if (v25[0] == 1)
   {
     if (__p[0])
     {
@@ -834,7 +830,8 @@ LABEL_18:
     v23 = v27;
     memset(__p, 0, sizeof(__p));
     std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(__p, v28, v29, (v29 - v28) >> 4);
-    std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*,snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*>();
+    memset(v17, 0, sizeof(v17));
+    std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*,snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const*>(v17, &v22, v25);
   }
 
   snlp::ssu::selflogging::logBackgroundUpdateFailed(v31);
@@ -850,7 +847,6 @@ LABEL_18:
 
   objc_sync_exit(v6);
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -872,8 +868,8 @@ LABEL_18:
   std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v19, v14);
 
   __p[5] = 0;
-  [self _loadAppShortcutAlwaysTriggeredAllowList];
-  [SNLPAssetVersionChecker loadUInt32ListFromConfigPListResourceName:@"SSUSupportedGenerationList"];
+  objc_msgSend__loadAppShortcutAlwaysTriggeredAllowList(self);
+  objc_msgSend_loadUInt32ListFromConfigPListResourceName_(SNLPAssetVersionChecker);
   v20 = xmmword_2229D29E0;
   std::unordered_set<unsigned int>::unordered_set(v14, &v20, 4);
   if (preemptivelyCopy)

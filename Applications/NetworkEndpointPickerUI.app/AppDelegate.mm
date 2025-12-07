@@ -20,7 +20,7 @@
 {
   Logger.init(subsystem:category:)();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for AppDelegate();
+  v4.super_class = type metadata accessor for AppDelegate(0);
   return [(AppDelegate *)&v4 init];
 }
 

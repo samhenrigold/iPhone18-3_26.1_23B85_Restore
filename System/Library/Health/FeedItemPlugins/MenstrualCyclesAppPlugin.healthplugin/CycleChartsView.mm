@@ -34,7 +34,7 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_29E2B9658();
+  sub_29E2B9658(v5);
 }
 
 @end

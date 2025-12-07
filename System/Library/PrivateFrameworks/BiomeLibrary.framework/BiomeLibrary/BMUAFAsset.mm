@@ -172,7 +172,7 @@ LABEL_41:
 
 - (id)jsonDictionary
 {
-  v34[9] = *MEMORY[0x1E69E9840];
+  v33[9] = *MEMORY[0x1E69E9840];
   assetName = [(BMUAFAsset *)self assetName];
   assetSpecifier = [(BMUAFAsset *)self assetSpecifier];
   assetVersion = [(BMUAFAsset *)self assetVersion];
@@ -182,12 +182,12 @@ LABEL_41:
   v8 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMUAFAsset assetSource](self, "assetSource")}];
   if ([(BMUAFAsset *)self hasIsAssetPathValid])
   {
-    v32 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMUAFAsset isAssetPathValid](self, "isAssetPathValid")}];
+    v31 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMUAFAsset isAssetPathValid](self, "isAssetPathValid")}];
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
   assetPath = [(BMUAFAsset *)self assetPath];
@@ -211,62 +211,62 @@ LABEL_41:
     v10 = 0;
   }
 
-  v33[0] = @"assetName";
+  v32[0] = @"assetName";
   null = assetName;
   if (!assetName)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = null;
-  v34[0] = null;
-  v33[1] = @"assetSpecifier";
+  v26 = null;
+  v33[0] = null;
+  v32[1] = @"assetSpecifier";
   null2 = assetSpecifier;
   if (!assetSpecifier)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = null2;
-  v34[1] = null2;
-  v33[2] = @"assetVersion";
+  v25 = null2;
+  v33[1] = null2;
+  v32[2] = @"assetVersion";
   null3 = assetVersion;
   if (!assetVersion)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = assetName;
-  v25 = null3;
-  v34[2] = null3;
-  v33[3] = @"assetLocale";
+  v29 = assetName;
+  v24 = null3;
+  v33[2] = null3;
+  v32[3] = @"assetLocale";
   null4 = jsonDictionary;
   if (!jsonDictionary)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = assetSpecifier;
-  v24 = null4;
-  v34[3] = null4;
-  v33[4] = @"assetSource";
+  v28 = assetSpecifier;
+  v23 = null4;
+  v33[3] = null4;
+  v32[4] = @"assetSource";
   null5 = v8;
   if (!v8)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = assetVersion;
-  v34[4] = null5;
-  v33[5] = @"isAssetPathValid";
-  null6 = v32;
-  if (!v32)
+  v27 = assetVersion;
+  v33[4] = null5;
+  v32[5] = @"isAssetPathValid";
+  null6 = v31;
+  if (!v31)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34[5] = null6;
-  v33[6] = @"assetPath";
+  v33[5] = null6;
+  v32[6] = @"assetPath";
   null7 = assetPath;
   if (!assetPath)
   {
@@ -274,24 +274,24 @@ LABEL_41:
   }
 
   v18 = v8;
-  v34[6] = null7;
-  v33[7] = @"assetDownloadSizeInBytes";
+  v33[6] = null7;
+  v32[7] = @"assetDownloadSizeInBytes";
   null8 = v9;
   if (!v9)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34[7] = null8;
-  v33[8] = @"assetUnarchivedSizeInBytes";
+  v33[7] = null8;
+  v32[8] = @"assetUnarchivedSizeInBytes";
   null9 = v10;
   if (!v10)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34[8] = null9;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:9];
+  v33[8] = null9;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:9];
   if (v10)
   {
     if (v9)
@@ -314,7 +314,7 @@ LABEL_30:
   {
   }
 
-  if (!v32)
+  if (!v31)
   {
   }
 
@@ -326,16 +326,16 @@ LABEL_30:
   {
   }
 
-  if (v28)
+  if (v27)
   {
-    if (v29)
+    if (v28)
     {
       goto LABEL_40;
     }
 
 LABEL_47:
 
-    if (v30)
+    if (v29)
     {
       goto LABEL_41;
     }
@@ -343,13 +343,13 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  if (!v29)
+  if (!v28)
   {
     goto LABEL_47;
   }
 
 LABEL_40:
-  if (v30)
+  if (v29)
   {
     goto LABEL_41;
   }
@@ -357,14 +357,13 @@ LABEL_40:
 LABEL_48:
 
 LABEL_41:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 - (BMUAFAsset)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v108[1] = *MEMORY[0x1E69E9840];
+  v107[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"assetName"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -379,7 +378,7 @@ LABEL_41:
     v8 = v7;
 LABEL_4:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"assetSpecifier"];
-    v88 = v9;
+    v87 = v9;
     if (!v9 || (v10 = v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v11 = 0;
@@ -392,8 +391,8 @@ LABEL_4:
       v11 = v10;
 LABEL_7:
       v12 = [dictionaryCopy objectForKeyedSubscript:@"assetVersion"];
-      v86 = v12;
-      v87 = v8;
+      v85 = v12;
+      v86 = v8;
       if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         errorCopy = 0;
@@ -407,13 +406,13 @@ LABEL_7:
         errorCopy = v12;
 LABEL_10:
         v14 = [dictionaryCopy objectForKeyedSubscript:@"assetLocale"];
-        v89 = dictionaryCopy;
-        v85 = v14;
+        v88 = dictionaryCopy;
+        v84 = v14;
         if (!v14 || (v15 = v14, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           selfCopy3 = self;
           v17 = v7;
-          v84 = 0;
+          v83 = 0;
           goto LABEL_13;
         }
 
@@ -422,9 +421,9 @@ LABEL_10:
         if (objc_opt_isKindOfClass())
         {
           v23 = v15;
-          v90 = 0;
-          v84 = [[BMUAFISOLocale alloc] initWithJSONDictionary:v23 error:&v90];
-          v24 = v90;
+          v89 = 0;
+          v83 = [[BMUAFISOLocale alloc] initWithJSONDictionary:v23 error:&v89];
+          v24 = v89;
           if (v24)
           {
             if (error)
@@ -434,26 +433,26 @@ LABEL_10:
             }
 
             v25 = 0;
-            v12 = v86;
-            v26 = v84;
+            v12 = v85;
+            v26 = v83;
             goto LABEL_83;
           }
 
           v17 = v7;
 
           selfCopy3 = self;
-          v12 = v86;
+          v12 = v85;
 LABEL_13:
-          v18 = [v89 objectForKeyedSubscript:@"assetSource"];
-          v77 = v18;
-          v78 = errorCopy;
+          v18 = [v88 objectForKeyedSubscript:@"assetSource"];
+          v76 = v18;
+          v77 = errorCopy;
           if (v18 && (v19 = v18, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v82 = v19;
-              v12 = v86;
+              v81 = v19;
+              v12 = v85;
             }
 
             else
@@ -463,50 +462,50 @@ LABEL_13:
               {
                 if (!error)
                 {
-                  v82 = 0;
+                  v81 = 0;
                   v25 = 0;
-                  v26 = v84;
+                  v26 = v83;
                   v7 = v17;
                   self = selfCopy3;
-                  v33 = v85;
-                  v12 = v86;
-                  dictionaryCopy = v89;
+                  v33 = v84;
+                  v12 = v85;
+                  dictionaryCopy = v88;
                   goto LABEL_82;
                 }
 
-                v73 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v74 = *MEMORY[0x1E698F240];
-                v99 = *MEMORY[0x1E696A578];
-                v80 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"assetSource"];
-                v100 = v80;
-                v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-                v82 = 0;
+                v72 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v73 = *MEMORY[0x1E698F240];
+                v98 = *MEMORY[0x1E696A578];
+                v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"assetSource"];
+                v99 = v79;
+                v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+                v81 = 0;
                 v25 = 0;
-                *error = [v73 initWithDomain:v74 code:2 userInfo:?];
-                v26 = v84;
+                *error = [v72 initWithDomain:v73 code:2 userInfo:?];
+                v26 = v83;
                 v7 = v17;
                 self = selfCopy3;
-                v33 = v85;
-                v12 = v86;
+                v33 = v84;
+                v12 = v85;
                 goto LABEL_93;
               }
 
-              v82 = [MEMORY[0x1E696AD98] numberWithInt:BMUAFAssetUAFAssetSourceFromString(v19)];
-              v12 = v86;
+              v81 = [MEMORY[0x1E696AD98] numberWithInt:BMUAFAssetUAFAssetSourceFromString(v19)];
+              v12 = v85;
             }
           }
 
           else
           {
-            v82 = 0;
+            v81 = 0;
           }
 
-          v20 = [v89 objectForKeyedSubscript:@"isAssetPathValid"];
-          v83 = v11;
-          v76 = v20;
+          v20 = [v88 objectForKeyedSubscript:@"isAssetPathValid"];
+          v82 = v11;
+          v75 = v20;
           if (!v20)
           {
-            v80 = 0;
+            v79 = 0;
             self = selfCopy3;
             goto LABEL_33;
           }
@@ -516,25 +515,25 @@ LABEL_13:
           self = selfCopy3;
           if (objc_opt_isKindOfClass())
           {
-            v80 = 0;
+            v79 = 0;
 LABEL_33:
-            v33 = v85;
+            v33 = v84;
             goto LABEL_34;
           }
 
           objc_opt_class();
-          v33 = v85;
+          v33 = v84;
           if (objc_opt_isKindOfClass())
           {
-            v80 = v21;
+            v79 = v21;
 LABEL_34:
-            v34 = [v89 objectForKeyedSubscript:@"assetPath"];
+            v34 = [v88 objectForKeyedSubscript:@"assetPath"];
             v7 = v17;
             selfCopy4 = self;
             if (v34)
             {
               objc_opt_class();
-              dictionaryCopy = v89;
+              dictionaryCopy = v88;
               if (objc_opt_isKindOfClass())
               {
                 v35 = 0;
@@ -549,23 +548,23 @@ LABEL_34:
                   {
                     v58 = 0;
                     v25 = 0;
-                    v12 = v86;
-                    v26 = v84;
+                    v12 = v85;
+                    v26 = v83;
                     goto LABEL_80;
                   }
 
                   errorCopy2 = error;
                   v61 = objc_alloc(MEMORY[0x1E696ABC0]);
                   v62 = *MEMORY[0x1E698F240];
-                  v95 = *MEMORY[0x1E696A578];
+                  v94 = *MEMORY[0x1E696A578];
                   v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"assetPath"];
-                  v96 = v49;
-                  v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+                  v95 = v49;
+                  v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
                   v63 = [v61 initWithDomain:v62 code:2 userInfo:v47];
                   v58 = 0;
                   v25 = 0;
                   *errorCopy2 = v63;
-                  errorCopy = v78;
+                  errorCopy = v77;
                   goto LABEL_78;
                 }
 
@@ -576,7 +575,7 @@ LABEL_34:
             else
             {
               v35 = 0;
-              dictionaryCopy = v89;
+              dictionaryCopy = v88;
             }
 
             v47 = [dictionaryCopy objectForKeyedSubscript:@"assetDownloadSizeInBytes"];
@@ -595,11 +594,11 @@ LABEL_34:
 
                 v64 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v65 = *MEMORY[0x1E698F240];
-                v93 = *MEMORY[0x1E696A578];
+                v92 = *MEMORY[0x1E696A578];
                 errorCopy3 = error;
                 v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"assetDownloadSizeInBytes"];
-                v94 = v51;
-                v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+                v93 = v51;
+                v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
                 v67 = [v64 initWithDomain:v65 code:2 userInfo:v50];
                 v49 = 0;
                 v25 = 0;
@@ -617,24 +616,24 @@ LABEL_34:
               v49 = 0;
             }
 
-            v50 = [v89 objectForKeyedSubscript:@"assetUnarchivedSizeInBytes"];
+            v50 = [v88 objectForKeyedSubscript:@"assetUnarchivedSizeInBytes"];
             if (!v50 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
               v51 = 0;
 LABEL_54:
-              errorCopy = v78;
-              v25 = -[BMUAFAsset initWithAssetName:assetSpecifier:assetVersion:assetLocale:assetSource:isAssetPathValid:assetPath:assetDownloadSizeInBytes:assetUnarchivedSizeInBytes:](selfCopy4, "initWithAssetName:assetSpecifier:assetVersion:assetLocale:assetSource:isAssetPathValid:assetPath:assetDownloadSizeInBytes:assetUnarchivedSizeInBytes:", v87, v11, v78, v84, [v82 intValue], v80, v35, v49, v51);
+              errorCopy = v77;
+              v25 = -[BMUAFAsset initWithAssetName:assetSpecifier:assetVersion:assetLocale:assetSource:isAssetPathValid:assetPath:assetDownloadSizeInBytes:assetUnarchivedSizeInBytes:](selfCopy4, "initWithAssetName:assetSpecifier:assetVersion:assetLocale:assetSource:isAssetPathValid:assetPath:assetDownloadSizeInBytes:assetUnarchivedSizeInBytes:", v86, v11, v77, v83, [v81 intValue], v79, v35, v49, v51);
               selfCopy4 = v25;
 LABEL_76:
               v58 = v35;
 
 LABEL_77:
-              v33 = v85;
+              v33 = v84;
 LABEL_78:
 
               self = selfCopy4;
-              v12 = v86;
-              v26 = v84;
+              v12 = v85;
+              v26 = v83;
               goto LABEL_79;
             }
 
@@ -648,18 +647,18 @@ LABEL_78:
             if (errorCopy5)
             {
               v68 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v75 = *MEMORY[0x1E698F240];
-              v91 = *MEMORY[0x1E696A578];
+              v74 = *MEMORY[0x1E698F240];
+              v90 = *MEMORY[0x1E696A578];
               v69 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"assetUnarchivedSizeInBytes"];
-              v92 = v69;
-              v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-              *errorCopy5 = [v68 initWithDomain:v75 code:2 userInfo:v70];
+              v91 = v69;
+              v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+              *errorCopy5 = [v68 initWithDomain:v74 code:2 userInfo:v70];
             }
 
             v51 = 0;
             v25 = 0;
 LABEL_75:
-            errorCopy = v78;
+            errorCopy = v77;
             goto LABEL_76;
           }
 
@@ -667,22 +666,22 @@ LABEL_75:
           {
             v56 = objc_alloc(MEMORY[0x1E696ABC0]);
             v57 = *MEMORY[0x1E698F240];
-            v97 = *MEMORY[0x1E696A578];
+            v96 = *MEMORY[0x1E696A578];
             v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isAssetPathValid"];
-            v98 = v58;
-            v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+            v97 = v58;
+            v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
             v59 = v56;
-            v12 = v86;
-            v80 = 0;
+            v12 = v85;
+            v79 = 0;
             v25 = 0;
             *error = [v59 initWithDomain:v57 code:2 userInfo:v34];
-            v26 = v84;
+            v26 = v83;
             v7 = v17;
 LABEL_79:
-            dictionaryCopy = v89;
+            dictionaryCopy = v88;
 LABEL_80:
 
-            v11 = v83;
+            v11 = v82;
 LABEL_81:
 
 LABEL_82:
@@ -690,43 +689,43 @@ LABEL_82:
             goto LABEL_83;
           }
 
-          v80 = 0;
+          v79 = 0;
           v25 = 0;
-          v26 = v84;
+          v26 = v83;
           v7 = v17;
 LABEL_93:
-          dictionaryCopy = v89;
+          dictionaryCopy = v88;
           goto LABEL_81;
         }
 
         if (!error)
         {
           v25 = 0;
-          v12 = v86;
+          v12 = v85;
           goto LABEL_84;
         }
 
         v52 = objc_alloc(MEMORY[0x1E696ABC0]);
         v53 = *MEMORY[0x1E698F240];
-        v101 = *MEMORY[0x1E696A578];
-        v79 = errorCopy;
+        v100 = *MEMORY[0x1E696A578];
+        v78 = errorCopy;
         errorCopy6 = error;
         v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"assetLocale"];
-        v102 = v26;
-        v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+        v101 = v26;
+        v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
         *errorCopy6 = [v52 initWithDomain:v53 code:2 userInfo:v55];
-        errorCopy = v79;
+        errorCopy = v78;
 
         v25 = 0;
         v23 = v15;
         self = selfCopy2;
-        v12 = v86;
+        v12 = v85;
 LABEL_83:
 
         v15 = v23;
 LABEL_84:
 
-        v8 = v87;
+        v8 = v86;
         goto LABEL_85;
       }
 
@@ -735,12 +734,12 @@ LABEL_84:
         v42 = objc_alloc(MEMORY[0x1E696ABC0]);
         v43 = v11;
         v44 = *MEMORY[0x1E698F240];
-        v103 = *MEMORY[0x1E696A578];
+        v102 = *MEMORY[0x1E696A578];
         v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"assetVersion"];
-        v104 = v23;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+        v103 = v23;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
         v45 = v42;
-        v12 = v86;
+        v12 = v85;
         v46 = v44;
         v11 = v43;
         v25 = 0;
@@ -752,7 +751,7 @@ LABEL_84:
       v25 = 0;
 LABEL_85:
 
-      v10 = v88;
+      v10 = v87;
       goto LABEL_86;
     }
 
@@ -760,10 +759,10 @@ LABEL_85:
     {
       v36 = objc_alloc(MEMORY[0x1E696ABC0]);
       v37 = *MEMORY[0x1E698F240];
-      v105 = *MEMORY[0x1E696A578];
+      v104 = *MEMORY[0x1E696A578];
       v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"assetSpecifier"];
-      v106 = v38;
-      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+      v105 = v38;
+      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
       v40 = v36;
       v12 = v39;
       v41 = [v40 initWithDomain:v37 code:2 userInfo:v39];
@@ -785,10 +784,10 @@ LABEL_86:
   {
     v27 = objc_alloc(MEMORY[0x1E696ABC0]);
     v28 = *MEMORY[0x1E698F240];
-    v107 = *MEMORY[0x1E696A578];
+    v106 = *MEMORY[0x1E696A578];
     v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"assetName"];
-    v108[0] = v29;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:&v107 count:1];
+    v107[0] = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:&v106 count:1];
     v31 = v27;
     v10 = v30;
     v32 = v28;
@@ -803,7 +802,6 @@ LABEL_86:
   v25 = 0;
 LABEL_87:
 
-  v71 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -841,11 +839,9 @@ LABEL_87:
     PBDataWriterRecallMark();
   }
 
-  assetSource = self->_assetSource;
   PBDataWriterWriteUint32Field();
   if (self->_hasIsAssetPathValid)
   {
-    isAssetPathValid = self->_isAssetPathValid;
     PBDataWriterWriteBOOLField();
   }
 
@@ -856,13 +852,11 @@ LABEL_87:
 
   if (self->_hasAssetDownloadSizeInBytes)
   {
-    assetDownloadSizeInBytes = self->_assetDownloadSizeInBytes;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_hasAssetUnarchivedSizeInBytes)
   {
-    assetUnarchivedSizeInBytes = self->_assetUnarchivedSizeInBytes;
     PBDataWriterWriteUint64Field();
   }
 }
@@ -1312,34 +1306,32 @@ LABEL_94:
 
 + (id)protoFields
 {
-  v14[9] = *MEMORY[0x1E69E9840];
+  v13[9] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetName" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetSpecifier" number:2 type:13 subMessageClass:{0, v2}];
-  v14[1] = v3;
+  v13[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetVersion" number:3 type:13 subMessageClass:0];
-  v14[2] = v4;
+  v13[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetLocale" number:4 type:14 subMessageClass:objc_opt_class()];
-  v14[3] = v5;
+  v13[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetSource" number:5 type:4 subMessageClass:0];
-  v14[4] = v6;
+  v13[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isAssetPathValid" number:6 type:12 subMessageClass:0];
-  v14[5] = v7;
+  v13[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetPath" number:7 type:13 subMessageClass:0];
-  v14[6] = v8;
+  v13[6] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetDownloadSizeInBytes" number:8 type:5 subMessageClass:0];
-  v14[7] = v9;
+  v13[7] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetUnarchivedSizeInBytes" number:9 type:5 subMessageClass:0];
-  v14[8] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[8] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:9];
 
   return v11;
 }
 
 + (id)columns
 {
-  v14[9] = *MEMORY[0x1E69E9840];
+  v13[9] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"assetName" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"assetSpecifier" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"assetVersion" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -1349,30 +1341,28 @@ LABEL_94:
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"assetPath" dataType:2 requestOnly:0 fieldNumber:7 protoDataType:13 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"assetDownloadSizeInBytes" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:5 convertedType:0];
   v10 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"assetUnarchivedSizeInBytes" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:5 convertedType:0];
-  v14[0] = v2;
-  v14[1] = v3;
-  v14[2] = v4;
-  v14[3] = v5;
-  v14[4] = v6;
-  v14[5] = v7;
-  v14[6] = v8;
-  v14[7] = v9;
-  v14[8] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = v2;
+  v13[1] = v3;
+  v13[2] = v4;
+  v13[3] = v5;
+  v13[4] = v6;
+  v13[5] = v7;
+  v13[6] = v8;
+  v13[7] = v9;
+  v13[8] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:9];
 
   return v11;
 }
 
-id __21__BMUAFAsset_columns__block_invoke(uint64_t a1, void *a2)
+id __21__BMUAFAsset_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 assetLocale];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 assetLocale];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

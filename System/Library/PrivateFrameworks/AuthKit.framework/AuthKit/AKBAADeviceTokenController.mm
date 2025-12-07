@@ -50,27 +50,25 @@
 {
   swift_getObjectType();
   v2 = AKURLBagKeyBAAFetchDeviceToken;
-  v3 = type metadata accessor for URLBagFeatureFlag();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  v6 = swift_allocObject();
-  v7 = v2;
+  v3 = type metadata accessor for URLBagFeatureFlag(0);
+  v4 = swift_allocObject();
+  v5 = v2;
   swift_defaultActor_initialize();
-  v8 = OBJC_IVAR____TtC3akd17URLBagFeatureFlag_cachedURL;
-  v9 = type metadata accessor for URL();
-  (*(*(v9 - 8) + 56))(&v6[v8], 1, 1, v9);
-  *&v6[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_cachedStatus] = 0;
-  *&v6[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_urlBagFetchTask] = 0;
-  *&v6[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_urlBagKey] = v7;
-  v10 = &v6[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_urlBagProvider];
-  *v10 = sub_100228E10;
-  v10[1] = 0;
-  v14.receiver = v6;
-  v14.super_class = v3;
-  v11 = [(AKBAADeviceTokenController *)&v14 init];
-  v12 = sub_1001FFD54(sub_1001FB270, 0, sub_1001FB2FC, 0, sub_1001FB36C, 0, v11);
+  v6 = OBJC_IVAR____TtC3akd17URLBagFeatureFlag_cachedURL;
+  v7 = type metadata accessor for URL();
+  (*(*(v7 - 8) + 56))(&v4[v6], 1, 1, v7);
+  *&v4[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_cachedStatus] = 0;
+  *&v4[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_urlBagFetchTask] = 0;
+  *&v4[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_urlBagKey] = v5;
+  v8 = &v4[OBJC_IVAR____TtC3akd17URLBagFeatureFlag_urlBagProvider];
+  *v8 = sub_100228E10;
+  v8[1] = 0;
+  v12.receiver = v4;
+  v12.super_class = v3;
+  v9 = [(AKBAADeviceTokenController *)&v12 init];
+  v10 = sub_1001FFD54(sub_1001FB270, 0, sub_1001FB2FC, 0, sub_1001FB36C, 0, v9);
   swift_deallocPartialClassInstance();
-  return v12;
+  return v10;
 }
 
 - (void)markBAAOperationSuccessful
@@ -85,79 +83,76 @@
 - (void)refreshBAADeviceTokenWithCompletionHandler:(id)handler
 {
   v5 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_10029E3A0;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_10029E3A0;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10029E060;
-  v13[5] = v12;
+  v12[4] = &unk_10029E060;
+  v12[5] = v11;
   selfCopy = self;
-  sub_100244978(0, 0, v8, &unk_10029E3B0, v13);
+  sub_100244978(0, 0, v7, &unk_10029E3B0, v12);
 }
 
 - (void)fetchBAADeviceTokenWithCompletionHandler:(id)handler
 {
   v5 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_10029E380;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_10029E380;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10029E040;
-  v13[5] = v12;
+  v12[4] = &unk_10029E040;
+  v12[5] = v11;
   selfCopy = self;
-  sub_100244978(0, 0, v8, &unk_10029E390, v13);
+  sub_100244978(0, 0, v7, &unk_10029E390, v12);
 }
 
 - (void)refreshCertWithTokenFeatureWithCompletionHandler:(id)handler
 {
   v5 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_10029E370;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_10029E370;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_10029C6A0;
-  v13[5] = v12;
+  v12[4] = &unk_10029C6A0;
+  v12[5] = v11;
   selfCopy = self;
-  sub_100244978(0, 0, v8, &unk_10029CEE0, v13);
+  sub_100244978(0, 0, v7, &unk_10029CEE0, v12);
 }
 
 @end

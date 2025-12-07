@@ -198,7 +198,7 @@ void __75__PLGraphNodeContainer_validateAllKnownSubclassesWithManagedObjectConte
         v24 = 0;
         v17 = [v16 executeFetchRequest:v8 error:&v24];
         v18 = v24;
-        v19 = [v17 count];
+        v19 = objc_msgSend_count(v17);
 
         if (!v19)
         {

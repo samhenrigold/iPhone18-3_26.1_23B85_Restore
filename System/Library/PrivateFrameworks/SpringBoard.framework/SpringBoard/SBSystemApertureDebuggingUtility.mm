@@ -567,7 +567,7 @@ void __52__SBSystemApertureDebuggingUtility__setupTestRecipe__block_invoke(uint6
           v12 = MEMORY[0x277CCAE60];
           layer = [v7 layer];
           presentationLayer = [layer presentationLayer];
-          [presentationLayer frame];
+          objc_msgSend_frame(presentationLayer);
           v15 = [v12 valueWithRect:?];
 
           v16 = MEMORY[0x277CCABB0];
@@ -617,7 +617,7 @@ void __52__SBSystemApertureDebuggingUtility__setupTestRecipe__block_invoke(uint6
   v5 = *&state;
   v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v9 = SBLogStreamBuddy();
+  v9 = SBLogStreamBuddy(errorCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = NSStringFromSelector(a2);

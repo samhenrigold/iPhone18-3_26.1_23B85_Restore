@@ -349,7 +349,7 @@
   v12 = [v11 channelCount] * channelCount;
 
   *buf = 0;
-  sub_1000040D0(__b, v12);
+  sub_1000040D0(__b, v12, buf);
   if (channels == 1)
   {
     *(__b[0] + channel) = 1065353216;
@@ -417,16 +417,16 @@
     *&buf[4] = "AVAudioDeviceTestService.mm";
     *&buf[12] = 1024;
     *&buf[14] = 1669;
-    v33 = 1024;
+    v34 = 1024;
     channelCount3 = [v16 channelCount];
-    v35 = 1024;
-    v36 = channelCount;
+    v36 = 1024;
+    v37 = channelCount;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d mixer dimension %d x %d", buf, 0x1Eu);
   }
 
   v17 = channelCount2 * channelCount;
-  *v27 = 0;
-  sub_1000040D0(buf, v17);
+  v27 = 0;
+  sub_1000040D0(buf, v17, &v27);
   if (channelCopy)
   {
     for (i = 0; [channelCopy count] > i; ++i)
@@ -467,13 +467,13 @@
     v25 = *qword_100025DF8;
     if (os_log_type_enabled(*qword_100025DF8, OS_LOG_TYPE_ERROR))
     {
-      *v27 = 136315650;
-      *&v27[4] = "AVAudioDeviceTestService.mm";
-      v28 = 1024;
-      v29 = 1688;
-      v30 = 1024;
-      v31 = v24;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioUnitSetProperty kAudioUnitProperty_MatrixLevels %i", v27, 0x18u);
+      v27 = 136315650;
+      v28 = "AVAudioDeviceTestService.mm";
+      v29 = 1024;
+      v30 = 1688;
+      v31 = 1024;
+      v32 = v24;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioUnitSetProperty kAudioUnitProperty_MatrixLevels %i", &v27, 0x18u);
     }
 
     v26 = sub_100003D50(-10);
@@ -919,18 +919,8 @@ LABEL_73:
     }
 
     mode = [forCopy mode];
-    if (!mode)
+    if (!mode || ([v11 mode], v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(forCopy, "mode"), v41 = objc_claimAutoreleasedReturnValue(), v42 = v40 == v41, v41, v40, mode, v42))
     {
-      goto LABEL_55;
-    }
-
-    mode2 = [v11 mode];
-    mode3 = [forCopy mode];
-    v42 = mode2 == mode3;
-
-    if (v42)
-    {
-LABEL_55:
       if (v25 & 1) == 0 && ([v11 isActive])
       {
         goto LABEL_74;
@@ -939,9 +929,9 @@ LABEL_55:
 
     else
     {
-      mode4 = [forCopy mode];
+      mode2 = [forCopy mode];
       v59 = v20;
-      v44 = [v11 setMode:mode4 error:&v59];
+      v44 = [v11 setMode:mode2 error:&v59];
       v45 = v59;
 
       if ((v44 & 1) == 0)
@@ -2153,42 +2143,42 @@ LABEL_17:
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  *v236 = 0;
-  *&v236[8] = v236;
-  *&v236[16] = 0x2020000000;
+  *v237 = 0;
+  *&v237[8] = v237;
+  *&v237[16] = 0x2020000000;
   p_weak_ivar_lyt = &AVAudioDeviceTestService__classData.weak_ivar_lyt;
   v10 = off_100025E00;
-  *&v236[24] = off_100025E00;
+  *&v237[24] = off_100025E00;
   if (!off_100025E00)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10000F6EC;
     *&buf[24] = &unk_100020838;
-    *&buf[32] = v236;
+    *&buf[32] = v237;
     v11 = sub_10000F73C();
     v12 = dlsym(v11, "MSNMonitorBeginException");
     *(*(*&buf[32] + 8) + 24) = v12;
     off_100025E00 = *(*(*&buf[32] + 8) + 24);
-    v10 = *(*&v236[8] + 24);
+    v10 = *(*&v237[8] + 24);
   }
 
-  _Block_object_dispose(v236, 8);
+  _Block_object_dispose(v237, 8);
   if (!v10)
   {
 LABEL_172:
-    dlerror();
-    abort_report_np();
+    v182 = dlerror();
+    abort_report_np("%s", v182);
     __break(1u);
 LABEL_182:
     dispatch_once(&qword_100025DF0, &stru_100020500);
 LABEL_174:
-    v182 = *qword_100025DF8;
-    if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
+    v183 = *qword_100025DF8;
+    if (os_log_type_enabled(v183, OS_LOG_TYPE_ERROR))
     {
       localizedDescription = [p_weak_ivar_lyt localizedDescription];
-      v184 = sub_100003D50(-9);
-      code = [v184 code];
+      v185 = sub_100003D50(-9);
+      code = [v185 code];
       *buf = 136315906;
       *&buf[4] = "AVAudioDeviceTestService.mm";
       *&buf[12] = 1024;
@@ -2197,11 +2187,11 @@ LABEL_174:
       *&buf[20] = localizedDescription;
       *&buf[28] = 2048;
       *&buf[30] = code;
-      _os_log_impl(&_mh_execute_header, v182, OS_LOG_TYPE_ERROR, "%25s:%-5d unable to read stimulus file (%@) with test error (%li)", buf, 0x26u);
+      _os_log_impl(&_mh_execute_header, v183, OS_LOG_TYPE_ERROR, "%25s:%-5d unable to read stimulus file (%@) with test error (%li)", buf, 0x26u);
     }
 
-    v186 = sub_100003D50(-9);
-    v196[2](v196, 0, v186);
+    v187 = sub_100003D50(-9);
+    v197[2](v197, 0, v187);
 
     exit(-9);
   }
@@ -2234,9 +2224,9 @@ LABEL_174:
     priority = 10;
   }
 
-  v235 = 0;
-  v16 = [v14 setInterruptionPriority:priority error:&v235];
-  v17 = v235;
+  v236 = 0;
+  v16 = [v14 setInterruptionPriority:priority error:&v236];
+  v17 = v236;
   if ((v16 & 1) == 0)
   {
     if (qword_100025DF0 != -1)
@@ -2271,9 +2261,9 @@ LABEL_174:
     v21 = 1;
   }
 
-  v234 = v17;
-  v22 = [v14 setCategory:AVAudioSessionCategoryPlayAndRecord mode:AVAudioSessionModeRaw options:v21 error:&v234];
-  v23 = v234;
+  v235 = v17;
+  v22 = [v14 setCategory:AVAudioSessionCategoryPlayAndRecord mode:AVAudioSessionModeRaw options:v21 error:&v235];
+  v23 = v235;
 
   v24 = v23;
   if ((v22 & 1) == 0)
@@ -2300,16 +2290,16 @@ LABEL_174:
     completionCopy[2](completionCopy, 0, v27);
   }
 
-  v233 = v23;
-  v28 = [v14 setActive:1 error:&v233];
-  v29 = v233;
+  v234 = v23;
+  v28 = [v14 setActive:1 error:&v234];
+  v29 = v234;
 
   v30 = v29;
   if (v28)
   {
-    v232 = v29;
-    v31 = [v14 setPreferredIOBufferFrameSize:4096 error:&v232];
-    v32 = v232;
+    v233 = v29;
+    v31 = [v14 setPreferredIOBufferFrameSize:4096 error:&v233];
+    v32 = v233;
 
     if ((v31 & 1) == 0)
     {
@@ -2336,7 +2326,7 @@ LABEL_174:
       }
     }
 
-    v201 = dispatch_semaphore_create(0);
+    v202 = dispatch_semaphore_create(0);
     if (qword_100025DF0 != -1)
     {
       dispatch_once(&qword_100025DF0, &stru_100020500);
@@ -2358,9 +2348,9 @@ LABEL_174:
     if (!v39)
     {
       mode2 = [sequenceCopy mode];
-      v231 = v32;
-      v41 = [v14 setMode:mode2 error:&v231];
-      v42 = v231;
+      v232 = v32;
+      v41 = [v14 setMode:mode2 error:&v232];
+      v42 = v232;
 
       if ((v41 & 1) == 0)
       {
@@ -2477,12 +2467,12 @@ LABEL_174:
         }
 
         v64 = +[NSNotificationCenter defaultCenter];
-        v230[0] = _NSConcreteStackBlock;
-        v230[1] = 3221225472;
-        v230[2] = sub_10000F84C;
-        v230[3] = &unk_100020550;
-        v230[4] = selfCopy;
-        v65 = [v64 addObserverForName:AVAudioSessionRouteChangeNotification object:v14 queue:0 usingBlock:v230];
+        v231[0] = _NSConcreteStackBlock;
+        v231[1] = 3221225472;
+        v231[2] = sub_10000F84C;
+        v231[3] = &unk_100020550;
+        v231[4] = selfCopy;
+        v65 = [v64 addObserverForName:AVAudioSessionRouteChangeNotification object:v14 queue:0 usingBlock:v231];
         [(AVAudioDeviceTestService *)selfCopy setRouteChangeObserver:v65];
 
         interruptionObserver = [(AVAudioDeviceTestService *)selfCopy interruptionObserver];
@@ -2496,13 +2486,13 @@ LABEL_174:
         }
 
         v70 = +[NSNotificationCenter defaultCenter];
-        v228[0] = _NSConcreteStackBlock;
-        v228[1] = 3221225472;
-        v228[2] = sub_10000F9DC;
-        v228[3] = &unk_100020578;
+        v229[0] = _NSConcreteStackBlock;
+        v229[1] = 3221225472;
+        v229[2] = sub_10000F9DC;
+        v229[3] = &unk_100020578;
         v71 = completionCopy;
-        v229 = v71;
-        v72 = [v70 addObserverForName:AVAudioSessionInterruptionNotification object:v14 queue:0 usingBlock:v228];
+        v230 = v71;
+        v72 = [v70 addObserverForName:AVAudioSessionInterruptionNotification object:v14 queue:0 usingBlock:v229];
         [(AVAudioDeviceTestService *)selfCopy setInterruptionObserver:v72];
 
         mediaservicesLostObserver = [(AVAudioDeviceTestService *)selfCopy mediaservicesLostObserver];
@@ -2516,13 +2506,13 @@ LABEL_174:
         }
 
         v77 = +[NSNotificationCenter defaultCenter];
-        v226[0] = _NSConcreteStackBlock;
-        v226[1] = 3221225472;
-        v226[2] = sub_10000FB78;
-        v226[3] = &unk_100020578;
-        v196 = v71;
-        v227 = v196;
-        v78 = [v77 addObserverForName:AVAudioSessionMediaServicesWereLostNotification object:v14 queue:0 usingBlock:v226];
+        v227[0] = _NSConcreteStackBlock;
+        v227[1] = 3221225472;
+        v227[2] = sub_10000FB78;
+        v227[3] = &unk_100020578;
+        v197 = v71;
+        v228 = v197;
+        v78 = [v77 addObserverForName:AVAudioSessionMediaServicesWereLostNotification object:v14 queue:0 usingBlock:v227];
         [(AVAudioDeviceTestService *)selfCopy setMediaservicesLostObserver:v78];
 
         if (qword_100025DF0 != -1)
@@ -2542,11 +2532,11 @@ LABEL_174:
 
         v80 = [AVAudioFile alloc];
         stimulusURL = [sequenceCopy stimulusURL];
-        v225 = v32;
-        v202 = [v80 initForReading:stimulusURL error:&v225];
-        p_weak_ivar_lyt = v225;
+        v226 = v32;
+        v203 = [v80 initForReading:stimulusURL error:&v226];
+        p_weak_ivar_lyt = v226;
 
-        if (!v202 && p_weak_ivar_lyt)
+        if (!v203 && p_weak_ivar_lyt)
         {
           if (qword_100025DF0 == -1)
           {
@@ -2557,17 +2547,17 @@ LABEL_174:
         }
 
         v82 = [AVAudioPCMBuffer alloc];
-        processingFormat = [v202 processingFormat];
-        v199 = [v82 initWithPCMFormat:processingFormat frameCapacity:objc_msgSend(v202, "length")];
+        processingFormat = [v203 processingFormat];
+        v200 = [v82 initWithPCMFormat:processingFormat frameCapacity:objc_msgSend(v203, "length")];
 
-        v224 = p_weak_ivar_lyt;
-        LOBYTE(processingFormat) = [v202 readIntoBuffer:v199 error:&v224];
-        v84 = v224;
+        v225 = p_weak_ivar_lyt;
+        LOBYTE(processingFormat) = [v203 readIntoBuffer:v200 error:&v225];
+        v84 = v225;
 
         v30 = v84;
         if (processingFormat)
         {
-          v85 = v199;
+          v85 = v200;
         }
 
         else
@@ -2593,7 +2583,7 @@ LABEL_174:
           v85 = 0;
         }
 
-        v200 = v85;
+        v201 = v85;
         format = [v85 format];
         v98 = [format channelCount] > 1;
 
@@ -2619,14 +2609,14 @@ LABEL_174:
           }
 
           v102 = sub_100003D50(-6);
-          v196[2](v196, 0, v102);
+          v197[2](v197, 0, v102);
           v55 = 1;
         }
 
         else
         {
-          v193 = v200;
-          processingFormat2 = [v202 processingFormat];
+          v194 = v201;
+          processingFormat2 = [v203 processingFormat];
           [processingFormat2 sampleRate];
           v105 = v104;
           engine = [(AVAudioDeviceTestService *)selfCopy engine];
@@ -2638,33 +2628,33 @@ LABEL_174:
           if (v110)
           {
             v111 = [AVAudioFormat alloc];
-            processingFormat3 = [v202 processingFormat];
+            processingFormat3 = [v203 processingFormat];
             settings = [processingFormat3 settings];
-            v194 = [v111 initWithSettings:settings];
+            v195 = [v111 initWithSettings:settings];
 
-            settings2 = [v194 settings];
-            v197 = [settings2 mutableCopy];
+            settings2 = [v195 settings];
+            v198 = [settings2 mutableCopy];
 
             engine2 = [(AVAudioDeviceTestService *)selfCopy engine];
             inputNode2 = [engine2 inputNode];
             v117 = [inputNode2 inputFormatForBus:0];
             [v117 sampleRate];
             v118 = [NSNumber numberWithDouble:?];
-            [v197 setObject:v118 forKeyedSubscript:AVSampleRateKey];
+            [v198 setObject:v118 forKeyedSubscript:AVSampleRateKey];
 
-            [v197 setObject:&off_100021040 forKeyedSubscript:AVNumberOfChannelsKey];
-            v119 = [[AVAudioFormat alloc] initWithSettings:v197];
-            v120 = [[AVAudioPCMBuffer alloc] initWithPCMFormat:v119 frameCapacity:objc_msgSend(v202, "length")];
-            v121 = [[AVAudioConverter alloc] initFromFormat:v194 toFormat:v119];
-            v222[0] = _NSConcreteStackBlock;
-            v222[1] = 3221225472;
-            v222[2] = sub_10000FD14;
-            v222[3] = &unk_1000205A0;
-            v223 = v193;
-            v122 = objc_retainBlock(v222);
-            v221 = v30;
-            v123 = [v121 convertToBuffer:v120 error:&v221 withInputFromBlock:v122];
-            v192 = v221;
+            [v198 setObject:&off_100021040 forKeyedSubscript:AVNumberOfChannelsKey];
+            v119 = [[AVAudioFormat alloc] initWithSettings:v198];
+            v120 = [[AVAudioPCMBuffer alloc] initWithPCMFormat:v119 frameCapacity:objc_msgSend(v203, "length")];
+            v121 = [[AVAudioConverter alloc] initFromFormat:v195 toFormat:v119];
+            v223[0] = _NSConcreteStackBlock;
+            v223[1] = 3221225472;
+            v223[2] = sub_10000FD14;
+            v223[3] = &unk_1000205A0;
+            v224 = v194;
+            v122 = objc_retainBlock(v223);
+            v222 = v30;
+            v123 = [v121 convertToBuffer:v120 error:&v222 withInputFromBlock:v122];
+            v193 = v222;
 
             if (!v123)
             {
@@ -2676,7 +2666,7 @@ LABEL_174:
               v124 = *qword_100025DF8;
               if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
               {
-                localizedDescription3 = [v192 localizedDescription];
+                localizedDescription3 = [v193 localizedDescription];
                 v126 = sub_100003D50(-6);
                 code9 = [v126 code];
                 *buf = 136315906;
@@ -2691,7 +2681,7 @@ LABEL_174:
               }
             }
 
-            v30 = v192;
+            v30 = v193;
             v128 = v120;
           }
 
@@ -2703,18 +2693,18 @@ LABEL_174:
           v129 = v128;
           if (!v128)
           {
-            v128 = v193;
+            v128 = v194;
           }
 
-          v198 = v128;
+          v199 = v128;
 
-          v217 = 0;
-          v218 = &v217;
-          v219 = 0x2020000000;
-          frameLength = [v198 frameLength];
+          v218 = 0;
+          v219 = &v218;
+          v220 = 0x2020000000;
+          frameLength = [v199 frameLength];
           [v14 outputSampleRate];
           v132 = v131;
-          format2 = [v198 format];
+          format2 = [v199 format];
           [format2 sampleRate];
           v135 = v134;
           [v14 outputLatency];
@@ -2724,10 +2714,10 @@ LABEL_174:
           [v14 outputSampleRate];
           v141 = v140;
 
-          v220 = ((v132 / v135 * frameLength) + v137 * v139 + v141 * 0.5);
+          v221 = ((v132 / v135 * frameLength) + v137 * v139 + v141 * 0.5);
           engine3 = [(AVAudioDeviceTestService *)selfCopy engine];
           inputNode3 = [engine3 inputNode];
-          v195 = [inputNode3 inputFormatForBus:0];
+          v196 = [inputNode3 inputFormatForBus:0];
 
           *buf = 0;
           *&buf[8] = buf;
@@ -2735,7 +2725,7 @@ LABEL_174:
           *&buf[24] = sub_10000BCA8;
           *&buf[32] = sub_10000BCB8;
           v144 = [AVAudioPCMBuffer alloc];
-          v238 = [v144 initWithPCMFormat:v195 frameCapacity:*(v218 + 6)];
+          v239 = [v144 initWithPCMFormat:v196 frameCapacity:*(v219 + 6)];
           [*(*&buf[8] + 40) setFrameLength:0];
           inputFilter = [(AVAudioDeviceTestService *)selfCopy inputFilter];
           if (inputFilter)
@@ -2763,28 +2753,28 @@ LABEL_174:
           v148 = *qword_100025DF8;
           if (os_log_type_enabled(v148, OS_LOG_TYPE_DEFAULT))
           {
-            v149 = *(v218 + 6);
-            *v236 = 136315650;
-            *&v236[4] = "AVAudioDeviceTestService.mm";
-            *&v236[12] = 1024;
-            *&v236[14] = 639;
-            *&v236[18] = 1024;
-            *&v236[20] = v149;
-            _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_DEFAULT, "%25s:%-5d test length %i frames", v236, 0x18u);
+            v149 = *(v219 + 6);
+            *v237 = 136315650;
+            *&v237[4] = "AVAudioDeviceTestService.mm";
+            *&v237[12] = 1024;
+            *&v237[14] = 639;
+            *&v237[18] = 1024;
+            *&v237[20] = v149;
+            _os_log_impl(&_mh_execute_header, v148, OS_LOG_TYPE_DEFAULT, "%25s:%-5d test length %i frames", v237, 0x18u);
           }
 
           nodeToCaptureData = [(AVAudioDeviceTestService *)selfCopy nodeToCaptureData];
-          v212[0] = _NSConcreteStackBlock;
-          v212[1] = 3221225472;
-          v212[2] = sub_10000FD20;
-          v212[3] = &unk_1000205C8;
-          v215 = buf;
-          v151 = v196;
-          v214 = v151;
-          v216 = &v217;
-          v152 = v201;
-          v213 = v152;
-          [nodeToCaptureData installTapOnBus:0 bufferSize:4096 format:v195 block:v212];
+          v213[0] = _NSConcreteStackBlock;
+          v213[1] = 3221225472;
+          v213[2] = sub_10000FD20;
+          v213[3] = &unk_1000205C8;
+          v216 = buf;
+          v151 = v197;
+          v215 = v151;
+          v217 = &v218;
+          v152 = v202;
+          v214 = v152;
+          [nodeToCaptureData installTapOnBus:0 bufferSize:4096 format:v196 block:v213];
 
           if (qword_100025DF0 != -1)
           {
@@ -2794,23 +2784,23 @@ LABEL_174:
           v153 = *qword_100025DF8;
           if (os_log_type_enabled(v153, OS_LOG_TYPE_DEFAULT))
           {
-            *v236 = 136315394;
-            *&v236[4] = "AVAudioDeviceTestService.mm";
-            *&v236[12] = 1024;
-            *&v236[14] = 711;
-            _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "%25s:%-5d scheduling stimulus file", v236, 0x12u);
+            *v237 = 136315394;
+            *&v237[4] = "AVAudioDeviceTestService.mm";
+            *&v237[12] = 1024;
+            *&v237[14] = 711;
+            _os_log_impl(&_mh_execute_header, v153, OS_LOG_TYPE_DEFAULT, "%25s:%-5d scheduling stimulus file", v237, 0x12u);
           }
 
           player = [(AVAudioDeviceTestService *)selfCopy player];
-          [player scheduleBuffer:v198 atTime:0 options:2 completionHandler:&stru_1000205E8];
+          [player scheduleBuffer:v199 atTime:0 options:2 completionHandler:&stru_1000205E8];
 
           engine5 = [(AVAudioDeviceTestService *)selfCopy engine];
           [engine5 prepare];
 
           engine6 = [(AVAudioDeviceTestService *)selfCopy engine];
-          v211 = v30;
-          LOBYTE(engine5) = [engine6 startAndReturnError:&v211];
-          v157 = v211;
+          v212 = v30;
+          LOBYTE(engine5) = [engine6 startAndReturnError:&v212];
+          v157 = v212;
 
           v158 = v157;
           if ((engine5 & 1) == 0)
@@ -2820,25 +2810,25 @@ LABEL_174:
               dispatch_once(&qword_100025DF0, &stru_100020500);
             }
 
-            v187 = *qword_100025DF8;
-            if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
+            v188 = *qword_100025DF8;
+            if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
             {
               localizedDescription4 = [v157 localizedDescription];
-              v189 = sub_100003D50(-10);
-              code10 = [v189 code];
-              *v236 = 136315906;
-              *&v236[4] = "AVAudioDeviceTestService.mm";
-              *&v236[12] = 1024;
-              *&v236[14] = 724;
-              *&v236[18] = 2112;
-              *&v236[20] = localizedDescription4;
-              *&v236[28] = 2048;
-              *&v236[30] = code10;
-              _os_log_impl(&_mh_execute_header, v187, OS_LOG_TYPE_ERROR, "%25s:%-5d startAndReturnError (%@) with test error (%li)", v236, 0x26u);
+              v190 = sub_100003D50(-10);
+              code10 = [v190 code];
+              *v237 = 136315906;
+              *&v237[4] = "AVAudioDeviceTestService.mm";
+              *&v237[12] = 1024;
+              *&v237[14] = 724;
+              *&v237[18] = 2112;
+              *&v237[20] = localizedDescription4;
+              *&v237[28] = 2048;
+              *&v237[30] = code10;
+              _os_log_impl(&_mh_execute_header, v188, OS_LOG_TYPE_ERROR, "%25s:%-5d startAndReturnError (%@) with test error (%li)", v237, 0x26u);
             }
 
-            v191 = sub_100003D50(-10);
-            v151[2](v151, 0, v191);
+            v192 = sub_100003D50(-10);
+            v151[2](v151, 0, v192);
 
             exit(-1);
           }
@@ -2852,13 +2842,13 @@ LABEL_174:
           if (os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT))
           {
             engine7 = [(AVAudioDeviceTestService *)selfCopy engine];
-            *v236 = 136315650;
-            *&v236[4] = "AVAudioDeviceTestService.mm";
-            *&v236[12] = 1024;
-            *&v236[14] = 729;
-            *&v236[18] = 2112;
-            *&v236[20] = engine7;
-            _os_log_impl(&_mh_execute_header, v159, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@", v236, 0x1Cu);
+            *v237 = 136315650;
+            *&v237[4] = "AVAudioDeviceTestService.mm";
+            *&v237[12] = 1024;
+            *&v237[14] = 729;
+            *&v237[18] = 2112;
+            *&v237[20] = engine7;
+            _os_log_impl(&_mh_execute_header, v159, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@", v237, 0x1Cu);
           }
 
           player2 = [(AVAudioDeviceTestService *)selfCopy player];
@@ -2872,11 +2862,11 @@ LABEL_174:
           v162 = *qword_100025DF8;
           if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
           {
-            *v236 = 136315394;
-            *&v236[4] = "AVAudioDeviceTestService.mm";
-            *&v236[12] = 1024;
-            *&v236[14] = 733;
-            _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_DEFAULT, "%25s:%-5d waiting for sequence to finish", v236, 0x12u);
+            *v237 = 136315394;
+            *&v237[4] = "AVAudioDeviceTestService.mm";
+            *&v237[12] = 1024;
+            *&v237[14] = 733;
+            _os_log_impl(&_mh_execute_header, v162, OS_LOG_TYPE_DEFAULT, "%25s:%-5d waiting for sequence to finish", v237, 0x12u);
           }
 
           dispatch_semaphore_wait(v152, 0xFFFFFFFFFFFFFFFFLL);
@@ -2888,11 +2878,11 @@ LABEL_174:
           v163 = *qword_100025DF8;
           if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
           {
-            *v236 = 136315394;
-            *&v236[4] = "AVAudioDeviceTestService.mm";
-            *&v236[12] = 1024;
-            *&v236[14] = 737;
-            _os_log_impl(&_mh_execute_header, v163, OS_LOG_TYPE_DEFAULT, "%25s:%-5d sequence finished", v236, 0x12u);
+            *v237 = 136315394;
+            *&v237[4] = "AVAudioDeviceTestService.mm";
+            *&v237[12] = 1024;
+            *&v237[14] = 737;
+            _os_log_impl(&_mh_execute_header, v163, OS_LOG_TYPE_DEFAULT, "%25s:%-5d sequence finished", v237, 0x12u);
           }
 
           nodeToCaptureData2 = [(AVAudioDeviceTestService *)selfCopy nodeToCaptureData];
@@ -2910,9 +2900,9 @@ LABEL_174:
             [engine9 stop];
           }
 
-          v210 = v158;
-          v169 = [v14 setActive:0 error:&v210];
-          v170 = v210;
+          v211 = v158;
+          v169 = [v14 setActive:0 error:&v211];
+          v170 = v211;
 
           v30 = v170;
           if ((v169 & 1) == 0)
@@ -2928,31 +2918,31 @@ LABEL_174:
               code11 = [v170 code];
               v173 = sub_100003D50(-11);
               code12 = [v173 code];
-              *v236 = 136315906;
-              *&v236[4] = "AVAudioDeviceTestService.mm";
-              *&v236[12] = 1024;
-              *&v236[14] = 751;
-              *&v236[18] = 2048;
-              *&v236[20] = code11;
-              *&v236[28] = 2048;
-              *&v236[30] = code12;
-              _os_log_impl(&_mh_execute_header, v171, OS_LOG_TYPE_ERROR, "%25s:%-5d setActive (%li) with test error (%li)", v236, 0x26u);
+              *v237 = 136315906;
+              *&v237[4] = "AVAudioDeviceTestService.mm";
+              *&v237[12] = 1024;
+              *&v237[14] = 751;
+              *&v237[18] = 2048;
+              *&v237[20] = code11;
+              *&v237[28] = 2048;
+              *&v237[30] = code12;
+              _os_log_impl(&_mh_execute_header, v171, OS_LOG_TYPE_ERROR, "%25s:%-5d setActive (%li) with test error (%li)", v237, 0x26u);
             }
           }
 
           [(AVAudioDeviceTestService *)selfCopy cleanUpObservers];
-          v204[0] = _NSConcreteStackBlock;
-          v204[1] = 3221225472;
-          v204[2] = sub_10000FFDC;
-          v204[3] = &unk_100020638;
-          v209 = buf;
+          v205[0] = _NSConcreteStackBlock;
+          v205[1] = 3221225472;
+          v205[2] = sub_10000FFDC;
+          v205[3] = &unk_100020638;
+          v210 = buf;
           v175 = sequenceCopy;
-          v205 = v175;
-          v206 = selfCopy;
-          v102 = v198;
-          v207 = v102;
-          v208 = v151;
-          v176 = objc_retainBlock(v204);
+          v206 = v175;
+          v207 = selfCopy;
+          v102 = v199;
+          v208 = v102;
+          v209 = v151;
+          v176 = objc_retainBlock(v205);
           if ([v175 processSequenceAsynchronously])
           {
             v177 = dispatch_get_global_queue(2, 0);
@@ -2965,7 +2955,7 @@ LABEL_174:
           }
 
           _Block_object_dispose(buf, 8);
-          _Block_object_dispose(&v217, 8);
+          _Block_object_dispose(&v218, 8);
 
           v55 = 0;
         }
@@ -2995,7 +2985,7 @@ LABEL_174:
         *&buf[28] = 2112;
         *&buf[30] = category;
         *&buf[38] = 2048;
-        v238 = code13;
+        v239 = code13;
         _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "%25s:%-5d unable to set volume %.2f for category %@ - (%li)", buf, 0x30u);
       }
 
@@ -3006,7 +2996,7 @@ LABEL_174:
     v55 = 1;
     v30 = v32;
 LABEL_161:
-    v54 = v201;
+    v54 = v202;
     goto LABEL_162;
   }
 
@@ -3080,27 +3070,27 @@ LABEL_162:
 
   if ((v55 | 2) == 2)
   {
-    *v236 = 0;
-    *&v236[8] = v236;
-    *&v236[16] = 0x2020000000;
+    *v237 = 0;
+    *&v237[8] = v237;
+    *&v237[16] = 0x2020000000;
     p_weak_ivar_lyt = &AVAudioDeviceTestService__classData.weak_ivar_lyt;
     v179 = off_100025E10;
-    *&v236[24] = off_100025E10;
+    *&v237[24] = off_100025E10;
     if (!off_100025E10)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_100010528;
       *&buf[24] = &unk_100020838;
-      *&buf[32] = v236;
+      *&buf[32] = v237;
       v180 = sub_10000F73C();
       v181 = dlsym(v180, "MSNMonitorEndException");
       *(*(*&buf[32] + 8) + 24) = v181;
       off_100025E10 = *(*(*&buf[32] + 8) + 24);
-      v179 = *(*&v236[8] + 24);
+      v179 = *(*&v237[8] + 24);
     }
 
-    _Block_object_dispose(v236, 8);
+    _Block_object_dispose(v237, 8);
     if (v179)
     {
       v179("audiotesting");

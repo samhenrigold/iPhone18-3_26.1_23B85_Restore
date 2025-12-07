@@ -8,9 +8,9 @@
 - (id)newCompressor
 {
   v2 = [OrgApacheLuceneCodecsCompressingCompressionMode_LZ4HighCompressor alloc];
-  OrgApacheLuceneCodecsCompressingCompressor_init(v2, v3);
-  v4 = new_OrgApacheLuceneCodecsCompressingLZ4_HCHashTable_init();
-  JreStrongAssignAndConsume(&v2->ht_, v4);
+  OrgApacheLuceneCodecsCompressingCompressor_init();
+  v3 = new_OrgApacheLuceneCodecsCompressingLZ4_HCHashTable_init();
+  JreStrongAssignAndConsume(&v2->ht_, v3);
 
   return v2;
 }

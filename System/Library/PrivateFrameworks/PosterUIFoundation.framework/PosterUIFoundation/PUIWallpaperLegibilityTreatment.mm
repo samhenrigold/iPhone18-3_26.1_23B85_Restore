@@ -105,7 +105,7 @@
 - (id)luminanceTreatmentFilters
 {
   v14[2] = *MEMORY[0x1E69E9840];
-  v2 = PUIWallpaperTreatmentBundle();
+  v2 = PUIWallpaperTreatmentBundle(self);
   if (!v2)
   {
     [PUIWallpaperLegibilityTreatment luminanceTreatmentFilters];

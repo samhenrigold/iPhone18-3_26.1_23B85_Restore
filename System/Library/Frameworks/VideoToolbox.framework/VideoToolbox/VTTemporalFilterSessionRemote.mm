@@ -3,7 +3,7 @@
 
 @implementation VTTemporalFilterSessionRemote
 
-uint64_t __VTTemporalFilterSessionRemote_Create_block_invoke(uint64_t a1, mach_port_t a2, int a3, _DWORD *a4, void *a5, uint64_t *a6)
+uint64_t __VTTemporalFilterSessionRemote_Create_block_invoke(uint64_t a1, mach_port_t a2, int a3, int *a4, void *a5, uint64_t *a6)
 {
   v34 = *MEMORY[0x1E69E9840];
   v32 = 0;

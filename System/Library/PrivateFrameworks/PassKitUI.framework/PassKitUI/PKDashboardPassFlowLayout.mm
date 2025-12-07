@@ -122,7 +122,7 @@ id __33__PKDashboardPassFlowLayout_init__block_invoke(uint64_t a1, uint64_t a2, 
 
 - (id)layoutSectionAtIndex:(int64_t)index layoutEnvironment:(id)environment
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   environmentCopy = environment;
   collectionView = [(PKDashboardPassFlowLayout *)self collectionView];
   delegate = [collectionView delegate];
@@ -131,16 +131,16 @@ id __33__PKDashboardPassFlowLayout_init__block_invoke(uint64_t a1, uint64_t a2, 
   v9 = objc_opt_respondsToSelector();
   v10 = objc_opt_respondsToSelector();
   v11 = objc_opt_respondsToSelector();
-  v68 = objc_opt_respondsToSelector();
+  v72 = objc_opt_respondsToSelector();
   v12 = objc_opt_respondsToSelector();
-  v73 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v71 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v77 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
   dataSource = [collectionView dataSource];
   v14 = [dataSource collectionView:collectionView numberOfItemsInSection:index];
 
   if (v14 < 1)
   {
-    v64 = 0;
+    v68 = 0;
     goto LABEL_63;
   }
 
@@ -152,7 +152,7 @@ id __33__PKDashboardPassFlowLayout_init__block_invoke(uint64_t a1, uint64_t a2, 
     topMarginInFirstSection = self->_topMarginInFirstSection;
   }
 
-  v69 = topMarginInFirstSection;
+  v73 = topMarginInFirstSection;
 
   if ((v10 & 1) != 0 && [delegate collectionView:collectionView layout:self isListSectionAtIndex:index])
   {
@@ -170,9 +170,9 @@ id __33__PKDashboardPassFlowLayout_init__block_invoke(uint64_t a1, uint64_t a2, 
       v20 = 0;
     }
 
-    if (v68)
+    if (v72)
     {
-      v65 = [delegate collectionView:collectionView layout:self hasFooterForSectionAtIndex:index];
+      v69 = [delegate collectionView:collectionView layout:self hasFooterForSectionAtIndex:index];
       if (!v20)
       {
         goto LABEL_54;
@@ -181,11 +181,11 @@ id __33__PKDashboardPassFlowLayout_init__block_invoke(uint64_t a1, uint64_t a2, 
 
     else
     {
-      v65 = 0;
+      v69 = 0;
       if (!v20)
       {
 LABEL_54:
-        if (v65)
+        if (v69)
         {
           [v18 setFooterMode:1];
         }
@@ -193,39 +193,39 @@ LABEL_54:
         objc_initWeak(&location, self);
         if (v12)
         {
-          v85[0] = MEMORY[0x1E69E9820];
-          v85[1] = 3221225472;
-          v85[2] = __68__PKDashboardPassFlowLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke;
-          v85[3] = &unk_1E8013B50;
-          objc_copyWeak(&v86, &location);
-          [v18 setTrailingSwipeActionsConfigurationProvider:v85];
-          objc_destroyWeak(&v86);
+          v89[0] = MEMORY[0x1E69E9820];
+          v89[1] = 3221225472;
+          v89[2] = __68__PKDashboardPassFlowLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke;
+          v89[3] = &unk_1E8013B50;
+          objc_copyWeak(&v90, &location);
+          [v18 setTrailingSwipeActionsConfigurationProvider:v89];
+          objc_destroyWeak(&v90);
         }
 
         if (objc_opt_respondsToSelector())
         {
-          v80[0] = MEMORY[0x1E69E9820];
-          v80[1] = 3221225472;
-          v80[2] = __68__PKDashboardPassFlowLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_2;
-          v80[3] = &unk_1E801C9C8;
-          objc_copyWeak(&v81, &location);
-          v82 = xmmword_1BE0D82B0;
-          v83 = xmmword_1BE0D82B0;
-          v84 = 2;
-          [v18 setItemSeparatorHandler:v80];
-          objc_destroyWeak(&v81);
+          v84[0] = MEMORY[0x1E69E9820];
+          v84[1] = 3221225472;
+          v84[2] = __68__PKDashboardPassFlowLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_2;
+          v84[3] = &unk_1E801C9C8;
+          objc_copyWeak(&v85, &location);
+          v86 = xmmword_1BE0D82B0;
+          v87 = xmmword_1BE0D82B0;
+          v88 = 2;
+          [v18 setItemSeparatorHandler:v84];
+          objc_destroyWeak(&v85);
         }
 
         else
         {
-          v66 = [objc_alloc(MEMORY[0x1E69DCC38]) initWithListAppearance:2];
-          [v66 setTopSeparatorInsets:{0.0, 16.0, 0.0, 16.0}];
-          [v66 setBottomSeparatorInsets:{0.0, 16.0, 0.0, 16.0}];
-          [v18 setSeparatorConfiguration:v66];
+          v70 = [objc_alloc(MEMORY[0x1E69DCC38]) initWithListAppearance:2];
+          [v70 setTopSeparatorInsets:{0.0, 16.0, 0.0, 16.0}];
+          [v70 setBottomSeparatorInsets:{0.0, 16.0, 0.0, 16.0}];
+          [v18 setSeparatorConfiguration:v70];
         }
 
-        v64 = [MEMORY[0x1E6995580] sectionWithListConfiguration:v18 layoutEnvironment:environmentCopy];
-        [v64 setContentInsets:{v69, self->_horizontalInset, 20.0, self->_horizontalInset}];
+        v68 = [MEMORY[0x1E6995580] sectionWithListConfiguration:v18 layoutEnvironment:environmentCopy];
+        [v68 setContentInsets:{v73, self->_horizontalInset, 20.0, self->_horizontalInset}];
         objc_destroyWeak(&location);
         goto LABEL_62;
       }
@@ -256,7 +256,7 @@ LABEL_54:
       v37 = [delegate itemIsIndependentInCollectionView:collectionView atIndexPath:v31];
       if (v36)
       {
-        v38 = 0;
+        v40 = 0;
         if (v21)
         {
           v29 = v29 + 8.0;
@@ -277,7 +277,8 @@ LABEL_54:
       v37 = [delegate itemIsIndependentInCollectionView:collectionView atIndexPath:v31];
     }
 
-    v39 = v28 + v30;
+    v38.n128_f64[0] = v25 - v28;
+    v41 = v28 + v30;
     if (v21)
     {
       v29 = 0.0;
@@ -285,60 +286,62 @@ LABEL_54:
 
     else
     {
-      v39 = v28;
+      v41 = v28;
     }
 
-    if (v25 - v28 >= v33)
+    if (v38.n128_f64[0] >= v33)
     {
-      if (v39 == 0.0)
+      if (v41 == 0.0)
       {
-        v28 = v39;
+        v28 = v41;
       }
 
       else
       {
-        v28 = v39 + 8.0;
+        v28 = v41 + 8.0;
       }
 
-      v38 = 1;
+      v40 = 1;
       v21 = 0;
     }
 
     else
     {
       v28 = 0.0;
-      v40 = v26 + 0.0;
+      v42 = v26 + 0.0;
       if (v29 > 0.0)
       {
-        v40 = v29;
+        v42 = v29;
       }
 
-      v41 = v27 + v40;
+      v43 = v27 + v42;
       if (v37)
       {
-        v27 = v41 + 8.0;
+        v27 = v43 + 8.0;
       }
 
       else
       {
-        v27 = v41;
+        v27 = v43;
       }
 
-      PKFloatRoundToPixel();
-      [(PKDashboardPassFlowLayout *)self _adjustItems:v73 withLateralMove:?];
-      [v73 removeAllObjects];
+      v39.n128_u64[0] = 0.5;
+      v38.n128_f64[0] = v38.n128_f64[0] * 0.5;
+      PKFloatRoundToPixel(v38, v39);
+      [(PKDashboardPassFlowLayout *)self _adjustItems:v77 withLateralMove:?];
+      [v77 removeAllObjects];
       v21 = 0;
-      v38 = 1;
+      v40 = 1;
     }
 
 LABEL_30:
-    v42 = [MEMORY[0x1E69DC858] layoutAttributesForCellWithIndexPath:v31];
-    [v42 setSize:{v33, v35}];
-    [v42 setFrame:{v28, v27 + v29, v33, v35}];
-    [v42 setZIndex:{-[PKDashboardPassFlowLayout _indexPathIsPassGroupIndexPath:](self, "_indexPathIsPassGroupIndexPath:", v31)}];
-    [v71 addObject:v42];
-    [v73 addObject:v42];
-    if (v38)
+    v44 = [MEMORY[0x1E69DC858] layoutAttributesForCellWithIndexPath:v31];
+    [v44 setSize:{v33, v35}];
+    [v44 setFrame:{v28, v27 + v29, v33, v35}];
+    [v44 setZIndex:{-[PKDashboardPassFlowLayout _indexPathIsPassGroupIndexPath:](self, "_indexPathIsPassGroupIndexPath:", v31)}];
+    [v75 addObject:v44];
+    [v77 addObject:v44];
+    if (v40)
     {
       v28 = v33 + v28;
     }
@@ -354,76 +357,78 @@ LABEL_30:
   }
 
   while (v14 != v22);
-  if ([v73 count])
+  if ([v77 count])
   {
-    PKFloatRoundToPixel();
-    v44 = v43;
-    v45 = [v73 copy];
-    [(PKDashboardPassFlowLayout *)self _adjustItems:v45 withLateralMove:v44];
+    v46.n128_u64[0] = 0.5;
+    v45.n128_f64[0] = (v25 - v28) * 0.5;
+    PKFloatRoundToPixel(v45, v46);
+    v48 = v47;
+    v49 = [v77 copy];
+    [(PKDashboardPassFlowLayout *)self _adjustItems:v49 withLateralMove:v48];
 
-    [v73 removeAllObjects];
+    [v77 removeAllObjects];
   }
 
   if (v29 <= 0.0)
   {
-    v46 = v35;
+    v50 = v35;
   }
 
   else
   {
-    v46 = v29;
+    v50 = v29;
   }
 
-  v47 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v71, "count")}];
-  v76 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v48 = v71;
-  v49 = [v48 countByEnumeratingWithState:&v76 objects:v88 count:16];
-  if (v49)
+  v51 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v75, "count")}];
+  v80 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v83 = 0u;
+  v52 = v75;
+  v53 = [v52 countByEnumeratingWithState:&v80 objects:v92 count:16];
+  if (v53)
   {
-    v50 = *v77;
+    v54 = *v81;
     do
     {
-      for (i = 0; i != v49; ++i)
+      for (i = 0; i != v53; ++i)
       {
-        if (*v77 != v50)
+        if (*v81 != v54)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v52);
         }
 
-        v52 = *(*(&v76 + 1) + 8 * i);
-        v53 = MEMORY[0x1E6995570];
-        [v52 frame];
-        v58 = [v53 customItemWithFrame:objc_msgSend(v52 zIndex:{"zIndex"), v54, v55, v56, v57}];
-        [v47 addObject:v58];
+        v56 = *(*(&v80 + 1) + 8 * i);
+        v57 = MEMORY[0x1E6995570];
+        [v56 frame];
+        v62 = [v57 customItemWithFrame:objc_msgSend(v56 zIndex:{"zIndex"), v58, v59, v60, v61}];
+        [v51 addObject:v62];
       }
 
-      v49 = [v48 countByEnumeratingWithState:&v76 objects:v88 count:16];
+      v53 = [v52 countByEnumeratingWithState:&v80 objects:v92 count:16];
     }
 
-    while (v49);
+    while (v53);
   }
 
   v18 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
-  v59 = [MEMORY[0x1E6995558] absoluteDimension:v27 + v46];
-  v60 = [MEMORY[0x1E6995588] sizeWithWidthDimension:v18 heightDimension:v59];
-  v61 = MEMORY[0x1E6995568];
-  v74[0] = MEMORY[0x1E69E9820];
-  v74[1] = 3221225472;
-  v74[2] = __68__PKDashboardPassFlowLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_3;
-  v74[3] = &unk_1E801C9F0;
-  v75 = v47;
-  v62 = v47;
-  v63 = [v61 customGroupWithLayoutSize:v60 itemProvider:v74];
-  v64 = [MEMORY[0x1E6995580] sectionWithGroup:v63];
-  [v64 setContentInsets:{v69, 0.0, 20.0, 0.0}];
+  v63 = [MEMORY[0x1E6995558] absoluteDimension:v27 + v50];
+  v64 = [MEMORY[0x1E6995588] sizeWithWidthDimension:v18 heightDimension:v63];
+  v65 = MEMORY[0x1E6995568];
+  v78[0] = MEMORY[0x1E69E9820];
+  v78[1] = 3221225472;
+  v78[2] = __68__PKDashboardPassFlowLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke_3;
+  v78[3] = &unk_1E801C9F0;
+  v79 = v51;
+  v66 = v51;
+  v67 = [v65 customGroupWithLayoutSize:v64 itemProvider:v78];
+  v68 = [MEMORY[0x1E6995580] sectionWithGroup:v67];
+  [v68 setContentInsets:{v73, 0.0, 20.0, 0.0}];
 
 LABEL_62:
 LABEL_63:
 
-  return v64;
+  return v68;
 }
 
 id __68__PKDashboardPassFlowLayout_layoutSectionAtIndex_layoutEnvironment___block_invoke(uint64_t a1, void *a2)

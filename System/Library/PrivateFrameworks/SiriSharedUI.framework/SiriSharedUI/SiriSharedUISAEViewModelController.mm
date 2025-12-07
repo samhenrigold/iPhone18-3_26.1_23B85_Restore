@@ -53,8 +53,8 @@
 {
   sub_21E4DB698();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5DD8);
-  sub_21E477D68(&qword_280C15B50, MEMORY[0x277CC95F0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5DD8, &unk_21E4E8040);
+  sub_21E477D68(&qword_280C15B50, MEMORY[0x277CC95F0], MEMORY[0x277CC9600]);
   v2 = sub_21E4DCE88();
 
   return v2;
@@ -63,14 +63,14 @@
 - (void)setServerUtteranceConversationIds:(id)ids
 {
   sub_21E4DB698();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5DD8);
-  sub_21E477D68(&qword_280C15B50, MEMORY[0x277CC95F0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5DD8, &unk_21E4E8040);
+  sub_21E477D68(&qword_280C15B50, MEMORY[0x277CC95F0], MEMORY[0x277CC9600]);
   *(self + OBJC_IVAR___SiriSharedUISAEViewModelController_serverUtteranceConversationIds) = sub_21E4DCE98();
 }
 
 - (NSArray)storedTranscriptItems
 {
-  sub_21E43F008(0, &qword_280C14128);
+  sub_21E43F008(0, &qword_280C14128, off_278353790);
 
   v2 = sub_21E4DD078();
 
@@ -79,7 +79,7 @@
 
 - (void)setStoredTranscriptItems:(id)items
 {
-  sub_21E43F008(0, &qword_280C14128);
+  sub_21E43F008(0, &qword_280C14128, off_278353790);
   *(self + OBJC_IVAR___SiriSharedUISAEViewModelController_storedTranscriptItems) = sub_21E4DD088();
 }
 
@@ -87,7 +87,7 @@
 {
   conversationCopy = conversation;
   swift_unknownObjectRetain();
-  return sub_21E46C9A8(conversationCopy);
+  return sub_21E46C9A8(conversationCopy, delegate);
 }
 
 - (AFConversation)previousConversation
@@ -186,7 +186,7 @@
 
 - (void)_processInsertedConversationItemsForConversationItems:(id)items forConversation:(id)conversation
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEC5DE0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEC5DE0, &qword_21E4E8050);
   v6 = sub_21E4DD088();
   conversationCopy = conversation;
   selfCopy = self;
@@ -209,7 +209,7 @@
   selfCopy = self;
   sub_21E4720B8(conversationCopy);
 
-  sub_21E43F008(0, &unk_280C14130);
+  sub_21E43F008(0, &unk_280C14130, 0x277D47A00);
   v6 = sub_21E4DD078();
 
   return v6;
@@ -299,9 +299,10 @@
 
 - (void)updateCurrentRequestText:(id)text
 {
-  sub_21E4DCF78();
+  v4 = sub_21E4DCF78();
+  v6 = v5;
   selfCopy = self;
-  sub_21E47489C();
+  sub_21E47489C(v4, v6);
 }
 
 - (BOOL)alwaysShowRecognizedSpeech

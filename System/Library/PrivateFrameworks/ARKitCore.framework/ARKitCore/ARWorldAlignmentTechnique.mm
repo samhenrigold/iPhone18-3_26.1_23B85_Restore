@@ -56,7 +56,7 @@
     deviceOrientationDataByTime = self->_deviceOrientationDataByTime;
     v6 = dataCopy;
     v7 = [v6 copy];
-    [v6 timestamp];
+    objc_msgSend_timestamp(v6);
     v9 = v8;
 
     [(ARTimeKeyedList *)deviceOrientationDataByTime appendObject:v7 forTime:v9];
@@ -162,7 +162,7 @@ LABEL_35:
       v19 = v22;
       if (self->_trackingReferenced)
       {
-        v23 = _ARLogTechnique_15();
+        v23 = _ARLogTechnique_15(v22);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           v24 = objc_opt_class();
@@ -245,7 +245,7 @@ LABEL_42:
 
 - (id)predictedResultDataAtTimestamp:(double)timestamp context:(id)context
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dispatch_semaphore_wait(self->_dataSemaphore, 0xFFFFFFFFFFFFFFFFLL);
   if (!self->_deviceOrientationReferenced || self->_trackingReferenced || [(ARWorldAlignmentTechnique *)self alignment]== 2)
   {
@@ -257,24 +257,24 @@ LABEL_42:
   {
     kdebug_trace();
     motionManager = [(ARWorldAlignmentTechnique *)self motionManager];
-    v27 = 0;
-    v8 = [motionManager predictedDeviceMotionAtTimestamp:&v27 error:timestamp];
-    v9 = v27;
+    v28 = 0;
+    v8 = [motionManager predictedDeviceMotionAtTimestamp:&v28 error:timestamp];
+    v9 = v28;
 
-    [v8 timestamp];
+    objc_msgSend_timestamp(v8);
     CFAbsoluteTimeGetCurrent();
-    kdebug_trace();
+    v10 = kdebug_trace();
     if (v8)
     {
-      v10 = objc_opt_new();
-      [v10 setDeviceMotion:v8];
+      v11 = objc_opt_new();
+      [v11 setDeviceMotion:v8];
 
-      if (v10)
+      if (v11)
       {
 LABEL_20:
-        v24 = [(ARWorldAlignmentTechnique *)self _deviceOrientationPoseDataFromDeviceOrientation:v10];
-        v28 = v24;
-        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+        v25 = [(ARWorldAlignmentTechnique *)self _deviceOrientationPoseDataFromDeviceOrientation:v11];
+        v29 = v25;
+        v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
 
         goto LABEL_22;
       }
@@ -287,93 +287,93 @@ LABEL_20:
       [ARWorldAlignmentTechnique predictedResultDataAtTimestamp:context:];
     }
 
-    v11 = ARShouldUseLogTypeError_internalOSVersion_19;
-    v12 = _ARLogSensor_6();
-    v13 = v12;
-    if (v11 == 1)
+    v12 = ARShouldUseLogTypeError_internalOSVersion_19;
+    v13 = _ARLogSensor_6(v10);
+    v14 = v13;
+    if (v12 == 1)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = [v9 description];
-        v17 = self->_motionManager;
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v17 = [v9 description];
+        v18 = self->_motionManager;
         *buf = 138544386;
-        v30 = v15;
-        v31 = 2048;
+        v31 = v16;
+        v32 = 2048;
         selfCopy2 = self;
-        v33 = 2112;
-        v34 = v16;
-        v35 = 2048;
+        v34 = 2112;
+        v35 = v17;
+        v36 = 2048;
         timestampCopy2 = timestamp;
-        v37 = 2048;
-        v38 = v17;
-        v18 = "%{public}@ <%p>: Error(%@) Failed to get device motion prediction at timestamp (%f) from motion manager (%p)";
-        v19 = v13;
-        v20 = OS_LOG_TYPE_ERROR;
+        v38 = 2048;
+        v39 = v18;
+        v19 = "%{public}@ <%p>: Error(%@) Failed to get device motion prediction at timestamp (%f) from motion manager (%p)";
+        v20 = v14;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_16:
-        _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 0x34u);
+        _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 0x34u);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v21 = objc_opt_class();
-      v15 = NSStringFromClass(v21);
-      v16 = [v9 description];
-      v22 = self->_motionManager;
+      v22 = objc_opt_class();
+      v16 = NSStringFromClass(v22);
+      v17 = [v9 description];
+      v23 = self->_motionManager;
       *buf = 138544386;
-      v30 = v15;
-      v31 = 2048;
+      v31 = v16;
+      v32 = 2048;
       selfCopy2 = self;
-      v33 = 2112;
-      v34 = v16;
-      v35 = 2048;
+      v34 = 2112;
+      v35 = v17;
+      v36 = 2048;
       timestampCopy2 = timestamp;
-      v37 = 2048;
-      v38 = v22;
-      v18 = "Error: %{public}@ <%p>: Error(%@) Failed to get device motion prediction at timestamp (%f) from motion manager (%p)";
-      v19 = v13;
-      v20 = OS_LOG_TYPE_INFO;
+      v38 = 2048;
+      v39 = v23;
+      v19 = "Error: %{public}@ <%p>: Error(%@) Failed to get device motion prediction at timestamp (%f) from motion manager (%p)";
+      v20 = v14;
+      v21 = OS_LOG_TYPE_INFO;
       goto LABEL_16;
     }
   }
 
 LABEL_18:
-  v23 = [(ARTimeKeyedList *)self->_deviceOrientationDataByTime nearestObjectForTime:timestamp];
-  if (v23)
+  v24 = [(ARTimeKeyedList *)self->_deviceOrientationDataByTime nearestObjectForTime:timestamp];
+  if (v24)
   {
-    v10 = v23;
+    v11 = v24;
     goto LABEL_20;
   }
 
 LABEL_21:
-  v25 = MEMORY[0x1E695E0F0];
+  v26 = MEMORY[0x1E695E0F0];
 LABEL_22:
   dispatch_semaphore_signal(self->_dataSemaphore);
 
-  return v25;
+  return v26;
 }
 
 - (void)_referenceDeviceOrientation:(id)orientation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   orientationCopy = orientation;
   if ([(ARWorldAlignmentTechnique *)self alignment]== 1 && !self->_relocalizing)
   {
     if (self->_cameraPosition == 2)
     {
       self->_deviceOrientationAlignmentAngle = 3.1416;
-      v14 = _ARLogTechnique_15();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v16 = _ARLogTechnique_15(1);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_11;
       }
 
-      v17 = objc_opt_class();
-      v16 = NSStringFromClass(v17);
+      v19 = objc_opt_class();
+      v18 = NSStringFromClass(v19);
       *buf = 138543874;
-      *&buf[4] = v16;
+      *&buf[4] = v18;
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2048;
@@ -383,16 +383,16 @@ LABEL_22:
     else
     {
       self->_deviceOrientationAlignmentAngle = 0.0;
-      v14 = _ARLogTechnique_15();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v16 = _ARLogTechnique_15(1);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_11;
       }
 
-      v18 = objc_opt_class();
-      v16 = NSStringFromClass(v18);
+      v20 = objc_opt_class();
+      v18 = NSStringFromClass(v20);
       *buf = 138543874;
-      *&buf[4] = v16;
+      *&buf[4] = v18;
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2048;
@@ -404,52 +404,52 @@ LABEL_22:
 
   if (orientationCopy)
   {
-    [orientationCopy rotationMatrix];
+    objc_msgSend_rotationMatrix(orientationCopy);
   }
 
   else
   {
-    v21 = 0;
+    v23 = 0;
     memset(buf, 0, sizeof(buf));
   }
 
   v5.n128_f64[0] = ARCameraToWorldTransformFromCMRotationMatrix(buf, self->_cameraPosition, self->_imageMirrored);
   *&v8 = AREulerAnglesFromMatrix(v5, v6, v7);
-  v19 = v8;
+  v21 = v8;
   v9 = *(&v8 + 1);
   v10 = -*(&v8 + 1);
   self->_deviceOrientationAlignmentAngle = -*(&v8 + 1);
-  v11 = _ARLogTechnique_15();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = _ARLogTechnique_15(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
     *buf = 138544386;
-    *&buf[4] = v13;
+    *&buf[4] = v14;
     *&buf[12] = 2048;
     *&buf[14] = self;
     *&buf[22] = 2048;
-    *&buf[24] = *&v19 * 0.318309886 * 180.0;
+    *&buf[24] = *&v21 * 0.318309886 * 180.0;
     *&buf[32] = 2048;
     *&buf[34] = v9 * 0.318309886 * 180.0;
     *&buf[42] = 2048;
-    *&buf[44] = *(&v19 + 2) * 0.318309886 * 180.0;
-    _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Device Orientation Referenced at (%0.2f° %0.2f° %0.2f°)", buf, 0x34u);
+    *&buf[44] = *(&v21 + 2) * 0.318309886 * 180.0;
+    _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Device Orientation Referenced at (%0.2f° %0.2f° %0.2f°)", buf, 0x34u);
   }
 
-  v14 = _ARLogTechnique_15();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _ARLogTechnique_15(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
     *buf = 138543874;
-    *&buf[4] = v16;
+    *&buf[4] = v18;
     *&buf[12] = 2048;
     *&buf[14] = self;
     *&buf[22] = 2048;
     *&buf[24] = v10 * 0.318309886 * 180.0;
 LABEL_10:
-    _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Device Orientation Alignment (%0.2f°)", buf, 0x20u);
+    _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Device Orientation Alignment (%0.2f°)", buf, 0x20u);
   }
 
 LABEL_11:
@@ -462,7 +462,7 @@ LABEL_11:
   dataCopy = data;
   if (orientation)
   {
-    [orientation rotationMatrix];
+    objc_msgSend_rotationMatrix(orientation);
   }
 
   else
@@ -503,8 +503,7 @@ LABEL_11:
   v13.i32[3] = LODWORD(v12.__cosval);
   simd_matrix4x4(v13);
   ARMatrix4x4FromRotationAndTranslation();
-  [v8 setWorldAlignmentTransform:?];
-  v14 = _ARLogTechnique_15();
+  v14 = _ARLogTechnique_15([v8 setWorldAlignmentTransform:?]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     v15 = objc_opt_class();
@@ -577,7 +576,7 @@ LABEL_11:
   v5 = orientationCopy;
   if (orientationCopy)
   {
-    [orientationCopy rotationMatrix];
+    objc_msgSend_rotationMatrix(orientationCopy);
   }
 
   else
@@ -595,7 +594,7 @@ LABEL_11:
   v19 = v9;
   v20 = v8;
   v10 = objc_opt_new();
-  [v5 timestamp];
+  objc_msgSend_timestamp(v5);
   [v10 setTimestamp:?];
   v11 = __sincosf_stret(self->_deviceOrientationAlignmentAngle * 0.5);
   v12 = vmulq_n_f32(xmmword_1C25C8BC0, v11.__sinval);

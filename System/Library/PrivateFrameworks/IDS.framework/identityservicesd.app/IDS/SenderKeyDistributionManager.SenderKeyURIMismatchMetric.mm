@@ -8,7 +8,7 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  sub_100706B30(&unk_100CB4F30);
+  sub_100706B30(&unk_100CB4F30, &unk_1009B0C00);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1009AC700;
   *(inited + 32) = 0x476567617373656DLL;
@@ -20,9 +20,9 @@
   *(inited + 48) = v5;
   sub_1000135E0(inited);
   swift_setDeallocating();
-  sub_100013814(inited + 32, &qword_100CBA3F0);
+  sub_100013814(inited + 32, &qword_100CBA3F0, &unk_1009BE8F0);
 
-  sub_100706B30(&qword_100CB4F40);
+  sub_100706B30(&qword_100CB4F40, &qword_1009B0C10);
   v6.super.isa = sub_100936A58().super.isa;
 
   return v6.super.isa;

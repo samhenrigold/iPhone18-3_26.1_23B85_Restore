@@ -40,17 +40,15 @@
   dictionaryCopy = dictionary;
   v4 = [[NDOWarranty alloc] initWithDictionary:dictionaryCopy];
 
-  v5 = _NDOLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _NDOLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
     v9 = "+[NDOWarranty warrantyWithDictionary:]";
     v10 = 1024;
     v11 = v4 != 0;
-    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "%s : %d", &v8, 0x12u);
+    _os_log_impl(&dword_25BD52000, v6, OS_LOG_TYPE_DEFAULT, "%s : %d", &v8, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -65,61 +63,61 @@
 
   if (v8)
   {
-    v9 = _NDOLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _NDOLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25BD52000, v9, OS_LOG_TYPE_DEFAULT, "Migrating legacy warranty..", buf, 2u);
+      _os_log_impl(&dword_25BD52000, v10, OS_LOG_TYPE_DEFAULT, "Migrating legacy warranty..", buf, 2u);
     }
 
     [v8 cacheWarranty:numberCopy];
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v11 = [standardUserDefaults objectForKey:@"CachedWarrantyValidityDuration"];
-    [v11 doubleValue];
-    v13 = v12;
+    v12 = [standardUserDefaults objectForKey:@"CachedWarrantyValidityDuration"];
+    [v12 doubleValue];
+    v14 = v13;
 
-    if (v13 > 0.0)
+    if (v14 > 0.0)
     {
-      v14 = MEMORY[0x277CCACA8];
+      v15 = MEMORY[0x277CCACA8];
       sha256Hash = [numberCopy sha256Hash];
-      v16 = [v14 stringWithFormat:@"%@_CachedWarrantyValidityDuration", sha256Hash];
-      [standardUserDefaults setDouble:v16 forKey:v13];
+      v17 = [v15 stringWithFormat:@"%@_CachedWarrantyValidityDuration", sha256Hash];
+      [standardUserDefaults setDouble:v17 forKey:v14];
 
       [standardUserDefaults removeObjectForKey:@"CachedWarrantyValidityDuration"];
     }
 
-    v17 = [standardUserDefaults objectForKey:@"CachedWarrantyLastUpdatedDate"];
-    if (v17)
+    v18 = [standardUserDefaults objectForKey:@"CachedWarrantyLastUpdatedDate"];
+    if (v18)
     {
-      v18 = MEMORY[0x277CCACA8];
+      v19 = MEMORY[0x277CCACA8];
       sha256Hash2 = [numberCopy sha256Hash];
-      v20 = [v18 stringWithFormat:@"%@_CachedWarrantyLastUpdatedDate", sha256Hash2];
-      [standardUserDefaults setObject:v17 forKey:v20];
+      v21 = [v19 stringWithFormat:@"%@_CachedWarrantyLastUpdatedDate", sha256Hash2];
+      [standardUserDefaults setObject:v18 forKey:v21];
 
       [standardUserDefaults removeObjectForKey:@"CachedWarrantyLastUpdatedDate"];
     }
 
-    v21 = [standardUserDefaults objectForKey:@"CachedWarrantyLocale"];
-    if (v21)
+    v22 = [standardUserDefaults objectForKey:@"CachedWarrantyLocale"];
+    if (v22)
     {
-      v22 = MEMORY[0x277CCACA8];
+      v23 = MEMORY[0x277CCACA8];
       sha256Hash3 = [numberCopy sha256Hash];
-      v24 = [v22 stringWithFormat:@"%@_CachedWarrantyLocale", sha256Hash3];
-      [standardUserDefaults setObject:v21 forKey:v24];
+      v25 = [v23 stringWithFormat:@"%@_CachedWarrantyLocale", sha256Hash3];
+      [standardUserDefaults setObject:v22 forKey:v25];
 
       [standardUserDefaults removeObjectForKey:@"CachedWarrantyLocale"];
-      v25 = [standardUserDefaults objectForKey:@"CachedWarrantyVersion"];
-      v26 = MEMORY[0x277CCACA8];
+      v26 = [standardUserDefaults objectForKey:@"CachedWarrantyVersion"];
+      v27 = MEMORY[0x277CCACA8];
       sha256Hash4 = [numberCopy sha256Hash];
-      v28 = [v26 stringWithFormat:@"%@_CachedWarrantyVersion", sha256Hash4];
-      [standardUserDefaults setObject:v25 forKey:v28];
+      v29 = [v27 stringWithFormat:@"%@_CachedWarrantyVersion", sha256Hash4];
+      [standardUserDefaults setObject:v26 forKey:v29];
 
       [standardUserDefaults removeObjectForKey:@"CachedWarrantyVersion"];
     }
 
     else
     {
-      v25 = [standardUserDefaults objectForKey:@"CachedWarrantyVersion"];
+      v26 = [standardUserDefaults objectForKey:@"CachedWarrantyVersion"];
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -139,30 +137,29 @@
     v5 = MEMORY[0x277CCACA8];
     _warrantyPathForSerialNumberFormat = [self _warrantyPathForSerialNumberFormat];
     sha256Hash = [numberCopy sha256Hash];
-    _legacyWarrantyPath = [v5 stringWithFormat:_warrantyPathForSerialNumberFormat, sha256Hash];
+    v8 = [v5 stringWithFormat:_warrantyPathForSerialNumberFormat, sha256Hash];
   }
 
   else
   {
     _legacyWarrantyPath = [self _legacyWarrantyPath];
+    v8 = _legacyWarrantyPath;
   }
 
-  v9 = _NDOLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _NDOLogSystem(_legacyWarrantyPath);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     v15 = "+[NDOWarranty cachedWarrantyForSerialNumber:]";
     v16 = 2112;
-    v17 = _legacyWarrantyPath;
-    _os_log_impl(&dword_25BD52000, v9, OS_LOG_TYPE_DEFAULT, "%s : warrantyPath : %@", buf, 0x16u);
+    v17 = v8;
+    _os_log_impl(&dword_25BD52000, v10, OS_LOG_TYPE_DEFAULT, "%s : warrantyPath : %@", buf, 0x16u);
   }
 
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:_legacyWarrantyPath];
-  v11 = [self warrantyWithDictionary:v10];
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v8];
+  v12 = [self warrantyWithDictionary:v11];
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 - (NDOWarranty)initWithDictionary:(id)dictionary
@@ -513,32 +510,31 @@ LABEL_18:
     v5 = MEMORY[0x277CCACA8];
     _warrantyPathForSerialNumberFormat = [objc_opt_class() _warrantyPathForSerialNumberFormat];
     sha256Hash = [warrantyCopy sha256Hash];
-    _legacyWarrantyPath = [v5 stringWithFormat:_warrantyPathForSerialNumberFormat, sha256Hash];
+    v8 = [v5 stringWithFormat:_warrantyPathForSerialNumberFormat, sha256Hash];
   }
 
   else
   {
     _legacyWarrantyPath = [objc_opt_class() _legacyWarrantyPath];
+    v8 = _legacyWarrantyPath;
   }
 
-  v9 = _NDOLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _NDOLogSystem(_legacyWarrantyPath);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     v15 = "[NDOWarranty cacheWarranty:]";
     v16 = 2112;
-    v17 = _legacyWarrantyPath;
-    _os_log_impl(&dword_25BD52000, v9, OS_LOG_TYPE_DEFAULT, "%s -> %@", buf, 0x16u);
+    v17 = v8;
+    _os_log_impl(&dword_25BD52000, v10, OS_LOG_TYPE_DEFAULT, "%s -> %@", buf, 0x16u);
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  stringByDeletingLastPathComponent = [_legacyWarrantyPath stringByDeletingLastPathComponent];
+  stringByDeletingLastPathComponent = [v8 stringByDeletingLastPathComponent];
   [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
 
   dictionaryRepresentation = [(NDOWarranty *)self dictionaryRepresentation];
-  [dictionaryRepresentation writeToFile:_legacyWarrantyPath atomically:1];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [dictionaryRepresentation writeToFile:v8 atomically:1];
 }
 
 - (NSString)description
@@ -562,20 +558,20 @@ LABEL_18:
 
     if (isKindOfClass)
     {
-      v8 = MEMORY[0x277CCACA8];
+      v9 = MEMORY[0x277CCACA8];
       acLocalizedOfferPluralDescFormat2 = [(NDOWarranty *)self acLocalizedOfferPluralDescFormat];
-      v10 = MEMORY[0x277CCABB8];
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
-      v12 = [v10 localizedStringFromNumber:v11 numberStyle:1];
-      acLocalizedOfferSingularDesc = [v8 stringWithFormat:acLocalizedOfferPluralDescFormat2, v12];
+      v11 = MEMORY[0x277CCABB8];
+      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+      v13 = [v11 localizedStringFromNumber:v12 numberStyle:1];
+      acLocalizedOfferSingularDesc = [v9 stringWithFormat:acLocalizedOfferPluralDescFormat2, v13];
     }
 
     else
     {
-      v13 = _NDOLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _NDOLogSystem(v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(NDOWarranty *)v13 acLocalizedOfferDesc:v14];
+        [(NDOWarranty *)v14 acLocalizedOfferDesc:v15];
       }
 
       acLocalizedOfferSingularDesc = 0;
@@ -602,20 +598,20 @@ LABEL_18:
 
     if (isKindOfClass)
     {
-      v8 = MEMORY[0x277CCACA8];
+      v9 = MEMORY[0x277CCACA8];
       acNotificationLocalizedOfferPluralDescFormat2 = [(NDOWarranty *)self acNotificationLocalizedOfferPluralDescFormat];
-      v10 = MEMORY[0x277CCABB8];
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
-      v12 = [v10 localizedStringFromNumber:v11 numberStyle:1];
-      acNotificationLocalizedOfferSingularDesc = [v8 stringWithFormat:acNotificationLocalizedOfferPluralDescFormat2, v12];
+      v11 = MEMORY[0x277CCABB8];
+      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+      v13 = [v11 localizedStringFromNumber:v12 numberStyle:1];
+      acNotificationLocalizedOfferSingularDesc = [v9 stringWithFormat:acNotificationLocalizedOfferPluralDescFormat2, v13];
     }
 
     else
     {
-      v13 = _NDOLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _NDOLogSystem(v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(NDOWarranty *)v13 acLocalizedNotificationOfferDesc:v14];
+        [(NDOWarranty *)v14 acLocalizedNotificationOfferDesc:v15];
       }
 
       acNotificationLocalizedOfferSingularDesc = 0;
@@ -642,20 +638,20 @@ LABEL_18:
 
     if (isKindOfClass)
     {
-      v8 = MEMORY[0x277CCACA8];
+      v9 = MEMORY[0x277CCACA8];
       acLocalizedOfferDetailsPluralEligibilityFormat2 = [(NDOWarranty *)self acLocalizedOfferDetailsPluralEligibilityFormat];
-      v10 = MEMORY[0x277CCABB8];
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
-      v12 = [v10 localizedStringFromNumber:v11 numberStyle:1];
-      acLocalizedOfferDetailsSingularEligibility = [v8 stringWithFormat:acLocalizedOfferDetailsPluralEligibilityFormat2, v12];
+      v11 = MEMORY[0x277CCABB8];
+      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+      v13 = [v11 localizedStringFromNumber:v12 numberStyle:1];
+      acLocalizedOfferDetailsSingularEligibility = [v9 stringWithFormat:acLocalizedOfferDetailsPluralEligibilityFormat2, v13];
     }
 
     else
     {
-      v13 = _NDOLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _NDOLogSystem(v8);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(NDOWarranty *)v13 acLocalizedOfferDetailsEligibility:v14];
+        [(NDOWarranty *)v14 acLocalizedOfferDetailsEligibility:v15];
       }
 
       acLocalizedOfferDetailsSingularEligibility = 0;

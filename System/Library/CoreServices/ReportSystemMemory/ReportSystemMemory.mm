@@ -2,13 +2,12 @@ uint64_t sub_100000F00(void *a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
-  v6 = &v15[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = String._bridgeToObjectiveC()();
-  v8 = [a1 valueForEntitlement:v7];
+  __chkstk_darwin(v2);
+  v5 = &v14[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = String._bridgeToObjectiveC()();
+  v7 = [a1 valueForEntitlement:v6];
 
-  if (v8)
+  if (v7)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
@@ -16,18 +15,18 @@ uint64_t sub_100000F00(void *a1)
 
   else
   {
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
   }
 
-  v18[0] = v16;
-  v18[1] = v17;
-  if (*(&v17 + 1))
+  v17[0] = v15;
+  v17[1] = v16;
+  if (*(&v16 + 1))
   {
-    if (swift_dynamicCast() && (v15[15] & 1) != 0)
+    if (swift_dynamicCast() && (v14[15] & 1) != 0)
     {
-      v9 = [objc_opt_self() interfaceWithProtocol:&OBJC_PROTOCOL____TtP18ReportSystemMemory29ReportSystemMemoryXPCProtocol_];
-      [a1 setExportedInterface:v9];
+      v8 = [objc_opt_self() interfaceWithProtocol:&OBJC_PROTOCOL____TtP18ReportSystemMemory29ReportSystemMemoryXPCProtocol_];
+      [a1 setExportedInterface:v8];
 
       type metadata accessor for XPCService();
       [a1 setExportedObject:swift_allocObject()];
@@ -39,49 +38,48 @@ uint64_t sub_100000F00(void *a1)
 
   else
   {
-    sub_100002140(v18);
+    sub_100002140(v17);
   }
 
   Logger.init()();
-  v11 = a1;
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v12, v13))
+  v10 = a1;
+  v11 = Logger.logObject.getter();
+  v12 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v11, v12))
   {
-    v14 = swift_slowAlloc();
-    *v14 = 67240192;
-    *(v14 + 4) = [v11 processIdentifier];
+    v13 = swift_slowAlloc();
+    *v13 = 67240192;
+    *(v13 + 4) = [v10 processIdentifier];
 
-    _os_log_impl(&_mh_execute_header, v12, v13, "Client %{public}d is not entitled to connect to ReportSystemMemory", v14, 8u);
+    _os_log_impl(&_mh_execute_header, v11, v12, "Client %{public}d is not entitled to connect to ReportSystemMemory", v13, 8u);
   }
 
   else
   {
 
-    v12 = v11;
+    v11 = v10;
   }
 
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   return 0;
 }
 
-void sub_1000012B4(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_1000012B4(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(a1);
-  v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v9);
-  v14 = &v31 - v13;
-  if (v12)
+  v8 = __chkstk_darwin(a1);
+  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __chkstk_darwin(v8);
+  v13 = &v30 - v12;
+  if (v11)
   {
-    v32 = v12;
+    v31 = v11;
 
     sub_1000021A8(&qword_1000085A0, &qword_100002930);
     sub_1000021A8(&qword_1000085A8, &qword_100002938);
     swift_dynamicCast();
-    v15 = v31;
+    v14 = v30;
     if (a2)
     {
       goto LABEL_3;
@@ -91,38 +89,38 @@ void sub_1000012B4(uint64_t a1, uint64_t a2, uint64_t a3)
   else
   {
     Logger.init()();
-    v19 = Logger.logObject.getter();
-    v20 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v19, v20))
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v18, v19))
     {
+      v20 = swift_slowAlloc();
       v21 = swift_slowAlloc();
-      v22 = swift_slowAlloc();
-      v32 = v22;
-      *v21 = 136315138;
-      *(v21 + 4) = sub_100001970(0x7263736564206F4ELL, 0xEE006E6F69747069, &v32);
-      _os_log_impl(&_mh_execute_header, v19, v20, "Unable to represent visibility endowments as a set of NSNumbers: %s", v21, 0xCu);
-      sub_1000021F0(v22);
+      v31 = v21;
+      *v20 = 136315138;
+      *(v20 + 4) = sub_100001970(0x7263736564206F4ELL, 0xEE006E6F69747069, &v31);
+      _os_log_impl(&_mh_execute_header, v18, v19, "Unable to represent visibility endowments as a set of NSNumbers: %s", v20, 0xCu);
+      sub_1000021F0(v21);
     }
 
-    (*(v7 + 8))(v14, v6);
-    v15 = 0;
+    (*(v7 + 8))(v13, v6);
+    v14 = 0;
     if (a2)
     {
 LABEL_3:
-      v32 = a2;
+      v31 = a2;
 
       sub_1000021A8(&qword_1000085A0, &qword_100002930);
       sub_1000021A8(&qword_1000085A8, &qword_100002938);
       swift_dynamicCast();
-      v16 = v31;
-      if (v15)
+      v15 = v30;
+      if (v14)
       {
         goto LABEL_4;
       }
 
 LABEL_12:
-      v17.super.isa = 0;
-      if (v16)
+      v16.super.isa = 0;
+      if (v15)
       {
         goto LABEL_5;
       }
@@ -132,22 +130,22 @@ LABEL_12:
   }
 
   Logger.init()();
-  v23 = Logger.logObject.getter();
-  v24 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v23, v24))
+  v22 = Logger.logObject.getter();
+  v23 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v22, v23))
   {
+    v24 = swift_slowAlloc();
     v25 = swift_slowAlloc();
-    v26 = swift_slowAlloc();
-    v32 = v26;
-    *v25 = 136315138;
-    *(v25 + 4) = sub_100001970(0x7263736564206F4ELL, 0xEE006E6F69747069, &v32);
-    _os_log_impl(&_mh_execute_header, v23, v24, "Unable to represent audio assertions as a set of NSNumbers: %s", v25, 0xCu);
-    sub_1000021F0(v26);
+    v31 = v25;
+    *v24 = 136315138;
+    *(v24 + 4) = sub_100001970(0x7263736564206F4ELL, 0xEE006E6F69747069, &v31);
+    _os_log_impl(&_mh_execute_header, v22, v23, "Unable to represent audio assertions as a set of NSNumbers: %s", v24, 0xCu);
+    sub_1000021F0(v25);
   }
 
-  (*(v7 + 8))(v11, v6);
-  v16 = 0;
-  if (!v15)
+  (*(v7 + 8))(v10, v6);
+  v15 = 0;
+  if (!v14)
   {
     goto LABEL_12;
   }
@@ -155,39 +153,39 @@ LABEL_12:
 LABEL_4:
   sub_1000017CC();
   sub_100001774();
-  v17.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v16.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  if (v16)
+  if (v15)
   {
 LABEL_5:
     sub_1000017CC();
     sub_100001774();
-    v18.super.isa = Set._bridgeToObjectiveC()().super.isa;
+    v17.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
     goto LABEL_14;
   }
 
 LABEL_13:
-  v18.super.isa = 0;
+  v17.super.isa = 0;
 LABEL_14:
-  v27 = [objc_allocWithZone(CDJetsamReport) initWithIncidentID:0 visibilityEndowmentState:v17.super.isa audioAssertionState:v18.super.isa];
+  v26 = [objc_allocWithZone(CDJetsamReport) initWithIncidentID:0 visibilityEndowmentState:v16.super.isa audioAssertionState:v17.super.isa];
 
-  [v27 acquireJetsamData];
-  if (v27)
+  [v26 acquireJetsamData];
+  if (v26)
   {
-    v28 = v27;
+    v27 = v26;
     sub_100002024(&_swiftEmptyArrayStorage);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-    v30 = [v28 saveWithOptions:isa];
+    v29 = [v27 saveWithOptions:isa];
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
-  (*(a3 + 16))(a3, v30);
+  (*(a3 + 16))(a3, v29);
 }
 
 unint64_t sub_100001774()
@@ -229,14 +227,14 @@ int main(int argc, const char **argv, const char **envp)
   dispatch_main();
 }
 
-id sub_100001918()
+id sub_100001918(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for XPCServiceDelegate();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for XPCServiceDelegate();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-uint64_t sub_100001970(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100001970(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100001A3C(v11, 0, 0, 1, a1, a2);
@@ -336,11 +334,9 @@ LABEL_8:
 
 char *sub_100001B48(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100001B94(a1, a2);
+  v3 = sub_100001B94(a1, a2);
   sub_100001CC4(&off_100004280);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100001B94(uint64_t a1, unint64_t a2)
@@ -440,7 +436,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -454,15 +449,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100001E24(result, v12, 1, v3);
+  result = sub_100001E24(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -477,15 +472,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -494,12 +489,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -709,7 +704,6 @@ uint64_t sub_1000021A8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -717,15 +711,17 @@ uint64_t sub_1000021A8(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_1000021F0(uint64_t *a1)
+uint64_t sub_1000021F0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_10000223C(uint64_t a1, uint64_t a2)

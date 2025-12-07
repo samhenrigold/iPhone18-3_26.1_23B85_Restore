@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
+- (id)scoringCompletionCodeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)StringAsScoringCompletionCode:(id)code;
 - (int)networkType;
@@ -66,6 +68,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFDFF | v3;
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898F020[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -135,6 +152,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFBFF | v3;
+}
+
+- (id)scoringCompletionCodeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898F038[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsScoringCompletionCode:(id)code
@@ -461,7 +493,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -481,7 +512,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  networkType = self->_networkType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -496,7 +526,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  timeSinceLastScoringSecs = self->_timeSinceLastScoringSecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -511,7 +540,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  scoringCompletionCode = self->_scoringCompletionCode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -526,7 +554,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  scoredEntries = self->_scoredEntries;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -541,7 +568,6 @@ LABEL_7:
   }
 
 LABEL_21:
-  scoredKnownGood = self->_scoredKnownGood;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -556,7 +582,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  lifetimeOldestItemSecs = self->_lifetimeOldestItemSecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -571,7 +596,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  numberEntriesWithHomeLOI = self->_numberEntriesWithHomeLOI;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -586,7 +610,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  numberEntriesWithWorkLOI = self->_numberEntriesWithWorkLOI;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -601,12 +624,10 @@ LABEL_11:
   }
 
 LABEL_25:
-  numberEntriesWithUndefinedLOI = self->_numberEntriesWithUndefinedLOI;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_12:
-    numberEntriesWithUnapprovedLOI = self->_numberEntriesWithUnapprovedLOI;
     PBDataWriterWriteUint64Field();
   }
 

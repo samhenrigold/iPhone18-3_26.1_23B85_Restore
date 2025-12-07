@@ -439,7 +439,7 @@ LABEL_14:
         fileVersion = v11->_fileVersion;
         v11->_fileVersion = v23;
 
-        if ([(NSString *)v11->_fileVersion isEqualToString:@"0.54"]|| [(NSString *)v11->_fileVersion isEqualToString:@"0.53"])
+        if (objc_msgSend_isEqualToString_(v11->_fileVersion) & 1) != 0 || (objc_msgSend_isEqualToString_(v11->_fileVersion))
         {
           v25 = 234;
 LABEL_19:
@@ -466,7 +466,7 @@ LABEL_24:
           goto LABEL_28;
         }
 
-        if ([(NSString *)v11->_fileVersion isEqualToString:@"0.52"])
+        if (objc_msgSend_isEqualToString_(v11->_fileVersion))
         {
           v25 = 228;
           goto LABEL_19;
@@ -832,7 +832,7 @@ LABEL_14:
   {
     v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3 + 107];
     v5 = [v4 componentsSeparatedByString:{@", "}];
-    if ([v5 count])
+    if (objc_msgSend_count(v5))
     {
       array = [MEMORY[0x1E695DF70] array];
       v14 = 0u;
@@ -1141,7 +1141,7 @@ LABEL_7:
   do
   {
     v16 = buffer + size;
-    if ([versionCopy isEqualToString:@"0.53"])
+    if (objc_msgSend_isEqualToString_(versionCopy))
     {
       v16 = [self _currentVersionHeaderFrom_053Header:buffer + size];
       v15 = 1;

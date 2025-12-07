@@ -136,7 +136,7 @@
 
 - (void)subCalValidationTask:(id)task downloadProgressedTo:(int64_t)to outOf:(int64_t)of
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   if (![(DADisableableObject *)self isDisabled])
   {
     client = [(DADClientDelegate *)self client];
@@ -145,26 +145,24 @@
     if (rawConnection)
     {
       v10 = *MEMORY[0x277D03C88];
-      v19[0] = *MEMORY[0x277D03B28];
+      v18[0] = *MEMORY[0x277D03B28];
       v11 = *MEMORY[0x277D03E58];
-      v18[0] = v10;
-      v18[1] = v11;
+      v17[0] = v10;
+      v17[1] = v11;
       delegateID = [(DADClientDelegate *)self delegateID];
-      v19[1] = delegateID;
-      v18[2] = *MEMORY[0x277D03B30];
+      v18[1] = delegateID;
+      v17[2] = *MEMORY[0x277D03B30];
       v13 = [MEMORY[0x277CCABB0] numberWithLongLong:to];
-      v19[2] = v13;
-      v18[3] = *MEMORY[0x277D03E90];
+      v18[2] = v13;
+      v17[3] = *MEMORY[0x277D03E90];
       v14 = [MEMORY[0x277CCABB0] numberWithLongLong:of];
-      v19[3] = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+      v18[3] = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
       v16 = _CFXPCCreateXPCObjectFromCFObject();
       xpc_connection_send_message(rawConnection, v16);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldTrustChallenge:(id)challenge
@@ -240,7 +238,7 @@ LABEL_9:
 
 - (void)subCalTask:(id)task needsUsernameAndPasswordForHost:(id)host continuation:(id)continuation
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   continuationCopy = continuation;
   client = [(DADClientDelegate *)self client];
   rawConnection = [client rawConnection];
@@ -252,22 +250,20 @@ LABEL_9:
     self->_passwordContinuation = v9;
 
     v11 = *MEMORY[0x277D03C88];
-    v19[0] = *MEMORY[0x277D03B20];
+    v18[0] = *MEMORY[0x277D03B20];
     v12 = *MEMORY[0x277D03E58];
-    v18[0] = v11;
-    v18[1] = v12;
+    v17[0] = v11;
+    v17[1] = v12;
     delegateID = [(DADClientDelegate *)self delegateID];
-    v18[2] = *MEMORY[0x277D03E68];
+    v17[2] = *MEMORY[0x277D03E68];
     subscribedCalendarURL = self->_subscribedCalendarURL;
-    v19[1] = delegateID;
-    v19[2] = subscribedCalendarURL;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v18[1] = delegateID;
+    v18[2] = subscribedCalendarURL;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
     v16 = _CFXPCCreateXPCObjectFromCFObject();
     xpc_connection_send_message(rawConnection, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tryUsername:(id)username password:(id)password
@@ -294,7 +290,7 @@ LABEL_9:
 
 - (void)finishWithError:(id)error summary:(id)summary
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   summaryCopy = summary;
   if (![(DADisableableObject *)self isDisabled])
@@ -307,9 +303,9 @@ LABEL_9:
       if (os_log_type_enabled(v9, v10))
       {
         *buf = 138412546;
-        v35 = errorCopy;
-        v36 = 2112;
-        v37 = summaryCopy;
+        v34 = errorCopy;
+        v35 = 2112;
+        v36 = summaryCopy;
         _os_log_impl(&dword_248524000, v9, v10, "[DADClientSubscribedCalendarDownloadDelegate finishWithError:summary:] called while we were waiting for a password. (error = %@, summary = %@)", buf, 0x16u);
       }
 
@@ -325,15 +321,15 @@ LABEL_9:
       if (os_log_type_enabled(v12, v13))
       {
         *buf = 138412290;
-        v35 = errorCopy;
+        v34 = errorCopy;
         _os_log_impl(&dword_248524000, v12, v13, "DADClientSubscribedCalendarDownloadDelegate finished with error %@", buf, 0xCu);
       }
 
       if (summaryCopy)
       {
-        v31 = 0;
-        v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:summaryCopy requiringSecureCoding:1 error:&v31];
-        v15 = v31;
+        v30 = 0;
+        v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:summaryCopy requiringSecureCoding:1 error:&v30];
+        v15 = v30;
         if (!v14)
         {
           v16 = DALoggingwithCategory();
@@ -341,9 +337,9 @@ LABEL_9:
           if (os_log_type_enabled(v16, v17))
           {
             *buf = 138412546;
-            v35 = summaryCopy;
-            v36 = 2112;
-            v37 = v15;
+            v34 = summaryCopy;
+            v35 = 2112;
+            v36 = v15;
             _os_log_impl(&dword_248524000, v16, v17, "Couldn't archive summary %@: %@", buf, 0x16u);
           }
         }
@@ -380,15 +376,15 @@ LABEL_9:
         }
 
         v23 = *MEMORY[0x277D03C88];
-        v33[0] = *MEMORY[0x277D03B18];
+        v32[0] = *MEMORY[0x277D03B18];
         v24 = *MEMORY[0x277D03E58];
-        v32[0] = v23;
-        v32[1] = v24;
+        v31[0] = v23;
+        v31[1] = v24;
         delegateID = [(DADClientDelegate *)self delegateID];
-        v32[2] = v20;
-        v33[1] = delegateID;
-        v33[2] = v21;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+        v31[2] = v20;
+        v32[1] = delegateID;
+        v32[2] = v21;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
 
         v27 = _CFXPCCreateXPCObjectFromCFObject();
         xpc_connection_send_message(rawConnection, v27);
@@ -401,8 +397,6 @@ LABEL_9:
       [(DATaskManager *)self->_taskManager shutdown];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

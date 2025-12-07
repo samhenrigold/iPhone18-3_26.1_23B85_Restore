@@ -50,89 +50,88 @@
   v12 = [startDate2 dateByAddingTimeInterval:v11 * (index + 1)];
 
   v13 = [[NSDateInterval alloc] initWithStartDate:index endDate:v12];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v14 = [(CHWorkoutDetailHeartRateChartViewAccessibility *)self safeArrayForKey:@"_heartRateReadings"];
-  v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v15)
   {
     goto LABEL_23;
   }
 
-  v31 = index;
-  v32 = v6;
-  v16 = *v34;
+  v30 = index;
+  v31 = v6;
+  v16 = *v33;
   v17 = 2.22507386e-308;
   v18 = 1.79769313e308;
   do
   {
-    for (i = 0; i != v15; i = i + 1)
+    for (i = 0; i != v15; ++i)
     {
-      if (*v34 != v16)
+      if (*v33 != v16)
       {
         objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v33 + 1) + 8 * i);
       objc_opt_class();
-      v21 = __UIAccessibilityCastAsClass();
-      v22 = v21;
-      if (v21)
+      v20 = __UIAccessibilityCastAsClass();
+      v21 = v20;
+      if (v20)
       {
-        date = [v21 date];
-        v24 = [v13 containsDate:date];
+        date = [v20 date];
+        v23 = [v13 containsDate:date];
 
-        if (v24)
+        if (v23)
         {
-          quantity = [v22 quantity];
+          quantity = [v21 quantity];
           [quantity safeDoubleForKey:@"ch_beatsPerMinute"];
-          v27 = llround(v26);
+          v26 = llround(v25);
 
-          if (v17 < v27)
+          if (v17 < v26)
           {
-            v17 = v27;
+            v17 = v26;
           }
 
-          if (v18 > v27)
+          if (v18 > v26)
           {
-            v18 = v27;
+            v18 = v26;
           }
         }
       }
     }
 
-    v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
   }
 
   while (v15);
 
   if (v17 == 2.22507386e-308)
   {
-    index = v31;
-    v6 = v32;
+    index = v30;
+    v6 = v31;
   }
 
   else
   {
-    index = v31;
-    v6 = v32;
+    index = v30;
+    v6 = v31;
     if (v18 != 1.79769313e308)
     {
       if (vabdd_f64(v17, v18) >= 2.22044605e-16)
       {
         v14 = accessibilityLocalizedString(@"heart.rate.graph.range");
+        v27 = AXFormatFloat();
         v28 = AXFormatFloat();
-        v29 = AXFormatFloat();
-        v15 = [NSString localizedStringWithFormat:v14, v28, v29];
+        v15 = [NSString localizedStringWithFormat:v14, v27, v28];
       }
 
       else
       {
         v14 = accessibilityLocalizedString(@"heart.rate.graph.single");
-        v28 = AXFormatFloat();
-        v15 = [NSString localizedStringWithFormat:v14, v28];
+        v27 = AXFormatFloat();
+        v15 = [NSString localizedStringWithFormat:v14, v27];
       }
 
 LABEL_23:

@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"actionMenuUsageType";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"actionMenuUsageType";
   actionMenuUsageType = [(ICASActionMenuData *)self actionMenuUsageType];
   if (actionMenuUsageType)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = actionMenuUsageType2;
-  v16[0] = actionMenuUsageType2;
-  v15[1] = @"actionMenuContextType";
+  v15[0] = actionMenuUsageType2;
+  v14[1] = @"actionMenuContextType";
   actionMenuContextType = [(ICASActionMenuData *)self actionMenuContextType];
   if (actionMenuContextType)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = actionMenuContextType2;
-  v16[1] = actionMenuContextType2;
-  v15[2] = @"actionMenuSelection";
+  v15[1] = actionMenuContextType2;
+  v14[2] = @"actionMenuSelection";
   actionMenuSelection = [(ICASActionMenuData *)self actionMenuSelection];
   if (actionMenuSelection)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = actionMenuSelection2;
-  v16[2] = actionMenuSelection2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = actionMenuSelection2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

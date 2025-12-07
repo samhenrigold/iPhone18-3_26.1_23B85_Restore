@@ -91,26 +91,26 @@
 
 - (id)classificationForSample:(id)sample
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__6;
-  v30 = __Block_byref_object_dispose__6;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__6;
+  v29 = __Block_byref_object_dispose__6;
+  v30 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __73__HKHRAFibBurdenTachogramClassificationsBuilder_classificationForSample___block_invoke;
-  v22[3] = &unk_278660CB0;
-  v24 = &v26;
-  v25 = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __73__HKHRAFibBurdenTachogramClassificationsBuilder_classificationForSample___block_invoke;
+  v21[3] = &unk_278660CB0;
+  v23 = &v25;
+  v24 = 0;
   v7 = sampleCopy;
-  v23 = v7;
-  v8 = [(HDHealthEntity *)HDHRSampleClassificationEntity performReadTransactionWithHealthDatabase:database error:&v25 block:v22];
-  v9 = v25;
+  v22 = v7;
+  v8 = [(HDHealthEntity *)HDHRSampleClassificationEntity performReadTransactionWithHealthDatabase:database error:&v24 block:v21];
+  v9 = v24;
 
   if (v9)
   {
@@ -131,18 +131,18 @@
       uUID = [v7 UUID];
       *buf = 138412802;
       selfCopy2 = self;
-      v34 = 2112;
-      v35 = uUID;
-      v36 = 2112;
-      v37 = v9;
+      v33 = 2112;
+      v34 = uUID;
+      v35 = 2112;
+      v36 = v9;
       _os_log_error_impl(&dword_229486000, v11, OS_LOG_TYPE_ERROR, "[%@] Error when retrieving cached tachogram classification for sample UUID %@: %@", buf, 0x20u);
     }
   }
 
-  if (v8 && v27[5])
+  if (v8 && v26[5])
   {
     v12 = [HKHRAFibBurdenTachogramClassificationProvider alloc];
-    v13 = [(HKHRAFibBurdenTachogramClassificationProvider *)v12 initWithSampleClassification:v27[5]];
+    v13 = [(HKHRAFibBurdenTachogramClassificationProvider *)v12 initWithSampleClassification:v26[5]];
   }
 
   else
@@ -159,8 +159,8 @@
         uUID2 = [v7 UUID];
         *buf = 138412546;
         selfCopy2 = self;
-        v34 = 2112;
-        v35 = uUID2;
+        v33 = 2112;
+        v34 = uUID2;
         _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_INFO, "[%@] Classifying tachogram sample with UUID %@", buf, 0x16u);
       }
     }
@@ -170,8 +170,7 @@
     [(HKHRAFibBurdenTachogramClassificationsBuilder *)self _saveNewClassification:sampleClassification];
   }
 
-  _Block_object_dispose(&v26, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
 
   return v13;
 }
@@ -207,19 +206,19 @@ uint64_t __73__HKHRAFibBurdenTachogramClassificationsBuilder_classificationForSa
 
 void __72__HKHRAFibBurdenTachogramClassificationsBuilder__saveNewClassification___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v3 = [WeakRetained database];
-  v13 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __72__HKHRAFibBurdenTachogramClassificationsBuilder__saveNewClassification___block_invoke_2;
-  v11[3] = &unk_278660CD8;
+  v12 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __72__HKHRAFibBurdenTachogramClassificationsBuilder__saveNewClassification___block_invoke_2;
+  v10[3] = &unk_278660CD8;
   v4 = *(a1 + 40);
-  v11[4] = *(a1 + 32);
-  v12 = v4;
-  v5 = [(HDHealthEntity *)HDHRSampleClassificationEntity performWriteTransactionWithHealthDatabase:v3 error:&v13 block:v11];
-  v6 = v13;
+  v10[4] = *(a1 + 32);
+  v11 = v4;
+  v5 = [(HDHealthEntity *)HDHRSampleClassificationEntity performWriteTransactionWithHealthDatabase:v3 error:&v12 block:v10];
+  v6 = v12;
 
   if (!v5)
   {
@@ -227,26 +226,24 @@ void __72__HKHRAFibBurdenTachogramClassificationsBuilder__saveNewClassification_
     v7 = HKHRAFibBurdenLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = [*(a1 + 40) sampleUUID];
+      v8 = *(a1 + 32);
+      v9 = [*(a1 + 40) sampleUUID];
       *buf = 138412802;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v6;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v6;
       _os_log_error_impl(&dword_229486000, v7, OS_LOG_TYPE_ERROR, "[%@] Error while saving tachogram classification for sample with UUID %@: %@", buf, 0x20u);
     }
   }
 
   dispatch_group_leave(*(*(a1 + 32) + 32));
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __72__HKHRAFibBurdenTachogramClassificationsBuilder__saveNewClassification___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   _HKInitializeLogging();
   v6 = HKHRAFibBurdenLogForCategory();
@@ -259,28 +256,26 @@ BOOL __72__HKHRAFibBurdenTachogramClassificationsBuilder__saveNewClassification_
     {
       v9 = *(a1 + 32);
       v10 = [*(a1 + 40) sampleUUID];
-      v15 = 138412546;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_INFO, "[%@] Caching classification with UUID %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v10;
+      _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_INFO, "[%@] Caching classification with UUID %@", &v14, 0x16u);
     }
   }
 
   v11 = [HDHRSampleClassificationEntity insertSampleClassification:*(a1 + 40) transaction:v5 error:a3];
   v12 = v11 != 0;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)buildClassificationsAndWaitForNewClassificationSaves:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] Took longer than 1 minute to save all tachogram classifications, no longer waiting.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] Took longer than 1 minute to save all tachogram classifications, no longer waiting.", &v2, 0xCu);
 }
 
 @end

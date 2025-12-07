@@ -14,10 +14,10 @@
 
 - (BOOL)validateOptions:(void *)options andStoreOptions:(uint64_t *)storeOptions error:
 {
-  v78[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_45;
+    return result;
   }
 
   v7 = objc_autoreleasePoolPush();
@@ -66,12 +66,12 @@
   if (os_log_type_enabled(Stream, v12))
   {
     *buf = 136315906;
-    v66 = "[PFCloudKitOptionsValidator validateOptions:andStoreOptions:error:]";
-    v67 = 1024;
-    v68 = 36;
-    v69 = 2112;
-    v70 = a2;
-    v71 = 2112;
+    v69 = "[PFCloudKitOptionsValidator validateOptions:andStoreOptions:error:]";
+    v70 = 1024;
+    v71 = 36;
+    v72 = 2112;
+    v73 = a2;
+    v74 = 2112;
     optionsCopy = options;
     _os_log_impl(&dword_18565F000, v9, v12, "CoreData+CloudKit: %s(%d): Validating options: %@\nstoreOptions: %@", buf, 0x26u);
   }
@@ -82,11 +82,11 @@
   {
     v27 = MEMORY[0x1E696ABC0];
     v28 = *MEMORY[0x1E696A250];
-    v73 = *MEMORY[0x1E696A588];
-    v74 = @"A container identifier is required for the CloudKit integration.";
+    v76 = *MEMORY[0x1E696A588];
+    v77 = @"A container identifier is required for the CloudKit integration.";
     v29 = MEMORY[0x1E695DF20];
-    v30 = &v74;
-    v31 = &v73;
+    v30 = &v77;
+    v31 = &v76;
     goto LABEL_33;
   }
 
@@ -95,13 +95,14 @@
   {
     v27 = MEMORY[0x1E696ABC0];
     v28 = *MEMORY[0x1E696A250];
-    v75 = *MEMORY[0x1E696A588];
+    v78 = *MEMORY[0x1E696A588];
     v32 = MEMORY[0x1E696AEC0];
     v33 = objc_opt_class();
-    v76 = [v32 stringWithFormat:@"NSCloudKitMirroringDelegateOptions.containerIdentifier only accepts values of type '%@'. The following is not a valid value:\n%@", NSStringFromClass(v33), v14];
+    v34 = NSStringFromClass(v33);
+    v79 = objc_msgSend_stringWithFormat_(v32, v34, v14);
     v29 = MEMORY[0x1E695DF20];
-    v30 = &v76;
-    v31 = &v75;
+    v30 = &v79;
+    v31 = &v78;
     goto LABEL_33;
   }
 
@@ -109,14 +110,14 @@
   {
     v27 = MEMORY[0x1E696ABC0];
     v28 = *MEMORY[0x1E696A250];
-    v77 = *MEMORY[0x1E696A588];
-    v78[0] = @"NSCloudKitMirroringDelegateOptions.containerIdentifier requires a value with a length greather than 0";
+    v80 = *MEMORY[0x1E696A588];
+    v81[0] = @"NSCloudKitMirroringDelegateOptions.containerIdentifier requires a value with a length greather than 0";
     v29 = MEMORY[0x1E695DF20];
-    v30 = v78;
-    v31 = &v77;
+    v30 = v81;
+    v31 = &v80;
 LABEL_33:
-    v34 = [v27 errorWithDomain:v28 code:134060 userInfo:{objc_msgSend(v29, "dictionaryWithObjects:forKeys:count:", v30, v31, 1)}];
-    if (v34)
+    v35 = [v27 errorWithDomain:v28 code:134060 userInfo:{objc_msgSend(v29, "dictionaryWithObjects:forKeys:count:", v30, v31, 1)}];
+    if (v35)
     {
       goto LABEL_37;
     }
@@ -125,22 +126,22 @@ LABEL_33:
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-      v67 = 1024;
-      v68 = 87;
+      v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+      v70 = 1024;
+      v71 = 87;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
     }
 
-    v36 = _PFLogGetLogStream(17);
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+    v37 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_37;
     }
 
     *buf = 136315394;
-    v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-    v67 = 1024;
-    v68 = 87;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+    v70 = 1024;
+    v71 = 87;
     goto LABEL_58;
   }
 
@@ -148,10 +149,10 @@ LABEL_33:
   {
     v40 = MEMORY[0x1E696ABC0];
     v41 = *MEMORY[0x1E696A250];
-    v77 = *MEMORY[0x1E696A588];
-    v78[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is required for the CloudKit integration.", @"NSPersistentHistoryTrackingKey"];
-    v34 = [v40 errorWithDomain:v41 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v78, &v77, 1)}];
-    if (v34)
+    v80 = *MEMORY[0x1E696A588];
+    v81[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"NSPersistentHistoryTrackingKey");
+    v35 = [v40 errorWithDomain:v41 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v81, &v80, 1)}];
+    if (v35)
     {
       goto LABEL_37;
     }
@@ -160,22 +161,22 @@ LABEL_33:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-      v67 = 1024;
-      v68 = 105;
+      v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+      v70 = 1024;
+      v71 = 105;
       _os_log_error_impl(&dword_18565F000, v42, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
     }
 
-    v36 = _PFLogGetLogStream(17);
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+    v37 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_37;
     }
 
     *buf = 136315394;
-    v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-    v67 = 1024;
-    v68 = 105;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+    v70 = 1024;
+    v71 = 105;
     goto LABEL_58;
   }
 
@@ -189,37 +190,38 @@ LABEL_33:
     {
       v43 = MEMORY[0x1E696ABC0];
       v44 = *MEMORY[0x1E696A250];
-      v77 = *MEMORY[0x1E696A588];
+      v80 = *MEMORY[0x1E696A588];
       v45 = MEMORY[0x1E696AEC0];
       getCloudKitCKContainerOptionsClass();
       v46 = objc_opt_class();
-      v78[0] = [v45 stringWithFormat:@"NSCloudKitMirroringDelegateOptions.containerOptions only accepts values of type '%@'. The following is not a valid value:\n%@", NSStringFromClass(v46), v16];
-      v34 = [v43 errorWithDomain:v44 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v78, &v77, 1)}];
-      if (v34)
+      v47 = NSStringFromClass(v46);
+      v81[0] = objc_msgSend_stringWithFormat_(v45, v47, v16);
+      v35 = [v43 errorWithDomain:v44 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v81, &v80, 1)}];
+      if (v35)
       {
         goto LABEL_37;
       }
 
-      v47 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v48 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-        v67 = 1024;
-        v68 = 132;
-        _os_log_error_impl(&dword_18565F000, v47, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+        v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+        v70 = 1024;
+        v71 = 132;
+        _os_log_error_impl(&dword_18565F000, v48, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v36 = _PFLogGetLogStream(17);
-      if (!os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+      v37 = _PFLogGetLogStream(17);
+      if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_37;
       }
 
       *buf = 136315394;
-      v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-      v67 = 1024;
-      v68 = 132;
+      v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+      v70 = 1024;
+      v71 = 132;
       goto LABEL_58;
     }
   }
@@ -235,54 +237,55 @@ LABEL_33:
         goto LABEL_26;
       }
 
-      v48 = MEMORY[0x1E696ABC0];
-      v49 = *MEMORY[0x1E696A250];
-      v77 = *MEMORY[0x1E696A588];
-      v78[0] = [MEMORY[0x1E696AEC0] stringWithFormat:@"The value for 'NSCloudKitMirroringDelegateOptions.ckAssetThresholdBytes' must be at least %@ bytes. The following value is invalid: %@", objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", 100), v18];
-      v52 = MEMORY[0x1E695DF20];
-      v53 = v78;
-      v54 = &v77;
+      v49 = MEMORY[0x1E696ABC0];
+      v50 = *MEMORY[0x1E696A250];
+      v80 = *MEMORY[0x1E696A588];
+      v81[0] = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [MEMORY[0x1E696AD98] numberWithInteger:100], v18);
+      v54 = MEMORY[0x1E695DF20];
+      v55 = v81;
+      v56 = &v80;
     }
 
     else
     {
-      v48 = MEMORY[0x1E696ABC0];
-      v49 = *MEMORY[0x1E696A250];
-      v75 = *MEMORY[0x1E696A588];
-      v50 = MEMORY[0x1E696AEC0];
-      v51 = objc_opt_class();
-      v76 = [v50 stringWithFormat:@"The value for 'NSCloudKitMirroringDelegateOptions.ckAssetThresholdBytes' must be an instance of '%@'. The following value is invalid: %@", NSStringFromClass(v51), v18];
-      v52 = MEMORY[0x1E695DF20];
-      v53 = &v76;
-      v54 = &v75;
+      v49 = MEMORY[0x1E696ABC0];
+      v50 = *MEMORY[0x1E696A250];
+      v78 = *MEMORY[0x1E696A588];
+      v51 = MEMORY[0x1E696AEC0];
+      v52 = objc_opt_class();
+      v53 = NSStringFromClass(v52);
+      v79 = objc_msgSend_stringWithFormat_(v51, v53, v18);
+      v54 = MEMORY[0x1E695DF20];
+      v55 = &v79;
+      v56 = &v78;
     }
 
-    v34 = [v48 errorWithDomain:v49 code:134060 userInfo:{objc_msgSend(v52, "dictionaryWithObjects:forKeys:count:", v53, v54, 1)}];
-    if (v34)
+    v35 = [v49 errorWithDomain:v50 code:134060 userInfo:{objc_msgSend(v54, "dictionaryWithObjects:forKeys:count:", v55, v56, 1)}];
+    if (v35)
     {
       goto LABEL_37;
     }
 
-    v60 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v63 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-      v67 = 1024;
-      v68 = 162;
-      _os_log_error_impl(&dword_18565F000, v60, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+      v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+      v70 = 1024;
+      v71 = 162;
+      _os_log_error_impl(&dword_18565F000, v63, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
     }
 
-    v36 = _PFLogGetLogStream(17);
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+    v37 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_37;
     }
 
     *buf = 136315394;
-    v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-    v67 = 1024;
-    v68 = 162;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+    v70 = 1024;
+    v71 = 162;
     goto LABEL_58;
   }
 
@@ -290,7 +293,7 @@ LABEL_26:
   operationMemoryThresholdBytes = [a2 operationMemoryThresholdBytes];
   if (!operationMemoryThresholdBytes)
   {
-    goto LABEL_72;
+    return 1;
   }
 
   v20 = operationMemoryThresholdBytes;
@@ -301,9 +304,9 @@ LABEL_26:
     {
       v22 = MEMORY[0x1E696ABC0];
       v23 = *MEMORY[0x1E696A250];
-      v75 = *MEMORY[0x1E696A588];
-      v76 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The value for 'NSCloudKitMirroringDelegateOptions.operationMemoryThresholdBytes' must be at least %@ bytes. The following value is invalid: %@", &unk_1EF435E30, v20];
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+      v78 = *MEMORY[0x1E696A588];
+      v79 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], &unk_1EF435E30, v20);
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
       v25 = v22;
       v26 = v23;
       goto LABEL_60;
@@ -312,102 +315,97 @@ LABEL_26:
     longLongValue2 = [v20 longLongValue];
     if (longLongValue2 > [objc_msgSend(a2 "ckAssetThresholdBytes")])
     {
-LABEL_72:
-      result = 1;
-      goto LABEL_45;
+      return 1;
     }
 
-    v62 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The value for 'NSCloudKitMirroringDelegateOptions.operationMemoryThresholdBytes', %@, must be larger than the value of 'NSCloudKitMirroringDelegateOptions.ckAssetThresholdBytes', %@.", v20, objc_msgSend(a2, "ckAssetThresholdBytes")];
-    v63 = MEMORY[0x1E696ABC0];
-    v64 = *MEMORY[0x1E696A250];
-    v77 = *MEMORY[0x1E696A588];
-    v78[0] = v62;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:&v77 count:1];
-    v25 = v63;
-    v26 = v64;
+    v65 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v20, [a2 ckAssetThresholdBytes]);
+    v66 = MEMORY[0x1E696ABC0];
+    v67 = *MEMORY[0x1E696A250];
+    v80 = *MEMORY[0x1E696A588];
+    v81[0] = v65;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
+    v25 = v66;
+    v26 = v67;
   }
 
   else
   {
-    v55 = MEMORY[0x1E696ABC0];
-    v56 = *MEMORY[0x1E696A250];
-    v73 = *MEMORY[0x1E696A588];
-    v57 = MEMORY[0x1E696AEC0];
-    v58 = objc_opt_class();
-    v74 = [v57 stringWithFormat:@"The value for 'NSCloudKitMirroringDelegateOptions.operationMemoryThresholdBytes' must be an instance of '%@'. The following value is invalid: %@", NSStringFromClass(v58), v20];
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-    v25 = v55;
-    v26 = v56;
+    v57 = MEMORY[0x1E696ABC0];
+    v58 = *MEMORY[0x1E696A250];
+    v76 = *MEMORY[0x1E696A588];
+    v59 = MEMORY[0x1E696AEC0];
+    v60 = objc_opt_class();
+    v61 = NSStringFromClass(v60);
+    v77 = objc_msgSend_stringWithFormat_(v59, v61, v20);
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+    v25 = v57;
+    v26 = v58;
   }
 
 LABEL_60:
-  v34 = [v25 errorWithDomain:v26 code:134060 userInfo:v24];
-  if (v34)
+  v35 = [v25 errorWithDomain:v26 code:134060 userInfo:v24];
+  if (v35)
   {
     goto LABEL_37;
   }
 
-  v59 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+  v62 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-    v67 = 1024;
-    v68 = 200;
-    _os_log_error_impl(&dword_18565F000, v59, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+    v70 = 1024;
+    v71 = 200;
+    _os_log_error_impl(&dword_18565F000, v62, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
-  v36 = _PFLogGetLogStream(17);
-  if (!os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+  v37 = _PFLogGetLogStream(17);
+  if (!os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
   {
     goto LABEL_37;
   }
 
   *buf = 136315394;
-  v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-  v67 = 1024;
-  v68 = 200;
+  v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+  v70 = 1024;
+  v71 = 200;
 LABEL_58:
-  _os_log_fault_impl(&dword_18565F000, v36, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+  _os_log_fault_impl(&dword_18565F000, v37, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
 LABEL_37:
-  if (v34)
+  if (v35)
   {
     if (storeOptions)
     {
       result = 0;
-      *storeOptions = v34;
-      goto LABEL_45;
+      *storeOptions = v35;
+      return result;
     }
 
-LABEL_44:
-    result = 0;
-    goto LABEL_45;
-  }
-
-  v37 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136315394;
-    v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-    v67 = 1024;
-    v68 = 56;
-    _os_log_error_impl(&dword_18565F000, v37, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+    return 0;
   }
 
   v38 = _PFLogGetLogStream(17);
-  result = os_log_type_enabled(v38, OS_LOG_TYPE_FAULT);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315394;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+    v70 = 1024;
+    v71 = 56;
+    _os_log_error_impl(&dword_18565F000, v38, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+  }
+
+  v39 = _PFLogGetLogStream(17);
+  result = os_log_type_enabled(v39, OS_LOG_TYPE_FAULT);
   if (result)
   {
     *buf = 136315394;
-    v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
-    v67 = 1024;
-    v68 = 56;
-    _os_log_fault_impl(&dword_18565F000, v38, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-    goto LABEL_44;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitOptionsValidator.m";
+    v70 = 1024;
+    v71 = 56;
+    _os_log_fault_impl(&dword_18565F000, v39, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+    return 0;
   }
 
-LABEL_45:
-  v39 = *MEMORY[0x1E69E9840];
   return result;
 }
 

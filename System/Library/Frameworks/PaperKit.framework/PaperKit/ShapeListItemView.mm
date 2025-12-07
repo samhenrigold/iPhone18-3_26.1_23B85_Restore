@@ -46,7 +46,7 @@
 
 - (id)pointerInteraction:(id)interaction regionForRequest:(id)request defaultRegion:(id)region
 {
-  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIPointerRegion);
+  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIPointerRegion, 0x1E69DCDC0);
   selfCopy = self;
   [(ShapeListItemView *)selfCopy bounds];
   v7 = UIPointerRegion.init(rect:identifier:)();
@@ -56,7 +56,7 @@
 
 - (id)pointerInteraction:(id)interaction styleForRegion:(id)region
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit14UIPointerShapeOSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit14UIPointerShapeOSgMd, &_s5UIKit14UIPointerShapeOSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v24 - v8;
   v10 = type metadata accessor for UIPointerEffect();
@@ -71,7 +71,7 @@
   selfCopy = self;
   *v16 = [v17 initWithView_];
   (*(v11 + 104))(v16, *MEMORY[0x1E69DBF70], v10);
-  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIPointerStyle);
+  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIPointerStyle, 0x1E69DCDD0);
   (*(v11 + 16))(v13, v16, v10);
   v21 = type metadata accessor for UIPointerShape();
   (*(*(v21 - 8) + 56))(v9, 1, 1, v21);

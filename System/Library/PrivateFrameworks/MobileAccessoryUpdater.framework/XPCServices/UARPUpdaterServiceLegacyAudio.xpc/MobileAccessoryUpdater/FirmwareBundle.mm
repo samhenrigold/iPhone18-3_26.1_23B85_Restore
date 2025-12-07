@@ -27,31 +27,29 @@
 
 - (void)calculateHash
 {
-  v13 = 0;
+  v11 = 0;
   firmwareLocalURL = self->_firmwareLocalURL;
   if (firmwareLocalURL)
   {
-    HashForDataAtLocationAsData = generateHashForDataAtLocationAsData(firmwareLocalURL, 10, &v13);
+    HashForDataAtLocationAsData = generateHashForDataAtLocationAsData(firmwareLocalURL, 10, &v11);
     self->_hash = HashForDataAtLocationAsData;
     v5 = HashForDataAtLocationAsData;
   }
 
   else
   {
-    memset(v14, 0, sizeof(v14));
+    memset(v12, 0, sizeof(v12));
     v6 = ccsha256_di();
     NSLog(@"%s: hash not provided by asset. creating sha256 on the fly imageSize=%d\n", "[FirmwareBundle calculateHash]", self->_firmwareImageSize);
-    v7 = (((*(v6 + 8) + *(v6 + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
     __chkstk_darwin();
-    v9 = &v12 - v8;
+    v8 = &v10 - v7;
     ccdigest_init();
-    firmwareImageSize = self->_firmwareImageSize;
     [(NSData *)self->_firmwareImage bytes];
     ccdigest_update();
-    (*(v6 + 56))(v6, v9, v14);
-    v11 = [NSData dataWithBytes:v14 length:32];
-    self->_hash = v11;
-    NSLog(@"hash created %@\n", v11);
+    (*(v6 + 56))(v6, v8, v12);
+    v9 = [NSData dataWithBytes:v12 length:32];
+    self->_hash = v9;
+    NSLog(@"hash created %@\n", v9);
   }
 }
 

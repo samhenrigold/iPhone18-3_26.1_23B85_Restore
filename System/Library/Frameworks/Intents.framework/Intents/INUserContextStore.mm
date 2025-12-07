@@ -95,7 +95,7 @@
 
 void __56__INUserContextStore_userContextOfClass_withCompletion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v7 = v6;
@@ -104,11 +104,11 @@ void __56__INUserContextStore_userContextOfClass_withCompletion___block_invoke(v
     v8 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v17 = a1[4];
+      v16 = a1[4];
       *buf = 136315394;
-      v23 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
-      v24 = 2112;
-      v25 = v17;
+      v22 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
+      v23 = 2112;
+      v24 = v16;
       _os_log_error_impl(&dword_18E991000, v8, OS_LOG_TYPE_ERROR, "%s Error loading UserContext for prefix:%@", buf, 0x16u);
     }
 
@@ -117,164 +117,157 @@ void __56__INUserContextStore_userContextOfClass_withCompletion___block_invoke(v
 
   else
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __56__INUserContextStore_userContextOfClass_withCompletion___block_invoke_10;
-    v18[3] = &unk_1E7281958;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __56__INUserContextStore_userContextOfClass_withCompletion___block_invoke_10;
+    v17[3] = &unk_1E7281958;
     v9 = a1[5];
     v10 = a1[8];
-    v20 = a1[7];
-    v21 = v10;
-    v18[4] = v9;
+    v19 = a1[7];
+    v20 = v10;
+    v17[4] = v9;
     v11 = v6;
-    v19 = v11;
-    [v5 enumerateKeysAndObjectsUsingBlock:v18];
+    v18 = v11;
+    [v5 enumerateKeysAndObjectsUsingBlock:v17];
     v12 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
-      v24 = 2112;
-      v25 = v11;
+      v22 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
+      v23 = 2112;
+      v24 = v11;
       _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s Retrieved UserContexts: %@", buf, 0x16u);
     }
 
     (*(a1[6] + 16))(a1[6], v11, v13, v14, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __56__INUserContextStore_userContextOfClass_withCompletion___block_invoke_10(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 substringFromIndex:*(a1 + 48)];
   if (v7)
   {
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() findDataInValue:v6];
-    if (v9)
+    v8 = [objc_opt_class() findDataInValue:v6];
+    if (v8)
     {
-      v10 = *(a1 + 56);
-      v18 = 0;
-      v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v10 fromData:v9 error:&v18];
-      v12 = v18;
-      if (v12)
+      v9 = *(a1 + 56);
+      v16 = 0;
+      v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v9 fromData:v8 error:&v16];
+      v11 = v16;
+      if (v11)
       {
-        v13 = INSiriLogContextIntents;
+        v12 = INSiriLogContextIntents;
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
-          v17 = *(a1 + 56);
+          v15 = *(a1 + 56);
           *buf = 136315906;
-          v20 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
+          v18 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
+          v19 = 2112;
+          v20 = v15;
           v21 = 2112;
-          v22 = v17;
+          v22 = v7;
           v23 = 2112;
-          v24 = v7;
-          v25 = 2112;
-          v26 = v12;
-          _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Error unarchiving UserContext from class:%@ for bundle:%@  - %@", buf, 0x2Au);
+          v24 = v11;
+          _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Error unarchiving UserContext from class:%@ for bundle:%@  - %@", buf, 0x2Au);
         }
       }
 
-      [*(a1 + 40) setObject:v11 forKeyedSubscript:v7];
+      [*(a1 + 40) setObject:v10 forKeyedSubscript:v7];
     }
 
     else
     {
-      v15 = INSiriLogContextIntents;
+      v14 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v20 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
-        v21 = 2112;
-        v22 = v7;
-        _os_log_debug_impl(&dword_18E991000, v15, OS_LOG_TYPE_DEBUG, "%s No UserContext for bundle:%@", buf, 0x16u);
+        v18 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
+        v19 = 2112;
+        v20 = v7;
+        _os_log_debug_impl(&dword_18E991000, v14, OS_LOG_TYPE_DEBUG, "%s No UserContext for bundle:%@", buf, 0x16u);
       }
     }
   }
 
   else
   {
-    v14 = INSiriLogContextIntents;
+    v13 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v20 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
-      v21 = 2112;
-      v22 = v5;
-      _os_log_debug_impl(&dword_18E991000, v14, OS_LOG_TYPE_DEBUG, "%s Received invalid key for UserContext:%@", buf, 0x16u);
+      v18 = "[INUserContextStore userContextOfClass:withCompletion:]_block_invoke";
+      v19 = 2112;
+      v20 = v5;
+      _os_log_debug_impl(&dword_18E991000, v13, OS_LOG_TYPE_DEBUG, "%s Received invalid key for UserContext:%@", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userContextOfClass:(Class)class forBundleIdentifiers:(id)identifiers withCompletion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   completionCopy = completion;
   allObjects = [identifiersCopy allObjects];
   v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allObjects, "count")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v11 = allObjects;
-  v12 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v32;
+    v14 = *v31;
     do
     {
       v15 = 0;
       do
       {
-        if (*v32 != v14)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [objc_opt_class() keyForBundleIdentifier:*(*(&v31 + 1) + 8 * v15) andType:{-[objc_class _type](class, "_type")}];
+        v16 = [objc_opt_class() keyForBundleIdentifier:*(*(&v30 + 1) + 8 * v15) andType:{-[objc_class _type](class, "_type")}];
         [v10 addObject:v16];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v13);
   }
 
   knowledgeStore = self->_knowledgeStore;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withCompletion___block_invoke;
-  v24[3] = &unk_1E7281930;
-  v25 = identifiersCopy;
-  v26 = v11;
-  v27 = v10;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withCompletion___block_invoke;
+  v23[3] = &unk_1E7281930;
+  v24 = identifiersCopy;
+  v25 = v11;
+  v26 = v10;
   selfCopy = self;
-  v29 = completionCopy;
+  v28 = completionCopy;
   classCopy = class;
   v18 = completionCopy;
   v19 = v10;
   v20 = v11;
   v21 = identifiersCopy;
-  [(CKKnowledgeStore *)knowledgeStore valuesForKeys:v19 completionHandler:v24];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [(CKKnowledgeStore *)knowledgeStore valuesForKeys:v19 completionHandler:v23];
 }
 
 void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
   if (a2)
@@ -282,14 +275,14 @@ void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withComple
     v7 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 40);
-      v17 = *(a1 + 48);
+      v15 = *(a1 + 40);
+      v16 = *(a1 + 48);
       *buf = 136315650;
-      v24 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
-      v25 = 2112;
-      v26 = v16;
-      v27 = 2112;
-      v28 = v17;
+      v23 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
+      v24 = 2112;
+      v25 = v15;
+      v26 = 2112;
+      v27 = v16;
       _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Error loading UserContext for bundleIdentifiers:%@ as keys:%@", buf, 0x20u);
     }
 
@@ -298,87 +291,82 @@ void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withComple
 
   else
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withCompletion___block_invoke_4;
-    v18[3] = &unk_1E7281908;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withCompletion___block_invoke_4;
+    v17[3] = &unk_1E7281908;
     v8 = *(a1 + 40);
     v9 = *(a1 + 56);
-    v19 = v8;
-    v20 = v9;
-    v22 = *(a1 + 72);
+    v18 = v8;
+    v19 = v9;
+    v21 = *(a1 + 72);
     v10 = v6;
-    v21 = v10;
-    [v5 enumerateObjectsUsingBlock:v18];
+    v20 = v10;
+    [v5 enumerateObjectsUsingBlock:v17];
     v11 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       v14 = *(a1 + 40);
       *buf = 136315650;
-      v24 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
-      v25 = 2112;
-      v26 = v14;
-      v27 = 2112;
-      v28 = v5;
+      v23 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
+      v24 = 2112;
+      v25 = v14;
+      v26 = 2112;
+      v27 = v5;
       _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s Retrieved UserContexts for bundleIdentifiers:%@ -- %@", buf, 0x20u);
     }
 
     (*(*(a1 + 64) + 16))(*(a1 + 64), v10, v12, v13);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withCompletion___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 objectAtIndex:a3];
-  v8 = *(a1 + 40);
-  v9 = [objc_opt_class() findDataInValue:v6];
+  v8 = [objc_opt_class() findDataInValue:v6];
 
-  if (v9)
+  if (v8)
   {
-    v10 = *(a1 + 56);
-    v17 = 0;
-    v11 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v10 fromData:v9 error:&v17];
-    v12 = v17;
-    if (v12)
+    v9 = *(a1 + 56);
+    v15 = 0;
+    v10 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:v9 fromData:v8 error:&v15];
+    v11 = v15;
+    if (v11)
     {
-      v13 = INSiriLogContextIntents;
+      v12 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 56);
+        v14 = *(a1 + 56);
         *buf = 136315906;
-        v19 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
+        v17 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
+        v18 = 2112;
+        v19 = v14;
         v20 = 2112;
-        v21 = v16;
+        v21 = v7;
         v22 = 2112;
-        v23 = v7;
-        v24 = 2112;
-        v25 = v12;
-        _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Error unarchiving UserContext from class:%@ for bundle:%@  - %@", buf, 0x2Au);
+        v23 = v11;
+        _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Error unarchiving UserContext from class:%@ for bundle:%@  - %@", buf, 0x2Au);
       }
     }
 
-    [*(a1 + 48) setObject:v11 forKeyedSubscript:v7];
+    [*(a1 + 48) setObject:v10 forKeyedSubscript:v7];
   }
 
   else
   {
-    v14 = INSiriLogContextIntents;
+    v13 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v19 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
-      v20 = 2112;
-      v21 = v7;
-      _os_log_debug_impl(&dword_18E991000, v14, OS_LOG_TYPE_DEBUG, "%s No UserContext for bundle:%@", buf, 0x16u);
+      v17 = "[INUserContextStore userContextOfClass:forBundleIdentifiers:withCompletion:]_block_invoke";
+      v18 = 2112;
+      v19 = v7;
+      _os_log_debug_impl(&dword_18E991000, v13, OS_LOG_TYPE_DEBUG, "%s No UserContext for bundle:%@", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeUserContextViaHelper:(id)helper forBundleIdentifier:(id)identifier
@@ -391,7 +379,7 @@ void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withComple
 
 - (void)removeUserContextOfClass:(Class)class forBundleIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   _type = [(objc_class *)class _type];
   v8 = [objc_opt_class() keyForBundleIdentifier:identifierCopy andType:_type];
@@ -399,41 +387,39 @@ void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withComple
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v16 = "[INUserContextStore removeUserContextOfClass:forBundleIdentifier:]";
-    v17 = 2048;
-    v18 = _type;
-    v19 = 2112;
-    v20 = identifierCopy;
-    v21 = 2112;
-    v22 = v8;
+    v15 = "[INUserContextStore removeUserContextOfClass:forBundleIdentifier:]";
+    v16 = 2048;
+    v17 = _type;
+    v18 = 2112;
+    v19 = identifierCopy;
+    v20 = 2112;
+    v21 = v8;
     _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s Removing UserContext of type:%ld for bundle:%@ at key:%@...", buf, 0x2Au);
   }
 
   knowledgeStore = self->_knowledgeStore;
-  v14 = 0;
-  [(CKKnowledgeStore *)knowledgeStore removeValueForKey:v8 error:&v14];
-  v11 = v14;
+  v13 = 0;
+  [(CKKnowledgeStore *)knowledgeStore removeValueForKey:v8 error:&v13];
+  v11 = v13;
   if (v11)
   {
     v12 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v16 = "[INUserContextStore removeUserContextOfClass:forBundleIdentifier:]";
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v11;
+      v15 = "[INUserContextStore removeUserContextOfClass:forBundleIdentifier:]";
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v11;
       _os_log_error_impl(&dword_18E991000, v12, OS_LOG_TYPE_ERROR, "%s Error removing value for key:%@ -- %@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeUserContext:(id)context forBundleIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   identifierCopy = identifier;
   _type = [objc_opt_class() _type];
@@ -442,30 +428,30 @@ void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withComple
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v18 = "[INUserContextStore storeUserContext:forBundleIdentifier:]";
-    v19 = 2048;
-    v20 = _type;
-    v21 = 2112;
-    v22 = identifierCopy;
-    v23 = 2112;
-    v24 = v9;
-    v25 = 2112;
-    v26 = contextCopy;
+    v17 = "[INUserContextStore storeUserContext:forBundleIdentifier:]";
+    v18 = 2048;
+    v19 = _type;
+    v20 = 2112;
+    v21 = identifierCopy;
+    v22 = 2112;
+    v23 = v9;
+    v24 = 2112;
+    v25 = contextCopy;
     _os_log_impl(&dword_18E991000, v10, OS_LOG_TYPE_INFO, "%s Setting UserContext of type:%ld for bundle:%@ at key:%@, with value: %@...", buf, 0x34u);
   }
 
-  v16 = 0;
-  v11 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v16];
-  v12 = v16;
+  v15 = 0;
+  v11 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v15];
+  v12 = v15;
   if (v12)
   {
     v13 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[INUserContextStore storeUserContext:forBundleIdentifier:]";
-      v19 = 2112;
-      v20 = v12;
+      v17 = "[INUserContextStore storeUserContext:forBundleIdentifier:]";
+      v18 = 2112;
+      v19 = v12;
       _os_log_error_impl(&dword_18E991000, v13, OS_LOG_TYPE_ERROR, "%s Error archiving UserContext: %@", buf, 0x16u);
     }
   }
@@ -477,12 +463,10 @@ void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withComple
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v18 = "[INUserContextStore storeUserContext:forBundleIdentifier:]";
+      v17 = "[INUserContextStore storeUserContext:forBundleIdentifier:]";
       _os_log_impl(&dword_18E991000, v14, OS_LOG_TYPE_INFO, "%s UserContext saved.", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)keyForBundleIdentifier:(id)identifier andType:(int64_t)type
@@ -496,7 +480,7 @@ void __77__INUserContextStore_userContextOfClass_forBundleIdentifiers_withComple
 
 + (id)findDataInValue:(id)value
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   null = [MEMORY[0x1E695DFB0] null];
   v5 = [valueCopy isEqual:null];
@@ -514,26 +498,26 @@ LABEL_2:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       reverseObjectEnumerator = [valueCopy reverseObjectEnumerator];
-      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v16;
+        v10 = *v15;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v16 != v10)
+            if (*v15 != v10)
             {
               objc_enumerationMutation(reverseObjectEnumerator);
             }
 
-            v12 = *(*(&v15 + 1) + 8 * i);
+            v12 = *(*(&v14 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -543,7 +527,7 @@ LABEL_2:
             }
           }
 
-          v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v9)
           {
             continue;
@@ -559,8 +543,6 @@ LABEL_2:
 
   v6 = valueCopy;
 LABEL_16:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

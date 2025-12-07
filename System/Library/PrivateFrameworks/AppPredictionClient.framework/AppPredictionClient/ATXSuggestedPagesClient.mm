@@ -40,22 +40,22 @@
   return v2;
 }
 
-void __31__ATXSuggestedPagesClient_init__block_invoke()
+void __31__ATXSuggestedPagesClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_modes(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __31__ATXSuggestedPagesClient_init__block_invoke_cold_1(v0);
+    __31__ATXSuggestedPagesClient_init__block_invoke_cold_1(v1);
   }
 }
 
-void __31__ATXSuggestedPagesClient_init__block_invoke_8()
+void __31__ATXSuggestedPagesClient_init__block_invoke_8(uint64_t a1)
 {
-  v0 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = __atxlog_handle_modes(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_INFO, "ATXSuggestedPagesClient: invalidation handler called", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_INFO, "ATXSuggestedPagesClient: invalidation handler called", v2, 2u);
   }
 }
 
@@ -83,13 +83,14 @@ void __84__ATXSuggestedPagesClient_suggestedPagesWithFilter_layoutOptions_comple
 {
   v2 = objc_opt_new();
   v3 = [v2 cachedSuggestedPagesForPageType:{objc_msgSend(*(a1 + 32), "pageType")}];
-  if ([v3 count])
+  v4 = [v3 count];
+  if (v4)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesClient: Shortcircuiting call to duetexpertd and returning cached pages", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "ATXSuggestedPagesClient: Shortcircuiting call to duetexpertd and returning cached pages", buf, 2u);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -97,21 +98,21 @@ void __84__ATXSuggestedPagesClient_suggestedPagesWithFilter_layoutOptions_comple
 
   else
   {
-    v5 = *(*(a1 + 40) + 8);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __84__ATXSuggestedPagesClient_suggestedPagesWithFilter_layoutOptions_completionHandler___block_invoke_13;
-    v7[3] = &unk_1E80C08E0;
-    v8 = *(a1 + 56);
-    v6 = [v5 remoteObjectProxyWithErrorHandler:v7];
-    [v6 suggestedPagesWithFilter:*(a1 + 32) layoutOptions:*(a1 + 48) completionHandler:*(a1 + 56)];
+    v6 = *(*(a1 + 40) + 8);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __84__ATXSuggestedPagesClient_suggestedPagesWithFilter_layoutOptions_completionHandler___block_invoke_13;
+    v8[3] = &unk_1E80C08E0;
+    v9 = *(a1 + 56);
+    v7 = [v6 remoteObjectProxyWithErrorHandler:v8];
+    [v7 suggestedPagesWithFilter:*(a1 + 32) layoutOptions:*(a1 + 48) completionHandler:*(a1 + 56)];
   }
 }
 
 void __84__ATXSuggestedPagesClient_suggestedPagesWithFilter_layoutOptions_completionHandler___block_invoke_13(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __84__ATXSuggestedPagesClient_suggestedPagesWithFilter_layoutOptions_completionHandler___block_invoke_13_cold_1(v3, v4);
@@ -142,7 +143,7 @@ void __84__ATXSuggestedPagesClient_suggestedPagesWithFilter_layoutOptions_comple
   v6 = [(ATXHomeScreenConfigCache *)v5 loadHomeScreenPageConfigurationsIncludingHidden:1 error:0];
   if ([v6 count] == 15)
   {
-    v7 = __atxlog_handle_modes();
+    v7 = __atxlog_handle_modes(15);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -212,10 +213,10 @@ uint64_t __56__ATXSuggestedPagesClient_allowsSuggestionsForModeUUID___block_invo
 
   else
   {
-    v11 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [ATXSuggestedPagesClient didInstallSuggestedPage:v11];
+      [ATXSuggestedPagesClient didInstallSuggestedPage:v12];
     }
   }
 }

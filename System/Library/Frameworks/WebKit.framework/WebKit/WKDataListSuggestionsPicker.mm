@@ -84,7 +84,7 @@
     goto LABEL_6;
   }
 
-  [(WKDataListSuggestionsControl *)self suggestionAtIndex:row];
+  objc_msgSend_suggestionAtIndex_(self, a2, row);
   if (!v11)
   {
 LABEL_6:

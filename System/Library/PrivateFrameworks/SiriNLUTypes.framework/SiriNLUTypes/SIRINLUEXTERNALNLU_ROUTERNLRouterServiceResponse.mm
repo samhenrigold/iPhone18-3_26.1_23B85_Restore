@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)routingDecisionAsString:(int)string;
+- (id)routingDecisionSourceAsString:(int)string;
+- (id)statusAsString:(int)string;
 - (int)StringAsRoutingDecision:(id)decision;
 - (int)StringAsRoutingDecisionSource:(id)source;
 - (int)StringAsStatus:(id)status;
@@ -23,7 +26,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 52);
@@ -40,57 +43,57 @@
     *&self->_has |= 4u;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v7 = *(fromCopy + 5);
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(SIRINLUEXTERNALNLU_ROUTERNLRouterServiceResponse *)self addSiriXRewriteUtterances:*(*(&v24 + 1) + 8 * i)];
+        [(SIRINLUEXTERNALNLU_ROUTERNLRouterServiceResponse *)self addSiriXRewriteUtterances:*(*(&v23 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v9);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = *(v5 + 3);
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(SIRINLUEXTERNALNLU_ROUTERNLRouterServiceResponse *)self addQueryRewrites:*(*(&v20 + 1) + 8 * j), v20];
+        [(SIRINLUEXTERNALNLU_ROUTERNLRouterServiceResponse *)self addQueryRewrites:*(*(&v19 + 1) + 8 * j), v19];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v14);
@@ -121,8 +124,6 @@
   {
     [(SIRINLUEXTERNALNLU_ROUTERNLRouterServiceResponse *)self setHeuristicRule:?];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -174,7 +175,6 @@ LABEL_6:
     goto LABEL_25;
   }
 
-  v5 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_routingDecision != *(equalCopy + 8))
@@ -186,7 +186,7 @@ LABEL_6:
   else if (*(equalCopy + 52))
   {
 LABEL_25:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_26;
   }
 
@@ -218,7 +218,6 @@ LABEL_25:
     }
   }
 
-  v8 = *(equalCopy + 52);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_routingDecisionSource != *(equalCopy + 9))
@@ -241,22 +240,22 @@ LABEL_25:
   heuristicRule = self->_heuristicRule;
   if (heuristicRule | *(equalCopy + 2))
   {
-    v11 = [(NSString *)heuristicRule isEqual:?];
+    v9 = [(NSString *)heuristicRule isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_26:
 
-  return v11;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -273,59 +272,59 @@ LABEL_26:
     *(v5 + 52) |= 4u;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = self->_siriXRewriteUtterances;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v30 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v29 + 1) + 8 * i) copyWithZone:zone];
         [v6 addSiriXRewriteUtterances:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v10);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v14 = self->_queryRewrites;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v27;
+    v17 = *v26;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v26 + 1) + 8 * j) copyWithZone:{zone, v26}];
+        v19 = [*(*(&v25 + 1) + 8 * j) copyWithZone:{zone, v25}];
         [v6 addQueryRewrites:v19];
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v16);
@@ -337,7 +336,7 @@ LABEL_26:
     *(v6 + 52) |= 2u;
   }
 
-  v20 = [(SIRINLUEXTERNALNLU_ROUTERNLRoutingGenAIMetadata *)self->_genAiMetadata copyWithZone:zone, v26];
+  v20 = [(SIRINLUEXTERNALNLU_ROUTERNLRoutingGenAIMetadata *)self->_genAiMetadata copyWithZone:zone, v25];
   v21 = *(v6 + 8);
   *(v6 + 8) = v20;
 
@@ -345,7 +344,6 @@ LABEL_26:
   v23 = *(v6 + 16);
   *(v6 + 16) = v22;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -419,83 +417,78 @@ LABEL_26:
 
 - (void)writeTo:(id)to
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
   has = self->_has;
   if (has)
   {
-    routingDecision = self->_routingDecision;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v8 = self->_siriXRewriteUtterances;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v27;
-    do
-    {
-      for (i = 0; i != v10; ++i)
-      {
-        if (*v27 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        v13 = *(*(&v26 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
-    }
-
-    while (v10);
-  }
-
-  v24 = 0u;
-  v25 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v14 = self->_queryRewrites;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v15)
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_siriXRewriteUtterances;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v16 = v15;
-    v17 = *v23;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v17)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v6);
         }
 
-        v19 = *(*(&v22 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v16);
+    while (v8);
+  }
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_queryRewrites;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v17;
+    do
+    {
+      for (j = 0; j != v13; ++j)
+      {
+        if (*v17 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+    }
+
+    while (v13);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    routingDecisionSource = self->_routingDecisionSource;
     PBDataWriterWriteInt32Field();
   }
 
@@ -508,13 +501,11 @@ LABEL_26:
   {
     PBDataWriterWriteStringField();
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   has = self->_has;
   if (has)
@@ -554,30 +545,30 @@ LABEL_26:
   if ([(NSMutableArray *)self->_siriXRewriteUtterances count])
   {
     v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_siriXRewriteUtterances, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v10 = self->_siriXRewriteUtterances;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v35;
+      v13 = *v34;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          dictionaryRepresentation = [*(*(&v34 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v33 + 1) + 8 * i) dictionaryRepresentation];
           [v9 addObject:dictionaryRepresentation];
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v12);
@@ -589,30 +580,30 @@ LABEL_26:
   if ([(NSMutableArray *)self->_queryRewrites count])
   {
     v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_queryRewrites, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v17 = self->_queryRewrites;
-    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v31;
+      v20 = *v30;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          dictionaryRepresentation2 = [*(*(&v30 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v29 + 1) + 8 * j) dictionaryRepresentation];
           [v16 addObject:dictionaryRepresentation2];
         }
 
-        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v19);
@@ -649,8 +640,6 @@ LABEL_26:
   {
     [dictionary setObject:heuristicRule forKey:@"heuristic_rule"];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -693,6 +682,21 @@ LABEL_26:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)routingDecisionSourceAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327F38[string];
   }
 
   return v4;
@@ -803,6 +807,21 @@ LABEL_26:
   return v4;
 }
 
+- (id)statusAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327F08[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasStatus:(BOOL)status
 {
   if (status)
@@ -872,6 +891,21 @@ LABEL_26:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)routingDecisionAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8327ED0[string];
   }
 
   return v4;

@@ -60,35 +60,36 @@
 - (TUITransactionController)initWithQueue:(id)queue
 {
   queueCopy = queue;
-  v15.receiver = self;
-  v15.super_class = TUITransactionController;
-  v5 = [(TUITransactionController *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = TUITransactionController;
+  v5 = [(TUITransactionController *)&v16 init];
   if (v5)
   {
-    v5->_feedId.uniqueIdentifier = TUIFeedIdentifierGenerate();
-    v6 = TUIDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v6 = TUIFeedIdentifierGenerate();
+    v5->_feedId.uniqueIdentifier = v6;
+    v7 = TUIDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       uniqueIdentifier = v5->_feedId.uniqueIdentifier;
       *buf = 134218242;
-      v17 = uniqueIdentifier;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "[fid:%lu] created %@", buf, 0x16u);
+      v18 = uniqueIdentifier;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "[fid:%lu] created %@", buf, 0x16u);
     }
 
-    v8 = [[_TUITransactionControllerWorkQueueContext alloc] initWithQueue:queueCopy];
+    v9 = [[_TUITransactionControllerWorkQueueContext alloc] initWithQueue:queueCopy];
     queueContext = v5->_queueContext;
-    v5->_queueContext = v8;
+    v5->_queueContext = v9;
 
-    v10 = [[TUITransactionCoordinator alloc] initWithFeedId:v5->_feedId.uniqueIdentifier layoutQueueContext:v5->_queueContext delegate:v5];
+    v11 = [[TUITransactionCoordinator alloc] initWithFeedId:v5->_feedId.uniqueIdentifier layoutQueueContext:v5->_queueContext delegate:v5];
     coordinator = v5->_coordinator;
-    v5->_coordinator = v10;
+    v5->_coordinator = v11;
 
     [(TUITransactionCoordinator *)v5->_coordinator setManuallyScheduleUpdates:1];
-    v12 = [NSHashTable hashTableWithOptions:517];
+    v13 = [NSHashTable hashTableWithOptions:517];
     observers = v5->_observers;
-    v5->_observers = v12;
+    v5->_observers = v13;
 
     v5->_accessLock._os_unfair_lock_opaque = 0;
   }

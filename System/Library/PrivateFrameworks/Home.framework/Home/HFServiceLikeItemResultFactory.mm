@@ -8,7 +8,7 @@
 
 + (id)populateStandardResultsForHomeKitObject:(id)object withBackingAccessory:(id)accessory displayMetadata:(id)metadata readResponse:(id)response batteryLevelResults:(id)results valueSource:(id)source updateOptions:(id)options
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   accessoryCopy = accessory;
   metadataCopy = metadata;
@@ -32,7 +32,7 @@
   sortKey = [metadataCopy sortKey];
   [v20 na_safeSetObject:sortKey forKey:@"sortKey"];
 
-  v75 = optionsCopy;
+  v74 = optionsCopy;
   v25 = [optionsCopy objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
   if ([v25 BOOLValue])
   {
@@ -47,7 +47,7 @@
     v27 = objc_opt_new();
     v28 = [HFSymptomResultContextProvider alloc];
     objc_opt_class();
-    v72 = objectCopy;
+    v71 = objectCopy;
     v29 = objectCopy;
     if (objc_opt_isKindOfClass())
     {
@@ -60,9 +60,9 @@
     }
 
     v31 = v30;
-    v71 = v29;
+    v70 = v29;
 
-    v73 = [(HFSymptomResultContextProvider *)v28 initWithAccessory:accessoryCopy mediaSystem:v31];
+    v72 = [(HFSymptomResultContextProvider *)v28 initWithAccessory:accessoryCopy mediaSystem:v31];
     error = [metadataCopy error];
 
     if (error)
@@ -71,7 +71,7 @@
       [v20 setObject:error2 forKeyedSubscript:@"underlyingError"];
 
       error3 = [metadataCopy error];
-      v35 = [HFErrorResultComponent componentForDisplayError:error3 symptomContextProvider:v73];
+      v35 = [HFErrorResultComponent componentForDisplayError:error3 symptomContextProvider:v72];
 
       if (v35)
       {
@@ -81,13 +81,13 @@
           error4 = [metadataCopy error];
           allFailedReadResponses = [responseCopy allFailedReadResponses];
           *buf = 138413058;
-          v78 = error4;
-          v79 = 2112;
-          v80 = v35;
-          v81 = 2112;
-          v82 = v29;
-          v83 = 2112;
-          v84 = allFailedReadResponses;
+          v77 = error4;
+          v78 = 2112;
+          v79 = v35;
+          v80 = 2112;
+          v81 = v29;
+          v82 = 2112;
+          v83 = allFailedReadResponses;
           _os_log_error_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_ERROR, "Displaying error %@ as %@ for %@ read errors %@", buf, 0x2Au);
         }
 
@@ -108,11 +108,11 @@
       [v20 addEntriesFromDictionary:v40];
     }
 
-    v41 = [v75 objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
+    v41 = [v74 objectForKeyedSubscript:HFItemUpdateOptionFastInitialUpdate];
     if ([v41 BOOLValue])
     {
 
-      objectCopy = v72;
+      objectCopy = v71;
     }
 
     else
@@ -121,7 +121,7 @@
       underlyingError = [error5 underlyingError];
       na_isCancelledError = [underlyingError na_isCancelledError];
 
-      objectCopy = v72;
+      objectCopy = v71;
       if (!na_isCancelledError)
       {
 LABEL_21:
@@ -134,9 +134,9 @@ LABEL_21:
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v78 = v71;
-            v79 = 2112;
-            v80 = v20;
+            v77 = v70;
+            v78 = 2112;
+            v79 = v20;
             _os_log_error_impl(&dword_20D9BF000, v46, OS_LOG_TYPE_ERROR, "Added HFErrorResultComponent to results for object %@: %@", buf, 0x16u);
           }
         }
@@ -262,8 +262,6 @@ LABEL_32:
   v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue > 0];
   [v20 setObject:v66 forKeyedSubscript:@"descriptionStyle"];
 
-  v67 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
@@ -280,11 +278,11 @@ uint64_t __170__HFServiceLikeItemResultFactory_populateStandardResultsForHomeKit
   accessoryCopy = accessory;
   resultsCopy = results;
   isFirmwareUpdateAvailable = [accessoryCopy isFirmwareUpdateAvailable];
-  home = [accessoryCopy home];
-  v8 = home;
+  v7 = objc_msgSend_home(accessoryCopy);
+  v8 = v7;
   if (isFirmwareUpdateAvailable)
   {
-    hf_currentUserIsRestrictedGuest = [home hf_currentUserIsRestrictedGuest];
+    hf_currentUserIsRestrictedGuest = [v7 hf_currentUserIsRestrictedGuest];
 
     if ((hf_currentUserIsRestrictedGuest & 1) == 0)
     {
@@ -298,7 +296,7 @@ uint64_t __170__HFServiceLikeItemResultFactory_populateStandardResultsForHomeKit
     goto LABEL_16;
   }
 
-  if (![home hf_currentUserIsOwner])
+  if (![v7 hf_currentUserIsOwner])
   {
 LABEL_15:
 

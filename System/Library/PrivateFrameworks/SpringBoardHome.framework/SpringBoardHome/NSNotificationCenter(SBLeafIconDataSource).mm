@@ -11,9 +11,9 @@
     +[NSNotificationCenter(SBLeafIconDataSource) sbh_leafIconDataSourceNotificationCenter];
   }
 
-  v1 = sbh_leafIconDataSourceNotificationCenter_sbh_leafIconDataSourceNotificationCenter;
+  v2 = sbh_leafIconDataSourceNotificationCenter_sbh_leafIconDataSourceNotificationCenter;
 
-  return v1;
+  return v2;
 }
 
 @end

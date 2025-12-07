@@ -21,7 +21,7 @@
   v21 = objc_opt_new();
   v7 = sub_100399B78(ODRApplication, bundleCopy);
   v8 = sub_10039A79C(v7, 0);
-  v9 = sub_100208FBC();
+  v9 = sub_100208FBC(ODRDatabaseStore);
   v12[0] = _NSConcreteStackBlock;
   v12[1] = 3221225472;
   v12[2] = sub_1002ECD9C;
@@ -58,7 +58,7 @@
   v27 = sub_1002ECD84;
   v28 = sub_1002ECD94;
   v29 = 0;
-  v9 = sub_100208FBC();
+  v9 = sub_100208FBC(ODRDatabaseStore);
   v22[0] = _NSConcreteStackBlock;
   v22[1] = 3221225472;
   v22[2] = sub_1002ED3C4;
@@ -88,7 +88,7 @@
         }
 
         v15 = *(*(&v18 + 1) + 8 * v14);
-        v16 = sub_100220330();
+        v16 = sub_100220330(ODRManager);
         v17 = sub_100269134(v15);
         sub_100222DB8(v16, v17, 1);
 
@@ -130,7 +130,7 @@
   v42 = sub_1002ECD84;
   v43 = sub_1002ECD94;
   v44 = 0;
-  v10 = sub_100208FBC();
+  v10 = sub_100208FBC(ODRDatabaseStore);
   v30[0] = _NSConcreteStackBlock;
   v30[1] = 3221225472;
   v30[2] = sub_1002ED8D0;
@@ -183,7 +183,7 @@
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Requesting purge of asset pack [%{public}@]", v35, 0xCu);
         }
 
-        v20 = sub_100220330();
+        v20 = sub_100220330(ODRManager);
         v21 = sub_100269134(v17);
         sub_100222DB8(v20, v21, 1);
       }
@@ -242,7 +242,7 @@
 - (void)getSimulatedBandwidthWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = sub_1002B3D88();
+  v4 = sub_1002B3D88(ODRSimulatedDownloadsManager);
   (*(reply + 2))(replyCopy, v4, 0);
 }
 
@@ -250,7 +250,7 @@
 {
   replyCopy = reply;
   sub_1002B3D04(ODRSimulatedDownloadsManager, bandwidth);
-  v5 = sub_1002B3D88();
+  v5 = sub_1002B3D88(ODRSimulatedDownloadsManager);
   replyCopy[2](replyCopy, v5, 0);
 }
 

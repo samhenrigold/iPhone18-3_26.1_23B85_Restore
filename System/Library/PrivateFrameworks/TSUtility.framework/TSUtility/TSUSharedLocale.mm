@@ -128,10 +128,11 @@
   {
     TSURemoveLocaleChangeObserver(mObserverObjects);
 
+    selfCopy = v6;
     v6->mObserverObjects = 0;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](mObserverObjects, selfCopy);
 }
 
 @end

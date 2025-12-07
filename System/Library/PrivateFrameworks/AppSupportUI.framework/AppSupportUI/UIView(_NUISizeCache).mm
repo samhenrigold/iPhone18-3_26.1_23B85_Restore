@@ -1,10 +1,10 @@
 @interface UIView(_NUISizeCache)
-- (uint64_t)nukeContentLayoutSizeCacheFromOrbit;
+- (void)nukeContentLayoutSizeCacheFromOrbit;
 @end
 
 @implementation UIView(_NUISizeCache)
 
-- (uint64_t)nukeContentLayoutSizeCacheFromOrbit
+- (void)nukeContentLayoutSizeCacheFromOrbit
 {
   v13 = *MEMORY[0x277D85DE8];
   IfNeeded = _NUIContainerViewInfoCreateIfNeeded(self, 1);
@@ -29,7 +29,8 @@
           objc_enumerationMutation(subviews);
         }
 
-        [*(*(&v8 + 1) + 8 * v7++) nukeContentLayoutSizeCacheFromOrbit];
+        [*(*(&v8 + 1) + 8 * v7) nukeContentLayoutSizeCacheFromOrbit];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);

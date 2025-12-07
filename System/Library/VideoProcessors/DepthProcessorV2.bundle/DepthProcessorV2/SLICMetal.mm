@@ -244,64 +244,13 @@ LABEL_14:
   v53 = 1120403456;
   v14 = objc_alloc_init(MEMORY[0x29EDBB5A8]);
   v17 = v14;
-  if (!v14)
-  {
-    goto LABEL_9;
-  }
-
-  objc_msgSend_setConstantValue_type_withName_(v14, v15, &v57, 33, @"slicMetal::spixel_size_uint", v16);
-  objc_msgSend_setConstantValue_type_withName_(v17, v18, &no_grid_per_center, 29, @"slicMetal::no_blocks_per_spixel", v19);
-  objc_msgSend_setConstantValue_type_withName_(v17, v20, &v55, 29, @"slicMetal::no_blocks_per_line", v21);
-  objc_msgSend_setConstantValue_type_withName_(v17, v22, &v54, 29, @"slicMetal::no_grid_per_center", v23);
-  objc_msgSend_setConstantValue_type_withName_(v17, v24, &v53, 33, @"slicMetal::distanceInitValue_uint", v25);
-  v29 = objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v26, @"initClustersCenters", v17, v27, v28);
-  v30 = self->_slicComputePipelinesStates[0];
-  self->_slicComputePipelinesStates[0] = v29;
-
-  if (!self->_slicComputePipelinesStates[0])
-  {
-    goto LABEL_9;
-  }
-
-  v34 = objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v31, @"findCenterAssociation", v17, v32, v33);
-  v35 = self->_slicComputePipelinesStates[1];
-  self->_slicComputePipelinesStates[1] = v34;
-
-  if (!self->_slicComputePipelinesStates[1])
-  {
-    goto LABEL_9;
-  }
-
-  v39 = objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v36, @"updateClusterCenter", v17, v37, v38);
-  v40 = self->_slicComputePipelinesStates[2];
-  self->_slicComputePipelinesStates[2] = v39;
-
-  if (!self->_slicComputePipelinesStates[2])
-  {
-    goto LABEL_9;
-  }
-
-  v44 = objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v41, @"finalizeReductionResult", v17, v42, v43);
-  v45 = self->_slicComputePipelinesStates[3];
-  self->_slicComputePipelinesStates[3] = v44;
-
-  if (!self->_slicComputePipelinesStates[3])
-  {
-    goto LABEL_9;
-  }
-
-  v49 = objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v46, @"ensureConnectivity", v17, v47, v48);
-  v50 = self->_slicComputePipelinesStates[4];
-  self->_slicComputePipelinesStates[4] = v49;
-
-  if (self->_slicComputePipelinesStates[4])
+  if (v14 && (objc_msgSend_setConstantValue_type_withName_(v14, v15, &v57, 33, @"slicMetal::spixel_size_uint", v16), objc_msgSend_setConstantValue_type_withName_(v17, v18, &no_grid_per_center, 29, @"slicMetal::no_blocks_per_spixel", v19), objc_msgSend_setConstantValue_type_withName_(v17, v20, &v55, 29, @"slicMetal::no_blocks_per_line", v21), objc_msgSend_setConstantValue_type_withName_(v17, v22, &v54, 29, @"slicMetal::no_grid_per_center", v23), objc_msgSend_setConstantValue_type_withName_(v17, v24, &v53, 33, @"slicMetal::distanceInitValue_uint", v25), objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v26, @"initClustersCenters", v17, v27, v28), v29 = objc_claimAutoreleasedReturnValue(), v30 = self->_slicComputePipelinesStates[0], self->_slicComputePipelinesStates[0] = v29, v30, self->_slicComputePipelinesStates[0]) && (objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v31, @"findCenterAssociation", v17, v32, v33), v34 = objc_claimAutoreleasedReturnValue(), v35 = self->_slicComputePipelinesStates[1], self->_slicComputePipelinesStates[1] = v34, v35, self->_slicComputePipelinesStates[1]) && (objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v36, @"updateClusterCenter", v17, v37, v38), v39 = objc_claimAutoreleasedReturnValue(), v40 = self->_slicComputePipelinesStates[2], self->_slicComputePipelinesStates[2] = v39, v40, self->_slicComputePipelinesStates[2]) && (objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v41, @"finalizeReductionResult", v17, v42, v43), v44 = objc_claimAutoreleasedReturnValue(), v45 = self->_slicComputePipelinesStates[3], self->_slicComputePipelinesStates[3] = v44, v45, self->_slicComputePipelinesStates[3]) && (objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v46, @"ensureConnectivity", v17, v47, v48), v49 = objc_claimAutoreleasedReturnValue(), v50 = self->_slicComputePipelinesStates[4], self->_slicComputePipelinesStates[4] = v49, v50, self->_slicComputePipelinesStates[4]))
   {
     v51 = 0;
   }
 
   else
   {
-LABEL_9:
     v51 = -12786;
   }
 
@@ -346,32 +295,32 @@ LABEL_9:
   v41 = v39;
 
   v47 = objc_msgSend_mapSize(self->_parameters, v42, v43, v44, v45, v46);
-  sub_295725704(v53, v47, v48, v49, v50, v51, v52);
+  sub_295725704(v47, v48, v49, v50, v51, v52);
 
-  v54 = sub_295725688();
-  v60 = objc_msgSend__createTextureOfSize_withFormat_(v55, v56, 125, v57, v58, v59, v54);
-  if (!v60)
+  v53 = sub_295725688();
+  v59 = objc_msgSend__createTextureOfSize_withFormat_(v54, v55, 125, v56, v57, v58, v53);
+  if (!v59)
   {
     return -12786;
   }
 
-  v61 = self->_slicTextures[1];
-  self->_slicTextures[1] = v60;
-  v62 = v60;
+  v60 = self->_slicTextures[1];
+  self->_slicTextures[1] = v59;
+  v61 = v59;
 
-  v68 = objc_msgSend_mapSize(self->_parameters, v63, v64, v65, v66, v67);
-  sub_295725704(v74, v68, v69, v70, v71, v72, v73);
+  v67 = objc_msgSend_mapSize(self->_parameters, v62, v63, v64, v65, v66);
+  sub_295725704(v67, v68, v69, v70, v71, v72);
 
-  v75 = sub_295725688();
-  v81 = objc_msgSend__createTextureOfSize_withFormat_(v76, v77, 125, v78, v79, v80, v75);
-  if (!v81)
+  v73 = sub_295725688();
+  v79 = objc_msgSend__createTextureOfSize_withFormat_(v74, v75, 125, v76, v77, v78, v73);
+  if (!v79)
   {
     return -12786;
   }
 
-  v82 = self->_slicTextures[0];
-  self->_slicTextures[0] = v81;
-  v83 = v81;
+  v80 = self->_slicTextures[0];
+  self->_slicTextures[0] = v79;
+  v81 = v79;
 
   return 0;
 }

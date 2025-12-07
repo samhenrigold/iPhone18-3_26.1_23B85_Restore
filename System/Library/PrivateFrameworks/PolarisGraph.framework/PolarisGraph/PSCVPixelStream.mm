@@ -1,9 +1,14 @@
 @interface PSCVPixelStream
 + (id)cvPixelStreamWithKey:(char *)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator;
 + (id)cvPixelStreamWithKey:(char *)key options:(ps_resource_options *)options properties:(id)properties;
++ (id)cvPixelStreamWithKey:(char *)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
 + (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator;
++ (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator provider:(int)provider;
 + (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options properties:(id)properties;
++ (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider imageWidth:(unint64_t)width imageHeight:(unint64_t)height imagePixelFormat:(unsigned int)format metadataIOSurfaceProperties:(id)properties;
++ (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
 + (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
++ (id)superframeCVPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format numPlanes:(unint64_t)planes planeOffsets:(id)self0 planeBytesPerRow:(id)self1 cvPixelBufferProperties:(id)self2;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)validate:(id *)validate;
 - (PSCVPixelStream)init;
@@ -205,6 +210,15 @@ LABEL_17:
   return v15;
 }
 
++ (id)cvPixelStreamWithKey:(char *)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
+{
+  v7 = *&format;
+  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", key];
+  v12 = [PSCVPixelStream cvPixelStreamWithResourceKey:v11 options:options width:width height:height pixelFormat:v7];
+
+  return v12;
+}
+
 + (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
 {
   keyCopy = key;
@@ -217,6 +231,74 @@ LABEL_17:
   [(PSResourceStream *)v12 setOptions:options->storage_mode, options->creation_mode];
 
   return v12;
+}
+
++ (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
+{
+  v11 = *&provider;
+  keyCopy = key;
+  v14 = objc_alloc_init(PSCVPixelStream);
+  [(PSResourceStream *)v14 setKey:keyCopy];
+  [(PSResourceStream *)v14 setProvider:v11];
+  v14->_width = width;
+  v14->_height = height;
+  v14->_pixelFormat = format;
+  [(PSResourceStream *)v14 setOptions:options->storage_mode, options->creation_mode];
+
+  return v14;
+}
+
++ (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider imageWidth:(unint64_t)width imageHeight:(unint64_t)height imagePixelFormat:(unsigned int)format metadataIOSurfaceProperties:(id)properties
+{
+  v12 = *&provider;
+  keyCopy = key;
+  propertiesCopy = properties;
+  v16 = objc_alloc_init(PSCVPixelStream);
+  [(PSResourceStream *)v16 setKey:keyCopy];
+  [(PSResourceStream *)v16 setProvider:v12];
+  v16->_width = width;
+  v16->_height = height;
+  v16->_pixelFormat = format;
+  [(PSResourceStream *)v16 setOptions:options->storage_mode, options->creation_mode];
+  [(PSResourceStream *)v16 setMetadataIOSurfaceProperties:propertiesCopy];
+
+  return v16;
+}
+
++ (id)superframeCVPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options provider:(int)provider width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format numPlanes:(unint64_t)planes planeOffsets:(id)self0 planeBytesPerRow:(id)self1 cvPixelBufferProperties:(id)self2
+{
+  v15 = *&provider;
+  keyCopy = key;
+  offsetsCopy = offsets;
+  rowCopy = row;
+  propertiesCopy = properties;
+  if (format == 1899524402)
+  {
+    v20 = propertiesCopy;
+    v18 = objc_alloc_init(PSCVPixelStream);
+    [(PSResourceStream *)v18 setKey:keyCopy];
+    [(PSResourceStream *)v18 setProvider:v15];
+    v18->_width = width;
+    v18->_height = height;
+    v18->_pixelFormat = 1899524402;
+    [(PSResourceStream *)v18 setOptions:options->storage_mode, options->creation_mode];
+    v18->_superframeNumPlanes = planes;
+    objc_storeStrong(&v18->_superframePlaneOffsets, offsets);
+    objc_storeStrong(&v18->_superframePlaneBytesPerRow, row);
+    objc_storeStrong(&v18->_superframeCVPixelBufferProperties, properties);
+    v18->_bytesPerElement = 20;
+    v18->_bytesPerRow = 2560;
+    v18->_elementWidth = 16;
+    v18->_elementHeight = 1;
+    propertiesCopy = v20;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 + (id)cvPixelStreamWithKey:(char *)key options:(ps_resource_options *)options properties:(id)properties
@@ -269,6 +351,20 @@ LABEL_17:
   [(PSResourceStream *)v10 setOptions:options->storage_mode, options->creation_mode];
 
   return v10;
+}
+
++ (id)cvPixelStreamWithResourceKey:(id)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator provider:(int)provider
+{
+  v7 = *&provider;
+  keyCopy = key;
+  v12 = objc_alloc_init(PSCVPixelStream);
+  [(PSResourceStream *)v12 setKey:keyCopy];
+  [(PSResourceStream *)v12 setProvider:v7];
+  v12->_deallocator = deallocator;
+  v12->_allocator = allocator;
+  [(PSResourceStream *)v12 setOptions:options->storage_mode, options->creation_mode];
+
+  return v12;
 }
 
 - (BOOL)validate:(id *)validate

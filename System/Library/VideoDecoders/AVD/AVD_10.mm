@@ -588,7 +588,7 @@ uint64_t CAHDecDaisyAvc::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-void *createIxoraLghDecoder(uint64_t a1)
+CAHDecIxoraLgh *createIxoraLghDecoder(CAVDLghDecoder *a1)
 {
   v2 = operator new(0x11C8uLL, MEMORY[0x277D826F0]);
   v3 = v2;

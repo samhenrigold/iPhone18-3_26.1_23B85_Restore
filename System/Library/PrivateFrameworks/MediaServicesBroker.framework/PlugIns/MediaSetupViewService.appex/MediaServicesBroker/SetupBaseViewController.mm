@@ -11,7 +11,7 @@
   v2 = *&self->OBWelcomeController_opaque[OBJC_IVAR____TtC21MediaSetupViewService23SetupBaseViewController_mainController];
   selfCopy = self;
   v3 = v2;
-  sub_100011B3C(1u);
+  sub_100011B3C(1);
 }
 
 - (_TtC21MediaSetupViewService23SetupBaseViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

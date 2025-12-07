@@ -3,7 +3,7 @@
 
 @implementation AXSRosebudLoggingEnabled
 
-uint64_t ___AXSRosebudLoggingEnabled_block_invoke()
+void *___AXSRosebudLoggingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

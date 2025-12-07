@@ -97,7 +97,7 @@
 
 - (void)setupWithInitialKeys:(id)keys persistedHints:(id)hints
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   if (self)
   {
@@ -137,15 +137,15 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"initial keys should be added before anything else"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"initial keys should be added before anything else"];
     *buf = 136315906;
-    v26 = "[FCCacheCoordinator setupWithInitialKeys:persistedHints:]";
-    v27 = 2080;
-    v28 = "FCCacheCoordinator.m";
-    v29 = 1024;
-    v30 = 131;
-    v31 = 2114;
-    v32 = v23;
+    v25 = "[FCCacheCoordinator setupWithInitialKeys:persistedHints:]";
+    v26 = 2080;
+    v27 = "FCCacheCoordinator.m";
+    v28 = 1024;
+    v29 = 131;
+    v30 = 2114;
+    v31 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (self)
@@ -210,12 +210,12 @@ LABEL_11:
       cacheHintsByKey = 0;
     }
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __58__FCCacheCoordinator_setupWithInitialKeys_persistedHints___block_invoke_2;
-    v24[3] = &unk_1E7C36EC8;
-    v24[4] = self;
-    [(FCThreadSafeMutableDictionary *)cacheHintsByKey readWriteWithAccessor:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __58__FCCacheCoordinator_setupWithInitialKeys_persistedHints___block_invoke_2;
+    v23[3] = &unk_1E7C36EC8;
+    v23[4] = self;
+    [(FCThreadSafeMutableDictionary *)cacheHintsByKey readWriteWithAccessor:v23];
   }
 
   if (self)
@@ -229,8 +229,6 @@ LABEL_11:
   }
 
   [(FCOperationThrottler *)flushThrottler setSuspended:0];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__FCCacheCoordinator_setupWithInitialKeys_persistedHints___block_invoke_2(uint64_t a1, void *a2)
@@ -251,15 +249,13 @@ uint64_t __58__FCCacheCoordinator_setupWithInitialKeys_persistedHints___block_in
 
 - (id)holdTokenForKey:(id)key
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v4 = MEMORY[0x1E695DEC8];
   keyCopy2 = key;
   v6 = [v4 arrayWithObjects:&keyCopy count:1];
 
-  v7 = [(FCCacheCoordinator *)self holdTokenForKeys:v6, keyCopy, v11];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(FCCacheCoordinator *)self holdTokenForKeys:v6, keyCopy, v10];
 
   return v7;
 }
@@ -345,60 +341,56 @@ uint64_t __58__FCCacheCoordinator_setupWithInitialKeys_persistedHints___block_in
 
 - (id)holdTokensForKeys:(id)keys
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v14 = keysCopy;
+  v13 = keysCopy;
   [(FCCacheCoordinator *)&self->super.isa addInterestInKeys:keysCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  obj = v20 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  obj = v19 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __40__FCCacheCoordinator_holdTokensForKeys___block_invoke;
-        v16[3] = &unk_1E7C36C58;
-        v16[4] = self;
-        v16[5] = v10;
-        v11 = [FCInterestToken interestTokenWithRemoveInterestBlock:v16, v14];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __40__FCCacheCoordinator_holdTokensForKeys___block_invoke;
+        v15[3] = &unk_1E7C36C58;
+        v15[4] = self;
+        v15[5] = v10;
+        v11 = [FCInterestToken interestTokenWithRemoveInterestBlock:v15, v13];
         [dictionary setObject:v11 forKey:v10];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 void __40__FCCacheCoordinator_holdTokensForKeys___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v4[0] = *(a1 + 40);
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 40);
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   [(FCCacheCoordinator *)v1 removeInterestInKeys:v2];
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)allKeys
@@ -553,7 +545,7 @@ void __45__FCCacheCoordinator_keysWithNonZeroInterest__block_invoke(uint64_t a1)
 
 - (void)didInsertKeyIntoCache:(id)cache withLifetimeHint:(int64_t)hint
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     storedKeys = self->_storedKeys;
@@ -566,17 +558,15 @@ void __45__FCCacheCoordinator_keysWithNonZeroInterest__block_invoke(uint64_t a1)
 
   cacheCopy = cache;
   [(NSMutableSet *)storedKeys addObject:cacheCopy];
-  v11[0] = cacheCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = cacheCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __61__FCCacheCoordinator_didInsertKeyIntoCache_withLifetimeHint___block_invoke;
-  v10[3] = &__block_descriptor_40_e23_v16__0__NTPBCacheHint_8l;
-  v10[4] = hint;
-  [(FCCacheCoordinator *)self _modifyCacheHintForKeys:v8 withBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __61__FCCacheCoordinator_didInsertKeyIntoCache_withLifetimeHint___block_invoke;
+  v9[3] = &__block_descriptor_40_e23_v16__0__NTPBCacheHint_8l;
+  v9[4] = hint;
+  [(FCCacheCoordinator *)self _modifyCacheHintForKeys:v8 withBlock:v9];
 }
 
 uint64_t __61__FCCacheCoordinator_didInsertKeyIntoCache_withLifetimeHint___block_invoke(uint64_t a1, void *a2)
@@ -891,7 +881,7 @@ uint64_t __38__FCCacheCoordinator_pruneToMaxCount___block_invoke_5(uint64_t a1, 
 
 - (void)operationThrottlerPerformOperation:(id)operation
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   if (self)
   {
@@ -904,89 +894,87 @@ uint64_t __38__FCCacheCoordinator_pruneToMaxCount___block_invoke_5(uint64_t a1, 
   }
 
   v7 = Property;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
   v34 = 0;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke;
-  v27[3] = &unk_1E7C3F3E0;
-  v27[4] = self;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke;
+  v26[3] = &unk_1E7C3F3E0;
+  v26[4] = self;
   v8 = v7;
-  v28 = v8;
-  v29 = &v35;
-  v30 = &v31;
-  if (self && ([(FCCacheCoordinatorLocking *)self->_underlyingLock performReadSync:v27], (v36[3] & 1) != 0) || *(v32 + 24) == 1)
+  v27 = v8;
+  v28 = &v34;
+  v29 = &v30;
+  if (self && ([(FCCacheCoordinatorLocking *)self->_underlyingLock performReadSync:v26], (v35[3] & 1) != 0) || *(v31 + 24) == 1)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__30;
-    v25 = __Block_byref_object_dispose__30;
-    v26 = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke_4;
-    v20[3] = &unk_1E7C3F408;
-    v20[4] = self;
-    v20[5] = &v21;
-    v20[6] = &v31;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__30;
+    v24 = __Block_byref_object_dispose__30;
+    v25 = 0;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke_4;
+    v19[3] = &unk_1E7C3F408;
+    v19[4] = self;
+    v19[5] = &v20;
+    v19[6] = &v30;
     if (self)
     {
-      [(FCCacheCoordinatorLocking *)self->_underlyingLock performWriteSync:v20];
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
+      [(FCCacheCoordinatorLocking *)self->_underlyingLock performWriteSync:v19];
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       observers = self->_observers;
     }
 
     else
     {
       observers = 0;
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
     }
 
     v10 = observers;
     allObjects = [(FCThreadSafeHashTable *)v10 allObjects];
 
-    v12 = [allObjects countByEnumeratingWithState:&v16 objects:v39 count:16];
+    v12 = [allObjects countByEnumeratingWithState:&v15 objects:v38 count:16];
     if (v12)
     {
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          [*(*(&v16 + 1) + 8 * i) cacheCoordinator:self didFlushKeys:v22[5]];
+          [*(*(&v15 + 1) + 8 * i) cacheCoordinator:self didFlushKeys:v21[5]];
         }
 
-        v12 = [allObjects countByEnumeratingWithState:&v16 objects:v39 count:16];
+        v12 = [allObjects countByEnumeratingWithState:&v15 objects:v38 count:16];
       }
 
       while (v12);
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
-  _Block_object_dispose(&v31, 8);
-  _Block_object_dispose(&v35, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 void __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke(uint64_t a1)
@@ -1155,33 +1143,33 @@ uint64_t __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_inv
 
 void __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke_7(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = *(*(*(a1 + 40) + 8) + 40);
   v6 = a2;
   if (v4)
   {
     v7 = [MEMORY[0x1E695DF70] array];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * i);
           v14 = [v6 objectForKeyedSubscript:v13];
           if ([v14 lifetime] != 1)
           {
@@ -1189,7 +1177,7 @@ void __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke_
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v10);
@@ -1197,12 +1185,12 @@ void __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke_
 
     if ([v7 count] >= 2)
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __62__FCCacheCoordinator_filterKeysForPreemptiveFlush_cacheHints___block_invoke;
-      v20[3] = &unk_1E7C3F390;
-      v21 = v6;
-      [v7 sortUsingComparator:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __62__FCCacheCoordinator_filterKeysForPreemptiveFlush_cacheHints___block_invoke;
+      v19[3] = &unk_1E7C3F390;
+      v20 = v6;
+      [v7 sortUsingComparator:v19];
       v15 = [v7 count] >> 1;
       [v7 removeObjectsInRange:{v15, objc_msgSend(v7, "count") - v15}];
     }
@@ -1218,7 +1206,6 @@ void __57__FCCacheCoordinator_operationThrottlerPerformOperation___block_invoke_
   v17 = *(*(a1 + 40) + 8);
   v18 = *(v17 + 40);
   *(v17 + 40) = v16;
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__FCCacheCoordinator_addInterestInKeys___block_invoke(void *a1)
@@ -1334,33 +1321,33 @@ uint64_t __62__FCCacheCoordinator_filterKeysForPreemptiveFlush_cacheHints___bloc
 
 void __56__FCCacheCoordinator__modifyCacheHintForKeys_withBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v10 = [v3 objectForKeyedSubscript:{v9, v13}];
+          v10 = [v3 objectForKeyedSubscript:{v9, v12}];
           v11 = [v10 copy];
 
           if (!v11)
@@ -1377,13 +1364,11 @@ void __56__FCCacheCoordinator__modifyCacheHintForKeys_withBlock___block_invoke_2
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (FCCacheCoordinatorDelegate)delegate

@@ -345,17 +345,17 @@ void sub_100004070(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_1000040D0(void *result, uint64_t a2)
+uint64_t *sub_1000040D0(uint64_t *a1, uint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1000041DC(_Unwind_Exception *exception_object)
@@ -1901,7 +1901,7 @@ LABEL_22:
   return [*(a1 + 32) removeSystemVolumeObserver];
 }
 
-void sub_10000EC78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *exc_bufa, void *a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60)
+void sub_10000EC78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *exc_bufa, void *a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *a60)
 {
   if (a2)
   {
@@ -1984,7 +1984,7 @@ uint64_t sub_10000F73C()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -2155,23 +2155,23 @@ void sub_10000FFDC(uint64_t a1)
 
   group = dispatch_group_create();
   v3 = dispatch_queue_attr_make_with_qos_class(&_dispatch_queue_attr_concurrent, QOS_CLASS_USER_INTERACTIVE, -1);
-  v23 = dispatch_queue_create("com.apple.avfaudio.xcorr_queue", v3);
+  v22 = dispatch_queue_create("com.apple.avfaudio.xcorr_queue", v3);
 
-  v27 = [*(*(*(a1 + 64) + 8) + 40) splitIntoSingleChannelBuffers];
+  v26 = [*(*(*(a1 + 64) + 8) + 40) splitIntoSingleChannelBuffers];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v40 = sub_10000BCA8;
-  v41 = sub_10000BCB8;
-  v42 = objc_opt_new();
+  v39 = sub_10000BCA8;
+  v40 = sub_10000BCB8;
+  v41 = objc_opt_new();
   obj = objc_alloc_init(NSMutableArray);
   v4 = [*(a1 + 32) micBufferNumbers];
   if (!v4 || ([*(a1 + 32) micBufferNumbers], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count") == 0, v5, v4, v6))
   {
-    for (i = 0; [v27 count] > i; ++i)
+    for (i = 0; [v26 count] > i; ++i)
     {
-      v22 = [NSNumber numberWithInt:i];
-      [obj addObject:v22];
+      v21 = [NSNumber numberWithInt:i];
+      [obj addObject:v21];
     }
   }
 
@@ -2190,42 +2190,42 @@ void sub_10000FFDC(uint64_t a1)
     [v10 addObject:v11];
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obja = obj;
-  v12 = [obja countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v12 = [obja countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v12)
   {
-    v13 = *v35;
+    v13 = *v34;
     do
     {
       for (k = 0; k != v12; k = k + 1)
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(obja);
         }
 
-        v15 = *(*(&v34 + 1) + 8 * k);
-        v28[0] = _NSConcreteStackBlock;
-        v28[1] = 3221225472;
-        v28[2] = sub_100010578;
-        v28[3] = &unk_100020610;
-        v28[4] = v15;
-        v29 = v27;
+        v15 = *(*(&v33 + 1) + 8 * k);
+        v27[0] = _NSConcreteStackBlock;
+        v27[1] = 3221225472;
+        v27[2] = sub_100010578;
+        v27[3] = &unk_100020610;
+        v27[4] = v15;
+        v28 = v26;
         v16 = *(a1 + 32);
         v17 = *(a1 + 40);
         v18 = *(a1 + 48);
-        v30 = v16;
-        v31 = v17;
-        v32 = v18;
-        v33 = buf;
-        v19 = objc_retainBlock(v28);
+        v29 = v16;
+        v30 = v17;
+        v31 = v18;
+        v32 = buf;
+        v19 = objc_retainBlock(v27);
         if ([*(a1 + 32) parallelCrossCorrelationCalculation])
         {
-          dispatch_group_async(group, v23, v19);
+          dispatch_group_async(group, v22, v19);
         }
 
         else
@@ -2234,7 +2234,7 @@ void sub_10000FFDC(uint64_t a1)
         }
       }
 
-      v12 = [obja countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v12 = [obja countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v12);
@@ -2245,7 +2245,6 @@ void sub_10000FFDC(uint64_t a1)
     dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
   }
 
-  v20 = *(*&buf[8] + 40);
   (*(*(a1 + 56) + 16))();
 
   _Block_object_dispose(buf, 8);
@@ -2333,7 +2332,6 @@ void sub_1000107E4(id a1)
 
 uint64_t sub_1000108C8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100025E08 = result;
   return result;

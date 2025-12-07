@@ -564,7 +564,7 @@
           v13 = signLayoutDelegate2;
           if (signLayoutDelegate2)
           {
-            [signLayoutDelegate2 navSignView:self transformForSubview:v11];
+            objc_msgSend_navSignView_transformForSubview_(signLayoutDelegate2);
           }
 
           else

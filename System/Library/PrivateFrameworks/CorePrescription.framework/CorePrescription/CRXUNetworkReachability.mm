@@ -71,20 +71,18 @@ uint64_t __41__CRXUNetworkReachability_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)registerNetworkReachabilityCallback
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 86;
-  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: Error in observing network calls", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 86;
+  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: Error in observing network calls", v1, 0x12u);
 }
 
 - (void)noteReachabilityChange
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 92;
-  _os_log_debug_impl(&dword_24732C000, v0, OS_LOG_TYPE_DEBUG, "%s @%d: (notify) internet is Connected", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 92;
+  _os_log_debug_impl(&dword_24732C000, v0, OS_LOG_TYPE_DEBUG, "%s @%d: (notify) internet is Connected", v1, 0x12u);
 }
 
 @end

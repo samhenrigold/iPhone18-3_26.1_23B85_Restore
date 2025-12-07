@@ -147,12 +147,12 @@ uint64_t __39___HMDDeviceHandle_identifierNamespace__block_invoke()
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDDeviceHandle *)self identifier];
   uUIDString = [identifier UUIDString];
   v6 = [v3 initWithName:@"Identifier" value:uUIDString];
-  v19[0] = v6;
+  v18[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   if ([(HMDDeviceHandle *)self isGlobal])
   {
@@ -165,18 +165,16 @@ uint64_t __39___HMDDeviceHandle_identifierNamespace__block_invoke()
   }
 
   v9 = [v7 initWithName:@"Type" value:v8];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   internal = [(HMDDeviceHandle *)self internal];
   v12 = [v10 initWithName:@"Value" value:internal];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   accountHandle = [(HMDDeviceHandle *)self accountHandle];
   v15 = [v13 initWithName:@"Account Handle" value:accountHandle options:1 formatter:0];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }
@@ -240,16 +238,16 @@ uint64_t __39___HMDDeviceHandle_identifierNamespace__block_invoke()
 
 - (HMDDeviceHandle)initWithInternal:(id)internal
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   if (internalCopy)
   {
-    v15.receiver = self;
-    v15.super_class = HMDDeviceHandle;
-    v5 = [(HMDDeviceHandle *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = HMDDeviceHandle;
+    v5 = [(HMDDeviceHandle *)&v14 init];
     if (v5)
     {
-      v6 = [internalCopy copy];
+      v6 = objc_msgSend_copy(internalCopy);
       internal = v5->_internal;
       v5->_internal = v6;
     }
@@ -267,7 +265,7 @@ uint64_t __39___HMDDeviceHandle_identifierNamespace__block_invoke()
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Missing internal parameter", buf, 0xCu);
     }
 
@@ -275,7 +273,6 @@ uint64_t __39___HMDDeviceHandle_identifierNamespace__block_invoke()
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -312,7 +309,7 @@ uint64_t __39___HMDDeviceHandle_identifierNamespace__block_invoke()
 
 + (id)deviceHandleForDestination:(id)destination
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   if (!destinationCopy)
   {
@@ -322,14 +319,14 @@ uint64_t __39___HMDDeviceHandle_identifierNamespace__block_invoke()
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v13;
+      v19 = 138543362;
+      v20 = v13;
       v14 = "%{public}@Invalid destination, nil";
       v15 = v12;
       v16 = OS_LOG_TYPE_ERROR;
       v17 = 12;
 LABEL_11:
-      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v20, v17);
+      _os_log_impl(&dword_2531F8000, v15, v16, v14, &v19, v17);
     }
 
 LABEL_12:
@@ -348,10 +345,10 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = destinationCopy;
+      v19 = 138543618;
+      v20 = v13;
+      v21 = 2112;
+      v22 = destinationCopy;
       v14 = "%{public}@Invalid device destination: %@";
       v15 = v12;
       v16 = OS_LOG_TYPE_INFO;
@@ -378,8 +375,6 @@ LABEL_12:
 LABEL_13:
   v9 = 0;
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

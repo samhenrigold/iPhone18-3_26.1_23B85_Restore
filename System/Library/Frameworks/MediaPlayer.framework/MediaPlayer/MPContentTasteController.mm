@@ -442,7 +442,7 @@ LABEL_26:
   return v11;
 }
 
-uint64_t __66__MPContentTasteController__libraryEntityWithStoreID_contentType___block_invoke(uint64_t result, uint64_t a2, id *a3, uint64_t a4, _BYTE *a5)
+void *__66__MPContentTasteController__libraryEntityWithStoreID_contentType___block_invoke(void *result, uint64_t a2, id *a3, uint64_t a4, _BYTE *a5)
 {
   if (a3)
   {
@@ -450,7 +450,7 @@ uint64_t __66__MPContentTasteController__libraryEntityWithStoreID_contentType___
     result = [*a3 longLongValue];
     if (result)
     {
-      *(*(*(v6 + 32) + 8) + 24) = result;
+      *(*(v6[4] + 8) + 24) = result;
       *a5 = 1;
     }
   }
@@ -458,7 +458,7 @@ uint64_t __66__MPContentTasteController__libraryEntityWithStoreID_contentType___
   return result;
 }
 
-uint64_t __66__MPContentTasteController__libraryEntityWithStoreID_contentType___block_invoke_2(uint64_t result, uint64_t a2, id *a3, uint64_t a4, _BYTE *a5)
+void *__66__MPContentTasteController__libraryEntityWithStoreID_contentType___block_invoke_2(void *result, uint64_t a2, id *a3, uint64_t a4, _BYTE *a5)
 {
   if (a3)
   {
@@ -466,7 +466,7 @@ uint64_t __66__MPContentTasteController__libraryEntityWithStoreID_contentType___
     result = [*a3 longLongValue];
     if (result)
     {
-      *(*(*(v6 + 32) + 8) + 24) = result;
+      *(*(v6[4] + 8) + 24) = result;
       *a5 = 1;
     }
   }

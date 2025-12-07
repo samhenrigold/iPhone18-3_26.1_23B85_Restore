@@ -34,7 +34,7 @@
 
 - (id)_nextTimerDateAfterDate:(id)date timeZone:(id)zone
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   zoneCopy = zone;
   v8 = objc_autoreleasePoolPush();
@@ -46,15 +46,15 @@
     fireDateComponents = [(HMDCalendarEvent *)selfCopy fireDateComponents];
     eventTrigger = [(HMDEvent *)selfCopy eventTrigger];
     recurrences = [eventTrigger recurrences];
-    v22 = 138544130;
-    v23 = v11;
-    v24 = 2112;
-    v25 = dateCopy;
-    v26 = 2112;
-    v27 = fireDateComponents;
-    v28 = 2112;
-    v29 = recurrences;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Determining next fire date after date %@ using components: %@ recurrence: %@", &v22, 0x2Au);
+    v21 = 138544130;
+    v22 = v11;
+    v23 = 2112;
+    v24 = dateCopy;
+    v25 = 2112;
+    v26 = fireDateComponents;
+    v27 = 2112;
+    v28 = recurrences;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Determining next fire date after date %@ using components: %@ recurrence: %@", &v21, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -63,8 +63,6 @@
   eventTrigger2 = [(HMDEvent *)selfCopy eventTrigger];
   recurrences2 = [eventTrigger2 recurrences];
   v19 = [v15 nextTimerDateAfterDate:dateCopy timeZone:zoneCopy fireDateComponents:fireDateComponents2 recurrences:recurrences2];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -84,30 +82,16 @@
   fireDateComponents = [(HMDCalendarEvent *)self fireDateComponents];
   month = [fireDateComponents month];
 
-  if (month != 0x7FFFFFFFFFFFFFFFLL)
+  v15 = 1;
+  if (month == 0x7FFFFFFFFFFFFFFFLL || (-[HMDCalendarEvent fireDateComponents](self, "fireDateComponents"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 month], v9 = objc_msgSend(matchingCopy, "month"), v7, v8 == v9))
   {
     fireDateComponents2 = [(HMDCalendarEvent *)self fireDateComponents];
-    month2 = [fireDateComponents2 month];
-    month3 = [matchingCopy month];
+    v11 = [fireDateComponents2 day];
 
-    if (month2 != month3)
+    if (v11 == 0x7FFFFFFFFFFFFFFFLL || (-[HMDCalendarEvent fireDateComponents](self, "fireDateComponents"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 day], v14 = objc_msgSend(matchingCopy, "day"), v12, v13 == v14))
     {
-      goto LABEL_6;
+      v15 = 0;
     }
-  }
-
-  fireDateComponents3 = [(HMDCalendarEvent *)self fireDateComponents];
-  v11 = [fireDateComponents3 day];
-
-  if (v11 == 0x7FFFFFFFFFFFFFFFLL || (-[HMDCalendarEvent fireDateComponents](self, "fireDateComponents"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 day], v14 = objc_msgSend(matchingCopy, "day"), v12, v13 == v14))
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-LABEL_6:
-    v15 = 1;
   }
 
   return v15;
@@ -115,7 +99,7 @@ LABEL_6:
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -125,9 +109,9 @@ LABEL_6:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v14;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v14;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v25, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -171,8 +155,6 @@ LABEL_6:
 
     [messageCopy respondWithSuccess];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type
@@ -281,25 +263,22 @@ LABEL_6:
 
 void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (a2)
   {
-    v3 = *MEMORY[0x277D85DE8];
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    [v4 respondWithError:a2];
+    [v3 respondWithError:a2];
   }
 
   else
   {
-    v8 = *MEMORY[0x277CD20E8];
-    v5 = [*(a1 + 40) fireDateComponents];
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-    [v2 respondWithPayload:v6];
-
-    v7 = *MEMORY[0x277D85DE8];
+    v6 = *MEMORY[0x277CD20E8];
+    v4 = [*(a1 + 40) fireDateComponents];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    [v2 respondWithPayload:v5];
   }
 }
 
@@ -326,7 +305,7 @@ void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
   v7 = encodeRootObject();
   [v5 setObject:v7 forKeyedSubscript:*MEMORY[0x277CD20E8]];
 
-  v8 = [v5 copy];
+  v8 = objc_msgSend_copy(v5);
 
   return v8;
 }
@@ -366,34 +345,34 @@ void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
 
 + (id)_nextRecurrentFireDateAfterDate:(id)date recurrences:(id)recurrences
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   recurrencesCopy = recurrences;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   v8 = [currentCalendar component:512 fromDate:dateCopy];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v9 = recurrencesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     v13 = 7;
     v14 = v8;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        weekday = [*(*(&v25 + 1) + 8 * i) weekday];
+        weekday = [*(*(&v24 + 1) + 8 * i) weekday];
         v17 = (weekday - v8 + 7) % 7uLL;
         if (!v17)
         {
@@ -407,7 +386,7 @@ void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
@@ -429,14 +408,12 @@ void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
   currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
   v22 = [currentCalendar2 nextDateAfterDate:dateCopy matchingComponents:v19 options:1024];
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 + (id)nextTimerDateAfterDate:(id)date timeZone:(id)zone fireDateComponents:(id)components recurrences:(id)recurrences
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   zoneCopy = zone;
   componentsCopy = components;
@@ -467,7 +444,7 @@ void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
   [currentCalendar setTimeZone:zoneCopy];
   v16 = [currentCalendar dateFromComponents:v14];
   v17 = [dateCopy compare:v16];
-  v46 = recurrencesCopy;
+  v45 = recurrencesCopy;
   if (![recurrencesCopy count])
   {
     if (v17 != 1)
@@ -475,7 +452,7 @@ void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
       goto LABEL_14;
     }
 
-    v44 = dateCopy;
+    v43 = dateCopy;
     if ([componentsCopy month] == 0x7FFFFFFFFFFFFFFFLL)
     {
       v32 = [componentsCopy day];
@@ -493,9 +470,9 @@ void __41__HMDCalendarEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
         {
           v39 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v39;
-          v49 = 2112;
-          v50 = v35;
+          v47 = v39;
+          v48 = 2112;
+          v49 = v35;
           v40 = "%{public}@Determined next fire date by assigning fire date components to current date and adding one day: %@";
 LABEL_28:
           _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, v40, buf, 0x16u);
@@ -514,9 +491,9 @@ LABEL_28:
         {
           v39 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v48 = v39;
-          v49 = 2112;
-          v50 = v35;
+          v47 = v39;
+          v48 = 2112;
+          v49 = v35;
           v40 = "%{public}@Determined next fire date by assigning fire date components to current date and adding one month: %@";
           goto LABEL_28;
         }
@@ -536,9 +513,9 @@ LABEL_28:
       {
         v39 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v48 = v39;
-        v49 = 2112;
-        v50 = v35;
+        v47 = v39;
+        v48 = 2112;
+        v49 = v35;
         v40 = "%{public}@Determined next fire date by assigning fire date components to current date and adding one year: %@";
         goto LABEL_28;
       }
@@ -547,11 +524,11 @@ LABEL_28:
     objc_autoreleasePoolPop(v36);
     v26 = v35;
 
-    dateCopy = v44;
+    dateCopy = v43;
     goto LABEL_30;
   }
 
-  v45 = currentCalendar;
+  v44 = currentCalendar;
   v18 = zoneCopy;
   v19 = objc_alloc_init(MEMORY[0x277CBEAB8]);
   currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
@@ -561,7 +538,7 @@ LABEL_28:
   {
 
     zoneCopy = v18;
-    currentCalendar = v45;
+    currentCalendar = v44;
 LABEL_14:
     v21 = objc_autoreleasePoolPush();
     selfCopy4 = self;
@@ -571,9 +548,9 @@ LABEL_14:
       HMFGetLogIdentifier();
       v25 = v24 = dateCopy;
       *buf = 138543618;
-      v48 = v25;
-      v49 = 2112;
-      v50 = v16;
+      v47 = v25;
+      v48 = 2112;
+      v49 = v16;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Determined next fire date by assigning fire date components to current date: %@", buf, 0x16u);
 
       dateCopy = v24;
@@ -592,24 +569,22 @@ LABEL_14:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v31 = v43 = dateCopy;
+    v31 = v42 = dateCopy;
     *buf = 138543618;
-    v48 = v31;
-    v49 = 2112;
-    v50 = v27;
+    v47 = v31;
+    v48 = 2112;
+    v49 = v27;
     _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Determined next fire date by assigning fire recurrent date components to current date: %@", buf, 0x16u);
 
-    dateCopy = v43;
+    dateCopy = v42;
   }
 
   objc_autoreleasePoolPop(v28);
   v26 = v27;
 
   zoneCopy = v18;
-  currentCalendar = v45;
+  currentCalendar = v44;
 LABEL_30:
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -628,10 +603,9 @@ LABEL_30:
 
 void __31__HMDCalendarEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_14264;
-  logCategory__hmf_once_v1_14264 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_14264;
+  logCategory__hmf_once_v1_14264 = v0;
 }
 
 @end

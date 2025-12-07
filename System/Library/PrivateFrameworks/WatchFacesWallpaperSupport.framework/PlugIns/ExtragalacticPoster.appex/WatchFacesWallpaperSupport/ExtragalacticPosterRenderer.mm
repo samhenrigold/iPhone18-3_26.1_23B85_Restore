@@ -23,7 +23,6 @@
   transitionCopy = transition;
   selfCopy = self;
   sub_10000D13C(rendererCopy, environment);
-  v10 = *(*(&selfCopy->super.isa + OBJC_IVAR____TtC19ExtragalacticPoster27ExtragalacticPosterRenderer_controller) + OBJC_IVAR____TtC19ExtragalacticPoster29ExtragalacticPosterController_rotationAnimator);
   if ((sub_100013738() & 1) == 0)
   {
     sub_10000383C();

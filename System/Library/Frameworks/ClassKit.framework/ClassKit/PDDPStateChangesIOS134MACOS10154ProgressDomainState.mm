@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (int)StringAsState:(id)state;
 - (int)domain;
@@ -43,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1002064A0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDomain:(id)domain
@@ -112,6 +129,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1002064D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -219,12 +251,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -243,15 +274,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    flags = self->_flags;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

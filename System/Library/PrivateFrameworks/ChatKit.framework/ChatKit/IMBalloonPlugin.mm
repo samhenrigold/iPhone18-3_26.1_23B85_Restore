@@ -73,31 +73,31 @@ void __76__IMBalloonPlugin_ImageLoading____ck_prefetchBrowserImageForInterfaceSt
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __76__IMBalloonPlugin_ImageLoading____ck_prefetchBrowserImageForInterfaceStyle___block_invoke_276(uint64_t a1)
+void __76__IMBalloonPlugin_ImageLoading____ck_prefetchBrowserImageForInterfaceStyle___block_invoke_276(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Finished prefetching browser icon for key - %@", &v6, 0xCu);
+      v4 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Finished prefetching browser icon for key - %@", &v7, 0xCu);
     }
   }
 
-  v4 = +[CKBalloonPluginManager sharedInstance];
-  v5 = [v4 prefetchIconKeys];
-  [v5 removeObject:*(a1 + 32)];
+  v5 = +[CKBalloonPluginManager sharedInstance];
+  v6 = [v5 prefetchIconKeys];
+  [v6 removeObject:*(a1 + 32)];
 }
 
 void __50__IMBalloonPlugin_ImageLoading__appStoreBadgeIcon__block_invoke()
 {
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"AppStoreIcon-%f", 0x4040000000000000];
   v1 = MEMORY[0x1E69DCAB8];
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(v0);
   v3 = [v1 badgeIconForImageNamed:v0 inBundle:v2];
 
   v4 = appStoreBadgeIcon_sBehavior;
@@ -108,7 +108,7 @@ void __49__IMBalloonPlugin_ImageLoading__recentsBadgeIcon__block_invoke()
 {
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RecentsIcon-%f", 0x4040000000000000];
   v1 = MEMORY[0x1E69DCAB8];
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(v0);
   v3 = [v1 badgeIconForImageNamed:v0 inBundle:v2];
 
   v4 = recentsBadgeIcon_sBehavior;

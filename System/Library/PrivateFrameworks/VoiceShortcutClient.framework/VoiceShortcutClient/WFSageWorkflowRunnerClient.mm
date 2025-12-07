@@ -5,6 +5,7 @@
 - (void)completeStepExecutionForActionIdentifier:(id)identifier serializedVariable:(id)variable executionResultMetadata:(id)metadata error:(id)error;
 - (void)extractVariableContentFromEncodedReference:(id)reference withResolutionRequest:(id)request completionHandler:(id)handler;
 - (void)fetchDisplayValueForRequest:(id)request completionHandler:(id)handler;
+- (void)fetchToolInvocationSummaryForInvocation:(id)invocation fetchingDefaultValues:(BOOL)values completionHandler:(id)handler;
 - (void)forTestingOnly_simulateXPCInterruption;
 - (void)injectContentAsVariable:(id)variable completionHandler:(id)handler;
 - (void)outOfProcessWorkflowController:(id)controller didFinishWithResult:(id)result dialogAttribution:(id)attribution runResidency:(unint64_t)residency;
@@ -12,6 +13,7 @@
 - (void)performDialogRequest:(id)request completionHandler:(id)handler;
 - (void)performQuery:(id)query inValueSet:(id)set toolInvocation:(id)invocation options:(id)options completionHandler:(id)handler;
 - (void)performSiriRequest:(id)request completionHandler:(id)handler;
+- (void)resignDialogHandlingIfNeededWithPersistentMode:(BOOL)mode;
 - (void)resolveContent:(id)content completionHandler:(id)handler;
 - (void)resolveDeferredValueFromEncodedStorage:(id)storage withResolutionRequest:(id)request completionHandler:(id)handler;
 - (void)start;
@@ -76,14 +78,14 @@ void __69__WFSageWorkflowRunnerClient_performDialogRequest_completionHandler___b
 
 - (void)performSiriRequest:(id)request completionHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v10 = 136315138;
-    v11 = "[WFSageWorkflowRunnerClient performSiriRequest:completionHandler:]";
-    _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_FAULT, "%s Sage workflow runner client should not receive siri action requests, ignoring.", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[WFSageWorkflowRunnerClient performSiriRequest:completionHandler:]";
+    _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_FAULT, "%s Sage workflow runner client should not receive siri action requests, ignoring.", &v9, 0xCu);
   }
 
   v6 = [WFSiriActionResponse alloc];
@@ -91,7 +93,6 @@ void __69__WFSageWorkflowRunnerClient_performDialogRequest_completionHandler___b
   v8 = [(WFSiriActionResponse *)v6 initWithError:wfSiriExecutionRequiresShortcutsJrError];
 
   handlerCopy[2](handlerCopy, v8);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -220,6 +221,13 @@ LABEL_8:
   [workflowController forTestingOnly_simulateXPCInterruption];
 }
 
+- (void)resignDialogHandlingIfNeededWithPersistentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  workflowController = [(WFWorkflowRunnerClient *)self workflowController];
+  [workflowController resignDialogHandlingIfNeededWithPersistentMode:modeCopy];
+}
+
 - (void)fetchDisplayValueForRequest:(id)request completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -245,6 +253,23 @@ LABEL_8:
   actionCopy = action;
   workflowController = [(WFWorkflowRunnerClient *)self workflowController];
   [workflowController transformAction:actionCopy completionHandler:handlerCopy];
+}
+
+- (void)fetchToolInvocationSummaryForInvocation:(id)invocation fetchingDefaultValues:(BOOL)values completionHandler:(id)handler
+{
+  valuesCopy = values;
+  handlerCopy = handler;
+  invocationCopy = invocation;
+  workflowController = [(WFWorkflowRunnerClient *)self workflowController];
+
+  if (!workflowController)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFSageWorkflowRunnerClient.m" lineNumber:113 description:@"Please call -start before calling this method"];
+  }
+
+  workflowController2 = [(WFWorkflowRunnerClient *)self workflowController];
+  [workflowController2 fetchToolInvocationSummaryForInvocation:invocationCopy fetchingDefaultValues:valuesCopy completionHandler:handlerCopy];
 }
 
 - (void)resolveDeferredValueFromEncodedStorage:(id)storage withResolutionRequest:(id)request completionHandler:(id)handler

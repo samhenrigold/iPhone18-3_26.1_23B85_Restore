@@ -336,7 +336,7 @@ LABEL_18:
     v5 = *(self + 40);
     if (v5)
     {
-      offsetCopy = [v5 offsetsByApplyingOffsets:?];
+      offsetCopy = [v5 offsetsByApplyingOffsets:offset];
     }
 
     else
@@ -373,7 +373,7 @@ LABEL_18:
   if (self)
   {
     v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(self[1], "count")}];
-    v3 = *(selfCopy + 1);
+    v3 = selfCopy[1];
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
     v11[2] = __59___UICollectionPreferredSizes_copyByDirtyingPreferredSizes__block_invoke;
@@ -382,7 +382,7 @@ LABEL_18:
     v4 = v2;
     [v3 enumerateKeysAndObjectsUsingBlock:v11];
     v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v6 = *(selfCopy + 3);
+    v6 = selfCopy[3];
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
     v9[2] = __59___UICollectionPreferredSizes_copyByDirtyingPreferredSizes__block_invoke_2;
@@ -390,7 +390,7 @@ LABEL_18:
     v10 = v5;
     v7 = v5;
     [v6 enumerateKeysAndObjectsUsingBlock:v9];
-    selfCopy = [[_UICollectionPreferredSizes alloc] initWithSizes:v4 indexes:*(selfCopy + 2) supplementarySizesDict:v7 frameOffset:*(selfCopy + 4) supplementaryBaseOffsets:*(selfCopy + 5)];
+    selfCopy = [[_UICollectionPreferredSizes alloc] initWithSizes:v4 indexes:selfCopy[2] supplementarySizesDict:v7 frameOffset:selfCopy[4] supplementaryBaseOffsets:selfCopy[5]];
   }
 
   return selfCopy;

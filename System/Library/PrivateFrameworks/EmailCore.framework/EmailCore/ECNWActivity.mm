@@ -18,7 +18,6 @@
   v7 = v6;
   if (v6 && !*(v6 + 16))
   {
-    v8 = *(v6 + 8);
     nw_connection_start_activity();
     objc_storeStrong(v7 + 2, connection);
   }
@@ -33,9 +32,8 @@
   v5 = [threadDictionary objectForKeyedSubscript:@"_ECNWActivityCurrentActivity"];
   if (v5 && v5[2] == connectionCopy)
   {
-    v6 = v5[1];
     nw_connection_end_activity();
-    v7 = v5[2];
+    v6 = v5[2];
     v5[2] = 0;
   }
 }
@@ -60,11 +58,10 @@
   currentThread = [MEMORY[0x277CCACC8] currentThread];
   threadDictionary = [currentThread threadDictionary];
 
-  activity = self->_activity;
   nw_activity_activate();
-  v6 = [threadDictionary objectForKeyedSubscript:@"_ECNWActivityCurrentActivity"];
+  v5 = [threadDictionary objectForKeyedSubscript:@"_ECNWActivityCurrentActivity"];
 
-  if (v6)
+  if (v5)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"ECNWActivity.m" lineNumber:49 description:@"We don't currently support nesting activities"];
@@ -85,7 +82,6 @@
     [threadDictionary setObject:0 forKeyedSubscript:@"_ECNWActivityCurrentActivity"];
   }
 
-  activity = self->_activity;
   nw_activity_complete_with_reason();
 }
 

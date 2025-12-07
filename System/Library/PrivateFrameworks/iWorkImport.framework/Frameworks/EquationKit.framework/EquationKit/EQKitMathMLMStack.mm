@@ -21,9 +21,9 @@
 
 - (id)initFromXMLNode:(_xmlNode *)node parser:(id)parser
 {
-  v6 = objc_msgSend_parseChildrenAsArrayFromXMLNode_(parser, a2, node, parser);
+  v5 = [parser parseChildrenAsArrayFromXMLNode:node];
 
-  return objc_msgSend_initWithChildren_(self, v5, v6, v7);
+  return [(EQKitMathMLMStack *)self initWithChildren:v5];
 }
 
 - (const)mathMLAttributes
@@ -39,78 +39,76 @@
 
 - (EQKitMathMLMStack)initWithChildren:(id)children
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v39.receiver = self;
-  v39.super_class = EQKitMathMLMStack;
-  v4 = [(EQKitMathMLMStack *)&v39 init];
-  v8 = v4;
+  v25 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = EQKitMathMLMStack;
+  v4 = [(EQKitMathMLMStack *)&v23 init];
+  v5 = v4;
   if (v4)
   {
     v4->mAlign = 0;
-    v9 = objc_msgSend_count(children, v5, v6, v7);
-    if (v9)
+    v6 = [children count];
+    if (v6)
     {
-      v12 = v9;
-      v13 = 0;
-      for (i = 0; i != v12; ++i)
+      v7 = v6;
+      v8 = 0;
+      for (i = 0; i != v7; ++i)
       {
-        v15 = objc_msgSend_objectAtIndex_(children, v10, i, v11);
+        v10 = [children objectAtIndex:i];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          if (!v13)
+          if (!v8)
           {
-            v13 = objc_msgSend_mutableCopy(children, v10, v16, v11);
-            children = v13;
+            v8 = [children mutableCopy];
+            children = v8;
           }
 
-          v17 = objc_alloc(MEMORY[0x277CBEA60]);
-          v20 = objc_msgSend_initWithObjects_(v17, v18, v15, v19, 0);
-          v21 = [EQKitMathMLMStackGroup alloc];
-          v24 = objc_msgSend_initWithChildren_(v21, v22, v20, v23);
-          objc_msgSend_replaceObjectAtIndex_withObject_(v13, v25, i, v24);
+          v11 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{v10, 0}];
+          v12 = [[EQKitMathMLMStackGroup alloc] initWithChildren:v11];
+          [v8 replaceObjectAtIndex:i withObject:v12];
         }
       }
     }
 
     else
     {
-      v13 = 0;
+      v8 = 0;
     }
 
     childrenCopy = children;
-    v8->mChildren = childrenCopy;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(childrenCopy, v27, &v35, v40, 16);
-    if (v28)
+    v5->mChildren = childrenCopy;
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v14 = [(NSArray *)childrenCopy countByEnumeratingWithState:&v19 objects:v24 count:16];
+    if (v14)
     {
-      v31 = v28;
-      v32 = *v36;
+      v15 = v14;
+      v16 = *v20;
       do
       {
-        v33 = 0;
+        v17 = 0;
         do
         {
-          if (*v36 != v32)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(childrenCopy);
           }
 
-          objc_msgSend_setParent_(*(*(&v35 + 1) + 8 * v33++), v29, v8, v30);
+          [*(*(&v19 + 1) + 8 * v17++) setParent:v5];
         }
 
-        while (v31 != v33);
-        v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(childrenCopy, v29, &v35, v40, 16);
+        while (v15 != v17);
+        v15 = [(NSArray *)childrenCopy countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
-      while (v31);
+      while (v15);
     }
   }
 
-  return v8;
+  return v5;
 }
 
 - (void)dealloc
@@ -122,39 +120,39 @@
 
 - (BOOL)isBaseFontNameUsed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   mChildren = self->mChildren;
-  v3 = objc_msgSend_countByEnumeratingWithState_objects_count_(mChildren, a2, &v11, v15, 16);
+  v3 = [(NSArray *)mChildren countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v7 = v3;
-    v8 = *v12;
+    v4 = v3;
+    v5 = *v9;
     while (2)
     {
-      v9 = 0;
+      v6 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(mChildren);
         }
 
-        if (objc_msgSend_isBaseFontNameUsed(*(*(&v11 + 1) + 8 * v9), v4, v5, v6))
+        if ([*(*(&v8 + 1) + 8 * v6) isBaseFontNameUsed])
         {
           LOBYTE(v3) = 1;
           return v3;
         }
 
-        ++v9;
+        ++v6;
       }
 
-      while (v7 != v9);
-      v3 = objc_msgSend_countByEnumeratingWithState_objects_count_(mChildren, v4, &v11, v15, 16);
-      v7 = v3;
+      while (v4 != v6);
+      v3 = [(NSArray *)mChildren countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = v3;
       if (v3)
       {
         continue;

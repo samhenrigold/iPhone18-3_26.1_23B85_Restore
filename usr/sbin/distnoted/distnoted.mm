@@ -97,6 +97,13 @@ LABEL_3:
   }
 }
 
+void sub_100000F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 ClientOfLocalNoteServer *sub_100000FB8(uint64_t a1, uint64_t a2)
 {
   v2 = [[ClientOfLocalNoteServer alloc] initWithClientConnection:a2 configuration:*(a1 + 32)];
@@ -144,28 +151,28 @@ void sub_100001004(uint64_t a1, xpc_object_t object)
 
       *(v9 + 8) = 0;
       v11 = [*(a1 + 40) __invalidate];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
-      v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v19;
+        v14 = *v18;
         do
         {
           for (i = 0; i != v13; i = i + 1)
           {
-            if (*v19 != v14)
+            if (*v18 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            (*(*(*(&v18 + 1) + 8 * i) + 16))();
+            (*(*(*(&v17 + 1) + 8 * i) + 16))();
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v13);
@@ -188,7 +195,6 @@ void sub_100001004(uint64_t a1, xpc_object_t object)
     else if (object == &_xpc_error_termination_imminent)
     {
       [*(a1 + 40) __terminationImminent];
-      v17 = *(a1 + 40);
       CFLog();
     }
 
@@ -213,60 +219,58 @@ void sub_100001004(uint64_t a1, xpc_object_t object)
 id sub_100001E20(NSObject *a1, uint64_t a2)
 {
   v3 = [*(a2 + 8) allClients];
+  v23 = 0u;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
   v4 = v3;
-  result = [v3 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  result = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (result)
   {
     v6 = result;
-    v7 = *v26;
+    v7 = *v24;
     do
     {
       v8 = 0;
       do
       {
-        if (*v26 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * v8);
+        v9 = *(*(&v23 + 1) + 8 * v8);
         if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
         {
-          v14 = [objc_msgSend(v9 "processName")];
-          v15 = *(v9 + 72);
+          v12 = [objc_msgSend(v9 "processName")];
+          v13 = *(v9 + 72);
           *buf = 136446466;
-          v30 = v14;
-          v31 = 1024;
-          v32 = v15;
+          v28 = v12;
+          v29 = 1024;
+          v30 = v13;
           _os_log_debug_impl(&_mh_execute_header, a1, OS_LOG_TYPE_DEBUG, "Registrations: <%{public}s (%d)>", buf, 0x12u);
         }
 
-        v10 = *(v9 + 24);
-        v20 = _NSConcreteStackBlock;
-        v21 = 3221225472;
-        v22 = sub_1000020F4;
-        v23 = &unk_1000083E8;
-        v24 = a1;
+        v18 = _NSConcreteStackBlock;
+        v19 = 3221225472;
+        v20 = sub_1000020F4;
+        v21 = &unk_1000083E8;
+        v22 = a1;
         CFXNotificationRegistrarEnumerate();
         if (xpc_array_get_count(*(v9 + 32)))
         {
-          v11 = *(v9 + 32);
-          v12 = _CFXPCCreateCFObjectFromXPCObject();
-          if (v12)
+          v10 = _CFXPCCreateCFObjectFromXPCObject();
+          if (v10)
           {
-            v13 = v12;
+            v11 = v10;
             if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v30 = v13;
+              v28 = v11;
               _os_log_debug_impl(&_mh_execute_header, a1, OS_LOG_TYPE_DEBUG, "    Message Queue: %{public}@", buf, 0xCu);
             }
 
-            CFRelease(v13);
+            CFRelease(v11);
           }
         }
 
@@ -274,12 +278,12 @@ id sub_100001E20(NSObject *a1, uint64_t a2)
         {
           if (sandbox_check_by_reference() && os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
           {
-            sub_100004530(&v18, v19, a1);
+            sub_100004530(&v16, v17, a1);
           }
 
           if ((*(v9 + 64) & 0x8000000000000000) == 0 && !sandbox_check_by_reference() && os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
           {
-            sub_100004570(&v16, v17, a1);
+            sub_100004570(&v14, v15, a1);
           }
         }
 
@@ -287,7 +291,7 @@ id sub_100001E20(NSObject *a1, uint64_t a2)
       }
 
       while (v6 != v8);
-      result = [v4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      result = [v4 countByEnumeratingWithState:&v23 objects:v31 count:16];
       v6 = result;
     }
 
@@ -336,7 +340,7 @@ void sub_100002714(uint64_t a1, void *a2)
     if (v5)
     {
       v6 = v5;
-      v36 = v5;
+      v32 = v5;
       CFLog();
       CFRelease(v6);
     }
@@ -371,28 +375,28 @@ void sub_100002714(uint64_t a1, void *a2)
       else
       {
         v19 = [*(*(a1 + 40) + 8) allClients];
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v20 = [v19 countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v37 = 0u;
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v20 = [v19 countByEnumeratingWithState:&v35 objects:v47 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v40;
+          v22 = *v36;
           do
           {
             for (i = 0; i != v21; i = i + 1)
             {
-              if (*v40 != v22)
+              if (*v36 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              [*(*(&v39 + 1) + 8 * i) handlePost:a2 userInfo:value];
+              [*(*(&v35 + 1) + 8 * i) handlePost:a2 userInfo:value];
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v39 objects:v51 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v35 objects:v47 count:16];
           }
 
           while (v21);
@@ -428,7 +432,6 @@ void sub_100002714(uint64_t a1, void *a2)
     {
       if (xpc_dictionary_get_uint64(a2, "version") == 1)
       {
-        v24 = *(*v4 + 72);
         *(*v4 + 40) = 1;
       }
     }
@@ -437,16 +440,15 @@ void sub_100002714(uint64_t a1, void *a2)
     {
       if (xpc_dictionary_get_uint64(a2, "version") == 1)
       {
-        v25 = *(*v4 + 72);
         *(*v4 + 40) = 0;
-        v26 = *v4;
-        v27 = *(*v4 + 32);
-        v37[0] = _NSConcreteStackBlock;
-        v37[1] = 3221225472;
-        v37[2] = sub_100003320;
-        v37[3] = &unk_100008488;
-        v37[4] = v26;
-        xpc_array_apply(v27, v37);
+        v24 = *v4;
+        v25 = *(*v4 + 32);
+        v33[0] = _NSConcreteStackBlock;
+        v33[1] = 3221225472;
+        v33[2] = sub_100003320;
+        v33[3] = &unk_100008488;
+        v33[4] = v24;
+        xpc_array_apply(v25, v33);
         xpc_release(*(*v4 + 32));
         *(*v4 + 32) = xpc_array_create(0, 0);
       }
@@ -454,9 +456,9 @@ void sub_100002714(uint64_t a1, void *a2)
 
     else if (!strcmp(v8, "monitor"))
     {
-      v35 = *v4;
+      v31 = *v4;
 
-      [v35 startMonitoring];
+      [v31 startMonitoring];
     }
 
     else if (!strcmp(v8, "dump"))
@@ -526,21 +528,21 @@ LABEL_45:
     goto LABEL_55;
   }
 
-  v28 = kCFNotificationAnyName;
+  v26 = kCFNotificationAnyName;
   if (CFEqual(v15, kCFNotificationAnyName))
   {
     CFRelease(v15);
-    v15 = v28;
+    v15 = v26;
   }
 
-  v29 = kCFNotificationAnyObject;
+  v27 = kCFNotificationAnyObject;
   if (CFEqual(v16, kCFNotificationAnyObject))
   {
     CFRelease(v16);
-    v16 = v29;
+    v16 = v27;
   }
 
-  if ((*(*v4 + 64) & 0x8000000000000000) == 0 && !sandbox_check_by_reference() && v15 == v28 && v16 == v29)
+  if ((*(*v4 + 64) & 0x8000000000000000) == 0 && !sandbox_check_by_reference() && v15 == v26 && v16 == v27)
   {
     CFRelease(v15);
 LABEL_58:
@@ -555,24 +557,22 @@ LABEL_58:
     sub_100004654();
   }
 
-  v31 = qword_10000CC60;
+  v29 = qword_10000CC60;
   if (os_log_type_enabled(qword_10000CC60, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = *(*v4 + 72);
+    v30 = *(*v4 + 72);
     *buf = 138544130;
-    v44 = v15;
-    v45 = 2114;
-    v46 = v16;
-    v47 = 2048;
-    v48 = uint64;
-    v49 = 1024;
-    v50 = v32;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "register name: %{public}@ object: %{public}@ token: %llx pid: %d", buf, 0x26u);
+    v40 = v15;
+    v41 = 2114;
+    v42 = v16;
+    v43 = 2048;
+    v44 = uint64;
+    v45 = 1024;
+    v46 = v30;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "register name: %{public}@ object: %{public}@ token: %llx pid: %d", buf, 0x26u);
   }
 
   xpc_dictionary_get_uint64(a2, "options");
-  v33 = *(*v4 + 24);
-  v34 = kCFXNotificationEmptyHandler[1];
   CFXNotificationRegistrarAddRemoteToken();
   CFRelease(v15);
   CFRelease(v16);
@@ -580,7 +580,7 @@ LABEL_58:
 
 char *sub_100002ED0(void *a1)
 {
-  v11 = 0;
+  v9 = 0;
   string = xpc_dictionary_get_string(a1, "method");
   if (!string)
   {
@@ -595,33 +595,29 @@ char *sub_100002ED0(void *a1)
     xpc_dictionary_get_uint64(a1, "version");
     xpc_dictionary_get_string(a1, "name");
     xpc_dictionary_get_string(a1, "object");
-    asprintf(&v11, "[ %s v%llu '%s' '%s' %s ]");
+    asprintf(&v9, "[ %s v%llu '%s' '%s' %s ]");
   }
 
   else if (!strcmp(v3, "post_token") || !strcmp(v3, "register"))
   {
-    uint64 = xpc_dictionary_get_uint64(a1, "options");
-    if (!strcmp(v3, "register") && uint64 - 1 < 8)
-    {
-      v5 = off_1000085A8[uint64 - 1];
-    }
-
+    xpc_dictionary_get_uint64(a1, "options");
+    strcmp(v3, "register");
     xpc_dictionary_get_string(a1, "method");
     xpc_dictionary_get_uint64(a1, "version");
     xpc_dictionary_get_string(a1, "name");
     xpc_dictionary_get_string(a1, "object");
     xpc_dictionary_get_uint64(a1, "token");
-    asprintf(&v11, "[ %s v%llu '%s' '%s' %s %llu ]");
+    asprintf(&v9, "[ %s v%llu '%s' '%s' %s %llu ]");
   }
 
   else if (!strcmp(v3, "unregister"))
   {
     value = xpc_dictionary_get_value(a1, "tokens");
-    v7 = xpc_copy_description(value);
-    v8 = xpc_dictionary_get_string(a1, "method");
-    v9 = xpc_dictionary_get_uint64(a1, "version");
-    asprintf(&v11, "[ %s v%llu %s ]", v8, v9, v7);
-    free(v7);
+    v5 = xpc_copy_description(value);
+    v6 = xpc_dictionary_get_string(a1, "method");
+    uint64 = xpc_dictionary_get_uint64(a1, "version");
+    asprintf(&v9, "[ %s v%llu %s ]", v6, uint64, v5);
+    free(v5);
   }
 
   else
@@ -629,19 +625,19 @@ char *sub_100002ED0(void *a1)
     if (strcmp(v3, "ping") && strcmp(v3, "suspend") && strcmp(v3, "unsuspend"))
     {
 LABEL_10:
-      v11 = xpc_copy_description(a1);
-      goto LABEL_18;
+      v9 = xpc_copy_description(a1);
+      goto LABEL_15;
     }
 
     xpc_dictionary_get_string(a1, "method");
     xpc_dictionary_get_uint64(a1, "version");
-    asprintf(&v11, "[ %s v%llu ]");
+    asprintf(&v9, "[ %s v%llu ]");
   }
 
-LABEL_18:
-  if (v11)
+LABEL_15:
+  if (v9)
   {
-    return v11;
+    return v9;
   }
 
   else
@@ -662,14 +658,13 @@ uint64_t sub_10000322C(uint64_t a1, int a2, xpc_object_t xuint)
   if (os_log_type_enabled(qword_10000CC60, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(a1 + 32) + 72);
-    v9 = 134218240;
-    v10 = value;
-    v11 = 1024;
-    v12 = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "unregister token: %llx pid: %d", &v9, 0x12u);
+    v8 = 134218240;
+    v9 = value;
+    v10 = 1024;
+    v11 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "unregister token: %llx pid: %d", &v8, 0x12u);
   }
 
-  v7 = *(*(a1 + 32) + 24);
   CFXNotificationRegistrarRemoveRemoteToken();
   return 1;
 }

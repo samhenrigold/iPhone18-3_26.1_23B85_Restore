@@ -67,7 +67,7 @@ void ___CNLoadMetadataTrackForVideoTrack_block_invoke(uint64_t a1, void *a2, voi
     while (v10);
   }
 
-  dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
+  v15 = dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
   if (*(v33 + 24) == 1)
   {
     v19[2](v19, v37[5], 0);
@@ -75,29 +75,26 @@ void ___CNLoadMetadataTrackForVideoTrack_block_invoke(uint64_t a1, void *a2, voi
 
   else
   {
-    v15 = _CNLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = _CNLogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      ___CNLoadMetadataTrackForVideoTrack_block_invoke_cold_1(v21, v15);
+      ___CNLoadMetadataTrackForVideoTrack_block_invoke_cold_1(v21, v16);
     }
 
-    v16 = _CNCinematicError(3, 0);
-    (v19)[2](v19, 0, v16);
+    v17 = _CNCinematicError(3, 0);
+    (v19)[2](v19, 0, v17);
   }
 
   _Block_object_dispose(&v32, 8);
   _Block_object_dispose(&v36, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void ___CNLoadMetadataTrackForVideoTrack_block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_236F52000, a2, OS_LOG_TYPE_DEBUG, "Error: Unable to find metadata track for video track %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_236F52000, a2, OS_LOG_TYPE_DEBUG, "Error: Unable to find metadata track for video track %@", &v2, 0xCu);
 }
 
 @end

@@ -18,6 +18,7 @@
 - (void)clearEngagementsFrom:(id)from to:(id)to;
 - (void)clearEngagementsWithTitle:(id)title type:(id)type;
 - (void)clearSafariFeedback:(id)feedback;
+- (void)didSkipSearch:(int)search input:(id)input queryId:(unint64_t)id;
 - (void)fileHandleAndAttributesForResource:(id)resource completion:(id)completion;
 - (void)loadImage:(SFImage *)image context:(SFImageContext *)context completionHandler:(id)handler;
 - (void)loadWithTask:(id)task;
@@ -41,7 +42,7 @@
   configurationCopy = configuration;
   connectionCopy = connection;
   swift_unknownObjectRetain();
-  return PARSessionSwiftInternal.init(session:configuration:connection:delegate:)(sessionCopy, configurationCopy, connection);
+  return PARSessionSwiftInternal.init(session:configuration:connection:delegate:)(sessionCopy, configurationCopy, connection, delegate);
 }
 
 - (void)start
@@ -54,7 +55,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B1068FC8();
+  sub_1B1068FC8(delegate);
 }
 
 - (PARBag)bag
@@ -162,12 +163,11 @@
 
 - (unint64_t)safariAssistantEnabledStatusForPageLanguage:(id)language
 {
-  v4 = sub_1B1122A5C();
-  v6 = v5;
+  sub_1B1122A5C();
   selfCopy = self;
-  v8 = sub_1B108EB1C(v4, v6);
+  v5 = sub_1B108EB1C();
 
-  return v8;
+  return v5;
 }
 
 - (unint64_t)safariAssistantEnabledStatus
@@ -183,14 +183,13 @@
 {
   v6 = sub_1B112186C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B112183C();
   selfCopy = self;
-  sub_1B108F270(v10, query);
+  sub_1B108F270(v9, query);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)clearSafariFeedback:(id)feedback
@@ -254,7 +253,7 @@
   sendCopy = send;
   selfCopy = self;
   PARSessionSwiftInternal.send(_:completion:)(sendCopy, v6, v7);
-  sub_1B106E740(v6);
+  sub_1B106E740(v6, v7);
 }
 
 - (void)sendCustomFeedback:(id)feedback
@@ -262,6 +261,25 @@
   feedbackCopy = feedback;
   selfCopy = self;
   PARSessionSwiftInternal.send(_:)(feedbackCopy);
+}
+
+- (void)didSkipSearch:(int)search input:(id)input queryId:(unint64_t)id
+{
+  v5 = *&search;
+  if (input)
+  {
+    v7 = sub_1B1122A5C();
+    v9 = v8;
+  }
+
+  else
+  {
+    v7 = 0;
+    v9 = 0;
+  }
+
+  selfCopy = self;
+  PARSessionSwiftInternal.didSkipSearch(_:input:queryId:)(v5, v7, v9);
 }
 
 - (void)addCompletion:(id)completion forInput:(id)input
@@ -282,19 +300,18 @@
 {
   v5 = sub_1B112194C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v15 - v11;
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v14 - v10;
   sub_1B112192C();
   sub_1B112192C();
   selfCopy = self;
   PARSessionSwiftInternal.clearEngagements(from:to:)();
 
-  v14 = *(v6 + 8);
-  v14(v10, v5);
-  v14(v12, v5);
+  v13 = *(v6 + 8);
+  v13(v9, v5);
+  v13(v11, v5);
 }
 
 - (void)clearEngagementsWithTitle:(id)title type:(id)type
@@ -344,7 +361,7 @@
 
   selfCopy = self;
   PARSessionSwiftInternal.addEngagedResults(_:completion:)(v6, v5, v7);
-  sub_1B106E740(v5);
+  sub_1B106E740(v5, v7);
 }
 
 - (void)clearEngagedResults:(id)results completion:(id)completion
@@ -354,13 +371,19 @@
   v6 = sub_1B1122B8C();
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v5;
     v5 = sub_1B10997C4;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   selfCopy = self;
   PARSessionSwiftInternal.clearEngagedResults(_:completion:)(v6, v5);
-  sub_1B106E740(v5);
+  sub_1B106E740(v5, v7);
 }
 
 @end

@@ -40,7 +40,7 @@
 
 - (id)description
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if ([(BBGlobalSettings *)self globalContentPreviewSetting])
   {
     v3 = BBStringFromBBContentPreviewSetting([(BBGlobalSettings *)self globalContentPreviewSetting]);
@@ -90,35 +90,35 @@
   {
     v14 = [(__CFString *)v4 stringByAppendingFormat:@"Scheduled Delivery Times: [ "];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     globalScheduledDeliveryTimes2 = [(BBGlobalSettings *)self globalScheduledDeliveryTimes];
-    v16 = [globalScheduledDeliveryTimes2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v16 = [globalScheduledDeliveryTimes2 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v35;
+      v18 = *v34;
       do
       {
         v19 = 0;
         v20 = v14;
         do
         {
-          if (*v35 != v18)
+          if (*v34 != v18)
           {
             objc_enumerationMutation(globalScheduledDeliveryTimes2);
           }
 
-          v14 = [v20 stringByAppendingFormat:@" %li:%li, ", objc_msgSend(*(*(&v34 + 1) + 8 * v19), "hour"), objc_msgSend(*(*(&v34 + 1) + 8 * v19), "minute")];
+          v14 = [v20 stringByAppendingFormat:@" %li:%li, ", objc_msgSend(*(*(&v33 + 1) + 8 * v19), "hour"), objc_msgSend(*(*(&v33 + 1) + 8 * v19), "minute")];
 
           ++v19;
           v20 = v14;
         }
 
         while (v17 != v19);
-        v17 = [globalScheduledDeliveryTimes2 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v17 = [globalScheduledDeliveryTimes2 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v17);
@@ -159,12 +159,10 @@
     v4 = v28;
   }
 
-  v33.receiver = self;
-  v33.super_class = BBGlobalSettings;
-  v29 = [(BBGlobalSettings *)&v33 description];
+  v32.receiver = self;
+  v32.super_class = BBGlobalSettings;
+  v29 = [(BBGlobalSettings *)&v32 description];
   v30 = [v29 stringByAppendingString:v4];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

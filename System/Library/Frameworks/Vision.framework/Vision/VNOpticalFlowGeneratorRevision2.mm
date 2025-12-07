@@ -593,11 +593,11 @@ LABEL_24:
   return v31;
 }
 
-NSString *__129__VNOpticalFlowGeneratorRevision2_createRegionOfInterestCrop_options_qosClass_warningRecorder_pixelBuffer_error_progressHandler___block_invoke()
+NSString *__129__VNOpticalFlowGeneratorRevision2_createRegionOfInterestCrop_options_qosClass_warningRecorder_pixelBuffer_error_progressHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (BOOL)completeInitializationForSession:(id)session error:(id *)error

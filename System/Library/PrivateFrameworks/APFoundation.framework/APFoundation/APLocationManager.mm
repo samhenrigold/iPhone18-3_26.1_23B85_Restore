@@ -106,27 +106,27 @@
 
 - (void)updatePlacemark
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (!self->_updatingPlacemark)
   {
     v5 = objc_msgSend_location(self, a2, v2, v3);
     lastPlacemarkLocation = self->_lastPlacemarkLocation;
     if (lastPlacemarkLocation && (objc_msgSend_distanceFromLocation_(lastPlacemarkLocation, v7, v5, v8), v11 = *MEMORY[0x1E6985C90], v10 < *MEMORY[0x1E6985C90]))
     {
-      v33 = v10;
+      v32 = v10;
       v6 = APLogForCategory(0x1CuLL);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v34 = objc_opt_class();
-        v35 = MEMORY[0x1E696AD98];
-        v36 = v34;
-        v40 = objc_msgSend_numberWithDouble_(v35, v37, v38, v39, v11);
+        v33 = objc_opt_class();
+        v34 = MEMORY[0x1E696AD98];
+        v35 = v33;
+        v39 = objc_msgSend_numberWithDouble_(v34, v36, v37, v38, v11);
         *buf = 138478339;
-        v43 = v34;
-        v44 = 2048;
-        v45 = *&v33;
-        v46 = 2114;
-        v47 = v40;
+        v42 = v33;
+        v43 = 2048;
+        v44 = *&v32;
+        v45 = 2114;
+        v46 = v39;
         _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_INFO, "[%{private}@] Distance traveled (%f meters) is less than %{public}@ meters. No need to update Reverse Geolocation.", buf, 0x20u);
       }
     }
@@ -149,28 +149,28 @@
           v24 = v22;
           v27 = objc_msgSend_localeWithLocaleIdentifier_(v23, v25, @"en_US", v26);
           *buf = 138478339;
-          v43 = v22;
-          v44 = 2117;
-          v45 = v5;
-          v46 = 2113;
-          v47 = v27;
+          v42 = v22;
+          v43 = 2117;
+          v44 = v5;
+          v45 = 2113;
+          v46 = v27;
           _os_log_impl(&dword_1BADC1000, v21, OS_LOG_TYPE_DEBUG, "[%{private}@ updatePlacemark]: calling reverseGeocodeLocation with parameters:\nlocation = %{sensitive}@\npreferredLocale = %{private}@\nheading = -1\nlocalResultsOnly = NO", buf, 0x20u);
         }
 
         v21 = objc_msgSend_localeWithLocaleIdentifier_(MEMORY[0x1E695DF58], v28, @"en_US", v29);
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = sub_1BAF15D8C;
-        v41[3] = &unk_1E7F1D050;
-        v41[4] = self;
-        objc_msgSend_reverseGeocodeLocation_preferredLocale_heading_localResultsOnly_completionHandler_(v6, v30, v5, v21, 0, v41, -1.0);
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = sub_1BAF15D8C;
+        v40[3] = &unk_1E7F1D050;
+        v40[4] = self;
+        objc_msgSend_reverseGeocodeLocation_preferredLocale_heading_localResultsOnly_completionHandler_(v6, v30, v5, v21, 0, v40, -1.0);
       }
 
       else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138477827;
-        v43 = objc_opt_class();
-        v31 = v43;
+        v42 = objc_opt_class();
+        v31 = v42;
         _os_log_impl(&dword_1BADC1000, v21, OS_LOG_TYPE_ERROR, "[%{private}@] Error: localized reverse geolocation is not possible.", buf, 0xCu);
       }
     }
@@ -182,13 +182,11 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138477827;
-    v43 = objc_opt_class();
-    v6 = v43;
+    v42 = objc_opt_class();
+    v6 = v42;
     _os_log_impl(&dword_1BADC1000, v5, OS_LOG_TYPE_DEBUG, "[%{private}@] Reverse Geolocation update already in-flight.", buf, 0xCu);
 LABEL_13:
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (id)createReverseGeocoder
@@ -239,20 +237,18 @@ LABEL_13:
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   errorCopy = error;
   v7 = APLogForCategory(0x1CuLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543618;
-    v10 = managerCopy;
-    v11 = 2114;
-    v12 = errorCopy;
-    _os_log_impl(&dword_1BADC1000, v7, OS_LOG_TYPE_ERROR, "%{public}@ didFailWithError %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = managerCopy;
+    v10 = 2114;
+    v11 = errorCopy;
+    _os_log_impl(&dword_1BADC1000, v7, OS_LOG_TYPE_ERROR, "%{public}@ didFailWithError %{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)addAuthorizationChangedBlock:(id)block

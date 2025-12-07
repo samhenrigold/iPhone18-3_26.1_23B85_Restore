@@ -343,38 +343,38 @@ LABEL_52:
 
 - (void)addFilesToSource:(id)source forCollection:(id)collection withProgress:(id)progress
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   collectionCopy = collection;
   progressCopy = progress;
   v11 = sourceCopy;
-  v29 = progressCopy;
+  v28 = progressCopy;
   selfCopy = self;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v12 = self->_relativeFilePaths;
-  v31 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v31)
+  v30 = [(NSArray *)v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v30)
   {
-    v13 = *v34;
+    v13 = *v33;
     p_vtable = &OBJC_METACLASS____OSLogIndex.vtable;
     do
     {
       v15 = 0;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = [objc_alloc((p_vtable + 87)) initWithCollection:collectionCopy subpath:{objc_msgSend(*(*(&v33 + 1) + 8 * v15), "fileSystemRepresentation")}];
+        v16 = [objc_alloc((p_vtable + 87)) initWithCollection:collectionCopy subpath:{objc_msgSend(*(*(&v32 + 1) + 8 * v15), "fileSystemRepresentation")}];
         v17 = [_OSLogIndexFile alloc];
-        v32 = 0;
-        v18 = [(_OSLogIndexFile *)v17 initWithTraceFile:v16 error:&v32];
-        v19 = v32;
+        v31 = 0;
+        v18 = [(_OSLogIndexFile *)v17 initWithTraceFile:v16 error:&v31];
+        v19 = v31;
         if (v18)
         {
           [v11 _insertIndexFile:v18];
@@ -385,7 +385,7 @@ LABEL_52:
           progressHandler = selfCopy->_progressHandler;
           if (progressHandler)
           {
-            [v29 fractionCompleted];
+            [v28 fractionCompleted];
             v22 = v21;
             _OSLogInternalError(17, v19);
             v23 = v13;
@@ -405,14 +405,12 @@ LABEL_52:
         ++v15;
       }
 
-      while (v31 != v15);
-      v31 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      while (v30 != v15);
+      v30 = [(NSArray *)v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (OSLogEventStore)initWithArchiveURL:(id)l relativePaths:(id)paths
@@ -454,7 +452,7 @@ LABEL_52:
 
 + (id)storeWithFileURL:(id)l
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   pathComponents = [l pathComponents];
   v5 = [pathComponents mutableCopy];
 
@@ -488,8 +486,8 @@ LABEL_52:
   if ([array count])
   {
     v11 = [array componentsJoinedByString:@"/"];
-    v16[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   }
 
   else
@@ -498,8 +496,6 @@ LABEL_52:
   }
 
   v13 = [[self alloc] initWithArchiveURL:v10 relativePaths:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

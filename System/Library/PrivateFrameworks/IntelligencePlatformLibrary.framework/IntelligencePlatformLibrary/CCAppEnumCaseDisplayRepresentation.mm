@@ -210,7 +210,6 @@ LABEL_21:
 
             v27 = objc_opt_class();
             v25 = NSStringFromClass(v27);
-            v28 = *&v5[*v10];
             v8 = CCSkipFieldErrorForMessage();
 LABEL_34:
 
@@ -265,44 +264,42 @@ LABEL_30:
 LABEL_40:
   v8 = 0;
 LABEL_41:
-  v29 = [v9 copy];
+  v28 = [v9 copy];
   synonyms = self->_synonyms;
-  self->_synonyms = v29;
+  self->_synonyms = v28;
 
   if (v8)
   {
     CCSetError();
-    v31 = 0;
-    v32 = dataCopy;
+    v30 = 0;
+    v31 = dataCopy;
   }
 
   else
   {
-    v33 = MEMORY[0x1E6993AA8];
-    v32 = dataCopy;
+    v31 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
-      v36 = *&v5[*v33];
-      v37 = CCInvalidBufferErrorForMessage();
+      v32 = objc_opt_class();
+      v33 = NSStringFromClass(v32);
+      v34 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v31 = 1;
+      v30 = 1;
     }
   }
 
-  return v31;
+  return v30;
 }
 
 - (CCAppEnumCaseDisplayRepresentation)initWithTitle:(id)title subtitle:(id)subtitle synonyms:(id)synonyms error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   titleCopy = title;
   subtitleCopy = subtitle;
   synonymsCopy = synonyms;
@@ -310,7 +307,7 @@ LABEL_41:
   if (titleCopy)
   {
     objc_opt_class();
-    v36 = 0;
+    v34 = 0;
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
     v15 = 0;
     if (!IsInstanceOfExpectedClass)
@@ -349,11 +346,11 @@ LABEL_19:
   }
 
   objc_opt_class();
-  v35 = v15;
-  v25 = CCValidateIsInstanceOfExpectedClass();
+  v33 = v15;
+  v24 = CCValidateIsInstanceOfExpectedClass();
   v16 = v15;
 
-  if (!v25)
+  if (!v24)
   {
     CCSetError();
     selfCopy = 0;
@@ -369,40 +366,39 @@ LABEL_19:
 
 LABEL_5:
   objc_opt_class();
-  v34 = v16;
+  v32 = v16;
   v17 = CCValidateArrayValues();
   v15 = v16;
 
   if (v17)
   {
     errorCopy = error;
-    v32 = 0u;
-    v33 = 0u;
     v30 = 0u;
     v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v18 = synonymsCopy;
-    v19 = [v18 countByEnumeratingWithState:&v30 objects:v37 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v28 objects:v35 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v31;
+      v21 = *v29;
       do
       {
         v22 = 0;
         do
         {
-          if (*v31 != v21)
+          if (*v29 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v30 + 1) + 8 * v22);
           CCPBDataWriterWriteStringField();
           ++v22;
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v30 objects:v37 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v28 objects:v35 count:16];
       }
 
       while (v20);
@@ -417,7 +413,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_21:
 
-  v27 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

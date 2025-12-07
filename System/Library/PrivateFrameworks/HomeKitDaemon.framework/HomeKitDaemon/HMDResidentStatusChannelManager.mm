@@ -62,7 +62,7 @@
 
 - (BOOL)_shouldAllowChannelManagement
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   residentStatusChannel = [(HMDResidentStatusChannelManager *)self residentStatusChannel];
   home = [residentStatusChannel home];
 
@@ -79,11 +79,11 @@
       {
         v10 = HMFGetLogIdentifier();
         shortDescription = [v6 shortDescription];
-        v16 = 138543618;
-        v17 = v10;
-        v18 = 2112;
-        v19 = shortDescription;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Not allowing channel management on Restricted Guest: %@", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v10;
+        v17 = 2112;
+        v18 = shortDescription;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Not allowing channel management on Restricted Guest: %@", &v15, 0x16u);
 
 LABEL_9:
         goto LABEL_10;
@@ -101,9 +101,9 @@ LABEL_9:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Not allowing channel management, current user unknown", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Not allowing channel management, current user unknown", &v15, 0xCu);
       goto LABEL_9;
     }
 
@@ -117,13 +117,12 @@ LABEL_10:
   v12 = 1;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_stopUnsubscribeFromChannelDebounceTimer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   unsubscribeFromChannelDebounceTimer = [(HMDResidentStatusChannelManager *)self unsubscribeFromChannelDebounceTimer];
 
   if (unsubscribeFromChannelDebounceTimer)
@@ -134,9 +133,9 @@ LABEL_11:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping unsubscribe from channel debounce timer", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping unsubscribe from channel debounce timer", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -145,13 +144,11 @@ LABEL_11:
 
     [(HMDResidentStatusChannelManager *)selfCopy setUnsubscribeFromChannelDebounceTimer:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startUnsubscribeFromChannelDebounceTimer
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   unsubscribeFromChannelDebounceTimer = [(HMDResidentStatusChannelManager *)self unsubscribeFromChannelDebounceTimer];
 
   if (!unsubscribeFromChannelDebounceTimer)
@@ -176,11 +173,11 @@ LABEL_11:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v11;
-      v21 = 2048;
-      v22 = v7;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting unsubscribe from channel debounce timer with time set to %f", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v11;
+      v20 = 2048;
+      v21 = v7;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting unsubscribe from channel debounce timer with time set to %f", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -198,13 +195,11 @@ LABEL_11:
     unsubscribeFromChannelDebounceTimer4 = [(HMDResidentStatusChannelManager *)selfCopy unsubscribeFromChannelDebounceTimer];
     [unsubscribeFromChannelDebounceTimer4 resume];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldChannelBeRunning
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   queue = [(HMDResidentStatusChannelManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -219,23 +214,22 @@ LABEL_11:
     v9 = HMFGetLogIdentifier();
     v10 = HMFBooleanToString();
     clientIdentifiers2 = [(HMDResidentStatusChannelManager *)selfCopy clientIdentifiers];
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = clientIdentifiers2;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Evaluated shouldChannelBeRunning: %@ (clientIdentifiers: %@)", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = clientIdentifiers2;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Evaluated shouldChannelBeRunning: %@ (clientIdentifiers: %@)", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v12 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
 - (void)_evaluateChannelConnectionStateWithCurrentClientIdentifierCount:(unint64_t)count previousClientIdentifierCount:(unint64_t)identifierCount
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   queue = [(HMDResidentStatusChannelManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -246,15 +240,15 @@ LABEL_11:
   {
     v11 = HMFGetLogIdentifier();
     clientIdentifiers = [(HMDResidentStatusChannelManager *)selfCopy clientIdentifiers];
-    v15 = 138544130;
-    v16 = v11;
-    v17 = 2048;
+    v14 = 138544130;
+    v15 = v11;
+    v16 = 2048;
     countCopy = count;
-    v19 = 2048;
+    v18 = 2048;
     identifierCountCopy = identifierCount;
-    v21 = 2112;
-    v22 = clientIdentifiers;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Evaluating channel connection state (currentCount: %lu previousCount: %lu, clientIdentifiers: %@)", &v15, 0x2Au);
+    v20 = 2112;
+    v21 = clientIdentifiers;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Evaluating channel connection state (currentCount: %lu previousCount: %lu, clientIdentifiers: %@)", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -272,28 +266,26 @@ LABEL_11:
       [(HMDResidentStatusChannelManager *)selfCopy _startUnsubscribeFromChannelDebounceTimer];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_residentStatusChannelNeededForBundleIdentifier:(id)identifier applicationState:(unint64_t)state
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ((state | 2) == 2)
   {
     v6 = *MEMORY[0x277CCFE40];
-    v15[0] = *MEMORY[0x277CCFD80];
-    v15[1] = v6;
-    v15[2] = *MEMORY[0x277CD09C8];
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = *MEMORY[0x277CCFD80];
+    v14[1] = v6;
+    v14[2] = *MEMORY[0x277CD09C8];
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     if (isInternalBuild())
     {
       v8 = *MEMORY[0x277CD0040];
-      v14[0] = *MEMORY[0x277CD0038];
-      v14[1] = v8;
-      v14[2] = *MEMORY[0x277CD06C8];
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+      v13[0] = *MEMORY[0x277CD0038];
+      v13[1] = v8;
+      v13[2] = *MEMORY[0x277CD06C8];
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
       v10 = [v7 arrayByAddingObjectsFromArray:v9];
 
       v7 = v10;
@@ -307,13 +299,12 @@ LABEL_11:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)_handleForegroundStateChangedForBundleIdentifier:(id)identifier applicationState:(unint64_t)state
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([(HMDResidentStatusChannelManager *)self _residentStatusChannelNeededForBundleIdentifier:identifierCopy applicationState:state])
   {
@@ -338,20 +329,18 @@ LABEL_11:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         v12 = HMFGetLogIdentifier();
-        v14 = 138543874;
-        v15 = v12;
-        v16 = 2160;
-        v17 = 1752392040;
-        v18 = 2112;
-        v19 = identifierCopy;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@No changes to resident status channel clients for '%{mask.hash}@'", &v14, 0x20u);
+        v13 = 138543874;
+        v14 = v12;
+        v15 = 2160;
+        v16 = 1752392040;
+        v17 = 2112;
+        v18 = identifierCopy;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@No changes to resident status channel clients for '%{mask.hash}@'", &v13, 0x20u);
       }
 
       objc_autoreleasePoolPop(v9);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureWithExistingProcesses:(id)processes
@@ -366,7 +355,7 @@ LABEL_11:
 
 void __67__HMDResidentStatusChannelManager__configureWithExistingProcesses___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 bundleIdentifier];
   if ([v4 length])
@@ -398,17 +387,15 @@ void __67__HMDResidentStatusChannelManager__configureWithExistingProcesses___blo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSMutableSet)clientIdentifiers
@@ -437,7 +424,7 @@ void __67__HMDResidentStatusChannelManager__configureWithExistingProcesses___blo
 
 void __56__HMDResidentStatusChannelManager_handleProcessRemoved___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"processInfo"];
 
@@ -467,11 +454,11 @@ void __56__HMDResidentStatusChannelManager_handleProcessRemoved___block_invoke(u
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           v10 = HMFGetLogIdentifier();
-          v22 = 138543618;
-          v23 = v10;
-          v24 = 2112;
-          v25 = v5;
-          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Handling process info removed notification: %@", &v22, 0x16u);
+          v21 = 138543618;
+          v22 = v10;
+          v23 = 2112;
+          v24 = v5;
+          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Handling process info removed notification: %@", &v21, 0x16u);
         }
 
         objc_autoreleasePoolPop(v7);
@@ -488,11 +475,11 @@ void __56__HMDResidentStatusChannelManager_handleProcessRemoved___block_invoke(u
       {
         v19 = HMFGetLogIdentifier();
         v20 = *(a1 + 32);
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v20;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v20;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -508,17 +495,15 @@ void __56__HMDResidentStatusChannelManager_handleProcessRemoved___block_invoke(u
     {
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 32);
-      v22 = 138543618;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v15;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Bad process removed notification object: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Bad process removed notification object: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleProcessAdded:(id)added
@@ -537,7 +522,7 @@ void __56__HMDResidentStatusChannelManager_handleProcessRemoved___block_invoke(u
 
 void __54__HMDResidentStatusChannelManager_handleProcessAdded___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"processInfo"];
 
@@ -567,11 +552,11 @@ void __54__HMDResidentStatusChannelManager_handleProcessAdded___block_invoke(uin
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           v10 = HMFGetLogIdentifier();
-          v22 = 138543618;
-          v23 = v10;
-          v24 = 2112;
-          v25 = v5;
-          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Handling process info added notification: %@", &v22, 0x16u);
+          v21 = 138543618;
+          v22 = v10;
+          v23 = 2112;
+          v24 = v5;
+          _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Handling process info added notification: %@", &v21, 0x16u);
         }
 
         objc_autoreleasePoolPop(v7);
@@ -588,11 +573,11 @@ void __54__HMDResidentStatusChannelManager_handleProcessAdded___block_invoke(uin
       {
         v19 = HMFGetLogIdentifier();
         v20 = *(a1 + 32);
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v20;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v20;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -608,22 +593,20 @@ void __54__HMDResidentStatusChannelManager_handleProcessAdded___block_invoke(uin
     {
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 32);
-      v22 = 138543618;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v15;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Bad process added notification object: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Bad process added notification object: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleProcessInfoStateChanged:(id)changed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   userInfo = [changedCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"processInfo"];
@@ -652,8 +635,8 @@ void __54__HMDResidentStatusChannelManager_handleProcessAdded___block_invoke(uin
       block[2] = __65__HMDResidentStatusChannelManager_handleProcessInfoStateChanged___block_invoke;
       block[3] = &unk_27868A010;
       block[4] = self;
-      v22 = v8;
-      v23 = bundleIdentifier;
+      v21 = v8;
+      v22 = bundleIdentifier;
       dispatch_async(queue, block);
     }
 
@@ -666,9 +649,9 @@ void __54__HMDResidentStatusChannelManager_handleProcessAdded___block_invoke(uin
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v19;
-        v26 = 2112;
-        v27 = changedCopy;
+        v24 = v19;
+        v25 = 2112;
+        v26 = changedCopy;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Missing process info application bundle identifier: %@", buf, 0x16u);
       }
 
@@ -686,23 +669,21 @@ void __54__HMDResidentStatusChannelManager_handleProcessAdded___block_invoke(uin
       v14 = HMFGetLogIdentifier();
       userInfo2 = [changedCopy userInfo];
       *buf = 138543874;
-      v25 = v14;
-      v26 = 2112;
-      v27 = changedCopy;
-      v28 = 2112;
-      v29 = userInfo2;
+      v24 = v14;
+      v25 = 2112;
+      v26 = changedCopy;
+      v27 = 2112;
+      v28 = userInfo2;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not find process info in notification user info for %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__HMDResidentStatusChannelManager_handleProcessInfoStateChanged___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -710,17 +691,15 @@ uint64_t __65__HMDResidentStatusChannelManager_handleProcessInfoStateChanged___b
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Handling state changed notification for process info: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Handling state changed notification for process info: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _handleForegroundStateChangedForBundleIdentifier:*(a1 + 48) applicationState:{objc_msgSend(*(a1 + 40), "state")}];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleForegroundStateChangedForBundleIdentifier:*(a1 + 48) applicationState:{objc_msgSend(*(a1 + 40), "state")}];
 }
 
 - (void)removeClientWithIdentifier:(id)identifier
@@ -737,9 +716,9 @@ uint64_t __65__HMDResidentStatusChannelManager_handleProcessInfoStateChanged___b
   dispatch_async(queue, v7);
 }
 
-uint64_t __62__HMDResidentStatusChannelManager_removeClientWithIdentifier___block_invoke(uint64_t a1)
+void *__62__HMDResidentStatusChannelManager_removeClientWithIdentifier___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _shouldAllowChannelManagement];
   if (result)
   {
@@ -753,11 +732,11 @@ uint64_t __62__HMDResidentStatusChannelManager_removeClientWithIdentifier___bloc
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing client with identifier: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing client with identifier: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -767,10 +746,9 @@ uint64_t __62__HMDResidentStatusChannelManager_removeClientWithIdentifier___bloc
     v11 = [*(a1 + 32) clientIdentifiers];
     v12 = [v11 count];
 
-    result = [*(a1 + 32) _evaluateChannelConnectionStateWithCurrentClientIdentifierCount:v12 previousClientIdentifierCount:v4];
+    return [*(a1 + 32) _evaluateChannelConnectionStateWithCurrentClientIdentifierCount:v12 previousClientIdentifierCount:v4];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -788,9 +766,9 @@ uint64_t __62__HMDResidentStatusChannelManager_removeClientWithIdentifier___bloc
   dispatch_async(queue, v7);
 }
 
-uint64_t __59__HMDResidentStatusChannelManager_addClientWithIdentifier___block_invoke(uint64_t a1)
+void *__59__HMDResidentStatusChannelManager_addClientWithIdentifier___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _shouldAllowChannelManagement];
   if (result)
   {
@@ -804,11 +782,11 @@ uint64_t __59__HMDResidentStatusChannelManager_addClientWithIdentifier___block_i
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Adding client with identifier: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Adding client with identifier: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -818,10 +796,9 @@ uint64_t __59__HMDResidentStatusChannelManager_addClientWithIdentifier___block_i
     v11 = [*(a1 + 32) clientIdentifiers];
     v12 = [v11 count];
 
-    result = [*(a1 + 32) _evaluateChannelConnectionStateWithCurrentClientIdentifierCount:v12 previousClientIdentifierCount:v4];
+    return [*(a1 + 32) _evaluateChannelConnectionStateWithCurrentClientIdentifierCount:v12 previousClientIdentifierCount:v4];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -904,10 +881,9 @@ uint64_t __59__HMDResidentStatusChannelManager_addClientWithIdentifier___block_i
 
 void __46__HMDResidentStatusChannelManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v23_191911;
-  logCategory__hmf_once_v23_191911 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v23_191911;
+  logCategory__hmf_once_v23_191911 = v0;
 }
 
 @end

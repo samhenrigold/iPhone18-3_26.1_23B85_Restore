@@ -41,12 +41,13 @@
 void __90__WLKChannelDetails_SearchUIAdditions__sui_fetchSeasonTitlesSettingWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = WLKSystemLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WLKSystemLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __90__WLKChannelDetails_SearchUIAdditions__sui_fetchSeasonTitlesSettingWithCompletionHandler___block_invoke_cold_1(v5, v6);
+      __90__WLKChannelDetails_SearchUIAdditions__sui_fetchSeasonTitlesSettingWithCompletionHandler___block_invoke_cold_1(v6, v7);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -54,8 +55,8 @@ void __90__WLKChannelDetails_SearchUIAdditions__sui_fetchSeasonTitlesSettingWith
 
   else
   {
-    v7 = [a2 features];
-    [v7 wlk_BOOLForKey:@"seasonTitles" defaultValue:0];
+    v8 = [a2 features];
+    [v8 wlk_BOOLForKey:@"seasonTitles" defaultValue:0];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -80,7 +81,7 @@ void __90__WLKChannelDetails_SearchUIAdditions__sui_fetchSeasonTitlesSettingWith
       goto LABEL_15;
     }
 
-    v17 = WLKSystemLogObject();
+    v17 = WLKSystemLogObject(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -101,7 +102,7 @@ void __90__WLKChannelDetails_SearchUIAdditions__sui_fetchSeasonTitlesSettingWith
       goto LABEL_8;
     }
 
-    v17 = WLKSystemLogObject();
+    v17 = WLKSystemLogObject(episodeNumberCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v22 = 0;
@@ -131,11 +132,11 @@ LABEL_15:
 
 - (WLKChannelDetails)initWithDictionary:(id)dictionary
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v56.receiver = self;
-  v56.super_class = WLKChannelDetails;
-  v5 = [(WLKChannelDetails *)&v56 init];
+  v55.receiver = self;
+  v55.super_class = WLKChannelDetails;
+  v5 = [(WLKChannelDetails *)&v55 init];
   if (v5)
   {
     v6 = [dictionaryCopy wlk_stringForKey:@"id"];
@@ -214,33 +215,33 @@ LABEL_15:
       _nonConformingAppBundleIdentifiers = [v43 _nonConformingAppBundleIdentifiers];
       [v40 addObjectsFromArray:_nonConformingAppBundleIdentifiers];
 
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v45 = v5->_appBundleIDs;
-      v46 = [(NSArray *)v45 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v46 = [(NSArray *)v45 countByEnumeratingWithState:&v51 objects:v56 count:16];
       if (v46)
       {
         v47 = v46;
-        v48 = *v53;
+        v48 = *v52;
         while (2)
         {
           for (i = 0; i != v47; ++i)
           {
-            if (*v53 != v48)
+            if (*v52 != v48)
             {
               objc_enumerationMutation(v45);
             }
 
-            if ([v40 containsObject:{*(*(&v52 + 1) + 8 * i), v52}])
+            if ([v40 containsObject:{*(*(&v51 + 1) + 8 * i), v51}])
             {
               v5->_appInstalled = 1;
               goto LABEL_16;
             }
           }
 
-          v47 = [(NSArray *)v45 countByEnumeratingWithState:&v52 objects:v57 count:16];
+          v47 = [(NSArray *)v45 countByEnumeratingWithState:&v51 objects:v56 count:16];
           if (v47)
           {
             continue;
@@ -254,7 +255,6 @@ LABEL_16:
     }
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -297,11 +297,10 @@ LABEL_16:
 
 void __90__WLKChannelDetails_SearchUIAdditions__sui_fetchSeasonTitlesSettingWithCompletionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_272A0F000, a2, OS_LOG_TYPE_ERROR, "WLKChannelDetails+SearchUIAdditions - WLK init config fetch error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_272A0F000, a2, OS_LOG_TYPE_ERROR, "WLKChannelDetails+SearchUIAdditions - WLK init config fetch error %@", &v2, 0xCu);
 }
 
 @end

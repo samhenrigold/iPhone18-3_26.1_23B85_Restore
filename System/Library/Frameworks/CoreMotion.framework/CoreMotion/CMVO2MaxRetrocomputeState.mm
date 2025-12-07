@@ -59,9 +59,6 @@
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   status = self->_status;
-  startDate = self->_startDate;
-  endDate = self->_endDate;
-  meanDelta = self->_meanDelta;
 
   return MEMORY[0x1EEE66B58](v7, sel_initWithStatus_startDate_endDate_meanDelta_, status);
 }

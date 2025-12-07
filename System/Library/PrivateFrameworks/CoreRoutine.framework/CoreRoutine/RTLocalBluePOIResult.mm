@@ -12,47 +12,47 @@
 
 - (RTLocalBluePOIResult)initWithPOIConfidences:(id)confidences aoiConfidences:(id)aoiConfidences distanceToNearestAOILowerBound:(id)bound referenceLocation:(id)location queryTime:(id)time
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   confidencesCopy = confidences;
   aoiConfidencesCopy = aoiConfidences;
   boundCopy = bound;
   locationCopy = location;
   timeCopy = time;
-  v55.receiver = self;
-  v55.super_class = RTLocalBluePOIResult;
-  v17 = [(RTLocalBluePOIResult *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = RTLocalBluePOIResult;
+  v17 = [(RTLocalBluePOIResult *)&v54 init];
   v18 = v17;
   if (v17)
   {
-    v45 = boundCopy;
+    v44 = boundCopy;
     objc_storeStrong(&v17->_poiConfidences, confidences);
     objc_storeStrong(&v18->_aoiConfidences, aoiConfidences);
     objc_storeStrong(&v18->_distanceToNearestAOILowerBound, bound);
     objc_storeStrong(&v18->_referenceLocation, location);
     objc_storeStrong(&v18->_queryTime, time);
     v18->_mostConfidentPOI = 0;
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v19 = confidencesCopy;
-    v20 = [v19 countByEnumeratingWithState:&v51 objects:v57 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v50 objects:v56 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v52;
+      v22 = *v51;
       v23 = 0.0;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v52 != v22)
+          if (*v51 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v25 = *(*(&v51 + 1) + 8 * i);
-          v26 = [v19 objectForKeyedSubscript:{v25, v45, locationCopy}];
+          v25 = *(*(&v50 + 1) + 8 * i);
+          v26 = [v19 objectForKeyedSubscript:{v25, v44, locationCopy}];
           [v26 doubleValue];
           v28 = v27;
 
@@ -65,35 +65,35 @@
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v51 objects:v57 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v50 objects:v56 count:16];
       }
 
       while (v21);
     }
 
     v18->_mostConfidentAOI = 0;
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v31 = aoiConfidencesCopy;
-    v32 = [v31 countByEnumeratingWithState:&v47 objects:v56 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v46 objects:v55 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v48;
+      v34 = *v47;
       v35 = 0.0;
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v48 != v34)
+          if (*v47 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v37 = *(*(&v47 + 1) + 8 * j);
-          v38 = [v31 objectForKeyedSubscript:{v37, v45}];
+          v37 = *(*(&v46 + 1) + 8 * j);
+          v38 = [v31 objectForKeyedSubscript:{v37, v44}];
           [v38 doubleValue];
           v40 = v39;
 
@@ -106,16 +106,15 @@
           }
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v47 objects:v56 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v46 objects:v55 count:16];
       }
 
       while (v33);
     }
 
-    boundCopy = v45;
+    boundCopy = v44;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

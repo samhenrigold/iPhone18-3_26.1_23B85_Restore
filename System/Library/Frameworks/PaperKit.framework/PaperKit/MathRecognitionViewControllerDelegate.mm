@@ -26,7 +26,7 @@
 
 - (id)mathViewControllerDrawing:(id)drawing
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit9PKDrawingVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit9PKDrawingVSgMd, &_s9PencilKit9PKDrawingVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v17 - v6;
   drawingCopy = drawing;
@@ -134,24 +134,25 @@
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
-  v15 = specialized MathRecognitionViewControllerDelegate.mathViewController(_:expressionIdentifiersForCompatibleGraphNearLocation:expressionUUID:)(v12, x, y);
+  v15.n128_f64[0] = x;
+  v16 = specialized MathRecognitionViewControllerDelegate.mathViewController(_:expressionIdentifiersForCompatibleGraphNearLocation:expressionUUID:)(v12, v15, y);
 
   (*(v10 + 8))(v12, v9);
-  if (v15)
+  if (v16)
   {
-    v16.super.isa = Set._bridgeToObjectiveC()().super.isa;
+    v17.super.isa = Set._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v16.super.isa = 0;
+    v17.super.isa = 0;
   }
 
-  return v16.super.isa;
+  return v17.super.isa;
 }
 
 - (void)mathViewController:(id)controller addGraphForExpression:(id)expression variable:(id)variable range:(CGRect)range identifier:(id)identifier expressionLocation:(CGPoint)location addToExisting:(BOOL)existing
@@ -180,17 +181,18 @@
   v26 = v25;
   controllerCopy = controller;
   selfCopy = self;
-  specialized MathRecognitionViewControllerDelegate.mathViewController(_:addGraphForExpression:variable:range:identifier:expressionLocation:addToExisting:)(v19, v21, v22, variable, v24, v26, existingCopy, v15, v14, width, height, x, y);
+  v29.n128_f64[0] = v15;
+  specialized MathRecognitionViewControllerDelegate.mathViewController(_:addGraphForExpression:variable:range:identifier:expressionLocation:addToExisting:)(v19, v21, v22, variable, v24, v26, existingCopy, v29, v14, width, height, x, y);
 }
 
 - (void)mathViewController:(id)controller didUpdateExpressions:(id)expressions newExpressions:(id)newExpressions removedExpressions:(id)removedExpressions mathItems:(id)items
 {
   type metadata accessor for UUID();
-  _s10Foundation4UUIDVACSHAAWlTm_1(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+  _s10Foundation4UUIDVACSHAAWlTm_1(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   v9 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PKMathRecognitionItem);
+  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PKMathRecognitionItem, 0x1E6978490);
   v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -239,7 +241,7 @@
   v12 = v11;
   controllerCopy = controller;
   selfCopy = self;
-  v15 = specialized MathRecognitionViewControllerDelegate.mathViewController(_:createTypesetViewControllerForExpression:latex:fontSize:)(v10, size, v12, latex);
+  v15 = specialized MathRecognitionViewControllerDelegate.mathViewController(_:createTypesetViewControllerForExpression:latex:fontSize:)(v10, v12, latex, size);
 
   return v15;
 }
@@ -250,7 +252,7 @@
   v12 = v11;
   controllerCopy = controller;
   selfCopy = self;
-  v15 = specialized MathRecognitionViewControllerDelegate.mathViewController(_:createTypesetImageForExpression:latex:fontSize:)(v10, size, v12, latex);
+  v15 = specialized MathRecognitionViewControllerDelegate.mathViewController(_:createTypesetImageForExpression:latex:fontSize:)(v10, v12, latex, size);
 
   return v15;
 }

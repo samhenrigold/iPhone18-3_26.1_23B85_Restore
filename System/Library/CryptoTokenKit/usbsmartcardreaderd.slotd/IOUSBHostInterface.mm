@@ -13,14 +13,15 @@
   {
     p_bLength = &AssociatedDescriptorWithType->bLength;
     bLength = AssociatedDescriptorWithType->bLength;
-    if (+[CCIDDescriptorView length]== bLength)
+    v5 = +[CCIDDescriptorView length];
+    if (v5 == bLength)
     {
-      v5 = [[CCIDDescriptorView alloc] initWithBytes:p_bLength length:*p_bLength];
+      v6 = [[CCIDDescriptorView alloc] initWithBytes:p_bLength length:*p_bLength];
       goto LABEL_9;
     }
 
-    v6 = sub_100001170();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100001170(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100014314();
     }
@@ -28,17 +29,17 @@
 
   else
   {
-    v6 = sub_100001170();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100001170(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100014350();
     }
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_9:
 
-  return v5;
+  return v6;
 }
 
 - (NSArray)pipes
@@ -51,9 +52,10 @@ LABEL_9:
     while (1)
     {
       bLength = v5[1].bLength;
-      v12 = 0;
-      v7 = [(IOUSBHostInterface *)self copyPipeWithAddress:bLength error:&v12];
-      v8 = v12;
+      v13 = 0;
+      v7 = [(IOUSBHostInterface *)self copyPipeWithAddress:bLength error:&v13];
+      v8 = v13;
+      v9 = v8;
       if (!v7)
       {
         break;
@@ -68,22 +70,22 @@ LABEL_9:
       }
     }
 
-    v10 = sub_100001170();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100001170(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10001438C();
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
 LABEL_5:
-    v9 = v3;
+    v10 = v3;
   }
 
-  return v9;
+  return v10;
 }
 
 - (Properties)properties

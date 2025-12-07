@@ -378,7 +378,7 @@ LABEL_13:
         v47 = 0u;
         if (v10)
         {
-          [v10 timeRange];
+          objc_msgSend_timeRange(v10);
         }
 
         memset(&v46, 0, sizeof(v46));
@@ -496,7 +496,7 @@ LABEL_36:
 
         if (v10)
         {
-          [v10 timeRange];
+          objc_msgSend_timeRange(v10);
         }
 
         else

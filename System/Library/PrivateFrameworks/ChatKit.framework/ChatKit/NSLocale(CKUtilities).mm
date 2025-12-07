@@ -14,15 +14,15 @@
 
   if (sTestLocale)
   {
-    v1 = sTestLocale;
+    v2 = sTestLocale;
   }
 
   else
   {
-    v1 = __ck_currentLocale_sLocale;
+    v2 = __ck_currentLocale_sLocale;
   }
 
-  return v1;
+  return v2;
 }
 
 + (void)__ck_setTestLocale:()CKUtilities

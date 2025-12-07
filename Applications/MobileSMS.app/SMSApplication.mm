@@ -62,6 +62,11 @@
 - (void)_handleUnitTestInvocation:(id)invocation;
 - (void)_keyboardDidShow:(id)show;
 - (void)_keyboardWillShow:(id)show;
+- (void)_performNextSearchPartialFirstWithRemainingSearches:(id)searches passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion;
+- (void)_performNextSearchResultsClearingTestWithRemainingSearches:(id)searches passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion;
+- (void)_performNextSearchWithRemainingSearches:(id)searches passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion;
+- (void)_performNextTapIntoTapOutOfTestWithRemainingSearches:(id)searches startTime:(double)time passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion;
+- (void)_recordResult:(BOOL)result forKey:(id)key comment:(id)comment resultsDictionary:(id)dictionary;
 - (void)_resolveContactTest:(id)test;
 - (void)_scrollPseudoContactTest:(id)test withOptions:(id)options;
 - (void)_searchForString:(id)string validateExpectedSearchResults:(id)results resultsDictionary:(id)dictionary completion:(id)completion;
@@ -95,6 +100,7 @@
 - (void)failedTest:(id)test withFailure:(id)failure;
 - (void)failedTest:(id)test withFailure:(id)failure withResults:(id)results;
 - (void)finishedTest:(id)test extraResults:(id)results;
+- (void)finishedTest:(id)test waitForCommit:(BOOL)commit extraResults:(id)results withTeardownBlock:(id)block;
 - (void)installNotificationObserverForNotificationName:(id)name notificationName:(id)notificationName forOneNotification:(BOOL)notification usingBlock:(id)block;
 - (void)keyCommandCompose:(id)compose;
 - (void)newComposeDismissContactPicker:(id)picker;
@@ -474,6 +480,18 @@ LABEL_17:
   }
 
   return v18;
+}
+
+- (void)finishedTest:(id)test waitForCommit:(BOOL)commit extraResults:(id)results withTeardownBlock:(id)block
+{
+  commitCopy = commit;
+  blockCopy = block;
+  resultsCopy = results;
+  testCopy = test;
+  sub_100001E2C(testCopy);
+  v13.receiver = self;
+  v13.super_class = SMSApplication;
+  [(SMSApplication *)&v13 finishedTest:testCopy waitForCommit:commitCopy extraResults:resultsCopy withTeardownBlock:blockCopy];
 }
 
 - (void)finishedTest:(id)test extraResults:(id)results
@@ -1689,6 +1707,159 @@ LABEL_42:
   [(SMSApplication *)self _searchForString:@"#4813" withCompletion:v3];
 }
 
+- (void)_performNextTapIntoTapOutOfTestWithRemainingSearches:(id)searches startTime:(double)time passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion
+{
+  farCopy = far;
+  searchesCopy = searches;
+  dictionaryCopy = dictionary;
+  completionCopy = completion;
+  v15 = +[NSDate date];
+  [v15 timeIntervalSinceReferenceDate];
+  v17 = v16;
+
+  if ([searchesCopy count] && (v18.n128_f64[0] = v17 - time, v17 - time < 100.0))
+  {
+    v19 = [searchesCopy objectAtIndexedSubscript:{0, v18.n128_f64[0]}];
+    v20 = [v19 objectForKeyedSubscript:@"Search"];
+    v21 = [v19 objectForKeyedSubscript:@"Results"];
+    [searchesCopy removeObject:v19];
+    v22 = [v21 objectForKeyedSubscript:@"Count"];
+    integerValue = [v22 integerValue];
+
+    if (integerValue < 1)
+    {
+      [(SMSApplication *)self _performNextTapIntoTapOutOfTestWithRemainingSearches:searchesCopy startTime:farCopy passedSoFar:dictionaryCopy resultsDictionary:completionCopy finalCompletion:time];
+    }
+
+    else
+    {
+      v24[0] = _NSConcreteStackBlock;
+      v24[1] = 3221225472;
+      v24[2] = sub_10000C5FC;
+      v24[3] = &unk_100030C68;
+      v24[4] = self;
+      v25 = v20;
+      v26 = v21;
+      v27 = dictionaryCopy;
+      v28 = searchesCopy;
+      timeCopy = time;
+      v31 = farCopy;
+      v29 = completionCopy;
+      [(SMSApplication *)self _searchForString:v25 withCompletion:v24];
+    }
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, farCopy, v18);
+  }
+}
+
+- (void)_performNextSearchPartialFirstWithRemainingSearches:(id)searches passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion
+{
+  farCopy = far;
+  searchesCopy = searches;
+  dictionaryCopy = dictionary;
+  completionCopy = completion;
+  if ([searchesCopy count])
+  {
+    v13 = [searchesCopy objectAtIndexedSubscript:0];
+    v14 = [v13 objectForKeyedSubscript:@"Search"];
+    v15 = [v13 objectForKeyedSubscript:@"Results"];
+    [searchesCopy removeObject:v13];
+    if ([v14 length] > 1)
+    {
+      v16 = [v14 substringToIndex:{arc4random() % (objc_msgSend(v14, "length") - 1) + 1}];
+      [(SMSApplication *)self _searchForStringWithNoCompletion:v16];
+      v17 = v14;
+      v18 = v15;
+      v19 = dictionaryCopy;
+      v20 = searchesCopy;
+      v21 = completionCopy;
+      ck_dispatch_main_after_seconds();
+    }
+
+    else
+    {
+      v22 = searchesCopy;
+      v23 = dictionaryCopy;
+      v24 = completionCopy;
+      ck_dispatch_main_after_seconds();
+    }
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, farCopy);
+  }
+}
+
+- (void)_performNextSearchResultsClearingTestWithRemainingSearches:(id)searches passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion
+{
+  farCopy = far;
+  searchesCopy = searches;
+  dictionaryCopy = dictionary;
+  completionCopy = completion;
+  if ([searchesCopy count])
+  {
+    v13 = [searchesCopy objectAtIndexedSubscript:0];
+    v14 = [v13 objectForKeyedSubscript:@"Search"];
+    v15 = [v13 objectForKeyedSubscript:@"Results"];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10000D030;
+    v18[3] = &unk_100030D58;
+    v19 = searchesCopy;
+    v20 = v13;
+    selfCopy = self;
+    v22 = v14;
+    v23 = dictionaryCopy;
+    v25 = farCopy;
+    v24 = completionCopy;
+    v16 = v14;
+    v17 = v13;
+    [(SMSApplication *)self _searchForString:v16 validateExpectedSearchResults:v15 resultsDictionary:v23 completion:v18];
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, farCopy);
+  }
+}
+
+- (void)_performNextSearchWithRemainingSearches:(id)searches passedSoFar:(BOOL)far resultsDictionary:(id)dictionary finalCompletion:(id)completion
+{
+  farCopy = far;
+  searchesCopy = searches;
+  dictionaryCopy = dictionary;
+  completionCopy = completion;
+  if ([searchesCopy count])
+  {
+    v13 = [searchesCopy objectAtIndexedSubscript:0];
+    v14 = [v13 objectForKeyedSubscript:@"Search"];
+    v15 = [v13 objectForKeyedSubscript:@"Results"];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_10000D318;
+    v18[3] = &unk_100030D58;
+    v19 = searchesCopy;
+    v20 = v13;
+    selfCopy = self;
+    v22 = v14;
+    v23 = dictionaryCopy;
+    v25 = farCopy;
+    v24 = completionCopy;
+    v16 = v14;
+    v17 = v13;
+    [(SMSApplication *)self _searchForString:v16 validateExpectedSearchResults:v15 resultsDictionary:v23 completion:v18];
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, farCopy);
+  }
+}
+
 - (void)_searchForString:(id)string validateExpectedSearchResults:(id)results resultsDictionary:(id)dictionary completion:(id)completion
 {
   stringCopy = string;
@@ -2082,6 +2253,65 @@ LABEL_42:
 LABEL_15:
 
   return v13;
+}
+
+- (void)_recordResult:(BOOL)result forKey:(id)key comment:(id)comment resultsDictionary:(id)dictionary
+{
+  resultCopy = result;
+  commentCopy = comment;
+  dictionaryCopy = dictionary;
+  keyCopy = key;
+  v12 = [keyCopy length];
+  if (v12 >= 0x28)
+  {
+    v13 = 40;
+  }
+
+  else
+  {
+    v13 = v12;
+  }
+
+  v23 = [keyCopy substringWithRange:{0, v13}];
+
+  v14 = @"FAILED";
+  if (resultCopy)
+  {
+    v14 = @"PASS";
+  }
+
+  v15 = v14;
+  v16 = [v23 length];
+  v17 = v16 - 40;
+  if (v16 == 40)
+  {
+    v18 = v15;
+  }
+
+  else
+  {
+    do
+    {
+      v18 = [NSString stringWithFormat:@" %@", v15];
+
+      v15 = v18;
+    }
+
+    while (!__CFADD__(v17++, 1));
+  }
+
+  if (commentCopy)
+  {
+    commentCopy = [NSString stringWithFormat:@"%@ -- %@", v18, commentCopy];
+
+    v18 = commentCopy;
+  }
+
+  v21 = [NSNumber numberWithBool:resultCopy];
+  [dictionaryCopy setObject:v21 forKey:v23];
+
+  v22 = [NSString stringWithFormat:@"%@Units", v23];
+  [dictionaryCopy setObject:v18 forKey:v22];
 }
 
 - (void)IMCoreSendNewCompose

@@ -84,7 +84,7 @@ void __35__UIVectorLabel__defaultAttributes__block_invoke(uint64_t a1)
   v1 = [*(a1 + 32) _defaultFont];
   v6[0] = v1;
   v5[1] = *off_1E70EC920;
-  v2 = +[UIColor blackColor];
+  v2 = objc_msgSend_blackColor(UIColor);
   v6[1] = v2;
   v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
   v4 = qword_1ED49AE78;
@@ -151,7 +151,7 @@ void __35__UIVectorLabel__defaultAttributes__block_invoke(uint64_t a1)
   colorCopy = color;
   if (!colorCopy)
   {
-    colorCopy = +[UIColor blackColor];
+    colorCopy = objc_msgSend_blackColor(UIColor);
   }
 
   _content = [(UIVectorLabel *)self _content];
@@ -178,7 +178,7 @@ void __35__UIVectorLabel__defaultAttributes__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = +[UIColor blackColor];
+    v5 = objc_msgSend_blackColor(UIColor);
   }
 
   v6 = v5;
@@ -218,7 +218,7 @@ void __35__UIVectorLabel__defaultAttributes__block_invoke(uint64_t a1)
 {
   textCopy = text;
   _content = [(UIVectorLabel *)self _content];
-  if (([_content isEqualToString:textCopy] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(_content) & 1) == 0)
   {
     v5 = [_content contentWithString:textCopy];
     [(UIVectorLabel *)self _setContent:v5];
@@ -626,15 +626,15 @@ LABEL_20:
   v7.super_class = UIVectorLabel;
   if ([(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy])
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [keyCopy isEqualToString:@"textLayout"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)_setNeedsUpdateLayerIfNeeded

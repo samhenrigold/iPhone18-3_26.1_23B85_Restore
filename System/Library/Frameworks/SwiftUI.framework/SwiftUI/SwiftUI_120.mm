@@ -1,1597 +1,3 @@
-Swift::Void __swiftcall AppPreviewHost.invalidateEverything()()
-{
-  if (static AppGraph.shared)
-  {
-
-    static Update.ensure<A>(_:)();
-  }
-}
-
-void closure #1 in AppPreviewHost.invalidateEverything()(uint64_t a1)
-{
-  GraphHost.incrementPhase()();
-  swift_beginAccess();
-  if (*(a1 + 16))
-  {
-    AGGraphInvalidateAllValues();
-    GraphHost.emptyTransaction(_:)();
-    GraphHost.flushTransactions()();
-  }
-
-  else
-  {
-    __break(1u);
-  }
-}
-
-uint64_t AppPreviewHost.previews.getter()
-{
-  AppPreviewHost.sceneItem()(v31);
-  outlined init with copy of SceneList.Item.Value(v31, v26);
-  if (v30)
-  {
-    outlined destroy of SceneList.Item(v31);
-    outlined destroy of SceneList.Item.Value(v26);
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  else
-  {
-    v2 = v26[0];
-    v1 = v26[1];
-    v4 = v26[2];
-    v3 = v27;
-    v5 = v28;
-    v6 = v29;
-    type metadata accessor for _ContiguousArrayStorage<AppPreview>(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<AppPreview>, &type metadata for AppPreview, MEMORY[0x1E69E6F90]);
-    v0 = swift_allocObject();
-    *(v0 + 16) = xmmword_18CD63400;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0;
-    swift_weakInit();
-    swift_weakInit();
-    swift_weakInit();
-    v20 = 2;
-    v21 = 0;
-    v22 = 0;
-    v23 = -1;
-    v24 = 0;
-    v25 = 0;
-    *&v16 = v2;
-    type metadata accessor for ModifiedContent<AnyView, RootModifier>();
-    lazy protocol witness table accessor for type ModifiedContent<AnyView, RootModifier> and conformance <> ModifiedContent<A, B>();
-
-    v7 = AnyView.init<A>(_:)();
-    if (v5)
-    {
-      v13 = v7;
-      v8 = EnvironmentValues.init()();
-      v15 = v16;
-      v14[1] = 0;
-      v14[2] = 0;
-      MEMORY[0x18D009CB0](v14, v8);
-      v9 = Text.resolveString(in:with:idiom:)();
-      v11 = v10;
-
-      v7 = v13;
-    }
-
-    else
-    {
-      v9 = 0;
-      v11 = 0;
-    }
-
-    *(v0 + 32) = v7;
-    *(v0 + 40) = v9;
-    *(v0 + 48) = v11;
-
-    outlined consume of Text?(v1, v4, v3, v5);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6);
-    outlined destroy of SceneList.Item(v31);
-  }
-
-  return v0;
-}
-
-uint64_t AppPreviewHost.sceneItem()@<X0>(void *a1@<X8>)
-{
-  MEMORY[0x18D00ABE0]();
-  v3 = *(v1 + 32);
-  if (v3 == 255 || !static AppGraph.shared)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = *(v1 + 16);
-  v5 = *(v1 + 24);
-  outlined copy of SceneID?(v4, v5, *(v1 + 32));
-
-  AppGraph.sceneList(namespace:)(0, 0, 2, __src);
-
-  SceneList.item(id:where:)(v4, v5, v3 & 1, 0, __src);
-  outlined consume of SceneID?(v4, v5, v3);
-
-  if (!__src[68])
-  {
-    outlined destroy of HashableWeakBox<Swift.AnyObject>(__src, &lazy cache variable for type metadata for SceneList.Item?, &type metadata for SceneList.Item, MEMORY[0x1E69E6720]);
-LABEL_8:
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-    return result;
-  }
-
-  memcpy(a1, __src, 0x231uLL);
-
-  return static Update.end()();
-}
-
-uint64_t AppPreviewHost.deinit()
-{
-  outlined consume of SceneID?(*(v0 + 16), *(v0 + 24), *(v0 + 32));
-
-  return v0;
-}
-
-uint64_t AppPreviewHost.__deallocating_deinit()
-{
-  outlined consume of SceneID?(*(v0 + 16), *(v0 + 24), *(v0 + 32));
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t protocol witness for AppGraphObserver.scenesDidChange(phaseChanged:) in conformance AppPreviewHost(uint64_t a1, uint64_t a2)
-{
-  lazy protocol witness table accessor for type AppPreviewRootModifierStorage and conformance AppPreviewRootModifierStorage(&lazy protocol witness table cache variable for type AppPreviewHost and conformance AppPreviewHost, a2, type metadata accessor for AppPreviewHost);
-  ObservableObject<>.objectWillChange.getter();
-  ObservableObjectPublisher.send()();
-}
-
-uint64_t AppPreviewRootModifierStorage.__deallocating_deinit()
-{
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t AppPreviewRootModifierStorage.init()()
-{
-  v1 = v0;
-  type metadata accessor for SceneBridge(0);
-  swift_allocObject();
-  *(v0 + 16) = SceneBridge.init()();
-  v2 = MEMORY[0x1E69E7CC0];
-  v3 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  type metadata accessor for SceneStorageValues();
-  v4 = swift_allocObject();
-  v4[3] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_7SwiftUI18SceneStorageValuesC5Entry33_1700ED20D4EA891B02973E899ABDB425LLCTt0g5Tf4g_n(v2);
-  v4[6] = 0;
-  swift_unknownObjectWeakInit();
-  v4[2] = v3;
-  v4[4] = *(v3 + 16);
-  *(v1 + 24) = v4;
-  return v1;
-}
-
-uint64_t View.configuredForSceneRoot()(uint64_t a1, uint64_t a2)
-{
-  v3[0] = implicit closure #2 in implicit closure #1 in variable initialization expression of AppPreviewRootModifier._storage;
-  v3[1] = 0;
-  v4 = 0;
-  return MEMORY[0x18D00A570](v3, a1, &unk_1EFFD89B8, a2);
-}
-
-uint64_t implicit closure #2 in implicit closure #1 in variable initialization expression of AppPreviewRootModifier._storage()
-{
-  type metadata accessor for AppPreviewRootModifierStorage();
-  swift_allocObject();
-  return AppPreviewRootModifierStorage.init()();
-}
-
-uint64_t AppPreviewRootModifier.body(content:)@<X0>(uint64_t a1@<X8>)
-{
-  type metadata accessor for AppPreviewRootModifierStorage();
-  lazy protocol witness table accessor for type AppPreviewRootModifierStorage and conformance AppPreviewRootModifierStorage(&lazy protocol witness table cache variable for type AppPreviewRootModifierStorage and conformance AppPreviewRootModifierStorage, 255, type metadata accessor for AppPreviewRootModifierStorage);
-  StateObject.wrappedValue.getter();
-
-  *(a1 + 56) = 0;
-  *(a1 + 40) = 0u;
-  *(a1 + 24) = 0u;
-  swift_weakInit();
-
-  swift_weakInit();
-  swift_weakInit();
-
-  *(a1 + 64) = 2;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = -1;
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  return result;
-}
-
-void *_ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s10_NativeSetVy7SwiftUI15HashableWeakBoxVyyXlGG_Tg506_ss10_gh28V6filteryAByxGSbxKXEKFADs13_ab8VKXEfU_7i4UI15klM10VyyXlG_TG5ALxSbs5Error_pRi_zRi0_zlyAKIsgndzo_Tf1nc_n(void *result, uint64_t a2, uint64_t a3, uint64_t (*a4)(_BYTE *))
-{
-  if (a2 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v5 = result;
-      v6 = a2;
-      v7 = a4;
-      bzero(result, 8 * a2);
-      result = v5;
-      a2 = v6;
-      a4 = v7;
-    }
-
-    v8 = specialized closure #1 in _NativeSet.filter(_:)(result, a2, a3, a4);
-
-    return v8;
-  }
-
-  return result;
-}
-
-uint64_t specialized closure #1 in _NativeSet.filter(_:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t (*a4)(_BYTE *))
-{
-  v22 = a4;
-  v19 = result;
-  v20 = 0;
-  v6 = 0;
-  v7 = a3 + 56;
-  v8 = 1 << *(a3 + 32);
-  v9 = -1;
-  if (v8 < 64)
-  {
-    v9 = ~(-1 << v8);
-  }
-
-  v10 = v9 & *(a3 + 56);
-  v11 = (v8 + 63) >> 6;
-  while (v10)
-  {
-    v12 = __clz(__rbit64(v10));
-    v10 &= v10 - 1;
-LABEL_11:
-    v15 = v12 | (v6 << 6);
-    outlined init with copy of HashableWeakBox<Swift.AnyObject>(*(a3 + 48) + 16 * v15, v21);
-    v16 = v22(v21);
-    result = outlined destroy of HashableWeakBox<Swift.AnyObject>(v21, &lazy cache variable for type metadata for HashableWeakBox<Swift.AnyObject>, MEMORY[0x1E69E7C98] + 8, MEMORY[0x1E697E7A8]);
-    if (v4)
-    {
-      return result;
-    }
-
-    if (v16)
-    {
-      *(v19 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-      if (__OFADD__(v20++, 1))
-      {
-        __break(1u);
-LABEL_16:
-
-        return specialized _NativeSet.extractSubset(using:count:)(v19, a2, v20, a3);
-      }
-    }
-  }
-
-  v13 = v6;
-  while (1)
-  {
-    v6 = v13 + 1;
-    if (__OFADD__(v13, 1))
-    {
-      break;
-    }
-
-    if (v6 >= v11)
-    {
-      goto LABEL_16;
-    }
-
-    v14 = *(v7 + 8 * v6);
-    ++v13;
-    if (v14)
-    {
-      v12 = __clz(__rbit64(v14));
-      v10 = (v14 - 1) & v14;
-      goto LABEL_11;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-void specialized closure #1 in _NativeSet.filter(_:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(id *))
-{
-  v20 = 0;
-  v5 = 0;
-  v6 = a3 + 56;
-  v7 = 1 << *(a3 + 32);
-  v8 = -1;
-  if (v7 < 64)
-  {
-    v8 = ~(-1 << v7);
-  }
-
-  v9 = v8 & *(a3 + 56);
-  v10 = (v7 + 63) >> 6;
-  while (v9)
-  {
-    v11 = __clz(__rbit64(v9));
-    v9 &= v9 - 1;
-LABEL_11:
-    v14 = v11 | (v5 << 6);
-    v23 = *(*(a3 + 48) + 8 * v14);
-    v15 = v23;
-    v16 = a4(&v23);
-
-    if (v4)
-    {
-      return;
-    }
-
-    if (v16)
-    {
-      *(a1 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      if (__OFADD__(v20++, 1))
-      {
-        __break(1u);
-LABEL_16:
-
-        specialized _NativeSet.extractSubset(using:count:)(a1, a2, v20, a3);
-        return;
-      }
-    }
-  }
-
-  v12 = v5;
-  while (1)
-  {
-    v5 = v12 + 1;
-    if (__OFADD__(v12, 1))
-    {
-      break;
-    }
-
-    if (v5 >= v10)
-    {
-      goto LABEL_16;
-    }
-
-    v13 = *(v6 + 8 * v5);
-    ++v12;
-    if (v13)
-    {
-      v11 = __clz(__rbit64(v13));
-      v9 = (v13 - 1) & v13;
-      goto LABEL_11;
-    }
-  }
-
-  __break(1u);
-}
-
-uint64_t specialized closure #1 in _NativeSet.filter(_:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *))
-{
-  v25 = a3;
-  v22 = 0;
-  v21 = result;
-  v5 = 0;
-  v6 = a3 + 56;
-  v7 = 1 << *(a3 + 32);
-  v8 = -1;
-  if (v7 < 64)
-  {
-    v8 = ~(-1 << v7);
-  }
-
-  v9 = v8 & *(a3 + 56);
-  v10 = (v7 + 63) >> 6;
-  while (v9)
-  {
-    v11 = __clz(__rbit64(v9));
-    v9 &= v9 - 1;
-LABEL_11:
-    v14 = v11 | (v5 << 6);
-    v15 = (*(v25 + 48) + 16 * v14);
-    v16 = v15[1];
-    v24[0] = *v15;
-    v24[1] = v16;
-
-    v17 = a4(v24);
-
-    if (v4)
-    {
-      return result;
-    }
-
-    if (v17)
-    {
-      *(v21 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      if (__OFADD__(v22++, 1))
-      {
-        __break(1u);
-LABEL_16:
-        v19 = v25;
-
-        return specialized _NativeSet.extractSubset(using:count:)(v21, a2, v22, v19);
-      }
-    }
-  }
-
-  v12 = v5;
-  while (1)
-  {
-    v5 = v12 + 1;
-    if (__OFADD__(v12, 1))
-    {
-      break;
-    }
-
-    if (v5 >= v10)
-    {
-      goto LABEL_16;
-    }
-
-    v13 = *(v6 + 8 * v5);
-    ++v12;
-    if (v13)
-    {
-      v11 = __clz(__rbit64(v13));
-      v9 = (v13 - 1) & v13;
-      goto LABEL_11;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-void type metadata accessor for ModifiedContent<AnyView, RootModifier>()
-{
-  if (!lazy cache variable for type metadata for ModifiedContent<AnyView, RootModifier>)
-  {
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<AnyView, RootModifier>);
-    }
-  }
-}
-
-uint64_t destroy for AppPreview()
-{
-}
-
-void *initializeBufferWithCopyOfBuffer for AppPreview(void *a1, void *a2)
-{
-  v3 = a2[1];
-  *a1 = *a2;
-  a1[1] = v3;
-  a1[2] = a2[2];
-
-  return a1;
-}
-
-void *assignWithCopy for AppPreview(void *a1, void *a2)
-{
-  *a1 = *a2;
-
-  a1[1] = a2[1];
-  a1[2] = a2[2];
-
-  return a1;
-}
-
-void *assignWithTake for AppPreview(void *a1, void *a2)
-{
-  *a1 = *a2;
-
-  v4 = a2[2];
-  a1[1] = a2[1];
-  a1[2] = v4;
-
-  return a1;
-}
-
-unint64_t lazy protocol witness table accessor for type AppPreviewRootModifier and conformance AppPreviewRootModifier()
-{
-  result = lazy protocol witness table cache variable for type AppPreviewRootModifier and conformance AppPreviewRootModifier;
-  if (!lazy protocol witness table cache variable for type AppPreviewRootModifier and conformance AppPreviewRootModifier)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AppPreviewRootModifier and conformance AppPreviewRootModifier);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier> and conformance <> ModifiedContent<A, B>()
-{
-  result = lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier> and conformance <> ModifiedContent<A, B>;
-  if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier> and conformance <> ModifiedContent<A, B>)
-  {
-    type metadata accessor for ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier>();
-    lazy protocol witness table accessor for type AppPreviewRootModifierStorage and conformance AppPreviewRootModifierStorage(&lazy protocol witness table cache variable for type _ViewModifier_Content<AppPreviewRootModifier> and conformance _ViewModifier_Content<A>, 255, type metadata accessor for _ViewModifier_Content<AppPreviewRootModifier>);
-    lazy protocol witness table accessor for type RootModifier and conformance RootModifier();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier> and conformance <> ModifiedContent<A, B>);
-  }
-
-  return result;
-}
-
-void type metadata accessor for ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier>()
-{
-  if (!lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier>)
-  {
-    type metadata accessor for _ViewModifier_Content<AppPreviewRootModifier>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<AppPreviewRootModifier>, RootModifier>);
-    }
-  }
-}
-
-void type metadata accessor for _ViewModifier_Content<AppPreviewRootModifier>()
-{
-  if (!lazy cache variable for type metadata for _ViewModifier_Content<AppPreviewRootModifier>)
-  {
-    lazy protocol witness table accessor for type AppPreviewRootModifier and conformance AppPreviewRootModifier();
-    v0 = type metadata accessor for _ViewModifier_Content();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for _ViewModifier_Content<AppPreviewRootModifier>);
-    }
-  }
-}
-
-uint64_t lazy protocol witness table accessor for type AppPreviewRootModifierStorage and conformance AppPreviewRootModifierStorage(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a3(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for static ViewModifier._makeViewList(modifier:inputs:body:) in conformance NavigationPresentationAdaptorModifier(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, _BYTE *))
-{
-  outlined init with copy of _ViewListInputs(a2, v6);
-  v4 = protocol witness for static _GraphInputsModifier._makeInputs(modifier:inputs:) in conformance NavigationPresentationAdaptorModifier();
-  a3(v4, v6);
-  return outlined destroy of _ViewListInputs(v6);
-}
-
-double static _FocusSectionModifier._makeView(modifier:inputs:body:)@<D0>(uint64_t a1@<X1>, void (*a2)(uint64_t *__return_ptr)@<X2>, double *a3@<X8>)
-{
-  v37 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 16);
-  v33 = *(a1 + 32);
-  v34 = v4;
-  v6 = *(a1 + 48);
-  v35 = *(a1 + 64);
-  v7 = *(a1 + 16);
-  v31 = *a1;
-  v32 = v7;
-  v21 = v33;
-  v22 = v6;
-  v23 = *(a1 + 64);
-  v36 = *(a1 + 80);
-  v24 = *(a1 + 80);
-  v19 = v31;
-  v20 = v5;
-  a2(&v17);
-  *&v19 = v34;
-  DWORD2(v19) = DWORD2(v34);
-  if (PreferencesInputs.contains<A>(_:includeHostPreferences:)())
-  {
-    type metadata accessor for FocusSectionResponder(0);
-    v8 = swift_allocObject();
-    outlined init with copy of _ViewInputs(&v31, &v19);
-    ViewTransform.init()();
-    *(v8 + 264) = 0;
-    *(v8 + 272) = 0;
-    *(v8 + 280) = 512;
-    *(v8 + 282) = 0;
-    *(v8 + 288) = 0;
-    v21 = v33;
-    v22 = v34;
-    v23 = v35;
-    v24 = v36;
-    v19 = v31;
-    v20 = v32;
-    v9 = DefaultLayoutViewResponder.init(inputs:)();
-    v10 = HIDWORD(v34);
-    v21 = v33;
-    v22 = v34;
-    v23 = v35;
-    v24 = v36;
-    v19 = v31;
-    v20 = v32;
-    v11 = _ViewInputs.animatedPosition()();
-    v21 = v33;
-    v22 = v34;
-    v23 = v35;
-    v24 = v36;
-    v19 = v31;
-    v20 = v32;
-    swift_beginAccess();
-    v12 = CachedEnvironment.animatedSize(for:)();
-    swift_endAccess();
-    v21 = v33;
-    v22 = v34;
-    v23 = v35;
-    v24 = v36;
-    v19 = v31;
-    v20 = v32;
-    v13 = _ViewInputs.isEnabled.getter();
-    v27 = v33;
-    v28 = v34;
-    v29 = v35;
-    v30 = v36;
-    v25 = v31;
-    v26 = v32;
-    v14 = _ViewInputs.layoutDirection.getter();
-    OffsetAttribute2 = AGGraphCreateOffsetAttribute2();
-
-    LODWORD(v8) = _ViewOutputs.viewResponders()();
-
-    *&v19 = __PAIR64__(v11, v10);
-    *(&v19 + 1) = __PAIR64__(v13, v12);
-    *&v20 = __PAIR64__(OffsetAttribute2, v14);
-    DWORD2(v20) = v8;
-    *&v21 = v9;
-    protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
-    type metadata accessor for [ViewResponder](0);
-    lazy protocol witness table accessor for type FocusSectionResponderFilter and conformance FocusSectionResponderFilter();
-
-    LODWORD(v8) = Attribute.init<A>(body:value:flags:update:)();
-
-    v27 = v33;
-    v28 = v34;
-    v29 = v35;
-    v30 = v36;
-    v25 = v31;
-    v26 = v32;
-    outlined init with copy of _ViewInputs(&v31, &v19);
-    UIKitHostedFocusItemLifecycle.init(inputs:responders:)(&v25, v8, &v19);
-    protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
-    lazy protocol witness table accessor for type UIKitHostedFocusItemLifecycle and conformance UIKitHostedFocusItemLifecycle();
-    Attribute.init<A>(body:value:flags:update:)();
-    outlined destroy of UIKitHostedFocusItemLifecycle(&v19);
-    AGGraphSetFlags();
-    LOBYTE(v19) = 0;
-    PreferencesOutputs.subscript.setter();
-  }
-
-  *a3 = v17;
-  result = v18;
-  a3[1] = v18;
-  return result;
-}
-
-uint64_t FocusSectionResponderFilter.updateValue()()
-{
-  type metadata accessor for CGPoint(0);
-  Value = AGGraphGetValue();
-  v32 = v2;
-  v3 = *Value;
-  v4 = Value[1];
-  v5 = AGGraphGetValue();
-  v7 = v6;
-  v8 = *v5;
-  v9 = *(v5 + 8);
-  v27 = *(v5 + 16);
-  v28 = *(v5 + 32);
-
-  AGGraphGetValue();
-  v11 = v10;
-  v12 = AGGraphGetValue();
-  v14 = v13;
-  v31 = *v12;
-  v15 = AGGraphGetValue();
-  v17 = v16;
-  v30 = *v15;
-  v18 = AGGraphGetValue();
-  v20 = v19;
-  v29 = *v18;
-  v21 = *(v0 + 32);
-  type metadata accessor for [ViewResponder](0);
-
-  AGGraphGetValue();
-  if (v22)
-  {
-
-    MultiViewResponder.children.setter();
-  }
-
-  if ((v32 & 1) != 0 || (v7 & 1) != 0 || (v11 & 1) != 0 || (v14 & 1) != 0 || (v17 & 1) != 0 || (v20 & 1) != 0 || !AGGraphGetOutputValue())
-  {
-
-    ViewTransform.appendPosition(_:)(__PAIR128__(v4, v3));
-    *(v21 + 216) = v8;
-    *(v21 + 224) = v9;
-    *(v21 + 232) = v27;
-    *(v21 + 248) = v28;
-
-    *(v21 + 264) = MEMORY[0x18D00B390](v23);
-    *(v21 + 272) = v24;
-    *(v21 + 280) = v31;
-    *(v21 + 281) = v30;
-    FocusSectionResponder.speedBumpEdges.setter(v29);
-  }
-
-  if (AGGraphGetOutputValue())
-  {
-  }
-
-  else
-  {
-    type metadata accessor for _ContiguousArrayStorage<Swift.AnyObject>();
-    v26 = swift_allocObject();
-    *(v26 + 16) = xmmword_18CD69590;
-    *(v26 + 32) = v21;
-
-    AGGraphSetOutputValue();
-  }
-}
-
-void *FocusSectionResponder.speedBumpEdges.setter(uint64_t a1)
-{
-  *(v1 + 282) = a1;
-  result = *(v1 + 288);
-  if (result)
-  {
-    v4 = *(v1 + 281);
-    v8 = *(v1 + 288);
-    if (v4 == 2)
-    {
-      v10 = 0;
-      v5 = result;
-      v6 = &v10;
-    }
-
-    else
-    {
-      v9 = v4 & 1;
-      v7 = result;
-      v6 = &v9;
-    }
-
-    *(v8 + direct field offset for UIKitFocusSectionResponderItem._focusSpeedBumpEdges) = specialized UIRectEdge.init(_:layoutDirection:)(a1, v6);
-
-    return MEMORY[0x1EEE66BB8]();
-  }
-
-  return result;
-}
-
-void FocusSectionResponder.__ivar_destroyer()
-{
-
-  v1 = *(v0 + 288);
-}
-
-uint64_t FocusSectionResponder.__deallocating_deinit()
-{
-  v0 = DefaultLayoutViewResponder.deinit();
-
-  v1 = *(v0 + 288);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t protocol witness for BaseFocusResponder.platformItem.getter in conformance FocusSectionResponder()
-{
-  specialized FocusSectionResponder.hostedItem.getter();
-
-  return swift_unknownObjectRetain();
-}
-
-id UIKitFocusSectionResponderItem.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for UIKitFocusSectionResponderItem(0);
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-uint64_t specialized FocusSectionResponder.hostedItem.getter()
-{
-  result = *(v0 + 288);
-  if (!result)
-  {
-    v2 = *(v0 + 281);
-    v3 = *(v0 + 282);
-    if (v2 == 2)
-    {
-      v10 = 0;
-    }
-
-    else
-    {
-      v10 = v2 & 1;
-    }
-
-    v4 = specialized UIRectEdge.init(_:layoutDirection:)(v3, &v10);
-    v5 = objc_allocWithZone(type metadata accessor for UIKitFocusSectionResponderItem(0));
-    *&v5[direct field offset for UIKitFocusSectionResponderItem._focusSpeedBumpEdges] = v4;
-    swift_weakInit();
-    swift_unknownObjectWeakInit();
-    *&v5[direct field offset for UIKitContainerFocusResponderItem.frameAttr] = 0;
-    v5[direct field offset for UIKitContainerFocusResponderItem.isEnabled] = 1;
-    *&v5[direct field offset for UIKitContainerFocusResponderItem.cachedCoordinateSpace] = 0;
-    swift_weakAssign();
-    type metadata accessor for UIKitContainerFocusResponderItem<FocusSectionResponder>();
-    v9.receiver = v5;
-    v9.super_class = v6;
-    v7 = objc_msgSendSuper2(&v9, sel_init);
-    v8 = *(v0 + 288);
-    *(v0 + 288) = v7;
-
-    return *(v0 + 288);
-  }
-
-  return result;
-}
-
-void type metadata accessor for UIKitContainerFocusResponderItem<FocusSectionResponder>()
-{
-  if (!lazy cache variable for type metadata for UIKitContainerFocusResponderItem<FocusSectionResponder>)
-  {
-    type metadata accessor for FocusSectionResponder(255);
-    v0 = type metadata accessor for UIKitContainerFocusResponderItem();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for UIKitContainerFocusResponderItem<FocusSectionResponder>);
-    }
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type FocusSectionResponderFilter and conformance FocusSectionResponderFilter()
-{
-  result = lazy protocol witness table cache variable for type FocusSectionResponderFilter and conformance FocusSectionResponderFilter;
-  if (!lazy protocol witness table cache variable for type FocusSectionResponderFilter and conformance FocusSectionResponderFilter)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type FocusSectionResponderFilter and conformance FocusSectionResponderFilter);
-  }
-
-  return result;
-}
-
-uint64_t specialized FocusSectionResponder.__allocating_init(inputs:)()
-{
-  type metadata accessor for FocusSectionResponder(0);
-  v0 = swift_allocObject();
-  ViewTransform.init()();
-  *(v0 + 264) = 0;
-  *(v0 + 272) = 0;
-  *(v0 + 280) = 512;
-  *(v0 + 282) = 0;
-  *(v0 + 288) = 0;
-  return DefaultLayoutViewResponder.init(inputs:)();
-}
-
-uint64_t specialized FocusSectionResponder.__allocating_init(inputs:viewSubgraph:)()
-{
-  type metadata accessor for FocusSectionResponder(0);
-  v0 = swift_allocObject();
-  ViewTransform.init()();
-  *(v0 + 264) = 0;
-  *(v0 + 272) = 0;
-  *(v0 + 280) = 512;
-  *(v0 + 282) = 0;
-  *(v0 + 288) = 0;
-  return DefaultLayoutViewResponder.init(inputs:viewSubgraph:)();
-}
-
-uint64_t View.accessibilityDirectTouch(_:options:)(char a1, uint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *a2;
-  v8[0] = a1 & 1;
-  v8[1] = v6;
-  lazy protocol witness table accessor for type AccessibilityProperties.TouchInfoKey and conformance AccessibilityProperties.TouchInfoKey();
-  return View.accessibility<A>(_:_:isEnabled:)(&type metadata for AccessibilityProperties.TouchInfoKey, v8, 1, a3, &type metadata for AccessibilityProperties.TouchInfoKey, a4);
-}
-
-uint64_t ModifiedContent<>.accessibilityDirectTouch(_:options:)@<X0>(char a1@<W0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v6 = *a2;
-  v8[0] = a1 & 1;
-  v8[1] = v6;
-  lazy protocol witness table accessor for type AccessibilityProperties.TouchInfoKey and conformance AccessibilityProperties.TouchInfoKey();
-  return ModifiedContent<>.update<A>(_:replacing:isEnabled:)(&type metadata for AccessibilityProperties.TouchInfoKey, v8, 1, a3, a4);
-}
-
-unint64_t lazy protocol witness table accessor for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions()
-{
-  result = lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions;
-  if (!lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions;
-  if (!lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions;
-  if (!lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions;
-  if (!lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AccessibilityDirectTouchOptions and conformance AccessibilityDirectTouchOptions);
-  }
-
-  return result;
-}
-
-uint64_t KeyboardShortcutBridge.updateKeyCommands(_:)(uint64_t result)
-{
-  v124 = result;
-  v121 = (v1 + OBJC_IVAR____TtC7SwiftUI22KeyboardShortcutBridge_updatedBindings);
-  v2 = *(v1 + OBJC_IVAR____TtC7SwiftUI22KeyboardShortcutBridge_updatedBindings + 8);
-  v3 = (v1 + OBJC_IVAR____TtC7SwiftUI22KeyboardShortcutBridge_currentBindings);
-  if (v2 != -1 && v2 == v3[2])
-  {
-    return result;
-  }
-
-  v4 = *v121;
-  *&v146 = *v3;
-  v143[0] = v4;
-  *&v150 = MEMORY[0x1E69E7CC0];
-  type metadata accessor for CollectionChanges<Int, Int>();
-  v132 = v1;
-  type metadata accessor for [KeyboardShortcutBinding]();
-  lazy protocol witness table accessor for type [KeyboardShortcutBinding] and conformance [A]();
-  lazy protocol witness table accessor for type KeyboardShortcutBinding and conformance KeyboardShortcutBinding();
-  v5 = v1;
-  CollectionChanges.formChanges<A, B>(from:to:)();
-  v118 = v150;
-  v6 = *(v150 + 16);
-  if (!v6)
-  {
-LABEL_84:
-
-    v116 = v121[2];
-    *v3 = *v121;
-    v3[2] = v116;
-  }
-
-  v7 = 0;
-  v142 = OBJC_IVAR____TtC7SwiftUI22KeyboardShortcutBridge_shortcutMap;
-  v117 = v150 + 32;
-  v125 = v3;
-  while (1)
-  {
-    if (v7 >= v6)
-    {
-      goto LABEL_99;
-    }
-
-    v8 = v117 + 40 * v7;
-    v10 = *v8;
-    v9 = *(v8 + 8);
-    v122 = *v8;
-    v140 = v9;
-    v119 = v7;
-    if (*(v8 + 32))
-    {
-      break;
-    }
-
-    if (v9 != v10)
-    {
-      if (v10 >= v9)
-      {
-LABEL_86:
-        __break(1u);
-      }
-
-      else
-      {
-        v52 = v9 - 1;
-        v53 = (v9 << 6) - 32;
-        while (v52 + 1 >= 1)
-        {
-          if (v52 >= *(*v3 + 16))
-          {
-            goto LABEL_88;
-          }
-
-          v54 = (*v3 + v53);
-          v55 = v54[2];
-          v56 = v54[3];
-          v57 = v54[1];
-          v150 = *v54;
-          v151 = v57;
-          v152 = v55;
-          v153 = v56;
-          v58 = v150;
-          v59 = v57;
-          v60 = BYTE8(v57);
-          swift_beginAccess();
-          v61 = *(v5 + v142);
-          if (*(v61 + 16) && (v62 = specialized __RawDictionaryStorage.find<A>(_:)(v58, *(&v58 + 1), v59, v60), (v63 & 1) != 0))
-          {
-            v64 = *(v61 + 56) + 24 * v62;
-            v65 = *v64;
-            v134 = *(v64 + 8);
-            v139 = *(v64 + 16);
-            swift_endAccess();
-            outlined init with copy of KeyboardShortcutSource?(v124, v143);
-            v66 = v144;
-            v136 = v65;
-            if (v144)
-            {
-              v67 = v145;
-              v129 = v145;
-              __swift_project_boxed_opaque_existential_1(v143, v144);
-              v68 = *(v67 + 16);
-              outlined init with copy of KeyboardShortcutBinding(&v150, &v146);
-
-              v69 = v65;
-
-              v68(v69, v134, v139, v66, v129);
-              __swift_destroy_boxed_opaque_existential_1(v143);
-            }
-
-            else
-            {
-              outlined init with copy of KeyboardShortcutBinding(&v150, &v146);
-
-              v70 = v65;
-
-              outlined destroy of KeyboardShortcutSource?(v143);
-            }
-
-            swift_beginAccess();
-            v71 = specialized Dictionary._Variant.removeValue(forKey:)(v58, *(&v58 + 1), v59, v60);
-            swift_endAccess();
-            v5 = v132;
-            outlined consume of KeyboardShortcutBridge.Shortcut?(v71);
-
-            outlined destroy of KeyboardShortcutBinding(&v150);
-
-            v3 = v125;
-            v10 = v122;
-          }
-
-          else
-          {
-            swift_endAccess();
-          }
-
-          if (v10 == v52)
-          {
-            goto LABEL_5;
-          }
-
-          if (v10 < v52)
-          {
-            v53 -= 64;
-            if (v140 >= v52--)
-            {
-              continue;
-            }
-          }
-
-          goto LABEL_86;
-        }
-      }
-
-      __break(1u);
-LABEL_88:
-      __break(1u);
-      goto LABEL_89;
-    }
-
-LABEL_5:
-    v7 = v119 + 1;
-    v6 = *(v118 + 16);
-    if (v119 + 1 == v6)
-    {
-      goto LABEL_84;
-    }
-  }
-
-  if (*(v8 + 32) == 1)
-  {
-    if (v10 != v9)
-    {
-      if (v9 < v10)
-      {
-        goto LABEL_101;
-      }
-
-      type metadata accessor for UIKeyCommand();
-      if (v10 < v9)
-      {
-        v11 = (v10 << 6) | 0x20;
-        v120 = v9 - 1;
-        v12 = v10;
-        while (1)
-        {
-          if (v10 < 0)
-          {
-            goto LABEL_92;
-          }
-
-          if (v12 >= *(*v121 + 16))
-          {
-            goto LABEL_94;
-          }
-
-          v13 = (*v121 + v11);
-          v14 = v13[1];
-          v16 = v13[2];
-          v15 = v13[3];
-          v150 = *v13;
-          v151 = v14;
-          v152 = v16;
-          v153 = v15;
-          v17 = *(&v16 + 1);
-          v18 = *(&v150 + 1);
-          v135 = v16;
-          v137 = v150;
-          v19 = v14;
-          v20 = BYTE8(v14);
-          v146 = *v13;
-          v147 = v13[1];
-          v148 = v13[2];
-          v149 = v13[3];
-          outlined init with copy of KeyboardShortcutBinding(&v150, v143);
-          outlined init with copy of KeyboardShortcutBinding(&v150, v143);
-          outlined init with copy of KeyboardShortcutBinding(&v150, v143);
-          v21 = UIKeyCommand.init(_:)(&v146);
-
-          outlined destroy of KeyboardShortcutBinding(&v150);
-          swift_beginAccess();
-          if (!*(*(v5 + v142) + 16))
-          {
-            break;
-          }
-
-          specialized __RawDictionaryStorage.find<A>(_:)(v137, v18, v19, v20);
-          if ((v22 & 1) == 0)
-          {
-            break;
-          }
-
-          swift_endAccess();
-          v10 = v122;
-          v23 = v140;
-LABEL_33:
-
-          outlined destroy of KeyboardShortcutBinding(&v150);
-          if (v120 == v12)
-          {
-            goto LABEL_5;
-          }
-
-          v51 = v12 + 1;
-          if (v12 + 1 >= v10)
-          {
-            v11 += 64;
-            ++v12;
-            if (v51 < v23)
-            {
-              continue;
-            }
-          }
-
-          goto LABEL_89;
-        }
-
-        v133 = v20;
-        v128 = v12;
-        v131 = v19;
-        swift_endAccess();
-        outlined init with copy of KeyboardShortcutSource?(v124, &v146);
-        v24 = *(&v147 + 1);
-        v126 = v11;
-        if (*(&v147 + 1))
-        {
-          v25 = v148;
-          __swift_project_boxed_opaque_existential_1(&v146, *(&v147 + 1));
-          v26 = *(v25 + 8);
-          v27 = v18;
-
-          v26(v21, v135, v17, v24, v25);
-          v28 = v137;
-          __swift_destroy_boxed_opaque_existential_1(&v146);
-        }
-
-        else
-        {
-
-          outlined destroy of KeyboardShortcutSource?(&v146);
-          v27 = v18;
-          v28 = v137;
-        }
-
-        swift_beginAccess();
-        v29 = v17;
-
-        v138 = v21;
-        v30 = v21;
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v143[0] = *(v132 + v142);
-        v32 = v143[0];
-        *(v132 + v142) = 0x8000000000000000;
-        v33 = v28;
-        v34 = v27;
-        v36 = specialized __RawDictionaryStorage.find<A>(_:)(v28, v27, v131, v133);
-        v37 = *(v32 + 16);
-        v38 = (v35 & 1) == 0;
-        v39 = v37 + v38;
-        if (__OFADD__(v37, v38))
-        {
-          goto LABEL_96;
-        }
-
-        v40 = v35;
-        if (*(v32 + 24) < v39)
-        {
-          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v39, isUniquelyReferenced_nonNull_native);
-          v41 = specialized __RawDictionaryStorage.find<A>(_:)(v33, v27, v131, v133);
-          v12 = v128;
-          if ((v40 & 1) != (v42 & 1))
-          {
-            goto LABEL_102;
-          }
-
-          v36 = v41;
-          if ((v40 & 1) == 0)
-          {
-            goto LABEL_30;
-          }
-
-LABEL_28:
-
-          v43 = v143[0];
-          v44 = *(v143[0] + 56) + 24 * v36;
-          v45 = *v44;
-          *v44 = v30;
-          *(v44 + 8) = v135;
-          *(v44 + 16) = v29;
-
-LABEL_32:
-          v5 = v132;
-          *(v132 + v142) = v43;
-          swift_endAccess();
-          v10 = v122;
-          v21 = v138;
-          v23 = v140;
-          v3 = v125;
-          v11 = v126;
-          goto LABEL_33;
-        }
-
-        v12 = v128;
-        if (isUniquelyReferenced_nonNull_native)
-        {
-          if (v35)
-          {
-            goto LABEL_28;
-          }
-        }
-
-        else
-        {
-          specialized _NativeDictionary.copy()();
-          if (v40)
-          {
-            goto LABEL_28;
-          }
-        }
-
-LABEL_30:
-        v43 = v143[0];
-        *(v143[0] + 8 * (v36 >> 6) + 64) |= 1 << v36;
-        v46 = v43[6] + 32 * v36;
-        *v46 = v33;
-        *(v46 + 8) = v34;
-        *(v46 + 16) = v131;
-        *(v46 + 24) = v133;
-        v47 = (v43[7] + 24 * v36);
-        *v47 = v30;
-        v47[1] = v135;
-        v47[2] = v29;
-        v48 = v43[2];
-        v49 = __OFADD__(v48, 1);
-        v50 = v48 + 1;
-        if (v49)
-        {
-          goto LABEL_97;
-        }
-
-        v43[2] = v50;
-        goto LABEL_32;
-      }
-
-LABEL_89:
-      __break(1u);
-      goto LABEL_90;
-    }
-
-    goto LABEL_5;
-  }
-
-  v74 = *(v8 + 16);
-  v73 = *(v8 + 24);
-  if (v74 == v73)
-  {
-    goto LABEL_5;
-  }
-
-  if (v73 >= v74)
-  {
-    if (v74 < v73)
-    {
-      v75 = (v74 << 6) | 0x20;
-      v127 = v73 - 1;
-      v130 = *(v8 + 24);
-      v76 = *(v8 + 16);
-      v123 = v76;
-      while ((v74 & 0x8000000000000000) == 0)
-      {
-        if (v76 >= *(*v121 + 16))
-        {
-          goto LABEL_93;
-        }
-
-        v77 = (*v121 + v75);
-        v78 = v77[1];
-        v80 = v77[2];
-        v79 = v77[3];
-        v150 = *v77;
-        v151 = v78;
-        v152 = v80;
-        v153 = v79;
-        v81 = v80;
-        v82 = v150;
-        v83 = v78;
-        v84 = BYTE8(v78);
-        swift_beginAccess();
-        v85 = *(v5 + v142);
-        if (*(v85 + 16) && (v86 = specialized __RawDictionaryStorage.find<A>(_:)(v82, *(&v82 + 1), v83, v84), (v87 & 1) != 0))
-        {
-          v88 = *(*(v85 + 56) + 24 * v86);
-          outlined init with copy of KeyboardShortcutBinding(&v150, &v146);
-
-          v89 = v88;
-          swift_retain_n();
-          swift_endAccess();
-          outlined consume of KeyboardShortcutBridge.Shortcut?(v88);
-
-          v5 = v132;
-          swift_beginAccess();
-          v91 = specialized Dictionary.subscript.modify(&v146, v82, *(&v82 + 1), v83, v84);
-          if (*v90)
-          {
-            *(v90 + 8) = v81;
-
-            (v91)(&v146, 0);
-            swift_endAccess();
-
-            outlined destroy of KeyboardShortcutBinding(&v150);
-          }
-
-          else
-          {
-            (v91)(&v146, 0);
-            swift_endAccess();
-
-            outlined destroy of KeyboardShortcutBinding(&v150);
-          }
-
-          v3 = v125;
-        }
-
-        else
-        {
-          v141 = v83;
-          swift_endAccess();
-          type metadata accessor for UIKeyCommand();
-          v146 = v150;
-          v147 = v151;
-          v148 = v152;
-          v149 = v153;
-          outlined init with copy of KeyboardShortcutBinding(&v150, v143);
-          outlined init with copy of KeyboardShortcutBinding(&v150, v143);
-          outlined init with copy of KeyboardShortcutBinding(&v150, v143);
-
-          v92 = UIKeyCommand.init(_:)(&v146);
-
-          outlined destroy of KeyboardShortcutBinding(&v150);
-          outlined init with copy of KeyboardShortcutSource?(v124, &v146);
-          v93 = *(&v147 + 1);
-          if (*(&v147 + 1))
-          {
-            v94 = v148;
-            __swift_project_boxed_opaque_existential_1(&v146, *(&v147 + 1));
-            (*(v94 + 8))(v92, v81, *(&v81 + 1), v93, v94);
-            __swift_destroy_boxed_opaque_existential_1(&v146);
-          }
-
-          else
-          {
-            outlined destroy of KeyboardShortcutSource?(&v146);
-          }
-
-          swift_beginAccess();
-
-          v95 = v92;
-          v96 = swift_isUniquelyReferenced_nonNull_native();
-          v143[0] = *(v132 + v142);
-          v97 = v143[0];
-          *(v132 + v142) = 0x8000000000000000;
-          v98 = v84;
-          v100 = specialized __RawDictionaryStorage.find<A>(_:)(v82, *(&v82 + 1), v141, v84);
-          v101 = *(v97 + 16);
-          v102 = (v99 & 1) == 0;
-          v103 = v101 + v102;
-          if (__OFADD__(v101, v102))
-          {
-            goto LABEL_95;
-          }
-
-          v104 = v99;
-          if (*(v97 + 24) >= v103)
-          {
-            if ((v96 & 1) == 0)
-            {
-              specialized _NativeDictionary.copy()();
-            }
-          }
-
-          else
-          {
-            specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v103, v96);
-            v105 = specialized __RawDictionaryStorage.find<A>(_:)(v82, *(&v82 + 1), v141, v98);
-            if ((v104 & 1) != (v106 & 1))
-            {
-              goto LABEL_102;
-            }
-
-            v100 = v105;
-          }
-
-          if (v104)
-          {
-
-            v107 = v143[0];
-            v108 = *(v143[0] + 56) + 24 * v100;
-            v109 = *v108;
-            *v108 = v95;
-            *(v108 + 8) = v81;
-          }
-
-          else
-          {
-            v110 = v98;
-            v107 = v143[0];
-            *(v143[0] + 8 * (v100 >> 6) + 64) |= 1 << v100;
-            v111 = v107[6] + 32 * v100;
-            *v111 = v82;
-            *(v111 + 16) = v141;
-            *(v111 + 24) = v110;
-            v112 = v107[7] + 24 * v100;
-            *v112 = v95;
-            *(v112 + 8) = v81;
-            v113 = v107[2];
-            v49 = __OFADD__(v113, 1);
-            v114 = v113 + 1;
-            if (v49)
-            {
-              goto LABEL_98;
-            }
-
-            v107[2] = v114;
-          }
-
-          v5 = v132;
-          *(v132 + v142) = v107;
-          swift_endAccess();
-
-          outlined destroy of KeyboardShortcutBinding(&v150);
-          v3 = v125;
-          v74 = v123;
-        }
-
-        if (v127 == v76)
-        {
-          goto LABEL_5;
-        }
-
-        v115 = v76 + 1;
-        if (v76 + 1 >= v74)
-        {
-          v75 += 64;
-          ++v76;
-          if (v115 < v130)
-          {
-            continue;
-          }
-        }
-
-        goto LABEL_90;
-      }
-
-      goto LABEL_91;
-    }
-
-LABEL_90:
-    __break(1u);
-LABEL_91:
-    __break(1u);
-LABEL_92:
-    __break(1u);
-LABEL_93:
-    __break(1u);
-LABEL_94:
-    __break(1u);
-LABEL_95:
-    __break(1u);
-LABEL_96:
-    __break(1u);
-LABEL_97:
-    __break(1u);
-LABEL_98:
-    __break(1u);
-LABEL_99:
-    __break(1u);
-  }
-
-  __break(1u);
-LABEL_101:
-  __break(1u);
-LABEL_102:
-  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-  return result;
-}
-
 id UIKeyCommand.init(_:)(uint64_t a1)
 {
   countAndFlagsBits = *a1;
@@ -1739,25 +145,28 @@ LABEL_18:
 
 Swift::Void __swiftcall KeyboardShortcutBridge._performShortcutKeyCommand(_:)(UIKeyCommand *a1)
 {
-  KeyboardShortcut.init(_:)(a1, &v12);
-  v2 = v13;
-  if (v13)
+  KeyboardShortcut.init(_:)(a1, &v15);
+  v2 = v16;
+  if (v16)
   {
-    v3 = v12;
-    v4 = v14;
-    v5 = v15;
+    v3 = v15;
+    v4 = v17;
+    v5 = v18;
     v6 = OBJC_IVAR____TtC7SwiftUI22KeyboardShortcutBridge_shortcutMap;
     swift_beginAccess();
     v7 = *(v1 + v6);
     if (*(v7 + 16) && (v8 = specialized __RawDictionaryStorage.find<A>(_:)(v3, v2, v4, v5), (v9 & 1) != 0))
     {
-      v10 = *(*(v7 + 56) + 24 * v8);
-      v11 = v10;
+      v10 = *(v7 + 56) + 24 * v8;
+      v11 = *v10;
+      v12 = *(v10 + 8);
+      v13 = *(v10 + 16);
+      v14 = *v10;
       swift_retain_n();
       swift_endAccess();
-      outlined consume of KeyboardShortcutBridge.Shortcut?(v10);
+      outlined consume of KeyboardShortcutBridge.Shortcut?(v11, v12, v13);
 
-      LOBYTE(v12) = 17;
+      LOBYTE(v15) = 17;
       static Update.enqueueAction(reason:_:)();
     }
 
@@ -1768,8 +177,10 @@ Swift::Void __swiftcall KeyboardShortcutBridge._performShortcutKeyCommand(_:)(UI
   }
 }
 
-uint64_t destroy for KeyboardShortcutBridge.Shortcut(id *a1)
+double destroy for KeyboardShortcutBridge.Shortcut(id *a1)
 {
+
+  return result;
 }
 
 uint64_t assignWithCopy for KeyboardShortcutBridge.Shortcut(uint64_t a1, uint64_t a2)
@@ -1797,7 +208,7 @@ uint64_t assignWithTake for KeyboardShortcutBridge.Shortcut(uint64_t a1, uint64_
 
 uint64_t outlined init with copy of KeyboardShortcutSource?(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for KeyboardShortcutSource?();
+  type metadata accessor for KeyboardShortcutSource?(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -1816,7 +227,7 @@ unint64_t type metadata accessor for KeyboardShortcutSource()
 
 uint64_t outlined destroy of KeyboardShortcutSource?(uint64_t a1)
 {
-  type metadata accessor for KeyboardShortcutSource?();
+  type metadata accessor for KeyboardShortcutSource?(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1858,7 +269,7 @@ unint64_t lazy protocol witness table accessor for type [KeyboardShortcutBinding
   if (!lazy protocol witness table cache variable for type [KeyboardShortcutBinding] and conformance [A])
   {
     type metadata accessor for [KeyboardShortcutBinding]();
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E69E6310], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type [KeyboardShortcutBinding] and conformance [A]);
   }
 
@@ -1870,7 +281,7 @@ unint64_t lazy protocol witness table accessor for type KeyboardShortcutBinding 
   result = lazy protocol witness table cache variable for type KeyboardShortcutBinding and conformance KeyboardShortcutBinding;
   if (!lazy protocol witness table cache variable for type KeyboardShortcutBinding and conformance KeyboardShortcutBinding)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for KeyboardShortcutBinding, &type metadata for KeyboardShortcutBinding, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type KeyboardShortcutBinding and conformance KeyboardShortcutBinding);
   }
 
@@ -1881,7 +292,7 @@ unint64_t lazy protocol witness table accessor for type KeyboardShortcutBinding 
   result = lazy protocol witness table cache variable for type KeyboardShortcutBinding and conformance KeyboardShortcutBinding;
   if (!lazy protocol witness table cache variable for type KeyboardShortcutBinding and conformance KeyboardShortcutBinding)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for KeyboardShortcutBinding, &type metadata for KeyboardShortcutBinding, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type KeyboardShortcutBinding and conformance KeyboardShortcutBinding);
   }
 
@@ -1979,222 +390,234 @@ UIImage_optional __swiftcall DSLPlatformItem.makeUIImage()()
   return result;
 }
 
-uint64_t DSLPlatformItemReader.init(content:source:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+double DSLPlatformItemReader.init(content:source:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, uint64_t a6@<X7>, void *a7@<X8>)
 {
-  *a3 = a1;
-  a3[1] = a2;
+  *a7 = a1;
+  a7[1] = a2;
 
   static Alignment.center.getter();
-  type metadata accessor for DSLPlatformItemReader();
+  v12[0] = a3;
+  v12[1] = a4;
+  v12[2] = a5;
+  v12[3] = a6;
+  type metadata accessor for DSLPlatformItemReader(0, v12);
   ZStack.init(alignment:content:)();
+
+  return result;
 }
 
-uint64_t closure #1 in DSLPlatformItemReader.init(content:source:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t closure #1 in DSLPlatformItemReader.init(content:source:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *(a4 - 8);
+  v5 = *(a4 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  v14 = &v18 - v13;
-  v15(v12);
-  static ViewBuilder.buildExpression<A>(_:)(v10, a4, a6);
-  v16 = *(v8 + 8);
-  v16(v10, a4);
-  static ViewBuilder.buildExpression<A>(_:)(v14, a4, a6);
-  return (v16)(v14, a4);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v11 = &v15 - v10;
+  v12(v9);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v13 = *(v5 + 8);
+  v13(v7, a4);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v13)(v11, a4);
 }
 
 uint64_t DSLPlatformItemReader.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
-  v30 = a2;
+  v29 = a2;
   v5 = *(a1 - 8);
   v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](a1);
   v8 = *(v7 + 40);
-  v31 = *(v7 + 16);
+  v30 = *(v7 + 16);
   v9 = type metadata accessor for ZStack();
   v10 = *(a1 + 32);
   v11 = v9;
-  v28 = v9;
-  WitnessTable = swift_getWitnessTable();
-  v36 = MEMORY[0x1E69806B0];
-  v29 = v31;
-  v37 = v31;
-  v38 = v11;
-  v39 = MEMORY[0x1E69806A8];
-  v40 = v10;
-  v41 = WitnessTable;
+  v27 = v9;
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E6981880]);
+  v35 = MEMORY[0x1E69806B0];
+  v28 = v30;
+  v36 = v30;
+  v37 = v11;
+  v38 = MEMORY[0x1E69806A8];
+  v39 = v10;
+  v40 = WitnessTable;
   v12 = type metadata accessor for PlatformItemsReader();
-  v27 = *(v12 - 8);
+  v26 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
-  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = MEMORY[0x1EEE9AC00](v15);
-  v18 = &v25 - v17;
-  (*(v5 + 16))(&v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v3, a1, v16);
+  v18 = &v24 - v17;
+  (*(v5 + 16))(&v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v3, a1, v16);
   v19 = (*(v5 + 80) + 48) & ~*(v5 + 80);
   v20 = swift_allocObject();
   *&v21 = v10;
   *(&v21 + 1) = v8;
   *(v20 + 32) = v21;
-  *(v20 + 16) = v31;
-  (*(v5 + 32))(v20 + v19, &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
-  v32 = v31;
-  v33 = v10;
-  v34 = v8;
-  v35 = v25;
+  *(v20 + 16) = v30;
+  (*(v5 + 32))(v20 + v19, &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), a1);
+  v31 = v30;
+  v32 = v10;
+  v33 = v8;
+  v34 = v24;
   PlatformItemsReader.init(for:content:source:)();
-  v22 = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(v14, v12, v22);
-  v23 = *(v27 + 8);
-  v23(v14, v12);
-  static ViewBuilder.buildExpression<A>(_:)(v18, v12, v22);
-  return (v23)(v18, v12);
+  swift_getWitnessTable(MEMORY[0x1E697F778], v12);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v22 = *(v26 + 8);
+  v22(v14, v12);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v22)(v18, v12);
 }
 
-uint64_t closure #1 in DSLPlatformItemReader.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t closure #1 in DSLPlatformItemReader.body.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 - 8);
+  v4 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v9 = &v19[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v19[-v11 - 8];
-  v14 = *v13;
-  outlined init with copy of PlatformItem(v15, v19);
-  v14(v19);
-  outlined destroy of DSLPlatformItem(v19);
-  static ViewBuilder.buildExpression<A>(_:)(v9, a3, a5);
-  v16 = *(v7 + 8);
-  v16(v9, a3);
-  static ViewBuilder.buildExpression<A>(_:)(v12, a3, a5);
-  return (v16)(v12, a3);
+  v6 = &v16[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v16[-v8 - 8];
+  v11 = *v10;
+  outlined init with copy of PlatformItem(v12, v16);
+  v11(v16);
+  outlined destroy of DSLPlatformItem(v16);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v13 = *(v4 + 8);
+  v13(v6, a3);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v13)(v9, a3);
 }
 
 uint64_t partial apply for closure #1 in DSLPlatformItemReader.body.getter(uint64_t a1)
 {
-  v3 = v1[2];
   v4 = v1[3];
   v5 = v1[4];
-  v6 = *(type metadata accessor for DSLPlatformItemReader() - 8);
-  v7 = v1 + ((*(v6 + 80) + 48) & ~*(v6 + 80));
+  v6 = v1[5];
+  v10[0] = v1[2];
+  v3 = v10[0];
+  v10[1] = v4;
+  v10[2] = v5;
+  v10[3] = v6;
+  v7 = *(type metadata accessor for DSLPlatformItemReader(0, v10) - 8);
+  v8 = v1 + ((*(v7 + 80) + 48) & ~*(v7 + 80));
 
-  return closure #1 in DSLPlatformItemReader.body.getter(a1, v7, v3, v4, v5);
+  return closure #1 in DSLPlatformItemReader.body.getter(a1, v8, v3);
 }
 
 uint64_t closure #2 in DSLPlatformItemReader.body.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = type metadata accessor for ZStack();
-  v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = v17 - v12;
-  v17[0] = a2;
-  v17[1] = a3;
-  v17[2] = a4;
-  v17[3] = a5;
-  v14 = *(type metadata accessor for DSLPlatformItemReader() + 52);
-  WitnessTable = swift_getWitnessTable();
-  static ViewBuilder.buildExpression<A>(_:)(a1 + v14, v10, WitnessTable);
-  static ViewBuilder.buildExpression<A>(_:)(v13, v10, WitnessTable);
-  return (*(v11 + 8))(v13, v10);
+  v9 = type metadata accessor for ZStack();
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = v14 - v11;
+  v14[0] = a2;
+  v14[1] = a3;
+  v14[2] = a4;
+  v14[3] = a5;
+  type metadata accessor for DSLPlatformItemReader(0, v14);
+  swift_getWitnessTable(MEMORY[0x1E6981880], v9);
+  static ViewBuilder.buildExpression<A>(_:)();
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (*(v10 + 8))(v12, v9);
 }
 
-uint64_t static DSLPlatformItem.makePlatformItem<A>(inputs:source:)@<X0>(__int128 *a1@<X0>, _DWORD *a2@<X8>)
+uint64_t static DSLPlatformItem.makePlatformItem<A>(inputs:source:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, _DWORD *a4@<X8>)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v3 = a1[1];
-  v26 = *a1;
-  v27 = v3;
-  v28 = a1[2];
+  v38 = *MEMORY[0x1E69E9840];
+  v7 = a1[1];
+  v31 = *a1;
+  v32 = v7;
+  v33 = a1[2];
   type metadata accessor for _GraphValue();
-  LODWORD(v14) = _GraphValue.value.getter();
-  v11 = type metadata accessor for ZStack();
-  Source = type metadata accessor for DSLPlatformItem.MakeSource();
-  WitnessTable = swift_getWitnessTable();
-  v4 = type metadata accessor for Attribute();
-  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v14, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_3, v10, Source, MEMORY[0x1E69E73E0], v4, MEMORY[0x1E69E7410], v5);
+  LODWORD(v19) = _GraphValue.value.getter();
+  v8 = type metadata accessor for ZStack();
+  v16 = v8;
+  Source = type metadata accessor for DSLPlatformItem.MakeSource(0, a2, a3, v9);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for DSLPlatformItem.MakeSource<A>, Source);
+  v10 = type metadata accessor for Attribute();
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(&v19, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_3, v15, Source, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
   PreferenceKeys.init()();
-  *&v31[0] = v14;
+  *&v36[0] = v19;
   type metadata accessor for GraphHost();
   MEMORY[0x18D00B7D0]();
-  LOBYTE(v29[0]) = 0;
+  LOBYTE(v34[0]) = 0;
   GraphHost.intern<A>(_:for:id:)();
 
-  v14 = v26;
-  v15 = v27;
-  v16 = v28;
-  outlined init with copy of _GraphInputs(&v26, v31);
+  v19 = v31;
+  v20 = v32;
+  v21 = v33;
+  outlined init with copy of _GraphInputs(&v31, v36);
   _ViewInputs.init(withoutGeometry:)();
   PreferencesInputs.init(hostKeys:)();
-  v6 = v14;
-  v7 = DWORD2(v14);
+  v12 = v19;
+  LODWORD(a2) = DWORD2(v19);
 
-  *&v23 = v6;
-  DWORD2(v23) = v7;
-  MEMORY[0x18D008ED0](&v20, MEMORY[0x1E69806B0], MEMORY[0x1E69806A0]);
+  *&v28 = v12;
+  DWORD2(v28) = a2;
+  MEMORY[0x18D008ED0](&v25, MEMORY[0x1E69806B0], MEMORY[0x1E69806A0]);
   _GraphValue.init(_:)();
-  v29[2] = v22;
-  v29[3] = v23;
-  v29[4] = v24;
-  v30 = v25;
-  v29[0] = v20;
-  v29[1] = v21;
-  v16 = v22;
-  v17 = v23;
-  v18 = v24;
+  v34[2] = v27;
+  v34[3] = v28;
+  v34[4] = v29;
+  v35 = v30;
+  v34[0] = v25;
+  v34[1] = v26;
+  v21 = v27;
+  v22 = v28;
+  v23 = v29;
+  v24 = v30;
   v19 = v25;
-  v14 = v20;
-  v15 = v21;
-  outlined init with copy of _ViewInputs(v29, v31);
-  swift_getWitnessTable();
+  v20 = v26;
+  outlined init with copy of _ViewInputs(v34, v36);
+  swift_getWitnessTable(MEMORY[0x1E6981880], v8);
   static View.makeDebuggableView(view:inputs:)();
-  v31[2] = v16;
-  v31[3] = v17;
-  v31[4] = v18;
-  v32 = v19;
-  v31[0] = v14;
-  v31[1] = v15;
-  outlined destroy of _ViewInputs(v31);
-  v14 = v9;
-  LODWORD(v6) = static UnaryPlatformItemsStrategy.makeContent(from:)();
+  v36[2] = v21;
+  v36[3] = v22;
+  v36[4] = v23;
+  v37 = v24;
+  v36[0] = v19;
+  v36[1] = v20;
+  outlined destroy of _ViewInputs(v36);
+  v19 = v14;
+  LODWORD(v12) = static UnaryPlatformItemsStrategy.makeContent(from:)();
 
   static PlatformItem.empty.getter();
-  LODWORD(v14) = v6;
+  LODWORD(v19) = v12;
   protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
   lazy protocol witness table accessor for type DSLPlatformItem.Child and conformance DSLPlatformItem.Child();
-  LODWORD(v6) = Attribute.init<A>(body:value:flags:update:)();
-  outlined destroy of DSLPlatformItem.Child(&v14);
-  *a2 = v6;
-  v16 = v22;
-  v17 = v23;
-  v18 = v24;
+  LODWORD(v12) = Attribute.init<A>(body:value:flags:update:)();
+  outlined destroy of DSLPlatformItem.Child(&v19);
+  *a4 = v12;
+  v21 = v27;
+  v22 = v28;
+  v23 = v29;
+  v24 = v30;
   v19 = v25;
-  v14 = v20;
-  v15 = v21;
-  return outlined destroy of _ViewInputs(&v14);
+  v20 = v26;
+  return outlined destroy of _ViewInputs(&v19);
 }
 
-uint64_t closure #1 in DSLPlatformItem.MakeSource.value.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t closure #1 in DSLPlatformItem.MakeSource.value.getter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(a2 - 8);
+  v3 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v14 - v9;
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v12 - v7;
   Value = AGGraphGetValue();
-  (*(v5 + 16))(v7, Value, a2);
-  static ViewBuilder.buildExpression<A>(_:)(v7, a2, a3);
-  v12 = *(v5 + 8);
-  v12(v7, a2);
-  static ViewBuilder.buildExpression<A>(_:)(v10, a2, a3);
-  return (v12)(v10, a2);
+  (*(v3 + 16))(v5, Value, a2);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v10 = *(v3 + 8);
+  v10(v5, a2);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v10)(v8, a2);
 }
 
-uint64_t protocol witness for static Rule.initialValue.getter in conformance DSLPlatformItem.MakeSource<A>@<X0>(uint64_t a1@<X8>)
+uint64_t protocol witness for static Rule.initialValue.getter in conformance DSLPlatformItem.MakeSource<A>@<X0>(uint64_t a2@<X8>)
 {
-  v2 = type metadata accessor for ZStack();
-  v3 = *(*(v2 - 8) + 56);
+  v3 = type metadata accessor for ZStack();
+  v4 = *(*(v3 - 8) + 56);
 
-  return v3(a1, 1, 1, v2);
+  return v4(a2, 1, 1, v3);
 }
 
 uint64_t DSLPlatformItem.Child.updateValue()()
@@ -2248,14 +671,14 @@ unint64_t lazy protocol witness table accessor for type DSLPlatformItem.Child an
   result = lazy protocol witness table cache variable for type DSLPlatformItem.Child and conformance DSLPlatformItem.Child;
   if (!lazy protocol witness table cache variable for type DSLPlatformItem.Child and conformance DSLPlatformItem.Child)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for DSLPlatformItem.Child, &unk_1EFFD8F40, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type DSLPlatformItem.Child and conformance DSLPlatformItem.Child);
   }
 
   return result;
 }
 
-uint64_t destroy for DSLPlatformItem(uint64_t a1)
+void destroy for DSLPlatformItem(uint64_t a1)
 {
 
   v2 = *(a1 + 32);
@@ -2273,40 +696,39 @@ uint64_t destroy for DSLPlatformItem(uint64_t a1)
 
       if ((v3 & 0xFFFFFFFFFFFFFFFELL) != 0x1FFFFFFFELL)
       {
-        outlined consume of AccessibilityImageLabel(*(a1 + 168), *(a1 + 176), v3);
+        outlined consume of AccessibilityImageLabel(*(a1 + 168), *(a1 + 176), v3, *(a1 + 192));
       }
 
       swift_unknownObjectRelease();
     }
   }
 
-  result = *(a1 + 304);
-  if (result != 1)
+  if (*(a1 + 304) != 1)
   {
-    result = swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   if (*(a1 + 608))
   {
 
-    v6 = *(a1 + 416);
-    if (v6)
+    v5 = *(a1 + 416);
+    if (v5)
     {
-      if (v6 == 1)
+      if (v5 == 1)
       {
 LABEL_16:
         if (*(a1 + 568) != 1)
         {
         }
+
+        return;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(a1 + 392);
+      __swift_destroy_boxed_opaque_existential_1((a1 + 392));
     }
 
     goto LABEL_16;
   }
-
-  return result;
 }
 
 uint64_t initializeWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
@@ -2413,7 +835,7 @@ uint64_t initializeWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
         v23 = *(a2 + 168);
         v24 = *(a2 + 176);
         v25 = *(a2 + 192);
-        outlined copy of AccessibilityImageLabel(v23, v24, v16);
+        outlined copy of AccessibilityImageLabel(v23, v24, v16, v25);
         *(a1 + 168) = v23;
         *(a1 + 176) = v24;
         *(a1 + 184) = v16;
@@ -2683,7 +1105,7 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
           v85 = *(a2 + 168);
           v86 = *(a2 + 176);
           v87 = *(a2 + 192);
-          outlined copy of AccessibilityImageLabel(v85, v86, *(a2 + 184));
+          outlined copy of AccessibilityImageLabel(v85, v86, *(a2 + 184), v87);
           *(a1 + 168) = v85;
           *(a1 + 176) = v86;
           *(a1 + 184) = v83;
@@ -2831,7 +1253,7 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
           v97 = *(a2 + 168);
           v98 = *(a2 + 176);
           v99 = *(a2 + 192);
-          outlined copy of AccessibilityImageLabel(v97, v98, *(a2 + 184));
+          outlined copy of AccessibilityImageLabel(v97, v98, *(a2 + 184), v99);
           *(a1 + 168) = v97;
           *(a1 + 176) = v98;
           *(a1 + 184) = v95;
@@ -2952,7 +1374,7 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
           v113 = *(a2 + 168);
           v114 = *(a2 + 176);
           v115 = *(a2 + 192);
-          outlined copy of AccessibilityImageLabel(v113, v114, *(a2 + 184));
+          outlined copy of AccessibilityImageLabel(v113, v114, *(a2 + 184), v115);
           *(a1 + 168) = v113;
           *(a1 + 176) = v114;
           *(a1 + 184) = v109;
@@ -2973,15 +1395,16 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
         v116 = *(a2 + 168);
         v117 = *(a2 + 176);
         v118 = *(a2 + 192);
-        outlined copy of AccessibilityImageLabel(v116, v117, *(a2 + 184));
+        outlined copy of AccessibilityImageLabel(v116, v117, *(a2 + 184), v118);
         v119 = *(a1 + 168);
         v120 = *(a1 + 176);
         v121 = *(a1 + 184);
+        v122 = *(a1 + 192);
         *(a1 + 168) = v116;
         *(a1 + 176) = v117;
         *(a1 + 184) = v109;
         *(a1 + 192) = v118;
-        outlined consume of AccessibilityImageLabel(v119, v120, v121);
+        outlined consume of AccessibilityImageLabel(v119, v120, v121, v122);
       }
 
       *(a1 + 200) = *(a2 + 200);
@@ -2991,13 +1414,13 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
 
       *(a1 + 216) = *(a2 + 216);
       *(a1 + 217) = *(a2 + 217);
-      v122 = *(a2 + 220);
+      v123 = *(a2 + 220);
       *(a1 + 224) = *(a2 + 224);
-      *(a1 + 220) = v122;
-      v123 = *(a1 + 232);
-      v124 = *(a2 + 232);
-      *(a1 + 232) = v124;
-      v125 = v124;
+      *(a1 + 220) = v123;
+      v124 = *(a1 + 232);
+      v125 = *(a2 + 232);
+      *(a1 + 232) = v125;
+      v126 = v125;
 
       *(a1 + 240) = *(a2 + 240);
       *(a1 + 242) = *(a2 + 242);
@@ -3011,16 +1434,16 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
 
   *(a1 + 272) = *(a2 + 272);
 
-  v126 = (a1 + 280);
-  v127 = (a2 + 280);
-  v128 = *(a2 + 304);
+  v127 = (a1 + 280);
+  v128 = (a2 + 280);
+  v129 = *(a2 + 304);
   if (*(a1 + 304) == 1)
   {
-    if (v128 == 1)
+    if (v129 == 1)
     {
-      v129 = *(a2 + 296);
-      *v126 = *v127;
-      *(a1 + 296) = v129;
+      v130 = *(a2 + 296);
+      *v127 = *v128;
+      *(a1 + 296) = v130;
     }
 
     else
@@ -3033,12 +1456,12 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
     }
   }
 
-  else if (v128 == 1)
+  else if (v129 == 1)
   {
     outlined destroy of PlatformItem.SelectionContent(a1 + 280);
-    v130 = *(a2 + 296);
-    *v126 = *v127;
-    *(a1 + 296) = v130;
+    v131 = *(a2 + 296);
+    *v127 = *v128;
+    *(a1 + 296) = v131;
   }
 
   else
@@ -3053,13 +1476,13 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
     swift_unknownObjectRelease();
   }
 
-  v131 = *(a2 + 312);
+  v132 = *(a2 + 312);
   *(a1 + 320) = *(a2 + 320);
-  *(a1 + 312) = v131;
-  v132 = *(a2 + 608);
+  *(a1 + 312) = v132;
+  v133 = *(a2 + 608);
   if (*(a1 + 608))
   {
-    if (v132)
+    if (v133)
     {
       *(a1 + 328) = *(a2 + 328);
       *(a1 + 336) = *(a2 + 336);
@@ -3068,30 +1491,30 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
       *(a1 + 352) = *(a2 + 352);
 
       *(a1 + 360) = *(a2 + 360);
-      v133 = *(a2 + 368);
+      v134 = *(a2 + 368);
       *(a1 + 384) = *(a2 + 384);
-      *(a1 + 368) = v133;
-      v134 = (a1 + 392);
-      v135 = (a2 + 392);
-      v136 = *(a1 + 416);
-      v137 = *(a2 + 416);
-      if (v136 != 1)
+      *(a1 + 368) = v134;
+      v135 = (a1 + 392);
+      v136 = (a2 + 392);
+      v137 = *(a1 + 416);
+      v138 = *(a2 + 416);
+      if (v137 != 1)
       {
-        if (v137 == 1)
+        if (v138 == 1)
         {
           outlined destroy of AccessibilityValueStorage(a1 + 392);
-          v147 = *(a2 + 408);
-          v146 = *(a2 + 424);
-          *v134 = *v135;
-          *(a1 + 408) = v147;
-          *(a1 + 424) = v146;
+          v148 = *(a2 + 408);
+          v147 = *(a2 + 424);
+          *v135 = *v136;
+          *(a1 + 408) = v148;
+          *(a1 + 424) = v147;
         }
 
         else
         {
-          if (v136)
+          if (v137)
           {
-            if (v137)
+            if (v138)
             {
               __swift_assign_boxed_opaque_existential_1((a1 + 392), (a2 + 392));
             }
@@ -3099,28 +1522,28 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
             else
             {
               outlined destroy of AnyAccessibilityValue(a1 + 392);
-              v165 = *(a2 + 424);
-              v166 = *(a2 + 408);
-              *v134 = *v135;
-              *(a1 + 408) = v166;
-              *(a1 + 424) = v165;
+              v166 = *(a2 + 424);
+              v167 = *(a2 + 408);
+              *v135 = *v136;
+              *(a1 + 408) = v167;
+              *(a1 + 424) = v166;
             }
           }
 
-          else if (v137)
+          else if (v138)
           {
-            *(a1 + 416) = v137;
+            *(a1 + 416) = v138;
             *(a1 + 424) = *(a2 + 424);
-            (**(v137 - 8))(a1 + 392, a2 + 392);
+            (**(v138 - 8))(a1 + 392, a2 + 392);
           }
 
           else
           {
-            v167 = *v135;
-            v168 = *(a2 + 408);
+            v168 = *v136;
+            v169 = *(a2 + 408);
             *(a1 + 424) = *(a2 + 424);
-            *v134 = v167;
-            *(a1 + 408) = v168;
+            *v135 = v168;
+            *(a1 + 408) = v169;
           }
 
           *(a1 + 432) = *(a2 + 432);
@@ -3129,53 +1552,53 @@ uint64_t assignWithCopy for DSLPlatformItem(uint64_t a1, uint64_t a2)
         goto LABEL_83;
       }
 
-      if (v137)
+      if (v138)
       {
-        if (v137 == 1)
+        if (v138 == 1)
         {
-          v138 = *v135;
-          v139 = *(a2 + 424);
+          v139 = *v136;
+          v140 = *(a2 + 424);
           *(a1 + 408) = *(a2 + 408);
-          *(a1 + 424) = v139;
-          *v134 = v138;
+          *(a1 + 424) = v140;
+          *v135 = v139;
 LABEL_83:
-          v169 = *(a2 + 440);
+          v170 = *(a2 + 440);
           *(a1 + 448) = *(a2 + 448);
-          *(a1 + 440) = v169;
-          v170 = (a1 + 456);
-          v171 = (a2 + 456);
-          v172 = *(a2 + 568);
+          *(a1 + 440) = v170;
+          v171 = (a1 + 456);
+          v172 = (a2 + 456);
+          v173 = *(a2 + 568);
           if (*(a1 + 568) == 1)
           {
-            if (v172 == 1)
+            if (v173 == 1)
             {
-              v173 = *(a2 + 472);
-              *v170 = *v171;
-              *(a1 + 472) = v173;
-              v174 = *(a2 + 488);
-              v175 = *(a2 + 504);
-              v176 = *(a2 + 536);
+              v174 = *(a2 + 472);
+              *v171 = *v172;
+              *(a1 + 472) = v174;
+              v175 = *(a2 + 488);
+              v176 = *(a2 + 504);
+              v177 = *(a2 + 536);
               *(a1 + 520) = *(a2 + 520);
-              *(a1 + 536) = v176;
-              *(a1 + 488) = v174;
-              *(a1 + 504) = v175;
-              v177 = *(a2 + 552);
-              v178 = *(a2 + 568);
-              v179 = *(a2 + 584);
+              *(a1 + 536) = v177;
+              *(a1 + 488) = v175;
+              *(a1 + 504) = v176;
+              v178 = *(a2 + 552);
+              v179 = *(a2 + 568);
+              v180 = *(a2 + 584);
               *(a1 + 600) = *(a2 + 600);
-              *(a1 + 568) = v178;
-              *(a1 + 584) = v179;
-              *(a1 + 552) = v177;
+              *(a1 + 568) = v179;
+              *(a1 + 584) = v180;
+              *(a1 + 552) = v178;
             }
 
             else
             {
-              v187 = *v171;
+              v188 = *v172;
               *(a1 + 464) = *(a2 + 464);
-              *v170 = v187;
-              v188 = *(a2 + 472);
+              *v171 = v188;
+              v189 = *(a2 + 472);
               *(a1 + 480) = *(a2 + 480);
-              *(a1 + 472) = v188;
+              *(a1 + 472) = v189;
               *(a1 + 481) = *(a2 + 481);
               *(a1 + 482) = *(a2 + 482);
               *(a1 + 483) = *(a2 + 483);
@@ -3192,43 +1615,43 @@ LABEL_83:
               *(a1 + 552) = *(a2 + 552);
               *(a1 + 560) = *(a2 + 560);
               *(a1 + 568) = *(a2 + 568);
-              v189 = *(a2 + 576);
+              v190 = *(a2 + 576);
               *(a1 + 592) = *(a2 + 592);
-              *(a1 + 576) = v189;
+              *(a1 + 576) = v190;
               *(a1 + 600) = *(a2 + 600);
             }
           }
 
-          else if (v172 == 1)
+          else if (v173 == 1)
           {
             outlined destroy of AccessibilityTextLayoutProperties(a1 + 456);
-            v180 = *(a2 + 472);
-            *v170 = *v171;
-            *(a1 + 472) = v180;
-            v181 = *(a2 + 536);
-            v183 = *(a2 + 488);
-            v182 = *(a2 + 504);
+            v181 = *(a2 + 472);
+            *v171 = *v172;
+            *(a1 + 472) = v181;
+            v182 = *(a2 + 536);
+            v184 = *(a2 + 488);
+            v183 = *(a2 + 504);
             *(a1 + 520) = *(a2 + 520);
-            *(a1 + 536) = v181;
-            *(a1 + 488) = v183;
-            *(a1 + 504) = v182;
-            v185 = *(a2 + 568);
-            v184 = *(a2 + 584);
-            v186 = *(a2 + 552);
+            *(a1 + 536) = v182;
+            *(a1 + 488) = v184;
+            *(a1 + 504) = v183;
+            v186 = *(a2 + 568);
+            v185 = *(a2 + 584);
+            v187 = *(a2 + 552);
             *(a1 + 600) = *(a2 + 600);
-            *(a1 + 568) = v185;
-            *(a1 + 584) = v184;
-            *(a1 + 552) = v186;
+            *(a1 + 568) = v186;
+            *(a1 + 584) = v185;
+            *(a1 + 552) = v187;
           }
 
           else
           {
-            v190 = *v171;
+            v191 = *v172;
             *(a1 + 464) = *(a2 + 464);
-            *v170 = v190;
-            v191 = *(a2 + 472);
+            *v171 = v191;
+            v192 = *(a2 + 472);
             *(a1 + 480) = *(a2 + 480);
-            *(a1 + 472) = v191;
+            *(a1 + 472) = v192;
             *(a1 + 481) = *(a2 + 481);
             *(a1 + 482) = *(a2 + 482);
             *(a1 + 483) = *(a2 + 483);
@@ -3246,9 +1669,9 @@ LABEL_83:
             *(a1 + 560) = *(a2 + 560);
             *(a1 + 568) = *(a2 + 568);
 
-            v192 = *(a2 + 576);
+            v193 = *(a2 + 576);
             *(a1 + 592) = *(a2 + 592);
-            *(a1 + 576) = v192;
+            *(a1 + 576) = v193;
             *(a1 + 600) = *(a2 + 600);
           }
 
@@ -3260,18 +1683,18 @@ LABEL_83:
           return a1;
         }
 
-        *(a1 + 416) = v137;
+        *(a1 + 416) = v138;
         *(a1 + 424) = *(a2 + 424);
-        (**(v137 - 8))(a1 + 392, a2 + 392);
+        (**(v138 - 8))(a1 + 392, a2 + 392);
       }
 
       else
       {
-        v163 = *v135;
-        v164 = *(a2 + 408);
+        v164 = *v136;
+        v165 = *(a2 + 408);
         *(a1 + 424) = *(a2 + 424);
-        *v134 = v163;
-        *(a1 + 408) = v164;
+        *v135 = v164;
+        *(a1 + 408) = v165;
       }
 
       *(a1 + 432) = *(a2 + 432);
@@ -3285,7 +1708,7 @@ LABEL_62:
     return a1;
   }
 
-  if (!v132)
+  if (!v133)
   {
     goto LABEL_62;
   }
@@ -3295,74 +1718,74 @@ LABEL_62:
   *(a1 + 344) = *(a2 + 344);
   *(a1 + 352) = *(a2 + 352);
   *(a1 + 360) = *(a2 + 360);
-  v140 = *(a2 + 368);
+  v141 = *(a2 + 368);
   *(a1 + 384) = *(a2 + 384);
-  *(a1 + 368) = v140;
-  v141 = (a1 + 392);
-  v142 = (a2 + 392);
-  v143 = *(a2 + 416);
+  *(a1 + 368) = v141;
+  v142 = (a1 + 392);
+  v143 = (a2 + 392);
+  v144 = *(a2 + 416);
 
-  if (!v143)
+  if (!v144)
   {
-    v148 = *v142;
-    v149 = *(a2 + 408);
+    v149 = *v143;
+    v150 = *(a2 + 408);
     *(a1 + 424) = *(a2 + 424);
-    *v141 = v148;
-    *(a1 + 408) = v149;
+    *v142 = v149;
+    *(a1 + 408) = v150;
 LABEL_70:
     *(a1 + 432) = *(a2 + 432);
 
     goto LABEL_71;
   }
 
-  if (v143 != 1)
+  if (v144 != 1)
   {
-    *(a1 + 416) = v143;
+    *(a1 + 416) = v144;
     *(a1 + 424) = *(a2 + 424);
-    (**(v143 - 8))(a1 + 392, a2 + 392, v143);
+    (**(v144 - 8))(a1 + 392, a2 + 392, v144);
     goto LABEL_70;
   }
 
-  v144 = *v142;
-  v145 = *(a2 + 424);
+  v145 = *v143;
+  v146 = *(a2 + 424);
   *(a1 + 408) = *(a2 + 408);
-  *(a1 + 424) = v145;
-  *v141 = v144;
+  *(a1 + 424) = v146;
+  *v142 = v145;
 LABEL_71:
-  v150 = *(a2 + 440);
+  v151 = *(a2 + 440);
   *(a1 + 448) = *(a2 + 448);
-  *(a1 + 440) = v150;
-  v151 = (a1 + 456);
-  v152 = (a2 + 456);
+  *(a1 + 440) = v151;
+  v152 = (a1 + 456);
+  v153 = (a2 + 456);
   if (*(a2 + 568) == 1)
   {
-    v153 = *(a2 + 472);
-    *v151 = *v152;
-    *(a1 + 472) = v153;
-    v154 = *(a2 + 488);
-    v155 = *(a2 + 504);
-    v156 = *(a2 + 536);
+    v154 = *(a2 + 472);
+    *v152 = *v153;
+    *(a1 + 472) = v154;
+    v155 = *(a2 + 488);
+    v156 = *(a2 + 504);
+    v157 = *(a2 + 536);
     *(a1 + 520) = *(a2 + 520);
-    *(a1 + 536) = v156;
-    *(a1 + 488) = v154;
-    *(a1 + 504) = v155;
-    v157 = *(a2 + 552);
-    v158 = *(a2 + 568);
-    v159 = *(a2 + 584);
+    *(a1 + 536) = v157;
+    *(a1 + 488) = v155;
+    *(a1 + 504) = v156;
+    v158 = *(a2 + 552);
+    v159 = *(a2 + 568);
+    v160 = *(a2 + 584);
     *(a1 + 600) = *(a2 + 600);
-    *(a1 + 568) = v158;
-    *(a1 + 584) = v159;
-    *(a1 + 552) = v157;
+    *(a1 + 568) = v159;
+    *(a1 + 584) = v160;
+    *(a1 + 552) = v158;
   }
 
   else
   {
-    v160 = *v152;
+    v161 = *v153;
     *(a1 + 464) = *(a2 + 464);
-    *v151 = v160;
-    v161 = *(a2 + 472);
+    *v152 = v161;
+    v162 = *(a2 + 472);
     *(a1 + 480) = *(a2 + 480);
-    *(a1 + 472) = v161;
+    *(a1 + 472) = v162;
     *(a1 + 481) = *(a2 + 481);
     *(a1 + 482) = *(a2 + 482);
     *(a1 + 483) = *(a2 + 483);
@@ -3379,9 +1802,9 @@ LABEL_71:
     *(a1 + 552) = *(a2 + 552);
     *(a1 + 560) = *(a2 + 560);
     *(a1 + 568) = *(a2 + 568);
-    v162 = *(a2 + 576);
+    v163 = *(a2 + 576);
     *(a1 + 592) = *(a2 + 592);
-    *(a1 + 576) = v162;
+    *(a1 + 576) = v163;
     *(a1 + 600) = *(a2 + 600);
   }
 
@@ -3491,10 +1914,11 @@ LABEL_14:
         v21 = *(a2 + 192);
         v22 = *(a1 + 168);
         v23 = *(a1 + 176);
+        v24 = *(a1 + 192);
         *(a1 + 168) = *(a2 + 168);
         *(a1 + 184) = v20;
         *(a1 + 192) = v21;
-        outlined consume of AccessibilityImageLabel(v22, v23, v19);
+        outlined consume of AccessibilityImageLabel(v22, v23, v19, v24);
         goto LABEL_19;
       }
 
@@ -3512,7 +1936,7 @@ LABEL_19:
     *(a1 + 217) = *(a2 + 217);
     *(a1 + 220) = *(a2 + 220);
     *(a1 + 224) = *(a2 + 224);
-    v24 = *(a1 + 232);
+    v25 = *(a1 + 232);
     *(a1 + 232) = *(a2 + 232);
 
     *(a1 + 240) = *(a2 + 240);
@@ -3543,26 +1967,26 @@ LABEL_20:
 LABEL_21:
   *(a1 + 272) = *(a2 + 272);
 
-  v25 = (a1 + 280);
+  v26 = (a1 + 280);
   if (*(a1 + 304) == 1)
   {
 LABEL_24:
-    v27 = *(a2 + 296);
-    *v25 = *(a2 + 280);
-    *(a1 + 296) = v27;
+    v28 = *(a2 + 296);
+    *v26 = *(a2 + 280);
+    *(a1 + 296) = v28;
     goto LABEL_26;
   }
 
-  v26 = *(a2 + 304);
-  if (v26 == 1)
+  v27 = *(a2 + 304);
+  if (v27 == 1)
   {
     outlined destroy of PlatformItem.SelectionContent(a1 + 280);
     goto LABEL_24;
   }
 
-  *v25 = *(a2 + 280);
+  *v26 = *(a2 + 280);
   *(a1 + 296) = *(a2 + 296);
-  *(a1 + 304) = v26;
+  *(a1 + 304) = v27;
   swift_unknownObjectRelease();
 LABEL_26:
   *(a1 + 312) = *(a2 + 312);
@@ -3571,9 +1995,9 @@ LABEL_26:
   {
     if (*(a2 + 608))
     {
-      v28 = *(a2 + 336);
+      v29 = *(a2 + 336);
       *(a1 + 328) = *(a2 + 328);
-      *(a1 + 336) = v28;
+      *(a1 + 336) = v29;
 
       *(a1 + 344) = *(a2 + 344);
       *(a1 + 352) = *(a2 + 352);
@@ -3581,45 +2005,45 @@ LABEL_26:
       *(a1 + 360) = *(a2 + 360);
       *(a1 + 368) = *(a2 + 368);
       *(a1 + 384) = *(a2 + 384);
-      v29 = (a1 + 392);
-      v30 = (a2 + 392);
-      v31 = *(a1 + 416);
-      if (v31 != 1)
+      v30 = (a1 + 392);
+      v31 = (a2 + 392);
+      v32 = *(a1 + 416);
+      if (v32 != 1)
       {
-        v32 = *(a2 + 416);
-        if (v32 != 1)
+        v33 = *(a2 + 416);
+        if (v33 != 1)
         {
-          if (v31)
+          if (v32)
           {
-            v34 = a1 + 392;
-            if (v32)
+            v35 = (a1 + 392);
+            if (v33)
             {
-              __swift_destroy_boxed_opaque_existential_1(v34);
+              __swift_destroy_boxed_opaque_existential_1(v35);
             }
 
             else
             {
-              outlined destroy of AnyAccessibilityValue(v34);
+              outlined destroy of AnyAccessibilityValue(v35);
             }
           }
 
-          v35 = *(a2 + 408);
-          *v29 = *v30;
-          *(a1 + 408) = v35;
+          v36 = *(a2 + 408);
+          *v30 = *v31;
+          *(a1 + 408) = v36;
           *(a1 + 424) = *(a2 + 424);
           *(a1 + 432) = *(a2 + 432);
 
 LABEL_39:
           *(a1 + 440) = *(a2 + 440);
           *(a1 + 448) = *(a2 + 448);
-          v36 = (a1 + 456);
-          v37 = (a2 + 456);
+          v37 = (a1 + 456);
+          v38 = (a2 + 456);
           if (*(a1 + 568) != 1)
           {
-            v38 = *(a2 + 568);
-            if (v38 != 1)
+            v39 = *(a2 + 568);
+            if (v39 != 1)
             {
-              *v36 = *v37;
+              *v37 = *v38;
               *(a1 + 464) = *(a2 + 464);
               *(a1 + 472) = *(a2 + 472);
               *(a1 + 480) = *(a2 + 480);
@@ -3627,15 +2051,15 @@ LABEL_39:
               *(a1 + 483) = *(a2 + 483);
               *(a1 + 484) = *(a2 + 484);
               *(a1 + 488) = *(a2 + 488);
-              v43 = *(a2 + 512);
+              v44 = *(a2 + 512);
               *(a1 + 496) = *(a2 + 496);
-              *(a1 + 512) = v43;
+              *(a1 + 512) = v44;
               *(a1 + 528) = *(a2 + 528);
               *(a1 + 536) = *(a2 + 536);
               *(a1 + 537) = *(a2 + 537);
               *(a1 + 544) = *(a2 + 544);
               *(a1 + 560) = *(a2 + 560);
-              *(a1 + 568) = v38;
+              *(a1 + 568) = v39;
 
               *(a1 + 576) = *(a2 + 576);
               *(a1 + 592) = *(a2 + 592);
@@ -3646,20 +2070,20 @@ LABEL_39:
             outlined destroy of AccessibilityTextLayoutProperties(a1 + 456);
           }
 
-          v39 = *(a2 + 568);
+          v40 = *(a2 + 568);
           *(a1 + 552) = *(a2 + 552);
-          *(a1 + 568) = v39;
+          *(a1 + 568) = v40;
           *(a1 + 584) = *(a2 + 584);
           *(a1 + 600) = *(a2 + 600);
-          v40 = *(a2 + 504);
+          v41 = *(a2 + 504);
           *(a1 + 488) = *(a2 + 488);
-          *(a1 + 504) = v40;
-          v41 = *(a2 + 536);
+          *(a1 + 504) = v41;
+          v42 = *(a2 + 536);
           *(a1 + 520) = *(a2 + 520);
-          *(a1 + 536) = v41;
-          v42 = *(a2 + 472);
-          *v36 = *v37;
-          *(a1 + 472) = v42;
+          *(a1 + 536) = v42;
+          v43 = *(a2 + 472);
+          *v37 = *v38;
+          *(a1 + 472) = v43;
 LABEL_44:
           *(a1 + 608) = *(a2 + 608);
 
@@ -3671,9 +2095,9 @@ LABEL_44:
         outlined destroy of AccessibilityValueStorage(a1 + 392);
       }
 
-      v33 = *(a2 + 408);
-      *v29 = *v30;
-      *(a1 + 408) = v33;
+      v34 = *(a2 + 408);
+      *v30 = *v31;
+      *(a1 + 408) = v34;
       *(a1 + 424) = *(a2 + 424);
       goto LABEL_39;
     }
@@ -3781,10 +2205,10 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata completion function for DSLPlatformItemReader()
+uint64_t type metadata completion function for DSLPlatformItemReader(uint64_t a1)
 {
   result = type metadata accessor for _VariadicView.Tree();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -4266,7 +2690,7 @@ LABEL_31:
   }
 }
 
-uint64_t destroy for DSLPlatformItem.Child(uint64_t a1)
+void destroy for DSLPlatformItem.Child(uint64_t a1)
 {
 
   v2 = *(a1 + 40);
@@ -4284,40 +2708,39 @@ uint64_t destroy for DSLPlatformItem.Child(uint64_t a1)
 
       if ((v3 & 0xFFFFFFFFFFFFFFFELL) != 0x1FFFFFFFELL)
       {
-        outlined consume of AccessibilityImageLabel(*(a1 + 176), *(a1 + 184), v3);
+        outlined consume of AccessibilityImageLabel(*(a1 + 176), *(a1 + 184), v3, *(a1 + 200));
       }
 
       swift_unknownObjectRelease();
     }
   }
 
-  result = *(a1 + 312);
-  if (result != 1)
+  if (*(a1 + 312) != 1)
   {
-    result = swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   if (*(a1 + 616))
   {
 
-    v6 = *(a1 + 424);
-    if (v6)
+    v5 = *(a1 + 424);
+    if (v5)
     {
-      if (v6 == 1)
+      if (v5 == 1)
       {
 LABEL_16:
         if (*(a1 + 576) != 1)
         {
         }
+
+        return;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(a1 + 400);
+      __swift_destroy_boxed_opaque_existential_1((a1 + 400));
     }
 
     goto LABEL_16;
   }
-
-  return result;
 }
 
 uint64_t initializeWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
@@ -4430,7 +2853,7 @@ uint64_t initializeWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
         v28 = *(a2 + 176);
         v29 = *(a2 + 184);
         v30 = *(a2 + 200);
-        outlined copy of AccessibilityImageLabel(v28, v29, v16);
+        outlined copy of AccessibilityImageLabel(v28, v29, v16, v30);
         *(a1 + 176) = v28;
         *(a1 + 184) = v29;
         *(a1 + 192) = v16;
@@ -4697,7 +3120,7 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
           v85 = *(a2 + 176);
           v86 = *(a2 + 184);
           v87 = *(a2 + 200);
-          outlined copy of AccessibilityImageLabel(v85, v86, *(a2 + 192));
+          outlined copy of AccessibilityImageLabel(v85, v86, *(a2 + 192), v87);
           *(a1 + 176) = v85;
           *(a1 + 184) = v86;
           *(a1 + 192) = v83;
@@ -4845,7 +3268,7 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
           v97 = *(a2 + 176);
           v98 = *(a2 + 184);
           v99 = *(a2 + 200);
-          outlined copy of AccessibilityImageLabel(v97, v98, *(a2 + 192));
+          outlined copy of AccessibilityImageLabel(v97, v98, *(a2 + 192), v99);
           *(a1 + 176) = v97;
           *(a1 + 184) = v98;
           *(a1 + 192) = v95;
@@ -4966,7 +3389,7 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
           v113 = *(a2 + 176);
           v114 = *(a2 + 184);
           v115 = *(a2 + 200);
-          outlined copy of AccessibilityImageLabel(v113, v114, *(a2 + 192));
+          outlined copy of AccessibilityImageLabel(v113, v114, *(a2 + 192), v115);
           *(a1 + 176) = v113;
           *(a1 + 184) = v114;
           *(a1 + 192) = v109;
@@ -4987,15 +3410,16 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
         v116 = *(a2 + 176);
         v117 = *(a2 + 184);
         v118 = *(a2 + 200);
-        outlined copy of AccessibilityImageLabel(v116, v117, *(a2 + 192));
+        outlined copy of AccessibilityImageLabel(v116, v117, *(a2 + 192), v118);
         v119 = *(a1 + 176);
         v120 = *(a1 + 184);
         v121 = *(a1 + 192);
+        v122 = *(a1 + 200);
         *(a1 + 176) = v116;
         *(a1 + 184) = v117;
         *(a1 + 192) = v109;
         *(a1 + 200) = v118;
-        outlined consume of AccessibilityImageLabel(v119, v120, v121);
+        outlined consume of AccessibilityImageLabel(v119, v120, v121, v122);
       }
 
       *(a1 + 208) = *(a2 + 208);
@@ -5005,13 +3429,13 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
 
       *(a1 + 224) = *(a2 + 224);
       *(a1 + 225) = *(a2 + 225);
-      v122 = *(a2 + 228);
+      v123 = *(a2 + 228);
       *(a1 + 232) = *(a2 + 232);
-      *(a1 + 228) = v122;
-      v123 = *(a1 + 240);
-      v124 = *(a2 + 240);
-      *(a1 + 240) = v124;
-      v125 = v124;
+      *(a1 + 228) = v123;
+      v124 = *(a1 + 240);
+      v125 = *(a2 + 240);
+      *(a1 + 240) = v125;
+      v126 = v125;
 
       *(a1 + 248) = *(a2 + 248);
       *(a1 + 250) = *(a2 + 250);
@@ -5025,14 +3449,14 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
 
   *(a1 + 280) = *(a2 + 280);
 
-  v126 = *(a2 + 312);
+  v127 = *(a2 + 312);
   if (*(a1 + 312) == 1)
   {
-    if (v126 == 1)
+    if (v127 == 1)
     {
-      v127 = *(a2 + 304);
+      v128 = *(a2 + 304);
       *(a1 + 288) = *(a2 + 288);
-      *(a1 + 304) = v127;
+      *(a1 + 304) = v128;
     }
 
     else
@@ -5045,12 +3469,12 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
     }
   }
 
-  else if (v126 == 1)
+  else if (v127 == 1)
   {
     outlined destroy of PlatformItem.SelectionContent(a1 + 288);
-    v128 = *(a2 + 304);
+    v129 = *(a2 + 304);
     *(a1 + 288) = *(a2 + 288);
-    *(a1 + 304) = v128;
+    *(a1 + 304) = v129;
   }
 
   else
@@ -5065,13 +3489,13 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
     swift_unknownObjectRelease();
   }
 
-  v129 = *(a2 + 320);
+  v130 = *(a2 + 320);
   *(a1 + 328) = *(a2 + 328);
-  *(a1 + 320) = v129;
-  v130 = *(a2 + 616);
+  *(a1 + 320) = v130;
+  v131 = *(a2 + 616);
   if (*(a1 + 616))
   {
-    if (v130)
+    if (v131)
     {
       *(a1 + 336) = *(a2 + 336);
       *(a1 + 344) = *(a2 + 344);
@@ -5080,58 +3504,58 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
       *(a1 + 360) = *(a2 + 360);
 
       *(a1 + 368) = *(a2 + 368);
-      v131 = *(a2 + 376);
+      v132 = *(a2 + 376);
       *(a1 + 392) = *(a2 + 392);
-      *(a1 + 376) = v131;
-      v132 = *(a1 + 424);
-      v133 = *(a2 + 424);
-      if (v132 != 1)
+      *(a1 + 376) = v132;
+      v133 = *(a1 + 424);
+      v134 = *(a2 + 424);
+      if (v133 != 1)
       {
-        if (v133 == 1)
+        if (v134 == 1)
         {
           outlined destroy of AccessibilityValueStorage(a1 + 400);
-          v141 = *(a2 + 416);
-          v140 = *(a2 + 432);
+          v142 = *(a2 + 416);
+          v141 = *(a2 + 432);
           *(a1 + 400) = *(a2 + 400);
-          *(a1 + 416) = v141;
-          *(a1 + 432) = v140;
+          *(a1 + 416) = v142;
+          *(a1 + 432) = v141;
         }
 
         else
         {
-          if (v132)
+          if (v133)
           {
-            v142 = (a1 + 400);
-            if (v133)
+            v143 = (a1 + 400);
+            if (v134)
             {
-              __swift_assign_boxed_opaque_existential_1(v142, (a2 + 400));
+              __swift_assign_boxed_opaque_existential_1(v143, (a2 + 400));
             }
 
             else
             {
-              outlined destroy of AnyAccessibilityValue(v142);
-              v158 = *(a2 + 432);
-              v159 = *(a2 + 416);
+              outlined destroy of AnyAccessibilityValue(v143);
+              v159 = *(a2 + 432);
+              v160 = *(a2 + 416);
               *(a1 + 400) = *(a2 + 400);
-              *(a1 + 416) = v159;
-              *(a1 + 432) = v158;
+              *(a1 + 416) = v160;
+              *(a1 + 432) = v159;
             }
           }
 
-          else if (v133)
+          else if (v134)
           {
-            *(a1 + 424) = v133;
+            *(a1 + 424) = v134;
             *(a1 + 432) = *(a2 + 432);
-            (**(v133 - 8))(a1 + 400, a2 + 400);
+            (**(v134 - 8))(a1 + 400, a2 + 400);
           }
 
           else
           {
-            v160 = *(a2 + 400);
-            v161 = *(a2 + 416);
+            v161 = *(a2 + 400);
+            v162 = *(a2 + 416);
             *(a1 + 432) = *(a2 + 432);
-            *(a1 + 400) = v160;
-            *(a1 + 416) = v161;
+            *(a1 + 400) = v161;
+            *(a1 + 416) = v162;
           }
 
           *(a1 + 440) = *(a2 + 440);
@@ -5140,51 +3564,51 @@ uint64_t assignWithCopy for DSLPlatformItem.Child(uint64_t a1, uint64_t a2)
         goto LABEL_83;
       }
 
-      if (v133)
+      if (v134)
       {
-        if (v133 == 1)
+        if (v134 == 1)
         {
-          v134 = *(a2 + 400);
-          v135 = *(a2 + 432);
+          v135 = *(a2 + 400);
+          v136 = *(a2 + 432);
           *(a1 + 416) = *(a2 + 416);
-          *(a1 + 432) = v135;
-          *(a1 + 400) = v134;
+          *(a1 + 432) = v136;
+          *(a1 + 400) = v135;
 LABEL_83:
-          v162 = *(a2 + 448);
+          v163 = *(a2 + 448);
           *(a1 + 456) = *(a2 + 456);
-          *(a1 + 448) = v162;
-          v163 = *(a2 + 576);
+          *(a1 + 448) = v163;
+          v164 = *(a2 + 576);
           if (*(a1 + 576) == 1)
           {
-            if (v163 == 1)
+            if (v164 == 1)
             {
-              v164 = *(a2 + 480);
+              v165 = *(a2 + 480);
               *(a1 + 464) = *(a2 + 464);
-              *(a1 + 480) = v164;
-              v165 = *(a2 + 496);
-              v166 = *(a2 + 512);
-              v167 = *(a2 + 544);
+              *(a1 + 480) = v165;
+              v166 = *(a2 + 496);
+              v167 = *(a2 + 512);
+              v168 = *(a2 + 544);
               *(a1 + 528) = *(a2 + 528);
-              *(a1 + 544) = v167;
-              *(a1 + 496) = v165;
-              *(a1 + 512) = v166;
-              v168 = *(a2 + 560);
-              v169 = *(a2 + 576);
-              v170 = *(a2 + 592);
+              *(a1 + 544) = v168;
+              *(a1 + 496) = v166;
+              *(a1 + 512) = v167;
+              v169 = *(a2 + 560);
+              v170 = *(a2 + 576);
+              v171 = *(a2 + 592);
               *(a1 + 608) = *(a2 + 608);
-              *(a1 + 576) = v169;
-              *(a1 + 592) = v170;
-              *(a1 + 560) = v168;
+              *(a1 + 576) = v170;
+              *(a1 + 592) = v171;
+              *(a1 + 560) = v169;
             }
 
             else
             {
-              v178 = *(a2 + 464);
+              v179 = *(a2 + 464);
               *(a1 + 472) = *(a2 + 472);
-              *(a1 + 464) = v178;
-              v179 = *(a2 + 480);
+              *(a1 + 464) = v179;
+              v180 = *(a2 + 480);
               *(a1 + 488) = *(a2 + 488);
-              *(a1 + 480) = v179;
+              *(a1 + 480) = v180;
               *(a1 + 489) = *(a2 + 489);
               *(a1 + 490) = *(a2 + 490);
               *(a1 + 491) = *(a2 + 491);
@@ -5201,43 +3625,43 @@ LABEL_83:
               *(a1 + 560) = *(a2 + 560);
               *(a1 + 568) = *(a2 + 568);
               *(a1 + 576) = *(a2 + 576);
-              v180 = *(a2 + 584);
+              v181 = *(a2 + 584);
               *(a1 + 600) = *(a2 + 600);
-              *(a1 + 584) = v180;
+              *(a1 + 584) = v181;
               *(a1 + 608) = *(a2 + 608);
             }
           }
 
-          else if (v163 == 1)
+          else if (v164 == 1)
           {
             outlined destroy of AccessibilityTextLayoutProperties(a1 + 464);
-            v171 = *(a2 + 480);
+            v172 = *(a2 + 480);
             *(a1 + 464) = *(a2 + 464);
-            *(a1 + 480) = v171;
-            v172 = *(a2 + 544);
-            v174 = *(a2 + 496);
-            v173 = *(a2 + 512);
+            *(a1 + 480) = v172;
+            v173 = *(a2 + 544);
+            v175 = *(a2 + 496);
+            v174 = *(a2 + 512);
             *(a1 + 528) = *(a2 + 528);
-            *(a1 + 544) = v172;
-            *(a1 + 496) = v174;
-            *(a1 + 512) = v173;
-            v176 = *(a2 + 576);
-            v175 = *(a2 + 592);
-            v177 = *(a2 + 560);
+            *(a1 + 544) = v173;
+            *(a1 + 496) = v175;
+            *(a1 + 512) = v174;
+            v177 = *(a2 + 576);
+            v176 = *(a2 + 592);
+            v178 = *(a2 + 560);
             *(a1 + 608) = *(a2 + 608);
-            *(a1 + 576) = v176;
-            *(a1 + 592) = v175;
-            *(a1 + 560) = v177;
+            *(a1 + 576) = v177;
+            *(a1 + 592) = v176;
+            *(a1 + 560) = v178;
           }
 
           else
           {
-            v181 = *(a2 + 464);
+            v182 = *(a2 + 464);
             *(a1 + 472) = *(a2 + 472);
-            *(a1 + 464) = v181;
-            v182 = *(a2 + 480);
+            *(a1 + 464) = v182;
+            v183 = *(a2 + 480);
             *(a1 + 488) = *(a2 + 488);
-            *(a1 + 480) = v182;
+            *(a1 + 480) = v183;
             *(a1 + 489) = *(a2 + 489);
             *(a1 + 490) = *(a2 + 490);
             *(a1 + 491) = *(a2 + 491);
@@ -5255,9 +3679,9 @@ LABEL_83:
             *(a1 + 568) = *(a2 + 568);
             *(a1 + 576) = *(a2 + 576);
 
-            v183 = *(a2 + 584);
+            v184 = *(a2 + 584);
             *(a1 + 600) = *(a2 + 600);
-            *(a1 + 584) = v183;
+            *(a1 + 584) = v184;
             *(a1 + 608) = *(a2 + 608);
           }
 
@@ -5269,18 +3693,18 @@ LABEL_83:
           return a1;
         }
 
-        *(a1 + 424) = v133;
+        *(a1 + 424) = v134;
         *(a1 + 432) = *(a2 + 432);
-        (**(v133 - 8))(a1 + 400, a2 + 400);
+        (**(v134 - 8))(a1 + 400, a2 + 400);
       }
 
       else
       {
-        v156 = *(a2 + 400);
-        v157 = *(a2 + 416);
+        v157 = *(a2 + 400);
+        v158 = *(a2 + 416);
         *(a1 + 432) = *(a2 + 432);
-        *(a1 + 400) = v156;
-        *(a1 + 416) = v157;
+        *(a1 + 400) = v157;
+        *(a1 + 416) = v158;
       }
 
       *(a1 + 440) = *(a2 + 440);
@@ -5294,7 +3718,7 @@ LABEL_62:
     return a1;
   }
 
-  if (!v130)
+  if (!v131)
   {
     goto LABEL_62;
   }
@@ -5304,70 +3728,70 @@ LABEL_62:
   *(a1 + 352) = *(a2 + 352);
   *(a1 + 360) = *(a2 + 360);
   *(a1 + 368) = *(a2 + 368);
-  v136 = *(a2 + 376);
+  v137 = *(a2 + 376);
   *(a1 + 392) = *(a2 + 392);
-  *(a1 + 376) = v136;
-  v137 = *(a2 + 424);
+  *(a1 + 376) = v137;
+  v138 = *(a2 + 424);
 
-  if (!v137)
+  if (!v138)
   {
-    v143 = *(a2 + 400);
-    v144 = *(a2 + 416);
+    v144 = *(a2 + 400);
+    v145 = *(a2 + 416);
     *(a1 + 432) = *(a2 + 432);
-    *(a1 + 400) = v143;
-    *(a1 + 416) = v144;
+    *(a1 + 400) = v144;
+    *(a1 + 416) = v145;
 LABEL_70:
     *(a1 + 440) = *(a2 + 440);
 
     goto LABEL_71;
   }
 
-  if (v137 != 1)
+  if (v138 != 1)
   {
-    *(a1 + 424) = v137;
+    *(a1 + 424) = v138;
     *(a1 + 432) = *(a2 + 432);
-    (**(v137 - 8))(a1 + 400, a2 + 400, v137);
+    (**(v138 - 8))(a1 + 400, a2 + 400, v138);
     goto LABEL_70;
   }
 
-  v138 = *(a2 + 400);
-  v139 = *(a2 + 432);
+  v139 = *(a2 + 400);
+  v140 = *(a2 + 432);
   *(a1 + 416) = *(a2 + 416);
-  *(a1 + 432) = v139;
-  *(a1 + 400) = v138;
+  *(a1 + 432) = v140;
+  *(a1 + 400) = v139;
 LABEL_71:
-  v145 = *(a2 + 448);
+  v146 = *(a2 + 448);
   *(a1 + 456) = *(a2 + 456);
-  *(a1 + 448) = v145;
+  *(a1 + 448) = v146;
   if (*(a2 + 576) == 1)
   {
-    v146 = *(a2 + 480);
+    v147 = *(a2 + 480);
     *(a1 + 464) = *(a2 + 464);
-    *(a1 + 480) = v146;
-    v147 = *(a2 + 496);
-    v148 = *(a2 + 512);
-    v149 = *(a2 + 544);
+    *(a1 + 480) = v147;
+    v148 = *(a2 + 496);
+    v149 = *(a2 + 512);
+    v150 = *(a2 + 544);
     *(a1 + 528) = *(a2 + 528);
-    *(a1 + 544) = v149;
-    *(a1 + 496) = v147;
-    *(a1 + 512) = v148;
-    v150 = *(a2 + 560);
-    v151 = *(a2 + 576);
-    v152 = *(a2 + 592);
+    *(a1 + 544) = v150;
+    *(a1 + 496) = v148;
+    *(a1 + 512) = v149;
+    v151 = *(a2 + 560);
+    v152 = *(a2 + 576);
+    v153 = *(a2 + 592);
     *(a1 + 608) = *(a2 + 608);
-    *(a1 + 576) = v151;
-    *(a1 + 592) = v152;
-    *(a1 + 560) = v150;
+    *(a1 + 576) = v152;
+    *(a1 + 592) = v153;
+    *(a1 + 560) = v151;
   }
 
   else
   {
-    v153 = *(a2 + 464);
+    v154 = *(a2 + 464);
     *(a1 + 472) = *(a2 + 472);
-    *(a1 + 464) = v153;
-    v154 = *(a2 + 480);
+    *(a1 + 464) = v154;
+    v155 = *(a2 + 480);
     *(a1 + 488) = *(a2 + 488);
-    *(a1 + 480) = v154;
+    *(a1 + 480) = v155;
     *(a1 + 489) = *(a2 + 489);
     *(a1 + 490) = *(a2 + 490);
     *(a1 + 491) = *(a2 + 491);
@@ -5384,9 +3808,9 @@ LABEL_71:
     *(a1 + 560) = *(a2 + 560);
     *(a1 + 568) = *(a2 + 568);
     *(a1 + 576) = *(a2 + 576);
-    v155 = *(a2 + 584);
+    v156 = *(a2 + 584);
     *(a1 + 600) = *(a2 + 600);
-    *(a1 + 584) = v155;
+    *(a1 + 584) = v156;
     *(a1 + 608) = *(a2 + 608);
   }
 
@@ -5496,10 +3920,11 @@ LABEL_14:
         v26 = *(a2 + 200);
         v27 = *(a1 + 176);
         v28 = *(a1 + 184);
+        v29 = *(a1 + 200);
         *(a1 + 176) = *(a2 + 176);
         *(a1 + 192) = v24;
         *(a1 + 200) = v26;
-        outlined consume of AccessibilityImageLabel(v27, v28, v23);
+        outlined consume of AccessibilityImageLabel(v27, v28, v23, v29);
         goto LABEL_19;
       }
 
@@ -5518,7 +3943,7 @@ LABEL_19:
     *(a1 + 225) = *(a2 + 225);
     *(a1 + 228) = *(a2 + 228);
     *(a1 + 232) = *(a2 + 232);
-    v29 = *(a1 + 240);
+    v30 = *(a1 + 240);
     *(a1 + 240) = *(a2 + 240);
 
     *(a1 + 248) = *(a2 + 248);
@@ -5557,14 +3982,14 @@ LABEL_21:
   if (*(a1 + 312) == 1)
   {
 LABEL_24:
-    v31 = *(a2 + 304);
+    v32 = *(a2 + 304);
     *(a1 + 288) = *(a2 + 288);
-    *(a1 + 304) = v31;
+    *(a1 + 304) = v32;
     goto LABEL_26;
   }
 
-  v30 = *(a2 + 312);
-  if (v30 == 1)
+  v31 = *(a2 + 312);
+  if (v31 == 1)
   {
     outlined destroy of PlatformItem.SelectionContent(a1 + 288);
     goto LABEL_24;
@@ -5572,7 +3997,7 @@ LABEL_24:
 
   *(a1 + 288) = *(a2 + 288);
   *(a1 + 304) = *(a2 + 304);
-  *(a1 + 312) = v30;
+  *(a1 + 312) = v31;
   swift_unknownObjectRelease();
 LABEL_26:
   *(a1 + 320) = *(a2 + 320);
@@ -5581,9 +4006,9 @@ LABEL_26:
   {
     if (*(a2 + 616))
     {
-      v32 = *(a2 + 344);
+      v33 = *(a2 + 344);
       *(a1 + 336) = *(a2 + 336);
-      *(a1 + 344) = v32;
+      *(a1 + 344) = v33;
 
       *(a1 + 352) = *(a2 + 352);
       *(a1 + 360) = *(a2 + 360);
@@ -5591,40 +4016,40 @@ LABEL_26:
       *(a1 + 368) = *(a2 + 368);
       *(a1 + 376) = *(a2 + 376);
       *(a1 + 392) = *(a2 + 392);
-      v33 = *(a1 + 424);
-      if (v33 != 1)
+      v34 = *(a1 + 424);
+      if (v34 != 1)
       {
-        v34 = *(a2 + 424);
-        if (v34 != 1)
+        v35 = *(a2 + 424);
+        if (v35 != 1)
         {
-          if (v33)
+          if (v34)
           {
-            v36 = a1 + 400;
-            if (v34)
+            v37 = (a1 + 400);
+            if (v35)
             {
-              __swift_destroy_boxed_opaque_existential_1(v36);
+              __swift_destroy_boxed_opaque_existential_1(v37);
             }
 
             else
             {
-              outlined destroy of AnyAccessibilityValue(v36);
+              outlined destroy of AnyAccessibilityValue(v37);
             }
           }
 
-          v37 = *(a2 + 416);
+          v38 = *(a2 + 416);
           *(a1 + 400) = *(a2 + 400);
-          *(a1 + 416) = v37;
-          v38 = *(a2 + 440);
+          *(a1 + 416) = v38;
+          v39 = *(a2 + 440);
           *(a1 + 432) = *(a2 + 432);
-          *(a1 + 440) = v38;
+          *(a1 + 440) = v39;
 
 LABEL_39:
           *(a1 + 448) = *(a2 + 448);
           *(a1 + 456) = *(a2 + 456);
           if (*(a1 + 576) != 1)
           {
-            v39 = *(a2 + 576);
-            if (v39 != 1)
+            v40 = *(a2 + 576);
+            if (v40 != 1)
             {
               *(a1 + 464) = *(a2 + 464);
               *(a1 + 472) = *(a2 + 472);
@@ -5633,16 +4058,16 @@ LABEL_39:
               *(a1 + 489) = *(a2 + 489);
               *(a1 + 491) = *(a2 + 491);
               *(a1 + 492) = *(a2 + 492);
-              v44 = *(a2 + 512);
+              v45 = *(a2 + 512);
               *(a1 + 496) = *(a2 + 496);
-              *(a1 + 512) = v44;
+              *(a1 + 512) = v45;
               *(a1 + 528) = *(a2 + 528);
               *(a1 + 544) = *(a2 + 544);
               *(a1 + 545) = *(a2 + 545);
               *(a1 + 552) = *(a2 + 552);
               *(a1 + 560) = *(a2 + 560);
               *(a1 + 568) = *(a2 + 568);
-              *(a1 + 576) = v39;
+              *(a1 + 576) = v40;
 
               *(a1 + 584) = *(a2 + 584);
               *(a1 + 600) = *(a2 + 600);
@@ -5653,20 +4078,20 @@ LABEL_39:
             outlined destroy of AccessibilityTextLayoutProperties(a1 + 464);
           }
 
-          v40 = *(a2 + 576);
+          v41 = *(a2 + 576);
           *(a1 + 560) = *(a2 + 560);
-          *(a1 + 576) = v40;
+          *(a1 + 576) = v41;
           *(a1 + 592) = *(a2 + 592);
           *(a1 + 608) = *(a2 + 608);
-          v41 = *(a2 + 512);
+          v42 = *(a2 + 512);
           *(a1 + 496) = *(a2 + 496);
-          *(a1 + 512) = v41;
-          v42 = *(a2 + 544);
+          *(a1 + 512) = v42;
+          v43 = *(a2 + 544);
           *(a1 + 528) = *(a2 + 528);
-          *(a1 + 544) = v42;
-          v43 = *(a2 + 480);
+          *(a1 + 544) = v43;
+          v44 = *(a2 + 480);
           *(a1 + 464) = *(a2 + 464);
-          *(a1 + 480) = v43;
+          *(a1 + 480) = v44;
 LABEL_44:
           *(a1 + 616) = *(a2 + 616);
 
@@ -5678,9 +4103,9 @@ LABEL_44:
         outlined destroy of AccessibilityValueStorage(a1 + 400);
       }
 
-      v35 = *(a2 + 416);
+      v36 = *(a2 + 416);
       *(a1 + 400) = *(a2 + 400);
-      *(a1 + 416) = v35;
+      *(a1 + 416) = v36;
       *(a1 + 432) = *(a2 + 432);
       goto LABEL_39;
     }
@@ -5790,20 +4215,20 @@ LABEL_8:
 
 uint64_t outlined destroy of (PlatformItem, Bool)?(uint64_t a1)
 {
-  type metadata accessor for (PlatformItem, Bool)?();
+  type metadata accessor for (PlatformItem, Bool)?(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void type metadata accessor for (PlatformItem, Bool)?()
+void type metadata accessor for (PlatformItem, Bool)?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (PlatformItem, Bool)?)
   {
     type metadata accessor for (PlatformItem, Bool)();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for (PlatformItem, Bool)?);
+      atomic_store(v1, &lazy cache variable for type metadata for (PlatformItem, Bool)?);
     }
   }
 }
@@ -5891,7 +4316,7 @@ LABEL_17:
     {
       if ((v6 & 0x1000000000000000) == 0)
       {
-        v6 = static String._copying(_:)();
+        v6 = static String._copying(_:)(v6, v8);
         v16 = v15;
 
         v8 = v16;
@@ -5908,7 +4333,7 @@ LABEL_17:
 
 uint64_t one-time initialization function for keyInputToKeyEquivalentMap()
 {
-  type metadata accessor for _ContiguousArrayStorage<(String, Character)>();
+  type metadata accessor for _ContiguousArrayStorage<(String, Character)>(0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_18CDB9700;
   *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -6152,15 +4577,15 @@ LABEL_26:
   keyEquivalentToKeyInputMap._rawValue = v1;
 }
 
-void type metadata accessor for _ContiguousArrayStorage<(String, Character)>()
+void type metadata accessor for _ContiguousArrayStorage<(String, Character)>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ContiguousArrayStorage<(String, Character)>)
   {
     type metadata accessor for (String, Character)();
-    v0 = type metadata accessor for _ContiguousArrayStorage();
-    if (!v1)
+    v1 = type metadata accessor for _ContiguousArrayStorage();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(String, Character)>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ContiguousArrayStorage<(String, Character)>);
     }
   }
 }
@@ -6258,15 +4683,15 @@ uint64_t View.labelGroupStyle_v0<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, u
 {
   v8 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for LabelGroupStyleModifier();
-  v12 = *(v11 - 8);
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v15 = &v17 - v14;
-  (*(v8 + 16))(v10, a1, a3, v13);
-  (*(v8 + 32))(v15, v10, a3);
-  MEMORY[0x18D00A570](v15, a2, v11, a4);
-  return (*(v12 + 8))(v15, v11);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for LabelGroupStyleModifier(0, v11, v13, v12);
+  v15 = *(v14 - 8);
+  v16 = MEMORY[0x1EEE9AC00](v14);
+  v18 = &v20 - v17;
+  (*(v8 + 16))(v10, a1, a3, v16);
+  (*(v8 + 32))(v18, v10, a3);
+  MEMORY[0x18D00A570](v18, a2, v14, a4);
+  return (*(v15 + 8))(v18, v14);
 }
 
 uint64_t protocol witness for static View._makeView(view:inputs:) in conformance ResolvedLabelGroupStyle(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6278,26 +4703,26 @@ uint64_t protocol witness for static View._makeView(view:inputs:) in conformance
 
 uint64_t protocol witness for static ViewModifier._makeView(modifier:inputs:body:) in conformance LabelGroupStyleModifier<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for LabelGroupStyleModifier<A>, a5);
 
   return MEMORY[0x1EEDDE4B8](a1, a2, a3, a4, a5, WitnessTable);
 }
 
 uint64_t protocol witness for static ViewModifier._makeViewList(modifier:inputs:body:) in conformance LabelGroupChildEnvironmentModifier<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for LabelGroupChildEnvironmentModifier<A>, a5);
 
   return MEMORY[0x1EEDE0CC8](a1, a2, a3, a4, a5, WitnessTable);
 }
 
-uint64_t static UIViewPlatformViewDefinition.supportsMixedHierarchy.getter()
+uint64_t static UIViewPlatformViewDefinition.supportsMixedHierarchy.getter(uint64_t a1)
 {
   static Semantics.v7.getter();
 
   return isLinkedOnOrAfter(_:)();
 }
 
-uint64_t static UIViewPlatformViewDefinition.setPath(_:shapeView:)(__int128 *a1, uint64_t a2)
+double static UIViewPlatformViewDefinition.setPath(_:shapeView:)(__int128 *a1, uint64_t a2)
 {
   v2 = a2 + OBJC_IVAR____TtC7SwiftUIP33_A34643117F00277B93DEBAB70EC0697122_UIShapeHitTestingView_path;
   v3 = *(a2 + OBJC_IVAR____TtC7SwiftUIP33_A34643117F00277B93DEBAB70EC0697122_UIShapeHitTestingView_path);
@@ -6318,7 +4743,7 @@ uint64_t static UIViewPlatformViewDefinition.setPath(_:shapeView:)(__int128 *a1,
   return outlined consume of Path.Storage(v3, v4, v5, v6, v10);
 }
 
-void static UIViewPlatformViewDefinition.setProjectionTransform(_:projectionView:)(int a1, id a2)
+void static UIViewPlatformViewDefinition.setProjectionTransform(_:projectionView:)(uint64_t a1, id a2)
 {
   v2 = [a2 layer];
   CATransform3D.init(_:)();
@@ -6337,7 +4762,7 @@ void __swiftcall _UIInheritedView.hitTest(_:with:)(UIView_optional *__return_ptr
   isa = with.value.super.isa;
   y = _.y;
   x = _.x;
-  if ((UIViewIgnoresTouchEvents() & 1) == 0)
+  if ((UIViewIgnoresTouchEvents(retstr) & 1) == 0)
   {
     v7 = [v3 subviews];
     type metadata accessor for UIView();
@@ -6403,42 +4828,43 @@ LABEL_17:
   }
 }
 
-uint64_t key path getter for EnvironmentValues.listStackBehavior : EnvironmentValues@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void key path getter for EnvironmentValues.listStackBehavior : EnvironmentValues(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>);
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ListHasStackBehaviorKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>);
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>, &type metadata for ListHasStackBehaviorKey, &protocol witness table for ListHasStackBehaviorKey);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ListHasStackBehaviorKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>, &type metadata for ListHasStackBehaviorKey, &protocol witness table for ListHasStackBehaviorKey);
 
     PropertyList.Tracker.value<A>(_:for:)();
   }
 
   else
   {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>);
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ListHasStackBehaviorKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>);
-    result = PropertyList.subscript.getter();
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>, &type metadata for ListHasStackBehaviorKey, &protocol witness table for ListHasStackBehaviorKey);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ListHasStackBehaviorKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>, &type metadata for ListHasStackBehaviorKey, &protocol witness table for ListHasStackBehaviorKey);
+    PropertyList.subscript.getter();
   }
 
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 9) = v6;
-  return result;
+  *a2 = v3;
+  *(a2 + 8) = v4;
+  *(a2 + 9) = v5;
 }
 
-uint64_t key path setter for EnvironmentValues.listStackBehavior : EnvironmentValues(uint64_t a1, uint64_t a2)
+double key path setter for EnvironmentValues.listStackBehavior : EnvironmentValues(uint64_t *a1, void *a2)
 {
-  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>);
-  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ListHasStackBehaviorKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>);
+  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>, &type metadata for ListHasStackBehaviorKey, &protocol witness table for ListHasStackBehaviorKey);
+  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<ListHasStackBehaviorKey> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListHasStackBehaviorKey>, &type metadata for ListHasStackBehaviorKey, &protocol witness table for ListHasStackBehaviorKey);
 
   PropertyList.subscript.setter();
-  if (*(a2 + 8))
+  if (a2[1])
   {
     PropertyList.Tracker.invalidateValue<A>(for:from:to:)();
   }
+
+  return result;
 }
 
-uint64_t View.listHasPresentationStackBehavior()()
+uint64_t View.listHasPresentationStackBehavior()(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type ListPresentationSizingFlag and conformance ListPresentationSizingFlag();
 
@@ -6451,19 +4877,19 @@ unint64_t lazy protocol witness table accessor for type ViewInputFlagModifier<Li
   if (!lazy protocol witness table cache variable for type ViewInputFlagModifier<ListPresentationSizingFlag> and conformance ViewInputFlagModifier<A>)
   {
     type metadata accessor for ViewInputFlagModifier<ListPresentationSizingFlag>(255, &lazy cache variable for type metadata for ViewInputFlagModifier<ListPresentationSizingFlag>, lazy protocol witness table accessor for type ListPresentationSizingFlag and conformance ListPresentationSizingFlag, &unk_1EFFD9128, MEMORY[0x1E697FD28]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697FD30], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ViewInputFlagModifier<ListPresentationSizingFlag> and conformance ViewInputFlagModifier<A>);
   }
 
   return result;
 }
 
-uint64_t *assignWithTake for ListPresentationSizingModifier(uint64_t *a1, uint64_t a2)
+uint64_t assignWithTake for ListPresentationSizingModifier(uint64_t a1, uint64_t a2)
 {
   v3 = *(a2 + 16);
   v4 = *(a2 + 17);
   v5 = *a1;
-  v6 = a1[1];
+  v6 = *(a1 + 8);
   v7 = *(a1 + 17);
   *a1 = *a2;
   v8 = *(a1 + 16);
@@ -6528,7 +4954,7 @@ uint64_t storeEnumTagSinglePayload for ListPresentationSizingModifier(uint64_t r
   return result;
 }
 
-__n128 ListPresentationSizingModifier.body(content:)@<Q0>(uint64_t a1@<X1>, uint64_t a2@<X2>, __int16 a3@<W3>, uint64_t a4@<X8>)
+__n128 ListPresentationSizingModifier.body(content:)@<Q0>(void *a1@<X1>, uint64_t a2@<X2>, __int16 a3@<W3>, uint64_t a4@<X8>)
 {
   specialized Environment.wrappedValue.getter(a1, a2, a3 & 0x1FF);
   static Alignment.center.getter();
@@ -6552,43 +4978,43 @@ uint64_t EnvironmentValues.defaultPresentationSize.getter()
 {
   if (*(v0 + 8))
   {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
 
     PropertyList.Tracker.value<A>(_:for:)();
   }
 
   else
   {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
     PropertyList.subscript.getter();
   }
 
   return v2;
 }
 
-uint64_t protocol witness for static ViewInputPredicate.evaluate(inputs:) in conformance ListPresentationSizingFlag()
+uint64_t protocol witness for static ViewInputPredicate.evaluate(inputs:) in conformance ListPresentationSizingFlag(uint64_t *a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type ListPresentationSizingFlag and conformance ListPresentationSizingFlag();
   PropertyList.subscript.getter();
-  return v1;
+  return v3;
 }
 
-double key path getter for EnvironmentValues.defaultPresentationSize : EnvironmentValues@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double key path getter for EnvironmentValues.defaultPresentationSize : EnvironmentValues@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  if (*(a1 + 8))
+  if (a1[1])
   {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
 
     PropertyList.Tracker.value<A>(_:for:)();
   }
 
   else
   {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
     PropertyList.subscript.getter();
   }
 
@@ -6598,16 +5024,18 @@ double key path getter for EnvironmentValues.defaultPresentationSize : Environme
   return result;
 }
 
-uint64_t key path setter for EnvironmentValues.defaultPresentationSize : EnvironmentValues(uint64_t a1, uint64_t a2)
+double key path setter for EnvironmentValues.defaultPresentationSize : EnvironmentValues(__int128 *a1, void *a2)
 {
-  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
-  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>);
+  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_sliderTicksVisibility>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
+  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_sliderThumbVisibility> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize> and conformance EnvironmentPropertyKey<A>, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_defaultPresentationSize>, &type metadata for EnvironmentValues.__Key_defaultPresentationSize, &protocol witness table for EnvironmentValues.__Key_defaultPresentationSize);
 
   PropertyList.subscript.setter();
-  if (*(a2 + 8))
+  if (a2[1])
   {
     PropertyList.Tracker.invalidateValue<A>(for:from:to:)();
   }
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>> and conformance <> ModifiedContent<A, B>()
@@ -6615,39 +5043,42 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>>();
-    lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ListStackBehavior> and conformance _EnvironmentKeyWritingModifier<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>();
+    v5[1] = lazy protocol witness table accessor for type _EnvironmentKeyWritingModifier<ListStackBehavior> and conformance _EnvironmentKeyWritingModifier<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>>)
   {
-    type metadata accessor for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>();
+    type metadata accessor for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>(255);
     type metadata accessor for _EnvironmentKeyWritingModifier<ListStackBehavior>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>, _EnvironmentKeyWritingModifier<ListStackBehavior>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>()
+void type metadata accessor for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>)
   {
     type metadata accessor for ViewInputFlagModifier<ListPresentationSizingFlag>(255, &lazy cache variable for type metadata for _ViewModifier_Content<ListPresentationSizingModifier>, lazy protocol witness table accessor for type ListPresentationSizingModifier and conformance ListPresentationSizingModifier, &type metadata for ListPresentationSizingModifier, MEMORY[0x1E697FDE8]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>);
     }
   }
 }
@@ -6682,9 +5113,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewMod
   result = lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>();
-    lazy protocol witness table accessor for type _ViewModifier_Content<ListPresentationSizingModifier> and conformance _ViewModifier_Content<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type _ViewModifier_Content<ListPresentationSizingModifier> and conformance _ViewModifier_Content<A>();
+    v5[1] = MEMORY[0x1E697EBF8];
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<ListPresentationSizingModifier>, _FlexFrameLayout> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -6697,7 +5132,7 @@ unint64_t lazy protocol witness table accessor for type _ViewModifier_Content<Li
   if (!lazy protocol witness table cache variable for type _ViewModifier_Content<ListPresentationSizingModifier> and conformance _ViewModifier_Content<A>)
   {
     type metadata accessor for ViewInputFlagModifier<ListPresentationSizingFlag>(255, &lazy cache variable for type metadata for _ViewModifier_Content<ListPresentationSizingModifier>, lazy protocol witness table accessor for type ListPresentationSizingModifier and conformance ListPresentationSizingModifier, &type metadata for ListPresentationSizingModifier, MEMORY[0x1E697FDE8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697FDF8], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _ViewModifier_Content<ListPresentationSizingModifier> and conformance _ViewModifier_Content<A>);
   }
 
@@ -6710,16 +5145,16 @@ unint64_t lazy protocol witness table accessor for type _EnvironmentKeyWritingMo
   if (!lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ListStackBehavior> and conformance _EnvironmentKeyWritingModifier<A>)
   {
     type metadata accessor for _EnvironmentKeyWritingModifier<ListStackBehavior>();
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980A18], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ListStackBehavior> and conformance _EnvironmentKeyWritingModifier<A>);
   }
 
   return result;
 }
 
-uint64_t EnvironmentValues.listItemTint.getter()
+void EnvironmentValues.listItemTint.getter()
 {
-  if (*(v0 + 8))
+  if (*(v1 + 8))
   {
     type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListItemTintKey>, &type metadata for ListItemTintKey, &protocol witness table for ListItemTintKey, MEMORY[0x1E697FE38]);
     lazy protocol witness table accessor for type EnvironmentPropertyKey<ListItemTintKey> and conformance EnvironmentPropertyKey<A>();
@@ -6732,23 +5167,27 @@ uint64_t EnvironmentValues.listItemTint.getter()
     type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<ListItemTintKey>, &type metadata for ListItemTintKey, &protocol witness table for ListItemTintKey, MEMORY[0x1E697FE38]);
     lazy protocol witness table accessor for type EnvironmentPropertyKey<ListItemTintKey> and conformance EnvironmentPropertyKey<A>();
 
-    return PropertyList.subscript.getter();
+    PropertyList.subscript.getter();
   }
 }
 
-uint64_t static ListItemTint.fixed(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double static ListItemTint.fixed(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = a1;
   *(a2 + 8) = 1;
+
+  return result;
 }
 
-uint64_t static ListItemTint.preferred(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double static ListItemTint.preferred(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = a1;
   *(a2 + 8) = 0;
+
+  return result;
 }
 
-uint64_t static ListItemTint.monochrome.getter@<X0>(uint64_t a1@<X8>)
+double static ListItemTint.monochrome.getter@<D0>(uint64_t a1@<X8>)
 {
   if (one-time initialization token for monochrome != -1)
   {
@@ -6760,24 +5199,26 @@ uint64_t static ListItemTint.monochrome.getter@<X0>(uint64_t a1@<X8>)
   v2 = byte_1EAA2B608;
   *a1 = static ListItemTint.monochrome;
   *(a1 + 8) = v2;
+
+  return result;
 }
 
-uint64_t View.listItemTint(_:)(unint64_t a1)
+uint64_t View.listItemTint(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 <= 1)
   {
-    v1 = 1;
+    v3 = 1;
   }
 
   else
   {
-    v1 = a1;
+    v3 = a1;
   }
 
-  v3 = v1;
+  v5 = v3;
 
   View._trait<A>(_:_:)();
-  return outlined consume of ListItemTint?(v3);
+  return outlined consume of ListItemTint?(v5);
 }
 
 unint64_t lazy protocol witness table accessor for type _TraitWritingModifier<ListItemTintTraitKey> and conformance _TraitWritingModifier<A>()
@@ -6786,7 +5227,7 @@ unint64_t lazy protocol witness table accessor for type _TraitWritingModifier<Li
   if (!lazy protocol witness table cache variable for type _TraitWritingModifier<ListItemTintTraitKey> and conformance _TraitWritingModifier<A>)
   {
     type metadata accessor for _TraitWritingModifier<ListRowInsetsTraitKey>(255, &lazy cache variable for type metadata for _TraitWritingModifier<ListItemTintTraitKey>, &type metadata for ListItemTintTraitKey, &protocol witness table for ListItemTintTraitKey, MEMORY[0x1E697FDB8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697FDC0], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _TraitWritingModifier<ListItemTintTraitKey> and conformance _TraitWritingModifier<A>);
   }
 
@@ -6797,12 +5238,12 @@ uint64_t AnyTabContent.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint
 {
   v6 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for AnyTabContentStorage();
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for AnyTabContentStorage(0, v9, v10, v10);
   (*(v6 + 16))(v8, a1, a2);
-  v9 = LimitedAvailabilityCommandContentStorage.__allocating_init(_:)(v8);
+  v11 = LimitedAvailabilityCommandContentStorage.__allocating_init(_:)(v8);
   result = (*(v6 + 8))(a1, a2);
-  *a3 = v9;
+  *a3 = v11;
   return result;
 }
 
@@ -6815,7 +5256,7 @@ uint64_t protocol witness for TabContent._identifiedView.getter in conformance A
 
 uint64_t instantiation function for generic protocol witness table for AnyTabContent<A>(uint64_t a1)
 {
-  result = swift_getWitnessTable();
+  result = swift_getWitnessTable(protocol conformance descriptor for AnyTabContent<A>);
   *(a1 + 8) = result;
   return result;
 }
@@ -6872,12 +5313,12 @@ double CGVector.init(_:in:by:)(char a1, double a2, double a3)
   return a2;
 }
 
-uint64_t static AnimatedValueTrackBuilder.buildExpression(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t static AnimatedValueTrackBuilder.buildExpression(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>)
 {
-  v4 = type metadata accessor for AnimatedValueTrack();
-  v5 = *(*(v4 - 8) + 16);
+  v7 = type metadata accessor for AnimatedValueTrack(0, a3, a4, a5);
+  v8 = *(*(v7 - 8) + 16);
 
-  return v5(a2, a1, v4);
+  return v8(a2, a1, v7);
 }
 
 uint64_t destroy for AnyTransferable()
@@ -7042,11 +5483,11 @@ uint64_t closure #1 in AnyTransferable.init<A>(_:)()
   if ((*(v2 + 48))(v1, 1, v3) == 1)
   {
     (*(*(v0 + 200) + 8))(*(v0 + 208), *(v0 + 192));
-    type metadata accessor for AnyTransferable.ExportError();
+    type metadata accessor for AnyTransferable.ExportError(0);
     lazy protocol witness table accessor for type AnyTransferable.ExportError and conformance AnyTransferable.ExportError();
     swift_allocError();
     v5 = v4;
-    type metadata accessor for (UTType, Error)();
+    type metadata accessor for (UTType, Error)(0);
     (*(*(v6 - 8) + 56))(v5, 1, 2, v6);
     swift_willThrow();
 LABEL_3:
@@ -7073,11 +5514,11 @@ LABEL_3:
       v28 = *(v0 + 216);
       v27 = *(v0 + 224);
       v29 = *(v0 + 136);
-      type metadata accessor for AnyTransferable.ExportError();
+      type metadata accessor for AnyTransferable.ExportError(0);
       lazy protocol witness table accessor for type AnyTransferable.ExportError and conformance AnyTransferable.ExportError();
       swift_allocError();
       v31 = v30;
-      type metadata accessor for (UTType, Error)();
+      type metadata accessor for (UTType, Error)(0);
       (*(*(v32 - 8) + 56))(v31, 2, 2, v32);
       swift_willThrow();
       (*(v28 + 8))(v27, v29);
@@ -7155,11 +5596,11 @@ LABEL_3:
   v5 = v0[21];
   v13 = v0[17];
   v14 = v0[28];
-  type metadata accessor for AnyTransferable.ExportError();
+  type metadata accessor for AnyTransferable.ExportError(0);
   lazy protocol witness table accessor for type AnyTransferable.ExportError and conformance AnyTransferable.ExportError();
   swift_allocError();
   v7 = v6;
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v9 = v8;
   v10 = *(v8 + 48);
   (*(v5 + 16))(v7, v3, v4);
@@ -7208,11 +5649,11 @@ LABEL_3:
     v10 = *(v0 + 216);
     v9 = *(v0 + 224);
     v11 = *(v0 + 136);
-    type metadata accessor for AnyTransferable.ExportError();
+    type metadata accessor for AnyTransferable.ExportError(0);
     lazy protocol witness table accessor for type AnyTransferable.ExportError and conformance AnyTransferable.ExportError();
     swift_allocError();
     v13 = v12;
-    type metadata accessor for (UTType, Error)();
+    type metadata accessor for (UTType, Error)(0);
     (*(*(v14 - 8) + 56))(v13, 2, 2, v14);
     swift_willThrow();
     (*(v10 + 8))(v9, v11);
@@ -7306,92 +5747,139 @@ uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(
   return MEMORY[0x1EEE6DFA0](fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:), 0, 0);
 }
 
-uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:)()
+uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v2 = v0[23];
-  v1 = v0[24];
-  v3 = v0[22];
-  v4 = v0[11];
+  v4 = v2[23];
+  v3 = v2[24];
+  v5 = v2[22];
+  v6 = v2[11];
   static TransferRepresentationVisibility.all.getter();
-  v5 = static Transferable.exportedFileContentTypes(visibility:)();
-  v6 = *(v2 + 8);
-  v6(v1, v3);
-  LOBYTE(v1) = specialized Sequence<>.contains(_:)(v4, v5);
+  v7 = static Transferable.exportedFileContentTypes(visibility:)();
+  v8 = *(v4 + 8);
+  v8(v3, v5);
+  LOBYTE(v3) = specialized Sequence<>.contains(_:)(v6, v7);
 
-  if (v1)
+  if (v3)
   {
-    v7 = v0[17];
-    v8 = v0[11];
-    v9 = type metadata accessor for UTType();
-    v0[25] = v9;
-    v10 = *(v9 - 8);
-    v11 = *(v10 + 16);
-    v0[26] = v11;
-    v0[27] = (v10 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v11(v7, v8, v9);
-    (*(v10 + 56))(v7, 0, 1, v9);
-    v12 = swift_task_alloc();
-    v0[28] = v12;
-    *v12 = v0;
-    v12[1] = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
-    v13 = v0[21];
-    v14 = v0[17];
-    v15 = v0[18];
-    v16 = v0[13];
-    v17 = v0[14];
+    v9 = v2[17];
+    v10 = v2[11];
+    v11 = type metadata accessor for UTType();
+    v2[25] = v11;
+    v12 = *(v11 - 8);
+    v13 = *(v12 + 16);
+    v2[26] = v13;
+    v2[27] = (v12 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v13(v9, v10, v11);
+    (*(v12 + 56))(v9, 0, 1, v11);
+    v14 = swift_task_alloc();
+    v2[28] = v14;
+    *v14 = v2;
+    v14[1] = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
+    v15 = v2[21];
+    v16 = v2[17];
+    v17 = v2[18];
+    v18 = v2[13];
+    v19 = v2[14];
 
-    return MEMORY[0x1EEDBF540](v13, v14, &async function pointer to closure #1 in fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:), 0, v16, v15, v17);
+    return MEMORY[0x1EEDBF540](v15, v16, &async function pointer to closure #1 in fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:), 0, v18, v17, v19);
   }
 
   else
   {
-    v18 = v0[24];
-    v19 = v0[22];
-    v20 = v0[11];
+    v20 = v2[24];
+    v21 = v2[22];
+    v22 = v2[11];
     static TransferRepresentationVisibility.all.getter();
-    v21 = static Transferable.exportedDataContentTypes(visibility:)();
-    v6(v18, v19);
-    LOBYTE(v18) = specialized Sequence<>.contains(_:)(v20, v21);
+    v23 = static Transferable.exportedDataContentTypes(visibility:)();
+    v8(v20, v21);
+    LOBYTE(v20) = specialized Sequence<>.contains(_:)(v22, v23);
 
-    v22 = type metadata accessor for UTType();
-    v0[30] = v22;
-    v23 = *(v22 - 8);
-    v24 = *(v23 + 16);
-    v25 = (v23 + 56);
-    v0[31] = v24;
-    v0[32] = (v23 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v26 = v0[11];
-    if (v18)
+    v24 = type metadata accessor for UTType();
+    v2[30] = v24;
+    v25 = *(v24 - 8);
+    v26 = *(v25 + 16);
+    v27 = (v25 + 56);
+    v2[31] = v26;
+    v2[32] = (v25 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v28 = v2[11];
+    if (v20)
     {
-      v27 = v0[16];
-      v24(v27, v26, v22);
-      (*v25)(v27, 0, 1, v22);
-      v28 = swift_task_alloc();
-      v0[33] = v28;
-      *v28 = v0;
-      v28[1] = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
-      v29 = v0[16];
+      v29 = v2[16];
+      v26(v29, v28, v24);
+      (*v27)(v29, 0, 1, v24);
+      v30 = swift_task_alloc();
+      v2[33] = v30;
+      *v30 = v2;
+      v30[1] = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
+      v31 = v2[16];
     }
 
     else
     {
-      v30 = v0[15];
-      v24(v30, v26, v22);
-      (*v25)(v30, 0, 1, v22);
-      v31 = swift_task_alloc();
-      v0[35] = v31;
-      *v31 = v0;
-      v31[1] = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
-      v29 = v0[15];
+      v32 = v2[15];
+      v26(v32, v28, v24);
+      (*v27)(v32, 0, 1, v24);
+      v33 = swift_task_alloc();
+      v2[35] = v33;
+      *v33 = v2;
+      v33[1] = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
+      v31 = v2[15];
     }
 
-    v32 = v0[13];
-    v33 = v0[14];
+    v34 = v2[13];
+    v35 = v2[14];
 
-    return MEMORY[0x1EEDBF598](v29, v32, v33);
+    return MEMORY[0x1EEDBF598](v31, v34, v35);
   }
 }
 
+{
+  v4 = *v3;
+  v5 = *v3;
+  v5[2] = v3;
+  v5[3] = a1;
+  v5[4] = a2;
+  v5[5] = v2;
+  v5[34] = v2;
+
+  _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(v4[16], &lazy cache variable for type metadata for UTType?, MEMORY[0x1E69E8450]);
+  if (v2)
+  {
+    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
+  }
+
+  else
+  {
+    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
+  }
+
+  return MEMORY[0x1EEE6DFA0](v6, 0, 0);
+}
+
+{
+  v4 = *v3;
+  v5 = *v3;
+  v5[6] = v3;
+  v5[7] = a1;
+  v5[8] = a2;
+  v5[9] = v2;
+  v5[36] = v2;
+
+  _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(v4[15], &lazy cache variable for type metadata for UTType?, MEMORY[0x1E69E8450]);
+  if (v2)
+  {
+    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
+  }
+
+  else
+  {
+    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
+  }
+
+  return MEMORY[0x1EEE6DFA0](v6, 0, 0);
+}
+
+uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:)()
 {
   v2 = *(*v1 + 136);
   *(*v1 + 232) = v0;
@@ -7445,12 +5933,12 @@ uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(
   isa = Data._bridgeToObjectiveC()().super.isa;
   v5 = [v3 initRegularFileWithContents_];
 
-  outlined consume of Data._Representation(v2, v1);
-  (*(v0 + 248))(*(v0 + 80), *(v0 + 88), *(v0 + 240));
+  v6 = outlined consume of Data._Representation(v2, v1);
+  (*(v0 + 248))(*(v0 + 80), *(v0 + 88), *(v0 + 240), v6);
 
-  v6 = *(v0 + 8);
+  v7 = *(v0 + 8);
 
-  return v6(v5);
+  return v7(v5);
 }
 
 {
@@ -7460,12 +5948,12 @@ uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(
   isa = Data._bridgeToObjectiveC()().super.isa;
   v5 = [v3 initRegularFileWithContents_];
 
-  outlined consume of Data._Representation(v2, v1);
-  (*(v0 + 248))(*(v0 + 80), *(v0 + 88), *(v0 + 240));
+  v6 = outlined consume of Data._Representation(v2, v1);
+  (*(v0 + 248))(*(v0 + 80), *(v0 + 88), *(v0 + 240), v6);
 
-  v6 = *(v0 + 8);
+  v7 = *(v0 + 8);
 
-  return v6(v5);
+  return v7(v5);
 }
 
 {
@@ -7487,53 +5975,6 @@ uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(
   v1 = *(v0 + 8);
 
   return v1();
-}
-
-uint64_t fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *v3;
-  v5 = *v3;
-  v5[2] = v3;
-  v5[3] = a1;
-  v5[4] = a2;
-  v5[5] = v2;
-  v5[34] = v2;
-
-  _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(v4[16], &lazy cache variable for type metadata for UTType?, MEMORY[0x1E69E8450]);
-  if (v2)
-  {
-    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
-  }
-
-  else
-  {
-    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
-  }
-
-  return MEMORY[0x1EEE6DFA0](v6, 0, 0);
-}
-
-{
-  v4 = *v3;
-  v5 = *v3;
-  v5[6] = v3;
-  v5[7] = a1;
-  v5[8] = a2;
-  v5[9] = v2;
-  v5[36] = v2;
-
-  _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(v4[15], &lazy cache variable for type metadata for UTType?, MEMORY[0x1E69E8450]);
-  if (v2)
-  {
-    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
-  }
-
-  else
-  {
-    v6 = fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:);
-  }
-
-  return MEMORY[0x1EEE6DFA0](v6, 0, 0);
 }
 
 uint64_t closure #1 in fileWrapper #1 <A>(for:item:) in closure #1 in AnyTransferable.init<A>(_:)(uint64_t a1, uint64_t a2)
@@ -7606,6 +6047,135 @@ uint64_t AnyTransferable.newFileWrapper(contentType:)(uint64_t a1)
 }
 
 {
+  v2 = *(v1 + 88);
+  static Log.documents.getter();
+  v3 = type metadata accessor for Logger();
+  v4 = *(v3 - 8);
+  if ((*(v4 + 48))(v2, 1, v3) == 1)
+  {
+    _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(*(v1 + 88), &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420]);
+  }
+
+  else
+  {
+    v5 = *(v1 + 176);
+    v6 = v5;
+    v7 = Logger.logObject.getter();
+    v8 = static os_log_type_t.error.getter();
+
+    if (os_log_type_enabled(v7, v8))
+    {
+      v9 = *(v1 + 176);
+      v10 = swift_slowAlloc();
+      v11 = swift_slowAlloc();
+      *v10 = 138412290;
+      v12 = v9;
+      v13 = _swift_stdlib_bridgeErrorToNSError();
+      *(v10 + 4) = v13;
+      *v11 = v13;
+      _os_log_impl(&dword_18BD4A000, v7, v8, "Failed to export item. Error: %@", v10, 0xCu);
+      _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(v11, &lazy cache variable for type metadata for NSObject?, type metadata accessor for NSObject);
+      MEMORY[0x18D0110E0](v11, -1, -1);
+      MEMORY[0x18D0110E0](v10, -1, -1);
+    }
+
+    v14 = *(v1 + 88);
+
+    (*(v4 + 8))(v14, v3);
+  }
+
+  v15 = *(v1 + 96);
+  v16 = *(v1 + 104);
+  v17 = *(v1 + 80);
+  outlined init with copy of UTType?(*(v1 + 64), v17);
+  if ((*(v16 + 48))(v17, 1, v15) == 1)
+  {
+    _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(*(v1 + 80), &lazy cache variable for type metadata for UTType?, MEMORY[0x1E69E8450]);
+LABEL_18:
+    v43 = *(v1 + 176);
+    v45 = *(v1 + 56);
+    v44 = *(v1 + 64);
+    v46 = [objc_allocWithZone(MEMORY[0x1E696AC38]) init];
+
+    outlined init with copy of UTType?(v44, v45);
+
+    v47 = *(v1 + 8);
+
+    return v47(v46);
+  }
+
+  v18 = *(v1 + 160);
+  v19 = *(v1 + 128);
+  v20 = *(v1 + 96);
+  v21 = *(v1 + 104);
+  v22 = *(v1 + 80);
+  v23 = *(v21 + 32);
+  *(v1 + 192) = v23;
+  *(v1 + 200) = (v21 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
+  v23(v19, v22, v20);
+  v24 = *(v18 + 16);
+  *(v1 + 208) = v24;
+  v25 = *(v1 + 104);
+  if (!v24)
+  {
+    (*(v25 + 8))(*(v1 + 128), *(v1 + 96));
+    goto LABEL_18;
+  }
+
+  v26 = 0;
+  v27 = *(v25 + 80);
+  *(v1 + 280) = v27;
+  v28 = *(v25 + 72);
+  *(v1 + 216) = v28;
+  v29 = *(v25 + 16);
+  *(v1 + 224) = v29;
+  while (1)
+  {
+    *(v1 + 232) = v26;
+    v29(*(v1 + 120), *(v1 + 160) + ((v27 + 32) & ~v27) + v28 * v26, *(v1 + 96));
+    if (UTType.conforms(to:)())
+    {
+      break;
+    }
+
+    v30 = *(v1 + 208);
+    v31 = *(v1 + 232) + 1;
+    v32 = *(*(v1 + 104) + 8);
+    v32(*(v1 + 120), *(v1 + 96));
+    if (v31 == v30)
+    {
+      v32(*(v1 + 128), *(v1 + 96));
+      goto LABEL_18;
+    }
+
+    v29 = *(v1 + 224);
+    v26 = *(v1 + 232) + 1;
+    v28 = *(v1 + 216);
+    LOBYTE(v27) = *(v1 + 280);
+  }
+
+  v33 = *(v1 + 144);
+  v34 = *(v1 + 96);
+  v35 = *(v1 + 104);
+  v36 = *(v1 + 72);
+  (*(v1 + 224))(v36, *(v1 + 120), v34);
+  v37 = *(v35 + 56);
+  *(v1 + 240) = v37;
+  *(v1 + 248) = (v35 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
+  v37(v36, 0, 1, v34);
+  v48 = (v33 + *v33);
+  v38 = swift_task_alloc();
+  *(v1 + 256) = v38;
+  *v38 = v1;
+  v38[1] = AnyTransferable.newFileWrapper(contentType:);
+  v39 = *(v1 + 160);
+  v40 = *(v1 + 112);
+  v41 = *(v1 + 72);
+
+  return v48(v40, v41, v39);
+}
+
+{
   v4 = *v2;
   v4[33] = v1;
 
@@ -7638,135 +6208,6 @@ uint64_t AnyTransferable.newFileWrapper(contentType:)()
   v5 = v0[1];
 
   return v5(v4);
-}
-
-{
-  v1 = *(v0 + 88);
-  static Log.documents.getter();
-  v2 = type metadata accessor for Logger();
-  v3 = *(v2 - 8);
-  if ((*(v3 + 48))(v1, 1, v2) == 1)
-  {
-    _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(*(v0 + 88), &lazy cache variable for type metadata for Logger?, MEMORY[0x1E69E9420]);
-  }
-
-  else
-  {
-    v4 = *(v0 + 176);
-    v5 = v4;
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v6, v7))
-    {
-      v8 = *(v0 + 176);
-      v9 = swift_slowAlloc();
-      v10 = swift_slowAlloc();
-      *v9 = 138412290;
-      v11 = v8;
-      v12 = _swift_stdlib_bridgeErrorToNSError();
-      *(v9 + 4) = v12;
-      *v10 = v12;
-      _os_log_impl(&dword_18BD4A000, v6, v7, "Failed to export item. Error: %@", v9, 0xCu);
-      _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(v10, &lazy cache variable for type metadata for NSObject?, type metadata accessor for NSObject);
-      MEMORY[0x18D0110E0](v10, -1, -1);
-      MEMORY[0x18D0110E0](v9, -1, -1);
-    }
-
-    v13 = *(v0 + 88);
-
-    (*(v3 + 8))(v13, v2);
-  }
-
-  v14 = *(v0 + 96);
-  v15 = *(v0 + 104);
-  v16 = *(v0 + 80);
-  outlined init with copy of UTType?(*(v0 + 64), v16);
-  if ((*(v15 + 48))(v16, 1, v14) == 1)
-  {
-    _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(*(v0 + 80), &lazy cache variable for type metadata for UTType?, MEMORY[0x1E69E8450]);
-LABEL_18:
-    v42 = *(v0 + 176);
-    v44 = *(v0 + 56);
-    v43 = *(v0 + 64);
-    v45 = [objc_allocWithZone(MEMORY[0x1E696AC38]) init];
-
-    outlined init with copy of UTType?(v43, v44);
-
-    v46 = *(v0 + 8);
-
-    return v46(v45);
-  }
-
-  v17 = *(v0 + 160);
-  v18 = *(v0 + 128);
-  v19 = *(v0 + 96);
-  v20 = *(v0 + 104);
-  v21 = *(v0 + 80);
-  v22 = *(v20 + 32);
-  *(v0 + 192) = v22;
-  *(v0 + 200) = (v20 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
-  v22(v18, v21, v19);
-  v23 = *(v17 + 16);
-  *(v0 + 208) = v23;
-  v24 = *(v0 + 104);
-  if (!v23)
-  {
-    (*(v24 + 8))(*(v0 + 128), *(v0 + 96));
-    goto LABEL_18;
-  }
-
-  v25 = 0;
-  v26 = *(v24 + 80);
-  *(v0 + 280) = v26;
-  v27 = *(v24 + 72);
-  *(v0 + 216) = v27;
-  v28 = *(v24 + 16);
-  *(v0 + 224) = v28;
-  while (1)
-  {
-    *(v0 + 232) = v25;
-    v28(*(v0 + 120), *(v0 + 160) + ((v26 + 32) & ~v26) + v27 * v25, *(v0 + 96));
-    if (UTType.conforms(to:)())
-    {
-      break;
-    }
-
-    v29 = *(v0 + 208);
-    v30 = *(v0 + 232) + 1;
-    v31 = *(*(v0 + 104) + 8);
-    v31(*(v0 + 120), *(v0 + 96));
-    if (v30 == v29)
-    {
-      v31(*(v0 + 128), *(v0 + 96));
-      goto LABEL_18;
-    }
-
-    v28 = *(v0 + 224);
-    v25 = *(v0 + 232) + 1;
-    v27 = *(v0 + 216);
-    LOBYTE(v26) = *(v0 + 280);
-  }
-
-  v32 = *(v0 + 144);
-  v33 = *(v0 + 96);
-  v34 = *(v0 + 104);
-  v35 = *(v0 + 72);
-  (*(v0 + 224))(v35, *(v0 + 120), v33);
-  v36 = *(v34 + 56);
-  *(v0 + 240) = v36;
-  *(v0 + 248) = (v34 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v36(v35, 0, 1, v33);
-  v47 = (v32 + *v32);
-  v37 = swift_task_alloc();
-  *(v0 + 256) = v37;
-  *v37 = v0;
-  v37[1] = AnyTransferable.newFileWrapper(contentType:);
-  v38 = *(v0 + 160);
-  v39 = *(v0 + 112);
-  v40 = *(v0 + 72);
-
-  return v47(v39, v40, v38);
 }
 
 {
@@ -7869,11 +6310,11 @@ unint64_t AnyTransferable.ExportError.description.getter()
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for AnyTransferable.ExportError();
+  v6 = type metadata accessor for AnyTransferable.ExportError(0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   outlined init with copy of AnyTransferable.ExportError(v1, v8);
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v10 = v9;
   v11 = (*(*(v9 - 8) + 48))(v8, 2, v9);
   if (v11)
@@ -7912,7 +6353,7 @@ unint64_t AnyTransferable.ExportError.description.getter()
   }
 }
 
-uint64_t type metadata accessor for AnyTransferable.ExportError()
+uint64_t type metadata accessor for AnyTransferable.ExportError(uint64_t a1)
 {
   result = type metadata singleton initialization cache for AnyTransferable.ExportError;
   if (!type metadata singleton initialization cache for AnyTransferable.ExportError)
@@ -7925,19 +6366,19 @@ uint64_t type metadata accessor for AnyTransferable.ExportError()
 
 uint64_t outlined init with copy of AnyTransferable.ExportError(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AnyTransferable.ExportError();
+  v4 = type metadata accessor for AnyTransferable.ExportError(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-void type metadata accessor for (UTType, Error)()
+void type metadata accessor for (UTType, Error)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (UTType, Error))
   {
     type metadata accessor for UTType();
     type metadata accessor for Error();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (UTType, Error));
     }
@@ -7972,15 +6413,15 @@ unint64_t lazy protocol witness table accessor for type AnyTransferable.ExportEr
   result = lazy protocol witness table cache variable for type AnyTransferable.ExportError and conformance AnyTransferable.ExportError;
   if (!lazy protocol witness table cache variable for type AnyTransferable.ExportError and conformance AnyTransferable.ExportError)
   {
-    type metadata accessor for AnyTransferable.ExportError();
-    result = swift_getWitnessTable();
+    v3 = type metadata accessor for AnyTransferable.ExportError(255);
+    result = swift_getWitnessTable(protocol conformance descriptor for AnyTransferable.ExportError, v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnyTransferable.ExportError and conformance AnyTransferable.ExportError);
   }
 
   return result;
 }
 
-uint64_t _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t _s22UniformTypeIdentifiers6UTTypeVSgWOhTm_2(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   _s22UniformTypeIdentifiers6UTTypeVSgMaTm_5(0, a2, a3);
   (*(*(v4 - 8) + 8))(a1, v4);
@@ -8013,7 +6454,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for AnyTransferable.ExportError(uint6
   }
 
   v6 = *(a3 - 8);
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v8 = v7;
   v9 = *(v7 - 8);
   if (!(*(v9 + 48))(a2, 2, v7))
@@ -8035,7 +6476,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for AnyTransferable.ExportError(uint6
 
 void destroy for AnyTransferable.ExportError(uint64_t a1)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v3 = v2;
   if (!(*(*(v2 - 8) + 48))(a1, 2, v2))
   {
@@ -8047,7 +6488,7 @@ void destroy for AnyTransferable.ExportError(uint64_t a1)
 
 char *initializeWithCopy for AnyTransferable.ExportError(char *a1, char *a2, uint64_t a3)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v7 = v6;
   v8 = *(v6 - 8);
   if ((*(v8 + 48))(a2, 2, v6))
@@ -8072,7 +6513,7 @@ char *initializeWithCopy for AnyTransferable.ExportError(char *a1, char *a2, uin
 
 char *assignWithCopy for AnyTransferable.ExportError(char *a1, char *a2, uint64_t a3)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v7 = v6;
   v8 = *(v6 - 8);
   v9 = *(v8 + 48);
@@ -8118,14 +6559,14 @@ char *assignWithCopy for AnyTransferable.ExportError(char *a1, char *a2, uint64_
 
 uint64_t outlined destroy of (UTType, Error)(uint64_t a1)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 char *initializeWithTake for AnyTransferable.ExportError(char *a1, char *a2, uint64_t a3)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v7 = v6;
   v8 = *(v6 - 8);
   if ((*(v8 + 48))(a2, 2, v6))
@@ -8147,7 +6588,7 @@ char *initializeWithTake for AnyTransferable.ExportError(char *a1, char *a2, uin
 
 char *assignWithTake for AnyTransferable.ExportError(char *a1, char *a2, uint64_t a3)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v7 = v6;
   v8 = *(v6 - 8);
   v9 = *(v8 + 48);
@@ -8188,7 +6629,7 @@ char *assignWithTake for AnyTransferable.ExportError(char *a1, char *a2, uint64_
 
 uint64_t getEnumTag for AnyTransferable.ExportError(uint64_t a1)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v3 = *(*(v2 - 8) + 48);
 
   return v3(a1, 2, v2);
@@ -8196,16 +6637,16 @@ uint64_t getEnumTag for AnyTransferable.ExportError(uint64_t a1)
 
 uint64_t destructiveInjectEnumTag for AnyTransferable.ExportError(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for (UTType, Error)();
+  type metadata accessor for (UTType, Error)(0);
   v5 = *(*(v4 - 8) + 56);
 
   return v5(a1, a2, 2, v4);
 }
 
-uint64_t type metadata completion function for AnyTransferable.ExportError()
+uint64_t type metadata completion function for AnyTransferable.ExportError(uint64_t a1)
 {
   result = type metadata accessor for UTType();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_getTupleTypeLayout2();
     swift_initEnumMetadataSinglePayload();
@@ -8396,7 +6837,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for URLReceipt.Result(uint64_t *a1, u
   return a1;
 }
 
-uint64_t *assignWithCopy for URLReceipt.Result(uint64_t *result, uint64_t *a2)
+uint64_t *assignWithCopy for URLReceipt.Result(uint64_t *result, unint64_t *a2)
 {
   LODWORD(v2) = -1;
   if (*result >= 0xFFFFFFFF)
@@ -8546,95 +6987,95 @@ LABEL_5:
   return result;
 }
 
-uint64_t TabContent.popover<A>(isPresented:attachmentAnchor:arrowEdge:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, unsigned __int8 a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+uint64_t TabContent.popover<A>(isPresented:attachmentAnchor:arrowEdge:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, unsigned __int8 a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t x8_0@<X8>, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v10 = *a4;
-  v11 = *(a4 + 8);
-  v12 = a5;
-  v13 = *(a4 + 16);
-  PopoverConditionalStateProvider.init(isPresented:content:)(a1, a2, a3, a6, a7, v22);
-  v20[0] = v10;
-  v20[1] = v11;
-  v21 = v13;
-  if (v12 == 4)
+  v13 = *a4;
+  v14 = *(a4 + 8);
+  v15 = a5;
+  v16 = *(a4 + 16);
+  PopoverConditionalStateProvider.init(isPresented:content:)(a1, a2, a3, a6, a7, v28);
+  v26[0] = v13;
+  v26[1] = v14;
+  v27 = v16;
+  if (v15 == 4)
   {
-    v14 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v14 = specialized Edge.Set.init(_:)(a5);
+    v18 = specialized Edge.Set.init(_:)(a5);
   }
 
-  v15 = type metadata accessor for PopoverConditionalStateProvider();
-  swift_getWitnessTable();
-  PopoverPresentationModifier.init(provider:attachmentAnchor:arrowEdges:isDetachable:keyType:attachmentBehavior:)(v22, v20, v14 | ((v12 == 4) << 8), 0, 0, 0, v15, v23);
-  v16 = type metadata accessor for PopoverPresentationModifier();
-  TabContent.modifier<A>(_:)(v23, a8, v16, a9);
+  v19 = type metadata accessor for PopoverConditionalStateProvider(0, a9, a11, v17);
+  WitnessTable = swift_getWitnessTable("tM\t", v19);
+  PopoverPresentationModifier.init(provider:attachmentAnchor:arrowEdges:isDetachable:keyType:attachmentBehavior:)(v28, v26, v18 | ((v15 == 4) << 8), 0, 0, 0, v19, WitnessTable, v29);
+  v22 = type metadata accessor for PopoverPresentationModifier(0, v19, WitnessTable, v21);
+  TabContent.modifier<A>(_:)(v29, a8, v22, x8_0);
 
-  outlined copy of Environment<CGFloat?>.Content(v10, v11, v13);
-  return (*(*(v16 - 8) + 8))(v23, v16);
+  outlined copy of Environment<CGFloat?>.Content(v13, v14, v16);
+  return (*(*(v22 - 8) + 8))(v29, v22);
 }
 
 uint64_t TabContent.popover<A, B>(item:attachmentAnchor:arrowEdge:content:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v47 = a6;
-  v43 = a5;
-  v44 = a4;
-  v42 = a1;
-  v46 = a9;
-  v37 = a12;
-  v38 = a8;
-  v45 = a10;
-  v35 = a7;
-  v36 = a11;
-  v34 = a3;
-  v41 = a3;
+  v49 = a6;
+  v45 = a5;
+  v46 = a4;
+  v44 = a1;
+  v48 = a9;
+  v39 = a12;
+  v40 = a8;
+  v47 = a10;
+  v37 = a7;
+  v38 = a11;
+  v36 = a3;
+  v43 = a3;
   type metadata accessor for Optional();
-  v40 = type metadata accessor for Binding();
-  v15 = *(v40 - 8);
-  MEMORY[0x1EEE9AC00](v40);
-  v17 = &v33[-v16];
-  v48 = a7;
-  v49 = a8;
-  v50 = a11;
-  v51 = a12;
-  v18 = type metadata accessor for PopoverItemStateProvider();
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v33[-v19];
-  WitnessTable = swift_getWitnessTable();
-  v21 = type metadata accessor for PopoverPresentationModifier();
-  v22 = *(v21 - 8);
-  v23 = MEMORY[0x1EEE9AC00](v21);
-  v25 = &v33[-v24];
-  v27 = *a2;
-  v26 = *(a2 + 8);
-  v28 = *(a2 + 16);
-  (*(v15 + 16))(v17, v42, v40, v23);
-  v29 = v17;
-  v30 = v41;
-  PopoverItemStateProvider.init(item:content:)(v29, v44, v43, v20);
-  v48 = v27;
-  v49 = v26;
-  LOBYTE(v50) = v28;
-  if (v30 == 4)
+  v42 = type metadata accessor for Binding();
+  v15 = *(v42 - 8);
+  MEMORY[0x1EEE9AC00](v42);
+  v17 = &v35[-v16];
+  v50 = a7;
+  v51 = a8;
+  v52 = a11;
+  v53 = a12;
+  v18 = type metadata accessor for PopoverItemStateProvider(0, &v50);
+  v19 = MEMORY[0x1EEE9AC00](v18);
+  v21 = &v35[-v20];
+  WitnessTable = swift_getWitnessTable("HM\t", v18, v19);
+  v23 = type metadata accessor for PopoverPresentationModifier(0, v18, WitnessTable, v22);
+  v24 = *(v23 - 8);
+  v25 = MEMORY[0x1EEE9AC00](v23);
+  v27 = &v35[-v26];
+  v29 = *a2;
+  v28 = *(a2 + 8);
+  v30 = *(a2 + 16);
+  (*(v15 + 16))(v17, v44, v42, v25);
+  v31 = v17;
+  v32 = v43;
+  PopoverItemStateProvider.init(item:content:)(v31, v46, v45, v37, v40, v38, v39, v21);
+  v50 = v29;
+  v51 = v28;
+  LOBYTE(v52) = v30;
+  if (v32 == 4)
   {
-    v31 = 0;
+    v33 = 0;
   }
 
   else
   {
-    v31 = specialized Edge.Set.init(_:)(v34);
+    v33 = specialized Edge.Set.init(_:)(v36);
   }
 
-  PopoverPresentationModifier.init(provider:attachmentAnchor:arrowEdges:isDetachable:keyType:attachmentBehavior:)(v20, &v48, v31 | ((v30 == 4) << 8), 0, 0, 0, v18, v25);
-  TabContent.modifier<A>(_:)(v25, v47, v21, v46);
+  PopoverPresentationModifier.init(provider:attachmentAnchor:arrowEdges:isDetachable:keyType:attachmentBehavior:)(v21, &v50, v33 | ((v32 == 4) << 8), 0, 0, 0, v18, WitnessTable, v27);
+  TabContent.modifier<A>(_:)(v27, v49, v23, v48);
 
-  outlined copy of Environment<CGFloat?>.Content(v27, v26, v28);
-  return (*(v22 + 8))(v25, v21);
+  outlined copy of Environment<CGFloat?>.Content(v29, v28, v30);
+  return (*(v24 + 8))(v27, v23);
 }
 
-uint64_t protocol witness for static _ViewTraitKey.defaultValue.getter in conformance TabPopoverPresentationsKey@<X0>(void *a1@<X8>)
+double protocol witness for static _ViewTraitKey.defaultValue.getter in conformance TabPopoverPresentationsKey@<D0>(void *a1@<X8>)
 {
   if (one-time initialization token for defaultValue != -1)
   {
@@ -8644,6 +7085,8 @@ uint64_t protocol witness for static _ViewTraitKey.defaultValue.getter in confor
   }
 
   *a1 = static TabPopoverPresentationsKey.defaultValue;
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>> and conformance <> ModifiedContent<A, B>()
@@ -8651,53 +7094,56 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>>();
-    lazy protocol witness table accessor for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>> and conformance _TraitWritingModifier<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>> and conformance <> ModifiedContent<A, B>();
+    v5[1] = lazy protocol witness table accessor for type _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>> and conformance _TraitWritingModifier<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>> and conformance <> ModifiedContent<A, B>);
   }
 
   return result;
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>>)
   {
-    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>();
-    type metadata accessor for _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>(255);
+    type metadata accessor for _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>(255);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>, _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>()
+void type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>)
   {
     type metadata accessor for Toggle<ToggleStyleConfiguration.Label>(255, &lazy cache variable for type metadata for Toggle<ToggleStyleConfiguration.Label>, &type metadata for ToggleStyleConfiguration.Label, &protocol witness table for ToggleStyleConfiguration.Label, type metadata accessor for Toggle);
-    type metadata accessor for ToggleStyleModifier<_CheckboxToggleStyle>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for ToggleStyleModifier<_CheckboxToggleStyle>(255);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>);
     }
   }
 }
 
-void type metadata accessor for ToggleStyleModifier<_CheckboxToggleStyle>()
+void type metadata accessor for ToggleStyleModifier<_CheckboxToggleStyle>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ToggleStyleModifier<_CheckboxToggleStyle>)
   {
-    lazy protocol witness table accessor for type _CheckboxToggleStyle and conformance _CheckboxToggleStyle();
-    v0 = type metadata accessor for ToggleStyleModifier();
-    if (!v1)
+    v2 = lazy protocol witness table accessor for type _CheckboxToggleStyle and conformance _CheckboxToggleStyle();
+    v4 = type metadata accessor for ToggleStyleModifier(a1, &type metadata for _CheckboxToggleStyle, v2, v3);
+    if (!v5)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ToggleStyleModifier<_CheckboxToggleStyle>);
+      atomic_store(v4, &lazy cache variable for type metadata for ToggleStyleModifier<_CheckboxToggleStyle>);
     }
   }
 }
@@ -8707,7 +7153,7 @@ unint64_t lazy protocol witness table accessor for type _CheckboxToggleStyle and
   result = lazy protocol witness table cache variable for type _CheckboxToggleStyle and conformance _CheckboxToggleStyle;
   if (!lazy protocol witness table cache variable for type _CheckboxToggleStyle and conformance _CheckboxToggleStyle)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for _CheckboxToggleStyle, &type metadata for _CheckboxToggleStyle, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _CheckboxToggleStyle and conformance _CheckboxToggleStyle);
   }
 
@@ -8719,9 +7165,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Toggle<T
   result = lazy protocol witness table cache variable for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>();
-    lazy protocol witness table accessor for type Toggle<ToggleStyleConfiguration.Label> and conformance Toggle<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type Toggle<ToggleStyleConfiguration.Label> and conformance Toggle<A>();
+    v5[1] = &protocol witness table for ToggleStyleModifier<A>;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<_CheckboxToggleStyle>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -8733,8 +7183,8 @@ unint64_t lazy protocol witness table accessor for type _TraitWritingModifier<_L
   result = lazy protocol witness table cache variable for type _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>> and conformance _TraitWritingModifier<A>;
   if (!lazy protocol witness table cache variable for type _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>> and conformance _TraitWritingModifier<A>)
   {
-    type metadata accessor for _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>();
-    result = swift_getWitnessTable();
+    type metadata accessor for _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>>(255);
+    result = swift_getWitnessTable(MEMORY[0x1E697FDC0], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _TraitWritingModifier<_LayoutTrait<HorizintolControlGroupingItemKey>> and conformance _TraitWritingModifier<A>);
   }
 
@@ -8747,11 +7197,12 @@ id UIActivityViewController.init(configuration:env:)(uint64_t a1, uint64_t *a2)
   v4 = a2[1];
   if (*(a1 + 32) == 1)
   {
-    v5 = *(a1 + 16);
+    v6 = *(a1 + 16);
+    v5 = *(a1 + 24);
 
-    outlined copy of AppIntentExecutor?(v5);
+    outlined copy of AppIntentExecutor?(v6, v5);
 
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v5);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6, v5);
 
     outlined destroy of AnyShareConfiguration(a1);
     return 0;
@@ -8759,35 +7210,35 @@ id UIActivityViewController.init(configuration:env:)(uint64_t a1, uint64_t *a2)
 
   else
   {
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIActivityItemsConfiguration);
-    v13[0] = v3;
-    v13[1] = v4;
-    outlined init with copy of AnyShareConfiguration(a1, v12);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIActivityItemsConfiguration, 0x1E69DC640);
+    v14[0] = v3;
+    v14[1] = v4;
+    outlined init with copy of AnyShareConfiguration(a1, v13);
 
-    v7 = UIActivityItemsConfiguration.init(configuration:env:)(a1, v13);
-    if (v7)
+    v8 = UIActivityItemsConfiguration.init(configuration:env:)(a1, v14);
+    if (v8)
     {
-      isa = v7;
+      isa = v8;
 
-      v9 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithActivityItemsConfiguration_];
+      v10 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithActivityItemsConfiguration_];
     }
 
     else
     {
-      v12[0] = v3;
-      v12[1] = v4;
-      AnyShareConfiguration.resolveActivityItems(in:)(v12);
+      v13[0] = v3;
+      v13[1] = v4;
+      AnyShareConfiguration.resolveActivityItems(in:)(v13);
 
-      v10 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+      v11 = objc_allocWithZone(swift_getObjCClassFromMetadata());
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      v9 = [v10 initWithActivityItems:isa applicationActivities:0];
+      v10 = [v11 initWithActivityItems:isa applicationActivities:0];
     }
 
-    v11 = v9;
+    v12 = v10;
     outlined destroy of AnyShareConfiguration(a1);
 
-    return v11;
+    return v12;
   }
 }
 
@@ -8799,21 +7250,21 @@ id UIActivityItemsConfiguration.init(configuration:env:)(uint64_t a1, uint64_t *
   v6 = *(a1 + 32);
   if (v6 == 2)
   {
-    v33 = *a2;
+    v34 = *a2;
     v7 = objc_allocWithZone(swift_getObjCClassFromMetadata());
 
-    outlined copy of AppIntentExecutor?(v5);
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSItemProvider);
+    outlined copy of AppIntentExecutor?(v5, v4);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSItemProvider, 0x1E696ACA0);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    v29 = [v7 initWithItemProviders_];
+    v30 = [v7 initWithItemProviders_];
 
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
-    v31 = v5;
+    v32 = v5;
     v11 = *(a1 + 56);
     v12 = *(a1 + 64);
-    v27 = v4;
+    v28 = v4;
     v13 = v3;
     v14 = *(a1 + 72);
     v15 = *(a1 + 80);
@@ -8824,89 +7275,90 @@ id UIActivityItemsConfiguration.init(configuration:env:)(uint64_t a1, uint64_t *
     v18[3] = v10;
     v18[4] = v11;
     v18[5] = v12;
-    v18[6] = v33;
+    v18[6] = v34;
     v18[7] = v13;
     v18[8] = v14;
     v18[9] = v15;
     v18[10] = v16;
     v18[11] = v17;
-    v38 = partial apply for closure #1 in UIActivityItemsConfiguration.init(configuration:env:);
-    v39 = v18;
+    v39 = partial apply for closure #1 in UIActivityItemsConfiguration.init(configuration:env:);
+    v40 = v18;
     aBlock = MEMORY[0x1E69E9820];
-    v35 = 1107296256;
-    v36 = thunk for @escaping @callee_guaranteed (@guaranteed UIActivityItemsConfigurationMetadataKey) -> (@out Any?);
-    v37 = &block_descriptor_48;
-    v28 = _Block_copy(&aBlock);
+    v36 = 1107296256;
+    v37 = thunk for @escaping @callee_guaranteed (@guaranteed UIActivityItemsConfigurationMetadataKey) -> (@out Any?);
+    v38 = &block_descriptor_48;
+    v29 = _Block_copy(&aBlock);
     outlined copy of Text?(v9, v10, v11, v12);
     outlined copy of Text?(v14, v15, v16, v17);
-    v32 = v9;
+    v33 = v9;
     outlined copy of Text?(v9, v10, v11, v12);
-    v30 = v15;
+    v31 = v15;
     v19 = v15;
     v20 = v16;
     outlined copy of Text?(v14, v19, v16, v17);
 
-    v21 = v29;
+    v21 = v30;
 
     [v21 setMetadataProvider_];
 
-    _Block_release(v28);
-    if (v31)
+    _Block_release(v29);
+    if (v32)
     {
       v22 = swift_allocObject();
-      v22[2] = v31;
-      v22[3] = v27;
-      v22[4] = v33;
+      v22[2] = v32;
+      v22[3] = v28;
+      v22[4] = v34;
       v22[5] = v13;
-      v38 = partial apply for closure #2 in UIActivityItemsConfiguration.init(configuration:env:);
-      v39 = v22;
+      v39 = partial apply for closure #2 in UIActivityItemsConfiguration.init(configuration:env:);
+      v40 = v22;
       aBlock = MEMORY[0x1E69E9820];
-      v35 = 1107296256;
-      v36 = thunk for @escaping @callee_guaranteed (@unowned Int, @guaranteed UIActivityItemsConfigurationMetadataKey) -> (@out Any?);
-      v37 = &block_descriptor_11;
+      v36 = 1107296256;
+      v37 = thunk for @escaping @callee_guaranteed (@unowned Int, @guaranteed UIActivityItemsConfigurationMetadataKey) -> (@out Any?);
+      v38 = &block_descriptor_11;
       v23 = _Block_copy(&aBlock);
-      outlined copy of AppIntentExecutor?(v31);
+      outlined copy of AppIntentExecutor?(v32, v28);
 
       [v21 setPerItemMetadataProvider_];
       _Block_release(v23);
       v24 = swift_allocObject();
-      *(v24 + 16) = v31;
-      *(v24 + 24) = v27;
-      v38 = partial apply for closure #3 in UIActivityItemsConfiguration.init(configuration:env:);
-      v39 = v24;
+      *(v24 + 16) = v32;
+      *(v24 + 24) = v28;
+      v39 = partial apply for closure #3 in UIActivityItemsConfiguration.init(configuration:env:);
+      v40 = v24;
       aBlock = MEMORY[0x1E69E9820];
-      v35 = 1107296256;
-      v36 = thunk for @escaping @callee_guaranteed (@unowned Int, @guaranteed UIActivityItemsConfigurationPreviewIntent, @unowned CGSize) -> (@owned NSItemProvider?);
-      v37 = &block_descriptor_17_0;
+      v36 = 1107296256;
+      v37 = thunk for @escaping @callee_guaranteed (@unowned Int, @guaranteed UIActivityItemsConfigurationPreviewIntent, @unowned CGSize) -> (@owned NSItemProvider?);
+      v38 = &block_descriptor_17_0;
       v25 = _Block_copy(&aBlock);
 
       [v21 setPreviewProvider_];
       outlined destroy of AnyShareConfiguration(a1);
       _Block_release(v25);
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v31);
-      outlined consume of Text?(v14, v30, v20, v17);
-      outlined consume of Text?(v32, v10, v11, v12);
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v31);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v32, v28);
+      outlined consume of Text?(v14, v31, v20, v17);
+      outlined consume of Text?(v33, v10, v11, v12);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v32, v28);
     }
 
     else
     {
 
       outlined destroy of AnyShareConfiguration(a1);
-      outlined consume of Text?(v14, v30, v16, v17);
-      outlined consume of Text?(v32, v10, v11, v12);
+      outlined consume of Text?(v14, v31, v16, v17);
+      outlined consume of Text?(v33, v10, v11, v12);
     }
   }
 
   else
   {
+    v26 = *(a1 + 24);
 
     if (v6 == 1)
     {
 
-      outlined copy of AppIntentExecutor?(v4);
+      outlined copy of AppIntentExecutor?(v4, v26);
 
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v4);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v4, v26);
     }
 
     outlined destroy of AnyShareConfiguration(a1);
@@ -8916,45 +7368,45 @@ id UIActivityItemsConfiguration.init(configuration:env:)(uint64_t a1, uint64_t *
   return v21;
 }
 
-double closure #1 in UIActivityItemsConfiguration.init(configuration:env:)@<D0>(uint64_t a1@<X4>, uint64_t a2@<X5>, uint64_t a3@<X6>, uint64_t a4@<X8>, uint64_t a5, uint64_t a6, uint64_t a7)
+double closure #1 in UIActivityItemsConfiguration.init(configuration:env:)@<D0>(uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a9@<X8>, uint64_t a10, char a11, uint64_t a12)
 {
-  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = v11;
-  if (v10 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v12 == v13)
+  v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v17 = v16;
+  if (v15 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v17 == v18)
   {
 
     goto LABEL_14;
   }
 
-  v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  if (v15)
+  if (v20)
   {
 LABEL_14:
-    if (!a1)
+    if (!a5)
     {
       goto LABEL_21;
     }
 
-    v33 = a2;
-    v34 = a3;
-    v31 = 0;
-    v32 = 0;
-    MEMORY[0x18D009CB0](&v30, v16);
+    v38 = a6;
+    v39 = a7;
+    v36 = 0;
+    v37 = 0;
+    MEMORY[0x18D009CB0](&v35, v21);
 LABEL_16:
-    v24 = Text.resolveString(in:with:idiom:)();
-    *(a4 + 24) = MEMORY[0x1E69E6158];
-    *a4 = v24;
-    *(a4 + 8) = v26;
+    v29 = Text.resolveString(in:with:idiom:)();
+    *(a9 + 24) = MEMORY[0x1E69E6158];
+    *a9 = v29;
+    *(a9 + 8) = v31;
     return result;
   }
 
-  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v19 = v18;
-  if (v17 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v19 == v20)
+  v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v24 = v23;
+  if (v22 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v24 == v25)
   {
 
-    if (!a7)
+    if (!a12)
     {
       goto LABEL_21;
     }
@@ -8962,43 +7414,43 @@ LABEL_16:
 
   else
   {
-    v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v27 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v22 & 1) == 0 || !a7)
+    if ((v27 & 1) == 0 || !a12)
     {
       goto LABEL_21;
     }
   }
 
-  MEMORY[0x18D009DC0](&v33, v23);
+  MEMORY[0x18D009DC0](&v38, v28);
   if ((Text.isStyled(options:)() & 1) == 0)
   {
-    v33 = a2;
-    v34 = a3;
-    v31 = 0;
-    v32 = 0;
-    MEMORY[0x18D009CB0](&v30);
+    v38 = a6;
+    v39 = a7;
+    v36 = 0;
+    v37 = 0;
+    MEMORY[0x18D009CB0](&v35);
     goto LABEL_16;
   }
 
-  v33 = a2;
-  v34 = a3;
-  v31 = 0;
-  v32 = 0;
-  v30 = 128;
-  v27 = Text.resolveAttributedString(in:includeDefaultAttributes:options:idiom:)();
-  if (v27)
+  v38 = a6;
+  v39 = a7;
+  v36 = 0;
+  v37 = 0;
+  v35 = 128;
+  v32 = Text.resolveAttributedString(in:includeDefaultAttributes:options:idiom:)();
+  if (v32)
   {
-    v28 = v27;
-    *(a4 + 24) = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString);
-    *a4 = v28;
+    v33 = v32;
+    *(a9 + 24) = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString, 0x1E696AAB0);
+    *a9 = v33;
     return result;
   }
 
 LABEL_21:
   result = 0.0;
-  *a4 = 0u;
-  *(a4 + 16) = 0u;
+  *a9 = 0u;
+  *(a9 + 16) = 0u;
   return result;
 }
 
@@ -9030,61 +7482,61 @@ id thunk for @escaping @callee_guaranteed (@guaranteed UIActivityItemsConfigurat
   return v11;
 }
 
-uint64_t closure #2 in UIActivityItemsConfiguration.init(configuration:env:)@<X0>(void (*a1)(void *__return_ptr)@<X2>, uint64_t a2@<X4>, uint64_t a3@<X5>, uint64_t a4@<X8>)
+uint64_t closure #2 in UIActivityItemsConfiguration.init(configuration:env:)@<X0>(void (*a2)(void *__return_ptr)@<X2>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X8>)
 {
-  a1(v24);
-  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = v8;
-  if (v7 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v9 == v10)
+  a2(v25);
+  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v9;
+  if (v8 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v10 == v11)
   {
   }
 
   else
   {
-    v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v16 = v15;
-      if (v14 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v16 == v17)
+      v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v17 = v16;
+      if (v15 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v17 == v18)
       {
 
 LABEL_17:
-        outlined init with copy of Any?(&v25, a4);
-        return outlined destroy of AnySharePreview(v24);
+        outlined init with copy of Any?(&v26, a5);
+        return outlined destroy of AnySharePreview(v25);
       }
 
-      v19 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v19)
+      if (v20)
       {
         goto LABEL_17;
       }
 
 LABEL_15:
-      result = outlined destroy of AnySharePreview(v24);
-      *a4 = 0u;
-      *(a4 + 16) = 0u;
+      result = outlined destroy of AnySharePreview(v25);
+      *a5 = 0u;
+      *(a5 + 16) = 0u;
       return result;
     }
   }
 
-  if (!v24[3])
+  if (!v25[3])
   {
     goto LABEL_15;
   }
 
-  v23[3] = a2;
-  v23[4] = a3;
-  v23[1] = 0;
-  v23[2] = 0;
-  MEMORY[0x18D009CB0](v23, v13);
-  v20 = Text.resolveString(in:with:idiom:)();
-  *(a4 + 24) = MEMORY[0x1E69E6158];
-  *a4 = v20;
-  *(a4 + 8) = v21;
-  return outlined destroy of AnySharePreview(v24);
+  v24[3] = a3;
+  v24[4] = a4;
+  v24[1] = 0;
+  v24[2] = 0;
+  MEMORY[0x18D009CB0](v24, v14);
+  v21 = Text.resolveString(in:with:idiom:)();
+  *(a5 + 24) = MEMORY[0x1E69E6158];
+  *a5 = v21;
+  *(a5 + 8) = v22;
+  return outlined destroy of AnySharePreview(v25);
 }
 
 id thunk for @escaping @callee_guaranteed (@unowned Int, @guaranteed UIActivityItemsConfigurationMetadataKey) -> (@out Any?)(uint64_t a1, uint64_t a2, void *a3)
@@ -9117,7 +7569,7 @@ id thunk for @escaping @callee_guaranteed (@unowned Int, @guaranteed UIActivityI
 
 uint64_t closure #3 in UIActivityItemsConfiguration.init(configuration:env:)(uint64_t a1, uint64_t a2, void (*a3)(void *__return_ptr))
 {
-  a3(v19);
+  (a3)(v19, a1);
   v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = v4;
   if (v3 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v5 == v6)
@@ -9294,7 +7746,7 @@ char *AnyShareConfiguration.resolveActivityItems(in:)(uint64_t *a1)
 
     v25 = v24;
     v26 = 0;
-    v41 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString);
+    v41 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSAttributedString, 0x1E696AAB0);
     *&v40 = v25;
   }
 
@@ -9340,16 +7792,18 @@ id ActivitySubjectProvider.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-id outlined copy of Text.ResolvedMessage(void *a1, uint64_t a2, char a3)
+double outlined copy of Text.ResolvedMessage(void *a1, uint64_t a2, char a3)
 {
   if (a3)
   {
-    return a1;
+    v3 = a1;
   }
 
   else
   {
   }
+
+  return result;
 }
 
 uint64_t HiddenLabeledContentStyle.makeBody(configuration:)@<X0>(uint64_t a1@<X8>)
@@ -9367,9 +7821,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>, ScrollEdgeEffectTagModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>, ScrollEdgeEffectTagModifier> and conformance <> ModifiedContent<A, B>)
   {
+    v5[4] = v0;
+    v5[5] = v1;
     type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>, ScrollEdgeEffectTagModifier>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>, ScrollEdgeEffectTagModifier>, type metadata accessor for ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>);
-    lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<LabelsHiddenModifier>, _LabeledContentStyleModifier<HiddenLabeledContentStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>, lazy protocol witness table accessor for type ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>> and conformance <> ModifiedContent<A, B>);
-    result = swift_getWitnessTable();
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<LabelsHiddenModifier>, _LabeledContentStyleModifier<HiddenLabeledContentStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>, lazy protocol witness table accessor for type ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>> and conformance <> ModifiedContent<A, B>, &protocol witness table for AccessibilityClearLabeledContentModifier);
+    v5[1] = &protocol witness table for ScrollEdgeEffectTagModifier;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>, AccessibilityClearLabeledContentModifier>, ScrollEdgeEffectTagModifier> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -9389,15 +7847,15 @@ void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<
   }
 }
 
-void type metadata accessor for ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>()
+void type metadata accessor for ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>)
   {
     type metadata accessor for AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>);
     }
   }
 }
@@ -9406,10 +7864,16 @@ void type metadata accessor for AccessibilityProxyTransformModifier<Never, Label
 {
   if (!lazy cache variable for type metadata for AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>)
   {
-    v0 = type metadata accessor for AccessibilityProxyTransformModifier();
-    if (!v1)
+    v4[4] = v0;
+    v4[5] = v1;
+    v4[0] = MEMORY[0x1E69E73E0];
+    v4[1] = &type metadata for LabeledContentStyleConfiguration.Label;
+    v4[2] = MEMORY[0x1E6982070];
+    v4[3] = &protocol witness table for LabeledContentStyleConfiguration.Label;
+    v2 = type metadata accessor for AccessibilityProxyTransformModifier(0, v4);
+    if (!v3)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>);
+      atomic_store(v2, &lazy cache variable for type metadata for AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>);
     }
   }
 }
@@ -9419,8 +7883,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<LabeledC
   result = lazy protocol witness table cache variable for type ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>();
-    result = swift_getWitnessTable();
+    v4[2] = v0;
+    v4[3] = v1;
+    type metadata accessor for ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>>(255);
+    v4[0] = &protocol witness table for LabeledContentStyleConfiguration.Content;
+    v4[1] = &protocol witness table for AccessibilityProxyTransformModifier<A, B>;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v3, v4);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<LabeledContentStyleConfiguration.Content, AccessibilityProxyTransformModifier<Never, LabeledContentStyleConfiguration.Label>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -9429,100 +7897,104 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<LabeledC
 
 uint64_t InspectorSplitView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v37 = a2;
-  v32 = *(a1 + 24);
-  v36 = *(v32 - 8);
+  v38 = a2;
+  v33 = *(a1 + 24);
+  v37 = *(v33 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v35 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = &v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = *(v5 + 16);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v30 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for _InspectorSplitViewRoot();
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v30 - v11;
-  v13 = type metadata accessor for _VariadicView.Tree();
-  v34 = *(v13 - 8);
-  MEMORY[0x1EEE9AC00](v13);
-  v31 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for _InspectorSplitViewRoot(0, v6, *(v10 + 32), v11);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v31 - v13;
+  v15 = type metadata accessor for _VariadicView.Tree();
+  v35 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
-  v33 = &v30 - v16;
-  v17 = v2[1];
+  v32 = &v31 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v34 = &v31 - v18;
+  v19 = v2[1];
   v43[0] = *v2;
-  v43[1] = v17;
-  v19 = *v2;
-  v18 = v2[1];
+  v43[1] = v19;
+  v21 = *v2;
+  v20 = v2[1];
   v44[0] = v2[2];
   *(v44 + 9) = *(v2 + 41);
-  v40 = v19;
-  v41 = v18;
+  v40 = v21;
+  v41 = v20;
   v42[0] = v2[2];
   *(v42 + 9) = *(v2 + 41);
-  v20 = *(v2 + *(a1 + 60));
-  v21 = *(v2 + *(a1 + 64));
+  v22 = *(v2 + *(a1 + 60));
+  v23 = *(v2 + *(a1 + 64));
   (*(v7 + 16))(v9, v2 + *(a1 + 52), v6);
-  v22 = v42[0];
-  *(v12 + 1) = v41;
-  *(v12 + 2) = v22;
-  *(v12 + 41) = *(v42 + 9);
-  *v12 = v40;
-  v12[57] = v20;
-  v12[58] = v21;
-  (*(v7 + 32))(&v12[*(v10 + 44)], v9, v6);
-  (*(v36 + 16))(v35, v2 + *(a1 + 56), v32);
+  v24 = v42[0];
+  *(v14 + 1) = v41;
+  *(v14 + 2) = v24;
+  *(v14 + 41) = *(v42 + 9);
+  *v14 = v40;
+  v14[57] = v22;
+  v14[58] = v23;
+  (*(v7 + 32))(&v14[*(v12 + 44)], v9, v6);
+  (*(v37 + 16))(v36, v2 + *(a1 + 56), v33);
   outlined init with copy of InspectorState(v43, &v40);
-  v23 = v31;
+  v25 = v32;
   _VariadicView.Tree.init(root:content:)();
-  WitnessTable = swift_getWitnessTable();
-  v25 = *(a1 + 40);
-  v38 = WitnessTable;
-  v39 = v25;
-  v26 = swift_getWitnessTable();
-  v27 = v33;
-  static ViewBuilder.buildExpression<A>(_:)(v23, v13, v26);
-  v28 = *(v34 + 8);
-  v28(v23, v13);
-  static ViewBuilder.buildExpression<A>(_:)(v27, v13, v26);
-  return (v28)(v27, v13);
+  WitnessTable = swift_getWitnessTable(protocol conformance descriptor for _InspectorSplitViewRoot<A>, v12);
+  v27 = *(a1 + 40);
+  v39[0] = WitnessTable;
+  v39[1] = v27;
+  swift_getWitnessTable(MEMORY[0x1E697E308], v15, v39);
+  v28 = v34;
+  static ViewBuilder.buildExpression<A>(_:)();
+  v29 = *(v35 + 8);
+  v29(v25, v15);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v29)(v28, v15);
 }
 
-__n128 InspectorSplitView.init(inspectorState:mainContent:inspectorContent:horizontalSizeClass:inspectorHasToolbarItems:presentationOptions:)@<Q0>(_OWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, char a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, _OWORD *a9@<X8>)
+__n128 InspectorSplitView.init(inspectorState:mainContent:inspectorContent:horizontalSizeClass:inspectorHasToolbarItems:presentationOptions:)@<Q0>(_OWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, char a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, _OWORD *a9@<X8>, uint64_t a10, uint64_t a11)
 {
-  v16 = *a4;
-  v17 = a1[1];
+  v18 = *a4;
+  v19 = a1[1];
   *a9 = *a1;
-  a9[1] = v17;
+  a9[1] = v19;
   a9[2] = a1[2];
   *(a9 + 41) = *(a1 + 41);
-  v18 = type metadata accessor for InspectorSplitView();
-  (*(*(a7 - 8) + 32))(a9 + v18[13], a2, a7);
-  (*(*(a8 - 8) + 32))(a9 + v18[14], a3, a8);
-  *(a9 + v18[15]) = v16;
-  *(a9 + v18[16]) = a5;
-  v19 = a9 + v18[17];
-  v20 = *(a6 + 112);
-  *(v19 + 6) = *(a6 + 96);
-  *(v19 + 7) = v20;
-  *(v19 + 122) = *(a6 + 122);
-  v21 = *(a6 + 48);
-  *(v19 + 2) = *(a6 + 32);
-  *(v19 + 3) = v21;
-  v22 = *(a6 + 80);
-  *(v19 + 4) = *(a6 + 64);
-  *(v19 + 5) = v22;
+  v26[0] = a7;
+  v26[1] = a8;
+  v26[2] = a10;
+  v26[3] = a11;
+  v20 = type metadata accessor for InspectorSplitView(0, v26);
+  (*(*(a7 - 8) + 32))(a9 + v20[13], a2, a7);
+  (*(*(a8 - 8) + 32))(a9 + v20[14], a3, a8);
+  *(a9 + v20[15]) = v18;
+  *(a9 + v20[16]) = a5;
+  v21 = a9 + v20[17];
+  v22 = *(a6 + 112);
+  *(v21 + 6) = *(a6 + 96);
+  *(v21 + 7) = v22;
+  *(v21 + 122) = *(a6 + 122);
+  v23 = *(a6 + 48);
+  *(v21 + 2) = *(a6 + 32);
+  *(v21 + 3) = v23;
+  v24 = *(a6 + 80);
+  *(v21 + 4) = *(a6 + 64);
+  *(v21 + 5) = v24;
   result = *(a6 + 16);
-  *v19 = *a6;
-  *(v19 + 1) = result;
+  *v21 = *a6;
+  *(v21 + 1) = result;
   return result;
 }
 
-uint64_t type metadata completion function for InspectorSplitView()
+uint64_t type metadata completion function for InspectorSplitView(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_initStructMetadata();
       return 0;
@@ -9532,7 +8004,7 @@ uint64_t type metadata completion function for InspectorSplitView()
   return result;
 }
 
-unint64_t initializeBufferWithCopyOfBuffer for InspectorSplitView(unint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t initializeBufferWithCopyOfBuffer for InspectorSplitView(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
   v5 = *(a3 + 24);
@@ -9647,31 +8119,31 @@ LABEL_18:
 
 void destroy for InspectorSplitView(uint64_t a1, uint64_t a2)
 {
-  outlined consume of StateOrBinding<Bool>(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 17));
-  v4 = *(*(a2 + 16) - 8);
-  v5 = v4 + 8;
-  v6 = (a1 + *(v4 + 80) + 57) & ~*(v4 + 80);
-  (*(v4 + 8))(v6);
-  v7 = *(v5 + 56);
-  v8 = *(*(a2 + 24) - 8);
-  v9 = v8 + 8;
-  v10 = (v6 + v7 + *(v8 + 80)) & ~*(v8 + 80);
-  (*(v8 + 8))(v10);
-  v11 = ((*(v9 + 56) + v10 + 9) & 0xFFFFFFFFFFFFFFF8);
+  v4 = outlined consume of StateOrBinding<Bool>(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 17));
+  v5 = *(*(a2 + 16) - 8);
+  v6 = v5 + 8;
+  v7 = (a1 + *(v5 + 80) + 57) & ~*(v5 + 80);
+  (*(v5 + 8))(v7, v4);
+  v8 = *(v6 + 56);
+  v9 = *(*(a2 + 24) - 8);
+  v10 = v9 + 8;
+  v11 = (v7 + v8 + *(v9 + 80)) & ~*(v9 + 80);
+  (*(v9 + 8))(v11);
+  v12 = ((*(v10 + 56) + v11 + 9) & 0xFFFFFFFFFFFFFFF8);
 
-  if (v11[2])
+  if (v12[2])
   {
   }
 
-  v12 = v11[6];
-  if (v12 >= 3)
+  v13 = v12[6];
+  if (v13 >= 3)
   {
   }
 
-  if (v11[15])
+  if (v12[15])
   {
 
-    __swift_destroy_boxed_opaque_existential_1((v11 + 12));
+    __swift_destroy_boxed_opaque_existential_1(v12 + 12);
   }
 }
 
@@ -9951,4 +8423,1378 @@ LABEL_26:
   *(v31 + 136) = *(v32 + 136);
   *(v31 + 137) = *(v32 + 137);
   return a1;
+}
+
+uint64_t outlined destroy of Binding<PresentationDetent>(uint64_t a1)
+{
+  type metadata accessor for Binding<PresentationDetent>(0, &lazy cache variable for type metadata for Binding<PresentationDetent>, &type metadata for PresentationDetent, MEMORY[0x1E6981948]);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+_OWORD *initializeWithTake for InspectorSplitView(_OWORD *a1, _OWORD *a2, uint64_t a3)
+{
+  v5 = a2[1];
+  *a1 = *a2;
+  a1[1] = v5;
+  a1[2] = a2[2];
+  *(a1 + 41) = *(a2 + 41);
+  v6 = *(*(a3 + 16) - 8);
+  v7 = v6 + 32;
+  v8 = *(v6 + 80);
+  v9 = (a1 + v8 + 57) & ~v8;
+  v10 = (a2 + v8 + 57) & ~v8;
+  (*(v6 + 32))(v9, v10);
+  v11 = *(v7 + 32);
+  v12 = *(*(a3 + 24) - 8);
+  v13 = v12 + 32;
+  v14 = *(v12 + 80);
+  v15 = v11 + v14;
+  v16 = (v15 + v9) & ~v14;
+  v17 = (v15 + v10) & ~v14;
+  (*(v12 + 32))(v16, v17);
+  v18 = *(v13 + 32);
+  v19 = (v18 + v16);
+  v20 = (v18 + v17);
+  *v19 = *v20;
+  v19[1] = v20[1];
+  v21 = ((v19 + 9) & 0xFFFFFFFFFFFFFFF8);
+  v22 = ((v20 + 9) & 0xFFFFFFFFFFFFFFF8);
+  *v21 = *v22;
+  v23 = v22[4];
+  v25 = v22[1];
+  v24 = v22[2];
+  v21[3] = v22[3];
+  v21[4] = v23;
+  v21[1] = v25;
+  v21[2] = v24;
+  v26 = *(v22 + 122);
+  v28 = v22[6];
+  v27 = v22[7];
+  v21[5] = v22[5];
+  v21[6] = v28;
+  v21[7] = v27;
+  *(v21 + 122) = v26;
+  return a1;
+}
+
+uint64_t assignWithTake for InspectorSplitView(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(a2 + 16);
+  v7 = *(a2 + 17);
+  v8 = *a1;
+  v9 = *(a1 + 8);
+  v10 = *(a1 + 17);
+  *a1 = *a2;
+  v11 = *(a1 + 16);
+  *(a1 + 16) = v6;
+  *(a1 + 17) = v7;
+  outlined consume of StateOrBinding<Bool>(v8, v9, v11, v10);
+  *(a1 + 18) = *(a2 + 18);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  v12 = *(*(a3 + 16) - 8);
+  v13 = v12 + 40;
+  v14 = *(v12 + 80);
+  v15 = (v14 + 57 + a1) & ~v14;
+  v16 = (v14 + 57 + a2) & ~v14;
+  (*(v12 + 40))(v15, v16);
+  v17 = *(v13 + 24);
+  v18 = *(*(a3 + 24) - 8);
+  v19 = v18 + 40;
+  v20 = *(v18 + 80);
+  v21 = v17 + v20;
+  v22 = (v21 + v15) & ~v20;
+  v23 = (v21 + v16) & ~v20;
+  (*(v18 + 40))(v22, v23);
+  v24 = *(v19 + 24);
+  v25 = (v24 + v22);
+  v26 = (v24 + v23);
+  *v25 = *v26;
+  v25[1] = v26[1];
+  v27 = (v25 + 9) & 0xFFFFFFFFFFFFFFF8;
+  v28 = (v26 + 9) & 0xFFFFFFFFFFFFFFF8;
+  v29 = (v28 + 8);
+  *v27 = *v28;
+
+  if (*(v27 + 16))
+  {
+    if (*(v28 + 16))
+    {
+      *(v27 + 8) = *(v28 + 8);
+
+      *(v27 + 16) = *(v28 + 16);
+
+      v30 = *(v28 + 24);
+    }
+
+    else
+    {
+      outlined destroy of Binding<PresentationDetent>(v27 + 8);
+      v30 = *(v28 + 24);
+      *(v27 + 8) = *v29;
+    }
+
+    *(v27 + 24) = v30;
+  }
+
+  else
+  {
+    v31 = *v29;
+    *(v27 + 24) = *(v28 + 24);
+    *(v27 + 8) = v31;
+  }
+
+  v33 = (v27 + 48);
+  v32 = *(v27 + 48);
+  *(v27 + 40) = *(v28 + 40);
+  *(v27 + 41) = *(v28 + 41);
+  v34 = *(v28 + 48);
+  if (v32 == 2)
+  {
+    if (v34 == 2)
+    {
+      v35 = 2;
+LABEL_13:
+      *v33 = v35;
+      goto LABEL_16;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (v34 == 2)
+  {
+    outlined destroy of PresentationDimmingBehavior(v27 + 48);
+LABEL_12:
+    v35 = *(v28 + 48);
+    goto LABEL_13;
+  }
+
+  if (v32 < 2)
+  {
+LABEL_15:
+    *v33 = v34;
+    goto LABEL_16;
+  }
+
+  if (v34 < 2)
+  {
+    outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(v27 + 48, type metadata accessor for UISheetPresentationControllerDetentIdentifier);
+    goto LABEL_12;
+  }
+
+  *v33 = v34;
+
+LABEL_16:
+  *(v27 + 56) = *(v28 + 56);
+  *(v27 + 57) = *(v28 + 57);
+  *(v27 + 58) = *(v28 + 58);
+  v36 = *(v28 + 64);
+  *(v27 + 72) = *(v28 + 72);
+  *(v27 + 64) = v36;
+  v37 = *(v28 + 80);
+  *(v27 + 88) = *(v28 + 88);
+  *(v27 + 80) = v37;
+  if (*(v27 + 120))
+  {
+    __swift_destroy_boxed_opaque_existential_1((v27 + 96));
+  }
+
+  v38 = *(v28 + 96);
+  v39 = *(v28 + 112);
+  *(v27 + 128) = *(v28 + 128);
+  *(v27 + 96) = v38;
+  *(v27 + 112) = v39;
+  *(v27 + 136) = *(v28 + 136);
+  *(v27 + 137) = *(v28 + 137);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for InspectorSplitView(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  v6 = *(a3 + 24);
+  v7 = *(v6 - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v4 + 80);
+  v10 = *(v4 + 64);
+  v11 = *(v7 + 80);
+  if (v5 <= v8)
+  {
+    v12 = *(v7 + 84);
+  }
+
+  else
+  {
+    v12 = *(v4 + 84);
+  }
+
+  if (v12 <= 0x7FFFFFFF)
+  {
+    v12 = 0x7FFFFFFF;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v13 = *(*(v6 - 8) + 64) + 9;
+  if (v12 >= a2)
+  {
+    goto LABEL_30;
+  }
+
+  v14 = ((v13 + ((v10 + v11 + ((v9 + 57) & ~v9)) & ~v11)) & 0xFFFFFFFFFFFFFFF8) + 138;
+  v15 = (a2 - v12 + 0xFFFF) >> 16;
+  if (v14 <= 3)
+  {
+    v16 = v15 + 1;
+  }
+
+  else
+  {
+    v16 = 2;
+  }
+
+  if (v16 >= 0x10000)
+  {
+    v17 = 4;
+  }
+
+  else
+  {
+    v17 = 2;
+  }
+
+  if (v16 < 0x100)
+  {
+    v17 = 1;
+  }
+
+  if (v16 >= 2)
+  {
+    v18 = v17;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if (v18 > 1)
+  {
+    if (v18 == 2)
+    {
+      v19 = *(a1 + v14);
+      if (!*(a1 + v14))
+      {
+        goto LABEL_30;
+      }
+    }
+
+    else
+    {
+      v19 = *(a1 + v14);
+      if (!v19)
+      {
+        goto LABEL_30;
+      }
+    }
+  }
+
+  else if (!v18 || (v19 = *(a1 + v14), !*(a1 + v14)))
+  {
+LABEL_30:
+    v23 = (a1 + v9 + 57) & ~v9;
+    if (v5 == v12)
+    {
+      return (*(v4 + 48))(v23);
+    }
+
+    v24 = (v23 + v10 + v11) & ~v11;
+    if (v8 == v12)
+    {
+      return (*(v7 + 48))(v24, v8, v6);
+    }
+
+    v25 = *((v13 + v24) & 0xFFFFFFFFFFFFFFF8);
+    if (v25 >= 0xFFFFFFFF)
+    {
+      LODWORD(v25) = -1;
+    }
+
+    return (v25 + 1);
+  }
+
+  v21 = (v19 - 1) << (8 * (((v13 + ((v10 + v11 + ((v9 + 57) & ~v9)) & ~v11)) & 0xF8) - 118));
+  if (v14 <= 3)
+  {
+    v22 = *a1;
+  }
+
+  else
+  {
+    v21 = 0;
+    v22 = *a1;
+  }
+
+  return v12 + (v22 | v21) + 1;
+}
+
+void storeEnumTagSinglePayload for InspectorSplitView(_BYTE *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v6 = *(*(a4 + 16) - 8);
+  v7 = *(v6 + 84);
+  v8 = *(a4 + 24);
+  v9 = *(v8 - 8);
+  v10 = *(v9 + 84);
+  v11 = *(v6 + 80);
+  v12 = *(v6 + 64);
+  v13 = *(v9 + 80);
+  if (v7 <= v10)
+  {
+    v14 = *(v9 + 84);
+  }
+
+  else
+  {
+    v14 = *(v6 + 84);
+  }
+
+  if (v14 <= 0x7FFFFFFF)
+  {
+    v14 = 0x7FFFFFFF;
+  }
+
+  v15 = *(*(v8 - 8) + 64) + 9;
+  v16 = ((v15 + ((v12 + v13 + ((v11 + 57) & ~v11)) & ~v13)) & 0xFFFFFFFFFFFFFFF8) + 138;
+  if (v14 >= a3)
+  {
+    v20 = 0;
+    if (v14 >= a2)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v17 = (a3 - v14 + 0xFFFF) >> 16;
+    if (v16 <= 3)
+    {
+      v18 = v17 + 1;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    if (v18 >= 0x10000)
+    {
+      v19 = 4;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    if (v18 < 0x100)
+    {
+      v19 = 1;
+    }
+
+    if (v18 >= 2)
+    {
+      v20 = v19;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    if (v14 >= a2)
+    {
+LABEL_19:
+      if (v20 > 1)
+      {
+        if (v20 != 2)
+        {
+          *&a1[v16] = 0;
+          if (!a2)
+          {
+            return;
+          }
+
+          goto LABEL_34;
+        }
+
+        *&a1[v16] = 0;
+      }
+
+      else if (v20)
+      {
+        a1[v16] = 0;
+        if (!a2)
+        {
+          return;
+        }
+
+        goto LABEL_34;
+      }
+
+      if (!a2)
+      {
+        return;
+      }
+
+LABEL_34:
+      v23 = &a1[v11 + 57] & ~v11;
+      if (v7 == v14)
+      {
+        v24 = *(v6 + 56);
+
+        v24(v23);
+      }
+
+      else
+      {
+        v25 = (v23 + v12 + v13) & ~v13;
+        if (v10 == v14)
+        {
+          v26 = *(v9 + 56);
+
+          v26(v25);
+        }
+
+        else
+        {
+          v27 = (v15 + v25) & 0xFFFFFFFFFFFFFFF8;
+          if ((a2 & 0x80000000) != 0)
+          {
+            *(v27 + 120) = 0u;
+            v28 = a2 & 0x7FFFFFFF;
+            *(v27 + 104) = 0u;
+            *(v27 + 88) = 0u;
+            *(v27 + 72) = 0u;
+            *(v27 + 56) = 0u;
+            *(v27 + 40) = 0u;
+            *(v27 + 24) = 0u;
+            *(v27 + 8) = 0u;
+            *(v27 + 136) = 0;
+          }
+
+          else
+          {
+            v28 = a2 - 1;
+          }
+
+          *v27 = v28;
+        }
+      }
+
+      return;
+    }
+  }
+
+  v21 = ~v14 + a2;
+  bzero(a1, ((v15 + ((v12 + v13 + ((v11 + 57) & ~v11)) & ~v13)) & 0xFFFFFFFFFFFFFFF8) + 138);
+  if (v16 <= 3)
+  {
+    v22 = HIWORD(v21) + 1;
+  }
+
+  else
+  {
+    v22 = 1;
+  }
+
+  if (v16 <= 3)
+  {
+    *a1 = v21;
+    if (v20 > 1)
+    {
+LABEL_29:
+      if (v20 == 2)
+      {
+        *&a1[v16] = v22;
+      }
+
+      else
+      {
+        *&a1[v16] = v22;
+      }
+
+      return;
+    }
+  }
+
+  else
+  {
+    *a1 = v21;
+    if (v20 > 1)
+    {
+      goto LABEL_29;
+    }
+  }
+
+  if (v20)
+  {
+    a1[v16] = v22;
+  }
+}
+
+uint64_t type metadata completion function for _InspectorSplitViewRoot(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+unint64_t initializeBufferWithCopyOfBuffer for _InspectorSplitViewRoot(unint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 16);
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 80);
+  if (v6 <= 7 && (*(v5 + 80) & 0x100000) == 0 && ((-60 - v6) | v6) - *(v5 + 64) >= 0xFFFFFFFFFFFFFFE7)
+  {
+    v10 = *a2;
+    v11 = *(a2 + 8);
+    v12 = *(a2 + 17);
+    v13 = *(a2 + 16);
+    outlined copy of StateOrBinding<Bool>(*a2, v11, v13, v12);
+    *a1 = v10;
+    *(a1 + 8) = v11;
+    *(a1 + 16) = v13;
+    *(a1 + 17) = v12;
+    *(a1 + 18) = *(a2 + 18);
+    *(a1 + 24) = *(a2 + 24);
+    *(a1 + 40) = *(a2 + 40);
+    *(a1 + 56) = *(a2 + 56);
+    *(a1 + 57) = *(a2 + 57);
+    *(a1 + 58) = *(a2 + 58);
+    (*(v5 + 16))((a1 + v6 + 59) & ~v6, (a2 + v6 + 59) & ~v6, v4);
+  }
+
+  else
+  {
+    v9 = *a2;
+    *a1 = *a2;
+    a1 = v9 + ((v6 & 0xF8 ^ 0x1F8) & (v6 + 16));
+  }
+
+  return a1;
+}
+
+uint64_t destroy for _InspectorSplitViewRoot(uint64_t a1, uint64_t a2)
+{
+  v4.n128_f64[0] = outlined consume of StateOrBinding<Bool>(*a1, *(a1 + 8), *(a1 + 16), *(a1 + 17));
+  v5 = *(*(a2 + 16) - 8);
+  v6 = *(v5 + 8);
+  v7 = (a1 + *(v5 + 80) + 59) & ~*(v5 + 80);
+
+  return v6(v7, v4);
+}
+
+uint64_t initializeWithCopy for _InspectorSplitViewRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *a2;
+  v7 = *(a2 + 8);
+  v8 = *(a2 + 17);
+  v9 = *(a2 + 16);
+  outlined copy of StateOrBinding<Bool>(*a2, v7, v9, v8);
+  *a1 = v6;
+  *(a1 + 8) = v7;
+  *(a1 + 16) = v9;
+  *(a1 + 17) = v8;
+  *(a1 + 18) = *(a2 + 18);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 57) = *(a2 + 57);
+  *(a1 + 58) = *(a2 + 58);
+  v10 = *(*(a3 + 16) - 8);
+  (*(v10 + 16))((*(v10 + 80) + 59 + a1) & ~*(v10 + 80), (*(v10 + 80) + 59 + a2) & ~*(v10 + 80));
+  return a1;
+}
+
+uint64_t assignWithCopy for _InspectorSplitViewRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *a2;
+  v7 = *(a2 + 8);
+  v8 = *(a2 + 17);
+  v9 = *(a2 + 16);
+  outlined copy of StateOrBinding<Bool>(*a2, v7, v9, v8);
+  v10 = *a1;
+  v11 = *(a1 + 8);
+  v12 = *(a1 + 17);
+  *a1 = v6;
+  *(a1 + 8) = v7;
+  v13 = *(a1 + 16);
+  *(a1 + 16) = v9;
+  *(a1 + 17) = v8;
+  outlined consume of StateOrBinding<Bool>(v10, v11, v13, v12);
+  *(a1 + 18) = *(a2 + 18);
+  v14 = *(a2 + 24);
+  v15 = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 40) = v15;
+  *(a1 + 24) = v14;
+  *(a1 + 57) = *(a2 + 57);
+  *(a1 + 58) = *(a2 + 58);
+  v16 = *(*(a3 + 16) - 8);
+  (*(v16 + 24))((*(v16 + 80) + 59 + a1) & ~*(v16 + 80), (*(v16 + 80) + 59 + a2) & ~*(v16 + 80));
+  return a1;
+}
+
+uint64_t initializeWithTake for _InspectorSplitViewRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v4;
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 41) = *(a2 + 41);
+  *(a1 + 57) = *(a2 + 57);
+  *(a1 + 58) = *(a2 + 58);
+  v5 = *(*(a3 + 16) - 8);
+  (*(v5 + 32))((*(v5 + 80) + 59 + a1) & ~*(v5 + 80), (*(v5 + 80) + 59 + a2) & ~*(v5 + 80));
+  return a1;
+}
+
+uint64_t assignWithTake for _InspectorSplitViewRoot(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(a2 + 16);
+  v7 = *(a2 + 17);
+  v8 = *a1;
+  v9 = *(a1 + 8);
+  v10 = *(a1 + 17);
+  *a1 = *a2;
+  v11 = *(a1 + 16);
+  *(a1 + 16) = v6;
+  *(a1 + 17) = v7;
+  outlined consume of StateOrBinding<Bool>(v8, v9, v11, v10);
+  *(a1 + 18) = *(a2 + 18);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 57) = *(a2 + 57);
+  *(a1 + 58) = *(a2 + 58);
+  v12 = *(*(a3 + 16) - 8);
+  (*(v12 + 40))((*(v12 + 80) + 59 + a1) & ~*(v12 + 80), (*(v12 + 80) + 59 + a2) & ~*(v12 + 80));
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for _InspectorSplitViewRoot(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  v6 = *(v4 + 80);
+  if (v5 <= 0x7FFFFFFE)
+  {
+    v7 = 2147483646;
+  }
+
+  else
+  {
+    v7 = *(v4 + 84);
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v8 = a2 - v7;
+  if (a2 <= v7)
+  {
+    goto LABEL_26;
+  }
+
+  v9 = ((v6 + 59) & ~v6) + *(*(*(a3 + 16) - 8) + 64);
+  v10 = 8 * v9;
+  if (v9 <= 3)
+  {
+    v13 = ((v8 + ~(-1 << v10)) >> v10) + 1;
+    if (HIWORD(v13))
+    {
+      v11 = *(a1 + v9);
+      if (!v11)
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_15;
+    }
+
+    if (v13 > 0xFF)
+    {
+      v11 = *(a1 + v9);
+      if (!*(a1 + v9))
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_15;
+    }
+
+    if (v13 < 2)
+    {
+LABEL_26:
+      if (v5 > 0x7FFFFFFE)
+      {
+        return (*(v4 + 48))((a1 + v6 + 59) & ~v6);
+      }
+
+      v15 = *(a1 + 4) >> 1;
+      v16 = -2 - v15;
+      if (-2 - v15 < 0)
+      {
+        v16 = -1;
+      }
+
+      if (v15 > 0x80000000)
+      {
+        return (v16 + 1);
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
+  }
+
+  v11 = *(a1 + v9);
+  if (!*(a1 + v9))
+  {
+    goto LABEL_26;
+  }
+
+LABEL_15:
+  v14 = (v11 - 1) << v10;
+  if (v9 > 3)
+  {
+    v14 = 0;
+  }
+
+  if (v9)
+  {
+    if (v9 > 3)
+    {
+      LODWORD(v9) = 4;
+    }
+
+    if (v9 > 2)
+    {
+      if (v9 == 3)
+      {
+        LODWORD(v9) = *a1 | (*(a1 + 2) << 16);
+      }
+
+      else
+      {
+        LODWORD(v9) = *a1;
+      }
+    }
+
+    else if (v9 == 1)
+    {
+      LODWORD(v9) = *a1;
+    }
+
+    else
+    {
+      LODWORD(v9) = *a1;
+    }
+  }
+
+  return v7 + (v9 | v14) + 1;
+}
+
+void storeEnumTagSinglePayload for _InspectorSplitViewRoot(char *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v6 = *(*(a4 + 16) - 8);
+  v7 = *(v6 + 84);
+  if (v7 <= 0x7FFFFFFE)
+  {
+    v8 = 2147483646;
+  }
+
+  else
+  {
+    v8 = *(v6 + 84);
+  }
+
+  v9 = *(v6 + 80);
+  v10 = ((v9 + 59) & ~v9) + *(*(*(a4 + 16) - 8) + 64);
+  v11 = a3 >= v8;
+  v12 = a3 - v8;
+  if (v12 != 0 && v11)
+  {
+    if (v10 <= 3)
+    {
+      v16 = ((v12 + ~(-1 << (8 * v10))) >> (8 * v10)) + 1;
+      if (HIWORD(v16))
+      {
+        v13 = 4;
+      }
+
+      else
+      {
+        if (v16 < 0x100)
+        {
+          v17 = 1;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        if (v16 >= 2)
+        {
+          v13 = v17;
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+      }
+    }
+
+    else
+    {
+      v13 = 1;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  if (v8 < a2)
+  {
+    v14 = ~v8 + a2;
+    if (v10 < 4)
+    {
+      v15 = (v14 >> (8 * v10)) + 1;
+      if (v10)
+      {
+        v18 = v14 & ~(-1 << (8 * v10));
+        bzero(a1, v10);
+        if (v10 != 3)
+        {
+          if (v10 == 2)
+          {
+            *a1 = v18;
+            if (v13 > 1)
+            {
+LABEL_46:
+              if (v13 == 2)
+              {
+                *&a1[v10] = v15;
+              }
+
+              else
+              {
+                *&a1[v10] = v15;
+              }
+
+              return;
+            }
+          }
+
+          else
+          {
+            *a1 = v14;
+            if (v13 > 1)
+            {
+              goto LABEL_46;
+            }
+          }
+
+          goto LABEL_43;
+        }
+
+        *a1 = v18;
+        a1[2] = BYTE2(v18);
+      }
+
+      if (v13 > 1)
+      {
+        goto LABEL_46;
+      }
+    }
+
+    else
+    {
+      bzero(a1, v10);
+      *a1 = v14;
+      v15 = 1;
+      if (v13 > 1)
+      {
+        goto LABEL_46;
+      }
+    }
+
+LABEL_43:
+    if (v13)
+    {
+      a1[v10] = v15;
+    }
+
+    return;
+  }
+
+  if (v13 > 1)
+  {
+    if (v13 != 2)
+    {
+      *&a1[v10] = 0;
+      if (!a2)
+      {
+        return;
+      }
+
+      goto LABEL_31;
+    }
+
+    *&a1[v10] = 0;
+  }
+
+  else if (v13)
+  {
+    a1[v10] = 0;
+    if (!a2)
+    {
+      return;
+    }
+
+    goto LABEL_31;
+  }
+
+  if (!a2)
+  {
+    return;
+  }
+
+LABEL_31:
+  if (v7 > 0x7FFFFFFE)
+  {
+    v19 = *(v6 + 56);
+    v20 = &a1[v9 + 59] & ~v9;
+
+    v19(v20);
+  }
+
+  else if (a2 > 0x7FFFFFFE)
+  {
+    *(a1 + 40) = 0u;
+    *(a1 + 24) = 0u;
+    *(a1 + 8) = 0u;
+    a1[56] = 0;
+    *a1 = a2 - 0x7FFFFFFF;
+  }
+
+  else
+  {
+    *(a1 + 3) = 0;
+    *(a1 + 4) = 2 * ~a2;
+    *(a1 + 5) = 0;
+    *(a1 + 6) = 0;
+    a1[56] = 0;
+  }
+}
+
+uint64_t instantiation function for generic protocol witness table for _InspectorSplitViewRoot<A>(uint64_t a1)
+{
+  result = swift_getWitnessTable(protocol conformance descriptor for _InspectorSplitViewRoot<A>);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t _InspectorSplitViewRoot.presented.getter()
+{
+  if (*(v0 + 18) != 1)
+  {
+    return 0;
+  }
+
+  if (*(v0 + 17))
+  {
+    type metadata accessor for Binding<PresentationDetent>(0, &lazy cache variable for type metadata for Binding<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E6981948]);
+    MEMORY[0x18D00ACC0](&v2);
+  }
+
+  else
+  {
+    type metadata accessor for Binding<PresentationDetent>(0, &lazy cache variable for type metadata for State<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E6981790]);
+    State.wrappedValue.getter();
+  }
+
+  return v2;
+}
+
+uint64_t _InspectorSplitViewRoot.body(children:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v7 = *(a2 - 8);
+  v8 = *(v7 + 64);
+  v9 = MEMORY[0x1EEE9AC00](a1);
+  (*(v7 + 16))(&v22[-2] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v3, a2, v9);
+  outlined init with copy of _VariadicView_Children(a1, v23);
+  v10 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  v11 = swift_allocObject();
+  v21 = *(a2 + 16);
+  *(v11 + 16) = v21;
+  (*(v7 + 32))(v11 + v10, &v22[-2] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), a2);
+  v12 = (v11 + ((v8 + v10 + 7) & 0xFFFFFFFFFFFFFFF8));
+  v13 = v23[1];
+  *v12 = v23[0];
+  v12[1] = v13;
+  v14 = v23[3];
+  v12[2] = v23[2];
+  v12[3] = v14;
+  type metadata accessor for _LayoutRoot<InspectorSplitViewLayout>(255, &lazy cache variable for type metadata for _LayoutRoot<InspectorSplitViewLayout>, lazy protocol witness table accessor for type InspectorSplitViewLayout and conformance InspectorSplitViewLayout, &unk_1EFFD9AA0, MEMORY[0x1E697DDC0]);
+  type metadata accessor for _AnimationModifier<Bool>(255, &lazy cache variable for type metadata for _AnimationModifier<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E69E6388], MEMORY[0x1E697F540]);
+  type metadata accessor for ModifiedContent();
+  type metadata accessor for _LayoutRoot<InspectorSplitViewLayout>(255, &lazy cache variable for type metadata for _OverlayModifier<InspectorDimmingView>, lazy protocol witness table accessor for type InspectorDimmingView and conformance InspectorDimmingView, &type metadata for InspectorDimmingView, MEMORY[0x1E697EC08]);
+  type metadata accessor for ModifiedContent();
+  type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(255);
+  swift_getTupleTypeMetadata2();
+  v15 = type metadata accessor for TupleView();
+  lazy protocol witness table accessor for type _LayoutRoot<InspectorSplitViewLayout> and conformance _LayoutRoot<A>();
+  v16 = type metadata accessor for _VariadicView.Tree();
+  v17 = lazy protocol witness table accessor for type _LayoutRoot<InspectorSplitViewLayout> and conformance _LayoutRoot<A>();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E6981F48], v15);
+  v22[0] = v17;
+  v22[1] = WitnessTable;
+  swift_getWitnessTable(MEMORY[0x1E697E308], v16, v22);
+  result = GeometryReader.init(content:)();
+  *a3 = result;
+  a3[1] = v20;
+  return result;
+}
+
+uint64_t closure #1 in _InspectorSplitViewRoot.body(children:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v43 = a5;
+  v46 = a3;
+  v47 = a6;
+  type metadata accessor for _LayoutRoot<InspectorSplitViewLayout>(255, &lazy cache variable for type metadata for _LayoutRoot<InspectorSplitViewLayout>, lazy protocol witness table accessor for type InspectorSplitViewLayout and conformance InspectorSplitViewLayout, &unk_1EFFD9AA0, MEMORY[0x1E697DDC0]);
+  type metadata accessor for _AnimationModifier<Bool>(255, &lazy cache variable for type metadata for _AnimationModifier<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E69E6388], MEMORY[0x1E697F540]);
+  v42 = a4;
+  type metadata accessor for ModifiedContent();
+  type metadata accessor for _LayoutRoot<InspectorSplitViewLayout>(255, &lazy cache variable for type metadata for _OverlayModifier<InspectorDimmingView>, lazy protocol witness table accessor for type InspectorDimmingView and conformance InspectorDimmingView, &type metadata for InspectorDimmingView, MEMORY[0x1E697EC08]);
+  type metadata accessor for ModifiedContent();
+  type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(255);
+  swift_getTupleTypeMetadata2();
+  v44 = type metadata accessor for TupleView();
+  lazy protocol witness table accessor for type _LayoutRoot<InspectorSplitViewLayout> and conformance _LayoutRoot<A>();
+  v10 = type metadata accessor for _VariadicView.Tree();
+  v45 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v42 - v14;
+  v16 = a1[1];
+  v59 = *a1;
+  v60 = v16;
+  v61 = a1[2];
+  v62 = *(a1 + 12);
+  type metadata accessor for _InspectorSplitViewRoot(0, a4, a5, v17);
+  v18 = _InspectorSplitViewRoot.presented.getter();
+  v19 = *(a2 + 18);
+  v20 = *(a2 + 57);
+  v21 = (a2 + 24);
+  v22 = *(a2 + 56);
+  v23 = *(a2 + 32) >> 1;
+  if ((v22 & 0x80u) != 0)
+  {
+    v21 = (a2 + 40);
+  }
+
+  v24 = *v21;
+  v55 = v59;
+  v56 = v60;
+  v57 = v61;
+  v58 = v62;
+  GeometryProxy.safeAreaInsets.getter();
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
+  v32 = v31;
+  if (v22 < 2 && v23 == 0xFFFFFFFFLL)
+  {
+    v34 = 320.5;
+  }
+
+  else
+  {
+    v34 = v24 + 0.5;
+  }
+
+  v35 = swift_allocObject();
+  *(v35 + 32) = v18 & 1;
+  v36 = v42;
+  v37 = v43;
+  *(v35 + 16) = v42;
+  *(v35 + 24) = v37;
+  *(v35 + 33) = v19;
+  *(v35 + 34) = v20;
+  *(v35 + 40) = v34;
+  *(v35 + 48) = v26;
+  *(v35 + 56) = v28;
+  *(v35 + 64) = v30;
+  *(v35 + 72) = v32;
+  v49 = v36;
+  v50 = v37;
+  v51 = a2;
+  v52 = &v59;
+  v53 = v46;
+  implicit closure #2 in implicit closure #1 in closure #1 in _InspectorSplitViewRoot.body(children:)(partial apply for closure #1 in closure #1 in _InspectorSplitViewRoot.body(children:), v48, (v35 + 32), v12);
+
+  v38 = lazy protocol witness table accessor for type _LayoutRoot<InspectorSplitViewLayout> and conformance _LayoutRoot<A>();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E6981F48], v44);
+  v54[0] = v38;
+  v54[1] = WitnessTable;
+  swift_getWitnessTable(MEMORY[0x1E697E308], v10, v54);
+  static ViewBuilder.buildExpression<A>(_:)();
+  v40 = *(v45 + 8);
+  v40(v12, v10);
+  static ViewBuilder.buildExpression<A>(_:)();
+  return (v40)(v15, v10);
+}
+
+uint64_t implicit closure #2 in implicit closure #1 in closure #1 in _InspectorSplitViewRoot.body(children:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, uint64_t a4@<X8>)
+{
+  v11 = *a3;
+  v12 = a3[1];
+  v13 = a3[2];
+  type metadata accessor for _AnimationModifier<Bool>(255, &lazy cache variable for type metadata for _AnimationModifier<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E69E6388], MEMORY[0x1E697F540]);
+  type metadata accessor for ModifiedContent();
+  type metadata accessor for _LayoutRoot<InspectorSplitViewLayout>(255, &lazy cache variable for type metadata for _OverlayModifier<InspectorDimmingView>, lazy protocol witness table accessor for type InspectorDimmingView and conformance InspectorDimmingView, &type metadata for InspectorDimmingView, MEMORY[0x1E697EC08]);
+  type metadata accessor for ModifiedContent();
+  type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(255);
+  swift_getTupleTypeMetadata2();
+  v7 = type metadata accessor for TupleView();
+  v8 = lazy protocol witness table accessor for type InspectorSplitViewLayout and conformance InspectorSplitViewLayout();
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E6981F48], v7, v11, v12, v13);
+  return Layout.callAsFunction<A>(_:)(a1, a2, &unk_1EFFD9AA0, v7, v8, WitnessTable, a4);
+}
+
+uint64_t closure #1 in closure #1 in _InspectorSplitViewRoot.body(children:)@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v59 = a3;
+  v69 = a6;
+  type metadata accessor for _AnimationModifier<Bool>(255, &lazy cache variable for type metadata for _AnimationModifier<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E69E6388], MEMORY[0x1E697F540]);
+  v10 = type metadata accessor for ModifiedContent();
+  v65 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v56[-v11];
+  type metadata accessor for _LayoutRoot<InspectorSplitViewLayout>(255, &lazy cache variable for type metadata for _OverlayModifier<InspectorDimmingView>, lazy protocol witness table accessor for type InspectorDimmingView and conformance InspectorDimmingView, &type metadata for InspectorDimmingView, MEMORY[0x1E697EC08]);
+  v62 = v10;
+  v13 = type metadata accessor for ModifiedContent();
+  v70 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v67 = &v56[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v15);
+  v63 = &v56[-v16];
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v56[-v18];
+  v20 = a2[1];
+  v80 = *a2;
+  v81 = v20;
+  v82 = a2[2];
+  LODWORD(v83) = *(a2 + 12);
+  GeometryProxy.size.getter();
+  v22 = v21;
+  v24 = v23;
+  v25 = a5;
+  v27 = type metadata accessor for _InspectorSplitViewRoot(0, a4, a5, v26);
+  v28 = *(a1 + 18);
+  v68 = v13;
+  v66 = v19;
+  if (v28 == 1)
+  {
+    if (*(a1 + 57) == 1)
+    {
+      if (v24 >= v22)
+      {
+        v29 = 1194.0;
+      }
+
+      else
+      {
+        v29 = 1024.0;
+      }
+
+      if (v22 >= v29)
+      {
+        v30 = 2;
+      }
+
+      else
+      {
+        v30 = 1;
+      }
+    }
+
+    else
+    {
+      v30 = 3;
+    }
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  Spring.init(mass:stiffness:damping:allowOverDamping:)();
+  v76 = v80;
+  *&v77[0] = v81;
+  MEMORY[0x18D00B690](&v76, 0.1);
+  v58 = v27;
+  LOBYTE(v80) = _InspectorSplitViewRoot.presented.getter() & 1;
+  View.animation<A>(_:value:)();
+
+  v31 = *a1;
+  v32 = a1[1];
+  v33 = *(a1 + 17);
+  v64 = v12;
+  v61 = a1;
+  if (v33)
+  {
+    v34 = *(a1 + 16);
+  }
+
+  else
+  {
+    LOBYTE(v76) = v31 & 1;
+    *(&v76 + 1) = v32;
+    type metadata accessor for Binding<PresentationDetent>(0, &lazy cache variable for type metadata for State<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E6981790]);
+    v35 = State.projectedValue.getter();
+    v32 = *(&v80 + 1);
+    v31 = v80;
+    v34 = v81;
+  }
+
+  v60 = v56;
+  MEMORY[0x1EEE9AC00](v35);
+  v57 = v30;
+  v56[-32] = v30;
+  *&v56[-24] = v31;
+  *&v56[-16] = v32;
+  v56[-8] = v34 & 1;
+  static Alignment.center.getter();
+  v36 = lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>();
+  v95[0] = v25;
+  v95[1] = v36;
+  v37 = MEMORY[0x1E697E858];
+  v38 = v62;
+  WitnessTable = swift_getWitnessTable(MEMORY[0x1E697E858], v62, v95);
+  lazy protocol witness table accessor for type InspectorDimmingView and conformance InspectorDimmingView();
+  v40 = v63;
+  v41 = v64;
+  View.overlay<A>(alignment:content:)();
+
+  (*(v65 + 8))(v41, v38);
+  v42 = lazy protocol witness table accessor for type _OverlayModifier<InspectorDimmingView> and conformance _OverlayModifier<A>();
+  v94[0] = WitnessTable;
+  v94[1] = v42;
+  v43 = v68;
+  v44 = swift_getWitnessTable(v37, v68, v94);
+  v45 = v66;
+  static ViewBuilder.buildExpression<A>(_:)();
+  v46 = *(v70 + 8);
+  v46(v40, v43);
+  if (*(v61 + 57) == 1)
+  {
+    v76 = static VerticalAlignment.center.getter();
+    LOBYTE(v77[0]) = 0;
+    closure #2 in closure #1 in closure #1 in _InspectorSplitViewRoot.body(children:)(v59, v77 + 8);
+    v47 = static Alignment.leading.getter();
+    v49 = v48;
+    v50 = _InspectorSplitViewRoot.presented.getter();
+    BYTE8(v78) = v57;
+    BYTE9(v78) = v50 & 1;
+    *&v79[0] = v47;
+    *(&v79[0] + 1) = v49;
+    Spring.init(mass:stiffness:damping:allowOverDamping:)();
+    v71 = v80;
+    v72 = v81;
+    v51 = MEMORY[0x18D00B690](&v71, 0.1);
+    v52 = _InspectorSplitViewRoot.presented.getter();
+    *&v79[1] = v51;
+    BYTE8(v79[1]) = v52 & 1;
+    v92 = v78;
+    v93[0] = v79[0];
+    v88 = v77[7];
+    v89 = v77[8];
+    v90 = v77[9];
+    v91 = v77[10];
+    v84 = v77[3];
+    v85 = v77[4];
+    v86 = v77[5];
+    v87 = v77[6];
+    v80 = v76;
+    v81 = v77[0];
+    v82 = v77[1];
+    v83 = v77[2];
+    *(v93 + 9) = *(v79 + 9);
+  }
+
+  else
+  {
+    v92 = 0u;
+    memset(v93, 0, 25);
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
+  }
+
+  v53 = v67;
+  (*(v70 + 16))(v67, v45, v43);
+  *&v71 = v53;
+  outlined init with copy of ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(&v80, &v76);
+  *(&v71 + 1) = &v76;
+  v75[0] = v43;
+  type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(0);
+  v75[1] = v54;
+  v73 = v44;
+  v74 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>? and conformance <A> A?();
+  static ViewBuilder.buildBlock<each A>(_:)(&v71, 2uLL, v75);
+  outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(&v80, type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?);
+  v46(v45, v43);
+  outlined destroy of ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?(&v76, type metadata accessor for ModifiedContent<ModifiedContent<HStack<TupleView<(InspectorColumnSeparator, ModifiedContent<_VariadicView_Children, _FlexFrameLayout>)>>, _BackgroundModifier<InspectorSeparatorShadow>>, _AnimationModifier<Bool>>?);
+  return (v46)(v53, v43);
 }

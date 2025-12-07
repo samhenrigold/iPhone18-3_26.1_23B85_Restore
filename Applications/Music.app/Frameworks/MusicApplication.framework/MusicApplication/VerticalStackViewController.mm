@@ -58,8 +58,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_4D9818(disappear);
+  sub_4D9818(disappearCopy);
 }
 
 - (id)contentScrollView
@@ -102,19 +103,20 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_4DA7BC();
+  sub_4DA7BC(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_4DABAC();
+  sub_4DABAC(selfCopy);
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
+  editingCopy = editing;
   selfCopy = self;
-  sub_4DACC4(editing, animated);
+  sub_4DACC4(editingCopy, animated);
 }
 
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container

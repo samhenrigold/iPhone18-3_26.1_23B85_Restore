@@ -5,7 +5,7 @@ uint64_t sub_1BCC334D4@<X0>(uint64_t a1@<X8>)
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B318);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B318, &qword_1BCE6AAF0);
   MEMORY[0x1EEE9AC00](v8);
   v10 = &v14 - v9;
   sub_1BCC33C14(v2, &v14 - v9);
@@ -26,13 +26,6 @@ uint64_t sub_1BCC334D4@<X0>(uint64_t a1@<X8>)
 
     return (*(v5 + 8))(v7, v4);
   }
-}
-
-uint64_t sub_1BCC336BC@<X0>(void *a1@<X8>)
-{
-  result = sub_1BCE1B980();
-  *a1 = v3;
-  return result;
 }
 
 uint64_t sub_1BCC336E8(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
@@ -378,7 +371,7 @@ LABEL_29:
 
 uint64_t sub_1BCC33C14(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B318);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B318, &qword_1BCE6AAF0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -421,7 +414,7 @@ uint64_t InterpolatedMoonDataProvider.makeMoonDataForCurrentDate(location:select
   MEMORY[0x1EEE9AC00](v13);
   OUTLINED_FUNCTION_5_42();
   v90 = v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868, &unk_1BCE3E4F0);
   MEMORY[0x1EEE9AC00](v16 - 8);
   OUTLINED_FUNCTION_4_44(v17, v83);
   MEMORY[0x1EEE9AC00](v18);
@@ -445,8 +438,8 @@ uint64_t InterpolatedMoonDataProvider.makeMoonDataForCurrentDate(location:select
   v86 = v32;
   MEMORY[0x1EEE9AC00](v33);
   v35 = &v83 - v34;
-  v36 = v8[20];
-  v37 = v8[21];
+  v36 = *(v8 + 20);
+  v37 = *(v8 + 21);
   __swift_project_boxed_opaque_existential_1(v8 + 17, v36);
   sub_1BCE1A6E0();
   v38 = *(v37 + 8);
@@ -457,8 +450,8 @@ uint64_t InterpolatedMoonDataProvider.makeMoonDataForCurrentDate(location:select
   v39 = v102;
   v41 = *(v101 + 16);
   v41(v31, v104, v102);
-  v42 = v8[10];
-  v43 = v8[11];
+  v42 = *(v8 + 10);
+  v43 = *(v8 + 11);
   v104 = v8;
   __swift_project_boxed_opaque_existential_1(v8 + 7, v42);
   v97 = a1;
@@ -481,8 +474,8 @@ uint64_t InterpolatedMoonDataProvider.makeMoonDataForCurrentDate(location:select
       v100 = MoonPhase.init(illuminatedFraction:phaseAngle:)(v49, v51);
     }
 
-    sub_1BC952ABC(v88, v105, &qword_1EBD07868);
-    sub_1BC952ABC(v89, v99, &qword_1EBD07868);
+    sub_1BC952ABC(v88, v105, &qword_1EBD07868, &unk_1BCE3E4F0);
+    sub_1BC952ABC(v89, v99, &qword_1EBD07868, &unk_1BCE3E4F0);
     v54 = v97;
     v89 = sub_1BCC344D8(v97, v46);
     v88 = v55;
@@ -508,10 +501,10 @@ uint64_t InterpolatedMoonDataProvider.makeMoonDataForCurrentDate(location:select
     *v98 = v49;
     *(v67 + 8) = v100;
     v67[2] = v52;
-    v68 = type metadata accessor for InterpolatedMoonData();
-    sub_1BC952ABC(v105, v67 + v68[7], &qword_1EBD07868);
+    v68 = type metadata accessor for InterpolatedMoonData(0);
+    sub_1BC952ABC(v105, v67 + v68[7], &qword_1EBD07868, &unk_1BCE3E4F0);
     v69 = v99;
-    sub_1BC952ABC(v99, v67 + v68[8], &qword_1EBD07868);
+    sub_1BC952ABC(v99, v67 + v68[8], &qword_1EBD07868, &unk_1BCE3E4F0);
     v70 = v67 + v68[9];
     v71 = v88;
     *v70 = v89;
@@ -523,17 +516,17 @@ uint64_t InterpolatedMoonDataProvider.makeMoonDataForCurrentDate(location:select
     *(v72 + 24) = v66;
     v106 = MEMORY[0x1E69E7CC0];
     OUTLINED_FUNCTION_2_57();
-    sub_1BCC368E0(v73, v74);
+    sub_1BCC368E0(v73, v74, MEMORY[0x1E69D6428]);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD0C510);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD0C510, &qword_1BCE604C0);
     sub_1BC96DFE0();
     sub_1BCE1DC30();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B320);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B320, &qword_1BCE59770);
     swift_allocObject();
     v75 = sub_1BCE1A940();
 
-    sub_1BC94C05C(v69, &qword_1EBD07868);
-    sub_1BC94C05C(v105, &qword_1EBD07868);
+    sub_1BC94C05C(v69, &qword_1EBD07868, &unk_1BCE3E4F0);
+    sub_1BC94C05C(v105, &qword_1EBD07868, &unk_1BCE3E4F0);
     v76 = v102;
     v77 = *(v101 + 8);
     v77(v85, v102);
@@ -549,7 +542,7 @@ uint64_t InterpolatedMoonDataProvider.makeMoonDataForCurrentDate(location:select
     v81 = *(v40 + 8);
     v81(v31, v39);
     v81(v103, v39);
-    v80 = type metadata accessor for InterpolatedMoonData();
+    v80 = type metadata accessor for InterpolatedMoonData(0);
     v78 = v98;
     v79 = 1;
   }
@@ -565,7 +558,7 @@ uint64_t sub_1BCC344D8(uint64_t a1, uint64_t a2)
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868, &unk_1BCE3E4F0);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v26 - v10;
   v12 = sub_1BCE19060();
@@ -586,7 +579,7 @@ uint64_t sub_1BCC344D8(uint64_t a1, uint64_t a2)
   v17 = v12;
   if (__swift_getEnumTagSinglePayload(v11, 1, v12) == 1)
   {
-    sub_1BC94C05C(v11, &qword_1EBD07868);
+    sub_1BC94C05C(v11, &qword_1EBD07868, &unk_1BCE3E4F0);
     return 0;
   }
 
@@ -621,14 +614,14 @@ BOOL sub_1BCC347D0(uint64_t a1, uint64_t a2, uint64_t a3)
   v49 = v8;
   MEMORY[0x1EEE9AC00](v8);
   v47 = &v46 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for MoonRiseSet();
+  v10 = type metadata accessor for MoonRiseSet(0);
   MEMORY[0x1EEE9AC00](v10);
   v12 = &v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_1BCE19470();
   v14 = *(v13 - 8);
   MEMORY[0x1EEE9AC00](v13);
   v16 = &v46 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D28);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D28, &unk_1BCE59850);
   MEMORY[0x1EEE9AC00](v17 - 8);
   v19 = &v46 - v18;
   v20 = sub_1BCC35838(a1, a2);
@@ -641,7 +634,7 @@ BOOL sub_1BCC347D0(uint64_t a1, uint64_t a2, uint64_t a3)
     (*(v14 + 8))(v16, v13);
     if (__swift_getEnumTagSinglePayload(v19, 1, v10) == 1)
     {
-      sub_1BC94C05C(v19, &qword_1EBD08D28);
+      sub_1BC94C05C(v19, &qword_1EBD08D28, &unk_1BCE59850);
       if (qword_1EBD070C0 != -1)
       {
         swift_once();
@@ -665,7 +658,7 @@ BOOL sub_1BCC347D0(uint64_t a1, uint64_t a2, uint64_t a3)
         v46 = swift_slowAlloc();
         v53 = v46;
         *v32 = 136446723;
-        sub_1BCC368E0(&qword_1EDA1BF08, MEMORY[0x1E6969530]);
+        sub_1BCC368E0(&qword_1EDA1BF08, MEMORY[0x1E6969530], MEMORY[0x1E6969570]);
         v33 = sub_1BCE1E050();
         v34 = v26;
         v35 = v33;
@@ -677,7 +670,7 @@ BOOL sub_1BCC347D0(uint64_t a1, uint64_t a2, uint64_t a3)
         *(v32 + 12) = 2160;
         *(v32 + 14) = 1752392040;
         *(v32 + 22) = 2081;
-        sub_1BCC368E0(&qword_1EBD0B328, MEMORY[0x1E69E17A8]);
+        sub_1BCC368E0(&qword_1EBD0B328, MEMORY[0x1E69E17A8], MEMORY[0x1E69E17B8]);
         v39 = sub_1BCE1E050();
         v41 = v40;
         (*(v27 + 8))(v28, v29);
@@ -718,7 +711,7 @@ BOOL sub_1BCC347D0(uint64_t a1, uint64_t a2, uint64_t a3)
   return v44;
 }
 
-uint64_t InterpolatedMoonDataProvider.makeInterpolatedMoonData(location:selectedDate:dayMoonPhase:moonrise:moonset:moonRiseSetEvents:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, double *a7@<X8>)
+uint64_t InterpolatedMoonDataProvider.makeInterpolatedMoonData(location:selectedDate:dayMoonPhase:moonrise:moonset:moonRiseSetEvents:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, char *a5@<X4>, uint64_t a6@<X5>, double *a7@<X8>)
 {
   v94 = a6;
   v90 = a5;
@@ -738,7 +731,7 @@ uint64_t InterpolatedMoonDataProvider.makeInterpolatedMoonData(location:selected
   MEMORY[0x1EEE9AC00](v12);
   OUTLINED_FUNCTION_5_42();
   v91 = v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07868, &unk_1BCE3E4F0);
   MEMORY[0x1EEE9AC00](v14 - 8);
   OUTLINED_FUNCTION_4_44(v15, v83);
   MEMORY[0x1EEE9AC00](v16);
@@ -801,7 +794,7 @@ uint64_t InterpolatedMoonDataProvider.makeInterpolatedMoonData(location:selected
     v52(v48, v103);
     v52(v47, v53);
     v100(v40, v101);
-    v54 = type metadata accessor for InterpolatedMoonData();
+    v54 = type metadata accessor for InterpolatedMoonData(0);
     v55 = v102;
     v56 = 1;
   }
@@ -821,8 +814,8 @@ uint64_t InterpolatedMoonDataProvider.makeInterpolatedMoonData(location:selected
     }
 
     v108 = v51;
-    sub_1BC952ABC(v89, v106, &qword_1EBD07868);
-    sub_1BC952ABC(v90, v107, &qword_1EBD07868);
+    sub_1BC952ABC(v89, v106, &qword_1EBD07868, &unk_1BCE3E4F0);
+    sub_1BC952ABC(v90, v107, &qword_1EBD07868, &unk_1BCE3E4F0);
     v90 = v47;
     v89 = sub_1BCC344D8(v49, v47);
     v85 = v62;
@@ -845,9 +838,9 @@ uint64_t InterpolatedMoonDataProvider.makeInterpolatedMoonData(location:selected
     *v102 = v59;
     *(v72 + 8) = v108;
     v72[2] = v61;
-    v73 = type metadata accessor for InterpolatedMoonData();
-    sub_1BC952ABC(v106, v72 + v73[7], &qword_1EBD07868);
-    sub_1BC952ABC(v107, v72 + v73[8], &qword_1EBD07868);
+    v73 = type metadata accessor for InterpolatedMoonData(0);
+    sub_1BC952ABC(v106, v72 + v73[7], &qword_1EBD07868, &unk_1BCE3E4F0);
+    sub_1BC952ABC(v107, v72 + v73[8], &qword_1EBD07868, &unk_1BCE3E4F0);
     v74 = v72 + v73[9];
     v75 = v85;
     *v74 = v89;
@@ -859,17 +852,17 @@ uint64_t InterpolatedMoonDataProvider.makeInterpolatedMoonData(location:selected
     *(v76 + 24) = v71;
     *&v110[0] = MEMORY[0x1E69E7CC0];
     OUTLINED_FUNCTION_2_57();
-    sub_1BCC368E0(v77, v78);
+    sub_1BCC368E0(v77, v78, MEMORY[0x1E69D6428]);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD0C510);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBD0C510, &qword_1BCE604C0);
     sub_1BC96DFE0();
     sub_1BCE1DC30();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B320);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B320, &qword_1BCE59770);
     swift_allocObject();
     v79 = sub_1BCE1A940();
 
-    sub_1BC94C05C(v107, &qword_1EBD07868);
-    sub_1BC94C05C(v106, &qword_1EBD07868);
+    sub_1BC94C05C(v107, &qword_1EBD07868, &unk_1BCE3E4F0);
+    sub_1BC94C05C(v106, &qword_1EBD07868, &unk_1BCE3E4F0);
     v80 = *(v57 + 8);
     v81 = v103;
     v80(v105, v103);
@@ -935,7 +928,7 @@ uint64_t sub_1BCC356EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 uint64_t sub_1BCC35838(uint64_t a1, uint64_t a2)
 {
   v54 = a1;
-  v3 = type metadata accessor for MoonTimeEvent();
+  v3 = type metadata accessor for MoonTimeEvent(0);
   v57 = *(v3 - 8);
   v58 = v3;
   MEMORY[0x1EEE9AC00](v3);
@@ -950,7 +943,7 @@ uint64_t sub_1BCC35838(uint64_t a1, uint64_t a2)
   v13 = &v50 - v12;
   MEMORY[0x1EEE9AC00](v14);
   v16 = &v50 - v15;
-  v56 = type metadata accessor for MoonRiseSet();
+  v56 = type metadata accessor for MoonRiseSet(0);
   MEMORY[0x1EEE9AC00](v56);
   v18 = &v50 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v19);
@@ -1084,13 +1077,13 @@ LABEL_21:
 uint64_t sub_1BCC35E48@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, double a4@<D0>, double a5@<D1>)
 {
   v68 = a1;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D30);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D30, &qword_1BCE4C810);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v72 = &v59 - v11;
-  v12 = type metadata accessor for DayMoonData();
+  v12 = type metadata accessor for DayMoonData(0);
   MEMORY[0x1EEE9AC00](v12);
   v67 = &v59 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D28);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D28, &unk_1BCE59850);
   MEMORY[0x1EEE9AC00](v14 - 8);
   v66 = &v59 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
@@ -1128,7 +1121,7 @@ uint64_t sub_1BCC35E48@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   v71 = v24;
   v77 = v36;
   v36(v24, v35);
-  v37 = type metadata accessor for MoonRiseSet();
+  v37 = type metadata accessor for MoonRiseSet(0);
   __swift_storeEnumTagSinglePayload(a3, 1, 1, v37);
   v64 = (v20 + 8);
   v78 = v20;
@@ -1139,15 +1132,15 @@ uint64_t sub_1BCC35E48@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   while (1)
   {
     v40 = v76;
-    sub_1BC952ABC(a3, v76, v33);
+    sub_1BC952ABC(a3, v76, v33, &unk_1BCE59850);
     if (__swift_getEnumTagSinglePayload(v40, 1, v37) != 1)
     {
       v77(v80, v35);
       (*(v62 + 8))(v75, v63);
-      return sub_1BC94C05C(v40, &qword_1EBD08D28);
+      return sub_1BC94C05C(v40, &qword_1EBD08D28, &unk_1BCE59850);
     }
 
-    sub_1BC94C05C(v40, v33);
+    sub_1BC94C05C(v40, v33, &unk_1BCE59850);
     if (!v39)
     {
       break;
@@ -1167,7 +1160,7 @@ uint64_t sub_1BCC35E48@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v12 = v46;
     if (__swift_getEnumTagSinglePayload(v48, 1, v46) == 1)
     {
-      sub_1BC94C05C(v48, &qword_1EBD08D30);
+      sub_1BC94C05C(v48, &qword_1EBD08D30, &qword_1BCE4C810);
       a3 = v43;
       v33 = v42;
       v35 = v41;
@@ -1189,11 +1182,11 @@ uint64_t sub_1BCC35E48@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
       a3 = v43;
       v53 = v43;
       v33 = v42;
-      sub_1BC94C05C(v53, v42);
+      sub_1BC94C05C(v53, v42, &unk_1BCE59850);
       v37 = v70;
       if (__swift_getEnumTagSinglePayload(v52, 1, v70) == 1)
       {
-        sub_1BC94C05C(v52, v42);
+        sub_1BC94C05C(v52, v42, &unk_1BCE59850);
         v77(v38, v35);
         v54 = v65;
         __swift_storeEnumTagSinglePayload(v65, 1, 1, v37);
@@ -1223,12 +1216,12 @@ uint64_t sub_1BCC35E48@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   return (*(v62 + 8))(v75, v63);
 }
 
-uint64_t InterpolatedMoonDataProvider.deinit()
+void *InterpolatedMoonDataProvider.deinit()
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 56);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 96);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 136);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 7);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 12);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 17);
   return v0;
 }
 
@@ -1236,7 +1229,7 @@ uint64_t InterpolatedMoonDataProvider.__deallocating_deinit()
 {
   InterpolatedMoonDataProvider.deinit();
 
-  return MEMORY[0x1EEE6BDC0](v0, 176, 7);
+  return MEMORY[0x1EEE6BDC0](v0);
 }
 
 uint64_t objectdestroyTm_3()
@@ -1272,7 +1265,7 @@ uint64_t sub_1BCC3678C()
   return sub_1BCC35684(*(v0 + 16), v0 + v2, *(v0 + v3), v0 + ((v3 + *(v4 + 80) + 8) & ~*(v4 + 80)));
 }
 
-uint64_t sub_1BCC368E0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1BCC368E0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1287,12 +1280,12 @@ uint64_t sub_1BCC368E0(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1BCC36928(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D28);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD08D28, &unk_1BCE59850);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-void sub_1BCC36998(unint64_t *a1)
+void sub_1BCC36998(uint64_t *a1)
 {
   v2 = a1[1];
   v3 = sub_1BCE1E040();
@@ -1309,12 +1302,12 @@ void sub_1BCC36998(unint64_t *a1)
 
       else
       {
-        type metadata accessor for MoonTimeEvent();
+        type metadata accessor for MoonTimeEvent(0);
         v6 = sub_1BCE1D5A0();
         *(v6 + 16) = v5;
       }
 
-      v7 = *(type metadata accessor for MoonTimeEvent() - 8);
+      v7 = *(type metadata accessor for MoonTimeEvent(0) - 8);
       v8[0] = v6 + ((*(v7 + 80) + 32) & ~*(v7 + 80));
       v8[1] = v5;
       sub_1BCC36F28(v8, v9, a1, v4);
@@ -1356,7 +1349,7 @@ void sub_1BCC36B28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
   v57 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v10);
   v55 = &v40 - v11;
-  v50 = type metadata accessor for MoonTimeEvent();
+  v50 = type metadata accessor for MoonTimeEvent(0);
   MEMORY[0x1EEE9AC00](v50);
   v49 = &v40 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
@@ -1444,7 +1437,7 @@ void sub_1BCC36B28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
   }
 }
 
-void sub_1BCC36F28(unint64_t *a1, uint64_t a2, unint64_t *a3, uint64_t a4)
+void sub_1BCC36F28(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v162 = a1;
   v190 = sub_1BCE19060();
@@ -1461,7 +1454,7 @@ void sub_1BCC36F28(unint64_t *a1, uint64_t a2, unint64_t *a3, uint64_t a4)
   v159 = &v156 - v15;
   MEMORY[0x1EEE9AC00](v16);
   v158 = &v156 - v17;
-  v183 = type metadata accessor for MoonTimeEvent();
+  v183 = type metadata accessor for MoonTimeEvent(0);
   v175 = *(v183 - 8);
   MEMORY[0x1EEE9AC00](v183);
   v165 = &v156 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1572,10 +1565,10 @@ LABEL_135:
       v191 = *v176;
       v47 = v191;
       v48 = v44;
-      v43 = (v191 + v45 * v42);
+      v43 = &v191[v45 * v42];
       v180 = v41;
       sub_1BCC36AC8(v46, v161, type metadata accessor for MoonTimeEvent);
-      v49 = v47 + v45 * v48;
+      v49 = &v47[v45 * v48];
       v50 = v157;
       sub_1BCC36AC8(v49, v157, type metadata accessor for MoonTimeEvent);
       v51 = v158;
@@ -1591,9 +1584,9 @@ LABEL_135:
       sub_1BCC38484(v50, type metadata accessor for MoonTimeEvent);
       sub_1BCC38484(v161, type metadata accessor for MoonTimeEvent);
       v55 = v180;
-      v56 = v166 + 2;
+      v56 = (v166 + 2);
       v181 = v45;
-      v57 = v191 + v45 * (v166 + 2);
+      v57 = &v191[v45 * (v166 + 2)];
       while (1)
       {
         v58 = v56;
@@ -1687,7 +1680,7 @@ LABEL_30:
           }
 
           sub_1BC960198(v77 + v74, v165, type metadata accessor for MoonTimeEvent);
-          v78 = v74 < v72 || v77 + v74 >= v77 + v73;
+          v78 = v74 < v72 || v77 + v74 >= (v77 + v73);
           if (v78)
           {
             swift_arrayInitWithTakeFrontToBack();
@@ -2123,7 +2116,7 @@ LABEL_141:
   __break(1u);
 }
 
-void sub_1BCC37CD4(unint64_t a1, _BYTE *a2, _BYTE *a3, unint64_t a4)
+void sub_1BCC37CD4(unint64_t a1, _BYTE *a2, _BYTE *a3, _BYTE *a4)
 {
   v95 = sub_1BCE19060();
   v8 = *(v95 - 8);
@@ -2135,7 +2128,7 @@ void sub_1BCC37CD4(unint64_t a1, _BYTE *a2, _BYTE *a3, unint64_t a4)
   v91 = &v79[-v13];
   MEMORY[0x1EEE9AC00](v14);
   v90 = &v79[-v15];
-  v92 = type metadata accessor for MoonTimeEvent();
+  v92 = type metadata accessor for MoonTimeEvent(0);
   MEMORY[0x1EEE9AC00](v92);
   v81 = &v79[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v17);
@@ -2184,7 +2177,7 @@ LABEL_62:
   if (v36 >= v34 / v32)
   {
     sub_1BCA15028(a2, v34 / v32, a4);
-    v55 = (a4 + v37 * v32);
+    v55 = &a4[v37 * v32];
     v56 = -v32;
     v57 = v55;
     v97 = a1;
@@ -2317,7 +2310,7 @@ LABEL_37:
   {
     sub_1BCA15028(a1, &a2[-a1] / v32, a4);
     v85 = a3;
-    v86 = (a4 + v36 * v32);
+    v86 = &a4[v36 * v32];
     v99 = v86;
     v84 = v32;
     while (a4 < v86 && a2 < v85)
@@ -2350,7 +2343,7 @@ LABEL_37:
         v50 = v97;
         v51 = v98;
         v52 = v84;
-        a2 = &v84[v46];
+        a2 = &v46[v84];
         if (v97 < v46 || v97 >= a2)
         {
           swift_arrayInitWithTakeFrontToBack();
@@ -2368,7 +2361,7 @@ LABEL_37:
       {
         v52 = v84;
         v50 = v97;
-        a4 = &v84[v98];
+        a4 = &v98[v84];
         if (v97 < v98 || v97 >= a4)
         {
           swift_arrayInitWithTakeFrontToBack();
@@ -2387,7 +2380,7 @@ LABEL_37:
         v100 = a4;
       }
 
-      a1 = &v52[v50];
+      a1 = &v50[v52];
       v101 = a1;
     }
   }
@@ -2776,888 +2769,888 @@ void sub_1BCC39E34(void *a1@<X8>)
 WeatherUI::BoundPropertyName_optional __swiftcall BoundPropertyName.init(rawValue:)(Swift::String rawValue)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B330);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B330, &qword_1BCE59860);
   v3 = swift_allocObject();
-  v4 = sub_1BCB0057C(v3, 239);
-  *v5 = "cameraPosition";
-  *(v5 + 8) = 14;
-  *(v5 + 16) = 2;
-  *(v5 + 24) = "cameraRotation";
-  *(v5 + 32) = 14;
-  *(v5 + 40) = 2;
-  *(v5 + 48) = "cameraFocalLength";
-  *(v5 + 56) = 17;
-  *(v5 + 64) = 2;
-  *(v5 + 72) = "cameraOrthographicScale";
-  *(v5 + 80) = 23;
-  *(v5 + 88) = 2;
-  *(v5 + 96) = "bloomIntensity";
-  *(v5 + 104) = 14;
-  *(v5 + 112) = 2;
-  *(v5 + 120) = "filmOffset";
-  *(v5 + 128) = 10;
-  *(v5 + 136) = 2;
-  *(v5 + 144) = "lightningNumberOfBranches";
-  *(v5 + 152) = 25;
-  *(v5 + 160) = 2;
-  *(v5 + 168) = "lightningRoughness";
-  *(v5 + 176) = 18;
-  *(v5 + 184) = 2;
-  *(v5 + 192) = "lightningBranchSpread";
-  *(v5 + 200) = 21;
-  *(v5 + 208) = 2;
-  *(v5 + 216) = "lightningThickness";
-  *(v5 + 224) = 18;
-  *(v5 + 232) = 2;
-  *(v5 + 240) = "lightningBoltThicknessMultiplyer";
-  *(v5 + 248) = 32;
-  *(v5 + 256) = 2;
-  *(v5 + 264) = "lightningFrequencyAnim";
-  *(v5 + 272) = 22;
-  *(v5 + 280) = 2;
-  *(v5 + 288) = "lightningGlow";
-  *(v5 + 296) = 13;
-  *(v5 + 304) = 2;
-  *(v5 + 312) = "lightningGrowLength";
-  *(v5 + 320) = 19;
-  *(v5 + 328) = 2;
-  *(v5 + 336) = "lightningFlashLength";
-  *(v5 + 344) = 20;
-  *(v5 + 352) = 2;
-  *(v5 + 360) = "lightningFadeLength";
-  *(v5 + 368) = 19;
-  *(v5 + 376) = 2;
-  *(v5 + 384) = "lightningBranchFadeLength";
-  *(v5 + 392) = 25;
-  *(v5 + 400) = 2;
-  *(v5 + 408) = "lightningScreenFlashFadeLength";
-  *(v5 + 416) = 30;
-  *(v5 + 424) = 2;
-  *(v5 + 432) = "lightningScreenFlashProbability";
-  *(v5 + 440) = 31;
-  *(v5 + 448) = 2;
-  *(v5 + 456) = "lightningScreenFlashBrightness";
-  *(v5 + 464) = 30;
-  *(v5 + 472) = 2;
-  *(v5 + 480) = "lightningCloudFlashBrightness";
-  *(v5 + 488) = 29;
-  *(v5 + 496) = 2;
-  *(v5 + 504) = "lightningCloudFlashProbability";
-  *(v5 + 512) = 30;
-  *(v5 + 520) = 2;
-  *(v5 + 528) = "lightningDrawSpaceWidth";
-  *(v5 + 536) = 23;
-  *(v5 + 544) = 2;
-  *(v5 + 552) = "lightningUseRespawn";
-  *(v5 + 560) = 19;
-  *(v5 + 568) = 2;
-  *(v5 + 576) = "lightningRespawnSeed";
-  *(v5 + 584) = 20;
-  *(v5 + 592) = 2;
-  *(v5 + 600) = "lightningFadeProgress";
-  *(v5 + 608) = 21;
-  *(v5 + 616) = 2;
-  *(v5 + 624) = "moonElevation";
-  *(v5 + 632) = 13;
-  *(v5 + 640) = 2;
-  *(v5 + 648) = "moonImage";
-  *(v5 + 656) = 9;
-  *(v5 + 664) = 2;
-  *(v5 + 672) = "moonRiseToSet";
-  *(v5 + 680) = 13;
-  *(v5 + 688) = 2;
-  *(v5 + 696) = "moonAngle";
-  *(v5 + 704) = 9;
-  *(v5 + 712) = 2;
-  *(v5 + 720) = "moonScaleRange";
-  *(v5 + 728) = 14;
-  *(v5 + 736) = 2;
-  *(v5 + 744) = "moonColor";
-  *(v5 + 752) = 9;
-  *(v5 + 760) = 2;
-  *(v5 + 768) = "moonColorAtHorizon";
-  *(v5 + 776) = 18;
-  *(v5 + 784) = 2;
-  *(v5 + 792) = "moonLightRadius";
-  *(v5 + 800) = 15;
-  *(v5 + 808) = 2;
-  *(v5 + 816) = "moonPhaseAngle";
-  *(v5 + 824) = 14;
-  *(v5 + 832) = 2;
-  *(v5 + 840) = "moonLightIntensity";
-  *(v5 + 848) = 18;
-  *(v5 + 856) = 2;
-  *(v5 + 864) = "moonLightColor";
-  *(v5 + 872) = 14;
-  *(v5 + 880) = 2;
-  *(v5 + 888) = "moonBrightenDarks";
-  *(v5 + 896) = 17;
-  *(v5 + 904) = 2;
-  *(v5 + 912) = "gradientTop";
-  *(v5 + 920) = 11;
-  *(v5 + 928) = 2;
-  *(v5 + 936) = "gradientMiddle";
-  *(v5 + 944) = 14;
-  *(v5 + 952) = 2;
-  *(v5 + 960) = "gradientBottom";
-  *(v5 + 968) = 14;
-  *(v5 + 976) = 2;
-  *(v5 + 984) = "rainFGParticleCount";
-  *(v5 + 992) = 19;
-  *(v5 + 1000) = 2;
-  *(v5 + 1008) = "rainFGParticleVelocity";
-  *(v5 + 1016) = 22;
-  *(v5 + 1024) = 2;
-  *(v5 + 1032) = "rainFGMinMaxSize";
-  *(v5 + 1040) = 16;
-  *(v5 + 1048) = 2;
-  *(v5 + 1056) = "rainFGRandomColorStart";
-  *(v5 + 1064) = 22;
-  *(v5 + 1072) = 2;
-  *(v5 + 1080) = "rainFGRandomColorEnd";
-  *(v5 + 1088) = 20;
-  *(v5 + 1096) = 2;
-  *(v5 + 1104) = "rainFGSpread";
-  *(v5 + 1112) = 12;
-  *(v5 + 1120) = 2;
-  *(v5 + 1128) = "rainFGNoiseFieldIntensity";
-  *(v5 + 1136) = 25;
-  *(v5 + 1144) = 2;
-  *(v5 + 1152) = "rainFGNoiseFieldScale";
-  *(v5 + 1160) = 21;
-  *(v5 + 1168) = 2;
-  *(v5 + 1176) = "rainBGParticleCount";
-  *(v5 + 1184) = 19;
-  *(v5 + 1192) = 2;
-  *(v5 + 1200) = "rainBGParticleVelocity";
-  *(v5 + 1208) = 22;
-  *(v5 + 1216) = 2;
-  *(v5 + 1224) = "rainBGMinMaxSize";
-  *(v5 + 1232) = 16;
-  *(v5 + 1240) = 2;
-  *(v5 + 1248) = "rainBGRandomColorStart";
-  *(v5 + 1256) = 22;
-  *(v5 + 1264) = 2;
-  *(v5 + 1272) = "rainBGRandomColorEnd";
-  *(v5 + 1280) = 20;
-  *(v5 + 1288) = 2;
-  *(v5 + 1296) = "rainBGSpread";
-  *(v5 + 1304) = 12;
-  *(v5 + 1312) = 2;
-  *(v5 + 1320) = "rainBGNoiseFieldIntensity";
-  *(v5 + 1328) = 25;
-  *(v5 + 1336) = 2;
-  *(v5 + 1344) = "rainBGNoiseFieldScale";
-  *(v5 + 1352) = 21;
-  *(v5 + 1360) = 2;
-  *(v5 + 1368) = "blowingSpeed";
-  *(v5 + 1376) = 12;
-  *(v5 + 1384) = 2;
-  *(v5 + 1392) = "blowingAmount";
-  *(v5 + 1400) = 13;
-  *(v5 + 1408) = 2;
-  *(v5 + 1416) = "snowFGParticleCount";
-  *(v5 + 1424) = 19;
-  *(v5 + 1432) = 2;
-  *(v5 + 1440) = "snowFGParticleVelocity";
-  *(v5 + 1448) = 22;
-  *(v5 + 1456) = 2;
-  *(v5 + 1464) = "snowFGMinMaxSize";
-  *(v5 + 1472) = 16;
-  *(v5 + 1480) = 2;
-  *(v5 + 1488) = "snowFGNoiseFieldIntensity";
-  *(v5 + 1496) = 25;
-  *(v5 + 1504) = 2;
-  *(v5 + 1512) = "snowFGNoiseFieldScale";
-  *(v5 + 1520) = 21;
-  *(v5 + 1528) = 2;
-  *(v5 + 1536) = "snowFGSpread";
-  *(v5 + 1544) = 12;
-  *(v5 + 1552) = 2;
-  *(v5 + 1560) = "snowFGRandomColorStart";
-  *(v5 + 1568) = 22;
-  *(v5 + 1576) = 2;
-  *(v5 + 1584) = "snowFGRandomColorEnd";
-  *(v5 + 1592) = 20;
-  *(v5 + 1600) = 2;
-  *(v5 + 1608) = "snowBGParticleCount";
-  *(v5 + 1616) = 19;
-  *(v5 + 1624) = 2;
-  *(v5 + 1632) = "snowBGParticleVelocity";
-  *(v5 + 1640) = 22;
-  *(v5 + 1648) = 2;
-  *(v5 + 1656) = "snowBGMinMaxSize";
-  *(v5 + 1664) = 16;
-  *(v5 + 1672) = 2;
-  *(v5 + 1680) = "snowBGNoiseFieldIntensity";
-  *(v5 + 1688) = 25;
-  *(v5 + 1696) = 2;
-  *(v5 + 1704) = "snowBGNoiseFieldScale";
-  *(v5 + 1712) = 21;
-  *(v5 + 1720) = 2;
-  *(v5 + 1728) = "snowBGSpread";
-  *(v5 + 1736) = 12;
-  *(v5 + 1744) = 2;
-  *(v5 + 1752) = "snowBGRandomColorStart";
-  *(v5 + 1760) = 22;
-  *(v5 + 1768) = 2;
-  *(v5 + 1776) = "snowBGRandomColorEnd";
-  *(v5 + 1784) = 20;
-  *(v5 + 1792) = 2;
-  *(v5 + 1800) = "useSnowFast";
-  *(v5 + 1808) = 11;
-  *(v5 + 1824) = "starOpacity";
-  *(v5 + 1848) = "starSize";
-  *(v5 + 1872) = "starSpeed";
-  *(v5 + 1896) = "starParticleCount";
-  *(v5 + 1920) = "starBrightSize";
-  *(v5 + 1944) = "starBrightParticleCount";
-  *(v5 + 1968) = "starBrightTwinkleAmount";
-  *(v5 + 1992) = "starBrightTwinkleSpeed";
-  *(v5 + 2184) = "lightSunColor";
-  *(v5 + 2280) = "lightAmbientIntensity";
-  *(v5 + 2376) = "noiseParticleVelocity";
-  *(v5 + 2472) = "noiseRandomColorEnd";
-  *(v5 + 2568) = "hailMinMaxSize";
-  *(v5 + 2664) = "sleetFGParticleVelocity";
-  *(v5 + 2760) = "sleetBGParticleCount";
-  *(v5 + 2856) = "sleetBGRandomColorEnd";
-  *(v5 + 2952) = "windRandomColorEnd";
-  *(v5 + 3048) = "fringeParticleCount";
-  *(v5 + 3144) = "fringeScaleFrequency";
-  *(v5 + 3240) = "fringeColor";
-  *(v5 + 3480) = "cloudBGColor";
-  *(v5 + 3576) = "cloudBGOffsetY";
-  *(v5 + 3672) = "cloudBGEmitterScale";
-  *(v5 + 3648) = "cloudBGParticleCount";
-  *(v5 + 3640) = 2;
-  *(v5 + 3656) = 20;
-  *(v5 + 3664) = 2;
-  *(v5 + 3624) = "cloudBGUseLighting";
-  *(v5 + 3608) = 14;
-  *(v5 + 3616) = 2;
-  *(v5 + 3632) = 18;
-  *(v5 + 1816) = 2;
-  *(v5 + 3600) = "cloudBGOffsetZ";
-  *(v5 + 3584) = 14;
-  *(v5 + 3592) = 2;
-  *(v5 + 3552) = "cloudBGScale";
-  *(v5 + 3544) = 2;
-  *(v5 + 3560) = 12;
-  *(v5 + 3568) = 2;
-  *(v5 + 3528) = "cloudBGVelocity";
-  *(v5 + 3512) = 17;
-  *(v5 + 3520) = 2;
-  *(v5 + 3536) = 15;
-  *(v5 + 1832) = 11;
-  *(v5 + 3504) = "cloudBGBrightness";
-  *(v5 + 3488) = 12;
-  *(v5 + 3496) = 2;
-  *(v5 + 3456) = "cloudBBGEmitterScale";
-  *(v5 + 3448) = 2;
-  *(v5 + 3464) = 20;
-  *(v5 + 3472) = 2;
-  *(v5 + 3432) = "cloudBBGParticleCount";
-  *(v5 + 3416) = 19;
-  *(v5 + 3424) = 2;
-  *(v5 + 3440) = 21;
-  *(v5 + 1840) = 2;
-  *(v5 + 3408) = "cloudBBGUseLighting";
-  *(v5 + 3392) = 15;
-  *(v5 + 3400) = 2;
-  *(v5 + 3360) = "cloudBBGOffsetY";
-  *(v5 + 3368) = 15;
-  *(v5 + 3376) = 2;
-  *(v5 + 3384) = "cloudBBGOffsetZ";
-  *(v5 + 3328) = 2;
-  *(v5 + 3336) = "cloudBBGScale";
-  *(v5 + 3344) = 13;
-  *(v5 + 3352) = 2;
-  *(v5 + 3296) = 18;
-  *(v5 + 3304) = 2;
-  *(v5 + 3312) = "cloudBBGVelocity";
-  *(v5 + 3320) = 16;
-  *(v5 + 3288) = "cloudBBGBrightness";
-  *(v5 + 3272) = 13;
-  *(v5 + 3280) = 2;
-  *(v5 + 1856) = 8;
-  *(v5 + 3264) = "cloudBBGColor";
-  *(v5 + 3248) = 11;
-  *(v5 + 3256) = 2;
-  *(v5 + 3216) = "fringeAngularVelocity";
-  *(v5 + 3208) = 2;
-  *(v5 + 3224) = 21;
-  *(v5 + 3232) = 2;
-  *(v5 + 3192) = "fringeOffsetY";
-  *(v5 + 3176) = 20;
-  *(v5 + 3184) = 2;
-  *(v5 + 3200) = 13;
-  *(v5 + 1864) = 2;
-  *(v5 + 3168) = "fringeScaleAmplitude";
-  *(v5 + 3152) = 20;
-  *(v5 + 3160) = 2;
-  *(v5 + 3120) = "fringeEmitterScale";
-  *(v5 + 3112) = 2;
-  *(v5 + 3128) = 18;
-  *(v5 + 3136) = 2;
-  *(v5 + 3096) = "fringeScale";
-  *(v5 + 3080) = 14;
-  *(v5 + 3088) = 2;
-  *(v5 + 3104) = 11;
-  *(v5 + 1880) = 9;
-  *(v5 + 3072) = "fringeVelocity";
-  *(v5 + 3056) = 19;
-  *(v5 + 3064) = 2;
-  *(v5 + 3024) = "windSize";
-  *(v5 + 3016) = 2;
-  *(v5 + 3032) = 8;
-  *(v5 + 3040) = 2;
-  *(v5 + 3000) = "windMinMaxY";
-  *(v5 + 2984) = 11;
-  *(v5 + 2992) = 2;
-  *(v5 + 3008) = 11;
-  *(v5 + 1888) = 2;
-  *(v5 + 2976) = "windMinMaxX";
-  *(v5 + 2960) = 18;
-  *(v5 + 2968) = 2;
-  *(v5 + 2928) = "windRandomColorStart";
-  *(v5 + 2920) = 2;
-  *(v5 + 2936) = 20;
-  *(v5 + 2944) = 2;
-  *(v5 + 2904) = "windParticleVelocity";
-  *(v5 + 2888) = 18;
-  *(v5 + 2896) = 2;
-  *(v5 + 2912) = 20;
-  *(v5 + 1904) = 17;
-  *(v5 + 2880) = "windParticleAmount";
-  *(v5 + 2864) = 21;
-  *(v5 + 2872) = 2;
-  *(v5 + 2832) = "sleetBGRandomColorStart";
-  *(v5 + 2824) = 2;
-  *(v5 + 2840) = 23;
-  *(v5 + 2848) = 2;
-  *(v5 + 2808) = "sleetBGMinMaxSize";
-  *(v5 + 2792) = 23;
-  *(v5 + 2800) = 2;
-  *(v5 + 2816) = 17;
-  *(v5 + 1912) = 2;
-  *(v5 + 2784) = "sleetBGParticleVelocity";
-  *(v5 + 2768) = 20;
-  *(v5 + 2776) = 2;
-  *(v5 + 2736) = "sleetFGRandomColorEnd";
-  *(v5 + 2728) = 2;
-  *(v5 + 2744) = 21;
-  *(v5 + 2752) = 2;
-  *(v5 + 2712) = "sleetFGRandomColorStart";
-  *(v5 + 2696) = 17;
-  *(v5 + 2704) = 2;
-  *(v5 + 2720) = 23;
-  *(v5 + 1928) = 14;
-  *(v5 + 2688) = "sleetFGMinMaxSize";
-  *(v5 + 2672) = 23;
-  *(v5 + 2680) = 2;
-  *(v5 + 2640) = "sleetFGParticleCount";
-  *(v5 + 2632) = 2;
-  *(v5 + 2648) = 20;
-  *(v5 + 2656) = 2;
-  *(v5 + 2616) = "hailColorEnd";
-  *(v5 + 2600) = 14;
-  *(v5 + 2608) = 2;
-  *(v5 + 2624) = 12;
-  *(v5 + 1936) = 2;
-  *(v5 + 2592) = "hailColorStart";
-  *(v5 + 2576) = 14;
-  *(v5 + 2584) = 2;
-  *(v5 + 2544) = "hailParticleVelocity";
-  *(v5 + 2536) = 2;
-  *(v5 + 2552) = 20;
-  *(v5 + 2560) = 2;
-  *(v5 + 2520) = "hailParticleCount";
-  *(v5 + 2504) = 18;
-  *(v5 + 2512) = 2;
-  *(v5 + 2528) = 17;
-  *(v5 + 1952) = 23;
-  *(v5 + 2496) = "noiseAngleVelocity";
-  *(v5 + 2480) = 19;
-  *(v5 + 2488) = 2;
-  *(v5 + 2448) = "noiseRandomColorStart";
-  *(v5 + 2440) = 2;
-  *(v5 + 2456) = 21;
-  *(v5 + 2464) = 2;
-  *(v5 + 2424) = "noiseMinMaxSize";
-  *(v5 + 2408) = 18;
-  *(v5 + 2416) = 2;
-  *(v5 + 2432) = 15;
-  *(v5 + 1960) = 2;
-  *(v5 + 2400) = "noiseParticleCount";
-  *(v5 + 2384) = 21;
-  *(v5 + 2392) = 2;
-  *(v5 + 2352) = "sunRayStartPosition";
-  *(v5 + 2344) = 2;
-  *(v5 + 2360) = 19;
-  *(v5 + 2368) = 2;
-  *(v5 + 2328) = "sunRayAngle";
-  *(v5 + 2312) = 8;
-  *(v5 + 2320) = 2;
-  *(v5 + 2336) = 11;
-  *(v5 + 1976) = 23;
-  *(v5 + 2304) = "sunAngle";
-  *(v5 + 2288) = 21;
-  *(v5 + 2296) = 2;
-  *(v5 + 2256) = "lightSunIntensity";
-  *(v5 + 2248) = 2;
-  *(v5 + 2264) = 17;
-  *(v5 + 2272) = 2;
-  *(v5 + 2232) = "lightFillIntensity";
-  *(v5 + 2216) = 17;
-  *(v5 + 2224) = 2;
-  *(v5 + 2240) = 18;
-  *(v5 + 1984) = 2;
-  *(v5 + 2208) = "lightAmbientColor";
-  *(v5 + 2192) = 13;
-  *(v5 + 2200) = 2;
-  *(v5 + 2160) = "lightFillColor";
-  *(v5 + 2152) = 2;
-  *(v5 + 2168) = 14;
-  *(v5 + 2176) = 2;
-  *(v5 + 2136) = "particleEmitterWidth";
-  *(v5 + 2120) = 21;
-  *(v5 + 2128) = 2;
-  *(v5 + 2144) = 20;
-  *(v5 + 2000) = 22;
-  *(v5 + 2112) = "particleEmitterOffset";
-  *(v5 + 2096) = 9;
-  *(v5 + 2104) = 2;
-  *(v5 + 2064) = "starCloudParticleCount";
-  *(v5 + 2072) = 22;
-  *(v5 + 2080) = 2;
-  *(v5 + 2088) = "FallAngle";
-  *(v5 + 2032) = 2;
-  *(v5 + 2040) = "starTwinkleAmount";
-  *(v5 + 2048) = 17;
-  *(v5 + 2056) = 2;
-  *(v5 + 2008) = 2;
-  *(v5 + 2016) = "starTwinkleSpeed";
-  *(v5 + 2024) = 16;
-  *(v5 + 3680) = 19;
-  *(v5 + 3688) = 2;
-  *(v5 + 3696) = "cloudFGColor";
-  *(v5 + 3704) = 12;
-  *(v5 + 3712) = 2;
-  *(v5 + 3720) = "cloudFGBrightness";
-  *(v5 + 3728) = 17;
-  *(v5 + 3736) = 2;
-  *(v5 + 3744) = "cloudFGVelocity";
-  *(v5 + 3752) = 15;
-  *(v5 + 3760) = 2;
-  *(v5 + 3768) = "cloudFGScale";
-  *(v5 + 3776) = 12;
-  *(v5 + 3784) = 2;
-  *(v5 + 3792) = "cloudFGOffsetY";
-  *(v5 + 3800) = 14;
-  *(v5 + 3808) = 2;
-  *(v5 + 3816) = "cloudFGOffsetZ";
-  *(v5 + 3824) = 14;
-  *(v5 + 3832) = 2;
-  *(v5 + 3840) = "cloudFGUseLighting";
-  *(v5 + 3848) = 18;
-  *(v5 + 3856) = 2;
-  *(v5 + 3864) = "cloudFGParticleCount";
-  *(v5 + 3872) = 20;
-  *(v5 + 3880) = 2;
-  *(v5 + 3888) = "cloudFGEmitterScale";
-  *(v5 + 3896) = 19;
-  *(v5 + 3904) = 2;
-  *(v5 + 3912) = "cloudFFGColor";
-  *(v5 + 3920) = 13;
-  *(v5 + 3928) = 2;
-  *(v5 + 3936) = "cloudFFGBrightness";
-  *(v5 + 3944) = 18;
-  *(v5 + 3952) = 2;
-  *(v5 + 3960) = "cloudFFGVelocity";
-  *(v5 + 3968) = 16;
-  *(v5 + 3976) = 2;
-  *(v5 + 3984) = "cloudFFGScale";
-  *(v5 + 3992) = 13;
-  *(v5 + 4000) = 2;
-  *(v5 + 4008) = "cloudFFGOffsetY";
-  *(v5 + 4016) = 15;
-  *(v5 + 4024) = 2;
-  *(v5 + 4032) = "cloudFFGOffsetZ";
-  *(v5 + 4040) = 15;
-  *(v5 + 4048) = 2;
-  *(v5 + 4056) = "cloudFFGUseLighting";
-  *(v5 + 4064) = 19;
-  *(v5 + 4072) = 2;
-  *(v5 + 4080) = "cloudFFGParticleCount";
-  *(v5 + 4088) = 21;
-  *(v5 + 4096) = 2;
-  *(v5 + 4104) = "cloudFFGEmitterScale";
-  *(v5 + 4112) = 20;
-  *(v5 + 4120) = 2;
-  *(v5 + 4128) = "cloudBlanketColor";
-  *(v5 + 4136) = 17;
-  *(v5 + 4144) = 2;
-  *(v5 + 4152) = "cloudBlanketBrightness";
-  *(v5 + 4160) = 22;
-  *(v5 + 4168) = 2;
-  *(v5 + 4176) = "cloudBlanketVelocity";
-  *(v5 + 4184) = 20;
-  *(v5 + 4192) = 2;
-  *(v5 + 4200) = "cloudBlanketScale";
-  *(v5 + 4208) = 17;
-  *(v5 + 4216) = 2;
-  *(v5 + 4224) = "cloudBlanketOffsetY";
-  *(v5 + 4232) = 19;
-  *(v5 + 4240) = 2;
-  *(v5 + 4248) = "cloudBlanketOffsetZ";
-  *(v5 + 4256) = 19;
-  *(v5 + 4264) = 2;
-  *(v5 + 4272) = "cloudBlanketUseLighting";
-  *(v5 + 4280) = 23;
-  *(v5 + 4288) = 2;
-  *(v5 + 4296) = "foregroundParticlesSize";
-  *(v5 + 4304) = 23;
-  *(v5 + 4312) = 2;
-  *(v5 + 4320) = "foregroundParticlesParticleVelocity";
-  *(v5 + 4328) = 35;
-  *(v5 + 4336) = 2;
-  *(v5 + 4344) = "foregroundParticlesParticleCount";
-  *(v5 + 4352) = 32;
-  *(v5 + 4360) = 2;
-  *(v5 + 4368) = "foregroundParticlesSpread";
-  *(v5 + 4376) = 25;
-  *(v5 + 4384) = 2;
-  *(v5 + 4392) = "foregroundParticlesRandomColorStart";
-  *(v5 + 4400) = 35;
-  *(v5 + 4408) = 2;
-  *(v5 + 4416) = "foregroundParticlesRandomColorEnd";
-  *(v5 + 4424) = 33;
-  *(v5 + 4432) = 2;
-  *(v5 + 4440) = "foregroundParticlesNoiseFieldIntensity";
-  *(v5 + 4448) = 38;
-  *(v5 + 4456) = 2;
-  *(v5 + 4464) = "foregroundParticlesNoiseFieldScale";
-  *(v5 + 4472) = 34;
-  *(v5 + 4480) = 2;
-  *(v5 + 4488) = "foregroundParticlesLife";
-  *(v5 + 4496) = 23;
-  *(v5 + 4504) = 2;
-  *(v5 + 4512) = "foregroundParticlesAngleVelocity";
-  *(v5 + 4520) = 32;
-  *(v5 + 4528) = 2;
-  *(v5 + 4536) = "foregroundParticlesImage";
-  *(v5 + 4544) = 24;
-  *(v5 + 4552) = 2;
-  *(v5 + 4560) = "sunFlareOverAllScale";
-  *(v5 + 4568) = 20;
-  *(v5 + 4576) = 2;
-  *(v5 + 4584) = "sunIrisScaleFrequency";
-  *(v5 + 4592) = 21;
-  *(v5 + 4600) = 2;
-  *(v5 + 4608) = "sunIrisScaleAmplitude";
-  *(v5 + 4616) = 21;
-  *(v5 + 4624) = 2;
-  *(v5 + 4632) = "sunIrisRotationFrequency";
-  *(v5 + 4640) = 24;
-  *(v5 + 4648) = 2;
-  *(v5 + 4656) = "sunIrisRotationAmplitude";
-  *(v5 + 4664) = 24;
-  *(v5 + 4672) = 2;
-  *(v5 + 4680) = "sunIrisLength";
-  *(v5 + 4688) = 13;
-  *(v5 + 4696) = 2;
-  *(v5 + 4704) = "sunIrisParticleCount";
-  *(v5 + 4712) = 20;
-  *(v5 + 4720) = 2;
-  *(v5 + 4728) = "sunIrisOpacity";
-  *(v5 + 4736) = 14;
-  *(v5 + 4744) = 2;
-  *(v5 + 4752) = "sunIrisSize";
-  *(v5 + 4760) = 11;
-  *(v5 + 4768) = 2;
-  *(v5 + 4776) = "sunSpikeBallScale";
-  *(v5 + 4784) = 17;
-  *(v5 + 4792) = 2;
-  *(v5 + 4800) = "sunSpikeBallColor";
-  *(v5 + 4808) = 17;
-  *(v5 + 4816) = 2;
-  *(v5 + 4824) = "sunSpikeBallAngle";
-  *(v5 + 4832) = 17;
-  *(v5 + 4840) = 2;
-  *(v5 + 4848) = "sunSpikeBallRotationFrequency";
-  *(v5 + 4856) = 29;
-  *(v5 + 4864) = 2;
-  *(v5 + 4872) = "sunSpikeBallRotationAmplitude";
-  *(v5 + 4880) = 29;
-  *(v5 + 4888) = 2;
-  *(v5 + 4896) = "sunSpikeBallImage";
-  *(v5 + 4904) = 17;
-  *(v5 + 4912) = 2;
-  *(v5 + 4920) = "sunRaysSpread";
-  *(v5 + 4928) = 13;
-  *(v5 + 4936) = 2;
-  *(v5 + 4944) = "sunRaysColor";
-  *(v5 + 4952) = 12;
-  *(v5 + 4960) = 2;
-  *(v5 + 4968) = "sunRaysParticleCount";
-  *(v5 + 4976) = 20;
-  *(v5 + 4984) = 2;
-  *(v5 + 4992) = "sunRaysLength";
-  *(v5 + 5000) = 13;
-  *(v5 + 5008) = 2;
-  *(v5 + 5016) = "sunRaysCenterOffset";
-  *(v5 + 5024) = 19;
-  *(v5 + 5032) = 2;
-  *(v5 + 5040) = "sunRainbowScale";
-  *(v5 + 5048) = 15;
-  *(v5 + 5056) = 2;
-  *(v5 + 5064) = "sunRainbowOpacity";
-  *(v5 + 5072) = 17;
-  *(v5 + 5080) = 2;
-  *(v5 + 5088) = "sunRainbowSunPathOpacity";
-  *(v5 + 5096) = 24;
-  *(v5 + 5104) = 2;
-  *(v5 + 5112) = "rainLife";
-  *(v5 + 5120) = 8;
-  *(v5 + 5128) = 2;
-  *(v5 + 5136) = "snowLife";
-  *(v5 + 5144) = 8;
-  *(v5 + 5152) = 2;
-  *(v5 + 5160) = "sleetLife";
-  *(v5 + 5168) = 9;
-  *(v5 + 5176) = 2;
-  *(v5 + 5184) = "hailLife";
-  *(v5 + 5192) = 8;
-  *(v5 + 5200) = 2;
-  *(v5 + 5208) = "noiseLife";
-  *(v5 + 5216) = 9;
-  *(v5 + 5224) = 2;
-  *(v5 + 5232) = "starCloudsOpacity";
-  *(v5 + 5240) = 17;
-  *(v5 + 5248) = 2;
-  *(v5 + 5256) = "scaleFactor";
-  *(v5 + 5264) = 11;
-  *(v5 + 5272) = 2;
-  *(v5 + 5280) = "colliderACoordinates";
-  *(v5 + 5288) = 20;
-  *(v5 + 5296) = 2;
-  *(v5 + 5304) = "colliderBCoordinates";
-  *(v5 + 5312) = 20;
-  *(v5 + 5320) = 2;
-  *(v5 + 5328) = "colliderCCoordinates";
-  *(v5 + 5336) = 20;
-  *(v5 + 5344) = 2;
-  *(v5 + 5352) = "colliderDCoordinates";
-  *(v5 + 5360) = 20;
-  *(v5 + 5368) = 2;
-  *(v5 + 5376) = "colliderECoordinates";
-  *(v5 + 5384) = 20;
-  *(v5 + 5392) = 2;
-  *(v5 + 5400) = "colliderFCoordinates";
-  *(v5 + 5408) = 20;
-  *(v5 + 5416) = 2;
-  *(v5 + 5424) = "colliderCornerRadius";
-  *(v5 + 5432) = 20;
-  *(v5 + 5440) = 2;
-  *(v5 + 5448) = "collisionSize";
-  *(v5 + 5456) = 13;
-  *(v5 + 5464) = 2;
-  *(v5 + 5472) = "collisionLife";
-  *(v5 + 5480) = 13;
-  *(v5 + 5488) = 2;
-  *(v5 + 5496) = "collisionVelocity";
-  *(v5 + 5504) = 17;
-  *(v5 + 5512) = 2;
-  *(v5 + 5520) = "collisionGravity";
-  *(v5 + 5528) = 16;
-  *(v5 + 5536) = 2;
-  *(v5 + 5544) = "collisionRandomColorStart";
-  *(v5 + 5552) = 25;
-  *(v5 + 5560) = 2;
-  *(v5 + 5568) = "collisionRandomColorEnd";
-  *(v5 + 5576) = 23;
-  *(v5 + 5584) = 2;
-  *(v5 + 5592) = "collisionOccursProbability";
-  *(v5 + 5600) = 26;
-  *(v5 + 5608) = 2;
-  *(v5 + 5616) = "SunIrisSeed";
-  *(v5 + 5624) = 11;
-  *(v5 + 5632) = 2;
-  *(v5 + 5640) = "CloudBBGSeed";
-  *(v5 + 5648) = 12;
-  *(v5 + 5656) = 2;
-  *(v5 + 5664) = "CloudBGSeed";
-  *(v5 + 5672) = 11;
-  *(v5 + 5680) = 2;
-  *(v5 + 5688) = "CloudFGSeed";
-  *(v5 + 5696) = 11;
-  *(v5 + 5704) = 2;
-  *(v5 + 5712) = "CloudFFGSeed";
-  *(v5 + 5720) = 12;
-  *(v5 + 5728) = 2;
-  GEOLocationCoordinate2DMake(v4, v6);
-  v7 = sub_1BCE1DEC0();
+  sub_1BCB0057C(v3, 239);
+  *v4 = "cameraPosition";
+  *(v4 + 8) = 14;
+  *(v4 + 16) = 2;
+  *(v4 + 24) = "cameraRotation";
+  *(v4 + 32) = 14;
+  *(v4 + 40) = 2;
+  *(v4 + 48) = "cameraFocalLength";
+  *(v4 + 56) = 17;
+  *(v4 + 64) = 2;
+  *(v4 + 72) = "cameraOrthographicScale";
+  *(v4 + 80) = 23;
+  *(v4 + 88) = 2;
+  *(v4 + 96) = "bloomIntensity";
+  *(v4 + 104) = 14;
+  *(v4 + 112) = 2;
+  *(v4 + 120) = "filmOffset";
+  *(v4 + 128) = 10;
+  *(v4 + 136) = 2;
+  *(v4 + 144) = "lightningNumberOfBranches";
+  *(v4 + 152) = 25;
+  *(v4 + 160) = 2;
+  *(v4 + 168) = "lightningRoughness";
+  *(v4 + 176) = 18;
+  *(v4 + 184) = 2;
+  *(v4 + 192) = "lightningBranchSpread";
+  *(v4 + 200) = 21;
+  *(v4 + 208) = 2;
+  *(v4 + 216) = "lightningThickness";
+  *(v4 + 224) = 18;
+  *(v4 + 232) = 2;
+  *(v4 + 240) = "lightningBoltThicknessMultiplyer";
+  *(v4 + 248) = 32;
+  *(v4 + 256) = 2;
+  *(v4 + 264) = "lightningFrequencyAnim";
+  *(v4 + 272) = 22;
+  *(v4 + 280) = 2;
+  *(v4 + 288) = "lightningGlow";
+  *(v4 + 296) = 13;
+  *(v4 + 304) = 2;
+  *(v4 + 312) = "lightningGrowLength";
+  *(v4 + 320) = 19;
+  *(v4 + 328) = 2;
+  *(v4 + 336) = "lightningFlashLength";
+  *(v4 + 344) = 20;
+  *(v4 + 352) = 2;
+  *(v4 + 360) = "lightningFadeLength";
+  *(v4 + 368) = 19;
+  *(v4 + 376) = 2;
+  *(v4 + 384) = "lightningBranchFadeLength";
+  *(v4 + 392) = 25;
+  *(v4 + 400) = 2;
+  *(v4 + 408) = "lightningScreenFlashFadeLength";
+  *(v4 + 416) = 30;
+  *(v4 + 424) = 2;
+  *(v4 + 432) = "lightningScreenFlashProbability";
+  *(v4 + 440) = 31;
+  *(v4 + 448) = 2;
+  *(v4 + 456) = "lightningScreenFlashBrightness";
+  *(v4 + 464) = 30;
+  *(v4 + 472) = 2;
+  *(v4 + 480) = "lightningCloudFlashBrightness";
+  *(v4 + 488) = 29;
+  *(v4 + 496) = 2;
+  *(v4 + 504) = "lightningCloudFlashProbability";
+  *(v4 + 512) = 30;
+  *(v4 + 520) = 2;
+  *(v4 + 528) = "lightningDrawSpaceWidth";
+  *(v4 + 536) = 23;
+  *(v4 + 544) = 2;
+  *(v4 + 552) = "lightningUseRespawn";
+  *(v4 + 560) = 19;
+  *(v4 + 568) = 2;
+  *(v4 + 576) = "lightningRespawnSeed";
+  *(v4 + 584) = 20;
+  *(v4 + 592) = 2;
+  *(v4 + 600) = "lightningFadeProgress";
+  *(v4 + 608) = 21;
+  *(v4 + 616) = 2;
+  *(v4 + 624) = "moonElevation";
+  *(v4 + 632) = 13;
+  *(v4 + 640) = 2;
+  *(v4 + 648) = "moonImage";
+  *(v4 + 656) = 9;
+  *(v4 + 664) = 2;
+  *(v4 + 672) = "moonRiseToSet";
+  *(v4 + 680) = 13;
+  *(v4 + 688) = 2;
+  *(v4 + 696) = "moonAngle";
+  *(v4 + 704) = 9;
+  *(v4 + 712) = 2;
+  *(v4 + 720) = "moonScaleRange";
+  *(v4 + 728) = 14;
+  *(v4 + 736) = 2;
+  *(v4 + 744) = "moonColor";
+  *(v4 + 752) = 9;
+  *(v4 + 760) = 2;
+  *(v4 + 768) = "moonColorAtHorizon";
+  *(v4 + 776) = 18;
+  *(v4 + 784) = 2;
+  *(v4 + 792) = "moonLightRadius";
+  *(v4 + 800) = 15;
+  *(v4 + 808) = 2;
+  *(v4 + 816) = "moonPhaseAngle";
+  *(v4 + 824) = 14;
+  *(v4 + 832) = 2;
+  *(v4 + 840) = "moonLightIntensity";
+  *(v4 + 848) = 18;
+  *(v4 + 856) = 2;
+  *(v4 + 864) = "moonLightColor";
+  *(v4 + 872) = 14;
+  *(v4 + 880) = 2;
+  *(v4 + 888) = "moonBrightenDarks";
+  *(v4 + 896) = 17;
+  *(v4 + 904) = 2;
+  *(v4 + 912) = "gradientTop";
+  *(v4 + 920) = 11;
+  *(v4 + 928) = 2;
+  *(v4 + 936) = "gradientMiddle";
+  *(v4 + 944) = 14;
+  *(v4 + 952) = 2;
+  *(v4 + 960) = "gradientBottom";
+  *(v4 + 968) = 14;
+  *(v4 + 976) = 2;
+  *(v4 + 984) = "rainFGParticleCount";
+  *(v4 + 992) = 19;
+  *(v4 + 1000) = 2;
+  *(v4 + 1008) = "rainFGParticleVelocity";
+  *(v4 + 1016) = 22;
+  *(v4 + 1024) = 2;
+  *(v4 + 1032) = "rainFGMinMaxSize";
+  *(v4 + 1040) = 16;
+  *(v4 + 1048) = 2;
+  *(v4 + 1056) = "rainFGRandomColorStart";
+  *(v4 + 1064) = 22;
+  *(v4 + 1072) = 2;
+  *(v4 + 1080) = "rainFGRandomColorEnd";
+  *(v4 + 1088) = 20;
+  *(v4 + 1096) = 2;
+  *(v4 + 1104) = "rainFGSpread";
+  *(v4 + 1112) = 12;
+  *(v4 + 1120) = 2;
+  *(v4 + 1128) = "rainFGNoiseFieldIntensity";
+  *(v4 + 1136) = 25;
+  *(v4 + 1144) = 2;
+  *(v4 + 1152) = "rainFGNoiseFieldScale";
+  *(v4 + 1160) = 21;
+  *(v4 + 1168) = 2;
+  *(v4 + 1176) = "rainBGParticleCount";
+  *(v4 + 1184) = 19;
+  *(v4 + 1192) = 2;
+  *(v4 + 1200) = "rainBGParticleVelocity";
+  *(v4 + 1208) = 22;
+  *(v4 + 1216) = 2;
+  *(v4 + 1224) = "rainBGMinMaxSize";
+  *(v4 + 1232) = 16;
+  *(v4 + 1240) = 2;
+  *(v4 + 1248) = "rainBGRandomColorStart";
+  *(v4 + 1256) = 22;
+  *(v4 + 1264) = 2;
+  *(v4 + 1272) = "rainBGRandomColorEnd";
+  *(v4 + 1280) = 20;
+  *(v4 + 1288) = 2;
+  *(v4 + 1296) = "rainBGSpread";
+  *(v4 + 1304) = 12;
+  *(v4 + 1312) = 2;
+  *(v4 + 1320) = "rainBGNoiseFieldIntensity";
+  *(v4 + 1328) = 25;
+  *(v4 + 1336) = 2;
+  *(v4 + 1344) = "rainBGNoiseFieldScale";
+  *(v4 + 1352) = 21;
+  *(v4 + 1360) = 2;
+  *(v4 + 1368) = "blowingSpeed";
+  *(v4 + 1376) = 12;
+  *(v4 + 1384) = 2;
+  *(v4 + 1392) = "blowingAmount";
+  *(v4 + 1400) = 13;
+  *(v4 + 1408) = 2;
+  *(v4 + 1416) = "snowFGParticleCount";
+  *(v4 + 1424) = 19;
+  *(v4 + 1432) = 2;
+  *(v4 + 1440) = "snowFGParticleVelocity";
+  *(v4 + 1448) = 22;
+  *(v4 + 1456) = 2;
+  *(v4 + 1464) = "snowFGMinMaxSize";
+  *(v4 + 1472) = 16;
+  *(v4 + 1480) = 2;
+  *(v4 + 1488) = "snowFGNoiseFieldIntensity";
+  *(v4 + 1496) = 25;
+  *(v4 + 1504) = 2;
+  *(v4 + 1512) = "snowFGNoiseFieldScale";
+  *(v4 + 1520) = 21;
+  *(v4 + 1528) = 2;
+  *(v4 + 1536) = "snowFGSpread";
+  *(v4 + 1544) = 12;
+  *(v4 + 1552) = 2;
+  *(v4 + 1560) = "snowFGRandomColorStart";
+  *(v4 + 1568) = 22;
+  *(v4 + 1576) = 2;
+  *(v4 + 1584) = "snowFGRandomColorEnd";
+  *(v4 + 1592) = 20;
+  *(v4 + 1600) = 2;
+  *(v4 + 1608) = "snowBGParticleCount";
+  *(v4 + 1616) = 19;
+  *(v4 + 1624) = 2;
+  *(v4 + 1632) = "snowBGParticleVelocity";
+  *(v4 + 1640) = 22;
+  *(v4 + 1648) = 2;
+  *(v4 + 1656) = "snowBGMinMaxSize";
+  *(v4 + 1664) = 16;
+  *(v4 + 1672) = 2;
+  *(v4 + 1680) = "snowBGNoiseFieldIntensity";
+  *(v4 + 1688) = 25;
+  *(v4 + 1696) = 2;
+  *(v4 + 1704) = "snowBGNoiseFieldScale";
+  *(v4 + 1712) = 21;
+  *(v4 + 1720) = 2;
+  *(v4 + 1728) = "snowBGSpread";
+  *(v4 + 1736) = 12;
+  *(v4 + 1744) = 2;
+  *(v4 + 1752) = "snowBGRandomColorStart";
+  *(v4 + 1760) = 22;
+  *(v4 + 1768) = 2;
+  *(v4 + 1776) = "snowBGRandomColorEnd";
+  *(v4 + 1784) = 20;
+  *(v4 + 1792) = 2;
+  *(v4 + 1800) = "useSnowFast";
+  *(v4 + 1808) = 11;
+  *(v4 + 1824) = "starOpacity";
+  *(v4 + 1848) = "starSize";
+  *(v4 + 1872) = "starSpeed";
+  *(v4 + 1896) = "starParticleCount";
+  *(v4 + 1920) = "starBrightSize";
+  *(v4 + 1944) = "starBrightParticleCount";
+  *(v4 + 1968) = "starBrightTwinkleAmount";
+  *(v4 + 1992) = "starBrightTwinkleSpeed";
+  *(v4 + 2184) = "lightSunColor";
+  *(v4 + 2280) = "lightAmbientIntensity";
+  *(v4 + 2376) = "noiseParticleVelocity";
+  *(v4 + 2472) = "noiseRandomColorEnd";
+  *(v4 + 2568) = "hailMinMaxSize";
+  *(v4 + 2664) = "sleetFGParticleVelocity";
+  *(v4 + 2760) = "sleetBGParticleCount";
+  *(v4 + 2856) = "sleetBGRandomColorEnd";
+  *(v4 + 2952) = "windRandomColorEnd";
+  *(v4 + 3048) = "fringeParticleCount";
+  *(v4 + 3144) = "fringeScaleFrequency";
+  *(v4 + 3240) = "fringeColor";
+  *(v4 + 3480) = "cloudBGColor";
+  *(v4 + 3576) = "cloudBGOffsetY";
+  *(v4 + 3672) = "cloudBGEmitterScale";
+  *(v4 + 3648) = "cloudBGParticleCount";
+  *(v4 + 3640) = 2;
+  *(v4 + 3656) = 20;
+  *(v4 + 3664) = 2;
+  *(v4 + 3624) = "cloudBGUseLighting";
+  *(v4 + 3608) = 14;
+  *(v4 + 3616) = 2;
+  *(v4 + 3632) = 18;
+  *(v4 + 1816) = 2;
+  *(v4 + 3600) = "cloudBGOffsetZ";
+  *(v4 + 3584) = 14;
+  *(v4 + 3592) = 2;
+  *(v4 + 3552) = "cloudBGScale";
+  *(v4 + 3544) = 2;
+  *(v4 + 3560) = 12;
+  *(v4 + 3568) = 2;
+  *(v4 + 3528) = "cloudBGVelocity";
+  *(v4 + 3512) = 17;
+  *(v4 + 3520) = 2;
+  *(v4 + 3536) = 15;
+  *(v4 + 1832) = 11;
+  *(v4 + 3504) = "cloudBGBrightness";
+  *(v4 + 3488) = 12;
+  *(v4 + 3496) = 2;
+  *(v4 + 3456) = "cloudBBGEmitterScale";
+  *(v4 + 3448) = 2;
+  *(v4 + 3464) = 20;
+  *(v4 + 3472) = 2;
+  *(v4 + 3432) = "cloudBBGParticleCount";
+  *(v4 + 3416) = 19;
+  *(v4 + 3424) = 2;
+  *(v4 + 3440) = 21;
+  *(v4 + 1840) = 2;
+  *(v4 + 3408) = "cloudBBGUseLighting";
+  *(v4 + 3392) = 15;
+  *(v4 + 3400) = 2;
+  *(v4 + 3360) = "cloudBBGOffsetY";
+  *(v4 + 3368) = 15;
+  *(v4 + 3376) = 2;
+  *(v4 + 3384) = "cloudBBGOffsetZ";
+  *(v4 + 3328) = 2;
+  *(v4 + 3336) = "cloudBBGScale";
+  *(v4 + 3344) = 13;
+  *(v4 + 3352) = 2;
+  *(v4 + 3296) = 18;
+  *(v4 + 3304) = 2;
+  *(v4 + 3312) = "cloudBBGVelocity";
+  *(v4 + 3320) = 16;
+  *(v4 + 3288) = "cloudBBGBrightness";
+  *(v4 + 3272) = 13;
+  *(v4 + 3280) = 2;
+  *(v4 + 1856) = 8;
+  *(v4 + 3264) = "cloudBBGColor";
+  *(v4 + 3248) = 11;
+  *(v4 + 3256) = 2;
+  *(v4 + 3216) = "fringeAngularVelocity";
+  *(v4 + 3208) = 2;
+  *(v4 + 3224) = 21;
+  *(v4 + 3232) = 2;
+  *(v4 + 3192) = "fringeOffsetY";
+  *(v4 + 3176) = 20;
+  *(v4 + 3184) = 2;
+  *(v4 + 3200) = 13;
+  *(v4 + 1864) = 2;
+  *(v4 + 3168) = "fringeScaleAmplitude";
+  *(v4 + 3152) = 20;
+  *(v4 + 3160) = 2;
+  *(v4 + 3120) = "fringeEmitterScale";
+  *(v4 + 3112) = 2;
+  *(v4 + 3128) = 18;
+  *(v4 + 3136) = 2;
+  *(v4 + 3096) = "fringeScale";
+  *(v4 + 3080) = 14;
+  *(v4 + 3088) = 2;
+  *(v4 + 3104) = 11;
+  *(v4 + 1880) = 9;
+  *(v4 + 3072) = "fringeVelocity";
+  *(v4 + 3056) = 19;
+  *(v4 + 3064) = 2;
+  *(v4 + 3024) = "windSize";
+  *(v4 + 3016) = 2;
+  *(v4 + 3032) = 8;
+  *(v4 + 3040) = 2;
+  *(v4 + 3000) = "windMinMaxY";
+  *(v4 + 2984) = 11;
+  *(v4 + 2992) = 2;
+  *(v4 + 3008) = 11;
+  *(v4 + 1888) = 2;
+  *(v4 + 2976) = "windMinMaxX";
+  *(v4 + 2960) = 18;
+  *(v4 + 2968) = 2;
+  *(v4 + 2928) = "windRandomColorStart";
+  *(v4 + 2920) = 2;
+  *(v4 + 2936) = 20;
+  *(v4 + 2944) = 2;
+  *(v4 + 2904) = "windParticleVelocity";
+  *(v4 + 2888) = 18;
+  *(v4 + 2896) = 2;
+  *(v4 + 2912) = 20;
+  *(v4 + 1904) = 17;
+  *(v4 + 2880) = "windParticleAmount";
+  *(v4 + 2864) = 21;
+  *(v4 + 2872) = 2;
+  *(v4 + 2832) = "sleetBGRandomColorStart";
+  *(v4 + 2824) = 2;
+  *(v4 + 2840) = 23;
+  *(v4 + 2848) = 2;
+  *(v4 + 2808) = "sleetBGMinMaxSize";
+  *(v4 + 2792) = 23;
+  *(v4 + 2800) = 2;
+  *(v4 + 2816) = 17;
+  *(v4 + 1912) = 2;
+  *(v4 + 2784) = "sleetBGParticleVelocity";
+  *(v4 + 2768) = 20;
+  *(v4 + 2776) = 2;
+  *(v4 + 2736) = "sleetFGRandomColorEnd";
+  *(v4 + 2728) = 2;
+  *(v4 + 2744) = 21;
+  *(v4 + 2752) = 2;
+  *(v4 + 2712) = "sleetFGRandomColorStart";
+  *(v4 + 2696) = 17;
+  *(v4 + 2704) = 2;
+  *(v4 + 2720) = 23;
+  *(v4 + 1928) = 14;
+  *(v4 + 2688) = "sleetFGMinMaxSize";
+  *(v4 + 2672) = 23;
+  *(v4 + 2680) = 2;
+  *(v4 + 2640) = "sleetFGParticleCount";
+  *(v4 + 2632) = 2;
+  *(v4 + 2648) = 20;
+  *(v4 + 2656) = 2;
+  *(v4 + 2616) = "hailColorEnd";
+  *(v4 + 2600) = 14;
+  *(v4 + 2608) = 2;
+  *(v4 + 2624) = 12;
+  *(v4 + 1936) = 2;
+  *(v4 + 2592) = "hailColorStart";
+  *(v4 + 2576) = 14;
+  *(v4 + 2584) = 2;
+  *(v4 + 2544) = "hailParticleVelocity";
+  *(v4 + 2536) = 2;
+  *(v4 + 2552) = 20;
+  *(v4 + 2560) = 2;
+  *(v4 + 2520) = "hailParticleCount";
+  *(v4 + 2504) = 18;
+  *(v4 + 2512) = 2;
+  *(v4 + 2528) = 17;
+  *(v4 + 1952) = 23;
+  *(v4 + 2496) = "noiseAngleVelocity";
+  *(v4 + 2480) = 19;
+  *(v4 + 2488) = 2;
+  *(v4 + 2448) = "noiseRandomColorStart";
+  *(v4 + 2440) = 2;
+  *(v4 + 2456) = 21;
+  *(v4 + 2464) = 2;
+  *(v4 + 2424) = "noiseMinMaxSize";
+  *(v4 + 2408) = 18;
+  *(v4 + 2416) = 2;
+  *(v4 + 2432) = 15;
+  *(v4 + 1960) = 2;
+  *(v4 + 2400) = "noiseParticleCount";
+  *(v4 + 2384) = 21;
+  *(v4 + 2392) = 2;
+  *(v4 + 2352) = "sunRayStartPosition";
+  *(v4 + 2344) = 2;
+  *(v4 + 2360) = 19;
+  *(v4 + 2368) = 2;
+  *(v4 + 2328) = "sunRayAngle";
+  *(v4 + 2312) = 8;
+  *(v4 + 2320) = 2;
+  *(v4 + 2336) = 11;
+  *(v4 + 1976) = 23;
+  *(v4 + 2304) = "sunAngle";
+  *(v4 + 2288) = 21;
+  *(v4 + 2296) = 2;
+  *(v4 + 2256) = "lightSunIntensity";
+  *(v4 + 2248) = 2;
+  *(v4 + 2264) = 17;
+  *(v4 + 2272) = 2;
+  *(v4 + 2232) = "lightFillIntensity";
+  *(v4 + 2216) = 17;
+  *(v4 + 2224) = 2;
+  *(v4 + 2240) = 18;
+  *(v4 + 1984) = 2;
+  *(v4 + 2208) = "lightAmbientColor";
+  *(v4 + 2192) = 13;
+  *(v4 + 2200) = 2;
+  *(v4 + 2160) = "lightFillColor";
+  *(v4 + 2152) = 2;
+  *(v4 + 2168) = 14;
+  *(v4 + 2176) = 2;
+  *(v4 + 2136) = "particleEmitterWidth";
+  *(v4 + 2120) = 21;
+  *(v4 + 2128) = 2;
+  *(v4 + 2144) = 20;
+  *(v4 + 2000) = 22;
+  *(v4 + 2112) = "particleEmitterOffset";
+  *(v4 + 2096) = 9;
+  *(v4 + 2104) = 2;
+  *(v4 + 2064) = "starCloudParticleCount";
+  *(v4 + 2072) = 22;
+  *(v4 + 2080) = 2;
+  *(v4 + 2088) = "FallAngle";
+  *(v4 + 2032) = 2;
+  *(v4 + 2040) = "starTwinkleAmount";
+  *(v4 + 2048) = 17;
+  *(v4 + 2056) = 2;
+  *(v4 + 2008) = 2;
+  *(v4 + 2016) = "starTwinkleSpeed";
+  *(v4 + 2024) = 16;
+  *(v4 + 3680) = 19;
+  *(v4 + 3688) = 2;
+  *(v4 + 3696) = "cloudFGColor";
+  *(v4 + 3704) = 12;
+  *(v4 + 3712) = 2;
+  *(v4 + 3720) = "cloudFGBrightness";
+  *(v4 + 3728) = 17;
+  *(v4 + 3736) = 2;
+  *(v4 + 3744) = "cloudFGVelocity";
+  *(v4 + 3752) = 15;
+  *(v4 + 3760) = 2;
+  *(v4 + 3768) = "cloudFGScale";
+  *(v4 + 3776) = 12;
+  *(v4 + 3784) = 2;
+  *(v4 + 3792) = "cloudFGOffsetY";
+  *(v4 + 3800) = 14;
+  *(v4 + 3808) = 2;
+  *(v4 + 3816) = "cloudFGOffsetZ";
+  *(v4 + 3824) = 14;
+  *(v4 + 3832) = 2;
+  *(v4 + 3840) = "cloudFGUseLighting";
+  *(v4 + 3848) = 18;
+  *(v4 + 3856) = 2;
+  *(v4 + 3864) = "cloudFGParticleCount";
+  *(v4 + 3872) = 20;
+  *(v4 + 3880) = 2;
+  *(v4 + 3888) = "cloudFGEmitterScale";
+  *(v4 + 3896) = 19;
+  *(v4 + 3904) = 2;
+  *(v4 + 3912) = "cloudFFGColor";
+  *(v4 + 3920) = 13;
+  *(v4 + 3928) = 2;
+  *(v4 + 3936) = "cloudFFGBrightness";
+  *(v4 + 3944) = 18;
+  *(v4 + 3952) = 2;
+  *(v4 + 3960) = "cloudFFGVelocity";
+  *(v4 + 3968) = 16;
+  *(v4 + 3976) = 2;
+  *(v4 + 3984) = "cloudFFGScale";
+  *(v4 + 3992) = 13;
+  *(v4 + 4000) = 2;
+  *(v4 + 4008) = "cloudFFGOffsetY";
+  *(v4 + 4016) = 15;
+  *(v4 + 4024) = 2;
+  *(v4 + 4032) = "cloudFFGOffsetZ";
+  *(v4 + 4040) = 15;
+  *(v4 + 4048) = 2;
+  *(v4 + 4056) = "cloudFFGUseLighting";
+  *(v4 + 4064) = 19;
+  *(v4 + 4072) = 2;
+  *(v4 + 4080) = "cloudFFGParticleCount";
+  *(v4 + 4088) = 21;
+  *(v4 + 4096) = 2;
+  *(v4 + 4104) = "cloudFFGEmitterScale";
+  *(v4 + 4112) = 20;
+  *(v4 + 4120) = 2;
+  *(v4 + 4128) = "cloudBlanketColor";
+  *(v4 + 4136) = 17;
+  *(v4 + 4144) = 2;
+  *(v4 + 4152) = "cloudBlanketBrightness";
+  *(v4 + 4160) = 22;
+  *(v4 + 4168) = 2;
+  *(v4 + 4176) = "cloudBlanketVelocity";
+  *(v4 + 4184) = 20;
+  *(v4 + 4192) = 2;
+  *(v4 + 4200) = "cloudBlanketScale";
+  *(v4 + 4208) = 17;
+  *(v4 + 4216) = 2;
+  *(v4 + 4224) = "cloudBlanketOffsetY";
+  *(v4 + 4232) = 19;
+  *(v4 + 4240) = 2;
+  *(v4 + 4248) = "cloudBlanketOffsetZ";
+  *(v4 + 4256) = 19;
+  *(v4 + 4264) = 2;
+  *(v4 + 4272) = "cloudBlanketUseLighting";
+  *(v4 + 4280) = 23;
+  *(v4 + 4288) = 2;
+  *(v4 + 4296) = "foregroundParticlesSize";
+  *(v4 + 4304) = 23;
+  *(v4 + 4312) = 2;
+  *(v4 + 4320) = "foregroundParticlesParticleVelocity";
+  *(v4 + 4328) = 35;
+  *(v4 + 4336) = 2;
+  *(v4 + 4344) = "foregroundParticlesParticleCount";
+  *(v4 + 4352) = 32;
+  *(v4 + 4360) = 2;
+  *(v4 + 4368) = "foregroundParticlesSpread";
+  *(v4 + 4376) = 25;
+  *(v4 + 4384) = 2;
+  *(v4 + 4392) = "foregroundParticlesRandomColorStart";
+  *(v4 + 4400) = 35;
+  *(v4 + 4408) = 2;
+  *(v4 + 4416) = "foregroundParticlesRandomColorEnd";
+  *(v4 + 4424) = 33;
+  *(v4 + 4432) = 2;
+  *(v4 + 4440) = "foregroundParticlesNoiseFieldIntensity";
+  *(v4 + 4448) = 38;
+  *(v4 + 4456) = 2;
+  *(v4 + 4464) = "foregroundParticlesNoiseFieldScale";
+  *(v4 + 4472) = 34;
+  *(v4 + 4480) = 2;
+  *(v4 + 4488) = "foregroundParticlesLife";
+  *(v4 + 4496) = 23;
+  *(v4 + 4504) = 2;
+  *(v4 + 4512) = "foregroundParticlesAngleVelocity";
+  *(v4 + 4520) = 32;
+  *(v4 + 4528) = 2;
+  *(v4 + 4536) = "foregroundParticlesImage";
+  *(v4 + 4544) = 24;
+  *(v4 + 4552) = 2;
+  *(v4 + 4560) = "sunFlareOverAllScale";
+  *(v4 + 4568) = 20;
+  *(v4 + 4576) = 2;
+  *(v4 + 4584) = "sunIrisScaleFrequency";
+  *(v4 + 4592) = 21;
+  *(v4 + 4600) = 2;
+  *(v4 + 4608) = "sunIrisScaleAmplitude";
+  *(v4 + 4616) = 21;
+  *(v4 + 4624) = 2;
+  *(v4 + 4632) = "sunIrisRotationFrequency";
+  *(v4 + 4640) = 24;
+  *(v4 + 4648) = 2;
+  *(v4 + 4656) = "sunIrisRotationAmplitude";
+  *(v4 + 4664) = 24;
+  *(v4 + 4672) = 2;
+  *(v4 + 4680) = "sunIrisLength";
+  *(v4 + 4688) = 13;
+  *(v4 + 4696) = 2;
+  *(v4 + 4704) = "sunIrisParticleCount";
+  *(v4 + 4712) = 20;
+  *(v4 + 4720) = 2;
+  *(v4 + 4728) = "sunIrisOpacity";
+  *(v4 + 4736) = 14;
+  *(v4 + 4744) = 2;
+  *(v4 + 4752) = "sunIrisSize";
+  *(v4 + 4760) = 11;
+  *(v4 + 4768) = 2;
+  *(v4 + 4776) = "sunSpikeBallScale";
+  *(v4 + 4784) = 17;
+  *(v4 + 4792) = 2;
+  *(v4 + 4800) = "sunSpikeBallColor";
+  *(v4 + 4808) = 17;
+  *(v4 + 4816) = 2;
+  *(v4 + 4824) = "sunSpikeBallAngle";
+  *(v4 + 4832) = 17;
+  *(v4 + 4840) = 2;
+  *(v4 + 4848) = "sunSpikeBallRotationFrequency";
+  *(v4 + 4856) = 29;
+  *(v4 + 4864) = 2;
+  *(v4 + 4872) = "sunSpikeBallRotationAmplitude";
+  *(v4 + 4880) = 29;
+  *(v4 + 4888) = 2;
+  *(v4 + 4896) = "sunSpikeBallImage";
+  *(v4 + 4904) = 17;
+  *(v4 + 4912) = 2;
+  *(v4 + 4920) = "sunRaysSpread";
+  *(v4 + 4928) = 13;
+  *(v4 + 4936) = 2;
+  *(v4 + 4944) = "sunRaysColor";
+  *(v4 + 4952) = 12;
+  *(v4 + 4960) = 2;
+  *(v4 + 4968) = "sunRaysParticleCount";
+  *(v4 + 4976) = 20;
+  *(v4 + 4984) = 2;
+  *(v4 + 4992) = "sunRaysLength";
+  *(v4 + 5000) = 13;
+  *(v4 + 5008) = 2;
+  *(v4 + 5016) = "sunRaysCenterOffset";
+  *(v4 + 5024) = 19;
+  *(v4 + 5032) = 2;
+  *(v4 + 5040) = "sunRainbowScale";
+  *(v4 + 5048) = 15;
+  *(v4 + 5056) = 2;
+  *(v4 + 5064) = "sunRainbowOpacity";
+  *(v4 + 5072) = 17;
+  *(v4 + 5080) = 2;
+  *(v4 + 5088) = "sunRainbowSunPathOpacity";
+  *(v4 + 5096) = 24;
+  *(v4 + 5104) = 2;
+  *(v4 + 5112) = "rainLife";
+  *(v4 + 5120) = 8;
+  *(v4 + 5128) = 2;
+  *(v4 + 5136) = "snowLife";
+  *(v4 + 5144) = 8;
+  *(v4 + 5152) = 2;
+  *(v4 + 5160) = "sleetLife";
+  *(v4 + 5168) = 9;
+  *(v4 + 5176) = 2;
+  *(v4 + 5184) = "hailLife";
+  *(v4 + 5192) = 8;
+  *(v4 + 5200) = 2;
+  *(v4 + 5208) = "noiseLife";
+  *(v4 + 5216) = 9;
+  *(v4 + 5224) = 2;
+  *(v4 + 5232) = "starCloudsOpacity";
+  *(v4 + 5240) = 17;
+  *(v4 + 5248) = 2;
+  *(v4 + 5256) = "scaleFactor";
+  *(v4 + 5264) = 11;
+  *(v4 + 5272) = 2;
+  *(v4 + 5280) = "colliderACoordinates";
+  *(v4 + 5288) = 20;
+  *(v4 + 5296) = 2;
+  *(v4 + 5304) = "colliderBCoordinates";
+  *(v4 + 5312) = 20;
+  *(v4 + 5320) = 2;
+  *(v4 + 5328) = "colliderCCoordinates";
+  *(v4 + 5336) = 20;
+  *(v4 + 5344) = 2;
+  *(v4 + 5352) = "colliderDCoordinates";
+  *(v4 + 5360) = 20;
+  *(v4 + 5368) = 2;
+  *(v4 + 5376) = "colliderECoordinates";
+  *(v4 + 5384) = 20;
+  *(v4 + 5392) = 2;
+  *(v4 + 5400) = "colliderFCoordinates";
+  *(v4 + 5408) = 20;
+  *(v4 + 5416) = 2;
+  *(v4 + 5424) = "colliderCornerRadius";
+  *(v4 + 5432) = 20;
+  *(v4 + 5440) = 2;
+  *(v4 + 5448) = "collisionSize";
+  *(v4 + 5456) = 13;
+  *(v4 + 5464) = 2;
+  *(v4 + 5472) = "collisionLife";
+  *(v4 + 5480) = 13;
+  *(v4 + 5488) = 2;
+  *(v4 + 5496) = "collisionVelocity";
+  *(v4 + 5504) = 17;
+  *(v4 + 5512) = 2;
+  *(v4 + 5520) = "collisionGravity";
+  *(v4 + 5528) = 16;
+  *(v4 + 5536) = 2;
+  *(v4 + 5544) = "collisionRandomColorStart";
+  *(v4 + 5552) = 25;
+  *(v4 + 5560) = 2;
+  *(v4 + 5568) = "collisionRandomColorEnd";
+  *(v4 + 5576) = 23;
+  *(v4 + 5584) = 2;
+  *(v4 + 5592) = "collisionOccursProbability";
+  *(v4 + 5600) = 26;
+  *(v4 + 5608) = 2;
+  *(v4 + 5616) = "SunIrisSeed";
+  *(v4 + 5624) = 11;
+  *(v4 + 5632) = 2;
+  *(v4 + 5640) = "CloudBBGSeed";
+  *(v4 + 5648) = 12;
+  *(v4 + 5656) = 2;
+  *(v4 + 5664) = "CloudBGSeed";
+  *(v4 + 5672) = 11;
+  *(v4 + 5680) = 2;
+  *(v4 + 5688) = "CloudFGSeed";
+  *(v4 + 5696) = 11;
+  *(v4 + 5704) = 2;
+  *(v4 + 5712) = "CloudFFGSeed";
+  *(v4 + 5720) = 12;
+  *(v4 + 5728) = 2;
+  GEOLocationCoordinate2DMake();
+  v5 = sub_1BCE1DEC0();
 
-  if (v7 < 0x80 || (v7 & 0xFFFFFFFFFFFFFFC0) == 0x80)
+  if (v5 < 0x80 || (v5 & 0xFFFFFFFFFFFFFFC0) == 0x80)
   {
 LABEL_3:
-    v9 = v7;
+    v7 = v5;
   }
 
   else
   {
-    v10 = v7 - 192;
-    v9 = -35;
-    LOBYTE(v7) = -64;
-    switch(v10)
+    v8 = v5 - 192;
+    v7 = -35;
+    LOBYTE(v5) = -64;
+    switch(v8)
     {
       case 0uLL:
         goto LABEL_3;
       case 1uLL:
-        LOBYTE(v7) = -63;
+        LOBYTE(v5) = -63;
         goto LABEL_3;
       case 2uLL:
-        LOBYTE(v7) = -62;
+        LOBYTE(v5) = -62;
         goto LABEL_3;
       case 3uLL:
-        LOBYTE(v7) = -61;
+        LOBYTE(v5) = -61;
         goto LABEL_3;
       case 4uLL:
-        LOBYTE(v7) = -60;
+        LOBYTE(v5) = -60;
         goto LABEL_3;
       case 5uLL:
-        LOBYTE(v7) = -59;
+        LOBYTE(v5) = -59;
         goto LABEL_3;
       case 6uLL:
-        LOBYTE(v7) = -58;
+        LOBYTE(v5) = -58;
         goto LABEL_3;
       case 7uLL:
-        LOBYTE(v7) = -57;
+        LOBYTE(v5) = -57;
         goto LABEL_3;
       case 8uLL:
-        LOBYTE(v7) = -56;
+        LOBYTE(v5) = -56;
         goto LABEL_3;
       case 9uLL:
-        LOBYTE(v7) = -55;
+        LOBYTE(v5) = -55;
         goto LABEL_3;
       case 0xAuLL:
-        LOBYTE(v7) = -54;
+        LOBYTE(v5) = -54;
         goto LABEL_3;
       case 0xBuLL:
-        LOBYTE(v7) = -53;
+        LOBYTE(v5) = -53;
         goto LABEL_3;
       case 0xCuLL:
-        LOBYTE(v7) = -52;
+        LOBYTE(v5) = -52;
         goto LABEL_3;
       case 0xDuLL:
-        LOBYTE(v7) = -51;
+        LOBYTE(v5) = -51;
         goto LABEL_3;
       case 0xEuLL:
-        LOBYTE(v7) = -50;
+        LOBYTE(v5) = -50;
         goto LABEL_3;
       case 0xFuLL:
-        LOBYTE(v7) = -49;
+        LOBYTE(v5) = -49;
         goto LABEL_3;
       case 0x10uLL:
-        LOBYTE(v7) = -48;
+        LOBYTE(v5) = -48;
         goto LABEL_3;
       case 0x11uLL:
-        LOBYTE(v7) = -47;
+        LOBYTE(v5) = -47;
         goto LABEL_3;
       case 0x12uLL:
-        LOBYTE(v7) = -46;
+        LOBYTE(v5) = -46;
         goto LABEL_3;
       case 0x13uLL:
-        LOBYTE(v7) = -45;
+        LOBYTE(v5) = -45;
         goto LABEL_3;
       case 0x14uLL:
-        LOBYTE(v7) = -44;
+        LOBYTE(v5) = -44;
         goto LABEL_3;
       case 0x15uLL:
-        LOBYTE(v7) = -43;
+        LOBYTE(v5) = -43;
         goto LABEL_3;
       case 0x16uLL:
-        LOBYTE(v7) = -42;
+        LOBYTE(v5) = -42;
         goto LABEL_3;
       case 0x17uLL:
-        LOBYTE(v7) = -41;
+        LOBYTE(v5) = -41;
         goto LABEL_3;
       case 0x18uLL:
-        LOBYTE(v7) = -40;
+        LOBYTE(v5) = -40;
         goto LABEL_3;
       case 0x19uLL:
-        LOBYTE(v7) = -39;
+        LOBYTE(v5) = -39;
         goto LABEL_3;
       case 0x1AuLL:
-        LOBYTE(v7) = -38;
+        LOBYTE(v5) = -38;
         goto LABEL_3;
       case 0x1BuLL:
-        LOBYTE(v7) = -37;
+        LOBYTE(v5) = -37;
         goto LABEL_3;
       case 0x1CuLL:
-        LOBYTE(v7) = -36;
+        LOBYTE(v5) = -36;
         goto LABEL_3;
       case 0x1DuLL:
         break;
       case 0x1EuLL:
-        v9 = -34;
+        v7 = -34;
         break;
       case 0x1FuLL:
-        v9 = -33;
+        v7 = -33;
         break;
       case 0x20uLL:
-        v9 = -32;
+        v7 = -32;
         break;
       case 0x21uLL:
-        v9 = -31;
+        v7 = -31;
         break;
       case 0x22uLL:
-        v9 = -30;
+        v7 = -30;
         break;
       case 0x23uLL:
-        v9 = -29;
+        v7 = -29;
         break;
       case 0x24uLL:
-        v9 = -28;
+        v7 = -28;
         break;
       case 0x25uLL:
-        v9 = -27;
+        v7 = -27;
         break;
       case 0x26uLL:
-        v9 = -26;
+        v7 = -26;
         break;
       case 0x27uLL:
-        v9 = -25;
+        v7 = -25;
         break;
       case 0x28uLL:
-        v9 = -24;
+        v7 = -24;
         break;
       case 0x29uLL:
-        v9 = -23;
+        v7 = -23;
         break;
       case 0x2AuLL:
-        v9 = -22;
+        v7 = -22;
         break;
       case 0x2BuLL:
-        v9 = -21;
+        v7 = -21;
         break;
       case 0x2CuLL:
-        v9 = -20;
+        v7 = -20;
         break;
       case 0x2DuLL:
-        v9 = -19;
+        v7 = -19;
         break;
       case 0x2EuLL:
-        v9 = -18;
+        v7 = -18;
         break;
       default:
-        v9 = -17;
+        v7 = -17;
         break;
     }
   }
 
-  *v2 = v9;
+  *v2 = v7;
   return result;
 }
 
@@ -3685,7 +3678,7 @@ unint64_t sub_1BCC3B438()
   result = qword_1EBD0B340;
   if (!qword_1EBD0B340)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EBD0B348);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EBD0B348, &qword_1BCE59908);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EBD0B340);
   }
@@ -4043,17 +4036,21 @@ LABEL_18:
   return result;
 }
 
-uint64_t sub_1BCC3B7D8()
+double sub_1BCC3B7D8(uint64_t a1, char a2)
 {
   sub_1BCE1D370();
+
+  return result;
 }
 
-uint64_t sub_1BCC3B840()
+double sub_1BCC3B840(uint64_t a1, char a2)
 {
   sub_1BCE1D370();
+
+  return result;
 }
 
-uint64_t sub_1BCC3B890()
+double sub_1BCC3B890()
 {
   OUTLINED_FUNCTION_82_3();
   switch(v0)
@@ -4067,42 +4064,58 @@ uint64_t sub_1BCC3B890()
   }
 
   sub_1BCE1D370();
+
+  return result;
 }
 
-uint64_t sub_1BCC3B9A8()
+double sub_1BCC3B9A8(uint64_t a1, char a2)
 {
   sub_1BCE1D370();
+
+  return result;
 }
 
-uint64_t sub_1BCC3BA84()
+double sub_1BCC3BA84(uint64_t a1, char a2)
 {
   sub_1BCE1D370();
+
+  return result;
 }
 
-uint64_t sub_1BCC3BB24(uint64_t a1, uint64_t a2, void (*a3)(void))
+double sub_1BCC3BB24(uint64_t a1, char a2, uint64_t (*a3)(void))
 {
-  a3();
-  OUTLINED_FUNCTION_101_1();
+  v3 = a3();
+  OUTLINED_FUNCTION_101_1(v3, v4);
+
+  return result;
 }
 
-uint64_t sub_1BCC3BB74()
-{
-  sub_1BCE1D370();
-}
-
-uint64_t sub_1BCC3BBB4()
-{
-  sub_1BCE1D370();
-}
-
-uint64_t sub_1BCC3BCF0()
+double sub_1BCC3BB74(uint64_t a1, char a2)
 {
   sub_1BCE1D370();
+
+  return result;
 }
 
-uint64_t sub_1BCC3BD78()
+double sub_1BCC3BBB4(uint64_t a1, char a2)
 {
   sub_1BCE1D370();
+
+  return result;
+}
+
+double sub_1BCC3BCF0(uint64_t a1, char a2)
+{
+  sub_1BCE1D370();
+
+  return result;
+}
+
+double sub_1BCC3BD78(uint64_t a1, char a2)
+{
+  sub_1BCE1D370();
+
+  return result;
 }
 
 uint64_t WeatherConditionBackgroundConfig.cloudBBGAssetType.getter@<X0>(void *a1@<X8>)
@@ -4192,12 +4205,11 @@ uint64_t WeatherConditionBackgroundConfig.moonImageName.getter()
   return v1;
 }
 
-uint64_t WeatherConditionBackgroundConfig.moonImageName.setter(uint64_t a1, uint64_t a2)
+void WeatherConditionBackgroundConfig.moonImageName.setter(uint64_t a1, uint64_t a2)
 {
 
   *(v2 + 1512) = a1;
   *(v2 + 1520) = a2;
-  return result;
 }
 
 __n128 WeatherConditionBackgroundConfig.layers.getter@<Q0>(__n128 *a1@<X8>)
@@ -4242,20 +4254,6 @@ __n128 WeatherConditionBackgroundConfig.hazeEffect.setter(__n128 *a1)
 {
   result = *a1;
   v1[109] = *a1;
-  return result;
-}
-
-uint64_t WeatherConditionBackgroundConfig.lightingKeyframes.setter(uint64_t a1)
-{
-
-  *(v1 + 2312) = a1;
-  return result;
-}
-
-uint64_t WeatherConditionBackgroundConfig.moonLightingKeyframes.setter(uint64_t a1)
-{
-
-  *(v1 + 2320) = a1;
   return result;
 }
 
@@ -4409,38 +4407,50 @@ uint64_t sub_1BCC3F6B0(uint64_t a1)
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void WeatherConditionBackgroundConfig.Layers.CloudLayers.encode(to:)()
+void WeatherConditionBackgroundConfig.Layers.CloudLayers.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __int16 a10, char a11, char a12, char a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
   OUTLINED_FUNCTION_18_0();
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B358);
+  a25 = v28;
+  a26 = v29;
+  v31 = v30;
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B358, &qword_1BCE59F00);
   OUTLINED_FUNCTION_2();
-  v6 = v5;
+  v34 = v33;
   OUTLINED_FUNCTION_7_0();
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = v12 - v8;
-  v10 = v0[1];
-  v12[6] = v0[2];
-  v12[7] = v10;
-  v11 = v0[3];
-  v12[4] = v0[4];
-  v12[5] = v11;
-  v12[3] = v0[5];
-  __swift_project_boxed_opaque_existential_1(v3, v3[3]);
+  MEMORY[0x1EEE9AC00](v35);
+  v37 = &v46 - v36;
+  v38 = v26[1];
+  v50 = v26[2];
+  v51 = v38;
+  v39 = v26[3];
+  v48 = v26[4];
+  v49 = v39;
+  v47 = v26[5];
+  __swift_project_boxed_opaque_existential_1(v31, v31[3]);
   sub_1BCC3F8C4();
+  v40 = v32;
   sub_1BCE1E170();
+  a16 = 0;
   sub_1BCE1DFE0();
-  if (!v1)
+  if (!v27)
   {
-    OUTLINED_FUNCTION_72_2();
-    OUTLINED_FUNCTION_72_2();
-    OUTLINED_FUNCTION_72_2();
-    OUTLINED_FUNCTION_72_2();
+    v42 = v49;
+    v41 = v50;
+    v43 = v47;
+    v44 = v48;
+    a15 = 1;
+    OUTLINED_FUNCTION_72_2(v51, &a15);
+    a14 = 2;
+    OUTLINED_FUNCTION_72_2(v41, &a14);
+    a13 = 3;
+    OUTLINED_FUNCTION_72_2(v42, &a13);
+    a12 = 4;
+    OUTLINED_FUNCTION_72_2(v44, &a12);
     OUTLINED_FUNCTION_46_3(5);
-    OUTLINED_FUNCTION_72_2();
+    OUTLINED_FUNCTION_72_2(v43, v45);
   }
 
-  (*(v6 + 8))(v9, v4);
+  (*(v34 + 8))(v37, v40);
   OUTLINED_FUNCTION_17_1();
 }
 
@@ -4473,50 +4483,57 @@ uint64_t WeatherConditionBackgroundConfig.Layers.CloudLayers.hashValue.getter()
   return sub_1BCE1E150();
 }
 
-void WeatherConditionBackgroundConfig.Layers.CloudLayers.init(from:)()
+void WeatherConditionBackgroundConfig.Layers.CloudLayers.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __int16 a10, char a11, char a12, char a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
   OUTLINED_FUNCTION_18_0();
-  v2 = v1;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B368);
+  a25 = v27;
+  a26 = v28;
+  v30 = v29;
+  v32 = v31;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B368, &qword_1BCE59F08);
   OUTLINED_FUNCTION_2();
-  v7 = v6;
+  v35 = v34;
   OUTLINED_FUNCTION_7_0();
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v17 - v9;
+  MEMORY[0x1EEE9AC00](v36);
+  v38 = &v46 - v37;
   OUTLINED_FUNCTION_83_2();
   sub_1BCC3F8C4();
   OUTLINED_FUNCTION_84();
   sub_1BCE1E160();
-  if (!v0)
+  if (!v26)
   {
-    v11 = OUTLINED_FUNCTION_65_1();
-    v12 = OUTLINED_FUNCTION_65_1();
-    v22 = OUTLINED_FUNCTION_65_1();
-    v21 = OUTLINED_FUNCTION_65_1();
-    v20 = OUTLINED_FUNCTION_65_1();
-    OUTLINED_FUNCTION_45_4(5);
-    v13 = OUTLINED_FUNCTION_65_1();
-    v18 = v12 & 1;
-    v19 = v11 & 1;
-    v22 &= 1u;
-    v14 = v21 & 1;
-    v15 = v20 & 1;
-    (*(v7 + 8))(v10, v5);
-    v16 = v18;
-    *v4 = v19;
-    v4[1] = v16;
-    v4[2] = v22;
-    v4[3] = v14;
-    v4[4] = v15;
-    v4[5] = v13 & 1;
+    a16 = 0;
+    v39 = OUTLINED_FUNCTION_65_1(&a16);
+    a15 = 1;
+    v40 = OUTLINED_FUNCTION_65_1(&a15);
+    a14 = 2;
+    v51 = OUTLINED_FUNCTION_65_1(&a14);
+    a13 = 3;
+    v50 = OUTLINED_FUNCTION_65_1(&a13);
+    a12 = 4;
+    v49 = OUTLINED_FUNCTION_65_1(&a12);
+    v41 = OUTLINED_FUNCTION_45_4(5);
+    v42 = OUTLINED_FUNCTION_65_1(v41);
+    v47 = v40 & 1;
+    v48 = v39 & 1;
+    v51 &= 1u;
+    v43 = v50 & 1;
+    v44 = v49 & 1;
+    (*(v35 + 8))(v38, v33);
+    v45 = v47;
+    *v32 = v48;
+    v32[1] = v45;
+    v32[2] = v51;
+    v32[3] = v43;
+    v32[4] = v44;
+    v32[5] = v42 & 1;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v2);
+  __swift_destroy_boxed_opaque_existential_1(v30);
   OUTLINED_FUNCTION_17_1();
 }
 
-uint64_t sub_1BCC3FC4C()
+uint64_t sub_1BCC3FC4C(uint64_t a1)
 {
   sub_1BCE1E100();
   WeatherConditionBackgroundConfig.Layers.CloudLayers.hash(into:)();
@@ -4955,79 +4972,81 @@ uint64_t sub_1BCC408A4(uint64_t a1)
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void WeatherConditionBackgroundConfig.Layers.encode(to:)()
+void WeatherConditionBackgroundConfig.Layers.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __int16 a10, unsigned __int8 a11, char a12, char a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
   OUTLINED_FUNCTION_18_0();
-  v26 = v1;
-  v3 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B370);
+  v72 = v27;
+  v29 = v28;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B370, &qword_1BCE59F10);
   OUTLINED_FUNCTION_2();
-  v5 = v4;
+  v31 = v30;
   OUTLINED_FUNCTION_7_0();
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = v25 - v7;
-  v9 = v0[1];
-  v25[20] = v0[2];
-  v25[21] = v9;
-  v10 = v0[3];
-  v25[18] = v0[4];
-  v25[19] = v10;
-  v11 = v0[5];
-  v25[16] = v0[6];
-  v25[17] = v11;
-  v12 = v0[7];
-  v25[14] = v0[8];
-  v25[15] = v12;
-  v13 = v0[9];
-  v25[12] = v0[10];
-  v25[13] = v13;
-  v14 = v0[11];
-  v25[10] = v0[12];
-  v25[11] = v14;
-  v15 = v0[13];
-  v25[8] = v0[14];
-  v25[9] = v15;
-  v16 = v0[15];
-  v25[6] = v0[16];
-  v25[7] = v16;
-  v17 = v0[17];
-  v18 = v0[18];
-  v25[4] = v0[19];
-  v25[5] = v18;
-  v25[3] = v0[20];
-  LODWORD(v7) = v0[21];
-  v25[1] = v17;
-  v25[2] = v7;
-  v19 = v0[22];
-  v20 = v3[3];
-  v21 = v3;
-  v23 = v22;
-  __swift_project_boxed_opaque_existential_1(v21, v20);
+  MEMORY[0x1EEE9AC00](v32);
+  v34 = v62 - v33;
+  v35 = v26[1];
+  v70 = v26[2];
+  v71 = v35;
+  v36 = v26[3];
+  v68 = v26[4];
+  v69 = v36;
+  v37 = v26[5];
+  v66 = v26[6];
+  v67 = v37;
+  v38 = v26[7];
+  v64 = v26[8];
+  v65 = v38;
+  v39 = v26[9];
+  v62[12] = v26[10];
+  v63 = v39;
+  v40 = v26[11];
+  v62[10] = v26[12];
+  v62[11] = v40;
+  v41 = v26[13];
+  v62[8] = v26[14];
+  v62[9] = v41;
+  v42 = v26[15];
+  v62[6] = v26[16];
+  v62[7] = v42;
+  v43 = v26[17];
+  v44 = v26[18];
+  v62[4] = v26[19];
+  v62[5] = v44;
+  v62[3] = v26[20];
+  LODWORD(v33) = v26[21];
+  v62[1] = v43;
+  v62[2] = v33;
+  v45 = v26[22];
+  v46 = v29[3];
+  v47 = v29;
+  v49 = v48;
+  __swift_project_boxed_opaque_existential_1(v47, v46);
   sub_1BCC51B20();
   sub_1BCE1E170();
-  v24 = v26;
+  v50 = v72;
   sub_1BCE1DFE0();
-  if (!v24)
+  if (!v50)
   {
-    LODWORD(v26) = v19;
+    v52 = v69;
+    v51 = v70;
+    LODWORD(v72) = v45;
     OUTLINED_FUNCTION_46_3(1);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v71, v53);
     OUTLINED_FUNCTION_46_3(2);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v51, v54);
     OUTLINED_FUNCTION_46_3(3);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v52, v55);
     OUTLINED_FUNCTION_46_3(4);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v68, v56);
     OUTLINED_FUNCTION_46_3(5);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v67, v57);
     OUTLINED_FUNCTION_46_3(6);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v66, v58);
     OUTLINED_FUNCTION_46_3(7);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v65, v59);
     OUTLINED_FUNCTION_46_3(8);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v64, v60);
     OUTLINED_FUNCTION_46_3(9);
-    OUTLINED_FUNCTION_51_3();
+    OUTLINED_FUNCTION_51_3(v63, v61);
     OUTLINED_FUNCTION_46_3(10);
     sub_1BCE1DFE0();
     OUTLINED_FUNCTION_46_3(11);
@@ -5056,12 +5075,13 @@ void WeatherConditionBackgroundConfig.Layers.encode(to:)()
     sub_1BCE1E020();
   }
 
-  (*(v5 + 8))(v8, v23);
+  (*(v31 + 8))(v34, v49);
   OUTLINED_FUNCTION_17_1();
 }
 
-uint64_t WeatherConditionBackgroundConfig.Layers.hash(into:)()
+double WeatherConditionBackgroundConfig.Layers.hash(into:)(uint64_t a1)
 {
+  v4 = *(v1 + 23);
   sub_1BCE1E120();
   sub_1BCE1E120();
   sub_1BCE1E120();
@@ -5081,13 +5101,13 @@ uint64_t WeatherConditionBackgroundConfig.Layers.hash(into:)()
   sub_1BCE1E120();
   WeatherConditionBackgroundConfig.Layers.CloudLayers.hash(into:)();
 
-  return sub_1BCC3BB74();
+  return sub_1BCC3BB74(a1, v4);
 }
 
 uint64_t WeatherConditionBackgroundConfig.Layers.hashValue.getter()
 {
   OUTLINED_FUNCTION_114();
-  WeatherConditionBackgroundConfig.Layers.hash(into:)();
+  WeatherConditionBackgroundConfig.Layers.hash(into:)(v1);
   return sub_1BCE1E150();
 }
 
@@ -5096,7 +5116,7 @@ void WeatherConditionBackgroundConfig.Layers.init(from:)(uint64_t a1, uint64_t a
   OUTLINED_FUNCTION_18_0();
   v18 = v17;
   v20 = v19;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B390);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B390, &qword_1BCE59F18);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v21);
@@ -5194,10 +5214,10 @@ void WeatherConditionBackgroundConfig.Layers.init(from:)(uint64_t a1, uint64_t a
   OUTLINED_FUNCTION_17_1();
 }
 
-uint64_t sub_1BCC413B0()
+uint64_t sub_1BCC413B0(uint64_t a1)
 {
   sub_1BCE1E100();
-  WeatherConditionBackgroundConfig.Layers.hash(into:)();
+  WeatherConditionBackgroundConfig.Layers.hash(into:)(v2);
   return sub_1BCE1E150();
 }
 
@@ -5513,105 +5533,114 @@ uint64_t sub_1BCC42080(uint64_t a1)
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void WeatherConditionBackgroundConfig.LightningConfig.encode(to:)()
+void WeatherConditionBackgroundConfig.LightningConfig.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_76_2();
-  v3 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B3A8);
+  v4 = v3;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B3A8, &unk_1BCE59F20);
   OUTLINED_FUNCTION_2();
-  v5 = v4;
+  v6 = v5;
   OUTLINED_FUNCTION_7_0();
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = v25 - v7;
-  v40 = *(v0 + 4);
-  v39 = *(v0 + 8);
-  v9 = *(v0 + 24);
-  v37 = *(v0 + 28);
-  v38 = v9;
-  v10 = *(v0 + 32);
-  v35 = *(v0 + 36);
-  v36 = v10;
-  v11 = *(v0 + 40);
-  v33 = *(v0 + 44);
-  v34 = v11;
-  v12 = *(v0 + 52);
-  v32 = *(v0 + 48);
-  v14 = *(v0 + 56);
-  v13 = *(v0 + 60);
-  v16 = *(v0 + 64);
-  v15 = *(v0 + 68);
-  v17 = *(v0 + 72);
-  v19 = *(v0 + 80);
-  v18 = *(v0 + 84);
-  v20 = v3[3];
-  v21 = v3;
-  v23 = v22;
-  __swift_project_boxed_opaque_existential_1(v21, v20);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = v41 - v8;
+  v56 = *(v1 + 4);
+  v55 = *(v1 + 8);
+  v10 = *(v1 + 24);
+  v53 = *(v1 + 28);
+  v54 = v10;
+  v11 = *(v1 + 32);
+  v51 = *(v1 + 36);
+  v52 = v11;
+  v12 = *(v1 + 40);
+  v49 = *(v1 + 44);
+  v50 = v12;
+  v13 = *(v1 + 52);
+  v48 = *(v1 + 48);
+  v15 = *(v1 + 56);
+  v14 = *(v1 + 60);
+  v17 = *(v1 + 64);
+  v16 = *(v1 + 68);
+  v18 = *(v1 + 72);
+  v20 = *(v1 + 80);
+  v19 = *(v1 + 84);
+  v21 = v4[3];
+  v22 = v4;
+  v24 = v23;
+  __swift_project_boxed_opaque_existential_1(v22, v21);
   sub_1BCC51CC4();
   sub_1BCE1E170();
   OUTLINED_FUNCTION_43_5();
   sub_1BCE1DFE0();
-  if (!v1)
+  if (!v2)
   {
-    v30 = v14;
-    v31 = v12;
-    v28 = v16;
-    v29 = v13;
-    v27 = v15;
-    v26 = v17;
-    v25[0] = v18;
-    v25[1] = v19;
+    v46 = v15;
+    v47 = v13;
+    v44 = v17;
+    v45 = v14;
+    v43 = v16;
+    v42 = v18;
+    v41[0] = v19;
+    v41[1] = v20;
     OUTLINED_FUNCTION_39_6(1);
     OUTLINED_FUNCTION_43_5();
     sub_1BCE1E000();
-    v41 = 2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07DA8);
+    v57 = 2;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07DA8, &qword_1BCE43BD0);
     OUTLINED_FUNCTION_55_4();
-    sub_1BC957184(v24, &qword_1EBD07DA8);
+    sub_1BC957184(v25, &qword_1EBD07DA8, &qword_1BCE43BD0, v26);
     OUTLINED_FUNCTION_43_5();
     sub_1BCE1E020();
     OUTLINED_FUNCTION_43_5();
     sub_1BCE1E010();
-    OUTLINED_FUNCTION_39_6(4);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(5);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(6);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(7);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(8);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(9);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(10);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(11);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(12);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(13);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(14);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(15);
-    OUTLINED_FUNCTION_42_5();
-    v41 = 16;
+    v27 = OUTLINED_FUNCTION_39_6(4);
+    OUTLINED_FUNCTION_42_5(v27);
+    v28 = OUTLINED_FUNCTION_39_6(5);
+    OUTLINED_FUNCTION_42_5(v28);
+    v29 = OUTLINED_FUNCTION_39_6(6);
+    OUTLINED_FUNCTION_42_5(v29);
+    v30 = OUTLINED_FUNCTION_39_6(7);
+    OUTLINED_FUNCTION_42_5(v30);
+    v31 = OUTLINED_FUNCTION_39_6(8);
+    OUTLINED_FUNCTION_42_5(v31);
+    v32 = OUTLINED_FUNCTION_39_6(9);
+    OUTLINED_FUNCTION_42_5(v32);
+    v33 = OUTLINED_FUNCTION_39_6(10);
+    OUTLINED_FUNCTION_42_5(v33);
+    v34 = OUTLINED_FUNCTION_39_6(11);
+    OUTLINED_FUNCTION_42_5(v34);
+    v35 = OUTLINED_FUNCTION_39_6(12);
+    OUTLINED_FUNCTION_42_5(v35);
+    v36 = OUTLINED_FUNCTION_39_6(13);
+    OUTLINED_FUNCTION_42_5(v36);
+    v37 = OUTLINED_FUNCTION_39_6(14);
+    OUTLINED_FUNCTION_42_5(v37);
+    v38 = OUTLINED_FUNCTION_39_6(15);
+    OUTLINED_FUNCTION_42_5(v38);
+    v57 = 16;
     OUTLINED_FUNCTION_43_5();
     sub_1BCE1E020();
-    OUTLINED_FUNCTION_39_6(17);
-    OUTLINED_FUNCTION_42_5();
-    OUTLINED_FUNCTION_39_6(18);
-    OUTLINED_FUNCTION_42_5();
+    v39 = OUTLINED_FUNCTION_39_6(17);
+    OUTLINED_FUNCTION_42_5(v39);
+    v40 = OUTLINED_FUNCTION_39_6(18);
+    OUTLINED_FUNCTION_42_5(v40);
   }
 
-  (*(v5 + 8))(v8, v23);
+  (*(v6 + 8))(v9, v24);
   OUTLINED_FUNCTION_75();
 }
 
 uint64_t WeatherConditionBackgroundConfig.LightningConfig.hash(into:)()
 {
   v1 = *(v0 + 16);
+  v3 = *(v0 + 44);
+  v4 = *(v0 + 48);
+  v5 = *(v0 + 52);
+  v6 = *(v0 + 56);
+  v7 = *(v0 + 60);
+  v8 = *(v0 + 64);
+  v9 = *(v0 + 68);
+  v10 = *(v0 + 80);
+  v11 = *(v0 + 84);
   sub_1BCE1E120();
   sub_1BCE1E130();
   sub_1BCA4DD54();
@@ -5621,16 +5650,16 @@ uint64_t WeatherConditionBackgroundConfig.LightningConfig.hash(into:)()
   sub_1BCE1E130();
   sub_1BCE1E130();
   sub_1BCE1E130();
-  OUTLINED_FUNCTION_52_3();
-  OUTLINED_FUNCTION_52_3();
-  OUTLINED_FUNCTION_52_3();
-  OUTLINED_FUNCTION_52_3();
-  OUTLINED_FUNCTION_52_3();
-  OUTLINED_FUNCTION_52_3();
-  OUTLINED_FUNCTION_52_3();
+  OUTLINED_FUNCTION_52_3(v3);
+  OUTLINED_FUNCTION_52_3(v4);
+  OUTLINED_FUNCTION_52_3(v5);
+  OUTLINED_FUNCTION_52_3(v6);
+  OUTLINED_FUNCTION_52_3(v7);
+  OUTLINED_FUNCTION_52_3(v8);
+  OUTLINED_FUNCTION_52_3(v9);
   sub_1BCA4DD54();
-  OUTLINED_FUNCTION_52_3();
-  return OUTLINED_FUNCTION_52_3();
+  OUTLINED_FUNCTION_52_3(v10);
+  return OUTLINED_FUNCTION_52_3(v11);
 }
 
 uint64_t WeatherConditionBackgroundConfig.LightningConfig.hashValue.getter()
@@ -5645,7 +5674,7 @@ void WeatherConditionBackgroundConfig.LightningConfig.init(from:)(uint64_t a1, u
   OUTLINED_FUNCTION_76_2();
   v20 = v19;
   v22 = v21;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B3B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD0B3B8, &qword_1BCE59F30);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_7_0();
   MEMORY[0x1EEE9AC00](v23);
@@ -5663,87 +5692,87 @@ void WeatherConditionBackgroundConfig.LightningConfig.init(from:)(uint64_t a1, u
     OUTLINED_FUNCTION_8_40(1);
     sub_1BCE1DF50();
     v26 = v25;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07DA8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07DA8, &qword_1BCE43BD0);
     OUTLINED_FUNCTION_54_1();
-    sub_1BC957184(v27, v28);
+    sub_1BC957184(v27, v28, &qword_1BCE43BD0, v29);
     OUTLINED_FUNCTION_84();
     OUTLINED_FUNCTION_37_8();
     sub_1BCE1DF70();
     OUTLINED_FUNCTION_8_40(3);
-    v59 = sub_1BCE1DF60();
+    v60 = sub_1BCE1DF60();
     OUTLINED_FUNCTION_8_40(4);
     sub_1BCE1DF50();
-    v30 = v29;
+    v31 = v30;
     OUTLINED_FUNCTION_8_40(5);
     sub_1BCE1DF50();
-    v32 = v31;
+    v33 = v32;
     OUTLINED_FUNCTION_8_40(6);
     sub_1BCE1DF50();
-    v34 = v33;
+    v35 = v34;
     OUTLINED_FUNCTION_8_40(7);
     sub_1BCE1DF50();
-    v36 = v35;
+    v37 = v36;
     OUTLINED_FUNCTION_8_40(8);
     sub_1BCE1DF50();
-    v38 = v37;
+    v39 = v38;
     OUTLINED_FUNCTION_8_40(9);
     sub_1BCE1DF50();
-    v40 = v39;
+    v41 = v40;
     OUTLINED_FUNCTION_8_40(10);
     sub_1BCE1DF50();
-    v58 = v41;
+    v59 = v42;
     OUTLINED_FUNCTION_8_40(11);
     sub_1BCE1DF50();
-    v57 = v42;
+    v58 = v43;
     OUTLINED_FUNCTION_8_40(12);
     sub_1BCE1DF50();
-    v56 = v43;
+    v57 = v44;
     OUTLINED_FUNCTION_8_40(13);
     sub_1BCE1DF50();
-    v55 = v44;
+    v56 = v45;
     OUTLINED_FUNCTION_8_40(14);
     sub_1BCE1DF50();
-    v54 = v45;
+    v55 = v46;
     OUTLINED_FUNCTION_8_40(15);
     sub_1BCE1DF50();
-    v53 = v46;
+    v54 = v47;
     OUTLINED_FUNCTION_84();
     OUTLINED_FUNCTION_37_8();
     sub_1BCE1DF70();
     OUTLINED_FUNCTION_8_40(17);
     sub_1BCE1DF50();
-    v52 = v47;
+    v53 = v48;
     OUTLINED_FUNCTION_8_40(18);
     sub_1BCE1DF50();
-    v51 = v48;
-    v49 = OUTLINED_FUNCTION_63_2();
-    v50(v49);
+    v52 = v49;
+    v50 = OUTLINED_FUNCTION_63_2();
+    v51(v50);
     *v22 = v24 & 1;
     *(v22 + 4) = v26;
     *(v22 + 8) = a18;
-    *(v22 + 16) = v59;
-    *(v22 + 24) = v30;
-    *(v22 + 28) = v32;
-    *(v22 + 32) = v34;
-    *(v22 + 36) = v36;
-    *(v22 + 40) = v38;
-    *(v22 + 44) = v40;
-    *(v22 + 48) = v58;
-    *(v22 + 52) = v57;
-    *(v22 + 56) = v56;
-    *(v22 + 60) = v55;
-    *(v22 + 64) = v54;
-    *(v22 + 68) = v53;
+    *(v22 + 16) = v60;
+    *(v22 + 24) = v31;
+    *(v22 + 28) = v33;
+    *(v22 + 32) = v35;
+    *(v22 + 36) = v37;
+    *(v22 + 40) = v39;
+    *(v22 + 44) = v41;
+    *(v22 + 48) = v59;
+    *(v22 + 52) = v58;
+    *(v22 + 56) = v57;
+    *(v22 + 60) = v56;
+    *(v22 + 64) = v55;
+    *(v22 + 68) = v54;
     *(v22 + 72) = a18;
-    *(v22 + 80) = v52;
-    *(v22 + 84) = v51;
+    *(v22 + 80) = v53;
+    *(v22 + 84) = v52;
   }
 
   __swift_destroy_boxed_opaque_existential_1(v20);
   OUTLINED_FUNCTION_75();
 }
 
-uint64_t sub_1BCC42A4C()
+uint64_t sub_1BCC42A4C(uint64_t a1)
 {
   sub_1BCE1E100();
   WeatherConditionBackgroundConfig.LightningConfig.hash(into:)();

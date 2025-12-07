@@ -12,38 +12,38 @@
 
 - (id)description
 {
-  v62 = MEMORY[0x277CCACA8];
-  v64.receiver = self;
-  v64.super_class = TSCH3DDataBuffer;
-  v3 = [(TSCH3DDataBuffer *)&v64 description];
+  v54 = MEMORY[0x277CCACA8];
+  v57.receiver = self;
+  v57.super_class = TSCH3DDataBuffer;
+  v3 = [(TSCH3DDataBuffer *)&v57 description];
   v8 = objc_msgSend_count(self, v4, v5, v6, v7);
   v13 = objc_msgSend_components(self, v9, v10, v11, v12);
   v18 = objc_msgSend_componentType(self, v14, v15, v16, v17);
   v23 = objc_msgSend_byteSize(self, v19, v20, v21, v22);
   v28 = objc_msgSend_elementByteSize(self, v24, v25, v26, v27);
   v33 = objc_msgSend_componentByteSize(self, v29, v30, v31, v32);
-  objc_msgSend_size(self, v34, v35, v36, v37);
-  v38 = MEMORY[0x277CCACA8];
-  sub_276152FD4("ivec3(%d, %d, %d)", v39, v40, v41, v42, v43, v44, v45, v63);
-  if (v66 >= 0)
+  objc_msgSend_size(self, v34, v35, v36);
+  v37 = MEMORY[0x277CCACA8];
+  sub_276152FD4(v58, "ivec3(%d, %d, %d)", v55, 0, v56);
+  if (v59 >= 0)
   {
-    objc_msgSend_stringWithUTF8String_(v38, v46, v47, v48, v49, &v65);
+    objc_msgSend_stringWithUTF8String_(v37, v38, v39, v40, v41, v58);
   }
 
   else
   {
-    objc_msgSend_stringWithUTF8String_(v38, v46, v47, v48, v49, v65);
+    objc_msgSend_stringWithUTF8String_(v37, v38, v39, v40, v41, v58[0]);
   }
-  v51 = ;
-  if (v66 < 0)
+  v43 = ;
+  if (v59 < 0)
   {
-    operator delete(v65);
+    operator delete(v58[0]);
   }
 
-  hasLevels = objc_msgSend_hasLevels(self, v50, v52, v53, v54);
-  v60 = objc_msgSend_stringWithFormat_(v62, v56, v57, v58, v59, @"%@(count %lu, components %lu, type %ld, byteSize %lu, elementByteSize %lu, componentByteSize %lu, dimension(%@), hasLevels %ld)", v3, v8, v13, v18, v23, v28, v33, v51, hasLevels);
+  hasLevels = objc_msgSend_hasLevels(self, v42, v44, v45, v46);
+  v52 = objc_msgSend_stringWithFormat_(v54, v48, v49, v50, v51, @"%@(count %lu, components %lu, type %ld, byteSize %lu, elementByteSize %lu, componentByteSize %lu, dimension(%@), hasLevels %ld)", v3, v8, v13, v18, v23, v28, v33, v43, hasLevels);
 
-  return v60;
+  return v52;
 }
 
 - (unint64_t)componentByteSize
@@ -85,35 +85,35 @@
 - (tvec2<int>)size2
 {
   v6 = v2;
-  v7 = objc_msgSend_size(self, a2, v3, v4, v5);
-  if (v41 != 1)
+  v7 = objc_msgSend_size(self, v3, v4, v5, a2);
+  if (v34 != 1)
   {
     v12 = MEMORY[0x277D81150];
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v9, v10, v11, "[TSCH3DDataBuffer size2]");
     v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DDataBuffer.mm");
     v19 = MEMORY[0x277CCACA8];
-    sub_276152FD4("ivec3(%d, %d, %d)", v20, v21, v22, v23, v24, v25, v26, v40);
-    if (v43 >= 0)
+    sub_276152FD4(__p, "ivec3(%d, %d, %d)", v33, 0, HIDWORD(v33));
+    if (v36 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v19, v27, v28, v29, v30, &__p);
+      objc_msgSend_stringWithUTF8String_(v19, v20, v21, v22, v23, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v19, v27, v28, v29, v30, __p);
+      objc_msgSend_stringWithUTF8String_(v19, v20, v21, v22, v23, __p[0]);
     }
-    v32 = ;
-    if (v43 < 0)
+    v25 = ;
+    if (v36 < 0)
     {
-      operator delete(__p);
+      operator delete(__p[0]);
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v31, v33, v34, v35, v13, v18, 73, 0, "cannot get 2D size for 3D textures %@", v32, HIDWORD(v40), v41);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v24, v26, v27, v28, v13, v18, 73, 0, "cannot get 2D size for 3D textures %@", v25);
 
-    v7 = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37, v38, v39);
+    v7 = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
   }
 
-  *v6 = v40;
+  *v6 = v33;
   return v7;
 }
 
@@ -152,10 +152,10 @@
   }
 
   v44 = objc_msgSend_data(self, v10, v11, v12, v13);
-  result = objc_msgSend_size(self, v45, v46, v47, v48);
+  result = objc_msgSend_size(self, v45, v46, v47);
   retstr->var0 = v44;
-  *&retstr->var1.var0.var0 = v50;
-  retstr->var1.var2.var0 = v51;
+  *&retstr->var1.var0.var0 = v49;
+  retstr->var1.var2.var0 = v50;
   return result;
 }
 
@@ -163,39 +163,28 @@
 {
   if (objc_msgSend_hasLevels(self, to, v4, v5, v6))
   {
-    objc_msgSend_size(self, v9, v10, v11, v12);
-    LODWORD(v17) = v20;
-    if (v20 <= v21)
+    objc_msgSend_size(self, v9, v10, v11);
+    LODWORD(v12) = v15;
+    if (v15 <= v16)
     {
-      LODWORD(v17) = v21;
+      LODWORD(v12) = v16;
     }
 
-    v17 = v17;
-    if (v17 <= a4)
+    v12 = v12;
+    if (v12 > a4)
     {
-      v18 = 0;
-    }
-
-    else
-    {
-      v18 = 0;
+      v13 = 0;
       do
       {
-        v17 >>= 1;
-        ++v18;
+        v12 >>= 1;
+        ++v13;
       }
 
-      while (v17 > a4);
+      while (v12 > a4);
     }
-
-    return objc_msgSend_dataAtLevel_(self, v13, v14, v15, v16, v18);
   }
 
-  else
-  {
-
-    return objc_msgSend_dataAtLevel_(self, v9, v10, v11, v12, 0);
-  }
+  return objc_msgSend_dataAtLevel_(self, v9, v10, v11);
 }
 
 @end

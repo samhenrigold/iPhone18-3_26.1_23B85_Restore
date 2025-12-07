@@ -117,7 +117,7 @@
   if (*&v5[*MEMORY[0x1E6993AB8]] < *&v5[*MEMORY[0x1E6993AB0]])
   {
     v8 = 0;
-    v44 = 0;
+    v41 = 0;
     v9 = 0;
     v10 = MEMORY[0x1E6993AA8];
     v11 = MEMORY[0x1E6993AA0];
@@ -208,7 +208,7 @@ LABEL_21:
           {
             v24 = CCPBReaderReadStringNoCopy();
             expectedResult = v24;
-            if (v44)
+            if (v41)
             {
               if (!v24)
               {
@@ -218,11 +218,11 @@ LABEL_21:
               goto LABEL_37;
             }
 
-            v44 = objc_opt_new();
+            v41 = objc_opt_new();
             if (expectedResult)
             {
 LABEL_37:
-              v30 = v44;
+              v29 = v41;
               goto LABEL_38;
             }
 
@@ -239,7 +239,6 @@ LABEL_39:
 
           v28 = objc_opt_class();
           expectedResult = NSStringFromClass(v28);
-          v29 = *&v5[*v10];
           v8 = CCSkipFieldErrorForMessage();
         }
 
@@ -276,59 +275,57 @@ LABEL_41:
       }
     }
 
-    v30 = v9;
+    v29 = v9;
 LABEL_38:
-    [v30 addObject:expectedResult];
+    [v29 addObject:expectedResult];
     goto LABEL_39;
   }
 
   v9 = 0;
-  v44 = 0;
+  v41 = 0;
 LABEL_44:
   v8 = 0;
 LABEL_45:
-  v31 = [v44 copy];
+  v30 = [v41 copy];
   phrases = self->_phrases;
-  self->_phrases = v31;
+  self->_phrases = v30;
 
-  v33 = [v9 copy];
+  v32 = [v9 copy];
   negativePhrases = self->_negativePhrases;
-  self->_negativePhrases = v33;
+  self->_negativePhrases = v32;
 
   if (v8)
   {
     CCSetError();
-    v35 = 0;
-    v36 = dataCopy;
+    v34 = 0;
+    v35 = dataCopy;
   }
 
   else
   {
-    v37 = MEMORY[0x1E6993AA8];
-    v36 = dataCopy;
+    v35 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v38 = objc_opt_class();
-      v39 = NSStringFromClass(v38);
-      v40 = *&v5[*v37];
-      v41 = CCInvalidBufferErrorForMessage();
+      v36 = objc_opt_class();
+      v37 = NSStringFromClass(v36);
+      v38 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v35 = 0;
+      v34 = 0;
     }
 
     else
     {
-      v35 = 1;
+      v34 = 1;
     }
   }
 
-  return v35;
+  return v34;
 }
 
 - (CCToolKitToolSampleInvocationDefinition)initWithPhrases:(id)phrases expectedResult:(id)result negativePhrases:(id)negativePhrases error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   phrasesCopy = phrases;
   resultCopy = result;
   negativePhrasesCopy = negativePhrases;
@@ -336,7 +333,7 @@ LABEL_45:
   if (phrasesCopy)
   {
     objc_opt_class();
-    v47 = 0;
+    v44 = 0;
     v14 = CCValidateArrayValues();
     v15 = 0;
     if (!v14)
@@ -345,33 +342,32 @@ LABEL_45:
     }
 
     errorCopy = error;
-    v45 = 0u;
-    v46 = 0u;
+    v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v16 = phrasesCopy;
-    v17 = [v16 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v44;
+      v19 = *v41;
       do
       {
         v20 = 0;
         do
         {
-          if (*v44 != v19)
+          if (*v41 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v43 + 1) + 8 * v20);
           CCPBDataWriterWriteStringField();
           ++v20;
         }
 
         while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v18);
@@ -381,14 +377,14 @@ LABEL_45:
     if (!resultCopy)
     {
 LABEL_11:
-      v22 = v15;
+      v21 = v15;
       if (negativePhrasesCopy)
       {
         goto LABEL_12;
       }
 
 LABEL_25:
-      v15 = v22;
+      v15 = v21;
 LABEL_26:
       immutableData = [v13 immutableData];
       self = [(CCItemMessage *)self initWithData:immutableData error:error];
@@ -408,15 +404,15 @@ LABEL_26:
   }
 
   objc_opt_class();
-  v42 = v15;
+  v39 = v15;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-  v22 = v15;
+  v21 = v15;
 
   if (!IsInstanceOfExpectedClass)
   {
     CCSetError();
     selfCopy = 0;
-    v15 = v22;
+    v15 = v21;
     goto LABEL_28;
   }
 
@@ -428,43 +424,42 @@ LABEL_26:
 
 LABEL_12:
   objc_opt_class();
-  v41 = v22;
-  v23 = CCValidateArrayValues();
-  v15 = v22;
+  v38 = v21;
+  v22 = CCValidateArrayValues();
+  v15 = v21;
 
-  if (v23)
+  if (v22)
   {
     errorCopy2 = error;
-    v39 = 0u;
-    v40 = 0u;
+    v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v24 = negativePhrasesCopy;
-    v25 = [v24 countByEnumeratingWithState:&v37 objects:v48 count:16];
-    if (v25)
+    v34 = 0u;
+    v35 = 0u;
+    v23 = negativePhrasesCopy;
+    v24 = [v23 countByEnumeratingWithState:&v34 objects:v45 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v38;
+      v25 = v24;
+      v26 = *v35;
       do
       {
-        v28 = 0;
+        v27 = 0;
         do
         {
-          if (*v38 != v27)
+          if (*v35 != v26)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v23);
           }
 
-          v29 = *(*(&v37 + 1) + 8 * v28);
           CCPBDataWriterWriteStringField();
-          ++v28;
+          ++v27;
         }
 
-        while (v26 != v28);
-        v26 = [v24 countByEnumeratingWithState:&v37 objects:v48 count:16];
+        while (v25 != v27);
+        v25 = [v23 countByEnumeratingWithState:&v34 objects:v45 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
 
     error = errorCopy2;
@@ -476,7 +471,6 @@ LABEL_21:
   selfCopy = 0;
 LABEL_28:
 
-  v33 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

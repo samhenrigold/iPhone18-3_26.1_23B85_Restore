@@ -6,12 +6,12 @@
 
 + (id)errorFromException:(id)exception
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   exceptionCopy = exception;
-  v15[0] = @"ExceptionName";
+  v14[0] = @"ExceptionName";
   name = [exceptionCopy name];
-  v16[0] = name;
-  v15[1] = @"ExceptionReason";
+  v15[0] = name;
+  v14[1] = @"ExceptionReason";
   reason = [exceptionCopy reason];
   null = reason;
   if (!reason)
@@ -19,14 +19,14 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[1] = null;
-  v15[2] = @"ExceptionCallStackReturnAddresses";
+  v15[1] = null;
+  v14[2] = @"ExceptionCallStackReturnAddresses";
   callStackReturnAddresses = [exceptionCopy callStackReturnAddresses];
-  v16[2] = callStackReturnAddresses;
-  v15[3] = @"ExceptionCallStackSymbols";
+  v15[2] = callStackReturnAddresses;
+  v14[3] = @"ExceptionCallStackSymbols";
   callStackSymbols = [exceptionCopy callStackSymbols];
-  v16[3] = callStackSymbols;
-  v15[4] = @"ExceptionUserInfo";
+  v15[3] = callStackSymbols;
+  v14[4] = @"ExceptionUserInfo";
   userInfo = [exceptionCopy userInfo];
   null2 = userInfo;
   if (!userInfo)
@@ -34,8 +34,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[4] = null2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = null2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
   if (!userInfo)
   {
   }
@@ -45,8 +45,6 @@
   }
 
   v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.calendar.MigrationErrors" code:2 userInfo:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

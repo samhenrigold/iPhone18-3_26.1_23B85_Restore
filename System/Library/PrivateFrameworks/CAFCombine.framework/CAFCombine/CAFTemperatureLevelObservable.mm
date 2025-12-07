@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFTemperatureLevelObservable.temperatureLevelService(_:didUpdateHeatingCoolingLevel:)();
+  CAFTemperatureLevelObservable.temperatureLevelService(_:didUpdateHeatingCoolingLevel:)(selfCopy, level);
 }
 
 - (void)temperatureLevelService:(id)service didUpdateOn:(BOOL)on
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFTemperatureLevelObservable.temperatureLevelService(_:didUpdateOn:)();
+  CAFTemperatureLevelObservable.temperatureLevelService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

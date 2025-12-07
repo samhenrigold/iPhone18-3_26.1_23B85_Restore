@@ -43,25 +43,25 @@
 
 - (FCReadonlyPersonalizationAggregateStore)initWithGenerator:(id)generator
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   generatorCopy = generator;
   if (!generatorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "generator"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "generator"];
     *buf = 136315906;
-    v20 = "[FCReadonlyPersonalizationAggregateStore initWithGenerator:]";
-    v21 = 2080;
-    v22 = "FCPersonalizationAggregate.m";
-    v23 = 1024;
-    v24 = 121;
-    v25 = 2114;
-    v26 = v17;
+    v19 = "[FCReadonlyPersonalizationAggregateStore initWithGenerator:]";
+    v20 = 2080;
+    v21 = "FCPersonalizationAggregate.m";
+    v22 = 1024;
+    v23 = 121;
+    v24 = 2114;
+    v25 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v18.receiver = self;
-  v18.super_class = FCReadonlyPersonalizationAggregateStore;
-  v6 = [(FCReadonlyPersonalizationAggregateStore *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = FCReadonlyPersonalizationAggregateStore;
+  v6 = [(FCReadonlyPersonalizationAggregateStore *)&v17 init];
   v7 = v6;
   if (v6)
   {
@@ -80,13 +80,12 @@
     v7->_overrideAggregatesByFeatureKey = dictionary;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)modifyLocalAggregatesForFeatureKeys:(id)keys withAction:(unint64_t)action actionCount:(unint64_t)count defaultClicks:(double)clicks defaultImpressions:(double)impressions impressionBias:(double)bias configurableValues:(id)values
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   valuesCopy = values;
   v18 = objc_alloc_init(MEMORY[0x1E69B6EF0]);
@@ -97,27 +96,27 @@
   [v18 setTimestamp:{objc_msgSend(date, "fc_millisecondTimeIntervalSince1970")}];
 
   [v18 addAction:action count:count];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = keysCopy;
-  v20 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v20 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v34;
+    v22 = *v33;
     do
     {
       v23 = 0;
       do
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v33 + 1) + 8 * v23);
+        v24 = *(*(&v32 + 1) + 8 * v23);
         overrideAggregatesByFeatureKey = [(FCReadonlyPersonalizationAggregateStore *)self overrideAggregatesByFeatureKey];
         v26 = [overrideAggregatesByFeatureKey objectForKeyedSubscript:v24];
 
@@ -150,13 +149,11 @@
       }
 
       while (v21 != v23);
-      v21 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v21 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v21);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateFeatures:(id)features withAction:(unint64_t)action displayRank:(int64_t)rank groupRank:(int64_t)groupRank individually:(BOOL)individually configurableValues:(id)values
@@ -164,33 +161,33 @@
   individuallyCopy = individually;
   rankCopy = rank;
   groupRankCopy = groupRank;
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   valuesCopy = values;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v12 = featuresCopy;
-  v13 = [v12 countByEnumeratingWithState:&v43 objects:v56 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v42 objects:v55 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = MEMORY[0x1E69E9C10];
-    v16 = *v44;
+    v16 = *v43;
     do
     {
       v17 = 0;
       do
       {
-        if (*v44 != v16)
+        if (*v43 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v43 + 1) + 8 * v17);
+        v18 = *(*(&v42 + 1) + 8 * v17);
         personalizationIdentifier = [v18 personalizationIdentifier];
 
         if (personalizationIdentifier)
@@ -207,13 +204,13 @@ LABEL_8:
         {
           personalizationIdentifier2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Found a personalization feature without a personalization identifier"];
           *buf = 136315906;
-          v49 = "[FCReadonlyPersonalizationAggregateStore updateFeatures:withAction:displayRank:groupRank:individually:configurableValues:]";
-          v50 = 2080;
-          v51 = "FCPersonalizationAggregate.m";
-          v52 = 1024;
-          v53 = 192;
-          v54 = 2114;
-          v55 = personalizationIdentifier2;
+          v48 = "[FCReadonlyPersonalizationAggregateStore updateFeatures:withAction:displayRank:groupRank:individually:configurableValues:]";
+          v49 = 2080;
+          v50 = "FCPersonalizationAggregate.m";
+          v51 = 1024;
+          v52 = 192;
+          v53 = 2114;
+          v54 = personalizationIdentifier2;
           _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           goto LABEL_8;
         }
@@ -223,7 +220,7 @@ LABEL_10:
       }
 
       while (v14 != v17);
-      v21 = [v12 countByEnumeratingWithState:&v43 objects:v56 count:16];
+      v21 = [v12 countByEnumeratingWithState:&v42 objects:v55 count:16];
       v14 = v21;
     }
 
@@ -243,8 +240,8 @@ LABEL_10:
   [(FCReadonlyPersonalizationAggregateStore *)self modifyLocalAggregatesForFeatureKeys:array2 withAction:action actionCount:1 defaultClicks:valuesCopy defaultImpressions:v28 impressionBias:v30 configurableValues:v23];
 
   featureKey = [v22 featureKey];
-  v47 = featureKey;
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
+  v46 = featureKey;
+  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
   if (individuallyCopy)
   {
     v29 = [array2 count];
@@ -254,8 +251,6 @@ LABEL_10:
   v34 = v33;
   [v22 impressions];
   [(FCReadonlyPersonalizationAggregateStore *)self modifyLocalAggregatesForFeatureKeys:v32 withAction:action actionCount:v29 defaultClicks:valuesCopy defaultImpressions:v34 impressionBias:v35 configurableValues:v23];
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (id)baselineAggregateWithConfigurableValues:(id)values
@@ -470,7 +465,7 @@ void __101__FCReadonlyPersonalizationAggregateStore_processTodayPersonalizationU
 
 void __88__FCReadonlyPersonalizationAggregateStore_prepareAggregatesForUseWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) generator];
   v3 = [v2 generateDerivedData];
 
@@ -479,17 +474,15 @@ void __88__FCReadonlyPersonalizationAggregateStore_prepareAggregatesForUseWithCo
   {
     v5 = v4;
     v6 = NSStringFromFCScoringType([v3 scoringType]);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Generated personalization data with scoring type %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Generated personalization data with scoring type %{public}@", &v7, 0xCu);
   }
 
   [*(a1 + 32) setDerivedPersonalizationData:v3];
   [*(a1 + 32) setScoringType:{objc_msgSend(v3, "scoringType")}];
   [v3 decayRate];
   [*(a1 + 32) setDecayRate:?];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

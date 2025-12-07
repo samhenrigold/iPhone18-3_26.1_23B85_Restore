@@ -1,6 +1,7 @@
 @interface ColorCollectionViewCell
 - (ColorCollectionViewCell)initWithFrame:(CGRect)frame;
 - (void)setColor:(id)color;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation ColorCollectionViewCell
@@ -40,6 +41,15 @@
     objc_storeStrong(&self->_color, color);
     [(ColorPickerButton *)self->_colorPickerButton setColor:colorCopy];
   }
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5.receiver = self;
+  v5.super_class = ColorCollectionViewCell;
+  [(ColorCollectionViewCell *)&v5 setSelected:?];
+  [(ColorPickerButton *)self->_colorPickerButton setSelected:selectedCopy];
 }
 
 @end

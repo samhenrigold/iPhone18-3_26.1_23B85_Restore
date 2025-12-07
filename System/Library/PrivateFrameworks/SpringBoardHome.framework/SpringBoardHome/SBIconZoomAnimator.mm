@@ -140,7 +140,7 @@ void __39__SBIconZoomAnimator__prepareAnimation__block_invoke_2(uint64_t a1, voi
 
   else
   {
-    v8 = SBLogCommon();
+    v8 = SBLogCommon(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SBIconZoomAnimator iconViewForIcon:v8];
@@ -398,19 +398,20 @@ void __39__SBIconZoomAnimator__prepareAnimation__block_invoke_2(uint64_t a1, voi
 
 - (void)_invalidateAnimationForSignificantIconModelChangesForReason:(id)reason
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  if (![(SBIconAnimator *)self invalidated])
+  invalidated = [(SBIconAnimator *)self invalidated];
+  if ((invalidated & 1) == 0)
   {
-    v5 = SBLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogCommon(invalidated);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-      v7 = 138412546;
-      v8 = reasonCopy;
-      v9 = 2114;
-      v10 = callStackSymbols;
-      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "Invalidated icon zoom animation for reason: %@, stack=%{public}@", &v7, 0x16u);
+      v8 = 138412546;
+      v9 = reasonCopy;
+      v10 = 2114;
+      v11 = callStackSymbols;
+      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "Invalidated icon zoom animation for reason: %@, stack=%{public}@", &v8, 0x16u);
     }
 
     [(SBIconAnimator *)self setInvalidated:1];

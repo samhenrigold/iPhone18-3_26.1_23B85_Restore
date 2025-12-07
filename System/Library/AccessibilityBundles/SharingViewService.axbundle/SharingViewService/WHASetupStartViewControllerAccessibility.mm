@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axLabelDismissButton;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WHASetupStartViewControllerAccessibility
@@ -18,6 +19,14 @@
   v3.receiver = self;
   v3.super_class = WHASetupStartViewControllerAccessibility;
   [(WHASetupStartViewControllerAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
+  [(WHASetupStartViewControllerAccessibility *)self _axLabelDismissButton];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WHASetupStartViewControllerAccessibility;
+  [(WHASetupStartViewControllerAccessibility *)&v4 viewWillAppear:appear];
   [(WHASetupStartViewControllerAccessibility *)self _axLabelDismissButton];
 }
 

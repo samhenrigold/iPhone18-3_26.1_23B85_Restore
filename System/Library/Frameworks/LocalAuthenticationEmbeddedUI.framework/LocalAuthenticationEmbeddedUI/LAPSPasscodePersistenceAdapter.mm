@@ -1,5 +1,7 @@
 @interface LAPSPasscodePersistenceAdapter
 - (BOOL)canRemovePasscode:(id *)passcode;
+- (BOOL)changePasscode:(id)passcode to:(id)to enableRecovery:(BOOL)recovery error:(id *)error;
+- (BOOL)performRecovery:(id)recovery newPasscode:(id)passcode enableRecovery:(BOOL)enableRecovery error:(id *)error;
 - (BOOL)verifyFixedLengthNumericPasscodeIsStrong:(id)strong;
 - (BOOL)verifyNewPasscodeMeetsPlatformRequirements:(id)requirements error:(id *)error;
 - (BOOL)verifyVariableLengthAlphanumericPasscodeIsStrong:(id)strong;
@@ -64,6 +66,18 @@
   return v5;
 }
 
+- (BOOL)changePasscode:(id)passcode to:(id)to enableRecovery:(BOOL)recovery error:(id *)error
+{
+  recoveryCopy = recovery;
+  mcAdapter = self->_mcAdapter;
+  toCopy = to;
+  passcode = [passcode passcode];
+  passcode2 = [toCopy passcode];
+
+  LOBYTE(error) = [(LAPSPasscodePersistenceMCAdapter *)mcAdapter changePasscode:passcode to:passcode2 enableRecovery:recoveryCopy error:error];
+  return error;
+}
+
 - (BOOL)verifyNewPasscodeMeetsPlatformRequirements:(id)requirements error:(id *)error
 {
   mcAdapter = self->_mcAdapter;
@@ -109,6 +123,18 @@
   v5 = [(LAPSPasscodePersistenceMKBAdapter *)mkbAdapter verifyRecoveryPasscode:data];
 
   return v5;
+}
+
+- (BOOL)performRecovery:(id)recovery newPasscode:(id)passcode enableRecovery:(BOOL)enableRecovery error:(id *)error
+{
+  enableRecoveryCopy = enableRecovery;
+  mcAdapter = self->_mcAdapter;
+  passcodeCopy = passcode;
+  passcode = [recovery passcode];
+  passcode2 = [passcodeCopy passcode];
+
+  LOBYTE(error) = [(LAPSPasscodePersistenceMCAdapter *)mcAdapter performRecovery:passcode newPasscode:passcode2 enableRecovery:enableRecoveryCopy error:error];
+  return error;
 }
 
 @end

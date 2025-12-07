@@ -16,10 +16,10 @@
   os_unfair_lock_unlock(&blt_boundedWaitForActivePairedDevice_deviceLock);
   if (!getActivePairedDevice)
   {
-    v1 = blt_general_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = blt_general_log(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      +[(NRPairedDeviceRegistry(BoundedWait) *)v1];
+      +[(NRPairedDeviceRegistry(BoundedWait) *)v2];
     }
 
     mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];

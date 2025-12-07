@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)roleTypeAsString:(int)string;
 - (int)StringAsRoleType:(id)type;
 - (int)roleType;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)roleTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100203F68 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRoleType:(id)type
@@ -126,24 +142,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_roleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_locationId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    roleType = self->_roleType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

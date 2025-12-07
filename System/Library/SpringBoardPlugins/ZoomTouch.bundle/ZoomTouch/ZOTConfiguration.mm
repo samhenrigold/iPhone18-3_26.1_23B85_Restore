@@ -9,6 +9,7 @@
 - (id)valueForKey:(id)key;
 - (void)dealloc;
 - (void)setValue:(id)value forKey:(id)key;
+- (void)setZoomLevel:(double)level location:(CGPoint)location zoomed:(BOOL)zoomed forKey:(id)key;
 @end
 
 @implementation ZOTConfiguration
@@ -101,6 +102,59 @@
     CFPreferencesSetAppValue(key, valueCopy, @"com.apple.ZoomTouch");
 
     [(SCRCTargetSelectorTimer *)self->_syncTimer dispatchAfterDelay:1.0];
+  }
+}
+
+- (void)setZoomLevel:(double)level location:(CGPoint)location zoomed:(BOOL)zoomed forKey:(id)key
+{
+  zoomedCopy = zoomed;
+  y = location.y;
+  x = location.x;
+  keyCopy = key;
+  *&v11 = level;
+  v12 = [NSNumber numberWithFloat:v11];
+  *&v13 = x;
+  v14 = [NSNumber numberWithFloat:v13];
+  *&v15 = y;
+  v16 = [NSNumber numberWithFloat:v15];
+  v17 = [NSNumber numberWithBool:zoomedCopy];
+  if (keyCopy && [(ZOTConfiguration *)self perApplicationZoomLevelEnabled])
+  {
+    v18 = AXZoomMinimumZoomLevel + 0.000001;
+    if (AXZoomMinimumZoomLevel + 0.000001 <= level)
+    {
+      v19 = [objc_allocWithZone(NSDictionary) initWithObjectsAndKeys:{v12, @"ZoomLevel", v14, @"ZoomLocationX", v16, @"ZoomLocationY", v17, @"Zoomed", 0}];
+    }
+
+    else if (zoomedCopy)
+    {
+      v19 = 0;
+    }
+
+    else
+    {
+      v20 = [(ZOTConfiguration *)self valueForKey:keyCopy, v18];
+      v19 = [v20 mutableCopyWithZone:0];
+
+      [v19 setObject:v17 forKey:@"Zoomed"];
+    }
+
+    [(ZOTConfiguration *)self setValue:v19 forKey:keyCopy, v18];
+  }
+
+  v21 = AXZoomMinimumZoomLevel + 0.000001;
+  if (AXZoomMinimumZoomLevel + 0.000001 <= level)
+  {
+    [(ZOTConfiguration *)self setValue:v12 forKey:@"ZoomLevel", v21];
+    [(ZOTConfiguration *)self setValue:v14 forKey:@"ZoomLocationX"];
+    [(ZOTConfiguration *)self setValue:v16 forKey:@"ZoomLocationY"];
+    goto LABEL_13;
+  }
+
+  if (!zoomedCopy)
+  {
+LABEL_13:
+    [(ZOTConfiguration *)self setValue:v17 forKey:@"Zoomed", v21];
   }
 }
 

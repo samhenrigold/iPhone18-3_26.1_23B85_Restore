@@ -21,11 +21,12 @@
   return v2;
 }
 
-uint64_t __33__ICAccessibility_sharedInstance__block_invoke()
+uint64_t __33__ICAccessibility_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance__ICAccessibilitySharedInstance = objc_opt_new();
+  v1 = objc_opt_new();
+  sharedInstance__ICAccessibilitySharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1);
 }
 
 @end

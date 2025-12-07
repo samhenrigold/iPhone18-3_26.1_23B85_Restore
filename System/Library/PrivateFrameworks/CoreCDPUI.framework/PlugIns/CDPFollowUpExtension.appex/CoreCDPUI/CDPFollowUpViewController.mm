@@ -47,6 +47,7 @@
 - (void)upsellViewModelDidRequestBeginEnablementFlowWithContext:(id)context;
 - (void)upsellViewModelDidRequestCFUDismissalWithContext:(id)context;
 - (void)upsellViewModelDidRequestFlowCancellationWithContext:(id)context;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation CDPFollowUpViewController
@@ -119,27 +120,26 @@
   self->_followupSynchronizer = v7;
 
   [(AKFollowUpSynchronizer *)self->_followupSynchronizer setFollowupProvider:providerCopy];
-  v9 = self->_followupSynchronizer;
   if (objc_opt_respondsToSelector())
   {
-    v10 = self->_followupSynchronizer;
-    v11 = +[CDPAccount sharedInstance];
-    primaryAppleAccount = [v11 primaryAppleAccount];
-    v17 = 0;
-    v13 = [(AKFollowUpSynchronizer *)v10 synchronizeFollowUpsForAccount:primaryAppleAccount error:&v17];
-    v14 = v17;
+    v9 = self->_followupSynchronizer;
+    v10 = +[CDPAccount sharedInstance];
+    primaryAppleAccount = [v10 primaryAppleAccount];
+    v16 = 0;
+    v12 = [(AKFollowUpSynchronizer *)v9 synchronizeFollowUpsForAccount:primaryAppleAccount error:&v16];
+    v13 = v16;
 
     if (error)
     {
-      v15 = v14;
-      *error = v14;
+      v14 = v13;
+      *error = v13;
     }
   }
 
   else if (error)
   {
     _CDPStateError();
-    *error = v13 = 0;
+    *error = v12 = 0;
   }
 
   else
@@ -147,7 +147,7 @@
     return 0;
   }
 
-  return v13;
+  return v12;
 }
 
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion
@@ -1083,6 +1083,15 @@ LABEL_14:
       [(CDPFollowUpViewController *)self presentAlertUIWithCompletion:contextCopy];
     }
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CDPFollowUpViewController;
+  [(CDPFollowUpViewController *)&v4 viewDidAppear:appear];
+  [(CDPUIController *)self->_uiController setPresentingViewController:self];
+  [(CDPFollowUpViewController *)self _beginExtensionFlowWithAction:self->_followUpAction];
 }
 
 - (void)presentAlertUIWithCompletion:(id)completion

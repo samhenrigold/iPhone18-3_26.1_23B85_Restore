@@ -1,6 +1,7 @@
 @interface PCIeNANDiBootUpdater
 + (id)IOMatchingPropertyTable;
 - (BOOL)updateBootFirmwareWithError:(id *)error;
+- (PCIeNANDiBootUpdater)initWithIOService:(unsigned int)service;
 - (void)dealloc;
 @end
 
@@ -11,6 +12,31 @@
   v3 = @"IOProviderClass";
   v4 = @"AppleEmbeddedNVMeController";
   return [NSDictionary dictionaryWithObjects:&v4 forKeys:&v3 count:1];
+}
+
+- (PCIeNANDiBootUpdater)initWithIOService:(unsigned int)service
+{
+  v3 = *&service;
+  v7.receiver = self;
+  v7.super_class = PCIeNANDiBootUpdater;
+  v4 = [(MSUBootFirmwareUpdater *)&v7 initWithIOService:?];
+  if (v4)
+  {
+    v5 = [[PCIeNANDBootWriter alloc] initWithServiceNamed:@"EmbeddedDeviceTypePcieBootFirmware" parent:v3];
+    v4->_writer = v5;
+    if (v5)
+    {
+      -[PCIeNANDBootWriter setLayout:](v4->_writer, "setLayout:", [objc_opt_class() snapHasCombinedImages]);
+    }
+
+    else
+    {
+
+      return 0;
+    }
+  }
+
+  return v4;
 }
 
 - (void)dealloc

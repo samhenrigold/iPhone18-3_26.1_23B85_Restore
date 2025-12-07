@@ -87,7 +87,7 @@
   dispatch_sync(portListQueue, v4);
 }
 
-uint64_t __50__IAPClientPortManager_setIaptransportdIsRunning___block_invoke(uint64_t a1)
+void *__50__IAPClientPortManager_setIaptransportdIsRunning___block_invoke(uint64_t a1)
 {
   NSLog(&cfstr_Iaptransportdi.isa, *(*(a1 + 32) + 24), *(a1 + 40));
   *(*(a1 + 32) + 24) = *(a1 + 40);
@@ -181,7 +181,7 @@ void __45__IAPClientPortManager_sendData_data_length___block_invoke_2(uint64_t a
   }
 }
 
-uint64_t __45__IAPClientPortManager_sendData_data_length___block_invoke_3(uint64_t a1)
+void *__45__IAPClientPortManager_sendData_data_length___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) sendDataHandler];
   if (result)
@@ -404,50 +404,49 @@ void __62__IAPClientPortManager_forwardAccessoryDataToIAP_data_length___block_in
   dispatch_sync(portListQueue, block);
 }
 
-uint64_t __42__IAPClientPortManager_reRegisterHandlers__block_invoke(uint64_t a1)
+void *__42__IAPClientPortManager_reRegisterHandlers__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(*(a1 + 32) + 8) allValues];
-  result = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v4 = result;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = [v7 clientPortEventQueue];
-        v10[0] = MEMORY[0x277D85DD0];
-        v10[1] = 3221225472;
-        v10[2] = __42__IAPClientPortManager_reRegisterHandlers__block_invoke_2;
-        v10[3] = &unk_279780DB0;
-        v10[4] = *(a1 + 32);
-        v10[5] = v7;
-        dispatch_async(v8, v10);
-        ++v6;
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 3221225472;
+        v9[2] = __42__IAPClientPortManager_reRegisterHandlers__block_invoke_2;
+        v9[3] = &unk_279780DB0;
+        v9[4] = *(a1 + 32);
+        v9[5] = v7;
+        dispatch_async(v8, v9);
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      result = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       v4 = result;
     }
 
     while (result);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 

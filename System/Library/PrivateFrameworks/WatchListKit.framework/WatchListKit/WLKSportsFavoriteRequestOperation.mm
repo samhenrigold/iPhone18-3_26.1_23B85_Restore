@@ -9,16 +9,16 @@
 
 - (WLKSportsFavoriteRequestOperation)initWithAction:(unint64_t)action ids:(id)ids caller:(id)caller
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   callerCopy = caller;
   if (action == 2)
   {
     WLKRequireNonNilParameter(idsCopy);
-    v22 = @"id";
+    v21 = @"id";
     v11 = [idsCopy componentsJoinedByString:{@", "}];
-    v23 = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v22 = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     [WLKURLRequestProperties requestPropertiesWithEndpoint:@"favorite-teams" queryParameters:v12 httpMethod:@"DELETE" httpBody:0 headers:0 caller:callerCopy timeout:0 apiVersion:&unk_288222C38 options:0x200000];
     goto LABEL_7;
   }
@@ -26,10 +26,10 @@
   if (action == 1)
   {
     WLKRequireNonNilParameter(idsCopy);
-    v24 = @"id";
+    v23 = @"id";
     v11 = [idsCopy componentsJoinedByString:{@", "}];
-    v25[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v24[0] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     [WLKURLRequestProperties requestPropertiesWithEndpoint:@"favorite-teams" queryParameters:v12 httpMethod:@"POST" httpBody:0 headers:0 caller:callerCopy timeout:0 apiVersion:&unk_288222C38 options:0x200000];
     v10 = LABEL_7:;
 
@@ -48,9 +48,9 @@
   }
 
 LABEL_9:
-  v21.receiver = self;
-  v21.super_class = WLKSportsFavoriteRequestOperation;
-  v13 = [(WLKUTSNetworkRequestOperation *)&v21 initWithRequestProperties:v10];
+  v20.receiver = self;
+  v20.super_class = WLKSportsFavoriteRequestOperation;
+  v13 = [(WLKUTSNetworkRequestOperation *)&v20 initWithRequestProperties:v10];
   v14 = v13;
   if (v13)
   {
@@ -64,7 +64,6 @@ LABEL_9:
     v14->_caller = v17;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -84,27 +83,27 @@ LABEL_9:
   }
 }
 
-void __52__WLKSportsFavoriteRequestOperation_processResponse__block_invoke()
+void __52__WLKSportsFavoriteRequestOperation_processResponse__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (WLKIsTVApp())
+  if (WLKIsTVApp(a1, a2))
   {
-    v6 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    v8 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   }
 
   else
   {
-    v0 = objc_alloc(MEMORY[0x277CBEBD0]);
-    v1 = WLKTVAppBundleID();
-    v6 = [v0 initWithSuiteName:v1];
+    v2 = objc_alloc(MEMORY[0x277CBEBD0]);
+    v3 = WLKTVAppBundleID();
+    v8 = [v2 initWithSuiteName:v3];
   }
 
-  v2 = [MEMORY[0x277CBEAA8] now];
-  [v6 setObject:v2 forKey:@"WLKSettingsLastSyncDate"];
+  v4 = [MEMORY[0x277CBEAA8] now];
+  [v8 setObject:v4 forKey:@"WLKSettingsLastSyncDate"];
 
-  v3 = objc_alloc_init(MEMORY[0x277D2BA60]);
-  v4 = WLKTVAppBundleID();
-  v5 = [MEMORY[0x277CBEB98] setWithObject:@"WLKSettingsLastSyncDate"];
-  [v3 synchronizeUserDefaultsDomain:v4 keys:v5];
+  v5 = objc_alloc_init(MEMORY[0x277D2BA60]);
+  v6 = WLKTVAppBundleID();
+  v7 = [MEMORY[0x277CBEB98] setWithObject:@"WLKSettingsLastSyncDate"];
+  [v5 synchronizeUserDefaultsDomain:v6 keys:v7];
 }
 
 - (void)prepareURLRequest:(id)request

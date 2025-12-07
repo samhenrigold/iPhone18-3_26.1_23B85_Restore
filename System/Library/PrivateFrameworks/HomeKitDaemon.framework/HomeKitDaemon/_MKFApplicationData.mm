@@ -62,28 +62,28 @@
 
 - (BOOL)hasValidContainer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = +[_MKFApplicationData hmd_parentAttributeKeyPaths];
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [(_MKFApplicationData *)self valueForKeyPath:*(*(&v13 + 1) + 8 * i)];
+        v9 = [(_MKFApplicationData *)self valueForKeyPath:*(*(&v12 + 1) + 8 * i)];
 
         if (v9)
         {
@@ -91,7 +91,7 @@
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -103,7 +103,6 @@
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -207,7 +206,7 @@
         goto LABEL_9;
       }
 
-      managedObjectContext = [dictionaryCopy copy];
+      managedObjectContext = objc_msgSend_copy(dictionaryCopy);
       [(_MKFApplicationData *)applicationData setAppDataDictionary:managedObjectContext];
     }
 
@@ -218,7 +217,7 @@
       v11 = [self modelIDForParentRelationshipTo:containerCopy];
       [(_MKFApplicationData *)applicationData setModelID:v11];
 
-      v12 = [dictionaryCopy copy];
+      v12 = objc_msgSend_copy(dictionaryCopy);
       [(_MKFApplicationData *)applicationData setAppDataDictionary:v12];
 
       [containerCopy setApplicationData:applicationData];

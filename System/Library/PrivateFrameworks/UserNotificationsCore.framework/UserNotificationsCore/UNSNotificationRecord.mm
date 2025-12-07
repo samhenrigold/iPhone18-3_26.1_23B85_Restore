@@ -952,806 +952,118 @@
     v221 = 1;
   }
 
+  else if (similarCopy
+         && (v6 = objc_opt_class(), v6 == objc_opt_class())
+         && ([(UNSNotificationRecord *)self contentType], v7 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 contentType], v8 = objc_claimAutoreleasedReturnValue(), v9 = UNEqualObjects(), v8, v7, v9)
+         && ([(UNSNotificationRecord *)self communicationContextIdentifier], v10 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextIdentifier], v11 = objc_claimAutoreleasedReturnValue(), v12 = UNEqualObjects(), v11, v10, v12)
+         && ([(UNSNotificationRecord *)self communicationContextBundleIdentifier], v13 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextBundleIdentifier], v14 = objc_claimAutoreleasedReturnValue(), v15 = UNEqualObjects(), v14, v13, v15)
+         && ([(UNSNotificationRecord *)self communicationContextAssociatedObjectUri], v16 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextAssociatedObjectUri], v17 = objc_claimAutoreleasedReturnValue(), v18 = UNEqualObjects(), v17, v16, v18)
+         && ([(UNSNotificationRecord *)self communicationContextDisplayName], v19 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextDisplayName], v20 = objc_claimAutoreleasedReturnValue(), v21 = UNEqualObjects(), v20, v19, v21)
+         && ([(UNSNotificationRecord *)self communicationContextSender], v22 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextSender], v23 = objc_claimAutoreleasedReturnValue(), v24 = UNEqualObjects(), v23, v22, v24)
+         && ([(UNSNotificationRecord *)self communicationContextRecipients], v25 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextRecipients], v26 = objc_claimAutoreleasedReturnValue(), v27 = UNSimilarArrays(), v26, v25, v27)
+         && ([(UNSNotificationRecord *)self communicationContextContentURL], v28 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextContentURL], v29 = objc_claimAutoreleasedReturnValue(), v30 = UNEqualObjects(), v29, v28, v30)
+         && ([(UNSNotificationRecord *)self communicationContextImageName], v31 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 communicationContextImageName], v32 = objc_claimAutoreleasedReturnValue(), v33 = UNEqualObjects(), v32, v31, v33)
+         && (v34 = [(UNSNotificationRecord *)self communicationContextSystemImage], v34 == [(UNSNotificationRecord *)v5 communicationContextSystemImage])
+         && (v35 = [(UNSNotificationRecord *)self communicationContextMentionsCurrentUser], v35 == [(UNSNotificationRecord *)v5 communicationContextMentionsCurrentUser])
+         && (v36 = [(UNSNotificationRecord *)self communicationContextNotifyRecipientAnyway], v36 == [(UNSNotificationRecord *)v5 communicationContextNotifyRecipientAnyway])
+         && (v37 = [(UNSNotificationRecord *)self communicationContextReplyToCurrentUser], v37 == [(UNSNotificationRecord *)v5 communicationContextReplyToCurrentUser])
+         && (v38 = [(UNSNotificationRecord *)self communicationContextRecipientCount], v38 == [(UNSNotificationRecord *)v5 communicationContextRecipientCount])
+         && (v39 = [(UNSNotificationRecord *)self communicationContextCapabilities], v39 == [(UNSNotificationRecord *)v5 communicationContextCapabilities])
+         && (v40 = [(UNSNotificationRecord *)self communicationContextBusinessCorrespondence], v40 == [(UNSNotificationRecord *)v5 communicationContextBusinessCorrespondence])
+         && ([(UNSNotificationRecord *)self accessoryImageName], v41 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 accessoryImageName], v42 = objc_claimAutoreleasedReturnValue(), v43 = UNEqualObjects(), v42, v41, v43)
+         && ([(UNSNotificationRecord *)self attachments], v44 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 attachments], v45 = objc_claimAutoreleasedReturnValue(), v46 = UNEqualObjects(), v45, v44, v46)
+         && (-[UNSNotificationRecord badge](self, "badge"), v47 = objc_claimAutoreleasedReturnValue(), [v47 integerValue], -[UNSNotificationRecord badge](v5, "badge"), v48 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v48, "integerValue"), v49 = UNEqualIntegers(), v48, v47, v49)
+         && ([(UNSNotificationRecord *)self bodyLocalizationKey], v50 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 bodyLocalizationKey], v51 = objc_claimAutoreleasedReturnValue(), v52 = UNSimilarStrings(), v51, v50, v52)
+         && ([(UNSNotificationRecord *)self bodyLocalizationArguments], v53 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 bodyLocalizationArguments], v54 = objc_claimAutoreleasedReturnValue(), v55 = UNEqualObjects(), v54, v53, v55)
+         && ([(UNSNotificationRecord *)self categoryIdentifier], v56 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 categoryIdentifier], v57 = objc_claimAutoreleasedReturnValue(), v58 = UNEqualObjects(), v57, v56, v58)
+         && ([(UNSNotificationRecord *)self threadIdentifier], v59 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 threadIdentifier], v60 = objc_claimAutoreleasedReturnValue(), v61 = UNEqualObjects(), v60, v59, v61)
+         && ([(UNSNotificationRecord *)self targetContentIdentifier], v62 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 targetContentIdentifier], v63 = objc_claimAutoreleasedReturnValue(), v64 = UNEqualObjects(), v63, v62, v64)
+         && ([(UNSNotificationRecord *)self contentAvailable], v65 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 contentAvailable], v66 = objc_claimAutoreleasedReturnValue(), v67 = UNEqualObjects(), v66, v65, v67)
+         && ([(UNSNotificationRecord *)self contentDate], v68 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 contentDate], v69 = objc_claimAutoreleasedReturnValue(), v70 = UNEqualObjects(), v69, v68, v70)
+         && (v71 = [(UNSNotificationRecord *)self interruptionLevel], v71 == [(UNSNotificationRecord *)v5 interruptionLevel])
+         && ([(UNSNotificationRecord *)self mutableContent], v72 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 mutableContent], v73 = objc_claimAutoreleasedReturnValue(), v74 = UNEqualObjects(), v73, v72, v74)
+         && ([(UNSNotificationRecord *)self defaultActionURL], v75 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 defaultActionURL], v76 = objc_claimAutoreleasedReturnValue(), v77 = UNEqualObjects(), v76, v75, v77)
+         && ([(UNSNotificationRecord *)self defaultActionBundleIdentifier], v78 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 defaultActionBundleIdentifier], v79 = objc_claimAutoreleasedReturnValue(), v80 = UNEqualObjects(), v79, v78, v80)
+         && ([(UNSNotificationRecord *)self expirationDate], v81 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 expirationDate], v82 = objc_claimAutoreleasedReturnValue(), v83 = UNEqualObjects(), v82, v81, v83)
+         && (v84 = [(UNSNotificationRecord *)self hasCriticalAlertSound], v84 == [(UNSNotificationRecord *)v5 hasCriticalAlertSound])
+         && ([(UNSNotificationRecord *)self headerLocalizationKey], v85 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 headerLocalizationKey], v86 = objc_claimAutoreleasedReturnValue(), v87 = UNSimilarStrings(), v86, v85, v87)
+         && ([(UNSNotificationRecord *)self headerLocalizationArguments], v88 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 headerLocalizationArguments], v89 = objc_claimAutoreleasedReturnValue(), v90 = UNEqualObjects(), v89, v88, v90)
+         && ([(UNSNotificationRecord *)self footerLocalizationKey], v91 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 footerLocalizationKey], v92 = objc_claimAutoreleasedReturnValue(), v93 = UNSimilarStrings(), v92, v91, v93)
+         && ([(UNSNotificationRecord *)self footerLocalizationArguments], v94 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 footerLocalizationArguments], v95 = objc_claimAutoreleasedReturnValue(), v96 = UNEqualObjects(), v95, v94, v96)
+         && ([(UNSNotificationRecord *)self iconApplicationIdentifier], v97 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 iconApplicationIdentifier], v98 = objc_claimAutoreleasedReturnValue(), v99 = UNEqualObjects(), v98, v97, v99)
+         && ([(UNSNotificationRecord *)self iconName], v100 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 iconName], v101 = objc_claimAutoreleasedReturnValue(), v102 = UNEqualObjects(), v101, v100, v102)
+         && ([(UNSNotificationRecord *)self iconPath], v103 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 iconPath], v104 = objc_claimAutoreleasedReturnValue(), v105 = UNEqualObjects(), v104, v103, v105)
+         && ([(UNSNotificationRecord *)self iconSystemImageName], v106 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 iconSystemImageName], v107 = objc_claimAutoreleasedReturnValue(), v108 = UNEqualObjects(), v107, v106, v108)
+         && ([(UNSNotificationRecord *)self iconUTI], v109 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 iconUTI], v110 = objc_claimAutoreleasedReturnValue(), v111 = UNEqualObjects(), v110, v109, v111)
+         && ([(UNSNotificationRecord *)self iconDateComponents], v112 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 iconDateComponents], v113 = objc_claimAutoreleasedReturnValue(), v114 = UNEqualObjects(), v113, v112, v114)
+         && ([(UNSNotificationRecord *)self launchImageName], v115 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 launchImageName], v116 = objc_claimAutoreleasedReturnValue(), v117 = UNEqualObjects(), v116, v115, v117)
+         && (v118 = [(UNSNotificationRecord *)self shouldHideDate], v118 == [(UNSNotificationRecord *)v5 shouldHideDate])
+         && (v119 = [(UNSNotificationRecord *)self shouldHideTime], v119 == [(UNSNotificationRecord *)v5 shouldHideTime])
+         && (v120 = [(UNSNotificationRecord *)self shouldIgnoreAccessibilityDisabledVibrationSetting], v120 == [(UNSNotificationRecord *)v5 shouldIgnoreAccessibilityDisabledVibrationSetting])
+         && (v121 = [(UNSNotificationRecord *)self shouldIgnoreDoNotDisturb], v121 == [(UNSNotificationRecord *)v5 shouldIgnoreDoNotDisturb])
+         && (v122 = [(UNSNotificationRecord *)self shouldIgnoreDowntime], v122 == [(UNSNotificationRecord *)v5 shouldIgnoreDowntime])
+         && ([(UNSNotificationRecord *)self shouldIgnoreRingerSwitch], [(UNSNotificationRecord *)v5 shouldIgnoreRingerSwitch], UNEqualBools())
+         && (v123 = [(UNSNotificationRecord *)self shouldAuthenticateDefaultAction], v123 == [(UNSNotificationRecord *)v5 shouldAuthenticateDefaultAction])
+         && (v124 = [(UNSNotificationRecord *)self shouldBackgroundDefaultAction], v124 == [(UNSNotificationRecord *)v5 shouldBackgroundDefaultAction])
+         && (v125 = [(UNSNotificationRecord *)self shouldPreventNotificationDismissalAfterDefaultAction], v125 == [(UNSNotificationRecord *)v5 shouldPreventNotificationDismissalAfterDefaultAction])
+         && ([(UNSNotificationRecord *)self shouldSoundRepeat], [(UNSNotificationRecord *)v5 shouldSoundRepeat], UNEqualBools())
+         && (v126 = [(UNSNotificationRecord *)self shouldSuppressScreenLightUp], v126 == [(UNSNotificationRecord *)v5 shouldSuppressScreenLightUp])
+         && (v127 = [(UNSNotificationRecord *)self shouldSuppressSyncDismissalWhenRemoved], v127 == [(UNSNotificationRecord *)v5 shouldSuppressSyncDismissalWhenRemoved])
+         && (v128 = [(UNSNotificationRecord *)self shouldUseRequestIdentifierForDismissalSync], v128 == [(UNSNotificationRecord *)v5 shouldUseRequestIdentifierForDismissalSync])
+         && (v129 = [(UNSNotificationRecord *)self shouldPreemptPresentedNotification], v129 == [(UNSNotificationRecord *)v5 shouldPreemptPresentedNotification])
+         && (v130 = [(UNSNotificationRecord *)self shouldDisplayActionsInline], v130 == [(UNSNotificationRecord *)v5 shouldDisplayActionsInline])
+         && (v131 = [(UNSNotificationRecord *)self shouldShowSubordinateIcon], v131 == [(UNSNotificationRecord *)v5 shouldShowSubordinateIcon])
+         && ([(UNSNotificationRecord *)self audioCategory], v132 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 audioCategory], v133 = objc_claimAutoreleasedReturnValue(), v134 = UNEqualObjects(), v133, v132, v134)
+         && ([(UNSNotificationRecord *)self audioVolume], v135 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 audioVolume], v136 = objc_claimAutoreleasedReturnValue(), v137 = UNEqualObjects(), v136, v135, v137)
+         && ([(UNSNotificationRecord *)self soundMaximumDuration], [(UNSNotificationRecord *)v5 soundMaximumDuration], UNEqualDoubles())
+         && ([(UNSNotificationRecord *)self subtitleLocalizationKey], v138 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 subtitleLocalizationKey], v139 = objc_claimAutoreleasedReturnValue(), v140 = UNSimilarStrings(), v139, v138, v140)
+         && ([(UNSNotificationRecord *)self subtitleLocalizationArguments], v141 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 subtitleLocalizationArguments], v142 = objc_claimAutoreleasedReturnValue(), v143 = UNEqualObjects(), v142, v141, v143)
+         && ([(UNSNotificationRecord *)self titleLocalizationKey], v144 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 titleLocalizationKey], v145 = objc_claimAutoreleasedReturnValue(), v146 = UNSimilarStrings(), v145, v144, v146)
+         && ([(UNSNotificationRecord *)self titleLocalizationArguments], v147 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 titleLocalizationArguments], v148 = objc_claimAutoreleasedReturnValue(), v149 = UNEqualObjects(), v148, v147, v149)
+         && ([(UNSNotificationRecord *)self toneAlertTopic], v150 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 toneAlertTopic], v151 = objc_claimAutoreleasedReturnValue(), v152 = UNEqualObjects(), v151, v150, v152)
+         && ([(UNSNotificationRecord *)self toneAlertType], [(UNSNotificationRecord *)v5 toneAlertType], UNEqualDoubles())
+         && ([(UNSNotificationRecord *)self toneFileName], v153 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 toneFileName], v154 = objc_claimAutoreleasedReturnValue(), v155 = UNEqualObjects(), v154, v153, v155)
+         && ([(UNSNotificationRecord *)self toneFileURL], v156 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 toneFileURL], v157 = objc_claimAutoreleasedReturnValue(), v158 = UNEqualObjects(), v157, v156, v158)
+         && ([(UNSNotificationRecord *)self toneIdentifier], v159 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 toneIdentifier], v160 = objc_claimAutoreleasedReturnValue(), v161 = UNEqualObjects(), v160, v159, v161)
+         && (v162 = [(UNSNotificationRecord *)self toneMediaLibraryItemIdentifier], v162 == [(UNSNotificationRecord *)v5 toneMediaLibraryItemIdentifier])
+         && ([(UNSNotificationRecord *)self topicIdentifiers], v163 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 topicIdentifiers], v164 = objc_claimAutoreleasedReturnValue(), v165 = UNSimilarSets(), v164, v163, v165)
+         && (v166 = [(UNSNotificationRecord *)self realertCount], v166 == [(UNSNotificationRecord *)v5 realertCount])
+         && (v167 = [(UNSNotificationRecord *)self allowsDefaultDestinations], v167 == [(UNSNotificationRecord *)v5 allowsDefaultDestinations])
+         && (v168 = [(UNSNotificationRecord *)self allowsLockScreenDestination], v168 == [(UNSNotificationRecord *)v5 allowsLockScreenDestination])
+         && (v169 = [(UNSNotificationRecord *)self allowsNotificationCenterDestination], v169 == [(UNSNotificationRecord *)v5 allowsNotificationCenterDestination])
+         && (v170 = [(UNSNotificationRecord *)self allowsAlertDestination], v170 == [(UNSNotificationRecord *)v5 allowsAlertDestination])
+         && (v171 = [(UNSNotificationRecord *)self allowsCarPlayDestination], v171 == [(UNSNotificationRecord *)v5 allowsCarPlayDestination])
+         && ([(UNSNotificationRecord *)self triggerDate], v172 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 triggerDate], v173 = objc_claimAutoreleasedReturnValue(), v174 = UNEqualObjects(), v173, v172, v174)
+         && ([(UNSNotificationRecord *)self triggerDateComponents], v175 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 triggerDateComponents], v176 = objc_claimAutoreleasedReturnValue(), v177 = UNEqualObjects(), v176, v175, v177)
+         && ([(UNSNotificationRecord *)self triggerRegion], v178 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 triggerRegion], v179 = objc_claimAutoreleasedReturnValue(), v180 = UNEqualObjects(), v179, v178, v180)
+         && ([(UNSNotificationRecord *)self triggerRepeatCalendarIdentifier], v181 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 triggerRepeatCalendarIdentifier], v182 = objc_claimAutoreleasedReturnValue(), v183 = UNEqualObjects(), v182, v181, v183)
+         && (v184 = [(UNSNotificationRecord *)self triggerRepeatInterval], v184 == [(UNSNotificationRecord *)v5 triggerRepeatInterval])
+         && (v185 = [(UNSNotificationRecord *)self triggerRepeats], v185 == [(UNSNotificationRecord *)v5 triggerRepeats])
+         && ([(UNSNotificationRecord *)self triggerTimeInterval], [(UNSNotificationRecord *)v5 triggerTimeInterval], UNEqualDoubles())
+         && ([(UNSNotificationRecord *)self triggerTimeZone], v186 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 triggerTimeZone], v187 = objc_claimAutoreleasedReturnValue(), v188 = UNEqualObjects(), v187, v186, v188)
+         && ([(UNSNotificationRecord *)self triggerType], v189 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 triggerType], v190 = objc_claimAutoreleasedReturnValue(), v191 = UNEqualObjects(), v190, v189, v191)
+         && ([(UNSNotificationRecord *)self userInfo], v192 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 userInfo], v193 = objc_claimAutoreleasedReturnValue(), v194 = UNEqualObjects(), v193, v192, v194)
+         && ([(UNSNotificationRecord *)self vibrationIdentifier], v195 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 vibrationIdentifier], v196 = objc_claimAutoreleasedReturnValue(), v197 = UNEqualObjects(), v196, v195, v197)
+         && ([(UNSNotificationRecord *)self vibrationPatternFileURL], v198 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 vibrationPatternFileURL], v199 = objc_claimAutoreleasedReturnValue(), v200 = UNEqualObjects(), v199, v198, v200)
+         && ([(UNSNotificationRecord *)self relevanceScore], v202 = v201, [(UNSNotificationRecord *)v5 relevanceScore], v202 == v203)
+         && ([(UNSNotificationRecord *)self filterCriteria], v204 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 filterCriteria], v205 = objc_claimAutoreleasedReturnValue(), v206 = UNEqualObjects(), v205, v204, v206)
+         && (v207 = [(UNSNotificationRecord *)self screenCaptureProhibited], v207 == [(UNSNotificationRecord *)v5 screenCaptureProhibited])
+         && ([(UNSNotificationRecord *)self speechLanguage], v208 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 speechLanguage], v209 = objc_claimAutoreleasedReturnValue(), v210 = UNEqualObjects(), v209, v208, v210)
+         && (v211 = [(UNSNotificationRecord *)self revisionNumber], v211 == [(UNSNotificationRecord *)v5 revisionNumber])
+         && (v212 = [(UNSNotificationRecord *)self pipelineState], v212 == [(UNSNotificationRecord *)v5 pipelineState])
+         && (v213 = [(UNSNotificationRecord *)self isHighlight], v213 == [(UNSNotificationRecord *)v5 isHighlight])
+         && ([(UNSNotificationRecord *)self summary], v214 = objc_claimAutoreleasedReturnValue(), [(UNSNotificationRecord *)v5 summary], v215 = objc_claimAutoreleasedReturnValue(), v216 = UNEqualObjects(), v215, v214, v216)
+         && (v217 = [(UNSNotificationRecord *)self priorityStatus], v217 == [(UNSNotificationRecord *)v5 priorityStatus])
+         && (v218 = [(UNSNotificationRecord *)self summaryStatus], v218 == [(UNSNotificationRecord *)v5 summaryStatus]))
+  {
+    eventBehavior = [(UNSNotificationRecord *)self eventBehavior];
+    eventBehavior2 = [(UNSNotificationRecord *)v5 eventBehavior];
+    v221 = UNEqualObjects();
+  }
+
   else
   {
-    if (!similarCopy)
-    {
-      goto LABEL_106;
-    }
-
-    v6 = objc_opt_class();
-    if (v6 != objc_opt_class())
-    {
-      goto LABEL_106;
-    }
-
-    contentType = [(UNSNotificationRecord *)self contentType];
-    contentType2 = [(UNSNotificationRecord *)v5 contentType];
-    v9 = UNEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextIdentifier = [(UNSNotificationRecord *)self communicationContextIdentifier];
-    communicationContextIdentifier2 = [(UNSNotificationRecord *)v5 communicationContextIdentifier];
-    v12 = UNEqualObjects();
-
-    if (!v12)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextBundleIdentifier = [(UNSNotificationRecord *)self communicationContextBundleIdentifier];
-    communicationContextBundleIdentifier2 = [(UNSNotificationRecord *)v5 communicationContextBundleIdentifier];
-    v15 = UNEqualObjects();
-
-    if (!v15)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextAssociatedObjectUri = [(UNSNotificationRecord *)self communicationContextAssociatedObjectUri];
-    communicationContextAssociatedObjectUri2 = [(UNSNotificationRecord *)v5 communicationContextAssociatedObjectUri];
-    v18 = UNEqualObjects();
-
-    if (!v18)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextDisplayName = [(UNSNotificationRecord *)self communicationContextDisplayName];
-    communicationContextDisplayName2 = [(UNSNotificationRecord *)v5 communicationContextDisplayName];
-    v21 = UNEqualObjects();
-
-    if (!v21)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextSender = [(UNSNotificationRecord *)self communicationContextSender];
-    communicationContextSender2 = [(UNSNotificationRecord *)v5 communicationContextSender];
-    v24 = UNEqualObjects();
-
-    if (!v24)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextRecipients = [(UNSNotificationRecord *)self communicationContextRecipients];
-    communicationContextRecipients2 = [(UNSNotificationRecord *)v5 communicationContextRecipients];
-    v27 = UNSimilarArrays();
-
-    if (!v27)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextContentURL = [(UNSNotificationRecord *)self communicationContextContentURL];
-    communicationContextContentURL2 = [(UNSNotificationRecord *)v5 communicationContextContentURL];
-    v30 = UNEqualObjects();
-
-    if (!v30)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextImageName = [(UNSNotificationRecord *)self communicationContextImageName];
-    communicationContextImageName2 = [(UNSNotificationRecord *)v5 communicationContextImageName];
-    v33 = UNEqualObjects();
-
-    if (!v33)
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextSystemImage = [(UNSNotificationRecord *)self communicationContextSystemImage];
-    if (communicationContextSystemImage != [(UNSNotificationRecord *)v5 communicationContextSystemImage])
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextMentionsCurrentUser = [(UNSNotificationRecord *)self communicationContextMentionsCurrentUser];
-    if (communicationContextMentionsCurrentUser != [(UNSNotificationRecord *)v5 communicationContextMentionsCurrentUser])
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextNotifyRecipientAnyway = [(UNSNotificationRecord *)self communicationContextNotifyRecipientAnyway];
-    if (communicationContextNotifyRecipientAnyway != [(UNSNotificationRecord *)v5 communicationContextNotifyRecipientAnyway])
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextReplyToCurrentUser = [(UNSNotificationRecord *)self communicationContextReplyToCurrentUser];
-    if (communicationContextReplyToCurrentUser != [(UNSNotificationRecord *)v5 communicationContextReplyToCurrentUser])
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextRecipientCount = [(UNSNotificationRecord *)self communicationContextRecipientCount];
-    if (communicationContextRecipientCount != [(UNSNotificationRecord *)v5 communicationContextRecipientCount])
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextCapabilities = [(UNSNotificationRecord *)self communicationContextCapabilities];
-    if (communicationContextCapabilities != [(UNSNotificationRecord *)v5 communicationContextCapabilities])
-    {
-      goto LABEL_106;
-    }
-
-    communicationContextBusinessCorrespondence = [(UNSNotificationRecord *)self communicationContextBusinessCorrespondence];
-    if (communicationContextBusinessCorrespondence != [(UNSNotificationRecord *)v5 communicationContextBusinessCorrespondence])
-    {
-      goto LABEL_106;
-    }
-
-    accessoryImageName = [(UNSNotificationRecord *)self accessoryImageName];
-    accessoryImageName2 = [(UNSNotificationRecord *)v5 accessoryImageName];
-    v43 = UNEqualObjects();
-
-    if (!v43)
-    {
-      goto LABEL_106;
-    }
-
-    attachments = [(UNSNotificationRecord *)self attachments];
-    attachments2 = [(UNSNotificationRecord *)v5 attachments];
-    v46 = UNEqualObjects();
-
-    if (!v46)
-    {
-      goto LABEL_106;
-    }
-
-    badge = [(UNSNotificationRecord *)self badge];
-    [badge integerValue];
-    badge2 = [(UNSNotificationRecord *)v5 badge];
-    [badge2 integerValue];
-    v49 = UNEqualIntegers();
-
-    if (!v49)
-    {
-      goto LABEL_106;
-    }
-
-    bodyLocalizationKey = [(UNSNotificationRecord *)self bodyLocalizationKey];
-    bodyLocalizationKey2 = [(UNSNotificationRecord *)v5 bodyLocalizationKey];
-    v52 = UNSimilarStrings();
-
-    if (!v52)
-    {
-      goto LABEL_106;
-    }
-
-    bodyLocalizationArguments = [(UNSNotificationRecord *)self bodyLocalizationArguments];
-    bodyLocalizationArguments2 = [(UNSNotificationRecord *)v5 bodyLocalizationArguments];
-    v55 = UNEqualObjects();
-
-    if (!v55)
-    {
-      goto LABEL_106;
-    }
-
-    categoryIdentifier = [(UNSNotificationRecord *)self categoryIdentifier];
-    categoryIdentifier2 = [(UNSNotificationRecord *)v5 categoryIdentifier];
-    v58 = UNEqualObjects();
-
-    if (!v58)
-    {
-      goto LABEL_106;
-    }
-
-    threadIdentifier = [(UNSNotificationRecord *)self threadIdentifier];
-    threadIdentifier2 = [(UNSNotificationRecord *)v5 threadIdentifier];
-    v61 = UNEqualObjects();
-
-    if (!v61)
-    {
-      goto LABEL_106;
-    }
-
-    targetContentIdentifier = [(UNSNotificationRecord *)self targetContentIdentifier];
-    targetContentIdentifier2 = [(UNSNotificationRecord *)v5 targetContentIdentifier];
-    v64 = UNEqualObjects();
-
-    if (!v64)
-    {
-      goto LABEL_106;
-    }
-
-    contentAvailable = [(UNSNotificationRecord *)self contentAvailable];
-    contentAvailable2 = [(UNSNotificationRecord *)v5 contentAvailable];
-    v67 = UNEqualObjects();
-
-    if (!v67)
-    {
-      goto LABEL_106;
-    }
-
-    contentDate = [(UNSNotificationRecord *)self contentDate];
-    contentDate2 = [(UNSNotificationRecord *)v5 contentDate];
-    v70 = UNEqualObjects();
-
-    if (!v70)
-    {
-      goto LABEL_106;
-    }
-
-    interruptionLevel = [(UNSNotificationRecord *)self interruptionLevel];
-    if (interruptionLevel != [(UNSNotificationRecord *)v5 interruptionLevel])
-    {
-      goto LABEL_106;
-    }
-
-    mutableContent = [(UNSNotificationRecord *)self mutableContent];
-    mutableContent2 = [(UNSNotificationRecord *)v5 mutableContent];
-    v74 = UNEqualObjects();
-
-    if (!v74)
-    {
-      goto LABEL_106;
-    }
-
-    defaultActionURL = [(UNSNotificationRecord *)self defaultActionURL];
-    defaultActionURL2 = [(UNSNotificationRecord *)v5 defaultActionURL];
-    v77 = UNEqualObjects();
-
-    if (!v77)
-    {
-      goto LABEL_106;
-    }
-
-    defaultActionBundleIdentifier = [(UNSNotificationRecord *)self defaultActionBundleIdentifier];
-    defaultActionBundleIdentifier2 = [(UNSNotificationRecord *)v5 defaultActionBundleIdentifier];
-    v80 = UNEqualObjects();
-
-    if (!v80)
-    {
-      goto LABEL_106;
-    }
-
-    expirationDate = [(UNSNotificationRecord *)self expirationDate];
-    expirationDate2 = [(UNSNotificationRecord *)v5 expirationDate];
-    v83 = UNEqualObjects();
-
-    if (!v83)
-    {
-      goto LABEL_106;
-    }
-
-    hasCriticalAlertSound = [(UNSNotificationRecord *)self hasCriticalAlertSound];
-    if (hasCriticalAlertSound != [(UNSNotificationRecord *)v5 hasCriticalAlertSound])
-    {
-      goto LABEL_106;
-    }
-
-    headerLocalizationKey = [(UNSNotificationRecord *)self headerLocalizationKey];
-    headerLocalizationKey2 = [(UNSNotificationRecord *)v5 headerLocalizationKey];
-    v87 = UNSimilarStrings();
-
-    if (!v87)
-    {
-      goto LABEL_106;
-    }
-
-    headerLocalizationArguments = [(UNSNotificationRecord *)self headerLocalizationArguments];
-    headerLocalizationArguments2 = [(UNSNotificationRecord *)v5 headerLocalizationArguments];
-    v90 = UNEqualObjects();
-
-    if (!v90)
-    {
-      goto LABEL_106;
-    }
-
-    footerLocalizationKey = [(UNSNotificationRecord *)self footerLocalizationKey];
-    footerLocalizationKey2 = [(UNSNotificationRecord *)v5 footerLocalizationKey];
-    v93 = UNSimilarStrings();
-
-    if (!v93)
-    {
-      goto LABEL_106;
-    }
-
-    footerLocalizationArguments = [(UNSNotificationRecord *)self footerLocalizationArguments];
-    footerLocalizationArguments2 = [(UNSNotificationRecord *)v5 footerLocalizationArguments];
-    v96 = UNEqualObjects();
-
-    if (!v96)
-    {
-      goto LABEL_106;
-    }
-
-    iconApplicationIdentifier = [(UNSNotificationRecord *)self iconApplicationIdentifier];
-    iconApplicationIdentifier2 = [(UNSNotificationRecord *)v5 iconApplicationIdentifier];
-    v99 = UNEqualObjects();
-
-    if (!v99)
-    {
-      goto LABEL_106;
-    }
-
-    iconName = [(UNSNotificationRecord *)self iconName];
-    iconName2 = [(UNSNotificationRecord *)v5 iconName];
-    v102 = UNEqualObjects();
-
-    if (!v102)
-    {
-      goto LABEL_106;
-    }
-
-    iconPath = [(UNSNotificationRecord *)self iconPath];
-    iconPath2 = [(UNSNotificationRecord *)v5 iconPath];
-    v105 = UNEqualObjects();
-
-    if (!v105)
-    {
-      goto LABEL_106;
-    }
-
-    iconSystemImageName = [(UNSNotificationRecord *)self iconSystemImageName];
-    iconSystemImageName2 = [(UNSNotificationRecord *)v5 iconSystemImageName];
-    v108 = UNEqualObjects();
-
-    if (!v108)
-    {
-      goto LABEL_106;
-    }
-
-    iconUTI = [(UNSNotificationRecord *)self iconUTI];
-    iconUTI2 = [(UNSNotificationRecord *)v5 iconUTI];
-    v111 = UNEqualObjects();
-
-    if (!v111)
-    {
-      goto LABEL_106;
-    }
-
-    iconDateComponents = [(UNSNotificationRecord *)self iconDateComponents];
-    iconDateComponents2 = [(UNSNotificationRecord *)v5 iconDateComponents];
-    v114 = UNEqualObjects();
-
-    if (!v114)
-    {
-      goto LABEL_106;
-    }
-
-    launchImageName = [(UNSNotificationRecord *)self launchImageName];
-    launchImageName2 = [(UNSNotificationRecord *)v5 launchImageName];
-    v117 = UNEqualObjects();
-
-    if (!v117)
-    {
-      goto LABEL_106;
-    }
-
-    shouldHideDate = [(UNSNotificationRecord *)self shouldHideDate];
-    if (shouldHideDate != [(UNSNotificationRecord *)v5 shouldHideDate])
-    {
-      goto LABEL_106;
-    }
-
-    shouldHideTime = [(UNSNotificationRecord *)self shouldHideTime];
-    if (shouldHideTime != [(UNSNotificationRecord *)v5 shouldHideTime])
-    {
-      goto LABEL_106;
-    }
-
-    shouldIgnoreAccessibilityDisabledVibrationSetting = [(UNSNotificationRecord *)self shouldIgnoreAccessibilityDisabledVibrationSetting];
-    if (shouldIgnoreAccessibilityDisabledVibrationSetting != [(UNSNotificationRecord *)v5 shouldIgnoreAccessibilityDisabledVibrationSetting])
-    {
-      goto LABEL_106;
-    }
-
-    shouldIgnoreDoNotDisturb = [(UNSNotificationRecord *)self shouldIgnoreDoNotDisturb];
-    if (shouldIgnoreDoNotDisturb != [(UNSNotificationRecord *)v5 shouldIgnoreDoNotDisturb])
-    {
-      goto LABEL_106;
-    }
-
-    shouldIgnoreDowntime = [(UNSNotificationRecord *)self shouldIgnoreDowntime];
-    if (shouldIgnoreDowntime != [(UNSNotificationRecord *)v5 shouldIgnoreDowntime])
-    {
-      goto LABEL_106;
-    }
-
-    [(UNSNotificationRecord *)self shouldIgnoreRingerSwitch];
-    [(UNSNotificationRecord *)v5 shouldIgnoreRingerSwitch];
-    if (!UNEqualBools())
-    {
-      goto LABEL_106;
-    }
-
-    shouldAuthenticateDefaultAction = [(UNSNotificationRecord *)self shouldAuthenticateDefaultAction];
-    if (shouldAuthenticateDefaultAction != [(UNSNotificationRecord *)v5 shouldAuthenticateDefaultAction])
-    {
-      goto LABEL_106;
-    }
-
-    shouldBackgroundDefaultAction = [(UNSNotificationRecord *)self shouldBackgroundDefaultAction];
-    if (shouldBackgroundDefaultAction != [(UNSNotificationRecord *)v5 shouldBackgroundDefaultAction])
-    {
-      goto LABEL_106;
-    }
-
-    shouldPreventNotificationDismissalAfterDefaultAction = [(UNSNotificationRecord *)self shouldPreventNotificationDismissalAfterDefaultAction];
-    if (shouldPreventNotificationDismissalAfterDefaultAction != [(UNSNotificationRecord *)v5 shouldPreventNotificationDismissalAfterDefaultAction])
-    {
-      goto LABEL_106;
-    }
-
-    [(UNSNotificationRecord *)self shouldSoundRepeat];
-    [(UNSNotificationRecord *)v5 shouldSoundRepeat];
-    if (!UNEqualBools())
-    {
-      goto LABEL_106;
-    }
-
-    shouldSuppressScreenLightUp = [(UNSNotificationRecord *)self shouldSuppressScreenLightUp];
-    if (shouldSuppressScreenLightUp != [(UNSNotificationRecord *)v5 shouldSuppressScreenLightUp])
-    {
-      goto LABEL_106;
-    }
-
-    shouldSuppressSyncDismissalWhenRemoved = [(UNSNotificationRecord *)self shouldSuppressSyncDismissalWhenRemoved];
-    if (shouldSuppressSyncDismissalWhenRemoved != [(UNSNotificationRecord *)v5 shouldSuppressSyncDismissalWhenRemoved])
-    {
-      goto LABEL_106;
-    }
-
-    shouldUseRequestIdentifierForDismissalSync = [(UNSNotificationRecord *)self shouldUseRequestIdentifierForDismissalSync];
-    if (shouldUseRequestIdentifierForDismissalSync != [(UNSNotificationRecord *)v5 shouldUseRequestIdentifierForDismissalSync])
-    {
-      goto LABEL_106;
-    }
-
-    shouldPreemptPresentedNotification = [(UNSNotificationRecord *)self shouldPreemptPresentedNotification];
-    if (shouldPreemptPresentedNotification != [(UNSNotificationRecord *)v5 shouldPreemptPresentedNotification])
-    {
-      goto LABEL_106;
-    }
-
-    shouldDisplayActionsInline = [(UNSNotificationRecord *)self shouldDisplayActionsInline];
-    if (shouldDisplayActionsInline != [(UNSNotificationRecord *)v5 shouldDisplayActionsInline])
-    {
-      goto LABEL_106;
-    }
-
-    shouldShowSubordinateIcon = [(UNSNotificationRecord *)self shouldShowSubordinateIcon];
-    if (shouldShowSubordinateIcon != [(UNSNotificationRecord *)v5 shouldShowSubordinateIcon])
-    {
-      goto LABEL_106;
-    }
-
-    audioCategory = [(UNSNotificationRecord *)self audioCategory];
-    audioCategory2 = [(UNSNotificationRecord *)v5 audioCategory];
-    v134 = UNEqualObjects();
-
-    if (!v134)
-    {
-      goto LABEL_106;
-    }
-
-    audioVolume = [(UNSNotificationRecord *)self audioVolume];
-    audioVolume2 = [(UNSNotificationRecord *)v5 audioVolume];
-    v137 = UNEqualObjects();
-
-    if (!v137)
-    {
-      goto LABEL_106;
-    }
-
-    [(UNSNotificationRecord *)self soundMaximumDuration];
-    [(UNSNotificationRecord *)v5 soundMaximumDuration];
-    if (!UNEqualDoubles())
-    {
-      goto LABEL_106;
-    }
-
-    subtitleLocalizationKey = [(UNSNotificationRecord *)self subtitleLocalizationKey];
-    subtitleLocalizationKey2 = [(UNSNotificationRecord *)v5 subtitleLocalizationKey];
-    v140 = UNSimilarStrings();
-
-    if (!v140)
-    {
-      goto LABEL_106;
-    }
-
-    subtitleLocalizationArguments = [(UNSNotificationRecord *)self subtitleLocalizationArguments];
-    subtitleLocalizationArguments2 = [(UNSNotificationRecord *)v5 subtitleLocalizationArguments];
-    v143 = UNEqualObjects();
-
-    if (!v143)
-    {
-      goto LABEL_106;
-    }
-
-    titleLocalizationKey = [(UNSNotificationRecord *)self titleLocalizationKey];
-    titleLocalizationKey2 = [(UNSNotificationRecord *)v5 titleLocalizationKey];
-    v146 = UNSimilarStrings();
-
-    if (!v146)
-    {
-      goto LABEL_106;
-    }
-
-    titleLocalizationArguments = [(UNSNotificationRecord *)self titleLocalizationArguments];
-    titleLocalizationArguments2 = [(UNSNotificationRecord *)v5 titleLocalizationArguments];
-    v149 = UNEqualObjects();
-
-    if (!v149)
-    {
-      goto LABEL_106;
-    }
-
-    toneAlertTopic = [(UNSNotificationRecord *)self toneAlertTopic];
-    toneAlertTopic2 = [(UNSNotificationRecord *)v5 toneAlertTopic];
-    v152 = UNEqualObjects();
-
-    if (!v152)
-    {
-      goto LABEL_106;
-    }
-
-    [(UNSNotificationRecord *)self toneAlertType];
-    [(UNSNotificationRecord *)v5 toneAlertType];
-    if (!UNEqualDoubles())
-    {
-      goto LABEL_106;
-    }
-
-    toneFileName = [(UNSNotificationRecord *)self toneFileName];
-    toneFileName2 = [(UNSNotificationRecord *)v5 toneFileName];
-    v155 = UNEqualObjects();
-
-    if (!v155)
-    {
-      goto LABEL_106;
-    }
-
-    toneFileURL = [(UNSNotificationRecord *)self toneFileURL];
-    toneFileURL2 = [(UNSNotificationRecord *)v5 toneFileURL];
-    v158 = UNEqualObjects();
-
-    if (!v158)
-    {
-      goto LABEL_106;
-    }
-
-    toneIdentifier = [(UNSNotificationRecord *)self toneIdentifier];
-    toneIdentifier2 = [(UNSNotificationRecord *)v5 toneIdentifier];
-    v161 = UNEqualObjects();
-
-    if (!v161)
-    {
-      goto LABEL_106;
-    }
-
-    toneMediaLibraryItemIdentifier = [(UNSNotificationRecord *)self toneMediaLibraryItemIdentifier];
-    if (toneMediaLibraryItemIdentifier != [(UNSNotificationRecord *)v5 toneMediaLibraryItemIdentifier])
-    {
-      goto LABEL_106;
-    }
-
-    topicIdentifiers = [(UNSNotificationRecord *)self topicIdentifiers];
-    topicIdentifiers2 = [(UNSNotificationRecord *)v5 topicIdentifiers];
-    v165 = UNSimilarSets();
-
-    if (!v165)
-    {
-      goto LABEL_106;
-    }
-
-    realertCount = [(UNSNotificationRecord *)self realertCount];
-    if (realertCount != [(UNSNotificationRecord *)v5 realertCount])
-    {
-      goto LABEL_106;
-    }
-
-    allowsDefaultDestinations = [(UNSNotificationRecord *)self allowsDefaultDestinations];
-    if (allowsDefaultDestinations != [(UNSNotificationRecord *)v5 allowsDefaultDestinations])
-    {
-      goto LABEL_106;
-    }
-
-    allowsLockScreenDestination = [(UNSNotificationRecord *)self allowsLockScreenDestination];
-    if (allowsLockScreenDestination != [(UNSNotificationRecord *)v5 allowsLockScreenDestination])
-    {
-      goto LABEL_106;
-    }
-
-    allowsNotificationCenterDestination = [(UNSNotificationRecord *)self allowsNotificationCenterDestination];
-    if (allowsNotificationCenterDestination != [(UNSNotificationRecord *)v5 allowsNotificationCenterDestination])
-    {
-      goto LABEL_106;
-    }
-
-    allowsAlertDestination = [(UNSNotificationRecord *)self allowsAlertDestination];
-    if (allowsAlertDestination != [(UNSNotificationRecord *)v5 allowsAlertDestination])
-    {
-      goto LABEL_106;
-    }
-
-    allowsCarPlayDestination = [(UNSNotificationRecord *)self allowsCarPlayDestination];
-    if (allowsCarPlayDestination != [(UNSNotificationRecord *)v5 allowsCarPlayDestination])
-    {
-      goto LABEL_106;
-    }
-
-    triggerDate = [(UNSNotificationRecord *)self triggerDate];
-    triggerDate2 = [(UNSNotificationRecord *)v5 triggerDate];
-    v174 = UNEqualObjects();
-
-    if (!v174)
-    {
-      goto LABEL_106;
-    }
-
-    triggerDateComponents = [(UNSNotificationRecord *)self triggerDateComponents];
-    triggerDateComponents2 = [(UNSNotificationRecord *)v5 triggerDateComponents];
-    v177 = UNEqualObjects();
-
-    if (!v177)
-    {
-      goto LABEL_106;
-    }
-
-    triggerRegion = [(UNSNotificationRecord *)self triggerRegion];
-    triggerRegion2 = [(UNSNotificationRecord *)v5 triggerRegion];
-    v180 = UNEqualObjects();
-
-    if (!v180)
-    {
-      goto LABEL_106;
-    }
-
-    triggerRepeatCalendarIdentifier = [(UNSNotificationRecord *)self triggerRepeatCalendarIdentifier];
-    triggerRepeatCalendarIdentifier2 = [(UNSNotificationRecord *)v5 triggerRepeatCalendarIdentifier];
-    v183 = UNEqualObjects();
-
-    if (!v183)
-    {
-      goto LABEL_106;
-    }
-
-    triggerRepeatInterval = [(UNSNotificationRecord *)self triggerRepeatInterval];
-    if (triggerRepeatInterval != [(UNSNotificationRecord *)v5 triggerRepeatInterval])
-    {
-      goto LABEL_106;
-    }
-
-    triggerRepeats = [(UNSNotificationRecord *)self triggerRepeats];
-    if (triggerRepeats != [(UNSNotificationRecord *)v5 triggerRepeats])
-    {
-      goto LABEL_106;
-    }
-
-    [(UNSNotificationRecord *)self triggerTimeInterval];
-    [(UNSNotificationRecord *)v5 triggerTimeInterval];
-    if (!UNEqualDoubles())
-    {
-      goto LABEL_106;
-    }
-
-    triggerTimeZone = [(UNSNotificationRecord *)self triggerTimeZone];
-    triggerTimeZone2 = [(UNSNotificationRecord *)v5 triggerTimeZone];
-    v188 = UNEqualObjects();
-
-    if (!v188)
-    {
-      goto LABEL_106;
-    }
-
-    triggerType = [(UNSNotificationRecord *)self triggerType];
-    triggerType2 = [(UNSNotificationRecord *)v5 triggerType];
-    v191 = UNEqualObjects();
-
-    if (!v191)
-    {
-      goto LABEL_106;
-    }
-
-    userInfo = [(UNSNotificationRecord *)self userInfo];
-    userInfo2 = [(UNSNotificationRecord *)v5 userInfo];
-    v194 = UNEqualObjects();
-
-    if (!v194)
-    {
-      goto LABEL_106;
-    }
-
-    vibrationIdentifier = [(UNSNotificationRecord *)self vibrationIdentifier];
-    vibrationIdentifier2 = [(UNSNotificationRecord *)v5 vibrationIdentifier];
-    v197 = UNEqualObjects();
-
-    if (!v197)
-    {
-      goto LABEL_106;
-    }
-
-    vibrationPatternFileURL = [(UNSNotificationRecord *)self vibrationPatternFileURL];
-    vibrationPatternFileURL2 = [(UNSNotificationRecord *)v5 vibrationPatternFileURL];
-    v200 = UNEqualObjects();
-
-    if (!v200)
-    {
-      goto LABEL_106;
-    }
-
-    [(UNSNotificationRecord *)self relevanceScore];
-    v202 = v201;
-    [(UNSNotificationRecord *)v5 relevanceScore];
-    if (v202 != v203)
-    {
-      goto LABEL_106;
-    }
-
-    filterCriteria = [(UNSNotificationRecord *)self filterCriteria];
-    filterCriteria2 = [(UNSNotificationRecord *)v5 filterCriteria];
-    v206 = UNEqualObjects();
-
-    if (!v206)
-    {
-      goto LABEL_106;
-    }
-
-    screenCaptureProhibited = [(UNSNotificationRecord *)self screenCaptureProhibited];
-    if (screenCaptureProhibited != [(UNSNotificationRecord *)v5 screenCaptureProhibited])
-    {
-      goto LABEL_106;
-    }
-
-    speechLanguage = [(UNSNotificationRecord *)self speechLanguage];
-    speechLanguage2 = [(UNSNotificationRecord *)v5 speechLanguage];
-    v210 = UNEqualObjects();
-
-    if (!v210)
-    {
-      goto LABEL_106;
-    }
-
-    revisionNumber = [(UNSNotificationRecord *)self revisionNumber];
-    if (revisionNumber != [(UNSNotificationRecord *)v5 revisionNumber])
-    {
-      goto LABEL_106;
-    }
-
-    pipelineState = [(UNSNotificationRecord *)self pipelineState];
-    if (pipelineState != [(UNSNotificationRecord *)v5 pipelineState])
-    {
-      goto LABEL_106;
-    }
-
-    isHighlight = [(UNSNotificationRecord *)self isHighlight];
-    if (isHighlight != [(UNSNotificationRecord *)v5 isHighlight])
-    {
-      goto LABEL_106;
-    }
-
-    summary = [(UNSNotificationRecord *)self summary];
-    summary2 = [(UNSNotificationRecord *)v5 summary];
-    v216 = UNEqualObjects();
-
-    if (!v216)
-    {
-      goto LABEL_106;
-    }
-
-    priorityStatus = [(UNSNotificationRecord *)self priorityStatus];
-    if (priorityStatus == [(UNSNotificationRecord *)v5 priorityStatus]&& (v218 = [(UNSNotificationRecord *)self summaryStatus], v218 == [(UNSNotificationRecord *)v5 summaryStatus]))
-    {
-      eventBehavior = [(UNSNotificationRecord *)self eventBehavior];
-      eventBehavior2 = [(UNSNotificationRecord *)v5 eventBehavior];
-      v221 = UNEqualObjects();
-    }
-
-    else
-    {
-LABEL_106:
-      v221 = 0;
-    }
+    v221 = 0;
   }
 
   return v221;
@@ -1760,153 +1072,28 @@ LABEL_106:
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (!equalCopy)
-  {
-    goto LABEL_23;
-  }
-
-  v5 = objc_opt_class();
-  if (v5 != objc_opt_class())
-  {
-    goto LABEL_23;
-  }
-
-  if (![(UNSNotificationRecord *)self isSimilar:equalCopy])
-  {
-    goto LABEL_23;
-  }
-
-  shouldBadgeApplicationIcon = [(UNSNotificationRecord *)self shouldBadgeApplicationIcon];
-  if (shouldBadgeApplicationIcon != [equalCopy shouldBadgeApplicationIcon])
-  {
-    goto LABEL_23;
-  }
-
-  shouldPlaySound = [(UNSNotificationRecord *)self shouldPlaySound];
-  if (shouldPlaySound != [equalCopy shouldPlaySound])
-  {
-    goto LABEL_23;
-  }
-
-  shouldPresentAlert = [(UNSNotificationRecord *)self shouldPresentAlert];
-  if (shouldPresentAlert != [equalCopy shouldPresentAlert])
-  {
-    goto LABEL_23;
-  }
-
-  presentationOptions = [(UNSNotificationRecord *)self presentationOptions];
-  if (presentationOptions != [equalCopy presentationOptions])
-  {
-    goto LABEL_23;
-  }
-
-  date = [(UNSNotificationRecord *)self date];
-  date2 = [equalCopy date];
-  v12 = UNEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_23;
-  }
-
-  interruptionLevel = [(UNSNotificationRecord *)self interruptionLevel];
-  if (interruptionLevel != [equalCopy interruptionLevel])
-  {
-    goto LABEL_23;
-  }
-
-  identifier = [(UNSNotificationRecord *)self identifier];
-  identifier2 = [equalCopy identifier];
-  v16 = UNEqualObjects();
-
-  if (!v16)
-  {
-    goto LABEL_23;
-  }
-
-  requestDate = [(UNSNotificationRecord *)self requestDate];
-  requestDate2 = [equalCopy requestDate];
-  v19 = UNEqualObjects();
-
-  if (!v19)
-  {
-    goto LABEL_23;
-  }
-
-  header = [(UNSNotificationRecord *)self header];
-  header2 = [equalCopy header];
-  v22 = UNEqualObjects();
-
-  if (!v22)
-  {
-    goto LABEL_23;
-  }
-
-  footer = [(UNSNotificationRecord *)self footer];
-  footer2 = [equalCopy footer];
-  v25 = UNEqualObjects();
-
-  if (!v25)
-  {
-    goto LABEL_23;
-  }
-
-  body = [(UNSNotificationRecord *)self body];
-  body2 = [equalCopy body];
-  v28 = UNEqualObjects();
-
-  if (!v28)
-  {
-    goto LABEL_23;
-  }
-
-  attributedBody = [(UNSNotificationRecord *)self attributedBody];
-  attributedBody2 = [equalCopy attributedBody];
-  v31 = UNEqualObjects();
-
-  if (!v31)
-  {
-    goto LABEL_23;
-  }
-
-  subtitle = [(UNSNotificationRecord *)self subtitle];
-  subtitle2 = [equalCopy subtitle];
-  v34 = UNEqualObjects();
-
-  if (!v34)
-  {
-    goto LABEL_23;
-  }
-
-  title = [(UNSNotificationRecord *)self title];
-  title2 = [equalCopy title];
-  v37 = UNEqualObjects();
-
-  if (!v37)
-  {
-    goto LABEL_23;
-  }
-
-  defaultActionTitle = [(UNSNotificationRecord *)self defaultActionTitle];
-  defaultActionTitle2 = [equalCopy defaultActionTitle];
-  v40 = UNEqualObjects();
-
-  if (!v40)
-  {
-    goto LABEL_23;
-  }
-
-  summaryArgument = [(UNSNotificationRecord *)self summaryArgument];
-  summaryArgument2 = [equalCopy summaryArgument];
-  v43 = UNEqualObjects();
-
-  if (!v43)
-  {
-    goto LABEL_23;
-  }
-
-  summaryArgumentCount = [(UNSNotificationRecord *)self summaryArgumentCount];
-  if (summaryArgumentCount == [equalCopy summaryArgumentCount] && (-[UNSNotificationRecord relevanceScore](self, "relevanceScore"), v46 = v45, objc_msgSend(equalCopy, "relevanceScore"), v46 == v47) && (v48 = -[UNSNotificationRecord hasDefaultAction](self, "hasDefaultAction"), v48 == objc_msgSend(equalCopy, "hasDefaultAction")))
+  if (equalCopy
+    && (v5 = objc_opt_class(), v5 == objc_opt_class())
+    && [(UNSNotificationRecord *)self isSimilar:equalCopy]
+    && (v6 = -[UNSNotificationRecord shouldBadgeApplicationIcon](self, "shouldBadgeApplicationIcon"), v6 == [equalCopy shouldBadgeApplicationIcon])
+    && (v7 = -[UNSNotificationRecord shouldPlaySound](self, "shouldPlaySound"), v7 == [equalCopy shouldPlaySound])
+    && (v8 = -[UNSNotificationRecord shouldPresentAlert](self, "shouldPresentAlert"), v8 == [equalCopy shouldPresentAlert])
+    && (v9 = -[UNSNotificationRecord presentationOptions](self, "presentationOptions"), v9 == [equalCopy presentationOptions])
+    && (-[UNSNotificationRecord date](self, "date"), v10 = objc_claimAutoreleasedReturnValue(), [equalCopy date], v11 = objc_claimAutoreleasedReturnValue(), v12 = UNEqualObjects(), v11, v10, v12)
+    && (v13 = -[UNSNotificationRecord interruptionLevel](self, "interruptionLevel"), v13 == [equalCopy interruptionLevel])
+    && (-[UNSNotificationRecord identifier](self, "identifier"), v14 = objc_claimAutoreleasedReturnValue(), [equalCopy identifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = UNEqualObjects(), v15, v14, v16)
+    && (-[UNSNotificationRecord requestDate](self, "requestDate"), v17 = objc_claimAutoreleasedReturnValue(), [equalCopy requestDate], v18 = objc_claimAutoreleasedReturnValue(), v19 = UNEqualObjects(), v18, v17, v19)
+    && (-[UNSNotificationRecord header](self, "header"), v20 = objc_claimAutoreleasedReturnValue(), [equalCopy header], v21 = objc_claimAutoreleasedReturnValue(), v22 = UNEqualObjects(), v21, v20, v22)
+    && (-[UNSNotificationRecord footer](self, "footer"), v23 = objc_claimAutoreleasedReturnValue(), [equalCopy footer], v24 = objc_claimAutoreleasedReturnValue(), v25 = UNEqualObjects(), v24, v23, v25)
+    && (-[UNSNotificationRecord body](self, "body"), v26 = objc_claimAutoreleasedReturnValue(), [equalCopy body], v27 = objc_claimAutoreleasedReturnValue(), v28 = UNEqualObjects(), v27, v26, v28)
+    && (-[UNSNotificationRecord attributedBody](self, "attributedBody"), v29 = objc_claimAutoreleasedReturnValue(), [equalCopy attributedBody], v30 = objc_claimAutoreleasedReturnValue(), v31 = UNEqualObjects(), v30, v29, v31)
+    && (-[UNSNotificationRecord subtitle](self, "subtitle"), v32 = objc_claimAutoreleasedReturnValue(), [equalCopy subtitle], v33 = objc_claimAutoreleasedReturnValue(), v34 = UNEqualObjects(), v33, v32, v34)
+    && (-[UNSNotificationRecord title](self, "title"), v35 = objc_claimAutoreleasedReturnValue(), [equalCopy title], v36 = objc_claimAutoreleasedReturnValue(), v37 = UNEqualObjects(), v36, v35, v37)
+    && (-[UNSNotificationRecord defaultActionTitle](self, "defaultActionTitle"), v38 = objc_claimAutoreleasedReturnValue(), [equalCopy defaultActionTitle], v39 = objc_claimAutoreleasedReturnValue(), v40 = UNEqualObjects(), v39, v38, v40)
+    && (-[UNSNotificationRecord summaryArgument](self, "summaryArgument"), v41 = objc_claimAutoreleasedReturnValue(), [equalCopy summaryArgument], v42 = objc_claimAutoreleasedReturnValue(), v43 = UNEqualObjects(), v42, v41, v43)
+    && (v44 = -[UNSNotificationRecord summaryArgumentCount](self, "summaryArgumentCount"), v44 == [equalCopy summaryArgumentCount])
+    && (-[UNSNotificationRecord relevanceScore](self, "relevanceScore"), v46 = v45, [equalCopy relevanceScore], v46 == v47)
+    && (v48 = -[UNSNotificationRecord hasDefaultAction](self, "hasDefaultAction"), v48 == [equalCopy hasDefaultAction]))
   {
     defaultActionTitleLocalizationKey = [(UNSNotificationRecord *)self defaultActionTitleLocalizationKey];
     defaultActionTitleLocalizationKey2 = [equalCopy defaultActionTitleLocalizationKey];
@@ -1915,7 +1102,6 @@ LABEL_106:
 
   else
   {
-LABEL_23:
     v49 = 0;
   }
 
@@ -2721,9 +1907,10 @@ void __63__UNSNotificationRecord_descriptionBuilderWithMultilinePrefix___block_i
 
 - (UNSNotificationRecord)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
@@ -2738,14 +1925,12 @@ void __63__UNSNotificationRecord_descriptionBuilderWithMultilinePrefix___block_i
   v23 = objc_opt_class();
   v24 = objc_opt_class();
   v25 = objc_opt_class();
-  v26 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:15];
-  v7 = [v4 setWithArray:{v6, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:15];
+  v7 = [v4 setWithArray:{v6, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"dictionary"];
 
   v9 = [[UNSNotificationRecord alloc] initWithDictionaryRepresentation:v8];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

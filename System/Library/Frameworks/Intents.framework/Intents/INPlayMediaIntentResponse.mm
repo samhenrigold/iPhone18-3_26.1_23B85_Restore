@@ -20,8 +20,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"code";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"code";
   code = [(INPlayMediaIntentResponse *)self code];
   v4 = code;
   if (code < (INPlayMediaIntentResponseCodeFailureUnknownMediaType|INPlayMediaIntentResponseCodeSuccess))
@@ -36,8 +36,8 @@
     v6 = 0;
   }
 
-  v12[1] = @"nowPlayingInfo";
-  v13[0] = null;
+  v11[1] = @"nowPlayingInfo";
+  v12[0] = null;
   nowPlayingInfo = [(INPlayMediaIntentResponse *)self nowPlayingInfo];
   null2 = nowPlayingInfo;
   if (!nowPlayingInfo)
@@ -45,8 +45,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (!nowPlayingInfo)
   {
   }
@@ -54,8 +54,6 @@
   if (v4 >= 0xC)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -200,7 +198,7 @@
 
 - (INPlayMediaIntentResponse)initWithCode:(INPlayMediaIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -218,21 +216,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INPlayMediaIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INPlayMediaIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INPlayMediaIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INPlayMediaIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -317,7 +314,7 @@
 
 - (void)_intents_prepareResponse
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   nowPlayingInfo = [(INPlayMediaIntentResponse *)self nowPlayingInfo];
   if (![nowPlayingInfo count] || !MediaRemoteLibrary() || !MediaPlayerLibrary())
   {
@@ -325,14 +322,14 @@
   }
 
   v4 = getMPMediaItemPropertyArtwork();
-  v25 = [nowPlayingInfo objectForKeyedSubscript:v4];
+  v26 = [nowPlayingInfo objectForKeyedSubscript:v4];
 
-  if (!v25)
+  if (!v26)
   {
     v5 = [nowPlayingInfo objectForKeyedSubscript:getkMRMediaRemoteNowPlayingInfoArtworkData()];
     if (v5)
     {
-      v25 = [INImage imageWithImageData:v5];
+      v26 = [INImage imageWithImageData:v5];
       v6 = [nowPlayingInfo objectForKeyedSubscript:getkMRMediaRemoteNowPlayingInfoArtworkDataWidth()];
       v7 = [nowPlayingInfo objectForKeyedSubscript:getkMRMediaRemoteNowPlayingInfoArtworkDataHeight()];
       if (v7 && v6)
@@ -340,13 +337,13 @@
         [v6 doubleValue];
         v9 = v8;
         [v7 doubleValue];
-        [v25 _setImageSize:{v9, v10}];
+        [v26 _setImageSize:{v9, v10}];
       }
     }
 
     else
     {
-      v25 = 0;
+      v26 = 0;
     }
   }
 
@@ -357,52 +354,52 @@
   [v11 removeObjectForKey:getkMRMediaRemoteNowPlayingInfoArtworkData()];
   [v11 removeObjectForKey:getkMRMediaRemoteNowPlayingInfoArtworkDataHeight()];
   [v11 removeObjectForKey:getkMRMediaRemoteNowPlayingInfoArtworkDataWidth()];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
   v13 = getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_ptr;
-  v38 = getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_ptr;
+  v39 = getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_ptr;
   if (!getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_block_invoke;
-    v33 = &unk_1E72888B8;
-    v34 = &v35;
+    v31 = MEMORY[0x1E69E9820];
+    v32 = 3221225472;
+    v33 = __getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_block_invoke;
+    v34 = &unk_1E72888B8;
+    v35 = &v36;
     v14 = MediaRemoteLibrary();
-    v36[3] = dlsym(v14, "kMRMediaRemoteNowPlayingInfoArtworkMIMEType");
-    getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_ptr = *(v34[1] + 24);
-    v13 = v36[3];
+    v37[3] = dlsym(v14, "kMRMediaRemoteNowPlayingInfoArtworkMIMEType");
+    getkMRMediaRemoteNowPlayingInfoArtworkMIMETypeSymbolLoc_ptr = *(v35[1] + 24);
+    v13 = v37[3];
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
   if (!v13)
   {
-    dlerror();
-    abort_report_np();
+    v24 = dlerror();
+    abort_report_np("%s", v24);
     goto LABEL_32;
   }
 
   [v11 removeObjectForKey:*v13];
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v15 = nowPlayingInfo;
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v39 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v27 objects:v40 count:16];
   if (v16)
   {
-    v17 = *v27;
+    v17 = *v28;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v27 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v26 + 1) + 8 * i);
+        v19 = *(*(&v27 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && ([v19 hasPrefix:@"kMRMediaRemote"])
         {
@@ -410,37 +407,37 @@
         }
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v26 objects:v39 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v27 objects:v40 count:16];
     }
 
     while (v16);
   }
 
   v20 = v11;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
   v21 = getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_ptr;
-  v38 = getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_ptr;
+  v39 = getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_ptr;
   if (!getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_ptr)
   {
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_block_invoke;
-    v33 = &unk_1E72888B8;
-    v34 = &v35;
+    v31 = MEMORY[0x1E69E9820];
+    v32 = 3221225472;
+    v33 = __getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_block_invoke;
+    v34 = &unk_1E72888B8;
+    v35 = &v36;
     v22 = MediaPlayerLibrary();
     v23 = dlsym(v22, "MPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionary");
-    *(v34[1] + 24) = v23;
-    getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_ptr = *(v34[1] + 24);
-    v21 = v36[3];
+    *(v35[1] + 24) = v23;
+    getMPNowPlayingInfoDictionaryToMRNowPlayingInfoDictionarySymbolLoc_ptr = *(v35[1] + 24);
+    v21 = v37[3];
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
   if (!v21)
   {
-    dlerror();
-    abort_report_np();
+    v25 = dlerror();
+    abort_report_np("%s", v25);
 LABEL_32:
     __break(1u);
   }
@@ -450,11 +447,10 @@ LABEL_32:
   v11 = [v15 mutableCopy];
 LABEL_28:
 
-  [v11 setObject:v25 forKeyedSubscript:@"artwork"];
+  [v11 setObject:v26 forKeyedSubscript:@"artwork"];
   [(INPlayMediaIntentResponse *)self setNowPlayingInfo:v11];
 
 LABEL_29:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

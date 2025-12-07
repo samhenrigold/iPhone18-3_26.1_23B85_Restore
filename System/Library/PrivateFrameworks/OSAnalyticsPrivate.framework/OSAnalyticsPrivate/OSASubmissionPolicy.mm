@@ -12,10 +12,10 @@
 
 - (OSASubmissionPolicy)init
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = OSASubmissionPolicy;
-  v2 = [(OSASubmissionPolicy *)&v33 init];
+  v34 = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = OSASubmissionPolicy;
+  v2 = [(OSASubmissionPolicy *)&v32 init];
   v3 = v2;
   if (v2)
   {
@@ -45,26 +45,26 @@
     v3->_default_template = v14;
 
     objc_storeStrong(&v3->_primary_template, v3->_default_template);
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v16 = v3->_default_template;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v30;
+      v19 = *v29;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v30 != v19)
+          if (*v29 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * i);
+          v21 = *(*(&v28 + 1) + 8 * i);
           v22 = [v21 objectForKeyedSubscript:@"policy"];
           v23 = [v22 objectForKeyedSubscript:@"allow-optout"];
           bOOLValue = [v23 BOOLValue];
@@ -77,14 +77,13 @@
           }
         }
 
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v18);
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -135,12 +134,11 @@
 
 - (void)persist
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = *(*self + 40);
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting submission results: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error persisting submission results: %@", &v2, 0xCu);
 }
 
 void __30__OSASubmissionPolicy_persist__block_invoke(uint64_t a1, uint64_t a2)
@@ -155,7 +153,7 @@ void __30__OSASubmissionPolicy_persist__block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)shouldSubmitRouting:(id)routing
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   routingCopy = routing;
   [routingCopy isEqualToString:@"ca1-ohttp"];
   mEMORY[0x277D36B80] = [MEMORY[0x277D36B80] sharedInstance];
@@ -176,9 +174,9 @@ LABEL_4:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = routingCopy;
-    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ignoring %{public}@ during Opt-OUT", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = routingCopy;
+    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ignoring %{public}@ during Opt-OUT", &v10, 0xCu);
   }
 
   v7 = @"opt-out";
@@ -190,18 +188,17 @@ LABEL_8:
 
   v8 = v7;
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)buildSubmissionTemplateForConfig:(id)config
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   configCopy = config;
   getAvailableTaskingRoutings = [MEMORY[0x277D36B88] getAvailableTaskingRoutings];
   self->_hasTasking = 0;
   array = [MEMORY[0x277CBEB18] array];
-  v30 = configCopy;
+  v29 = configCopy;
   v6 = [configCopy isProxy];
   v7 = 16;
   if (v6)
@@ -210,36 +207,36 @@ LABEL_8:
   }
 
   v8 = *(&self->super.isa + v7);
+  v32 = objc_opt_new();
   v33 = objc_opt_new();
-  v34 = objc_opt_new();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v9 = v8;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v35 objects:v47 count:16];
-  v32 = array;
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v31 = array;
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v34 + 1) + 8 * i);
         v15 = [v14 objectForKeyedSubscript:@"routing"];
         v16 = [v14 mutableCopy];
         v17 = [(OSASubmissionPolicy *)self shouldSubmitRouting:v15];
         if ([v17 length])
         {
           [v16 setObject:v17 forKeyedSubscript:@"<inactive>"];
-          v18 = v34;
+          v18 = v33;
         }
 
         else
@@ -268,14 +265,14 @@ LABEL_8:
 
           v22 = [(NSDictionary *)self->_prefaces objectForKeyedSubscript:v15];
 
-          array = v32;
-          v18 = v33;
+          array = v31;
+          v18 = v32;
           if (v22)
           {
             v23 = [(NSDictionary *)self->_prefaces objectForKeyedSubscript:v15];
             [v16 setObject:v23 forKeyedSubscript:@"<preface>"];
 
-            v18 = v33;
+            v18 = v32;
           }
         }
 
@@ -283,7 +280,7 @@ LABEL_8:
         [array addObject:v16];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
     while (v11);
@@ -291,7 +288,7 @@ LABEL_8:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    if ([v30 isProxy])
+    if ([v29 isProxy])
     {
       v24 = @"proxy";
     }
@@ -311,22 +308,20 @@ LABEL_8:
       v25 = @"custom";
     }
 
-    v26 = [v33 componentsJoinedByString:{@", "}];
-    v27 = [v34 componentsJoinedByString:{@", "}];
+    v26 = [v32 componentsJoinedByString:{@", "}];
+    v27 = [v33 componentsJoinedByString:{@", "}];
     *buf = 138413058;
-    v40 = v24;
-    v41 = 2112;
-    v42 = v25;
-    v43 = 2112;
-    v44 = v26;
-    v45 = 2112;
-    v46 = v27;
+    v39 = v24;
+    v40 = 2112;
+    v41 = v25;
+    v42 = 2112;
+    v43 = v26;
+    v44 = 2112;
+    v45 = v27;
     _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "submission template '%@:%@' includes [%@]; excludes [%@]", buf, 0x2Au);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (void)registerRouting:(id)routing result:(BOOL)result

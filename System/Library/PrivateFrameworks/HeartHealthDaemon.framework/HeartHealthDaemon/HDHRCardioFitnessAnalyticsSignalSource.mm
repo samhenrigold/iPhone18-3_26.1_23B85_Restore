@@ -28,7 +28,7 @@
 
 - (int64_t)bucketedAgeWithError:(id *)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [(HDHRCardioFitnessAnalyticsSignalSource *)self _birthDateComponentsWithError:error];
   if (v4)
   {
@@ -41,15 +41,14 @@
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: No date of birth components, returning invalid value", &v9, 0xCu);
+      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: No date of birth components, returning invalid value", &v8, 0xCu);
     }
 
     v5 = *MEMORY[0x277D12EF0];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -62,12 +61,12 @@
 
 - (id)latestClassificationWithIsOnboarded:(BOOL)onboarded error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (onboarded)
   {
-    v27 = 0;
-    v6 = [(HDHRCardioFitnessAnalyticsSignalSource *)self _birthDateComponentsWithError:&v27];
-    v7 = v27;
+    v26 = 0;
+    v6 = [(HDHRCardioFitnessAnalyticsSignalSource *)self _birthDateComponentsWithError:&v26];
+    v7 = v26;
     if (v7)
     {
       v8 = v7;
@@ -95,9 +94,9 @@
     else if (v6)
     {
       v14 = [(HDHRCardioFitnessAnalyticsSignalSource *)self _biologicalSexWithError:error];
-      v26 = 0;
-      v15 = [(HDHRCardioFitnessAnalyticsSignalSource *)self _latestCardioFitnessValueWithError:&v26];
-      v8 = v26;
+      v25 = 0;
+      v15 = [(HDHRCardioFitnessAnalyticsSignalSource *)self _latestCardioFitnessValueWithError:&v25];
+      v8 = v25;
       if (v8)
       {
         if (error)
@@ -177,7 +176,6 @@
   }
 
 LABEL_29:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -272,13 +270,13 @@ LABEL_29:
 
 - (int64_t)_biologicalSexWithError:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCD0D0] characteristicTypeForIdentifier:*MEMORY[0x277CCBB08]];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   userCharacteristicsManager = [WeakRetained userCharacteristicsManager];
-  v16 = 0;
-  v8 = [userCharacteristicsManager userCharacteristicForType:v5 error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [userCharacteristicsManager userCharacteristicForType:v5 error:&v15];
+  v9 = v15;
 
   if (!v9)
   {
@@ -320,49 +318,15 @@ LABEL_12:
   *error = v9;
 LABEL_13:
 
-  v14 = *MEMORY[0x277D85DE8];
   return integerValue;
-}
-
-- (void)latestClassificationWithIsOnboarded:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Error encountered when retrieving date of birth: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)latestClassificationWithIsOnboarded:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Date of birth missing, returning no classification", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_latestCardioFitnessValueWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Error encountered when retrieving latest cardio fitness sample: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_birthDateComponentsWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@]: Error when retrieving date of birth components: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_biologicalSexWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@]: Error when retrieving biological sex, returning not set: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Date of birth missing, returning no classification", &v2, 0xCu);
 }
 
 @end

@@ -7,11 +7,11 @@
 
 - (AVTChromaKeyPresentationConfiguration)init
 {
-  v2 = [(AVTPresentationConfiguration *)self _initWithStyle:3];
+  v2 = [(AVTPresentationConfiguration *)self _initWithStyle:?];
   if (v2)
   {
     greenColor = [MEMORY[0x1E69DC888] greenColor];
-    [(AVTChromaKeyPresentationConfiguration *)v2 setKeyColor:greenColor];
+    [(AVTChromaKeyPresentationConfiguration *)v2 setKeyColor:?];
   }
 
   return v2;

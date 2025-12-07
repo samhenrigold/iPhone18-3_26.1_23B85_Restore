@@ -37,7 +37,7 @@
 
 + (void)submitMetricWithDateComponents:(id)components
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   if ([self shouldSubmit])
   {
@@ -81,11 +81,11 @@
       v14 = objc_opt_class();
       v15 = v14;
       v16 = HKSensitiveLogItem();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2114;
-      v23 = v16;
-      _os_log_impl(&dword_2518FC000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Submitted metric %{public}@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v16;
+      _os_log_impl(&dword_2518FC000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Submitted metric %{public}@", &v19, 0x16u);
     }
 
     goto LABEL_14;
@@ -96,15 +96,13 @@
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
     v9 = v17;
-    v20 = 138543362;
-    v21 = objc_opt_class();
-    v18 = v21;
-    _os_log_impl(&dword_2518FC000, &v9->super, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping submitting metric.", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = objc_opt_class();
+    v18 = v20;
+    _os_log_impl(&dword_2518FC000, &v9->super, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping submitting metric.", &v19, 0xCu);
 
 LABEL_14:
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

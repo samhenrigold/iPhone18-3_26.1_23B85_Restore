@@ -9,12 +9,12 @@
 
 - (WLSRPServer)initWithUsername:(id)username password:(id)password
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   passwordCopy = password;
-  v20.receiver = self;
-  v20.super_class = WLSRPServer;
-  v8 = [(WLSRPServer *)&v20 init];
+  v15.receiver = self;
+  v15.super_class = WLSRPServer;
+  v8 = [(WLSRPServer *)&v15 init];
   if (v8)
   {
     SRP6a_server_method();
@@ -29,28 +29,21 @@
         salt_s = v8->_salt_s;
         v8->_salt_s = v10;
 
-        session = v8->_session;
         if (!SRP_set_params())
         {
-          v13 = v8->_session;
           [passwordCopy UTF8String];
-          if (!SRP_set_auth_password())
+          if (!SRP_set_auth_password() && !SRP_gen_pub())
           {
-            v14 = v8->_session;
-            if (!SRP_gen_pub())
-            {
-              v18 = [MEMORY[0x277CBEA90] dataWithBytes:MEMORY[0] length:MEMORY[8]];
-              serverPublicKey_B = v8->_serverPublicKey_B;
-              v8->_serverPublicKey_B = v18;
+            v13 = [MEMORY[0x277CBEA90] dataWithBytes:MEMORY[0] length:MEMORY[8]];
+            serverPublicKey_B = v8->_serverPublicKey_B;
+            v8->_serverPublicKey_B = v13;
 
-              cstr_free();
-              goto LABEL_10;
-            }
+            cstr_free();
+            goto LABEL_10;
           }
         }
       }
 
-      v15 = v8->_session;
       SRP_free();
       v8->_session = 0;
     }
@@ -60,24 +53,21 @@
 
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)dealloc
 {
-  session = self->_session;
   SRP_free();
   self->_session = 0;
-  v4.receiver = self;
-  v4.super_class = WLSRPServer;
-  [(WLSRPServer *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = WLSRPServer;
+  [(WLSRPServer *)&v3 dealloc];
 }
 
 - (BOOL)didReceiveClientPublicKey_A:(id)a proofOfMatch_M:(id)m
 {
   mCopy = m;
-  session = self->_session;
   aCopy = a;
   aCopy2 = a;
   [aCopy2 bytes];
@@ -85,50 +75,29 @@ LABEL_10:
 
   if (SRP_compute_key())
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v10 = MEMORY[8] != 0;
+    v9 = MEMORY[8] != 0;
   }
 
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:v10];
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:v9];
   _WLLog();
 
-  if (!v10)
+  if (v9 && ([MEMORY[0x277CBEA90] dataWithBytes:MEMORY[0] length:{MEMORY[8], v18}], v10 = objc_claimAutoreleasedReturnValue(), sharedKey_K = self->_sharedKey_K, self->_sharedKey_K = v10, sharedKey_K, -[NSData wl_hexEncodedString](self->_sharedKey_K, "wl_hexEncodedString"), v19 = objc_claimAutoreleasedReturnValue(), _WLLog(), v19, cstr_free(), objc_msgSend(mCopy, "bytes", v19), objc_msgSend(mCopy, "length"), v12 = SRP_verify(), objc_msgSend(MEMORY[0x277CCABB0], "numberWithBool:", v12 == 0), v20 = objc_claimAutoreleasedReturnValue(), _WLLog(), v20, !v12))
   {
-    goto LABEL_6;
-  }
-
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:MEMORY[0] length:{MEMORY[8], v20}];
-  sharedKey_K = self->_sharedKey_K;
-  self->_sharedKey_K = v11;
-
-  wl_hexEncodedString = [(NSData *)self->_sharedKey_K wl_hexEncodedString];
-  _WLLog();
-
-  cstr_free();
-  v13 = self->_session;
-  [mCopy bytes];
-  [mCopy length];
-  LODWORD(v13) = SRP_verify();
-  v22 = [MEMORY[0x277CCABB0] numberWithBool:v13 == 0];
-  _WLLog();
-
-  if (!v13)
-  {
-    v16 = self->_session;
-    v17 = SRP_respond();
-    v14 = v17 == 0;
-    v23 = [MEMORY[0x277CCABB0] numberWithBool:{v14, v22}];
+    v15 = SRP_respond();
+    v13 = v15 == 0;
+    v21 = [MEMORY[0x277CCABB0] numberWithBool:{v13, v20}];
     _WLLog();
 
-    if (!v17)
+    if (!v15)
     {
-      v18 = [MEMORY[0x277CBEA90] dataWithBytes:MEMORY[0] length:{MEMORY[8], v23}];
+      v16 = [MEMORY[0x277CBEA90] dataWithBytes:MEMORY[0] length:{MEMORY[8], v21}];
       hashOfProofOfMatch_HAMK = self->_hashOfProofOfMatch_HAMK;
-      self->_hashOfProofOfMatch_HAMK = v18;
+      self->_hashOfProofOfMatch_HAMK = v16;
 
       cstr_free();
     }
@@ -136,11 +105,10 @@ LABEL_10:
 
   else
   {
-LABEL_6:
-    LOBYTE(v14) = 0;
+    LOBYTE(v13) = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)isHmacData:(id)data validForData:(id)forData

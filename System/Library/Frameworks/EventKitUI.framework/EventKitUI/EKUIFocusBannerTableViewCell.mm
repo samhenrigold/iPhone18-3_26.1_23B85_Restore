@@ -27,8 +27,8 @@
     *(v5 + 129) = v8;
 
     [*(v5 + 129) setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [v5 contentView];
-    [contentView addSubview:*(v5 + 129)];
+    v10 = objc_msgSend_contentView(v5);
+    [v10 addSubview:*(v5 + 129)];
 
     v11 = [MEMORY[0x1E69DC738] buttonWithType:1];
     v12 = *(v5 + 128);
@@ -42,8 +42,8 @@
     [*(v5 + 128) setContentCompressionResistancePriority:0 forAxis:v14];
     LODWORD(v15) = 1148846080;
     [*(v5 + 128) setContentCompressionResistancePriority:1 forAxis:v15];
-    contentView2 = [v5 contentView];
-    [contentView2 addSubview:*(v5 + 128)];
+    v16 = objc_msgSend_contentView(v5);
+    [v16 addSubview:*(v5 + 128)];
 
     objc_initWeak(&location, v5);
     v23[0] = MEMORY[0x1E69E9820];
@@ -135,19 +135,19 @@ void __56__EKUIFocusBannerTableViewCell_initWithReuseIdentifier___block_invoke_2
   if (IsAccessibilityCategory)
   {
     leadingAnchor = [(UIListContentView *)self->_listContentView leadingAnchor];
-    contentView = [(EKUIFocusBannerTableViewCell *)self contentView];
-    leadingAnchor2 = [contentView leadingAnchor];
+    v59 = objc_msgSend_contentView(self);
+    leadingAnchor2 = [v59 leadingAnchor];
     v57 = [leadingAnchor constraintEqualToAnchor:?];
     v62[0] = v57;
     trailingAnchor = [(UIListContentView *)self->_listContentView trailingAnchor];
-    contentView2 = [(EKUIFocusBannerTableViewCell *)self contentView];
-    [contentView2 trailingAnchor];
+    v55 = objc_msgSend_contentView(self);
+    [v55 trailingAnchor];
     v54 = v56 = trailingAnchor;
     v53 = [trailingAnchor constraintEqualToAnchor:?];
     v62[1] = v53;
     topAnchor = [(UIListContentView *)self->_listContentView topAnchor];
-    contentView3 = [(EKUIFocusBannerTableViewCell *)self contentView];
-    [contentView3 topAnchor];
+    v51 = objc_msgSend_contentView(self);
+    [v51 topAnchor];
     v50 = v52 = topAnchor;
     v49 = [topAnchor constraintEqualToAnchor:?];
     v62[2] = v49;
@@ -157,15 +157,15 @@ void __56__EKUIFocusBannerTableViewCell_initWithReuseIdentifier___block_invoke_2
     v46 = [topAnchor2 constraintEqualToAnchor:8.0 constant:?];
     v62[3] = v46;
     bottomAnchor2 = [(UIButton *)self->_focusFilterToggleButton bottomAnchor];
-    contentView4 = [(EKUIFocusBannerTableViewCell *)self contentView];
-    layoutMarginsGuide = [contentView4 layoutMarginsGuide];
+    v44 = objc_msgSend_contentView(self);
+    layoutMarginsGuide = [v44 layoutMarginsGuide];
     bottomAnchor3 = [layoutMarginsGuide bottomAnchor];
     v45 = bottomAnchor2;
     centerYAnchor = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
     v62[4] = centerYAnchor;
     leadingAnchor3 = [(UIButton *)self->_focusFilterToggleButton leadingAnchor];
-    contentView5 = [(EKUIFocusBannerTableViewCell *)self contentView];
-    layoutMarginsGuide2 = [contentView5 layoutMarginsGuide];
+    centerYAnchor2 = objc_msgSend_contentView(self);
+    layoutMarginsGuide2 = [centerYAnchor2 layoutMarginsGuide];
     leadingAnchor4 = [layoutMarginsGuide2 leadingAnchor];
     v18 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
     v62[5] = v18;
@@ -183,22 +183,22 @@ void __56__EKUIFocusBannerTableViewCell_initWithReuseIdentifier___block_invoke_2
     v25.f64[1] = v24;
     v26 = vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v23, *MEMORY[0x1E69DC5C0]), vceqq_f64(v25, *(MEMORY[0x1E69DC5C0] + 16)))));
     leadingAnchor5 = [(UIListContentView *)self->_listContentView leadingAnchor];
-    contentView = [(EKUIFocusBannerTableViewCell *)self contentView];
-    leadingAnchor6 = [contentView leadingAnchor];
+    v59 = objc_msgSend_contentView(self);
+    leadingAnchor6 = [v59 leadingAnchor];
     leadingAnchor2 = leadingAnchor6;
     if (v26)
     {
       v57 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
       v60[0] = v57;
       topAnchor3 = [(UIListContentView *)self->_listContentView topAnchor];
-      contentView2 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      [contentView2 topAnchor];
+      v55 = objc_msgSend_contentView(self);
+      [v55 topAnchor];
       v54 = v56 = topAnchor3;
       v53 = [topAnchor3 constraintEqualToAnchor:?];
       v60[1] = v53;
       bottomAnchor4 = [(UIListContentView *)self->_listContentView bottomAnchor];
-      contentView3 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      [contentView3 bottomAnchor];
+      v51 = objc_msgSend_contentView(self);
+      [v51 bottomAnchor];
       v50 = v52 = bottomAnchor4;
       v49 = [bottomAnchor4 constraintEqualToAnchor:?];
       v60[2] = v49;
@@ -208,15 +208,15 @@ void __56__EKUIFocusBannerTableViewCell_initWithReuseIdentifier___block_invoke_2
       v46 = [leadingAnchor7 constraintGreaterThanOrEqualToAnchor:?];
       v60[3] = v46;
       trailingAnchor2 = [(UIButton *)self->_focusFilterToggleButton trailingAnchor];
-      contentView4 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      layoutMarginsGuide = [contentView4 layoutMarginsGuide];
+      v44 = objc_msgSend_contentView(self);
+      layoutMarginsGuide = [v44 layoutMarginsGuide];
       bottomAnchor3 = [layoutMarginsGuide trailingAnchor];
       v45 = trailingAnchor2;
       centerYAnchor = [trailingAnchor2 constraintEqualToAnchor:bottomAnchor3];
       v60[4] = centerYAnchor;
       leadingAnchor3 = [(UIButton *)self->_focusFilterToggleButton centerYAnchor];
-      contentView5 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      layoutMarginsGuide2 = [contentView5 centerYAnchor];
+      centerYAnchor2 = objc_msgSend_contentView(self);
+      layoutMarginsGuide2 = [centerYAnchor2 centerYAnchor];
       leadingAnchor4 = [leadingAnchor3 constraintEqualToAnchor:layoutMarginsGuide2];
       v60[5] = leadingAnchor4;
       v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:6];
@@ -230,14 +230,14 @@ void __56__EKUIFocusBannerTableViewCell_initWithReuseIdentifier___block_invoke_2
       v57 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6 constant:v28];
       v61[0] = v57;
       topAnchor4 = [(UIListContentView *)self->_listContentView topAnchor];
-      contentView2 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      [contentView2 topAnchor];
+      v55 = objc_msgSend_contentView(self);
+      [v55 topAnchor];
       v54 = v56 = topAnchor4;
       v53 = [topAnchor4 constraintEqualToAnchor:?];
       v61[1] = v53;
       bottomAnchor5 = [(UIListContentView *)self->_listContentView bottomAnchor];
-      contentView3 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      [contentView3 bottomAnchor];
+      v51 = objc_msgSend_contentView(self);
+      [v51 bottomAnchor];
       v50 = v52 = bottomAnchor5;
       v49 = [bottomAnchor5 constraintEqualToAnchor:?];
       v61[2] = v49;
@@ -247,17 +247,17 @@ void __56__EKUIFocusBannerTableViewCell_initWithReuseIdentifier___block_invoke_2
       v46 = [leadingAnchor8 constraintGreaterThanOrEqualToAnchor:?];
       v61[3] = v46;
       trailingAnchor3 = [(UIButton *)self->_focusFilterToggleButton trailingAnchor];
-      contentView4 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      trailingAnchor4 = [contentView4 trailingAnchor];
+      v44 = objc_msgSend_contentView(self);
+      trailingAnchor4 = [v44 trailingAnchor];
       [(EKUIFocusBannerTableViewCell *)self customEdgeInsets];
       v45 = trailingAnchor3;
       layoutMarginsGuide = trailingAnchor4;
       bottomAnchor3 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:v34];
       v61[4] = bottomAnchor3;
       centerYAnchor = [(UIButton *)self->_focusFilterToggleButton centerYAnchor];
-      leadingAnchor3 = [(EKUIFocusBannerTableViewCell *)self contentView];
-      contentView5 = [leadingAnchor3 centerYAnchor];
-      layoutMarginsGuide2 = [centerYAnchor constraintEqualToAnchor:contentView5];
+      leadingAnchor3 = objc_msgSend_contentView(self);
+      centerYAnchor2 = [leadingAnchor3 centerYAnchor];
+      layoutMarginsGuide2 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
       v61[5] = layoutMarginsGuide2;
       v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:6];
       leadingAnchor4 = self->_constraints;

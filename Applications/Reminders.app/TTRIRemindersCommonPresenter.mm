@@ -23,7 +23,7 @@
 
   sub_1001E7D9C();
 
-  sub_1000079B4(v3, &qword_10076AE40);
+  sub_1000079B4(v3, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)willNavigateTo

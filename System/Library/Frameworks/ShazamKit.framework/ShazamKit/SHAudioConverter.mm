@@ -7,7 +7,7 @@
 
 - (id)supportedPCMBufferFromBuffer:(id)buffer error:(id *)error
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   format = [bufferCopy format];
   channelCount = [format channelCount];
@@ -50,29 +50,29 @@
 
     if (v21)
     {
-      v34 = *MEMORY[0x277CCA450];
-      v35[0] = v20;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      v33 = *MEMORY[0x277CCA450];
+      v34[0] = v20;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
       [SHError annotateClientError:error code:100 underlyingError:0 keyOverrides:v22];
       v23 = 0;
     }
 
     else
     {
-      v31 = 0;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __55__SHAudioConverter_supportedPCMBufferFromBuffer_error___block_invoke;
-      v29[3] = &unk_2788F8190;
-      v30 = bufferCopy;
-      v24 = [v17 convertToBuffer:v15 error:&v31 withInputFromBlock:v29];
-      v25 = v31;
+      v30 = 0;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __55__SHAudioConverter_supportedPCMBufferFromBuffer_error___block_invoke;
+      v28[3] = &unk_2788F8190;
+      v29 = bufferCopy;
+      v24 = [v17 convertToBuffer:v15 error:&v30 withInputFromBlock:v28];
+      v25 = v30;
       v22 = v25;
       if (v24 == 3)
       {
-        v32 = *MEMORY[0x277CCA450];
-        v33 = v20;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = *MEMORY[0x277CCA450];
+        v32 = v20;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         [SHError annotateClientError:error code:100 underlyingError:v22 keyOverrides:v26];
 
         v23 = 0;
@@ -89,8 +89,6 @@
   {
     v23 = [objc_alloc(MEMORY[0x277CB83C8]) initWithPCMFormat:v11 frameCapacity:0];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

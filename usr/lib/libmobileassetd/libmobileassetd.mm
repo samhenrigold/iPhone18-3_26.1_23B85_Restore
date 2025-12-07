@@ -56,7 +56,7 @@ id stringWithoutNewlines(uint64_t a1)
   return v2;
 }
 
-uint64_t _MAPreferencesIsInternalAllowed()
+uint64_t _MAPreferencesIsInternalAllowed(uint64_t a1, uint64_t a2)
 {
   if (_MAPreferencesIsInternalAllowed_onceToken != -1)
   {
@@ -139,7 +139,7 @@ LABEL_10:
   return v7;
 }
 
-id disassembleTaskDescriptor(void *a1)
+NSMutableDictionary *disassembleTaskDescriptor(void *a1)
 {
   v1 = a1;
   v2 = [v1 pathExtension];
@@ -252,30 +252,30 @@ id assetTypeFromNormalized(void *a1)
 id isSoftwareUpdateType(void *a1)
 {
   v1 = a1;
-  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v1 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v2 = getSoftwareUpdateTypes();
-    v3 = [v2 containsObject:v1];
+    v3 = getSoftwareUpdateTypes(isKindOfClass);
+    v4 = [v3 containsObject:v1];
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
-id getSoftwareUpdateTypes()
+id getSoftwareUpdateTypes(uint64_t a1)
 {
   if (getSoftwareUpdateTypes_softwareUpdateTypesOnce != -1)
   {
     getSoftwareUpdateTypes_cold_1();
   }
 
-  v1 = getSoftwareUpdateTypes_softwareUpdateAssetTypes;
+  v2 = getSoftwareUpdateTypes_softwareUpdateAssetTypes;
 
-  return v1;
+  return v2;
 }
 
 BOOL _isAssetTypeAllowlisted(void *value)
@@ -537,114 +537,116 @@ LABEL_49:
   return v10;
 }
 
-id _preferencesDomainProtectionDispatchQueue()
+id _preferencesDomainProtectionDispatchQueue(uint64_t a1)
 {
   if (_preferencesDomainProtectionDispatchQueue_preferencesDomainQueueOnce != -1)
   {
     _preferencesDomainProtectionDispatchQueue_cold_1();
   }
 
-  v1 = _preferencesDomainProtectionDispatchQueue_preferencesDomainQueue;
+  v2 = _preferencesDomainProtectionDispatchQueue_preferencesDomainQueue;
 
-  return v1;
+  return v2;
 }
 
 id _MAPreferencesCopyValue(void *a1)
 {
   v1 = a1;
+  v2 = v1;
   if (!v1)
   {
-    v9 = 0;
+    v10 = 0;
     goto LABEL_13;
   }
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__0;
-  v31 = __Block_byref_object_dispose__0;
-  v32 = 0;
-  v2 = _preferencesDomainProtectionDispatchQueue();
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__0;
+  v32 = __Block_byref_object_dispose__0;
+  v33 = 0;
+  v3 = _preferencesDomainProtectionDispatchQueue(v1);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = ___MAPreferencesCopyValue_block_invoke;
   block[3] = &unk_4B2EA8;
-  v3 = v1;
-  v25 = v3;
-  v26 = &v27;
-  dispatch_sync(v2, block);
+  v4 = v2;
+  v26 = v4;
+  v27 = &v28;
+  dispatch_sync(v3, block);
 
-  v4 = newPrefsCopyValueForKey(v3);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__0;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = 0;
-  v5 = _preferencesDomainProtectionDispatchQueue();
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = ___MAPreferencesCopyValue_block_invoke_2;
-  v15[3] = &unk_4B2AC8;
-  v17 = &v18;
-  v6 = v3;
-  v16 = v6;
-  dispatch_sync(v5, v15);
+  v5 = newPrefsCopyValueForKey(v4);
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__0;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = 0;
+  v6 = _preferencesDomainProtectionDispatchQueue(v5);
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = ___MAPreferencesCopyValue_block_invoke_2;
+  v16[3] = &unk_4B2AC8;
+  v18 = &v19;
+  v7 = v4;
+  v17 = v7;
+  dispatch_sync(v6, v16);
 
-  v7 = v28[5];
-  if (v7)
+  v8 = v29[5];
+  if (v8)
   {
-    v8 = @"defaults";
+    v9 = @"defaults";
 LABEL_9:
-    v10 = v7;
-    v11 = _MADLog(@"V2");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = v8;
+    v12 = _MADLog(@"V2");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138544130;
-      v34 = v8;
-      v35 = 2114;
-      v36 = v6;
-      v37 = 2114;
-      v38 = v10;
-      v39 = 2114;
-      v40 = v13;
+      v35 = v9;
+      v36 = 2114;
+      v37 = v7;
+      v38 = 2114;
+      v39 = v11;
+      v40 = 2114;
+      v41 = v14;
     }
 
     goto LABEL_12;
   }
 
-  if (v4)
+  if (v5)
   {
-    v8 = @"profile";
-    v7 = v4;
+    v9 = @"profile";
+    v8 = v5;
     goto LABEL_9;
   }
 
-  v7 = v19[5];
-  if (v7)
+  v8 = v20[5];
+  if (v8)
   {
-    v8 = @"userdefaults";
+    v9 = @"userdefaults";
     goto LABEL_9;
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_12:
-  v9 = v10;
+  v10 = v11;
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v28, 8);
 
 LABEL_13:
 
-  return v9;
+  return v10;
 }
 
-void sub_37D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_37D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a15, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -667,16 +669,16 @@ id newPrefsCopyValueForKey(void *a1)
   return v5;
 }
 
-id downloadManagerDecodeClasses()
+id downloadManagerDecodeClasses(uint64_t a1)
 {
   if (downloadManagerDecodeClasses_once != -1)
   {
     downloadManagerDecodeClasses_cold_1();
   }
 
-  v1 = downloadManagerDecodeClasses__downloadManagerDecodeClasses;
+  v2 = downloadManagerDecodeClasses__downloadManagerDecodeClasses;
 
-  return v1;
+  return v2;
 }
 
 id getObjectFromMessageLogIfDesired(void *a1, const char *a2, const char *a3, void *a4, int a5)
@@ -775,7 +777,7 @@ uint64_t _MAPreferencesSync(void *a1, void *a2)
   v15 = &v14;
   v16 = 0x2020000000;
   v17 = 0;
-  v5 = _preferencesDomainProtectionDispatchQueue();
+  v5 = _preferencesDomainProtectionDispatchQueue(v4);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = ___MAPreferencesSync_block_invoke;
@@ -796,7 +798,7 @@ BOOL syncPreferences(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = _preferencesDomainProtectionDispatchQueue();
+  v5 = _preferencesDomainProtectionDispatchQueue(v4);
   dispatch_assert_queue_V2(v5);
 
   v6 = CFPreferencesAppSynchronize(@"com.apple.MobileAsset");
@@ -1047,11 +1049,11 @@ uint64_t getPreferenceLong(void *a1)
   return v3;
 }
 
-void sub_4384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1095,16 +1097,16 @@ __CFString *normalizePurposeFromUtf8(uint64_t a1)
   return v3;
 }
 
-id queryDecodeClasses()
+id queryDecodeClasses(uint64_t a1)
 {
   if (queryDecodeClasses_once != -1)
   {
     queryDecodeClasses_cold_1();
   }
 
-  v1 = queryDecodeClasses__queryDecodeClasses;
+  v2 = queryDecodeClasses__queryDecodeClasses;
 
-  return v1;
+  return v2;
 }
 
 __CFString *normalizePurpose(void *a1)
@@ -1114,19 +1116,20 @@ __CFString *normalizePurpose(void *a1)
   if (v1 && !isWellFormedPurpose(v1))
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v3 = purposeIgnoredCharacterSet();
-      [(__CFString *)v2 rangeOfCharacterFromSet:v3];
-      v5 = v4;
+      v4 = purposeIgnoredCharacterSet(isKindOfClass);
+      [(__CFString *)v2 rangeOfCharacterFromSet:v4];
+      v6 = v5;
 
-      if (v5)
+      if (v6)
       {
-        v6 = purposeIgnoredCharacterSet();
-        v7 = [(__CFString *)v2 componentsSeparatedByCharactersInSet:v6];
-        v8 = [v7 componentsJoinedByString:&stru_4BD3F0];
+        v8 = purposeIgnoredCharacterSet(v7);
+        v9 = [(__CFString *)v2 componentsSeparatedByCharactersInSet:v8];
+        v10 = [v9 componentsJoinedByString:&stru_4BD3F0];
 
-        v2 = v8;
+        v2 = v10;
       }
     }
 
@@ -1140,44 +1143,44 @@ __CFString *normalizePurpose(void *a1)
   return v2;
 }
 
-id purposeDisallowedCharacterSet()
+id purposeDisallowedCharacterSet(uint64_t a1)
 {
   if (purposeDisallowedCharacterSet_once != -1)
   {
     purposeDisallowedCharacterSet_cold_1();
   }
 
-  v1 = purposeDisallowedCharacterSet_disallowedSet;
+  v2 = purposeDisallowedCharacterSet_disallowedSet;
 
-  return v1;
+  return v2;
 }
 
-id getDownloadManager()
+id getDownloadManager(uint64_t a1)
 {
   if (getDownloadManager_downloadManagerOnce != -1)
   {
     getDownloadManager_cold_1();
   }
 
-  v1 = getDownloadManager_downloadManager;
+  v2 = getDownloadManager_downloadManager;
 
-  return v1;
+  return v2;
 }
 
 BOOL isWellFormedPurpose(void *a1)
 {
   v1 = a1;
-  v5 = 1;
+  v6 = 1;
   if (v1)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v1 length] || objc_msgSend(v1, "length") > 0x3C || (purposeDisallowedCharacterSet(), v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v1, "rangeOfCharacterFromSet:", v2), v4 = v3, v2, v4))
+    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v1 length] || (v2 = objc_msgSend(v1, "length"), v2 > 0x3C) || (purposeDisallowedCharacterSet(v2), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v1, "rangeOfCharacterFromSet:", v3), v5 = v4, v3, v5))
     {
-      v5 = 0;
+      v6 = 0;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 id normalizedAssetType(uint64_t a1)
@@ -1245,7 +1248,7 @@ BOOL sendReply(void *a1, void *a2, int64_t a3)
   return v7 != 0;
 }
 
-uint64_t __isPlatformVersionAtLeast(uint64_t a1, int a2, int a3, int a4)
+uint64_t __isPlatformVersionAtLeast(int a1, int a2, int a3, int a4)
 {
   if (qword_51A3C0 == -1)
   {
@@ -1376,48 +1379,48 @@ LABEL_4:
   return v15;
 }
 
-id dataFillInstalledWithPurpose(void *a1, void *a2, void *a3, void *a4, void *a5)
+NSMutableDictionary *dataFillInstalledWithPurpose(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
   v9 = a1;
   v10 = a2;
-  v42 = a3;
-  v48 = a4;
+  v44 = a3;
+  v50 = a4;
   v11 = a5;
-  if (v9 && v10 && v48)
+  if (v9 && v10 && v50)
   {
-    v45 = objc_opt_new();
-    if (v45)
+    v47 = objc_opt_new();
+    if (v47)
     {
+      v55 = 0u;
+      v56 = 0u;
       v53 = 0u;
       v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v53 objects:v59 count:16];
       if (!v13)
       {
         goto LABEL_50;
       }
 
       v14 = v13;
-      v40 = v10;
-      v49 = *v52;
-      v15 = v42;
-      v46 = v11;
+      v42 = v10;
+      v51 = *v54;
+      v15 = v44;
+      v48 = v11;
       obj = v12;
-      v41 = v9;
+      v43 = v9;
       while (1)
       {
         v16 = 0;
-        v43 = v14;
+        v45 = v14;
         do
         {
-          if (*v52 != v49)
+          if (*v54 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v51 + 1) + 8 * v16);
+          v17 = *(*(&v53 + 1) + 8 * v16);
           v18 = objc_autoreleasePoolPush();
           if (v17)
           {
@@ -1431,31 +1434,32 @@ id dataFillInstalledWithPurpose(void *a1, void *a2, void *a3, void *a4, void *a5
               v19 = 0;
             }
 
-            v21 = getPathToAssetWithPurpose(v48, v9, v17, v11);
+            v21 = getPathToAssetWithPurpose(v50, v9, v17, v11);
             v22 = v21;
             if (v19)
             {
-              v20 = v19;
+              v23 = v19;
+              v20 = v23;
 LABEL_18:
               if (v11 && v22)
               {
-                [v20 setObject:v11 forKey:@"AssetPurpose"];
+                v23 = [v20 setObject:v11 forKey:@"AssetPurpose"];
               }
 
-              if (_MAPreferencesIsVerboseLoggingEnabled())
+              if (_MAPreferencesIsVerboseLoggingEnabled(v23, v24))
               {
-                v23 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+                v25 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v56 = v22;
-                  _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Path to asset dir: %{public}@", buf, 0xCu);
+                  v58 = v22;
+                  _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Path to asset dir: %{public}@", buf, 0xCu);
                 }
 
-                v11 = v46;
+                v11 = v48;
               }
 
-              [v45 setObject:v20 forKey:{v17, v40}];
+              [v47 setObject:v20 forKey:{v17, v42}];
 LABEL_43:
 
               goto LABEL_44;
@@ -1463,83 +1467,83 @@ LABEL_43:
 
             if (v21)
             {
-              v24 = [v21 URLByAppendingPathComponent:@"Info.plist"];
-              v25 = [v22 URLByAppendingPathComponent:@"AssetData"];
-              v44 = v24;
-              v26 = [v24 absoluteString];
-              v27 = [NSDictionary dictionaryWithContentsOfFile:v26];
+              v26 = [v21 URLByAppendingPathComponent:@"Info.plist"];
+              v27 = [v22 URLByAppendingPathComponent:@"AssetData"];
+              v46 = v26;
+              v28 = [v26 absoluteString];
+              v29 = [NSDictionary dictionaryWithContentsOfFile:v28];
 
-              if (!v27 || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v28 = objc_claimAutoreleasedReturnValue(), [v25 path], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v28, "fileExistsAtPath:", v29), v29, v28, (v30 & 1) == 0))
+              if (!v29 || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v30 = objc_claimAutoreleasedReturnValue(), [v27 path], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v30, "fileExistsAtPath:", v31), v31, v30, (v32 & 1) == 0))
               {
-                v34 = _MADLog(@"V2Control");
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                v36 = _MADLog(@"V2Control");
+                if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v56 = v22;
-                  _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "Got a malformed asset when reading %{public}@, cleaning up", buf, 0xCu);
+                  v58 = v22;
+                  _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "Got a malformed asset when reading %{public}@, cleaning up", buf, 0xCu);
                 }
 
-                v35 = +[NSFileManager defaultManager];
-                v36 = [v22 path];
-                v50 = 0;
-                [v35 removeItemAtPath:v36 error:&v50];
-                v37 = v50;
+                v37 = +[NSFileManager defaultManager];
+                v38 = [v22 path];
+                v52 = 0;
+                [v37 removeItemAtPath:v38 error:&v52];
+                v39 = v52;
 
-                if (v37)
+                if (v39)
                 {
-                  v38 = _MADLog(@"V2Control");
-                  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+                  v40 = _MADLog(@"V2Control");
+                  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138543362;
-                    v56 = v37;
-                    _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "Could not clean up malformed asset: %{public}@", buf, 0xCu);
+                    v58 = v39;
+                    _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "Could not clean up malformed asset: %{public}@", buf, 0xCu);
                   }
                 }
 
                 v20 = 0;
-                v9 = v41;
-                v15 = v42;
-                v11 = v46;
-                v14 = v43;
+                v9 = v43;
+                v15 = v44;
+                v11 = v48;
+                v14 = v45;
                 goto LABEL_43;
               }
 
-              v20 = [v27 objectForKey:@"MobileAssetProperties"];
+              v20 = [v29 objectForKey:@"MobileAssetProperties"];
 
-              v9 = v41;
-              v15 = v42;
-              v11 = v46;
-              v14 = v43;
+              v9 = v43;
+              v15 = v44;
+              v11 = v48;
+              v14 = v45;
               if (v20)
               {
                 goto LABEL_18;
               }
 
-              v31 = _MADLog(@"V2Control");
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v33 = _MADLog(@"V2Control");
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                v32 = v31;
-                v33 = "Got a nil attributes when reading Info.plist, skipping";
+                v34 = v33;
+                v35 = "Got a nil attributes when reading Info.plist, skipping";
                 goto LABEL_41;
               }
             }
 
             else
             {
-              v31 = _MADLog(@"V2Control");
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v33 = _MADLog(@"V2Control");
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                v32 = v31;
-                v33 = "attempted to create fullpath to asset and it failed";
+                v34 = v33;
+                v35 = "attempted to create fullpath to asset and it failed";
 LABEL_41:
-                _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, v33, buf, 2u);
+                _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, v35, buf, 2u);
               }
             }
 
             v20 = 0;
-            v11 = v46;
+            v11 = v48;
             goto LABEL_43;
           }
 
@@ -1558,16 +1562,16 @@ LABEL_44:
 
         while (v14 != v16);
         v12 = obj;
-        v14 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+        v14 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
         if (!v14)
         {
-          v10 = v40;
+          v10 = v42;
           goto LABEL_50;
         }
       }
     }
 
-    v45 = 0;
+    v47 = 0;
   }
 
   else
@@ -1579,11 +1583,11 @@ LABEL_44:
       _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "preqs are nil for dataFilling", buf, 2u);
     }
 
-    v45 = 0;
+    v47 = 0;
 LABEL_50:
   }
 
-  return v45;
+  return v47;
 }
 
 void mergeDictionaries(void *a1, void *a2)
@@ -1816,7 +1820,7 @@ LABEL_7:
   return v6;
 }
 
-id getInstalledAssetIds(void *a1)
+NSMutableSet *getInstalledAssetIds(void *a1)
 {
   v1 = opendir([a1 UTF8String]);
   if (v1)
@@ -1965,42 +1969,42 @@ id filterResults(void *a1, void *a2)
   return v7;
 }
 
-BOOL isForcedResultPreferenceSetForAssetType(void *a1, void *a2, void *a3)
+BOOL isForcedResultPreferenceSetForAssetType(void *a1, void *a2, uint64_t *a3)
 {
   v5 = a1;
   v6 = a2;
-  if (_MAPreferencesIsInternalAllowed())
+  if (_MAPreferencesIsInternalAllowed(v6, v7))
   {
-    v13 = 0;
-    v7 = [NSString stringWithFormat:@"%@-%@", v5, v6];
-    AppIntegerValue = _MAPreferencesGetAppIntegerValue(v7, &v13);
-    v9 = v13 != 0;
-    if (v13)
+    v14 = 0;
+    v8 = [NSString stringWithFormat:@"%@-%@", v5, v6];
+    AppIntegerValue = _MAPreferencesGetAppIntegerValue(v8, &v14);
+    v10 = v14 != 0;
+    if (v14)
     {
-      v10 = AppIntegerValue;
-      v11 = _MADLog(@"Download");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v11 = AppIntegerValue;
+      v12 = _MADLog(@"Download");
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v15 = v7;
-        v16 = 2048;
-        v17 = v10;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Found %{public}@ preference override. Will force result %ld.", buf, 0x16u);
+        v16 = v8;
+        v17 = 2048;
+        v18 = v11;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Found %{public}@ preference override. Will force result %ld.", buf, 0x16u);
       }
 
       if (a3)
       {
-        *a3 = v10;
+        *a3 = v11;
       }
     }
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 id assembleTaskDescriptorWithPurposeAndAutoAssetJobID(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -2288,16 +2292,16 @@ LABEL_4:
   return v7;
 }
 
-id getControlManager()
+id getControlManager(uint64_t a1)
 {
   if (getControlManager_controlManagerOnce != -1)
   {
     getControlManager_cold_1();
   }
 
-  v1 = getControlManager_controlManager;
+  v2 = getControlManager_controlManager;
 
-  return v1;
+  return v2;
 }
 
 uint64_t isSSONeededForURL(void *a1)
@@ -2607,7 +2611,7 @@ id isAttributePartOfAssetIdHash(void *a1)
   return v2;
 }
 
-id getAssetsFromXml(void *a1, void *a2)
+NSMutableDictionary *getAssetsFromXml(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
@@ -3267,7 +3271,7 @@ id _MABufferToHexString(unsigned __int8 *a1, uint64_t a2)
   return v9;
 }
 
-id applyFilter(void *a1, void *a2)
+NSMutableDictionary *applyFilter(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
@@ -3805,38 +3809,38 @@ id stringForMADownloadResult(unint64_t a1)
 id isSupportedMAAnalyticsEventFieldName(void *a1)
 {
   v1 = a1;
-  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v1 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v2 = getSupportedAnalyticsEventFields();
-    v3 = [v2 containsObject:v1];
+    v3 = getSupportedAnalyticsEventFields(isKindOfClass);
+    v4 = [v3 containsObject:v1];
   }
 
   else
   {
-    v2 = _MADLog(@"V2");
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _MADLog(@"V2");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136446210;
-      v6 = "isSupportedMAAnalyticsEventFieldName";
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_ERROR, "%{public}s: Field is invalid", &v5, 0xCu);
+      v6 = 136446210;
+      v7 = "isSupportedMAAnalyticsEventFieldName";
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "%{public}s: Field is invalid", &v6, 0xCu);
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
-id getSupportedAnalyticsEventFields()
+id getSupportedAnalyticsEventFields(uint64_t a1)
 {
   if (getSupportedAnalyticsEventFields_supportedAnalyticsEventsFieldsOnce != -1)
   {
     getSupportedAnalyticsEventFields_cold_1();
   }
 
-  v1 = getSupportedAnalyticsEventFields_supportedAnalyticsEventsFields;
+  v2 = getSupportedAnalyticsEventFields_supportedAnalyticsEventsFields;
 
-  return v1;
+  return v2;
 }
 
 id getAssetsAtPath(void *a1)
@@ -4240,11 +4244,11 @@ int8x16_t *ccaes_arm_decrypt_cbc(int8x16_t *result, int8x16_t *a2, uint64_t a3, 
   return result;
 }
 
-uint64_t ccaes_arm_encrypt_cbc(uint64_t result, int8x16_t *a2, uint64_t a3, uint64_t a4, int8x16_t *a5)
+int8x16_t *ccaes_arm_encrypt_cbc(int8x16_t *result, int8x16_t *a2, uint64_t a3, uint64_t a4, int8x16_t *a5)
 {
   if (a3)
   {
-    v5 = *(result + 240);
+    v5 = result[15].u32[0];
     if (v5 == 160 || v5 == 192 || v5 == 224)
     {
       do
@@ -4252,7 +4256,7 @@ uint64_t ccaes_arm_encrypt_cbc(uint64_t result, int8x16_t *a2, uint64_t a3, uint
         v6 = v5 - 16;
         a4 += 16;
         _Q2 = *result;
-        v7 = (result + 16);
+        v7 = result + 1;
         do
         {
           __asm
@@ -4270,7 +4274,7 @@ uint64_t ccaes_arm_encrypt_cbc(uint64_t result, int8x16_t *a2, uint64_t a3, uint
         __asm { AESE            V0.16B, V2.16B }
 
         v17 = veorq_s8(_Q0, *v7);
-        result = v7->i64 - v5;
+        result = (v7 - v5);
         *a5++ = v17;
         v15 = a3-- <= 1;
       }
@@ -4559,7 +4563,7 @@ int8x16_t *ccaes_arm_encrypt_key256(int8x16_t *result, int8x16_t *a2)
   return result;
 }
 
-uint64_t ccaes_arm_encrypt_key(double a1, double a2, double a3, double a4, double a5, double a6, int64x2_t a7, uint64_t a8, int8x16_t *a9, uint64_t a10, int8x16_t *a11)
+uint64_t ccaes_arm_encrypt_key(double a1, double a2, double a3, double a4, double a5, double a6, int64x2_t a7, uint64_t a8, int8x16_t *a9, unint64_t a10, int8x16_t *a11)
 {
   v13 = a9;
   v15 = a10;
@@ -4586,7 +4590,7 @@ uint64_t ccaes_arm_encrypt_key(double a1, double a2, double a3, double a4, doubl
   return 0;
 }
 
-__n128 ccaes_arm_decrypt_key(uint64_t a1, int8x16_t *a2, uint64_t a3, int8x16_t *a4, double a5, double a6, double a7, double a8, double a9, double a10, int64x2_t a11)
+int8x16_t ccaes_arm_decrypt_key(uint64_t a1, int8x16_t *a2, unint64_t a3, int8x16_t *a4, double a5, double a6, double a7, double a8, double a9, double a10, int64x2_t a11)
 {
   v11 = ccaes_arm_encrypt_key(a5, a6, a7, a8, a9, a10, a11, a1, a2, a3, a4);
   v13 = a3;
@@ -4598,7 +4602,7 @@ __n128 ccaes_arm_decrypt_key(uint64_t a1, int8x16_t *a2, uint64_t a3, int8x16_t 
     }
 
     v14 = (v13 >> 2) + 4;
-    v15 = &a2[1];
+    v15 = a2 + 1;
     do
     {
       _Q0 = *v15;
@@ -4628,7 +4632,7 @@ __n128 ccaes_arm_decrypt_key(uint64_t a1, int8x16_t *a2, uint64_t a3, int8x16_t 
 
 int8x16_t *aes_ctr_crypt(int8x16_t *a1, int8x16_t *a2, uint64_t a3, int8x16_t *a4, int8x16_t *a5, uint64_t a6)
 {
-  v6 = a5[15].i32[0];
+  v6 = a5[15].u32[0];
   v8 = __OFSUB__(a3, 128);
   v7 = a3 - 128 < 0;
   v9 = a3 - 128;
@@ -4643,7 +4647,7 @@ int8x16_t *aes_ctr_crypt(int8x16_t *a1, int8x16_t *a2, uint64_t a3, int8x16_t *a
   }
 }
 
-uint64_t Decrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, int8x16_t *a5, uint64_t a6, int a7)
+int8x16_t *Decrypt_Main_Loop(int8x16_t *a1, int8x16_t *a2, uint64_t a3, int8x16_t *a4, int8x16_t *a5, uint64_t a6, uint64_t a7)
 {
   do
   {
@@ -4933,9 +4937,9 @@ uint64_t Decrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
     }
 
     v235 = *a1;
-    v236 = *(a1 + 1);
-    v237 = *(a1 + 2);
-    v238 = *(a1 + 3);
+    v236 = a1[1];
+    v237 = a1[2];
+    v238 = a1[3];
     v234 = a1 + 4;
     __asm
     {
@@ -4950,9 +4954,9 @@ uint64_t Decrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
     v245 = veorq_s8(v237, veorq_s8(_Q24, v167));
     v246 = veorq_s8(v238, veorq_s8(_Q25, v167));
     v247 = *v234;
-    v248 = *(v234 + 1);
-    v249 = *(v234 + 2);
-    v250 = *(v234 + 3);
+    v248 = v234[1];
+    v249 = v234[2];
+    v250 = v234[3];
     a1 = v234 + 4;
     __asm
     {
@@ -4978,7 +4982,7 @@ uint64_t Decrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
   }
 
   while (_NF == _VF);
-  return Decrypt_Main_Loop_End();
+  return Decrypt_Main_Loop_End(a1, a2, a3, a4, a5, a6, a7);
 }
 
 int8x16_t *Decrypt_Main_Loop_End(int8x16_t *result, int8x16_t *a2, uint64_t a3, int8x16_t *a4, int8x16_t *a5, uint64_t a6, int a7)
@@ -5363,7 +5367,7 @@ unint64_t *AccelerateCrypto_SHA3_keccak_hwassist(unint64_t *result, int8x16_t _Q
   return result;
 }
 
-BOOL ccn_sub_asm(_BOOL8 result, void *a2, uint64_t *a3, unint64_t *a4)
+BOOL ccn_sub_asm(_BOOL8 result, unint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
   v4 = 1;
   if (result)
@@ -5401,10 +5405,10 @@ BOOL ccn_sub_asm(_BOOL8 result, void *a2, uint64_t *a3, unint64_t *a4)
       v16 = v15 - 4;
       v18 = *a3;
       v19 = a3[1];
-      v17 = a3 + 2;
+      v17 = (a3 + 2);
       v21 = *a4;
       v22 = a4[1];
-      v20 = (a4 + 2);
+      v20 = a4 + 2;
       v24 = *v17;
       v25 = v17[1];
       v23 = v17 + 2;
@@ -5642,7 +5646,7 @@ int8x16_t gcm_ghash(int8x16_t *a1, uint64x2_t *a2, int8x16_t *a3, uint64_t a4)
   return result;
 }
 
-uint64_t ccn_shift_right_asm(uint64_t result, int8x16_t *a2, int8x16_t *a3, uint64_t a4)
+uint64_t ccn_shift_right_asm(uint64_t result, int8x16_t *a2, uint64x2_t *a3, uint64_t a4)
 {
   if (result)
   {
@@ -5682,7 +5686,7 @@ uint64_t ccn_shift_right_asm(uint64_t result, int8x16_t *a2, int8x16_t *a3, uint
     }
 
     v14 = result + 4;
-    v15 = &a3->u64[1];
+    v15 = &a3->i64[1];
     v16 = v14 == 2;
     v9 = v14 < 2;
     result = v14 - 2;
@@ -5795,7 +5799,7 @@ LABEL_13:
   return *a5.i64;
 }
 
-uint64_t ccn_cmp_asm(uint64_t result, unint64_t *a2, unint64_t *a3)
+unint64_t ccn_cmp_asm(unint64_t result, unint64_t *a2, unint64_t *a3)
 {
   if (result)
   {
@@ -5824,10 +5828,10 @@ uint64_t ccn_cmp_asm(uint64_t result, unint64_t *a2, unint64_t *a3)
   return result;
 }
 
-void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64x2_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+double gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64x2_t *a5, int8x16_t *a6)
 {
-  v10 = *(a6 + 240);
-  v11 = vqtbl1q_s8(a3[1], *Lbswap_mask_0);
+  v6 = a6[15].i32[0];
+  v7 = vqtbl1q_s8(a3[1], *Lbswap_mask_0);
   if (a4 < 128)
   {
     JUMPOUT(0xCA28);
@@ -5854,7 +5858,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 16);
+  _Q20 = a6[1];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -5875,7 +5879,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 32);
+  _Q20 = a6[2];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -5896,7 +5900,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 48);
+  _Q20 = a6[3];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -5917,7 +5921,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 64);
+  _Q20 = a6[4];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -5938,7 +5942,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 80);
+  _Q20 = a6[5];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -5959,7 +5963,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 96);
+  _Q20 = a6[6];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -5980,7 +5984,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 112);
+  _Q20 = a6[7];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -6001,7 +6005,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 128);
+  _Q20 = a6[8];
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -6022,9 +6026,9 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESMC           V29.16B, V29.16B
   }
 
-  _Q20 = *(a6 + 144);
-  v170 = *(a6 + 160);
-  if (v10 > 160)
+  _Q20 = a6[9];
+  v166 = a6[10];
+  if (v6 > 160)
   {
     __asm
     {
@@ -6046,7 +6050,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = *(a6 + 160);
+    _Q20 = a6[10];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6067,9 +6071,9 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = *(a6 + 176);
-    v170 = *(a6 + 192);
-    if (v10 > 192)
+    _Q20 = a6[11];
+    v166 = a6[12];
+    if (v6 > 192)
     {
       __asm
       {
@@ -6091,7 +6095,7 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
         AESMC           V29.16B, V29.16B
       }
 
-      _Q20 = *(a6 + 192);
+      _Q20 = a6[12];
       __asm
       {
         AESE            V22.16B, V20.16B
@@ -6112,16 +6116,16 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
         AESMC           V29.16B, V29.16B
       }
 
-      _Q20 = *(a6 + 208);
-      v170 = *(a6 + 224);
+      _Q20 = a6[13];
+      v166 = a6[14];
     }
   }
 
-  v238 = *a1;
-  v239 = a1[1];
-  v240 = a1[2];
-  v241 = a1[3];
-  v237 = a1 + 4;
+  v234 = *a1;
+  v235 = a1[1];
+  v236 = a1[2];
+  v237 = a1[3];
+  v233 = a1 + 4;
   __asm
   {
     AESE            V22.16B, V20.16B
@@ -6130,16 +6134,16 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESE            V25.16B, V20.16B
   }
 
-  *a2 = veorq_s8(veorq_s8(_Q22, v170), v238);
-  a2[1] = veorq_s8(veorq_s8(_Q23, v170), v239);
-  a2[2] = veorq_s8(veorq_s8(_Q24, v170), v240);
-  a2[3] = veorq_s8(veorq_s8(_Q25, v170), v241);
-  v246 = a2 + 4;
-  v248 = *v237;
-  v249 = v237[1];
-  v250 = v237[2];
-  v251 = v237[3];
-  v247 = v237 + 4;
+  *a2 = veorq_s8(veorq_s8(_Q22, v166), v234);
+  a2[1] = veorq_s8(veorq_s8(_Q23, v166), v235);
+  a2[2] = veorq_s8(veorq_s8(_Q24, v166), v236);
+  a2[3] = veorq_s8(veorq_s8(_Q25, v166), v237);
+  v242 = a2 + 4;
+  v244 = *v233;
+  v245 = v233[1];
+  v246 = v233[2];
+  v247 = v233[3];
+  v243 = v233 + 4;
   __asm
   {
     AESE            V26.16B, V20.16B
@@ -6148,37 +6152,35 @@ void gcmEncrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64
     AESE            V29.16B, V20.16B
   }
 
-  *v246 = veorq_s8(veorq_s8(_Q26, v170), v248);
-  v246[1] = veorq_s8(veorq_s8(_Q27, v170), v249);
-  v246[2] = veorq_s8(veorq_s8(_Q28, v170), v250);
-  v246[3] = veorq_s8(veorq_s8(_Q29, v170), v251);
-  v256 = v246 + 4;
-  v257 = a4 < 256;
-  v258 = a4 - 256;
-  if (v257)
+  *v242 = veorq_s8(veorq_s8(_Q26, v166), v244);
+  v242[1] = veorq_s8(veorq_s8(_Q27, v166), v245);
+  v242[2] = veorq_s8(veorq_s8(_Q28, v166), v246);
+  v242[3] = veorq_s8(veorq_s8(_Q29, v166), v247);
+  v252 = v242 + 4;
+  v253 = a4 < 256;
+  v254 = a4 - 256;
+  if (!v253)
   {
-    Encrypt_Main_Loop_End(v247, v256, a3, v258, a5, a6, v10, v11);
+    return Encrypt_Main_Loop(v243, v252, v7, a3, v254, a5, a6, v6);
   }
 
-  else
-  {
-    Encrypt_Main_Loop(v247, v256, a3, v258, a5, a6, v10, qword_BCC0, v11, a9, a10);
-  }
+  *&result = Encrypt_Main_Loop_End(v243, v252, a3, v254, a5, a6, v6, v7).u64[0];
+  return result;
 }
 
-uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, uint64x2_t *a5, int8x16_t *a6, uint64_t a7, uint64_t a8, int8x16_t a9, uint64_t a10, uint64_t a11)
+double Encrypt_Main_Loop(int8x16_t *a1, int8x16_t *a2, int8x16_t a3, int8x16_t *a4, uint64_t a5, uint64x2_t *a6, int8x16_t *a7, int a8)
 {
   do
   {
-    v307 = veorq_s8(v14, a9);
-    v306 = v15;
-    v305 = v16;
-    v304 = v17;
-    v303 = v18;
-    v302 = v19;
-    v301 = v20;
-    v22 = vaddq_s32(v11, vaddq_s32(v11, vaddq_s32(v11, vaddq_s32(v11, v22))));
-    _Q20 = *a6;
+    v304 = veorq_s8(v11, a3);
+    v303 = v12;
+    v302 = v13;
+    v301 = v14;
+    v300 = v15;
+    v299 = v16;
+    v298 = v17;
+    v19 = vaddq_s32(v8, vaddq_s32(v8, vaddq_s32(v8, vaddq_s32(v8, v19))));
+    _Q20 = *a7;
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6189,8 +6191,8 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V24.16B, V24.16B
     }
 
-    v35 = veorq_s8(vmull_p64(a5[8].u64[0], veorq_s8(vextq_s8(v21, v21, 8uLL), v21).u64[0]), vmull_p64(a5[9].u64[0], veorq_s8(v301, vextq_s8(v301, v301, 8uLL)).u64[0]));
-    v36 = a5[1];
+    v32 = veorq_s8(vmull_p64(a6[8].u64[0], veorq_s8(vextq_s8(v18, v18, 8uLL), v18).u64[0]), vmull_p64(a6[9].u64[0], veorq_s8(v298, vextq_s8(v298, v298, 8uLL)).u64[0]));
+    v33 = a6[1];
     __asm
     {
       AESE            V25.16B, V20.16B
@@ -6199,7 +6201,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V26.16B, V26.16B
     }
 
-    v41 = veorq_s8(vmull_high_p64(*a5, v21), vmull_high_p64(v36, v20));
+    v38 = veorq_s8(vmull_high_p64(*a6, v18), vmull_high_p64(v33, v17));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6208,14 +6210,14 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V28.16B, V28.16B
     }
 
-    v46 = veorq_s8(vmull_p64(a5->i64[0], v21.u64[0]), vmull_p64(v36.u64[0], v301.u64[0]));
+    v43 = veorq_s8(vmull_p64(a6->i64[0], v18.u64[0]), vmull_p64(v33.u64[0], v298.u64[0]));
     __asm
     {
       AESE            V29.16B, V20.16B
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[1];
+    _Q20 = a7[1];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6226,7 +6228,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V24.16B, V24.16B
     }
 
-    v56 = a5[2];
+    v53 = a6[2];
     __asm
     {
       AESE            V25.16B, V20.16B
@@ -6235,7 +6237,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V26.16B, V26.16B
     }
 
-    v61 = veorq_s8(v41, vmull_high_p64(v56, v302));
+    v58 = veorq_s8(v38, vmull_high_p64(v53, v299));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6244,14 +6246,14 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V28.16B, V28.16B
     }
 
-    v66 = veorq_s8(v46, vmull_p64(v56.u64[0], v302.u64[0]));
+    v63 = veorq_s8(v43, vmull_p64(v53.u64[0], v299.u64[0]));
     __asm
     {
       AESE            V29.16B, V20.16B
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[2];
+    _Q20 = a7[2];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6262,7 +6264,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V24.16B, V24.16B
     }
 
-    v76 = a5[3];
+    v73 = a6[3];
     __asm
     {
       AESE            V25.16B, V20.16B
@@ -6271,7 +6273,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V26.16B, V26.16B
     }
 
-    v81 = veorq_s8(v61, vmull_high_p64(v76, v303));
+    v78 = veorq_s8(v58, vmull_high_p64(v73, v300));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6280,14 +6282,14 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V28.16B, V28.16B
     }
 
-    v86 = veorq_s8(v66, vmull_p64(v76.u64[0], v303.u64[0]));
+    v83 = veorq_s8(v63, vmull_p64(v73.u64[0], v300.u64[0]));
     __asm
     {
       AESE            V29.16B, V20.16B
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[3];
+    _Q20 = a7[3];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6298,7 +6300,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V24.16B, V24.16B
     }
 
-    v96 = a5[4];
+    v93 = a6[4];
     __asm
     {
       AESE            V25.16B, V20.16B
@@ -6307,7 +6309,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V26.16B, V26.16B
     }
 
-    v101 = veorq_s8(v81, vmull_high_p64(v96, v304));
+    v98 = veorq_s8(v78, vmull_high_p64(v93, v301));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6316,14 +6318,14 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V28.16B, V28.16B
     }
 
-    v106 = veorq_s8(v86, vmull_p64(v96.u64[0], v304.u64[0]));
+    v103 = veorq_s8(v83, vmull_p64(v93.u64[0], v301.u64[0]));
     __asm
     {
       AESE            V29.16B, V20.16B
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[4];
+    _Q20 = a7[4];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6334,7 +6336,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V24.16B, V24.16B
     }
 
-    v116 = a5[5];
+    v113 = a6[5];
     __asm
     {
       AESE            V25.16B, V20.16B
@@ -6343,7 +6345,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V26.16B, V26.16B
     }
 
-    v121 = veorq_s8(v101, vmull_high_p64(v116, v305));
+    v118 = veorq_s8(v98, vmull_high_p64(v113, v302));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6352,14 +6354,14 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V28.16B, V28.16B
     }
 
-    v126 = veorq_s8(v106, vmull_p64(v116.u64[0], v305.u64[0]));
+    v123 = veorq_s8(v103, vmull_p64(v113.u64[0], v302.u64[0]));
     __asm
     {
       AESE            V29.16B, V20.16B
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[5];
+    _Q20 = a7[5];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6370,7 +6372,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V24.16B, V24.16B
     }
 
-    v136 = a5[6];
+    v133 = a6[6];
     __asm
     {
       AESE            V25.16B, V20.16B
@@ -6379,7 +6381,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V26.16B, V26.16B
     }
 
-    v141 = veorq_s8(v121, vmull_high_p64(v136, v306));
+    v138 = veorq_s8(v118, vmull_high_p64(v133, v303));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6388,14 +6390,14 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V28.16B, V28.16B
     }
 
-    v146 = veorq_s8(v126, vmull_p64(v136.u64[0], v306.u64[0]));
+    v143 = veorq_s8(v123, vmull_p64(v133.u64[0], v303.u64[0]));
     __asm
     {
       AESE            V29.16B, V20.16B
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[6];
+    _Q20 = a7[6];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6406,7 +6408,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V24.16B, V24.16B
     }
 
-    v156 = a5[7];
+    v153 = a6[7];
     __asm
     {
       AESE            V25.16B, V20.16B
@@ -6415,7 +6417,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V26.16B, V26.16B
     }
 
-    v161 = veorq_s8(v141, vmull_high_p64(v156, v307));
+    v158 = veorq_s8(v138, vmull_high_p64(v153, v304));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6424,21 +6426,21 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V28.16B, V28.16B
     }
 
-    v166 = veorq_s8(v146, vmull_p64(v156.u64[0], v307.u64[0]));
+    v163 = veorq_s8(v143, vmull_p64(v153.u64[0], v304.u64[0]));
     __asm
     {
       AESE            V29.16B, V20.16B
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[7];
+    _Q20 = a7[7];
     __asm
     {
       AESE            V22.16B, V20.16B
       AESMC           V22.16B, V22.16B
     }
 
-    v172 = veorq_s8(v166, veorq_s8(v161, veorq_s8(veorq_s8(veorq_s8(veorq_s8(veorq_s8(veorq_s8(v35, vmull_p64(a5[10].u64[0], veorq_s8(v302, vextq_s8(v302, v302, 8uLL)).u64[0])), vmull_p64(a5[11].u64[0], veorq_s8(v303, vextq_s8(v303, v303, 8uLL)).u64[0])), vmull_p64(a5[12].u64[0], veorq_s8(v304, vextq_s8(v304, v304, 8uLL)).u64[0])), vmull_p64(a5[13].u64[0], veorq_s8(v305, vextq_s8(v305, v305, 8uLL)).u64[0])), vmull_p64(a5[14].u64[0], veorq_s8(v306, vextq_s8(v306, v306, 8uLL)).u64[0])), vmull_p64(a5[15].u64[0], veorq_s8(v307, vextq_s8(v307, v307, 8uLL)).u64[0]))));
+    v169 = veorq_s8(v163, veorq_s8(v158, veorq_s8(veorq_s8(veorq_s8(veorq_s8(veorq_s8(veorq_s8(v32, vmull_p64(a6[10].u64[0], veorq_s8(v299, vextq_s8(v299, v299, 8uLL)).u64[0])), vmull_p64(a6[11].u64[0], veorq_s8(v300, vextq_s8(v300, v300, 8uLL)).u64[0])), vmull_p64(a6[12].u64[0], veorq_s8(v301, vextq_s8(v301, v301, 8uLL)).u64[0])), vmull_p64(a6[13].u64[0], veorq_s8(v302, vextq_s8(v302, v302, 8uLL)).u64[0])), vmull_p64(a6[14].u64[0], veorq_s8(v303, vextq_s8(v303, v303, 8uLL)).u64[0])), vmull_p64(a6[15].u64[0], veorq_s8(v304, vextq_s8(v304, v304, 8uLL)).u64[0]))));
     __asm
     {
       AESE            V23.16B, V20.16B
@@ -6449,14 +6451,14 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V25.16B, V25.16B
     }
 
-    v179 = veorq_s8(vextq_s8(v23, v172, 8uLL), v166);
+    v176 = veorq_s8(vextq_s8(v20, v169, 8uLL), v163);
     __asm
     {
       AESE            V26.16B, V20.16B
       AESMC           V26.16B, V26.16B
     }
 
-    v182 = veorq_s8(vextq_s8(v179, v179, 8uLL), vmull_p64(v13, v179.u64[0]));
+    v179 = veorq_s8(vextq_s8(v176, v176, 8uLL), vmull_p64(v10, v176.u64[0]));
     __asm
     {
       AESE            V27.16B, V20.16B
@@ -6467,7 +6469,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V29.16B, V29.16B
     }
 
-    _Q20 = a6[8];
+    _Q20 = a7[8];
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6488,10 +6490,10 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESMC           V29.16B, V29.16B
     }
 
-    a9 = veorq_s8(veorq_s8(vextq_s8(v172, v23, 8uLL), v161), veorq_s8(vextq_s8(v182, v182, 8uLL), vmull_p64(v13, v182.u64[0])));
-    _Q20 = a6[9];
-    v207 = a6[10];
-    if (a7 > 160)
+    a3 = veorq_s8(veorq_s8(vextq_s8(v169, v20, 8uLL), v158), veorq_s8(vextq_s8(v179, v179, 8uLL), vmull_p64(v10, v179.u64[0])));
+    _Q20 = a7[9];
+    v204 = a7[10];
+    if (a8 > 160)
     {
       __asm
       {
@@ -6513,7 +6515,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
         AESMC           V29.16B, V29.16B
       }
 
-      _Q20 = a6[10];
+      _Q20 = a7[10];
       __asm
       {
         AESE            V22.16B, V20.16B
@@ -6534,9 +6536,9 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
         AESMC           V29.16B, V29.16B
       }
 
-      _Q20 = a6[11];
-      v207 = a6[12];
-      if (a7 > 192)
+      _Q20 = a7[11];
+      v204 = a7[12];
+      if (a8 > 192)
       {
         __asm
         {
@@ -6558,7 +6560,7 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
           AESMC           V29.16B, V29.16B
         }
 
-        _Q20 = a6[12];
+        _Q20 = a7[12];
         __asm
         {
           AESE            V22.16B, V20.16B
@@ -6579,16 +6581,16 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
           AESMC           V29.16B, V29.16B
         }
 
-        _Q20 = a6[13];
-        v207 = a6[14];
+        _Q20 = a7[13];
+        v204 = a7[14];
       }
     }
 
-    v275 = *a1;
-    v276 = *(a1 + 1);
-    v277 = *(a1 + 2);
-    v278 = *(a1 + 3);
-    v274 = a1 + 4;
+    v272 = *a1;
+    v273 = a1[1];
+    v274 = a1[2];
+    v275 = a1[3];
+    v271 = a1 + 4;
     __asm
     {
       AESE            V22.16B, V20.16B
@@ -6597,24 +6599,24 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESE            V25.16B, V20.16B
     }
 
-    v283 = veorq_s8(veorq_s8(_Q22, v207), v275);
-    v284 = veorq_s8(veorq_s8(_Q23, v207), v276);
-    v285 = veorq_s8(veorq_s8(_Q24, v207), v277);
-    v286 = veorq_s8(veorq_s8(_Q25, v207), v278);
-    *a2 = v283;
-    a2[1] = v284;
-    a2[2] = v285;
-    a2[3] = v286;
-    v287 = a2 + 4;
-    v14 = vqtbl1q_s8(v283, v12);
-    v15 = vqtbl1q_s8(v284, v12);
-    v16 = vqtbl1q_s8(v285, v12);
-    v17 = vqtbl1q_s8(v286, v12);
-    v288 = *v274;
-    v289 = *(v274 + 1);
-    v290 = *(v274 + 2);
-    v291 = *(v274 + 3);
-    a1 = v274 + 4;
+    v280 = veorq_s8(veorq_s8(_Q22, v204), v272);
+    v281 = veorq_s8(veorq_s8(_Q23, v204), v273);
+    v282 = veorq_s8(veorq_s8(_Q24, v204), v274);
+    v283 = veorq_s8(veorq_s8(_Q25, v204), v275);
+    *a2 = v280;
+    a2[1] = v281;
+    a2[2] = v282;
+    a2[3] = v283;
+    v284 = a2 + 4;
+    v11 = vqtbl1q_s8(v280, v9);
+    v12 = vqtbl1q_s8(v281, v9);
+    v13 = vqtbl1q_s8(v282, v9);
+    v14 = vqtbl1q_s8(v283, v9);
+    v285 = *v271;
+    v286 = v271[1];
+    v287 = v271[2];
+    v288 = v271[3];
+    a1 = v271 + 4;
     __asm
     {
       AESE            V26.16B, V20.16B
@@ -6623,26 +6625,27 @@ uint64_t Encrypt_Main_Loop(_OWORD *a1, int8x16_t *a2, uint64_t a3, uint64_t a4, 
       AESE            V29.16B, V20.16B
     }
 
-    v296 = veorq_s8(veorq_s8(_Q26, v207), v288);
-    v297 = veorq_s8(veorq_s8(_Q27, v207), v289);
-    v298 = veorq_s8(veorq_s8(_Q28, v207), v290);
-    v299 = veorq_s8(veorq_s8(_Q29, v207), v291);
-    *v287 = v296;
-    v287[1] = v297;
-    v287[2] = v298;
-    v287[3] = v299;
-    a2 = v287 + 4;
-    v18 = vqtbl1q_s8(v296, v12);
-    v19 = vqtbl1q_s8(v297, v12);
-    v20 = vqtbl1q_s8(v298, v12);
-    v21 = vqtbl1q_s8(v299, v12);
-    _VF = __OFSUB__(a4, 128);
-    _NF = a4 - 128 < 0;
-    a4 -= 128;
+    v293 = veorq_s8(veorq_s8(_Q26, v204), v285);
+    v294 = veorq_s8(veorq_s8(_Q27, v204), v286);
+    v295 = veorq_s8(veorq_s8(_Q28, v204), v287);
+    v296 = veorq_s8(veorq_s8(_Q29, v204), v288);
+    *v284 = v293;
+    v284[1] = v294;
+    v284[2] = v295;
+    v284[3] = v296;
+    a2 = v284 + 4;
+    v15 = vqtbl1q_s8(v293, v9);
+    v16 = vqtbl1q_s8(v294, v9);
+    v17 = vqtbl1q_s8(v295, v9);
+    v18 = vqtbl1q_s8(v296, v9);
+    _VF = __OFSUB__(a5, 128);
+    _NF = a5 - 128 < 0;
+    a5 -= 128;
   }
 
   while (_NF == _VF);
-  return Encrypt_Main_Loop_End(a1, a2, a3, a4, a5, a6, a7, a8, a10, a11, v301.i64[0], v301.i64[1], v302.i64[0], v302.i64[1], v303.i64[0], v303.i64[1]);
+  *&result = Encrypt_Main_Loop_End(a1, a2, a4, a5, a6, a7, a8, a3).u64[0];
+  return result;
 }
 
 int8x16_t Encrypt_Main_Loop_End(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64x2_t *a5, int8x16_t *a6, int a7, int8x16_t a8)
@@ -6856,24 +6859,23 @@ int8x16_t Encrypt_Main_Loop_End(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uin
   return result;
 }
 
-void gcmDecrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64x2_t *a5, int8x16_t *a6)
+double gcmDecrypt(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64x2_t *a5, int8x16_t *a6)
 {
   v6 = a6[15].i32[0];
   v7 = vqtbl1q_s8(a3[1], *Lbswap_mask_0);
-  v8 = a4 < 128;
-  v9 = a4 - 128;
-  if (v8)
+  v9 = __OFSUB__(a4, 128);
+  v8 = a4 - 128 < 0;
+  v10 = a4 - 128;
+  if (v8 == v9)
   {
-    Decrypt_Main_Loop_End_0(a1, a2, a3, v9, a5, a6, v6, v7);
+    return Decrypt_Main_Loop_0(a1, a2, v7, a3, v10, a5, a6, v6);
   }
 
-  else
-  {
-    Decrypt_Main_Loop_0(a1, a2, v7, a3, v9, a5, a6, v6);
-  }
+  *&result = Decrypt_Main_Loop_End_0(a1, a2, a3, v10, a5, a6, v6, v7).u64[0];
+  return result;
 }
 
-uint64_t Decrypt_Main_Loop_0(int8x16_t *a1, int8x16_t *a2, int8x16_t a3, uint64_t a4, uint64_t a5, uint64x2_t *a6, int8x16_t *a7, int a8)
+double Decrypt_Main_Loop_0(int8x16_t *a1, int8x16_t *a2, int8x16_t a3, int8x16_t *a4, uint64_t a5, uint64x2_t *a6, int8x16_t *a7, int a8)
 {
   do
   {
@@ -7398,7 +7400,8 @@ uint64_t Decrypt_Main_Loop_0(int8x16_t *a1, int8x16_t *a2, int8x16_t a3, uint64_
   }
 
   while (_NF == _VF);
-  return Decrypt_Main_Loop_End_0();
+  *&result = Decrypt_Main_Loop_End_0(a1, a2, a4, a5, a6, a7, a8, a3).u64[0];
+  return result;
 }
 
 int8x16_t Decrypt_Main_Loop_End_0(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, uint64_t a4, uint64_t a5, int8x16_t *a6, int a7, int8x16_t a8)
@@ -8732,14 +8735,14 @@ void *_s7SigningO9PublicKeyVwCP_0(void *a1, void *a2)
   return a1;
 }
 
-void *_s7SigningO9PublicKeyVwca_0(void *a1, void *a2)
+uint64_t *_s7SigningO9PublicKeyVwca_0(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *_s7SigningO9PublicKeyVwta_0(void *a1, void *a2)
+uint64_t *_s7SigningO9PublicKeyVwta_0(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -9376,49 +9379,50 @@ uint64_t _MAPreferencesSetDataValue(void *a1, void *a2, void *a3, void *a4)
   v8 = a2;
   v9 = a3;
   v10 = a4;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v11 = v10;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   if (v7)
   {
-    v11 = _preferencesDomainProtectionDispatchQueue();
+    v12 = _preferencesDomainProtectionDispatchQueue(v10);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = ___MAPreferencesSetDataValue_block_invoke;
     block[3] = &unk_4B2ED0;
-    v16 = v7;
-    v17 = v8;
-    v18 = v9;
-    v19 = v10;
-    v20 = &v21;
-    dispatch_sync(v11, block);
+    v17 = v7;
+    v18 = v8;
+    v19 = v9;
+    v20 = v11;
+    v21 = &v22;
+    dispatch_sync(v12, block);
 
-    v12 = v16;
+    v13 = v17;
   }
 
   else
   {
-    v12 = _MADLog(@"V2");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _MADLog(@"V2");
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v26 = v9;
-      v27 = 2114;
-      v28 = v10;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "[MA_PREFS] {%{public}@} [%{public}@] nil preference key provided", buf, 0x16u);
+      v27 = v9;
+      v28 = 2114;
+      v29 = v11;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[MA_PREFS] {%{public}@} [%{public}@] nil preference key provided", buf, 0x16u);
     }
   }
 
-  v13 = *(v22 + 24);
-  _Block_object_dispose(&v21, 8);
+  v14 = *(v23 + 24);
+  _Block_object_dispose(&v22, 8);
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
-void sub_30D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_30D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9444,7 +9448,7 @@ void _MAPreferencesSetKeyForValue(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = _preferencesDomainProtectionDispatchQueue();
+  v5 = _preferencesDomainProtectionDispatchQueue(v4);
   dispatch_assert_queue_V2(v5);
 
   if (v4 && !isValidTypeForPreferences(v4))
@@ -9469,48 +9473,49 @@ uint64_t _MAPreferencesSetValues(void *a1, void *a2, void *a3)
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v8 = [NSString stringWithFormat:@"[MA_PREFS] {%@} [%@] (%@) |", @"com.apple.MobileAsset", v6, v7];
+  v9 = v8;
   if (v5)
   {
-    v9 = _preferencesDomainProtectionDispatchQueue();
+    v10 = _preferencesDomainProtectionDispatchQueue(v8);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = ___MAPreferencesSetValues_block_invoke;
     block[3] = &unk_4B2ED0;
-    v14 = v5;
-    v15 = v6;
-    v16 = v7;
-    v17 = v8;
-    v18 = &v19;
-    dispatch_sync(v9, block);
+    v15 = v5;
+    v16 = v6;
+    v17 = v7;
+    v18 = v9;
+    v19 = &v20;
+    dispatch_sync(v10, block);
 
-    v10 = *(v20 + 24);
+    v11 = *(v21 + 24);
   }
 
   else
   {
-    v11 = _MADLog(@"V2");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _MADLog(@"V2");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v24 = v8;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%{public}@ nil preference key provided", buf, 0xCu);
+      v25 = v9;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "%{public}@ nil preference key provided", buf, 0xCu);
     }
 
-    v10 = *(v20 + 24);
+    v11 = *(v21 + 24);
   }
 
-  _Block_object_dispose(&v19, 8);
-  return v10 & 1;
+  _Block_object_dispose(&v20, 8);
+  return v11 & 1;
 }
 
-void sub_31378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_31378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9521,54 +9526,55 @@ uint64_t _MAPreferencesSetStringValue(void *a1, void *a2, void *a3, void *a4)
   v8 = a2;
   v9 = a3;
   v10 = a4;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   v11 = [NSString stringWithFormat:@"[MA_PREFS] {%@} [%@] (%@) |", @"com.apple.MobileAsset", v9, v10];
+  v12 = v11;
   if (v7)
   {
-    v12 = _preferencesDomainProtectionDispatchQueue();
+    v13 = _preferencesDomainProtectionDispatchQueue(v11);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = ___MAPreferencesSetStringValue_block_invoke;
     block[3] = &unk_4B2F38;
-    v17 = v7;
-    v18 = v8;
-    v19 = v9;
-    v20 = v10;
-    v21 = v11;
-    v22 = &v23;
-    dispatch_sync(v12, block);
+    v18 = v7;
+    v19 = v8;
+    v20 = v9;
+    v21 = v10;
+    v22 = v12;
+    v23 = &v24;
+    dispatch_sync(v13, block);
 
-    v13 = *(v24 + 24);
+    v14 = *(v25 + 24);
   }
 
   else
   {
-    v14 = _MADLog(@"V2");
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _MADLog(@"V2");
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v28 = v11;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "%{public}@ nil preference key provided", buf, 0xCu);
+      v29 = v12;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "%{public}@ nil preference key provided", buf, 0xCu);
     }
 
-    v13 = *(v24 + 24);
+    v14 = *(v25 + 24);
   }
 
-  _Block_object_dispose(&v23, 8);
-  return v13 & 1;
+  _Block_object_dispose(&v24, 8);
+  return v14 & 1;
 }
 
-void sub_31768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_31768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _MAPreferencesIsVerboseLoggingEnabled()
+uint64_t _MAPreferencesIsVerboseLoggingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_MAPreferencesIsVerboseLoggingEnabled_onceToken != -1)
   {
@@ -9578,7 +9584,7 @@ uint64_t _MAPreferencesIsVerboseLoggingEnabled()
   return _MAPreferencesIsVerboseLoggingEnabled__verboseLoggingEnabled;
 }
 
-uint64_t _MAPreferencesIsCentralizedCacheDeleteEnabled()
+uint64_t _MAPreferencesIsCentralizedCacheDeleteEnabled(uint64_t a1, uint64_t a2)
 {
   if (_MAPreferencesIsCentralizedCacheDeleteEnabled_onceToken != -1)
   {
@@ -9588,67 +9594,58 @@ uint64_t _MAPreferencesIsCentralizedCacheDeleteEnabled()
   return _MAPreferencesIsCentralizedCacheDeleteEnabled__centralizedCacheDeleteEnabled;
 }
 
-void sub_37CE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, os_activity_scope_state_s state)
+void sub_37300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_37CE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, os_activity_scope_state_s state)
 {
   _Block_object_dispose(&a17, 8);
   os_activity_scope_leave(&state);
   _Unwind_Resume(a1);
 }
 
-void sub_3959C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_3959C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_3CAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_3CAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_40E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_40E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_46E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_46E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_4AF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4AF80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_5D610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_5D610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_5DAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_5DDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
-{
-  _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 176), 8);
-  _Block_object_dispose((v27 - 128), 8);
   _Unwind_Resume(a1);
 }

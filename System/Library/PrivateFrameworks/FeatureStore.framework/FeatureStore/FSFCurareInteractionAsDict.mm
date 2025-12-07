@@ -1,4 +1,5 @@
 @interface FSFCurareInteractionAsDict
++ (id)deserialize:(id)deserialize dataVersion:(unsigned int)version interactionId:(id)id;
 - (FSFCurareInteractionAsDict)initWithContent:(id)content interactionId:(id)id dataVersion:(unsigned int)version;
 - (FSFCurareInteractionAsDict)initWithData:(id)data dataVersion:(unsigned int)version interactionId:(id)id;
 - (id)json;
@@ -94,6 +95,16 @@
   }
 
   return v11;
+}
+
++ (id)deserialize:(id)deserialize dataVersion:(unsigned int)version interactionId:(id)id
+{
+  v5 = *&version;
+  idCopy = id;
+  deserializeCopy = deserialize;
+  v9 = [[FSFCurareInteractionAsDict alloc] initWithData:deserializeCopy dataVersion:v5 interactionId:idCopy];
+
+  return v9;
 }
 
 @end

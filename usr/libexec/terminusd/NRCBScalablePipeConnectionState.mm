@@ -7,42 +7,35 @@
 - (id)description
 {
   state = self->_state;
-  if (state == 1)
+  if (state == 1 || state == 2)
   {
-    v4 = 16;
-    goto LABEL_5;
-  }
-
-  if (state == 2)
-  {
-    v4 = 24;
-LABEL_5:
-    v5 = *(&self->super.isa + v4);
     nr_continuous_time();
     NRDiffMachTimeInSeconds();
-    v7 = [[NSString alloc] initWithFormat:@"%.2fs", v6];
-    goto LABEL_7;
-  }
-
-  v7 = @"<unknown>";
-LABEL_7:
-  v8 = [NSString alloc];
-  v9 = self->_state;
-  if (v9 >= 3)
-  {
-    v11 = v8;
-    v10 = [[NSString alloc] initWithFormat:@"UnknownType(%lld)", v9];
-    v8 = v11;
+    v5 = [[NSString alloc] initWithFormat:@"%.2fs", v4];
   }
 
   else
   {
-    v10 = *(&off_1001FA900 + v9);
+    v5 = @"<unknown>";
   }
 
-  v12 = [v8 initWithFormat:@"NRBTPipe[%@ %@]", v10, v7];
+  v6 = [NSString alloc];
+  v7 = self->_state;
+  if (v7 >= 3)
+  {
+    v9 = v6;
+    v8 = [[NSString alloc] initWithFormat:@"UnknownType(%lld)", v7];
+    v6 = v9;
+  }
 
-  return v12;
+  else
+  {
+    v8 = *(&off_1001FA900 + v7);
+  }
+
+  v10 = [v6 initWithFormat:@"NRBTPipe[%@ %@]", v8, v5];
+
+  return v10;
 }
 
 @end

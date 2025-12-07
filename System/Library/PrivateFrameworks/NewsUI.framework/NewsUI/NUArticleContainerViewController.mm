@@ -7,6 +7,7 @@
 - (id)pageViewController:(id)controller viewControllerBeforeViewController:(id)viewController;
 - (id)viewControllerPageableForViewController:(id)controller;
 - (void)didReceiveMemoryWarning;
+- (void)enableNavigation:(BOOL)navigation;
 - (void)loadWithArticleIDs:(id)ds;
 - (void)loadingDidFinishWithError:(id)error;
 - (void)loadingWillStart;
@@ -244,6 +245,13 @@ LABEL_9:
   }
 
   return viewController;
+}
+
+- (void)enableNavigation:(BOOL)navigation
+{
+  navigationCopy = navigation;
+  pageViewController = [(NUArticleContainerViewController *)self pageViewController];
+  [pageViewController setPagingEnabled:navigationCopy];
 }
 
 - (void)loadingWillStart

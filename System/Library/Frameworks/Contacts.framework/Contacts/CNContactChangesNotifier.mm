@@ -27,9 +27,9 @@
     +[CNContactChangesNotifier os_log];
   }
 
-  v0 = os_log_cn_once_object_1_3;
+  v1 = os_log_cn_once_object_1_3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __34__CNContactChangesNotifier_os_log__block_invoke()
@@ -85,12 +85,12 @@ LABEL_7:
 
 - (void)removeEntriesWithoutObservers
 {
-  objc_opt_class();
-  v3 = +[CNContactChangesNotifier os_log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v3 = objc_opt_class();
+  v4 = +[(CNContactChangesNotifier *)v3];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1954A0000, v3, OS_LOG_TYPE_INFO, "Scheduling removal of entries without observers", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1954A0000, v4, OS_LOG_TYPE_INFO, "Scheduling removal of entries without observers", v5, 2u);
   }
 
   [(CNCoalescingTimer *)self->_entryCompactionTimer handleEvent];
@@ -351,7 +351,7 @@ void __82__CNContactChangesNotifier_removeProxiesForObserver_forContact_completi
   *(*(*(a1 + 48) + 8) + 24) = [(CNContactChangesNotifier *)v4 resourceLock_removeProxiesForIdentifier:a2 passingTest:v5];
 }
 
-uint64_t __82__CNContactChangesNotifier_removeProxiesForObserver_forContact_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
+BOOL __82__CNContactChangesNotifier_removeProxiesForObserver_forContact_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1035,7 +1035,7 @@ LABEL_42:
 
 - (BOOL)resourceLock_removeProxiesForIdentifier:(void *)identifier passingTest:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -1051,13 +1051,13 @@ LABEL_42:
     v14 = v11 != v12;
     if (v13)
     {
-      objc_opt_class();
-      first = +[CNContactChangesNotifier os_log];
+      v17 = objc_opt_class();
+      first = +[(CNContactChangesNotifier *)v17];
       if (os_log_type_enabled(first, OS_LOG_TYPE_DEBUG))
       {
-        v25 = 134217984;
-        v26 = [v8 count];
-        _os_log_debug_impl(&dword_1954A0000, first, OS_LOG_TYPE_DEBUG, "No entries were removed (total: %lu)", &v25, 0xCu);
+        v27 = 134217984;
+        v28 = [v8 count];
+        _os_log_debug_impl(&dword_1954A0000, first, OS_LOG_TYPE_DEBUG, "No entries were removed (total: %lu)", &v27, 0xCu);
       }
     }
 
@@ -1077,38 +1077,38 @@ LABEL_42:
 
       first = [v9 first];
       [first _cn_each:&__block_literal_global_45_0];
-      objc_opt_class();
-      v18 = +[CNContactChangesNotifier os_log];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = objc_opt_class();
+      v20 = +[(CNContactChangesNotifier *)v19];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        v20 = [first count];
+        v22 = [first count];
         if ([first count]== 1)
         {
-          v21 = @"entry";
+          v23 = @"entry";
         }
 
         else
         {
-          v21 = @"entries";
+          v23 = @"entries";
         }
 
-        v22 = [second count];
-        v23 = [second count];
-        v25 = 134218754;
-        v24 = @"entry";
-        if (v23 != 1)
+        v24 = [second count];
+        v25 = [second count];
+        v27 = 134218754;
+        v26 = @"entry";
+        if (v25 != 1)
         {
-          v24 = @"entries";
+          v26 = @"entries";
         }
 
-        v26 = v20;
-        v27 = 2112;
-        v28 = v21;
-        v29 = 2048;
-        v30 = v22;
-        v31 = 2112;
+        v28 = v22;
+        v29 = 2112;
+        v30 = v23;
+        v31 = 2048;
         v32 = v24;
-        _os_log_debug_impl(&dword_1954A0000, v18, OS_LOG_TYPE_DEBUG, "Removing %lu %@, keeping %lu %@", &v25, 0x2Au);
+        v33 = 2112;
+        v34 = v26;
+        _os_log_debug_impl(&dword_1954A0000, v20, OS_LOG_TYPE_DEBUG, "Removing %lu %@, keeping %lu %@", &v27, 0x2Au);
       }
     }
   }
@@ -1133,21 +1133,21 @@ id __80__CNContactChangesNotifier_resourceLock_removeProxiesForIdentifier_passin
 
 - (void)timerDidEmitEvent:(id)event
 {
-  objc_opt_class();
-  v4 = +[CNContactChangesNotifier os_log];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = objc_opt_class();
+  v5 = +[(CNContactChangesNotifier *)v4];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1954A0000, v4, OS_LOG_TYPE_INFO, "Will remove entries without observers", buf, 2u);
+    _os_log_impl(&dword_1954A0000, v5, OS_LOG_TYPE_INFO, "Will remove entries without observers", buf, 2u);
   }
 
   [(CNContactChangesNotifier *)self removeProxiesForObserver:0 forContact:0 completionHandler:?];
-  objc_opt_class();
-  v5 = +[CNContactChangesNotifier os_log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = objc_opt_class();
+  v7 = +[(CNContactChangesNotifier *)v6];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1954A0000, v5, OS_LOG_TYPE_INFO, "Did remove entries without observers", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1954A0000, v7, OS_LOG_TYPE_INFO, "Did remove entries without observers", v8, 2u);
   }
 }
 
@@ -1296,7 +1296,7 @@ uint64_t __53__CNContactChangesNotifier_workQueue_updateObservers__block_invoke_
   [v4 performBlock:a2];
 }
 
-- (uint64_t)registerObserver:(uint64_t)a1 forContact:(void *)a2 keysToFetch:(void *)a3 completionHandler:(void *)a4 .cold.2(uint64_t a1, void *a2, void *a3, void *a4)
+- (void)registerObserver:(uint64_t)a1 forContact:(void *)a2 keysToFetch:(void *)a3 completionHandler:(void *)a4 .cold.2(uint64_t a1, void *a2, void *a3, void *a4)
 {
   if (a1)
   {

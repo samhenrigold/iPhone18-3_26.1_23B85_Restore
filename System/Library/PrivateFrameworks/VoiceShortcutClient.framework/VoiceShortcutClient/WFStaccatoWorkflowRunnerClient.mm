@@ -36,7 +36,7 @@
 
 - (void)start
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   actionContext = [(WFSystemActionRunnerClient *)self actionContext];
 
   v4 = getWFStaccatoLogObject();
@@ -51,13 +51,13 @@
       preciseTimestamp = [actionContext3 preciseTimestamp];
       action = [(WFSystemActionRunnerClient *)self action];
       *buf = 136315906;
-      v14 = "[WFStaccatoWorkflowRunnerClient start]";
-      v15 = 2112;
-      v16 = staccatoInteractionType;
-      v17 = 2048;
-      v18 = preciseTimestamp;
-      v19 = 2112;
-      v20 = action;
+      v13 = "[WFStaccatoWorkflowRunnerClient start]";
+      v14 = 2112;
+      v15 = staccatoInteractionType;
+      v16 = 2048;
+      v17 = preciseTimestamp;
+      v18 = 2112;
+      v19 = action;
       _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEFAULT, "%s Running from staccato interaction type: %@, preciseTimestamp: %p, action: %@", buf, 0x2Au);
 
 LABEL_6:
@@ -68,18 +68,17 @@ LABEL_6:
   {
     actionContext2 = [(WFSystemActionRunnerClient *)self action];
     *buf = 136315394;
-    v14 = "[WFStaccatoWorkflowRunnerClient start]";
-    v15 = 2112;
-    v16 = actionContext2;
+    v13 = "[WFStaccatoWorkflowRunnerClient start]";
+    v14 = 2112;
+    v15 = actionContext2;
     _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_DEFAULT, "%s Running from staccato action: %@", buf, 0x16u);
     goto LABEL_6;
   }
 
-  v12.receiver = self;
-  v12.super_class = WFStaccatoWorkflowRunnerClient;
-  [(WFSystemActionRunnerClient *)&v12 start];
+  v11.receiver = self;
+  v11.super_class = WFStaccatoWorkflowRunnerClient;
+  [(WFSystemActionRunnerClient *)&v11 start];
   [(WFStaccatoWorkflowRunnerClient *)self setHasStartedRun:1];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startWithInteractionType:(id)type preciseTimeStamp:(id)stamp
@@ -134,7 +133,7 @@ LABEL_6:
 
 - (WFStaccatoWorkflowRunnerClient)initWithStaccatoAction:(id)action interactionType:(id)type preciseTimeStamp:(id)stamp
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   typeCopy = type;
   stampCopy = stamp;
@@ -180,13 +179,13 @@ LABEL_4:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v33 = "[WFStaccatoWorkflowRunnerClient initWithStaccatoAction:interactionType:preciseTimeStamp:]";
-    v34 = 2112;
-    v35 = typeCopy;
-    v36 = 2048;
-    v37 = stampCopy;
-    v38 = 2112;
-    v39 = actionCopy;
+    v32 = "[WFStaccatoWorkflowRunnerClient initWithStaccatoAction:interactionType:preciseTimeStamp:]";
+    v33 = 2112;
+    v34 = typeCopy;
+    v35 = 2048;
+    v36 = stampCopy;
+    v37 = 2112;
+    v38 = actionCopy;
     _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_DEFAULT, "%s Initializing Staccato runner interaction type: %@, preciseTimestamp: %p, action: %@", buf, 0x2Au);
   }
 
@@ -212,9 +211,9 @@ LABEL_4:
 
   v15 = v14;
 
-  v31.receiver = self;
-  v31.super_class = WFStaccatoWorkflowRunnerClient;
-  v16 = [(WFSystemActionRunnerClient *)&v31 initWithSystemAction:v15];
+  v30.receiver = self;
+  v30.super_class = WFStaccatoWorkflowRunnerClient;
+  v16 = [(WFSystemActionRunnerClient *)&v30 initWithSystemAction:v15];
   sectionIdentifier = [v13 sectionIdentifier];
 
   LOBYTE(v15) = [sectionIdentifier isEqualToString:@"Shortcuts"];
@@ -240,7 +239,6 @@ LABEL_4:
   descriptor = [(WFWorkflowRunnerClient *)v16 descriptor];
   v25 = [(WFWorkflowRunnerClient *)v16 createRunningContextFromRequestIfNecessary:runRequest3 descriptor:descriptor];
 
-  v26 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

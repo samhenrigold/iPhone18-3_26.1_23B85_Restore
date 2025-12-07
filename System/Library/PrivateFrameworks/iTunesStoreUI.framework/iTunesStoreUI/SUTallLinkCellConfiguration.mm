@@ -12,14 +12,16 @@
 
 + (id)copyDefaultContext
 {
-  v6.receiver = self;
-  v6.super_class = &OBJC_METACLASS___SUTallLinkCellConfiguration;
-  v2 = objc_msgSendSuper2(&v6, sel_copyDefaultContext);
-  v3 = SUTableCellCopyImageProviderForSize(88.0, 88.0);
-  [v2 setImageProvider:v3];
+  v12.receiver = self;
+  v12.super_class = &OBJC_METACLASS___SUTallLinkCellConfiguration;
+  v2 = objc_msgSendSuper2(&v12, sel_copyDefaultContext);
+  v3.n128_u64[0] = 0x4056000000000000;
+  v4.n128_u64[0] = 0x4056000000000000;
+  v9 = SUTableCellCopyImageProviderForSize(v3, v4, v5, v6, v7, v8);
+  [v2 setImageProvider:v9];
 
-  v4 = -[SUImageDataProvider newImageFromImage:](v3, "newImageFromImage:", [MEMORY[0x1E69DCAB8] imageNamed:@"PlaceholderBig.png" inBundle:{objc_msgSend(MEMORY[0x1E696AAE8], "bundleForClass:", objc_opt_class())}]);
-  [v2 setPlaceholderImage:v4];
+  v10 = -[SUImageDataProvider newImageFromImage:](v9, "newImageFromImage:", [MEMORY[0x1E69DCAB8] imageNamed:@"PlaceholderBig.png" inBundle:{objc_msgSend(MEMORY[0x1E696AAE8], "bundleForClass:", objc_opt_class())}]);
+  [v2 setPlaceholderImage:v10];
 
   return v2;
 }

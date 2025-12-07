@@ -38,8 +38,8 @@
 
 - (id)toDict
 {
-  v34[9] = *MEMORY[0x277D85DE8];
-  v33[0] = @"folderID";
+  v33[9] = *MEMORY[0x277D85DE8];
+  v32[0] = @"folderID";
   folderID = [(ICASFolderSnapshotItemData *)self folderID];
   if (folderID)
   {
@@ -51,9 +51,9 @@
     folderID2 = objc_opt_new();
   }
 
-  v31 = folderID2;
-  v34[0] = folderID2;
-  v33[1] = @"collaborationStatus";
+  v30 = folderID2;
+  v33[0] = folderID2;
+  v32[1] = @"collaborationStatus";
   collaborationStatus = [(ICASFolderSnapshotItemData *)self collaborationStatus];
   if (collaborationStatus)
   {
@@ -65,9 +65,9 @@
     collaborationStatus2 = objc_opt_new();
   }
 
-  v29 = collaborationStatus2;
-  v34[1] = collaborationStatus2;
-  v33[2] = @"collaborationType";
+  v28 = collaborationStatus2;
+  v33[1] = collaborationStatus2;
+  v32[2] = @"collaborationType";
   collaborationType = [(ICASFolderSnapshotItemData *)self collaborationType];
   if (collaborationType)
   {
@@ -79,9 +79,9 @@
     collaborationType2 = objc_opt_new();
   }
 
-  v27 = collaborationType2;
-  v34[2] = collaborationType2;
-  v33[3] = @"countOfInvitees";
+  v26 = collaborationType2;
+  v33[2] = collaborationType2;
+  v32[3] = @"countOfInvitees";
   countOfInvitees = [(ICASFolderSnapshotItemData *)self countOfInvitees];
   if (countOfInvitees)
   {
@@ -93,9 +93,9 @@
     countOfInvitees2 = objc_opt_new();
   }
 
-  v25 = countOfInvitees2;
-  v34[3] = countOfInvitees2;
-  v33[4] = @"countOfAcceptances";
+  v24 = countOfInvitees2;
+  v33[3] = countOfInvitees2;
+  v32[4] = @"countOfAcceptances";
   countOfAcceptances = [(ICASFolderSnapshotItemData *)self countOfAcceptances];
   if (countOfAcceptances)
   {
@@ -108,8 +108,8 @@
   }
 
   v8 = countOfAcceptances2;
-  v34[4] = countOfAcceptances2;
-  v33[5] = @"directNoteCount";
+  v33[4] = countOfAcceptances2;
+  v32[5] = @"directNoteCount";
   directNoteCount = [(ICASFolderSnapshotItemData *)self directNoteCount];
   if (directNoteCount)
   {
@@ -122,8 +122,8 @@
   }
 
   v11 = directNoteCount2;
-  v34[5] = directNoteCount2;
-  v33[6] = @"totalNoteCount";
+  v33[5] = directNoteCount2;
+  v32[6] = @"totalNoteCount";
   totalNoteCount = [(ICASFolderSnapshotItemData *)self totalNoteCount];
   if (totalNoteCount)
   {
@@ -136,8 +136,8 @@
   }
 
   v14 = totalNoteCount2;
-  v34[6] = totalNoteCount2;
-  v33[7] = @"folderType";
+  v33[6] = totalNoteCount2;
+  v32[7] = @"folderType";
   folderType = [(ICASFolderSnapshotItemData *)self folderType];
   if (folderType)
   {
@@ -150,8 +150,8 @@
   }
 
   v17 = folderType2;
-  v34[7] = folderType2;
-  v33[8] = @"folderLabelType";
+  v33[7] = folderType2;
+  v32[8] = @"folderLabelType";
   folderLabelType = [(ICASFolderSnapshotItemData *)self folderLabelType];
   if (folderLabelType)
   {
@@ -164,10 +164,8 @@
   }
 
   v20 = folderLabelType2;
-  v34[8] = folderLabelType2;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:9];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v33[8] = folderLabelType2;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:9];
 
   return v21;
 }

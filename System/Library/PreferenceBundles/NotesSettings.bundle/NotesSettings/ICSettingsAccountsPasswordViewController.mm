@@ -5,9 +5,31 @@
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)didTapAccountButton:(id)button;
 - (void)reloadSpecifiers;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ICSettingsAccountsPasswordViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = ICSettingsAccountsPasswordViewController;
+  [(ICSettingsAccountsPasswordViewController *)&v6 viewWillAppear:appear];
+  bundle = [(ICSettingsAccountsPasswordViewController *)self bundle];
+  v5 = [bundle localizedStringForKey:@"NOTES_PW_NAVIGATION_TITLE" value:@"Password" table:@"Settings"];
+  [(ICSettingsAccountsPasswordViewController *)self setTitle:v5];
+
+  [(ICSettingsAccountsPasswordViewController *)self reloadSpecifiers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ICSettingsAccountsPasswordViewController;
+  [(ICSettingsAccountsPasswordViewController *)&v4 viewDidAppear:appear];
+  [(ICSettingsAccountsPasswordViewController *)self ic_submitNavigationEventForIdentifier:ICPasswordPrefIdentifier titleStringKey:@"PASSWORD_SETTINGS" navigationComponents:&off_1EF08];
+}
 
 - (void)reloadSpecifiers
 {

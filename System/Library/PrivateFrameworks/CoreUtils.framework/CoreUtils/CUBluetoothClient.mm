@@ -60,7 +60,7 @@
       if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF(ucat, "[CUBluetoothClient updateStatusFlags]", 0x1Eu, "Status flags changed: %#{flags} -> %#{flags}\n", v6, v7, v8, v9, statusFlags);
+        LogPrintF(ucat, "[CUBluetoothClient updateStatusFlags]", 30, "Status flags changed: %#{flags} -> %#{flags}\n", v6, v7, v8, v9, statusFlags);
         return;
       }
 
@@ -99,7 +99,7 @@ void __38__CUBluetoothClient_updateStatusFlags__block_invoke(uint64_t a1, uint64
   }
 }
 
-uint64_t __38__CUBluetoothClient_updateStatusFlags__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__38__CUBluetoothClient_updateStatusFlags__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 supportsAACPService];
   if (result)
@@ -118,17 +118,17 @@ uint64_t __38__CUBluetoothClient_updateStatusFlags__block_invoke_2(uint64_t a1, 
   p_btAccessoryManager = &self->_btAccessoryManager;
   if (!self->_btAccessoryManager)
   {
-    v25 = (softLinkBTAccessoryManagerGetDefault[0])(self->_btSession, &self->_btAccessoryManager);
-    if (v25)
+    Default = softLinkBTAccessoryManagerGetDefault(self->_btSession, &self->_btAccessoryManager);
+    if (Default)
     {
-      v30 = v25;
+      v30 = Default;
       ucat = self->_ucat;
       if (ucat->var0 <= 60)
       {
         if (ucat->var0 != -1)
         {
 LABEL_23:
-          LogPrintF(ucat, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTAccessoryManagerGetDefault failed: %#m\n", v26, v27, v28, v29, (v30 + 310000));
+          LogPrintF(ucat, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTAccessoryManagerGetDefault failed: %#m\n", v26, v27, v28, v29, (v30 + 310000));
           goto LABEL_2;
         }
 
@@ -143,7 +143,7 @@ LABEL_23:
 
 LABEL_2:
   address = [deviceCopy address];
-  if (!softLinkBTAccessoryManagerReadDeviceVersionInfo(address, &v119, 32, &v118, 128, v117, 128, v116, 128, v115, 128, v114, 128, v113, 128))
+  if (!softLinkBTAccessoryManagerReadDeviceVersionInfo(address & 0xFFFFFFFFFFFFLL, v119, 32, v118, 128, v117, 128, v116, 128, v115, 128, v114, 128, v113, 128))
   {
     v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v117];
     [deviceCopy setManufacturer:v9];
@@ -159,7 +159,7 @@ LABEL_2:
     v12 = *p_btAccessoryManager;
     mutableBytes = [v11 mutableBytes];
     v14 = [v11 length];
-    if (!(softLinkBTAccessoryManagerGetAccessoryInfo[0])(v12, btDevice, mutableBytes, v120, v14) && v120[0])
+    if (!softLinkBTAccessoryManagerGetAccessoryInfo(v12, btDevice, mutableBytes, v120, v14) && v120[0])
     {
       [v11 setLength:?];
       v15 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v11 options:0 error:0];
@@ -182,10 +182,10 @@ LABEL_2:
   }
 
   v111 = 0;
-  v18 = (softLinkBTDeviceGetConnectedServices_1932[0])(btDevice, &v111);
-  if (v18)
+  ConnectedServices_1932 = softLinkBTDeviceGetConnectedServices_1932(btDevice, &v111);
+  if (ConnectedServices_1932)
   {
-    v23 = v18;
+    v23 = ConnectedServices_1932;
     v24 = self->_ucat;
     if (v24->var0 > 60)
     {
@@ -201,7 +201,7 @@ LABEL_2:
     {
       v24 = self->_ucat;
 LABEL_19:
-      LogPrintF(v24, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTDeviceGetConnectedServices failed: %#m\n", v19, v20, v21, v22, (v23 + 310000));
+      LogPrintF(v24, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTDeviceGetConnectedServices failed: %#m\n", v19, v20, v21, v22, (v23 + 310000));
     }
   }
 
@@ -218,10 +218,10 @@ LABEL_26:
   }
 
   LODWORD(v120[0]) = 0;
-  v33 = (softLinkBTAccessoryManagerGetDeviceColor[0])(v32, btDevice, v120);
-  if (v33)
+  DeviceColor = softLinkBTAccessoryManagerGetDeviceColor(v32, btDevice, v120);
+  if (DeviceColor)
   {
-    v38 = v33;
+    v38 = DeviceColor;
     v39 = self->_ucat;
     if (v39->var0 > 60)
     {
@@ -237,7 +237,7 @@ LABEL_26:
     {
       v39 = self->_ucat;
 LABEL_30:
-      LogPrintF(v39, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTAccessoryManagerGetDeviceColor failed: %#m\n", v34, v35, v36, v37, (v38 + 310000));
+      LogPrintF(v39, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTAccessoryManagerGetDeviceColor failed: %#m\n", v34, v35, v36, v37, (v38 + 310000));
     }
   }
 
@@ -248,7 +248,7 @@ LABEL_30:
 
 LABEL_33:
   v110 = 0;
-  (softLinkBTDeviceGetDeviceType[0])(btDevice, &v110);
+  softLinkBTDeviceGetDeviceType(btDevice, &v110);
   [deviceCopy setDeviceType:v110];
   if (v110 == 17 || v110 == 22)
   {
@@ -264,10 +264,10 @@ LABEL_33:
   if (*p_btAccessoryManager)
   {
     v112 = 0;
-    v43 = (softLinkBTAccessoryManagerGetFeatureCapability[0])(v42, btDevice, 1, &v112);
-    if (v43)
+    FeatureCapability = softLinkBTAccessoryManagerGetFeatureCapability(v42, btDevice, 1, &v112);
+    if (FeatureCapability)
     {
-      v48 = v43;
+      v48 = FeatureCapability;
       v49 = self->_ucat;
       if (v49->var0 > 60)
       {
@@ -283,7 +283,7 @@ LABEL_33:
       {
         v49 = self->_ucat;
 LABEL_43:
-        LogPrintF(v49, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTAccessoryManagerGetFeatureCapability in-ear detect failed: %#m\n", v44, v45, v46, v47, (v48 + 310000));
+        LogPrintF(v49, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTAccessoryManagerGetFeatureCapability in-ear detect failed: %#m\n", v44, v45, v46, v47, (v48 + 310000));
       }
     }
 
@@ -295,10 +295,10 @@ LABEL_43:
 
 LABEL_47:
   v112 = 0;
-  v50 = (softLinkBTDeviceGetMagicPairingStatus[0])(btDevice, &v112);
-  if (v50)
+  MagicPairingStatus = softLinkBTDeviceGetMagicPairingStatus(btDevice, &v112);
+  if (MagicPairingStatus)
   {
-    v55 = v50;
+    v55 = MagicPairingStatus;
     v56 = self->_ucat;
     if (v56->var0 > 60)
     {
@@ -314,7 +314,7 @@ LABEL_47:
     {
       v56 = self->_ucat;
 LABEL_50:
-      LogPrintF(v56, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTDeviceGetMagicPairingStatus failed: %#m\n", v51, v52, v53, v54, (v55 + 310000));
+      LogPrintF(v56, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTDeviceGetMagicPairingStatus failed: %#m\n", v51, v52, v53, v54, (v55 + 310000));
     }
   }
 
@@ -325,10 +325,10 @@ LABEL_50:
 
 LABEL_53:
   LOBYTE(v120[0]) = 0;
-  v57 = (softLinkBTDeviceGetName[0])(btDevice, v120, 256);
-  if (v57)
+  Name = softLinkBTDeviceGetName(btDevice, v120, 256);
+  if (Name)
   {
-    v62 = v57;
+    v62 = Name;
     v63 = self->_ucat;
     if (v63->var0 > 60)
     {
@@ -344,7 +344,7 @@ LABEL_53:
     {
       v63 = self->_ucat;
 LABEL_56:
-      LogPrintF(v63, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTDeviceGetName failed: %#m\n", v58, v59, v60, v61, (v62 + 310000));
+      LogPrintF(v63, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTDeviceGetName failed: %#m\n", v58, v59, v60, v61, (v62 + 310000));
     }
   }
 
@@ -362,7 +362,7 @@ LABEL_59:
   }
 
   v109 = 0;
-  v66 = (softLinkBTAccessoryManagerGetInEarDetectionEnable[0])(v65, btDevice, &v109);
+  v66 = softLinkBTAccessoryManagerGetInEarDetectionEnable(v65, btDevice, &v109);
   if (v66)
   {
     v71 = v66;
@@ -372,7 +372,7 @@ LABEL_59:
       if (v72->var0 != -1)
       {
 LABEL_63:
-        LogPrintF(v72, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTAccessoryManagerGetInEarDetectionEnable failed: %#m\n", v67, v68, v69, v70, (v71 + 310000));
+        LogPrintF(v72, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTAccessoryManagerGetInEarDetectionEnable failed: %#m\n", v67, v68, v69, v70, (v71 + 310000));
         goto LABEL_65;
       }
 
@@ -393,7 +393,7 @@ LABEL_74:
     goto LABEL_76;
   }
 
-  v73 = (softLinkBTAccessoryManagerGetInEarStatus[0])(*p_btAccessoryManager, btDevice, &v108 + 4, &v108);
+  v73 = softLinkBTAccessoryManagerGetInEarStatus(*p_btAccessoryManager, btDevice, &v108 + 4, &v108);
   if (v73)
   {
     v78 = v73;
@@ -403,7 +403,7 @@ LABEL_74:
       if (v79->var0 != -1)
       {
 LABEL_69:
-        LogPrintF(v79, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTAccessoryManagerGetInEarStatus failed: %#m\n", v74, v75, v76, v77, (v78 + 310000));
+        LogPrintF(v79, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTAccessoryManagerGetInEarStatus failed: %#m\n", v74, v75, v76, v77, (v78 + 310000));
         goto LABEL_71;
       }
 
@@ -456,7 +456,7 @@ LABEL_82:
   v109 = 0;
   v108 = 0;
   v107 = 0;
-  if (!(softLinkBTDeviceGetDeviceId[0])(btDevice, &v109, &v108 + 4, &v108, &v107))
+  if (!softLinkBTDeviceGetDeviceId(btDevice, &v109, &v108 + 4, &v108, &v107))
   {
     [deviceCopy setProductIdentifier:v108];
     [deviceCopy setVersionID:v107];
@@ -466,7 +466,7 @@ LABEL_82:
   if (*p_btAccessoryManager)
   {
     v112 = 0;
-    v83 = (softLinkBTAccessoryManagerGetFeatureCapability[0])(v82, btDevice, 26, &v112);
+    v83 = softLinkBTAccessoryManagerGetFeatureCapability(v82, btDevice, 26, &v112);
     if (v83)
     {
       v88 = v83;
@@ -483,7 +483,7 @@ LABEL_82:
           v89 = self->_ucat;
         }
 
-        LogPrintF(v89, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTAccessoryManagerGetFeatureCapability software volume failed: %#m\n", v84, v85, v86, v87, (v88 + 310000));
+        LogPrintF(v89, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTAccessoryManagerGetFeatureCapability software volume failed: %#m\n", v84, v85, v86, v87, (v88 + 310000));
       }
 
 LABEL_92:
@@ -499,7 +499,7 @@ LABEL_92:
 
 LABEL_93:
   v106 = 0;
-  if (!(softLinkBTDeviceGetSupportedServices[0])(btDevice, &v106))
+  if (!softLinkBTDeviceGetSupportedServices(btDevice, &v106))
   {
     [deviceCopy setSupportsAACPService:(v106 >> 19) & 1];
   }
@@ -515,7 +515,7 @@ LABEL_93:
   }
 
   v112 = 0;
-  (softLinkBTDeviceIsTemporaryPaired[0])(btDevice, &v112);
+  softLinkBTDeviceIsTemporaryPaired(btDevice, &v112);
   if (v112)
   {
     v90 = v90 | 0x10;
@@ -530,7 +530,7 @@ LABEL_93:
   if (*p_btAccessoryManager)
   {
     v112 = 0;
-    v92 = (softLinkBTAccessoryManagerGetFeatureCapability[0])(v91, btDevice, 32, &v112);
+    v92 = softLinkBTAccessoryManagerGetFeatureCapability(v91, btDevice, 32, &v112);
     if (v92)
     {
       v97 = v92;
@@ -549,7 +549,7 @@ LABEL_93:
       {
         v98 = self->_ucat;
 LABEL_105:
-        LogPrintF(v98, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTAccessoryManagerGetFeatureCapability tipi failed: %#m\n", v93, v94, v95, v96, (v97 + 310000));
+        LogPrintF(v98, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTAccessoryManagerGetFeatureCapability tipi failed: %#m\n", v93, v94, v95, v96, (v97 + 310000));
       }
     }
 
@@ -568,10 +568,10 @@ LABEL_109:
 
   if (MobileBluetoothLibrary_sLib_1943 && dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceIsWirelessSplitterSupported"))
   {
-    v99 = (softLinkBTDeviceIsWirelessSplitterSupported[0])(btDevice, &v112);
-    if (v99)
+    IsWirelessSplitterSupported = softLinkBTDeviceIsWirelessSplitterSupported(btDevice, &v112);
+    if (IsWirelessSplitterSupported)
     {
-      v104 = v99;
+      v104 = IsWirelessSplitterSupported;
       v105 = self->_ucat;
       if (v105->var0 <= 60)
       {
@@ -585,7 +585,7 @@ LABEL_109:
           v105 = self->_ucat;
         }
 
-        LogPrintF(v105, "[CUBluetoothClient updateDevice:btDevice:]", 0x3Cu, "### BTDeviceIsWS failed: %#m\n", v100, v101, v102, v103, (v104 + 310000));
+        LogPrintF(v105, "[CUBluetoothClient updateDevice:btDevice:]", 60, "### BTDeviceIsWS failed: %#m\n", v100, v101, v102, v103, (v104 + 310000));
       }
     }
 
@@ -630,7 +630,7 @@ LABEL_119:
       v12 = off_1E73A3018[state];
     }
 
-    stateCopy = LogPrintF(ucat, "[CUBluetoothClient peripheralManagerDidUpdateState:]", 0x1Eu, "Bluetooth state changed: peripheral, %s\n", v8, v9, v10, v11, v12);
+    stateCopy = LogPrintF(ucat, "[CUBluetoothClient peripheralManagerDidUpdateState:]", 30, "Bluetooth state changed: peripheral, %s\n", v8, v9, v10, v11, v12);
     v5 = v13;
   }
 
@@ -670,7 +670,7 @@ LABEL_4:
         bytes = 0;
       }
 
-      LogPrintF(ucat, "[CUBluetoothClient observeValueForKeyPath:ofObject:change:context:]", 0x1Eu, "Bluetooth advertising address: %.6a\n", v9, v10, v11, v12, bytes);
+      LogPrintF(ucat, "[CUBluetoothClient observeValueForKeyPath:ofObject:change:context:]", 30, "Bluetooth advertising address: %.6a\n", v9, v10, v11, v12, bytes);
       goto LABEL_11;
     }
 
@@ -701,8 +701,8 @@ LABEL_11:
     }
 
     v12 = v5;
-    v13 = (softLinkBTLocalDeviceGetPairedDevices[0])(self->_btLocalDevice, v5, &v85, v3);
-    if (!v13)
+    PairedDevices = softLinkBTLocalDeviceGetPairedDevices(self->_btLocalDevice, v5, &v85, v3);
+    if (!PairedDevices)
     {
       [(NSMutableDictionary *)self->_btPairedDevices enumerateKeysAndObjectsUsingBlock:&__block_literal_global_1960];
       if (v85)
@@ -711,8 +711,8 @@ LABEL_11:
         {
           v27 = v12[i];
           v87[0] = 0;
-          v28 = (softLinkBTDeviceGetAddressString_1961[0])(v27, v87, 32);
-          if (!v28)
+          AddressString_1961 = softLinkBTDeviceGetAddressString_1961(v27, v87, 32);
+          if (!AddressString_1961)
           {
             v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v87];
             v36 = [(NSMutableDictionary *)self->_btPairedDevices objectForKeyedSubscript:v35];
@@ -732,7 +732,7 @@ LABEL_35:
 
             v84 = 0;
             v83 = 0;
-            if (!(softLinkBTDeviceAddressFromString[0])(v87, &v83))
+            if (!softLinkBTDeviceAddressFromString(v87, &v83))
             {
               v72 = v72 & 0xFFFF000000000000 | v83 | (v84 << 32);
               [(CUBluetoothDevice *)v37 setAddress:?];
@@ -764,7 +764,7 @@ LABEL_35:
               {
                 ucat = self->_ucat;
 LABEL_25:
-                LogPrintF(ucat, "[CUBluetoothClient _handlePairingStatusChanged]", 0x1Eu, "Found %@\n", v43, v44, v45, v46, v37);
+                LogPrintF(ucat, "[CUBluetoothClient _handlePairingStatusChanged]", 30, "Found %@\n", v43, v44, v45, v46, v37);
               }
             }
 
@@ -788,7 +788,7 @@ LABEL_25:
             goto LABEL_35;
           }
 
-          v33 = v28;
+          v33 = AddressString_1961;
           v34 = self->_ucat;
           if (v34->var0 <= 60)
           {
@@ -802,7 +802,7 @@ LABEL_25:
               v34 = self->_ucat;
             }
 
-            LogPrintF(v34, "[CUBluetoothClient _handlePairingStatusChanged]", 0x3Cu, "### BTDeviceGetAddressString failed: %#m\n", v29, v30, v31, v32, (v33 + 310000));
+            LogPrintF(v34, "[CUBluetoothClient _handlePairingStatusChanged]", 60, "### BTDeviceGetAddressString failed: %#m\n", v29, v30, v31, v32, (v33 + 310000));
           }
         }
       }
@@ -850,7 +850,7 @@ LABEL_41:
             v61 = self->_ucat;
           }
 
-          LogPrintF(v61, "[CUBluetoothClient _handlePairingStatusChanged]", 0x1Eu, "Lost %@\n", v57, v58, v59, v60, v56);
+          LogPrintF(v61, "[CUBluetoothClient _handlePairingStatusChanged]", 30, "Lost %@\n", v57, v58, v59, v60, v56);
         }
 
 LABEL_49:
@@ -888,7 +888,7 @@ LABEL_56:
       }
     }
 
-    v18 = (v13 + 310000);
+    v18 = (PairedDevices + 310000);
     v19 = self->_ucat;
     if (v19->var0 > 60)
     {
@@ -904,7 +904,7 @@ LABEL_56:
     {
       v19 = self->_ucat;
 LABEL_6:
-      LogPrintF(v19, "[CUBluetoothClient _handlePairingStatusChanged]", 0x3Cu, "### BTLocalDeviceGetPairedDevices failed: %#m\n", v14, v15, v16, v17, v18);
+      LogPrintF(v19, "[CUBluetoothClient _handlePairingStatusChanged]", 60, "### BTLocalDeviceGetPairedDevices failed: %#m\n", v14, v15, v16, v17, v18);
     }
 
 LABEL_8:
@@ -931,7 +931,7 @@ LABEL_8:
         v70 = self->_ucat;
       }
 
-      LogPrintF(v70, "[CUBluetoothClient _handlePairingStatusChanged]", 0x3Cu, "### Handle pairing status change failed: %{error}\n", v66, v67, v68, v69, v65);
+      LogPrintF(v70, "[CUBluetoothClient _handlePairingStatusChanged]", 60, "### Handle pairing status change failed: %{error}\n", v66, v67, v68, v69, v65);
     }
   }
 
@@ -965,7 +965,7 @@ LABEL_8:
       }
 
       BTServiceSpecificEventToString(event);
-      LogPrintF(ucat, "[CUBluetoothClient _handleDeviceEvent:device:]", 0x1Eu, "Device event: %@, event %s\n", v10, v11, v12, v13, v8);
+      LogPrintF(ucat, "[CUBluetoothClient _handleDeviceEvent:device:]", 30, "Device event: %@, event %s\n", v10, v11, v12, v13, v8);
     }
 
 LABEL_7:
@@ -988,17 +988,17 @@ LABEL_9:
   v4 = *&reason;
   v35 = *MEMORY[0x1E69E9840];
   v33 = 0;
-  v7 = (softLinkBTDeviceGetConnectedServices_1932[0])(disconnected, &v33);
-  if (v7)
+  ConnectedServices_1932 = softLinkBTDeviceGetConnectedServices_1932(disconnected, &v33);
+  if (ConnectedServices_1932)
   {
-    v12 = v7;
+    v12 = ConnectedServices_1932;
     ucat = self->_ucat;
     if (ucat->var0 <= 60)
     {
       if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF(ucat, "[CUBluetoothClient _handleDeviceDisconnected:reason:]", 0x3Cu, "### BTDeviceGetConnectedServices failed: %#m\n", v8, v9, v10, v11, (v12 + 310000));
+        LogPrintF(ucat, "[CUBluetoothClient _handleDeviceDisconnected:reason:]", 60, "### BTDeviceGetConnectedServices failed: %#m\n", v8, v9, v10, v11, (v12 + 310000));
         goto LABEL_6;
       }
 
@@ -1017,8 +1017,8 @@ LABEL_6:
   }
 
   v34[0] = 0;
-  v14 = (softLinkBTDeviceGetAddressString_1961[0])(disconnected, v34, 32);
-  if (!v14)
+  AddressString_1961 = softLinkBTDeviceGetAddressString_1961(disconnected, v34, 32);
+  if (!AddressString_1961)
   {
     v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v34];
     v26 = [(NSMutableDictionary *)self->_btConnectedDevices objectForKeyedSubscript:v21];
@@ -1042,7 +1042,7 @@ LABEL_24:
         v27 = self->_ucat;
       }
 
-      LogPrintF(v27, "[CUBluetoothClient _handleDeviceDisconnected:reason:]", 0x1Eu, "Device disconnected: %@, reason %#m\n", v22, v23, v24, v25, v26);
+      LogPrintF(v27, "[CUBluetoothClient _handleDeviceDisconnected:reason:]", 30, "Device disconnected: %@, reason %#m\n", v22, v23, v24, v25, v26);
     }
 
 LABEL_19:
@@ -1069,14 +1069,14 @@ LABEL_19:
     goto LABEL_24;
   }
 
-  v19 = v14;
+  v19 = AddressString_1961;
   v20 = self->_ucat;
   if (v20->var0 <= 60)
   {
     if (v20->var0 != -1)
     {
 LABEL_11:
-      LogPrintF(v20, "[CUBluetoothClient _handleDeviceDisconnected:reason:]", 0x3Cu, "### BTDeviceGetAddressString failed: %#m\n", v15, v16, v17, v18, (v19 + 310000));
+      LogPrintF(v20, "[CUBluetoothClient _handleDeviceDisconnected:reason:]", 60, "### BTDeviceGetAddressString failed: %#m\n", v15, v16, v17, v18, (v19 + 310000));
       return;
     }
 
@@ -1127,7 +1127,7 @@ LABEL_11:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBluetoothClient _handleDeviceConnected:]", 0x1Eu, "Device connected: %@\n", v8, v9, v10, v11, v4);
+    LogPrintF(ucat, "[CUBluetoothClient _handleDeviceConnected:]", 30, "Device connected: %@\n", v8, v9, v10, v11, v4);
   }
 
 LABEL_10:
@@ -1190,13 +1190,13 @@ LABEL_15:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBluetoothClient _handleConnectedDevicesInit]", 0x5Au, "### Malloc connected device array failed (%zu bytes)", v6, v7, v8, v9, v4);
+      LogPrintF(ucat, "[CUBluetoothClient _handleConnectedDevicesInit]", 90, "### Malloc connected device array failed (%zu bytes)", v6, v7, v8, v9, v4);
       return;
     }
 
     v10 = v5;
-    v11 = (softLinkBTLocalDeviceGetConnectedDevices[0])(self->_btLocalDevice, v5, &v54, v4);
-    if (!v11)
+    ConnectedDevices = softLinkBTLocalDeviceGetConnectedDevices(self->_btLocalDevice, v5, &v54, v4);
+    if (!ConnectedDevices)
     {
       if (!v54)
       {
@@ -1227,7 +1227,7 @@ LABEL_27:
               {
                 v40 = self->_ucat;
 LABEL_30:
-                LogPrintF(v40, "[CUBluetoothClient _handleConnectedDevicesInit]", 0x1Eu, "Connected device: %@\n", v35, v36, v37, v38, v39);
+                LogPrintF(v40, "[CUBluetoothClient _handleConnectedDevicesInit]", 30, "Connected device: %@\n", v35, v36, v37, v38, v39);
               }
             }
 
@@ -1265,9 +1265,9 @@ LABEL_30:
         }
 
         v53 = 0;
-        v25 = (softLinkBTDeviceGetConnectedServices_1932[0])(v24, &v53);
-        v30 = (v25 + 310000);
-        if (v25 && v30 != 0)
+        ConnectedServices_1932 = softLinkBTDeviceGetConnectedServices_1932(v24, &v53);
+        v30 = (ConnectedServices_1932 + 310000);
+        if (ConnectedServices_1932 && v30 != 0)
         {
           v32 = self->_ucat;
           if (v32->var0 <= 90)
@@ -1307,7 +1307,7 @@ LABEL_26:
             v33 = v53;
           }
 
-          LogPrintF(v41, "[CUBluetoothClient _handleConnectedDevicesInit]", 0x1Eu, "BTService connect ignoring due to missing services: %#{flags}\n", v26, v27, v28, v29, requiredServices & ~v33);
+          LogPrintF(v41, "[CUBluetoothClient _handleConnectedDevicesInit]", 30, "BTService connect ignoring due to missing services: %#{flags}\n", v26, v27, v28, v29, requiredServices & ~v33);
         }
 
 LABEL_43:
@@ -1319,11 +1319,11 @@ LABEL_43:
 
       v32 = self->_ucat;
 LABEL_24:
-      LogPrintF(v32, "[CUBluetoothClient _handleConnectedDevicesInit]", 0x5Au, "### BTDeviceGetConnectedServices failed: initial, %#m\n", v26, v27, v28, v29, v30);
+      LogPrintF(v32, "[CUBluetoothClient _handleConnectedDevicesInit]", 90, "### BTDeviceGetConnectedServices failed: initial, %#m\n", v26, v27, v28, v29, v30);
       goto LABEL_26;
     }
 
-    v16 = v11;
+    v16 = ConnectedDevices;
     v17 = self->_ucat;
     if (v17->var0 > 60)
     {
@@ -1339,7 +1339,7 @@ LABEL_24:
     {
       v17 = self->_ucat;
 LABEL_7:
-      LogPrintF(v17, "[CUBluetoothClient _handleConnectedDevicesInit]", 0x3Cu, "### BTLocalDeviceGetPairedDevices failed: %#m\n", v12, v13, v14, v15, (v16 + 310000));
+      LogPrintF(v17, "[CUBluetoothClient _handleConnectedDevicesInit]", 60, "### BTLocalDeviceGetPairedDevices failed: %#m\n", v12, v13, v14, v15, (v16 + 310000));
     }
 
 LABEL_9:
@@ -1361,7 +1361,7 @@ LABEL_9:
     {
       v48 = self->_ucat;
 LABEL_52:
-      LogPrintF(v48, "[CUBluetoothClient _handleConnectedDevicesInit]", 0x5Au, "### Get connected devices failed (too many)", v18, v19, v20, v21, v49);
+      LogPrintF(v48, "[CUBluetoothClient _handleConnectedDevicesInit]", 90, "### Get connected devices failed (too many)", v18, v19, v20, v21, v49);
     }
   }
 }
@@ -1398,7 +1398,7 @@ LABEL_52:
           bytes = 0;
         }
 
-        LogPrintF(ucat, "[CUBluetoothClient _handleBluetoothAddressChanged]", 0x1Eu, "Bluetooth address changed: %.6a\n", v9, v10, v11, v12, bytes);
+        LogPrintF(ucat, "[CUBluetoothClient _handleBluetoothAddressChanged]", 30, "Bluetooth address changed: %.6a\n", v9, v10, v11, v12, bytes);
       }
 
 LABEL_14:
@@ -1424,14 +1424,14 @@ LABEL_14:
   v27 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(CUBluetoothDevice);
   v26[0] = 0;
-  v6 = (softLinkBTDeviceGetAddressString_1961[0])(device, v26, 32);
-  if (!v6)
+  AddressString_1961 = softLinkBTDeviceGetAddressString_1961(device, v26, 32);
+  if (!AddressString_1961)
   {
     v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v26];
     [(CUBluetoothDevice *)v5 setAddressString:v13];
     v25 = 0;
     v24 = 0;
-    v14 = (softLinkBTDeviceAddressFromString[0])(v26, &v24);
+    v14 = softLinkBTDeviceAddressFromString(v26, &v24);
     if (v14)
     {
       v19 = v14;
@@ -1448,7 +1448,7 @@ LABEL_14:
           ucat = self->_ucat;
         }
 
-        LogPrintF(ucat, "[CUBluetoothClient _createCUBluetoothDeviceWithBTDevice:]", 0x3Cu, "### BTDeviceAddressFromString failed: %#m\n", v15, v16, v17, v18, (v19 + 310000));
+        LogPrintF(ucat, "[CUBluetoothClient _createCUBluetoothDeviceWithBTDevice:]", 60, "### BTDeviceAddressFromString failed: %#m\n", v15, v16, v17, v18, (v19 + 310000));
       }
     }
 
@@ -1465,7 +1465,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v11 = v6;
+  v11 = AddressString_1961;
   v12 = self->_ucat;
   if (v12->var0 > 60)
   {
@@ -1481,7 +1481,7 @@ LABEL_13:
   {
     v12 = self->_ucat;
 LABEL_4:
-    LogPrintF(v12, "[CUBluetoothClient _createCUBluetoothDeviceWithBTDevice:]", 0x3Cu, "### BTDeviceGetAddressString failed: %#m\n", v7, v8, v9, v10, (v11 + 310000));
+    LogPrintF(v12, "[CUBluetoothClient _createCUBluetoothDeviceWithBTDevice:]", 60, "### BTDeviceGetAddressString failed: %#m\n", v7, v8, v9, v10, (v11 + 310000));
   }
 
 LABEL_14:
@@ -1527,7 +1527,7 @@ LABEL_14:
       v11 = off_1E73A3018[v9];
     }
 
-    LogPrintF(ucat, "[CUBluetoothClient centralManagerDidUpdateState:]", 0x1Eu, "Bluetooth state changed: central, %s\n", v5, v6, v7, v8, v11);
+    LogPrintF(ucat, "[CUBluetoothClient centralManagerDidUpdateState:]", 30, "Bluetooth state changed: central, %s\n", v5, v6, v7, v8, v11);
   }
 
 LABEL_12:
@@ -1552,9 +1552,9 @@ LABEL_12:
 
 - (BTDeviceImpl)_btDeviceWithID:(id)d error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v36 = 0;
+  v18 = 0;
   uTF8String = [dCopy UTF8String];
   if (!uTF8String)
   {
@@ -1563,26 +1563,26 @@ LABEL_12:
       goto LABEL_21;
     }
 
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "Bad device ID UTF-8: '%@'", v8, v9, v10, v11, v12, dCopy);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "Bad device ID UTF-8: '%@'", dCopy);
     goto LABEL_24;
   }
 
-  v13 = uTF8String;
-  v37 = 0uLL;
-  if (!StringToUUIDEx(uTF8String, 0xFFFFFFFFFFFFFFFFLL, 0, 0, &v37, v10, v11, v12))
+  v8 = uTF8String;
+  v19 = 0uLL;
+  if (!StringToUUIDEx(uTF8String, 0xFFFFFFFFFFFFFFFFLL, 0, 0, &v19))
   {
-    v24 = (softLinkBTDeviceFromIdentifier_2001[0])(self->_btSession, &v37, &v36);
-    if (v24 == -310000)
+    v12 = softLinkBTDeviceFromIdentifier_2001(self->_btSession, &v19, &v18);
+    if (v12 == -310000)
     {
-      v30 = 4294960596;
+      v13 = 4294960596;
     }
 
     else
     {
-      v30 = (v24 + 310000);
+      v13 = (v12 + 310000);
     }
 
-    if (!v24)
+    if (!v12)
     {
       goto LABEL_14;
     }
@@ -1592,50 +1592,45 @@ LABEL_12:
       goto LABEL_21;
     }
 
-    NSErrorF_safe(*MEMORY[0x1E696A768], v30, "BTDeviceFromIdentifier failed", v25, v26, v27, v28, v29, v33);
+    NSErrorF_safe(*MEMORY[0x1E696A768], v13, "BTDeviceFromIdentifier failed");
 LABEL_24:
-    *error = v31 = 0;
+    *error = v14 = 0;
     goto LABEL_15;
   }
 
-  v35 = 0;
-  v34 = 0;
-  v14 = TextToHardwareAddress(v13, 0xFFFFFFFFFFFFFFFFLL, 6, &v34);
-  if (v14)
+  v17 = 0;
+  v16 = 0;
+  v9 = TextToHardwareAddress(v8, 0xFFFFFFFFFFFFFFFFLL, 6, &v16);
+  if (v9)
   {
     if (error)
     {
-      v21 = v14;
-      v22 = *MEMORY[0x1E696A768];
-      v33 = v13;
-      v23 = "Bad device ID format: '%s'";
+      NSErrorF_safe(*MEMORY[0x1E696A768], v9, "Bad device ID format: '%s'");
       goto LABEL_20;
     }
 
 LABEL_21:
-    v31 = 0;
+    v14 = 0;
     goto LABEL_15;
   }
 
-  v20 = (softLinkBTDeviceFromAddress_2004[0])(self->_btSession, &v34, &v36);
-  if (v20 == -310000)
+  v10 = softLinkBTDeviceFromAddress_2004(self->_btSession, &v16, &v18);
+  if (v10 == -310000)
   {
-    v21 = 4294960596;
+    v11 = 4294960596;
   }
 
   else
   {
-    v21 = (v20 + 310000);
+    v11 = (v10 + 310000);
   }
 
-  if (v20)
+  if (v10)
   {
     if (error)
     {
-      v22 = *MEMORY[0x1E696A768];
-      v23 = "BTDeviceFromAddress failed";
-LABEL_20:
-      *error = NSErrorF_safe(v22, v21, v23, v15, v16, v17, v18, v19, v33);
+      NSErrorF_safe(*MEMORY[0x1E696A768], v11, "BTDeviceFromAddress failed");
+      *error = LABEL_20:;
       goto LABEL_21;
     }
 
@@ -1643,17 +1638,17 @@ LABEL_20:
   }
 
 LABEL_14:
-  v31 = v36;
+  v14 = v18;
 LABEL_15:
 
-  return v31;
+  return v14;
 }
 
 - (void)_btAccessoryPlacementChanged:(BTAccessoryManagerImpl *)changed device:(BTDeviceImpl *)device
 {
   v59 = *MEMORY[0x1E69E9840];
   v57 = 0;
-  v7 = (softLinkBTAccessoryManagerGetInEarDetectionEnable[0])(changed, device, &v57);
+  v7 = softLinkBTAccessoryManagerGetInEarDetectionEnable(changed, device, &v57);
   if (v7)
   {
     v12 = v7;
@@ -1670,7 +1665,7 @@ LABEL_15:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 0x3Cu, "### Placement changed: BTAccessoryManagerGetInEarDetectionEnable failed: %#m\n", v8, v9, v10, v11, (v12 + 310000));
+      LogPrintF(ucat, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 60, "### Placement changed: BTAccessoryManagerGetInEarDetectionEnable failed: %#m\n", v8, v9, v10, v11, (v12 + 310000));
     }
 
 LABEL_11:
@@ -1682,7 +1677,7 @@ LABEL_11:
   v56 = 3;
   if (v57)
   {
-    v14 = (softLinkBTAccessoryManagerGetInEarStatus[0])(changed, device, &v56, &v55);
+    v14 = softLinkBTAccessoryManagerGetInEarStatus(changed, device, &v56, &v55);
     if (v14)
     {
       v19 = v14;
@@ -1699,7 +1694,7 @@ LABEL_11:
           v20 = self->_ucat;
         }
 
-        LogPrintF(v20, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 0x3Cu, "### Placement changed: BTAccessoryManagerGetInEarStatus failed: %#m\n", v15, v16, v17, v18, (v19 + 310000));
+        LogPrintF(v20, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 60, "### Placement changed: BTAccessoryManagerGetInEarStatus failed: %#m\n", v15, v16, v17, v18, (v19 + 310000));
       }
 
 LABEL_12:
@@ -1709,8 +1704,8 @@ LABEL_12:
   }
 
   v58[0] = 0;
-  v21 = (softLinkBTDeviceGetAddressString_1961[0])(device, v58, 32);
-  if (!v21)
+  AddressString_1961 = softLinkBTDeviceGetAddressString_1961(device, v58, 32);
+  if (!AddressString_1961)
   {
     v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v58];
     v27 = [(NSMutableDictionary *)self->_btConnectedDevices objectForKeyedSubscript:v26];
@@ -1730,7 +1725,7 @@ LABEL_12:
           v51 = self->_ucat;
         }
 
-        LogPrintF(v51, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 0x1Eu, "Placement changed: Lookup device failed: %@\n", v28, v29, v30, v31, v26);
+        LogPrintF(v51, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 30, "Placement changed: Lookup device failed: %@\n", v28, v29, v30, v31, v26);
       }
 
       goto LABEL_40;
@@ -1789,7 +1784,7 @@ LABEL_12:
           v41 = self->_ucat;
         }
 
-        LogPrintF(v41, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 0xAu, "Placement unchanged: %@\n", v36, v37, v38, v39, v32);
+        LogPrintF(v41, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 10, "Placement unchanged: %@\n", v36, v37, v38, v39, v32);
       }
 
 LABEL_40:
@@ -1806,7 +1801,7 @@ LABEL_40:
       if (v46->var0 != -1)
       {
 LABEL_36:
-        LogPrintF(v46, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 0x1Eu, "Placement changed: %@, P %s -> %s, S %s -> %s\n", v42, v43, v44, v45, v32);
+        LogPrintF(v46, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 30, "Placement changed: %@, P %s -> %s, S %s -> %s\n", v42, v43, v44, v45, v32);
         goto LABEL_37;
       }
 
@@ -1834,14 +1829,14 @@ LABEL_37:
     goto LABEL_40;
   }
 
-  v49 = v21;
+  v49 = AddressString_1961;
   v50 = self->_ucat;
   if (v50->var0 <= 60)
   {
     if (v50->var0 != -1)
     {
 LABEL_46:
-      LogPrintF(v50, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 0x3Cu, "### Placement changed: BTDeviceGetAddressString failed: %#m\n", v22, v23, v24, v25, (v49 + 310000));
+      LogPrintF(v50, "[CUBluetoothClient _btAccessoryPlacementChanged:device:]", 60, "### Placement changed: BTDeviceGetAddressString failed: %#m\n", v22, v23, v24, v25, (v49 + 310000));
       return;
     }
 
@@ -1860,8 +1855,8 @@ LABEL_46:
   {
     v4 = *&changed;
     v36[0] = 0;
-    v6 = (softLinkBTDeviceGetAddressString_1961[0])(device, v36, 32);
-    if (!v6)
+    AddressString_1961 = softLinkBTDeviceGetAddressString_1961(device, v36, 32);
+    if (!AddressString_1961)
     {
       v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v36];
       v12 = [(NSMutableDictionary *)self->_btConnectedDevices objectForKeyedSubscript:v11];
@@ -1881,7 +1876,7 @@ LABEL_46:
             ucat = self->_ucat;
           }
 
-          LogPrintF(ucat, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 0x1Eu, "Stream state changed: Lookup device failed: %@\n", v13, v14, v15, v16, v11);
+          LogPrintF(ucat, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 30, "Stream state changed: Lookup device failed: %@\n", v13, v14, v15, v16, v11);
         }
 
         goto LABEL_19;
@@ -1902,7 +1897,7 @@ LABEL_46:
             v22 = self->_ucat;
           }
 
-          LogPrintF(v22, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 0xAu, "Stream state unchanged: %@\n", v18, v19, v20, v21, v17);
+          LogPrintF(v22, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 10, "Stream state unchanged: %@\n", v18, v19, v20, v21, v17);
         }
 
 LABEL_19:
@@ -1923,7 +1918,7 @@ LABEL_19:
         {
           v27 = self->_ucat;
 LABEL_15:
-          LogPrintF(v27, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 0x1Eu, "Stream state changed: %@, %s -> %s\n", v23, v24, v25, v26, v17);
+          LogPrintF(v27, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 30, "Stream state changed: %@, %s -> %s\n", v23, v24, v25, v26, v17);
         }
       }
 
@@ -1943,14 +1938,14 @@ LABEL_15:
       goto LABEL_19;
     }
 
-    v30 = v6;
+    v30 = AddressString_1961;
     v31 = self->_ucat;
     if (v31->var0 <= 60)
     {
       if (v31->var0 != -1)
       {
 LABEL_23:
-        LogPrintF(v31, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 0x3Cu, "### Stream state changed: BTDeviceGetAddressString failed: %#m\n", v7, v8, v9, v10, (v30 + 310000));
+        LogPrintF(v31, "[CUBluetoothClient _btAccessoryStreamStateChanged:device:]", 60, "### Stream state changed: BTDeviceGetAddressString failed: %#m\n", v7, v8, v9, v10, (v30 + 310000));
         return;
       }
 
@@ -1969,8 +1964,8 @@ LABEL_23:
   if ((self->_flags & 0x40) != 0)
   {
     v42[0] = 0;
-    v5 = (softLinkBTDeviceGetAddressString_1961[0])(changed, v42, 32);
-    if (!v5)
+    AddressString_1961 = softLinkBTDeviceGetAddressString_1961(changed, v42, 32);
+    if (!AddressString_1961)
     {
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v42];
       v11 = [(NSMutableDictionary *)self->_btConnectedDevices objectForKeyedSubscript:v10];
@@ -1990,7 +1985,7 @@ LABEL_23:
             ucat = self->_ucat;
           }
 
-          LogPrintF(ucat, "[CUBluetoothClient _btAccessoryNameChanged:]", 0x1Eu, "Name state changed: Lookup device failed: %@\n", v12, v13, v14, v15, v10);
+          LogPrintF(ucat, "[CUBluetoothClient _btAccessoryNameChanged:]", 30, "Name state changed: Lookup device failed: %@\n", v12, v13, v14, v15, v10);
         }
 
 LABEL_25:
@@ -2000,7 +1995,7 @@ LABEL_25:
 
       name = [v11 name];
       v41[0] = 0;
-      if ((softLinkBTDeviceGetName[0])(changed, v41, 256))
+      if (softLinkBTDeviceGetName(changed, v41, 256))
       {
         v18 = name;
 LABEL_6:
@@ -2038,7 +2033,7 @@ LABEL_7:
               v23 = self->_ucat;
             }
 
-            LogPrintF(v23, "[CUBluetoothClient _btAccessoryNameChanged:]", 0xAu, "Name unchanged: %@\n", v19, v20, v21, v22, v16);
+            LogPrintF(v23, "[CUBluetoothClient _btAccessoryNameChanged:]", 10, "Name unchanged: %@\n", v19, v20, v21, v22, v16);
           }
 
 LABEL_24:
@@ -2065,7 +2060,7 @@ LABEL_24:
           v32 = self->_ucat;
         }
 
-        LogPrintF(v32, "[CUBluetoothClient _btAccessoryNameChanged:]", 0x1Eu, "Name changed: %@, %@ -> %@\n", v28, v29, v30, v31, v16);
+        LogPrintF(v32, "[CUBluetoothClient _btAccessoryNameChanged:]", 30, "Name changed: %@, %@ -> %@\n", v28, v29, v30, v31, v16);
       }
 
 LABEL_21:
@@ -2085,14 +2080,14 @@ LABEL_21:
       goto LABEL_24;
     }
 
-    v35 = v5;
+    v35 = AddressString_1961;
     v36 = self->_ucat;
     if (v36->var0 <= 60)
     {
       if (v36->var0 != -1)
       {
 LABEL_29:
-        LogPrintF(v36, "[CUBluetoothClient _btAccessoryNameChanged:]", 0x3Cu, "### Name state changed: BTDeviceGetAddressString failed: %#m\n", v6, v7, v8, v9, (v35 + 310000));
+        LogPrintF(v36, "[CUBluetoothClient _btAccessoryNameChanged:]", 60, "### Name state changed: BTDeviceGetAddressString failed: %#m\n", v6, v7, v8, v9, (v35 + 310000));
         return;
       }
 
@@ -2139,7 +2134,7 @@ LABEL_29:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBluetoothClient _btEnsureStopped]", 0x1Eu, "BTAccessoryManagerRemoveCallbacks\n", v2, v3, v4, v5, v28);
+    LogPrintF(ucat, "[CUBluetoothClient _btEnsureStopped]", 30, "BTAccessoryManagerRemoveCallbacks\n", v2, v3, v4, v5, v28);
   }
 
 LABEL_8:
@@ -2154,7 +2149,7 @@ LABEL_8:
       if (v12->var0 != -1)
       {
 LABEL_11:
-        LogPrintF(v12, "[CUBluetoothClient _btEnsureStopped]", 0x3Cu, "### BTAccessoryManagerRemoveCallbacks failed: %#m\n", v2, v3, v4, v5, (v11 + 310000));
+        LogPrintF(v12, "[CUBluetoothClient _btEnsureStopped]", 60, "### BTAccessoryManagerRemoveCallbacks failed: %#m\n", v2, v3, v4, v5, (v11 + 310000));
         goto LABEL_13;
       }
 
@@ -2185,11 +2180,11 @@ LABEL_13:
       v13 = self->_ucat;
     }
 
-    LogPrintF(v13, "[CUBluetoothClient _btEnsureStopped]", 0x1Eu, "BTLocalDeviceRemoveCallbacks\n", v2, v3, v4, v5, v28);
+    LogPrintF(v13, "[CUBluetoothClient _btEnsureStopped]", 30, "BTLocalDeviceRemoveCallbacks\n", v2, v3, v4, v5, v28);
   }
 
 LABEL_18:
-  (softLinkBTLocalDeviceRemoveCallbacks[0])(self->_btLocalDevice, &self->_btLocalDeviceCallbacks);
+  softLinkBTLocalDeviceRemoveCallbacks(self->_btLocalDevice, &self->_btLocalDeviceCallbacks);
   self->_btLocalDeviceCallbacksRegistered = 0;
 LABEL_19:
   if (!self->_btPairingAgentStarted)
@@ -2210,11 +2205,11 @@ LABEL_19:
       v14 = self->_ucat;
     }
 
-    LogPrintF(v14, "[CUBluetoothClient _btEnsureStopped]", 0x1Eu, "BTPairingAgentStop\n", v2, v3, v4, v5, v28);
+    LogPrintF(v14, "[CUBluetoothClient _btEnsureStopped]", 30, "BTPairingAgentStop\n", v2, v3, v4, v5, v28);
   }
 
 LABEL_24:
-  (softLinkBTPairingAgentStop[0])(self->_btPairingAgent);
+  softLinkBTPairingAgentStop(self->_btPairingAgent);
   self->_btPairingAgentStarted = 0;
 LABEL_25:
   if (!self->_btPairingAgent)
@@ -2235,11 +2230,11 @@ LABEL_25:
       v15 = self->_ucat;
     }
 
-    LogPrintF(v15, "[CUBluetoothClient _btEnsureStopped]", 0x1Eu, "BTPairingAgentDestroy\n", v2, v3, v4, v5, v28);
+    LogPrintF(v15, "[CUBluetoothClient _btEnsureStopped]", 30, "BTPairingAgentDestroy\n", v2, v3, v4, v5, v28);
   }
 
 LABEL_30:
-  (softLinkBTPairingAgentDestroy[0])(&self->_btPairingAgent);
+  softLinkBTPairingAgentDestroy(&self->_btPairingAgent);
   self->_btPairingAgent = 0;
 LABEL_31:
   if (!self->_btSessionAddedServiceCallback)
@@ -2262,11 +2257,11 @@ LABEL_31:
         v16 = self->_ucat;
       }
 
-      LogPrintF(v16, "[CUBluetoothClient _btEnsureStopped]", 0x1Eu, "BTServiceRemoveCallbacks\n", v2, v3, v4, v5, v28);
+      LogPrintF(v16, "[CUBluetoothClient _btEnsureStopped]", 30, "BTServiceRemoveCallbacks\n", v2, v3, v4, v5, v28);
     }
 
 LABEL_37:
-    (softLinkBTServiceRemoveCallbacks_2030[0])(self->_btSession, _btServiceEventHandler_2037);
+    softLinkBTServiceRemoveCallbacks_2030(self->_btSession, _btServiceEventHandler_2037);
   }
 
   self->_btSessionAddedServiceCallback = 0;
@@ -2289,11 +2284,11 @@ LABEL_39:
       v17 = self->_ucat;
     }
 
-    LogPrintF(v17, "[CUBluetoothClient _btEnsureStopped]", 0x1Eu, "BTSession detach\n", v2, v3, v4, v5, v28);
+    LogPrintF(v17, "[CUBluetoothClient _btEnsureStopped]", 30, "BTSession detach\n", v2, v3, v4, v5, v28);
   }
 
 LABEL_44:
-  (softLinkBTSessionDetachWithQueue_2033[0])(&self->_btSession);
+  softLinkBTSessionDetachWithQueue_2033(&self->_btSession);
   self->_btSession = 0;
 LABEL_45:
   self->_btSessionStarted = 0;
@@ -2320,7 +2315,7 @@ LABEL_45:
       v23 = self->_ucat;
     }
 
-    LogPrintF(v23, "[CUBluetoothClient _btEnsureStopped]", 0x1Eu, "CBPeripheralManager stop\n", v19, v20, v21, v22, v28);
+    LogPrintF(v23, "[CUBluetoothClient _btEnsureStopped]", 30, "CBPeripheralManager stop\n", v19, v20, v21, v22, v28);
   }
 
 LABEL_50:
@@ -2354,7 +2349,7 @@ void __37__CUBluetoothClient__btEnsureStopped__block_invoke(uint64_t a1, uint64_
     if (*v9 != -1)
     {
 LABEL_3:
-      LogPrintF(v9, "[CUBluetoothClient _btEnsureStopped]_block_invoke", 0x1Eu, "Device disconnected: %@\n", v5, v6, v7, v8, v4);
+      LogPrintF(v9, "[CUBluetoothClient _btEnsureStopped]_block_invoke", 30, "Device disconnected: %@\n", v5, v6, v7, v8, v4);
       goto LABEL_5;
     }
 
@@ -2389,11 +2384,12 @@ LABEL_5:
   }
 
   ucat = self->_ucat;
-  if (ucat->var0 <= 30)
+  if (*ucat <= 30)
   {
-    if (ucat->var0 == -1)
+    if (*ucat == -1)
     {
-      if (!_LogCategory_Initialize(ucat, 0x1Eu))
+      ucat = _LogCategory_Initialize(ucat, 0x1Eu);
+      if (!ucat)
       {
         goto LABEL_7;
       }
@@ -2401,18 +2397,18 @@ LABEL_5:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "CBCentralManager start\n", v2, v3, v4, v5, v68);
+    ucat = LogPrintF(ucat, "[CUBluetoothClient _btEnsureStarted]", 30, "CBCentralManager start\n", v2, v3, v4, v5, v68);
   }
 
 LABEL_7:
   if ((self->_flags & 0x20) != 0)
   {
-    v12 = getCBCentralManagerOptionShowPowerAlertKey();
+    v12 = getCBCentralManagerOptionShowPowerAlertKey(ucat);
     v77 = v12;
     v78[0] = MEMORY[0x1E695E110];
     _internalDispatchQueue2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:&v77 count:1];
 
-    v13 = objc_alloc(getCBCentralManagerClass_2043[0]());
+    v13 = objc_alloc((getCBCentralManagerClass_2043)());
     _internalDispatchQueue = [(CUBluetoothClient *)self _internalDispatchQueue];
     v15 = [v13 initWithDelegate:self queue:_internalDispatchQueue options:_internalDispatchQueue2];
     btCentralManager = self->_btCentralManager;
@@ -2421,7 +2417,7 @@ LABEL_7:
 
   else
   {
-    v8 = objc_alloc(getCBCentralManagerClass_2043[0]());
+    v8 = objc_alloc((getCBCentralManagerClass_2043)());
     _internalDispatchQueue2 = [(CUBluetoothClient *)self _internalDispatchQueue];
     v10 = [v8 initWithDelegate:self queue:_internalDispatchQueue2];
     v11 = self->_btCentralManager;
@@ -2435,16 +2431,17 @@ LABEL_11:
   }
 
   v17 = self->_ucat;
-  if (v17->var0 <= 30)
+  if (*v17 <= 30)
   {
-    if (v17->var0 != -1)
+    if (*v17 != -1)
     {
 LABEL_15:
-      LogPrintF(v17, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "CBPeripheralManager start\n", v2, v3, v4, v5, v68);
+      v17 = LogPrintF(v17, "[CUBluetoothClient _btEnsureStarted]", 30, "CBPeripheralManager start\n", v2, v3, v4, v5, v68);
       goto LABEL_17;
     }
 
-    if (_LogCategory_Initialize(v17, 0x1Eu))
+    v17 = _LogCategory_Initialize(v17, 0x1Eu);
+    if (v17)
     {
       v17 = self->_ucat;
       goto LABEL_15;
@@ -2454,12 +2451,12 @@ LABEL_15:
 LABEL_17:
   if ((self->_flags & 0x20) != 0)
   {
-    v22 = getCBPeripheralManagerOptionShowPowerAlertKey();
+    v22 = getCBPeripheralManagerOptionShowPowerAlertKey(v17);
     v75 = v22;
     v76 = MEMORY[0x1E695E110];
     _internalDispatchQueue4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
 
-    v23 = objc_alloc(getCBPeripheralManagerClass_2045[0]());
+    v23 = objc_alloc((getCBPeripheralManagerClass_2045)());
     _internalDispatchQueue3 = [(CUBluetoothClient *)self _internalDispatchQueue];
     v24 = [v23 initWithDelegate:self queue:_internalDispatchQueue3 options:_internalDispatchQueue4];
     btPeripheralManager = self->_btPeripheralManager;
@@ -2468,7 +2465,7 @@ LABEL_17:
 
   else
   {
-    v18 = objc_alloc(getCBPeripheralManagerClass_2045[0]());
+    v18 = objc_alloc((getCBPeripheralManagerClass_2045)());
     _internalDispatchQueue4 = [(CUBluetoothClient *)self _internalDispatchQueue];
     v20 = [v18 initWithDelegate:self queue:_internalDispatchQueue4];
     _internalDispatchQueue3 = self->_btPeripheralManager;
@@ -2496,8 +2493,8 @@ LABEL_25:
 LABEL_37:
       if (!self->_btLocalDevice)
       {
-        v30 = (softLinkBTLocalDeviceGetDefault[0])(btSession, &self->_btLocalDevice);
-        if (v30)
+        Default = softLinkBTLocalDeviceGetDefault(btSession, &self->_btLocalDevice);
+        if (Default)
         {
           v45 = "BTLocalDeviceGetDefault failed";
           goto LABEL_117;
@@ -2517,8 +2514,8 @@ LABEL_39:
       }
 
       LOBYTE(v71) = 0;
-      v30 = (softLinkBTLocalDeviceGetAddressString[0])(btLocalDevice, &v71, 32);
-      if (v30)
+      Default = softLinkBTLocalDeviceGetAddressString(btLocalDevice, &v71, 32);
+      if (Default)
       {
         v45 = "BTLocalDeviceGetAddressString failed";
       }
@@ -2527,8 +2524,8 @@ LABEL_39:
       {
         v70 = 0;
         v69 = 0;
-        v30 = (softLinkBTDeviceAddressFromString[0])(&v71, &v69);
-        if (!v30)
+        Default = softLinkBTDeviceAddressFromString(&v71, &v69);
+        if (!Default)
         {
           v34 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&v69 length:6];
           btLocalDeviceAddr = self->_btLocalDeviceAddr;
@@ -2547,7 +2544,7 @@ LABEL_39:
               v36 = self->_ucat;
             }
 
-            LogPrintF(v36, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "Bluetooth local address: %.6a\n", v2, v3, v4, v5, &v69);
+            LogPrintF(v36, "[CUBluetoothClient _btEnsureStarted]", 30, "Bluetooth local address: %.6a\n", v2, v3, v4, v5, &v69);
           }
 
 LABEL_48:
@@ -2562,7 +2559,7 @@ LABEL_48:
             if (v37->var0 != -1)
             {
 LABEL_53:
-              LogPrintF(v37, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "BTLocalDeviceAddCallbacks\n", v2, v3, v4, v5, v68);
+              LogPrintF(v37, "[CUBluetoothClient _btEnsureStarted]", 30, "BTLocalDeviceAddCallbacks\n", v2, v3, v4, v5, v68);
               goto LABEL_55;
             }
 
@@ -2575,7 +2572,7 @@ LABEL_53:
 
 LABEL_55:
           self->_btLocalDeviceCallbacks.statusEvent = _btLocalDeviceStatusCallback;
-          v38 = (softLinkBTLocalDeviceAddCallbacks[0])(self->_btLocalDevice, &self->_btLocalDeviceCallbacks, self);
+          v38 = softLinkBTLocalDeviceAddCallbacks(self->_btLocalDevice, &self->_btLocalDeviceCallbacks, self);
           if (v38)
           {
             v39 = v38;
@@ -2592,7 +2589,7 @@ LABEL_55:
                 v40 = self->_ucat;
               }
 
-              LogPrintF(v40, "[CUBluetoothClient _btEnsureStarted]", 0x3Cu, "### BTLocalDeviceAddCallbacks failed: %#m\n", v2, v3, v4, v5, (v39 + 310000));
+              LogPrintF(v40, "[CUBluetoothClient _btEnsureStarted]", 60, "### BTLocalDeviceAddCallbacks failed: %#m\n", v2, v3, v4, v5, (v39 + 310000));
             }
           }
 
@@ -2622,7 +2619,7 @@ LABEL_78:
               goto LABEL_87;
             }
 
-            v55 = (softLinkBTAccessoryManagerGetDefault[0])(v54, &self->_btAccessoryManager);
+            v55 = softLinkBTAccessoryManagerGetDefault(v54, &self->_btAccessoryManager);
             if (v55)
             {
               v56 = v55;
@@ -2632,7 +2629,7 @@ LABEL_78:
                 if (v57->var0 != -1)
                 {
 LABEL_84:
-                  LogPrintF(v57, "[CUBluetoothClient _btEnsureStarted]", 0x3Cu, "### BTAccessoryManagerGetDefault failed: %#m\n", v2, v3, v4, v5, (v56 + 310000));
+                  LogPrintF(v57, "[CUBluetoothClient _btEnsureStarted]", 60, "### BTAccessoryManagerGetDefault failed: %#m\n", v2, v3, v4, v5, (v56 + 310000));
                   goto LABEL_86;
                 }
 
@@ -2662,7 +2659,7 @@ LABEL_87:
               if (v58->var0 != -1)
               {
 LABEL_90:
-                LogPrintF(v58, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "BTAccessoryManagerAddCallbacks\n", v2, v3, v4, v5, v68);
+                LogPrintF(v58, "[CUBluetoothClient _btEnsureStarted]", 30, "BTAccessoryManagerAddCallbacks\n", v2, v3, v4, v5, v68);
                 goto LABEL_92;
               }
 
@@ -2678,7 +2675,7 @@ LABEL_92:
             self->_btAccessoryCallbacks.accessoryRelayMsgRecv = 0;
             self->_btAccessoryCallbacks.accessoryCommandStatus = 0;
             self->_btAccessoryCallbacks.accessoryEvent = _btAccessoryEventCallback;
-            v59 = (softLinkBTAccessoryManagerAddCallbacks[0])(self->_btAccessoryManager, &self->_btAccessoryCallbacks, self);
+            v59 = softLinkBTAccessoryManagerAddCallbacks(self->_btAccessoryManager, &self->_btAccessoryCallbacks, self);
             if (v59)
             {
               v64 = v59;
@@ -2697,7 +2694,7 @@ LABEL_92:
               {
                 v65 = self->_ucat;
 LABEL_95:
-                LogPrintF(v65, "[CUBluetoothClient _btEnsureStarted]", 0x3Cu, "### BTAccessoryManagerAddCallbacks failed: %#m\n", v60, v61, v62, v63, (v64 + 310000));
+                LogPrintF(v65, "[CUBluetoothClient _btEnsureStarted]", 60, "### BTAccessoryManagerAddCallbacks failed: %#m\n", v60, v61, v62, v63, (v64 + 310000));
               }
             }
 
@@ -2736,16 +2733,16 @@ LABEL_76:
               v72 = 0u;
               v73 = 0u;
               v71 = _btPairingAgentStatusCallback;
-              v30 = (softLinkBTPairingAgentCreate[0])(self->_btSession, &v71, self, &self->_btPairingAgent);
-              if (v30)
+              Default = softLinkBTPairingAgentCreate(self->_btSession, &v71, self, &self->_btPairingAgent);
+              if (Default)
               {
                 v45 = "BTPairingAgentCreate failed";
               }
 
               else
               {
-                v30 = (softLinkBTPairingAgentStart[0])(self->_btPairingAgent);
-                if (!v30)
+                Default = softLinkBTPairingAgentStart(self->_btPairingAgent);
+                if (!Default)
                 {
                   goto LABEL_78;
                 }
@@ -2759,7 +2756,7 @@ LABEL_76:
             v53 = self->_ucat;
           }
 
-          LogPrintF(v53, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "BTPairingAgent start\n", v2, v3, v4, v5, v68);
+          LogPrintF(v53, "[CUBluetoothClient _btEnsureStarted]", 30, "BTPairingAgent start\n", v2, v3, v4, v5, v68);
           goto LABEL_76;
         }
 
@@ -2767,7 +2764,7 @@ LABEL_76:
       }
 
 LABEL_117:
-      v46 = v30 + 307200;
+      v46 = Default + 307200;
       goto LABEL_63;
     }
 
@@ -2777,7 +2774,7 @@ LABEL_117:
       if (v27->var0 != -1)
       {
 LABEL_30:
-        LogPrintF(v27, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "BTServiceAddCallbacks\n", v2, v3, v4, v5, v68);
+        LogPrintF(v27, "[CUBluetoothClient _btEnsureStarted]", 30, "BTServiceAddCallbacks\n", v2, v3, v4, v5, v68);
         goto LABEL_35;
       }
 
@@ -2789,7 +2786,7 @@ LABEL_30:
     }
 
 LABEL_35:
-    v29 = (softLinkBTServiceAddCallbacks_2051[0])(self->_btSession, _btServiceEventHandler_2037, self);
+    v29 = softLinkBTServiceAddCallbacks_2051(self->_btSession, _btServiceEventHandler_2037, self);
     if (!v29)
     {
       self->_btSessionAddedServiceCallback = 1;
@@ -2816,7 +2813,7 @@ LABEL_35:
         v67 = self->_ucat;
       }
 
-      LogPrintF(v67, "[CUBluetoothClient _btEnsureStarted]", 0x3Cu, "### BTSession add service callbacks failed: %#m\n", v2, v3, v4, v5, (v66 + 310000));
+      LogPrintF(v67, "[CUBluetoothClient _btEnsureStarted]", 60, "### BTSession add service callbacks failed: %#m\n", v2, v3, v4, v5, (v66 + 310000));
     }
 
 LABEL_105:
@@ -2830,7 +2827,7 @@ LABEL_105:
     if (v28->var0 != -1)
     {
 LABEL_33:
-      LogPrintF(v28, "[CUBluetoothClient _btEnsureStarted]", 0x1Eu, "BTSession attach\n", v2, v3, v4, v5, v68);
+      LogPrintF(v28, "[CUBluetoothClient _btEnsureStarted]", 30, "BTSession attach\n", v2, v3, v4, v5, v68);
       goto LABEL_61;
     }
 
@@ -2847,7 +2844,7 @@ LABEL_61:
 
   var4 = self->_ucat->var4;
   _internalDispatchQueue5 = [(CUBluetoothClient *)selfCopy _internalDispatchQueue];
-  v44 = (softLinkBTSessionAttachWithQueue_2048[0])(var4, &v71, selfCopy, _internalDispatchQueue5);
+  v44 = softLinkBTSessionAttachWithQueue_2048(var4, &v71, selfCopy, _internalDispatchQueue5);
 
   if (!v44)
   {
@@ -2876,7 +2873,7 @@ LABEL_63:
         v52 = self->_ucat;
       }
 
-      LogPrintF(v52, "[CUBluetoothClient _btEnsureStarted]", 0x3Cu, "### BTSession start failed: %{error}\n", v47, v48, v49, v50, v51);
+      LogPrintF(v52, "[CUBluetoothClient _btEnsureStarted]", 60, "### BTSession start failed: %{error}\n", v47, v48, v49, v50, v51);
     }
   }
 
@@ -2886,14 +2883,14 @@ LABEL_106:
 - (void)_setDeviceFlags:(unsigned int)flags mask:(unsigned int)mask deviceID:(id)d completion:(id)completion
 {
   completionCopy = completion;
-  v16 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960561, "Not supported on this platform", v7, v8, v9, v10, v11, v18);
+  v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960561, "Not supported on this platform");
   ucat = self->_ucat;
   if (ucat->var0 <= 90)
   {
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUBluetoothClient _setDeviceFlags:mask:deviceID:completion:]", 0x5Au, "### setDeviceFlags failed: %{error}", v12, v13, v14, v15, v16);
+      LogPrintF(ucat, "[CUBluetoothClient _setDeviceFlags:mask:deviceID:completion:]", 90, "### setDeviceFlags failed: %{error}", v7, v8, v9, v10, v11);
       goto LABEL_5;
     }
 
@@ -2905,7 +2902,7 @@ LABEL_3:
   }
 
 LABEL_5:
-  completionCopy[2](completionCopy, v16);
+  completionCopy[2](completionCopy, v11);
 }
 
 - (void)setDeviceFlags:(unsigned int)flags mask:(unsigned int)mask deviceID:(id)d completion:(id)completion
@@ -2994,7 +2991,7 @@ LABEL_18:
     v61[1] = 0;
     [identifier getUUIDBytes:v61];
     v55 = 0;
-    if ((softLinkBTDeviceFromIdentifier_2001[0])(self->_btSession, v61, &v55))
+    if (softLinkBTDeviceFromIdentifier_2001(self->_btSession, v61, &v55))
     {
       completion3 = [firstObject2 completion];
       v41 = 4294960588;
@@ -3004,7 +3001,7 @@ LABEL_18:
     else
     {
       v60[0] = 0;
-      if ((softLinkBTDeviceGetAddressString_1961[0])(v55, v60, 32))
+      if (softLinkBTDeviceGetAddressString_1961(v55, v60, 32))
       {
         completion3 = [firstObject2 completion];
         v41 = 4294960535;
@@ -3018,7 +3015,7 @@ LABEL_18:
 
         v54 = 0;
         v53 = 0;
-        if (!(softLinkBTDeviceAddressFromString[0])(v60, &v53))
+        if (!softLinkBTDeviceAddressFromString(v60, &v53))
         {
           v52 = v52 & 0xFFFF000000000000 | v53 | (v54 << 32);
           [(CUBluetoothDevice *)v32 setAddress:?];
@@ -3105,7 +3102,7 @@ LABEL_17:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBluetoothClient _invalidated]", 0x32u, "### Unexpectedly invalidated\n", v2, v3, v4, v5, v22);
+      LogPrintF(ucat, "[CUBluetoothClient _invalidated]", 50, "### Unexpectedly invalidated\n", v2, v3, v4, v5, v22);
     }
   }
 
@@ -3166,7 +3163,7 @@ LABEL_7:
     v21 = self->_ucat;
   }
 
-  v21 = LogPrintF(v21, "[CUBluetoothClient _invalidated]", 0xAu, "Invalidated\n", v17, v18, v19, v20, v22);
+  v21 = LogPrintF(v21, "[CUBluetoothClient _invalidated]", 10, "Invalidated\n", v17, v18, v19, v20, v22);
 LABEL_17:
 
   MEMORY[0x1EEE66BE0](v21);
@@ -3183,9 +3180,9 @@ LABEL_17:
   dispatch_async(_internalDispatchQueue, block);
 }
 
-uint64_t __31__CUBluetoothClient_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__31__CUBluetoothClient_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 216))
   {
     return result;
@@ -3194,14 +3191,14 @@ uint64_t __31__CUBluetoothClient_invalidate__block_invoke(uint64_t result, uint6
   v16 = v8;
   v11 = result;
   *(v10 + 216) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   v13 = v12[28];
   if (*v13 <= 30)
   {
     if (*v13 == -1)
     {
       v14 = _LogCategory_Initialize(v13, 0x1Eu);
-      v12 = *(v11 + 32);
+      v12 = v11[4];
       if (!v14)
       {
         goto LABEL_6;
@@ -3210,14 +3207,14 @@ uint64_t __31__CUBluetoothClient_invalidate__block_invoke(uint64_t result, uint6
       v13 = v12[28];
     }
 
-    LogPrintF(v13, "[CUBluetoothClient invalidate]_block_invoke", 0x1Eu, "Invalidating\n", a5, a6, a7, a8, v8);
-    v12 = *(v11 + 32);
+    LogPrintF(v13, "[CUBluetoothClient invalidate]_block_invoke", 30, "Invalidating\n", a5, a6, a7, a8, v8);
+    v12 = v11[4];
   }
 
 LABEL_6:
   [v12 _processFindDeviceRequests];
-  [*(v11 + 32) _btEnsureStopped];
-  v15 = *(v11 + 32);
+  [v11[4] _btEnsureStopped];
+  v15 = v11[4];
 
   return [v15 _invalidated];
 }
@@ -3259,7 +3256,7 @@ uint64_t __29__CUBluetoothClient_activate__block_invoke(uint64_t a1, uint64_t a2
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUBluetoothClient activate]_block_invoke", 0x1Eu, "Activate: %#{flags}, RS %#{flags}\n", a5, a6, a7, a8, *(v9 + 236));
+      LogPrintF(v10, "[CUBluetoothClient activate]_block_invoke", 30, "Activate: %#{flags}, RS %#{flags}\n", a5, a6, a7, a8, *(v9 + 236));
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

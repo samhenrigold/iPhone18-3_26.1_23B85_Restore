@@ -114,7 +114,7 @@
     [v3 setObject:publicURL2 forKey:@"publicURL"];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     albumDirectoryPath = [(PLCloudSharedAlbum *)self albumDirectoryPath];
     v23 = [albumDirectoryPath stringByAppendingPathComponent:@"Info.plist"];
@@ -367,7 +367,7 @@
 - (NSString)localizedSharedWithLabel
 {
   cloudAlbumSubscriberRecords = [(PLCloudSharedAlbum *)self cloudAlbumSubscriberRecords];
-  v4 = [cloudAlbumSubscriberRecords count];
+  v4 = objc_msgSend_count(cloudAlbumSubscriberRecords);
   if ([(PLCloudSharedAlbum *)self isOwnedCloudSharedAlbum])
   {
     if (v4 == 1)
@@ -731,7 +731,7 @@ LABEL_14:
   if (unseenAssetsCountIntegerValue)
   {
     assets = [(PLCloudSharedAlbum *)self assets];
-    v11 = [assets count];
+    v11 = objc_msgSend_count(assets);
 
     v12 = v11 - unseenAssetsCountIntegerValue;
     if (!index)
@@ -824,7 +824,7 @@ LABEL_6:
     v20 = [managerCopy emailAddressForKey:keyCopy];
   }
 
-  if ([fullNameCopy length] && !objc_msgSend(fullNameCopy, "isEqualToString:", @"(null) (null)"))
+  if ([fullNameCopy length] && !objc_msgSend_isEqualToString_(fullNameCopy))
   {
     v21 = fullNameCopy;
     if (!emailCopy)
@@ -945,7 +945,7 @@ LABEL_13:
   v18 = 0;
   v13 = [managedObjectContext executeFetchRequest:v11 error:&v18];
   v14 = v18;
-  if ([v13 count] >= 2)
+  if (objc_msgSend_count(v13) >= 2)
   {
     v15 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))

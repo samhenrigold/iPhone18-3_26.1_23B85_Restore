@@ -1,5 +1,6 @@
 @interface TRISQLiteMADatabase
 - (BOOL)dropTableWithName:(id)name transaction:(id)transaction;
+- (BOOL)migrateToVersion:(unsigned int)version;
 - (TRISQLiteMADatabase)initWithParentDir:(id)dir;
 - (id)_predicateForAssetSelector:(id)selector;
 - (id)lockContentSync:(id)sync forAssetSelector:(id)selector withUsagePolicy:(id)policy withTimeout:(int64_t)timeout lockedAssetSelector:(id *)assetSelector newerInProgress:(id *)progress error:(id *)error;
@@ -18,7 +19,7 @@
 
 - (TRISQLiteMADatabase)initWithParentDir:(id)dir
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   if (!dirCopy)
   {
@@ -26,9 +27,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteMADatabase.m" lineNumber:42 description:{@"Invalid parameter not satisfying: %@", @"parentDir"}];
   }
 
-  v34.receiver = self;
-  v34.super_class = TRISQLiteMADatabase;
-  v7 = [(TRISQLiteMADatabase *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = TRISQLiteMADatabase;
+  v7 = [(TRISQLiteMADatabase *)&v33 init];
   v8 = v7;
   if (!v7)
   {
@@ -64,9 +65,9 @@
 
   v16 = MEMORY[0x277D42630];
   v17 = objc_opt_new();
-  v33 = 0;
-  v18 = [v16 sqliteDatabaseWithFilename:v12 contentProtection:3 errorHandler:v17 error:&v33];
-  v19 = v33;
+  v32 = 0;
+  v18 = [v16 sqliteDatabaseWithFilename:v12 contentProtection:3 errorHandler:v17 error:&v32];
+  v19 = v32;
   db = v8->_db;
   v8->_db = v18;
 
@@ -86,24 +87,24 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__3;
-  v40 = __Block_byref_object_dispose__3;
-  v41 = 0;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __41__TRISQLiteMADatabase_initWithParentDir___block_invoke;
-  v32[3] = &unk_279DDF778;
-  v32[4] = &buf;
-  if (([(_PASSqliteDatabase *)v21 prepAndRunNonDataQueries:&unk_287FC4F00 onError:v32]& 1) == 0)
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__3;
+  v39 = __Block_byref_object_dispose__3;
+  v40 = 0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __41__TRISQLiteMADatabase_initWithParentDir___block_invoke;
+  v31[3] = &unk_279DDF778;
+  v31[4] = &buf;
+  if (([(_PASSqliteDatabase *)v21 prepAndRunNonDataQueries:&unk_287FC4F00 onError:v31]& 1) == 0)
   {
     v25 = TRILogCategory_Server();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v30 = *(*(&buf + 1) + 40);
-      *v35 = 138543362;
-      v36 = v30;
-      _os_log_error_impl(&dword_26F567000, v25, OS_LOG_TYPE_ERROR, "Failed to run initial database pragmas: %{public}@", v35, 0xCu);
+      v29 = *(*(&buf + 1) + 40);
+      *v34 = 138543362;
+      v35 = v29;
+      _os_log_error_impl(&dword_26F567000, v25, OS_LOG_TYPE_ERROR, "Failed to run initial database pragmas: %{public}@", v34, 0xCu);
     }
 
     [(_PASSqliteDatabase *)v8->_db closePermanently];
@@ -138,11 +139,11 @@ LABEL_28:
 
   if (![(TRISQLiteMADatabase *)v8 migrateToVersion:*MEMORY[0x277D426A0]])
   {
-    v29 = TRILogCategory_Server();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = TRILogCategory_Server();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf) = 0;
-      _os_log_error_impl(&dword_26F567000, v29, OS_LOG_TYPE_ERROR, "TRISQLiteMADatabase: migrations failed", &buf, 2u);
+      _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "TRISQLiteMADatabase: migrations failed", &buf, 2u);
     }
 
     goto LABEL_28;
@@ -152,23 +153,21 @@ LABEL_18:
   v23 = v8;
 LABEL_29:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 uint64_t __29__TRISQLiteMADatabase_vacuum__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = TRILogCategory_Server();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v2;
-    _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "TRISQLiteMADatabase incremental vacuum failed: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v2;
+    _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "TRISQLiteMADatabase incremental vacuum failed: %{public}@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -207,17 +206,108 @@ LABEL_3:
   return v12;
 }
 
+- (BOOL)migrateToVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v20[1] = *MEMORY[0x277D85DE8];
+  v6 = TRILogCategory_Server();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "TRISQLiteMADatabase now performing migration.", buf, 2u);
+  }
+
+  v7 = objc_alloc(MEMORY[0x277D42588]);
+  v20[0] = self;
+  v8 = 1;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v10 = [v7 initWithMigrationObjects:v9];
+
+  v11 = [v10 migrateDatabasesToVersion:v3];
+  v12 = v11;
+  if (v11 > 2)
+  {
+    if ((v11 - 4) >= 3)
+    {
+      if (v11 == 3)
+      {
+        currentHandler = TRILogCategory_Server();
+        if (os_log_type_enabled(currentHandler, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          v14 = "TRISQLiteMADatabase has a future schema version, cannot use database. (DID YOU DOWNGRADE YOUR OS WITHOUT AN ERASE-INSTALL??? THAT IS NOT SUPPORTED!!!)";
+LABEL_15:
+          v15 = currentHandler;
+          v16 = 2;
+          goto LABEL_16;
+        }
+
+        goto LABEL_18;
+      }
+
+LABEL_17:
+      currentHandler = [MEMORY[0x277CCA890] currentHandler];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteMADatabase.m" lineNumber:160 description:@"Unhandled migration result: %u", v12];
+      goto LABEL_18;
+    }
+
+LABEL_11:
+    currentHandler = TRILogCategory_Server();
+    if (os_log_type_enabled(currentHandler, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v19 = v12;
+      v14 = "TRISQLiteMADatabase got an unexpected and unrecoverable migration result of %u. Database is considered corrupt and Trial storage will be reset on next launch.";
+      v15 = currentHandler;
+      v16 = 8;
+LABEL_16:
+      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+      goto LABEL_18;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (!v11)
+  {
+    currentHandler = TRILogCategory_Server();
+    if (os_log_type_enabled(currentHandler, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v14 = "TRISQLiteMADatabase could not perform migrations (device locked?), try again later.";
+      goto LABEL_15;
+    }
+
+LABEL_18:
+
+    v8 = 0;
+    goto LABEL_19;
+  }
+
+  if (v11 != 1)
+  {
+    if (v11 != 2)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_19:
+
+  return v8;
+}
+
 - (id)migrations
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v6[0] = @" CREATE TABLE Assets(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     originalContentPath TEXT NOT NULL,     assetPath TEXT,     type TEXT NOT NULL,     specifier TEXT NOT NULL,     version TEXT NOT NULL,     downloaded INTEGER NOT NULL,     assetSize INTEGER NOT NULL,     UNIQUE (type, specifier, version));";
-  v6[1] = @" CREATE TABLE Locks(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     type TEXT NOT NULL,     specifier TEXT NOT NULL,     version TEXT NOT NULL,     reason TEXT NOT NULL);";
-  v7 = &unk_287FC4618;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v8[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v5[0] = @" CREATE TABLE Assets(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     originalContentPath TEXT NOT NULL,     assetPath TEXT,     type TEXT NOT NULL,     specifier TEXT NOT NULL,     version TEXT NOT NULL,     downloaded INTEGER NOT NULL,     assetSize INTEGER NOT NULL,     UNIQUE (type, specifier, version));";
+  v5[1] = @" CREATE TABLE Locks(    rowid INTEGER PRIMARY KEY AUTOINCREMENT,     type TEXT NOT NULL,     specifier TEXT NOT NULL,     version TEXT NOT NULL,     reason TEXT NOT NULL);";
+  v6 = &unk_287FC4618;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v7[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v3;
 }
@@ -519,14 +609,14 @@ void __58__TRISQLiteMADatabase_eliminateAllForSelector_completion___block_invoke
 
 uint64_t __58__TRISQLiteMADatabase_eliminateAllForSelector_completion___block_invoke_5(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [a2 getNSStringForColumnName:"assetPath" table:0];
   if (v2)
   {
     v3 = [MEMORY[0x277CCAA00] defaultManager];
-    v9 = 0;
-    v4 = [v3 removeItemAtPath:v2 error:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [v3 removeItemAtPath:v2 error:&v8];
+    v5 = v8;
 
     if ((v4 & 1) == 0)
     {
@@ -534,15 +624,14 @@ uint64_t __58__TRISQLiteMADatabase_eliminateAllForSelector_completion___block_in
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v11 = v2;
-        v12 = 2112;
-        v13 = v5;
+        v10 = v2;
+        v11 = 2112;
+        v12 = v5;
         _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Failed to remove mocked MA asset at path %@: %@", buf, 0x16u);
       }
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -567,72 +656,70 @@ uint64_t __58__TRISQLiteMADatabase_eliminateAllForSelector_completion___block_in
 
 void __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v5 = [*(a1 + 32) _predicateForAssetSelector:*(a1 + 40)];
   v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" SELECT * FROM     Assets     WHERE downloaded=1 AND %@;", v5];
   v7 = [v3 db];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_2;
-  v29[3] = &unk_279DDF860;
-  v30 = *(a1 + 40);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_3;
-  v27[3] = &unk_279DDFBF8;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_2;
+  v28[3] = &unk_279DDF860;
+  v29 = *(a1 + 40);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_3;
+  v26[3] = &unk_279DDFBF8;
   v8 = v4;
-  v28 = v8;
-  [v7 prepAndRunQuery:v6 onPrep:v29 onRow:v27 onError:0];
+  v27 = v8;
+  [v7 prepAndRunQuery:v6 onPrep:v28 onRow:v26 onError:0];
 
   v9 = [v3 db];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_4;
-  v25[3] = &unk_279DDFBF8;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_4;
+  v24[3] = &unk_279DDFBF8;
   v10 = v8;
-  v26 = v10;
-  [v9 prepAndRunQuery:@" SELECT * FROM     Locks" onPrep:0 onRow:v25 onError:0];
+  v25 = v10;
+  [v9 prepAndRunQuery:@" SELECT * FROM     Locks" onPrep:0 onRow:v24 onError:0];
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_5;
-  v23[3] = &unk_279DDFC20;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_5;
+  v22[3] = &unk_279DDFC20;
   v11 = v3;
-  v24 = v11;
-  v12 = MEMORY[0x2743948D0](v23);
+  v23 = v11;
+  v12 = MEMORY[0x2743948D0](v22);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v31 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v30 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v12[2](v12, *(*(&v19 + 1) + 8 * v17++));
+        v12[2](v12, *(*(&v18 + 1) + 8 * v17++));
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v31 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v30 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -735,12 +822,12 @@ void __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completio
 
 uint64_t __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_completion___block_invoke_8(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [a2 nonnullNSStringForColumnName:"assetPath" table:0];
   v3 = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = 0;
-  v4 = [v3 removeItemAtPath:v2 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [v3 removeItemAtPath:v2 error:&v8];
+  v5 = v8;
 
   if ((v4 & 1) == 0)
   {
@@ -748,20 +835,19 @@ uint64_t __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_compl
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v11 = v2;
-      v12 = 2112;
-      v13 = v5;
+      v10 = v2;
+      v11 = 2112;
+      v12 = v5;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Failed to remove mocked MA asset at path %@: %@", buf, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
 - (id)lockContentSync:(id)sync forAssetSelector:(id)selector withUsagePolicy:(id)policy withTimeout:(int64_t)timeout lockedAssetSelector:(id *)assetSelector newerInProgress:(id *)progress error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   syncCopy = sync;
   selectorCopy = selector;
   policyCopy = policy;
@@ -771,22 +857,22 @@ uint64_t __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_compl
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__3;
-    v37 = __Block_byref_object_dispose__3;
-    v38 = 0;
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke;
-    v27 = &unk_279DDFCC0;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__3;
+    v36 = __Block_byref_object_dispose__3;
+    v37 = 0;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke;
+    v26 = &unk_279DDFCC0;
     selfCopy = self;
-    v29 = selectorCopy;
-    v32 = a2;
-    v30 = syncCopy;
+    v28 = selectorCopy;
+    v31 = a2;
+    v29 = syncCopy;
     p_buf = &buf;
     timeoutCopy = timeout;
-    v18 = MEMORY[0x2743948D0](&v24);
-    [MEMORY[0x277D42640] writeTransactionWithHandle:self->_db block:{v18, v24, v25, v26, v27, selfCopy}];
+    v18 = MEMORY[0x2743948D0](&v23);
+    [MEMORY[0x277D42640] writeTransactionWithHandle:self->_db block:{v18, v23, v24, v25, v26, selfCopy}];
     if (*(*(&buf + 1) + 40))
     {
       v19 = objc_alloc(MEMORY[0x277CBEBC0]);
@@ -814,56 +900,54 @@ uint64_t __74__TRISQLiteMADatabase_eliminatePromotedNeverLockedForSelector_compl
     v20 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 void __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _predicateForAssetSelector:*(a1 + 40)];
   v5 = [v3 db];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_2;
-  v42[3] = &unk_279DDFC48;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_2;
+  v41[3] = &unk_279DDFC48;
   v6 = *(a1 + 40);
-  v46 = *(a1 + 64);
+  v45 = *(a1 + 64);
   v7 = *(a1 + 32);
-  v43 = v6;
-  v44 = v7;
-  v45 = *(a1 + 48);
-  [v5 prepAndRunQuery:@" INSERT INTO     Locks (type onPrep:specifier onRow:version onError:{reason)     VALUES (:type, :specifier, :version, :reason);", v42, 0, &__block_literal_global_442}];
+  v42 = v6;
+  v43 = v7;
+  v44 = *(a1 + 48);
+  [v5 prepAndRunQuery:@" INSERT INTO     Locks (type onPrep:specifier onRow:version onError:{reason)     VALUES (:type, :specifier, :version, :reason);", v41, 0, &__block_literal_global_442}];
 
   v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" SELECT * FROM Assets     WHERE %@;", v4];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__3;
-  v36 = __Block_byref_object_dispose__3;
   v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__3;
+  v35 = __Block_byref_object_dispose__3;
+  v36 = 0;
   v9 = [v3 db];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_4;
-  v30[3] = &unk_279DDF860;
-  v31 = *(a1 + 40);
   v29[0] = MEMORY[0x277D85DD0];
   v29[1] = 3221225472;
-  v29[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_5;
-  v29[3] = &unk_279DDFC70;
-  v29[4] = *(a1 + 56);
-  v29[5] = &v32;
-  v29[6] = &v38;
-  [v9 prepAndRunQuery:v8 onPrep:v30 onRow:v29 onError:&__block_literal_global_449];
+  v29[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_4;
+  v29[3] = &unk_279DDF860;
+  v30 = *(a1 + 40);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_5;
+  v28[3] = &unk_279DDFC70;
+  v28[4] = *(a1 + 56);
+  v28[5] = &v31;
+  v28[6] = &v37;
+  [v9 prepAndRunQuery:v8 onPrep:v29 onRow:v28 onError:&__block_literal_global_449];
 
-  if ((v39[3] & 1) == 0 && *(a1 + 72))
+  if ((v38[3] & 1) == 0 && *(a1 + 72))
   {
     v10 = NSTemporaryDirectory();
     v11 = objc_opt_new();
@@ -874,7 +958,7 @@ void __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy
     v15 = [v14 UUIDString];
     v16 = [v13 stringByAppendingPathComponent:v15];
 
-    v17 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v33[5]];
+    v17 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v32[5]];
     if (v17)
     {
       [MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:v13];
@@ -882,18 +966,18 @@ void __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy
       objc_storeStrong((*(*(a1 + 56) + 8) + 40), v13);
       v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" UPDATE Assets SET downloaded=1, assetPath=:assetPath     WHERE %@;", v4];
       v19 = [v3 db];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_455;
-      v26[3] = &unk_279DDFB20;
-      v27 = v13;
-      v28 = *(a1 + 40);
       v25[0] = MEMORY[0x277D85DD0];
       v25[1] = 3221225472;
-      v25[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_2_457;
-      v25[3] = &unk_279DDFC98;
-      v25[4] = *(a1 + 56);
-      [v19 prepAndRunQuery:v18 onPrep:v26 onRow:v25 onError:&__block_literal_global_460];
+      v25[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_455;
+      v25[3] = &unk_279DDFB20;
+      v26 = v13;
+      v27 = *(a1 + 40);
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_2_457;
+      v24[3] = &unk_279DDFC98;
+      v24[4] = *(a1 + 56);
+      [v19 prepAndRunQuery:v18 onPrep:v25 onRow:v24 onError:&__block_literal_global_460];
     }
 
     else
@@ -901,9 +985,9 @@ void __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy
       v18 = TRILogCategory_Server();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = v33[5];
+        v23 = v32[5];
         *buf = 138412290;
-        v48 = v23;
+        v47 = v23;
         _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_DEFAULT, "Error reading asset contents from %@", buf, 0xCu);
       }
     }
@@ -930,10 +1014,8 @@ LABEL_9:
 LABEL_13:
   }
 
-  _Block_object_dispose(&v32, 8);
-  _Block_object_dispose(&v38, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
 void __126__TRISQLiteMADatabase_lockContentSync_forAssetSelector_withUsagePolicy_withTimeout_lockedAssetSelector_newerInProgress_error___block_invoke_2(uint64_t a1, void *a2)

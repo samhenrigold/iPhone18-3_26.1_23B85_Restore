@@ -10,7 +10,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = DOCFilenameTransitioningDelegate.animationController(forDismissed:)();
+  v6 = DOCFilenameTransitioningDelegate.animationController(forDismissed:)(controllerCopy);
 
   return v6;
 }
@@ -21,7 +21,7 @@
   presentingControllerCopy = presentingController;
   sourceControllerCopy = sourceController;
   selfCopy = self;
-  v12 = DOCFilenameTransitioningDelegate.animationController(forDismissed:)();
+  v12 = DOCFilenameTransitioningDelegate.animationController(forDismissed:)(controllerCopy);
 
   return v12;
 }

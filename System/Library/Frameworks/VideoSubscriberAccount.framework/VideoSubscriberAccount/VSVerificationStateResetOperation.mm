@@ -33,7 +33,7 @@
 {
   v17 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -42,8 +42,8 @@
   }
 
   v6 = MEMORY[0x277CCAD38];
-  auditToken = [(VSVerificationStateResetOperation *)self auditToken];
-  v8 = [v6 vs_defaultSessionConfigurationForSourceAppWithAuditToken:auditToken];
+  v7 = objc_msgSend_auditToken(self);
+  v8 = [v6 vs_defaultSessionConfigurationForSourceAppWithAuditToken:v7];
 
   v9 = objc_alloc_init(MEMORY[0x277CF0188]);
   [v8 set_appleIDContext:v9];
@@ -144,7 +144,7 @@ LABEL_11:
 
 void __54__VSVerificationStateResetOperation_executionDidBegin__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
   v4 = v3;
@@ -152,86 +152,88 @@ void __54__VSVerificationStateResetOperation_executionDidBegin__block_invoke(uin
   {
     v5 = [v3 value];
     v6 = [v4 error];
+    v7 = v6;
     if (v5)
     {
-      v7 = v5;
+      v8 = v5;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v8 = MEMORY[0x277CBEAD8];
-          v9 = *MEMORY[0x277CBE660];
-          v10 = objc_opt_class();
-          v11 = NSStringFromClass(v10);
-          [v8 raise:v9 format:{@"Unexpectedly, value was %@, instead of NSString.", v11}];
+          v10 = MEMORY[0x277CBEAD8];
+          v11 = *MEMORY[0x277CBE660];
+          v12 = objc_opt_class();
+          v13 = NSStringFromClass(v12);
+          [v10 raise:v11 format:{@"Unexpectedly, value was %@, instead of NSString.", v13}];
         }
 
-        v7 = v7;
-        v12 = [MEMORY[0x277CBEBC0] URLWithString:v7];
-        v13 = VSDefaultLogObject();
-        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-        if (v12)
+        v8 = v8;
+        v14 = [MEMORY[0x277CBEBC0] URLWithString:v8];
+        v15 = VSDefaultLogObject(v14);
+        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+        if (v14)
         {
-          if (v14)
+          if (v16)
           {
-            v15 = *(a1 + 32);
+            v17 = *(a1 + 32);
             *buf = 138412546;
-            v23 = v12;
-            v24 = 2112;
-            v25 = v15;
-            _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Did load URL value (%@) for bag key %@", buf, 0x16u);
+            v25 = v14;
+            v26 = 2112;
+            v27 = v17;
+            _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "Did load URL value (%@) for bag key %@", buf, 0x16u);
           }
 
-          [WeakRetained _resetVerificationStateWithURL:v12];
+          [WeakRetained _resetVerificationStateWithURL:v14];
           goto LABEL_20;
         }
 
-        if (v14)
+        if (v16)
         {
-          v19 = *(a1 + 32);
+          v21 = *(a1 + 32);
           *buf = 138412546;
-          v23 = v7;
-          v24 = 2112;
-          v25 = v19;
-          _os_log_impl(&dword_23AB8E000, v13, OS_LOG_TYPE_DEFAULT, "Did load value (%@) for bag key %@ but could not create a URL", buf, 0x16u);
+          v25 = v8;
+          v26 = 2112;
+          v27 = v21;
+          _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "Did load value (%@) for bag key %@ but could not create a URL", buf, 0x16u);
         }
       }
 
       else
       {
-        v17 = VSDefaultLogObject();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = VSDefaultLogObject(isKindOfClass);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = *(a1 + 32);
+          v20 = *(a1 + 32);
           *buf = 138412546;
-          v23 = v7;
-          v24 = 2112;
-          v25 = v18;
-          _os_log_impl(&dword_23AB8E000, v17, OS_LOG_TYPE_DEFAULT, "Did load value (%@) for bag key %@ but it was NOT a string", buf, 0x16u);
+          v25 = v8;
+          v26 = 2112;
+          v27 = v20;
+          _os_log_impl(&dword_23AB8E000, v19, OS_LOG_TYPE_DEFAULT, "Did load value (%@) for bag key %@ but it was NOT a string", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v7 = VSDefaultLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = VSDefaultLogObject(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 32);
+        v18 = *(a1 + 32);
         *buf = 138412546;
-        v23 = v16;
-        v24 = 2112;
-        v25 = v6;
-        _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Did NOT load value for bag key %@: %@", buf, 0x16u);
+        v25 = v18;
+        v26 = 2112;
+        v27 = v7;
+        _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Did NOT load value for bag key %@: %@", buf, 0x16u);
       }
     }
 
-    v12 = VSPrivateError(-14, v6);
-    v20 = [VSFailable failableWithError:v12];
-    v21 = [VSOptional optionalWithObject:v20];
-    [WeakRetained setResult:v21];
+    v14 = VSPrivateError(-14, v7);
+    v22 = [VSFailable failableWithError:v14];
+    v23 = [VSOptional optionalWithObject:v22];
+    [WeakRetained setResult:v23];
 
     [WeakRetained finishExecutionIfPossible];
 LABEL_20:

@@ -59,7 +59,7 @@
 - (id)_predictedRouteInfoWithAcceptThreshold:(float)threshold prefersLikelyDestinationsOverCurrentRoutingSession:(BOOL)session
 {
   sessionCopy = session;
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ATXAVRoutingSessionHelper _predictedRouteInfoWithAcceptThreshold:sessionCopy prefersLikelyDestinationsOverCurrentRoutingSession:v7];
@@ -93,7 +93,7 @@
 
 - (id)_predictedRouteWithAcceptThreshold:(float)threshold
 {
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(ATXAVRoutingSessionHelper *)v5 _predictedRouteWithAcceptThreshold:threshold];
@@ -116,8 +116,8 @@
 
     if (destination)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = __atxlog_handle_default(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [(ATXAVRoutingSessionHelper *)v3 _selectedOrPendingRoute];
       }

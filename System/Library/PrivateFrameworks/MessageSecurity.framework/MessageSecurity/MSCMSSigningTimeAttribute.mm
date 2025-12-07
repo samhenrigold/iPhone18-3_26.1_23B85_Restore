@@ -20,12 +20,12 @@
       v16 = *error;
       v17 = @"Not a Signing Time attribute according to AttributeType";
       v15 = -26275;
-      goto LABEL_10;
+      goto LABEL_12;
     }
 
-LABEL_11:
+LABEL_13:
     selfCopy = 0;
-    goto LABEL_12;
+    goto LABEL_14;
   }
 
   attributeValues = [attributeCopy attributeValues];
@@ -39,19 +39,19 @@ LABEL_11:
       v16 = *error;
       v17 = @"Signing Time Attribute MUST have a single signed attribute value";
       v15 = -50;
-      goto LABEL_10;
+      goto LABEL_12;
     }
 
-    goto LABEL_11;
+    goto LABEL_13;
   }
 
   v24 = 0;
   v25 = 0;
   attributeValues2 = [attributeCopy attributeValues];
   v12 = [attributeValues2 objectAtIndex:0];
-  v13 = nsheim_decode_Time(v12);
+  v13 = nsheim_decode_Time(v12, &v24);
 
-  if (v13)
+  if (v13 || (v24 - 1) <= 1 && v25 == -1)
   {
     if (error)
     {
@@ -59,13 +59,13 @@ LABEL_11:
       v15 = v13;
       v16 = *error;
       v17 = @"unable to decode Signing Time value";
-LABEL_10:
+LABEL_12:
       [MSError MSErrorWithDomain:v14 code:v15 underlyingError:v16 description:v17];
       *error = selfCopy = 0;
-      goto LABEL_12;
+      goto LABEL_14;
     }
 
-    goto LABEL_11;
+    goto LABEL_13;
   }
 
   v23.receiver = self;
@@ -86,10 +86,10 @@ LABEL_10:
     }
   }
 
-  free_Time();
+  free_Time(&v24);
   self = v20;
   selfCopy = self;
-LABEL_12:
+LABEL_14:
 
   return selfCopy;
 }

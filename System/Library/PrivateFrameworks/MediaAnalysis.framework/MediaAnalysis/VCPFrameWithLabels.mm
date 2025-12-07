@@ -447,7 +447,7 @@ LABEL_20:
       {
         if (withCopy)
         {
-          [withCopy startTime];
+          objc_msgSend_startTime(withCopy);
         }
 
         else
@@ -757,7 +757,7 @@ LABEL_19:
   v5 = withCopy;
   if (withCopy)
   {
-    [withCopy startTime];
+    objc_msgSend_startTime(withCopy);
   }
 
   else
@@ -771,7 +771,7 @@ LABEL_19:
   {
     if (v5)
     {
-      [v5 startTime];
+      objc_msgSend_startTime(v5);
     }
 
     else

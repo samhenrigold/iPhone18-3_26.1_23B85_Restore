@@ -29,7 +29,7 @@
         *buf = 138543362;
         v15 = @"/var/root/Library/Caches/Backup";
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Removing %{public}@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Removing %{public}@", @"/var/root/Library/Caches/Backup");
       }
 
       v13 = 0;
@@ -45,7 +45,7 @@
           v16 = 2114;
           v17 = v10;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to remove %{public}@: %{public}@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "Failed to remove %{public}@: %{public}@", @"/var/root/Library/Caches/Backup", v10);
         }
       }
     }
@@ -252,7 +252,7 @@ LABEL_38:
     *buf = 138412290;
     v50 = v34;
     _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Setting data migration context: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Setting data migration context: %@", v34);
   }
 
   DMSetContext();
@@ -292,7 +292,7 @@ LABEL_38:
       v16 = 2112;
       v17 = v7;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updated %{public}@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "Updated %{public}@: %@", @"DeviceTransferInfo", v7);
     }
   }
 }
@@ -308,8 +308,8 @@ LABEL_38:
   }
 
   v7 = persona;
-  v71 = persona;
-  v72 = engineCopy;
+  v68 = persona;
+  v69 = engineCopy;
   selfCopy = self;
   if ([engineCopy restoresPrimaryAccount])
   {
@@ -321,10 +321,10 @@ LABEL_38:
     if (v11)
     {
       v12 = v11;
-      v69 = 0;
-      v70 = v5;
-      v73 = v10;
-      v74 = v10;
+      v66 = 0;
+      v67 = v5;
+      v70 = v10;
+      v71 = v10;
       goto LABEL_17;
     }
 
@@ -332,26 +332,24 @@ LABEL_38:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v86 = v10;
+      v83 = v10;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "MobileBackup preferences not found in backup at %{public}@", buf, 0xCu);
-      v65 = v10;
-      _MBLog();
+      _MBLog(@"Df", "MobileBackup preferences not found in backup at %{public}@", v10);
     }
 
     sharedIncompleteRestoreDirectory = [v7 sharedIncompleteRestoreDirectory];
     v17 = [sharedIncompleteRestoreDirectory stringByAppendingPathComponent:@"/var/root/Library/Preferences/com.apple.MobileBackup.plist"];
 
     v18 = [NSMutableDictionary dictionaryWithContentsOfFile:v17];
-    v74 = v17;
+    v71 = v17;
     [v5 removeItemAtPath:v17 error:0];
     v19 = MBGetDefaultLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v86 = v17;
+      v83 = v17;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Trying to find MobileBackup preferences at %{public}@", buf, 0xCu);
-      v65 = v17;
-      _MBLog();
+      _MBLog(@"Df", "Trying to find MobileBackup preferences at %{public}@", v17);
     }
 
     v12 = v18;
@@ -364,14 +362,14 @@ LABEL_38:
 
     v12 = [NSMutableDictionary dictionaryWithContentsOfFile:v14];
     v10 = v14;
-    v74 = v10;
+    v71 = v10;
   }
 
-  v73 = v10;
+  v70 = v10;
   if (v12)
   {
-    v69 = 0;
-    v70 = v5;
+    v66 = 0;
+    v67 = v5;
   }
 
   else
@@ -380,22 +378,21 @@ LABEL_38:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v86 = v74;
+      v83 = v71;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "MobileBackup preferences not found in backup at %{public}@", buf, 0xCu);
-      v65 = v74;
-      _MBLog();
+      _MBLog(@"Df", "MobileBackup preferences not found in backup at %{public}@", v71);
     }
 
-    v75 = +[NSMutableDictionary dictionary];
+    v72 = +[NSMutableDictionary dictionary];
     stringByDeletingLastPathComponent = [v10 stringByDeletingLastPathComponent];
-    v92[0] = NSFileOwnerAccountName;
-    v92[1] = NSFileGroupOwnerAccountName;
-    v93[0] = @"mobile";
-    v93[1] = @"mobile";
-    v22 = [NSDictionary dictionaryWithObjects:v93 forKeys:v92 count:2];
-    v83 = 0;
-    v23 = [v5 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v22 error:&v83];
-    v24 = v83;
+    v89[0] = NSFileOwnerAccountName;
+    v89[1] = NSFileGroupOwnerAccountName;
+    v90[0] = @"mobile";
+    v90[1] = @"mobile";
+    v22 = [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:2];
+    v80 = 0;
+    v23 = [v5 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v22 error:&v80];
+    v24 = v80;
 
     if ((v23 & 1) == 0)
     {
@@ -405,77 +402,76 @@ LABEL_38:
       }
 
       v39 = MBGetDefaultLog();
-      v40 = v73;
+      v40 = v70;
       if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v86 = stringByDeletingLastPathComponent;
+        v83 = stringByDeletingLastPathComponent;
         _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Removing existing file at %@", buf, 0xCu);
-        v65 = stringByDeletingLastPathComponent;
-        _MBLog();
+        _MBLog(@"I ", "Removing existing file at %@", stringByDeletingLastPathComponent);
       }
 
-      v82 = v24;
-      v41 = [v5 removeItemAtPath:stringByDeletingLastPathComponent error:&v82];
-      v42 = v82;
+      v79 = v24;
+      v41 = [v5 removeItemAtPath:stringByDeletingLastPathComponent error:&v79];
+      v42 = v79;
 
       if ((v41 & 1) == 0)
       {
         v52 = [MBError errorWithCode:1 error:v42 path:stringByDeletingLastPathComponent format:@"Error removing file"];
-        v34 = v71;
+        v34 = v68;
         v24 = v42;
         goto LABEL_75;
       }
 
-      v90[0] = NSFileOwnerAccountName;
-      v90[1] = NSFileGroupOwnerAccountName;
-      v91[0] = @"mobile";
-      v91[1] = @"mobile";
-      v43 = [NSDictionary dictionaryWithObjects:v91 forKeys:v90 count:2];
-      v81 = v42;
-      v44 = [v5 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v43 error:&v81];
-      v24 = v81;
+      v87[0] = NSFileOwnerAccountName;
+      v87[1] = NSFileGroupOwnerAccountName;
+      v88[0] = @"mobile";
+      v88[1] = @"mobile";
+      v43 = [NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:2];
+      v78 = v42;
+      v44 = [v5 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:v43 error:&v78];
+      v24 = v78;
 
       if ((v44 & 1) == 0)
       {
 LABEL_50:
-        v52 = [MBError errorWithCode:1 error:v24 path:stringByDeletingLastPathComponent format:@"Error creating directory", v65];
-        v34 = v71;
-        v40 = v73;
+        v52 = [MBError errorWithCode:1 error:v24 path:stringByDeletingLastPathComponent format:@"Error creating directory"];
+        v34 = v68;
+        v40 = v70;
         goto LABEL_75;
       }
     }
 
-    v70 = v5;
+    v67 = v5;
 
-    v69 = v24;
-    v12 = v75;
+    v66 = v24;
+    v12 = v72;
   }
 
 LABEL_17:
   stringByDeletingLastPathComponent = [NSSet setWithObjects:@"DebugContext", @"Options", @"DisabledDomains", @"AllowiTunesBackup", @"EnableBackupScheduling", @"BackupEnabledForMegaBackup", @"SyncSettingsEnabledForMegaBackup", @"BackupDomainsEnabledForMegaBackup", @"EnableBackupOnCellular", @"MegaBackupTurnOnAllAppsSync", @"MegaBackupTurnOniCloudBackup", @"SyncSettingsEnabledForMegaBackup", @"MegaBackupEntryPoint", @"MegaBackupFlowStartDate", @"EnterPrebuddyUIDateDelta", @"InitialMegaBackupStartDateDelta", @"InitialMegaBackupFinishedDateDelta", @"RestoreAfterMegaBackupDateDelta", @"RestoreFinishedAfterMegaBackupDateDelta", @"MegaBackupRefreshDelta", @"PrebuddyFlowStep", @"MegaBackupSourceDeviceUUID", 0];
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v75 = v12;
+  v72 = v12;
   allKeys = [v12 allKeys];
-  v26 = [allKeys countByEnumeratingWithState:&v77 objects:v89 count:16];
+  v26 = [allKeys countByEnumeratingWithState:&v74 objects:v86 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v78;
+    v28 = *v75;
     do
     {
       for (i = 0; i != v27; i = i + 1)
       {
-        if (*v78 != v28)
+        if (*v75 != v28)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v30 = *(*(&v77 + 1) + 8 * i);
-        v31 = [stringByDeletingLastPathComponent containsObject:{v30, v66}];
+        v30 = *(*(&v74 + 1) + 8 * i);
+        v31 = [stringByDeletingLastPathComponent containsObject:v30];
         v32 = MBGetDefaultLog();
         v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
         if (v31)
@@ -483,10 +479,9 @@ LABEL_17:
           if (v33)
           {
             *buf = 138543362;
-            v86 = v30;
+            v83 = v30;
             _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Restoring MobileBackup preference: %{public}@", buf, 0xCu);
-            v66 = v30;
-            _MBLog();
+            _MBLog(@"Df", "Restoring MobileBackup preference: %{public}@", v30);
           }
         }
 
@@ -495,63 +490,61 @@ LABEL_17:
           if (v33)
           {
             *buf = 138543362;
-            v86 = v30;
+            v83 = v30;
             _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Not restoring MobileBackup preference: %{public}@", buf, 0xCu);
-            v66 = v30;
-            _MBLog();
+            _MBLog(@"Df", "Not restoring MobileBackup preference: %{public}@", v30);
           }
 
-          [v75 removeObjectForKey:v30];
+          [v72 removeObjectForKey:v30];
         }
       }
 
-      v27 = [allKeys countByEnumeratingWithState:&v77 objects:v89 count:16];
+      v27 = [allKeys countByEnumeratingWithState:&v74 objects:v86 count:16];
     }
 
     while (v27);
   }
 
-  engineCopy = v72;
-  v34 = v71;
-  if ([v72 isCloudKitEngine])
+  engineCopy = v69;
+  v34 = v68;
+  if ([v69 isCloudKitEngine])
   {
-    if ([v72 conformsToProtocol:&OBJC_PROTOCOL___MBHasServiceAccount])
+    if ([v69 conformsToProtocol:&OBJC_PROTOCOL___MBHasServiceAccount])
     {
-      serviceAccount = [v72 serviceAccount];
+      serviceAccount = [v69 serviceAccount];
 
       if (serviceAccount)
       {
-        if ([v72 restoresPrimaryAccount])
+        if ([v69 restoresPrimaryAccount])
         {
-          userIncompleteRestoreDirectory2 = [v71 userIncompleteRestoreDirectory];
-          skippedFileRecordsPlistPath = [v71 skippedFileRecordsPlistPath];
+          userIncompleteRestoreDirectory2 = [v68 userIncompleteRestoreDirectory];
+          skippedFileRecordsPlistPath = [v68 skippedFileRecordsPlistPath];
           skippedFileRecordsPlistPath2 = [userIncompleteRestoreDirectory2 stringByAppendingPathComponent:skippedFileRecordsPlistPath];
         }
 
         else
         {
-          skippedFileRecordsPlistPath2 = [v71 skippedFileRecordsPlistPath];
+          skippedFileRecordsPlistPath2 = [v68 skippedFileRecordsPlistPath];
         }
 
-        if ([v70 fileExistsAtPath:{skippedFileRecordsPlistPath2, v66}])
+        if ([v67 fileExistsAtPath:skippedFileRecordsPlistPath2])
         {
           v45 = MBGetDefaultLog();
           if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v86 = skippedFileRecordsPlistPath2;
+            v83 = skippedFileRecordsPlistPath2;
             _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Copying skipped file records plist (%@) to preferences", buf, 0xCu);
-            v67 = skippedFileRecordsPlistPath2;
-            _MBLog();
+            _MBLog(@"Df", "Copying skipped file records plist (%@) to preferences", skippedFileRecordsPlistPath2);
           }
 
           v46 = skippedFileRecordsPlistPath2;
           v47 = [NSData dataWithContentsOfFile:v46];
           if (v47)
           {
-            v84 = 0;
-            v48 = [NSPropertyListSerialization propertyListWithData:v47 options:0 format:0 error:&v84];
-            v49 = v84;
+            v81 = 0;
+            v48 = [NSPropertyListSerialization propertyListWithData:v47 options:0 format:0 error:&v81];
+            v49 = v81;
             v50 = v49;
             if (!v48 || v49)
             {
@@ -559,10 +552,9 @@ LABEL_17:
               if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v86 = v50;
+                v83 = v50;
                 _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "NSPropertyListSerialization failed %@", buf, 0xCu);
-                v67 = v50;
-                _MBLog();
+                _MBLog(@"E ", "NSPropertyListSerialization failed %@", v50);
               }
 
               v51 = 0;
@@ -580,10 +572,9 @@ LABEL_17:
             if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v86 = v46;
+              v83 = v46;
               _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "dataWithContentsOfFile returned nil for path %@", buf, 0xCu);
-              v67 = v46;
-              _MBLog();
+              _MBLog(@"E ", "dataWithContentsOfFile returned nil for path %@", v46);
             }
 
             v51 = 0;
@@ -591,23 +582,23 @@ LABEL_17:
 
           if (v51)
           {
-            [v75 setObject:v51 forKeyedSubscript:@"RestoredFilesSkippedFromBackup"];
+            [v72 setObject:v51 forKeyedSubscript:@"RestoredFilesSkippedFromBackup"];
           }
 
-          v76 = 0;
-          v54 = [v70 removeItemAtPath:v46 error:{&v76, v67}];
-          v55 = v76;
+          v73 = 0;
+          v54 = [v67 removeItemAtPath:v46 error:&v73];
+          v55 = v73;
           if ((v54 & 1) == 0)
           {
             v56 = MBGetDefaultLog();
             if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v86 = v46;
-              v87 = 2112;
-              v88 = v55;
+              v83 = v46;
+              v84 = 2112;
+              v85 = v55;
               _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "Failed to remove skipped file records plist %@ %@", buf, 0x16u);
-              _MBLog();
+              _MBLog(@"E ", "Failed to remove skipped file records plist %@ %@", v46, v55);
             }
           }
         }
@@ -619,8 +610,8 @@ LABEL_17:
   v58 = +[NSDate date];
   [v57 setDate:v58];
 
-  [v57 setWasCloudRestore:{objc_msgSend(v72, "isServiceEngine")}];
-  properties = [v72 properties];
+  [v57 setWasCloudRestore:{objc_msgSend(v69, "isServiceEngine")}];
+  properties = [v69 properties];
   buildVersion = [properties buildVersion];
   [v57 setBackupBuildVersion:buildVersion];
 
@@ -628,35 +619,35 @@ LABEL_17:
   [v57 setDeviceBuildVersion:v61];
 
   dictionaryRepresentation = [v57 dictionaryRepresentation];
-  [v75 setObject:dictionaryRepresentation forKeyedSubscript:@"RestoreInfo"];
+  [v72 setObject:dictionaryRepresentation forKeyedSubscript:@"RestoreInfo"];
 
-  v5 = v70;
-  if ([v72 isDeviceTransferEngine])
+  v5 = v67;
+  if ([v69 isDeviceTransferEngine])
   {
-    [(MBDataMigratorPlugin *)selfCopy _updateDeviceTransferInfoWithPlist:v75];
+    [(MBDataMigratorPlugin *)selfCopy _updateDeviceTransferInfoWithPlist:v72];
   }
 
   v63 = MBGetDefaultLog();
-  v40 = v73;
+  v40 = v70;
   if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v86 = v73;
+    v83 = v70;
     _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "Writing out trimmed MobileBackup plist at %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Writing out trimmed MobileBackup plist at %@", v70);
   }
 
-  if ([v75 writeToFile:v73 atomically:1])
+  if ([v72 writeToFile:v70 atomically:1])
   {
     v52 = 0;
   }
 
   else
   {
-    v52 = [MBError errorWithCode:1 path:v74 format:@"Error saving MobileBackup preferences"];
+    v52 = [MBError errorWithCode:1 path:v71 format:@"Error saving MobileBackup preferences"];
   }
 
-  v24 = v69;
+  v24 = v66;
 LABEL_75:
 
   return v52;
@@ -670,96 +661,93 @@ LABEL_75:
 
   if (v4)
   {
-    v33 = 0u;
-    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v27 = v4;
+    v29 = 0u;
+    v30 = 0u;
+    v25 = v4;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v41 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
-      v9 = MBError_ptr;
-      v28 = v5;
+      v8 = *v30;
+      v26 = v5;
       do
       {
-        v10 = 0;
-        v30 = v7;
+        v9 = 0;
+        v28 = v7;
         do
         {
-          if (*v32 != v8)
+          if (*v30 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v31 + 1) + 8 * v10);
-          v12 = [v5 objectForKeyedSubscript:v11];
-          v13 = v9[101];
+          v10 = *(*(&v29 + 1) + 8 * v9);
+          v11 = [v5 objectForKeyedSubscript:v10];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = [v11 componentsSeparatedByString:@":"];
-            v15 = [v14 count];
-            v16 = [v14 objectAtIndexedSubscript:0];
-            if (v15 == 1)
+            v12 = [v10 componentsSeparatedByString:@":"];
+            v13 = [v12 count];
+            v14 = [v12 objectAtIndexedSubscript:0];
+            if (v13 == 1)
             {
-              v17 = @".GlobalPreferences";
+              v15 = @".GlobalPreferences";
             }
 
             else
             {
-              [v14 objectAtIndexedSubscript:1];
-              v16 = v17 = v16;
+              [v12 objectAtIndexedSubscript:1];
+              v14 = v15 = v14;
             }
 
-            v18 = MBGetDefaultLog();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v16 = MBGetDefaultLog();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v36 = v17;
+              v34 = v15;
+              v35 = 2112;
+              v36 = v10;
               v37 = 2112;
               v38 = v11;
-              v39 = 2112;
-              v40 = v12;
-              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Restoring default %@ %@ = %@", buf, 0x20u);
-              _MBLog();
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Restoring default %@ %@ = %@", buf, 0x20u);
+              _MBLog(@"Df", "Restoring default %@ %@ = %@", v15, v10, v11);
             }
 
             persona2 = [engineCopy persona];
             userRestoreDirectory = [persona2 userRestoreDirectory];
-            v21 = [userRestoreDirectory stringByAppendingFormat:@"/var/mobile/Library/Preferences/%@.plist", v17];
+            v19 = [userRestoreDirectory stringByAppendingFormat:@"/var/mobile/Library/Preferences/%@.plist", v15];
 
-            v22 = [NSMutableDictionary dictionaryWithContentsOfFile:v21];
-            if (!v22)
+            v20 = [NSMutableDictionary dictionaryWithContentsOfFile:v19];
+            if (!v20)
             {
-              v22 = +[NSMutableDictionary dictionary];
+              v20 = +[NSMutableDictionary dictionary];
             }
 
-            [v22 setObject:v12 forKeyedSubscript:v16];
-            [v22 writeToFile:v21 atomically:1];
-            fileSystemRepresentation = [v21 fileSystemRepresentation];
-            v24 = MBMobileUID();
-            v25 = MBMobileUID();
-            lchown(fileSystemRepresentation, v24, v25);
+            [v20 setObject:v11 forKeyedSubscript:v14];
+            [v20 writeToFile:v19 atomically:1];
+            fileSystemRepresentation = [v19 fileSystemRepresentation];
+            v22 = MBMobileUID();
+            v23 = MBMobileUID();
+            lchown(fileSystemRepresentation, v22, v23);
 
-            v5 = v28;
-            v9 = MBError_ptr;
-            v7 = v30;
+            v5 = v26;
+            v7 = v28;
           }
 
-          v10 = v10 + 1;
+          v9 = v9 + 1;
         }
 
-        while (v7 != v10);
-        v7 = [v5 countByEnumeratingWithState:&v31 objects:v41 count:16];
+        while (v7 != v9);
+        v7 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
       }
 
       while (v7);
     }
 
-    v4 = v27;
+    v4 = v25;
   }
 
   return 0;
@@ -789,7 +777,7 @@ LABEL_75:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, userIncompleteRestoreDirectory, OS_LOG_TYPE_DEFAULT, "Modified MobileBackup preferences at in-place for EDS Background Restore", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Modified MobileBackup preferences at in-place for EDS Background Restore");
     }
 
     LOBYTE(v21) = 1;
@@ -840,7 +828,7 @@ LABEL_75:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Set restored device in mega backup mode.", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Set restored device in mega backup mode.");
       }
 
       [v22 setObject:&__kCFBooleanTrue forKeyedSubscript:@"IsMegaBackupMode"];
@@ -876,7 +864,7 @@ LABEL_75:
         *buf = 138412290;
         v47 = v42;
         _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Modified restored MobileBackup preferences at %@ for Background Restore", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Modified restored MobileBackup preferences at %@ for Background Restore", v42);
       }
 
       sessionCopy = v44;

@@ -643,7 +643,7 @@ LABEL_21:
   return v20;
 }
 
-uint64_t __112__NTKPlistPigmentEditOptionLoader_loadFaceCollectionForAllSlotsForDomain_propertyList_bundle_sharedCollections___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__112__NTKPlistPigmentEditOptionLoader_loadFaceCollectionForAllSlotsForDomain_propertyList_bundle_sharedCollections___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasPrefix:@"slot-"];
   if (result)
@@ -3622,12 +3622,26 @@ void __121__NTKPlistPigmentEditOptionLoader_loadFaceCollectionForDomain_mainBund
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
+- (void)loadSharedConfigWithPropertyList:(uint64_t)a3 bundle:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"shared-config";
+  OUTLINED_FUNCTION_5_0(&dword_22D9C5000, a1, a3, "#plist-loader '%{public}@' root domain not found. Returning empty options for shared config", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)loadSharedCollectionsWithPropertyList:bundle:.cold.1()
 {
   objc_opt_class();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+- (void)loadSharedCollectionsWithPropertyList:(uint64_t)a3 bundle:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"shared-collections";
+  OUTLINED_FUNCTION_5_0(&dword_22D9C5000, a1, a3, "#plist-loader '%{public}@' root domain not found. Returning empty options for shared collections", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __98__NTKPlistPigmentEditOptionLoader_loadNestedCollectionsFromNode_parent_config_plistSuffix_bundle___block_invoke_cold_1()
@@ -3658,6 +3672,34 @@ void __98__NTKPlistPigmentEditOptionLoader_loadNestedCollectionsFromNode_parent_
   v1[0] = 138543618;
   OUTLINED_FUNCTION_3_3();
   _os_log_error_impl(&dword_22D9C5000, v0, OS_LOG_TYPE_ERROR, "#plist-loader '%{public}@' found with incorrect type -  It should be an dictionary. %{public}@", v1, 0x16u);
+}
+
+- (void)configurationFromNode:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"sensitivity";
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a1, a3, "#plist-loader %{public}@ found with incorrect type -  It should be a number. Ignoring it.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)configurationFromNode:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"isAddable";
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a1, a3, "#plist-loader %{public}@ found with incorrect type -  It should be a number. Ignoring it.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)configurationFromNode:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"supports-slider";
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a1, a3, "#plist-loader %{public}@ found with incorrect type -  It should be a number. Ignoring it.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)configurationFromNode:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"default";
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a1, a3, "#plist-loader %{public}@ found with incorrect type -  It should be a string. Ignoring it.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)configurationFromNode:.cold.6()
@@ -3705,6 +3747,13 @@ void __98__NTKPlistPigmentEditOptionLoader_loadNestedCollectionsFromNode_parent_
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
+- (void)configurationFromNode:(uint64_t)a3 .cold.11(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"excludes-duotone";
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a1, a3, "#plist-loader %{public}@ found with incorrect type -  It should be a number. Ignoring it.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)configurationFromNode:.cold.12()
 {
   objc_opt_class();
@@ -3721,6 +3770,13 @@ void __98__NTKPlistPigmentEditOptionLoader_loadNestedCollectionsFromNode_parent_
   v1 = v0;
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+}
+
+- (void)colorOptionsFromPListItems:(uint64_t)a3 collectionName:(uint64_t)a4 applyConfig:(uint64_t)a5 plistSuffix:(uint64_t)a6 bundle:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"items";
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a1, a3, "#plist-loader '%{public}@' found with incorrect type -  It should be an array or dictionary with indexes.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)sortedPlistFilesWithMainBundle:(void *)a1 faceBundle:(uint8_t *)buf additionalBundles:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

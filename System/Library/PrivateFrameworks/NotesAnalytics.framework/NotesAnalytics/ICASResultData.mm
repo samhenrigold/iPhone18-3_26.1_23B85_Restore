@@ -22,8 +22,8 @@
 
 - (id)toDict
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"resultType";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"resultType";
   resultType = [(ICASResultData *)self resultType];
   if (resultType)
   {
@@ -36,10 +36,8 @@
   }
 
   v5 = resultType2;
-  v10[0] = resultType2;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = resultType2;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   return v6;
 }

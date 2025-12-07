@@ -125,37 +125,41 @@ void __24__SSHTTPServer_setPort___block_invoke(uint64_t a1)
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-  LODWORD(v15) = 138543362;
-  *(&v15 + 4) = objc_opt_class();
-  v6 = *(&v15 + 4);
-  LODWORD(v14) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v14 = 138543362;
+  v15 = objc_opt_class();
+  v6 = v15;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1D48BA000, v5, 16, "[%{public}@] Failed to set port. A server is already running.", &v14, 12);
 
   if (v7)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v15, v14, v15}];
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog(v2, @"%@", v8, v9, v10, v11, v12, v13, v5);
-LABEL_13:
+LABEL_14:
   }
 }
 
@@ -349,18 +353,18 @@ void __43__SSHTTPServer_setResponseForPath_handler___block_invoke(uint64_t a1)
 
 - (BOOL)start
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v27 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   propertyQueue = self->_propertyQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __21__SSHTTPServer_start__block_invoke;
   block[3] = &unk_1E84ABFD8;
   block[4] = self;
-  block[5] = &v22;
+  block[5] = &v21;
   dispatch_sync(propertyQueue, block);
   v4 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v4)
@@ -368,50 +372,172 @@ void __43__SSHTTPServer_setResponseForPath_handler___block_invoke(uint64_t a1)
     v4 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v4 shouldLog];
+  LODWORD(v5) = [v4 shouldLog];
   shouldLogToDisk = [v4 shouldLogToDisk];
   oSLogObject = [v4 OSLogObject];
   v8 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v5) = v5 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog &= 2u;
+    v5 = v5;
   }
 
-  if (!shouldLog)
+  else
   {
-    goto LABEL_10;
+    v5 &= 2u;
+  }
+
+  if (!v5)
+  {
+    goto LABEL_11;
   }
 
   v9 = objc_opt_class();
-  v26 = 138543362;
-  v27 = v9;
+  v25 = 138543362;
+  v26 = v9;
   v10 = v9;
-  LODWORD(v20) = 12;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, v8, 0, "[%{public}@] Server running", &v25, 12);
 
   if (v11)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v26, v20}];
+    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v4, @"%@", v12, v13, v14, v15, v16, v17, v8);
-LABEL_10:
+LABEL_11:
   }
 
-  v18 = *(v23 + 24);
-  _Block_object_dispose(&v22, 8);
+  v18 = *(v22 + 24);
+  _Block_object_dispose(&v21, 8);
   return v18;
 }
 
 void __21__SSHTTPServer_start__block_invoke(uint64_t a1)
 {
-  *&v36[5] = *MEMORY[0x1E69E9840];
+  *&v35[5] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  if (*(v2 + 56) != 1)
+  if (*(v2 + 56) == 1)
+  {
+    *(v2 + 56) = 2;
+    v3 = *MEMORY[0x1E695E480];
+    *(*(a1 + 32) + 32) = CFSocketCreate(*MEMORY[0x1E695E480], 2, 1, 6, 2uLL, handleConnect, 0);
+    v4 = *(*(a1 + 32) + 32);
+    if (v4)
+    {
+      v31 = 1;
+      Native = CFSocketGetNative(v4);
+      setsockopt(Native, 0xFFFF, 4, &v31, 4u);
+      *&v35[1] = 0;
+      *bytes = 528;
+      *&bytes[2] = bswap32(*(*(a1 + 32) + 50)) >> 16;
+      v35[0] = 0;
+      v6 = CFDataCreate(v3, bytes, 16);
+      v7 = CFSocketSetAddress(*(*(a1 + 32) + 32), v6);
+      CFRelease(v6);
+      if (!v7)
+      {
+        *(*(a1 + 32) + 56) = 3;
+        v26 = dispatch_semaphore_create(0);
+        v27 = MEMORY[0x1E696AF00];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __21__SSHTTPServer_start__block_invoke_31;
+        v29[3] = &unk_1E84AC028;
+        v29[4] = *(a1 + 32);
+        v30 = v26;
+        v28 = v26;
+        [v27 detachNewThreadWithBlock:v29];
+        dispatch_semaphore_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
+
+        return;
+      }
+
+      v8 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v8)
+      {
+        v8 = +[SSLogConfig sharedConfig];
+      }
+
+      v9 = [v8 shouldLog];
+      if ([v8 shouldLogToDisk])
+      {
+        LODWORD(v10) = v9 | 2;
+      }
+
+      else
+      {
+        LODWORD(v10) = v9;
+      }
+
+      v11 = [v8 OSLogObject];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v10 = v10;
+      }
+
+      else
+      {
+        v10 &= 2u;
+      }
+
+      if (!v10)
+      {
+        goto LABEL_36;
+      }
+
+      v12 = objc_opt_class();
+      v32 = 138543362;
+      v33 = v12;
+      v13 = v12;
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v11, 16, "[%{public}@] Failed to bind socket address.", &v32, 12);
+    }
+
+    else
+    {
+      v8 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v8)
+      {
+        v8 = +[SSLogConfig sharedConfig];
+      }
+
+      v17 = [v8 shouldLog];
+      if ([v8 shouldLogToDisk])
+      {
+        LODWORD(v18) = v17 | 2;
+      }
+
+      else
+      {
+        LODWORD(v18) = v17;
+      }
+
+      v11 = [v8 OSLogObject];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 &= 2u;
+      }
+
+      if (!v18)
+      {
+        goto LABEL_36;
+      }
+
+      *bytes = 138543362;
+      *v35 = objc_opt_class();
+      v13 = *v35;
+      v14 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, v11, 16, "[%{public}@] Failed to create socket.", bytes, 12);
+    }
+  }
+
+  else
   {
     v8 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v8)
@@ -419,151 +545,50 @@ void __21__SSHTTPServer_start__block_invoke(uint64_t a1)
       v8 = +[SSLogConfig sharedConfig];
     }
 
-    v14 = [v8 shouldLog];
+    v15 = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v15 = v14 | 2;
+      LODWORD(v16) = v15 | 2;
     }
 
     else
     {
-      v15 = v14;
+      LODWORD(v16) = v15;
     }
 
     v11 = [v8 OSLogObject];
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v15 &= 2u;
+      v16 = v16;
     }
 
-    if (!v15)
+    else
     {
-      goto LABEL_33;
+      v16 &= 2u;
     }
 
-LABEL_30:
+    if (!v16)
+    {
+      goto LABEL_36;
+    }
+
     *bytes = 138543362;
-    *v36 = objc_opt_class();
-    v13 = *v36;
-    LODWORD(v29) = 12;
-    v28 = bytes;
-    goto LABEL_31;
+    *v35 = objc_opt_class();
+    v13 = *v35;
+    v14 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1D48BA000, v11, 16, "[%{public}@] Failed to start server. Another server is already running.", bytes, 12);
   }
 
-  *(v2 + 56) = 2;
-  v3 = *MEMORY[0x1E695E480];
-  *(*(a1 + 32) + 32) = CFSocketCreate(*MEMORY[0x1E695E480], 2, 1, 6, 2uLL, handleConnect, 0);
-  v4 = *(*(a1 + 32) + 32);
-  if (!v4)
+  v19 = v14;
+
+  if (v19)
   {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
-    {
-      v8 = +[SSLogConfig sharedConfig];
-    }
-
-    v16 = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
-    {
-      v17 = v16 | 2;
-    }
-
-    else
-    {
-      v17 = v16;
-    }
-
-    v11 = [v8 OSLogObject];
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      v17 &= 2u;
-    }
-
-    if (!v17)
-    {
-      goto LABEL_33;
-    }
-
-    goto LABEL_30;
+    v11 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+    free(v19);
+    SSFileLog(v8, @"%@", v20, v21, v22, v23, v24, v25, v11);
+LABEL_36:
   }
 
-  v32 = 1;
-  Native = CFSocketGetNative(v4);
-  setsockopt(Native, 0xFFFF, 4, &v32, 4u);
-  *&v36[1] = 0;
-  *bytes = 528;
-  *&bytes[2] = bswap32(*(*(a1 + 32) + 50)) >> 16;
-  v36[0] = 0;
-  v6 = CFDataCreate(v3, bytes, 16);
-  v7 = CFSocketSetAddress(*(*(a1 + 32) + 32), v6);
-  CFRelease(v6);
-  if (v7)
-  {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
-    {
-      v8 = +[SSLogConfig sharedConfig];
-    }
-
-    v9 = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
-    {
-      v10 = v9 | 2;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    v11 = [v8 OSLogObject];
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      v10 &= 2u;
-    }
-
-    if (!v10)
-    {
-      goto LABEL_33;
-    }
-
-    v12 = objc_opt_class();
-    v33 = 138543362;
-    v34 = v12;
-    v13 = v12;
-    LODWORD(v29) = 12;
-    v28 = &v33;
-LABEL_31:
-    v18 = _os_log_send_and_compose_impl();
-
-    if (!v18)
-    {
-LABEL_34:
-
-      *(*(*(a1 + 40) + 8) + 24) = 0;
-      return;
-    }
-
-    v11 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, v28, v29}];
-    free(v18);
-    SSFileLog(v8, @"%@", v19, v20, v21, v22, v23, v24, v11);
-LABEL_33:
-
-    goto LABEL_34;
-  }
-
-  *(*(a1 + 32) + 56) = 3;
-  v25 = dispatch_semaphore_create(0);
-  v26 = MEMORY[0x1E696AF00];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __21__SSHTTPServer_start__block_invoke_31;
-  v30[3] = &unk_1E84AC028;
-  v30[4] = *(a1 + 32);
-  v31 = v25;
-  v27 = v25;
-  [v26 detachNewThreadWithBlock:v30];
-  dispatch_semaphore_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
+  *(*(*(a1 + 40) + 8) + 24) = 0;
 }
 
 void __21__SSHTTPServer_start__block_invoke_31(uint64_t a1)
@@ -606,38 +631,38 @@ void __21__SSHTTPServer_start__block_invoke_31(uint64_t a1)
 
 void __20__SSHTTPServer_stop__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 56) = 4;
   v2 = *(a1 + 32);
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
   [*(*(a1 + 32) + 8) removeAllObjects];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v4 = *(*(a1 + 32) + 16);
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         [v9 setDelegate:0];
         [v9 close];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v6);
@@ -661,38 +686,42 @@ void __20__SSHTTPServer_stop__block_invoke(uint64_t a1)
   v12 = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = v12 | 2;
+    LODWORD(v13) = v12 | 2;
   }
 
   else
   {
-    v13 = v12;
+    LODWORD(v13) = v12;
   }
 
   v14 = [v11 OSLogObject];
-  if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (!v13)
   {
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   v15 = objc_opt_class();
-  v29 = 138543362;
-  v30 = v15;
+  v28 = 138543362;
+  v29 = v15;
   v16 = v15;
-  LODWORD(v24) = 12;
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1D48BA000, v14, 0, "[%{public}@] Server stopped", &v28, 12, v24);
 
   if (v17)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v29, v24, v25}];
+    v14 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog(v11, @"%@", v18, v19, v20, v21, v22, v23, v14);
-LABEL_20:
+LABEL_21:
   }
 
   *(*(a1 + 32) + 56) = 1;
@@ -700,7 +729,7 @@ LABEL_20:
 
 - (void)_handleConnectWithType:(unint64_t)type handle:(int)handle
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (type == 2)
   {
     writeStream = 0;
@@ -727,16 +756,21 @@ LABEL_20:
       shouldLog = [(__CFReadStream *)v22 shouldLog];
       if ([(__CFReadStream *)v22 shouldLogToDisk])
       {
-        v7 = shouldLog | 2;
+        LODWORD(v7) = shouldLog | 2;
       }
 
       else
       {
-        v7 = shouldLog;
+        LODWORD(v7) = shouldLog;
       }
 
       oSLogObject = [(__CFReadStream *)v22 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
@@ -744,20 +778,19 @@ LABEL_20:
       if (v7)
       {
         v8 = objc_opt_class();
-        v30 = 138543362;
-        v31 = v8;
+        v29 = 138543362;
+        v30 = v8;
         v9 = v8;
-        LODWORD(v23) = 12;
-        v10 = _os_log_send_and_compose_impl();
+        v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%{public}@] Failed to accept the socket.", &v29, 12);
 
         if (!v10)
         {
-LABEL_18:
+LABEL_19:
 
           return;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v30, v23}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
         free(v10);
         SSFileLog(v22, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
       }
@@ -775,15 +808,15 @@ LABEL_18:
       block[1] = 3221225472;
       block[2] = __46__SSHTTPServer__handleConnectWithType_handle___block_invoke;
       block[3] = &unk_1E84AC078;
-      v25 = readStream;
-      v26 = writeStream;
+      v24 = readStream;
+      v25 = writeStream;
       selfCopy = self;
       oSLogObject = writeStream;
       v22 = v19;
       dispatch_sync(propertyQueue, block);
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 }
 

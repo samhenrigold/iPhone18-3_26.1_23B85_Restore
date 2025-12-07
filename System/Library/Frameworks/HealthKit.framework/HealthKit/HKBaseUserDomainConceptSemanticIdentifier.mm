@@ -79,17 +79,15 @@
 
 - (id)stringValue
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = HKBaseUserDomainConceptSemanticIdentifier;
-  stringValue = [(HKUserDomainConceptSemanticIdentifier *)&v9 stringValue];
-  v10[0] = stringValue;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = HKBaseUserDomainConceptSemanticIdentifier;
+  stringValue = [(HKUserDomainConceptSemanticIdentifier *)&v8 stringValue];
+  v9[0] = stringValue;
   uUIDString = [(NSUUID *)self->_UUID UUIDString];
-  v10[1] = uUIDString;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[1] = uUIDString;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v6 = [v5 componentsJoinedByString:@"|█|"];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

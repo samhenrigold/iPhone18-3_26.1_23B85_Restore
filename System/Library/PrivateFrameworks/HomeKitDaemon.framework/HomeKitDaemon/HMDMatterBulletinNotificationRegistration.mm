@@ -12,25 +12,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = HMDMatterBulletinNotificationRegistration;
-  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = HMDMatterBulletinNotificationRegistration;
+  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   matterPaths = [(HMDMatterBulletinNotificationRegistration *)self matterPaths];
   v6 = [v4 initWithName:@"matterPaths" value:matterPaths];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [attributeDescriptions arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (HMDMatterBulletinNotificationRegistration)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDBulletinNotificationRegistration alloc] initWithCoder:coderCopy];
   if (v5)
@@ -52,11 +50,11 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v14 = 138543618;
-        v15 = v11;
-        v16 = 2112;
-        v17 = 0;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded matterPaths: %@", &v14, 0x16u);
+        v13 = 138543618;
+        v14 = v11;
+        v15 = 2112;
+        v16 = 0;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded matterPaths: %@", &v13, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -69,7 +67,6 @@
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -196,7 +193,7 @@ id __83__HMDMatterBulletinNotificationRegistration_serializedRegistrationForRemo
 
 id __73__HMDMatterBulletinNotificationRegistration_initWithDictionary_withHome___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_stringForKey:@"HMDMBNR.ck.auuid"];
   v5 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v4];
@@ -249,18 +246,16 @@ LABEL_13:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     v18 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v18;
-    v24 = 2112;
-    v25 = v3;
-    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Could not find matter accessory for matter path: %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v18;
+    v23 = 2112;
+    v24 = v3;
+    _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Could not find matter accessory for matter path: %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
   v19 = 0;
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

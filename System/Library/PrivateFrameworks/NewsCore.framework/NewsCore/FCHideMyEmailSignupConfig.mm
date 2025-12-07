@@ -20,9 +20,11 @@
 
 uint64_t __42__FCHideMyEmailSignupConfig_defaultConfig__block_invoke()
 {
-  _MergedGlobals_158 = [[FCHideMyEmailSignupConfig alloc] initDefault];
+  v0 = [[FCHideMyEmailSignupConfig alloc] initDefault];
+  v1 = _MergedGlobals_158;
+  _MergedGlobals_158 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)initDefault

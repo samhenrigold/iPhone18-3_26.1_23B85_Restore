@@ -46,34 +46,13 @@
   v12.receiver = self;
   v12.super_class = HKDataCollectorTaskServerConfiguration;
   v5 = [(HKTaskConfiguration *)&v12 initWithCoder:coderCopy];
-  if (!v5)
+  if (!v5 || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"quantity_type"], v6 = objc_claimAutoreleasedReturnValue(), quantityType = v5->_quantityType, v5->_quantityType = v6, quantityType, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"bundle_identifier"), v8 = objc_claimAutoreleasedReturnValue(), bundleIdentifier = v5->_bundleIdentifier, v5->_bundleIdentifier = v8, bundleIdentifier, v5->_canResumeFromLastDatum = objc_msgSend(coderCopy, "decodeBoolForKey:", @"can_resume"), v5->_quantityType) && v5->_bundleIdentifier)
   {
-    goto LABEL_4;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"quantity_type"];
-  quantityType = v5->_quantityType;
-  v5->_quantityType = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundle_identifier"];
-  bundleIdentifier = v5->_bundleIdentifier;
-  v5->_bundleIdentifier = v8;
-
-  v5->_canResumeFromLastDatum = [coderCopy decodeBoolForKey:@"can_resume"];
-  if (!v5->_quantityType)
-  {
-    goto LABEL_5;
-  }
-
-  if (v5->_bundleIdentifier)
-  {
-LABEL_4:
     v10 = v5;
   }
 
   else
   {
-LABEL_5:
     v10 = 0;
   }
 

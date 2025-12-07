@@ -9,9 +9,11 @@
 
 uint64_t __43__CSExclaveAssetManagerProxy_sharedManager__block_invoke()
 {
-  sharedManager_assetManager = objc_alloc_init(CSExclaveAssetManagerProxy);
+  v0 = objc_alloc_init(CSExclaveAssetManagerProxy);
+  v1 = sharedManager_assetManager;
+  sharedManager_assetManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CSExclaveAssetManagerProxy)init
@@ -78,28 +80,27 @@ void __77__CSExclaveAssetManagerProxy_startSecureMobileAssetLoaderService_comple
 
 uint64_t __77__CSExclaveAssetManagerProxy_startSecureMobileAssetLoaderService_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = a2;
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[CSExclaveAssetManagerProxy startSecureMobileAssetLoaderService:completion:]_block_invoke_2";
-      v9 = 1024;
-      v10 = v3;
-      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Starting Secure Mobile Asset failed with error %u", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "[CSExclaveAssetManagerProxy startSecureMobileAssetLoaderService:completion:]_block_invoke_2";
+      v8 = 1024;
+      v9 = v3;
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Starting Secure Mobile Asset failed with error %u", &v6, 0x12u);
     }
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -130,28 +131,27 @@ void __65__CSExclaveAssetManagerProxy_stopSecureMobileAssetLoaderService___block
 
 uint64_t __65__CSExclaveAssetManagerProxy_stopSecureMobileAssetLoaderService___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = a2;
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[CSExclaveAssetManagerProxy stopSecureMobileAssetLoaderService:]_block_invoke_2";
-      v9 = 1024;
-      v10 = v3;
-      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Stopping Secure Mobile Asset failed with error %u", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "[CSExclaveAssetManagerProxy stopSecureMobileAssetLoaderService:]_block_invoke_2";
+      v8 = 1024;
+      v9 = v3;
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s Stopping Secure Mobile Asset failed with error %u", &v6, 0x12u);
     }
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 

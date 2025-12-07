@@ -147,12 +147,12 @@
 
 - (uint64_t)executeWithColor:(double)color pointCloud:(double)cloud jasperToColorTransform:(double)transform colorCamera:(uint64_t)camera outputDepthMap:(__CVBuffer *)map outputConfidenceMap:(void *)confidenceMap
 {
-  v140 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   confidenceMapCopy = confidenceMap;
   v17 = a9;
-  v136 = 335683608;
-  v137 = 0u;
-  v138 = 0u;
+  v142 = 335683608;
+  v143 = 0u;
+  v144 = 0u;
   kdebug_trace();
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -220,7 +220,7 @@ LABEL_69:
     executorParameters = [selfCopy executorParameters];
     logger = [executorParameters logger];
 
-    v127 = logger;
+    v132 = logger;
     processInfo = [MEMORY[0x277CCAC38] processInfo];
     [processInfo systemUptime];
     v32 = v31;
@@ -248,7 +248,7 @@ LABEL_72:
       goto LABEL_21;
     }
 
-    v124 = stepsToExecute;
+    v129 = stepsToExecute;
     kdebug_trace();
     [timeProfiler startWithUTFString:"preprocess jasper"];
     [selfCopy frameExecutionStart];
@@ -267,43 +267,43 @@ LABEL_72:
         *(selfCopy + 29) = v38;
       }
 
-      v121 = v22;
-      v122 = v24;
-      v57 = v17;
-      v58 = v57;
-      v60 = *(selfCopy + 1);
-      v59 = *(selfCopy + 2);
-      v61 = *(selfCopy + 3);
-      v62 = *(selfCopy + 4);
+      v126 = v22;
+      v127 = v24;
+      v62 = v17;
+      v63 = v62;
+      v65 = *(selfCopy + 1);
+      v64 = *(selfCopy + 2);
+      v66 = *(selfCopy + 3);
+      v67 = *(selfCopy + 4);
       if (selfCopy[242] == 1)
       {
-        v126 = *(selfCopy + 3);
-        v63 = *(selfCopy + 2);
-        v64 = *(selfCopy + 1);
-        v65 = *(selfCopy + 31);
-        v66 = *(selfCopy + 34);
-        v67 = *(selfCopy + 33);
-        v68 = [v57 mutableCopy];
-        [v58 referenceDimensions];
-        v70 = v69;
-        [v58 referenceDimensions];
-        [v68 crop:{0.0, -v65 / v66, v70, v67 + v71}];
+        v131 = *(selfCopy + 3);
+        v68 = *(selfCopy + 2);
+        v69 = *(selfCopy + 1);
+        v70 = *(selfCopy + 31);
+        v71 = *(selfCopy + 34);
+        v72 = *(selfCopy + 33);
+        v73 = [v62 mutableCopy];
+        [v63 referenceDimensions];
+        v75 = v74;
+        [v63 referenceDimensions];
+        [v73 crop:{0.0, -v70 / v71, v75, v72 + v76}];
 
-        v62 = v62 + v67;
-        v72 = v68;
-        v60 = v64;
-        v59 = v63;
-        v61 = v126;
+        v67 = v67 + v72;
+        v77 = v73;
+        v65 = v69;
+        v64 = v68;
+        v66 = v131;
       }
 
       else
       {
-        v72 = v57;
+        v77 = v62;
       }
 
-      v123 = v72;
+      v128 = v77;
       execute = [*(selfCopy + 18) changePointCloudPOV:confidenceMapCopy targetCamera:a2 jasperToCameraTransform:color outputPointCloud:{cloud, transform}];
-      [v127 logPointCloud:*(selfCopy + 29) name:"povChangedPointCloud" timestamp:v32];
+      [v132 logPointCloud:*(selfCopy + 29) name:"povChangedPointCloud" timestamp:v32];
       if (execute)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -312,23 +312,23 @@ LABEL_72:
           _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "changePointCloudPOV failed", &buf, 2u);
         }
 
-        v125 = 0;
-        v73 = v123;
+        v130 = 0;
+        v78 = v128;
 LABEL_67:
 
         goto LABEL_70;
       }
 
-      v74 = *(selfCopy + 18);
-      v75 = *(selfCopy + 29);
-      v76 = *(selfCopy + 9);
-      v77 = *(selfCopy + 21);
-      v135 = 0;
-      execute = [v74 projectJasperPoints:v75 cropTo:v76 rotateBy:v77 projectedPointsBuffer:&v135 filteredPoints:{v60, v59, v61, v62}];
-      v125 = v135;
+      v79 = *(selfCopy + 18);
+      v80 = *(selfCopy + 29);
+      v81 = *(selfCopy + 9);
+      v82 = *(selfCopy + 21);
+      v141 = 0;
+      execute = [v79 projectJasperPoints:v80 cropTo:v81 rotateBy:v82 projectedPointsBuffer:&v141 filteredPoints:{v65, v64, v66, v67}];
+      v130 = v141;
       if (execute)
       {
-        v73 = v123;
+        v78 = v128;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           LOWORD(buf.data) = 0;
@@ -342,24 +342,24 @@ LABEL_67:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v79 = [confidenceMapCopy length];
-          v80 = [v125 length];
+          v84 = [confidenceMapCopy length];
+          v85 = [v130 length];
           LODWORD(buf.data) = 67109376;
-          HIDWORD(buf.data) = v79;
+          HIDWORD(buf.data) = v84;
           LOWORD(buf.height) = 1024;
-          *(&buf.height + 2) = v80;
+          *(&buf.height + 2) = v85;
           _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ADJasperColorV2Executor: got input point cloud of %u points, %u were used for inference", &buf, 0xEu);
         }
       }
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v93 = [confidenceMapCopy length];
-        v94 = [v125 length];
+        v98 = [confidenceMapCopy length];
+        v99 = [v130 length];
         LODWORD(buf.data) = 67109376;
-        HIDWORD(buf.data) = v93;
+        HIDWORD(buf.data) = v98;
         LOWORD(buf.height) = 1024;
-        *(&buf.height + 2) = v94;
+        *(&buf.height + 2) = v99;
         _os_log_debug_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ADJasperColorV2Executor: got input point cloud of %u points, %u were used for inference", &buf, 0xEu);
       }
 
@@ -367,7 +367,7 @@ LABEL_67:
       {
         CVPixelBufferLockBaseAddress(*(selfCopy + 21), 0);
         memset(&buf, 0, sizeof(buf));
-        PixelBufferUtils::asVImageBuffer(*(selfCopy + 21), *MEMORY[0x277CBF3A0], &buf);
+        PixelBufferUtils::asVImageBuffer(&buf, *(selfCopy + 21), *MEMORY[0x277CBF3A0]);
         data = buf.data;
         rowBytes = buf.rowBytes;
         bzero(buf.data, *(selfCopy + 31) * buf.rowBytes);
@@ -375,20 +375,20 @@ LABEL_67:
         CVPixelBufferUnlockBaseAddress(*(selfCopy + 21), 0);
       }
 
-      v22 = v121;
-      v24 = v122;
+      v22 = v126;
+      v24 = v127;
     }
 
     else
     {
-      v125 = 0;
+      v130 = 0;
       PixelBufferUtils::blacken(*(selfCopy + 21), v36);
     }
 
-    [v127 logPixelBuffer:*(selfCopy + 21) name:"processedJasper" timestamp:v32];
+    [v132 logPixelBuffer:*(selfCopy + 21) name:"processedJasper" timestamp:v32];
     [timeProfiler stopWithUTFString:"preprocess jasper"];
     kdebug_trace();
-    if (v124 == 1)
+    if (v129 == 1)
     {
       goto LABEL_31;
     }
@@ -399,13 +399,13 @@ LABEL_67:
     if (!v40)
     {
 LABEL_38:
-      CVPixelBufferGetWidth(map);
-      CVPixelBufferGetHeight(map);
-      CVPixelBufferGetPixelFormatType(map);
-      CVPixelBufferGetWidth(*(selfCopy + 19));
-      CVPixelBufferGetHeight(*(selfCopy + 19));
-      CVPixelBufferGetPixelFormatType(*(selfCopy + 19));
-      PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+      Width = CVPixelBufferGetWidth(map);
+      Height = CVPixelBufferGetHeight(map);
+      PixelFormatType = CVPixelBufferGetPixelFormatType(map);
+      v44 = CVPixelBufferGetWidth(*(selfCopy + 19));
+      v45 = CVPixelBufferGetHeight(*(selfCopy + 19));
+      v46 = CVPixelBufferGetPixelFormatType(*(selfCopy + 19));
+      PixelBufferUtilsSession::createCropScaleConvertRotateSession(PixelFormatType, v46, *(selfCopy + 18), Width, Height, v44, v45, *(selfCopy + 1), *(selfCopy + 2), *(selfCopy + 3), *(selfCopy + 4), *MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24));
     }
 
     if (!PixelBufferUtilsSession::verifyInput(v40, map) || !PixelBufferUtilsSession::verifyOutput(*(selfCopy + 20), *(selfCopy + 19)))
@@ -422,7 +422,7 @@ LABEL_38:
 
     if ((PixelBufferUtilsSession::run(*(selfCopy + 20), map, *(selfCopy + 19)) & 1) == 0)
     {
-      v78 = v125;
+      v83 = v130;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
@@ -433,74 +433,74 @@ LABEL_38:
       goto LABEL_71;
     }
 
-    v42 = v127;
+    v47 = v132;
     if (selfCopy[242] == 1)
     {
       CVPixelBufferLockBaseAddress(*(selfCopy + 19), 0);
       memset(&buf, 0, sizeof(buf));
-      PixelBufferUtils::asVImageBuffer(*(selfCopy + 19), *MEMORY[0x277CBF3A0], &buf);
-      v43 = *(selfCopy + 31);
-      if (v43)
-      {
-        v44 = 0;
-        v45 = 1;
-        v46 = buf.data;
-        v47 = buf.rowBytes;
-        do
-        {
-          memcpy(&v46[v47 * v44], &v46[v47 * v43], v47);
-          v44 = v45;
-          v43 = *(selfCopy + 31);
-          ++v45;
-        }
-
-        while (v43 > v44);
-      }
-
-      v48 = *(selfCopy + 32);
+      PixelBufferUtils::asVImageBuffer(&buf, *(selfCopy + 19), *MEMORY[0x277CBF3A0]);
+      v48 = *(selfCopy + 31);
       if (v48)
       {
         v49 = 0;
-        v50 = buf.rowBytes;
-        v51 = 1;
-        v52 = buf.data;
-        height = buf.height;
+        v50 = 1;
+        v51 = buf.data;
+        v52 = buf.rowBytes;
         do
         {
-          memcpy(&v52[(height + ~v49) * v50], &v52[(height + ~v48) * v50], v50);
-          v49 = v51;
-          v48 = *(selfCopy + 32);
-          ++v51;
+          memcpy(&v51[v52 * v49], &v51[v52 * v48], v52);
+          v49 = v50;
+          v48 = *(selfCopy + 31);
+          ++v50;
         }
 
         while (v48 > v49);
       }
 
+      v53 = *(selfCopy + 32);
+      if (v53)
+      {
+        v54 = 0;
+        v55 = buf.rowBytes;
+        v56 = 1;
+        v57 = buf.data;
+        v58 = buf.height;
+        do
+        {
+          memcpy(&v57[(v58 + ~v54) * v55], &v57[(v58 + ~v53) * v55], v55);
+          v54 = v56;
+          v53 = *(selfCopy + 32);
+          ++v56;
+        }
+
+        while (v53 > v54);
+      }
+
       CVPixelBufferUnlockBaseAddress(*(selfCopy + 19), 0);
-      v42 = v127;
+      v47 = v132;
     }
 
-    [v42 logPixelBuffer:*(selfCopy + 19) name:"processedColor" timestamp:v32];
+    [v47 logPixelBuffer:*(selfCopy + 19) name:"processedColor" timestamp:v32];
     [timeProfiler stopWithUTFString:"preprocess color"];
     kdebug_trace();
-    if (v124 >= 3)
+    if (v129 >= 3)
     {
       kdebug_trace();
       [timeProfiler startWithUTFString:"network execution"];
       if (selfCopy[240] == 1)
       {
-        [v127 logPixelBuffer:*(selfCopy + 22) name:"prevDepth" timestamp:v32];
-        [v127 logPixelBuffer:*(selfCopy + 23) name:"prevColor" timestamp:v32];
-        v54 = *(selfCopy + 24);
-        if (v54)
+        [v132 logPixelBuffer:*(selfCopy + 22) name:"prevDepth" timestamp:v32];
+        [v132 logPixelBuffer:*(selfCopy + 23) name:"prevColor" timestamp:v32];
+        v59 = *(selfCopy + 24);
+        if (v59)
         {
-          [v127 logPixelBuffer:v54 name:"prevUncertainty" timestamp:v32];
+          [v132 logPixelBuffer:v59 name:"prevUncertainty" timestamp:v32];
         }
       }
 
       execute = [*(selfCopy + 7) execute];
-      [v127 logPixelBuffer:*(selfCopy + 25) name:"outputDepth" timestamp:v32];
-      [v127 logPixelBuffer:*(selfCopy + 26) name:"outputUncertainty" timestamp:v32];
+      [v132 logPixelBuffer:*(selfCopy + 25) name:"outputDepth" timestamp:v32];
+      [v132 logPixelBuffer:*(selfCopy + 26) name:"outputUncertainty" timestamp:v32];
       if (execute)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -509,16 +509,16 @@ LABEL_38:
         }
 
         LOWORD(buf.data) = 0;
-        v55 = MEMORY[0x277D86220];
-        v56 = "Failed executing network";
+        v60 = MEMORY[0x277D86220];
+        v61 = "Failed executing network";
 LABEL_55:
-        _os_log_error_impl(&dword_2402F6000, v55, OS_LOG_TYPE_ERROR, v56, &buf, 2u);
+        _os_log_error_impl(&dword_2402F6000, v60, OS_LOG_TYPE_ERROR, v61, &buf, 2u);
         goto LABEL_70;
       }
 
       [timeProfiler stopWithUTFString:"network execution"];
       kdebug_trace();
-      if (v124 != 3)
+      if (v129 != 3)
       {
         kdebug_trace();
         [timeProfiler startWithUTFString:"postprocess depth"];
@@ -528,35 +528,35 @@ LABEL_55:
           depthOutput = [inferenceDescriptor depthOutput];
           imageDescriptor = [depthOutput imageDescriptor];
           pixelFormat = [imageDescriptor pixelFormat];
-          v141.width = v22;
-          v141.height = v24;
-          *a10 = PixelBufferUtils::createPixelBuffer(pixelFormat, v141, 1);
+          v147.width = v22;
+          v147.height = v24;
+          *a10 = PixelBufferUtils::createPixelBuffer(pixelFormat, v147, 1);
         }
 
         if (a11)
         {
-          v87 = *a11;
+          v92 = *a11;
           if (!*a11)
           {
             inferenceDescriptor2 = [*(selfCopy + 18) inferenceDescriptor];
             uncertaintyOutput = [inferenceDescriptor2 uncertaintyOutput];
             imageDescriptor2 = [uncertaintyOutput imageDescriptor];
             pixelFormat2 = [imageDescriptor2 pixelFormat];
-            v142.width = v22;
-            v142.height = v24;
-            *a11 = PixelBufferUtils::createPixelBuffer(pixelFormat2, v142, 1);
+            v148.width = v22;
+            v148.height = v24;
+            *a11 = PixelBufferUtils::createPixelBuffer(pixelFormat2, v148, 1);
 
-            v87 = *a11;
+            v92 = *a11;
           }
         }
 
         else
         {
-          v87 = 0;
+          v92 = 0;
         }
 
-        Width = CVPixelBufferGetWidth(*(selfCopy + 25));
-        execute = [*(selfCopy + 18) postProcessDepth:*(selfCopy + 25) uncertainty:*(selfCopy + 26) filteredPointCloud:v125 outputDepth:*a10 outputUncertainty:v87 depthRoi:{(Width - v22) * 0.5, (CVPixelBufferGetHeight(*(selfCopy + 25)) - v24) * 0.5, v22, v24}];
+        v97 = CVPixelBufferGetWidth(*(selfCopy + 25));
+        execute = [*(selfCopy + 18) postProcessDepth:*(selfCopy + 25) uncertainty:*(selfCopy + 26) filteredPointCloud:v130 outputDepth:*a10 outputUncertainty:v92 depthRoi:{(v97 - v22) * 0.5, (CVPixelBufferGetHeight(*(selfCopy + 25)) - v24) * 0.5, v22, v24}];
         if (execute)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -565,21 +565,21 @@ LABEL_55:
           }
 
           LOWORD(buf.data) = 0;
-          v55 = MEMORY[0x277D86220];
-          v56 = "Failed depth post processing";
+          v60 = MEMORY[0x277D86220];
+          v61 = "Failed depth post processing";
           goto LABEL_55;
         }
 
-        [v127 logPixelBuffer:*a10 name:"outputProcessedDepth" timestamp:v32];
+        [v132 logPixelBuffer:*a10 name:"outputProcessedDepth" timestamp:v32];
         [timeProfiler stopWithUTFString:"postprocess depth"];
         kdebug_trace();
-        if (v124 >= 5)
+        if (v129 >= 5)
         {
           kdebug_trace();
           [timeProfiler startWithUTFString:"postprocess confidence"];
           if (a11)
           {
-            execute = [*(selfCopy + 18) postProcessUncertainty:v87 outputConfidence:*a11 confidenceUnits:0];
+            execute = [*(selfCopy + 18) postProcessUncertainty:v92 outputConfidence:*a11 confidenceUnits:0];
             if (execute)
             {
               if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -588,17 +588,17 @@ LABEL_55:
               }
 
               LOWORD(buf.data) = 0;
-              v55 = MEMORY[0x277D86220];
-              v56 = "Failed uncertainty post processing";
+              v60 = MEMORY[0x277D86220];
+              v61 = "Failed uncertainty post processing";
               goto LABEL_55;
             }
 
-            [v127 logPixelBuffer:*a11 name:"outputProcessedConfidence" timestamp:v32];
+            [v132 logPixelBuffer:*a11 name:"outputProcessedConfidence" timestamp:v32];
           }
 
           [timeProfiler stopWithUTFString:"postprocess confidence"];
           kdebug_trace();
-          if (v124 != 5)
+          if (v129 != 5)
           {
             kdebug_trace();
             [timeProfiler startWithUTFString:"postprocess previous depth"];
@@ -606,12 +606,12 @@ LABEL_55:
             {
               if (*(selfCopy + 27) && *(selfCopy + 28))
               {
-                v95 = *(selfCopy + 7);
+                v100 = *(selfCopy + 7);
                 inferenceDescriptor3 = [*(selfCopy + 18) inferenceDescriptor];
                 prevDepthInput = [inferenceDescriptor3 prevDepthInput];
                 inferenceDescriptor4 = [*(selfCopy + 18) inferenceDescriptor];
                 depthFeaturesOutput = [inferenceDescriptor4 depthFeaturesOutput];
-                execute = [v95 updateFeedbackLoopInputBuffer:selfCopy + 176 inputDescriptor:prevDepthInput outputBuffer:selfCopy + 216 outputDescriptor:depthFeaturesOutput];
+                execute = [v100 updateFeedbackLoopInputBuffer:selfCopy + 176 inputDescriptor:prevDepthInput outputBuffer:selfCopy + 216 outputDescriptor:depthFeaturesOutput];
 
                 if (execute)
                 {
@@ -621,17 +621,17 @@ LABEL_55:
                   }
 
                   LOWORD(buf.data) = 0;
-                  v55 = MEMORY[0x277D86220];
-                  v56 = "Failed updating previous depth buffer";
+                  v60 = MEMORY[0x277D86220];
+                  v61 = "Failed updating previous depth buffer";
                   goto LABEL_55;
                 }
 
-                v108 = *(selfCopy + 7);
+                v113 = *(selfCopy + 7);
                 inferenceDescriptor5 = [*(selfCopy + 18) inferenceDescriptor];
                 prevColorInput = [inferenceDescriptor5 prevColorInput];
                 inferenceDescriptor6 = [*(selfCopy + 18) inferenceDescriptor];
                 colorFeaturesOutput = [inferenceDescriptor6 colorFeaturesOutput];
-                execute = [v108 updateFeedbackLoopInputBuffer:selfCopy + 184 inputDescriptor:prevColorInput outputBuffer:selfCopy + 224 outputDescriptor:colorFeaturesOutput];
+                execute = [v113 updateFeedbackLoopInputBuffer:selfCopy + 184 inputDescriptor:prevColorInput outputBuffer:selfCopy + 224 outputDescriptor:colorFeaturesOutput];
 
                 if (execute)
                 {
@@ -641,20 +641,20 @@ LABEL_55:
                   }
 
                   LOWORD(buf.data) = 0;
-                  v55 = MEMORY[0x277D86220];
-                  v56 = "Failed updating previous color buffer";
+                  v60 = MEMORY[0x277D86220];
+                  v61 = "Failed updating previous color buffer";
                   goto LABEL_55;
                 }
               }
 
               else
               {
-                v99 = *(selfCopy + 7);
+                v104 = *(selfCopy + 7);
                 inferenceDescriptor7 = [*(selfCopy + 18) inferenceDescriptor];
                 prevDepthInput2 = [inferenceDescriptor7 prevDepthInput];
                 inferenceDescriptor8 = [*(selfCopy + 18) inferenceDescriptor];
                 depthOutput2 = [inferenceDescriptor8 depthOutput];
-                execute = [v99 updateFeedbackLoopInputBuffer:selfCopy + 176 inputDescriptor:prevDepthInput2 outputBuffer:selfCopy + 200 outputDescriptor:depthOutput2];
+                execute = [v104 updateFeedbackLoopInputBuffer:selfCopy + 176 inputDescriptor:prevDepthInput2 outputBuffer:selfCopy + 200 outputDescriptor:depthOutput2];
 
                 if (execute)
                 {
@@ -664,17 +664,17 @@ LABEL_55:
                   }
 
                   LOWORD(buf.data) = 0;
-                  v55 = MEMORY[0x277D86220];
-                  v56 = "Failed updating previous depth buffer";
+                  v60 = MEMORY[0x277D86220];
+                  v61 = "Failed updating previous depth buffer";
                   goto LABEL_55;
                 }
 
-                v103 = *(selfCopy + 7);
+                v108 = *(selfCopy + 7);
                 inferenceDescriptor9 = [*(selfCopy + 18) inferenceDescriptor];
                 prevColorInput2 = [inferenceDescriptor9 prevColorInput];
                 inferenceDescriptor10 = [*(selfCopy + 18) inferenceDescriptor];
                 colorInput = [inferenceDescriptor10 colorInput];
-                execute = [v103 updateFeedbackLoopInputBuffer:selfCopy + 184 inputDescriptor:prevColorInput2 outputBuffer:selfCopy + 152 outputDescriptor:colorInput];
+                execute = [v108 updateFeedbackLoopInputBuffer:selfCopy + 184 inputDescriptor:prevColorInput2 outputBuffer:selfCopy + 152 outputDescriptor:colorInput];
 
                 if (execute)
                 {
@@ -684,24 +684,24 @@ LABEL_55:
                   }
 
                   LOWORD(buf.data) = 0;
-                  v55 = MEMORY[0x277D86220];
-                  v56 = "Failed updating previous color buffer";
+                  v60 = MEMORY[0x277D86220];
+                  v61 = "Failed updating previous color buffer";
                   goto LABEL_55;
                 }
               }
 
               inferenceDescriptor11 = [*(selfCopy + 18) inferenceDescriptor];
               prevUncertaintyInput = [inferenceDescriptor11 prevUncertaintyInput];
-              v115 = prevUncertaintyInput == 0;
+              v120 = prevUncertaintyInput == 0;
 
-              if (!v115)
+              if (!v120)
               {
-                v116 = *(selfCopy + 7);
+                v121 = *(selfCopy + 7);
                 inferenceDescriptor12 = [*(selfCopy + 18) inferenceDescriptor];
                 prevUncertaintyInput2 = [inferenceDescriptor12 prevUncertaintyInput];
                 inferenceDescriptor13 = [*(selfCopy + 18) inferenceDescriptor];
                 uncertaintyOutput2 = [inferenceDescriptor13 uncertaintyOutput];
-                execute = [v116 updateFeedbackLoopInputBuffer:selfCopy + 192 inputDescriptor:prevUncertaintyInput2 outputBuffer:selfCopy + 208 outputDescriptor:uncertaintyOutput2];
+                execute = [v121 updateFeedbackLoopInputBuffer:selfCopy + 192 inputDescriptor:prevUncertaintyInput2 outputBuffer:selfCopy + 208 outputDescriptor:uncertaintyOutput2];
 
                 if (execute)
                 {
@@ -711,8 +711,8 @@ LABEL_55:
                   }
 
                   LOWORD(buf.data) = 0;
-                  v55 = MEMORY[0x277D86220];
-                  v56 = "Failed updating previous uncertainty buffer";
+                  v60 = MEMORY[0x277D86220];
+                  v61 = "Failed updating previous uncertainty buffer";
                   goto LABEL_55;
                 }
               }
@@ -720,7 +720,7 @@ LABEL_55:
 
             [timeProfiler stopWithUTFString:"postprocess previous depth"];
             kdebug_trace();
-            if (v124 >= 7)
+            if (v129 >= 7)
             {
               [selfCopy frameExecutionEnd];
               execute = 0;
@@ -734,7 +734,7 @@ LABEL_55:
 LABEL_31:
     execute = -22977;
 LABEL_70:
-    v78 = v125;
+    v83 = v130;
 LABEL_71:
 
     goto LABEL_72;

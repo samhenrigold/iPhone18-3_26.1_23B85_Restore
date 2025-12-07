@@ -1,6 +1,6 @@
 @interface CIMirror
 + (id)customAttributes;
-- (double)computeDOD:(float32x2_t)d@<D0> tst:(__n128)tst@<Q1> off:(int8x16_t)off@<Q2> mtx:(int8x16_t)mtx@<Q3>;
+- (double)computeDOD:(double)d@<D0> tst:(__n128)tst@<Q1> off:(__n128)off@<Q2> mtx:(__n128)mtx@<Q3>;
 - (id)outputImage;
 @end
 
@@ -35,7 +35,7 @@
   return [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 }
 
-- (double)computeDOD:(float32x2_t)d@<D0> tst:(__n128)tst@<Q1> off:(int8x16_t)off@<Q2> mtx:(int8x16_t)mtx@<Q3>
+- (double)computeDOD:(double)d@<D0> tst:(__n128)tst@<Q1> off:(__n128)off@<Q2> mtx:(__n128)mtx@<Q3>
 {
   [self[10] extent];
   x = v88.origin.x;
@@ -94,7 +94,7 @@
       v26 = a2[1];
       v85[0] = *a2;
       v85[1] = v26;
-      extendDOD(v85, &v86, vcvt_f32_f64(v22), d, tst, off, mtx);
+      extendDOD(v85, &v86, vcvt_f32_f64(v22), *&d, tst, off, mtx);
       v21 = v69;
       v20 = v64;
       v27 = v87;
@@ -110,7 +110,7 @@
       v31 = a2[1];
       v84[0] = *a2;
       v84[1] = v31;
-      extendDOD(v84, &v86, vcvt_f32_f64(v29), d, tst, off, mtx);
+      extendDOD(v84, &v86, vcvt_f32_f64(v29), *&d, tst, off, mtx);
       v32 = v87;
       *a2 = v86;
       a2[1] = v32;
@@ -142,7 +142,7 @@
       v42 = a2[1];
       v83[0] = *a2;
       v83[1] = v42;
-      extendDOD(v83, &v86, vcvt_f32_f64(v41), d, tst, off, mtx);
+      extendDOD(v83, &v86, vcvt_f32_f64(v41), *&d, tst, off, mtx);
       v35 = v65;
       v43 = v87;
       *a2 = v86;
@@ -160,7 +160,7 @@
       v48 = a2[1];
       v82[0] = *a2;
       v82[1] = v48;
-      extendDOD(v82, &v86, vcvt_f32_f64(v47), d, tst, off, mtx);
+      extendDOD(v82, &v86, vcvt_f32_f64(v47), *&d, tst, off, mtx);
       v35 = v65;
       v49 = v87;
       *a2 = v86;
@@ -176,7 +176,7 @@
   v52 = a2[1];
   v81[0] = *a2;
   v81[1] = v52;
-  extendDOD(v81, &v86, v50, d, tst, off, mtx);
+  extendDOD(v81, &v86, v50, *&d, tst, off, mtx);
   v53 = v87;
   *a2 = v86;
   a2[1] = v53;
@@ -186,7 +186,7 @@
   v55 = a2[1];
   v80[0] = *a2;
   v80[1] = v55;
-  extendDOD(v80, &v86, v54, d, tst, off, mtx);
+  extendDOD(v80, &v86, v54, *&d, tst, off, mtx);
   v56 = v87;
   *a2 = v86;
   a2[1] = v56;
@@ -196,14 +196,14 @@
   v58 = a2[1];
   v79[0] = *a2;
   v79[1] = v58;
-  extendDOD(v79, &v86, v57, d, tst, off, mtx);
+  extendDOD(v79, &v86, v57, *&d, tst, off, mtx);
   v59 = v87;
   *a2 = v86;
   a2[1] = v59;
   v60 = a2[1];
   v78[0] = *a2;
   v78[1] = v60;
-  extendDOD(v78, &v86, __PAIR64__(v68, v71), d, tst, off, mtx);
+  extendDOD(v78, &v86, __PAIR64__(v68, v71), *&d, tst, off, mtx);
   result = *v86.i64;
   v62 = v87;
   *a2 = v86;
@@ -316,9 +316,10 @@
   v58 = v28;
   v60 = v21;
   v56 = v36;
-  [CIMirror computeDOD:"computeDOD:tst:off:mtx:" tst:v21 off:v28.__sinval mtx:?];
-  Rectangle::integralize(&v73, 0.0001, &v72);
-  v73 = v72;
+  objc_msgSend_computeDOD_tst_off_mtx_(self, v21, v28.__sinval);
+  Rectangle::integralize(v72, &v73, 0.0001);
+  *&v73.var0 = v72[0];
+  *&v73.var2 = v72[1];
   _kernel = [(CIMirror *)self _kernel];
   v38 = v63;
   *(&v38 + 3) = v62;
@@ -361,7 +362,7 @@
   return [_kernel applyWithExtent:v65 roiCallback:inputImage inputImage:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v74, 4), v47, var1, v45, var3}];
 }
 
-void __23__CIMirror_outputImage__block_invoke(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
+void __23__CIMirror_outputImage__block_invoke(__n128 *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   if (CGRectIsInfinite(*&a2))
   {
@@ -412,12 +413,12 @@ void __23__CIMirror_outputImage__block_invoke(uint64_t a1, CGFloat a2, CGFloat a
     v59 = v13;
   }
 
-  v62 = *(a1 + 80);
-  v57 = *(a1 + 88);
-  v64 = *(a1 + 48);
-  v65 = *(a1 + 32);
-  v63 = *(a1 + 64);
-  v14 = *(a1 + 96);
+  v62 = a1[5].n128_u64[0];
+  v57 = a1[5].n128_u64[1];
+  v64 = a1[3];
+  v65 = a1[2];
+  v63 = a1[4];
+  v14 = a1[6].n128_f64[0];
   v55 = cos(v14);
   v15 = a5 + v10;
   v53 = a5 + v10;

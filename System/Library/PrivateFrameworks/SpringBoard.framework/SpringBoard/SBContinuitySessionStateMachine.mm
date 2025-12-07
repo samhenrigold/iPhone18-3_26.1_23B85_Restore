@@ -142,7 +142,7 @@ void __63___SBContinuitySessionStateMachine__updateCurrentStateReasons___block_i
   {
     if (WeakRetained[14] == 12)
     {
-      v4 = SBLogContinuityDisplay();
+      v4 = SBLogContinuityDisplay(WeakRetained);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(a1 + 32);
@@ -170,7 +170,7 @@ void __49___SBContinuitySessionStateMachine__moveToState___block_invoke(uint64_t
   {
     if (WeakRetained[14] == 12)
     {
-      v4 = SBLogContinuityDisplay();
+      v4 = SBLogContinuityDisplay(WeakRetained);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = NSStringFromSBContinuitySessionState(*(a1 + 48));

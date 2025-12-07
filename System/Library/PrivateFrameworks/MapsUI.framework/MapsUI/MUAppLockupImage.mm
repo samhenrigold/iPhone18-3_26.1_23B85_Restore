@@ -70,7 +70,7 @@ void __44__MUAppLockupImage_loadImageWithCompletion___block_invoke(uint64_t a1, 
 
 void __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_3(id *a1)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   v3 = WeakRetained;
   if (WeakRetained)
@@ -86,8 +86,8 @@ void __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_3(id *a1)
 
     v12 = [objc_alloc(MEMORY[0x1E69A8988]) initWithCGImage:objc_msgSend(a1[4] scale:{"CGImage"), v11}];
     v13 = objc_alloc(MEMORY[0x1E69A8A00]);
-    v29[0] = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+    v28[0] = v12;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
     v15 = [v13 initWithImages:v14];
 
     v16 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:v6 scale:{v8, v11}];
@@ -103,35 +103,33 @@ void __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_3(id *a1)
     v20 = [MEMORY[0x1E69DCAB8] imageWithCGImage:objc_msgSend(v19 scale:"CGImage") orientation:{0, v11}];
     if (MapKitIdiomIsMacCatalyst())
     {
-      v21 = v27;
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_4;
-      v27[3] = &unk_1E8218A68;
-      v22 = &v28;
-      objc_copyWeak(&v28, a1 + 7);
-      v27[4] = a1[6];
-      [MapsUIUtilities resizeImageIfNeeded:v20 toFrameSize:v27 displayScale:8.0 completion:8.0, v11];
+      v21 = v26;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_4;
+      v26[3] = &unk_1E8218A68;
+      v22 = &v27;
+      objc_copyWeak(&v27, a1 + 7);
+      v26[4] = a1[6];
+      [MapsUIUtilities resizeImageIfNeeded:v20 toFrameSize:v26 displayScale:8.0 completion:8.0, v11];
     }
 
     else
     {
-      v21 = v24;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_6;
-      v24[3] = &unk_1E82194C8;
-      v22 = &v26;
-      objc_copyWeak(&v26, a1 + 7);
-      v24[4] = v20;
-      v25 = a1[6];
-      [MapsUIUtilities performOnMainIfNecessary:v24];
+      v21 = v23;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_6;
+      v23[3] = &unk_1E82194C8;
+      v22 = &v25;
+      objc_copyWeak(&v25, a1 + 7);
+      v23[4] = v20;
+      v24 = a1[6];
+      [MapsUIUtilities performOnMainIfNecessary:v23];
     }
 
     objc_destroyWeak(v22);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __44__MUAppLockupImage_loadImageWithCompletion___block_invoke_4(uint64_t a1, void *a2)

@@ -185,9 +185,11 @@
 
 uint64_t __40__PHCloudIdentifier__notFoundIdentifier__block_invoke(uint64_t a1)
 {
-  _notFoundIdentifier_sNotFoundCloudIdentifier = [objc_alloc(*(a1 + 32)) initAsNotFoundIdentifier];
+  v1 = [objc_alloc(*(a1 + 32)) initAsNotFoundIdentifier];
+  v2 = _notFoundIdentifier_sNotFoundCloudIdentifier;
+  _notFoundIdentifier_sNotFoundCloudIdentifier = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 @end

@@ -118,20 +118,17 @@ LABEL_13:
   iconCopy = icon;
   iconHorizontalSpacingConstraint = self->_iconHorizontalSpacingConstraint;
   [iconCopy size];
-  v8 = v7 == 0.0;
-  v9 = 0.0;
-  if (v8)
+  if (v7 == 0.0)
   {
-    v9 = 1.0;
+    v8 = 1.0;
   }
 
-  v10 = SiriUIPlatterStyle[29];
-  if (!v8)
+  else
   {
-    v9 = SiriUIPlatterStyle[29];
+    v8 = SiriUIPlatterStyle[29];
   }
 
-  [(NSLayoutConstraint *)iconHorizontalSpacingConstraint setConstant:v9];
+  [(NSLayoutConstraint *)iconHorizontalSpacingConstraint setConstant:v8];
   [(UIImageView *)self->_iconImageView setImage:iconCopy];
 
   [(ACSettingsSwitchView *)self setNeedsLayout];

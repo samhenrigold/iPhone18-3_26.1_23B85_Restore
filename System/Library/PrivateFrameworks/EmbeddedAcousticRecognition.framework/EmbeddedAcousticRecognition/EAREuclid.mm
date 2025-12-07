@@ -10,7 +10,7 @@ void __82___EAREuclid_initWithConfiguration_euclidEncoderType_initFlag_language_
   v7 = v6;
   if (v6)
   {
-    [v6 ear_toString];
+    objc_msgSend_ear_toString(v6);
   }
 
   else
@@ -23,7 +23,7 @@ void __82___EAREuclid_initWithConfiguration_euclidEncoderType_initFlag_language_
   v8 = *(*(a1 + 32) + 8);
   if (v5)
   {
-    [v5 ear_toString];
+    objc_msgSend_ear_toString(v5);
   }
 
   else
@@ -34,7 +34,7 @@ void __82___EAREuclid_initWithConfiguration_euclidEncoderType_initFlag_language_
   }
 
   v15 = __p;
-  v9 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 48), __p);
+  v9 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 48), __p, &std::piecewise_construct, &v15);
   v10 = v9;
   if (*(v9 + 63) < 0)
   {

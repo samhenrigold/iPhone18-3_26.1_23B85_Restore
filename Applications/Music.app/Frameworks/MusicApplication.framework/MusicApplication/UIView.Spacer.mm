@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  sub_13C80(0, &qword_DFCB90);
+  sub_13C80(0, &qword_DFCB90, UIStackView_ptr);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
 
   return [ObjCClassFromMetadata layerClass];

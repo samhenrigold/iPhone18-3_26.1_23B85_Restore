@@ -19,31 +19,29 @@
 
 void __53__EKPersistentResourceChange_defaultPropertiesToLoad__block_invoke()
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992BF8];
-  v9[0] = *MEMORY[0x1E6992BF0];
-  v9[1] = v0;
+  v8[0] = *MEMORY[0x1E6992BF0];
+  v8[1] = v0;
   v1 = *MEMORY[0x1E6992C18];
-  v9[2] = *MEMORY[0x1E6992C10];
-  v9[3] = v1;
+  v8[2] = *MEMORY[0x1E6992C10];
+  v8[3] = v1;
   v2 = *MEMORY[0x1E6992C00];
-  v9[4] = *MEMORY[0x1E6992C20];
-  v9[5] = v2;
+  v8[4] = *MEMORY[0x1E6992C20];
+  v8[5] = v2;
   v3 = *MEMORY[0x1E6992C28];
-  v9[6] = *MEMORY[0x1E6992C58];
-  v9[7] = v3;
+  v8[6] = *MEMORY[0x1E6992C58];
+  v8[7] = v3;
   v4 = *MEMORY[0x1E6992C60];
-  v10 = *MEMORY[0x1E6992C30];
-  v11 = v4;
+  v9 = *MEMORY[0x1E6992C30];
+  v10 = v4;
   v5 = *MEMORY[0x1E6992C40];
-  v12 = v10;
-  v13 = v5;
-  v14 = *MEMORY[0x1E6992A90];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:13];
+  v11 = v9;
+  v12 = v5;
+  v13 = *MEMORY[0x1E6992A90];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:13];
   v7 = defaultPropertiesToLoad_defaultPropertiesToLoad_5;
   defaultPropertiesToLoad_defaultPropertiesToLoad_5 = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relations
@@ -60,22 +58,20 @@ void __53__EKPersistentResourceChange_defaultPropertiesToLoad__block_invoke()
 
 void __39__EKPersistentResourceChange_relations__block_invoke()
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFD8] setWithObject:*MEMORY[0x1E6992AD0]];
-  v7[0] = *MEMORY[0x1E6992BF0];
+  v6[0] = *MEMORY[0x1E6992BF0];
   v1 = [EKRelation relationWithEntityName:@"Calendar" toMany:0 inversePropertyNames:0 ownsRelated:0];
-  v8[0] = v1;
-  v7[1] = *MEMORY[0x1E6992BF8];
+  v7[0] = v1;
+  v6[1] = *MEMORY[0x1E6992BF8];
   v2 = [EKRelation relationWithEntityName:@"CalendarItem" toMany:0 inversePropertyNames:0 ownsRelated:0];
-  v8[1] = v2;
-  v7[2] = *MEMORY[0x1E6992C48];
+  v7[1] = v2;
+  v6[2] = *MEMORY[0x1E6992C48];
   v3 = [EKRelation relationWithEntityName:@"Notification" toMany:0 inversePropertyNames:v0 ownsRelated:0];
-  v8[2] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v7[2] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
   v5 = relations_relations_9;
   relations_relations_9 = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

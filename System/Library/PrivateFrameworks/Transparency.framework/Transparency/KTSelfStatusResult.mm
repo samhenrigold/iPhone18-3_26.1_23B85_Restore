@@ -122,46 +122,7 @@
     {
       v5 = equalCopy;
       optIn = [(KTSelfStatusResult *)self optIn];
-      if (optIn != [(KTSelfStatusResult *)v5 optIn])
-      {
-        goto LABEL_13;
-      }
-
-      everOptIn = [(KTSelfStatusResult *)self everOptIn];
-      if (everOptIn != [(KTSelfStatusResult *)v5 everOptIn])
-      {
-        goto LABEL_13;
-      }
-
-      accountStatus = [(KTSelfStatusResult *)self accountStatus];
-      if (accountStatus != [(KTSelfStatusResult *)v5 accountStatus])
-      {
-        goto LABEL_13;
-      }
-
-      systemStatus = [(KTSelfStatusResult *)self systemStatus];
-      if (systemStatus != [(KTSelfStatusResult *)v5 systemStatus])
-      {
-        goto LABEL_13;
-      }
-
-      selfStatus = [(KTSelfStatusResult *)self selfStatus];
-      if (selfStatus != [(KTSelfStatusResult *)v5 selfStatus])
-      {
-        goto LABEL_13;
-      }
-
-      idsAccountStatus = [(KTSelfStatusResult *)self idsAccountStatus];
-      if (idsAccountStatus != [(KTSelfStatusResult *)v5 idsAccountStatus])
-      {
-        goto LABEL_13;
-      }
-
-      selfDevices = [(KTSelfStatusResult *)self selfDevices];
-      selfDevices2 = [(KTSelfStatusResult *)v5 selfDevices];
-      v14 = [selfDevices isEqual:selfDevices2];
-
-      if (v14)
+      if (optIn == -[KTSelfStatusResult optIn](v5, "optIn") && (v7 = -[KTSelfStatusResult everOptIn](self, "everOptIn"), v7 == -[KTSelfStatusResult everOptIn](v5, "everOptIn")) && (v8 = -[KTSelfStatusResult accountStatus](self, "accountStatus"), v8 == -[KTSelfStatusResult accountStatus](v5, "accountStatus")) && (v9 = -[KTSelfStatusResult systemStatus](self, "systemStatus"), v9 == -[KTSelfStatusResult systemStatus](v5, "systemStatus")) && (v10 = -[KTSelfStatusResult selfStatus](self, "selfStatus"), v10 == -[KTSelfStatusResult selfStatus](v5, "selfStatus")) && (v11 = -[KTSelfStatusResult idsAccountStatus](self, "idsAccountStatus"), v11 == -[KTSelfStatusResult idsAccountStatus](v5, "idsAccountStatus")) && (-[KTSelfStatusResult selfDevices](self, "selfDevices"), v12 = objc_claimAutoreleasedReturnValue(), -[KTSelfStatusResult selfDevices](v5, "selfDevices"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v12 isEqual:v13], v13, v12, v14))
       {
         pendingStatusChanges = [(KTSelfStatusResult *)self pendingStatusChanges];
         v16 = pendingStatusChanges ^ [(KTSelfStatusResult *)v5 pendingStatusChanges]^ 1;
@@ -169,7 +130,6 @@
 
       else
       {
-LABEL_13:
         LOBYTE(v16) = 0;
       }
     }
@@ -240,7 +200,7 @@ LABEL_13:
 
 - (NSDictionary)diagnosticsJsonDictionary
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [dictionary setObject:@"2" forKeyedSubscript:@"copy_status_version"];
   v4 = KTOptInGetString([(KTSelfStatusResult *)self optIn]);
@@ -300,30 +260,30 @@ LABEL_13:
     selfDevices2 = [(KTSelfStatusResult *)self selfDevices];
     v18 = [v16 arrayWithCapacity:{objc_msgSend(selfDevices2, "count")}];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     selfDevices3 = [(KTSelfStatusResult *)self selfDevices];
-    v20 = [selfDevices3 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v20 = [selfDevices3 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v30;
+      v22 = *v29;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v30 != v22)
+          if (*v29 != v22)
           {
             objc_enumerationMutation(selfDevices3);
           }
 
-          diagnosticsJsonDictionary = [*(*(&v29 + 1) + 8 * i) diagnosticsJsonDictionary];
+          diagnosticsJsonDictionary = [*(*(&v28 + 1) + 8 * i) diagnosticsJsonDictionary];
           [v18 addObject:diagnosticsJsonDictionary];
         }
 
-        v21 = [selfDevices3 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v21 = [selfDevices3 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v21);
@@ -346,7 +306,6 @@ LABEL_13:
   }
 
   [dictionary setObject:v26 forKeyedSubscript:@"pendingChanges"];
-  v27 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

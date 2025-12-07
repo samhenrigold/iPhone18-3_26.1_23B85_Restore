@@ -27,28 +27,28 @@
   os_unfair_lock_lock(&self->_connectionLock);
   if (!self->_connection)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXXPC();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = WBS_LOG_CHANNEL_PREFIXXPC(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEFAULT, "Setting up XPC to SBSA", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEFAULT, "Setting up XPC to SBSA", buf, 2u);
     }
 
-    v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.SafariBookmarksSyncAgent" options:0];
+    v6 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.SafariBookmarksSyncAgent" options:0];
     connection = self->_connection;
-    self->_connection = v4;
+    self->_connection = v6;
 
-    v6 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F30A1300];
-    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v6];
+    v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F30A1300];
+    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v8];
     objc_initWeak(buf, self);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __65__WBSSafariBookmarksSyncAgentConnection__setUpConnectionIfNeeded__block_invoke;
-    v7[3] = &unk_1E7CF15E8;
-    objc_copyWeak(&v8, buf);
-    [(NSXPCConnection *)self->_connection setInvalidationHandler:v7];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __65__WBSSafariBookmarksSyncAgentConnection__setUpConnectionIfNeeded__block_invoke;
+    v9[3] = &unk_1E7CF15E8;
+    objc_copyWeak(&v10, buf);
+    [(NSXPCConnection *)self->_connection setInvalidationHandler:v9];
     [(NSXPCConnection *)self->_connection resume];
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(buf);
   }
 
@@ -64,11 +64,11 @@ void __65__WBSSafariBookmarksSyncAgentConnection__setUpConnectionIfNeeded__block
 - (void)_connectionDidInvalidate
 {
   os_unfair_lock_lock(&self->_connectionLock);
-  v3 = WBS_LOG_CHANNEL_PREFIXXPC();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5 = WBS_LOG_CHANNEL_PREFIXXPC(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1B8447000, v3, OS_LOG_TYPE_DEFAULT, "XPC to SBSA invalidated", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1B8447000, v5, OS_LOG_TYPE_DEFAULT, "XPC to SBSA invalidated", v7, 2u);
   }
 
   connection = self->_connection;

@@ -33,7 +33,7 @@
 
 - (void)beginSyncWithAnchor:(id)anchor validity:(id)validity forKey:(id)key beginInfo:(id)info
 {
-  v167 = *MEMORY[0x277D85DE8];
+  v166 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   validityCopy = validity;
   keyCopy = key;
@@ -43,13 +43,13 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF0D0], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v160 = "[ABAssistantSyncWorker beginSyncWithAnchor:validity:forKey:beginInfo:]";
-    v161 = 2112;
-    v162 = anchorCopy;
-    v163 = 2112;
-    v164 = validityCopy;
-    v165 = 2112;
-    v166 = keyCopy;
+    v159 = "[ABAssistantSyncWorker beginSyncWithAnchor:validity:forKey:beginInfo:]";
+    v160 = 2112;
+    v161 = anchorCopy;
+    v162 = 2112;
+    v163 = validityCopy;
+    v164 = 2112;
+    v165 = keyCopy;
     _os_log_debug_impl(&dword_2334BB000, v15, OS_LOG_TYPE_DEBUG, "%s > beginSyncWithAnchor:%@ validity:%@ forKey:%@", buf, 0x2Au);
   }
 
@@ -60,7 +60,7 @@
   v25 = objc_msgSend_getCurrentValidity(self, v22, v23);
   if (v25)
   {
-    v157 = validityCopy;
+    v156 = validityCopy;
     if ((objc_msgSend_isEqualToString_(validityCopy, v24, v25) & 1) == 0)
     {
       if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEBUG))
@@ -75,7 +75,7 @@
     }
 
     v31 = objc_msgSend_contactStore(v18, v26, v27);
-    v158 = anchorCopy;
+    v157 = anchorCopy;
     v33 = objc_msgSend_anchorWithString_forContactStore_(ABAssistantSyncAnchor, v32, anchorCopy, v31);
 
     if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEBUG))
@@ -119,7 +119,7 @@
       objc_msgSend_clearChangeHistoryToSyncAnchor_(v18, v54, v33);
     }
 
-    v156 = v36;
+    v155 = v36;
     if (objc_msgSend_shouldFullSync(v33, v51, v52))
     {
       if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEBUG))
@@ -127,7 +127,7 @@
         sub_2334C3208();
       }
 
-      v154 = infoCopy;
+      v153 = infoCopy;
       if ((objc_msgSend_shouldResumePreviousFullSync(v33, v57, v58) & 1) == 0)
       {
         v61 = objc_msgSend_contactStore(v18, v59, v60);
@@ -142,7 +142,7 @@
           sub_2334C3288();
         }
 
-        objc_msgSend_resetCurrentSyncSnapshot(v18, v71, v72, v154, v156);
+        objc_msgSend_resetCurrentSyncSnapshot(v18, v71, v72, v153, v155);
       }
 
       if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEBUG))
@@ -150,7 +150,7 @@
         sub_2334C3310();
       }
 
-      objc_msgSend_clearSyncCache(self, v73, v74, v154);
+      objc_msgSend_clearSyncCache(self, v73, v74, v153);
       v77 = objc_msgSend_contactsForFullSync(v18, v75, v76);
       objc_msgSend_setAllContacts_(self, v78, v77);
 
@@ -234,14 +234,14 @@ LABEL_49:
         }
       }
 
-      anchorCopy = v158;
-      infoCopy = v155;
+      anchorCopy = v157;
+      infoCopy = v154;
     }
 
     else
     {
       v117 = v33;
-      anchorCopy = v158;
+      anchorCopy = v157;
     }
 
     if (!objc_msgSend_syncCount(self, v55, v56))
@@ -276,20 +276,18 @@ LABEL_49:
       sub_2334C37F8();
     }
 
-    validityCopy = v157;
+    validityCopy = v156;
   }
 
   else if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEBUG))
   {
     sub_2334C3878();
   }
-
-  v153 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_saDomainObjectWithReadactMeCard:(id)card
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   cardCopy = card;
   v7 = objc_msgSend_delegate(self, v5, v6);
   objc_opt_class();
@@ -300,8 +298,8 @@ LABEL_49:
   if (isKindOfClass)
   {
     v13 = MEMORY[0x277CFBC48];
-    v25[0] = v9;
-    v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v25, 1);
+    v24[0] = v9;
+    v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v24, 1);
     v17 = objc_msgSend_contactStore(v7, v15, v16);
     objc_msgSend_markMeContactInPeople_usingStore_(v13, v18, v14, v17);
 
@@ -320,14 +318,12 @@ LABEL_49:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)getChangeAfterAnchor:(id)anchor changeInfo:(id)info
 {
-  v197 = *MEMORY[0x277D85DE8];
+  v196 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   infoCopy = info;
   v8 = MEMORY[0x277CEF0D0];
@@ -340,7 +336,7 @@ LABEL_49:
   if (objc_msgSend_syncAvailable(self, v12, v13))
   {
     v16 = objc_msgSend_syncIndex(self, v14, v15);
-    v186 = anchorCopy;
+    v185 = anchorCopy;
     if (v16 < objc_msgSend_syncCount(self, v17, v18))
     {
       v21 = objc_msgSend_allContacts(self, v19, v20);
@@ -382,11 +378,11 @@ LABEL_49:
             v88 = objc_msgSend_identifier(v85, v86, v87);
             v91 = objc_msgSend_postAnchor(infoCopy, v89, v90);
             *buf = 136315650;
-            v188 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
-            v189 = 2112;
-            v190 = v88;
-            v191 = 2112;
-            v192 = v91;
+            v187 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
+            v188 = 2112;
+            v189 = v88;
+            v190 = 2112;
+            v191 = v91;
             _os_log_debug_impl(&dword_2334BB000, v82, OS_LOG_TYPE_DEBUG, "%s change sync found next contact to sync, changeInfo.object=%@, changeInfo.postAnchor=%@", buf, 0x20u);
           }
 
@@ -407,9 +403,9 @@ LABEL_49:
               v58 = v76;
               v61 = objc_msgSend_postAnchor(infoCopy, v92, v93);
               *buf = 136315394;
-              v188 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
-              v189 = 2112;
-              v190 = v61;
+              v187 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
+              v188 = 2112;
+              v189 = v61;
               v62 = v58;
               v63 = "%s full sync synthesizing end anchor, changeInfo.postAnchor = %@";
               goto LABEL_18;
@@ -428,9 +424,9 @@ LABEL_49:
               v58 = v55;
               v61 = objc_msgSend_postAnchor(infoCopy, v59, v60);
               *buf = 136315394;
-              v188 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
-              v189 = 2112;
-              v190 = v61;
+              v187 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
+              v188 = 2112;
+              v189 = v61;
               v62 = v58;
               v63 = "%s full sync record anchor, changeInfo.postAnchor = %@";
 LABEL_18:
@@ -490,15 +486,15 @@ LABEL_18:
           v172 = objc_msgSend_changeAnchor(v112, v170, v171);
           v175 = objc_msgSend_sequenceNumber(v172, v173, v174);
           *buf = 136316162;
-          v188 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
-          v189 = 2048;
-          v190 = v163;
-          v191 = 2112;
-          v192 = v166;
-          v193 = 2048;
-          v194 = v169;
-          v195 = 2048;
-          v196 = v175;
+          v187 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
+          v188 = 2048;
+          v189 = v163;
+          v190 = 2112;
+          v191 = v166;
+          v192 = 2048;
+          v193 = v169;
+          v194 = 2048;
+          v195 = v175;
           _os_log_debug_impl(&dword_2334BB000, log, OS_LOG_TYPE_DEBUG, "%s self.syncIndex = %li, contactIdentifier = %@, changeType = %li, sequenceNumber = %li", buf, 0x34u);
         }
 
@@ -518,9 +514,9 @@ LABEL_18:
             v132 = objc_msgSend_object(infoCopy, v130, v131);
             v135 = objc_msgSend_identifier(v132, v133, v134);
             *buf = 136315394;
-            v188 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
-            v189 = 2112;
-            v190 = v135;
+            v187 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
+            v188 = 2112;
+            v189 = v135;
             v136 = v129;
             v137 = "%s change sync found next contact to sync, changeInfo.isDelete=YES, changeInfo.object=%@";
 LABEL_39:
@@ -541,9 +537,9 @@ LABEL_39:
             v132 = objc_msgSend_object(infoCopy, v180, v181);
             v135 = objc_msgSend_identifier(v132, v182, v183);
             *buf = 136315394;
-            v188 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
-            v189 = 2112;
-            v190 = v135;
+            v187 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
+            v188 = 2112;
+            v189 = v135;
             v136 = v129;
             v137 = "%s change sync found next contact to sync, changeInfo.object=%@";
             goto LABEL_39;
@@ -562,9 +558,9 @@ LABEL_39:
           v176 = v153;
           v179 = objc_msgSend_postAnchor(infoCopy, v177, v178);
           *buf = 136315394;
-          v188 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
-          v189 = 2112;
-          v190 = v179;
+          v187 = "[ABAssistantSyncWorker getChangeAfterAnchor:changeInfo:]";
+          v188 = 2112;
+          v189 = v179;
           _os_log_debug_impl(&dword_2334BB000, v176, OS_LOG_TYPE_DEBUG, "%s change sync anchor, changeInfo.postAnchor = %@", buf, 0x16u);
         }
 
@@ -589,7 +585,7 @@ LABEL_39:
     objc_msgSend_setObject_(infoCopy, v95, 0);
     objc_msgSend_clearSyncCache(self, v96, v97);
 LABEL_44:
-    anchorCopy = v186;
+    anchorCopy = v185;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
     {
       sub_2334C3D88();
@@ -600,8 +596,6 @@ LABEL_44:
   {
     sub_2334C3A18();
   }
-
-  v184 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncDidEnd

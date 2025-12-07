@@ -34,7 +34,7 @@
 - (id)searchSuggestionWithNextTokenPairing
 {
   pairedSuggestions = [(PSILocationSuggestionPair *)self pairedSuggestions];
-  if ([pairedSuggestions count])
+  if (objc_msgSend_count(pairedSuggestions))
   {
     v3 = [pairedSuggestions objectAtIndexedSubscript:0];
   }
@@ -44,7 +44,7 @@
     v3 = 0;
   }
 
-  if ([pairedSuggestions count] < 2)
+  if (objc_msgSend_count(pairedSuggestions) < 2)
   {
     v5 = 0;
   }

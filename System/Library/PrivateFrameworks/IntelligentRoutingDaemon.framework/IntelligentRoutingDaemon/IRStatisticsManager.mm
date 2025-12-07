@@ -14,11 +14,11 @@
 
 - (IRStatisticsManager)initWithStore:(id)store
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   storeCopy = store;
-  v12.receiver = self;
-  v12.super_class = IRStatisticsManager;
-  v5 = [(IRStatisticsManager *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = IRStatisticsManager;
+  v5 = [(IRStatisticsManager *)&v11 init];
   v6 = v5;
   if (v5 && ([(IRStatisticsManager *)v5 setStore:storeCopy], [(IRStatisticsManager *)v6 setMode:0], ![(IRStatisticsManager *)v6 _initStatistics]))
   {
@@ -27,9 +27,9 @@
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "#statistics-manager, ";
-      v15 = 2112;
-      v16 = v8;
+      v13 = "#statistics-manager, ";
+      v14 = 2112;
+      v15 = v8;
       _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Statistics init error] Couldnt fetch statistics", buf, 0x16u);
     }
 
@@ -41,13 +41,12 @@
     v7 = v6;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)contextChangedWithReason:(id)reason mode:(int64_t)mode miloPrediction:(id)prediction date:(id)date
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   predictionCopy = prediction;
   dateCopy = date;
@@ -71,21 +70,19 @@
       v17 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
       {
-        v19 = 136315394;
-        v20 = "#statistics-manager, ";
-        v21 = 2112;
-        v22 = v16;
-        _os_log_impl(&dword_25543D000, v17, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Statistics update error context] Couldnt update statistics upon context change", &v19, 0x16u);
+        v18 = 136315394;
+        v19 = "#statistics-manager, ";
+        v20 = 2112;
+        v21 = v16;
+        _os_log_impl(&dword_25543D000, v17, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Statistics update error context] Couldnt update statistics upon context change", &v18, 0x16u);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)event:(id)event forCandidate:(id)candidate inspections:(id)inspections date:(id)date
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   candidateCopy = candidate;
   inspectionsCopy = inspections;
@@ -105,12 +102,12 @@
 
         v18 = [inspectionsCopy objectForKeyedSubscript:*MEMORY[0x277D21250]];
         candidates = [v18 candidates];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __59__IRStatisticsManager_event_forCandidate_inspections_date___block_invoke;
-        v30[3] = &unk_2797E20C8;
-        v31 = candidateCopy;
-        v20 = [candidates firstWhere:v30];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __59__IRStatisticsManager_event_forCandidate_inspections_date___block_invoke;
+        v29[3] = &unk_2797E20C8;
+        v30 = candidateCopy;
+        v20 = [candidates firstWhere:v29];
 
         if (v20)
         {
@@ -131,17 +128,15 @@
           if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v33 = "#statistics-manager, ";
-            v34 = 2112;
-            v35 = v27;
+            v32 = "#statistics-manager, ";
+            v33 = 2112;
+            v34 = v27;
             _os_log_impl(&dword_25543D000, v28, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Statistics update error event] Couldnt update statistics upon adding event", buf, 0x16u);
           }
         }
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __59__IRStatisticsManager_event_forCandidate_inspections_date___block_invoke(uint64_t a1, void *a2)
@@ -167,7 +162,7 @@ BOOL __59__IRStatisticsManager_event_forCandidate_inspections_date___block_invok
 
 - (void)clearStatistics:(id)statistics
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [IRStatisticsDO statisticsDOWithNumberOfContextChanges:0 numberOfMiLoPredictions:0 numberOfMiLoPredictionsInUpdatesMode:0 lastMiLoLSLItems:0 lastMiLoQualityReasonBitmap:0 lastMiLoQuality:0 lastMiLoModels:0 timeInUpdatesModeInSeconds:0 numberOfPickerChoiceEvents:0 numberOfCorrectPickerChoiceEvents:0 lastClearDate:statistics];
   [(IRStatisticsManager *)self setStatistics:v4];
 
@@ -182,14 +177,12 @@ BOOL __59__IRStatisticsManager_event_forCandidate_inspections_date___block_invok
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "#statistics-manager, ";
-      v13 = 2112;
-      v14 = v8;
+      v11 = "#statistics-manager, ";
+      v12 = 2112;
+      v13 = v8;
       _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Statistics clear error] Couldnt clear statistics", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bannerContextWithDate:(id)date

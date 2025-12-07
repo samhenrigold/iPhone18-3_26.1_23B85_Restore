@@ -24,7 +24,7 @@
 
 - (id)startMonitoringForScenarioTriggerTypes:(unint64_t)types handler:(id)handler
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (handlerCopy)
   {
@@ -46,13 +46,11 @@
   else
   {
     v10 = MEMORY[0x1E696ABC0];
-    v15 = *MEMORY[0x1E696A578];
-    v16[0] = @"Invalid parameter value for handler.  Requires non-nil value.";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x1E696A578];
+    v15[0] = @"Invalid parameter value for handler.  Requires non-nil value.";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v10 errorWithDomain:@"RTErrorDomain" code:7 userInfo:v11];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -79,7 +77,7 @@
 
 - (void)onScenarioTriggers:(id)triggers error:(id)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   triggersCopy = triggers;
   errorCopy = error;
   monitoredScenarioTriggerTypes = self->_monitoredScenarioTriggerTypes;
@@ -114,15 +112,15 @@
       [v9 componentsJoinedByString:{@", "}];
       v15 = v14 = v9;
       *buf = 138413314;
-      v36 = v12;
-      v37 = 2112;
-      v38 = v13;
-      v39 = 2112;
-      v40 = v15;
-      v41 = 2112;
-      v42 = triggersCopy;
-      v43 = 2112;
-      v44 = errorCopy;
+      v35 = v12;
+      v36 = 2112;
+      v37 = v13;
+      v38 = 2112;
+      v39 = v15;
+      v40 = 2112;
+      v41 = triggersCopy;
+      v42 = 2112;
+      v43 = errorCopy;
       _os_log_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_INFO, "%@, registered, %@, monitoredScenarioTriggerTypes, %@, scenarioTriggers, %@, error, %@", buf, 0x34u);
 
       v9 = v14;
@@ -131,28 +129,28 @@
 
   if (self->_registered)
   {
-    v27 = v9;
-    v28 = triggersCopy;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v26 = v9;
+    v27 = triggersCopy;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v16 = triggersCopy;
-    v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v31;
+      v19 = *v30;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v31 != v19)
+          if (*v30 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v30 + 1) + 8 * i);
+          v21 = *(*(&v29 + 1) + 8 * i);
           v22 = self->_monitoredScenarioTriggerTypes;
           if (([v21 type] & v22) != 0)
           {
@@ -166,17 +164,15 @@
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v18);
     }
 
-    v9 = v27;
-    triggersCopy = v28;
+    v9 = v26;
+    triggersCopy = v27;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

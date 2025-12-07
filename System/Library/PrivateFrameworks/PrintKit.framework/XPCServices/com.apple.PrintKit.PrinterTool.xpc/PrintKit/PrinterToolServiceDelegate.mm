@@ -7,7 +7,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = getPrintdRPCProtocolInterface();
+  v5 = getPrintdRPCProtocolInterface(connectionCopy);
   [connectionCopy setExportedInterface:v5];
 
   v6 = [[PrintdRPCService alloc] initWithXPCConnection:connectionCopy];

@@ -71,7 +71,7 @@
 
 + (id)modelInfoVersionWithAssetPath:(id)path taskHint:(int64_t)hint
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v6 = [SFModelTaskSet modelInfoWithAssetPath:pathCopy taskHint:hint];
   v7 = v6;
@@ -85,24 +85,22 @@
     v9 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "+[SFModelTaskSet modelInfoVersionWithAssetPath:taskHint:]";
-      v14 = 2112;
-      v15 = pathCopy;
-      _os_log_error_impl(&dword_1AC5BC000, v9, OS_LOG_TYPE_ERROR, "%s Unable evaluate model at path: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[SFModelTaskSet modelInfoVersionWithAssetPath:taskHint:]";
+      v13 = 2112;
+      v14 = pathCopy;
+      _os_log_error_impl(&dword_1AC5BC000, v9, OS_LOG_TYPE_ERROR, "%s Unable evaluate model at path: %@", &v11, 0x16u);
     }
 
     version = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return version;
 }
 
 + (id)modelInfoWithAssetPath:(id)path taskHint:(int64_t)hint
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v6 = [SFEntitledAssetManager jsonFilenameForAssetType:SFEntitledAssetTypeForTaskHint(hint)];
   v7 = [pathCopy stringByAppendingPathComponent:v6];
@@ -121,11 +119,11 @@
       v12 = SFLogFramework;
       if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
       {
-        v15 = 136315394;
-        v16 = "+[SFModelTaskSet modelInfoWithAssetPath:taskHint:]";
-        v17 = 2112;
-        v18 = v7;
-        _os_log_error_impl(&dword_1AC5BC000, v12, OS_LOG_TYPE_ERROR, "%s Unable to read file at path: %@", &v15, 0x16u);
+        v14 = 136315394;
+        v15 = "+[SFModelTaskSet modelInfoWithAssetPath:taskHint:]";
+        v16 = 2112;
+        v17 = v7;
+        _os_log_error_impl(&dword_1AC5BC000, v12, OS_LOG_TYPE_ERROR, "%s Unable to read file at path: %@", &v14, 0x16u);
       }
     }
   }
@@ -135,22 +133,20 @@
     v11 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "+[SFModelTaskSet modelInfoWithAssetPath:taskHint:]";
-      _os_log_error_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_ERROR, "%s Path cannot be nil.", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[SFModelTaskSet modelInfoWithAssetPath:taskHint:]";
+      _os_log_error_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_ERROR, "%s Path cannot be nil.", &v14, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)taskSetWithAssetPath:(id)path
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v4 = [SFModelTaskSet modelInfoWithAssetPath:pathCopy taskHint:1001];
   if (v4)
@@ -165,17 +161,15 @@
     v8 = SFLogFramework;
     if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "+[SFModelTaskSet taskSetWithAssetPath:]";
-      v13 = 2112;
-      v14 = pathCopy;
-      _os_log_error_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_ERROR, "%s Unable evaluate model at path: %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "+[SFModelTaskSet taskSetWithAssetPath:]";
+      v12 = 2112;
+      v13 = pathCopy;
+      _os_log_error_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_ERROR, "%s Unable evaluate model at path: %@", &v10, 0x16u);
     }
 
     v7 = +[SFModelTaskSet set];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -43,7 +43,7 @@
   v4 = OBJC_IVAR____TtC8CameraUIP33_B4AB758274177FA425381CC8A1577C4311EffectLayer_warpBackdrop;
   *(&self->super.super.isa + v4) = [objc_allocWithZone(MEMORY[0x1E6979310]) init];
   *(&self->super.super.isa + OBJC_IVAR____TtC8CameraUIP33_B4AB758274177FA425381CC8A1577C4311EffectLayer_configuration) = xmmword_1A3A6A8C0;
-  result = sub_1A3A32070();
+  result = sub_1A3A32070("Fatal error", 11, 2, 0xD000000000000025, 0x80000001A3AA4060, "CameraUI/ModeWheelOverlay.swift", 31, 2, 202, 0);
   __break(1u);
   return result;
 }

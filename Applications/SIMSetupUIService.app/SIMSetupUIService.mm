@@ -77,7 +77,7 @@ void sub_100002950(uint64_t a1, void *a2)
 
   else
   {
-    v5 = sub_10000C1BC();
+    v5 = sub_10000C1BC(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 136315138;
@@ -90,23 +90,24 @@ void sub_100002950(uint64_t a1, void *a2)
 uint64_t sub_100002C08(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v9 = WeakRetained;
+    v8 = WeakRetained;
     if ([*(a1 + 32) isEqualToString:kCTSIMSupportSIMStatusPermanentlyLocked])
     {
-      v3 = [v9[3] entryView];
-      [v3 resignFirstResponder];
+      v4 = [v8[3] entryView];
+      [v4 resignFirstResponder];
 
-      v4 = v9;
+      v3 = v8;
       v5 = 6;
     }
 
     else
     {
-      v6 = [*(a1 + 32) isEqualToString:kCTSIMSupportSIMStatusPUKLocked];
-      v4 = v9;
-      if (!v6)
+      WeakRetained = [*(a1 + 32) isEqualToString:kCTSIMSupportSIMStatusPUKLocked];
+      v3 = v8;
+      if (!WeakRetained)
       {
         goto LABEL_7;
       }
@@ -114,30 +115,33 @@ uint64_t sub_100002C08(uint64_t a1)
       v5 = 5;
     }
 
-    v7 = [v4 delegate];
-    [v7 unlockDetailViewController:v9 didCompleteWithResult:v5];
+    v6 = [v3 delegate];
+    [v6 unlockDetailViewController:v8 didCompleteWithResult:v5];
+
+    v3 = v8;
   }
 
 LABEL_7:
 
-  return _objc_release_x1();
+  return _objc_release_x1(WeakRetained, v3);
 }
 
 void sub_1000036FC(uint64_t a1)
 {
   state64 = 0;
   notify_get_state(*(*(a1 + 32) + 8), &state64);
-  if (sub_10000C244())
+  v2 = sub_10000C244();
+  if (v2)
   {
-    v2 = sub_10000C1BC();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = sub_10000C1BC(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000ED5C(&state64, v2);
+      sub_10000ED5C(&state64, v3);
     }
   }
 
-  v3 = [*(a1 + 32) delegate];
-  [v3 screenLockDidUpdate:state64 == 1];
+  v4 = [*(a1 + 32) delegate];
+  [v4 screenLockDidUpdate:state64 == 1];
 }
 
 int64_t sub_100003808(id a1, CTXPCServiceSubscriptionContext *a2, CTXPCServiceSubscriptionContext *a3)
@@ -190,7 +194,7 @@ void sub_100003FFC(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = sub_10000C1BC();
+  v5 = sub_10000C1BC(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10000EE04(v3, v5);
@@ -264,8 +268,7 @@ void sub_100004744(uint64_t a1)
 
     if ((v5 & 1) == 0)
     {
-      [v4 setCarrierName:*(a1 + 40)];
-      v7 = sub_10000C1BC();
+      v7 = sub_10000C1BC([v4 setCarrierName:*(a1 + 40)]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [v4 carrierName];
@@ -294,8 +297,7 @@ void sub_100004A38(uint64_t a1)
 
     if ((v5 & 1) == 0)
     {
-      [v4 setPhoneNumber:*(a1 + 40)];
-      v7 = sub_10000C1BC();
+      v7 = sub_10000C1BC([v4 setPhoneNumber:*(a1 + 40)]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [v4 phoneNumber];
@@ -316,19 +318,18 @@ void sub_100004E60(uint64_t a1)
   v2 = *(a1 + 32);
   if (v2[2] && (v3 = [*(a1 + 40) slotID], v2 = *(a1 + 32), v3 != v2[2]))
   {
-    v6 = sub_10000C1BC();
+    v6 = sub_10000C1BC(v2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(*(a1 + 32) + 16);
-      v8 = CTSubscriptionSlotAsString();
+      v7 = CTSubscriptionSlotAsString();
       [*(a1 + 40) slotID];
-      v9 = 136315650;
-      v10 = v8;
-      v11 = 2080;
-      v12 = CTSubscriptionSlotAsString();
-      v13 = 2080;
-      v14 = "[TSSIMUnlockViewController _queue_processSubscriptionContext:withSubscriptionSIMStatus:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "user selected slot %s, ignoring slot %s @%s", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = v7;
+      v10 = 2080;
+      v11 = CTSubscriptionSlotAsString();
+      v12 = 2080;
+      v13 = "[TSSIMUnlockViewController _queue_processSubscriptionContext:withSubscriptionSIMStatus:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "user selected slot %s, ignoring slot %s @%s", &v8, 0x20u);
     }
   }
 
@@ -359,9 +360,9 @@ id sub_1000058BC(uint64_t a1)
   return [v2 terminateWithSuccess];
 }
 
-void sub_1000059E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000059E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -379,10 +380,11 @@ void sub_100005A00(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
   *a4 = *(*(*(a1 + 40) + 8) + 24) != 0x7FFFFFFFFFFFFFFFLL;
 }
 
-void sub_100005B9C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005B9C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 const __CFString *sub_1000071C0(unint64_t a1)
@@ -460,30 +462,31 @@ void sub_10000A140(uint64_t a1, void *a2)
 {
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v5 = [WeakRetained presentProxCardFlowWithDelegate:WeakRetained initialViewController:v3];
-    v6 = objc_loadWeakRetained((a1 + 40));
-    [v6 setPkNavigationController:v5];
+    v6 = [WeakRetained presentProxCardFlowWithDelegate:WeakRetained initialViewController:v3];
+    v7 = objc_loadWeakRetained((a1 + 40));
+    [v7 setPkNavigationController:v6];
   }
 
   else
   {
-    v7 = sub_10000C1BC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_10000C1BC(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10000F434(v3, v7);
+      sub_10000F434(v3, v8);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained simSetupFlowCompleted:1];
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v9 = *(a1 + 32);
+  if (v9)
   {
-    (*(v8 + 16))();
+    (*(v9 + 16))();
   }
 }
 
@@ -541,23 +544,25 @@ void sub_10000BC14(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-id sub_10000C1BC()
+id sub_10000C1BC(uint64_t a1)
 {
   if (qword_100025E18 != -1)
   {
     sub_10000F668();
   }
 
-  v1 = qword_100025E10;
+  v2 = qword_100025E10;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000C200(id a1)
 {
-  qword_100025E10 = os_log_create("com.apple.SIMSetupUIService", "log");
+  v1 = os_log_create("com.apple.SIMSetupUIService", "log");
+  v2 = qword_100025E10;
+  qword_100025E10 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000CD20(id a1)
@@ -573,17 +578,18 @@ void sub_10000D510(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = [WeakRetained presentProxCardFlowWithDelegate:WeakRetained initialViewController:v3];
-      v6 = WeakRetained[3];
-      WeakRetained[3] = v5;
+      v6 = [WeakRetained presentProxCardFlowWithDelegate:WeakRetained initialViewController:v3];
+      v7 = WeakRetained[3];
+      WeakRetained[3] = v6;
     }
 
     else
     {
-      v7 = sub_10000C1BC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_10000C1BC(isKindOfClass);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10000F7FC();
       }
@@ -604,17 +610,18 @@ void sub_10000D5F8(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = [WeakRetained presentProxCardFlowWithDelegate:WeakRetained initialViewController:v3];
-      v6 = WeakRetained[3];
-      WeakRetained[3] = v5;
+      v6 = [WeakRetained presentProxCardFlowWithDelegate:WeakRetained initialViewController:v3];
+      v7 = WeakRetained[3];
+      WeakRetained[3] = v6;
     }
 
     else
     {
-      v7 = sub_10000C1BC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_10000C1BC(isKindOfClass);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10000F7FC();
       }
@@ -637,7 +644,7 @@ uint64_t sub_10000D6EC(uint64_t a1, uint64_t a2)
 
   else
   {
-    v3 = sub_10000C1BC();
+    v3 = sub_10000C1BC(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10000F878();
@@ -754,7 +761,7 @@ Class sub_10000E310(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -774,7 +781,6 @@ LABEL_4:
 
 uint64_t sub_10000E454(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100025E28 = result;
   return result;
@@ -874,6 +880,34 @@ void sub_10000EE04(uint64_t a1, NSObject *a2)
   v4 = 2080;
   v5 = "[TSSIMUnlockViewController prepareForActivationWithContext:completion:]_block_invoke_2";
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "[Db] subscription info: %@ @%s", &v2, 0x16u);
+}
+
+void sub_10000EE90(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSIMUnlockViewController carrierBundleChange:]";
+  sub_100005B9C(&_mh_execute_header, a1, a3, "[E]Invalid carrier name found @%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000EF08(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSIMUnlockViewController carrierBundleChange:]";
+  sub_100005B9C(&_mh_execute_header, a1, a3, "[E]context not found @%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000EF80(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSIMUnlockViewController phoneNumberChanged:]";
+  sub_100005B9C(&_mh_execute_header, a1, a3, "[E]No phone number found @%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000EFF8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSSIMUnlockViewController phoneNumberChanged:]";
+  sub_100005B9C(&_mh_execute_header, a1, a3, "[E]context not found @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10000F070(void *a1, uint64_t a2, NSObject *a3)

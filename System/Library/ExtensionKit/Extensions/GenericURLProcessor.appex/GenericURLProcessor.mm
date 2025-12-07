@@ -98,7 +98,6 @@ uint64_t sub_10000192C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -111,7 +110,6 @@ uint64_t sub_100001974(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -226,59 +224,57 @@ uint64_t sub_100001EA0(void *a1, uint64_t a2)
     swift_once();
   }
 
-  v4 = type metadata accessor for Logger();
-  sub_100001DE0(v4, qword_10000CC20);
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v5, v6))
+  v3 = type metadata accessor for Logger();
+  sub_100001DE0(v3, qword_10000CC20);
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "Accepting XPC connection", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "Accepting XPC connection", v6, 2u);
   }
 
-  v8 = *(a2 + 16);
   [a1 setExportedObject:_bridgeAnythingToObjectiveC<A>(_:)()];
   swift_unknownObjectRelease();
-  v9 = [objc_opt_self() interfaceWithProtocol:&OBJC_PROTOCOL___NFBackgroundTagReadingExtensionProtocol];
+  v7 = [objc_opt_self() interfaceWithProtocol:&OBJC_PROTOCOL___NFBackgroundTagReadingExtensionProtocol];
   sub_100001974(&qword_10000C9E0, &qword_100004D68);
-  v10 = swift_allocObject();
-  *(v10 + 16) = xmmword_100004D00;
-  v11 = sub_100002350(0, &qword_10000C9E8, NFNdefMessageInternal_ptr);
-  *(v10 + 56) = sub_100001974(&qword_10000C9F0, &qword_100004D70);
-  *(v10 + 32) = v11;
-  v12 = sub_100002350(0, &qword_10000C9F8, NFNdefRecordInternal_ptr);
-  *(v10 + 88) = sub_100001974(&qword_10000CA00, &qword_100004D78);
-  *(v10 + 64) = v12;
-  v13 = objc_allocWithZone(NSSet);
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_100004D00;
+  v9 = sub_100002350(0, &qword_10000C9E8, NFNdefMessageInternal_ptr);
+  *(v8 + 56) = sub_100001974(&qword_10000C9F0, &qword_100004D70);
+  *(v8 + 32) = v9;
+  v10 = sub_100002350(0, &qword_10000C9F8, NFNdefRecordInternal_ptr);
+  *(v8 + 88) = sub_100001974(&qword_10000CA00, &qword_100004D78);
+  *(v8 + 64) = v10;
+  v11 = objc_allocWithZone(NSSet);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v15 = [v13 initWithArray:isa];
+  v13 = [v11 initWithArray:isa];
 
   static Set._conditionallyBridgeFromObjectiveC(_:result:)();
-  v16 = swift_allocObject();
-  *(v16 + 16) = xmmword_100004D10;
-  v17 = sub_100002350(0, &qword_10000CA08, NFTagInternal_ptr);
-  *(v16 + 56) = sub_100001974(qword_10000CA10, &unk_100004D80);
-  *(v16 + 32) = v17;
-  v18 = objc_allocWithZone(NSSet);
-  v19 = Array._bridgeToObjectiveC()().super.isa;
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_100004D10;
+  v15 = sub_100002350(0, &qword_10000CA08, NFTagInternal_ptr);
+  *(v14 + 56) = sub_100001974(qword_10000CA10, &unk_100004D80);
+  *(v14 + 32) = v15;
+  v16 = objc_allocWithZone(NSSet);
+  v17 = Array._bridgeToObjectiveC()().super.isa;
 
-  v20 = [v18 initWithArray:v19];
+  v18 = [v16 initWithArray:v17];
 
   static Set._conditionallyBridgeFromObjectiveC(_:result:)();
-  [a1 setExportedInterface:v9];
+  [a1 setExportedInterface:v7];
   [a1 resume];
 
   return 1;
 }
 
-uint64_t sub_100002350(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100002350(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -289,14 +285,11 @@ uint64_t sub_100002350(uint64_t a1, unint64_t *a2, uint64_t *a3)
 
 uint64_t *sub_100002398(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -304,9 +297,8 @@ uint64_t *sub_100002398(uint64_t a1, uint64_t *a2)
 
 uint64_t sub_100002404(uint64_t a1)
 {
-  v1 = *(a1 + 16);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;

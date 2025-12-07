@@ -248,22 +248,22 @@ LABEL_5:
 
 - (CGRect)_actionsViewFrame
 {
-  v9.receiver = self;
-  v9.super_class = NCNotificationLongLookView;
-  [(PLExpandedPlatterView *)&v9 _actionsViewFrame];
+  v11.receiver = self;
+  v11.super_class = NCNotificationLongLookView;
+  _actionsViewFrame = [(PLExpandedPlatterView *)&v11 _actionsViewFrame];
   if (!self->_hidesNotificationContent)
   {
     [(NCNotificationLongLookView *)self bounds];
-    [(PLExpandedPlatterView *)self contentSizeForSize:v3, v4];
-    [(NCNotificationContentView *)self->_notificationContentView sizeThatFits:?];
+    [(PLExpandedPlatterView *)self contentSizeForSize:v5, v6];
+    _actionsViewFrame = [(NCNotificationContentView *)self->_notificationContentView sizeThatFits:?];
   }
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(_actionsViewFrame, v4);
   UIRectIntegralWithScale();
-  result.size.height = v8;
-  result.size.width = v7;
-  result.origin.y = v6;
-  result.origin.x = v5;
+  result.size.height = v10;
+  result.size.width = v9;
+  result.origin.y = v8;
+  result.origin.x = v7;
   return result;
 }
 
@@ -331,19 +331,20 @@ LABEL_5:
     v11 = v10;
     v13 = v12;
     v15 = v14;
-    if ([(PLExpandedPlatterView *)self clipsVisibleContentToBounds])
+    clipsVisibleContentToBounds = [(PLExpandedPlatterView *)self clipsVisibleContentToBounds];
+    if (clipsVisibleContentToBounds)
     {
-      v18.origin.x = v9;
-      v18.origin.y = v11;
-      v18.size.width = v13;
-      v18.size.height = v15;
-      CGRectGetHeight(v18);
+      v20.origin.x = v9;
+      v20.origin.y = v11;
+      v20.size.width = v13;
+      v20.size.height = v15;
+      CGRectGetHeight(v20);
       [(NCNotificationLongLookView *)self bounds];
-      [(PLExpandedPlatterView *)self _flexibleAreaSizeForBounds:?];
+      clipsVisibleContentToBounds = [(PLExpandedPlatterView *)self _flexibleAreaSizeForBounds:?];
     }
 
     notificationContentView = self->_notificationContentView;
-    _NCMainScreenScale();
+    _NCMainScreenScale(clipsVisibleContentToBounds, v17);
     UIRectIntegralWithScale();
 
     [(NCNotificationContentView *)notificationContentView setFrame:?];

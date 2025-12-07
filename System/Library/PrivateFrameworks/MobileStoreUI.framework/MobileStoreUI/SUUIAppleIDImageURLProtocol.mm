@@ -11,7 +11,7 @@
   v3 = [request URL];
   scheme = [v3 scheme];
 
-  LOBYTE(v3) = [scheme isEqualToString:@"x-apple-identity-image"];
+  LOBYTE(v3) = objc_msgSend_isEqualToString_(scheme);
   return v3;
 }
 

@@ -331,125 +331,107 @@ LABEL_32:
   [(_CPSafariUsagePropensity *)self localGoto];
   if (v4 != 0.0)
   {
-    localGoto = self->_localGoto;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self localTap];
-  if (v6 != 0.0)
+  if (v5 != 0.0)
   {
-    localTap = self->_localTap;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecGoto];
-  if (v8 != 0.0)
+  if (v6 != 0.0)
   {
-    parsecGoto = self->_parsecGoto;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecTap];
-  if (v10 != 0.0)
+  if (v7 != 0.0)
   {
-    parsecTap = self->_parsecTap;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self thirdPartyGoto];
-  if (v12 != 0.0)
+  if (v8 != 0.0)
   {
-    thirdPartyGoto = self->_thirdPartyGoto;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self thirdPartyTap];
-  if (v14 != 0.0)
+  if (v9 != 0.0)
   {
-    thirdPartyTap = self->_thirdPartyTap;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self thirdPartyCompletionOrRecentSearch];
-  if (v16 != 0.0)
+  if (v10 != 0.0)
   {
-    thirdPartyCompletionOrRecentSearch = self->_thirdPartyCompletionOrRecentSearch;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self goToSite];
-  if (v18 != 0.0)
+  if (v11 != 0.0)
   {
-    goToSite = self->_goToSite;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self other];
-  if (v20 != 0.0)
+  if (v12 != 0.0)
   {
-    other = self->_other;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecWeb];
-  if (v22 != 0.0)
+  if (v13 != 0.0)
   {
-    parsecWeb = self->_parsecWeb;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecAppStore];
-  if (v24 != 0.0)
+  if (v14 != 0.0)
   {
-    parsecAppStore = self->_parsecAppStore;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecMaps];
-  if (v26 != 0.0)
+  if (v15 != 0.0)
   {
-    parsecMaps = self->_parsecMaps;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecWiki];
-  if (v28 != 0.0)
+  if (v16 != 0.0)
   {
-    parsecWiki = self->_parsecWiki;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecNews];
-  if (v30 != 0.0)
+  if (v17 != 0.0)
   {
-    parsecNews = self->_parsecNews;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecStocks];
-  if (v32 != 0.0)
+  if (v18 != 0.0)
   {
-    parsecStocks = self->_parsecStocks;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecWeather];
-  if (v34 != 0.0)
+  if (v19 != 0.0)
   {
-    parsecWeather = self->_parsecWeather;
     PBDataWriterWriteFloatField();
   }
 
   [(_CPSafariUsagePropensity *)self parsecOther];
-  if (v36 != 0.0)
+  if (v20 != 0.0)
   {
-    parsecOther = self->_parsecOther;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPSafariUsagePropensity *)self totalEngagements])
   {
-    totalEngagements = self->_totalEngagements;
     PBDataWriterWriteInt32Field();
   }
 
@@ -463,19 +445,18 @@ LABEL_32:
 
   if ([(_CPSafariUsagePropensity *)self totalTopHitEngagements])
   {
-    totalTopHitEngagements = self->_totalTopHitEngagements;
     PBDataWriterWriteInt32Field();
   }
 
   engagementShareRatio = [(_CPSafariUsagePropensity *)self engagementShareRatio];
 
-  v43 = toCopy;
+  v24 = toCopy;
   if (engagementShareRatio)
   {
     engagementShareRatio2 = [(_CPSafariUsagePropensity *)self engagementShareRatio];
     PBDataWriterWriteSubmessage();
 
-    v43 = toCopy;
+    v24 = toCopy;
   }
 }
 

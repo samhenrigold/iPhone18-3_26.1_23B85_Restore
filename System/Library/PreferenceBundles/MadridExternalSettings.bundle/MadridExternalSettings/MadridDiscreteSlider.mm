@@ -4,6 +4,7 @@
 - (MadridDiscreteSlider)initWithFrame:(CGRect)frame;
 - (void)drawRect:(CGRect)rect;
 - (void)setTrackMarkersColor:(id)color;
+- (void)setValue:(float)value animated:(BOOL)animated;
 - (void)sliderTapped:(id)tapped;
 @end
 
@@ -38,25 +39,8 @@
   v25.origin.y = y;
   v25.size.width = width;
   v25.size.height = height;
-  if (v10 / CGRectGetWidth(v25) > 1.0)
+  if (v10 / CGRectGetWidth(v25) > 1.0 || (v26.origin.x = x, v26.origin.y = y, v26.size.width = width, v26.size.height = height, v11 = v5 - CGRectGetMinX(v26), v27.origin.x = x, v27.origin.y = y, v27.size.width = width, v27.size.height = height, v12 = v11 / CGRectGetWidth(v27), v13 = 0.0, v12 >= 0.0))
   {
-    goto LABEL_10;
-  }
-
-  v26.origin.x = x;
-  v26.origin.y = y;
-  v26.size.width = width;
-  v26.size.height = height;
-  v11 = v5 - CGRectGetMinX(v26);
-  v27.origin.x = x;
-  v27.origin.y = y;
-  v27.size.width = width;
-  v27.size.height = height;
-  v12 = v11 / CGRectGetWidth(v27);
-  v13 = 0.0;
-  if (v12 >= 0.0)
-  {
-LABEL_10:
     v28.origin.x = x;
     v28.origin.y = y;
     v28.size.width = width;
@@ -105,6 +89,14 @@ LABEL_10:
     [(MadridDiscreteSlider *)self setNeedsDisplay];
     colorCopy = v6;
   }
+}
+
+- (void)setValue:(float)value animated:(BOOL)animated
+{
+  *&v4 = roundf(value);
+  v5.receiver = self;
+  v5.super_class = MadridDiscreteSlider;
+  [(MadridDiscreteSlider *)&v5 setValue:animated animated:v4];
 }
 
 - (void)drawRect:(CGRect)rect

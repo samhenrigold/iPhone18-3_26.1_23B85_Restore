@@ -23,7 +23,7 @@
   v9.super_class = StewieCLLocationManager;
   if ([(StewieCLLocationManager *)&v9 init])
   {
-    ctu::OsLogContext::OsLogContext(v8, kCtLoggingSystemName, "stw.loc.mgr");
+    ctu::OsLogContext::OsLogContext(&v8, kCtLoggingSystemName, "stw.loc.mgr");
     operator new();
   }
 

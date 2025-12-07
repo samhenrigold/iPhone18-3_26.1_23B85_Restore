@@ -86,14 +86,14 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B38402C0();
+  sub_1B38402C0(delegate);
 }
 
 - (NSArray)highlightTimeRanges
 {
   if (sub_1B3840444())
   {
-    sub_1B3710718(0, &unk_1EB84F780);
+    sub_1B3710718(0, &unk_1EB84F780, 0x1E696B098);
     v2 = sub_1B3C9C778();
   }
 
@@ -110,7 +110,7 @@
   rangesCopy = ranges;
   if (ranges)
   {
-    sub_1B3710718(0, &unk_1EB84F780);
+    sub_1B3710718(0, &unk_1EB84F780, 0x1E696B098);
     rangesCopy = sub_1B3C9C788();
   }
 

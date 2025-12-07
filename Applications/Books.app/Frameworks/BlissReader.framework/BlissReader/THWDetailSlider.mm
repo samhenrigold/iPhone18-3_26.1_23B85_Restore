@@ -898,7 +898,7 @@ LABEL_57:
     v4 = 0.0;
     if (![(THWDetailSlider *)self hideRightNumericDisplay])
     {
-      [(THWDetailSlider *)self duration];
+      objc_msgSend_duration(self);
       v5 = [(THWDetailSlider *)self _stringForInverseCurrentTime:?];
       v22 = NSFontAttributeName;
       font = [(UILabel *)self->_currentTimeInverseLabel font];
@@ -908,7 +908,7 @@ LABEL_57:
 
     if (![(THWDetailSlider *)self hideLeftNumericDisplay])
     {
-      [(THWDetailSlider *)self duration];
+      objc_msgSend_duration(self);
       v7 = [(THWDetailSlider *)self _stringForCurrentTime:?];
       v20 = NSFontAttributeName;
       font2 = [(UILabel *)self->_currentTimeLabel font];
@@ -1081,7 +1081,7 @@ LABEL_57:
   v5 = v3 - v4 * 60.0;
   v6 = floor(v4 / 60.0);
   v7 = v4 - v6 * 60.0;
-  v8 = THBundle();
+  v8 = THBundle(self, a2);
   if (v6 <= 0.0)
   {
     return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v8 localizedStringForKey:@"%1$2lu:%2$02lu" value:&stru_471858 table:0], v7, v5, v10);
@@ -1097,7 +1097,7 @@ LABEL_57:
 {
   if (self->_timeLabelStyle == 1 && vabdd_f64(self->_duration, time) < 30.0)
   {
-    v3 = THBundle();
+    v3 = THBundle(self, a2);
 
     return [v3 localizedStringForKey:@"Unknown Duration" value:&stru_471858 table:0];
   }
@@ -1115,7 +1115,7 @@ LABEL_57:
   {
     if (fabs(time) < 30.0)
     {
-      v3 = THBundle();
+      v3 = THBundle(self, a2);
 
       return [v3 localizedStringForKey:@"Live" value:&stru_471858 table:0];
     }

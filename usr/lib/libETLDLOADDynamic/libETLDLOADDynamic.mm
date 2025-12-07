@@ -1,4 +1,4 @@
-uint64_t ETLDLOADCommandCreateMemoryDebugReadRequestPrivate(uint64_t a1, int a2)
+uint64_t ETLDLOADCommandCreateMemoryDebugReadRequestPrivate(uint64_t a1, int a2, unsigned int a3, unsigned int a4)
 {
   *(a1 + 40) = a2;
   if (!HDLCFrameCreateUplink() || !HDLCFrameInjectUnsignedChar() || !HDLCFrameInjectUnsignedInt())
@@ -46,31 +46,31 @@ uint64_t ETLDLOADCommandSend(uint64_t a1, uint64_t (**a2)(void, uint64_t, uint64
   return result;
 }
 
-uint64_t ETLDLOADCommandReceiveSmallWithFlags(unsigned __int8 **a1)
+uint64_t ETLDLOADCommandReceiveSmallWithFlags(unsigned __int8 **a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   memset(__b, 170, sizeof(__b));
   TelephonyUtilRingBufferInitialize();
   result = ETLFrameReadFromTransport();
   if (result)
   {
-    if (!*(a1 + 2))
+    if (*(a1 + 2))
     {
-      HDLCFrameFree();
-      result = 0;
-      v4 = *MEMORY[0x29EDCA608];
-      return result;
+      *(a1 + 10) = **a1;
+      return 1;
     }
 
-    *(a1 + 10) = **a1;
-    result = 1;
+    else
+    {
+      HDLCFrameFree();
+      return 0;
+    }
   }
 
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t ETLDLOADCommandReceiveWithBufferAndFlags(unsigned __int8 **a1)
+uint64_t ETLDLOADCommandReceiveWithBufferAndFlags(unsigned __int8 **a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
   result = ETLFrameReadFromTransport();
   if (result)
@@ -108,7 +108,8 @@ uint64_t ETLDLOADCommandParseParametersResponse(_DWORD *a1, uint64_t a2)
 {
   *(a2 + 3) = 0;
   *a2 = 0;
-  if (a1[10] == 8)
+  v2 = a1[10];
+  if (v2 == 8)
   {
     if (a1[2] < 8u)
     {
@@ -117,18 +118,17 @@ uint64_t ETLDLOADCommandParseParametersResponse(_DWORD *a1, uint64_t a2)
 
     else
     {
-      v2 = *(*a1 + 1);
+      v3 = *(*a1 + 1);
       *(a2 + 3) = *(*a1 + 4);
-      *a2 = v2;
-      *(a2 + 2) = bswap32(HIWORD(v2)) >> 16;
+      *a2 = v3;
+      *(a2 + 2) = bswap32(HIWORD(v3)) >> 16;
       return 1;
     }
   }
 
   else
   {
-    v4 = a1[10];
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", v2, 8);
     return 0;
   }
 }
@@ -154,35 +154,34 @@ uint64_t ETLDLOADCommandParseVersionResponse(_DWORD *a1, _BYTE *__dst, int a3)
     v3 = a1[2];
     if (v3 < 2)
     {
-      v10 = a1[2];
-      _ETLDebugPrint();
+      _ETLDebugPrint("ETLDLOADCommandParseVersionResponse", "Not enough bytes %u for response\n", a1[2]);
       return 0;
     }
 
     else
     {
       v4 = *(*a1 + 1);
-      if (v3 + 2 >= v4)
+      v5 = v3 + 2;
+      if (v5 >= v4)
       {
         if (a3 - 1 >= v4)
         {
-          v6 = *(*a1 + 1);
+          v7 = *(*a1 + 1);
         }
 
         else
         {
-          v6 = (a3 - 1);
+          v7 = (a3 - 1);
         }
 
-        memcpy(__dst, (*a1 + 2), v6);
-        __dst[v6] = 0;
+        memcpy(__dst, (*a1 + 2), v7);
+        __dst[v7] = 0;
         return 1;
       }
 
       else
       {
-        v8 = *(*a1 + 1);
-        _ETLDebugPrint();
+        _ETLDebugPrint("ETLDLOADCommandParseVersionResponse", "Version field reports length of %u, but payload remaining is %u\n", *(*a1 + 1), v5);
         return 0;
       }
     }
@@ -190,8 +189,7 @@ uint64_t ETLDLOADCommandParseVersionResponse(_DWORD *a1, _BYTE *__dst, int a3)
 
   else
   {
-    v9 = a1[10];
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", a1[10], 13);
     return 0;
   }
 }
@@ -213,8 +211,7 @@ uint64_t ETLDLOADCommandParseSerialNumberResponse(_DWORD *a1, void *__dst, uint6
   *a4 = 0;
   if (a1[10] != 22)
   {
-    v9 = a1[10];
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", a1[10], 22);
     return 0;
   }
 
@@ -257,7 +254,8 @@ uint64_t ETLDLOADCommandCreateChipIDRequest(uint64_t a1)
 
 uint64_t ETLDLOADCommandParseChipIDResponse(_DWORD *a1, _DWORD *a2, _DWORD *a3)
 {
-  if (a1[10] == 23)
+  v3 = a1[10];
+  if (v3 == 23)
   {
     if (a1[2] < 3u)
     {
@@ -266,17 +264,16 @@ uint64_t ETLDLOADCommandParseChipIDResponse(_DWORD *a1, _DWORD *a2, _DWORD *a3)
 
     else
     {
-      v3 = *a1;
+      v4 = *a1;
       *a2 = *(*a1 + 3);
-      *a3 = *(v3 + 7);
+      *a3 = *(v4 + 7);
       return 1;
     }
   }
 
   else
   {
-    v5 = a1[10];
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", v3, 23);
     return 0;
   }
 }
@@ -299,8 +296,7 @@ uint64_t ETLDLOADCommandParsePkHashResponse(_DWORD *a1, void *__dst, uint64_t a3
   *a4 = 0;
   if (a1[10] != 24)
   {
-    v9 = a1[10];
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", a1[10], 24);
     return 0;
   }
 
@@ -328,7 +324,7 @@ uint64_t ETLDLOADCommandParsePkHashResponse(_DWORD *a1, void *__dst, uint64_t a3
   return 1;
 }
 
-uint64_t ETLDLOADCommandCreateWriteRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t ETLDLOADCommandCreateWriteRequest(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   *(a1 + 40) = 15;
   if (!HDLCFrameCreateUplink() || !HDLCFrameInjectUnsignedChar() || !HDLCFrameInjectUnsignedInt() || !HDLCFrameInjectUnsignedShort())
@@ -351,12 +347,10 @@ LABEL_3:
   }
 
   v7 = a3;
-  v8 = a1[10];
-  _ETLDebugPrint();
+  _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", a1[10], 2);
   if (a1[10] != 3)
   {
-    v9 = a1[10];
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", a1[10], 3);
     return 0;
   }
 
@@ -372,7 +366,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t ETLDLOADCommandCreateGoRequest(uint64_t a1)
+uint64_t ETLDLOADCommandCreateGoRequest(uint64_t a1, unsigned int a2)
 {
   *(a1 + 40) = 5;
   if (!HDLCFrameCreateUplink() || !HDLCFrameInjectUnsignedChar() || !HDLCFrameInjectUnsignedShort())
@@ -440,9 +434,7 @@ uint64_t ETLDLOADCommandParseMemoryDebugInfoResponse(_DWORD *a1, void *__dst)
   __dst[64] = 0;
   if (a1[10] != 17)
   {
-    v9 = a1[10];
-LABEL_11:
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n");
     return 0;
   }
 
@@ -450,15 +442,15 @@ LABEL_11:
   v3 = v2 - 3;
   if (v2 < 3)
   {
-    v10 = a1[2];
-    goto LABEL_11;
+    _ETLDebugPrint("ETLDLOADCommandParseMemoryDebugInfoResponse", "Not enough bytes %u for response\n");
+    return 0;
   }
 
   v5 = *a1;
   v6 = bswap32(*(*a1 + 1)) >> 16;
   if (v3 < v6)
   {
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADCommandParseMemoryDebugInfoResponse", "Warning: data length reports length of %u, but payload remaining is %u\n", v6, v3);
     v6 = v3;
   }
 
@@ -489,10 +481,7 @@ uint64_t ETLDLOADCommandCopyDebugDataField(uint64_t a1, uint64_t a2, _BYTE *a3)
   v4 = *(a1 + 512);
   if (v4 < v3)
   {
-    v19 = *(a1 + 516);
-    v20 = *(a1 + 512);
-LABEL_3:
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADCommandCopyDebugDataField", "Read offset %u exceeds length %u\n");
     return 0;
   }
 
@@ -501,7 +490,8 @@ LABEL_3:
   {
     if (v4 != v3)
     {
-      goto LABEL_3;
+      _ETLDebugPrint("ETLDLOADCommandCopyDebugDataField", "Need at least %u bytes, only have %u\n");
+      return 0;
     }
 
     result = 1;
@@ -566,7 +556,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t ETLDLOADCommandCreateMemoryDebugReadRequest(uint64_t a1)
+uint64_t ETLDLOADCommandCreateMemoryDebugReadRequest(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   *(a1 + 40) = 18;
   if (!HDLCFrameCreateUplink() || !HDLCFrameInjectUnsignedChar() || !HDLCFrameInjectUnsignedInt())
@@ -585,8 +575,7 @@ uint64_t ETLDLOADCommandParseMemoryDebugReadResponse(_DWORD *a1, _DWORD *a2, _WO
     v5 = v4 - 7;
     if (v4 < 7)
     {
-      v10 = a1[2];
-      _ETLDebugPrint();
+      _ETLDebugPrint("ETLDLOADCommandParseMemoryDebugReadResponse", "Need at least %zu bytes, only have %u\n", 7uLL, v4);
       return 0;
     }
 
@@ -604,7 +593,7 @@ uint64_t ETLDLOADCommandParseMemoryDebugReadResponse(_DWORD *a1, _DWORD *a2, _WO
 
       else
       {
-        _ETLDebugPrint();
+        _ETLDebugPrint("ETLDLOADCommandParseMemoryDebugReadResponse", "Length is %u bytes, only have %u\n", v7, v5);
         return 0;
       }
     }
@@ -612,13 +601,12 @@ uint64_t ETLDLOADCommandParseMemoryDebugReadResponse(_DWORD *a1, _DWORD *a2, _WO
 
   else
   {
-    v9 = a1[10];
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", a1[10], 19);
     return 0;
   }
 }
 
-uint64_t ETLDLOADCommandCreateMemoryDebugFastReadRequest(uint64_t a1)
+uint64_t ETLDLOADCommandCreateMemoryDebugFastReadRequest(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   *(a1 + 40) = 32;
   if (!HDLCFrameCreateUplink() || !HDLCFrameInjectUnsignedChar() || !HDLCFrameInjectUnsignedInt())
@@ -647,7 +635,7 @@ uint64_t ETLDLOADCommandReadMemoryDebugFastReadResponse(uint64_t a1, uint64_t a2
 
     else
     {
-      _ETLDebugPrint();
+      _ETLDebugPrint("ETLDLOADCommandReadMemoryDebugFastReadResponse", "Only received %u of %u\n", -1431655766, a3);
       return 0;
     }
   }
@@ -657,14 +645,20 @@ uint64_t ETLDLOADCommandReadMemoryDebugFastReadResponse(uint64_t a1, uint64_t a2
 
 uint64_t ETLDLOADDetectProtocolVersion(void *a1, _BYTE *a2, int *a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
-  if (!a2 || !a3 || (*&v6 = 0xAAAAAAAAAAAAAAAALL, *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL, v16 = v6, !HDLCFrameCreateUplink()) || !HDLCFrameInjectUnsignedChar())
+  v15 = *MEMORY[0x29EDCA608];
+  if (!a2 || !a3)
   {
-    _ETLDebugPrint();
-LABEL_22:
-    result = 0;
-    v11 = *MEMORY[0x29EDCA608];
-    return result;
+    _ETLDebugPrint("ETLDLOADDetectProtocolVersion", "Invalid parameters\n", a3);
+    return 0;
+  }
+
+  *&v6 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v13 = v6;
+  if (!HDLCFrameCreateUplink() || !HDLCFrameInjectUnsignedChar())
+  {
+    _ETLDebugPrint("ETLDLOADDetectProtocolVersion", "Failed to send version request\n");
+    return 0;
   }
 
   if ((HDLCFrameEncodeAndCache() & 1) == 0)
@@ -699,14 +693,14 @@ LABEL_10:
   {
 LABEL_21:
     HDLCFrameFree();
-    goto LABEL_22;
+    return 0;
   }
 
   v9 = (*a1)(a1, 0xAAAAAAAAAAAAAAAALL, 2863311530, __b, 1, 1000, 0);
   HDLCFrameFree();
   if (!v9)
   {
-    goto LABEL_22;
+    return 0;
   }
 
 LABEL_11:
@@ -715,61 +709,58 @@ LABEL_11:
   if (!ETLFrameReadFromTransport())
   {
 LABEL_24:
-    _ETLDebugPrint();
-    goto LABEL_22;
+    _ETLDebugPrint("ETLDLOADDetectProtocolVersion", "Failed to receive version response\n");
+    return 0;
   }
 
-  if (!DWORD2(v16))
+  if (!DWORD2(v13))
   {
     HDLCFrameFree();
     goto LABEL_24;
   }
 
-  v7 = *v16;
+  v7 = *v13;
   v8 = *a3;
   *a2 = 0;
-  if (v7 != 13 || DWORD2(v16) == 1)
+  if (v7 != 13)
   {
-    goto LABEL_25;
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n");
+    goto LABEL_26;
   }
 
-  v12 = *(v16 + 1);
-  if (DWORD2(v16) + 2 < v12)
+  if (DWORD2(v13) == 1)
   {
-    v15 = *(v16 + 1);
-LABEL_25:
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADCommandParseVersionResponse", "Not enough bytes %u for response\n");
+LABEL_26:
     HDLCFrameFree();
     _ETLDebugPrintBinary();
-    goto LABEL_22;
+    return 0;
   }
 
-  if (v8 - 1 >= v12)
+  v11 = *(v13 + 1);
+  if (DWORD2(v13) + 2 < v11)
   {
-    v13 = *(v16 + 1);
+    _ETLDebugPrint("ETLDLOADCommandParseVersionResponse", "Version field reports length of %u, but payload remaining is %u\n");
+    goto LABEL_26;
+  }
+
+  if (v8 - 1 >= v11)
+  {
+    v12 = *(v13 + 1);
   }
 
   else
   {
-    v13 = (v8 - 1);
+    v12 = (v8 - 1);
   }
 
-  memcpy(a2, (v16 + 2), v13);
-  a2[v13] = 0;
+  memcpy(a2, (v13 + 2), v12);
+  a2[v12] = 0;
   HDLCFrameFree();
-  result = 1;
-  v14 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
-uint64_t ETLDLOADCommandDumpCommand(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = *(a2 + 2);
-  return _ETLDebugPrintBinary();
-}
-
-uint64_t ETLDLOADCreateCommandForSend(uint64_t a1, int a2)
+uint64_t ETLDLOADCreateCommandForSend(uint64_t a1, int a2, int a3)
 {
   *(a1 + 40) = a2;
   result = HDLCFrameCreateUplink();
@@ -787,8 +778,7 @@ BOOL ETLDLOADExpectCommandType(uint64_t a1, int a2)
   v3 = *(a1 + 40);
   if (v3 != a2)
   {
-    v5 = *(a1 + 40);
-    _ETLDebugPrint();
+    _ETLDebugPrint("ETLDLOADExpectCommandType", "Got Command type %u, expected %u\n", *(a1 + 40), a2);
   }
 
   return v3 == a2;

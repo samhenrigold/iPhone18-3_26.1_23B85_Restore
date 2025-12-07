@@ -312,34 +312,34 @@ LABEL_10:
   if ([self hasPendingCompetitionRequestFromMe])
   {
     dateForLatestOutgoingCompetitionRequest = [selfCopy dateForLatestOutgoingCompetitionRequest];
-    v3 = ASCompetitionRequestHoursUntilExpiration();
+    v5 = ASCompetitionRequestHoursUntilExpiration();
 
-    if (v3 <= 0)
+    if (v5 <= 0)
     {
       dateForLatestOutgoingCompetitionRequest2 = [selfCopy dateForLatestOutgoingCompetitionRequest];
-      v3 = ASCompetitionRequestMinutesUntilExpiration();
+      v5 = ASCompetitionRequestMinutesUntilExpiration();
 
-      v4 = @"MINUTES";
+      v6 = @"MINUTES";
     }
 
     else
     {
-      v4 = @"HOURS";
+      v6 = @"HOURS";
     }
 
-    v23 = MEMORY[0x277CCACA8];
-    v24 = ActivitySharingBundle();
-    v25 = [v24 localizedStringForKey:v4 value:&stru_2850F6650 table:@"Localizable"];
-    v7 = [v23 localizedStringWithFormat:v25, v3];
+    v25 = MEMORY[0x277CCACA8];
+    v26 = ActivitySharingBundle();
+    v27 = [v26 localizedStringForKey:v6 value:&stru_2850F6650 table:@"Localizable"];
+    v9 = [v25 localizedStringWithFormat:v27, v5];
 
-    v26 = MEMORY[0x277CCACA8];
-    v10 = ActivitySharingBundle();
-    v15 = [v10 localizedStringForKey:@"COMPETITION_INVITE_SENT_BREADCRUMB" value:&stru_2850F6650 table:@"Localizable"];
+    v28 = MEMORY[0x277CCACA8];
+    v12 = ActivitySharingBundle();
+    v17 = [v12 localizedStringForKey:@"COMPETITION_INVITE_SENT_BREADCRUMB" value:&stru_2850F6650 table:@"Localizable"];
     displayName = [selfCopy displayName];
-    v35 = displayName;
-    v36 = v7;
-    v21 = v26;
-    v27 = v15;
+    v37 = displayName;
+    v38 = v9;
+    v23 = v28;
+    v29 = v17;
   }
 
   else
@@ -352,43 +352,43 @@ LABEL_10:
 
     currentCompetition = [selfCopy currentCompetition];
     startDate = [currentCompetition startDate];
-    v7 = FILocalizedDayName();
+    v9 = FILocalizedDayName();
 
     currentCompetition2 = [selfCopy currentCompetition];
     lastDayOfCompetition = [currentCompetition2 lastDayOfCompetition];
-    v10 = FILocalizedDayName();
+    v12 = FILocalizedDayName();
 
-    v11 = MEMORY[0x277CCACA8];
-    v12 = ActivitySharingBundle();
-    v13 = [v12 localizedStringForKey:@"POINTS" value:&stru_2850F6650 table:@"Localizable"];
+    v13 = MEMORY[0x277CCACA8];
+    v14 = ActivitySharingBundle();
+    v15 = [v14 localizedStringForKey:@"POINTS" value:&stru_2850F6650 table:@"Localizable"];
     currentCompetition3 = [selfCopy currentCompetition];
-    v15 = [v11 localizedStringWithFormat:v13, objc_msgSend(currentCompetition3, "maximumNumberOfPointsPerDay")];
+    v17 = [v13 localizedStringWithFormat:v15, objc_msgSend(currentCompetition3, "maximumNumberOfPointsPerDay")];
 
     currentCompetition4 = [selfCopy currentCompetition];
     stage = [currentCompetition4 stage];
 
     if (stage == 2)
     {
-      v31 = ActivitySharingBundle();
-      v32 = FILocalizationTableForExperienceType();
+      v33 = ActivitySharingBundle();
+      v34 = FILocalizationTableForExperienceType();
       displayName = FIRandomStringForPrefixWithTableName();
 
-      v33 = MEMORY[0x277CCACA8];
+      v35 = MEMORY[0x277CCACA8];
       displayName2 = [selfCopy displayName];
-      selfCopy = [v33 stringWithFormat:displayName, v10, displayName2];
+      selfCopy = [v35 stringWithFormat:displayName, v12, displayName2];
 
       goto LABEL_13;
     }
 
     if (stage == 1)
     {
-      v29 = ActivitySharingBundle();
-      v30 = FILocalizationTableForExperienceType();
+      v31 = ActivitySharingBundle();
+      v32 = FILocalizationTableForExperienceType();
       displayName = FIRandomStringForPrefixWithTableName();
 
-      v21 = MEMORY[0x277CCACA8];
-      v35 = v10;
-      v36 = v15;
+      v23 = MEMORY[0x277CCACA8];
+      v37 = v12;
+      v38 = v17;
     }
 
     else
@@ -398,19 +398,19 @@ LABEL_10:
         goto LABEL_14;
       }
 
-      v18 = ActivitySharingBundle();
-      v19 = FILocalizationTableForExperienceType();
+      v20 = ActivitySharingBundle();
+      v21 = FILocalizationTableForExperienceType();
       displayName = FIRandomStringForPrefixWithTableName();
 
-      v21 = MEMORY[0x277CCACA8];
-      v35 = v7;
-      v36 = v15;
+      v23 = MEMORY[0x277CCACA8];
+      v37 = v9;
+      v38 = v17;
     }
 
-    v27 = displayName;
+    v29 = displayName;
   }
 
-  selfCopy = [v21 stringWithFormat:v27, v35, v36];
+  selfCopy = [v23 stringWithFormat:v29, v37, v38];
 LABEL_13:
 
 LABEL_14:
@@ -515,36 +515,36 @@ LABEL_13:
 
 - (id)as_competitionSendConfirmationTitle
 {
-  v0 = ActivitySharingBundle();
-  v1 = [v0 localizedStringForKey:@"COMPETITION_SEND_CONFIRMATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
+  v1 = ActivitySharingBundle();
+  v2 = [v1 localizedStringForKey:@"COMPETITION_SEND_CONFIRMATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
 
-  return v1;
+  return v2;
 }
 
 - (id)as_competitionSendConfirmationMessageForExperienceType:()SharingStringUtilities
 {
   if ([self isMyActivityDataCurrentlyHidden])
   {
-    v2 = MEMORY[0x277CCACA8];
-    v3 = ActivitySharingBundle();
-    displayName3 = [v3 localizedStringForKey:@"COMPETITION_SEND_CONFIRMATION_MESSAGE_HIDING" value:&stru_2850F6650 table:@"Localizable"];
+    v4 = MEMORY[0x277CCACA8];
+    v5 = ActivitySharingBundle();
+    displayName3 = [v5 localizedStringForKey:@"COMPETITION_SEND_CONFIRMATION_MESSAGE_HIDING" value:&stru_2850F6650 table:@"Localizable"];
     displayName = [self displayName];
     displayName2 = [self displayName];
-    v7 = [v2 stringWithFormat:displayName3, displayName, displayName2];
+    v9 = [v4 stringWithFormat:displayName3, displayName, displayName2];
   }
 
   else
   {
-    v8 = ActivitySharingBundle();
-    v9 = FILocalizationTableForExperienceType();
-    v3 = FIRandomStringForPrefixWithTableName();
+    v10 = ActivitySharingBundle();
+    v11 = FILocalizationTableForExperienceType();
+    v5 = FIRandomStringForPrefixWithTableName();
 
-    v10 = MEMORY[0x277CCACA8];
+    v12 = MEMORY[0x277CCACA8];
     displayName3 = [self displayName];
-    v7 = [v10 stringWithFormat:v3, displayName3];
+    v9 = [v12 stringWithFormat:v5, displayName3];
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)as_competitionSendConfirmationSendAction
@@ -580,23 +580,23 @@ LABEL_13:
 
 - (id)as_competitionReceivedNotificationTitle
 {
-  v0 = ActivitySharingBundle();
-  v1 = [v0 localizedStringForKey:@"COMPETITION_RECEIVED_NOTIFICATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
+  v1 = ActivitySharingBundle();
+  v2 = [v1 localizedStringForKey:@"COMPETITION_RECEIVED_NOTIFICATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
 
-  return v1;
+  return v2;
 }
 
 - (id)as_competitionReceivedNotificationMessageForExperienceType:()SharingStringUtilities
 {
-  v2 = ActivitySharingBundle();
-  v3 = FILocalizationTableForExperienceType();
-  v4 = FIRandomStringForPrefixWithTableName();
+  v4 = ActivitySharingBundle();
+  v5 = FILocalizationTableForExperienceType();
+  v6 = FIRandomStringForPrefixWithTableName();
 
-  v5 = MEMORY[0x277CCACA8];
+  v7 = MEMORY[0x277CCACA8];
   displayName = [self displayName];
-  v7 = [v5 stringWithFormat:v4, displayName];
+  v9 = [v7 stringWithFormat:v6, displayName];
 
-  return v7;
+  return v9;
 }
 
 - (id)as_competitionReceivedHidingWarningMessage
@@ -613,18 +613,18 @@ LABEL_13:
 
 - (id)as_competitionReceivedNotificationAcceptAction
 {
-  v0 = ActivitySharingBundle();
-  v1 = FIRandomStringForPrefixWithTableName();
+  v1 = ActivitySharingBundle();
+  v2 = FIRandomStringForPrefixWithTableName();
 
-  return v1;
+  return v2;
 }
 
 - (id)as_competitionReceivedHidingAcceptAction
 {
-  v0 = ActivitySharingBundle();
-  v1 = [v0 localizedStringForKey:@"COMPETITION_RECEIVED_NOTIFICATION_ACCEPT_ACTION_HIDING" value:&stru_2850F6650 table:@"Localizable"];
+  v1 = ActivitySharingBundle();
+  v2 = [v1 localizedStringForKey:@"COMPETITION_RECEIVED_NOTIFICATION_ACCEPT_ACTION_HIDING" value:&stru_2850F6650 table:@"Localizable"];
 
-  return v1;
+  return v2;
 }
 
 - (id)as_competitionAcceptErrorMessage
@@ -640,32 +640,32 @@ LABEL_13:
 
 - (id)as_competitionAcceptedNotificationTitle
 {
-  v0 = ActivitySharingBundle();
-  v1 = [v0 localizedStringForKey:@"COMPETITION_ACCEPTED_NOTIFICATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
+  v1 = ActivitySharingBundle();
+  v2 = [v1 localizedStringForKey:@"COMPETITION_ACCEPTED_NOTIFICATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
 
-  return v1;
+  return v2;
 }
 
 - (id)as_competitionAcceptedNotificationMessageForCompetition:()SharingStringUtilities experienceType:
 {
-  v4 = a3;
-  v5 = ActivitySharingBundle();
-  v6 = FILocalizationTableForExperienceType();
-  v7 = FIRandomStringForPrefixWithTableName();
+  v5 = a3;
+  v6 = ActivitySharingBundle();
+  v7 = FILocalizationTableForExperienceType();
+  v8 = FIRandomStringForPrefixWithTableName();
 
-  startDate = [v4 startDate];
+  startDate = [v5 startDate];
 
-  v9 = [self _competitionStartMessage:v7 replacingNameAndDatePlaceholdersForCompetitionStartDate:startDate];
+  v10 = [self _competitionStartMessage:v8 replacingNameAndDatePlaceholdersForCompetitionStartDate:startDate];
 
-  return v9;
+  return v10;
 }
 
 - (id)as_competitionAcceptConfirmationTitle
 {
-  v0 = ActivitySharingBundle();
-  v1 = [v0 localizedStringForKey:@"COMPETITION_ACCEPT_CONFIRMATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
+  v1 = ActivitySharingBundle();
+  v2 = [v1 localizedStringForKey:@"COMPETITION_ACCEPT_CONFIRMATION_TITLE" value:&stru_2850F6650 table:@"Localizable"];
 
-  return v1;
+  return v2;
 }
 
 - (id)_competitionStartMessage:()SharingStringUtilities replacingNameAndDatePlaceholdersForCompetitionStartDate:
@@ -684,55 +684,55 @@ LABEL_13:
 
 - (id)as_competitionLearnMoreTitleForExperienceType:()SharingStringUtilities
 {
-  v0 = ActivitySharingBundle();
-  v1 = FILocalizationTableForExperienceType();
-  v2 = FIRandomStringForPrefixWithTableName();
+  v3 = ActivitySharingBundle();
+  v4 = FILocalizationTableForExperienceType();
+  v5 = FIRandomStringForPrefixWithTableName();
 
-  return v2;
+  return v5;
 }
 
 - (id)as_competitionLearnMoreDetailActionForExperienceType:()SharingStringUtilities
 {
-  v0 = ActivitySharingBundle();
-  v1 = FILocalizationTableForExperienceType();
-  v2 = FIRandomStringForPrefixWithTableName();
+  v3 = ActivitySharingBundle();
+  v4 = FILocalizationTableForExperienceType();
+  v5 = FIRandomStringForPrefixWithTableName();
 
-  return v2;
+  return v5;
 }
 
 - (id)as_competitionLearnMoreIntroductionForExperienceType:()SharingStringUtilities
 {
-  v0 = ActivitySharingBundle();
-  v1 = FILocalizationTableForExperienceType();
-  v2 = FIRandomStringForPrefixWithTableName();
+  v3 = ActivitySharingBundle();
+  v4 = FILocalizationTableForExperienceType();
+  v5 = FIRandomStringForPrefixWithTableName();
 
-  return v2;
+  return v5;
 }
 
 - (id)as_competitionLearnMoreDetailMessageForExperienceType:()SharingStringUtilities
 {
-  v0 = ASCompetitionDurationDateComponentsForNewCompetitions();
-  v1 = [v0 day];
+  v3 = ASCompetitionDurationDateComponentsForNewCompetitions();
+  v4 = [v3 day];
 
-  v2 = ASCompetitionMaximumPointsPerDayForNewCompetitions();
-  v3 = MEMORY[0x277CCACA8];
-  v4 = ActivitySharingBundle();
-  v5 = [v4 localizedStringForKey:@"POINTS" value:&stru_2850F6650 table:@"Localizable"];
-  v6 = [v3 localizedStringWithFormat:v5, v2];
+  v5 = ASCompetitionMaximumPointsPerDayForNewCompetitions();
+  v6 = MEMORY[0x277CCACA8];
+  v7 = ActivitySharingBundle();
+  v8 = [v7 localizedStringForKey:@"POINTS" value:&stru_2850F6650 table:@"Localizable"];
+  v9 = [v6 localizedStringWithFormat:v8, v5];
 
-  v7 = v2 * v1;
-  v8 = MEMORY[0x277CCACA8];
-  v9 = ActivitySharingBundle();
-  v10 = [v9 localizedStringForKey:@"POINTS" value:&stru_2850F6650 table:@"Localizable"];
-  v11 = [v8 localizedStringWithFormat:v10, v7];
-
+  v10 = v5 * v4;
+  v11 = MEMORY[0x277CCACA8];
   v12 = ActivitySharingBundle();
-  v13 = FILocalizationTableForExperienceType();
-  v14 = FIRandomStringForPrefixWithTableName();
+  v13 = [v12 localizedStringForKey:@"POINTS" value:&stru_2850F6650 table:@"Localizable"];
+  v14 = [v11 localizedStringWithFormat:v13, v10];
 
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:v14, v6, v11];
+  v15 = ActivitySharingBundle();
+  v16 = FILocalizationTableForExperienceType();
+  v17 = FIRandomStringForPrefixWithTableName();
 
-  return v15;
+  v18 = [MEMORY[0x277CCACA8] stringWithFormat:v17, v9, v14];
+
+  return v18;
 }
 
 - (id)as_competitionLearnMoreFullDescriptionForExperienceType:()SharingStringUtilities
@@ -748,26 +748,26 @@ LABEL_13:
 - (id)as_competitionAcceptConfirmationMessageForCompetition:()SharingStringUtilities experienceType:
 {
   startDateComponents = [a3 startDateComponents];
-  v5 = ASCompetitionCalculateStartDateComponentsForFriendWithProposedStartDate();
+  v6 = ASCompetitionCalculateStartDateComponentsForFriendWithProposedStartDate();
 
   hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
-  v7 = [hk_gregorianCalendar dateFromComponents:v5];
+  v8 = [hk_gregorianCalendar dateFromComponents:v6];
 
-  v8 = ActivitySharingBundle();
-  v9 = FILocalizationTableForExperienceType();
-  v10 = FIRandomStringForPrefixWithTableName();
+  v9 = ActivitySharingBundle();
+  v10 = FILocalizationTableForExperienceType();
+  v11 = FIRandomStringForPrefixWithTableName();
 
-  v11 = [self _competitionStartMessage:v10 replacingNameAndDatePlaceholdersForCompetitionStartDate:v7];
+  v12 = [self _competitionStartMessage:v11 replacingNameAndDatePlaceholdersForCompetitionStartDate:v8];
 
-  return v11;
+  return v12;
 }
 
 - (id)as_competitionLearnMorePopupAction
 {
-  v0 = ActivitySharingBundle();
-  v1 = [v0 localizedStringForKey:@"COMPETITION_LEARN_MORE_POPUP_ACTION" value:&stru_2850F6650 table:@"Localizable"];
+  v1 = ActivitySharingBundle();
+  v2 = [v1 localizedStringForKey:@"COMPETITION_LEARN_MORE_POPUP_ACTION" value:&stru_2850F6650 table:@"Localizable"];
 
-  return v1;
+  return v2;
 }
 
 @end

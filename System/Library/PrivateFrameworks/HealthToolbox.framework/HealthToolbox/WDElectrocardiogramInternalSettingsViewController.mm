@@ -33,6 +33,7 @@
 - (void)pickerView:(id)view didSelectRow:(int64_t)row inComponent:(int64_t)component;
 - (void)reloadKeyValueDomainContent;
 - (void)setDemoResultKeys:(id)keys;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
@@ -46,12 +47,12 @@
 
 - (WDElectrocardiogramInternalSettingsViewController)initWithHealthStore:(id)store dateCache:(id)cache
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   cacheCopy = cache;
-  v24.receiver = self;
-  v24.super_class = WDElectrocardiogramInternalSettingsViewController;
-  v9 = [(WDElectrocardiogramInternalSettingsViewController *)&v24 initWithStyle:1];
+  v23.receiver = self;
+  v23.super_class = WDElectrocardiogramInternalSettingsViewController;
+  v9 = [(WDElectrocardiogramInternalSettingsViewController *)&v23 initWithStyle:1];
   v10 = v9;
   if (v9)
   {
@@ -74,17 +75,16 @@
     heartRhythmAvailability = v10->_heartRhythmAvailability;
     v10->_heartRhythmAvailability = v18;
 
-    v25[0] = @"No override";
-    v25[1] = @"ECG 1";
-    v25[2] = @"ECG 2";
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v24[0] = @"No override";
+    v24[1] = @"ECG 1";
+    v24[2] = @"ECG 2";
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     allAlgorithmVersions = v10->_allAlgorithmVersions;
     v10->_allAlgorithmVersions = v20;
 
     [(HKHeartRhythmAvailability *)v10->_heartRhythmAvailability addHeartRhythmAvailabilityObserver:v10];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -238,6 +238,17 @@ void __80__WDElectrocardiogramInternalSettingsViewController_reloadKeyValueDomai
   }
 
   return allDemoResults;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = WDElectrocardiogramInternalSettingsViewController;
+  [(WDElectrocardiogramInternalSettingsViewController *)&v6 setEditing:editing animated:animated];
+  if (!editing)
+  {
+    [(WDElectrocardiogramInternalSettingsViewController *)self updateCellIndexNumberLabels];
+  }
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
@@ -533,7 +544,7 @@ LABEL_29:
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   v10 = pathCopy;
@@ -550,15 +561,13 @@ LABEL_29:
 
       [v15 removeObjectAtIndex:{objc_msgSend(v10, "row")}];
       [(WDElectrocardiogramInternalSettingsViewController *)self setDemoResultKeys:v15];
-      v18[0] = v10;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+      v17[0] = v10;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
       [viewCopy deleteRowsAtIndexPaths:v16 withRowAnimation:0];
 
       [(WDElectrocardiogramInternalSettingsViewController *)self updateCellIndexNumberLabels];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath
@@ -767,7 +776,7 @@ LABEL_28:
 
 void __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) tableView];
   [v2 endEditing:0];
 
@@ -783,28 +792,24 @@ void __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelect
 
   [*(a1 + 32) setDemoResultKeys:v5];
   v8 = [*(a1 + 32) tableView];
-  v11[0] = *(a1 + 40);
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = *(a1 + 40);
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [v8 insertRowsAtIndexPaths:v9 withRowAnimation:100];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_3(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) healthStore];
   v3 = [MEMORY[0x277CCD3A8] electrocardiogramType];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_4;
-  v6[3] = &unk_2796E6CC8;
-  v6[4] = *(a1 + 32);
-  [v2 deleteAllSamplesWithTypes:v4 sourceBundleIdentifier:0 options:2 completion:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_4;
+  v5[3] = &unk_2796E6CC8;
+  v5[4] = *(a1 + 32);
+  [v2 deleteAllSamplesWithTypes:v4 sourceBundleIdentifier:0 options:2 completion:v5];
 }
 
 void __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelectRowAtIndexPath___block_invoke_4(uint64_t a1)
@@ -967,30 +972,30 @@ void __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelect
 
 - (void)updateCellIndexNumberLabels
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   tableView = [(WDElectrocardiogramInternalSettingsViewController *)self tableView];
   visibleCells = [tableView visibleCells];
 
-  v5 = [visibleCells countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [visibleCells countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1007,41 +1012,39 @@ void __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelect
       }
 
       while (v6 != v8);
-      v6 = [visibleCells countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [visibleCells countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearCellIndexNumberLabels
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   tableView = [(WDElectrocardiogramInternalSettingsViewController *)self tableView];
   visibleCells = [tableView visibleCells];
 
-  v4 = [visibleCells countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1052,13 +1055,11 @@ void __87__WDElectrocardiogramInternalSettingsViewController_tableView_didSelect
       }
 
       while (v5 != v7);
-      v5 = [visibleCells countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)pickerView:(id)view numberOfRowsInComponent:(int64_t)component
@@ -1306,15 +1307,15 @@ LABEL_10:
 
 - (void)_resetOnboarding
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v5 = v13;
+    v12 = objc_opt_class();
+    v5 = v12;
     _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting onboarding", buf, 0xCu);
   }
 
@@ -1323,14 +1324,12 @@ LABEL_10:
   healthStore = [(WDElectrocardiogramInternalSettingsViewController *)self healthStore];
   v9 = [v6 initWithFeatureIdentifier:v7 healthStore:healthStore];
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __69__WDElectrocardiogramInternalSettingsViewController__resetOnboarding__block_invoke;
-  v11[3] = &unk_2796E6CC8;
-  v11[4] = self;
-  [v9 resetOnboardingWithCompletion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __69__WDElectrocardiogramInternalSettingsViewController__resetOnboarding__block_invoke;
+  v10[3] = &unk_2796E6CC8;
+  v10[4] = self;
+  [v9 resetOnboardingWithCompletion:v10];
 }
 
 void __69__WDElectrocardiogramInternalSettingsViewController__resetOnboarding__block_invoke(uint64_t a1, char a2, void *a3)
@@ -1410,17 +1409,14 @@ void __89__WDElectrocardiogramInternalSettingsViewController_viewControllerWillE
 
 void __69__WDElectrocardiogramInternalSettingsViewController__resetOnboarding__block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v8 = 138543618;
-  v9 = objc_opt_class();
-  v10 = 2114;
-  v11 = a3;
-  v6 = v9;
-  _os_log_error_impl(&dword_251E85000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Error resetting ECG onboarding: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_251E85000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Error resetting ECG onboarding: %{public}@", &v6, 0x16u);
 }
 
 @end

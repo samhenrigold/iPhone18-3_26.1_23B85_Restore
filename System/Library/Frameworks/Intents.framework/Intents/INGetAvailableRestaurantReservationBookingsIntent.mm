@@ -12,8 +12,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v19[6] = *MEMORY[0x1E69E9840];
-  v18[0] = @"restaurant";
+  v18[6] = *MEMORY[0x1E69E9840];
+  v17[0] = @"restaurant";
   restaurant = self->_restaurant;
   null = restaurant;
   if (!restaurant)
@@ -21,12 +21,12 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v19[0] = null;
-  v18[1] = @"partySize";
-  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_partySize];
-  v19[1] = v17;
-  v18[2] = @"preferredBookingDateComponents";
+  v15 = null;
+  v18[0] = null;
+  v17[1] = @"partySize";
+  v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_partySize];
+  v18[1] = v16;
+  v17[2] = @"preferredBookingDateComponents";
   preferredBookingDateComponents = self->_preferredBookingDateComponents;
   null2 = preferredBookingDateComponents;
   if (!preferredBookingDateComponents)
@@ -34,8 +34,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[2] = null2;
-  v18[3] = @"maximumNumberOfResults";
+  v18[2] = null2;
+  v17[3] = @"maximumNumberOfResults";
   maximumNumberOfResults = self->_maximumNumberOfResults;
   null3 = maximumNumberOfResults;
   if (!maximumNumberOfResults)
@@ -43,8 +43,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[3] = null3;
-  v18[4] = @"earliestBookingDateForResults";
+  v18[3] = null3;
+  v17[4] = @"earliestBookingDateForResults";
   earliestBookingDateForResults = self->_earliestBookingDateForResults;
   null4 = earliestBookingDateForResults;
   if (!earliestBookingDateForResults)
@@ -52,8 +52,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[4] = null4;
-  v18[5] = @"latestBookingDateForResults";
+  v18[4] = null4;
+  v17[5] = @"latestBookingDateForResults";
   latestBookingDateForResults = self->_latestBookingDateForResults;
   null5 = latestBookingDateForResults;
   if (!latestBookingDateForResults)
@@ -61,8 +61,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[5] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v18[5] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
   if (latestBookingDateForResults)
   {
     if (earliestBookingDateForResults)
@@ -110,8 +110,6 @@ LABEL_15:
   if (!restaurant)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -296,11 +294,11 @@ LABEL_34:
 
 - (INGetAvailableRestaurantReservationBookingsIntent)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = INGetAvailableRestaurantReservationBookingsIntent;
-  v5 = [(INIntent *)&v22 initWithCoder:coderCopy];
+  v21.receiver = self;
+  v21.super_class = INGetAvailableRestaurantReservationBookingsIntent;
+  v5 = [(INIntent *)&v21 initWithCoder:coderCopy];
   if (!v5)
   {
     goto LABEL_4;
@@ -342,16 +340,15 @@ LABEL_4:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v24 = "[INGetAvailableRestaurantReservationBookingsIntent initWithCoder:]";
-    v25 = 2080;
-    v26 = "_restaurant";
+    v23 = "[INGetAvailableRestaurantReservationBookingsIntent initWithCoder:]";
+    v24 = 2080;
+    v25 = "_restaurant";
     _os_log_error_impl(&dword_18E991000, v19, OS_LOG_TYPE_ERROR, "%s Null value for %s", buf, 0x16u);
   }
 
   v18 = 0;
 LABEL_8:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -398,31 +395,29 @@ LABEL_8:
 
 void __70__INGetAvailableRestaurantReservationBookingsIntent_intentDescription__block_invoke()
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v0 = [[INIntentSlotDescription alloc] initWithName:@"restaurant" tag:1 facadePropertyName:@"restaurant" dataPropertyName:0 isExtended:0 isPrivate:0 valueType:0 valueStyle:1 defaultValueSelectorStrings:&unk_1F02DBA00 provideOptionsSelectorStrings:&unk_1F02DBA18 resolutionResultClass:objc_opt_class() resolveSelectors:sel_resolveRestaurantForGetAvailableRestaurantReservationBookings_withCompletion_, 0, @"restaurant"];
-  v11[0] = v0;
-  v10[1] = @"partySize";
+  v10[0] = v0;
+  v9[1] = @"partySize";
   v1 = [[INIntentSlotDescription alloc] initWithName:@"partySize" tag:2 facadePropertyName:@"partySize" dataPropertyName:0 isExtended:0 isPrivate:0 valueType:8 valueStyle:1 defaultValueSelectorStrings:&unk_1F02DBA30 provideOptionsSelectorStrings:&unk_1F02DBA48 resolutionResultClass:objc_opt_class() resolveSelectors:sel_resolvePartySizeForGetAvailableRestaurantReservationBookings_withCompletion_, 0];
-  v11[1] = v1;
-  v10[2] = @"preferredBookingDateComponents";
+  v10[1] = v1;
+  v9[2] = @"preferredBookingDateComponents";
   v2 = [[INIntentSlotDescription alloc] initWithName:@"preferredBookingDateComponents" tag:3 facadePropertyName:@"preferredBookingDateComponents" dataPropertyName:0 isExtended:0 isPrivate:0 valueType:14 valueStyle:1 defaultValueSelectorStrings:&unk_1F02DBA60 provideOptionsSelectorStrings:&unk_1F02DBA78 resolutionResultClass:objc_opt_class() resolveSelectors:sel_resolvePreferredBookingDateComponentsForGetAvailableRestaurantReservationBookings_withCompletion_, 0];
-  v11[2] = v2;
-  v10[3] = @"maximumNumberOfResults";
+  v10[2] = v2;
+  v9[3] = @"maximumNumberOfResults";
   v3 = [[INIntentSlotDescription alloc] initWithName:@"maximumNumberOfResults" tag:4 facadePropertyName:@"maximumNumberOfResults" dataPropertyName:0 isExtended:0 isPrivate:1 valueType:24 valueStyle:2 defaultValueSelectorStrings:0 provideOptionsSelectorStrings:0 resolutionResultClass:0 resolveSelectors:0];
-  v11[3] = v3;
-  v10[4] = @"earliestBookingDateForResults";
+  v10[3] = v3;
+  v9[4] = @"earliestBookingDateForResults";
   v4 = [[INIntentSlotDescription alloc] initWithName:@"earliestBookingDateForResults" tag:5 facadePropertyName:@"earliestBookingDateForResults" dataPropertyName:0 isExtended:0 isPrivate:1 valueType:14 valueStyle:1 defaultValueSelectorStrings:0 provideOptionsSelectorStrings:0 resolutionResultClass:0 resolveSelectors:0];
-  v11[4] = v4;
-  v10[5] = @"latestBookingDateForResults";
+  v10[4] = v4;
+  v9[5] = @"latestBookingDateForResults";
   v5 = [[INIntentSlotDescription alloc] initWithName:@"latestBookingDateForResults" tag:6 facadePropertyName:@"latestBookingDateForResults" dataPropertyName:0 isExtended:0 isPrivate:1 valueType:14 valueStyle:1 defaultValueSelectorStrings:0 provideOptionsSelectorStrings:0 resolutionResultClass:0 resolveSelectors:0];
-  v11[5] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:6];
+  v10[5] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:6];
 
   v7 = [[INIntentDescription alloc] initWithName:@"GetAvailableRestaurantReservationBookingsIntent" responseName:@"GetAvailableRestaurantReservationBookingsIntentResponse" facadeClass:objc_opt_class() dataClass:0 type:0 isPrivate:0 handleSelector:sel_handleGetAvailableRestaurantReservationBookings_completion_ confirmSelector:sel_confirmGetAvailableRestaurantReservationBookings_completion_ slotsByName:v6];
   v8 = intentDescription_intentDescription_42690;
   intentDescription_intentDescription_42690 = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

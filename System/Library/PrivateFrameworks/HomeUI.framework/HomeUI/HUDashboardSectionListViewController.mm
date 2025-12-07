@@ -53,7 +53,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20D563878();
   (*(v5 + 8))(v7, v4);
-  sub_20CECF940(0, &qword_27C81E2B8);
+  sub_20CECF940(0, &qword_27C81E2B8, 0x277D75318);
   return swift_getObjCClassFromMetadata();
 }
 
@@ -74,7 +74,7 @@
 
   if (!v7)
   {
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
     v7 = sub_20D567A58();
   }
@@ -114,7 +114,7 @@
 
 - (void)didReorderItemWithSortedItemsBySectionID:(id)d
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81E330);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C81E330, &qword_20D5C0090);
   v4 = sub_20D567758();
   selfCopy = self;
   sub_20CFB0FA4(v4);

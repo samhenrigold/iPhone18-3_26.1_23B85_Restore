@@ -9,7 +9,7 @@
   v27 = *MEMORY[0x277D85DE8];
   if (a4 >= 0x41)
   {
-    v5 = ATLLogObject();
+    v5 = ATLLogObject(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v21 = 134217984;
@@ -17,58 +17,54 @@
       _os_log_impl(&dword_22EEF5000, v5, OS_LOG_TYPE_ERROR, "The total parameter must not exceed 64 bits, got %lui", &v21, 0xCu);
     }
 
-LABEL_9:
-    result = 0;
-    goto LABEL_16;
+    return 0;
   }
 
-  v8 = 8 * [self length];
-  if (v8 < a4 + a3)
+  v8 = [self length];
+  v9 = 8 * v8;
+  if (8 * v8 < a4 + a3)
   {
-    v9 = ATLLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ATLLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v21 = 134218496;
-      v22 = v8;
+      v22 = v9;
       v23 = 2048;
       v24 = a3;
       v25 = 2048;
       v26 = a4;
-      _os_log_impl(&dword_22EEF5000, v9, OS_LOG_TYPE_ERROR, "Bit position and total exceed capacity. bitLimit=%lui, position=%lui, total=%lui", &v21, 0x20u);
+      _os_log_impl(&dword_22EEF5000, v10, OS_LOG_TYPE_ERROR, "Bit position and total exceed capacity. bitLimit=%lui, position=%lui, total=%lui", &v21, 0x20u);
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
-  v11 = a4 + a3 - 1;
-  v12 = v11 >> 3;
-  v13 = ~v11 & 7;
-  v14 = exp2(a4) - 1;
+  v12 = a4 + a3 - 1;
+  v13 = v12 >> 3;
+  v14 = ~v12 & 7;
+  v15 = exp2(a4) - 1;
   bytes = [self bytes];
-  if (v12 - (a3 >> 3) == -1)
+  if (v13 - (a3 >> 3) == -1)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = 0;
-    v17 = (bytes + (a3 >> 3));
-    v18 = v12 - (a3 >> 3) + 1;
+    v17 = 0;
+    v18 = (bytes + (a3 >> 3));
+    v19 = v13 - (a3 >> 3) + 1;
     do
     {
-      v19 = *v17++;
-      v16 = v19 | (v16 << 8);
-      --v18;
+      v20 = *v18++;
+      v17 = v20 | (v17 << 8);
+      --v19;
     }
 
-    while (v18);
+    while (v19);
   }
 
-  result = (v16 >> v13) & v14;
-LABEL_16:
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return (v17 >> v14) & v15;
 }
 
 @end

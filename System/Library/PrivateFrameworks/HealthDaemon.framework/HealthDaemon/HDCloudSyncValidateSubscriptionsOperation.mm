@@ -8,7 +8,7 @@
 - (void)main
 {
   selfCopy = self;
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (!self)
   {
     v5 = 0;
@@ -32,14 +32,14 @@
         goto LABEL_11;
       }
 
-      *&v68 = HDCloudSyncTinkerProfileDataAvailableForDownloadSubscriptionIdentifier;
-      *(&v68 + 1) = HDCloudSyncTinkerMedicalIDDataAvailableForDownloadSubscriptionIdentifier;
-      v65 = @"CloudSyncStoreRecord";
-      v66 = @"CloudSyncMedicalIDRecord";
+      *&v67 = HDCloudSyncTinkerProfileDataAvailableForDownloadSubscriptionIdentifier;
+      *(&v67 + 1) = HDCloudSyncTinkerMedicalIDDataAvailableForDownloadSubscriptionIdentifier;
+      v64 = @"CloudSyncStoreRecord";
+      v65 = @"CloudSyncMedicalIDRecord";
       v7 = MEMORY[0x277CBEAC0];
       v8 = 2;
 LABEL_10:
-      v5 = [v7 dictionaryWithObjects:&v65 forKeys:&v68 count:v8];
+      v5 = [v7 dictionaryWithObjects:&v64 forKeys:&v67 count:v8];
       goto LABEL_11;
     }
 
@@ -60,18 +60,18 @@ LABEL_10:
 
     if (tinkerModeEnabled)
     {
-      *&v68 = HDCloudSyncPrimaryProfileDataRequestedSubscriptionIdentifier;
-      *(&v68 + 1) = HDCloudSyncPrimaryProfileDataAvailableForDownloadSubscriptionIdentifier;
-      v65 = @"CloudSyncDataUploadRequestRecord";
-      v66 = @"CloudSyncStoreRecord";
-      *&v69 = HDCloudSyncPrimaryMedicalIDDataAvailableForDownloadSubscriptionIdentifier;
-      v67 = @"CloudSyncMedicalIDRecord";
+      *&v67 = HDCloudSyncPrimaryProfileDataRequestedSubscriptionIdentifier;
+      *(&v67 + 1) = HDCloudSyncPrimaryProfileDataAvailableForDownloadSubscriptionIdentifier;
+      v64 = @"CloudSyncDataUploadRequestRecord";
+      v65 = @"CloudSyncStoreRecord";
+      *&v68 = HDCloudSyncPrimaryMedicalIDDataAvailableForDownloadSubscriptionIdentifier;
+      v66 = @"CloudSyncMedicalIDRecord";
       v7 = MEMORY[0x277CBEAC0];
       v8 = 3;
       goto LABEL_10;
     }
 
-    *&v68 = HDCloudSyncPrimaryMedicalIDDataAvailableForDownloadSubscriptionIdentifier;
+    *&v67 = HDCloudSyncPrimaryMedicalIDDataAvailableForDownloadSubscriptionIdentifier;
     v6 = &HDCloudSyncMedicalIDRecordType;
     goto LABEL_9;
   }
@@ -79,10 +79,10 @@ LABEL_10:
   if (profileType == 2)
   {
 LABEL_8:
-    *&v68 = HDCloudSyncSharedSummaryDataAvailableForDownloadSubscriptionIdentifier;
+    *&v67 = HDCloudSyncSharedSummaryDataAvailableForDownloadSubscriptionIdentifier;
     v6 = &HDCloudSyncSharedSummaryTransactionRecordType;
 LABEL_9:
-    v65 = *v6;
+    v64 = *v6;
     v7 = MEMORY[0x277CBEAC0];
     v8 = 1;
     goto LABEL_10;
@@ -96,7 +96,7 @@ LABEL_11:
   v12 = v11;
   if (selfCopy)
   {
-    v58 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v57 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
     profile4 = [(HDCloudSyncOperation *)selfCopy profile];
     if ([profile4 profileType] == 1)
@@ -113,56 +113,56 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v57 = selfCopy;
+      v56 = selfCopy;
       profile6 = [(HDCloudSyncOperation *)selfCopy profile];
       daemon3 = [profile6 daemon];
       cloudSyncCoordinator = [daemon3 cloudSyncCoordinator];
       profile4 = [cloudSyncCoordinator stateSyncDomainForSubscriptionIdentifier];
 
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
       v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
       allKeys = [profile4 allKeys];
-      v23 = [allKeys countByEnumeratingWithState:&v68 objects:&v65 count:16];
+      v23 = [allKeys countByEnumeratingWithState:&v67 objects:&v64 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v69;
+        v25 = *v68;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v69 != v25)
+            if (*v68 != v25)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v27 = *(*(&v68 + 1) + 8 * i);
-            [v58 setObject:0x283C1AAC8 forKeyedSubscript:v27];
+            v27 = *(*(&v67 + 1) + 8 * i);
+            [v57 setObject:0x283C1AAC8 forKeyedSubscript:v27];
             v28 = [profile4 objectForKeyedSubscript:v27];
             [v13 addObject:v28];
           }
 
-          v24 = [allKeys countByEnumeratingWithState:&v68 objects:&v65 count:16];
+          v24 = [allKeys countByEnumeratingWithState:&v67 objects:&v64 count:16];
         }
 
         while (v24);
       }
 
-      v63[0] = MEMORY[0x277D85DD0];
-      v63[1] = 3221225472;
-      v63[2] = __79__HDCloudSyncValidateSubscriptionsOperation__createZonesForStateEntityDomains___block_invoke;
-      v63[3] = &unk_2786136C8;
-      selfCopy = v57;
-      v63[4] = v57;
-      v29 = [v13 hk_map:v63];
-      v56 = [HDCloudSyncCreateZonesOperation alloc];
-      configuration2 = [(HDCloudSyncOperation *)v57 configuration];
-      configuration3 = [(HDCloudSyncOperation *)v57 configuration];
+      v62[0] = MEMORY[0x277D85DD0];
+      v62[1] = 3221225472;
+      v62[2] = __79__HDCloudSyncValidateSubscriptionsOperation__createZonesForStateEntityDomains___block_invoke;
+      v62[3] = &unk_2786136C8;
+      selfCopy = v56;
+      v62[4] = v56;
+      v29 = [v13 hk_map:v62];
+      v55 = [HDCloudSyncCreateZonesOperation alloc];
+      configuration2 = [(HDCloudSyncOperation *)v56 configuration];
+      configuration3 = [(HDCloudSyncOperation *)v56 configuration];
       repository = [configuration3 repository];
       primaryCKContainer = [repository primaryCKContainer];
-      v33 = [(HDCloudSyncCreateZonesOperation *)v56 initWithConfiguration:configuration2 cloudState:0 zones:v29 container:primaryCKContainer];
+      v33 = [(HDCloudSyncCreateZonesOperation *)v55 initWithConfiguration:configuration2 cloudState:0 zones:v29 container:primaryCKContainer];
 
       [(HDCloudSyncCompoundOperation *)v12 addOperation:v33 transitionHandler:0];
     }
@@ -170,10 +170,10 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v58 = 0;
+  v57 = 0;
 LABEL_24:
 
-  v34 = [v5 hk_dictionaryByAddingEntriesFromDictionary:v58];
+  v34 = [v5 hk_dictionaryByAddingEntriesFromDictionary:v57];
   configuration4 = [(HDCloudSyncOperation *)selfCopy configuration];
   repository2 = [configuration4 repository];
   primaryCKContainer2 = [repository2 primaryCKContainer];
@@ -182,34 +182,34 @@ LABEL_24:
   [(HDCloudSyncCompoundOperation *)v12 addOperation:v38 transitionHandler:0];
   if (selfCopy->_includeSecondaryContainers)
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     configuration5 = [(HDCloudSyncOperation *)selfCopy configuration];
     repository3 = [configuration5 repository];
     secondaryCKContainers = [repository3 secondaryCKContainers];
 
-    v42 = [secondaryCKContainers countByEnumeratingWithState:&v59 objects:v64 count:16];
+    v42 = [secondaryCKContainers countByEnumeratingWithState:&v58 objects:v63 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v60;
+      v44 = *v59;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v60 != v44)
+          if (*v59 != v44)
           {
             objc_enumerationMutation(secondaryCKContainers);
           }
 
-          v46 = [(HDCloudSyncValidateSubscriptionsOperation *)selfCopy _registerOperationForSubscriptions:v5 container:*(*(&v59 + 1) + 8 * j)];
+          v46 = [(HDCloudSyncValidateSubscriptionsOperation *)selfCopy _registerOperationForSubscriptions:v5 container:*(*(&v58 + 1) + 8 * j)];
           operationIgnoringErrors = [v46 operationIgnoringErrors];
           [(HDCloudSyncCompoundOperation *)v12 addOperation:operationIgnoringErrors transitionHandler:0];
         }
 
-        v43 = [secondaryCKContainers countByEnumeratingWithState:&v59 objects:v64 count:16];
+        v43 = [secondaryCKContainers countByEnumeratingWithState:&v58 objects:v63 count:16];
       }
 
       while (v43);
@@ -217,8 +217,6 @@ LABEL_24:
   }
 
   [(HDCloudSyncOperation *)selfCopy delegateToOperation:v12];
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (HDCloudSyncRegisterSubscriptionsOperation)_registerOperationForSubscriptions:(void *)subscriptions container:

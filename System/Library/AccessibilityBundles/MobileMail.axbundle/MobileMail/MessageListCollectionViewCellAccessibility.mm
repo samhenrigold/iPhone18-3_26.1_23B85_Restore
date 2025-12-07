@@ -453,7 +453,7 @@ uint64_t __63__MessageListCollectionViewCellAccessibility_accessibilityHint__blo
   return v3;
 }
 
-uint64_t __63__MessageListCollectionViewCellAccessibility_accessibilityHint__block_invoke_2(uint64_t a1)
+void *__63__MessageListCollectionViewCellAccessibility_accessibilityHint__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isSelectedItemID:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -557,27 +557,22 @@ uint64_t __78__MessageListCollectionViewCellAccessibility__accessibilityPerformC
 
 uint64_t __78__MessageListCollectionViewCellAccessibility__accessibilityPerformCellAction___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) messageListItemAtIndexPath:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) messageListItemAtIndexPath:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
 
 void __78__MessageListCollectionViewCellAccessibility__accessibilityPerformCellAction___block_invoke_3(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   v2 = NSClassFromString(&cfstr_Mfreadlatertri.isa);
-  v9[0] = *(a1 + 32);
-  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
+  v8[0] = *(a1 + 32);
+  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
   v4 = [*(a1 + 40) safeValueForKey:@"undoManager"];
   v5 = [(objc_class *)v2 interactionWithMessageListItems:v3 undoManager:v4 origin:2 actor:2];
   v6 = *(*(a1 + 48) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __78__MessageListCollectionViewCellAccessibility__accessibilityPerformCellAction___block_invoke_4(uint64_t a1)
@@ -590,10 +585,7 @@ uint64_t __78__MessageListCollectionViewCellAccessibility__accessibilityPerformC
 
 uint64_t __78__MessageListCollectionViewCellAccessibility__accessibilityPerformCellAction___block_invoke_5(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _swipeActionForTriageAction:*(a1 + 56) indexPath:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _swipeActionForTriageAction:*(a1 + 56) indexPath:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -976,15 +968,12 @@ uint64_t __80__MessageListCollectionViewCellAccessibility__privateAccessibilityC
 
 uint64_t __80__MessageListCollectionViewCellAccessibility__privateAccessibilityCustomActions__block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) messageListItem];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) messageListItem];
 
   return MEMORY[0x2A1C71028]();
 }
 
-uint64_t __80__MessageListCollectionViewCellAccessibility__privateAccessibilityCustomActions__block_invoke_3(uint64_t a1)
+void *__80__MessageListCollectionViewCellAccessibility__privateAccessibilityCustomActions__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldShowClearHighImpactForMessageListItem:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1116,7 +1105,7 @@ uint64_t __79__MessageListCollectionViewCellAccessibility__accessibilityIsThread
   return v3;
 }
 
-uint64_t __79__MessageListCollectionViewCellAccessibility__accessibilityIsThreadedChildCell__block_invoke_2(uint64_t a1)
+void *__79__MessageListCollectionViewCellAccessibility__accessibilityIsThreadedChildCell__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _isExpandedIndexPath:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

@@ -9,7 +9,7 @@
 
 - (VSTrialVoiceResource)initWithFactorLevel:(id)level
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   factor = [levelCopy factor];
   name = [factor name];
@@ -59,21 +59,20 @@
 
       factor2 = [levelCopy factor];
       name2 = [factor2 name];
-      v20 = 138412290;
-      v21 = name2;
-      _os_log_error_impl(&dword_272850000, directoryValue, OS_LOG_TYPE_ERROR, "#Trial Error: resource should be as directory. Factor name: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = name2;
+      _os_log_error_impl(&dword_272850000, directoryValue, OS_LOG_TYPE_ERROR, "#Trial Error: resource should be as directory. Factor name: %@", &v19, 0xCu);
     }
 
 LABEL_12:
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (VSTrialVoiceResource)initWithFactorName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy hasPrefix:@"com.apple.siri.tts.resource"] && (objc_msgSend(nameCopy, "hasSuffix:", @".version") & 1) == 0)
   {
@@ -92,9 +91,9 @@ LABEL_12:
       v9 = VSGetLogDefault();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = 138412290;
-        v13 = nameCopy;
-        _os_log_error_impl(&dword_272850000, v9, OS_LOG_TYPE_ERROR, "#Trial Unexpected resource factor name: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = nameCopy;
+        _os_log_error_impl(&dword_272850000, v9, OS_LOG_TYPE_ERROR, "#Trial Unexpected resource factor name: %@", &v11, 0xCu);
       }
 
       selfCopy = 0;
@@ -106,7 +105,6 @@ LABEL_12:
     selfCopy = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

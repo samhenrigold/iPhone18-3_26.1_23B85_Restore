@@ -1,15 +1,13 @@
 @interface PKSqueezePaletteView
+- (double)updateUIStartAngle:(double)angle endAngle:(double)endAngle clockwise:(unsigned int)clockwise animated:;
 - (id)hitTest:(CGPoint)test withEvent:(id)event;
 - (id)initWithBackgroundView:(void *)view radius:(double)radius contentHeight:(double)height layoutFactory:(double)factory azimuth:;
 - (uint64_t)_canRedo;
 - (uint64_t)_canSelectTool:(uint64_t)tool atIndex:;
 - (uint64_t)_canUndo;
-- (uint64_t)_handleResizing;
 - (uint64_t)_redoCount;
 - (uint64_t)_undoCount;
-- (uint64_t)_updateShadows;
 - (uint64_t)setColorUserInterfaceStyle:(uint64_t)result;
-- (uint64_t)updateUIStartAngle:(int)angle endAngle:(double)endAngle clockwise:(double)clockwise animated:;
 - (void)_didRedo;
 - (void)_didSelectColor:(uint64_t)color isFromExtendedColorPicker:(uint64_t)picker isContinuousColorSelection:;
 - (void)_didSelectTool:(uint64_t)tool atIndex:;
@@ -21,7 +19,9 @@
 - (void)_didTapStickersButton:(uint64_t)button;
 - (void)_didTapTextBoxButton:(uint64_t)button;
 - (void)_didUndo;
+- (void)_handleResizing;
 - (void)_updateBaseShapeLayerPathAnimated:(uint64_t)animated;
+- (void)_updateShadows;
 - (void)dealloc;
 - (void)layoutSubviews;
 - (void)pencilInteractionDidTap:(uint64_t)tap;
@@ -230,7 +230,7 @@
   return self;
 }
 
-uint64_t __90__PKSqueezePaletteView_initWithBackgroundView_radius_contentHeight_layoutFactory_azimuth___block_invoke(uint64_t a1)
+void **__90__PKSqueezePaletteView_initWithBackgroundView_radius_contentHeight_layoutFactory_azimuth___block_invoke(uint64_t a1)
 {
   v2 = os_log_create("com.apple.pencilkit", "PencilSqueeze");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -242,23 +242,23 @@ uint64_t __90__PKSqueezePaletteView_initWithBackgroundView_radius_contentHeight_
   return [(PKSqueezePaletteView *)*(a1 + 32) _updateShadows];
 }
 
-- (uint64_t)_updateShadows
+- (void)_updateShadows
 {
   if (result)
   {
     v1 = result;
     [MEMORY[0x1E6979518] begin];
     [MEMORY[0x1E6979518] setDisableActions:1];
-    PKSqueezePaletteViewConfigureShadow(*(v1 + 416), 1);
-    PKSqueezePaletteViewConfigureShadow(*(v1 + 424), 0);
-    v2 = [MEMORY[0x1E69DC728] bezierPathWithArcCenter:*(v1 + 480) radius:*(v1 + 464) startAngle:*(v1 + 472) endAngle:*(v1 + 496) clockwise:{-3.14159265, 9.42477796}];
-    [*(v1 + 416) setPath:{objc_msgSend(v2, "CGPath")}];
+    PKSqueezePaletteViewConfigureShadow(v1[52], 1);
+    PKSqueezePaletteViewConfigureShadow(v1[53], 0);
+    v2 = [MEMORY[0x1E69DC728] bezierPathWithArcCenter:*(v1 + 480) radius:*(v1 + 58) startAngle:*(v1 + 59) endAngle:*(v1 + 62) clockwise:{-3.14159265, 9.42477796}];
+    [v1[52] setPath:{objc_msgSend(v2, "CGPath")}];
 
     systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
-    [*(v1 + 416) setStrokeColor:{objc_msgSend(systemBackgroundColor, "CGColor")}];
+    [v1[52] setStrokeColor:{objc_msgSend(systemBackgroundColor, "CGColor")}];
 
     systemBackgroundColor2 = [MEMORY[0x1E69DC888] systemBackgroundColor];
-    [*(v1 + 424) setStrokeColor:{objc_msgSend(systemBackgroundColor2, "CGColor")}];
+    [v1[53] setStrokeColor:{objc_msgSend(systemBackgroundColor2, "CGColor")}];
 
     v5 = MEMORY[0x1E6979518];
 
@@ -351,16 +351,16 @@ uint64_t __90__PKSqueezePaletteView_initWithBackgroundView_radius_contentHeight_
   }
 }
 
-- (uint64_t)updateUIStartAngle:(int)angle endAngle:(double)endAngle clockwise:(double)clockwise animated:
+- (double)updateUIStartAngle:(double)angle endAngle:(double)endAngle clockwise:(unsigned int)clockwise animated:
 {
   if (result)
   {
     v5 = result;
-    *(result + 512) = endAngle;
-    *(result + 520) = clockwise;
+    result[64] = angle;
+    result[65] = endAngle;
     *(result + 480) = a2;
-    [(PKSqueezePaletteView *)result _updateBaseShapeLayerPathAnimated:angle];
-    v6 = *(v5 + 568);
+    [(PKSqueezePaletteView *)result _updateBaseShapeLayerPathAnimated:clockwise];
+    v6 = *(v5 + 71);
 
     return [v6 updateUI];
   }
@@ -538,18 +538,18 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_handleResizing
+- (void)_handleResizing
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 408);
+    v2 = result[51];
     v3 = 0.0;
     if (v2)
     {
       [*(v2 + 8) presentationValue];
       v5 = v4;
-      v6 = *(v1 + 408);
+      v6 = v1[51];
       if (v6)
       {
         [*(v6 + 16) presentationValue];
@@ -564,16 +564,16 @@ LABEL_10:
 
     [MEMORY[0x1E6979518] begin];
     [MEMORY[0x1E6979518] setDisableActions:1];
-    [*(v1 + 432) setStrokeStart:v5];
-    [*(v1 + 432) setStrokeEnd:v3];
-    [*(v1 + 440) setStrokeStart:v5];
-    [*(v1 + 440) setStrokeEnd:v3];
-    [*(v1 + 448) setStrokeStart:v5];
-    [*(v1 + 448) setStrokeEnd:v3];
-    [*(v1 + 416) setStrokeStart:v5];
-    [*(v1 + 416) setStrokeEnd:v3];
-    [*(v1 + 424) setStrokeStart:v5];
-    [*(v1 + 424) setStrokeEnd:v3];
+    [v1[54] setStrokeStart:v5];
+    [v1[54] setStrokeEnd:v3];
+    [v1[55] setStrokeStart:v5];
+    [v1[55] setStrokeEnd:v3];
+    [v1[56] setStrokeStart:v5];
+    [v1[56] setStrokeEnd:v3];
+    [v1[52] setStrokeStart:v5];
+    [v1[52] setStrokeEnd:v3];
+    [v1[53] setStrokeStart:v5];
+    [v1[53] setStrokeEnd:v3];
     v8 = MEMORY[0x1E6979518];
 
     return [v8 commit];

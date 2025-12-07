@@ -311,7 +311,7 @@
   *&self->_flags = flags & 0xF7 | v25;
   objc_storeStrong(&self->_fontDesign, design);
   v53 = decorationsCopy;
-  if (([(NSArray *)self->_decorations isEqual:decorationsCopy]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_decorations) & 1) == 0)
   {
     v49 = formatterCopy;
     v50 = dayCopy;

@@ -5,6 +5,7 @@
 - (id)accessibilityElements;
 - (int64_t)_accessibilitySortPriority;
 - (void)_didEndZoom;
+- (void)_setCompassVisible:(BOOL)visible animationAllowed:(BOOL)allowed force:(BOOL)force;
 @end
 
 @implementation MKMapViewAccessibility
@@ -24,34 +25,34 @@
 
 - (id)accessibilityElements
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   v3 = objc_opt_new();
-  v38 = 0;
+  v37 = 0;
   objc_opt_class();
   _axMapsDelegate = [(MKMapViewAccessibility *)self _axMapsDelegate];
   v5 = [_axMapsDelegate safeValueForKey:@"chromeViewController"];
   v6 = __UIAccessibilityCastAsClass();
 
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   childViewControllers = [v6 childViewControllers];
-  v8 = [childViewControllers countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v8 = [childViewControllers countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v35 != v10)
+      if (*v34 != v10)
       {
         objc_enumerationMutation(childViewControllers);
       }
 
-      v12 = *(*(&v34 + 1) + 8 * v11);
+      v12 = *(*(&v33 + 1) + 8 * v11);
       NSClassFromString(&cfstr_Lookaroundpuck.isa);
       if (objc_opt_isKindOfClass())
       {
@@ -60,7 +61,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [childViewControllers countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v9 = [childViewControllers countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -101,30 +102,29 @@ LABEL_13:
 
   v16 = [(MKMapViewAccessibility *)self safeValueForKey:@"_basicMapView"];
   array = [MEMORY[0x29EDB8DE8] array];
-  v26 = MEMORY[0x29EDCA5F8];
-  v27 = 3221225472;
-  v28 = __47__MKMapViewAccessibility_accessibilityElements__block_invoke;
-  v29 = &unk_29F2CB168;
+  v25 = MEMORY[0x29EDCA5F8];
+  v26 = 3221225472;
+  v27 = __47__MKMapViewAccessibility_accessibilityElements__block_invoke;
+  v28 = &unk_29F2CB168;
   v18 = v3;
-  v30 = v18;
+  v29 = v18;
   v19 = v16;
-  v31 = v19;
-  v32 = 0;
-  v33 = array;
+  v30 = v19;
+  v31 = 0;
+  v32 = array;
   v20 = array;
-  v21 = [(MKMapViewAccessibility *)self _accessibilityFindUnsortedSubviewDescendantsPassingTest:&v26];
+  v21 = [(MKMapViewAccessibility *)self _accessibilityFindUnsortedSubviewDescendantsPassingTest:&v25];
   if (v19)
   {
-    [v19 setAccessibilityContainer:{self, v26, v27, v28, v29, v30, v31, v32}];
+    [v19 setAccessibilityContainer:{self, v25, v26, v27, v28, v29, v30, v31}];
     [v18 addObject:v19];
   }
 
-  [(MKMapViewAccessibility *)self safeBoolForKey:@"_showsZoomControls", v26, v27, v28, v29];
+  [(MKMapViewAccessibility *)self safeBoolForKey:@"_showsZoomControls", v25, v26, v27, v28];
   [v18 addObjectsFromArray:v20];
-  v22 = v33;
+  v22 = v32;
   v23 = v18;
 
-  v24 = *MEMORY[0x29EDCA608];
   return v18;
 }
 
@@ -195,6 +195,21 @@ uint64_t __47__MKMapViewAccessibility_accessibilityElements__block_invoke(id *a1
   }
 
   return v2;
+}
+
+- (void)_setCompassVisible:(BOOL)visible animationAllowed:(BOOL)allowed force:(BOOL)force
+{
+  forceCopy = force;
+  allowedCopy = allowed;
+  visibleCopy = visible;
+  v9 = [(MKMapViewAccessibility *)self safeBoolForKey:@"_compassVisible"];
+  v10.receiver = self;
+  v10.super_class = MKMapViewAccessibility;
+  [(MKMapViewAccessibility *)&v10 _setCompassVisible:visibleCopy animationAllowed:allowedCopy force:forceCopy];
+  if (v9 != [(MKMapViewAccessibility *)self safeBoolForKey:@"_compassVisible"])
+  {
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+  }
 }
 
 - (void)_didEndZoom

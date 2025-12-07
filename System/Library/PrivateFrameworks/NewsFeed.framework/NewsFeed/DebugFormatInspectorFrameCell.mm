@@ -46,9 +46,9 @@
     swift_once();
   }
 
-  sub_1D6959DCC(&qword_1EC88E930);
+  sub_1D6959DCC(&qword_1EC88E930, &unk_1D730A020);
   sub_1D725964C();
-  sub_1D6959DCC(&qword_1EC88E938);
+  sub_1D6959DCC(&qword_1EC88E938, &unk_1D7309FE0);
   sub_1D725989C();
 }
 

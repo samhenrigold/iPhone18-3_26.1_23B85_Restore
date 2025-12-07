@@ -123,7 +123,7 @@
   v22 = v30;
   if (v21 == 1)
   {
-    if ([v32[5] count])
+    if (objc_msgSend_count(v32[5]))
     {
       v23 = v32[5];
       progress2 = [(PLModelMigrationActionCore *)self progress];

@@ -52,7 +52,7 @@
   v6.super_class = SBContinuousExposePeekTransitionModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v6 transitionWillBegin];
   v3 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:4];
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillBegin);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -147,7 +147,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t __58__SBContinuousExposePeekTransitionModifier_frameForIndex___block_invoke(void *a1)
+void *__58__SBContinuousExposePeekTransitionModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 168) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -158,7 +158,7 @@ uint64_t __58__SBContinuousExposePeekTransitionModifier_frameForIndex___block_in
   return result;
 }
 
-uint64_t __58__SBContinuousExposePeekTransitionModifier_frameForIndex___block_invoke_2(void *a1)
+void *__58__SBContinuousExposePeekTransitionModifier_frameForIndex___block_invoke_2(void *a1)
 {
   result = [*(a1[4] + 176) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -225,14 +225,14 @@ LABEL_12:
   return v9;
 }
 
-uint64_t __58__SBContinuousExposePeekTransitionModifier_scaleForIndex___block_invoke(void *a1)
+void *__58__SBContinuousExposePeekTransitionModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 168) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
   return result;
 }
 
-uint64_t __58__SBContinuousExposePeekTransitionModifier_scaleForIndex___block_invoke_2(void *a1)
+void *__58__SBContinuousExposePeekTransitionModifier_scaleForIndex___block_invoke_2(void *a1)
 {
   result = [*(a1[4] + 176) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -323,7 +323,7 @@ uint64_t __58__SBContinuousExposePeekTransitionModifier_scaleForIndex___block_in
   return result;
 }
 
-uint64_t __86__SBContinuousExposePeekTransitionModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
+void *__86__SBContinuousExposePeekTransitionModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 176) frameForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withBounds:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -369,7 +369,7 @@ uint64_t __86__SBContinuousExposePeekTransitionModifier_frameForLayoutRole_inApp
   return v8;
 }
 
-uint64_t __75__SBContinuousExposePeekTransitionModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__75__SBContinuousExposePeekTransitionModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) scaleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;

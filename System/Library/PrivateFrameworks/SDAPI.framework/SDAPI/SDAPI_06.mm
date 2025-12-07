@@ -43,11 +43,11 @@ char *TStringParam::get(TStringParam *this)
   return result;
 }
 
-uint64_t TAligner<wchar_t const,TRneCost>::align<wchar_t const*>(uint64_t a1, int *a2, uint64_t a3, int *a4, uint64_t a5)
+uint64_t TAligner<wchar_t const,TRneCost>::align<wchar_t const*>(uint64_t a1, unsigned int *a2, uint64_t a3, unsigned int *a4, uint64_t a5)
 {
   v6 = (a3 - a2) >> 2;
   v7 = (a5 - a4) >> 2;
-  v42 = v7 + 1;
+  v41 = v7 + 1;
   if (v7 + 1 >= (v6 + 1))
   {
     v8 = v6 + 1;
@@ -89,8 +89,8 @@ uint64_t TAligner<wchar_t const,TRneCost>::align<wchar_t const*>(uint64_t a1, in
     v12 = a2;
   }
 
-  v37 = v12;
-  v38 = v10;
+  v36 = v12;
+  v37 = v10;
   std::vector<unsigned long>::resize((a1 + 8), 3 * v8);
   std::vector<unsigned short>::resize((a1 + 32), 2 * v8);
   v13 = *(a1 + 8);
@@ -111,19 +111,19 @@ uint64_t TAligner<wchar_t const,TRneCost>::align<wchar_t const*>(uint64_t a1, in
     }
   }
 
-  if (v38 >= 2)
+  if (v37 >= 2)
   {
     v18 = &v13[2 * v8];
     v19 = 1;
     v20 = &v14[v8];
     while (1)
     {
-      v39 = v19;
-      v40 = v15;
+      v38 = v19;
+      v39 = v15;
       v21 = v18;
       v22 = v20;
       *v18 = *v15 + 2;
-      v41 = v14;
+      v40 = v14;
       *v20 = *v14 + 1;
       if (v8 >= 2)
       {
@@ -131,25 +131,25 @@ uint64_t TAligner<wchar_t const,TRneCost>::align<wchar_t const*>(uint64_t a1, in
       }
 
 LABEL_34:
-      v18 = v40;
-      v19 = v39 + 1;
+      v18 = v39;
+      v19 = v38 + 1;
       ++v11;
-      v20 = v41;
+      v20 = v40;
       v14 = v22;
       v15 = v21;
-      if (v39 + 1 == v38)
+      if (v38 + 1 == v37)
       {
-        goto LABEL_37;
+        return v21[v8 - 1];
       }
     }
 
     v23 = v15 + 1;
     v24 = v14 + 1;
     v25 = 1;
-    v26 = v37;
+    v26 = v36;
     while (1)
     {
-      if (v42 >= v9)
+      if (v41 >= v9)
       {
         v27 = v26;
       }
@@ -159,7 +159,7 @@ LABEL_34:
         v27 = v11;
       }
 
-      if (v42 >= v9)
+      if (v41 >= v9)
       {
         v28 = v11;
       }
@@ -181,7 +181,7 @@ LABEL_34:
         v31 = v25 - 1;
         v32 = *(v23 - 1) + v30;
         v21[v25] = v32;
-        v22[v25] = *(v24 - 1) + ((SubstitutionCost & 1) == 0);
+        v22[v25] = *(v24 - 1) + !SubstitutionCost;
         v33 = *v23 + 2;
         if (v33 >= v32)
         {
@@ -212,69 +212,41 @@ LABEL_31:
   }
 
   v21 = &v13[v8];
-  v22 = v14;
-LABEL_37:
-  result = v21[v8 - 1];
-  v36 = v22[v8 - 1];
-  return result;
+  return v21[v8 - 1];
 }
 
-void std::vector<unsigned long>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long>::__append(a1, a2 - v2);
+    std::vector<unsigned long>::__append(result, a2 - v2);
   }
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
-}
-
-uint64_t TRneCost::getSubstitutionCost(uint64_t a1, int a2, int a3)
-{
-  if (a2 == a3)
-  {
-    return 1;
-  }
-
-  v4 = *(*a1 + 16);
-  if (v4)
-  {
-    if (a2 < 0x10000)
-    {
-      v5 = *(v4 + 4 * a2);
-    }
-
-    if (a3 < 0x10000)
-    {
-      v6 = *(v4 + 4 * a3);
-    }
-  }
-
-  return 0;
 }
 
 void std::vector<unsigned long>::__append(uint64_t a1, unint64_t a2)
@@ -672,17 +644,17 @@ uint64_t TBaseRegistry<TLatticeProcessor *>::registerInstance(void *a1, uint64_t
   return (v6 - v17) >> 3;
 }
 
-void *std::vector<TLatticeConstructionTransData>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<TLatticeConstructionTransData>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<TLatticeConstructionTransData>::__vallocate[abi:ne200100](result, a2);
+    std::vector<TLatticeConstructionTransData>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2625BF0D4(_Unwind_Exception *exception_object)
@@ -697,7 +669,7 @@ void sub_2625BF0D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TLatticeConstructionTransData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TLatticeConstructionTransData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x19999999999999ALL)
   {
@@ -797,7 +769,7 @@ void readObject<double>(DgnStream *a1, uint64_t a2, unsigned int *a3)
   readObjectArray(a1, *a2, v6, a3);
 }
 
-void (***AdaptStatsHistory::saveASB(void (***this)(void), DFile *a2, DFileChecksums *a3, char a4, int a5))(void)
+void (***AdaptStatsHistory::saveASB(void (***this)(void), DFile *a2, DFileChecksums *a3, char a4, uint64_t a5))(void)
 {
   if ((a4 & 1) == 0)
   {
@@ -805,26 +777,26 @@ void (***AdaptStatsHistory::saveASB(void (***this)(void), DFile *a2, DFileChecks
     if (*(this + 2))
     {
       v8 = OpenAndWriteMrecHeader(a2, 1u, a5, "MRASB!?", 19, 2);
-      v12 = *(v5 + 8);
+      v12 = *(v5 + 2);
       v13 = 0;
       writeObject(v8, &v12, &v13);
-      if (*(v5 + 8))
+      if (*(v5 + 2))
       {
         v9 = 0;
         do
         {
-          v10 = *(*v5 + 8 * v9);
+          v10 = (*v5)[v9];
           AdaptConfig::writeObject(v10, v8, &v13);
           AdaptStats::writeObject((v10 + 16), v8, &v13);
           ++v9;
         }
 
-        while (v9 < *(v5 + 8));
+        while (v9 < *(v5 + 2));
       }
 
       writeObjectChecksum(v8, &v13);
       CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-      DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 1u, v13);
+      DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 1, v13);
       return DgnDelete<DgnStream>(v8);
     }
   }
@@ -925,12 +897,12 @@ uint64_t sizeObject<AdaptConfigAndStats *>(uint64_t a1, int a2)
   return v2;
 }
 
-uint64_t DgnDelete<AdaptConfigAndStats>(uint64_t result)
+void *DgnDelete<AdaptConfigAndStats>(void *result)
 {
   if (result)
   {
     v1 = result;
-    DgnPrimArray<unsigned int>::~DgnPrimArray(result + 16);
+    DgnPrimArray<unsigned int>::~DgnPrimArray((result + 2));
     *(v1 + 6) = 0;
     *v1 = 0;
 
@@ -1023,7 +995,7 @@ unint64_t DgnArray<DgnPrimArray<unsigned short>>::removeIndexKeepOrder(unint64_t
     do
     {
       ++v6;
-      result = DgnPrimArray<unsigned short>::copyArraySlice(*v2 + v5, (*v2 + v5 + 16), 0, *(*v2 + v5 + 24));
+      result = DgnPrimArray<unsigned short>::copyArraySlice((*v2 + v5), (*v2 + v5 + 16), 0, *(*v2 + v5 + 24));
       v3 = *(v2 + 8);
       v5 += 16;
     }
@@ -1072,63 +1044,64 @@ unint64_t DgnArray<DgnPrimArray<unsigned short>>::removeIndexKeepOrder(unint64_t
 uint64_t permuteToAltProns(uint64_t a1)
 {
   v2 = *a1;
-  v20 = 0;
-  v21 = 0;
-  DgnPrimArray<int>::copyArraySlice(&v20, v2, 0, *(v2 + 8));
-  if (v21)
+  v14 = 0;
+  v15 = 0;
+  DgnPrimArray<int>::copyArraySlice(&v14, v2, 0, *(v2 + 8));
+  if (v15)
   {
-    v9 = 0;
-    v10 = ModelMgr::smpModelMgr;
-    v18 = 0;
-    v19 = 0;
-    v16 = 0;
-    v17 = 0;
+    v3 = 0;
+    v4 = ModelMgr::smpModelMgr;
+    v12 = 0;
+    v13 = 0;
+    v10 = 0;
+    v11 = 0;
     do
     {
-      v11 = *(v20 + 4 * v9);
-      VocOrThrow = ModelMgr::getVocOrThrow(v10, v11 >> 25, v3, v4, v5, v6, v7, v8);
-      WordList::lookupAll(*(VocOrThrow + 48), v11 & 0xFFFFFF, &v18);
-      if (v19 >= 2)
+      v5 = *(v14 + 4 * v3);
+      VocOrThrow = ModelMgr::getVocOrThrow(v4, v5 >> 25);
+      WordList::lookupAll(*(VocOrThrow + 48), v5 & 0xFFFFFF, &v12);
+      if (v13 >= 2)
       {
-        DgnPrimArray<int>::copyArraySlice(&v16, &v20, 0, v21);
-        *(v16 + 4 * v9) = v11 & 0xFE000000 | *(v18 + 4) & 0xFFFFFF;
-        if (DgnArray<DgnPrimArray<unsigned int>>::find(a1, &v16) == -1)
+        DgnPrimArray<int>::copyArraySlice(&v10, &v14, 0, v15);
+        *(v10 + 4 * v3) = v5 & 0xFE000000 | *(v12 + 4) & 0xFFFFFF;
+        if (DgnArray<DgnPrimArray<unsigned int>>::find(a1, &v10) == -1)
         {
-          v13 = *(a1 + 8);
-          if (v13 == *(a1 + 12))
+          v7 = *(a1 + 8);
+          if (v7 == *(a1 + 12))
           {
             DgnArray<DgnPrimArray<double>>::reallocElts(a1, 1, 1);
-            v13 = *(a1 + 8);
+            v7 = *(a1 + 8);
           }
 
-          v14 = (*a1 + 16 * v13);
-          *v14 = 0;
-          v14[1] = 0;
-          DgnPrimArray<int>::copyArraySlice(v14, &v16, 0, v17);
+          v8 = (*a1 + 16 * v7);
+          *v8 = 0;
+          v8[1] = 0;
+          DgnPrimArray<int>::copyArraySlice(v8, &v10, 0, v11);
           ++*(a1 + 8);
         }
       }
 
-      ++v9;
+      ++v3;
     }
 
-    while (v9 < v21);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v16);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v18);
+    while (v3 < v15);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v10);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v12);
   }
 
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v20);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v14);
 }
 
-void sub_2625BFD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_2625BFD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a11);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a13);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t GssResults::GssResults(uint64_t a1, uint64_t a2, int a3, uint64_t a4, char a5, void *a6, uint64_t a7, unsigned int a8)
+uint64_t GssResults::GssResults(uint64_t a1, uint64_t a2, int a3, uint64_t a4, char a5, void *a6, const RecogGrammar *a7, unsigned int a8)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -1156,7 +1129,7 @@ void sub_2625BFE38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unsigned int *GssResults::getChoiceWords(unsigned int *result, void *a2, uint64_t a3, uint64_t a4)
+unsigned int *GssResults::getChoiceWords(unsigned int *result, void *a2, const RecogGrammar *a3, uint64_t a4)
 {
   v4 = result;
   v5 = *(a4 + 8);
@@ -1319,13 +1292,13 @@ void *GssResults::getWordProns(GssResults *this, unsigned int a2)
 {
   v3 = *(this + 8);
   v4 = ModelMgr::smpModelMgr;
-  v44 = 0;
-  v45 = 0;
-  v42 = 0;
-  v43 = 0;
-  v40 = 0;
-  v41 = 0;
-  v39 = v3;
+  v38 = 0;
+  v39 = 0;
+  v36 = 0;
+  v37 = 0;
+  v34 = 0;
+  v35 = 0;
+  v33 = v3;
   if (v3)
   {
     v5 = 0;
@@ -1340,141 +1313,141 @@ void *GssResults::getWordProns(GssResults *this, unsigned int a2)
           v8 = 16 * v5 - 16;
           do
           {
-            DgnPrimArray<unsigned int>::~DgnPrimArray(v44 + v8);
+            DgnPrimArray<unsigned int>::~DgnPrimArray(v38 + v8);
             v8 -= 16;
           }
 
           while (v8 != -16);
         }
 
-        LODWORD(v45) = 0;
-        if (HIDWORD(v45))
+        LODWORD(v39) = 0;
+        if (HIDWORD(v39))
         {
           v9 = 0;
         }
 
         else
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(&v44, 1, 1);
-          v9 = v45;
+          DgnArray<DgnPrimArray<double>>::reallocElts(&v38, 1, 1);
+          v9 = v39;
         }
 
-        v10 = (v44 + 16 * v9);
+        v10 = (v38 + 16 * v9);
         *v10 = 0;
         v10[1] = 0;
         DgnPrimArray<int>::copyArraySlice(v10, v7, 0, *(v7 + 8));
-        v17 = v45 + 1;
-        LODWORD(v45) = v45 + 1;
+        v11 = v39 + 1;
+        LODWORD(v39) = v39 + 1;
         if ((*(this + 20) & 1) == 0)
         {
-          permuteToAltProns(&v44);
-          v17 = v45;
+          permuteToAltProns(&v38);
+          v11 = v39;
         }
 
-        if (v17)
+        if (v11)
         {
-          v18 = 0;
+          v12 = 0;
           do
           {
-            v19 = v44 + 16 * v18;
-            LODWORD(v43) = 0;
-            if (*(v19 + 8))
+            v13 = v38 + 16 * v12;
+            LODWORD(v37) = 0;
+            if (*(v13 + 8))
             {
-              v20 = 0;
+              v14 = 0;
               PronPredecessorSeedCategory = -2;
               PronSuccessorSeedCategory = -2;
               do
               {
-                v23 = *(*v19 + 4 * v20);
-                v24 = *(ModelMgr::getVocOrThrow(v4, v23 >> 25, v11, v12, v13, v14, v15, v16) + 48);
-                WordList::getPronWithWB(v24, v23 & 0xFFFFFF, &v40);
-                if (!v20)
+                v17 = *(*v13 + 4 * v14);
+                v18 = *(ModelMgr::getVocOrThrow(v4, v17 >> 25) + 48);
+                WordList::getPronWithWB(v18, v17 & 0xFFFFFF, &v34);
+                if (!v14)
                 {
-                  PronSuccessorSeedCategory = WordList::getPronSuccessorSeedCategory(v24, v23 & 0xFFFFFF);
+                  PronSuccessorSeedCategory = WordList::getPronSuccessorSeedCategory(v18, v17 & 0xFFFFFF);
                 }
 
-                if (v20 == *(v19 + 8) - 1)
+                if (v14 == *(v13 + 8) - 1)
                 {
-                  PronPredecessorSeedCategory = WordList::getPronPredecessorSeedCategory(v24, v23 & 0xFFFFFF);
+                  PronPredecessorSeedCategory = WordList::getPronPredecessorSeedCategory(v18, v17 & 0xFFFFFF);
                 }
 
-                v25 = v41;
-                if (v41)
+                v19 = v35;
+                if (v35)
                 {
-                  v26 = v43;
-                  if ((v43 + v41) <= HIDWORD(v43) || (DgnPrimArray<short>::reallocElts(&v42, (v43 + v41 - HIDWORD(v43)), 1), v25 = v41, v26 = v43, v41))
+                  v20 = v37;
+                  if ((v37 + v35) <= HIDWORD(v37) || (DgnPrimArray<short>::reallocElts(&v36, (v37 + v35 - HIDWORD(v37)), 1), v19 = v35, v20 = v37, v35))
                   {
-                    v27 = 0;
-                    v28 = v40;
-                    v29 = v42;
+                    v21 = 0;
+                    v22 = v34;
+                    v23 = v36;
                     do
                     {
-                      *(v29 + 2 * (v26 + v27)) = *(v28 + 2 * v27);
-                      ++v27;
+                      *(v23 + 2 * (v20 + v21)) = *(v22 + 2 * v21);
+                      ++v21;
                     }
 
-                    while (v25 != v27);
+                    while (v19 != v21);
                   }
 
-                  LODWORD(v43) = v26 + v25;
+                  LODWORD(v37) = v20 + v19;
                 }
 
-                ++v20;
+                ++v14;
               }
 
-              while (v20 < *(v19 + 8));
-              if (v43 && DgnArray<DgnPrimArray<unsigned short>>::find(this + 5, &v42) == -1)
+              while (v14 < *(v13 + 8));
+              if (v37 && DgnArray<DgnPrimArray<unsigned short>>::find(this + 5, &v36) == -1)
               {
-                v30 = *(this + 12);
-                if (v30 == *(this + 13))
+                v24 = *(this + 12);
+                if (v24 == *(this + 13))
                 {
                   DgnArray<DgnPrimArray<double>>::reallocElts(this + 40, 1, 1);
-                  v30 = *(this + 12);
+                  v24 = *(this + 12);
                 }
 
-                v31 = (*(this + 5) + 16 * v30);
-                *v31 = 0;
-                v31[1] = 0;
-                DgnPrimArray<unsigned short>::copyArraySlice(v31, &v42, 0, v43);
+                v25 = (*(this + 5) + 16 * v24);
+                *v25 = 0;
+                v25[1] = 0;
+                DgnPrimArray<unsigned short>::copyArraySlice(v25, &v36, 0, v37);
                 ++*(this + 12);
-                v32 = *(this + 24);
-                if (v32 == *(this + 25))
+                v26 = *(this + 24);
+                if (v26 == *(this + 25))
                 {
                   DgnPrimArray<unsigned int>::reallocElts(this + 88, 1, 1);
-                  v32 = *(this + 24);
+                  v26 = *(this + 24);
                 }
 
-                *(*(this + 11) + 4 * v32) = v6;
+                *(*(this + 11) + 4 * v26) = v6;
                 ++*(this + 24);
                 if (PronPredecessorSeedCategory != 254)
                 {
-                  v33 = *(this + 16);
-                  if (v33 == *(this + 17))
+                  v27 = *(this + 16);
+                  if (v27 == *(this + 17))
                   {
                     DgnPrimArray<char>::reallocElts(this + 56, 1, 1);
-                    v33 = *(this + 16);
+                    v27 = *(this + 16);
                   }
 
-                  *(*(this + 7) + v33) = PronPredecessorSeedCategory;
+                  *(*(this + 7) + v27) = PronPredecessorSeedCategory;
                   ++*(this + 16);
-                  v34 = *(this + 20);
-                  if (v34 == *(this + 21))
+                  v28 = *(this + 20);
+                  if (v28 == *(this + 21))
                   {
                     DgnPrimArray<char>::reallocElts(this + 72, 1, 1);
-                    v34 = *(this + 20);
+                    v28 = *(this + 20);
                   }
 
-                  *(*(this + 9) + v34) = PronSuccessorSeedCategory;
+                  *(*(this + 9) + v28) = PronSuccessorSeedCategory;
                   ++*(this + 20);
                 }
               }
             }
 
-            ++v18;
-            v5 = v45;
+            ++v12;
+            v5 = v39;
           }
 
-          while (v18 < v45);
+          while (v12 < v39);
         }
 
         else
@@ -1486,45 +1459,45 @@ void *GssResults::getWordProns(GssResults *this, unsigned int a2)
       ++v6;
     }
 
-    while (v6 != v39);
+    while (v6 != v33);
   }
 
   if (*(this + 16))
   {
-    v35 = this + 56;
+    v29 = this + 56;
   }
 
   else
   {
-    v35 = 0;
+    v29 = 0;
   }
 
   if (*(this + 20))
   {
-    v36 = this + 72;
+    v30 = this + 72;
   }
 
   else
   {
-    v36 = 0;
+    v30 = 0;
   }
 
-  applyNewPronSetHeuristics(this + 40, v35, v36, this + 88, a2);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v40);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v42);
-  return DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v44);
+  applyNewPronSetHeuristics(this + 40, v29, v30, this + 88, a2);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v34);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v36);
+  return DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v38);
 }
 
-void sub_2625C04B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625C04B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
   v9 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(va2);
@@ -1579,106 +1552,106 @@ uint64_t GssResults::updateWordProns(uint64_t a1, unsigned int a2, unsigned int 
   }
 
   v13 = *a1 + 16 * *(a1 + 16);
-  v39[0] = 0;
-  v39[1] = 0;
-  DgnPrimArray<int>::copyArraySlice(v39, v13, 0, *(v13 + 8));
-  v14 = *v39[0];
-  v26 = *(ModelMgr::getVocOrThrow(v6, *v39[0] >> 25, v15, v16, v17, v18, v19, v20) + 48);
+  v28[0] = 0;
+  v28[1] = 0;
+  DgnPrimArray<int>::copyArraySlice(v28, v13, 0, *(v13 + 8));
+  v14 = *v28[0];
+  v15 = *(ModelMgr::getVocOrThrow(v6, *v28[0] >> 25) + 48);
   if (a4)
   {
-    ModelMgr::deleteWordClientProns(v6, v14 >> 25, v14 & 0xFFFFFF, v21, v22, v23, v24, v25);
+    ModelMgr::deleteWordClientProns(v6, v14 >> 25, v14 & 0xFFFFFF);
     ModelMgr::rebuildAllStalePrefilterers(v6);
   }
 
-  NumClientProns = WordList::getNumClientProns(v26, v14 & 0xFFFFFF);
-  v28 = a3 - NumClientProns;
+  NumClientProns = WordList::getNumClientProns(v15, v14 & 0xFFFFFF);
+  v17 = a3 - NumClientProns;
   if (a3 <= NumClientProns)
   {
-    v31 = 3;
+    v20 = 3;
   }
 
   else
   {
-    if (v28 >= a2)
+    if (v17 >= a2)
     {
-      v28 = a2;
+      v17 = a2;
     }
 
-    v38[0] = 0;
-    v38[1] = 0;
-    v37[0] = 0;
-    v37[1] = 0;
-    v36[0] = 0;
-    v36[1] = 0;
+    v27[0] = 0;
+    v27[1] = 0;
+    v26[0] = 0;
+    v26[1] = 0;
+    v25[0] = 0;
+    v25[1] = 0;
     if (*(a1 + 20))
     {
-      v29 = "GuessPronsAcoustic";
+      v18 = "GuessPronsAcoustic";
     }
 
     else
     {
-      v29 = "GuessPronsNonAcoustic";
+      v18 = "GuessPronsNonAcoustic";
     }
 
-    ModelMgr::addClientPronsAvoidDuplicates(v6, v14 >> 25, (v14 & 0xFFFFFF), v38, v37, a1 + 40, (a1 + 56), (a1 + 72), v28, v29, v36);
-    v30 = WordList::getNumClientProns(v26, v14 & 0xFFFFFF);
-    if (v30 == NumClientProns)
+    ModelMgr::addClientPronsAvoidDuplicates(v6, v14 >> 25, (v14 & 0xFFFFFF), v27, v26, a1 + 40, (a1 + 56), (a1 + 72), v17, v18, v25);
+    v19 = WordList::getNumClientProns(v15, v14 & 0xFFFFFF);
+    if (v19 == NumClientProns)
     {
-      v31 = 2;
+      v20 = 2;
     }
 
     else
     {
-      *a5 = v30 - NumClientProns;
+      *a5 = v19 - NumClientProns;
       ModelMgr::rebuildAllStalePrefilterers(v6);
       if (a6 && *a5)
       {
-        v32 = 0;
-        v33 = *(a6 + 8);
+        v21 = 0;
+        v22 = *(a6 + 8);
         do
         {
-          v34 = *(*(a1 + 88) + 4 * *(v36[0] + 4 * v32));
-          if (v33 == *(a6 + 12))
+          v23 = *(*(a1 + 88) + 4 * *(v25[0] + 4 * v21));
+          if (v22 == *(a6 + 12))
           {
             DgnPrimArray<unsigned int>::reallocElts(a6, 1, 1);
-            v33 = *(a6 + 8);
+            v22 = *(a6 + 8);
           }
 
-          *(*a6 + 4 * v33) = v34;
-          v33 = *(a6 + 8) + 1;
-          *(a6 + 8) = v33;
-          ++v32;
+          *(*a6 + 4 * v22) = v23;
+          v22 = *(a6 + 8) + 1;
+          *(a6 + 8) = v22;
+          ++v21;
         }
 
-        while (v32 < *a5);
+        while (v21 < *a5);
       }
 
-      v31 = 1;
+      v20 = 1;
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v36);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v37);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v38);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v25);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v26);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v27);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v39);
-  return v31;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v28);
+  return v20;
 }
 
-void sub_2625C0814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2625C0814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v12 = va_arg(va3, void);
-  v14 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
+  v18 = va_arg(va3, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
@@ -1686,7 +1659,7 @@ void sub_2625C0814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t DgnArray<DgnPrimArray<unsigned int>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, unsigned int a4)
+uint64_t DgnArray<DgnPrimArray<unsigned int>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, int a4)
 {
   v7 = result;
   v8 = *(result + 8);
@@ -1863,36 +1836,36 @@ LABEL_8:
 
 uint64_t SDParamSet_GetHandle(unint64_t a1, int64_t a2, ParamSetHolder *a3, unint64_t *a4)
 {
-  v8 = SdapiInsurance::SdapiInsurance(v115, "SDParamSet_GetHandle", 1, 1, 184);
-  if (v115[97] != 1)
+  SdapiInsurance::SdapiInsurance(v49, "SDParamSet_GetHandle", 1, 1, 184);
+  if (v49[97] != 1)
   {
     goto LABEL_98;
   }
 
   if (!a3)
   {
-    throwBadStringPointer(v8, v9, v10, v11, v12, v13, v14, v15);
+    v9 = throwBadStringPointer();
   }
 
-  v115[151] = 0;
+  v49[151] = 0;
   if (gbShowCalls == 1)
   {
     if (gbShowCallPointerArguments)
     {
-      v16 = a4;
+      v10 = a4;
     }
 
     else
     {
-      v16 = 0;
+      v10 = 0;
     }
 
-    xlprintf("Entering sdapi call %.500s(<SDh %lld>, <SDh %lld>, '%.500s', Masked:0x%016llx)\n", v9, v10, v11, v12, "SDParamSet_GetHandle", a1, a2, a3, v16);
+    xlprintf("Entering sdapi call %.500s(<SDh %lld>, <SDh %lld>, '%.500s', Masked:0x%016llx)\n", v8, v9, "SDParamSet_GetHandle", a1, a2, a3, v10);
   }
 
   if (!a4)
   {
-    throwBadLengthForNullPointer(1, "DgnVerifyWritePtr", v10, v11, v12, v13, v14, v15);
+    throwBadLengthForNullPointer(1, "DgnVerifyWritePtr");
   }
 
   *a4 = a1;
@@ -1904,156 +1877,156 @@ uint64_t SDParamSet_GetHandle(unint64_t a1, int64_t a2, ParamSetHolder *a3, unin
       switch(a2)
       {
         case 10:
-          v73 = ParamSetHolderMgr::smpParamSetHolderMgr;
+          v32 = ParamSetHolderMgr::smpParamSetHolderMgr;
           if (HIDWORD(a1))
           {
-            throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+            throwBadSdapiArgument("SDhParamSetHolder", a1);
           }
 
           if ((a1 + 1) <= 1)
           {
-            throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+            throwBadSdapiArgument("SDhParamSetHolder", a1);
           }
 
-          ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(v73, a1, v10, v11, v12, v13, v14, v15);
-          v80 = ParamSetHolder::lookupName(ParamSetHolder, a3, 10, v75, v76, v77, v78, v79);
-          if (v80 == -1)
+          ParamSetHolder = ParamSetHolderMgr::getParamSetHolder(v32, a1);
+          v34 = ParamSetHolder::lookupName(ParamSetHolder, a3, 0xAu);
+          if (v34 == -1)
           {
-            v113 = 0;
+            v47 = 0;
             a4[11] = -1;
             goto LABEL_99;
           }
 
-          a4[11] = v80;
+          a4[11] = v34;
           break;
         case 11:
-          v105 = ParamSetHolderMgr::smpParamSetHolderMgr;
+          v44 = ParamSetHolderMgr::smpParamSetHolderMgr;
           if (HIDWORD(a1))
           {
-            throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+            throwBadSdapiArgument("SDhParamSetHolder", a1);
           }
 
           if ((a1 + 1) <= 1)
           {
-            throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+            throwBadSdapiArgument("SDhParamSetHolder", a1);
           }
 
-          v106 = ParamSetHolderMgr::getParamSetHolder(v105, a1, v10, v11, v12, v13, v14, v15);
-          v112 = ParamSetHolder::lookupName(v106, a3, 11, v107, v108, v109, v110, v111);
-          if (v112 == -1)
+          v45 = ParamSetHolderMgr::getParamSetHolder(v44, a1);
+          v46 = ParamSetHolder::lookupName(v45, a3, 0xBu);
+          if (v46 == -1)
           {
-            v113 = 0;
+            v47 = 0;
             a4[12] = -1;
             goto LABEL_99;
           }
 
-          a4[12] = v112;
+          a4[12] = v46;
           break;
         case 12:
-          v41 = ParamSetHolderMgr::smpParamSetHolderMgr;
+          v20 = ParamSetHolderMgr::smpParamSetHolderMgr;
           if (HIDWORD(a1))
           {
-            throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+            throwBadSdapiArgument("SDhParamSetHolder", a1);
           }
 
           if ((a1 + 1) <= 1)
           {
-            throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+            throwBadSdapiArgument("SDhParamSetHolder", a1);
           }
 
-          v42 = ParamSetHolderMgr::getParamSetHolder(v41, a1, v10, v11, v12, v13, v14, v15);
-          v48 = ParamSetHolder::lookupName(v42, a3, 12, v43, v44, v45, v46, v47);
-          if (v48 == -1)
+          v21 = ParamSetHolderMgr::getParamSetHolder(v20, a1);
+          v22 = ParamSetHolder::lookupName(v21, a3, 0xCu);
+          if (v22 == -1)
           {
-            v113 = 0;
+            v47 = 0;
             a4[13] = -1;
             goto LABEL_99;
           }
 
-          a4[13] = v48;
+          a4[13] = v22;
           break;
         default:
 LABEL_97:
-          throwBadSdapiArgument("SDParamSetContainerType", a2, v10, v11, v12, v13, v14, v15);
+          throwBadSdapiArgument("SDParamSetContainerType", a2);
 LABEL_98:
-          v113 = 0;
+          v47 = 0;
           goto LABEL_99;
       }
     }
 
     else if (a2 == 7)
     {
-      v57 = ParamSetHolderMgr::smpParamSetHolderMgr;
+      v26 = ParamSetHolderMgr::smpParamSetHolderMgr;
       if (HIDWORD(a1))
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
       if ((a1 + 1) <= 1)
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
-      v58 = ParamSetHolderMgr::getParamSetHolder(v57, a1, v10, v11, v12, v13, v14, v15);
-      v64 = ParamSetHolder::lookupName(v58, a3, 7, v59, v60, v61, v62, v63);
-      if (v64 == -1)
+      v27 = ParamSetHolderMgr::getParamSetHolder(v26, a1);
+      v28 = ParamSetHolder::lookupName(v27, a3, 7u);
+      if (v28 == -1)
       {
-        v113 = 0;
+        v47 = 0;
         a4[8] = -1;
         goto LABEL_99;
       }
 
-      a4[8] = v64;
+      a4[8] = v28;
     }
 
     else if (a2 == 8)
     {
-      v89 = ParamSetHolderMgr::smpParamSetHolderMgr;
+      v38 = ParamSetHolderMgr::smpParamSetHolderMgr;
       if (HIDWORD(a1))
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
       if ((a1 + 1) <= 1)
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
-      v90 = ParamSetHolderMgr::getParamSetHolder(v89, a1, v10, v11, v12, v13, v14, v15);
-      v96 = ParamSetHolder::lookupName(v90, a3, 8, v91, v92, v93, v94, v95);
-      if (v96 == -1)
+      v39 = ParamSetHolderMgr::getParamSetHolder(v38, a1);
+      v40 = ParamSetHolder::lookupName(v39, a3, 8u);
+      if (v40 == -1)
       {
-        v113 = 0;
+        v47 = 0;
         a4[9] = -1;
         goto LABEL_99;
       }
 
-      a4[9] = v96;
+      a4[9] = v40;
     }
 
     else
     {
-      v25 = ParamSetHolderMgr::smpParamSetHolderMgr;
+      v14 = ParamSetHolderMgr::smpParamSetHolderMgr;
       if (HIDWORD(a1))
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
       if ((a1 + 1) <= 1)
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
-      v26 = ParamSetHolderMgr::getParamSetHolder(v25, a1, v10, v11, v12, v13, v14, v15);
-      v32 = ParamSetHolder::lookupName(v26, a3, 9, v27, v28, v29, v30, v31);
-      if (v32 == -1)
+      v15 = ParamSetHolderMgr::getParamSetHolder(v14, a1);
+      v16 = ParamSetHolder::lookupName(v15, a3, 9u);
+      if (v16 == -1)
       {
-        v113 = 0;
+        v47 = 0;
         a4[10] = -1;
         goto LABEL_99;
       }
 
-      a4[10] = v32;
+      a4[10] = v16;
     }
   }
 
@@ -2061,77 +2034,77 @@ LABEL_98:
   {
     if (a2 == 4)
     {
-      v65 = ParamSetHolderMgr::smpParamSetHolderMgr;
+      v29 = ParamSetHolderMgr::smpParamSetHolderMgr;
       if (HIDWORD(a1))
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
       if ((a1 + 1) <= 1)
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
-      v66 = ParamSetHolderMgr::getParamSetHolder(v65, a1, v10, v11, v12, v13, v14, v15);
-      v72 = ParamSetHolder::lookupName(v66, a3, 4, v67, v68, v69, v70, v71);
-      if (v72 == -1)
+      v30 = ParamSetHolderMgr::getParamSetHolder(v29, a1);
+      v31 = ParamSetHolder::lookupName(v30, a3, 4u);
+      if (v31 == -1)
       {
-        v113 = 0;
+        v47 = 0;
         a4[5] = -1;
         goto LABEL_99;
       }
 
-      a4[5] = v72;
+      a4[5] = v31;
     }
 
     else if (a2 == 5)
     {
-      v97 = ParamSetHolderMgr::smpParamSetHolderMgr;
+      v41 = ParamSetHolderMgr::smpParamSetHolderMgr;
       if (HIDWORD(a1))
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
       if ((a1 + 1) <= 1)
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
-      v98 = ParamSetHolderMgr::getParamSetHolder(v97, a1, v10, v11, v12, v13, v14, v15);
-      v104 = ParamSetHolder::lookupName(v98, a3, 5, v99, v100, v101, v102, v103);
-      if (v104 == -1)
+      v42 = ParamSetHolderMgr::getParamSetHolder(v41, a1);
+      v43 = ParamSetHolder::lookupName(v42, a3, 5u);
+      if (v43 == -1)
       {
-        v113 = 0;
+        v47 = 0;
         a4[6] = -1;
         goto LABEL_99;
       }
 
-      a4[6] = v104;
+      a4[6] = v43;
     }
 
     else
     {
-      v33 = ParamSetHolderMgr::smpParamSetHolderMgr;
+      v17 = ParamSetHolderMgr::smpParamSetHolderMgr;
       if (HIDWORD(a1))
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
       if ((a1 + 1) <= 1)
       {
-        throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+        throwBadSdapiArgument("SDhParamSetHolder", a1);
       }
 
-      v34 = ParamSetHolderMgr::getParamSetHolder(v33, a1, v10, v11, v12, v13, v14, v15);
-      v40 = ParamSetHolder::lookupName(v34, a3, 6, v35, v36, v37, v38, v39);
-      if (v40 == -1)
+      v18 = ParamSetHolderMgr::getParamSetHolder(v17, a1);
+      v19 = ParamSetHolder::lookupName(v18, a3, 6u);
+      if (v19 == -1)
       {
-        v113 = 0;
+        v47 = 0;
         a4[7] = -1;
         goto LABEL_99;
       }
 
-      a4[7] = v40;
+      a4[7] = v19;
     }
   }
 
@@ -2140,103 +2113,104 @@ LABEL_98:
     switch(a2)
     {
       case 1:
-        v49 = ParamSetHolderMgr::smpParamSetHolderMgr;
+        v23 = ParamSetHolderMgr::smpParamSetHolderMgr;
         if (HIDWORD(a1))
         {
-          throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+          throwBadSdapiArgument("SDhParamSetHolder", a1);
         }
 
         if ((a1 + 1) <= 1)
         {
-          throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+          throwBadSdapiArgument("SDhParamSetHolder", a1);
         }
 
-        v50 = ParamSetHolderMgr::getParamSetHolder(v49, a1, v10, v11, v12, v13, v14, v15);
-        v56 = ParamSetHolder::lookupName(v50, a3, 1, v51, v52, v53, v54, v55);
-        if (v56 == -1)
+        v24 = ParamSetHolderMgr::getParamSetHolder(v23, a1);
+        v25 = ParamSetHolder::lookupName(v24, a3, 1u);
+        if (v25 == -1)
         {
-          v113 = 0;
+          v47 = 0;
           a4[2] = -1;
           goto LABEL_99;
         }
 
-        a4[2] = v56;
+        a4[2] = v25;
         break;
       case 2:
-        v81 = ParamSetHolderMgr::smpParamSetHolderMgr;
+        v35 = ParamSetHolderMgr::smpParamSetHolderMgr;
         if (HIDWORD(a1))
         {
-          throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+          throwBadSdapiArgument("SDhParamSetHolder", a1);
         }
 
         if ((a1 + 1) <= 1)
         {
-          throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+          throwBadSdapiArgument("SDhParamSetHolder", a1);
         }
 
-        v82 = ParamSetHolderMgr::getParamSetHolder(v81, a1, v10, v11, v12, v13, v14, v15);
-        v88 = ParamSetHolder::lookupName(v82, a3, 2, v83, v84, v85, v86, v87);
-        if (v88 == -1)
+        v36 = ParamSetHolderMgr::getParamSetHolder(v35, a1);
+        v37 = ParamSetHolder::lookupName(v36, a3, 2u);
+        if (v37 == -1)
         {
-          v113 = 0;
+          v47 = 0;
           a4[3] = -1;
           goto LABEL_99;
         }
 
-        a4[3] = v88;
+        a4[3] = v37;
         break;
       case 3:
-        v17 = ParamSetHolderMgr::smpParamSetHolderMgr;
+        v11 = ParamSetHolderMgr::smpParamSetHolderMgr;
         if (HIDWORD(a1))
         {
-          throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+          throwBadSdapiArgument("SDhParamSetHolder", a1);
         }
 
         if ((a1 + 1) <= 1)
         {
-          throwBadSdapiArgument("SDhParamSetHolder", a1, v10, v11, v12, v13, v14, v15);
+          throwBadSdapiArgument("SDhParamSetHolder", a1);
         }
 
-        v18 = ParamSetHolderMgr::getParamSetHolder(v17, a1, v10, v11, v12, v13, v14, v15);
-        v24 = ParamSetHolder::lookupName(v18, a3, 3, v19, v20, v21, v22, v23);
-        if (v24 == -1)
+        v12 = ParamSetHolderMgr::getParamSetHolder(v11, a1);
+        v13 = ParamSetHolder::lookupName(v12, a3, 3u);
+        if (v13 == -1)
         {
-          v113 = 0;
+          v47 = 0;
           a4[4] = -1;
           goto LABEL_99;
         }
 
-        a4[4] = v24;
+        a4[4] = v13;
         break;
       default:
         goto LABEL_97;
     }
   }
 
-  v113 = 1;
+  v47 = 1;
 LABEL_99:
-  SdapiInsurance::~SdapiInsurance(v115);
-  return v113;
+  SdapiInsurance::~SdapiInsurance(v49);
+  return v47;
 }
 
-void sub_2625C11C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_2625C11C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   if (a2 == 2)
   {
-    v15 = __cxa_begin_catch(a1);
-    ApiState::handleDgnException(v15, v16);
+    v14 = __cxa_begin_catch(a1);
+    ApiState::handleDgnException(v14, v15);
   }
 
   else
   {
     if (a2 != 1)
     {
-      SdapiInsurance::~SdapiInsurance(&a14);
+      SdapiInsurance::~SdapiInsurance(va);
       _Unwind_Resume(a1);
     }
 
-    v17 = __cxa_begin_catch(a1);
-    ApiState::handleDgnMemoryException(v17);
+    v16 = __cxa_begin_catch(a1);
+    ApiState::handleDgnMemoryException(v16);
   }
 
   __cxa_end_catch();
@@ -2324,7 +2298,7 @@ uint64_t BinaryIntScale::getUnscaleBits(BinaryIntScale *this, char a2)
   return result;
 }
 
-void BandwidthTransform::saveBandwidthTransform(BandwidthTransform *this, DFile *a2, DFileChecksums *a3, int a4, int a5)
+void BandwidthTransform::saveBandwidthTransform(BandwidthTransform *this, DFile *a2, DFileChecksums *a3, int a4, uint64_t a5)
 {
   if (a4)
   {
@@ -2341,132 +2315,133 @@ void BandwidthTransform::saveBandwidthTransform(BandwidthTransform *this, DFile 
     LinearTransform::writeObject((this + 8), v8, &v10);
     writeObjectChecksum(v8, &v10);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 3u, v10);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 3, v10);
     DgnDelete<DgnStream>(v8);
   }
 }
 
-void BandwidthTransform::saveText(BandwidthTransform *this, DFile *a2, int a3)
+void BandwidthTransform::saveText(BandwidthTransform *this, DFile *a2, uint64_t a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v30);
-  DgnTextFileWriter::openDgnTextFileWriter(v30, a2, 4u, a3);
-  v28 = 0;
-  v29 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v30, sBET_Versions, &v28, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v30, "BandwidthExtensionTransform", (v28 + 8 * (v29 - 1)));
-  v26 = 0;
-  v27 = 0;
+  v3 = a3;
+  DgnTextFileWriter::DgnTextFileWriter(v25);
+  DgnTextFileWriter::openDgnTextFileWriter(v25, a2, 4, v3);
+  v23 = 0;
   v24 = 0;
-  v11 = realloc_array(0, &v24, 0x10uLL, 0, 0, 1);
-  v25 = 0;
-  v26 = v24;
-  LODWORD(v27) = 4;
-  HIDWORD(v27) = v11 >> 2;
-  v23[0] = 0;
-  HIDWORD(v25) = realloc_array(0, v23, 0x40uLL, 0, 0, 1) >> 4;
-  v24 = v23[0];
-  v12 = v25;
-  if (v25 <= 4)
+  DgnTextFile::legalDgnTextFileVersions(v25, sBET_Versions, &v23);
+  DgnTextFileWriter::setFileType(v25, "BandwidthExtensionTransform", (v23 + 8 * (v24 - 1)));
+  v21 = 0;
+  v22 = 0;
+  v19 = 0;
+  v6 = realloc_array(0, &v19, 0x10uLL, 0, 0, 1);
+  v20 = 0;
+  v21 = v19;
+  LODWORD(v22) = 4;
+  HIDWORD(v22) = v6 >> 2;
+  v18[0] = 0;
+  HIDWORD(v20) = realloc_array(0, v18, 0x40uLL, 0, 0, 1) >> 4;
+  v19 = v18[0];
+  v7 = v20;
+  if (v20 <= 4)
   {
-    if (v25 != 4)
+    if (v20 != 4)
     {
-      v14 = v25 + 1;
-      v15 = 16 * v25;
+      v9 = v20 + 1;
+      v10 = 16 * v20;
       do
       {
-        DgnString::DgnString((v24 + v15));
-        v15 += 16;
+        DgnString::DgnString((v19 + v10));
+        v10 += 16;
       }
 
-      while (v14++ != 4);
+      while (v9++ != 4);
     }
   }
 
-  else if (v25 >= 5)
+  else if (v20 >= 5)
   {
-    v13 = 16 * v25 - 16;
+    v8 = 16 * v20 - 16;
     do
     {
-      --v12;
-      DgnString::~DgnString((v24 + v13));
-      v13 -= 16;
+      --v7;
+      DgnString::~DgnString(v19 + v8);
+      v8 -= 16;
     }
 
-    while (v12 > 4);
+    while (v7 > 4);
   }
 
-  LODWORD(v25) = 4;
-  DgnString::operator=(v24, "TableName");
-  *v26 = 0;
-  DgnString::operator=((v24 + 16), "RowIndex");
-  v26[1] = 3;
-  DgnString::operator=((v24 + 32), "ColumnIndex");
-  v26[2] = 3;
-  DgnString::operator=((v24 + 48), "TableEntryInt");
-  v26[3] = 1;
-  DgnTextFileWriter::setLineFieldFormat(v30, &v26, &v24);
-  v18 = *(this + 2);
-  v17 = *(this + 3);
-  v19 = *(this + 12);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v30, "InputSampleRate", *this);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v30, "OutputSampleRate", *(this + 1));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v30, "InputFeatureDim", v18);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v30, "OutputFeatureDim", v17);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v30, "TransformIntScale", 1 << v19);
-  if (v17)
+  LODWORD(v20) = 4;
+  DgnString::operator=(v19, "TableName");
+  *v21 = 0;
+  DgnString::operator=((v19 + 16), "RowIndex");
+  v21[1] = 3;
+  DgnString::operator=((v19 + 32), "ColumnIndex");
+  v21[2] = 3;
+  DgnString::operator=((v19 + 48), "TableEntryInt");
+  v21[3] = 1;
+  DgnTextFileWriter::setLineFieldFormat(v25, &v21, &v19);
+  v13 = *(this + 2);
+  v12 = *(this + 3);
+  v14 = *(this + 12);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v25, "InputSampleRate", *this);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v25, "OutputSampleRate", *(this + 1));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v25, "InputFeatureDim", v13);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v25, "OutputFeatureDim", v12);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v25, "TransformIntScale", 1 << v14);
+  if (v12)
   {
-    for (i = 0; i != v17; ++i)
+    for (i = 0; i != v12; ++i)
     {
-      if (v18)
+      if (v13)
       {
-        for (j = 0; j != v18; ++j)
+        for (j = 0; j != v13; ++j)
         {
-          DgnTextFileWriter::setLineFieldValue(v30, 0, "BETMatrix");
-          DgnTextFileWriter::setLineFieldUnsignedValue(v30, 1u, i);
-          DgnTextFileWriter::setLineFieldUnsignedValue(v30, 2u, j);
-          DgnTextFileWriter::setLineFieldIntegerValue(v30, 3u, *(*(*(this + 4) + 16 * i) + 4 * j));
-          DgnTextFileWriter::writeNextLine(v30);
+          DgnTextFileWriter::setLineFieldValue(v25, 0, "BETMatrix");
+          DgnTextFileWriter::setLineFieldUnsignedValue(v25, 1u, i);
+          DgnTextFileWriter::setLineFieldUnsignedValue(v25, 2u, j);
+          DgnTextFileWriter::setLineFieldIntegerValue(v25, 3u, *(*(*(this + 4) + 16 * i) + 4 * j));
+          DgnTextFileWriter::writeNextLine(v25);
         }
       }
     }
   }
 
-  v23[0] = 0;
-  v23[1] = 0;
-  DgnPrimArray<int>::copyArraySlice(v23, this + 2, 0, *(this + 6));
-  if (v17)
+  v18[0] = 0;
+  v18[1] = 0;
+  DgnPrimArray<int>::copyArraySlice(v18, this + 2, 0, *(this + 6));
+  if (v12)
   {
-    for (k = 0; k != v17; ++k)
+    for (k = 0; k != v12; ++k)
     {
-      DgnTextFileWriter::setLineFieldValue(v30, 0, "BETOffset");
-      DgnTextFileWriter::setLineFieldUnsignedValue(v30, 1u, k);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v30, 2u, 0);
-      DgnTextFileWriter::setLineFieldIntegerValue(v30, 3u, *(v23[0] + k));
-      DgnTextFileWriter::writeNextLine(v30);
+      DgnTextFileWriter::setLineFieldValue(v25, 0, "BETOffset");
+      DgnTextFileWriter::setLineFieldUnsignedValue(v25, 1u, k);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v25, 2u, 0);
+      DgnTextFileWriter::setLineFieldIntegerValue(v25, 3u, *(v18[0] + k));
+      DgnTextFileWriter::writeNextLine(v25);
     }
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v23);
-  DgnArray<DgnString>::releaseAll(&v24);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v26);
-  DgnIArray<Utterance *>::~DgnIArray(&v28);
-  DgnTextFileWriter::~DgnTextFileWriter(v30);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
+  DgnArray<DgnString>::releaseAll(&v19);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v21);
+  DgnIArray<Utterance *>::~DgnIArray(&v23);
+  DgnTextFileWriter::~DgnTextFileWriter(v25);
 }
 
-void sub_2625C1800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2625C1800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va3, a4);
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va3, a7);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   va_copy(va2, va1);
-  v8 = va_arg(va2, void);
-  v10 = va_arg(va2, void);
+  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
   va_copy(va3, va2);
-  v11 = va_arg(va3, void);
-  v13 = va_arg(va3, void);
+  v14 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
   DgnArray<DgnString>::releaseAll(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnIArray<Utterance *>::~DgnIArray(va2);
@@ -2474,7 +2449,7 @@ void sub_2625C1800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t MrecInitLibrary_fileutil(void)
+void MrecInitLibrary_fileutil(void)
 {
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
@@ -2484,14 +2459,14 @@ uint64_t MrecInitLibrary_fileutil(void)
   MrecInitModule_sdpres_sdapi();
   MrecInitModule_sdpres_sdapi();
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
-uint64_t MrecInitLibrarySet_throughFileutil(void)
+void MrecInitLibrarySet_throughFileutil(void)
 {
   MrecInitLibrarySet_throughDfutil();
 
-  return MrecInitLibrary_fileutil();
+  MrecInitLibrary_fileutil();
 }
 
 void MrecInitModule_genclass_pel(void)
@@ -2533,180 +2508,297 @@ void GenoneClassTree::printSize(GenoneClassTree *this, uint64_t a2, uint64_t a3,
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 206, &v199);
-  if (v200)
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 206);
+  if (v127)
   {
-    v16 = v199;
+    v13 = v126;
   }
 
   else
   {
-    v16 = &unk_26286E9B8;
+    v13 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26286E9B8, a3, &unk_26286E9B8, v16);
-  DgnString::~DgnString(&v199);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26286E9B8, a3, &unk_26286E9B8, v13);
+  DgnString::~DgnString(&v126);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26286E9B8);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26286E9B8);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v21 = 4;
+    v15 = 4;
   }
 
   else
   {
-    v21 = 8;
+    v15 = 8;
   }
 
-  v22 = (a3 + 1);
-  v23 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 207, &v199);
-  if (v200)
+  v16 = (a3 + 1);
+  v17 = (34 - a3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 207);
+  if (v127)
   {
-    v28 = v199;
+    v19 = v126;
   }
 
   else
   {
-    v28 = &unk_26286E9B8;
+    v19 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v24, v25, v26, v27, (a3 + 1), &unk_26286E9B8, (34 - a3), (34 - a3), v28, v21, v21, 0);
-  DgnString::~DgnString(&v199);
-  *a4 += v21;
-  *a5 += v21;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v18, (a3 + 1), &unk_26286E9B8, (34 - a3), (34 - a3), v19, v15, v15, 0);
+  DgnString::~DgnString(&v126);
+  *a4 += v15;
+  *a5 += v15;
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v33 = v199;
+    v21 = v126;
   }
 
   else
   {
-    v33 = &unk_26286E9B8;
+    v21 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, v30, v31, v32, (a3 + 1), &unk_26286E9B8, (34 - a3), (34 - a3), v33, 4, 4, 0);
-  DgnString::~DgnString(&v199);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, (a3 + 1), &unk_26286E9B8, (34 - a3), (34 - a3), v21, 4, 4, 0);
+  DgnString::~DgnString(&v126);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v38 = v199;
+    v23 = v126;
   }
 
   else
   {
-    v38 = &unk_26286E9B8;
+    v23 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v35, v36, v37, (a3 + 1), &unk_26286E9B8, (34 - a3), (34 - a3), v38, 4, 4, 0);
-  v198 = a3;
-  DgnString::~DgnString(&v199);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, (a3 + 1), &unk_26286E9B8, (34 - a3), (34 - a3), v23, 4, 4, 0);
+  v125 = a3;
+  DgnString::~DgnString(&v126);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v39 = 12;
+    v24 = 12;
   }
 
   else
   {
-    v39 = 16;
+    v24 = 16;
   }
 
-  v40 = *(this + 6);
-  v41 = *(this + 7);
-  if (v41 >= v40)
+  v25 = *(this + 6);
+  v26 = *(this + 7);
+  if (v26 >= v25)
   {
-    v42 = 0;
-    if (v40 > 0)
+    v27 = 0;
+    if (v25 > 0)
     {
-      v39 += 4 * (v40 - 1) + 4;
+      v24 += 4 * (v25 - 1) + 4;
     }
 
-    v43 = v39 + 4 * (v41 - v40);
+    v28 = v24 + 4 * (v26 - v25);
   }
 
   else
   {
-    v42 = 4 * v40;
-    v43 = v39;
+    v27 = 4 * v25;
+    v28 = v24;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v48 = v199;
+    v30 = v126;
   }
 
   else
   {
-    v48 = &unk_26286E9B8;
+    v30 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v45, v46, v47, v22, &unk_26286E9B8, v23, v23, v48, v43, v39, v42);
-  DgnString::~DgnString(&v199);
-  *a4 += v43;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, v16, &unk_26286E9B8, v17, v17, v30, v28, v24, v27);
+  DgnString::~DgnString(&v126);
+  *a4 += v28;
+  *a5 += v24;
+  *a6 += v27;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v31 = 12;
+  }
+
+  else
+  {
+    v31 = 16;
+  }
+
+  v32 = *(this + 10);
+  v33 = *(this + 11);
+  if (v33 >= v32)
+  {
+    v34 = 0;
+    if (v32 > 0)
+    {
+      v31 += 2 * (v32 - 1) + 2;
+    }
+
+    v35 = v31 + 2 * (v33 - v32);
+  }
+
+  else
+  {
+    v34 = 2 * v32;
+    v35 = v31;
+  }
+
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v37 = v126;
+  }
+
+  else
+  {
+    v37 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v36, v16, &unk_26286E9B8, v17, v17, v37, v35, v31, v34);
+  DgnString::~DgnString(&v126);
+  *a4 += v35;
+  *a5 += v31;
+  *a6 += v34;
+  v38 = BitArray::sizeObject(this + 48, 0);
+  v39 = BitArray::sizeObject(this + 48, 1);
+  v40 = BitArray::sizeObject(this + 48, 3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v42 = v126;
+  }
+
+  else
+  {
+    v42 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v41, v16, &unk_26286E9B8, v17, v17, v42, v38, v39, v40);
+  DgnString::~DgnString(&v126);
+  *a4 += v38;
   *a5 += v39;
-  *a6 += v42;
+  *a6 += v40;
+  v43 = BitArray::sizeObject(this + 64, 0);
+  v44 = BitArray::sizeObject(this + 64, 1);
+  v45 = BitArray::sizeObject(this + 64, 3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v47 = v126;
+  }
+
+  else
+  {
+    v47 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v16, &unk_26286E9B8, v17, v17, v47, v43, v44, v45);
+  DgnString::~DgnString(&v126);
+  *a4 += v43;
+  *a5 += v44;
+  *a6 += v45;
+  v48 = BitArray::sizeObject(this + 80, 0);
+  v49 = BitArray::sizeObject(this + 80, 1);
+  v50 = BitArray::sizeObject(this + 80, 3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v52 = v126;
+  }
+
+  else
+  {
+    v52 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v16, &unk_26286E9B8, v17, v17, v52, v48, v49, v50);
+  DgnString::~DgnString(&v126);
+  *a4 += v48;
+  *a5 += v49;
+  *a6 += v50;
+  v53 = BitArray::sizeObject(this + 96, 0);
+  v54 = BitArray::sizeObject(this + 96, 1);
+  v55 = BitArray::sizeObject(this + 96, 3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v57 = v126;
+  }
+
+  else
+  {
+    v57 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v56, v16, &unk_26286E9B8, v17, v17, v57, v53, v54, v55);
+  DgnString::~DgnString(&v126);
+  *a4 += v53;
+  *a5 += v54;
+  *a6 += v55;
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v59 = v126;
+  }
+
+  else
+  {
+    v59 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v58, v16, &unk_26286E9B8, v17, v17, v59, 4, 4, 0);
+  DgnString::~DgnString(&v126);
+  *a4 += 4;
+  *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v49 = 12;
+    v60 = 12;
   }
 
   else
   {
-    v49 = 16;
+    v60 = 16;
   }
 
-  v50 = *(this + 10);
-  v51 = *(this + 11);
-  if (v51 >= v50)
+  v61 = *(this + 32);
+  v62 = *(this + 33);
+  if (v62 >= v61)
   {
-    v52 = 0;
-    if (v50 > 0)
+    v63 = 0;
+    if (v61 > 0)
     {
-      v49 += 2 * (v50 - 1) + 2;
+      v60 += 4 * (v61 - 1) + 4;
     }
 
-    v53 = v49 + 2 * (v51 - v50);
+    v64 = v60 + 4 * (v62 - v61);
   }
 
   else
   {
-    v52 = 2 * v50;
-    v53 = v49;
+    v63 = 4 * v61;
+    v64 = v60;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v58 = v199;
-  }
-
-  else
-  {
-    v58 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v54, v55, v56, v57, v22, &unk_26286E9B8, v23, v23, v58, v53, v49, v52);
-  DgnString::~DgnString(&v199);
-  *a4 += v53;
-  *a5 += v49;
-  *a6 += v52;
-  v59 = BitArray::sizeObject(this + 48, 0);
-  v60 = BitArray::sizeObject(this + 48, 1);
-  v61 = BitArray::sizeObject(this + 48, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v66 = v199;
+    v66 = v126;
   }
 
   else
@@ -2714,464 +2806,346 @@ void GenoneClassTree::printSize(GenoneClassTree *this, uint64_t a2, uint64_t a3,
     v66 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v63, v64, v65, v22, &unk_26286E9B8, v23, v23, v66, v59, v60, v61);
-  DgnString::~DgnString(&v199);
-  *a4 += v59;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v16, &unk_26286E9B8, v17, v17, v66, v64, v60, v63);
+  DgnString::~DgnString(&v126);
+  *a4 += v64;
   *a5 += v60;
-  *a6 += v61;
-  v67 = BitArray::sizeObject(this + 64, 0);
-  v68 = BitArray::sizeObject(this + 64, 1);
-  v69 = BitArray::sizeObject(this + 64, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  *a6 += v63;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v74 = v199;
+    v67 = 12;
   }
 
   else
   {
-    v74 = &unk_26286E9B8;
+    v67 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v71, v72, v73, v22, &unk_26286E9B8, v23, v23, v74, v67, v68, v69);
-  DgnString::~DgnString(&v199);
-  *a4 += v67;
-  *a5 += v68;
-  *a6 += v69;
-  v75 = BitArray::sizeObject(this + 80, 0);
-  v76 = BitArray::sizeObject(this + 80, 1);
-  v77 = BitArray::sizeObject(this + 80, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  v68 = *(this + 36);
+  v69 = *(this + 37);
+  if (v69 >= v68)
   {
-    v82 = v199;
+    v70 = 0;
+    if (v68 > 0)
+    {
+      v67 += 4 * (v68 - 1) + 4;
+    }
+
+    v71 = v67 + 4 * (v69 - v68);
   }
 
   else
   {
-    v82 = &unk_26286E9B8;
+    v70 = 4 * v68;
+    v71 = v67;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v78, v79, v80, v81, v22, &unk_26286E9B8, v23, v23, v82, v75, v76, v77);
-  DgnString::~DgnString(&v199);
-  *a4 += v75;
-  *a5 += v76;
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v73 = v126;
+  }
+
+  else
+  {
+    v73 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v72, v16, &unk_26286E9B8, v17, v17, v73, v71, v67, v70);
+  DgnString::~DgnString(&v126);
+  *a4 += v71;
+  *a5 += v67;
+  *a6 += v70;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v74 = 12;
+  }
+
+  else
+  {
+    v74 = 16;
+  }
+
+  v75 = *(this + 40);
+  v76 = *(this + 41);
+  if (v76 >= v75)
+  {
+    v77 = 0;
+    if (v75 > 0)
+    {
+      v74 += 4 * (v75 - 1) + 4;
+    }
+
+    v78 = v74 + 4 * (v76 - v75);
+  }
+
+  else
+  {
+    v77 = 4 * v75;
+    v78 = v74;
+  }
+
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v80 = v126;
+  }
+
+  else
+  {
+    v80 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v79, v16, &unk_26286E9B8, v17, v17, v80, v78, v74, v77);
+  DgnString::~DgnString(&v126);
+  *a4 += v78;
+  *a5 += v74;
   *a6 += v77;
-  v83 = BitArray::sizeObject(this + 96, 0);
-  v84 = BitArray::sizeObject(this + 96, 1);
-  v85 = BitArray::sizeObject(this + 96, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v90 = v199;
+    v81 = 12;
   }
 
   else
   {
-    v90 = &unk_26286E9B8;
+    v81 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v87, v88, v89, v22, &unk_26286E9B8, v23, v23, v90, v83, v84, v85);
-  DgnString::~DgnString(&v199);
-  *a4 += v83;
-  *a5 += v84;
-  *a6 += v85;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  v82 = *(this + 44);
+  v83 = *(this + 45);
+  if (v83 >= v82)
   {
-    v95 = v199;
+    v84 = 0;
+    if (v82 > 0)
+    {
+      v81 += 4 * (v82 - 1) + 4;
+    }
+
+    v85 = v81 + 4 * (v83 - v82);
   }
 
   else
   {
-    v95 = &unk_26286E9B8;
+    v84 = 4 * v82;
+    v85 = v81;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v91, v92, v93, v94, v22, &unk_26286E9B8, v23, v23, v95, 4, 4, 0);
-  DgnString::~DgnString(&v199);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v87 = v126;
+  }
+
+  else
+  {
+    v87 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v16, &unk_26286E9B8, v17, v17, v87, v85, v81, v84);
+  DgnString::~DgnString(&v126);
+  *a4 += v85;
+  *a5 += v81;
+  *a6 += v84;
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v89 = v126;
+  }
+
+  else
+  {
+    v89 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v16, &unk_26286E9B8, v17, v17, v89, 4, 4, 0);
+  DgnString::~DgnString(&v126);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v96 = 12;
+    v90 = 12;
   }
 
   else
   {
-    v96 = 16;
+    v90 = 16;
   }
 
-  v97 = *(this + 32);
-  v98 = *(this + 33);
-  if (v98 >= v97)
+  v91 = *(this + 50);
+  v92 = *(this + 51);
+  if (v92 >= v91)
   {
-    v99 = 0;
-    if (v97 > 0)
+    v93 = 0;
+    if (v91 > 0)
     {
-      v96 += 4 * (v97 - 1) + 4;
+      v90 += 4 * (v91 - 1) + 4;
     }
 
-    v100 = v96 + 4 * (v98 - v97);
+    v94 = v90 + 4 * (v92 - v91);
   }
 
   else
   {
-    v99 = 4 * v97;
-    v100 = v96;
+    v93 = 4 * v91;
+    v94 = v90;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v105 = v199;
+    v96 = v126;
   }
 
   else
   {
-    v105 = &unk_26286E9B8;
+    v96 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v101, v102, v103, v104, v22, &unk_26286E9B8, v23, v23, v105, v100, v96, v99);
-  DgnString::~DgnString(&v199);
-  *a4 += v100;
-  *a5 += v96;
-  *a6 += v99;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v95, v16, &unk_26286E9B8, v17, v17, v96, v94, v90, v93);
+  DgnString::~DgnString(&v126);
+  *a4 += v94;
+  *a5 += v90;
+  *a6 += v93;
+  v97 = sizeObject<DgnPrimArray<unsigned int>>(this + 208, 0);
+  v98 = sizeObject<DgnPrimArray<unsigned int>>(this + 208, 1);
+  v126 = 0;
+  v127 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v126);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
+  {
+    v100 = v126;
+  }
+
+  else
+  {
+    v100 = &unk_26286E9B8;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v99, v16, &unk_26286E9B8, v17, v17, v100, v97, v98, 0);
+  DgnString::~DgnString(&v126);
+  *a4 += v97;
+  *a5 += v98;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v106 = 12;
+    v101 = 12;
   }
 
   else
   {
-    v106 = 16;
+    v101 = 16;
   }
 
-  v107 = *(this + 36);
-  v108 = *(this + 37);
-  if (v108 >= v107)
+  v102 = *(this + 58);
+  v103 = *(this + 59);
+  if (v103 >= v102)
   {
-    v109 = 0;
-    if (v107 > 0)
+    v104 = 0;
+    if (v102 > 0)
     {
-      v106 += 4 * (v107 - 1) + 4;
+      v101 += 4 * (v102 - 1) + 4;
     }
 
-    v110 = v106 + 4 * (v108 - v107);
+    v105 = v101 + 4 * (v103 - v102);
   }
 
   else
   {
-    v109 = 4 * v107;
-    v110 = v106;
+    v104 = 4 * v102;
+    v105 = v101;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v115 = v199;
+    v107 = v126;
   }
 
   else
   {
-    v115 = &unk_26286E9B8;
+    v107 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v111, v112, v113, v114, v22, &unk_26286E9B8, v23, v23, v115, v110, v106, v109);
-  DgnString::~DgnString(&v199);
-  *a4 += v110;
-  *a5 += v106;
-  *a6 += v109;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v16, &unk_26286E9B8, v17, v17, v107, v105, v101, v104);
+  DgnString::~DgnString(&v126);
+  *a4 += v105;
+  *a5 += v101;
+  *a6 += v104;
+  v108 = sizeObject(this + 240, 0);
+  v109 = sizeObject(this + 240, 1);
+  v110 = sizeObject(this + 240, 3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v116 = 12;
+    v112 = v126;
   }
 
   else
   {
-    v116 = 16;
+    v112 = &unk_26286E9B8;
   }
 
-  v117 = *(this + 40);
-  v118 = *(this + 41);
-  if (v118 >= v117)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v111, v16, &unk_26286E9B8, v17, v17, v112, v108, v109, v110);
+  DgnString::~DgnString(&v126);
+  *a4 += v108;
+  *a5 += v109;
+  *a6 += v110;
+  v113 = sizeObject<DgnVector>(this + 264, 0);
+  v114 = sizeObject<DgnVector>(this + 264, 1);
+  v115 = sizeObject<DgnVector>(this + 264, 3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v119 = 0;
-    if (v117 > 0)
-    {
-      v116 += 4 * (v117 - 1) + 4;
-    }
-
-    v120 = v116 + 4 * (v118 - v117);
+    v117 = v126;
   }
 
   else
   {
-    v119 = 4 * v117;
-    v120 = v116;
+    v117 = &unk_26286E9B8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v116, v16, &unk_26286E9B8, v17, v17, v117, v113, v114, v115);
+  DgnString::~DgnString(&v126);
+  *a4 += v113;
+  *a5 += v114;
+  *a6 += v115;
+  v118 = sizeObject<DgnMatrix>(this + 280, 0);
+  v119 = sizeObject<DgnMatrix>(this + 280, 1);
+  v120 = sizeObject<DgnMatrix>(this + 280, 3);
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209);
+  if (v127)
   {
-    v125 = v199;
+    v122 = v126;
   }
 
   else
   {
-    v125 = &unk_26286E9B8;
+    v122 = &unk_26286E9B8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v121, v122, v123, v124, v22, &unk_26286E9B8, v23, v23, v125, v120, v116, v119);
-  DgnString::~DgnString(&v199);
-  *a4 += v120;
-  *a5 += v116;
-  *a6 += v119;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v121, v16, &unk_26286E9B8, v17, v17, v122, v118, v119, v120);
+  DgnString::~DgnString(&v126);
+  *a4 += v118;
+  *a5 += v119;
+  *a6 += v120;
+  getShipObjectSizeDescription(&v126, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 210);
+  if (v127)
   {
-    v126 = 12;
+    v124 = v126;
   }
 
   else
   {
-    v126 = 16;
+    v124 = &unk_26286E9B8;
   }
 
-  v127 = *(this + 44);
-  v128 = *(this + 45);
-  if (v128 >= v127)
-  {
-    v129 = 0;
-    if (v127 > 0)
-    {
-      v126 += 4 * (v127 - 1) + 4;
-    }
-
-    v130 = v126 + 4 * (v128 - v127);
-  }
-
-  else
-  {
-    v129 = 4 * v127;
-    v130 = v126;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v135 = v199;
-  }
-
-  else
-  {
-    v135 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v131, v132, v133, v134, v22, &unk_26286E9B8, v23, v23, v135, v130, v126, v129);
-  DgnString::~DgnString(&v199);
-  *a4 += v130;
-  *a5 += v126;
-  *a6 += v129;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v140 = v199;
-  }
-
-  else
-  {
-    v140 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v136, v137, v138, v139, v22, &unk_26286E9B8, v23, v23, v140, 4, 4, 0);
-  DgnString::~DgnString(&v199);
-  *a4 += 4;
-  *a5 += 4;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v141 = 12;
-  }
-
-  else
-  {
-    v141 = 16;
-  }
-
-  v142 = *(this + 50);
-  v143 = *(this + 51);
-  if (v143 >= v142)
-  {
-    v144 = 0;
-    if (v142 > 0)
-    {
-      v141 += 4 * (v142 - 1) + 4;
-    }
-
-    v145 = v141 + 4 * (v143 - v142);
-  }
-
-  else
-  {
-    v144 = 4 * v142;
-    v145 = v141;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v150 = v199;
-  }
-
-  else
-  {
-    v150 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v146, v147, v148, v149, v22, &unk_26286E9B8, v23, v23, v150, v145, v141, v144);
-  DgnString::~DgnString(&v199);
-  *a4 += v145;
-  *a5 += v141;
-  *a6 += v144;
-  v151 = sizeObject<DgnPrimArray<unsigned int>>(this + 208, 0);
-  v152 = sizeObject<DgnPrimArray<unsigned int>>(this + 208, 1);
-  v199 = 0;
-  v200 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v199);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v157 = v199;
-  }
-
-  else
-  {
-    v157 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v153, v154, v155, v156, v22, &unk_26286E9B8, v23, v23, v157, v151, v152, 0);
-  DgnString::~DgnString(&v199);
-  *a4 += v151;
-  *a5 += v152;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v158 = 12;
-  }
-
-  else
-  {
-    v158 = 16;
-  }
-
-  v159 = *(this + 58);
-  v160 = *(this + 59);
-  if (v160 >= v159)
-  {
-    v161 = 0;
-    if (v159 > 0)
-    {
-      v158 += 4 * (v159 - 1) + 4;
-    }
-
-    v162 = v158 + 4 * (v160 - v159);
-  }
-
-  else
-  {
-    v161 = 4 * v159;
-    v162 = v158;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v167 = v199;
-  }
-
-  else
-  {
-    v167 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v163, v164, v165, v166, v22, &unk_26286E9B8, v23, v23, v167, v162, v158, v161);
-  DgnString::~DgnString(&v199);
-  *a4 += v162;
-  *a5 += v158;
-  *a6 += v161;
-  v168 = sizeObject(this + 240, 0);
-  v169 = sizeObject(this + 240, 1);
-  v170 = sizeObject(this + 240, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v175 = v199;
-  }
-
-  else
-  {
-    v175 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v171, v172, v173, v174, v22, &unk_26286E9B8, v23, v23, v175, v168, v169, v170);
-  DgnString::~DgnString(&v199);
-  *a4 += v168;
-  *a5 += v169;
-  *a6 += v170;
-  v176 = sizeObject<DgnVector>(this + 264, 0);
-  v177 = sizeObject<DgnVector>(this + 264, 1);
-  v178 = sizeObject<DgnVector>(this + 264, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v183 = v199;
-  }
-
-  else
-  {
-    v183 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v179, v180, v181, v182, v22, &unk_26286E9B8, v23, v23, v183, v176, v177, v178);
-  DgnString::~DgnString(&v199);
-  *a4 += v176;
-  *a5 += v177;
-  *a6 += v178;
-  v184 = sizeObject<DgnMatrix>(this + 280, 0);
-  v185 = sizeObject<DgnMatrix>(this + 280, 1);
-  v186 = sizeObject<DgnMatrix>(this + 280, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 209, &v199);
-  if (v200)
-  {
-    v191 = v199;
-  }
-
-  else
-  {
-    v191 = &unk_26286E9B8;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v187, v188, v189, v190, v22, &unk_26286E9B8, v23, v23, v191, v184, v185, v186);
-  DgnString::~DgnString(&v199);
-  *a4 += v184;
-  *a5 += v185;
-  *a6 += v186;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 210, &v199);
-  if (v200)
-  {
-    v196 = v199;
-  }
-
-  else
-  {
-    v196 = &unk_26286E9B8;
-  }
-
-  v197 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v192, v193, v194, v195, v198, &unk_26286E9B8, (35 - v198), (35 - v198), v196, *a4, *a5, *a6);
-  DgnString::~DgnString(&v199);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v123, v125, &unk_26286E9B8, (35 - v125), (35 - v125), v124, *a4, *a5, *a6);
+  DgnString::~DgnString(&v126);
 }
 
-void sub_2625C284C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2625C284C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -3279,9 +3253,9 @@ uint64_t sizeObject<DgnMatrix>(uint64_t a1, int a2)
   return v5;
 }
 
-void sub_2625C2AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625C2AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va);
   _Unwind_Resume(a1);
 }
@@ -3302,57 +3276,57 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
     v13 = v11;
   }
 
-  v113 = v13;
-  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(v134, *(a1 + 8));
+  v111 = v13;
+  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(v132, *(a1 + 8));
   v14 = *(a1 + 112);
-  v132 = 0;
-  v133 = 0;
+  v130 = 0;
+  v131 = 0;
   if (v14)
   {
-    v114 = 0;
-    v15 = realloc_array(0, &v114, 4 * v14, 0, 0, 1);
+    v112 = 0;
+    v15 = realloc_array(0, &v112, 4 * v14, 0, 0, 1);
     v16 = 0;
-    v17 = v114;
-    v132 = v114;
-    LODWORD(v133) = v14;
-    HIDWORD(v133) = v15 >> 2;
+    v17 = v112;
+    v130 = v112;
+    LODWORD(v131) = v14;
+    HIDWORD(v131) = v15 >> 2;
     do
     {
       v17[v16++] = 0;
     }
 
-    while (v16 < v133);
+    while (v16 < v131);
   }
 
   else
   {
-    LODWORD(v133) = 0;
+    LODWORD(v131) = 0;
   }
 
   v18 = *(a1 + 8);
-  v130 = 0;
-  v131 = 0;
+  v128 = 0;
+  v129 = 0;
   if (v18)
   {
-    v114 = 0;
-    v19 = realloc_array(0, &v114, 4 * v18, 0, 0, 1);
+    v112 = 0;
+    v19 = realloc_array(0, &v112, 4 * v18, 0, 0, 1);
     v20 = 0;
-    v21 = v114;
-    v130 = v114;
-    LODWORD(v131) = v18;
-    HIDWORD(v131) = v19 >> 2;
+    v21 = v112;
+    v128 = v112;
+    LODWORD(v129) = v18;
+    HIDWORD(v129) = v19 >> 2;
     do
     {
       v21[v20++] = 0;
     }
 
-    while (v20 < v131);
+    while (v20 < v129);
   }
 
   else
   {
     v21 = 0;
-    LODWORD(v131) = 0;
+    LODWORD(v129) = 0;
   }
 
   if (*(a2 + 2))
@@ -3369,45 +3343,45 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
     while (v22 < *(a2 + 2));
   }
 
-  v128 = 0;
-  v129 = 0;
-  DgnPrimArray<int>::copyArraySlice(&v128, (a1 + 192), 0, *(a1 + 200));
   v126 = 0;
   v127 = 0;
-  BitArray::BitArray(&v124, *(a1 + 8));
-  BitArray::clearRange(&v124, 0, v125);
-  v110 = a3;
-  if (v129)
+  DgnPrimArray<int>::copyArraySlice(&v126, (a1 + 192), 0, *(a1 + 200));
+  v124 = 0;
+  v125 = 0;
+  BitArray::BitArray(&v122, *(a1 + 8));
+  BitArray::clearRange(&v122, 0, v123);
+  v108 = a3;
+  if (v127)
   {
     v25 = 0;
-    v26 = v128;
-    v27 = v124;
+    v26 = v126;
+    v27 = v122;
     do
     {
-      *(v27 + ((v26[v25] >> 3) & 0x1FFFFFFC)) |= 1 << v26[v25];
+      *(v27 + ((*(v26 + 4 * v25) >> 3) & 0x1FFFFFFC)) |= 1 << *(v26 + 4 * v25);
       ++v25;
     }
 
-    while (v25 < v129);
-    v122 = 0;
-    *v123 = 0;
-    if (v129)
+    while (v25 < v127);
+    v120 = 0;
+    *v121 = 0;
+    if (v127)
     {
       v28 = 0;
       while (1)
       {
-        v29 = v128[v28];
+        v29 = v126[v28];
         v30 = *(*(a1 + 16) + 4 * v29);
-        v31 = v134[0];
-        if ((*(*(a1 + v113) + 4 * (v29 >> 5)) & (1 << v29)) != 0)
+        v31 = v132[0];
+        if ((*(*(a1 + v111) + 4 * (v29 >> 5)) & (1 << v29)) != 0)
         {
-          v32 = v134[0] + 16 * v29;
+          v32 = v132[0] + 16 * v29;
           v33 = *(v32 + 8);
           if (v33 == *(v32 + 12))
           {
-            DgnPrimArray<unsigned int>::reallocElts(v134[0] + 16 * v29, 1, 1);
+            DgnPrimArray<unsigned int>::reallocElts(v132[0] + 16 * v29, 1, 1);
             v33 = *(v32 + 8);
-            v31 = v134[0];
+            v31 = v132[0];
           }
 
           *(*v32 + 4 * v33) = v28;
@@ -3427,8 +3401,8 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
 
         else
         {
-          v38 = v134[0] + 16 * v30;
-          v39 = v134[0] + 16 * v29;
+          v38 = v132[0] + 16 * v30;
+          v39 = v132[0] + 16 * v29;
           v40 = *(v39 + 8);
           v36 = (v38 + 8);
           v41 = *(v38 + 8) + v40;
@@ -3461,9 +3435,9 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
         }
 
         *v36 += v37;
-        v46 = v130;
-        v130[v30] += v130[v29];
-        ++v132[v30];
+        v46 = v128;
+        v128[v30] += v128[v29];
+        ++v130[v30];
         v47 = a5;
         if (v29 == 1)
         {
@@ -3472,44 +3446,44 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
 
         if (v46[v29] >= v47)
         {
-          if ((*(v124 + 4 * (v29 >> 5)) & (1 << v29)) != 0)
+          if ((*(v122 + 4 * (v29 >> 5)) & (1 << v29)) != 0)
           {
-            v48 = v123[0];
-            if (v123[0] == v123[1])
+            v48 = v121[0];
+            if (v121[0] == v121[1])
             {
-              DgnPrimArray<unsigned int>::reallocElts(&v122, 1, 1);
-              v48 = v123[0];
+              DgnPrimArray<unsigned int>::reallocElts(&v120, 1, 1);
+              v48 = v121[0];
             }
 
-            *&v122[4 * v48] = v29;
-            ++v123[0];
+            *&v120[4 * v48] = v29;
+            ++v121[0];
           }
         }
 
         else
         {
-          *(v124 + ((v30 >> 3) & 0x1FFFFFFC)) |= 1 << v30;
+          *(v122 + ((v30 >> 3) & 0x1FFFFFFC)) |= 1 << v30;
         }
 
-        if (v30 && v132[v30] == *(*(a1 + 224) + 4 * v30))
+        if (v30 && v130[v30] == *(*(a1 + 224) + 4 * v30))
         {
-          v49 = v127;
-          if (v127 == HIDWORD(v127))
+          v49 = v125;
+          if (v125 == HIDWORD(v125))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v126, 1, 1);
-            v49 = v127;
+            DgnPrimArray<unsigned int>::reallocElts(&v124, 1, 1);
+            v49 = v125;
           }
 
-          *(v126 + 4 * v49) = v30;
-          LODWORD(v127) = v127 + 1;
+          *(v124 + 4 * v49) = v30;
+          LODWORD(v125) = v125 + 1;
         }
 
-        if (++v28 >= v129)
+        if (++v28 >= v127)
         {
-          DgnPrimArray<int>::copyArraySlice(&v128, &v126, 0, v127);
+          DgnPrimArray<int>::copyArraySlice(&v126, &v124, 0, v125);
           v28 = 0;
-          LODWORD(v127) = 0;
-          if (!v129)
+          LODWORD(v125) = 0;
+          if (!v127)
           {
             break;
           }
@@ -3520,30 +3494,30 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
 
   else
   {
-    v122 = 0;
-    *v123 = 0;
+    v120 = 0;
+    *v121 = 0;
   }
 
-  v50 = v123[0];
-  v51 = v110;
-  if (v110)
+  v50 = v121[0];
+  v51 = v108;
+  if (v108)
   {
     while (v50 > v51)
     {
-      DgnPrimArray<int>::copyArraySlice(&v128, &v122, 0, v50);
-      v52 = *v130 + 1;
-      v53 = v129;
-      if (v129)
+      DgnPrimArray<int>::copyArraySlice(&v126, &v120, 0, v50);
+      v52 = *v128 + 1;
+      v53 = v127;
+      if (v127)
       {
         v54 = 0;
-        v55 = v128;
+        v55 = v126;
         do
         {
           v56 = *v55++;
           v57 = *(*(a1 + 16) + 4 * v56);
-          if (v57 && v130[v57] < v52)
+          if (v57 && v128[v57] < v52)
           {
-            v52 = v130[v57];
+            v52 = v128[v57];
             v54 = v57;
           }
 
@@ -3558,10 +3532,10 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
         v54 = 0;
       }
 
-      *(v124 + 4 * (v54 >> 5)) |= 1 << v54;
-      v123[0] = 0;
-      LODWORD(v127) = 0;
-      if (!v129)
+      *(v122 + 4 * (v54 >> 5)) |= 1 << v54;
+      v121[0] = 0;
+      LODWORD(v125) = 0;
+      if (!v127)
       {
         goto LABEL_93;
       }
@@ -3574,36 +3548,36 @@ void *GenoneClassTree::getDynamicClasses(uint64_t a1, uint64_t *a2, unsigned int
       v63 = v52 + 1;
       do
       {
-        v64 = v128[v58];
+        v64 = v126[v58];
         if (*(*(a1 + 16) + 4 * v64) != v54)
         {
-          v69 = v123[0];
-          if (v123[0] == v123[1])
+          v69 = v121[0];
+          if (v121[0] == v121[1])
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v122, 1, 1);
-            v69 = v123[0];
+            DgnPrimArray<unsigned int>::reallocElts(&v120, 1, 1);
+            v69 = v121[0];
           }
 
-          *&v122[4 * v69] = v64;
-          ++v123[0];
+          *&v120[4 * v69] = v64;
+          ++v121[0];
           goto LABEL_74;
         }
 
-        v65 = v130;
-        v66 = v130[v64];
+        v65 = v128;
+        v66 = v128[v64];
         if (v66 >= v63)
         {
           if (v66 >= v62)
           {
-            v72 = v127;
-            if (v127 == HIDWORD(v127))
+            v72 = v125;
+            if (v125 == HIDWORD(v125))
             {
-              DgnPrimArray<unsigned int>::reallocElts(&v126, 1, 1);
-              v72 = v127;
+              DgnPrimArray<unsigned int>::reallocElts(&v124, 1, 1);
+              v72 = v125;
             }
 
-            *(v126 + 4 * v72) = v64;
-            LODWORD(v127) = v127 + 1;
+            *(v124 + 4 * v72) = v64;
+            LODWORD(v125) = v125 + 1;
 LABEL_74:
             v68 = v63;
             v70 = v60;
@@ -3612,16 +3586,16 @@ LABEL_74:
 
           if (v59)
           {
-            v71 = v127;
-            if (v127 == HIDWORD(v127))
+            v71 = v125;
+            if (v125 == HIDWORD(v125))
             {
-              DgnPrimArray<unsigned int>::reallocElts(&v126, 1, 1);
-              v71 = v127;
-              v65 = v130;
+              DgnPrimArray<unsigned int>::reallocElts(&v124, 1, 1);
+              v71 = v125;
+              v65 = v128;
             }
 
-            *(v126 + 4 * v71) = v59;
-            LODWORD(v127) = v127 + 1;
+            *(v124 + 4 * v71) = v59;
+            LODWORD(v125) = v125 + 1;
             v62 = v65[v64];
             v68 = v63;
           }
@@ -3629,7 +3603,7 @@ LABEL_74:
           else
           {
             v68 = v63;
-            v62 = v130[v64];
+            v62 = v128[v64];
           }
 
           v70 = v60;
@@ -3640,22 +3614,22 @@ LABEL_74:
         {
           if (v59)
           {
-            v67 = v127;
-            if (v127 == HIDWORD(v127))
+            v67 = v125;
+            if (v125 == HIDWORD(v125))
             {
-              DgnPrimArray<unsigned int>::reallocElts(&v126, 1, 1);
-              v67 = v127;
-              v65 = v130;
+              DgnPrimArray<unsigned int>::reallocElts(&v124, 1, 1);
+              v67 = v125;
+              v65 = v128;
             }
 
-            *(v126 + 4 * v67) = v59;
-            LODWORD(v127) = v127 + 1;
+            *(v124 + 4 * v67) = v59;
+            LODWORD(v125) = v125 + 1;
             v68 = v65[v64];
           }
 
           else
           {
-            v68 = v130[v64];
+            v68 = v128[v64];
           }
 
           v62 = v63;
@@ -3670,58 +3644,58 @@ LABEL_87:
         v63 = v68;
       }
 
-      while (v58 < v129);
-      v51 = v110;
+      while (v58 < v127);
+      v51 = v108;
       if (v61)
       {
-        v73 = v127;
+        v73 = v125;
         if (v59)
         {
-          if (v127 == HIDWORD(v127))
+          if (v125 == HIDWORD(v125))
           {
-            DgnPrimArray<unsigned int>::reallocElts(&v126, 1, 1);
-            v73 = v127;
+            DgnPrimArray<unsigned int>::reallocElts(&v124, 1, 1);
+            v73 = v125;
           }
 
-          *(v126 + 4 * v73) = v59;
-          v73 = v127 + 1;
-          LODWORD(v127) = v127 + 1;
+          *(v124 + 4 * v73) = v59;
+          v73 = v125 + 1;
+          LODWORD(v125) = v125 + 1;
         }
 
         goto LABEL_96;
       }
 
 LABEL_93:
-      v74 = v123[0];
-      if (v123[0] == v123[1])
+      v74 = v121[0];
+      if (v121[0] == v121[1])
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v122, 1, 1);
-        v74 = v123[0];
+        DgnPrimArray<unsigned int>::reallocElts(&v120, 1, 1);
+        v74 = v121[0];
       }
 
-      *&v122[4 * v74] = v54;
-      ++v123[0];
-      v73 = v127;
+      *&v120[4 * v74] = v54;
+      ++v121[0];
+      v73 = v125;
 LABEL_96:
-      if (v123[0] + v73 > v123[1])
+      if (v121[0] + v73 > v121[1])
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v122, v123[0] + v73 - v123[1], 1);
-        v73 = v127;
+        DgnPrimArray<unsigned int>::reallocElts(&v120, v121[0] + v73 - v121[1], 1);
+        v73 = v125;
       }
 
       if (v73)
       {
         v75 = 0;
-        v76 = v126;
-        v77 = v122;
+        v76 = v124;
+        v77 = v120;
         do
         {
-          *&v77[4 * (v75 + v123[0])] = *(v76 + 4 * v75);
+          *&v77[4 * (v75 + v121[0])] = *(v76 + 4 * v75);
           ++v75;
-          v78 = v127;
+          v78 = v125;
         }
 
-        while (v75 < v127);
+        while (v75 < v125);
       }
 
       else
@@ -3729,23 +3703,23 @@ LABEL_96:
         v78 = 0;
       }
 
-      v50 = v123[0] + v78;
-      v123[0] += v78;
+      v50 = v121[0] + v78;
+      v121[0] += v78;
     }
   }
 
-  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(v121, v50);
-  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(&v119, v50);
-  BitArray::BitArray(&v117, *(a1 + 200));
-  BitArray::setRange(&v117, 0, v118);
-  mrec_qsort_r<GenoneClassTree>(v122, v123[0], 4);
+  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(v119, v50);
+  DgnArray<DgnPrimArray<unsigned int>>::DgnArray(&v117, v50);
+  BitArray::BitArray(&v115, *(a1 + 200));
+  BitArray::setRange(&v115, 0, v116);
+  mrec_qsort_r<GenoneClassTree>(v120, v121[0], 4, 0);
   if (v50)
   {
     v79 = 0;
-    v80 = v134[0];
+    v80 = v132[0];
     do
     {
-      v81 = *&v122[4 * (v50 + ~v79)];
+      v81 = *&v120[4 * (v50 + ~v79)];
       v82 = v80 + 16 * v81;
       if (*(v82 + 8))
       {
@@ -3753,26 +3727,26 @@ LABEL_96:
         do
         {
           v84 = *(*v82 + 4 * v83);
-          v85 = v121[0] + 16 * v79;
+          v85 = v119[0] + 16 * v79;
           v86 = *(v85 + 8);
           if (v86 == *(v85 + 12))
           {
-            DgnPrimArray<unsigned int>::reallocElts(v121[0] + 16 * v79, 1, 1);
+            DgnPrimArray<unsigned int>::reallocElts(v119[0] + 16 * v79, 1, 1);
             v86 = *(v85 + 8);
           }
 
           *(*v85 + 4 * v86) = v84;
           ++*(v85 + 8);
-          v87 = v117;
-          if ((*(v117 + 4 * (v84 >> 5)) & (1 << v84)) != 0)
+          v87 = v115;
+          if ((*(v115 + 4 * (v84 >> 5)) & (1 << v84)) != 0)
           {
-            v88 = v119 + 16 * v79;
+            v88 = v117 + 16 * v79;
             v89 = *(v88 + 8);
             if (v89 == *(v88 + 12))
             {
-              DgnPrimArray<unsigned int>::reallocElts(v119 + 16 * v79, 1, 1);
+              DgnPrimArray<unsigned int>::reallocElts(v117 + 16 * v79, 1, 1);
               v89 = *(v88 + 8);
-              v87 = v117;
+              v87 = v115;
             }
 
             *(*v88 + 4 * v89) = v84;
@@ -3781,8 +3755,8 @@ LABEL_96:
           }
 
           ++v83;
-          v80 = v134[0];
-          v82 = v134[0] + 16 * v81;
+          v80 = v132[0];
+          v82 = v132[0] + 16 * v81;
         }
 
         while (v83 < *(v82 + 8));
@@ -3822,17 +3796,17 @@ LABEL_96:
   }
 
   *(a7 + 8) = 0;
-  v94 = v120;
-  if (v120)
+  v94 = v118;
+  if (v118)
   {
     v95 = 0;
     v96 = 0;
     v97 = 8;
     do
     {
-      if (*(v119 + v97))
+      if (*(v117 + v97))
       {
-        v98 = v121[0];
+        v98 = v119[0];
         v99 = *(a6 + 8);
         if (v99 == *(a6 + 12))
         {
@@ -3845,7 +3819,7 @@ LABEL_96:
         v100[1] = 0;
         DgnPrimArray<int>::copyArraySlice(v100, (v98 + v97 - 8), 0, *(v98 + v97));
         ++*(a6 + 8);
-        v101 = v119;
+        v101 = v117;
         v102 = *(a7 + 8);
         if (v102 == *(a7 + 12))
         {
@@ -3859,7 +3833,7 @@ LABEL_96:
         DgnPrimArray<int>::copyArraySlice(v103, (v101 + v97 - 8), 0, *(v101 + v97));
         v95 = *(a7 + 8) + 1;
         *(a7 + 8) = v95;
-        v94 = v120;
+        v94 = v118;
       }
 
       ++v96;
@@ -3869,41 +3843,42 @@ LABEL_96:
     while (v96 < v94);
     if (v95)
     {
-      v116 = &v117;
-      v115 = v118;
-      v114 = 0;
-      SetBitOrStop = BitArrayIterator::scanForNextSetBitOrStop(&v114);
-      if (HIDWORD(v114) < v115)
+      v114 = &v115;
+      v113 = v116;
+      v112 = 0;
+      SetBitOrStop = BitArrayIterator::scanForNextSetBitOrStop(&v112);
+      if (HIDWORD(v112) < v113)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 586, "pel/genclass", 20, &errStr_pel_genclass_E_TNODE_NOT_COVERED, v105, v106, *(*(a1 + 192) + 4 * SetBitOrStop));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/pel/genclass.cpp", 586, "pel/genclass", 20, "%u", *(*(a1 + 192) + 4 * SetBitOrStop));
       }
     }
   }
 
-  BitArray::~BitArray(&v117);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v119);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v121);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v122);
-  BitArray::~BitArray(&v124);
+  BitArray::~BitArray(&v115);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v117);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v119);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v120);
+  BitArray::~BitArray(&v122);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v124);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&v126);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&v128);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&v130);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v132);
-  return DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v134);
+  return DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v132);
 }
 
-void sub_2625C3564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26, uint64_t a27, char a28)
+void sub_2625C3564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   BitArray::~BitArray(&a18);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&a20);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&a22);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a24);
   BitArray::~BitArray(&a26);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a28);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 152);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 136);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v28 - 120);
-  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v28 - 104);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 152);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 136);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27 - 120);
+  DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v27 - 104);
   _Unwind_Resume(a1);
 }
 
@@ -3962,19 +3937,19 @@ LABEL_11:
   return a1;
 }
 
-char *mrec_qsort_r<GenoneClassTree>(char *result, unint64_t a2, int64_t a3)
+char *mrec_qsort_r<GenoneClassTree>(char *result, unint64_t a2, int64_t a3, uint64_t a4)
 {
-  v4 = -a3;
-  v5 = a3 != 8;
-  v6 = ((result | a3) & 7) == 0;
+  v5 = -a3;
+  v6 = a3 != 8;
+  v7 = ((result | a3) & 7) == 0;
   if (((result | a3) & 7) != 0)
   {
-    v7 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v7 = a3 != 8;
+    v8 = a3 != 8;
   }
 
   if (a2 < 7)
@@ -3982,308 +3957,309 @@ char *mrec_qsort_r<GenoneClassTree>(char *result, unint64_t a2, int64_t a3)
 LABEL_145:
     if ((a2 * a3) > a3)
     {
-      v85 = &result[a2 * a3];
-      v86 = &result[a3];
-      v87 = result;
+      v87 = &result[a2 * a3];
+      v88 = &result[a3];
+      v89 = result;
       do
       {
-        if (v86 > result)
+        if (v88 > result)
         {
-          v88 = v87;
-          v89 = v86;
+          v90 = v89;
+          v91 = v88;
           do
           {
-            v90 = v89;
-            v89 = (v89 + v4);
-            if (*v89 - *v90 < 1)
+            v92 = v91;
+            v91 += v5;
+            if (*v91 - *v92 < 1)
             {
               break;
             }
 
-            if (v7)
+            if (v8)
             {
-              v91 = 0;
-              if (v6)
+              v93 = 0;
+              if (v7)
               {
-                v92 = v89;
+                v94 = v91;
                 do
                 {
-                  v93 = *&v90[2 * v91];
-                  *&v90[2 * v91] = *v92;
-                  *v92++ = v93;
-                  ++v91;
+                  v95 = *&v92[8 * v93];
+                  *&v92[8 * v93] = *v94;
+                  *v94 = v95;
+                  v94 += 8;
+                  ++v93;
                 }
 
-                while (a3 >> 3 != v91);
+                while (a3 >> 3 != v93);
               }
 
               else
               {
-                v95 = a3;
+                v97 = a3;
                 do
                 {
-                  v96 = *(v90 + v91);
-                  *(v90 + v91) = *(v88 + v91);
-                  *(v88 + v91++) = v96;
-                  --v95;
+                  v98 = v92[v93];
+                  v92[v93] = v90[v93];
+                  v90[v93++] = v98;
+                  --v97;
                 }
 
-                while (v95);
+                while (v97);
               }
             }
 
             else
             {
-              v94 = *v90;
-              *v90 = *v89;
-              *v89 = v94;
+              v96 = *v92;
+              *v92 = *v91;
+              *v91 = v96;
             }
 
-            v88 = (v88 + v4);
+            v90 += v5;
           }
 
-          while (v89 > result);
+          while (v91 > result);
         }
 
-        v86 += a3;
-        v87 = (v87 + a3);
+        v88 += a3;
+        v89 += a3;
       }
 
-      while (v86 < v85);
+      while (v88 < v87);
     }
 
     return result;
   }
 
-  v8 = a3 >> 3;
+  v10 = a3 >> 3;
   while (1)
   {
-    v9 = &result[(a2 >> 1) * a3];
+    v11 = &result[(a2 >> 1) * a3];
     if (a2 == 7)
     {
       goto LABEL_69;
     }
 
-    v10 = &result[(a2 - 1) * a3];
+    v12 = &result[(a2 - 1) * a3];
     if (a2 <= 0x28)
     {
-      v21 = *result;
-      v32 = *v9;
-      v13 = result;
-      v36 = *v10;
+      v23 = *result;
+      v34 = *v11;
+      v15 = result;
+      v38 = *v12;
       goto LABEL_64;
     }
 
-    v11 = (a2 >> 3) * a3;
-    v12 = 2 * v11;
-    v13 = &result[2 * v11];
-    v14 = *result;
-    v15 = *&result[v11];
-    v16 = *result - v15;
-    v17 = v15 - *v13;
-    v18 = *result - *v13;
+    v13 = (a2 >> 3) * a3;
+    v14 = 2 * v13;
+    v15 = &result[2 * v13];
+    v16 = *result;
+    v17 = *&result[v13];
+    v18 = *result - v17;
+    v19 = v17 - *v15;
+    v20 = *result - *v15;
+    if (v20 >= 0)
+    {
+      v21 = *v15;
+    }
+
+    else
+    {
+      v21 = *result;
+    }
+
+    if (v20 >= 0)
+    {
+      v22 = &result[2 * v13];
+    }
+
+    else
+    {
+      v22 = result;
+    }
+
+    if (v19 > 0)
+    {
+      v21 = *&result[v13];
+      v22 = &result[v13];
+    }
+
+    if (v20 >= 0)
+    {
+      v15 = result;
+    }
+
+    else
+    {
+      v16 = *v15;
+    }
+
+    if (v19 < 0)
+    {
+      v16 = *&result[v13];
+      v15 = &result[v13];
+    }
+
+    if (v18 < 0)
+    {
+      v23 = v16;
+    }
+
+    else
+    {
+      v23 = v21;
+    }
+
     if (v18 >= 0)
     {
-      v19 = *v13;
+      v15 = v22;
+    }
+
+    v24 = -v13;
+    v25 = &v11[-v13];
+    v26 = &v11[v13];
+    v27 = *v25;
+    v28 = *v25 - *v11;
+    v29 = *v11 - *v26;
+    v30 = *v25 - *v26;
+    if (v30 >= 0)
+    {
+      v31 = *v26;
     }
 
     else
     {
-      v19 = *result;
+      v31 = *v25;
     }
 
-    if (v18 >= 0)
+    if (v30 >= 0)
     {
-      v20 = &result[2 * v11];
-    }
-
-    else
-    {
-      v20 = result;
-    }
-
-    if (v17 > 0)
-    {
-      v19 = *&result[v11];
-      v20 = &result[v11];
-    }
-
-    if (v18 >= 0)
-    {
-      v13 = result;
+      v32 = v26;
     }
 
     else
     {
-      v14 = *v13;
+      v32 = v25;
     }
 
-    if (v17 < 0)
+    if (v29 > 0)
     {
-      v14 = *&result[v11];
-      v13 = &result[v11];
+      v31 = *v11;
+      v32 = &result[(a2 >> 1) * a3];
     }
 
-    if (v16 < 0)
+    if (v30 >= 0)
     {
-      v21 = v14;
-    }
-
-    else
-    {
-      v21 = v19;
-    }
-
-    if (v16 >= 0)
-    {
-      v13 = v20;
-    }
-
-    v22 = -v11;
-    v23 = &v9[-v11];
-    v24 = &v9[v11];
-    v25 = *v23;
-    v26 = *v23 - *v9;
-    v27 = *v9 - *v24;
-    v28 = *v23 - *v24;
-    if (v28 >= 0)
-    {
-      v29 = *v24;
+      v26 = v25;
     }
 
     else
     {
-      v29 = *v23;
+      v27 = *v26;
     }
 
-    if (v28 >= 0)
+    if (v29 >= 0)
     {
-      v30 = v24;
+      v33 = v27;
     }
 
     else
     {
-      v30 = v23;
+      v33 = *v11;
     }
 
-    if (v27 > 0)
+    if (v29 >= 0)
     {
-      v29 = *v9;
-      v30 = &result[(a2 >> 1) * a3];
+      v11 = v26;
+    }
+
+    if (v28 < 0)
+    {
+      v34 = v33;
+    }
+
+    else
+    {
+      v34 = v31;
     }
 
     if (v28 >= 0)
     {
-      v24 = v23;
+      v11 = v32;
     }
 
-    else
+    v35 = &v12[-v14];
+    v36 = &v12[v24];
+    v37 = *&v12[-v14];
+    v38 = *v36;
+    v39 = *v12;
+    v40 = *v36 - *v12;
+    if (v37 - *v36 < 0)
     {
-      v25 = *v24;
-    }
-
-    if (v27 >= 0)
-    {
-      v31 = v25;
-    }
-
-    else
-    {
-      v31 = *v9;
-    }
-
-    if (v27 >= 0)
-    {
-      v9 = v24;
-    }
-
-    if (v26 < 0)
-    {
-      v32 = v31;
-    }
-
-    else
-    {
-      v32 = v29;
-    }
-
-    if (v26 >= 0)
-    {
-      v9 = v30;
-    }
-
-    v33 = &v10[-v12];
-    v34 = &v10[v22];
-    v35 = *&v10[-v12];
-    v36 = *v34;
-    v37 = *v10;
-    v38 = *v34 - *v10;
-    if (v35 - *v34 < 0)
-    {
-      if (v38 < 0)
+      if (v40 < 0)
       {
 LABEL_63:
-        v10 = v34;
+        v12 = v36;
         goto LABEL_64;
       }
 
-      if (v35 - v37 >= 0)
+      if (v37 - v39 >= 0)
       {
-        v36 = v35;
+        v38 = v37;
       }
 
       else
       {
-        v36 = *v10;
+        v38 = *v12;
       }
 
-      if (v35 - v37 >= 0)
+      if (v37 - v39 >= 0)
       {
-        v10 = v33;
+        v12 = v35;
       }
     }
 
     else
     {
-      if (v38 > 0)
+      if (v40 > 0)
       {
         goto LABEL_63;
       }
 
-      if (v35 - v37 >= 0)
+      if (v37 - v39 >= 0)
       {
-        v36 = *v10;
+        v38 = *v12;
       }
 
       else
       {
-        v36 = v35;
+        v38 = v37;
       }
 
-      if (v35 - v37 < 0)
+      if (v37 - v39 < 0)
       {
-        v10 = v33;
+        v12 = v35;
       }
     }
 
 LABEL_64:
-    v39 = v21 - v32;
-    v40 = v32 - v36;
-    v41 = v21 - v36;
-    if ((v39 & 0x80000000) == 0)
+    v41 = v23 - v34;
+    v42 = v34 - v38;
+    v43 = v23 - v38;
+    if ((v41 & 0x80000000) == 0)
     {
-      if (v41 < 0)
+      if (v43 < 0)
       {
-        v10 = v13;
+        v12 = v15;
       }
 
-      if (v40 <= 0)
+      if (v42 <= 0)
       {
-        v9 = v10;
+        v11 = v12;
       }
 
 LABEL_69:
-      if (!v7)
+      if (!v8)
       {
         goto LABEL_82;
       }
@@ -4291,316 +4267,316 @@ LABEL_69:
       goto LABEL_70;
     }
 
-    if (v41 >= 0)
+    if (v43 >= 0)
     {
-      v10 = v13;
+      v12 = v15;
     }
 
-    if (v40 >= 0)
+    if (v42 >= 0)
     {
-      v9 = v10;
+      v11 = v12;
     }
 
-    if (!v7)
+    if (!v8)
     {
 LABEL_82:
-      v48 = *result;
-      *result = *v9;
-      *v9 = v48;
+      v50 = *result;
+      *result = *v11;
+      *v11 = v50;
       goto LABEL_83;
     }
 
 LABEL_70:
-    if (v6)
+    if (v7)
     {
-      v42 = result;
-      v43 = a3 >> 3;
+      v44 = result;
+      v45 = a3 >> 3;
       do
       {
-        v44 = *v42;
-        *v42 = *v9;
-        v42 += 8;
-        *v9 = v44;
-        v9 += 8;
-        --v43;
-      }
-
-      while (v43);
-    }
-
-    else
-    {
-      v45 = a3;
-      v46 = result;
-      do
-      {
-        v47 = *v46;
-        *v46++ = *v9;
-        *v9++ = v47;
+        v46 = *v44;
+        *v44 = *v11;
+        v44 += 8;
+        *v11 = v46;
+        v11 += 8;
         --v45;
       }
 
       while (v45);
     }
 
-LABEL_83:
-    v49 = 0;
-    v50 = &result[a3];
-    v51 = &result[(a2 - 1) * a3];
-    v52 = v51;
-    v53 = &result[a3];
-    v54 = &result[a3];
-LABEL_84:
-    while (v53 <= v52 && *v53 - *result <= 0)
+    else
     {
-      if (*v53 == *result)
+      v47 = a3;
+      v48 = result;
+      do
       {
-        if (v7)
-        {
-          v55 = 0;
-          if (v6)
-          {
-            do
-            {
-              v56 = *&v54[8 * v55];
-              *&v54[8 * v55] = *&v53[8 * v55];
-              *&v53[8 * v55++] = v56;
-            }
-
-            while (v8 != v55);
-          }
-
-          else
-          {
-            do
-            {
-              v57 = v54[v55];
-              v54[v55] = v53[v55];
-              v53[v55++] = v57;
-            }
-
-            while (a3 != v55);
-          }
-        }
-
-        else
-        {
-          v65 = *v54;
-          *v54 = *v53;
-          *v53 = v65;
-        }
-
-        v54 += a3;
-        v49 = 1;
+        v49 = *v48;
+        *v48++ = *v11;
+        *v11++ = v49;
+        --v47;
       }
 
-      v53 += a3;
+      while (v47);
     }
 
-    while (v53 <= v52)
+LABEL_83:
+    v51 = 0;
+    v52 = &result[a3];
+    v53 = &result[(a2 - 1) * a3];
+    v54 = v53;
+    v55 = &result[a3];
+    v56 = &result[a3];
+LABEL_84:
+    while (v55 <= v54 && *v55 - *result <= 0)
     {
-      if (*v52 - *result < 0)
+      if (*v55 == *result)
       {
-        if (v7)
+        if (v8)
         {
-          v62 = 0;
-          if (v6)
+          v57 = 0;
+          if (v7)
           {
             do
             {
-              v63 = *&v53[8 * v62];
-              *&v53[8 * v62] = *&v52[8 * v62];
-              *&v52[8 * v62++] = v63;
+              v58 = *&v56[8 * v57];
+              *&v56[8 * v57] = *&v55[8 * v57];
+              *&v55[8 * v57++] = v58;
             }
 
-            while (v8 != v62);
+            while (v10 != v57);
           }
 
           else
           {
             do
             {
-              v64 = v53[v62];
-              v53[v62] = v52[v62];
-              v52[v62++] = v64;
+              v59 = v56[v57];
+              v56[v57] = v55[v57];
+              v55[v57++] = v59;
             }
 
-            while (a3 != v62);
+            while (a3 != v57);
           }
         }
 
         else
         {
-          v66 = *v53;
-          *v53 = *v52;
-          *v52 = v66;
+          v67 = *v56;
+          *v56 = *v55;
+          *v55 = v67;
         }
 
-        v53 += a3;
-        v52 += v4;
-        v49 = 1;
+        v56 += a3;
+        v51 = 1;
+      }
+
+      v55 += a3;
+    }
+
+    while (v55 <= v54)
+    {
+      if (*v54 - *result < 0)
+      {
+        if (v8)
+        {
+          v64 = 0;
+          if (v7)
+          {
+            do
+            {
+              v65 = *&v55[8 * v64];
+              *&v55[8 * v64] = *&v54[8 * v64];
+              *&v54[8 * v64++] = v65;
+            }
+
+            while (v10 != v64);
+          }
+
+          else
+          {
+            do
+            {
+              v66 = v55[v64];
+              v55[v64] = v54[v64];
+              v54[v64++] = v66;
+            }
+
+            while (a3 != v64);
+          }
+        }
+
+        else
+        {
+          v68 = *v55;
+          *v55 = *v54;
+          *v54 = v68;
+        }
+
+        v55 += a3;
+        v54 += v5;
+        v51 = 1;
         goto LABEL_84;
       }
 
-      if (*v52 == *result)
+      if (*v54 == *result)
       {
-        if (v7)
+        if (v8)
         {
-          v58 = 0;
-          if (v6)
+          v60 = 0;
+          if (v7)
           {
             do
             {
-              v59 = *&v52[8 * v58];
-              *&v52[8 * v58] = *&v51[8 * v58];
-              *&v51[8 * v58++] = v59;
+              v61 = *&v54[8 * v60];
+              *&v54[8 * v60] = *&v53[8 * v60];
+              *&v53[8 * v60++] = v61;
             }
 
-            while (v8 != v58);
+            while (v10 != v60);
           }
 
           else
           {
             do
             {
-              v60 = v52[v58];
-              v52[v58] = v51[v58];
-              v51[v58++] = v60;
+              v62 = v54[v60];
+              v54[v60] = v53[v60];
+              v53[v60++] = v62;
             }
 
-            while (a3 != v58);
+            while (a3 != v60);
           }
         }
 
         else
         {
-          v61 = *v52;
-          *v52 = *v51;
-          *v51 = v61;
+          v63 = *v54;
+          *v54 = *v53;
+          *v53 = v63;
         }
 
-        v51 += v4;
-        v49 = 1;
+        v53 += v5;
+        v51 = 1;
       }
 
-      v52 += v4;
+      v54 += v5;
     }
 
-    v67 = &result[a2 * a3];
-    if (!v49)
+    v69 = &result[a2 * a3];
+    if (!v51)
     {
       break;
     }
 
-    v68 = v53 - v54;
-    if (v54 - result >= v53 - v54)
+    v70 = v55 - v56;
+    if (v56 - result >= v55 - v56)
     {
-      v69 = v53 - v54;
+      v71 = v55 - v56;
     }
 
     else
     {
-      v69 = v54 - result;
+      v71 = v56 - result;
     }
 
-    if (v69)
+    if (v71)
     {
-      if (v6)
+      if (v7)
       {
-        v70 = &v53[-v69];
-        v71 = v69 >> 3;
-        v72 = result;
+        v72 = &v55[-v71];
+        v73 = v71 >> 3;
+        v74 = result;
         do
         {
-          v73 = *v72;
-          *v72 = *v70;
+          v75 = *v74;
+          *v74 = *v72;
+          v74 += 8;
+          *v72 = v75;
           v72 += 8;
-          *v70 = v73;
-          v70 += 8;
-          --v71;
+          --v73;
         }
 
-        while (v71);
+        while (v73);
       }
 
       else
       {
-        v74 = -v69;
-        v75 = result;
+        v76 = -v71;
+        v77 = result;
         do
         {
-          v76 = *v75;
-          *v75++ = v53[v74];
-          v53[v74] = v76;
-          v77 = __CFADD__(v74++, 1);
+          v78 = *v77;
+          *v77++ = v55[v76];
+          v55[v76] = v78;
+          v79 = __CFADD__(v76++, 1);
         }
 
-        while (!v77);
+        while (!v79);
       }
     }
 
-    v78 = v51 - v52;
-    v79 = v67 - &v51[a3];
-    if (v51 - v52 < v79)
+    v80 = v53 - v54;
+    v81 = v69 - &v53[a3];
+    if (v53 - v54 < v81)
     {
-      v79 = v51 - v52;
+      v81 = v53 - v54;
     }
 
-    if (v79)
+    if (v81)
     {
-      if (v6)
+      if (v7)
       {
-        v80 = &v67[-v79];
-        v81 = v79 >> 3;
+        v82 = &v69[-v81];
+        v83 = v81 >> 3;
         do
         {
-          v82 = *v53;
-          *v53 = *v80;
-          v53 += 8;
-          *v80 = v82;
-          v80 += 8;
-          --v81;
+          v84 = *v55;
+          *v55 = *v82;
+          v55 += 8;
+          *v82 = v84;
+          v82 += 8;
+          --v83;
         }
 
-        while (v81);
+        while (v83);
       }
 
       else
       {
-        v83 = -v79;
+        v85 = -v81;
         do
         {
-          v84 = *v53;
-          *v53++ = v67[v83];
-          v67[v83] = v84;
-          v77 = __CFADD__(v83++, 1);
+          v86 = *v55;
+          *v55++ = v69[v85];
+          v69[v85] = v86;
+          v79 = __CFADD__(v85++, 1);
         }
 
-        while (!v77);
+        while (!v79);
       }
     }
 
-    if (v68 > a3)
+    if (v70 > a3)
     {
-      result = mrec_qsort_r<GenoneClassTree>();
+      result = mrec_qsort_r<GenoneClassTree>(result, v70 / a3, a3, a4);
     }
 
-    if (v78 <= a3)
+    if (v80 <= a3)
     {
       return result;
     }
 
-    result = &v67[-v78];
-    a2 = v78 / a3;
-    v6 = (((v67 - v78) | a3) & 7) == 0;
-    if ((((v67 - v78) | a3) & 7) != 0)
+    result = &v69[-v80];
+    a2 = v80 / a3;
+    v7 = (((v69 - v80) | a3) & 7) == 0;
+    if ((((v69 - v80) | a3) & 7) != 0)
     {
-      v7 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v7 = v5;
+      v8 = v6;
     }
 
     if (a2 < 7)
@@ -4611,78 +4587,79 @@ LABEL_84:
 
   if ((a2 * a3) > a3)
   {
-    v97 = result;
+    v99 = result;
     do
     {
-      if (v50 > result)
+      if (v52 > result)
       {
-        v98 = v97;
-        v99 = v50;
+        v100 = v99;
+        v101 = v52;
         do
         {
-          v100 = v99;
-          v99 = (v99 + v4);
-          if (*v99 - *v100 < 1)
+          v102 = v101;
+          v101 += v5;
+          if (*v101 - *v102 < 1)
           {
             break;
           }
 
-          if (v7)
+          if (v8)
           {
-            v101 = 0;
-            if (v6)
+            v103 = 0;
+            if (v7)
             {
-              v102 = v99;
+              v104 = v101;
               do
               {
-                v103 = *&v100[2 * v101];
-                *&v100[2 * v101] = *v102;
-                *v102++ = v103;
-                ++v101;
+                v105 = *&v102[8 * v103];
+                *&v102[8 * v103] = *v104;
+                *v104 = v105;
+                v104 += 8;
+                ++v103;
               }
 
-              while (v8 != v101);
+              while (v10 != v103);
             }
 
             else
             {
-              v105 = a3;
+              v107 = a3;
               do
               {
-                v106 = *(v100 + v101);
-                *(v100 + v101) = *(v98 + v101);
-                *(v98 + v101++) = v106;
-                --v105;
+                v108 = v102[v103];
+                v102[v103] = v100[v103];
+                v100[v103++] = v108;
+                --v107;
               }
 
-              while (v105);
+              while (v107);
             }
           }
 
           else
           {
-            v104 = *v100;
-            *v100 = *v99;
-            *v99 = v104;
+            v106 = *v102;
+            *v102 = *v101;
+            *v101 = v106;
           }
 
-          v98 = (v98 + v4);
+          v100 += v5;
         }
 
-        while (v99 > result);
+        while (v101 > result);
       }
 
-      v50 += a3;
-      v97 = (v97 + a3);
+      v52 += a3;
+      v99 += a3;
     }
 
-    while (v50 < v67);
+    while (v52 < v69);
   }
 
   return result;
 }
 
-unint64_t GenoneClassTree::initForType(uint64_t a1, int a2, uint64_t a3)
+unint64_t GenoneClassTree::initForType(uint64_t a1, int a2, uint64_t *a3)
 {
   *(a1 + 184) = a2;
   v5 = 48;
@@ -4807,7 +4784,7 @@ unint64_t GenoneClassTree::initForType(uint64_t a1, int a2, uint64_t a3)
 
     if ((*(*(a1 + v6) + 4 * (v20 >> 5)) >> v20))
     {
-      DgnPrimArray<int>::copyArraySlice(*(a1 + 208) + 16 * v19++, (v53[0] + 16 * v20), 0, *(v53[0] + 16 * v20 + 8));
+      DgnPrimArray<int>::copyArraySlice((*(a1 + 208) + 16 * v19++), (v53[0] + 16 * v20), 0, *(v53[0] + 16 * v20 + 8));
     }
 
     else
@@ -4883,11 +4860,11 @@ unint64_t GenoneClassTree::initForType(uint64_t a1, int a2, uint64_t a3)
   }
 
   v38 = *(a1 + 12);
-  v39 = *(a3 + 12);
+  v39 = *(a3 + 3);
   if (v38 <= v39)
   {
-    *(a3 + 8) = v38;
-    v40 = (a3 + 8);
+    *(a3 + 2) = v38;
+    v40 = (a3 + 1);
     if (!v38)
     {
       goto LABEL_55;
@@ -4897,8 +4874,8 @@ unint64_t GenoneClassTree::initForType(uint64_t a1, int a2, uint64_t a3)
   else
   {
     DgnPrimArray<unsigned int>::reallocElts(a3, v38 - v39, 0);
-    *(a3 + 8) = v38;
-    v40 = (a3 + 8);
+    *(a3 + 2) = v38;
+    v40 = (a3 + 1);
   }
 
   v41 = 0;
@@ -5192,7 +5169,7 @@ BOOL GenoneClassTree::decomposeInverseVariancesForTransformationMatrixAdaptation
                 {
                   do
                   {
-                    DgnMatrix::getRow(v2, v44, v80);
+                    DgnMatrix::getRow(v80, v2, v44);
                     v46 = *(v37 + 1);
                     if (v46)
                     {
@@ -5264,7 +5241,7 @@ BOOL GenoneClassTree::decomposeInverseVariancesForTransformationMatrixAdaptation
                 {
                   do
                   {
-                    DgnMatrix::getRow(v37, v56, v80);
+                    DgnMatrix::getRow(v80, v37, v56);
                     v61 = *(this + 61);
                     if (v61)
                     {
@@ -5303,7 +5280,7 @@ BOOL GenoneClassTree::decomposeInverseVariancesForTransformationMatrixAdaptation
         {
           for (j = 0; j != v77; ++j)
           {
-            DgnMatrix::getCol(v53, j, v79);
+            DgnMatrix::getCol(v79, v53, j);
             DgnVector::operator*(v79, v80, *(*v52 + 8 * j));
             v68 = *v53;
             if (v68)
@@ -5358,16 +5335,16 @@ LABEL_77:
   return v6;
 }
 
-void sub_2625C47F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2625C47F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va2, a10);
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va2, a17);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   va_copy(va2, va1);
-  v14 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
   BitArray::~BitArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
@@ -5462,7 +5439,7 @@ void *DgnArray<DgnMatrix>::releaseAll(uint64_t a1)
   return result;
 }
 
-void GenoneClassTree::saveGenoneClassTree(GenoneClassTree *this, DFile *a2, DFileChecksums *a3, int a4, int a5)
+void GenoneClassTree::saveGenoneClassTree(GenoneClassTree *this, DFile *a2, DFileChecksums *a3, int a4, uint64_t a5)
 {
   if (a4)
   {
@@ -5492,227 +5469,228 @@ void GenoneClassTree::saveGenoneClassTree(GenoneClassTree *this, DFile *a2, DFil
     writeObject<DgnMatrix>(v8, this + 280, &v10);
     writeObjectChecksum(v8, &v10);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x19u, v10);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 25, v10);
     DgnDelete<DgnStream>(v8);
   }
 }
 
-void GenoneClassTree::saveGenoneClassTreeText(GenoneClassTree *this, DFile *a2, int a3)
+void GenoneClassTree::saveGenoneClassTreeText(GenoneClassTree *this, DFile *a2, uint64_t a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v41);
-  DgnTextFileWriter::openDgnTextFileWriter(v41, a2, 0x1Au, a3);
-  v39 = 0;
-  v40 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v41, sGCT_Versions, &v39, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v41, "GenoneClassTree", (v39 + 8 * (v40 - 1)));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v41, "NumberOfNodes", (*(this + 2) - 1));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v41, "NumberOfGenones", *(this + 3));
-  v37 = 0;
-  v38 = 0;
+  v3 = a3;
+  DgnTextFileWriter::DgnTextFileWriter(v36);
+  DgnTextFileWriter::openDgnTextFileWriter(v36, a2, 26, v3);
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
-  DgnString::DgnString(v34, "NodeId");
-  v11 = v38;
-  if (v38 == HIDWORD(v38))
+  DgnTextFile::legalDgnTextFileVersions(v36, sGCT_Versions, &v34);
+  DgnTextFileWriter::setFileType(v36, "GenoneClassTree", (v34 + 8 * (v35 - 1)));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v36, "NumberOfNodes", (*(this + 2) - 1));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v36, "NumberOfGenones", *(this + 3));
+  v32 = 0;
+  v33 = 0;
+  v30 = 0;
+  v31 = 0;
+  DgnString::DgnString(v29, "NodeId");
+  v6 = v33;
+  if (v33 == HIDWORD(v33))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v37, 1, 1);
-    v11 = v38;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v32, 1, 1);
+    v6 = v33;
   }
 
-  DgnString::DgnString((v37 + 16 * v11), v34);
-  LODWORD(v38) = v38 + 1;
-  DgnString::~DgnString(v34);
-  v12 = v36;
-  if (v36 == HIDWORD(v36))
+  DgnString::DgnString((v32 + 16 * v6), v29);
+  LODWORD(v33) = v33 + 1;
+  DgnString::~DgnString(v29);
+  v7 = v31;
+  if (v31 == HIDWORD(v31))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v35, 1, 1);
-    v12 = v36;
+    DgnPrimArray<unsigned int>::reallocElts(&v30, 1, 1);
+    v7 = v31;
   }
 
-  *(v35 + 4 * v12) = 3;
-  LODWORD(v36) = v12 + 1;
-  v33 = v38;
-  DgnString::DgnString(v34, "ParentId");
-  v13 = v38;
-  if (v38 == HIDWORD(v38))
+  *(v30 + 4 * v7) = 3;
+  LODWORD(v31) = v7 + 1;
+  v28 = v33;
+  DgnString::DgnString(v29, "ParentId");
+  v8 = v33;
+  if (v33 == HIDWORD(v33))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v37, 1, 1);
-    v13 = v38;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v32, 1, 1);
+    v8 = v33;
   }
 
-  DgnString::DgnString((v37 + 16 * v13), v34);
-  LODWORD(v38) = v38 + 1;
-  DgnString::~DgnString(v34);
-  v14 = v36;
-  if (v36 == HIDWORD(v36))
+  DgnString::DgnString((v32 + 16 * v8), v29);
+  LODWORD(v33) = v33 + 1;
+  DgnString::~DgnString(v29);
+  v9 = v31;
+  if (v31 == HIDWORD(v31))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v35, 1, 1);
-    v14 = v36;
+    DgnPrimArray<unsigned int>::reallocElts(&v30, 1, 1);
+    v9 = v31;
   }
 
-  *(v35 + 4 * v14) = 3;
-  LODWORD(v36) = v14 + 1;
-  v32 = v38;
-  DgnString::DgnString(v34, "GenId");
-  v15 = v38;
-  if (v38 == HIDWORD(v38))
+  *(v30 + 4 * v9) = 3;
+  LODWORD(v31) = v9 + 1;
+  v27 = v33;
+  DgnString::DgnString(v29, "GenId");
+  v10 = v33;
+  if (v33 == HIDWORD(v33))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v37, 1, 1);
-    v15 = v38;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v32, 1, 1);
+    v10 = v33;
   }
 
-  DgnString::DgnString((v37 + 16 * v15), v34);
-  LODWORD(v38) = v38 + 1;
-  DgnString::~DgnString(v34);
-  v16 = v36;
-  if (v36 == HIDWORD(v36))
+  DgnString::DgnString((v32 + 16 * v10), v29);
+  LODWORD(v33) = v33 + 1;
+  DgnString::~DgnString(v29);
+  v11 = v31;
+  if (v31 == HIDWORD(v31))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v35, 1, 1);
-    v16 = v36;
+    DgnPrimArray<unsigned int>::reallocElts(&v30, 1, 1);
+    v11 = v31;
   }
 
-  *(v35 + 4 * v16) = 1;
-  LODWORD(v36) = v16 + 1;
-  v31 = v38;
-  DgnString::DgnString(v34, "IsTransAccClass");
-  v17 = v38;
-  if (v38 == HIDWORD(v38))
+  *(v30 + 4 * v11) = 1;
+  LODWORD(v31) = v11 + 1;
+  v26 = v33;
+  DgnString::DgnString(v29, "IsTransAccClass");
+  v12 = v33;
+  if (v33 == HIDWORD(v33))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v37, 1, 1);
-    v17 = v38;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v32, 1, 1);
+    v12 = v33;
   }
 
-  DgnString::DgnString((v37 + 16 * v17), v34);
-  LODWORD(v38) = v38 + 1;
-  DgnString::~DgnString(v34);
-  v18 = v36;
-  if (v36 == HIDWORD(v36))
+  DgnString::DgnString((v32 + 16 * v12), v29);
+  LODWORD(v33) = v33 + 1;
+  DgnString::~DgnString(v29);
+  v13 = v31;
+  if (v31 == HIDWORD(v31))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v35, 1, 1);
-    v18 = v36;
+    DgnPrimArray<unsigned int>::reallocElts(&v30, 1, 1);
+    v13 = v31;
   }
 
-  *(v35 + 4 * v18) = 3;
-  LODWORD(v36) = v18 + 1;
-  v19 = v38;
-  DgnString::DgnString(v34, "IsSpeakerConstrainedTransAccClass");
-  v20 = v38;
-  if (v38 == HIDWORD(v38))
+  *(v30 + 4 * v13) = 3;
+  LODWORD(v31) = v13 + 1;
+  v14 = v33;
+  DgnString::DgnString(v29, "IsSpeakerConstrainedTransAccClass");
+  v15 = v33;
+  if (v33 == HIDWORD(v33))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v37, 1, 1);
-    v20 = v38;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v32, 1, 1);
+    v15 = v33;
   }
 
-  DgnString::DgnString((v37 + 16 * v20), v34);
-  LODWORD(v38) = v38 + 1;
-  DgnString::~DgnString(v34);
-  v21 = v36;
-  if (v36 == HIDWORD(v36))
+  DgnString::DgnString((v32 + 16 * v15), v29);
+  LODWORD(v33) = v33 + 1;
+  DgnString::~DgnString(v29);
+  v16 = v31;
+  if (v31 == HIDWORD(v31))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v35, 1, 1);
-    v21 = v36;
+    DgnPrimArray<unsigned int>::reallocElts(&v30, 1, 1);
+    v16 = v31;
   }
 
-  *(v35 + 4 * v21) = 3;
-  LODWORD(v36) = v21 + 1;
-  v22 = v38;
-  DgnString::DgnString(v34, "IsChannelConstrainedTransAccClass");
-  v23 = v38;
-  if (v38 == HIDWORD(v38))
+  *(v30 + 4 * v16) = 3;
+  LODWORD(v31) = v16 + 1;
+  v17 = v33;
+  DgnString::DgnString(v29, "IsChannelConstrainedTransAccClass");
+  v18 = v33;
+  if (v33 == HIDWORD(v33))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v37, 1, 1);
-    v23 = v38;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v32, 1, 1);
+    v18 = v33;
   }
 
-  DgnString::DgnString((v37 + 16 * v23), v34);
-  LODWORD(v38) = v38 + 1;
-  DgnString::~DgnString(v34);
-  v24 = v36;
-  if (v36 == HIDWORD(v36))
+  DgnString::DgnString((v32 + 16 * v18), v29);
+  LODWORD(v33) = v33 + 1;
+  DgnString::~DgnString(v29);
+  v19 = v31;
+  if (v31 == HIDWORD(v31))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v35, 1, 1);
-    v24 = v36;
+    DgnPrimArray<unsigned int>::reallocElts(&v30, 1, 1);
+    v19 = v31;
   }
 
-  *(v35 + 4 * v24) = 3;
-  LODWORD(v36) = v24 + 1;
-  v25 = v38;
-  DgnString::DgnString(v34, "IsTransAccAdaptable");
-  v26 = v38;
-  if (v38 == HIDWORD(v38))
+  *(v30 + 4 * v19) = 3;
+  LODWORD(v31) = v19 + 1;
+  v20 = v33;
+  DgnString::DgnString(v29, "IsTransAccAdaptable");
+  v21 = v33;
+  if (v33 == HIDWORD(v33))
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v37, 1, 1);
-    v26 = v38;
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v32, 1, 1);
+    v21 = v33;
   }
 
-  DgnString::DgnString((v37 + 16 * v26), v34);
-  LODWORD(v38) = v38 + 1;
-  DgnString::~DgnString(v34);
-  v27 = v36;
-  if (v36 == HIDWORD(v36))
+  DgnString::DgnString((v32 + 16 * v21), v29);
+  LODWORD(v33) = v33 + 1;
+  DgnString::~DgnString(v29);
+  v22 = v31;
+  if (v31 == HIDWORD(v31))
   {
-    DgnPrimArray<unsigned int>::reallocElts(&v35, 1, 1);
-    v27 = v36;
+    DgnPrimArray<unsigned int>::reallocElts(&v30, 1, 1);
+    v22 = v31;
   }
 
-  *(v35 + 4 * v27) = 3;
-  LODWORD(v36) = v27 + 1;
-  DgnTextFileWriter::setLineFieldFormat(v41, &v35, &v37);
+  *(v30 + 4 * v22) = 3;
+  LODWORD(v31) = v22 + 1;
+  DgnTextFileWriter::setLineFieldFormat(v36, &v30, &v32);
   if (*(this + 6) >= 2u)
   {
-    v28 = 1;
+    v23 = 1;
     do
     {
-      DgnTextFileWriter::setLineFieldUnsignedValue(v41, 0, v28);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v41, v33, *(*(this + 2) + 4 * v28));
-      v29 = *(*(this + 4) + 2 * v28);
-      if (v29 == 65534)
+      DgnTextFileWriter::setLineFieldUnsignedValue(v36, 0, v23);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v36, v28, *(*(this + 2) + 4 * v23));
+      v24 = *(*(this + 4) + 2 * v23);
+      if (v24 == 65534)
       {
-        v30 = -2;
+        v25 = -2;
       }
 
-      else if (v29 == 0xFFFF)
+      else if (v24 == 0xFFFF)
       {
-        v30 = -1;
+        v25 = -1;
       }
 
       else
       {
-        v30 = *(*(this + 4) + 2 * v28);
+        v25 = *(*(this + 4) + 2 * v23);
       }
 
-      DgnTextFileWriter::setLineFieldIntegerValue(v41, v32, v30);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v41, v31, (*(*(this + 6) + 4 * (v28 >> 5)) >> v28) & 1);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v41, v19, (*(*(this + 10) + 4 * (v28 >> 5)) >> (v28 & 0x1F)) & 1);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v41, v22, (*(*(this + 12) + 4 * (v28 >> 5)) >> (v28 & 0x1F)) & 1);
-      DgnTextFileWriter::setLineFieldUnsignedValue(v41, v25, (*(*(this + 8) + 4 * (v28 >> 5)) >> (v28 & 0x1F)) & 1);
-      DgnTextFileWriter::writeNextLine(v41);
-      ++v28;
+      DgnTextFileWriter::setLineFieldIntegerValue(v36, v27, v25);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v36, v26, (*(*(this + 6) + 4 * (v23 >> 5)) >> v23) & 1);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v36, v14, (*(*(this + 10) + 4 * (v23 >> 5)) >> (v23 & 0x1F)) & 1);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v36, v17, (*(*(this + 12) + 4 * (v23 >> 5)) >> (v23 & 0x1F)) & 1);
+      DgnTextFileWriter::setLineFieldUnsignedValue(v36, v20, (*(*(this + 8) + 4 * (v23 >> 5)) >> (v23 & 0x1F)) & 1);
+      DgnTextFileWriter::writeNextLine(v36);
+      ++v23;
     }
 
-    while (v28 < *(this + 6));
+    while (v23 < *(this + 6));
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v35);
-  DgnArray<DgnString>::releaseAll(&v37);
-  DgnIArray<Utterance *>::~DgnIArray(&v39);
-  DgnTextFileWriter::~DgnTextFileWriter(v41);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v30);
+  DgnArray<DgnString>::releaseAll(&v32);
+  DgnIArray<Utterance *>::~DgnIArray(&v34);
+  DgnTextFileWriter::~DgnTextFileWriter(v36);
 }
 
-void sub_2625C5190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2625C5190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v12 = va_arg(va3, void);
-  v14 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
+  v18 = va_arg(va3, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnArray<DgnString>::releaseAll(va1);
   DgnIArray<Utterance *>::~DgnIArray(va2);
@@ -5722,20 +5700,20 @@ void sub_2625C5190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t writeObject<DgnVector>(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v9 = *(a2 + 8);
-  result = writeObject(a1, &v9, a3);
+  v7 = *(a2 + 8);
+  result = writeObject(a1, &v7, a3);
   if (*(a2 + 8))
   {
-    v7 = 0;
-    v8 = 0;
+    v5 = 0;
+    v6 = 0;
     do
     {
-      result = writeObject(a1, *a2 + v7, a3);
-      ++v8;
-      v7 += 16;
+      result = writeObject();
+      ++v6;
+      v5 += 16;
     }
 
-    while (v8 < *(a2 + 8));
+    while (v6 < *(a2 + 8));
   }
 
   return result;
@@ -5868,114 +5846,114 @@ void MrecInitModule_psholder_recogctl(void)
   }
 }
 
-uint64_t ParamSetIdCollSearchCmp(unsigned int *a1, ParamSetHolder **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ParamSetIdCollSearchCmp(unsigned int *a1, ParamSetHolder **a2)
 {
-  ParamSetCStringName = ParamSetHolder::getParamSetCStringName(a2[1], *a1, a3, a4, a5, a6, a7, a8);
-  v10 = ParamSetCStringName;
-  v11 = *(a2 + 26);
-  v12 = *a2;
-  if (v11 == 1)
+  ParamSetCStringName = ParamSetHolder::getParamSetCStringName(a2[1], *a1);
+  v4 = ParamSetCStringName;
+  v5 = *(a2 + 26);
+  v6 = *a2;
+  if (v5 == 1)
   {
-    v13 = strlen(v12);
+    v7 = strlen(v6);
 
-    return ustrncmp(v10, v12, v13);
+    return ustrncmp(v4, v6, v7);
   }
 
   else
   {
 
-    return ustrcmp(ParamSetCStringName, v12);
+    return ustrcmp(ParamSetCStringName, v6);
   }
 }
 
-void *ParamSetHolder::getParamSetCStringName(ParamSetHolder *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *ParamSetHolder::getParamSetCStringName(ParamSetHolder *this, unsigned int a2)
 {
-  v8 = *(*(this + 1) + 8 * a2);
-  if (!v8)
+  v2 = *(*(this + 1) + 8 * a2);
+  if (!v2)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2237, "recogctl/psholder", 11, "%u", a7, a8, a2);
-    v8 = *(*(this + 1) + 8 * a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2237, "recogctl/psholder", 11, "%u", a2);
+    v2 = *(*(this + 1) + 8 * a2);
   }
 
-  if (*(v8 + 16))
+  if (*(v2 + 16))
   {
-    return *(v8 + 8);
+    return *(v2 + 8);
   }
 
   else
   {
-    return &unk_26286EA0E;
+    return byte_26286EA0E;
   }
 }
 
-uint64_t ParamSetIdCollSearchCmpFromParamSetId(unsigned int *a1, ParamSetHolder **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ParamSetIdCollSearchCmpFromParamSetId(unsigned int *a1, ParamSetHolder **a2)
 {
-  ParamSetCStringName = ParamSetHolder::getParamSetCStringName(a2[1], *a2, a3, a4, a5, a6, a7, a8);
-  v11 = *(a2 + 12);
-  v12 = *(a2 + 26);
-  v20 = ParamSetCStringName;
-  v21 = *(a2 + 1);
-  v22 = v11;
-  v23 = v12;
-  return ParamSetIdCollSearchCmp(a1, &v20, v13, v14, v15, v16, v17, v18);
+  ParamSetCStringName = ParamSetHolder::getParamSetCStringName(a2[1], *a2);
+  v5 = *(a2 + 12);
+  v6 = *(a2 + 26);
+  v8 = ParamSetCStringName;
+  v9 = *(a2 + 1);
+  v10 = v5;
+  v11 = v6;
+  return ParamSetIdCollSearchCmp(a1, &v8);
 }
 
-uint64_t ParamSetHolder::lookupName(ParamSetHolder *a1, ParamSetHolder *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ParamSetHolder::lookupName(ParamSetHolder *a1, ParamSetHolder *a2, unsigned int a3)
 {
-  v18[0] = a2;
-  v18[1] = a1;
-  v18[2] = 0;
-  v19 = -2;
-  v20 = 0;
-  v8 = a1 + 80 * a3;
-  v10 = v8[72];
-  v9 = v8 + 72;
-  if (v10 == 1 && *(v9 + 1) == -2)
+  v13[0] = a2;
+  v13[1] = a1;
+  v13[2] = 0;
+  v14 = -2;
+  v15 = 0;
+  v3 = a1 + 80 * a3;
+  v5 = v3[72];
+  v4 = v3 + 72;
+  if (v5 == 1 && *(v4 + 1) == -2)
   {
-    v11 = v9 + 8;
+    v6 = v4 + 8;
   }
 
   else
   {
-    v11 = *(*(v9 + 3) + 524272);
+    v6 = *(*(v4 + 3) + 524272);
   }
 
-  v12 = *(v11 + 2);
-  v13 = v12 - 1;
-  if (v12 < 1)
+  v7 = *(v6 + 2);
+  v8 = v7 - 1;
+  if (v7 < 1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v14 = 0;
+  v9 = 0;
   while (1)
   {
-    v15 = ((v13 + v14) / 2);
-    v16 = ParamSetIdCollSearchCmp((*v11 + 4 * v15), v18, a3, a4, a5, a6, a7, a8);
-    if (!v16)
+    v10 = ((v8 + v9) / 2);
+    v11 = ParamSetIdCollSearchCmp((*v6 + 4 * v10), v13);
+    if (!v11)
     {
       break;
     }
 
-    if (v16 < 0)
+    if (v11 < 0)
     {
-      v14 = v15 + 1;
+      v9 = v10 + 1;
     }
 
     else
     {
-      v13 = v15 - 1;
+      v8 = v10 - 1;
     }
 
-    if (v14 > v13)
+    if (v9 > v8)
     {
       return 0xFFFFFFFFLL;
     }
   }
 
-  if ((v13 + v14 + 3) >= 2)
+  if ((v8 + v9 + 3) >= 2)
   {
-    return *(*v11 + 4 * v15);
+    return *(*v6 + 4 * v10);
   }
 
   else
@@ -5984,20 +5962,18 @@ uint64_t ParamSetHolder::lookupName(ParamSetHolder *a1, ParamSetHolder *a2, uint
   }
 }
 
-uint64_t ParamSetHolder::addName(ParamSetHolder *a1, int a2, ParamSetHolder *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t ParamSetHolder::addName(ParamSetHolder *a1, uint64_t a2, ParamSetHolder *a3, unsigned int a4)
 {
-  v8 = a4;
-  v9 = a3;
-  if (ParamSetHolder::lookupName(a1, a3, a4, a4, a5, a6, a7, a8) != -1)
+  v6 = a2;
+  if (ParamSetHolder::lookupName(a1, a3, a4) != -1)
   {
-    v15 = spParamSetTypeStringNames[v8];
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 732, "recogctl/psholder", 12, "%.500s %.500s", v12, v13, v9);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 732, "recogctl/psholder", 12, "%.500s %.500s", a3, spParamSetTypeStringNames[a4]);
   }
 
-  return DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::add(a1 + 80 * v8 + 72, a2);
+  return DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::add(a1 + 80 * a4 + 72, v6);
 }
 
-uint64_t DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::add(uint64_t result, int a2)
+unint64_t DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::add(unint64_t result, int a2)
 {
   v3 = result;
   v4 = (result + 8);
@@ -6104,28 +6080,28 @@ uint64_t DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::add(uint64_t resu
 void ParamSetHolder::getRefDetails(ParamSetHolder *this@<X0>, DgnString *a2@<X8>)
 {
   DgnString::DgnString(a2);
-  v7 = *(this + 4);
-  if (v7)
+  v4 = *(this + 4);
+  if (v4)
   {
-    for (i = 0; i != v7; ++i)
+    for (i = 0; i != v4; ++i)
     {
-      v9 = *(*(this + 1) + 8 * i);
-      if (v9)
+      v6 = *(*(this + 1) + 8 * i);
+      if (v6)
       {
-        v10 = *(v9 + 36);
-        if (v10)
+        v7 = *(v6 + 36);
+        if (v7)
         {
-          if (*(v9 + 16))
+          if (*(v6 + 16))
           {
-            v11 = *(v9 + 8);
+            v8 = *(v6 + 8);
           }
 
           else
           {
-            v11 = byte_26286EA0E;
+            v8 = byte_26286EA0E;
           }
 
-          DgnString::printfAppend(a2, "%u,%u,%s,%u;", v4, v5, v6, *(v9 + 24), i, v11, v10);
+          DgnString::printfAppend(a2, "%u,%u,%s,%u;", *(v6 + 24), i, v8, v7);
         }
       }
     }
@@ -6163,7 +6139,7 @@ void ParamSetHolder::ParamSetHolder(ParamSetHolder *this, int a2)
   *(this + 1128) = 0u;
   *(this + 1144) = 0u;
   *(this + 1112) = 0u;
-  FileHistory::FileHistory((this + 1176), 0x64u, 0x64u);
+  FileHistory::FileHistory((this + 1176), 100, 100);
   v6 = *(this + 4);
   if (v6 == *(this + 5))
   {
@@ -6187,7 +6163,8 @@ void ParamSetHolder::ParamSetHolder(ParamSetHolder *this, int a2)
 
   while (v7 != 1040);
   v9 = MemChunkAlloc(0x110uLL, 0);
-  *(this + 139) = EnvMgr::EnvMgr(v9, 0xDu);
+  EnvMgr::EnvMgr(v9, 13);
+  *(this + 139) = v10;
 }
 
 void sub_2625C5BE8(_Unwind_Exception *a1)
@@ -6224,47 +6201,99 @@ void ParamSetHolder::printSize(ParamSetHolder *this, uint64_t a2, uint64_t a3, u
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 822, &v150);
-  if (v151)
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 822);
+  if (v84)
   {
-    v16 = v150;
+    v13 = v83;
   }
 
   else
   {
-    v16 = byte_26286EA0E;
+    v13 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, byte_26286EA0E, a3, byte_26286EA0E, v16);
-  DgnString::~DgnString(&v150);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, byte_26286EA0E, a3, byte_26286EA0E, v13);
+  DgnString::~DgnString(&v83);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, byte_26286EA0E);
-  v21 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 824, &v150);
-  if (v151)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, byte_26286EA0E);
+  v15 = (34 - a3);
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 824);
+  if (v84)
   {
-    v26 = v150;
+    v17 = v83;
   }
 
   else
   {
-    v26 = byte_26286EA0E;
+    v17 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, v23, v24, v25, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v26, 4, 4, 0);
-  DgnString::~DgnString(&v150);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v16, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v17, 4, 4, 0);
+  DgnString::~DgnString(&v83);
   *a4 += 4;
   *a5 += 4;
-  v27 = sizeObject<ParamSetBase *>(this + 8, 0);
-  v28 = sizeObject<ParamSetBase *>(this + 8, 1);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 826, &v150);
-  if (v151)
+  v18 = sizeObject<ParamSetBase *>(this + 8, 0);
+  v19 = sizeObject<ParamSetBase *>(this + 8, 1);
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 826);
+  if (v84)
   {
-    v33 = v150;
+    v21 = v83;
+  }
+
+  else
+  {
+    v21 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v20, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v21, v18, v19, 0);
+  v80 = (a3 + 1);
+  v78 = a3;
+  v79 = a6;
+  DgnString::~DgnString(&v83);
+  *a4 += v18;
+  *a5 += v19;
+  v22 = 16;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v22 = 12;
+  }
+
+  v23 = *(this + 12);
+  v24 = *(this + 13);
+  v25 = v24 >= v23;
+  v26 = v24 - v23;
+  if (v25)
+  {
+    if (v23 > 0)
+    {
+      v22 += 4 * (v23 - 1) + 4;
+    }
+
+    v22 += 4 * v26;
+  }
+
+  v27 = v22 + 24;
+  v28 = DgnPrimQueue<unsigned int,DgnPrimArray<unsigned int>>::sizeObject(this + 10, 1u) + 12;
+  v29 = *(this + 12);
+  v30 = this;
+  if (v29 <= *(this + 13))
+  {
+    v31 = 0;
+  }
+
+  else
+  {
+    v31 = 4 * v29;
+  }
+
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 828);
+  if (v84)
+  {
+    v33 = v83;
   }
 
   else
@@ -6272,51 +6301,98 @@ void ParamSetHolder::printSize(ParamSetHolder *this, uint64_t a2, uint64_t a3, u
     v33 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v29, v30, v31, v32, (a3 + 1), byte_26286EA0E, (34 - a3), (34 - a3), v33, v27, v28, 0);
-  v147 = (a3 + 1);
-  v145 = a3;
-  v146 = a6;
-  DgnString::~DgnString(&v150);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v80, byte_26286EA0E, (34 - a3), (34 - a3), v33, v27, v28, v31);
+  DgnString::~DgnString(&v83);
+  v34 = 0;
+  v35 = 0;
+  v36 = 0;
   *a4 += v27;
   *a5 += v28;
-  v34 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  *v79 += v31;
+  v37 = v30 + 72;
+  v38 = 13;
+  do
   {
-    v34 = 12;
+    v34 += DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(v37, 0);
+    v35 += DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(v37, 1);
+    v36 += DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(v37, 3);
+    v37 += 80;
+    --v38;
   }
 
-  v35 = *(this + 12);
-  v36 = *(this + 13);
-  v37 = v36 >= v35;
-  v38 = v36 - v35;
-  if (v37)
+  while (v38);
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 830);
+  if (v84)
   {
-    if (v35 > 0)
-    {
-      v34 += 4 * (v35 - 1) + 4;
-    }
-
-    v34 += 4 * v38;
-  }
-
-  v39 = v34 + 24;
-  v40 = DgnPrimQueue<unsigned int,DgnPrimArray<unsigned int>>::sizeObject(this + 10, 1u) + 12;
-  v41 = *(this + 12);
-  v42 = this;
-  if (v41 <= *(this + 13))
-  {
-    v43 = 0;
+    v40 = v83;
   }
 
   else
   {
-    v43 = 4 * v41;
+    v40 = byte_26286EA0E;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 828, &v150);
-  if (v151)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, v80, byte_26286EA0E, v15, v15, v40, v34, v35, v36);
+  DgnString::~DgnString(&v83);
+  *a4 += v34;
+  *a5 += v35;
+  *v79 += v36;
+  v41 = *(v30 + 139);
+  if (v41)
   {
-    v48 = v150;
+    v83 = 0;
+    v81 = 0;
+    v82 = 0;
+    EnvMgr::printSize(v41, 0xFFFFFFFFLL, v80, &v83, &v82, &v81);
+    *a4 += v83;
+    *a5 += v82;
+    *v79 += v81;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v42 = 4;
+  }
+
+  else
+  {
+    v42 = 8;
+  }
+
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 832);
+  if (v84)
+  {
+    v44 = v83;
+  }
+
+  else
+  {
+    v44 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v43, v80, byte_26286EA0E, v15, v15, v44, v42, v42, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += v42;
+  *a5 += v42;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 834);
+  if (v84)
+  {
+    v46 = v83;
+  }
+
+  else
+  {
+    v46 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v45, v80, byte_26286EA0E, v15, v15, v46, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 836);
+  if (v84)
+  {
+    v48 = v83;
   }
 
   else
@@ -6324,30 +6400,74 @@ void ParamSetHolder::printSize(ParamSetHolder *this, uint64_t a2, uint64_t a3, u
     v48 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v45, v46, v47, v147, byte_26286EA0E, (34 - a3), (34 - a3), v48, v39, v40, v43);
-  DgnString::~DgnString(&v150);
-  v49 = 0;
-  v50 = 0;
-  v51 = 0;
-  *a4 += v39;
-  *a5 += v40;
-  *v146 += v43;
-  v52 = v42 + 72;
-  v53 = 13;
-  do
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v47, v80, byte_26286EA0E, v15, v15, v48, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 838);
+  if (v84)
   {
-    v49 += DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(v52, 0);
-    v50 += DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(v52, 1);
-    v51 += DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::sizeObject(v52, 3);
-    v52 += 80;
-    --v53;
+    v50 = v83;
   }
 
-  while (v53);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 830, &v150);
-  if (v151)
+  else
   {
-    v58 = v150;
+    v50 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v49, v80, byte_26286EA0E, v15, v15, v50, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 840);
+  if (v84)
+  {
+    v52 = v83;
+  }
+
+  else
+  {
+    v52 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v51, v80, byte_26286EA0E, v15, v15, v52, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 842);
+  if (v84)
+  {
+    v54 = v83;
+  }
+
+  else
+  {
+    v54 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v80, byte_26286EA0E, v15, v15, v54, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 844);
+  if (v84)
+  {
+    v56 = v83;
+  }
+
+  else
+  {
+    v56 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v80, byte_26286EA0E, v15, v15, v56, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 846);
+  if (v84)
+  {
+    v58 = v83;
   }
 
   else
@@ -6355,52 +6475,89 @@ void ParamSetHolder::printSize(ParamSetHolder *this, uint64_t a2, uint64_t a3, u
     v58 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v54, v55, v56, v57, v147, byte_26286EA0E, v21, v21, v58, v49, v50, v51);
-  DgnString::~DgnString(&v150);
-  *a4 += v49;
-  *a5 += v50;
-  *v146 += v51;
-  v59 = *(v42 + 139);
-  if (v59)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v57, v80, byte_26286EA0E, v15, v15, v58, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 848);
+  if (v84)
   {
-    v150 = 0;
-    v148 = 0;
-    v149 = 0;
-    EnvMgr::printSize(v59, 0xFFFFFFFFLL, v147, &v150, &v149, &v148);
-    *a4 += v150;
-    *a5 += v149;
-    *v146 += v148;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v60 = 4;
+    v60 = v83;
   }
 
   else
   {
-    v60 = 8;
+    v60 = byte_26286EA0E;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 832, &v150);
-  if (v151)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v59, v80, byte_26286EA0E, v15, v15, v60, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 850);
+  if (v84)
   {
-    v65 = v150;
+    v62 = v83;
   }
 
   else
   {
-    v65 = byte_26286EA0E;
+    v62 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v61, v62, v63, v64, v147, byte_26286EA0E, v21, v21, v65, v60, v60, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += v60;
-  *a5 += v60;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 834, &v150);
-  if (v151)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v61, v80, byte_26286EA0E, v15, v15, v62, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 852);
+  if (v84)
   {
-    v70 = v150;
+    v64 = v83;
+  }
+
+  else
+  {
+    v64 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v63, v80, byte_26286EA0E, v15, v15, v64, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 854);
+  if (v84)
+  {
+    v66 = v83;
+  }
+
+  else
+  {
+    v66 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v65, v80, byte_26286EA0E, v15, v15, v66, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 856);
+  if (v84)
+  {
+    v68 = v83;
+  }
+
+  else
+  {
+    v68 = byte_26286EA0E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v67, v80, byte_26286EA0E, v15, v15, v68, 4, 4, 0);
+  DgnString::~DgnString(&v83);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 858);
+  if (v84)
+  {
+    v70 = v83;
   }
 
   else
@@ -6408,14 +6565,17 @@ void ParamSetHolder::printSize(ParamSetHolder *this, uint64_t a2, uint64_t a3, u
     v70 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v66, v67, v68, v69, v147, byte_26286EA0E, v21, v21, v70, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 836, &v150);
-  if (v151)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v69, v80, byte_26286EA0E, v15, v15, v70, 1, 1, 0);
+  DgnString::~DgnString(&v83);
+  ++*a4;
+  ++*a5;
+  v71 = sizeObject(v30 + 1176, 0);
+  v72 = sizeObject(v30 + 1176, 1);
+  v73 = sizeObject(v30 + 1176, 3);
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 859);
+  if (v84)
   {
-    v75 = v150;
+    v75 = v83;
   }
 
   else
@@ -6423,208 +6583,24 @@ void ParamSetHolder::printSize(ParamSetHolder *this, uint64_t a2, uint64_t a3, u
     v75 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v71, v72, v73, v74, v147, byte_26286EA0E, v21, v21, v75, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 838, &v150);
-  if (v151)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v74, v80, byte_26286EA0E, v15, v15, v75, v71, v72, v73);
+  DgnString::~DgnString(&v83);
+  *a4 += v71;
+  *a5 += v72;
+  *v79 += v73;
+  getShipObjectSizeDescription(&v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 860);
+  if (v84)
   {
-    v80 = v150;
+    v77 = v83;
   }
 
   else
   {
-    v80 = byte_26286EA0E;
+    v77 = byte_26286EA0E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v76, v77, v78, v79, v147, byte_26286EA0E, v21, v21, v80, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 840, &v150);
-  if (v151)
-  {
-    v85 = v150;
-  }
-
-  else
-  {
-    v85 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v81, v82, v83, v84, v147, byte_26286EA0E, v21, v21, v85, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 842, &v150);
-  if (v151)
-  {
-    v90 = v150;
-  }
-
-  else
-  {
-    v90 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v87, v88, v89, v147, byte_26286EA0E, v21, v21, v90, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 844, &v150);
-  if (v151)
-  {
-    v95 = v150;
-  }
-
-  else
-  {
-    v95 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v91, v92, v93, v94, v147, byte_26286EA0E, v21, v21, v95, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 846, &v150);
-  if (v151)
-  {
-    v100 = v150;
-  }
-
-  else
-  {
-    v100 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v96, v97, v98, v99, v147, byte_26286EA0E, v21, v21, v100, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 848, &v150);
-  if (v151)
-  {
-    v105 = v150;
-  }
-
-  else
-  {
-    v105 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v101, v102, v103, v104, v147, byte_26286EA0E, v21, v21, v105, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 850, &v150);
-  if (v151)
-  {
-    v110 = v150;
-  }
-
-  else
-  {
-    v110 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v107, v108, v109, v147, byte_26286EA0E, v21, v21, v110, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 852, &v150);
-  if (v151)
-  {
-    v115 = v150;
-  }
-
-  else
-  {
-    v115 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v111, v112, v113, v114, v147, byte_26286EA0E, v21, v21, v115, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 854, &v150);
-  if (v151)
-  {
-    v120 = v150;
-  }
-
-  else
-  {
-    v120 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v116, v117, v118, v119, v147, byte_26286EA0E, v21, v21, v120, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 856, &v150);
-  if (v151)
-  {
-    v125 = v150;
-  }
-
-  else
-  {
-    v125 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v121, v122, v123, v124, v147, byte_26286EA0E, v21, v21, v125, 4, 4, 0);
-  DgnString::~DgnString(&v150);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 858, &v150);
-  if (v151)
-  {
-    v130 = v150;
-  }
-
-  else
-  {
-    v130 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v126, v127, v128, v129, v147, byte_26286EA0E, v21, v21, v130, 1, 1, 0);
-  DgnString::~DgnString(&v150);
-  ++*a4;
-  ++*a5;
-  v131 = sizeObject(v42 + 1176, 0);
-  v132 = sizeObject(v42 + 1176, 1);
-  v133 = sizeObject(v42 + 1176, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 859, &v150);
-  if (v151)
-  {
-    v138 = v150;
-  }
-
-  else
-  {
-    v138 = byte_26286EA0E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v134, v135, v136, v137, v147, byte_26286EA0E, v21, v21, v138, v131, v132, v133);
-  DgnString::~DgnString(&v150);
-  *a4 += v131;
-  *a5 += v132;
-  *v146 += v133;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 860, &v150);
-  if (v151)
-  {
-    v143 = v150;
-  }
-
-  else
-  {
-    v143 = byte_26286EA0E;
-  }
-
-  v144 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v139, v140, v141, v142, v145, byte_26286EA0E, (35 - v145), (35 - v145), v143, *a4, *a5, *v146);
-  DgnString::~DgnString(&v150);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v76, v78, byte_26286EA0E, (35 - v78), (35 - v78), v77, *a4, *a5, *v79);
+  DgnString::~DgnString(&v83);
 }
 
 uint64_t sizeObject<ParamSetBase *>(uint64_t a1, uint64_t a2)
@@ -6693,66 +6669,66 @@ uint64_t sizeObject<ParamSetBase *>(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void *ParamSetHolder::loadParamSetHolderText(ParamSetHolder *this, DFile *a2)
+void *ParamSetHolder::loadParamSetHolderText(ParamSetHolder *this, FileSpec **a2)
 {
   v2 = a2;
   v3 = 0;
-  v363 = 0;
-  v364[0] = 0;
-  v361 = 0;
-  v362 = 0;
-  v359 = 0;
-  v360 = 0;
-  v357 = 0;
-  v358 = 0;
-  v355 = 0;
-  v356 = 0;
-  v353 = 0;
-  v354 = 0;
-  v351 = 0;
-  v352 = 0;
-  v349 = 0;
-  v350 = 0;
-  v347 = 0;
-  v348 = 0;
-  v346 = 0;
-  v345 = 0;
-  v344 = 0;
-  v343 = 0;
-  v342 = 0;
-  v341 = 0;
+  v163 = 0;
+  v164[0] = 0;
+  v161 = 0;
+  v162 = 0;
+  v159 = 0;
+  v160 = 0;
+  v157 = 0;
+  v158 = 0;
+  v155 = 0;
+  v156 = 0;
+  v153 = 0;
+  v154 = 0;
+  v151 = 0;
+  v152 = 0;
+  v149 = 0;
+  v150 = 0;
+  v147 = 0;
+  v148 = 0;
+  v146 = 0;
+  v145 = 0;
+  v144 = 0;
+  v143 = 0;
+  v142 = 0;
+  v141 = 0;
   v4 = 1;
-  v302 = -1;
-  v303 = -1;
-  v300 = 0xFFFFFFFFLL;
-  v301 = -1;
-  v298 = 0xFFFFFFFFLL;
-  v299 = -1;
-  v296 = 0xFFFFFFFFLL;
-  v297 = -1;
-  v294 = 0xFFFFFFFFLL;
-  v295 = -1;
-  v292 = 0xFFFFFFFFLL;
-  v293 = -1;
-  v290 = 0xFFFFFFFFLL;
-  v291 = -1;
-  v288 = 0xFFFFFFFFLL;
-  v289 = -1;
-  v286 = 0xFFFFFFFFLL;
-  v287 = -1;
-  v284 = 0xFFFFFFFFLL;
-  v285 = -1;
-  v283 = 0xFFFFFFFFLL;
-  v306 = 0xFFFFFFFFLL;
-  v304 = 0xFFFFFFFFLL;
-  v305 = 0xFFFFFFFFLL;
+  v101 = -1;
+  v102 = -1;
+  v99 = 0xFFFFFFFFLL;
+  v100 = -1;
+  v97 = 0xFFFFFFFFLL;
+  v98 = -1;
+  v95 = 0xFFFFFFFFLL;
+  v96 = -1;
+  v93 = 0xFFFFFFFFLL;
+  v94 = -1;
+  v91 = 0xFFFFFFFFLL;
+  v92 = -1;
+  v89 = 0xFFFFFFFFLL;
+  v90 = -1;
+  v87 = 0xFFFFFFFFLL;
+  v88 = -1;
+  v85 = 0xFFFFFFFFLL;
+  v86 = -1;
+  v83 = 0xFFFFFFFFLL;
+  v84 = -1;
+  v82 = 0xFFFFFFFFLL;
+  v105 = 0xFFFFFFFFLL;
+  v103 = 0xFFFFFFFFLL;
+  v104 = 0xFFFFFFFFLL;
   do
   {
-    DgnTextFileParser::DgnTextFileParser(v340);
-    LOBYTE(v322) = 0;
-    v339[1] = 0;
-    v339[0] = 0;
-    v338 = 0;
+    DgnTextFileParser::DgnTextFileParser(v139);
+    v121 = 0;
+    v138[1] = 0;
+    v138[0] = 0;
+    v137 = 0;
     if (v4 > 6)
     {
       if (v4 > 9)
@@ -6763,79 +6739,79 @@ void *ParamSetHolder::loadParamSetHolderText(ParamSetHolder *this, DFile *a2)
             *(this + 289) = 0;
             if (!DFile::subFileExists(v2, 0x58u))
             {
-              v298 = 0;
-              v301 = 1;
-              goto LABEL_182;
+              v97 = 0;
+              v100 = 1;
+              goto LABEL_187;
             }
 
             v3 = qword_281051FB8;
-            DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x58u, 1);
-            DgnTextFileParser::verifyMatchingFileType(v340, "SearchParamSetArrayText");
-            DgnTextFile::legalDgnTextFileVersions(v340, sSRPT_Versions, v339, v92, v93, v94, v95, v96);
-            DgnTextFileParser::verifyFileVersionInRange(v340, v339, v97, v98, v99, v100, v101, v102);
-            DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-            --v338;
-            FileVersion = DgnTextFile::getFileVersion(v340);
-            v17 = HIDWORD(FileVersion);
-            v312 = &v345;
-            v322 = ".srpt";
-            v310 = &v346;
-            v309 = &v346 + 4;
-            v301 = FileVersion;
-            v18 = FileVersion;
-            v298 = HIDWORD(FileVersion);
+            DgnTextFileParser::openDgnTextFileParser(v139, v2, 88, 1);
+            DgnTextFileParser::verifyMatchingFileType(v139, "SearchParamSetArrayText");
+            DgnTextFile::legalDgnTextFileVersions(v139, sSRPT_Versions, v138);
+            DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+            DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+            --v137;
+            FileVersion = DgnTextFile::getFileVersion(v139);
+            v6 = HIDWORD(FileVersion);
+            v111 = &v145;
+            v121 = ".srpt";
+            v109 = &v146;
+            v108 = &v146 + 4;
+            v100 = FileVersion;
+            v7 = FileVersion;
+            v97 = HIDWORD(FileVersion);
             goto LABEL_41;
           case 0xB:
             *(this + 290) = 0;
             if (!DFile::subFileExists(v2, 0x54u))
             {
-              v300 = 0;
-              v302 = 1;
-              goto LABEL_182;
+              v99 = 0;
+              v101 = 1;
+              goto LABEL_187;
             }
 
             v3 = qword_281051FC0;
-            DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x54u, 1);
-            DgnTextFileParser::verifyMatchingFileType(v340, "SearchCrossLayerParamSetArrayText");
-            DgnTextFile::legalDgnTextFileVersions(v340, sSCPT_Versions, v339, v140, v141, v142, v143, v144);
-            DgnTextFileParser::verifyFileVersionInRange(v340, v339, v145, v146, v147, v148, v149, v150);
-            DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-            --v338;
-            v151 = DgnTextFile::getFileVersion(v340);
-            v17 = HIDWORD(v151);
-            v312 = &v343;
-            v322 = ".scpt";
-            v310 = &v344;
-            v309 = &v344 + 4;
-            v302 = v151;
-            v18 = v151;
-            v300 = HIDWORD(v151);
+            DgnTextFileParser::openDgnTextFileParser(v139, v2, 84, 1);
+            DgnTextFileParser::verifyMatchingFileType(v139, "SearchCrossLayerParamSetArrayText");
+            DgnTextFile::legalDgnTextFileVersions(v139, sSCPT_Versions, v138);
+            DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+            DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+            --v137;
+            v19 = DgnTextFile::getFileVersion(v139);
+            v6 = HIDWORD(v19);
+            v111 = &v143;
+            v121 = ".scpt";
+            v109 = &v144;
+            v108 = &v144 + 4;
+            v101 = v19;
+            v7 = v19;
+            v99 = HIDWORD(v19);
             goto LABEL_41;
           case 0xC:
             *(this + 291) = 0;
             if (!DFile::subFileExists(v2, 0x65u))
             {
-              v303 = 1;
-              v304 = 0;
-              goto LABEL_182;
+              v102 = 1;
+              v103 = 0;
+              goto LABEL_187;
             }
 
             v3 = qword_281051FC8;
-            DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x65u, 1);
-            DgnTextFileParser::verifyMatchingFileType(v340, "UserDeltaParamSetArrayText");
-            DgnTextFile::legalDgnTextFileVersions(v340, sUDPT_Versions, v339, v43, v44, v45, v46, v47);
-            DgnTextFileParser::verifyFileVersionInRange(v340, v339, v48, v49, v50, v51, v52, v53);
-            DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-            --v338;
-            v54 = DgnTextFile::getFileVersion(v340);
-            v55 = HIDWORD(v54);
-            v312 = &v341;
-            v322 = ".udpt";
-            v310 = &v342;
-            v309 = &v342 + 4;
-            v303 = v54;
-            v304 = HIDWORD(v54);
-            v18 = v54;
+            DgnTextFileParser::openDgnTextFileParser(v139, v2, 101, 1);
+            DgnTextFileParser::verifyMatchingFileType(v139, "UserDeltaParamSetArrayText");
+            DgnTextFile::legalDgnTextFileVersions(v139, sUDPT_Versions, v138);
+            DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+            DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+            --v137;
+            v10 = DgnTextFile::getFileVersion(v139);
+            v11 = HIDWORD(v10);
+            v111 = &v141;
+            v121 = ".udpt";
+            v109 = &v142;
+            v108 = &v142 + 4;
+            v102 = v10;
+            v103 = HIDWORD(v10);
+            v7 = v10;
             goto LABEL_43;
         }
       }
@@ -6848,79 +6824,79 @@ void *ParamSetHolder::loadParamSetHolderText(ParamSetHolder *this, DFile *a2)
             *(this + 286) = 0;
             if (!DFile::subFileExists(v2, 0x45u))
             {
-              v292 = 0;
-              v295 = 1;
-              goto LABEL_182;
+              v91 = 0;
+              v94 = 1;
+              goto LABEL_187;
             }
 
             v3 = qword_281051FA0;
-            DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x45u, 1);
-            DgnTextFileParser::verifyMatchingFileType(v340, "PrefiltererSearchParamSetArrayText");
-            DgnTextFile::legalDgnTextFileVersions(v340, sPSPT_Versions, v339, v68, v69, v70, v71, v72);
-            DgnTextFileParser::verifyFileVersionInRange(v340, v339, v73, v74, v75, v76, v77, v78);
-            DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-            --v338;
-            v79 = DgnTextFile::getFileVersion(v340);
-            v17 = HIDWORD(v79);
-            v312 = &v351;
-            v322 = ".pspt";
-            v310 = &v352;
-            v309 = &v352 + 4;
-            v295 = v79;
-            v18 = v79;
-            v292 = HIDWORD(v79);
+            DgnTextFileParser::openDgnTextFileParser(v139, v2, 69, 1);
+            DgnTextFileParser::verifyMatchingFileType(v139, "PrefiltererSearchParamSetArrayText");
+            DgnTextFile::legalDgnTextFileVersions(v139, sPSPT_Versions, v138);
+            DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+            DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+            --v137;
+            v13 = DgnTextFile::getFileVersion(v139);
+            v6 = HIDWORD(v13);
+            v111 = &v151;
+            v121 = ".pspt";
+            v109 = &v152;
+            v108 = &v152 + 4;
+            v94 = v13;
+            v7 = v13;
+            v91 = HIDWORD(v13);
             goto LABEL_41;
           case 8:
             *(this + 287) = 0;
             if (!DFile::subFileExists(v2, 0x3Cu))
             {
-              v294 = 0;
-              v297 = 1;
-              goto LABEL_182;
+              v93 = 0;
+              v96 = 1;
+              goto LABEL_187;
             }
 
             v3 = qword_281051FA8;
-            DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x3Cu, 1);
-            DgnTextFileParser::verifyMatchingFileType(v340, "PronGuessParamSetArrayText");
-            DgnTextFile::legalDgnTextFileVersions(v340, sPGPT_Versions, v339, v116, v117, v118, v119, v120);
-            DgnTextFileParser::verifyFileVersionInRange(v340, v339, v121, v122, v123, v124, v125, v126);
-            DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-            --v338;
-            v127 = DgnTextFile::getFileVersion(v340);
-            v17 = HIDWORD(v127);
-            v312 = &v349;
-            v322 = ".pgpt";
-            v310 = &v350;
-            v309 = &v350 + 4;
-            v297 = v127;
-            v18 = v127;
-            v294 = HIDWORD(v127);
+            DgnTextFileParser::openDgnTextFileParser(v139, v2, 60, 1);
+            DgnTextFileParser::verifyMatchingFileType(v139, "PronGuessParamSetArrayText");
+            DgnTextFile::legalDgnTextFileVersions(v139, sPGPT_Versions, v138);
+            DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+            DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+            --v137;
+            v17 = DgnTextFile::getFileVersion(v139);
+            v6 = HIDWORD(v17);
+            v111 = &v149;
+            v121 = ".pgpt";
+            v109 = &v150;
+            v108 = &v150 + 4;
+            v96 = v17;
+            v7 = v17;
+            v93 = HIDWORD(v17);
             goto LABEL_41;
           case 9:
             *(this + 288) = 0;
             if (!DFile::subFileExists(v2, 0x4Fu))
             {
-              v296 = 0;
-              v299 = 1;
-              goto LABEL_182;
+              v95 = 0;
+              v98 = 1;
+              goto LABEL_187;
             }
 
             v3 = qword_281051FB0;
-            DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x4Fu, 1);
-            DgnTextFileParser::verifyMatchingFileType(v340, "SausageParamSetArrayText");
-            DgnTextFile::legalDgnTextFileVersions(v340, sSAPT_Versions, v339, v19, v20, v21, v22, v23);
-            DgnTextFileParser::verifyFileVersionInRange(v340, v339, v24, v25, v26, v27, v28, v29);
-            DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-            --v338;
-            v30 = DgnTextFile::getFileVersion(v340);
-            v17 = HIDWORD(v30);
-            v312 = &v347;
-            v322 = ".sapt";
-            v310 = &v348;
-            v309 = &v348 + 4;
-            v299 = v30;
-            v18 = v30;
-            v296 = HIDWORD(v30);
+            DgnTextFileParser::openDgnTextFileParser(v139, v2, 79, 1);
+            DgnTextFileParser::verifyMatchingFileType(v139, "SausageParamSetArrayText");
+            DgnTextFile::legalDgnTextFileVersions(v139, sSAPT_Versions, v138);
+            DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+            DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+            --v137;
+            v8 = DgnTextFile::getFileVersion(v139);
+            v6 = HIDWORD(v8);
+            v111 = &v147;
+            v121 = ".sapt";
+            v109 = &v148;
+            v108 = &v148 + 4;
+            v98 = v8;
+            v7 = v8;
+            v95 = HIDWORD(v8);
             goto LABEL_41;
         }
       }
@@ -6934,79 +6910,79 @@ void *ParamSetHolder::loadParamSetHolderText(ParamSetHolder *this, DFile *a2)
           *(this + 283) = 0;
           if (!DFile::subFileExists(v2, 0x21u))
           {
-            v286 = 0;
-            v289 = 1;
-            goto LABEL_182;
+            v85 = 0;
+            v88 = 1;
+            goto LABEL_187;
           }
 
           v3 = qword_281051F88;
-          DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x21u, 1);
-          DgnTextFileParser::verifyMatchingFileType(v340, "LatticeNBestParamSetArrayText");
-          DgnTextFile::legalDgnTextFileVersions(v340, sLNPT_Versions, v339, v80, v81, v82, v83, v84);
-          DgnTextFileParser::verifyFileVersionInRange(v340, v339, v85, v86, v87, v88, v89, v90);
-          DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-          --v338;
-          v91 = DgnTextFile::getFileVersion(v340);
-          v17 = HIDWORD(v91);
-          v312 = &v357;
-          v322 = ".lnpt";
-          v310 = &v358;
-          v309 = &v358 + 4;
-          v289 = v91;
-          v18 = v91;
-          v286 = HIDWORD(v91);
+          DgnTextFileParser::openDgnTextFileParser(v139, v2, 33, 1);
+          DgnTextFileParser::verifyMatchingFileType(v139, "LatticeNBestParamSetArrayText");
+          DgnTextFile::legalDgnTextFileVersions(v139, sLNPT_Versions, v138);
+          DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+          DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+          --v137;
+          v14 = DgnTextFile::getFileVersion(v139);
+          v6 = HIDWORD(v14);
+          v111 = &v157;
+          v121 = ".lnpt";
+          v109 = &v158;
+          v108 = &v158 + 4;
+          v88 = v14;
+          v7 = v14;
+          v85 = HIDWORD(v14);
           goto LABEL_41;
         case 5:
           *(this + 284) = 0;
           if (!DFile::subFileExists(v2, 0x22u))
           {
-            v288 = 0;
-            v291 = 1;
-            goto LABEL_182;
+            v87 = 0;
+            v90 = 1;
+            goto LABEL_187;
           }
 
           v3 = qword_281051F90;
-          DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x22u, 1);
-          DgnTextFileParser::verifyMatchingFileType(v340, "LatticePostProbParamSetArrayText");
-          DgnTextFile::legalDgnTextFileVersions(v340, sLPPT_Versions, v339, v128, v129, v130, v131, v132);
-          DgnTextFileParser::verifyFileVersionInRange(v340, v339, v133, v134, v135, v136, v137, v138);
-          DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-          --v338;
-          v139 = DgnTextFile::getFileVersion(v340);
-          v17 = HIDWORD(v139);
-          v312 = &v355;
-          v322 = ".lppt";
-          v310 = &v356;
-          v309 = &v356 + 4;
-          v291 = v139;
-          v18 = v139;
-          v288 = HIDWORD(v139);
+          DgnTextFileParser::openDgnTextFileParser(v139, v2, 34, 1);
+          DgnTextFileParser::verifyMatchingFileType(v139, "LatticePostProbParamSetArrayText");
+          DgnTextFile::legalDgnTextFileVersions(v139, sLPPT_Versions, v138);
+          DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+          DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+          --v137;
+          v18 = DgnTextFile::getFileVersion(v139);
+          v6 = HIDWORD(v18);
+          v111 = &v155;
+          v121 = ".lppt";
+          v109 = &v156;
+          v108 = &v156 + 4;
+          v90 = v18;
+          v7 = v18;
+          v87 = HIDWORD(v18);
           goto LABEL_41;
         case 6:
           *(this + 285) = 0;
           if (!DFile::subFileExists(v2, 0x37u))
           {
-            v290 = 0;
-            v293 = 1;
-            goto LABEL_182;
+            v89 = 0;
+            v92 = 1;
+            goto LABEL_187;
           }
 
           v3 = qword_281051F98;
-          DgnTextFileParser::openDgnTextFileParser(v340, v2, 0x37u, 1);
-          DgnTextFileParser::verifyMatchingFileType(v340, "PrefiltererBuildParamSetArrayText");
-          DgnTextFile::legalDgnTextFileVersions(v340, sPBPT_Versions, v339, v31, v32, v33, v34, v35);
-          DgnTextFileParser::verifyFileVersionInRange(v340, v339, v36, v37, v38, v39, v40, v41);
-          DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-          --v338;
-          v42 = DgnTextFile::getFileVersion(v340);
-          v17 = HIDWORD(v42);
-          v312 = &v353;
-          v322 = ".pbpt";
-          v310 = &v354;
-          v309 = &v354 + 4;
-          v293 = v42;
-          v18 = v42;
-          v290 = HIDWORD(v42);
+          DgnTextFileParser::openDgnTextFileParser(v139, v2, 55, 1);
+          DgnTextFileParser::verifyMatchingFileType(v139, "PrefiltererBuildParamSetArrayText");
+          DgnTextFile::legalDgnTextFileVersions(v139, sPBPT_Versions, v138);
+          DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+          DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+          --v137;
+          v9 = DgnTextFile::getFileVersion(v139);
+          v6 = HIDWORD(v9);
+          v111 = &v153;
+          v121 = ".pbpt";
+          v109 = &v154;
+          v108 = &v154 + 4;
+          v92 = v9;
+          v7 = v9;
+          v89 = HIDWORD(v9);
           goto LABEL_41;
       }
     }
@@ -7019,182 +6995,181 @@ void *ParamSetHolder::loadParamSetHolderText(ParamSetHolder *this, DFile *a2)
           *(this + 280) = 0;
           if ((DFile::subFileExists(v2, 0) & 1) == 0)
           {
-            v305 = 0;
-            v306 = 1;
-            goto LABEL_182;
+            v104 = 0;
+            v105 = 1;
+            goto LABEL_187;
           }
 
           v3 = qword_281051F70;
-          DgnTextFileParser::openDgnTextFileParser(v340, v2, 0, 1);
-          DgnTextFileParser::verifyMatchingFileType(v340, "AdapterParamSetArrayText");
-          DgnTextFile::legalDgnTextFileVersions(v340, sADPT_Versions, v339, v56, v57, v58, v59, v60);
-          DgnTextFileParser::verifyFileVersionInRange(v340, v339, v61, v62, v63, v64, v65, v66);
-          DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-          --v338;
-          v67 = DgnTextFile::getFileVersion(v340);
-          v17 = HIDWORD(v67);
-          v312 = &v363;
-          v322 = ".adpt";
-          v310 = v364;
-          v309 = v364 + 4;
-          v306 = v67;
-          v18 = v67;
-          v305 = HIDWORD(v67);
+          DgnTextFileParser::openDgnTextFileParser(v139, v2, 0, 1);
+          DgnTextFileParser::verifyMatchingFileType(v139, "AdapterParamSetArrayText");
+          DgnTextFile::legalDgnTextFileVersions(v139, sADPT_Versions, v138);
+          DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+          DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+          --v137;
+          v12 = DgnTextFile::getFileVersion(v139);
+          v6 = HIDWORD(v12);
+          v111 = &v163;
+          v121 = ".adpt";
+          v109 = v164;
+          v108 = v164 + 4;
+          v105 = v12;
+          v7 = v12;
+          v104 = HIDWORD(v12);
           goto LABEL_41;
         case 2:
           *(this + 281) = 0;
           if (!DFile::subFileExists(v2, 0xBu))
           {
-            v283 = 0;
-            v285 = 1;
-            goto LABEL_182;
+            v82 = 0;
+            v84 = 1;
+            goto LABEL_187;
           }
 
           v3 = qword_281051F78;
-          DgnTextFileParser::openDgnTextFileParser(v340, v2, 0xBu, 1);
-          DgnTextFileParser::verifyMatchingFileType(v340, "ChannelParamSetArrayText");
-          DgnTextFile::legalDgnTextFileVersions(v340, sCHPT_Versions, v339, v104, v105, v106, v107, v108);
-          DgnTextFileParser::verifyFileVersionInRange(v340, v339, v109, v110, v111, v112, v113, v114);
-          DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-          --v338;
-          v115 = DgnTextFile::getFileVersion(v340);
-          v17 = HIDWORD(v115);
-          v312 = &v361;
-          v322 = ".chpt";
-          v310 = &v362;
-          v309 = &v362 + 4;
-          v285 = v115;
-          v18 = v115;
-          v283 = HIDWORD(v115);
+          DgnTextFileParser::openDgnTextFileParser(v139, v2, 11, 1);
+          DgnTextFileParser::verifyMatchingFileType(v139, "ChannelParamSetArrayText");
+          DgnTextFile::legalDgnTextFileVersions(v139, sCHPT_Versions, v138);
+          DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+          DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+          --v137;
+          v16 = DgnTextFile::getFileVersion(v139);
+          v6 = HIDWORD(v16);
+          v111 = &v161;
+          v121 = ".chpt";
+          v109 = &v162;
+          v108 = &v162 + 4;
+          v84 = v16;
+          v7 = v16;
+          v82 = HIDWORD(v16);
           goto LABEL_41;
         case 3:
           *(this + 282) = 0;
           if (!DFile::subFileExists(v2, 0xFu))
           {
-            v284 = 0;
-            v287 = 1;
-            goto LABEL_182;
+            v83 = 0;
+            v86 = 1;
+            goto LABEL_187;
           }
 
           v3 = qword_281051F80;
-          DgnTextFileParser::openDgnTextFileParser(v340, v2, 0xFu, 1);
-          DgnTextFileParser::verifyMatchingFileType(v340, "ConfidenceParamSetArrayText");
-          DgnTextFile::legalDgnTextFileVersions(v340, sCOPT_Versions, v339, v5, v6, v7, v8, v9);
-          DgnTextFileParser::verifyFileVersionInRange(v340, v339, v10, v11, v12, v13, v14, v15);
-          DgnTextFile::getHeaderFieldUnsigned(v340, "NumberOfParamSets", &v338, 1, 1u, 0xFFFFu);
-          --v338;
-          v16 = DgnTextFile::getFileVersion(v340);
-          v17 = HIDWORD(v16);
-          v312 = &v359;
-          v322 = ".copt";
-          v310 = &v360;
-          v309 = &v360 + 4;
-          v287 = v16;
-          v18 = v16;
-          v284 = HIDWORD(v16);
+          DgnTextFileParser::openDgnTextFileParser(v139, v2, 15, 1);
+          DgnTextFileParser::verifyMatchingFileType(v139, "ConfidenceParamSetArrayText");
+          DgnTextFile::legalDgnTextFileVersions(v139, sCOPT_Versions, v138);
+          DgnTextFileParser::verifyFileVersionInRange(v139, v138);
+          DgnTextFile::getHeaderFieldUnsigned(v139, "NumberOfParamSets", &v137, 1, 1u, 0xFFFFu);
+          --v137;
+          v5 = DgnTextFile::getFileVersion(v139);
+          v6 = HIDWORD(v5);
+          v111 = &v159;
+          v121 = ".copt";
+          v109 = &v160;
+          v108 = &v160 + 4;
+          v86 = v5;
+          v7 = v5;
+          v83 = HIDWORD(v5);
 LABEL_41:
-          v152 = v17;
+          v20 = v6;
           goto LABEL_44;
       }
     }
 
-    v310 = 8;
-    v309 = 12;
-    v312 = 0;
-    v18 = v306;
-    v55 = v305;
+    v109 = 8;
+    v108 = 12;
+    v111 = 0;
+    v7 = v105;
+    v11 = v104;
 LABEL_43:
-    v152 = v55;
+    v20 = v11;
 LABEL_44:
-    v337 = 0;
-    v336 = 0;
-    v314 = v18;
-    v313 = v152;
-    ParamSpecMgr::getAllParamIdsSortedByName(v3, &v336, v18, v152);
-    DgnTextFileParser::verifyNoUnknownHeaderFields(v340, v153, v154, v155, v156, v157, v158, v159);
-    v335 = 0;
-    v334 = 0;
-    DgnTextFile::getLineFieldNames(v340, &v334);
-    v333[1] = 0;
-    v333[0] = 0;
-    DgnTextFile::getLineFieldFormats(v340, v333);
-    if (v335)
+    v136 = 0;
+    v135 = 0;
+    v113 = v7;
+    *v112 = v20;
+    ParamSpecMgr::getAllParamIdsSortedByName(v3, &v135, v7, v20);
+    DgnTextFileParser::verifyNoUnknownHeaderFields(v139);
+    v134 = 0;
+    v133 = 0;
+    DgnTextFile::getLineFieldNames(v139, &v133);
+    v132[1] = 0;
+    v132[0] = 0;
+    DgnTextFile::getLineFieldFormats(v139, v132);
+    if (v134)
     {
-      v162 = 0;
-      v163 = 0;
-      v164 = 0;
-      v319 = -1;
-      v318 = -1;
-      v317 = -1;
-      v315 = -1;
+      v21 = 0;
+      v22 = 0;
+      v23 = 0;
+      v118 = -1;
+      v117 = -1;
+      v116 = -1;
+      v114 = -1;
       do
       {
-        v165 = *(v334 + v162);
-        if (*(v334 + v162 + 8))
+        if (*(v133 + v21 + 8))
         {
-          v166 = *(v334 + v162);
+          v24 = *(v133 + v21);
         }
 
         else
         {
-          v166 = byte_26286EA0E;
+          v24 = byte_26286EA0E;
         }
 
-        if (!strcmp(v166, "SetIndex"))
+        if (!strcmp(v24, "SetIndex"))
         {
-          if (*(v333[0] + 4 * v163) != 3)
+          if (*(v132[0] + 4 * v22) != 3)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 963, "recogctl/psholder", 17, "%.500s %.500s %.500s", v160, v161, v322);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 963, "recogctl/psholder", 17, "%.500s %.500s %.500s", v121, v24, "Unsigned");
           }
 
-          ++v164;
-          v319 = v163;
+          ++v23;
+          v118 = v22;
         }
 
-        else if (!strcmp(v166, "SetName"))
+        else if (!strcmp(v24, "SetName"))
         {
-          if (*(v333[0] + 4 * v163))
+          if (*(v132[0] + 4 * v22))
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 971, "recogctl/psholder", 17, "%.500s %.500s %.500s", v160, v161, v322);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 971, "recogctl/psholder", 17, "%.500s %.500s %.500s", v121, v24, "String");
           }
 
-          ++v164;
-          v318 = v163;
+          ++v23;
+          v117 = v22;
         }
 
-        else if (!strcmp(v166, "ParamName"))
+        else if (!strcmp(v24, "ParamName"))
         {
-          if (*(v333[0] + 4 * v163))
+          if (*(v132[0] + 4 * v22))
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 979, "recogctl/psholder", 17, "%.500s %.500s %.500s", v160, v161, v322);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 979, "recogctl/psholder", 17, "%.500s %.500s %.500s", v121, v24, "String");
           }
 
-          ++v164;
-          v317 = v163;
+          ++v23;
+          v116 = v22;
         }
 
-        else if (!strcmp(v166, "ParamValue"))
+        else if (!strcmp(v24, "ParamValue"))
         {
-          if (*(v333[0] + 4 * v163))
+          if (*(v132[0] + 4 * v22))
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 987, "recogctl/psholder", 17, "%.500s %.500s %.500s", v160, v161, v322);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 987, "recogctl/psholder", 17, "%.500s %.500s %.500s", v121, v24, "String");
           }
 
-          ++v164;
-          v315 = v163;
+          ++v23;
+          v114 = v22;
         }
 
         else
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 992, "recogctl/psholder", 15, "%.500s %.500s", v160, v161, v322);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 992, "recogctl/psholder", 15, "%.500s %.500s", v121, v24);
         }
 
-        ++v163;
-        v162 += 16;
+        ++v22;
+        v21 += 16;
       }
 
-      while (v163 < v335);
-      if (v164 == 4)
+      while (v22 < v134);
+      if (v23 == 4)
       {
         goto LABEL_71;
       }
@@ -7202,447 +7177,467 @@ LABEL_44:
 
     else
     {
-      LOBYTE(v164) = 0;
-      v319 = -1;
-      v318 = -1;
-      v317 = -1;
-      v315 = -1;
+      v23 = 0;
+      v118 = -1;
+      v117 = -1;
+      v116 = -1;
+      v114 = -1;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 995, "recogctl/psholder", 16, "%u %u", v160, v161, v164);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 995, "recogctl/psholder", 16, "%u %u", v23, 4);
 LABEL_71:
-    v332 = 0;
-    v331 = 0;
-    DgnString::DgnString(&v329, "_default");
-    v167 = v332;
-    v168 = v314;
-    if (v332 == HIDWORD(v332))
+    v131 = 0;
+    v130 = 0;
+    DgnString::DgnString(&v128, "_default");
+    v25 = v131;
+    v26 = v113;
+    if (v131 == HIDWORD(v131))
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(&v331, 1, 1);
-      v167 = v332;
+      DgnArray<DgnPrimArray<double>>::reallocElts(&v130, 1, 1);
+      v25 = v131;
     }
 
-    DgnString::DgnString((v331 + 16 * v167), &v329);
-    v311 = v4;
-    LODWORD(v332) = v332 + 1;
-    DgnString::~DgnString(&v329);
-    v316 = 0;
-    v321 = 0;
-    v320 = 0;
-    v169 = 0;
-    v330 = 0;
-    v329 = 0;
-    while ((DgnTextFileParser::parseNextLine(v340) & 1) != 0)
+    DgnString::DgnString((v130 + 16 * v25), &v128);
+    v110 = v4;
+    LODWORD(v131) = v131 + 1;
+    DgnString::~DgnString(&v128);
+    v115 = 0;
+    v120 = 0;
+    v119 = 0;
+    v27 = 0;
+    v28 = 0;
+    v129 = 0;
+    v128 = 0;
+    while ((DgnTextFileParser::parseNextLine(v139) & 1) != 0)
     {
-      LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v340, v319, v170, v171, v172, v173, v174, v175);
-      LineFieldString = DgnTextFileParser::getLineFieldString(v340, v318);
-      v178 = DgnTextFileParser::getLineFieldString(v340, v317);
-      v179 = DgnTextFileParser::getLineFieldString(v340, v315);
-      DgnString::DgnString(&v327, LineFieldString);
-      DgnString::DgnString(&v325, v178);
-      DgnString::DgnString(&v323, v179);
-      if (v321 < v337)
+      v28 = v140;
+      LineFieldUnsigned = DgnTextFileParser::getLineFieldUnsigned(v139, v118);
+      LineFieldString = DgnTextFileParser::getLineFieldString(v139, v117);
+      v31 = DgnTextFileParser::getLineFieldString(v139, v116);
+      v32 = DgnTextFileParser::getLineFieldString(v139, v114);
+      DgnString::DgnString(&v126, LineFieldString);
+      DgnString::DgnString(&v124, v31);
+      DgnString::DgnString(&v122, v32);
+      if (v120 < v136)
       {
-        v186 = *(v336 + 2 * v321);
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v3, v186, v180, v181, v182, v183, v184, v185);
-        v188 = v3;
-        v189 = ParamByParamId[1];
-        v192 = (*(*ParamByParamId + 24))(ParamByParamId);
+        v33 = *(v135 + 2 * v120);
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v3, v33);
+        v35 = v3;
+        v36 = ParamByParamId[1];
+        v37 = (*(*ParamByParamId + 24))(ParamByParamId);
         if (LineFieldUnsigned)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1079, "recogctl/psholder", 37, "%u %.500s %u", v190, v191, LineFieldUnsigned);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1079, "recogctl/psholder", 37, "%u %.500s %u", LineFieldUnsigned, v121, v28);
         }
 
-        if (v328)
+        if (v127)
         {
-          v193 = v327;
-        }
-
-        else
-        {
-          v193 = byte_26286EA0E;
-        }
-
-        if (strcmp(v193, "_default"))
-        {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1082, "recogctl/psholder", 20, "%.500s %.500s %.500s %u", v194, v195, "_default");
-        }
-
-        if (v326)
-        {
-          v196 = v325;
+          v38 = v126;
         }
 
         else
         {
-          v196 = byte_26286EA0E;
+          v38 = byte_26286EA0E;
         }
 
-        if (strcmp(v196, v189))
+        if (strcmp(v38, "_default"))
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1086, "recogctl/psholder", 21, "%.500s %.500s %.500s %u", v199, v200, v189);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1082, "recogctl/psholder", 20, "%.500s %.500s %.500s %u", "_default", LineFieldString, v121, v28);
         }
 
-        if (v192 <= 2)
+        if (v125)
         {
-          if (v192 == 1)
+          v39 = v124;
+        }
+
+        else
+        {
+          v39 = byte_26286EA0E;
+        }
+
+        if (strcmp(v39, v36))
+        {
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1086, "recogctl/psholder", 21, "%.500s %.500s %.500s %u", v36, v31, v121, v28);
+        }
+
+        if (v37 <= 2)
+        {
+          if (v37 == 1)
           {
-            v3 = v188;
-            Default_BOOL = ParamSpecMgr::ParamGetDefault_BOOL(v188, v186, v314, v313, v197, v198, v199, v200);
-            if (v324)
+            v3 = v35;
+            Default_BOOL = ParamSpecMgr::ParamGetDefault_BOOL(v35, v33, v113, v112[0]);
+            if (v123)
             {
-              v265 = v323;
+              v66 = v122;
             }
 
             else
             {
-              v265 = byte_26286EA0E;
+              v66 = byte_26286EA0E;
             }
 
-            v268 = strcmp(v265, "True");
-            if (v268 && strcmp(v265, "False"))
+            v67 = strcmp(v66, "True");
+            if (v67 && strcmp(v66, "False"))
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1102, "recogctl/psholder", 29, "%.500s %.500s %.500s %u", v266, v267, v189);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1102, "recogctl/psholder", 29, "%.500s %.500s %.500s %u", v36, v32, v121, v28);
             }
 
-            if (Default_BOOL != (v268 == 0))
+            if (Default_BOOL != (v67 == 0))
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1109, "recogctl/psholder", 22, "%.500s %.500s %.500s %.500s %u", v266, v267, v189);
+              v68 = "True";
+              if (Default_BOOL)
+              {
+                v69 = "True";
+              }
+
+              else
+              {
+                v69 = "False";
+              }
+
+              if (v67)
+              {
+                v68 = "False";
+              }
+
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1109, "recogctl/psholder", 22, "%.500s %.500s %.500s %.500s %u", v36, v69, v68, v121, v28);
             }
           }
 
           else
           {
-            v201 = v192 == 2;
-            v3 = v188;
-            if (v201)
+            v40 = v37 == 2;
+            v3 = v35;
+            if (v40)
             {
-              Default_int = ParamSpecMgr::ParamGetDefault_int(v188, v186, v314, v313, v197, v198, v199, v200);
-              if (DgnTextFile::atosi(v340, v179, v216, v217, v218, v219, v220, v221) != Default_int)
+              Default_int = ParamSpecMgr::ParamGetDefault_int(v35, v33, v113, v112[0]);
+              v48 = DgnTextFile::atosi(v139, v32);
+              if (v48 != Default_int)
               {
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1123, "recogctl/psholder", 23, "%.500s %d %d %.500s %u", v222, v223, v189);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1123, "recogctl/psholder", 23, "%.500s %d %d %.500s %u", v36, Default_int, v48, v121, v28);
               }
             }
           }
         }
 
-        else if (v192 == 3)
+        else if (v37 == 3)
         {
-          v3 = v188;
-          Default_double = ParamSpecMgr::ParamGetDefault_double(v188, v186, v314, v313, v197, v198, v199, v200);
-          v257 = atof(v179);
-          if (eround(v257, 14) != Default_double)
+          v3 = v35;
+          Default_double = ParamSpecMgr::ParamGetDefault_double(v35, v33, v113, v112[0]);
+          v61 = atof(v32);
+          v62 = eround(v61, 14);
+          if (v62 != Default_double)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1138, "recogctl/psholder", 24, "%.500s %f %f %.500s %u", v258, v259, v189);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1138, "recogctl/psholder", 24, "%.500s %f %f %.500s %u", v36, Default_double, v62, v121, v28);
           }
         }
 
-        else if (v192 == 4)
+        else if (v37 == 4)
         {
-          v3 = v188;
-          Default_string = ParamSpecMgr::ParamGetDefault_string(v188, v186, v314, v313, v197, v198, v199, v200);
-          if (v324)
+          v3 = v35;
+          Default_string = ParamSpecMgr::ParamGetDefault_string(v35, v33, v113, v112[0]);
+          if (v123)
           {
-            v261 = v323;
+            v64 = v122;
           }
 
           else
           {
-            v261 = byte_26286EA0E;
+            v64 = byte_26286EA0E;
           }
 
-          if (strcmp(v261, Default_string))
+          if (strcmp(v64, Default_string))
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1153, "recogctl/psholder", 25, "%.500s %.500s %.500s %.500s %u", v262, v263, v189);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1153, "recogctl/psholder", 25, "%.500s %.500s %.500s %.500s %u", v36, Default_string, v32, v121, v28);
           }
         }
 
         else
         {
-          v201 = v192 == 5;
-          v3 = v188;
-          if (v201)
+          v40 = v37 == 5;
+          v3 = v35;
+          if (v40)
           {
-            Default_enumAsString = ParamSpecMgr::ParamGetDefault_enumAsString(v188, v186, v314, v313, v197, v198, v199, v200);
-            if (v324)
+            Default_enumAsString = ParamSpecMgr::ParamGetDefault_enumAsString(v35, v33, v113, v112[0]);
+            if (v123)
             {
-              v203 = v323;
+              v42 = v122;
             }
 
             else
             {
-              v203 = byte_26286EA0E;
+              v42 = byte_26286EA0E;
             }
 
-            if (strcmp(v203, Default_enumAsString))
+            if (strcmp(v42, Default_enumAsString))
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1168, "recogctl/psholder", 26, "%.500s %.500s %.500s %.500s %u", v204, v205, v189);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1168, "recogctl/psholder", 26, "%.500s %.500s %.500s %.500s %u", v36, Default_enumAsString, v32, v121, v28);
             }
           }
         }
 
-        ++v321;
-        v168 = v314;
-        goto LABEL_176;
+        ++v120;
+        v26 = v113;
+        goto LABEL_181;
       }
 
       if (!LineFieldUnsigned)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1183, "recogctl/psholder", 38, "%u %.500s %u", v184, v185, v320 + 1);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1183, "recogctl/psholder", 38, "%u %.500s %u", v119 + 1, v121, v28);
       }
 
-      if (v169 & 1 | (LineFieldUnsigned != v320))
+      if (v27 & 1 | (LineFieldUnsigned != v119))
       {
-        if (LineFieldUnsigned != v320 + 1)
+        if (LineFieldUnsigned != v119 + 1)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1190, "recogctl/psholder", 19, "%u %u %.500s %u", v184, v185, v320 + 1);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1190, "recogctl/psholder", 19, "%u %u %.500s %u", v119 + 1, LineFieldUnsigned, v121, v28);
         }
 
-        if (v330 >= 1)
+        if (v129 >= 1)
         {
-          v206 = 16 * v330 - 16;
+          v43 = 16 * v129 - 16;
           do
           {
-            DgnString::~DgnString((v329 + v206));
-            v206 -= 16;
+            DgnString::~DgnString(v128 + v43);
+            v43 -= 16;
           }
 
-          while (v206 != -16);
+          while (v43 != -16);
         }
 
-        LODWORD(v330) = 0;
+        LODWORD(v129) = 0;
         if ((isValidRestrictedName(LineFieldString) & 1) == 0)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1197, "recogctl/psholder", 27, "%.500s %.500s %u", v207, v208, LineFieldString);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1197, "recogctl/psholder", 27, "%.500s %.500s %u", LineFieldString, v121, v28);
         }
 
-        if (DgnArray<DgnString>::find(&v331, &v327) != -1)
+        v44 = DgnArray<DgnString>::find(&v130, &v126);
+        if (v44 != -1)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1203, "recogctl/psholder", 36, "%.500s %u %u %.500s %u", v209, v210, LineFieldString);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1203, "recogctl/psholder", 36, "%.500s %u %u %.500s %u", LineFieldString, v44, LineFieldUnsigned, v121, v28);
         }
 
-        v211 = v332;
-        if (v332 == HIDWORD(v332))
+        v45 = v131;
+        if (v131 == HIDWORD(v131))
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(&v331, 1, 1);
-          v211 = v332;
+          DgnArray<DgnPrimArray<double>>::reallocElts(&v130, 1, 1);
+          v45 = v131;
         }
 
-        DgnString::DgnString((v331 + 16 * v211), &v327);
-        LODWORD(v332) = v332 + 1;
-        v316 = MemChunkAlloc(0x30uLL, 0);
-        DynamicParamSet::DynamicParamSet(v316, LineFieldString, ParamSetHolderMgr::smParamSetTypeRanked[v311], v314 | (v313 << 32), &v336);
-        v214 = *v310;
-        if (*v310 == *v309)
+        DgnString::DgnString((v130 + 16 * v45), &v126);
+        LODWORD(v131) = v131 + 1;
+        v115 = MemChunkAlloc(0x30uLL, 0);
+        DynamicParamSet::DynamicParamSet(v115, LineFieldString, ParamSetHolderMgr::smParamSetTypeRanked[v110], v113 | (*v112 << 32), &v135);
+        v46 = *v109;
+        if (*v109 == *v108)
         {
-          DgnPrimArray<unsigned long long>::reallocElts(v312, 1, 1);
-          v214 = *v310;
+          DgnPrimArray<unsigned long long>::reallocElts(v111, 1, 1);
+          v46 = *v109;
         }
 
-        *(*v312 + 8 * v214) = v316;
-        *v310 = v214 + 1;
-        if (v326 <= 1)
+        *(*v111 + 8 * v46) = v115;
+        *v109 = v46 + 1;
+        if (v125 <= 1)
         {
-          if (v324 >= 2)
+          if (v123 >= 2)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1222, "recogctl/psholder", 28, "%.500s %.500s %u", v212, v213, v179);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1222, "recogctl/psholder", 28, "%.500s %.500s %u", v32, v121, v28);
           }
 
-          v169 = 1;
-          v320 = LineFieldUnsigned;
-          goto LABEL_176;
+          v27 = 1;
+          v119 = LineFieldUnsigned;
+          goto LABEL_181;
         }
 
-        v320 = LineFieldUnsigned;
+        v119 = LineFieldUnsigned;
       }
 
-      v224 = v331 + 16 * (v332 - 1);
-      if (v328)
+      v49 = v130 + 16 * (v131 - 1);
+      if (v127)
       {
-        v225 = v327;
+        v50 = v126;
       }
 
       else
       {
-        v225 = byte_26286EA0E;
+        v50 = byte_26286EA0E;
       }
 
-      v226 = *(v224 + 8);
-      v227 = *v224;
-      if (v226)
+      v51 = *(v49 + 8);
+      v52 = *v49;
+      if (v51)
       {
-        v228 = v227;
+        v53 = v52;
       }
 
       else
       {
-        v228 = byte_26286EA0E;
+        v53 = byte_26286EA0E;
       }
 
-      if (strcmp(v225, v228))
+      if (strcmp(v50, v53))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1237, "recogctl/psholder", 30, "%u %.500s %.500s %.500s %u", v229, v230, v320);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1237, "recogctl/psholder", 30, "%u %.500s %.500s %.500s %u", v119, v53, LineFieldString, v121, v28);
       }
 
-      if (v326 <= 1)
+      if (v125 <= 1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1241, "recogctl/psholder", 31, "%.500s %u %u", v229, v230, v322);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1241, "recogctl/psholder", 31, "%.500s %u %u", v121, v28, v119);
       }
 
-      ParamIdByParamName = ParamSpecMgr::getParamIdByParamName(v3, v178);
+      ParamIdByParamName = ParamSpecMgr::getParamIdByParamName(v3, v31);
       if (ParamIdByParamName == 0xFFFF)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1248, "recogctl/psholder", 32, "%.500s %.500s %u", v231, v232, v178);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1248, "recogctl/psholder", 32, "%.500s %.500s %u", v31, v121, v28);
       }
 
-      if (DgnArray<DgnString>::find(&v329, &v325) != -1)
+      if (DgnArray<DgnString>::find(&v128, &v124) != -1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1252, "recogctl/psholder", 33, "%.500s %.500s %u", v234, v235, v178);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1252, "recogctl/psholder", 33, "%.500s %.500s %u", v31, v121, v28);
       }
 
-      v236 = v330;
-      if (v330 == HIDWORD(v330))
+      v55 = v129;
+      if (v129 == HIDWORD(v129))
       {
-        DgnArray<DgnPrimArray<double>>::reallocElts(&v329, 1, 1);
-        v236 = v330;
+        DgnArray<DgnPrimArray<double>>::reallocElts(&v128, 1, 1);
+        v55 = v129;
       }
 
-      DgnString::DgnString((v329 + 16 * v236), &v325);
-      LODWORD(v330) = v330 + 1;
-      v243 = ParamSpecMgr::getParamByParamId(v3, ParamIdByParamName, v237, v238, v239, v240, v241, v242);
-      v244 = (*(*v243 + 3))(v243);
-      v169 = 0;
-      if (v244 <= 2)
+      DgnString::DgnString((v128 + 16 * v55), &v124);
+      LODWORD(v129) = v129 + 1;
+      v56 = ParamSpecMgr::getParamByParamId(v3, ParamIdByParamName);
+      v57 = (*(*v56 + 24))(v56);
+      v27 = 0;
+      if (v57 <= 2)
       {
-        if (v244 == 1)
+        if (v57 == 1)
         {
-          if (v324)
+          if (v123)
           {
-            v271 = v323;
+            v72 = v122;
           }
 
           else
           {
-            v271 = byte_26286EA0E;
+            v72 = byte_26286EA0E;
           }
 
-          v272 = strcmp(v271, "True");
-          if (v272 && strcmp(v271, "False"))
+          v73 = strcmp(v72, "True");
+          if (v73 && strcmp(v72, "False"))
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1270, "recogctl/psholder", 29, "%.500s %.500s %.500s %u", v273, v274, v178);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1270, "recogctl/psholder", 29, "%.500s %.500s %.500s %u", v31, v32, v121, v28);
           }
 
-          DynamicParamSet::setBoolParameter(v316, ParamIdByParamName, v272 == 0);
+          DynamicParamSet::setBoolParameter(v115, ParamIdByParamName, v73 == 0);
         }
 
         else
         {
-          if (v244 != 2)
+          if (v57 != 2)
           {
-            goto LABEL_176;
+            goto LABEL_181;
           }
 
-          v255 = DgnTextFile::atosi(v340, v179, v245, v246, v247, v248, v249, v250);
-          DynamicParamSet::setIntParameter(v316, ParamIdByParamName, v255);
+          v59 = DgnTextFile::atosi(v139, v32);
+          DynamicParamSet::setIntParameter(v115, ParamIdByParamName, v59);
         }
       }
 
       else
       {
-        switch(v244)
+        switch(v57)
         {
           case 3:
-            v269 = atof(v179);
-            v270 = eround(v269, 14);
-            DynamicParamSet::setDoubleParameter(v316, ParamIdByParamName, v270);
+            v70 = atof(v32);
+            v71 = eround(v70, 14);
+            DynamicParamSet::setDoubleParameter(v115, ParamIdByParamName, v71);
             break;
           case 4:
-            DynamicParamSet::setStringParameter(v316, ParamIdByParamName, v179, 1);
+            DynamicParamSet::setStringParameter(v115, ParamIdByParamName, v32, 1);
             break;
           case 5:
-            v251 = **v243;
-            if ((EnumParamSpec::checkStringEnumValue(v252, v179, v168, v313) & 1) == 0)
+            if ((EnumParamSpec::checkStringEnumValue(v58, v32, v26, v112[0]) & 1) == 0)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1304, "recogctl/psholder", 10, "%.500s %.500s %.500s %u", v253, v254, v178);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1304, "recogctl/psholder", 10, "%.500s %.500s %.500s %u", v31, v32, v121, v28);
             }
 
-            DynamicParamSet::setEnumParameter(v316, ParamIdByParamName, v179, 1);
+            DynamicParamSet::setEnumParameter(v115, ParamIdByParamName, v32, 1);
             break;
           default:
-            goto LABEL_176;
+            goto LABEL_181;
         }
       }
 
-      v169 = 0;
-LABEL_176:
-      DgnString::~DgnString(&v323);
-      DgnString::~DgnString(&v325);
-      DgnString::~DgnString(&v327);
+      v27 = 0;
+LABEL_181:
+      DgnString::~DgnString(&v122);
+      DgnString::~DgnString(&v124);
+      DgnString::~DgnString(&v126);
     }
 
-    if (v321 != v337)
+    if (v120 != v136)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1023, "recogctl/psholder", 34, "%u %u %.500s %u", v174, v175, v321);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1023, "recogctl/psholder", 34, "%u %u %.500s %u", v120, v136, v121, v28);
     }
 
-    if (v320 != v338)
+    if (v119 != v137)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1034, "recogctl/psholder", 35, "%u %u %.500s %u", v174, v175, v320 + 1);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1034, "recogctl/psholder", 35, "%u %u %.500s %u", v119 + 1, v137 + 1, v121, v28);
     }
 
-    DgnArray<DgnString>::releaseAll(&v329);
-    v4 = v311;
-    DgnArray<DgnString>::releaseAll(&v331);
+    DgnArray<DgnString>::releaseAll(&v128);
+    v4 = v110;
+    DgnArray<DgnString>::releaseAll(&v130);
     v2 = a2;
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v333);
-    DgnArray<DgnString>::releaseAll(&v334);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v336);
-LABEL_182:
-    DgnIArray<Utterance *>::~DgnIArray(v339);
-    DgnTextFileParser::~DgnTextFileParser(v340);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v132);
+    DgnArray<DgnString>::releaseAll(&v133);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v135);
+LABEL_187:
+    DgnIArray<Utterance *>::~DgnIArray(v138);
+    DgnTextFileParser::~DgnTextFileParser(v139);
     ++v4;
   }
 
   while (v4 != 13);
-  *(&v282 + 1) = &v345;
-  *(&v281 + 1) = &v349;
-  *&v282 = &v347;
-  *(&v280 + 1) = &v353;
-  *&v281 = &v351;
-  *(&v279 + 1) = &v357;
-  *&v280 = &v355;
-  *(&v278 + 1) = &v361;
-  *&v279 = &v359;
-  *&v278 = &v363;
-  *&v277 = v301 | (v298 << 32);
-  *(&v277 + 1) = v302 | (v300 << 32);
-  *&v276 = v297 | (v294 << 32);
-  *(&v276 + 1) = v299 | (v296 << 32);
-  ParamSetHolder::runUpgradeFunctionSequence(this, v306 | (v305 << 32), v285 | (v283 << 32), v287 | (v284 << 32), v289 | (v286 << 32), v291 | (v288 << 32), v293 | (v290 << 32), v295 | (v292 << 32), v276, v277, v303 | (v304 << 32), v278, v279, v280, v281, v282, &v343, &v341);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v363);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v361);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v359);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v357);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v355);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v353);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v351);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v349);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v347);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v345);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v343);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v341);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v341);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v343);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v345);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v347);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v349);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v351);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v353);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v355);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v357);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v359);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v361);
-  return DgnIOwnArray<DynamicParamSet *>::releaseAll(&v363);
+  *(&v81 + 1) = &v145;
+  *(&v80 + 1) = &v149;
+  *&v81 = &v147;
+  *(&v79 + 1) = &v153;
+  *&v80 = &v151;
+  *(&v78 + 1) = &v157;
+  *&v79 = &v155;
+  *(&v77 + 1) = &v161;
+  *&v78 = &v159;
+  *&v77 = &v163;
+  *&v76 = v100 | (v97 << 32);
+  *(&v76 + 1) = v101 | (v99 << 32);
+  *&v75 = v96 | (v93 << 32);
+  *(&v75 + 1) = v98 | (v95 << 32);
+  ParamSetHolder::runUpgradeFunctionSequence(this, v105 | (v104 << 32), v84 | (v82 << 32), v86 | (v83 << 32), v88 | (v85 << 32), v90 | (v87 << 32), v92 | (v89 << 32), v94 | (v91 << 32), v75, v76, v102 | (v103 << 32), v77, v78, v79, v80, v81, &v143, &v141);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v163);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v161);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v159);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v157);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v155);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v153);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v151);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v149);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v147);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v145);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v143);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v141);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v141);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v143);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v145);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v147);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v149);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v151);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v153);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v155);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v157);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v159);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(&v161);
+  return DgnIOwnArray<DynamicParamSet *>::releaseAll(&v163);
 }
 
 void sub_2625C86E0(_Unwind_Exception *a1)
@@ -7666,38 +7661,38 @@ void sub_2625C86E0(_Unwind_Exception *a1)
 
 uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int128 a10, uint64_t a11, __int128 a12, __int128 a13, __int128 a14, __int128 a15, __int128 a16, uint64_t a17, uint64_t a18)
 {
-  v153 = *MEMORY[0x277D85DE8];
-  v149[0] = 1;
-  v149[1] = a2;
-  v149[2] = a3;
-  v149[3] = a4;
-  v149[4] = a5;
-  v149[5] = a6;
-  v149[6] = a7;
-  v149[7] = a8;
-  v150 = a9;
-  v151 = a10;
-  v152 = a11;
-  v146[0] = a12;
-  v146[1] = a13;
-  v146[2] = a14;
-  v146[3] = a15;
-  v146[4] = a16;
-  v145[0] = 0;
-  v147 = a17;
-  v148 = a18;
+  v130 = *MEMORY[0x277D85DE8];
+  v126[0] = 1;
+  v126[1] = a2;
+  v126[2] = a3;
+  v126[3] = a4;
+  v126[4] = a5;
+  v126[5] = a6;
+  v126[6] = a7;
+  v126[7] = a8;
+  v127 = a9;
+  v128 = a10;
+  v129 = a11;
+  *&v125[1] = a12;
+  *&v125[3] = a13;
+  *&v125[5] = a14;
+  *&v125[7] = a15;
+  *&v125[9] = a16;
+  v125[0] = 0;
+  v125[11] = a17;
+  v125[12] = a18;
   v19 = MemChunkAlloc(0x70uLL, 0);
   Hash<DgnString,DgnString,DgnStringScope,unsigned int>::Hash(v19, 0, 16);
-  v144 = 0;
+  v124 = 0;
   v20 = 1;
-  memset(v143, 0, sizeof(v143));
+  memset(v123, 0, sizeof(v123));
   do
   {
-    v21 = v145[v20];
+    v21 = v125[v20];
     v22 = MemChunkAlloc(0x70uLL, 0);
     Hash<DgnString,DgnString,DgnStringScope,unsigned int>::Hash(v22, 0, 16);
-    *(v143 + v20) = v22;
-    LODWORD(v129) = 0;
+    *(v123 + v20) = v22;
+    LODWORD(v109) = 0;
     if (*(v21 + 8))
     {
       v23 = 0;
@@ -7715,17 +7710,17 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
           v25 = byte_26286EA0E;
         }
 
-        DgnString::DgnString(v136, v25);
-        Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(v22, v136, &v129);
-        if (!*Hash<DgnString,DgnString,DgnStringScope,unsigned int>::findBucket(v19, v136))
+        DgnString::DgnString(v116, v25);
+        Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(v22, v116, &v109);
+        if (!*Hash<DgnString,DgnString,DgnStringScope,unsigned int>::findBucket(v19, v116))
         {
-          LODWORD(v127) = 0;
-          Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(v19, v136, &v127);
+          LODWORD(v107) = 0;
+          Hash<DgnString,DgnString,DgnStringScope,unsigned int>::add(v19, v116, &v107);
         }
 
-        DgnString::~DgnString(v136);
-        v23 = v129 + 1;
-        LODWORD(v129) = v23;
+        DgnString::~DgnString(v116);
+        v23 = v109 + 1;
+        LODWORD(v109) = v23;
       }
 
       while (v23 < *(v21 + 8));
@@ -7745,7 +7740,7 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
     v30 = v27;
     do
     {
-      if (*(v30 - 1) != LODWORD(v149[v28 + 1]) || *v30 != HIDWORD(v149[v28 + 1]))
+      if (*(v30 - 1) != LODWORD(v126[v28 + 1]) || *v30 != HIDWORD(v126[v28 + 1]))
       {
         v29 = 0;
       }
@@ -7759,11 +7754,11 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
   }
 
   while (((v26 != 51) & ~v29) != 0);
-  v122 = a1;
+  v102 = a1;
   if (v26 != 51)
   {
     v31 = v26;
-    v119 = v19;
+    v99 = v19;
     do
     {
       do
@@ -7773,37 +7768,37 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
 
       while (v32[104] != 1);
       v33 = 0;
-      v127 = 0;
-      v128 = 0;
+      v107 = 0;
+      v108 = 0;
       v34 = 13;
       do
       {
-        if (v33 == HIDWORD(v128))
+        if (v33 == HIDWORD(v108))
         {
-          DgnPrimArray<unsigned long long>::reallocElts(&v127, 1, 1);
-          v33 = v128;
+          DgnPrimArray<unsigned long long>::reallocElts(&v107, 1, 1);
+          v33 = v108;
         }
 
-        *(v127 + 8 * v33++) = 0;
-        LODWORD(v128) = v33;
+        *(v107 + 8 * v33++) = 0;
+        LODWORD(v108) = v33;
         --v34;
       }
 
       while (v34);
-      v125 = 0;
-      v126 = 0;
-      v136[0] = 0;
-      HIDWORD(v126) = realloc_array(0, v136, 0xD0uLL, 0, 0, 1) >> 4;
-      v125 = v136[0];
-      v35 = v126;
-      if (v126 <= 0xD)
+      v105 = 0;
+      v106 = 0;
+      v116[0] = 0;
+      HIDWORD(v106) = realloc_array(0, v116, 0xD0uLL, 0, 0, 1) >> 4;
+      v105 = v116[0];
+      v35 = v106;
+      if (v106 <= 0xD)
       {
-        if (v126 != 13)
+        if (v106 != 13)
         {
-          v37 = 16 * v126;
+          v37 = 16 * v106;
           do
           {
-            v38 = &v125[v37];
+            v38 = &v105[v37];
             *v38 = 0;
             *(v38 + 1) = 0;
             v37 += 16;
@@ -7813,20 +7808,20 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
         }
       }
 
-      else if (v126 >= 14)
+      else if (v106 >= 14)
       {
-        v36 = 16 * v126 - 16;
+        v36 = 16 * v106 - 16;
         do
         {
           --v35;
-          DgnPrimArray<unsigned int>::~DgnPrimArray(&v125[v36]);
+          DgnPrimArray<unsigned int>::~DgnPrimArray(&v105[v36]);
           v36 -= 16;
         }
 
         while (v35 > 0xD);
       }
 
-      LODWORD(v126) = 13;
+      LODWORD(v106) = 13;
       v39 = &sUpgradeFunctionTable + 120 * v26;
       v40 = 120 * v26;
       v41 = (v39 + 12);
@@ -7834,16 +7829,16 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
       for (i = 16; i != 208; i += 16)
       {
         v44 = *v42++;
-        ParamSpecMgr::getAllParamIdsSortedByName(ParamSpecMgr::smpParamSpecMgrArray[v44], &v125[i], *(v41 - 1), *v41);
+        ParamSpecMgr::getAllParamIdsSortedByName(ParamSpecMgr::smpParamSpecMgrArray[v44], &v105[i], *(v41 - 1), *v41);
         v41 += 2;
       }
 
-      DgnString::DgnString(&v123);
-      v45 = *(v119 + 3);
-      v118 = v31;
+      DgnString::DgnString(&v103);
+      v45 = *(v99 + 3);
+      v98 = v31;
       if (v45)
       {
-        v46 = v119[10];
+        v46 = v99[10];
         v47 = *v46;
         if (*v46)
         {
@@ -7881,9 +7876,9 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
         v52 = &unk_28752B080 + 120 * v31;
         do
         {
-          v120 = v47;
-          v121 = v48;
-          v142 = 0;
+          v100 = v47;
+          v101 = v48;
+          v122 = 0;
           if (v47)
           {
             v53 = (v47 + 2);
@@ -7894,28 +7889,28 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
             v53 = 0;
           }
 
-          v140 = 0u;
-          v141 = 0u;
-          v138 = 0u;
-          v139 = 0u;
-          *v136 = 0u;
-          v137 = 0u;
-          v135 = 0;
-          v133 = 0u;
-          v134 = 0u;
-          v131 = 0u;
-          v132 = 0u;
+          v120 = 0u;
+          v121 = 0u;
+          v118 = 0u;
+          v119 = 0u;
+          *v116 = 0u;
+          v117 = 0u;
+          v115 = 0;
+          v113 = 0u;
+          v114 = 0u;
+          v111 = 0u;
+          v112 = 0u;
           v54 = 16;
           v55 = 1;
-          v129 = 0u;
-          v130 = 0u;
+          v109 = 0u;
+          v110 = 0u;
           do
           {
             v56 = *&v39[8 * v55];
-            v57 = *Hash<DgnString,DgnString,DgnStringScope,unsigned int>::findBucket(*(v143 + v55), v53);
+            v57 = *Hash<DgnString,DgnString,DgnStringScope,unsigned int>::findBucket(*(v123 + v55), v53);
             if (v57)
             {
-              v58 = *(*v145[v55] + 8 * *(v57 + 32));
+              v58 = *(*v125[v55] + 8 * *(v57 + 32));
             }
 
             else
@@ -7932,22 +7927,22 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
                 v60 = byte_26286EA0E;
               }
 
-              DynamicParamSet::DynamicParamSet(v59, v60, ParamSetHolderMgr::smParamSetTypeRanked[v55], v56, &v125[v54]);
+              DynamicParamSet::DynamicParamSet(v59, v60, ParamSetHolderMgr::smParamSetTypeRanked[v55], v56, &v105[v54]);
             }
 
-            v136[v55] = v58;
+            v116[v55] = v58;
             v61 = *&v32[8 * v55];
             if (v61 == v56)
             {
-              *(&v129 + v55) = 0;
+              *(&v109 + v55) = 0;
             }
 
             else
             {
               v62 = MemChunkAlloc(0x30uLL, 0);
-              v63 = DynamicParamSet::DynamicParamSet(v62, v58);
-              *(&v129 + v55) = v63;
-              *(v63 + 2) = v61;
+              DynamicParamSet::DynamicParamSet(v62, v58);
+              *(&v109 + v55) = v63;
+              *(v63 + 16) = v61;
             }
 
             ++v55;
@@ -7955,32 +7950,32 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
           }
 
           while (v55 != 13);
-          (*(v39 + 14))(&v123, v53, v136[1], v137, *(&v137 + 1), v138, *(&v138 + 1), v139, *(&v139 + 1), v140, *(&v140 + 1), v141, *(&v141 + 1), v142, *(&v129 + 1), v130, *(&v130 + 1), v131, *(&v131 + 1), v132, *(&v132 + 1), v133, *(&v133 + 1), v134, *(&v134 + 1), v135);
+          (*(v39 + 14))(&v103, v53, v116[1], v117, *(&v117 + 1), v118, *(&v118 + 1), v119, *(&v119 + 1), v120, *(&v120 + 1), v121, *(&v121 + 1), v122, *(&v109 + 1), v110, *(&v110 + 1), v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1), v115);
           for (j = 8; j != 104; j += 8)
           {
             if (*&v32[j] != *&v39[j])
             {
-              DynamicParamSet::validateSelf(*(&v129 + j));
+              DynamicParamSet::validateSelf(*(&v109 + j));
             }
           }
 
           for (k = 0; k != 96; k += 8)
           {
-            v66 = *Hash<DgnString,DgnString,DgnStringScope,unsigned int>::findBucket(*(v143 + k + 8), v53);
+            v66 = *Hash<DgnString,DgnString,DgnStringScope,unsigned int>::findBucket(*(v123 + k + 8), v53);
             if (*&v51[k] != *&v52[k] || *&v51[k + 4] != *&v52[k + 4])
             {
               if (v66)
               {
-                v67 = v136[k / 8 + 1];
-                v68 = *(&v129 + k + 8);
-                v136[k / 8 + 1] = v68;
-                *(&v129 + k + 8) = v67;
-                *(**(v146 + k) + 8 * *(v66 + 32)) = v68;
+                v67 = v116[k / 8 + 1];
+                v68 = *(&v109 + k + 8);
+                v116[k / 8 + 1] = v68;
+                *(&v109 + k + 8) = v67;
+                *(*v125[k / 8 + 1] + 8 * *(v66 + 32)) = v68;
               }
 
               else
               {
-                v67 = *(&v129 + k + 8);
+                v67 = *(&v109 + k + 8);
               }
 
               DgnDelete<DynamicParamSet>(v67);
@@ -7988,28 +7983,28 @@ uint64_t ParamSetHolder::runUpgradeFunctionSequence(unsigned int *a1, uint64_t a
 
             if (!v66)
             {
-              DgnDelete<DynamicParamSet>(v136[k / 8 + 1]);
+              DgnDelete<DynamicParamSet>(v116[k / 8 + 1]);
             }
           }
 
-          v69 = *v120;
-          v70 = *(v119 + 3);
-          if (*v120)
+          v69 = *v100;
+          v70 = *(v99 + 3);
+          if (*v100)
           {
-            v48 = v121;
+            v48 = v101;
           }
 
           else
           {
-            v48 = (v121 + 1);
+            v48 = (v101 + 1);
             if (v48 >= v70)
             {
-              v69 = v120;
+              v69 = v100;
             }
 
             else
             {
-              v71 = v119[10];
+              v71 = v99[10];
               v69 = *(v71 + 8 * v48);
               if (!v69)
               {
@@ -8040,36 +8035,36 @@ LABEL_82:
       }
 
 LABEL_83:
-      DgnIOwnArray<DynamicParamSet *>::releaseAll(&v127);
-      if (v124 >= 2)
+      DgnIOwnArray<DynamicParamSet *>::releaseAll(&v107);
+      if (v104 >= 2)
       {
-        FileHistory::addEntry((v122 + 294), v123);
+        FileHistory::addEntry((v102 + 294), v103);
       }
 
-      DgnString::~DgnString(&v123);
-      DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v125);
-      v19 = v119;
-      v31 = v118;
-      DgnIOwnArray<DynamicParamSet *>::releaseAll(&v127);
-      LODWORD(v26) = v118;
+      DgnString::~DgnString(&v103);
+      DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v105);
+      v19 = v99;
+      v31 = v98;
+      DgnIOwnArray<DynamicParamSet *>::releaseAll(&v107);
+      LODWORD(v26) = v98;
     }
 
-    while (v118 != 51);
+    while (v98 != 51);
   }
 
   DgnDelete<Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>>(v19);
   for (m = 8; m != 104; m += 8)
   {
-    DgnDelete<Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>>(*(v143 + m));
+    DgnDelete<Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>>(*(v123 + m));
   }
 
   for (n = 1; n != 13; ++n)
   {
     v77 = ParamSpecMgr::smpParamSpecMgrArray[ParamSetHolderMgr::smParamSetTypeRanked[n]];
-    v136[0] = 0;
-    v136[1] = 0;
-    ParamSpecMgr::getAllParamIdsSortedByName(v77, v136, 0, 0);
-    v78 = v145[n];
+    v116[0] = 0;
+    v116[1] = 0;
+    ParamSpecMgr::getAllParamIdsSortedByName(v77, v116, 0, 0);
+    v78 = v125[n];
     if (*(v78 + 8))
     {
       v79 = 0;
@@ -8087,57 +8082,56 @@ LABEL_83:
         }
 
         v82 = n;
-        v83 = ParamSetHolder::newParamSet(v122, v81, ParamSetHolderMgr::smParamSetTypeRanked[n], 0, 0);
-        ParamSet = ParamSetHolder::getParamSet(v122, v83, v84, v85, v86, v87, v88, v89);
-        if (LODWORD(v136[1]))
+        v83 = ParamSetHolder::newParamSet(v102, v81, ParamSetHolderMgr::smParamSetTypeRanked[n], 0, 0);
+        ParamSet = ParamSetHolder::getParamSet(v102, v83);
+        if (LODWORD(v116[1]))
         {
-          v97 = ParamSet;
-          v98 = 0;
+          v85 = ParamSet;
+          v86 = 0;
           do
           {
-            v99 = *(v136[0] + v98);
-            ParamByParamId = ParamSpecMgr::getParamByParamId(v77, *(v136[0] + v98), v91, v92, v93, v94, v95, v96);
-            v101 = (*(*ParamByParamId + 3))(ParamByParamId);
-            if (v101 <= 2)
+            v87 = *(v116[0] + v86);
+            ParamByParamId = ParamSpecMgr::getParamByParamId(v77, *(v116[0] + v86));
+            v89 = (*(*ParamByParamId + 24))(ParamByParamId);
+            if (v89 <= 2)
             {
-              if (v101 == 1)
+              if (v89 == 1)
               {
-                BoolParameter = DynamicParamSet::getBoolParameter(v80, v99, v91, v92, v93, v94, v95, v96);
-                (*(*v97 + 64))(v97, v99, BoolParameter);
+                BoolParameter = DynamicParamSet::getBoolParameter(v80, v87);
+                (*(*v85 + 64))(v85, v87, BoolParameter);
               }
 
-              else if (v101 == 2)
+              else if (v89 == 2)
               {
-                IntParameter = DynamicParamSet::getIntParameter(v80, v99, v91, v92, v93, v94, v95, v96);
-                (*(*v97 + 72))(v97, v99, IntParameter);
+                IntParameter = DynamicParamSet::getIntParameter(v80, v87);
+                (*(*v85 + 72))(v85, v87, IntParameter);
               }
             }
 
             else
             {
-              switch(v101)
+              switch(v89)
               {
                 case 3:
-                  DoubleParameter = DynamicParamSet::getDoubleParameter(v80, v99, v91, v92, v93, v94, v95, v96);
-                  (*(*v97 + 80))(v97, v99, DoubleParameter);
+                  DoubleParameter = DynamicParamSet::getDoubleParameter(v80, v87);
+                  (*(*v85 + 80))(v85, v87, DoubleParameter);
                   break;
                 case 4:
-                  StringParameter = DynamicParamSet::getStringParameter(v80, v99, v91, v92, v93, v94, v95, v96);
-                  (*(*v97 + 88))(v97, v99, StringParameter);
+                  StringParameter = DynamicParamSet::getStringParameter(v80, v87);
+                  (*(*v85 + 88))(v85, v87, StringParameter);
                   break;
                 case 5:
-                  EnumParameter = DynamicParamSet::getEnumParameter(v80, v99, v91, v92, v93, v94, v95, v96);
-                  v103 = **ParamByParamId;
-                  v111 = EnumParamSpec::convertEnumStringToInt(v104, EnumParameter, v105, v106, v107, v108, v109, v110);
-                  (*(*v97 + 96))(v97, v99, v111);
+                  EnumParameter = DynamicParamSet::getEnumParameter(v80, v87);
+                  v92 = EnumParamSpec::convertEnumStringToInt(v91, EnumParameter);
+                  (*(*v85 + 96))(v85, v87, v92);
                   break;
               }
             }
 
-            ++v98;
+            ++v86;
           }
 
-          while (v98 < LODWORD(v136[1]));
+          while (v86 < LODWORD(v116[1]));
         }
 
         ++v79;
@@ -8147,10 +8141,9 @@ LABEL_83:
       while (v79 < *(v78 + 8));
     }
 
-    result = DgnPrimArray<unsigned int>::~DgnPrimArray(v136);
+    result = DgnPrimArray<unsigned int>::~DgnPrimArray(v116);
   }
 
-  v117 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8191,98 +8184,98 @@ void *DgnIOwnArray<DynamicParamSet *>::releaseAll(uint64_t a1)
   return result;
 }
 
-void *ParamSetHolder::loadParamSetHolderBinary(ParamSetHolder *this, DFile *a2, DFileChecksums *a3)
+void *ParamSetHolder::loadParamSetHolderBinary(ParamSetHolder *this, const char **a2, DFileChecksums *a3)
 {
-  *v92 = 0;
-  MrecHeader = OpenAndReadMrecHeader(a2, 0x44u, 1, "MRPSB!? ", &v92[1], v92);
-  v91 = 0;
-  v8 = v92[1] == 22 && v92[0] == 1;
-  v9 = v8;
-  v57 = v9;
-  v54 = a3;
-  if (v8)
+  *v81 = 0;
+  MrecHeader = OpenAndReadMrecHeader(a2, 0x44u, 1, "MRPSB!? ", &v81[1], v81);
+  v80 = 0;
+  v6 = v81[1] == 22 && v81[0] == 1;
+  v7 = v6;
+  v46 = v7;
+  v43 = a3;
+  if (v6)
   {
-    v10 = 0;
-    v91 = 12;
-    v11 = 22;
-    v12 = 1;
+    v8 = 0;
+    v80 = 12;
+    v9 = 22;
+    v10 = 1;
   }
 
-  else if (v92[1] == 23 && v92[0] == 2)
+  else if (v81[1] == 23 && v81[0] == 2)
   {
-    v10 = 0;
-    v91 = 12;
-    v11 = 23;
-    v12 = 2;
+    v8 = 0;
+    v80 = 12;
+    v9 = 23;
+    v10 = 2;
   }
 
   else
   {
     if (*(a2 + 6))
     {
-      v14 = *(a2 + 2);
+      v12 = a2[2];
     }
 
     else
     {
-      v14 = byte_26286EA0E;
+      v12 = byte_26286EA0E;
     }
 
-    MrecHeaderCheckVersions(v14, "MRPSB!? ", v92[1], v92[0], 0x17u, 3u);
-    v12 = v92[0];
-    v11 = v92[1];
-    v10 = 1;
+    MrecHeaderCheckVersions(v12, "MRPSB!? ", v81[1], v81[0], 0x17u, 3u);
+    v10 = v81[0];
+    v9 = v81[1];
+    v8 = 1;
   }
 
-  v55 = a2;
-  MrecHeaderCheckLatestVersionIfShared(a2, "MRPSB!? ", v11, v12, 23, 3, v5, v6);
-  v90 = 0;
-  v88 = -1;
-  v89 = -1;
-  v86 = -1;
-  v87 = -1;
-  v84 = -1;
-  v85 = -1;
-  v82 = -1;
-  v83 = -1;
-  v80 = -1;
-  v81 = -1;
+  v44 = a2;
+  MrecHeaderCheckLatestVersionIfShared(a2, "MRPSB!? ", v9, v10, 23, 3);
+  v79 = 0;
+  v77 = -1;
   v78 = -1;
-  v79 = -1;
-  v77[0] = 0;
-  v77[1] = 0;
-  v76[0] = 0;
-  v76[1] = 0;
-  v75[0] = 0;
-  v75[1] = 0;
-  v74[0] = 0;
-  v74[1] = 0;
-  v73[0] = 0;
-  v73[1] = 0;
-  v72[0] = 0;
-  v72[1] = 0;
-  v71[0] = 0;
-  v71[1] = 0;
-  v70[0] = 0;
-  v70[1] = 0;
-  v69[0] = 0;
-  v69[1] = 0;
-  v68[0] = 0;
-  v68[1] = 0;
-  v67[0] = 0;
-  v67[1] = 0;
+  v75 = -1;
+  v76 = -1;
+  v73 = -1;
+  v74 = -1;
+  v71 = -1;
+  v72 = -1;
+  v69 = -1;
+  v70 = -1;
+  v67 = -1;
+  v68 = -1;
   v66[0] = 0;
   v66[1] = 0;
-  if (v10)
+  v65[0] = 0;
+  v65[1] = 0;
+  v64[0] = 0;
+  v64[1] = 0;
+  v63[0] = 0;
+  v63[1] = 0;
+  v62[0] = 0;
+  v62[1] = 0;
+  v61[0] = 0;
+  v61[1] = 0;
+  v60[0] = 0;
+  v60[1] = 0;
+  v59[0] = 0;
+  v59[1] = 0;
+  v58[0] = 0;
+  v58[1] = 0;
+  v57[0] = 0;
+  v57[1] = 0;
+  v56[0] = 0;
+  v56[1] = 0;
+  v55[0] = 0;
+  v55[1] = 0;
+  if (v8)
   {
-    readObject(MrecHeader, &v91, &v90);
+    readObject(MrecHeader, &v80, &v79);
   }
 
-  v15 = 0;
+  v13 = 0;
   for (i = 1; i != 13; ++i)
   {
-    v65 = 0;
-    v17 = &v89;
+    v54 = 0;
+    v15 = &v78;
     if (i > 6)
     {
       if (i > 9)
@@ -8291,42 +8284,42 @@ void *ParamSetHolder::loadParamSetHolderBinary(ParamSetHolder *this, DFile *a2, 
         {
           case 0xA:
             *(this + 289) = 0;
-            if (i >= v91)
+            if (i >= v80)
             {
-              v80 = 1;
+              v69 = 1;
               continue;
             }
 
-            readObject(MrecHeader, &v65, &v90);
-            v17 = &v80;
-            readObject(MrecHeader, &v80, &v90);
-            v15 = v68;
+            readObject(MrecHeader, &v54, &v79);
+            v15 = &v69;
+            readObject(MrecHeader, &v69, &v79);
+            v13 = v57;
             break;
           case 0xB:
             *(this + 290) = 0;
-            if (i >= v91)
+            if (i >= v80)
             {
-              v79 = 1;
+              v68 = 1;
               continue;
             }
 
-            readObject(MrecHeader, &v65, &v90);
-            v17 = &v79;
-            readObject(MrecHeader, &v79, &v90);
-            v15 = v67;
+            readObject(MrecHeader, &v54, &v79);
+            v15 = &v68;
+            readObject(MrecHeader, &v68, &v79);
+            v13 = v56;
             break;
           case 0xC:
             *(this + 291) = 0;
-            if (i >= v91)
+            if (i >= v80)
             {
-              v78 = 1;
+              v67 = 1;
               continue;
             }
 
-            readObject(MrecHeader, &v65, &v90);
-            v17 = &v78;
-            readObject(MrecHeader, &v78, &v90);
-            v15 = v66;
+            readObject(MrecHeader, &v54, &v79);
+            v15 = &v67;
+            readObject(MrecHeader, &v67, &v79);
+            v13 = v55;
             break;
         }
       }
@@ -8337,42 +8330,42 @@ void *ParamSetHolder::loadParamSetHolderBinary(ParamSetHolder *this, DFile *a2, 
         {
           case 7:
             *(this + 286) = 0;
-            if (i >= v91)
+            if (i >= v80)
             {
-              v83 = 1;
+              v72 = 1;
               continue;
             }
 
-            readObject(MrecHeader, &v65, &v90);
-            v17 = &v83;
-            readObject(MrecHeader, &v83, &v90);
-            v15 = v71;
+            readObject(MrecHeader, &v54, &v79);
+            v15 = &v72;
+            readObject(MrecHeader, &v72, &v79);
+            v13 = v60;
             break;
           case 8:
             *(this + 287) = 0;
-            if (i >= v91)
+            if (i >= v80)
             {
-              v82 = 1;
+              v71 = 1;
               continue;
             }
 
-            readObject(MrecHeader, &v65, &v90);
-            v17 = &v82;
-            readObject(MrecHeader, &v82, &v90);
-            v15 = v70;
+            readObject(MrecHeader, &v54, &v79);
+            v15 = &v71;
+            readObject(MrecHeader, &v71, &v79);
+            v13 = v59;
             break;
           case 9:
             *(this + 288) = 0;
-            if (i >= v91)
+            if (i >= v80)
             {
-              v81 = 1;
+              v70 = 1;
               continue;
             }
 
-            readObject(MrecHeader, &v65, &v90);
-            v17 = &v81;
-            readObject(MrecHeader, &v81, &v90);
-            v15 = v69;
+            readObject(MrecHeader, &v54, &v79);
+            v15 = &v70;
+            readObject(MrecHeader, &v70, &v79);
+            v13 = v58;
             break;
         }
       }
@@ -8384,42 +8377,42 @@ void *ParamSetHolder::loadParamSetHolderBinary(ParamSetHolder *this, DFile *a2, 
       {
         case 4:
           *(this + 283) = 0;
-          if (i >= v91)
+          if (i >= v80)
           {
-            v86 = 1;
+            v75 = 1;
             continue;
           }
 
-          readObject(MrecHeader, &v65, &v90);
-          v17 = &v86;
-          readObject(MrecHeader, &v86, &v90);
-          v15 = v74;
+          readObject(MrecHeader, &v54, &v79);
+          v15 = &v75;
+          readObject(MrecHeader, &v75, &v79);
+          v13 = v63;
           break;
         case 5:
           *(this + 284) = 0;
-          if (i >= v91)
+          if (i >= v80)
           {
-            v85 = 1;
+            v74 = 1;
             continue;
           }
 
-          readObject(MrecHeader, &v65, &v90);
-          v17 = &v85;
-          readObject(MrecHeader, &v85, &v90);
-          v15 = v73;
+          readObject(MrecHeader, &v54, &v79);
+          v15 = &v74;
+          readObject(MrecHeader, &v74, &v79);
+          v13 = v62;
           break;
         case 6:
           *(this + 285) = 0;
-          if (i >= v91)
+          if (i >= v80)
           {
-            v84 = 1;
+            v73 = 1;
             continue;
           }
 
-          readObject(MrecHeader, &v65, &v90);
-          v17 = &v84;
-          readObject(MrecHeader, &v84, &v90);
-          v15 = v72;
+          readObject(MrecHeader, &v54, &v79);
+          v15 = &v73;
+          readObject(MrecHeader, &v73, &v79);
+          v13 = v61;
           break;
       }
     }
@@ -8430,176 +8423,175 @@ void *ParamSetHolder::loadParamSetHolderBinary(ParamSetHolder *this, DFile *a2, 
       {
         case 1:
           *(this + 280) = 0;
-          if (i >= v91)
+          if (i >= v80)
           {
-            v89 = 1;
+            v78 = 1;
             continue;
           }
 
-          readObject(MrecHeader, &v65, &v90);
-          readObject(MrecHeader, &v89, &v90);
-          v15 = v77;
+          readObject(MrecHeader, &v54, &v79);
+          readObject(MrecHeader, &v78, &v79);
+          v13 = v66;
           break;
         case 2:
           *(this + 281) = 0;
-          if (i >= v91)
+          if (i >= v80)
           {
-            v88 = 1;
+            v77 = 1;
             continue;
           }
 
-          readObject(MrecHeader, &v65, &v90);
-          v17 = &v88;
-          readObject(MrecHeader, &v88, &v90);
-          v15 = v76;
+          readObject(MrecHeader, &v54, &v79);
+          v15 = &v77;
+          readObject(MrecHeader, &v77, &v79);
+          v13 = v65;
           break;
         case 3:
           *(this + 282) = 0;
-          if (i >= v91)
+          if (i >= v80)
           {
-            v87 = 1;
+            v76 = 1;
             continue;
           }
 
-          readObject(MrecHeader, &v65, &v90);
-          v17 = &v87;
-          readObject(MrecHeader, &v87, &v90);
-          v15 = v75;
+          readObject(MrecHeader, &v54, &v79);
+          v15 = &v76;
+          readObject(MrecHeader, &v76, &v79);
+          v13 = v64;
           break;
       }
     }
 
-    v20 = v17;
-    v19 = *v17;
-    v18 = *(v20 + 1);
-    v21 = ParamSpecMgr::smpParamSpecMgrArray[ParamSetHolderMgr::smParamSetTypeRanked[i]];
-    v63 = 0;
-    v64 = 0;
-    ParamSpecMgr::getAllParamIdsSortedByName(v21, &v63, v19, v18);
-    if (v65)
+    v18 = v15;
+    v17 = *v15;
+    v16 = *(v18 + 1);
+    v19 = ParamSpecMgr::smpParamSpecMgrArray[ParamSetHolderMgr::smParamSetTypeRanked[i]];
+    v52 = 0;
+    v53 = 0;
+    ParamSpecMgr::getAllParamIdsSortedByName(v19, &v52, v17, v16);
+    if (v54)
     {
-      v22 = 0;
-      v23 = v19 | (v18 << 32);
+      v20 = 0;
+      v21 = v17 | (v16 << 32);
       while (1)
       {
-        v62 = 0;
-        readObject(MrecHeader, &v62, &v90);
-        DgnString::DgnString(&v60);
-        readObject(MrecHeader, &v60, &v90);
-        if (v57)
+        v51 = 0;
+        readObject(MrecHeader, &v51, &v79);
+        DgnString::DgnString(&v49);
+        readObject(MrecHeader, &v49, &v79);
+        if (v46)
         {
-          v24 = v61 ? v60 : byte_26286EA0E;
-          if ((isValidRestrictedName(v24) & 1) == 0)
+          v22 = v50 ? v49 : byte_26286EA0E;
+          if ((isValidRestrictedName(v22) & 1) == 0)
           {
-            if (v61)
+            if (v50)
             {
-              LOBYTE(v27) = v60;
+              v23 = v49;
             }
 
             else
             {
-              v27 = byte_26286EA0E;
+              v23 = byte_26286EA0E;
             }
 
-            v47 = spParamSetTypeStringNames[i];
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1478, "recogctl/psholder", 39, "%.500s %.500s", v25, v26, v27);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1478, "recogctl/psholder", 39, "%.500s %.500s", v23, spParamSetTypeStringNames[i]);
           }
         }
 
-        v28 = MemChunkAlloc(0x30uLL, 0);
-        v29 = v28;
-        v30 = v61 ? v60 : byte_26286EA0E;
-        DynamicParamSet::DynamicParamSet(v28, v30, ParamSetHolderMgr::smParamSetTypeRanked[i], v23, &v63);
-        if (v64)
+        v24 = MemChunkAlloc(0x30uLL, 0);
+        v25 = v24;
+        v26 = v50 ? v49 : byte_26286EA0E;
+        DynamicParamSet::DynamicParamSet(v24, v26, ParamSetHolderMgr::smParamSetTypeRanked[i], v21, &v52);
+        if (v53)
         {
           break;
         }
 
 LABEL_96:
-        v43 = *(v15 + 2);
-        if (v43 == *(v15 + 3))
+        v33 = *(v13 + 2);
+        if (v33 == *(v13 + 3))
         {
-          DgnPrimArray<unsigned long long>::reallocElts(v15, 1, 1);
-          v43 = *(v15 + 2);
+          DgnPrimArray<unsigned long long>::reallocElts(v13, 1, 1);
+          v33 = *(v13 + 2);
         }
 
-        *(*v15 + 8 * v43) = v29;
-        *(v15 + 2) = v43 + 1;
-        DgnString::~DgnString(&v60);
-        if (v65 <= ++v22)
+        *(*v13 + 8 * v33) = v25;
+        *(v13 + 2) = v33 + 1;
+        DgnString::~DgnString(&v49);
+        if (v54 <= ++v20)
         {
           goto LABEL_99;
         }
       }
 
-      v37 = 0;
+      v27 = 0;
       while (1)
       {
-        v38 = *(v63 + 2 * v37);
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v21, v38, v31, v32, v33, v34, v35, v36);
-        v40 = (*(*ParamByParamId + 24))(ParamByParamId);
-        if (v40 <= 2)
+        v28 = *(v52 + 2 * v27);
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v19, v28);
+        v30 = (*(*ParamByParamId + 24))(ParamByParamId);
+        if (v30 <= 2)
         {
-          if (v40 == 1)
+          if (v30 == 1)
           {
-            v58[0] = 0;
-            readObject(MrecHeader, v58, &v90);
-            DynamicParamSet::setBoolParameter(v29, v38, v58[0]);
+            v47[0] = 0;
+            readObject(MrecHeader, v47, &v79);
+            DynamicParamSet::setBoolParameter(v25, v28, v47[0]);
           }
 
-          else if (v40 == 2)
+          else if (v30 == 2)
           {
-            *v58 = 0;
-            readObject(MrecHeader, v58, &v90);
-            DynamicParamSet::setIntParameter(v29, v38, *v58);
+            *v47 = 0;
+            readObject(MrecHeader, v47, &v79);
+            DynamicParamSet::setIntParameter(v25, v28, *v47);
           }
 
           goto LABEL_95;
         }
 
-        switch(v40)
+        switch(v30)
         {
           case 3:
-            *v58 = 0;
-            readObject(MrecHeader, v58, &v90);
-            DynamicParamSet::setDoubleParameter(v29, v38, *v58);
+            *v47 = 0;
+            readObject(MrecHeader, v47, &v79);
+            DynamicParamSet::setDoubleParameter(v25, v28, *v47);
             break;
           case 4:
-            DgnString::DgnString(v58);
-            readObject(MrecHeader, v58, &v90);
-            if (v59)
+            DgnString::DgnString(v47);
+            readObject(MrecHeader, v47, &v79);
+            if (v48)
             {
-              v42 = *v58;
+              v32 = *v47;
             }
 
             else
             {
-              v42 = byte_26286EA0E;
+              v32 = byte_26286EA0E;
             }
 
-            DynamicParamSet::setStringParameter(v29, v38, v42, 1);
+            DynamicParamSet::setStringParameter(v25, v28, v32, 1);
             goto LABEL_93;
           case 5:
-            DgnString::DgnString(v58);
-            readObject(MrecHeader, v58, &v90);
-            if (v59)
+            DgnString::DgnString(v47);
+            readObject(MrecHeader, v47, &v79);
+            if (v48)
             {
-              v41 = *v58;
+              v31 = *v47;
             }
 
             else
             {
-              v41 = byte_26286EA0E;
+              v31 = byte_26286EA0E;
             }
 
-            DynamicParamSet::setEnumParameter(v29, v38, v41, 1);
+            DynamicParamSet::setEnumParameter(v25, v28, v31, 1);
 LABEL_93:
-            DgnString::~DgnString(v58);
+            DgnString::~DgnString(v47);
             break;
         }
 
 LABEL_95:
-        if (++v37 >= v64)
+        if (++v27 >= v53)
         {
           goto LABEL_96;
         }
@@ -8607,56 +8599,57 @@ LABEL_95:
     }
 
 LABEL_99:
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v63);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v52);
   }
 
-  *(&v53 + 1) = v68;
-  *(&v52 + 1) = v70;
-  *&v53 = v69;
-  *(&v51 + 1) = v72;
-  *&v52 = v71;
-  *(&v50 + 1) = v74;
-  *&v51 = v73;
-  *(&v49 + 1) = v76;
-  *&v50 = v75;
-  *&v49 = v77;
-  *&v48 = v80;
-  *(&v48 + 1) = v79;
-  *&v46 = v82;
-  *(&v46 + 1) = v81;
-  ParamSetHolder::runUpgradeFunctionSequence(this, v89, v88, v87, v86, v85, v84, v83, v46, v48, v78, v49, v50, v51, v52, v53, v67, v66);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v77);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v76);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v75);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v74);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v73);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v72);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v71);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v70);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v69);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v68);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v67);
+  *(&v42 + 1) = v57;
+  *(&v41 + 1) = v59;
+  *&v42 = v58;
+  *(&v40 + 1) = v61;
+  *&v41 = v60;
+  *(&v39 + 1) = v63;
+  *&v40 = v62;
+  *(&v38 + 1) = v65;
+  *&v39 = v64;
+  *&v38 = v66;
+  *&v37 = v69;
+  *(&v37 + 1) = v68;
+  *&v36 = v71;
+  *(&v36 + 1) = v70;
+  ParamSetHolder::runUpgradeFunctionSequence(this, v78, v77, v76, v75, v74, v73, v72, v36, v37, v67, v38, v39, v40, v41, v42, v56, v55);
   DgnIOwnArray<DynamicParamSet *>::releaseAll(v66);
-  readObjectChecksumAndVerify(MrecHeader, v90);
-  CurrentSubDirComponents = DFile::getCurrentSubDirComponents(v55);
-  DFileChecksums::addChecksum(v54, CurrentSubDirComponents, 0x44u, v90);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v65);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v64);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v63);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v62);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v61);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v60);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v59);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v58);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v57);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v56);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v55);
+  readObjectChecksumAndVerify(MrecHeader, v79);
+  CurrentSubDirComponents = DFile::getCurrentSubDirComponents(v44);
+  DFileChecksums::addChecksum(v43, CurrentSubDirComponents, 68, v79);
   DgnDelete<DgnStream>(MrecHeader);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v66);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v67);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v68);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v69);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v70);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v71);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v72);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v73);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v74);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v75);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v76);
-  return DgnIOwnArray<DynamicParamSet *>::releaseAll(v77);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v55);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v56);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v57);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v58);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v59);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v60);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v61);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v62);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v63);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v64);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v65);
+  return DgnIOwnArray<DynamicParamSet *>::releaseAll(v66);
 }
 
-void sub_2625C9E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, char a40, uint64_t a41, char a42, uint64_t a43, char a44, uint64_t a45, char a46, uint64_t a47, char a48, uint64_t a49, char a50, uint64_t a51, char a52, uint64_t a53, char a54, uint64_t a55, char a56)
+void sub_2625C9E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, ...)
 {
+  va_start(va, a55);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a35);
   DgnIOwnArray<DynamicParamSet *>::releaseAll(&a38);
   DgnIOwnArray<DynamicParamSet *>::releaseAll(&a40);
@@ -8667,20 +8660,20 @@ void sub_2625C9E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   DgnIOwnArray<DynamicParamSet *>::releaseAll(&a50);
   DgnIOwnArray<DynamicParamSet *>::releaseAll(&a52);
   DgnIOwnArray<DynamicParamSet *>::releaseAll(&a54);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(&a56);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v56 - 248);
-  DgnIOwnArray<DynamicParamSet *>::releaseAll(v56 - 232);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(va);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v55 - 248);
+  DgnIOwnArray<DynamicParamSet *>::releaseAll(v55 - 232);
   _Unwind_Resume(a1);
 }
 
-void ParamSetHolder::loadParamSetHolder(EnvMgr **this, char **a2)
+void ParamSetHolder::loadParamSetHolder(EnvMgr **this, const char **a2)
 {
-  v17 = 0u;
-  v18 = 0u;
-  SnapTime::recordTime(&v17, 1, 1, 1, 1);
+  v13 = 0u;
+  v14 = 0u;
+  SnapTime::recordTime(&v13, 1, 1, 1, 1);
   EnvHolder::errorIfFileObviouslyIsNotOfTypeParamSetHolder(a2, v4);
-  DFileChecksums::DFileChecksums(v16);
-  EnvMgr::loadEnvMgr(this[139], a2, v16);
+  DFileChecksums::DFileChecksums(v12);
+  EnvMgr::loadEnvMgr(this[139], a2, v12);
   v5 = DFile::subFileExists(a2, 0);
   if (v5)
   {
@@ -8689,13 +8682,13 @@ void ParamSetHolder::loadParamSetHolder(EnvMgr **this, char **a2)
 
   else
   {
-    ParamSetHolder::loadParamSetHolderBinary(this, a2, v16);
+    ParamSetHolder::loadParamSetHolderBinary(this, a2, v12);
   }
 
   if (DFile::subFileExists(a2, 0x39u))
   {
-    v15 = 0;
-    v6 = OpenAndReadMrecHeader(a2, 0x39u, 1, "MRPCH!? ", &v15 + 1, &v15);
+    v11 = 0;
+    v6 = OpenAndReadMrecHeader(a2, 0x39u, 1, "MRPCH!? ", &v11 + 1, &v11);
     if (*(a2 + 6))
     {
       v7 = a2[2];
@@ -8706,56 +8699,56 @@ void ParamSetHolder::loadParamSetHolder(EnvMgr **this, char **a2)
       v7 = byte_26286EA0E;
     }
 
-    MrecHeaderCheckVersions(v7, "MRPCH!? ", HIDWORD(v15), v15, 0x16u, 1u);
-    MrecHeaderCheckLatestVersionIfShared(a2, "MRPCH!? ", SHIDWORD(v15), v15, 22, 1, v8, v9);
-    DFileChecksums::DFileChecksums(&v12);
-    v14 = 0;
-    readObject(v6, &v12, &v14);
-    readObjectChecksumAndVerify(v6, v14);
-    if ((DFileChecksums::operator==(&v12, v16) & 1) == 0)
+    MrecHeaderCheckVersions(v7, "MRPCH!? ", HIDWORD(v11), v11, 0x16u, 1u);
+    MrecHeaderCheckLatestVersionIfShared(a2, "MRPCH!? ", SHIDWORD(v11), v11, 22, 1);
+    DFileChecksums::DFileChecksums(&v8);
+    v10 = 0;
+    readObject(v6, &v8, &v10);
+    readObjectChecksumAndVerify(v6, v10);
+    if (!DFileChecksums::operator==(&v8, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1650, "recogctl/psholder", 14, "%s", v10, v11, byte_26286EA0E);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 1650, "recogctl/psholder", 14, "%s", byte_26286EA0E);
     }
 
     DgnDelete<DgnStream>(v6);
-    DFileChecksums::~DFileChecksums(&v12);
+    DFileChecksums::~DFileChecksums(&v8);
   }
 
   FileHistory::loadFileHistory((this + 147), a2, v5);
-  v12 = 0u;
-  v13 = 0u;
-  SnapTime::recordTime(&v12, 1, 1, 1, 1);
-  v12 = vsubq_s64(v12, v17);
-  v13 = vsubq_s64(v13, v18);
-  FileHistory::addEntryWithElapsedTime((this + 147), " loadParamSetHolder time: ", &v12);
+  v8 = 0u;
+  v9 = 0u;
+  SnapTime::recordTime(&v8, 1, 1, 1, 1);
+  v8 = vsubq_s64(v8, v13);
+  v9 = vsubq_s64(v9, v14);
+  FileHistory::addEntryWithElapsedTime((this + 147), " loadParamSetHolder time: ", &v8);
   *(this + 1168) = v5;
   (*(*a2 + 10))(a2, "ParamSetHolder");
-  DFileChecksums::~DFileChecksums(v16);
+  DFileChecksums::~DFileChecksums(v12);
 }
 
-void sub_2625CA184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2625CA184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   DFileChecksums::~DFileChecksums(va);
   _Unwind_Resume(a1);
 }
 
 void *ParamSetHolder::saveParamSetHolderText(ParamSetHolder *this, DFile *a2)
 {
-  v132 = 0;
-  v128[0] = 0;
-  HIDWORD(v132) = realloc_array(0, v128, 0x40uLL, 0, 0, 1) >> 4;
-  v131 = v128[0];
-  v2 = v132;
-  if (v132 <= 4)
+  v59 = 0;
+  v55[0] = 0;
+  HIDWORD(v59) = realloc_array(0, v55, 0x40uLL, 0, 0, 1) >> 4;
+  v58 = v55[0];
+  v2 = v59;
+  if (v59 <= 4)
   {
-    if (v132 != 4)
+    if (v59 != 4)
     {
-      v4 = v132 + 1;
-      v5 = 16 * v132;
+      v4 = v59 + 1;
+      v5 = 16 * v59;
       do
       {
-        DgnString::DgnString((v131 + v5));
+        DgnString::DgnString((v58 + v5));
         v5 += 16;
       }
 
@@ -8763,51 +8756,51 @@ void *ParamSetHolder::saveParamSetHolderText(ParamSetHolder *this, DFile *a2)
     }
   }
 
-  else if (v132 >= 5)
+  else if (v59 >= 5)
   {
-    v3 = 16 * v132 - 16;
+    v3 = 16 * v59 - 16;
     do
     {
       --v2;
-      DgnString::~DgnString((v131 + v3));
+      DgnString::~DgnString(v58 + v3);
       v3 -= 16;
     }
 
     while (v2 > 4);
   }
 
-  LODWORD(v132) = 4;
-  v129 = 0;
-  v130 = 0;
-  v128[0] = 0;
-  v7 = realloc_array(0, v128, 0x10uLL, 0, 0, 1);
-  v129 = v128[0];
-  LODWORD(v130) = 4;
-  HIDWORD(v130) = v7 >> 2;
-  DgnString::operator=(v131, "SetIndex");
-  DgnString::operator=((v131 + 16), "SetName");
-  DgnString::operator=((v131 + 32), "ParamName");
-  DgnString::operator=((v131 + 48), "ParamValue");
-  v124 = 0;
-  v113 = 0;
-  v114 = 0;
-  v108 = 0;
-  v109 = 0;
-  v110 = 0;
-  v111 = 0;
-  v112 = 0;
-  v106 = 0;
-  v107 = 0;
-  v125 = 0;
-  v121 = 0;
-  v116 = 0;
-  v117 = 0;
-  v115 = 0;
-  *v129 = xmmword_26286E9F0;
+  LODWORD(v59) = 4;
+  v56 = 0;
+  v57 = 0;
+  v55[0] = 0;
+  v7 = realloc_array(0, v55, 0x10uLL, 0, 0, 1);
+  v56 = v55[0];
+  LODWORD(v57) = 4;
+  HIDWORD(v57) = v7 >> 2;
+  DgnString::operator=(v58, "SetIndex");
+  DgnString::operator=((v58 + 16), "SetName");
+  DgnString::operator=((v58 + 32), "ParamName");
+  DgnString::operator=((v58 + 48), "ParamValue");
+  v51 = 0;
+  v40 = 0;
+  v41 = 0;
+  v35 = 0;
+  v36 = 0;
+  v37 = 0;
+  v38 = 0;
+  v39 = 0;
+  v33 = 0;
+  v34 = 0;
+  v52 = 0;
+  v48 = 0;
+  v43 = 0;
+  v44 = 0;
+  v42 = 0;
+  *v56 = xmmword_26286E9F0;
   v8 = 1;
   do
   {
-    DgnTextFileWriter::DgnTextFileWriter(v128);
+    DgnTextFileWriter::DgnTextFileWriter(v55);
     if (v8 > 6)
     {
       if (v8 > 9)
@@ -8815,84 +8808,84 @@ void *ParamSetHolder::saveParamSetHolderText(ParamSetHolder *this, DFile *a2)
         switch(v8)
         {
           case 0xA:
-            DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x58u, 0);
-            v126 = 0;
-            v127 = 0;
-            DgnTextFile::legalDgnTextFileVersions(v128, sSRPT_Versions, &v126, v44, v45, v46, v47, v48);
-            DgnTextFileWriter::setFileType(v128, "SearchParamSetArrayText", (v126 + 8 * (v127 - 1)));
-            DgnIArray<Utterance *>::~DgnIArray(&v126);
-            DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 289) + 1));
-            v124 = *(this + 289);
-            v116 = MemChunkAlloc(0x210uLL, 0);
-            v121 = SearchParamSet::SearchParamSet(v116, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+            DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 88, 0);
+            v53 = 0;
+            v54 = 0;
+            DgnTextFile::legalDgnTextFileVersions(v55, sSRPT_Versions, &v53);
+            DgnTextFileWriter::setFileType(v55, "SearchParamSetArrayText", (v53 + 8 * (v54 - 1)));
+            DgnIArray<Utterance *>::~DgnIArray(&v53);
+            DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 289) + 1));
+            v51 = *(this + 289);
+            v43 = MemChunkAlloc(0x210uLL, 0);
+            v48 = SearchParamSet::SearchParamSet(v43, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
             break;
           case 0xB:
-            DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x54u, 0);
-            v126 = 0;
-            v127 = 0;
-            DgnTextFile::legalDgnTextFileVersions(v128, sSCPT_Versions, &v126, v64, v65, v66, v67, v68);
-            DgnTextFileWriter::setFileType(v128, "SearchCrossLayerParamSetArrayText", (v126 + 8 * (v127 - 1)));
-            DgnIArray<Utterance *>::~DgnIArray(&v126);
-            DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 290) + 1));
-            v124 = *(this + 290);
-            v115 = MemChunkAlloc(0x50uLL, 0);
-            v121 = SearchCrossLayerParamSet::SearchCrossLayerParamSet(v115, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+            DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 84, 0);
+            v53 = 0;
+            v54 = 0;
+            DgnTextFile::legalDgnTextFileVersions(v55, sSCPT_Versions, &v53);
+            DgnTextFileWriter::setFileType(v55, "SearchCrossLayerParamSetArrayText", (v53 + 8 * (v54 - 1)));
+            DgnIArray<Utterance *>::~DgnIArray(&v53);
+            DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 290) + 1));
+            v51 = *(this + 290);
+            v42 = MemChunkAlloc(0x50uLL, 0);
+            v48 = SearchCrossLayerParamSet::SearchCrossLayerParamSet(v42, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
             break;
           case 0xC:
-            DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x65u, 0);
-            v126 = 0;
-            v127 = 0;
-            DgnTextFile::legalDgnTextFileVersions(v128, sUDPT_Versions, &v126, v24, v25, v26, v27, v28);
-            DgnTextFileWriter::setFileType(v128, "UserDeltaParamSetArrayText", (v126 + 8 * (v127 - 1)));
-            DgnIArray<Utterance *>::~DgnIArray(&v126);
-            DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 291) + 1));
-            v124 = *(this + 291);
-            v117 = MemChunkAlloc(0x38uLL, 0);
-            v121 = UserDeltaParamSet::UserDeltaParamSet(v117, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+            DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 101, 0);
+            v53 = 0;
+            v54 = 0;
+            DgnTextFile::legalDgnTextFileVersions(v55, sUDPT_Versions, &v53);
+            DgnTextFileWriter::setFileType(v55, "UserDeltaParamSetArrayText", (v53 + 8 * (v54 - 1)));
+            DgnIArray<Utterance *>::~DgnIArray(&v53);
+            DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 291) + 1));
+            v51 = *(this + 291);
+            v44 = MemChunkAlloc(0x38uLL, 0);
+            v48 = UserDeltaParamSet::UserDeltaParamSet(v44, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
             break;
         }
       }
 
       else if (v8 == 7)
       {
-        DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x45u, 0);
-        v126 = 0;
-        v127 = 0;
-        DgnTextFile::legalDgnTextFileVersions(v128, sPSPT_Versions, &v126, v34, v35, v36, v37, v38);
-        DgnTextFileWriter::setFileType(v128, "PrefiltererSearchParamSetArrayText", (v126 + 8 * (v127 - 1)));
-        DgnIArray<Utterance *>::~DgnIArray(&v126);
-        DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 286) + 1));
-        v124 = *(this + 286);
-        v121 = MemChunkAlloc(0x98uLL, 0);
-        v106 = PrefiltererSearchParamSet::PrefiltererSearchParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+        DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 69, 0);
+        v53 = 0;
+        v54 = 0;
+        DgnTextFile::legalDgnTextFileVersions(v55, sPSPT_Versions, &v53);
+        DgnTextFileWriter::setFileType(v55, "PrefiltererSearchParamSetArrayText", (v53 + 8 * (v54 - 1)));
+        DgnIArray<Utterance *>::~DgnIArray(&v53);
+        DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 286) + 1));
+        v51 = *(this + 286);
+        v48 = MemChunkAlloc(0x98uLL, 0);
+        v33 = PrefiltererSearchParamSet::PrefiltererSearchParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
       }
 
       else if (v8 == 8)
       {
-        DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x3Cu, 0);
-        v126 = 0;
-        v127 = 0;
-        DgnTextFile::legalDgnTextFileVersions(v128, sPGPT_Versions, &v126, v54, v55, v56, v57, v58);
-        DgnTextFileWriter::setFileType(v128, "PronGuessParamSetArrayText", (v126 + 8 * (v127 - 1)));
-        DgnIArray<Utterance *>::~DgnIArray(&v126);
-        DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 287) + 1));
-        v124 = *(this + 287);
-        v121 = MemChunkAlloc(0x40uLL, 0);
-        v113 = PronGuessParamSet::PronGuessParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+        DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 60, 0);
+        v53 = 0;
+        v54 = 0;
+        DgnTextFile::legalDgnTextFileVersions(v55, sPGPT_Versions, &v53);
+        DgnTextFileWriter::setFileType(v55, "PronGuessParamSetArrayText", (v53 + 8 * (v54 - 1)));
+        DgnIArray<Utterance *>::~DgnIArray(&v53);
+        DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 287) + 1));
+        v51 = *(this + 287);
+        v48 = MemChunkAlloc(0x40uLL, 0);
+        v40 = PronGuessParamSet::PronGuessParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
       }
 
       else
       {
-        DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x4Fu, 0);
-        v126 = 0;
-        v127 = 0;
-        DgnTextFile::legalDgnTextFileVersions(v128, sSAPT_Versions, &v126, v14, v15, v16, v17, v18);
-        DgnTextFileWriter::setFileType(v128, "SausageParamSetArrayText", (v126 + 8 * (v127 - 1)));
-        DgnIArray<Utterance *>::~DgnIArray(&v126);
-        DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 288) + 1));
-        v124 = *(this + 288);
-        v121 = MemChunkAlloc(0x48uLL, 0);
-        v107 = SausageParamSet::SausageParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+        DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 79, 0);
+        v53 = 0;
+        v54 = 0;
+        DgnTextFile::legalDgnTextFileVersions(v55, sSAPT_Versions, &v53);
+        DgnTextFileWriter::setFileType(v55, "SausageParamSetArrayText", (v53 + 8 * (v54 - 1)));
+        DgnIArray<Utterance *>::~DgnIArray(&v53);
+        DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 288) + 1));
+        v51 = *(this + 288);
+        v48 = MemChunkAlloc(0x48uLL, 0);
+        v34 = SausageParamSet::SausageParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
       }
     }
 
@@ -8900,44 +8893,44 @@ void *ParamSetHolder::saveParamSetHolderText(ParamSetHolder *this, DFile *a2)
     {
       if (v8 == 4)
       {
-        DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x21u, 0);
-        v126 = 0;
-        v127 = 0;
-        DgnTextFile::legalDgnTextFileVersions(v128, sLNPT_Versions, &v126, v39, v40, v41, v42, v43);
-        DgnTextFileWriter::setFileType(v128, "LatticeNBestParamSetArrayText", (v126 + 8 * (v127 - 1)));
-        DgnIArray<Utterance *>::~DgnIArray(&v126);
-        DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 283) + 1));
-        v124 = *(this + 283);
-        v121 = MemChunkAlloc(0x30uLL, 0);
-        v110 = LatticeNBestParamSet::LatticeNBestParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+        DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 33, 0);
+        v53 = 0;
+        v54 = 0;
+        DgnTextFile::legalDgnTextFileVersions(v55, sLNPT_Versions, &v53);
+        DgnTextFileWriter::setFileType(v55, "LatticeNBestParamSetArrayText", (v53 + 8 * (v54 - 1)));
+        DgnIArray<Utterance *>::~DgnIArray(&v53);
+        DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 283) + 1));
+        v51 = *(this + 283);
+        v48 = MemChunkAlloc(0x30uLL, 0);
+        v37 = LatticeNBestParamSet::LatticeNBestParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
       }
 
       else if (v8 == 5)
       {
-        DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x22u, 0);
-        v126 = 0;
-        v127 = 0;
-        DgnTextFile::legalDgnTextFileVersions(v128, sLPPT_Versions, &v126, v59, v60, v61, v62, v63);
-        DgnTextFileWriter::setFileType(v128, "LatticePostProbParamSetArrayText", (v126 + 8 * (v127 - 1)));
-        DgnIArray<Utterance *>::~DgnIArray(&v126);
-        DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 284) + 1));
-        v124 = *(this + 284);
-        v121 = MemChunkAlloc(0x48uLL, 0);
-        v111 = LatticePostProbParamSet::LatticePostProbParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+        DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 34, 0);
+        v53 = 0;
+        v54 = 0;
+        DgnTextFile::legalDgnTextFileVersions(v55, sLPPT_Versions, &v53);
+        DgnTextFileWriter::setFileType(v55, "LatticePostProbParamSetArrayText", (v53 + 8 * (v54 - 1)));
+        DgnIArray<Utterance *>::~DgnIArray(&v53);
+        DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 284) + 1));
+        v51 = *(this + 284);
+        v48 = MemChunkAlloc(0x48uLL, 0);
+        v38 = LatticePostProbParamSet::LatticePostProbParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
       }
 
       else
       {
-        DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0x37u, 0);
-        v126 = 0;
-        v127 = 0;
-        DgnTextFile::legalDgnTextFileVersions(v128, sPBPT_Versions, &v126, v19, v20, v21, v22, v23);
-        DgnTextFileWriter::setFileType(v128, "PrefiltererBuildParamSetArrayText", (v126 + 8 * (v127 - 1)));
-        DgnIArray<Utterance *>::~DgnIArray(&v126);
-        DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 285) + 1));
-        v124 = *(this + 285);
-        v121 = MemChunkAlloc(0x98uLL, 0);
-        v112 = PrefiltererBuildParamSet::PrefiltererBuildParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+        DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 55, 0);
+        v53 = 0;
+        v54 = 0;
+        DgnTextFile::legalDgnTextFileVersions(v55, sPBPT_Versions, &v53);
+        DgnTextFileWriter::setFileType(v55, "PrefiltererBuildParamSetArrayText", (v53 + 8 * (v54 - 1)));
+        DgnIArray<Utterance *>::~DgnIArray(&v53);
+        DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 285) + 1));
+        v51 = *(this + 285);
+        v48 = MemChunkAlloc(0x98uLL, 0);
+        v39 = PrefiltererBuildParamSet::PrefiltererBuildParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
       }
     }
 
@@ -8946,139 +8939,139 @@ void *ParamSetHolder::saveParamSetHolderText(ParamSetHolder *this, DFile *a2)
       switch(v8)
       {
         case 1:
-          DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0, 0);
-          v126 = 0;
-          v127 = 0;
-          DgnTextFile::legalDgnTextFileVersions(v128, sADPT_Versions, &v126, v29, v30, v31, v32, v33);
-          DgnTextFileWriter::setFileType(v128, "AdapterParamSetArrayText", (v126 + 8 * (v127 - 1)));
-          DgnIArray<Utterance *>::~DgnIArray(&v126);
-          DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 280) + 1));
-          v124 = *(this + 280);
-          v121 = MemChunkAlloc(0x190uLL, 0);
-          v114 = AdapterParamSet::AdapterParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+          DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 0, 0);
+          v53 = 0;
+          v54 = 0;
+          DgnTextFile::legalDgnTextFileVersions(v55, sADPT_Versions, &v53);
+          DgnTextFileWriter::setFileType(v55, "AdapterParamSetArrayText", (v53 + 8 * (v54 - 1)));
+          DgnIArray<Utterance *>::~DgnIArray(&v53);
+          DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 280) + 1));
+          v51 = *(this + 280);
+          v48 = MemChunkAlloc(0x190uLL, 0);
+          v41 = AdapterParamSet::AdapterParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
           break;
         case 2:
-          DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0xBu, 0);
-          v126 = 0;
-          v127 = 0;
-          DgnTextFile::legalDgnTextFileVersions(v128, sCHPT_Versions, &v126, v49, v50, v51, v52, v53);
-          DgnTextFileWriter::setFileType(v128, "ChannelParamSetArrayText", (v126 + 8 * (v127 - 1)));
-          DgnIArray<Utterance *>::~DgnIArray(&v126);
-          DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 281) + 1));
-          v124 = *(this + 281);
-          v121 = MemChunkAlloc(0x150uLL, 0);
-          v108 = ChannelParamSet::ChannelParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+          DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 11, 0);
+          v53 = 0;
+          v54 = 0;
+          DgnTextFile::legalDgnTextFileVersions(v55, sCHPT_Versions, &v53);
+          DgnTextFileWriter::setFileType(v55, "ChannelParamSetArrayText", (v53 + 8 * (v54 - 1)));
+          DgnIArray<Utterance *>::~DgnIArray(&v53);
+          DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 281) + 1));
+          v51 = *(this + 281);
+          v48 = MemChunkAlloc(0x150uLL, 0);
+          v35 = ChannelParamSet::ChannelParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
           break;
         case 3:
-          DgnTextFileWriter::openDgnTextFileWriter(v128, a2, 0xFu, 0);
-          v126 = 0;
-          v127 = 0;
-          DgnTextFile::legalDgnTextFileVersions(v128, sCOPT_Versions, &v126, v9, v10, v11, v12, v13);
-          DgnTextFileWriter::setFileType(v128, "ConfidenceParamSetArrayText", (v126 + 8 * (v127 - 1)));
-          DgnIArray<Utterance *>::~DgnIArray(&v126);
-          DgnTextFileWriter::setHeaderFieldUnsigned(v128, "NumberOfParamSets", (*(this + 282) + 1));
-          v124 = *(this + 282);
-          v121 = MemChunkAlloc(0x260uLL, 0);
-          v109 = ConfidenceParamSet::ConfidenceParamSet(v121, v125, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, 0xFFFFFFFFLL);
+          DgnTextFileWriter::openDgnTextFileWriter(v55, a2, 15, 0);
+          v53 = 0;
+          v54 = 0;
+          DgnTextFile::legalDgnTextFileVersions(v55, sCOPT_Versions, &v53);
+          DgnTextFileWriter::setFileType(v55, "ConfidenceParamSetArrayText", (v53 + 8 * (v54 - 1)));
+          DgnIArray<Utterance *>::~DgnIArray(&v53);
+          DgnTextFileWriter::setHeaderFieldUnsigned(v55, "NumberOfParamSets", (*(this + 282) + 1));
+          v51 = *(this + 282);
+          v48 = MemChunkAlloc(0x260uLL, 0);
+          v36 = ConfidenceParamSet::ConfidenceParamSet(v48, v52, ParamSetHolderMgr::smParamSetTypeRanked[v8], *this, -1);
           break;
       }
     }
 
-    DgnTextFileWriter::setLineFieldFormat(v128, &v129, &v131);
-    v69 = ParamSpecMgr::smpParamSpecMgrArray[ParamSetHolderMgr::smParamSetTypeRanked[v8]];
-    v126 = 0;
-    v127 = 0;
-    ParamSpecMgr::getAllParamIdsSortedByName(v69, &v126, 0, 0);
-    v76 = 0;
-    v77 = 0;
-    v78 = this + 80 * v8 + 72;
-    v119 = v8;
-    v120 = v78 + 8;
-    v122 = v78;
+    DgnTextFileWriter::setLineFieldFormat(v55, &v56, &v58);
+    v9 = ParamSpecMgr::smpParamSpecMgrArray[ParamSetHolderMgr::smParamSetTypeRanked[v8]];
+    v53 = 0;
+    v54 = 0;
+    ParamSpecMgr::getAllParamIdsSortedByName(v9, &v53, 0, 0);
+    v10 = 0;
+    v11 = 0;
+    v12 = this + 80 * v8 + 72;
+    v46 = v8;
+    v47 = v12 + 8;
+    v49 = v12;
     do
     {
-      if (v77)
+      if (v11)
       {
-        if (*v78 != 1 || (v79 = v120, *(v78 + 1) != -2))
+        if (*v12 != 1 || (v13 = v47, *(v12 + 1) != -2))
         {
-          v79 = *(*(v78 + 3) + 524272);
+          v13 = *(*(v12 + 3) + 524272);
         }
 
-        v80 = *(*(this + 1) + 8 * *(*v79 + 4 * (v76 - 1)));
-        v81 = 0;
-        if (*(v80 + 4))
+        v14 = *(*(this + 1) + 8 * *(*v13 + 4 * (v10 - 1)));
+        v15 = 0;
+        if (v14[4])
         {
-          v125 = v80[1];
+          v52 = *(v14 + 1);
         }
 
         else
         {
-          v125 = byte_26286EA0E;
+          v52 = byte_26286EA0E;
         }
       }
 
       else
       {
-        v81 = 1;
-        v125 = "_default";
-        v80 = v121;
+        v15 = 1;
+        v52 = "_default";
+        v14 = v48;
       }
 
-      if (!v127)
+      if (!v54)
       {
 LABEL_74:
-        DgnTextFileWriter::setLineFieldUnsignedValue(v128, 0, v76);
-        DgnTextFileWriter::setLineFieldValue(v128, 1u, v125);
-        DgnTextFileWriter::setLineFieldValue(v128, 2u, byte_26286EA0E);
-        DgnTextFileWriter::setLineFieldValue(v128, 3u, byte_26286EA0E);
-        DgnTextFileWriter::writeNextLine(v128);
+        DgnTextFileWriter::setLineFieldUnsignedValue(v55, 0, v10);
+        DgnTextFileWriter::setLineFieldValue(v55, 1u, v52);
+        DgnTextFileWriter::setLineFieldValue(v55, 2u, byte_26286EA0E);
+        DgnTextFileWriter::setLineFieldValue(v55, 3u, byte_26286EA0E);
+        DgnTextFileWriter::writeNextLine(v55);
         goto LABEL_75;
       }
 
-      v82 = 0;
-      v83 = 0;
+      v16 = 0;
+      v17 = 0;
       do
       {
-        v84 = *(v126 + 2 * v82);
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v69, *(v126 + 2 * v82), v70, v71, v72, v73, v74, v75);
-        v86 = ParamByParamId[1];
-        v87 = (*(*ParamByParamId + 24))(ParamByParamId);
-        if (v87 <= 2)
+        v18 = *(v53 + 2 * v16);
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v9, *(v53 + 2 * v16));
+        v20 = ParamByParamId[1];
+        v21 = (*(*ParamByParamId + 24))(ParamByParamId);
+        if (v21 <= 2)
         {
-          if (v87 == 1)
+          if (v21 == 1)
           {
-            v103 = (*(*v80 + 24))(v80, v84, v81);
-            if (!v77 || v103 != (*(*v80 + 24))(v80, v84, 1))
+            v30 = (*(*v14 + 24))(v14, v18, v15);
+            if (!v11 || v30 != (*(*v14 + 24))(v14, v18, 1))
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v128, 0, v76);
-              DgnTextFileWriter::setLineFieldValue(v128, 1u, v125);
-              DgnTextFileWriter::setLineFieldValue(v128, 2u, v86);
-              if (v103)
+              DgnTextFileWriter::setLineFieldUnsignedValue(v55, 0, v10);
+              DgnTextFileWriter::setLineFieldValue(v55, 1u, v52);
+              DgnTextFileWriter::setLineFieldValue(v55, 2u, v20);
+              if (v30)
               {
-                v104 = "True";
+                v31 = "True";
               }
 
               else
               {
-                v104 = "False";
+                v31 = "False";
               }
 
-              DgnTextFileWriter::setLineFieldValue(v128, 3u, v104);
-              DgnTextFileWriter::writeNextLine(v128);
+              DgnTextFileWriter::setLineFieldValue(v55, 3u, v31);
+              DgnTextFileWriter::writeNextLine(v55);
               goto LABEL_71;
             }
           }
 
-          else if (v87 == 2)
+          else if (v21 == 2)
           {
-            v99 = (*(*v80 + 32))(v80, v84, v81);
-            if (!v77 || v99 != (*(*v80 + 32))(v80, v84, 1))
+            v26 = (*(*v14 + 32))(v14, v18, v15);
+            if (!v11 || v26 != (*(*v14 + 32))(v14, v18, 1))
             {
-              DgnTextFileWriter::setLineFieldUnsignedValue(v128, 0, v76);
-              DgnTextFileWriter::setLineFieldValue(v128, 1u, v125);
-              DgnTextFileWriter::setLineFieldValue(v128, 2u, v86);
-              DgnTextFileWriter::setLineFieldIntegerValue(v128, 3u, v99);
-              DgnTextFileWriter::writeNextLine(v128);
+              DgnTextFileWriter::setLineFieldUnsignedValue(v55, 0, v10);
+              DgnTextFileWriter::setLineFieldValue(v55, 1u, v52);
+              DgnTextFileWriter::setLineFieldValue(v55, 2u, v20);
+              DgnTextFileWriter::setLineFieldIntegerValue(v55, 3u, v26);
+              DgnTextFileWriter::writeNextLine(v55);
               goto LABEL_71;
             }
           }
@@ -9086,145 +9079,144 @@ LABEL_74:
 
         else
         {
-          switch(v87)
+          switch(v21)
           {
             case 3:
-              v100 = (*(*v80 + 40))(v80, v84, v81);
-              if (!v77 || v100 != (*(*v80 + 40))(v80, v84, 1))
+              v27 = (*(*v14 + 40))(v14, v18, v15);
+              if (!v11 || v27 != (*(*v14 + 40))(v14, v18, 1))
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v128, 0, v76);
-                DgnTextFileWriter::setLineFieldValue(v128, 1u, v125);
-                DgnTextFileWriter::setLineFieldValue(v128, 2u, v86);
-                DgnTextFileWriter::setLineFieldRealValue(v128, 3u, v100);
-                DgnTextFileWriter::writeNextLine(v128);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v55, 0, v10);
+                DgnTextFileWriter::setLineFieldValue(v55, 1u, v52);
+                DgnTextFileWriter::setLineFieldValue(v55, 2u, v20);
+                DgnTextFileWriter::setLineFieldRealValue(v55, 3u, v27);
+                DgnTextFileWriter::writeNextLine(v55);
                 goto LABEL_71;
               }
 
               break;
             case 4:
-              v101 = (*(*v80 + 48))(v80, v84, v81);
-              if (!v77 || (v102 = (*(*v80 + 48))(v80, v84, 1), strcmp(v101, v102)))
+              v28 = (*(*v14 + 48))(v14, v18, v15);
+              if (!v11 || (v29 = (*(*v14 + 48))(v14, v18, 1), strcmp(v28, v29)))
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v128, 0, v76);
-                DgnTextFileWriter::setLineFieldValue(v128, 1u, v125);
-                DgnTextFileWriter::setLineFieldValue(v128, 2u, v86);
-                DgnTextFileWriter::setLineFieldValue(v128, 3u, v101);
-                DgnTextFileWriter::writeNextLine(v128);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v55, 0, v10);
+                DgnTextFileWriter::setLineFieldValue(v55, 1u, v52);
+                DgnTextFileWriter::setLineFieldValue(v55, 2u, v20);
+                DgnTextFileWriter::setLineFieldValue(v55, 3u, v28);
+                DgnTextFileWriter::writeNextLine(v55);
                 goto LABEL_71;
               }
 
               break;
             case 5:
-              v88 = (*(*v80 + 56))(v80, v84, v81);
-              if (!v77 || v88 != (*(*v80 + 56))(v80, v84, 1))
+              v22 = (*(*v14 + 56))(v14, v18, v15);
+              if (!v11 || v22 != (*(*v14 + 56))(v14, v18, 1))
               {
-                DgnTextFileWriter::setLineFieldUnsignedValue(v128, 0, v76);
-                DgnTextFileWriter::setLineFieldValue(v128, 1u, v125);
-                DgnTextFileWriter::setLineFieldValue(v128, 2u, v86);
-                v95 = ParamSpecMgr::getParamByParamId(v69, v84, v89, v90, v91, v92, v93, v94);
-                v96 = **v95;
-                NameForEnumItem = GetNameForEnumItem(v97[4] + 16, v88);
-                DgnTextFileWriter::setLineFieldValue(v128, 3u, NameForEnumItem);
-                DgnTextFileWriter::writeNextLine(v128);
+                DgnTextFileWriter::setLineFieldUnsignedValue(v55, 0, v10);
+                DgnTextFileWriter::setLineFieldValue(v55, 1u, v52);
+                DgnTextFileWriter::setLineFieldValue(v55, 2u, v20);
+                v23 = ParamSpecMgr::getParamByParamId(v9, v18);
+                NameForEnumItem = GetNameForEnumItem(v24[4] + 16, v22);
+                DgnTextFileWriter::setLineFieldValue(v55, 3u, NameForEnumItem);
+                DgnTextFileWriter::writeNextLine(v55);
 LABEL_71:
-                v83 = 1;
+                v17 = 1;
               }
 
               break;
           }
         }
 
-        ++v82;
+        ++v16;
       }
 
-      while (v82 < v127);
-      v78 = v122;
-      if ((v83 & 1) == 0)
+      while (v16 < v54);
+      v12 = v49;
+      if ((v17 & 1) == 0)
       {
         goto LABEL_74;
       }
 
 LABEL_75:
-      v76 = ++v77;
+      v10 = ++v11;
     }
 
-    while (v124 >= v77);
-    if (v119 > 6)
+    while (v51 >= v11);
+    if (v46 > 6)
     {
-      if (v119 > 9)
+      if (v46 > 9)
       {
-        switch(v119)
+        switch(v46)
         {
           case 0xA:
-            DgnDelete<AdapterParamSet>(v116);
+            DgnDelete<AdapterParamSet>(v43);
             break;
           case 0xB:
-            DgnDelete<AdapterParamSet>(v115);
+            DgnDelete<AdapterParamSet>(v42);
             break;
           case 0xC:
-            DgnDelete<AdapterParamSet>(v117);
+            DgnDelete<AdapterParamSet>(v44);
             break;
         }
       }
 
-      else if (v119 == 7)
+      else if (v46 == 7)
       {
-        DgnDelete<AdapterParamSet>(v106);
+        DgnDelete<AdapterParamSet>(v33);
       }
 
-      else if (v119 == 8)
+      else if (v46 == 8)
       {
-        DgnDelete<AdapterParamSet>(v113);
+        DgnDelete<AdapterParamSet>(v40);
       }
 
       else
       {
-        DgnDelete<AdapterParamSet>(v107);
+        DgnDelete<AdapterParamSet>(v34);
       }
     }
 
-    else if (v119 > 3)
+    else if (v46 > 3)
     {
-      if (v119 == 4)
+      if (v46 == 4)
       {
-        DgnDelete<AdapterParamSet>(v110);
+        DgnDelete<AdapterParamSet>(v37);
       }
 
-      else if (v119 == 5)
+      else if (v46 == 5)
       {
-        DgnDelete<AdapterParamSet>(v111);
+        DgnDelete<AdapterParamSet>(v38);
       }
 
       else
       {
-        DgnDelete<AdapterParamSet>(v112);
+        DgnDelete<AdapterParamSet>(v39);
       }
     }
 
     else
     {
-      switch(v119)
+      switch(v46)
       {
         case 1:
-          DgnDelete<AdapterParamSet>(v114);
+          DgnDelete<AdapterParamSet>(v41);
           break;
         case 2:
-          DgnDelete<AdapterParamSet>(v108);
+          DgnDelete<AdapterParamSet>(v35);
           break;
         case 3:
-          DgnDelete<AdapterParamSet>(v109);
+          DgnDelete<AdapterParamSet>(v36);
           break;
       }
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v126);
-    DgnTextFileWriter::~DgnTextFileWriter(v128);
-    v8 = v119 + 1;
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v53);
+    DgnTextFileWriter::~DgnTextFileWriter(v55);
+    v8 = v46 + 1;
   }
 
-  while (v119 != 12);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v129);
-  return DgnArray<DgnString>::releaseAll(&v131);
+  while (v46 != 12);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v56);
+  return DgnArray<DgnString>::releaseAll(&v58);
 }
 
 void (***DgnDelete<AdapterParamSet>(void (***result)(void)))(void)
@@ -9240,17 +9232,17 @@ void (***DgnDelete<AdapterParamSet>(void (***result)(void)))(void)
   return result;
 }
 
-void (***ParamSetHolder::saveParamSetHolderBinary(ParamSetHolder *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***ParamSetHolder::saveParamSetHolderBinary(ParamSetHolder *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v5 = OpenAndWriteMrecHeader(a2, 0x44u, a4, "MRPSB!? ", 23, 3);
-  v106[0] = 13;
-  writeObject(v5, v106, v106 + 1);
-  v100 = this;
-  v98 = this + 72;
+  v34[0] = 13;
+  writeObject(v5, v34, v34 + 1);
+  v28 = this;
+  v26 = this + 72;
   v6 = 1;
   do
   {
-    v7 = &v98[80 * v6];
+    v7 = &v26[80 * v6];
     v8 = *(v7 + 4);
     if (v6 > 6)
     {
@@ -9260,31 +9252,31 @@ void (***ParamSetHolder::saveParamSetHolderBinary(ParamSetHolder *this, DFile *a
         {
           if (v6 == 11)
           {
-            writeObject(v5, v100 + 290, v106 + 1);
-            DgnTextFileWriter::DgnTextFileWriter(&v104);
-            v102 = 0.0;
-            v103 = 0;
-            DgnTextFile::legalDgnTextFileVersions(&v104, sSCPT_Versions, &v102, v24, v25, v26, v27, v28);
+            writeObject(v5, v28 + 290, v34 + 1);
+            DgnTextFileWriter::DgnTextFileWriter(&v32);
+            v30 = 0.0;
+            v31 = 0;
+            DgnTextFile::legalDgnTextFileVersions(&v32, sSCPT_Versions, &v30);
           }
 
           else
           {
-            writeObject(v5, v100 + 291, v106 + 1);
-            DgnTextFileWriter::DgnTextFileWriter(&v104);
-            v102 = 0.0;
-            v103 = 0;
-            DgnTextFile::legalDgnTextFileVersions(&v104, sUDPT_Versions, &v102, v64, v65, v66, v67, v68);
+            writeObject(v5, v28 + 291, v34 + 1);
+            DgnTextFileWriter::DgnTextFileWriter(&v32);
+            v30 = 0.0;
+            v31 = 0;
+            DgnTextFile::legalDgnTextFileVersions(&v32, sUDPT_Versions, &v30);
           }
 
           goto LABEL_17;
         }
 
-        writeObject(v5, v100 + 289, v106 + 1);
-        DgnTextFileWriter::DgnTextFileWriter(&v104);
-        v102 = 0.0;
-        v103 = 0;
-        DgnTextFile::legalDgnTextFileVersions(&v104, sSRPT_Versions, &v102, v44, v45, v46, v47, v48);
-        writeObject(v5, (*&v102 + 8 * (v103 - 1)), v106 + 1);
+        writeObject(v5, v28 + 289, v34 + 1);
+        DgnTextFileWriter::DgnTextFileWriter(&v32);
+        v30 = 0.0;
+        v31 = 0;
+        DgnTextFile::legalDgnTextFileVersions(&v32, sSRPT_Versions, &v30);
+        writeObject(v5, (*&v30 + 8 * (v31 - 1)), v34 + 1);
       }
 
       else
@@ -9293,31 +9285,31 @@ void (***ParamSetHolder::saveParamSetHolderBinary(ParamSetHolder *this, DFile *a
         {
           if (v6 == 8)
           {
-            writeObject(v5, v100 + 287, v106 + 1);
-            DgnTextFileWriter::DgnTextFileWriter(&v104);
-            v102 = 0.0;
-            v103 = 0;
-            DgnTextFile::legalDgnTextFileVersions(&v104, sPGPT_Versions, &v102, v14, v15, v16, v17, v18);
+            writeObject(v5, v28 + 287, v34 + 1);
+            DgnTextFileWriter::DgnTextFileWriter(&v32);
+            v30 = 0.0;
+            v31 = 0;
+            DgnTextFile::legalDgnTextFileVersions(&v32, sPGPT_Versions, &v30);
           }
 
           else
           {
-            writeObject(v5, v100 + 288, v106 + 1);
-            DgnTextFileWriter::DgnTextFileWriter(&v104);
-            v102 = 0.0;
-            v103 = 0;
-            DgnTextFile::legalDgnTextFileVersions(&v104, sSAPT_Versions, &v102, v54, v55, v56, v57, v58);
+            writeObject(v5, v28 + 288, v34 + 1);
+            DgnTextFileWriter::DgnTextFileWriter(&v32);
+            v30 = 0.0;
+            v31 = 0;
+            DgnTextFile::legalDgnTextFileVersions(&v32, sSAPT_Versions, &v30);
           }
 
           goto LABEL_17;
         }
 
-        writeObject(v5, v100 + 286, v106 + 1);
-        DgnTextFileWriter::DgnTextFileWriter(&v104);
-        v102 = 0.0;
-        v103 = 0;
-        DgnTextFile::legalDgnTextFileVersions(&v104, sPSPT_Versions, &v102, v34, v35, v36, v37, v38);
-        writeObject(v5, (*&v102 + 8 * (v103 - 1)), v106 + 1);
+        writeObject(v5, v28 + 286, v34 + 1);
+        DgnTextFileWriter::DgnTextFileWriter(&v32);
+        v30 = 0.0;
+        v31 = 0;
+        DgnTextFile::legalDgnTextFileVersions(&v32, sPSPT_Versions, &v30);
+        writeObject(v5, (*&v30 + 8 * (v31 - 1)), v34 + 1);
       }
     }
 
@@ -9327,31 +9319,31 @@ void (***ParamSetHolder::saveParamSetHolderBinary(ParamSetHolder *this, DFile *a
       {
         if (v6 == 5)
         {
-          writeObject(v5, v100 + 284, v106 + 1);
-          DgnTextFileWriter::DgnTextFileWriter(&v104);
-          v102 = 0.0;
-          v103 = 0;
-          DgnTextFile::legalDgnTextFileVersions(&v104, sLPPT_Versions, &v102, v19, v20, v21, v22, v23);
+          writeObject(v5, v28 + 284, v34 + 1);
+          DgnTextFileWriter::DgnTextFileWriter(&v32);
+          v30 = 0.0;
+          v31 = 0;
+          DgnTextFile::legalDgnTextFileVersions(&v32, sLPPT_Versions, &v30);
         }
 
         else
         {
-          writeObject(v5, v100 + 285, v106 + 1);
-          DgnTextFileWriter::DgnTextFileWriter(&v104);
-          v102 = 0.0;
-          v103 = 0;
-          DgnTextFile::legalDgnTextFileVersions(&v104, sPBPT_Versions, &v102, v59, v60, v61, v62, v63);
+          writeObject(v5, v28 + 285, v34 + 1);
+          DgnTextFileWriter::DgnTextFileWriter(&v32);
+          v30 = 0.0;
+          v31 = 0;
+          DgnTextFile::legalDgnTextFileVersions(&v32, sPBPT_Versions, &v30);
         }
 
         goto LABEL_17;
       }
 
-      writeObject(v5, v100 + 283, v106 + 1);
-      DgnTextFileWriter::DgnTextFileWriter(&v104);
-      v102 = 0.0;
-      v103 = 0;
-      DgnTextFile::legalDgnTextFileVersions(&v104, sLNPT_Versions, &v102, v39, v40, v41, v42, v43);
-      writeObject(v5, (*&v102 + 8 * (v103 - 1)), v106 + 1);
+      writeObject(v5, v28 + 283, v34 + 1);
+      DgnTextFileWriter::DgnTextFileWriter(&v32);
+      v30 = 0.0;
+      v31 = 0;
+      DgnTextFile::legalDgnTextFileVersions(&v32, sLNPT_Versions, &v30);
+      writeObject(v5, (*&v30 + 8 * (v31 - 1)), v34 + 1);
     }
 
     else
@@ -9360,128 +9352,127 @@ void (***ParamSetHolder::saveParamSetHolderBinary(ParamSetHolder *this, DFile *a
       {
         if (v6 == 2)
         {
-          writeObject(v5, v100 + 281, v106 + 1);
-          DgnTextFileWriter::DgnTextFileWriter(&v104);
-          v102 = 0.0;
-          v103 = 0;
-          DgnTextFile::legalDgnTextFileVersions(&v104, sCHPT_Versions, &v102, v9, v10, v11, v12, v13);
+          writeObject(v5, v28 + 281, v34 + 1);
+          DgnTextFileWriter::DgnTextFileWriter(&v32);
+          v30 = 0.0;
+          v31 = 0;
+          DgnTextFile::legalDgnTextFileVersions(&v32, sCHPT_Versions, &v30);
         }
 
         else
         {
-          writeObject(v5, v100 + 282, v106 + 1);
-          DgnTextFileWriter::DgnTextFileWriter(&v104);
-          v102 = 0.0;
-          v103 = 0;
-          DgnTextFile::legalDgnTextFileVersions(&v104, sCOPT_Versions, &v102, v49, v50, v51, v52, v53);
+          writeObject(v5, v28 + 282, v34 + 1);
+          DgnTextFileWriter::DgnTextFileWriter(&v32);
+          v30 = 0.0;
+          v31 = 0;
+          DgnTextFile::legalDgnTextFileVersions(&v32, sCOPT_Versions, &v30);
         }
 
 LABEL_17:
-        writeObject(v5, (*&v102 + 8 * (v103 - 1)), v106 + 1);
+        writeObject(v5, (*&v30 + 8 * (v31 - 1)), v34 + 1);
         goto LABEL_26;
       }
 
-      writeObject(v5, v100 + 280, v106 + 1);
-      DgnTextFileWriter::DgnTextFileWriter(&v104);
-      v102 = 0.0;
-      v103 = 0;
-      DgnTextFile::legalDgnTextFileVersions(&v104, sADPT_Versions, &v102, v29, v30, v31, v32, v33);
-      writeObject(v5, (*&v102 + 8 * (v103 - 1)), v106 + 1);
+      writeObject(v5, v28 + 280, v34 + 1);
+      DgnTextFileWriter::DgnTextFileWriter(&v32);
+      v30 = 0.0;
+      v31 = 0;
+      DgnTextFile::legalDgnTextFileVersions(&v32, sADPT_Versions, &v30);
+      writeObject(v5, (*&v30 + 8 * (v31 - 1)), v34 + 1);
     }
 
 LABEL_26:
-    DgnIArray<Utterance *>::~DgnIArray(&v102);
-    DgnTextFileWriter::~DgnTextFileWriter(&v104);
-    v99 = v6;
-    v69 = ParamSpecMgr::smpParamSpecMgrArray[ParamSetHolderMgr::smParamSetTypeRanked[v6]];
-    v104 = 0;
-    v105 = 0;
-    ParamSpecMgr::getAllParamIdsSortedByName(v69, &v104, 0, 0);
-    v101 = 0;
+    DgnIArray<Utterance *>::~DgnIArray(&v30);
+    DgnTextFileWriter::~DgnTextFileWriter(&v32);
+    v27 = v6;
+    v9 = ParamSpecMgr::smpParamSpecMgrArray[ParamSetHolderMgr::smParamSetTypeRanked[v6]];
+    v32 = 0;
+    v33 = 0;
+    ParamSpecMgr::getAllParamIdsSortedByName(v9, &v32, 0, 0);
+    v29 = 0;
     if (v8)
     {
-      v70 = 0;
+      v10 = 0;
       while (1)
       {
-        if (*v7 != 1 || (v71 = v7 + 8, *(v7 + 1) != -2))
+        if (*v7 != 1 || (v11 = v7 + 8, *(v7 + 1) != -2))
         {
-          v71 = *(*(v7 + 3) + 524272);
+          v11 = *(*(v7 + 3) + 524272);
         }
 
-        v72 = *(*(v100 + 1) + 8 * *(*v71 + 4 * v70));
-        writeObject(v5, &v101, v106 + 1);
-        writeObject(v5, v72 + 8, v106 + 1);
-        if (v105)
+        v12 = *(*(v28 + 1) + 8 * *(*v11 + 4 * v10));
+        writeObject(v5, &v29, v34 + 1);
+        writeObject(v5, v12 + 8, v34 + 1);
+        if (v33)
         {
           break;
         }
 
 LABEL_49:
-        v70 = v101 + 1;
-        v101 = v70;
-        if (v8 <= v70)
+        v10 = v29 + 1;
+        v29 = v10;
+        if (v8 <= v10)
         {
           goto LABEL_50;
         }
       }
 
-      v79 = 0;
+      v13 = 0;
       while (1)
       {
-        v80 = *(v104 + 2 * v79);
-        ParamByParamId = ParamSpecMgr::getParamByParamId(v69, *(v104 + 2 * v79), v73, v74, v75, v76, v77, v78);
-        v82 = (*(*ParamByParamId + 24))(ParamByParamId);
-        if (v82 <= 2)
+        v14 = *(v32 + 2 * v13);
+        ParamByParamId = ParamSpecMgr::getParamByParamId(v9, *(v32 + 2 * v13));
+        v16 = (*(*ParamByParamId + 24))(ParamByParamId);
+        if (v16 <= 2)
         {
-          if (v82 == 1)
+          if (v16 == 1)
           {
-            LOBYTE(v102) = (*(*v72 + 24))(v72, v80, 0);
-            writeObject(v5, &v102, v106 + 1);
+            LOBYTE(v30) = (*(*v12 + 24))(v12, v14, 0);
+            writeObject(v5, &v30, v34 + 1);
           }
 
-          else if (v82 == 2)
+          else if (v16 == 2)
           {
-            LODWORD(v102) = (*(*v72 + 32))(v72, v80, 0);
-            writeObject(v5, &v102, v106 + 1);
+            LODWORD(v30) = (*(*v12 + 32))(v12, v14, 0);
+            writeObject(v5, &v30, v34 + 1);
           }
 
           goto LABEL_48;
         }
 
-        switch(v82)
+        switch(v16)
         {
           case 3:
-            v102 = (*(*v72 + 40))(v72, v80, 0);
-            writeObject(v5, &v102, v106 + 1, v86, v87, v88, v89, v90);
+            v30 = (*(*v12 + 40))(v12, v14, 0);
+            writeObject(v5, &v30, v34 + 1);
             break;
           case 4:
-            v91 = (*(*v72 + 48))(v72, v80, 0);
-            DgnString::DgnString(&v102, v91);
-            writeObject(v5, &v102, v106 + 1);
+            v19 = (*(*v12 + 48))(v12, v14, 0);
+            DgnString::DgnString(&v30, v19);
+            writeObject(v5, &v30, v34 + 1);
 LABEL_47:
-            DgnString::~DgnString(&v102);
+            DgnString::~DgnString(&v30);
             break;
           case 5:
-            v83 = ParamSpecMgr::getParamByParamId(v69, v80, v73, v74, v75, v76, v77, v78);
-            if (v83)
+            v17 = ParamSpecMgr::getParamByParamId(v9, v14);
+            if (v17)
             {
-              v84 = **v83;
             }
 
             else
             {
-              v85 = 0;
+              v18 = 0;
             }
 
-            v92 = (*(*v72 + 56))(v72, v80, 0);
-            NameForEnumItem = GetNameForEnumItem(v85[4] + 16, v92);
-            DgnString::DgnString(&v102, NameForEnumItem);
-            writeObject(v5, &v102, v106 + 1);
+            v20 = (*(*v12 + 56))(v12, v14, 0);
+            NameForEnumItem = GetNameForEnumItem(v18[4] + 16, v20);
+            DgnString::DgnString(&v30, NameForEnumItem);
+            writeObject(v5, &v30, v34 + 1);
             goto LABEL_47;
         }
 
 LABEL_48:
-        if (++v79 >= v105)
+        if (++v13 >= v33)
         {
           goto LABEL_49;
         }
@@ -9489,29 +9480,29 @@ LABEL_48:
     }
 
 LABEL_50:
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v104);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v32);
     ++v6;
   }
 
-  while (v99 != 12);
-  writeObjectChecksum(v5, v106 + 1);
+  while (v27 != 12);
+  writeObjectChecksum(v5, v34 + 1);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x44u, SHIDWORD(v106[0]));
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 68, SHIDWORD(v34[0]));
   return DgnDelete<DgnStream>(v5);
 }
 
-void sub_2625CBD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2625CBD64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   DgnIArray<Utterance *>::~DgnIArray(va);
   DgnTextFileWriter::~DgnTextFileWriter(va1);
   _Unwind_Resume(a1);
 }
 
-void ParamSetHolder::saveParamSetHolder(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, int a5)
+void ParamSetHolder::saveParamSetHolder(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, uint64_t a5)
 {
   v19 = 0u;
   v20 = 0u;
@@ -9567,7 +9558,7 @@ void ParamSetHolder::saveParamSetHolder(uint64_t a1, uint64_t a2, _DWORD *a3, in
   LoadSaveTracker::~LoadSaveTracker(&v18);
 }
 
-void sub_2625CBFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_2625CBFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   DFileChecksums::~DFileChecksums(&a13);
   DFileOwner::~DFileOwner(&a16, v22);
@@ -9575,24 +9566,24 @@ void sub_2625CBFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t ParamSetHolder::newParamSet(unsigned int *a1, char *a2, int a3, int a4, char **a5)
+uint64_t ParamSetHolder::newParamSet(unsigned int *a1, char *a2, int a3, int a4, const void *a5)
 {
   if ((isValidRestrictedName(a2) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2122, "recogctl/psholder", 40, "%.500s", v10, v11, a2);
+    v10 = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2122, "recogctl/psholder", 40, "%.500s", a2);
   }
 
   if (a5 || !a4)
   {
     if (a5 && (a4 & 1) == 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2127, "recogctl/psholder", 6, "%s", v10, v11, &errStr_recogctl_psholder_E_NONNULL_PARAMSET_ARG);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2127, "recogctl/psholder", 6, "%s", v10);
     }
   }
 
   else
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2125, "recogctl/psholder", 5, "%s", v10, v11, &errStr_recogctl_psholder_E_NULL_SET_TO_COPY);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2125, "recogctl/psholder", 5, "%s", v10);
   }
 
   NextId = IdMgr<unsigned int>::getNextId(a1 + 6);
@@ -9607,30 +9598,30 @@ uint64_t ParamSetHolder::newParamSet(unsigned int *a1, char *a2, int a3, int a4,
     *(*(a1 + 1) + 8 * i++) = 0;
   }
 
-  v16 = &a1[20 * a3];
-  v17 = v16[22];
-  if (v17)
+  v13 = &a1[20 * a3];
+  v14 = v13[22];
+  if (v14)
   {
-    v18 = *(v16 + 10);
-    v19 = 0xFFFFFFFFLL;
+    v15 = *(v13 + 10);
+    v16 = 0xFFFFFFFFLL;
     while (1)
     {
-      v20 = *v18++;
-      if (v20 == NextId)
+      v17 = *v15++;
+      if (v17 == NextId)
       {
         break;
       }
 
-      --v19;
-      if (!--v17)
+      --v16;
+      if (!--v14)
       {
         goto LABEL_20;
       }
     }
 
-    if (v19)
+    if (v16)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2145, "recogctl/psholder", 3, "%.500s", v12, v13, a2);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/psholder.cpp", 2145, "recogctl/psholder", 3, "%.500s", a2);
     }
   }
 
@@ -9642,57 +9633,54 @@ LABEL_20:
       switch(a3)
       {
         case 10:
-          v77 = MemChunkAlloc(0x210uLL, 0);
-          v78 = v77;
+          v39 = MemChunkAlloc(0x210uLL, 0);
+          v40 = v39;
           if (a4)
           {
-            v79 = **a5;
-            SearchParamSet::SearchParamSet(v78, v80, a2, 10, *a1, NextId);
+            SearchParamSet::SearchParamSet(v40, v41, a2, 10, *a1, NextId);
           }
 
           else
           {
-            SearchParamSet::SearchParamSet(v77, a2, 10, *a1, NextId);
+            SearchParamSet::SearchParamSet(v39, a2, 10, *a1, NextId);
           }
 
-          *(*(a1 + 1) + 8 * NextId) = v78;
-          ParamSetHolder::addName(a1, NextId, a2, 10, v81, v82, v83, v84);
+          *(*(a1 + 1) + 8 * NextId) = v40;
+          ParamSetHolder::addName(a1, NextId, a2, 0xAu);
           ++a1[289];
           break;
         case 11:
-          v109 = MemChunkAlloc(0x50uLL, 0);
-          v110 = v109;
+          v51 = MemChunkAlloc(0x50uLL, 0);
+          v52 = v51;
           if (a4)
           {
-            v111 = **a5;
-            SearchCrossLayerParamSet::SearchCrossLayerParamSet(v110, v112, a2, 11, *a1, NextId);
+            SearchCrossLayerParamSet::SearchCrossLayerParamSet(v52, v53, a2, 11, *a1, NextId);
           }
 
           else
           {
-            SearchCrossLayerParamSet::SearchCrossLayerParamSet(v109, a2, 11, *a1, NextId);
+            SearchCrossLayerParamSet::SearchCrossLayerParamSet(v51, a2, 11, *a1, NextId);
           }
 
-          *(*(a1 + 1) + 8 * NextId) = v110;
-          ParamSetHolder::addName(a1, NextId, a2, 11, v113, v114, v115, v116);
+          *(*(a1 + 1) + 8 * NextId) = v52;
+          ParamSetHolder::addName(a1, NextId, a2, 0xBu);
           ++a1[290];
           break;
         case 12:
-          v45 = MemChunkAlloc(0x38uLL, 0);
-          v46 = v45;
+          v27 = MemChunkAlloc(0x38uLL, 0);
+          v28 = v27;
           if (a4)
           {
-            v47 = **a5;
-            UserDeltaParamSet::UserDeltaParamSet(v46, v48, a2, 12, *a1, NextId);
+            UserDeltaParamSet::UserDeltaParamSet(v28, v29, a2, 12, *a1, NextId);
           }
 
           else
           {
-            UserDeltaParamSet::UserDeltaParamSet(v45, a2, 12, *a1, NextId);
+            UserDeltaParamSet::UserDeltaParamSet(v27, a2, 12, *a1, NextId);
           }
 
-          *(*(a1 + 1) + 8 * NextId) = v46;
-          ParamSetHolder::addName(a1, NextId, a2, 12, v49, v50, v51, v52);
+          *(*(a1 + 1) + 8 * NextId) = v28;
+          ParamSetHolder::addName(a1, NextId, a2, 0xCu);
           ++a1[291];
           break;
       }
@@ -9700,61 +9688,58 @@ LABEL_20:
 
     else if (a3 == 7)
     {
-      v61 = MemChunkAlloc(0x98uLL, 0);
-      v62 = v61;
+      v33 = MemChunkAlloc(0x98uLL, 0);
+      v34 = v33;
       if (a4)
       {
-        v63 = **a5;
-        PrefiltererSearchParamSet::PrefiltererSearchParamSet(v62, v64, a2, 7, *a1, NextId);
+        PrefiltererSearchParamSet::PrefiltererSearchParamSet(v34, v35, a2, 7, *a1, NextId);
       }
 
       else
       {
-        PrefiltererSearchParamSet::PrefiltererSearchParamSet(v61, a2, 7, *a1, NextId);
+        PrefiltererSearchParamSet::PrefiltererSearchParamSet(v33, a2, 7, *a1, NextId);
       }
 
-      *(*(a1 + 1) + 8 * NextId) = v62;
-      ParamSetHolder::addName(a1, NextId, a2, 7, v65, v66, v67, v68);
+      *(*(a1 + 1) + 8 * NextId) = v34;
+      ParamSetHolder::addName(a1, NextId, a2, 7u);
       ++a1[286];
     }
 
     else if (a3 == 8)
     {
-      v93 = MemChunkAlloc(0x40uLL, 0);
-      v94 = v93;
+      v45 = MemChunkAlloc(0x40uLL, 0);
+      v46 = v45;
       if (a4)
       {
-        v95 = **a5;
-        PronGuessParamSet::PronGuessParamSet(v94, v96, a2, 8, *a1, NextId);
+        PronGuessParamSet::PronGuessParamSet(v46, v47, a2, 8, *a1, NextId);
       }
 
       else
       {
-        PronGuessParamSet::PronGuessParamSet(v93, a2, 8, *a1, NextId);
+        PronGuessParamSet::PronGuessParamSet(v45, a2, 8, *a1, NextId);
       }
 
-      *(*(a1 + 1) + 8 * NextId) = v94;
-      ParamSetHolder::addName(a1, NextId, a2, 8, v97, v98, v99, v100);
+      *(*(a1 + 1) + 8 * NextId) = v46;
+      ParamSetHolder::addName(a1, NextId, a2, 8u);
       ++a1[287];
     }
 
     else
     {
-      v29 = MemChunkAlloc(0x48uLL, 0);
-      v30 = v29;
+      v21 = MemChunkAlloc(0x48uLL, 0);
+      v22 = v21;
       if (a4)
       {
-        v31 = **a5;
-        SausageParamSet::SausageParamSet(v30, v32, a2, 9, *a1, NextId);
+        SausageParamSet::SausageParamSet(v22, v23, a2, 9, *a1, NextId);
       }
 
       else
       {
-        SausageParamSet::SausageParamSet(v29, a2, 9, *a1, NextId);
+        SausageParamSet::SausageParamSet(v21, a2, 9, *a1, NextId);
       }
 
-      *(*(a1 + 1) + 8 * NextId) = v30;
-      ParamSetHolder::addName(a1, NextId, a2, 9, v33, v34, v35, v36);
+      *(*(a1 + 1) + 8 * NextId) = v22;
+      ParamSetHolder::addName(a1, NextId, a2, 9u);
       ++a1[288];
     }
   }
@@ -9763,61 +9748,58 @@ LABEL_20:
   {
     if (a3 == 4)
     {
-      v69 = MemChunkAlloc(0x30uLL, 0);
-      v70 = v69;
+      v36 = MemChunkAlloc(0x30uLL, 0);
+      v37 = v36;
       if (a4)
       {
-        v71 = **a5;
-        LatticeNBestParamSet::LatticeNBestParamSet(v70, v72, a2, 4, *a1, NextId);
+        LatticeNBestParamSet::LatticeNBestParamSet(v37, v38, a2, 4, *a1, NextId);
       }
 
       else
       {
-        LatticeNBestParamSet::LatticeNBestParamSet(v69, a2, 4, *a1, NextId);
+        LatticeNBestParamSet::LatticeNBestParamSet(v36, a2, 4, *a1, NextId);
       }
 
-      *(*(a1 + 1) + 8 * NextId) = v70;
-      ParamSetHolder::addName(a1, NextId, a2, 4, v73, v74, v75, v76);
+      *(*(a1 + 1) + 8 * NextId) = v37;
+      ParamSetHolder::addName(a1, NextId, a2, 4u);
       ++a1[283];
     }
 
     else if (a3 == 5)
     {
-      v101 = MemChunkAlloc(0x48uLL, 0);
-      v102 = v101;
+      v48 = MemChunkAlloc(0x48uLL, 0);
+      v49 = v48;
       if (a4)
       {
-        v103 = **a5;
-        LatticePostProbParamSet::LatticePostProbParamSet(v102, v104, a2, 5, *a1, NextId);
+        LatticePostProbParamSet::LatticePostProbParamSet(v49, v50, a2, 5, *a1, NextId);
       }
 
       else
       {
-        LatticePostProbParamSet::LatticePostProbParamSet(v101, a2, 5, *a1, NextId);
+        LatticePostProbParamSet::LatticePostProbParamSet(v48, a2, 5, *a1, NextId);
       }
 
-      *(*(a1 + 1) + 8 * NextId) = v102;
-      ParamSetHolder::addName(a1, NextId, a2, 5, v105, v106, v107, v108);
+      *(*(a1 + 1) + 8 * NextId) = v49;
+      ParamSetHolder::addName(a1, NextId, a2, 5u);
       ++a1[284];
     }
 
     else
     {
-      v37 = MemChunkAlloc(0x98uLL, 0);
-      v38 = v37;
+      v24 = MemChunkAlloc(0x98uLL, 0);
+      v25 = v24;
       if (a4)
       {
-        v39 = **a5;
-        PrefiltererBuildParamSet::PrefiltererBuildParamSet(v38, v40, a2, 6, *a1, NextId);
+        PrefiltererBuildParamSet::PrefiltererBuildParamSet(v25, v26, a2, 6, *a1, NextId);
       }
 
       else
       {
-        PrefiltererBuildParamSet::PrefiltererBuildParamSet(v37, a2, 6, *a1, NextId);
+        PrefiltererBuildParamSet::PrefiltererBuildParamSet(v24, a2, 6, *a1, NextId);
       }
 
-      *(*(a1 + 1) + 8 * NextId) = v38;
-      ParamSetHolder::addName(a1, NextId, a2, 6, v41, v42, v43, v44);
+      *(*(a1 + 1) + 8 * NextId) = v25;
+      ParamSetHolder::addName(a1, NextId, a2, 6u);
       ++a1[285];
     }
   }
@@ -9827,57 +9809,54 @@ LABEL_20:
     switch(a3)
     {
       case 1:
-        v53 = MemChunkAlloc(0x190uLL, 0);
-        v54 = v53;
+        v30 = MemChunkAlloc(0x190uLL, 0);
+        v31 = v30;
         if (a4)
         {
-          v55 = **a5;
-          AdapterParamSet::AdapterParamSet(v54, v56, a2, 1, *a1, NextId);
+          AdapterParamSet::AdapterParamSet(v31, v32, a2, 1, *a1, NextId);
         }
 
         else
         {
-          AdapterParamSet::AdapterParamSet(v53, a2, 1, *a1, NextId);
+          AdapterParamSet::AdapterParamSet(v30, a2, 1, *a1, NextId);
         }
 
-        *(*(a1 + 1) + 8 * NextId) = v54;
-        ParamSetHolder::addName(a1, NextId, a2, 1, v57, v58, v59, v60);
+        *(*(a1 + 1) + 8 * NextId) = v31;
+        ParamSetHolder::addName(a1, NextId, a2, 1u);
         ++a1[280];
         break;
       case 2:
-        v85 = MemChunkAlloc(0x150uLL, 0);
-        v86 = v85;
+        v42 = MemChunkAlloc(0x150uLL, 0);
+        v43 = v42;
         if (a4)
         {
-          v87 = **a5;
-          ChannelParamSet::ChannelParamSet(v86, v88, a2, 2, *a1, NextId);
+          ChannelParamSet::ChannelParamSet(v43, v44, a2, 2, *a1, NextId);
         }
 
         else
         {
-          ChannelParamSet::ChannelParamSet(v85, a2, 2, *a1, NextId);
+          ChannelParamSet::ChannelParamSet(v42, a2, 2, *a1, NextId);
         }
 
-        *(*(a1 + 1) + 8 * NextId) = v86;
-        ParamSetHolder::addName(a1, NextId, a2, 2, v89, v90, v91, v92);
+        *(*(a1 + 1) + 8 * NextId) = v43;
+        ParamSetHolder::addName(a1, NextId, a2, 2u);
         ++a1[281];
         break;
       case 3:
-        v21 = MemChunkAlloc(0x260uLL, 0);
-        v22 = v21;
+        v18 = MemChunkAlloc(0x260uLL, 0);
+        v19 = v18;
         if (a4)
         {
-          v23 = **a5;
-          ConfidenceParamSet::ConfidenceParamSet(v22, v24, a2, 3, *a1, NextId);
+          ConfidenceParamSet::ConfidenceParamSet(v19, v20, a2, 3, *a1, NextId);
         }
 
         else
         {
-          ConfidenceParamSet::ConfidenceParamSet(v21, a2, 3, *a1, NextId);
+          ConfidenceParamSet::ConfidenceParamSet(v18, a2, 3, *a1, NextId);
         }
 
-        *(*(a1 + 1) + 8 * NextId) = v22;
-        ParamSetHolder::addName(a1, NextId, a2, 3, v25, v26, v27, v28);
+        *(*(a1 + 1) + 8 * NextId) = v19;
+        ParamSetHolder::addName(a1, NextId, a2, 3u);
         ++a1[282];
         break;
     }

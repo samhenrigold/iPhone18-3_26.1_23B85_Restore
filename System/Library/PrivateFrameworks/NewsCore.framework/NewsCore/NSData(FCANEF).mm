@@ -7,7 +7,7 @@
 
 - (id)fc_anefEncryptWithKey:()FCANEF
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self fc_anefKeyIsValid:v4])
   {
@@ -23,21 +23,21 @@
     [v6 bytes];
     [self bytes];
     v10 = [self length];
-    v17 = [v5 mutableBytes] + 12;
+    v16 = [v5 mutableBytes] + 12;
     v11 = CCCryptorGCMOneshotEncrypt();
     mutableBytes2 = [v5 mutableBytes];
     v13 = [self length];
-    *(mutableBytes2 + v13 + 12) = v23;
+    *(mutableBytes2 + v13 + 12) = v22;
     if (v11)
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke_2;
-      v18[3] = &unk_1E7C41578;
-      v20 = v11;
-      v18[4] = self;
-      v19 = v4;
-      v14 = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke_2(v18);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke_2;
+      v17[3] = &unk_1E7C41578;
+      v19 = v11;
+      v17[4] = self;
+      v18 = v4;
+      v14 = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke_2(v17);
     }
 
     else
@@ -48,16 +48,14 @@
 
   else
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke;
-    v21[3] = &unk_1E7C397D0;
-    v21[4] = self;
-    v22 = v4;
-    v14 = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke(v21);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke;
+    v20[3] = &unk_1E7C397D0;
+    v20[4] = self;
+    v21 = v4;
+    v14 = __40__NSData_FCANEF__fc_anefEncryptWithKey___block_invoke(v20);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

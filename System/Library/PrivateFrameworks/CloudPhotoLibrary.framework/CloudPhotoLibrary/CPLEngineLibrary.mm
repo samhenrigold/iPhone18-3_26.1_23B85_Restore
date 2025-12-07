@@ -32,6 +32,7 @@
 - (void)_updateTotalAssetCountWithAssetCounts:(id)counts;
 - (void)attachObject:(id)object withCompletionHandler:(id)handler;
 - (void)beginChangeSessionWithSessionToken:(id)token completionHandler:(id)handler;
+- (void)blockEngineWithReason:(id)reason onlyIfBlocked:(BOOL)blocked block:(id)block;
 - (void)clientIsPushingChanges;
 - (void)closeAndDeactivate:(BOOL)deactivate completionHandler:(id)handler;
 - (void)detachObject:(id)object withCompletionHandler:(id)handler;
@@ -68,6 +69,8 @@
 - (void)setAccountEPPCapability:(int64_t)capability;
 - (void)setContainerHasBeenWiped:(BOOL)wiped;
 - (void)setExitDeleteTime:(id)time;
+- (void)setICloudLibraryClientIsNotAuthenticated:(BOOL)authenticated;
+- (void)setICloudLibraryClientVersionTooOld:(BOOL)old;
 - (void)startSyncSession;
 - (void)testKey:(id)key value:(id)value completionHandler:(id)handler;
 - (void)updateAssetCountsFromServer:(id)server;
@@ -118,28 +121,28 @@
 
 void __53__CPLEngineLibrary_endChangeSessionWithSessionToken___block_invoke(void *a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v2 = a1[5];
   if (v3 == *(v2 + 64))
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = __CPLLibraryOSLogDomain();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = __CPLLibraryOSLogDomain();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = a1[4];
+        v17 = a1[4];
         *buf = 138412290;
-        v28 = v18;
-        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Change session for %@ has been ended before it even began", buf, 0xCu);
+        v27 = v17;
+        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Change session for %@ has been ended before it even began", buf, 0xCu);
       }
     }
 
-    v19 = [MEMORY[0x1E696AAA8] currentHandler];
-    v21 = a1[5];
-    v20 = a1[6];
-    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
-    [v19 handleFailureInMethod:v20 object:v21 file:v22 lineNumber:2600 description:{@"Change session for %@ has been ended before it even began", a1[4]}];
+    v18 = [MEMORY[0x1E696AAA8] currentHandler];
+    v20 = a1[5];
+    v19 = a1[6];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
+    [v18 handleFailureInMethod:v19 object:v20 file:v21 lineNumber:2600 description:{@"Change session for %@ has been ended before it even began", a1[4]}];
 LABEL_29:
 
     abort();
@@ -150,21 +153,21 @@ LABEL_29:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = __CPLLibraryOSLogDomain();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v22 = __CPLLibraryOSLogDomain();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v24 = a1[4];
+        v23 = a1[4];
         *buf = 138412290;
-        v28 = v24;
-        _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Ending unknown change session for %@", buf, 0xCu);
+        v27 = v23;
+        _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "Ending unknown change session for %@", buf, 0xCu);
       }
     }
 
-    v19 = [MEMORY[0x1E696AAA8] currentHandler];
-    v26 = a1[5];
-    v25 = a1[6];
-    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
-    [v19 handleFailureInMethod:v25 object:v26 file:v22 lineNumber:2601 description:{@"Ending unknown change session for %@", a1[4]}];
+    v18 = [MEMORY[0x1E696AAA8] currentHandler];
+    v25 = a1[5];
+    v24 = a1[6];
+    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
+    [v18 handleFailureInMethod:v24 object:v25 file:v21 lineNumber:2601 description:{@"Ending unknown change session for %@", a1[4]}];
     goto LABEL_29;
   }
 
@@ -175,7 +178,7 @@ LABEL_29:
     {
       v6 = a1[4];
       *buf = 138412290;
-      v28 = v6;
+      v27 = v6;
       _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Ending change session for %@", buf, 0xCu);
     }
 
@@ -195,7 +198,7 @@ LABEL_29:
       {
         v9 = *(a1[5] + 64);
         *buf = 138412290;
-        v28 = v9;
+        v27 = v9;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Resuming change session for %@", buf, 0xCu);
       }
 
@@ -227,13 +230,11 @@ LABEL_29:
     v15 = *(v14 + 72);
     *(v14 + 72) = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginChangeSessionWithSessionToken:(void *)token completionHandler:
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = a2;
   tokenCopy = token;
   if (self)
@@ -243,17 +244,15 @@ LABEL_29:
       v8 = __CPLLibraryOSLogDomain();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v10 = 138412290;
-        v11 = v6;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Beginning change session for %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v6;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Beginning change session for %@", &v9, 0xCu);
       }
     }
 
     objc_storeStrong((self + 56), a2);
     tokenCopy[2](tokenCopy, 0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginChangeSessionWithSessionToken:(id)token completionHandler:(id)handler
@@ -284,101 +283,96 @@ LABEL_29:
 
 void __73__CPLEngineLibrary_beginChangeSessionWithSessionToken_completionHandler___block_invoke(void *a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (*(v2 + 80))
   {
     v3 = *(a1[6] + 16);
-    v4 = *MEMORY[0x1E69E9840];
 
     v3();
   }
 
   else if (*(v2 + 104))
   {
-    v5 = a1[6];
-    v29 = +[CPLErrors libraryClosedError];
-    (*(v5 + 16))(v5);
-    v6 = *MEMORY[0x1E69E9840];
+    v4 = a1[6];
+    v25 = +[CPLErrors libraryClosedError];
+    (*(v4 + 16))(v4);
   }
 
   else
   {
-    v7 = *(v2 + 56);
-    if (v7)
+    v5 = *(v2 + 56);
+    if (v5)
     {
       if (*(v2 + 64))
       {
-        v8 = *(v2 + 72);
-        v9 = [CPLErrors incorrectMachineStateErrorWithReason:@"session has been superseded"];
-        (*(v8 + 16))(v8, v9);
+        v6 = *(v2 + 72);
+        v7 = [CPLErrors incorrectMachineStateErrorWithReason:@"session has been superseded"];
+        (*(v6 + 16))(v6, v7);
 
-        v10 = a1[4];
-        v11 = *(v10 + 64);
-        *(v10 + 64) = 0;
+        v8 = a1[4];
+        v9 = *(v8 + 64);
+        *(v8 + 64) = 0;
 
         v2 = a1[4];
-        v7 = *(v2 + 56);
+        v5 = *(v2 + 56);
       }
 
-      v12 = a1[5];
-      if (v12 == v7)
+      v10 = a1[5];
+      if (v10 == v5)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v23 = __CPLLibraryOSLogDomain();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v19 = __CPLLibraryOSLogDomain();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v24 = a1[5];
+            v20 = a1[5];
             *buf = 138412290;
-            v31 = v24;
-            _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "%@ is trying to begin a session twice", buf, 0xCu);
+            v27 = v20;
+            _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "%@ is trying to begin a session twice", buf, 0xCu);
           }
         }
 
-        v25 = [MEMORY[0x1E696AAA8] currentHandler];
-        v26 = a1[7];
-        v27 = a1[4];
-        v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
-        [v25 handleFailureInMethod:v26 object:v27 file:v28 lineNumber:2591 description:{@"%@ is trying to begin a session twice", a1[5]}];
+        v21 = [MEMORY[0x1E696AAA8] currentHandler];
+        v22 = a1[7];
+        v23 = a1[4];
+        v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
+        [v21 handleFailureInMethod:v22 object:v23 file:v24 lineNumber:2591 description:{@"%@ is trying to begin a session twice", a1[5]}];
 
         abort();
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v13 = __CPLLibraryOSLogDomain();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v11 = __CPLLibraryOSLogDomain();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = a1[5];
-          v15 = *(a1[4] + 56);
+          v12 = a1[5];
+          v13 = *(a1[4] + 56);
           *buf = 138412546;
-          v31 = v14;
-          v32 = 2112;
-          v33 = v15;
-          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Blocking change session for %@ until %@ is done", buf, 0x16u);
+          v27 = v12;
+          v28 = 2112;
+          v29 = v13;
+          _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Blocking change session for %@ until %@ is done", buf, 0x16u);
         }
 
         v2 = a1[4];
-        v12 = a1[5];
+        v10 = a1[5];
       }
 
-      objc_storeStrong((v2 + 64), v12);
-      v16 = MEMORY[0x1E128EBA0](a1[6]);
-      v17 = a1[4];
-      v18 = *(v17 + 72);
-      *(v17 + 72) = v16;
-
-      v19 = *MEMORY[0x1E69E9840];
+      objc_storeStrong((v2 + 64), v10);
+      v14 = MEMORY[0x1E128EBA0](a1[6]);
+      v15 = a1[4];
+      v16 = *(v15 + 72);
+      *(v15 + 72) = v14;
     }
 
     else
     {
-      v20 = a1[5];
-      v21 = a1[6];
-      v22 = *MEMORY[0x1E69E9840];
+      v17 = a1[5];
+      v18 = a1[6];
 
-      [(CPLEngineLibrary *)v2 _beginChangeSessionWithSessionToken:v20 completionHandler:v21];
+      [(CPLEngineLibrary *)v2 _beginChangeSessionWithSessionToken:v17 completionHandler:v18];
     }
   }
 }
@@ -582,7 +576,7 @@ uint64_t __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler__
 
 uint64_t __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler___block_invoke_3_195(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v4 = __CPLLibraryOSLogDomain();
@@ -593,44 +587,44 @@ uint64_t __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler__
     }
   }
 
-  v32 = 0u;
-  v33 = 0u;
   v31 = 0u;
+  v32 = 0u;
   v30 = 0u;
+  v29 = 0u;
   v5 = [*(*(a1 + 32) + 256) storages];
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v22 = a2;
+    v21 = a2;
     v8 = 0;
-    v9 = *v31;
+    v9 = *v30;
     while (2)
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * v10);
+        v12 = *(*(&v29 + 1) + 8 * v10);
         v13 = objc_autoreleasePoolPush();
-        v29 = v11;
-        LODWORD(v12) = [v12 performMaintenanceWithError:&v29];
-        v8 = v29;
+        v28 = v11;
+        LODWORD(v12) = [v12 performMaintenanceWithError:&v28];
+        v8 = v28;
 
         if (!v12)
         {
           objc_autoreleasePoolPop(v13);
 
-          if (v22)
+          if (v21)
           {
             v19 = v8;
             v18 = 0;
-            *v22 = v8;
+            *v21 = v8;
           }
 
           else
@@ -646,7 +640,7 @@ uint64_t __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler__
         block[1] = 3221225472;
         block[2] = __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler___block_invoke_196;
         block[3] = &unk_1E861EC08;
-        v28 = *(a1 + 56);
+        v27 = *(a1 + 56);
         dispatch_sync(v14, block);
         v15 = *(*(*(a1 + 64) + 8) + 24);
         objc_autoreleasePoolPop(v13);
@@ -660,7 +654,7 @@ uint64_t __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler__
       }
 
       while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v7)
       {
         continue;
@@ -679,23 +673,22 @@ LABEL_16:
 
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler___block_invoke_2_197;
-    v24[3] = &unk_1E861EF00;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler___block_invoke_2_197;
+    v23[3] = &unk_1E861EF00;
     v16 = *(a1 + 40);
-    v24[4] = *(a1 + 32);
-    v23 = *(a1 + 48);
-    v17 = v23;
-    v25 = v23;
-    v26 = *(a1 + 72);
-    dispatch_sync(v16, v24);
+    v23[4] = *(a1 + 32);
+    v22 = *(a1 + 48);
+    v17 = v22;
+    v24 = v22;
+    v25 = *(a1 + 72);
+    dispatch_sync(v16, v23);
   }
 
   v18 = 1;
 LABEL_22:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -723,22 +716,21 @@ void *__67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler___bl
 
 void __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler___block_invoke_3(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLLibraryOSLogDomain();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = a1[4];
-      v4 = objc_opt_class();
-      v5 = a1[7];
-      v6 = v4;
-      v7 = NSStringFromSelector(v5);
-      v9 = 138412546;
-      v10 = v4;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "[%@ %@] was cancelled by caller", &v9, 0x16u);
+      v3 = objc_opt_class();
+      v4 = a1[7];
+      v5 = v3;
+      v6 = NSStringFromSelector(v4);
+      v7 = 138412546;
+      v8 = v3;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "[%@ %@] was cancelled by caller", &v7, 0x16u);
     }
   }
 
@@ -747,8 +739,21 @@ void __67__CPLEngineLibrary_performMaintenanceCleanupWithCompletionHandler___blo
   {
     [*(a1[4] + 256) stopVacuum];
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)blockEngineWithReason:(id)reason onlyIfBlocked:(BOOL)blocked block:(id)block
+{
+  blockedCopy = blocked;
+  blockCopy = block;
+  scheduler = self->_scheduler;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __62__CPLEngineLibrary_blockEngineWithReason_onlyIfBlocked_block___block_invoke;
+  v11[3] = &unk_1E861EEB0;
+  v11[4] = self;
+  v12 = blockCopy;
+  v10 = blockCopy;
+  [(CPLEngineScheduler *)scheduler blockAllSyncSessionsWithReason:reason onlyIfBlocked:blockedCopy block:v11];
 }
 
 void __62__CPLEngineLibrary_blockEngineWithReason_onlyIfBlocked_block___block_invoke(uint64_t a1, void *a2)
@@ -783,7 +788,7 @@ void __62__CPLEngineLibrary_blockEngineWithReason_onlyIfBlocked_block___block_in
 
 - (void)forceInitialDownloadWithActivity:(id)activity scopeIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   identifiersCopy = identifiers;
   handlerCopy = handler;
@@ -800,137 +805,136 @@ void __62__CPLEngineLibrary_blockEngineWithReason_onlyIfBlocked_block___block_in
   }
 
   v12 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:3];
-  v99[0] = 0;
-  v99[1] = v99;
-  v99[2] = 0x2020000000;
-  v100 = 0;
+  v98[0] = 0;
+  v98[1] = v98;
+  v98[2] = 0x2020000000;
+  v99 = 0;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v102 = 0x3032000000;
-  v103 = __Block_byref_object_copy__16777;
-  v104 = __Block_byref_object_dispose__16778;
-  v105 = 0;
-  v97[0] = 0;
-  v97[1] = v97;
-  v97[2] = 0x2020000000;
-  v98 = 0;
-  v44 = self->_store;
+  v101 = 0x3032000000;
+  v102 = __Block_byref_object_copy__16777;
+  v103 = __Block_byref_object_dispose__16778;
+  v104 = 0;
+  v96[0] = 0;
+  v96[1] = v96;
+  v96[2] = 0x2020000000;
+  v97 = 0;
+  v43 = self->_store;
   v13 = self->_queue;
-  v95[0] = 0;
-  v95[1] = v95;
-  v95[2] = 0x3032000000;
-  v95[3] = __Block_byref_object_copy__16777;
-  v95[4] = __Block_byref_object_dispose__16778;
-  v96 = 0;
-  v93[0] = 0;
-  v93[1] = v93;
-  v93[2] = 0x2020000000;
-  v94 = 0;
-  v81[0] = MEMORY[0x1E69E9820];
-  v81[1] = 3221225472;
-  v81[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke;
-  v81[3] = &unk_1E861ECF8;
+  v94[0] = 0;
+  v94[1] = v94;
+  v94[2] = 0x3032000000;
+  v94[3] = __Block_byref_object_copy__16777;
+  v94[4] = __Block_byref_object_dispose__16778;
+  v95 = 0;
+  v92[0] = 0;
+  v92[1] = v92;
+  v92[2] = 0x2020000000;
+  v93 = 0;
+  v80[0] = MEMORY[0x1E69E9820];
+  v80[1] = 3221225472;
+  v80[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke;
+  v80[3] = &unk_1E861ECF8;
   v14 = v13;
-  v82 = v14;
-  v87 = v99;
+  v81 = v14;
+  v86 = v98;
   v15 = v12;
-  v92 = 3;
-  v83 = v15;
+  v91 = 3;
+  v82 = v15;
   p_buf = &buf;
   v16 = identifiersCopy;
-  v84 = v16;
-  v89 = v93;
-  v90 = v97;
-  v43 = handlerCopy;
+  v83 = v16;
+  v88 = v92;
+  v89 = v96;
+  v42 = handlerCopy;
   selfCopy = self;
-  v86 = v43;
-  v91 = v95;
-  v17 = MEMORY[0x1E128EBA0](v81);
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_5;
-  v77[3] = &unk_1E861B3D0;
+  v85 = v42;
+  v90 = v94;
+  v17 = MEMORY[0x1E128EBA0](v80);
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_5;
+  v76[3] = &unk_1E861B3D0;
   v18 = v14;
-  v78 = v18;
+  v77 = v18;
   v19 = v16;
-  v79 = v19;
+  v78 = v19;
   v20 = v17;
-  v80 = v20;
-  [v15 setCancellationHandler:v77];
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_172;
-  v71[3] = &unk_1E861ED20;
+  v79 = v20;
+  [v15 setCancellationHandler:v76];
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_172;
+  v70[3] = &unk_1E861ED20;
   v21 = v18;
-  v72 = v21;
-  v76 = v99;
+  v71 = v21;
+  v75 = v98;
   v22 = v15;
-  v73 = v22;
+  v72 = v22;
   selfCopy2 = self;
   v23 = v20;
-  v75 = v23;
-  v24 = MEMORY[0x1E128EBA0](v71);
-  v62[0] = MEMORY[0x1E69E9820];
-  v62[1] = 3221225472;
-  v62[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_176;
-  v62[3] = &unk_1E861ED98;
+  v74 = v23;
+  v24 = MEMORY[0x1E128EBA0](v70);
+  v61[0] = MEMORY[0x1E69E9820];
+  v61[1] = 3221225472;
+  v61[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_176;
+  v61[3] = &unk_1E861ED98;
   v25 = v21;
-  v69 = v99;
-  v70 = &buf;
-  v63 = v25;
+  v68 = v98;
+  v69 = &buf;
+  v62 = v25;
   selfCopy3 = self;
   v26 = activityCopy;
-  v65 = v26;
+  v64 = v26;
   v27 = v23;
-  v67 = v27;
+  v66 = v27;
   v28 = v22;
-  v66 = v28;
+  v65 = v28;
   v29 = v24;
-  v68 = v29;
-  v30 = MEMORY[0x1E128EBA0](v62);
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_181;
-  v54[3] = &unk_1E861EE10;
+  v67 = v29;
+  v30 = MEMORY[0x1E128EBA0](v61);
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_181;
+  v53[3] = &unk_1E861EE10;
   v31 = v25;
-  v55 = v31;
+  v54 = v31;
   selfCopy4 = self;
-  v60 = v99;
-  v61 = v97;
+  v59 = v98;
+  v60 = v96;
   v32 = v28;
-  v57 = v32;
+  v56 = v32;
   v33 = v27;
-  v58 = v33;
+  v57 = v33;
   v34 = v30;
-  v59 = v34;
-  v35 = MEMORY[0x1E128EBA0](v54);
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_184;
-  v46[3] = &unk_1E861EE60;
-  v46[4] = self;
+  v58 = v34;
+  v35 = MEMORY[0x1E128EBA0](v53);
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_184;
+  v45[3] = &unk_1E861EE60;
+  v45[4] = self;
   v36 = v33;
-  v50 = v36;
-  v37 = v44;
-  v47 = v37;
+  v49 = v36;
+  v37 = v43;
+  v46 = v37;
   v38 = v19;
-  v48 = v38;
+  v47 = v38;
   v39 = v31;
-  v49 = v39;
-  v52 = v95;
+  v48 = v39;
+  v51 = v94;
   v40 = v35;
-  v51 = v40;
-  v53 = v93;
-  v41 = [(CPLEngineStore *)v37 performReadTransactionWithBlock:v46];
+  v50 = v40;
+  v52 = v92;
+  v41 = [(CPLEngineStore *)v37 performReadTransactionWithBlock:v45];
 
-  _Block_object_dispose(v93, 8);
-  _Block_object_dispose(v95, 8);
+  _Block_object_dispose(v92, 8);
+  _Block_object_dispose(v94, 8);
 
-  _Block_object_dispose(v97, 8);
+  _Block_object_dispose(v96, 8);
   _Block_object_dispose(&buf, 8);
 
-  _Block_object_dispose(v99, 8);
-  v42 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v98, 8);
 }
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1033,7 +1037,7 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_176(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(a1 + 32));
@@ -1050,19 +1054,19 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
     [*(*(*(a1 + 88) + 8) + 40) setTaskIdentifier:v11];
 
     [*(*(*(a1 + 88) + 8) + 40) setBypassForceSyncLimitations:1];
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_3_178;
-    v20 = &unk_1E861ED70;
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_3_178;
+    v19 = &unk_1E861ED70;
     v12 = *(a1 + 32);
     v13 = *(a1 + 80);
-    v21 = v12;
-    v26 = v13;
-    v24 = *(a1 + 64);
-    v22 = *(a1 + 56);
-    v25 = *(a1 + 72);
-    v23 = v6;
-    [*(*(*(a1 + 88) + 8) + 40) setTaskDidFinishWithErrorBlock:&v17];
+    v20 = v12;
+    v25 = v13;
+    v23 = *(a1 + 64);
+    v21 = *(a1 + 56);
+    v24 = *(a1 + 72);
+    v22 = v6;
+    [*(*(*(a1 + 88) + 8) + 40) setTaskDidFinishWithErrorBlock:&v16];
     if ((_CPLSilentLogging & 1) == 0)
     {
       v14 = __CPLInitialDownloadOSLogDomain();
@@ -1070,15 +1074,13 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
       {
         v15 = *(*(*(a1 + 88) + 8) + 40);
         *buf = 138412290;
-        v28 = v15;
+        v27 = v15;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Starting %@", buf, 0xCu);
       }
     }
 
     [*(*(*(a1 + 88) + 8) + 40) launchTask];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_181(uint64_t a1, void *a2, void *a3)
@@ -1106,60 +1108,60 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_184(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
   if (v4)
   {
     v5 = *(*(a1 + 32) + 16);
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_3_185;
-    v47[3] = &unk_1E861ECD0;
-    v49 = *(a1 + 64);
-    v48 = v3;
-    v6 = v47;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_3_185;
+    v46[3] = &unk_1E861ECD0;
+    v48 = *(a1 + 64);
+    v47 = v3;
+    v6 = v46;
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v52 = __cpl_dispatch_async_block_invoke_16734;
-    v53 = &unk_1E861B4E0;
-    v54 = v6;
+    v51 = __cpl_dispatch_async_block_invoke_16734;
+    v52 = &unk_1E861B4E0;
+    v53 = v6;
     v7 = v5;
     v8 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
     dispatch_async(v7, v8);
 
-    v9 = v49;
+    v9 = v48;
   }
 
   else
   {
     v9 = [*(a1 + 40) scopes];
-    v33 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
     v32 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
+    v31 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v31 = a1;
+    v30 = a1;
     v10 = *(a1 + 48);
-    v11 = [v10 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v42 objects:v49 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v44;
+      v13 = *v43;
       do
       {
         v14 = 0;
         do
         {
-          if (*v44 != v13)
+          if (*v43 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v43 + 1) + 8 * v14);
-          v16 = [v9 scopeWithIdentifier:{v15, v31}];
+          v15 = *(*(&v42 + 1) + 8 * v14);
+          v16 = [v9 scopeWithIdentifier:{v15, v30}];
           if (!v16 || ([v9 valueForFlag:16 forScope:v16] & 1) != 0 || (objc_msgSend(v9, "hasFinishedInitialDownloadForScope:", v16) & 1) != 0)
           {
             if ((_CPLSilentLogging & 1) == 0)
@@ -1176,41 +1178,41 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
 
           else
           {
-            [v33 addObject:v15];
-            [v32 addObject:v16];
+            [v32 addObject:v15];
+            [v31 addObject:v16];
           }
 
           ++v14;
         }
 
         while (v12 != v14);
-        v18 = [v10 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v18 = [v10 countByEnumeratingWithState:&v42 objects:v49 count:16];
         v12 = v18;
       }
 
       while (v18);
     }
 
-    if ([v33 count])
+    if ([v32 count])
     {
-      v19 = [v9 filterForIncludedScopeIdentifiers:v33];
-      v20 = *(v31 + 56);
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_187;
-      v37[3] = &unk_1E861EE38;
-      v42 = *(v31 + 80);
-      v21 = v32;
-      v38 = v32;
-      v41 = *(v31 + 72);
-      v39 = v19;
-      v40 = v33;
-      v22 = v37;
+      v19 = [v9 filterForIncludedScopeIdentifiers:v32];
+      v20 = *(v30 + 56);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_187;
+      v36[3] = &unk_1E861EE38;
+      v41 = *(v30 + 80);
+      v21 = v31;
+      v37 = v31;
+      v40 = *(v30 + 72);
+      v38 = v19;
+      v39 = v32;
+      v22 = v36;
       *&block = MEMORY[0x1E69E9820];
       *(&block + 1) = 3221225472;
-      v52 = __cpl_dispatch_async_block_invoke_16734;
-      v53 = &unk_1E861B4E0;
-      v54 = v22;
+      v51 = __cpl_dispatch_async_block_invoke_16734;
+      v52 = &unk_1E861B4E0;
+      v53 = v22;
       v23 = v20;
       v24 = v19;
       v25 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
@@ -1219,29 +1221,27 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
 
     else
     {
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_188;
-      v34[3] = &unk_1E861E778;
-      v36 = *(v31 + 88);
-      v26 = *(v31 + 56);
-      v35 = *(v31 + 64);
-      v27 = v34;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_188;
+      v33[3] = &unk_1E861E778;
+      v35 = *(v30 + 88);
+      v26 = *(v30 + 56);
+      v34 = *(v30 + 64);
+      v27 = v33;
       *&block = MEMORY[0x1E69E9820];
       *(&block + 1) = 3221225472;
-      v52 = __cpl_dispatch_async_block_invoke_16734;
-      v53 = &unk_1E861B4E0;
-      v54 = v27;
+      v51 = __cpl_dispatch_async_block_invoke_16734;
+      v52 = &unk_1E861B4E0;
+      v53 = v27;
       v28 = v26;
       v29 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
       dispatch_async(v28, v29);
 
-      v24 = v35;
-      v21 = v32;
+      v24 = v34;
+      v21 = v31;
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_3_185(uint64_t a1)
@@ -1353,12 +1353,11 @@ uint64_t __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifier
     {
       [*(result + 40) setCompletedUnitCount:2];
       v2 = *(v1 + 64);
-      v3 = *(v1 + 48);
     }
 
-    v4 = *(v2 + 16);
+    v3 = *(v2 + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -1366,7 +1365,7 @@ uint64_t __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifier
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_173(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLInitialDownloadOSLogDomain();
@@ -1374,48 +1373,44 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
     {
       v3 = [*(a1 + 32) componentsJoinedByString:{@", "}];
       *buf = 138412290;
-      v10 = v3;
+      v9 = v3;
       _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Making sure client has pulled all changes for %@", buf, 0xCu);
     }
   }
 
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_174;
-  v7[3] = &unk_1E861B550;
-  v8 = *(a1 + 48);
-  [v4 requestClientToPullAllChangesWithScopeIdentifiers:v5 completionHandler:v7];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_174;
+  v6[3] = &unk_1E861B550;
+  v7 = *(a1 + 48);
+  [v4 requestClientToPullAllChangesWithScopeIdentifiers:v5 completionHandler:v6];
 }
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_6(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLInitialDownloadOSLogDomain();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [*(a1 + 32) componentsJoinedByString:{@", "}];
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Forced initial download of %{public}@ has been cancelled", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Forced initial download of %{public}@ has been cancelled", &v6, 0xCu);
     }
   }
 
   v4 = *(a1 + 40);
   v5 = +[CPLErrors operationCancelledError];
   (*(v4 + 16))(v4, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   dispatch_assert_queue_V2(*(a1 + 32));
   [*(a1 + 40) setCompletedUnitCount:*(a1 + 96)];
@@ -1442,15 +1437,15 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
     }
 
     v9 = [*(a1 + 48) componentsJoinedByString:{@", "}];
-    v15 = 138543362;
-    v16 = v9;
+    v14 = 138543362;
+    v15 = v9;
     v10 = "Initial download of %{public}@ finished successfully";
 LABEL_11:
     v11 = v8;
     v12 = OS_LOG_TYPE_DEFAULT;
     v13 = 12;
 LABEL_15:
-    _os_log_impl(&dword_1DC05A000, v11, v12, v10, &v15, v13);
+    _os_log_impl(&dword_1DC05A000, v11, v12, v10, &v14, v13);
 
     goto LABEL_16;
   }
@@ -1469,8 +1464,8 @@ LABEL_15:
     }
 
     v9 = [*(a1 + 48) componentsJoinedByString:{@", "}];
-    v15 = 138543362;
-    v16 = v9;
+    v14 = 138543362;
+    v15 = v9;
     v10 = "Initial download of %{public}@ has been cancelled";
     goto LABEL_11;
   }
@@ -1484,10 +1479,10 @@ LABEL_15:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = [*(a1 + 48) componentsJoinedByString:{@", "}];
-    v15 = 138543618;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v3;
+    v14 = 138543618;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v3;
     v10 = "Initial download of %{public}@ finished with error: %@";
     v11 = v8;
     v12 = OS_LOG_TYPE_ERROR;
@@ -1504,8 +1499,6 @@ LABEL_17:
   {
     [*(*(a1 + 56) + 264) enableSynchronizationWithReason:@"initial download"];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_170(uint64_t a1, void *a2)
@@ -1553,35 +1546,35 @@ void __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_co
 
 uint64_t __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifiers_completionHandler___block_invoke_2_171(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) validLocalScopeIndexes];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = *(*(*(a1 + 40) + 8) + 40);
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v21;
+    v9 = *v20;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         if ([v4 containsIndex:{objc_msgSend(v11, "localIndex")}])
         {
           v12 = *(a1 + 32);
-          v19 = v8;
-          v13 = [v12 setHasFinishedInitialDownloadForScope:v11 error:&v19];
-          v14 = v19;
+          v18 = v8;
+          v13 = [v12 setHasFinishedInitialDownloadForScope:v11 error:&v18];
+          v14 = v18;
 
           if (!v13)
           {
@@ -1605,7 +1598,7 @@ uint64_t __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifier
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -1624,7 +1617,6 @@ uint64_t __88__CPLEngineLibrary_forceInitialDownloadWithActivity_scopeIdentifier
   v14 = v8;
 LABEL_17:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1800,7 +1792,7 @@ void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHa
 
 void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHandler___block_invoke_166(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!v3)
@@ -1817,8 +1809,8 @@ LABEL_8:
       v5 = __CPLBackupOSLogDomain();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v8) = 0;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Client might not have pushed all changes yet - continuing backup nonetheless", &v8, 2u);
+        LOWORD(v7) = 0;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Client might not have pushed all changes yet - continuing backup nonetheless", &v7, 2u);
       }
     }
 
@@ -1830,21 +1822,20 @@ LABEL_8:
     v6 = __CPLBackupOSLogDomain();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Client failed to push all changes to engine: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Client failed to push all changes to engine: %@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
 
 LABEL_14:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ((*(*(a1 + 56) + 16))())
   {
     v2 = [[CPLEngineBackupSyncTask alloc] initWithEngineLibrary:*(a1 + 32) delegate:*(*(a1 + 32) + 272)];
@@ -1860,16 +1851,16 @@ void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHa
 
     [*(*(*(a1 + 72) + 8) + 40) setBypassForceSyncLimitations:1];
     v8 = *(*(*(a1 + 72) + 8) + 40);
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHandler___block_invoke_4;
-    v17 = &unk_1E861EC58;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 48);
-    v13 = *(a1 + 64);
-    v9 = v13;
-    v20 = v13;
-    [v8 setTaskDidFinishWithErrorBlock:&v14];
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHandler___block_invoke_4;
+    v16 = &unk_1E861EC58;
+    v17 = *(a1 + 32);
+    v18 = *(a1 + 48);
+    v12 = *(a1 + 64);
+    v9 = v12;
+    v19 = v12;
+    [v8 setTaskDidFinishWithErrorBlock:&v13];
     if ((_CPLSilentLogging & 1) == 0)
     {
       v10 = __CPLBackupOSLogDomain();
@@ -1877,15 +1868,13 @@ void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHa
       {
         v11 = *(*(*(a1 + 72) + 8) + 40);
         *buf = 138412290;
-        v22 = v11;
+        v21 = v11;
         _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Launching forced backup task %@", buf, 0xCu);
       }
     }
 
     [*(*(*(a1 + 72) + 8) + 40) launchTask];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHandler___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
@@ -1915,7 +1904,7 @@ void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHa
 
 void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHandler___block_invoke_5(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setCompletedUnitCount:{objc_msgSend(*(a1 + 32), "totalUnitCount")}];
   v3 = *(a1 + 40);
   if (!v3)
@@ -1933,8 +1922,8 @@ void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHa
     }
 
     v11 = *(*(*(a1 + 56) + 8) + 40);
-    v15 = 138412290;
-    v16 = v11;
+    v14 = 138412290;
+    v15 = v11;
     v7 = "Forced backup task %@ did finish successfully";
     v8 = v4;
     v9 = OS_LOG_TYPE_DEFAULT;
@@ -1955,16 +1944,16 @@ LABEL_9:
 
     v5 = *(*(*(a1 + 56) + 8) + 40);
     v6 = *(a1 + 40);
-    v15 = 138412546;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
+    v14 = 138412546;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
     v7 = "Forced backup task %@ did finish with error %@";
     v8 = v4;
     v9 = OS_LOG_TYPE_ERROR;
     v10 = 22;
 LABEL_8:
-    _os_log_impl(&dword_1DC05A000, v8, v9, v7, &v15, v10);
+    _os_log_impl(&dword_1DC05A000, v8, v9, v7, &v14, v10);
     goto LABEL_9;
   }
 
@@ -1973,13 +1962,11 @@ LABEL_10:
   v12 = *(*(a1 + 56) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = 0;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 32) + 8) + 40);
   if (v2)
   {
@@ -1989,9 +1976,9 @@ void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHa
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = *(*(*(a1 + 32) + 8) + 40);
-        v7 = 138412290;
-        v8 = v4;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Backup task %@ has been cancelled", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = v4;
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Backup task %@ has been cancelled", &v6, 0xCu);
       }
 
       v2 = *(*(*(a1 + 32) + 8) + 40);
@@ -2005,13 +1992,12 @@ void __78__CPLEngineLibrary_forceBackupWithActivity_forceClientPush_completionHa
     v5 = __CPLBackupOSLogDomain();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Backup has been cancelled", &v7, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Backup has been cancelled", &v6, 2u);
     }
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestScopesWithIdentifiersToBeActivated:(id)activated completionHandler:(id)handler
@@ -2255,37 +2241,35 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
 
 uint64_t __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_3_148(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(*(a1 + 32));
-  if ((*(*(*(a1 + 64) + 8) + 24) & 1) == 0)
+  if (*(*(*(a1 + 64) + 8) + 24))
   {
-    if (*(*(a1 + 40) + 104) != 1)
-    {
-      result = 1;
-      goto LABEL_10;
-    }
+    return 0;
+  }
 
+  if (*(*(a1 + 40) + 104) == 1)
+  {
     if ((_CPLSilentLogging & 1) == 0)
     {
       v2 = __CPLLibraryOSLogDomain();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
         v3 = [*(a1 + 48) componentsJoinedByString:{@", "}];
-        v8 = 138543362;
-        v9 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Engine got a request to have %{public}@ activated but it is closed", &v8, 0xCu);
+        v7 = 138543362;
+        v8 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Engine got a request to have %{public}@ activated but it is closed", &v7, 0xCu);
       }
     }
 
     v4 = *(a1 + 56);
     v5 = [CPLErrors incorrectMachineStateErrorWithReason:@"Engine is closed"];
     (*(v4 + 16))(v4, v5);
+
+    return 0;
   }
 
-  result = 0;
-LABEL_10:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 uint64_t __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_149(uint64_t a1)
@@ -2320,27 +2304,27 @@ uint64_t __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_comple
 
 void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_153(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v45 objects:v54 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v47;
+    v5 = *v46;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v47 != v5)
+        if (*v46 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v46 + 1) + 8 * i);
+        v7 = *(*(&v45 + 1) + 8 * i);
         v8 = [*(a1 + 40) scopeWithIdentifier:v7];
         if (v8 && ([*(a1 + 40) valueForFlag:16 forScope:v8] & 1) == 0)
         {
@@ -2348,7 +2332,7 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v45 objects:v54 count:16];
     }
 
     while (v4);
@@ -2359,10 +2343,10 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
     v9 = [MEMORY[0x1E696AFB0] UUID];
     v10 = [v9 UUIDString];
 
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_3_155;
-    v40[3] = &unk_1E861EB90;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_3_155;
+    v39[3] = &unk_1E861EB90;
     v11 = *(a1 + 40);
     v12 = *(a1 + 48);
     v13 = *(a1 + 56);
@@ -2372,32 +2356,32 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
     *(&v16 + 1) = v15;
     *&v17 = v12;
     *(&v17 + 1) = v13;
-    v41 = v17;
-    v42 = v16;
-    v43 = *(a1 + 104);
-    [v11 addScopeFlagsObserver:v40 withIdentifier:v10];
+    v40 = v17;
+    v41 = v16;
+    v42 = *(a1 + 104);
+    [v11 addScopeFlagsObserver:v39 withIdentifier:v10];
     v18 = *(a1 + 56);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_6;
-    v30[3] = &unk_1E861EBB8;
-    v36 = *(a1 + 96);
-    v31 = *(a1 + 64);
-    v32 = *(a1 + 40);
-    v33 = v10;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_6;
+    v29[3] = &unk_1E861EBB8;
+    v35 = *(a1 + 96);
+    v30 = *(a1 + 64);
+    v31 = *(a1 + 40);
+    v32 = v10;
     v19 = *(a1 + 72);
     v20 = *(a1 + 112);
-    v39 = *(a1 + 120);
-    v34 = v19;
-    v37 = v20;
-    v35 = *(a1 + 80);
-    v38 = *(a1 + 88);
-    v21 = v30;
+    v38 = *(a1 + 120);
+    v33 = v19;
+    v36 = v20;
+    v34 = *(a1 + 80);
+    v37 = *(a1 + 88);
+    v21 = v29;
     block = MEMORY[0x1E69E9820];
-    v51 = 3221225472;
-    v52 = __cpl_dispatch_async_block_invoke_16734;
-    v53 = &unk_1E861B4E0;
-    v54 = v21;
+    v50 = 3221225472;
+    v51 = __cpl_dispatch_async_block_invoke_16734;
+    v52 = &unk_1E861B4E0;
+    v53 = v21;
     v22 = v18;
     v23 = v10;
     v24 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
@@ -2407,25 +2391,23 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
   else
   {
     v25 = *(a1 + 56);
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_2_154;
-    v44[3] = &unk_1E861B4E0;
-    v45 = *(a1 + 88);
-    v26 = v44;
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_2_154;
+    v43[3] = &unk_1E861B4E0;
+    v44 = *(a1 + 88);
+    v26 = v43;
     block = MEMORY[0x1E69E9820];
-    v51 = 3221225472;
-    v52 = __cpl_dispatch_async_block_invoke_16734;
-    v53 = &unk_1E861B4E0;
-    v54 = v26;
+    v50 = 3221225472;
+    v51 = __cpl_dispatch_async_block_invoke_16734;
+    v52 = &unk_1E861B4E0;
+    v53 = v26;
     v27 = v25;
     v28 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
     dispatch_async(v27, v28);
 
-    v23 = v45;
+    v23 = v44;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_3_155(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -2582,7 +2564,7 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
 
 void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completionHandler___block_invoke_5(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) == *(*(*(a1 + 56) + 8) + 40))
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2592,20 +2574,18 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
       {
         v3 = [*(a1 + 40) componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v11 = v3;
+        v10 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Client has not tried to activate %@ for a long time", buf, 0xCu);
       }
     }
 
     v4 = *(a1 + 48);
-    v8 = @"CPLErrorLibraryHasNotBeenActivated";
-    v9 = MEMORY[0x1E695E118];
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+    v7 = @"CPLErrorLibraryHasNotBeenActivated";
+    v8 = MEMORY[0x1E695E118];
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
     v6 = [CPLErrors cplErrorWithCode:83 underlyingError:0 userInfo:v5 description:@"Client failed to activate scopes in time"];
     (*(v4 + 16))(v4, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteMainScopeHasBeenActivated
@@ -2629,7 +2609,7 @@ void __80__CPLEngineLibrary_requestScopesWithIdentifiersToBeActivated_completion
 
 void __49__CPLEngineLibrary_noteMainScopeHasBeenActivated__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (([*(*(a1 + 32) + 88) hasFinishedInitialDownload] & 1) == 0)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2639,19 +2619,17 @@ void __49__CPLEngineLibrary_noteMainScopeHasBeenActivated__block_invoke(uint64_t
       {
         v3 = [*(a1 + 32) mainScopeIdentifier];
         v4 = *(a1 + 32);
-        v7 = 138543618;
-        v8 = v3;
-        v9 = 2112;
-        v10 = v4;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ for %@ has been activated - signaling owner", &v7, 0x16u);
+        v6 = 138543618;
+        v7 = v3;
+        v8 = 2112;
+        v9 = v4;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ for %@ has been activated - signaling owner", &v6, 0x16u);
       }
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 240));
     [WeakRetained engineLibraryNeedsInitialDownloadOfMainScope:*(a1 + 32)];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestClientToPullAllChangesWithScopeIdentifiers:(id)identifiers completionHandler:(id)handler
@@ -2898,7 +2876,7 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
 
 uint64_t __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_3_125(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(*(a1 + 32));
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
@@ -2909,8 +2887,8 @@ uint64_t __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifier
         v2 = __CPLLibraryOSLogDomain();
         if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v13) = 0;
-          _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Completion handler should have been called by cancellation handler", &v13, 2u);
+          LOWORD(v12) = 0;
+          _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Completion handler should have been called by cancellation handler", &v12, 2u);
         }
       }
 
@@ -2922,37 +2900,32 @@ uint64_t __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifier
 
       abort();
     }
+
+    return 0;
   }
 
-  else
+  if (*(*(a1 + 40) + 104) == 1)
   {
-    if (*(*(a1 + 40) + 104) != 1)
-    {
-      result = 1;
-      goto LABEL_16;
-    }
-
     if ((_CPLSilentLogging & 1) == 0)
     {
       v7 = __CPLLibraryOSLogDomain();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = [*(a1 + 48) componentsJoinedByString:{@", "}];
-        v13 = 138543362;
-        v14 = v8;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Engine got a request to try to pull changes in %{public}@ but it is closed", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v8;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Engine got a request to try to pull changes in %{public}@ but it is closed", &v12, 0xCu);
       }
     }
 
     v9 = *(a1 + 56);
     v10 = [CPLErrors incorrectMachineStateErrorWithReason:@"Engine is closed"];
     (*(v9 + 16))(v9, v10);
+
+    return 0;
   }
 
-  result = 0;
-LABEL_16:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_129(uint64_t a1)
@@ -3060,7 +3033,7 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
 
 void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_2_130(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) scopes];
   v3 = [v2 filterForIncludedScopeIdentifiers:*(a1 + 40)];
 
@@ -3068,38 +3041,38 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
   {
     [*(a1 + 64) notifyAttachedObjectsPullQueueIsFull];
     v4 = *(a1 + 48);
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_2_132;
-    v28[3] = &unk_1E861E9D0;
-    v5 = &v29;
-    v29 = v3;
-    v30 = *(a1 + 40);
-    v31 = *(a1 + 56);
-    v33 = *(a1 + 80);
-    v34 = *(a1 + 88);
-    v32 = *(a1 + 72);
-    v35 = *(a1 + 96);
-    v6 = [v4 addDequeueObserverWithDequeueSignalBlock:v28];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_2_132;
+    v27[3] = &unk_1E861E9D0;
+    v5 = &v28;
+    v28 = v3;
+    v29 = *(a1 + 40);
+    v30 = *(a1 + 56);
+    v32 = *(a1 + 80);
+    v33 = *(a1 + 88);
+    v31 = *(a1 + 72);
+    v34 = *(a1 + 96);
+    v6 = [v4 addDequeueObserverWithDequeueSignalBlock:v27];
     v7 = *(a1 + 56);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_3_136;
-    v20[3] = &unk_1E861E9F8;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_3_136;
+    v19[3] = &unk_1E861E9F8;
     v8 = *(a1 + 88);
-    v27 = *(a1 + 104);
-    v25 = v8;
-    v21 = v6;
-    v22 = *(a1 + 40);
-    v26 = *(a1 + 96);
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 48);
-    v9 = v20;
+    v26 = *(a1 + 104);
+    v24 = v8;
+    v20 = v6;
+    v21 = *(a1 + 40);
+    v25 = *(a1 + 96);
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 48);
+    v9 = v19;
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v39 = __cpl_dispatch_async_block_invoke_16734;
-    v40 = &unk_1E861B4E0;
-    v41 = v9;
+    v38 = __cpl_dispatch_async_block_invoke_16734;
+    v39 = &unk_1E861B4E0;
+    v40 = v9;
     v10 = v7;
     v11 = v6;
     v12 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
@@ -3121,29 +3094,27 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
     }
 
     v15 = *(a1 + 56);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_131;
-    v36[3] = &unk_1E861B4E0;
-    v5 = &v37;
-    v37 = *(a1 + 80);
-    v16 = v36;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_131;
+    v35[3] = &unk_1E861B4E0;
+    v5 = &v36;
+    v36 = *(a1 + 80);
+    v16 = v35;
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v39 = __cpl_dispatch_async_block_invoke_16734;
-    v40 = &unk_1E861B4E0;
-    v41 = v16;
+    v38 = __cpl_dispatch_async_block_invoke_16734;
+    v39 = &unk_1E861B4E0;
+    v40 = v16;
     v17 = v15;
     v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
     dispatch_async(v17, v18);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_2_132(uint64_t a1, void *a2, int a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if (a3 && ([v5 hasSomeChangeWithScopeFilter:*(a1 + 32)] & 1) == 0)
@@ -3161,18 +3132,18 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
     }
 
     v14 = *(a1 + 48);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_133;
-    v23[3] = &unk_1E861B4E0;
-    v8 = &v24;
-    v24 = *(a1 + 64);
-    v15 = v23;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_133;
+    v22[3] = &unk_1E861B4E0;
+    v8 = &v23;
+    v23 = *(a1 + 64);
+    v15 = v22;
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v26 = __cpl_dispatch_async_block_invoke_16734;
-    v27 = &unk_1E861B4E0;
-    v28 = v15;
+    v25 = __cpl_dispatch_async_block_invoke_16734;
+    v26 = &unk_1E861B4E0;
+    v27 = v15;
     v16 = v14;
     v17 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
     dispatch_async(v16, v17);
@@ -3181,31 +3152,29 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
   else
   {
     v7 = *(a1 + 48);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_2_134;
-    v19[3] = &unk_1E861E9A8;
-    v8 = &v21;
-    v21 = *(a1 + 72);
-    v20 = *(a1 + 56);
-    v22 = *(a1 + 80);
-    v9 = v19;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_2_134;
+    v18[3] = &unk_1E861E9A8;
+    v8 = &v20;
+    v20 = *(a1 + 72);
+    v19 = *(a1 + 56);
+    v21 = *(a1 + 80);
+    v9 = v18;
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v26 = __cpl_dispatch_async_block_invoke_16734;
-    v27 = &unk_1E861B4E0;
-    v28 = v9;
+    v25 = __cpl_dispatch_async_block_invoke_16734;
+    v26 = &unk_1E861B4E0;
+    v27 = v9;
     v10 = v7;
     v11 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
     dispatch_async(v10, v11);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_3_136(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ((*(*(a1 + 64) + 16))())
   {
     objc_storeStrong((*(*(a1 + 80) + 8) + 40), *(a1 + 32));
@@ -3216,7 +3185,7 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
       {
         v3 = [*(a1 + 40) componentsJoinedByString:{@", "}];
         *buf = 138543362;
-        v11 = v3;
+        v10 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Start waiting for client to pull all changes for %{public}@", buf, 0xCu);
       }
     }
@@ -3226,17 +3195,15 @@ void __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_co
 
   else
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_137;
-    v7[3] = &unk_1E86205B8;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_137;
+    v6[3] = &unk_1E86205B8;
     v4 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 32);
-    v5 = [v4 performReadTransactionWithBlock:v7];
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 32);
+    v5 = [v4 performReadTransactionWithBlock:v6];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __88__CPLEngineLibrary_requestClientToPullAllChangesWithScopeIdentifiers_completionHandler___block_invoke_2_134(uint64_t a1)
@@ -3650,7 +3617,7 @@ void __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler__
 
 void __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler___block_invoke_2_112(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 56) + 8) + 40);
   if (v2)
   {
@@ -3679,7 +3646,7 @@ void __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler__
       v8 = *(a1 + 32);
 LABEL_16:
       (*(v7 + 16))(v7, v8);
-      goto LABEL_22;
+      return;
     }
 
     v8 = *(a1 + 32);
@@ -3692,7 +3659,7 @@ LABEL_16:
         {
           v10 = *(a1 + 32);
           *buf = 138412290;
-          v20 = v10;
+          v19 = v10;
           _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Client failed to push all changes: %@", buf, 0xCu);
         }
 
@@ -3716,21 +3683,18 @@ LABEL_16:
 
   v12 = *(a1 + 40);
   v13 = *(v12 + 256);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler___block_invoke_113;
-  v18[3] = &unk_1E86205E0;
-  v18[4] = v12;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler___block_invoke_3_115;
-  v16[3] = &unk_1E8620308;
-  v16[4] = v12;
-  v17 = *(a1 + 48);
-  v14 = [v13 performWriteTransactionWithBlock:v18 completionHandler:v16];
-
-LABEL_22:
-  v15 = *MEMORY[0x1E69E9840];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler___block_invoke_113;
+  v17[3] = &unk_1E86205E0;
+  v17[4] = v12;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler___block_invoke_3_115;
+  v15[3] = &unk_1E8620308;
+  v15[4] = v12;
+  v16 = *(a1 + 48);
+  v14 = [v13 performWriteTransactionWithBlock:v17 completionHandler:v15];
 }
 
 uint64_t __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler___block_invoke_113(uint64_t a1, void *a2)
@@ -3767,7 +3731,7 @@ void __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler__
 
 void __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler___block_invoke_4_116(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) error];
 
   if (v2)
@@ -3778,25 +3742,22 @@ void __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler__
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         v4 = [*(a1 + 32) error];
-        v10 = 138412290;
-        v11 = v4;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_ERROR, "Failed to commit pending change updates: %@", &v10, 0xCu);
+        v8 = 138412290;
+        v9 = v4;
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_ERROR, "Failed to commit pending change updates: %@", &v8, 0xCu);
       }
     }
 
     v5 = *(a1 + 40);
     v6 = [*(a1 + 32) error];
     (*(v5 + 16))(v5, v6);
-
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v8 = *(*(a1 + 40) + 16);
-    v9 = *MEMORY[0x1E69E9840];
+    v7 = *(*(a1 + 40) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -3874,7 +3835,7 @@ void __71__CPLEngineLibrary_requestClientToPushAllChangesWithCompletionHandler__
 
 void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 104) == 1)
   {
@@ -3885,7 +3846,7 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
       {
         v4 = *(a1 + 40);
         *buf = 138412290;
-        v14 = v4;
+        v13 = v4;
         _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Engine got a request to try to provide %@ but it is closed. Should try again later", buf, 0xCu);
       }
     }
@@ -3902,7 +3863,7 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
       {
         v6 = *(a1 + 40);
         *buf = 138412290;
-        v14 = v6;
+        v13 = v6;
         _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Engine got a request to try to provide %@", buf, 0xCu);
       }
 
@@ -3910,22 +3871,20 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
     }
 
     v7 = *(v2 + 256);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_95;
-    v10[3] = &unk_1E861F9D8;
-    v10[4] = v2;
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v8 = [v7 performReadTransactionWithBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_95;
+    v9[3] = &unk_1E861F9D8;
+    v9[4] = v2;
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v8 = [v7 performReadTransactionWithBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_95(uint64_t a1)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 256) isClientInSyncWithClientCache])
   {
     v2 = [*(a1 + 40) itemScopedIdentifier];
@@ -3941,9 +3900,9 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
         {
           v13 = *(a1 + 40);
           *buf = 138412546;
-          v49 = v3;
-          v50 = 2112;
-          v51 = v13;
+          v48 = v3;
+          v49 = 2112;
+          v50 = v13;
           _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "%@ is an unknown scope. Marking (cloud) %@ as unavailable", buf, 0x16u);
         }
       }
@@ -3976,9 +3935,9 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
         {
           v15 = *(a1 + 40);
           *buf = 138412546;
-          v49 = v3;
-          v50 = 2112;
-          v51 = v15;
+          v48 = v3;
+          v49 = 2112;
+          v50 = v15;
           _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "%@ is inactive. Marking (cloud) %@ as unavailable", buf, 0x16u);
         }
       }
@@ -3988,8 +3947,8 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
     }
 
     v16 = [*(a1 + 40) identity];
-    v47 = 0;
-    v17 = [*(*(a1 + 32) + 256) localResourceForCloudResource:*(a1 + 40) recordClass:&v47];
+    v46 = 0;
+    v17 = [*(*(a1 + 32) + 256) localResourceForCloudResource:*(a1 + 40) recordClass:&v46];
     if (v17)
     {
       v18 = v17;
@@ -4004,35 +3963,35 @@ LABEL_27:
         [v23 setFileURL:v24];
 
         v25 = *(a1 + 32);
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_96;
-        v40[3] = &unk_1E861E840;
-        v40[4] = v25;
-        v41 = v22;
-        v46 = v47;
-        v42 = v9;
-        v43 = *(a1 + 40);
-        v44 = v2;
-        v45 = *(a1 + 48);
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_96;
+        v39[3] = &unk_1E861E840;
+        v39[4] = v25;
+        v40 = v22;
+        v45 = v46;
+        v41 = v9;
+        v42 = *(a1 + 40);
+        v43 = v2;
+        v44 = *(a1 + 48);
         v26 = v22;
-        [v25 performBlockOnLibrary:v40];
+        [v25 performBlockOnLibrary:v39];
 
 LABEL_50:
 LABEL_51:
 
 LABEL_52:
-        goto LABEL_53;
+        return;
       }
 
-      v39 = v16;
+      v38 = v16;
       v20 = [v18 identity];
       v21 = [v20 fingerPrint];
 
       if (v21 && ([v19 isEqual:v21] & 1) != 0)
       {
 
-        v16 = v39;
+        v16 = v38;
         goto LABEL_27;
       }
 
@@ -4043,12 +4002,12 @@ LABEL_52:
         {
           v28 = *(a1 + 40);
           *buf = 138412290;
-          v49 = v28;
+          v48 = v28;
           _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_DEFAULT, "Fingerprint for (cloud) %@ does not match the one in client cache", buf, 0xCu);
         }
       }
 
-      v16 = v39;
+      v16 = v38;
     }
 
     if ([*(*(a1 + 32) + 256) hasPendingChangeSessionUpdate])
@@ -4060,7 +4019,7 @@ LABEL_52:
         {
           v30 = *(a1 + 40);
           *buf = 138412290;
-          v49 = v30;
+          v48 = v30;
           v31 = "Engine has pending changes to apply. Should try again later for (cloud) %@";
           v32 = v29;
           v33 = 12;
@@ -4084,7 +4043,7 @@ LABEL_46:
           {
             v35 = *(a1 + 40);
             *buf = 138412290;
-            v49 = v35;
+            v48 = v35;
             _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_DEFAULT, "Unable to find (cloud) %@ for recovery", buf, 0xCu);
           }
         }
@@ -4100,9 +4059,9 @@ LABEL_46:
         {
           v37 = *(a1 + 40);
           *buf = 138412546;
-          v49 = v3;
-          v50 = 2112;
-          v51 = v37;
+          v48 = v3;
+          v49 = 2112;
+          v50 = v37;
           v31 = "%@ is not fully synchronized. Should try again later for (cloud) %@";
           v32 = v29;
           v33 = 22;
@@ -4126,19 +4085,17 @@ LABEL_49:
     {
       v11 = *(a1 + 40);
       *buf = 138412290;
-      v49 = v11;
+      v48 = v11;
       _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Engine is not in sync with client. Should try again later for (cloud) %@", buf, 0xCu);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-LABEL_53:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_96(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -4150,7 +4107,7 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
       {
         v13 = *(a1 + 56);
         *buf = 138412290;
-        v25 = v13;
+        v24 = v13;
         v14 = "Client is not attached. Should try again later for (cloud) %@";
 LABEL_10:
         _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
@@ -4173,7 +4130,7 @@ LABEL_12:
       {
         v15 = *(a1 + 56);
         *buf = 138412290;
-        v25 = v15;
+        v24 = v15;
         v14 = "Client has not implemented recovery yet. Should try again later for (cloud) %@";
         goto LABEL_10;
       }
@@ -4187,27 +4144,26 @@ LABEL_12:
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
   v9 = *(a1 + 80);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_2;
-  v17[3] = &unk_1E861E818;
-  v18 = *(a1 + 48);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 64);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_2;
+  v16[3] = &unk_1E861E818;
+  v17 = *(a1 + 48);
+  v18 = *(a1 + 56);
+  v19 = *(a1 + 64);
   v10 = v5;
   v11 = *(a1 + 32);
-  v21 = v10;
-  v22 = v11;
-  v23 = *(a1 + 72);
-  [v10 engineLibrary:v7 provideLocalResource:v8 recordClass:v9 completionHandler:v17];
+  v20 = v10;
+  v21 = v11;
+  v22 = *(a1 + 72);
+  [v10 engineLibrary:v7 provideLocalResource:v8 recordClass:v9 completionHandler:v16];
 
 LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!a3)
   {
@@ -4240,9 +4196,9 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
 
           v29 = *(a1 + 40);
           *buf = 138543618;
-          v37 = v28;
-          v38 = 2112;
-          v39 = v29;
+          v35 = v28;
+          v36 = 2112;
+          v37 = v29;
           _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_ERROR, "Client (%{public}@) did not provide a file for (cloud) %@ yet it says the resource is available", buf, 0x16u);
           if (!v27)
           {
@@ -4270,11 +4226,11 @@ void __59__CPLEngineLibrary_provideCloudResource_completionHandler___block_invok
         v19 = [v14 path];
         v20 = *(a1 + 40);
         *buf = 138543874;
-        v37 = v18;
+        v35 = v18;
+        v36 = 2112;
+        v37 = v19;
         v38 = 2112;
-        v39 = v19;
-        v40 = 2112;
-        v41 = v20;
+        v39 = v20;
         _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "Client (%{public}@) provided %@ for (cloud) %@", buf, 0x20u);
         if (!v17)
         {
@@ -4294,7 +4250,6 @@ LABEL_27:
 
 LABEL_43:
         [*(a1 + 40) setIdentity:v15];
-        v33 = *(a1 + 40);
         (*(*(a1 + 72) + 16))();
 
 LABEL_44:
@@ -4302,9 +4257,9 @@ LABEL_44:
       }
 
       v23 = [MEMORY[0x1E696AC08] defaultManager];
-      v35 = 0;
-      v24 = [v23 cplCopyItemAtURL:v14 toURL:v22 error:&v35];
-      v25 = v35;
+      v33 = 0;
+      v24 = [v23 cplCopyItemAtURL:v14 toURL:v22 error:&v33];
+      v25 = v33;
 
       if (v24)
       {
@@ -4320,11 +4275,11 @@ LABEL_44:
           v31 = [v14 path];
           v32 = [v22 path];
           *buf = 138412802;
-          v37 = v31;
+          v35 = v31;
+          v36 = 2112;
+          v37 = v32;
           v38 = 2112;
-          v39 = v32;
-          v40 = 2112;
-          v41 = v25;
+          v39 = v25;
           _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_ERROR, "Failed to copy %@ to %@. Will provide the source URL instead: %@", buf, 0x20u);
         }
       }
@@ -4349,11 +4304,11 @@ LABEL_44:
       v9 = *(a1 + 40);
       v10 = [CPLLibraryManager descriptionForProvideContentResult:a3];
       *buf = 138543874;
-      v37 = v8;
+      v35 = v8;
+      v36 = 2112;
+      v37 = v9;
       v38 = 2112;
-      v39 = v9;
-      v40 = 2112;
-      v41 = v10;
+      v39 = v10;
       _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Client (%{public}@) recovery result for (cloud) %@ is: %@", buf, 0x20u);
       if (!v7)
       {
@@ -4363,8 +4318,6 @@ LABEL_44:
 
   (*(*(a1 + 72) + 16))();
 LABEL_45:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provideRecordWithCloudScopeIdentifier:(id)identifier completionHandler:(id)handler
@@ -4394,7 +4347,7 @@ LABEL_45:
 
 void __76__CPLEngineLibrary_provideRecordWithCloudScopeIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 104) == 1)
   {
@@ -4405,7 +4358,7 @@ void __76__CPLEngineLibrary_provideRecordWithCloudScopeIdentifier_completionHand
       {
         v4 = *(a1 + 40);
         *buf = 138412290;
-        v12 = v4;
+        v11 = v4;
         _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Engine got a request to try to provide record %@ but it is closed. Should try again later", buf, 0xCu);
       }
     }
@@ -4416,22 +4369,20 @@ void __76__CPLEngineLibrary_provideRecordWithCloudScopeIdentifier_completionHand
   else
   {
     v5 = *(v2 + 256);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __76__CPLEngineLibrary_provideRecordWithCloudScopeIdentifier_completionHandler___block_invoke_94;
-    v8[3] = &unk_1E861F9D8;
-    v8[4] = v2;
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v6 = [v5 performReadTransactionWithBlock:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __76__CPLEngineLibrary_provideRecordWithCloudScopeIdentifier_completionHandler___block_invoke_94;
+    v7[3] = &unk_1E861F9D8;
+    v7[4] = v2;
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v6 = [v5 performReadTransactionWithBlock:v7];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __76__CPLEngineLibrary_provideRecordWithCloudScopeIdentifier_completionHandler___block_invoke_94(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 256) isClientInSyncWithClientCache])
   {
     v2 = [*(a1 + 40) scopeIdentifier];
@@ -4445,10 +4396,10 @@ void __76__CPLEngineLibrary_provideRecordWithCloudScopeIdentifier_completionHand
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           v10 = *(a1 + 40);
-          *v25 = 138412546;
-          *&v25[4] = v2;
-          v26 = 2112;
-          v27 = v10;
+          *v24 = 138412546;
+          *&v24[4] = v2;
+          v25 = 2112;
+          v26 = v10;
           v7 = "%@ is an unknown scope. Marking record %@ as unavailable";
           goto LABEL_15;
         }
@@ -4460,7 +4411,7 @@ LABEL_17:
       (*(*(a1 + 48) + 16))(*(a1 + 48), 0, 1);
 LABEL_38:
 
-      goto LABEL_39;
+      return;
     }
 
     if ([v3 valueForFlag:16 forScope:v4])
@@ -4471,13 +4422,13 @@ LABEL_38:
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           v6 = *(a1 + 40);
-          *v25 = 138412546;
-          *&v25[4] = v2;
-          v26 = 2112;
-          v27 = v6;
+          *v24 = 138412546;
+          *&v24[4] = v2;
+          v25 = 2112;
+          v26 = v6;
           v7 = "%@ is inactive. Marking record %@ as unavailable";
 LABEL_15:
-          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, v7, v25, 0x16u);
+          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, v7, v24, 0x16u);
           goto LABEL_16;
         }
 
@@ -4498,9 +4449,9 @@ LABEL_15:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           v14 = *(a1 + 40);
-          *v25 = 138412290;
-          *&v25[4] = v14;
-          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Record %@ is available in cloud cache", v25, 0xCu);
+          *v24 = 138412290;
+          *&v24[4] = v14;
+          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Record %@ is available in cloud cache", v24, 0xCu);
         }
       }
 
@@ -4511,9 +4462,9 @@ LABEL_15:
     {
       if ([v3 hasFinishedInitialSyncForScope:v4])
       {
-        v25[0] = 0;
+        v24[0] = 0;
         v16 = [*(*(a1 + 32) + 256) idMapping];
-        v17 = [v16 localScopedIdentifierForCloudScopedIdentifier:*(a1 + 40) isFinal:v25];
+        v17 = [v16 localScopedIdentifierForCloudScopedIdentifier:*(a1 + 40) isFinal:v24];
 
         if (!v17 || ([*(*(a1 + 32) + 256) transactionClientCacheView], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "hasRecordWithScopedIdentifier:", v17), v18, v17, !v19))
         {
@@ -4523,9 +4474,9 @@ LABEL_15:
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               v21 = *(a1 + 40);
-              *v25 = 138412290;
-              *&v25[4] = v21;
-              _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_DEFAULT, "Record %@ is not in cloud cache and it does not seem it might appear later. Marking as unavailable", v25, 0xCu);
+              *v24 = 138412290;
+              *&v24[4] = v21;
+              _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_DEFAULT, "Record %@ is not in cloud cache and it does not seem it might appear later. Marking as unavailable", v24, 0xCu);
             }
           }
 
@@ -4540,11 +4491,11 @@ LABEL_15:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           v23 = *(a1 + 40);
-          *v25 = 138412546;
-          *&v25[4] = v2;
-          v26 = 2112;
-          v27 = v23;
-          _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "%@ is not fully synchronized. Should try again later for record %@", v25, 0x16u);
+          *v24 = 138412546;
+          *&v24[4] = v2;
+          v25 = 2112;
+          v26 = v23;
+          _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "%@ is not fully synchronized. Should try again later for record %@", v24, 0x16u);
         }
       }
 
@@ -4563,15 +4514,13 @@ LABEL_37:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 40);
-      *v25 = 138412290;
-      *&v25[4] = v9;
-      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Engine is not in sync with client. Should try again later to get record %@", v25, 0xCu);
+      *v24 = 138412290;
+      *&v24[4] = v9;
+      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Engine is not in sync with client. Should try again later to get record %@", v24, 0xCu);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-LABEL_39:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provideScopeChangeForScopeWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -4601,7 +4550,7 @@ LABEL_39:
 
 void __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 104) == 1)
   {
@@ -4612,7 +4561,7 @@ void __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionH
       {
         v4 = *(a1 + 40);
         *buf = 138412290;
-        v12 = v4;
+        v11 = v4;
         _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Engine got a request to try to provide library info for %@ but it is closed. Should try again later", buf, 0xCu);
       }
     }
@@ -4623,22 +4572,20 @@ void __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionH
   else
   {
     v5 = *(v2 + 256);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_93;
-    v8[3] = &unk_1E861F9D8;
-    v8[4] = v2;
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v6 = [v5 performReadTransactionWithBlock:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_93;
+    v7[3] = &unk_1E861F9D8;
+    v7[4] = v2;
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v6 = [v5 performReadTransactionWithBlock:v7];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_93(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([*(a1[4] + 256) isClientInSyncWithClientCache])
   {
     v2 = [*(a1[4] + 256) scopes];
@@ -4659,9 +4606,9 @@ void __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionH
               if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
               {
                 v7 = a1[5];
-                v19 = 138412290;
-                v20 = v7;
-                _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Scope Change for %@ is available", &v19, 0xCu);
+                v18 = 138412290;
+                v19 = v7;
+                _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Scope Change for %@ is available", &v18, 0xCu);
               }
             }
 
@@ -4672,13 +4619,13 @@ void __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionH
           {
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v17 = __CPLDataRecoveryOSLogDomain();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              v16 = __CPLDataRecoveryOSLogDomain();
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
-                v18 = a1[5];
-                v19 = 138412290;
-                v20 = v18;
-                _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Scope Change for %@ is not available", &v19, 0xCu);
+                v17 = a1[5];
+                v18 = 138412290;
+                v19 = v17;
+                _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "Scope Change for %@ is not available", &v18, 0xCu);
               }
             }
 
@@ -4696,8 +4643,8 @@ void __79__CPLEngineLibrary_provideScopeChangeForScopeWithIdentifier_completionH
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             v15 = a1[5];
-            v19 = 138412290;
-            v20 = v15;
+            v18 = 138412290;
+            v19 = v15;
             v13 = "%@ is inactive. Marking scope info as unavailable";
             goto LABEL_25;
           }
@@ -4709,7 +4656,7 @@ LABEL_27:
         (*(a1[6] + 16))(a1[6], 0);
 LABEL_28:
 
-        goto LABEL_29;
+        return;
       }
 
       if (_CPLSilentLogging)
@@ -4724,8 +4671,8 @@ LABEL_28:
       }
 
       v14 = a1[5];
-      v19 = 138412290;
-      v20 = v14;
+      v18 = 138412290;
+      v19 = v14;
       v13 = "%@ is an unknown type of scope. Marking scope info as unavailable";
     }
 
@@ -4743,13 +4690,13 @@ LABEL_28:
       }
 
       v12 = a1[5];
-      v19 = 138412290;
-      v20 = v12;
+      v18 = 138412290;
+      v19 = v12;
       v13 = "%@ is an unknown scope. Marking library info as unavailable";
     }
 
 LABEL_25:
-    _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, v13, &v19, 0xCu);
+    _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, v13, &v18, 0xCu);
     goto LABEL_26;
   }
 
@@ -4759,15 +4706,13 @@ LABEL_25:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = a1[5];
-      v19 = 138412290;
-      v20 = v10;
-      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Engine is not in sync with client. Should try again later to get library info for %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v10;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Engine is not in sync with client. Should try again later to get library info for %@", &v18, 0xCu);
     }
   }
 
   (*(a1[6] + 16))();
-LABEL_29:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)providePayloadForComputeStates:(id)states inFolderWithURL:(id)l completionHandler:(id)handler
@@ -5004,7 +4949,7 @@ void __85__CPLEngineLibrary_providePayloadForComputeStates_inFolderWithURL_compl
 
 void __161__CPLEngineLibrary_notifyAttachedObjectsSizeOfResourcesToUploadDidChangeToSize_sizeOfOriginalResourcesToUpload_numberOfImages_numberOfVideos_numberOfOtherItems___block_invoke(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -5013,19 +4958,17 @@ void __161__CPLEngineLibrary_notifyAttachedObjectsSizeOfResourcesToUploadDidChan
     {
       v5 = a1[5];
       v6 = a1[6];
-      v8 = 138543874;
-      v9 = v3;
-      v10 = 2048;
-      v11 = v5;
-      v12 = 2048;
-      v13 = v6;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that size of resources to upload did change to %llu (%llu)", &v8, 0x20u);
+      v7 = 138543874;
+      v8 = v3;
+      v9 = 2048;
+      v10 = v5;
+      v11 = 2048;
+      v12 = v6;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that size of resources to upload did change to %llu (%llu)", &v7, 0x20u);
     }
   }
 
   [v3 engineLibrary:a1[4] sizeOfResourcesToUploadDidChangeToSize:a1[5] sizeOfOriginalResourcesToUpload:a1[6] numberOfImages:a1[7] numberOfVideos:a1[8] numberOfOtherItems:a1[9]];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAttachedObjectsUploadTask:(id)task didFinishWithError:(id)error
@@ -5046,7 +4989,7 @@ void __161__CPLEngineLibrary_notifyAttachedObjectsSizeOfResourcesToUploadDidChan
 
 void __71__CPLEngineLibrary_notifyAttachedObjectsUploadTask_didFinishWithError___block_invoke(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -5055,19 +4998,17 @@ void __71__CPLEngineLibrary_notifyAttachedObjectsUploadTask_didFinishWithError__
     {
       v5 = a1[4];
       v6 = a1[5];
-      v8 = 138543874;
-      v9 = v3;
-      v10 = 2112;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that %@ did finish with error %@", &v8, 0x20u);
+      v7 = 138543874;
+      v8 = v3;
+      v9 = 2112;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that %@ did finish with error %@", &v7, 0x20u);
     }
   }
 
   [v3 engineLibrary:a1[6] uploadTask:a1[4] didFinishWithError:a1[5]];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAttachedObjectsUploadTask:(id)task didProgress:(float)progress
@@ -5086,7 +5027,7 @@ void __71__CPLEngineLibrary_notifyAttachedObjectsUploadTask_didFinishWithError__
 
 void __64__CPLEngineLibrary_notifyAttachedObjectsUploadTask_didProgress___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -5095,20 +5036,18 @@ void __64__CPLEngineLibrary_notifyAttachedObjectsUploadTask_didProgress___block_
     {
       v6 = *(a1 + 32);
       v7 = (*(a1 + 48) * 100.0);
-      v9 = 138543874;
-      v10 = v3;
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2048;
-      v14 = v7;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that %@ did progress to %.0f%%", &v9, 0x20u);
+      v8 = 138543874;
+      v9 = v3;
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2048;
+      v13 = v7;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that %@ did progress to %.0f%%", &v8, 0x20u);
     }
   }
 
   LODWORD(v4) = *(a1 + 48);
   [v3 engineLibrary:*(a1 + 40) uploadTask:*(a1 + 32) didProgress:v4];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAttachedObjectsUploadTaskDidStart:(id)start
@@ -5126,7 +5065,7 @@ void __64__CPLEngineLibrary_notifyAttachedObjectsUploadTask_didProgress___block_
 
 void __60__CPLEngineLibrary_notifyAttachedObjectsUploadTaskDidStart___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -5134,17 +5073,15 @@ void __60__CPLEngineLibrary_notifyAttachedObjectsUploadTaskDidStart___block_invo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v3;
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that %@ did start", &v7, 0x16u);
+      v6 = 138543618;
+      v7 = v3;
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %{public}@ that %@ did start", &v6, 0x16u);
     }
   }
 
   [v3 engineLibrary:*(a1 + 40) didStartUploadTask:*(a1 + 32)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAttachedObjectsResourceDidFailBackgroundDownloadOfResource:(id)resource
@@ -5162,7 +5099,7 @@ void __60__CPLEngineLibrary_notifyAttachedObjectsUploadTaskDidStart___block_invo
 
 void __85__CPLEngineLibrary_notifyAttachedObjectsResourceDidFailBackgroundDownloadOfResource___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -5170,17 +5107,15 @@ void __85__CPLEngineLibrary_notifyAttachedObjectsResourceDidFailBackgroundDownlo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %@ was downloaded in background to %{public}@", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %@ was downloaded in background to %{public}@", &v6, 0x16u);
     }
   }
 
   [v3 engineLibrary:*(a1 + 40) didFailBackgroundDownloadOfResource:*(a1 + 32)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAttachedObjectsResourceDidDownloadInBackground:(id)background
@@ -5198,7 +5133,7 @@ void __85__CPLEngineLibrary_notifyAttachedObjectsResourceDidFailBackgroundDownlo
 
 void __73__CPLEngineLibrary_notifyAttachedObjectsResourceDidDownloadInBackground___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -5206,17 +5141,15 @@ void __73__CPLEngineLibrary_notifyAttachedObjectsResourceDidDownloadInBackground
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %@ was downloaded in background to %{public}@", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying %@ was downloaded in background to %{public}@", &v6, 0x16u);
     }
   }
 
   [v3 engineLibrary:*(a1 + 40) didDownloadResourceInBackground:*(a1 + 32)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAttachedObjectsThatPushRepositoryFlagsCountsHaveChanged
@@ -5319,22 +5252,20 @@ void __81__CPLEngineLibrary_notifyAttachedObjectsThatPushRepositoryFlagsCountsHa
 
 void __57__CPLEngineLibrary_notifyAttachedObjectsHasStatusChanges__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
     v4 = __CPLLibraryOSLogDomain();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying status changes to %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying status changes to %{public}@", &v5, 0xCu);
     }
   }
 
   [v3 engineLibraryHasStatusChanges:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAttachedObjectsPullQueueIsFull
@@ -5349,22 +5280,20 @@ void __57__CPLEngineLibrary_notifyAttachedObjectsHasStatusChanges__block_invoke(
 
 void __56__CPLEngineLibrary_notifyAttachedObjectsPullQueueIsFull__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
     v4 = __CPLLibraryOSLogDomain();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying changes in pull queue to %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "Notifying changes in pull queue to %{public}@", &v5, 0xCu);
     }
   }
 
   [v3 engineLibraryHasChangesInPullQueue:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestAttachedLibrary
@@ -5388,16 +5317,16 @@ void __56__CPLEngineLibrary_notifyAttachedObjectsPullQueueIsFull__block_invoke(u
 
 void __42__CPLEngineLibrary_requestAttachedLibrary__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 104) & 1) == 0)
   {
     v3 = [*(v1 + 40) objectEnumerator];
+    v11 = 0u;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (!v4)
     {
       goto LABEL_10;
@@ -5405,20 +5334,20 @@ void __42__CPLEngineLibrary_requestAttachedLibrary__block_invoke(uint64_t a1)
 
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 |= [*(*(&v13 + 1) + 8 * i) isLibraryManagerForEngineLibrary:*(a1 + 32)];
+        v6 |= [*(*(&v11 + 1) + 8 * i) isLibraryManagerForEngineLibrary:*(a1 + 32)];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -5430,20 +5359,17 @@ LABEL_10:
         v9 = __CPLLibraryOSLogDomain();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          *v12 = 0;
-          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Engine has no attached library. Trying to get one", v12, 2u);
+          *v10 = 0;
+          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Engine has no attached library. Trying to get one", v10, 2u);
         }
       }
 
       if (_requestBlock)
       {
-        v10 = *(*(a1 + 32) + 224);
         (*(_requestBlock + 16))();
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBlockOnLibrary:(id)library
@@ -5550,75 +5476,68 @@ void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_2(uint64_t a1)
 
 void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_4(void *a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (v2[104] == 1)
   {
     v3 = a1[5];
-    v18 = [CPLErrors incorrectMachineStateErrorWithReason:@"Engine is closed"];
+    v15 = [CPLErrors incorrectMachineStateErrorWithReason:@"Engine is closed"];
     (*(v3 + 16))(v3, 0);
-    v4 = *MEMORY[0x1E69E9840];
   }
 
-  else
+  else if ((*(*(a1[6] + 8) + 24) & 1) == 0)
   {
-    if ((*(*(a1[6] + 8) + 24) & 1) == 0)
+    v4 = [v2 _libraryObject];
+    if (v4)
     {
-      v5 = [v2 _libraryObject];
-      if (v5)
-      {
-        (*(a1[5] + 16))();
-      }
-
-      else
-      {
-        if ((_CPLSilentLogging & 1) == 0)
-        {
-          v6 = __CPLLibraryOSLogDomain();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 134217984;
-            v26 = _timeToWaitForLibrary;
-            _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Engine has no attached library. Trying to get one and will wait %.0fs", buf, 0xCu);
-          }
-        }
-
-        if (_requestBlock)
-        {
-          v7 = *(a1[4] + 224);
-          (*(_requestBlock + 16))();
-        }
-
-        v8 = a1[4];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_79;
-        v23[3] = &unk_1E861E7A0;
-        v23[4] = v8;
-        *v19 = *(a1 + 5);
-        v9 = v19[0];
-        v24 = *v19;
-        v10 = [v8 _performBlockWhenLibraryAttaches:v23];
-        v11 = *(a1[7] + 8);
-        v12 = *(v11 + 40);
-        *(v11 + 40) = v10;
-
-        v13 = dispatch_time(0, (*&_timeToWaitForLibrary * 1000000000.0));
-        v14 = a1[4];
-        v15 = *(v14 + 16);
-        block[0] = MEMORY[0x1E69E9820];
-        block[1] = 3221225472;
-        block[2] = __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_80;
-        block[3] = &unk_1E861E7A0;
-        block[4] = v14;
-        *v20 = *(a1 + 5);
-        v16 = v20[0];
-        v22 = *v20;
-        dispatch_after(v13, v15, block);
-      }
+      (*(a1[5] + 16))();
     }
 
-    v17 = *MEMORY[0x1E69E9840];
+    else
+    {
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v5 = __CPLLibraryOSLogDomain();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134217984;
+          v23 = _timeToWaitForLibrary;
+          _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Engine has no attached library. Trying to get one and will wait %.0fs", buf, 0xCu);
+        }
+      }
+
+      if (_requestBlock)
+      {
+        (*(_requestBlock + 16))();
+      }
+
+      v6 = a1[4];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_79;
+      v20[3] = &unk_1E861E7A0;
+      v20[4] = v6;
+      *v16 = *(a1 + 5);
+      v7 = v16[0];
+      v21 = *v16;
+      v8 = [v6 _performBlockWhenLibraryAttaches:v20];
+      v9 = *(a1[7] + 8);
+      v10 = *(v9 + 40);
+      *(v9 + 40) = v8;
+
+      v11 = dispatch_time(0, (*&_timeToWaitForLibrary * 1000000000.0));
+      v12 = a1[4];
+      v13 = *(v12 + 16);
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_80;
+      block[3] = &unk_1E861E7A0;
+      block[4] = v12;
+      *v17 = *(a1 + 5);
+      v14 = v17[0];
+      v19 = *v17;
+      dispatch_after(v11, v13, block);
+    }
   }
 }
 
@@ -5674,7 +5593,7 @@ void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_79(void *a1)
 
 void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_80(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((*(*(a1[6] + 8) + 24) & 1) == 0)
   {
     if ((*(a1[4] + 104) & 1) == 0 && (_CPLSilentLogging & 1) == 0)
@@ -5682,9 +5601,9 @@ void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_80(void *a1)
       v2 = __CPLLibraryOSLogDomain();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        v6 = 134217984;
-        v7 = _timeToWaitForLibrary;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Engine still has no attached library after %0.fs", &v6, 0xCu);
+        v5 = 134217984;
+        v6 = _timeToWaitForLibrary;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "Engine still has no attached library after %0.fs", &v5, 0xCu);
       }
     }
 
@@ -5692,8 +5611,6 @@ void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_80(void *a1)
     v4 = [CPLErrors cplErrorWithCode:83 description:@"Library failed to attach in time"];
     (*(v3 + 16))(v3, 0, v4);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_3(uint64_t a1)
@@ -5726,7 +5643,7 @@ void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_3(uint64_t a1)
 
 - (void)_performPendingBlockForWhenLibraryAttaches
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if ([(NSMutableDictionary *)self->_blocksToDispatchWhenLibraryAttaches count])
   {
@@ -5738,11 +5655,11 @@ void __42__CPLEngineLibrary_performBlockOnLibrary___block_invoke_3(uint64_t a1)
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
         {
           v4 = [(NSMutableDictionary *)self->_blocksToDispatchWhenLibraryAttaches count];
-          *v8 = 134217984;
-          *&v8[4] = v4;
+          *v7 = 134217984;
+          *&v7[4] = v4;
           v5 = "Performing %lu pending blocks after engine was closed";
 LABEL_9:
-          _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, v5, v8, 0xCu);
+          _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, v5, v7, 0xCu);
           goto LABEL_10;
         }
 
@@ -5756,8 +5673,8 @@ LABEL_9:
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v6 = [(NSMutableDictionary *)self->_blocksToDispatchWhenLibraryAttaches count];
-        *v8 = 134217984;
-        *&v8[4] = v6;
+        *v7 = 134217984;
+        *&v7[4] = v6;
         v5 = "Performing %lu pending blocks after library attached to the engine";
         goto LABEL_9;
       }
@@ -5765,11 +5682,9 @@ LABEL_9:
 LABEL_10:
     }
 
-    [(NSMutableDictionary *)self->_blocksToDispatchWhenLibraryAttaches enumerateKeysAndObjectsUsingBlock:&__block_literal_global_72_16914, *v8];
+    [(NSMutableDictionary *)self->_blocksToDispatchWhenLibraryAttaches enumerateKeysAndObjectsUsingBlock:&__block_literal_global_72_16914, *v7, *&v7[8]];
     [(NSMutableDictionary *)self->_blocksToDispatchWhenLibraryAttaches removeAllObjects];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performBlockWithLibrary:(BOOL)library enumerateAttachedObjects:(id)objects
@@ -5797,31 +5712,31 @@ LABEL_10:
 
 void __70__CPLEngineLibrary__performBlockWithLibrary_enumerateAttachedObjects___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if ((*(v1 + 104) & 1) == 0)
   {
-    v17 = 0u;
-    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v3 = *(v1 + 40);
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v16;
+      v7 = *v14;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           (*(*(a1 + 40) + 16))();
           v10 = *(a1 + 48);
           if (v6 & 1 | ((v10 & 1) == 0))
@@ -5835,7 +5750,7 @@ void __70__CPLEngineLibrary__performBlockWithLibrary_enumerateAttachedObjects___
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v5);
@@ -5853,20 +5768,17 @@ void __70__CPLEngineLibrary__performBlockWithLibrary_enumerateAttachedObjects___
         v11 = __CPLLibraryOSLogDomain();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          *v14 = 0;
-          _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Engine has no attached library. Trying to get one", v14, 2u);
+          *v12 = 0;
+          _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "Engine has no attached library. Trying to get one", v12, 2u);
         }
       }
 
       if (_requestBlock)
       {
-        v12 = *(*(a1 + 32) + 224);
         (*(_requestBlock + 16))();
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAttachedObjectAsInvalid:(id)invalid
@@ -5893,7 +5805,7 @@ void __70__CPLEngineLibrary__performBlockWithLibrary_enumerateAttachedObjects___
 
 void __48__CPLEngineLibrary_markAttachedObjectAsInvalid___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 40) containsObject:*(a1 + 40)])
   {
     [*(*(a1 + 32) + 48) addObject:*(a1 + 40)];
@@ -5904,16 +5816,14 @@ void __48__CPLEngineLibrary_markAttachedObjectAsInvalid___block_invoke(uint64_t 
       {
         v4 = *(a1 + 32);
         v3 = *(a1 + 40);
-        v6 = 138543618;
-        v7 = v3;
-        v8 = 2112;
-        v9 = v4;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ has become invalid for %@", &v6, 0x16u);
+        v5 = 138543618;
+        v6 = v3;
+        v7 = 2112;
+        v8 = v4;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ has become invalid for %@", &v5, 0x16u);
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)detachObject:(id)object withCompletionHandler:(id)handler
@@ -5943,7 +5853,7 @@ void __48__CPLEngineLibrary_markAttachedObjectAsInvalid___block_invoke(uint64_t 
 
 void __55__CPLEngineLibrary_detachObject_withCompletionHandler___block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([*(a1[4] + 40) containsObject:a1[5]])
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -5953,7 +5863,7 @@ void __55__CPLEngineLibrary_detachObject_withCompletionHandler___block_invoke(vo
       {
         v3 = a1[5];
         *buf = 138543362;
-        v18 = v3;
+        v16 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "Detaching %{public}@", buf, 0xCu);
       }
     }
@@ -5969,9 +5879,9 @@ void __55__CPLEngineLibrary_detachObject_withCompletionHandler___block_invoke(vo
           v6 = a1[4];
           v5 = a1[5];
           *buf = 138543618;
-          v18 = v5;
-          v19 = 2112;
-          v20 = v6;
+          v16 = v5;
+          v17 = 2112;
+          v18 = v6;
           _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Invalid %{public}@ detached from %@", buf, 0x16u);
         }
       }
@@ -5989,9 +5899,9 @@ void __55__CPLEngineLibrary_detachObject_withCompletionHandler___block_invoke(vo
           v8 = a1[4];
           v9 = [*(v8 + 40) allObjects];
           *buf = 138543618;
-          v18 = v8;
-          v19 = 2114;
-          v20 = v9;
+          v16 = v8;
+          v17 = 2114;
+          v18 = v9;
           _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ is opened with attached: %{public}@", buf, 0x16u);
         }
 
@@ -6004,9 +5914,9 @@ LABEL_24:
       v7 = __CPLLibraryOSLogDomain();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v15 = a1[4];
+        v14 = a1[4];
         *buf = 138543362;
-        v18 = v15;
+        v16 = v14;
         _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ is opened", buf, 0xCu);
       }
 
@@ -6014,7 +5924,7 @@ LABEL_24:
     }
 
     (*(a1[6] + 16))();
-    goto LABEL_26;
+    return;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
@@ -6024,18 +5934,14 @@ LABEL_24:
     {
       v11 = a1[5];
       *buf = 138543362;
-      v18 = v11;
+      v16 = v11;
       _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "%{public}@ tried to detach while it was not attached", buf, 0xCu);
     }
   }
 
-  v12 = a1[5];
-  v13 = a1[6];
-  v14 = [CPLErrors incorrectMachineStateErrorWithReason:@"%@ is not attached to %@", v12, a1[4]];
-  (*(v13 + 16))(v13, v14);
-
-LABEL_26:
-  v16 = *MEMORY[0x1E69E9840];
+  v12 = a1[6];
+  v13 = [CPLErrors incorrectMachineStateErrorWithReason:@"%@ is not attached to %@", a1[5], a1[4]];
+  (*(v12 + 16))(v12, v13);
 }
 
 - (void)attachObject:(id)object withCompletionHandler:(id)handler
@@ -6065,7 +5971,7 @@ LABEL_26:
 
 void __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 40) containsObject:*(a1 + 40)])
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -6080,32 +5986,31 @@ void __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke(ui
       }
     }
 
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v6 = [CPLErrors incorrectMachineStateErrorWithReason:@"%@ is already attached to %@", v4, *(a1 + 32)];
-    (*(v5 + 16))(v5, v6);
+    v4 = *(a1 + 48);
+    v5 = [CPLErrors incorrectMachineStateErrorWithReason:@"%@ is already attached to %@", *(a1 + 40), *(a1 + 32)];
+    (*(v4 + 16))(v4, v5);
   }
 
   else if ([*(*(a1 + 32) + 48) containsObject:*(a1 + 40)])
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = __CPLLibraryOSLogDomain();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = __CPLLibraryOSLogDomain();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(a1 + 32);
-        v8 = *(a1 + 40);
+        v8 = *(a1 + 32);
+        v7 = *(a1 + 40);
         *buf = 138543618;
-        *&buf[4] = v8;
+        *&buf[4] = v7;
         *&buf[12] = 2112;
-        *&buf[14] = v9;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "%{public}@ tried to attach to %@ but it has been marked as invalid", buf, 0x16u);
+        *&buf[14] = v8;
+        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "%{public}@ tried to attach to %@ but it has been marked as invalid", buf, 0x16u);
       }
     }
 
-    v10 = *(a1 + 48);
-    v11 = [CPLErrors incorrectMachineStateErrorWithReason:@"%@ has been marked as invalid", *(a1 + 40)];
-    (*(v10 + 16))(v10, v11);
+    v9 = *(a1 + 48);
+    v10 = [CPLErrors incorrectMachineStateErrorWithReason:@"%@ has been marked as invalid", *(a1 + 40)];
+    (*(v9 + 16))(v9, v10);
 
     [*(*(a1 + 32) + 48) removeObject:*(a1 + 40)];
   }
@@ -6114,16 +6019,14 @@ void __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke(ui
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLLibraryOSLogDomain();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v11 = __CPLLibraryOSLogDomain();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v13 = *(a1 + 40);
+        v12 = *(a1 + 40);
         *buf = 138543362;
-        *&buf[4] = v13;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "Can't attach %{public}@", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEBUG, "Can't attach %{public}@", buf, 0xCu);
       }
-
-      v14 = *(*(a1 + 32) + 80);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -6131,46 +6034,46 @@ void __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke(ui
 
   else
   {
-    v15 = [*(a1 + 40) isLibraryManagerForEngineLibrary:?];
-    if (v15)
+    v13 = [*(a1 + 40) isLibraryManagerForEngineLibrary:?];
+    if (v13)
     {
-      v16 = [*(a1 + 32) _libraryObject];
-      if (v16)
+      v14 = [*(a1 + 32) _libraryObject];
+      if (v14)
       {
-        v17 = v16;
+        v15 = v14;
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v18 = __CPLLibraryOSLogDomain();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v16 = __CPLLibraryOSLogDomain();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            v19 = *(a1 + 40);
+            v17 = *(a1 + 40);
             *buf = 138412546;
-            *&buf[4] = v19;
+            *&buf[4] = v17;
             *&buf[12] = 2112;
-            *&buf[14] = v17;
-            _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "%@ tried to attach to engine while there is already %@ attached to it", buf, 0x16u);
+            *&buf[14] = v15;
+            _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "%@ tried to attach to engine while there is already %@ attached to it", buf, 0x16u);
           }
         }
 
-        v20 = [CPLErrors incorrectParametersErrorForParameter:@"library"];
+        v18 = [CPLErrors incorrectParametersErrorForParameter:@"library"];
 
-        if (v20)
+        if (v18)
         {
           (*(*(a1 + 48) + 16))();
 
-          goto LABEL_39;
+          return;
         }
       }
 
       else if ((_CPLSilentLogging & 1) == 0)
       {
-        v21 = __CPLLibraryOSLogDomain();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v19 = __CPLLibraryOSLogDomain();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(a1 + 40);
+          v20 = *(a1 + 40);
           *buf = 138412290;
-          *&buf[4] = v22;
-          _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "Attaching client %@ to engine", buf, 0xCu);
+          *&buf[4] = v20;
+          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "Attaching client %@ to engine", buf, 0xCu);
         }
       }
     }
@@ -6179,54 +6082,51 @@ void __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke(ui
     (*(*(a1 + 48) + 16))();
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = __CPLLibraryOSLogDomain();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v21 = __CPLLibraryOSLogDomain();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v24 = *(a1 + 32);
-        v25 = [*(v24 + 40) allObjects];
+        v22 = *(a1 + 32);
+        v23 = [*(v22 + 40) allObjects];
         *buf = 138543618;
-        *&buf[4] = v24;
+        *&buf[4] = v22;
         *&buf[12] = 2114;
-        *&buf[14] = v25;
-        _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_DEBUG, "%{public}@ is opened with attached: %{public}@.", buf, 0x16u);
+        *&buf[14] = v23;
+        _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ is opened with attached: %{public}@.", buf, 0x16u);
       }
     }
 
-    if (v15 && [*(*(a1 + 32) + 32) count])
+    if (v13 && [*(*(a1 + 32) + 32) count])
     {
-      v26 = *(a1 + 32);
-      v27 = *(v26 + 16);
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke_66;
-      v38[3] = &unk_1E861A940;
-      v38[4] = v26;
-      v28 = v38;
+      v24 = *(a1 + 32);
+      v25 = *(v24 + 16);
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke_66;
+      v35[3] = &unk_1E861A940;
+      v35[4] = v24;
+      v26 = v35;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __cpl_dispatch_async_block_invoke_16734;
-      v40 = &unk_1E861B4E0;
-      v41 = v28;
-      v29 = v27;
-      v30 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
-      dispatch_async(v29, v30);
+      v37 = &unk_1E861B4E0;
+      v38 = v26;
+      v27 = v25;
+      v28 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
+      dispatch_async(v27, v28);
     }
 
     dispatch_suspend(*(*(a1 + 32) + 16));
-    v32 = *(a1 + 32);
-    v31 = *(a1 + 40);
-    v33 = *(v32 + 256);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke_2;
-    v36[3] = &unk_1E86205B8;
-    v36[4] = v32;
-    v37 = v31;
-    v34 = [v33 performReadTransactionWithBlock:v36];
+    v30 = *(a1 + 32);
+    v29 = *(a1 + 40);
+    v31 = *(v30 + 256);
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke_2;
+    v33[3] = &unk_1E86205B8;
+    v33[4] = v30;
+    v34 = v29;
+    v32 = [v31 performReadTransactionWithBlock:v33];
   }
-
-LABEL_39:
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -6244,35 +6144,35 @@ void __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke_2(
 
 uint64_t __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invoke_3(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 256) downloadQueue];
   v3 = [v2 enumeratorForDownloadedResources];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(a1 + 40) engineLibrary:*(a1 + 32) didDownloadResourceInBackground:{*(*(&v22 + 1) + 8 * i), v22}];
+        [*(a1 + 40) engineLibrary:*(a1 + 32) didDownloadResourceInBackground:{*(*(&v21 + 1) + 8 * i), v21}];
       }
 
       v7 += v6;
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v6);
@@ -6290,9 +6190,9 @@ uint64_t __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invok
     {
       v11 = *(a1 + 40);
       *buf = 134218242;
-      v27 = v7;
-      v28 = 2114;
-      v29 = v11;
+      v26 = v7;
+      v27 = 2114;
+      v28 = v11;
       _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "%lu resources were downloaded since last attachment of %{public}@", buf, 0x16u);
     }
   }
@@ -6309,9 +6209,9 @@ uint64_t __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invok
       {
         v15 = *(a1 + 40);
         *buf = 134218242;
-        v27 = v13;
-        v28 = 2114;
-        v29 = v15;
+        v26 = v13;
+        v27 = 2114;
+        v28 = v15;
         _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEBUG, "%lu batches have been accumulated in the pull queue since the last attachment of %{public}@", buf, 0x16u);
       }
     }
@@ -6331,7 +6231,7 @@ uint64_t __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invok
       {
         v19 = *(a1 + 40);
         *buf = 138543362;
-        v27 = v19;
+        v26 = v19;
         _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEBUG, "Status changes have been accumulated since the last attachment of %{public}@", buf, 0xCu);
       }
     }
@@ -6341,42 +6241,41 @@ uint64_t __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invok
 
   [*(a1 + 32) _notifyAttachedObjectsThatPushRepositoryFlagsCountsHaveChanged];
 
-  v20 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (id)_libraryObject
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = self->_attachedObjects;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        if (!-[NSHashTable containsObject:](self->_invalidAttachedObjects, "containsObject:", v8, v12) && ([v8 isLibraryManagerForEngineLibrary:self] & 1) != 0)
+        v8 = *(*(&v11 + 1) + 8 * i);
+        if (!-[NSHashTable containsObject:](self->_invalidAttachedObjects, "containsObject:", v8, v11) && ([v8 isLibraryManagerForEngineLibrary:self] & 1) != 0)
         {
           v9 = v8;
           goto LABEL_12;
         }
       }
 
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -6388,8 +6287,6 @@ uint64_t __55__CPLEngineLibrary_attachObject_withCompletionHandler___block_invok
 
   v9 = 0;
 LABEL_12:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -6471,7 +6368,7 @@ uint64_t __42__CPLEngineLibrary_clientIsPushingChanges__block_invoke(uint64_t a1
 
 void __36__CPLEngineLibrary_startSyncSession__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 80))
   {
@@ -6482,7 +6379,7 @@ void __36__CPLEngineLibrary_startSyncSession__block_invoke(uint64_t a1)
       {
         v4 = *(*(a1 + 32) + 80);
         *buf = 138412290;
-        v12 = v4;
+        v11 = v4;
         _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Ignoring request for a sync session as the library failed to open (error: %@)", buf, 0xCu);
       }
     }
@@ -6503,20 +6400,18 @@ void __36__CPLEngineLibrary_startSyncSession__block_invoke(uint64_t a1)
     }
 
     v6 = *(v2 + 256);
-    v9[4] = v2;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __36__CPLEngineLibrary_startSyncSession__block_invoke_51;
-    v10[3] = &unk_1E86205E0;
-    v10[4] = v2;
+    v8[4] = v2;
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
-    v9[2] = __36__CPLEngineLibrary_startSyncSession__block_invoke_52;
+    v9[2] = __36__CPLEngineLibrary_startSyncSession__block_invoke_51;
     v9[3] = &unk_1E86205E0;
-    v7 = [v6 performWriteTransactionWithBlock:v10 completionHandler:v9];
+    v9[4] = v2;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __36__CPLEngineLibrary_startSyncSession__block_invoke_52;
+    v8[3] = &unk_1E86205E0;
+    v7 = [v6 performWriteTransactionWithBlock:v9 completionHandler:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __36__CPLEngineLibrary_startSyncSession__block_invoke_51(uint64_t a1, void *a2)
@@ -6549,27 +6444,27 @@ void __36__CPLEngineLibrary_startSyncSession__block_invoke_52(uint64_t a1, void 
 
 uint64_t __36__CPLEngineLibrary_startSyncSession__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = [*(a1 + 32) enumeratorForScopesIncludeInactive:{0, 0}];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if (([*(a1 + 32) setScopeHasChangesToPullFromTransport:v9 error:a2] & 1) == 0)
         {
           if ((_CPLSilentLogging & 1) == 0)
@@ -6579,7 +6474,7 @@ uint64_t __36__CPLEngineLibrary_startSyncSession__block_invoke_2(uint64_t a1, ui
             {
               v12 = [v9 scopeIdentifier];
               *buf = 138412290;
-              v20 = v12;
+              v19 = v12;
               _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Failed to force %@ to pull changes from transport", buf, 0xCu);
             }
           }
@@ -6589,7 +6484,7 @@ uint64_t __36__CPLEngineLibrary_startSyncSession__block_invoke_2(uint64_t a1, ui
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -6602,7 +6497,6 @@ uint64_t __36__CPLEngineLibrary_startSyncSession__block_invoke_2(uint64_t a1, ui
   v10 = 1;
 LABEL_15:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -6783,7 +6677,7 @@ LABEL_16:
   dispatch_async(v11, v13);
 }
 
-uint64_t __78__CPLEngineLibrary_updateBlockedMetrics_syncRequested_runtimeCharacteristics___block_invoke(uint64_t a1)
+void *__78__CPLEngineLibrary_updateBlockedMetrics_syncRequested_runtimeCharacteristics___block_invoke(uint64_t a1)
 {
   if (*(a1 + 48) == 1)
   {
@@ -6978,29 +6872,33 @@ LABEL_24:
   }
 
   result = [v5 unBlockedReason];
-  switch(result)
+  if (result == 4)
   {
-    case 4:
-      v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionRemoteDeviceIntentUnBlockedCountKey;
-      break;
-    case 2:
-      v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionOverrideUnBlockedCountKey;
-      break;
-    case 1:
-      v10 = *(a1 + 40);
-      if (v10 && ([v10 syncSessionRequestedImmediateRuntime] & 1) != 0)
-      {
-        v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionDASDoItNowUnBlockedCountKey;
-      }
+    v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionRemoteDeviceIntentUnBlockedCountKey;
+  }
 
-      else
-      {
-        v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionDASUnBlockedCountKey;
-      }
+  else if (result == 2)
+  {
+    v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionOverrideUnBlockedCountKey;
+  }
 
-      break;
-    default:
+  else
+  {
+    if (result != 1)
+    {
       return result;
+    }
+
+    v10 = *(a1 + 40);
+    if (v10 && ([v10 syncSessionRequestedImmediateRuntime] & 1) != 0)
+    {
+      v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionDASDoItNowUnBlockedCountKey;
+    }
+
+    else
+    {
+      v3 = PLCoreAnalyticsLibrarySummaryiCPLSyncSessionDASUnBlockedCountKey;
+    }
   }
 
 LABEL_45:
@@ -7008,6 +6906,50 @@ LABEL_45:
   v12 = *v3;
 
   return [v11 incrementCountForKey:v12];
+}
+
+- (void)setICloudLibraryClientIsNotAuthenticated:(BOOL)authenticated
+{
+  authenticatedCopy = authenticated;
+  iCloudLibraryClientIsNotAuthenticated = [(CPLStatus *)self->_status iCloudLibraryClientIsNotAuthenticated];
+  [(CPLStatus *)self->_status setICloudLibraryClientIsNotAuthenticated:authenticatedCopy];
+  if (iCloudLibraryClientIsNotAuthenticated && !authenticatedCopy)
+  {
+    scheduler = self->_scheduler;
+
+    [(CPLEngineScheduler *)scheduler noteNetworkStateDidChange];
+  }
+}
+
+- (void)setICloudLibraryClientVersionTooOld:(BOOL)old
+{
+  oldCopy = old;
+  v15 = *MEMORY[0x1E69E9840];
+  iCloudLibraryClientVersionTooOld = [(CPLStatus *)self->_status iCloudLibraryClientVersionTooOld];
+  [(CPLStatus *)self->_status setICloudLibraryClientVersionTooOld:oldCopy];
+  if (iCloudLibraryClientVersionTooOld && !oldCopy)
+  {
+    v6 = __CPLBuildVersion();
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v7 = __CPLLibraryOSLogDomain();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v14 = v6;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Client version (%@) is no longer blacklisted, resetting to normal operations", buf, 0xCu);
+      }
+    }
+
+    store = [(CPLEngineLibrary *)self store];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __56__CPLEngineLibrary_setICloudLibraryClientVersionTooOld___block_invoke;
+    v11[3] = &unk_1E86205E0;
+    v12 = store;
+    v9 = store;
+    v10 = [v9 performWriteTransactionWithBlock:v11 completionHandler:&__block_literal_global_49];
+  }
 }
 
 void __56__CPLEngineLibrary_setICloudLibraryClientVersionTooOld___block_invoke(uint64_t a1, void *a2)
@@ -7055,7 +6997,7 @@ uint64_t __58__CPLEngineLibrary__requestUpdateOfMainScopeFromTransport__block_in
 
 uint64_t __58__CPLEngineLibrary__requestUpdateOfMainScopeFromTransport__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [*(*(a1 + 32) + 256) scopes];
   v4 = [v3 primaryScope];
   if (v4 && ([v3 valueForFlag:16 forScope:v4] & 1) == 0)
@@ -7071,9 +7013,9 @@ uint64_t __58__CPLEngineLibrary__requestUpdateOfMainScopeFromTransport__block_in
       v5 = __CPLLibraryOSLogDomain();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412290;
-        v10 = v4;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Requesting update of %@ for Account EPP capability", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v4;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Requesting update of %@ for Account EPP capability", &v8, 0xCu);
       }
     }
   }
@@ -7081,13 +7023,12 @@ uint64_t __58__CPLEngineLibrary__requestUpdateOfMainScopeFromTransport__block_in
   v6 = 1;
 LABEL_9:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)setExitDeleteTime:(id)time
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   timeCopy = time;
   exitDeleteTime = [(CPLStatus *)self->_status exitDeleteTime];
   v6 = exitDeleteTime;
@@ -7124,9 +7065,9 @@ LABEL_28:
 LABEL_29:
         v11 = [(NSURL *)self->_clientLibraryBaseURL URLByAppendingPathComponent:@"initialsync_marker"];
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-        v25 = 0;
-        v21 = [defaultManager removeItemAtURL:v11 error:&v25];
-        v12 = v25;
+        v24 = 0;
+        v21 = [defaultManager removeItemAtURL:v11 error:&v24];
+        v12 = v24;
         if ((v21 & 1) == 0 && ([defaultManager cplIsFileDoesNotExistError:v12] & 1) == 0 && (_CPLSilentLogging & 1) == 0)
         {
           v22 = __CPLLibraryOSLogDomain();
@@ -7134,9 +7075,9 @@ LABEL_29:
           {
             path = [v11 path];
             *buf = 138543618;
-            v28 = path;
-            v29 = 2112;
-            v30 = v12;
+            v27 = path;
+            v28 = 2112;
+            v29 = v12;
             _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "Fail to remove %{public}@, error: %@", buf, 0x16u);
           }
         }
@@ -7145,9 +7086,9 @@ LABEL_29:
       }
 
       *buf = 138543618;
-      v28 = timeCopy;
-      v29 = 2114;
-      v30 = @"initialsync_marker";
+      v27 = timeCopy;
+      v28 = 2114;
+      v29 = @"initialsync_marker";
       v19 = "Updating exit mode (%{public}@), removing %{public}@ if present";
     }
 
@@ -7166,9 +7107,9 @@ LABEL_17:
       }
 
       *buf = 138543618;
-      v28 = timeCopy;
-      v29 = 2114;
-      v30 = @"initialsync_marker";
+      v27 = timeCopy;
+      v28 = 2114;
+      v29 = @"initialsync_marker";
       v19 = "Starting exit mode (%{public}@), removing %{public}@ if present";
     }
 
@@ -7191,9 +7132,9 @@ LABEL_17:
   if (initialSyncDate)
   {
     status = self->_status;
-    v26 = 0;
-    v10 = [(CPLStatus *)status writeInitialSyncMarker:&v26];
-    v11 = v26;
+    v25 = 0;
+    v10 = [(CPLStatus *)status writeInitialSyncMarker:&v25];
+    v11 = v25;
     if (v10)
     {
       if ((_CPLSilentLogging & 1) == 0)
@@ -7221,7 +7162,7 @@ LABEL_23:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v28 = v11;
+        v27 = v11;
         v13 = "Fail to write initial sync marker, error: %@";
         v14 = v12;
         v15 = OS_LOG_TYPE_ERROR;
@@ -7235,8 +7176,6 @@ LABEL_36:
 
 LABEL_38:
   [(CPLStatus *)self->_status setExitDeleteTime:timeCopy];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateInitialSyncDate:(id)date
@@ -7277,7 +7216,7 @@ void __42__CPLEngineLibrary_updateInitialSyncDate___block_invoke(uint64_t a1)
 
 - (void)closeAndDeactivate:(BOOL)deactivate completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -7302,25 +7241,23 @@ void __42__CPLEngineLibrary_updateInitialSyncDate___block_invoke(uint64_t a1)
   }
 
   queue = self->_queue;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __57__CPLEngineLibrary_closeAndDeactivate_completionHandler___block_invoke;
-  v15[3] = &unk_1E861F2E8;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__CPLEngineLibrary_closeAndDeactivate_completionHandler___block_invoke;
+  v14[3] = &unk_1E861F2E8;
   deactivateCopy = deactivate;
-  v15[4] = self;
-  v16 = handlerCopy;
-  v10 = v15;
+  v14[4] = self;
+  v15 = handlerCopy;
+  v10 = v14;
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v19 = __cpl_dispatch_async_block_invoke_16734;
-  v20 = &unk_1E861B4E0;
-  v21 = v10;
+  v18 = __cpl_dispatch_async_block_invoke_16734;
+  v19 = &unk_1E861B4E0;
+  v20 = v10;
   v11 = queue;
   v12 = handlerCopy;
   v13 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
   dispatch_async(v11, v13);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __57__CPLEngineLibrary_closeAndDeactivate_completionHandler___block_invoke(uint64_t a1)
@@ -7346,19 +7283,16 @@ void __57__CPLEngineLibrary_closeAndDeactivate_completionHandler___block_invoke(
     [v5 updateWithAccountEPPCapability:2 source:@"deactivated-engine"];
   }
 
-  v6 = [*(*(a1 + 32) + 8) reverseObjectEnumerator];
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 40);
-  v12 = v6;
+  v9 = [*(*(a1 + 32) + 8) reverseObjectEnumerator];
   [*(a1 + 32) _closeNextComponent:? deactivate:? lastError:? completionHandler:?];
   if (*(*(a1 + 32) + 160))
   {
-    v9 = [MEMORY[0x1E696ABB0] defaultCenter];
-    [v9 removeObserver:*(*(a1 + 32) + 160) name:@"CPLMetricsDidChangeNotification" object:0];
+    v6 = [MEMORY[0x1E696ABB0] defaultCenter];
+    [v6 removeObserver:*(*(a1 + 32) + 160) name:@"CPLMetricsDidChangeNotification" object:0];
 
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 160);
-    *(v10 + 160) = 0;
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 160);
+    *(v7 + 160) = 0;
   }
 }
 
@@ -7401,7 +7335,7 @@ void __57__CPLEngineLibrary_closeAndDeactivate_completionHandler___block_invoke(
 - (void)_closeNextComponent:(id)component deactivate:(BOOL)deactivate lastError:(id)error completionHandler:(id)handler
 {
   deactivateCopy = deactivate;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   componentCopy = component;
   errorCopy = error;
   handlerCopy = handler;
@@ -7449,20 +7383,20 @@ void __57__CPLEngineLibrary_closeAndDeactivate_completionHandler___block_invoke(
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v29 = __Block_byref_object_copy__16777;
-    v30 = __Block_byref_object_dispose__16778;
-    v31 = errorCopy;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __79__CPLEngineLibrary__closeNextComponent_deactivate_lastError_completionHandler___block_invoke;
-    v21[3] = &unk_1E861E4A8;
-    v27 = deactivateCopy;
-    v26 = buf;
-    v22 = nextObject;
+    v28 = __Block_byref_object_copy__16777;
+    v29 = __Block_byref_object_dispose__16778;
+    v30 = errorCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __79__CPLEngineLibrary__closeNextComponent_deactivate_lastError_completionHandler___block_invoke;
+    v20[3] = &unk_1E861E4A8;
+    v26 = deactivateCopy;
+    v25 = buf;
+    v21 = nextObject;
     selfCopy = self;
-    v24 = componentCopy;
-    v25 = handlerCopy;
-    [CPLCallObserver observeAsyncCallOn:v22 selector:sel_closeAndDeactivate_completionHandler_ block:v21];
+    v23 = componentCopy;
+    v24 = handlerCopy;
+    [CPLCallObserver observeAsyncCallOn:v21 selector:sel_closeAndDeactivate_completionHandler_ block:v20];
 
     _Block_object_dispose(buf, 8);
   }
@@ -7484,8 +7418,6 @@ void __57__CPLEngineLibrary_closeAndDeactivate_completionHandler___block_invoke(
     (*(handlerCopy + 2))(handlerCopy, errorCopy);
     dispatch_resume(self->_queue);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __79__CPLEngineLibrary__closeNextComponent_deactivate_lastError_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7516,7 +7448,7 @@ void __79__CPLEngineLibrary__closeNextComponent_deactivate_lastError_completionH
 
 void __79__CPLEngineLibrary__closeNextComponent_deactivate_lastError_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) callDidFinish];
   v4 = _CPLSilentLogging;
@@ -7526,9 +7458,9 @@ void __79__CPLEngineLibrary__closeNextComponent_deactivate_lastError_completionH
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = *(a1 + 40);
-      v14 = 138543362;
-      v15 = v6;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Closing %{public}@ completed", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v6;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Closing %{public}@ completed", &v13, 0xCu);
     }
 
     v4 = _CPLSilentLogging;
@@ -7542,11 +7474,11 @@ void __79__CPLEngineLibrary__closeNextComponent_deactivate_lastError_completionH
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         v8 = *(a1 + 40);
-        v14 = 138543618;
-        v15 = v8;
-        v16 = 2112;
-        v17 = v3;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to close with error: %@", &v14, 0x16u);
+        v13 = 138543618;
+        v14 = v8;
+        v15 = 2112;
+        v16 = v3;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "%{public}@ failed to close with error: %@", &v13, 0x16u);
       }
     }
 
@@ -7566,22 +7498,20 @@ LABEL_15:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 40);
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ is closed", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ is closed", &v13, 0xCu);
     }
 
     goto LABEL_15;
   }
 
   [*(a1 + 48) _closeNextComponent:*(a1 + 56) deactivate:*(a1 + 80) lastError:*(*(*(a1 + 72) + 8) + 40) completionHandler:*(a1 + 64)];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openWithCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -7595,24 +7525,22 @@ LABEL_15:
   }
 
   queue = self->_queue;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke;
-  v12[3] = &unk_1E861AA50;
-  v12[4] = self;
-  v13 = handlerCopy;
-  v7 = v12;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke;
+  v11[3] = &unk_1E861AA50;
+  v11[4] = self;
+  v12 = handlerCopy;
+  v7 = v11;
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v15 = __cpl_dispatch_async_block_invoke_16734;
-  v16 = &unk_1E861B4E0;
-  v17 = v7;
+  v14 = __cpl_dispatch_async_block_invoke_16734;
+  v15 = &unk_1E861B4E0;
+  v16 = v7;
   v8 = queue;
   v9 = handlerCopy;
   v10 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
   dispatch_async(v8, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke(uint64_t a1)
@@ -7631,7 +7559,7 @@ void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke(uint64_t a1
 
 void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -7645,9 +7573,9 @@ void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_2(uint64_t 
     {
       v5 = *(a1 + 32);
       *buf = 138543618;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v3;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v3;
       _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Opening %{public}@ failed: %@", buf, 0x16u);
     }
 
@@ -7657,12 +7585,12 @@ void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_2(uint64_t 
   [*(*(a1 + 32) + 88) checkInitialSyncMarker];
   [*(*(a1 + 32) + 248) engineDidOpen:?];
   v6 = [MEMORY[0x1E696ABB0] defaultCenter];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_3;
-  v14[3] = &unk_1E861E458;
-  v14[4] = *(a1 + 32);
-  v7 = [v6 addObserverForName:@"CPLMetricsDidChangeNotification" object:0 queue:0 usingBlock:v14];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_3;
+  v13[3] = &unk_1E861E458;
+  v13[4] = *(a1 + 32);
+  v7 = [v6 addObserverForName:@"CPLMetricsDidChangeNotification" object:0 queue:0 usingBlock:v13];
   v8 = *(a1 + 32);
   v9 = *(v8 + 160);
   *(v8 + 160) = v7;
@@ -7674,7 +7602,7 @@ void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_2(uint64_t 
     {
       v11 = *(a1 + 32);
       *buf = 138543362;
-      v16 = v11;
+      v15 = v11;
       _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Opening %{public}@ succeeded", buf, 0xCu);
     }
   }
@@ -7699,8 +7627,6 @@ LABEL_15:
   }
 
   dispatch_resume(*(*(a1 + 32) + 16));
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_3(uint64_t a1)
@@ -7725,7 +7651,7 @@ void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_3(uint64_t 
 
 - (void)_openNextComponent:(id)component completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   componentCopy = component;
   handlerCopy = handler;
   nextObject = [componentCopy nextObject];
@@ -7737,30 +7663,28 @@ void __46__CPLEngineLibrary_openWithCompletionHandler___block_invoke_3(uint64_t 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v17 = nextObject;
-        v18 = 2112;
+        v16 = nextObject;
+        v17 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Opening %{public}@ for %@", buf, 0x16u);
       }
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __57__CPLEngineLibrary__openNextComponent_completionHandler___block_invoke;
-    v11[3] = &unk_1E861E428;
-    v12 = nextObject;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __57__CPLEngineLibrary__openNextComponent_completionHandler___block_invoke;
+    v10[3] = &unk_1E861E428;
+    v11 = nextObject;
     selfCopy2 = self;
-    v15 = handlerCopy;
-    v14 = componentCopy;
-    [CPLCallObserver observeAsyncCallOn:v12 selector:sel_openWithCompletionHandler_ block:v11];
+    v14 = handlerCopy;
+    v13 = componentCopy;
+    [CPLCallObserver observeAsyncCallOn:v11 selector:sel_openWithCompletionHandler_ block:v10];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __57__CPLEngineLibrary__openNextComponent_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7787,7 +7711,7 @@ void __57__CPLEngineLibrary__openNextComponent_completionHandler___block_invoke(
 
 void __57__CPLEngineLibrary__openNextComponent_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a2;
   [*(a1 + 32) callDidFinish];
   if (v4)
@@ -7799,13 +7723,13 @@ void __57__CPLEngineLibrary__openNextComponent_completionHandler___block_invoke_
       {
         v6 = *(a1 + 40);
         v7 = *(a1 + 48);
-        v12 = 138543874;
-        v13 = v6;
-        v14 = 2112;
-        v15 = v7;
-        v16 = 2112;
-        v17 = v4;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "%{public}@ for %@ failed to open: %@", &v12, 0x20u);
+        v11 = 138543874;
+        v12 = v6;
+        v13 = 2112;
+        v14 = v7;
+        v15 = 2112;
+        v16 = v4;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "%{public}@ for %@ failed to open: %@", &v11, 0x20u);
       }
     }
 
@@ -7822,18 +7746,16 @@ void __57__CPLEngineLibrary__openNextComponent_completionHandler___block_invoke_
       {
         v9 = *(a1 + 40);
         v10 = *(a1 + 48);
-        v12 = 138543618;
-        v13 = v9;
-        v14 = 2112;
-        v15 = v10;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Opened %{public}@ for %@", &v12, 0x16u);
+        v11 = 138543618;
+        v12 = v9;
+        v13 = 2112;
+        v14 = v10;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Opened %{public}@ for %@", &v11, 0x16u);
       }
     }
 
     [*(a1 + 48) _openNextComponent:*(a1 + 56) completionHandler:*(a1 + 64)];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportQuarantineCountIfNecessary
@@ -7965,15 +7887,15 @@ void __72__CPLEngineLibrary__reportQuarantineCountIfNecessaryWithLastReportDate_
 
 - (CPLEngineLibrary)initWithClientLibraryBaseURL:(id)l cloudLibraryStateStorageURL:(id)rL cloudLibraryResourceStorageURL:(id)uRL libraryIdentifier:(id)identifier mainScopeIdentifier:(id)scopeIdentifier options:(unint64_t)options
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   uRLCopy = uRL;
   identifierCopy = identifier;
   scopeIdentifierCopy = scopeIdentifier;
-  v79.receiver = self;
-  v79.super_class = CPLEngineLibrary;
-  v20 = [(CPLEngineLibrary *)&v79 init];
+  v78.receiver = self;
+  v78.super_class = CPLEngineLibrary;
+  v20 = [(CPLEngineLibrary *)&v78 init];
   if (v20)
   {
     v21 = CPLCopyDefaultSerialQueueAttributes();
@@ -8016,13 +7938,13 @@ void __72__CPLEngineLibrary__reportQuarantineCountIfNecessaryWithLastReportDate_
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
-        v86 = v20;
-        v87 = 2112;
-        v88 = lCopy;
-        v89 = 2112;
-        v90 = rLCopy;
-        v91 = 2112;
-        v92 = uRLCopy;
+        v85 = v20;
+        v86 = 2112;
+        v87 = lCopy;
+        v88 = 2112;
+        v89 = rLCopy;
+        v90 = 2112;
+        v91 = uRLCopy;
         _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_DEBUG, "Creating %@ in %@ (storage: %@/resources: %@)", buf, 0x2Au);
       }
     }
@@ -8074,20 +7996,20 @@ void __72__CPLEngineLibrary__reportQuarantineCountIfNecessaryWithLastReportDate_
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v74 = __CPLLibraryOSLogDomain();
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+        v73 = __CPLLibraryOSLogDomain();
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
-          v75 = objc_opt_class();
+          v74 = objc_opt_class();
           *buf = 138412290;
-          v86 = v75;
-          v76 = v75;
-          _os_log_impl(&dword_1DC05A000, v74, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+          v85 = v74;
+          v75 = v74;
+          _os_log_impl(&dword_1DC05A000, v73, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v78 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
-      [currentHandler handleFailureInMethod:a2 object:v20 file:v78 lineNumber:230 description:{@"No platform object specified for %@", objc_opt_class()}];
+      v77 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineLibrary.m"];
+      [currentHandler handleFailureInMethod:a2 object:v20 file:v77 lineNumber:230 description:{@"No platform object specified for %@", objc_opt_class()}];
 
       abort();
     }
@@ -8095,15 +8017,15 @@ void __72__CPLEngineLibrary__reportQuarantineCountIfNecessaryWithLastReportDate_
     platformObject = [(CPLEngineLibrary *)v20 platformObject];
     v60 = v20->_store;
     v61 = v20->_scheduler;
-    v80[0] = platformObject;
-    v80[1] = v60;
-    v81 = *&v20->_syncManager;
+    v79[0] = platformObject;
+    v79[1] = v60;
+    v80 = *&v20->_syncManager;
     v62 = v20->_systemMonitor;
     v63 = v20->_feedback;
-    v82 = v61;
-    v83 = v62;
-    v84 = v63;
-    v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:7];
+    v81 = v61;
+    v82 = v62;
+    v83 = v63;
+    v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:7];
     components = v20->_components;
     v20->_components = v64;
 
@@ -8120,7 +8042,6 @@ void __72__CPLEngineLibrary__reportQuarantineCountIfNecessaryWithLastReportDate_
     v20->_holdTestAssertions = v70;
   }
 
-  v72 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -8250,29 +8171,29 @@ uint64_t __67__CPLEngineLibrary_CPLManagement__testKey_value_completionHandler__
 - (id)_allComponentsIncludingPlatformObjects:(BOOL)objects respondingToSelector:(SEL)selector
 {
   objectsCopy = objects;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = self->_components;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        if (objectsCopy && [*(*(&v16 + 1) + 8 * i) conformsToProtocol:{&unk_1F57F43C8, v16}])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if (objectsCopy && [*(*(&v15 + 1) + 8 * i) conformsToProtocol:{&unk_1F57F43C8, v15}])
         {
           platformObject = [v12 platformObject];
           if ([platformObject conformsToProtocol:&unk_1F57F5D40] && (objc_opt_respondsToSelector() & 1) != 0)
@@ -8287,13 +8208,11 @@ uint64_t __67__CPLEngineLibrary_CPLManagement__testKey_value_completionHandler__
         }
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -8510,7 +8429,7 @@ void __81__CPLEngineLibrary_CPLManagement__getStatusArrayForComponents_completio
 
 void __81__CPLEngineLibrary_CPLManagement__getStatusArrayForComponents_completionHandler___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -8518,12 +8437,12 @@ void __81__CPLEngineLibrary_CPLManagement__getStatusArrayForComponents_completio
   {
     v9 = *(a1 + 32);
     v8 = *(a1 + 40);
-    v31[0] = @"componentName";
-    v31[1] = @"status";
-    v32[0] = v8;
+    v30[0] = @"componentName";
+    v30[1] = @"status";
+    v31[0] = v8;
     v10 = [v6 localizedDescription];
-    v32[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v31[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
     [v9 addObject:v11];
 
 LABEL_8:
@@ -8534,13 +8453,13 @@ LABEL_8:
   {
     v13 = *(a1 + 32);
     v12 = *(a1 + 40);
-    v29[0] = @"componentName";
-    v29[1] = @"status";
-    v30[0] = v12;
-    v30[1] = v5;
+    v28[0] = @"componentName";
+    v28[1] = @"status";
+    v29[0] = v12;
+    v29[1] = v5;
     v14 = MEMORY[0x1E695DF20];
-    v15 = v30;
-    v16 = v29;
+    v15 = v29;
+    v16 = v28;
 LABEL_7:
     v10 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:2];
     [v13 addObject:v10];
@@ -8551,34 +8470,32 @@ LABEL_7:
   {
     v13 = *(a1 + 32);
     v17 = *(a1 + 40);
-    v27[0] = @"componentName";
-    v27[1] = @"status";
-    v28[0] = v17;
-    v28[1] = @"no status";
+    v26[0] = @"componentName";
+    v26[1] = @"status";
+    v27[0] = v17;
+    v27[1] = @"no status";
     v14 = MEMORY[0x1E695DF20];
-    v15 = v28;
-    v16 = v27;
+    v15 = v27;
+    v16 = v26;
     goto LABEL_7;
   }
 
 LABEL_9:
   v18 = *(*(a1 + 56) + 16);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __81__CPLEngineLibrary_CPLManagement__getStatusArrayForComponents_completionHandler___block_invoke_5;
-  v23[3] = &unk_1E861B4E0;
-  v24 = *(a1 + 64);
-  v19 = v23;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __81__CPLEngineLibrary_CPLManagement__getStatusArrayForComponents_completionHandler___block_invoke_5;
+  v22[3] = &unk_1E861B4E0;
+  v23 = *(a1 + 64);
+  v19 = v22;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __cpl_dispatch_async_block_invoke_16734;
   block[3] = &unk_1E861B4E0;
-  v26 = v19;
+  v25 = v19;
   v20 = v18;
   v21 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, block);
   dispatch_async(v20, v21);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __81__CPLEngineLibrary_CPLManagement__getStatusArrayForComponents_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -8629,7 +8546,7 @@ uint64_t __81__CPLEngineLibrary_CPLManagement__getStatusArrayForComponents_compl
 
 void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -8642,26 +8559,26 @@ void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_comple
       if (v8 == v4)
       {
         v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
         v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         v11 = *(*(a1 + 40) + 40);
-        v12 = [v11 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v39;
+          v14 = *v38;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v39 != v14)
+              if (*v38 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v38 + 1) + 8 * i);
+              v16 = *(*(&v37 + 1) + 8 * i);
               v17 = [v16 displayableNameForEngineLibrary:*(a1 + 40)];
               if (v17)
               {
@@ -8675,7 +8592,7 @@ void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_comple
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v38 objects:v48 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
           }
 
           while (v13);
@@ -8688,11 +8605,11 @@ void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_comple
           v20 = @"???";
         }
 
-        v46[0] = @"libraryIdentifier";
-        v46[1] = @"attached";
-        v47[0] = v20;
-        v47[1] = v10;
-        v46[2] = @"libraryPath";
+        v45[0] = @"libraryIdentifier";
+        v45[1] = @"attached";
+        v46[0] = v20;
+        v46[1] = v10;
+        v45[2] = @"libraryPath";
         v21 = [*(v19 + 200) path];
         v22 = [v21 stringByAbbreviatingWithTildeInPath];
         v23 = v22;
@@ -8702,8 +8619,8 @@ void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_comple
           v24 = v22;
         }
 
-        v47[2] = v24;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:3];
+        v46[2] = v24;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:3];
 
         if (objc_opt_respondsToSelector())
         {
@@ -8713,12 +8630,12 @@ void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_comple
         if (v9)
         {
           v27 = *(a1 + 48);
-          v44[0] = @"componentName";
+          v43[0] = @"componentName";
           v28 = [v4 componentName];
-          v44[1] = @"status";
-          v45[0] = v28;
-          v45[1] = v9;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
+          v43[1] = @"status";
+          v44[0] = v28;
+          v44[1] = v9;
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:2];
           [v27 addObject:v29];
           goto LABEL_29;
         }
@@ -8728,19 +8645,19 @@ void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_comple
       {
         v9 = 0;
 LABEL_24:
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_completionHandler___block_invoke_2;
-        v32[3] = &unk_1E861EFF0;
-        v33 = v4;
-        v34 = *(a1 + 48);
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_completionHandler___block_invoke_2;
+        v31[3] = &unk_1E861EFF0;
+        v32 = v4;
+        v33 = *(a1 + 48);
         v9 = v9;
-        v35 = v9;
+        v34 = v9;
         v25 = *(a1 + 32);
         v26 = *(a1 + 64);
-        v36 = v25;
-        v37 = v26;
-        [CPLCallObserver observeAsyncCallOn:v33 selector:sel_getStatusDictionaryWithCompletionHandler_ block:v32];
+        v35 = v25;
+        v36 = v26;
+        [CPLCallObserver observeAsyncCallOn:v32 selector:sel_getStatusDictionaryWithCompletionHandler_ block:v31];
 
 LABEL_32:
         goto LABEL_33;
@@ -8753,12 +8670,12 @@ LABEL_32:
       }
 
       v30 = *(a1 + 48);
-      v42[0] = @"componentName";
+      v41[0] = @"componentName";
       v28 = [v4 componentName];
-      v42[1] = @"status";
-      v43[0] = v28;
-      v43[1] = @"no status";
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:2];
+      v41[1] = @"status";
+      v42[0] = v28;
+      v42[1] = @"no status";
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
       [v30 addObject:v29];
       v9 = 0;
 LABEL_29:
@@ -8777,8 +8694,6 @@ LABEL_31:
   }
 
 LABEL_33:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -8807,22 +8722,22 @@ void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_comple
 
 void __84__CPLEngineLibrary_CPLManagement___fillStatusArray_forComponents_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) callDidFinish];
   if (v6)
   {
-    v28[0] = @"componentName";
+    v27[0] = @"componentName";
     v7 = *(a1 + 40);
     v8 = [*(a1 + 48) componentName];
-    v28[1] = @"status";
-    v29[0] = v8;
+    v27[1] = @"status";
+    v28[0] = v8;
     v9 = [v6 localizedDescription];
-    v29[1] = v9;
+    v28[1] = v9;
     v10 = MEMORY[0x1E695DF20];
-    v11 = v29;
-    v12 = v28;
+    v11 = v28;
+    v12 = v27;
 LABEL_3:
     v13 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:2];
     [v7 addObject:v13];
@@ -8838,27 +8753,27 @@ LABEL_13:
     {
       v8 = [v5 mutableCopy];
       [v8 addEntriesFromDictionary:*(a1 + 56)];
-      v26[0] = @"componentName";
+      v25[0] = @"componentName";
       v7 = *(a1 + 40);
       v9 = [*(a1 + 48) componentName];
-      v26[1] = @"status";
-      v27[0] = v9;
-      v27[1] = v8;
+      v25[1] = @"status";
+      v26[0] = v9;
+      v26[1] = v8;
       v10 = MEMORY[0x1E695DF20];
-      v11 = v27;
-      v12 = v26;
+      v11 = v26;
+      v12 = v25;
       goto LABEL_3;
     }
 
-    v24[0] = @"componentName";
+    v23[0] = @"componentName";
     v15 = *(a1 + 40);
     v8 = [*(a1 + 48) componentName];
-    v24[1] = @"status";
-    v25[0] = v8;
-    v25[1] = v5;
+    v23[1] = @"status";
+    v24[0] = v8;
+    v24[1] = v5;
     v16 = MEMORY[0x1E695DF20];
-    v17 = v25;
-    v18 = v24;
+    v17 = v24;
+    v18 = v23;
 LABEL_12:
     v9 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:2];
     [v15 addObject:v9];
@@ -8867,36 +8782,34 @@ LABEL_12:
 
   if (v14)
   {
-    v22[0] = @"componentName";
+    v21[0] = @"componentName";
     v15 = *(a1 + 40);
     v8 = [*(a1 + 48) componentName];
-    v22[1] = @"status";
-    v23[0] = v8;
-    v23[1] = *(a1 + 56);
+    v21[1] = @"status";
+    v22[0] = v8;
+    v22[1] = *(a1 + 56);
     v16 = MEMORY[0x1E695DF20];
-    v17 = v23;
-    v18 = v22;
+    v17 = v22;
+    v18 = v21;
     goto LABEL_12;
   }
 
   if (*(a1 + 64))
   {
-    v20[0] = @"componentName";
+    v19[0] = @"componentName";
     v15 = *(a1 + 40);
     v8 = [*(a1 + 48) componentName];
-    v20[1] = @"status";
-    v21[0] = v8;
-    v21[1] = @"no status";
+    v19[1] = @"status";
+    v20[0] = v8;
+    v20[1] = @"no status";
     v16 = MEMORY[0x1E695DF20];
-    v17 = v21;
-    v18 = v20;
+    v17 = v20;
+    v18 = v19;
     goto LABEL_12;
   }
 
 LABEL_14:
   [*(*(*(a1 + 72) + 8) + 40) handleNextComponent];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStatusForComponents:(id)components completionHandler:(id)handler
@@ -9060,15 +8973,14 @@ void __76__CPLEngineLibrary_CPLManagement__getStatusForComponents_completionHand
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = [*(a1 + 32) componentsJoinedByString:@"\n\n"];
+    v4 = [*(a1 + 32) componentsJoinedByString:@"\n\n"];
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -9107,7 +9019,7 @@ void __76__CPLEngineLibrary_CPLManagement__getStatusForComponents_completionHand
 
 void __79__CPLEngineLibrary_CPLManagement___fillStatus_forComponents_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -9159,30 +9071,30 @@ void __79__CPLEngineLibrary_CPLManagement___fillStatus_forComponents_completionH
         v17 = [MEMORY[0x1E695DF00] date];
         if ([*(*(a1 + 40) + 40) count])
         {
-          v54 = v17;
-          v55 = v9;
-          v56 = v4;
+          v53 = v17;
+          v54 = v9;
+          v55 = v4;
           v18 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(*(a1 + 40) + 40), "count")}];
-          v65 = 0u;
-          v66 = 0u;
-          v63 = 0u;
           v64 = 0u;
+          v65 = 0u;
+          v62 = 0u;
+          v63 = 0u;
           v19 = *(*(a1 + 40) + 40);
-          v20 = [v19 countByEnumeratingWithState:&v63 objects:v67 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v62 objects:v66 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v64;
+            v22 = *v63;
             do
             {
               for (i = 0; i != v21; ++i)
               {
-                if (*v64 != v22)
+                if (*v63 != v22)
                 {
                   objc_enumerationMutation(v19);
                 }
 
-                v24 = *(*(&v63 + 1) + 8 * i);
+                v24 = *(*(&v62 + 1) + 8 * i);
                 v25 = [v24 displayableNameForEngineLibrary:*(a1 + 40)];
                 v26 = v25;
                 if (v25)
@@ -9207,22 +9119,22 @@ void __79__CPLEngineLibrary_CPLManagement___fillStatus_forComponents_completionH
                 [v18 addObject:v28];
               }
 
-              v21 = [v19 countByEnumeratingWithState:&v63 objects:v67 count:16];
+              v21 = [v19 countByEnumeratingWithState:&v62 objects:v66 count:16];
             }
 
             while (v21);
           }
 
           v30 = [*(*(a1 + 40) + 40) count];
-          v17 = v54;
-          v31 = [CPLDateFormatter stringFromDate:v54];
+          v17 = v53;
+          v31 = [CPLDateFormatter stringFromDate:v53];
           v32 = [MEMORY[0x1E695DFE8] defaultTimeZone];
           v33 = [v32 name];
           v34 = [v18 componentsJoinedByString:@"\n\t\t"];
-          v9 = v55;
-          [v55 appendFormat:@"\n\t%lu attached object(s) at %@ (%@):\n\t\t%@", v30, v31, v33, v34];
+          v9 = v54;
+          [v54 appendFormat:@"\n\t%lu attached object(s) at %@ (%@):\n\t\t%@", v30, v31, v33, v34];
 
-          v4 = v56;
+          v4 = v55;
         }
 
         else
@@ -9276,19 +9188,19 @@ void __79__CPLEngineLibrary_CPLManagement___fillStatus_forComponents_completionH
       {
         v9 = 0;
 LABEL_41:
-        v57[0] = MEMORY[0x1E69E9820];
-        v57[1] = 3221225472;
-        v57[2] = __79__CPLEngineLibrary_CPLManagement___fillStatus_forComponents_completionHandler___block_invoke_2;
-        v57[3] = &unk_1E861EFF0;
-        v58 = v4;
-        v59 = *(a1 + 48);
+        v56[0] = MEMORY[0x1E69E9820];
+        v56[1] = 3221225472;
+        v56[2] = __79__CPLEngineLibrary_CPLManagement___fillStatus_forComponents_completionHandler___block_invoke_2;
+        v56[3] = &unk_1E861EFF0;
+        v57 = v4;
+        v58 = *(a1 + 48);
         v9 = v9;
-        v60 = v9;
+        v59 = v9;
         v45 = *(a1 + 32);
         v46 = *(a1 + 64);
-        v61 = v45;
-        v62 = v46;
-        [CPLCallObserver observeAsyncCallOn:v58 selector:sel_getStatusWithCompletionHandler_ block:v57];
+        v60 = v45;
+        v61 = v46;
+        [CPLCallObserver observeAsyncCallOn:v57 selector:sel_getStatusWithCompletionHandler_ block:v56];
 
 LABEL_49:
         goto LABEL_50;
@@ -9322,8 +9234,6 @@ LABEL_48:
   }
 
 LABEL_50:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 void __79__CPLEngineLibrary_CPLManagement___fillStatus_forComponents_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -9442,7 +9352,7 @@ LABEL_14:
 
 void __76__CPLEngineLibrary_CPLManagement__getListOfComponentsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 240));
   v4 = objc_loadWeakRetained((*(a1 + 32) + 240));
@@ -9456,28 +9366,28 @@ void __76__CPLEngineLibrary_CPLManagement__getListOfComponentsWithCompletionHand
     }
   }
 
-  v17 = WeakRetained;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v16 = WeakRetained;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = *(*(a1 + 32) + 8);
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         v12 = [*(a1 + 32) platformObject];
         v13 = v12;
         if (v11 == v12)
@@ -9502,14 +9412,13 @@ LABEL_15:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   (*(*(a1 + 40) + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

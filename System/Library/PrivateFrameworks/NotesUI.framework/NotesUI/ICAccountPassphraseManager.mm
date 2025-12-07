@@ -583,7 +583,7 @@ void __60__ICAccountPassphraseManager_applicationDidEnterBackground___block_invo
   v1 = [a1 account];
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_3(&dword_1D4171000, v3, v4, "Not setting passphrase because diverged passphrase does not authenticate account {account: %@}", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_3(&dword_1D4171000, v3, v4, "Not setting passphrase because diverged passphrase does not authenticate account {account: %@}", v5, v6, v7, v8);
 }
 
 - (void)changePassphrase:(void *)a1 toPassphrase:hint:completion:.cold.2(void *a1)
@@ -591,7 +591,7 @@ void __60__ICAccountPassphraseManager_applicationDidEnterBackground___block_invo
   v1 = [a1 account];
   v2 = [v1 shortLoggingDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_3(&dword_1D4171000, v3, v4, "Not setting passphrase because account is not authenticated {account: %@}", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_3(&dword_1D4171000, v3, v4, "Not setting passphrase because account is not authenticated {account: %@}", v5, v6, v7, v8);
 }
 
 - (void)removePassphrase

@@ -30,11 +30,11 @@ uint64_t __31__IRStore_commitChangesToStore__block_invoke(uint64_t a1)
 - (BOOL)commitChangesToStore
 {
   v6 = 0;
-  v7[0] = &v6;
-  v7[1] = 0x3032000000;
-  v7[2] = __Block_byref_object_copy__4;
-  v7[3] = __Block_byref_object_dispose__4;
-  v8 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__4;
+  v10 = __Block_byref_object_dispose__4;
+  v11 = 0;
   managedObjectContext = self->_managedObjectContext;
   v5[0] = MEMORY[0x277D85DD0];
   v5[1] = 3221225472;
@@ -43,14 +43,14 @@ uint64_t __31__IRStore_commitChangesToStore__block_invoke(uint64_t a1)
   v5[4] = self;
   v5[5] = &v6;
   [(NSManagedObjectContext *)managedObjectContext performBlockAndWait:v5];
-  if (*(v7[0] + 40))
+  if (v7[5])
   {
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
-      [(IRStore *)v7 commitChangesToStore];
+      [IRStore commitChangesToStore];
     }
 
-    v3 = *(v7[0] + 40) == 0;
+    v3 = v7[5] == 0;
   }
 
   else
@@ -185,11 +185,11 @@ void __79__IRStore_fetchObjectsWithEntityName_byAndPredicates_sortDescriptors_an
   predicatesCopy = predicates;
   descriptorsCopy = descriptors;
   v33 = 0;
-  v34[0] = &v33;
-  v34[1] = 0x3032000000;
-  v34[2] = __Block_byref_object_copy__4;
-  v34[3] = __Block_byref_object_dispose__4;
-  v35 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__4;
+  v37 = __Block_byref_object_dispose__4;
+  v38 = 0;
   v27 = 0;
   v28 = &v27;
   v29 = 0x3032000000;
@@ -212,9 +212,9 @@ void __79__IRStore_fetchObjectsWithEntityName_byAndPredicates_sortDescriptors_an
   selfCopy = self;
   v24 = &v27;
   [(NSManagedObjectContext *)managedObjectContext performBlockAndWait:v19];
-  if (*(v34[0] + 40) && os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
+  if (v34[5] && os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
   {
-    [IRStore fetchManagedObjectsWithEntityName:v34 byAndPredicates:? sortDescriptors:? andLimit:?];
+    [IRStore fetchManagedObjectsWithEntityName:byAndPredicates:sortDescriptors:andLimit:];
   }
 
   v17 = v28[5];
@@ -249,11 +249,11 @@ void __86__IRStore_fetchManagedObjectsWithEntityName_byAndPredicates_sortDescrip
   predicatesCopy = predicates;
   descriptorsCopy = descriptors;
   v31 = 0;
-  v32[0] = &v31;
-  v32[1] = 0x3032000000;
-  v32[2] = __Block_byref_object_copy__4;
-  v32[3] = __Block_byref_object_dispose__4;
-  v33 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__4;
+  v35 = __Block_byref_object_dispose__4;
+  v36 = 0;
   v27 = 0;
   v28 = &v27;
   v29 = 0x2020000000;
@@ -274,9 +274,9 @@ void __86__IRStore_fetchManagedObjectsWithEntityName_byAndPredicates_sortDescrip
   selfCopy = self;
   v24 = &v27;
   [(NSManagedObjectContext *)managedObjectContext performBlockAndWait:v19];
-  if (*(v32[0] + 40) && os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
+  if (v32[5] && os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
   {
-    [IRStore countManagedObjectWithEntityName:v32 byAndPredicates:? sortDescriptors:? andLimit:?];
+    [IRStore countManagedObjectWithEntityName:byAndPredicates:sortDescriptors:andLimit:];
   }
 
   if (v28[3] == 0x7FFFFFFFFFFFFFFFLL)
@@ -318,11 +318,11 @@ void __85__IRStore_countManagedObjectWithEntityName_byAndPredicates_sortDescript
   predicatesCopy = predicates;
   descriptorsCopy = descriptors;
   v26 = 0;
-  v27[0] = &v26;
-  v27[1] = 0x3032000000;
-  v27[2] = __Block_byref_object_copy__4;
-  v27[3] = __Block_byref_object_dispose__4;
-  v28 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__4;
+  v30 = __Block_byref_object_dispose__4;
+  v31 = 0;
   managedObjectContext = self->_managedObjectContext;
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
@@ -338,14 +338,14 @@ void __85__IRStore_countManagedObjectWithEntityName_byAndPredicates_sortDescript
   v24 = &v26;
   limitCopy = limit;
   [(NSManagedObjectContext *)managedObjectContext performBlockAndWait:v19];
-  if (*(v27[0] + 40))
+  if (v27[5])
   {
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
     {
-      [IRStore batchDeleteObjectsWithEntityName:v27 byAndPredicates:? sortDescriptors:? andLimit:?];
+      [IRStore batchDeleteObjectsWithEntityName:byAndPredicates:sortDescriptors:andLimit:];
     }
 
-    v17 = *(v27[0] + 40) == 0;
+    v17 = v27[5] == 0;
   }
 
   else
@@ -380,11 +380,11 @@ void __85__IRStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
   predicateCopy = predicate;
   updateCopy = update;
   v23 = 0;
-  v24[0] = &v23;
-  v24[1] = 0x3032000000;
-  v24[2] = __Block_byref_object_copy__4;
-  v24[3] = __Block_byref_object_dispose__4;
-  v25 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__4;
+  v27 = __Block_byref_object_dispose__4;
+  v28 = 0;
   managedObjectContext = self->_managedObjectContext;
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
@@ -399,10 +399,10 @@ void __85__IRStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
   selfCopy = self;
   v22 = &v23;
   [(NSManagedObjectContext *)managedObjectContext performBlockAndWait:v17];
-  v15 = *(v24[0] + 40);
+  v15 = v24[5];
   if (v15 && os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
   {
-    [IRStore batchUpdateObjectsWithEntityName:v24 predicate:? propertiesToUpdate:?];
+    [IRStore batchUpdateObjectsWithEntityName:predicate:propertiesToUpdate:];
   }
 
   _Block_object_dispose(&v23, 8);
@@ -424,42 +424,37 @@ void __73__IRStore_batchUpdateObjectsWithEntityName_predicate_propertiesToUpdate
 
 - (void)commitChangesToStore
 {
-  OUTLINED_FUNCTION_0_4(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v1, v2, "#store, [ErrorId - Commit changes error] Could not save changes to store with error = %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#store, [ErrorId - Commit changes error] Could not save changes to store with error = %@", v2, v3, v4, v5);
 }
 
-- (void)fetchManagedObjectsWithEntityName:(uint64_t)a1 byAndPredicates:sortDescriptors:andLimit:.cold.1(uint64_t a1)
+- (void)fetchManagedObjectsWithEntityName:byAndPredicates:sortDescriptors:andLimit:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v1, v2, "#store, [ErrorId - Fetch MOs error] Could not perform fetch request to store with error = %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#store, [ErrorId - Fetch MOs error] Could not perform fetch request to store with error = %@", v2, v3, v4, v5);
 }
 
-- (void)countManagedObjectWithEntityName:(uint64_t)a1 byAndPredicates:sortDescriptors:andLimit:.cold.1(uint64_t a1)
+- (void)countManagedObjectWithEntityName:byAndPredicates:sortDescriptors:andLimit:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v1, v2, "#store, [ErrorId - Count MOs error] Could not perform fetch request to store with error = %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#store, [ErrorId - Count MOs error] Could not perform fetch request to store with error = %@", v2, v3, v4, v5);
 }
 
-- (void)batchDeleteObjectsWithEntityName:(uint64_t)a1 byAndPredicates:sortDescriptors:andLimit:.cold.1(uint64_t a1)
+- (void)batchDeleteObjectsWithEntityName:byAndPredicates:sortDescriptors:andLimit:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v1, v2, "#store, [ErrorId - Batch delete MOs error] Could not perform batch delete request to store with error = %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#store, [ErrorId - Batch delete MOs error] Could not perform batch delete request to store with error = %@", v2, v3, v4, v5);
 }
 
-- (void)batchUpdateObjectsWithEntityName:(uint64_t)a1 predicate:propertiesToUpdate:.cold.1(uint64_t a1)
+- (void)batchUpdateObjectsWithEntityName:predicate:propertiesToUpdate:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, v1, v2, "#store, [ErrorId - Batch update MOs error] Could not perform batch update request to store with error = %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, v0, v1, "#store, [ErrorId - Batch update MOs error] Could not perform batch update request to store with error = %@", v2, v3, v4, v5);
 }
 
 @end

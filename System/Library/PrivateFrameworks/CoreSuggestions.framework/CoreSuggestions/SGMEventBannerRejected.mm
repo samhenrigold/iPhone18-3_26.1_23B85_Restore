@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar app:(SGMBannerDisplayApp_)app category:(SGMEventCategory_)category extracted:(SGMEventExtractionType_)extracted
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   if (app.var0 >= 3)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -60,37 +60,34 @@
   }
 
   tracker = self->_tracker;
-  v24[0] = v11;
-  v24[1] = v17;
-  v24[2] = v18;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+  v23[0] = v11;
+  v23[1] = v17;
+  v23[2] = v18;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v22 value:scalar];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMEventBannerRejected)init
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = SGMEventBannerRejected;
-  v2 = [(SGMEventBannerRejected *)&v12 init];
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = SGMEventBannerRejected;
+  v2 = [(SGMEventBannerRejected *)&v11 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"App"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Category"];
     v5 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Extracted"];
     v6 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v13[0] = v3;
-    v13[1] = v4;
-    v13[2] = v5;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+    v12[0] = v3;
+    v12[1] = v4;
+    v12[2] = v5;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
     v8 = [v6 initWithFeatureId:@"Found" event:@"EventBannerRejected" registerProperties:v7 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

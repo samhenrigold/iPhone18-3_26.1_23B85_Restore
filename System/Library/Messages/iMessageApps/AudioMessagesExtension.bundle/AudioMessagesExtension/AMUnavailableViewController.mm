@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_3A414();
+  sub_3A414(selfCopy);
 }
 
 - (_TtC22AudioMessagesExtension27AMUnavailableViewController)initWithNibName:(id)name bundle:(id)bundle

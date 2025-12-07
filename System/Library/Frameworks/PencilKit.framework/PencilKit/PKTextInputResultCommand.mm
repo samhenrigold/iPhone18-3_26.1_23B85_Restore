@@ -3,7 +3,7 @@
 + (id)_transcriptionForTokensAtColumn:(uint64_t)column row:(void *)row textResult:;
 - (id)_strokeSliceIDsToRemoveForCommittedTokenColumnCount:(char)count forceRemoveAll:;
 - (id)description;
-- (uint64_t)initWithQueryItem:(void *)item handwritingShot:(uint64_t)shot immediateCommitType:(double)type applyAfterDelay:;
+- (id)initWithQueryItem:(void *)item handwritingShot:(void *)shot immediateCommitType:(double)type applyAfterDelay:;
 - (void)_applyResultCommandPhase2;
 - (void)_applyTextReplacementWithCompletion:(uint64_t)completion;
 - (void)_finishApplyingResultWithSuccess:(int)success cancelled:;
@@ -16,7 +16,7 @@
 
 @implementation PKTextInputResultCommand
 
-- (uint64_t)initWithQueryItem:(void *)item handwritingShot:(uint64_t)shot immediateCommitType:(double)type applyAfterDelay:
+- (id)initWithQueryItem:(void *)item handwritingShot:(void *)shot immediateCommitType:(double)type applyAfterDelay:
 {
   v10 = a2;
   itemCopy = item;
@@ -28,10 +28,10 @@
     self = v12;
     if (v12)
     {
-      *(v12 + 3) = 0;
+      v12[3] = 0;
       objc_storeStrong(v12 + 4, a2);
-      objc_storeStrong((self + 40), item);
-      *(self + 64) = shot;
+      objc_storeStrong(self + 5, item);
+      self[8] = shot;
       correctionResult = [v10 correctionResult];
       inputTarget = [correctionResult inputTarget];
       inputTargetIdentifier = [inputTarget inputTargetIdentifier];
@@ -39,21 +39,21 @@
       if (inputTargetIdentifier)
       {
         v16 = [itemCopy textInputElementContentForRecognitionIdentifier:inputTargetIdentifier];
-        v17 = *(self + 48);
-        *(self + 48) = v16;
+        v17 = self[6];
+        self[6] = v16;
       }
 
       correctionResult2 = [v10 correctionResult];
       if (correctionResult2)
       {
         correctionResult3 = [v10 correctionResult];
-        *(self + 112) = [correctionResult3 affectedRange];
-        *(self + 120) = v20;
+        self[14] = [correctionResult3 affectedRange];
+        self[15] = v20;
       }
 
       else
       {
-        *(self + 112) = xmmword_1C801E6F0;
+        *(self + 7) = xmmword_1C801E6F0;
       }
 
       *(self + 11) = 1;
@@ -412,7 +412,7 @@ LABEL_32:
   }
 }
 
-void __75__PKTextInputResultCommand_beginApplyingResultCommandWithInputTargetState___block_invoke(uint64_t *a1, void *a2)
+void __75__PKTextInputResultCommand_beginApplyingResultCommandWithInputTargetState___block_invoke(void *a1, void *a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   v3 = a2;

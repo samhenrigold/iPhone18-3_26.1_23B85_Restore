@@ -10,7 +10,7 @@
   observationsCopy = observations;
   operatorCopy = operator;
   v10 = objc_alloc_init(_DASPredictionAccuracy);
-  if ([predictionsCopy count])
+  if (objc_msgSend_count(predictionsCopy))
   {
     v26 = 0u;
     v27 = 0u;

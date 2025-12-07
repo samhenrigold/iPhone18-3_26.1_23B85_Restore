@@ -19,7 +19,9 @@
 - (NSString)userVisibleDescription;
 - (id)name;
 - (unsigned)currentUserVisibleValue;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setCurrentUserVisibleValue:(unsigned __int8)value;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -126,6 +128,13 @@
   uint8Value = [currentUserVisibleValueCharacteristic uint8Value];
 
   return uint8Value;
+}
+
+- (void)setCurrentUserVisibleValue:(unsigned __int8)value
+{
+  valueCopy = value;
+  currentUserVisibleValueCharacteristic = [(CAFSingleSelectImageSetting *)self currentUserVisibleValueCharacteristic];
+  [currentUserVisibleValueCharacteristic setUint8Value:valueCopy];
 }
 
 - (CAFUInt8Range)currentUserVisibleValueRange
@@ -286,6 +295,122 @@
   v3 = userVisibleDescriptionCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000008"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    currentUserVisibleValueCharacteristic = [(CAFSingleSelectImageSetting *)self currentUserVisibleValueCharacteristic];
+    uniqueIdentifier2 = [currentUserVisibleValueCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers singleSelectImageSettingService:self didUpdateCurrentUserVisibleValue:{-[CAFSingleSelectImageSetting currentUserVisibleValue](self, "currentUserVisibleValue")}];
+LABEL_21:
+
+      goto LABEL_22;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000007"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    listUserVisibleValueCharacteristic = [(CAFSingleSelectImageSetting *)self listUserVisibleValueCharacteristic];
+    uniqueIdentifier4 = [listUserVisibleValueCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      listUserVisibleValue = [(CAFSingleSelectImageSetting *)self listUserVisibleValue];
+      [observers singleSelectImageSettingService:self didUpdateListUserVisibleValue:listUserVisibleValue];
+LABEL_20:
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000018"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    imagesCharacteristic = [(CAFSingleSelectImageSetting *)self imagesCharacteristic];
+    uniqueIdentifier6 = [imagesCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      listUserVisibleValue = [(CAFSingleSelectImageSetting *)self images];
+      [observers singleSelectImageSettingService:self didUpdateImages:listUserVisibleValue];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000036000029"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    userVisibleDetailedDescriptionCharacteristic = [(CAFSingleSelectImageSetting *)self userVisibleDetailedDescriptionCharacteristic];
+    uniqueIdentifier8 = [userVisibleDetailedDescriptionCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      listUserVisibleValue = [(CAFSingleSelectImageSetting *)self userVisibleDetailedDescription];
+      [observers singleSelectImageSettingService:self didUpdateUserVisibleDetailedDescription:listUserVisibleValue];
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000030000005"])
+  {
+    goto LABEL_21;
+  }
+
+  uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+  userVisibleDescriptionCharacteristic = [(CAFSingleSelectImageSetting *)self userVisibleDescriptionCharacteristic];
+  uniqueIdentifier10 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+  v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+  if (v32)
+  {
+    observers = [(CAFService *)self observers];
+    listUserVisibleValue = [(CAFSingleSelectImageSetting *)self userVisibleDescription];
+    [observers singleSelectImageSettingService:self didUpdateUserVisibleDescription:listUserVisibleValue];
+    goto LABEL_20;
+  }
+
+LABEL_22:
+  v33.receiver = self;
+  v33.super_class = CAFSingleSelectImageSetting;
+  [(CAFAutomakerSetting *)&v33 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForCurrentUserVisibleValue

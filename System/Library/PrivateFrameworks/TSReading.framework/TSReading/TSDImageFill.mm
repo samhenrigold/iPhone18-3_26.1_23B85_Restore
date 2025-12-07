@@ -946,34 +946,34 @@ LABEL_7:
   }
 
   [p_validatedImageProvider naturalSize];
-  TSDMultiplySizeScalar(v7, v8, scale);
-  v9 = TSDRoundedSize();
+  v9 = TSDMultiplySizeScalar(v7, v8, scale);
+  v12 = TSDRoundedSize(v10, v9, v11);
   if ([p_validatedImageProvider imageGamut] == 2)
   {
-    v10 = 11;
+    v13 = 11;
   }
 
   else
   {
-    v10 = 43;
+    v13 = 43;
   }
 
-  v11 = TSDBitmapContextCreate(v10, v9);
-  v12 = TSDRectWithSize();
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  CGContextSaveGState(v11);
-  [p_validatedImageProvider drawImageInContext:v11 rect:{v12, v14, v16, v18}];
-  CGContextRestoreGState(v11);
-  CGContextSetFillColorWithColor(v11, [(TSUColor *)[(TSDImageFill *)self tintColor] CGColor]);
-  v20.origin.x = v12;
-  v20.origin.y = v14;
-  v20.size.width = v16;
-  v20.size.height = v18;
-  CGContextFillRect(v11, v20);
-  Image = CGBitmapContextCreateImage(v11);
-  CGContextRelease(v11);
+  v14 = TSDBitmapContextCreate(v13, v12);
+  v15 = TSDRectWithSize();
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  CGContextSaveGState(v14);
+  [p_validatedImageProvider drawImageInContext:v14 rect:{v15, v17, v19, v21}];
+  CGContextRestoreGState(v14);
+  CGContextSetFillColorWithColor(v14, [(TSUColor *)[(TSDImageFill *)self tintColor] CGColor]);
+  v23.origin.x = v15;
+  v23.origin.y = v17;
+  v23.size.width = v19;
+  v23.size.height = v21;
+  CGContextFillRect(v14, v23);
+  Image = CGBitmapContextCreateImage(v14);
+  CGContextRelease(v14);
   return Image;
 }
 
@@ -1189,8 +1189,8 @@ LABEL_3:
 
   if (!technique)
   {
-    CGContextGetUserSpaceToDeviceSpaceTransform(&v33, context);
-    v18 = TSDIsTransformAxisAligned(&v33.a);
+    CGContextGetUserSpaceToDeviceSpaceTransform(&v37, context);
+    v18 = TSDIsTransformAxisAligned(&v37.a);
     v19 = TSDCenterOfRect(x, y, width, height);
     v21 = TSDRectWithCenterAndSize(v19, v20, v11);
     x = v21;
@@ -1199,27 +1199,29 @@ LABEL_3:
     height = v24;
     if (v18)
     {
-      CGContextConvertRectToDeviceSpace(context, *&v21);
-      v25 = TSDRoundedPoint();
-      v27 = v26;
-      v34.size.width = TSDRoundedSize();
-      v34.size.height = v28;
-      v34.origin.x = v25;
-      v34.origin.y = v27;
-      *&v14 = CGContextConvertRectToUserSpace(context, v34);
+      v38 = CGContextConvertRectToDeviceSpace(context, *&v21);
+      v25 = v38.size.width;
+      v26 = v38.size.height;
+      v28 = TSDRoundedPoint(v27, v38.origin.x, v38.origin.y);
+      v30 = v29;
+      v39.size.width = TSDRoundedSize(v31, v25, v26);
+      v39.size.height = v32;
+      v39.origin.x = v28;
+      v39.origin.y = v30;
+      *&v14 = CGContextConvertRectToUserSpace(context, v39);
       goto LABEL_3;
     }
   }
 
 LABEL_7:
-  v29 = x;
-  v30 = y;
-  v31 = width;
-  v32 = height;
-  result.size.height = v32;
-  result.size.width = v31;
-  result.origin.y = v30;
-  result.origin.x = v29;
+  v33 = x;
+  v34 = y;
+  v35 = width;
+  v36 = height;
+  result.size.height = v36;
+  result.size.width = v35;
+  result.origin.y = v34;
+  result.origin.x = v33;
   return result;
 }
 

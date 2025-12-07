@@ -26,22 +26,20 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = brc_bread_crumbs("[BRProgressProxy dealloc]", 34);
   v5 = brc_default_log(0, 0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_fault_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _globalProgressSubscriber == nil%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_fault_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _globalProgressSubscriber == nil%@", &v6, 0xCu);
   }
 
   if (*self)
   {
     [a2 stop];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start

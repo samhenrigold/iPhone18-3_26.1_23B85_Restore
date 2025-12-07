@@ -10,6 +10,7 @@
 - (id)cachedValueForCharacteristic:(id)characteristic;
 - (id)readValuesForCharacteristicTypes:(id)types inServices:(id)services;
 - (id)readValuesForCharacteristics:(id)characteristics;
+- (id)writeNaturalLightEnabledState:(BOOL)state forProfile:(id)profile;
 - (id)writeValuesForCharacteristics:(id)characteristics;
 - (unint64_t)hash;
 - (void)beginTransactionWithReason:(id)reason readPolicy:(id)policy logger:(id)logger;
@@ -57,6 +58,28 @@
 
   v8 = [v7 isNaturalLightingEnabledForProfile:profileCopy];
   return v8;
+}
+
+- (id)writeNaturalLightEnabledState:(BOOL)state forProfile:(id)profile
+{
+  stateCopy = state;
+  profileCopy = profile;
+  originalValueSource = [(HFOverrideCharacteristicValueSource *)self originalValueSource];
+  if ([originalValueSource conformsToProtocol:&unk_28253EC38])
+  {
+    v8 = originalValueSource;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = v8;
+
+  v10 = [v9 writeNaturalLightEnabledState:stateCopy forProfile:profileCopy];
+
+  return v10;
 }
 
 - (void)fetchNaturalLightColorTemperatureForBrightness:(int64_t)brightness lightProfile:(id)profile completion:(id)completion
@@ -137,33 +160,33 @@ uint64_t __68__HFOverrideCharacteristicValueSource_readValuesForCharacteristics_
 
 id __68__HFOverrideCharacteristicValueSource_readValuesForCharacteristics___block_invoke_2(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v23 = v3;
+  v22 = v3;
   v5 = [v3 allReadResponses];
   v6 = [v5 mutableCopy];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = *(a1 + 32);
-  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         v12 = [WeakRetained overrideValueProvider];
         v13 = [v12 valueSource:WeakRetained overrideValueForCharacteristic:v11];
 
@@ -173,19 +196,17 @@ id __68__HFOverrideCharacteristicValueSource_readValuesForCharacteristics___bloc
         [v6 addObject:v16];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
   }
 
   v17 = [HFCharacteristicBatchReadResponse alloc];
-  v18 = [v23 contextProvider];
+  v18 = [v22 contextProvider];
   v19 = [(HFCharacteristicBatchReadResponse *)v17 initWithReadResponses:v6 contextProvider:v18];
 
   v20 = [MEMORY[0x277D2C900] futureWithResult:v19];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

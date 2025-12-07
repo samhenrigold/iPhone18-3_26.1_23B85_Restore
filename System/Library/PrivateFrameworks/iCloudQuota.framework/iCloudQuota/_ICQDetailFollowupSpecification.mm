@@ -28,19 +28,19 @@
   if (v6)
   {
     [(_ICQDetailFollowupSpecification *)v6 setBundleId:@"com.apple.mobileslideshow"];
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"lockScreenInfo"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
 
     if (v8)
     {
-      v9 = [dictionaryCopy objectForKeyedSubscript:@"lockScreenInfo"];
+      v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
       [(_ICQDetailFollowupSpecification *)v7 setLockScreenInfo:v9];
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"followUpInfo"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
 
     if (v10)
     {
-      v11 = [dictionaryCopy objectForKeyedSubscript:@"followUpInfo"];
+      v11 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
       [(_ICQDetailFollowupSpecification *)v7 setFollowUpInfo:v11];
     }
   }
@@ -50,32 +50,32 @@
 
 - (void)setLockScreenInfo:(id)info
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   objc_storeStrong(&self->_lockScreenInfo, info);
-  v6 = [infoCopy objectForKeyedSubscript:@"lockTitle"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v8 = [infoCopy objectForKeyedSubscript:@"lockTitle"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
     v9 = [_ICQHelperFunctions parseTemplates:v8];
     [(_ICQDetailFollowupSpecification *)self setTitleTemplates:v9];
   }
 
   else
   {
-    v10 = [infoCopy objectForKeyedSubscript:@"lockTitle"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
     objc_opt_class();
     v11 = objc_opt_isKindOfClass();
 
     if (v11)
     {
-      v44 = @"default";
-      v12 = [infoCopy objectForKeyedSubscript:@"lockTitle"];
-      v45[0] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v43 = @"default";
+      v12 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
+      v44[0] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
       [(_ICQDetailFollowupSpecification *)self setTitleTemplates:v13];
     }
 
@@ -84,19 +84,19 @@
       v12 = _ICQGetLogSystem();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v38) = 0;
-        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "lockTitle field not present or of undefined type in lockScreenInfo", &v38, 2u);
+        LOWORD(v37) = 0;
+        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "lockTitle field not present or of undefined type in lockScreenInfo", &v37, 2u);
       }
     }
   }
 
-  v14 = [infoCopy objectForKeyedSubscript:@"lockSubTitle"];
+  v14 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   v15 = objc_opt_isKindOfClass();
 
   if (v15)
   {
-    v16 = [infoCopy objectForKeyedSubscript:@"lockSubTitle"];
+    v16 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
     v17 = [_ICQHelperFunctions parseTemplates:v16];
 LABEL_12:
     v20 = v17;
@@ -105,35 +105,35 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v18 = [infoCopy objectForKeyedSubscript:@"lockSubTitle"];
+  v18 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   v19 = objc_opt_isKindOfClass();
 
   if (v19)
   {
-    v42 = @"default";
-    v16 = [infoCopy objectForKeyedSubscript:@"lockSubTitle"];
-    v43 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v41 = @"default";
+    v16 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
+    v42 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
     goto LABEL_12;
   }
 
   v16 = _ICQGetLogSystem();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v38) = 0;
-    _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "lockSubTitle field not present or of undefined type in lockScreenInfo", &v38, 2u);
+    LOWORD(v37) = 0;
+    _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "lockSubTitle field not present or of undefined type in lockScreenInfo", &v37, 2u);
   }
 
 LABEL_13:
 
-  v21 = [infoCopy objectForKeyedSubscript:@"lockMessage"];
+  v21 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   v22 = objc_opt_isKindOfClass();
 
   if (v22)
   {
-    v23 = [infoCopy objectForKeyedSubscript:@"lockMessage"];
+    v23 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
     v24 = [_ICQHelperFunctions parseTemplates:v23];
 LABEL_17:
     v27 = v24;
@@ -142,41 +142,41 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v25 = [infoCopy objectForKeyedSubscript:@"lockMessage"];
+  v25 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   v26 = objc_opt_isKindOfClass();
 
   if (v26)
   {
-    v40 = @"default";
-    v23 = [infoCopy objectForKeyedSubscript:@"lockMessage"];
-    v41 = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v39 = @"default";
+    v23 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
+    v40 = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
     goto LABEL_17;
   }
 
   v23 = _ICQGetLogSystem();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v38) = 0;
-    _os_log_impl(&dword_275572000, v23, OS_LOG_TYPE_DEFAULT, "lockMessage field not present or of undefined type in lockScreenInfo", &v38, 2u);
+    LOWORD(v37) = 0;
+    _os_log_impl(&dword_275572000, v23, OS_LOG_TYPE_DEFAULT, "lockMessage field not present or of undefined type in lockScreenInfo", &v37, 2u);
   }
 
 LABEL_18:
 
   v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v29 = [infoCopy objectForKeyedSubscript:@"actParams"];
+  v29 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   if (v29)
   {
     v30 = v29;
-    v31 = [infoCopy objectForKeyedSubscript:@"action"];
+    v31 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
 
     if (v31)
     {
-      v32 = [infoCopy objectForKeyedSubscript:@"actParams"];
+      v32 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
       [v28 setObject:v32 forKey:@"actParams"];
 
-      v33 = [infoCopy objectForKeyedSubscript:@"action"];
+      v33 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
       [v28 setObject:v33 forKey:@"action"];
 
       [v28 setObject:&stru_288431E38 forKey:@"display"];
@@ -185,51 +185,49 @@ LABEL_18:
     }
   }
 
-  v35 = [infoCopy objectForKeyedSubscript:ICQFollowupNotifyingAppIdKey];
+  v35 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   if (v35)
   {
     v36 = _ICQGetLogSystem();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = 138412290;
-      v39 = v35;
-      _os_log_impl(&dword_275572000, v36, OS_LOG_TYPE_DEFAULT, "Lockscreen info contains notifyingAppId %@", &v38, 0xCu);
+      v37 = 138412290;
+      v38 = v35;
+      _os_log_impl(&dword_275572000, v36, OS_LOG_TYPE_DEFAULT, "Lockscreen info contains notifyingAppId %@", &v37, 0xCu);
     }
 
     [(_ICQFollowupSpecification *)self setNotifyingAppId:v35];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFollowUpInfo:(id)info
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   objc_storeStrong(&self->_followUpInfo, info);
-  v6 = [infoCopy objectForKeyedSubscript:@"title"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v8 = [infoCopy objectForKeyedSubscript:@"title"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
     v9 = [_ICQHelperFunctions parseTemplates:v8];
     [(_ICQDetailFollowupSpecification *)self setFollowupTitleTemplates:v9];
   }
 
   else
   {
-    v10 = [infoCopy objectForKeyedSubscript:@"title"];
+    v10 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
     objc_opt_class();
     v11 = objc_opt_isKindOfClass();
 
     if (v11)
     {
-      v25 = @"default";
-      v12 = [infoCopy objectForKeyedSubscript:@"title"];
-      v26[0] = v12;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v24 = @"default";
+      v12 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
+      v25[0] = v12;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
       [(_ICQDetailFollowupSpecification *)self setFollowupTitleTemplates:v13];
     }
 
@@ -238,19 +236,19 @@ LABEL_18:
       v12 = _ICQGetLogSystem();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "title field not present or of undefined type in followups", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "title field not present or of undefined type in followups", v21, 2u);
       }
     }
   }
 
-  v14 = [infoCopy objectForKeyedSubscript:@"mesg"];
+  v14 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   v15 = objc_opt_isKindOfClass();
 
   if (v15)
   {
-    v16 = [infoCopy objectForKeyedSubscript:@"mesg"];
+    v16 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
     v17 = [_ICQHelperFunctions parseTemplates:v16];
 LABEL_12:
     v20 = v17;
@@ -259,57 +257,55 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v18 = [infoCopy objectForKeyedSubscript:@"mesg"];
+  v18 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
   objc_opt_class();
   v19 = objc_opt_isKindOfClass();
 
   if (v19)
   {
-    v23 = @"default";
-    v16 = [infoCopy objectForKeyedSubscript:@"mesg"];
-    v24 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = @"default";
+    v16 = objc_msgSend_objectForKeyedSubscript_(infoCopy);
+    v23 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     goto LABEL_12;
   }
 
   v16 = _ICQGetLogSystem();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "mesg field not present or of undefined type in followups", v22, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_275572000, v16, OS_LOG_TYPE_DEFAULT, "mesg field not present or of undefined type in followups", v21, 2u);
   }
 
 LABEL_13:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)replaceWordsIn:(id)in with:(id)with
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   inCopy = in;
   withCopy = with;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = [withCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [withCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       v11 = inCopy;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(withCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v10);
+        v12 = *(*(&v15 + 1) + 8 * v10);
         v13 = [withCopy objectForKey:v12];
         inCopy = [v11 stringByReplacingOccurrencesOfString:v12 withString:v13];
 
@@ -318,13 +314,11 @@ LABEL_13:
       }
 
       while (v8 != v10);
-      v8 = [withCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [withCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return inCopy;
 }
@@ -333,69 +327,36 @@ LABEL_13:
 {
   keyCopy = key;
   titleTemplates = [(_ICQDetailFollowupSpecification *)self titleTemplates];
-  v6 = [titleTemplates objectForKeyedSubscript:keyCopy];
+  objc_msgSend_objectForKeyedSubscript_(titleTemplates);
 
   titleTemplates2 = [(_ICQDetailFollowupSpecification *)self titleTemplates];
-  v8 = titleTemplates2;
-  if (v6)
-  {
-    v9 = keyCopy;
-  }
+  v7 = objc_msgSend_objectForKeyedSubscript_(titleTemplates2);
 
-  else
-  {
-    v9 = @"default";
-  }
-
-  v10 = [titleTemplates2 objectForKeyedSubscript:v9];
-
-  return v10;
+  return v7;
 }
 
 - (id)subTitleWithKey:(id)key
 {
   keyCopy = key;
   subTitleTemplates = [(_ICQDetailFollowupSpecification *)self subTitleTemplates];
-  v6 = [subTitleTemplates objectForKeyedSubscript:keyCopy];
+  objc_msgSend_objectForKeyedSubscript_(subTitleTemplates);
 
   subTitleTemplates2 = [(_ICQDetailFollowupSpecification *)self subTitleTemplates];
-  v8 = subTitleTemplates2;
-  if (v6)
-  {
-    v9 = keyCopy;
-  }
+  v7 = objc_msgSend_objectForKeyedSubscript_(subTitleTemplates2);
 
-  else
-  {
-    v9 = @"default";
-  }
-
-  v10 = [subTitleTemplates2 objectForKeyedSubscript:v9];
-
-  return v10;
+  return v7;
 }
 
 - (id)mesgWithKey:(id)key
 {
   keyCopy = key;
   mesgTemplates = [(_ICQDetailFollowupSpecification *)self mesgTemplates];
-  v6 = [mesgTemplates objectForKeyedSubscript:keyCopy];
+  objc_msgSend_objectForKeyedSubscript_(mesgTemplates);
 
   mesgTemplates2 = [(_ICQDetailFollowupSpecification *)self mesgTemplates];
-  v8 = mesgTemplates2;
-  if (v6)
-  {
-    v9 = keyCopy;
-  }
+  v7 = objc_msgSend_objectForKeyedSubscript_(mesgTemplates2);
 
-  else
-  {
-    v9 = @"default";
-  }
-
-  v10 = [mesgTemplates2 objectForKeyedSubscript:v9];
-
-  return v10;
+  return v7;
 }
 
 - (void)postFollowupWithController:(id)controller replaceExisting:(BOOL)existing completion:(id)completion

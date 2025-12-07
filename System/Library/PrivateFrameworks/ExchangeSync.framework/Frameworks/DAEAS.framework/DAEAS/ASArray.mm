@@ -125,22 +125,24 @@
 - (void)addItem:(id)item
 {
   itemCopy = item;
-  v7 = itemCopy;
+  v5 = itemCopy;
+  v8 = itemCopy;
   if (!self->_items)
   {
-    v5 = objc_opt_new();
+    v6 = objc_opt_new();
     items = self->_items;
-    self->_items = v5;
+    self->_items = v6;
 
-    itemCopy = v7;
+    v5 = v8;
   }
 
-  if (itemCopy)
+  if (v5)
   {
-    [(NSMutableArray *)self->_items addObject:v7];
+    itemCopy = [(NSMutableArray *)self->_items addObject:v8];
+    v5 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](itemCopy, v5);
 }
 
 - (id)commonValue

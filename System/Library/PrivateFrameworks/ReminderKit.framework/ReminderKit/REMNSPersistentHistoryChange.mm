@@ -208,7 +208,7 @@ LABEL_13:
 
 - (id)updatedProperties
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storage = [(REMNSPersistentHistoryChange *)self storage];
   updatedProperties = [storage updatedProperties];
 
@@ -224,40 +224,38 @@ LABEL_13:
   v5 = ;
   if ([(REMNSPersistentHistoryChange *)self isCoalesced])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     coalescedChanges = [(REMNSPersistentHistoryChange *)self coalescedChanges];
-    v7 = [coalescedChanges countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [coalescedChanges countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(coalescedChanges);
           }
 
-          updatedProperties2 = [*(*(&v14 + 1) + 8 * i) updatedProperties];
+          updatedProperties2 = [*(*(&v13 + 1) + 8 * i) updatedProperties];
           if (updatedProperties2)
           {
             [v5 unionSet:updatedProperties2];
           }
         }
 
-        v8 = [coalescedChanges countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [coalescedChanges countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -338,18 +336,16 @@ LABEL_13:
 
 - (void)changedObjectID
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Cannot convert changedObjectIDStorage to changedObjectID because it is nil in persistentHistoryChange {change: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_ERROR, "Cannot convert changedObjectIDStorage to changedObjectID because it is nil in persistentHistoryChange {change: %@}", v1, 0xCu);
 }
 
 + (void)stringForChangeType:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unexpected REMChangeType {type: %lu}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unexpected REMChangeType {type: %lu}", v1, 0xCu);
 }
 
 @end

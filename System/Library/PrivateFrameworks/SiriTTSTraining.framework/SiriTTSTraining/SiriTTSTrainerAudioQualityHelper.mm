@@ -10,15 +10,15 @@
 {
   LODWORD(v8) = 1061997773;
   BYTE4(v8) = 1;
-  *v7 = rate;
-  v7[1] = 0xC20C0000C1E00000;
+  v7[0] = rate;
+  v7[1] = -1.50323917e10;
   __p[6] = *&rate;
   __p[8] = v8;
   __p[7] = vneg_f32(0x3F0000003FLL);
-  v9[0] = count;
-  v9[1] = samples;
+  *&v9 = count;
+  *(&v9 + 1) = samples;
   memset(__p, 0, 24);
-  std::vector<std::tuple<unsigned long,float const*>>::__init_with_size[abi:ne200100]<std::tuple<unsigned long,float const*> const*,std::tuple<unsigned long,float const*> const*>(__p, v9, &v10, 1uLL);
+  std::vector<std::tuple<unsigned long,float const*>>::__init_with_size[abi:ne200100]<std::tuple<unsigned long,float const*> const*,std::tuple<unsigned long,float const*> const*>(__p, &v9, &v10, 1uLL);
   assess_audio_quality(__p, v7);
 }
 
@@ -115,13 +115,13 @@
 
   else
   {
-    v10 = 0x40D7700000000000;
+    v10 = 24000.0;
   }
 
   v26 = 1061997773;
   v27 = 1;
   v25[0] = v10;
-  v25[1] = 0xC20C0000C1E00000;
+  v25[1] = -1.50323917e10;
   assess_audio_quality(&__src, v25);
 }
 

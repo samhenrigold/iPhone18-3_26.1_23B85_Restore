@@ -7,7 +7,7 @@
 
 - (id)_assetsByMomentIDs
 {
-  v60[2] = *MEMORY[0x277D85DE8];
+  v59[2] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   photoLibrary = [(PGMoodSource *)self photoLibrary];
   assetCollection = [(PGMoodSource *)self assetCollection];
@@ -18,9 +18,9 @@
   {
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
     v9 = *MEMORY[0x277CD9AD0];
-    v60[0] = *MEMORY[0x277CD9B10];
-    v60[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+    v59[0] = *MEMORY[0x277CD9B10];
+    v59[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
     [librarySpecificFetchOptions setFetchPropertySets:v10];
 
     v11 = +[PGCurationManager defaultAssetSortDescriptors];
@@ -40,12 +40,12 @@
   {
     librarySpecificFetchOptions2 = [photoLibrary librarySpecificFetchOptions];
     v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
-    v57 = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+    v56 = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
     [librarySpecificFetchOptions2 setSortDescriptors:v19];
 
-    v51 = [MEMORY[0x277CD97B8] fetchAssetCollectionsContainingAssets:prefetchedAssets withType:3 options:librarySpecificFetchOptions2];
-    fetchedObjects = [v51 fetchedObjects];
+    v50 = [MEMORY[0x277CD97B8] fetchAssetCollectionsContainingAssets:prefetchedAssets withType:3 options:librarySpecificFetchOptions2];
+    fetchedObjects = [v50 fetchedObjects];
     objectEnumerator = [fetchedObjects objectEnumerator];
 
     nextObject = [objectEnumerator nextObject];
@@ -55,30 +55,30 @@
 
     if (nextObject)
     {
-      v47 = librarySpecificFetchOptions2;
-      v48 = prefetchedAssets;
-      v49 = assetCollection;
-      v50 = photoLibrary;
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
+      v46 = librarySpecificFetchOptions2;
+      v47 = prefetchedAssets;
+      v48 = assetCollection;
+      v49 = photoLibrary;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v26 = prefetchedAssets;
-      v27 = [v26 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v51 objects:v55 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v53;
+        v29 = *v52;
         while (2)
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v53 != v29)
+            if (*v52 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v52 + 1) + 8 * i);
+            v31 = *(*(&v51 + 1) + 8 * i);
             creationDate = [v31 creationDate];
             [creationDate timeIntervalSinceReferenceDate];
             v34 = v33;
@@ -99,7 +99,7 @@
                 if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v59 = v31;
+                  v58 = v31;
                   _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Error: No Moments contain Asset %@", buf, 0xCu);
                 }
 
@@ -121,7 +121,7 @@
             [array addObject:v31];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v52 objects:v56 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v51 objects:v55 count:16];
           if (v28)
           {
             continue;
@@ -134,10 +134,10 @@
 LABEL_27:
 
       v41 = dictionary;
-      assetCollection = v49;
-      photoLibrary = v50;
-      librarySpecificFetchOptions2 = v47;
-      prefetchedAssets = v48;
+      assetCollection = v48;
+      photoLibrary = v49;
+      librarySpecificFetchOptions2 = v46;
+      prefetchedAssets = v47;
     }
 
     else
@@ -148,7 +148,7 @@ LABEL_27:
       if (os_log_type_enabled(nextObject, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v59 = prefetchedAssets;
+        v58 = prefetchedAssets;
         _os_log_error_impl(&dword_22F0FC000, nextObject, OS_LOG_TYPE_ERROR, "Error: No moments contain assets: %@", buf, 0xCu);
       }
 
@@ -164,29 +164,27 @@ LABEL_27:
     if (os_log_type_enabled(librarySpecificFetchOptions2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v59 = assetCollection;
+      v58 = assetCollection;
       _os_log_error_impl(&dword_22F0FC000, librarySpecificFetchOptions2, OS_LOG_TYPE_ERROR, "Error: No assets in assetCollection: %@", buf, 0xCu);
     }
 
     v41 = MEMORY[0x277CBEC10];
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
   return v41;
 }
 
 - (id)_plistMoodIdentifiersWithGraph:(id)graph
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   [(PGMoodSourceVideo *)self _assetsByMomentIDs];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v24 = v34 = 0u;
-  obj = [v24 objectEnumerator];
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v23 = v33 = 0u;
+  obj = [v23 objectEnumerator];
+  v4 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (!v4)
   {
 LABEL_31:
@@ -196,23 +194,23 @@ LABEL_31:
 
   v5 = v4;
   v6 = 0;
-  v7 = *v32;
+  v7 = *v31;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v32 != v7)
+      if (*v31 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v31 + 1) + 8 * i);
+      v9 = *(*(&v30 + 1) + 8 * i);
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v27 objects:v36 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v26 objects:v35 count:16];
       if (!v11)
       {
 
@@ -223,18 +221,18 @@ LABEL_22:
 
       v12 = v11;
       v13 = 0;
-      v14 = *v28;
+      v14 = *v27;
       v15 = 0.0;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v17 = *(*(&v27 + 1) + 8 * j);
+          v17 = *(*(&v26 + 1) + 8 * j);
           if ([v17 isVideo])
           {
             ++v13;
@@ -243,7 +241,7 @@ LABEL_22:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v26 objects:v35 count:16];
       }
 
       while (v12);
@@ -283,23 +281,21 @@ LABEL_23:
       }
     }
 
-    v5 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v5 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   }
 
   while (v5);
 
   if (v6)
   {
-    v35 = v6;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+    v34 = v6;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
     goto LABEL_33;
   }
 
 LABEL_32:
   v21 = MEMORY[0x277CBEBF8];
 LABEL_33:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

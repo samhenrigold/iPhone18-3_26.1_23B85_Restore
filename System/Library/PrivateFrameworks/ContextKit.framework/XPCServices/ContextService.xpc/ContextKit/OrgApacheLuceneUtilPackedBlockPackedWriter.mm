@@ -52,7 +52,7 @@
     }
   }
 
-  v11 = OrgApacheLuceneUtilPackedPackedInts_unsignedBitsRequiredWithLong_(v4 - v5);
+  v11 = OrgApacheLuceneUtilPackedPackedInts_unsignedBitsRequiredWithLong_(v4 - v5, a2);
   if (v11 == 64)
   {
     v5 = 0;
@@ -76,31 +76,31 @@ LABEL_17:
   [(OrgApacheLuceneStoreDataOutput *)out writeByteWithByte:((v5 == 0) | (2 * v11))];
   if (v5)
   {
-    v14 = self->super.out_;
-    v15 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v5);
-    OrgApacheLuceneUtilPackedAbstractBlockPackedWriter_writeVLongWithOrgApacheLuceneStoreDataOutput_withLong_(v14, v15 - 1);
+    v15 = self->super.out_;
+    v16 = OrgApacheLuceneUtilBitUtil_zigZagEncodeWithLong_(v5, v14);
+    OrgApacheLuceneUtilPackedAbstractBlockPackedWriter_writeVLongWithOrgApacheLuceneStoreDataOutput_withLong_(v15, v16 - 1);
     if (v11 >= 1)
     {
       off = self->super.off_;
       if (off >= 1)
       {
-        v17 = 0;
+        v18 = 0;
         while (1)
         {
-          v18 = self->super.values_;
-          if (!v18)
+          v19 = self->super.values_;
+          if (!v19)
           {
             break;
           }
 
-          v19 = v18->super.size_;
-          if (v17 >= v19)
+          v20 = v19->super.size_;
+          if (v18 >= v20)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v19, v17);
+            IOSArray_throwOutOfBoundsWithMsg(v20, v18);
           }
 
-          v18->buffer_[v17++] -= v5;
-          if (v17 >= off)
+          v19->buffer_[v18++] -= v5;
+          if (v18 >= off)
           {
             goto LABEL_28;
           }

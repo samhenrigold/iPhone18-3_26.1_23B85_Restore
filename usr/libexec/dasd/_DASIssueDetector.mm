@@ -409,7 +409,7 @@ LABEL_24:
     _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Current MAD Failed: %@", buf, 0xCu);
   }
 
-  if (![v77 count] || !objc_msgSend(v78, "count"))
+  if (!objc_msgSend_count(v77) || !objc_msgSend_count(v78))
   {
     if (os_log_type_enabled(selfCopy->_log, OS_LOG_TYPE_DEBUG))
     {
@@ -419,7 +419,7 @@ LABEL_24:
     goto LABEL_78;
   }
 
-  if (![v78 count])
+  if (!objc_msgSend_count(v78))
   {
     v81 = &stru_1001BA3C0;
     goto LABEL_69;

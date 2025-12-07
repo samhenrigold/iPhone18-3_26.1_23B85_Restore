@@ -8,9 +8,9 @@
 
 - (TKPowerMonitor)init
 {
-  v8.receiver = self;
-  v8.super_class = TKPowerMonitor;
-  v2 = [(TKPowerMonitor *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = TKPowerMonitor;
+  v2 = [(TKPowerMonitor *)&v9 init];
   v3 = v2;
   if (v2)
   {
@@ -19,8 +19,8 @@
     queue = v3->_queue;
     v3->_queue = v4;
 
-    v6 = TK_LOG_token_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = TK_LOG_token_0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [TKPowerMonitor init];
     }

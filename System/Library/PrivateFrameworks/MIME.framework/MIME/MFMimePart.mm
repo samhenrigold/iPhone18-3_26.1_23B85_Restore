@@ -16,6 +16,7 @@
 - (BOOL)isRich;
 - (BOOL)isSecurePart;
 - (BOOL)parseIMAPPropertyList:(id)list;
+- (BOOL)parseMimeBodyDownloadIfNecessary:(BOOL)necessary;
 - (BOOL)parseMimeBodyFromHeaderData:(id)data bodyData:(id)bodyData isPartial:(BOOL)partial;
 - (BOOL)shouldConsiderInlineOverridingExchangeServer;
 - (BOOL)usesKnownSignatureProtocol;
@@ -33,11 +34,16 @@
 - (id)attachmentURLs;
 - (id)attachments;
 - (id)bodyData;
+- (id)bodyDataForcingDownload:(BOOL)download;
 - (id)bodyDataToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset;
+- (id)bodyDataToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary;
 - (id)bodyParameterForKey:(id)key;
 - (id)childPartWithNumber:(id)number;
 - (id)chosenAlternativePart;
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete;
 - (id)contentsForTextSystem;
+- (id)contentsForTextSystemToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete;
+- (id)copyBodyDataToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary isComplete:(BOOL *)complete;
 - (id)decodeMultipart;
 - (id)decodeMultipartAlternative;
 - (id)decodeMultipartRelated;
@@ -47,6 +53,7 @@
 - (id)dispositionParameterForKey:(id)key;
 - (id)dispositionParameterKeys;
 - (id)fileWrapperForDecodedObject:(id)object withFileData:(id *)data;
+- (id)fileWrapperForcingDownload:(BOOL)download;
 - (id)firstChildPart;
 - (id)mimeBody;
 - (id)nextSiblingPart;
@@ -63,7 +70,10 @@
 - (unsigned)numberOfAttachments;
 - (unsigned)textEncoding;
 - (void)_clearNextAndSibling;
+- (void)_contents:(id *)_contents toOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete;
+- (void)_ensureBodyDataToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary isComplete:(BOOL *)complete decoded:(id *)decoded;
 - (void)_fixupDispositionParametersRFC2231Values;
+- (void)_setDecryptedMessageBody:(id)body isEncrypted:(BOOL)encrypted isSigned:(BOOL)signed;
 - (void)_setDecryptedMessageInDictionary:(id)dictionary;
 - (void)_setObjectInOtherIvars:(id)ivars forKey:(id)key;
 - (void)addSubpart:(id)subpart;
@@ -85,7 +95,7 @@
 
 + (void)initialize
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (!sFore)
   {
     sFore = [[MFLock alloc] initWithName:@"fore" andDelegate:self];
@@ -93,44 +103,44 @@
 
   if (!sStringsCache)
   {
-    v6.hash = _UniquingHash;
-    v6.isEqual = _UniquingIsEqual;
-    *&v6.retain = *(MEMORY[0x1E696A770] + 16);
-    v6.describe = _UniquingDescribe;
-    sStringsCache = NSCreateHashTable(&v6, 0x19uLL);
+    v5.hash = _UniquingHash;
+    v5.isEqual = _UniquingIsEqual;
+    *&v5.retain = *(MEMORY[0x1E696A770] + 16);
+    v5.describe = _UniquingDescribe;
+    sStringsCache = NSCreateHashTable(&v5, 0x19uLL);
     v3 = @"multipart";
-    v6.hash = @"multipart";
-    v6.isEqual = @"message";
-    v6.retain = @"text";
-    v6.release = @"application";
-    v6.describe = @"image";
-    v7 = @"audio";
-    v8 = @"video";
-    v9 = @"alternative";
-    v10 = @"mixed";
-    v11 = @"related";
-    v12 = @"x-folder";
-    v13 = @"appledouble";
-    v14 = @"digest";
-    v15 = @"signed";
-    v16 = @"plain";
-    v17 = @"enriched";
-    v18 = @"html";
-    v19 = @"css";
-    v20 = @"rfc822";
-    v21 = @"applefile";
-    v22 = @"filename";
-    v23 = @"name";
-    v24 = @"x-mac-type";
-    v25 = @"x-mac-creator";
-    v26 = @"format";
-    v27 = @"flowed";
+    v5.hash = @"multipart";
+    v5.isEqual = @"message";
+    v5.retain = @"text";
+    v5.release = @"application";
+    v5.describe = @"image";
+    v6 = @"audio";
+    v7 = @"video";
+    v8 = @"alternative";
+    v9 = @"mixed";
+    v10 = @"related";
+    v11 = @"x-folder";
+    v12 = @"appledouble";
+    v13 = @"digest";
+    v14 = @"signed";
+    v15 = @"plain";
+    v16 = @"enriched";
+    v17 = @"html";
+    v18 = @"css";
+    v19 = @"rfc822";
+    v20 = @"applefile";
+    v21 = @"filename";
+    v22 = @"name";
+    v23 = @"x-mac-type";
+    v24 = @"x-mac-creator";
+    v25 = @"format";
+    v26 = @"flowed";
     v4 = 1;
-    v28 = 0;
+    v27 = 0;
     do
     {
       NSHashInsert(sStringsCache, v3);
-      v3 = *(&v6.hash + v4++);
+      v3 = *(&v5.hash + v4++);
     }
 
     while (v3);
@@ -140,8 +150,6 @@
   {
     sNSXMLLock = [[MFLock alloc] initWithName:@"NSXMLLock" andDelegate:self];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (OS_os_log)log
@@ -487,7 +495,7 @@ os_log_t __17__MFMimePart_log__block_invoke(uint64_t a1)
 - (id)childPartWithNumber:(id)number
 {
   selfCopy = self;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(MFMimePart *)self parentPart])
   {
     [(MFMimePart *)a2 childPartWithNumber:selfCopy];
@@ -496,27 +504,27 @@ os_log_t __17__MFMimePart_log__block_invoke(uint64_t a1)
   if ([(MFMimePart *)selfCopy firstChildPart])
   {
     v6 = [number componentsSeparatedByString:@"."];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
 LABEL_6:
       v10 = 0;
 LABEL_7:
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      integerValue = [*(*(&v16 + 1) + 8 * v10) integerValue];
+      integerValue = [*(*(&v15 + 1) + 8 * v10) integerValue];
       if (integerValue < 1)
       {
-        selfCopy = 0;
+        return 0;
       }
 
       else
@@ -537,13 +545,13 @@ LABEL_7:
               goto LABEL_7;
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
             if (v8)
             {
               goto LABEL_6;
             }
 
-            break;
+            return selfCopy;
           }
         }
       }
@@ -552,16 +560,15 @@ LABEL_7:
 
   else if (![number isEqualToString:@"1"])
   {
-    selfCopy = 0;
+    return 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)setSubparts:(id)subparts
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([(NSString *)self->_type isEqualToString:@"multipart"]|| [(NSString *)self->_type isEqualToString:@"message"]&& [(NSString *)self->_subtype isEqualToString:@"rfc822"])
   {
     firstChildPart = [(MFMimePart *)self firstChildPart];
@@ -581,35 +588,33 @@ LABEL_7:
     }
 
     self->_nextPart = 0;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v8 = [subparts countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [subparts countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(subparts);
           }
 
-          [(MFMimePart *)self addSubpart:*(*(&v13 + 1) + 8 * i)];
+          [(MFMimePart *)self addSubpart:*(*(&v12 + 1) + 8 * i)];
         }
 
-        v9 = [subparts countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [subparts countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addSubpart:(id)subpart
@@ -727,7 +732,7 @@ LABEL_9:
   return v6;
 }
 
-uint64_t __31__MFMimePart_hasSecureSubparts__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__31__MFMimePart_hasSecureSubparts__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isSecurePart];
   if (result)
@@ -752,80 +757,75 @@ uint64_t __31__MFMimePart_hasSecureSubparts__block_invoke(uint64_t a1, void *a2,
 {
   length = range.length;
   location = range.location;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   self->_range = range;
   v6 = MFLogGeneral();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v13.location = location;
-    v13.length = length;
-    v8 = 138543618;
-    v9 = NSStringFromRange(v13);
-    v10 = 2112;
+    v12.location = location;
+    v12.length = length;
+    v7 = 138543618;
+    v8 = NSStringFromRange(v12);
+    v9 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1D36B2000, v6, OS_LOG_TYPE_INFO, "Setting range %{public}@ for part %@", &v8, 0x16u);
+    _os_log_impl(&dword_1D36B2000, v6, OS_LOG_TYPE_INFO, "Setting range %{public}@ for part %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)decodedDataForData:(id)data
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!data)
   {
-    result = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   contentTransferEncoding = [(MFMimePart *)self contentTransferEncoding];
-  if (contentTransferEncoding)
+  if (!contentTransferEncoding)
   {
-    v6 = contentTransferEncoding;
-    if (![(NSString *)contentTransferEncoding isEqualToString:@"7bit"]&& ![(NSString *)v6 isEqualToString:@"8bit"]&& ![(NSString *)v6 isEqualToString:@"binary"])
-    {
-      if ([(NSString *)v6 isEqualToString:@"quoted-printable"])
-      {
-        result = [data mf_decodeQuotedPrintableForText:{-[NSString isEqualToString:](-[MFMimePart type](self, "type"), "isEqualToString:", @"text"}];
-      }
-
-      else if ([(NSString *)v6 isEqualToString:@"base64"])
-      {
-        result = [data mf_decodeBase64];
-      }
-
-      else
-      {
-        if (![(NSString *)v6 isEqualToString:@"x-uuencode"])
-        {
-LABEL_16:
-          v9 = MFLogGeneral();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-          {
-            v10 = 138412290;
-            v11 = v6;
-            _os_log_impl(&dword_1D36B2000, v9, OS_LOG_TYPE_INFO, "*** Failed to decode %@ data, treating as binary", &v10, 0xCu);
-          }
-
-          goto LABEL_6;
-        }
-
-        result = [data mf_decodeUuencoded];
-      }
-
-      if (result)
-      {
-        goto LABEL_8;
-      }
-
-      goto LABEL_16;
-    }
+    return data;
   }
 
-LABEL_6:
-  result = data;
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = contentTransferEncoding;
+  if ([(NSString *)contentTransferEncoding isEqualToString:@"7bit"]|| [(NSString *)v6 isEqualToString:@"8bit"]|| [(NSString *)v6 isEqualToString:@"binary"])
+  {
+    return data;
+  }
+
+  if ([(NSString *)v6 isEqualToString:@"quoted-printable"])
+  {
+    result = [data mf_decodeQuotedPrintableForText:{-[NSString isEqualToString:](-[MFMimePart type](self, "type"), "isEqualToString:", @"text"}];
+  }
+
+  else if ([(NSString *)v6 isEqualToString:@"base64"])
+  {
+    result = [data mf_decodeBase64];
+  }
+
+  else
+  {
+    if (![(NSString *)v6 isEqualToString:@"x-uuencode"])
+    {
+      goto LABEL_16;
+    }
+
+    result = [data mf_decodeUuencoded];
+  }
+
+  if (!result)
+  {
+LABEL_16:
+    v8 = MFLogGeneral();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_1D36B2000, v8, OS_LOG_TYPE_INFO, "*** Failed to decode %@ data, treating as binary", &v9, 0xCu);
+    }
+
+    return data;
+  }
+
   return result;
 }
 
@@ -874,7 +874,7 @@ LABEL_8:
 
 - (id)attachmentFilename
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   FilenameEncodingHint = _getFilenameEncodingHint(self);
   v4 = [(MFMimePart *)self dispositionParameterForKey:@"filename"];
   v5 = [v4 mf_decodeMimeHeaderValueWithCharsetHint:FilenameEncodingHint];
@@ -887,7 +887,7 @@ LABEL_8:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v14 = v5;
+    v13 = v5;
     _os_log_impl(&dword_1D36B2000, v6, OS_LOG_TYPE_INFO, "---filename=%@", buf, 0xCu);
   }
 
@@ -908,7 +908,7 @@ LABEL_8:
         v8 = @"mime-attachment";
       }
 
-      goto LABEL_21;
+      return v8;
     }
 
     v5 = v9;
@@ -920,10 +920,7 @@ LABEL_8:
     v7 = [v7 substringToIndex:255];
   }
 
-  v8 = [objc_msgSend(objc_msgSend(v7 stringByReplacingOccurrencesOfString:@"/" withString:{@"_", "stringByReplacingOccurrencesOfString:withString:", @"\n", @" ", "stringByReplacingOccurrencesOfString:withString:", @"\t", @" "}];
-LABEL_21:
-  v11 = *MEMORY[0x1E69E9840];
-  return v8;
+  return [objc_msgSend(objc_msgSend(v7 stringByReplacingOccurrencesOfString:@"/" withString:{@"_", "stringByReplacingOccurrencesOfString:withString:", @"\n", @" ", "stringByReplacingOccurrencesOfString:withString:", @"\t", @" "}];
 }
 
 - (unsigned)textEncoding
@@ -965,86 +962,82 @@ LABEL_21:
 - (id)_partThatIsAttachment
 {
   selfCopy = self;
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([(MFMimePart *)self isAttachment])
   {
-    goto LABEL_18;
+    return selfCopy;
   }
 
   if (![(NSString *)selfCopy->_type isEqualToString:@"multipart"])
   {
-LABEL_16:
-    selfCopy = 0;
-LABEL_18:
-    v12 = *MEMORY[0x1E69E9840];
-    return selfCopy;
+    return 0;
   }
 
   if (![(NSString *)selfCopy->_subtype isEqualToString:@"alternative"])
   {
     subparts = [(MFMimePart *)selfCopy subparts];
+    v11 = 0u;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v7 = [subparts countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v7)
+    v6 = [subparts countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v6)
     {
-      v8 = v7;
-      v9 = *v14;
+      v7 = v6;
+      v8 = *v12;
       while (2)
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v9)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(subparts);
           }
 
-          _partThatIsAttachment = [*(*(&v13 + 1) + 8 * i) _partThatIsAttachment];
+          _partThatIsAttachment = [*(*(&v11 + 1) + 8 * i) _partThatIsAttachment];
           if (_partThatIsAttachment)
           {
-            selfCopy = _partThatIsAttachment;
-            goto LABEL_18;
+            return _partThatIsAttachment;
           }
         }
 
-        v8 = [subparts countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [subparts countByEnumeratingWithState:&v11 objects:v15 count:16];
         selfCopy = 0;
-        if (v8)
+        if (v7)
         {
           continue;
         }
 
-        goto LABEL_18;
+        break;
       }
+
+      return selfCopy;
     }
 
-    goto LABEL_16;
+    return 0;
   }
 
   chosenAlternativePart = [(MFMimePart *)selfCopy chosenAlternativePart];
-  v4 = *MEMORY[0x1E69E9840];
 
   return [chosenAlternativePart _partThatIsAttachment];
 }
 
 - (BOOL)shouldConsiderInlineOverridingExchangeServer
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [(MFMimePart *)self dispositionParameterForKey:@"filename"];
   pthread_mutex_lock(&shouldConsiderInlineOverridingExchangeServer_reg_exp_mutex);
-  v7 = 0;
+  v6 = 0;
   if (!shouldConsiderInlineOverridingExchangeServer_regex)
   {
-    shouldConsiderInlineOverridingExchangeServer_regex = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"^ATT\\d{3 options:}\\.\\.?([A-z]{3}|c)$" error:{0, &v7}];
+    shouldConsiderInlineOverridingExchangeServer_regex = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"^ATT\\d{3 options:}\\.\\.?([A-z]{3}|c)$" error:{0, &v6}];
     if (!shouldConsiderInlineOverridingExchangeServer_regex)
     {
       v3 = MFLogGeneral();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v9 = v7;
+        v8 = v6;
         _os_log_impl(&dword_1D36B2000, v3, OS_LOG_TYPE_DEFAULT, "#Warning Could not generate regex: %@", buf, 0xCu);
       }
     }
@@ -1073,7 +1066,6 @@ LABEL_18:
   }
 
   pthread_mutex_unlock(&shouldConsiderInlineOverridingExchangeServer_reg_exp_mutex);
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -1334,6 +1326,20 @@ LABEL_18:
   }
 
   return v3;
+}
+
+- (void)_setDecryptedMessageBody:(id)body isEncrypted:(BOOL)encrypted isSigned:(BOOL)signed
+{
+  signedCopy = signed;
+  encryptedCopy = encrypted;
+  message = [body message];
+  messageStore = [message messageStore];
+  [(MFMimePart *)self _setObjectInOtherIvars:body forKey:@"x-decrypted-message-body"];
+  -[MFMimePart _setObjectInOtherIvars:forKey:](self, "_setObjectInOtherIvars:forKey:", [MEMORY[0x1E696AD98] numberWithBool:encryptedCopy], @"x-is-encrypted");
+  -[MFMimePart _setObjectInOtherIvars:forKey:](self, "_setObjectInOtherIvars:forKey:", [MEMORY[0x1E696AD98] numberWithBool:signedCopy], @"x-is-signed");
+  [(MFMimePart *)self _setDecryptedMessageInDictionary:message];
+
+  [(MFMimePart *)self _setObjectInOtherIvars:messageStore forKey:@"x-decrypted-message-store"];
 }
 
 - (unint64_t)totalTextSize
@@ -1849,6 +1855,61 @@ LABEL_27:
   }
 }
 
+- (id)fileWrapperForcingDownload:(BOOL)download
+{
+  downloadCopy = download;
+  v12 = 0;
+  if ([(NSString *)[(MFMimePart *)self type] isEqualToString:@"text"])
+  {
+    v5 = [(MFMimePart *)self bodyDataForcingDownload:downloadCopy];
+    v6 = 0;
+    v12 = v5;
+  }
+
+  else
+  {
+    v6 = [(MFMimePart *)self contentsForTextSystemForcingDownload:downloadCopy];
+  }
+
+  v7 = [(MFMimePart *)self fileWrapperForDecodedObject:v6 withFileData:&v12];
+  if (v7)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    v8 = v12 == 0;
+  }
+
+  v9 = !v8;
+  if (!v8)
+  {
+    v10 = objc_allocWithZone(MFMessageFileWrapper);
+    v7 = [v10 initRegularFileWithContents:v12];
+  }
+
+  if (v7 && ![v7 preferredFilename])
+  {
+    [v7 setPreferredFilename:{-[MFMimePart attachmentFilename](self, "attachmentFilename")}];
+    [v7 setFilename:{objc_msgSend(v7, "preferredFilename")}];
+    if (!v9)
+    {
+      return v7;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (v9)
+  {
+LABEL_15:
+    [(MFMimePart *)self configureFileWrapper:v7];
+  }
+
+  return v7;
+}
+
 - (BOOL)_hasCompleteBodyDataToOffset:(unint64_t)offset
 {
   v12 = 0;
@@ -1892,6 +1953,294 @@ LABEL_11:
   return v12;
 }
 
+- (void)_ensureBodyDataToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary isComplete:(BOOL *)complete decoded:(id *)decoded
+{
+  necessaryCopy = necessary;
+  v45 = 0;
+  if ([MEMORY[0x1E696AF00] isMainThread])
+  {
+    if (![self mf_tryLock])
+    {
+      if ([objc_msgSend(MEMORY[0x1E699B7B0] "currentDevice")] && (v13 = MFLogGeneral(), os_log_type_enabled(v13, OS_LOG_TYPE_ERROR)))
+      {
+        [MFMimePart _ensureBodyDataToOffset:v13 resultOffset:? downloadIfNecessary:? isComplete:? decoded:?];
+        if (!complete)
+        {
+LABEL_7:
+          if (decoded)
+          {
+            *decoded = 0;
+          }
+
+          return;
+        }
+      }
+
+      else if (!complete)
+      {
+        goto LABEL_7;
+      }
+
+      *complete = 0;
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    [self mf_lock];
+  }
+
+  retainedReference = [(MFWeakReferenceHolder *)self->_decodedData retainedReference];
+  if (!retainedReference)
+  {
+    [(MFMimePart *)self range];
+    if (v17 >= offset)
+    {
+      offsetCopy = offset;
+    }
+
+    else
+    {
+      offsetCopy = v17;
+    }
+
+    fullData = self->_fullData;
+    if (fullData)
+    {
+      copyDataWithUnixLineEndings = fullData;
+      if (resultOffset)
+      {
+        [(MFMimePart *)self range];
+        *resultOffset = v21;
+      }
+
+LABEL_20:
+      v45 = 1;
+LABEL_21:
+      if (decoded)
+      {
+        [self mf_unlock];
+        v15 = [(MFMimePart *)self decodedDataForData:copyDataWithUnixLineEndings];
+        [self mf_lock];
+        if (v15 && v45)
+        {
+
+          self->_decodedData = [MFWeakReferenceHolder weakReferenceWithObject:v15];
+        }
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      goto LABEL_41;
+    }
+
+    v22 = [(MFPartialNetworkDataConsumer *)self->_partialDataConsumer length];
+    if (v22 >= offsetCopy)
+    {
+      if (offsetCopy)
+      {
+        copyDataWithUnixLineEndings = [(MFPartialNetworkDataConsumer *)self->_partialDataConsumer copyDataWithUnixLineEndings];
+        if (resultOffset)
+        {
+          *resultOffset = v22;
+        }
+
+        goto LABEL_21;
+      }
+
+      copyDataWithUnixLineEndings = objc_alloc_init(MFMutableData);
+      goto LABEL_20;
+    }
+
+    v23 = [-[MFMimePart mimeBody](self "mimeBody")];
+    if (!self->_partialDataConsumer)
+    {
+      self->_partialDataConsumer = objc_alloc_init(MFPartialNetworkDataConsumer);
+    }
+
+    v24 = 0;
+    while (1)
+    {
+      v25 = [v23 fetchDataForMimePart:self inRange:v22 withConsumer:offsetCopy - v22 isComplete:self->_partialDataConsumer downloadIfNecessary:{&v45, necessaryCopy}];
+      v26 = [(MFPartialNetworkDataConsumer *)self->_partialDataConsumer length];
+      if (v45)
+      {
+        break;
+      }
+
+      v22 = v26;
+      [(MFMimePart *)self range];
+      if (v22 >= v27)
+      {
+        break;
+      }
+
+      if (!v25)
+      {
+        goto LABEL_50;
+      }
+
+      if (![(MFPartialNetworkDataConsumer *)self->_partialDataConsumer length])
+      {
+        if (([(MFPartialNetworkDataConsumer *)self->_partialDataConsumer length]!= 0) | v24 & 1)
+        {
+          goto LABEL_50;
+        }
+
+        v28 = MFLogGeneral();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        {
+          [MFMimePart _ensureBodyDataToOffset:v44 resultOffset:v28 downloadIfNecessary:? isComplete:? decoded:?];
+        }
+
+        self->_partialDataConsumer = objc_alloc_init(MFPartialNetworkDataConsumer);
+        v24 = 1;
+      }
+
+      if (offsetCopy <= v22)
+      {
+LABEL_50:
+        copyDataWithUnixLineEndings = 0;
+        goto LABEL_60;
+      }
+    }
+
+    [(MFMimePart *)self range];
+    if (v30 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      [(MFMimePart *)self setRange:[(MFMimePart *)self range], [(MFPartialNetworkDataConsumer *)self->_partialDataConsumer length]];
+    }
+
+    v31 = [(NSString *)[(MFMimePart *)self contentTransferEncoding] isEqualToString:@"binary"];
+    partialDataConsumer = self->_partialDataConsumer;
+    if (v31)
+    {
+      data = [(MFPartialNetworkDataConsumer *)partialDataConsumer data];
+    }
+
+    else
+    {
+      data = [(MFPartialNetworkDataConsumer *)partialDataConsumer copyDataWithUnixLineEndings];
+    }
+
+    copyDataWithUnixLineEndings = data;
+
+    self->_partialDataConsumer = 0;
+    self->_fullData = copyDataWithUnixLineEndings;
+    if (resultOffset)
+    {
+      [(MFMimePart *)self range];
+      *resultOffset = v34;
+    }
+
+    v45 = 1;
+LABEL_60:
+    data2 = copyDataWithUnixLineEndings;
+    if (!copyDataWithUnixLineEndings)
+    {
+      data2 = [(MFPartialNetworkDataConsumer *)self->_partialDataConsumer data];
+      if (!data2)
+      {
+        copyDataWithUnixLineEndings = 0;
+        goto LABEL_21;
+      }
+    }
+
+    if (v25 && (v36 = [(MFMimePart *)self storeData:data2 inMessage:v23 isComplete:data2 == copyDataWithUnixLineEndings]) != 0)
+    {
+      v37 = v36;
+      v38 = self->_fullData;
+      if (data2 != v38)
+      {
+
+        v39 = objc_alloc_init(MFPartialNetworkDataConsumer);
+        self->_partialDataConsumer = v39;
+        [(MFPartialNetworkDataConsumer *)v39 appendData:v37];
+        v40 = [@"base64" isEqualToString:{-[MFMimePart contentTransferEncoding](self, "contentTransferEncoding")}];
+
+        v41 = self->_partialDataConsumer;
+        if (v40)
+        {
+          data3 = [(MFPartialNetworkDataConsumer *)v41 data];
+          goto LABEL_70;
+        }
+
+LABEL_69:
+        data3 = [(MFPartialNetworkDataConsumer *)v41 copyDataWithUnixLineEndings];
+LABEL_70:
+        copyDataWithUnixLineEndings = data3;
+        if (resultOffset)
+        {
+          *resultOffset = [(MFPartialNetworkDataConsumer *)self->_partialDataConsumer length];
+        }
+
+        goto LABEL_76;
+      }
+
+      self->_fullData = v37;
+      copyDataWithUnixLineEndings = v37;
+    }
+
+    else if (!copyDataWithUnixLineEndings)
+    {
+      v41 = self->_partialDataConsumer;
+      goto LABEL_69;
+    }
+
+LABEL_76:
+    [(MFPartialNetworkDataConsumer *)self->_partialDataConsumer purge];
+    goto LABEL_21;
+  }
+
+  v15 = retainedReference;
+  if (resultOffset)
+  {
+    [(MFMimePart *)self range];
+    *resultOffset = v16;
+  }
+
+  v45 = 1;
+LABEL_41:
+  [self mf_unlock];
+  if (complete)
+  {
+    *complete = v45;
+  }
+
+  if (decoded)
+  {
+    *decoded = v15;
+  }
+
+  v29 = v15;
+}
+
+- (id)copyBodyDataToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary isComplete:(BOOL *)complete
+{
+  v7 = 0;
+  [(MFMimePart *)self _ensureBodyDataToOffset:offset resultOffset:resultOffset downloadIfNecessary:necessary isComplete:complete decoded:&v7];
+  return v7;
+}
+
+- (id)bodyDataToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary
+{
+  v5 = [(MFMimePart *)self copyBodyDataToOffset:offset resultOffset:resultOffset downloadIfNecessary:necessary];
+
+  return v5;
+}
+
+- (id)bodyDataForcingDownload:(BOOL)download
+{
+  downloadCopy = download;
+  [(MFMimePart *)self range];
+
+  return [(MFMimePart *)self bodyDataToOffset:v5 resultOffset:0 downloadIfNecessary:downloadCopy];
+}
+
 + (BOOL)isRecognizedClassForContent:(id)content
 {
   objc_opt_class();
@@ -1907,6 +2256,134 @@ LABEL_11:
   }
 
   return isKindOfClass & 1;
+}
+
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete
+{
+  lCopy = l;
+  necessaryCopy = necessary;
+  v30[2] = *MEMORY[0x1E69E9840];
+  if ([(NSString *)self->_type isEqualToString:@"multipart"]&& [(NSString *)self->_subtype isEqualToString:@"alternative"])
+  {
+    v13 = [-[MFMimePart chosenAlternativePart](self "chosenAlternativePart")];
+    if (!v13)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_39:
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      v27 = v13;
+      return [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+    }
+
+    return v13;
+  }
+
+  if ([(MFMimePart *)self isAttachment]&& (![(NSString *)self->_type isEqualToString:@"application"]|| [(NSString *)self->_subtype mf_caseInsensitiveCompareExcludingXDash:@"pkcs7-mime"]))
+  {
+    v13 = _createAttachment(self);
+    if (v13)
+    {
+      if (resultOffset)
+      {
+        [(MFMimePart *)self range];
+        *resultOffset = v14;
+      }
+
+      if (complete)
+      {
+        *complete = 1;
+      }
+
+      goto LABEL_39;
+    }
+  }
+
+LABEL_13:
+  v15 = [(MFMimePart *)self contentsForTextSystemToOffset:offset resultOffset:resultOffset downloadIfNecessary:necessaryCopy asHTML:lCopy isComplete:complete];
+  if (!v15 && necessaryCopy)
+  {
+    if ([(MFMimePart *)self _shouldContinueDecodingProcess])
+    {
+      v15 = [MEMORY[0x1E696AD98] numberWithInt:4294967254];
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v16 = [objc_alloc(objc_msgSend(objc_opt_class() "attachmentClass"))];
+    v17 = [(NSString *)[(MFMimePart *)self type] isEqualToString:@"application"];
+    selfCopy2 = self;
+    if (v17)
+    {
+      v19 = [@"pkcs7-mime" mf_caseInsensitiveCompareExcludingXDash:{-[MFMimePart subtype](self, "subtype", self)}];
+      selfCopy2 = self;
+      if (!v19)
+      {
+        selfCopy2 = [objc_msgSend(-[MFMimePart decryptedMessageBodyIsEncrypted:isSigned:](self decryptedMessageBodyIsEncrypted:0 isSigned:{0), "topLevelPart"), "_partThatIsAttachment"}];
+      }
+    }
+
+    [v16 setMimePart:selfCopy2];
+    v13 = v16;
+LABEL_38:
+    if (!v13)
+    {
+      return v13;
+    }
+
+    goto LABEL_39;
+  }
+
+  if ([objc_opt_class() isRecognizedClassForContent:v15])
+  {
+    if (-[NSString isEqualToString:](-[MFMimePart type](self, "type"), "isEqualToString:", @"text") && (v20 = -[MFMimePart parentPart](self, "parentPart"), [objc_msgSend(v20 "type")]) && objc_msgSend(objc_msgSend(v20, "subtype"), "isEqualToString:", @"alternative") && (v21 = objc_msgSend(objc_msgSend(v20, "subparts"), "lastObject"), v22 = v21, v21 != self) && _isCalendar(v21))
+    {
+      Attachment = _createAttachment(v22);
+      v30[0] = v15;
+      v30[1] = Attachment;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    if (v24)
+    {
+      v13 = v24;
+    }
+
+    else
+    {
+      v13 = v15;
+    }
+
+    goto LABEL_38;
+  }
+
+  if (v15)
+  {
+    v25 = MFLogGeneral();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v29 = objc_opt_class();
+      _os_log_impl(&dword_1D36B2000, v25, OS_LOG_TYPE_INFO, "Got back unrecognized class %@", buf, 0xCu);
+    }
+  }
+
+  return 0;
 }
 
 - (unsigned)numberOfAttachments
@@ -1977,33 +2454,33 @@ LABEL_11:
 
 - (id)attachmentURLs
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   if ([(MFMimePart *)self isAttachment]&& [(MFMimePart *)self partURL])
   {
     [array addObject:{-[MFMimePart partURL](self, "partURL")}];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   subparts = [(MFMimePart *)self subparts];
-  v5 = [subparts countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [subparts countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(subparts);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         if ([v9 isAttachment] && objc_msgSend(v9, "partURL"))
         {
           [array addObject:{objc_msgSend(v9, "partURL")}];
@@ -2011,29 +2488,29 @@ LABEL_11:
 
         if (![(NSString *)[(MFMimePart *)self type] isEqualToString:@"message"]|| ![(NSString *)[(MFMimePart *)self subtype] isEqualToString:@"rfc822"])
         {
-          v19 = 0u;
-          v20 = 0u;
-          v17 = 0u;
           v18 = 0u;
+          v19 = 0u;
+          v16 = 0u;
+          v17 = 0u;
           subparts2 = [v9 subparts];
-          v11 = [subparts2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+          v11 = [subparts2 countByEnumeratingWithState:&v16 objects:v24 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v18;
+            v13 = *v17;
             do
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v18 != v13)
+                if (*v17 != v13)
                 {
                   objc_enumerationMutation(subparts2);
                 }
 
-                [array addObjectsFromArray:{objc_msgSend(*(*(&v17 + 1) + 8 * j), "attachmentURLs")}];
+                [array addObjectsFromArray:{objc_msgSend(*(*(&v16 + 1) + 8 * j), "attachmentURLs")}];
               }
 
-              v12 = [subparts2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+              v12 = [subparts2 countByEnumeratingWithState:&v16 objects:v24 count:16];
             }
 
             while (v12);
@@ -2041,13 +2518,12 @@ LABEL_11:
         }
       }
 
-      v6 = [subparts countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [subparts countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -2150,10 +2626,21 @@ LABEL_11:
   }
 }
 
+- (BOOL)parseMimeBodyDownloadIfNecessary:(BOOL)necessary
+{
+  necessaryCopy = necessary;
+  v5 = [-[MFMimePart mimeBody](self "mimeBody")];
+  v10 = 1;
+  v9 = 0;
+  v6 = [v5 bodyDataIsComplete:&v10 isPartial:&v9 downloadIfNecessary:necessaryCopy];
+  v7 = [v5 headerDataDownloadIfNecessary:necessaryCopy];
+  return [(MFMimePart *)self parseMimeBodyFromHeaderData:v7 bodyData:v6 isPartial:v9];
+}
+
 - (BOOL)parseMimeBodyFromHeaderData:(id)data bodyData:(id)bodyData isPartial:(BOOL)partial
 {
   partialCopy = partial;
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   mimeBody = [(MFMimePart *)self mimeBody];
   if (mimeBody)
   {
@@ -2163,43 +2650,42 @@ LABEL_11:
       v11 = v10;
       -[MFMimePart setRange:](self, "setRange:", 0, [bodyData length]);
       v12 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-      v13 = *MEMORY[0x1E699B0D0];
       [data length];
-      if ((ECGetNextHeaderFromDataInRange() & 1) != 0 || (v14 = _parseUuencodedParts(self, v11, bodyData, self->_range.location, self->_range.length)) == 0)
+      if ((ECGetNextHeaderFromDataInRange() & 1) != 0 || (v13 = _parseUuencodedParts(self, v11, bodyData, self->_range.location, self->_range.length)) == 0)
       {
         _parseHeaders(self, v11, data, bodyData, partialCopy);
       }
 
       else
       {
-        v15 = v14;
+        v14 = v13;
         [(MFMimePart *)self setType:@"multipart"];
         [(MFMimePart *)self setSubtype:@"mixed"];
-        v25 = 0u;
-        v26 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
-        if (v16)
+        v21 = 0u;
+        v22 = 0u;
+        v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        if (v15)
         {
-          v17 = v16;
-          v18 = *v24;
+          v16 = v15;
+          v17 = *v22;
           do
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v24 != v18)
+              if (*v22 != v17)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v14);
               }
 
-              [(MFMimePart *)self addSubpart:*(*(&v23 + 1) + 8 * i)];
+              [(MFMimePart *)self addSubpart:*(*(&v21 + 1) + 8 * i)];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
-          while (v17);
+          while (v16);
         }
       }
 
@@ -2209,21 +2695,20 @@ LABEL_11:
 
     else
     {
-      v20 = MFLogGeneral();
-      LODWORD(mimeBody) = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+      v19 = MFLogGeneral();
+      LODWORD(mimeBody) = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
       if (mimeBody)
       {
         *buf = 134218240;
-        v28 = [bodyData length];
-        v29 = 2048;
-        v30 = [data length];
-        _os_log_impl(&dword_1D36B2000, v20, OS_LOG_TYPE_INFO, "Mime parsing: Failed to parse mime body!  bodyData: %lu\theaderData: %lu", buf, 0x16u);
+        v26 = [bodyData length];
+        v27 = 2048;
+        v28 = [data length];
+        _os_log_impl(&dword_1D36B2000, v19, OS_LOG_TYPE_INFO, "Mime parsing: Failed to parse mime body!  bodyData: %lu\theaderData: %lu", buf, 0x16u);
         LOBYTE(mimeBody) = 0;
       }
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return mimeBody;
 }
 
@@ -2844,6 +3329,190 @@ LABEL_22:
   return v2;
 }
 
+- (void)_contents:(id *)_contents toOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete
+{
+  lCopy = l;
+  necessaryCopy = necessary;
+  v45 = *MEMORY[0x1E69E9840];
+  type = [(MFMimePart *)self type];
+  subtype = [(MFMimePart *)self subtype];
+  strcpy(__source, "decode");
+  v15 = [(__CFString *)type length];
+  v16 = [(__CFString *)subtype length];
+  v17 = v16;
+  v18 = v15 + v16 + 8;
+  resultOffsetCopy = resultOffset;
+  completeCopy = complete;
+  if (v18 < 0x41)
+  {
+    v19 = v44;
+    v18 = 64;
+  }
+
+  else
+  {
+    v19 = malloc_type_malloc(v15 + v16 + 8, 0x4082B3D0uLL);
+  }
+
+  *&v20 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v44[2] = v20;
+  v44[3] = v20;
+  v44[0] = v20;
+  v44[1] = v20;
+  strlcpy(v19, __source, v18);
+  v21 = index(v19, 0);
+  if (v15)
+  {
+    v22 = [(__CFString *)type hasPrefix:@"x-"];
+    if (v22)
+    {
+      v15 -= 2;
+    }
+
+    if (v15 >= 1)
+    {
+      v23.location = v22 ? 2 : 0;
+      v23.length = v15;
+      if (v15 == MFStringGetBytes(type, v23, 0x600u, 0, 0, v21, &v19[v18 + ~v21], 0))
+      {
+        *v21 = __toupper(*v21);
+        v21 += v15;
+      }
+    }
+  }
+
+  v24 = v21;
+  if (v17)
+  {
+    v25 = [(__CFString *)subtype hasPrefix:@"x-"];
+    v26 = v25 ? v17 - 2 : v17;
+    v24 = v21;
+    if (v26 >= 1)
+    {
+      v27.location = v25 ? 2 : 0;
+      v27.length = v26;
+      Bytes = MFStringGetBytes(subtype, v27, 0x600u, 0, 0, v21, &v19[v18 + ~v21], 0);
+      v24 = v21;
+      if (v26 == Bytes)
+      {
+        *v21 = __toupper(*v21);
+        v24 = &v21[v26];
+      }
+    }
+  }
+
+  *v24 = 0;
+  for (i = index(v19, 45); i; i = index(i + 1, 45))
+  {
+    *i = 95;
+  }
+
+  v30 = [(MFMimePart *)self _selectorForCString:v19];
+  v31 = [objc_msgSend(MEMORY[0x1E696AF00] "currentThread")];
+  [v31 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithUnsignedInt:", necessaryCopy), @"__MIME_PART_DECODE_DOWNLOAD"}];
+  [v31 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", lCopy), @"__MIME_PART_DECODE_AS_HTML"}];
+  if (offset != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v31 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithUnsignedInteger:", offset), @"__MIME_PART_DECODE_OFFSET"}];
+  }
+
+  v32 = [v31 objectForKey:@"__MIME_PART_COLLECT_DECODED_MESSAGE_BODY"];
+  [v31 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithBool:", 1), @"__MIME_PART_COLLECT_DECODED_MESSAGE_BODY"}];
+  if (v30 && (objc_opt_respondsToSelector() & 1) != 0 || *v21 && (*v21 = 0, (v33 = [(MFMimePart *)self _selectorForCString:v19]) != 0) && (v30 = v33, (objc_opt_respondsToSelector() & 1) != 0))
+  {
+    v34 = [(MFMimePart *)self performSelector:v30];
+  }
+
+  else
+  {
+    v34 = 0;
+  }
+
+  if (offset != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v31 removeObjectForKey:@"__MIME_PART_DECODE_OFFSET"];
+  }
+
+  if (resultOffsetCopy)
+  {
+    v35 = [v31 objectForKey:@"__MIME_PART_DECODE_RESULT_OFFSET"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      *resultOffsetCopy = [v35 unsignedIntValue];
+    }
+
+    [v31 removeObjectForKey:@"__MIME_PART_DECODE_RESULT_OFFSET"];
+  }
+
+  if (completeCopy)
+  {
+    v36 = [v31 objectForKey:@"__MIME_PART_RESULT_IS_COMPLETE"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      *completeCopy = [v36 BOOLValue];
+    }
+
+    [v31 removeObjectForKey:@"__MIME_PART_RESULT_IS_COMPLETE"];
+  }
+
+  v37 = [v31 objectForKey:@"__MIME_PART_DECODED_MESSAGE_BODY"];
+  if (v37)
+  {
+    [(MFMimePart *)self _setRFC822DecodedMessageBody:v37];
+    [v31 removeObjectForKey:@"__MIME_PART_DECODED_MESSAGE_BODY"];
+  }
+
+  if (v32)
+  {
+    [v31 setObject:v32 forKey:@"__MIME_PART_COLLECT_DECODED_MESSAGE_BODY"];
+  }
+
+  else
+  {
+    [v31 removeObjectForKey:@"__MIME_PART_COLLECT_DECODED_MESSAGE_BODY"];
+  }
+
+  if (v19 != v44)
+  {
+    free(v19);
+  }
+
+  if (v34 || ![(MFMimePart *)self _shouldContinueDecodingProcess]|| [(NSString *)self->_type isEqualToString:@"multipart"])
+  {
+    _contentsCopy2 = _contents;
+    if (!_contents)
+    {
+      return;
+    }
+
+    goto LABEL_55;
+  }
+
+  _contentsCopy2 = _contents;
+  if (_contents)
+  {
+    v34 = [(MFMimePart *)self copyBodyDataToOffset:offset resultOffset:resultOffsetCopy downloadIfNecessary:necessaryCopy isComplete:completeCopy];
+LABEL_55:
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v34 = [objc_allocWithZone(MFMessageFileWrapper) initRegularFileWithContents:v34];
+      [(MFMimePart *)self configureFileWrapper:v34];
+    }
+
+    *_contentsCopy2 = v34;
+    return;
+  }
+
+  if (completeCopy)
+  {
+    *completeCopy = [(MFMimePart *)self _hasCompleteBodyDataToOffset:offset];
+  }
+}
+
 - (SEL)_selectorForCString:(char *)string
 {
   if (_selectorForCString__onceToken != -1)
@@ -2865,6 +3534,13 @@ void *__51__MFMimePart_DecodingSupport___selectorForCString___block_invoke()
   result = &unk_1F4F3B368;
   _selectorForCString__allowedMethodNames = result;
   return result;
+}
+
+- (id)contentsForTextSystemToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete
+{
+  v8 = 0;
+  [(MFMimePart *)self _contents:&v8 toOffset:offset resultOffset:resultOffset downloadIfNecessary:necessary asHTML:l isComplete:complete];
+  return v8;
 }
 
 - (BOOL)hasContents

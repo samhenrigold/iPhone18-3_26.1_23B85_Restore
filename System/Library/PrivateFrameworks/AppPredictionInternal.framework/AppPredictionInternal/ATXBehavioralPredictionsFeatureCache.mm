@@ -68,25 +68,26 @@ void __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke(u
 {
   v3 = a2;
   v4 = std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::find<NSString * {__strong}>(v3 + 1, (a1 + 32));
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke_cold_1((a1 + 32), v5);
+      __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke_cold_1((a1 + 32), v6);
     }
 
-    v6 = *(*(a1 + 40) + 8);
-    objc_storeStrong((v6 + 48), v4[3]);
-    memcpy((v6 + 56), v4 + 4, 0xCFEuLL);
+    v7 = *(*(a1 + 40) + 8);
+    objc_storeStrong((v7 + 48), v5[3]);
+    memcpy((v7 + 56), v5 + 4, 0xCFEuLL);
   }
 
   else
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke_cold_2((a1 + 32), v7);
+      __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke_cold_2((a1 + 32), v8);
     }
   }
 }
@@ -106,81 +107,78 @@ void __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke(u
   [(_PASLock *)lock runWithLockAcquired:v9];
 }
 
-void __60__ATXBehavioralPredictionsFeatureCache_addItem_forBundleId___block_invoke(id *a1, void *a2)
+void __60__ATXBehavioralPredictionsFeatureCache_addItem_forBundleId___block_invoke(id *a1, float *a2)
 {
   v4 = a2;
-  v5 = a1[4];
-  v6 = a1[5];
-  memcpy(v7, a1 + 6, sizeof(v7));
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * {__strong},ATXPredictionItem>>(a2 + 1, &v5);
+  *&v5 = a1[4];
+  *(&v5 + 1) = a1[5];
+  memcpy(v6, a1 + 6, sizeof(v6));
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * {__strong},ATXPredictionItem>>(a2 + 2, &v5, &v5);
 }
 
 - (vector<ATXPredictionItem,)itemsForBundleIds:(ATXBehavioralPredictionsFeatureCache *)self
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a4;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(ATXBehavioralPredictionsFeatureCache *)self itemForBundleId:*(*(&v15 + 1) + 8 * v10)];
-        v11 = v14;
-        if (v14)
+        objc_msgSend_itemForBundleId_(self);
+        v11 = v13;
+        if (v13)
         {
-          std::vector<ATXPredictionItem>::push_back[abi:ne200100](retstr, &v14);
-          v11 = v14;
+          std::vector<ATXPredictionItem>::push_back[abi:ne200100](retstr, &v13);
+          v11 = v13;
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXBehavioralPredictionsFeatureCache: Cache hit for %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXBehavioralPredictionsFeatureCache: Cache hit for %@", &v3, 0xCu);
 }
 
 void __56__ATXBehavioralPredictionsFeatureCache_itemForBundleId___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXBehavioralPredictionsFeatureCache: Cache miss for %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXBehavioralPredictionsFeatureCache: Cache miss for %@", &v3, 0xCu);
 }
 
 @end

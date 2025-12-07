@@ -5,9 +5,9 @@ void sub_100000F34(id a1)
   _objc_release_x1();
 }
 
-void sub_1000012A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000012A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -68,9 +68,9 @@ void sub_1000012D4(void *a1)
   }
 }
 
-void sub_1000015D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000015D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -130,9 +130,9 @@ void sub_1000015F0(void *a1)
   }
 }
 
-void sub_1000018B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000018B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -191,10 +191,11 @@ void sub_1000018C8(uint64_t a1)
   }
 }
 
-void sub_100001F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_100001F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -266,9 +267,9 @@ void sub_100002010(uint64_t a1)
   }
 }
 
-void sub_100002350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -323,9 +324,9 @@ void sub_100002370(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) _unsafe_commitChangesInManagedObjectContext];
 }
 
-void sub_1000026CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000026CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -382,10 +383,11 @@ void sub_100002B78(id a1)
   qword_100011428 = v3;
 }
 
-void sub_100002D38(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100002D38(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 void sub_100003040(uint64_t a1, void *a2)
@@ -430,10 +432,11 @@ id sub_1000035B8(id a1, UNNotification *a2, unint64_t a3, BOOL *a4)
   return v8;
 }
 
-void sub_100003B4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003B4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void sub_100003BAC(id a1)
@@ -613,19 +616,19 @@ LABEL_5:
 
 void sub_100004E7C(uint64_t a1)
 {
-  v2 = _ANLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = _ANLogSystem();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    sub_100005A0C(a1);
+    sub_100005A0C();
   }
 }
 
 void sub_100004EC8(uint64_t a1)
 {
-  v2 = _ANLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v1 = _ANLogSystem();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    sub_100005AA0(a1);
+    sub_100005AA0();
   }
 }
 
@@ -641,23 +644,26 @@ void sub_100004F14(id a1, NSError *a2)
 
 void sub_100004F9C()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Core Data fetch failed with error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Core Data fetch failed with error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100005018()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Core Data fetch failed with error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Core Data fetch failed with error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100005094()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Will not save notification lacking ID or account type: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Will not save notification lacking ID or account type: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100005110(id *a1, NSObject *a2)
@@ -671,37 +677,42 @@ void sub_100005110(id *a1, NSObject *a2)
 
 void sub_1000051BC()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100005238()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000052B4()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100005330()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) MOC fetch failed! Error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000053AC()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Core Data save failed! Error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Core Data save failed! Error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100005428()
@@ -714,9 +725,10 @@ void sub_100005428()
 
 void sub_1000054B4()
 {
+  v6 = 136315650;
   sub_100002D28();
   sub_100002D14();
-  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) BIG PROBLEM: Failed to add SQL store to coordinator! Error: %@", v2, v3, v4, v5, 2u);
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) BIG PROBLEM: Failed to add SQL store to coordinator! Error: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100005530()
@@ -738,24 +750,51 @@ void sub_1000055D0(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s (%d) Error posting notification %@", &v2, 0x1Cu);
 }
 
-void sub_100005A0C(uint64_t a1)
+void sub_100005870()
 {
-  v1 = *(a1 + 32);
-  v3 = 136315650;
-  v4 = "[ANNotificationController _clientSideNotifierWithMachServiceName:]_block_invoke";
-  v5 = 1024;
-  sub_100004F74();
-  _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s (%d) XPC connection to %@ was interrupted!", &v3, 0x1Cu);
+  LODWORD(v6) = 136315650;
+  *(&v6 + 4) = "[ANDaemon listener:shouldAcceptNewConnection:]";
+  WORD6(v6) = 1024;
+  sub_100002D14();
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Rejecting connection from %@ because of bad/missing entitlement!", v2, v3, v4, v5, v6);
 }
 
-void sub_100005AA0(uint64_t a1)
+void sub_1000058F4()
 {
-  v1 = *(a1 + 32);
-  v3 = 136315650;
-  v4 = "[ANNotificationController _clientSideNotifierWithMachServiceName:]_block_invoke";
-  v5 = 1024;
+  LODWORD(v6) = 136315650;
+  *(&v6 + 4) = "[ANDaemon listener:shouldAcceptNewConnection:]";
+  WORD6(v6) = 1024;
+  sub_100002D14();
+  sub_100002D38(&_mh_execute_header, v0, v1, "%s (%d) Rejecting connection from %@ because of bad/missing entitlement!", v2, v3, v4, v5, v6);
+}
+
+void sub_100005978(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315650;
+  *&v8[4] = "[ANDaemon listener:shouldAcceptNewConnection:]_block_invoke";
+  *&v8[12] = 1024;
+  *&v8[14] = 88;
+  *&v8[18] = 2112;
+  *&v8[20] = *(a1 + 32);
+  sub_100002D38(&_mh_execute_header, a2, a3, "%s (%d) Connection from %@ was interrupted!", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *&v8[24]);
+}
+
+void sub_100005A0C()
+{
+  v1 = 136315650;
+  v2 = "[ANNotificationController _clientSideNotifierWithMachServiceName:]_block_invoke";
+  v3 = 1024;
   sub_100004F74();
-  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s (%d) XPC connection to %@ was invalidated.", &v3, 0x1Cu);
+  _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s (%d) XPC connection to %@ was interrupted!", &v1, 0x1Cu);
+}
+
+void sub_100005AA0()
+{
+  v1 = 136315650;
+  v2 = "[ANNotificationController _clientSideNotifierWithMachServiceName:]_block_invoke";
+  v3 = 1024;
+  sub_100004F74();
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s (%d) XPC connection to %@ was invalidated.", &v1, 0x1Cu);
 }
 
 void sub_100005B34(uint64_t a1, NSObject *a2)

@@ -22,8 +22,8 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v58[36] = *MEMORY[0x277D85DE8];
-  v57[0] = @"modeIdentifier";
+  v57[36] = *MEMORY[0x277D85DE8];
+  v56[0] = @"modeIdentifier";
   modeIdentifier = [(ATXModeConfigurationMetric *)self modeIdentifier];
   if (modeIdentifier)
   {
@@ -37,9 +37,9 @@
     modeIdentifier2 = null;
   }
 
-  v26 = null;
-  v58[0] = null;
-  v57[1] = @"modeSemanticType";
+  v25 = null;
+  v57[0] = null;
+  v56[1] = @"modeSemanticType";
   modeSemanticType = [(ATXModeConfigurationMetric *)self modeSemanticType];
   v5 = modeSemanticType;
   if (!modeSemanticType)
@@ -47,63 +47,63 @@
     modeSemanticType = [MEMORY[0x277CBEB68] null];
   }
 
-  v25 = modeSemanticType;
-  v58[1] = modeSemanticType;
-  v57[2] = @"hasSmartTrigger";
-  v53 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasSmartTrigger](self, "hasSmartTrigger")}];
-  v58[2] = v53;
-  v57[3] = @"hasAreaTrigger";
-  v52 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasAreaTrigger](self, "hasAreaTrigger")}];
-  v58[3] = v52;
-  v57[4] = @"hasTimeTrigger";
-  v51 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasTimeTrigger](self, "hasTimeTrigger")}];
-  v58[4] = v51;
-  v57[5] = @"hasAppTrigger";
-  v50 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasAppTrigger](self, "hasAppTrigger")}];
-  v58[5] = v50;
-  v57[6] = @"hasScreenActivityTrigger";
-  v49 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasScreenActivityTrigger](self, "hasScreenActivityTrigger")}];
-  v58[6] = v49;
-  v57[7] = @"hasWorkoutTrigger";
-  v48 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasWorkoutTrigger](self, "hasWorkoutTrigger")}];
-  v58[7] = v48;
-  v57[8] = @"hasSleepTrigger";
-  v47 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasSleepTrigger](self, "hasSleepTrigger")}];
-  v58[8] = v47;
-  v57[9] = @"hasDrivingTrigger";
-  v46 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasDrivingTrigger](self, "hasDrivingTrigger")}];
-  v58[9] = v46;
-  v57[10] = @"numAllowedApps";
-  v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAllowedApps](self, "numAllowedApps"))}];
-  v58[10] = v45;
-  v57[11] = @"numAllowedContacts";
-  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAllowedContacts](self, "numAllowedContacts"))}];
-  v58[11] = v44;
-  v57[12] = @"isAutomaticallyGenerated";
-  v43 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric isAutomaticallyGenerated](self, "isAutomaticallyGenerated")}];
-  v58[12] = v43;
-  v57[13] = @"doesImpactAvailability";
-  v42 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric doesImpactAvailability](self, "doesImpactAvailability")}];
-  v58[13] = v42;
-  v57[14] = @"hasCustomHomeScreen";
-  v41 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasCustomHomeScreen](self, "hasCustomHomeScreen")}];
-  v58[14] = v41;
-  v57[15] = @"numCustomHomeScreens";
-  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric numCustomHomeScreens](self, "numCustomHomeScreens")}];
-  v58[15] = v40;
-  v57[16] = @"hasCustomHomeScreenUsedInOtherModes";
-  v39 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasCustomHomeScreenUsedInOtherModes](self, "hasCustomHomeScreenUsedInOtherModes")}];
-  v58[16] = v39;
-  v57[17] = @"numLockScreenPosters";
-  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numLockScreenPosters](self, "numLockScreenPosters"))}];
-  v58[17] = v38;
-  v57[18] = @"numDeniedApps";
-  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numDeniedApps](self, "numDeniedApps"))}];
-  v58[18] = v37;
-  v57[19] = @"numDeniedContacts";
-  v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numDeniedContacts](self, "numDeniedContacts"))}];
-  v58[19] = v36;
-  v57[20] = @"appConfigurationType";
+  v24 = modeSemanticType;
+  v57[1] = modeSemanticType;
+  v56[2] = @"hasSmartTrigger";
+  v52 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasSmartTrigger](self, "hasSmartTrigger")}];
+  v57[2] = v52;
+  v56[3] = @"hasAreaTrigger";
+  v51 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasAreaTrigger](self, "hasAreaTrigger")}];
+  v57[3] = v51;
+  v56[4] = @"hasTimeTrigger";
+  v50 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasTimeTrigger](self, "hasTimeTrigger")}];
+  v57[4] = v50;
+  v56[5] = @"hasAppTrigger";
+  v49 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasAppTrigger](self, "hasAppTrigger")}];
+  v57[5] = v49;
+  v56[6] = @"hasScreenActivityTrigger";
+  v48 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasScreenActivityTrigger](self, "hasScreenActivityTrigger")}];
+  v57[6] = v48;
+  v56[7] = @"hasWorkoutTrigger";
+  v47 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasWorkoutTrigger](self, "hasWorkoutTrigger")}];
+  v57[7] = v47;
+  v56[8] = @"hasSleepTrigger";
+  v46 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasSleepTrigger](self, "hasSleepTrigger")}];
+  v57[8] = v46;
+  v56[9] = @"hasDrivingTrigger";
+  v45 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasDrivingTrigger](self, "hasDrivingTrigger")}];
+  v57[9] = v45;
+  v56[10] = @"numAllowedApps";
+  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAllowedApps](self, "numAllowedApps"))}];
+  v57[10] = v44;
+  v56[11] = @"numAllowedContacts";
+  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAllowedContacts](self, "numAllowedContacts"))}];
+  v57[11] = v43;
+  v56[12] = @"isAutomaticallyGenerated";
+  v42 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric isAutomaticallyGenerated](self, "isAutomaticallyGenerated")}];
+  v57[12] = v42;
+  v56[13] = @"doesImpactAvailability";
+  v41 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric doesImpactAvailability](self, "doesImpactAvailability")}];
+  v57[13] = v41;
+  v56[14] = @"hasCustomHomeScreen";
+  v40 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasCustomHomeScreen](self, "hasCustomHomeScreen")}];
+  v57[14] = v40;
+  v56[15] = @"numCustomHomeScreens";
+  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric numCustomHomeScreens](self, "numCustomHomeScreens")}];
+  v57[15] = v39;
+  v56[16] = @"hasCustomHomeScreenUsedInOtherModes";
+  v38 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric hasCustomHomeScreenUsedInOtherModes](self, "hasCustomHomeScreenUsedInOtherModes")}];
+  v57[16] = v38;
+  v56[17] = @"numLockScreenPosters";
+  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numLockScreenPosters](self, "numLockScreenPosters"))}];
+  v57[17] = v37;
+  v56[18] = @"numDeniedApps";
+  v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numDeniedApps](self, "numDeniedApps"))}];
+  v57[18] = v36;
+  v56[19] = @"numDeniedContacts";
+  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numDeniedContacts](self, "numDeniedContacts"))}];
+  v57[19] = v35;
+  v56[20] = @"appConfigurationType";
   appConfigurationType = [(ATXModeConfigurationMetric *)self appConfigurationType];
   v7 = appConfigurationType;
   if (!appConfigurationType)
@@ -111,41 +111,41 @@
     appConfigurationType = [MEMORY[0x277CBEB68] null];
   }
 
-  v24 = appConfigurationType;
-  v58[20] = appConfigurationType;
-  v57[21] = @"contactConfigurationType";
+  v23 = appConfigurationType;
+  v57[20] = appConfigurationType;
+  v56[21] = @"contactConfigurationType";
   contactConfigurationType = [(ATXModeConfigurationMetric *)self contactConfigurationType];
-  v34 = contactConfigurationType;
+  v33 = contactConfigurationType;
   if (!contactConfigurationType)
   {
     contactConfigurationType = [MEMORY[0x277CBEB68] null];
   }
 
-  v35 = v7;
-  v23 = contactConfigurationType;
-  v58[21] = contactConfigurationType;
-  v57[22] = @"numAcceptedSuggestedHomePages";
-  v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedHomePages](self, "numAcceptedSuggestedHomePages"))}];
-  v58[22] = v33;
-  v57[23] = @"numAcceptedSuggestedLockScreens";
-  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedLockScreens](self, "numAcceptedSuggestedLockScreens"))}];
-  v58[23] = v32;
-  v57[24] = @"numAcceptedSuggestedApps";
-  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedApps](self, "numAcceptedSuggestedApps"))}];
-  v58[24] = v31;
-  v57[25] = @"numAcceptedSuggestedContacts";
-  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedContacts](self, "numAcceptedSuggestedContacts"))}];
-  v58[25] = v30;
-  v57[26] = @"didRemoveSuggestedPage";
-  v29 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric didRemoveSuggestedPage](self, "didRemoveSuggestedPage")}];
-  v58[26] = v29;
-  v57[27] = @"numAppConfigurations";
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAppConfigurations](self, "numAppConfigurations"))}];
-  v58[27] = v28;
-  v57[28] = @"isSharingAcrossDevices";
-  v27 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric isSharingAcrossDevices](self, "isSharingAcrossDevices")}];
-  v58[28] = v27;
-  v57[29] = @"treatmentId";
+  v34 = v7;
+  v22 = contactConfigurationType;
+  v57[21] = contactConfigurationType;
+  v56[22] = @"numAcceptedSuggestedHomePages";
+  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedHomePages](self, "numAcceptedSuggestedHomePages"))}];
+  v57[22] = v32;
+  v56[23] = @"numAcceptedSuggestedLockScreens";
+  v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedLockScreens](self, "numAcceptedSuggestedLockScreens"))}];
+  v57[23] = v31;
+  v56[24] = @"numAcceptedSuggestedApps";
+  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedApps](self, "numAcceptedSuggestedApps"))}];
+  v57[24] = v30;
+  v56[25] = @"numAcceptedSuggestedContacts";
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAcceptedSuggestedContacts](self, "numAcceptedSuggestedContacts"))}];
+  v57[25] = v29;
+  v56[26] = @"didRemoveSuggestedPage";
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric didRemoveSuggestedPage](self, "didRemoveSuggestedPage")}];
+  v57[26] = v28;
+  v56[27] = @"numAppConfigurations";
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXModeConfigurationMetric cappedForPrivacyWithValue:](self, "cappedForPrivacyWithValue:", -[ATXModeConfigurationMetric numAppConfigurations](self, "numAppConfigurations"))}];
+  v57[27] = v27;
+  v56[28] = @"isSharingAcrossDevices";
+  v26 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric isSharingAcrossDevices](self, "isSharingAcrossDevices")}];
+  v57[28] = v26;
+  v56[29] = @"treatmentId";
   treatmentId = [(ATXModeConfigurationMetric *)self treatmentId];
   v10 = treatmentId;
   if (!treatmentId)
@@ -153,9 +153,9 @@
     treatmentId = [MEMORY[0x277CBEB68] null];
   }
 
-  v22 = treatmentId;
-  v58[29] = treatmentId;
-  v57[30] = @"experimentId";
+  v21 = treatmentId;
+  v57[29] = treatmentId;
+  v56[30] = @"experimentId";
   experimentId = [(ATXModeConfigurationMetric *)self experimentId];
   null2 = experimentId;
   if (!experimentId)
@@ -163,9 +163,9 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v54 = v5;
-  v58[30] = null2;
-  v57[31] = @"deploymentId";
+  v53 = v5;
+  v57[30] = null2;
+  v56[31] = @"deploymentId";
   deploymentId = [(ATXModeConfigurationMetric *)self deploymentId];
   null3 = deploymentId;
   if (!deploymentId)
@@ -173,20 +173,20 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v58[31] = null3;
-  v57[32] = @"isSleepMigrated";
+  v57[31] = null3;
+  v56[32] = @"isSleepMigrated";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric isSleepMigrated](self, "isSleepMigrated")}];
-  v58[32] = v15;
-  v57[33] = @"wasQuickStartPlatterShown";
+  v57[32] = v15;
+  v56[33] = @"wasQuickStartPlatterShown";
   v16 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric wasQuickStartPlatterShown](self, "wasQuickStartPlatterShown")}];
-  v58[33] = v16;
-  v57[34] = @"wasColoringBookSeen";
+  v57[33] = v16;
+  v56[34] = @"wasColoringBookSeen";
   v17 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric wasColoringBookSeen](self, "wasColoringBookSeen")}];
-  v58[34] = v17;
-  v57[35] = @"intelligentBreakthroughEnabled";
+  v57[34] = v17;
+  v56[35] = @"intelligentBreakthroughEnabled";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXModeConfigurationMetric isIntelligentBreakthroughEnabled](self, "isIntelligentBreakthroughEnabled")}];
-  v58[35] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:36];
+  v57[35] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:36];
 
   if (!deploymentId)
   {
@@ -200,23 +200,21 @@
   {
   }
 
+  if (!v33)
+  {
+  }
+
   if (!v34)
   {
   }
 
-  if (!v35)
-  {
-  }
-
-  if (!v54)
+  if (!v53)
   {
   }
 
   if (modeIdentifier)
   {
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

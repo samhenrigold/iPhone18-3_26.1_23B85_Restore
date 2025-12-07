@@ -1,10 +1,10 @@
 @interface UIUpdateInfo
-- (void)initWithUpdateParameters:(void *)parameters;
+- (double)initWithUpdateParameters:(void *)parameters;
 @end
 
 @implementation UIUpdateInfo
 
-- (void)initWithUpdateParameters:(void *)parameters
+- (double)initWithUpdateParameters:(void *)parameters
 {
   if (!parameters)
   {

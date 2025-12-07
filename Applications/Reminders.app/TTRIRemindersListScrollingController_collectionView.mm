@@ -32,7 +32,7 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(id)animation
 {
-  sub_100003540(0, &qword_100775690);
+  sub_100003540(0, &qword_100775690, NSObject_ptr);
   animationCopy = animation;
   selfCopy = self;
   if (static NSObject.== infix(_:_:)())
@@ -52,13 +52,13 @@
 
 - (void)scrollViewDidScroll:(id)scroll
 {
-  sub_100003540(0, &qword_100775690);
+  sub_100003540(0, &qword_100775690, NSObject_ptr);
   scrollCopy = scroll;
   selfCopy = self;
   if (static NSObject.== infix(_:_:)())
   {
-    sub_100058000(&unk_1007701B0);
-    sub_10000E188(&unk_1007701E0, &unk_1007701B0);
+    sub_100058000(&unk_1007701B0, &qword_100644F50);
+    sub_10000E188(&unk_1007701E0, &unk_1007701B0, &qword_100644F50, &protocol conformance descriptor for PassthroughSubject<A, B>);
     Subject<>.send()();
     v6 = selfCopy;
   }

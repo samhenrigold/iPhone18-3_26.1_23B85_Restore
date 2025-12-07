@@ -70,7 +70,7 @@
     v18 = objc_msgSend_p_titleParagraphStyle(self, v14, v15, v16, v17);
     objc_msgSend_chartBodyWidth(self, v19, v20, v21, v22);
     v24 = v23;
-    if (objc_msgSend_shouldPlaceTitleAtCenter(self, v25, v23, v26, v27) && (objc_msgSend_layoutSettings(self, v28, v29, v30, v31), (v56 & 1) == 0))
+    if (objc_msgSend_shouldPlaceTitleAtCenter(self, v25, v23, v26, v27) && (objc_msgSend_layoutSettings(self, v29, v30, v31), (v56 & 1) == 0))
     {
       v43 = objc_msgSend_chartInfo(self, v28, v29, v30, v31);
       objc_msgSend_defaultInnerRadiusPercentage(TSCHStyleUtilities, v44, v45, v46, v47);
@@ -148,7 +148,7 @@
 - (CGRect)calcOverhangRect
 {
   objc_msgSend_layoutSize(self, a2, v2, v3, v4);
-  if (!objc_msgSend_shouldPlaceTitleAtCenter(self, v6, v7, v8, v9) || (objc_msgSend_layoutSettings(self, v10, v11, v12, v13), v72 == 1))
+  if (!objc_msgSend_shouldPlaceTitleAtCenter(self, v6, v7, v8, v9) || (objc_msgSend_layoutSettings(self, v11, v12, v13), v72 == 1))
   {
     v14 = objc_msgSend_chartInfo(self, v10, v11, v12, v13);
     v19 = objc_msgSend_model(self, v15, v16, v17, v18);
@@ -220,79 +220,79 @@ LABEL_10:
   v21 = *MEMORY[0x277CBF3A8];
   v22 = *(MEMORY[0x277CBF3A8] + 8);
   v23 = MEMORY[0x277CBF2C0];
-  v135 = *(MEMORY[0x277CBF2C0] + 16);
-  v136 = *MEMORY[0x277CBF2C0];
+  v134 = *(MEMORY[0x277CBF2C0] + 16);
+  v135 = *MEMORY[0x277CBF2C0];
   *&retstr->a = *MEMORY[0x277CBF2C0];
-  *&retstr->c = v135;
-  v137 = *(v23 + 32);
-  *&retstr->tx = v137;
-  if (objc_msgSend_isTitleOn(self, ptr, *&v137, *&v135, v8))
+  *&retstr->c = v134;
+  v136 = *(v23 + 32);
+  *&retstr->tx = v136;
+  if (objc_msgSend_isTitleOn(self, ptr, *&v136, *&v134, v8))
   {
     sizeCopy = size;
     v28 = objc_msgSend_titleText(self, v24, v25, v26, v27);
     v33 = objc_msgSend_p_titleParagraphStyle(self, v29, v30, v31, v32);
-    v127 = *(v16 + 16);
-    v128 = *v16;
-    v142.origin = *v16;
-    v142.size = v127;
-    objc_msgSend_rootedLayoutRect(self, v34, v142.origin.x, v127.width, v35);
-    v131 = v36;
+    v126 = *(v16 + 16);
+    v127 = *v16;
+    v141.origin = *v16;
+    v141.size = v126;
+    objc_msgSend_rootedLayoutRect(self, v34, v141.origin.x, v126.width, v35);
+    v130 = v36;
     v38 = v37;
-    memset(v141, 0, sizeof(v141));
-    objc_msgSend_initializeTextLayoutResults(TSCHText, v39, 0.0, v36, v37);
-    shouldPlaceTitleAtCenter = objc_msgSend_shouldPlaceTitleAtCenter(self, v40, v41, v42, v43);
-    v132 = v21;
+    memset(v140, 0, sizeof(v140));
+    objc_msgSend_initializeTextLayoutResults(TSCHText, 0.0, v36, v37);
+    shouldPlaceTitleAtCenter = objc_msgSend_shouldPlaceTitleAtCenter(self, v39, v40, v41, v42);
+    v131 = v21;
     if (shouldPlaceTitleAtCenter)
     {
-      v48 = v28;
+      v47 = v28;
       rectCopy = rect;
       if (selectionCopy || a8)
       {
-        v49 = objc_msgSend_sharedInteriorWrappingText(TSCHText, v44, v45, v46, v47);
+        v48 = objc_msgSend_sharedInteriorWrappingText(TSCHText, v43, v44, v45, v46);
       }
 
       else
       {
-        v49 = objc_msgSend_sharedText(TSCHText, v44, v45, v46, v47);
+        v48 = objc_msgSend_sharedText(TSCHText, v43, v44, v45, v46);
       }
 
-      v68 = v49;
-      v69 = objc_msgSend_placeTitleAtCenterPropertiesForWrapWidth_(TSCHTextLayoutProperties, v50, v38, v51, v52);
-      v74 = objc_msgSend_textStyleProvidingSource(self, v70, v71, v72, v73);
-      v133 = v69;
-      v134 = v68;
-      objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v68, v75, v38, v76, v77, v28, v33, 1, v69, v74, &v142, v141);
-      v21 = v78;
-      v67 = v79;
+      v67 = v48;
+      v68 = objc_msgSend_placeTitleAtCenterPropertiesForWrapWidth_(TSCHTextLayoutProperties, v49, v38, v50, v51);
+      v73 = objc_msgSend_textStyleProvidingSource(self, v69, v70, v71, v72);
+      v132 = v68;
+      v133 = v67;
+      objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v67, v74, v38, v75, v76, v28, v33, 1, v68, v73, &v141, v140);
+      v21 = v77;
+      v66 = v78;
 
       if (selectionCopy)
       {
-        objc_msgSend_rootedLayoutRect(self, v80, v81, v82, v83);
-        x = v84;
-        y = v85;
-        v87 = v86;
-        v67 = v88;
+        objc_msgSend_rootedLayoutRect(self, v79, v80, v81, v82);
+        x = v83;
+        y = v84;
+        v86 = v85;
+        v66 = v87;
         if (TSURectIsFinite())
         {
           TSURectWithOriginAndSize();
-          x = v89;
-          y = v90;
-          v21 = v91;
-          v67 = v92;
+          x = v88;
+          y = v89;
+          v21 = v90;
+          v66 = v91;
         }
 
         else
         {
-          v21 = v87;
+          v21 = v86;
         }
 
-        v106 = v69;
+        v105 = v68;
         rect = rectCopy;
-        *&v140.a = v136;
-        *&v140.c = v135;
-        *&v140.tx = v137;
-        CGAffineTransformTranslate(retstr, &v140, x, y);
-        height = v67;
+        *&v139.a = v135;
+        *&v139.c = v134;
+        *&v139.tx = v136;
+        CGAffineTransformTranslate(retstr, &v139, x, y);
+        height = v66;
         width = v21;
         goto LABEL_29;
       }
@@ -302,26 +302,26 @@ LABEL_10:
 
     else
     {
-      v53 = objc_msgSend_sharedText(TSCHText, v44, v45, v46, v47);
-      v133 = objc_msgSend_defaultPropertiesForWrapWidth_(TSCHTextLayoutProperties, v54, v38, v55, v56);
-      v61 = objc_msgSend_textStyleProvidingSource(self, v57, v58, v59, v60);
-      v134 = v53;
-      v48 = v28;
-      objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v53, v62, v38, v63, v64, v28, v33, 1, 0, v61, &v142, 0);
-      v21 = v65;
-      v67 = v66;
+      v52 = objc_msgSend_sharedText(TSCHText, v43, v44, v45, v46);
+      v132 = objc_msgSend_defaultPropertiesForWrapWidth_(TSCHTextLayoutProperties, v53, v38, v54, v55);
+      v60 = objc_msgSend_textStyleProvidingSource(self, v56, v57, v58, v59);
+      v133 = v52;
+      v47 = v28;
+      objc_msgSend_measureText_paragraphStyle_wrapWidth_checkNumberTemplates_layoutProperties_styleProvidingSource_outErasableFrame_outTextLayoutResults_(v52, v61, v38, v62, v63, v28, v33, 1, 0, v60, &v141, 0);
+      v21 = v64;
+      v66 = v65;
     }
 
-    if (CGRectIsNull(v142))
+    if (CGRectIsNull(v141))
     {
-      v67 = v22;
-      v21 = v132;
+      v66 = v22;
+      v21 = v131;
     }
 
     else
     {
-      v125 = v33;
-      v124 = v22;
+      v124 = v33;
+      v123 = v22;
       if (sizeCopy)
       {
         location = sizeCopy->location;
@@ -334,101 +334,101 @@ LABEL_10:
         length = -1;
       }
 
-      v99 = objc_msgSend_length(v48, v93, v94, v95, v96);
-      v143.location = 0;
-      v143.length = v99;
-      v144.location = location;
-      v144.length = length;
-      v100 = NSIntersectionRange(v143, v144);
+      v98 = objc_msgSend_length(v47, v92, v93, v94, v95);
+      v142.location = 0;
+      v142.length = v98;
+      v143.location = location;
+      v143.length = length;
+      v99 = NSIntersectionRange(v142, v143);
       TSURectWithSize();
       TSUCenterRectOverRect();
       if (!shouldPlaceTitleAtCenter)
       {
-        v102 = v131;
+        v101 = v130;
       }
 
-      v103 = *&retstr->c;
-      *&v140.a = *&retstr->a;
-      *&v140.c = v103;
-      *&v140.tx = *&retstr->tx;
-      CGAffineTransformTranslate(retstr, &v140, v101, v102);
-      if (sizeCopy || v100.location || v99 != v100.length)
+      v102 = *&retstr->c;
+      *&v139.a = *&retstr->a;
+      *&v139.c = v102;
+      *&v139.tx = *&retstr->tx;
+      CGAffineTransformTranslate(retstr, &v139, v100, v101);
+      if (sizeCopy || v99.location || v98 != v99.length)
       {
-        v139.origin = v128;
-        v139.size = v127;
-        v107 = objc_msgSend_textStyleProvidingSource(self, v104, v127.width, v128.x, v105);
-        v33 = v125;
-        v106 = v133;
-        objc_msgSend_frameForRange_inText_paragraphStyle_wrapWidth_layoutProperties_styleProvidingSource_outErasableFrame_(v134, v108, v38, v109, v110, v100.location, v100.length, v48, v125, v133, v107, &v139);
-        v112 = v111;
-        v114 = v113;
-        v21 = v115;
-        v67 = v116;
+        v138.origin = v127;
+        v138.size = v126;
+        v106 = objc_msgSend_textStyleProvidingSource(self, v103, v126.width, v127.x, v104);
+        v33 = v124;
+        v105 = v132;
+        objc_msgSend_frameForRange_inText_paragraphStyle_wrapWidth_layoutProperties_styleProvidingSource_outErasableFrame_(v133, v107, v38, v108, v109, v99.location, v99.length, v47, v124, v132, v106, &v138);
+        v111 = v110;
+        v113 = v112;
+        v21 = v114;
+        v66 = v115;
 
-        v145.origin.x = v112;
-        v145.origin.y = v114;
-        v145.size.width = v21;
-        v145.size.height = v67;
-        if (CGRectIsNull(v145) || CGRectIsNull(v139))
+        v144.origin.x = v111;
+        v144.origin.y = v113;
+        v144.size.width = v21;
+        v144.size.height = v66;
+        if (CGRectIsNull(v144) || CGRectIsNull(v138))
         {
-          *&retstr->a = v136;
-          *&retstr->c = v135;
-          v67 = v124;
-          v21 = v132;
-          *&retstr->tx = v137;
+          *&retstr->a = v135;
+          *&retstr->c = v134;
+          v66 = v123;
+          v21 = v131;
+          *&retstr->tx = v136;
         }
 
         else
         {
-          v118 = *&retstr->c;
-          *&v138.a = *&retstr->a;
-          *&v138.c = v118;
-          *&v138.tx = *&retstr->tx;
-          CGAffineTransformTranslate(&v140, &v138, v112, v114);
-          v119 = *&v140.c;
-          *&retstr->a = *&v140.a;
-          *&retstr->c = v119;
-          *&retstr->tx = *&v140.tx;
+          v117 = *&retstr->c;
+          *&v137.a = *&retstr->a;
+          *&v137.c = v117;
+          *&v137.tx = *&retstr->tx;
+          CGAffineTransformTranslate(&v139, &v137, v111, v113);
+          v118 = *&v139.c;
+          *&retstr->a = *&v139.a;
+          *&retstr->c = v118;
+          *&retstr->tx = *&v139.tx;
           TSUSubtractPoints();
           TSURectWithOriginAndSize();
-          x = v120;
-          y = v121;
-          width = v122;
-          height = v123;
+          x = v119;
+          y = v120;
+          width = v121;
+          height = v122;
         }
 
         goto LABEL_29;
       }
 
-      y = v142.origin.y;
-      x = v142.origin.x;
-      height = v142.size.height;
-      width = v142.size.width;
-      v33 = v125;
+      y = v141.origin.y;
+      x = v141.origin.x;
+      height = v141.size.height;
+      width = v141.size.width;
+      v33 = v124;
     }
 
-    v106 = v133;
+    v105 = v132;
 LABEL_29:
 
-    v22 = v67;
+    v22 = v66;
   }
 
-  v146.origin.x = x;
-  v146.origin.y = y;
-  v146.size.width = width;
-  v146.size.height = height;
-  result = CGRectIsNull(v146);
+  v145.origin.x = x;
+  v145.origin.y = y;
+  v145.size.width = width;
+  v145.size.height = height;
+  result = CGRectIsNull(v145);
   if ((result & 1) == 0)
   {
-    v147.origin.x = x;
-    v147.origin.y = y;
-    v147.size.width = width;
-    v147.size.height = height;
-    v148 = CGRectInset(v147, -1.0, -1.0);
-    x = v148.origin.x;
-    y = v148.origin.y;
-    width = v148.size.width;
-    height = v148.size.height;
+    v146.origin.x = x;
+    v146.origin.y = y;
+    v146.size.width = width;
+    v146.size.height = height;
+    v147 = CGRectInset(v146, -1.0, -1.0);
+    x = v147.origin.x;
+    y = v147.origin.y;
+    width = v147.size.width;
+    height = v147.size.height;
   }
 
   if (subselection)
@@ -457,7 +457,7 @@ LABEL_29:
   v24.size = v5;
   v23 = *MEMORY[0x277CBF3A8];
   memset(&v22, 0, sizeof(v22));
-  objc_msgSend_transformForRenderingOutElementSize_outClipRect_(self, a2, 0.0, v5.width, v3, &v23, &v24);
+  objc_msgSend_transformForRenderingOutElementSize_outClipRect_(self, 0.0, v5.width, v3, a2, &v23, &v24);
   result = 0;
   if (!CGRectIsNull(v24))
   {
@@ -543,7 +543,7 @@ LABEL_29:
           v66 = v31;
           v63 = 0u;
           v64 = 0u;
-          objc_msgSend_transformForRenderingOutElementSize_outClipRect_forSubselection_(selfCopy, v22, 0.0, *&v31, v25, &v66, &v67, 1);
+          objc_msgSend_transformForRenderingOutElementSize_outClipRect_forSubselection_(selfCopy, 0.0, *&v31, v25);
           objc_msgSend_labelRectFromClipRect_elementSize_(TSCHRenderUtilities, v32, *&v67, *(&v67 + 1), *&v68, *(&v68 + 1), v66);
           v34 = v33;
           v36 = v35;
@@ -624,7 +624,7 @@ LABEL_29:
           v66 = v31;
           v63 = 0u;
           v64 = 0u;
-          objc_msgSend_transformForRenderingOutElementSize_outClipRect_forSubselection_(selfCopy, v22, 0.0, *&v31, v25, &v66, &v67, 1);
+          objc_msgSend_transformForRenderingOutElementSize_outClipRect_forSubselection_(selfCopy, 0.0, *&v31, v25);
           objc_msgSend_labelRectFromClipRect_elementSize_(TSCHRenderUtilities, v32, *&v67, *(&v67 + 1), *&v68, *(&v68 + 1), v66);
           v34 = v33;
           v36 = v35;

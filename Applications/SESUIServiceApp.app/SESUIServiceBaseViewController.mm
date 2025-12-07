@@ -22,9 +22,7 @@
 
 - (void)setDismissHandler:(id)handler
 {
-  v4 = objc_retainBlock(handler);
-  dismissHandler = self->_dismissHandler;
-  self->_dismissHandler = v4;
+  self->_dismissHandler = objc_retainBlock(handler);
 
   _objc_release_x1();
 }

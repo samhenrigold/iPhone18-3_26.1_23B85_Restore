@@ -24,7 +24,7 @@
 
 - (id)process:(id)process externalFields:(id)fields document:(id)document options:(id)options
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884F70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884F70, &qword_1B42ACE58);
   v9 = sub_1B429FDF8();
   if (fields)
   {

@@ -25,8 +25,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"title";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"title";
   title = [(INCreateNoteIntent *)self title];
   null = title;
   if (!title)
@@ -34,8 +34,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[0] = null;
-  v12[1] = @"content";
+  v12[0] = null;
+  v11[1] = @"content";
   content = [(INCreateNoteIntent *)self content];
   null2 = content;
   if (!content)
@@ -43,8 +43,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v12[2] = @"groupName";
+  v12[1] = null2;
+  v11[2] = @"groupName";
   groupName = [(INCreateNoteIntent *)self groupName];
   null3 = groupName;
   if (!groupName)
@@ -52,8 +52,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[2] = null3;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = null3;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   if (!groupName)
   {
   }
@@ -65,8 +65,6 @@
   if (!title)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

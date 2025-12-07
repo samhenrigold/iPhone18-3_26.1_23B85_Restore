@@ -132,7 +132,7 @@ void __43__NTKCurvedPickerView__setCurrentFraction___block_invoke(uint64_t a1, u
   [v5 _angleForIndex:a2];
   if (v5)
   {
-    [v5 _transformForAngle:?];
+    objc_msgSend__transformForAngle_(v5);
   }
 
   else
@@ -238,7 +238,7 @@ void __37__NTKCurvedPickerView_layoutSubviews__block_invoke(uint64_t a1, uint64_
   v12 = *(a1 + 32);
   if (v12)
   {
-    [v12 _transformForAngle:v10];
+    objc_msgSend__transformForAngle_(v12, v10);
   }
 
   else

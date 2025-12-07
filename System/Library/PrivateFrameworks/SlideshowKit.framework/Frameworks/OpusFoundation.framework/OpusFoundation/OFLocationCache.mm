@@ -263,7 +263,7 @@ LABEL_10:
   return v3;
 }
 
-uint64_t __24__OFLocationCache__save__block_invoke(uint64_t a1)
+void *__24__OFLocationCache__save__block_invoke(uint64_t a1)
 {
   v2 = 0;
   result = [*(*(a1 + 32) + 32) save:&v2];
@@ -295,7 +295,7 @@ uint64_t __24__OFLocationCache__save__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __23__OFLocationCache_save__block_invoke(uint64_t a1)
+void *__23__OFLocationCache_save__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "managedObjectContext")];
   if (result)
@@ -498,7 +498,7 @@ uint64_t __39__OFLocationCache_invalidateDiskCaches__block_invoke(uint64_t a1)
   return [v2 performBlockAndWait:v4];
 }
 
-uint64_t __39__OFLocationCache_invalidateDiskCaches__block_invoke_2(uint64_t a1)
+void *__39__OFLocationCache_invalidateDiskCaches__block_invoke_2(uint64_t a1)
 {
   v22 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCAA00]);

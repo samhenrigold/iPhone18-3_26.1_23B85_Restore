@@ -286,7 +286,7 @@
       HIDWORD(self->_updateRequest.load) = 0;
       self->_updateRequest.flags = 5;
       [(UIDynamicAnimator *)self _configureUpdateRequestFrameRateForSettling:0];
-      _UIUpdateRequestRegistryAddRecord(&mainRegistry, &self->_updateRequest, 0x100035u);
+      _UIUpdateRequestRegistryAddRecord(&mainRegistry, &self->_updateRequest, 1048629);
       ticker = [(UIDynamicAnimator *)self ticker];
       v5[0] = MEMORY[0x1E69E9820];
       v5[1] = 3221225472;
@@ -326,7 +326,7 @@ void __50__UIDynamicAnimator__activateUIUpdateSequenceItem__block_invoke(uint64_
 
       self->_uiUpdateSequenceItem = 0;
 
-      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, &self->_updateRequest.flags, 0x100035u);
+      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, &self->_updateRequest.flags, 1048629);
     }
   }
 }
@@ -1442,9 +1442,9 @@ LABEL_10:
     }
 
 LABEL_11:
-    [v4 transform];
+    objc_msgSend_transform(v4);
     v18 = v59;
-    [v4 transform];
+    objc_msgSend_transform(v4);
     v17 = __x;
     goto LABEL_12;
   }
@@ -1841,7 +1841,7 @@ LABEL_46:
   [v55 setRepresentedObject:itemCopy];
   if (itemCopy)
   {
-    [itemCopy transform];
+    objc_msgSend_transform(itemCopy);
   }
 
   else
@@ -1951,7 +1951,7 @@ LABEL_7:
       v27 = v26;
       if (v16)
       {
-        [v16 transform];
+        objc_msgSend_transform(v16);
       }
 
       else
@@ -2154,7 +2154,7 @@ void __42__UIDynamicAnimator__registerBodyForItem___block_invoke(uint64_t a1, vo
   }
 }
 
-uint64_t __28__UIDynamicAnimator__tickle__block_invoke(uint64_t a1)
+void *__28__UIDynamicAnimator__tickle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _tickle];
   __tickleTryCount = 0;

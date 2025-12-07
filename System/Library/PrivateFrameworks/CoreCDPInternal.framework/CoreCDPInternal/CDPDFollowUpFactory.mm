@@ -56,40 +56,38 @@
 
 void __45__CDPDFollowUpFactory_contextToIdentifierMap__block_invoke()
 {
-  v10[11] = *MEMORY[0x277D85DE8];
+  v9[11] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEC6D0];
   v1 = *MEMORY[0x277CFD440];
-  v9[0] = *MEMORY[0x277CFD470];
-  v9[1] = v1;
-  v10[0] = v0;
-  v10[1] = @"OfflineLocalSecretChange";
+  v8[0] = *MEMORY[0x277CFD470];
+  v8[1] = v1;
+  v9[0] = v0;
+  v9[1] = @"OfflineLocalSecretChange";
   v2 = *MEMORY[0x277CFD460];
-  v9[2] = *MEMORY[0x277CFD450];
-  v9[3] = v2;
-  v10[2] = @"RegenerateCDPRecoveryKey";
-  v10[3] = @"com.apple.purplebuddy.revisitSkippedSteps";
+  v8[2] = *MEMORY[0x277CFD450];
+  v8[3] = v2;
+  v9[2] = @"RegenerateCDPRecoveryKey";
+  v9[3] = @"com.apple.purplebuddy.revisitSkippedSteps";
   v3 = *MEMORY[0x277CFD438];
-  v9[4] = *MEMORY[0x277CFD458];
-  v9[5] = v3;
-  v10[4] = @"SecureTerms";
-  v10[5] = @"ConfirmExistingSecret";
+  v8[4] = *MEMORY[0x277CFD458];
+  v8[5] = v3;
+  v9[4] = @"SecureTerms";
+  v9[5] = @"ConfirmExistingSecret";
   v4 = *MEMORY[0x277CFD468];
-  v9[6] = *MEMORY[0x277CFD478];
-  v9[7] = v4;
-  v10[6] = @"OfflineLocalSecretChange";
-  v10[7] = @"SOSCompatibilityMode";
+  v8[6] = *MEMORY[0x277CFD478];
+  v8[7] = v4;
+  v9[6] = @"OfflineLocalSecretChange";
+  v9[7] = @"SOSCompatibilityMode";
   v5 = *MEMORY[0x277CFD430];
-  v9[8] = *MEMORY[0x277CFD448];
-  v9[9] = v5;
-  v10[8] = @"com.apple.AAFollowUpIdentifier.RecoveryKeyMismatch";
-  v10[9] = @"adpUpsell";
-  v9[10] = *MEMORY[0x277CFD428];
-  v10[10] = @"com.apple.CDPFollowUpIdentifier.adpStateHealing";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:11];
+  v8[8] = *MEMORY[0x277CFD448];
+  v8[9] = v5;
+  v9[8] = @"com.apple.AAFollowUpIdentifier.RecoveryKeyMismatch";
+  v9[9] = @"adpUpsell";
+  v8[10] = *MEMORY[0x277CFD428];
+  v9[10] = @"com.apple.CDPFollowUpIdentifier.adpStateHealing";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:11];
   v7 = contextToIdentifierMap_contextMap;
   contextToIdentifierMap_contextMap = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)identifierForContext:(id)context
@@ -231,11 +229,11 @@ LABEL_9:
 
 - (id)_followUpForOfflineSecretChangeWithContext:(id)context
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v4 = [(CDPDFollowUpFactory *)self _baseFollowUpItemWithContext:context];
   _offlineSecretChangeFollowUpAction = [(CDPDFollowUpFactory *)self _offlineSecretChangeFollowUpAction];
-  v28[0] = _offlineSecretChangeFollowUpAction;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = _offlineSecretChangeFollowUpAction;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   [v4 setActions:v6];
 
   notification = [v4 notification];
@@ -267,14 +265,12 @@ LABEL_9:
 
   options = [notification options];
   v22 = *MEMORY[0x277CFE498];
-  v27[0] = *MEMORY[0x277CFE4A8];
-  v27[1] = v22;
-  v27[2] = *MEMORY[0x277CFE490];
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+  v26[0] = *MEMORY[0x277CFE4A8];
+  v26[1] = v22;
+  v26[2] = *MEMORY[0x277CFE490];
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
   v24 = [options setByAddingObjectsFromArray:v23];
   [notification setOptions:v24];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -293,11 +289,11 @@ LABEL_9:
 
 - (id)_followUpForSecureTermsWithContext:(id)context
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v4 = [(CDPDFollowUpFactory *)self _baseFollowUpItemWithContext:context];
   _secureTermsFollowUpAction = [(CDPDFollowUpFactory *)self _secureTermsFollowUpAction];
-  v25[0] = _secureTermsFollowUpAction;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = _secureTermsFollowUpAction;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   [v4 setActions:v5];
 
   notification = [v4 notification];
@@ -327,8 +323,6 @@ LABEL_9:
   localizedString4 = [v20 localizedString];
   [notification setInformativeText:localizedString4];
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -346,11 +340,11 @@ LABEL_9:
 
 - (id)_followUpForConfirmExistingSecretWithContext:(id)context
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = [(CDPDFollowUpFactory *)self _baseFollowUpItemWithContext:context];
   _confirmExistingSecretFollowUpAction = [(CDPDFollowUpFactory *)self _confirmExistingSecretFollowUpAction];
-  v11[0] = _confirmExistingSecretFollowUpAction;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = _confirmExistingSecretFollowUpAction;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [v4 setActions:v6];
 
   notification = [v4 notification];
@@ -359,8 +353,6 @@ LABEL_9:
 
   [notification setFirstNotificationDelay:0.0];
   [(CDPDFollowUpFactory *)self _configureConfirmExistingSecretFollowUpItem:v4];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -388,7 +380,7 @@ LABEL_9:
 
 - (void)_configureConfirmExistingSecretFollowUpItem:(id)item
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   notification = [itemCopy notification];
   v5 = [MEMORY[0x277CFD508] builderForKey:@"FOLLOWUP_VERIFY_PASSCODE_TITLE" inTable:@"Localizable-Walrus"];
@@ -409,22 +401,20 @@ LABEL_9:
 
   options = [notification options];
   v14 = *MEMORY[0x277CFE498];
-  v18[0] = *MEMORY[0x277CFE4A8];
-  v18[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = *MEMORY[0x277CFE4A8];
+  v17[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v16 = [options setByAddingObjectsFromArray:v15];
   [notification setOptions:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_followUpItemForWalrusCreatePasscodeWithContext:(id)context
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v4 = [(CDPDFollowUpFactory *)self _baseFollowUpItemWithContext:context];
   _createPasscodeFollowUpAction = [(CDPDFollowUpFactory *)self _createPasscodeFollowUpAction];
-  v24[0] = _createPasscodeFollowUpAction;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = _createPasscodeFollowUpAction;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   [v4 setActions:v6];
 
   notification = [v4 notification];
@@ -450,20 +440,18 @@ LABEL_9:
 
   options = [notification options];
   v18 = *MEMORY[0x277CFE498];
-  v23[0] = *MEMORY[0x277CFE4A8];
-  v23[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = *MEMORY[0x277CFE4A8];
+  v22[1] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v20 = [options setByAddingObjectsFromArray:v19];
   [notification setOptions:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_followUpItemForSOSCompatibilityMode:(id)mode
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = [(CDPDFollowUpFactory *)self _baseFollowUpItemWithContext:mode];
   v4 = objc_alloc_init(MEMORY[0x277CFE4F8]);
   v5 = [MEMORY[0x277CFD508] builderForKey:@"FOLLOWUP_SOS_COMPATIBILITY_BUTTON_PRIMARY"];
@@ -471,8 +459,8 @@ LABEL_9:
   [v4 setLabel:localizedString];
 
   [v4 setIdentifier:@"com.apple.cdp.sos.compatibility.enabled.continue"];
-  v22[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   [v3 setActions:v7];
 
   notification = [v3 notification];
@@ -495,8 +483,6 @@ LABEL_9:
   v18 = [MEMORY[0x277CFD508] builderForKey:@"FOLLOWUP_SOS_COMPATIBILITY_NOTIFICATION_MESSAGE"];
   localizedString5 = [v18 localizedString];
   [notification setInformativeText:localizedString5];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -730,7 +716,7 @@ LABEL_22:
 
 - (void)_configureRepairFollowUpItem:(id)item
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   notification = [itemCopy notification];
   v5 = [MEMORY[0x277CFD508] builderForKey:@"SKIPPED_FOLLOWUP_ITEM_TITLE"];
@@ -751,18 +737,16 @@ LABEL_22:
 
   options = [notification options];
   v14 = *MEMORY[0x277CFE498];
-  v18[0] = *MEMORY[0x277CFE4A8];
-  v18[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = *MEMORY[0x277CFE4A8];
+  v17[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v16 = [options setByAddingObjectsFromArray:v15];
   [notification setOptions:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureWalrusRepairFollowUpItem:(id)item
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   notification = [itemCopy notification];
   v5 = [MEMORY[0x277CFD508] builderForKey:@"FOLLOWUP_JOIN_CDP_TITLE" inTable:@"Localizable-Walrus"];
@@ -793,26 +777,25 @@ LABEL_22:
   [v16 setLabel:localizedString6];
 
   [notification setClearAction:v16];
-  v26[0] = v13;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = v13;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   [itemCopy setActions:v19];
 
   [itemCopy setDisplayStyle:1];
   options = [notification options];
   v21 = *MEMORY[0x277CFE498];
-  v25[0] = *MEMORY[0x277CFE4A8];
-  v25[1] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24[0] = *MEMORY[0x277CFE4A8];
+  v24[1] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   v23 = [options setByAddingObjectsFromArray:v22];
   [notification setOptions:v23];
 
   [notification setFirstNotificationDelay:0.0];
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_followUpForRecoveryKeyRepairWithContext:(id)context
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v4 = [(CDPDFollowUpFactory *)self _baseFollowUpItemWithContext:context];
   v5 = CDPLocalizedString();
   [v4 setTitle:v5];
@@ -821,8 +804,8 @@ LABEL_22:
   [v4 setInformativeText:v6];
 
   _followUpActionForRecoveryKeyRepair = [(CDPDFollowUpFactory *)self _followUpActionForRecoveryKeyRepair];
-  v15[0] = _followUpActionForRecoveryKeyRepair;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = _followUpActionForRecoveryKeyRepair;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [v4 setActions:v8];
 
   notification = [v4 notification];
@@ -838,8 +821,6 @@ LABEL_22:
 
     [notification2 setActivateAction:_followUpActionForRecoveryKeyRepair];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -857,7 +838,7 @@ LABEL_22:
 
 - (id)_followUpForSettingUpBiometricsWithContext:(id)context
 {
-  v77[1] = *MEMORY[0x277D85DE8];
+  v76[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if ([(CDPDFollowUpFactory *)self _isBiometricCapable]&& ![(CDPDFollowUpFactory *)self _isBiometricAuthEnrolled])
   {
@@ -881,10 +862,10 @@ LABEL_22:
 
       if (altDSID)
       {
-        v76 = *MEMORY[0x277CFD3E0];
+        v75 = *MEMORY[0x277CFD3E0];
         altDSID2 = [contextCopy altDSID];
-        v77[0] = altDSID2;
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:&v76 count:1];
+        v76[0] = altDSID2;
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:&v75 count:1];
         [v6 setUserInfo:v14];
 
         v15 = MEMORY[0x277CFD480];
@@ -895,7 +876,7 @@ LABEL_22:
       }
     }
 
-    v67 = notification;
+    v66 = notification;
     [v6 setTargetBundleIdentifier:*MEMORY[0x277CFE3F8]];
     if ([(CDPDFollowUpFactory *)self _supportsFaceID])
     {
@@ -913,8 +894,8 @@ LABEL_22:
 
       v27 = [MEMORY[0x277CFD508] builderForKey:@"D2DENCRYPTION_FOLLOWUP_FACEID_TITLE"];
       localizedString3 = [v27 localizedString];
-      v29 = v67;
-      [v67 setTitle:localizedString3];
+      v29 = v66;
+      [v66 setTitle:localizedString3];
 
       v30 = [MEMORY[0x277CFD508] builderForKey:@"D2DENCRYPTION_FOLLOWUP_FACEID_INFOTEXT"];
       v31 = [v30 addSecretType:{-[CDPDFollowUpFactory secretType](self, "secretType")}];
@@ -922,20 +903,20 @@ LABEL_22:
       deviceClass2 = [mEMORY[0x277CFD4F8]2 deviceClass];
       v34 = [v31 addDeviceClass:deviceClass2];
       localizedString4 = [v34 localizedString];
-      [v67 setInformativeText:localizedString4];
+      [v66 setInformativeText:localizedString4];
 
       v36 = MEMORY[0x277CBEBC0];
       v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"prefs:root=SETUP_FINISH&flow=%@", @"faceID"];
       v38 = [v36 URLWithString:v37];
       [v5 setUrl:v38];
 
-      v73 = @"faceID";
-      v74 = @"flowSkipIdentifiers";
-      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
-      v75 = v39;
+      v72 = @"faceID";
+      v73 = @"flowSkipIdentifiers";
+      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+      v74 = v39;
       v40 = MEMORY[0x277CBEAC0];
-      v41 = &v75;
-      v42 = &v74;
+      v41 = &v74;
+      v42 = &v73;
     }
 
     else
@@ -954,8 +935,8 @@ LABEL_22:
 
       v51 = [MEMORY[0x277CFD508] builderForKey:@"D2DENCRYPTION_FOLLOWUP_TOUCHID_TITLE"];
       localizedString7 = [v51 localizedString];
-      v29 = v67;
-      [v67 setTitle:localizedString7];
+      v29 = v66;
+      [v66 setTitle:localizedString7];
 
       v53 = [MEMORY[0x277CFD508] builderForKey:@"D2DENCRYPTION_FOLLOWUP_TOUCHID_INFOTEXT"];
       v54 = [v53 addSecretType:{-[CDPDFollowUpFactory secretType](self, "secretType")}];
@@ -963,20 +944,20 @@ LABEL_22:
       deviceClass4 = [mEMORY[0x277CFD4F8]4 deviceClass];
       v57 = [v54 addDeviceClass:deviceClass4];
       localizedString8 = [v57 localizedString];
-      [v67 setInformativeText:localizedString8];
+      [v66 setInformativeText:localizedString8];
 
       v59 = MEMORY[0x277CBEBC0];
       v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"prefs:root=SETUP_FINISH&flow=%@", @"touchID"];
       v61 = [v59 URLWithString:v60];
       [v5 setUrl:v61];
 
-      v70 = @"touchID";
-      v71 = @"flowSkipIdentifiers";
-      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
-      v72 = v39;
+      v69 = @"touchID";
+      v70 = @"flowSkipIdentifiers";
+      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+      v71 = v39;
       v40 = MEMORY[0x277CBEAC0];
-      v41 = &v72;
-      v42 = &v71;
+      v41 = &v71;
+      v42 = &v70;
     }
 
     v62 = [v40 dictionaryWithObjects:v41 forKeys:v42 count:1];
@@ -985,8 +966,8 @@ LABEL_22:
     v63 = CDPLocalizedString();
     [v5 setLabel:v63];
 
-    v69 = v5;
-    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+    v68 = v5;
+    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
     [v6 setActions:v64];
 
     [v29 setActivateAction:v5];
@@ -1005,14 +986,12 @@ LABEL_22:
     v6 = 0;
   }
 
-  v65 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_followUpForADPStateHealingWithContext:(id)context
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_alloc_init(MEMORY[0x277CFE508]);
   [v5 setDisplayStyle:1];
@@ -1043,8 +1022,8 @@ LABEL_22:
   [v5 setInformativeText:localizedString2];
 
   _adpStateHealingFollowUpAction = [(CDPDFollowUpFactory *)self _adpStateHealingFollowUpAction];
-  v30[0] = _adpStateHealingFollowUpAction;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = _adpStateHealingFollowUpAction;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   [v5 setActions:v16];
 
   notification = [v5 notification];
@@ -1058,9 +1037,9 @@ LABEL_22:
 
   options = [notification options];
   v23 = *MEMORY[0x277CFE498];
-  v29[0] = *MEMORY[0x277CFE470];
-  v29[1] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[0] = *MEMORY[0x277CFE470];
+  v28[1] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
   v25 = [options setByAddingObjectsFromArray:v24];
   [notification setOptions:v25];
 
@@ -1068,7 +1047,6 @@ LABEL_22:
   [notification setActivateAction:_adpStateHealingFollowUpAction2];
 
   [notification setFirstNotificationDelay:0.0];
-  v27 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1089,7 +1067,7 @@ LABEL_22:
 
 - (id)_baseFollowUpItemWithContext:(id)context
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_alloc_init(MEMORY[0x277CFE508]);
   [v5 setDisplayStyle:1];
@@ -1108,10 +1086,10 @@ LABEL_22:
 
   if (altDSID)
   {
-    v21 = *MEMORY[0x277CFD3E0];
+    v20 = *MEMORY[0x277CFD3E0];
     altDSID2 = [contextCopy altDSID];
-    v22[0] = altDSID2;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = altDSID2;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     [v5 setUserInfo:v12];
   }
 
@@ -1136,14 +1114,12 @@ LABEL_22:
     [v5 setNotification:v18];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)_baseFollowUpNotificationWithContext:(id)context
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CFE510];
   contextCopy = context;
   v5 = objc_alloc_init(v3);
@@ -1154,13 +1130,11 @@ LABEL_22:
   if (force)
   {
     v7 = MEMORY[0x277CBEB98];
-    v12[0] = *MEMORY[0x277CFE488];
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = *MEMORY[0x277CFE488];
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v9 = [v7 setWithArray:v8];
     [v5 setOptions:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1197,7 +1171,7 @@ LABEL_22:
   currentUser = self->_currentUser;
   if (!currentUser)
   {
-    LAEnvironmentClass = LocalAuthenticationLibraryCore();
+    LAEnvironmentClass = LocalAuthenticationLibraryCore(0);
     if (LAEnvironmentClass)
     {
       LAEnvironmentClass = getLAEnvironmentClass();
@@ -1311,30 +1285,27 @@ LABEL_22:
 
 - (void)_isManateeAvailableForAltDSID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_24510B000, v1, OS_LOG_TYPE_ERROR, "Follow up factory manatee check returned an error for altDSID %{sensitive}@: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_24510B000, v1, OS_LOG_TYPE_ERROR, "Follow up factory manatee check returned an error for altDSID %{sensitive}@: %{public}@", v2, 0x16u);
 }
 
 - (void)_isManateeAvailable
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Follow up factory manatee check returned an error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Follow up factory manatee check returned an error: %{public}@", v1, 0xCu);
 }
 
 - (void)_isWalrusEnabled
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_24510B000, v1, OS_LOG_TYPE_DEBUG, "Internal Walrus status %lu enabled %{BOOL}d", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_24510B000, v1, OS_LOG_TYPE_DEBUG, "Internal Walrus status %lu enabled %{BOOL}d", v2, 0x12u);
 }
 
 @end

@@ -8,11 +8,11 @@
 
 - (void)updateScopeFromScopeChange:(id)change direction:(unint64_t)direction didHaveChanges:(BOOL *)changes
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v31.receiver = self;
-  v31.super_class = CPLMomentShareScopeChange;
-  [(CPLScopeChange *)&v31 updateScopeFromScopeChange:changeCopy direction:direction didHaveChanges:changes];
+  v30.receiver = self;
+  v30.super_class = CPLMomentShareScopeChange;
+  [(CPLScopeChange *)&v30 updateScopeFromScopeChange:changeCopy direction:direction didHaveChanges:changes];
   if (direction != 1)
   {
     goto LABEL_35;
@@ -55,10 +55,10 @@ LABEL_8:
         title5 = [changeCopy title];
         *buf = 138412802;
         selfCopy4 = self;
-        v34 = 2112;
-        v35 = title4;
-        v36 = 2112;
-        v37 = title5;
+        v33 = 2112;
+        v34 = title4;
+        v35 = 2112;
+        v36 = title5;
         _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Client is trying to update title on %@ from %@ to %@", buf, 0x20u);
       }
     }
@@ -89,10 +89,10 @@ LABEL_14:
         promisedAssetCount3 = [changeCopy promisedAssetCount];
         *buf = 138412802;
         selfCopy4 = self;
-        v34 = 2048;
-        v35 = promisedAssetCount2;
-        v36 = 2048;
-        v37 = promisedAssetCount3;
+        v33 = 2048;
+        v34 = promisedAssetCount2;
+        v35 = 2048;
+        v36 = promisedAssetCount3;
         _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "Client is trying to update promisedAssetCount on %@ from %ld to %ld", buf, 0x20u);
       }
     }
@@ -115,10 +115,10 @@ LABEL_14:
         promisedPhotosCount3 = [changeCopy promisedPhotosCount];
         *buf = 138412802;
         selfCopy4 = self;
-        v34 = 2048;
-        v35 = promisedPhotosCount2;
-        v36 = 2048;
-        v37 = promisedPhotosCount3;
+        v33 = 2048;
+        v34 = promisedPhotosCount2;
+        v35 = 2048;
+        v36 = promisedPhotosCount3;
         _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Client is trying to update promisedPhotosCount on %@ from %ld to %ld", buf, 0x20u);
       }
     }
@@ -141,18 +141,16 @@ LABEL_14:
         promisedVideosCount3 = [changeCopy promisedVideosCount];
         *buf = 138412802;
         selfCopy4 = self;
-        v34 = 2048;
-        v35 = promisedVideosCount2;
-        v36 = 2048;
-        v37 = promisedVideosCount3;
+        v33 = 2048;
+        v34 = promisedVideosCount2;
+        v35 = 2048;
+        v36 = promisedVideosCount3;
         _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_ERROR, "Client is trying to update promisedVideosCount on %@ from %ld to %ld", buf, 0x20u);
       }
     }
   }
 
 LABEL_35:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLibraryInfo:(id)info

@@ -17,15 +17,15 @@
 
 - (EQKitCompoundBox)initWithChildBoxes:(id)boxes
 {
-  v9.receiver = self;
-  v9.super_class = EQKitCompoundBox;
-  v7 = [(EQKitCompoundBox *)&v9 init];
-  if (v7)
+  v6.receiver = self;
+  v6.super_class = EQKitCompoundBox;
+  v4 = [(EQKitCompoundBox *)&v6 init];
+  if (v4)
   {
-    v7->mChildBoxes = objc_msgSend_copy(boxes, v4, v5, v6);
+    v4->mChildBoxes = [boxes copy];
   }
 
-  return v7;
+  return v4;
 }
 
 - (void)dealloc
@@ -37,11 +37,10 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  v13 = objc_msgSend_childBoxes(self, v9, v10, v11);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  childBoxes = [(EQKitCompoundBox *)self childBoxes];
 
-  return objc_msgSend_initWithChildBoxes_(v8, v12, v13, v14);
+  return [v4 initWithChildBoxes:childBoxes];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -53,13 +52,12 @@
   {
     if (!v4)
     {
-      v6 = objc_opt_class();
-      LODWORD(self) = objc_msgSend_isMemberOfClass_(equal, v7, v6, v8);
+      LODWORD(self) = [equal isMemberOfClass:objc_opt_class()];
       if (self)
       {
-        v12 = objc_msgSend_childBoxes(selfCopy, v9, v10, v11);
-        self = objc_msgSend_childBoxes(equal, v13, v14, v15);
-        if (v12 == self)
+        childBoxes = [(EQKitCompoundBox *)selfCopy childBoxes];
+        self = [equal childBoxes];
+        if (childBoxes == self)
         {
           LOBYTE(self) = 1;
         }
@@ -68,10 +66,10 @@
         {
           selfCopy2 = self;
           LOBYTE(self) = 0;
-          if (v12 && selfCopy2)
+          if (childBoxes && selfCopy2)
           {
 
-            LOBYTE(self) = objc_msgSend_isEqual_(v12, v16, selfCopy2, v17);
+            LOBYTE(self) = [(EQKitCompoundBox *)childBoxes isEqual:?];
           }
         }
       }
@@ -92,7 +90,7 @@
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensionsForHeight_depth_width_(self, a2, &self->mHeight, &self->mDepth, &self->mWidth);
+    [(EQKitCompoundBox *)self p_cacheDimensionsForHeight:&self->mHeight depth:&self->mDepth width:&self->mWidth];
     self->mDimensionsValid = 1;
   }
 
@@ -103,7 +101,7 @@
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensionsForHeight_depth_width_(self, a2, &self->mHeight, &self->mDepth, &self->mWidth);
+    [(EQKitCompoundBox *)self p_cacheDimensionsForHeight:&self->mHeight depth:&self->mDepth width:&self->mWidth];
     self->mDimensionsValid = 1;
   }
 
@@ -114,7 +112,7 @@
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensionsForHeight_depth_width_(self, a2, &self->mHeight, &self->mDepth, &self->mWidth);
+    [(EQKitCompoundBox *)self p_cacheDimensionsForHeight:&self->mHeight depth:&self->mDepth width:&self->mWidth];
     self->mDimensionsValid = 1;
   }
 
@@ -133,7 +131,7 @@
 
   else
   {
-    objc_msgSend_p_cacheErasableBounds(self, a2, v2, v3);
+    [(EQKitCompoundBox *)self p_cacheErasableBounds];
     self->mErasableBounds.origin.x = x;
     self->mErasableBounds.origin.y = y;
     self->mErasableBounds.size.width = width;
@@ -152,14 +150,12 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  objc_msgSend_height(self, v5, v6, v7);
-  v9 = v8;
-  objc_msgSend_depth(self, v10, v11, v12);
-  v14 = v13;
-  objc_msgSend_width(self, v15, v16, v17);
-  v19 = v18;
-  v23 = objc_msgSend_childBoxes(self, v20, v21, v22);
-  return objc_msgSend_stringWithFormat_(v3, v24, @"<%@ %p>: height=%f depth=%f width=%f childBoxes=%@", v25, v4, self, v9, v14, v19, v23);
+  [(EQKitCompoundBox *)self height];
+  v6 = v5;
+  [(EQKitCompoundBox *)self depth];
+  v8 = v7;
+  [(EQKitCompoundBox *)self width];
+  return [v3 stringWithFormat:@"<%@ %p>: height=%f depth=%f width=%f childBoxes=%@", v4, self, v6, v8, v9, -[EQKitCompoundBox childBoxes](self, "childBoxes")];
 }
 
 - (void)p_cacheDimensionsForHeight:(double *)height depth:(double *)depth width:(double *)width

@@ -45,7 +45,7 @@
 
 + (float)getMaximumHighlightInSec
 {
-  if ((atomic_load_explicit(&qword_1ED942830, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED942830, memory_order_acquire) & 1) == 0)
   {
     +[VCPMovieAnalyzer getMaximumHighlightInSec];
   }
@@ -77,13 +77,13 @@
 
 - (VCPMovieAnalyzer)initWithVCPAsset:(id)asset withExistingAnalysis:(id)analysis forAnalysisTypes:(unint64_t)types withOptions:(id)options
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   analysisCopy = analysis;
   optionsCopy = options;
-  v53.receiver = self;
-  v53.super_class = VCPMovieAnalyzer;
-  v14 = [(VCPMovieAnalyzer *)&v53 init];
+  v55.receiver = self;
+  v55.super_class = VCPMovieAnalyzer;
+  v14 = [(VCPMovieAnalyzer *)&v55 init];
   v15 = v14;
   if (!v14)
   {
@@ -113,33 +113,33 @@
     *(v14 + 3) = dictionary2;
 
     v14[56] = 0;
-    if (SocType() < 247)
+    if (SocType(v23, v24) < 247)
     {
-      v23 = 0;
+      v25 = 0;
     }
 
     else
     {
-      v23 = [assetCopy isLivePhoto] ^ 1;
+      v25 = [assetCopy isLivePhoto] ^ 1;
     }
 
-    v14[40] = v23;
+    v14[40] = v25;
     objc_storeStrong(v14 + 9, options);
     if (+[VCPMovieAnalyzer shouldProcessAudioAsync])
     {
       *(v14 + 26) = 0;
       dictionary3 = [MEMORY[0x1E695DF90] dictionary];
-      v26 = *(v14 + 14);
+      v28 = *(v14 + 14);
       *(v14 + 14) = dictionary3;
 
       *(v14 + 15) = 0;
-      v27 = dispatch_queue_create("com.apple.mediaanalysisd.audioanalysis", 0);
-      v28 = *(v14 + 11);
-      *(v14 + 11) = v27;
+      v29 = dispatch_queue_create("com.apple.mediaanalysisd.audioanalysis", 0);
+      v30 = *(v14 + 11);
+      *(v14 + 11) = v29;
 
-      v29 = dispatch_group_create();
-      v30 = *(v14 + 12);
-      *(v14 + 12) = v29;
+      v31 = dispatch_group_create();
+      v32 = *(v14 + 12);
+      *(v14 + 12) = v31;
 
       v14[128] = 0;
     }
@@ -147,134 +147,134 @@
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       localIdentifier = [*(v14 + 4) localIdentifier];
-      v32 = MediaAnalysisTypeShortDescription(*(v14 + 1));
+      v34 = MediaAnalysisTypeShortDescription(*(v14 + 1));
       *buf = 138412546;
-      v55 = localIdentifier;
-      v56 = 2112;
-      v57 = v32;
+      v57 = localIdentifier;
+      v58 = 2112;
+      v59 = v34;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@][MovieAnalyzer] Initialize to process (%@)", buf, 0x16u);
     }
 
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       localIdentifier2 = [*(v14 + 4) localIdentifier];
-      v34 = [analysisCopy vcp_analysisDescriptionWithResultDetails:1];
+      v36 = [analysisCopy vcp_analysisDescriptionWithResultDetails:1];
       *buf = 138412546;
-      v55 = localIdentifier2;
-      v56 = 2112;
-      v57 = v34;
+      v57 = localIdentifier2;
+      v58 = 2112;
+      v59 = v36;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@][MovieAnalyzer] Initializing with existing analysis %@", buf, 0x16u);
     }
 
     if (analysisCopy)
     {
       vcp_version = [analysisCopy vcp_version];
-      v36 = 75;
+      v38 = 75;
       if (vcp_version == 75)
       {
-        v37 = analysisCopy;
-        v38 = *(v14 + 6);
-        *(v14 + 6) = v37;
-        v36 = vcp_version;
+        v39 = analysisCopy;
+        v40 = *(v14 + 6);
+        *(v14 + 6) = v39;
+        v38 = vcp_version;
         goto LABEL_22;
       }
     }
 
     else
     {
-      v36 = 75;
+      v38 = 75;
     }
 
-    v38 = *(v14 + 6);
+    v40 = *(v14 + 6);
     *(v14 + 6) = 0;
 LABEL_22:
 
-    [*(v14 + 2) vcp_setVersion:v36];
-    v39 = *(v14 + 2);
+    [*(v14 + 2) vcp_setVersion:v38];
+    v41 = *(v14 + 2);
     modificationDate2 = [assetCopy modificationDate];
-    [v39 vcp_setDateModified:modificationDate2];
+    [v41 vcp_setDateModified:modificationDate2];
 
     [*(v14 + 2) vcp_setStatsFlags:0];
-    v41 = *(v14 + 1);
-    if ((v41 & 0x8000000000000) != 0)
+    v43 = *(v14 + 1);
+    if ((v43 & 0x8000000000000) != 0)
     {
-      *(v14 + 1) = v41 | 0x40064008;
-      v42 = +[VCPVideoCNNAnalyzer isMUBackboneEnabled];
-      v41 = *(v14 + 1);
-      if (v42)
+      *(v14 + 1) = v43 | 0x40064008;
+      v44 = +[VCPVideoCNNAnalyzer isMUBackboneEnabled];
+      v43 = *(v14 + 1);
+      if (v44)
       {
-        v41 |= 0x80000000000uLL;
-        *(v14 + 1) = v41;
+        v43 |= 0x80000000000uLL;
+        *(v14 + 1) = v43;
       }
     }
 
-    if ((v41 & 0x40000) != 0)
+    if ((v43 & 0x40000) != 0)
     {
-      v41 |= 0x40142089CuLL;
-      *(v14 + 1) = v41;
+      v43 |= 0x40142089CuLL;
+      *(v14 + 1) = v43;
     }
 
-    if ((v41 & 0x80000000000) != 0)
+    if ((v43 & 0x80000000000) != 0)
     {
       enableAudioVideoFusion = [objc_opt_class() enableAudioVideoFusion];
-      v41 = *(v14 + 1);
+      v43 = *(v14 + 1);
       if (enableAudioVideoFusion)
       {
-        v41 |= 0x800000000000uLL;
-        *(v14 + 1) = v41;
+        v43 |= 0x800000000000uLL;
+        *(v14 + 1) = v43;
       }
     }
 
-    if ((v41 & 0x200000000000) != 0)
+    if ((v43 & 0x200000000000) != 0)
     {
       isLivePhoto = [assetCopy isLivePhoto];
-      v45 = 0x40000000;
+      v47 = 0x40000000;
       if (!isLivePhoto)
       {
-        v45 = 0x80000000000;
+        v47 = 0x80000000000;
       }
 
-      v41 = *(v14 + 1) | v45;
-      *(v14 + 1) = v41;
+      v43 = *(v14 + 1) | v47;
+      *(v14 + 1) = v43;
     }
 
-    if ((v41 & 0x8000) != 0 && v14[40] == 1)
+    if ((v43 & 0x8000) != 0 && v14[40] == 1)
     {
-      v41 |= 0x4088uLL;
-      *(v14 + 1) = v41;
+      v43 |= 0x4088uLL;
+      *(v14 + 1) = v43;
     }
 
-    v46 = (v41 >> 7) & 0x80 | (v41 >> 20) & 0x20000 | v41;
-    if ((v41 & 0x2000004000) != 0)
+    v48 = (v43 >> 7) & 0x80 | (v43 >> 20) & 0x20000 | v43;
+    if ((v43 & 0x2000004000) != 0)
     {
-      *(v14 + 1) = v46;
+      *(v14 + 1) = v48;
     }
 
-    v47 = (v41 >> 7) & 0x80 | (v41 >> 20) & 0x20000 | v41;
-    if ((v46 & 0x80) != 0)
+    v49 = (v43 >> 7) & 0x80 | (v43 >> 20) & 0x20000 | v43;
+    if ((v48 & 0x80) != 0)
     {
-      v47 = v46 | 0x1018;
-      *(v14 + 1) = v46 | 0x1018;
+      v49 = v48 | 0x1018;
+      *(v14 + 1) = v48 | 0x1018;
       if (v14[40] == 1)
       {
-        v47 = v46 | 0x5018;
-        *(v14 + 1) = v46 | 0x5018;
+        v49 = v48 | 0x5018;
+        *(v14 + 1) = v48 | 0x5018;
       }
     }
 
-    if ((v47 & 0x4000004000) != 0)
+    if ((v49 & 0x4000004000) != 0)
     {
-      *(v14 + 1) = (v47 << 28) & 0x40000000000 | (((v47 >> 38) & 1) << 40) | v47;
+      *(v14 + 1) = (v49 << 28) & 0x40000000000 | (((v49 >> 38) & 1) << 40) | v49;
     }
 
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       localIdentifier3 = [*(v14 + 4) localIdentifier];
-      v49 = MediaAnalysisTypeShortDescription(*(v14 + 1));
+      v51 = MediaAnalysisTypeShortDescription(*(v14 + 1));
       *buf = 138412546;
-      v55 = localIdentifier3;
-      v56 = 2112;
-      v57 = v49;
+      v57 = localIdentifier3;
+      v58 = 2112;
+      v59 = v51;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@][MovieAnalyzer] Initialized to process (%@)", buf, 0x16u);
     }
 
@@ -287,18 +287,18 @@ LABEL_22:
   }
 
   *(v14 + 17) = 3;
-  v24 = *(v14 + 2);
+  v26 = *(v14 + 2);
   *(v14 + 2) = 0;
 
 LABEL_47:
   if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
     localIdentifier4 = [(VCPAsset *)v15->_asset localIdentifier];
-    v51 = [(NSMutableDictionary *)v15->_analysis vcp_analysisDescriptionWithResultDetails:1];
+    v53 = [(NSMutableDictionary *)v15->_analysis vcp_analysisDescriptionWithResultDetails:1];
     *buf = 138412546;
-    v55 = localIdentifier4;
-    v56 = 2112;
-    v57 = v51;
+    v57 = localIdentifier4;
+    v58 = 2112;
+    v59 = v53;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@][MovieAnalyzer] Initialized analysis %@", buf, 0x16u);
   }
 
@@ -370,7 +370,7 @@ LABEL_14:
     [(NSMutableDictionary *)v20 vcp_addEntriesFromResults:vcp_results];
 
     v22 = v17->_analysis;
-    [analysisCopy vcp_syncPoint];
+    objc_msgSend_vcp_syncPoint(analysisCopy);
     [(NSMutableDictionary *)v22 vcp_setSyncPoint:&v28];
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
@@ -627,49 +627,49 @@ void __43__VCPMovieAnalyzer_loadPropertiesForAsset___block_invoke_2(uint64_t a1,
 {
   assetCopy = asset;
   blockCopy = block;
-  v8 = VCPSignPostLog();
+  v8 = VCPSignPostLog(blockCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMovieAnalyzer_Metadata", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMovieAnalyzer_Metadata", "", buf, 2u);
   }
 
   requestedAnalyses = self->_requestedAnalyses;
   vcp_types = [(NSMutableDictionary *)self->_analysis vcp_types];
-  v14 = requestedAnalyses & 0x40 | (4 * ((requestedAnalyses & 0xC) == 4));
+  v15 = requestedAnalyses & 0x40 | (4 * ((requestedAnalyses & 0xC) == 4));
   if ((requestedAnalyses & 0x880) != 0)
   {
-    v14 |= 0x80uLL;
+    v15 |= 0x80uLL;
   }
 
-  v15 = (v14 | requestedAnalyses & 0x4000014030000200) & ~vcp_types;
-  if (v15)
+  v16 = (v15 | requestedAnalyses & 0x4000014030000200) & ~vcp_types;
+  if (v16)
   {
-    v16 = VCPSignPostLog();
-    v17 = os_signpost_id_generate(v16);
+    v17 = VCPSignPostLog(vcp_types);
+    v18 = os_signpost_id_generate(v17);
 
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    v20 = v17 - 1;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v20 = VCPSignPostLog(v19);
+    v21 = v20;
+    v22 = v18 - 1;
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPMovieAnalyzer_Metadata_VCPLightVideoAnalyzer", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "VCPMovieAnalyzer_Metadata_VCPLightVideoAnalyzer", "", buf, 2u);
     }
 
-    v21 = [[VCPLightVideoAnalyzer alloc] initWithAVAsset:assetCopy forAnalysisTypes:v15];
+    v23 = [[VCPLightVideoAnalyzer alloc] initWithAVAsset:assetCopy forAnalysisTypes:v16];
     [(VCPAsset *)self->_asset photoOffsetSeconds];
-    [(VCPLightVideoAnalyzer *)v21 setPhotoOffset:?];
-    if (v21)
+    [(VCPLightVideoAnalyzer *)v23 setPhotoOffset:?];
+    if (v23)
     {
-      spid = v17;
+      spid = v18;
       *buf = 0;
-      v22 = [(VCPLightVideoAnalyzer *)v21 analyzeAsset:blockCopy flags:buf];
-      if (v22)
+      v24 = [(VCPLightVideoAnalyzer *)v23 analyzeAsset:blockCopy flags:buf];
+      if (v24)
       {
         if (!self->_errorCode)
         {
@@ -679,34 +679,34 @@ void __43__VCPMovieAnalyzer_loadPropertiesForAsset___block_invoke_2(uint64_t a1,
 
       else
       {
-        v32 = blockCopy;
-        v33 = assetCopy;
+        v36 = blockCopy;
+        v37 = assetCopy;
         analysis = self->_analysis;
-        publicResults = [(VCPLightVideoAnalyzer *)v21 publicResults];
+        publicResults = [(VCPLightVideoAnalyzer *)v23 publicResults];
         [(NSMutableDictionary *)analysis vcp_addEntriesFromResults:publicResults];
 
         [(NSMutableDictionary *)self->_analysis vcp_addFlags:*buf];
-        [(NSMutableDictionary *)self->_analysis vcp_addTypes:v15 & 0xBFFFFEFFCFFFFDFFLL];
+        [(NSMutableDictionary *)self->_analysis vcp_addTypes:v16 & 0xBFFFFEFFCFFFFDFFLL];
         privateResults = self->_privateResults;
-        privateResults = [(VCPLightVideoAnalyzer *)v21 privateResults];
+        privateResults = [(VCPLightVideoAnalyzer *)v23 privateResults];
         [(NSMutableDictionary *)privateResults addEntriesFromDictionary:privateResults];
 
-        blockCopy = v32;
-        assetCopy = v33;
-        v27 = VCPSignPostLog();
-        v28 = v27;
-        if (v20 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+        blockCopy = v36;
+        assetCopy = v37;
+        v30 = VCPSignPostLog(v29);
+        v31 = v30;
+        if (v22 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
         {
-          *v35 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, spid, "VCPMovieAnalyzer_Metadata_VCPLightVideoAnalyzer", "", v35, 2u);
+          *v39 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_END, spid, "VCPMovieAnalyzer_Metadata_VCPLightVideoAnalyzer", "", v39, 2u);
         }
 
-        v29 = VCPSignPostLog();
-        v30 = v29;
-        if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
+        v33 = VCPSignPostLog(v32);
+        v34 = v33;
+        if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
         {
-          *v35 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v9, "VCPMovieAnalyzer_Metadata", "", v35, 2u);
+          *v39 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_END, v9, "VCPMovieAnalyzer_Metadata", "", v39, 2u);
         }
       }
     }
@@ -718,20 +718,20 @@ void __43__VCPMovieAnalyzer_loadPropertiesForAsset___block_invoke_2(uint64_t a1,
         *&self->_errorCode = xmmword_1C9F62E40;
       }
 
-      v22 = -108;
+      v24 = -108;
     }
   }
 
   else
   {
-    v22 = 0;
+    v24 = 0;
     if (!self->_errorCode)
     {
       *&self->_errorCode = xmmword_1C9F62E50;
     }
   }
 
-  return v22;
+  return v24;
 }
 
 - (id)createDecoderForTrack:(id)track timerange:(id *)timerange forAnalysisTypes:(unint64_t)types decodedFrameRate:(float *)rate
@@ -840,43 +840,43 @@ LABEL_9:
 
 - (int)analyzeVideoSegment:(id)segment timerange:(id *)timerange forAnalysisTypes:(unint64_t)types cancel:(id)cancel
 {
-  v556 = *MEMORY[0x1E69E9840];
+  v614 = *MEMORY[0x1E69E9840];
   segmentCopy = segment;
   cancelCopy = cancel;
-  v8 = VCPSignPostLog();
+  v8 = VCPSignPostLog(cancelCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  v460 = v9 - 1;
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  v518 = v9 - 1;
   spid = v9;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMovieAnalyzer_AnalyzeVideoSegment", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMovieAnalyzer_AnalyzeVideoSegment", "", buf, 2u);
   }
 
-  v544 = 0;
-  v12 = *&timerange->var0.var3;
+  v602 = 0;
+  v13 = *&timerange->var0.var3;
   *buf = *&timerange->var0.var0;
-  *&buf[16] = v12;
+  *&buf[16] = v13;
   *&buf[32] = *&timerange->var1.var1;
-  v13 = [(VCPMovieAnalyzer *)self processExistingAnalysisForTimeRange:buf analysisTypes:&v544];
-  v14 = v544;
-  v484 = v13;
-  v15 = +[VCPAudioAnalyzer supportedAnalysisTypes];
+  v14 = [(VCPMovieAnalyzer *)self processExistingAnalysisForTimeRange:buf analysisTypes:&v602];
+  v15 = v602;
+  v542 = v14;
   v16 = +[VCPAudioAnalyzer supportedAnalysisTypes];
   v17 = +[VCPAudioAnalyzer supportedAnalysisTypes];
+  v18 = +[VCPAudioAnalyzer supportedAnalysisTypes];
   vcp_types = [(NSDictionary *)self->_existingAnalysis vcp_types];
-  v19 = v14 & ~v15;
-  v490 = types & ~(v16 | v19);
-  v463 = v17 & types;
-  v458 = +[VCPAudioAnalyzer supportedAnalysisTypes]& vcp_types;
+  v20 = v15 & ~v16;
+  v548 = types & ~(v17 | v20);
+  v521 = v18 & types;
+  v516 = +[VCPAudioAnalyzer supportedAnalysisTypes]& vcp_types;
   if (MediaAnalysisLogLevel() >= 7)
   {
-    v20 = MEMORY[0x1E69E9C10];
     v21 = MEMORY[0x1E69E9C10];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v22 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       if (self->_phAsset)
       {
@@ -887,42 +887,42 @@ LABEL_9:
       {
         [(VCPAsset *)self->_asset mainFileURL];
       }
-      v22 = ;
-      v23 = MediaAnalysisTypeShortDescription(v490);
-      v24 = MediaAnalysisTypeShortDescription(v19);
-      v25 = MediaAnalysisTypeShortDescription(v463);
-      v26 = MediaAnalysisTypeShortDescription(v458);
+      v23 = ;
+      v24 = MediaAnalysisTypeShortDescription(v548);
+      v25 = MediaAnalysisTypeShortDescription(v20);
+      v26 = MediaAnalysisTypeShortDescription(v521);
+      v27 = MediaAnalysisTypeShortDescription(v516);
       *buf = 138413314;
-      *&buf[4] = v22;
+      *&buf[4] = v23;
       *&buf[12] = 2112;
-      *&buf[14] = v23;
+      *&buf[14] = v24;
       *&buf[22] = 2112;
-      *&buf[24] = v24;
+      *&buf[24] = v25;
       *&buf[32] = 2112;
-      *&buf[34] = v25;
+      *&buf[34] = v26;
       *&buf[42] = 2112;
-      *&buf[44] = v26;
+      *&buf[44] = v27;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MovieAnalyzer][%@] Video segment requested video types: %@, existing video types: %@, requested audio types: %@, existing audio types: %@", buf, 0x34u);
     }
   }
 
-  [(NSMutableDictionary *)self->_analysis vcp_addTypes:v544];
-  v468 = objc_autoreleasePoolPush();
-  v469 = objc_autoreleasePoolPush();
-  v27 = [VCPVideoEmbeddings alloc];
-  v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{+[VCPVideoTransformerBackbone embeddingVersion](VCPVideoTransformerBackbone, "embeddingVersion")}];
-  v479 = [(VCPVideoEmbeddings *)v27 initWithEmbeddingType:2 version:v28];
+  [(NSMutableDictionary *)self->_analysis vcp_addTypes:v602];
+  v526 = objc_autoreleasePoolPush();
+  v527 = objc_autoreleasePoolPush();
+  v28 = [VCPVideoEmbeddings alloc];
+  v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{+[VCPVideoTransformerBackbone embeddingVersion](VCPVideoTransformerBackbone, "embeddingVersion")}];
+  v537 = [(VCPVideoEmbeddings *)v28 initWithEmbeddingType:2 version:v29];
 
-  v543 = 0;
-  if ((v490 & 0x20000000) == 0)
+  v601 = 0;
+  if ((v548 & 0x20000000) == 0)
   {
-    v29 = 0;
-    v478 = 0;
+    v32 = 0;
+    v536 = 0;
     goto LABEL_13;
   }
 
-  v31 = [(NSMutableDictionary *)self->_privateResults objectForKeyedSubscript:@"MetaInterpolatedFrameKey"];
-  if ([v31 count])
+  v34 = [(NSMutableDictionary *)self->_privateResults objectForKeyedSubscript:@"MetaInterpolatedFrameKey"];
+  if ([v34 count])
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -937,60 +937,60 @@ LABEL_9:
       goto LABEL_20;
     }
 
-    v46 = 717;
+    v49 = 717;
 LABEL_34:
-    v44 = 0;
+    v47 = 0;
     *p_errorCode = 45;
     goto LABEL_35;
   }
 
-  v41 = [VCPVideoInterpolator alloc];
+  v44 = [VCPVideoInterpolator alloc];
   privateResults = self->_privateResults;
   localIdentifier = [(VCPAsset *)self->_asset localIdentifier];
-  v478 = [(VCPVideoInterpolator *)v41 initWithTimestamps:privateResults andIdentifier:localIdentifier andTrack:segmentCopy];
+  v536 = [(VCPVideoInterpolator *)v44 initWithTimestamps:privateResults andIdentifier:localIdentifier andTrack:segmentCopy];
 
-  v44 = v478;
-  if (!v478)
+  v47 = v536;
+  if (!v536)
   {
     p_errorCode = &self->_errorCode;
     context = -108;
     if (self->_errorCode)
     {
 LABEL_20:
-      v478 = 0;
+      v536 = 0;
 LABEL_36:
 
-      v29 = 0;
-      v473 = 0;
-      v474 = 0;
-      v47 = 0;
-      v470 = 0;
-      v471 = 0;
-      v48 = 0;
-      v472 = 0;
-      v476 = 0;
-      v477 = 0;
-      v49 = 0;
-      v489 = 0;
-      v488 = 0;
+      v32 = 0;
+      v531 = 0;
+      v532 = 0;
+      v50 = 0;
+      v528 = 0;
+      v529 = 0;
+      v51 = 0;
+      v530 = 0;
+      v534 = 0;
+      v535 = 0;
+      v52 = 0;
+      v547 = 0;
+      v546 = 0;
       obj = 0;
-      v482 = 0;
-      v483 = 0;
-      v481 = 0;
+      v540 = 0;
+      v541 = 0;
+      v539 = 0;
       flags = 0;
 LABEL_41:
-      v50 = 10;
+      v53 = 10;
       goto LABEL_338;
     }
 
-    v46 = 721;
+    v49 = 721;
     goto LABEL_34;
   }
 
   if (self->_requestedAnalyses == 0x20000000)
   {
-    processAborted = [(VCPVideoInterpolator *)v478 processAborted];
-    v44 = v478;
+    processAborted = [(VCPVideoInterpolator *)v536 processAborted];
+    v47 = v536;
     if (processAborted)
     {
       context = 0;
@@ -999,109 +999,110 @@ LABEL_41:
         goto LABEL_36;
       }
 
-      v46 = 723;
+      v49 = 723;
 LABEL_35:
-      v478 = v44;
-      self->_errorLine = v46;
+      v536 = v47;
+      self->_errorLine = v49;
       goto LABEL_36;
     }
   }
 
-  [(VCPVideoInterpolator *)v44 adjustedTimeRange];
-  v29 = [(VCPMovieAnalyzer *)self createDecoderForTrack:segmentCopy timerange:buf forAnalysisTypes:v490 decodedFrameRate:&v543];
+  objc_msgSend_adjustedTimeRange(v47);
+  v32 = [(VCPMovieAnalyzer *)self createDecoderForTrack:segmentCopy timerange:buf forAnalysisTypes:v548 decodedFrameRate:&v601];
 
 LABEL_13:
-  v30 = segmentCopy;
-  if ((v490 & 0x8000000000000) != 0)
+  v33 = segmentCopy;
+  if ((v548 & 0x8000000000000) != 0)
   {
     vcp_results = [(NSMutableDictionary *)self->_analysis vcp_results];
-    v34 = [vcp_results objectForKeyedSubscript:@"VideoThumbnailResults"];
+    v37 = [vcp_results objectForKeyedSubscript:@"VideoThumbnailResults"];
 
-    v471 = [[VCPVideoThumbnailAnalyzer alloc] initWithExistingThumbnails:v34];
-    v30 = segmentCopy;
+    v529 = [[VCPVideoThumbnailAnalyzer alloc] initWithExistingThumbnails:v37];
+    v33 = segmentCopy;
   }
 
   else
   {
-    v471 = 0;
+    v529 = 0;
   }
 
-  if ((v490 & 0x4000000000) == 0)
+  if ((v548 & 0x4000000000) == 0)
   {
-    if (v29)
+    if (v32)
     {
-      v474 = 0;
+      v532 = 0;
       goto LABEL_48;
     }
 
-    v474 = 0;
+    v532 = 0;
     goto LABEL_46;
   }
 
-  v35 = [(NSMutableDictionary *)self->_analysis objectForKeyedSubscript:@"metadataRanges"];
-  v36 = [v35 objectForKeyedSubscript:@"VideoStabilizationResults"];
-  v37 = [v36 objectAtIndexedSubscript:0];
-  v38 = [v37 objectForKeyedSubscript:@"attributes"];
-  v39 = [v38 objectForKeyedSubscript:@"stabilizationRecipe"];
+  v38 = [(NSMutableDictionary *)self->_analysis objectForKeyedSubscript:@"metadataRanges"];
+  v39 = [v38 objectForKeyedSubscript:@"VideoStabilizationResults"];
+  v40 = [v39 objectAtIndexedSubscript:0];
+  v41 = [v40 objectForKeyedSubscript:@"attributes"];
+  v42 = [v41 objectForKeyedSubscript:@"stabilizationRecipe"];
 
-  v40 = [[VCPSettlingEffectAnalyzer alloc] initWithTimestamps:self->_privateResults andTrack:segmentCopy andRecipe:v39 withOptions:self->_options];
-  if (!v40)
+  v43 = [[VCPSettlingEffectAnalyzer alloc] initWithTimestamps:self->_privateResults andTrack:segmentCopy andRecipe:v42 withOptions:self->_options];
+  if (!v43)
   {
     if (!self->_errorCode)
     {
       *&self->_errorCode = xmmword_1C9F62E60;
     }
 
-    v473 = 0;
-    v474 = 0;
-    v47 = 0;
-    v470 = 0;
-    v48 = 0;
-    v472 = 0;
-    v476 = 0;
-    v477 = 0;
-    v49 = 0;
-    v489 = 0;
-    v488 = 0;
+    v531 = 0;
+    v532 = 0;
+    v50 = 0;
+    v528 = 0;
+    v51 = 0;
+    v530 = 0;
+    v534 = 0;
+    v535 = 0;
+    v52 = 0;
+    v547 = 0;
+    v546 = 0;
     obj = 0;
-    v482 = 0;
-    v483 = 0;
-    v481 = 0;
+    v540 = 0;
+    v541 = 0;
+    v539 = 0;
     flags = 0;
     context = -108;
     goto LABEL_41;
   }
 
-  v474 = v40;
+  v532 = v43;
 
-  if (v29)
+  if (v32)
   {
-    v30 = segmentCopy;
+    v33 = segmentCopy;
     goto LABEL_48;
   }
 
-  v30 = segmentCopy;
-  if (![(VCPSettlingEffectAnalyzer *)v474 processAborted])
+  v33 = segmentCopy;
+  if (![(VCPSettlingEffectAnalyzer *)v532 processAborted])
   {
-    [(VCPSettlingEffectAnalyzer *)v474 adjustedTimeRange];
+    objc_msgSend_adjustedTimeRange(v532);
     goto LABEL_47;
   }
 
 LABEL_46:
-  v51 = *&timerange->var0.var3;
+  v54 = *&timerange->var0.var3;
   *buf = *&timerange->var0.var0;
-  *&buf[16] = v51;
+  *&buf[16] = v54;
   *&buf[32] = *&timerange->var1.var1;
 LABEL_47:
-  v29 = [(VCPMovieAnalyzer *)self createDecoderForTrack:v30 timerange:buf forAnalysisTypes:v490 decodedFrameRate:&v543];
+  HasANE = [(VCPMovieAnalyzer *)self createDecoderForTrack:v33 timerange:buf forAnalysisTypes:v548 decodedFrameRate:&v601];
+  v32 = HasANE;
 LABEL_48:
-  v462 = v29;
-  if ((v490 & 0x880) != 0)
+  v520 = v32;
+  if ((v548 & 0x880) != 0)
   {
-    vcp_orientation = [v30 vcp_orientation];
-    if (v30)
+    vcp_orientation = [v33 vcp_orientation];
+    if (v33)
     {
-      [v30 preferredTransform];
+      objc_msgSend_preferredTransform(v33);
     }
 
     else
@@ -1109,128 +1110,130 @@ LABEL_48:
       memset(buf, 0, 48);
     }
 
-    v483 = [(VCPMovieAnalyzer *)self createVideoAnalyzerWithOrientation:vcp_orientation preferredTransform:buf embeddings:v479];
-    if (!v483)
+    HasANE = [(VCPMovieAnalyzer *)self createVideoAnalyzerWithOrientation:vcp_orientation preferredTransform:buf embeddings:v537];
+    v541 = HasANE;
+    if (!HasANE)
     {
       selfCopy5 = self;
       if (self->_errorCode)
       {
-        v472 = 0;
-        v473 = 0;
-        v47 = 0;
-        v470 = 0;
-        v48 = 0;
-        v476 = 0;
-        v49 = 0;
-        v489 = 0;
-        v488 = 0;
+        v530 = 0;
+        v531 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
+        v534 = 0;
+        v52 = 0;
+        v547 = 0;
+        v546 = 0;
         obj = 0;
-        v482 = 0;
-        v483 = 0;
+        v540 = 0;
+        v541 = 0;
         goto LABEL_153;
       }
 
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v476 = 0;
-      v477 = 0;
-      v49 = 0;
-      v489 = 0;
-      v488 = 0;
+      v530 = 0;
+      v531 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v534 = 0;
+      v535 = 0;
+      v52 = 0;
+      v547 = 0;
+      v546 = 0;
       obj = 0;
-      v482 = 0;
-      v483 = 0;
-      v481 = 0;
+      v540 = 0;
+      v541 = 0;
+      v539 = 0;
       flags = 0;
-      v81 = xmmword_1C9F62E70;
+      v84 = xmmword_1C9F62E70;
 LABEL_250:
-      *&selfCopy5->_errorCode = v81;
+      *&selfCopy5->_errorCode = v84;
       context = -108;
-      v50 = 10;
+      v53 = 10;
       goto LABEL_337;
     }
   }
 
   else
   {
-    v483 = 0;
+    v541 = 0;
   }
 
-  if ((v490 & 8) != 0)
+  if ((v548 & 8) != 0)
   {
     vcp_results2 = [(NSMutableDictionary *)self->_analysis vcp_results];
-    v54 = [vcp_results2 objectForKeyedSubscript:@"FacePrintResults"];
+    v57 = [vcp_results2 objectForKeyedSubscript:@"FacePrintResults"];
 
-    v55 = *(MEMORY[0x1E695EFD0] + 16);
+    v58 = *(MEMORY[0x1E695EFD0] + 16);
     *buf = *MEMORY[0x1E695EFD0];
-    *&buf[16] = v55;
+    *&buf[16] = v58;
     *&buf[32] = *(MEMORY[0x1E695EFD0] + 32);
-    v482 = [VCPVideoFaceDetector faceDetectorWithTransform:buf withExistingFaceprints:v54 tracking:[(VCPAsset *)self->_asset isLivePhoto]^ 1 faceDominated:self->_faceDominated cancel:cancelCopy];
-    if (!v482)
+    v540 = [VCPVideoFaceDetector faceDetectorWithTransform:buf withExistingFaceprints:v57 tracking:[(VCPAsset *)self->_asset isLivePhoto]^ 1 faceDominated:self->_faceDominated cancel:cancelCopy];
+    if (!v540)
     {
       if (!self->_errorCode)
       {
         *&self->_errorCode = xmmword_1C9F62E80;
       }
 
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v476 = 0;
-      v49 = 0;
-      v489 = 0;
-      v488 = 0;
+      v530 = 0;
+      v531 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v534 = 0;
+      v52 = 0;
+      v547 = 0;
+      v546 = 0;
       obj = 0;
-      v482 = 0;
+      v540 = 0;
       goto LABEL_153;
     }
   }
 
   else
   {
-    v482 = 0;
+    v540 = 0;
   }
 
-  if ((v490 & 0x8000) != 0 && SocType() >= 247 && ![(VCPAsset *)self->_asset isLivePhoto])
+  if ((v548 & 0x8000) != 0 && (HasANE = SocType(HasANE, v31), HasANE >= 247) && (HasANE = [(VCPAsset *)self->_asset isLivePhoto], (HasANE & 1) == 0))
   {
-    obj = objc_alloc_init(VCPVideoActivityAnalyzer);
-    if (!obj)
+    HasANE = objc_alloc_init(VCPVideoActivityAnalyzer);
+    obj = HasANE;
+    if (!HasANE)
     {
       selfCopy5 = self;
       if (self->_errorCode)
       {
-        v472 = 0;
-        v473 = 0;
-        v47 = 0;
-        v470 = 0;
-        v48 = 0;
-        v476 = 0;
-        v49 = 0;
-        v489 = 0;
-        v488 = 0;
+        v530 = 0;
+        v531 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
+        v534 = 0;
+        v52 = 0;
+        v547 = 0;
+        v546 = 0;
         obj = 0;
         goto LABEL_153;
       }
 
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v476 = 0;
-      v477 = 0;
-      v49 = 0;
-      v489 = 0;
-      v488 = 0;
+      v530 = 0;
+      v531 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v534 = 0;
+      v535 = 0;
+      v52 = 0;
+      v547 = 0;
+      v546 = 0;
       obj = 0;
-      v481 = 0;
+      v539 = 0;
       flags = 0;
-      v81 = xmmword_1C9F62E90;
+      v84 = xmmword_1C9F62E90;
       goto LABEL_250;
     }
   }
@@ -1240,244 +1243,250 @@ LABEL_250:
     obj = 0;
   }
 
-  if ((v490 & 0x4000) != 0)
+  if ((v548 & 0x4000) != 0)
   {
-    v488 = objc_alloc_init(VCPVideoSceneClassifier);
-    if (!v488)
+    HasANE = objc_alloc_init(VCPVideoSceneClassifier);
+    v546 = HasANE;
+    if (!HasANE)
     {
       selfCopy5 = self;
       if (self->_errorCode)
       {
-        v472 = 0;
-        v473 = 0;
-        v47 = 0;
-        v470 = 0;
-        v48 = 0;
-        v476 = 0;
-        v49 = 0;
-        v489 = 0;
-        v488 = 0;
+        v530 = 0;
+        v531 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
+        v534 = 0;
+        v52 = 0;
+        v547 = 0;
+        v546 = 0;
         goto LABEL_153;
       }
 
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v476 = 0;
-      v477 = 0;
-      v49 = 0;
-      v489 = 0;
-      v488 = 0;
-      v481 = 0;
+      v530 = 0;
+      v531 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v534 = 0;
+      v535 = 0;
+      v52 = 0;
+      v547 = 0;
+      v546 = 0;
+      v539 = 0;
       flags = 0;
-      v81 = xmmword_1C9F62EA0;
+      v84 = xmmword_1C9F62EA0;
       goto LABEL_250;
     }
   }
 
   else
   {
-    v488 = 0;
+    v546 = 0;
   }
 
-  if ((v490 & 0x1000) != 0)
+  if ((v548 & 0x1000) != 0)
   {
-    v56 = [VCPVideoSaliencyAnalyzer alloc];
-    v57 = *(MEMORY[0x1E695EFD0] + 16);
-    *buf = *MEMORY[0x1E695EFD0];
-    *&buf[16] = v57;
-    *&buf[32] = *(MEMORY[0x1E695EFD0] + 32);
-    v489 = [(VCPVideoSaliencyAnalyzer *)v56 initWithTransform:buf];
-    if (!v489)
-    {
-      selfCopy5 = self;
-      if (self->_errorCode)
-      {
-        v472 = 0;
-        v473 = 0;
-        v47 = 0;
-        v470 = 0;
-        v48 = 0;
-        v476 = 0;
-        v49 = 0;
-        v489 = 0;
-        goto LABEL_153;
-      }
-
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v476 = 0;
-      v477 = 0;
-      v49 = 0;
-      v489 = 0;
-      v481 = 0;
-      flags = 0;
-      v81 = xmmword_1C9F62EB0;
-      goto LABEL_250;
-    }
-  }
-
-  else
-  {
-    v489 = 0;
-  }
-
-  if ((v490 & 0x20000) != 0 && DeviceHasANE())
-  {
-    v58 = [VCPVideoPetsAnalyzer alloc];
-    v59 = MEMORY[0x1E695EFD0];
+    v59 = [VCPVideoSaliencyAnalyzer alloc];
     v60 = *(MEMORY[0x1E695EFD0] + 16);
     *buf = *MEMORY[0x1E695EFD0];
     *&buf[16] = v60;
     *&buf[32] = *(MEMORY[0x1E695EFD0] + 32);
-    v49 = [(VCPVideoPetsAnalyzer *)v58 initWithTransform:buf];
-    if (v49)
+    HasANE = [(VCPVideoSaliencyAnalyzer *)v59 initWithTransform:buf];
+    v547 = HasANE;
+    if (!HasANE)
     {
-      vcp_results3 = [(NSMutableDictionary *)self->_analysis vcp_results];
-      v62 = [vcp_results3 objectForKeyedSubscript:@"AnimalPrintResults"];
-
-      v63 = [VCPVideoAnimalDetector alloc];
-      v64 = v59[1];
-      *buf = *v59;
-      *&buf[16] = v64;
-      *&buf[32] = v59[2];
-      v476 = [(VCPVideoAnimalDetector *)v63 initWithTransform:buf withExistingAnimalprints:v62];
-      if (v476)
+      selfCopy5 = self;
+      if (self->_errorCode)
       {
-
-        v455 = v49;
-        goto LABEL_74;
+        v530 = 0;
+        v531 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
+        v534 = 0;
+        v52 = 0;
+        v547 = 0;
+        goto LABEL_153;
       }
 
-      if (!self->_errorCode)
-      {
-        *&self->_errorCode = xmmword_1C9F62EC0;
-      }
-
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v476 = 0;
-LABEL_153:
-      v477 = 0;
-      v481 = 0;
+      v530 = 0;
+      v531 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v534 = 0;
+      v535 = 0;
+      v52 = 0;
+      v547 = 0;
+      v539 = 0;
       flags = 0;
-      context = -108;
-      v50 = 10;
-      goto LABEL_337;
+      v84 = xmmword_1C9F62EB0;
+      goto LABEL_250;
     }
-
-    selfCopy5 = self;
-    if (self->_errorCode)
-    {
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v476 = 0;
-      v49 = 0;
-      goto LABEL_153;
-    }
-
-    v472 = 0;
-    v473 = 0;
-    v47 = 0;
-    v470 = 0;
-    v48 = 0;
-    v476 = 0;
-    v477 = 0;
-    v49 = 0;
-    v481 = 0;
-    flags = 0;
-    v81 = xmmword_1C9F62ED0;
-    goto LABEL_250;
   }
 
-  v476 = 0;
-  v455 = 0;
-LABEL_74:
-  if ((v490 & 0x2000000000) != 0 && DeviceHasANE())
+  else
   {
-    v473 = [[VCPVideoPetsActionAnalyzer alloc] initWithTimeOfInterest:0];
-    if (!v473)
+    v547 = 0;
+  }
+
+  if ((v548 & 0x20000) != 0)
+  {
+    HasANE = DeviceHasANE(HasANE, v31);
+    if (HasANE)
+    {
+      v61 = [VCPVideoPetsAnalyzer alloc];
+      v62 = MEMORY[0x1E695EFD0];
+      v63 = *(MEMORY[0x1E695EFD0] + 16);
+      *buf = *MEMORY[0x1E695EFD0];
+      *&buf[16] = v63;
+      *&buf[32] = *(MEMORY[0x1E695EFD0] + 32);
+      v52 = [(VCPVideoPetsAnalyzer *)v61 initWithTransform:buf];
+      if (v52)
+      {
+        vcp_results3 = [(NSMutableDictionary *)self->_analysis vcp_results];
+        v65 = [vcp_results3 objectForKeyedSubscript:@"AnimalPrintResults"];
+
+        v66 = [VCPVideoAnimalDetector alloc];
+        v67 = v62[1];
+        *buf = *v62;
+        *&buf[16] = v67;
+        *&buf[32] = v62[2];
+        v534 = [(VCPVideoAnimalDetector *)v66 initWithTransform:buf withExistingAnimalprints:v65];
+        if (v534)
+        {
+
+          v513 = v52;
+          goto LABEL_74;
+        }
+
+        if (!self->_errorCode)
+        {
+          *&self->_errorCode = xmmword_1C9F62EC0;
+        }
+
+        v530 = 0;
+        v531 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
+        v534 = 0;
+LABEL_153:
+        v535 = 0;
+        v539 = 0;
+        flags = 0;
+        context = -108;
+        v53 = 10;
+        goto LABEL_337;
+      }
+
+      selfCopy5 = self;
+      if (self->_errorCode)
+      {
+        v530 = 0;
+        v531 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
+        v534 = 0;
+        v52 = 0;
+        goto LABEL_153;
+      }
+
+      v530 = 0;
+      v531 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v534 = 0;
+      v535 = 0;
+      v52 = 0;
+      v539 = 0;
+      flags = 0;
+      v84 = xmmword_1C9F62ED0;
+      goto LABEL_250;
+    }
+  }
+
+  v534 = 0;
+  v513 = 0;
+LABEL_74:
+  if ((v548 & 0x2000000000) != 0 && DeviceHasANE(HasANE, v31))
+  {
+    v531 = [[VCPVideoPetsActionAnalyzer alloc] initWithTimeOfInterest:0];
+    if (!v531)
     {
       selfCopy8 = self;
       if (self->_errorCode)
       {
-        v473 = 0;
+        v531 = 0;
 LABEL_133:
-        v47 = 0;
-        v470 = 0;
-        v48 = 0;
-        v472 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
+        v530 = 0;
 LABEL_138:
-        v477 = 0;
-        v481 = 0;
+        v535 = 0;
+        v539 = 0;
         flags = 0;
         context = -108;
-        v50 = 10;
+        v53 = 10;
         goto LABEL_336;
       }
 
-      v472 = 0;
-      v473 = 0;
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v477 = 0;
-      v481 = 0;
+      v530 = 0;
+      v531 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v535 = 0;
+      v539 = 0;
       flags = 0;
-      v108 = xmmword_1C9F62EE0;
+      v113 = xmmword_1C9F62EE0;
 LABEL_248:
-      *&selfCopy8->_errorCode = v108;
+      *&selfCopy8->_errorCode = v113;
       context = -108;
-      v50 = 10;
-      v49 = v455;
+      v53 = 10;
+      v52 = v513;
       goto LABEL_337;
     }
   }
 
   else
   {
-    v473 = 0;
+    v531 = 0;
   }
 
-  if ((v490 & 0x40000) != 0)
+  if ((v548 & 0x40000) != 0)
   {
-    v68 = self->_privateResults;
-    if (!v68 || (-[NSMutableDictionary objectForKeyedSubscript:](v68, "objectForKeyedSubscript:", @"MetaLensSwitchResults"), v69 = objc_claimAutoreleasedReturnValue(), v70 = [v69 count] == 0, v69, v68 = self->_privateResults, v70))
+    v71 = self->_privateResults;
+    if (!v71 || (-[NSMutableDictionary objectForKeyedSubscript:](v71, "objectForKeyedSubscript:", @"MetaLensSwitchResults"), v72 = objc_claimAutoreleasedReturnValue(), v73 = [v72 count] == 0, v72, v71 = self->_privateResults, v73))
     {
       bOOLValue = 0;
     }
 
     else
     {
-      v71 = [(NSMutableDictionary *)v68 objectForKeyedSubscript:@"MetaLensSwitchResults"];
-      v72 = [v71 objectAtIndexedSubscript:0];
-      v73 = [v72 objectForKeyedSubscript:@"quality"];
-      bOOLValue = [v73 BOOLValue];
+      v74 = [(NSMutableDictionary *)v71 objectForKeyedSubscript:@"MetaLensSwitchResults"];
+      v75 = [v74 objectAtIndexedSubscript:0];
+      v76 = [v75 objectForKeyedSubscript:@"quality"];
+      bOOLValue = [v76 BOOLValue];
 
-      v68 = self->_privateResults;
+      v71 = self->_privateResults;
     }
 
-    v75 = [(NSMutableDictionary *)v68 objectForKeyedSubscript:@"MetaLensSwitchResults"];
-    v76 = [v75 objectAtIndexedSubscript:0];
-    v77 = [v76 objectForKeyedSubscript:@"ZoomChangeScore"];
-    bOOLValue2 = [v77 BOOLValue];
+    v78 = [(NSMutableDictionary *)v71 objectForKeyedSubscript:@"MetaLensSwitchResults"];
+    v79 = [v78 objectAtIndexedSubscript:0];
+    v80 = [v79 objectForKeyedSubscript:@"ZoomChangeScore"];
+    bOOLValue2 = [v80 BOOLValue];
 
-    v79 = [VCPMovieCurationAnalyzer alloc];
+    v82 = [VCPMovieCurationAnalyzer alloc];
     vcp_types2 = [(NSMutableDictionary *)self->_analysis vcp_types];
     if (segmentCopy)
     {
-      [segmentCopy preferredTransform];
+      objc_msgSend_preferredTransform(segmentCopy);
     }
 
     else
@@ -1485,34 +1494,34 @@ LABEL_248:
       memset(buf, 0, 48);
     }
 
-    v82 = *&timerange->var0.var3;
+    v85 = *&timerange->var0.var3;
     *time = *&timerange->var0.var0;
-    *&time[16] = v82;
-    v542 = *&timerange->var1.var1;
+    *&time[16] = v85;
+    v600 = *&timerange->var1.var1;
     isLivePhoto = [(VCPAsset *)self->_asset isLivePhoto];
     [(VCPAsset *)self->_asset photoOffsetSeconds];
-    v85 = v84;
+    v88 = v87;
     hadFlash = [(VCPAsset *)self->_asset hadFlash];
-    v87 = [v484 objectForKeyedSubscript:@"KeyFrameResults"];
+    v90 = [v542 objectForKeyedSubscript:@"KeyFrameResults"];
     isTimelapse = [(VCPAsset *)self->_asset isTimelapse];
     asset = self->_asset;
     if (asset)
     {
-      [(VCPAsset *)asset slomoRange];
+      objc_msgSend_slomoRange(asset);
     }
 
     else
     {
-      memset(v540, 0, sizeof(v540));
+      memset(v598, 0, sizeof(v598));
     }
 
     asset = [segmentCopy asset];
-    LOBYTE(v424) = isTimelapse;
-    LOBYTE(v423) = bOOLValue2;
-    LODWORD(v91) = v85;
-    v92 = [(VCPMovieCurationAnalyzer *)v79 initWithAnalysisTypes:vcp_types2 | v490 transform:buf timeRange:time isLivePhoto:isLivePhoto photoOffset:hadFlash hadFlash:bOOLValue hadZoom:v91 settlingHadZoom:v423 keyFrameResults:v87 isTimelapse:v424 preferredTimeRange:v540 asset:asset];
+    LOBYTE(v482) = isTimelapse;
+    LOBYTE(v481) = bOOLValue2;
+    LODWORD(v94) = v88;
+    v95 = [(VCPMovieCurationAnalyzer *)v82 initWithAnalysisTypes:vcp_types2 | v548 transform:buf timeRange:time isLivePhoto:isLivePhoto photoOffset:hadFlash hadFlash:bOOLValue hadZoom:v94 settlingHadZoom:v481 keyFrameResults:v90 isTimelapse:v482 preferredTimeRange:v598 asset:asset];
 
-    if (!v92)
+    if (!v95)
     {
       selfCopy8 = self;
       if (self->_errorCode)
@@ -1520,70 +1529,71 @@ LABEL_248:
         goto LABEL_133;
       }
 
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v472 = 0;
-      v477 = 0;
-      v481 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v530 = 0;
+      v535 = 0;
+      v539 = 0;
       flags = 0;
-      v108 = xmmword_1C9F62EF0;
+      v113 = xmmword_1C9F62EF0;
       goto LABEL_248;
     }
 
-    *&v93 = self->_maxHighlightDuration;
-    v66 = v92;
-    [(VCPMovieCurationAnalyzer *)v92 setMaxHighlightDuration:v93];
+    *&v96 = self->_maxHighlightDuration;
+    v69 = v95;
+    [(VCPMovieCurationAnalyzer *)v95 setMaxHighlightDuration:v96];
   }
 
   else
   {
-    v66 = 0;
+    v69 = 0;
   }
 
-  v472 = v66;
-  if ((v490 & 0x4000000) != 0)
+  v530 = v69;
+  if ((v548 & 0x4000000) != 0)
   {
-    v94 = [VCPVideoStabilizer videoStabilizerforAnalysisType:0x4000000 withMetadata:0 sourceSize:*MEMORY[0x1E695F060] cropRect:*(MEMORY[0x1E695F060] + 8), *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
-    if (!v94)
+    v97 = [VCPVideoStabilizer videoStabilizerforAnalysisType:0x4000000 withMetadata:0 sourceSize:*MEMORY[0x1E695F060] cropRect:*(MEMORY[0x1E695F060] + 8), *MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+    if (!v97)
     {
       selfCopy8 = self;
       if (self->_errorCode)
       {
-        v47 = 0;
-        v470 = 0;
-        v48 = 0;
+        v50 = 0;
+        v528 = 0;
+        v51 = 0;
         goto LABEL_138;
       }
 
-      v47 = 0;
-      v470 = 0;
-      v48 = 0;
-      v477 = 0;
-      v481 = 0;
+      v50 = 0;
+      v528 = 0;
+      v51 = 0;
+      v535 = 0;
+      v539 = 0;
       flags = 0;
-      v108 = xmmword_1C9F62F00;
+      v113 = xmmword_1C9F62F00;
       goto LABEL_248;
     }
   }
 
   else
   {
-    v94 = 0;
+    v97 = 0;
   }
 
-  v470 = v94;
-  if (+[VCPMovieAnalyzer getEnableMovieHumanAction])
+  v528 = v97;
+  v98 = +[VCPMovieAnalyzer getEnableMovieHumanAction];
+  if (v98)
   {
-    HasANE = 1;
+    v100 = 1;
   }
 
   else
   {
-    HasANE = DeviceHasANE();
+    v100 = DeviceHasANE(v98, v99);
   }
 
-  if ((v490 & 0x80040040000) == 0)
+  if ((v548 & 0x80040040000) == 0)
   {
     goto LABEL_122;
   }
@@ -1591,71 +1601,72 @@ LABEL_248:
   if ([(VCPAsset *)self->_asset isLivePhoto])
   {
     faces = [(VCPAsset *)self->_asset faces];
-    v97 = MEMORY[0x1E696AD98];
+    v102 = MEMORY[0x1E696AD98];
     [(VCPAsset *)self->_asset photoOffsetSeconds];
-    [v97 numberWithFloat:?];
-    v98 = 0;
-    HasANE = 1;
-    v457 = v456 = faces;
+    [v102 numberWithFloat:?];
+    v103 = 0;
+    v100 = 1;
+    v515 = v514 = faces;
     goto LABEL_123;
   }
 
-  if ((v490 & 0x40000000) == 0 || ![(VCPAsset *)self->_asset isMovie]|| (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (phAsset = self->_phAsset) == 0 || [(PHAsset *)phAsset vcp_quickFaceClassificationDone])
+  if ((v548 & 0x40000000) == 0 || ![(VCPAsset *)self->_asset isMovie]|| (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (phAsset = self->_phAsset) == 0 || [(PHAsset *)phAsset vcp_quickFaceClassificationDone])
   {
 LABEL_122:
-    v456 = 0;
-    v457 = 0;
-    v98 = 0;
+    v514 = 0;
+    v515 = 0;
+    v103 = 0;
     goto LABEL_123;
   }
 
   if (MediaAnalysisLogLevel() >= 7)
   {
-    v169 = MEMORY[0x1E69E9C10];
-    v170 = MEMORY[0x1E69E9C10];
-    if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
+    v179 = MEMORY[0x1E69E9C10];
+    v180 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(v179, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Movie analyzer perform VCPPhotosQuickFaceDetection", buf, 2u);
     }
   }
 
-  v171 = objc_autoreleasePoolPush();
-  v172 = VCPSignPostLog();
-  v173 = os_signpost_id_generate(v172);
+  v181 = objc_autoreleasePoolPush();
+  v182 = VCPSignPostLog(v181);
+  v183 = os_signpost_id_generate(v182);
 
-  v174 = VCPSignPostLog();
-  v175 = v174;
-  if (v173 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v174))
+  v185 = VCPSignPostLog(v184);
+  v186 = v185;
+  if (v183 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v185))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v175, OS_SIGNPOST_INTERVAL_BEGIN, v173, "VCPMovieAnalyzer_Video_VCPPhotosQuickFaceDetection", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v186, OS_SIGNPOST_INTERVAL_BEGIN, v183, "VCPMovieAnalyzer_Video_VCPPhotosQuickFaceDetection", "", buf, 2u);
   }
 
-  v176 = [VCPPhotosQuickFaceDetectionManager alloc];
+  v187 = [VCPPhotosQuickFaceDetectionManager alloc];
   photoLibrary = [(PHAsset *)self->_phAsset photoLibrary];
-  v178 = [(VCPPhotosQuickFaceDetectionManager *)v176 initWithPhotoLibrary:photoLibrary];
+  v189 = [(VCPPhotosQuickFaceDetectionManager *)v187 initWithPhotoLibrary:photoLibrary];
 
-  if (v178)
+  if (v189)
   {
-    context = [(VCPPhotosQuickFaceDetectionManager *)v178 processAsset:self->_phAsset];
-    if (!context)
+    v190 = [(VCPPhotosQuickFaceDetectionManager *)v189 processAsset:self->_phAsset];
+    context = v190;
+    if (!v190)
     {
-      v327 = VCPSignPostLog();
-      v328 = v327;
-      if (v173 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v327))
+      v365 = VCPSignPostLog(v190);
+      v366 = v365;
+      if (v183 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v365))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v328, OS_SIGNPOST_INTERVAL_END, v173, "VCPMovieAnalyzer_Video_VCPPhotosQuickFaceDetection", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v366, OS_SIGNPOST_INTERVAL_END, v183, "VCPMovieAnalyzer_Video_VCPPhotosQuickFaceDetection", "", buf, 2u);
       }
 
-      v50 = 0;
+      v53 = 0;
       context = 0;
-      v179 = 1;
+      v191 = 1;
       goto LABEL_490;
     }
 
-    v179 = 0;
+    v191 = 0;
     if (!self->_errorCode)
     {
       *&self->_errorCode = xmmword_1C9F62F10;
@@ -1664,7 +1675,7 @@ LABEL_122:
 
   else
   {
-    v179 = 0;
+    v191 = 0;
     if (!self->_errorCode)
     {
       *&self->_errorCode = xmmword_1C9F62F20;
@@ -1673,75 +1684,75 @@ LABEL_122:
     context = -18;
   }
 
-  v50 = 10;
+  v53 = 10;
 LABEL_490:
 
-  objc_autoreleasePoolPop(v171);
-  if ((v179 & 1) == 0)
+  objc_autoreleasePoolPop(v181);
+  if ((v191 & 1) == 0)
   {
-    v456 = 0;
-    v454 = 0;
-    v47 = 0;
-    v48 = 0;
-    v477 = 0;
-    v481 = 0;
+    v514 = 0;
+    v512 = 0;
+    v50 = 0;
+    v51 = 0;
+    v535 = 0;
+    v539 = 0;
     flags = 0;
 
     goto LABEL_335;
   }
 
-  v456 = 0;
-  v457 = 0;
-  v98 = context;
+  v514 = 0;
+  v515 = 0;
+  v103 = context;
 LABEL_123:
-  if ((v490 & 0x40400000) != 0 && +[VCPCNNEspressoContext supportGPU]&& !self->_faceDominated)
+  if ((v548 & 0x40400000) != 0 && +[VCPCNNEspressoContext supportGPU]&& !self->_faceDominated)
   {
-    v100 = [[VCPVideoHumanActionAnalyzer alloc] initWithTimeOfInterest:v457 phFaces:v456];
-    if (!v100)
+    v105 = [[VCPVideoHumanActionAnalyzer alloc] initWithTimeOfInterest:v515 phFaces:v514];
+    if (!v105)
     {
       selfCopy14 = self;
       if (!self->_errorCode)
       {
-        v454 = 0;
-        v47 = 0;
-        v48 = 0;
-        v477 = 0;
-        v481 = 0;
+        v512 = 0;
+        v50 = 0;
+        v51 = 0;
+        v535 = 0;
+        v539 = 0;
         flags = 0;
-        v157 = xmmword_1C9F62F30;
+        v166 = xmmword_1C9F62F30;
         goto LABEL_274;
       }
 
-      v454 = 0;
-      v47 = 0;
-      v48 = 0;
+      v512 = 0;
+      v50 = 0;
+      v51 = 0;
       goto LABEL_240;
     }
   }
 
   else
   {
-    v100 = 0;
+    v105 = 0;
   }
 
-  if ((v490 & 0x200000000000) != 0)
+  if ((v548 & 0x200000000000) != 0)
   {
-    v101 = [VCPVideoCaptionAnalyzer alloc];
-    v102 = v543;
+    v106 = [VCPVideoCaptionAnalyzer alloc];
+    v107 = v601;
     if (segmentCopy)
     {
-      [segmentCopy timeRange];
+      objc_msgSend_timeRange(segmentCopy);
     }
 
     else
     {
-      HIDWORD(v103) = 0;
+      HIDWORD(v108) = 0;
       memset(buf, 0, 48);
     }
 
-    LODWORD(v103) = v102;
-    v47 = [(VCPVideoCaptionAnalyzer *)v101 initWithModelType:2 frameRate:buf timeRange:v103];
-    if (v47)
+    LODWORD(v108) = v107;
+    v50 = [(VCPVideoCaptionAnalyzer *)v106 initWithModelType:2 frameRate:buf timeRange:v108];
+    if (v50)
     {
       goto LABEL_157;
     }
@@ -1749,79 +1760,79 @@ LABEL_123:
     selfCopy14 = self;
     if (!self->_errorCode)
     {
-      v48 = v100;
-      v454 = 0;
-      v47 = 0;
-      v477 = 0;
-      v481 = 0;
+      v51 = v105;
+      v512 = 0;
+      v50 = 0;
+      v535 = 0;
+      v539 = 0;
       flags = 0;
-      v157 = xmmword_1C9F62F40;
+      v166 = xmmword_1C9F62F40;
       goto LABEL_274;
     }
 
-    v48 = v100;
+    v51 = v105;
     goto LABEL_239;
   }
 
-  if ((v490 & 0x100000000) == 0)
+  if ((v548 & 0x100000000) == 0)
   {
-    v47 = 0;
+    v50 = 0;
     goto LABEL_157;
   }
 
-  v104 = [VCPVideoCaptionAnalyzer alloc];
-  v105 = v543;
+  v109 = [VCPVideoCaptionAnalyzer alloc];
+  v110 = v601;
   if (segmentCopy)
   {
-    [segmentCopy timeRange];
+    objc_msgSend_timeRange(segmentCopy);
   }
 
   else
   {
-    HIDWORD(v106) = 0;
+    HIDWORD(v111) = 0;
     memset(buf, 0, 48);
   }
 
-  LODWORD(v106) = v105;
-  v47 = [(VCPVideoCaptionAnalyzer *)v104 initWithModelType:1 frameRate:buf timeRange:v106];
-  if (!v47)
+  LODWORD(v111) = v110;
+  v50 = [(VCPVideoCaptionAnalyzer *)v109 initWithModelType:1 frameRate:buf timeRange:v111];
+  if (!v50)
   {
-    v48 = v100;
+    v51 = v105;
     selfCopy14 = self;
     if (!self->_errorCode)
     {
-      v454 = 0;
-      v47 = 0;
-      v477 = 0;
-      v481 = 0;
+      v512 = 0;
+      v50 = 0;
+      v535 = 0;
+      v539 = 0;
       flags = 0;
-      v157 = xmmword_1C9F62F50;
+      v166 = xmmword_1C9F62F50;
       goto LABEL_274;
     }
 
 LABEL_239:
-    v454 = 0;
-    v47 = 0;
+    v512 = 0;
+    v50 = 0;
 LABEL_240:
-    v477 = 0;
-    v481 = 0;
+    v535 = 0;
+    v539 = 0;
     goto LABEL_241;
   }
 
 LABEL_157:
-  v109 = v490 & 0x80000000000;
-  if (((v490 & 0x240040000) == 0 || (HasANE & 1) == 0) && !v109)
+  v114 = v548 & 0x80000000000;
+  if (((v548 & 0x240040000) == 0 || (v100 & 1) == 0) && !v114)
   {
-    v110 = 0;
+    v115 = 0;
     goto LABEL_164;
   }
 
-  v111 = [VCPVideoCNNAnalyzer alloc];
-  v112 = v543;
+  v116 = [VCPVideoCNNAnalyzer alloc];
+  v117 = v601;
   isLivePhoto2 = [(VCPAsset *)self->_asset isLivePhoto];
   if (segmentCopy)
   {
-    [segmentCopy timeRange];
+    objc_msgSend_timeRange(segmentCopy);
   }
 
   else
@@ -1830,96 +1841,96 @@ LABEL_157:
   }
 
   [(VCPAsset *)self->_asset photoOffsetSeconds];
-  LODWORD(v115) = v114;
-  LODWORD(v116) = v112;
-  v110 = [(VCPVideoCNNAnalyzer *)v111 initWithTimeOfInteret:v457 frameRate:isLivePhoto2 isLivePhoto:v456 phFaces:buf timeRange:v479 withEmbeddings:v490 requestedAnalyses:v116 photoOffset:v115];
-  if (!v110)
+  LODWORD(v120) = v119;
+  LODWORD(v121) = v117;
+  v115 = [(VCPVideoCNNAnalyzer *)v116 initWithTimeOfInteret:v515 frameRate:isLivePhoto2 isLivePhoto:v514 phFaces:buf timeRange:v537 withEmbeddings:v548 requestedAnalyses:v121 photoOffset:v120];
+  if (!v115)
   {
-    v48 = v100;
+    v51 = v105;
     selfCopy14 = self;
     if (!self->_errorCode)
     {
-      v454 = 0;
-      v477 = 0;
-      v481 = 0;
+      v512 = 0;
+      v535 = 0;
+      v539 = 0;
       flags = 0;
-      v157 = xmmword_1C9F62F60;
+      v166 = xmmword_1C9F62F60;
       goto LABEL_274;
     }
 
-    v454 = 0;
+    v512 = 0;
     goto LABEL_240;
   }
 
 LABEL_164:
-  v481 = v110;
-  v477 = 0;
-  if ([objc_opt_class() enableAudioVideoFusion] && ((v458 | v463) & 0x800000000000) != 0 && ((v490 | v19) & 0x80000000000) != 0 && v463 & 0x800000000000 | v109)
+  v539 = v115;
+  v535 = 0;
+  if ([objc_opt_class() enableAudioVideoFusion] && ((v516 | v521) & 0x800000000000) != 0 && ((v548 | v20) & 0x80000000000) != 0 && v521 & 0x800000000000 | v114)
   {
-    v117 = _os_feature_enabled_impl();
-    v118 = [VCPAudioVideoEmbeddingFuser alloc];
-    v119 = v117 ? 7 : 5;
-    v477 = [(VCPAudioVideoEmbeddingFuser *)v118 initWithEmbeddingVersion:v119];
-    if (!v477)
+    v122 = _os_feature_enabled_impl();
+    v123 = [VCPAudioVideoEmbeddingFuser alloc];
+    v124 = v122 ? 7 : 5;
+    v535 = [(VCPAudioVideoEmbeddingFuser *)v123 initWithEmbeddingVersion:v124];
+    if (!v535)
     {
-      v48 = v100;
+      v51 = v105;
       selfCopy14 = self;
       if (!self->_errorCode)
       {
-        v454 = 0;
-        v477 = 0;
+        v512 = 0;
+        v535 = 0;
         flags = 0;
-        v157 = xmmword_1C9F62F70;
+        v166 = xmmword_1C9F62F70;
         goto LABEL_274;
       }
 
-      v454 = 0;
-      v477 = 0;
+      v512 = 0;
+      v535 = 0;
 LABEL_241:
       flags = 0;
       context = -108;
-      v50 = 10;
+      v53 = 10;
       goto LABEL_334;
     }
   }
 
-  if ((v490 & 0x40000000000) != 0)
+  if ((v548 & 0x40000000000) != 0)
   {
-    v121 = objc_alloc_init(MADVideoSafetyClassifier);
-    v120 = v121;
-    if (v121)
+    v126 = objc_alloc_init(MADVideoSafetyClassifier);
+    v125 = v126;
+    if (v126)
     {
       *buf = *&timerange->var1.var0;
       *&buf[16] = timerange->var1.var3;
-      [(MADVideoSafetyClassifier *)v121 configureProcessTimeIntervalFrom:buf];
-      v439 = v100;
+      [(MADVideoSafetyClassifier *)v126 configureProcessTimeIntervalFrom:buf];
+      v497 = v105;
       goto LABEL_176;
     }
 
-    v48 = v100;
+    v51 = v105;
     selfCopy14 = self;
     if (self->_errorCode)
     {
-      v454 = 0;
+      v512 = 0;
       flags = 0;
 LABEL_275:
       context = -108;
-      v50 = 10;
+      v53 = 10;
       goto LABEL_334;
     }
 
-    v454 = 0;
+    v512 = 0;
     flags = 0;
-    v157 = xmmword_1C9F62F80;
+    v166 = xmmword_1C9F62F80;
 LABEL_274:
-    *&selfCopy14->_errorCode = v157;
+    *&selfCopy14->_errorCode = v166;
     goto LABEL_275;
   }
 
-  v439 = v100;
-  v120 = 0;
+  v497 = v105;
+  v125 = 0;
 LABEL_176:
-  if (v488)
+  if (v546)
   {
     supportConditionalAnalysis = self->_supportConditionalAnalysis;
   }
@@ -1929,297 +1940,216 @@ LABEL_176:
     supportConditionalAnalysis = 0;
   }
 
-  v438 = v120;
-  v445 = v98;
-  if (v110)
+  v496 = v125;
+  v503 = v103;
+  if (v115)
   {
-    v123 = [VCPVideoCNNHighlightTimeRangePredictor alloc];
-    highlightEnabled = [(VCPVideoCNNAnalyzer *)v110 highlightEnabled];
-    postInference = [(VCPVideoCNNAnalyzer *)v110 postInference];
-    [(VCPVideoCNNAnalyzer *)v110 minProcessingInterval];
-    v127 = v126;
-    [(VCPVideoCNNAnalyzer *)v110 timeStart];
-    LODWORD(v128) = v127;
-    v129 = [(VCPVideoCNNHighlightTimeRangePredictor *)v123 initWithHightlightEnabled:highlightEnabled postInference:postInference minProcessingInterval:buf startTime:v128];
+    v128 = [VCPVideoCNNHighlightTimeRangePredictor alloc];
+    highlightEnabled = [(VCPVideoCNNAnalyzer *)v115 highlightEnabled];
+    postInference = [(VCPVideoCNNAnalyzer *)v115 postInference];
+    [(VCPVideoCNNAnalyzer *)v115 minProcessingInterval];
+    v132 = v131;
+    objc_msgSend_timeStart(v115);
+    LODWORD(v133) = v132;
+    v134 = [(VCPVideoCNNHighlightTimeRangePredictor *)v128 initWithHightlightEnabled:highlightEnabled postInference:postInference minProcessingInterval:buf startTime:v133];
   }
 
   else
   {
-    v129 = 0;
+    v134 = 0;
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke;
   aBlock[3] = &unk_1E8350360;
-  v130 = cancelCopy;
-  v539 = v130;
+  v135 = cancelCopy;
+  v597 = v135;
   aBlock[4] = self;
-  v131 = v478;
-  v529 = v131;
-  v436 = v482;
-  v530 = v436;
-  v432 = v488;
-  v531 = v432;
-  v429 = v489;
-  v532 = v429;
-  v437 = v129;
-  v533 = v437;
-  v446 = v439;
-  v534 = v446;
-  v444 = v47;
-  v535 = v444;
-  v428 = v455;
-  v536 = v428;
-  v426 = v476;
-  v537 = v426;
-  v427 = v473;
-  v538 = v427;
-  v453 = _Block_copy(aBlock);
-  v524[0] = MEMORY[0x1E69E9820];
-  v524[1] = 3221225472;
-  v524[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_707;
-  v524[3] = &unk_1E8350388;
-  v132 = v130;
-  v526 = v132;
-  v524[4] = self;
-  v458 = v483;
-  v525 = v458;
-  v527 = supportConditionalAnalysis;
-  v452 = _Block_copy(v524);
-  v514[0] = MEMORY[0x1E69E9820];
-  v514[1] = 3221225472;
-  v514[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_714;
-  v514[3] = &unk_1E83503B0;
-  v133 = v132;
-  v523 = v133;
-  v441 = v131;
-  v515 = v441;
+  v136 = v536;
+  v587 = v136;
+  v494 = v540;
+  v588 = v494;
+  v490 = v546;
+  v589 = v490;
+  v487 = v547;
+  v590 = v487;
+  v495 = v134;
+  v591 = v495;
+  v504 = v497;
+  v592 = v504;
+  v502 = v50;
+  v593 = v502;
+  v486 = v513;
+  v594 = v486;
+  v484 = v534;
+  v595 = v484;
+  v485 = v531;
+  v596 = v485;
+  v511 = _Block_copy(aBlock);
+  v582[0] = MEMORY[0x1E69E9820];
+  v582[1] = 3221225472;
+  v582[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_707;
+  v582[3] = &unk_1E8350388;
+  v137 = v135;
+  v584 = v137;
+  v582[4] = self;
+  v516 = v541;
+  v583 = v516;
+  v585 = supportConditionalAnalysis;
+  v510 = _Block_copy(v582);
+  v572[0] = MEMORY[0x1E69E9820];
+  v572[1] = 3221225472;
+  v572[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_714;
+  v572[3] = &unk_1E83503B0;
+  v138 = v137;
+  v581 = v138;
+  v499 = v136;
+  v573 = v499;
   selfCopy15 = self;
-  v430 = obj;
-  v517 = v430;
-  v425 = v472;
-  v518 = v425;
-  v440 = v110;
-  v519 = v440;
-  v443 = v470;
-  v520 = v443;
-  v442 = v474;
-  v521 = v442;
-  v454 = v438;
-  v522 = v454;
-  v451 = _Block_copy(v514);
-  if (v443)
+  v488 = obj;
+  v575 = v488;
+  v483 = v530;
+  v576 = v483;
+  v498 = v115;
+  v577 = v498;
+  v501 = v528;
+  v578 = v501;
+  v500 = v532;
+  v579 = v500;
+  v512 = v496;
+  v580 = v512;
+  v509 = _Block_copy(v572);
+  if (v501)
   {
-    v511[0] = MEMORY[0x1E69E9820];
-    v511[1] = 3221225472;
-    v511[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_727;
-    v511[3] = &unk_1E83503D8;
-    v513 = v133;
-    v511[4] = self;
-    v512 = v443;
-    v447 = _Block_copy(v511);
+    v569[0] = MEMORY[0x1E69E9820];
+    v569[1] = 3221225472;
+    v569[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_727;
+    v569[3] = &unk_1E83503D8;
+    v571 = v138;
+    v569[4] = self;
+    v570 = v501;
+    v505 = _Block_copy(v569);
   }
 
   else
   {
-    v447 = 0;
+    v505 = 0;
   }
 
-  if (v442)
+  if (v500)
   {
-    v508[0] = MEMORY[0x1E69E9820];
-    v508[1] = 3221225472;
-    v508[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_732;
-    v508[3] = &unk_1E83503D8;
-    v510 = v133;
-    v508[4] = self;
-    v509 = v442;
-    v448 = _Block_copy(v508);
-  }
-
-  else
-  {
-    v448 = 0;
-  }
-
-  if (v454)
-  {
-    v505[0] = MEMORY[0x1E69E9820];
-    v505[1] = 3221225472;
-    v505[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_737;
-    v505[3] = &unk_1E83503D8;
-    v507 = v133;
-    v505[4] = self;
-    v506 = v454;
-    v449 = _Block_copy(v505);
+    v566[0] = MEMORY[0x1E69E9820];
+    v566[1] = 3221225472;
+    v566[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_732;
+    v566[3] = &unk_1E83503D8;
+    v568 = v138;
+    v566[4] = self;
+    v567 = v500;
+    v506 = _Block_copy(v566);
   }
 
   else
   {
-    v449 = 0;
+    v506 = 0;
   }
 
-  if (v441)
+  if (v512)
   {
-    v502[0] = MEMORY[0x1E69E9820];
-    v502[1] = 3221225472;
-    v502[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_742;
-    v502[3] = &unk_1E83503D8;
-    v504 = v133;
-    v502[4] = self;
-    v503 = v441;
-    v450 = _Block_copy(v502);
+    v563[0] = MEMORY[0x1E69E9820];
+    v563[1] = 3221225472;
+    v563[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_737;
+    v563[3] = &unk_1E83503D8;
+    v565 = v138;
+    v563[4] = self;
+    v564 = v512;
+    v507 = _Block_copy(v563);
   }
 
   else
   {
-    v450 = 0;
+    v507 = 0;
   }
 
-  contexta = objc_autoreleasePoolPush();
-  if ((v490 & 0x2C636446D888) == 0)
+  if (v499)
   {
-    v50 = 0;
+    v560[0] = MEMORY[0x1E69E9820];
+    v560[1] = 3221225472;
+    v560[2] = __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_742;
+    v560[3] = &unk_1E83503D8;
+    v562 = v138;
+    v560[4] = self;
+    v561 = v499;
+    v508 = _Block_copy(v560);
+  }
+
+  else
+  {
+    v508 = 0;
+  }
+
+  v139 = objc_autoreleasePoolPush();
+  contexta = v139;
+  if ((v548 & 0x2C636446D888) == 0)
+  {
+    v53 = 0;
     flags = 0;
     goto LABEL_297;
   }
 
-  v134 = VCPSignPostLog();
-  v434 = os_signpost_id_generate(v134);
+  v140 = VCPSignPostLog(v139);
+  v492 = os_signpost_id_generate(v140);
 
-  v135 = VCPSignPostLog();
-  v136 = v135;
-  if (v434 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v135))
+  v142 = VCPSignPostLog(v141);
+  v143 = v142;
+  if (v492 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v142))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v136, OS_SIGNPOST_INTERVAL_BEGIN, v434, "VCPMovieAnalyzer_AnalyzeVideoSegment_FrameProcessing", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v143, OS_SIGNPOST_INTERVAL_BEGIN, v492, "VCPMovieAnalyzer_AnalyzeVideoSegment_FrameProcessing", "", buf, 2u);
   }
 
-  if (DeviceHasANE() && (_os_feature_enabled_impl() & 1) != 0)
+  if (DeviceHasANE(v144, v145) && (_os_feature_enabled_impl() & 1) != 0)
   {
-    v137 = MEMORY[0x1E695DF70];
-    v138 = _Block_copy(v453);
-    v554[0] = v138;
-    v139 = _Block_copy(v452);
-    v554[1] = v139;
-    v140 = _Block_copy(v451);
-    v554[2] = v140;
-    v141 = [MEMORY[0x1E695DEC8] arrayWithObjects:v554 count:3];
-    v142 = [v137 arrayWithArray:v141];
+    v146 = MEMORY[0x1E695DF70];
+    v147 = _Block_copy(v511);
+    v612[0] = v147;
+    v148 = _Block_copy(v510);
+    v612[1] = v148;
+    v149 = _Block_copy(v509);
+    v612[2] = v149;
+    v150 = [MEMORY[0x1E695DEC8] arrayWithObjects:v612 count:3];
+    v151 = [v146 arrayWithArray:v150];
 
     if (+[VCPVideoAnalysisPipelineManager shouldUseGraphProcessing])
     {
-      if (v447)
+      if (v505)
       {
-        v143 = _Block_copy(v447);
-        [v142 addObject:v143];
+        v152 = _Block_copy(v505);
+        [v151 addObject:v152];
       }
 
-      if (v448)
+      if (v506)
       {
-        v144 = _Block_copy(v448);
-        [v142 addObject:v144];
+        v153 = _Block_copy(v506);
+        [v151 addObject:v153];
       }
 
-      if (v449)
+      if (v507)
       {
-        v145 = _Block_copy(v449);
-        [v142 addObject:v145];
+        v154 = _Block_copy(v507);
+        [v151 addObject:v154];
       }
 
-      if (v450)
+      if (v508)
       {
-        v146 = _Block_copy(v450);
-        [v142 addObject:v146];
+        v155 = _Block_copy(v508);
+        [v151 addObject:v155];
       }
     }
 
-    v147 = [[VCPVideoAnalysisPipelineManager alloc] initWithVideoAnalysisBlocks:v142 videoDecoder:v462 maxBufferedFrames:20 cancelBlock:v133];
-    v148 = [(VCPVideoAnalysisPipelineManager *)v147 run];
-    if (v148)
-    {
-      if (MediaAnalysisLogLevel() >= 3)
-      {
-        v149 = MEMORY[0x1E69E9C10];
-        v150 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
-        {
-          v151 = objc_opt_class();
-          *buf = 138412290;
-          *&buf[4] = v151;
-          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed on running VCPVideoAnalysisPipelineManager, bail out.", buf, 0xCu);
-        }
-      }
-
-      if (!self->_errorCode)
-      {
-        *&self->_errorCode = xmmword_1C9F62F90;
-      }
-
-      flags = 0;
-      v50 = 10;
-      v445 = v148;
-    }
-
-    else
-    {
-      flags = [(VCPVideoAnalysisPipelineManager *)v147 flags];
-LABEL_277:
-
-      v168 = VCPSignPostLog();
-      v142 = v168;
-      if (v434 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v168))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v142, OS_SIGNPOST_INTERVAL_END, v434, "VCPMovieAnalyzer_AnalyzeVideoSegment_FrameProcessing", "", buf, 2u);
-      }
-
-      v50 = 0;
-    }
-
-    goto LABEL_296;
-  }
-
-  v147 = 0;
-  v142 = 0;
-  flags = 0;
-  while (1)
-  {
-    copyNextSampleBuffer = [v462 copyNextSampleBuffer];
-    v153 = v147;
-
-    v142 = v153;
-    if (copyNextSampleBuffer)
-    {
-      v154 = [[VCPVideoAnalysisPipelineFrameResource alloc] initWithSampleBuffer:copyNextSampleBuffer];
-
-      v147 = v154;
-    }
-
-    else
-    {
-      v147 = 0;
-      v154 = v153;
-    }
-
-    if (v153 | v147)
-    {
-      v155 = 0;
-    }
-
-    else
-    {
-      v155 = 100;
-    }
-
-    if (!v153)
-    {
-      goto LABEL_229;
-    }
-
-    v156 = (*(v453 + 2))(v453, v153, [(VCPVideoAnalysisPipelineManager *)v147 frameSampleBuffer]);
-    if (v156)
+    v156 = [[VCPVideoAnalysisPipelineManager alloc] initWithVideoAnalysisBlocks:v151 videoDecoder:v520 maxBufferedFrames:20 cancelBlock:v138];
+    v157 = [(VCPVideoAnalysisPipelineManager *)v156 run];
+    if (v157)
     {
       if (MediaAnalysisLogLevel() >= 3)
       {
@@ -2230,6 +2160,88 @@ LABEL_277:
           v160 = objc_opt_class();
           *buf = 138412290;
           *&buf[4] = v160;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed on running VCPVideoAnalysisPipelineManager, bail out.", buf, 0xCu);
+        }
+      }
+
+      if (!self->_errorCode)
+      {
+        *&self->_errorCode = xmmword_1C9F62F90;
+      }
+
+      flags = 0;
+      v53 = 10;
+      v503 = v157;
+    }
+
+    else
+    {
+      flags = [(VCPVideoAnalysisPipelineManager *)v156 flags];
+LABEL_277:
+
+      v178 = VCPSignPostLog(v177);
+      v151 = v178;
+      if (v492 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v178))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v151, OS_SIGNPOST_INTERVAL_END, v492, "VCPMovieAnalyzer_AnalyzeVideoSegment_FrameProcessing", "", buf, 2u);
+      }
+
+      v53 = 0;
+    }
+
+    goto LABEL_296;
+  }
+
+  v156 = 0;
+  v151 = 0;
+  flags = 0;
+  while (1)
+  {
+    copyNextSampleBuffer = [v520 copyNextSampleBuffer];
+    v162 = v156;
+
+    v151 = v162;
+    if (copyNextSampleBuffer)
+    {
+      v163 = [[VCPVideoAnalysisPipelineFrameResource alloc] initWithSampleBuffer:copyNextSampleBuffer];
+
+      v156 = v163;
+    }
+
+    else
+    {
+      v156 = 0;
+      v163 = v162;
+    }
+
+    if (v162 | v156)
+    {
+      v164 = 0;
+    }
+
+    else
+    {
+      v164 = 100;
+    }
+
+    if (!v162)
+    {
+      goto LABEL_229;
+    }
+
+    v165 = (*(v511 + 2))(v511, v162, [(VCPVideoAnalysisPipelineManager *)v156 frameSampleBuffer]);
+    if (v165)
+    {
+      if (MediaAnalysisLogLevel() >= 3)
+      {
+        v167 = MEMORY[0x1E69E9C10];
+        v168 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v167, OS_LOG_TYPE_ERROR))
+        {
+          v169 = objc_opt_class();
+          *buf = 138412290;
+          *&buf[4] = v169;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed on executing pipelineBlock0, bail out.", buf, 0xCu);
         }
       }
@@ -2239,22 +2251,22 @@ LABEL_277:
         goto LABEL_294;
       }
 
-      v161 = 1433;
+      v170 = 1433;
       goto LABEL_293;
     }
 
-    v156 = (*(v452 + 2))(v452, v142, [(VCPVideoAnalysisPipelineManager *)v147 frameSampleBuffer]);
-    if (v156)
+    v165 = (*(v510 + 2))(v510, v151, [(VCPVideoAnalysisPipelineManager *)v156 frameSampleBuffer]);
+    if (v165)
     {
       if (MediaAnalysisLogLevel() >= 3)
       {
-        v162 = MEMORY[0x1E69E9C10];
-        v163 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+        v171 = MEMORY[0x1E69E9C10];
+        v172 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v171, OS_LOG_TYPE_ERROR))
         {
-          v164 = objc_opt_class();
+          v173 = objc_opt_class();
           *buf = 138412290;
-          *&buf[4] = v164;
+          *&buf[4] = v173;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed on executing pipelineBlock1, bail out.", buf, 0xCu);
         }
       }
@@ -2264,107 +2276,107 @@ LABEL_277:
         goto LABEL_294;
       }
 
-      v161 = 1435;
+      v170 = 1435;
 LABEL_293:
       self->_errorCode = 45;
-      self->_errorLine = v161;
+      self->_errorLine = v170;
       goto LABEL_294;
     }
 
-    v156 = (*(v451 + 2))(v451, v142, [(VCPVideoAnalysisPipelineManager *)v147 frameSampleBuffer]);
-    if (v156)
+    v165 = (*(v509 + 2))(v509, v151, [(VCPVideoAnalysisPipelineManager *)v156 frameSampleBuffer]);
+    if (v165)
     {
       break;
     }
 
-    v155 = 0;
-    flags |= [v142 frameFlags];
+    v164 = 0;
+    flags |= [v151 frameFlags];
 LABEL_229:
-    if (v155)
+    if (v164)
     {
-      if ([v462 status] == 2)
+      if ([v520 status] == 2)
       {
         goto LABEL_277;
       }
 
-      v156 = -19;
+      v165 = -19;
       if (self->_errorCode)
       {
-        v445 = -19;
+        v503 = -19;
         goto LABEL_295;
       }
 
-      v161 = 1441;
+      v170 = 1441;
       goto LABEL_293;
     }
   }
 
   if (MediaAnalysisLogLevel() >= 3)
   {
-    v165 = MEMORY[0x1E69E9C10];
-    v166 = MEMORY[0x1E69E9C10];
-    if (os_log_type_enabled(v165, OS_LOG_TYPE_ERROR))
+    v174 = MEMORY[0x1E69E9C10];
+    v175 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
     {
-      v167 = objc_opt_class();
+      v176 = objc_opt_class();
       *buf = 138412290;
-      *&buf[4] = v167;
+      *&buf[4] = v176;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed on executing pipelineBlock2, bail out.", buf, 0xCu);
     }
   }
 
   if (!self->_errorCode)
   {
-    v161 = 1437;
+    v170 = 1437;
     goto LABEL_293;
   }
 
 LABEL_294:
-  v445 = v156;
+  v503 = v165;
 LABEL_295:
 
-  v50 = 10;
+  v53 = 10;
 LABEL_296:
 
 LABEL_297:
   objc_autoreleasePoolPop(contexta);
-  if (v50)
+  if (v53)
   {
-    context = v445;
+    context = v503;
     goto LABEL_333;
   }
 
-  v180 = VCPSignPostLog();
-  v435 = os_signpost_id_generate(v180);
+  v193 = VCPSignPostLog(v192);
+  v493 = os_signpost_id_generate(v193);
 
-  v181 = VCPSignPostLog();
-  v182 = v181;
-  if (v435 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v181))
+  v195 = VCPSignPostLog(v194);
+  v196 = v195;
+  if (v493 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v195))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v182, OS_SIGNPOST_INTERVAL_BEGIN, v435, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v196, OS_SIGNPOST_INTERVAL_BEGIN, v493, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
   }
 
-  if (!v436)
+  if (!v494)
   {
 LABEL_313:
-    if (v458)
+    if (v516)
     {
-      v193 = VCPSignPostLog();
-      v194 = os_signpost_id_generate(v193);
+      v210 = VCPSignPostLog(processAborted2);
+      v211 = os_signpost_id_generate(v210);
 
-      v195 = VCPSignPostLog();
-      v196 = v195;
-      if (v194 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v195))
+      v213 = VCPSignPostLog(v212);
+      v214 = v213;
+      if (v211 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v213))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v196, OS_SIGNPOST_INTERVAL_BEGIN, v194, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v214, OS_SIGNPOST_INTERVAL_BEGIN, v211, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", buf, 2u);
       }
 
-      v197 = *&timerange->var0.var3;
+      v215 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v197;
+      *&buf[16] = v215;
       *&buf[32] = *&timerange->var1.var1;
-      context = [v458 finishAnalysisPass:buf];
+      context = [v516 finishAnalysisPass:buf];
       if (context)
       {
         selfCopy18 = self;
@@ -2373,610 +2385,615 @@ LABEL_313:
           goto LABEL_332;
         }
 
-        v189 = xmmword_1C9F62FB0;
+        v205 = xmmword_1C9F62FB0;
 LABEL_331:
-        *&selfCopy18->_errorCode = v189;
+        *&selfCopy18->_errorCode = v205;
         goto LABEL_332;
       }
 
-      results = [v458 results];
-      [v484 addEntriesFromDictionary:results];
+      results = [v516 results];
+      [v542 addEntriesFromDictionary:results];
 
-      v199 = self->_privateResults;
-      privateResults = [v458 privateResults];
-      [(NSMutableDictionary *)v199 addEntriesFromDictionary:privateResults];
+      v217 = self->_privateResults;
+      privateResults = [v516 privateResults];
+      [(NSMutableDictionary *)v217 addEntriesFromDictionary:privateResults];
 
-      v201 = VCPSignPostLog();
-      v202 = v201;
-      if (v194 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v201))
+      v220 = VCPSignPostLog(v219);
+      v221 = v220;
+      if (v211 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v220))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v202, OS_SIGNPOST_INTERVAL_END, v194, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v221, OS_SIGNPOST_INTERVAL_END, v211, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", buf, 2u);
+      }
+    }
+
+    if (v546)
+    {
+      v222 = VCPSignPostLog(processAborted2);
+      v223 = os_signpost_id_generate(v222);
+
+      v225 = VCPSignPostLog(v224);
+      v226 = v225;
+      if (v223 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v225))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v226, OS_SIGNPOST_INTERVAL_BEGIN, v223, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", buf, 2u);
+      }
+
+      v227 = [v542 objectForKeyedSubscript:@"SceneResults"];
+      [v490 setSceneResults:v227];
+
+      v228 = [v542 objectForKeyedSubscript:@"QualityResults"];
+      [v490 setQualityResults:v228];
+
+      v229 = *&timerange->var0.var3;
+      *buf = *&timerange->var0.var0;
+      *&buf[16] = v229;
+      *&buf[32] = *&timerange->var1.var1;
+      context = [v490 finishAnalysisPass:buf];
+      if (context)
+      {
+        selfCopy18 = self;
+        if (self->_errorCode)
+        {
+          goto LABEL_332;
+        }
+
+        v205 = xmmword_1C9F62FC0;
+        goto LABEL_331;
+      }
+
+      results2 = [v490 results];
+      [v542 addEntriesFromDictionary:results2];
+
+      v326 = VCPSignPostLog(v325);
+      v327 = v326;
+      if (v223 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v326))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v327, OS_SIGNPOST_INTERVAL_END, v223, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", buf, 2u);
       }
     }
 
     if (v488)
     {
-      v203 = VCPSignPostLog();
-      v204 = os_signpost_id_generate(v203);
+      v328 = VCPSignPostLog(processAborted2);
+      v329 = os_signpost_id_generate(v328);
 
-      v205 = VCPSignPostLog();
-      v206 = v205;
-      if (v204 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v205))
+      v331 = VCPSignPostLog(v330);
+      v332 = v331;
+      if (v329 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v331))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v206, OS_SIGNPOST_INTERVAL_BEGIN, v204, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", buf, 2u);
-      }
-
-      v207 = [v484 objectForKeyedSubscript:@"SceneResults"];
-      [(VCPVideoSceneClassifier *)v432 setSceneResults:v207];
-
-      v208 = [v484 objectForKeyedSubscript:@"QualityResults"];
-      [(VCPVideoSceneClassifier *)v432 setQualityResults:v208];
-
-      v209 = *&timerange->var0.var3;
-      *buf = *&timerange->var0.var0;
-      *&buf[16] = v209;
-      *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoSceneClassifier *)v432 finishAnalysisPass:buf];
-      if (context)
-      {
-        selfCopy18 = self;
-        if (self->_errorCode)
-        {
-          goto LABEL_332;
-        }
-
-        v189 = xmmword_1C9F62FC0;
-        goto LABEL_331;
-      }
-
-      results2 = [(VCPVideoSceneClassifier *)v432 results];
-      [v484 addEntriesFromDictionary:results2];
-
-      v293 = VCPSignPostLog();
-      v294 = v293;
-      if (v204 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v293))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v294, OS_SIGNPOST_INTERVAL_END, v204, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", buf, 2u);
-      }
-    }
-
-    if (v430)
-    {
-      v295 = VCPSignPostLog();
-      v296 = os_signpost_id_generate(v295);
-
-      v297 = VCPSignPostLog();
-      v298 = v297;
-      if (v296 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v297))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v298, OS_SIGNPOST_INTERVAL_BEGIN, v296, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v332, OS_SIGNPOST_INTERVAL_BEGIN, v329, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
       }
 
       isSlowmo = [(VCPAsset *)self->_asset isSlowmo];
-      v300 = self->_asset;
+      v334 = self->_asset;
       if (isSlowmo)
       {
-        [(VCPAsset *)v300 slowmoRate];
+        [(VCPAsset *)v334 slowmoRate];
       }
 
       else
       {
-        [(VCPAsset *)v300 timelapseRate];
+        [(VCPAsset *)v334 timelapseRate];
       }
 
-      v302 = v301;
-      v303 = [v484 objectForKeyedSubscript:@"QualityResults"];
-      v304 = [v484 objectForKeyedSubscript:@"InterestingnessResults"];
-      v305 = [v484 objectForKeyedSubscript:@"ObstructionResults"];
-      v306 = [v484 objectForKeyedSubscript:@"ClassificationResults"];
-      v307 = [v484 objectForKeyedSubscript:@"FineSubjectMotionResults"];
-      v308 = [v484 objectForKeyedSubscript:@"FaceResults"];
-      [v458 getSceneSwichFrequency];
-      [(VCPVideoActivityAnalyzer *)v430 preProcessQualityResults:v303 interestingnessResults:v304 obstructionResults:v305 classificationResults:v306 fineActionResults:v307 faceResults:v308 sceneSwitchFrequency:?];
+      v336 = v335;
+      v337 = [v542 objectForKeyedSubscript:@"QualityResults"];
+      v338 = [v542 objectForKeyedSubscript:@"InterestingnessResults"];
+      v339 = [v542 objectForKeyedSubscript:@"ObstructionResults"];
+      v340 = [v542 objectForKeyedSubscript:@"ClassificationResults"];
+      v341 = [v542 objectForKeyedSubscript:@"FineSubjectMotionResults"];
+      v342 = [v542 objectForKeyedSubscript:@"FaceResults"];
+      [v516 getSceneSwichFrequency];
+      [v488 preProcessQualityResults:v337 interestingnessResults:v338 obstructionResults:v339 classificationResults:v340 fineActionResults:v341 faceResults:v342 sceneSwitchFrequency:?];
 
-      v309 = *&timerange->var0.var3;
+      v343 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v309;
+      *&buf[16] = v343;
       *&buf[32] = *&timerange->var1.var1;
-      LODWORD(v458) = [(VCPVideoActivityAnalyzer *)v430 finishAnalysisPass:buf fpsRate:COERCE_DOUBLE(__PAIR64__(*&buf[36], v302))];
-      if (v458)
+      LODWORD(v516) = [v488 finishAnalysisPass:buf fpsRate:{COERCE_DOUBLE(__PAIR64__(*&buf[36], v336))}];
+      if (v516)
       {
         if (!self->_errorCode)
         {
           *&self->_errorCode = xmmword_1C9F62FD0;
         }
 
-        v50 = 1;
+        v53 = 1;
 LABEL_446:
-        context = v445;
+        context = v503;
         goto LABEL_333;
       }
 
-      results3 = [(VCPVideoActivityAnalyzer *)v430 results];
-      [v484 addEntriesFromDictionary:results3];
+      results3 = [v488 results];
+      [v542 addEntriesFromDictionary:results3];
 
-      v311 = VCPSignPostLog();
-      v312 = v311;
-      if (v296 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v311))
+      v346 = VCPSignPostLog(v345);
+      v347 = v346;
+      if (v329 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v346))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v312, OS_SIGNPOST_INTERVAL_END, v296, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v347, OS_SIGNPOST_INTERVAL_END, v329, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v429)
+    if (v487)
     {
-      v313 = VCPSignPostLog();
-      v314 = os_signpost_id_generate(v313);
+      v348 = VCPSignPostLog(processAborted2);
+      v349 = os_signpost_id_generate(v348);
 
-      v315 = VCPSignPostLog();
-      v316 = v315;
-      if (v314 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v315))
+      v351 = VCPSignPostLog(v350);
+      v352 = v351;
+      if (v349 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v351))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v316, OS_SIGNPOST_INTERVAL_BEGIN, v314, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v352, OS_SIGNPOST_INTERVAL_BEGIN, v349, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", buf, 2u);
       }
 
-      v317 = *&timerange->var0.var3;
+      v353 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v317;
+      *&buf[16] = v353;
       *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoSaliencyAnalyzer *)v429 finishAnalysisPass:buf];
+      context = [v487 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F62FE0;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F62FE0;
 LABEL_612:
-          *&self->_errorCode = v318;
+          *&self->_errorCode = v354;
           goto LABEL_613;
         }
 
         goto LABEL_602;
       }
 
-      results4 = [(VCPVideoSaliencyAnalyzer *)v429 results];
-      [v484 addEntriesFromDictionary:results4];
+      results4 = [v487 results];
+      [v542 addEntriesFromDictionary:results4];
 
-      v320 = VCPSignPostLog();
-      v321 = v320;
-      if (v314 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v320))
+      v357 = VCPSignPostLog(v356);
+      v358 = v357;
+      if (v349 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v357))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v321, OS_SIGNPOST_INTERVAL_END, v314, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v358, OS_SIGNPOST_INTERVAL_END, v349, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v446)
+    if (v504)
     {
-      v322 = VCPSignPostLog();
-      v323 = os_signpost_id_generate(v322);
+      v359 = VCPSignPostLog(processAborted2);
+      v360 = os_signpost_id_generate(v359);
 
-      v324 = VCPSignPostLog();
-      v325 = v324;
-      if (v323 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v324))
+      v362 = VCPSignPostLog(v361);
+      v363 = v362;
+      if (v360 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v362))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v325, OS_SIGNPOST_INTERVAL_BEGIN, v323, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v363, OS_SIGNPOST_INTERVAL_BEGIN, v360, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", buf, 2u);
       }
 
-      v326 = *&timerange->var0.var3;
+      v364 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v326;
+      *&buf[16] = v364;
       *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoHumanActionAnalyzer *)v446 finishAnalysisPass:buf];
+      context = [(VCPVideoHumanActionAnalyzer *)v504 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F62FF0;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F62FF0;
           goto LABEL_612;
         }
 
 LABEL_602:
-        LODWORD(v458) = 0;
+        LODWORD(v516) = 0;
 LABEL_613:
-        v50 = 10;
+        v53 = 10;
         goto LABEL_333;
       }
 
-      results5 = [(VCPVideoHumanActionAnalyzer *)v446 results];
-      [v484 addEntriesFromDictionary:results5];
+      results5 = [(VCPVideoHumanActionAnalyzer *)v504 results];
+      [v542 addEntriesFromDictionary:results5];
 
-      v330 = self->_privateResults;
-      privateResults2 = [(VCPVideoHumanActionAnalyzer *)v446 privateResults];
-      [(NSMutableDictionary *)v330 addEntriesFromDictionary:privateResults2];
+      v368 = self->_privateResults;
+      privateResults2 = [(VCPVideoHumanActionAnalyzer *)v504 privateResults];
+      [(NSMutableDictionary *)v368 addEntriesFromDictionary:privateResults2];
 
-      v332 = VCPSignPostLog();
-      v333 = v332;
-      if (v323 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v332))
+      v371 = VCPSignPostLog(v370);
+      v372 = v371;
+      if (v360 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v371))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v333, OS_SIGNPOST_INTERVAL_END, v323, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v372, OS_SIGNPOST_INTERVAL_END, v360, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v444)
+    if (v502)
     {
-      v334 = VCPSignPostLog();
-      v335 = os_signpost_id_generate(v334);
+      v373 = VCPSignPostLog(processAborted2);
+      v374 = os_signpost_id_generate(v373);
 
-      v336 = VCPSignPostLog();
-      v337 = v336;
-      if (v335 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v336))
+      v376 = VCPSignPostLog(v375);
+      v377 = v376;
+      if (v374 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v376))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v337, OS_SIGNPOST_INTERVAL_BEGIN, v335, "VCPMovieAnalyzer_Video_videoCaptionAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v377, OS_SIGNPOST_INTERVAL_BEGIN, v374, "VCPMovieAnalyzer_Video_videoCaptionAnalyzer", "", buf, 2u);
       }
 
-      v338 = *&timerange->var0.var3;
+      v378 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v338;
+      *&buf[16] = v378;
       *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoCaptionAnalyzer *)v444 finishAnalysisPass:buf];
+      context = [(VCPVideoCaptionAnalyzer *)v502 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63000;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63000;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      results6 = [(VCPVideoCaptionAnalyzer *)v444 results];
-      [v484 addEntriesFromDictionary:results6];
+      results6 = [(VCPVideoCaptionAnalyzer *)v502 results];
+      [v542 addEntriesFromDictionary:results6];
 
-      v340 = VCPSignPostLog();
-      v341 = v340;
-      if (v335 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v340))
+      v381 = VCPSignPostLog(v380);
+      v382 = v381;
+      if (v374 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v381))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v341, OS_SIGNPOST_INTERVAL_END, v335, "VCPMovieAnalyzer_Video_videoCaptionAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v382, OS_SIGNPOST_INTERVAL_END, v374, "VCPMovieAnalyzer_Video_videoCaptionAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v428)
+    if (v486)
     {
-      v342 = VCPSignPostLog();
-      v343 = os_signpost_id_generate(v342);
+      v383 = VCPSignPostLog(processAborted2);
+      v384 = os_signpost_id_generate(v383);
 
-      v344 = VCPSignPostLog();
-      v345 = v344;
-      if (v343 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v344))
+      v386 = VCPSignPostLog(v385);
+      v387 = v386;
+      if (v384 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v386))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v345, OS_SIGNPOST_INTERVAL_BEGIN, v343, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v387, OS_SIGNPOST_INTERVAL_BEGIN, v384, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", buf, 2u);
       }
 
-      v346 = *&timerange->var0.var3;
+      v388 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v346;
+      *&buf[16] = v388;
       *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoPetsAnalyzer *)v428 finishAnalysisPass:buf];
+      context = [(VCPVideoPetsAnalyzer *)v486 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63010;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63010;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      results7 = [(VCPVideoPetsAnalyzer *)v428 results];
-      [v484 addEntriesFromDictionary:results7];
+      results7 = [(VCPVideoPetsAnalyzer *)v486 results];
+      [v542 addEntriesFromDictionary:results7];
 
-      v348 = VCPSignPostLog();
-      v349 = v348;
-      if (v343 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v348))
+      v391 = VCPSignPostLog(v390);
+      v392 = v391;
+      if (v384 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v391))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v349, OS_SIGNPOST_INTERVAL_END, v343, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v392, OS_SIGNPOST_INTERVAL_END, v384, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v427)
+    if (v485)
     {
-      v350 = VCPSignPostLog();
-      v351 = os_signpost_id_generate(v350);
+      v393 = VCPSignPostLog(processAborted2);
+      v394 = os_signpost_id_generate(v393);
 
-      v352 = VCPSignPostLog();
-      v353 = v352;
-      if (v351 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v352))
+      v396 = VCPSignPostLog(v395);
+      v397 = v396;
+      if (v394 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v396))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v353, OS_SIGNPOST_INTERVAL_BEGIN, v351, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v397, OS_SIGNPOST_INTERVAL_BEGIN, v394, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", buf, 2u);
       }
 
-      v354 = *&timerange->var0.var3;
+      v398 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v354;
+      *&buf[16] = v398;
       *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoPetsActionAnalyzer *)v427 finishAnalysisPass:buf];
+      context = [(VCPVideoPetsActionAnalyzer *)v485 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63020;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63020;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      results8 = [(VCPVideoPetsActionAnalyzer *)v427 results];
-      [v484 addEntriesFromDictionary:results8];
+      results8 = [(VCPVideoPetsActionAnalyzer *)v485 results];
+      [v542 addEntriesFromDictionary:results8];
 
-      v356 = VCPSignPostLog();
-      v357 = v356;
-      if (v351 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v356))
+      v401 = VCPSignPostLog(v400);
+      v402 = v401;
+      if (v394 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v401))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v357, OS_SIGNPOST_INTERVAL_END, v351, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v402, OS_SIGNPOST_INTERVAL_END, v394, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v426)
+    if (v484)
     {
-      v358 = VCPSignPostLog();
-      v359 = os_signpost_id_generate(v358);
+      v403 = VCPSignPostLog(processAborted2);
+      v404 = os_signpost_id_generate(v403);
 
-      v360 = VCPSignPostLog();
-      v361 = v360;
-      if (v359 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v360))
+      v406 = VCPSignPostLog(v405);
+      v407 = v406;
+      if (v404 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v406))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v361, OS_SIGNPOST_INTERVAL_BEGIN, v359, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v407, OS_SIGNPOST_INTERVAL_BEGIN, v404, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", buf, 2u);
       }
 
-      v362 = *&timerange->var0.var3;
+      v408 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v362;
+      *&buf[16] = v408;
       *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoAnimalDetector *)v426 finishAnalysisPass:buf];
+      context = [(VCPVideoAnimalDetector *)v484 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63030;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63030;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      results9 = [(VCPVideoAnimalDetector *)v426 results];
-      [v484 addEntriesFromDictionary:results9];
+      results9 = [(VCPVideoAnimalDetector *)v484 results];
+      [v542 addEntriesFromDictionary:results9];
 
-      v364 = VCPSignPostLog();
-      v365 = v364;
-      if (v359 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v364))
+      v411 = VCPSignPostLog(v410);
+      v412 = v411;
+      if (v404 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v411))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v365, OS_SIGNPOST_INTERVAL_END, v359, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v412, OS_SIGNPOST_INTERVAL_END, v404, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v425)
+    if (v483)
     {
-      context = [(VCPMovieAnalyzer *)self _waitForAsyncAudioResults];
-      if (context)
+      _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self _waitForAsyncAudioResults];
+      context = _waitForAsyncAudioResults;
+      if (_waitForAsyncAudioResults)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63040;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63040;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      v366 = VCPSignPostLog();
-      v367 = os_signpost_id_generate(v366);
+      v414 = VCPSignPostLog(_waitForAsyncAudioResults);
+      v415 = os_signpost_id_generate(v414);
 
-      v368 = VCPSignPostLog();
-      v369 = v368;
-      if (v367 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v368))
+      v417 = VCPSignPostLog(v416);
+      v418 = v417;
+      if (v415 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v417))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v369, OS_SIGNPOST_INTERVAL_BEGIN, v367, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v418, OS_SIGNPOST_INTERVAL_BEGIN, v415, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
       }
 
       [segmentCopy naturalSize];
-      contextb = v370;
-      v459 = v371;
+      contextb = v419;
+      v517 = v420;
       if (segmentCopy)
       {
-        [segmentCopy preferredTransform];
-        v372 = *&buf[16];
-        v433 = *buf;
+        objc_msgSend_preferredTransform(segmentCopy);
+        v421 = *&buf[16];
+        v491 = *buf;
       }
 
       else
       {
-        v372 = 0uLL;
-        v433 = 0u;
+        v421 = 0uLL;
+        v491 = 0u;
       }
 
-      v431 = v372;
+      v489 = v421;
       vcp_results4 = [(NSMutableDictionary *)self->_analysis vcp_results];
       vcp_types3 = [(NSMutableDictionary *)self->_analysis vcp_types];
-      privateResults3 = [(VCPVideoCNNAnalyzer *)v440 privateResults];
-      faceRanges = [v436 faceRanges];
-      [(VCPMovieCurationAnalyzer *)v425 loadVideoAnalysisResults:v484 audioAnalysisResults:vcp_results4 resultTypes:vcp_types3 videoCNNResults:privateResults3 andFaceRanges:faceRanges frameSize:vabsq_f64(vmlaq_n_f64(vmulq_n_f64(v431, v459), v433, contextb))];
+      privateResults3 = [(VCPVideoCNNAnalyzer *)v498 privateResults];
+      faceRanges = [v494 faceRanges];
+      [(VCPMovieCurationAnalyzer *)v483 loadVideoAnalysisResults:v542 audioAnalysisResults:vcp_results4 resultTypes:vcp_types3 videoCNNResults:privateResults3 andFaceRanges:faceRanges frameSize:vabsq_f64(vmlaq_n_f64(vmulq_n_f64(v489, v517), v491, contextb))];
 
-      context = [(VCPMovieCurationAnalyzer *)v425 generateMovieCurations];
+      context = [(VCPMovieCurationAnalyzer *)v483 generateMovieCurations];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63050;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63050;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      results10 = [(VCPMovieCurationAnalyzer *)v425 results];
-      [v484 addEntriesFromDictionary:results10];
+      results10 = [(VCPMovieCurationAnalyzer *)v483 results];
+      [v542 addEntriesFromDictionary:results10];
 
-      v378 = VCPSignPostLog();
-      v379 = v378;
-      if (v367 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v378))
+      v428 = VCPSignPostLog(v427);
+      v429 = v428;
+      if (v415 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v428))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v379, OS_SIGNPOST_INTERVAL_END, v367, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v429, OS_SIGNPOST_INTERVAL_END, v415, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v443)
+    if (v501)
     {
-      v380 = VCPSignPostLog();
-      v381 = os_signpost_id_generate(v380);
+      v430 = VCPSignPostLog(processAborted2);
+      v431 = os_signpost_id_generate(v430);
 
-      v382 = VCPSignPostLog();
-      v383 = v382;
-      if (v381 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v382))
+      v433 = VCPSignPostLog(v432);
+      v434 = v433;
+      if (v431 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v433))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v383, OS_SIGNPOST_INTERVAL_BEGIN, v381, "VCPMovieAnalyzer_Video_VCPVideoStabilizer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v434, OS_SIGNPOST_INTERVAL_BEGIN, v431, "VCPMovieAnalyzer_Video_VCPVideoStabilizer", "", buf, 2u);
       }
 
-      context = [v443 convertAnalysisResult];
+      context = [v501 convertAnalysisResult];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63060;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63060;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      v384 = *&timerange->var0.var3;
+      v435 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v384;
+      *&buf[16] = v435;
       *&buf[32] = *&timerange->var1.var1;
-      context = [v443 finishAnalysisPass:buf];
+      context = [v501 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63070;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F63070;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      results11 = [v443 results];
-      [v484 addEntriesFromDictionary:results11];
+      results11 = [v501 results];
+      [v542 addEntriesFromDictionary:results11];
 
-      v386 = VCPSignPostLog();
-      v387 = v386;
-      if (v381 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v386))
+      v438 = VCPSignPostLog(v437);
+      v439 = v438;
+      if (v431 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v438))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v387, OS_SIGNPOST_INTERVAL_END, v381, "VCPMovieAnalyzer_Video_VCPVideoStabilizer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v439, OS_SIGNPOST_INTERVAL_END, v431, "VCPMovieAnalyzer_Video_VCPVideoStabilizer", "", buf, 2u);
       }
     }
 
-    if (v441 && ![(VCPVideoInterpolator *)v441 processAborted])
+    if (v499)
     {
-      v388 = VCPSignPostLog();
-      v389 = os_signpost_id_generate(v388);
-
-      v390 = VCPSignPostLog();
-      v391 = v390;
-      if (v389 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v390))
+      processAborted2 = [(VCPVideoInterpolator *)v499 processAborted];
+      if ((processAborted2 & 1) == 0)
       {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v391, OS_SIGNPOST_INTERVAL_BEGIN, v389, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
-      }
+        v440 = VCPSignPostLog(processAborted2);
+        v441 = os_signpost_id_generate(v440);
 
-      v392 = *&timerange->var0.var3;
-      *buf = *&timerange->var0.var0;
-      *&buf[16] = v392;
-      *&buf[32] = *&timerange->var1.var1;
-      context = [(VCPVideoInterpolator *)v441 finishAnalysisPass:buf];
-      if (context)
-      {
-        if (!self->_errorCode)
+        v443 = VCPSignPostLog(v442);
+        v444 = v443;
+        if (v441 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v443))
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F63080;
-          goto LABEL_612;
+          *buf = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v444, OS_SIGNPOST_INTERVAL_BEGIN, v441, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
         }
 
-        goto LABEL_602;
-      }
+        v445 = *&timerange->var0.var3;
+        *buf = *&timerange->var0.var0;
+        *&buf[16] = v445;
+        *&buf[32] = *&timerange->var1.var1;
+        context = [(VCPVideoInterpolator *)v499 finishAnalysisPass:buf];
+        if (context)
+        {
+          if (!self->_errorCode)
+          {
+            LODWORD(v516) = 0;
+            v354 = xmmword_1C9F63080;
+            goto LABEL_612;
+          }
 
-      results12 = [(VCPVideoInterpolator *)v441 results];
-      [v484 addEntriesFromDictionary:results12];
+          goto LABEL_602;
+        }
 
-      v394 = VCPSignPostLog();
-      v395 = v394;
-      if (v389 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v394))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v395, OS_SIGNPOST_INTERVAL_END, v389, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
+        results12 = [(VCPVideoInterpolator *)v499 results];
+        [v542 addEntriesFromDictionary:results12];
+
+        v448 = VCPSignPostLog(v447);
+        v449 = v448;
+        if (v441 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v448))
+        {
+          *buf = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v449, OS_SIGNPOST_INTERVAL_END, v441, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
+        }
       }
     }
 
-    if (v442)
+    if (v500)
     {
-      v396 = VCPSignPostLog();
-      v397 = os_signpost_id_generate(v396);
+      v450 = VCPSignPostLog(processAborted2);
+      v451 = os_signpost_id_generate(v450);
 
-      v398 = VCPSignPostLog();
-      v399 = v398;
-      if (v397 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v398))
+      v453 = VCPSignPostLog(v452);
+      v454 = v453;
+      if (v451 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v453))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v399, OS_SIGNPOST_INTERVAL_BEGIN, v397, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v454, OS_SIGNPOST_INTERVAL_BEGIN, v451, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
       }
 
-      if (![(VCPSettlingEffectAnalyzer *)v442 processAborted])
+      if (![(VCPSettlingEffectAnalyzer *)v500 processAborted])
       {
         [segmentCopy vcp_fullFrameSize];
-        v401 = v400;
-        v403 = v402;
-        v501 = 0;
+        v456 = v455;
+        v458 = v457;
+        v559 = 0;
         *time = 0;
-        v404 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
-        v405 = v404 == 0;
+        v459 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
+        v460 = v459 == 0;
 
-        if (v405)
+        if (v460)
         {
-          if (v401 >= v403)
+          if (v456 >= v458)
           {
-            v409 = v401;
+            v464 = v456;
           }
 
           else
           {
-            v409 = v403;
+            v464 = v458;
           }
 
-          *buf = [(VCPAsset *)self->_asset imageWithPreferredDimension:v409 orientation:&v501];
+          *buf = [(VCPAsset *)self->_asset imageWithPreferredDimension:v464 orientation:&v559];
           CF<__CVBuffer *>::operator=(time, buf);
           CF<__CVBuffer *>::~CF(buf);
         }
@@ -2984,25 +3001,25 @@ LABEL_613:
         else
         {
           asset2 = [segmentCopy asset];
-          v407 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
-          CMTimeMakeFromDictionary(buf, v407);
-          if (v401 >= v403)
+          v462 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
+          CMTimeMakeFromDictionary(buf, v462);
+          if (v456 >= v458)
           {
-            v408 = v401;
+            v463 = v456;
           }
 
           else
           {
-            v408 = v403;
+            v463 = v458;
           }
 
-          *&v540[0] = [asset2 vcp_frameAtTimeStamp:buf withMaxDimension:v408];
-          CF<__CVBuffer *>::operator=(time, v540);
-          CF<__CVBuffer *>::~CF(v540);
+          *&v598[0] = [asset2 vcp_frameAtTimeStamp:buf withMaxDimension:v463];
+          CF<__CVBuffer *>::operator=(time, v598);
+          CF<__CVBuffer *>::~CF(v598);
         }
 
-        [(VCPSettlingEffectAnalyzer *)v442 adjustedTimeRange];
-        context = [(VCPSettlingEffectAnalyzer *)v442 finishAnalysisPass:buf withStillImageBuffer:*time];
+        objc_msgSend_adjustedTimeRange(v500);
+        context = [(VCPSettlingEffectAnalyzer *)v500 finishAnalysisPass:buf withStillImageBuffer:*time];
         if (context)
         {
           if (!self->_errorCode)
@@ -3017,100 +3034,100 @@ LABEL_613:
         CF<__CVBuffer *>::~CF(time);
       }
 
-      results13 = [(VCPSettlingEffectAnalyzer *)v442 results];
-      [v484 addEntriesFromDictionary:results13];
+      results13 = [(VCPSettlingEffectAnalyzer *)v500 results];
+      [v542 addEntriesFromDictionary:results13];
 
-      v411 = VCPSignPostLog();
-      v412 = v411;
-      if (v397 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v411))
+      v467 = VCPSignPostLog(v466);
+      v468 = v467;
+      if (v451 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v467))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v412, OS_SIGNPOST_INTERVAL_END, v397, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v468, OS_SIGNPOST_INTERVAL_END, v451, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
       }
     }
 
-    if (v454)
+    if (v512)
     {
-      v413 = VCPSignPostLog();
-      v414 = os_signpost_id_generate(v413);
+      v469 = VCPSignPostLog(processAborted2);
+      v470 = os_signpost_id_generate(v469);
 
-      v415 = VCPSignPostLog();
-      v416 = v415;
-      if (v414 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v415))
+      v472 = VCPSignPostLog(v471);
+      v473 = v472;
+      if (v470 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v472))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v416, OS_SIGNPOST_INTERVAL_BEGIN, v414, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v473, OS_SIGNPOST_INTERVAL_BEGIN, v470, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
       }
 
-      v417 = *&timerange->var0.var3;
+      v474 = *&timerange->var0.var3;
       *buf = *&timerange->var0.var0;
-      *&buf[16] = v417;
+      *&buf[16] = v474;
       *&buf[32] = *&timerange->var1.var1;
-      context = [(MADVideoSafetyClassifier *)v454 finishAnalysisPass:buf];
+      context = [(MADVideoSafetyClassifier *)v512 finishAnalysisPass:buf];
       if (context)
       {
         if (!self->_errorCode)
         {
-          LODWORD(v458) = 0;
-          v318 = xmmword_1C9F630A0;
+          LODWORD(v516) = 0;
+          v354 = xmmword_1C9F630A0;
           goto LABEL_612;
         }
 
         goto LABEL_602;
       }
 
-      results14 = [(MADVideoSafetyClassifier *)v454 results];
-      [v484 addEntriesFromDictionary:results14];
+      results14 = [(MADVideoSafetyClassifier *)v512 results];
+      [v542 addEntriesFromDictionary:results14];
 
-      v419 = VCPSignPostLog();
-      v420 = v419;
-      if (v414 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v419))
+      v477 = VCPSignPostLog(v476);
+      v478 = v477;
+      if (v470 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v477))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v420, OS_SIGNPOST_INTERVAL_END, v414, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v478, OS_SIGNPOST_INTERVAL_END, v470, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
       }
     }
 
-    v421 = VCPSignPostLog();
-    v422 = v421;
-    if (v435 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v421))
+    v479 = VCPSignPostLog(processAborted2);
+    v480 = v479;
+    if (v493 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v479))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v422, OS_SIGNPOST_INTERVAL_END, v435, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v480, OS_SIGNPOST_INTERVAL_END, v493, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
     }
 
-    v50 = 0;
-    LODWORD(v458) = 0;
+    v53 = 0;
+    LODWORD(v516) = 0;
     goto LABEL_446;
   }
 
-  v183 = VCPSignPostLog();
-  v184 = os_signpost_id_generate(v183);
+  v198 = VCPSignPostLog(processAborted2);
+  v199 = os_signpost_id_generate(v198);
 
-  v185 = VCPSignPostLog();
-  v186 = v185;
-  if (v184 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v185))
+  v201 = VCPSignPostLog(v200);
+  v202 = v201;
+  if (v199 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v201))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v186, OS_SIGNPOST_INTERVAL_BEGIN, v184, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v202, OS_SIGNPOST_INTERVAL_BEGIN, v199, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", buf, 2u);
   }
 
-  v187 = *&timerange->var0.var3;
+  v203 = *&timerange->var0.var3;
   *buf = *&timerange->var0.var0;
-  *&buf[16] = v187;
+  *&buf[16] = v203;
   *&buf[32] = *&timerange->var1.var1;
-  context = [v436 finishAnalysisPass:buf];
+  context = [v494 finishAnalysisPass:buf];
   if (!context)
   {
-    results15 = [v436 results];
-    [v484 addEntriesFromDictionary:results15];
+    results15 = [v494 results];
+    [v542 addEntriesFromDictionary:results15];
 
-    v191 = VCPSignPostLog();
-    v192 = v191;
-    if (v184 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v191))
+    v208 = VCPSignPostLog(v207);
+    v209 = v208;
+    if (v199 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v208))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v192, OS_SIGNPOST_INTERVAL_END, v184, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v209, OS_SIGNPOST_INTERVAL_END, v199, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", buf, 2u);
     }
 
     goto LABEL_313;
@@ -3119,69 +3136,70 @@ LABEL_613:
   selfCopy18 = self;
   if (!self->_errorCode)
   {
-    v189 = xmmword_1C9F62FA0;
+    v205 = xmmword_1C9F62FA0;
     goto LABEL_331;
   }
 
 LABEL_332:
-  v50 = 10;
+  v53 = 10;
 LABEL_333:
 
-  v47 = v444;
-  v48 = v446;
-  v481 = v440;
+  v50 = v502;
+  v51 = v504;
+  v539 = v498;
 LABEL_334:
 
 LABEL_335:
 LABEL_336:
-  v49 = v455;
+  v52 = v513;
 LABEL_337:
-  v29 = v462;
+  v32 = v520;
 LABEL_338:
 
-  objc_autoreleasePoolPop(v469);
-  if (v50)
+  objc_autoreleasePoolPop(v527);
+  if (v53)
   {
 LABEL_339:
-    _waitForAsyncAudioResults = context;
+    v230 = context;
     goto LABEL_393;
   }
 
-  if (!v481)
+  if (!v539)
   {
     goto LABEL_363;
   }
 
-  _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self _waitForAsyncAudioResults];
-  if (!_waitForAsyncAudioResults)
+  _waitForAsyncAudioResults2 = [(VCPMovieAnalyzer *)self _waitForAsyncAudioResults];
+  v230 = _waitForAsyncAudioResults2;
+  if (!_waitForAsyncAudioResults2)
   {
-    v213 = VCPSignPostLog();
-    v214 = os_signpost_id_generate(v213);
+    v234 = VCPSignPostLog(_waitForAsyncAudioResults2);
+    v235 = os_signpost_id_generate(v234);
 
-    v215 = VCPSignPostLog();
-    v216 = v215;
-    if (v214 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v215))
+    v237 = VCPSignPostLog(v236);
+    v238 = v237;
+    if (v235 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v237))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v216, OS_SIGNPOST_INTERVAL_BEGIN, v214, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v238, OS_SIGNPOST_INTERVAL_BEGIN, v235, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
     }
 
-    v217 = VCPSignPostLog();
-    v218 = os_signpost_id_generate(v217);
+    v240 = VCPSignPostLog(v239);
+    v241 = os_signpost_id_generate(v240);
 
-    v219 = VCPSignPostLog();
-    v220 = v219;
-    if (v218 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v219))
+    v243 = VCPSignPostLog(v242);
+    v244 = v243;
+    if (v241 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v243))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v220, OS_SIGNPOST_INTERVAL_BEGIN, v218, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v244, OS_SIGNPOST_INTERVAL_BEGIN, v241, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
     }
 
     vcp_results5 = [(NSMutableDictionary *)self->_analysis vcp_results];
-    v222 = [vcp_results5 objectForKeyedSubscript:@"VoiceResults"];
-    _waitForAsyncAudioResults = [(VCPVideoCNNAnalyzer *)v481 loadAnalysisResults:v484 audioResults:v222];
+    v246 = [vcp_results5 objectForKeyedSubscript:@"VoiceResults"];
+    v230 = [(VCPVideoCNNAnalyzer *)v539 loadAnalysisResults:v542 audioResults:v246];
 
-    if (_waitForAsyncAudioResults)
+    if (v230)
     {
       selfCopy22 = self;
       if (self->_errorCode)
@@ -3189,18 +3207,18 @@ LABEL_339:
         goto LABEL_392;
       }
 
-      v212 = xmmword_1C9F630C0;
+      v233 = xmmword_1C9F630C0;
 LABEL_391:
-      *&selfCopy22->_errorCode = v212;
+      *&selfCopy22->_errorCode = v233;
       goto LABEL_392;
     }
 
-    v223 = *&timerange->var0.var3;
+    v247 = *&timerange->var0.var3;
     *buf = *&timerange->var0.var0;
-    *&buf[16] = v223;
+    *&buf[16] = v247;
     *&buf[32] = *&timerange->var1.var1;
-    _waitForAsyncAudioResults = [(VCPVideoCNNAnalyzer *)v481 finishAnalysisPass:buf];
-    if (_waitForAsyncAudioResults)
+    v230 = [(VCPVideoCNNAnalyzer *)v539 finishAnalysisPass:buf];
+    if (v230)
     {
       selfCopy22 = self;
       if (self->_errorCode)
@@ -3208,143 +3226,145 @@ LABEL_391:
         goto LABEL_392;
       }
 
-      v212 = xmmword_1C9F630D0;
+      v233 = xmmword_1C9F630D0;
       goto LABEL_391;
     }
 
-    results16 = [(VCPVideoCNNAnalyzer *)v481 results];
-    [v484 addEntriesFromDictionary:results16];
+    results16 = [(VCPVideoCNNAnalyzer *)v539 results];
+    [v542 addEntriesFromDictionary:results16];
 
-    v225 = self->_privateResults;
-    privateResults4 = [(VCPVideoCNNAnalyzer *)v481 privateResults];
-    [(NSMutableDictionary *)v225 addEntriesFromDictionary:privateResults4];
+    v249 = self->_privateResults;
+    privateResults4 = [(VCPVideoCNNAnalyzer *)v539 privateResults];
+    [(NSMutableDictionary *)v249 addEntriesFromDictionary:privateResults4];
 
-    v227 = VCPSignPostLog();
-    v228 = v227;
-    if (v218 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v227))
+    v252 = VCPSignPostLog(v251);
+    v253 = v252;
+    if (v241 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v252))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v228, OS_SIGNPOST_INTERVAL_END, v218, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v253, OS_SIGNPOST_INTERVAL_END, v241, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
     }
 
-    v229 = VCPSignPostLog();
-    v230 = v229;
-    if (v214 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v229))
+    v255 = VCPSignPostLog(v254);
+    v256 = v255;
+    if (v235 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v255))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v230, OS_SIGNPOST_INTERVAL_END, v214, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v256, OS_SIGNPOST_INTERVAL_END, v235, "VCPMovieAnalyzer_AnalyzeVideoSegment_PostProcessing", "", buf, 2u);
     }
 
 LABEL_363:
-    if (([(VCPAsset *)self->_asset isLivePhoto]& (v490 >> 45) & 1) != 1)
+    isLivePhoto3 = [(VCPAsset *)self->_asset isLivePhoto];
+    if ((isLivePhoto3 & ((v548 & 0x200000000000) != 0)) != 1)
     {
       goto LABEL_387;
     }
 
-    results17 = [(VCPVideoCNNAnalyzer *)v481 results];
-    v232 = [results17 objectForKeyedSubscript:@"HumanActionClassificationResults"];
-    v233 = v232 == 0;
+    results17 = [(VCPVideoCNNAnalyzer *)v539 results];
+    v259 = [results17 objectForKeyedSubscript:@"HumanActionClassificationResults"];
+    v260 = v259 == 0;
 
-    v235 = 0.0;
-    if (!v233)
+    v262 = 0.0;
+    if (!v260)
     {
-      v499 = 0u;
-      v500 = 0u;
-      v497 = 0u;
-      v498 = 0u;
-      results18 = [(VCPVideoCNNAnalyzer *)v481 results];
+      v557 = 0u;
+      v558 = 0u;
+      v555 = 0u;
+      v556 = 0u;
+      results18 = [(VCPVideoCNNAnalyzer *)v539 results];
       obja = [results18 objectForKeyedSubscript:@"HumanActionClassificationResults"];
 
-      v237 = [obja countByEnumeratingWithState:&v497 objects:v553 count:16];
-      if (v237)
+      v264 = [obja countByEnumeratingWithState:&v555 objects:v611 count:16];
+      if (v264)
       {
-        v491 = *v498;
+        v549 = *v556;
         do
         {
-          for (i = 0; i != v237; ++i)
+          for (i = 0; i != v264; ++i)
           {
-            if (*v498 != v491)
+            if (*v556 != v549)
             {
               objc_enumerationMutation(obja);
             }
 
-            v239 = [*(*(&v497 + 1) + 8 * i) objectForKeyedSubscript:@"attributes"];
-            v240 = [v239 objectForKeyedSubscript:@"humanActions"];
+            v266 = [*(*(&v555 + 1) + 8 * i) objectForKeyedSubscript:@"attributes"];
+            v267 = [v266 objectForKeyedSubscript:@"humanActions"];
 
-            allKeys = [v240 allKeys];
-            v495 = 0u;
-            v496 = 0u;
-            v493 = 0u;
-            v494 = 0u;
-            v242 = allKeys;
-            v243 = [v242 countByEnumeratingWithState:&v493 objects:v552 count:16];
-            if (v243)
+            allKeys = [v267 allKeys];
+            v553 = 0u;
+            v554 = 0u;
+            v551 = 0u;
+            v552 = 0u;
+            v269 = allKeys;
+            v270 = [v269 countByEnumeratingWithState:&v551 objects:v610 count:16];
+            if (v270)
             {
-              v244 = *v494;
+              v271 = *v552;
               do
               {
-                for (j = 0; j != v243; ++j)
+                for (j = 0; j != v270; ++j)
                 {
-                  if (*v494 != v244)
+                  if (*v552 != v271)
                   {
-                    objc_enumerationMutation(v242);
+                    objc_enumerationMutation(v269);
                   }
 
-                  v246 = *(*(&v493 + 1) + 8 * j);
-                  if ([v246 intValue])
+                  v273 = *(*(&v551 + 1) + 8 * j);
+                  if ([v273 intValue])
                   {
-                    v247 = [v240 objectForKeyedSubscript:v246];
-                    [v247 floatValue];
-                    v249 = v248 > v235;
+                    v274 = [v267 objectForKeyedSubscript:v273];
+                    [v274 floatValue];
+                    v276 = v275 > v262;
 
-                    if (v249)
+                    if (v276)
                     {
-                      v250 = [v240 objectForKeyedSubscript:v246];
-                      [v250 floatValue];
-                      v235 = v251;
+                      v277 = [v267 objectForKeyedSubscript:v273];
+                      [v277 floatValue];
+                      v262 = v278;
                     }
                   }
                 }
 
-                v243 = [v242 countByEnumeratingWithState:&v493 objects:v552 count:16];
+                v270 = [v269 countByEnumeratingWithState:&v551 objects:v610 count:16];
               }
 
-              while (v243);
+              while (v270);
             }
           }
 
-          v237 = [obja countByEnumeratingWithState:&v497 objects:v553 count:16];
+          v264 = [obja countByEnumeratingWithState:&v555 objects:v611 count:16];
         }
 
-        while (v237);
+        while (v264);
 
-        if (v235 > 0.1)
+        if (v262 > 0.1)
         {
-          v252 = 1;
+          v279 = 1;
 LABEL_386:
-          v550 = @"VideoCaptionPreferenceResults";
-          v547 = @"attributes";
-          v545[0] = @"videoCaptionPreferenceScore";
-          *&v234 = v235;
-          v253 = [MEMORY[0x1E696AD98] numberWithFloat:v234];
-          v546[0] = v253;
-          v545[1] = @"videoCaptionPreference";
-          v254 = [MEMORY[0x1E696AD98] numberWithBool:v252];
-          v546[1] = v254;
-          v255 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v546 forKeys:v545 count:2];
-          v548 = v255;
-          v256 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v548 forKeys:&v547 count:1];
-          v549 = v256;
-          v257 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v549 count:1];
-          v551 = v257;
-          v258 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v551 forKeys:&v550 count:1];
+          v608 = @"VideoCaptionPreferenceResults";
+          v605 = @"attributes";
+          v603[0] = @"videoCaptionPreferenceScore";
+          *&v261 = v262;
+          v280 = [MEMORY[0x1E696AD98] numberWithFloat:v261];
+          v604[0] = v280;
+          v603[1] = @"videoCaptionPreference";
+          v281 = [MEMORY[0x1E696AD98] numberWithBool:v279];
+          v604[1] = v281;
+          v282 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v604 forKeys:v603 count:2];
+          v606 = v282;
+          v283 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v606 forKeys:&v605 count:1];
+          v607 = v283;
+          v284 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v607 count:1];
+          v609 = v284;
+          v285 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v609 forKeys:&v608 count:1];
 
-          [v484 addEntriesFromDictionary:v258];
+          [v542 addEntriesFromDictionary:v285];
 LABEL_387:
-          if (v477)
+          if (v535)
           {
-            _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self _waitForAsyncAudioResults];
-            if (_waitForAsyncAudioResults)
+            _waitForAsyncAudioResults3 = [(VCPMovieAnalyzer *)self _waitForAsyncAudioResults];
+            v230 = _waitForAsyncAudioResults3;
+            if (_waitForAsyncAudioResults3)
             {
               selfCopy22 = self;
               if (self->_errorCode)
@@ -3352,85 +3372,85 @@ LABEL_387:
                 goto LABEL_392;
               }
 
-              v212 = xmmword_1C9F630E0;
+              v233 = xmmword_1C9F630E0;
               goto LABEL_391;
             }
 
-            v263 = VCPSignPostLog();
-            v264 = os_signpost_id_generate(v263);
+            v291 = VCPSignPostLog(_waitForAsyncAudioResults3);
+            v292 = os_signpost_id_generate(v291);
 
-            v265 = VCPSignPostLog();
-            v266 = v265;
-            if (v264 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v265))
+            v294 = VCPSignPostLog(v293);
+            v295 = v294;
+            if (v292 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v294))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v266, OS_SIGNPOST_INTERVAL_BEGIN, v264, "VCPMovieAnalyzer_Video_VCPAudioVideoEmbeddingFuser", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v295, OS_SIGNPOST_INTERVAL_BEGIN, v292, "VCPMovieAnalyzer_Video_VCPAudioVideoEmbeddingFuser", "", buf, 2u);
             }
 
             vcp_results6 = [(NSMutableDictionary *)self->_analysis vcp_results];
-            v268 = [vcp_results6 objectForKeyedSubscript:@"AudioEmbeddingResults"];
-            v269 = [v484 objectForKeyedSubscript:@"VideoEmbeddingResults"];
-            v270 = [(VCPAudioVideoEmbeddingFuser *)v477 loadAudioEmbeddingResults:v268 andVideoEmbeddingResults:v269];
+            v297 = [vcp_results6 objectForKeyedSubscript:@"AudioEmbeddingResults"];
+            v298 = [v542 objectForKeyedSubscript:@"VideoEmbeddingResults"];
+            v299 = [(VCPAudioVideoEmbeddingFuser *)v535 loadAudioEmbeddingResults:v297 andVideoEmbeddingResults:v298];
 
-            if (v270)
+            if (v299)
             {
               if (!self->_errorCode)
               {
                 *&self->_errorCode = xmmword_1C9F630F0;
               }
 
-              v50 = 1;
-              _waitForAsyncAudioResults = context;
-              LODWORD(v458) = v270;
+              v53 = 1;
+              v230 = context;
+              LODWORD(v516) = v299;
               goto LABEL_393;
             }
 
-            v271 = [(VCPAudioVideoEmbeddingFuser *)v477 fuse:cancelCopy];
-            if (v271)
+            v300 = [(VCPAudioVideoEmbeddingFuser *)v535 fuse:cancelCopy];
+            if (v300)
             {
               if (!self->_errorCode)
               {
                 *&self->_errorCode = xmmword_1C9F63100;
               }
 
-              v50 = 1;
-              _waitForAsyncAudioResults = context;
-              LODWORD(v458) = v271;
+              v53 = 1;
+              v230 = context;
+              LODWORD(v516) = v300;
               goto LABEL_393;
             }
 
-            results19 = [(VCPAudioVideoEmbeddingFuser *)v477 results];
-            [v484 addEntriesFromDictionary:results19];
+            results19 = [(VCPAudioVideoEmbeddingFuser *)v535 results];
+            [v542 addEntriesFromDictionary:results19];
 
-            v273 = VCPSignPostLog();
-            v274 = v273;
-            if (v264 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v273))
+            v303 = VCPSignPostLog(v302);
+            v304 = v303;
+            if (v292 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v303))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v274, OS_SIGNPOST_INTERVAL_END, v264, "VCPMovieAnalyzer_Video_VCPAudioVideoEmbeddingFuser", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v304, OS_SIGNPOST_INTERVAL_END, v292, "VCPMovieAnalyzer_Video_VCPAudioVideoEmbeddingFuser", "", buf, 2u);
             }
           }
 
-          if (v471)
+          if (v529)
           {
-            v275 = VCPSignPostLog();
-            v276 = os_signpost_id_generate(v275);
+            v305 = VCPSignPostLog(isLivePhoto3);
+            v306 = os_signpost_id_generate(v305);
 
-            v277 = VCPSignPostLog();
-            v278 = v277;
-            if (v276 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v277))
+            v308 = VCPSignPostLog(v307);
+            v309 = v308;
+            if (v306 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v308))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v278, OS_SIGNPOST_INTERVAL_BEGIN, v276, "VCPMovieAnalyzer_Video_VCPVideoThumbnailAnalyzer", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v309, OS_SIGNPOST_INTERVAL_BEGIN, v306, "VCPMovieAnalyzer_Video_VCPVideoThumbnailAnalyzer", "", buf, 2u);
             }
 
-            v279 = +[VCPMovieAnalyzer MaxNumThumbnailsPerVideo];
+            v310 = +[VCPMovieAnalyzer MaxNumThumbnailsPerVideo];
             *buf = *&timerange->var1.var0;
             *&buf[16] = timerange->var1.var3;
             Seconds = CMTimeGetSeconds(buf);
             if (segmentCopy)
             {
-              [segmentCopy timeRange];
+              objc_msgSend_timeRange(segmentCopy);
             }
 
             else
@@ -3440,44 +3460,44 @@ LABEL_387:
 
             *time = *&buf[24];
             *&time[16] = *&buf[40];
-            v281 = CMTimeGetSeconds(time);
+            v312 = CMTimeGetSeconds(time);
             vcp_results7 = [(NSMutableDictionary *)self->_analysis vcp_results];
-            v283 = [vcp_results7 objectForKeyedSubscript:@"VideoThumbnailResults"];
+            v314 = [vcp_results7 objectForKeyedSubscript:@"VideoThumbnailResults"];
 
-            v284 = [v283 count];
-            v285 = vcvtpd_s64_f64(Seconds / v281 * v279);
-            if (v279 - v284 >= v285)
+            v315 = [v314 count];
+            v316 = vcvtpd_s64_f64(Seconds / v312 * v310);
+            if (v310 - v315 >= v316)
             {
-              v286 = v285;
+              v317 = v316;
             }
 
             else
             {
-              v286 = (v279 - v284);
+              v317 = (v310 - v315);
             }
 
-            v287 = self->_privateResults;
-            v288 = *&timerange->var0.var3;
+            v318 = self->_privateResults;
+            v319 = *&timerange->var0.var3;
             *buf = *&timerange->var0.var0;
-            *&buf[16] = v288;
+            *&buf[16] = v319;
             *&buf[32] = *&timerange->var1.var1;
-            v289 = [(VCPVideoThumbnailAnalyzer *)v471 addThumbnailToResults:v484 withPrivateResults:v287 videoRange:buf assetMaxNumThumbnails:v286];
+            v320 = [(VCPVideoThumbnailAnalyzer *)v529 addThumbnailToResults:v542 withPrivateResults:v318 videoRange:buf assetMaxNumThumbnails:v317];
 
-            v290 = VCPSignPostLog();
-            v291 = v290;
-            if (v276 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v290))
+            v322 = VCPSignPostLog(v321);
+            v323 = v322;
+            if (v306 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v322))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v291, OS_SIGNPOST_INTERVAL_END, v276, "VCPMovieAnalyzer_Video_VCPVideoThumbnailAnalyzer", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v323, OS_SIGNPOST_INTERVAL_END, v306, "VCPMovieAnalyzer_Video_VCPVideoThumbnailAnalyzer", "", buf, 2u);
             }
 
-            v50 = 0;
-            v484 = v289;
+            v53 = 0;
+            v542 = v320;
           }
 
           else
           {
-            v50 = 0;
+            v53 = 0;
           }
 
           goto LABEL_339;
@@ -3489,1079 +3509,1130 @@ LABEL_387:
       }
     }
 
-    v252 = 0;
+    v279 = 0;
     goto LABEL_386;
   }
 
   selfCopy22 = self;
   if (!self->_errorCode)
   {
-    v212 = xmmword_1C9F630B0;
+    v233 = xmmword_1C9F630B0;
     goto LABEL_391;
   }
 
 LABEL_392:
-  v50 = 10;
+  v53 = 10;
 LABEL_393:
 
-  objc_autoreleasePoolPop(v468);
-  v259 = v458;
-  if (v50 == 10)
+  objc_autoreleasePoolPop(v526);
+  v287 = v516;
+  if (v53 == 10)
   {
 LABEL_399:
-    v259 = _waitForAsyncAudioResults;
+    v287 = v230;
   }
 
-  else if (!v50)
+  else if (!v53)
   {
-    [(VCPMovieAnalyzer *)self postProcessAutoPlayable:v484];
-    [(VCPMovieAnalyzer *)self postProcessAnimalResults:v484];
+    [(VCPMovieAnalyzer *)self postProcessAutoPlayable:v542];
+    [(VCPMovieAnalyzer *)self postProcessAnimalResults:v542];
     [(NSMutableDictionary *)self->_analysis vcp_addFlags:flags];
-    [(NSMutableDictionary *)self->_analysis vcp_appendResults:v484];
-    v260 = VCPSignPostLog();
-    v261 = v260;
-    if (v460 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v260))
+    v288 = VCPSignPostLog([(NSMutableDictionary *)self->_analysis vcp_appendResults:v542]);
+    v289 = v288;
+    if (v518 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v288))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v261, OS_SIGNPOST_INTERVAL_END, spid, "VCPMovieAnalyzer_AnalyzeVideoSegment", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v289, OS_SIGNPOST_INTERVAL_END, spid, "VCPMovieAnalyzer_AnalyzeVideoSegment", "", buf, 2u);
     }
 
     goto LABEL_399;
   }
 
-  return v259;
+  return v287;
 }
 
 uint64_t __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke(uint64_t a1, void *a2)
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(v3);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(buf.start.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock0", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock0", "", &buf, 2u);
   }
 
-  v105 = 0;
-  if ((*(*(a1 + 120) + 16))())
+  v118 = 0;
+  v9 = (*(*(a1 + 120) + 16))();
+  if (v9)
   {
-    v8 = 4294967168;
+    v10 = 4294967168;
     goto LABEL_112;
   }
 
   if (!v3)
   {
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v9 = MediaAnalysisLogLevel();
+    if (v9 >= 3)
     {
-      LODWORD(buf.start.value) = 138412290;
-      *(&buf.start.value + 4) = @"[pipelineBlock0]";
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &buf, 0xCu);
+      v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v9)
+      {
+        LODWORD(buf.start.value) = 138412290;
+        *(&buf.start.value + 4) = @"[pipelineBlock0]";
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &buf, 0xCu);
+      }
     }
 
-    v23 = *(a1 + 32);
-    v19 = a1 + 32;
-    v22 = v23;
-    if (*(v23 + 144))
+    v27 = *(a1 + 32);
+    v23 = a1 + 32;
+    v26 = v27;
+    if (*(v27 + 144))
     {
       goto LABEL_25;
     }
 
-    *(v22 + 144) = 45;
-    v8 = 4294967278;
-    v21 = 949;
+    *(v26 + 144) = 45;
+    v10 = 4294967278;
+    v25 = 949;
     goto LABEL_111;
   }
 
-  v9 = [v3 frameSampleBuffer];
-  v10 = v9;
-  if (!v9)
+  v11 = [v3 frameSampleBuffer];
+  v12 = v11;
+  if (!v11)
   {
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v9 = MediaAnalysisLogLevel();
+    if (v9 >= 3)
     {
-      LODWORD(buf.start.value) = 138412290;
-      *(&buf.start.value + 4) = @"[pipelineBlock0]";
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &buf, 0xCu);
+      v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v9)
+      {
+        LODWORD(buf.start.value) = 138412290;
+        *(&buf.start.value + 4) = @"[pipelineBlock0]";
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &buf, 0xCu);
+      }
     }
 
-    v25 = *(a1 + 32);
-    v19 = a1 + 32;
-    v24 = v25;
-    if (*(v25 + 144))
+    v29 = *(a1 + 32);
+    v23 = a1 + 32;
+    v28 = v29;
+    if (*(v29 + 144))
     {
 LABEL_25:
-      v8 = 4294967278;
+      v10 = 4294967278;
       goto LABEL_112;
     }
 
-    *(v24 + 144) = 45;
-    v8 = 4294967278;
-    v21 = 951;
+    *(v28 + 144) = 45;
+    v10 = 4294967278;
+    v25 = 951;
 LABEL_111:
-    *(*v19 + 152) = v21;
+    *(*v23 + 152) = v25;
     goto LABEL_112;
   }
 
-  CMSampleBufferGetPresentationTimeStamp(&buf.start, v9);
-  v108 = *&buf.start.value;
+  CMSampleBufferGetPresentationTimeStamp(&buf.start, v11);
+  v121 = *&buf.start.value;
   epoch = buf.start.epoch;
-  CMSampleBufferGetDuration(&buf.start, v10);
-  v106 = *&buf.start.value;
-  v107 = buf.start.epoch;
-  ImageBuffer = CMSampleBufferGetImageBuffer(v10);
-  v105 = [v3 frameFlags];
-  if (*(a1 + 40) || (v8 = CVPixelBufferFillExtendedPixels(ImageBuffer), !v8))
+  CMSampleBufferGetDuration(&buf.start, v12);
+  v119 = *&buf.start.value;
+  v120 = buf.start.epoch;
+  ImageBuffer = CMSampleBufferGetImageBuffer(v12);
+  v14 = [v3 frameFlags];
+  v118 = v14;
+  if (*(a1 + 40) || (v14 = CVPixelBufferFillExtendedPixels(ImageBuffer), v10 = v14, !v14))
   {
     if (*(a1 + 48))
     {
-      v12 = VCPSignPostLog();
-      v13 = os_signpost_id_generate(v12);
+      v15 = VCPSignPostLog(v14);
+      v16 = os_signpost_id_generate(v15);
 
-      v14 = VCPSignPostLog();
-      v15 = v14;
-      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+      v18 = VCPSignPostLog(v17);
+      v19 = v18;
+      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", &buf, 2u);
       }
 
-      v16 = *(a1 + 48);
-      *&buf.start.value = v108;
+      v20 = *(a1 + 48);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      v17 = [v3 frameStats];
-      v8 = [v16 analyzeFrame:ImageBuffer timestamp:&buf duration:v104 frameStats:v17 flags:&v105];
+      v21 = [v3 frameStats];
+      v10 = [v20 analyzeFrame:ImageBuffer timestamp:&buf duration:v117 frameStats:v21 flags:&v118];
 
-      if (v8)
+      if (v10)
       {
-        v20 = *(a1 + 32);
-        v19 = a1 + 32;
-        v18 = v20;
-        if (*(v20 + 144))
+        v24 = *(a1 + 32);
+        v23 = a1 + 32;
+        v22 = v24;
+        if (*(v24 + 144))
         {
           goto LABEL_112;
         }
 
-        *(v18 + 144) = 45;
-        v21 = 970;
+        *(v22 + 144) = 45;
+        v25 = 970;
         goto LABEL_111;
       }
 
-      v27 = VCPSignPostLog();
-      v28 = v27;
-      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+      v31 = VCPSignPostLog(v9);
+      v32 = v31;
+      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v13, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v16, "VCPMovieAnalyzer_Video_VCPVideoFaceDetector", "", &buf, 2u);
       }
     }
 
     if (*(a1 + 56))
     {
-      v29 = VCPSignPostLog();
-      v30 = os_signpost_id_generate(v29);
+      v33 = VCPSignPostLog(v14);
+      v34 = os_signpost_id_generate(v33);
 
-      v31 = VCPSignPostLog();
-      v32 = v31;
-      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+      v36 = VCPSignPostLog(v35);
+      v37 = v36;
+      if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_BEGIN, v30, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v34, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", &buf, 2u);
       }
 
-      v33 = *(a1 + 56);
-      *&buf.start.value = v108;
+      v38 = *(a1 + 56);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      *v104 = v106;
-      *&v104[16] = v107;
-      v8 = [v33 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v104 flags:&v105];
-      if (v8)
+      *v117 = v119;
+      *&v117[16] = v120;
+      v9 = [v38 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v117 flags:&v118];
+      v10 = v9;
+      if (v9)
       {
-        v35 = *(a1 + 32);
-        v19 = a1 + 32;
-        v34 = v35;
-        if (*(v35 + 144))
+        v40 = *(a1 + 32);
+        v23 = a1 + 32;
+        v39 = v40;
+        if (*(v40 + 144))
         {
           goto LABEL_112;
         }
 
-        *(v34 + 144) = 45;
-        v21 = 980;
+        *(v39 + 144) = 45;
+        v25 = 980;
         goto LABEL_111;
       }
 
-      v36 = [*(a1 + 56) frameScenes];
-      [v3 setSceneAnalysisResults:v36];
+      v41 = [*(a1 + 56) frameScenes];
+      [v3 setSceneAnalysisResults:v41];
 
-      v37 = VCPSignPostLog();
-      v38 = v37;
-      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+      v43 = VCPSignPostLog(v42);
+      v44 = v43;
+      if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_END, v30, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v44, OS_SIGNPOST_INTERVAL_END, v34, "VCPMovieAnalyzer_Video_VCPVideoSceneClassifier", "", &buf, 2u);
       }
     }
 
     if (*(a1 + 64))
     {
-      v39 = VCPSignPostLog();
-      v40 = os_signpost_id_generate(v39);
+      v45 = VCPSignPostLog(v14);
+      v46 = os_signpost_id_generate(v45);
 
-      v41 = VCPSignPostLog();
-      v42 = v41;
-      if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+      v48 = VCPSignPostLog(v47);
+      v49 = v48;
+      if (v46 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_BEGIN, v40, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v49, OS_SIGNPOST_INTERVAL_BEGIN, v46, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", &buf, 2u);
       }
 
-      v43 = *(a1 + 64);
-      *&buf.start.value = v108;
+      v50 = *(a1 + 64);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      *v104 = v106;
-      *&v104[16] = v107;
-      v8 = [v43 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v104 flags:&v105];
-      if (v8)
+      *v117 = v119;
+      *&v117[16] = v120;
+      v9 = [v50 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v117 flags:&v118];
+      v10 = v9;
+      if (v9)
       {
-        v45 = *(a1 + 32);
-        v19 = a1 + 32;
-        v44 = v45;
-        if (*(v45 + 144))
+        v52 = *(a1 + 32);
+        v23 = a1 + 32;
+        v51 = v52;
+        if (*(v52 + 144))
         {
           goto LABEL_112;
         }
 
-        *(v44 + 144) = 79;
-        v21 = 991;
+        *(v51 + 144) = 79;
+        v25 = 991;
         goto LABEL_111;
       }
 
-      v46 = VCPSignPostLog();
-      v47 = v46;
-      if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
+      v53 = VCPSignPostLog(v9);
+      v54 = v53;
+      if (v46 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v53))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v47, OS_SIGNPOST_INTERVAL_END, v40, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v54, OS_SIGNPOST_INTERVAL_END, v46, "VCPMovieAnalyzer_Video_VCPVideoSaliencyAnalyzer", "", &buf, 2u);
       }
     }
 
-    v48 = *(a1 + 72);
-    if (v48)
+    v55 = *(a1 + 72);
+    if (v55)
     {
-      *&buf.start.value = v108;
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      [v48 timeRangeAtTime:&buf];
-      buf = *&v104[56];
+      objc_msgSend_timeRangeAtTime_(v55);
+      buf = *&v117[56];
       [v3 setPredictedTimeRange:&buf];
-      v49 = *(a1 + 72);
-      *&buf.start.value = v108;
+      v56 = *(a1 + 72);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      [v49 updateForTime:&buf];
+      v55 = [v56 updateForTime:&buf];
     }
 
     if (*(a1 + 80))
     {
-      v50 = VCPSignPostLog();
-      v51 = os_signpost_id_generate(v50);
+      v57 = VCPSignPostLog(v55);
+      v58 = os_signpost_id_generate(v57);
 
-      v52 = VCPSignPostLog();
-      v53 = v52;
-      if (v51 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
+      v60 = VCPSignPostLog(v59);
+      v61 = v60;
+      if (v58 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v53, OS_SIGNPOST_INTERVAL_BEGIN, v51, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v61, OS_SIGNPOST_INTERVAL_BEGIN, v58, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", &buf, 2u);
       }
 
-      v54 = *(a1 + 80);
-      *&buf.start.value = v108;
+      v62 = *(a1 + 80);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      v55 = [v3 frameStats];
-      v8 = [v54 analyzeFrame:ImageBuffer timestamp:&buf duration:v104 frameStats:v55 flags:&v105];
+      v63 = [v3 frameStats];
+      v10 = [v62 analyzeFrame:ImageBuffer timestamp:&buf duration:v117 frameStats:v63 flags:&v118];
 
-      if (v8)
+      if (v10)
       {
-        v57 = *(a1 + 32);
-        v19 = a1 + 32;
-        v56 = v57;
-        if (*(v57 + 144))
+        v65 = *(a1 + 32);
+        v23 = a1 + 32;
+        v64 = v65;
+        if (*(v65 + 144))
         {
           goto LABEL_112;
         }
 
-        *(v56 + 144) = 68;
-        v21 = 1007;
+        *(v64 + 144) = 68;
+        v25 = 1007;
         goto LABEL_111;
       }
 
-      [v3 predictedTimeRange];
-      v58 = *(MEMORY[0x1E6960C98] + 16);
-      *v104 = *MEMORY[0x1E6960C98];
-      *&v104[16] = v58;
-      *&v104[32] = *(MEMORY[0x1E6960C98] + 32);
-      if (!CMTimeRangeEqual(&buf, v104))
+      objc_msgSend_predictedTimeRange(v3);
+      v66 = *(MEMORY[0x1E6960C98] + 16);
+      *v117 = *MEMORY[0x1E6960C98];
+      *&v117[16] = v66;
+      *&v117[32] = *(MEMORY[0x1E6960C98] + 32);
+      v67 = CMTimeRangeEqual(&buf, v117);
+      if (!v67)
       {
-        v59 = *(a1 + 80);
-        [v3 predictedTimeRange];
-        v60 = [v59 clipResults:&buf];
-        [v3 setActionAnalysisResults:v60];
+        v68 = *(a1 + 80);
+        objc_msgSend_predictedTimeRange(v3);
+        v69 = [v68 clipResults:&buf];
+        [v3 setActionAnalysisResults:v69];
       }
 
-      v61 = VCPSignPostLog();
-      v62 = v61;
-      if (v51 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
+      v70 = VCPSignPostLog(v67);
+      v71 = v70;
+      if (v58 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v70))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v62, OS_SIGNPOST_INTERVAL_END, v51, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v71, OS_SIGNPOST_INTERVAL_END, v58, "VCPMovieAnalyzer_Video_VCPVideoHumanActionAnalyzer", "", &buf, 2u);
       }
     }
 
     if (*(a1 + 88))
     {
-      v63 = VCPSignPostLog();
-      v64 = os_signpost_id_generate(v63);
-
-      v65 = VCPSignPostLog();
-      v66 = v65;
-      if (v64 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v65))
-      {
-        LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v66, OS_SIGNPOST_INTERVAL_BEGIN, v64, "VCPMovieAnalyzer_Video_VCPVideoCaptionAnalyzer", "", &buf, 2u);
-      }
-
-      v67 = *(a1 + 88);
-      *&buf.start.value = v108;
-      buf.start.epoch = epoch;
-      *v104 = v106;
-      *&v104[16] = v107;
-      v8 = [v67 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v104 flags:&v105];
-      if (v8)
-      {
-        v69 = *(a1 + 32);
-        v19 = a1 + 32;
-        v68 = v69;
-        if (*(v69 + 144))
-        {
-          goto LABEL_112;
-        }
-
-        *(v68 + 144) = 63;
-        v21 = 1021;
-        goto LABEL_111;
-      }
-
-      v70 = VCPSignPostLog();
-      v71 = v70;
-      if (v64 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v70))
-      {
-        LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v71, OS_SIGNPOST_INTERVAL_END, v64, "VCPMovieAnalyzer_Video_VCPVideoCaptionAnalyzer", "", &buf, 2u);
-      }
-    }
-
-    if (*(a1 + 96))
-    {
-      v72 = VCPSignPostLog();
+      v72 = VCPSignPostLog(v55);
       v73 = os_signpost_id_generate(v72);
 
-      v74 = VCPSignPostLog();
-      v75 = v74;
-      if (v73 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v74))
+      v75 = VCPSignPostLog(v74);
+      v76 = v75;
+      if (v73 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v75, OS_SIGNPOST_INTERVAL_BEGIN, v73, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v76, OS_SIGNPOST_INTERVAL_BEGIN, v73, "VCPMovieAnalyzer_Video_VCPVideoCaptionAnalyzer", "", &buf, 2u);
       }
 
-      v76 = *(a1 + 96);
-      *&buf.start.value = v108;
+      v77 = *(a1 + 88);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      v77 = [v3 frameStats];
-      v8 = [v76 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v104 flags:&v105 frameStats:v77];
-
-      if (v8)
+      *v117 = v119;
+      *&v117[16] = v120;
+      v9 = [v77 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v117 flags:&v118];
+      v10 = v9;
+      if (v9)
       {
         v79 = *(a1 + 32);
-        v19 = a1 + 32;
+        v23 = a1 + 32;
         v78 = v79;
         if (*(v79 + 144))
         {
           goto LABEL_112;
         }
 
-        *(v78 + 144) = 78;
-        v21 = 1033;
+        *(v78 + 144) = 63;
+        v25 = 1021;
         goto LABEL_111;
       }
 
-      v80 = VCPSignPostLog();
+      v80 = VCPSignPostLog(v9);
       v81 = v80;
       if (v73 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v80))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v81, OS_SIGNPOST_INTERVAL_END, v73, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v81, OS_SIGNPOST_INTERVAL_END, v73, "VCPMovieAnalyzer_Video_VCPVideoCaptionAnalyzer", "", &buf, 2u);
+      }
+    }
+
+    if (*(a1 + 96))
+    {
+      v82 = VCPSignPostLog(v55);
+      v83 = os_signpost_id_generate(v82);
+
+      v85 = VCPSignPostLog(v84);
+      v86 = v85;
+      if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v85))
+      {
+        LOWORD(buf.start.value) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v86, OS_SIGNPOST_INTERVAL_BEGIN, v83, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", &buf, 2u);
+      }
+
+      v87 = *(a1 + 96);
+      *&buf.start.value = v121;
+      buf.start.epoch = epoch;
+      v88 = [v3 frameStats];
+      v10 = [v87 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v117 flags:&v118 frameStats:v88];
+
+      if (v10)
+      {
+        v90 = *(a1 + 32);
+        v23 = a1 + 32;
+        v89 = v90;
+        if (*(v90 + 144))
+        {
+          goto LABEL_112;
+        }
+
+        *(v89 + 144) = 78;
+        v25 = 1033;
+        goto LABEL_111;
+      }
+
+      v91 = VCPSignPostLog(v9);
+      v92 = v91;
+      if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v91))
+      {
+        LOWORD(buf.start.value) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v92, OS_SIGNPOST_INTERVAL_END, v83, "VCPMovieAnalyzer_Video_VCPVideoPetsAnalyzer", "", &buf, 2u);
       }
     }
 
     if (*(a1 + 104))
     {
-      v82 = VCPSignPostLog();
-      v83 = os_signpost_id_generate(v82);
+      v93 = VCPSignPostLog(v55);
+      v94 = os_signpost_id_generate(v93);
 
-      v84 = VCPSignPostLog();
-      v85 = v84;
-      if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v84))
+      v96 = VCPSignPostLog(v95);
+      v97 = v96;
+      if (v94 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v96))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v85, OS_SIGNPOST_INTERVAL_BEGIN, v83, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v97, OS_SIGNPOST_INTERVAL_BEGIN, v94, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", &buf, 2u);
       }
 
-      v86 = *(a1 + 104);
-      *&buf.start.value = v108;
+      v98 = *(a1 + 104);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      *v104 = v106;
-      *&v104[16] = v107;
-      v8 = [v86 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v104 flags:&v105];
-      if (v8)
+      *v117 = v119;
+      *&v117[16] = v120;
+      v9 = [v98 analyzeFrame:ImageBuffer withTimestamp:&buf andDuration:v117 flags:&v118];
+      v10 = v9;
+      if (v9)
       {
-        v88 = *(a1 + 32);
-        v19 = a1 + 32;
-        v87 = v88;
-        if (*(v88 + 144))
+        v100 = *(a1 + 32);
+        v23 = a1 + 32;
+        v99 = v100;
+        if (*(v100 + 144))
         {
           goto LABEL_112;
         }
 
-        *(v87 + 144) = 78;
-        v21 = 1044;
+        *(v99 + 144) = 78;
+        v25 = 1044;
         goto LABEL_111;
       }
 
-      v89 = VCPSignPostLog();
-      v90 = v89;
-      if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v89))
+      v101 = VCPSignPostLog(v9);
+      v102 = v101;
+      if (v94 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v101))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v90, OS_SIGNPOST_INTERVAL_END, v83, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v102, OS_SIGNPOST_INTERVAL_END, v94, "VCPMovieAnalyzer_Video_VCPVideoAnimalAnalyzer", "", &buf, 2u);
       }
     }
 
     if (*(a1 + 112))
     {
-      v91 = VCPSignPostLog();
-      v92 = os_signpost_id_generate(v91);
+      v103 = VCPSignPostLog(v55);
+      v104 = os_signpost_id_generate(v103);
 
-      v93 = VCPSignPostLog();
-      v94 = v93;
-      if (v92 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v93))
+      v106 = VCPSignPostLog(v105);
+      v107 = v106;
+      if (v104 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v106))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v94, OS_SIGNPOST_INTERVAL_BEGIN, v92, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v107, OS_SIGNPOST_INTERVAL_BEGIN, v104, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", &buf, 2u);
       }
 
-      v95 = *(a1 + 112);
-      *&buf.start.value = v108;
+      v108 = *(a1 + 112);
+      *&buf.start.value = v121;
       buf.start.epoch = epoch;
-      v96 = [v3 frameStats];
-      v8 = [v95 analyzeFrame:ImageBuffer timestamp:&buf duration:v104 frameStats:v96 flags:&v105];
+      v109 = [v3 frameStats];
+      v10 = [v108 analyzeFrame:ImageBuffer timestamp:&buf duration:v117 frameStats:v109 flags:&v118];
 
-      if (v8)
+      if (v10)
       {
-        v98 = *(a1 + 32);
-        v19 = a1 + 32;
-        v97 = v98;
-        if (*(v98 + 144))
+        v111 = *(a1 + 32);
+        v23 = a1 + 32;
+        v110 = v111;
+        if (*(v111 + 144))
         {
           goto LABEL_112;
         }
 
-        *(v97 + 144) = 77;
-        v21 = 1056;
+        *(v110 + 144) = 77;
+        v25 = 1056;
         goto LABEL_111;
       }
 
-      v102 = VCPSignPostLog();
-      v103 = v102;
-      if (v92 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v102))
+      v115 = VCPSignPostLog(v9);
+      v116 = v115;
+      if (v104 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v115))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v103, OS_SIGNPOST_INTERVAL_END, v92, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v116, OS_SIGNPOST_INTERVAL_END, v104, "VCPMovieAnalyzer_Video_VCPVideoPetActionAnalyzer", "", &buf, 2u);
       }
     }
 
-    [v3 setFrameFlags:v105];
-    v8 = 0;
+    v9 = [v3 setFrameFlags:v118];
+    v10 = 0;
 LABEL_112:
-    v99 = VCPSignPostLog();
-    v100 = v99;
-    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v99))
+    v112 = VCPSignPostLog(v9);
+    v113 = v112;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v112))
     {
       LOWORD(buf.start.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v100, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock0", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v113, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock0", "", &buf, 2u);
     }
 
     goto LABEL_116;
   }
 
-  v26 = *(a1 + 32);
-  if (!*(v26 + 144))
+  v30 = *(a1 + 32);
+  if (!*(v30 + 144))
   {
-    *(v26 + 144) = 45;
+    *(v30 + 144) = 45;
     *(*(a1 + 32) + 152) = 960;
   }
 
 LABEL_116:
 
-  return v8;
+  return v10;
 }
 
 uint64_t __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_707(uint64_t a1, void *a2, opaqueCMSampleBuffer *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v6 = VCPSignPostLog();
+  v6 = VCPSignPostLog(v5);
   v7 = os_signpost_id_generate(v6);
 
-  v8 = VCPSignPostLog();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v9 = VCPSignPostLog(v8);
+  v10 = v9;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     LOWORD(buf.start.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock1", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock1", "", &buf, 2u);
   }
 
-  v46 = 0;
-  if (((*(*(a1 + 48) + 16))() & 1) == 0)
+  v51 = 0;
+  v11 = (*(*(a1 + 48) + 16))();
+  if ((v11 & 1) == 0)
   {
     if (v5)
     {
-      v11 = [v5 frameSampleBuffer];
-      v12 = v11;
-      if (v11)
+      v13 = [v5 frameSampleBuffer];
+      v14 = v13;
+      if (v13)
       {
-        CMSampleBufferGetPresentationTimeStamp(&buf.start, v11);
-        v49 = *&buf.start.value;
+        CMSampleBufferGetPresentationTimeStamp(&buf.start, v13);
+        v54 = *&buf.start.value;
         epoch = buf.start.epoch;
-        CMSampleBufferGetDuration(&buf.start, v12);
-        v47 = *&buf.start.value;
-        v48 = buf.start.epoch;
-        ImageBuffer = CMSampleBufferGetImageBuffer(v12);
-        v14 = [v5 frameFlags];
-        v46 = v14;
+        CMSampleBufferGetDuration(&buf.start, v14);
+        v52 = *&buf.start.value;
+        v53 = buf.start.epoch;
+        ImageBuffer = CMSampleBufferGetImageBuffer(v14);
+        v16 = [v5 frameFlags];
+        v51 = v16;
         if (*(a1 + 40))
         {
-          v15 = (a1 + 32);
+          v17 = (a1 + 32);
           if ([*(*(a1 + 32) + 32) isSlowmo])
           {
             if (a3)
             {
-              v16 = CMSampleBufferGetImageBuffer(a3);
+              v18 = CMSampleBufferGetImageBuffer(a3);
             }
 
             else
             {
-              v16 = 0;
+              v18 = 0;
             }
 
-            [*(a1 + 40) setNextCaptureFrame:v16];
+            [*(a1 + 40) setNextCaptureFrame:v18];
           }
 
           if (*(a1 + 56) == 1)
           {
-            v23 = *(a1 + 40);
-            v24 = [v5 sceneAnalysisResults];
-            [v23 prepareVideoAnalysisByScenes:v24];
+            v25 = *(a1 + 40);
+            v26 = [v5 sceneAnalysisResults];
+            [v25 prepareVideoAnalysisByScenes:v26];
           }
 
-          if ((*(*v15 + 56) & 1) == 0 && [*(*v15 + 32) isLivePhoto])
+          if ((*(*v17 + 56) & 1) == 0 && [*(*v17 + 32) isLivePhoto])
           {
-            v25 = *v15;
-            if ((*(*v15 + 57) & 1) == 0)
+            v27 = *v17;
+            if ((*(*v17 + 57) & 1) == 0)
             {
-              v26 = *(a1 + 40);
-              v27 = [*(v25 + 32) scenes];
-              [v26 prepareLivePhotoAnalysisByScenes:v27];
+              v28 = *(a1 + 40);
+              v29 = [*(v27 + 32) scenes];
+              [v28 prepareLivePhotoAnalysisByScenes:v29];
 
-              v25 = *v15;
+              v27 = *v17;
             }
 
-            v28 = *(a1 + 40);
-            v29 = [*(v25 + 32) scenes];
-            [v28 prepareVideoAnalysisByScenes:v29];
+            v30 = *(a1 + 40);
+            v31 = [*(v27 + 32) scenes];
+            [v30 prepareVideoAnalysisByScenes:v31];
 
-            *(*v15 + 56) = 1;
+            *(*v17 + 56) = 1;
           }
 
-          v30 = [VCPSaliencyRegion salientRegionsFromPixelBuffer:ImageBuffer];
-          [VCPSaliencyRegion attachSalientRegions:v30 toPixelBuffer:ImageBuffer];
+          v32 = [VCPSaliencyRegion salientRegionsFromPixelBuffer:ImageBuffer];
+          [VCPSaliencyRegion attachSalientRegions:v32 toPixelBuffer:ImageBuffer];
 
-          v31 = VCPSignPostLog();
-          v32 = os_signpost_id_generate(v31);
+          v34 = VCPSignPostLog(v33);
+          v35 = os_signpost_id_generate(v34);
 
-          v33 = VCPSignPostLog();
-          v34 = v33;
-          if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+          v37 = VCPSignPostLog(v36);
+          v38 = v37;
+          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
           {
             LOWORD(buf.start.value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_BEGIN, v32, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", &buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_BEGIN, v35, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", &buf, 2u);
           }
 
-          v35 = *(a1 + 40);
-          *&buf.start.value = v49;
+          v39 = *(a1 + 40);
+          *&buf.start.value = v54;
           buf.start.epoch = epoch;
-          v36 = [v5 frameStats];
-          v10 = [v35 analyzeFrame:ImageBuffer timestamp:&buf duration:&v45 frameStats:v36 flags:&v46 cancel:*(a1 + 48)];
+          v40 = [v5 frameStats];
+          v12 = [v39 analyzeFrame:ImageBuffer timestamp:&buf duration:&v50 frameStats:v40 flags:&v51 cancel:*(a1 + 48)];
 
-          if (v10)
+          if (v12)
           {
-            if (*(*v15 + 144))
+            if (*(*v17 + 144))
             {
               goto LABEL_47;
             }
 
-            *(*v15 + 144) = 62;
-            v20 = 1114;
+            *(*v17 + 144) = 62;
+            v22 = 1114;
 LABEL_39:
-            *(*v15 + 152) = v20;
+            *(*v17 + 152) = v22;
             goto LABEL_47;
           }
 
-          [v5 predictedTimeRange];
-          v37 = *(MEMORY[0x1E6960C98] + 16);
-          *&v45.start.value = *MEMORY[0x1E6960C98];
-          *&v45.start.epoch = v37;
-          *&v45.duration.timescale = *(MEMORY[0x1E6960C98] + 32);
-          if (!CMTimeRangeEqual(&buf, &v45))
+          objc_msgSend_predictedTimeRange(v5);
+          v41 = *(MEMORY[0x1E6960C98] + 16);
+          *&v50.start.value = *MEMORY[0x1E6960C98];
+          *&v50.start.epoch = v41;
+          *&v50.duration.timescale = *(MEMORY[0x1E6960C98] + 32);
+          v42 = CMTimeRangeEqual(&buf, &v50);
+          if (!v42)
           {
-            v38 = *(a1 + 40);
-            [v5 predictedTimeRange];
-            v39 = [v38 clipResults:&buf];
-            [v5 setFullAnalysisResults:v39];
+            v43 = *(a1 + 40);
+            objc_msgSend_predictedTimeRange(v5);
+            v44 = [v43 clipResults:&buf];
+            [v5 setFullAnalysisResults:v44];
           }
 
-          v40 = VCPSignPostLog();
-          v41 = v40;
-          if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
+          v45 = VCPSignPostLog(v42);
+          v46 = v45;
+          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
           {
             LOWORD(buf.start.value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v41, OS_SIGNPOST_INTERVAL_END, v32, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", &buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v46, OS_SIGNPOST_INTERVAL_END, v35, "VCPMovieAnalyzer_Video_VCPFullVideoAnalyzer", "", &buf, 2u);
           }
 
-          v14 = v46;
+          v16 = v51;
         }
 
-        [v5 setFrameFlags:v14];
-        v10 = 0;
+        v11 = [v5 setFrameFlags:v16];
+        v12 = 0;
         goto LABEL_47;
       }
 
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v11 = MediaAnalysisLogLevel();
+      if (v11 >= 3)
       {
-        LODWORD(buf.start.value) = 138412290;
-        *(&buf.start.value + 4) = @"[pipelineBlock1]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &buf, 0xCu);
+        v11 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v11)
+        {
+          LODWORD(buf.start.value) = 138412290;
+          *(&buf.start.value + 4) = @"[pipelineBlock1]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &buf, 0xCu);
+        }
       }
 
-      v22 = *(a1 + 32);
-      v18 = (a1 + 32);
-      v21 = v22;
-      if (*(v22 + 144))
+      v24 = *(a1 + 32);
+      v20 = (a1 + 32);
+      v23 = v24;
+      if (*(v24 + 144))
       {
 LABEL_21:
-        v10 = 4294967278;
+        v12 = 4294967278;
         goto LABEL_47;
       }
 
-      *(v21 + 144) = 45;
-      v10 = 4294967278;
-      v20 = 1080;
+      *(v23 + 144) = 45;
+      v12 = 4294967278;
+      v22 = 1080;
     }
 
     else
     {
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v11 = MediaAnalysisLogLevel();
+      if (v11 >= 3)
       {
-        LODWORD(buf.start.value) = 138412290;
-        *(&buf.start.value + 4) = @"[pipelineBlock1]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &buf, 0xCu);
+        v11 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v11)
+        {
+          LODWORD(buf.start.value) = 138412290;
+          *(&buf.start.value + 4) = @"[pipelineBlock1]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &buf, 0xCu);
+        }
       }
 
-      v19 = *(a1 + 32);
-      v18 = (a1 + 32);
-      v17 = v19;
-      if (*(v19 + 144))
+      v21 = *(a1 + 32);
+      v20 = (a1 + 32);
+      v19 = v21;
+      if (*(v21 + 144))
       {
         goto LABEL_21;
       }
 
-      *(v17 + 144) = 45;
-      v10 = 4294967278;
-      v20 = 1078;
+      *(v19 + 144) = 45;
+      v12 = 4294967278;
+      v22 = 1078;
     }
 
-    v15 = v18;
+    v17 = v20;
     goto LABEL_39;
   }
 
-  v10 = 4294967168;
+  v12 = 4294967168;
 LABEL_47:
-  v42 = VCPSignPostLog();
-  v43 = v42;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+  v47 = VCPSignPostLog(v11);
+  v48 = v47;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
   {
     LOWORD(buf.start.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_END, v7, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock1", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, v7, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock1", "", &buf, 2u);
   }
 
-  return v10;
+  return v12;
 }
 
 uint64_t __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_714(uint64_t a1, void *a2)
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(v3);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(buf[0].value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock2", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock2", "", buf, 2u);
   }
 
-  v94 = 0;
+  v106 = 0;
   if ((*(*(a1 + 96) + 16))())
   {
-    v8 = *(a1 + 32);
-    if (v8)
+    v9 = *(a1 + 32);
+    if (v9)
     {
-      [v8 setCancelled:1];
+      [v9 setCancelled:1];
     }
   }
 
-  if (((*(*(a1 + 96) + 16))() & 1) == 0)
+  v10 = (*(*(a1 + 96) + 16))();
+  if ((v10 & 1) == 0)
   {
     if (v3)
     {
-      v10 = [v3 frameSampleBuffer];
-      v11 = v10;
-      if (v10)
+      v12 = [v3 frameSampleBuffer];
+      v13 = v12;
+      if (v12)
       {
-        CMSampleBufferGetPresentationTimeStamp(buf, v10);
-        v96 = buf[0];
-        CMSampleBufferGetDuration(buf, v11);
-        v95 = buf[0];
-        ImageBuffer = CMSampleBufferGetImageBuffer(v11);
-        v94 = [v3 frameFlags];
+        CMSampleBufferGetPresentationTimeStamp(buf, v12);
+        v108 = buf[0];
+        CMSampleBufferGetDuration(buf, v13);
+        v107 = buf[0];
+        ImageBuffer = CMSampleBufferGetImageBuffer(v13);
+        v14 = [v3 frameFlags];
+        v106 = v14;
         if (*(a1 + 48))
         {
-          v12 = VCPSignPostLog();
-          v13 = os_signpost_id_generate(v12);
+          v15 = VCPSignPostLog(v14);
+          v16 = os_signpost_id_generate(v15);
 
-          v14 = VCPSignPostLog();
-          v15 = v14;
-          if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+          v18 = VCPSignPostLog(v17);
+          v19 = v18;
+          if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
           }
 
-          v16 = *(a1 + 48);
-          buf[0] = v96;
-          v93 = v95;
-          v17 = [v3 frameStats];
-          v9 = [v16 analyzeFrame:ImageBuffer timestamp:buf duration:&v93 frameStats:v17 flags:&v94];
+          v20 = *(a1 + 48);
+          buf[0] = v108;
+          v105 = v107;
+          v21 = [v3 frameStats];
+          v11 = [v20 analyzeFrame:ImageBuffer timestamp:buf duration:&v105 frameStats:v21 flags:&v106];
 
-          if (v9)
+          if (v11)
           {
-            v20 = *(a1 + 40);
-            v19 = (a1 + 40);
-            v18 = v20;
-            if (*(v20 + 144))
+            v24 = *(a1 + 40);
+            v23 = (a1 + 40);
+            v22 = v24;
+            if (*(v24 + 144))
             {
               goto LABEL_42;
             }
 
-            *(v18 + 144) = 61;
-            v21 = 1160;
+            *(v22 + 144) = 61;
+            v25 = 1160;
             goto LABEL_40;
           }
 
-          v26 = VCPSignPostLog();
-          v27 = v26;
-          if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+          v30 = VCPSignPostLog(v10);
+          v31 = v30;
+          if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v13, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_END, v16, "VCPMovieAnalyzer_Video_VCPVideoActivityAnalyzer", "", buf, 2u);
           }
         }
 
         if (*(a1 + 56))
         {
-          v28 = VCPSignPostLog();
-          v29 = os_signpost_id_generate(v28);
+          v32 = VCPSignPostLog(v14);
+          v33 = os_signpost_id_generate(v32);
 
-          v30 = VCPSignPostLog();
-          v31 = v30;
-          if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+          v35 = VCPSignPostLog(v34);
+          v36 = v35;
+          if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v29, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v33, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
           }
 
-          v32 = *(a1 + 56);
-          buf[0] = v96;
-          v93 = v95;
-          v33 = [v3 frameStats];
-          v34 = (a1 + 40);
+          v37 = *(a1 + 56);
+          buf[0] = v108;
+          v105 = v107;
+          v38 = [v3 frameStats];
+          v39 = (a1 + 40);
           [*(*(a1 + 40) + 32) photoOffsetSeconds];
-          v9 = [v32 analyzeKeyFrame:ImageBuffer timestamp:buf duration:&v93 frameStats:v33 flags:&v94 photoOffset:?];
+          v11 = [v37 analyzeKeyFrame:ImageBuffer timestamp:buf duration:&v105 frameStats:v38 flags:&v106 photoOffset:?];
 
-          if (v9)
+          if (v11)
           {
-            if (*(*v34 + 144))
+            if (*(*v39 + 144))
             {
               goto LABEL_42;
             }
 
-            *(*v34 + 144) = 46;
-            v21 = 1174;
+            *(*v39 + 144) = 46;
+            v25 = 1174;
 LABEL_41:
-            *(*v34 + 152) = v21;
+            *(*v39 + 152) = v25;
             goto LABEL_42;
           }
 
-          v38 = VCPSignPostLog();
-          v39 = v38;
-          if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+          v43 = VCPSignPostLog(v10);
+          v44 = v43;
+          if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v39, OS_SIGNPOST_INTERVAL_END, v29, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v44, OS_SIGNPOST_INTERVAL_END, v33, "VCPMovieAnalyzer_Video_VCPMovieCurationAnalyzer", "", buf, 2u);
           }
         }
 
         if (*(a1 + 64))
         {
-          v40 = VCPSignPostLog();
-          v41 = os_signpost_id_generate(v40);
+          v45 = VCPSignPostLog(v14);
+          v46 = os_signpost_id_generate(v45);
 
-          v42 = VCPSignPostLog();
-          v43 = v42;
-          if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+          v48 = VCPSignPostLog(v47);
+          v49 = v48;
+          if (v46 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_BEGIN, v41, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v49, OS_SIGNPOST_INTERVAL_BEGIN, v46, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
           }
 
-          v44 = *(a1 + 64);
-          v45 = [v3 fullAnalysisResults];
-          v46 = [v3 actionAnalysisResults];
-          [v3 predictedTimeRange];
-          v93 = v96;
-          v9 = [v44 loadFullAnalysisResults:v45 actionAnalysisResults:v46 predictedTimeRange:buf timestamp:&v93];
+          v50 = *(a1 + 64);
+          v51 = [v3 fullAnalysisResults];
+          v52 = [v3 actionAnalysisResults];
+          objc_msgSend_predictedTimeRange(v3);
+          v105 = v108;
+          v11 = [v50 loadFullAnalysisResults:v51 actionAnalysisResults:v52 predictedTimeRange:buf timestamp:&v105];
 
-          if (v9)
+          if (v11)
           {
-            v48 = *(a1 + 40);
-            v19 = (a1 + 40);
-            v47 = v48;
-            if (*(v48 + 144))
+            v54 = *(a1 + 40);
+            v23 = (a1 + 40);
+            v53 = v54;
+            if (*(v54 + 144))
             {
               goto LABEL_42;
             }
 
-            *(v47 + 144) = 64;
-            v21 = 1185;
+            *(v53 + 144) = 64;
+            v25 = 1185;
             goto LABEL_40;
           }
 
-          v49 = *(a1 + 64);
-          buf[0] = v96;
-          v93 = v95;
-          v9 = [v49 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v93 flags:&v94];
-          if (v9)
+          v55 = *(a1 + 64);
+          buf[0] = v108;
+          v105 = v107;
+          v10 = [v55 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v105 flags:&v106];
+          v11 = v10;
+          if (v10)
           {
-            v51 = *(a1 + 40);
-            v19 = (a1 + 40);
-            v50 = v51;
-            if (*(v51 + 144))
+            v57 = *(a1 + 40);
+            v23 = (a1 + 40);
+            v56 = v57;
+            if (*(v57 + 144))
             {
               goto LABEL_42;
             }
 
-            *(v50 + 144) = 64;
-            v21 = 1191;
+            *(v56 + 144) = 64;
+            v25 = 1191;
             goto LABEL_40;
           }
 
-          v52 = VCPSignPostLog();
-          v53 = v52;
-          if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
+          v58 = VCPSignPostLog(v10);
+          v59 = v58;
+          if (v46 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v53, OS_SIGNPOST_INTERVAL_END, v41, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v59, OS_SIGNPOST_INTERVAL_END, v46, "VCPMovieAnalyzer_Video_VCPVideoCNNAnalyzer", "", buf, 2u);
           }
         }
 
-        if (+[VCPVideoAnalysisPipelineManager shouldUseGraphProcessing])
+        v60 = +[VCPVideoAnalysisPipelineManager shouldUseGraphProcessing];
+        if (v60)
         {
 LABEL_65:
-          [v3 setFrameFlags:v94];
-          v9 = 0;
+          v10 = [v3 setFrameFlags:v106];
+          v11 = 0;
           goto LABEL_42;
         }
 
         if (*(a1 + 72))
         {
-          v54 = VCPSignPostLog();
-          v55 = os_signpost_id_generate(v54);
+          v61 = VCPSignPostLog(v60);
+          v62 = os_signpost_id_generate(v61);
 
-          v56 = VCPSignPostLog();
-          v57 = v56;
-          if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
+          v64 = VCPSignPostLog(v63);
+          v65 = v64;
+          if (v62 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v57, OS_SIGNPOST_INTERVAL_BEGIN, v55, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v65, OS_SIGNPOST_INTERVAL_BEGIN, v62, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", buf, 2u);
           }
 
-          v58 = *(a1 + 72);
-          buf[0] = v96;
-          v93 = v95;
-          v9 = [v58 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v93 flags:&v94];
-          if (v9)
+          v66 = *(a1 + 72);
+          buf[0] = v108;
+          v105 = v107;
+          v10 = [v66 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v105 flags:&v106];
+          v11 = v10;
+          if (v10)
           {
-            v60 = *(a1 + 40);
-            v19 = (a1 + 40);
-            v59 = v60;
-            if (*(v60 + 144))
+            v68 = *(a1 + 40);
+            v23 = (a1 + 40);
+            v67 = v68;
+            if (*(v68 + 144))
             {
               goto LABEL_42;
             }
 
-            *(v59 + 144) = 45;
-            v21 = 1205;
+            *(v67 + 144) = 45;
+            v25 = 1205;
             goto LABEL_40;
           }
 
-          v61 = VCPSignPostLog();
-          v62 = v61;
-          if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
+          v69 = VCPSignPostLog(v10);
+          v70 = v69;
+          if (v62 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v69))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v62, OS_SIGNPOST_INTERVAL_END, v55, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v70, OS_SIGNPOST_INTERVAL_END, v62, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", buf, 2u);
           }
         }
 
-        v63 = *(a1 + 32);
-        if (v63 && ([v63 processAborted] & 1) == 0)
+        v71 = *(a1 + 32);
+        if (v71)
         {
-          v64 = VCPSignPostLog();
-          v65 = os_signpost_id_generate(v64);
-
-          v66 = VCPSignPostLog();
-          v67 = v66;
-          if (v65 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v66))
+          v72 = [v71 processAborted];
+          if ((v72 & 1) == 0)
           {
-            LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v67, OS_SIGNPOST_INTERVAL_BEGIN, v65, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
-          }
+            v73 = VCPSignPostLog(v72);
+            v74 = os_signpost_id_generate(v73);
 
-          v68 = *(a1 + 32);
-          buf[0] = v96;
-          v93 = v95;
-          v9 = [v68 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v93 flags:&v94];
-          v34 = (a1 + 40);
-          v69 = *(a1 + 40);
-          if (v9)
-          {
-            if (*(v69 + 144))
+            v76 = VCPSignPostLog(v75);
+            v77 = v76;
+            if (v74 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v76))
             {
-              goto LABEL_42;
+              LOWORD(buf[0].value) = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v77, OS_SIGNPOST_INTERVAL_BEGIN, v74, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
             }
 
-            *(v69 + 144) = 45;
-            v21 = 1217;
-            goto LABEL_41;
-          }
-
-          if (*(v69 + 8) == 0x20000000 && [*(a1 + 32) processAborted])
-          {
-            if (*(*v34 + 144))
+            v78 = *(a1 + 32);
+            buf[0] = v108;
+            v105 = v107;
+            v10 = [v78 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v105 flags:&v106];
+            v11 = v10;
+            v39 = (a1 + 40);
+            v79 = *(a1 + 40);
+            if (v10)
             {
-              goto LABEL_65;
+              if (*(v79 + 144))
+              {
+                goto LABEL_42;
+              }
+
+              *(v79 + 144) = 45;
+              v25 = 1217;
+              goto LABEL_41;
             }
 
-            *(*v34 + 144) = 45;
-            v70 = *v34;
-            v71 = 1219;
+            if (*(v79 + 8) == 0x20000000)
+            {
+              v10 = [*(a1 + 32) processAborted];
+              if (v10)
+              {
+                if (*(*v39 + 144))
+                {
+                  goto LABEL_65;
+                }
+
+                *(*v39 + 144) = 45;
+                v80 = *v39;
+                v81 = 1219;
 LABEL_105:
-            *(v70 + 152) = v71;
-            goto LABEL_65;
-          }
+                *(v80 + 152) = v81;
+                goto LABEL_65;
+              }
+            }
 
-          v72 = VCPSignPostLog();
-          v73 = v72;
-          if (v65 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v72))
-          {
-            LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v73, OS_SIGNPOST_INTERVAL_END, v65, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
+            v82 = VCPSignPostLog(v10);
+            v83 = v82;
+            if (v74 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v82))
+            {
+              LOWORD(buf[0].value) = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v83, OS_SIGNPOST_INTERVAL_END, v74, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", buf, 2u);
+            }
           }
         }
 
-        v74 = *(a1 + 80);
-        if (v74 && ([v74 processAborted] & 1) == 0)
+        v84 = *(a1 + 80);
+        if (v84)
         {
-          v75 = VCPSignPostLog();
-          v76 = os_signpost_id_generate(v75);
-
-          v77 = VCPSignPostLog();
-          v78 = v77;
-          if (v76 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v77))
+          v84 = [v84 processAborted];
+          if ((v84 & 1) == 0)
           {
-            LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v78, OS_SIGNPOST_INTERVAL_BEGIN, v76, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
-          }
+            v85 = VCPSignPostLog(v84);
+            v86 = os_signpost_id_generate(v85);
 
-          v79 = *(a1 + 80);
-          buf[0] = v96;
-          v93 = v95;
-          v9 = [v79 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v93 flags:&v94];
-          v34 = (a1 + 40);
-          v80 = *(a1 + 40);
-          if (v9)
-          {
-            if (*(v80 + 144))
+            v88 = VCPSignPostLog(v87);
+            v89 = v88;
+            if (v86 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v88))
             {
-              goto LABEL_42;
+              LOWORD(buf[0].value) = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v89, OS_SIGNPOST_INTERVAL_BEGIN, v86, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
             }
 
-            *(v80 + 144) = 51;
-            v21 = 1231;
-            goto LABEL_41;
-          }
-
-          if (*(v80 + 8) == 0x4000000000 && [*(a1 + 80) processAborted])
-          {
-            if (*(*v34 + 144))
+            v90 = *(a1 + 80);
+            buf[0] = v108;
+            v105 = v107;
+            v10 = [v90 analyzeFrame:ImageBuffer withTimestamp:buf andDuration:&v105 flags:&v106];
+            v11 = v10;
+            v39 = (a1 + 40);
+            v91 = *(a1 + 40);
+            if (v10)
             {
-              goto LABEL_65;
+              if (*(v91 + 144))
+              {
+                goto LABEL_42;
+              }
+
+              *(v91 + 144) = 51;
+              v25 = 1231;
+              goto LABEL_41;
             }
 
-            *(*v34 + 144) = 51;
-            v70 = *v34;
-            v71 = 1233;
-            goto LABEL_105;
-          }
+            if (*(v91 + 8) == 0x4000000000)
+            {
+              v10 = [*(a1 + 80) processAborted];
+              if (v10)
+              {
+                if (*(*v39 + 144))
+                {
+                  goto LABEL_65;
+                }
 
-          v81 = VCPSignPostLog();
-          v82 = v81;
-          if (v76 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v81))
-          {
-            LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v82, OS_SIGNPOST_INTERVAL_END, v76, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
+                *(*v39 + 144) = 51;
+                v80 = *v39;
+                v81 = 1233;
+                goto LABEL_105;
+              }
+            }
+
+            v92 = VCPSignPostLog(v10);
+            v93 = v92;
+            if (v86 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v92))
+            {
+              LOWORD(buf[0].value) = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v93, OS_SIGNPOST_INTERVAL_END, v86, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", buf, 2u);
+            }
           }
         }
 
@@ -4570,200 +4641,218 @@ LABEL_105:
           goto LABEL_65;
         }
 
-        v83 = VCPSignPostLog();
-        v84 = os_signpost_id_generate(v83);
+        v94 = VCPSignPostLog(v84);
+        v95 = os_signpost_id_generate(v94);
 
-        v85 = VCPSignPostLog();
-        v86 = v85;
-        if (v84 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v85))
+        v97 = VCPSignPostLog(v96);
+        v98 = v97;
+        if (v95 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v97))
         {
           LOWORD(buf[0].value) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v86, OS_SIGNPOST_INTERVAL_BEGIN, v84, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v98, OS_SIGNPOST_INTERVAL_BEGIN, v95, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
         }
 
-        v87 = *(a1 + 88);
-        buf[0] = v96;
-        v93 = v95;
-        v9 = [v87 analyzeFrameWithSampleBuffer:v11 timestamp:buf duration:&v93 andFlags:&v94];
-        if (!v9)
+        v99 = *(a1 + 88);
+        buf[0] = v108;
+        v105 = v107;
+        v10 = [v99 analyzeFrameWithSampleBuffer:v13 timestamp:buf duration:&v105 andFlags:&v106];
+        v11 = v10;
+        if (!v10)
         {
-          v90 = VCPSignPostLog();
-          v91 = v90;
-          if (v84 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v90))
+          v102 = VCPSignPostLog(v10);
+          v103 = v102;
+          if (v95 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v102))
           {
             LOWORD(buf[0].value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v91, OS_SIGNPOST_INTERVAL_END, v84, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v103, OS_SIGNPOST_INTERVAL_END, v95, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", buf, 2u);
           }
 
           goto LABEL_65;
         }
 
-        v89 = *(a1 + 40);
-        v19 = (a1 + 40);
-        v88 = v89;
-        if (*(v89 + 144))
+        v101 = *(a1 + 40);
+        v23 = (a1 + 40);
+        v100 = v101;
+        if (*(v101 + 144))
         {
           goto LABEL_42;
         }
 
-        *(v88 + 144) = 45;
-        v21 = 1244;
+        *(v100 + 144) = 45;
+        v25 = 1244;
 LABEL_40:
-        v34 = v19;
+        v39 = v23;
         goto LABEL_41;
       }
 
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v10 = MediaAnalysisLogLevel();
+      if (v10 >= 3)
       {
-        LODWORD(buf[0].value) = 138412290;
-        *(&buf[0].value + 4) = @"[pipelineBlock2]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", buf, 0xCu);
+        v10 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v10)
+        {
+          LODWORD(buf[0].value) = 138412290;
+          *(&buf[0].value + 4) = @"[pipelineBlock2]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", buf, 0xCu);
+        }
       }
 
-      v25 = *(a1 + 40);
-      v19 = (a1 + 40);
-      v24 = v25;
-      if (!*(v25 + 144))
+      v29 = *(a1 + 40);
+      v23 = (a1 + 40);
+      v28 = v29;
+      if (!*(v29 + 144))
       {
-        *(v24 + 144) = 45;
-        v9 = 4294967278;
-        v21 = 1146;
+        *(v28 + 144) = 45;
+        v11 = 4294967278;
+        v25 = 1146;
         goto LABEL_40;
       }
     }
 
     else
     {
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v10 = MediaAnalysisLogLevel();
+      if (v10 >= 3)
       {
-        LODWORD(buf[0].value) = 138412290;
-        *(&buf[0].value + 4) = @"[pipelineBlock2]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", buf, 0xCu);
+        v10 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v10)
+        {
+          LODWORD(buf[0].value) = 138412290;
+          *(&buf[0].value + 4) = @"[pipelineBlock2]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", buf, 0xCu);
+        }
       }
 
-      v23 = *(a1 + 40);
-      v19 = (a1 + 40);
-      v22 = v23;
-      if (!*(v23 + 144))
+      v27 = *(a1 + 40);
+      v23 = (a1 + 40);
+      v26 = v27;
+      if (!*(v27 + 144))
       {
-        *(v22 + 144) = 45;
-        v9 = 4294967278;
-        v21 = 1144;
+        *(v26 + 144) = 45;
+        v11 = 4294967278;
+        v25 = 1144;
         goto LABEL_40;
       }
     }
 
-    v9 = 4294967278;
+    v11 = 4294967278;
     goto LABEL_42;
   }
 
-  v9 = 4294967168;
+  v11 = 4294967168;
 LABEL_42:
-  v35 = VCPSignPostLog();
-  v36 = v35;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+  v40 = VCPSignPostLog(v10);
+  v41 = v40;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
   {
     LOWORD(buf[0].value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock2", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v41, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock2", "", buf, 2u);
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_727(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(v3);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(buf.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock3", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock3", "", &buf, 2u);
   }
 
-  v29 = 0;
-  v8 = VCPSignPostLog();
-  v9 = os_signpost_id_generate(v8);
+  v33 = 0;
+  v10 = VCPSignPostLog(v9);
+  v11 = os_signpost_id_generate(v10);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    LOWORD(v32.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", &v32, 2u);
+    LOWORD(v36.value) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", &v36, 2u);
   }
 
-  if ((*(a1[6] + 16))())
+  v15 = (*(a1[6] + 16))();
+  if (v15)
   {
-    v12 = 4294967168;
+    v16 = 4294967168;
     goto LABEL_29;
   }
 
   if (v3)
   {
-    v13 = [v3 frameSampleBuffer];
-    v14 = v13;
-    if (v13)
+    v17 = [v3 frameSampleBuffer];
+    v18 = v17;
+    if (v17)
     {
-      CMSampleBufferGetPresentationTimeStamp(&v32, v13);
-      buf = v32;
-      CMSampleBufferGetDuration(&v32, v14);
-      v30 = v32;
-      ImageBuffer = CMSampleBufferGetImageBuffer(v14);
-      v29 = [v3 frameFlags];
-      v16 = a1[5];
-      v32 = buf;
-      v28 = v30;
-      v12 = [v16 analyzeFrame:ImageBuffer withTimestamp:&v32 andDuration:&v28 flags:&v29];
-      if (v12)
+      CMSampleBufferGetPresentationTimeStamp(&v36, v17);
+      buf = v36;
+      CMSampleBufferGetDuration(&v36, v18);
+      v34 = v36;
+      ImageBuffer = CMSampleBufferGetImageBuffer(v18);
+      v33 = [v3 frameFlags];
+      v20 = a1[5];
+      v36 = buf;
+      v32 = v34;
+      v15 = [v20 analyzeFrame:ImageBuffer withTimestamp:&v36 andDuration:&v32 flags:&v33];
+      v16 = v15;
+      if (v15)
       {
-        v18 = a1[4];
-        v17 = a1 + 4;
-        v19 = (v18 + 144);
-        if (*(v18 + 144))
+        v22 = a1[4];
+        v21 = a1 + 4;
+        v23 = (v22 + 144);
+        if (*(v22 + 144))
         {
           goto LABEL_29;
         }
 
-        v20 = 1284;
+        v24 = 1284;
 LABEL_24:
-        *v19 = 45;
-        *(*v17 + 152) = v20;
+        *v23 = 45;
+        *(*v21 + 152) = v24;
         goto LABEL_29;
       }
 
-      v23 = VCPSignPostLog();
-      v24 = v23;
-      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+      v27 = VCPSignPostLog(v15);
+      v28 = v27;
+      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
       {
-        LOWORD(v32.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v9, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", &v32, 2u);
+        LOWORD(v36.value) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v11, "VCPMovieAnalyzer_Video_VCPVideoStabilizerPixel", "", &v36, 2u);
       }
 
-      [v3 setFrameFlags:v29];
-      v12 = 0;
+      v15 = [v3 setFrameFlags:v33];
+      v16 = 0;
     }
 
     else
     {
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v15 = MediaAnalysisLogLevel();
+      if (v15 >= 3)
       {
-        LODWORD(v32.value) = 138412290;
-        *(&v32.value + 4) = @"[pipelineBlock3]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v32, 0xCu);
+        v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v15)
+        {
+          LODWORD(v36.value) = 138412290;
+          *(&v36.value + 4) = @"[pipelineBlock3]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v36, 0xCu);
+        }
       }
 
-      v22 = a1[4];
-      v17 = a1 + 4;
-      v19 = (v22 + 144);
-      v12 = 4294967278;
-      if (!*(v22 + 144))
+      v26 = a1[4];
+      v21 = a1 + 4;
+      v23 = (v26 + 144);
+      v16 = 4294967278;
+      if (!*(v26 + 144))
       {
-        v20 = 1273;
+        v24 = 1273;
         goto LABEL_24;
       }
     }
@@ -4771,280 +4860,305 @@ LABEL_24:
 
   else
   {
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v15 = MediaAnalysisLogLevel();
+    if (v15 >= 3)
     {
-      LODWORD(v32.value) = 138412290;
-      *(&v32.value + 4) = @"[pipelineBlock3]";
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v32, 0xCu);
+      v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v15)
+      {
+        LODWORD(v36.value) = 138412290;
+        *(&v36.value + 4) = @"[pipelineBlock3]";
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v36, 0xCu);
+      }
     }
 
-    v21 = a1[4];
-    v17 = a1 + 4;
-    v19 = (v21 + 144);
-    v12 = 4294967278;
-    if (!*(v21 + 144))
+    v25 = a1[4];
+    v21 = a1 + 4;
+    v23 = (v25 + 144);
+    v16 = 4294967278;
+    if (!*(v25 + 144))
     {
-      v20 = 1271;
+      v24 = 1271;
       goto LABEL_24;
     }
   }
 
 LABEL_29:
-  v25 = VCPSignPostLog();
-  v26 = v25;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  v29 = VCPSignPostLog(v15);
+  v30 = v29;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
   {
-    LOWORD(v32.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock3", "", &v32, 2u);
+    LOWORD(v36.value) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock3", "", &v36, 2u);
   }
 
-  return v12;
+  return v16;
 }
 
 uint64_t __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_732(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(v3);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(buf.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock4", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock4", "", &buf, 2u);
   }
 
-  v31 = 0;
-  if (((*(*(a1 + 48) + 16))() & 1) == 0)
+  v35 = 0;
+  v9 = (*(*(a1 + 48) + 16))();
+  if ((v9 & 1) == 0)
   {
     if (v3)
     {
-      v9 = [v3 frameSampleBuffer];
-      v10 = v9;
-      if (v9)
+      v11 = [v3 frameSampleBuffer];
+      v12 = v11;
+      if (v11)
       {
-        CMSampleBufferGetPresentationTimeStamp(&v34, v9);
-        buf = v34;
-        CMSampleBufferGetDuration(&v34, v10);
-        v32 = v34;
-        ImageBuffer = CMSampleBufferGetImageBuffer(v10);
-        v31 = [v3 frameFlags];
-        if (([*(a1 + 40) processAborted] & 1) == 0)
+        CMSampleBufferGetPresentationTimeStamp(&v38, v11);
+        buf = v38;
+        CMSampleBufferGetDuration(&v38, v12);
+        v36 = v38;
+        ImageBuffer = CMSampleBufferGetImageBuffer(v12);
+        v35 = [v3 frameFlags];
+        v14 = [*(a1 + 40) processAborted];
+        if ((v14 & 1) == 0)
         {
-          v12 = VCPSignPostLog();
-          v13 = os_signpost_id_generate(v12);
+          v15 = VCPSignPostLog(v14);
+          v16 = os_signpost_id_generate(v15);
 
-          v14 = VCPSignPostLog();
-          v15 = v14;
-          if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+          v18 = VCPSignPostLog(v17);
+          v19 = v18;
+          if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
           {
-            LOWORD(v34.value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", &v34, 2u);
+            LOWORD(v38.value) = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", &v38, 2u);
           }
 
-          v16 = *(a1 + 40);
-          v34 = buf;
-          v30 = v32;
-          v8 = [v16 analyzeFrame:ImageBuffer withTimestamp:&v34 andDuration:&v30 flags:&v31];
-          v18 = a1 + 32;
-          v17 = *(a1 + 32);
-          if (v8)
+          v20 = *(a1 + 40);
+          v38 = buf;
+          v34 = v36;
+          v9 = [v20 analyzeFrame:ImageBuffer withTimestamp:&v38 andDuration:&v34 flags:&v35];
+          v10 = v9;
+          v22 = a1 + 32;
+          v21 = *(a1 + 32);
+          if (v9)
           {
-            if (*(v17 + 144))
+            if (*(v21 + 144))
             {
               goto LABEL_37;
             }
 
-            *(v17 + 144) = 51;
-            v19 = 1323;
+            *(v21 + 144) = 51;
+            v23 = 1323;
 LABEL_27:
-            *(*v18 + 152) = v19;
+            *(*v22 + 152) = v23;
             goto LABEL_37;
           }
 
-          if (*(v17 + 8) == 0x4000000000 && [*(a1 + 40) processAborted])
+          if (*(v21 + 8) == 0x4000000000 && (v9 = [*(a1 + 40) processAborted], v9))
           {
-            if (!*(*v18 + 144))
+            if (!*(*v22 + 144))
             {
-              *(*v18 + 144) = 51;
-              *(*v18 + 152) = 1325;
+              *(*v22 + 144) = 51;
+              *(*v22 + 152) = 1325;
             }
           }
 
           else
           {
-            v25 = VCPSignPostLog();
-            v26 = v25;
-            if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+            v29 = VCPSignPostLog(v9);
+            v30 = v29;
+            if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
             {
-              LOWORD(v34.value) = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v13, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", &v34, 2u);
+              LOWORD(v38.value) = 0;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v16, "VCPMovieAnalyzer_Video_VCPSettlingEffectAnalyzer", "", &v38, 2u);
             }
           }
         }
 
-        [v3 setFrameFlags:v31];
-        v8 = 0;
+        v9 = [v3 setFrameFlags:v35];
+        v10 = 0;
         goto LABEL_37;
       }
 
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v9 = MediaAnalysisLogLevel();
+      if (v9 >= 3)
       {
-        LODWORD(v34.value) = 138412290;
-        *(&v34.value + 4) = @"[pipelineBlock4]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v34, 0xCu);
+        v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v9)
+        {
+          LODWORD(v38.value) = 138412290;
+          *(&v38.value + 4) = @"[pipelineBlock4]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v38, 0xCu);
+        }
       }
 
-      v24 = *(a1 + 32);
-      v21 = a1 + 32;
-      v23 = v24;
-      if (*(v24 + 144))
+      v28 = *(a1 + 32);
+      v25 = a1 + 32;
+      v27 = v28;
+      if (*(v28 + 144))
       {
 LABEL_24:
-        v8 = 4294967278;
+        v10 = 4294967278;
         goto LABEL_37;
       }
 
-      *(v23 + 144) = 45;
-      v8 = 4294967278;
-      v19 = 1310;
+      *(v27 + 144) = 45;
+      v10 = 4294967278;
+      v23 = 1310;
     }
 
     else
     {
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v9 = MediaAnalysisLogLevel();
+      if (v9 >= 3)
       {
-        LODWORD(v34.value) = 138412290;
-        *(&v34.value + 4) = @"[pipelineBlock4]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v34, 0xCu);
+        v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v9)
+        {
+          LODWORD(v38.value) = 138412290;
+          *(&v38.value + 4) = @"[pipelineBlock4]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v38, 0xCu);
+        }
       }
 
-      v22 = *(a1 + 32);
-      v21 = a1 + 32;
-      v20 = v22;
-      if (*(v22 + 144))
+      v26 = *(a1 + 32);
+      v25 = a1 + 32;
+      v24 = v26;
+      if (*(v26 + 144))
       {
         goto LABEL_24;
       }
 
-      *(v20 + 144) = 45;
-      v8 = 4294967278;
-      v19 = 1308;
+      *(v24 + 144) = 45;
+      v10 = 4294967278;
+      v23 = 1308;
     }
 
-    v18 = v21;
+    v22 = v25;
     goto LABEL_27;
   }
 
-  v8 = 4294967168;
+  v10 = 4294967168;
 LABEL_37:
-  v27 = VCPSignPostLog();
-  v28 = v27;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+  v31 = VCPSignPostLog(v9);
+  v32 = v31;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
   {
-    LOWORD(v34.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock4", "", &v34, 2u);
+    LOWORD(v38.value) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock4", "", &v38, 2u);
   }
 
-  return v8;
+  return v10;
 }
 
 uint64_t __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_737(void *a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(v3);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(buf.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock5", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock5", "", &buf, 2u);
   }
 
-  v28 = 0;
-  v8 = VCPSignPostLog();
-  v9 = os_signpost_id_generate(v8);
+  v32 = 0;
+  v10 = VCPSignPostLog(v9);
+  v11 = os_signpost_id_generate(v10);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    LOWORD(v31.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", &v31, 2u);
+    LOWORD(v35.value) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", &v35, 2u);
   }
 
-  if ((*(a1[6] + 16))())
+  v15 = (*(a1[6] + 16))();
+  if (v15)
   {
-    v12 = 4294967168;
+    v16 = 4294967168;
     goto LABEL_29;
   }
 
   if (v3)
   {
-    v13 = [v3 frameSampleBuffer];
-    v14 = v13;
-    if (v13)
+    v17 = [v3 frameSampleBuffer];
+    v18 = v17;
+    if (v17)
     {
-      CMSampleBufferGetPresentationTimeStamp(&v31, v13);
-      buf = v31;
-      CMSampleBufferGetDuration(&v31, v14);
-      v29 = v31;
-      CMSampleBufferGetImageBuffer(v14);
-      v28 = [v3 frameFlags];
-      v15 = a1[5];
-      v31 = buf;
-      v27 = v29;
-      v12 = [v15 analyzeFrameWithSampleBuffer:v14 timestamp:&v31 duration:&v27 andFlags:&v28];
-      if (v12)
+      CMSampleBufferGetPresentationTimeStamp(&v35, v17);
+      buf = v35;
+      CMSampleBufferGetDuration(&v35, v18);
+      v33 = v35;
+      CMSampleBufferGetImageBuffer(v18);
+      v32 = [v3 frameFlags];
+      v19 = a1[5];
+      v35 = buf;
+      v31 = v33;
+      v15 = [v19 analyzeFrameWithSampleBuffer:v18 timestamp:&v35 duration:&v31 andFlags:&v32];
+      v16 = v15;
+      if (v15)
       {
-        v17 = a1[4];
-        v16 = a1 + 4;
-        v18 = (v17 + 144);
-        if (*(v17 + 144))
+        v21 = a1[4];
+        v20 = a1 + 4;
+        v22 = (v21 + 144);
+        if (*(v21 + 144))
         {
           goto LABEL_29;
         }
 
-        v19 = 1364;
+        v23 = 1364;
 LABEL_24:
-        *v18 = 45;
-        *(*v16 + 152) = v19;
+        *v22 = 45;
+        *(*v20 + 152) = v23;
         goto LABEL_29;
       }
 
-      v22 = VCPSignPostLog();
-      v23 = v22;
-      if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      v26 = VCPSignPostLog(v15);
+      v27 = v26;
+      if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
-        LOWORD(v31.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v9, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", &v31, 2u);
+        LOWORD(v35.value) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v11, "VCPMovieAnalyzer_Video_MADVideoSafetyClassifier", "", &v35, 2u);
       }
 
-      [v3 setFrameFlags:v28];
-      v12 = 0;
+      v15 = [v3 setFrameFlags:v32];
+      v16 = 0;
     }
 
     else
     {
-      if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      v15 = MediaAnalysisLogLevel();
+      if (v15 >= 3)
       {
-        LODWORD(v31.value) = 138412290;
-        *(&v31.value + 4) = @"[pipelineBlock5]";
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v31, 0xCu);
+        v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        if (v15)
+        {
+          LODWORD(v35.value) = 138412290;
+          *(&v35.value + 4) = @"[pipelineBlock5]";
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v35, 0xCu);
+        }
       }
 
-      v21 = a1[4];
-      v16 = a1 + 4;
-      v18 = (v21 + 144);
-      v12 = 4294967278;
-      if (!*(v21 + 144))
+      v25 = a1[4];
+      v20 = a1 + 4;
+      v22 = (v25 + 144);
+      v16 = 4294967278;
+      if (!*(v25 + 144))
       {
-        v19 = 1353;
+        v23 = 1353;
         goto LABEL_24;
       }
     }
@@ -5052,181 +5166,199 @@ LABEL_24:
 
   else
   {
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v15 = MediaAnalysisLogLevel();
+    if (v15 >= 3)
     {
-      LODWORD(v31.value) = 138412290;
-      *(&v31.value + 4) = @"[pipelineBlock5]";
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v31, 0xCu);
+      v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v15)
+      {
+        LODWORD(v35.value) = 138412290;
+        *(&v35.value + 4) = @"[pipelineBlock5]";
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v35, 0xCu);
+      }
     }
 
-    v20 = a1[4];
-    v16 = a1 + 4;
-    v18 = (v20 + 144);
-    v12 = 4294967278;
-    if (!*(v20 + 144))
+    v24 = a1[4];
+    v20 = a1 + 4;
+    v22 = (v24 + 144);
+    v16 = 4294967278;
+    if (!*(v24 + 144))
     {
-      v19 = 1351;
+      v23 = 1351;
       goto LABEL_24;
     }
   }
 
 LABEL_29:
-  v24 = VCPSignPostLog();
-  v25 = v24;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  v28 = VCPSignPostLog(v15);
+  v29 = v28;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
   {
-    LOWORD(v31.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock5", "", &v31, 2u);
+    LOWORD(v35.value) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock5", "", &v35, 2u);
   }
 
-  return v12;
+  return v16;
 }
 
 uint64_t __74__VCPMovieAnalyzer_analyzeVideoSegment_timerange_forAnalysisTypes_cancel___block_invoke_742(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = VCPSignPostLog();
+  v4 = VCPSignPostLog(v3);
   v5 = os_signpost_id_generate(v4);
 
-  v6 = VCPSignPostLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = VCPSignPostLog(v6);
+  v8 = v7;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     LOWORD(buf.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock6", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock6", "", &buf, 2u);
   }
 
-  v31 = 0;
-  if ((*(*(a1 + 48) + 16))())
+  v35 = 0;
+  v9 = (*(*(a1 + 48) + 16))();
+  if (v9)
   {
-    v8 = 4294967168;
+    v10 = 4294967168;
     goto LABEL_36;
   }
 
   if (v3)
   {
-    v9 = [v3 frameSampleBuffer];
-    v10 = v9;
-    if (v9)
+    v11 = [v3 frameSampleBuffer];
+    v12 = v11;
+    if (v11)
     {
-      CMSampleBufferGetPresentationTimeStamp(&v34, v9);
-      buf = v34;
-      CMSampleBufferGetDuration(&v34, v10);
-      v32 = v34;
-      ImageBuffer = CMSampleBufferGetImageBuffer(v10);
-      v31 = [v3 frameFlags];
-      if (([*(a1 + 40) processAborted] & 1) == 0)
+      CMSampleBufferGetPresentationTimeStamp(&v38, v11);
+      buf = v38;
+      CMSampleBufferGetDuration(&v38, v12);
+      v36 = v38;
+      ImageBuffer = CMSampleBufferGetImageBuffer(v12);
+      v35 = [v3 frameFlags];
+      v14 = [*(a1 + 40) processAborted];
+      if ((v14 & 1) == 0)
       {
-        v12 = VCPSignPostLog();
-        v13 = os_signpost_id_generate(v12);
+        v15 = VCPSignPostLog(v14);
+        v16 = os_signpost_id_generate(v15);
 
-        v14 = VCPSignPostLog();
-        v15 = v14;
-        if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+        v18 = VCPSignPostLog(v17);
+        v19 = v18;
+        if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
         {
-          LOWORD(v34.value) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", &v34, 2u);
+          LOWORD(v38.value) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", &v38, 2u);
         }
 
-        v16 = *(a1 + 40);
-        v34 = buf;
-        v30 = v32;
-        v8 = [v16 analyzeFrame:ImageBuffer withTimestamp:&v34 andDuration:&v30 flags:&v31];
-        v18 = a1 + 32;
-        v17 = *(a1 + 32);
-        if (v8)
+        v20 = *(a1 + 40);
+        v38 = buf;
+        v34 = v36;
+        v9 = [v20 analyzeFrame:ImageBuffer withTimestamp:&v38 andDuration:&v34 flags:&v35];
+        v10 = v9;
+        v22 = a1 + 32;
+        v21 = *(a1 + 32);
+        if (v9)
         {
-          v20 = *(v17 + 144);
-          v19 = (v17 + 144);
-          if (v20)
+          v24 = *(v21 + 144);
+          v23 = (v21 + 144);
+          if (v24)
           {
             goto LABEL_36;
           }
 
-          v21 = 1404;
+          v25 = 1404;
 LABEL_26:
-          *v19 = 45;
-          *(*v18 + 152) = v21;
+          *v23 = 45;
+          *(*v22 + 152) = v25;
           goto LABEL_36;
         }
 
-        if (*(v17 + 8) == 0x20000000 && [*(a1 + 40) processAborted])
+        if (*(v21 + 8) == 0x20000000 && (v9 = [*(a1 + 40) processAborted], v9))
         {
-          if (!*(*v18 + 144))
+          if (!*(*v22 + 144))
           {
-            *(*v18 + 144) = 45;
-            *(*v18 + 152) = 1406;
+            *(*v22 + 144) = 45;
+            *(*v22 + 152) = 1406;
           }
         }
 
         else
         {
-          v25 = VCPSignPostLog();
-          v26 = v25;
-          if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+          v29 = VCPSignPostLog(v9);
+          v30 = v29;
+          if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
           {
-            LOWORD(v34.value) = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v13, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", &v34, 2u);
+            LOWORD(v38.value) = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v16, "VCPMovieAnalyzer_Video_VCPVideoInterpolator", "", &v38, 2u);
           }
         }
       }
 
-      [v3 setFrameFlags:v31];
-      v8 = 0;
+      v9 = [v3 setFrameFlags:v35];
+      v10 = 0;
       goto LABEL_36;
     }
 
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v9 = MediaAnalysisLogLevel();
+    if (v9 >= 3)
     {
-      LODWORD(v34.value) = 138412290;
-      *(&v34.value + 4) = @"[pipelineBlock6]";
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v34, 0xCu);
+      v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v9)
+      {
+        LODWORD(v38.value) = 138412290;
+        *(&v38.value + 4) = @"[pipelineBlock6]";
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid frameSampleBuffer.", &v38, 0xCu);
+      }
     }
 
-    v24 = *(a1 + 32);
-    v22 = a1 + 32;
-    v19 = (v24 + 144);
-    v8 = 4294967278;
-    if (!*(v24 + 144))
+    v28 = *(a1 + 32);
+    v26 = a1 + 32;
+    v23 = (v28 + 144);
+    v10 = 4294967278;
+    if (!*(v28 + 144))
     {
-      v21 = 1391;
+      v25 = 1391;
       goto LABEL_25;
     }
   }
 
   else
   {
-    if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    v9 = MediaAnalysisLogLevel();
+    if (v9 >= 3)
     {
-      LODWORD(v34.value) = 138412290;
-      *(&v34.value + 4) = @"[pipelineBlock6]";
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v34, 0xCu);
+      v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v9)
+      {
+        LODWORD(v38.value) = 138412290;
+        *(&v38.value + 4) = @"[pipelineBlock6]";
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Invalid currFrameResource.", &v38, 0xCu);
+      }
     }
 
-    v23 = *(a1 + 32);
-    v22 = a1 + 32;
-    v19 = (v23 + 144);
-    v8 = 4294967278;
-    if (!*(v23 + 144))
+    v27 = *(a1 + 32);
+    v26 = a1 + 32;
+    v23 = (v27 + 144);
+    v10 = 4294967278;
+    if (!*(v27 + 144))
     {
-      v21 = 1389;
+      v25 = 1389;
 LABEL_25:
-      v18 = v22;
+      v22 = v26;
       goto LABEL_26;
     }
   }
 
 LABEL_36:
-  v27 = VCPSignPostLog();
-  v28 = v27;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+  v31 = VCPSignPostLog(v9);
+  v32 = v31;
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
   {
-    LOWORD(v34.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock6", "", &v34, 2u);
+    LOWORD(v38.value) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, v5, "VCPMovieAnalyzer_AnalyzeVideoSegment_FramePipelineBlock6", "", &v38, 2u);
   }
 
-  return v8;
+  return v10;
 }
 
 - (int)postProcessAnimalResults:(id)results
@@ -5531,7 +5663,7 @@ uint64_t __45__VCPMovieAnalyzer_postProcessAnimalResults___block_invoke(uint64_t
   v46 = cancelCopy;
   if (trackCopy)
   {
-    [trackCopy timeRange];
+    objc_msgSend_timeRange(trackCopy);
   }
 
   else
@@ -5560,7 +5692,7 @@ uint64_t __45__VCPMovieAnalyzer_postProcessAnimalResults___block_invoke(uint64_t
   memset(&time[48], 0, 24);
   if (trackCopy)
   {
-    [trackCopy vcp_endTime];
+    objc_msgSend_vcp_endTime(trackCopy);
     p_maxAnalysisLength = &self->_maxAnalysisLength;
     maxAnalysisLength = self->_maxAnalysisLength;
     if (maxAnalysisLength <= 0.0)
@@ -5568,7 +5700,7 @@ uint64_t __45__VCPMovieAnalyzer_postProcessAnimalResults___block_invoke(uint64_t
       goto LABEL_16;
     }
 
-    [trackCopy vcp_endTime];
+    objc_msgSend_vcp_endTime(trackCopy);
   }
 
   else
@@ -5593,7 +5725,7 @@ LABEL_16:
   v48 = [(NSMutableDictionary *)self->_privateResults objectForKeyedSubscript:@"MetaSegmentResults"];
   if (trackCopy)
   {
-    [trackCopy timeRange];
+    objc_msgSend_timeRange(trackCopy);
   }
 
   else
@@ -5800,7 +5932,7 @@ LABEL_16:
     localIdentifier2 = [(VCPAsset *)self->_asset localIdentifier];
     if (trackCopy)
     {
-      [trackCopy timeRange];
+      objc_msgSend_timeRange(trackCopy);
     }
 
     else
@@ -5827,8 +5959,9 @@ LABEL_65:
 
 - (id)analyzeAsset:(id)asset streamed:(BOOL *)streamed
 {
-  v225[1] = *MEMORY[0x1E69E9840];
+  v242[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
+  v8 = assetCopy;
   if (streamed)
   {
     *streamed = 0;
@@ -5839,22 +5972,22 @@ LABEL_65:
     goto LABEL_166;
   }
 
-  v8 = VCPSignPostLog();
-  v9 = os_signpost_id_generate(v8);
+  v9 = VCPSignPostLog(assetCopy);
+  v10 = os_signpost_id_generate(v9);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  spid = v9;
-  v182 = v9 - 1;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = VCPSignPostLog(v11);
+  v13 = v12;
+  spid = v10;
+  v199 = v10 - 1;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf.start.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMovieAnalyzer", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VCPMovieAnalyzer", "", &buf, 2u);
   }
 
   requestedAnalyses = self->_requestedAnalyses;
-  v13 = +[VCPAudioAnalyzer supportedAnalysisTypes];
-  if (assetCopy && (assetCopy[2](assetCopy) & 1) != 0)
+  v15 = +[VCPAudioAnalyzer supportedAnalysisTypes];
+  if (v8 && (v8[2](v8) & 1) != 0)
   {
 LABEL_154:
     self->_status = 4;
@@ -5862,7 +5995,7 @@ LABEL_154:
     analysis = self->_analysis;
     if (analysis)
     {
-      [(NSMutableDictionary *)analysis vcp_syncPoint];
+      isMovie = objc_msgSend_vcp_syncPoint(analysis);
       if (buf.start.flags)
       {
         goto LABEL_159;
@@ -5872,24 +6005,25 @@ LABEL_154:
     goto LABEL_158;
   }
 
-  v180 = objc_autoreleasePoolPush();
+  v197 = objc_autoreleasePoolPush();
   movie = [(VCPAsset *)self->_asset movie];
   if (!movie)
   {
-    if (![(VCPMovieAnalyzer *)self allowStreaming])
+    allowStreaming = [(VCPMovieAnalyzer *)self allowStreaming];
+    if (!allowStreaming)
     {
       goto LABEL_28;
     }
 
-    v21 = VCPSignPostLog();
-    v22 = os_signpost_id_generate(v21);
+    v24 = VCPSignPostLog(allowStreaming);
+    v25 = os_signpost_id_generate(v24);
 
-    v23 = VCPSignPostLog();
-    v24 = v23;
-    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    v27 = VCPSignPostLog(v26);
+    v28 = v27;
+    if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       LOWORD(buf.start.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "VCPMovieAnalyzer_ResourceDownload", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v25, "VCPMovieAnalyzer_ResourceDownload", "", &buf, 2u);
     }
 
     [(NSMutableDictionary *)self->_analysis vcp_addFlags:0x20000000];
@@ -5898,18 +6032,19 @@ LABEL_154:
       *streamed = 1;
     }
 
-    movie = [(VCPAsset *)self->_asset streamedMovie:[(VCPMovieAnalyzer *)self requiresOnDemandDownload]];
-    if (movie)
+    v29 = [(VCPAsset *)self->_asset streamedMovie:[(VCPMovieAnalyzer *)self requiresOnDemandDownload]];
+    movie = v29;
+    if (v29)
     {
-      [(VCPMovieAnalyzer *)self loadPropertiesForAsset:movie];
+      v29 = [(VCPMovieAnalyzer *)self loadPropertiesForAsset:v29];
     }
 
-    v25 = VCPSignPostLog();
-    audioGroup = v25;
-    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v30 = VCPSignPostLog(v29);
+    audioGroup = v30;
+    if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
     {
       LOWORD(buf.start.value) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_END, v22, "VCPMovieAnalyzer_ResourceDownload", "", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_END, v25, "VCPMovieAnalyzer_ResourceDownload", "", &buf, 2u);
     }
 
     if (!movie)
@@ -5925,37 +6060,38 @@ LABEL_28:
     }
   }
 
-  if (![(VCPAsset *)self->_asset isMovie]|| ([(VCPAsset *)self->_asset duration], v15 >= 1.0))
+  if (![(VCPAsset *)self->_asset isMovie]|| (objc_msgSend_duration(self->_asset), v17 >= 1.0))
   {
     if (![movie vcp_isMontage])
     {
       if ([(VCPAsset *)self->_asset isMovie])
       {
-        [(VCPAsset *)self->_asset duration];
-        if (v26 < 3.0)
+        objc_msgSend_duration(self->_asset);
+        if (v31 < 3.0)
         {
-          v27 = self->_requestedAnalyses;
-          if ((v27 & 0x8000000000000) != 0)
+          v32 = self->_requestedAnalyses;
+          if ((v32 & 0x8000000000000) != 0)
           {
-            self->_requestedAnalyses = v27 & 0xFFF7FFFFFFFFFFFFLL;
+            self->_requestedAnalyses = v32 & 0xFFF7FFFFFFFFFFFFLL;
             [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x8000000000000];
           }
         }
       }
 
-      v28 = v13 & requestedAnalyses;
-      if ((v13 & requestedAnalyses) == 0)
+      v33 = v15 & requestedAnalyses;
+      if ((v15 & requestedAnalyses) == 0)
       {
-        v31 = 0;
+        v37 = 0;
         goto LABEL_66;
       }
 
       context = objc_autoreleasePoolPush();
-      if (MediaAnalysisLogLevel() >= 6)
+      v34 = MediaAnalysisLogLevel();
+      if (v34 >= 6)
       {
-        v29 = MEMORY[0x1E69E9C10];
-        v30 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        v35 = MEMORY[0x1E69E9C10];
+        v36 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
           if (self->_phAsset)
           {
@@ -5966,37 +6102,37 @@ LABEL_28:
           {
             [(VCPAsset *)self->_asset mainFileURL];
           }
-          v32 = ;
-          v33 = MediaAnalysisTypeShortDescription(v28);
+          v38 = ;
+          v39 = MediaAnalysisTypeShortDescription(v33);
           LODWORD(buf.start.value) = 138412546;
-          *(&buf.start.value + 4) = v32;
+          *(&buf.start.value + 4) = v38;
           LOWORD(buf.start.flags) = 2112;
-          *(&buf.start.flags + 2) = v33;
+          *(&buf.start.flags + 2) = v39;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MovieAnalyzer][%@] Analyzing audio types %@", &buf, 0x16u);
         }
       }
 
-      v34 = VCPSignPostLog();
-      v35 = os_signpost_id_generate(v34);
+      v40 = VCPSignPostLog(v34);
+      v41 = os_signpost_id_generate(v40);
 
-      v36 = VCPSignPostLog();
-      audioGroup = v36;
-      if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+      v43 = VCPSignPostLog(v42);
+      audioGroup = v43;
+      if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_BEGIN, v35, "VCPMovieAnalyzer_Audio", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_BEGIN, v41, "VCPMovieAnalyzer_Audio", "", &buf, 2u);
       }
 
-      v37 = [[VCPAudioAnalyzer alloc] initWithAnalysisTypes:v28 forStreaming:0 andResultHandler:0];
-      if (!v37)
+      v44 = [[VCPAudioAnalyzer alloc] initWithAnalysisTypes:v33 forStreaming:0 andResultHandler:0];
+      if (!v44)
       {
-        v39 = 0;
+        v46 = 0;
         if (!self->_errorCode)
         {
           *&self->_errorCode = xmmword_1C9F63140;
         }
 
-        v20 = 4;
+        v22 = 4;
         _waitForAsyncAudioResults = -18;
         goto LABEL_64;
       }
@@ -6010,21 +6146,21 @@ LABEL_28:
         block[2] = __42__VCPMovieAnalyzer_analyzeAsset_streamed___block_invoke;
         block[3] = &unk_1E8350428;
         block[4] = self;
-        v187 = v37;
-        v188 = movie;
-        v189 = assetCopy;
-        v190 = v28;
-        v191 = v35;
-        v192 = 0;
+        v204 = v44;
+        v205 = movie;
+        v206 = v8;
+        v207 = v33;
+        v208 = v41;
+        v209 = 0;
         dispatch_group_async(audioGroup, audioQueue, block);
       }
 
       else
       {
-        v185 = 0;
-        _waitForAsyncAudioResults = [(VCPAudioAnalyzer *)v37 analyzeAsset:movie cancel:assetCopy results:&v185];
-        v40 = v185;
-        audioGroup = v40;
+        v202 = 0;
+        _waitForAsyncAudioResults = [(VCPAudioAnalyzer *)v44 analyzeAsset:movie cancel:v8 results:&v202];
+        v47 = v202;
+        audioGroup = v47;
         if (_waitForAsyncAudioResults)
         {
           if (!self->_errorCode)
@@ -6032,39 +6168,39 @@ LABEL_28:
             *&self->_errorCode = xmmword_1C9F63130;
           }
 
-          v39 = 0;
-          v20 = 4;
+          v46 = 0;
+          v22 = 4;
           goto LABEL_64;
         }
 
-        [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v40];
-        [(NSMutableDictionary *)self->_analysis vcp_addTypes:v28];
-        v41 = VCPSignPostLog();
-        v42 = v41;
-        if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+        [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v47];
+        v48 = VCPSignPostLog([(NSMutableDictionary *)self->_analysis vcp_addTypes:v33]);
+        v49 = v48;
+        if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
         {
           LOWORD(buf.start.value) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, v35, "VCPMovieAnalyzer_Audio", "", &buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v49, OS_SIGNPOST_INTERVAL_END, v41, "VCPMovieAnalyzer_Audio", "", &buf, 2u);
         }
       }
 
       _waitForAsyncAudioResults = 0;
-      v20 = 0;
-      v39 = 1;
+      v22 = 0;
+      v46 = 1;
 LABEL_64:
 
       objc_autoreleasePoolPop(context);
-      if ((v39 & 1) == 0)
+      if ((v46 & 1) == 0)
       {
 LABEL_127:
-        v19 = 1;
+        v21 = 1;
         goto LABEL_128;
       }
 
-      v31 = _waitForAsyncAudioResults;
+      v37 = _waitForAsyncAudioResults;
 LABEL_66:
-      _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self performMetadataAnalysisOnAsset:movie withCancelBlock:assetCopy];
-      if (_waitForAsyncAudioResults)
+      v50 = [(VCPMovieAnalyzer *)self performMetadataAnalysisOnAsset:movie withCancelBlock:v8];
+      _waitForAsyncAudioResults = v50;
+      if (v50)
       {
         if (!self->_errorCode)
         {
@@ -6074,44 +6210,44 @@ LABEL_66:
         goto LABEL_126;
       }
 
-      v43 = self->_requestedAnalyses;
-      v174 = v31;
-      if ((v43 & 0x4000010010000000) == 0)
+      v51 = self->_requestedAnalyses;
+      v191 = v37;
+      if ((v51 & 0x4000010010000000) == 0)
       {
 LABEL_178:
-        if ((v43 & 0x82C636446D888) == 0)
+        if ((v51 & 0x82C636446D888) == 0)
         {
-          v19 = 1;
+          v21 = 1;
           goto LABEL_192;
         }
 
-        v116 = VCPSignPostLog();
-        v117 = os_signpost_id_generate(v116);
+        v126 = VCPSignPostLog(v50);
+        v127 = os_signpost_id_generate(v126);
 
-        v118 = VCPSignPostLog();
-        audioGroup = v118;
-        if (v117 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v118))
+        v129 = VCPSignPostLog(v128);
+        audioGroup = v129;
+        if (v127 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v129))
         {
           LOWORD(buf.start.value) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_BEGIN, v117, "VCPMovieAnalyzer_Video", "", &buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_BEGIN, v127, "VCPMovieAnalyzer_Video", "", &buf, 2u);
         }
 
-        v119 = [movie vcp_firstEnabledTrackWithMediaType:*MEMORY[0x1E6987608]];
-        v120 = v119;
-        if (v119)
+        v130 = [movie vcp_firstEnabledTrackWithMediaType:*MEMORY[0x1E6987608]];
+        v131 = v130;
+        if (v130)
         {
-          [v119 naturalSize];
-          v123 = *&v122;
-          v124 = v121;
-          if (v122 >= 1.0 && v121 >= 1.0)
+          [v130 naturalSize];
+          v134 = *&v133;
+          v135 = v132;
+          if (v133 >= 1.0 && v132 >= 1.0)
           {
-            [v120 nominalFrameRate];
-            v19 = v125 < 25.0;
+            [v131 nominalFrameRate];
+            v21 = v136 < 25.0;
             memset(&start, 0, sizeof(start));
-            v126 = self->_analysis;
-            if (v126)
+            v137 = self->_analysis;
+            if (v137)
             {
-              [(NSMutableDictionary *)v126 vcp_syncPoint];
+              objc_msgSend_vcp_syncPoint(v137);
             }
 
             buf.start = start;
@@ -6119,17 +6255,18 @@ LABEL_178:
             time2.start.epoch = *(MEMORY[0x1E6960C70] + 16);
             if (CMTimeCompare(&buf.start, &time2.start))
             {
-              [v120 timeRange];
+              objc_msgSend_timeRange(v131);
               time2.start = start;
-              if (!CMTimeRangeContainsTime(&buf, &time2.start))
+              started = CMTimeRangeContainsTime(&buf, &time2.start);
+              if (!started)
               {
                 _waitForAsyncAudioResults = -18;
                 if (!self->_errorCode)
                 {
-                  v127 = 2090;
+                  v139 = 2090;
 LABEL_224:
                   self->_errorCode = 45;
-                  self->_errorLine = v127;
+                  self->_errorLine = v139;
                   goto LABEL_225;
                 }
 
@@ -6139,92 +6276,96 @@ LABEL_224:
 
             else
             {
-              [v120 vcp_startTime];
+              started = objc_msgSend_vcp_startTime(v131);
               start = buf.start;
             }
 
-            v137 = self->_requestedAnalyses;
-            if ((v137 & 0x4024000000) != 0)
+            v149 = self->_requestedAnalyses;
+            if ((v149 & 0x4024000000) != 0)
             {
               buf.start = start;
-              _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self analyzeVideoTrack:v120 start:&buf forAnalysisTypes:v137 & 0x4024000000 cancel:assetCopy];
-              if (_waitForAsyncAudioResults)
+              started = [(VCPMovieAnalyzer *)self analyzeVideoTrack:v131 start:&buf forAnalysisTypes:v149 & 0x4024000000 cancel:v8];
+              _waitForAsyncAudioResults = started;
+              if (started)
               {
                 if (!self->_errorCode)
                 {
-                  v127 = 2103;
+                  v139 = 2103;
                   goto LABEL_224;
                 }
 
 LABEL_225:
 
 LABEL_226:
-                v20 = 4;
+                v22 = 4;
                 goto LABEL_128;
               }
 
-              v137 = self->_requestedAnalyses;
+              v149 = self->_requestedAnalyses;
             }
 
-            if ((v137 & 0x82C234046D888) != 0)
+            if ((v149 & 0x82C234046D888) != 0)
             {
               buf.start = start;
-              _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self analyzeVideoTrack:v120 start:&buf forAnalysisTypes:v137 & 0xFFFFFFBFDBFFFFFFLL cancel:assetCopy];
-              if (_waitForAsyncAudioResults)
+              started = [(VCPMovieAnalyzer *)self analyzeVideoTrack:v131 start:&buf forAnalysisTypes:v149 & 0xFFFFFFBFDBFFFFFFLL cancel:v8];
+              _waitForAsyncAudioResults = started;
+              if (started)
               {
                 if (!self->_errorCode)
                 {
-                  v127 = 2110;
+                  v139 = 2110;
                   goto LABEL_224;
                 }
 
                 goto LABEL_225;
               }
 
-              v137 = self->_requestedAnalyses;
+              v149 = self->_requestedAnalyses;
             }
 
-            if ((v137 & 8) != 0)
+            if ((v149 & 8) != 0)
             {
-              [(NSMutableDictionary *)self->_analysis vcp_addTypes:12];
-              v137 = self->_requestedAnalyses;
+              started = [(NSMutableDictionary *)self->_analysis vcp_addTypes:12];
+              v149 = self->_requestedAnalyses;
             }
 
-            if ((v137 & 0x880) != 0)
+            if ((v149 & 0x880) != 0)
             {
               [(NSMutableDictionary *)self->_analysis vcp_addTypes:192];
-              [(NSMutableDictionary *)self->_analysis vcp_addTypes:2048];
-              v137 = self->_requestedAnalyses;
+              started = [(NSMutableDictionary *)self->_analysis vcp_addTypes:2048];
+              v149 = self->_requestedAnalyses;
             }
 
-            if ((v137 & 0x40000) != 0)
+            if ((v149 & 0x40000) != 0)
             {
               [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x40000];
-              if (![(VCPAsset *)self->_asset isLivePhoto])
+              started = [(VCPAsset *)self->_asset isLivePhoto];
+              if ((started & 1) == 0)
               {
-                _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self generateKeyFrameResource:movie];
-                if (_waitForAsyncAudioResults)
+                started = [(VCPMovieAnalyzer *)self generateKeyFrameResource:movie];
+                _waitForAsyncAudioResults = started;
+                if (started)
                 {
                   if (self->_errorCode)
                   {
                     goto LABEL_225;
                   }
 
-                  v127 = 2127;
+                  v139 = 2127;
                   goto LABEL_224;
                 }
               }
             }
 
-            v140 = self->_requestedAnalyses;
-            if ((v140 & 0x8000000000000) != 0 && !self->_onDemand)
+            v153 = self->_requestedAnalyses;
+            if ((v153 & 0x8000000000000) != 0 && !self->_onDemand)
             {
-              v150 = VCPSignPostLog();
-              contextb = os_signpost_id_generate(v150);
+              v164 = VCPSignPostLog(started);
+              contextb = os_signpost_id_generate(v164);
 
-              v151 = VCPSignPostLog();
-              audioGroup = v151;
-              if ((contextb - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v151))
+              v166 = VCPSignPostLog(v165);
+              audioGroup = v166;
+              if ((contextb - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v166))
               {
                 LOWORD(buf.start.value) = 0;
                 _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_BEGIN, contextb, "VCPMovieAnalyzer_GenerateAndPersistVideoThumbnailResources", "", &buf, 2u);
@@ -6239,13 +6380,13 @@ LABEL_226:
                   goto LABEL_225;
                 }
 
-                v127 = 2133;
+                v139 = 2133;
                 goto LABEL_224;
               }
 
               vcp_results = [(NSMutableDictionary *)self->_analysis vcp_results];
               audioGroup = [vcp_results objectForKeyedSubscript:@"VideoThumbnailResults"];
-              _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self generateAndPersistVideoThumbnailResources:movie forPHAsset:phAsset withResults:audioGroup cancelBlock:assetCopy];
+              _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self generateAndPersistVideoThumbnailResources:movie forPHAsset:phAsset withResults:audioGroup cancelBlock:v8];
 
               if (_waitForAsyncAudioResults)
               {
@@ -6254,37 +6395,36 @@ LABEL_226:
                   goto LABEL_225;
                 }
 
-                v127 = 2137;
+                v139 = 2137;
                 goto LABEL_224;
               }
 
-              v163 = VCPSignPostLog();
-              v164 = v163;
-              if ((contextb - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v163))
+              v180 = VCPSignPostLog(v168);
+              v181 = v180;
+              if ((contextb - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v180))
               {
                 LOWORD(buf.start.value) = 0;
-                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v164, OS_SIGNPOST_INTERVAL_END, contextb, "VCPMovieAnalyzer_GenerateAndPersistVideoThumbnailResources", "", &buf, 2u);
+                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v181, OS_SIGNPOST_INTERVAL_END, contextb, "VCPMovieAnalyzer_GenerateAndPersistVideoThumbnailResources", "", &buf, 2u);
               }
 
-              v140 = self->_requestedAnalyses;
+              v153 = self->_requestedAnalyses;
             }
 
-            [(NSMutableDictionary *)self->_analysis vcp_addTypes:v140 & 0x82C617542D000];
-            v141 = VCPSignPostLog();
-            audioGroup = v141;
-            if (v117 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v141))
+            v154 = VCPSignPostLog([(NSMutableDictionary *)self->_analysis vcp_addTypes:v153 & 0x82C617542D000]);
+            audioGroup = v154;
+            if (v127 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v154))
             {
               LOWORD(buf.start.value) = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_END, v117, "VCPMovieAnalyzer_Video", "", &buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_END, v127, "VCPMovieAnalyzer_Video", "", &buf, 2u);
             }
 
-            v31 = v174;
+            v37 = v191;
 LABEL_192:
             _waitForAsyncAudioResults = [(VCPMovieAnalyzer *)self _waitForAsyncAudioResults];
             if (!_waitForAsyncAudioResults)
             {
-              v20 = 0;
-              _waitForAsyncAudioResults = v31;
+              v22 = 0;
+              _waitForAsyncAudioResults = v37;
               goto LABEL_128;
             }
 
@@ -6298,15 +6438,15 @@ LABEL_192:
 
           if (MediaAnalysisLogLevel() >= 3)
           {
-            v135 = MEMORY[0x1E69E9C10];
-            v136 = MEMORY[0x1E69E9C10];
+            v147 = MEMORY[0x1E69E9C10];
+            v148 = MEMORY[0x1E69E9C10];
             audioGroup = 16;
-            if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
             {
               LODWORD(buf.start.value) = 134218240;
-              *(&buf.start.value + 4) = v123;
+              *(&buf.start.value + 4) = v134;
               LOWORD(buf.start.flags) = 2048;
-              *(&buf.start.flags + 2) = v124;
+              *(&buf.start.flags + 2) = v135;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "    Video track has invalid dimensions (%.f,%.f)", &buf, 0x16u);
             }
           }
@@ -6316,32 +6456,32 @@ LABEL_192:
 LABEL_208:
 
 LABEL_41:
-            v20 = 4;
-            v19 = 1;
+            v22 = 4;
+            v21 = 1;
             _waitForAsyncAudioResults = -18;
             goto LABEL_128;
           }
 
-          v134 = 2083;
+          v146 = 2083;
         }
 
         else
         {
           if (MediaAnalysisLogLevel() >= 3)
           {
-            v128 = MEMORY[0x1E69E9C10];
-            v129 = MEMORY[0x1E69E9C10];
+            v140 = MEMORY[0x1E69E9C10];
+            v141 = MEMORY[0x1E69E9C10];
             audioGroup = 16;
-            if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
             {
               localIdentifier = [(VCPAsset *)self->_asset localIdentifier];
               tracks = [movie tracks];
-              v132 = [tracks count];
+              v144 = [tracks count];
               tracks2 = [movie tracks];
               LODWORD(buf.start.value) = 138412802;
               *(&buf.start.value + 4) = localIdentifier;
               LOWORD(buf.start.flags) = 2048;
-              *(&buf.start.flags + 2) = v132;
+              *(&buf.start.flags + 2) = v144;
               HIWORD(buf.start.epoch) = 2112;
               buf.duration.value = tracks2;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "  [%@] Asset does not have valid video track; all %lu tracks: %@", &buf, 0x20u);
@@ -6353,108 +6493,109 @@ LABEL_41:
             goto LABEL_208;
           }
 
-          v134 = 2078;
+          v146 = 2078;
         }
 
         self->_errorCode = 45;
-        self->_errorLine = v134;
+        self->_errorLine = v146;
         goto LABEL_208;
       }
 
-      v44 = VCPSignPostLog();
-      v175 = os_signpost_id_generate(v44);
+      v52 = VCPSignPostLog(v50);
+      v192 = os_signpost_id_generate(v52);
 
-      v45 = VCPSignPostLog();
-      audioGroup = v45;
-      if (v175 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+      v54 = VCPSignPostLog(v53);
+      audioGroup = v54;
+      if (v192 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_BEGIN, v175, "VCPMovieAnalyzer_Stabilization", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_BEGIN, v192, "VCPMovieAnalyzer_Stabilization", "", &buf, 2u);
       }
 
       contexta = [(NSMutableDictionary *)self->_privateResults objectForKeyedSubscript:@"MetaStabilizationResults"];
       if ((self->_requestedAnalyses & 0x10000000000) != 0)
       {
         audioGroup = @"LivePhotoKeyFrameTimestamp";
-        v48 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
-        v49 = v48 == 0;
+        v57 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
+        v58 = v57 == 0;
 
-        if (v49)
+        if (v58)
         {
-          v47 = [(NSMutableDictionary *)self->_privateResults objectForKeyedSubscript:@"MetaStillImageHomographyResults"];
+          v56 = [(NSMutableDictionary *)self->_privateResults objectForKeyedSubscript:@"MetaStillImageHomographyResults"];
         }
 
         else
         {
-          v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v224 = @"attributes";
-          v223[0] = &unk_1F49BEF38;
-          v222[0] = @"MetaStillImagePerspectiveTransformResults";
-          v222[1] = @"MetaPresentationTimeResults";
-          v51 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
-          v223[1] = v51;
-          audioGroup = [MEMORY[0x1E695DF20] dictionaryWithObjects:v223 forKeys:v222 count:2];
-          v225[0] = audioGroup;
-          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v225 forKeys:&v224 count:1];
-          [v50 addObject:v52];
+          v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v241 = @"attributes";
+          v240[0] = &unk_1F49BEF38;
+          v239[0] = @"MetaStillImagePerspectiveTransformResults";
+          v239[1] = @"MetaPresentationTimeResults";
+          v60 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
+          v240[1] = v60;
+          audioGroup = [MEMORY[0x1E695DF20] dictionaryWithObjects:v240 forKeys:v239 count:2];
+          v242[0] = audioGroup;
+          v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v242 forKeys:&v241 count:1];
+          [v59 addObject:v61];
 
-          v47 = v50;
+          v56 = v59;
         }
 
-        if (![v47 count])
+        v55 = [v56 count];
+        if (!v55)
         {
           goto LABEL_93;
         }
 
-        v46 = [contexta count];
+        v55 = [contexta count];
       }
 
       else
       {
-        v46 = [contexta count];
-        v47 = 0;
+        v55 = [contexta count];
+        v56 = 0;
       }
 
-      if (v46)
+      if (v55)
       {
-        v53 = [movie vcp_firstEnabledTrackWithMediaType:*MEMORY[0x1E6987608]];
-        if (v53)
+        v62 = [movie vcp_firstEnabledTrackWithMediaType:*MEMORY[0x1E6987608]];
+        if (v62)
         {
           audioGroup = @"LivePhotoKeyFrameTimestamp";
-          v54 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
-          if (v54)
+          v63 = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
+          if (v63)
           {
-            [v53 timeRange];
+            objc_msgSend_timeRange(v62);
             CMTimeRangeGetEnd(&start, &buf);
             audioGroup = [(NSDictionary *)self->_options objectForKeyedSubscript:@"LivePhotoKeyFrameTimestamp"];
-            CMTimeMakeFromDictionary(&v183, audioGroup);
+            CMTimeMakeFromDictionary(&v200, audioGroup);
             buf.start = start;
-            time2.start = v183;
-            v55 = CMTimeCompare(&buf.start, &time2.start);
+            time2.start = v200;
+            v64 = CMTimeCompare(&buf.start, &time2.start);
 
-            if (v55 < 0)
+            if (v64 < 0)
             {
-              v219 = @"PathConstraintsStabilizationResults";
-              v216 = @"attributes";
-              v214 = @"settlingEffectStatus";
-              v212 = @"settlingEffectLivePhotoKeyFrameTimeOutOfBoundFailure";
-              v213 = MEMORY[0x1E695E118];
-              v215 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v213 forKeys:&v212 count:1];
-              v172 = v215;
-              v110 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v215 forKeys:&v214 count:1];
-              v217 = v110;
-              v111 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v217 forKeys:&v216 count:1];
-              v218 = v111;
-              v112 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v218 count:1];
-              v220 = v112;
-              v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v220 forKeys:&v219 count:1];
+              v236 = @"PathConstraintsStabilizationResults";
+              v233 = @"attributes";
+              v231 = @"settlingEffectStatus";
+              v229 = @"settlingEffectLivePhotoKeyFrameTimeOutOfBoundFailure";
+              v230 = MEMORY[0x1E695E118];
+              v232 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v230 forKeys:&v229 count:1];
+              v189 = v232;
+              v120 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v232 forKeys:&v231 count:1];
+              v234 = v120;
+              v121 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v234 forKeys:&v233 count:1];
+              v235 = v121;
+              v122 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v235 count:1];
+              v237 = v122;
+              v123 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v237 forKeys:&v236 count:1];
 
-              [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v113];
+              [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v123];
               [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x10000000000];
-              v114 = self->_requestedAnalyses;
-              if ((v114 & 0x4000000000) != 0)
+              v124 = self->_requestedAnalyses;
+              if ((v124 & 0x4000000000) != 0)
               {
-                self->_requestedAnalyses = v114 & 0xFFFFFFBFFFFFFFFFLL;
+                self->_requestedAnalyses = v124 & 0xFFFFFFBFFFFFFFFFLL;
               }
 
               [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000];
@@ -6463,24 +6604,24 @@ LABEL_41:
             }
           }
 
-          [v53 vcp_fullFrameSize];
-          v58 = v57;
-          v59 = v56;
-          if (v57 >= 1.0 && v56 >= 1.0)
+          [v62 vcp_fullFrameSize];
+          v67 = v66;
+          v68 = v65;
+          if (v66 >= 1.0 && v65 >= 1.0)
           {
-            [v53 vcp_cleanApertureRect];
-            x = v227.origin.x;
-            y = v227.origin.y;
-            width = v227.size.width;
-            height = v227.size.height;
-            if (CGRectIsEmpty(v227))
+            [v62 vcp_cleanApertureRect];
+            x = v244.origin.x;
+            y = v244.origin.y;
+            width = v244.size.width;
+            height = v244.size.height;
+            if (CGRectIsEmpty(v244))
             {
               if (MediaAnalysisLogLevel() >= 3)
               {
-                v64 = MEMORY[0x1E69E9C10];
-                v65 = MEMORY[0x1E69E9C10];
+                v73 = MEMORY[0x1E69E9C10];
+                v74 = MEMORY[0x1E69E9C10];
                 audioGroup = 16;
-                if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                 {
                   LOWORD(buf.start.value) = 0;
                   _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "    Video track has invalid clean aperture rect", &buf, 2u);
@@ -6492,35 +6633,35 @@ LABEL_41:
                 goto LABEL_124;
               }
 
-              v66 = xmmword_1C9F63170;
+              v75 = xmmword_1C9F63170;
               goto LABEL_123;
             }
 
             audioGroup = [contexta objectForKeyedSubscript:@"MetaHomographyDimensionResults"];
-            v138 = NSSizeFromString(audioGroup);
+            v150 = NSSizeFromString(audioGroup);
 
-            if (v138.width == *MEMORY[0x1E695F060] && v138.height == *(MEMORY[0x1E695F060] + 8))
+            if (v150.width == *MEMORY[0x1E695F060] && v150.height == *(MEMORY[0x1E695F060] + 8))
             {
               if (self->_errorCode)
               {
                 goto LABEL_124;
               }
 
-              v66 = xmmword_1C9F63160;
+              v75 = xmmword_1C9F63160;
               goto LABEL_123;
             }
 
             memset(&buf, 0, sizeof(buf));
             if ((self->_requestedAnalyses & 0x10000000000) != 0)
             {
-              [VCPSettlingEffectAnalyzer getSettlingEffectTimeRange:v53 withOptions:self->_options];
+              SettlingEffectTimeRange_withOptions = objc_msgSend_getSettlingEffectTimeRange_withOptions_(VCPSettlingEffectAnalyzer);
               if ((self->_requestedAnalyses & 0x10000000000) != 0 && ((buf.start.flags & 1) == 0 || (buf.duration.flags & 1) == 0 || buf.duration.epoch || buf.duration.value < 0))
               {
                 if (MediaAnalysisLogLevel() >= 7)
                 {
-                  v153 = MEMORY[0x1E69E9C10];
-                  v154 = MEMORY[0x1E69E9C10];
-                  if (os_log_type_enabled(v153, OS_LOG_TYPE_DEBUG))
+                  v169 = MEMORY[0x1E69E9C10];
+                  v170 = MEMORY[0x1E69E9C10];
+                  if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
                   {
                     localIdentifier2 = [(VCPAsset *)self->_asset localIdentifier];
                     LODWORD(time2.start.value) = 138412290;
@@ -6529,27 +6670,27 @@ LABEL_41:
                   }
                 }
 
-                v210 = @"PathConstraintsStabilizationResults";
-                v207 = @"attributes";
-                v205 = @"settlingEffectStatus";
-                v203 = @"settlingEffectInvalidTimeRange";
-                v204 = MEMORY[0x1E695E118];
-                v156 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v204 forKeys:&v203 count:1];
-                v206 = v156;
-                v157 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v206 forKeys:&v205 count:1];
-                v208 = v157;
-                v158 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v208 forKeys:&v207 count:1];
-                v209 = v158;
-                v159 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v209 count:1];
-                v211 = v159;
-                v147 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v211 forKeys:&v210 count:1];
+                v227 = @"PathConstraintsStabilizationResults";
+                v224 = @"attributes";
+                v222 = @"settlingEffectStatus";
+                v220 = @"settlingEffectInvalidTimeRange";
+                v221 = MEMORY[0x1E695E118];
+                v172 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v221 forKeys:&v220 count:1];
+                v223 = v172;
+                v173 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v223 forKeys:&v222 count:1];
+                v225 = v173;
+                v174 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v225 forKeys:&v224 count:1];
+                v226 = v174;
+                v175 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v226 count:1];
+                v228 = v175;
+                v161 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v228 forKeys:&v227 count:1];
 
-                [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v147];
+                [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v161];
                 [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x10000000000];
-                v160 = self->_requestedAnalyses;
-                if ((v160 & 0x4000000000) != 0)
+                v176 = self->_requestedAnalyses;
+                if ((v176 & 0x4000000000) != 0)
                 {
-                  self->_requestedAnalyses = v160 & 0xFFFFFFBFFFFFFFFFLL;
+                  self->_requestedAnalyses = v176 & 0xFFFFFFBFFFFFFFFFLL;
                 }
 
                 [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000];
@@ -6561,37 +6702,37 @@ LABEL_294:
 
             else
             {
-              v139 = *(MEMORY[0x1E6960C98] + 16);
+              v152 = *(MEMORY[0x1E6960C98] + 16);
               *&buf.start.value = *MEMORY[0x1E6960C98];
-              *&buf.start.epoch = v139;
+              *&buf.start.epoch = v152;
               *&buf.duration.timescale = *(MEMORY[0x1E6960C98] + 32);
             }
 
-            v142 = VCPSignPostLog();
-            v173 = os_signpost_id_generate(v142);
+            v155 = VCPSignPostLog(SettlingEffectTimeRange_withOptions);
+            v190 = os_signpost_id_generate(v155);
 
-            v143 = VCPSignPostLog();
-            v144 = v143;
-            v171 = v173 - 1;
-            if (v173 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v143))
+            v157 = VCPSignPostLog(v156);
+            v158 = v157;
+            v188 = v190 - 1;
+            if (v190 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v157))
             {
               LOWORD(time2.start.value) = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v144, OS_SIGNPOST_INTERVAL_BEGIN, v173, "VCPMovieAnalyzer_Stabilization_VCPVideoStabilizerGyro", "", &time2, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v158, OS_SIGNPOST_INTERVAL_BEGIN, v190, "VCPMovieAnalyzer_Stabilization_VCPVideoStabilizerGyro", "", &time2, 2u);
             }
 
-            v145 = [VCPVideoGyroStabilizer alloc];
+            v159 = [VCPVideoGyroStabilizer alloc];
             audioGroup = [contexta objectForKeyedSubscript:@"MetaStabilizationFrameResults"];
-            v146 = v138.width / v58;
-            v147 = v138.height / v59;
+            v160 = v150.width / v67;
+            v161 = v150.height / v68;
             time2 = buf;
-            v147 = [(VCPVideoGyroStabilizer *)v145 initWithMetadata:audioGroup sourceSize:v47 cropRect:&time2 stillImageMetadata:v138.width timeRange:v138.height, x * v146, y * v147, width * v146, height * v147];
+            v161 = [(VCPVideoGyroStabilizer *)v159 initWithMetadata:audioGroup sourceSize:v56 cropRect:&time2 stillImageMetadata:v150.width timeRange:v150.height, x * v160, y * v161, width * v160, height * v161];
 
-            if (!v147)
+            if (!v161)
             {
               _waitForAsyncAudioResults = -108;
               if (!self->_errorCode)
               {
-                v149 = 2017;
+                v163 = 2017;
                 goto LABEL_262;
               }
 
@@ -6600,15 +6741,15 @@ LABEL_263:
               goto LABEL_125;
             }
 
-            _waitForAsyncAudioResults = [(VCPVideoGyroStabilizer *)v147 convertAnalysisResult];
+            _waitForAsyncAudioResults = [(VCPVideoGyroStabilizer *)v161 convertAnalysisResult];
             if (_waitForAsyncAudioResults)
             {
               if (!self->_errorCode)
               {
-                v149 = 2018;
+                v163 = 2018;
 LABEL_262:
                 self->_errorCode = 45;
-                self->_errorLine = v149;
+                self->_errorLine = v163;
                 goto LABEL_263;
               }
 
@@ -6617,20 +6758,20 @@ LABEL_262:
 
             if ((self->_requestedAnalyses & 0x4000000000000000) != 0)
             {
-              [v53 preferredTransform];
-              [(VCPVideoGyroStabilizer *)v147 storeAnalytics:&time2 isLivePhoto:[(VCPAsset *)self->_asset isLivePhoto]];
+              objc_msgSend_preferredTransform(v62);
+              [(VCPVideoGyroStabilizer *)v161 storeAnalytics:&time2 isLivePhoto:[(VCPAsset *)self->_asset isLivePhoto]];
             }
 
-            [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000000000, v171];
-            v161 = self->_requestedAnalyses;
-            if ((v161 & 0x10000000) != 0)
+            v188 = [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000000000, v188];
+            v178 = self->_requestedAnalyses;
+            if ((v178 & 0x10000000) != 0)
             {
-              self->_requestedAnalyses = v161 & 0xFFFFFFFFFBFFFFFFLL;
-              v162 = *(MEMORY[0x1E6960CA8] + 16);
+              self->_requestedAnalyses = v178 & 0xFFFFFFFFFBFFFFFFLL;
+              v179 = *(MEMORY[0x1E6960CA8] + 16);
               *&time2.start.value = *MEMORY[0x1E6960CA8];
-              *&time2.start.epoch = v162;
+              *&time2.start.epoch = v179;
               *&time2.duration.timescale = *(MEMORY[0x1E6960CA8] + 32);
-              _waitForAsyncAudioResults = [(VCPVideoStabilizer *)v147 finishAnalysisPass:&time2];
+              _waitForAsyncAudioResults = [(VCPVideoStabilizer *)v161 finishAnalysisPass:&time2];
               if (_waitForAsyncAudioResults)
               {
                 if (self->_errorCode)
@@ -6638,25 +6779,25 @@ LABEL_262:
                   goto LABEL_263;
                 }
 
-                v149 = 2025;
+                v163 = 2025;
                 goto LABEL_262;
               }
 
-              v165 = self->_analysis;
-              audioGroup = [(VCPVideoStabilizer *)v147 results];
-              [(NSMutableDictionary *)v165 vcp_addEntriesFromResults:audioGroup];
+              v182 = self->_analysis;
+              audioGroup = [(VCPVideoStabilizer *)v161 results];
+              [(NSMutableDictionary *)v182 vcp_addEntriesFromResults:audioGroup];
 
-              [(NSMutableDictionary *)self->_analysis vcp_addTypes:335544320];
-              v161 = self->_requestedAnalyses;
+              v188 = [(NSMutableDictionary *)self->_analysis vcp_addTypes:335544320];
+              v178 = self->_requestedAnalyses;
             }
 
-            if ((v161 & 0x10000000000) != 0)
+            if ((v178 & 0x10000000000) != 0)
             {
-              v168 = *(MEMORY[0x1E6960CA8] + 16);
+              v185 = *(MEMORY[0x1E6960CA8] + 16);
               *&time2.start.value = *MEMORY[0x1E6960CA8];
-              *&time2.start.epoch = v168;
+              *&time2.start.epoch = v185;
               *&time2.duration.timescale = *(MEMORY[0x1E6960CA8] + 32);
-              _waitForAsyncAudioResults = [(VCPVideoStabilizer *)v147 finishAnalysisPass:&time2];
+              _waitForAsyncAudioResults = [(VCPVideoStabilizer *)v161 finishAnalysisPass:&time2];
               if (_waitForAsyncAudioResults)
               {
                 if (self->_errorCode)
@@ -6664,32 +6805,32 @@ LABEL_262:
                   goto LABEL_263;
                 }
 
-                v149 = 2030;
+                v163 = 2030;
                 goto LABEL_262;
               }
 
-              v169 = self->_analysis;
-              results = [(VCPVideoStabilizer *)v147 results];
-              [(NSMutableDictionary *)v169 vcp_addEntriesFromResults:results];
+              v186 = self->_analysis;
+              results = [(VCPVideoStabilizer *)v161 results];
+              [(NSMutableDictionary *)v186 vcp_addEntriesFromResults:results];
 
-              [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x10000000000];
+              v188 = [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x10000000000];
               if ((self->_requestedAnalyses & 0x4000000000) != 0)
               {
-                if ([(VCPVideoStabilizer *)v147 stabilizationFaild])
+                if ([(VCPVideoStabilizer *)v161 stabilizationFaild])
                 {
                   self->_requestedAnalyses &= ~0x4000000000uLL;
                 }
 
-                [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000];
+                v188 = [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000];
               }
             }
 
-            v166 = VCPSignPostLog();
-            v167 = v166;
-            if (v171 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v166))
+            v183 = VCPSignPostLog(v188);
+            v184 = v183;
+            if (v188 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v183))
             {
               LOWORD(time2.start.value) = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v167, OS_SIGNPOST_INTERVAL_END, v173, "VCPMovieAnalyzer_Stabilization_VCPVideoStabilizerGyro", "", &time2, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v184, OS_SIGNPOST_INTERVAL_END, v190, "VCPMovieAnalyzer_Stabilization_VCPVideoStabilizerGyro", "", &time2, 2u);
             }
 
             goto LABEL_294;
@@ -6697,15 +6838,15 @@ LABEL_262:
 
           if (MediaAnalysisLogLevel() >= 3)
           {
-            v82 = MEMORY[0x1E69E9C10];
-            v83 = MEMORY[0x1E69E9C10];
+            v91 = MEMORY[0x1E69E9C10];
+            v92 = MEMORY[0x1E69E9C10];
             audioGroup = 16;
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
             {
               LODWORD(buf.start.value) = 134218240;
-              *(&buf.start.value + 4) = v58;
+              *(&buf.start.value + 4) = v67;
               LOWORD(buf.start.flags) = 2048;
-              *(&buf.start.flags + 2) = v59;
+              *(&buf.start.flags + 2) = v68;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "    Video track has invalid full frame dimensions (%.f,%.f)", &buf, 0x16u);
             }
           }
@@ -6715,7 +6856,7 @@ LABEL_262:
             goto LABEL_124;
           }
 
-          v66 = xmmword_1C9F63180;
+          v75 = xmmword_1C9F63180;
         }
 
         else
@@ -6727,33 +6868,33 @@ LABEL_124:
 LABEL_125:
 
 LABEL_126:
-            v20 = 4;
+            v22 = 4;
             goto LABEL_127;
           }
 
-          v66 = xmmword_1C9F63190;
+          v75 = xmmword_1C9F63190;
         }
 
 LABEL_123:
-        *&self->_errorCode = v66;
+        *&self->_errorCode = v75;
         goto LABEL_124;
       }
 
 LABEL_93:
-      v67 = self->_requestedAnalyses;
-      if ((v67 & 0x4000000000000000) != 0)
+      v76 = self->_requestedAnalyses;
+      if ((v76 & 0x4000000000000000) != 0)
       {
-        [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000000000];
-        v67 = self->_requestedAnalyses;
+        v55 = [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000000000];
+        v76 = self->_requestedAnalyses;
       }
 
-      if ((v67 & 0x10000000) != 0)
+      if ((v76 & 0x10000000) != 0)
       {
         if (MediaAnalysisLogLevel() >= 7)
         {
-          v68 = MEMORY[0x1E69E9C10];
-          v69 = MEMORY[0x1E69E9C10];
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+          v77 = MEMORY[0x1E69E9C10];
+          v78 = MEMORY[0x1E69E9C10];
+          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
           {
             localIdentifier3 = [(VCPAsset *)self->_asset localIdentifier];
             LODWORD(buf.start.value) = 138412290;
@@ -6762,20 +6903,20 @@ LABEL_93:
           }
         }
 
-        [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x10000000];
-        v67 = self->_requestedAnalyses;
+        v55 = [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x10000000];
+        v76 = self->_requestedAnalyses;
       }
 
-      if ((v67 & 0x10000000000) == 0)
+      if ((v76 & 0x10000000000) == 0)
       {
         goto LABEL_174;
       }
 
       if (![contexta count] && MediaAnalysisLogLevel() >= 7)
       {
-        v71 = MEMORY[0x1E69E9C10];
-        v72 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+        v80 = MEMORY[0x1E69E9C10];
+        v81 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
         {
           localIdentifier4 = [(VCPAsset *)self->_asset localIdentifier];
           LODWORD(buf.start.value) = 138412290;
@@ -6784,11 +6925,11 @@ LABEL_93:
         }
       }
 
-      if (![v47 count] && MediaAnalysisLogLevel() >= 7)
+      if (![v56 count] && MediaAnalysisLogLevel() >= 7)
       {
-        v74 = MEMORY[0x1E69E9C10];
-        v75 = MEMORY[0x1E69E9C10];
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+        v83 = MEMORY[0x1E69E9C10];
+        v84 = MEMORY[0x1E69E9C10];
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
         {
           localIdentifier5 = [(VCPAsset *)self->_asset localIdentifier];
           LODWORD(buf.start.value) = 138412290;
@@ -6797,50 +6938,50 @@ LABEL_93:
         }
       }
 
-      v200 = @"PathConstraintsStabilizationResults";
-      v197 = @"attributes";
-      v195 = @"settlingEffectStatus";
-      v193 = @"settlingEffectMissingMetadata";
-      v194 = MEMORY[0x1E695E118];
-      v77 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v194 forKeys:&v193 count:1];
-      v196 = v77;
-      v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v196 forKeys:&v195 count:1];
-      v198 = v78;
-      v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v198 forKeys:&v197 count:1];
-      v199 = v79;
-      v80 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v199 count:1];
-      v201 = v80;
-      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v201 forKeys:&v200 count:1];
+      v217 = @"PathConstraintsStabilizationResults";
+      v214 = @"attributes";
+      v212 = @"settlingEffectStatus";
+      v210 = @"settlingEffectMissingMetadata";
+      v211 = MEMORY[0x1E695E118];
+      v86 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v211 forKeys:&v210 count:1];
+      v213 = v86;
+      v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v213 forKeys:&v212 count:1];
+      v215 = v87;
+      v88 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v215 forKeys:&v214 count:1];
+      v216 = v88;
+      v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v216 count:1];
+      v218 = v89;
+      v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v218 forKeys:&v217 count:1];
 
-      [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v53];
+      [(NSMutableDictionary *)self->_analysis vcp_addEntriesFromResults:v62];
       [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x10000000000];
-      v81 = self->_requestedAnalyses;
-      if ((v81 & 0x4000000000) != 0)
+      v90 = self->_requestedAnalyses;
+      if ((v90 & 0x4000000000) != 0)
       {
-        self->_requestedAnalyses = v81 & 0xFFFFFFBFFFFFFFFFLL;
+        self->_requestedAnalyses = v90 & 0xFFFFFFBFFFFFFFFFLL;
       }
 
       [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x4000000000];
 LABEL_173:
 
 LABEL_174:
-      v115 = VCPSignPostLog();
-      audioGroup = v115;
-      if (v175 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v115))
+      v125 = VCPSignPostLog(v55);
+      audioGroup = v125;
+      if (v192 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v125))
       {
         LOWORD(buf.start.value) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_END, v175, "VCPMovieAnalyzer_Stabilization", "", &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, audioGroup, OS_SIGNPOST_INTERVAL_END, v192, "VCPMovieAnalyzer_Stabilization", "", &buf, 2u);
       }
 
-      v43 = self->_requestedAnalyses;
-      v31 = v174;
+      v51 = self->_requestedAnalyses;
+      v37 = v191;
       goto LABEL_178;
     }
   }
 
-  v16 = self->_analysis;
+  v18 = self->_analysis;
   date = [MEMORY[0x1E695DF00] date];
-  [(NSMutableDictionary *)v16 vcp_setDateAnalyzed:date];
+  [(NSMutableDictionary *)v18 vcp_setDateAnalyzed:date];
 
   [(NSMutableDictionary *)self->_analysis vcp_setFlags:0];
   [(NSMutableDictionary *)self->_analysis vcp_setQuality:0.0];
@@ -6854,33 +6995,33 @@ LABEL_174:
 
   audioGroup = self->_analysis;
   _waitForAsyncAudioResults = 0;
-  v19 = 1;
-  v20 = 1;
+  v21 = 1;
+  v22 = 1;
 LABEL_128:
 
-  objc_autoreleasePoolPop(v180);
-  if (v20 == 4)
+  objc_autoreleasePoolPop(v197);
+  if (v22 == 4)
   {
     goto LABEL_152;
   }
 
-  if (v20)
+  if (v22)
   {
     goto LABEL_167;
   }
 
   [(NSMutableDictionary *)self->_analysis vcp_removeSyncPoint];
-  v84 = self->_analysis;
+  v94 = self->_analysis;
   date2 = [MEMORY[0x1E695DF00] date];
-  [(NSMutableDictionary *)v84 vcp_setDateAnalyzed:date2];
+  [(NSMutableDictionary *)v94 vcp_setDateAnalyzed:date2];
 
   vcp_results2 = [(NSMutableDictionary *)self->_analysis vcp_results];
-  v87 = [vcp_results2 objectForKey:@"QualityResults"];
-  v88 = [v87 count] == 0;
+  v97 = [vcp_results2 objectForKey:@"QualityResults"];
+  v98 = [v97 count] == 0;
 
-  if (!v88)
+  if (!v98)
   {
-    v89 = objc_alloc_init(VCPVideoGlobalAnalyzer);
+    v99 = objc_alloc_init(VCPVideoGlobalAnalyzer);
     isSlowmo = [(VCPAsset *)self->_asset isSlowmo];
     asset = self->_asset;
     if (isSlowmo)
@@ -6893,19 +7034,19 @@ LABEL_128:
       [(VCPAsset *)asset timelapseRate];
     }
 
-    [(VCPVideoGlobalAnalyzer *)v89 analyzeOverallQuality:self->_analysis withFpsRate:v171];
-    v93 = v92;
-    if (v93 != -1.0)
+    [(VCPVideoGlobalAnalyzer *)v99 analyzeOverallQuality:self->_analysis withFpsRate:v188];
+    v103 = v102;
+    if (v103 != -1.0)
     {
-      [(NSMutableDictionary *)self->_analysis vcp_setQuality:v93, -1.0];
+      [(NSMutableDictionary *)self->_analysis vcp_setQuality:v103, -1.0];
     }
 
     if ((self->_requestedAnalyses & 0x80000000) != 0)
     {
       if ([(VCPAsset *)self->_asset isLivePhoto]&& ![(VCPAsset *)self->_asset hadFlash])
       {
-        v94 = [(NSMutableDictionary *)self->_analysis objectForKey:@"metadataRanges"];
-        [(VCPVideoGlobalAnalyzer *)v89 generateLivePhotoRecommendationForResults:v94 andPrivateResults:self->_privateResults usingFaceAction:v19];
+        v104 = [(NSMutableDictionary *)self->_analysis objectForKey:@"metadataRanges"];
+        [(VCPVideoGlobalAnalyzer *)v99 generateLivePhotoRecommendationForResults:v104 andPrivateResults:self->_privateResults usingFaceAction:v21];
       }
 
       [(NSMutableDictionary *)self->_analysis vcp_addTypes:0x80000000];
@@ -6915,30 +7056,31 @@ LABEL_128:
   if (([(NSMutableDictionary *)self->_analysis vcp_types]& 0x80) != 0)
   {
     vcp_results3 = [(NSMutableDictionary *)self->_analysis vcp_results];
-    v96 = vcp_results3 == 0;
+    v106 = vcp_results3 == 0;
 
-    if (!v96)
+    if (!v106)
     {
-      v97 = objc_alloc_init(VCPVideoGlobalAnalyzer);
+      v107 = objc_alloc_init(VCPVideoGlobalAnalyzer);
       vcp_results4 = [(NSMutableDictionary *)self->_analysis vcp_results];
-      v99 = [(VCPVideoGlobalAnalyzer *)v97 setActivityLevel:vcp_results4];
+      v109 = [(VCPVideoGlobalAnalyzer *)v107 setActivityLevel:vcp_results4];
 
-      if (v99)
+      if (v109)
       {
         if (!self->_errorCode)
         {
           *&self->_errorCode = xmmword_1C9F631C0;
         }
 
-        _waitForAsyncAudioResults = v99;
+        _waitForAsyncAudioResults = v109;
         goto LABEL_152;
       }
     }
   }
 
-  if ([(VCPAsset *)self->_asset isMovie])
+  isMovie = [(VCPAsset *)self->_asset isMovie];
+  if (isMovie)
   {
-    [(NSMutableDictionary *)self->_analysis vcp_addStatsFlags:4];
+    isMovie = [(NSMutableDictionary *)self->_analysis vcp_addStatsFlags:4];
   }
 
   self->_status = 2;
@@ -6956,30 +7098,30 @@ LABEL_152:
   self->_status = 3;
   p_analysis = &self->_analysis;
 LABEL_158:
-  v102 = *p_analysis;
+  v112 = *p_analysis;
   *p_analysis = 0;
 
 LABEL_159:
-  v103 = VCPSignPostLog();
-  v104 = v103;
-  if (v182 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v103))
+  v113 = VCPSignPostLog(isMovie);
+  v114 = v113;
+  if (v199 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v113))
   {
     LOWORD(buf.start.value) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v104, OS_SIGNPOST_INTERVAL_END, spid, "VCPMovieAnalyzer", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v114, OS_SIGNPOST_INTERVAL_END, spid, "VCPMovieAnalyzer", "", &buf, 2u);
   }
 
   if (MediaAnalysisLogLevel() >= 7)
   {
-    v105 = MEMORY[0x1E69E9C10];
-    v106 = MEMORY[0x1E69E9C10];
-    if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
+    v115 = MEMORY[0x1E69E9C10];
+    v116 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
     {
       localIdentifier6 = [(VCPAsset *)self->_asset localIdentifier];
-      v108 = [(NSMutableDictionary *)self->_analysis vcp_analysisDescriptionWithResultDetails:1];
+      v118 = [(NSMutableDictionary *)self->_analysis vcp_analysisDescriptionWithResultDetails:1];
       LODWORD(buf.start.value) = 138412546;
       *(&buf.start.value + 4) = localIdentifier6;
       LOWORD(buf.start.flags) = 2112;
-      *(&buf.start.flags + 2) = v108;
+      *(&buf.start.flags + 2) = v118;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@][MovieAnalyzer] After analyzing %@", &buf, 0x16u);
     }
   }
@@ -6996,9 +7138,9 @@ void __42__VCPMovieAnalyzer_analyzeAsset_streamed___block_invoke(void *a1)
   v2 = a1[5];
   v3 = a1[6];
   v4 = a1[7];
-  v15 = 0;
-  v5 = [v2 analyzeAsset:v3 cancel:v4 results:&v15];
-  v6 = v15;
+  v16 = 0;
+  v5 = [v2 analyzeAsset:v3 cancel:v4 results:&v16];
+  v6 = v16;
   v7 = v6;
   *(a1[4] + 104) = v5;
   if (!*(a1[4] + 104))
@@ -7011,19 +7153,19 @@ void __42__VCPMovieAnalyzer_analyzeAsset_streamed___block_invoke(void *a1)
     *(a1[4] + 120) = a1[8];
   }
 
-  v11 = VCPSignPostLog();
+  v11 = VCPSignPostLog(v6);
   v12 = v11;
   v13 = a1[9];
   if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v13, "VCPMovieAnalyzer_Audio", "", v14, 2u);
+    *v15 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v13, "VCPMovieAnalyzer_Audio", "", v15, 2u);
   }
 
   if (a1[10])
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v14 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("VCPMovieAnalyzer_Audio", v14 - a1[10]);
   }
 }
 
@@ -7106,13 +7248,13 @@ LABEL_16:
 
 - (int)generateAndPersistVideoThumbnailResources:(id)resources forPHAsset:(id)asset withResults:(id)results cancelBlock:(id)block
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   resourcesCopy = resources;
   assetCopy = asset;
   resultsCopy = results;
   blockCopy = block;
-  v57 = resultsCopy;
-  v51 = assetCopy;
+  v60 = resultsCopy;
+  v54 = assetCopy;
   if (!resultsCopy)
   {
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
@@ -7123,7 +7265,7 @@ LABEL_16:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MovieAnalyzer][%@] No video thumbnail results exist, skip generating resources", buf, 0xCu);
     }
 
-    v55 = 0;
+    v58 = 0;
     goto LABEL_60;
   }
 
@@ -7145,7 +7287,7 @@ LABEL_16:
   }
 
   v20 = [MEMORY[0x1E6987E68] assetImageGeneratorWithAsset:resourcesCopy];
-  v53 = v20;
+  v56 = v20;
   if (!v20)
   {
     if (!self->_errorCode)
@@ -7153,40 +7295,40 @@ LABEL_16:
       *&self->_errorCode = xmmword_1C9F63240;
     }
 
-    v55 = -18;
+    v58 = -18;
     goto LABEL_59;
   }
 
   [v20 setAppliesPreferredTrackTransform:1];
-  [v53 setMaximumSize:{v18, v17}];
-  CMTimeMake(&v64, 30, 600);
-  *buf = v64;
-  [v53 setRequestedTimeToleranceAfter:buf];
-  CMTimeMake(&v63, 30, 600);
-  *buf = v63;
-  [v53 setRequestedTimeToleranceBefore:buf];
+  [v56 setMaximumSize:{v18, v17}];
+  CMTimeMake(&v67, 30, 600);
+  *buf = v67;
+  [v56 setRequestedTimeToleranceAfter:buf];
+  CMTimeMake(&v66, 30, 600);
+  *buf = v66;
+  [v56 setRequestedTimeToleranceBefore:buf];
   selfCopy = self;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v21 = 0;
   *(&v22 + 1) = 2269;
   *&v22 = 138412802;
-  v47 = v22;
-  while (v21 < [v57 count])
+  v50 = v22;
+  while (v21 < [v60 count])
   {
     v23 = objc_autoreleasePoolPush();
     if (!blockCopy || (blockCopy[2]() & 1) == 0)
     {
-      v25 = [v57 objectAtIndexedSubscript:v21];
+      v25 = [v60 objectAtIndexedSubscript:v21];
       v26 = [v25 objectForKeyedSubscript:@"attributes"];
       v27 = [v26 objectForKeyedSubscript:@"thumbnailID"];
 
       if (v27)
       {
-        memset(&v62, 0, sizeof(v62));
+        memset(&v65, 0, sizeof(v65));
         v28 = [v25 objectForKeyedSubscript:@"start"];
-        CMTimeMakeFromDictionary(&v62, v28);
+        CMTimeMakeFromDictionary(&v65, v28);
 
-        if ((v62.flags & 1) == 0)
+        if ((v65.flags & 1) == 0)
         {
           v29 = selfCopy;
           if (!selfCopy->_errorCode)
@@ -7199,26 +7341,26 @@ LABEL_16:
 LABEL_38:
           v24 = 0;
 LABEL_50:
-          v55 = -18;
+          v58 = -18;
 LABEL_51:
 
           goto LABEL_52;
         }
 
-        *buf = v62;
-        v31 = [v53 copyCGImageAtTime:buf actualTime:0 error:0];
+        *buf = v65;
+        v31 = [v56 copyCGImageAtTime:buf actualTime:0 error:0];
         if (v31)
         {
           [dictionary setObject:v31 forKeyedSubscript:v27];
 
-          if ([dictionary count] != 5 && v21 != objc_msgSend(v57, "count") - 1)
+          if ([dictionary count] != 5 && v21 != objc_msgSend(v60, "count") - 1)
           {
             goto LABEL_46;
           }
 
           if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
-            localIdentifier2 = [v51 localIdentifier];
+            localIdentifier2 = [v54 localIdentifier];
             v33 = [dictionary count];
             *buf = 138412546;
             *&buf[4] = localIdentifier2;
@@ -7227,62 +7369,62 @@ LABEL_51:
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MovieAnalyzer][%@] Persisting %d thumbnail resources to Photos", buf, 0x12u);
           }
 
-          v49 = mach_absolute_time();
-          v34 = VCPSignPostLog();
+          v52 = mach_absolute_time();
+          v34 = VCPSignPostLog(v52);
           v35 = os_signpost_id_generate(v34);
 
-          v36 = VCPSignPostLog();
-          v37 = v36;
-          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+          v37 = VCPSignPostLog(v36);
+          v38 = v37;
+          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v35, "VCPMovieAnalyzer_PersistVideoThumbnailResources", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_BEGIN, v35, "VCPMovieAnalyzer_PersistVideoThumbnailResources", "", buf, 2u);
           }
 
-          photoLibrary = [v51 photoLibrary];
-          v59[0] = MEMORY[0x1E69E9820];
-          v59[1] = 3221225472;
-          v59[2] = __97__VCPMovieAnalyzer_generateAndPersistVideoThumbnailResources_forPHAsset_withResults_cancelBlock___block_invoke;
-          v59[3] = &unk_1E834D238;
-          v39 = v51;
-          v60 = v39;
-          v40 = dictionary;
-          v61 = v40;
-          v58 = 0;
-          v41 = [photoLibrary performChangesAndWait:v59 error:&v58];
-          v48 = v58;
+          photoLibrary = [v54 photoLibrary];
+          v62[0] = MEMORY[0x1E69E9820];
+          v62[1] = 3221225472;
+          v62[2] = __97__VCPMovieAnalyzer_generateAndPersistVideoThumbnailResources_forPHAsset_withResults_cancelBlock___block_invoke;
+          v62[3] = &unk_1E834D238;
+          v40 = v54;
+          v63 = v40;
+          v41 = dictionary;
+          v64 = v41;
+          v61 = 0;
+          v42 = [photoLibrary performChangesAndWait:v62 error:&v61];
+          v51 = v61;
 
-          v42 = VCPSignPostLog();
-          v43 = v42;
-          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+          v44 = VCPSignPostLog(v43);
+          v45 = v44;
+          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_END, v35, "VCPMovieAnalyzer_PersistVideoThumbnailResources", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v45, OS_SIGNPOST_INTERVAL_END, v35, "VCPMovieAnalyzer_PersistVideoThumbnailResources", "", buf, 2u);
           }
 
-          if (v49)
+          if (v52)
           {
-            mach_absolute_time();
-            VCPPerformance_LogMeasurement();
+            v46 = mach_absolute_time();
+            VCPPerformance_LogMeasurement("VCPMovieAnalyzer_PersistVideoThumbnailResources", v46 - v52);
           }
 
-          if (v41)
+          if (v42)
           {
-            [v40 removeAllObjects];
+            [v41 removeAllObjects];
           }
 
           else
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              localIdentifier3 = [v39 localIdentifier];
-              v45 = [v40 count];
-              *buf = v47;
+              localIdentifier3 = [v40 localIdentifier];
+              v48 = [v41 count];
+              *buf = v50;
               *&buf[4] = localIdentifier3;
               *&buf[12] = 1024;
-              *&buf[14] = v45;
+              *&buf[14] = v48;
               *&buf[18] = 2112;
-              *&buf[20] = v48;
+              *&buf[20] = v51;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[MovieAnalyzer][%@] Failed to persist %d thumbnail resources: %@", buf, 0x1Cu);
             }
 
@@ -7291,10 +7433,10 @@ LABEL_51:
               *&selfCopy->_errorCode = xmmword_1C9F63200;
             }
 
-            v55 = -18;
+            v58 = -18;
           }
 
-          if ((v41 & 1) == 0)
+          if ((v42 & 1) == 0)
           {
             v24 = 0;
           }
@@ -7336,7 +7478,7 @@ LABEL_49:
     }
 
     v24 = 0;
-    v55 = -128;
+    v58 = -128;
 LABEL_52:
     objc_autoreleasePoolPop(v23);
     ++v21;
@@ -7346,13 +7488,13 @@ LABEL_52:
     }
   }
 
-  v55 = 0;
+  v58 = 0;
 LABEL_58:
 
 LABEL_59:
 LABEL_60:
 
-  return v55;
+  return v58;
 }
 
 void __97__VCPMovieAnalyzer_generateAndPersistVideoThumbnailResources_forPHAsset_withResults_cancelBlock___block_invoke(uint64_t a1)
@@ -7397,11 +7539,11 @@ void __97__VCPMovieAnalyzer_generateAndPersistVideoThumbnailResources_forPHAsset
 
 + (void)getMaximumHighlightInSec
 {
-  if (__cxa_guard_acquire(&qword_1ED942830))
+  if (__cxa_guard_acquire(byte_1ED942830))
   {
     _MergedGlobals_2 = 1092616192;
 
-    __cxa_guard_release(&qword_1ED942830);
+    __cxa_guard_release(byte_1ED942830);
   }
 }
 

@@ -299,7 +299,7 @@ LABEL_47:
   {
     if (values->var2 == 14 || (values->var5 & 0x18) != 0)
     {
-      v7 = GPUTools::FD::Argument::ViewAsCStringArray(values);
+      GPUTools::FD::Argument::ViewAsCStringArray(values);
       if (values->var4)
       {
         v8 = v7;
@@ -308,7 +308,7 @@ LABEL_47:
         {
           v10 = objc_alloc(MEMORY[0x277CCABB0]);
           v11 = *v8;
-          if ((*(v8 + 22) & 0x40) != 0)
+          if ((*(v8 + 11) & 0x40) != 0)
           {
             v12 = *(v11 + 4 * v9) + v11;
           }
@@ -590,7 +590,7 @@ LABEL_47:
   return v8;
 }
 
-uint64_t __63__DYFunctionTracer__stringForScalar1DArrayArgument_usingBlock___block_invoke(uint64_t a1, uint64_t a2, char a3)
+void *__63__DYFunctionTracer__stringForScalar1DArrayArgument_usingBlock___block_invoke(uint64_t a1, uint64_t a2, char a3)
 {
   result = [*(a1 + 32) appendString:{objc_msgSend(*(a1 + 40), "_stringWithNumber:argument:", a2, *(a1 + 48))}];
   if ((a3 & 1) == 0)
@@ -906,11 +906,11 @@ uint64_t __37__DYFunctionTracer_valueForArgument___block_invoke(uint64_t a1, voi
 
 - (id)traceFunctionAsLines:(const Function *)lines returnVariable:(id)variable error:(id *)error
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v53 = *lines;
+  v52 = *lines;
   linesCopy = lines;
   [(DYFunctionTracer *)self _setCurrentReceiver:lines];
   if ((self->_compilable || !self->_emitHiddenReceiverArgument) && [(DYFunctionTracer *)self _skipFirstArgumentForFunction:lines])
@@ -929,11 +929,11 @@ uint64_t __37__DYFunctionTracer_valueForArgument___block_invoke(uint64_t a1, voi
     v10 = 48;
   }
 
-  v49 = (lines + 24 * *(lines + 5) + 48);
-  if ((lines + v10) != v49)
+  v48 = (lines + 24 * *(lines + 5) + 48);
+  if ((lines + v10) != v48)
   {
     v11 = 0;
-    v55 = v10 - 24 * *(lines + 5) - 48;
+    v54 = v10 - 24 * *(lines + 5) - 48;
     linesCopy2 = lines;
     do
     {
@@ -949,9 +949,9 @@ uint64_t __37__DYFunctionTracer_valueForArgument___block_invoke(uint64_t a1, voi
         [v8 addObject:{objc_msgSend(*(linesCopy2 + v10), "description")}];
       }
 
-      else if (v53 == -12272 && v10 + v11 == 72)
+      else if (v52 == -12272 && v10 + v11 == 72)
       {
-        DYInternalDataTypeAsString(**(linesCopy2 + v10), &__p);
+        DYInternalDataTypeAsString(&__p, **(linesCopy2 + v10));
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -977,26 +977,26 @@ uint64_t __37__DYFunctionTracer_valueForArgument___block_invoke(uint64_t a1, voi
           v16 = [(DYFunctionTracer *)self typeStringForArgument:linesCopy2 + v10];
           if (*(linesCopy2 + v10 + 22))
           {
-            v51 = objc_opt_new();
-            v65[0] = MEMORY[0x277D85DD0];
-            v65[1] = 3221225472;
-            v65[2] = __62__DYFunctionTracer_traceFunctionAsLines_returnVariable_error___block_invoke;
-            v65[3] = &unk_27930C858;
-            v65[4] = self;
-            v65[5] = v7;
-            v65[6] = v16;
-            v65[7] = v52;
-            v65[8] = v51;
-            [(DYFunctionTracer *)self _enumerateScalar1DArrayArgumentValues:linesCopy2 + v10 usingBlock:v65];
+            v50 = objc_opt_new();
+            v64[0] = MEMORY[0x277D85DD0];
+            v64[1] = 3221225472;
+            v64[2] = __62__DYFunctionTracer_traceFunctionAsLines_returnVariable_error___block_invoke;
+            v64[3] = &unk_27930C858;
+            v64[4] = self;
+            v64[5] = v7;
+            v64[6] = v16;
+            v64[7] = v51;
+            v64[8] = v50;
+            [(DYFunctionTracer *)self _enumerateScalar1DArrayArgumentValues:linesCopy2 + v10 usingBlock:v64];
             if (self->_compilable)
             {
               nextArrayVariable = [(DYFunctionTracer *)self nextArrayVariable];
-              [v7 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@* %@[%u] = {%@};", v16, nextArrayVariable, *(linesCopy2 + v10 + 20), objc_msgSend(v51, "componentsJoinedByString:", @", "))}];
+              [v7 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@* %@[%u] = {%@};", v16, nextArrayVariable, *(linesCopy2 + v10 + 20), objc_msgSend(v50, "componentsJoinedByString:", @", "))}];
             }
 
             else
             {
-              nextArrayVariable = [MEMORY[0x277CCACA8] stringWithFormat:@"{%@}", objc_msgSend(v51, "componentsJoinedByString:", @", ")];
+              nextArrayVariable = [MEMORY[0x277CCACA8] stringWithFormat:@"{%@}", objc_msgSend(v50, "componentsJoinedByString:", @", ")];
             }
 
             [v8 addObject:nextArrayVariable];
@@ -1027,7 +1027,7 @@ uint64_t __37__DYFunctionTracer_valueForArgument___block_invoke(uint64_t a1, voi
                 else
                 {
                   [v7 addObject:{-[DYFunctionTracer loadStringForURL:variableName:bufferType:](self, "loadStringForURL:variableName:bufferType:", v17, buffer_counter, v16)}];
-                  [v52 addObject:{-[DYFunctionTracer unloadStringForURL:](self, "unloadStringForURL:", v17)}];
+                  [v51 addObject:{-[DYFunctionTracer unloadStringForURL:](self, "unloadStringForURL:", v17)}];
                 }
               }
 
@@ -1088,7 +1088,7 @@ uint64_t __37__DYFunctionTracer_valueForArgument___block_invoke(uint64_t a1, voi
       v11 += 24;
     }
 
-    while (v55 + v11);
+    while (v54 + v11);
   }
 
   v27 = self->_delegate;
@@ -1102,7 +1102,7 @@ uint64_t __37__DYFunctionTracer_valueForArgument___block_invoke(uint64_t a1, voi
         [(DYFunctionTracer *)self _prependReceiver:v30 function:linesCopy];
       }
 
-      __p.__r_.__value_.__r.__words[0] = v49;
+      __p.__r_.__value_.__r.__words[0] = v48;
       [(DYFunctionTracer *)self _appendTraceLine:v30 withFunction:linesCopy iterArgument:&__p argumentStrings:v8 returnVariable:variable];
       if (self->_compilable)
       {
@@ -1215,31 +1215,31 @@ LABEL_81:
 LABEL_85:
   [v7 addObjectsFromArray:v28];
 
-  [v7 addObjectsFromArray:v52];
+  [v7 addObjectsFromArray:v51];
   if ((*(linesCopy + 4) & 2) != 0 && self->_emitFunctionComments)
   {
     v37 = objc_opt_new();
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
-    v38 = [v7 countByEnumeratingWithState:&v61 objects:v68 count:16];
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v38 = [v7 countByEnumeratingWithState:&v60 objects:v67 count:16];
     if (v38)
     {
-      v39 = *v62;
+      v39 = *v61;
       do
       {
         for (i = 0; i != v38; ++i)
         {
-          if (*v62 != v39)
+          if (*v61 != v39)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v37 addObject:{objc_msgSend(@"//", "stringByAppendingString:", *(*(&v61 + 1) + 8 * i))}];
+          [v37 addObject:{objc_msgSend(@"//", "stringByAppendingString:", *(*(&v60 + 1) + 8 * i))}];
         }
 
-        v38 = [v7 countByEnumeratingWithState:&v61 objects:v68 count:16];
+        v38 = [v7 countByEnumeratingWithState:&v60 objects:v67 count:16];
       }
 
       while (v38);
@@ -1272,27 +1272,27 @@ LABEL_85:
           break;
         }
 
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
         v58 = 0u;
-        v44 = [v42 countByEnumeratingWithState:&v57 objects:v67 count:16];
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
+        v44 = [v42 countByEnumeratingWithState:&v56 objects:v66 count:16];
         if (v44)
         {
-          v45 = *v58;
+          v45 = *v57;
           do
           {
             for (j = 0; j != v44; ++j)
             {
-              if (*v58 != v45)
+              if (*v57 != v45)
               {
                 objc_enumerationMutation(v43);
               }
 
-              [v37 addObject:{objc_msgSend(@"    ", "stringByAppendingString:", *(*(&v57 + 1) + 8 * j))}];
+              [v37 addObject:{objc_msgSend(@"    ", "stringByAppendingString:", *(*(&v56 + 1) + 8 * j))}];
             }
 
-            v44 = [v43 countByEnumeratingWithState:&v57 objects:v67 count:16];
+            v44 = [v43 countByEnumeratingWithState:&v56 objects:v66 count:16];
           }
 
           while (v44);
@@ -1313,9 +1313,7 @@ LABEL_112:
     self->_emitAssociatedFunctions = 1;
   }
 
-  result = v37;
-  v48 = *MEMORY[0x277D85DE8];
-  return result;
+  return v37;
 }
 
 uint64_t __62__DYFunctionTracer_traceFunctionAsLines_returnVariable_error___block_invoke(uint64_t a1, void *a2)
@@ -1374,7 +1372,7 @@ uint64_t __62__DYFunctionTracer_traceFunctionAsLines_returnVariable_error___bloc
   delegate = self->_delegate;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    return [MEMORY[0x277CCACA8] stringWithFormat:@"%@* %@ = (%@*)DyGen::load_url(\"%@\"", type, name, type, l];
+    return [MEMORY[0x277CCACA8] stringWithFormat:@"%@* %@ = (%@*)DyGen::load_url(%@", type, name, type, l];
   }
 
   return [(DYFunctionTracerDelegate *)delegate loadStringForURL:l variableName:name bufferType:type];
@@ -1385,7 +1383,7 @@ uint64_t __62__DYFunctionTracer_traceFunctionAsLines_returnVariable_error___bloc
   delegate = self->_delegate;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    return [MEMORY[0x277CCACA8] stringWithFormat:@"DyGen::unload_url(\"%@\"", l];
+    return [MEMORY[0x277CCACA8] stringWithFormat:@"DyGen::unload_url(%@", l];
   }
 
   return [(DYFunctionTracerDelegate *)delegate unloadStringForURL:l];
@@ -1575,33 +1573,33 @@ uint64_t __62__DYFunctionTracer_traceFunctionAsLines_returnVariable_error___bloc
 
 - (void)_appendTraceLine:(id)line withFunction:(const Function *)function iterArgument:(array_iterator<const GPUTools:(id)argument :(id)a7 FD::Argument>)a5 argumentStrings:returnVariable:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   var0 = a5.var0->var0;
   [(DYFunctionTracer *)self _appendReturnValueToTraceLine:line withFunction:function iterArgument:&var0 argumentStrings:argument returnVariable:a7];
   v11 = dy_fenum_to_function_name_nsstring(*function, *(function + 1), self->_compactEffective);
   if ([v11 containsString:@"%@"] && objc_msgSend(v11, "containsString:", @":") && objc_msgSend(v11, "containsString:", @" "))
   {
     v12 = [v11 length];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v13 = [argument countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v13 = [argument countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v23 = *v25;
+      v22 = *v24;
 LABEL_6:
       v16 = 0;
       while (1)
       {
-        if (*v25 != v23)
+        if (*v24 != v22)
         {
           objc_enumerationMutation(argument);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * v16);
+        v17 = *(*(&v23 + 1) + 8 * v16);
         v18 = [v11 rangeOfString:@"%@" options:2 range:{v15, v12}];
         if (v18 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -1616,7 +1614,7 @@ LABEL_6:
         v12 = [v11 length] - (v20 + v21);
         if (v14 == ++v16)
         {
-          v14 = [argument countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v14 = [argument countByEnumeratingWithState:&v23 objects:v28 count:16];
           if (v14)
           {
             goto LABEL_6;
@@ -1639,8 +1637,6 @@ LABEL_6:
   {
     [line appendFormat:@"%@(%@)", v11, objc_msgSend(argument, "componentsJoinedByString:", @", ")];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

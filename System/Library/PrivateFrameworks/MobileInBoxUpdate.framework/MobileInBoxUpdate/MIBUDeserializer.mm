@@ -353,9 +353,9 @@ void __109__MIBUDeserializer__deserializeError_withErrorCodeTag_errorDomainTag_e
 
 - (BOOL)_deserializeNextTag:(id *)tag withData:(id *)data
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v48 = 0;
+  v50 = *MEMORY[0x277D85DE8];
   v47 = 0;
+  v46 = 0;
   v7 = [(MIBUDeserializer *)self pos];
   data = [(MIBUDeserializer *)self data];
   v9 = [data length];
@@ -380,36 +380,36 @@ LABEL_19:
       dispatch_once(&MIBUOnceToken, &__block_literal_global_7);
     }
 
-    v31 = MIBUConnObj;
+    v30 = MIBUConnObj;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = v31;
+      v31 = v30;
       data3 = [(MIBUDeserializer *)self data];
       data4 = [(MIBUDeserializer *)self data];
       *buf = 138543874;
-      *v50 = data3;
-      *&v50[8] = 2048;
-      *&v50[10] = v7;
-      *&v50[18] = 2048;
-      *&v50[20] = [data4 length];
-      _os_log_impl(&dword_259ABF000, v32, OS_LOG_TYPE_DEFAULT, "Warning: Data %{public}@ Terminating deserialization at %lu for data length: %lu", buf, 0x20u);
+      *v49 = data3;
+      *&v49[8] = 2048;
+      *&v49[10] = v7;
+      *&v49[18] = 2048;
+      *&v49[20] = [data4 length];
+      _os_log_impl(&dword_259ABF000, v31, OS_LOG_TYPE_DEFAULT, "Warning: Data %{public}@ Terminating deserialization at %lu for data length: %lu", buf, 0x20u);
     }
 
     goto LABEL_19;
   }
 
   data5 = [(MIBUDeserializer *)self data];
-  [data5 getBytes:&v48 range:{v7, 1}];
+  [data5 getBytes:&v47 range:{v7, 1}];
 
   data6 = [(MIBUDeserializer *)self data];
-  [data6 getBytes:&v47 range:{v7 + 1, 4}];
+  [data6 getBytes:&v46 range:{v7 + 1, 4}];
 
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v48];
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v47];
   v16 = [MIBUSerializationUtil maxLengthForTag:v15];
   if (v16)
   {
     v17 = v16;
-    v18 = v47;
+    v18 = v46;
     if (v18 > [v16 unsignedIntValue])
     {
       if (MIBUOnceToken != -1)
@@ -417,39 +417,39 @@ LABEL_19:
         dispatch_once(&MIBUOnceToken, &__block_literal_global_23);
       }
 
-      v36 = MIBUConnObj;
+      v35 = MIBUConnObj;
       if (OUTLINED_FUNCTION_5_1())
       {
-        v37 = v36;
+        v36 = v35;
         charValue = [v15 charValue];
-        v39 = v47;
+        v38 = v46;
         unsignedIntValue = [v17 unsignedIntValue];
         *buf = 67109632;
-        *v50 = charValue;
-        *&v50[4] = 1024;
-        *&v50[6] = v39;
-        *&v50[10] = 1024;
-        *&v50[12] = unsignedIntValue;
-        _os_log_error_impl(&dword_259ABF000, v37, OS_LOG_TYPE_ERROR, "0x%X field len: %u is > expected len: %u", buf, 0x14u);
+        *v49 = charValue;
+        *&v49[4] = 1024;
+        *&v49[6] = v38;
+        *&v49[10] = 1024;
+        *&v49[12] = unsignedIntValue;
+        _os_log_error_impl(&dword_259ABF000, v36, OS_LOG_TYPE_ERROR, "0x%X field len: %u is > expected len: %u", buf, 0x14u);
       }
     }
 
     else
     {
-      v19 = v10 + v47;
+      v19 = v10 + v46;
       data7 = [(MIBUDeserializer *)self data];
       v21 = [data7 length];
 
       if (v19 <= v21)
       {
-        if (v47)
+        if (v46)
         {
           v22 = MEMORY[0x277CBEA90];
           data8 = [(MIBUDeserializer *)self data];
           bytes = [data8 bytes];
-          v25 = [v22 dataWithBytesNoCopy:bytes + v10 length:v47 freeWhenDone:0];
+          v25 = [v22 dataWithBytesNoCopy:bytes + v10 length:v46 freeWhenDone:0];
 
-          v10 += v47;
+          v10 += v46;
         }
 
         else
@@ -473,19 +473,19 @@ LABEL_10:
         dispatch_once(&MIBUOnceToken, &__block_literal_global_26);
       }
 
-      v41 = MIBUConnObj;
+      v40 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
-        v44 = v47;
-        v45 = v41;
+        v43 = v46;
+        v44 = v40;
         data9 = [(MIBUDeserializer *)self data];
         *buf = 67109634;
-        *v50 = v44;
-        *&v50[4] = 2048;
-        *&v50[6] = v10;
-        *&v50[14] = 2114;
-        *&v50[16] = data9;
-        _os_log_error_impl(&dword_259ABF000, v45, OS_LOG_TYPE_ERROR, "Failed to deserialize %u bytes data at %lu; data %{public}@ too short", buf, 0x1Cu);
+        *v49 = v43;
+        *&v49[4] = 2048;
+        *&v49[6] = v10;
+        *&v49[14] = 2114;
+        *&v49[16] = data9;
+        _os_log_error_impl(&dword_259ABF000, v44, OS_LOG_TYPE_ERROR, "Failed to deserialize %u bytes data at %lu; data %{public}@ too short", buf, 0x1Cu);
       }
     }
   }
@@ -497,14 +497,14 @@ LABEL_10:
       dispatch_once(&MIBUOnceToken, &__block_literal_global_20);
     }
 
-    v35 = MIBUConnObj;
+    v34 = MIBUConnObj;
     if (OUTLINED_FUNCTION_6_1())
     {
-      v42 = v35;
+      v41 = v34;
       charValue2 = [v15 charValue];
       *buf = 67109120;
-      *v50 = charValue2;
-      _os_log_error_impl(&dword_259ABF000, v42, OS_LOG_TYPE_ERROR, "Tag 0x%X is not recognized", buf, 8u);
+      *v49 = charValue2;
+      _os_log_error_impl(&dword_259ABF000, v41, OS_LOG_TYPE_ERROR, "Tag 0x%X is not recognized", buf, 8u);
     }
 
     v17 = 0;
@@ -526,13 +526,12 @@ LABEL_12:
     *data = v25;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (id)_valueForTag:(id)tag withData:(id)data
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   tagCopy = tag;
   v7 = [MIBUSerializationUtil typeForTag:tagCopy];
@@ -557,12 +556,12 @@ LABEL_12:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_29);
         }
 
-        v45 = MIBUConnObj;
+        v44 = MIBUConnObj;
         if (OUTLINED_FUNCTION_6_1())
         {
-          *v50 = 138543362;
-          *&v50[4] = dataCopy;
-          v46 = "Cannot convert data %{public}@ to number";
+          *v49 = 138543362;
+          *&v49[4] = dataCopy;
+          v45 = "Cannot convert data %{public}@ to number";
           goto LABEL_50;
         }
 
@@ -576,7 +575,7 @@ LABEL_12:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_32);
         }
 
-        v47 = MIBUConnObj;
+        v46 = MIBUConnObj;
         if (!OUTLINED_FUNCTION_5_1())
         {
           goto LABEL_18;
@@ -588,8 +587,8 @@ LABEL_12:
       v12 = [dataCopy length];
       if (v12 == v11)
       {
-        OUTLINED_FUNCTION_4_1(v12, v13, v14, v15, v16, v17, v18, v19, *v50);
-        v20 = [MEMORY[0x277CCABB0] numberWithLongLong:*v50];
+        OUTLINED_FUNCTION_4_1(v12, v13, v14, v15, v16, v17, v18, v19, *v49);
+        v20 = [MEMORY[0x277CCABB0] numberWithLongLong:*v49];
         goto LABEL_26;
       }
 
@@ -598,7 +597,7 @@ LABEL_12:
         dispatch_once(&MIBUOnceToken, &__block_literal_global_35);
       }
 
-      v47 = MIBUConnObj;
+      v46 = MIBUConnObj;
       if (!OUTLINED_FUNCTION_5_1())
       {
         goto LABEL_18;
@@ -614,12 +613,12 @@ LABEL_12:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_38);
         }
 
-        v45 = MIBUConnObj;
+        v44 = MIBUConnObj;
         if (OUTLINED_FUNCTION_6_1())
         {
-          *v50 = 138543362;
-          *&v50[4] = dataCopy;
-          v46 = "Cannot convert data %{public}@ to number";
+          *v49 = 138543362;
+          *&v49[4] = dataCopy;
+          v45 = "Cannot convert data %{public}@ to number";
           goto LABEL_50;
         }
 
@@ -633,7 +632,7 @@ LABEL_12:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_41);
         }
 
-        v47 = MIBUConnObj;
+        v46 = MIBUConnObj;
         if (!OUTLINED_FUNCTION_5_1())
         {
           goto LABEL_18;
@@ -645,8 +644,8 @@ LABEL_12:
       v23 = [dataCopy length];
       if (v23 == v22)
       {
-        OUTLINED_FUNCTION_4_1(v23, v24, v25, v26, v27, v28, v29, v30, *v50);
-        v20 = [MEMORY[0x277CCABB0] numberWithDouble:*v50];
+        OUTLINED_FUNCTION_4_1(v23, v24, v25, v26, v27, v28, v29, v30, *v49);
+        v20 = [MEMORY[0x277CCABB0] numberWithDouble:*v49];
         goto LABEL_26;
       }
 
@@ -655,7 +654,7 @@ LABEL_12:
         dispatch_once(&MIBUOnceToken, &__block_literal_global_44);
       }
 
-      v47 = MIBUConnObj;
+      v46 = MIBUConnObj;
       if (!OUTLINED_FUNCTION_5_1())
       {
         goto LABEL_18;
@@ -677,18 +676,18 @@ LABEL_12:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_48_0);
         }
 
-        v45 = MIBUConnObj;
+        v44 = MIBUConnObj;
         if (!OUTLINED_FUNCTION_6_1())
         {
           goto LABEL_18;
         }
 
-        *v50 = 138543362;
-        *&v50[4] = dataCopy;
-        v46 = "Cannot convert data %{public}@ to number. Data is NULL or empty";
+        *v49 = 138543362;
+        *&v49[4] = dataCopy;
+        v45 = "Cannot convert data %{public}@ to number. Data is NULL or empty";
 LABEL_50:
-        v48 = v45;
-        v49 = 12;
+        v47 = v44;
+        v48 = 12;
         goto LABEL_68;
       }
 
@@ -699,7 +698,7 @@ LABEL_50:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_51);
         }
 
-        v47 = MIBUConnObj;
+        v46 = MIBUConnObj;
         if (!OUTLINED_FUNCTION_5_1())
         {
           goto LABEL_18;
@@ -707,12 +706,12 @@ LABEL_50:
 
 LABEL_58:
         OUTLINED_FUNCTION_0_1();
-        v46 = "Len of num to convert %u cannot be greater than %lu";
+        v45 = "Len of num to convert %u cannot be greater than %lu";
 LABEL_67:
-        v48 = v47;
-        v49 = 18;
+        v47 = v46;
+        v48 = 18;
 LABEL_68:
-        _os_log_error_impl(&dword_259ABF000, v48, OS_LOG_TYPE_ERROR, v46, v50, v49);
+        _os_log_error_impl(&dword_259ABF000, v47, OS_LOG_TYPE_ERROR, v45, v49, v48);
 LABEL_18:
         v9 = 0;
         goto LABEL_27;
@@ -726,7 +725,7 @@ LABEL_18:
           dispatch_once(&MIBUOnceToken, &__block_literal_global_54);
         }
 
-        v47 = MIBUConnObj;
+        v46 = MIBUConnObj;
         if (!OUTLINED_FUNCTION_5_1())
         {
           goto LABEL_18;
@@ -734,17 +733,15 @@ LABEL_18:
 
 LABEL_66:
         OUTLINED_FUNCTION_3_1();
-        v46 = "Data %{public}@ does not have expected len %u";
+        v45 = "Data %{public}@ does not have expected len %u";
         goto LABEL_67;
       }
 
-      OUTLINED_FUNCTION_4_1(v34, v35, v36, v37, v38, v39, v40, v41, *v50);
-      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v50];
+      OUTLINED_FUNCTION_4_1(v34, v35, v36, v37, v38, v39, v40, v41, *v49);
+      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v49];
 LABEL_26:
       v9 = v20;
 LABEL_27:
-
-      v42 = *MEMORY[0x277D85DE8];
 
       return v9;
     default:
@@ -756,10 +753,10 @@ LABEL_27:
       v31 = MIBUConnObj;
       if (OUTLINED_FUNCTION_6_1())
       {
-        v44 = v31;
-        *v50 = 67109120;
-        *&v50[4] = [v7 unsignedIntValue];
-        _os_log_error_impl(&dword_259ABF000, v44, OS_LOG_TYPE_ERROR, "Unrecognized deserialization data type: 0x%X", v50, 8u);
+        v43 = v31;
+        *v49 = 67109120;
+        *&v49[4] = [v7 unsignedIntValue];
+        _os_log_error_impl(&dword_259ABF000, v43, OS_LOG_TYPE_ERROR, "Unrecognized deserialization data type: 0x%X", v49, 8u);
       }
 
       goto LABEL_18;
@@ -768,7 +765,7 @@ LABEL_27:
 
 - (BOOL)_deserializeError:(id *)error withErrorCodeTag:(id)tag errorDomainTag:(id)domainTag errorDescriptionTag:(id)descriptionTag underlyingErrorTag:(id)errorTag
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   tagCopy = tag;
   domainTagCopy = domainTag;
   descriptionTagCopy = descriptionTag;
@@ -776,10 +773,10 @@ LABEL_27:
   v17 = objc_opt_new();
   tagValDict = [(MIBUDeserializer *)self tagValDict];
 
-  v65 = descriptionTagCopy;
-  v66 = tagCopy;
-  v63 = errorTagCopy;
-  v64 = domainTagCopy;
+  v59 = descriptionTagCopy;
+  v60 = tagCopy;
+  v57 = errorTagCopy;
+  v58 = domainTagCopy;
   if (!tagValDict)
   {
     if (MIBUOnceToken != -1)
@@ -788,12 +785,13 @@ LABEL_27:
     }
 
     errorCopy5 = error;
-    if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_7_1(&dword_259ABF000, v39, v40, "Data must be deserialized before deserializing error", v41, v42, v43, v44, v57, v58, v60, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy, 0);
+      goto LABEL_34;
     }
 
-    goto LABEL_35;
+    v44 = "Data must be deserialized before deserializing error";
+    goto LABEL_43;
   }
 
   tagValDict2 = [(MIBUDeserializer *)self tagValDict];
@@ -807,15 +805,18 @@ LABEL_27:
     }
 
     errorCopy5 = error;
-    if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_7_1(&dword_259ABF000, v45, v46, "Failed to convert error code data to number", v47, v48, v49, v50, v57, v58, v60, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy, 0);
+      goto LABEL_34;
     }
 
-LABEL_35:
+    v44 = "Failed to convert error code data to number";
+LABEL_43:
+    OUTLINED_FUNCTION_7_1(&dword_259ABF000, v38, v39, v44, v40, v41, v42, v43, v51, v52, v54, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy);
+LABEL_34:
     OUTLINED_FUNCTION_2_2();
     v20 = 0;
-LABEL_42:
+LABEL_41:
     v35 = 0;
     v34 = 0;
     goto LABEL_24;
@@ -843,11 +844,11 @@ LABEL_42:
     errorCopy5 = error;
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_7_1(&dword_259ABF000, v51, v52, "Failed to convert error domain data to string", v53, v54, v55, v56, v57, v58, v60, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy, 0);
+      OUTLINED_FUNCTION_7_1(&dword_259ABF000, v45, v46, "Failed to convert error domain data to string", v47, v48, v49, v50, v51, v52, v54, error, errorTagCopy, domainTagCopy, descriptionTagCopy, tagCopy);
     }
 
     OUTLINED_FUNCTION_2_2();
-    goto LABEL_42;
+    goto LABEL_41;
   }
 
   tagValDict4 = [(MIBUDeserializer *)self tagValDict];
@@ -865,7 +866,7 @@ LABEL_42:
     if (v26)
     {
       v27 = [v26 objectForKeyedSubscript:domainTagCopy];
-      v28 = [tagCopy objectForKeyedSubscript:v66];
+      v28 = [tagCopy objectForKeyedSubscript:v60];
       v29 = v28;
       domainTagCopy = 0;
       v30 = &stru_286AC3C40;
@@ -874,11 +875,11 @@ LABEL_42:
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
-          v31 = [tagCopy objectForKeyedSubscript:v65];
+          v31 = [tagCopy objectForKeyedSubscript:v59];
 
           if (v31)
           {
-            v30 = [tagCopy objectForKeyedSubscript:v65];
+            v30 = [tagCopy objectForKeyedSubscript:v59];
           }
 
           else
@@ -886,12 +887,12 @@ LABEL_42:
             v30 = &stru_286AC3C40;
           }
 
-          v61 = MEMORY[0x277CCA9B8];
+          v55 = MEMORY[0x277CCA9B8];
           integerValue = [v29 integerValue];
-          v67 = *MEMORY[0x277CCA450];
-          v68[0] = v30;
-          v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
-          domainTagCopy = [v61 errorWithDomain:v27 code:integerValue userInfo:v59];
+          v61 = *MEMORY[0x277CCA450];
+          v62[0] = v30;
+          v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+          domainTagCopy = [v55 errorWithDomain:v27 code:integerValue userInfo:v53];
         }
 
         else
@@ -933,7 +934,6 @@ LABEL_24:
     *errorCopy5 = v34;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v35;
 }
 

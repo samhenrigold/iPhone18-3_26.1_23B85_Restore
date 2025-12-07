@@ -14,6 +14,11 @@
 - (void)resumeConnectionIfIdle;
 - (void)setCurrentScribbleLanguageIdentifier:(id)identifier;
 - (void)setCurrentScribbleLanguageIdentifiers:(id)identifiers;
+- (void)setGlobalAutoRefineEnabled:(BOOL)enabled;
+- (void)setGlobalAutoRefineEnabled:(BOOL)enabled withCompletion:(id)completion;
+- (void)setGlobalPrefersPencilHoverPreviewEnabled:(BOOL)enabled withCompletion:(id)completion;
+- (void)setGlobalPrefersPencilOnlyDrawing:(BOOL)drawing;
+- (void)setGlobalProofreadingEnabled:(BOOL)enabled withCompletion:(id)completion;
 @end
 
 @implementation CHPKSettingsServer
@@ -112,6 +117,14 @@
   [connectionCopy resume];
 
   return listener == listener;
+}
+
+- (void)setGlobalPrefersPencilOnlyDrawing:(BOOL)drawing
+{
+  drawingCopy = drawing;
+  v4 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
+  [v4 setBool:drawingCopy forKey:@"UIPencilOnlyDrawWithPencilKey"];
+  [v4 synchronize];
 }
 
 - (void)openPencilSettings
@@ -248,12 +261,59 @@ LABEL_14:
   }
 }
 
+- (void)setGlobalPrefersPencilHoverPreviewEnabled:(BOOL)enabled withCompletion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v5 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
+  [v5 setBool:enabledCopy forKey:@"PKUIPencilHoverPreviewEnabledKey"];
+  [v5 setValue:&__kCFBooleanTrue forKey:@"PKHasUserChangedHoverPreviewEnabledSettingKey"];
+  if (completionCopy)
+  {
+    completionCopy[2]();
+  }
+}
+
+- (void)setGlobalAutoRefineEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
+  [v4 setBool:enabledCopy forKey:@"UIAutoRefineEnabledKey"];
+  [v4 synchronize];
+}
+
 - (BOOL)getGlobalAutoRefineEnabled
 {
   v2 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
   v3 = [v2 BOOLForKey:@"UIAutoRefineEnabledKey"];
 
   return v3;
+}
+
+- (void)setGlobalAutoRefineEnabled:(BOOL)enabled withCompletion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v5 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
+  [v5 setBool:enabledCopy forKey:@"UIAutoRefineEnabledKey"];
+  [v5 synchronize];
+  if (completionCopy)
+  {
+    completionCopy[2]();
+  }
+}
+
+- (void)setGlobalProofreadingEnabled:(BOOL)enabled withCompletion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v5 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.UIKit"];
+  [v5 setBool:enabledCopy forKey:@"UIProofreadingEnabledKey"];
+  [v5 synchronize];
+  if (completionCopy)
+  {
+    completionCopy[2]();
+  }
 }
 
 - (BOOL)getGlobalProofreadingEnabled

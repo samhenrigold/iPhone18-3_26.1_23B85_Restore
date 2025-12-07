@@ -226,10 +226,10 @@
         sub_100026B0C();
       }
 
-      v6 = *&qword_100059C98;
-      v8 = *&qword_100059CA0;
-      v10 = *&qword_100059CA8;
-      v12 = *&qword_100059CB0;
+      v6 = *ymmword_100059C98;
+      v8 = *&ymmword_100059C98[8];
+      v10 = *&ymmword_100059C98[16];
+      v12 = *&ymmword_100059C98[24];
       [(PUIDPointerShapeView *)self _pointerSizeMultiplier];
       v15 = v10 * v14;
       [(PUIDPointerShapeView *)self _pointerSizeMultiplier];

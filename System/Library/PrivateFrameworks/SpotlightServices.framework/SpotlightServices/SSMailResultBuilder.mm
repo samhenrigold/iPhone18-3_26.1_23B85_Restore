@@ -56,30 +56,30 @@
 
 + (id)authorEmailsFromResults:(id)results
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   v5 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = resultsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if ([SSResultBuilder resultBuilderClassForResult:v11 preferAppVendedView:0, v15]== self)
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if ([SSResultBuilder resultBuilderClassForResult:v11 preferAppVendedView:0, v14]== self)
         {
           v12 = [self _authorEmailFromResult:v11];
           if (v12)
@@ -89,25 +89,21 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)contactKeysToFetch
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:{objc_msgSend(objc_opt_class(), "contactFormatterStyle")}];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -207,19 +203,19 @@
 
 - (id)buildInlineCardSection
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   subject = [(SSMailResultBuilder *)self subject];
   v5 = [v3 whiteSpaceCondensedStringForString:subject];
 
-  v45 = v5;
+  v44 = v5;
   if (v5)
   {
     v6 = [MEMORY[0x1E69CA0F0] textWithString:v5];
     [v6 setIsEmphasized:1];
     v7 = objc_opt_new();
-    v48[0] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
+    v47[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
     [v7 setFormattedTextPieces:v8];
 
     v9 = objc_opt_new();
@@ -241,7 +237,7 @@
   result = [(SSResultBuilder *)self result];
   formattedSnippet = [result formattedSnippet];
 
-  v46 = v9;
+  v45 = v9;
   if (formattedSnippet)
   {
     result2 = [(SSResultBuilder *)self result];
@@ -278,8 +274,8 @@
 
     if (formattedTextPieces)
     {
-      v21 = v46;
-      [v46 addObject:lastObject2];
+      v21 = v45;
+      [v45 addObject:lastObject2];
     }
 
     else
@@ -287,8 +283,8 @@
       v22 = MEMORY[0x1E69CA3A0];
       body3 = [(SSMailResultBuilder *)self body];
       v24 = [v22 textWithString:body3];
-      v21 = v46;
-      [v46 addObject:v24];
+      v21 = v45;
+      [v45 addObject:v24];
     }
 
     lastObject3 = [v21 lastObject];
@@ -325,7 +321,7 @@ LABEL_21:
   }
 
 LABEL_22:
-  v44 = v7;
+  v43 = v7;
   if (v6 && isMacOS())
   {
     v33 = [MEMORY[0x1E69CA0F0] textWithString:@" — "];
@@ -338,11 +334,11 @@ LABEL_22:
   v34 = v6;
   v35 = objc_opt_new();
   [v35 setFormattedTextPieces:v26];
-  v47.receiver = self;
-  v47.super_class = SSMailResultBuilder;
-  buildInlineCardSection = [(SSResultBuilder *)&v47 buildInlineCardSection];
+  v46.receiver = self;
+  v46.super_class = SSMailResultBuilder;
+  buildInlineCardSection = [(SSResultBuilder *)&v46 buildInlineCardSection];
   [buildInlineCardSection setTitle:v35];
-  [buildInlineCardSection setDescriptions:v46];
+  [buildInlineCardSection setDescriptions:v45];
   creationDate = [(SSMailResultBuilder *)self creationDate];
   if (creationDate)
   {
@@ -359,7 +355,6 @@ LABEL_22:
   }
 
   [buildInlineCardSection setIsSecondaryTitleDetached:1];
-  v42 = *MEMORY[0x1E69E9840];
 
   return buildInlineCardSection;
 }
@@ -415,13 +410,13 @@ LABEL_22:
 {
   recipients = [(SSMailResultBuilder *)self recipients];
   firstObject = [recipients firstObject];
-  v5 = [recipients count];
-  if (!firstObject || (v6 = v5, ![recipients count]))
+  v5 = objc_msgSend_count(recipients);
+  if (!firstObject || (v6 = v5, !objc_msgSend_count(recipients)))
   {
     recipientEmails = [(SSMailResultBuilder *)self recipientEmails];
     firstObject2 = [recipientEmails firstObject];
 
-    v6 = [recipientEmails count];
+    v6 = objc_msgSend_count(recipientEmails);
     firstObject = firstObject2;
   }
 
@@ -448,14 +443,14 @@ LABEL_22:
 
 - (id)buildThumbnail
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   authorContact = [(SSMailResultBuilder *)self authorContact];
   if (authorContact)
   {
     v4 = objc_opt_new();
     identifier = [authorContact identifier];
-    v14[0] = identifier;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = identifier;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     [v4 setContactIdentifiers:v6];
 
     [v4 setThreeDTouchEnabled:1];
@@ -481,8 +476,6 @@ LABEL_22:
       v4 = objc_opt_new();
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

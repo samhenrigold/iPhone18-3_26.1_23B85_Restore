@@ -75,9 +75,9 @@ uint64_t KB::InputManagerSpecialization_de::has_umlaut(KB::InputManagerSpecializ
 
 BOOL KB::InputManagerSpecialization_de::get_period_ends_sentence_after_word(KB::InputManagerSpecialization_de *this, const KB::String *a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  MEMORY[0x29EDA2980](v14, 0, "0123456789.", 0, 0);
-  KB::String::find_first_not_of(&v12, a2, v14);
+  v13 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29EDA2980](v12, 0, "0123456789.", 0, 0);
+  KB::String::find_first_not_of(a2, v12);
   v3 = *a2;
   v4 = *(a2 + 1);
   if (!v4)
@@ -85,18 +85,17 @@ BOOL KB::InputManagerSpecialization_de::get_period_ends_sentence_after_word(KB::
     v4 = a2 + 16;
   }
 
-  v8 = v4;
+  v7 = v4;
+  v8 = v3;
   v9 = v3;
-  v10 = v3;
-  v11 = 0;
-  KB::String::iterator::initialize(&v8);
-  v5 = v13 != v9;
-  KB::String::~String(v14);
-  v6 = *MEMORY[0x29EDCA608];
+  v10 = 0;
+  KB::String::iterator::initialize(&v7);
+  v5 = v11 != v8;
+  KB::String::~String(v12);
   return v5;
 }
 
-uint64_t KB::String::find_first_not_of(KB::String *this, const KB::String *a2)
+uint64_t *KB::String::find_first_not_of(KB::String *this, const KB::String *a2)
 {
   v4 = *(this + 1);
   if (!v4)
@@ -144,17 +143,17 @@ uint64_t KB::InputManagerSpecialization_de::do_filter_spellcheck_candidates(uint
 
 uint64_t KB::InputManagerSpecialization_de::do_apply_custom_conversions(uint64_t result, uint64_t a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v10[4] = *MEMORY[0x29EDCA608];
   if (*(result + 16) == 1)
   {
     v2 = 0;
-    v9[0] = a2;
-    v9[1] = a2 + 24;
-    v9[2] = a2 + 48;
-    v9[3] = a2 + 72;
+    v8[0] = a2;
+    v8[1] = a2 + 24;
+    v8[2] = a2 + 48;
+    v8[3] = a2 + 72;
     do
     {
-      v3 = v9[v2];
+      v3 = v8[v2];
       v4 = *v3;
       v5 = v3[1];
       while (v4 != v5)
@@ -165,11 +164,11 @@ uint64_t KB::InputManagerSpecialization_de::do_apply_custom_conversions(uint64_t
           v7 = 240 * *v4;
           do
           {
-            MEMORY[0x29EDA2980](v10, 0, "ss", 0, 0);
-            KB::String::replace_char(v6, 223, v10);
+            MEMORY[0x29EDA2980](v9, 0, "ss", 0, 0);
+            KB::String::replace_char(v10, v6, v9, 223);
             KB::String::operator=();
-            KB::String::~String(v11);
             KB::String::~String(v10);
+            KB::String::~String(v9);
             v6 = (v6 + 240);
             v7 -= 240;
           }
@@ -187,15 +186,7 @@ uint64_t KB::InputManagerSpecialization_de::do_apply_custom_conversions(uint64_t
     while (v2 != 4);
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
-}
-
-void KB::InputManagerSpecialization_de::create_input_segment_filter(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  *a2 = 0;
-  operator new();
 }
 
 void KB::InputManagerSpecialization_de::~InputManagerSpecialization_de(KB::InputManagerSpecialization_de *this)
@@ -228,7 +219,7 @@ unsigned int *WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(unsigned int 
     std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy((v1 + 44), *(v1 + 23));
     std::__tree<std::__value_type<float,int>,std::__map_value_compare<float,std::__value_type<float,int>,std::less<float>,true>,std::allocator<std::__value_type<float,int>>>::destroy((v1 + 38), *(v1 + 20));
     std::__hash_table<std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<KB::ByteString,std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<KB::ByteString>,std::equal_to<KB::ByteString>,true>,std::__unordered_map_equal<KB::ByteString,std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<KB::ByteString>,std::hash<KB::ByteString>,true>,std::allocator<std::__hash_value_type<KB::ByteString,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table((v1 + 18));
-    std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table((v1 + 8));
+    std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(v1 + 4);
     v3 = (v1 + 2);
     std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::__destroy_vector::operator()[abi:nn200100](&v3);
     return MEMORY[0x29EDA2A60](v1, 0x10B0C409EA53459);
@@ -307,9 +298,9 @@ uint64_t WTF::RefCounted<TI::Favonius::Key>::deref(uint64_t result)
   return result;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,WTF::RefPtr<TI::Favonius::LayoutKey>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -358,7 +349,7 @@ void *std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::clear[abi:nn200100](voi
   return result;
 }
 
-uint64_t TIInputManager::set_input_manager_specialization(TIInputManager *a1, uint64_t *a2)
+atomic_uint *TIInputManager::set_input_manager_specialization(TIInputManager *a1, uint64_t *a2)
 {
   v4 = *a2;
   v3 = a2[1];
@@ -478,20 +469,20 @@ void std::__shared_weak_count::__release_shared[abi:nn200100](std::__shared_weak
   }
 }
 
-void *std::vector<unsigned int>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<unsigned int>::vector[abi:nn200100](uint64_t *a1, int *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<unsigned int>::__vallocate[abi:nn200100](result, a3);
+    std::vector<unsigned int>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned int>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {

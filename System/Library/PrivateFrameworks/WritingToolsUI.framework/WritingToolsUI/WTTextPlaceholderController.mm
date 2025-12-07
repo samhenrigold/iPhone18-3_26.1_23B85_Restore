@@ -44,7 +44,7 @@ uint64_t __95___WTTextPlaceholderController__insertPlaceholderAndBeginShimmerWit
   return [v2 _beginShowingShimmerHighlightsWithCaretRect:{v3, v4, v5, v6}];
 }
 
-void __79___WTTextPlaceholderController__visualRectsForRects_containerBounds_caretRect___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __79___WTTextPlaceholderController__visualRectsForRects_containerBounds_caretRect___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = *(a1 + 32);
   v6 = a2;

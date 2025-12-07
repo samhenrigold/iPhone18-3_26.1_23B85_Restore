@@ -27,113 +27,107 @@
 
 - (void)_enumerateClassesWithBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_loaders;
-  v6 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) enumerateClassesWithBlock:{blockCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) enumerateClassesWithBlock:{blockCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateBundleConfigurations:(id)configurations
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_loaders;
-  v6 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) enumerateBundleConfigurations:{configurationsCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) enumerateBundleConfigurations:{configurationsCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateObjectsWithBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_loaders;
-  v6 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) enumerateObjectsWithBlock:{blockCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) enumerateObjectsWithBlock:{blockCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSOrderedSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

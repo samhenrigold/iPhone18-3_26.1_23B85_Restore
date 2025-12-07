@@ -1,6 +1,6 @@
-void sub_29C7FF808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29C7FF808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -20,7 +20,7 @@ void sub_29C7FF828(uint64_t a1)
 
 void sub_29C7FF8A4(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = [v3 error];
   if (!v3)
@@ -29,14 +29,13 @@ void sub_29C7FF8A4(uint64_t a1, void *a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v4;
+      v16 = v4;
       v7 = "Something went wrong and we couldn't contact the server. %@";
       goto LABEL_7;
     }
 
 LABEL_8:
 
-    v8 = *(*(*(a1 + 64) + 8) + 24);
     (*(*(a1 + 56) + 16))();
     goto LABEL_12;
   }
@@ -48,7 +47,7 @@ LABEL_8:
     if (v6)
     {
       *buf = 138412290;
-      v18 = v4;
+      v16 = v4;
       v7 = "Got an error, may still be in Grey Mode. %@";
 LABEL_7:
       _os_log_impl(&dword_29C7FE000, v5, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
@@ -67,61 +66,54 @@ LABEL_7:
   *(*(*(a1 + 64) + 8) + 24) = 0;
   [*(a1 + 32) aa_updateWithProvisioningResponse:v3];
   [*(a1 + 32) aa_setNeedsToVerifyTerms:0];
-  v10 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v14[0] = MEMORY[0x29EDCA5F8];
-  v14[1] = 3221225472;
-  v14[2] = sub_29C7FFAAC;
-  v14[3] = &unk_29F3255E0;
-  v11 = *(a1 + 56);
-  v12 = *(a1 + 64);
-  v15 = v11;
-  v16 = v12;
-  [v9 saveVerifiedAccount:v10 withCompletionHandler:v14];
+  v9 = *(a1 + 32);
+  v8 = *(a1 + 40);
+  v12[0] = MEMORY[0x29EDCA5F8];
+  v12[1] = 3221225472;
+  v12[2] = sub_29C7FFAAC;
+  v12[3] = &unk_29F3255E0;
+  v10 = *(a1 + 56);
+  v11 = *(a1 + 64);
+  v13 = v10;
+  v14 = v11;
+  [v8 saveVerifiedAccount:v9 withCompletionHandler:v12];
 
 LABEL_12:
   dispatch_source_cancel(*(a1 + 48));
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C7FFAAC(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
     v6 = _AALogSystem();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "Failed to save account after marking it as not in grey mode anymore. %@", &v9, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "Failed to save account after marking it as not in grey mode anymore. %@", &v7, 0xCu);
     }
   }
 
-  v7 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C800428(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = _AALogSystem();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_29C7FE000, v5, OS_LOG_TYPE_DEFAULT, "Account save failed: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_29C7FE000, v5, OS_LOG_TYPE_DEFAULT, "Account save failed: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C800584()
@@ -133,41 +125,38 @@ uint64_t sub_29C800584()
 
 void sub_29C801148(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v5 = a3;
-  v6 = a1[5];
-  v7 = a1[6];
-  v8 = a2;
+  v6 = a2;
   Nanoseconds = _AASignpostGetNanoseconds();
-  v10 = _AASignpostLogSystem();
-  v11 = v10;
-  v12 = a1[5];
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v8 = _AASignpostLogSystem();
+  v9 = v8;
+  v10 = a1[5];
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v13 = _AAErrorUnderlyingError();
-    v20 = 67240192;
-    LODWORD(v21) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v11, OS_SIGNPOST_INTERVAL_END, v12, "DiscoverProperties", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 8u);
+    v11 = _AAErrorUnderlyingError();
+    v17 = 67240192;
+    LODWORD(v18) = [v11 code];
+    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v9, OS_SIGNPOST_INTERVAL_END, v10, "DiscoverProperties", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[5];
-    v17 = _AAErrorUnderlyingError();
-    v18 = [v17 code];
-    v20 = 134218496;
-    v21 = v16;
-    v22 = 2048;
-    v23 = v15;
-    v24 = 1026;
-    v25 = v18;
-    _os_log_impl(&dword_29C7FE000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: DiscoverProperties  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[5];
+    v15 = _AAErrorUnderlyingError();
+    v16 = [v15 code];
+    v17 = 134218496;
+    v18 = v14;
+    v19 = 2048;
+    v20 = v13;
+    v21 = 1026;
+    v22 = v16;
+    _os_log_impl(&dword_29C7FE000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: DiscoverProperties  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C80131C(uint64_t a1, int a2, void *a3)
@@ -201,24 +190,23 @@ void sub_29C80131C(uint64_t a1, int a2, void *a3)
 
     v12 = *(a1 + 40);
     v11 = *(a1 + 48);
-    v14[0] = MEMORY[0x29EDCA5F8];
-    v14[1] = 3221225472;
-    v14[2] = sub_29C8014A4;
-    v14[3] = &unk_29F325698;
-    v17 = *(a1 + 56);
-    v15 = *(a1 + 40);
-    v16 = v5;
-    [v11 saveVerifiedAccount:v12 withCompletionHandler:v14];
+    v13[0] = MEMORY[0x29EDCA5F8];
+    v13[1] = 3221225472;
+    v13[2] = sub_29C8014A4;
+    v13[3] = &unk_29F325698;
+    v16 = *(a1 + 56);
+    v14 = *(a1 + 40);
+    v15 = v5;
+    [v11 saveVerifiedAccount:v12 withCompletionHandler:v13];
   }
 
   else
   {
-    v13 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
   }
 }
 
-void sub_29C8014A4(void *a1, int a2, void *a3)
+void sub_29C8014A4(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
   v6 = _AALogSystem();
@@ -229,62 +217,50 @@ void sub_29C8014A4(void *a1, int a2, void *a3)
     {
       sub_29C80A20C();
     }
-
-    v8 = a1[5];
-    v9 = a1[4];
-    v10 = *(a1[6] + 16);
   }
 
-  else
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      sub_29C80A1A4();
-    }
-
-    v10 = *(a1[6] + 16);
+    sub_29C80A1A4();
   }
 
-  v10();
+  (*(*(a1 + 48) + 16))();
 }
 
 void sub_29C801C74(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v5 = a3;
-  v6 = a1[5];
-  v7 = a1[6];
-  v8 = a2;
+  v6 = a2;
   Nanoseconds = _AASignpostGetNanoseconds();
-  v10 = _AASignpostLogSystem();
-  v11 = v10;
-  v12 = a1[5];
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v8 = _AASignpostLogSystem();
+  v9 = v8;
+  v10 = a1[5];
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v13 = _AAErrorUnderlyingError();
-    v20 = 67240192;
-    LODWORD(v21) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v11, OS_SIGNPOST_INTERVAL_END, v12, "VerifyCredentials", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 8u);
+    v11 = _AAErrorUnderlyingError();
+    v17 = 67240192;
+    LODWORD(v18) = [v11 code];
+    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v9, OS_SIGNPOST_INTERVAL_END, v10, "VerifyCredentials", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[5];
-    v17 = _AAErrorUnderlyingError();
-    v18 = [v17 code];
-    v20 = 134218496;
-    v21 = v16;
-    v22 = 2048;
-    v23 = v15;
-    v24 = 1026;
-    v25 = v18;
-    _os_log_impl(&dword_29C7FE000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: VerifyCredentials  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[5];
+    v15 = _AAErrorUnderlyingError();
+    v16 = [v15 code];
+    v17 = 134218496;
+    v18 = v14;
+    v19 = 2048;
+    v20 = v13;
+    v21 = 1026;
+    v22 = v16;
+    _os_log_impl(&dword_29C7FE000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: VerifyCredentials  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C801E48(uint64_t a1, int a2)
@@ -321,7 +297,7 @@ uint64_t sub_29C801E6C(uint64_t a1, int a2)
 
 void sub_29C802084(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -329,9 +305,9 @@ void sub_29C802084(uint64_t a1, void *a2, void *a3)
     v7 = _AALogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v6;
-      _os_log_impl(&dword_29C7FE000, v7, OS_LOG_TYPE_DEFAULT, "Oops, something went wrong with password-less auth! %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v6;
+      _os_log_impl(&dword_29C7FE000, v7, OS_LOG_TYPE_DEFAULT, "Oops, something went wrong with password-less auth! %@", &v15, 0xCu);
     }
 
     [*(a1 + 32) _tryPasswordLoginWithAccount:*(a1 + 40) store:*(a1 + 48) services:*(a1 + 56) completion:*(a1 + 64)];
@@ -346,9 +322,9 @@ void sub_29C802084(uint64_t a1, void *a2, void *a3)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = [*(a1 + 40) username];
-        v16 = 138412290;
-        v17 = v10;
-        _os_log_impl(&dword_29C7FE000, v9, OS_LOG_TYPE_DEFAULT, "Password-less auth succeeded! Time for login with Apple ID %@...", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v10;
+        _os_log_impl(&dword_29C7FE000, v9, OS_LOG_TYPE_DEFAULT, "Password-less auth succeeded! Time for login with Apple ID %@...", &v15, 0xCu);
       }
 
       [*(a1 + 32) _beginPETBasedLoginWithAccount:*(a1 + 40) PET:v8 store:*(a1 + 48) completion:*(a1 + 64)];
@@ -364,8 +340,8 @@ void sub_29C802084(uint64_t a1, void *a2, void *a3)
         v13 = _AALogSystem();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "Password-less auth returned all the requested tokens!", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "Password-less auth returned all the requested tokens!", &v15, 2u);
         }
 
         (*(*(a1 + 64) + 16))();
@@ -376,21 +352,19 @@ void sub_29C802084(uint64_t a1, void *a2, void *a3)
         v14 = _AALogSystem();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_29C7FE000, v14, OS_LOG_TYPE_DEFAULT, "Password-less auth appeared to succeed, but auth results do not have a value for AKAuthenticationPasswordKey or AKAuthenticationIDMSTokenKey!", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_29C7FE000, v14, OS_LOG_TYPE_DEFAULT, "Password-less auth appeared to succeed, but auth results do not have a value for AKAuthenticationPasswordKey or AKAuthenticationIDMSTokenKey!", &v15, 2u);
         }
 
         [*(a1 + 32) _tryPasswordLoginWithAccount:*(a1 + 40) store:*(a1 + 48) services:*(a1 + 56) completion:*(a1 + 64)];
       }
     }
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C802600(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v5 = a3;
   if (a2)
   {
@@ -402,29 +376,27 @@ void sub_29C802600(uint64_t a1, uint64_t a2, void *a3)
     v6 = _AALogSystem();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "Both password-less and password auth have failed. Login has officially failed. Error: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "Both password-less and password auth have failed. Login has officially failed. Error: %@", &v7, 0xCu);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C802994(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v5 = a3;
   if (v5)
   {
     v6 = _AALogSystem();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "Oops, something went wrong with password-based auth! %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "Oops, something went wrong with password-based auth! %@", &v10, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -437,77 +409,31 @@ void sub_29C802994(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_29C7FE000, v8, OS_LOG_TYPE_DEFAULT, "Password-based auth succeeded! Time for login with Apple ID %@...", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_29C7FE000, v8, OS_LOG_TYPE_DEFAULT, "Password-based auth succeeded! Time for login with Apple ID %@...", &v10, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C803050(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v7 = a4;
-  v8 = *(a1 + 64);
-  v9 = *(a1 + 72);
-  v10 = a3;
-  Nanoseconds = _AASignpostGetNanoseconds();
-  v12 = _AASignpostLogSystem();
-  v13 = v12;
-  v14 = *(a1 + 64);
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
-  {
-    v21 = 67240448;
-    *v22 = a2;
-    *&v22[4] = 1026;
-    *&v22[6] = [v7 code];
-    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v13, OS_SIGNPOST_INTERVAL_END, v14, "LoginAndUpdateAccount", " Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0xEu);
-  }
-
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v16 = Nanoseconds / 1000000000.0;
-    v17 = *(a1 + 64);
-    v18 = [v7 code];
-    v21 = 134218752;
-    *v22 = v17;
-    *&v22[8] = 2048;
-    v23 = v16;
-    v24 = 1026;
-    v25 = a2;
-    v26 = 1026;
-    v27 = v18;
-    _os_log_impl(&dword_29C7FE000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: LoginAndUpdateAccount  Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0x22u);
-  }
-
-  v19 = [v10 convertToLoginDelegatesResponse];
-
-  [*(a1 + 32) _handleDelegatesResponseForAccount:*(a1 + 40) store:*(a1 + 48) response:v19 error:v7 handler:*(a1 + 56)];
-  v20 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29C80322C(uint64_t a1, int a2, uint64_t a3, void *a4)
-{
-  v26 = *MEMORY[0x29EDCA608];
-  v6 = a4;
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 72);
+  v8 = a3;
   Nanoseconds = _AASignpostGetNanoseconds();
   v10 = _AASignpostLogSystem();
   v11 = v10;
   v12 = *(a1 + 64);
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v19 = 67240448;
-    *v20 = a2;
-    *&v20[4] = 1026;
-    *&v20[6] = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v11, OS_SIGNPOST_INTERVAL_END, v12, "SignInRegisterAccount", " Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 0xEu);
+    v18 = 67240448;
+    *v19 = a2;
+    *&v19[4] = 1026;
+    *&v19[6] = [v7 code];
+    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v11, OS_SIGNPOST_INTERVAL_END, v12, "LoginAndUpdateAccount", " Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 0xEu);
   }
 
   v13 = _AASignpostLogSystem();
@@ -515,61 +441,97 @@ void sub_29C80322C(uint64_t a1, int a2, uint64_t a3, void *a4)
   {
     v14 = Nanoseconds / 1000000000.0;
     v15 = *(a1 + 64);
-    v16 = [v6 code];
-    v19 = 134218752;
-    *v20 = v15;
-    *&v20[8] = 2048;
-    v21 = v14;
-    v22 = 1026;
-    v23 = a2;
-    v24 = 1026;
-    v25 = v16;
-    _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SignInRegisterAccount  Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 0x22u);
+    v16 = [v7 code];
+    v18 = 134218752;
+    *v19 = v15;
+    *&v19[8] = 2048;
+    v20 = v14;
+    v21 = 1026;
+    v22 = a2;
+    v23 = 1026;
+    v24 = v16;
+    _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: LoginAndUpdateAccount  Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 0x22u);
   }
 
-  v17 = _AALogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v17 = [v8 convertToLoginDelegatesResponse];
+
+  [*(a1 + 32) _handleDelegatesResponseForAccount:*(a1 + 40) store:*(a1 + 48) response:v17 error:v7 handler:*(a1 + 56)];
+}
+
+void sub_29C80322C(uint64_t a1, int a2, uint64_t a3, void *a4)
+{
+  v23 = *MEMORY[0x29EDCA608];
+  v6 = a4;
+  Nanoseconds = _AASignpostGetNanoseconds();
+  v8 = _AASignpostLogSystem();
+  v9 = v8;
+  v10 = *(a1 + 64);
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_29C7FE000, v17, OS_LOG_TYPE_DEFAULT, "Login succeeded! Fetching tokens...", &v19, 2u);
+    v16 = 67240448;
+    *v17 = a2;
+    *&v17[4] = 1026;
+    *&v17[6] = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SignInRegisterAccount", " Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v16, 0xEu);
+  }
+
+  v11 = _AASignpostLogSystem();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = *(a1 + 64);
+    v14 = [v6 code];
+    v16 = 134218752;
+    *v17 = v13;
+    *&v17[8] = 2048;
+    v18 = v12;
+    v19 = 1026;
+    v20 = a2;
+    v21 = 1026;
+    v22 = v14;
+    _os_log_impl(&dword_29C7FE000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SignInRegisterAccount  Authenticated=%{public,signpost.telemetry:number1,name=Authenticated}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v16, 0x22u);
+  }
+
+  v15 = _AALogSystem();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_29C7FE000, v15, OS_LOG_TYPE_DEFAULT, "Login succeeded! Fetching tokens...", &v16, 2u);
   }
 
   [*(a1 + 32) _fetchTokenForAccount:*(a1 + 40) accountStore:*(a1 + 48) withHandler:*(a1 + 56)];
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C803878(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v5 = a3;
-  v6 = *(a1 + 72);
-  v7 = *(a1 + 80);
   Nanoseconds = _AASignpostGetNanoseconds();
-  v9 = _AASignpostLogSystem();
-  v10 = v9;
-  v11 = *(a1 + 72);
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v7 = _AASignpostLogSystem();
+  v8 = v7;
+  v9 = *(a1 + 72);
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v12 = _AAErrorUnderlyingError();
-    v19 = 67240192;
-    LODWORD(v20) = [v12 code];
-    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v10, OS_SIGNPOST_INTERVAL_END, v11, "RenewCredentials", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 8u);
+    v10 = _AAErrorUnderlyingError();
+    v16 = 67240192;
+    LODWORD(v17) = [v10 code];
+    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RenewCredentials", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v16, 8u);
   }
 
-  v13 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v11 = _AASignpostLogSystem();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = Nanoseconds / 1000000000.0;
-    v15 = *(a1 + 72);
-    v16 = _AAErrorUnderlyingError();
-    v17 = [v16 code];
-    v19 = 134218496;
-    v20 = v15;
-    v21 = 2048;
-    v22 = v14;
-    v23 = 1026;
-    v24 = v17;
-    _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RenewCredentials  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 0x1Cu);
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = *(a1 + 72);
+    v14 = _AAErrorUnderlyingError();
+    v15 = [v14 code];
+    v16 = 134218496;
+    v17 = v13;
+    v18 = 2048;
+    v19 = v12;
+    v20 = 1026;
+    v21 = v15;
+    _os_log_impl(&dword_29C7FE000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RenewCredentials  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v16, 0x1Cu);
   }
 
   if (a2 == 2)
@@ -581,8 +543,6 @@ void sub_29C803878(uint64_t a1, uint64_t a2, void *a3)
   {
     (*(*(a1 + 64) + 16))();
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C803D4C(uint64_t a1, uint64_t a2)
@@ -652,7 +612,7 @@ void sub_29C803F90(uint64_t a1, void *a2)
 
 void sub_29C804544(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v7 = a3;
   v8 = a4;
   if (*(a1 + 56))
@@ -660,8 +620,8 @@ void sub_29C804544(uint64_t a1, char a2, void *a3, void *a4)
     v9 = _AALogSystem();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_29C7FE000, v9, OS_LOG_TYPE_DEFAULT, "Dismissing renew-credentials prompt.", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_29C7FE000, v9, OS_LOG_TYPE_DEFAULT, "Dismissing renew-credentials prompt.", &v21, 2u);
     }
 
     CFUserNotificationCancel(*(a1 + 56));
@@ -683,15 +643,15 @@ void sub_29C804544(uint64_t a1, char a2, void *a3, void *a4)
     }
 
     v17 = *(a1 + 40);
-    v22 = 138412546;
-    v23 = v17;
-    v24 = 2112;
-    v25 = v8;
+    v21 = 138412546;
+    v22 = v17;
+    v23 = 2112;
+    v24 = v8;
     v18 = "Failed to obtain a password from ACRemoteDeviceProxy for account %@! Error: %@";
     v19 = v16;
     v20 = 22;
 LABEL_17:
-    _os_log_impl(&dword_29C7FE000, v19, OS_LOG_TYPE_DEFAULT, v18, &v22, v20);
+    _os_log_impl(&dword_29C7FE000, v19, OS_LOG_TYPE_DEFAULT, v18, &v21, v20);
     goto LABEL_18;
   }
 
@@ -703,7 +663,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    LOWORD(v22) = 0;
+    LOWORD(v21) = 0;
     v18 = "ACRemoteDeviceProxy reports that renewCredentials succeeded, but no password is in the response!";
     v19 = v16;
     v20 = 2;
@@ -716,8 +676,8 @@ LABEL_17:
     v16 = _AALogSystem();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = v7;
+      v21 = 138412290;
+      v22 = v7;
       v18 = "ACRemoteDeviceProxy reports that renewCredentials succeeded, but response is not a string! %@";
       v19 = v16;
       v20 = 12;
@@ -734,9 +694,9 @@ LABEL_18:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = *(a1 + 40);
-    v22 = 138412290;
-    v23 = v14;
-    _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "ACRemoteDeviceProxy successfully provided us with a password for %@", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = v14;
+    _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "ACRemoteDeviceProxy successfully provided us with a password for %@", &v21, 0xCu);
   }
 
   v15 = v7;
@@ -744,13 +704,11 @@ LABEL_18:
 
 LABEL_19:
   objc_sync_exit(v10);
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C804C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_29C804C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -818,7 +776,7 @@ LABEL_19:
 
 void sub_29C8053D0(uint64_t a1)
 {
-  v47[2] = *MEMORY[0x29EDCA608];
+  v46[2] = *MEMORY[0x29EDCA608];
   v2 = objc_alloc_init(MEMORY[0x29EDBFB48]);
   v3 = [*(a1 + 32) username];
   [v2 setUsername:v3];
@@ -896,12 +854,12 @@ void sub_29C8053D0(uint64_t a1)
   [v14 setAuthenticationType:v15];
 LABEL_17:
   v16 = *(a1 + 32);
-  v46[0] = @"account";
-  v46[1] = @"accountStore";
+  v45[0] = @"account";
+  v45[1] = @"accountStore";
   v17 = *(a1 + 48);
-  v47[0] = v16;
-  v47[1] = v17;
-  v18 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+  v46[0] = v16;
+  v46[1] = v17;
+  v18 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
   [v2 setClientInfo:v18];
 
   v19 = *(a1 + 112);
@@ -924,7 +882,7 @@ LABEL_21:
     {
       v21 = *(a1 + 72);
       *buf = 138412290;
-      v45 = v21;
+      v44 = v21;
       _os_log_impl(&dword_29C7FE000, v20, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: will request GS service tokens for %@.", buf, 0xCu);
     }
 
@@ -960,32 +918,30 @@ LABEL_26:
   }
 
   v27 = [*(a1 + 80) _authController];
-  v33[0] = MEMORY[0x29EDCA5F8];
-  v33[1] = 3221225472;
-  v33[2] = sub_29C8058D0;
-  v33[3] = &unk_29F325990;
-  v41 = v6;
+  v32[0] = MEMORY[0x29EDCA5F8];
+  v32[1] = 3221225472;
+  v32[2] = sub_29C8058D0;
+  v32[3] = &unk_29F325990;
+  v40 = v6;
   v28 = *(a1 + 32);
   v29 = *(a1 + 80);
-  v34 = v28;
-  v35 = v29;
-  v36 = *(a1 + 48);
-  v37 = *(a1 + 88);
-  v38 = *(a1 + 96);
+  v33 = v28;
+  v34 = v29;
+  v35 = *(a1 + 48);
+  v36 = *(a1 + 88);
+  v37 = *(a1 + 96);
   v30 = *(a1 + 104);
-  v42 = *(a1 + 120);
-  v39 = v2;
-  v40 = v30;
-  v43 = *(a1 + 123);
+  v41 = *(a1 + 120);
+  v38 = v2;
+  v39 = v30;
+  v42 = *(a1 + 123);
   v31 = v2;
-  [v27 authenticateWithContext:v31 completion:v33];
-
-  v32 = *MEMORY[0x29EDCA608];
+  [v27 authenticateWithContext:v31 completion:v32];
 }
 
 void sub_29C8058D0(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v6 = a3;
   if (v6 && (*(a1 + 88) & 1) != 0)
@@ -994,7 +950,7 @@ void sub_29C8058D0(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = v6;
+      v36 = v6;
       _os_log_impl(&dword_29C7FE000, v7, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: auth with cached password failed %@. Clearing and retrying...", buf, 0xCu);
     }
 
@@ -1004,37 +960,37 @@ void sub_29C8058D0(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v29[0] = MEMORY[0x29EDCA5F8];
-    v29[1] = 3221225472;
-    v29[2] = sub_29C805C4C;
-    v29[3] = &unk_29F3258F0;
-    v34 = *(a1 + 89);
-    v30 = *(a1 + 56);
-    v35 = *(a1 + 90);
+    v28[0] = MEMORY[0x29EDCA5F8];
+    v28[1] = 3221225472;
+    v28[2] = sub_29C805C4C;
+    v28[3] = &unk_29F3258F0;
+    v33 = *(a1 + 89);
+    v29 = *(a1 + 56);
+    v34 = *(a1 + 90);
     v8 = v6;
-    v31 = v8;
+    v30 = v8;
     *&v9 = *(a1 + 32);
     *(&v9 + 1) = *(a1 + 40);
-    v20 = v9;
+    v19 = v9;
     v10 = *(a1 + 72);
     v11 = *(a1 + 80);
     *&v12 = v10;
     *(&v12 + 1) = v11;
-    v32 = v20;
-    v33 = v12;
-    v13 = MEMORY[0x29ED447A0](v29);
-    v23[0] = MEMORY[0x29EDCA5F8];
-    v23[1] = 3221225472;
-    v23[2] = sub_29C805E2C;
-    v23[3] = &unk_29F325940;
-    v23[4] = *(a1 + 40);
-    v24 = *(a1 + 72);
-    v25 = *(a1 + 32);
-    v26 = *(a1 + 48);
-    v28 = *(a1 + 91);
+    v31 = v19;
+    v32 = v12;
+    v13 = MEMORY[0x29ED447A0](v28);
+    v22[0] = MEMORY[0x29EDCA5F8];
+    v22[1] = 3221225472;
+    v22[2] = sub_29C805E2C;
+    v22[3] = &unk_29F325940;
+    v22[4] = *(a1 + 40);
+    v23 = *(a1 + 72);
+    v24 = *(a1 + 32);
+    v25 = *(a1 + 48);
+    v27 = *(a1 + 91);
     v14 = v13;
-    v27 = v14;
-    v15 = MEMORY[0x29ED447A0](v23);
+    v26 = v14;
+    v15 = MEMORY[0x29ED447A0](v22);
     if (v6 && [v8 aa_isXPCError])
     {
       v16 = _AALogSystem();
@@ -1046,12 +1002,12 @@ void sub_29C8058D0(uint64_t a1, void *a2, void *a3)
 
       v17 = [*(a1 + 40) _authController];
       v18 = *(a1 + 72);
-      v21[0] = MEMORY[0x29EDCA5F8];
-      v21[1] = 3221225472;
-      v21[2] = sub_29C806040;
-      v21[3] = &unk_29F325968;
-      v22 = v15;
-      [v17 authenticateWithContext:v18 completion:v21];
+      v20[0] = MEMORY[0x29EDCA5F8];
+      v20[1] = 3221225472;
+      v20[2] = sub_29C806040;
+      v20[3] = &unk_29F325968;
+      v21 = v15;
+      [v17 authenticateWithContext:v18 completion:v20];
     }
 
     else
@@ -1059,13 +1015,11 @@ void sub_29C8058D0(uint64_t a1, void *a2, void *a3)
       (v15)[2](v15, v5, v8);
     }
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C805C4C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v6 = a3;
   v7 = *(a1 + 80);
   if (!v7)
@@ -1110,9 +1064,9 @@ LABEL_5:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 48);
-      v16 = 138412290;
-      v17 = v12;
-      _os_log_impl(&dword_29C7FE000, v11, OS_LOG_TYPE_DEFAULT, "Failed to renew credentials, posting renew follow up for account: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v12;
+      _os_log_impl(&dword_29C7FE000, v11, OS_LOG_TYPE_DEFAULT, "Failed to renew credentials, posting renew follow up for account: %@", &v15, 0xCu);
     }
 
     v13 = MEMORY[0x29EDBE2D8];
@@ -1124,8 +1078,6 @@ LABEL_5:
 
 LABEL_15:
   (*(*(a1 + 72) + 16))();
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C805E2C(uint64_t a1, void *a2, void *a3)
@@ -1186,7 +1138,7 @@ uint64_t sub_29C805F7C(uint64_t a1, int a2)
 
 void sub_29C806408(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = _AALogSystem();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -1194,8 +1146,8 @@ void sub_29C806408(uint64_t a1, char a2, void *a3)
   {
     if (v7)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: loginDelegates succeeded!", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: loginDelegates succeeded!", &v8, 2u);
     }
   }
 
@@ -1203,17 +1155,15 @@ void sub_29C806408(uint64_t a1, char a2, void *a3)
   {
     if (v7)
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: loginDelegates failed with error: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: loginDelegates failed with error: %@", &v8, 0xCu);
     }
 
     [*(a1 + 32) _aa_clearRawPassword];
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C806764(uint64_t a1)
@@ -1322,7 +1272,7 @@ LABEL_6:
 
 void sub_29C806B84(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = _AALogSystem();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -1330,19 +1280,19 @@ void sub_29C806B84(uint64_t a1, int a2, void *a3)
   {
     if (v7)
     {
-      LOWORD(v12) = 0;
+      LOWORD(v11) = 0;
       v8 = "Account save success";
       v9 = v6;
       v10 = 2;
 LABEL_6:
-      _os_log_impl(&dword_29C7FE000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
+      _os_log_impl(&dword_29C7FE000, v9, OS_LOG_TYPE_DEFAULT, v8, &v11, v10);
     }
   }
 
   else if (v7)
   {
-    v12 = 138412290;
-    v13 = v5;
+    v11 = 138412290;
+    v12 = v5;
     v8 = "Account was unable to save with error: %@";
     v9 = v6;
     v10 = 12;
@@ -1350,7 +1300,6 @@ LABEL_6:
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), 0);
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C806C88(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -1385,15 +1334,15 @@ void sub_29C806C88(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
 void sub_29C8070B8(uint64_t a1, int a2, void *a3)
 {
-  *&v15[5] = *MEMORY[0x29EDCA608];
+  *&v14[5] = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = _AALogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v15[0] = a2;
-    LOWORD(v15[1]) = 2112;
-    *(&v15[1] + 2) = v5;
+    v14[0] = a2;
+    LOWORD(v14[1]) = 2112;
+    *(&v14[1] + 2) = v5;
     _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: saving raw password result was %d. Error: %@", buf, 0x12u);
   }
 
@@ -1404,185 +1353,174 @@ void sub_29C8070B8(uint64_t a1, int a2, void *a3)
     {
       v8 = *(a1 + 32);
       *buf = 138412290;
-      *v15 = v8;
+      *v14 = v8;
       _os_log_impl(&dword_29C7FE000, v7, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin setting raw password for iCloud account %@", buf, 0xCu);
     }
 
     [*(a1 + 32) _aa_setRawPassword:*(a1 + 40)];
     v9 = *(a1 + 32);
-    v12[0] = MEMORY[0x29EDCA5F8];
-    v12[1] = 3221225472;
-    v12[2] = sub_29C807264;
-    v12[3] = &unk_29F325800;
+    v11[0] = MEMORY[0x29EDCA5F8];
+    v11[1] = 3221225472;
+    v11[2] = sub_29C807264;
+    v11[3] = &unk_29F325800;
     v10 = *(a1 + 48);
-    v13 = *(a1 + 56);
-    [v10 saveVerifiedAccount:v9 withCompletionHandler:v12];
+    v12 = *(a1 + 56);
+    [v10 saveVerifiedAccount:v9 withCompletionHandler:v11];
   }
 
   else
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C807264(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = _AALogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: saving raw password result was %d. Error: %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_29C7FE000, v6, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: saving raw password result was %d. Error: %@", v7, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29C807AC4()
+void sub_29C807AC4(uint64_t a1)
 {
   v20 = *MEMORY[0x29EDCA608];
-  v0 = _AALogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _AALogSystem();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_29C7FE000, v0, OS_LOG_TYPE_DEFAULT, "building singleton array of auth delegate plugin principal classes", buf, 2u);
+    _os_log_impl(&dword_29C7FE000, v1, OS_LOG_TYPE_DEFAULT, "building singleton array of auth delegate plugin principal classes", buf, 2u);
   }
 
-  v1 = [MEMORY[0x29EDBE000] pluginBundlesAtSubpath:@"/Authentication/AppleIDAuthenticationDelegates/"];
+  v2 = [MEMORY[0x29EDBE000] pluginBundlesAtSubpath:@"/Authentication/AppleIDAuthenticationDelegates/"];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
-  if (v2)
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  if (v3)
   {
-    v4 = v2;
-    v5 = *v14;
-    *&v3 = 138412290;
-    v12 = v3;
+    v5 = v3;
+    v6 = *v14;
+    *&v4 = 138412290;
+    v12 = v4;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v5)
+        if (*v14 != v6)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
-        v8 = [v7 principalClass];
-        if (v8)
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v9 = [v8 principalClass];
+        if (v9)
         {
           if (qword_2A1A109A8)
           {
-            [qword_2A1A109A8 arrayByAddingObject:v8];
+            [qword_2A1A109A8 arrayByAddingObject:v9];
           }
 
           else
           {
-            [MEMORY[0x29EDB8D80] arrayWithObject:v8];
+            [MEMORY[0x29EDB8D80] arrayWithObject:v9];
           }
-          v9 = ;
-          v10 = qword_2A1A109A8;
-          qword_2A1A109A8 = v9;
+          v10 = ;
+          v11 = qword_2A1A109A8;
+          qword_2A1A109A8 = v10;
         }
 
         else
         {
-          v10 = _AALogSystem();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+          v11 = _AALogSystem();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
             *buf = v12;
-            v18 = v7;
-            _os_log_fault_impl(&dword_29C7FE000, v10, OS_LOG_TYPE_FAULT, "Failed to load principal class for %@", buf, 0xCu);
+            v18 = v8;
+            _os_log_fault_impl(&dword_29C7FE000, v11, OS_LOG_TYPE_FAULT, "Failed to load principal class for %@", buf, 0xCu);
           }
         }
       }
 
-      v4 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C807CB4(uint64_t a1)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   v2 = _AALogSystem();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v22 = 138412290;
-    v23 = objc_opt_class();
-    v4 = v23;
-    _os_log_impl(&dword_29C7FE000, v2, OS_LOG_TYPE_DEFAULT, "finished with delegate %@", &v22, 0xCu);
+    v17 = 138412290;
+    v18 = objc_opt_class();
+    v3 = v18;
+    _os_log_impl(&dword_29C7FE000, v2, OS_LOG_TYPE_DEFAULT, "finished with delegate %@", &v17, 0xCu);
   }
 
-  v5 = *(a1 + 64);
-  v6 = *(a1 + 72);
   Nanoseconds = _AASignpostGetNanoseconds();
-  v8 = _AASignpostLogSystem();
-  v9 = v8;
-  v10 = *(a1 + 64);
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v5 = _AASignpostLogSystem();
+  v6 = v5;
+  v7 = *(a1 + 64);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    v11 = [*(a1 + 40) objectForKeyedSubscript:@"status"];
-    v12 = [v11 intValue];
-    v22 = 67240192;
-    LODWORD(v23) = v12;
-    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v9, OS_SIGNPOST_INTERVAL_END, v10, "InvokeDelegateWithAuthResponse", " error=%{public,signpost.telemetry:number2,name=error}d ", &v22, 8u);
+    v8 = [*(a1 + 40) objectForKeyedSubscript:@"status"];
+    v9 = [v8 intValue];
+    v17 = 67240192;
+    LODWORD(v18) = v9;
+    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v6, OS_SIGNPOST_INTERVAL_END, v7, "InvokeDelegateWithAuthResponse", " error=%{public,signpost.telemetry:number2,name=error}d ", &v17, 8u);
   }
 
-  v13 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v10 = _AASignpostLogSystem();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 64);
-    v15 = [*(a1 + 40) objectForKeyedSubscript:@"status"];
-    v16 = [v15 intValue];
-    v22 = 134218496;
-    v23 = v14;
-    v24 = 2048;
-    v25 = Nanoseconds / 1000000000.0;
-    v26 = 1026;
-    v27 = v16;
-    _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: InvokeDelegateWithAuthResponse  error=%{public,signpost.telemetry:number2,name=error}d ", &v22, 0x1Cu);
+    v11 = *(a1 + 64);
+    v12 = [*(a1 + 40) objectForKeyedSubscript:@"status"];
+    v13 = [v12 intValue];
+    v17 = 134218496;
+    v18 = v11;
+    v19 = 2048;
+    v20 = Nanoseconds / 1000000000.0;
+    v21 = 1026;
+    v22 = v13;
+    _os_log_impl(&dword_29C7FE000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: InvokeDelegateWithAuthResponse  error=%{public,signpost.telemetry:number2,name=error}d ", &v17, 0x1Cu);
   }
 
-  v17 = *(a1 + 48);
-  objc_sync_enter(v17);
-  v18 = *(a1 + 32);
+  v14 = *(a1 + 48);
+  objc_sync_enter(v14);
   [*(a1 + 48) removeObject:objc_opt_class()];
-  v19 = [*(a1 + 48) count];
-  objc_sync_exit(v17);
+  v15 = [*(a1 + 48) count];
+  objc_sync_exit(v14);
 
-  if (!v19)
+  if (!v15)
   {
-    v20 = _AALogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v16 = _AALogSystem();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_29C7FE000, v20, OS_LOG_TYPE_DEFAULT, "_invokeDelegatesWithAuthenticationResponse completing – last delegate finished", &v22, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_29C7FE000, v16, OS_LOG_TYPE_DEFAULT, "_invokeDelegatesWithAuthenticationResponse completing – last delegate finished", &v17, 2u);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C808168(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v5 = a2;
   v6 = a3;
   v7 = [v5 httpResponse];
@@ -1601,7 +1539,7 @@ void sub_29C808168(uint64_t a1, void *a2, void *a3)
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v32 = v5;
+          v31 = v5;
           _os_log_impl(&dword_29C7FE000, v12, OS_LOG_TYPE_DEFAULT, "Fetched cached response (%@) and attempting to use for delegates", buf, 0xCu);
         }
 
@@ -1614,18 +1552,18 @@ void sub_29C808168(uint64_t a1, void *a2, void *a3)
         v19 = *(a1 + 32);
         v18 = *(a1 + 40);
         v20 = *(a1 + 48);
-        v25[0] = MEMORY[0x29EDCA5F8];
-        v25[1] = 3221225472;
-        v25[2] = sub_29C8083E8;
-        v25[3] = &unk_29F325B48;
-        v26 = v18;
-        v30 = *(a1 + 56);
+        v24[0] = MEMORY[0x29EDCA5F8];
+        v24[1] = 3221225472;
+        v24[2] = sub_29C8083E8;
+        v24[3] = &unk_29F325B48;
+        v25 = v18;
+        v29 = *(a1 + 56);
         v21 = v6;
         v22 = *(a1 + 32);
-        v27 = v21;
-        v28 = v22;
-        v29 = *(a1 + 48);
-        [v19 _handleDelegatesResponseForAccount:v26 store:v20 response:v17 error:0 handler:v25];
+        v26 = v21;
+        v27 = v22;
+        v28 = *(a1 + 48);
+        [v19 _handleDelegatesResponseForAccount:v25 store:v20 response:v17 error:0 handler:v24];
 
         goto LABEL_11;
       }
@@ -1644,13 +1582,11 @@ void sub_29C808168(uint64_t a1, void *a2, void *a3)
 
   [*(a1 + 32) _performLoginDelegatesRequestForAccount:*(a1 + 40) store:*(a1 + 48) handler:*(a1 + 56)];
 LABEL_11:
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C8083E8(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = _AALogSystem();
   v7 = v6;
@@ -1659,12 +1595,11 @@ void sub_29C8083E8(uint64_t a1, int a2, void *a3)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_29C7FE000, v7, OS_LOG_TYPE_DEFAULT, "Successfully used cached login response for account (%@) to authenticate", &v11, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_29C7FE000, v7, OS_LOG_TYPE_DEFAULT, "Successfully used cached login response for account (%@) to authenticate", &v9, 0xCu);
     }
 
-    v9 = *(a1 + 40);
     (*(*(a1 + 64) + 16))();
   }
 
@@ -1677,47 +1612,42 @@ void sub_29C8083E8(uint64_t a1, int a2, void *a3)
 
     [*(a1 + 48) _fetchTokenForAccount:*(a1 + 32) accountStore:*(a1 + 56) forceFetch:1 withHandler:*(a1 + 64)];
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C808884(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v6 = a4;
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 72);
-  v9 = a3;
+  v7 = a3;
   Nanoseconds = _AASignpostGetNanoseconds();
-  v11 = _AASignpostLogSystem();
-  v12 = v11;
-  v13 = *(a1 + 64);
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v9 = _AASignpostLogSystem();
+  v10 = v9;
+  v11 = *(a1 + 64);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v14 = _AAErrorUnderlyingError();
-    v21 = 67240192;
-    LODWORD(v22) = [v14 code];
-    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v12, OS_SIGNPOST_INTERVAL_END, v13, "LoginDelegates", " error=%{public,signpost.telemetry:number2,name=error}d ", &v21, 8u);
+    v12 = _AAErrorUnderlyingError();
+    v18 = 67240192;
+    LODWORD(v19) = [v12 code];
+    _os_signpost_emit_with_name_impl(&dword_29C7FE000, v10, OS_SIGNPOST_INTERVAL_END, v11, "LoginDelegates", " error=%{public,signpost.telemetry:number2,name=error}d ", &v18, 8u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v13 = _AASignpostLogSystem();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = Nanoseconds / 1000000000.0;
-    v17 = *(a1 + 64);
-    v18 = _AAErrorUnderlyingError();
-    v19 = [v18 code];
-    v21 = 134218496;
-    v22 = v17;
-    v23 = 2048;
-    v24 = v16;
-    v25 = 1026;
-    v26 = v19;
-    _os_log_impl(&dword_29C7FE000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: LoginDelegates  error=%{public,signpost.telemetry:number2,name=error}d ", &v21, 0x1Cu);
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = *(a1 + 64);
+    v16 = _AAErrorUnderlyingError();
+    v17 = [v16 code];
+    v18 = 134218496;
+    v19 = v15;
+    v20 = 2048;
+    v21 = v14;
+    v22 = 1026;
+    v23 = v17;
+    _os_log_impl(&dword_29C7FE000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: LoginDelegates  error=%{public,signpost.telemetry:number2,name=error}d ", &v18, 0x1Cu);
   }
 
-  [*(a1 + 32) _handleDelegatesResponseForAccount:*(a1 + 40) store:*(a1 + 48) response:v9 error:v6 handler:*(a1 + 56)];
-  v20 = *MEMORY[0x29EDCA608];
+  [*(a1 + 32) _handleDelegatesResponseForAccount:*(a1 + 40) store:*(a1 + 48) response:v7 error:v6 handler:*(a1 + 56)];
 }
 
 void sub_29C808CBC(uint64_t a1)
@@ -1757,69 +1687,66 @@ void sub_29C808CBC(uint64_t a1)
     v11 = _AALogSystem();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_29C7FE000, v11, OS_LOG_TYPE_DEFAULT, "Completed storing tokens", v13, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_29C7FE000, v11, OS_LOG_TYPE_DEFAULT, "Completed storing tokens", v12, 2u);
     }
 
-    v12 = *(a1 + 64);
     (*(*(a1 + 72) + 16))();
   }
 }
 
 void *sub_29C8091B0(uint64_t a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v5[0] = 0;
+  v7 = *MEMORY[0x29EDCA608];
+  v4[0] = 0;
   if (!qword_2A1A10990)
   {
-    v5[1] = MEMORY[0x29EDCA5F8];
-    v5[2] = 3221225472;
-    v5[3] = sub_29C8092D8;
-    v5[4] = &unk_29F325C20;
-    v5[5] = v5;
-    v6 = xmmword_29F325C08;
-    v7 = 0;
+    v4[1] = MEMORY[0x29EDCA5F8];
+    v4[2] = 3221225472;
+    v4[3] = sub_29C8092D8;
+    v4[4] = &unk_29F325C20;
+    v4[5] = v4;
+    v5 = xmmword_29F325C08;
+    v6 = 0;
     qword_2A1A10990 = _sl_dlopen();
   }
 
   v2 = qword_2A1A10990;
   if (!qword_2A1A10990)
   {
-    sub_29C80A598(v5);
+    sub_29C80A598(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "BYSetupAssistantIsRunningSilentTokenUpgrade");
   *(*(*(a1 + 32) + 8) + 24) = result;
   off_2A1A10988 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t sub_29C8092D8(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_2A1A10990 = result;
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_29C80934C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29C80934C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_29C809368(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29C809368(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_29C809BEC(uint64_t a1, void *a2, void *a3)
@@ -1834,34 +1761,9 @@ uint64_t sub_29C809BEC(uint64_t a1, void *a2, void *a3)
 
 void sub_29C80A04C()
 {
-  v3 = *MEMORY[0x29EDCA608];
+  v2 = *MEMORY[0x29EDCA608];
   sub_29C809390();
-  _os_log_debug_impl(&dword_29C7FE000, v0, OS_LOG_TYPE_DEBUG, "Checking if client (%@) is entitled.", v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29C80A0D4()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C809390();
-  sub_29C809368(&dword_29C7FE000, v0, v1, "Failed to update properties for account, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29C80A1A4()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C809390();
-  sub_29C809368(&dword_29C7FE000, v0, v1, "Failed to save updated account, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29C80A274()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C809390();
-  sub_29C809368(&dword_29C7FE000, v0, v1, "Auth is not continuable at this time, not calling companion for password. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(&dword_29C7FE000, v0, OS_LOG_TYPE_DEBUG, "Checking if client (%@) is entitled.", v1, 0xCu);
 }
 
 void sub_29C80A31C()
@@ -1873,38 +1775,27 @@ void sub_29C80A31C()
   __break(1u);
 }
 
-void sub_29C80A3F0()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29C809390();
-  sub_29C809368(&dword_29C7FE000, v0, v1, "Failed to get cached login response with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
 void sub_29C80A458(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_29C7FE000, log, OS_LOG_TYPE_ERROR, "Failed to use cached login response for account (%@) with error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_29C7FE000, log, OS_LOG_TYPE_ERROR, "Failed to use cached login response for account (%@) with error: %@", &v4, 0x16u);
 }
 
 void sub_29C80A4E4(id *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v3 = *a1;
   v4 = [*a1 dirtyProperties];
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_29C7FE000, a2, OS_LOG_TYPE_DEBUG, "AppleIDAuthenticationPlugin about to refresh to pick up changes made by auth delegates, but the account already has the following dirty properties, which might spell t-r-o-u-b-l-e: %@ %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x29EDCA608];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_29C7FE000, a2, OS_LOG_TYPE_DEBUG, "AppleIDAuthenticationPlugin about to refresh to pick up changes made by auth delegates, but the account already has the following dirty properties, which might spell t-r-o-u-b-l-e: %@ %@", &v5, 0x16u);
 }
 
 void sub_29C80A598(void *a1)

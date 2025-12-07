@@ -16,6 +16,8 @@
 - (void)updateActionItems:(id)items animated:(BOOL)animated;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ABActionSelectorViewController
@@ -78,7 +80,7 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
 
 - (void)dealloc
 {
-  [(ABActionSelectorDriver *)self->_driver pause];
+  [(ABActionSelectorDriver *)&self->_driver->super.isa pause];
   v3.receiver = self;
   v3.super_class = ABActionSelectorViewController;
   [(ABActionSelectorViewController *)&v3 dealloc];
@@ -120,10 +122,10 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
 
 - (void)viewDidLoad
 {
-  v95[5] = *MEMORY[0x277D85DE8];
-  v93.receiver = self;
-  v93.super_class = ABActionSelectorViewController;
-  [(ABActionSelectorViewController *)&v93 viewDidLoad];
+  v94[5] = *MEMORY[0x277D85DE8];
+  v92.receiver = self;
+  v92.super_class = ABActionSelectorViewController;
+  [(ABActionSelectorViewController *)&v92 viewDidLoad];
   v3 = objc_opt_new();
   sceneViewController = self->_sceneViewController;
   self->_sceneViewController = v3;
@@ -230,35 +232,35 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
   [view14 addSubview:self->_detailsView];
 
   [(UIView *)self->_detailsView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v75 = MEMORY[0x277CCAAD0];
+  v74 = MEMORY[0x277CCAAD0];
   centerXAnchor = [(UIView *)self->_detailsView centerXAnchor];
   view15 = [(ABActionSelectorViewController *)self view];
   centerXAnchor2 = [view15 centerXAnchor];
-  v84 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v95[0] = v84;
+  v83 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v94[0] = v83;
   leadingAnchor = [(UIView *)self->_detailsView leadingAnchor];
   view16 = [(ABActionSelectorViewController *)self view];
   leadingAnchor2 = [view16 leadingAnchor];
-  v76 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v95[1] = v76;
+  v75 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v94[1] = v75;
   trailingAnchor = [(UIView *)self->_detailsView trailingAnchor];
   view17 = [(ABActionSelectorViewController *)self view];
   trailingAnchor2 = [view17 trailingAnchor];
-  v71 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v95[2] = v71;
+  v70 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v94[2] = v70;
   bottomAnchor = [(UIView *)self->_detailsView bottomAnchor];
   view18 = [(ABActionSelectorViewController *)self view];
   safeAreaLayoutGuide = [view18 safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide bottomAnchor];
   v49 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v95[3] = v49;
+  v94[3] = v49;
   heightAnchor = [(UIView *)self->_detailsView heightAnchor];
   view19 = [(ABActionSelectorViewController *)self view];
   heightAnchor2 = [view19 heightAnchor];
   v53 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.375];
-  v95[4] = v53;
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:5];
-  [v75 activateConstraints:v54];
+  v94[4] = v53;
+  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:5];
+  [v74 activateConstraints:v54];
 
   [(UIView *)self->_detailsView setAlpha:([(ABActionSelectorDriver *)self->_driver isInWelcomeMode]^ 1)];
   if (self->_welcomeView)
@@ -267,29 +269,29 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
     [view20 addSubview:self->_welcomeView];
 
     [(UIView *)self->_welcomeView setTranslatesAutoresizingMaskIntoConstraints:0];
-    v79 = MEMORY[0x277CCAAD0];
+    v78 = MEMORY[0x277CCAAD0];
     leadingAnchor3 = [(UIView *)self->_welcomeView leadingAnchor];
     view21 = [(ABActionSelectorViewController *)self view];
     leadingAnchor4 = [view21 leadingAnchor];
-    v87 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v94[0] = v87;
+    v86 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v93[0] = v86;
     trailingAnchor3 = [(UIView *)self->_welcomeView trailingAnchor];
     view22 = [(ABActionSelectorViewController *)self view];
     trailingAnchor4 = [view22 trailingAnchor];
-    v77 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v94[1] = v77;
+    v76 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+    v93[1] = v76;
     bottomAnchor3 = [(UIView *)self->_welcomeView bottomAnchor];
     view23 = [(ABActionSelectorViewController *)self view];
     bottomAnchor4 = [view23 bottomAnchor];
     v59 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-    v94[2] = v59;
+    v93[2] = v59;
     heightAnchor3 = [(UIView *)self->_welcomeView heightAnchor];
     view24 = [(ABActionSelectorViewController *)self view];
     heightAnchor4 = [view24 heightAnchor];
     v63 = [heightAnchor3 constraintEqualToAnchor:heightAnchor4 multiplier:0.45];
-    v94[3] = v63;
-    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:4];
-    [v79 activateConstraints:v64];
+    v93[3] = v63;
+    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:4];
+    [v78 activateConstraints:v64];
   }
 
   v65 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__didTapToZoomIn];
@@ -298,8 +300,22 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
 
   view25 = [(ABActionSelectorViewController *)self view];
   [view25 addGestureRecognizer:self->_tapToZoomInRecognizer];
+}
 
-  v68 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ABActionSelectorViewController;
+  [(ABActionSelectorViewController *)&v4 viewWillAppear:appear];
+  [(ABActionSelectorViewController *)self _clipDuringNavigationTransiton];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ABActionSelectorViewController;
+  [(ABActionSelectorViewController *)&v4 viewWillDisappear:disappear];
+  [(ABActionSelectorViewController *)self _clipDuringNavigationTransiton];
 }
 
 - (void)viewDidLayoutSubviews
@@ -386,7 +402,7 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
   [MEMORY[0x277CD9FF0] setDisableActions:1];
   [(ABActionSelectorViewController *)self _updateSubviews];
   [(ABActionSelectorDriver *)self->_driver overlayRenderInputs];
-  [(ABShadowView *)self->_shadowView setTopShadowRatio:v9, v17];
+  [(ABShadowView *)self->_shadowView setTopShadowRatio:v17, v9];
 
   [MEMORY[0x277CD9FF0] setDisableActions:disableActions];
   [(ABActionSelectorDriver *)self->_driver overlayRenderInputs];
@@ -416,15 +432,15 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
   v15 = v20[3];
   [transformLayer setSublayerTransform:&v12];
 
-  *&v16 = 0;
+  v16.f64[0] = 0.0;
   v14 = 0u;
   v15 = 0u;
   v12 = 0u;
   v13 = 0u;
   [(ABActionSelectorDriver *)self->_driver overlayRenderInputs];
-  [(UIView *)self->_detailsView setAlpha:*(&v14 + 1)];
-  [(UIView *)self->_welcomeView setAlpha:*&v15];
-  [(UITapGestureRecognizer *)self->_tapToZoomInRecognizer setEnabled:v16];
+  [(UIView *)self->_detailsView setAlpha:v14.f64[1]];
+  [(UIView *)self->_welcomeView setAlpha:v15.f64[0]];
+  [(UITapGestureRecognizer *)self->_tapToZoomInRecognizer setEnabled:LOBYTE(v16.f64[0])];
   v4 = [(ABDeviceSceneViewController *)self->_sceneViewController actionButtonTranslationWithPressProgress:?];
   carouselView = self->_carouselView;
   selectedIndex = [(ABActionSelectorDriver *)self->_driver selectedIndex];
@@ -434,20 +450,20 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
   items = [(ABCarouselView *)&self->_carouselView->super.super.super.super.super.isa items];
   v9 = [v7 indexSetWithIndexesInRange:{0, objc_msgSend(items, "count")}];
 
-  if (v13 == 1)
+  if (LOBYTE(v13.f64[0]) == 1)
   {
     [v9 removeIndex:-[ABActionSelectorDriver selectedIndex](self->_driver)];
   }
 
-  [(ABCarouselView *)&self->_carouselView->super.super.super.super.super.isa applyAlphaBlend:v9 toItemsAtIndexes:*(&v12 + 1)];
-  v10 = BYTE1(v13);
+  [(ABCarouselView *)&self->_carouselView->super.super.super.super.super.isa applyAlphaBlend:v9 toItemsAtIndexes:v12.f64[1]];
+  v10 = BYTE1(v13.f64[0]);
   scrollGestureRecognizer = [(ABCarouselView *)self->_carouselView scrollGestureRecognizer];
   [scrollGestureRecognizer setEnabled:v10];
 }
 
 - (void)_revealSceneIfNeeded
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (!self->_didRevealScene)
   {
     v3 = ABLogger();
@@ -458,21 +474,19 @@ void __92__ABActionSelectorViewController_initWithActionItems_selectedIndex_welc
       _os_log_impl(&dword_23DE18000, v3, OS_LOG_TYPE_DEFAULT, "(%{public}@) reveal the scene", buf, 0xCu);
     }
 
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __54__ABActionSelectorViewController__revealSceneIfNeeded__block_invoke;
-    v6[3] = &unk_278BFFC38;
-    v6[4] = self;
     v5[0] = MEMORY[0x277D85DD0];
     v5[1] = 3221225472;
-    v5[2] = __54__ABActionSelectorViewController__revealSceneIfNeeded__block_invoke_2;
-    v5[3] = &unk_278BFFC60;
+    v5[2] = __54__ABActionSelectorViewController__revealSceneIfNeeded__block_invoke;
+    v5[3] = &unk_278BFFC38;
     v5[4] = self;
-    [MEMORY[0x277D75D18] animateWithDuration:v6 animations:v5 completion:0.25];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __54__ABActionSelectorViewController__revealSceneIfNeeded__block_invoke_2;
+    v4[3] = &unk_278BFFC60;
+    v4[4] = self;
+    [MEMORY[0x277D75D18] animateWithDuration:v5 animations:v4 completion:0.25];
     self->_didRevealScene = 1;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__ABActionSelectorViewController__revealSceneIfNeeded__block_invoke(uint64_t a1)

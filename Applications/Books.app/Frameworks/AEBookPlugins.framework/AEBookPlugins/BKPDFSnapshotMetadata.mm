@@ -214,7 +214,7 @@ LABEL_40:
       v9 = BKModernPDFLog();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        *v25 = 0;
+        v25[0] = 0;
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Configured for one page spread image.", v25, 2u);
       }
 

@@ -363,29 +363,30 @@ ATXUserNotificationDigestNotificationGroup *__73__ATXMissedNotificationRanking_i
 - (ATXMissedNotificationRanking)initWithProto:(id)proto
 {
   protoCopy = proto;
-  v35.receiver = self;
-  v35.super_class = ATXMissedNotificationRanking;
-  v5 = [(ATXMissedNotificationRanking *)&v35 init];
+  v38.receiver = self;
+  v38.super_class = ATXMissedNotificationRanking;
+  v5 = [(ATXMissedNotificationRanking *)&v38 init];
   if (!v5)
   {
 LABEL_24:
-    v12 = v5;
+    v13 = v5;
     goto LABEL_25;
   }
 
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = protoCopy;
-      rankedGroups = [v6 rankedGroups];
+      v7 = protoCopy;
+      rankedGroups = [v7 rankedGroups];
       if (rankedGroups)
       {
-        rankedGroups2 = [v6 rankedGroups];
-        v9 = [rankedGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_17];
+        rankedGroups2 = [v7 rankedGroups];
+        v10 = [rankedGroups2 _pas_mappedArrayWithTransform:&__block_literal_global_17];
         rankedGroups = v5->_rankedGroups;
-        v5->_rankedGroups = v9;
+        v5->_rankedGroups = v10;
       }
 
       else
@@ -394,70 +395,70 @@ LABEL_24:
         v5->_rankedGroups = MEMORY[0x1E695E0F0];
       }
 
-      [v6 timestamp];
-      v5->_creationTimestamp = v13;
-      v14 = objc_alloc(MEMORY[0x1E696AFB0]);
-      uuid = [v6 uuid];
-      v16 = [v14 initWithUUIDString:uuid];
+      [v7 timestamp];
+      v5->_creationTimestamp = v14;
+      v15 = objc_alloc(MEMORY[0x1E696AFB0]);
+      uuid = [v7 uuid];
+      v17 = [v15 initWithUUIDString:uuid];
       uuid = v5->_uuid;
-      v5->_uuid = v16;
+      v5->_uuid = v17;
 
-      rankerId = [v6 rankerId];
+      rankerId = [v7 rankerId];
       rankerId = v5->_rankerId;
       v5->_rankerId = rankerId;
 
-      modeId = [v6 modeId];
+      modeId = [v7 modeId];
       modeIdString = v5->_modeIdString;
       v5->_modeIdString = modeId;
 
-      sharedEngagementTracker = [v6 sharedEngagementTracker];
+      sharedEngagementTracker = [v7 sharedEngagementTracker];
 
       if (sharedEngagementTracker)
       {
-        sharedEngagementTracker2 = [v6 sharedEngagementTracker];
+        sharedEngagementTracker2 = [v7 sharedEngagementTracker];
         objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
+        v25 = objc_opt_isKindOfClass();
 
-        if (isKindOfClass)
+        if (v25)
         {
-          v25 = [ATXSharedDigestEngagementTrackingMetrics alloc];
-          sharedEngagementTracker3 = [v6 sharedEngagementTracker];
-          v27 = [(ATXSharedDigestEngagementTrackingMetrics *)v25 initWithProto:sharedEngagementTracker3];
-          [(ATXMissedNotificationRanking *)v5 setDigestEngagementTrackingMetrics:v27];
+          v27 = [ATXSharedDigestEngagementTrackingMetrics alloc];
+          sharedEngagementTracker3 = [v7 sharedEngagementTracker];
+          v29 = [(ATXSharedDigestEngagementTrackingMetrics *)v27 initWithProto:sharedEngagementTracker3];
+          [(ATXMissedNotificationRanking *)v5 setDigestEngagementTrackingMetrics:v29];
         }
 
         else
         {
-          sharedEngagementTracker3 = __atxlog_handle_notification_management();
+          sharedEngagementTracker3 = __atxlog_handle_notification_management(v26);
           if (os_log_type_enabled(sharedEngagementTracker3, OS_LOG_TYPE_FAULT))
           {
-            [ATXMissedNotificationRanking initWithProto:];
+            [ATXMissedNotificationRanking initWithProto:v5];
           }
         }
       }
 
-      digestTimeline = [v6 digestTimeline];
+      digestTimeline = [v7 digestTimeline];
 
       if (digestTimeline)
       {
-        digestTimeline2 = [v6 digestTimeline];
+        digestTimeline2 = [v7 digestTimeline];
         objc_opt_class();
-        v30 = objc_opt_isKindOfClass();
+        v32 = objc_opt_isKindOfClass();
 
-        if (v30)
+        if (v32)
         {
-          v31 = [ATXDigestTimeline alloc];
-          digestTimeline3 = [v6 digestTimeline];
-          v33 = [(ATXDigestTimeline *)v31 initWithProto:digestTimeline3];
-          [(ATXMissedNotificationRanking *)v5 setDigestTimeline:v33];
+          v34 = [ATXDigestTimeline alloc];
+          digestTimeline3 = [v7 digestTimeline];
+          v36 = [(ATXDigestTimeline *)v34 initWithProto:digestTimeline3];
+          [(ATXMissedNotificationRanking *)v5 setDigestTimeline:v36];
         }
 
         else
         {
-          digestTimeline3 = __atxlog_handle_notification_management();
+          digestTimeline3 = __atxlog_handle_notification_management(v33);
           if (os_log_type_enabled(digestTimeline3, OS_LOG_TYPE_FAULT))
           {
-            [ATXMissedNotificationRanking initWithProto:];
+            [ATXMissedNotificationRanking initWithProto:v5];
           }
         }
       }
@@ -465,17 +466,17 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [ATXMissedNotificationRanking initWithProto:];
+      [ATXMissedNotificationRanking initWithProto:v5];
     }
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_25:
 
-  return v12;
+  return v13;
 }
 
 ATXUserNotificationDigestNotificationGroup *__46__ATXMissedNotificationRanking_initWithProto___block_invoke(uint64_t a1, void *a2)
@@ -574,11 +575,13 @@ ATXUserNotificationDigestNotificationGroup *__46__ATXMissedNotificationRanking_i
   return v4;
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "Unable to construct class %@ from ProtoBuf object", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v3, v4, "Unable to construct class %@ from ProtoBuf object", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

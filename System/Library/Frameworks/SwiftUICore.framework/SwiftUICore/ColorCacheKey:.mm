@@ -8,11 +8,11 @@
 {
   if (!lazy cache variable for type metadata for AtomicBuffer<[ColorCacheKey : NamedColorInfo]>)
   {
-    type metadata accessor for [ColorCacheKey : NamedColorInfo]();
-    v0 = type metadata accessor for AtomicBuffer();
-    if (!v1)
+    type metadata accessor for [ColorCacheKey : NamedColorInfo](255);
+    v5 = type metadata accessor for AtomicBuffer(self, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for AtomicBuffer<[ColorCacheKey : NamedColorInfo]>);
+      atomic_store(v5, &lazy cache variable for type metadata for AtomicBuffer<[ColorCacheKey : NamedColorInfo]>);
     }
   }
 }

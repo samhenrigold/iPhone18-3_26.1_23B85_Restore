@@ -475,7 +475,7 @@ LABEL_27:
   return v29;
 }
 
-uint64_t __54__AMSEngagementCache_Project__cachedResponseForEvent___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+uint64_t __54__AMSEngagementCache_Project__cachedResponseForEvent___block_invoke(void *a1, uint64_t a2, void *a3)
 {
   v33 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -490,7 +490,7 @@ uint64_t __54__AMSEngagementCache_Project__cachedResponseForEvent___block_invoke
 
     if (v8)
     {
-      v10 = *(a1 + 40);
+      v10 = a1[5];
       v11 = +[AMSEngagementAppEventFilterModel sharedRegexCache];
       v12 = [AMSEngagementAppEventFilterModel matchEvent:v10 toFilter:v8 withCache:v11];
 
@@ -500,7 +500,7 @@ uint64_t __54__AMSEngagementCache_Project__cachedResponseForEvent___block_invoke
         goto LABEL_16;
       }
 
-      v13 = *(*(a1 + 48) + 8);
+      v13 = *(a1[6] + 8);
       v14 = v6;
       v15 = *(v13 + 40);
       *(v13 + 40) = v14;

@@ -49,10 +49,10 @@
   v6[3] = v5;
   v6[4] = self;
   selfCopy = self;
-  sub_1DAA4F924(v4);
+  sub_1DAA4F924(v4, v5);
   sub_1DACB8C14();
 
-  sub_1DAA4F910(v4);
+  sub_1DAA4F910(v4, v5);
 }
 
 - (void)fetchConfigurationIfNeededWithCompletionQueue:(id)queue completion:(id)completion
@@ -73,7 +73,7 @@
   queueCopy = queue;
   selfCopy = self;
   sub_1DAA63738(queue, v6, v7);
-  sub_1DAA4F910(v6);
+  sub_1DAA4F910(v6, v7);
 }
 
 - (void)fetchAppConfigurationIfNeededWithCompletionQueue:(id)queue completion:(id)completion
@@ -94,7 +94,7 @@
   queueCopy = queue;
   selfCopy = self;
   sub_1DAA90720(queueCopy, v6, v7);
-  sub_1DAA4F910(v6);
+  sub_1DAA4F910(v6, v7);
 }
 
 - (id)segmentSetIDs
@@ -140,10 +140,10 @@
   v6[3] = v5;
   v6[4] = self;
   selfCopy = self;
-  sub_1DAA4F924(v4);
+  sub_1DAA4F924(v4, v5);
   sub_1DACB8C14();
 
-  sub_1DAA4F910(v4);
+  sub_1DAA4F910(v4, v5);
 }
 
 - (void)refreshAppConfigurationIfNeededWithCompletionQueue:(id)queue refreshCompletion:(id)completion
@@ -164,7 +164,7 @@
   queueCopy = queue;
   selfCopy = self;
   sub_1DAB344E4(queueCopy, v6, v7);
-  sub_1DAA4F910(v6);
+  sub_1DAA4F910(v6, v7);
 }
 
 @end

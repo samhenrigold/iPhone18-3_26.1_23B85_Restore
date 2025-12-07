@@ -9,39 +9,37 @@
 
 - (id)collectionWithElementsFromEntryEnumerator:(id)enumerator
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   enumeratorCopy = enumerator;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = enumeratorCopy;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v17, v21, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v16, v20, 16);
   if (v7)
   {
     v10 = v7;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = objc_msgSend_dataBlob(*(*(&v17 + 1) + 8 * i), v8, v9, v17);
+        v13 = objc_msgSend_dataBlob(*(*(&v16 + 1) + 8 * i), v8, v9, v16);
         objc_msgSend_addObject_(v4, v14, v13);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v17, v21, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v16, v20, 16);
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

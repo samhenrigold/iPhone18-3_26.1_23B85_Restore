@@ -7,7 +7,7 @@
 
 - (_TtC9MomentsUI20ProtectedAppsManager)init
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
   v6 = &v11 - v5;
@@ -21,7 +21,7 @@
   v13 = 0;
   Published.init(initialValue:)();
   (*(v4 + 32))(self + v8, v6, v3);
-  v9 = type metadata accessor for ProtectedAppsManager();
+  v9 = type metadata accessor for ProtectedAppsManager(0);
   v12.receiver = self;
   v12.super_class = v9;
   return [(ProtectedAppsManager *)&v12 init];

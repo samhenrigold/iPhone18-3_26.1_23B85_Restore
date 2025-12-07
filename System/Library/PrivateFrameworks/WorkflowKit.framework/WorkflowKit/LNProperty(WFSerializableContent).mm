@@ -7,19 +7,17 @@
 
 - (id)wfSerializedRepresentation
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DF90];
-  v10 = @"identifier";
+  v9 = @"identifier";
   identifier = [self identifier];
-  v11[0] = identifier;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = identifier;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v5 = [v2 dictionaryWithDictionary:v4];
 
   value = [self value];
   wfSerializedRepresentation = [value wfSerializedRepresentation];
   [v5 if_setValueIfNonNil:wfSerializedRepresentation forKey:@"value"];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -64,9 +62,9 @@
     if (objc_opt_isKindOfClass())
     {
       identifier = [v12 identifier];
-      v20 = [identifier isEqualToString:v18];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (!v20)
+      if (!isEqualToString)
       {
         v26 = 0;
         goto LABEL_15;

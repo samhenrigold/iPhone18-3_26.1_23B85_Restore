@@ -383,39 +383,39 @@ uint64_t __49__SSMachineDataRequest_startWithCompletionBlock___block_invoke(uint
 - (void)startWithDetailedCompletionBlock:(id)block
 {
   blockCopy = block;
-  v5 = SSViTunesStoreFramework();
-  v6 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Ismachinedataa.isa v5))];
+  v6 = SSViTunesStoreFramework(blockCopy, v5);
+  v7 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Ismachinedataa.isa v6))];
   userAgent = [(SSMachineDataRequest *)self userAgent];
 
   if (userAgent)
   {
     userAgent2 = [(SSMachineDataRequest *)self userAgent];
-    [v6 setUserAgent:userAgent2];
+    [v7 setUserAgent:userAgent2];
   }
 
   else
   {
     userAgent2 = +[SSDevice currentDevice];
-    v8UserAgent = [userAgent2 userAgent];
-    [v6 setUserAgent:v8UserAgent];
+    v9UserAgent = [userAgent2 userAgent];
+    [v7 setUserAgent:v9UserAgent];
   }
 
-  objc_initWeak(&location, v6);
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __57__SSMachineDataRequest_startWithDetailedCompletionBlock___block_invoke;
-  v17 = &unk_1E84AED80;
-  objc_copyWeak(&v20, &location);
-  v10 = blockCopy;
+  objc_initWeak(&location, v7);
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __57__SSMachineDataRequest_startWithDetailedCompletionBlock___block_invoke;
+  v20 = &unk_1E84AED80;
+  objc_copyWeak(&v23, &location);
+  v11 = blockCopy;
   selfCopy = self;
-  v19 = v10;
-  [v6 setCompletionBlock:&v14];
-  v11 = SSViTunesStoreFramework();
-  v12 = SSVWeakLinkedClassForString(&cfstr_Isoperationque.isa, v11);
-  mainQueue = [v12 mainQueue];
-  [mainQueue addOperation:v6];
+  v22 = v11;
+  v12 = [v7 setCompletionBlock:&v17];
+  v14 = SSViTunesStoreFramework(v12, v13);
+  v15 = SSVWeakLinkedClassForString(&cfstr_Isoperationque.isa, v14);
+  mainQueue = [v15 mainQueue];
+  [mainQueue addOperation:v7];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
 }
 

@@ -3,6 +3,7 @@
 + (id)peerIDForData:(id)data sig:(id)sig peerIDHashAlgo:(int64_t)algo;
 - (BOOL)isEqual:(id)equal;
 - (TPCustodianRecoveryKey)initWithUUID:(id)d signingPublicKey:(id)key encryptionPublicKey:(id)publicKey kind:(int)kind data:(id)data sig:(id)sig peerID:(id)iD;
+- (TPCustodianRecoveryKey)initWithUUID:(id)d signingPublicKey:(id)key encryptionPublicKey:(id)publicKey signingKeyPair:(id)pair kind:(int)kind error:(id *)error;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (unint64_t)hash;
@@ -87,6 +88,43 @@
   [v6 setObject:peerID forKeyedSubscript:@"peerID"];
 
   return v6;
+}
+
+- (TPCustodianRecoveryKey)initWithUUID:(id)d signingPublicKey:(id)key encryptionPublicKey:(id)publicKey signingKeyPair:(id)pair kind:(int)kind error:(id *)error
+{
+  v9 = *&kind;
+  dCopy = d;
+  keyCopy = key;
+  publicKeyCopy = publicKey;
+  pairCopy = pair;
+  v18 = objc_alloc_init(TPPBCustodianRecoveryKey);
+  uUIDString = [dCopy UUIDString];
+  [(TPPBCustodianRecoveryKey *)v18 setUuid:uUIDString];
+
+  spki = [keyCopy spki];
+  [(TPPBCustodianRecoveryKey *)v18 setSigningPublicKey:spki];
+
+  spki2 = [publicKeyCopy spki];
+  [(TPPBCustodianRecoveryKey *)v18 setEncryptionPublicKey:spki2];
+
+  [(TPPBCustodianRecoveryKey *)v18 setKind:v9];
+  data = [(TPPBCustodianRecoveryKey *)v18 data];
+  v23 = typesafeSignature(pairCopy, data, @"TPPB.CustodianRecoveryKey", error);
+
+  if (v23)
+  {
+    v24 = [TPCustodianRecoveryKey peerIDForData:data sig:v23 peerIDHashAlgo:1];
+    self = [(TPCustodianRecoveryKey *)self initWithUUID:dCopy signingPublicKey:keyCopy encryptionPublicKey:publicKeyCopy kind:v9 data:data sig:v23 peerID:v24];
+
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (TPCustodianRecoveryKey)initWithUUID:(id)d signingPublicKey:(id)key encryptionPublicKey:(id)publicKey kind:(int)kind data:(id)data sig:(id)sig peerID:(id)iD

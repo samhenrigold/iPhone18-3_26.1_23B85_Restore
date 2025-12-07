@@ -9,23 +9,22 @@
 
 - (CMLError)initWithCode:(int64_t)code description:(id)description
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13 = *MEMORY[0x277CCA450];
-  v14[0] = description;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = description;
   v6 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v12.receiver = self;
-  v12.super_class = CMLError;
-  v9 = [(CMLError *)&v12 initWithDomain:@"com.apple.CipherML" code:code userInfo:v8];
+  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = CMLError;
+  v9 = [(CMLError *)&v11 initWithDomain:@"com.apple.CipherML" code:code userInfo:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (CMLError)initWithCode:(int64_t)code underlyingError:(id)error description:(id)description
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCACA8];
   descriptionCopy = description;
   errorCopy = error;
@@ -33,16 +32,15 @@
   v12 = [v8 stringWithFormat:@"%@: %@", descriptionCopy, localizedDescription];
 
   v13 = *MEMORY[0x277CCA7E8];
-  v19[0] = *MEMORY[0x277CCA450];
-  v19[1] = v13;
-  v20[0] = v12;
-  v20[1] = errorCopy;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-  v18.receiver = self;
-  v18.super_class = CMLError;
-  v15 = [(CMLError *)&v18 initWithDomain:@"com.apple.CipherML" code:code userInfo:v14];
+  v18[0] = *MEMORY[0x277CCA450];
+  v18[1] = v13;
+  v19[0] = v12;
+  v19[1] = errorCopy;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17.receiver = self;
+  v17.super_class = CMLError;
+  v15 = [(CMLError *)&v17 initWithDomain:@"com.apple.CipherML" code:code userInfo:v14];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

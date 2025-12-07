@@ -163,158 +163,157 @@
 
   whitelistedInstances = [redirectState3 whitelistedInstances];
 
-  v12 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-  v13 = objc_opt_new();
+  v12 = objc_opt_new();
   redirectState4 = [p_isa redirectState];
   version = [redirectState4 version];
   if (version)
   {
     redirectState5 = [p_isa redirectState];
     version2 = [redirectState5 version];
-    [v13 setObject:version2 forKeyedSubscript:@"version"];
+    [v12 setObject:version2 forKeyedSubscript:@"version"];
   }
 
   else
   {
-    [v13 setObject:&off_100057348 forKeyedSubscript:@"version"];
+    [v12 setObject:&off_100057348 forKeyedSubscript:@"version"];
   }
 
   if (whitelistedInstances)
   {
-    [v13 setObject:whitelistedInstances forKeyedSubscript:@"whitelistedInstances"];
+    [v12 setObject:whitelistedInstances forKeyedSubscript:@"whitelistedInstances"];
   }
 
-  v18 = p_isa[1];
-  if (v18)
+  v17 = p_isa[1];
+  if (v17)
   {
-    v111 = 0;
+    v108 = 0;
   }
 
   else
   {
-    v19 = p_isa[2];
-    v116 = 0;
-    v20 = [v19 stateInformationWithRedirectInfo:v13 error:&v116];
-    v111 = v116;
-    v21 = p_isa[1];
-    p_isa[1] = v20;
+    v18 = p_isa[2];
+    v113 = 0;
+    v19 = [v18 stateInformationWithRedirectInfo:v12 error:&v113];
+    v108 = v113;
+    v20 = p_isa[1];
+    p_isa[1] = v19;
 
-    v18 = p_isa[1];
-    if (!v18)
+    v17 = p_isa[1];
+    if (!v17)
     {
 LABEL_23:
-      v32 = v13;
+      v31 = v12;
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v34 = Logger;
+        v33 = Logger;
         Class = object_getClass(p_isa);
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(p_isa);
         Name = sel_getName(a2);
-        if (v111)
+        if (v108)
         {
-          v39 = v111;
+          v38 = v108;
         }
 
         else
         {
-          v39 = &stru_100055408;
+          v38 = &stru_100055408;
         }
 
-        v40 = 45;
+        v39 = 45;
         if (isMetaClass)
         {
-          v40 = 43;
+          v39 = 43;
         }
 
-        v34(3, "%c[%{public}s %{public}s]:%i Failed to query state information %{public}@", v40, ClassName, Name, 164, v39);
+        v33(3, "%c[%{public}s %{public}s]:%i Failed to query state information %{public}@", v39, ClassName, Name, 164, v38);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v41 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v42 = object_getClass(p_isa);
-        if (class_isMetaClass(v42))
+        v41 = object_getClass(p_isa);
+        if (class_isMetaClass(v41))
         {
-          v43 = 43;
+          v42 = 43;
         }
 
         else
         {
-          v43 = 45;
+          v42 = 45;
         }
 
-        v44 = object_getClassName(p_isa);
-        v45 = sel_getName(a2);
-        v46 = v111;
+        v43 = object_getClassName(p_isa);
+        v44 = sel_getName(a2);
+        v45 = v108;
         *buf = 67110146;
-        if (!v111)
+        if (!v108)
         {
-          v46 = &stru_100055408;
+          v45 = &stru_100055408;
         }
 
-        v119 = v43;
-        v120 = 2082;
-        v121 = v44;
-        v122 = 2082;
-        v123 = v45;
-        v124 = 1024;
-        v125 = 164;
-        v126 = 2114;
-        v127 = v46;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to query state information %{public}@", buf, 0x2Cu);
+        v116 = v42;
+        v117 = 2082;
+        v118 = v43;
+        v119 = 2082;
+        v120 = v44;
+        v121 = 1024;
+        v122 = 164;
+        v123 = 2114;
+        v124 = v45;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to query state information %{public}@", buf, 0x2Cu);
       }
 
       p_isa = 0;
-      v13 = v32;
+      v12 = v31;
       goto LABEL_90;
     }
   }
 
-  if (![v18 count])
+  if (![v17 count])
   {
     goto LABEL_23;
   }
 
-  v114 = 0u;
-  v115 = 0u;
+  v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
-  v22 = p_isa[1];
-  v23 = [v22 countByEnumeratingWithState:&v112 objects:v117 count:16];
-  v110 = v13;
-  if (v23)
+  v109 = 0u;
+  v110 = 0u;
+  v21 = p_isa[1];
+  v22 = [v21 countByEnumeratingWithState:&v109 objects:v114 count:16];
+  v107 = v12;
+  if (v22)
   {
-    v24 = v23;
+    v23 = v22;
     sel = whitelistedInstances;
-    v25 = *v113;
+    v24 = *v110;
     while (2)
     {
-      for (i = 0; i != v24; i = i + 1)
+      for (i = 0; i != v23; i = i + 1)
       {
-        if (*v113 != v25)
+        if (*v110 != v24)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v21);
         }
 
-        v27 = *(*(&v112 + 1) + 8 * i);
-        v28 = [v27 NF_stringForKey:@"SEID"];
+        v26 = *(*(&v109 + 1) + 8 * i);
+        v27 = [v26 NF_stringForKey:@"SEID"];
         targetSEID = [p_isa targetSEID];
-        v30 = [v28 isEqualToString:targetSEID];
+        v29 = [v27 isEqualToString:targetSEID];
 
-        if (v30)
+        if (v29)
         {
-          v31 = v27;
+          v30 = v26;
 
           goto LABEL_39;
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v112 objects:v117 count:16];
-      if (v24)
+      v23 = [v21 countByEnumeratingWithState:&v109 objects:v114 count:16];
+      if (v23)
       {
         continue;
       }
@@ -322,13 +321,12 @@ LABEL_23:
       break;
     }
 
-    v31 = 0;
+    v30 = 0;
 LABEL_39:
 
-    v41 = v31;
+    v40 = v30;
     whitelistedInstances = sel;
-    v13 = v110;
-    v12 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
+    v12 = v107;
     if (!p_isa)
     {
       goto LABEL_89;
@@ -338,26 +336,25 @@ LABEL_39:
   else
   {
 
-    v41 = 0;
+    v40 = 0;
   }
 
-  v47 = v12[198];
-  v48 = objc_opt_new();
-  if (v41)
+  v46 = objc_opt_new();
+  if (v40)
   {
-    v49 = whitelistedInstances;
+    v47 = whitelistedInstances;
     redirectState6 = [p_isa redirectState];
     version3 = [redirectState6 version];
     if (version3)
     {
       redirectState7 = [p_isa redirectState];
       version4 = [redirectState7 version];
-      [v48 setObject:version4 forKeyedSubscript:@"kVersion"];
+      [v46 setObject:version4 forKeyedSubscript:@"kVersion"];
     }
 
     else
     {
-      [v48 setObject:&off_100057348 forKeyedSubscript:@"kVersion"];
+      [v46 setObject:&off_100057348 forKeyedSubscript:@"kVersion"];
     }
 
     redirectState8 = [p_isa redirectState];
@@ -366,210 +363,209 @@ LABEL_39:
     {
       redirectState9 = [p_isa redirectState];
       forwardDataToSP2 = [redirectState9 forwardDataToSP];
-      [v48 setObject:forwardDataToSP2 forKeyedSubscript:@"forwardData"];
+      [v46 setObject:forwardDataToSP2 forKeyedSubscript:@"forwardData"];
     }
 
     else
     {
-      [v48 setObject:&__NSDictionary0__struct forKeyedSubscript:@"forwardData"];
+      [v46 setObject:&__NSDictionary0__struct forKeyedSubscript:@"forwardData"];
     }
 
-    v71 = v12[198];
-    v72 = objc_opt_new();
-    [v72 setObject:@"internal" forKeyedSubscript:@"secureElementType"];
+    v69 = objc_opt_new();
+    [v69 setObject:@"internal" forKeyedSubscript:@"secureElementType"];
     targetSEID2 = [p_isa targetSEID];
 
     if (targetSEID2)
     {
       targetSEID3 = [p_isa targetSEID];
-      [v72 setObject:targetSEID3 forKeyedSubscript:@"SEID"];
+      [v69 setObject:targetSEID3 forKeyedSubscript:@"SEID"];
 
-      v75 = [v41 NF_dictionaryForKey:@"casdCertificate"];
-      if (v75)
+      v72 = [v40 NF_dictionaryForKey:@"casdCertificate"];
+      if (v72)
       {
-        [v72 setObject:v75 forKeyedSubscript:@"casdCertificate"];
+        [v69 setObject:v72 forKeyedSubscript:@"casdCertificate"];
         redirectState10 = [p_isa redirectState];
         version5 = [redirectState10 version];
         intValue = [version5 intValue];
 
         if (intValue == 4)
         {
-          v79 = [v41 NF_arrayForKey:@"protocolV4Containers"];
-          if ([v79 count])
+          v76 = [v40 NF_arrayForKey:@"protocolV4Containers"];
+          if ([v76 count])
           {
-            [v72 setObject:v79 forKeyedSubscript:@"containers"];
+            [v69 setObject:v76 forKeyedSubscript:@"containers"];
           }
         }
 
-        v80 = [[NSDictionary alloc] initWithDictionary:v72];
-        [v48 setObject:v80 forKeyedSubscript:@"SEStateInfo"];
+        v77 = [[NSDictionary alloc] initWithDictionary:v69];
+        [v46 setObject:v77 forKeyedSubscript:@"SEStateInfo"];
 
-        v81 = [[NSDictionary alloc] initWithDictionary:v48];
+        v78 = [[NSDictionary alloc] initWithDictionary:v46];
       }
 
       else
       {
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v93 = NFLogGetLogger();
-        if (v93)
+        v90 = NFLogGetLogger();
+        if (v90)
         {
-          v94 = v93;
-          v95 = object_getClass(p_isa);
-          v96 = class_isMetaClass(v95);
-          v97 = object_getClassName(p_isa);
-          v108 = sel_getName("_generateRequestForSEState:");
-          v98 = 45;
-          if (v96)
+          v91 = v90;
+          v92 = object_getClass(p_isa);
+          v93 = class_isMetaClass(v92);
+          v94 = object_getClassName(p_isa);
+          v105 = sel_getName("_generateRequestForSEState:");
+          v95 = 45;
+          if (v93)
+          {
+            v95 = 43;
+          }
+
+          v91(3, "%c[%{public}s %{public}s]:%i Missing CASD certificate", v95, v94, v105, 117);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v96 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+        {
+          v97 = object_getClass(p_isa);
+          if (class_isMetaClass(v97))
           {
             v98 = 43;
           }
 
-          v94(3, "%c[%{public}s %{public}s]:%i Missing CASD certificate", v98, v97, v108, 117);
-        }
-
-        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v99 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
-        {
-          v100 = object_getClass(p_isa);
-          if (class_isMetaClass(v100))
-          {
-            v101 = 43;
-          }
-
           else
           {
-            v101 = 45;
+            v98 = 45;
           }
 
-          v102 = object_getClassName(p_isa);
-          v103 = sel_getName("_generateRequestForSEState:");
+          v99 = object_getClassName(p_isa);
+          v100 = sel_getName("_generateRequestForSEState:");
           *buf = 67109890;
-          v119 = v101;
-          v120 = 2082;
-          v121 = v102;
-          v122 = 2082;
-          v123 = v103;
-          v124 = 1024;
-          v125 = 117;
-          _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Missing CASD certificate", buf, 0x22u);
+          v116 = v98;
+          v117 = 2082;
+          v118 = v99;
+          v119 = 2082;
+          v120 = v100;
+          v121 = 1024;
+          v122 = 117;
+          _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Missing CASD certificate", buf, 0x22u);
         }
 
-        v81 = objc_opt_new();
+        v78 = objc_opt_new();
       }
 
-      p_isa = v81;
+      p_isa = v78;
     }
 
     else
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v82 = NFLogGetLogger();
-      if (v82)
+      v79 = NFLogGetLogger();
+      if (v79)
       {
-        v83 = v82;
-        v84 = object_getClass(p_isa);
-        v85 = class_isMetaClass(v84);
-        v86 = object_getClassName(p_isa);
-        v107 = sel_getName("_generateRequestForSEState:");
-        v87 = 45;
-        if (v85)
+        v80 = v79;
+        v81 = object_getClass(p_isa);
+        v82 = class_isMetaClass(v81);
+        v83 = object_getClassName(p_isa);
+        v104 = sel_getName("_generateRequestForSEState:");
+        v84 = 45;
+        if (v82)
+        {
+          v84 = 43;
+        }
+
+        v80(3, "%c[%{public}s %{public}s]:%i Invalid SEID", v84, v83, v104, 111);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v85 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+      {
+        v86 = object_getClass(p_isa);
+        if (class_isMetaClass(v86))
         {
           v87 = 43;
         }
 
-        v83(3, "%c[%{public}s %{public}s]:%i Invalid SEID", v87, v86, v107, 111);
-      }
-
-      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v88 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
-      {
-        v89 = object_getClass(p_isa);
-        if (class_isMetaClass(v89))
-        {
-          v90 = 43;
-        }
-
         else
         {
-          v90 = 45;
+          v87 = 45;
         }
 
-        v91 = object_getClassName(p_isa);
-        v92 = sel_getName("_generateRequestForSEState:");
+        v88 = object_getClassName(p_isa);
+        v89 = sel_getName("_generateRequestForSEState:");
         *buf = 67109890;
-        v119 = v90;
-        v120 = 2082;
-        v121 = v91;
-        v122 = 2082;
-        v123 = v92;
-        v124 = 1024;
-        v125 = 111;
-        _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid SEID", buf, 0x22u);
+        v116 = v87;
+        v117 = 2082;
+        v118 = v88;
+        v119 = 2082;
+        v120 = v89;
+        v121 = 1024;
+        v122 = 111;
+        _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid SEID", buf, 0x22u);
       }
 
       p_isa = objc_opt_new();
     }
 
-    whitelistedInstances = v49;
-    v13 = v110;
+    whitelistedInstances = v47;
+    v12 = v107;
   }
 
   else
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v54 = NFLogGetLogger();
-    if (v54)
+    v52 = NFLogGetLogger();
+    if (v52)
     {
-      v55 = v54;
-      v56 = object_getClass(p_isa);
-      v57 = class_isMetaClass(v56);
-      v58 = v13;
-      v59 = whitelistedInstances;
-      v60 = object_getClassName(p_isa);
-      v106 = sel_getName("_generateRequestForSEState:");
-      v61 = 45;
-      if (v57)
+      v53 = v52;
+      v54 = object_getClass(p_isa);
+      v55 = class_isMetaClass(v54);
+      v56 = v12;
+      v57 = whitelistedInstances;
+      v58 = object_getClassName(p_isa);
+      v103 = sel_getName("_generateRequestForSEState:");
+      v59 = 45;
+      if (v55)
       {
-        v61 = 43;
+        v59 = 43;
       }
 
-      v105 = v60;
-      whitelistedInstances = v59;
-      v13 = v58;
-      v55(3, "%c[%{public}s %{public}s]:%i Failed to find STATE!!!!", v61, v105, v106, 101);
+      v102 = v58;
+      whitelistedInstances = v57;
+      v12 = v56;
+      v53(3, "%c[%{public}s %{public}s]:%i Failed to find STATE!!!!", v59, v102, v103, 101);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v62 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v60 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
     {
-      v63 = object_getClass(p_isa);
-      if (class_isMetaClass(v63))
+      v61 = object_getClass(p_isa);
+      if (class_isMetaClass(v61))
       {
-        v64 = 43;
+        v62 = 43;
       }
 
       else
       {
-        v64 = 45;
+        v62 = 45;
       }
 
-      v65 = object_getClassName(p_isa);
-      v66 = sel_getName("_generateRequestForSEState:");
+      v63 = object_getClassName(p_isa);
+      v64 = sel_getName("_generateRequestForSEState:");
       *buf = 67109890;
-      v119 = v64;
-      v120 = 2082;
-      v121 = v65;
-      v122 = 2082;
-      v123 = v66;
-      v124 = 1024;
-      v125 = 101;
-      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to find STATE!!!!", buf, 0x22u);
+      v116 = v62;
+      v117 = 2082;
+      v118 = v63;
+      v119 = 2082;
+      v120 = v64;
+      v121 = 1024;
+      v122 = 101;
+      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to find STATE!!!!", buf, 0x22u);
     }
 
-    p_isa = [[NSDictionary alloc] initWithDictionary:v48];
+    p_isa = [[NSDictionary alloc] initWithDictionary:v46];
   }
 
 LABEL_89:

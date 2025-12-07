@@ -4,6 +4,7 @@
 - (BOOL)gaxLaunchApplication:(id)application withConfiguration:(unsigned int)configuration appLaunchGeneration:(unint64_t)generation enqueueError:(id *)error;
 - (BOOL)gaxServerIsReady;
 - (id)_windowsToHost;
+- (id)appIconForBundleID:(id)d format:(int)format;
 - (id)appNameForDisplayID:(id)d;
 - (void)acquireSystemApertureInertAssertion;
 - (void)activateApp:(id)app;
@@ -12,6 +13,7 @@
 - (void)beginRequiringWallpaper;
 - (void)gaxBackboardStateDidChange:(id *)change;
 - (void)gaxBackboardStateDidChange:(id *)change completion:(id)completion;
+- (void)gaxDidChangeMode:(unsigned int)mode shouldAcquireLockScreenAssertion:(BOOL)assertion gaxState:(id *)state;
 - (void)gaxDisconnectAllCalls;
 - (void)gaxEndRequiringWallpaper;
 - (void)gaxFrontmostAppDidCheckIn:(id)in;
@@ -50,6 +52,36 @@
       v7 = [v5 initWithKey:4800 payload:v6];
       [(AXSpringBoardServer *)self sendSimpleMessage:v7];
     }
+  }
+}
+
+- (void)gaxDidChangeMode:(unsigned int)mode shouldAcquireLockScreenAssertion:(BOOL)assertion gaxState:(id *)state
+{
+  assertionCopy = assertion;
+  v7 = *&mode;
+  if ([(AXSpringBoardServer *)self _shouldDispatchLocally])
+  {
+
+    _AXAssert();
+  }
+
+  else
+  {
+    v14[0] = *&state->var0;
+    *(v14 + 12) = *&state->var3;
+    v9 = serializeGAXBackboardState(v14);
+    v15[0] = @"GAXIPCPayloadKeyServerMode";
+    v10 = [NSNumber numberWithUnsignedInt:v7];
+    v16[0] = v10;
+    v15[1] = @"GAXIPCPayloadKeyShouldHaveLockScreenDisableAssertion";
+    v11 = [NSNumber numberWithBool:assertionCopy];
+    v15[2] = @"GAXIPCPayloadKeyGAXBackboardState";
+    v16[1] = v11;
+    v16[2] = v9;
+    v12 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:3];
+
+    v13 = [[AXIPCMessage alloc] initWithKey:4801 payload:v12];
+    [(AXSpringBoardServer *)self sendSimpleMessage:v13];
   }
 }
 
@@ -458,6 +490,26 @@ LABEL_9:
 
     return v5;
   }
+}
+
+- (id)appIconForBundleID:(id)d format:(int)format
+{
+  v4 = *&format;
+  dCopy = d;
+  if ([(AXSpringBoardServer *)self _shouldDispatchLocally])
+  {
+    _gax_axSpringBoardServerInstanceDelegate = [(AXSpringBoardServer *)self _gax_axSpringBoardServerInstanceDelegate];
+    _axSpringBoardServerInstance = [(AXSpringBoardServer *)self _axSpringBoardServerInstance];
+    v9 = [_gax_axSpringBoardServerInstanceDelegate serverInstance:_axSpringBoardServerInstance appIconForBundleID:dCopy format:v4];
+  }
+
+  else
+  {
+    _AXAssert();
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 - (id)appNameForDisplayID:(id)d

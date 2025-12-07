@@ -121,22 +121,22 @@
 
 - (BOOL)updatePeripheralIdentifier:(id *)identifier isPairing:(BOOL)pairing
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   browser = [(HAPAccessoryServerBTLE *)self browser];
   identifier = [(HAPAccessoryServer *)self identifier];
   v9 = [browser isPaired:identifier];
 
   if ((v9 & 1) != 0 || pairing)
   {
+    v35 = 0;
     v36 = 0;
-    v37 = 0;
     keyStore = [(HAPAccessoryServer *)self keyStore];
     identifier2 = [(HAPAccessoryServer *)self identifier];
-    v35 = 0;
-    v13 = [keyStore readPeripheralIdentifierForAccessoryIdentifier:identifier2 protocolVersion:0 resumeSessionID:&v36 error:&v35];
-    v14 = v35;
+    v34 = 0;
+    v13 = [keyStore readPeripheralIdentifierForAccessoryIdentifier:identifier2 protocolVersion:0 resumeSessionID:&v35 error:&v34];
+    v14 = v34;
 
-    if (v36)
+    if (v35)
     {
       v15 = objc_autoreleasePoolPush();
       selfCopy = self;
@@ -145,27 +145,27 @@
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v18;
-        v40 = 2048;
-        v41 = v36;
+        v38 = v18;
+        v39 = 2048;
+        v40 = v35;
         _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_INFO, "%{public}@Initializing BLE Server with resumeSessionID: %llu", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
-      selfCopy->_resumeSessionID = v36;
+      selfCopy->_resumeSessionID = v35;
     }
 
     keyStore2 = [(HAPAccessoryServer *)self keyStore];
     blePeripheral = [(HAPAccessoryServerBTLE *)self blePeripheral];
     uniqueBTIdentifier = [blePeripheral uniqueBTIdentifier];
     identifier3 = [(HAPAccessoryServer *)self identifier];
-    v34 = 0;
-    v10 = [keyStore2 updatePeripheralIdentifier:uniqueBTIdentifier forAccessoryIdentifier:identifier3 protocolVersion:-[HAPAccessoryServerBTLE hapBLEProtocolVersion](self previousVersion:"hapBLEProtocolVersion") resumeSessionID:&v37 error:{-[HAPAccessoryServerBTLE resumeSessionID](self, "resumeSessionID"), &v34}];
-    v23 = v34;
+    v33 = 0;
+    v10 = [keyStore2 updatePeripheralIdentifier:uniqueBTIdentifier forAccessoryIdentifier:identifier3 protocolVersion:-[HAPAccessoryServerBTLE hapBLEProtocolVersion](self previousVersion:"hapBLEProtocolVersion") resumeSessionID:&v36 error:{-[HAPAccessoryServerBTLE resumeSessionID](self, "resumeSessionID"), &v33}];
+    v23 = v33;
 
     if (v10)
     {
-      if (v37 == 1 && [(HAPAccessoryServerBTLE *)self hapBLEProtocolVersion]!= 1)
+      if (v36 == 1 && [(HAPAccessoryServerBTLE *)self hapBLEProtocolVersion]!= 1)
       {
         v24 = objc_autoreleasePoolPush();
         selfCopy2 = self;
@@ -174,7 +174,7 @@
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v39 = v27;
+          v38 = v27;
           _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Incompatible update BLE 1.0 -> BLE 2.x", buf, 0xCu);
         }
 
@@ -192,9 +192,9 @@
       {
         v31 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v31;
-        v40 = 2112;
-        v41 = v23;
+        v38 = v31;
+        v39 = 2112;
+        v40 = v23;
         _os_log_impl(&dword_22AADC000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to update the peripheral identifier with error: %@", buf, 0x16u);
       }
 
@@ -214,70 +214,65 @@
 
   else
   {
-    v10 = 0;
+    return 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)updateResumeSessionID:(unint64_t)d
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   browser = [(HAPAccessoryServerBTLE *)self browser];
   identifier = [(HAPAccessoryServer *)self identifier];
   v7 = [browser isPaired:identifier];
 
-  if (v7)
+  if (!v7)
   {
-    self->_resumeSessionID = d;
-    v8 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    return 0;
+  }
+
+  self->_resumeSessionID = d;
+  v8 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = HMFGetLogIdentifier();
+    *buf = 138543618;
+    v25 = v11;
+    v26 = 2048;
+    dCopy = d;
+    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating resumeSessionID: %llu", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v8);
+  keyStore = [(HAPAccessoryServer *)selfCopy keyStore];
+  blePeripheral = [(HAPAccessoryServerBTLE *)selfCopy blePeripheral];
+  uniqueBTIdentifier = [blePeripheral uniqueBTIdentifier];
+  identifier2 = [(HAPAccessoryServer *)selfCopy identifier];
+  v23 = 0;
+  v16 = [keyStore updatePeripheralIdentifier:uniqueBTIdentifier forAccessoryIdentifier:identifier2 protocolVersion:-[HAPAccessoryServerBTLE hapBLEProtocolVersion](selfCopy previousVersion:"hapBLEProtocolVersion") resumeSessionID:0 error:{d, &v23}];
+  v17 = v23;
+
+  if ((v16 & 1) == 0)
+  {
+    v18 = objc_autoreleasePoolPush();
+    v19 = selfCopy;
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v11 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v11;
-      v27 = 2048;
-      dCopy = d;
-      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating resumeSessionID: %llu", buf, 0x16u);
+      v25 = v21;
+      v26 = 2114;
+      dCopy = v17;
+      _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to update the peripheral identifier with error: %{public}@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v8);
-    keyStore = [(HAPAccessoryServer *)selfCopy keyStore];
-    blePeripheral = [(HAPAccessoryServerBTLE *)selfCopy blePeripheral];
-    uniqueBTIdentifier = [blePeripheral uniqueBTIdentifier];
-    identifier2 = [(HAPAccessoryServer *)selfCopy identifier];
-    v24 = 0;
-    v16 = [keyStore updatePeripheralIdentifier:uniqueBTIdentifier forAccessoryIdentifier:identifier2 protocolVersion:-[HAPAccessoryServerBTLE hapBLEProtocolVersion](selfCopy previousVersion:"hapBLEProtocolVersion") resumeSessionID:0 error:{d, &v24}];
-    v17 = v24;
-
-    if ((v16 & 1) == 0)
-    {
-      v18 = objc_autoreleasePoolPush();
-      v19 = selfCopy;
-      v20 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-      {
-        v21 = HMFGetLogIdentifier();
-        *buf = 138543618;
-        v26 = v21;
-        v27 = 2114;
-        dCopy = v17;
-        _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to update the peripheral identifier with error: %{public}@", buf, 0x16u);
-      }
-
-      objc_autoreleasePoolPop(v18);
-    }
+    objc_autoreleasePoolPop(v18);
   }
 
-  else
-  {
-    v16 = 0;
-  }
-
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -336,7 +331,6 @@
 {
   numberCopy = number;
   os_unfair_lock_lock_with_options();
-  stateNumber = self->_stateNumber;
   if (HMFEqualObjects())
   {
     os_unfair_lock_unlock(&self->super._lock);
@@ -350,19 +344,19 @@
     delegateQueue = [(HAPAccessoryServer *)self delegateQueue];
     if (delegateQueue)
     {
-      v9 = delegateQueue;
-      v10 = objc_opt_respondsToSelector();
+      v8 = delegateQueue;
+      v9 = objc_opt_respondsToSelector();
 
-      if (v10)
+      if (v9)
       {
         delegateQueue2 = [(HAPAccessoryServer *)self delegateQueue];
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __41__HAPAccessoryServerBTLE_setStateNumber___block_invoke;
-        v12[3] = &unk_2786D7050;
-        v13 = delegate;
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __41__HAPAccessoryServerBTLE_setStateNumber___block_invoke;
+        v11[3] = &unk_2786D7050;
+        v12 = delegate;
         selfCopy = self;
-        dispatch_async(delegateQueue2, v12);
+        dispatch_async(delegateQueue2, v11);
       }
     }
   }
@@ -451,18 +445,18 @@
 - (id)readAndResetHAPMetrics:(BOOL)metrics
 {
   metricsCopy = metrics;
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v11[0] = &unk_283EA9AA0;
+  v10[0] = &unk_283EA9AA0;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_metricHAPBTLEDiscoveryCount];
-  v12[0] = v5;
-  v11[1] = &unk_283EA9AB8;
+  v11[0] = v5;
+  v10[1] = &unk_283EA9AB8;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_metricHAPBTLEConnectionCount];
-  v12[1] = v6;
-  v11[2] = &unk_283EA9AD0;
+  v11[1] = v6;
+  v10[2] = &unk_283EA9AD0;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_metricHAPBTLEConnectionPerReasonCount];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   if (metricsCopy)
   {
@@ -472,7 +466,6 @@
   }
 
   os_unfair_lock_unlock(&self->super._lock);
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

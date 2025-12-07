@@ -129,156 +129,154 @@
 - (void)showMiniAlertWithScan:(unint64_t)scan errorCode:(id)code result:(id)result
 {
   selfCopy = self;
-  v28 = a2;
+  v27 = a2;
   scanCopy = scan;
   location = 0;
   objc_storeStrong(&location, code);
-  v25 = 0;
-  objc_storeStrong(&v25, result);
-  queue = selfCopy->_queue;
+  v24 = 0;
+  objc_storeStrong(&v24, result);
   BSDispatchQueueAssert();
-  v24 = SUSUILog();
-  v23 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v23 = SUSUILog();
+  v22 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    sub_11844(v30, scanCopy);
-    _os_log_impl(&dword_0, v24, v23, "Got mini-alert to show: %d", v30, 8u);
+    sub_11844(v29, scanCopy);
+    _os_log_impl(&dword_0, v23, v22, "Got mini-alert to show: %d", v29, 8u);
   }
 
-  objc_storeStrong(&v24, 0);
+  objc_storeStrong(&v23, 0);
   objc_storeStrong(&selfCopy->stringResponse, @"[] Locking for a new update for the alert.\n");
+  v5 = +[SUSUISoftwareUpdateController sharedInstance];
+  _download = [(SUSUISoftwareUpdateController *)v5 _download];
+
   v6 = +[SUSUISoftwareUpdateController sharedInstance];
-  _download = [(SUSUISoftwareUpdateController *)v6 _download];
+  _availableRollback = [(SUSUISoftwareUpdateController *)v6 _availableRollback];
 
-  v7 = +[SUSUISoftwareUpdateController sharedInstance];
-  _availableRollback = [(SUSUISoftwareUpdateController *)v7 _availableRollback];
+  v8 = +[SUSUISoftwareUpdateController sharedInstance];
+  v7 = objc_alloc_init(SUScanOptions);
+  v10 = _NSConcreteStackBlock;
+  v11 = -1073741824;
+  v12 = 0;
+  v13 = sub_1187C;
+  v14 = &unk_5EDB0;
+  v15 = selfCopy;
+  v19[1] = scanCopy;
+  v16 = location;
+  v17 = _download;
+  v18 = _availableRollback;
+  v19[0] = v24;
+  [(SUSUISoftwareUpdateController *)v8 scanForUpdates:v7 withScanResults:&v10];
 
-  v9 = +[SUSUISoftwareUpdateController sharedInstance];
-  v8 = objc_alloc_init(SUScanOptions);
-  v11 = _NSConcreteStackBlock;
-  v12 = -1073741824;
-  v13 = 0;
-  v14 = sub_1187C;
-  v15 = &unk_5EDB0;
-  v16 = selfCopy;
-  v20[1] = scanCopy;
-  v17 = location;
-  v18 = _download;
-  v19 = _availableRollback;
-  v20[0] = v25;
-  [(SUSUISoftwareUpdateController *)v9 scanForUpdates:v8 withScanResults:&v11];
-
-  objc_storeStrong(v20, 0);
-  objc_storeStrong(&v19, 0);
+  objc_storeStrong(v19, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(&_availableRollback, 0);
   objc_storeStrong(&_download, 0);
-  objc_storeStrong(&v25, 0);
+  objc_storeStrong(&v24, 0);
   objc_storeStrong(&location, 0);
 }
 
 - (void)showMiniAlertWithDescriptors:(unint64_t)descriptors errorCode:(id)code downloadDescriptor:(id)descriptor scanResultsDescriptor:(id)resultsDescriptor autoInstallForecast:(id)forecast andRollbackDescriptor:(id)rollbackDescriptor result:(id)result
 {
   selfCopy = self;
-  v22 = a2;
+  v21 = a2;
   descriptorsCopy = descriptors;
   location = 0;
   objc_storeStrong(&location, code);
-  v19 = 0;
-  objc_storeStrong(&v19, descriptor);
   v18 = 0;
-  objc_storeStrong(&v18, resultsDescriptor);
+  objc_storeStrong(&v18, descriptor);
   v17 = 0;
-  objc_storeStrong(&v17, forecast);
+  objc_storeStrong(&v17, resultsDescriptor);
   v16 = 0;
-  objc_storeStrong(&v16, rollbackDescriptor);
+  objc_storeStrong(&v16, forecast);
   v15 = 0;
-  objc_storeStrong(&v15, result);
-  queue = selfCopy->_queue;
+  objc_storeStrong(&v15, rollbackDescriptor);
+  v14 = 0;
+  objc_storeStrong(&v14, result);
   BSDispatchQueueAssert();
-  v14 = SUSUILog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v13 = SUSUILog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    sub_11844(v24, descriptorsCopy);
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Got mini-alert to show: %d", v24, 8u);
+    sub_11844(v23, descriptorsCopy);
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Got mini-alert to show: %d", v23, 8u);
   }
 
-  objc_storeStrong(&v14, 0);
+  objc_storeStrong(&v13, 0);
   objc_storeStrong(&selfCopy->stringResponse, @"[] Making alert with given descriptors.\n");
-  [(SUSUICommandLineTestServer *)selfCopy presentMiniAlert:descriptorsCopy errorCode:location downloadDescriptor:v19 scanResultsDescriptor:v18 autoInstallForecast:v17 andRollbackDescriptor:v16 result:v15];
+  [(SUSUICommandLineTestServer *)selfCopy presentMiniAlert:descriptorsCopy errorCode:location downloadDescriptor:v18 scanResultsDescriptor:v17 autoInstallForecast:v16 andRollbackDescriptor:v15 result:v14];
+  objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
-  objc_storeStrong(&v19, 0);
   objc_storeStrong(&location, 0);
 }
 
 - (void)presentMiniAlert:(unint64_t)alert errorCode:(id)code downloadDescriptor:(id)descriptor scanResultsDescriptor:(id)resultsDescriptor autoInstallForecast:(id)forecast andRollbackDescriptor:(id)rollbackDescriptor result:(id)result
 {
   selfCopy = self;
-  v102 = a2;
+  v101 = a2;
   alertCopy = alert;
   location = 0;
   objc_storeStrong(&location, code);
-  v99 = 0;
-  objc_storeStrong(&v99, descriptor);
   v98 = 0;
-  objc_storeStrong(&v98, resultsDescriptor);
+  objc_storeStrong(&v98, descriptor);
   v97 = 0;
-  objc_storeStrong(&v97, forecast);
+  objc_storeStrong(&v97, resultsDescriptor);
   v96 = 0;
-  objc_storeStrong(&v96, rollbackDescriptor);
+  objc_storeStrong(&v96, forecast);
   v95 = 0;
-  objc_storeStrong(&v95, result);
-  v93 = 0;
-  if (v99 || (v66 = 1, ![(SUSUICommandLineTestServer *)selfCopy miniAlertNeedsDownloadDescriptor:alertCopy]))
+  objc_storeStrong(&v95, rollbackDescriptor);
+  v94 = 0;
+  objc_storeStrong(&v94, result);
+  v92 = 0;
+  if (v98 || (v65 = 1, ![(SUSUICommandLineTestServer *)selfCopy miniAlertNeedsDownloadDescriptor:alertCopy]))
   {
-    if (v98 && (v94 = [v98 preferredDescriptor], v93 = 1, v94) || (v66 = 1, !-[SUSUICommandLineTestServer miniAlertNeedsScanResultsDescriptor:](selfCopy, "miniAlertNeedsScanResultsDescriptor:", alertCopy)))
+    if (v97 && (v93 = [v97 preferredDescriptor], v92 = 1, v93) || (v65 = 1, !-[SUSUICommandLineTestServer miniAlertNeedsScanResultsDescriptor:](selfCopy, "miniAlertNeedsScanResultsDescriptor:", alertCopy)))
     {
-      if (v97 || (v66 = 1, ![(SUSUICommandLineTestServer *)selfCopy miniAlertNeedsAutoInstallForecastDescriptor:alertCopy]))
+      if (v96 || (v65 = 1, ![(SUSUICommandLineTestServer *)selfCopy miniAlertNeedsAutoInstallForecastDescriptor:alertCopy]))
       {
-        v65 = 0;
-        if (!v96)
+        v64 = 0;
+        if (!v95)
         {
-          v65 = [(SUSUICommandLineTestServer *)selfCopy miniAlertNeedsRollbackDescriptor:alertCopy];
+          v64 = [(SUSUICommandLineTestServer *)selfCopy miniAlertNeedsRollbackDescriptor:alertCopy];
         }
 
-        v66 = v65;
+        v65 = v64;
       }
     }
   }
 
-  if (v93)
+  if (v92)
   {
   }
 
-  if (v66)
+  if (v65)
   {
     v9 = [(NSString *)selfCopy->stringResponse stringByAppendingString:@"[] Got empty descriptors. Can't show the alert.\n[] Exits.\n"];
     stringResponse = selfCopy->stringResponse;
     selfCopy->stringResponse = v9;
 
-    if (v95)
+    if (v94)
     {
-      v63 = v95;
-      v62 = selfCopy->stringResponse;
-      v64 = [NSError buildCheckedSUCoreError:8100 underlying:0 description:@"Got empty descriptors. Can't show the alert."];
-      (v63)[2](v63, v62);
+      v62 = v94;
+      v61 = selfCopy->stringResponse;
+      v63 = [NSError buildCheckedSUCoreError:8100 underlying:0 description:@"Got empty descriptors. Can't show the alert."];
+      (v62)[2](v62, v61);
     }
 
-    v92 = 1;
+    v91 = 1;
   }
 
   else
   {
-    v89 = 0;
-    if (v99)
+    v88 = 0;
+    if (v98)
     {
-      descriptor = [v99 descriptor];
-      v89 = 1;
+      descriptor = [v98 descriptor];
+      v88 = 1;
       v11 = descriptor;
     }
 
@@ -287,241 +285,240 @@
       v11 = 0;
     }
 
-    v91 = v11;
-    if (v89)
+    v90 = v11;
+    if (v88)
     {
     }
 
-    v88[8] = 0;
-    v87 = +[SUSUISoftwareUpdateController sharedInstance];
-    *v88 = BYSetupAssistantNeedsToRun();
+    v87[8] = 0;
+    v86 = +[SUSUISoftwareUpdateController sharedInstance];
+    *v87 = BYSetupAssistantNeedsToRun();
     switch(alertCopy)
     {
       case 0uLL:
-        v60 = [SUSUISoftwareUpdateAvailableAlertItem alloc];
-        latestUpdate = [v98 latestUpdate];
-        v12 = [SUSUIBaseSoftwareUpdateAlertItem initWithDescriptor:v60 softwareUpdateController:"initWithDescriptor:softwareUpdateController:"];
-        v13 = *&v88[1];
-        *&v88[1] = v12;
+        v59 = [SUSUISoftwareUpdateAvailableAlertItem alloc];
+        latestUpdate = [v97 latestUpdate];
+        v12 = [SUSUIBaseSoftwareUpdateAlertItem initWithDescriptor:v59 softwareUpdateController:"initWithDescriptor:softwareUpdateController:"];
+        v13 = *&v87[1];
+        *&v87[1] = v12;
 
         break;
       case 1uLL:
-        v14 = [[SUSUISoftwareUpdateInstallAlertItem alloc] initWithDownload:v99 style:1 softwareUpdateController:v87 tryTonightInstallOperationForecast:v97 installOptions:0];
-        v15 = *&v88[1];
-        *&v88[1] = v14;
+        v14 = [[SUSUISoftwareUpdateInstallAlertItem alloc] initWithDownload:v98 style:1 softwareUpdateController:v86 tryTonightInstallOperationForecast:v96 installOptions:0];
+        v15 = *&v87[1];
+        *&v87[1] = v14;
 
         break;
       case 2uLL:
-        v16 = [[SUSUISoftwareUpdateInstallAlertItem alloc] initWithDownload:v99 style:2 softwareUpdateController:v87 tryTonightInstallOperationForecast:v97 installOptions:0];
-        v17 = *&v88[1];
-        *&v88[1] = v16;
+        v16 = [[SUSUISoftwareUpdateInstallAlertItem alloc] initWithDownload:v98 style:2 softwareUpdateController:v86 tryTonightInstallOperationForecast:v96 installOptions:0];
+        v17 = *&v87[1];
+        *&v87[1] = v16;
 
         break;
       case 3uLL:
-        v18 = [[SUSUISoftwareUpdateInstallAlertItem alloc] initWithDownload:v99 style:3 softwareUpdateController:v87 tryTonightInstallOperationForecast:v97 installOptions:0];
-        v19 = *&v88[1];
-        *&v88[1] = v18;
+        v18 = [[SUSUISoftwareUpdateInstallAlertItem alloc] initWithDownload:v98 style:3 softwareUpdateController:v86 tryTonightInstallOperationForecast:v96 installOptions:0];
+        v19 = *&v87[1];
+        *&v87[1] = v18;
 
         break;
       case 4uLL:
-        v20 = [[SUSUISoftwareUpdateInstallLaterAlertItem alloc] initWithDescriptor:v91 softwareUpdateController:v87 tryTonightOperationForecast:v97];
-        v21 = *&v88[1];
-        *&v88[1] = v20;
+        v20 = [[SUSUISoftwareUpdateInstallLaterAlertItem alloc] initWithDescriptor:v90 softwareUpdateController:v86 tryTonightOperationForecast:v96];
+        v21 = *&v87[1];
+        *&v87[1] = v20;
 
         break;
       case 5uLL:
-        if (v88[0])
+        if (v87[0])
         {
-          v86 = SUSUILog();
-          v85 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+          v85 = SUSUILog();
+          v84 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
           {
-            log = v86;
-            type = v85;
-            sub_2544(v84);
-            _os_log_impl(&dword_0, log, type, "Buddy running. Not showing install failure UI", v84, 2u);
+            log = v85;
+            type = v84;
+            sub_2544(v83);
+            _os_log_impl(&dword_0, log, type, "Buddy running. Not showing install failure UI", v83, 2u);
           }
 
-          objc_storeStrong(&v86, 0);
+          objc_storeStrong(&v85, 0);
         }
 
         else
         {
-          v22 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateUnableToInstallAlertItem alloc] initWithDescriptor:v91 softwareUpdateController:v87];
-          v23 = *&v88[1];
-          *&v88[1] = v22;
+          v22 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateUnableToInstallAlertItem alloc] initWithDescriptor:v90 softwareUpdateController:v86];
+          v23 = *&v87[1];
+          *&v87[1] = v22;
 
           if (location)
           {
-            v59 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", SUErrorDomain, [location integerValue], 0);
-            [*&v88[1] setError:?];
+            v58 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", SUErrorDomain, [location integerValue], 0);
+            [*&v87[1] setError:?];
           }
         }
 
         break;
       case 6uLL:
-        v24 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateVerifyingUpdateAlertItem alloc] initWithDescriptor:v91 softwareUpdateController:v87];
-        v25 = *&v88[1];
-        *&v88[1] = v24;
+        v24 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateVerifyingUpdateAlertItem alloc] initWithDescriptor:v90 softwareUpdateController:v86];
+        v25 = *&v87[1];
+        *&v87[1] = v24;
 
         break;
       case 7uLL:
-        if (v88[0])
+        if (v87[0])
         {
-          v83 = SUSUILog();
-          v82 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+          v82 = SUSUILog();
+          v81 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
           {
-            v54 = v83;
-            v55 = v82;
-            sub_2544(v81);
-            _os_log_impl(&dword_0, v54, v55, "Buddy running. Not showing verification failure UI", v81, 2u);
+            v53 = v82;
+            v54 = v81;
+            sub_2544(v80);
+            _os_log_impl(&dword_0, v53, v54, "Buddy running. Not showing verification failure UI", v80, 2u);
           }
 
-          objc_storeStrong(&v83, 0);
+          objc_storeStrong(&v82, 0);
         }
 
         else
         {
-          v26 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateVerificationFailedAlertItem alloc] initWithDescriptor:v91 softwareUpdateController:v87];
-          v27 = *&v88[1];
-          *&v88[1] = v26;
+          v26 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateVerificationFailedAlertItem alloc] initWithDescriptor:v90 softwareUpdateController:v86];
+          v27 = *&v87[1];
+          *&v87[1] = v26;
 
           if (location)
           {
-            v56 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", SUErrorDomain, [location integerValue], 0);
-            [*&v88[1] setError:?];
+            v55 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", SUErrorDomain, [location integerValue], 0);
+            [*&v87[1] setError:?];
           }
         }
 
         break;
       case 8uLL:
-        if (v88[0])
+        if (v87[0])
         {
-          v80 = SUSUILog();
-          v79 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+          v79 = SUSUILog();
+          v78 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
           {
-            v51 = v80;
-            v52 = v79;
-            sub_2544(v78);
-            _os_log_impl(&dword_0, v51, v52, "Buddy running. Not showing download failure UI", v78, 2u);
+            v50 = v79;
+            v51 = v78;
+            sub_2544(v77);
+            _os_log_impl(&dword_0, v50, v51, "Buddy running. Not showing download failure UI", v77, 2u);
           }
 
-          objc_storeStrong(&v80, 0);
+          objc_storeStrong(&v79, 0);
         }
 
         else
         {
-          v28 = -[SUSUISoftwareUpdateDownloadFailedAlertItem initWithDescriptor:softwareUpdateController:fromSettings:]([SUSUISoftwareUpdateDownloadFailedAlertItem alloc], "initWithDescriptor:softwareUpdateController:fromSettings:", v91, v87, [v87 settingsForeground]);
-          v29 = *&v88[1];
-          *&v88[1] = v28;
+          v28 = -[SUSUISoftwareUpdateDownloadFailedAlertItem initWithDescriptor:softwareUpdateController:fromSettings:]([SUSUISoftwareUpdateDownloadFailedAlertItem alloc], "initWithDescriptor:softwareUpdateController:fromSettings:", v90, v86, [v86 settingsForeground]);
+          v29 = *&v87[1];
+          *&v87[1] = v28;
 
           if (location)
           {
-            v53 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", SUErrorDomain, [location integerValue], 0);
-            [*&v88[1] setError:?];
+            v52 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", SUErrorDomain, [location integerValue], 0);
+            [*&v87[1] setError:?];
           }
         }
 
         break;
       case 9uLL:
-        v30 = [(SUSUIBaseRollbackAlertItem *)[SUSUIRollbackCountdownAlertItem alloc] initWithRollbackDescriptor:v96 softwareUpdateController:v87];
-        v31 = *&v88[1];
-        *&v88[1] = v30;
+        v30 = [(SUSUIBaseRollbackAlertItem *)[SUSUIRollbackCountdownAlertItem alloc] initWithRollbackDescriptor:v95 softwareUpdateController:v86];
+        v31 = *&v87[1];
+        *&v87[1] = v30;
 
         break;
       case 0xAuLL:
-        v32 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateRebootingAlertItem alloc] initWithDescriptor:v91 softwareUpdateController:v87];
-        v33 = *&v88[1];
-        *&v88[1] = v32;
+        v32 = [(SUSUIBaseSoftwareUpdateAlertItem *)[SUSUISoftwareUpdateRebootingAlertItem alloc] initWithDescriptor:v90 softwareUpdateController:v86];
+        v33 = *&v87[1];
+        *&v87[1] = v32;
 
         break;
       case 0xBuLL:
         v34 = objc_alloc_init(SUSUIPostSplatRollbackAlertItem);
-        v35 = *&v88[1];
-        *&v88[1] = v34;
+        v35 = *&v87[1];
+        *&v87[1] = v34;
 
         break;
       case 0xCuLL:
-        v50 = [SUSUISetupUpgradeAlertItem alloc];
-        v72 = _NSConcreteStackBlock;
-        v73 = -1073741824;
-        v74 = 0;
-        v75 = sub_131AC;
-        v76 = &unk_5CCB0;
-        v77 = *&v88[1];
-        v36 = [(SUSUISetupUpgradeAlertItem *)v50 initWithAcknowledgementBlock:&v72];
-        v37 = *&v88[1];
-        *&v88[1] = v36;
+        v49 = [SUSUISetupUpgradeAlertItem alloc];
+        v71 = _NSConcreteStackBlock;
+        v72 = -1073741824;
+        v73 = 0;
+        v74 = sub_131AC;
+        v75 = &unk_5CCB0;
+        v76 = *&v87[1];
+        v36 = [(SUSUISetupUpgradeAlertItem *)v49 initWithAcknowledgementBlock:&v71];
+        v37 = *&v87[1];
+        *&v87[1] = v36;
 
-        v92 = 2;
-        objc_storeStrong(&v77, 0);
+        v91 = 2;
+        objc_storeStrong(&v76, 0);
         break;
       case 0xDuLL:
-        v38 = [[SUSUISoftwareUpdateRecommendedAvailableAlertItem alloc] initWithDescriptor:v91 softwareUpdateController:v87];
-        v39 = *&v88[1];
-        *&v88[1] = v38;
+        v38 = [[SUSUISoftwareUpdateRecommendedAvailableAlertItem alloc] initWithDescriptor:v90 softwareUpdateController:v86];
+        v39 = *&v87[1];
+        *&v87[1] = v38;
 
         break;
       case 0xEuLL:
         v40 = objc_alloc_init(SUSUIRollbackSuggestedAlertItem);
-        v41 = *&v88[1];
-        *&v88[1] = v40;
+        v41 = *&v87[1];
+        *&v87[1] = v40;
 
         break;
       default:
         oslog = SUSUILog();
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
         {
-          sub_11844(v104, alertCopy);
-          _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "Unrecognized mini-alert to show: %d", v104, 8u);
+          sub_11844(v103, alertCopy);
+          _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "Unrecognized mini-alert to show: %d", v103, 8u);
         }
 
         objc_storeStrong(&oslog, 0);
         break;
     }
 
-    [*&v88[1] setIsUILocked:{objc_msgSend(v87, "isUILocked")}];
-    if ([v87 presentAlert:*&v88[1]])
+    [*&v87[1] setIsUILocked:{objc_msgSend(v86, "isUILocked")}];
+    if ([v86 presentAlert:*&v87[1]])
     {
       v42 = [(NSString *)selfCopy->stringResponse stringByAppendingString:@"[] Presenting the alert.\n[] Exits.\n"];
       v43 = selfCopy->stringResponse;
       selfCopy->stringResponse = v42;
 
-      if (v95)
+      if (v94)
       {
-        v44 = selfCopy->stringResponse;
-        (*(v95 + 2))();
+        (*(v94 + 2))();
       }
     }
 
     else
     {
-      v45 = [(NSString *)selfCopy->stringResponse stringByAppendingString:@"[] Failed to present the alert.\n[] Exits.\n"];
-      v46 = selfCopy->stringResponse;
-      selfCopy->stringResponse = v45;
+      v44 = [(NSString *)selfCopy->stringResponse stringByAppendingString:@"[] Failed to present the alert.\n[] Exits.\n"];
+      v45 = selfCopy->stringResponse;
+      selfCopy->stringResponse = v44;
 
-      if (v95)
+      if (v94)
       {
-        v48 = v95;
-        v47 = selfCopy->stringResponse;
-        v49 = [NSError buildCheckedSUCoreError:8100 underlying:0 description:@"Failed to present the alert due to unknown reason."];
-        (v48)[2](v48, v47);
+        v47 = v94;
+        v46 = selfCopy->stringResponse;
+        v48 = [NSError buildCheckedSUCoreError:8100 underlying:0 description:@"Failed to present the alert due to unknown reason."];
+        (v47)[2](v47, v46);
       }
     }
 
-    objc_storeStrong(&v87, 0);
-    objc_storeStrong(&v88[1], 0);
-    objc_storeStrong(&v91, 0);
-    v92 = 0;
+    objc_storeStrong(&v86, 0);
+    objc_storeStrong(&v87[1], 0);
+    objc_storeStrong(&v90, 0);
+    v91 = 0;
   }
 
+  objc_storeStrong(&v94, 0);
   objc_storeStrong(&v95, 0);
   objc_storeStrong(&v96, 0);
   objc_storeStrong(&v97, 0);
   objc_storeStrong(&v98, 0);
-  objc_storeStrong(&v99, 0);
   objc_storeStrong(&location, 0);
 }
 
@@ -535,49 +532,47 @@
 {
   location[2] = self;
   location[1] = a2;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   location[0] = SUSUILog();
-  v7 = OS_LOG_TYPE_DEFAULT;
+  v6 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEFAULT))
   {
     log = location[0];
-    type = v7;
-    sub_2544(v6);
-    _os_log_impl(&dword_0, log, type, "About to dismiss all mini alerts", v6, 2u);
+    type = v6;
+    sub_2544(v5);
+    _os_log_impl(&dword_0, log, type, "About to dismiss all mini alerts", v5, 2u);
   }
 
   objc_storeStrong(location, 0);
-  v5 = +[SUSUISoftwareUpdateController sharedInstance];
-  [(SUSUISoftwareUpdateController *)v5 _dismissAllAlerts];
-  objc_storeStrong(&v5, 0);
+  v4 = +[SUSUISoftwareUpdateController sharedInstance];
+  [(SUSUISoftwareUpdateController *)v4 _dismissAllAlerts];
+  objc_storeStrong(&v4, 0);
 }
 
 - (void)showFollowUp:(unint64_t)up
 {
   selfCopy = self;
-  v17 = a2;
+  v16 = a2;
   upCopy = up;
-  queue = self->_queue;
   BSDispatchQueueAssert();
-  v8 = +[SUSUIPreferences sharedInstance];
-  [(SUSUIPreferences *)v8 setNeedsAlertPresentationAfterOTAUpdate:1];
+  v7 = +[SUSUIPreferences sharedInstance];
+  [(SUSUIPreferences *)v7 setNeedsAlertPresentationAfterOTAUpdate:1];
 
   if (upCopy)
   {
     if (upCopy == 1)
     {
-      v12 = SUSUILog();
-      v11 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = SUSUILog();
+      v10 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = v12;
-        v5 = v11;
-        sub_2544(v10);
-        _os_log_impl(&dword_0, v4, v5, "follow up type: SUSUICommandLineToolFollowUpDDMUpdate currently not supported", v10, 2u);
+        v3 = v11;
+        v4 = v10;
+        sub_2544(v9);
+        _os_log_impl(&dword_0, v3, v4, "follow up type: SUSUICommandLineToolFollowUpDDMUpdate currently not supported", v9, 2u);
       }
 
-      objc_storeStrong(&v12, 0);
+      objc_storeStrong(&v11, 0);
     }
 
     else
@@ -585,8 +580,8 @@
       oslog = SUSUILog();
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
-        sub_13774(v19, upCopy);
-        _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "Unknown follow up type: %lu", v19, 0xCu);
+        sub_13774(v18, upCopy);
+        _os_log_impl(&dword_0, oslog, OS_LOG_TYPE_DEFAULT, "Unknown follow up type: %lu", v18, 0xCu);
       }
 
       objc_storeStrong(&oslog, 0);
@@ -596,13 +591,13 @@
   else
   {
     location = SUSUILog();
-    v14 = OS_LOG_TYPE_DEFAULT;
+    v13 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(location, OS_LOG_TYPE_DEFAULT))
     {
       log = location;
-      type = v14;
-      sub_2544(v13);
-      _os_log_impl(&dword_0, log, type, "follow up type: SUSUICommandLineToolFollowUpPostUpdate currently not supported", v13, 2u);
+      type = v13;
+      sub_2544(v12);
+      _os_log_impl(&dword_0, log, type, "follow up type: SUSUICommandLineToolFollowUpPostUpdate currently not supported", v12, 2u);
     }
 
     objc_storeStrong(&location, 0);
@@ -612,156 +607,153 @@
 - (void)showLaggardsUi:(unint64_t)ui usingFakeData:(BOOL)data result:(id)result
 {
   selfCopy = self;
-  v26 = a2;
+  v25 = a2;
   uiCopy = ui;
   dataCopy = data;
   location = 0;
   objc_storeStrong(&location, result);
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
-  v22 = SUSUILog();
-  v21 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v21 = SUSUILog();
+  v20 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    sub_13774(v28, uiCopy);
-    _os_log_impl(&dword_0, v22, v21, "Laggards UI type: %lu", v28, 0xCu);
+    sub_13774(v27, uiCopy);
+    _os_log_impl(&dword_0, v21, v20, "Laggards UI type: %lu", v27, 0xCu);
   }
 
-  objc_storeStrong(&v22, 0);
-  v14 = _NSConcreteStackBlock;
-  v15 = -1073741824;
-  v16 = 0;
-  v17 = sub_13A58;
-  v18 = &unk_5EDD8;
-  v19[1] = uiCopy;
-  v19[0] = location;
-  v20 = objc_retainBlock(&v14);
-  v6 = +[SUSUISoftwareUpdateController sharedInstance];
-  v7 = _NSConcreteStackBlock;
-  v8 = -1073741824;
-  v9 = 0;
-  v10 = sub_13CF0;
-  v11 = &unk_5EE00;
-  v12 = location;
-  v13 = v20;
-  [(SUSUISoftwareUpdateController *)v6 _discoveredUpdates:&v7];
+  objc_storeStrong(&v21, 0);
+  v13 = _NSConcreteStackBlock;
+  v14 = -1073741824;
+  v15 = 0;
+  v16 = sub_13A58;
+  v17 = &unk_5EDD8;
+  v18[1] = uiCopy;
+  v18[0] = location;
+  v19 = objc_retainBlock(&v13);
+  v5 = +[SUSUISoftwareUpdateController sharedInstance];
+  v6 = _NSConcreteStackBlock;
+  v7 = -1073741824;
+  v8 = 0;
+  v9 = sub_13CF0;
+  v10 = &unk_5EE00;
+  v11 = location;
+  v12 = v19;
+  [(SUSUISoftwareUpdateController *)v5 _discoveredUpdates:&v6];
 
-  objc_storeStrong(&v13, 0);
   objc_storeStrong(&v12, 0);
-  objc_storeStrong(&v20, 0);
-  objc_storeStrong(v19, 0);
+  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v19, 0);
+  objc_storeStrong(v18, 0);
   objc_storeStrong(&location, 0);
 }
 
 - (void)showAuthenticationUIWithOptions:(unint64_t)options result:(id)result
 {
   selfCopy = self;
-  v38 = a2;
+  v37 = a2;
   optionsCopy = options;
   location = 0;
   objc_storeStrong(&location, result);
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
-  v35 = sub_142F8(optionsCopy, 4);
-  v34 = sub_142F8(optionsCopy, 2);
-  v33 = sub_142F8(optionsCopy, 8);
-  v23 = _NSConcreteStackBlock;
-  v24 = -1073741824;
-  v25 = 0;
-  v26 = sub_14330;
-  v27 = &unk_5EE28;
-  v30 = v35;
-  v31 = v33;
-  v28 = selfCopy;
-  v29 = location;
-  v32 = objc_retainBlock(&v23);
-  if (v34)
+  v34 = sub_142F8(optionsCopy, 4);
+  v33 = sub_142F8(optionsCopy, 2);
+  v32 = sub_142F8(optionsCopy, 8);
+  v22 = _NSConcreteStackBlock;
+  v23 = -1073741824;
+  v24 = 0;
+  v25 = sub_14330;
+  v26 = &unk_5EE28;
+  v29 = v34;
+  v30 = v32;
+  v27 = selfCopy;
+  v28 = location;
+  v31 = objc_retainBlock(&v22);
+  if (v33)
   {
-    v20 = 0;
-    if (v35)
+    v19 = 0;
+    if (v34)
     {
-      v21 = objc_alloc_init(SUSUIFakeSUAutoInstallOperation);
-      v20 = 1;
-      v5 = v21;
+      v20 = objc_alloc_init(SUSUIFakeSUAutoInstallOperation);
+      v19 = 1;
+      v4 = v20;
     }
 
     else
     {
-      v5 = 0;
+      v4 = 0;
     }
 
-    v22 = v5;
-    if (v20)
+    v21 = v4;
+    if (v19)
     {
     }
 
-    v19 = objc_alloc_init(SUSUIFakeSUDownload);
-    v9 = v32;
-    v8 = v19;
-    forecast = [v22 forecast];
-    v9[2](v9, v8);
+    v18 = objc_alloc_init(SUSUIFakeSUDownload);
+    v8 = v31;
+    v7 = v18;
+    forecast = [v21 forecast];
+    v8[2](v8, v7);
 
-    objc_storeStrong(&v19, 0);
-    objc_storeStrong(&v22, 0);
+    objc_storeStrong(&v18, 0);
+    objc_storeStrong(&v21, 0);
   }
 
   else
   {
-    v7 = +[SUSUISoftwareUpdateController sharedInstance];
-    _download = [(SUSUISoftwareUpdateController *)v7 _download];
+    v6 = +[SUSUISoftwareUpdateController sharedInstance];
+    _download = [(SUSUISoftwareUpdateController *)v6 _download];
 
-    if (v35)
+    if (v34)
     {
-      v6 = +[SUSUISoftwareUpdateController sharedInstance];
-      v11 = _NSConcreteStackBlock;
-      v12 = -1073741824;
-      v13 = 0;
-      v14 = sub_14570;
-      v15 = &unk_5EE50;
-      v17 = v32;
-      v16 = _download;
-      [(SUSUISoftwareUpdateController *)v6 _createInstallTonightForecastWithResult:&v11];
+      v5 = +[SUSUISoftwareUpdateController sharedInstance];
+      v10 = _NSConcreteStackBlock;
+      v11 = -1073741824;
+      v12 = 0;
+      v13 = sub_14570;
+      v14 = &unk_5EE50;
+      v16 = v31;
+      v15 = _download;
+      [(SUSUISoftwareUpdateController *)v5 _createInstallTonightForecastWithResult:&v10];
 
+      objc_storeStrong(&v15, 0);
       objc_storeStrong(&v16, 0);
-      objc_storeStrong(&v17, 0);
     }
 
     else
     {
-      (*(v32 + 2))(v32, _download, 0);
+      (*(v31 + 2))(v31, _download, 0);
     }
 
     objc_storeStrong(&_download, 0);
   }
 
-  objc_storeStrong(&v32, 0);
-  objc_storeStrong(&v29, 0);
+  objc_storeStrong(&v31, 0);
   objc_storeStrong(&v28, 0);
+  objc_storeStrong(&v27, 0);
   objc_storeStrong(&location, 0);
 }
 
 - (void)showEmergencyCallUIWithOptions:(unint64_t)options result:(id)result
 {
-  selfCopy = self;
+  location[3] = self;
   location[2] = a2;
   location[1] = options;
   location[0] = 0;
   objc_storeStrong(location, result);
-  queue = selfCopy->_queue;
   BSDispatchQueueAssert();
-  v5 = [SUSUIFullScreenEmergencyCallAlert alloc];
-  v7 = _NSConcreteStackBlock;
-  v8 = -1073741824;
-  v9 = 0;
-  v10 = sub_14730;
-  v11 = &unk_5D030;
-  v12 = location[0];
-  v13 = [(SUSUIFullScreenEmergencyCallAlert *)v5 initWithCompletionBlock:?];
-  v6 = +[SUSUISoftwareUpdateController sharedInstance];
-  [(SUSUISoftwareUpdateController *)v6 presentEmergencyCallAlert:v13 completion:0];
+  v4 = [SUSUIFullScreenEmergencyCallAlert alloc];
+  v6 = _NSConcreteStackBlock;
+  v7 = -1073741824;
+  v8 = 0;
+  v9 = sub_14730;
+  v10 = &unk_5D030;
+  v11 = location[0];
+  v12 = [(SUSUIFullScreenEmergencyCallAlert *)v4 initWithCompletionBlock:?];
+  v5 = +[SUSUISoftwareUpdateController sharedInstance];
+  [(SUSUISoftwareUpdateController *)v5 presentEmergencyCallAlert:v12 completion:0];
 
-  objc_storeStrong(&v13, 0);
   objc_storeStrong(&v12, 0);
+  objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
 }
 

@@ -36,7 +36,7 @@
 
 - (void)refreshTelephonyReg
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -64,7 +64,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v4;
+        v20 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -73,14 +73,14 @@
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v10 = objc_opt_class();
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke_17;
-    v18[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18[4] = v10;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke_17;
+    v17[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17[4] = v10;
     if (qword_2811F6AC0 != -1)
     {
-      dispatch_once(&qword_2811F6AC0, v18);
+      dispatch_once(&qword_2811F6AC0, v17);
     }
 
     if (byte_2811F6AB1 == 1)
@@ -96,24 +96,23 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v21 = v11;
+        v20 = v11;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   objc_autoreleasePoolPop(v2);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke(uint64_t a1)
+void *__42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_61 = result;
   return result;
 }
 
-uint64_t __42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke_17(uint64_t a1)
+void *__42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke_17(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6AB1 = result;
@@ -122,70 +121,68 @@ uint64_t __42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke_17(uint64_t
 
 + (id)bbEuLogMsgNameTelephonyReg
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v32[0] = *MEMORY[0x277D3F4E8];
+  v32[2] = *MEMORY[0x277D85DE8];
+  v31[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v30[0] = *MEMORY[0x277D3F568];
-  v30[1] = v2;
-  v31[0] = &unk_282C1CD38;
-  v31[1] = MEMORY[0x277CBEC28];
-  v30[2] = *MEMORY[0x277D3F548];
-  v31[2] = @"refreshRequestHandler";
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
-  v33[0] = v27;
-  v32[1] = *MEMORY[0x277D3F540];
-  v28[0] = @"operator";
+  v29[0] = *MEMORY[0x277D3F568];
+  v29[1] = v2;
+  v30[0] = &unk_282C1CD38;
+  v30[1] = MEMORY[0x277CBEC28];
+  v29[2] = *MEMORY[0x277D3F548];
+  v30[2] = @"refreshRequestHandler";
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+  v32[0] = v26;
+  v31[1] = *MEMORY[0x277D3F540];
+  v27[0] = @"operator";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v29[0] = commonTypeDict_StringFormat;
-  v28[1] = @"lac";
+  v28[0] = commonTypeDict_StringFormat;
+  v27[1] = @"lac";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v29[1] = commonTypeDict_IntegerFormat;
-  v28[2] = @"cellId";
+  v28[1] = commonTypeDict_IntegerFormat;
+  v27[2] = @"cellId";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v29[2] = commonTypeDict_IntegerFormat2;
-  v28[3] = @"home";
+  v28[2] = commonTypeDict_IntegerFormat2;
+  v27[3] = @"home";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]4 commonTypeDict_BoolFormat];
-  v29[3] = commonTypeDict_BoolFormat;
-  v28[4] = @"dataAttached";
+  v28[3] = commonTypeDict_BoolFormat;
+  v27[4] = @"dataAttached";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_BoolFormat];
-  v29[4] = commonTypeDict_BoolFormat2;
-  v28[5] = @"dataActive";
+  v28[4] = commonTypeDict_BoolFormat2;
+  v27[5] = @"dataActive";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_BoolFormat];
-  v29[5] = commonTypeDict_BoolFormat3;
-  v28[6] = @"dataInd";
+  v28[5] = commonTypeDict_BoolFormat3;
+  v27[6] = @"dataInd";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]7 commonTypeDict_StringFormat];
-  v29[6] = commonTypeDict_StringFormat2;
-  v28[7] = @"status";
+  v28[6] = commonTypeDict_StringFormat2;
+  v27[7] = @"status";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]8 commonTypeDict_StringFormat];
-  v29[7] = commonTypeDict_StringFormat3;
-  v28[8] = @"serviceOpt";
+  v28[7] = commonTypeDict_StringFormat3;
+  v27[8] = @"serviceOpt";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v29[8] = commonTypeDict_IntegerFormat3;
-  v28[9] = @"subsId";
+  v28[8] = commonTypeDict_IntegerFormat3;
+  v27[9] = @"subsId";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v29[9] = commonTypeDict_IntegerFormat4;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:10];
-  v33[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v28[9] = commonTypeDict_IntegerFormat4;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:10];
+  v32[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
   return v12;
 }
 
 - (void)logEventPointTelephonyRegistrationAtInit
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -212,7 +209,7 @@ uint64_t __42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke_17(uint64_t
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v4;
+        v27 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -233,57 +230,54 @@ uint64_t __42__PLBBTelephonyRegMsg_refreshTelephonyReg__block_invoke_17(uint64_t
   v13 = [(PLBBTelephonyRegMsg *)self humanReadableRegistrationStatus:CTRegistrationGetStatus()];
   [(PLBBTelephonyRegMsg *)self setAttrRegistrationStatus:v13];
 
-  v14 = *MEMORY[0x277CBECE8];
-  v15 = CTRegistrationCopyOperatorName();
-  [(PLBBTelephonyRegMsg *)self setAttrOperatorName:v15];
+  v14 = CTRegistrationCopyOperatorName();
+  [(PLBBTelephonyRegMsg *)self setAttrOperatorName:v14];
   [(PLBBTelephonyRegMsg *)self setChanged:1];
-  v16 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"TelephonyRegistration"];
-  v17 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v16];
+  v15 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"TelephonyRegistration"];
+  v16 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v15];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v18 = objc_opt_class();
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__block_invoke_60;
-    v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v26[4] = v18;
+    v17 = objc_opt_class();
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__block_invoke_60;
+    v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v24[4] = v17;
     if (qword_2811F6AD0 != -1)
     {
-      dispatch_once(&qword_2811F6AD0, v26);
+      dispatch_once(&qword_2811F6AD0, v24);
     }
 
     if (byte_2811F6AB3 == 1)
     {
-      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Send Telephony Registration msgs at Init"];
-      v20 = MEMORY[0x277D3F178];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBTelephonyRegMsg.m"];
-      lastPathComponent2 = [v21 lastPathComponent];
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBTelephonyRegMsg logEventPointTelephonyRegistrationAtInit]"];
-      [v20 logMessage:v19 fromFile:lastPathComponent2 fromFunction:v23 fromLineNumber:85];
+      v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Send Telephony Registration msgs at Init"];
+      v19 = MEMORY[0x277D3F178];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBTelephonyRegMsg.m"];
+      lastPathComponent2 = [v20 lastPathComponent];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBTelephonyRegMsg logEventPointTelephonyRegistrationAtInit]"];
+      [v19 logMessage:v18 fromFile:lastPathComponent2 fromFunction:v22 fromLineNumber:85];
 
-      v24 = PLLogCommon();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v23 = PLLogCommon();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v19;
-        _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v27 = v18;
+        _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  [(PLBBTelephonyRegMsg *)self fillPLEntryAndSend:v17];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [(PLBBTelephonyRegMsg *)self fillPLEntryAndSend:v16];
 }
 
-uint64_t __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__block_invoke(uint64_t a1)
+void *__63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6AB2 = result;
   return result;
 }
 
-uint64_t __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__block_invoke_60(uint64_t a1)
+void *__63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__block_invoke_60(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6AB3 = result;
@@ -292,15 +286,15 @@ uint64_t __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__blo
 
 - (void)logEventPointTelephonyRegistration
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __57__PLBBTelephonyRegMsg_logEventPointTelephonyRegistration__block_invoke;
-    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18 = v3;
+    v14 = 3221225472;
+    v15 = __57__PLBBTelephonyRegMsg_logEventPointTelephonyRegistration__block_invoke;
+    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17 = v3;
     if (qword_2811F6AD8 != -1)
     {
       dispatch_once(&qword_2811F6AD8, &block);
@@ -308,7 +302,7 @@ uint64_t __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__blo
 
     if (byte_2811F6AB4 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBTelephonyRegMsg logEventPointTelephonyRegistration]", block, v15, v16, v17, v18];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBTelephonyRegMsg logEventPointTelephonyRegistration]", block, v14, v15, v16, v17];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBTelephonyRegMsg.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -319,7 +313,7 @@ uint64_t __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__blo
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v4;
+        v19 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -334,11 +328,9 @@ uint64_t __63__PLBBTelephonyRegMsg_logEventPointTelephonyRegistrationAtInit__blo
     [(PLBBTelephonyRegMsg *)self processTelReg];
     [(PLBBTelephonyRegMsg *)self fillPLEntryAndSend:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __57__PLBBTelephonyRegMsg_logEventPointTelephonyRegistration__block_invoke(uint64_t a1)
+void *__57__PLBBTelephonyRegMsg_logEventPointTelephonyRegistration__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6AB4 = result;
@@ -550,47 +542,46 @@ LABEL_7:
 
   else
   {
-    v51 = *MEMORY[0x277CBECE8];
     telRegInfo18 = CTRegistrationCopyOperatorName();
     [(PLBBTelephonyRegMsg *)self setAttrOperatorName:telRegInfo18];
   }
 
   telRegInfo19 = [(PLBBTelephonyRegMsg *)self telRegInfo];
-  v53 = [telRegInfo19 objectForKey:@"kCTTimeUpdateNotification"];
-  v54 = [v53 isEqualToString:@"Valid"];
+  v52 = [telRegInfo19 objectForKey:@"kCTTimeUpdateNotification"];
+  v53 = [v52 isEqualToString:@"Valid"];
 
-  if (v54)
+  if (v53)
   {
     telRegInfo20 = [(PLBBTelephonyRegMsg *)self telRegInfo];
-    v56 = *MEMORY[0x277CC4310];
-    v61 = telRegInfo20;
-    v57 = [telRegInfo20 objectForKey:*MEMORY[0x277CC4310]];
+    v55 = *MEMORY[0x277CC4310];
+    v60 = telRegInfo20;
+    v56 = [telRegInfo20 objectForKey:*MEMORY[0x277CC4310]];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       telRegInfo21 = [(PLBBTelephonyRegMsg *)self telRegInfo];
-      v59 = [telRegInfo21 objectForKey:v56];
+      v58 = [telRegInfo21 objectForKey:v55];
 
-      if (!v59)
+      if (!v58)
       {
         return;
       }
 
-      [(PLBBTelephonyRegMsg *)self setTimeUpdate:v59];
-      v60 = v59;
+      [(PLBBTelephonyRegMsg *)self setTimeUpdate:v58];
+      v59 = v58;
     }
 
     else
     {
 
-      v60 = v61;
+      v59 = v60;
     }
   }
 }
 
 - (void)sendAndLogPLEntry:(id)entry withName:(id)name withType:(id)type
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   nameCopy = name;
   typeCopy = type;
@@ -609,8 +600,8 @@ LABEL_7:
 
     if (byte_2811F6AB5 == 1)
     {
-      v35 = typeCopy;
-      v36 = nameCopy;
+      v34 = typeCopy;
+      v35 = nameCopy;
       v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBBTelephonyRegMsg sendAndLogPLEntry:withName:withType:]"];
       v13 = MEMORY[0x277D3F178];
       v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBBTelephonyRegMsg.m"];
@@ -622,26 +613,26 @@ LABEL_7:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v40 = v12;
+        v39 = v12;
         _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      typeCopy = v35;
-      nameCopy = v36;
+      typeCopy = v34;
+      nameCopy = v35;
     }
   }
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v18 = objc_opt_class();
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __59__PLBBTelephonyRegMsg_sendAndLogPLEntry_withName_withType___block_invoke_86;
-    v37[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v37[4] = v18;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __59__PLBBTelephonyRegMsg_sendAndLogPLEntry_withName_withType___block_invoke_86;
+    v36[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v36[4] = v18;
     if (qword_2811F6AE8 != -1)
     {
-      dispatch_once(&qword_2811F6AE8, v37);
+      dispatch_once(&qword_2811F6AE8, v36);
     }
 
     if (byte_2811F6AB6 == 1)
@@ -659,7 +650,7 @@ LABEL_7:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v40 = typeCopy;
+        v39 = typeCopy;
         _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -686,18 +677,16 @@ LABEL_7:
 
   agent3 = [(PLBasebandMessage *)self agent];
   [agent3 logEntry:entryCopy];
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __59__PLBBTelephonyRegMsg_sendAndLogPLEntry_withName_withType___block_invoke(uint64_t a1)
+void *__59__PLBBTelephonyRegMsg_sendAndLogPLEntry_withName_withType___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6AB5 = result;
   return result;
 }
 
-uint64_t __59__PLBBTelephonyRegMsg_sendAndLogPLEntry_withName_withType___block_invoke_86(uint64_t a1)
+void *__59__PLBBTelephonyRegMsg_sendAndLogPLEntry_withName_withType___block_invoke_86(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6AB6 = result;

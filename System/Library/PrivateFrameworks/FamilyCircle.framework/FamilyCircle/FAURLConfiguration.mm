@@ -8,55 +8,56 @@
 
 - (void)URLForEndpoint:(id)endpoint withCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   completionCopy = completion;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = endpointCopy;
+    v15 = endpointCopy;
     _os_log_impl(&dword_1B70B0000, v8, OS_LOG_TYPE_DEFAULT, "Desired enpoint %@", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __52__FAURLConfiguration_URLForEndpoint_withCompletion___block_invoke;
-  v12[3] = &unk_1E7CA4770;
-  v13 = endpointCopy;
-  v14 = completionCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __52__FAURLConfiguration_URLForEndpoint_withCompletion___block_invoke;
+  v11[3] = &unk_1E7CA4770;
+  v12 = endpointCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = endpointCopy;
-  [(FAURLConfiguration *)self fetchAAURLConfigurationWithCompletion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(FAURLConfiguration *)self fetchAAURLConfigurationWithCompletion:v11];
 }
 
 void __52__FAURLConfiguration_URLForEndpoint_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = [v5 urlForEndpoint:*(a1 + 32)];
+    v6 = [v5 urlForEndpoint:*(a1 + 32)];
+    v8 = v6;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (!(v6 | v7))
+  if (!(v7 | v8))
   {
     v6 = [MEMORY[0x1E696ABC0] fa_familyErrorWithCode:-1017];
+    v7 = v6;
   }
 
-  if (v6)
+  if (v7)
   {
-    v8 = _FALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _FALogSystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __52__FAURLConfiguration_URLForEndpoint_withCompletion___block_invoke_cold_1(v6, v8);
+      __52__FAURLConfiguration_URLForEndpoint_withCompletion___block_invoke_cold_1(v7, v9);
     }
   }
 
@@ -89,11 +90,10 @@ void __52__FAURLConfiguration_URLForEndpoint_withCompletion___block_invoke(uint6
 
 void __52__FAURLConfiguration_URLForEndpoint_withCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error getting url configuration %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "Error getting url configuration %@", &v2, 0xCu);
 }
 
 @end

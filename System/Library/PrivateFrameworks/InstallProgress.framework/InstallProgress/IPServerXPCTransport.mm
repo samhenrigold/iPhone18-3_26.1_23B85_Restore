@@ -60,79 +60,75 @@ void __43__IPServerXPCTransport_defaultXPCTransport__block_invoke()
 
 - (void)disseminateProgressUpdateForIdentity:(id)identity currentProgress:(id)progress
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   progressCopy = progress;
-  dispatch_assert_queue_V2(self->_serviceQueue);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v8 = self->_clients;
-  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v15;
-    do
-    {
-      v12 = 0;
-      do
-      {
-        if (*v15 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        [*(*(&v14 + 1) + 8 * v12++) sendUpdateForIdentity:identityCopy currentProgress:{progressCopy, v14}];
-      }
-
-      while (v10 != v12);
-      v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    }
-
-    while (v10);
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-- (void)disseminateProgressEndForIdenitty:(id)idenitty reason:(unint64_t)reason
-{
-  v18 = *MEMORY[0x277D85DE8];
-  idenittyCopy = idenitty;
   dispatch_assert_queue_V2(self->_serviceQueue);
   v15 = 0u;
   v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v8 = self->_clients;
+  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v14;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v14 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        [*(*(&v13 + 1) + 8 * v12++) sendUpdateForIdentity:identityCopy currentProgress:{progressCopy, v13}];
+      }
+
+      while (v10 != v12);
+      v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v10);
+  }
+}
+
+- (void)disseminateProgressEndForIdenitty:(id)idenitty reason:(unint64_t)reason
+{
+  v17 = *MEMORY[0x277D85DE8];
+  idenittyCopy = idenitty;
+  dispatch_assert_queue_V2(self->_serviceQueue);
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = self->_clients;
-  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) sendProgressEndForIdentity:idenittyCopy reason:{reason, v13}];
+        [*(*(&v12 + 1) + 8 * v11++) sendProgressEndForIdentity:idenittyCopy reason:{reason, v12}];
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -144,37 +140,37 @@ void __43__IPServerXPCTransport_defaultXPCTransport__block_invoke()
 
   if (v7)
   {
-    v8 = [[IPXPCClient alloc] initWithConnection:connectionCopy serviceQueue:self->_serviceQueue];
-    [(NSMutableSet *)self->_clients addObject:v8];
-    v9 = objc_loadWeakRetained(&self->_delegate);
-    v10 = [v9 transport:self requestDelegateForClient:v8];
-    [(IPXPCClient *)v8 setDelegate:v10];
+    v9 = [[IPXPCClient alloc] initWithConnection:connectionCopy serviceQueue:self->_serviceQueue];
+    [(NSMutableSet *)self->_clients addObject:v9];
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    v11 = [v10 transport:self requestDelegateForClient:v9];
+    [(IPXPCClient *)v9 setDelegate:v11];
 
-    v11 = objc_loadWeakRetained(&self->_delegate);
-    [v11 transport:self acceptedClient:v8];
+    v12 = objc_loadWeakRetained(&self->_delegate);
+    [v12 transport:self acceptedClient:v9];
 
-    [(IPXPCClient *)v8 resume];
+    [(IPXPCClient *)v9 resume];
   }
 
   else
   {
-    v12 = _IPServerLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _IPServerLog(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
       v16 = connectionCopy;
-      _os_log_impl(&dword_254C69000, v12, OS_LOG_TYPE_DEFAULT, "Rejecting connection %@.", &v15, 0xCu);
+      _os_log_impl(&dword_254C69000, v13, OS_LOG_TYPE_DEFAULT, "Rejecting connection %@.", &v15, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)clientDisconnected:(id)disconnected
 {
   disconnectedCopy = disconnected;
-  if ([(NSMutableSet *)self->_clients containsObject:disconnectedCopy])
+  v5 = [(NSMutableSet *)self->_clients containsObject:disconnectedCopy];
+  if (v5)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained transport:self clientDisconnected:disconnectedCopy];
@@ -184,10 +180,10 @@ void __43__IPServerXPCTransport_defaultXPCTransport__block_invoke()
 
   else
   {
-    v6 = _IPServerLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = _IPServerLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [IPServerXPCTransport clientDisconnected:v6];
+      [IPServerXPCTransport clientDisconnected:v7];
     }
   }
 }

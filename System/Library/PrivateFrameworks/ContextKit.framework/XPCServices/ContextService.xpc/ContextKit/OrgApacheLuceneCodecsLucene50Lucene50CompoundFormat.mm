@@ -29,7 +29,7 @@
     JreThrowNullPointerException();
   }
 
-  [v12 writeVIntWithInt:{objc_msgSend(v13, "size")}];
+  -[OrgApacheLuceneUtilBytesRef writeVIntWithInt:](v12, "writeVIntWithInt:", [v13 size]);
   v28 = 0u;
   v29 = 0u;
   v26 = 0u;
@@ -62,7 +62,7 @@
         }
 
         v19 = *(*(&v26 + 1) + 8 * v18);
-        getFilePointer = [v11 getFilePointer];
+        getFilePointer = [(OrgApacheLuceneUtilBytesRef *)v11 getFilePointer];
         if ((atomic_load_explicit(OrgApacheLuceneStoreIOContext__initialized, memory_order_acquire) & 1) == 0)
         {
           objc_opt_class();
@@ -75,12 +75,12 @@
           JreThrowNullPointerException();
         }
 
-        [v11 copyBytesWithOrgApacheLuceneStoreDataInput:v21 withLong:{objc_msgSend(v21, "length")}];
+        -[OrgApacheLuceneUtilBytesRef copyBytesWithOrgApacheLuceneStoreDataInput:withLong:](v11, "copyBytesWithOrgApacheLuceneStoreDataInput:withLong:", v21, [v21 length]);
         [v22 close];
-        getFilePointer2 = [v11 getFilePointer];
-        [v12 writeStringWithNSString:OrgApacheLuceneIndexIndexFileNames_stripSegmentNameWithNSString_(v19)];
-        [v12 writeLongWithLong:getFilePointer];
-        [v12 writeLongWithLong:getFilePointer2 - getFilePointer];
+        getFilePointer2 = [(OrgApacheLuceneUtilBytesRef *)v11 getFilePointer];
+        [(OrgApacheLuceneUtilBytesRef *)v12 writeStringWithNSString:OrgApacheLuceneIndexIndexFileNames_stripSegmentNameWithNSString_(v19)];
+        [(OrgApacheLuceneUtilBytesRef *)v12 writeLongWithLong:getFilePointer];
+        [(OrgApacheLuceneUtilBytesRef *)v12 writeLongWithLong:getFilePointer2 - getFilePointer];
         v18 = v18 + 1;
       }
 
@@ -94,10 +94,10 @@
 
   OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(v11);
   OrgApacheLuceneCodecsCodecUtil_writeFooterWithOrgApacheLuceneStoreIndexOutput_(v12);
-  [v12 close];
+  [(OrgApacheLuceneUtilBytesRef *)v12 close];
   if (v11)
   {
-    [v11 close];
+    [(OrgApacheLuceneUtilBytesRef *)v11 close];
   }
 }
 

@@ -35,7 +35,7 @@
 
 void __64__WFExternalUIPresenterXPCConnection_presenterWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -43,11 +43,11 @@ void __64__WFExternalUIPresenterXPCConnection_presenterWithErrorHandler___block_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = [v3 localizedDescription];
-      v8 = 136315394;
-      v9 = "[WFExternalUIPresenterXPCConnection presenterWithErrorHandler:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Siri XPC connection error: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[WFExternalUIPresenterXPCConnection presenterWithErrorHandler:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Siri XPC connection error: %@", &v7, 0x16u);
     }
 
     v6 = *(a1 + 32);
@@ -56,8 +56,6 @@ void __64__WFExternalUIPresenterXPCConnection_presenterWithErrorHandler___block_
       (*(v6 + 16))(v6, v3);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (WFExternalUIPresenterXPCConnection)initWithEndpoint:(id)endpoint

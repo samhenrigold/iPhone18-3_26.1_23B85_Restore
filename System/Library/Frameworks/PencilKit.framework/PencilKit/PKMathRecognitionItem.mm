@@ -1,6 +1,5 @@
 @interface PKMathRecognitionItem
 - (BOOL)isLowConfidenceMath;
-- (BOOL)isRecentlyCreated;
 - (BOOL)isValidForDrawing:(id)drawing;
 - (CGRect)bounds;
 - (CGRect)boundsForTriggerStrokes;
@@ -12,6 +11,8 @@
 - (NSNumber)strokeGroupIdentifier;
 - (NSString)expression;
 - (NSString)expressionToPresent;
+- (_BYTE)_strokeIndexesForVerticalExpressionLine;
+- (_BYTE)strokesForEqualSign;
 - (char)initWithStrokeGroupItem:(void *)item uuid:;
 - (double)_boundsForStrokeIndexes:(void *)indexes;
 - (double)_boundsForStrokes:(uint64_t)strokes;
@@ -19,38 +20,37 @@
 - (double)boundsForAnyEqualSign;
 - (double)boundsForEqualSign;
 - (double)boundsForVerticalExpressionLine;
+- (double)isRecentlyModified;
 - (double)mostRecentStrokeTimestamp;
 - (double)suggestedDistanceBetweenDigits;
 - (double)suggestedHeightForResult;
 - (id)_anyEqualSignStrokes;
 - (id)_findHeroStroke;
-- (id)_heroStrokeInDrawing:(void *)drawing;
+- (id)_heroStrokeInDrawing:(id *)drawing;
 - (id)_stringForVariable:(id)variable;
 - (id)_strokeIndexesForCharacterRange:(uint64_t)range;
-- (id)_strokeIndexesForVerticalExpressionLine;
 - (id)_strokesForStrokeIndexes:(void *)indexes;
 - (id)alternativesTokens;
 - (id)changeIdentifier;
 - (id)graphableVariables;
+- (id)heroStroke;
 - (id)mathResult;
 - (id)originalExpression;
 - (id)stableIdentifier;
 - (id)strokeUUIDs;
-- (id)strokesForEqualSign;
 - (id)strokesForIdentifier;
 - (id)strokesForVerticalExpressionLine;
-- (uint64_t)_tagAsRecentlyUpdated;
 - (uint64_t)characterRangeForTriggerSymbol;
 - (uint64_t)hasAnyErrors;
 - (uint64_t)hasAnyErrorsOrAlternatives;
 - (uint64_t)hasAnyTrignometry;
-- (unint64_t)isRecentlyModified;
+- (unint64_t)isRecentlyCreated;
 - (void)_logRecentlyModifiedAndCreated;
 - (void)_setIsGraphable:(void *)graphable graphableVariables:;
+- (void)_tagAsRecentlyUpdated;
 - (void)_updateFromOldItem:(uint64_t)item;
 - (void)_updatePreferredTranscriptionChangingToken:(void *)token withAlternative:;
 - (void)_updateVariable:(void *)variable valueString:;
-- (void)heroStroke;
 @end
 
 @implementation PKMathRecognitionItem
@@ -287,7 +287,7 @@ LABEL_39:
   return triggerStrokes;
 }
 
-- (void)heroStroke
+- (id)heroStroke
 {
   if (self)
   {
@@ -566,7 +566,7 @@ LABEL_39:
   return v3;
 }
 
-- (id)strokesForEqualSign
+- (_BYTE)strokesForEqualSign
 {
   selfCopy = self;
   if (self)
@@ -872,7 +872,7 @@ LABEL_13:
   return v4;
 }
 
-- (id)_strokeIndexesForVerticalExpressionLine
+- (_BYTE)_strokeIndexesForVerticalExpressionLine
 {
   selfCopy = self;
   if (self)
@@ -1246,7 +1246,7 @@ void __57__PKMathRecognitionItem__strokeIndexesForCharacterRange___block_invoke(
   *(*(a1[2].location + 8) + 24) += [v3 length] + 1;
 }
 
-- (unint64_t)isRecentlyModified
+- (double)isRecentlyModified
 {
   selfCopy = self;
   if (self)
@@ -1338,7 +1338,7 @@ void __57__PKMathRecognitionItem__strokeIndexesForCharacterRange___block_invoke(
   return v5;
 }
 
-- (BOOL)isRecentlyCreated
+- (unint64_t)isRecentlyCreated
 {
   selfCopy = self;
   if (self)
@@ -1929,7 +1929,7 @@ LABEL_12:
   return selfCopy;
 }
 
-- (id)_heroStrokeInDrawing:(void *)drawing
+- (id)_heroStrokeInDrawing:(id *)drawing
 {
   v3 = a2;
   if (drawing)
@@ -2071,13 +2071,13 @@ LABEL_12:
   }
 }
 
-- (uint64_t)_tagAsRecentlyUpdated
+- (void)_tagAsRecentlyUpdated
 {
   if (result)
   {
     v1 = result;
     result = [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-    *(v1 + 40) = v2;
+    v1[5] = v2;
   }
 
   return result;

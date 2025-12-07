@@ -10,7 +10,7 @@
 
 - (id)errorFromFailedVerificationContentAttributionSets:(id)sets contentDestination:(id)destination destinationManagedLevel:(unint64_t)level
 {
-  v36[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   setsCopy = sets;
   destinationCopy = destination;
   if ([setsCopy count])
@@ -25,10 +25,10 @@
       v9 = 2;
     }
 
-    v34 = [WFMDMVerifier contentAttributionsFromContentAttributionSets:setsCopy withManagedLevel:v9];
-    v10 = [v34 sortedArrayUsingComparator:&__block_literal_global_63628];
+    v33 = [WFMDMVerifier contentAttributionsFromContentAttributionSets:setsCopy withManagedLevel:v9];
+    v10 = [v33 sortedArrayUsingComparator:&__block_literal_global_63628];
     v11 = objc_alloc(MEMORY[0x1E695DFB8]);
-    v33 = v10;
+    v32 = v10;
     v12 = [v10 if_compactMap:&__block_literal_global_187];
     v13 = [v11 initWithArray:v12];
 
@@ -85,11 +85,11 @@
 
     v28 = MEMORY[0x1E696ABC0];
     v29 = *MEMORY[0x1E696A578];
-    v35[0] = *MEMORY[0x1E696A588];
-    v35[1] = v29;
-    v36[0] = v27;
-    v36[1] = v23;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+    v34[0] = *MEMORY[0x1E696A588];
+    v34[1] = v29;
+    v35[0] = v27;
+    v35[1] = v23;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
     v18 = [v28 errorWithDomain:@"WFActionErrorDomain" code:8 userInfo:v30];
   }
 
@@ -97,8 +97,6 @@
   {
     v18 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -153,7 +151,7 @@ LABEL_8:
 
 - (BOOL)canSendDataToContentDestination:(id)destination error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   managedLevel = [destinationCopy managedLevel];
   if (managedLevel)
@@ -165,7 +163,7 @@ LABEL_8:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v17 = "[WFMDMVerifier canSendDataToContentDestination:error:]";
+        v16 = "[WFMDMVerifier canSendDataToContentDestination:error:]";
         _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s The content destination of an action should never be mixed", buf, 0xCu);
       }
 
@@ -175,12 +173,12 @@ LABEL_8:
     else
     {
       contentAttributionSets = [(WFMDMVerifier *)self contentAttributionSets];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __55__WFMDMVerifier_canSendDataToContentDestination_error___block_invoke;
-      v15[3] = &__block_descriptor_40_e33_B16__0__WFContentAttributionSet_8l;
-      v15[4] = v8;
-      v9 = [contentAttributionSets if_objectsPassingTest:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __55__WFMDMVerifier_canSendDataToContentDestination_error___block_invoke;
+      v14[3] = &__block_descriptor_40_e33_B16__0__WFContentAttributionSet_8l;
+      v14[4] = v8;
+      v9 = [contentAttributionSets if_objectsPassingTest:v14];
 
       v12 = [v9 count];
       v10 = v12 == 0;
@@ -196,7 +194,6 @@ LABEL_8:
     v10 = 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -29,16 +29,17 @@
   [coderCopy encodeInt:self->_maximumElementsPerID forKey:@"maximumElementsPerID"];
   v5 = objc_autoreleasePoolPush();
   VNNSMutableDataStreambuf::VNNSMutableDataStreambuf(&__sb);
-  v8.__loc_ = 0;
-  v8.__vftable = (MEMORY[0x1E69E5520] + 64);
-  std::ios_base::init(&v8, &__sb);
-  v9 = 0;
-  v10 = -1;
-  v6 = vision::mod::FaceIDModel::serialize(self->_faceIDModel.__ptr_);
+  v9.__loc_ = 0;
+  v8 = MEMORY[0x1E69E5520] + 24;
+  v9.__vftable = (MEMORY[0x1E69E5520] + 64);
+  std::ios_base::init(&v9, &__sb);
+  v10 = 0;
+  v11 = -1;
+  v6 = vision::mod::FaceIDModel::serialize(self->_faceIDModel.__ptr_, &v8);
   if (v6 == 128)
   {
     std::ostream::flush();
-    v7 = v13;
+    v7 = v14;
     [coderCopy encodeObject:v7 forKey:@"faceIDModel"];
   }
 
@@ -50,7 +51,7 @@
 
   std::ostream::~ostream();
   __sb = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v12);
+  std::locale::~locale(&v13);
   objc_autoreleasePoolPop(v5);
 }
 
@@ -132,7 +133,7 @@ LABEL_8:
   std::ios_base::init(&v31, &__sb);
   v32 = 0;
   v33 = -1;
-  v20 = vision::mod::FaceIDModel::deserialize(*v15);
+  v20 = vision::mod::FaceIDModel::deserialize(*v15, &v30);
   if (v20 == 128)
   {
     std::istream::~istream();
@@ -252,6 +253,7 @@ void __92__VNEntityIdentificationModelTrainedModelVIPv2_printCountsForEntitiesWi
 
 - (id)predictionsForObservation:(id)observation limit:(unint64_t)limit canceller:(id)canceller error:(id *)error
 {
+  v17[5] = *MEMORY[0x1E69E9840];
   observationCopy = observation;
   cancellerCopy = canceller;
   entityPrintOriginatingRequestSpecifier = [(VNEntityIdentificationModelTrainedModelVIPv2 *)self entityPrintOriginatingRequestSpecifier];
@@ -264,7 +266,9 @@ void __92__VNEntityIdentificationModelTrainedModelVIPv2_printCountsForEntitiesWi
       {
         [v12 VNEntityIdentificationModelPrintData];
         objc_claimAutoreleasedReturnValue();
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+        v16 = 1;
+        memset(__p, 0, sizeof(__p));
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(__p, &v16, v17);
       }
 
       v13 = 0;
@@ -305,7 +309,7 @@ void __96__VNEntityIdentificationModelTrainedModelVIPv2_predictionsForObservatio
       {
         v31 = v3;
         v9 = objc_alloc(MEMORY[0x1E695DF70]);
-        v33 = [v9 initWithCapacity:0xAAAAAAAAAAAAAAABLL * (v36 - v35)];
+        v33 = [v9 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v36 - v35) >> 3)];
         v11 = v35;
         v10 = v36;
         for (i = v36; ; v10 = i)
@@ -328,13 +332,13 @@ void __96__VNEntityIdentificationModelTrainedModelVIPv2_predictionsForObservatio
           }
 
           v12 = *v11;
-          if (*v11 != (v11 + 1))
+          if (*v11 != v11 + 8)
           {
             break;
           }
 
 LABEL_17:
-          v11 += 3;
+          v11 += 24;
         }
 
         while (1)
@@ -357,7 +361,7 @@ LABEL_17:
             break;
           }
 
-          v15 = v12[5];
+          v15 = *(v12 + 5);
           v16 = [VNEntityIdentificationModelPrediction alloc];
           *&v17 = v15;
           v18 = [(VNEntityIdentificationModelPrediction *)v16 initWithObservation:v34 entityUniqueIdentifier:v14 confidence:v17];
@@ -396,7 +400,7 @@ LABEL_17:
           }
 
           v12 = v20;
-          if (v20 == v11 + 1)
+          if (v20 == v11 + 8)
           {
             goto LABEL_17;
           }
@@ -477,7 +481,7 @@ uint64_t __129__VNEntityIdentificationModelTrainedModelVIPv2__predictionsForObse
 LABEL_5:
 
     v9 = 0;
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
   v7 = [(NSArray *)self->_entityUniqueIdentifiers indexOfObject:identifierCopy];
@@ -492,34 +496,37 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  IdentityTrainingData = vision::mod::FaceIDModel::getIdentityTrainingData(self->_faceIDModel.__ptr_, v8 + 1);
+  v22 = 0;
+  v23 = 0;
+  IdentityTrainingData = vision::mod::FaceIDModel::getIdentityTrainingData(self->_faceIDModel.__ptr_, v8 + 1, &v22);
   if (IdentityTrainingData == 128)
   {
-    v11 = MEMORY[0x48];
-    if (MEMORY[0x48])
+    v11 = v22;
+    v12 = *(v22 + 9);
+    if (v12)
     {
       entityPrintOriginatingRequestSpecifier = [(VNEntityIdentificationModelTrainedModelVIPv2 *)self entityPrintOriginatingRequestSpecifier];
-      v12 = [entityPrintOriginatingRequestSpecifier requestClassAndReturnError:error];
-      if (v12)
+      v13 = [entityPrintOriginatingRequestSpecifier requestClassAndReturnError:error];
+      if (v13)
       {
         requestRevision = [entityPrintOriginatingRequestSpecifier requestRevision];
-        v14 = MEMORY[0x40];
-        v15 = MEMORY[0x60];
-        v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v11];
-        v17 = 0;
+        v15 = *(v11 + 8);
+        v16 = *(v11 + 12);
+        v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v12];
+        v18 = 0;
         while (1)
         {
-          v18 = [v12 createVNEntityIdentificationModelEntryPrintForRevision:requestRevision fromDescriptorData:vision::mod::ImageDescriptorBufferAbstract::getDataForKthDescriptor(0 length:v17) elementCount:v14 error:{v15, error}];
-          if (!v18)
+          v19 = [v13 createVNEntityIdentificationModelEntryPrintForRevision:requestRevision fromDescriptorData:vision::mod::ImageDescriptorBufferAbstract::getDataForKthDescriptor(v11 length:v18) elementCount:v15 error:{v16, error}];
+          if (!v19)
           {
             break;
           }
 
-          [v16 addObject:v18];
+          [v17 addObject:v19];
 
-          if (v11 == ++v17)
+          if (v12 == ++v18)
           {
-            v9 = v16;
+            v9 = v17;
             goto LABEL_19;
           }
         }
@@ -551,7 +558,12 @@ LABEL_19:
     v9 = 0;
   }
 
-LABEL_21:
+  if (v23)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+  }
+
+LABEL_23:
 
   return v9;
 }
@@ -610,7 +622,7 @@ LABEL_21:
 
 + (id)trainedModelBuiltFromConfiguration:(id)configuration dataProvider:(id)provider canceller:(id)canceller error:(id *)error
 {
-  v46[9] = *MEMORY[0x1E69E9840];
+  v46[5] = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   providerCopy = provider;
   cancellerCopy = canceller;
@@ -665,11 +677,9 @@ LABEL_12:
       {
         [v17 firstObject];
         vNEntityIdentificationModelPrintByteLength = [objc_claimAutoreleasedReturnValue() VNEntityIdentificationModelPrintByteLength];
-        v46[3] = 1;
-        v42 = 0;
-        v43 = 0;
-        v41 = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+        v45 = 1;
+        memset(v41, 0, sizeof(v41));
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(v41, &v45, v46);
       }
 
       objc_autoreleasePoolPop(context);
@@ -689,9 +699,9 @@ LABEL_12:
         break;
       }
 
-      v46[0] = 0;
-      v15 = [v14 VNEntityIdentificationModelPrintWithOriginatingRequestSpecifier:entityPrintOriginatingRequestSpecifier error:v46];
-      v16 = v46[0];
+      v44 = 0;
+      v15 = [v14 VNEntityIdentificationModelPrintWithOriginatingRequestSpecifier:entityPrintOriginatingRequestSpecifier error:&v44];
+      v16 = v44;
       if (!v15)
       {
         if (error)
@@ -736,12 +746,12 @@ LABEL_18:
     if (vNEntityIdentificationModelPrintByteLength)
     {
       v25 = [self alloc];
-      v24 = v45;
+      v24 = v43;
       v39 = v19;
-      v40 = v45;
-      if (v45)
+      v40 = v43;
+      if (v43)
       {
-        atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       v23 = [v25 initWithFaceIDModel:&v39 entityPrintOriginatingRequestSpecifier:entityPrintOriginatingRequestSpecifier maximumElementsPerID:faceIDModelMaximumElementsPerID entityUniqueIdentifiers:v33 entityPrintCounts:v32];
@@ -754,7 +764,7 @@ LABEL_18:
     else
     {
       v23 = 0;
-      v24 = v45;
+      v24 = v43;
     }
 
     if (v24)

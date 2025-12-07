@@ -90,31 +90,7 @@ void __73__CPGridButton_initWithTitleVariants_image_messageConfiguration_handler
   identifier2 = [buttonCopy identifier];
   v7 = [identifier isEqual:identifier2];
 
-  if (!v7)
-  {
-    goto LABEL_6;
-  }
-
-  isEnabled = [(CPGridButton *)self isEnabled];
-  if (isEnabled != [buttonCopy isEnabled])
-  {
-    goto LABEL_6;
-  }
-
-  titleVariants = [(CPGridButton *)self titleVariants];
-  titleVariants2 = [buttonCopy titleVariants];
-  v11 = [titleVariants isEqualToArray:titleVariants2];
-
-  if (!v11)
-  {
-    goto LABEL_6;
-  }
-
-  imageSet = [(CPGridButton *)self imageSet];
-  imageSet2 = [buttonCopy imageSet];
-  v14 = [imageSet isEqual:imageSet2];
-
-  if (v14)
+  if (v7 && (v8 = -[CPGridButton isEnabled](self, "isEnabled"), v8 == [buttonCopy isEnabled]) && (-[CPGridButton titleVariants](self, "titleVariants"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(buttonCopy, "titleVariants"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqualToArray:", v10), v10, v9, v11) && (-[CPGridButton imageSet](self, "imageSet"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(buttonCopy, "imageSet"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, v14))
   {
     messageConfiguration = [(CPGridButton *)self messageConfiguration];
     messageConfiguration2 = [buttonCopy messageConfiguration];
@@ -123,7 +99,6 @@ void __73__CPGridButton_initWithTitleVariants_image_messageConfiguration_handler
 
   else
   {
-LABEL_6:
     v17 = 0;
   }
 
@@ -300,11 +275,11 @@ LABEL_6:
   v9 = *MEMORY[0x277D85DE8];
   handler = [(CPGridButton *)self handler];
 
-  v4 = CarPlayFrameworkGeneralLogging();
-  handler2 = v4;
+  v5 = CarPlayFrameworkGeneralLogging(v4);
+  handler2 = v5;
   if (handler)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = 138412290;
       selfCopy = self;
@@ -315,12 +290,10 @@ LABEL_6:
     (*(handler2 + 16))(handler2, self);
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(CPMapButton *)self handlePrimaryAction];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (UIImage)image

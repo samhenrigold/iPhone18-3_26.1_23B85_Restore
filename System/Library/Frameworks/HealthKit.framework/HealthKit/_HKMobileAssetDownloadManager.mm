@@ -122,14 +122,14 @@
   v23 = v8;
   v25 = v27;
   v9 = _Block_copy(aBlock);
-  _HKInitializeLogging();
-  v10 = HKLogMobileAsset;
+  _HKInitializeLogging(v9, v10);
+  v11 = HKLogMobileAsset;
   if (os_log_type_enabled(HKLogMobileAsset, OS_LOG_TYPE_DEBUG))
   {
-    v11 = v10;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = v11;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      -[_HKMobileAssetDownloadManager removeMobileAssets:completion:].cold.1(buf, [assetsCopy count], v11);
+      -[_HKMobileAssetDownloadManager removeMobileAssets:completion:].cold.1(buf, [assetsCopy count], v12);
     }
   }
 
@@ -143,14 +143,12 @@
   v17 = assetsCopy;
   selfCopy = self;
   v21 = v27;
-  v13 = v9;
-  v14 = assetsCopy;
+  v14 = v9;
+  v15 = assetsCopy;
   dispatch_async(queue, block);
 
   _Block_object_dispose(v26, 8);
   _Block_object_dispose(v27, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_fetchAssetsWithQuery:(id)query onlyLocal:(BOOL)local completion:(id)completion
@@ -260,71 +258,71 @@
 
 - (void)_queue_downloadAssets:(id)assets completion:(id)completion
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x3032000000;
-  v38[3] = __Block_byref_object_copy__54;
-  v38[4] = __Block_byref_object_dispose__54;
-  v39 = 0;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3032000000;
-  v36[3] = __Block_byref_object_copy__54;
-  v36[4] = __Block_byref_object_dispose__54;
-  v37 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x3032000000;
+  v37[3] = __Block_byref_object_copy__54;
+  v37[4] = __Block_byref_object_dispose__54;
+  v38 = 0;
   v35[0] = 0;
   v35[1] = v35;
-  v35[2] = 0x2020000000;
-  v35[3] = [assetsCopy count];
+  v35[2] = 0x3032000000;
+  v35[3] = __Block_byref_object_copy__54;
+  v35[4] = __Block_byref_object_dispose__54;
+  v36 = 0;
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x2020000000;
+  v34[3] = [assetsCopy count];
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __66___HKMobileAssetDownloadManager__queue_downloadAssets_completion___block_invoke;
   aBlock[3] = &unk_1E7384C48;
-  v32 = v35;
-  v18 = completionCopy;
-  v31 = v18;
-  v33 = v38;
-  v34 = v36;
-  v20 = _Block_copy(aBlock);
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v31 = v34;
+  v17 = completionCopy;
+  v30 = v17;
+  v32 = v37;
+  v33 = v35;
+  v19 = _Block_copy(aBlock);
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = assetsCopy;
-  v8 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
+  v8 = [obj countByEnumeratingWithState:&v25 objects:v39 count:16];
   if (v8)
   {
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * v10);
+        v11 = *(*(&v25 + 1) + 8 * v10);
         v12 = [_HKMobileAssetDownloadOperation alloc];
         queue = self->_queue;
         mobileAssetDownloadOptions = self->_mobileAssetDownloadOptions;
         maxNumberOfRetriesAllowed = [(_HKMobileAssetDownloadManager *)self maxNumberOfRetriesAllowed];
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __66___HKMobileAssetDownloadManager__queue_downloadAssets_completion___block_invoke_2;
-        v21[3] = &unk_1E7384C70;
-        v21[4] = self;
-        v21[5] = v11;
-        v23 = v38;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __66___HKMobileAssetDownloadManager__queue_downloadAssets_completion___block_invoke_2;
+        v20[3] = &unk_1E7384C70;
+        v20[4] = self;
+        v20[5] = v11;
+        v22 = v37;
+        v23 = v34;
         v24 = v35;
-        v25 = v36;
-        v22 = v20;
-        v16 = [(_HKMobileAssetDownloadOperation *)v12 initWithAsset:v11 queue:queue downloadOptions:mobileAssetDownloadOptions maxNumberOfRetriesAllowed:maxNumberOfRetriesAllowed completion:v21];
+        v21 = v19;
+        v16 = [(_HKMobileAssetDownloadOperation *)v12 initWithAsset:v11 queue:queue downloadOptions:mobileAssetDownloadOptions maxNumberOfRetriesAllowed:maxNumberOfRetriesAllowed completion:v20];
         [(NSMutableArray *)self->_pendingOperations addObject:v16];
         [(_HKMobileAssetDownloadOperation *)v16 run];
 
@@ -332,23 +330,22 @@
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v40 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v39 count:16];
     }
 
     while (v8);
   }
 
-  v20[2](v20);
+  v19[2](v19);
+  _Block_object_dispose(v34, 8);
   _Block_object_dispose(v35, 8);
-  _Block_object_dispose(v36, 8);
 
-  _Block_object_dispose(v38, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v37, 8);
 }
 
 - (id)_generateAssetQueryFromQueryParams:(id)params returnTypes:(int64_t)types
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   v7 = [objc_alloc(MEMORY[0x1E69B18E8]) initWithType:self->_mobileAssetTypeName];
   [v7 setDoNotBlockBeforeFirstUnlock:1];
@@ -358,26 +355,26 @@
     [v7 setDoNotBlockOnNetworkStatus:1];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = paramsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         v14 = [v8 objectForKeyedSubscript:v13];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -414,13 +411,11 @@ LABEL_11:
 LABEL_14:
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -458,19 +453,17 @@ LABEL_14:
 
 - (id)_errorWithDomain:(id)domain code:(int64_t)code
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
-  v13[0] = @"Asset Type";
-  v13[1] = @"Download Options";
+  v12[0] = @"Asset Type";
+  v12[1] = @"Download Options";
   mobileAssetDownloadOptions = self->_mobileAssetDownloadOptions;
-  v14[0] = self->_mobileAssetTypeName;
-  v14[1] = mobileAssetDownloadOptions;
+  v13[0] = self->_mobileAssetTypeName;
+  v13[1] = mobileAssetDownloadOptions;
   v7 = MEMORY[0x1E695DF20];
   domainCopy = domain;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:v12 count:2];
   v10 = [v5 errorWithDomain:domainCopy code:code userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

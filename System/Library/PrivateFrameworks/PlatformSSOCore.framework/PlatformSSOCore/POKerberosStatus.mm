@@ -75,7 +75,7 @@
 id __38__POKerberosStatus_dataRepresentation__block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error serializing kerberos status"];
-  v2 = PO_LOG_POUserConfiguration();
+  v2 = PO_LOG_POUserConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -156,7 +156,7 @@ id __38__POKerberosStatus_dataRepresentation__block_invoke(uint64_t a1)
 id __33__POKerberosStatus_initWithData___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error deserializing kerberos status"];
-  v2 = PO_LOG_POUserConfiguration();
+  v2 = PO_LOG_POUserConfiguration(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();

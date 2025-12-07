@@ -3,7 +3,7 @@
 
 @implementation UIHyperrectangle
 
-uint64_t __34___UIHyperrectangle_copyWithZone___block_invoke(uint64_t a1)
+uint64_t __34___UIHyperrectangle_copyWithZone___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _minimumPoint];
   [*(a1 + 32) _dimensions];
@@ -11,7 +11,7 @@ uint64_t __34___UIHyperrectangle_copyWithZone___block_invoke(uint64_t a1)
   return cblas_dcopy_NEWLAPACK();
 }
 
-uint64_t __34___UIHyperrectangle_copyWithZone___block_invoke_2(uint64_t a1)
+uint64_t __34___UIHyperrectangle_copyWithZone___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _maximumPoint];
   [*(a1 + 32) _dimensions];

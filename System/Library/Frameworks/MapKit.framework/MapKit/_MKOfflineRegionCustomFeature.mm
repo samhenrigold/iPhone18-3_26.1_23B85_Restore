@@ -25,11 +25,11 @@
   if (v6)
   {
     objc_storeStrong(&v6->_subscription, subscription);
-    region = [subscriptionCopy region];
-    [region centerLat];
+    v8 = objc_msgSend_region(subscriptionCopy);
+    [v8 centerLat];
     v10 = v9;
-    region2 = [subscriptionCopy region];
-    [region2 centerLng];
+    v11 = objc_msgSend_region(subscriptionCopy);
+    [v11 centerLng];
     v7->_coordinate.latitude = v10;
     v7->_coordinate.longitude = v12;
 
@@ -46,8 +46,8 @@
     [(VKCustomFeature *)v17 setText:displayName locale:0];
 
     v19 = v7->_feature;
-    region3 = [subscriptionCopy region];
-    [(VKCustomFeature *)v19 setFeatureRegion:region3];
+    v20 = objc_msgSend_region(subscriptionCopy);
+    [(VKCustomFeature *)v19 setFeatureRegion:v20];
 
     v21 = v7;
   }

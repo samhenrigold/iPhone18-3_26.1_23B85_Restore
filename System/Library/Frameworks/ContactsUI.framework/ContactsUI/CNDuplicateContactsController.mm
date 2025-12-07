@@ -84,7 +84,7 @@ void __47__CNDuplicateContactsController_findDuplicates__block_invoke(uint64_t a
   [MEMORY[0x1E695CE88] duplicatesCountsWithCompletionHandler:v2];
 }
 
-uint64_t __55__CNDuplicateContactsController_updateDuplicatesCounts__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__55__CNDuplicateContactsController_updateDuplicatesCounts__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v6 = [*(a1 + 32) newDuplicatesCount];
   v7 = *(a1 + 32);

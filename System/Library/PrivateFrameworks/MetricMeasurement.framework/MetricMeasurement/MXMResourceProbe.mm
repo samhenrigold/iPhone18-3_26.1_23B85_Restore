@@ -11,9 +11,11 @@
 - (void)_buildData:(id)data timestamp:(unint64_t)timestamp rusage:(rusage_info_v6 *)rusage;
 - (void)_buildData:(id)data timestamp:(unint64_t)timestamp taskinfo:(proc_taskinfo *)taskinfo;
 - (void)_pollAllProcesses:(id)processes;
+- (void)_pollBasicTaskInformation:(id)information pid:(int)pid;
 - (void)_pollProcessNetworkingStatsWithData:(id)data pid:(int)pid task:(unsigned int)task;
 - (void)_pollProcessResourceUsageWithData:(id)data pid:(int)pid;
 - (void)_pollProcessWithData:(id)data pid:(int)pid;
+- (void)_pollTaskMachPortInformation:(id)information task:(unsigned int)task;
 - (void)_stopUpdates;
 @end
 
@@ -67,7 +69,7 @@ LABEL_12:
       free(v8);
       if ((v14 & 0x80000000) == 0)
       {
-        v19 = _MXMGetLog();
+        v19 = _MXMGetLog(v15, v16);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           v20 = 67109378;
@@ -77,30 +79,26 @@ LABEL_12:
           _os_log_impl(&dword_258DAA000, v19, OS_LOG_TYPE_INFO, "Found pid (%i) for process name: %s", &v20, 0x12u);
         }
 
-        goto LABEL_18;
+        return v14;
       }
     }
 
     if (error)
     {
-      *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"Failed to find process.." code:1 userInfo:MEMORY[0x277CBEC10]];
+      v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"Failed to find process.." code:1 userInfo:MEMORY[0x277CBEC10]];
+      *error = v15;
     }
 
-    v15 = _MXMGetLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = _MXMGetLog(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v20 = 136315138;
       *v21 = name;
-      _os_log_impl(&dword_258DAA000, v15, OS_LOG_TYPE_DEFAULT, "Failed to find pid for process name: %s", &v20, 0xCu);
+      _os_log_impl(&dword_258DAA000, v17, OS_LOG_TYPE_DEFAULT, "Failed to find pid for process name: %s", &v20, 0xCu);
     }
 
-    v14 = 0;
-LABEL_18:
-    v16 = *MEMORY[0x277D85DE8];
-    return v14;
+    return 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return getpid();
 }
@@ -415,14 +413,13 @@ LABEL_5:
 
 - (BOOL)performPreIterationActions
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   filter = [(MXMProbe *)self filter];
   finite = [filter finite];
 
   if (!finite)
   {
-    v14 = 1;
-    goto LABEL_31;
+    return 1;
   }
 
   filter2 = [(MXMProbe *)self filter];
@@ -433,12 +430,12 @@ LABEL_5:
   v9 = [filter3 attributeFilterWithName:@"Process Identifier"];
   values2 = [v9 values];
 
-  v37 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v39 = 0u;
   v10 = values;
-  v11 = [v10 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (!v11)
   {
     v14 = 1;
@@ -446,78 +443,80 @@ LABEL_5:
   }
 
   v12 = v11;
-  v13 = *v36;
+  v13 = *v39;
   v14 = 1;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v36 != v13)
+      if (*v39 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v16 = *(*(&v35 + 1) + 8 * i);
+      v16 = *(*(&v38 + 1) + 8 * i);
       v17 = [objc_opt_class() _processIdentifierWithProcessName:objc_msgSend(v16 error:{"UTF8String"), 0}];
       if (v17 >= 1)
       {
         v18 = v17;
-        if (!proc_reset_footprint_interval())
+        v19 = proc_reset_footprint_interval();
+        if (!v19)
         {
           continue;
         }
 
-        v19 = _MXMGetLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v21 = _MXMGetLog(v19, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          v41 = v18;
-          v42 = 2112;
-          v43 = v16;
-          _os_log_impl(&dword_258DAA000, v19, OS_LOG_TYPE_ERROR, "Unable to reset the peak interval footprint of pid %d (%@)", buf, 0x12u);
+          v44 = v18;
+          v45 = 2112;
+          v46 = v16;
+          _os_log_impl(&dword_258DAA000, v21, OS_LOG_TYPE_ERROR, "Unable to reset the peak interval footprint of pid %d (%@)", buf, 0x12u);
         }
       }
 
       v14 = 0;
     }
 
-    v12 = [v10 countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v38 objects:v47 count:16];
   }
 
   while (v12);
 LABEL_18:
 
-  v33 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v20 = values2;
-  v21 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
-  if (v21)
+  v35 = 0u;
+  v22 = values2;
+  v23 = [v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v23)
   {
-    v22 = v21;
-    v23 = *v32;
+    v24 = v23;
+    v25 = *v35;
     do
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v24; ++j)
       {
-        if (*v32 != v23)
+        if (*v35 != v25)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v22);
         }
 
-        intValue = [*(*(&v31 + 1) + 8 * j) intValue];
+        intValue = [*(*(&v34 + 1) + 8 * j) intValue];
         if (intValue >= 1)
         {
-          v26 = intValue;
-          if (proc_reset_footprint_interval())
+          v28 = intValue;
+          v29 = proc_reset_footprint_interval();
+          if (v29)
           {
-            v27 = _MXMGetLog();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v31 = _MXMGetLog(v29, v30);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              v41 = v26;
-              _os_log_impl(&dword_258DAA000, v27, OS_LOG_TYPE_ERROR, "Unable to reset the peak interval footprint of pid %d", buf, 8u);
+              v44 = v28;
+              _os_log_impl(&dword_258DAA000, v31, OS_LOG_TYPE_ERROR, "Unable to reset the peak interval footprint of pid %d", buf, 8u);
             }
 
             v14 = 0;
@@ -525,84 +524,82 @@ LABEL_18:
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
-    while (v22);
+    while (v24);
   }
 
-LABEL_31:
-  v28 = *MEMORY[0x277D85DE8];
-  return v14 & 1;
+  return v14;
 }
 
 - (id)_pollMainBody
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MXMMutableSampleData);
   filter = [(MXMProbe *)self filter];
   finite = [filter finite];
 
   if (finite)
   {
-    v37 = v3;
+    v40 = v3;
     filter2 = [(MXMProbe *)self filter];
-    v7 = [filter2 attributeFilterWithName:?];
-    values = [v7 values];
+    v9 = [filter2 attributeFilterWithName:?];
+    values = [v9 values];
 
     filter3 = [(MXMProbe *)self filter];
-    v10 = [filter3 attributeFilterWithName:?];
-    values2 = [v10 values];
+    v12 = [filter3 attributeFilterWithName:?];
+    values2 = [v12 values];
 
-    v12 = _MXMGetLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v16 = _MXMGetLog(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v45 = values;
-      v46 = 2112;
-      v47 = values2;
-      _os_log_impl(&dword_258DAA000, v12, OS_LOG_TYPE_INFO, "Polling with the following process names: %@ and pids: %@.", buf, 0x16u);
+      v48 = values;
+      v49 = 2112;
+      v50 = values2;
+      _os_log_impl(&dword_258DAA000, v16, OS_LOG_TYPE_INFO, "Polling with the following process names: %@ and pids: %@.", buf, 0x16u);
     }
 
-    v41 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
+    v43 = 0u;
     if (values)
     {
-      v13 = [values setByAddingObjectsFromSet:{values2, values2, values}];
+      v17 = [values setByAddingObjectsFromSet:{values2, values2, values}];
     }
 
     else
     {
-      v16 = [MEMORY[0x277CBEB98] set];
-      v13 = [v16 setByAddingObjectsFromSet:values2];
+      v20 = [MEMORY[0x277CBEB98] set];
+      v17 = [v20 setByAddingObjectsFromSet:values2];
     }
 
-    v17 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
-    if (v17)
+    v21 = [v17 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    if (v21)
     {
-      v18 = v17;
-      v19 = *v40;
-      v20 = 0x2798C9000uLL;
+      v22 = v21;
+      v23 = *v43;
+      v24 = 0x2798C9000uLL;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v40 != v19)
+          if (*v43 != v23)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v39 + 1) + 8 * i);
+          v26 = *(*(&v42 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v23 = [v22 cStringUsingEncoding:4];
-            v24 = objc_opt_class();
-            v38 = 0;
-            intValue = [v24 _processIdentifierWithProcessName:v23 error:&v38];
-            v26 = v38;
+            v27 = [v26 cStringUsingEncoding:4];
+            v28 = objc_opt_class();
+            v41 = 0;
+            intValue = [v28 _processIdentifierWithProcessName:v27 error:&v41];
+            v30 = v41;
             if ((intValue & 0x80000000) != 0)
             {
               goto LABEL_25;
@@ -614,67 +611,65 @@ LABEL_31:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v26 = 0;
+              v30 = 0;
               goto LABEL_25;
             }
 
-            intValue = [v22 intValue];
-            v26 = 0;
+            intValue = [v26 intValue];
+            v30 = 0;
             if ((intValue & 0x80000000) != 0)
             {
               goto LABEL_25;
             }
           }
 
-          if (!v26)
+          if (!v30)
           {
             selfCopy = self;
-            [(MXMResourceProbe *)self _pollProcessWithData:v37 pid:intValue];
-            v28 = v20;
-            v29 = *(v20 + 520);
-            v30 = [MEMORY[0x277CCABB0] numberWithInt:intValue];
-            v31 = [v29 attributeWithName:@"Process Identifier" numericValue:v30];
-            [(MXMMutableSampleData *)v37 appendAttribute:v31];
+            [(MXMResourceProbe *)self _pollProcessWithData:v40 pid:intValue];
+            v32 = v24;
+            v33 = *(v24 + 520);
+            v34 = [MEMORY[0x277CCABB0] numberWithInt:intValue];
+            v35 = [v33 attributeWithName:@"Process Identifier" numericValue:v34];
+            [(MXMMutableSampleData *)v40 appendAttribute:v35];
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v32 = [*(v28 + 520) attributeWithName:@"Process Name" stringValue:v22];
-              [(MXMMutableSampleData *)v37 appendAttribute:v32];
+              v36 = [*(v32 + 520) attributeWithName:@"Process Name" stringValue:v26];
+              [(MXMMutableSampleData *)v40 appendAttribute:v36];
             }
 
-            v26 = 0;
-            v20 = v28;
+            v30 = 0;
+            v24 = v32;
             self = selfCopy;
           }
 
 LABEL_25:
         }
 
-        v18 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v22 = [v17 countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
-      while (v18);
+      while (v22);
     }
 
-    v3 = v37;
+    v3 = v40;
   }
 
   else
   {
-    v14 = _MXMGetLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v18 = _MXMGetLog(v6, v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       filter4 = [(MXMProbe *)self filter];
       *buf = 138412290;
-      v45 = filter4;
-      _os_log_impl(&dword_258DAA000, v14, OS_LOG_TYPE_INFO, "Polling all process's with filter %@.", buf, 0xCu);
+      v48 = filter4;
+      _os_log_impl(&dword_258DAA000, v18, OS_LOG_TYPE_INFO, "Polling all process's with filter %@.", buf, 0xCu);
     }
 
     [(MXMResourceProbe *)self _pollAllProcesses:v3];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -683,63 +678,61 @@ LABEL_25:
 {
   v14 = *MEMORY[0x277D85DE8];
   processesCopy = processes;
-  v6 = _MXMGetLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = _MXMGetLog(processesCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v7 = *__error();
+    v8 = *__error();
     v13[0] = 67109120;
-    v13[1] = v7;
-    _os_log_impl(&dword_258DAA000, v6, OS_LOG_TYPE_ERROR, "Clearing errno for libproc call (value being cleared: %i).", v13, 8u);
+    v13[1] = v8;
+    _os_log_impl(&dword_258DAA000, v7, OS_LOG_TYPE_ERROR, "Clearing errno for libproc call (value being cleared: %i).", v13, 8u);
   }
 
   *__error() = 0;
-  v8 = proc_listpids(1u, 0, 0, 0);
-  v9 = malloc_type_malloc(4 * v8, 0x100004052888210uLL);
-  proc_listpids(1u, 0, v9, 32);
+  v9 = proc_listpids(1u, 0, 0, 0);
+  v10 = malloc_type_malloc(4 * v9, 0x100004052888210uLL);
+  proc_listpids(1u, 0, v10, 32);
   if (*__error())
   {
     [(MXMResourceProbe *)a2 _pollAllProcesses:?];
-    if (!v8)
+    if (!v9)
     {
       goto LABEL_9;
     }
   }
 
-  else if (!v8)
+  else if (!v9)
   {
     goto LABEL_9;
   }
 
-  v10 = v9;
+  v11 = v10;
   do
   {
-    v11 = *v10++;
-    if ((v11 & 0x80000000) == 0)
+    v12 = *v11++;
+    if ((v12 & 0x80000000) == 0)
     {
       [(MXMResourceProbe *)self _pollProcessWithData:processesCopy pid:?];
     }
 
-    --v8;
+    --v9;
   }
 
-  while (v8);
+  while (v9);
 LABEL_9:
-  free(v9);
-
-  v12 = *MEMORY[0x277D85DE8];
+  free(v10);
 }
 
 - (void)_pollProcessWithData:(id)data pid:(int)pid
 {
   dataCopy = data;
-  v20 = 0;
+  v22 = 0;
   filter = [(MXMProbe *)self filter];
   v10 = +[MXMUtilizationSampleTag machPort];
   v11 = [filter matchesSamplesWithTag:v10];
   pidCopy = pid;
   if ((v11 & 1) != 0 || (-[MXMProbe filter](self, "filter"), v4 = objc_claimAutoreleasedReturnValue(), +[MXMUtilizationSampleTag network](MXMUtilizationSampleTag, "network"), v5 = objc_claimAutoreleasedReturnValue(), [v4 matchesSamplesWithTag:v5]))
   {
-    v12 = task_for_pid(*MEMORY[0x277D85F48], pid, &v20);
+    v12 = task_for_pid(*MEMORY[0x277D85F48], pid, &v22);
     v13 = v12 != 0;
     v14 = v12 == 0;
     if (v11)
@@ -752,7 +745,7 @@ LABEL_9:
       }
 
 LABEL_12:
-      v17 = pidCopy;
+      v19 = pidCopy;
       [(MXMResourceProbe *)self _pollProcessResourceUsageWithData:dataCopy pid:pidCopy];
       if (!v14)
       {
@@ -775,20 +768,20 @@ LABEL_12:
   }
 
 LABEL_5:
-  v16 = _MXMGetLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v18 = _MXMGetLog(v16, v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_258DAA000, v16, OS_LOG_TYPE_ERROR, "Failed to grab task port.", buf, 2u);
+    _os_log_impl(&dword_258DAA000, v18, OS_LOG_TYPE_ERROR, "Failed to grab task port.", buf, 2u);
   }
 
-  v17 = pidCopy;
+  v19 = pidCopy;
   [(MXMResourceProbe *)self _pollProcessResourceUsageWithData:dataCopy pid:pidCopy];
   if (v14)
   {
 LABEL_8:
-    [(MXMResourceProbe *)self _pollTaskMachPortInformation:dataCopy task:v20];
-    [(MXMResourceProbe *)self _pollProcessNetworkingStatsWithData:dataCopy pid:v17 task:v20];
+    [(MXMResourceProbe *)self _pollTaskMachPortInformation:dataCopy task:v22];
+    [(MXMResourceProbe *)self _pollProcessNetworkingStatsWithData:dataCopy pid:v19 task:v22];
   }
 
 LABEL_9:
@@ -796,15 +789,13 @@ LABEL_9:
 
 - (void)_pollProcessNetworkingStatsWithData:(id)data pid:(int)pid task:(unsigned int)task
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  memset(v9, 0, sizeof(v9));
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
   dataCopy = data;
   v7 = mach_absolute_time();
   pm_sample_task_and_pid();
-  [(MXMResourceProbe *)self _buildData:dataCopy timestamp:v7 pm_networking_stats:v9 + 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, *&v9[0]];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(MXMResourceProbe *)self _buildData:dataCopy timestamp:v7 pm_networking_stats:v8 + 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, *&v8[0]];
 }
 
 - (void)_pollProcessResourceUsageWithData:(id)data pid:(int)pid
@@ -845,29 +836,55 @@ LABEL_9:
   v8 = mach_absolute_time();
   if (v7)
   {
-    v9 = _MXMGetLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = _MXMGetLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = *__error();
-      v11 = __error();
-      v12 = strerror(*v11);
+      v11 = *__error();
+      v12 = __error();
+      v13 = strerror(*v12);
       v15[0] = 67109634;
       v15[1] = pid;
       v16 = 1024;
-      v17 = v10;
+      v17 = v11;
       v18 = 2080;
-      v19 = v12;
-      _os_log_impl(&dword_258DAA000, v9, OS_LOG_TYPE_INFO, "Failed to retrieve rusage info for pid: %i. errno=%d(%s)", v15, 0x18u);
+      v19 = v13;
+      _os_log_impl(&dword_258DAA000, v10, OS_LOG_TYPE_INFO, "Failed to retrieve rusage info for pid: %i. errno=%d(%s)", v15, 0x18u);
     }
   }
 
   else
   {
     [MXMMachUtils _nanosecondsWithAbsoluteTime:v8];
-    [(MXMResourceProbe *)self _buildData:dataCopy timestamp:v13 rusage:buffer];
+    [(MXMResourceProbe *)self _buildData:dataCopy timestamp:v14 rusage:buffer];
+  }
+}
+
+- (void)_pollTaskMachPortInformation:(id)information task:(unsigned int)task
+{
+  v4 = *&task;
+  informationCopy = information;
+  memset(v10, 0, sizeof(v10));
+  v8 = MEMORY[0x259C9CA70](v4, v10);
+  v9 = mach_absolute_time();
+  if (v8)
+  {
+    [(MXMResourceProbe *)a2 _pollTaskMachPortInformation:v4 task:?];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  [(MXMResourceProbe *)self _buildData:informationCopy timestamp:v9 mach_space_basicinfo:v10];
+}
+
+- (void)_pollBasicTaskInformation:(id)information pid:(int)pid
+{
+  v4 = *&pid;
+  memset(v8, 0, sizeof(v8));
+  informationCopy = information;
+  if (proc_pidinfo(v4, 4, 0, v8, 96) != 96)
+  {
+    [(MXMResourceProbe *)a2 _pollBasicTaskInformation:v4 pid:?];
+  }
+
+  [(MXMResourceProbe *)self _buildData:informationCopy timestamp:mach_absolute_time() taskinfo:v8];
 }
 
 - (void)_pollAllProcesses:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

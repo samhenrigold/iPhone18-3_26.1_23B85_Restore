@@ -1653,7 +1653,7 @@ LABEL_9:
 - (BOOL)presentationControllerShouldDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  AKLog(@"%s %@");
+  AKLog();
   v5 = [(AKToolbarViewController_iOS *)self signaturesSheetViewController:"[AKToolbarViewController_iOS presentationControllerShouldDismiss:]"];
   popoverPresentationController = [v5 popoverPresentationController];
 
@@ -1743,7 +1743,7 @@ LABEL_14:
 
 - (void)signaturesViewControllerDidCancel:(id)cancel
 {
-  AKLog(@"%s %@");
+  AKLog();
   v4 = [(AKToolbarViewController_iOS *)self signaturesSheetViewController:"[AKToolbarViewController_iOS signaturesViewControllerDidCancel:]"];
 
   if (v4)
@@ -1780,7 +1780,7 @@ LABEL_14:
 
 - (void)signaturesViewControllerDidSelectSignature:(id)signature
 {
-  AKLog(@"%s %@");
+  AKLog();
   v4 = [(AKToolbarViewController_iOS *)self signaturesSheetViewController:"[AKToolbarViewController_iOS signaturesViewControllerDidSelectSignature:]"];
 
   if (v4)
@@ -1846,7 +1846,7 @@ LABEL_14:
     [(AKToolbarViewController_iOS *)self setSignaturesAlertController:0];
   }
 
-  AKLog(@"%s %@");
+  AKLog();
   v8 = [(AKToolbarViewController_iOS *)self signaturesSheetViewController:"[AKToolbarViewController_iOS signaturesViewControllerContinueToManageSignatures:]"];
 
   v9 = signaturesCopy;
@@ -1925,7 +1925,7 @@ LABEL_14:
 
 - (void)signaturesViewControllerContinueToCreateSignature:(id)signature
 {
-  AKLog(@"%s %@");
+  AKLog();
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = sub_23F43A7B4;

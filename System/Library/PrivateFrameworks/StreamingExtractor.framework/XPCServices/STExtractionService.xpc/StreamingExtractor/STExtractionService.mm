@@ -23,44 +23,42 @@
 + (void)addActiveExtractionService:(id)service
 {
   serviceCopy = service;
-  v5 = sub_100000D08();
-  v6 = objc_claimAutoreleasedReturnValue(v5);
+  v6 = sub_100000D08(serviceCopy, v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_claimAutoreleasedReturnValue([serviceCopy sessionID]);
-    v14 = 136446722;
-    v15 = "+[STExtractionService addActiveExtractionService:]";
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2112;
-    v19 = serviceCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [%@] %@", &v14, 0x20u);
+    sessionID = [serviceCopy sessionID];
+    v15 = 136446722;
+    v16 = "+[STExtractionService addActiveExtractionService:]";
+    v17 = 2112;
+    v18 = sessionID;
+    v19 = 2112;
+    v20 = serviceCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [%@] %@", &v15, 0x20u);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (qword_10000D030)
   {
-    [qword_10000D030 addObject:serviceCopy];
+    v9 = [qword_10000D030 addObject:serviceCopy];
   }
 
   else
   {
-    v9 = objc_claimAutoreleasedReturnValue([NSMutableSet setWithObject:serviceCopy]);
-    v10 = qword_10000D030;
-    qword_10000D030 = v9;
+    v11 = [NSMutableSet setWithObject:serviceCopy];
+    v12 = qword_10000D030;
+    qword_10000D030 = v11;
   }
 
-  v11 = sub_100000D08();
-  v12 = objc_claimAutoreleasedReturnValue(v11);
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100000D08(v9, v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [qword_10000D030 count];
-    v14 = 136446466;
-    v15 = "+[STExtractionService addActiveExtractionService:]";
-    v16 = 2048;
-    v17 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: %lu services", &v14, 0x16u);
+    v14 = [qword_10000D030 count];
+    v15 = 136446466;
+    v16 = "+[STExtractionService addActiveExtractionService:]";
+    v17 = 2048;
+    v18 = v14;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: %lu services", &v15, 0x16u);
   }
 
   objc_sync_exit(selfCopy);
@@ -69,35 +67,33 @@
 + (void)removeExtractionService:(id)service
 {
   serviceCopy = service;
-  v5 = sub_100000D08();
-  v6 = objc_claimAutoreleasedReturnValue(v5);
+  v6 = sub_100000D08(serviceCopy, v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_claimAutoreleasedReturnValue([serviceCopy sessionID]);
-    v12 = 136446722;
-    v13 = "+[STExtractionService removeExtractionService:]";
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = serviceCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [%@] %@", &v12, 0x20u);
+    sessionID = [serviceCopy sessionID];
+    v13 = 136446722;
+    v14 = "+[STExtractionService removeExtractionService:]";
+    v15 = 2112;
+    v16 = sessionID;
+    v17 = 2112;
+    v18 = serviceCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [%@] %@", &v13, 0x20u);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (qword_10000D030)
   {
-    [qword_10000D030 removeObject:serviceCopy];
-    v9 = sub_100000D08();
-    v10 = objc_claimAutoreleasedReturnValue(v9);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = [qword_10000D030 removeObject:serviceCopy];
+    v11 = sub_100000D08(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [qword_10000D030 count];
-      v12 = 136446466;
-      v13 = "+[STExtractionService removeExtractionService:]";
-      v14 = 2048;
-      v15 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: %lu services remaining", &v12, 0x16u);
+      v12 = [qword_10000D030 count];
+      v13 = 136446466;
+      v14 = "+[STExtractionService removeExtractionService:]";
+      v15 = 2048;
+      v16 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: %lu services remaining", &v13, 0x16u);
     }
   }
 
@@ -108,18 +104,17 @@
 {
   processTerminated = 1;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (qword_10000D030)
   {
-    v3 = sub_100000D08();
-    v4 = objc_claimAutoreleasedReturnValue(v3);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100000D08(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136446466;
-      v6 = "+[STExtractionService setProcessTerminated]";
-      v7 = 2048;
-      v8 = [qword_10000D030 count];
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: suspending %lu extractions", &v5, 0x16u);
+      v6 = 136446466;
+      v7 = "+[STExtractionService setProcessTerminated]";
+      v8 = 2048;
+      v9 = [qword_10000D030 count];
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: suspending %lu extractions", &v6, 0x16u);
     }
 
     [qword_10000D030 enumerateObjectsUsingBlock:&stru_1000083D0];
@@ -132,13 +127,14 @@
 {
   clientCopy = client;
   connectionCopy = connection;
-  v18.receiver = self;
-  v18.super_class = STExtractionService;
-  v8 = [(STExtractionService *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = STExtractionService;
+  v8 = [(STExtractionService *)&v19 init];
   if (v8)
   {
-    v9 = objc_claimAutoreleasedReturnValue([NSString stringWithFormat:@"StreamingExtraction session on behalf of %@", clientCopy]);
-    v10 = os_transaction_create([v9 UTF8String]);
+    clientCopy = [NSString stringWithFormat:@"StreamingExtraction session on behalf of %@", clientCopy];
+    [clientCopy UTF8String];
+    v10 = os_transaction_create();
     v11 = *(v8 + 1);
     *(v8 + 1) = v10;
 
@@ -154,23 +150,23 @@
       {
         objc_storeWeak(v8 + 3, connectionCopy);
         v8[16] = 1;
-        [connectionCopy auditToken];
-        *(v8 + 4) = v16;
-        *(v8 + 5) = v17;
+        objc_msgSend_auditToken(connectionCopy);
+        *(v8 + 4) = v17;
+        *(v8 + 5) = v18;
       }
 
       else
       {
-        *&v14 = -1;
-        *(&v14 + 1) = -1;
-        *(v8 + 4) = v14;
-        *(v8 + 5) = v14;
+        *&v15 = -1;
+        *(&v15 + 1) = -1;
+        *(v8 + 4) = v15;
+        *(v8 + 5) = v15;
       }
     }
 
     else
     {
-      sub_100003718(v8);
+      sub_100003718(v8, v14);
       v8 = 0;
     }
   }
@@ -185,7 +181,8 @@
 
   if ([(STExtractionService *)self sandboxToken]!= -1)
   {
-    sandbox_extension_release([(STExtractionService *)self sandboxToken]);
+    [(STExtractionService *)self sandboxToken];
+    sandbox_extension_release();
     [(STExtractionService *)self setSandboxToken:-1];
   }
 
@@ -196,13 +193,13 @@
 
 - (void)connectionInvalidated
 {
-  v3 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self messageQueue]);
+  messageQueue = [(STExtractionService *)self messageQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100001EB4;
   block[3] = &unk_100008438;
   block[4] = self;
-  dispatch_async(v3, block);
+  dispatch_async(messageQueue, block);
 }
 
 - (void)processTerminated
@@ -211,13 +208,13 @@
   {
     block[7] = v2;
     block[8] = v3;
-    v5 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self messageQueue]);
+    messageQueue = [(STExtractionService *)self messageQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100002014;
     block[3] = &unk_100008438;
     block[4] = self;
-    dispatch_async(v5, block);
+    dispatch_async(messageQueue, block);
   }
 }
 
@@ -225,14 +222,14 @@
 {
   if (processTerminated == 1 && [(STExtractionService *)self extractionValid])
   {
-    v3 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self plugin]);
+    plugin = [(STExtractionService *)self plugin];
 
-    if (v3)
+    if (plugin)
     {
       if ([(STExtractionService *)self extractionPrepared])
       {
-        v4 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self plugin]);
-        [v4 suspendStreamWithCompletionBlock:&stru_100008458];
+        plugin2 = [(STExtractionService *)self plugin];
+        [plugin2 suspendStreamWithCompletionBlock:&stru_100008458];
       }
 
       [(STExtractionService *)self invalidate];
@@ -240,7 +237,7 @@
 
     else
     {
-      sub_1000037D4();
+      sub_1000037D4(v4, v5);
     }
   }
 }
@@ -251,7 +248,7 @@
   tokenCopy = token;
   optionsCopy = options;
   blockCopy = block;
-  v14 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self messageQueue]);
+  messageQueue = [(STExtractionService *)self messageQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000021B4;
@@ -265,14 +262,14 @@
   v16 = tokenCopy;
   v17 = optionsCopy;
   v18 = blockCopy;
-  dispatch_async(v14, block);
+  dispatch_async(messageQueue, block);
 }
 
 - (void)remote_supplyBytes:(id)bytes withCompletionBlock:(id)block
 {
   bytesCopy = bytes;
   blockCopy = block;
-  v8 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self messageQueue]);
+  messageQueue = [(STExtractionService *)self messageQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100002EA8;
@@ -282,13 +279,13 @@
   v13 = blockCopy;
   v9 = blockCopy;
   v10 = bytesCopy;
-  dispatch_async(v8, block);
+  dispatch_async(messageQueue, block);
 }
 
 - (void)remote_suspendStreamWithCompletionBlock:(id)block
 {
   blockCopy = block;
-  v5 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self messageQueue]);
+  messageQueue = [(STExtractionService *)self messageQueue];
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_1000030E4;
@@ -296,13 +293,13 @@
   v7[4] = self;
   v8 = blockCopy;
   v6 = blockCopy;
-  dispatch_async(v5, v7);
+  dispatch_async(messageQueue, v7);
 }
 
 - (void)remote_finishStreamWithCompletionBlock:(id)block
 {
   blockCopy = block;
-  v5 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self messageQueue]);
+  messageQueue = [(STExtractionService *)self messageQueue];
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_1000031E4;
@@ -310,14 +307,14 @@
   v7[4] = self;
   v8 = blockCopy;
   v6 = blockCopy;
-  dispatch_async(v5, v7);
+  dispatch_async(messageQueue, v7);
 }
 
 - (void)remote_terminateStreamWithError:(id)error completionBlock:(id)block
 {
   errorCopy = error;
   blockCopy = block;
-  v8 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self messageQueue]);
+  messageQueue = [(STExtractionService *)self messageQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100003308;
@@ -327,29 +324,29 @@
   v13 = blockCopy;
   v9 = blockCopy;
   v10 = errorCopy;
-  dispatch_async(v8, block);
+  dispatch_async(messageQueue, block);
 }
 
 - (void)setExtractionProgress:(double)progress
 {
-  v5 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self xpcConnection]);
-  v4 = objc_claimAutoreleasedReturnValue([v5 remoteObjectProxy]);
-  [v4 remote_setExtractionProgress:progress];
+  xpcConnection = [(STExtractionService *)self xpcConnection];
+  remoteObjectProxy = [xpcConnection remoteObjectProxy];
+  [remoteObjectProxy remote_setExtractionProgress:progress];
 }
 
 - (void)extractionCompleteAtArchivePath:(id)path
 {
   pathCopy = path;
-  v6 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self xpcConnection]);
-  v5 = objc_claimAutoreleasedReturnValue([v6 remoteObjectProxy]);
-  [v5 remote_extractionCompleteAtArchivePath:pathCopy];
+  xpcConnection = [(STExtractionService *)self xpcConnection];
+  remoteObjectProxy = [xpcConnection remoteObjectProxy];
+  [remoteObjectProxy remote_extractionCompleteAtArchivePath:pathCopy];
 }
 
 - (void)extractionEnteredPassthroughMode
 {
-  v3 = objc_claimAutoreleasedReturnValue([(STExtractionService *)self xpcConnection]);
-  v2 = objc_claimAutoreleasedReturnValue([v3 remoteObjectProxy]);
-  [v2 remote_extractionEnteredPassthroughMode];
+  xpcConnection = [(STExtractionService *)self xpcConnection];
+  remoteObjectProxy = [xpcConnection remoteObjectProxy];
+  [remoteObjectProxy remote_extractionEnteredPassthroughMode];
 }
 
 - ($115C4C562B26FF47E01F9F4EA65B5887)auditToken

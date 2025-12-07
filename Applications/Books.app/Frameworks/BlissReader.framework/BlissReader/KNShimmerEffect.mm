@@ -25,7 +25,7 @@
   if (!self->_isSetup)
   {
     device = [(TSDMetalContext *)self->_metalContext device];
-    v4 = KNBundle();
+    v4 = KNBundle(device);
     v5 = [v4 pathForResource:@"KNBuildShimmer" ofType:@"png"];
 
     v6 = [NSData dataWithContentsOfFile:v5];
@@ -73,7 +73,7 @@
     v19 = self->_objectSystem;
     if (v19)
     {
-      [(KNShimmerObjectSystem *)v19 vertexUniforms];
+      objc_msgSend_vertexUniforms(v19);
       v19 = self->_objectSystem;
     }
 
@@ -131,7 +131,7 @@
       v25 = self->_particleSystem;
       if (v25)
       {
-        [(KNShimmerParticleSystem *)v25 vertexUniforms];
+        objc_msgSend_vertexUniforms(v25);
         v25 = self->_particleSystem;
       }
 

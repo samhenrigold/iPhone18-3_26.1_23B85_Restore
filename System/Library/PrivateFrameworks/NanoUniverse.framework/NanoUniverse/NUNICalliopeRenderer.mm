@@ -13,8 +13,10 @@
 - (void)_renderOffscreenBloomTextureWithViewport:(NUNIViewport)viewport sceneTexture:(id)texture commandBuffer:(id)buffer;
 - (void)_renderOffscreenPostWithScene:(const NUNISceneStructure *)scene viewport:(NUNIViewport)viewport commandBuffer:(id)buffer frameBufferIndex:(unint64_t)index;
 - (void)_renderOffscreenSceneWithScene:(const NUNISceneStructure *)scene spheroids:(id)spheroids viewport:(NUNIViewport)viewport commandBuffer:(id)buffer frameBufferIndex:(unint64_t)index drawableTexture:(id)texture;
-- (void)_renderSaturnRings:(double)rings frameBufferIndex:(__n128)index renderEncoder:(__n128)encoder forwardAngle:(__n128)angle position:(__n128)position isRotated:(float)rotated rotationMatrix:(float)matrix scale:(uint64_t)self0 equatorRotation:(_OWORD *)self1;
+- (void)_renderPatchSpheroid:(const NUNISpheroidStructure *)spheroid frustumCullingState:(id *)state drawableSize:frameBufferIndex:renderEncoder:;
+- (void)_renderSaturnRings:(__n128)rings frameBufferIndex:(__n128)index renderEncoder:(__n128)encoder forwardAngle:(__n128)angle position:(__n128)position isRotated:(float)rotated rotationMatrix:(float)matrix scale:(uint64_t)self0 equatorRotation:(_OWORD *)self1;
 - (void)_renderSpriteSpheroid:(const NUNISpheroidStructure *)spheroid frameBufferIndex:(unint64_t)index renderEncoder:(id)encoder;
+- (void)_renderSunSprite:(NUNICalliopeRenderUniforms *)sprite frameBufferIndex:(unint64_t)index renderEncoder:(id)encoder position:(float)position scale:(float)scale opacity:;
 - (void)_setupBloomChainWithViewport:(NUNIViewport)viewport bloomTexture:(id)texture;
 - (void)_updateBaseUniformsForViewport:(NUNIViewport)viewport;
 - (void)_updateStateWithScene:(const NUNISceneStructure *)scene viewport:(NUNIViewport)viewport;
@@ -82,7 +84,7 @@
 
 - (void)purgeUnusedWithScene:(id)scene
 {
-  v4 = *([scene structure] + 56);
+  v4 = *(objc_msgSend_structure(scene, a2) + 56);
   mEMORY[0x277CFA7B0] = [MEMORY[0x277CFA7B0] sharedInstance];
   nullTexture2D = [MEMORY[0x277CFA7C0] nullTexture2D];
   for (i = 0; i != 24; ++i)
@@ -320,7 +322,7 @@
 - (void)_updateBaseUniformsForViewport:(NUNIViewport)viewport
 {
   width = viewport.width;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   height = viewport.height;
   v6 = 0x27FA49000uLL;
   if (__ROR8__(0xEEEEEEEEEEEEEEEFLL * self->_frame, 2) <= 0x444444444444444uLL)
@@ -328,8 +330,8 @@
     changeSequence = [(NUNIRendererOptions *)self->_rendererOptions changeSequence];
     if (changeSequence != self->_rendererOptionsChangeSequence)
     {
-      v38 = width;
-      v39 = height;
+      v37 = width;
+      v38 = height;
       v8 = 0;
       self->_rendererOptionsChangeSequence = changeSequence;
       selfCopy = self;
@@ -373,15 +375,15 @@
       resourceManager = self->_resourceManager;
       v23 = self + *(v6 + 2348);
       v24 = *(v23 + 3);
-      v41 = *(v23 + 2);
-      *v42 = v24;
-      *&v42[14] = *(v23 + 62);
+      v40 = *(v23 + 2);
+      *v41 = v24;
+      *&v41[14] = *(v23 + 62);
       v25 = *(v23 + 1);
       *buf = *v23;
       *&buf[16] = v25;
       [(NUNICalliopeResourceManager *)resourceManager setPipelineConstants:buf];
-      width = v38;
-      height = v39;
+      width = v37;
+      height = v38;
     }
   }
 
@@ -436,7 +438,6 @@
   *&self->_anon_421[195] = 0;
   *&self->_anon_421[187] = 0;
   *&self->_anon_421[203] = 0;
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getUniformsBufferForFrameBufferIndex:(unint64_t)index pContents:(NUNICalliopeRenderUniforms *)contents pOffset:(unint64_t *)offset
@@ -490,12 +491,12 @@
 
 - (void)_renderOffscreenBackgroundWithRenderEncoder:(id)encoder frameBufferIndex:(unint64_t)index
 {
+  v31 = 0;
   v32 = 0;
-  v33 = 0;
   encoderCopy = encoder;
-  v7 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:index pContents:&v33 pOffset:&v32];
-  v8 = v33;
-  *v33 = *&self->_baseUniforms.vsh.{?=;
+  v7 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:index pContents:&v32 pOffset:&v31];
+  v8 = v32;
+  *v32 = *&self->_baseUniforms.vsh.{?=;
   v9 = *&self->_anon_421[63];
   v11 = *&self->_anon_421[15];
   v10 = *&self->_anon_421[31];
@@ -517,18 +518,17 @@
   v8[12] = v15;
   v8[9] = v17;
   v8[10] = v16;
-  v18 = *&self->_anon_304[12];
-  *v19.i64 = UMFloat4x4MakeTranslate();
-  v34.columns[0] = v19;
-  v34.columns[1] = v20;
-  v34.columns[2] = v21;
-  v34.columns[3] = v22;
-  *&v23 = UMMul(*&self->_anon_304[220], v34);
-  v8[6] = v23;
-  v8[7] = v24;
-  v8[8] = v25;
-  v8[9] = v26;
-  [encoderCopy setVertexBuffer:v7 offset:v32 atIndex:1];
+  *v18.i64 = UMFloat4x4MakeTranslate();
+  v33.columns[0] = v18;
+  v33.columns[1] = v19;
+  v33.columns[2] = v20;
+  v33.columns[3] = v21;
+  *&v22 = UMMul(*&self->_anon_304[220], v33);
+  v8[6] = v22;
+  v8[7] = v23;
+  v8[8] = v24;
+  v8[9] = v25;
+  [encoderCopy setVertexBuffer:v7 offset:v31 atIndex:1];
   renderOffscreenPipelineForStarfield = [(NUNICalliopeResourceManager *)self->_resourceManager renderOffscreenPipelineForStarfield];
   [encoderCopy setLabel:@"Καλλιόπη Starfield"];
   [encoderCopy setRenderPipelineState:renderOffscreenPipelineForStarfield];
@@ -547,7 +547,113 @@
   [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4 instanceCount:702 baseInstance:0];
 }
 
-- (void)_renderSaturnRings:(double)rings frameBufferIndex:(__n128)index renderEncoder:(__n128)encoder forwardAngle:(__n128)angle position:(__n128)position isRotated:(float)rotated rotationMatrix:(float)matrix scale:(uint64_t)self0 equatorRotation:(_OWORD *)self1
+- (void)_renderSunSprite:(NUNICalliopeRenderUniforms *)sprite frameBufferIndex:(unint64_t)index renderEncoder:(id)encoder position:(float)position scale:(float)scale opacity:
+{
+  v8 = v7;
+  v67 = *&position;
+  encoderCopy = encoder;
+  v69 = 0;
+  v70 = 0;
+  v13 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:index pContents:&v70 pOffset:&v69];
+  [encoderCopy setVertexBuffer:v13 offset:v69 atIndex:1];
+  [encoderCopy setFragmentBuffer:v13 offset:v69 atIndex:0];
+  v14 = v70;
+  *v70 = *&self->_baseUniforms.vsh.{?=;
+  v15 = *&self->_anon_421[63];
+  v17 = *&self->_anon_421[15];
+  v16 = *&self->_anon_421[31];
+  v14[3] = *&self->_anon_421[47];
+  v14[4] = v15;
+  v14[1] = v17;
+  v14[2] = v16;
+  v18 = *&self->_anon_421[127];
+  v20 = *&self->_anon_421[79];
+  v19 = *&self->_anon_421[95];
+  v14[7] = *&self->_anon_421[111];
+  v14[8] = v18;
+  v14[5] = v20;
+  v14[6] = v19;
+  v21 = *&self->_anon_421[191];
+  v23 = *&self->_anon_421[143];
+  v22 = *&self->_anon_421[159];
+  v14[11] = *&self->_anon_421[175];
+  v14[12] = v21;
+  v14[9] = v23;
+  v14[10] = v22;
+  v24 = [(NUNICalliopeResourceManager *)self->_resourceManager renderOffscreenPipelineForSpheroid:14 layer:0 config:0];
+  if (v24)
+  {
+    p_state = &self->_state;
+    [encoderCopy setLabel:@"Καλλιόπη Sun Sprite"];
+    [encoderCopy setRenderPipelineState:v24];
+    discVerticesBuffer = [(NUNICalliopeResourceManager *)self->_resourceManager discVerticesBuffer];
+    [encoderCopy setVertexBuffer:discVerticesBuffer offset:0 atIndex:0];
+
+    *v70 = xmmword_25B71A3E0;
+    _Q0 = vsubq_f32(*&self->_anon_304[12], v67);
+    v28 = v67;
+    _Q1 = vmulq_f32(_Q0, _Q0);
+    _S2 = _Q0.i32[2];
+    __asm { FMLA            S1, S2, V0.S[2] }
+
+    _Q1.f32[0] = sqrtf(_Q1.f32[0]);
+    v35 = vdivq_f32(_Q0, vdupq_lane_s32(*_Q1.f32, 0));
+    v36 = vextq_s8(vuzp1q_s32(v35, v35), v35, 0xCuLL);
+    v37 = vextq_s8(vextq_s8(v35, v35, 0xCuLL), v35, 8uLL);
+    v38 = vmlaq_f32(vmulq_f32(v37, vnegq_f32(vextq_s8(vuzp1q_s32(*&p_state[3].viewport.height, *&p_state[3].viewport.height), *&p_state[3].viewport.height, 0xCuLL))), v36, vextq_s8(vextq_s8(*&p_state[3].viewport.height, *&p_state[3].viewport.height, 0xCuLL), *&p_state[3].viewport.height, 8uLL));
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v38, v38, 0xCuLL), v38, 8uLL), vnegq_f32(v36)), vextq_s8(vuzp1q_s32(v38, v38), v38, 0xCuLL), v37);
+    v38.i32[3] = 0;
+    v39.i32[3] = 0;
+    v65 = v39;
+    v66 = v38;
+    v35.i32[3] = 0;
+    v64 = v35;
+    v28.i32[3] = 1.0;
+    v68 = v28;
+    UMFloat4x4MakeScale(scale + scale);
+    v72.columns[0] = v40;
+    v72.columns[1] = v41;
+    v72.columns[2] = v42;
+    v72.columns[3] = v43;
+    v71.columns[1] = v65;
+    v71.columns[0] = v66;
+    v71.columns[2] = v64;
+    v71.columns[3] = v68;
+    *v44.i64 = UMMul(v71, v72);
+    v73.columns[0] = v44;
+    v73.columns[1] = v45;
+    v73.columns[2] = v46;
+    v73.columns[3] = v47;
+    *&v48 = UMMul(*&self->_anon_304[220], v73);
+    v49 = v70;
+    *(v70 + 96) = v48;
+    v49[7] = v50;
+    v49[8] = v51;
+    v49[9] = v52;
+    v53 = UMMul(*&self->_anon_304[220], *&self->_anon_304[236], *&self->_anon_304[252], *&self->_anon_304[268], v68);
+    v55 = *&v53 / v54;
+    v56 = *(&v53 + 1) / v54;
+    v57 = __sincosf_stret(self->_state.cameraRoll);
+    v58 = (v56 * v57.__cosval) - (v57.__sinval * v55);
+    v59 = fminf(fmaxf((v58 + -0.8) * 10.0, 0.0), 1.0);
+    v60 = (1.0 - fabsf((v55 * v57.__cosval) - (v57.__sinval * v56))) * fminf(fmaxf((v58 + -0.3) * 5.0, 0.0), 1.0);
+    if (v59 > v60)
+    {
+      v60 = v59;
+    }
+
+    *(v70 + 160) = ((v60 * -0.8) + 1.0) * v8;
+    v61 = [(NUNICalliopeTextureGroup *)self->_textureGroup gradients:*&v64];
+    v62 = [v61 objectAtIndexedSubscript:14];
+
+    atlas = [v62 atlas];
+    [atlas bind:encoderCopy slot:5];
+
+    [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:16];
+  }
+}
+
+- (void)_renderSaturnRings:(__n128)rings frameBufferIndex:(__n128)index renderEncoder:(__n128)encoder forwardAngle:(__n128)angle position:(__n128)position isRotated:(float)rotated rotationMatrix:(float)matrix scale:(uint64_t)self0 equatorRotation:(_OWORD *)self1
 {
   *&v62[32] = angle;
   *&v62[48] = position;
@@ -651,6 +757,620 @@
   }
 }
 
+- (void)_renderPatchSpheroid:(const NUNISpheroidStructure *)spheroid frustumCullingState:(id *)state drawableSize:frameBufferIndex:renderEncoder:
+{
+  v7 = v4;
+  *&v246 = v6;
+  v243.i64[0] = state;
+  v254[3] = *MEMORY[0x277D85DE8];
+  v10 = v5;
+  v251 = 0;
+  v252 = 0;
+  v11 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:v7 pContents:&v252 pOffset:&v251];
+  v12 = v252;
+  *v252 = *&self->_baseUniforms.vsh.{?=;
+  v13 = *&self->_anon_421[63];
+  v15 = *&self->_anon_421[15];
+  v14 = *&self->_anon_421[31];
+  *(v12 + 48) = *&self->_anon_421[47];
+  *(v12 + 64) = v13;
+  *(v12 + 16) = v15;
+  *(v12 + 32) = v14;
+  v16 = *&self->_anon_421[127];
+  v18 = *&self->_anon_421[79];
+  v17 = *&self->_anon_421[95];
+  *(v12 + 112) = *&self->_anon_421[111];
+  *(v12 + 128) = v16;
+  *(v12 + 80) = v18;
+  *(v12 + 96) = v17;
+  v19 = *&self->_anon_421[191];
+  v21 = *&self->_anon_421[143];
+  v20 = *&self->_anon_421[159];
+  *(v12 + 176) = *&self->_anon_421[175];
+  *(v12 + 192) = v19;
+  *(v12 + 144) = v21;
+  *(v12 + 160) = v20;
+  type = spheroid->type;
+  if (spheroid->type == 3)
+  {
+    _H0 = *&self->_anon_5c6[47];
+    __asm { FCVT            S0, H0 }
+
+    v29 = spheroid[1].equatorRotation * _S0;
+    *(v12 + 188) = v29;
+    v30 = v29 > 0.00001;
+    v244.i32[0] = v29 > 0.00001;
+  }
+
+  else
+  {
+    v30 = 0;
+    v244.i32[0] = 0;
+  }
+
+  v31 = [(NUNICalliopeResourceManager *)self->_resourceManager renderOffscreenPipelineForSpheroid:type layer:0 config:v30];
+  if (v31)
+  {
+    [v10 pushDebugGroup:@"Spheroid"];
+    *(v252 + 160) = spheroid[1].angle;
+    equatorRotation = spheroid->equatorRotation;
+    v33 = spheroid[2].equatorRotation * spheroid[2].opacity;
+    v34 = v33 * 0.98;
+    UMFloat4x4MakeScale(v34);
+    v250.columns[0] = v35;
+    v250.columns[1] = v36;
+    v250.columns[2] = v37;
+    v250.columns[3] = v38;
+    v242 = *&spheroid[3].type;
+    v239 = *&self->_anon_304[12];
+    v241.columns[2].i32[0] = *&spheroid[3].angle;
+    v39 = __sincosf_stret(COERCE_FLOAT(HIDWORD(*&spheroid[3].angle)));
+    v245.i32[0] = LODWORD(v39.__cosval);
+    v241.columns[3].i32[0] = *&v39;
+    v40 = __sincosf_stret(v241.columns[2].f32[0]);
+    *v41.f32 = vmul_n_f32(__PAIR64__(LODWORD(v40.__sinval), LODWORD(v40.__cosval)), v241.columns[3].f32[0]);
+    v41.i32[2] = v245.i32[0];
+    v42 = *&spheroid[1].type;
+    v43 = vmulq_f32(v42, v42);
+    v44 = v43.f32[2] + vaddv_f32(*v43.f32);
+    v238 = v41;
+    if (v44 <= 0.00001)
+    {
+      v241.columns[3] = 0u;
+      if (equatorRotation == 0.0)
+      {
+        v234 = 0;
+        memset(&v241, 0, 48);
+        v245 = v41;
+LABEL_18:
+        v231 = *v242.i64;
+        *v255.columns[0].i64 = UMFloat4x4MakeTranslate();
+        v228 = v255.columns[1];
+        v229 = v255.columns[0];
+        v226 = v255.columns[3];
+        v227 = v255.columns[2];
+        *v78.i64 = UMMul(v255, v250);
+        v259.columns[0] = v78;
+        v259.columns[1] = v79;
+        v259.columns[2] = v80;
+        v259.columns[3] = v81;
+        v250.columns[0] = v78;
+        v250.columns[1] = v79;
+        v250.columns[2] = v80;
+        v250.columns[3] = v81;
+        v82 = v252;
+        *&v83 = UMMul(*&self->_anon_304[220], v259);
+        v82[6] = v83;
+        v82[7] = v84;
+        v82[8] = v85;
+        v82[9] = v86;
+        v256 = __invert_f4(v250);
+        v87 = v239;
+        v87.i32[3] = 1.0;
+        v232 = v256;
+        v240 = v87;
+        *v88.i64 = UMMul(v256.columns[0], v256.columns[1], v256.columns[2], v256.columns[3], v87);
+        v89 = v252;
+        *v252 = v245;
+        v89[1] = v88;
+        v235 = v7;
+        v233 = v88;
+        if (type == 3)
+        {
+          v88 = vmulq_f32(v238, *&self->_anon_304[76]);
+          v88.f32[0] = v88.f32[2] + vaddv_f32(*v88.f32);
+          v90 = 3.1416;
+          if (v88.f32[0] > 0.0)
+          {
+            v91.i64[0] = 0x4000000040000000;
+            v91.i64[1] = 0x4000000040000000;
+            v245.i64[0] = vmlaq_f32(*&spheroid[3].type, v91, v238).u64[0];
+            [v10 setLabel:@"Καλλιόπη Cinematic Sun"];
+            *&v92 = spheroid[1].angle;
+            LODWORD(v93) = 1033476506;
+            [(NUNICalliopeRenderer *)self _renderSunSprite:v252 frameBufferIndex:v7 renderEncoder:v10 position:*v245.i64 scale:v93 opacity:v92];
+          }
+
+          v94 = 0;
+        }
+
+        else if (type == 7)
+        {
+          if (fabsf(v245.f32[2]) < 0.05)
+          {
+            v95 = v245;
+            v95.i32[2] = 1028443341;
+            v96 = vmulq_f32(v245, v245);
+            v96.f32[0] = sqrtf((v96.f32[1] + (v245.f32[0] * v245.f32[0])) + 0.0025);
+            *v89 = vdivq_f32(v95, vdupq_lane_s32(*v96.f32, 0));
+          }
+
+          v97 = *&self->_anon_304[76];
+          v98 = 3.1416;
+          if (vaddv_f32(*&vmulq_f32(v97, v97)) > 0.1)
+          {
+            v98 = atan2f(v97.f32[0], v97.f32[1]);
+          }
+
+          [v10 setLabel:@"Καλλιόπη Saturn Ring Back"];
+          *&v99 = v98;
+          *&v100 = v33 * 0.98;
+          *&v101 = equatorRotation;
+          [(NUNICalliopeRenderer *)self _renderSaturnRings:v252 frameBufferIndex:v7 renderEncoder:v10 forwardAngle:v234 position:v99 isRotated:*v242.i64 rotationMatrix:*v241.columns[0].i64 scale:*v241.columns[1].i64 equatorRotation:*v241.columns[2].i64, *v241.columns[3].i64, v100, v101];
+          v90 = v98 + 3.1416;
+          v94 = 1;
+        }
+
+        else
+        {
+          v94 = 0;
+          v90 = 3.1416;
+        }
+
+        [v10 setLabel:{@"Καλλιόπη Patch Surface", *v88.i64}];
+        [v10 setRenderPipelineState:v31];
+        [v10 setCullMode:2];
+        patchVerticesBuffer = [(NUNICalliopeResourceManager *)self->_resourceManager patchVerticesBuffer];
+        [v10 setVertexBuffer:patchVerticesBuffer offset:0 atIndex:0];
+
+        [v10 setVertexBuffer:v11 offset:v251 atIndex:1];
+        [v10 setFragmentBuffer:v11 offset:v251 atIndex:0];
+        DWORD2(v249) = 0;
+        *&v249 = 0;
+        v103 = v242;
+        v103.i32[3] = 1.0;
+        v242 = v103;
+        *&v104 = UMMul(*&self->_anon_304[156], *&self->_anon_304[172], *&self->_anon_304[188], *&self->_anon_304[204], v103);
+        v249 = v104;
+        _NUNICalliopeRenderer_ComputeProjectedSpheroid(self->_state.fovY);
+        v248 = vmul_f32(vsqrt_f32(vmla_f32(vmul_f32(v105, v105), v106, v106)), vdup_n_s32(0x3E4CCCCDu));
+        [(NUNICalliopeRenderer *)self _updateTextureLODsForPatchSpheroid:type uvRate:&v248 drawableSize:*&v246];
+        *&v107 = v33 * 0.98;
+        v108 = [(NUNICalliopeRenderer *)self _computePatchSpheroidLodWithPositionInViewSpace:&v249 radius:v107 drawableSize:*&v246];
+        spheroidCopy = spheroid;
+        if (type == 3)
+        {
+          v110 = 0x3D4CCCCD3E31D0D4;
+        }
+
+        else
+        {
+          *v109.i32 = 2.0 / ((fminf(*&v246, *(&v246 + 1)) * v34) / fabsf(*(&v249 + 2)));
+          v110 = vadd_f32(vminnm_f32(vdup_lane_s32(v109, 0), 0x3E051EB83DCCCCCDLL), 0x3CA3D70A3E31D0D4);
+        }
+
+        *(v252 + 164) = v110;
+        *&v246 = [(NUNICalliopeResourceManager *)self->_resourceManager patchIndicesBufferForLod:v108];
+        v245.i64[0] = [(NUNICalliopeResourceManager *)self->_resourceManager patchIndexCountForLod:v108];
+        [(NUNICalliopeRenderer *)self prepareObjectSpaceFrustumWithTransform:&v250 withState:v243.i64[0]];
+        patchBoundingBoxForSpheroid = [(NUNICalliopeResourceManager *)self->_resourceManager patchBoundingBoxForSpheroid];
+        v112 = [(NUNICalliopeRenderer *)self classifyObjectBoundingBoxVersusFrustum:patchBoundingBoxForSpheroid max:patchBoundingBoxForSpheroid + 16 withState:v243.i64[0]];
+        v236 = v31;
+        v237 = v11;
+        if (v112)
+        {
+          v113 = v112;
+          v114 = 0;
+          v115 = vmlaq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v232.columns[0], COERCE_FLOAT(*&self->_anon_304[76])), v232.columns[1], *&self->_anon_304[76], 1), v232.columns[2], *&self->_anon_304[76], 2), 0, v232.columns[3]);
+          do
+          {
+            v116 = vmulq_f32(v115, _renderPatchSpheroid_frustumCullingState_drawableSize_frameBufferIndex_renderEncoder__basisVectors[v114]);
+            *(v253 + v114++) = (v116.f32[2] + vaddv_f32(*v116.f32)) < 0.0;
+          }
+
+          while (v114 != 26);
+          v117 = type;
+          v118 = 0;
+          v115.i32[0] = 1.0;
+          do
+          {
+            v119 = vmulq_f32(v233, _renderPatchSpheroid_frustumCullingState_drawableSize_frameBufferIndex_renderEncoder__basisVectors[v118]);
+            v119.f32[0] = v119.f32[2] + vaddv_f32(*v119.f32);
+            v120 = *(v253 + v118);
+            if (v119.f32[0] <= 1.0)
+            {
+              v120 = 0;
+            }
+
+            *(v253 + v118++) = v120;
+          }
+
+          while (v118 != 26);
+          v121 = [(NUNICalliopeResourceManager *)self->_resourceManager patchBoundingBoxes:*v115.i64];
+          v122 = 0;
+          v123 = &byte_25B71A6F3;
+          do
+          {
+            v124 = *(v253 + *(v123 - 2)) | *(v253 + *(v123 - 3)) | *(v253 + *(v123 - 1)) | *(v253 + *v123);
+            if (v113 == 2 && (*(v253 + *(v123 - 2)) | *(v253 + *(v123 - 3))) | (*(v253 + *(v123 - 1)) | *(v253 + *v123)))
+            {
+              v124 = [(NUNICalliopeRenderer *)self isObjectBoundingBoxInsideOrIntersectingFrustum:v121 max:v121 + 16 withState:v243.i64[0]];
+            }
+
+            v123 += 4;
+            *(v254 + v122++) = v124 & 1;
+            v121 = (v121 + 32);
+          }
+
+          while (v122 != 24);
+        }
+
+        else
+        {
+          v117 = type;
+          memset(v254, 0, 24);
+        }
+
+        v125 = 0;
+        for (i = 0; i != 24; ++i)
+        {
+          if (*(v254 + i) == 1)
+          {
+            resourceManager = self->_resourceManager;
+            textureSuffix = [(NUNIRenderer *)self textureSuffix];
+            v129 = [(NUNICalliopeResourceManager *)resourceManager patchTextureGroupForSpheroid:v117 index:i suffix:textureSuffix];
+
+            atlas = [*v129 atlas];
+            [atlas bind:v10 slot:1];
+
+            atlas2 = [v129[1] atlas];
+            [atlas2 bind:v10 slot:2];
+
+            atlas3 = [v129[2] atlas];
+            [atlas3 bind:v10 slot:3];
+
+            if (v244.i32[0])
+            {
+              atlas4 = [v129[3] atlas];
+              [atlas4 bind:v10 slot:4];
+            }
+
+            if (v94)
+            {
+              gradients = [(NUNICalliopeTextureGroup *)self->_textureGroup gradients];
+              v135 = [gradients objectAtIndexedSubscript:7];
+
+              atlas5 = [v135 atlas];
+              [atlas5 bind:v10 slot:5];
+            }
+
+            [v10 drawIndexedPrimitives:3 indexCount:v245.i64[0] indexType:0 indexBuffer:v246 indexBufferOffset:0 instanceCount:1 baseVertex:v125 baseInstance:0];
+          }
+
+          v125 += 289;
+        }
+
+        if (v117 == 3)
+        {
+          if (v244.i32[0])
+          {
+            v253[0] = 0;
+            v247 = 0;
+            v137 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:v235 pContents:v253 pOffset:&v247];
+            [v10 setVertexBuffer:v137 offset:v247 atIndex:1];
+            [v10 setFragmentBuffer:v137 offset:v247 atIndex:0];
+            v139 = v252;
+            v138 = v253[0];
+            *v253[0] = *v252;
+            v140 = v139[4];
+            v142 = v139[1];
+            v141 = v139[2];
+            v138[3] = v139[3];
+            v138[4] = v140;
+            v138[1] = v142;
+            v138[2] = v141;
+            v143 = v139[8];
+            v145 = v139[5];
+            v144 = v139[6];
+            v138[7] = v139[7];
+            v138[8] = v143;
+            v138[5] = v145;
+            v138[6] = v144;
+            v146 = v139[12];
+            v148 = v139[9];
+            v147 = v139[10];
+            v138[11] = v139[11];
+            v138[12] = v146;
+            v138[9] = v148;
+            v138[10] = v147;
+            v149 = [(NUNICalliopeResourceManager *)self->_resourceManager renderOffscreenPipelineForSpheroid:3 layer:1 config:v30];
+            if (!v149)
+            {
+
+              v11 = v237;
+              goto LABEL_74;
+            }
+
+            v150 = v149;
+            [v10 setLabel:@"Καλλιόπη Patch Homosphere"];
+            [v10 setRenderPipelineState:v150];
+            UMFloat4x4MakeScale(v33);
+            v152 = v151;
+            v250 = v151;
+            if (v234)
+            {
+              *v153.i64 = UMMul(v151, v241);
+              v152.columns[0] = v153;
+              v152.columns[1] = v154;
+              v152.columns[2] = v155;
+              v152.columns[3] = v156;
+              v250.columns[0] = v153;
+              v250.columns[1] = v154;
+              v250.columns[2] = v155;
+              v250.columns[3] = v156;
+            }
+
+            v257.columns[1] = v228;
+            v257.columns[0] = v229;
+            v257.columns[3] = v226;
+            v257.columns[2] = v227;
+            *v157.i64 = UMMul(v257, v152);
+            v260.columns[0] = v157;
+            v260.columns[1] = v158;
+            v260.columns[2] = v159;
+            v260.columns[3] = v160;
+            v250.columns[0] = v157;
+            v250.columns[1] = v158;
+            v250.columns[2] = v159;
+            v250.columns[3] = v160;
+            v161 = v253[0];
+            *&v162 = UMMul(*&self->_anon_304[220], v260);
+            v161[6] = v162;
+            v161[7] = v163;
+            v161[8] = v164;
+            v161[9] = v165;
+            v258 = __invert_f4(v250);
+            *&v166 = UMMul(v258.columns[0], v258.columns[1], v258.columns[2], v258.columns[3], v240);
+            v167 = 0;
+            v168 = 0;
+            v169 = v253[0];
+            *(v253[0] + 16) = v166;
+            *(v169 + 164) = 1046807559;
+            do
+            {
+              if (*(v254 + v168) == 1)
+              {
+                v170 = self->_resourceManager;
+                textureSuffix2 = [(NUNIRenderer *)self textureSuffix];
+                v172 = [(NUNICalliopeResourceManager *)v170 patchTextureGroupForSpheroid:3 index:v168 suffix:textureSuffix2];
+
+                atlas6 = [*(v172 + 24) atlas];
+                [atlas6 bind:v10 slot:4];
+
+                [v10 drawIndexedPrimitives:3 indexCount:v245.i64[0] indexType:0 indexBuffer:v246 indexBufferOffset:0 instanceCount:1 baseVertex:v167 baseInstance:0];
+              }
+
+              ++v168;
+              v167 += 289;
+            }
+
+            while (v168 != 24);
+          }
+
+          v253[0] = 0;
+          v247 = 0;
+          v174 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:v235 pContents:v253 pOffset:&v247];
+          [v10 setVertexBuffer:v174 offset:v247 atIndex:1];
+          [v10 setFragmentBuffer:v174 offset:v247 atIndex:0];
+          v176 = v252;
+          v175 = v253[0];
+          *v253[0] = *v252;
+          v177 = v176[4];
+          v179 = v176[1];
+          v178 = v176[2];
+          v175[3] = v176[3];
+          v175[4] = v177;
+          v175[1] = v179;
+          v175[2] = v178;
+          v180 = v176[8];
+          v182 = v176[5];
+          v181 = v176[6];
+          v175[7] = v176[7];
+          v175[8] = v180;
+          v175[5] = v182;
+          v175[6] = v181;
+          v183 = v176[12];
+          v185 = v176[9];
+          v184 = v176[10];
+          v175[11] = v176[11];
+          v175[12] = v183;
+          v175[9] = v185;
+          v175[10] = v184;
+          renderOffscreenPipelineForAtmosphere = [(NUNICalliopeResourceManager *)self->_resourceManager renderOffscreenPipelineForAtmosphere];
+          v31 = v236;
+          v11 = v237;
+          if (!renderOffscreenPipelineForAtmosphere)
+          {
+
+LABEL_74:
+            goto LABEL_75;
+          }
+
+          v187 = renderOffscreenPipelineForAtmosphere;
+          [v10 setLabel:@"Καλλιόπη Atmosphere"];
+          [v10 setRenderPipelineState:v187];
+          UMMul(*&self->_anon_304[156], *&self->_anon_304[172], *&self->_anon_304[188], *&self->_anon_304[204], v242);
+          _NUNICalliopeRenderer_ComputeProjectedSpheroid(self->_state.fovY);
+          __asm { FMOV            V5.2S, #1.0 }
+
+          v189 = vdiv_f32(_D5, *(v253[0] + 56));
+          *v253[0] = vmul_f32(vsub_f32(v190, *(v253[0] + 48)), v189);
+          v192 = v253[0];
+          *(v253[0] + 8) = vmul_f32(v191, v189);
+          *(v192 + 16) = vmul_f32(v193, v189);
+          v194 = vmul_f32(v191, v191);
+          v194.i32[0] = vadd_f32(v194, vdup_lane_s32(v194, 1)).u32[0];
+          v195 = vrsqrte_f32(v194.u32[0]);
+          v196 = vmul_f32(v195, vrsqrts_f32(v194.u32[0], vmul_f32(v195, v195)));
+          v194.i32[0] = vmul_f32(v196, vrsqrts_f32(v194.u32[0], vmul_f32(v196, v196))).u32[0];
+          v197 = vmul_f32(v193, v193);
+          v197.i32[0] = vadd_f32(v197, vdup_lane_s32(v197, 1)).u32[0];
+          v198 = vmul_n_f32(v191, v194.f32[0]);
+          v199 = vrsqrte_f32(v197.u32[0]);
+          v200 = vmul_f32(v199, vrsqrts_f32(v197.u32[0], vmul_f32(v199, v199)));
+          v201 = vmul_n_f32(v193, vmul_f32(v200, vrsqrts_f32(v197.u32[0], vmul_f32(v200, v200))).f32[0]);
+          v203 = *&self->_anon_304[44];
+          v202 = *&self->_anon_304[60];
+          v204 = vmlaq_n_f32(vmulq_lane_f32(v203, v201, 1), v202, v201.f32[0]);
+          v205 = vmlaq_n_f32(vmulq_lane_f32(v203, v198, 1), v202, v198.f32[0]);
+          cameraRoll = self->_state.cameraRoll;
+          if (fabsf(cameraRoll) <= 0.00001)
+          {
+            v204.i32[3] = 1.0;
+            v205.i32[3] = 1.0;
+          }
+
+          else
+          {
+            v243 = *&self->_anon_304[76];
+            v244 = v204;
+            v245 = v205;
+            v207 = __sincosf_stret(cameraRoll * 0.5);
+            v208 = vmul_n_f32(*v243.f32, v207.__sinval);
+            *v209.i8 = UMFloat4x4Make(v208.f32[0], v208.f32[1], vmuls_lane_f32(v207.__sinval, v243, 2), v207.__cosval);
+            v211 = vzip1q_s32(v209, v210);
+            v212 = vzip2q_s32(v209, v210);
+            v215 = vzip1q_s32(v213, v214);
+            v216 = vzip2q_s32(v213, v214);
+            v217 = vzip1q_s32(v211, v215);
+            v218 = vzip2q_s32(v211, v215);
+            v219 = vzip1q_s32(v212, v216);
+            v220 = vzip2q_s32(v212, v216);
+            v204 = vaddq_f32(v220, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v217, v244.f32[0]), v218, *v244.f32, 1), v219, v244, 2));
+            v205 = vaddq_f32(v220, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v217, v245.f32[0]), v218, *v245.f32, 1), v219, v245, 2));
+            v192 = v253[0];
+          }
+
+          *(v192 + 32) = v205;
+          *(v192 + 48) = v204;
+          *(v192 + 64) = v238;
+          v224 = vmulq_f32(v238, *&self->_anon_304[76]);
+          *(v192 + 80) = v224.f32[2] + vaddv_f32(*v224.f32);
+          *(v192 + 160) = spheroidCopy[1].angle;
+          [v10 setCullMode:0];
+          atmosphereRingVerticesBuffer = [(NUNICalliopeResourceManager *)self->_resourceManager atmosphereRingVerticesBuffer];
+          [v10 setVertexBuffer:atmosphereRingVerticesBuffer offset:0 atIndex:0];
+
+          [v10 drawPrimitives:4 vertexStart:0 vertexCount:50];
+        }
+
+        else
+        {
+          v11 = v237;
+          if (v94)
+          {
+            [v10 setLabel:@"Καλλιόπη Saturn Ring Front"];
+            *&v221 = v90;
+            *&v222 = v33 * 0.98;
+            *&v223 = equatorRotation;
+            [(NUNICalliopeRenderer *)self _renderSaturnRings:v252 frameBufferIndex:v235 renderEncoder:v10 forwardAngle:v234 position:v221 isRotated:v231 rotationMatrix:*v241.columns[0].i64 scale:*v241.columns[1].i64 equatorRotation:*v241.columns[2].i64, *v241.columns[3].i64, v222, v223];
+          }
+        }
+
+        [v10 setCullMode:0];
+        [v10 popDebugGroup];
+        goto LABEL_74;
+      }
+
+      memset(&v241, 0, 48);
+    }
+
+    else
+    {
+      *v45.f32 = UMFloat4x4Make(v42);
+      v241.columns[0] = v45;
+      v241.columns[1] = v46;
+      v241.columns[2] = v47;
+      v241.columns[3] = v48;
+      if (type != 4)
+      {
+        _Q0 = vaddq_f32(v242, xmmword_25B71A3F0);
+        _Q1 = vmulq_f32(_Q0, _Q0);
+        _S2 = _Q0.i32[2];
+        __asm { FMLA            S1, S2, V0.S[2] }
+
+        _Q1.f32[0] = sqrtf(_Q1.f32[0]);
+        _Q3 = vmlaq_n_f32(v238, vsubq_f32(vdivq_f32(vnegq_f32(_Q0), vdupq_lane_s32(*_Q1.f32, 0)), v238), fminf(v44, 0.2) / 0.2);
+        _Q0 = vmulq_f32(_Q3, _Q3);
+        _Q1.i32[0] = _Q3.i32[2];
+        __asm { FMLA            S0, S1, V3.S[2] }
+
+        _Q0.f32[0] = sqrtf(_Q0.f32[0]);
+        v238 = vdivq_f32(_Q3, vdupq_lane_s32(*_Q0.f32, 0));
+      }
+
+      if (equatorRotation == 0.0)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v54 = 1.5708;
+    if (type != 4)
+    {
+      v54 = 0.0;
+    }
+
+    *v55.i64 = UMFloat4x4MakeRotateZ(v54 + equatorRotation);
+    v59.columns[0] = v55;
+    v59.columns[1] = v56;
+    v59.columns[2] = v57;
+    v59.columns[3] = v58;
+    if (v44 > 0.00001)
+    {
+      *v60.i64 = UMMul(v241, v59);
+      v59.columns[0] = v60;
+      v59.columns[1] = v61;
+      v59.columns[2] = v62;
+      v59.columns[3] = v63;
+    }
+
+    v241 = v59;
+LABEL_17:
+    *v64.i64 = UMMul(v250, v241);
+    v250.columns[0] = v64;
+    v250.columns[1] = v65;
+    v250.columns[2] = v66;
+    v250.columns[3] = v67;
+    v68 = vzip1q_s32(v241.columns[0], v241.columns[2]);
+    v69 = vzip2q_s32(v241.columns[0], v241.columns[2]);
+    v70 = vzip1q_s32(v241.columns[1], v241.columns[3]);
+    v71 = vzip2q_s32(v241.columns[1], v241.columns[3]);
+    v72 = vzip1q_s32(v68, v70);
+    v73 = vzip2q_s32(v68, v70);
+    v74 = vzip1q_s32(v69, v71);
+    v75 = vzip2q_s32(v69, v71);
+    v76 = v238;
+    v76.i32[3] = 0;
+    *v77.i64 = UMMul(v72, v73, v74, v75, v76);
+    v245 = v77;
+    v234 = 1;
+    goto LABEL_18;
+  }
+
+LABEL_75:
+}
+
 - (void)_renderLocationDot:(const NUNISpheroidStructure *)dot scene:(const NUNISceneStructure *)scene uniPtr:(NUNICalliopeRenderUniforms *)ptr viewport:(NUNIViewport)viewport renderEncoder:(id)encoder
 {
   encoderCopy = encoder;
@@ -664,223 +1384,222 @@
     [encoderCopy setVertexBuffer:rectVerticesBuffer offset:0 atIndex:0];
 
     UMFloat4x4MakeScale(0.11);
-    v143 = v16;
-    v148 = v15;
-    v133 = v18;
-    v138 = v17;
-    *v155.columns[0].i64 = UMFloat4x4MakeTranslate();
-    v121 = v155.columns[1];
-    v122 = v155.columns[0];
-    v119 = v155.columns[3];
-    v120 = v155.columns[2];
+    v142 = v16;
+    v147 = v15;
+    v132 = v18;
+    v137 = v17;
+    *v154.columns[0].i64 = UMFloat4x4MakeTranslate();
+    v120 = v154.columns[1];
+    v121 = v154.columns[0];
+    v118 = v154.columns[3];
+    v119 = v154.columns[2];
+    v166.columns[1] = v142;
+    v166.columns[0] = v147;
+    v166.columns[3] = v132;
+    v166.columns[2] = v137;
+    *v19.i64 = UMMul(v154, v166);
+    v143 = v20;
+    v148 = v19;
+    v133 = v22;
+    v138 = v21;
+    distance = dot[4].distance;
+    *v24.i64 = UMFloat4x4MakeRotateX(dot[4].distanceScale * -0.017453);
+    v126 = v25;
+    v127 = v24;
+    v124 = v27;
+    v125 = v26;
+    *v28.i64 = UMFloat4x4MakeRotateZ(distance * 0.017453);
+    v130 = v29;
+    v131 = v28;
+    v128 = v31;
+    v129 = v30;
+    v155.columns[1] = v126;
+    v155.columns[0] = v127;
+    v155.columns[3] = v124;
+    v155.columns[2] = v125;
     v167.columns[1] = v143;
     v167.columns[0] = v148;
     v167.columns[3] = v133;
     v167.columns[2] = v138;
-    *v19.i64 = UMMul(v155, v167);
-    v144 = v20;
-    v149 = v19;
-    v134 = v22;
-    v139 = v21;
-    distance = dot[4].distance;
-    *v24.i64 = UMFloat4x4MakeRotateX(dot[4].distanceScale * -0.017453);
-    v127 = v25;
-    v128 = v24;
-    v125 = v27;
-    v126 = v26;
-    *v28.i64 = UMFloat4x4MakeRotateZ(distance * 0.017453);
-    v131 = v29;
-    v132 = v28;
-    v129 = v31;
-    v130 = v30;
-    v156.columns[1] = v127;
-    v156.columns[0] = v128;
-    v156.columns[3] = v125;
-    v156.columns[2] = v126;
-    v168.columns[1] = v144;
-    v168.columns[0] = v149;
-    v168.columns[3] = v134;
-    v168.columns[2] = v139;
-    *v32.i64 = UMMul(v156, v168);
-    v169.columns[0] = v32;
-    v169.columns[1] = v33;
-    v169.columns[2] = v34;
-    v169.columns[3] = v35;
-    v157.columns[1] = v131;
-    v157.columns[0] = v132;
-    v157.columns[3] = v129;
-    v157.columns[2] = v130;
-    *v36.i64 = UMMul(v157, v169);
-    v145 = v37;
-    v150 = v36;
-    v135 = v39;
-    v140 = v38;
+    *v32.i64 = UMMul(v155, v167);
+    v168.columns[0] = v32;
+    v168.columns[1] = v33;
+    v168.columns[2] = v34;
+    v168.columns[3] = v35;
+    v156.columns[1] = v130;
+    v156.columns[0] = v131;
+    v156.columns[3] = v128;
+    v156.columns[2] = v129;
+    *v36.i64 = UMMul(v156, v168);
+    v144 = v37;
+    v149 = v36;
+    v134 = v39;
+    v139 = v38;
     equatorRotation = dot->equatorRotation;
     UMFloat4x4MakeScale(dot[2].equatorRotation * dot[2].opacity);
-    v117 = v158.columns[1];
-    v118 = v158.columns[0];
-    v115 = v158.columns[3];
-    v116 = v158.columns[2];
-    v170.columns[1] = v145;
-    v170.columns[0] = v150;
-    v170.columns[3] = v135;
-    v170.columns[2] = v140;
-    *v41.i64 = UMMul(v158, v170);
-    v146 = v42;
-    v151 = v41;
-    v136 = v44;
-    v141 = v43;
+    v116 = v157.columns[1];
+    v117 = v157.columns[0];
+    v114 = v157.columns[3];
+    v115 = v157.columns[2];
+    v169.columns[1] = v144;
+    v169.columns[0] = v149;
+    v169.columns[3] = v134;
+    v169.columns[2] = v139;
+    *v41.i64 = UMMul(v157, v169);
+    v145 = v42;
+    v150 = v41;
+    v135 = v44;
+    v140 = v43;
     v45 = fabsf(equatorRotation);
     if (v45 <= 0.00001)
     {
       UMFloat4x4MakeScale(1.0);
-      v109 = v51;
-      v110 = v50;
-      v107 = v53;
-      v108 = v52;
+      v108 = v51;
+      v109 = v50;
+      v106 = v53;
+      v107 = v52;
     }
 
     else
     {
-      *v159.columns[0].i64 = UMFloat4x4MakeRotateZ(equatorRotation);
-      v109 = v159.columns[1];
-      v110 = v159.columns[0];
-      v107 = v159.columns[3];
-      v108 = v159.columns[2];
-      v171.columns[1] = v146;
-      v171.columns[0] = v151;
-      v171.columns[3] = v136;
-      v171.columns[2] = v141;
-      *v46.i64 = UMMul(v159, v171);
-      v146 = v47;
-      v151 = v46;
-      v136 = v49;
-      v141 = v48;
+      *v158.columns[0].i64 = UMFloat4x4MakeRotateZ(equatorRotation);
+      v108 = v158.columns[1];
+      v109 = v158.columns[0];
+      v106 = v158.columns[3];
+      v107 = v158.columns[2];
+      v170.columns[1] = v145;
+      v170.columns[0] = v150;
+      v170.columns[3] = v135;
+      v170.columns[2] = v140;
+      *v46.i64 = UMMul(v158, v170);
+      v145 = v47;
+      v150 = v46;
+      v135 = v49;
+      v140 = v48;
     }
 
-    v54 = *&dot[3].type;
-    *v160.columns[0].i64 = UMFloat4x4MakeTranslate();
-    v113 = v160.columns[1];
-    v114 = v160.columns[0];
-    v111 = v160.columns[3];
-    v112 = v160.columns[2];
-    v172.columns[1] = v146;
-    v172.columns[0] = v151;
-    v172.columns[3] = v136;
-    v172.columns[2] = v141;
-    *v55.i64 = UMMul(v160, v172);
-    v173.columns[0] = v55;
-    v173.columns[1] = v56;
-    v173.columns[2] = v57;
-    v173.columns[3] = v58;
-    *v59.i64 = UMMul(*&p_state[12].viewport.width, v173);
-    v147 = v60;
-    v152 = v59;
-    v137 = v62;
-    v142 = v61;
-    *v63.i64 = UMMul(v59, v60, v61, v62, xmmword_25B71A410);
-    v124 = v63;
-    *v64.i64 = UMMul(v152, v147, v142, v137, xmmword_25B71A420);
-    v123 = v64;
-    *v65.i64 = UMMul(v152, v147, v142, v137, xmmword_25B719D40);
-    v66.f32[0] = viewport.width;
-    v66.f32[1] = viewport.height;
-    v67 = vmul_f32(v66, 0x3F0000003F000000);
-    v68 = vdiv_f32(vmul_f32(v67, *v123.i8), vdup_laneq_s32(v123, 3));
-    *v65.i8 = vdiv_f32(vmul_f32(v67, *v65.i8), vdup_laneq_s32(v65, 3));
-    v69 = vsub_f32(vdiv_f32(vmul_f32(v67, *v124.i8), vdup_laneq_s32(v124, 3)), *v65.i8);
-    v70 = vmul_f32(v69, v69);
-    *v65.i8 = vsub_f32(v68, *v65.i8);
-    *v65.i8 = vmul_f32(*v65.i8, *v65.i8);
-    v71 = vsqrt_f32(vadd_f32(vzip1_s32(v70, *v65.i8), vzip2_s32(v70, *v65.i8)));
-    if (v71.f32[0] >= v71.f32[1])
+    *v159.columns[0].i64 = UMFloat4x4MakeTranslate();
+    v112 = v159.columns[1];
+    v113 = v159.columns[0];
+    v110 = v159.columns[3];
+    v111 = v159.columns[2];
+    v171.columns[1] = v145;
+    v171.columns[0] = v150;
+    v171.columns[3] = v135;
+    v171.columns[2] = v140;
+    *v54.i64 = UMMul(v159, v171);
+    v172.columns[0] = v54;
+    v172.columns[1] = v55;
+    v172.columns[2] = v56;
+    v172.columns[3] = v57;
+    *v58.i64 = UMMul(*&p_state[12].viewport.width, v172);
+    v146 = v59;
+    v151 = v58;
+    v136 = v61;
+    v141 = v60;
+    *v62.i64 = UMMul(v58, v59, v60, v61, xmmword_25B71A410);
+    v123 = v62;
+    *v63.i64 = UMMul(v151, v146, v141, v136, xmmword_25B71A420);
+    v122 = v63;
+    *v64.i64 = UMMul(v151, v146, v141, v136, xmmword_25B719D40);
+    v65.f32[0] = viewport.width;
+    v65.f32[1] = viewport.height;
+    v66 = vmul_f32(v65, 0x3F0000003F000000);
+    v67 = vdiv_f32(vmul_f32(v66, *v122.i8), vdup_laneq_s32(v122, 3));
+    *v64.i8 = vdiv_f32(vmul_f32(v66, *v64.i8), vdup_laneq_s32(v64, 3));
+    v68 = vsub_f32(vdiv_f32(vmul_f32(v66, *v123.i8), vdup_laneq_s32(v123, 3)), *v64.i8);
+    v69 = vmul_f32(v68, v68);
+    *v64.i8 = vsub_f32(v67, *v64.i8);
+    *v64.i8 = vmul_f32(*v64.i8, *v64.i8);
+    v70 = vsqrt_f32(vadd_f32(vzip1_s32(v69, *v64.i8), vzip2_s32(v69, *v64.i8)));
+    if (v70.f32[0] >= v70.f32[1])
     {
-      v71.f32[0] = v71.f32[1];
+      v70.f32[0] = v70.f32[1];
     }
 
-    v72 = v71.f32[0] * 0.23077;
+    v71 = v70.f32[0] * 0.23077;
     var1 = scene[1].var8.var0.var1;
-    if (v72 <= var1)
+    if (v71 <= var1)
     {
-      v104 = v147;
-      v103 = v152;
-      v106 = v137;
-      v105 = v142;
+      v103 = v146;
+      v102 = v151;
+      v105 = v136;
+      v104 = v141;
     }
 
     else
     {
-      UMFloat4x4MakeScale((var1 * 0.11) / v72);
-      v174.columns[0] = v74;
-      v174.columns[1] = v75;
-      v174.columns[2] = v76;
-      v174.columns[3] = v77;
-      v161.columns[1] = v121;
-      v161.columns[0] = v122;
-      v161.columns[3] = v119;
-      v161.columns[2] = v120;
-      *v78.i64 = UMMul(v161, v174);
-      v175.columns[0] = v78;
-      v175.columns[1] = v79;
-      v175.columns[2] = v80;
-      v175.columns[3] = v81;
-      v162.columns[1] = v127;
-      v162.columns[0] = v128;
-      v162.columns[3] = v125;
-      v162.columns[2] = v126;
-      *v82.i64 = UMMul(v162, v175);
-      v176.columns[0] = v82;
-      v176.columns[1] = v83;
-      v176.columns[2] = v84;
-      v176.columns[3] = v85;
-      v163.columns[1] = v131;
-      v163.columns[0] = v132;
-      v163.columns[3] = v129;
-      v163.columns[2] = v130;
-      *v86.i64 = UMMul(v163, v176);
-      v177.columns[0] = v86;
-      v177.columns[1] = v87;
-      v177.columns[2] = v88;
-      v177.columns[3] = v89;
-      v164.columns[1] = v117;
-      v164.columns[0] = v118;
-      v164.columns[3] = v115;
-      v164.columns[2] = v116;
-      *v90.i64 = UMMul(v164, v177);
-      v94.columns[0] = v90;
-      v94.columns[1] = v91;
-      v94.columns[2] = v92;
-      v94.columns[3] = v93;
+      UMFloat4x4MakeScale((var1 * 0.11) / v71);
+      v173.columns[0] = v73;
+      v173.columns[1] = v74;
+      v173.columns[2] = v75;
+      v173.columns[3] = v76;
+      v160.columns[1] = v120;
+      v160.columns[0] = v121;
+      v160.columns[3] = v118;
+      v160.columns[2] = v119;
+      *v77.i64 = UMMul(v160, v173);
+      v174.columns[0] = v77;
+      v174.columns[1] = v78;
+      v174.columns[2] = v79;
+      v174.columns[3] = v80;
+      v161.columns[1] = v126;
+      v161.columns[0] = v127;
+      v161.columns[3] = v124;
+      v161.columns[2] = v125;
+      *v81.i64 = UMMul(v161, v174);
+      v175.columns[0] = v81;
+      v175.columns[1] = v82;
+      v175.columns[2] = v83;
+      v175.columns[3] = v84;
+      v162.columns[1] = v130;
+      v162.columns[0] = v131;
+      v162.columns[3] = v128;
+      v162.columns[2] = v129;
+      *v85.i64 = UMMul(v162, v175);
+      v176.columns[0] = v85;
+      v176.columns[1] = v86;
+      v176.columns[2] = v87;
+      v176.columns[3] = v88;
+      v163.columns[1] = v116;
+      v163.columns[0] = v117;
+      v163.columns[3] = v114;
+      v163.columns[2] = v115;
+      *v89.i64 = UMMul(v163, v176);
+      v93.columns[0] = v89;
+      v93.columns[1] = v90;
+      v93.columns[2] = v91;
+      v93.columns[3] = v92;
       if (v45 > 0.00001)
       {
-        v165.columns[1] = v109;
-        v165.columns[0] = v110;
-        v165.columns[3] = v107;
-        v165.columns[2] = v108;
-        *v95.i64 = UMMul(v165, v94);
-        v94.columns[0] = v95;
-        v94.columns[1] = v96;
-        v94.columns[2] = v97;
-        v94.columns[3] = v98;
+        v164.columns[1] = v108;
+        v164.columns[0] = v109;
+        v164.columns[3] = v106;
+        v164.columns[2] = v107;
+        *v94.i64 = UMMul(v164, v93);
+        v93.columns[0] = v94;
+        v93.columns[1] = v95;
+        v93.columns[2] = v96;
+        v93.columns[3] = v97;
       }
 
-      v166.columns[1] = v113;
-      v166.columns[0] = v114;
-      v166.columns[3] = v111;
-      v166.columns[2] = v112;
-      *v99.i64 = UMMul(v166, v94);
-      v178.columns[0] = v99;
-      v178.columns[1] = v100;
-      v178.columns[2] = v101;
-      v178.columns[3] = v102;
-      *v103.i64 = UMMul(*&p_state[12].viewport.width, v178);
+      v165.columns[1] = v112;
+      v165.columns[0] = v113;
+      v165.columns[3] = v110;
+      v165.columns[2] = v111;
+      *v98.i64 = UMMul(v165, v93);
+      v177.columns[0] = v98;
+      v177.columns[1] = v99;
+      v177.columns[2] = v100;
+      v177.columns[3] = v101;
+      *v102.i64 = UMMul(*&p_state[12].viewport.width, v177);
     }
 
-    *&ptr[96].vsh.{?= = v103;
-    *&ptr[112].vsh.{?= = v104;
-    *&ptr[128].vsh.{?= = v105;
-    *&ptr[144].vsh.{?= = v106;
-    [encoderCopy setCullMode:{1, *&v107, *&v108, *&v109, *&v110}];
+    *&ptr[96].vsh.{?= = v102;
+    *&ptr[112].vsh.{?= = v103;
+    *&ptr[128].vsh.{?= = v104;
+    *&ptr[144].vsh.{?= = v105;
+    [encoderCopy setCullMode:{1, *&v106, *&v107, *&v108, *&v109}];
     [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4];
     [encoderCopy setCullMode:0];
   }
@@ -999,7 +1718,7 @@
 
 - (void)_renderOffscreenSceneWithScene:(const NUNISceneStructure *)scene spheroids:(id)spheroids viewport:(NUNIViewport)viewport commandBuffer:(id)buffer frameBufferIndex:(unint64_t)index drawableTexture:(id)texture
 {
-  v118[4] = *MEMORY[0x277D85DE8];
+  v117[4] = *MEMORY[0x277D85DE8];
   height = viewport.height;
   spheroidsCopy = spheroids;
   bufferCopy = buffer;
@@ -1017,8 +1736,8 @@
 
   v17 = self->_offscreenScenes[index];
   v18 = v17;
-  v79 = height;
-  v80 = bufferCopy;
+  v78 = height;
+  v79 = bufferCopy;
   if (!v17 || [(NUNCalliopeOffscreen *)v17 width]!= viewport.width || [(NUNCalliopeOffscreen *)v18 height]!= height)
   {
     mEMORY[0x277CFA798] = [MEMORY[0x277CFA798] sharedNilTexture2D];
@@ -1028,19 +1747,19 @@
     [v19 setHeight:*&viewport >> 32];
     [v19 setDepth:1];
     [v19 setPixelFormat:10];
-    v117[0] = *MEMORY[0x277CD2928];
+    v116[0] = *MEMORY[0x277CD2928];
     v20 = [MEMORY[0x277CCABB0] numberWithInt:viewport];
-    v118[0] = v20;
-    v117[1] = *MEMORY[0x277CD28D0];
+    v117[0] = v20;
+    v116[1] = *MEMORY[0x277CD28D0];
     v21 = [MEMORY[0x277CCABB0] numberWithInt:height];
     v22 = *MEMORY[0x277CD28D8];
-    v118[1] = v21;
-    v118[2] = &unk_286CFF4E0;
+    v117[1] = v21;
+    v117[2] = &unk_286CFF4E0;
     v23 = *MEMORY[0x277CD28B0];
-    v117[2] = v22;
-    v117[3] = v23;
-    v118[3] = &unk_286CFF4F8;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v118 forKeys:v117 count:4];
+    v116[2] = v22;
+    v116[3] = v23;
+    v117[3] = &unk_286CFF4F8;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:4];
 
     v25 = MGGetStringAnswer();
     v26 = v18;
@@ -1068,10 +1787,10 @@
     self->_contentMaskTextures[index] = v27;
     v32 = v27;
 
-    v18 = [[NUNCalliopeOffscreen alloc] initWithDevice:self->_device width:viewport height:v79 texture0:mEMORY[0x277CFA798] texture1:v32 loadAction:2 clearColor0:0.0 clearColor1:0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0];
+    v18 = [[NUNCalliopeOffscreen alloc] initWithDevice:self->_device width:viewport height:v78 texture0:mEMORY[0x277CFA798] texture1:v32 loadAction:2 clearColor0:0.0 clearColor1:0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0];
     objc_storeStrong(&self->_offscreenScenes[index], v18);
 
-    bufferCopy = v80;
+    bufferCopy = v79;
   }
 
   [(NUNCalliopeOffscreen *)v18 setTexture0:textureCopy];
@@ -1087,33 +1806,33 @@
   renderPassDescriptor4 = [(NUNCalliopeOffscreen *)v18 renderPassDescriptor];
   v36 = [bufferCopy renderCommandEncoderWithDescriptor:renderPassDescriptor4];
 
-  memset(v116, 0, sizeof(v116));
+  memset(v115, 0, sizeof(v115));
+  v108 = 0u;
   v109 = 0u;
   v110 = 0u;
   v111 = 0u;
-  v112 = 0u;
   v37 = spheroidsCopy;
-  v38 = [v37 countByEnumeratingWithState:&v109 objects:v113 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v108 objects:v112 count:16];
   if (v38)
   {
     v39 = v38;
     v40 = 0;
-    v41 = *v110;
+    v41 = *v109;
     do
     {
       for (i = 0; i != v39; ++i)
       {
-        if (*v110 != v41)
+        if (*v109 != v41)
         {
           objc_enumerationMutation(v37);
         }
 
-        structure = [*(*(&v109 + 1) + 8 * i) structure];
-        if (structure[5].f32[2] > 0.00001 && structure[3].f32[0] > 0.00001 && structure[9].i8[8] == 1)
+        v43 = objc_msgSend_structure(*(*(&v108 + 1) + 8 * i));
+        if (v43[5].f32[2] > 0.00001 && v43[3].f32[0] > 0.00001 && v43[9].i8[8] == 1)
         {
-          v44 = structure->i32[0];
+          v44 = v43->i32[0];
           _S0 = 0;
-          if ((structure->i32[0] - 10) >= 2)
+          if ((v43->i32[0] - 10) >= 2)
           {
             if (v44 == 13)
             {
@@ -1133,7 +1852,7 @@
                 _S0 = 1258291198;
                 if (v44 != 12)
                 {
-                  _S2 = vsubq_f32(self[784], structure[96]).i32[2];
+                  _S2 = vsubq_f32(self[784], v43[96]).i32[2];
                   __asm { FMLA            S0, S2, V1.S[2] }
                 }
               }
@@ -1143,11 +1862,11 @@
           v51 = &__base[8 * v40];
           *v51 = _S0;
           v51[1] = v40;
-          *(v116 + v40++) = structure;
+          *(v115 + v40++) = v43;
         }
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v109 objects:v113 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v108 objects:v112 count:16];
     }
 
     while (v39);
@@ -1160,48 +1879,48 @@
 
   qsort(__base, v40, 8uLL, _NUNICalliopeRenderCompareObject);
   [v36 setLabel:@"Καλλιόπη Offscreen Scene"];
-  v88 = 0uLL;
-  *&v89 = viewport.width;
-  *(&v89 + 1) = v79;
-  v90 = xmmword_25B71A440;
-  [v36 setViewport:&v88];
+  v87 = 0uLL;
+  *&v88 = viewport.width;
+  *(&v88 + 1) = v78;
+  v89 = xmmword_25B71A440;
+  [v36 setViewport:&v87];
   [v36 setCullMode:0];
   [v36 setFrontFacingWinding:0];
   [(NUNICalliopeRenderer *)self _renderOffscreenBackgroundWithRenderEncoder:v36 frameBufferIndex:index];
-  v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
   v106 = 0u;
-  v103 = 0u;
+  v107 = 0u;
   v104 = 0u;
-  v101 = 0u;
+  v105 = 0u;
   v102 = 0u;
-  v99 = 0u;
+  v103 = 0u;
   v100 = 0u;
-  v97 = 0u;
+  v101 = 0u;
   v98 = 0u;
-  v95 = 0u;
+  v99 = 0u;
   v96 = 0u;
-  v93 = 0u;
+  v97 = 0u;
   v94 = 0u;
-  v91 = 0u;
+  v95 = 0u;
   v92 = 0u;
-  v89 = 0u;
+  v93 = 0u;
   v90 = 0u;
+  v91 = 0u;
   v88 = 0u;
-  [(NUNICalliopeRenderer *)self prepareWorldSpaceFrustumWithTransform:&self->_anon_304[220] withState:&v88];
+  v89 = 0u;
+  v87 = 0u;
+  [(NUNICalliopeRenderer *)self prepareWorldSpaceFrustumWithTransform:&self->_anon_304[220] withState:&v87];
   if (v40 >= 1)
   {
     *&v52 = width;
     *(&v52 + 1) = height;
-    v82 = v52;
+    v81 = v52;
     v53 = v40;
-    v54 = &v115;
+    v54 = &v114;
     do
     {
       v55 = *v54;
       v54 += 2;
-      v56 = *(v116 + v55);
+      v56 = *(v115 + v55);
       v57 = 1 << *v56;
       if ((v57 & 0xFBFC00) != 0)
       {
@@ -1210,7 +1929,7 @@
 
       else if ((v57 & 0x3FE) != 0)
       {
-        [(NUNICalliopeRenderer *)self _renderPatchSpheroid:v56 frustumCullingState:&v88 drawableSize:index frameBufferIndex:v36 renderEncoder:v82];
+        [(NUNICalliopeRenderer *)self _renderPatchSpheroid:v56 frustumCullingState:&v87 drawableSize:index frameBufferIndex:v36 renderEncoder:v81];
       }
 
       if ((v57 & 8) != 0)
@@ -1219,13 +1938,13 @@
         if (v58 > 0.00001)
         {
           var7 = scene[1].var7;
+          v85 = 0;
           v86 = 0;
-          v87 = 0;
-          v60 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:index pContents:&v87 pOffset:&v86];
-          [v36 setVertexBuffer:v60 offset:v86 atIndex:1];
-          [v36 setFragmentBuffer:v60 offset:v86 atIndex:0];
-          v61 = v87;
-          *v87 = *&self->_baseUniforms.vsh.{?=;
+          v60 = [(NUNICalliopeRenderer *)self getUniformsBufferForFrameBufferIndex:index pContents:&v86 pOffset:&v85];
+          [v36 setVertexBuffer:v60 offset:v85 atIndex:1];
+          [v36 setFragmentBuffer:v60 offset:v85 atIndex:0];
+          v61 = v86;
+          *v86 = *&self->_baseUniforms.vsh.{?=;
           v62 = *&self->_anon_421[15];
           v63 = *&self->_anon_421[31];
           v64 = *&self->_anon_421[63];
@@ -1262,7 +1981,7 @@
 
   if (self->_bloomEnabled)
   {
-    v71 = v80;
+    v71 = v79;
     if (self->_bloomDownsampleUsingTileShaders)
     {
       [(NUNICalliopeRenderer *)self _renderOffscreenBloomTextureUsingTileShaderWithViewport:viewport renderEncoder:v36];
@@ -1273,10 +1992,10 @@
     {
       [v36 endEncoding];
       texture0 = [location texture0];
-      [(NUNICalliopeRenderer *)self _renderOffscreenBloomTextureWithViewport:viewport sceneTexture:texture0 commandBuffer:v80];
+      [(NUNICalliopeRenderer *)self _renderOffscreenBloomTextureWithViewport:viewport sceneTexture:texture0 commandBuffer:v79];
     }
 
-    computeCommandEncoder = [v80 computeCommandEncoder];
+    computeCommandEncoder = [v79 computeCommandEncoder];
     [(NUNICalliopeRenderer *)self _computeBloomChainTextures:computeCommandEncoder];
     [computeCommandEncoder endEncoding];
   }
@@ -1284,10 +2003,8 @@
   else
   {
     [v36 endEncoding];
-    v71 = v80;
+    v71 = v79;
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getOrCreateOffscreenBloomWithViewport:(NUNIViewport)viewport
@@ -1297,7 +2014,7 @@
   offscreenBloom = self->_offscreenBloom;
   if (!offscreenBloom || [(NUNCalliopeOffscreen *)offscreenBloom width]!= v5 || [(NUNCalliopeOffscreen *)self->_offscreenBloom height]!= v6)
   {
-    v8 = _NUNCalliopeCreateTexture(self->_device, v5, v6, 1, 10, 1);
+    v8 = _NUNCalliopeCreateTexture(self->_device, v5, v6, 1u, 10, 1);
     [(NUNICalliopeRenderer *)self _setupBloomChainWithViewport:viewport bloomTexture:v8];
     v9 = [NUNCalliopeOffscreen alloc];
     if (self->_bloomDownsampleUsingTileShaders)
@@ -1653,7 +2370,7 @@
 
 - (void)renderOffscreenWithScene:(id)scene viewport:(NUNIViewport)viewport commandBuffer:(id)buffer
 {
-  -[NUNICalliopeRenderer _updateStateWithScene:viewport:](self, "_updateStateWithScene:viewport:", [scene structure], viewport);
+  [(NUNICalliopeRenderer *)self _updateStateWithScene:objc_msgSend_structure(scene viewport:a2), viewport];
 
   [(NUNICalliopeRenderer *)self _updateBaseUniformsForViewport:viewport];
 }
@@ -1664,7 +2381,7 @@
   v10 = self->_frame % 3;
   descriptorCopy = descriptor;
   sceneCopy = scene;
-  structure = [sceneCopy structure];
+  v13 = objc_msgSend_structure(sceneCopy);
   colorAttachments = [descriptorCopy colorAttachments];
 
   v15 = [colorAttachments objectAtIndexedSubscript:0];
@@ -1673,10 +2390,10 @@
   self->_renderUniformsBuffersCounts[v10].current = 0;
   spheroids = [sceneCopy spheroids];
 
-  [(NUNICalliopeRenderer *)self _renderOffscreenSceneWithScene:structure spheroids:spheroids viewport:viewport commandBuffer:bufferCopy frameBufferIndex:v10 drawableTexture:texture];
+  [(NUNICalliopeRenderer *)self _renderOffscreenSceneWithScene:v13 spheroids:spheroids viewport:viewport commandBuffer:bufferCopy frameBufferIndex:v10 drawableTexture:texture];
   if (self->_bloomEnabled)
   {
-    [(NUNICalliopeRenderer *)self _renderOffscreenPostWithScene:structure viewport:viewport commandBuffer:bufferCopy frameBufferIndex:v10];
+    [(NUNICalliopeRenderer *)self _renderOffscreenPostWithScene:v13 viewport:viewport commandBuffer:bufferCopy frameBufferIndex:v10];
   }
 
   [(NUNCalliopeOffscreen *)self->_offscreenScenes[v10] setTexture0:0];
@@ -1782,9 +2499,9 @@
 {
   v5 = 0;
   v6 = 0;
-  v23 = *MEMORY[0x277D85DE8];
-  v21 = v2;
-  v22 = v3;
+  v22 = *MEMORY[0x277D85DE8];
+  v20 = v2;
+  v21 = v3;
   v7 = 1;
   __asm { FMOV            V0.4S, #1.0 }
 
@@ -1796,9 +2513,9 @@
     do
     {
       v16.i32[3] = HIDWORD(_Q0);
-      v16.i32[0] = **(&v21 + (v13 & 1));
-      v16.i32[1] = *(*(&v21 + ((v13 >> 1) & 1)) + 4);
-      v16.i32[2] = *(*(&v21 + (v13 >> 2)) + 8);
+      v16.i32[0] = **(&v20 + (v13 & 1));
+      v16.i32[1] = *(*(&v20 + ((v13 >> 1) & 1)) + 4);
+      v16.i32[2] = *(*(&v20 + (v13 >> 2)) + 8);
       v17 = vmulq_f32(*(v4 + 256 + 16 * v5), v16);
       *v17.i32 = vaddv_f32(vadd_f32(*v17.i8, *&vextq_s8(v17, v17, 8uLL)));
       v15 = fminf(v15, *v17.i32);
@@ -1829,25 +2546,22 @@
 
   if (v6)
   {
-    result = v18;
+    return v18;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)isObjectBoundingBoxInsideOrIntersectingFrustum:(NUNICalliopeRenderer *)self max:(SEL)max withState:
 {
   v5 = 0;
   v6 = 0;
-  v20 = *MEMORY[0x277D85DE8];
-  v18 = v2;
-  v19 = v3;
+  v19 = *MEMORY[0x277D85DE8];
+  v17 = v2;
+  v18 = v3;
   __asm { FMOV            V0.4S, #1.0 }
 
   do
@@ -1857,9 +2571,9 @@
     do
     {
       v14.i32[3] = HIDWORD(_Q0);
-      v14.i32[0] = **(&v18 + (v12 & 1));
-      v14.i32[1] = *(*(&v18 + ((v12 >> 1) & 1)) + 4);
-      v14.i32[2] = *(*(&v18 + (v12 >> 2)) + 8);
+      v14.i32[0] = **(&v17 + (v12 & 1));
+      v14.i32[1] = *(*(&v17 + ((v12 >> 1) & 1)) + 4);
+      v14.i32[2] = *(*(&v17 + (v12 >> 2)) + 8);
       v15 = vmulq_f32(*(v4 + 256 + 16 * v5), v14);
       v13 = fmaxf(v13, vaddv_f32(vadd_f32(*v15.i8, *&vextq_s8(v15, v15, 8uLL))));
       ++v12;
@@ -1875,20 +2589,19 @@
   }
 
   while (v5 != 5);
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)spheroidAtPoint:(id)point scene:(NUNIViewport)scene viewport:
 {
   v6 = v4;
-  v65 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   height = scene.height;
   pointCopy = point;
-  -[NUNICalliopeRenderer _updateStateWithScene:viewport:](self, "_updateStateWithScene:viewport:", [pointCopy structure], scene);
+  [(NUNICalliopeRenderer *)self _updateStateWithScene:objc_msgSend_structure(pointCopy) viewport:scene];
   p_state = &self->_state;
-  memset(v64, 0, sizeof(v64));
-  v55 = pointCopy;
+  memset(v60, 0, sizeof(v60));
+  v51 = pointCopy;
   spheroids = [pointCopy spheroids];
   v12 = [spheroids count];
   if (v12 < 1)
@@ -1904,17 +2617,17 @@
     do
     {
       v16 = [spheroids objectAtIndexedSubscript:v13];
-      structure = [v16 structure];
+      v17 = objc_msgSend_structure(v16);
 
-      if (structure[5].f32[2] > 0.00001 && structure[3].f32[0] > 0.00001 && structure[9].i8[8] == 1 && ((1 << structure->i32[0]) & 0x3FE) != 0)
+      if (v17[5].f32[2] > 0.00001 && v17[3].f32[0] > 0.00001 && v17[9].i8[8] == 1 && ((1 << v17->i32[0]) & 0x3FE) != 0)
       {
-        _S2 = vsubq_f32(p_state[32], structure[96]).i32[2];
+        _S2 = vsubq_f32(p_state[32], v17[96]).i32[2];
         __asm { FMLA            S1, S2, V0.S[2] }
 
         v24 = &__base[8 * v14];
         *v24 = _S1;
         v24[1] = v13;
-        *(v64 + v13) = structure;
+        *(v60 + v13) = v17;
         ++v14;
       }
 
@@ -1925,85 +2638,76 @@
   }
 
   width = scene.width;
-  v58 = height;
+  v54 = height;
   qsort(__base, v14, 8uLL, _NUNICalliopeRenderCompareObject);
-  if (scene.width <= height)
-  {
-    aspect = p_state->aspect;
-  }
-
   __asm { FMOV            V1.2S, #1.0 }
 
-  v27.i32[1] = _D1.i32[1];
+  v26.i32[1] = _D1.i32[1];
   if (height > scene.width)
   {
-    _D1.f32[1] = width / v58;
-    v28 = _D1;
+    _D1.f32[1] = width / v54;
+    v27 = _D1;
   }
 
   else
   {
-    v27.f32[0] = v58 / width;
-    v28 = v27;
+    v26.f32[0] = v54 / width;
+    v27 = v26;
   }
 
   if (v14 < 1)
   {
-LABEL_20:
-    v52 = 0;
+LABEL_18:
+    v49 = 0;
   }
 
   else
   {
-    v29.f32[1] = height;
+    v28.f32[1] = height;
     __asm { FMOV            V1.2S, #-1.0 }
 
-    v29.f32[0] = scene.width;
-    v31 = vmla_f32(COERCE_FLOAT32X2_T(-_D1), COERCE_FLOAT32X2_T(-2.00000048), vdiv_f32(v6, v29));
-    v59 = *&p_state[9].aspect;
-    v61 = *&p_state[8].fovY;
-    v56 = *&p_state[11].viewport.height;
-    v57 = *&p_state[10].cameraRoll;
+    v28.f32[0] = scene.width;
+    v30 = vmla_f32(COERCE_FLOAT32X2_T(-_D1), COERCE_FLOAT32X2_T(-2.00000048), vdiv_f32(v6, v28));
+    v55 = *&p_state[9].aspect;
+    v57 = *&p_state[8].fovY;
+    v52 = *&p_state[11].viewport.height;
+    v53 = *&p_state[10].cameraRoll;
     fovY = p_state->fovY;
-    v33 = *&p_state[1].viewport.height;
-    v34 = v14;
-    v35 = &v63;
+    v32 = *&p_state[1].viewport.height;
+    v33 = v14;
+    v34 = &v59;
     while (1)
     {
-      v37 = *v35;
-      v35 += 2;
-      v36 = v37;
-      v38 = *(v64 + v37);
-      v39 = v38[6];
-      v39.i32[3] = 1.0;
-      UMMul(v61, v59, v57, v56, v39);
-      v40 = v38[5].f32[1] * v38[5].f32[2];
+      v36 = *v34;
+      v34 += 2;
+      v35 = v36;
+      v37 = *(*(v60 + v36) + 96);
+      v37.i32[3] = 1.0;
+      UMMul(v57, v55, v53, v52, v37);
       _NUNICalliopeRenderer_ComputeProjectedSpheroid(fovY);
-      v42 = vmul_f32(v28, v41);
-      v44 = vmul_f32(v28, v43);
-      v46 = vmul_f32(v42, v42);
-      v47 = vmul_f32(v44, v44);
-      v48 = vadd_f32(vzip1_s32(v46, v47), vzip2_s32(v46, v47));
-      v49 = vsub_f32(v31, vmul_f32(v28, vsub_f32(v45, v33)));
-      v50 = vmul_f32(v49, v49);
-      v51 = vadd_f32(vzip1_s32(v50, v48), vzip2_s32(v50, v48));
-      if ((vmvn_s8(vcgt_f32(vdup_lane_s32(v51, 1), v51)).u8[0] & 1) == 0)
+      v39 = vmul_f32(v27, v38);
+      v41 = vmul_f32(v27, v40);
+      v43 = vmul_f32(v39, v39);
+      v44 = vmul_f32(v41, v41);
+      v45 = vadd_f32(vzip1_s32(v43, v44), vzip2_s32(v43, v44));
+      v46 = vsub_f32(v30, vmul_f32(v27, vsub_f32(v42, v32)));
+      v47 = vmul_f32(v46, v46);
+      v48 = vadd_f32(vzip1_s32(v47, v45), vzip2_s32(v47, v45));
+      if ((vmvn_s8(vcgt_f32(vdup_lane_s32(v48, 1), v48)).u8[0] & 1) == 0)
       {
         break;
       }
 
-      if (!--v34)
+      if (!--v33)
       {
-        goto LABEL_20;
+        goto LABEL_18;
       }
     }
 
-    v52 = [spheroids objectAtIndexedSubscript:v36];
+    v49 = [spheroids objectAtIndexedSubscript:v35];
   }
 
-  v53 = *MEMORY[0x277D85DE8];
-
-  return v52;
+  return v49;
 }
 
 @end

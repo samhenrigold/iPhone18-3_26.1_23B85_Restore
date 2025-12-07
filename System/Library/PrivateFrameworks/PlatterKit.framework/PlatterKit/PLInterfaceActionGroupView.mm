@@ -20,7 +20,7 @@
   if (v3 == self)
   {
 
-    PLRegisterPlatterKitLogging();
+    PLRegisterPlatterKitLogging(v4, v5);
   }
 }
 

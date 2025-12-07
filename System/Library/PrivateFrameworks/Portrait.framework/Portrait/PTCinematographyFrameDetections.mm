@@ -66,13 +66,13 @@
 - (id)bestDetectionForGroupIdentifier:(int64_t)identifier options:(unint64_t)options
 {
   optionsCopy = options;
-  v27 = *MEMORY[0x277D85DE8];
-  v18 = 0u;
+  v28 = *MEMORY[0x277D85DE8];
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   detections = [(PTCinematographyFrameDetections *)self detections];
-  v7 = [detections countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v7 = [detections countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (!v7)
   {
     v10 = 0;
@@ -81,40 +81,44 @@
 
   v9 = v7;
   v10 = 0;
-  v11 = *v19;
+  v11 = *v20;
   *&v8 = 138412546;
-  v17 = v8;
+  v18 = v8;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v19 != v11)
+      if (*v20 != v11)
       {
         objc_enumerationMutation(detections);
       }
 
-      v13 = *(*(&v18 + 1) + 8 * i);
+      v13 = *(*(&v19 + 1) + 8 * i);
       if ([v13 groupIdentifier] == identifier)
       {
-        if ((optionsCopy & 1) != 0 && [v13 _isExcludedAsCinematicChoice])
+        if (optionsCopy)
         {
-          v14 = _PTLogSystem();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          _isExcludedAsCinematicChoice = [v13 _isExcludedAsCinematicChoice];
+          if (_isExcludedAsCinematicChoice)
           {
-            v15 = [MEMORY[0x277CCABB0] numberWithInteger:identifier];
-            *buf = v17;
-            v23 = v13;
-            v24 = 2112;
-            v25 = v15;
-            _os_log_debug_impl(&dword_2243FB000, v14, OS_LOG_TYPE_DEBUG, "excluding %@ as best detection for group %@", buf, 0x16u);
-          }
+            v15 = _PTLogSystem(_isExcludedAsCinematicChoice);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            {
+              v16 = [MEMORY[0x277CCABB0] numberWithInteger:identifier];
+              *buf = v18;
+              v24 = v13;
+              v25 = 2112;
+              v26 = v16;
+              _os_log_debug_impl(&dword_2243FB000, v15, OS_LOG_TYPE_DEBUG, "excluding %@ as best detection for group %@", buf, 0x16u);
+            }
 
-          goto LABEL_14;
+            goto LABEL_14;
+          }
         }
 
         if (!v10 || PTDetectionTypeIsBetter([v13 detectionType], -[NSObject detectionType](v10, "detectionType")))
         {
-          v14 = v10;
+          v15 = v10;
           v10 = v13;
 LABEL_14:
 
@@ -123,7 +127,7 @@ LABEL_14:
       }
     }
 
-    v9 = [detections countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v9 = [detections countByEnumeratingWithState:&v19 objects:v27 count:16];
   }
 
   while (v9);
@@ -392,7 +396,7 @@ LABEL_12:
 
   v10 = MEMORY[0x277CCACA8];
   detectorDidRun = [(PTCinematographyFrameDetections *)self detectorDidRun];
-  [(PTCinematographyFrameDetections *)self presentationTime];
+  objc_msgSend_presentationTime(self);
   v12 = NSStringFromCMTime(&v15);
   v13 = [v10 stringWithFormat:@"%@ (DDR:%@, pts:%@)\n%@", self, detectorDidRun, v12, v3];
 

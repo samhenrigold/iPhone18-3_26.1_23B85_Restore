@@ -45,11 +45,10 @@ uint64_t __40___OSIBatteryLifeManager_sharedInstance__block_invoke()
 
 void __30___OSIBatteryLifeManager_init__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25D171000, a2, OS_LOG_TYPE_ERROR, "Error fetching changed OSIBLMitigation %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25D171000, a2, OS_LOG_TYPE_ERROR, "Error fetching changed OSIBLMitigation %@", &v2, 0xCu);
 }
 
 @end

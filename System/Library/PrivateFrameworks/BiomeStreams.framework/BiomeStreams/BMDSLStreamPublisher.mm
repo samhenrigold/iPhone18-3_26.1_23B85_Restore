@@ -352,11 +352,11 @@ LABEL_11:
 
 - (BMDSLStreamPublisher)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v26 = @"streamIdentifier";
-  v27[0] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v25 = @"streamIdentifier";
+  v26[0] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
   v8 = BMDSLValidateDictionary();
 
   if (!v8)
@@ -429,7 +429,6 @@ LABEL_17:
 
 LABEL_18:
 
-  v24 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

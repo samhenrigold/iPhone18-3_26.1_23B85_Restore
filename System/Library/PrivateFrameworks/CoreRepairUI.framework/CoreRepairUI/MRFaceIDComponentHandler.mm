@@ -76,7 +76,7 @@
   return v2;
 }
 
-uint64_t __43__MRFaceIDComponentHandler_sharedSingleton__block_invoke(uint64_t a1)
+void *__43__MRFaceIDComponentHandler_sharedSingleton__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D00FC0] supportRepair:1027];
   if (result)

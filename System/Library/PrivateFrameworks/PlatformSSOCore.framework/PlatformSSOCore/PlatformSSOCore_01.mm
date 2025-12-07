@@ -1,453 +1,3 @@
-uint64_t se_derivation_request_serialization_len()
-{
-  ccder_sizeof();
-  ccder_sizeof_implicit_uint64();
-  ccder_sizeof_implicit_uint64();
-  ccder_sizeof_implicit_uint64();
-
-  return ccder_sizeof();
-}
-
-uint64_t OUTLINED_FUNCTION_3_4(void *a1)
-{
-  result = 0;
-  a1[1] = v3;
-  a1[2] = v2;
-  *a1 = *v1;
-  *v1 = a1;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_7_3()
-{
-  v3 = v1 + *(v0 + 1) - v0;
-
-  return ccder_blob_encode_body();
-}
-
-uint64_t OUTLINED_FUNCTION_12_2()
-{
-
-  return memset_s(v1, v0, 0, v0);
-}
-
-uint64_t OUTLINED_FUNCTION_13_1()
-{
-
-  return ccder_blob_encode_tl();
-}
-
-uint64_t OUTLINED_FUNCTION_19_0(uint64_t a1, ...)
-{
-  va_start(va2, a1);
-  va_start(va1, a1);
-  va_start(va, a1);
-  va_arg(va1, void);
-  va_copy(va2, va1);
-  va_arg(va2, void);
-  v3 = 0;
-  v5 = 0;
-
-  return encode_list_dict(va2, va, va1);
-}
-
-uint64_t OUTLINED_FUNCTION_20_0(void *a1)
-{
-
-  return memset_s(a1, 0x10uLL, 0, 0x10uLL);
-}
-
-uint64_t OUTLINED_FUNCTION_25_0()
-{
-
-  return ccder_sizeof();
-}
-
-void *OUTLINED_FUNCTION_26()
-{
-
-  return calloc(0x18uLL, 1uLL);
-}
-
-void *OUTLINED_FUNCTION_27(size_t a1)
-{
-
-  return calloc(a1, 1uLL);
-}
-
-uint64_t OUTLINED_FUNCTION_33_0()
-{
-
-  return ccder_blob_decode_range();
-}
-
-uint64_t OUTLINED_FUNCTION_34_0()
-{
-
-  return der_dict_iterate();
-}
-
-uint64_t platform_get_measurement(uint64_t a1, int a2, void *a3, size_t *a4)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 36, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  if (!lib_platform_callbacks)
-  {
-    return 4294967284;
-  }
-
-  if (a1 >= 7)
-  {
-    abort();
-  }
-
-  v8 = &pm_id_table + 72 * a1;
-  if ((v8[4] & 1) == 0)
-  {
-    result = (lib_platform_callbacks)(a1, v8 + 5, v8 + 64);
-    if (result)
-    {
-      return result;
-    }
-
-    v8[4] = 1;
-  }
-
-  if (*a4 < *(v8 + 8))
-  {
-    return 4294967285;
-  }
-
-  memcpy(a3, v8 + 5, *a4);
-  v10 = *(v8 + 8);
-  *a4 = v10;
-  if (a2)
-  {
-    byte_swap_val(a3, v10);
-  }
-
-  return 0;
-}
-
-uint64_t platform_rng()
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 62, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(off_28708D9B0[0] != 0, 63, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v0 = off_28708D9B0[0];
-
-  return v0();
-}
-
-uint64_t platform_read_random(uint64_t a1, unsigned int a2)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 70, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(off_28708D9B8 != 0, 71, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v4 = off_28708D9B8;
-
-  return v4(a1, a2);
-}
-
-uint64_t platform_pka_get_pub_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 78, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9C0 != 0, 79, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v16 = unk_28708D9C0;
-
-  return v16(a1, a2, a3, a4, a5, a6, a7, a8);
-}
-
-uint64_t platform_pka_ecdh(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 86, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9C8 != 0, 87, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v18 = unk_28708D9C8;
-
-  return v18(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-}
-
-uint64_t platform_pka_sign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 94, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9D0 != 0, 95, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v18 = unk_28708D9D0;
-
-  return v18(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-}
-
-uint64_t platform_pka_sika_attest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 106, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9D8 != 0, 107, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v17 = unk_28708D9D8;
-
-  return v17(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
-}
-
-uint64_t platform_pka_shared_encrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 115, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9E0 != 0, 116, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v18 = unk_28708D9E0;
-
-  return v18(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
-}
-
-uint64_t platform_ref_key_hw_crypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 123, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9E8 != 0, 124, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v10 = unk_28708D9E8;
-
-  return v10(a1, a2, a3, a4, a5);
-}
-
-uint64_t platform_ref_key_hw_crypt_clear_cache()
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 131, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9F0 != 0, 132, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v0 = unk_28708D9F0;
-
-  return v0();
-}
-
-uint64_t platform_get_device_id(uint64_t a1, uint64_t a2)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 139, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708D9F8 != 0, 140, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v4 = unk_28708D9F8;
-
-  return v4(a1, a2);
-}
-
-uint64_t platform_get_aon_security(uint64_t a1)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 147, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708DA00 != 0, 148, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v2 = unk_28708DA00;
-
-  return v2(a1);
-}
-
-uint64_t platform_get_att_sep_chip_rev(uint64_t a1)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 155, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708DA08 != 0, 156, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v2 = unk_28708DA08;
-
-  return v2(a1);
-}
-
-uint64_t platform_get_chip_id(uint64_t a1)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 163, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708DA10 != 0, 164, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v2 = unk_28708DA10;
-
-  return v2(a1);
-}
-
-uint64_t platform_get_ecid(uint64_t a1)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 171, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708DA18 != 0, 172, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v2 = unk_28708DA18;
-
-  return v2(a1);
-}
-
-uint64_t platform_get_board_id(uint64_t a1)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 179, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708DA20 != 0, 180, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v2 = unk_28708DA20;
-
-  return v2(a1);
-}
-
-uint64_t platform_get_fuse_bits(uint64_t a1)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 187, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708DA28 != 0, 188, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v2 = unk_28708DA28;
-
-  return v2(a1);
-}
-
-uint64_t platform_get_att_board_and_chip_id(uint64_t a1)
-{
-  REQUIRE_func(&lib_platform_callbacks != 0, 195, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  REQUIRE_func(unk_28708DA30 != 0, 196, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/platform/platform.c");
-  v2 = unk_28708DA30;
-
-  return v2(a1);
-}
-
-char *aks_copy_packed_data(_DWORD *a1, const void *a2, int a3)
-{
-  v3 = (a1 + 1);
-  if (a2)
-  {
-    *a1 = a3;
-    memcpy(a1 + 1, a2, a3);
-    v3 += a3;
-    v5 = -a3;
-    v6 = -a3 & 3;
-    if ((v5 & 3) != 0)
-    {
-      __s = 0;
-      memset_s(&__s, 4uLL, 0, 4uLL);
-      memcpy(v3, &__s, v6);
-      v3 += v6;
-    }
-  }
-
-  else
-  {
-    *a1 = 0;
-  }
-
-  return v3;
-}
-
-char *aks_pack_data(char **a1, unsigned int *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  v21 = &a9;
-  v12 = 4;
-  if (a3)
-  {
-    v13 = a3;
-    do
-    {
-      v14 = v21;
-      v21 += 2;
-      v12 += *(v14 + 2) + (-*(v14 + 2) & 3) + 4;
-      --v13;
-    }
-
-    while (v13);
-  }
-
-  result = calloc(1uLL, v12);
-  v16 = result;
-  v22 = &a9;
-  v17 = 0;
-  if (a3)
-  {
-    v18 = 4;
-    do
-    {
-      v19 = v22;
-      v20 = *v22;
-      v22 += 2;
-      result = aks_copy_packed_data(&v16[v18], v20, *(v19 + 2));
-      v18 = result - v16;
-      ++v17;
-    }
-
-    while (a3 != v17);
-  }
-
-  *v16 = v17;
-  *a1 = v16;
-  *a2 = v12;
-  return result;
-}
-
-BOOL rfc3394_wrapped_size_legacy(unsigned int a1, _DWORD *a2)
-{
-  v2 = a1 + 15;
-  v3 = v2 << 31 >> 31;
-  v4 = v3 == v2;
-  v5 = v3 != v2;
-  if (v4)
-  {
-    *a2 = v2 & 0xFFFFFFF8;
-  }
-
-  return !v5;
-}
-
-BOOL rfc3394_wrapped_size(unint64_t a1, unint64_t *a2)
-{
-  v2 = (((a1 >= 0xFFFFFFFFFFFFFFF1) << 63) >> 63) ^ (a1 >= 0xFFFFFFFFFFFFFFF1);
-  if (!v2)
-  {
-    *a2 = (a1 + 15) & 0xFFFFFFFFFFFFFFF8;
-  }
-
-  return v2 == 0;
-}
-
-void aks_fv_new_vek()
-{
-  OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_18();
-  MEMORY[0x28223BE20](v1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  *(v0 - 96) = *MEMORY[0x277D85DE8];
-  bzero(v71, 0x1000uLL);
-  v69[0] = v71;
-  v69[1] = &v72;
-  v69[2] = 4096;
-  if (v7 && v5)
-  {
-    aks_client_connection = get_aks_client_connection();
-    if (aks_client_connection)
-    {
-      v16 = aks_client_connection;
-      OUTLINED_FUNCTION_8_0(aks_client_connection, v9, v10, v11, v12, v13, v14, v15, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v68, v69[0]);
-      if (ccder_blob_encode_body_tl())
-      {
-        if (der_utils_encode_fv_data(v69))
-        {
-          if (der_utils_encode_fv_data(v69))
-          {
-            if (der_utils_encode_fv_params(v69))
-            {
-              OUTLINED_FUNCTION_2_3();
-              if (ccder_blob_encode_tl())
-              {
-                OUTLINED_FUNCTION_11();
-                if (!OUTLINED_FUNCTION_1_4(v16, 0x4Au, v70, 2u, v17, v18, v19, v20, v71, v21))
-                {
-                  OUTLINED_FUNCTION_2_3();
-                  if (ccder_blob_decode_range())
-                  {
-                    OUTLINED_FUNCTION_15();
-                    v25 = der_utils_decode_fv_data(v22, v23, v24);
-                    if (v25)
-                    {
-                      if (v3)
-                      {
-                        v33 = OUTLINED_FUNCTION_9_0(v25, v26, v27, v28, v29, v30, v31, v32, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v71);
-                        der_utils_decode_fv_key(v33, v34, v35);
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    else
-    {
-      v38 = *MEMORY[0x277D85E08];
-      OUTLINED_FUNCTION_0_9();
-      fprintf(v39, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v40, v45, v47, v49, v51, v53, v55, ":", 180, "", "");
-    }
-  }
-
-  OUTLINED_FUNCTION_3_1(v71);
-  v36 = *(v0 - 96);
-  v37 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_4_3();
-}
-
 unint64_t _aks_save_file(char *a1, const void *a2, size_t a3)
 {
   v3 = a1;
@@ -560,33 +110,31 @@ uint64_t __aks_dump_path_block_invoke_2(uint64_t a1, uint64_t a2)
 
 uint64_t aks_fs_status(const char *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  bzero(v5, 0x400uLL);
+  v5 = *MEMORY[0x277D85DE8];
+  bzero(v4, 0x400uLL);
   bzero(__str, 0x400uLL);
-  if (realpath_DARWIN_EXTSN(a1, v5))
+  if (realpath_DARWIN_EXTSN(a1, v4))
   {
-    snprintf(__str, 0x400uLL, "%s/mobile", v5);
-    aks_fs_status_with_map(v5, &sharedPathMap, 36);
+    snprintf(__str, 0x400uLL, "%s/mobile", v4);
+    aks_fs_status_with_map(v4, &sharedPathMap, 36);
     if ((aks_fs_supports_enhanced_apfs() & 1) == 0)
     {
       aks_fs_status_with_map(__str, &userPathMap, 72);
     }
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t aks_user_fs_status(const char *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  bzero(v4, 0x400uLL);
-  if (realpath_DARWIN_EXTSN(a1, v4))
+  v4 = *MEMORY[0x277D85DE8];
+  bzero(v3, 0x400uLL);
+  if (realpath_DARWIN_EXTSN(a1, v3))
   {
-    aks_fs_status_with_map(v4, &userPathMap, 72);
+    aks_fs_status_with_map(v3, &userPathMap, 72);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -594,42 +142,42 @@ void aks_fv_new_kek()
 {
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_18();
-  MEMORY[0x28223BE20](v2);
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
+  MEMORY[0x28223BE20](v1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
   OUTLINED_FUNCTION_17(*MEMORY[0x277D85DE8]);
-  bzero(v70, 0x1000uLL);
-  v66 = v70;
-  v67 = &v71;
-  v68 = v0;
-  if (v6 && v4)
+  bzero(v66, 0x1000uLL);
+  v62 = v66;
+  v63 = &v67;
+  v64 = v0;
+  if (v5 && v3)
   {
     aks_client_connection = get_aks_client_connection();
     if (aks_client_connection)
     {
-      v17 = aks_client_connection;
-      OUTLINED_FUNCTION_8_0(aks_client_connection, v10, v11, v12, v13, v14, v15, v16, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v65, v66);
+      v16 = aks_client_connection;
+      OUTLINED_FUNCTION_8_0(aks_client_connection, v9, v10, v11, v12, v13, v14, v15, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v61, v62);
       if (ccder_blob_encode_body_tl())
       {
-        if (der_utils_encode_fv_data(&v66))
+        if (der_utils_encode_fv_data(&v62))
         {
-          if (der_utils_encode_fv_params(&v66))
+          if (der_utils_encode_fv_params(&v62))
           {
             OUTLINED_FUNCTION_2_3();
             if (ccder_blob_encode_tl())
             {
-              v69[0] = v8;
-              v69[1] = v67;
-              v69[2] = &v71 - v67;
-              if (!OUTLINED_FUNCTION_1_4(v17, 0x4Cu, v69, 3u, v18, v19, v20, v21, v70, &v68))
+              v65[0] = v7;
+              v65[1] = v63;
+              v65[2] = &v67 - v63;
+              if (!OUTLINED_FUNCTION_1_4(v16, 0x4Cu, v65, 3u, v17, v18, v19, v20, v66, &v64))
               {
                 OUTLINED_FUNCTION_2_3();
-                v22 = ccder_blob_decode_range();
-                if (v22)
+                v21 = ccder_blob_decode_range();
+                if (v21)
                 {
-                  v30 = OUTLINED_FUNCTION_9_0(v22, v23, v24, v25, v26, v27, v28, v29, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v70);
-                  der_utils_decode_fv_data(v30, v31, v32);
+                  v29 = OUTLINED_FUNCTION_9_0(v21, v22, v23, v24, v25, v26, v27, v28, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v66);
+                  der_utils_decode_fv_data(v29, v30, v31);
                 }
               }
             }
@@ -640,15 +188,12 @@ void aks_fv_new_kek()
 
     else
     {
-      v35 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v36, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v37, v42, v44, v46, v48, v50, v52, ":", 509, "", "");
+      fprintf(v32, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v33, v38, v40, v42, v44, v46, v48, ":", 509, "", "");
     }
   }
 
-  OUTLINED_FUNCTION_3_1(v70);
-  v33 = *(v1 - 88);
-  v34 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(v66);
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_4_3();
 }
@@ -661,10 +206,10 @@ void aks_fv_new_sibling_vek()
   v5 = v4;
   v7 = v6;
   OUTLINED_FUNCTION_17(*MEMORY[0x277D85DE8]);
-  bzero(v32, 0x1000uLL);
-  v28 = v32;
-  v29 = &v33;
-  v30 = v0;
+  bzero(v30, 0x1000uLL);
+  v26 = v30;
+  v27 = &v31;
+  v28 = v0;
   if (v7 && v5)
   {
     aks_client_connection = get_aks_client_connection();
@@ -673,19 +218,19 @@ void aks_fv_new_sibling_vek()
       v9 = aks_client_connection;
       if (ccder_blob_encode_body_tl())
       {
-        if (der_utils_encode_fv_data(&v28))
+        if (der_utils_encode_fv_data(&v26))
         {
-          if (der_utils_encode_fv_params(&v28))
+          if (der_utils_encode_fv_params(&v26))
           {
             OUTLINED_FUNCTION_2_3();
             if (ccder_blob_encode_tl())
             {
-              v31[0] = v29;
-              v31[1] = &v33 - v29;
-              if (!OUTLINED_FUNCTION_1_4(v9, 0x63u, v31, 2u, v10, v11, v12, v13, v32, &v30))
+              v29[0] = v27;
+              v29[1] = &v31 - v27;
+              if (!OUTLINED_FUNCTION_1_4(v9, 0x63u, v29, 2u, v10, v11, v12, v13, v30, &v28))
               {
-                *&v27 = v32;
-                *(&v27 + 1) = &v32[v30];
+                *&v25 = v30;
+                *(&v25 + 1) = &v30[v28];
                 OUTLINED_FUNCTION_2_3();
                 if (ccder_blob_decode_range())
                 {
@@ -694,7 +239,7 @@ void aks_fv_new_sibling_vek()
                   {
                     if (v3)
                     {
-                      der_utils_decode_fv_key(&v27, 0, v3);
+                      der_utils_decode_fv_key(&v25, 0, v3);
                     }
                   }
                 }
@@ -707,14 +252,12 @@ void aks_fv_new_sibling_vek()
 
     else
     {
-      v18 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 544, "", "");
+      fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 544, "", "");
     }
   }
 
-  OUTLINED_FUNCTION_3_1(v32);
-  v17 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(v30);
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -728,39 +271,39 @@ void aks_fv_rewrap_kek()
   v7 = v6;
   v9 = v8;
   *(v0 - 96) = *MEMORY[0x277D85DE8];
-  bzero(v71, 0x1000uLL);
-  v69[0] = v71;
-  v69[1] = &v72;
-  v69[2] = 4096;
+  bzero(v68, 0x1000uLL);
+  v66[0] = v68;
+  v66[1] = &v69;
+  v66[2] = 4096;
   if (v9 && v7 && v5 && v3)
   {
     aks_client_connection = get_aks_client_connection();
     if (aks_client_connection)
     {
       v11 = aks_client_connection;
-      v12 = der_utils_encode_fv_data(v69);
+      v12 = der_utils_encode_fv_data(v66);
       if (v12)
       {
-        OUTLINED_FUNCTION_8_0(v12, v13, v14, v15, v16, v17, v18, v19, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v68, v69[0]);
+        OUTLINED_FUNCTION_8_0(v12, v13, v14, v15, v16, v17, v18, v19, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v65, v66[0]);
         if (ccder_blob_encode_body_tl())
         {
-          if (der_utils_encode_fv_data(v69))
+          if (der_utils_encode_fv_data(v66))
           {
-            if (der_utils_encode_fv_data(v69))
+            if (der_utils_encode_fv_data(v66))
             {
-              if (der_utils_encode_fv_params(v69))
+              if (der_utils_encode_fv_params(v66))
               {
                 OUTLINED_FUNCTION_2_3();
                 if (ccder_blob_encode_tl())
                 {
                   OUTLINED_FUNCTION_11();
-                  if (!OUTLINED_FUNCTION_1_4(v11, 0x4Du, v70, 2u, v20, v21, v22, v23, v71, v24))
+                  if (!OUTLINED_FUNCTION_1_4(v11, 0x4Du, v67, 2u, v20, v21, v22, v23, v68, v24))
                   {
                     OUTLINED_FUNCTION_2_3();
                     v25 = ccder_blob_decode_range();
                     if (v25)
                     {
-                      v33 = OUTLINED_FUNCTION_9_0(v25, v26, v27, v28, v29, v30, v31, v32, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v71);
+                      v33 = OUTLINED_FUNCTION_9_0(v25, v26, v27, v28, v29, v30, v31, v32, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v68);
                       der_utils_decode_fv_data(v33, v34, v35);
                     }
                   }
@@ -774,15 +317,12 @@ void aks_fv_rewrap_kek()
 
     else
     {
-      v38 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v39, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v40, v45, v47, v49, v51, v53, v55, ":", 583, "", "");
+      fprintf(v36, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v37, v42, v44, v46, v48, v50, v52, ":", 583, "", "");
     }
   }
 
-  OUTLINED_FUNCTION_3_1(v71);
-  v36 = *(v0 - 96);
-  v37 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(v68);
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_4_3();
 }
@@ -794,16 +334,16 @@ void aks_fv_set_protection()
   OUTLINED_FUNCTION_16();
   v3 = v2;
   v5 = v4;
-  v30[0] = *MEMORY[0x277D85DE8];
-  bzero(v29, 0x1000uLL);
-  v25 = v29;
-  v26 = v30;
-  v27 = 4096;
+  v28[0] = *MEMORY[0x277D85DE8];
+  bzero(v27, 0x1000uLL);
+  v23 = v27;
+  v24 = v28;
+  v25 = 4096;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v7 = aks_client_connection;
-    if (!der_utils_encode_fv_data(&v25) || !der_utils_encode_fv_data(&v25) || !der_utils_encode_fv_data(&v25) || !der_utils_encode_fv_params(&v25) || (OUTLINED_FUNCTION_2_3(), !ccder_blob_encode_tl()) || (v28[0] = v5, v28[1] = v3, v28[2] = v26, v28[3] = v30 - v26, !OUTLINED_FUNCTION_1_4(v7, 0x54u, v28, 4u, v8, v9, v10, v11, v29, &v27)) && v27 && ((OUTLINED_FUNCTION_2_3(), !ccder_blob_decode_range()) || v0 && (OUTLINED_FUNCTION_15(), (der_utils_decode_fv_data(v12, v13, v14) & 1) == 0)))
+    if (!der_utils_encode_fv_data(&v23) || !der_utils_encode_fv_data(&v23) || !der_utils_encode_fv_data(&v23) || !der_utils_encode_fv_params(&v23) || (OUTLINED_FUNCTION_2_3(), !ccder_blob_encode_tl()) || (v26[0] = v5, v26[1] = v3, v26[2] = v24, v26[3] = v28 - v24, !OUTLINED_FUNCTION_1_4(v7, 0x54u, v26, 4u, v8, v9, v10, v11, v27, &v25)) && v25 && ((OUTLINED_FUNCTION_2_3(), !ccder_blob_decode_range()) || v0 && (OUTLINED_FUNCTION_15(), (der_utils_decode_fv_data(v12, v13, v14) & 1) == 0)))
     {
       OUTLINED_FUNCTION_10();
     }
@@ -811,14 +351,12 @@ void aks_fv_set_protection()
 
   else
   {
-    v16 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 617, "", "");
+    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 617, "", "");
     OUTLINED_FUNCTION_10();
   }
 
-  OUTLINED_FUNCTION_3_1(v29);
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(v27);
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -830,17 +368,17 @@ void aks_fv_unwrap_vek_with_acm()
   OUTLINED_FUNCTION_16();
   v5 = v4;
   *(v2 - 96) = *MEMORY[0x277D85DE8];
-  bzero(v30, 0x1000uLL);
-  v26 = v30;
-  v27 = v31;
-  v28 = 4096;
+  bzero(v27, 0x1000uLL);
+  v23 = v27;
+  v24 = v28;
+  v25 = 4096;
   if (v1)
   {
     aks_client_connection = get_aks_client_connection();
     if (aks_client_connection)
     {
       v7 = aks_client_connection;
-      if (!der_utils_encode_fv_data(&v26) || !der_utils_encode_fv_data(&v26) || !der_utils_encode_fv_data(&v26) || !der_utils_encode_fv_data(&v26) || !der_utils_encode_fv_params(&v26) || (OUTLINED_FUNCTION_2_3(), !ccder_blob_encode_tl()) || (v29[0] = v27, v29[1] = &v31[-v27], v29[2] = v5, !OUTLINED_FUNCTION_1_4(v7, 0x4Bu, v29, 3u, v8, v9, v10, v11, v30, &v28)) && ((OUTLINED_FUNCTION_2_3(), !ccder_blob_decode_range()) || v0 && (OUTLINED_FUNCTION_15(), (der_utils_decode_fv_key(v12, v13, v14) & 1) == 0)))
+      if (!der_utils_encode_fv_data(&v23) || !der_utils_encode_fv_data(&v23) || !der_utils_encode_fv_data(&v23) || !der_utils_encode_fv_data(&v23) || !der_utils_encode_fv_params(&v23) || (OUTLINED_FUNCTION_2_3(), !ccder_blob_encode_tl()) || (v26[0] = v24, v26[1] = &v28[-v24], v26[2] = v5, !OUTLINED_FUNCTION_1_4(v7, 0x4Bu, v26, 3u, v8, v9, v10, v11, v27, &v25)) && ((OUTLINED_FUNCTION_2_3(), !ccder_blob_decode_range()) || v0 && (OUTLINED_FUNCTION_15(), (der_utils_decode_fv_key(v12, v13, v14) & 1) == 0)))
       {
         OUTLINED_FUNCTION_10();
       }
@@ -848,9 +386,8 @@ void aks_fv_unwrap_vek_with_acm()
 
     else
     {
-      v17 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v20, v21, v22, v23, v24, v25, ":", 654, "", "");
+      fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 654, "", "");
       OUTLINED_FUNCTION_10();
     }
   }
@@ -860,9 +397,7 @@ void aks_fv_unwrap_vek_with_acm()
     OUTLINED_FUNCTION_10();
   }
 
-  OUTLINED_FUNCTION_3_1(v30);
-  v15 = *(v2 - 96);
-  v16 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(v27);
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_4_3();
 }
@@ -934,38 +469,33 @@ uint64_t aks_kext_get_options()
 {
   input[3] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_0();
-  if (v2)
+  if (!v2)
   {
-    v3 = v2;
-    input[0] = 0;
-    input[1] = v1;
-    input[2] = 0;
-    output = 0;
-    outputCnt = 1;
-    aks_client_connection = get_aks_client_connection();
-    if (aks_client_connection)
-    {
-      v0 = IOConnectCallMethod(aks_client_connection, 0x56u, input, 3u, 0, 0, &output, &outputCnt, 0, 0);
-      if (!v0)
-      {
-        *v3 = output;
-      }
-    }
+    return (v0 + 6);
+  }
 
-    else
+  v3 = v2;
+  input[0] = 0;
+  input[1] = v1;
+  input[2] = 0;
+  output = 0;
+  outputCnt = 1;
+  aks_client_connection = get_aks_client_connection();
+  if (aks_client_connection)
+  {
+    v0 = IOConnectCallMethod(aks_client_connection, 0x56u, input, 3u, 0, 0, &output, &outputCnt, 0, 0);
+    if (!v0)
     {
-      v7 = *MEMORY[0x277D85E08];
-      OUTLINED_FUNCTION_0_9();
-      fprintf(v8, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v9, v10, v11, v12, v13, v14, v15, ":", 842, "", "");
+      *v3 = output;
     }
   }
 
   else
   {
-    v0 = (v0 + 6);
+    OUTLINED_FUNCTION_0_9();
+    fprintf(v6, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v7, v8, v9, v10, v11, v12, v13, ":", 842, "", "");
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -981,17 +511,17 @@ void aks_stash_escrow()
   v13 = v12;
   v15 = v14;
   v16 = v1;
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   bzero(__src, 0x8000uLL);
   __count = 0x8000;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    v32[0] = v16;
-    v32[1] = v15;
-    v32[2] = v13;
-    v32[3] = v11;
-    if ((!v15 || v5 && v3) && !OUTLINED_FUNCTION_7_1(aks_client_connection, 0x36u, v32, 4u, v9, v7, v18, v19, __src, &__count))
+    v30[0] = v16;
+    v30[1] = v15;
+    v30[2] = v13;
+    v30[3] = v11;
+    if ((!v15 || v5 && v3) && !OUTLINED_FUNCTION_7_1(aks_client_connection, 0x36u, v30, 4u, v9, v7, v18, v19, __src, &__count))
     {
       if (v15)
       {
@@ -1008,13 +538,11 @@ void aks_stash_escrow()
 
   else
   {
-    v22 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v23, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v24, v25, v26, v27, v28, v29, v30, ":", 891, "", "");
+    fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v22, v23, v24, v25, v26, v27, v28, ":", 891, "", "");
   }
 
   memset_s(__src, 0x8000uLL, 0, 0x8000uLL);
-  v21 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -1022,20 +550,19 @@ void akstest_new_key()
 {
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_6();
-  v16[2] = *MEMORY[0x277D85DE8];
-  v16[0] = v5;
-  v16[1] = v4;
-  v15 = 0;
+  v15[2] = *MEMORY[0x277D85DE8];
+  v15[0] = v5;
+  v15[1] = v4;
+  v14 = 0;
   outputCnt = 1;
   bzero(outputStruct, 0x400uLL);
-  v12 = 1024;
-  if (!IOConnectCallMethod(v3, 0xFu, v16, 2u, v2, 0x10uLL, &v15, &outputCnt, outputStruct, &v12) && outputCnt == 1)
+  v11 = 1024;
+  if (!IOConnectCallMethod(v3, 0xFu, v15, 2u, v2, 0x10uLL, &v14, &outputCnt, outputStruct, &v11) && outputCnt == 1)
   {
-    *v1 = v15;
-    aks_unpack_data(outputStruct, v12, 3u, v6, v7, v8, v9, v10, v0);
+    *v1 = v14;
+    aks_unpack_data(outputStruct, v11, 3u, v6, v7, v8, v9, v10, v0);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -1043,25 +570,24 @@ void akstest_new_ekwk(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
 {
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_6();
-  v44[2] = *MEMORY[0x277D85DE8];
-  v44[0] = v30;
-  v44[1] = v29;
+  v43[2] = *MEMORY[0x277D85DE8];
+  v43[0] = v30;
+  v43[1] = v29;
+  v40 = 0;
   v41 = 0;
   v42 = 0;
-  v43 = 0;
   outputCnt = 3;
   bzero(outputStruct, 0x400uLL);
-  v38 = 1024;
-  if (!IOConnectCallMethod(v28, 0x13u, v44, 2u, v27, 0x10uLL, &v41, &outputCnt, outputStruct, &v38) && outputCnt == 3)
+  v37 = 1024;
+  if (!IOConnectCallMethod(v28, 0x13u, v43, 2u, v27, 0x10uLL, &v40, &outputCnt, outputStruct, &v37) && outputCnt == 3)
   {
-    v36 = v42;
-    *v26 = v41;
+    v36 = v41;
+    *v26 = v40;
     *a22 = v36;
-    *a25 = v43;
-    aks_unpack_data(outputStruct, v38, 5u, v31, v32, v33, v34, v35, v25);
+    *a25 = v42;
+    aks_unpack_data(outputStruct, v37, 5u, v31, v32, v33, v34, v35, v25);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -1094,7 +620,6 @@ uint64_t akstest_rewrap_ek(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   }
 
   free(*&inputStructCnt[1]);
-  v17 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1103,21 +628,20 @@ void akstest_unwrap_key()
   OUTLINED_FUNCTION_5_1();
   v3 = v2;
   OUTLINED_FUNCTION_14_0();
-  v23[2] = *MEMORY[0x277D85DE8];
-  v23[0] = v4;
-  v23[1] = v5;
-  v21 = 0;
+  v22[2] = *MEMORY[0x277D85DE8];
+  v22[0] = v4;
+  v22[1] = v5;
   v20 = 0;
-  bzero(v22, 0x400uLL);
-  v19 = 1024;
-  aks_pack_data(&v21, &v20, 2, v6, v7, v8, v9, v10, v0);
-  if (!OUTLINED_FUNCTION_7_1(v1, 0x10u, v23, 2u, v21, v20, v11, v12, v22, &v19))
+  v19 = 0;
+  bzero(v21, 0x400uLL);
+  v18 = 1024;
+  aks_pack_data(&v20, &v19, 2, v6, v7, v8, v9, v10, v0);
+  if (!OUTLINED_FUNCTION_7_1(v1, 0x10u, v22, 2u, v20, v19, v11, v12, v21, &v18))
   {
-    aks_unpack_data(v22, v19, 2u, v13, v14, v15, v16, v17, v3);
+    aks_unpack_data(v21, v18, 2u, v13, v14, v15, v16, v17, v3);
   }
 
-  free(v21);
-  v18 = *MEMORY[0x277D85DE8];
+  free(v20);
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -1125,22 +649,21 @@ void akstest_unwrap_ek(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_14_0();
-  v43[3] = *MEMORY[0x277D85DE8];
-  v43[0] = v24;
-  v43[1] = v25;
-  v43[2] = a21;
-  v41 = 0;
+  v42[3] = *MEMORY[0x277D85DE8];
+  v42[0] = v24;
+  v42[1] = v25;
+  v42[2] = a21;
   v40 = 0;
-  bzero(v42, 0x400uLL);
-  v39 = 1024;
-  aks_pack_data(&v41, &v40, 3, v26, v27, v28, v29, v30, v22);
-  if (!OUTLINED_FUNCTION_7_1(v23, 0x17u, v43, 3u, v41, v40, v31, v32, v42, &v39))
+  v39 = 0;
+  bzero(v41, 0x400uLL);
+  v38 = 1024;
+  aks_pack_data(&v40, &v39, 3, v26, v27, v28, v29, v30, v22);
+  if (!OUTLINED_FUNCTION_7_1(v23, 0x17u, v42, 3u, v40, v39, v31, v32, v41, &v38))
   {
-    aks_unpack_data(v42, v39, 2u, v33, v34, v35, v36, v37, a22);
+    aks_unpack_data(v41, v38, 2u, v33, v34, v35, v36, v37, a22);
   }
 
-  free(v41);
-  v38 = *MEMORY[0x277D85DE8];
+  free(v40);
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -1150,8 +673,8 @@ uint64_t aks_get_internal_info_for_key(uint64_t a1)
   v3 = v2;
   v5 = v4;
   v7 = v6;
-  v28[1] = *MEMORY[0x277D85DE8];
-  v28[0] = v1;
+  v26[1] = *MEMORY[0x277D85DE8];
+  v26[0] = v1;
   bzero(__src, 0x8000uLL);
   __n = 0x8000;
   aks_client_connection = get_aks_client_connection();
@@ -1167,7 +690,7 @@ uint64_t aks_get_internal_info_for_key(uint64_t a1)
       v11 = 0;
     }
 
-    v12 = OUTLINED_FUNCTION_7_1(aks_client_connection, 0x5Du, v28, 1u, v7, v11, v9, v10, __src, &__n);
+    v12 = OUTLINED_FUNCTION_7_1(aks_client_connection, 0x5Du, v26, 1u, v7, v11, v9, v10, __src, &__n);
     v13 = __n;
     if (v12)
     {
@@ -1206,22 +729,13 @@ uint64_t aks_get_internal_info_for_key(uint64_t a1)
   else
   {
     OUTLINED_FUNCTION_12_0();
-    v17 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v20, v21, v22, v23, v24, v25, ":", 1246, "", "");
+    fprintf(v16, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v17, v18, v19, v20, v21, v22, v23, ":", 1246, "", "");
     v13 = 0x8000;
   }
 
   memset_s(__src, v13, 0, v13);
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
-}
-
-uint64_t aks_delete_xart_leak_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 269, "", "");
 }
 
 uint64_t _iterate_path_cold_1(FTS *a1, uint64_t a2, uint64_t a3)
@@ -1255,62 +769,19 @@ uint64_t _iterate_path_cold_1(FTS *a1, uint64_t a2, uint64_t a3)
   return fts_close(a1);
 }
 
-uint64_t aks_kext_set_options_cold_1()
+uint64_t encode_backup_bag(void *a1, uint64_t a2, uint64_t a3)
 {
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 821, "", "");
-}
-
-uint64_t aks_internal_state_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 858, "", "");
-}
-
-uint64_t aks_run_internal_test_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 872, "", "");
-}
-
-uint64_t encode_backup_bag(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v9 = a2 + a3;
-  v4 = a1[10];
-  if (!ccder_blob_encode_implicit_uint64())
+  v6 = a2 + a3;
+  if (!ccder_blob_encode_implicit_uint64() || !ccder_blob_encode_body_tl() || !ccder_blob_encode_body_tl() || !ccder_blob_encode_body_tl() || !ccder_blob_encode_implicit_uint64())
   {
     return 4294967273;
   }
 
-  if (!ccder_blob_encode_body_tl())
-  {
-    return 4294967273;
-  }
-
-  if (!ccder_blob_encode_body_tl())
-  {
-    return 4294967273;
-  }
-
-  if (!ccder_blob_encode_body_tl())
-  {
-    return 4294967273;
-  }
-
-  v5 = *a1;
-  if (!ccder_blob_encode_implicit_uint64())
-  {
-    return 4294967273;
-  }
-
-  v6 = ccder_blob_encode_tl();
+  v3 = ccder_blob_encode_tl();
   result = 4294967273;
-  if (v6)
+  if (v3)
   {
-    if (a2 == v9)
+    if (a2 == v6)
     {
       return 0;
     }
@@ -1324,20 +795,20 @@ uint64_t encode_backup_bag(uint64_t *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t decode_backup_bag(uint64_t a1, uint64_t a2, void *a3)
+uint64_t decode_backup_bag(unint64_t a1, uint64_t a2, void *a3)
 {
-  *&v6 = a1;
-  *(&v6 + 1) = a1 + a2;
-  if (!ccder_blob_decode_range() || !der_utils_decode_implicit_uint64(&v6, 0x8000000000000000, a3) || !der_utils_decode_implicit_raw_octet_string_copy(&v6, 0x8000000000000001, a3 + 1, 16) || !der_utils_decode_implicit_raw_octet_string_copy(&v6, 0x8000000000000002, a3 + 3, 40) || !der_utils_decode_implicit_raw_octet_string_copy(&v6, 0x8000000000000003, a3 + 8, 16))
+  v20.n128_u64[0] = a1;
+  v20.n128_u64[1] = a1 + a2;
+  if (!ccder_blob_decode_range() || !der_utils_decode_implicit_uint64(&v20, 0x8000000000000000, a3, v4, v5, v6, v7, v8, v9, v10) || !der_utils_decode_implicit_raw_octet_string_copy(&v20, 0x8000000000000001, a3 + 1, 16) || !der_utils_decode_implicit_raw_octet_string_copy(&v20, 0x8000000000000002, a3 + 3, 40) || !der_utils_decode_implicit_raw_octet_string_copy(&v20, 0x8000000000000003, a3 + 8, 16))
   {
     return 4294967277;
   }
 
-  v4 = der_utils_decode_implicit_uint64(&v6, 0x8000000000000004, a3 + 10);
+  v18 = der_utils_decode_implicit_uint64(&v20, 0x8000000000000004, a3 + 10, v11, v12, v13, v14, v15, v16, v17);
   result = 4294967277;
-  if (v4)
+  if (v18)
   {
-    if (v6 == *(&v6 + 1))
+    if (v20.n128_u64[0] == v20.n128_u64[1])
     {
       return 0;
     }
@@ -1353,100 +824,98 @@ uint64_t decode_backup_bag(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t wrap_backup_bag(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *__s = 0u;
-  v23 = 0u;
-  HIDWORD(v21) = 40;
+  v19 = 0u;
+  HIDWORD(v17) = 40;
   *a4 = 0;
   uuid_copy((a4 + 8), (a1 + 32));
   *(a4 + 80) = 1;
   platform_read_random(a4 + 64, 0x10u);
-  v8 = ccsha256_di();
-  LODWORD(v9) = firebloom_ccpbkdf2_hmac(v8, a3, a2, 16, a4 + 64, *(a4 + 80), 32, __s);
-  if (v9)
+  ccsha256_di();
+  LODWORD(v6) = firebloom_ccpbkdf2_hmac();
+  if (v6)
   {
-    v17 = 4294967286;
+    v14 = 4294967286;
   }
 
   else
   {
-    v9 = rfc3394_wrap_legacy(__s, 0x20u, 0xA6A6A6A6A6A6A6A6, 0, a1, 0x20u, (a4 + 24), &v21 + 1);
-    if (v9)
+    v6 = rfc3394_wrap_legacy(__s, 0x20u, 0xA6A6A6A6A6A6A6A6, 0, a1, 0x20u, (a4 + 24), &v17 + 1);
+    if (v6)
     {
-      v17 = v9;
+      v14 = v6;
     }
 
-    else if (HIDWORD(v21) == 40)
+    else if (HIDWORD(v17) == 40)
     {
-      v17 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v17 = 4294967286;
+      v14 = 4294967286;
     }
   }
 
-  OUTLINED_FUNCTION_0_10(v9, v10, v11, v12, v13, v14, v15, v16, v20, v21, __s[0]);
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  OUTLINED_FUNCTION_0_10(v6, v7, v8, v9, v10, v11, v12, v13, v16, v17);
+  return v14;
 }
 
-uint64_t unwrap_backup_bag(const unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8)
+uint64_t unwrap_backup_bag(const unsigned __int8 *a1, int a2, int a3, uint64_t a4, int a5, int a6, int a7, int a8)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *__s = 0u;
-  v20 = 0u;
-  HIDWORD(v18) = 32;
+  v16 = 0u;
+  HIDWORD(v14) = 32;
   if (*a1)
   {
-    v14 = 4294967284;
+    v11 = 4294967284;
   }
 
   else
   {
-    v11 = a1;
-    v12 = ccsha256_di();
-    LODWORD(a1) = firebloom_ccpbkdf2_hmac(v12, a3, a2, 16, v11 + 64, *(v11 + 10), 32, __s);
+    v9 = a1;
+    ccsha256_di();
+    LODWORD(a1) = firebloom_ccpbkdf2_hmac();
     if (a1)
     {
       goto LABEL_9;
     }
 
-    a1 = rfc3394_unwrap_legacy(__s, 0x20u, 0xA6A6A6A6A6A6A6A6, 0, v11 + 3, 0x28u, a4, &v18 + 1);
+    a1 = rfc3394_unwrap_legacy(__s, 0x20u, 0xA6A6A6A6A6A6A6A6, 0, v9 + 3, 0x28u, a4, &v14 + 1);
     if (a1)
     {
-      v14 = a1;
+      v11 = a1;
       goto LABEL_8;
     }
 
-    if (HIDWORD(v18) != 32)
+    if (HIDWORD(v14) != 32)
     {
 LABEL_9:
-      v14 = 4294967286;
+      v11 = 4294967286;
     }
 
     else
     {
-      v13 = cccurve25519_make_pub() == 0;
-      REQUIRE_func(v13, 118, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/backup_serialize.c");
-      LODWORD(a1) = uuid_compare(v11 + 8, (a4 + 32));
+      v10 = cccurve25519_make_pub() == 0;
+      REQUIRE_func(v10, 118, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/backup_serialize.c");
+      LODWORD(a1) = uuid_compare(v9 + 8, (a4 + 32));
       if (a1)
       {
-        v14 = 4294967272;
+        v11 = 4294967272;
       }
 
       else
       {
-        v14 = 0;
+        v11 = 0;
       }
     }
   }
 
 LABEL_8:
-  OUTLINED_FUNCTION_0_10(a1, a2, a3, a4, a5, a6, a7, a8, v17, v18, __s[0]);
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  OUTLINED_FUNCTION_0_10(a1, a2, a3, a4, a5, a6, a7, a8, v13, v14);
+  return v11;
 }
 
 void aks_stash_create_for_bag_and_kek()
@@ -1458,45 +927,42 @@ void aks_stash_create_for_bag_and_kek()
   v7 = v6;
   v9 = v8;
   v10 = v1;
-  v31 = *MEMORY[0x277D85DE8];
-  bzero(v30, 0x1000uLL);
-  v27 = v30;
-  v28 = &v31;
+  v29 = *MEMORY[0x277D85DE8];
+  bzero(v28, 0x1000uLL);
+  v25 = v28;
+  v26 = &v29;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v12 = aks_client_connection;
-    if (der_utils_encode_fv_data(&v27))
+    if (der_utils_encode_fv_data(&v25))
     {
       OUTLINED_FUNCTION_2_3();
       if (ccder_blob_encode_tl())
       {
-        v29[0] = v10;
-        v29[1] = v9;
-        v29[2] = v5;
-        v29[3] = v3;
-        v29[4] = v7;
-        v29[5] = v28;
-        v29[6] = &v31 - v28;
-        OUTLINED_FUNCTION_1_4(v12, 0x21u, v29, 7u, v13, v14, v15, v16, 0, 0);
+        v27[0] = v10;
+        v27[1] = v9;
+        v27[2] = v5;
+        v27[3] = v3;
+        v27[4] = v7;
+        v27[5] = v26;
+        v27[6] = &v29 - v26;
+        OUTLINED_FUNCTION_1_4(v12, 0x21u, v27, 7u, v13, v14, v15, v16, 0, 0);
       }
     }
   }
 
   else
   {
-    v18 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 53, "", "");
+    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 53, "", "");
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
 uint64_t _aks_stash_load(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
   if (get_aks_client_connection())
   {
     OUTLINED_FUNCTION_15_0();
@@ -1513,13 +979,11 @@ uint64_t _aks_stash_load(uint64_t a1, uint64_t a2, _BYTE *a3)
 
   else
   {
-    v14 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 80, "", "");
-    result = OUTLINED_FUNCTION_14_1();
+    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v15, v16, v17, v18, v19, v20, ":", 80, "", "");
+    return OUTLINED_FUNCTION_14_1();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1530,9 +994,8 @@ uint64_t aks_prederived_free(void **a1)
     return 0xFFFFFFFFLL;
   }
 
-  v2 = *a1;
   OUTLINED_FUNCTION_44();
-  if (!v3)
+  if (!v2)
   {
     return 0xFFFFFFFFLL;
   }
@@ -1542,8 +1005,9 @@ uint64_t aks_prederived_free(void **a1)
   return 0;
 }
 
-uint64_t aks_prederived_create(int a1, uint64_t a2, unint64_t a3, int a4, void *a5)
+uint64_t aks_prederived_create(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5)
 {
+  v8 = a1;
   v14 = 0;
   if (!a2 && a3)
   {
@@ -1560,7 +1024,7 @@ uint64_t aks_prederived_create(int a1, uint64_t a2, unint64_t a3, int a4, void *
     v10 = v9;
     v11 = _aks_prederive_passcode(v14);
     v12 = 0xFFFFFFFFLL;
-    if (a3 <= 0x7FFFFFFE && !v11 && !_set_prederived_configuration(a1, a2, a3, v10, v14))
+    if (a3 <= 0x7FFFFFFE && !v11 && !_set_prederived_configuration(v8, a2, a3, v10, v14))
     {
       v12 = 0;
       if (a5)
@@ -1608,15 +1072,13 @@ LABEL_19:
 
   *v7 = 1634431856;
   v7[6] = a1;
-  v9 = *MEMORY[0x277D85C28];
-  v10 = *(v7 + 2);
   result = CCRandomCopyBytes();
   if (result)
   {
-    v12 = *(v7 + 1);
-    if (v12)
+    v10 = *(v7 + 1);
+    if (v10)
     {
-      free(v12);
+      free(v10);
     }
 
     goto LABEL_19;
@@ -1624,45 +1086,41 @@ LABEL_19:
 
   if (a1 == 3)
   {
-    v11 = 2000;
+    v9 = 2000;
   }
 
   else
   {
-    v11 = 10000000;
+    v9 = 10000000;
   }
 
   if (a1 == 2)
   {
-    v11 = 1000;
+    v9 = 1000;
   }
 
-  v7[1] = v11;
+  v7[1] = v9;
   *a2 = v7;
   return result;
 }
 
-uint64_t _aks_prederive_passcode(unsigned int *a1)
+uint64_t _aks_prederive_passcode(uint64_t a1)
 {
   if (!a1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v2 = *a1;
   OUTLINED_FUNCTION_44();
-  if (!v6 || !v3 && v4)
+  if (!v5 || !v2 && v3)
   {
     return 0xFFFFFFFFLL;
   }
 
   result = 0xFFFFFFFFLL;
-  if (v5 && a1[6] - 4 >= 0xFFFFFFFD)
+  if (v4 && (*(a1 + 24) - 4) >= 0xFFFFFFFD)
   {
     ccsha256_di();
-    v9 = *(a1 + 1);
-    v8 = *(a1 + 2);
-    v10 = a1[1];
     if (ccpbkdf2_hmac())
     {
       return 0xFFFFFFFFLL;
@@ -1679,10 +1137,10 @@ uint64_t _aks_prederive_passcode(unsigned int *a1)
 
 uint64_t _set_prederived_configuration(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
-  v42[4] = *MEMORY[0x277D85DE8];
-  v42[0] = 0;
+  v38[4] = *MEMORY[0x277D85DE8];
+  v38[0] = 0;
   OUTLINED_FUNCTION_33();
-  v40 = 0;
+  v36 = 0;
   __n = 0;
   if ((v10 || !a3) && a4 && a5)
   {
@@ -1690,32 +1148,28 @@ uint64_t _set_prederived_configuration(int a1, uint64_t a2, int a3, uint64_t a4,
     if (aks_client_connection)
     {
       v12 = aks_client_connection;
-      v13 = *(a5 + 8);
-      v14 = *(a5 + 16);
-      if (!encode_list_add_data() && !encode_list_add_data() && !encode_list_add_number(&v40, der_key_config_prederived_iterations, *(a5 + 4)) && !encode_list_add_number(&v40, der_key_config_prederived_type, *(a5 + 24)) && (a3 < 1 || !encode_list_add_data()) && !encode_list_is_empty(&v40) && !encode_list_dict(&v40, v42, &__n))
+      if (!encode_list_add_data() && !encode_list_add_data() && !encode_list_add_number(&v36, der_key_config_prederived_iterations, *(a5 + 4)) && !encode_list_add_number(&v36, der_key_config_prederived_type, *(a5 + 24)) && (a3 < 1 || !encode_list_add_data()) && !encode_list_is_empty(&v36) && !encode_list_dict(&v36, v38, &__n))
       {
-        OUTLINED_FUNCTION_39(a1, v25, v27, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, __n);
-        v5 = OUTLINED_FUNCTION_1_4(v12, 0x1Eu, v15, 3u, v16, v17, v18, v19, v26, v28);
+        OUTLINED_FUNCTION_39(a1, v21, v23, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, __n);
+        v5 = OUTLINED_FUNCTION_1_4(v12, 0x1Eu, v13, 3u, v14, v15, v16, v17, v22, v24);
       }
     }
 
     else
     {
-      v22 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v23, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v24, v29, v30, v31, v32, v33, v34, ":", 221, "", "");
+      fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v25, v26, v27, v28, v29, v30, ":", 221, "", "");
       v5 = (v5 - 6);
     }
   }
 
-  encode_list_free(&v40);
-  if (v42[0])
+  encode_list_free(&v36);
+  if (v38[0])
   {
-    OUTLINED_FUNCTION_37(v42[0], __n);
-    free(v42[0]);
+    OUTLINED_FUNCTION_37(v38[0], __n);
+    free(v38[0]);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1723,7 +1177,7 @@ void aks_prederived_is_enabled()
 {
   OUTLINED_FUNCTION_5_1();
   MEMORY[0x28223BE20](v2);
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (v3)
   {
     OUTLINED_FUNCTION_25();
@@ -1735,31 +1189,30 @@ void aks_prederived_is_enabled()
       aks_client_connection = get_aks_client_connection();
       if (!aks_client_connection)
       {
-        v19 = *MEMORY[0x277D85E08];
         OUTLINED_FUNCTION_0_9();
-        fprintf(v20, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v21, v22, v23, v24, v25, v26, v27, ":", 387, "", "");
+        fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v20, v21, v22, v23, v24, v25, ":", 387, "", "");
         goto LABEL_16;
       }
 
       v7 = aks_client_connection;
-      bzero(v38, 0x8000uLL);
-      v28[0] = 0x8000;
-      v37 = v1;
-      if (OUTLINED_FUNCTION_3_2(v7, 0x1Fu, &v37, v8, v9, v10, v11, v12, v38, v28) || v28[0] > 0x8000)
+      bzero(v36, 0x8000uLL);
+      v26[0] = 0x8000;
+      v35 = v1;
+      if (OUTLINED_FUNCTION_3_2(v7, 0x1Fu, &v35, v8, v9, v10, v11, v12, v36, v26) || v26[0] > 0x8000)
       {
         goto LABEL_16;
       }
 
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v28 = 0u;
       v30 = 0u;
-      v32 = 0u;
-      v33 = 0;
-      v29 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v28[1] = der_key_config_prederived_salt;
-      v31 = der_key_config_prederived_iterations;
-      v34 = der_key_config_prederived_type;
+      v31 = 0;
+      v27 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v26[1] = der_key_config_prederived_salt;
+      v29 = der_key_config_prederived_iterations;
+      v32 = der_key_config_prederived_type;
       OUTLINED_FUNCTION_1_5();
       der_dict_iterate();
       v14 = ccder_decode_tl();
@@ -1806,14 +1259,13 @@ LABEL_10:
   }
 
 LABEL_14:
-  v18 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
-uint64_t aks_prederived_unlock_keybag(int a1, uint64_t a2, int a3, unsigned int *a4)
+uint64_t aks_prederived_unlock_keybag(int a1, uint64_t a2, int a3, _DWORD *a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v10, 0, sizeof(v10));
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v9, 0, sizeof(v9));
   if (a3)
   {
     v4 = a2 == 0;
@@ -1832,20 +1284,19 @@ uint64_t aks_prederived_unlock_keybag(int a1, uint64_t a2, int a3, unsigned int 
 
   else
   {
-    v7 = _aks_unlock_bag(a1, v10, 32, 0);
+    v7 = _aks_unlock_bag(a1, v9, 32, 0);
   }
 
-  OUTLINED_FUNCTION_35(v10);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_35(v9);
   return v7;
 }
 
-uint64_t aks_prederived_change_secret(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int **a6)
+uint64_t aks_prederived_change_secret(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  memset(v24, 0, sizeof(v24));
-  memset(v23, 0, sizeof(v23));
-  v22 = 0;
+  v23 = *MEMORY[0x277D85DE8];
+  memset(v22, 0, sizeof(v22));
+  memset(v21, 0, sizeof(v21));
+  v20 = 0;
   if (!a6)
   {
     goto LABEL_18;
@@ -1857,61 +1308,58 @@ uint64_t aks_prederived_change_secret(uint64_t a1, uint64_t a2, uint64_t a3, uin
     goto LABEL_18;
   }
 
-  v8 = *v7;
   OUTLINED_FUNCTION_44();
-  if (!v14)
+  if (!v13)
   {
     goto LABEL_18;
   }
 
-  v15 = v9;
-  if (!v10)
+  v14 = v8;
+  if (!v9)
   {
-    if (v11)
+    if (v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (!v12 && v13 || _aks_prederive_passcode(v7))
+  if (!v11 && v12 || _aks_prederive_passcode(v7))
   {
     goto LABEL_18;
   }
 
-  v16 = _aks_prederived_create_ctx(v7[6], &v22);
-  v17 = v22;
-  if (v16 || (v18 = _aks_prederive_passcode(v22), v17 = v22, v18))
+  v15 = _aks_prederived_create_ctx(*(v7 + 24), &v20);
+  v16 = v20;
+  if (v15 || (v17 = _aks_prederive_passcode(v20), v16 = v20, v17))
   {
 LABEL_16:
-    if (v17)
+    if (v16)
     {
-      aks_prederived_free(v17);
+      aks_prederived_free(v16);
     }
 
 LABEL_18:
-    v19 = 0xFFFFFFFFLL;
+    v18 = 0xFFFFFFFFLL;
     goto LABEL_14;
   }
 
-  if (_set_prederived_configuration(v15, v24, 32, v23, v22))
+  if (_set_prederived_configuration(v14, v22, 32, v21, v20))
   {
-    v17 = v22;
+    v16 = v20;
     goto LABEL_16;
   }
 
   aks_prederived_free(v7);
-  v19 = 0;
-  *a6 = v22;
+  v18 = 0;
+  *a6 = v20;
 LABEL_14:
-  OUTLINED_FUNCTION_35(v24);
-  OUTLINED_FUNCTION_35(v23);
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  OUTLINED_FUNCTION_35(v22);
+  OUTLINED_FUNCTION_35(v21);
+  return v18;
 }
 
 uint64_t _create_bag(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _DWORD *a8)
 {
-  v29 = *MEMORY[0x277D85DE8];
   v9 = 3758097084;
   if (get_aks_client_connection())
   {
@@ -1927,18 +1375,16 @@ uint64_t _create_bag(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
 
     else
     {
-      v9 = 3758097090;
+      return 3758097090;
     }
   }
 
   else
   {
-    v20 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v22, v23, v24, v25, v26, v27, v28, ":", 190, "", "");
+    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 190, "", "");
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1966,12 +1412,10 @@ uint64_t aks_load_bag(const void *a1, int a2, _DWORD *a3)
 
   else
   {
-    v10 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v11, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v12, v13, v14, v15, v16, v17, v18, ":", 607, "", "");
+    fprintf(v9, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v10, v11, v12, v13, v14, v15, v16, ":", 607, "", "");
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1991,9 +1435,8 @@ uint64_t aks_invalidate_bag(const void *a1, int a2)
 
   else
   {
-    v9 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v10, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v11, v12, v13, v14, v15, v16, v17, ":", 629, "", "");
+    fprintf(v9, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v10, v11, v12, v13, v14, v15, v16, ":", 629, "", "");
   }
 
   return v2;
@@ -2016,10 +1459,10 @@ void aks_save_bag()
     {
       if (v0)
       {
-        OUTLINED_FUNCTION_34((v2 + 6), v10, v11, v12, v13, v14, v15, v16, v29, v30, v31, v32, v33, v34, v35);
+        OUTLINED_FUNCTION_34((v2 + 6), v10, v11, v12, v13, v14, v15, v16, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, __count, v40);
         __count = v3;
-        v38 = v8;
-        if (!OUTLINED_FUNCTION_3_2(v17, 3u, &v38, v18, v19, v20, v21, v22, v4, &__count))
+        v40 = v8;
+        if (!OUTLINED_FUNCTION_3_2(v17, 3u, &v40, v18, v19, v20, v21, v22, v4, &__count))
         {
           v23 = calloc(__count, 1uLL);
           *v1 = v23;
@@ -2035,14 +1478,11 @@ void aks_save_bag()
 
   else
   {
-    v26 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v27, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v28, v31, v32, v33, v34, v35, v36, ":", 679, "", "");
+    fprintf(v24, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v25, v28, v29, v30, v31, v32, v33, ":", 679, "", "");
     OUTLINED_FUNCTION_14_1();
   }
 
-  v24 = *(v5 - 72);
-  v25 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_61();
   OUTLINED_FUNCTION_73();
 }
@@ -2051,47 +1491,45 @@ uint64_t aks_get_bag_uuid()
 {
   OUTLINED_FUNCTION_25();
   OUTLINED_FUNCTION_9_1(*MEMORY[0x277D85DE8]);
-  v20 = 16;
+  v18 = 16;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     if (v1)
     {
-      v22 = 0uLL;
-      v21 = v2;
-      v0 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x17u, &v21, v4, v5, v6, v7, v8, &v22, &v20);
+      v20 = 0uLL;
+      v19 = v2;
+      v0 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x17u, &v19, v4, v5, v6, v7, v8, &v20, &v18);
       if (!v0)
       {
-        *v1 = v22;
+        *v1 = v20;
       }
     }
 
     else
     {
-      v0 = (v0 + 6);
+      return (v0 + 6);
     }
   }
 
   else
   {
-    v11 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v12, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v13, v14, v15, v16, v17, v18, v19, ":", 782, "", "");
+    fprintf(v10, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v11, v12, v13, v14, v15, v16, v17, ":", 782, "", "");
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t aks_copy_volume_cookie_persona(int a1, uint64_t a2, void **a3, size_t *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_62();
-  v53 = 0;
+  v51 = 0;
   memset(__src, 0, sizeof(__src));
-  v49 = 0;
+  v47 = 0;
   __count = 34;
-  HIDWORD(v47) = 0;
+  HIDWORD(v45) = 0;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
@@ -2099,12 +1537,12 @@ uint64_t aks_copy_volume_cookie_persona(int a1, uint64_t a2, void **a3, size_t *
     if (a3 && a4)
     {
       v18 = aks_client_connection;
-      v51 = a1;
-      v19 = OUTLINED_FUNCTION_65(aks_client_connection, v10, v11, v12, v13, v14, v15, v16, a2, 16, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, 0);
-      aks_pack_data(v19, v20, 1, v21, v22, v23, v24, v25, v36);
-      if (v49)
+      v49 = a1;
+      v19 = OUTLINED_FUNCTION_65(aks_client_connection, v10, v11, v12, v13, v14, v15, v16, a2, 16, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, 0);
+      aks_pack_data(v19, v20, 1, v21, v22, v23, v24, v25, v34);
+      if (v47)
       {
-        v29 = OUTLINED_FUNCTION_23(v18, 0x44u, &v51, v26, v49, v48, v27, v28, __src, &__count);
+        v29 = OUTLINED_FUNCTION_23(v18, 0x44u, &v49, v26, v47, v46, v27, v28, __src, &__count);
         if (v29)
         {
           v17 = v29;
@@ -2132,14 +1570,12 @@ uint64_t aks_copy_volume_cookie_persona(int a1, uint64_t a2, void **a3, size_t *
 
   else
   {
-    v33 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v34, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v35, v37, v38, v39, v40, v41, v42, ":", 813, "", "");
+    fprintf(v32, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v33, v35, v36, v37, v38, v39, v40, ":", 813, "", "");
     v17 = (v4 - 1);
   }
 
-  free(v49);
-  v31 = *MEMORY[0x277D85DE8];
+  free(v47);
   return v17;
 }
 
@@ -2153,7 +1589,7 @@ uint64_t aks_get_lock_state()
     {
       OUTLINED_FUNCTION_8_1();
       OUTLINED_FUNCTION_4_4();
-      v0 = IOConnectCallMethod(v2, v3, v4, v5, v6, v7, v8, v9, v15, v16);
+      v0 = IOConnectCallMethod(v2, v3, v4, v5, v6, v7, v8, v9, v13, v14);
       if (!v0)
       {
         OUTLINED_FUNCTION_55();
@@ -2162,18 +1598,16 @@ uint64_t aks_get_lock_state()
 
     else
     {
-      v0 = (v0 + 6);
+      return (v0 + 6);
     }
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v17, v18, v19, v20, v21, v22, ":", 889, "", "");
+    fprintf(v11, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v12, v15, v16, v17, v18, v19, v20, ":", 889, "", "");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -2190,13 +1624,13 @@ uint64_t aks_unwrap_key(const void *a1, int a2, int a3, int a4, void *a5, int *a
       {
         if (a6)
         {
-          v28[0] = a4;
-          v28[1] = a3;
-          v27 = *a6;
-          v6 = OUTLINED_FUNCTION_7_1(aks_client_connection, 0xBu, v28, 2u, a1, a2, v14, v15, a5, &v27);
+          v26[0] = a4;
+          v26[1] = a3;
+          v25 = *a6;
+          v6 = OUTLINED_FUNCTION_7_1(aks_client_connection, 0xBu, v26, 2u, a1, a2, v14, v15, a5, &v25);
           if (!v6)
           {
-            *a6 = v27;
+            *a6 = v25;
           }
         }
       }
@@ -2205,12 +1639,10 @@ uint64_t aks_unwrap_key(const void *a1, int a2, int a3, int a4, void *a5, int *a
 
   else
   {
-    v18 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 942, "", "");
+    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 942, "", "");
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2232,18 +1664,16 @@ uint64_t aks_get_system()
 
     else
     {
-      v0 = (v0 + 6);
+      return (v0 + 6);
     }
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v15, v16, v17, v18, v19, v20, ":", 987, "", "");
+    fprintf(v11, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v12, v13, v14, v15, v16, v17, v18, ":", 987, "", "");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -2257,22 +1687,22 @@ void _aks_backup_enable_volume()
   v9 = v8;
   v11 = v10;
   v12 = v1;
-  v38 = *MEMORY[0x277D85DE8];
-  v35 = 0;
-  v34 = 0;
+  v36 = *MEMORY[0x277D85DE8];
+  v33 = 0;
+  v32 = 0;
   bzero(__src, 0x8000uLL);
   __count = 0x8000;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v19 = aks_client_connection;
-    v36[0] = v11;
-    v36[1] = v9;
-    v36[2] = v7;
-    aks_pack_data(&v35, &v34, 1, v14, v15, v16, v17, v18, v12);
-    if (v35)
+    v34[0] = v11;
+    v34[1] = v9;
+    v34[2] = v7;
+    aks_pack_data(&v33, &v32, 1, v14, v15, v16, v17, v18, v12);
+    if (v33)
     {
-      if (!OUTLINED_FUNCTION_7_1(v19, 0x6Eu, v36, 3u, v35, v34, v20, v21, __src, &__count))
+      if (!OUTLINED_FUNCTION_7_1(v19, 0x6Eu, v34, 3u, v33, v32, v20, v21, __src, &__count))
       {
         v22 = calloc(__count, 1uLL);
         *v5 = v22;
@@ -2287,13 +1717,11 @@ void _aks_backup_enable_volume()
 
   else
   {
-    v24 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v25, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v26, v27, v28, v29, v30, v31, v32, ":", 1101, "", "");
+    fprintf(v23, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v24, v25, v26, v27, v28, v29, v30, ":", 1101, "", "");
   }
 
-  free(v35);
-  v23 = *MEMORY[0x277D85DE8];
+  free(v33);
   OUTLINED_FUNCTION_64();
   OUTLINED_FUNCTION_4_3();
 }
@@ -2301,18 +1729,18 @@ void _aks_backup_enable_volume()
 uint64_t aks_backup_disable_volume()
 {
   OUTLINED_FUNCTION_12_0();
-  v25 = 0;
   v24 = 0;
+  v23 = 0;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v2 = aks_client_connection;
     OUTLINED_FUNCTION_63();
-    aks_pack_data(&v25, &v24, 1, v3, v4, v5, v6, v7, v17);
-    if (v25)
+    aks_pack_data(&v24, &v23, 1, v3, v4, v5, v6, v7, v16);
+    if (v24)
     {
-      v0 = OUTLINED_FUNCTION_16_0(v2, 0x6Fu, v8, v9, v25, v24, v10, v11, 0, 0);
-      v12 = v25;
+      v0 = OUTLINED_FUNCTION_16_0(v2, 0x6Fu, v8, v9, v24, v23, v10, v11, 0, 0);
+      v12 = v24;
     }
 
     else
@@ -2323,9 +1751,8 @@ uint64_t aks_backup_disable_volume()
 
   else
   {
-    v14 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v18, v19, v20, v21, v22, v23, ":", 1143, "", "");
+    fprintf(v14, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v15, v17, v18, v19, v20, v21, v22, ":", 1143, "", "");
     v12 = 0;
   }
 
@@ -2336,18 +1763,18 @@ uint64_t aks_backup_disable_volume()
 uint64_t aks_backup_copy_current_bag_uuid(uint64_t a1, void *a2)
 {
   OUTLINED_FUNCTION_12_0();
-  v29 = 0;
   v28 = 0;
-  v27 = 16;
+  v27 = 0;
+  v26 = 16;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v11 = aks_client_connection;
-    aks_pack_data(&v29, &v28, 1, v6, v7, v8, v9, v10, a1);
-    if (v29)
+    aks_pack_data(&v28, &v27, 1, v6, v7, v8, v9, v10, a1);
+    if (v28)
     {
-      v2 = OUTLINED_FUNCTION_16_0(v11, 0x70u, v12, v13, v29, v28, v14, v15, a2, &v27);
-      v16 = v29;
+      v2 = OUTLINED_FUNCTION_16_0(v11, 0x70u, v12, v13, v28, v27, v14, v15, a2, &v26);
+      v16 = v28;
     }
 
     else
@@ -2358,9 +1785,8 @@ uint64_t aks_backup_copy_current_bag_uuid(uint64_t a1, void *a2)
 
   else
   {
-    v18 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 1165, "", "");
+    fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v20, v21, v22, v23, v24, v25, ":", 1165, "", "");
     v16 = 0;
   }
 
@@ -2368,16 +1794,16 @@ uint64_t aks_backup_copy_current_bag_uuid(uint64_t a1, void *a2)
   return v2;
 }
 
-uint64_t aks_backup_unwrap_bag(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5)
+uint64_t aks_backup_unwrap_bag(unint64_t a1, uint64_t a2, int a3, int a4, _OWORD *a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v25 = 0u;
-  v26 = 0u;
-  __s = 0u;
+  v26 = *MEMORY[0x277D85DE8];
   v24 = 0u;
-  v22 = 0;
-  memset(v21, 0, sizeof(v21));
-  v8 = decode_backup_bag(a1, a2, v21);
+  v25 = 0u;
+  __s = 0u;
+  v23 = 0u;
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
+  v8 = decode_backup_bag(a1, a2, v20);
   if (v8)
   {
     v16 = v8;
@@ -2385,49 +1811,45 @@ uint64_t aks_backup_unwrap_bag(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
 
   else
   {
-    v8 = unwrap_backup_bag(v21, a3, a4, &__s, v12, v13, v14, v15);
+    v8 = unwrap_backup_bag(v20, a3, a4, &__s, v12, v13, v14, v15);
     v16 = v8;
     if (!v8)
     {
-      v17 = v24;
+      v17 = v23;
       *a5 = __s;
       a5[1] = v17;
-      v18 = v26;
-      a5[2] = v25;
+      v18 = v25;
+      a5[2] = v24;
       a5[3] = v18;
     }
   }
 
-  OUTLINED_FUNCTION_68(v8, v9, v10, v11, v12, v13, v14, v15, *&v21[0]);
+  OUTLINED_FUNCTION_68(v8, v9, v10, v11, v12, v13, v14, v15, *&v20[0]);
   memset_s(&__s, 0x40uLL, 0, 0x40uLL);
-  result = err_sks_to_aks(v16);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return err_sks_to_aks(v16);
 }
 
-uint64_t aks_backup_copy_bag_uuid(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+uint64_t aks_backup_copy_bag_uuid(unint64_t a1, uint64_t a2, unsigned __int8 *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
-  v4 = decode_backup_bag(a1, a2, v15);
+  v16 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
+  v4 = decode_backup_bag(a1, a2, v14);
   v12 = v4;
   if (!v4)
   {
-    uuid_copy(a3, v15 + 8);
+    uuid_copy(a3, v14 + 8);
   }
 
-  OUTLINED_FUNCTION_68(v4, v5, v6, v7, v8, v9, v10, v11, *&v15[0]);
-  result = err_sks_to_aks(v12);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  OUTLINED_FUNCTION_68(v4, v5, v6, v7, v8, v9, v10, v11, *&v14[0]);
+  return err_sks_to_aks(v12);
 }
 
 uint64_t aks_kc_backup_unwrap_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, size_t *a5)
 {
   OUTLINED_FUNCTION_42();
   v10 = v9;
-  v27[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_0();
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
@@ -2435,20 +1857,18 @@ uint64_t aks_kc_backup_unwrap_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     v5 = (v5 + 6);
     if (v6 && v7)
     {
-      v27[0] = v10;
-      v27[1] = 64;
-      v5 = OUTLINED_FUNCTION_19(aks_client_connection, 0x82u, v27, 2u, v12, v13, v14, v15, v7, a5);
+      v25[0] = v10;
+      v25[1] = 64;
+      return OUTLINED_FUNCTION_19(aks_client_connection, 0x82u, v25, 2u, v12, v13, v14, v15, v7, a5);
     }
   }
 
   else
   {
-    v18 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 1292, "", "");
+    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 1292, "", "");
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2456,7 +1876,7 @@ uint64_t aks_kc_backup_wrap_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
 {
   OUTLINED_FUNCTION_42();
   v10 = v9;
-  v27[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_0();
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
@@ -2464,19 +1884,17 @@ uint64_t aks_kc_backup_wrap_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     v5 = (v5 + 6);
     if (v6 && v7)
     {
-      v27[0] = v10;
-      v5 = OUTLINED_FUNCTION_19(aks_client_connection, 0x81u, v27, 1u, v12, v13, v14, v15, v7, a5);
+      v25[0] = v10;
+      return OUTLINED_FUNCTION_19(aks_client_connection, 0x81u, v25, 1u, v12, v13, v14, v15, v7, a5);
     }
   }
 
   else
   {
-    v18 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 1311, "", "");
+    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 1311, "", "");
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2490,7 +1908,7 @@ uint64_t aks_kc_backup_get_handle()
     {
       OUTLINED_FUNCTION_8_1();
       OUTLINED_FUNCTION_4_4();
-      v0 = IOConnectCallMethod(v2, v3, v4, v5, v6, v7, v8, v9, v15, v16);
+      v0 = IOConnectCallMethod(v2, v3, v4, v5, v6, v7, v8, v9, v13, v14);
       if (!v0)
       {
         OUTLINED_FUNCTION_55();
@@ -2499,18 +1917,16 @@ uint64_t aks_kc_backup_get_handle()
 
     else
     {
-      v0 = (v0 + 6);
+      return (v0 + 6);
     }
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v17, v18, v19, v20, v21, v22, ":", 1330, "", "");
+    fprintf(v11, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v12, v15, v16, v17, v18, v19, v20, ":", 1330, "", "");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -2523,42 +1939,40 @@ uint64_t aks_kc_backup_get_uuid()
   {
     if (v1)
     {
-      v23 = 0;
-      v24 = v2;
-      v21 = 16;
+      v21 = 0;
+      v22 = v2;
+      v19 = 16;
       *src = 0;
-      v9 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x84u, &v24, v4, v5, v6, v7, v8, src, &v21);
+      v9 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x84u, &v22, v4, v5, v6, v7, v8, src, &v19);
       if (v9)
       {
-        v0 = v9;
+        return v9;
       }
 
-      else if (v21 == 16)
+      else if (v19 == 16)
       {
         uuid_copy(v1, src);
-        v0 = 0;
+        return 0;
       }
 
       else
       {
-        v0 = 3758604298;
+        return 3758604298;
       }
     }
 
     else
     {
-      v0 = (v0 + 6);
+      return (v0 + 6);
     }
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v15, v16, v17, v18, v19, v20, ":", 1352, "", "");
+    fprintf(v11, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v12, v13, v14, v15, v16, v17, v18, ":", 1352, "", "");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -2570,65 +1984,60 @@ uint64_t aks_kc_backup_open_keybag(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     v10 = v9;
     *a5 = -1;
     v15 = aks_backup_unwrap_bag(v9, v11, v12, v13, v14);
-    v16 = MEMORY[0x277D85E08];
-    v17 = *MEMORY[0x277D85E08];
     if (!v15)
     {
       OUTLINED_FUNCTION_0_9();
-      fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Unwrapped DER backup bag%s\n", "aks", v19, v38, v39, v41, v43, v45, v47, ":", 1401, "", "");
-      v20 = 0;
+      fprintf(v16, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Unwrapped DER backup bag%s\n", "aks", v17, v32, v33, v35, v37, v39, v41, ":", 1401, "", "");
+      v18 = 0;
       goto LABEL_9;
     }
 
-    v51 = v15;
+    v45 = v15;
     OUTLINED_FUNCTION_12_1();
-    fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to unwrap backup bag as DER: 0x%08x%s\n", "aks", "", v22, v39, v41, v43, v45, v47, v49, 1389, "", v51, "");
+    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to unwrap backup bag as DER: 0x%08x%s\n", "aks", "", v20, v33, v35, v37, v39, v41, v43, 1389, "", v45, "");
     bag = aks_load_bag(v10, v7, a5);
     if (bag)
     {
-      v20 = bag;
-      v32 = *v16;
+      v18 = bag;
+      v46 = bag;
       OUTLINED_FUNCTION_12_1();
-      fprintf(v33, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to load in-kernel backup bag: 0x%08x%s\n", "aks", "", v34, v40, v42, v44, v46, v48, v50, 1391, "", v20, "");
+      fprintf(v28, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to load in-kernel backup bag: 0x%08x%s\n", "aks", "", v29, v34, v36, v38, v40, v42, v44, 1391, "", v46, "");
     }
 
     else
     {
-      v24 = *a5;
       aks_prederived_is_enabled();
-      v26 = v25;
-      v27 = *a5;
-      if (v26)
+      v23 = v22;
+      v24 = *a5;
+      if (v23)
       {
-        v20 = aks_prederived_unlock_keybag(v27, v6, v5, 0);
-        if (!v20)
+        v18 = aks_prederived_unlock_keybag(v24, v6, v5, 0);
+        if (!v18)
         {
           goto LABEL_9;
         }
 
-        v35 = *v16;
         OUTLINED_FUNCTION_12_1();
-        fprintf(v36, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to unlock in-kernel backup bag with prederived secret: 0x%08x%s\n", "aks", "", v37);
+        fprintf(v30, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to unlock in-kernel backup bag with prederived secret: 0x%08x%s\n", "aks", "", v31);
       }
 
       else
       {
-        v20 = _aks_unlock_bag(v27, v6, v5, 0);
-        if (!v20)
+        v18 = _aks_unlock_bag(v24, v6, v5, 0);
+        if (!v18)
         {
           goto LABEL_9;
         }
 
-        v28 = *v16;
         OUTLINED_FUNCTION_12_1();
-        fprintf(v29, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to unlock in-kernel backup bag: 0x%08x%s\n", "aks", "", v30);
+        fprintf(v25, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s Failed to unlock in-kernel backup bag: 0x%08x%s\n", "aks", "", v26);
       }
     }
   }
 
   else
   {
-    v20 = 3758097090;
+    v18 = 3758097090;
   }
 
   if (*a5 != -1)
@@ -2639,28 +2048,28 @@ uint64_t aks_kc_backup_open_keybag(uint64_t a1, uint64_t a2, uint64_t a3, uint64
 
 LABEL_9:
   aks_prederived_free(0);
-  return v20;
+  return v18;
 }
 
 uint64_t aks_keybag_persona_create(int a1, uint64_t a2, uint64_t a3)
 {
-  v31[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_0();
-  v30 = 0;
-  v29 = 0;
+  v28 = 0;
+  v27 = 0;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v8 = aks_client_connection;
-    v31[0] = a1;
-    v31[1] = a2;
-    v31[2] = a3;
+    v29[0] = a1;
+    v29[1] = a2;
+    v29[2] = a3;
     OUTLINED_FUNCTION_63();
-    aks_pack_data(&v30, &v29, 1, v9, v10, v11, v12, v13, v22);
-    if (v30)
+    aks_pack_data(&v28, &v27, 1, v9, v10, v11, v12, v13, v20);
+    if (v28)
     {
-      v3 = OUTLINED_FUNCTION_7_1(v8, 0x60u, v31, 3u, v30, v29, v14, v15, 0, 0);
-      v16 = v30;
+      v3 = OUTLINED_FUNCTION_7_1(v8, 0x60u, v29, 3u, v28, v27, v14, v15, 0, 0);
+      v16 = v28;
     }
 
     else
@@ -2671,36 +2080,34 @@ uint64_t aks_keybag_persona_create(int a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v19 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v20, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v21, v23, v24, v25, v26, v27, v28, ":", 1423, "", "");
+    fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v21, v22, v23, v24, v25, v26, ":", 1423, "", "");
     v16 = 0;
   }
 
   free(v16);
-  v17 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t aks_keybag_persona_create_with_flags(int a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   OUTLINED_FUNCTION_6_0(*MEMORY[0x277D85DE8]);
-  v33 = 0;
-  v32 = 0;
+  v31 = 0;
+  v30 = 0;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v11 = aks_client_connection;
-    v34[0] = a1;
-    v34[1] = a2;
-    v34[2] = a3;
-    v34[3] = a5;
+    v32[0] = a1;
+    v32[1] = a2;
+    v32[2] = a3;
+    v32[3] = a5;
     OUTLINED_FUNCTION_63();
-    aks_pack_data(&v33, &v32, 1, v12, v13, v14, v15, v16, v25);
-    if (v33)
+    aks_pack_data(&v31, &v30, 1, v12, v13, v14, v15, v16, v23);
+    if (v31)
     {
-      v5 = OUTLINED_FUNCTION_7_1(v11, 0x75u, v34, 4u, v33, v32, v17, v18, 0, 0);
-      v19 = v33;
+      v5 = OUTLINED_FUNCTION_7_1(v11, 0x75u, v32, 4u, v31, v30, v17, v18, 0, 0);
+      v19 = v31;
     }
 
     else
@@ -2711,14 +2118,12 @@ uint64_t aks_keybag_persona_create_with_flags(int a1, uint64_t a2, uint64_t a3, 
 
   else
   {
-    v22 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v23, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v24, v26, v27, v28, v29, v30, v31, ":", 1445, "", "");
+    fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v22, v24, v25, v26, v27, v28, v29, ":", 1445, "", "");
     v19 = 0;
   }
 
   free(v19);
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2730,14 +2135,14 @@ uint64_t aks_keybag_persona_list(uint64_t a1)
   OUTLINED_FUNCTION_43(*MEMORY[0x277D85DE8]);
   bzero(__src, 0x2000uLL);
   __count = 0x2000;
-  v28 = v2;
+  v26 = v2;
   v6 = (v3 + 6);
   if (v1 && v5)
   {
     aks_client_connection = get_aks_client_connection();
     if (aks_client_connection)
     {
-      v13 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x61u, &v28, v8, v9, v10, v11, v12, __src, &__count);
+      v13 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x61u, &v26, v8, v9, v10, v11, v12, __src, &__count);
       if (v13)
       {
         v6 = v13;
@@ -2771,35 +2176,33 @@ uint64_t aks_keybag_persona_list(uint64_t a1)
 
     else
     {
-      v18 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 1471, "", "");
+      fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 1471, "", "");
       OUTLINED_FUNCTION_32();
     }
   }
 
 LABEL_10:
   memset_s(__src, 0x2000uLL, 0, 0x2000uLL);
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t aks_keybag_persona_delete(int a1)
 {
   OUTLINED_FUNCTION_9_1(*MEMORY[0x277D85DE8]);
-  v27 = 0;
-  v26 = 0;
+  v25 = 0;
+  v24 = 0;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v4 = aks_client_connection;
-    v28 = a1;
+    v26 = a1;
     OUTLINED_FUNCTION_63();
-    aks_pack_data(&v27, &v26, 1, v5, v6, v7, v8, v9, v19);
-    if (v27)
+    aks_pack_data(&v25, &v24, 1, v5, v6, v7, v8, v9, v17);
+    if (v25)
     {
-      v1 = OUTLINED_FUNCTION_23(v4, 0x62u, &v28, v10, v27, v26, v11, v12, 0, 0);
-      v13 = v27;
+      v1 = OUTLINED_FUNCTION_23(v4, 0x62u, &v26, v10, v25, v24, v11, v12, 0, 0);
+      v13 = v25;
     }
 
     else
@@ -2810,85 +2213,64 @@ uint64_t aks_keybag_persona_delete(int a1)
 
   else
   {
-    v16 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v20, v21, v22, v23, v24, v25, ":", 1493, "", "");
+    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v18, v19, v20, v21, v22, v23, ":", 1493, "", "");
     v13 = 0;
   }
 
   free(v13);
-  v14 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
-uint64_t _aks_set_configuration(int a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t _aks_set_configuration(int a1, uint64_t a2, int a3, int a4)
 {
-  v64[4] = *MEMORY[0x277D85DE8];
-  v64[0] = 0;
+  v59[4] = *MEMORY[0x277D85DE8];
+  v59[0] = 0;
   OUTLINED_FUNCTION_33();
-  v62 = 0;
+  v57 = 0;
   __n = 0;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    v9 = aks_client_connection;
+    v8 = aks_client_connection;
     CFNumberGetTypeID();
-    v10 = OUTLINED_FUNCTION_22();
-    if (!_copy_cf_key(v10, v11, v12))
+    v9 = OUTLINED_FUNCTION_22();
+    if (!_copy_cf_key(v9, v10, v11))
     {
       CFNumberGetTypeID();
-      v13 = OUTLINED_FUNCTION_22();
-      if (!_copy_cf_key(v13, v14, v15))
+      v12 = OUTLINED_FUNCTION_22();
+      if (!_copy_cf_key(v12, v13, v14))
       {
         CFNumberGetTypeID();
-        v16 = OUTLINED_FUNCTION_22();
-        if (!_copy_cf_key(v16, v17, v18))
+        v15 = OUTLINED_FUNCTION_22();
+        if (!_copy_cf_key(v15, v16, v17))
         {
           CFNumberGetTypeID();
-          v19 = OUTLINED_FUNCTION_22();
-          if (!_copy_cf_key(v19, @"EscrowPasscodePeriod", v20))
+          v18 = OUTLINED_FUNCTION_22();
+          if (!_copy_cf_key(v18, @"EscrowPasscodePeriod", v19))
           {
             CFNumberGetTypeID();
-            v21 = OUTLINED_FUNCTION_22();
-            if (!_copy_cf_key(v21, @"EscrowTokenPeriod", v22))
+            v20 = OUTLINED_FUNCTION_22();
+            if (!_copy_cf_key(v20, @"EscrowTokenPeriod", v21))
             {
               CFDataGetTypeID();
-              v23 = OUTLINED_FUNCTION_22();
-              if (!_copy_cf_key(v23, v24, v25))
+              v22 = OUTLINED_FUNCTION_22();
+              if (!_copy_cf_key(v22, v23, v24))
               {
                 CFDataGetTypeID();
-                v26 = OUTLINED_FUNCTION_22();
-                if (!_copy_cf_key(v26, v27, v28))
+                v25 = OUTLINED_FUNCTION_22();
+                if (!_copy_cf_key(v25, v26, v27))
                 {
                   CFBooleanGetTypeID();
-                  v29 = OUTLINED_FUNCTION_22();
-                  if (!_copy_cf_key(v29, v30, v31))
+                  v28 = OUTLINED_FUNCTION_22();
+                  if (!_copy_cf_key(v28, v29, v30))
                   {
                     CFBooleanGetTypeID();
-                    v32 = OUTLINED_FUNCTION_22();
-                    if (!_copy_cf_key(v32, v33, v34) && !encode_list_is_empty(&v62))
+                    v31 = OUTLINED_FUNCTION_22();
+                    if (!_copy_cf_key(v31, v32, v33) && !encode_list_is_empty(&v57) && (!a2 || !encode_list_add_data()) && !encode_list_dict(&v57, v59, &__n))
                     {
-                      if (!a2)
-                      {
-                        goto LABEL_24;
-                      }
-
-                      v35 = &der_key_acm_handle;
-                      if (!a4)
-                      {
-                        v35 = &der_key_passcode;
-                      }
-
-                      v36 = *v35;
-                      if (!encode_list_add_data())
-                      {
-LABEL_24:
-                        if (!encode_list_dict(&v62, v64, &__n))
-                        {
-                          OUTLINED_FUNCTION_39(a1, v47, v49, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, __n);
-                          v4 = OUTLINED_FUNCTION_1_4(v9, 0x1Eu, v37, 3u, v38, v39, v40, v41, v48, v50);
-                        }
-                      }
+                      OUTLINED_FUNCTION_39(a1, v42, v44, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, __n);
+                      v4 = OUTLINED_FUNCTION_1_4(v8, 0x1Eu, v34, 3u, v35, v36, v37, v38, v43, v45);
                     }
                   }
                 }
@@ -2902,20 +2284,18 @@ LABEL_24:
 
   else
   {
-    v44 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v45, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v46, v51, v52, v53, v54, v55, v56, ":", 1587, "", "");
+    fprintf(v40, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v41, v46, v47, v48, v49, v50, v51, ":", 1587, "", "");
     v4 = (v4 - 6);
   }
 
-  encode_list_free(&v62);
-  if (v64[0])
+  encode_list_free(&v57);
+  if (v59[0])
   {
-    OUTLINED_FUNCTION_37(v64[0], __n);
-    free(v64[0]);
+    OUTLINED_FUNCTION_37(v59[0], __n);
+    free(v59[0]);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2925,7 +2305,7 @@ void aks_get_configuration()
   v1 = MEMORY[0x28223BE20](v0);
   v3 = v2;
   v4 = v1;
-  v91 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_0();
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
@@ -2933,129 +2313,127 @@ void aks_get_configuration()
     if (v3)
     {
       v6 = aks_client_connection;
-      bzero(v90, 0x8000uLL);
-      v87[0] = 0x8000;
-      v89 = v4;
-      if (!OUTLINED_FUNCTION_3_2(v6, 0x1Fu, &v89, v7, v8, v9, v10, v11, v90, v87) && v87[0] <= 0x8000)
+      bzero(v103, 0x8000uLL);
+      v100[0] = 0x8000;
+      v102 = v4;
+      if (!OUTLINED_FUNCTION_3_2(v6, 0x1Fu, &v102, v7, v8, v9, v10, v11, v103, v100) && v100[0] <= 0x8000)
       {
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        bzero(v88, 0x250uLL);
-        v87[1] = der_key_config_graceperiod;
-        v88[4] = der_key_config_backoff_delay;
-        v88[9] = der_key_config_max_unlock_attempts;
-        v88[14] = der_key_config_escrow_passcode_period;
-        v88[19] = der_key_config_escrow_token_period;
-        v88[24] = der_key_config_flags;
-        v88[29] = der_key_config_user_uuid;
-        v88[34] = der_key_config_group_uuid;
-        v88[39] = der_key_config_recovery_iterations;
-        v88[44] = der_key_config_recovery_params;
-        v88[49] = der_key_config_recovery_target_iterations;
-        v88[54] = der_key_memento_supported;
-        v88[59] = der_key_memento_blob_exists;
-        v88[64] = der_key_config_memento_passcode_generation;
-        v88[69] = der_key_config_passcode_generation;
+        bzero(v101, 0x250uLL);
+        v100[1] = der_key_config_graceperiod;
+        v101[4] = der_key_config_backoff_delay;
+        v101[9] = der_key_config_max_unlock_attempts;
+        v101[14] = der_key_config_escrow_passcode_period;
+        v101[19] = der_key_config_escrow_token_period;
+        v101[24] = der_key_config_flags;
+        v101[29] = der_key_config_user_uuid;
+        v101[34] = der_key_config_group_uuid;
+        v101[39] = der_key_config_recovery_iterations;
+        v101[44] = der_key_config_recovery_params;
+        v101[49] = der_key_config_recovery_target_iterations;
+        v101[54] = der_key_memento_supported;
+        v101[59] = der_key_memento_blob_exists;
+        v101[64] = der_key_config_memento_passcode_generation;
+        v101[69] = der_key_config_passcode_generation;
         OUTLINED_FUNCTION_1_5();
         der_dict_iterate();
-        v13 = v88[0];
-        v14 = v88[5];
-        v15 = v88[10];
-        v16 = v88[15];
-        v86 = v3;
-        v17 = v88[20];
-        v18 = v88[25];
-        v19 = v88[30];
-        v78 = v88[35];
-        v79 = v88[40];
-        v80 = v88[45];
-        v81 = v88[50];
-        v82 = v88[55];
-        v83 = v88[60];
-        v84 = v88[65];
-        v85 = v88[70];
+        v13 = v101[0];
+        v14 = v101[5];
+        v15 = v101[10];
+        v16 = v101[15];
+        v99 = v3;
+        v17 = v101[20];
+        v18 = v101[25];
+        v19 = v101[30];
+        v91 = v101[35];
+        v92 = v101[40];
+        v93 = v101[45];
+        v94 = v101[50];
+        v95 = v101[55];
+        v96 = v101[60];
+        v97 = v101[65];
+        v98 = v101[70];
         CFNumberGetTypeID();
         v20 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v20, v21, v22, v13);
+        _set_cf_key(v20, v21, v22, v13, v23);
         CFNumberGetTypeID();
-        v23 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v23, v24, v25, v14);
+        v24 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v24, v25, v26, v14, v27);
         CFNumberGetTypeID();
-        v26 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v26, v27, v28, v15);
+        v28 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v28, v29, v30, v15, v31);
         CFNumberGetTypeID();
-        v29 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v29, @"EscrowPasscodePeriod", v30, v16);
+        v32 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v32, @"EscrowPasscodePeriod", v33, v16, v34);
         CFNumberGetTypeID();
-        v31 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v31, @"EscrowTokenPeriod", v32, v17);
+        v35 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v35, @"EscrowTokenPeriod", v36, v17, v37);
         CFNumberGetTypeID();
-        v33 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v33, v34, v35, v18);
+        v38 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v38, v39, v40, v18, v41);
         CFDataGetTypeID();
-        v36 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v36, v37, v38, v19);
-        CFDataGetTypeID();
-        v39 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v39, v40, v41, v78);
-        CFNumberGetTypeID();
         v42 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v42, v43, v44, v79);
+        _set_cf_key(v42, v43, v44, v19, v45);
+        CFDataGetTypeID();
+        v46 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v46, v47, v48, v91, v49);
         CFNumberGetTypeID();
-        v45 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v45, v46, v47, v80);
+        v50 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v50, v51, v52, v92, v53);
         CFNumberGetTypeID();
-        v48 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v48, v49, v50, v81);
-        CFBooleanGetTypeID();
-        v51 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v51, v52, v53, v82);
-        CFBooleanGetTypeID();
         v54 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v54, v55, v56, v83);
+        _set_cf_key(v54, v55, v56, v93, v57);
         CFNumberGetTypeID();
-        v57 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v57, v58, v59, v84);
+        v58 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v58, v59, v60, v94, v61);
+        CFBooleanGetTypeID();
+        v62 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v62, v63, v64, v95, v65);
+        CFBooleanGetTypeID();
+        v66 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v66, v67, v68, v96, v69);
         CFNumberGetTypeID();
-        v60 = OUTLINED_FUNCTION_13_0();
-        _set_cf_key(v60, v61, v62, v85);
+        v70 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v70, v71, v72, v97, v73);
+        CFNumberGetTypeID();
+        v74 = OUTLINED_FUNCTION_13_0();
+        _set_cf_key(v74, v75, v76, v98, v77);
         number = der_get_number();
-        v64 = *MEMORY[0x277CBED10];
-        v65 = *MEMORY[0x277CBED28];
+        v79 = *MEMORY[0x277CBED10];
+        v80 = *MEMORY[0x277CBED28];
         if ((number & 2) != 0)
         {
-          v66 = *MEMORY[0x277CBED28];
+          v81 = *MEMORY[0x277CBED28];
         }
 
         else
         {
-          v66 = *MEMORY[0x277CBED10];
+          v81 = *MEMORY[0x277CBED10];
         }
 
-        CFDictionarySetValue(Mutable, @"InactivityRebootEnabled", v66);
+        CFDictionarySetValue(Mutable, @"InactivityRebootEnabled", v81);
         if ((number & 8) != 0)
         {
-          v67 = v65;
+          v82 = v80;
         }
 
         else
         {
-          v67 = v64;
+          v82 = v79;
         }
 
-        CFDictionarySetValue(Mutable, @"OnenessAutomaticMode", v67);
-        *v86 = Mutable;
+        CFDictionarySetValue(Mutable, @"OnenessAutomaticMode", v82);
+        *v99 = Mutable;
       }
     }
   }
 
   else
   {
-    v69 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v70, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v71, v72, v73, v74, v75, v76, v77, ":", 1677, "", "");
+    fprintf(v83, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v84, v85, v86, v87, v88, v89, v90, ":", 1677, "", "");
   }
 
-  v68 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_64();
   OUTLINED_FUNCTION_4_3();
 }
@@ -3068,7 +2446,7 @@ void aks_fdr_hmac_data()
   v5 = v4;
   v7 = v6;
   v8 = v1;
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_33();
   bzero(__src, 0x8000uLL);
   __count = 0x8000;
@@ -3098,13 +2476,11 @@ void aks_fdr_hmac_data()
 
   else
   {
-    v14 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 1889, "", "");
+    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v15, v16, v17, v18, v19, v20, ":", 1889, "", "");
   }
 
   memset_s(__src, 0x8000uLL, 0, 0x8000uLL);
-  v13 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_64();
   OUTLINED_FUNCTION_69();
 }
@@ -3124,13 +2500,13 @@ uint64_t aks_create_signing_key()
       if (aks_client_connection)
       {
         v7 = aks_client_connection;
-        bzero(v39, 0x100uLL);
-        result = OUTLINED_FUNCTION_1_4(v7, 0x31u, v38, 2u, v8, v9, v10, v11, v39, &__count);
+        bzero(v37, 0x100uLL);
+        result = OUTLINED_FUNCTION_1_4(v7, 0x31u, v36, 2u, v8, v9, v10, v11, v37, &__count);
         if (!result)
         {
           if (__count > 0x100)
           {
-            result = OUTLINED_FUNCTION_58();
+            return OUTLINED_FUNCTION_58();
           }
 
           else
@@ -3139,14 +2515,14 @@ uint64_t aks_create_signing_key()
             *v5 = v12;
             if (v12)
             {
-              OUTLINED_FUNCTION_71(v12, v13, v14, v15, v16, v17, v18, v19, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, __count, v38[0], v38[1], v39[0]);
+              OUTLINED_FUNCTION_71(v12, v13, v14, v15, v16, v17, v18, v19, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, __count, v36[0], v36[1]);
               result = OUTLINED_FUNCTION_60();
               *v4 = v20;
             }
 
             else
             {
-              result = (v0 + 1);
+              return (v0 + 1);
             }
           }
         }
@@ -3154,15 +2530,13 @@ uint64_t aks_create_signing_key()
 
       else
       {
-        v22 = *MEMORY[0x277D85E08];
         OUTLINED_FUNCTION_0_9();
-        fprintf(v23, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v24, v27, v28, v29, v30, v31, v32, ":", 2020, "", "");
-        result = OUTLINED_FUNCTION_14_1();
+        fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v22, v25, v26, v27, v28, v29, v30, ":", 2020, "", "");
+        return OUTLINED_FUNCTION_14_1();
       }
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3183,9 +2557,9 @@ void aks_create_signing_key_with_params()
       if (aks_client_connection)
       {
         v7 = aks_client_connection;
-        bzero(v44, 0x8000uLL);
+        bzero(v41, 0x8000uLL);
         OUTLINED_FUNCTION_45();
-        if (!OUTLINED_FUNCTION_18_0(v7, 0x31u, v8, 2u, v9, v10, v11, v12, v27, v29))
+        if (!OUTLINED_FUNCTION_18_0(v7, 0x31u, v8, 2u, v9, v10, v11, v12, v24, v26))
         {
           if (__count > 0x8000)
           {
@@ -3198,7 +2572,7 @@ void aks_create_signing_key_with_params()
             *v5 = v13;
             if (v13)
             {
-              OUTLINED_FUNCTION_71(v13, v14, v15, v16, v17, v18, v19, v20, v28, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, __count, v42, v43, v44[0]);
+              OUTLINED_FUNCTION_71(v13, v14, v15, v16, v17, v18, v19, v20, v25, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, __count, v39, v40);
               OUTLINED_FUNCTION_60();
               *v4 = v21;
             }
@@ -3208,16 +2582,13 @@ void aks_create_signing_key_with_params()
 
       else
       {
-        v24 = *MEMORY[0x277D85E08];
         OUTLINED_FUNCTION_0_9();
-        fprintf(v25, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v26, v31, v32, v33, v34, v35, v36, ":", 2042, "", "");
+        fprintf(v22, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v23, v28, v29, v30, v31, v32, v33, ":", 2042, "", "");
         OUTLINED_FUNCTION_14_1();
       }
     }
   }
 
-  v22 = *(v0 - 72);
-  v23 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_61();
   OUTLINED_FUNCTION_73();
 }
@@ -3228,20 +2599,20 @@ uint64_t remote_session_operate(uint64_t a1)
   v3 = v2;
   v5 = v4;
   v7 = v6;
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   __count = 15360;
-  v32[0] = v1;
-  v32[1] = v8;
-  v32[2] = v9;
+  v30[0] = v1;
+  v30[1] = v8;
+  v30[2] = v9;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v11 = aks_client_connection;
     bzero(__src, 0x3C00uLL);
-    v16 = OUTLINED_FUNCTION_1_4(v11, v7, v32, 3u, v12, v13, v14, v15, __src, &__count);
+    v16 = OUTLINED_FUNCTION_1_4(v11, v7, v30, 3u, v12, v13, v14, v15, __src, &__count);
     if (v16)
     {
-      v7 = v16;
+      return v16;
     }
 
     else if (__count > 0x3C00)
@@ -3261,8 +2632,7 @@ uint64_t remote_session_operate(uint64_t a1)
           if (!v17)
           {
             OUTLINED_FUNCTION_17_0();
-            v7 = v24 | 1u;
-            goto LABEL_11;
+            return v22 | 1u;
           }
 
           memcpy(v17, __src, __count);
@@ -3282,13 +2652,10 @@ uint64_t remote_session_operate(uint64_t a1)
   else
   {
     OUTLINED_FUNCTION_32();
-    v21 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v22, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v23, v25, v26, v27, v28, v29, v30, ":", 2178, "", "");
+    fprintf(v20, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v21, v23, v24, v25, v26, v27, v28, ":", 2178, "", "");
   }
 
-LABEL_11:
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3302,25 +2669,25 @@ void aks_sign_signing_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
   v30 = v29;
   v32 = v31;
   v34 = v33;
-  v76 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   bzero(__src, 0x100uLL);
-  v72 = 0;
+  v70 = 0;
   __count = 256;
-  HIDWORD(v70) = 0;
-  v74[0] = v34;
-  v74[1] = v32;
-  v74[2] = v28;
+  HIDWORD(v68) = 0;
+  v72[0] = v34;
+  v72[1] = v32;
+  v72[2] = v28;
   if (v22 && a21)
   {
     aks_client_connection = get_aks_client_connection();
     if (aks_client_connection)
     {
       v43 = aks_client_connection;
-      v44 = OUTLINED_FUNCTION_65(aks_client_connection, v36, v37, v38, v39, v40, v41, v42, v58, v59, v26, v24, v62, v63, v64, v65, v66, v67, v68, v69, v70, 0);
+      v44 = OUTLINED_FUNCTION_65(aks_client_connection, v36, v37, v38, v39, v40, v41, v42, v56, v57, v26, v24, v60, v61, v62, v63, v64, v65, v66, v67, v68, 0);
       aks_pack_data(v44, v45, 2, v46, v47, v48, v49, v50, v30);
-      if (v72)
+      if (v70)
       {
-        if (!OUTLINED_FUNCTION_7_1(v43, 0x32u, v74, 3u, v72, v71, v51, v52, __src, &__count) && __count <= 0x100)
+        if (!OUTLINED_FUNCTION_7_1(v43, 0x32u, v72, 3u, v70, v69, v51, v52, __src, &__count) && __count <= 0x100)
         {
           v53 = calloc(__count, 1uLL);
           *v22 = v53;
@@ -3335,39 +2702,37 @@ void aks_sign_signing_key(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 
     else
     {
-      v55 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v56, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v57, v60, v61, v62, v63, v64, v65, ":", 2072, "", "");
+      fprintf(v54, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v55, v58, v59, v60, v61, v62, v63, ":", 2072, "", "");
     }
   }
 
-  free(v72);
-  v54 = *MEMORY[0x277D85DE8];
+  free(v70);
   OUTLINED_FUNCTION_4_3();
 }
 
 uint64_t aks_validate_local_key()
 {
-  v11 = 0;
-  v12 = 0;
+  v18 = 0;
+  v19 = 0;
   OUTLINED_FUNCTION_12_0();
   __n = 0;
-  v10 = 0;
+  v17 = 0;
   v3 = (v0 + 6);
-  v8 = 0;
+  v15 = 0;
   if (v1 && v2)
   {
-    *&v13 = v1;
-    *(&v13 + 1) = v1 + v2;
-    v10 = 0;
+    v20.n128_u64[0] = v1;
+    v20.n128_u64[1] = v1 + v2;
+    v17 = 0;
     OUTLINED_FUNCTION_2_3();
     if (ccder_blob_decode_range())
     {
-      der_utils_decode_implicit_uint64(&v13, 0x8000000000000001, &v10);
-      if (v10)
+      der_utils_decode_implicit_uint64(&v20, 0x8000000000000001, &v17, v4, v5, v6, v7, v8, v9, v10);
+      if (v17)
       {
         OUTLINED_FUNCTION_15_0();
-        v3 = remote_session_operate(v6);
+        v3 = remote_session_operate(v13);
         if (v3)
         {
           syslog(3, "error: validating v1 local signing key failed: %d");
@@ -3379,7 +2744,7 @@ uint64_t aks_validate_local_key()
         signing_key = aks_create_signing_key();
         if (!signing_key)
         {
-          v5 = v12;
+          v12 = v19;
           goto LABEL_10;
         }
 
@@ -3395,19 +2760,19 @@ uint64_t aks_validate_local_key()
     }
   }
 
-  v5 = v12;
+  v12 = v19;
   v0 = v3;
 LABEL_10:
-  if (v5)
+  if (v12)
   {
-    OUTLINED_FUNCTION_37(v5, __n);
-    free(v12);
+    OUTLINED_FUNCTION_37(v12, __n);
+    free(v19);
   }
 
-  if (v11)
+  if (v18)
   {
-    OUTLINED_FUNCTION_37(v11, v8);
-    free(v11);
+    OUTLINED_FUNCTION_37(v18, v15);
+    free(v18);
   }
 
   return v0;
@@ -3430,9 +2795,9 @@ void aks_drain_backup_keys()
     {
       if (v0)
       {
-        OUTLINED_FUNCTION_34((v2 + 6), v9, v10, v11, v12, v13, v14, v15, v36, v39, v42, v44, v46, v48, v50);
+        OUTLINED_FUNCTION_34((v2 + 6), v9, v10, v11, v12, v13, v14, v15, v33, v36, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, __count, v60, v61);
         OUTLINED_FUNCTION_45();
-        if (!OUTLINED_FUNCTION_1_4(v16, 0x14u, v17, 2u, v18, v19, v20, v21, v37, v40))
+        if (!OUTLINED_FUNCTION_1_4(v16, 0x14u, v17, 2u, v18, v19, v20, v21, v34, v37))
         {
           if (v3)
           {
@@ -3440,7 +2805,7 @@ void aks_drain_backup_keys()
             *v1 = v22;
             if (v22)
             {
-              OUTLINED_FUNCTION_71(v22, v23, v24, v25, v26, v27, v28, v29, v38, v41, v43, v45, v47, v49, v51, v52, v53, v54, v55, v56, v3, v7, 0, v57);
+              OUTLINED_FUNCTION_71(v22, v23, v24, v25, v26, v27, v28, v29, v35, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v3, v7, 0);
               OUTLINED_FUNCTION_60();
               *v0 = v30;
             }
@@ -3452,14 +2817,11 @@ void aks_drain_backup_keys()
 
   else
   {
-    v33 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v34, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v35, v42, v44, v46, v48, v50, v52, ":", 2233, "", "");
+    fprintf(v31, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v32, v39, v41, v43, v45, v47, v49, ":", 2233, "", "");
     OUTLINED_FUNCTION_14_1();
   }
 
-  v31 = *(v4 - 72);
-  v32 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_61();
   OUTLINED_FUNCTION_73();
 }
@@ -3481,9 +2843,9 @@ void aks_drain_backup_keys_info()
     {
       if (v0)
       {
-        OUTLINED_FUNCTION_34((v2 + 6), v9, v10, v11, v12, v13, v14, v15, v36, v39, v42, v44, v46, v48, v50);
+        OUTLINED_FUNCTION_34((v2 + 6), v9, v10, v11, v12, v13, v14, v15, v33, v36, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, __count, v60, v61);
         OUTLINED_FUNCTION_45();
-        if (!OUTLINED_FUNCTION_1_4(v16, 0x14u, v17, 2u, v18, v19, v20, v21, v37, v40))
+        if (!OUTLINED_FUNCTION_1_4(v16, 0x14u, v17, 2u, v18, v19, v20, v21, v34, v37))
         {
           if (v3)
           {
@@ -3498,7 +2860,7 @@ void aks_drain_backup_keys_info()
               *v1 = v22;
               if (v22)
               {
-                OUTLINED_FUNCTION_71(v22, v23, v24, v25, v26, v27, v28, v29, v38, v41, v43, v45, v47, v49, v51, v52, v53, v54, v55, v56, v3, v7, 1, v57);
+                OUTLINED_FUNCTION_71(v22, v23, v24, v25, v26, v27, v28, v29, v35, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v3, v7, 1);
                 OUTLINED_FUNCTION_60();
                 *v0 = v30 / 0x7C;
               }
@@ -3511,14 +2873,11 @@ void aks_drain_backup_keys_info()
 
   else
   {
-    v33 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v34, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v35, v42, v44, v46, v48, v50, v52, ":", 2261, "", "");
+    fprintf(v31, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v32, v39, v41, v43, v45, v47, v49, ":", 2261, "", "");
     OUTLINED_FUNCTION_14_1();
   }
 
-  v31 = *(v4 - 72);
-  v32 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_61();
   OUTLINED_FUNCTION_73();
 }
@@ -3533,7 +2892,7 @@ void aks_set_backup_bag()
   v9 = v8;
   v11 = v10;
   v12 = v1;
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
@@ -3559,12 +2918,12 @@ void aks_set_backup_bag()
 
     bzero(__src, 0x8000uLL);
     __count = 0x8000;
-    v35[0] = v12;
-    v35[1] = v11;
-    v35[2] = v17;
-    v35[3] = v9;
-    v35[4] = v7;
-    v22 = OUTLINED_FUNCTION_1_4(v14, 0x15u, v35, 5u, v18, v19, v20, v21, v15, p_count);
+    v33[0] = v12;
+    v33[1] = v11;
+    v33[2] = v17;
+    v33[3] = v9;
+    v33[4] = v7;
+    v22 = OUTLINED_FUNCTION_1_4(v14, 0x15u, v33, 5u, v18, v19, v20, v21, v15, p_count);
     if (v5 && !v22)
     {
       v23 = calloc(__count, 1uLL);
@@ -3584,14 +2943,12 @@ void aks_set_backup_bag()
 
   else
   {
-    v25 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v26, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v27, v28, v29, v30, v31, v32, v33, ":", 2307, "", "");
+    fprintf(v24, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v25, v26, v27, v28, v29, v30, v31, ":", 2307, "", "");
     OUTLINED_FUNCTION_14_1();
   }
 
 LABEL_10:
-  v24 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -3605,7 +2962,7 @@ uint64_t aks_make_public_backup_bag()
     {
       OUTLINED_FUNCTION_8_1();
       OUTLINED_FUNCTION_4_4();
-      v0 = IOConnectCallMethod(v2, v3, v4, v5, v6, v7, v8, v9, v15, v16);
+      v0 = IOConnectCallMethod(v2, v3, v4, v5, v6, v7, v8, v9, v13, v14);
       if (!v0)
       {
         OUTLINED_FUNCTION_55();
@@ -3614,18 +2971,16 @@ uint64_t aks_make_public_backup_bag()
 
     else
     {
-      v0 = (v0 + 6);
+      return (v0 + 6);
     }
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v17, v18, v19, v20, v21, v22, ":", 2339, "", "");
+    fprintf(v11, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v12, v15, v16, v17, v18, v19, v20, ":", 2339, "", "");
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
@@ -3634,11 +2989,11 @@ uint64_t _get_device_state(uint64_t a1)
   v1 = MEMORY[0x28223BE20](a1);
   v3 = v2;
   v5 = v4;
-  v30[1] = *MEMORY[0x277D85DE8];
-  v30[0] = v1;
-  v26 = 4096;
+  v28[1] = *MEMORY[0x277D85DE8];
+  v28[0] = v1;
+  v24 = 4096;
   v6 = 3758097084;
-  v28 = 0;
+  v26 = 0;
   memset(__src, 0, sizeof(__src));
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
@@ -3646,38 +3001,36 @@ uint64_t _get_device_state(uint64_t a1)
     if (v3)
     {
       v8 = aks_client_connection;
-      bzero(v29, 0x1000uLL);
-      v14 = OUTLINED_FUNCTION_3_2(v8, v5, v30, v9, v10, v11, v12, v13, v29, &v26);
+      bzero(v27, 0x1000uLL);
+      v14 = OUTLINED_FUNCTION_3_2(v8, v5, v28, v9, v10, v11, v12, v13, v27, &v24);
       if (v14)
       {
-        v6 = v14;
+        return v14;
       }
 
       else
       {
-        if (!decode_extended_state(v29))
+        if (!decode_extended_state(v27))
         {
           memcpy(v3, __src, 0x42uLL);
         }
 
-        v6 = 0;
+        return 0;
       }
     }
 
     else
     {
-      v6 = 3758097090;
+      return 3758097090;
     }
   }
 
   else
   {
-    v17 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v20, v21, v22, v23, v24, v25, ":", 2409, "", "");
+    fprintf(v16, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v17, v18, v19, v20, v21, v22, v23, ":", 2409, "", "");
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3687,32 +3040,30 @@ void aks_remote_peer_get_state()
   MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_47();
   OUTLINED_FUNCTION_6_0(*MEMORY[0x277D85DE8]);
-  v35 = 4096;
-  v36 = v2;
+  v33 = 4096;
+  v34 = v2;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     if (v0)
     {
       v11 = aks_client_connection;
-      v12 = OUTLINED_FUNCTION_50(aks_client_connection, v4, v5, v6, v7, v8, v9, v10, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37[0]);
+      v12 = OUTLINED_FUNCTION_50(aks_client_connection, v4, v5, v6, v7, v8, v9, v10, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35[0]);
       bzero(v12, v13);
       memset_s(v0, 0x68uLL, 0, 0x68uLL);
-      if (!OUTLINED_FUNCTION_18_0(v11, 0x39u, &v36, 1u, v14, v15, v16, v17, v37, &v35))
+      if (!OUTLINED_FUNCTION_18_0(v11, 0x39u, &v34, 1u, v14, v15, v16, v17, v35, &v33))
       {
-        decode_peer_state(v37, v35, v0);
+        decode_peer_state(v35, v33, v0);
       }
     }
   }
 
   else
   {
-    v19 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v20, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v21, v24, v25, v26, v27, v28, v29, ":", 2440, "", "");
+    fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v22, v23, v24, v25, v26, v27, ":", 2440, "", "");
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_69();
 }
@@ -3722,18 +3073,18 @@ void aks_smartcard_register()
   OUTLINED_FUNCTION_70();
   v1 = v0;
   v3 = v2;
-  v28[4] = *MEMORY[0x277D85DE8];
-  v28[0] = v4;
-  v28[1] = v5;
-  v28[2] = v6;
-  v28[3] = v7;
+  v26[4] = *MEMORY[0x277D85DE8];
+  v26[0] = v4;
+  v26[1] = v5;
+  v26[2] = v6;
+  v26[3] = v7;
   __count = 2048;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v9 = aks_client_connection;
     bzero(__src, 0x800uLL);
-    if (OUTLINED_FUNCTION_18_0(v9, 0x3Bu, v28, 4u, v10, v11, v12, v13, __src, &__count))
+    if (OUTLINED_FUNCTION_18_0(v9, 0x3Bu, v26, 4u, v10, v11, v12, v13, __src, &__count))
     {
       goto LABEL_11;
     }
@@ -3771,13 +3122,11 @@ void aks_smartcard_register()
   else
   {
     OUTLINED_FUNCTION_32();
-    v17 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v20, v21, v22, v23, v24, v25, ":", 2580, "", "");
+    fprintf(v16, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v17, v18, v19, v20, v21, v22, v23, ":", 2580, "", "");
   }
 
 LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_69();
 }
 
@@ -3788,15 +3137,15 @@ void aks_smartcard_request_unlock()
   v3 = v2;
   v5 = v4;
   v7 = v6;
-  v27[1] = *MEMORY[0x277D85DE8];
-  v27[0] = v8;
+  v25[1] = *MEMORY[0x277D85DE8];
+  v25[0] = v8;
   __count = 2048;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v10 = aks_client_connection;
     bzero(__src, 0x800uLL);
-    if (!OUTLINED_FUNCTION_7_1(v10, 0x3Du, v27, 1u, v7, v5, v11, v12, __src, &__count) && __count <= 0x800 && v3 && v1)
+    if (!OUTLINED_FUNCTION_7_1(v10, 0x3Du, v25, 1u, v7, v5, v11, v12, __src, &__count) && __count <= 0x800 && v3 && v1)
     {
       if (__count)
       {
@@ -3823,13 +3172,11 @@ void aks_smartcard_request_unlock()
 
   else
   {
-    v16 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 2621, "", "");
+    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 2621, "", "");
   }
 
 LABEL_11:
-  v15 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_69();
 }
 
@@ -3839,25 +3186,24 @@ void aks_smartcard_unlock()
   v4 = v3;
   v6 = v5;
   OUTLINED_FUNCTION_53();
-  v31[1] = *MEMORY[0x277D85DE8];
-  v31[0] = v7;
-  v29 = 0;
-  v28 = 0;
+  v29[1] = *MEMORY[0x277D85DE8];
+  v29[0] = v7;
+  v27 = 0;
+  v26 = 0;
   bzero(__src, 0x800uLL);
   __count = 2048;
-  aks_pack_data(&v29, &v28, 2, v8, v9, v10, v11, v12, v2);
-  if (v29)
+  aks_pack_data(&v27, &v26, 2, v8, v9, v10, v11, v12, v2);
+  if (v27)
   {
     aks_client_connection = get_aks_client_connection();
     if (!aks_client_connection)
     {
-      v20 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v22, v1, v0, v23, v24, v25, v26, ":", 2652, "", "");
+      fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v1, v0, v21, v22, v23, v24, ":", 2652, "", "");
       goto LABEL_12;
     }
 
-    if (OUTLINED_FUNCTION_23(aks_client_connection, 0x3Eu, v31, v14, v29, v28, v15, v16, __src, &__count))
+    if (OUTLINED_FUNCTION_23(aks_client_connection, 0x3Eu, v29, v14, v27, v26, v15, v16, __src, &__count))
     {
       goto LABEL_12;
     }
@@ -3889,8 +3235,7 @@ LABEL_11:
   }
 
 LABEL_12:
-  free(v29);
-  v19 = *MEMORY[0x277D85DE8];
+  free(v27);
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -3915,7 +3260,6 @@ uint64_t aks_smartcard_get_sc_usk(uint64_t a1, uint64_t a2, uint64_t *a3, void *
 
 uint64_t aks_smartcard_get_foo(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t *a5, void *a6)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = 0xFFFFFFFFLL;
   if (a3 && a4 && a5 && a6 && a4 >= 1)
   {
@@ -3928,28 +3272,24 @@ uint64_t aks_smartcard_get_foo(uint64_t a1, int a2, uint64_t a3, uint64_t a4, ui
         number = der_get_number();
         result = 0;
         *a5 = number;
-        goto LABEL_11;
+        return result;
       }
+
+      return 0xFFFFFFFFLL;
     }
 
-    else
+    v11 = ccder_decode_tl();
+    if (!v11)
     {
-      v11 = ccder_decode_tl();
-      if (v11)
-      {
-        v12 = v11;
-        result = 0;
-        *a5 = v12;
-        *a6 = 0;
-        goto LABEL_11;
-      }
+      return 0xFFFFFFFFLL;
     }
 
-    result = 0xFFFFFFFFLL;
+    v12 = v11;
+    result = 0;
+    *a5 = v12;
+    *a6 = 0;
   }
 
-LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4015,17 +3355,17 @@ void _aks_se_get_reset_token_for_memento_secret()
   OUTLINED_FUNCTION_70();
   v1 = MEMORY[0x28223BE20](v0);
   v3 = v2;
-  v30[4] = *MEMORY[0x277D85DE8];
-  v30[0] = v1;
-  v30[1] = v4;
-  v30[2] = v5;
-  v30[3] = v6;
-  bzero(v29, 0x1000uLL);
+  v28[4] = *MEMORY[0x277D85DE8];
+  v28[0] = v1;
+  v28[1] = v4;
+  v28[2] = v5;
+  v28[3] = v6;
+  bzero(v27, 0x1000uLL);
   __n[0] = 4096;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x48u, v30, 4u, v8, v9, v10, v11, v29, __n))
+    if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x48u, v28, 4u, v8, v9, v10, v11, v27, __n))
     {
       if (__n[0] - 4097 < 0xFFFFFFFFFFFFF000)
       {
@@ -4034,20 +3374,20 @@ void _aks_se_get_reset_token_for_memento_secret()
 
       else
       {
-        v27 = 0u;
-        v28 = 0;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0;
+        v22 = 0u;
+        v23 = 0u;
         __n[1] = der_key_config_se_reset_token;
-        v26 = der_key_config_se_slot;
+        v24 = der_key_config_se_slot;
         OUTLINED_FUNCTION_1_5();
         der_dict_iterate();
-        if (v24)
+        if (v22)
         {
           ccder_decode_tl();
         }
 
-        else if (*(&v26 + 1))
+        else if (*(&v24 + 1))
         {
           number = der_get_number();
           if (number <= 0xFF)
@@ -4062,13 +3402,11 @@ void _aks_se_get_reset_token_for_memento_secret()
   else
   {
     OUTLINED_FUNCTION_32();
-    v14 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 2923, "", "");
+    fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v15, v16, v17, v18, v19, v20, ":", 2923, "", "");
   }
 
-  OUTLINED_FUNCTION_37(v29, __n[0]);
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_37(v27, __n[0]);
   OUTLINED_FUNCTION_69();
 }
 
@@ -4079,30 +3417,30 @@ void aks_se_get_reset_sig()
   v4 = v3;
   v6 = v5;
   OUTLINED_FUNCTION_36();
-  v45 = *MEMORY[0x277D85DE8];
-  *&v44[4091] = v7;
-  OUTLINED_FUNCTION_72(v7, v8, v9, v10, v11, v12, v13, v14, v28, v30, v32, v34, v36, v38);
+  v51 = *MEMORY[0x277D85DE8];
+  *&v50[4091] = v7;
+  OUTLINED_FUNCTION_72(v7, v8, v9, v10, v11, v12, v13, v14, v26, v28, v30, v32, v34, v36, v38, v40, v42, v43, v44, v45, v46, __n);
   if (v1 && v0 && v6 && v4)
   {
     if (get_aks_client_connection())
     {
       OUTLINED_FUNCTION_48();
-      if (!OUTLINED_FUNCTION_3_2(v15, 0x5Au, &v44[4091], v16, v17, v18, v19, v20, v29, v31))
+      if (!OUTLINED_FUNCTION_3_2(v15, 0x5Au, &v50[4091], v16, v17, v18, v19, v20, v27, v29))
       {
         v21 = calloc(5uLL, 1uLL);
         *v6 = v21;
         if (v21)
         {
           *v4 = 5;
-          v22 = v42;
-          v21[4] = v43;
+          v22 = v48;
+          v21[4] = v49;
           *v21 = v22;
           v23 = calloc(0xFFBuLL, 1uLL);
           *v1 = v23;
           if (v23)
           {
             *v0 = 4091;
-            memcpy(v23, v44, 0x1000uLL);
+            memcpy(v23, v50, 0x1000uLL);
           }
         }
       }
@@ -4110,14 +3448,12 @@ void aks_se_get_reset_sig()
 
     else
     {
-      v25 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v26, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v27, v33, v35, v37, v39, v40, v41, ":", 3021, "", "");
+      fprintf(v24, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v25, v31, v33, v35, v37, v39, v41, ":", 3021, "", "");
     }
   }
 
-  OUTLINED_FUNCTION_37(&v42, 0x1000uLL);
-  v24 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_37(&v48, 0x1000uLL);
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_69();
 }
@@ -4127,16 +3463,16 @@ void aks_se_get_reset_pubkey(uint64_t a1)
   MEMORY[0x28223BE20](a1);
   v2 = v1;
   v4 = v3;
-  v39[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_51();
-  v39[0] = v5;
-  OUTLINED_FUNCTION_72(v5, v6, v7, v8, v9, v10, v11, v12, v24, v26, v28, v30, v32, v34);
+  v45[0] = v5;
+  OUTLINED_FUNCTION_72(v5, v6, v7, v8, v9, v10, v11, v12, v22, v24, v26, v28, v30, v32, v34, v36, v38, v39, v40, v41, v42, __count);
   if (v4 && v2)
   {
     if (get_aks_client_connection())
     {
       OUTLINED_FUNCTION_48();
-      if (!OUTLINED_FUNCTION_3_2(v13, 0x59u, v39, v14, v15, v16, v17, v18, v25, v27))
+      if (!OUTLINED_FUNCTION_3_2(v13, 0x59u, v45, v14, v15, v16, v17, v18, v23, v25))
       {
         v19 = calloc(0x1000uLL, 1uLL);
         *v4 = v19;
@@ -4150,21 +3486,19 @@ void aks_se_get_reset_pubkey(uint64_t a1)
 
     else
     {
-      v21 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v22, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v23, v29, v31, v33, v35, v36, v37, ":", 3053, "", "");
+      fprintf(v20, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v21, v27, v29, v31, v33, v35, v37, ":", 3053, "", "");
     }
   }
 
   memset_s(__src, 0x1000uLL, 0, 0x1000uLL);
-  v20 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_38();
 }
 
 void aks_se_get_passcode_derivation()
 {
   OUTLINED_FUNCTION_5_1();
-  v41 = v0;
+  v39 = v0;
   v2 = v1;
   v4 = v3;
   v6 = v5;
@@ -4172,45 +3506,44 @@ void aks_se_get_passcode_derivation()
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  v45 = *MEMORY[0x277D85DE8];
-  memset(v44, 0, sizeof(v44));
-  v42 = 128;
-  v15 = se_derivation_request_serialization_len();
+  v43 = *MEMORY[0x277D85DE8];
+  memset(v42, 0, sizeof(v42));
+  v40 = 128;
+  v15 = se_derivation_request_serialization_len(v9, v7, v5, v3);
   MEMORY[0x28223BE20](v15);
-  v17 = &v40 - v16;
+  v17 = &v38 - v16;
   v18 = OUTLINED_FUNCTION_49();
   bzero(v18, v19);
   if (!se_derivation_request_serialize(v12, v10, v8, v6, v4, v17, v15))
   {
-    v43[0] = v14;
-    v43[1] = v17;
-    v43[2] = v15;
+    v41[0] = v14;
+    v41[1] = v17;
+    v41[2] = v15;
     if (v2)
     {
-      v20 = v41;
-      if (v41)
+      v20 = v39;
+      if (v39)
       {
         aks_client_connection = get_aks_client_connection();
         if (aks_client_connection)
         {
-          if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x9Bu, v43, 3u, v22, v23, v24, v25, v44, &v42))
+          if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x9Bu, v41, 3u, v22, v23, v24, v25, v42, &v40))
           {
-            v26 = calloc(v42, 1uLL);
+            v26 = calloc(v40, 1uLL);
             *v2 = v26;
             if (v26)
             {
-              v27 = v42;
-              *v20 = v42;
-              memcpy(v26, v44, v27);
+              v27 = v40;
+              *v20 = v40;
+              memcpy(v26, v42, v27);
             }
           }
         }
 
         else
         {
-          v31 = *MEMORY[0x277D85E08];
           OUTLINED_FUNCTION_0_9();
-          fprintf(v32, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v33, v34, v35, v36, v37, v38, v39, ":", 3152, "", "");
+          fprintf(v30, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v31, v32, v33, v34, v35, v36, v37, ":", 3152, "", "");
           OUTLINED_FUNCTION_51();
         }
       }
@@ -4219,8 +3552,7 @@ void aks_se_get_passcode_derivation()
 
   v28 = OUTLINED_FUNCTION_49();
   memset_s(v28, v29, 0, v15);
-  OUTLINED_FUNCTION_37(v44, v42);
-  v30 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_37(v42, v40);
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -4235,24 +3567,24 @@ void aks_get_icsc_srp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   v36 = v35;
   v38 = v37;
   v40 = v39;
-  v68 = *MEMORY[0x277D85DE8];
-  v66 = 0;
-  v67 = 0;
-  v65 = v26;
+  v66 = *MEMORY[0x277D85DE8];
+  v64 = 0;
+  v65 = 0;
+  v63 = v26;
   bzero(__src, 0x4000uLL);
-  v62 = a23;
+  v60 = a23;
   __count = 0x4000;
-  v59[0] = v40;
+  v57[0] = v40;
   memset(__n, 0, sizeof(__n));
-  v59[1] = v38;
-  v59[2] = v36;
-  v59[3] = v34;
-  v59[4] = v32;
-  v59[5] = v30;
-  v59[6] = v28;
-  v60 = a21;
-  v61 = a22;
-  if (encode_icsc_params_internal(v59, &__n[1], __n) || (v66 = *&__n[1], v67 = __n[0], !a24))
+  v57[1] = v38;
+  v57[2] = v36;
+  v57[3] = v34;
+  v57[4] = v32;
+  v57[5] = v30;
+  v57[6] = v28;
+  v58 = a21;
+  v59 = a22;
+  if (encode_icsc_params_internal(v57, &__n[1], __n) || (v64 = *&__n[1], v65 = __n[0], !a24))
   {
     OUTLINED_FUNCTION_33();
   }
@@ -4265,7 +3597,7 @@ void aks_get_icsc_srp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
       aks_client_connection = get_aks_client_connection();
       if (aks_client_connection)
       {
-        if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x9Fu, &v65, 3u, v42, v43, v44, v45, __src, &__count))
+        if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x9Fu, &v63, 3u, v42, v43, v44, v45, __src, &__count))
         {
           v46 = calloc(__count, 1uLL);
           *a24 = v46;
@@ -4280,9 +3612,8 @@ void aks_get_icsc_srp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
 
       else
       {
-        v49 = *MEMORY[0x277D85E08];
         OUTLINED_FUNCTION_0_9();
-        fprintf(v50, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v51, v52, v53, v54, v55, v56, v57, ":", 3201, "", "");
+        fprintf(v48, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v49, v50, v51, v52, v53, v54, v55, ":", 3201, "", "");
       }
     }
   }
@@ -4290,7 +3621,6 @@ void aks_get_icsc_srp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   OUTLINED_FUNCTION_37(*&__n[1], __n[0]);
   free(*&__n[1]);
   OUTLINED_FUNCTION_37(__src, __count);
-  v48 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -4300,32 +3630,32 @@ void aks_fv_get_blob_state()
   v1 = MEMORY[0x28223BE20](v0);
   v3 = v2;
   v5 = v4;
-  v57 = *MEMORY[0x277D85DE8];
-  v11 = OUTLINED_FUNCTION_50(v1, v4, v2, v6, v7, v8, v9, v10, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v54, v55, v56[0]);
+  v55 = *MEMORY[0x277D85DE8];
+  v11 = OUTLINED_FUNCTION_50(v1, v4, v2, v6, v7, v8, v9, v10, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v52, v53, v54[0]);
   bzero(v11, v12);
-  v53 = v56;
-  v54 = &v57;
-  v55 = 4096;
+  v51 = v54;
+  v52 = &v55;
+  v53 = 4096;
   if (v5 && v3)
   {
     aks_client_connection = get_aks_client_connection();
     if (aks_client_connection)
     {
       v22 = aks_client_connection;
-      v13 = der_utils_encode_fv_data(&v53);
+      v13 = der_utils_encode_fv_data(&v51);
       if (v13)
       {
-        v13 = der_utils_encode_fv_params(&v53);
+        v13 = der_utils_encode_fv_params(&v51);
         if (v13)
         {
           OUTLINED_FUNCTION_2_3();
           v13 = ccder_blob_encode_tl();
           if (v13)
           {
-            v13 = OUTLINED_FUNCTION_16_0(v22, 0x55u, v15, v16, v54, &v57 - v54, v19, v20, v56, &v55);
+            v13 = OUTLINED_FUNCTION_16_0(v22, 0x55u, v15, v16, v52, &v55 - v52, v19, v20, v54, &v53);
             if (!v13)
             {
-              v13 = decode_fv_blob_state(v56);
+              v13 = decode_fv_blob_state(v54);
             }
           }
         }
@@ -4334,28 +3664,15 @@ void aks_fv_get_blob_state()
 
     else
     {
-      v26 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      v13 = fprintf(v27, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v28, v34, v36, v38, v40, v42, v44, ":", 3262, "", "");
+      v13 = fprintf(v25, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v26, v32, v34, v36, v38, v40, v42, ":", 3262, "", "");
     }
   }
 
-  v23 = OUTLINED_FUNCTION_50(v13, v14, v15, v16, v17, v18, v19, v20, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v53, v54, v55, v56[0]);
+  v23 = OUTLINED_FUNCTION_50(v13, v14, v15, v16, v17, v18, v19, v20, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v51, v52, v53, v54[0]);
   memset_s(v23, v24, 0, 0x1000uLL);
-  v25 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_38();
   OUTLINED_FUNCTION_73();
-}
-
-void aks_fv_get_last_known_gp_state(uint64_t a1)
-{
-  if (a1)
-  {
-    v2 = *(a1 + 16);
-    v1 = (*(a1 + 40) >> 64) | 0x10;
-  }
-
-  aks_fv_get_blob_state();
 }
 
 uint64_t aks_fv_get_size(uint64_t a1)
@@ -4366,10 +3683,10 @@ uint64_t aks_fv_get_size(uint64_t a1)
   v4 = 3758097098;
   output = 0;
   input[0] = v5;
-  HIDWORD(v56) = 1;
-  v11 = OUTLINED_FUNCTION_50(v1, v5, v2, v6, v7, v8, v9, v10, outputStruct, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, inputStruct, v56, v57);
+  HIDWORD(v54) = 1;
+  v11 = OUTLINED_FUNCTION_50(v1, v5, v2, v6, v7, v8, v9, v10, outputStruct, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, inputStruct, v54, v55);
   bzero(v11, v12);
-  v54 = &v57;
+  v52 = &v55;
   inputStruct = &output;
   if (v3)
   {
@@ -4377,14 +3694,14 @@ uint64_t aks_fv_get_size(uint64_t a1)
     if (aks_client_connection)
     {
       v22 = aks_client_connection;
-      v13 = der_utils_encode_fv_params(&v54);
+      v13 = der_utils_encode_fv_params(&v52);
       if (v13)
       {
         OUTLINED_FUNCTION_2_3();
         v13 = ccder_blob_encode_tl();
         if (v13)
         {
-          v13 = IOConnectCallMethod(v22, 0x4Eu, input, 1u, inputStruct, &output - inputStruct, &output, &v56 + 1, 0, 0);
+          v13 = IOConnectCallMethod(v22, 0x4Eu, input, 1u, inputStruct, &output - inputStruct, &output, &v54 + 1, 0, 0);
           v4 = v13;
           if (!v13)
           {
@@ -4396,9 +3713,8 @@ uint64_t aks_fv_get_size(uint64_t a1)
 
     else
     {
-      v27 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      v13 = fprintf(v28, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v29, v35, v37, v39, v41, v43, v45, ":", 3305, "", "");
+      v13 = fprintf(v26, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v27, v33, v35, v37, v39, v41, v43, ":", 3305, "", "");
       v4 = 3758097084;
     }
   }
@@ -4408,9 +3724,8 @@ uint64_t aks_fv_get_size(uint64_t a1)
     v4 = 3758097090;
   }
 
-  v23 = OUTLINED_FUNCTION_50(v13, v14, v15, v16, v17, v18, v19, v20, outputStructa, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v54, inputStruct, v56, v57);
+  v23 = OUTLINED_FUNCTION_50(v13, v14, v15, v16, v17, v18, v19, v20, outputStructa, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v52, inputStruct, v54, v55);
   memset_s(v23, v24, 0, 0x1000uLL);
-  v25 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -4421,12 +3736,12 @@ void aks_fv_import()
   v2 = v1;
   v4 = v3;
   v6 = v5;
-  v28[1] = *MEMORY[0x277D85DE8];
-  v28[0] = v7;
+  v26[1] = *MEMORY[0x277D85DE8];
+  v26[0] = v7;
   bzero(__s, 0x1000uLL);
-  v24 = __s;
-  v25 = v28;
-  v26 = 4096;
+  v22 = __s;
+  v23 = v26;
+  v24 = 4096;
   if (v6 && v4)
   {
     aks_client_connection = get_aks_client_connection();
@@ -4435,23 +3750,23 @@ void aks_fv_import()
       v9 = aks_client_connection;
       if (ccder_blob_encode_body_tl())
       {
-        if (der_utils_encode_fv_data(&v24))
+        if (der_utils_encode_fv_data(&v22))
         {
-          if (der_utils_encode_fv_params(&v24))
+          if (der_utils_encode_fv_params(&v22))
           {
             OUTLINED_FUNCTION_2_3();
             if (ccder_blob_encode_tl())
             {
-              if (!OUTLINED_FUNCTION_23(v9, 0x4Fu, v28, v10, v25, v28 - v25, v11, v12, __s, &v26))
+              if (!OUTLINED_FUNCTION_23(v9, 0x4Fu, v26, v10, v23, v26 - v23, v11, v12, __s, &v24))
               {
-                *&v23 = __s;
-                *(&v23 + 1) = &__s[v26];
+                *&v21 = __s;
+                *(&v21 + 1) = &__s[v24];
                 OUTLINED_FUNCTION_2_3();
                 if (ccder_blob_decode_range())
                 {
                   if (v2)
                   {
-                    der_utils_decode_fv_data(&v23, 0, v2);
+                    der_utils_decode_fv_data(&v21, 0, v2);
                   }
                 }
               }
@@ -4463,26 +3778,21 @@ void aks_fv_import()
 
     else
     {
-      v14 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 3333, "", "");
+      fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v15, v16, v17, v18, v19, v20, ":", 3333, "", "");
     }
   }
 
   memset_s(__s, 0x1000uLL, 0, 0x1000uLL);
-  v13 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
 void aks_fv_is_access_token_unbound(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     aks_fv_get_blob_state();
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void aks_fv_grant_ownership()
@@ -4490,23 +3800,23 @@ void aks_fv_grant_ownership()
   OUTLINED_FUNCTION_5_1();
   MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_53();
-  v6 = *MEMORY[0x277D85DE8];
-  bzero(v5, 0x1000uLL);
+  v5 = *MEMORY[0x277D85DE8];
   bzero(v4, 0x1000uLL);
-  v3[0] = v5;
-  v3[1] = &v6;
+  bzero(v3, 0x1000uLL);
   v2[0] = v4;
-  v2[1] = v5;
-  if (der_utils_encode_fv_data(v3))
+  v2[1] = &v5;
+  v1[0] = v3;
+  v1[1] = v4;
+  if (der_utils_encode_fv_data(v2))
   {
-    if (der_utils_encode_fv_data(v3))
+    if (der_utils_encode_fv_data(v2))
     {
       OUTLINED_FUNCTION_2_3();
       if (ccder_blob_encode_tl())
       {
-        if (der_utils_encode_fv_data(v2))
+        if (der_utils_encode_fv_data(v1))
         {
-          if (der_utils_encode_fv_data(v2))
+          if (der_utils_encode_fv_data(v1))
           {
             OUTLINED_FUNCTION_2_3();
             if (ccder_blob_encode_tl())
@@ -4519,7 +3829,6 @@ void aks_fv_grant_ownership()
     }
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
@@ -4527,8 +3836,8 @@ void aks_fv_sidp_status(uint64_t a1)
 {
   MEMORY[0x28223BE20](a1);
   OUTLINED_FUNCTION_36();
-  v6 = *MEMORY[0x277D85DE8];
-  bzero(v5, 0x4000uLL);
+  v5 = *MEMORY[0x277D85DE8];
+  bzero(v4, 0x4000uLL);
   OUTLINED_FUNCTION_15_0();
   aks_fv_set_protection();
   if (!v3)
@@ -4552,8 +3861,6 @@ void aks_fv_sidp_status(uint64_t a1)
       OUTLINED_FUNCTION_14_1();
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void aks_absinthe_collection()
@@ -4562,13 +3869,13 @@ void aks_absinthe_collection()
   MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_46();
   v4 = v3;
-  v33[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12_0();
   *v6 = v5;
   bzero(__src, 0x8000uLL);
-  v30 = 0;
+  v28 = 0;
   __count = 0x8000;
-  v29 = 0;
+  v27 = 0;
   if (v1)
   {
     aks_client_connection = get_aks_client_connection();
@@ -4585,8 +3892,8 @@ void aks_absinthe_collection()
         v14 = "";
       }
 
-      aks_pack_data(&v30, &v29, 2, v8, v9, v10, v11, v12, v14);
-      if (!OUTLINED_FUNCTION_23(v13, 0x50u, v33, v15, v30, v29, v16, v17, __src, &__count))
+      aks_pack_data(&v28, &v27, 2, v8, v9, v10, v11, v12, v14);
+      if (!OUTLINED_FUNCTION_23(v13, 0x50u, v31, v15, v28, v27, v16, v17, __src, &__count))
       {
         v18 = calloc(__count, 1uLL);
         *v1 = v18;
@@ -4600,15 +3907,13 @@ void aks_absinthe_collection()
 
     else
     {
-      v20 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v22, v23, v24, v25, v26, v27, v28, ":", 3582, "", "");
+      fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 3582, "", "");
     }
   }
 
   memset_s(__src, 0x8000uLL, 0, 0x8000uLL);
-  free(v30);
-  v19 = *MEMORY[0x277D85DE8];
+  free(v28);
   OUTLINED_FUNCTION_64();
   OUTLINED_FUNCTION_4_3();
 }
@@ -4660,39 +3965,37 @@ void aks_get_internal_state(uint64_t a1)
 {
   MEMORY[0x28223BE20](a1);
   v2 = v1;
-  v36[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_33();
-  v36[0] = v3;
-  OUTLINED_FUNCTION_72(v3, v4, v5, v6, v7, v8, v9, v10, v21, v23, v25, v27, v29, v31);
+  v42[0] = v3;
+  OUTLINED_FUNCTION_72(v3, v4, v5, v6, v7, v8, v9, v10, v19, v21, v23, v25, v27, v29, v31, v33, v35, v36, v37, v38, v39, __n);
   if (get_aks_client_connection())
   {
     if (v2)
     {
       OUTLINED_FUNCTION_48();
-      if (!OUTLINED_FUNCTION_3_2(v11, 0x8Eu, v36, v12, v13, v14, v15, v16, v22, v24))
+      if (!OUTLINED_FUNCTION_3_2(v11, 0x8Eu, v42, v12, v13, v14, v15, v16, v20, v22))
       {
-        decode_extended_state(v35);
+        decode_extended_state(v41);
       }
     }
   }
 
   else
   {
-    v18 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v26, v28, v30, v32, v33, v34, ":", 3797, "", "");
+    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v24, v26, v28, v30, v32, v34, ":", 3797, "", "");
   }
 
-  OUTLINED_FUNCTION_37(v35, 0x1000uLL);
-  v17 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_37(v41, 0x1000uLL);
   OUTLINED_FUNCTION_38();
 }
 
 uint64_t aks_fairplay_wrap()
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17_0();
-  v22[0] = 266;
+  v20[0] = 266;
   result = (v2 + 6);
   if (v0)
   {
@@ -4703,33 +4006,31 @@ uint64_t aks_fairplay_wrap()
       aks_client_connection = get_aks_client_connection();
       if (aks_client_connection)
       {
-        v21 = *v4;
-        result = OUTLINED_FUNCTION_19(aks_client_connection, 0x68u, v22, 1u, v7, v8, v9, v10, v5, &v21);
+        v19 = *v4;
+        result = OUTLINED_FUNCTION_19(aks_client_connection, 0x68u, v20, 1u, v7, v8, v9, v10, v5, &v19);
         if (!result)
         {
-          *v4 = v21;
+          *v4 = v19;
         }
       }
 
       else
       {
-        v12 = *MEMORY[0x277D85E08];
         OUTLINED_FUNCTION_0_9();
-        fprintf(v13, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v14, v15, v16, v17, v18, v19, v20, ":", 3823, "", "");
-        result = OUTLINED_FUNCTION_14_1();
+        fprintf(v11, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v12, v13, v14, v15, v16, v17, v18, ":", 3823, "", "");
+        return OUTLINED_FUNCTION_14_1();
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _fairplay_generate_csk_internal()
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17_0();
-  v23[0] = (v2 << 8) | 1;
+  v21[0] = (v2 << 8) | 1;
   result = (v3 + 6);
   if (v5)
   {
@@ -4740,25 +4041,23 @@ uint64_t _fairplay_generate_csk_internal()
       aks_client_connection = get_aks_client_connection();
       if (aks_client_connection)
       {
-        v22 = *v6;
-        result = OUTLINED_FUNCTION_19(aks_client_connection, 0x68u, v23, 1u, v8, v9, v10, v11, v0, &v22);
+        v20 = *v6;
+        result = OUTLINED_FUNCTION_19(aks_client_connection, 0x68u, v21, 1u, v8, v9, v10, v11, v0, &v20);
         if (!result)
         {
-          *v6 = v22;
+          *v6 = v20;
         }
       }
 
       else
       {
-        v13 = *MEMORY[0x277D85E08];
         OUTLINED_FUNCTION_0_9();
-        fprintf(v14, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v15, v16, v17, v18, v19, v20, v21, ":", 3847, "", "");
-        result = OUTLINED_FUNCTION_14_1();
+        fprintf(v12, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v13, v14, v15, v16, v17, v18, v19, ":", 3847, "", "");
+        return OUTLINED_FUNCTION_14_1();
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4769,17 +4068,17 @@ void aks_bak_get_beacon_internal()
   v3 = v2;
   OUTLINED_FUNCTION_47();
   v5 = v4;
-  v28 = *MEMORY[0x277D85DE8];
-  v26 = 0u;
-  memset(v27, 0, sizeof(v27));
-  bzero(v25, 0x4000uLL);
-  v23 = 0x4000;
-  v24[0] = 1;
-  v24[1] = v5;
+  v25 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
+  memset(v24, 0, sizeof(v24));
+  bzero(v22, 0x4000uLL);
+  v20 = 0x4000;
+  v21[0] = 1;
+  v21[1] = v5;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    if (!OUTLINED_FUNCTION_18_0(aks_client_connection, 0x87u, v24, 2u, v7, v8, v9, v10, v25, &v23))
+    if (!OUTLINED_FUNCTION_18_0(aks_client_connection, 0x87u, v21, 2u, v7, v8, v9, v10, v22, &v20))
     {
       __memcpy_chk();
       *v3 = 44;
@@ -4787,7 +4086,6 @@ void aks_bak_get_beacon_internal()
       *v0 = v11;
       if (v11)
       {
-        v12 = *v3;
         __memcpy_chk();
       }
 
@@ -4801,33 +4099,27 @@ void aks_bak_get_beacon_internal()
   else
   {
     OUTLINED_FUNCTION_32();
-    v14 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 3883, "", "");
+    fprintf(v12, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v13, v14, v15, v16, v17, v18, v19, ":", 3883, "", "");
   }
 
-  OUTLINED_FUNCTION_52(v25);
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_52(v22);
   OUTLINED_FUNCTION_73();
 }
 
 uint64_t aks_bak_get_beacon()
 {
   OUTLINED_FUNCTION_46();
-  v4 = *MEMORY[0x277D85DE8];
   aks_bak_get_beacon_internal();
   if (v0)
   {
-    v3 = v0;
+    return v0;
   }
 
   else
   {
-    v3 = 3758604312;
+    return 3758604312;
   }
-
-  v1 = *MEMORY[0x277D85DE8];
-  return v3;
 }
 
 void aks_bak_get_swizzler_internal()
@@ -4838,16 +4130,16 @@ void aks_bak_get_swizzler_internal()
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v35[2] = *MEMORY[0x277D85DE8];
-  v35[0] = 2;
-  v35[1] = v1;
-  bzero(v31, 0xC4uLL);
-  bzero(v30, 0x4000uLL);
-  v29 = 0x4000;
+  v33[2] = *MEMORY[0x277D85DE8];
+  v33[0] = 2;
+  v33[1] = v1;
+  bzero(v29, 0xC4uLL);
+  bzero(v28, 0x4000uLL);
+  v27 = 0x4000;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x87u, v35, 2u, v11, v12, v13, v14, v30, &v29))
+    if (!OUTLINED_FUNCTION_1_4(aks_client_connection, 0x87u, v33, 2u, v11, v12, v13, v14, v28, &v27))
     {
       __memcpy_chk();
       v15 = calloc(0x28uLL, 1uLL);
@@ -4855,9 +4147,9 @@ void aks_bak_get_swizzler_internal()
       if (v15)
       {
         *v7 = 40;
-        v16 = *&v31[8];
-        v17 = v32;
-        v15[4] = v33;
+        v16 = *&v29[8];
+        v17 = v30;
+        v15[4] = v31;
         *v15 = v16;
         *(v15 + 1) = v17;
         v18 = calloc(0x91uLL, 1uLL);
@@ -4865,7 +4157,7 @@ void aks_bak_get_swizzler_internal()
         if (v18)
         {
           *v3 = 145;
-          memcpy(v18, v34, 0x91uLL);
+          memcpy(v18, v32, 0x91uLL);
         }
       }
     }
@@ -4873,14 +4165,12 @@ void aks_bak_get_swizzler_internal()
 
   else
   {
-    v20 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v21, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v22, v23, v24, v25, v26, v27, v28, ":", 3943, "", "");
+    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v21, v22, v23, v24, v25, v26, ":", 3943, "", "");
   }
 
-  OUTLINED_FUNCTION_52(v30);
-  memset_s(v31, 0xC4uLL, 0, 0xC4uLL);
-  v19 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_52(v28);
+  memset_s(v29, 0xC4uLL, 0, 0xC4uLL);
   OUTLINED_FUNCTION_69();
 }
 
@@ -4941,21 +4231,19 @@ uint64_t aks_get_dsme_key(uint64_t a1)
 
   else
   {
-    v17 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v18, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v19, v20, v21, v22, v23, v24, v25, ":", 3992, "", "");
+    fprintf(v16, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v17, v18, v19, v20, v21, v22, v23, ":", 3992, "", "");
     OUTLINED_FUNCTION_32();
   }
 
   OUTLINED_FUNCTION_52(__src);
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 void aks_sealed_hashes_set()
 {
   OUTLINED_FUNCTION_5_1();
-  v20[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (v1 && v0 <= 0x30)
   {
     aks_client_connection = get_aks_client_connection();
@@ -4968,8 +4256,8 @@ void aks_sealed_hashes_set()
       v4 = ccder_sizeof();
       v5 = v4;
       MEMORY[0x28223BE20](v4);
-      v7 = v20 - v6;
-      bzero(v20 - v6, v5);
+      v7 = v18 - v6;
+      bzero(v18 - v6, v5);
       ccder_encode_raw_octet_string();
       ccder_encode_uint64();
       ccder_encode_raw_octet_string();
@@ -4987,34 +4275,32 @@ void aks_sealed_hashes_set()
     else
     {
       OUTLINED_FUNCTION_12_0();
-      v11 = *MEMORY[0x277D85E08];
       OUTLINED_FUNCTION_0_9();
-      fprintf(v12, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v13, v14, v15, v16, v17, v18, v19, ":", 4036, "", "");
+      fprintf(v10, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v11, v12, v13, v14, v15, v16, v17, ":", 4036, "", "");
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_3();
 }
 
 void aks_memento_get_state(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
-  v35[1] = *MEMORY[0x277D85DE8];
-  v35[0] = v1;
-  OUTLINED_FUNCTION_72(v1, v2, v3, v4, v5, v6, v7, v8, v21, v22, v23, v25, v27, v29);
+  v40[1] = *MEMORY[0x277D85DE8];
+  v40[0] = v1;
+  OUTLINED_FUNCTION_72(v1, v2, v3, v4, v5, v6, v7, v8, v19, v20, v21, v23, v25, v27, v29, v31, v33, v34, v35, v36, v37, __n);
   __n = 4096;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
-    v15 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x8Bu, v35, v10, v11, v12, v13, v14, v34, &__n);
+    v15 = OUTLINED_FUNCTION_3_2(aks_client_connection, 0x8Bu, v40, v10, v11, v12, v13, v14, v39, &__n);
     v16 = __n;
     if (!v15)
     {
       OUTLINED_FUNCTION_33();
       if (v16 - 4097 >= 0xFFFFFFFFFFFFF000)
       {
-        decode_memento_state(v34);
+        decode_memento_state(v39);
         v16 = __n;
       }
     }
@@ -5022,61 +4308,54 @@ void aks_memento_get_state(uint64_t a1)
 
   else
   {
-    v18 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v19, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v20, v24, v26, v28, v30, v31, v32, ":", 4130, "", "");
+    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v22, v24, v26, v28, v30, v32, ":", 4130, "", "");
     v16 = 4096;
   }
 
-  OUTLINED_FUNCTION_37(v34, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_37(v39, v16);
   OUTLINED_FUNCTION_38();
 }
 
 uint64_t aks_get_cx_window(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
-  v21[512] = *MEMORY[0x277D85DE8];
-  v20 = 4096;
-  if (v1)
+  v19[512] = *MEMORY[0x277D85DE8];
+  v18 = 4096;
+  if (!v1)
   {
-    v2 = v1;
-    aks_client_connection = get_aks_client_connection();
-    if (aks_client_connection)
+    return 4294967285;
+  }
+
+  v2 = v1;
+  aks_client_connection = get_aks_client_connection();
+  if (aks_client_connection)
+  {
+    v4 = aks_client_connection;
+    bzero(v19, 0x1000uLL);
+    result = OUTLINED_FUNCTION_1_4(v4, 0x98u, 0, 0, v5, v6, v7, v8, v19, &v18);
+    if (!result)
     {
-      v4 = aks_client_connection;
-      bzero(v21, 0x1000uLL);
-      result = OUTLINED_FUNCTION_1_4(v4, 0x98u, 0, 0, v5, v6, v7, v8, v21, &v20);
-      if (!result)
+      if (v18 == 8)
       {
-        if (v20 == 8)
-        {
-          result = 0;
-          *v2 = v21[0];
-        }
-
-        else
-        {
-          result = OUTLINED_FUNCTION_58();
-        }
+        result = 0;
+        *v2 = v19[0];
       }
-    }
 
-    else
-    {
-      v11 = *MEMORY[0x277D85E08];
-      OUTLINED_FUNCTION_0_9();
-      fprintf(v12, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v13, v14, v15, v16, v17, v18, v19, ":", 4183, "", "");
-      result = OUTLINED_FUNCTION_14_1();
+      else
+      {
+        return OUTLINED_FUNCTION_58();
+      }
     }
   }
 
   else
   {
-    result = 4294967285;
+    OUTLINED_FUNCTION_0_9();
+    fprintf(v10, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v11, v12, v13, v14, v15, v16, v17, ":", 4183, "", "");
+    return OUTLINED_FUNCTION_14_1();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5088,48 +4367,46 @@ void AKSGetStashStats()
   v5 = v4;
   v7 = v6;
   v8 = v1;
-  v30 = *MEMORY[0x277D85DE8];
-  v28 = 4096;
-  v26 = 0u;
-  v27 = 0u;
+  v28 = *MEMORY[0x277D85DE8];
+  v26 = 4096;
+  v24 = 0u;
   v25 = 0u;
+  v23 = 0u;
   aks_client_connection = get_aks_client_connection();
   if (aks_client_connection)
   {
     v10 = aks_client_connection;
-    bzero(v29, 0x1000uLL);
-    if (!OUTLINED_FUNCTION_1_4(v10, 0x9Eu, 0, 0, v11, v12, v13, v14, v29, &v28) && !stash_stats_deserialize(v29, v28, &v25))
+    bzero(v27, 0x1000uLL);
+    if (!OUTLINED_FUNCTION_1_4(v10, 0x9Eu, 0, 0, v11, v12, v13, v14, v27, &v26) && !stash_stats_deserialize(v27, v26, &v23))
     {
       if (v8)
       {
-        *v8 = *(&v27 + 1);
+        *v8 = *(&v25 + 1);
       }
 
       if (v7)
       {
-        *v7 = v27;
+        *v7 = v25;
       }
 
       if (v5)
       {
-        *v5 = *(&v26 + 1);
+        *v5 = *(&v24 + 1);
       }
 
       if (v3)
       {
-        *v3 = v26;
+        *v3 = v24;
       }
     }
   }
 
   else
   {
-    v16 = *MEMORY[0x277D85E08];
     OUTLINED_FUNCTION_0_9();
-    fprintf(v17, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v18, v19, v20, v21, v22, v23, v24, ":", 4204, "", "");
+    fprintf(v15, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v16, v17, v18, v19, v20, v21, v22, ":", 4204, "", "");
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_69();
 }
 
@@ -5193,387 +4470,9 @@ uint64_t _copy_cf_key(const __CFDictionary *a1, const void *a2, uint64_t a3)
   return result;
 }
 
-uint64_t aks_stash_destroy_cold_1()
+uint64_t get_kcv(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 128, "", "");
-}
-
-uint64_t aks_stash_commit_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 141, "", "");
-}
-
-uint64_t aks_stash_enable_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 157, "", "");
-}
-
-uint64_t aks_stash_persist_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 173, "", "");
-}
-
-uint64_t aks_invalidate_sync_bags_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 565, "", "");
-}
-
-uint64_t aks_unload_bag_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 645, "", "");
-}
-
-uint64_t aks_unload_session_bags_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 662, "", "");
-}
-
-uint64_t aks_change_secret_with_kek_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 718, "", "");
-}
-
-uint64_t aks_lock_bag_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 843, "", "");
-}
-
-uint64_t _aks_unlock_bag_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 860, "", "");
-}
-
-uint64_t _aks_set_system_with_passcode_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1015, "", "");
-}
-
-uint64_t aks_assert_hold_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1773, "", "");
-}
-
-uint64_t aks_assert_drop_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1791, "", "");
-}
-
-uint64_t aks_assert_promote_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1806, "", "");
-}
-
-uint64_t aks_oneness_heartbeat_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1826, "", "");
-}
-
-uint64_t aks_assert_consume_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1841, "", "");
-}
-
-uint64_t _aks_recover_with_escrow_bag_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1858, "", "");
-}
-
-uint64_t aks_generation_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 1912, "", "");
-}
-
-uint64_t aks_register_for_notifications_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2001, "", "");
-}
-
-uint64_t aks_clear_backup_bag_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2290, "", "");
-}
-
-uint64_t aks_remote_reset_all_peers_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2370, "", "");
-}
-
-uint64_t aks_remote_peer_drop_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2459, "", "");
-}
-
-uint64_t aks_lock_device_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2474, "", "");
-}
-
-uint64_t aks_lock_cx_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2494, "", "");
-}
-
-uint64_t aks_unlock_device_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2509, "", "");
-}
-
-uint64_t aks_unlock_device_with_acm_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2524, "", "");
-}
-
-uint64_t aks_obliterate_class_d_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2547, "", "");
-}
-
-uint64_t aks_migrate_s_key_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2559, "", "");
-}
-
-uint64_t aks_smartcard_unregister_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2604, "", "");
-}
-
-uint64_t aks_se_fail_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2781, "", "");
-}
-
-uint64_t aks_se_set_healthy_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2797, "", "");
-}
-
-uint64_t __aks_se_set_secret_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2813, "", "");
-}
-
-uint64_t aks_se_recover_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2841, "", "");
-}
-
-uint64_t aks_se_recover_with_acm_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2857, "", "");
-}
-
-uint64_t _aks_change_secret_epilogue_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2883, "", "");
-}
-
-uint64_t aks_se_set_nonce_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 2999, "", "");
-}
-
-uint64_t aks_se_delete_reset_token_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3077, "", "");
-}
-
-uint64_t aks_se_support_in_rm_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3094, "", "");
-}
-
-uint64_t aks_se_support_in_rm_is_set_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3110, "", "");
-}
-
-uint64_t aks_se_stage_stash_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3127, "", "");
-}
-
-uint64_t aks_enable_cache_flow_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3225, "", "");
-}
-
-uint64_t aks_drop_auxiliary_auth_by_uid_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3642, "", "");
-}
-
-uint64_t aks_drop_auxiliary_auth_by_handle_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3658, "", "");
-}
-
-uint64_t aks_lower_iteration_count_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3672, "", "");
-}
-
-uint64_t aks_reset_iteration_count_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3686, "", "");
-}
-
-uint64_t aks_se_secret_drop_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3702, "", "");
-}
-
-uint64_t aks_se_memento_secret_drop_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 3718, "", "");
-}
-
-uint64_t aks_prewarm_sps_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 4019, "", "");
-}
-
-uint64_t aks_measure_and_seal_cryptex_manifest_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 4066, "", "");
-}
-
-uint64_t aks_seal_cryptex_manifest_lock_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 4080, "", "");
-}
-
-uint64_t aks_lkgp_recover_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 4096, "", "");
-}
-
-uint64_t aks_memento_efface_blob_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 4112, "", "");
-}
-
-uint64_t aks_set_jcop_supports_updated_kud_policy_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 4150, "", "");
-}
-
-uint64_t aks_set_cx_window_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s aks connection failed%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 4166, "", "");
-}
-
-uint64_t get_kcv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   memset(__s, 0, sizeof(__s));
   if (a4 == 3)
   {
@@ -5590,11 +4489,10 @@ uint64_t get_kcv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   memset_s(__s, 0x20uLL, 0, 0x20uLL);
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t print_kcv(const char *a1, uint64_t a2, uint64_t a3)
+uint64_t print_kcv(const char *a1, uint64_t a2, unint64_t a3)
 {
   v6 = 0;
   v5 = 0;
@@ -5765,14 +4663,14 @@ LABEL_7:
 
 uint64_t wrap_data(int *a1, uint64_t (*a2)(uint64_t, void *, uint64_t *, uint64_t *, uint64_t), char a3, uint64_t *a4, unsigned int a5, uint64_t a6, unsigned int *a7, int a8)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  HIDWORD(v53) = 0;
-  v58 = 0u;
-  v59 = 0u;
-  __s = 0u;
+  v59 = *MEMORY[0x277D85DE8];
+  HIDWORD(v52) = 0;
   v57 = 0u;
-  *v54 = 0u;
-  v55 = 0u;
+  v58 = 0u;
+  __s = 0u;
+  v56 = 0u;
+  *v53 = 0u;
+  v54 = 0u;
   v9 = 0xFFFFFFFFLL;
   if (a6 && a7)
   {
@@ -5792,7 +4690,7 @@ uint64_t wrap_data(int *a1, uint64_t (*a2)(uint64_t, void *, uint64_t *, uint64_
           v16 = 72;
         }
 
-        HIDWORD(v53) = v16;
+        HIDWORD(v52) = v16;
         v9 = 0xFFFFFFFFLL;
         if (a2)
         {
@@ -5815,21 +4713,21 @@ uint64_t wrap_data(int *a1, uint64_t (*a2)(uint64_t, void *, uint64_t *, uint64_
         {
           v30 = *(a1 + 6);
           __s = *(a1 + 2);
-          v57 = v30;
+          v56 = v30;
           v31 = *(a1 + 14);
-          v58 = *(a1 + 10);
-          v59 = v31;
+          v57 = *(a1 + 10);
+          v58 = v31;
         }
 
         if ((a3 & 0x80) == 0)
         {
-          v32 = v57;
+          v32 = v56;
           *a6 = __s;
           *(a6 + 16) = v32;
           if ((a3 & 4) != 0)
           {
             v33 = ccaes_cbc_encrypt_mode();
-            v34 = firebloom_cbc_one_shot_f(v33, 32, &v58, &firebloom_null_iv, 0x20uLL);
+            v34 = firebloom_cbc_one_shot_f(v33, 32, &v57, &firebloom_null_iv, 0x20uLL);
             v35 = OUTLINED_FUNCTION_4_5(v34);
             LODWORD(a1) = REQUIRE_func(v35, 166, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/shared_crypto.c");
 LABEL_39:
@@ -5840,12 +4738,12 @@ LABEL_44:
             goto LABEL_45;
           }
 
-          LODWORD(v53) = 40;
+          LODWORD(v52) = 40;
           if ((a3 & 8) != 0)
           {
             v39 = ccsha256_di();
-            v52 = v54;
-            OUTLINED_FUNCTION_0_11(v39, v40, &v58);
+            v51 = v53;
+            OUTLINED_FUNCTION_0_11(v39, v40, &v57);
           }
 
           OUTLINED_FUNCTION_3_3();
@@ -5882,7 +4780,7 @@ LABEL_44:
         v25 = a2;
         v26 = a4;
 LABEL_42:
-        LODWORD(a1) = rfc3394_wrap_legacy(v23, v24, 0xA6A6A6A6A6A6A6A6, v25, v26, a5, a6, &v53 + 1);
+        LODWORD(a1) = rfc3394_wrap_legacy(v23, v24, 0xA6A6A6A6A6A6A6A6, v25, v26, a5, a6, &v52 + 1);
         if (!a1)
         {
           goto LABEL_43;
@@ -5903,14 +4801,14 @@ LABEL_48:
           goto LABEL_48;
         }
 
-        HIDWORD(v53) = a5;
+        HIDWORD(v52) = a5;
         v36 = ccaes_cbc_encrypt_mode();
-        v37 = firebloom_cbc_one_shot_f(v36, 32, (v14 + 3), &firebloom_null_iv, a5);
+        v37 = firebloom_cbc_one_shot_f(v36, 32, v14 + 12, &firebloom_null_iv, a5);
         v38 = OUTLINED_FUNCTION_4_5(v37);
         LODWORD(a1) = REQUIRE_func(v38, 121, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/shared_crypto.c");
 LABEL_43:
         v9 = 0;
-        v47 = HIDWORD(v53);
+        v47 = HIDWORD(v52);
         goto LABEL_44;
       }
 
@@ -5927,14 +4825,14 @@ LABEL_43:
         if ((a3 & 8) != 0)
         {
           v48 = ccsha256_di();
-          v52 = v54;
-          OUTLINED_FUNCTION_0_11(v48, v49, (v14 + 3));
-          v23 = v54;
+          v51 = v53;
+          OUTLINED_FUNCTION_0_11(v48, v49, v14 + 12);
+          v23 = v53;
         }
 
         else
         {
-          v23 = (v14 + 3);
+          v23 = (v14 + 12);
         }
 
         v24 = 32;
@@ -5950,19 +4848,20 @@ LABEL_43:
 LABEL_45:
   if ((a3 & 8) != 0)
   {
-    OUTLINED_FUNCTION_0_10(a1, a2, a3, a4, a5, a6, a7, a8, v52, v53, v54[0]);
+    OUTLINED_FUNCTION_0_10(a1, a2, a3, a4, a5, a6, a7, a8, v51, v52);
   }
 
   memset_s(&__s, 0x40uLL, 0, 0x40uLL);
-  v50 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t unwrap_data(_DWORD *a1, uint64_t (*a2)(void, void *, unint64_t *, unint64_t *, uint64_t), char a3, void *a4, unsigned int a5, void *a6, unsigned int *a7)
+uint64_t unwrap_data(_DWORD *a1, uint64_t (*a2)(void, void *, unint64_t *, unint64_t *, uint64_t), uint64_t a3, void *a4, unsigned int a5, void *a6, unsigned int *a7)
 {
+  v7 = a3;
   v56 = *MEMORY[0x277D85DE8];
-  HIDWORD(v52) = 0;
-  memset(__s, 0, sizeof(__s));
+  HIDWORD(v51) = 0;
+  __s = 0u;
+  v55 = 0u;
   v8 = 0xFFFFFFFFLL;
   if (a4 && a5)
   {
@@ -5992,7 +4891,7 @@ LABEL_6:
               goto LABEL_40;
             }
 
-            v18 = &v52 + 1;
+            v18 = &v51 + 1;
             v19 = 0;
             v20 = 0;
             v21 = 0xA6A6A6A6A6A6A6A6;
@@ -6008,14 +4907,14 @@ LABEL_6:
                 goto LABEL_40;
               }
 
-              HIDWORD(v52) = a5;
+              HIDWORD(v51) = a5;
               v25 = ccaes_cbc_decrypt_mode();
               v26 = firebloom_cbc_one_shot_f(v25, 32, (a1 + 3), &firebloom_null_iv, a5);
               v27 = OUTLINED_FUNCTION_4_5(v26);
               REQUIRE_func(v27, 273, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/shared_crypto.c");
 LABEL_33:
               v8 = 0;
-              *a7 = HIDWORD(v52);
+              *a7 = HIDWORD(v51);
               goto LABEL_37;
             }
 
@@ -6031,7 +4930,7 @@ LABEL_33:
               goto LABEL_40;
             }
 
-            if ((a3 & 8) != 0)
+            if ((v7 & 8) != 0)
             {
               v39 = ccsha256_di();
               OUTLINED_FUNCTION_0_11(v39, v40, (a1 + 3));
@@ -6054,18 +4953,18 @@ LABEL_24:
       goto LABEL_37;
     }
 
-    HIDWORD(v52) = 32;
+    HIDWORD(v51) = 32;
     if (*a7 >= 0x20)
     {
-      *v53 = 0uLL;
-      v54 = 0uLL;
+      *v52 = 0uLL;
+      v53 = 0uLL;
       if ((a3 & 4) != 0)
       {
         if (a5 == 64)
         {
-          OUTLINED_FUNCTION_6_1();
+          OUTLINED_FUNCTION_6_1(a1, a2, a3, a4);
           v28 = ccaes_cbc_decrypt_mode();
-          v29 = firebloom_cbc_one_shot_f(v28, 32, v53, &firebloom_null_iv, 0x20uLL);
+          v29 = firebloom_cbc_one_shot_f(v28, 32, v52, &firebloom_null_iv, 0x20uLL);
           v30 = OUTLINED_FUNCTION_4_5(v29);
           v31 = REQUIRE_func(v30, 296, "/Library/Caches/com.apple.xbs/Sources/AppleKeyStore_libs/shared_crypto.c");
           goto LABEL_36;
@@ -6074,32 +4973,32 @@ LABEL_24:
 
       else if (a5 == 72)
       {
-        OUTLINED_FUNCTION_6_1();
-        if (a3 < 0)
+        OUTLINED_FUNCTION_6_1(a1, a2, a3, a4);
+        if (v7 < 0)
         {
           goto LABEL_24;
         }
 
-        LODWORD(v52) = 32;
-        if ((a3 & 8) != 0)
+        LODWORD(v51) = 32;
+        if ((v7 & 8) != 0)
         {
           v41 = ccsha256_di();
-          v51 = __s;
-          OUTLINED_FUNCTION_0_11(v41, v42, v53);
+          p_s = &__s;
+          OUTLINED_FUNCTION_0_11(v41, v42, v52);
         }
 
         OUTLINED_FUNCTION_3_3();
         v31 = rfc3394_unwrap_legacy(v43, v44, v45, v46, v47, 0x28u, a6, v48);
         if (v31)
         {
-          OUTLINED_FUNCTION_0_10(v31, v32, v33, v34, v35, v36, v37, v38, v51, v52, v53[0]);
+          OUTLINED_FUNCTION_0_10(v31, v32, v33, v34, v35, v36, v37, v38, p_s, v51);
 LABEL_42:
           v8 = 4294967277;
           goto LABEL_37;
         }
 
 LABEL_36:
-        OUTLINED_FUNCTION_0_10(v31, v32, v33, v34, v35, v36, v37, v38, v51, v52, v53[0]);
+        OUTLINED_FUNCTION_0_10(v31, v32, v33, v34, v35, v36, v37, v38, p_s, v51, *v52, *&v52[8], v53, __s, v55);
         v8 = 0;
         *a7 = 32;
         goto LABEL_37;
@@ -6111,48 +5010,33 @@ LABEL_40:
   }
 
 LABEL_37:
-  if ((a3 & 8) != 0)
+  if ((v7 & 8) != 0)
   {
-    memset_s(__s, 0x20uLL, 0, 0x20uLL);
+    memset_s(&__s, 0x20uLL, 0, 0x20uLL);
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t firebloom_export_pub_key(uint64_t *a1, void *a2, unint64_t *a3)
+uint64_t firebloom_export_pub_key(void *a1, void *a2, unint64_t *a3)
 {
-  v6 = *a1;
-  v7 = cczp_bitlen();
-  v8 = calloc(((v7 + 7) >> 2) | 1, 1uLL);
-  if (!v8)
+  v5 = cczp_bitlen();
+  v6 = calloc(((v5 + 7) >> 2) | 1, 1uLL);
+  if (!v6)
   {
     return 4294967279;
   }
 
-  v9 = v8;
-  v10 = *a1;
-  v11 = ((cczp_bitlen() + 7) >> 2) | 1;
+  v7 = v6;
+  v8 = ((cczp_bitlen() + 7) >> 2) | 1;
   ccec_export_pub();
   result = 0;
-  *a2 = v9;
-  *a3 = v11;
+  *a2 = v7;
+  *a3 = v8;
   return result;
 }
 
-BOOL firebloom_ec_import(uint64_t *a1, void **a2, uint64_t a3, uint64_t a4)
-{
-  if (MEMORY[0x25F8C34B0](a1, a3, a4, a2))
-  {
-    return 0;
-  }
-
-  v6 = *a1;
-  v7 = &a2[3 * **a2];
-  return ccn_read_uint() == 0;
-}
-
-uint64_t der_get_sizeof(uint64_t a1)
+uint64_t der_get_sizeof(uint64_t a1, uint64_t a2)
 {
   if (ccder_blob_decode_tag() && ccder_blob_decode_len())
   {
@@ -6291,13 +5175,13 @@ uint64_t der_dict_get_data(uint64_t result)
 
 __n128 der_utils_decode_implicit_raw_octet_string(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
 {
-  OUTLINED_FUNCTION_18_1(a1);
-  if (OUTLINED_FUNCTION_33_0())
+  v7 = OUTLINED_FUNCTION_18_1(a1);
+  if (OUTLINED_FUNCTION_33_0(v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v18, v20))
   {
-    *a4 = v8;
-    *a3 = v9 - v8;
-    result = v10;
-    *v4 = v10;
+    *a4 = v19;
+    *a3 = v21 - v19;
+    result = v22;
+    *v4 = v22;
   }
 
   return result;
@@ -6398,39 +5282,38 @@ uint64_t encode_list_cstr_get_data()
 {
   OUTLINED_FUNCTION_24();
   v3 = v2;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = strlen(v4);
+  v10 = 0;
   v11 = 0;
-  v12 = 0;
-  v10[0] = 12;
-  v10[1] = v5;
+  v9[0] = 12;
+  v9[1] = v5;
   result = 0xFFFFFFFFLL;
   if (v1 && v5 <= 0x10)
   {
     __memcpy_chk();
     __src = 0;
-    v9 = 0;
-    if (encode_list_get_data(v3, v10, 0, &__src, &v9))
+    v8 = 0;
+    if (encode_list_get_data(v3, v9, 0, &__src, &v8))
     {
-      if (v9 == v0)
+      if (v8 == v0)
       {
         memcpy(v1, __src, v0);
-        result = 0;
+        return 0;
       }
 
       else
       {
-        result = 4294967277;
+        return 4294967277;
       }
     }
 
     else
     {
-      result = 4294967293;
+      return 4294967293;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6480,8 +5363,7 @@ uint64_t encode_list_dict(void *a1, void *a2, size_t *a3)
               v15 = v12;
               do
               {
-                *v15 = *(v14 + 1);
-                v15 += 16;
+                *v15++ = *(v14 + 1);
                 v14 = *v14;
               }
 
@@ -6494,24 +5376,22 @@ uint64_t encode_list_dict(void *a1, void *a2, size_t *a3)
             v18 = v17;
             if (v17)
             {
-              v27 = v17;
-              v28 = &v17[v16];
+              v25 = v17;
+              v26 = &v17[v16];
               v19 = v8 - 1;
-              v20 = &v13[-v9 - 8];
+              v20 = v13 - v9 - 8;
               while (!__CFADD__(v19++, 1))
               {
                 v22 = v20 - 16;
-                v24 = *(v20 - 1);
-                v23 = *v20;
-                v25 = ccder_blob_encode_body();
+                v23 = ccder_blob_encode_body();
                 v20 = v22;
-                if ((v25 & 1) == 0)
+                if ((v23 & 1) == 0)
                 {
                   goto LABEL_16;
                 }
               }
 
-              if (!ccder_blob_encode_tl() || v27 != v28)
+              if (!ccder_blob_encode_tl() || v25 != v26)
               {
 LABEL_16:
                 v3 = 0xFFFFFFFFLL;
@@ -6554,46 +5434,39 @@ LABEL_20:
 uint64_t encode_list_add_der()
 {
   result = OUTLINED_FUNCTION_32_0();
-  if (v0)
+  if (v0 && v3 && v4 && v5)
   {
-    v6 = v3;
-    if (v3)
+    if (der_get_sizeof(v4, v5) <= (v5 - v4))
     {
-      if (v4 && v5)
+      v6 = ccder_sizeof();
+      if (!OUTLINED_FUNCTION_27(v6))
       {
-        if (der_get_sizeof(v4) <= (v5 - v4))
-        {
-          v7 = *(v6 + 1);
-          v8 = ccder_sizeof();
-          if (!OUTLINED_FUNCTION_27(v8))
-          {
-            return 4294967279;
-          }
-
-          OUTLINED_FUNCTION_14_2();
-          if (ccder_blob_encode_body())
-          {
-            OUTLINED_FUNCTION_7_3();
-            OUTLINED_FUNCTION_5_3();
-            OUTLINED_FUNCTION_13_1();
-            OUTLINED_FUNCTION_5_3();
-            if (v9 == v1)
-            {
-              v10 = OUTLINED_FUNCTION_26();
-              if (v10)
-              {
-                return OUTLINED_FUNCTION_3_4(v10);
-              }
-            }
-          }
-
-          OUTLINED_FUNCTION_12_2();
-          free(v1);
-        }
-
-        return 0xFFFFFFFFLL;
+        return 4294967279;
       }
+
+      OUTLINED_FUNCTION_14_2();
+      v7 = ccder_blob_encode_body();
+      if (v7)
+      {
+        OUTLINED_FUNCTION_7_3(v7, v8, v9, v10, v11, v12, v13, v14, v25, v27, v29, v31);
+        OUTLINED_FUNCTION_5_3();
+        OUTLINED_FUNCTION_13_1(v15, v16, v17, v18, v19, v20, v21, v22, v26, v28, v30, v32);
+        OUTLINED_FUNCTION_5_3();
+        if (v23 == v1)
+        {
+          v24 = OUTLINED_FUNCTION_26();
+          if (v24)
+          {
+            return OUTLINED_FUNCTION_3_4(v24);
+          }
+        }
+      }
+
+      OUTLINED_FUNCTION_12_2();
+      free(v1);
     }
+
+    return 0xFFFFFFFFLL;
   }
 
   return result;
@@ -6604,16 +5477,15 @@ uint64_t encode_list_add_data()
   result = OUTLINED_FUNCTION_32_0();
   if (v0 && v3 && v4)
   {
-    v5 = *(v3 + 1);
     ccder_sizeof();
-    v6 = OUTLINED_FUNCTION_25_0();
-    if (OUTLINED_FUNCTION_27(v6))
+    v5 = OUTLINED_FUNCTION_25_0();
+    if (OUTLINED_FUNCTION_27(v5))
     {
       OUTLINED_FUNCTION_14_2();
-      v7 = ccder_blob_encode_body();
-      if (v7 && (OUTLINED_FUNCTION_23_0(v7, v8, v9, v10, v11, v12, v13, v14, v17), ccder_blob_encode_tl()) && (OUTLINED_FUNCTION_7_3(), OUTLINED_FUNCTION_5_3(), OUTLINED_FUNCTION_13_1(), OUTLINED_FUNCTION_5_3(), v15 == v1) && (v16 = OUTLINED_FUNCTION_26()) != 0)
+      v6 = ccder_blob_encode_body();
+      if (v6 && (OUTLINED_FUNCTION_23_0(v6, v7, v8, v9, v10, v11, v12, v13, v32), v14 = ccder_blob_encode_tl(), v14) && (OUTLINED_FUNCTION_7_3(v14, v15, v16, v17, v18, v19, v20, v21, v33, v35, v37, v39), OUTLINED_FUNCTION_5_3(), OUTLINED_FUNCTION_13_1(v22, v23, v24, v25, v26, v27, v28, v29, v34, v36, v38, v40), OUTLINED_FUNCTION_5_3(), v30 == v1) && (v31 = OUTLINED_FUNCTION_26()) != 0)
       {
-        return OUTLINED_FUNCTION_3_4(v16);
+        return OUTLINED_FUNCTION_3_4(v31);
       }
 
       else
@@ -6636,181 +5508,165 @@ uint64_t encode_list_add_data()
 uint64_t encode_list_cstr_add_data()
 {
   OUTLINED_FUNCTION_24();
-  v5 = *MEMORY[0x277D85DE8];
   v2 = strlen(v1);
   result = 4294967285;
-  if (v0 && v2 <= 0x10)
+  if (v0)
   {
-    __memcpy_chk();
-    result = encode_list_add_data();
+    if (v2 <= 0x10)
+    {
+      __memcpy_chk();
+      return encode_list_add_data();
+    }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t encode_list_add_BOOL()
 {
   result = OUTLINED_FUNCTION_32_0();
-  if (v0)
+  if (v0 && v2)
   {
-    v3 = v2;
-    if (v2)
+    ccder_sizeof();
+    v3 = OUTLINED_FUNCTION_25_0();
+    v4 = OUTLINED_FUNCTION_27(v3);
+    if (v4)
     {
-      v4 = v2 + 2;
-      v5 = *(v2 + 1);
-      ccder_sizeof();
-      v6 = OUTLINED_FUNCTION_25_0();
-      v7 = OUTLINED_FUNCTION_27(v6);
-      if (v7)
+      v5 = v4;
+      if (ccder_blob_encode_body() && ccder_blob_encode_tl() && (ccder_blob_encode_body(), OUTLINED_FUNCTION_8_2(), OUTLINED_FUNCTION_2_3(), ccder_blob_encode_tl(), OUTLINED_FUNCTION_8_2(), v6 == v5) && (v7 = OUTLINED_FUNCTION_26()) != 0)
       {
-        v8 = v7;
-        if (ccder_blob_encode_body() && ccder_blob_encode_tl() && (v9 = v4 + *(v3 + 1), ccder_blob_encode_body(), OUTLINED_FUNCTION_8_2(), OUTLINED_FUNCTION_2_3(), ccder_blob_encode_tl(), OUTLINED_FUNCTION_8_2(), v10 == v8) && (v11 = OUTLINED_FUNCTION_26()) != 0)
-        {
-          return OUTLINED_FUNCTION_3_4(v11);
-        }
-
-        else
-        {
-          OUTLINED_FUNCTION_12_2();
-          free(v8);
-          return 0xFFFFFFFFLL;
-        }
+        return OUTLINED_FUNCTION_3_4(v7);
       }
 
       else
       {
-        return 4294967279;
+        OUTLINED_FUNCTION_12_2();
+        free(v5);
+        return 0xFFFFFFFFLL;
       }
+    }
+
+    else
+    {
+      return 4294967279;
     }
   }
 
   return result;
 }
 
-uint64_t encode_list_add_number(void *a1, uint64_t a2, uint64_t a3)
+uint64_t encode_list_add_number(void *a1, uint64_t a2, unint64_t a3)
 {
   v3 = a3;
-  v23[1] = *MEMORY[0x277D85DE8];
-  v6 = HIBYTE(a3);
+  v18[1] = *MEMORY[0x277D85DE8];
+  v5 = HIBYTE(a3);
   if (HIBYTE(a3) - 255 > 0xFFFFFF01)
   {
-    v11 = 8;
+    v10 = 8;
   }
 
   else
   {
-    v7 = 9;
-    v8 = 48;
-    v9 = 1;
-    while ((v7 - 2) >= 2)
+    v6 = 9;
+    v7 = 48;
+    v8 = 1;
+    while ((v6 - 2) >= 2)
     {
-      v10 = a3 >> v8;
-      --v7;
-      v8 -= 8;
-      if (v6 != v10)
+      v9 = a3 >> v7;
+      --v6;
+      v7 -= 8;
+      if (v5 != v9)
       {
-        v9 = v7 - 1;
+        v8 = v6 - 1;
         goto LABEL_8;
       }
     }
 
-    v7 = 2;
+    v6 = 2;
 LABEL_8:
-    if ((((a3 >> (8 * v9 - 8)) ^ v6) & 0x80) != 0)
+    if ((((a3 >> (8 * v8 - 8)) ^ v5) & 0x80) != 0)
     {
-      v11 = v7;
+      v10 = v6;
     }
 
     else
     {
-      v11 = v9;
+      v10 = v8;
     }
   }
 
-  v23[0] = 0;
+  v18[0] = 0;
   result = 0xFFFFFFFFLL;
   if (a1 && a2)
   {
-    v13 = a2 + 2;
-    v14 = *(a2 + 1);
     ccder_sizeof();
-    v15 = ccder_sizeof();
-    v16 = calloc(v15, 1uLL);
-    if (v16)
+    v12 = ccder_sizeof();
+    v13 = calloc(v12, 1uLL);
+    if (v13)
     {
-      v17 = v16;
-      v18 = v11;
+      v14 = v13;
+      v15 = v10;
       do
       {
-        *(v23 + v18 - 1) = v3;
+        *(v18 + v15 - 1) = v3;
         v3 >>= 8;
-        --v18;
+        --v15;
       }
 
-      while (v18);
-      if ((ccder_blob_encode_body() & 1) != 0 && ccder_blob_encode_tl() && (v19 = v13 + *(a2 + 1), ccder_blob_encode_body(), OUTLINED_FUNCTION_5_3(), OUTLINED_FUNCTION_2_3(), ccder_blob_encode_tl(), OUTLINED_FUNCTION_5_3(), v20 == v17) && OUTLINED_FUNCTION_26())
+      while (v15);
+      if ((ccder_blob_encode_body() & 1) != 0 && ccder_blob_encode_tl() && (ccder_blob_encode_body(), OUTLINED_FUNCTION_5_3(), OUTLINED_FUNCTION_2_3(), ccder_blob_encode_tl(), OUTLINED_FUNCTION_5_3(), v16 == v14) && OUTLINED_FUNCTION_26())
       {
         result = OUTLINED_FUNCTION_17_1();
-        v21[1] = v17;
-        v21[2] = v15;
-        *v21 = *a1;
-        *a1 = v21;
+        v17[1] = v14;
+        v17[2] = v12;
+        *v17 = *a1;
+        *a1 = v17;
       }
 
       else
       {
-        memset_s(v17, v15, 0, v15);
-        free(v17);
-        result = 0xFFFFFFFFLL;
+        memset_s(v14, v12, 0, v12);
+        free(v14);
+        return 0xFFFFFFFFLL;
       }
     }
 
     else
     {
-      result = 4294967279;
+      return 4294967279;
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t encode_list_add_string()
 {
   result = OUTLINED_FUNCTION_32_0();
-  if (v0)
+  if (v0 && v3 && v4)
   {
-    v5 = v3;
-    if (v3)
+    strlen(v4);
+    ccder_sizeof();
+    v5 = OUTLINED_FUNCTION_25_0();
+    if (OUTLINED_FUNCTION_27(v5))
     {
-      if (v4)
+      OUTLINED_FUNCTION_14_2();
+      if (ccder_blob_encode_body() && (v6 = ccder_blob_encode_tl(), v6) && (OUTLINED_FUNCTION_7_3(v6, v7, v8, v9, v10, v11, v12, v13, v24, v26, v28, v30), OUTLINED_FUNCTION_5_3(), OUTLINED_FUNCTION_13_1(v14, v15, v16, v17, v18, v19, v20, v21, v25, v27, v29, v31), OUTLINED_FUNCTION_5_3(), v22 == v1) && (v23 = OUTLINED_FUNCTION_26()) != 0)
       {
-        strlen(v4);
-        v6 = *(v5 + 1);
-        ccder_sizeof();
-        v7 = OUTLINED_FUNCTION_25_0();
-        if (OUTLINED_FUNCTION_27(v7))
-        {
-          OUTLINED_FUNCTION_14_2();
-          if (ccder_blob_encode_body() && ccder_blob_encode_tl() && (OUTLINED_FUNCTION_7_3(), OUTLINED_FUNCTION_5_3(), OUTLINED_FUNCTION_13_1(), OUTLINED_FUNCTION_5_3(), v8 == v1) && (v9 = OUTLINED_FUNCTION_26()) != 0)
-          {
-            return OUTLINED_FUNCTION_3_4(v9);
-          }
-
-          else
-          {
-            OUTLINED_FUNCTION_12_2();
-            free(v1);
-            return 0xFFFFFFFFLL;
-          }
-        }
-
-        else
-        {
-          return 4294967279;
-        }
+        return OUTLINED_FUNCTION_3_4(v23);
       }
+
+      else
+      {
+        OUTLINED_FUNCTION_12_2();
+        free(v1);
+        return 0xFFFFFFFFLL;
+      }
+    }
+
+    else
+    {
+      return 4294967279;
     }
   }
 
@@ -6832,47 +5688,24 @@ uint64_t encode_list_add_list(void *a1, uint64_t a2, void *a3)
 
     else
     {
-      v7 = a2 + 2 + *(a2 + 1);
-      v8 = ccder_sizeof();
-      v9 = OUTLINED_FUNCTION_27(v8);
-      v3 = v9;
-      if (v9)
+      v6 = ccder_sizeof();
+      v7 = OUTLINED_FUNCTION_27(v6);
+      v3 = v7;
+      if (v7)
       {
-        v15 = v9;
-        if (!ccder_blob_encode_body())
-        {
-          goto LABEL_15;
-        }
-
-        v18 = v3;
-        v19 = v15;
-        v10 = a2 + 2 + *(a2 + 1);
-        ccder_blob_encode_body();
-        OUTLINED_FUNCTION_8_2();
-        v18 = v3;
-        v19 = v11;
-        OUTLINED_FUNCTION_2_3();
-        ccder_blob_encode_tl();
-        OUTLINED_FUNCTION_8_2();
-        if (v12 != v3)
-        {
-          goto LABEL_15;
-        }
-
-        v13 = OUTLINED_FUNCTION_26();
-        if (v13)
+        v12 = v7;
+        if (ccder_blob_encode_body() && (v15 = v3, v16 = v12, ccder_blob_encode_body(), OUTLINED_FUNCTION_8_2(), v15 = v3, v16 = v8, OUTLINED_FUNCTION_2_3(), ccder_blob_encode_tl(), OUTLINED_FUNCTION_8_2(), v9 == v3) && (v10 = OUTLINED_FUNCTION_26()) != 0)
         {
           v4 = 0;
-          v13[1] = v3;
-          v13[2] = 0;
-          *v13 = *a1;
-          *a1 = v13;
+          v10[1] = v3;
+          v10[2] = 0;
+          *v10 = *a1;
+          *a1 = v10;
           v3 = 0;
         }
 
         else
         {
-LABEL_15:
           v4 = 0xFFFFFFFFLL;
         }
       }
@@ -6901,18 +5734,15 @@ LABEL_15:
 
 uint64_t der_utils_encode_fv_key(uint64_t a1)
 {
-  v7 = OUTLINED_FUNCTION_18_1(a1);
+  v4 = OUTLINED_FUNCTION_18_1(a1);
   if (v2)
   {
-    v3 = v2;
     result = ccder_blob_encode_body_tl();
     if (!result)
     {
       return result;
     }
 
-    v6 = *v3;
-    v5 = v3[1];
     if ((ccder_blob_encode_body_tl() & 1) == 0)
     {
       return 0;
@@ -6924,7 +5754,7 @@ uint64_t der_utils_encode_fv_key(uint64_t a1)
     return 0;
   }
 
-  *v1 = v7;
+  *v1 = v4;
   return 1;
 }
 
@@ -6933,45 +5763,44 @@ uint64_t der_utils_decode_fv_key(__int128 *a1, int a2, uint64_t a3)
   v5 = *a3;
   v4 = *(a3 + 8);
   v6 = *(a3 + 20);
-  v37 = *a1;
+  v36 = *a1;
   if (a2)
   {
-    v7 = *a1;
     OUTLINED_FUNCTION_4_6();
-    v8 = ccder_blob_decode_range();
-    if ((v8 & 1) == 0)
+    v7 = ccder_blob_decode_range();
+    if ((v7 & 1) == 0)
     {
       return 0;
     }
 
-    v5 = v38;
-    v16 = (v39 - v38);
-    OUTLINED_FUNCTION_21_0(v8, v9, v10, v11, v12, v13, v14, v15, v37, *(&v37 + 1), v38, v39, v40);
+    v5 = v37;
+    v15 = (v38 - v37);
+    OUTLINED_FUNCTION_21_0(v7, v8, v9, v10, v11, v12, v13, v14, v36, *(&v36 + 1), v37, v38, v39);
 LABEL_4:
     OUTLINED_FUNCTION_4_6();
-    v17 = ccder_blob_decode_range();
-    if (v17)
+    v16 = ccder_blob_decode_range();
+    if (v16)
     {
-      OUTLINED_FUNCTION_21_0(v17, v18, v19, v20, v21, v22, v23, v24, v37, *(&v37 + 1), v38, v39, v40);
-      if (v34 <= 4)
+      OUTLINED_FUNCTION_21_0(v16, v17, v18, v19, v20, v21, v22, v23, v36, *(&v36 + 1), v37, v38, v39);
+      if (v33 <= 4)
       {
-        v35 = *v33;
+        v34 = *v32;
         *a3 = v5;
-        *(a3 + 8) = v16;
-        *(a3 + 16) = v35;
+        *(a3 + 8) = v15;
+        *(a3 + 16) = v34;
         *(a3 + 20) = v6;
-        return OUTLINED_FUNCTION_6_2(v25, v26, v27, v28, v29, v30, v31, v32, v37);
+        return OUTLINED_FUNCTION_6_2(v24, v25, v26, v27, v28, v29, v30, v31, v36);
       }
     }
 
     return 0;
   }
 
-  LODWORD(v40) = v4;
-  result = der_utils_decode_implicit_raw_octet_string_copy_len(&v37, 4, v5, &v40);
+  LODWORD(v39) = v4;
+  result = der_utils_decode_implicit_raw_octet_string_copy_len(&v36, 4, v5, &v39);
   if (result)
   {
-    v16 = v40;
+    v15 = v39;
     goto LABEL_4;
   }
 
@@ -7080,70 +5909,66 @@ uint64_t encode_extended_state()
   OUTLINED_FUNCTION_24();
   v1 = v0;
   v3 = v2;
-  v18 = 0;
-  if (encode_list_add_number(&v18, der_key_state_state, *v2) || encode_list_add_number(&v18, der_key_state_lock_state, v3[1]) || encode_list_add_number(&v18, der_key_state_backoff, *(v3 + 1)) || encode_list_add_number(&v18, der_key_state_failed_attempts, v3[4]) || encode_list_add_number(&v18, der_key_state_generation_state, v3[5]) || encode_list_add_number(&v18, der_key_state_recovery_countdown, *(v3 + 26)) || encode_list_add_number(&v18, der_key_state_more_state, *(v3 + 34)) || encode_list_add_number(&v18, der_key_keybag_handle, *(v3 + 42)) || encode_list_add_number(&v18, der_key_config_max_unlock_attempts, *(v3 + 46)) || (v4 = encode_list_add_data(), v4) || v1 && (encode_list_add_number(&v18, der_key_state_assertion_set, *(v3 + 66)) || encode_list_add_number(&v18, der_key_state_grace_period_enabled, *(v3 + 67)) || encode_list_add_number(&v18, der_key_lock_time, *(v3 + 17)) || (v4 = encode_list_add_number(&v18, der_key_cx_window, *(v3 + 19)), v4)) || (v5 = OUTLINED_FUNCTION_19_0(v4), v5))
+  v19 = 0;
+  if (encode_list_add_number(&v19, der_key_state_state, *v2) || encode_list_add_number(&v19, der_key_state_lock_state, v3[1]) || encode_list_add_number(&v19, der_key_state_backoff, *(v3 + 1)) || encode_list_add_number(&v19, der_key_state_failed_attempts, v3[4]) || encode_list_add_number(&v19, der_key_state_generation_state, v3[5]) || encode_list_add_number(&v19, der_key_state_recovery_countdown, *(v3 + 26)) || encode_list_add_number(&v19, der_key_state_more_state, *(v3 + 34)) || encode_list_add_number(&v19, der_key_keybag_handle, *(v3 + 42)) || encode_list_add_number(&v19, der_key_config_max_unlock_attempts, *(v3 + 46)) || (v4 = encode_list_add_data(), v4) || v1 && (encode_list_add_number(&v19, der_key_state_assertion_set, *(v3 + 66)) || encode_list_add_number(&v19, der_key_state_grace_period_enabled, *(v3 + 67)) || encode_list_add_number(&v19, der_key_lock_time, *(v3 + 17)) || (v4 = encode_list_add_number(&v19, der_key_cx_window, *(v3 + 19)), v4)) || (v6 = OUTLINED_FUNCTION_19_0(v4, v5), v6))
   {
-    v13 = 0xFFFFFFFFLL;
+    v14 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v13 = 0;
-    OUTLINED_FUNCTION_15_1(v5, v6, v7, v8, v9, v10, v11, v12, v15, v16, v17);
+    v14 = 0;
+    OUTLINED_FUNCTION_15_1(v6, v7, v8, v9, v10, v11, v12, v13, v16, v17, v18);
   }
 
-  encode_list_free(&v18);
-  return v13;
+  encode_list_free(&v19);
+  return v14;
 }
 
 uint64_t decode_extended_state(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_29_0(*MEMORY[0x277D85DE8]);
-  if (v4)
+  if (v4 && a1)
   {
-    if (a1)
+    v5 = v3;
+    if (v3)
     {
-      v5 = v3;
-      if (v3)
-      {
-        memset_s(v3, 0x54uLL, 0, 0x54uLL);
-        bzero(v8, 0x228uLL);
-        v8[4] = der_key_state_lock_state;
-        v8[9] = der_key_state_backoff;
-        v8[14] = der_key_state_failed_attempts;
-        v8[19] = der_key_state_generation_state;
-        v8[24] = der_key_state_assertion_set;
-        v8[29] = der_key_state_grace_period_enabled;
-        v8[34] = der_key_state_recovery_countdown;
-        v8[39] = der_key_state_more_state;
-        v8[44] = der_key_keybag_handle;
-        v8[49] = der_key_config_max_unlock_attempts;
-        v8[54] = der_key_config_user_uuid;
-        v9[2] = der_key_lock_time;
-        v9[7] = der_key_cx_window;
-        OUTLINED_FUNCTION_0_12();
-        OUTLINED_FUNCTION_34_0();
-        *v5 = der_get_number();
-        *(v5 + 1) = der_get_number();
-        *(v5 + 1) = der_get_number();
-        *(v5 + 4) = der_get_number();
-        *(v5 + 5) = der_get_number();
-        *(v5 + 26) = der_get_number();
-        *(v5 + 34) = der_get_number();
-        *(v5 + 42) = der_get_number();
-        *(v5 + 46) = der_get_number();
-        der_utils_decode_implicit_raw_octet_string_copy(v9, 4, v5 + 50, 16);
-        v5[66] = der_get_number();
-        v5[67] = der_get_number();
-        *(v5 + 68) = der_get_number();
-        der_get_number();
-        result = OUTLINED_FUNCTION_17_1();
-        *(v5 + 76) = v6;
-      }
+      memset_s(v3, 0x54uLL, 0, 0x54uLL);
+      bzero(v15, 0x228uLL);
+      v15[4] = der_key_state_lock_state;
+      v15[9] = der_key_state_backoff;
+      v15[14] = der_key_state_failed_attempts;
+      v15[19] = der_key_state_generation_state;
+      v15[24] = der_key_state_assertion_set;
+      v15[29] = der_key_state_grace_period_enabled;
+      v15[34] = der_key_state_recovery_countdown;
+      v15[39] = der_key_state_more_state;
+      v15[44] = der_key_keybag_handle;
+      v15[49] = der_key_config_max_unlock_attempts;
+      v15[54] = der_key_config_user_uuid;
+      v16[2] = der_key_lock_time;
+      v16[7] = der_key_cx_window;
+      OUTLINED_FUNCTION_0_12();
+      OUTLINED_FUNCTION_34_0(v6, v7, v8, v9, v10, v11, v12, v13, 14);
+      *v5 = der_get_number();
+      *(v5 + 1) = der_get_number();
+      *(v5 + 1) = der_get_number();
+      *(v5 + 4) = der_get_number();
+      *(v5 + 5) = der_get_number();
+      *(v5 + 26) = der_get_number();
+      *(v5 + 34) = der_get_number();
+      *(v5 + 42) = der_get_number();
+      *(v5 + 46) = der_get_number();
+      der_utils_decode_implicit_raw_octet_string_copy(v16, 4, v5 + 50, 16);
+      v5[66] = der_get_number();
+      v5[67] = der_get_number();
+      *(v5 + 68) = der_get_number();
+      der_get_number();
+      result = OUTLINED_FUNCTION_17_1();
+      *(v5 + 76) = v14;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7158,30 +5983,29 @@ uint64_t decode_memento_state(uint64_t a1)
       if (v3)
       {
         OUTLINED_FUNCTION_20_0(v3);
-        bzero(v8, 0x98uLL);
-        v8[4] = der_key_state_failed_attempts;
-        v8[9] = der_key_config_max_unlock_attempts;
-        v8[14] = der_key_state_state;
+        bzero(v15, 0x98uLL);
+        v15[4] = der_key_state_failed_attempts;
+        v15[9] = der_key_config_max_unlock_attempts;
+        v15[14] = der_key_state_state;
         OUTLINED_FUNCTION_0_12();
-        if (OUTLINED_FUNCTION_34_0())
+        if (OUTLINED_FUNCTION_34_0(v6, v7, v8, v9, v10, v11, v12, v13, 4))
         {
           *v5 = der_get_number();
           v5[1] = der_get_number();
           v5[2] = der_get_number();
           der_get_number();
           result = OUTLINED_FUNCTION_17_1();
-          v5[3] = v6;
+          v5[3] = v14;
         }
 
         else
         {
-          result = 0xFFFFFFFFLL;
+          return 0xFFFFFFFFLL;
         }
       }
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7201,92 +6025,104 @@ uint64_t decode_primary_identity_state(uint64_t a1)
           v9 = v5;
           OUTLINED_FUNCTION_20_0(v3);
           OUTLINED_FUNCTION_20_0(v8);
-          v13 = 0;
-          v11[0] = 0u;
-          v12 = 0u;
+          v12 = 0;
+          v10[0] = 0u;
+          v11 = 0u;
+          v14 = 0u;
           v15 = 0u;
-          v16 = 0u;
-          v11[1] = der_key_group_uuid;
-          v14 = der_key_uuid;
+          v10[1] = der_key_group_uuid;
+          v13 = der_key_uuid;
           OUTLINED_FUNCTION_0_12();
           der_dict_iterate();
-          if (der_utils_decode_implicit_raw_octet_string_copy(v11, 4, v7, 16) && der_utils_decode_implicit_raw_octet_string_copy(&v12 + 8, 4, v8, 16))
+          if (der_utils_decode_implicit_raw_octet_string_copy(v10, 4, v7, 16) && der_utils_decode_implicit_raw_octet_string_copy(&v11 + 8, 4, v8, 16))
           {
-            result = der_utils_decode_implicit_raw_octet_string_copy(&v16, 4, v9, 16) - 1;
+            return der_utils_decode_implicit_raw_octet_string_copy(&v15, 4, v9, 16) - 1;
           }
 
           else
           {
-            result = 0xFFFFFFFFLL;
+            return 0xFFFFFFFFLL;
           }
         }
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t decode_fv_blob_state(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_29_0(*MEMORY[0x277D85DE8]);
-  if (v4)
+  if (v3)
   {
     if (a1)
     {
-      v5 = v3;
-      if (v3)
+      v5 = v4;
+      if (v4)
       {
-        memset_s(v3, 0x58uLL, 0, 0x58uLL);
-        bzero(v9, 0x200uLL);
-        v9[4] = der_key_uuid;
-        v10[2] = der_key_id;
-        v11[2] = der_key_flags;
-        v11[7] = der_key_version;
-        v11[12] = der_key_state_reserved;
-        v13 = der_key_state_failed_attempts;
-        v14 = der_key_state_failed_attempts_other;
-        v15 = der_key_config_max_unlock_attempts;
-        v16 = der_key_state_backoff;
-        v17 = der_key_state_backoff_other;
-        v18 = der_key_config_capabilities;
-        v19 = der_key_state_refcount;
+        v6 = v3;
+        memset_s(v4, 0x58uLL, 0, 0x58uLL);
+        bzero(v16, 0x200uLL);
+        v16[4] = der_key_uuid;
+        v17[2] = der_key_id;
+        v18[2] = der_key_flags;
+        v18[7] = der_key_version;
+        v18[12] = der_key_state_reserved;
+        v20 = der_key_state_failed_attempts;
+        v21 = der_key_state_failed_attempts_other;
+        v22 = der_key_config_max_unlock_attempts;
+        v23 = der_key_state_backoff;
+        v24 = der_key_state_backoff_other;
+        v25 = der_key_config_capabilities;
+        v26 = der_key_state_refcount;
         OUTLINED_FUNCTION_0_12();
-        OUTLINED_FUNCTION_34_0();
+        OUTLINED_FUNCTION_34_0(v7, a1 + v6, v8, v9, v10, v11, v12, v13, 13);
         *v5 = der_get_number();
-        if (!der_utils_decode_implicit_raw_octet_string_copy(v10, 4, v5 + 1, 16) || !der_utils_decode_implicit_raw_octet_string_copy(v11, 4, v5 + 5, 16) || (v5[9] = der_get_number(), v5[10] = der_get_number(), v5[11] = der_get_number(), v5[12] = der_get_number(), v5[15] = der_get_number(), v5[13] = der_get_number(), v5[14] = der_get_number(), !der_utils_decode_implicit_raw_octet_string_copy_partial(&v12)))
+        if (!der_utils_decode_implicit_raw_octet_string_copy(v17, 4, v5 + 1, 16))
         {
-          result = 0xFFFFFFFFLL;
-          goto LABEL_10;
+          return 0xFFFFFFFFLL;
         }
 
-        v6 = v5[9];
-        if ((v6 & 0x400) != 0)
+        if (!der_utils_decode_implicit_raw_octet_string_copy(v18, 4, v5 + 5, 16))
+        {
+          return 0xFFFFFFFFLL;
+        }
+
+        v5[9] = der_get_number();
+        v5[10] = der_get_number();
+        v5[11] = der_get_number();
+        v5[12] = der_get_number();
+        v5[15] = der_get_number();
+        v5[13] = der_get_number();
+        v5[14] = der_get_number();
+        if (!der_utils_decode_implicit_raw_octet_string_copy_partial(&v19, 4, v5 + 16, 8u))
+        {
+          return 0xFFFFFFFFLL;
+        }
+
+        v14 = v5[9];
+        if ((v14 & 0x400) != 0)
         {
           *(v5 + 9) = der_get_number();
           if ((v5[9] & 0x800) == 0)
           {
-            goto LABEL_9;
+            return 0;
           }
         }
 
-        else if ((v6 & 0x800) == 0)
+        else if ((v14 & 0x800) == 0)
         {
-LABEL_9:
-          result = 0;
-          goto LABEL_10;
+          return 0;
         }
 
         der_get_number();
         result = OUTLINED_FUNCTION_17_1();
-        v5[20] = v8;
+        v5[20] = v15;
       }
     }
   }
 
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7310,7 +6146,7 @@ uint64_t encode_pfk_params_public(int *a1, void *a2, _DWORD *a3)
         a1 = encode_list_cstr_add_data();
       }
 
-      v7 = OUTLINED_FUNCTION_19_0(a1);
+      v7 = OUTLINED_FUNCTION_19_0(a1, a2);
       if (!v7)
       {
         v3 = 0;
@@ -7365,21 +6201,21 @@ uint64_t decode_pfk_params_internal(uint64_t a1, uint64_t a2, _DWORD *__s)
 
 uint64_t encode_icsc_params_internal(void *a1, uint64_t a2, uint64_t a3)
 {
-  v21 = 0;
-  v22 = 0;
+  v15 = 0;
+  v16 = 0;
   v3 = 4294967285;
-  v23 = 0;
+  v17 = 0;
   if (a1 && a2 && a3)
   {
-    if (*a1 && (v5 = a1[1], encode_list_add_data()) || a1[2] && (v6 = a1[3], encode_list_add_data()) || a1[4] && (v7 = a1[5], encode_list_add_data()) || a1[6] && (v8 = a1[7], encode_list_add_data()) || a1[8] && (v9 = a1[9], encode_list_add_data()) || a1[10] && (v10 = a1[11], encode_list_add_data()))
+    if (*a1 && encode_list_add_data() || a1[2] && encode_list_add_data() || a1[4] && encode_list_add_data() || a1[6] && encode_list_add_data() || a1[8] && encode_list_add_data() || a1[10] && encode_list_add_data())
     {
       v3 = 4294967273;
     }
 
     else
     {
-      v11 = encode_list_dict(&v23, &v21, &v22);
-      if (v11)
+      v5 = encode_list_dict(&v17, &v15, &v16);
+      if (v5)
       {
         v3 = 0xFFFFFFFFLL;
       }
@@ -7387,109 +6223,101 @@ uint64_t encode_icsc_params_internal(void *a1, uint64_t a2, uint64_t a3)
       else
       {
         v3 = 0;
-        OUTLINED_FUNCTION_15_1(v11, v12, v13, v14, v15, v16, v17, v18, v20, v21, v22);
+        OUTLINED_FUNCTION_15_1(v5, v6, v7, v8, v9, v10, v11, v12, v14, v15, v16);
       }
     }
   }
 
-  encode_list_free(&v23);
+  encode_list_free(&v17);
   return v3;
 }
 
-uint64_t decode_icsc_params_internal(int a1, int a2, void *__s)
+uint64_t decode_icsc_params_internal(uint64_t a1, uint64_t a2, void *__s)
 {
-  v73[29] = *MEMORY[0x277D85DE8];
-  if (__s)
+  v82[29] = *MEMORY[0x277D85DE8];
+  if (!__s)
   {
-    memset_s(__s, 0x60uLL, 0, 0x60uLL);
-    bzero(v73, 0xE8uLL);
-    v72 = der_key_acm_handle;
-    v73[4] = der_key_username;
-    v73[9] = der_key_label;
-    v73[14] = der_key_data;
-    v73[19] = der_key_timestamp;
-    v73[24] = der_key_public_key;
-    v66 = xmmword_25E94A4D0;
-    v67 = 0;
-    v68 = &v72;
-    OUTLINED_FUNCTION_0_12();
-    OUTLINED_FUNCTION_34_0();
-    OUTLINED_FUNCTION_1_7();
-    v4 = ccder_blob_decode_range();
-    if (v4)
-    {
-      v12 = OUTLINED_FUNCTION_2_5(v4, v5, v6, v7, v8, v9, v10, v11, 6, 0, 0, &v72, v69, v70, v71);
-      *(v13 + 24) = v12;
-      *__s = v14;
-      __s[1] = v15;
-    }
-
-    OUTLINED_FUNCTION_1_7();
-    v16 = ccder_blob_decode_range();
-    if (v16)
-    {
-      v24 = OUTLINED_FUNCTION_2_5(v16, v17, v18, v19, v20, v21, v22, v23, v66, *(&v66 + 1), v67, v68, v69, v70, v71);
-      v25[4] = v24;
-      __s[2] = v26;
-      __s[3] = v27;
-    }
-
-    OUTLINED_FUNCTION_1_7();
-    v28 = ccder_blob_decode_range();
-    if (v28)
-    {
-      v36 = OUTLINED_FUNCTION_2_5(v28, v29, v30, v31, v32, v33, v34, v35, v66, *(&v66 + 1), v67, v68, v69, v70, v71);
-      *(v37 + 104) = v36;
-      __s[4] = v38;
-      __s[5] = v39;
-    }
-
-    OUTLINED_FUNCTION_1_7();
-    v40 = ccder_blob_decode_range();
-    if (v40)
-    {
-      v48 = OUTLINED_FUNCTION_2_5(v40, v41, v42, v43, v44, v45, v46, v47, v66, *(&v66 + 1), v67, v68, v69, v70, v71);
-      v49[9] = v48;
-      __s[6] = v50;
-      __s[7] = v51;
-    }
-
-    OUTLINED_FUNCTION_1_7();
-    v52 = ccder_blob_decode_range();
-    if (v52)
-    {
-      v60 = OUTLINED_FUNCTION_2_5(v52, v53, v54, v55, v56, v57, v58, v59, v66, *(&v66 + 1), v67, v68, v69, v70, v71);
-      *(v61 + 184) = v60;
-      __s[8] = v62;
-      __s[9] = v63;
-    }
-
-    OUTLINED_FUNCTION_1_7();
-    if (ccder_blob_decode_range())
-    {
-      result = 0;
-      __s[10] = v69;
-      __s[11] = (v70 - v69);
-    }
-
-    else
-    {
-      result = 0;
-    }
+    return 4294967285;
   }
 
-  else
+  memset_s(__s, 0x60uLL, 0, 0x60uLL);
+  bzero(v82, 0xE8uLL);
+  v81 = der_key_acm_handle;
+  v82[4] = der_key_username;
+  v82[9] = der_key_label;
+  v82[14] = der_key_data;
+  v82[19] = der_key_timestamp;
+  v82[24] = der_key_public_key;
+  v75 = 0;
+  v76 = 0;
+  v77 = &v81;
+  OUTLINED_FUNCTION_0_12();
+  OUTLINED_FUNCTION_34_0(v6, a1 + a2, v7, v8, v9, v10, v11, v12, 6);
+  OUTLINED_FUNCTION_1_7();
+  v13 = ccder_blob_decode_range();
+  if (v13)
   {
-    result = 4294967285;
+    v21 = OUTLINED_FUNCTION_2_5(v13, v14, v15, v16, v17, v18, v19, v20, v74, 0, 0, &v81, v78, v79, v80);
+    *(v22 + 24) = v21;
+    *__s = v23;
+    __s[1] = v24;
   }
 
-  v65 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_7();
+  v25 = ccder_blob_decode_range();
+  if (v25)
+  {
+    v33 = OUTLINED_FUNCTION_2_5(v25, v26, v27, v28, v29, v30, v31, v32, v74, v75, v76, v77, v78, v79, v80);
+    v34[4] = v33;
+    __s[2] = v35;
+    __s[3] = v36;
+  }
+
+  OUTLINED_FUNCTION_1_7();
+  v37 = ccder_blob_decode_range();
+  if (v37)
+  {
+    v45 = OUTLINED_FUNCTION_2_5(v37, v38, v39, v40, v41, v42, v43, v44, v74, v75, v76, v77, v78, v79, v80);
+    *(v46 + 104) = v45;
+    __s[4] = v47;
+    __s[5] = v48;
+  }
+
+  OUTLINED_FUNCTION_1_7();
+  v49 = ccder_blob_decode_range();
+  if (v49)
+  {
+    v57 = OUTLINED_FUNCTION_2_5(v49, v50, v51, v52, v53, v54, v55, v56, v74, v75, v76, v77, v78, v79, v80);
+    v58[9] = v57;
+    __s[6] = v59;
+    __s[7] = v60;
+  }
+
+  OUTLINED_FUNCTION_1_7();
+  v61 = ccder_blob_decode_range();
+  if (v61)
+  {
+    v69 = OUTLINED_FUNCTION_2_5(v61, v62, v63, v64, v65, v66, v67, v68, v74, v75, v76, v77, v78, v79, v80);
+    *(v70 + 184) = v69;
+    __s[8] = v71;
+    __s[9] = v72;
+  }
+
+  OUTLINED_FUNCTION_1_7();
+  if ((ccder_blob_decode_range() & 1) == 0)
+  {
+    return 0;
+  }
+
+  result = 0;
+  __s[10] = v78;
+  __s[11] = (v79 - v78);
   return result;
 }
 
 uint64_t encode_fv_params_internal(uint64_t a1, void *a2, _DWORD *a3)
 {
-  v17 = 0;
+  v18 = 0;
   v3 = 4294967273;
   if (a2 && a3)
   {
@@ -7500,11 +6328,11 @@ uint64_t encode_fv_params_internal(uint64_t a1, void *a2, _DWORD *a3)
         v5 = encode_list_cstr_add_data();
         if (!v5)
         {
-          v6 = OUTLINED_FUNCTION_19_0(v5);
-          if (!v6)
+          v7 = OUTLINED_FUNCTION_19_0(v5, v6);
+          if (!v7)
           {
             v3 = 0;
-            OUTLINED_FUNCTION_15_1(v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16);
+            OUTLINED_FUNCTION_15_1(v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17);
           }
         }
       }
@@ -7518,7 +6346,7 @@ uint64_t encode_fv_params_internal(uint64_t a1, void *a2, _DWORD *a3)
     }
   }
 
-  encode_list_free(&v17);
+  encode_list_free(&v18);
   return v3;
 }
 
@@ -7551,57 +6379,49 @@ uint64_t decode_fv_params_internal(uint64_t a1, uint64_t a2, void *a3)
 uint64_t ref_key_create_request_to_class(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
   if (a1 && a2)
   {
     OUTLINED_FUNCTION_0_12();
     der_dict_iterate();
-    v2 = der_get_number() & 0x1F;
+    return der_get_number() & 0x1F;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t decode_peer_state(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  bzero(v11, 0xE8uLL);
-  v10 = der_key_peer_unlock_token_status;
-  v11[4] = der_key_peer_unwrapped_escrow_record_status;
-  v11[9] = der_key_peer_wrapped_escrow_record_status;
-  v11[14] = der_key_peer_flags;
-  v11[19] = der_key_public_key;
-  v12[2] = der_key_peer_kcv;
-  v7 = xmmword_25E94A4D0;
-  v8 = 0;
-  v9 = &v10;
+  v12[2] = *MEMORY[0x277D85DE8];
+  bzero(v10, 0xE8uLL);
+  v9 = der_key_peer_unlock_token_status;
+  v10[4] = der_key_peer_unwrapped_escrow_record_status;
+  v10[9] = der_key_peer_wrapped_escrow_record_status;
+  v10[14] = der_key_peer_flags;
+  v10[19] = der_key_public_key;
+  v11[2] = der_key_peer_kcv;
+  v6 = xmmword_25E94A4D0;
+  v7 = 0;
+  v8 = &v9;
   OUTLINED_FUNCTION_0_12();
   der_dict_iterate();
   *a3 = der_get_number();
   *(a3 + 4) = der_get_number();
   *(a3 + 8) = der_get_number();
   *(a3 + 12) = der_get_number();
-  v6 = 65;
-  if (der_utils_decode_implicit_raw_octet_string_copy_len(v12, 4, (a3 + 16), &v6))
+  v5 = 65;
+  if (!der_utils_decode_implicit_raw_octet_string_copy_len(v11, 4, (a3 + 16), &v5))
   {
-    *(a3 + 88) = v6;
-    result = der_utils_decode_implicit_raw_octet_string_copy(v13, 4, (a3 + 96), 3) - 1;
+    return 0xFFFFFFFFLL;
   }
 
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  *(a3 + 88) = v5;
+  return der_utils_decode_implicit_raw_octet_string_copy(v12, 4, (a3 + 96), 3) - 1;
 }
 
 void *ref_key_op_der_to_enum(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (a2)
@@ -7611,12 +6431,11 @@ void *ref_key_op_der_to_enum(uint64_t a1, uint64_t a2)
       {
         OUTLINED_FUNCTION_10_1();
         der_dict_iterate();
-        v2 = 0;
+        return 0;
       }
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -7651,15 +6470,14 @@ void *der_utils_decode_implicit_raw_octet_string_alloc(uint64_t a1, uint64_t a2,
   return OUTLINED_FUNCTION_6_2(v15, v16, v17, v18, v19, v20, v21, v22, v29);
 }
 
-uint64_t der_utils_decode_implicit_uint64(__int128 *a1, uint64_t a2, void *a3)
+uint64_t der_utils_decode_implicit_uint64(__n128 *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, __n128 a10)
 {
   if (a3)
   {
     *a3 = 0;
   }
 
-  v5 = *a1;
-  result = OUTLINED_FUNCTION_33_0();
+  result = OUTLINED_FUNCTION_33_0(*a1, a1, a2, a3, a4, a5, a6, a7, a8, a10, v13, v14);
   if (result)
   {
     if (ccn_read_uint())
@@ -7669,7 +6487,7 @@ uint64_t der_utils_decode_implicit_uint64(__int128 *a1, uint64_t a2, void *a3)
 
     else
     {
-      *a1 = v7;
+      *a1 = v15;
       if (a3)
       {
         *a3 = 0;
@@ -7682,7 +6500,7 @@ uint64_t der_utils_decode_implicit_uint64(__int128 *a1, uint64_t a2, void *a3)
   return result;
 }
 
-uint64_t se_derivation_request_serialize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t se_derivation_request_serialize(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
   v10 = a6 + a7;
   if (!ccder_blob_encode_body_tl() || !ccder_blob_encode_implicit_uint64() || !ccder_blob_encode_implicit_uint64() || !ccder_blob_encode_implicit_uint64())
@@ -7711,8 +6529,8 @@ uint64_t se_derivation_request_serialize(uint64_t a1, uint64_t a2, uint64_t a3, 
 
 uint64_t se_derivation_request_deserialize(void *a1, void *a2, _BYTE *a3, _BYTE *a4, _BYTE *a5, uint64_t a6, uint64_t a7)
 {
-  LOBYTE(v51) = a6;
-  *(&v51 + 1) = a6 + a7;
+  LOBYTE(v72) = a6;
+  *(&v72 + 1) = a6 + a7;
   OUTLINED_FUNCTION_2_3();
   v12 = ccder_blob_decode_range();
   if (!v12)
@@ -7720,9 +6538,9 @@ uint64_t se_derivation_request_deserialize(void *a1, void *a2, _BYTE *a3, _BYTE 
     return 4294967277;
   }
 
-  v20 = OUTLINED_FUNCTION_31_0(v12, v13, v14, v15, v16, v17, v18, v19, v46, 0, v51);
-  v22 = der_utils_decode_implicit_uint64(v20, 0x8000000000000003, v21);
-  if (!v22)
+  v20 = OUTLINED_FUNCTION_31_0(v12, v13, v14, v15, v16, v17, v18, v19, v67, 0, v72);
+  v29 = der_utils_decode_implicit_uint64(v20, 0x8000000000000003, v21, v22, v23, v24, v25, v26, v27, v28);
+  if (!v29)
   {
     return 4294967277;
   }
@@ -7730,12 +6548,12 @@ uint64_t se_derivation_request_deserialize(void *a1, void *a2, _BYTE *a3, _BYTE 
   if (a5)
   {
     OUTLINED_FUNCTION_22_0();
-    *a5 = v30;
+    *a5 = v37;
   }
 
-  v31 = OUTLINED_FUNCTION_31_0(v22, v23, v24, v25, v26, v27, v28, v29, v47, v49, v52);
-  v33 = der_utils_decode_implicit_uint64(v31, 0x8000000000000002, v32);
-  if (!v33)
+  v38 = OUTLINED_FUNCTION_31_0(v29, v30, v31, v32, v33, v34, v35, v36, v68, v70, v73);
+  v47 = der_utils_decode_implicit_uint64(v38, 0x8000000000000002, v39, v40, v41, v42, v43, v44, v45, v46);
+  if (!v47)
   {
     return 4294967277;
   }
@@ -7743,11 +6561,11 @@ uint64_t se_derivation_request_deserialize(void *a1, void *a2, _BYTE *a3, _BYTE 
   if (a4)
   {
     OUTLINED_FUNCTION_22_0();
-    *a4 = v41;
+    *a4 = v55;
   }
 
-  v42 = OUTLINED_FUNCTION_31_0(v33, v34, v35, v36, v37, v38, v39, v40, v48, v50, v53);
-  if (!der_utils_decode_implicit_uint64(v42, 0x8000000000000001, v43))
+  v56 = OUTLINED_FUNCTION_31_0(v47, v48, v49, v50, v51, v52, v53, v54, v69, v71, v74);
+  if (!der_utils_decode_implicit_uint64(v56, 0x8000000000000001, v57, v58, v59, v60, v61, v62, v63, v64))
   {
     return 4294967277;
   }
@@ -7755,24 +6573,24 @@ uint64_t se_derivation_request_deserialize(void *a1, void *a2, _BYTE *a3, _BYTE 
   if (a3)
   {
     OUTLINED_FUNCTION_22_0();
-    *a3 = v44;
+    *a3 = v65;
   }
 
   OUTLINED_FUNCTION_1_7();
   if (ccder_blob_decode_range())
   {
-    v51 = v56;
+    v72 = v77;
     if (a1)
     {
       if (a2)
       {
-        *a1 = v54;
-        *a2 = (v55 - v54);
+        *a1 = v75;
+        *a2 = (v76 - v75);
       }
     }
   }
 
-  if (v51 == *(&v51 + 1))
+  if (v72 == *(&v72 + 1))
   {
     return 0;
   }
@@ -7783,18 +6601,16 @@ uint64_t se_derivation_request_deserialize(void *a1, void *a2, _BYTE *a3, _BYTE 
   }
 }
 
-uint64_t _qsort_compare(uint64_t a1, uint64_t a2)
+uint64_t _qsort_compare(const void **a1, void **a2)
 {
-  v6 = *a1;
-  v7 = *a1 + *(a1 + 8);
+  v5 = *a1;
   __s2 = *a2;
-  v5 = *a2 + *(a2 + 8);
-  if (!ccder_blob_decode_sequence_tl() || !ccder_blob_decode_sequence_tl() || !ccder_blob_decode_tag() || !ccder_blob_decode_len() || !v6 || !ccder_blob_decode_tag() || !ccder_blob_decode_len() || !__s2)
+  if (!ccder_blob_decode_sequence_tl() || !ccder_blob_decode_sequence_tl() || !ccder_blob_decode_tag() || !ccder_blob_decode_len() || !v5 || !ccder_blob_decode_tag() || !ccder_blob_decode_len() || !__s2)
   {
     return 4294967293;
   }
 
-  v3 = memcmp(v6, __s2, 0);
+  v3 = memcmp(v5, __s2, 0);
   if (v3 > 0)
   {
     return 1;
@@ -7804,20 +6620,6 @@ uint64_t _qsort_compare(uint64_t a1, uint64_t a2)
   {
     return ((v3 != 0) << 31 >> 31);
   }
-}
-
-uint64_t _merge_dict_cb_cold_1()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s bad 1%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 627, "", "");
-}
-
-uint64_t _merge_dict_cb_cold_2()
-{
-  v0 = *MEMORY[0x277D85E08];
-  OUTLINED_FUNCTION_0_9();
-  return fprintf(v1, "%s:%spid:%d,%s:%s%s%s%s%s%u:%s fail%s\n", "aks", v2, v4, v5, v6, v7, v8, v9, ":", 640, "", "");
 }
 
 uint64_t aks_unpack_data(unsigned int *a1, unint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -7836,14 +6638,14 @@ uint64_t aks_unpack_data(unsigned int *a1, unint64_t a2, unsigned int a3, uint64
       return 0;
     }
 
-    v11 = (a1 + 1);
+    v11 = a1 + 1;
     while (1)
     {
       v12 = v19;
       v13 = *v19;
       v19 += 2;
       v16 = *v11;
-      v14 = v11 + 4;
+      v14 = (v11 + 1);
       v15 = v16;
       if (v16 > a2)
       {
@@ -7873,20 +6675,20 @@ uint64_t aks_unpack_data(unsigned int *a1, unint64_t a2, unsigned int a3, uint64
   return 0xFFFFFFFFLL;
 }
 
-uint64_t stash_stats_deserialize(uint64_t a1, uint64_t a2, void *a3)
+uint64_t stash_stats_deserialize(unint64_t a1, uint64_t a2, void *a3)
 {
-  *&v6 = a1;
-  *(&v6 + 1) = a1 + a2;
-  if (!ccder_blob_decode_range() || !der_utils_decode_implicit_uint64(&v6, 0x8000000000000005, a3 + 3) || !der_utils_decode_implicit_uint64(&v6, 0x8000000000000004, a3 + 5) || !der_utils_decode_implicit_uint64(&v6, 0x8000000000000003, a3 + 2) || !der_utils_decode_implicit_uint64(&v6, 0x8000000000000002, a3 + 4) || !der_utils_decode_implicit_uint64(&v6, 0x8000000000000001, a3 + 1))
+  v48.n128_u64[0] = a1;
+  v48.n128_u64[1] = a1 + a2;
+  if (!ccder_blob_decode_range() || !der_utils_decode_implicit_uint64(&v48, 0x8000000000000005, a3 + 3, v4, v5, v6, v7, v8, v9, v10) || !der_utils_decode_implicit_uint64(&v48, 0x8000000000000004, a3 + 5, v11, v12, v13, v14, v15, v16, v17) || !der_utils_decode_implicit_uint64(&v48, 0x8000000000000003, a3 + 2, v18, v19, v20, v21, v22, v23, v24) || !der_utils_decode_implicit_uint64(&v48, 0x8000000000000002, a3 + 4, v25, v26, v27, v28, v29, v30, v31) || !der_utils_decode_implicit_uint64(&v48, 0x8000000000000001, a3 + 1, v32, v33, v34, v35, v36, v37, v38))
   {
     return 4294967277;
   }
 
-  v4 = der_utils_decode_implicit_uint64(&v6, 0x8000000000000000, a3);
+  v46 = der_utils_decode_implicit_uint64(&v48, 0x8000000000000000, a3, v39, v40, v41, v42, v43, v44, v45);
   result = 4294967277;
-  if (v4)
+  if (v46)
   {
-    if (v6 == *(&v6 + 1))
+    if (v48.n128_u64[0] == v48.n128_u64[1])
     {
       return 0;
     }

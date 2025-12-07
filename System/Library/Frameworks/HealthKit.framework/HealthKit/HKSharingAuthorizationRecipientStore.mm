@@ -19,9 +19,9 @@
 {
   storeCopy = store;
   authorizationsCopy = authorizations;
-  v28.receiver = self;
-  v28.super_class = HKSharingAuthorizationRecipientStore;
-  v9 = [(HKSharingAuthorizationRecipientStore *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = HKSharingAuthorizationRecipientStore;
+  v9 = [(HKSharingAuthorizationRecipientStore *)&v29 init];
   v10 = v9;
   if (v9)
   {
@@ -47,10 +47,10 @@
     v21 = [HKObserverSet alloc];
     v22 = objc_opt_class();
     v23 = NSStringFromClass(v22);
-    v24 = HKLogSharing();
-    v25 = [(HKObserverSet *)v21 initWithName:v23 loggingCategory:v24];
+    v25 = HKLogSharing(v23, v24);
+    v26 = [(HKObserverSet *)v21 initWithName:v23 loggingCategory:v25];
     observers = v10->_observers;
-    v10->_observers = v25;
+    v10->_observers = v26;
   }
 
   return v10;
@@ -78,11 +78,11 @@
 void __95__HKSharingAuthorizationRecipientStore_fetchRecipientIdentifiersByAuthorizationWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __95__HKSharingAuthorizationRecipientStore_fetchRecipientIdentifiersByAuthorizationWithCompletion___block_invoke_2_cold_1(a1);
+    __95__HKSharingAuthorizationRecipientStore_fetchRecipientIdentifiersByAuthorizationWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -148,12 +148,12 @@ uint64_t __55__HKSharingAuthorizationRecipientStore_removeObserver___block_invok
 
 void __55__HKSharingAuthorizationRecipientStore_removeObserver___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
+  v6 = HKLogSharing(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __55__HKSharingAuthorizationRecipientStore_removeObserver___block_invoke_3_cold_1(a1);
+    __55__HKSharingAuthorizationRecipientStore_removeObserver___block_invoke_3_cold_1();
   }
 }
 
@@ -218,12 +218,12 @@ void __55__HKSharingAuthorizationRecipientStore_removeObserver___block_invoke_3(
 
 void __64__HKSharingAuthorizationRecipientStore__registerRemoteObservers__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
+  v6 = HKLogSharing(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __64__HKSharingAuthorizationRecipientStore__registerRemoteObservers__block_invoke_2_cold_1(a1);
+    __64__HKSharingAuthorizationRecipientStore__registerRemoteObservers__block_invoke_2_cold_1();
   }
 }
 
@@ -261,33 +261,6 @@ void __64__HKSharingAuthorizationRecipientStore__registerRemoteObservers__block_
   v2 = objc_opt_class();
 
   return [v2 serverInterface];
-}
-
-void __95__HKSharingAuthorizationRecipientStore_fetchRecipientIdentifiersByAuthorizationWithCompletion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "[summary-sharing] %{public}@: Error fetching recipient identifiers %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __55__HKSharingAuthorizationRecipientStore_removeObserver___block_invoke_3_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "[summary-sharing] %{public}@: Error unregistering observers %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __64__HKSharingAuthorizationRecipientStore__registerRemoteObservers__block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "[summary-sharing] %{public}@: Error registering observers %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -55,7 +55,7 @@
 
 - (BOOL)checkValue:(id)value forKey:(id)key isKindOfClass:(Class)class error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   if (!valueCopy)
@@ -69,9 +69,9 @@
 LABEL_8:
     keyCopy = [MEMORY[0x277CCACA8] stringWithFormat:v10, keyCopy];
     v12 = MEMORY[0x277CCA9B8];
-    v16 = *MEMORY[0x277CCA068];
-    v17[0] = keyCopy;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x277CCA068];
+    v16[0] = keyCopy;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = [v12 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v13];
 
     LOBYTE(error) = 0;
@@ -92,13 +92,12 @@ LABEL_8:
   LOBYTE(error) = 1;
 LABEL_9:
 
-  v14 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (BOOL)validateVersion:(id *)version error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v6 = [(COIDSMessage *)self checkValue:*version forKey:@"version" isKindOfClass:objc_opt_class() error:error];
   if (v6)
   {
@@ -110,9 +109,9 @@ LABEL_9:
       {
         v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"invalid version '%lu'", unsignedIntegerValue];
         v9 = MEMORY[0x277CCA9B8];
-        v13 = *MEMORY[0x277CCA068];
-        v14[0] = v8;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+        v12 = *MEMORY[0x277CCA068];
+        v13[0] = v8;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
         *error = [v9 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v10];
 
         LOBYTE(v6) = 0;
@@ -120,14 +119,13 @@ LABEL_9:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)validateType:(id *)type error:(id *)error
 {
   errorCopy = error;
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   if ([(COIDSMessage *)self checkValue:*type forKey:@"type" isKindOfClass:objc_opt_class() error:error])
   {
     v7 = *type;
@@ -138,9 +136,9 @@ LABEL_9:
       {
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"invalid message type '%lu'", unsignedIntegerValue];
         v10 = MEMORY[0x277CCA9B8];
-        v22 = *MEMORY[0x277CCA068];
-        v23[0] = v9;
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v21 = *MEMORY[0x277CCA068];
+        v22[0] = v9;
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
         *errorCopy = [v10 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v11];
 
 LABEL_16:
@@ -149,7 +147,7 @@ LABEL_16:
 
 LABEL_17:
 
-      goto LABEL_18;
+      return errorCopy;
     }
 
     if (unsignedIntegerValue == 2)
@@ -162,11 +160,11 @@ LABEL_17:
         }
 
         v12 = MEMORY[0x277CCA9B8];
-        v18 = *MEMORY[0x277CCA068];
-        v19 = @"'error' property missing";
+        v17 = *MEMORY[0x277CCA068];
+        v18 = @"'error' property missing";
         v13 = MEMORY[0x277CBEAC0];
-        v14 = &v19;
-        v15 = &v18;
+        v14 = &v18;
+        v15 = &v17;
 LABEL_15:
         v9 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
         *errorCopy = [v12 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v9];
@@ -182,11 +180,11 @@ LABEL_15:
       }
 
       v12 = MEMORY[0x277CCA9B8];
-      v20 = *MEMORY[0x277CCA068];
-      v21 = @"'payload' property missing";
+      v19 = *MEMORY[0x277CCA068];
+      v20 = @"'payload' property missing";
       v13 = MEMORY[0x277CBEAC0];
-      v14 = &v21;
-      v15 = &v20;
+      v14 = &v20;
+      v15 = &v19;
       goto LABEL_15;
     }
 
@@ -195,8 +193,6 @@ LABEL_15:
   }
 
   LOBYTE(errorCopy) = 0;
-LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
   return errorCopy;
 }
 
@@ -215,7 +211,7 @@ LABEL_18:
 
 - (BOOL)validateData:(id *)data error:(id *)error
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (!*data)
   {
     goto LABEL_4;
@@ -228,65 +224,56 @@ LABEL_18:
     {
 LABEL_4:
       LOBYTE(v6) = 1;
-      goto LABEL_5;
+      return v6;
     }
 
     if (error)
     {
-      v8 = MEMORY[0x277CCA9B8];
-      v11 = *MEMORY[0x277CCA068];
-      v12[0] = @"'command' property missing";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-      *error = [v8 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v9];
+      v7 = MEMORY[0x277CCA9B8];
+      v10 = *MEMORY[0x277CCA068];
+      v11[0] = @"'command' property missing";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      *error = [v7 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v8];
     }
 
     LOBYTE(v6) = 0;
   }
 
-LABEL_5:
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)validateError:(id *)error error:(id *)a4
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  if (*error)
+  v15[1] = *MEMORY[0x277D85DE8];
+  if (!*error)
   {
-    if ([(COIDSMessage *)self checkValue:*error forKey:@"error" isKindOfClass:objc_opt_class() error:a4])
-    {
-      v6 = *error;
-      v7 = _errorFromDictionary(v6);
-      v8 = v7;
-      v9 = v7 != 0;
-      if (v7)
-      {
-        v10 = v7;
-        *error = v8;
-      }
-
-      else if (a4)
-      {
-        v11 = MEMORY[0x277CCA9B8];
-        v15 = *MEMORY[0x277CCA068];
-        v16[0] = @"'error' data invalid";
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-        *a4 = [v11 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v12];
-      }
-    }
-
-    else
-    {
-      v9 = 0;
-    }
+    return 1;
   }
 
-  else
+  if (![(COIDSMessage *)self checkValue:*error forKey:@"error" isKindOfClass:objc_opt_class() error:a4])
   {
-    v9 = 1;
+    return 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v6 = *error;
+  v7 = _errorFromDictionary(v6);
+  v8 = v7;
+  v9 = v7 != 0;
+  if (v7)
+  {
+    v10 = v7;
+    *error = v8;
+  }
+
+  else if (a4)
+  {
+    v11 = MEMORY[0x277CCA9B8];
+    v14 = *MEMORY[0x277CCA068];
+    v15[0] = @"'error' data invalid";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    *a4 = [v11 errorWithDomain:@"COMeshNodeErrorDomain" code:-4000 userInfo:v12];
+  }
+
   return v9;
 }
 
@@ -397,7 +384,7 @@ LABEL_5:
 
 - (id)unarchivePayloadOfTypes:(id)types error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   typesCopy = types;
   command = [(COIDSMessage *)self command];
   v8 = [typesCopy containsObject:command];
@@ -420,15 +407,13 @@ LABEL_5:
 
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CCA050];
-    v21 = *MEMORY[0x277CCA068];
-    v22[0] = v15;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA068];
+    v21[0] = v15;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     *error = [v16 errorWithDomain:v17 code:4866 userInfo:v18];
 
     error = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -472,22 +457,19 @@ LABEL_5:
 
 - (void)_commandPayload:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "Failed to properly archive for sending over IDS: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "Failed to properly archive for sending over IDS: %@", &v2, 0xCu);
 }
 
 - (void)_commandPayload:(objc_class *)a1 .cold.2(objc_class *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromClass(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "%@ does not appear to properly support secure coding which is required for all commands going over IDS!", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_fault_impl(&dword_244378000, a2, OS_LOG_TYPE_FAULT, "%@ does not appear to properly support secure coding which is required for all commands going over IDS!", &v4, 0xCu);
 }
 
 @end

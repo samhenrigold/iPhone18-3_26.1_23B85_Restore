@@ -775,7 +775,7 @@ LABEL_20:
 
   [recordingCopy length];
   v19 = v18;
-  [legacyRecordingCopy duration];
+  objc_msgSend_duration(legacyRecordingCopy);
   if (v19 != v20)
   {
     v21 = OSLogForCategory();
@@ -783,7 +783,7 @@ LABEL_20:
     {
       [recordingCopy length];
       v23 = v22;
-      [legacyRecordingCopy duration];
+      objc_msgSend_duration(legacyRecordingCopy);
       v29 = 136315650;
       v30 = "[RCServiceContainer _validateMigratedRecording:legacyRecording:]";
       v31 = 2048;

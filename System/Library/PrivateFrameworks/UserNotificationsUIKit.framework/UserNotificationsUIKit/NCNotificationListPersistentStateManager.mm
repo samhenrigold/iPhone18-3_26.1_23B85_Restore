@@ -705,7 +705,7 @@ void __82__NCNotificationListPersistentStateManager__scheduleListRepresentationP
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v5, v6, "%{public}@ found non-dictionary top level JSON object!", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v5, v6, "%{public}@ found non-dictionary top level JSON object!", v7, v8, v9, v10);
 }
 
 - (void)_publishOnReadForStoredPersistentStateRepresentation:(id)representation
@@ -2380,7 +2380,7 @@ void __137__NCNotificationListPersistentStateManager__mergeRepresentationForNoti
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v5, v6, "%{public}@ encountered error writing notification list persistent state to file!", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_6(&dword_21E77E000, v5, v6, "%{public}@ encountered error writing notification list persistent state to file!", v7, v8, v9, v10);
 }
 
 @end

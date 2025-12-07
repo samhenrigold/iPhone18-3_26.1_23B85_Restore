@@ -22,7 +22,7 @@
   else
   {
     v3 = off_1E7F3C0E8[type];
-    v4 = AVTAvatarUIBundle();
+    v4 = AVTAvatarUIBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_1F39618F0 table:@"Localized"];
   }
 

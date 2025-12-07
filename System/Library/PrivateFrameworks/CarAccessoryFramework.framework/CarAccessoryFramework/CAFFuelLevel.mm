@@ -21,6 +21,7 @@
 - (unsigned)fillLevelLabel;
 - (unsigned)fuelLevelState;
 - (unsigned)portSideIndicator;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -292,6 +293,120 @@
   portSideIndicatorValue = [portSideIndicatorCharacteristic portSideIndicatorValue];
 
   return portSideIndicatorValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000041000002"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    fuelLevelCharacteristic = [(CAFFuelLevel *)self fuelLevelCharacteristic];
+    uniqueIdentifier2 = [fuelLevelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      fuelLevel = [(CAFFuelLevel *)self fuelLevel];
+      [observers fuelLevelService:self didUpdateFuelLevel:fuelLevel];
+LABEL_12:
+
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000041000017"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    fuelLevelStateCharacteristic = [(CAFFuelLevel *)self fuelLevelStateCharacteristic];
+    uniqueIdentifier4 = [fuelLevelStateCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers fuelLevelService:self didUpdateFuelLevelState:{-[CAFFuelLevel fuelLevelState](self, "fuelLevelState")}];
+LABEL_21:
+
+      goto LABEL_22;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x000000004100001A"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    fuelLevelMarkerLowCharacteristic = [(CAFFuelLevel *)self fuelLevelMarkerLowCharacteristic];
+    uniqueIdentifier6 = [fuelLevelMarkerLowCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      fuelLevel = [(CAFFuelLevel *)self fuelLevelMarkerLow];
+      [observers fuelLevelService:self didUpdateFuelLevelMarkerLow:fuelLevel];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000046000007"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    fillLevelLabelCharacteristic = [(CAFFuelLevel *)self fillLevelLabelCharacteristic];
+    uniqueIdentifier8 = [fillLevelLabelCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      [observers fuelLevelService:self didUpdateFillLevelLabel:{-[CAFFuelLevel fillLevelLabel](self, "fillLevelLabel")}];
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000041000013"])
+  {
+    goto LABEL_21;
+  }
+
+  uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+  portSideIndicatorCharacteristic = [(CAFFuelLevel *)self portSideIndicatorCharacteristic];
+  uniqueIdentifier10 = [portSideIndicatorCharacteristic uniqueIdentifier];
+  v32 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+  if (v32)
+  {
+    observers = [(CAFService *)self observers];
+    [observers fuelLevelService:self didUpdatePortSideIndicator:{-[CAFFuelLevel portSideIndicator](self, "portSideIndicator")}];
+    goto LABEL_21;
+  }
+
+LABEL_22:
+  v33.receiver = self;
+  v33.super_class = CAFFuelLevel;
+  [(CAFService *)&v33 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForFuelLevel

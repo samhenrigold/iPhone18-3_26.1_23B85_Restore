@@ -27,7 +27,7 @@
     operationQueue = initPrivate->_operationQueue;
     initPrivate->_operationQueue = v3;
 
-    [(NSOperationQueue *)initPrivate->_operationQueue setMaxConcurrentOperationCount:1];
+    [(NSOperationQueue *)initPrivate->_operationQueue setMaxConcurrentOperationCount:?];
     initPrivate->_lock._os_unfair_lock_opaque = 0;
     initPrivate->_nextTaskID = 1;
   }
@@ -39,18 +39,18 @@
 {
   os_unfair_lock_lock_with_options();
   nextTaskID = [(HMITaskServiceServer *)self nextTaskID];
-  [(HMITaskServiceServer *)self setNextTaskID:(nextTaskID + 1)];
+  [(HMITaskServiceServer *)self setNextTaskID:?];
   os_unfair_lock_unlock(&self->_lock);
   return nextTaskID;
 }
 
 - (int)submitTaskWithOptions:(id)options progressHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v11 = [optionsCopy objectForKeyedSubscript:@"taskType"];
+  v11 = [optionsCopy objectForKeyedSubscript:?];
   if (v11)
   {
     v12 = v11;
@@ -65,14 +65,14 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v16;
+      v35 = v16;
       _os_log_impl(&dword_22D12F000, v15, OS_LOG_TYPE_DEBUG, "%{public}@options is empty/nil, defaulting to Home persons clustering task with impure person cleanup", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
     if (optionsCopy)
     {
-      [MEMORY[0x277CBEB38] dictionaryWithDictionary:optionsCopy];
+      [MEMORY[0x277CBEB38] dictionaryWithDictionary:?];
     }
 
     else
@@ -80,75 +80,75 @@
       [MEMORY[0x277CBEB38] dictionary];
     }
     v17 = ;
-    [v17 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"doImpurePersonCleanup"];
+    [v17 setObject:? forKeyedSubscript:?];
     v18 = [v17 copy];
 
     v12 = HMITaskTypeHomePersonClusteringTask;
     optionsCopy = v18;
   }
 
-  if ([v12 isEqualToString:HMITaskTypeUpdatePersonsModelTask])
+  if ([v12 isEqualToString:?])
   {
-    v33 = 0;
-    v19 = &v33;
-    v20 = [(HMITaskServiceServer *)self buildUpdatePersonsModelTaskFromOptions:optionsCopy error:&v33];
+    v33[0] = 0;
+    v19 = v33;
+    v20 = [HMITaskServiceServer buildUpdatePersonsModelTaskFromOptions:"buildUpdatePersonsModelTaskFromOptions:error:" error:?];
   }
 
-  else if ([v12 isEqualToString:HMITaskTypeRemovePersonsModelTask])
+  else if ([v12 isEqualToString:?])
   {
     v32 = 0;
     v19 = &v32;
-    v20 = [(HMITaskServiceServer *)self buildRemovePersonsModelTaskFromOptions:optionsCopy error:&v32];
+    v20 = [HMITaskServiceServer buildRemovePersonsModelTaskFromOptions:"buildRemovePersonsModelTaskFromOptions:error:" error:?];
   }
 
-  else if ([v12 isEqualToString:HMITaskTypeHomePersonClusteringTask])
+  else if ([v12 isEqualToString:?])
   {
     v31 = 0;
     v19 = &v31;
-    v20 = [(HMITaskServiceServer *)self buildHomePersonClusteringTaskFromOptions:optionsCopy error:&v31];
+    v20 = [HMITaskServiceServer buildHomePersonClusteringTaskFromOptions:"buildHomePersonClusteringTaskFromOptions:error:" error:?];
   }
 
-  else if ([v12 isEqualToString:HMITaskTypeEmptyTask])
+  else if ([v12 isEqualToString:?])
   {
     v30 = 0;
     v19 = &v30;
-    v20 = [(HMITaskServiceServer *)self buildEmptyTaskFromOptions:optionsCopy error:&v30];
+    v20 = [HMITaskServiceServer buildEmptyTaskFromOptions:"buildEmptyTaskFromOptions:error:" error:?];
   }
 
-  else if ([v12 isEqualToString:HMITaskTypeFaceMisclassificationTask])
+  else if ([v12 isEqualToString:?])
   {
     v29 = 0;
     v19 = &v29;
-    v20 = [(HMITaskServiceServer *)self buildFaceMisclassificationTaskFromOptions:optionsCopy error:&v29];
+    v20 = [HMITaskServiceServer buildFaceMisclassificationTaskFromOptions:"buildFaceMisclassificationTaskFromOptions:error:" error:?];
   }
 
-  else if ([v12 isEqualToString:HMITaskTypePersonsModelsSummaryTask])
+  else if ([v12 isEqualToString:?])
   {
     v28 = 0;
     v19 = &v28;
-    v20 = [(HMITaskServiceServer *)self buildPersonsModelsSummaryTaskFromOptions:optionsCopy error:&v28];
+    v20 = [HMITaskServiceServer buildPersonsModelsSummaryTaskFromOptions:"buildPersonsModelsSummaryTaskFromOptions:error:" error:?];
   }
 
-  else if ([v12 isEqualToString:HMITaskTypeFeedbackTask])
+  else if ([v12 isEqualToString:?])
   {
     v27 = 0;
     v19 = &v27;
-    v20 = [(HMITaskServiceServer *)self buildSubmitFeedbackTaskFromOptions:optionsCopy error:&v27];
+    v20 = [HMITaskServiceServer buildSubmitFeedbackTaskFromOptions:"buildSubmitFeedbackTaskFromOptions:error:" error:?];
   }
 
   else
   {
-    if (![v12 isEqualToString:HMITaskTypeUpdateTorsoModelTask])
+    if (![v12 isEqualToString:?])
     {
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown task type: %@", v12];
-      v22 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1042 description:v24];
+      v24 = [MEMORY[0x277CCACA8] stringWithFormat:v12];
+      v22 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
 
       goto LABEL_28;
     }
 
     v26 = 0;
     v19 = &v26;
-    v20 = [(HMITaskServiceServer *)self buildUpdateTorsoModelTaskFromOptions:optionsCopy error:&v26];
+    v20 = [HMITaskServiceServer buildUpdateTorsoModelTaskFromOptions:"buildUpdateTorsoModelTaskFromOptions:error:" error:?];
   }
 
   v21 = v20;
@@ -156,15 +156,15 @@
   if (!v21)
   {
 LABEL_28:
-    v34 = @"resultCode";
-    v35 = @"Error";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v33[1] = @"resultCode";
+    v33[2] = @"Error";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
     completionHandlerCopy[2](completionHandlerCopy, v21, v22);
     v23 = -1;
     goto LABEL_29;
   }
 
-  v23 = [(HMITaskServiceServer *)self submitTask:v21 progressHandler:handlerCopy completionHander:completionHandlerCopy];
+  v23 = [HMITaskServiceServer submitTask:"submitTask:progressHandler:completionHander:" progressHandler:? completionHander:?];
 LABEL_29:
 
   return v23;
@@ -176,29 +176,25 @@ LABEL_29:
   handlerCopy = handler;
   handerCopy = hander;
   objc_initWeak(&location, taskCopy);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __68__HMITaskServiceServer_submitTask_progressHandler_completionHander___block_invoke;
-  v21[3] = &unk_278753C98;
+  v16[1] = MEMORY[0x277D85DD0];
+  v16[2] = 3221225472;
+  v16[3] = __68__HMITaskServiceServer_submitTask_progressHandler_completionHander___block_invoke;
+  v16[4] = &unk_278753C98;
   v11 = handlerCopy;
-  v22 = v11;
-  [taskCopy setProgressBlock:v21];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __68__HMITaskServiceServer_submitTask_progressHandler_completionHander___block_invoke_2;
-  v18 = &unk_278752B10;
-  objc_copyWeak(&v20, &location);
-  v12 = handerCopy;
-  v19 = v12;
-  [taskCopy setCompletionBlock:&v15];
-  v13 = [(HMITaskServiceServer *)self operationQueue:v15];
-  [v13 addOperation:taskCopy];
+  v17 = v11;
+  [taskCopy setProgressBlock:?];
+  v14 = MEMORY[0x277D85DD0];
+  objc_copyWeak(v16, &location);
+  v15 = handerCopy;
+  [taskCopy setCompletionBlock:{v14, 3221225472, __68__HMITaskServiceServer_submitTask_progressHandler_completionHander___block_invoke_2, &unk_278752B10}];
+  operationQueue = [(HMITaskServiceServer *)self operationQueue];
+  [operationQueue addOperation:?];
 
-  LODWORD(v13) = [taskCopy taskID];
-  objc_destroyWeak(&v20);
+  LODWORD(operationQueue) = [taskCopy taskID];
+  objc_destroyWeak(v16);
 
   objc_destroyWeak(&location);
-  return v13;
+  return operationQueue;
 }
 
 uint64_t __68__HMITaskServiceServer_submitTask_progressHandler_completionHander___block_invoke(uint64_t a1)
@@ -223,29 +219,24 @@ void __68__HMITaskServiceServer_submitTask_progressHandler_completionHander___bl
 
 - (BOOL)cancelTask:(int)task
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__3;
-  v14 = __Block_byref_object_dispose__3;
-  v15 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__3;
+  v13 = __Block_byref_object_dispose__3;
+  v14 = 0;
   operationQueue = [(HMITaskServiceServer *)self operationQueue];
   operations = [operationQueue operations];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __35__HMITaskServiceServer_cancelTask___block_invoke;
-  v8[3] = &unk_278753CC0;
-  taskCopy = task;
-  v8[4] = &v10;
-  [operations enumerateObjectsUsingBlock:v8];
+  LODWORD(v8) = task;
+  [operations enumerateObjectsUsingBlock:{MEMORY[0x277D85DD0], 3221225472, __35__HMITaskServiceServer_cancelTask___block_invoke, &unk_278753CC0, &v9, v8}];
 
-  v6 = v11[5];
+  v6 = v10[5];
   if (v6)
   {
-    [v11[5] cancel];
+    [v10[5] cancel];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v9, 8);
 
   return v6 != 0;
 }
@@ -262,16 +253,16 @@ void __35__HMITaskServiceServer_cancelTask___block_invoke(uint64_t a1, void *a2,
 
 - (id)buildUpdatePersonsModelTaskFromOptions:(id)options error:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v7 = [optionsCopy objectForKeyedSubscript:@"homeUUID"];
+  v7 = [optionsCopy objectForKeyedSubscript:?];
   if (v7)
   {
-    v8 = [optionsCopy objectForKeyedSubscript:@"isExternal"];
+    v8 = [optionsCopy objectForKeyedSubscript:?];
     v9 = v8;
     if (!v8)
     {
-      v27 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1026 description:@"HMIUpdatePersonsModelTaskIsExternal is nil"];
+      v27 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
       v28 = v27;
       if (error)
       {
@@ -286,12 +277,12 @@ void __35__HMITaskServiceServer_cancelTask___block_invoke(uint64_t a1, void *a2,
     }
 
     bOOLValue = [v8 BOOLValue];
-    v11 = [optionsCopy objectForKeyedSubscript:@"sourceUUID"];
+    v11 = [optionsCopy objectForKeyedSubscript:?];
     if (v11)
     {
       v12 = +[HMIPreference sharedInstance];
-      v13 = [v12 stringPreferenceForKey:@"personDataSourceDiskStoragePath" defaultValue:&stru_284057FB8];
-      v14 = [v13 isEqualToString:&stru_284057FB8];
+      v13 = [v12 stringPreferenceForKey:? defaultValue:?];
+      v14 = [v13 isEqualToString:?];
 
       if (v14)
       {
@@ -305,77 +296,81 @@ void __35__HMITaskServiceServer_cancelTask___block_invoke(uint64_t a1, void *a2,
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             HMFGetLogIdentifier();
-            v19 = v51 = v16;
+            v19 = v49 = v16;
             *buf = 138543874;
-            v57 = v19;
-            v58 = 2112;
-            v59 = v7;
-            v60 = 2112;
-            v61 = v11;
+            v53 = v19;
+            v54 = 2112;
+            v55 = v7;
+            v56 = 2112;
+            v57 = v11;
             _os_log_impl(&dword_22D12F000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Creating HMPhotosPersonManager for homeUUID:%@ sourceUUID:%@", buf, 0x20u);
 
-            v16 = v51;
+            v16 = v49;
           }
 
           objc_autoreleasePoolPop(context);
-          v20 = [(HMIHomeKitClient *)v16 photosPersonManagerForHomeUUID:v7 sourceUUID:v11];
+          v20 = [HMIHomeKitClient photosPersonManagerForHomeUUID:v16 sourceUUID:"photosPersonManagerForHomeUUID:sourceUUID:"];
           if (v20)
           {
             v21 = v20;
-            v22 = [[HMIExternalPersonDataSourceHomeKit alloc] initWithHMPhotosPersonManager:v20];
-            contexta = 0;
+            v22 = [[HMIExternalPersonDataSourceHomeKit alloc] initWithHMPhotosPersonManager:?];
 LABEL_24:
 
-            v32 = 0;
-            v33 = contexta;
-            goto LABEL_25;
+            v31 = 0;
+LABEL_25:
+            v36 = [HMIUpdatePersonsModelTask alloc];
+            [(HMITaskServiceServer *)self getNextTaskID];
+            v26 = [HMIUpdatePersonsModelTask initWithTaskID:v36 homeUUID:"initWithTaskID:homeUUID:sourceUUID:dataSource:externalLibrary:removeExcessFaceCrops:" sourceUUID:? dataSource:? externalLibrary:? removeExcessFaceCrops:?];
+
+LABEL_31:
+LABEL_32:
+
+            goto LABEL_33;
           }
 
-          v42 = MEMORY[0x277CCA9B8];
-          v43 = @"Failed to get HMPhotosPersonManager";
+          v41 = MEMORY[0x277CCA9B8];
         }
 
         else
         {
-          contexta = [(HMIHomeKitClient *)v15 isCurrentDevicePrimaryResident];
-          v50 = objc_autoreleasePoolPush();
+          [(HMIHomeKitClient *)v15 isCurrentDevicePrimaryResident];
+          v48 = objc_autoreleasePoolPush();
           selfCopy2 = self;
-          v35 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v33 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
             HMFGetLogIdentifier();
-            v36 = v52 = v16;
+            v34 = v50 = v16;
             *buf = 138543618;
-            v57 = v36;
-            v58 = 2112;
-            v59 = v7;
-            _os_log_impl(&dword_22D12F000, v35, OS_LOG_TYPE_DEBUG, "%{public}@Creating HMHomePersonManager for homeUUID:%@", buf, 0x16u);
+            v53 = v34;
+            v54 = 2112;
+            v55 = v7;
+            _os_log_impl(&dword_22D12F000, v33, OS_LOG_TYPE_DEBUG, "%{public}@Creating HMHomePersonManager for homeUUID:%@", buf, 0x16u);
 
-            v16 = v52;
+            v16 = v50;
           }
 
-          objc_autoreleasePoolPop(v50);
-          v37 = [(HMIHomeKitClient *)v16 homePersonManagerForHomeUUID:v7];
-          if (v37)
+          objc_autoreleasePoolPop(v48);
+          v35 = [(HMIHomeKitClient *)v16 homePersonManagerForHomeUUID:?];
+          if (v35)
           {
-            v21 = v37;
-            v22 = [[HMIHomePersonDataSourceHomeKit alloc] initWithHMHomePersonManager:v37];
+            v21 = v35;
+            v22 = [[HMIHomePersonDataSourceHomeKit alloc] initWithHMHomePersonManager:?];
             goto LABEL_24;
           }
 
-          v42 = MEMORY[0x277CCA9B8];
-          v43 = @"Failed to get HMHomePersonManager";
+          v41 = MEMORY[0x277CCA9B8];
         }
 
-        v47 = [v42 hmiPrivateErrorWithCode:1026 description:{v43, v50}];
-        v48 = v47;
+        v45 = [v41 hmiPrivateErrorWithCode:v48 description:?];
+        v46 = v45;
         if (error)
         {
-          v49 = v47;
-          *error = v48;
+          v47 = v45;
+          *error = v46;
         }
 
-        HMIErrorLog(self, v48);
+        HMIErrorLog(self, v46);
 
 LABEL_30:
         v26 = 0;
@@ -384,58 +379,48 @@ LABEL_30:
 
       if (bOOLValue)
       {
-        v55 = 0;
-        v22 = [(HMIPersonDataSourceDisk *)[HMIExternalPersonDataSourceDisk alloc] initWithHomeUUID:v7 sourceUUID:v11 error:&v55];
-        v32 = v55;
+        v22 = [HMIPersonDataSourceDisk initWithHomeUUID:"initWithHomeUUID:sourceUUID:error:" sourceUUID:? error:?];
+        v31 = 0;
         if (v22)
         {
-          v33 = 0;
-LABEL_25:
-          v26 = [[HMIUpdatePersonsModelTask alloc] initWithTaskID:[(HMITaskServiceServer *)self getNextTaskID] homeUUID:v7 sourceUUID:v11 dataSource:v22 externalLibrary:bOOLValue removeExcessFaceCrops:v33];
-
-LABEL_31:
-LABEL_32:
-
-          goto LABEL_33;
+          goto LABEL_25;
         }
 
-        v44 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1026 description:@"Failed to initialize data source" underlyingError:v32];
-        v45 = v44;
+        v42 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+        v43 = v42;
         if (error)
         {
-          v46 = v44;
-          *error = v45;
+          v44 = v42;
+          *error = v43;
         }
 
-        HMIErrorLog(self, v45);
+        HMIErrorLog(self, v43);
 
         goto LABEL_30;
       }
 
       v30 = MEMORY[0x277CCA9B8];
-      v31 = @"Disk-based Home Person Data Source not supported";
     }
 
     else
     {
       v30 = MEMORY[0x277CCA9B8];
-      v31 = @"HMIPersonsModelTaskSourceUUID is nil";
     }
 
-    v38 = [v30 hmiPrivateErrorWithCode:1026 description:v31];
-    v39 = v38;
+    v37 = [v30 hmiPrivateErrorWithCode:? description:?];
+    v38 = v37;
     if (error)
     {
-      v40 = v38;
-      *error = v39;
+      v39 = v37;
+      *error = v38;
     }
 
-    HMIErrorLog(self, v39);
+    HMIErrorLog(self, v38);
 
     goto LABEL_30;
   }
 
-  v23 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1026 description:@"HMITaskHomeUUIDKey is nil"];
+  v23 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
   v24 = v23;
   if (error)
   {
@@ -454,96 +439,100 @@ LABEL_33:
 - (id)buildRemovePersonsModelTaskFromOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v7 = [optionsCopy objectForKeyedSubscript:@"homeUUID"];
+  v7 = [optionsCopy objectForKeyedSubscript:?];
   if (v7)
   {
-    v8 = [optionsCopy objectForKeyedSubscript:@"sourceUUID"];
+    v8 = [optionsCopy objectForKeyedSubscript:?];
     if (v8)
     {
-      v9 = [[HMIRemovePersonsModelTask alloc] initWithTaskID:[(HMITaskServiceServer *)self getNextTaskID] homeUUID:v7 sourceUUID:v8];
+      v9 = [HMIRemovePersonsModelTask alloc];
+      [(HMITaskServiceServer *)self getNextTaskID];
+      v10 = [HMIRemovePersonsModelTask initWithTaskID:v9 homeUUID:"initWithTaskID:homeUUID:sourceUUID:" sourceUUID:?];
       goto LABEL_11;
     }
 
-    v12 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1027 description:@"HMIPersonsModelTaskSourceUUID is nil"];
-    v13 = v12;
+    v13 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v14 = v13;
     if (error)
     {
-      v14 = v12;
-      *error = v13;
+      v15 = v13;
+      *error = v14;
     }
 
-    HMIErrorLog(self, v13);
+    HMIErrorLog(self, v14);
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1027 description:@"HMITaskHomeUUIDKey is nil"];
-    v8 = v10;
+    v11 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v8 = v11;
     if (error)
     {
-      v11 = v10;
+      v12 = v11;
       *error = v8;
     }
 
     HMIErrorLog(self, v8);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_11:
 
-  return v9;
+  return v10;
 }
 
 - (id)buildFaceMisclassificationTaskFromOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v7 = [optionsCopy objectForKeyedSubscript:@"homeUUID"];
+  v7 = [optionsCopy objectForKeyedSubscript:?];
   if (v7)
   {
     v8 = objc_alloc_init(HMIHomeKitClient);
-    v9 = [(HMIHomeKitClient *)v8 homePersonManagerForHomeUUID:v7];
+    v9 = [(HMIHomeKitClient *)v8 homePersonManagerForHomeUUID:?];
     if (v9)
     {
-      v10 = [[HMIHomePersonDataSourceHomeKit alloc] initWithHMHomePersonManager:v9];
-      v11 = [optionsCopy objectForKeyedSubscript:@"faceCrop"];
-      v12 = [[HMIFaceMisclassificationTask alloc] initWithTaskID:[(HMITaskServiceServer *)self getNextTaskID] dataSource:v10 faceCrop:v11];
+      v10 = [[HMIHomePersonDataSourceHomeKit alloc] initWithHMHomePersonManager:?];
+      v11 = [optionsCopy objectForKeyedSubscript:?];
+      v12 = [HMIFaceMisclassificationTask alloc];
+      [(HMITaskServiceServer *)self getNextTaskID];
+      v13 = [HMIFaceMisclassificationTask initWithTaskID:v12 dataSource:"initWithTaskID:dataSource:faceCrop:" faceCrop:?];
     }
 
     else
     {
-      v15 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1029 description:@"Failed to get HMHomePersonManager"];
-      v10 = v15;
+      v16 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+      v10 = v16;
       if (error)
       {
-        v16 = v15;
+        v17 = v16;
         *error = v10;
       }
 
       HMIErrorLog(self, v10);
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v13 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1029 description:@"HMITaskHomeUUIDKey is nil"];
-    v8 = v13;
+    v14 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v8 = v14;
     if (error)
     {
-      v14 = v13;
+      v15 = v14;
       *error = v8;
     }
 
     HMIErrorLog(self, v8);
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)buildHomePersonClusteringTaskFromOptions:(id)options error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (HMIIsResidentDevice())
   {
@@ -553,213 +542,223 @@ LABEL_11:
       homePersonManagersForCurrentDevice = [(HMIHomeKitClient *)v7 homePersonManagersForCurrentDevice];
       if ([homePersonManagersForCurrentDevice count])
       {
-        v9 = arc4random();
-        v10 = v9 % [homePersonManagersForCurrentDevice count];
+        arc4random();
+        [homePersonManagersForCurrentDevice count];
         allObjects = [homePersonManagersForCurrentDevice allObjects];
-        v12 = [allObjects objectAtIndexedSubscript:v10];
+        v10 = [allObjects objectAtIndexedSubscript:?];
 
-        uUID = [v12 UUID];
-        v14 = [(HMIHomeKitClient *)v7 homeForHMPersonManagerUUID:uUID];
-        uuid = [v14 uuid];
+        uUID = [v10 UUID];
+        v12 = [(HMIHomeKitClient *)v7 homeForHMPersonManagerUUID:?];
+        uuid = [v12 uuid];
 
         if (uuid)
         {
-          v16 = [[HMIHomePersonDataSourceHomeKit alloc] initWithHMHomePersonManager:v12];
-          v17 = [optionsCopy objectForKeyedSubscript:@"doImpurePersonCleanup"];
+          v14 = [[HMIHomePersonDataSourceHomeKit alloc] initWithHMHomePersonManager:?];
+          v15 = [optionsCopy objectForKeyedSubscript:?];
 
-          if (v17)
+          if (v15)
           {
-            v18 = [optionsCopy objectForKeyedSubscript:@"doImpurePersonCleanup"];
-            bOOLValue = [v18 BOOLValue];
+            v16 = [optionsCopy objectForKeyedSubscript:?];
+            [v16 BOOLValue];
 
-            v37 = uuid;
-            v19 = [HMIHomePersonClusteringTask alloc];
-            getNextTaskID = [(HMITaskServiceServer *)self getNextTaskID];
-            uUID2 = [v12 UUID];
-            v22 = +[HMIPersonsModelManager sharedInstance];
-            v23 = v19;
-            uuid = v37;
-            v24 = [(HMIHomePersonClusteringTask *)v23 initWithTaskID:getNextTaskID homeUUID:v37 dataSource:v16 sourceUUID:uUID2 personsModelManager:v22 doImpurePersonCleanup:bOOLValue error:error];
+            v35 = uuid;
+            v17 = [HMIHomePersonClusteringTask alloc];
+            [(HMITaskServiceServer *)self getNextTaskID];
+            uUID2 = [v10 UUID];
+            v19 = +[HMIPersonsModelManager sharedInstance];
+            v20 = v17;
+            uuid = v35;
+            v21 = [HMIHomePersonClusteringTask initWithTaskID:v20 homeUUID:"initWithTaskID:homeUUID:dataSource:sourceUUID:personsModelManager:doImpurePersonCleanup:error:" dataSource:error sourceUUID:? personsModelManager:? doImpurePersonCleanup:? error:?];
           }
 
           else
           {
-            v33 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1028 description:@"cleanup key is missing"];
-            uUID2 = v33;
+            v32 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+            uUID2 = v32;
             if (error)
             {
-              v34 = v33;
+              v33 = v32;
               *error = uUID2;
             }
 
             HMIErrorLog(self, uUID2);
-            v24 = 0;
+            v21 = 0;
           }
         }
 
         else
         {
-          v31 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1028 description:@"HomeUUID is nil"];
-          v16 = v31;
+          v30 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+          v14 = v30;
           if (error)
           {
-            v32 = v31;
-            *error = v16;
+            v31 = v30;
+            *error = v14;
           }
 
-          HMIErrorLog(self, v16);
-          v24 = 0;
+          HMIErrorLog(self, v14);
+          v21 = 0;
         }
       }
 
       else
       {
-        v29 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1028 description:@"Failed to get HMHomePersonManager"];
-        v12 = v29;
+        v28 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+        v10 = v28;
         if (error)
         {
-          v30 = v29;
-          *error = v12;
+          v29 = v28;
+          *error = v10;
         }
 
-        HMIErrorLog(self, v12);
-        v24 = 0;
+        HMIErrorLog(self, v10);
+        v21 = 0;
       }
     }
 
     else
     {
-      v25 = objc_autoreleasePoolPush();
+      v23 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v27 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v25 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v28 = HMFGetLogIdentifier();
+        v26 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v28;
-        _os_log_impl(&dword_22D12F000, v27, OS_LOG_TYPE_INFO, "%{public}@Current device is not primary resident, skipping clustering", buf, 0xCu);
+        v37 = v26;
+        _os_log_impl(&dword_22D12F000, v25, OS_LOG_TYPE_INFO, "%{public}@Current device is not primary resident, skipping clustering", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v25);
-      v24 = [(HMITask *)[HMIEmptyTask alloc] initWithTaskID:[(HMITaskServiceServer *)selfCopy getNextTaskID]];
+      objc_autoreleasePoolPop(v23);
+      v27 = [HMIEmptyTask alloc];
+      [(HMITaskServiceServer *)selfCopy getNextTaskID];
+      v21 = [(HMITask *)v27 initWithTaskID:?];
     }
   }
 
   else
   {
-    v24 = [(HMITask *)[HMIEmptyTask alloc] initWithTaskID:[(HMITaskServiceServer *)self getNextTaskID]];
+    v22 = [HMIEmptyTask alloc];
+    [(HMITaskServiceServer *)self getNextTaskID];
+    v21 = [(HMITask *)v22 initWithTaskID:?];
   }
 
-  return v24;
+  return v21;
 }
 
 - (id)buildPersonsModelsSummaryTaskFromOptions:(id)options error:(id *)error
 {
-  v6 = [options objectForKeyedSubscript:@"homeUUID"];
+  v6 = [options objectForKeyedSubscript:?];
   if (v6)
   {
-    v7 = [[HMIPersonsModelsSummaryTask alloc] initWithTaskID:[(HMITaskServiceServer *)self getNextTaskID] homeUUID:v6];
+    v7 = [HMIPersonsModelsSummaryTask alloc];
+    [(HMITaskServiceServer *)self getNextTaskID];
+    v8 = [HMIPersonsModelsSummaryTask initWithTaskID:v7 homeUUID:"initWithTaskID:homeUUID:"];
   }
 
   else
   {
-    v8 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1030 description:@"HMITaskHomeUUIDKey is nil"];
-    v9 = v8;
+    v9 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v10 = v9;
     if (error)
     {
-      v10 = v8;
-      *error = v9;
+      v11 = v9;
+      *error = v10;
     }
 
-    HMIErrorLog(self, v9);
+    HMIErrorLog(self, v10);
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)buildSubmitFeedbackTaskFromOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v6 = [optionsCopy objectForKeyedSubscript:@"cameraProfileUUID"];
-  v7 = [optionsCopy objectForKeyedSubscript:@"clipUUID"];
+  v6 = [optionsCopy objectForKeyedSubscript:?];
+  v7 = [optionsCopy objectForKeyedSubscript:?];
 
-  v8 = [[HMIFeedbackTask alloc] initWithTaskID:[(HMITaskServiceServer *)self getNextTaskID] cameraProfileUUID:v6 clipUUID:v7];
+  v8 = [HMIFeedbackTask alloc];
+  [(HMITaskServiceServer *)self getNextTaskID];
+  v9 = [HMIFeedbackTask initWithTaskID:v8 cameraProfileUUID:"initWithTaskID:cameraProfileUUID:clipUUID:" clipUUID:?];
 
-  return v8;
+  return v9;
 }
 
 - (id)buildUpdateTorsoModelTaskFromOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v7 = [optionsCopy objectForKeyedSubscript:@"homeUUID"];
+  v7 = [optionsCopy objectForKeyedSubscript:?];
   if (v7)
   {
-    v8 = [optionsCopy objectForKeyedSubscript:@"torsoAnnotations"];
+    v8 = [optionsCopy objectForKeyedSubscript:?];
     if (v8)
     {
-      v9 = [[HMIUpdateTorsoModelTask alloc] initWithTaskID:[(HMITaskServiceServer *)self getNextTaskID] homeUUID:v7 torsoAnnotations:v8];
+      v9 = [HMIUpdateTorsoModelTask alloc];
+      [(HMITaskServiceServer *)self getNextTaskID];
+      v10 = [HMIUpdateTorsoModelTask initWithTaskID:v9 homeUUID:"initWithTaskID:homeUUID:torsoAnnotations:" torsoAnnotations:?];
       goto LABEL_11;
     }
 
-    v12 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1039 description:@"HMIUpdateTorsoModelTaskAnnotationsKey is nil"];
-    v13 = v12;
+    v13 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v14 = v13;
     if (error)
     {
-      v14 = v12;
-      *error = v13;
+      v15 = v13;
+      *error = v14;
     }
 
-    HMIErrorLog(self, v13);
+    HMIErrorLog(self, v14);
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1039 description:@"HMITaskHomeUUIDKey is nil"];
-    v8 = v10;
+    v11 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v8 = v11;
     if (error)
     {
-      v11 = v10;
+      v12 = v11;
       *error = v8;
     }
 
     HMIErrorLog(self, v8);
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_11:
 
-  return v9;
+  return v10;
 }
 
 - (id)buildEmptyTaskFromOptions:(id)options error:(id *)error
 {
-  v6 = [options objectForKeyedSubscript:@"duration"];
+  v6 = [options objectForKeyedSubscript:?];
   if (v6)
   {
     v7 = [HMIEmptyTask alloc];
-    getNextTaskID = [(HMITaskServiceServer *)self getNextTaskID];
+    [(HMITaskServiceServer *)self getNextTaskID];
     [v6 doubleValue];
-    v9 = [(HMIEmptyTask *)v7 initWithTaskID:getNextTaskID duration:?];
+    v8 = [HMIEmptyTask initWithTaskID:v7 duration:"initWithTaskID:duration:"];
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1039 description:@"HMIEmptyTaskDurationKey is nil"];
-    v11 = v10;
+    v9 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+    v10 = v9;
     if (error)
     {
-      v12 = v10;
-      *error = v11;
+      v11 = v9;
+      *error = v10;
     }
 
-    HMIErrorLog(self, v11);
+    HMIErrorLog(self, v10);
 
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 @end

@@ -7,7 +7,7 @@
 
 - (void)streamTTS:(id)s beginHandler:(id)handler chunkHandler:(id)chunkHandler completion:(id)completion
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   sCopy = s;
   handlerCopy = handler;
   chunkHandlerCopy = chunkHandler;
@@ -16,19 +16,19 @@
   v11 = objc_alloc_init(OPTTSMutableTextToSpeechRouterStreamingStreamingRequest);
   [(OPTTSMutableTextToSpeechRouterStreamingStreamingRequest *)v11 setContent_type:1];
   [(OPTTSMutableTextToSpeechRouterStreamingStreamingRequest *)v11 setContentAsOPTTSStartTextToSpeechStreamingRequest:underlyingRequest];
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x4810000000;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x4810000000;
+  v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v44[3] = "";
-  v47 = 0;
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x3032000000;
-  v42[3] = __Block_byref_object_copy__667;
-  v42[4] = __Block_byref_object_dispose__668;
-  v43 = _Block_copy(aBlock);
+  v43[3] = "";
+  v46 = 0;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3032000000;
+  v41[3] = __Block_byref_object_copy__667;
+  v41[4] = __Block_byref_object_dispose__668;
+  v42 = _Block_copy(aBlock);
   v12 = TTSGetServiceLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -39,51 +39,49 @@
     app_id = [meta_info app_id];
     requestCreatedTime = [sCopy requestCreatedTime];
     *buf = 138413314;
-    v49 = speech_id;
-    v50 = 2112;
-    v51 = session_id;
-    v52 = 2112;
-    v53 = stream_id;
-    v54 = 2112;
-    v55 = app_id;
-    v56 = 2048;
-    v57 = requestCreatedTime;
+    v48 = speech_id;
+    v49 = 2112;
+    v50 = session_id;
+    v51 = 2112;
+    v52 = stream_id;
+    v53 = 2112;
+    v54 = app_id;
+    v55 = 2048;
+    v56 = requestCreatedTime;
     _os_log_impl(&dword_1B1A8A000, v12, OS_LOG_TYPE_DEFAULT, "Sent Osprey streaming request with speech_id '%@', session_id '%@', stream_id '%@', app_id '%@', request_id '%llu'", buf, 0x34u);
   }
 
   grpcChannel = self->_grpcChannel;
   flatbuffData = [(OPTTSTextToSpeechRouterStreamingStreamingRequest *)v11 flatbuffData];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke;
-  v40[3] = &unk_1E7AF38F0;
-  v41 = underlyingRequest;
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke_2;
-  v33[3] = &unk_1E7AF3918;
-  v21 = v41;
-  v34 = v21;
-  v35 = sCopy;
-  v38 = v42;
-  v39 = v44;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke;
+  v39[3] = &unk_1E7AF38F0;
+  v40 = underlyingRequest;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke_2;
+  v32[3] = &unk_1E7AF3918;
+  v21 = v40;
+  v33 = v21;
+  v34 = sCopy;
+  v37 = v41;
+  v38 = v43;
   v22 = handlerCopy;
-  v36 = v22;
+  v35 = v22;
   v23 = chunkHandlerCopy;
-  v37 = v23;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke_247;
-  v30[3] = &unk_1E7AF3940;
-  v24 = v35;
-  v31 = v24;
-  v32 = v42;
-  [(OspreyChannel *)grpcChannel serverStreamingRequestWithMethodName:@"/siri.speech.qss_fb.Blazar/TextToSpeechRouterStreaming" requestData:flatbuffData requestBuilder:v40 streamingResponseHandler:v33 completion:v30];
+  v36 = v23;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke_247;
+  v29[3] = &unk_1E7AF3940;
+  v24 = v34;
+  v30 = v24;
+  v31 = v41;
+  [(OspreyChannel *)grpcChannel serverStreamingRequestWithMethodName:@"/siri.speech.qss_fb.Blazar/TextToSpeechRouterStreaming" requestData:flatbuffData requestBuilder:v39 streamingResponseHandler:v32 completion:v29];
 
-  _Block_object_dispose(v42, 8);
-  _Block_object_dispose(v44, 8);
-
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(v43, 8);
 }
 
 void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke(uint64_t a1, void *a2)
@@ -96,7 +94,7 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
 
 void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v97[1] = *MEMORY[0x1E69E9840];
+  v96[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [[OPTTSTextToSpeechRouterStreamingStreamingResponse alloc] initAndVerifyWithFlatbuffData:v3];
 
@@ -105,12 +103,12 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
     v19 = TTSGetServiceLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v78 = [*(a1 + 32) stream_id];
-      v79 = [*(a1 + 40) requestCreatedTime];
+      v77 = [*(a1 + 32) stream_id];
+      v78 = [*(a1 + 40) requestCreatedTime];
       *buf = 138412546;
-      *&buf[4] = v78;
+      *&buf[4] = v77;
       *&buf[12] = 2048;
-      *&buf[14] = v79;
+      *&buf[14] = v78;
       _os_log_error_impl(&dword_1B1A8A000, v19, OS_LOG_TYPE_ERROR, "Corrupted Osprey response, stream ID: %@, request_id: %llu", buf, 0x16u);
     }
 
@@ -121,9 +119,9 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
     }
 
     v21 = MEMORY[0x1E696ABC0];
-    v96 = *MEMORY[0x1E696A578];
-    v97[0] = @"Corrupted Osprey response.";
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:&v96 count:1];
+    v95 = *MEMORY[0x1E696A578];
+    v96[0] = @"Corrupted Osprey response.";
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:&v95 count:1];
     v23 = [v21 errorWithDomain:@"OspreyTTSService" code:-1 userInfo:v22];
     (*(v20 + 16))(v20, v23);
 
@@ -167,12 +165,12 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
         v17 = [(SiriTTSOspreyStreamingPartialResponse *)v43 initWithOspreyPartialResponse:v44];
 
         v45 = *(*(a1 + 72) + 8);
-        v82 = *(v45 + 64);
-        v81 = *(v45 + 48);
+        v81 = *(v45 + 64);
+        v80 = *(v45 + 48);
         *buf = *(v45 + 32);
-        *&buf[16] = v81;
-        v91 = v82;
-        [v17 setAsbd:buf, *buf, *&buf[8], v81, v82];
+        *&buf[16] = v80;
+        v90 = v81;
+        [v17 setAsbd:buf, *buf, *&buf[8], v80, v81];
         v18 = *(a1 + 56);
         goto LABEL_28;
       }
@@ -181,11 +179,11 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
       if (v67)
       {
         v68 = MEMORY[0x1E696ABC0];
-        v92 = *MEMORY[0x1E696A578];
+        v91 = *MEMORY[0x1E696A578];
         v69 = [v4 contentAsOPTTSPartialTextToSpeechStreamingResponse];
         v70 = [v69 error_str];
-        v93 = v70;
-        v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+        v92 = v70;
+        v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
         v72 = [v68 errorWithDomain:@"OspreyTTSService" code:-1 userInfo:v71];
         (*(v67 + 16))(v67, v72);
 
@@ -225,11 +223,11 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
       if (v57)
       {
         v58 = MEMORY[0x1E696ABC0];
-        v88 = *MEMORY[0x1E696A578];
+        v87 = *MEMORY[0x1E696A578];
         v59 = [v4 contentAsOPTTSFinalTextToSpeechStreamingResponse];
         v60 = [v59 error_str];
-        v89 = v60;
-        v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+        v88 = v60;
+        v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
         v62 = [v58 errorWithDomain:@"OspreyTTSService" code:-1 userInfo:v61];
         (*(v57 + 16))(v57, v62);
 
@@ -281,18 +279,18 @@ LABEL_43:
     v30 = TTSGetServiceLog();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v80 = [*(a1 + 40) requestCreatedTime];
+      v79 = [*(a1 + 40) requestCreatedTime];
       *buf = 136315394;
       *&buf[4] = "[SiriTTSOspreyChannel streamTTS:beginHandler:chunkHandler:completion:]_block_invoke";
       *&buf[12] = 2048;
-      *&buf[14] = v80;
+      *&buf[14] = v79;
       _os_log_error_impl(&dword_1B1A8A000, v30, OS_LOG_TYPE_ERROR, "%s, Unknown response from Osprey for streaming TTS, request_id: %llu", buf, 0x16u);
     }
 
     v31 = MEMORY[0x1E696ABC0];
-    v86 = *MEMORY[0x1E696A578];
-    v87 = @"Unknown response from Osprey for streaming TTS";
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+    v85 = *MEMORY[0x1E696A578];
+    v86 = @"Unknown response from Osprey for streaming TTS";
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
     v17 = [v31 errorWithDomain:@"OspreyTTSService" code:-1 userInfo:v32];
 
     v33 = *(*(*(a1 + 64) + 8) + 40);
@@ -329,11 +327,11 @@ LABEL_43:
 
       v12 = [v4 contentAsOPTTSBeginTextToSpeechStreamingResponse];
       v13 = [v12 decoder_description];
-      [v13 audioStreamBasicDescription];
+      objc_msgSend_audioStreamBasicDescription(v13);
       v14 = *(*(a1 + 72) + 8);
-      *(v14 + 32) = v83;
-      *(v14 + 48) = v84;
-      *(v14 + 64) = v85;
+      *(v14 + 32) = v82;
+      *(v14 + 48) = v83;
+      *(v14 + 64) = v84;
 
       v15 = [SiriTTSOspreyStreamingBeginResponse alloc];
       v16 = [v4 contentAsOPTTSBeginTextToSpeechStreamingResponse];
@@ -349,11 +347,11 @@ LABEL_28:
     if (v46)
     {
       v47 = MEMORY[0x1E696ABC0];
-      v94 = *MEMORY[0x1E696A578];
+      v93 = *MEMORY[0x1E696A578];
       v48 = [v4 contentAsOPTTSBeginTextToSpeechStreamingResponse];
       v49 = [v48 error_str];
-      v95 = v49;
-      v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+      v94 = v49;
+      v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
       v51 = [v47 errorWithDomain:@"OspreyTTSService" code:-1 userInfo:v50];
       (*(v46 + 16))(v46, v51);
 
@@ -380,13 +378,11 @@ LABEL_28:
   }
 
 LABEL_44:
-
-  v77 = *MEMORY[0x1E69E9840];
 }
 
 void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion___block_invoke_247(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = TTSGetServiceLog();
   v5 = v4;
@@ -395,20 +391,20 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = [*(a1 + 32) requestCreatedTime];
-      v12 = 138412546;
-      v13 = v3;
-      v14 = 2048;
-      v15 = v6;
-      _os_log_error_impl(&dword_1B1A8A000, v5, OS_LOG_TYPE_ERROR, "Osprey streaming invokes completion with error %@, request_id: %llu", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v3;
+      v13 = 2048;
+      v14 = v6;
+      _os_log_error_impl(&dword_1B1A8A000, v5, OS_LOG_TYPE_ERROR, "Osprey streaming invokes completion with error %@, request_id: %llu", &v11, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(a1 + 32) requestCreatedTime];
-    v12 = 134217984;
-    v13 = v7;
-    _os_log_impl(&dword_1B1A8A000, v5, OS_LOG_TYPE_DEFAULT, "Osprey streaming invokes completion callback, request_id: %llu", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = v7;
+    _os_log_impl(&dword_1B1A8A000, v5, OS_LOG_TYPE_DEFAULT, "Osprey streaming invokes completion callback, request_id: %llu", &v11, 0xCu);
   }
 
   v8 = *(*(*(a1 + 40) + 8) + 40);
@@ -419,8 +415,6 @@ void __71__SiriTTSOspreyChannel_streamTTS_beginHandler_chunkHandler_completion__
     v10 = *(v9 + 40);
     *(v9 + 40) = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (SiriTTSOspreyChannel)initWithURL:(id)l configuration:(id)configuration

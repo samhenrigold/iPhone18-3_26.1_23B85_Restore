@@ -43,74 +43,70 @@
 
 - (unint64_t)precision
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   if (self->super._timeSampledData.__end_ == begin)
   {
-    goto LABEL_7;
+    return 0;
   }
 
-  v6[0] = 0;
-  v6[1] = 0;
-  sub_239E5F7D4(v6, begin + 1);
-  if ((sub_239EC8434(v6) & 1) == 0 && (sub_239F2320C(v6) & 1) == 0)
+  v5[0] = 0;
+  v5[1] = 0;
+  sub_239E5F7D4(v5, begin + 1);
+  if (sub_239EC8434(v5) & 1) != 0 || (sub_239F2320C(v5))
   {
-    v4 = sub_239F23244(v6);
-    sub_239E5B240(v6);
-    if (v4)
-    {
-      result = 2;
-      goto LABEL_8;
-    }
-
-LABEL_7:
-    result = 0;
-    goto LABEL_8;
+    sub_239E5B240(v5);
+    return 1;
   }
 
-  sub_239E5B240(v6);
-  result = 1;
-LABEL_8:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = sub_239F23244(v5);
+  sub_239E5B240(v5);
+  if ((v4 & 1) == 0)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 2;
+  }
 }
 
 - (VtValue)defaultVtValue
 {
   v3 = v2;
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   if (self->super._timeSampledData.__end_ != begin)
   {
-    v7[0] = 0;
-    v7[1] = 0;
-    sub_239E5F7D4(v7, begin + 1);
-    if (sub_239F2320C(v7))
+    v6[0] = 0;
+    v6[1] = 0;
+    sub_239E5F7D4(v6, begin + 1);
+    if (sub_239F2320C(v6))
     {
-      sub_239F23430(v6, 0);
-      *(v3 + 8) = &off_284D15A60;
-      sub_239EB5D90();
+      sub_239F23430(v5, 0);
+      v3[1] = &off_284D15A60;
+      sub_239EB5D90(v3, v5);
     }
 
-    if (sub_239EC8434(v7))
+    if (sub_239EC8434(v6))
     {
-      sub_239EC7200(v6, 0);
-      *(v3 + 8) = &off_284D158F0;
-      sub_239ECA11C();
+      sub_239EC7200(v5, 0);
+      v3[1] = &off_284D158F0;
+      sub_239ECA11C(v3, v5);
     }
 
-    if (sub_239F23244(v7))
+    if (sub_239F23244(v6))
     {
-      sub_239EC793C(v6, 0);
-      *(v3 + 8) = &off_284D159A8;
-      sub_239ECA11C();
+      sub_239EC793C(v5, 0);
+      v3[1] = &off_284D159A8;
+      sub_239ECA11C(v3, v5);
     }
 
-    self = sub_239E5B240(v7);
+    self = sub_239E5B240(v6);
   }
 
-  *(v3 + 8) = 0;
-  v5 = *MEMORY[0x277D85DE8];
+  v3[1] = 0;
   result._info._ptrAndBits = a2;
   result._storage = self;
   return result;
@@ -118,7 +114,7 @@ LABEL_8:
 
 - (void)resetWithUsdAttribute:(const void *)attribute timeScale:(double)scale
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   pxrInternal__aapl__pxrReserved__::UsdAttribute::GetTimeSamples();
   begin = self->super._timeSampledData.__begin_;
   end = self->super._timeSampledData.__end_;
@@ -135,174 +131,170 @@ LABEL_8:
   }
 
   self->super._timeSampledData.__end_ = begin;
-  sub_239F236EC(&self->super._timeSampledData.__begin_, 0);
-  v11[0] = 0;
-  v11[1] = 0;
+  sub_239F236EC(&self->super._timeSampledData, 0);
+  v10[0] = 0;
+  v10[1] = 0;
   pxrInternal__aapl__pxrReserved__::UsdAttribute::Get();
-  if ((sub_239F2320C(v11) & 1) != 0 || (sub_239EC8434(v11) & 1) != 0 || sub_239F23244(v11))
+  if ((sub_239F2320C(v10) & 1) != 0 || (sub_239EC8434(v10) & 1) != 0 || sub_239F23244(v10))
   {
-    v9 = 0;
-    sub_239E5F7D4(v10, v11);
-    sub_239F237C8(&self->super._timeSampledData, &v9);
-    sub_239E5B240(v10);
+    v8 = 0;
+    sub_239E5F7D4(v9, v10);
+    sub_239F237C8(&self->super._timeSampledData, &v8);
+    sub_239E5B240(v9);
   }
 
-  sub_239E5B240(v11);
-  v8 = *MEMORY[0x277D85DE8];
+  sub_239E5B240(v10);
 }
 
 - (void)resetWithUsdAttribute:(const void *)attribute timeScale:(double)scale time:(double)time
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v11[0] = 0;
-  v11[1] = 0;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v10[0] = 0;
+  v10[1] = 0;
   pxrInternal__aapl__pxrReserved__::UsdAttribute::Get();
-  if ((sub_239F2320C(v11) & 1) != 0 || (sub_239EC8434(v11) & 1) != 0 || sub_239F23244(v11))
+  if ((sub_239F2320C(v10) & 1) != 0 || (sub_239EC8434(v10) & 1) != 0 || sub_239F23244(v10))
   {
-    v9 = time * scale;
-    sub_239E5F7D4(v10, v11);
-    sub_239F237C8(&self->super._timeSampledData, &v9);
-    sub_239E5B240(v10);
+    v8 = time * scale;
+    sub_239E5F7D4(v9, v10);
+    sub_239F237C8(&self->super._timeSampledData, &v8);
+    sub_239E5B240(v9);
   }
 
-  sub_239E5B240(v11);
-  v8 = *MEMORY[0x277D85DE8];
+  sub_239E5B240(v10);
 }
 
 - (void)setFloatArray:(const float *)array count:(NSUInteger)count atTime:(NSTimeInterval)time
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   elementCount = self->_elementCount;
   if (elementCount == count)
   {
-    v12 = 0;
-    memset(v11, 0, sizeof(v11));
-    sub_239EC7200(v11, count);
+    v11 = 0;
+    memset(v10, 0, sizeof(v10));
+    sub_239EC7200(v10, count);
     if (count)
     {
       v8 = 0;
       do
       {
         v9 = array[v8];
-        sub_239EBF2E0(v11);
-        *(v12 + 4 * v8++) = v9;
+        sub_239EBF2E0(v10);
+        *(v11 + 4 * v8++) = v9;
       }
 
       while (count != v8);
     }
 
-    v13 = 0;
-    v14 = &off_284D158F0;
-    sub_239ECA11C();
+    v12[0] = 0;
+    v12[1] = &off_284D158F0;
+    sub_239ECA11C(v12, v10);
   }
 
   NSLog(&cfstr_ArrayCountLuHa_1.isa, a2, array, time, count, elementCount);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDoubleArray:(const double *)array count:(NSUInteger)count atTime:(NSTimeInterval)time
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   elementCount = self->_elementCount;
   if (elementCount == count)
   {
-    v12 = 0;
-    memset(v11, 0, sizeof(v11));
-    sub_239EC793C(v11, count);
+    v11 = 0;
+    memset(v10, 0, sizeof(v10));
+    sub_239EC793C(v10, count);
     if (count)
     {
       v8 = 0;
       do
       {
         v9 = array[v8];
-        sub_239ECA544(v11);
-        *(v12 + 8 * v8++) = v9;
+        sub_239ECA544(v10);
+        *(v11 + 8 * v8++) = v9;
       }
 
       while (count != v8);
     }
 
-    v13 = 0;
-    v14 = &off_284D159A8;
-    sub_239ECA11C();
+    v12[0] = 0;
+    v12[1] = &off_284D159A8;
+    sub_239ECA11C(v12, v10);
   }
 
   NSLog(&cfstr_ArrayCountLuHa_1.isa, a2, array, time, count, elementCount);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUInteger)getFloatArray:(float *)array maxCount:(NSUInteger)maxCount atTime:(NSTimeInterval)time
 {
   v5 = maxCount;
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   elementCount = self->_elementCount;
   if (elementCount <= maxCount)
   {
-    v29 = 0.0;
-    v30 = 0;
-    v31 = 0;
-    v26 = 0.0;
-    v27 = 0;
-    v28 = 0;
-    v25 = 0;
-    memset(v24, 0, sizeof(v24));
-    v23 = 0;
-    memset(v22, 0, sizeof(v22));
-    sub_239F24610(&self->super._timeSampledData, &v29, &v26, time);
-    if (v31)
+    v27 = 0.0;
+    v28.__vftable = 0;
+    v28.__type_name = 0;
+    v25 = 0.0;
+    v26.__vftable = 0;
+    v26.__type_name = 0;
+    v24 = 0;
+    memset(v23, 0, sizeof(v23));
+    v22 = 0;
+    memset(v21, 0, sizeof(v21));
+    sub_239F24610(&self->super._timeSampledData, &v27, &v25, time);
+    if (v28.__type_name)
     {
-      if ((sub_239EC8434(&v30) & 1) != 0 || (v10 = sub_239F24810(&v30), sub_239EF2160(&v30, v10), v31))
+      if ((sub_239EC8434(&v28) & 1) != 0 || (v10 = sub_239F24810(&v28), sub_239EF2160(&v28, v10), v28.__type_name))
       {
-        v11 = sub_239EC4DC4(&v30);
-        sub_239EBEACC(v24, v11);
+        v11 = sub_239EC4DC4(&v28);
+        sub_239EBEACC(v23, v11);
         if (!self->super._interpolation)
         {
-          if (*&v24[0] < v5)
+          if (*&v23[0] < v5)
           {
-            v5 = *&v24[0];
+            v5 = *&v23[0];
           }
 
           if (v5)
           {
             for (i = 0; i != v5; ++i)
             {
-              sub_239EBF2E0(v24);
-              array[i] = *(v25 + 4 * i);
+              sub_239EBF2E0(v23);
+              array[i] = *(v24 + 4 * i);
             }
           }
 
           goto LABEL_32;
         }
 
-        if (v28)
+        if (v26.__type_name)
         {
-          if (v29 == v26)
+          if (v27 == v25)
           {
-            if (*&v24[0] < v5)
+            if (*&v23[0] < v5)
             {
-              v5 = *&v24[0];
+              v5 = *&v23[0];
             }
 
             if (v5)
             {
               for (j = 0; j != v5; ++j)
               {
-                sub_239EBF2E0(v24);
-                array[j] = *(v25 + 4 * j);
+                sub_239EBF2E0(v23);
+                array[j] = *(v24 + 4 * j);
               }
             }
 
             goto LABEL_32;
           }
 
-          if ((sub_239E6A084(&v27) & 1) != 0 || (v14 = sub_239F24810(&v27), sub_239EF2160(&v27, v14), v28))
+          if ((sub_239E6A084(&v26) & 1) != 0 || (v14 = sub_239F24810(&v26), sub_239EF2160(&v26, v14), v26.__type_name))
           {
-            v15 = sub_239EC4DC4(&v27);
-            sub_239EBEACC(v22, v15);
-            v16 = *&v24[0];
-            if (*&v22[0] < *&v24[0])
+            v15 = sub_239EC4DC4(&v26);
+            sub_239EBEACC(v21, v15);
+            v16 = *&v23[0];
+            if (*&v21[0] < *&v23[0])
             {
-              v16 = *&v22[0];
+              v16 = *&v21[0];
             }
 
             if (v16 < v5)
@@ -313,13 +305,13 @@ LABEL_8:
             if (v5)
             {
               v17 = 0;
-              v18 = fmax(fmin((time - v29) / (v26 - v29), 1.0), 0.0);
+              v18 = fmax(fmin((time - v27) / (v25 - v27), 1.0), 0.0);
               do
               {
-                sub_239EBF2E0(v24);
-                v19 = *(v25 + 4 * v17);
-                sub_239EBF2E0(v22);
-                array[v17] = v19 + ((*(v23 + 4 * v17) - v19) * v18);
+                sub_239EBF2E0(v23);
+                v19 = *(v24 + 4 * v17);
+                sub_239EBF2E0(v21);
+                array[v17] = v19 + ((*(v22 + 4 * v17) - v19) * v18);
                 ++v17;
               }
 
@@ -334,92 +326,89 @@ LABEL_8:
 
     v5 = 0;
 LABEL_32:
-    sub_239E56C80(v22);
-    sub_239E56C80(v24);
-    sub_239E5B240(&v27);
-    sub_239E5B240(&v30);
-    goto LABEL_33;
+    sub_239E56C80(v21);
+    sub_239E56C80(v23);
+    sub_239E5B240(&v26);
+    sub_239E5B240(&v28);
+    return v5;
   }
 
   NSLog(&cfstr_ArrayCountLuHa_1.isa, a2, array, time, maxCount, elementCount);
-  v5 = 0;
-LABEL_33:
-  v20 = *MEMORY[0x277D85DE8];
-  return v5;
+  return 0;
 }
 
 - (NSUInteger)getDoubleArray:(double *)array maxCount:(NSUInteger)maxCount atTime:(NSTimeInterval)time
 {
   v5 = maxCount;
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   elementCount = self->_elementCount;
   if (elementCount <= maxCount)
   {
-    v29 = 0.0;
-    v30 = 0;
-    v31 = 0;
-    v26 = 0.0;
-    v27 = 0;
-    v28 = 0;
-    v25 = 0;
-    memset(v24, 0, sizeof(v24));
-    v23 = 0;
-    memset(v22, 0, sizeof(v22));
-    sub_239F24610(&self->super._timeSampledData, &v29, &v26, time);
-    if (v31)
+    v27 = 0.0;
+    v28.__vftable = 0;
+    v28.__type_name = 0;
+    v25 = 0.0;
+    v26.__vftable = 0;
+    v26.__type_name = 0;
+    v24 = 0;
+    memset(v23, 0, sizeof(v23));
+    v22 = 0;
+    memset(v21, 0, sizeof(v21));
+    sub_239F24610(&self->super._timeSampledData, &v27, &v25, time);
+    if (v28.__type_name)
     {
-      if ((sub_239F23244(&v30) & 1) != 0 || (v10 = sub_239F24B9C(&v30), sub_239EF2160(&v30, v10), v31))
+      if ((sub_239F23244(&v28) & 1) != 0 || (v10 = sub_239F24B9C(&v28), sub_239EF2160(&v28, v10), v28.__type_name))
       {
-        v11 = sub_239F24C28(&v30);
-        sub_239F24CBC(v24, v11);
+        v11 = sub_239F24C28(&v28);
+        sub_239F24CBC(v23, v11);
         if (!self->super._interpolation)
         {
-          if (*&v24[0] < v5)
+          if (*&v23[0] < v5)
           {
-            v5 = *&v24[0];
+            v5 = *&v23[0];
           }
 
           if (v5)
           {
             for (i = 0; i != v5; ++i)
             {
-              sub_239ECA544(v24);
-              array[i] = *(v25 + 8 * i);
+              sub_239ECA544(v23);
+              array[i] = *(v24 + 8 * i);
             }
           }
 
           goto LABEL_32;
         }
 
-        if (v28)
+        if (v26.__type_name)
         {
-          if (v29 == v26)
+          if (v27 == v25)
           {
-            if (*&v24[0] < v5)
+            if (*&v23[0] < v5)
             {
-              v5 = *&v24[0];
+              v5 = *&v23[0];
             }
 
             if (v5)
             {
               for (j = 0; j != v5; ++j)
               {
-                sub_239ECA544(v24);
-                array[j] = *(v25 + 8 * j);
+                sub_239ECA544(v23);
+                array[j] = *(v24 + 8 * j);
               }
             }
 
             goto LABEL_32;
           }
 
-          if ((sub_239F24D70(&v27) & 1) != 0 || (v14 = sub_239F24B9C(&v27), sub_239EF2160(&v27, v14), v28))
+          if ((sub_239F24D70(&v26) & 1) != 0 || (v14 = sub_239F24B9C(&v26), sub_239EF2160(&v26, v14), v26.__type_name))
           {
-            v15 = sub_239F24C28(&v27);
-            sub_239F24CBC(v22, v15);
-            v16 = *&v24[0];
-            if (*&v22[0] < *&v24[0])
+            v15 = sub_239F24C28(&v26);
+            sub_239F24CBC(v21, v15);
+            v16 = *&v23[0];
+            if (*&v21[0] < *&v23[0])
             {
-              v16 = *&v22[0];
+              v16 = *&v21[0];
             }
 
             if (v16 < v5)
@@ -430,13 +419,13 @@ LABEL_33:
             if (v5)
             {
               v17 = 0;
-              v18 = fmax(fmin((time - v29) / (v26 - v29), 1.0), 0.0);
+              v18 = fmax(fmin((time - v27) / (v25 - v27), 1.0), 0.0);
               do
               {
-                sub_239ECA544(v24);
-                v19 = *(v25 + 8 * v17);
-                sub_239ECA544(v22);
-                array[v17] = v19 + (*(v23 + 8 * v17) - v19) * v18;
+                sub_239ECA544(v23);
+                v19 = *(v24 + 8 * v17);
+                sub_239ECA544(v21);
+                array[v17] = v19 + (*(v22 + 8 * v17) - v19) * v18;
                 ++v17;
               }
 
@@ -451,23 +440,20 @@ LABEL_33:
 
     v5 = 0;
 LABEL_32:
-    sub_239E56C80(v22);
-    sub_239E56C80(v24);
-    sub_239E5B240(&v27);
-    sub_239E5B240(&v30);
-    goto LABEL_33;
+    sub_239E56C80(v21);
+    sub_239E56C80(v23);
+    sub_239E5B240(&v26);
+    sub_239E5B240(&v28);
+    return v5;
   }
 
   NSLog(&cfstr_ArrayCountLuHa_1.isa, a2, array, time, maxCount, elementCount);
-  v5 = 0;
-LABEL_33:
-  v20 = *MEMORY[0x277D85DE8];
-  return v5;
+  return 0;
 }
 
 - (void)resetWithFloatArray:(const float *)valuesArray count:(NSUInteger)valuesCount atTimes:(const NSTimeInterval *)timesArray count:(NSUInteger)timesCount
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   elementCount = self->_elementCount;
   if (elementCount * timesCount == valuesCount)
   {
@@ -487,9 +473,9 @@ LABEL_33:
     }
 
     self->super._timeSampledData.__end_ = begin;
-    v18 = 0;
-    memset(v17, 0, sizeof(v17));
-    sub_239EC7200(v17, elementCount);
+    v17 = 0;
+    memset(v16, 0, sizeof(v16));
+    sub_239EC7200(v16, elementCount);
     if (timesCount)
     {
       if (self->_elementCount)
@@ -498,32 +484,30 @@ LABEL_33:
         do
         {
           v14 = valuesArray[v13];
-          sub_239EBF2E0(v17);
-          *(v18 + 4 * v13++) = v14;
+          sub_239EBF2E0(v16);
+          *(v17 + 4 * v13++) = v14;
         }
 
         while (v13 < self->_elementCount);
       }
 
-      v19 = *timesArray;
-      v20 = &off_284D158F0;
-      sub_239ECA11C();
+      v18 = *timesArray;
+      v19[1] = &off_284D158F0;
+      sub_239ECA11C(v19, v16);
     }
 
-    sub_239E56C80(v17);
+    sub_239E56C80(v16);
   }
 
   else
   {
     NSLog(&cfstr_ValueArrayCoun.isa, a2, timesCount, elementCount, elementCount * timesCount, valuesCount);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetWithDoubleArray:(const double *)valuesArray count:(NSUInteger)valuesCount atTimes:(const NSTimeInterval *)timesArray count:(NSUInteger)timesCount
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   elementCount = self->_elementCount;
   if (elementCount * timesCount == valuesCount)
   {
@@ -543,9 +527,9 @@ LABEL_33:
     }
 
     self->super._timeSampledData.__end_ = begin;
-    v18 = 0;
-    memset(v17, 0, sizeof(v17));
-    sub_239EC793C(v17, elementCount);
+    v17 = 0;
+    memset(v16, 0, sizeof(v16));
+    sub_239EC793C(v16, elementCount);
     if (timesCount)
     {
       if (self->_elementCount)
@@ -554,32 +538,30 @@ LABEL_33:
         do
         {
           v14 = valuesArray[v13];
-          sub_239ECA544(v17);
-          *(v18 + 8 * v13++) = v14;
+          sub_239ECA544(v16);
+          *(v17 + 8 * v13++) = v14;
         }
 
         while (v13 < self->_elementCount);
       }
 
-      v19 = *timesArray;
-      v20 = &off_284D159A8;
-      sub_239ECA11C();
+      v18 = *timesArray;
+      v19[1] = &off_284D159A8;
+      sub_239ECA11C(v19, v16);
     }
 
-    sub_239E56C80(v17);
+    sub_239E56C80(v16);
   }
 
   else
   {
     NSLog(&cfstr_ValueArrayCoun.isa, a2, timesCount, elementCount, elementCount * timesCount, valuesCount);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUInteger)getFloatArray:(float *)valuesArray maxCount:(NSUInteger)maxCount
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   end = self->super._timeSampledData.__end_;
   v7 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
@@ -590,7 +572,7 @@ LABEL_33:
     {
       v10 = 0;
       v11 = 0;
-      v21 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
+      v20 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
       if (v7 <= 1)
       {
         v12 = 1;
@@ -603,35 +585,35 @@ LABEL_33:
 
       do
       {
-        v25 = 0;
-        v26[0] = 0;
-        v26[1] = 0;
+        v24 = 0;
+        v25.__vftable = 0;
+        v25.__type_name = 0;
         v13 = (self->super._timeSampledData.__begin_ + 24 * v10);
-        v25 = *v13;
-        sub_239E5F7D4(v26, v13 + 1);
-        if ((sub_239EC8434(v26) & 1) == 0)
+        v24 = *v13;
+        sub_239E5F7D4(&v25, v13 + 1);
+        if ((sub_239EC8434(&v25) & 1) == 0)
         {
-          v14 = sub_239F24810(v26);
-          sub_239EF2160(v26, v14);
+          v14 = sub_239F24810(&v25);
+          sub_239EF2160(&v25, v14);
         }
 
-        if (sub_239EC8434(v26))
+        if (sub_239EC8434(&v25))
         {
-          v24 = 0;
+          v23 = 0;
+          v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
-          v15 = sub_239EC4DC4(v26);
+          v15 = sub_239EC4DC4(&v25);
           v16 = *(v15 + 16);
-          v22 = *v15;
-          v23 = v16;
+          v21 = *v15;
+          v22 = v16;
           v17 = *(v15 + 32);
-          v24 = v17;
+          v23 = v17;
           if (v17)
           {
             v18 = (v17 - 16);
-            if (*(&v23 + 1))
+            if (*(&v22 + 1))
             {
-              v18 = *(&v23 + 1);
+              v18 = *(&v22 + 1);
             }
 
             atomic_fetch_add_explicit(v18, 1uLL, memory_order_relaxed);
@@ -642,8 +624,8 @@ LABEL_33:
             v19 = 0;
             do
             {
-              sub_239EBF2E0(&v22);
-              valuesArray[v11 + v19] = *(v24 + 4 * v19);
+              sub_239EBF2E0(&v21);
+              valuesArray[v11 + v19] = *(v23 + 4 * v19);
               ++v19;
             }
 
@@ -651,31 +633,30 @@ LABEL_33:
             v11 += v19;
           }
 
-          sub_239E56C80(&v22);
+          sub_239E56C80(&v21);
         }
 
-        sub_239E5B240(v26);
+        sub_239E5B240(&v25);
         ++v10;
       }
 
       while (v10 != v12);
-      result = self->_elementCount * v21;
+      return self->_elementCount * v20;
     }
   }
 
   else
   {
     NSLog(&cfstr_ValuesarraySiz.isa, a2, valuesArray, maxCount, result);
-    result = 0;
+    return 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (NSUInteger)getDoubleArray:(double *)valuesArray maxCount:(NSUInteger)maxCount
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   begin = self->super._timeSampledData.__begin_;
   end = self->super._timeSampledData.__end_;
   v7 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
@@ -686,7 +667,7 @@ LABEL_33:
     {
       v10 = 0;
       v11 = 0;
-      v21 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
+      v20 = 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3);
       if (v7 <= 1)
       {
         v12 = 1;
@@ -699,35 +680,35 @@ LABEL_33:
 
       do
       {
-        v25 = 0;
-        v26[0] = 0;
-        v26[1] = 0;
+        v24 = 0;
+        v25.__vftable = 0;
+        v25.__type_name = 0;
         v13 = (self->super._timeSampledData.__begin_ + 24 * v10);
-        v25 = *v13;
-        sub_239E5F7D4(v26, v13 + 1);
-        if ((sub_239F23244(v26) & 1) == 0)
+        v24 = *v13;
+        sub_239E5F7D4(&v25, v13 + 1);
+        if ((sub_239F23244(&v25) & 1) == 0)
         {
-          v14 = sub_239F24B9C(v26);
-          sub_239EF2160(v26, v14);
+          v14 = sub_239F24B9C(&v25);
+          sub_239EF2160(&v25, v14);
         }
 
-        if (sub_239F23244(v26))
+        if (sub_239F23244(&v25))
         {
-          v24 = 0;
+          v23 = 0;
+          v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
-          v15 = sub_239F24C28(v26);
+          v15 = sub_239F24C28(&v25);
           v16 = *(v15 + 16);
-          v22 = *v15;
-          v23 = v16;
+          v21 = *v15;
+          v22 = v16;
           v17 = *(v15 + 32);
-          v24 = v17;
+          v23 = v17;
           if (v17)
           {
             v18 = (v17 - 16);
-            if (*(&v23 + 1))
+            if (*(&v22 + 1))
             {
-              v18 = *(&v23 + 1);
+              v18 = *(&v22 + 1);
             }
 
             atomic_fetch_add_explicit(v18, 1uLL, memory_order_relaxed);
@@ -738,8 +719,8 @@ LABEL_33:
             v19 = 0;
             do
             {
-              sub_239ECA544(&v22);
-              valuesArray[v11 + v19] = *(v24 + 8 * v19);
+              sub_239ECA544(&v21);
+              valuesArray[v11 + v19] = *(v23 + 8 * v19);
               ++v19;
             }
 
@@ -747,25 +728,24 @@ LABEL_33:
             v11 += v19;
           }
 
-          sub_239E56C80(&v22);
+          sub_239E56C80(&v21);
         }
 
-        sub_239E5B240(v26);
+        sub_239E5B240(&v25);
         ++v10;
       }
 
       while (v10 != v12);
-      result = self->_elementCount * v21;
+      return self->_elementCount * v20;
     }
   }
 
   else
   {
     NSLog(&cfstr_ValuesarraySiz.isa, a2, valuesArray, maxCount, result);
-    result = 0;
+    return 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 

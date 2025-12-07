@@ -303,29 +303,29 @@ LABEL_18:
       xpc_dictionary_set_int64(v4, v16, [requireBatteryLevel2 integerValue]);
 
       v18 = xpc_dictionary_create(0, 0, 0);
-      v27 = 0;
-      v28 = &v27;
-      v29 = 0x2020000000;
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x2020000000;
       v19 = _MergedGlobals_6;
-      v30 = _MergedGlobals_6;
+      v31 = _MergedGlobals_6;
       if (!_MergedGlobals_6)
       {
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __get_DASCTSMinBatteryLevelKeySymbolLoc_block_invoke;
-        v26[3] = &unk_2788C6A40;
-        v26[4] = &v27;
-        __get_DASCTSMinBatteryLevelKeySymbolLoc_block_invoke(v26);
-        v19 = v28[3];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __get_DASCTSMinBatteryLevelKeySymbolLoc_block_invoke;
+        v27[3] = &unk_2788C6A40;
+        v27[4] = &v28;
+        __get_DASCTSMinBatteryLevelKeySymbolLoc_block_invoke(v27);
+        v19 = v29[3];
       }
 
-      _Block_object_dispose(&v27, 8);
+      _Block_object_dispose(&v28, 8);
       if (!v19)
       {
-        dlerror();
-        v25 = abort_report_np();
-        _Block_object_dispose(&v27, 8);
-        _Unwind_Resume(v25);
+        v25 = dlerror();
+        v26 = abort_report_np("%s", v25);
+        _Block_object_dispose(&v28, 8);
+        _Unwind_Resume(v26);
       }
 
       v20 = [*v19 cStringUsingEncoding:4];

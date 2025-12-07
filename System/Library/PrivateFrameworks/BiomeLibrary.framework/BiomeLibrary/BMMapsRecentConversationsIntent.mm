@@ -18,20 +18,18 @@
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"contactInformation_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_244_83594];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"actionType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"predictionTimestamp" dataType:3 requestOnly:0 fieldNumber:3 protoDataType:0 convertedType:2];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"predictionExpiration" dataType:3 requestOnly:0 fieldNumber:4 protoDataType:0 convertedType:2];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bundleID" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -169,7 +167,7 @@ LABEL_16:
 
 - (id)jsonDictionary
 {
-  v30[5] = *MEMORY[0x1E69E9840];
+  v29[5] = *MEMORY[0x1E69E9840];
   contactInformation = [(BMMapsRecentConversationsIntent *)self contactInformation];
   jsonDictionary = [contactInformation jsonDictionary];
 
@@ -203,48 +201,48 @@ LABEL_16:
   }
 
   bundleID = [(BMMapsRecentConversationsIntent *)self bundleID];
-  v25 = @"contactInformation";
+  v24 = @"contactInformation";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null;
-  v30[0] = null;
-  v26 = @"actionType";
+  v22 = null;
+  v29[0] = null;
+  v25 = @"actionType";
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[1] = null2;
-  v27 = @"predictionTimestamp";
+  v29[1] = null2;
+  v26 = @"predictionTimestamp";
   null3 = v9;
   if (!v9)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[2] = null3;
-  v28 = @"predictionExpiration";
+  v29[2] = null3;
+  v27 = @"predictionExpiration";
   null4 = v13;
   if (!v13)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[3] = null4;
-  v29 = @"bundleID";
+  v29[3] = null4;
+  v28 = @"bundleID";
   null5 = bundleID;
   if (!bundleID)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[4] = null5;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v25 count:{5, v23}];
+  v29[4] = null5;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v24 count:{5, v22}];
   if (bundleID)
   {
     if (v13)
@@ -302,19 +300,18 @@ LABEL_21:
 LABEL_29:
 
 LABEL_22:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 - (BMMapsRecentConversationsIntent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"contactInformation"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v51 = 0;
+    v50 = 0;
     goto LABEL_4;
   }
 
@@ -322,9 +319,9 @@ LABEL_22:
   if (objc_opt_isKindOfClass())
   {
     v9 = v7;
-    v52 = 0;
-    v51 = [[BMMapsRecentConversationsIntentContactInformation alloc] initWithJSONDictionary:v9 error:&v52];
-    v10 = v52;
+    v51 = 0;
+    v50 = [[BMMapsRecentConversationsIntentContactInformation alloc] initWithJSONDictionary:v9 error:&v51];
+    v10 = v51;
     if (v10)
     {
       if (error)
@@ -359,18 +356,18 @@ LABEL_4:
             goto LABEL_42;
           }
 
-          v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v39 = *MEMORY[0x1E698F240];
-          v59 = *MEMORY[0x1E696A578];
-          v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"actionType"];
-          v60 = v48;
-          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-          v50 = 0;
+          v37 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v38 = *MEMORY[0x1E698F240];
+          v58 = *MEMORY[0x1E696A578];
+          v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"actionType"];
+          v59 = v47;
+          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+          v49 = 0;
           v11 = 0;
-          *error = [v38 initWithDomain:v39 code:2 userInfo:v15];
+          *error = [v37 initWithDomain:v38 code:2 userInfo:v15];
 LABEL_41:
 
-          v9 = v50;
+          v9 = v49;
 LABEL_42:
 
           goto LABEL_43;
@@ -379,12 +376,12 @@ LABEL_42:
         v12 = [MEMORY[0x1E696AD98] numberWithInt:BMMapsRecentConversationsIntentActionTypeFromString(v8)];
       }
 
-      v50 = v12;
+      v49 = v12;
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
     }
 
     errorCopy = error;
@@ -409,7 +406,7 @@ LABEL_42:
         if (objc_opt_isKindOfClass())
         {
           v22 = objc_alloc_init(MEMORY[0x1E696AC80]);
-          v48 = [v22 dateFromString:v15];
+          v47 = [v22 dateFromString:v15];
 
           goto LABEL_27;
         }
@@ -419,33 +416,33 @@ LABEL_42:
         {
           if (!error)
           {
-            v48 = 0;
+            v47 = 0;
             v11 = 0;
             goto LABEL_41;
           }
 
-          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v40 = *MEMORY[0x1E698F240];
-          v57 = *MEMORY[0x1E696A578];
+          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v39 = *MEMORY[0x1E698F240];
+          v56 = *MEMORY[0x1E696A578];
           v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"predictionTimestamp"];
-          v58 = v24;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-          v41 = [v49 initWithDomain:v40 code:2 userInfo:v23];
-          v48 = 0;
+          v57 = v24;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          v40 = [v48 initWithDomain:v39 code:2 userInfo:v23];
+          v47 = 0;
           v11 = 0;
-          *errorCopy = v41;
+          *errorCopy = v40;
           goto LABEL_40;
         }
 
         v21 = v15;
       }
 
-      v48 = v21;
+      v47 = v21;
     }
 
     else
     {
-      v48 = 0;
+      v47 = 0;
     }
 
 LABEL_27:
@@ -485,13 +482,13 @@ LABEL_35:
           {
             if (errorCopy)
             {
-              v45 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v44 = *MEMORY[0x1E698F240];
-              v53 = *MEMORY[0x1E696A578];
-              v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleID"];
-              v54 = v36;
-              v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-              *errorCopy = [v45 initWithDomain:v44 code:2 userInfo:v37];
+              v44 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v43 = *MEMORY[0x1E698F240];
+              v52 = *MEMORY[0x1E696A578];
+              v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleID"];
+              v53 = v35;
+              v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+              *errorCopy = [v44 initWithDomain:v43 code:2 userInfo:v36];
             }
 
             v33 = 0;
@@ -507,7 +504,7 @@ LABEL_35:
           v33 = 0;
         }
 
-        v11 = -[BMMapsRecentConversationsIntent initWithContactInformation:actionType:predictionTimestamp:predictionExpiration:bundleID:](self, "initWithContactInformation:actionType:predictionTimestamp:predictionExpiration:bundleID:", v51, [v50 intValue], v48, v24, v33);
+        v11 = -[BMMapsRecentConversationsIntent initWithContactInformation:actionType:predictionTimestamp:predictionExpiration:bundleID:](self, "initWithContactInformation:actionType:predictionTimestamp:predictionExpiration:bundleID:", v50, [v49 intValue], v47, v24, v33);
         self = v11;
 LABEL_39:
 
@@ -525,16 +522,16 @@ LABEL_40:
           goto LABEL_40;
         }
 
-        v46 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v42 = *MEMORY[0x1E698F240];
-        v55 = *MEMORY[0x1E696A578];
+        v45 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v41 = *MEMORY[0x1E698F240];
+        v54 = *MEMORY[0x1E696A578];
         v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"predictionExpiration"];
-        v56 = v33;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-        v43 = [v46 initWithDomain:v42 code:2 userInfo:v32];
+        v55 = v33;
+        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+        v42 = [v45 initWithDomain:v41 code:2 userInfo:v32];
         v24 = 0;
         v11 = 0;
-        *errorCopy = v43;
+        *errorCopy = v42;
         goto LABEL_39;
       }
 
@@ -553,16 +550,15 @@ LABEL_40:
 
   v13 = objc_alloc(MEMORY[0x1E696ABC0]);
   v14 = *MEMORY[0x1E698F240];
-  v61 = *MEMORY[0x1E696A578];
-  v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"contactInformation"];
-  v62[0] = v51;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+  v60 = *MEMORY[0x1E696A578];
+  v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"contactInformation"];
+  v61[0] = v50;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
   v11 = 0;
   *error = [v13 initWithDomain:v14 code:2 userInfo:v9];
 LABEL_43:
 
 LABEL_44:
-  v34 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -585,17 +581,14 @@ LABEL_44:
     PBDataWriterRecallMark();
   }
 
-  actionType = self->_actionType;
   PBDataWriterWriteUint32Field();
   if (self->_hasRaw_predictionTimestamp)
   {
-    raw_predictionTimestamp = self->_raw_predictionTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasRaw_predictionExpiration)
   {
-    raw_predictionExpiration = self->_raw_predictionExpiration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -890,31 +883,29 @@ LABEL_57:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"contactInformation" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"actionType" number:2 type:4 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predictionTimestamp" number:3 type:0 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predictionExpiration" number:4 type:0 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleID" number:5 type:13 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __42__BMMapsRecentConversationsIntent_columns__block_invoke(uint64_t a1, void *a2)
+id __42__BMMapsRecentConversationsIntent_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 contactInformation];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 contactInformation];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

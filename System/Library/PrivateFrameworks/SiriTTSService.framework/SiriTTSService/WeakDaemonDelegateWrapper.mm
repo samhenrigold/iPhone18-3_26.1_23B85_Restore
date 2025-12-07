@@ -15,9 +15,9 @@
 - (void)didGenerateWordTimingsWithRequestId:(unint64_t)id wordTimingInfo:(id)info
 {
   type metadata accessor for WordTimingInfo();
-  sub_1B1C2CE78();
+  v5 = sub_1B1C2CE78();
 
-  sub_1B1AD874C(id);
+  sub_1B1AD874C(id, v5);
 }
 
 - (void)pingWithReply:(id)reply

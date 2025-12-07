@@ -44,7 +44,7 @@
 
 - (id)aggregateForState:(id)state collector:(id)collector device:(id)device requestedAggregationDate:(id)date mode:(int64_t)mode options:(unint64_t)options error:(id *)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   collectorCopy = collector;
   deviceCopy = device;
@@ -86,14 +86,14 @@
       v28 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_FAULT))
       {
-        v40 = v28;
-        v41 = objc_opt_class();
-        v42 = NSStringFromClass(v41);
+        v39 = v28;
+        v40 = objc_opt_class();
+        v41 = NSStringFromClass(v40);
         *buf = 138543618;
         selfCopy = self;
-        v49 = 2114;
-        v50 = v42;
-        _os_log_fault_impl(&dword_228986000, v40, OS_LOG_TYPE_FAULT, "%{public}@: unexpected state object %{public}@", buf, 0x16u);
+        v48 = 2114;
+        v49 = v41;
+        _os_log_fault_impl(&dword_228986000, v39, OS_LOG_TYPE_FAULT, "%{public}@: unexpected state object %{public}@", buf, 0x16u);
       }
     }
 
@@ -109,15 +109,15 @@
     if (v33)
     {
       consumedSensorData = [v27 consumedSensorData];
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __113__HDActiveQuantityDataAggregator_aggregateForState_collector_device_requestedAggregationDate_mode_options_error___block_invoke;
-      v43[3] = &unk_2786149F0;
-      v43[4] = self;
-      v44 = v27;
-      v45 = deviceCopy;
-      v46 = collectorCopy;
-      v37 = [(HDDataAggregationResult *)v35 initWithResultingAggregationState:v31 consumedSensorData:consumedSensorData persistenceHandler:v43];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __113__HDActiveQuantityDataAggregator_aggregateForState_collector_device_requestedAggregationDate_mode_options_error___block_invoke;
+      v42[3] = &unk_2786149F0;
+      v42[4] = self;
+      v43 = v27;
+      v44 = deviceCopy;
+      v45 = collectorCopy;
+      v37 = [(HDDataAggregationResult *)v35 initWithResultingAggregationState:v31 consumedSensorData:consumedSensorData persistenceHandler:v42];
     }
 
     else
@@ -130,8 +130,6 @@
   {
     v37 = 0;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }

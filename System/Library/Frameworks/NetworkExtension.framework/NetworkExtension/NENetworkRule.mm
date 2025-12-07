@@ -10,6 +10,7 @@
 - (NWHostEndpoint)matchLocalNetwork;
 - (NWHostEndpoint)matchRemoteEndpoint;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -76,6 +77,63 @@
   [coderCopy encodeInteger:self->_matchProtocol forKey:@"protocol"];
   [coderCopy encodeInteger:self->_matchDirection forKey:@"direction"];
   [coderCopy encodeBool:self->_appliesToLoopback forKey:@"loopback"];
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  v8 = v7;
+  matchRemoteHostOrNetworkEndpoint = self->_matchRemoteHostOrNetworkEndpoint;
+  if (matchRemoteHostOrNetworkEndpoint)
+  {
+    [v7 appendPrettyObject:matchRemoteHostOrNetworkEndpoint withName:@"matchRemoteEndpoint" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  }
+
+  matchRemotePrefix = self->_matchRemotePrefix;
+  if (matchRemotePrefix != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v8 appendPrettyInt:matchRemotePrefix withName:@"matchRemotePrefix" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  }
+
+  matchLocalNetworkEndpoint = self->_matchLocalNetworkEndpoint;
+  if (matchLocalNetworkEndpoint)
+  {
+    [v8 appendPrettyObject:matchLocalNetworkEndpoint withName:@"matchLocalNetwork" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  }
+
+  matchLocalPrefix = self->_matchLocalPrefix;
+  if (matchLocalPrefix != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [v8 appendPrettyInt:matchLocalPrefix withName:@"matchLocalPrefix" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  }
+
+  matchProtocol = self->_matchProtocol;
+  if (matchProtocol > 2)
+  {
+    [v8 appendPrettyInt:? withName:? andIndent:? options:?];
+  }
+
+  else
+  {
+    [v8 appendPrettyObject:off_1E7F06960[matchProtocol] withName:@"matchProtocol" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  }
+
+  matchDirection = self->_matchDirection;
+  if (matchDirection > 2)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = off_1E7F06978[matchDirection];
+  }
+
+  [v8 appendPrettyObject:v15 withName:@"matchDirection" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+  [v8 appendPrettyBOOL:self->_appliesToLoopback withName:@"appliesToLoopback" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  return v8;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors

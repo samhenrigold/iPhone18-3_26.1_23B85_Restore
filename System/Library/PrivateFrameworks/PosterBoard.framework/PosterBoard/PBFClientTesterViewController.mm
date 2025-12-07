@@ -54,9 +54,9 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v14 = objc_alloc(MEMORY[0x277D3EAC8]);
+    v15 = objc_alloc(MEMORY[0x277D3EAC8]);
     v10 = objc_opt_new();
-    v8 = [v14 initWithActivityUUID:v10 activityIdentifier:&stru_282CD3858];
+    v8 = [v15 initWithActivityUUID:v10 activityIdentifier:&stru_282CD3858];
 LABEL_17:
 
     goto LABEL_18;
@@ -67,15 +67,16 @@ LABEL_17:
     case 2:
       v10 = [MEMORY[0x277D3ECF8] mutableConfigurationWithRole:*MEMORY[0x277D3EEF0]];
       [v10 setDisplayNameLocalizationKey:@"SAMPLE_POSTER_TITLE"];
-      v20 = 0;
-      v11 = [v10 storeUserInfo:&unk_282D0A448 error:&v20];
-      v12 = v20;
+      v21 = 0;
+      v11 = [v10 storeUserInfo:&unk_282D0A448 error:&v21];
+      v12 = v21;
+      v13 = v12;
       if ((v11 & 1) == 0)
       {
-        v13 = PBFLogCommon();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = PBFLogCommon(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          [PBFClientTesterViewController tableView:v12 didSelectRowAtIndexPath:v13];
+          [PBFClientTesterViewController tableView:v13 didSelectRowAtIndexPath:v14];
         }
       }
 
@@ -96,9 +97,9 @@ LABEL_18:
   connectedScenes = [mEMORY[0x277D75128] connectedScenes];
   anyObject = [connectedScenes anyObject];
 
-  v18 = [objc_alloc(MEMORY[0x277D3EAA0]) initWithEntryPoint:v8];
+  v19 = [objc_alloc(MEMORY[0x277D3EAA0]) initWithEntryPoint:v8];
   modalController = self->_modalController;
-  self->_modalController = v18;
+  self->_modalController = v19;
 
   [(PRUISModalController *)self->_modalController setDelegate:self];
   [(PRUISModalController *)self->_modalController presentFromWindowScene:anyObject];

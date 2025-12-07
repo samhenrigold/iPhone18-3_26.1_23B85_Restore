@@ -41,113 +41,113 @@
 
 + (void)_checkIfResetIsNeededForKey:(id)key withStartAnchorString:(id)string validity:(id)validity lastState:(id)state completion:(id)completion
 {
-  v51 = 0;
-  v12 = [AAPSyncAnchor anchorFromStringRepresentation:string error:&v51];
-  v13 = +[LSApplicationWorkspace defaultWorkspace];
-  if (v13)
+  v50 = 0;
+  v11 = [AAPSyncAnchor anchorFromStringRepresentation:string error:&v50];
+  v12 = +[LSApplicationWorkspace defaultWorkspace];
+  if (v12)
   {
     *buf = 0;
-    v50 = 0;
-    [v13 getKnowledgeUUID:buf andSequenceNumber:&v50];
+    v49 = 0;
+    [v12 getKnowledgeUUID:buf andSequenceNumber:&v49];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = [objc_msgSend(*buf "UUIDString")];
+      v13 = [objc_msgSend(*buf "UUIDString")];
     }
 
     else
     {
       if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
       {
-        sub_F9B4(buf);
+        sub_F9B4();
       }
 
-      v14 = 0;
+      v13 = 0;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = +[AAPSyncPrimitiveAnchor anchorFromIndex:](AAPSyncPrimitiveAnchor, "anchorFromIndex:", [v50 unsignedIntegerValue]);
+      v15 = +[AAPSyncPrimitiveAnchor anchorFromIndex:](AAPSyncPrimitiveAnchor, "anchorFromIndex:", [v49 unsignedIntegerValue]);
     }
 
     else
     {
       if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
       {
-        sub_FA28(&v50);
+        sub_FA28();
       }
 
-      v16 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v15 = AFSiriLogContextPlugin;
+    v14 = AFSiriLogContextPlugin;
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
-      sub_FA9C(v15);
+      sub_FA9C(v14);
     }
 
-    v16 = 0;
-    v14 = 0;
+    v15 = 0;
+    v13 = 0;
   }
 
-  if (([@"com.apple.siri.applications" isEqualToString:key] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(@"com.apple.siri.applications") & 1) == 0)
   {
     [NSException raise:@"wrong syncKey" format:@"expecting %@", @"com.apple.siri.applications"];
     goto LABEL_39;
   }
 
-  if (string && !v12)
+  if (string && !v11)
   {
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
-      sub_FB20(&v51);
+      sub_FB20();
     }
 
     goto LABEL_39;
   }
 
-  if (!v14 || ![v14 isEqualToString:{objc_msgSend(state, "validity")}] || !objc_msgSend(v14, "isEqualToString:", validity))
+  if (!v13 || ([state validity], !objc_msgSend_isEqualToString_(v13)) || !objc_msgSend_isEqualToString_(v13))
   {
-    v46 = AFSiriLogContextPlugin;
+    v45 = AFSiriLogContextPlugin;
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
     {
       validity = [state validity];
       *buf = 136315906;
       *&buf[4] = "+[AAPSyncHandler _checkIfResetIsNeededForKey:withStartAnchorString:validity:lastState:completion:]";
-      v53 = 2114;
-      v54 = v14;
-      v55 = 2114;
-      v56 = validity;
-      v57 = 2114;
+      v52 = 2114;
+      v53 = v13;
+      v54 = 2114;
+      v55 = validity;
+      v56 = 2114;
       validityCopy = validity;
-      v43 = "%s com.apple.siri.applications: validity check failed: MI-'%{public}@' Internal-'%{public}@' Sync-'%{public}@'";
-      v44 = v46;
-      v45 = 42;
+      v42 = "%s com.apple.siri.applications: validity check failed: MI-'%{public}@' Internal-'%{public}@' Sync-'%{public}@'";
+      v43 = v45;
+      v44 = 42;
       goto LABEL_44;
     }
 
 LABEL_39:
-    v12 = 0;
-    v47 = 1;
+    v11 = 0;
+    v46 = 1;
     goto LABEL_40;
   }
 
-  v17 = AFSiriLogContextPlugin;
+  v16 = AFSiriLogContextPlugin;
   if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
   {
-    sub_FB94(v17, v18, v19, v20, v21, v22, v23, v24);
+    sub_FB94(v16, v17, v18, v19, v20, v21, v22, v23);
   }
 
   version = [state version];
-  v26 = AFSiriLogContextPlugin;
-  v27 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG);
+  v25 = AFSiriLogContextPlugin;
+  v26 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG);
   if (version != &dword_4)
   {
-    if (v27)
+    if (v26)
     {
       sub_FC0C(state);
     }
@@ -155,14 +155,14 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  if (v27)
+  if (v26)
   {
-    sub_FCB0(v26, v28, v29, v30, v31, v32, v33, v34);
+    sub_FCB0(v25, v27, v28, v29, v30, v31, v32, v33);
   }
 
   keyAnchor = [state keyAnchor];
-  v36 = [keyAnchor isNewerThanAnchor:v16];
-  if (!v16 || (v36 & 1) != 0)
+  v35 = [keyAnchor isNewerThanAnchor:v15];
+  if (!v15 || (v35 & 1) != 0)
   {
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
     {
@@ -172,65 +172,65 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v49 = keyAnchor;
+  v48 = keyAnchor;
   startAnchor = [state startAnchor];
-  v38 = [v12 isOlderThanAnchor:startAnchor];
-  v39 = [v12 isNewerThanAnchor:v16];
+  v37 = [v11 isOlderThanAnchor:startAnchor];
+  v38 = [v11 isNewerThanAnchor:v15];
   if (startAnchor)
   {
-    v40 = 1;
+    v39 = 1;
   }
 
   else
   {
-    v40 = (v12 != 0) & v39;
+    v39 = (v11 != 0) & v38;
   }
 
-  v41 = AFSiriLogContextPlugin;
-  v42 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG);
-  if (v40 == 1 && ((v38 | v39) & 1) != 0)
+  v40 = AFSiriLogContextPlugin;
+  v41 = os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG);
+  if (v39 == 1 && ((v37 | v38) & 1) != 0)
   {
-    if (v42)
+    if (v41)
     {
       *buf = 136316162;
       *&buf[4] = "+[AAPSyncHandler _checkIfResetIsNeededForKey:withStartAnchorString:validity:lastState:completion:]";
-      v53 = 2114;
-      v54 = startAnchor;
-      v55 = 2114;
-      v56 = v12;
-      v57 = 2114;
-      validityCopy = v49;
-      v59 = 2114;
-      v60 = v16;
-      v43 = "%s com.apple.siri.applications: startAnchor check failed: lastStart=%{public}@ start=%{public}@ lastKey=%{public}@ key=%{public}@";
-      v44 = v41;
-      v45 = 52;
+      v52 = 2114;
+      v53 = startAnchor;
+      v54 = 2114;
+      v55 = v11;
+      v56 = 2114;
+      validityCopy = v48;
+      v58 = 2114;
+      v59 = v15;
+      v42 = "%s com.apple.siri.applications: startAnchor check failed: lastStart=%{public}@ start=%{public}@ lastKey=%{public}@ key=%{public}@";
+      v43 = v40;
+      v44 = 52;
 LABEL_44:
-      _os_log_debug_impl(&dword_0, v44, OS_LOG_TYPE_DEBUG, v43, buf, v45);
+      _os_log_debug_impl(&dword_0, v43, OS_LOG_TYPE_DEBUG, v42, buf, v44);
       goto LABEL_39;
     }
 
     goto LABEL_39;
   }
 
-  if (v42)
+  if (v41)
   {
     *buf = 136316162;
     *&buf[4] = "+[AAPSyncHandler _checkIfResetIsNeededForKey:withStartAnchorString:validity:lastState:completion:]";
-    v53 = 2114;
-    v54 = startAnchor;
-    v55 = 2114;
-    v56 = v12;
-    v57 = 2114;
-    validityCopy = v49;
-    v59 = 2114;
-    v60 = v16;
-    _os_log_debug_impl(&dword_0, v41, OS_LOG_TYPE_DEBUG, "%s com.apple.siri.applications: startAnchor checks out:  lastStart=%{public}@ start=%{public}@ lastKey=%{public}@ key=%{public}@", buf, 0x34u);
+    v52 = 2114;
+    v53 = startAnchor;
+    v54 = 2114;
+    v55 = v11;
+    v56 = 2114;
+    validityCopy = v48;
+    v58 = 2114;
+    v59 = v15;
+    _os_log_debug_impl(&dword_0, v40, OS_LOG_TYPE_DEBUG, "%s com.apple.siri.applications: startAnchor checks out:  lastStart=%{public}@ start=%{public}@ lastKey=%{public}@ key=%{public}@", buf, 0x34u);
   }
 
-  v47 = 0;
+  v46 = 0;
 LABEL_40:
-  (*(completion + 2))(completion, v47, v12, v16, v14);
+  (*(completion + 2))(completion, v46, v11, v15, v13);
 }
 
 - (void)beginSyncWithAnchor:(id)anchor validity:(id)validity count:(int64_t)count forKey:(id)key beginInfo:(id)info configuration:(id)configuration
@@ -258,7 +258,7 @@ LABEL_40:
   {
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
-      sub_FEE0(&v12);
+      sub_FEE0();
     }
 
 LABEL_5:

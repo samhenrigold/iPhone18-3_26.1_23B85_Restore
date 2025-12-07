@@ -27,32 +27,31 @@
 
 - (HMDSetupEndPointRead)initWithCoder:(id)coder
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = HMDSetupEndPointRead;
-  v5 = [(HMDSetupEndPointWrite *)&v18 initWithCoder:coderCopy];
+  v17.receiver = self;
+  v17.super_class = HMDSetupEndPointRead;
+  v5 = [(HMDSetupEndPointWrite *)&v17 initWithCoder:coderCopy];
   if (v5)
   {
     v5->_responseStatus = [coderCopy decodeInt32ForKey:@"kSetupEndPointRead__Status"];
     v6 = MEMORY[0x277CBEB98];
-    v20[0] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kSetupEndPointRead__VideoSSRC"];
     videoSSRC = v5->_videoSSRC;
     v5->_videoSSRC = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v19 = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+    v18 = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"kSetupEndPointRead__AudioSSRC"];
     audioSSRC = v5->_audioSSRC;
     v5->_audioSSRC = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -82,15 +81,15 @@
 
 - (BOOL)_parseFromTLVDataOnSuccess
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:6 name:@"kSetupEndPointRead__VideoSSRC"];
   v4 = [MEMORY[0x277CFEC08] wrappertlv:7 name:@"kSetupEndPointRead__AudioSSRC"];
-  v15[0] = v3;
-  v15[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = v3;
+  v14[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v6 = [(HAPTLVBase *)self _parse:v5];
 
-  if (v6 && (v14.receiver = self, v14.super_class = HMDSetupEndPointRead, [(HMDSetupEndPointWrite *)&v14 _parseFromTLVDataOnSuccess]))
+  if (v6 && (v13.receiver = self, v13.super_class = HMDSetupEndPointRead, [(HMDSetupEndPointWrite *)&v13 _parseFromTLVDataOnSuccess]))
   {
     field = [v3 field];
     videoSSRC = self->_videoSSRC;
@@ -108,18 +107,17 @@
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_parseFromTLVData
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFECA8] wrappertlv:1 name:@"kSetupEndPoint__SessionIdentifier"];
   v4 = [MEMORY[0x277CFEC08] wrappertlv:2 name:@"kSetupEndPointRead__Status"];
-  v12[0] = v3;
-  v12[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = v3;
+  v11[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v6 = [(HAPTLVBase *)self _parse:v5];
 
   if (v6)
@@ -145,7 +143,6 @@
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -169,7 +166,7 @@
   serialize = [creator serialize];
   [v4 appendData:serialize];
 
-  v10 = [v4 copy];
+  v10 = objc_msgSend_copy(v4);
 
   return v10;
 }

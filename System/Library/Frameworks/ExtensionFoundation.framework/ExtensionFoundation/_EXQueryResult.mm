@@ -21,7 +21,7 @@
 - (_EXQueryResult)initWithIdentities:(id)identities
 {
   type metadata accessor for _EXExtensionIdentity();
-  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity);
+  _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity, MEMORY[0x1E69E81B8]);
   *(self + OBJC_IVAR____EXQueryResult_identities) = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   *(self + OBJC_IVAR____EXQueryResult_availablility) = 0;
   v5.receiver = self;
@@ -59,7 +59,7 @@
   if (*(self + OBJC_IVAR____EXQueryResult_identities))
   {
     type metadata accessor for _EXExtensionIdentity();
-    _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity);
+    _sSo20_EXExtensionIdentityCSo8NSObjectCSH10ObjectiveCWlTm_0(&lazy protocol witness table cache variable for type _EXExtensionIdentity and conformance NSObject, type metadata accessor for _EXExtensionIdentity, MEMORY[0x1E69E81B8]);
 
     v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
   }

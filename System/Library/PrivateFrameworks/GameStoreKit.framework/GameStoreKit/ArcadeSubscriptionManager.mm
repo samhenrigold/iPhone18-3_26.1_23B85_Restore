@@ -33,7 +33,7 @@
 
 - (void)paymentQueue:(id)queue updatedTransactions:(id)transactions
 {
-  sub_24E69A5C4(0, &qword_27F23C838);
+  sub_24E69A5C4(0, &qword_27F23C838, 0x277CDD388);
   v6 = sub_24F92B5A8();
   queueCopy = queue;
   selfCopy = self;

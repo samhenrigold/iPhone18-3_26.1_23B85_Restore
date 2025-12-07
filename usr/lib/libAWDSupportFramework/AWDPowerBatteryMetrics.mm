@@ -270,7 +270,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -290,7 +289,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  energyConsumedDisplayOnMicroWatt = self->_energyConsumedDisplayOnMicroWatt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -305,7 +303,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  energyConsumedDisplayOffMicroWatt = self->_energyConsumedDisplayOffMicroWatt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -320,7 +317,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  energyChargedMicroWatt = self->_energyChargedMicroWatt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -335,7 +331,6 @@ LABEL_6:
   }
 
 LABEL_15:
-  cycleCountKey = self->_cycleCountKey;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -350,7 +345,6 @@ LABEL_7:
   }
 
 LABEL_16:
-  energyConsumedPartailDispOnMicrowatt = self->_energyConsumedPartailDispOnMicrowatt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -362,7 +356,6 @@ LABEL_8:
     }
 
 LABEL_18:
-    durationPartialDispOn = self->_durationPartialDispOn;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -373,7 +366,6 @@ LABEL_18:
   }
 
 LABEL_17:
-  durationDispOn = self->_durationDispOn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -388,7 +380,6 @@ LABEL_9:
   }
 
 LABEL_19:
-  durationPartialDispOff = self->_durationPartialDispOff;
 
   PBDataWriterWriteUint32Field();
 }

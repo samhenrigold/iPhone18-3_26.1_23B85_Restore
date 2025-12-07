@@ -1,11 +1,11 @@
-void sub_25A697108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A697108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned char,BOOL,false,mlx::core::detail::Greater>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<unsigned char,BOOL,false,mlx::core::detail::Greater>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -201,9 +201,9 @@ void mlx::core::binary_op_dispatch_dims<unsigned char,BOOL,false,mlx::core::deta
   }
 }
 
-void sub_25A697520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A697520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -605,7 +605,7 @@ unsigned __int8 *mlx::core::binary_op_dims<unsigned char,BOOL,mlx::core::detail:
   return result;
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(unsigned __int16 *a1, unsigned __int16 *a2, int8x16_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(unsigned __int16 *a1, unsigned __int16 *a2, int8x16_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -779,14 +779,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::Vect
   }
 }
 
-void sub_25A69817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unsigned __int16 *a2, int8x16_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unsigned __int16 *a2, int8x16_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -960,14 +960,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::Vect
   }
 }
 
-void sub_25A698584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A698584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned __int16 *a1, _OWORD *a2, int8x16_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned __int16 *a1, _OWORD *a2, int8x16_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -1141,14 +1141,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,true,mlx::core::Scal
   }
 }
 
-void sub_25A69898C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69898C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,false,mlx::core::detail::Greater>(unsigned __int16 *a1, unsigned __int16 *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,false,mlx::core::detail::Greater>(unsigned __int16 *a1, unsigned __int16 *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -1341,9 +1341,9 @@ void mlx::core::binary_op_dispatch_dims<unsigned short,BOOL,false,mlx::core::det
   }
 }
 
-void sub_25A698DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A698DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -1754,7 +1754,7 @@ unsigned __int16 *mlx::core::binary_op_dims<unsigned short,BOOL,mlx::core::detai
   return result;
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(unsigned int *a1, unsigned int *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(unsigned int *a1, unsigned int *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -1928,14 +1928,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::Vector
   }
 }
 
-void sub_25A699A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A699A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unsigned int *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unsigned int *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -2109,14 +2109,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::Vector
   }
 }
 
-void sub_25A699E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A699E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned int *a1, _OWORD *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned int *a1, _OWORD *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -2290,14 +2290,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,true,mlx::core::Scalar
   }
 }
 
-void sub_25A69A258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69A258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,false,mlx::core::detail::Greater>(_DWORD *a1, _DWORD *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,false,mlx::core::detail::Greater>(_DWORD *a1, _DWORD *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -2490,9 +2490,9 @@ void mlx::core::binary_op_dispatch_dims<unsigned int,BOOL,false,mlx::core::detai
   }
 }
 
-void sub_25A69A678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69A678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -2897,7 +2897,7 @@ _DWORD *mlx::core::binary_op_dims<unsigned int,BOOL,mlx::core::detail::Greater,3
   return result;
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(unint64_t *a1, unint64_t *a2, _DWORD *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(unint64_t *a1, unint64_t *a2, _DWORD *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -3071,14 +3071,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::
   }
 }
 
-void sub_25A69B320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69B320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unint64_t *a2, _DWORD *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unint64_t *a2, _DWORD *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -3252,14 +3252,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::
   }
 }
 
-void sub_25A69B728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69B728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unint64_t *a1, _OWORD *a2, _DWORD *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unint64_t *a1, _OWORD *a2, _DWORD *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -3433,14 +3433,14 @@ void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,true,mlx::core::
   }
 }
 
-void sub_25A69BB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69BB30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,false,mlx::core::detail::Greater>(void *a1, void *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,false,mlx::core::detail::Greater>(void *a1, void *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -3633,9 +3633,9 @@ void mlx::core::binary_op_dispatch_dims<unsigned long long,BOOL,false,mlx::core:
   }
 }
 
-void sub_25A69BF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69BF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -4040,7 +4040,7 @@ void *mlx::core::binary_op_dims<unsigned long long,BOOL,mlx::core::detail::Great
   return result;
 }
 
-void mlx::core::VectorVector<mlx::core::detail::Greater>::operator()<signed char,BOOL>(uint64_t a1, int8x16_t *a2, int8x16_t *a3, int8x16_t *a4, int a5)
+void mlx::core::VectorVector<mlx::core::detail::Greater>::operator()<signed char,BOOL>(uint64_t a1, int8x16_t *a2, int8x16_t *a3, int8x16_t *a4, unsigned int a5)
 {
   if (a5 < 16)
   {
@@ -4084,7 +4084,7 @@ void mlx::core::VectorVector<mlx::core::detail::Greater>::operator()<signed char
   }
 }
 
-void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(int8x16_t *a1, int8x16_t *a2, int8x16_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -4261,14 +4261,14 @@ void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::VectorV
   }
 }
 
-void sub_25A69CC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69CC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -4445,14 +4445,14 @@ void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::VectorS
   }
 }
 
-void sub_25A69D090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69D090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v15 = a4 - 3;
   switch(a4)
@@ -4629,14 +4629,14 @@ void mlx::core::binary_op_dispatch_dims<signed char,BOOL,true,mlx::core::ScalarV
   }
 }
 
-void sub_25A69D4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69D4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<signed char,BOOL,false,mlx::core::detail::Greater>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<signed char,BOOL,false,mlx::core::detail::Greater>(unsigned __int8 *a1, unsigned __int8 *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -4832,9 +4832,9 @@ void mlx::core::binary_op_dispatch_dims<signed char,BOOL,false,mlx::core::detail
   }
 }
 
-void sub_25A69D8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69D8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -5191,7 +5191,7 @@ unsigned __int8 *mlx::core::binary_op_dims<signed char,BOOL,mlx::core::detail::G
   return result;
 }
 
-void mlx::core::VectorVector<mlx::core::detail::Greater>::operator()<short,BOOL>(uint64_t a1, _OWORD *a2, _OWORD *a3, int8x16_t *a4, int a5)
+void mlx::core::VectorVector<mlx::core::detail::Greater>::operator()<short,BOOL>(uint64_t a1, _OWORD *a2, _OWORD *a3, int8x16_t *a4, unsigned int a5)
 {
   if (a5 < 16)
   {
@@ -5238,7 +5238,7 @@ void mlx::core::VectorVector<mlx::core::detail::Greater>::operator()<short,BOOL>
   }
 }
 
-void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(_OWORD *a1, _OWORD *a2, int8x16_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(_OWORD *a1, _OWORD *a2, int8x16_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -5412,14 +5412,14 @@ void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::VectorVector<
   }
 }
 
-void sub_25A69E568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69E568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unsigned __int16 *a2, int8x16_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, unsigned __int16 *a2, int8x16_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -5593,14 +5593,14 @@ void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::VectorScalar<
   }
 }
 
-void sub_25A69E970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69E970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned __int16 *a1, _OWORD *a2, int8x16_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(unsigned __int16 *a1, _OWORD *a2, int8x16_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -5774,14 +5774,14 @@ void mlx::core::binary_op_dispatch_dims<short,BOOL,true,mlx::core::ScalarVector<
   }
 }
 
-void sub_25A69ED78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69ED78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<short,BOOL,false,mlx::core::detail::Greater>(unsigned __int16 *a1, unsigned __int16 *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<short,BOOL,false,mlx::core::detail::Greater>(unsigned __int16 *a1, unsigned __int16 *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -5974,9 +5974,9 @@ void mlx::core::binary_op_dispatch_dims<short,BOOL,false,mlx::core::detail::Grea
   }
 }
 
-void sub_25A69F19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69F19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -6341,7 +6341,7 @@ unsigned __int16 *mlx::core::binary_op_dims<short,BOOL,mlx::core::detail::Greate
   return result;
 }
 
-void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(int *a1, int *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(int *a1, int *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -6515,14 +6515,14 @@ void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::VectorVector<ml
   }
 }
 
-void sub_25A69FE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A69FE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, signed int *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, signed int *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -6696,14 +6696,14 @@ void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::VectorScalar<ml
   }
 }
 
-void sub_25A6A020C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A020C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(signed int *a1, _OWORD *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(signed int *a1, _OWORD *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -6877,14 +6877,14 @@ void mlx::core::binary_op_dispatch_dims<int,BOOL,true,mlx::core::ScalarVector<ml
   }
 }
 
-void sub_25A6A0614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A0614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<int,BOOL,false,mlx::core::detail::Greater>(_DWORD *a1, _DWORD *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<int,BOOL,false,mlx::core::detail::Greater>(_DWORD *a1, _DWORD *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -7077,9 +7077,9 @@ void mlx::core::binary_op_dispatch_dims<int,BOOL,false,mlx::core::detail::Greate
   }
 }
 
-void sub_25A6A0A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A0A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -7484,7 +7484,7 @@ _DWORD *mlx::core::binary_op_dims<int,BOOL,mlx::core::detail::Greater,3,false>(_
   return result;
 }
 
-void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(uint64_t *a1, uint64_t *a2, _DWORD *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(uint64_t *a1, uint64_t *a2, _DWORD *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -7658,14 +7658,14 @@ void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::VectorVec
   }
 }
 
-void sub_25A6A16DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A16DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, int64_t *a2, _DWORD *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, int64_t *a2, _DWORD *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -7839,14 +7839,14 @@ void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::VectorSca
   }
 }
 
-void sub_25A6A1AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A1AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(int64_t *a1, _OWORD *a2, _DWORD *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(int64_t *a1, _OWORD *a2, _DWORD *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -8020,14 +8020,14 @@ void mlx::core::binary_op_dispatch_dims<long long,BOOL,true,mlx::core::ScalarVec
   }
 }
 
-void sub_25A6A1EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A1EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<long long,BOOL,false,mlx::core::detail::Greater>(void *a1, void *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<long long,BOOL,false,mlx::core::detail::Greater>(void *a1, void *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -8220,9 +8220,9 @@ void mlx::core::binary_op_dispatch_dims<long long,BOOL,false,mlx::core::detail::
   }
 }
 
-void sub_25A6A230C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A230C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -8627,7 +8627,7 @@ void *mlx::core::binary_op_dims<long long,BOOL,mlx::core::detail::Greater,3,fals
   return result;
 }
 
-void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(short float *a1, short float *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(short float *a1, short float *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -8801,29 +8801,29 @@ void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::VectorVector<m
   }
 }
 
-void sub_25A6A2FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A2FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(float16x8_t *a1, __int16 *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, double a9, int16x4_t a10, void *a11)
+void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(float16x8_t *a1, __int16 *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, double d0_0, int16x4_t a10, void *a9)
 {
   v16 = a4 - 3;
   switch(a4)
   {
     case 3:
 
-      mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     case 2:
 
-      mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,2,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,2,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     case 1:
 
-      mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,1,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,1,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     default:
       mlx::core::ContiguousIterator::ContiguousIterator(&v62, a6, a7, a4 - 3);
@@ -8831,10 +8831,10 @@ void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::VectorScalar<m
       if (a5 >= 1)
       {
         v21 = 0;
-        v22 = *(*a11 + 8 * a4 - 32);
+        v22 = *(*a9 + 8 * a4 - 32);
         do
         {
-          mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>((a1 + 2 * v62), &a2[v55], (a3 + v21), a6, a7, a8, a11, v16, v19, v20);
+          mlx::core::binary_op_dims<half,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>((a1 + 2 * v62), &a2[v55], (a3 + v21), a6, a7, a8, a9, v16, v19, v20);
           v23 = v64 - v63;
           v24 = (v64 - v63) >> 2;
           if (v24)
@@ -8982,29 +8982,29 @@ void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::VectorScalar<m
   }
 }
 
-void sub_25A6A33C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A33C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(__int16 *a1, float16x8_t *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, double a9, int16x4_t a10, void *a11)
+void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::ScalarVector<mlx::core::detail::Greater>>(__int16 *a1, float16x8_t *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, double d0_0, int16x4_t a10, void *a9)
 {
   v16 = a4 - 3;
   switch(a4)
   {
     case 3:
 
-      mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,3,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,3,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     case 2:
 
-      mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,2,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,2,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     case 1:
 
-      mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,1,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,1,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     default:
       mlx::core::ContiguousIterator::ContiguousIterator(&v62, a6, a7, a4 - 3);
@@ -9012,10 +9012,10 @@ void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::ScalarVector<m
       if (a5 >= 1)
       {
         v21 = 0;
-        v22 = *(*a11 + 8 * a4 - 32);
+        v22 = *(*a9 + 8 * a4 - 32);
         do
         {
-          mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,3,true>(&a1[v62], (a2 + 2 * v55), (a3 + v21), a6, a7, a8, a11, v16, v19, v20);
+          mlx::core::binary_op_dims<half,BOOL,mlx::core::ScalarVector<mlx::core::detail::Greater>,3,true>(&a1[v62], (a2 + 2 * v55), (a3 + v21), a6, a7, a8, a9, v16, v19, v20);
           v23 = v64 - v63;
           v24 = (v64 - v63) >> 2;
           if (v24)
@@ -9163,14 +9163,14 @@ void mlx::core::binary_op_dispatch_dims<half,BOOL,true,mlx::core::ScalarVector<m
   }
 }
 
-void sub_25A6A37D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A37D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<half,BOOL,false,mlx::core::detail::Greater>(short float *a1, short float *a2, BOOL *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, uint64_t **a9)
+void mlx::core::binary_op_dispatch_dims<half,BOOL,false,mlx::core::detail::Greater>(short float *a1, short float *a2, BOOL *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, uint64_t **a9)
 {
   v12 = a3;
   v13 = a2;
@@ -9363,9 +9363,9 @@ void mlx::core::binary_op_dispatch_dims<half,BOOL,false,mlx::core::detail::Great
   }
 }
 
-void sub_25A6A3BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A3BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
@@ -9766,7 +9766,7 @@ short float *mlx::core::binary_op_dims<half,BOOL,mlx::core::detail::Greater,3,fa
   return result;
 }
 
-void mlx::core::binary_op_dispatch_dims<float,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(float *a1, float *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, void *a9)
+void mlx::core::binary_op_dispatch_dims<float,BOOL,true,mlx::core::VectorVector<mlx::core::detail::Greater>>(float *a1, float *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, void *a9)
 {
   v14 = a4 - 3;
   switch(a4)
@@ -9940,29 +9940,29 @@ void mlx::core::binary_op_dispatch_dims<float,BOOL,true,mlx::core::VectorVector<
   }
 }
 
-void sub_25A6A4878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A6A4878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
   _Unwind_Resume(a1);
 }
 
-void mlx::core::binary_op_dispatch_dims<float,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, _DWORD *a2, int8x8_t *a3, int a4, int a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, double a9, double a10, void *a11)
+void mlx::core::binary_op_dispatch_dims<float,BOOL,true,mlx::core::VectorScalar<mlx::core::detail::Greater>>(_OWORD *a1, _DWORD *a2, int8x8_t *a3, int a4, int a5, int **a6, uint64_t **a7, uint64_t **a8, double d0_0, double a10, void *a9)
 {
   v16 = a4 - 3;
   switch(a4)
   {
     case 3:
 
-      mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     case 2:
 
-      mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,2,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,2,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     case 1:
 
-      mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,1,true>(a1, a2, a3, a6, a7, a8, a11, 0, a9, a10);
+      mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,1,true>(a1, a2, a3, a6, a7, a8, a9, 0, d0_0, a10);
       break;
     default:
       mlx::core::ContiguousIterator::ContiguousIterator(&v62, a6, a7, a4 - 3);
@@ -9970,10 +9970,10 @@ void mlx::core::binary_op_dispatch_dims<float,BOOL,true,mlx::core::VectorScalar<
       if (a5 >= 1)
       {
         v21 = 0;
-        v22 = *(*a11 + 8 * a4 - 32);
+        v22 = *(*a9 + 8 * a4 - 32);
         do
         {
-          mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>((a1 + 4 * v62), &a2[v55], (a3 + v21), a6, a7, a8, a11, v16, v19, v20);
+          mlx::core::binary_op_dims<float,BOOL,mlx::core::VectorScalar<mlx::core::detail::Greater>,3,true>((a1 + 4 * v62), &a2[v55], (a3 + v21), a6, a7, a8, a9, v16, v19, v20);
           v23 = v64 - v63;
           v24 = (v64 - v63) >> 2;
           if (v24)

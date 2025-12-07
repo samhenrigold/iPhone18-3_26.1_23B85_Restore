@@ -13,7 +13,7 @@
     {
       v6 = 0;
 LABEL_12:
-      v13 = 0;
+      v14 = 0;
       goto LABEL_17;
     }
 
@@ -38,32 +38,32 @@ LABEL_12:
   }
 
   v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v6, self->super._value, 0}];
-  v8 = SSVMobileInstallationFramework();
-  v9 = SSVWeakLinkedSymbolForString("MobileInstallationCheckCapabilitiesMatch", v8);
-  if (v9 && (v10 = v9(v7, 0)) != 0)
+  v9 = SSVMobileInstallationFramework(v7, v8);
+  v10 = SSVWeakLinkedSymbolForString("MobileInstallationCheckCapabilitiesMatch", v9);
+  if (v10 && (v11 = v10(v7, 0)) != 0)
   {
-    v11 = v10;
-    Value = CFDictionaryGetValue(v10, @"CapabilitiesMatch");
+    v12 = v11;
+    Value = CFDictionaryGetValue(v11, @"CapabilitiesMatch");
     if (Value)
     {
-      v13 = CFBooleanGetValue(Value) != 0;
+      v14 = CFBooleanGetValue(Value) != 0;
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    CFRelease(v11);
+    CFRelease(v12);
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
 LABEL_17:
-  return v13;
+  return v14;
 }
 
 @end

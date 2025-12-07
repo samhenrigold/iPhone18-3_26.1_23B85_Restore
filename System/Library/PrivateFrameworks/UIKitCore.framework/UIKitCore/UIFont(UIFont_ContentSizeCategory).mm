@@ -30,7 +30,7 @@
 {
   v5 = a3;
   v6 = v5;
-  if (!v5 || [v5 isEqualToString:@"_UICTContentSizeCategoryUnspecified"])
+  if (!v5 || objc_msgSend_isEqualToString_(v5))
   {
     if (a4)
     {
@@ -55,7 +55,7 @@
       }
       _defaultContentSizeCategory = ;
 
-      if (![_defaultContentSizeCategory isEqualToString:@"_UICTContentSizeCategoryUnspecified"])
+      if (!objc_msgSend_isEqualToString_(_defaultContentSizeCategory))
       {
         goto LABEL_11;
       }

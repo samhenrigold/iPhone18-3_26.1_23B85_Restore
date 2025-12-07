@@ -65,29 +65,29 @@
 
 - (BOOL)hasCandidates:(id)candidates
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [candidatesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [candidatesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     v9 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(candidatesCopy);
         }
 
-        v11 = [(TypistCandidateBar *)self hasCandidate:*(*(&v14 + 1) + 8 * i)];
+        v11 = [(TypistCandidateBar *)self hasCandidate:*(*(&v13 + 1) + 8 * i)];
         if (v9)
         {
           v7 = v11;
@@ -101,7 +101,7 @@
         v9 = 0;
       }
 
-      v6 = [candidatesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [candidatesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       v9 = 0;
     }
 
@@ -113,7 +113,6 @@
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -121,29 +120,29 @@
 {
   length = range.length;
   location = range.location;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [candidatesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [candidatesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v18;
+    v11 = *v17;
     v12 = 1;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(candidatesCopy);
         }
 
-        v14 = [(TypistCandidateBar *)self hasCandidate:*(*(&v17 + 1) + 8 * i) inRange:location, length];
+        v14 = [(TypistCandidateBar *)self hasCandidate:*(*(&v16 + 1) + 8 * i) inRange:location, length];
         if (v12)
         {
           v10 = v14;
@@ -157,7 +156,7 @@
         v12 = 0;
       }
 
-      v9 = [candidatesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [candidatesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
       v12 = 0;
     }
 
@@ -169,7 +168,6 @@
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

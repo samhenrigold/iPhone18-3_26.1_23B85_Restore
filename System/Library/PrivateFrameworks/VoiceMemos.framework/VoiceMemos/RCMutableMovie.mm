@@ -8,7 +8,7 @@
 
 + (id)movieWithURL:(id)l error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (lCopy)
   {
@@ -46,9 +46,9 @@
     if (error)
     {
       v9 = MEMORY[0x277CCA9B8];
-      v19 = *MEMORY[0x277CCA450];
-      v20[0] = @"Attempted to write metadata before finalization";
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277CCA450];
+      v19[0] = @"Attempted to write metadata before finalization";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       *error = [v9 errorWithDomain:@"com.apple.VoiceMemos.ErrorDomain" code:2 userInfo:v10];
     }
 
@@ -77,8 +77,6 @@
 
   v13 = 0;
 LABEL_19:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -119,20 +117,18 @@ LABEL_19:
 
 + (void)movieWithURL:(os_log_t)log error:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "+[RCMutableMovie movieWithURL:error:]";
-  _os_log_fault_impl(&dword_272442000, log, OS_LOG_TYPE_FAULT, "%s -- Attempted to write metadata before finalization", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "+[RCMutableMovie movieWithURL:error:]";
+  _os_log_fault_impl(&dword_272442000, log, OS_LOG_TYPE_FAULT, "%s -- Attempted to write metadata before finalization", &v1, 0xCu);
 }
 
 + (void)movieWithURL:(os_log_t)log error:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "+[RCMutableMovie movieWithURL:error:]";
-  _os_log_fault_impl(&dword_272442000, log, OS_LOG_TYPE_FAULT, "%s -- Attempted to call [RCMutableMovie movieWithURL:] with nil url", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "+[RCMutableMovie movieWithURL:error:]";
+  _os_log_fault_impl(&dword_272442000, log, OS_LOG_TYPE_FAULT, "%s -- Attempted to call [RCMutableMovie movieWithURL:] with nil url", &v1, 0xCu);
 }
 
 @end

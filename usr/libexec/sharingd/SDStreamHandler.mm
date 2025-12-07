@@ -489,61 +489,61 @@
   v2 = [(NSInputStream *)self->_inputStream propertyForKey:kCFStreamPropertySSLPeerTrust];
   if (v2)
   {
-    v3 = sub_100091420(v2);
-    if ([v3 count])
+    v4 = sub_100091420(v2, v3);
+    if ([v4 count])
     {
-      v16 = 0;
+      v17 = 0;
       if (!SFAppleIDVerifyCertificateChainSync())
       {
-        v4 = streams_log();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        v5 = streams_log();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          sub_1001B8DA8(&v16);
+          sub_1001B8DA8();
         }
 
-        v5 = 0;
+        v6 = 0;
         goto LABEL_29;
       }
 
-      [v3 objectAtIndexedSubscript:0];
+      [v4 objectAtIndexedSubscript:0];
 
-      v15 = 0;
-      v7 = SFAppleIDCommonNameForCertificate();
-      v4 = 0;
-      v16 = v7;
-      if (v7)
+      v16 = 0;
+      v8 = SFAppleIDCommonNameForCertificate();
+      v5 = 0;
+      v17 = v8;
+      if (v8)
       {
         myAppleIDCommonName = streams_log();
         if (os_log_type_enabled(myAppleIDCommonName, OS_LOG_TYPE_ERROR))
         {
-          sub_1001B8E20(&v16);
+          sub_1001B8E20();
         }
 
-        v5 = 0;
+        v6 = 0;
         goto LABEL_28;
       }
 
-      v9 = +[SDStatusMonitor sharedMonitor];
-      myAppleIDCommonName = [v9 myAppleIDCommonName];
+      v10 = +[SDStatusMonitor sharedMonitor];
+      myAppleIDCommonName = [v10 myAppleIDCommonName];
 
       if ([myAppleIDCommonName length])
       {
-        v10 = [v4 isEqualToString:myAppleIDCommonName];
-        v11 = streams_log();
-        v12 = v11;
-        if (v10)
+        v11 = [v5 isEqualToString:myAppleIDCommonName];
+        v12 = streams_log();
+        v13 = v12;
+        if (v11)
         {
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            *v14 = 0;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Accounts match", v14, 2u);
+            *v15 = 0;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Accounts match", v15, 2u);
           }
 
-          v5 = 1;
+          v6 = 1;
           goto LABEL_27;
         }
 
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           sub_1001B8E98();
         }
@@ -551,14 +551,14 @@
 
       else
       {
-        v12 = streams_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = streams_log();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           sub_1001B8ECC();
         }
       }
 
-      v5 = 0;
+      v6 = 0;
 LABEL_27:
 
 LABEL_28:
@@ -567,8 +567,8 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v6 = streams_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = streams_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001B8F00();
     }
@@ -576,17 +576,17 @@ LABEL_29:
 
   else
   {
-    v3 = streams_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = streams_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1001B8F34();
     }
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_30:
 
-  return v5;
+  return v6;
 }
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
@@ -649,7 +649,7 @@ LABEL_15:
     v4 = streams_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1001B8FF4(&v6);
+      sub_1001B8FF4();
     }
 
     goto LABEL_7;

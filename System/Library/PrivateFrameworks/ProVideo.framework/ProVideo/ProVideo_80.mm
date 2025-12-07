@@ -1,6 +1,6 @@
-void sub_260085290(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260085290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -69,7 +69,7 @@ uint64_t OZSystemSimulator::getState(OZSystemSimulator *this, const CMTime *a2, 
   return result;
 }
 
-uint64_t OZSystemSimulator::getNonFrameAlignedCachedState(uint64_t **this, CMTime *a2)
+CMTime *OZSystemSimulator::getNonFrameAlignedCachedState(uint64_t **this, CMTime *a2)
 {
   v4 = (this + 11);
   PCMutex::lock((this + 11));
@@ -111,7 +111,7 @@ uint64_t OZSystemSimulator::getNonFrameAlignedCachedState(uint64_t **this, CMTim
   return 0;
 }
 
-double *OZSystemSimulator::updateLocalCoords(double *this, OZSimStateArray *a2)
+void OZSystemSimulator::updateLocalCoords(OZSystemSimulator *this, OZSimStateArray *a2)
 {
   if ((*(a2 + 48) & 1) == 0)
   {
@@ -127,18 +127,16 @@ double *OZSystemSimulator::updateLocalCoords(double *this, OZSimStateArray *a2)
     v9 = 0u;
     v12 = 0u;
     v11 = 0u;
-    this = (*(**(this + 1) + 104))(*(this + 1), this, &v4, &v14);
+    (*(**(this + 1) + 104))(*(this + 1), this, &v4, &v14);
     for (i = *a2; i != *(a2 + 1); i += 248)
     {
       *(i + 176) = *i;
       *(i + 192) = *(i + 16);
-      this = PCMatrix44Tmpl<double>::transform<double>(&v4, (i + 176), (i + 176));
+      PCMatrix44Tmpl<double>::transform<double>(&v4, (i + 176), (i + 176));
     }
 
     *(a2 + 48) = 1;
   }
-
-  return this;
 }
 
 CMTime *OZSystemSimulator::getCachedState(OZSystemSimulator *this, CMTime *a2, CMTime *a3)
@@ -292,9 +290,9 @@ LABEL_31:
   return v7;
 }
 
-void sub_260085F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_260085F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -332,21 +330,21 @@ void *OZSystemSimulator::accumInitialValues(OZSystemSimulator *this, OZSimStateA
   return std::__list_imp<unsigned int>::clear(&v18);
 }
 
-void sub_2600861B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2600861B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::__list_imp<unsigned int>::clear(va);
   std::__list_imp<unsigned int>::clear(va1);
   _Unwind_Resume(a1);
 }
 
-void std::vector<OZSimStateElement>::resize(void *a1, unint64_t a2)
+void std::vector<OZSimStateElement>::resize(OZSimStateElement *a1, unint64_t a2)
 {
-  v3 = a1[1];
+  v3 = *(a1 + 1);
   v4 = 0xEF7BDEF7BDEF7BDFLL * ((v3 - *a1) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -364,7 +362,7 @@ void std::vector<OZSimStateElement>::resize(void *a1, unint64_t a2)
       OZSimStateElement::~OZSimStateElement((v3 - 248));
     }
 
-    a1[1] = v7;
+    *(a1 + 1) = v7;
   }
 }
 
@@ -456,9 +454,9 @@ uint64_t OZSystemSimulator::cacheState(OZSystemSimulator *this, OZSimStateArray 
   return result;
 }
 
-void sub_2600866F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2600866F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
@@ -489,9 +487,9 @@ void *OZSystemSimulator::handleCollisions(uint64_t a1, uint64_t a2, uint64_t a3,
   return std::__list_imp<unsigned int>::clear(&v15);
 }
 
-void sub_2600868C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2600868C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -508,7 +506,7 @@ void OZSystemSimulator::partialSolve(OZSystemSimulator *this, OZSimStateArray *a
     {
       OZSystemSimulator::getDerivatives(this, a2);
       memset(&v16, 0, sizeof(v16));
-      operator/(&a4->value, &v16, v7);
+      operator/(&a4->value, v7, &v16);
       v15 = **&MEMORY[0x277CC08F0];
       v10 = *(a2 + 1);
       if (v10 != *a2)
@@ -599,18 +597,18 @@ uint64_t OZSystemSimulator::dirtyCache(OZSystemSimulator *this)
 
 void OZSystemSimulator::didAddToScene(OZSystemSimulator *this, OZScene *a2)
 {
-  v3 = *(a2 + 198);
-  *(this + 33) = v3;
-  OZDocument::addCPPObserver(v3, this, 1000);
+  v4 = *(a2 + 198);
+  *(this + 33) = v4;
+  OZDocument::addCPPObserver(v4, this, 1000);
 
-  OZScene::addSimulator();
+  OZScene::addSimulator(a2, this);
 }
 
 void *OZSystemSimulator::willRemoveFromScene(OZSystemSimulator *this, OZScene *a2)
 {
   v4 = *(a2 + 198);
   *(this + 33) = v4;
-  OZDocument::removeCPPObserver(v4);
+  OZDocument::removeCPPObserver(v4, this);
 
   return OZScene::removeSimulator(a2, this);
 }
@@ -677,7 +675,7 @@ LABEL_4:
             if (v13)
             {
               LODWORD(v17) = *(v13 + 80);
-              std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v19, &v17);
+              std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v19, &v17, &v17);
               v15 = *((*(*v14 + 664))(v14) + 8);
               v17 = xmmword_2603473B0;
               if (OZFactory::isKindOfClass(v15, &v17))
@@ -715,7 +713,7 @@ uint64_t std::set<unsigned int>::insert[abi:ne200100]<std::__tree_const_iterator
     v5 = result;
     do
     {
-      result = std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(v5, v5 + 1, v4 + 7);
+      result = std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(v5, (v5 + 8), v4 + 7, v4 + 7);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -749,45 +747,59 @@ uint64_t std::set<unsigned int>::insert[abi:ne200100]<std::__tree_const_iterator
   return result;
 }
 
-void *OZSystemSimulator::calcStaticHash(uint64_t a1, void *lpsrc, uint64_t a3, uint64_t a4)
+void *OZSystemSimulator::calcStaticHash(uint64_t a1, void *lpsrc, uint64_t **a3, uint64_t a4)
 {
-  if (!v7)
+  if (!v8)
   {
     __cxa_bad_cast();
   }
 
-  v8 = v7;
-  v17 = *PCHashWriteStream::getHash(v7)->i8;
-  (*(*v8 + 40))(v8);
+  v9 = v8;
+  v19 = *PCHashWriteStream::getHash(v8)->i8;
+  (*(*v9 + 40))(v9);
   result = *(a1 + 8);
   if (result)
   {
-    v14 = &v14;
-    v15 = &v14;
-    v16 = 0;
-    (*(*result + 48))(result, &v14);
-    for (i = v15; i != &v14; i = i[1])
+    v16 = &v16;
+    v17 = &v16;
+    v18 = 0;
+    (*(*result + 48))(result, &v16);
+    for (i = v17; i != &v16; i = i[1])
     {
-      v11 = i[2];
-      v12 = (*(*v11 + 320))(v11);
-      if (v12 != a4 && ((*(*v11 + 672))(v11) || v12 && !OZObjectManipulator::isInObjectList(v12 + 16, a3)))
+      v12 = i[2];
+      v13 = (*(*v12 + 320))(v12);
+      if (v13 != a4)
       {
-        OZObjectManipulator::getStaticHash();
+        if ((*(*v12 + 672))(v12))
+        {
+          v14 = v12 + 1;
+LABEL_9:
+          OZObjectManipulator::getStaticHash(v14, lpsrc, a3);
+        }
+
+        if (v13)
+        {
+          v14 = (v13 + 16);
+          if (!OZObjectManipulator::isInObjectList(v13 + 16, a3))
+          {
+            goto LABEL_9;
+          }
+        }
       }
     }
 
-    Hash = PCHashWriteStream::getHash(v8);
-    PCHash128::operator+=(&v17, Hash);
-    PCHashWriteStream::setHash(v8, &v17);
-    return std::__list_imp<unsigned int>::clear(&v14);
+    Hash = PCHashWriteStream::getHash(v9);
+    PCHash128::operator+=(&v19, Hash);
+    PCHashWriteStream::setHash(v9, &v19);
+    return std::__list_imp<unsigned int>::clear(&v16);
   }
 
   return result;
 }
 
-void sub_2600872EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600872EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -841,9 +853,9 @@ void *OZSystemSimulator::calcHashForState(uint64_t a1, void *lpsrc, uint64_t a3,
   return result;
 }
 
-void sub_26008756C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26008756C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -861,9 +873,9 @@ void OZSystemSimulator::midPointSolve(OZSystemSimulator *this, OZSimStateArray *
   OZSimStateArray::~OZSimStateArray(v12);
 }
 
-void sub_260087670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_260087670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   OZSimStateArray::~OZSimStateArray(va);
   _Unwind_Resume(a1);
 }
@@ -916,17 +928,17 @@ void *OZSystemSimulator::getDerivatives(OZSystemSimulator *this, OZSimStateArray
   return std::__list_imp<unsigned int>::clear(&v16);
 }
 
-void sub_260087964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_260087964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<OZSimStateElement>::__append(uint64_t a1, unint64_t a2)
+void std::vector<OZSimStateElement>::__append(OZSimStateElement *result, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = *(result + 1);
+  v4 = *(result + 2);
   if (0xEF7BDEF7BDEF7BDFLL * ((v4 - v5) >> 3) >= a2)
   {
     if (a2)
@@ -944,18 +956,18 @@ void std::vector<OZSimStateElement>::__append(uint64_t a1, unint64_t a2)
       v5 = v10;
     }
 
-    *(a1 + 8) = v5;
+    *(result + 1) = v5;
   }
 
   else
   {
-    v6 = 0xEF7BDEF7BDEF7BDFLL * ((v5 - *a1) >> 3);
+    v6 = 0xEF7BDEF7BDEF7BDFLL * ((v5 - *result) >> 3);
     if (v6 + a2 > 0x108421084210842)
     {
       std::vector<double>::__throw_length_error[abi:ne200100]();
     }
 
-    v7 = 0xEF7BDEF7BDEF7BDFLL * ((v4 - *a1) >> 3);
+    v7 = 0xEF7BDEF7BDEF7BDFLL * ((v4 - *result) >> 3);
     v8 = 2 * v7;
     if (2 * v7 <= v6 + a2)
     {
@@ -972,10 +984,10 @@ void std::vector<OZSimStateElement>::__append(uint64_t a1, unint64_t a2)
       v9 = v8;
     }
 
-    v22 = a1;
+    v22 = result;
     if (v9)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<OZSimStateElement>>(a1, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<OZSimStateElement>>(result, v9);
     }
 
     v12 = 248 * v6;
@@ -993,13 +1005,13 @@ void std::vector<OZSimStateElement>::__append(uint64_t a1, unint64_t a2)
 
     while (v13);
     *&v21 = v14;
-    v15 = *(a1 + 8);
-    v16 = (v20 + *a1 - v15);
-    std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OZSimStateElement>,OZSimStateElement*>(a1, *a1, v15, v16);
-    v17 = *a1;
-    *a1 = v16;
-    v18 = *(a1 + 16);
-    *(a1 + 8) = v21;
+    v15 = *(result + 1);
+    v16 = (v20 + *result - v15);
+    std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OZSimStateElement>,OZSimStateElement*>(result, *result, v15, v16);
+    v17 = *result;
+    *result = v16;
+    v18 = *(result + 2);
+    *(result + 8) = v21;
     *&v21 = v17;
     *(&v21 + 1) = v18;
     v19 = v17;
@@ -1008,9 +1020,9 @@ void std::vector<OZSimStateElement>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_260087B0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260087B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<OZSimStateElement>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1084,26 +1096,26 @@ uint64_t std::__split_buffer<OZSimStateElement>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(void *a1, uint64_t *a2, unsigned int *a3)
+uint64_t std::__tree<unsigned int>::__emplace_hint_unique_key_args<unsigned int,unsigned int const&>(uint64_t **a1, uint64_t *a2, unsigned int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__find_equal<unsigned int>(a1, a2, &v6, &v5, a3);
+  v4 = *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__find_equal<unsigned int>(a1, a2, &v7, &v6, a3);
+  if (!v4)
+  {
+    operator new();
+  }
+
+  return v4;
+}
+
+uint64_t std::__tree<std::__value_type<CMTime,OZSimStateArray *>,std::__map_value_compare<CMTime,std::__value_type<CMTime,OZSimStateArray *>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,OZSimStateArray *>>>::__emplace_unique_key_args<CMTime,std::pair<CMTime const,OZSimStateArray *>>(uint64_t **a1, CMTime *a2, _OWORD *a3)
+{
+  v3 = *std::__tree<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>>>::__find_equal<CMTime>(a1, &v5, a2);
   if (!v3)
   {
     operator new();
   }
 
   return v3;
-}
-
-uint64_t std::__tree<std::__value_type<CMTime,OZSimStateArray *>,std::__map_value_compare<CMTime,std::__value_type<CMTime,OZSimStateArray *>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,OZSimStateArray *>>>::__emplace_unique_key_args<CMTime,std::pair<CMTime const,OZSimStateArray *>>(uint64_t a1, CMTime *a2)
-{
-  v2 = *std::__tree<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>>>::__find_equal<CMTime>(a1, &v4, a2);
-  if (!v2)
-  {
-    operator new();
-  }
-
-  return v2;
 }
 
 void OZMetalGradientRadial::OZMetalGradientRadial(OZMetalGradientRadial *this, OZChannelGradient *a2, CGColorSpace *a3, CGColorSpace *a4)
@@ -1133,7 +1145,7 @@ void sub_260087E84(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OZMetalGradientRadial::~OZMetalGradientRadial(CGColorSpace **this, void *a2)
+void OZMetalGradientRadial::~OZMetalGradientRadial(CGColorSpace **this, CGColorSpace **a2)
 {
   v4 = *a2;
   *this = *a2;
@@ -1172,18 +1184,19 @@ void virtual thunk toOZMetalGradientRadial::~OZMetalGradientRadial(OZMetalGradie
   OZMetalGradientRadial::~OZMetalGradientRadial((this + *(*this - 24)));
 }
 
-void OZMetalGradientRadial::getHash(OZMetalGradientRadial *this, CMTime *a2)
+void OZMetalGradientRadial::getHash(OZMetalGradientRadial *this, CMTime *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = MEMORY[0x28223BE20](this);
-  v4 = v3;
-  v7[520] = *MEMORY[0x277D85DE8];
-  OZGradient::getHash(v2, v5);
-  PCHashWriteStream::PCHashWriteStream(v7);
-  PCHashWriteStream::writeValue(v7, v2[236]);
-  PCHashWriteStream::writeValue(v7, v2[237]);
-  Hash = PCHashWriteStream::getHash(v7);
-  PCHash128::operator+=(v4, Hash);
-  PCHashWriteStream::~PCHashWriteStream(v7);
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v11[520] = *MEMORY[0x277D85DE8];
+  OZGradient::getHash(v5, v9);
+  PCHashWriteStream::PCHashWriteStream(v11);
+  PCHashWriteStream::writeValue(v11, *(v6 + 236));
+  PCHashWriteStream::writeValue(v11, *(v6 + 237));
+  Hash = PCHashWriteStream::getHash(v11);
+  PCHash128::operator+=(v8, Hash);
+  PCHashWriteStream::~PCHashWriteStream(v11);
 }
 
 uint64_t OZMetalGradientRadial::update(OZMetalGradientRadial *this, CMTime *a2)
@@ -1244,7 +1257,7 @@ std::string *OZMetalGradientRadial::getFragmentProgramText(OZMetalGradientRadial
 HGMetalContext *OZMetalGradientRadial::getTexture@<X0>(OZMetalGradientRadial *this@<X0>, HGMetalContext *a2@<X1>, HGMetalContext **a3@<X8>)
 {
   v6 = *(PCICCTransferFunctionLUT::getLUTEnd(a2) + 24);
-  v22[0] = v6;
+  v22 = v6;
   v8 = this + 216;
   v7 = *(this + 27);
   if (!v7)
@@ -1282,16 +1295,16 @@ HGMetalContext *OZMetalGradientRadial::getTexture@<X0>(OZMetalGradientRadial *th
   else
   {
 LABEL_9:
-    v13 = HGRectMake4i(0, 0, *(this + 58), 1u);
+    v13 = HGRectMake4i(0, 0, *(this + 58), 1);
     v15 = v14;
     v16 = *(*(this + 1) + 24);
     v17 = HGObject::operator new(0x80uLL);
     HGBitmap::HGBitmap(v17, v13, v15, 28, v16);
-    *&v24.var0 = v15;
-    *&v24.var2 = 0;
-    HGMetalTexture::createFromBitmap(a2, v17, v13, v24, 1, a3);
-    v22[2] = v22;
-    v18 = std::__tree<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v8 - 8), v22);
+    *&v25.var0 = v15;
+    *&v25.var2 = 0;
+    HGMetalTexture::createFromBitmap(a2, v17, v13, v25, 1, a3);
+    v23 = &v22;
+    v18 = std::__tree<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v8 - 8), &v22, &std::piecewise_construct, &v23);
     v19 = v18[5];
     result = *a3;
     if (v19 != *a3)
@@ -1351,41 +1364,41 @@ uint64_t std::__destroy_at[abi:ne200100]<std::pair<unsigned long long const,HGRe
   return result;
 }
 
-void *std::__tree<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,HGRef<HGMetalTexture>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,HGRef<HGMetalTexture>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -1487,7 +1500,7 @@ void OZShaderManager::purgeAll(os_unfair_lock_s *this)
   PCSpinLock::unlock(this + 2);
 }
 
-void OZShaderManager::addShader(os_unfair_lock_s *a1, const char *a2, uint64_t a3)
+void OZShaderManager::addShader(os_unfair_lock_s *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1 + 2;
   v7 = a2;
@@ -1495,7 +1508,7 @@ void OZShaderManager::addShader(os_unfair_lock_s *a1, const char *a2, uint64_t a
   if (std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__count_unique<char const*>(&a1[4], &v7))
   {
     v8 = &v7;
-    v6 = *(std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&a1[4], &v7) + 40);
+    v6 = std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&a1[4], &v7, &std::piecewise_construct, &v8)[5];
     if (v6)
     {
       (*(*v6 + 8))(v6);
@@ -1503,19 +1516,19 @@ void OZShaderManager::addShader(os_unfair_lock_s *a1, const char *a2, uint64_t a
   }
 
   v8 = &v7;
-  *(std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&a1[4], &v7) + 40) = a3;
+  std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&a1[4], &v7, &std::piecewise_construct, &v8)[5] = a3;
   PCSpinLock::unlock(v5);
 }
 
 uint64_t OZShaderManager::getShader(os_unfair_lock_s *this, const char *a2)
 {
   v3 = this + 2;
-  v6[0] = a2;
+  v6 = a2;
   PCSpinLock::lock(this + 2);
-  if (std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__count_unique<char const*>(&this[4], v6))
+  if (std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__count_unique<char const*>(&this[4], &v6))
   {
-    v6[2] = v6;
-    v4 = *(std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&this[4], v6) + 40);
+    v7 = &v6;
+    v4 = std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&this[4], &v6, &std::piecewise_construct, &v7)[5];
   }
 
   else
@@ -1556,15 +1569,15 @@ uint64_t std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_
   return 0;
 }
 
-uint64_t std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(uint64_t a1, const char **a2)
+void *std::__tree<std::__value_type<char const*,PGShader *>,std::__map_value_compare<char const*,std::__value_type<char const*,PGShader *>,ltstr,true>,std::allocator<std::__value_type<char const*,PGShader *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(uint64_t **a1, const char **a2, uint64_t a3, void **a4)
 {
-  v2 = *std::__tree<std::__value_type<char const*,void *>,std::__map_value_compare<char const*,std::__value_type<char const*,void *>,OZRenderParams::LessThanStringFunctor,true>,std::allocator<std::__value_type<char const*,void *>>>::__find_equal<char const*>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<char const*,void *>,std::__map_value_compare<char const*,std::__value_type<char const*,void *>,OZRenderParams::LessThanStringFunctor,true>,std::allocator<std::__value_type<char const*,void *>>>::__find_equal<char const*>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void OZARAnchorElement::OZARAnchorElement(OZARAnchorElement *this, OZFactory *a2, const PCString *a3, unsigned int a4)
@@ -1588,16 +1601,16 @@ void OZARAnchorElement::OZARAnchorElement(OZARAnchorElement *this, const OZARAnc
   *(v4 + 24408) = *(a2 + 24408);
 }
 
-void sub_260089040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260089040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZFxPlugLockSentinel::~OZFxPlugLockSentinel(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2600890D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2600890D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZFxPlugLockSentinel::~OZFxPlugLockSentinel(va);
   _Unwind_Resume(a1);
 }
@@ -1653,7 +1666,7 @@ uint64_t OZChanRotoshapeRefWithPicker_Factory::getInstance(OZChanRotoshapeRefWit
   return OZChanRotoshapeRefWithPicker_Factory::_instance;
 }
 
-void OZChanRotoshapeRefWithPicker::~OZChanRotoshapeRefWithPicker(OZChanRotoshapeRefWithPicker *this)
+void OZChanRotoshapeRefWithPicker::~OZChanRotoshapeRefWithPicker(OZChannel *this)
 {
   OZChanObjectRefWithPicker::~OZChanObjectRefWithPicker(this);
 
@@ -1708,12 +1721,12 @@ void OZShapeBehavior::OZShapeBehavior(OZShapeBehavior *this, OZFactory *a2, cons
   *(this + 464) = 0;
 }
 
-void sub_260089920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_260089920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   PCSharedMutex::~PCSharedMutex((v10 + 624));
   std::__list_imp<unsigned int>::clear(v11);
   PCSharedMutex::~PCSharedMutex((v10 + 496));
-  a10 = (v10 + 472);
+  a10 = v10 + 472;
   std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__destroy_vector::operator()[abi:ne200100](&a10);
   v13 = *(v10 + 440);
   if (v13)
@@ -1756,16 +1769,16 @@ void OZShapeBehavior::OZShapeBehavior(OZShapeBehavior *this, OZShapeBehavior *a2
   *(this + 77) = 0;
   PCSharedMutex::PCSharedMutex((this + 624));
   PCWorkingColorVector::PCWorkingColorVector((this + 728));
-  std::vector<BOOL>::operator=(this + 344, a2 + 344);
+  std::vector<BOOL>::operator=(this + 43, a2 + 344);
   *(this + 464) = 0;
   (*(*this + 784))(this);
 }
 
-void sub_260089AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_260089AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   std::__list_imp<unsigned int>::clear(v11);
   PCSharedMutex::~PCSharedMutex((v10 + 496));
-  a10 = (v10 + 472);
+  a10 = v10 + 472;
   std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__destroy_vector::operator()[abi:ne200100](&a10);
   v13 = *(v10 + 440);
   if (v13)
@@ -1790,13 +1803,14 @@ void OZShapeBehavior::~OZShapeBehavior(OZShapeBehavior *this)
   *this = &unk_28727AF40;
   *(this + 2) = &unk_28727B2A8;
   *(this + 6) = &unk_28727B500;
+  v2 = this + 336;
   *(this + 42) = &unk_28727B558;
   if (*(this + 464) == 1)
   {
     Scene = OZBehavior::getScene(this);
     if (Scene)
     {
-      OZDocument::removeCPPObserver(*(Scene + 1584));
+      OZDocument::removeCPPObserver(*(Scene + 1584), v2);
       *(this + 464) = 0;
     }
   }
@@ -1805,20 +1819,20 @@ void OZShapeBehavior::~OZShapeBehavior(OZShapeBehavior *this)
   PCSharedMutex::~PCSharedMutex((this + 624));
   std::__list_imp<unsigned int>::clear(this + 75);
   PCSharedMutex::~PCSharedMutex((this + 496));
-  v5 = (this + 472);
-  std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v3 = *(this + 55);
-  if (v3)
+  v6 = (this + 472);
+  std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v4 = *(this + 55);
+  if (v4)
   {
-    *(this + 56) = v3;
-    operator delete(v3);
+    *(this + 56) = v4;
+    operator delete(v4);
   }
 
   PCMutex::~PCMutex((this + 368));
-  v4 = *(this + 43);
-  if (v4)
+  v5 = *(this + 43);
+  if (v5)
   {
-    operator delete(v4);
+    operator delete(v5);
   }
 
   OZBehavior::~OZBehavior(this);
@@ -1861,7 +1875,7 @@ void non-virtual thunk toOZShapeBehavior::~OZShapeBehavior(OZShapeBehavior *this
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t OZShapeBehavior::operator=(uint64_t a1, const void *a2)
+uint64_t OZShapeBehavior::operator=(uint64_t *a1, const void *a2)
 {
   OZBehavior::operator=(a1, a2);
   if (!v4)
@@ -1869,7 +1883,7 @@ uint64_t OZShapeBehavior::operator=(uint64_t a1, const void *a2)
     __cxa_bad_cast();
   }
 
-  std::vector<BOOL>::operator=(a1 + 344, v4 + 344);
+  std::vector<BOOL>::operator=(a1 + 43, v4 + 344);
   v5 = *(*a1 + 784);
 
   return v5(a1);
@@ -1914,7 +1928,7 @@ void *OZShapeBehavior::getRotoshape(OZShapeBehavior *this)
   return result;
 }
 
-uint64_t OZShapeBehavior::didAddSceneNodeToScene(OZShapeBehavior *this, OZScene *a2)
+uint64_t *OZShapeBehavior::didAddSceneNodeToScene(OZShapeBehavior *this, OZScene *a2)
 {
   result = (*(*this + 744))(this);
   if ((*(this + 464) & 1) == 0)
@@ -1926,7 +1940,7 @@ uint64_t OZShapeBehavior::didAddSceneNodeToScene(OZShapeBehavior *this, OZScene 
   return result;
 }
 
-void *OZShapeBehavior::enable(OZShapeBehavior *this)
+void *OZShapeBehavior::enable(OZShapeBehavior *this, BOOL a2)
 {
   OZObjectManipulator::enable((this + 16));
   result = OZShapeBehavior::getRotoshape(this);
@@ -1940,7 +1954,7 @@ void *OZShapeBehavior::enable(OZShapeBehavior *this)
   return result;
 }
 
-void *OZShapeBehavior::disable(OZShapeBehavior *this)
+void *OZShapeBehavior::disable(OZShapeBehavior *this, BOOL a2)
 {
   OZObjectManipulator::disable((this + 16));
   result = OZShapeBehavior::getRotoshape(this);
@@ -2013,7 +2027,7 @@ void *OZShapeBehavior::setupCurveNodes(OZShapeBehavior *this)
   return result;
 }
 
-void OZShapeBehavior::setupCurveNodesForVertex(OZShapeBehavior *this, OZChannelFolder *a2, OZChannelVertexFolder *a3)
+void OZShapeBehavior::setupCurveNodesForVertex(OZShapeBehavior *this, OZChannelFolder *a2, OZChannelFolder *a3)
 {
   Descendant = OZChannelFolder::getDescendant(a2, 2);
   if (Descendant)
@@ -2023,25 +2037,24 @@ void OZShapeBehavior::setupCurveNodesForVertex(OZShapeBehavior *this, OZChannelF
   operator new();
 }
 
-uint64_t OZShapeBehavior::updateAffectedIDs(OZShapeBehavior *this)
+void OZShapeBehavior::updateAffectedIDs(OZShapeBehavior *this)
 {
-  result = OZShapeBehavior::getRotoshape(this);
-  v3 = *(result + 19448);
-  if (v3)
+  v2 = *(OZShapeBehavior::getRotoshape(this) + 2431);
+  if (v2)
   {
-    v4 = (v3[1] - *v3) >> 3;
+    v3 = (v2[1] - *v2) >> 3;
     *(this + 44) = 0;
-    if (v4 >= 2)
+    if (v3 >= 2)
     {
-      v5 = v4 / 2;
+      v4 = v3 / 2;
       do
       {
-        v6 = 1;
-        result = std::vector<BOOL>::push_back(this + 344, &v6);
-        --v5;
+        v5 = 1;
+        std::vector<BOOL>::push_back(this + 344, &v5);
+        --v4;
       }
 
-      while (v5);
+      while (v4);
     }
   }
 
@@ -2049,15 +2062,12 @@ uint64_t OZShapeBehavior::updateAffectedIDs(OZShapeBehavior *this)
   {
     *(this + 44) = 0;
   }
-
-  return result;
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t a1, _BYTE *a2)
 {
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
   if (v4 == v5 << 6)
   {
     if ((v4 + 1) < 0)
@@ -2081,26 +2091,25 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(a1, v7);
+    v4 = *(a1 + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(a1 + 8) = v4 + 1;
+  v8 = *a1;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
 void OZShapeBehavior::copyAffectedIDs(OZShapeBehavior *this)
@@ -2143,7 +2152,7 @@ void OZShapeBehavior::copyAffectedIDs(OZShapeBehavior *this)
   }
 
   *(this + 44) = 0;
-  std::vector<BOOL>::operator=(this + 344, &__p);
+  std::vector<BOOL>::operator=(this + 43, &__p);
   if (__p)
   {
     operator delete(__p);
@@ -2200,7 +2209,7 @@ void OZShapeBehavior::restoreAffectedIDs(OZShapeBehavior *this)
   }
 
   *(this + 44) = 0;
-  std::vector<BOOL>::operator=(this + 344, &__p);
+  std::vector<BOOL>::operator=(this + 43, &__p);
   if (__p)
   {
     operator delete(__p);
@@ -2217,14 +2226,14 @@ void sub_26008ACD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t OZShapeBehavior::didAddVertex(OZShapeBehavior *this, int a2)
+uint64_t OZShapeBehavior::didAddVertex(OZShapeBehavior *this, unsigned int a2)
 {
   if (*(this + 88) >= a2)
   {
     v4 = *(this + 43);
     if (a2)
     {
-      if (a2 < 0)
+      if ((a2 & 0x80000000) != 0)
       {
         v5 = -((63 - a2) >> 6);
       }
@@ -2259,8 +2268,9 @@ uint64_t OZShapeBehavior::didAddVertex(OZShapeBehavior *this, int a2)
   return (*(*this + 784))(this);
 }
 
-void std::vector<BOOL>::insert(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned int a3@<W2>, _BYTE *a4@<X3>, uint64_t a5@<X8>)
+void std::vector<BOOL>::insert(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X3>, uint64_t a5@<X8>)
 {
+  v6 = a3;
   *a5 = 0;
   *(a5 + 8) = 0;
   v11 = *(a1 + 8);
@@ -2297,7 +2307,7 @@ void std::vector<BOOL>::insert(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned int
     *&v35 = *(a1 + 8) + 1;
     v36 = v34;
     v37 = 0;
-    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v19, 0, a2, a3, &v36, &v32);
+    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(&v32, v19, 0, a2, v6, &v36);
     v20 = v32;
     *a5 = v32;
     v21 = v33;
@@ -2305,16 +2315,16 @@ void std::vector<BOOL>::insert(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned int
     v22 = *(a1 + 8);
     v23 = (*a1 + 8 * (v22 >> 6));
     v24 = v22 & 0x3F;
-    v36 = &v34[v35 >> 6];
+    v36 = &v34[8 * (v35 >> 6)];
     v37 = v35 & 0x3F;
     if (v37 == v24)
     {
-      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v23, v24, &v36, &v32);
+      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v6, v23, v24, &v36, &v32);
     }
 
     else
     {
-      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v23, v24, &v36, &v32);
+      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v6, v23, v24, &v36, &v32);
     }
 
     v27 = *a1;
@@ -2339,22 +2349,22 @@ void std::vector<BOOL>::insert(uint64_t a1@<X0>, unint64_t a2@<X1>, unsigned int
     if (((v11 + 1) & 0x3F) == v14)
     {
       LODWORD(v35) = v14;
-      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v13, v11 & 0x3F, &v34, &v36);
+      std::__copy_backward_aligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v6, v13, v11 & 0x3F, &v34, &v36);
     }
 
     else
     {
       LODWORD(v35) = (v11 + 1) & 0x3F;
-      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, a3, v13, v11 & 0x3F, &v34, &v36);
+      std::__copy_backward_unaligned[abi:ne200100]<std::vector<BOOL>,true>(a2, v6, v13, v11 & 0x3F, &v34, &v36);
     }
 
-    v25 = 8 * (a2 - *a1) + a3;
+    v25 = 8 * (a2 - *a1) + v6;
     if (v25 < 0)
     {
       v29 = v25 - 63;
       if (v25 - 63 < 0)
       {
-        v29 = 8 * (a2 - *a1) + a3;
+        v29 = 8 * (a2 - *a1) + v6;
       }
 
       v26 = v29 >> 6;
@@ -2428,7 +2438,7 @@ uint64_t OZShapeBehavior::willRemoveVertex(OZShapeBehavior *this, int a2)
       {
         v15 = v8;
         v16 = v7;
-        std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>((v6 + v10), v9, v11, v3 & 0x3F, &v15, v14);
+        std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v14, (v6 + v10), v9, v11, v3 & 0x3F, &v15);
 LABEL_13:
         v3 = *(this + 44);
         goto LABEL_14;
@@ -2513,7 +2523,7 @@ uint64_t OZShapeBehavior::willRemove(OZShapeBehavior *this)
   if (*(this + 464) == 1 && (*(*this + 336))(this))
   {
     v2 = (*(*this + 336))(this);
-    OZDocument::removeCPPObserver(*(v2 + 1584));
+    OZDocument::removeCPPObserver(*(v2 + 1584), this + 336);
     *(this + 464) = 0;
   }
 
@@ -2525,7 +2535,7 @@ uint64_t OZShapeBehavior::willRemove(OZShapeBehavior *this)
   return result;
 }
 
-uint64_t OZShapeBehavior::willRemoveSceneNodeFromScene(uint64_t this, OZScene *a2)
+OZNotificationManager *OZShapeBehavior::willRemoveSceneNodeFromScene(OZNotificationManager *this, OZScene *a2)
 {
   if (*(this + 464) == 1)
   {
@@ -2533,7 +2543,7 @@ uint64_t OZShapeBehavior::willRemoveSceneNodeFromScene(uint64_t this, OZScene *a
     this = (*(*this + 336))(this, a2);
     if (this)
     {
-      this = OZDocument::removeCPPObserver(*(this + 1584));
+      this = OZDocument::removeCPPObserver(*(this + 198), v2 + 336);
       *(v2 + 464) = 0;
     }
   }
@@ -2543,7 +2553,7 @@ uint64_t OZShapeBehavior::willRemoveSceneNodeFromScene(uint64_t this, OZScene *a
 
 void OZShapeBehavior::removeNodesFromSingleChan(OZShapeBehavior *this, OZChannel *a2)
 {
-  OZChannel::enumerateCurveProcessingNodes(a2, &__p);
+  OZChannel::enumerateCurveProcessingNodes(&__p, a2);
   v8 = &v8;
   v9 = &v8;
   v10 = 0;
@@ -2605,7 +2615,7 @@ void OZShapeBehavior::reorderCurveNode(uint64_t a1, void *a2, uint64_t a3, uint6
 {
   v7 = a2[2];
   OZChannel::removeCurveProcessingNode(v7, a2);
-  OZChannel::enumerateCurveProcessingNodes(v7, __p);
+  OZChannel::enumerateCurveProcessingNodes(__p, v7);
   v8 = __p[1];
   v9 = __p[0];
   if (__p[0] == __p[1])
@@ -2690,7 +2700,7 @@ void sub_26008B818(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void OZShapeBehavior::reorderSingleChan(uint64_t a1, OZChannel *this, uint64_t a3, uint64_t *a4)
 {
-  OZChannel::enumerateCurveProcessingNodes(this, &__p);
+  OZChannel::enumerateCurveProcessingNodes(&__p, this);
   v11 = &v11;
   v12 = &v11;
   v13 = 0;
@@ -2821,9 +2831,9 @@ void OZShapeBehavior::willDeleteObject(OZShapeBehavior *this, OZObjectManipulato
   }
 }
 
-uint64_t OZShapeBehavior::isVertexAffectedByBehavior(OZShapeBehavior *this, unsigned int a2)
+uint64_t OZShapeBehavior::isVertexAffectedByBehavior(OZShapeBehavior *this, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *(this + 88) <= a2)
+  if (a2 < 0 || *(this + 88) <= a2)
   {
     return 0;
   }
@@ -2834,7 +2844,7 @@ uint64_t OZShapeBehavior::isVertexAffectedByBehavior(OZShapeBehavior *this, unsi
   }
 }
 
-uint64_t OZShapeBehavior::addAffectedVertex(uint64_t this, unsigned int a2)
+uint64_t OZShapeBehavior::addAffectedVertex(uint64_t this, signed int a2)
 {
   if ((a2 & 0x80000000) == 0)
   {
@@ -2851,7 +2861,7 @@ uint64_t OZShapeBehavior::addAffectedVertex(uint64_t this, unsigned int a2)
   return this;
 }
 
-uint64_t OZShapeBehavior::removeAffectedVertex(uint64_t this, unsigned int a2)
+uint64_t OZShapeBehavior::removeAffectedVertex(uint64_t this, signed int a2)
 {
   if ((a2 & 0x80000000) == 0)
   {
@@ -2868,11 +2878,11 @@ uint64_t OZShapeBehavior::removeAffectedVertex(uint64_t this, unsigned int a2)
   return this;
 }
 
-void OZShapeBehavior::didSetStartPoint(OZShapeBehavior *this, int a2)
+void OZShapeBehavior::didSetStartPoint(OZShapeBehavior *this, unsigned int a2)
 {
-  std::vector<BOOL>::vector(&__p, this + 344);
+  std::vector<BOOL>::vector(&__p, this + 43);
   *(this + 44) = 0;
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     v4 = -((63 - a2) >> 6);
   }
@@ -2962,7 +2972,7 @@ uint64_t non-virtual thunk toOZShapeBehavior::parseBegin(OZShapeBehavior *this, 
   return 1;
 }
 
-uint64_t OZShapeBehavior::parseElement(PCSerializer **this, PCSerializerReadStream *a2, PCStreamElement *a3)
+uint64_t OZShapeBehavior::parseElement(OZTimeMarkerSet **this, PCSerializerReadStream *a2, PCStreamElement *a3)
 {
   OZBehavior::parseElement(this, a2, a3);
   if (*(a3 + 2) == 801)
@@ -2977,7 +2987,7 @@ uint64_t OZShapeBehavior::parseElement(PCSerializer **this, PCSerializerReadStre
 
 uint64_t OZShapeBehavior::getCurveNodeForChannel(OZShapeBehavior *this, OZChannel *a2)
 {
-  OZChannel::enumerateCurveProcessingNodes(a2, &v10);
+  OZChannel::enumerateCurveProcessingNodes(&v10, a2);
   v3 = v10;
   v4 = v11;
   if (v10 != v11)
@@ -3180,7 +3190,7 @@ void OZShapeBehavior::flushCache(OZShapeBehavior *this)
       v13 = *(this + 60);
       if (v13 >= *(this + 61))
       {
-        v14 = std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__emplace_back_slow_path<std::list<OZShapeBehaviorVertexCacheEntry *> const&>(this + 472, v22);
+        v14 = std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__emplace_back_slow_path<std::list<OZShapeBehaviorVertexCacheEntry *> const&>(this + 59, v22);
       }
 
       else
@@ -3229,72 +3239,69 @@ void OZShapeBehavior::flushCache(OZShapeBehavior *this)
   PCSharedMutex::unlock((this + 624));
 }
 
-void sub_26008C894(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26008C894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
-  PCSharedMutex::unlock((v2 + 496));
+  PCSharedMutex::unlock((v3 + 496));
   _Unwind_Resume(a1);
 }
 
-OZShapeBehavior *OZShapeBehavior::notify(OZShapeBehavior *this)
+void OZShapeBehavior::notify(OZShapeBehavior *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = MEMORY[0x28223BE20](this);
-  v3 = v2;
-  v4 = result;
-  v13[520] = *MEMORY[0x277D85DE8];
-  if ((v2 & 0x981C) != 0)
+  v6 = MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v8 = v7;
+  v9 = v5;
+  v19[520] = *MEMORY[0x277D85DE8];
+  if ((v7 & 0x981C) != 0)
   {
-    result = (*(*result + 784))(result);
+    (*(*v5 + 784))(v5, v6);
   }
 
-  if ((v3 & 0xC) != 0)
+  if ((v8 & 0xC) != 0)
   {
-    result = (*(*v4 + 336))(v4);
-    if (result)
+    v10 = (*(*v9 + 336))(v9);
+    if (v10)
     {
-      v5 = result;
-      PCSharedMutex::lock_shared((v4 + 496));
-      PCSharedMutex::lock_shared((v4 + 624));
-      PCHashWriteStream::PCHashWriteStream(v13);
-      OZRenderParams::OZRenderParams(v12);
-      OZRenderState::OZRenderState(&v11);
-      OZScene::getCurrentTime(v5, &v10);
-      v11.var0 = v10;
-      OZRenderParams::setState(v12, &v11);
-      v10 = v12[0];
-      OZChannelFolder::calcHashForState((v4 + 56), v13, &v10);
-      v9 = vceqq_s32(*PCHashWriteStream::getHash(v13)->i8, *(v4 + 728));
-      if (vmaxv_u16(vmovn_s32(vmvnq_s8(v9))))
+      v11 = v10;
+      PCSharedMutex::lock_shared((v9 + 496));
+      PCSharedMutex::lock_shared((v9 + 624));
+      PCHashWriteStream::PCHashWriteStream(v19);
+      OZRenderParams::OZRenderParams(v18);
+      OZRenderState::OZRenderState(&v17);
+      OZScene::getCurrentTime(&v16, v11);
+      v17.var0 = v16;
+      OZRenderParams::setState(v18, &v17);
+      v16 = v18[0];
+      OZChannelFolder::calcHashForState((v9 + 56), v19, &v16);
+      v15 = vceqq_s32(*PCHashWriteStream::getHash(v19)->i8, *(v9 + 728));
+      if (vmaxv_u16(vmovn_s32(vmvnq_s8(v15))))
       {
-        *(v4 + 728) = *PCHashWriteStream::getHash(v13)->i8;
+        *(v9 + 728) = *PCHashWriteStream::getHash(v19)->i8;
       }
 
-      OZRenderParams::~OZRenderParams(v12);
-      PCHashWriteStream::~PCHashWriteStream(v13);
-      PCSharedMutex::unlock_shared((v4 + 624));
-      PCSharedMutex::unlock_shared((v4 + 496));
-      v6 = (vaddvq_s32(vbicq_s8(xmmword_260347A70, v9)) & 0xF) == 0;
-      result = OZShapeBehavior::getRotoshape(v4);
-      if (result)
+      OZRenderParams::~OZRenderParams(v18);
+      PCHashWriteStream::~PCHashWriteStream(v19);
+      PCSharedMutex::unlock_shared((v9 + 624));
+      PCSharedMutex::unlock_shared((v9 + 496));
+      v12 = (vaddvq_s32(vbicq_s8(xmmword_260347A70, v15)) & 0xF) == 0;
+      if (OZShapeBehavior::getRotoshape(v9))
       {
-        v7 = v6;
+        v13 = v12;
       }
 
       else
       {
-        v7 = 1;
+        v13 = 1;
       }
 
-      if ((v7 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        Rotoshape = OZShapeBehavior::getRotoshape(v4);
-        return OZRotoshape::setDirty(Rotoshape, 1, 1);
+        Rotoshape = OZShapeBehavior::getRotoshape(v9);
+        OZRotoshape::setDirty(Rotoshape, 1, 1);
       }
     }
   }
-
-  return result;
 }
 
 void sub_26008CAD8(_Unwind_Exception *a1, int a2)
@@ -3756,18 +3763,18 @@ unint64_t *std::__copy_unaligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unin
   return result;
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  v2 = *(a2 + 8);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = a2[1];
   if (v2)
   {
-    std::vector<BOOL>::__vallocate[abi:ne200100](result, v2);
+    std::vector<BOOL>::__vallocate[abi:ne200100](a1, v2);
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,true,0ul>,std::__bit_iterator<std::vector<BOOL>,true,0ul>>(void *a1, void *a2, unsigned int a3, void *a4, int a5, uint64_t a6)
@@ -3892,7 +3899,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
     *&v39 = *(a1 + 8) + a6;
     v44 = v38;
     v45 = 0;
-    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v26, 0, a2, a3, &v44, &v42);
+    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(&v42, v26, 0, a2, a3, &v44);
     v27 = v42;
     *a7 = v42;
     v28 = v43;
@@ -3900,7 +3907,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
     v29 = *(a1 + 8);
     v30 = (*a1 + 8 * (v29 >> 6));
     v31 = v29 & 0x3F;
-    v44 = v38 + 8 * (v39 >> 6);
+    v44 = &v38[8 * (v39 >> 6)];
     v45 = v39 & 0x3F;
     if (v45 == v31)
     {
@@ -3960,7 +3967,7 @@ void std::vector<BOOL>::__insert_with_size[abi:ne200100]<std::__bit_iterator<std
       v25 = v24 >> 6;
     }
 
-    v27 = *a1 + 8 * v25;
+    v27 = (*a1 + 8 * v25);
     v28 = v24 & 0x3F;
     *a7 = v27;
     *(a7 + 8) = v28;
@@ -3988,21 +3995,21 @@ void sub_26008E2F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__emplace_back_slow_path<std::list<OZShapeBehaviorVertexCacheEntry *> const&>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__emplace_back_slow_path<std::list<OZShapeBehaviorVertexCacheEntry *> const&>(uint64_t **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * (a1[2] - *a1) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * (a1[2] - *a1);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -4022,14 +4029,14 @@ uint64_t std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__emplace_ba
   v14 = 24 * v2;
   std::list<OZShapeBehaviorVertexCacheEntry *>::list((24 * v2), a2);
   v15 = 24 * v2 + 24;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = (24 * v2 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>,std::list<OZShapeBehaviorVertexCacheEntry *>*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -4038,24 +4045,24 @@ uint64_t std::vector<std::list<OZShapeBehaviorVertexCacheEntry *>>::__emplace_ba
   return v12;
 }
 
-void sub_26008E434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26008E434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::list<OZShapeBehaviorVertexCacheEntry *>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::list<OZShapeBehaviorVertexCacheEntry *>::list(void *result, uint64_t a2)
+uint64_t *std::list<OZShapeBehaviorVertexCacheEntry *>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>>(uint64_t a1, unint64_t a2)
@@ -4068,7 +4075,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::list<OZShapeBeha
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>,std::list<OZShapeBehaviorVertexCacheEntry *>*>(uint64_t a1, void *a2, void *a3, uint64_t *a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>,std::list<OZShapeBehaviorVertexCacheEntry *>*>(void *result, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -4076,7 +4083,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::l
     v8 = a2;
     do
     {
-      std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>::construct[abi:ne200100]<std::list<OZShapeBehaviorVertexCacheEntry *>,std::list<OZShapeBehaviorVertexCacheEntry *>>(a1, a4, v8);
+      std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>::construct[abi:ne200100]<std::list<OZShapeBehaviorVertexCacheEntry *>,std::list<OZShapeBehaviorVertexCacheEntry *>>(result, a4, v8);
       v8 += 3;
       a4 += 3;
     }
@@ -4090,7 +4097,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::l
   }
 }
 
-void std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>::construct[abi:ne200100]<std::list<OZShapeBehaviorVertexCacheEntry *>,std::list<OZShapeBehaviorVertexCacheEntry *>>(uint64_t a1, uint64_t *a2, void *a3)
+void std::allocator<std::list<OZShapeBehaviorVertexCacheEntry *>>::construct[abi:ne200100]<std::list<OZShapeBehaviorVertexCacheEntry *>,std::list<OZShapeBehaviorVertexCacheEntry *>>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   *a2 = a2;
   a2[1] = a2;
@@ -4131,9 +4138,9 @@ uint64_t std::__split_buffer<std::list<OZShapeBehaviorVertexCacheEntry *>>::~__s
   return a1;
 }
 
-void OZShapeBehaviorCurveNode::~OZShapeBehaviorCurveNode(OZShapeBehaviorCurveNode *this)
+void OZShapeBehaviorCurveNode::~OZShapeBehaviorCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -4227,14 +4234,14 @@ void non-virtual thunk toOZChanRotoshapeRef::~OZChanRotoshapeRef(OZChanRotoshape
   JUMPOUT(0x2666E9F00);
 }
 
-void OZChanRotoshapeRef::~OZChanRotoshapeRef(OZChanRotoshapeRef *this)
+void OZChanRotoshapeRef::~OZChanRotoshapeRef(OZChannel *this)
 {
   OZChanSceneNodeRef::~OZChanSceneNodeRef(this);
 
   JUMPOUT(0x2666E9F00);
 }
 
-const void *OZChanRotoshapeRef::getRotoshape(OZChannelBase *this)
+void *OZChanRotoshapeRef::getRotoshape(OZChannelBase *this)
 {
   result = OZChanSceneNodeRef::getNode(this);
   if (result)
@@ -4503,9 +4510,9 @@ uint64_t OZLi3DEngineTexturedObjectData::OZLi3DEngineTexturedObjectData(uint64_t
   return a1;
 }
 
-void sub_26008F2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_26008F2AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  a9 = (v9 + 2008);
+  a9 = v9 + 2008;
   std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__destroy_vector::operator()[abi:ne200100](&a9);
   v11 = *(v9 + 2000);
   if (v11)
@@ -4579,29 +4586,29 @@ void OZLi3DEngineTexturedObjectData::~OZLi3DEngineTexturedObjectData(OZLi3DEngin
   JUMPOUT(0x2666E9F00);
 }
 
-void sub_26008F60C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_26008F60C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a11)
   {
-    (*(*a11 + 24))(a11);
+    (*(*a11 + 24))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    (*(*a12 + 24))(a12);
+    (*(*a12 + 24))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void OZLi3DEngineTexturedObjectData::makeFaceStickerTextureNode(OZLi3DEngineTexturedObjectData *this, LiAgent *a2)
+void OZLi3DEngineTexturedObjectData::makeFaceStickerTextureNode(OZLi3DEngineTexturedObjectData *this)
 {
-  v3 = HGObject::operator new(0x280uLL);
-  HGHWMultiBlend::HGHWMultiBlend(v3);
-  memset(v5, 0, 24);
-  PCColor::getComponents(this + 508, v5);
-  v4 = HGObject::operator new(0x1A0uLL);
-  HGSolidColor::HGSolidColor(v4);
+  v4 = HGObject::operator new(0x280uLL);
+  HGHWMultiBlend::HGHWMultiBlend(v4);
+  memset(v6, 0, 24);
+  PCColor::getComponents(this + 508, v6);
+  v5 = HGObject::operator new(0x1A0uLL);
+  HGSolidColor::HGSolidColor(v5);
 }
 
 void sub_26008FA8C(_Unwind_Exception *a1)
@@ -4849,7 +4856,7 @@ void OZ3DEnginePlaneElement::getLocalVolume(uint64_t a1, _OWORD *a2)
     v3 = (*(*a1 + 2336))(a1);
     std::recursive_mutex::lock(v3);
     Representation = PCBitmap::getRepresentation(v3);
-    getSceneBoundingBox(Representation, v6);
+    getSceneBoundingBox(v6, Representation);
     v5 = v6[1];
     *a2 = v6[0];
     a2[1] = v5;
@@ -4860,45 +4867,45 @@ void OZ3DEnginePlaneElement::getLocalVolume(uint64_t a1, _OWORD *a2)
 
 void OZ3DEnginePlaneElement::makeDataFor3DEngineObject(uint64_t a1, uint64_t a2, CMTime *a3)
 {
-  v26 = *a3;
-  v13 = *a3;
-  v5 = (*(*(a1 + 16) + 104))();
-  Li3DEngineObjectForceParams::Li3DEngineObjectForceParams(&v16);
-  v6 = 0;
-  v20 = 0u;
-  v19 = 0u;
-  v18 = 0u;
-  v17 = -1;
-  v15 = 0;
-  if (v5)
+  v29 = *a3;
+  v16 = *a3;
+  v8 = (*(*(a1 + 16) + 104))();
+  Li3DEngineObjectForceParams::Li3DEngineObjectForceParams(&v19);
+  v9 = 0;
+  v23 = 0u;
+  v22 = 0u;
+  v21 = 0u;
+  LODWORD(v20) = -1;
+  v18 = 0;
+  if (v8)
   {
-    v6 = OZ3DEngineSceneElement::physicsType(a1, &v26);
+    v9 = OZ3DEngineSceneElement::physicsType(a1, &v29);
   }
 
-  LODWORD(v15) = v6;
-  OZChannel::getValueAsDouble((a1 + 21384), &v26, 0.0);
-  v21 = v7;
-  OZChannel::getValueAsDouble((a1 + 21688), &v26, 0.0);
-  v23 = v8;
-  OZChannel::getValueAsDouble((a1 + 21536), &v26, 0.0);
-  v22 = v9;
-  HIDWORD(v15) = (*(*a1 + 2304))(a1, &v26);
-  OZChannel::getValueAsDouble((a1 + 21840), &v26, 0.0);
+  LODWORD(v18) = v9;
+  OZChannel::getValueAsDouble((a1 + 21384), &v29, 0.0);
   v24 = v10;
-  OZChannel::getValueAsDouble((a1 + 21992), &v26, 0.0);
-  v25 = v11;
-  v12 = OZ3DEngineSceneElement::get3DWorldOwner(a1);
-  if (v12)
+  OZChannel::getValueAsDouble((a1 + 21688), &v29, 0.0);
+  v26 = v11;
+  OZChannel::getValueAsDouble((a1 + 21536), &v29, 0.0);
+  v25 = v12;
+  HIDWORD(v18) = (*(*a1 + 2304))(a1, &v29);
+  OZChannel::getValueAsDouble((a1 + 21840), &v29, 0.0);
+  v27 = v13;
+  OZChannel::getValueAsDouble((a1 + 21992), &v29, 0.0);
+  v28 = v14;
+  v15 = OZ3DEngineSceneElement::get3DWorldOwner(a1);
+  if (v15)
   {
-    if (!OZ3DEngineSceneElement::is3DNodeInMasterScene(a1, v12))
+    if (!OZ3DEngineSceneElement::is3DNodeInMasterScene(a1, v15))
     {
       OZ3DEngineSceneElement::add3DNodeToMasterScene(a1);
     }
   }
 
-  PCColor::PCColor(&v14);
-  v13 = *a3;
-  OZChannelColor::getColor((a1 + 29288), &v13, &v14, 0.0);
+  PCColor::PCColor(&v17);
+  v16 = *a3;
+  OZChannelColor::getColor((a1 + 29288), &v16, &v17, 0.0);
   operator new();
 }
 
@@ -4990,22 +4997,22 @@ void std::__tree<std::__value_type<SCNParticleSystem *,PCPtr<LiParticleParameter
   }
 }
 
-void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__assign_with_size[abi:ne200100]<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*>(uint64_t a1, const PCSharedCount *a2, uint64_t a3, unint64_t a4)
+void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__assign_with_size[abi:ne200100]<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*>(PCSharedCount **a1, const PCSharedCount *a2, const PCSharedCount *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 4) < a4)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 4) < a4)
   {
     std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__vdeallocate(a1);
     if (a4 <= 0x1C71C71C71C71C7)
     {
-      v9 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 4);
+      v9 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 4);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 4) >= 0xE38E38E38E38E3)
+      if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 4) >= 0xE38E38E38E38E3)
       {
         v10 = 0x1C71C71C71C71C7;
       }
@@ -5021,7 +5028,7 @@ void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__assi
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = v11 - v8;
   if (0x8E38E38E38E38E39 * ((v11 - v8) >> 4) >= a4)
   {
@@ -5029,13 +5036,13 @@ void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__assi
     {
       do
       {
-        std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>::operator=[abi:ne200100](v8, v6);
+        std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>::operator=[abi:ne200100](&v8->var0, v6);
         v6 += 18;
         v8 += 18;
       }
 
       while (v6 != a3);
-      v11 = *(a1 + 8);
+      v11 = a1[1];
     }
 
     for (; v11 != v8; v11 -= 144)
@@ -5043,7 +5050,7 @@ void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__assi
       PCSharedCount::~PCSharedCount((v11 - 136));
     }
 
-    *(a1 + 8) = v8;
+    a1[1] = v8;
   }
 
   else
@@ -5054,21 +5061,21 @@ void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__assi
       v14 = a2;
       do
       {
-        std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>::operator=[abi:ne200100](v8, v14);
+        std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>::operator=[abi:ne200100](&v8->var0, v14);
         v14 += 18;
         v8 += 18;
         v13 -= 144;
       }
 
       while (v13);
-      v11 = *(a1 + 8);
+      v11 = a1[1];
     }
 
-    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*>(a1, v6 + v12, a3, v11);
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*,std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>*>(a1, v6 + v12, a3, v11);
   }
 }
 
-void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__vdeallocate(void **a1)
+void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__vdeallocate(PCSharedCount **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -5096,7 +5103,7 @@ void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__vdea
   }
 }
 
-void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<PCPtr<LiImageSource>,PCMatrix44Tmpl<double>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1C71C71C71C71C8)
   {
@@ -5279,9 +5286,9 @@ void OZSimStateArray::OZSimStateArray(OZSimStateArray *this)
   PCSharedCount::PCSharedCount(this + 8);
 }
 
-void sub_26009160C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26009160C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<OZSimStateElement>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5297,24 +5304,24 @@ void OZSimStateArray::OZSimStateArray(OZSimStateArray *this, unsigned int a2)
   PCSharedCount::PCSharedCount(v2 + 8);
 }
 
-void sub_260091684(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260091684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<OZSimStateElement>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<OZSimStateElement>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<OZSimStateElement>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<OZSimStateElement>::__vallocate[abi:ne200100](result, a2);
+    std::vector<OZSimStateElement>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void OZSimStateArray::OZSimStateArray(OZSimStateArray *this, const OZSimStateArray *a2)
@@ -5331,9 +5338,9 @@ void OZSimStateArray::OZSimStateArray(OZSimStateArray *this, const OZSimStateArr
   PCSharedCount::PCSharedCount(this + 8, a2 + 8);
 }
 
-void sub_2600917C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600917C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<OZSimStateElement>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5443,7 +5450,7 @@ void std::vector<OZSimStateElement>::__destroy_vector::operator()[abi:ne200100](
   }
 }
 
-void std::vector<OZSimStateElement>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<OZSimStateElement>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x108421084210843)
   {
@@ -5453,7 +5460,7 @@ void std::vector<OZSimStateElement>::__vallocate[abi:ne200100](uint64_t a1, unin
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<OZSimStateElement>::__init_with_size[abi:ne200100]<OZSimStateElement*,OZSimStateElement*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<OZSimStateElement>::__init_with_size[abi:ne200100]<OZSimStateElement*,OZSimStateElement*>(uint64_t *result, OZSimStateElement *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5508,7 +5515,7 @@ void sub_260091C98(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<OZSimStateElement>::__assign_with_size[abi:ne200100]<OZSimStateElement*,OZSimStateElement*>(uint64_t a1, __int128 *a2, OZSimStateElement *a3, unint64_t a4)
+void std::vector<OZSimStateElement>::__assign_with_size[abi:ne200100]<OZSimStateElement*,OZSimStateElement*>(uint64_t a1, OZSimStateElement *a2, OZSimStateElement *a3, unint64_t a4)
 {
   v6 = a2;
   v8 = *a1;
@@ -5549,7 +5556,7 @@ void std::vector<OZSimStateElement>::__assign_with_size[abi:ne200100]<OZSimState
       {
         OZSimStateElement::operator=(v8, v6);
         v6 = (v6 + 248);
-        v8 = (v8 + 248);
+        v8 += 248;
       }
 
       while (v6 != a3);
@@ -5575,7 +5582,7 @@ void std::vector<OZSimStateElement>::__assign_with_size[abi:ne200100]<OZSimState
       {
         OZSimStateElement::operator=(v8, v14);
         v14 = (v14 + 248);
-        v8 = (v8 + 248);
+        v8 += 248;
         v13 -= 248;
       }
 
@@ -5587,7 +5594,7 @@ void std::vector<OZSimStateElement>::__assign_with_size[abi:ne200100]<OZSimState
   }
 }
 
-void std::vector<OZSimStateElement>::__vdeallocate(void **a1)
+void std::vector<OZSimStateElement>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -5779,9 +5786,9 @@ void non-virtual thunk toOZSimSystemMoToFoBehavior::~OZSimSystemMoToFoBehavior(O
   JUMPOUT(0x2666E9F00);
 }
 
-uint64_t OZSimSystemMoToFoBehavior::operator=(uint64_t a1)
+uint64_t OZSimSystemMoToFoBehavior::operator=(uint64_t a1, uint64_t a2)
 {
-  result = OZSimulationBehavior::operator=();
+  result = OZSimulationBehavior::operator=(a1, a2);
   *(a1 + 336) = 0;
   return result;
 }
@@ -5859,7 +5866,7 @@ double OZSimSystemMoToFoBehavior::calcParentsDerivatives(OZSimSystemMoToFoBehavi
   v116 = *MEMORY[0x277D85DE8];
   v94 = 0uLL;
   v95 = 0;
-  OZChannelObjectRootBase::getTimeOffset((*(this + 42) + 56), &v111);
+  OZChannelObjectRootBase::getTimeOffset(&v111, (*(this + 42) + 56));
   *&v99.var0.var0 = *(a2 + 11);
   v99.var0.var3 = *(a2 + 24);
   *v102 = v111;
@@ -5867,7 +5874,7 @@ double OZSimSystemMoToFoBehavior::calcParentsDerivatives(OZSimSystemMoToFoBehavi
   v3.n128_f64[0] = PC_CMTimeSaferSubtract(&v99, v102, &v94);
   memset(&v93, 0, sizeof(v93));
   v4 = (*(**(this + 42) + 272))(v3);
-  OZSceneSettings::getFrameDuration((v4 + 336), &v93);
+  OZSceneSettings::getFrameDuration(&v93, (v4 + 336));
   v5 = 0uLL;
   *(a2 + 9) = 0u;
   *(a2 + 10) = 0u;
@@ -6069,7 +6076,7 @@ double OZSimSystemMoToFoBehavior::calcParentsDerivatives(OZSimSystemMoToFoBehavi
   {
     v39 = v38;
     memset(&v101, 0, sizeof(v101));
-    OZChannelObjectRootBase::getTimeOffset((*(this + 42) + 56), &v97);
+    OZChannelObjectRootBase::getTimeOffset(&v97, (*(this + 42) + 56));
     v99.var0 = v88;
     v98 = v97;
     PC_CMTimeSaferAdd(&v99, &v98, &v101);
@@ -6331,7 +6338,7 @@ void OZSimSystemMoToFoBehavior::calcParentsInitialValues(OZSimSystemMoToFoBehavi
   v78 = *MEMORY[0x277D85DE8];
   v63 = 0uLL;
   v64 = 0;
-  OZChannelObjectRootBase::getTimeOffset((*(this + 42) + 56), &v75);
+  OZChannelObjectRootBase::getTimeOffset(&v75, (*(this + 42) + 56));
   *&v68.var0.var0 = *(a2 + 11);
   v68.var0.var3 = *(a2 + 24);
   *&v49.value = v75;
@@ -6339,7 +6346,7 @@ void OZSimSystemMoToFoBehavior::calcParentsInitialValues(OZSimSystemMoToFoBehavi
   v4.n128_f64[0] = PC_CMTimeSaferSubtract(&v68, &v49, &v63);
   memset(&v62, 0, sizeof(v62));
   v5 = (*(**(this + 42) + 272))(v4);
-  OZSceneSettings::getFrameDuration((v5 + 336), &v62);
+  OZSceneSettings::getFrameDuration(&v62, (v5 + 336));
   *(a2 + 9) = 0u;
   *(a2 + 10) = 0u;
   *(a2 + 8) = 0u;
@@ -6438,7 +6445,7 @@ void OZSimSystemMoToFoBehavior::calcParentsInitialValues(OZSimSystemMoToFoBehavi
       v22 = v21;
       OZRenderState::OZRenderState(&v68);
       memset(&v43, 0, sizeof(v43));
-      OZChannelObjectRootBase::getTimeOffset((*(this + 42) + 56), &v65);
+      OZChannelObjectRootBase::getTimeOffset(&v65, (*(this + 42) + 56));
       v67 = v46;
       v66 = v65;
       PC_CMTimeSaferAdd(&v67, &v66, &v43);
@@ -6508,9 +6515,9 @@ void OZSimSystemMoToFoBehavior::calcParentsInitialValues(OZSimSystemMoToFoBehavi
   OZCurveNodeParam::~OZCurveNodeParam(&v49);
 }
 
-void sub_260093AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_260093AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   OZCurveNodeParam::~OZCurveNodeParam(va);
   _Unwind_Resume(a1);
 }
@@ -6772,23 +6779,23 @@ uint64_t OZPolygonAA::getEdgeAATexture(OZPolygonAA *this)
   result = *(this + 1);
   if (!result)
   {
-    PGPerThreadSetCurrentContextSentry::PGPerThreadSetCurrentContextSentry(v3);
-    OZPolygonAA::createEdgeAATexture(this);
+    PGPerThreadSetCurrentContextSentry::PGPerThreadSetCurrentContextSentry(v2);
+    OZPolygonAA::createEdgeAATexture();
   }
 
   return result;
 }
 
-void sub_2600943D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2600943D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   PGPerThreadSetCurrentContextSentry::~PGPerThreadSetCurrentContextSentry(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2600944E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600944E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -6834,7 +6841,7 @@ void OZPolygonAA::generateEdgeAAData(OZPolygonAA *this, unsigned __int8 *a2)
   }
 }
 
-void OZDocument::OZDocument(OZDocument *this)
+void OZDocument::OZDocument(OZDocument *this, int a2)
 {
   *this = &unk_28727CE98;
   *(this + 1) = &unk_28727CEF0;
@@ -6878,8 +6885,8 @@ void OZDocument::OZDocument(OZDocument *this)
 
 void sub_260094924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCString *a10)
 {
-  MEMORY[0x2666E9F00](v13, 0x10A1C40A4A8B666);
-  PCURL::~PCURL(&v10[43]);
+  MEMORY[0x2666E9F00](v13, 0x10A1C40A4A8B666, a3, a4, a5, a6, a7, a8);
+  PCURL::~PCURL(&v10[43].var0);
   a10 = v10 + 37;
   std::vector<OZChannelRef>::__destroy_vector::operator()[abi:ne200100](&a10);
   PCString::~PCString(v14 + 13);
@@ -6950,7 +6957,7 @@ void OZDocument::OZDocument(OZDocument *this, const OZDocument *a2, int a3)
   *(this + 37) = 0;
   *(this + 40) = *(a2 + 40);
   *(this + 42) = atomic_fetch_add(&OZDocument::_nextTransientDocumentID, 1uLL);
-  PCURL::PCURL((this + 344), (a2 + 344));
+  PCURL::PCURL((this + 344), a2 + 43);
   if (a3)
   {
     operator new();
@@ -6973,8 +6980,8 @@ void OZDocument::OZDocument(OZDocument *this, const OZDocument *a2, int a3)
 
 void sub_260094DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCString *a10)
 {
-  MEMORY[0x2666E9F00](v13, 0x10A1C40A4A8B666);
-  PCURL::~PCURL(&v10[43]);
+  MEMORY[0x2666E9F00](v13, 0x10A1C40A4A8B666, a3, a4, a5, a6, a7, a8);
+  PCURL::~PCURL(&v10[43].var0);
   a10 = v10 + 37;
   std::vector<OZChannelRef>::__destroy_vector::operator()[abi:ne200100](&a10);
   PCString::~PCString(v14 + 13);
@@ -7035,7 +7042,7 @@ void OZDocument::~OZDocument(PCString *this)
   v3 = this[21].var0;
   if (v3)
   {
-    OZNotificationManager::~OZNotificationManager(v3);
+    OZNotificationManager::~OZNotificationManager(&v3->isa);
     MEMORY[0x2666E9F00]();
   }
 
@@ -7079,7 +7086,7 @@ void OZDocument::~OZDocument(PCString *this)
     this[i].var0 = 0;
   }
 
-  PCURL::~PCURL(&this[43]);
+  PCURL::~PCURL(&this[43].var0);
   v11 = this + 37;
   std::vector<OZChannelRef>::__destroy_vector::operator()[abi:ne200100](&v11);
   PCString::~PCString(this + 34);
@@ -7144,7 +7151,7 @@ uint64_t OZScene::begin_t<OZCamera,false,true>@<X0>(uint64_t result@<X0>, uint64
   return result;
 }
 
-uint64_t OZDocument::addCPPObserver(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *OZDocument::addCPPObserver(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = *(a1 + 168);
   if (result)
@@ -7155,45 +7162,41 @@ uint64_t OZDocument::addCPPObserver(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t OZDocument::removeCPPObserver(uint64_t a1)
+OZNotificationManager *OZDocument::removeCPPObserver(uint64_t a1, void *a2)
 {
   result = *(a1 + 168);
   if (result)
   {
-    return OZNotificationManager::removeCPPObserver();
+    return OZNotificationManager::removeCPPObserver(result, a2);
   }
 
   return result;
 }
 
-uint64_t OZDocument::startCaptureModifiedChannels(uint64_t this, const PCString *a2)
+void OZDocument::startCaptureModifiedChannels(PCString *this, const PCString *a2)
 {
-  v3 = this;
-  v4 = *(this + 24);
-  if (!v4 || (*(v4 + 1576) & 1) == 0)
+  var0 = this[3].var0;
+  if (!var0 || (var0[49].info & 1) == 0)
   {
-    v5 = *(this + 96);
+    v5 = this[12].var0;
     if (!v5)
     {
-      PCString::set((this + 88), a2);
-      v7 = *(v3 + 64);
+      PCString::set(this + 11, a2);
+      v7 = this[8].var0;
         ;
       }
 
-      *(v3 + 72) = v7;
-      this = OZChannelBase::setRangeName(v3, a2);
-      v5 = *(v3 + 96);
+      this[9].var0 = v7;
+      OZChannelBase::setRangeName(this, a2);
+      v5 = this[12].var0;
     }
 
-    *(v3 + 96) = v5 + 1;
+    LODWORD(this[12].var0) = v5 + 1;
   }
-
-  return this;
 }
 
-OZChannelBase *OZDocument::endCaptureModifiedChannels(OZChannelBase *this, const PCString *a2)
+void OZDocument::endCaptureModifiedChannels(OZChannelBase *this, const PCString *a2)
 {
-  v2 = this;
   v3 = *&this->var3;
   if (!v3 || (*(v3 + 1576) & 1) == 0)
   {
@@ -7205,13 +7208,11 @@ OZChannelBase *OZDocument::endCaptureModifiedChannels(OZChannelBase *this, const
         ;
       }
 
-      v2->var9 = var8;
+      this->var9 = var8;
 
-      return OZChannelBase::setRangeName(v2, a2);
+      OZChannelBase::setRangeName(this, a2);
     }
   }
-
-  return this;
 }
 
 void OZDocument::willModifyChannel(OZDocument *this, OZChannelBase *a2, int a3)
@@ -7281,10 +7282,10 @@ void OZDocument::willModifyChannel(OZDocument *this, OZChannelBase *a2, int a3)
   }
 }
 
-void sub_2600959EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600959EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  *(v2 + 72) = v3;
+  va_start(va, a3);
+  *(v3 + 72) = v4;
   OZChannelRef::~OZChannelRef(va);
   _Unwind_Resume(a1);
 }
@@ -7563,7 +7564,7 @@ uint64_t OZDocument::parseEnd(OZDocument *this, PCSerializerReadStream *a2)
   if (!CMTimeCompare(&time1, &time2))
   {
     v10 = *(v2 + 3);
-    OZSceneSettings::getFrameDuration((v10 + 336), &v28);
+    OZSceneSettings::getFrameDuration(&v28, (v10 + 336));
     operator*(&v28, v8, &time2);
     time1 = *v9;
     v30 = time2;
@@ -7764,7 +7765,7 @@ uint64_t OZDocument::makeFCPv1Corrections(OZDocument *this)
     v21 = (*(*(v20 + 318) + 832))(v20 + 2544);
     if (v21)
     {
-      OZChannel::getKeyframes((v20 + 2544), 0, &__p);
+      OZChannel::getKeyframes(&__p.var0.var0, (v20 + 2544), 0);
       v22 = 0;
       v23 = 8 * v21;
       do
@@ -7916,7 +7917,7 @@ uint64_t OZDocument::makeFCPv2Corrections(OZDocument *this)
     v19 = (*(v17[318] + 832))(v17 + 318);
     if (v19)
     {
-      OZChannel::getKeyframes(v18, 0, __p);
+      OZChannel::getKeyframes(__p, v18, 0);
       v20 = 0;
       v21 = 8 * v19;
       do
@@ -8005,10 +8006,10 @@ uint64_t OZDocument::makeFCPv3Corrections(OZDocument *this)
   return std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v16);
 }
 
-void sub_260097570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_260097570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v14 + 32);
+  va_start(va, a21);
+  std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(v21 + 32);
   std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -8395,7 +8396,7 @@ uint64_t OZDocument::correct4CornerChannel(OZDocument *this, OZChannelPosition *
   if (v8)
   {
     v9 = v8;
-    OZChannel::getKeyframes(v7, 0, &__p);
+    OZChannel::getKeyframes(&__p, v7, 0);
     v10 = 0;
     v11 = 8 * v9;
     do
@@ -8419,7 +8420,7 @@ uint64_t OZDocument::correct4CornerChannel(OZDocument *this, OZChannelPosition *
   if (v13)
   {
     v14 = v13;
-    OZChannel::getKeyframes(v12, 0, &__p);
+    OZChannel::getKeyframes(&__p, v12, 0);
     v15 = 0;
     v16 = 8 * v14;
     do
@@ -8458,9 +8459,9 @@ void sub_260098130(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t OZDocument::open(OZChannelBase *this, const PCURL *a2)
+uint64_t OZDocument::open(OZChannelBase *this, CFURLRef *a2)
 {
-  v4 = PCXMLReadStream::PCXMLReadStream(v13, a2);
+  PCXMLReadStream::PCXMLReadStream(v13, a2);
   v14 = *(theApp + 16);
   *(OZCoreGlobals::getInstance(v4) + 8) = 0;
   if (!this[1].var7)
@@ -8508,10 +8509,11 @@ uint64_t OZDocument::open(OZChannelBase *this, const PCURL *a2)
   return v5;
 }
 
-void sub_2600982E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCString a11, char a12)
+void sub_2600982E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, PCString a11, ...)
 {
+  va_start(va, a11);
   PCString::~PCString(&a11);
-  PCXMLReadStream::~PCXMLReadStream(&a12);
+  PCXMLReadStream::~PCXMLReadStream(va);
   _Unwind_Resume(a1);
 }
 
@@ -8628,7 +8630,7 @@ void *OZObject::iterator_t<OZCamera,false,true,OZObject::defaultValidator>::incr
     v5 = *v1;
     v13 = v4;
     v14 = &v13;
-    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::__emplace_unique_key_args<OZSceneNode *,std::piecewise_construct_t const&,std::tuple<OZSceneNode * const&>,std::tuple<>>(v1 + 4, &v13)[3] = v5;
+    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::__emplace_unique_key_args<OZSceneNode *,std::piecewise_construct_t const&,std::tuple<OZSceneNode * const&>,std::tuple<>>(v1 + 8, &v13, &std::piecewise_construct, &v14)[3] = v5;
     result = (*(*v4 + 1104))(v4);
     *v1 = result;
     *(v1 + 24) = 1;
@@ -8640,7 +8642,7 @@ void *OZObject::iterator_t<OZCamera,false,true,OZObject::defaultValidator>::incr
     v6 = *v1;
     v13 = v4;
     v14 = &v13;
-    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::__emplace_unique_key_args<OZSceneNode *,std::piecewise_construct_t const&,std::tuple<OZSceneNode * const&>,std::tuple<>>(v1 + 4, &v13)[3] = v6;
+    std::__hash_table<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::__unordered_map_hasher<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::hash<OZSceneNode *>,std::equal_to<OZSceneNode *>,true>,std::__unordered_map_equal<OZSceneNode *,std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>,std::equal_to<OZSceneNode *>,std::hash<OZSceneNode *>,true>,std::allocator<std::__hash_value_type<OZSceneNode *,std::__list_iterator<OZSceneNode *,void *>>>>::__emplace_unique_key_args<OZSceneNode *,std::piecewise_construct_t const&,std::tuple<OZSceneNode * const&>,std::tuple<>>(v1 + 8, &v13, &std::piecewise_construct, &v14)[3] = v6;
     result = (*(*v4 + 1024))(v4);
     *v1 = result;
     return result;
@@ -8770,14 +8772,14 @@ uint64_t std::vector<OZChannelRef>::__emplace_back_slow_path<OZChannelRef const&
   return v12;
 }
 
-void sub_260098A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_260098A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<OZChannelRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OZChannelRef>,OZChannelRef*>(int a1, void **a2, OZChannelRef *a3, std::string *this)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OZChannelRef>,OZChannelRef*>(int a1, void **a2, void **a3, std::string *this)
 {
   if (a2 != a3)
   {
@@ -8851,7 +8853,7 @@ uint64_t OZObject::iterator_t<OZElement,false,true,OZObject::defaultValidator>::
   return result;
 }
 
-unint64_t OZInsertLayerBelowGroupAffectedByBump(LiLayeredMaterial *a1, PCSharedCount *a2)
+PCSharedCount *OZInsertLayerBelowGroupAffectedByBump(LiLayeredMaterial *a1, PCSharedCount *a2)
 {
   v4 = (*(a1 + 84) - *(a1 + 83)) >> 4;
   while (1)
@@ -8912,9 +8914,9 @@ unint64_t OZInsertLayerBelowGroupAffectedByBump(LiLayeredMaterial *a1, PCSharedC
   }
 }
 
-void sub_260098EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260098EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZFxPlugLockSentinel::~OZFxPlugLockSentinel(va);
   _Unwind_Resume(a1);
 }
@@ -8939,11 +8941,11 @@ uint64_t getWorkingGamut(OZChannelBase *a1)
       v3 = (*(*v2 + 272))(v2);
       if (v3)
       {
-        (*(*v3 + 136))(&v9);
-        CGColorSpace = FxColorDescription::getCGColorSpace(&v9);
-        v5 = CGColorSpace == PCGetWorkingColorSpace(1);
-        PCCFRef<CGColorSpace *>::~PCCFRef(&v9._pcColorDesc._colorSpaceRef._obj);
-        return v5;
+        (*(*v3 + 136))(&v10);
+        CGColorSpace = FxColorDescription::getCGColorSpace(&v10);
+        v6 = CGColorSpace == PCGetWorkingColorSpace(1, v5);
+        PCCFRef<CGColorSpace *>::~PCCFRef(&v10._pcColorDesc._colorSpaceRef._obj);
+        return v6;
       }
     }
 
@@ -8956,30 +8958,30 @@ uint64_t getWorkingGamut(OZChannelBase *a1)
     return 0;
   }
 
-  v7 = [(__CFString *)var0 contextManager];
-  if (!v7)
+  v8 = [(__CFString *)var0 contextManager];
+  if (!v8)
   {
     return 0;
   }
 
-  OZFxRenderContextAgentSentry::OZFxRenderContextAgentSentry(&v9, v7);
-  if (OZFxRenderContextAgentSentry::getAgent(&v9, a1))
+  OZFxRenderContextAgentSentry::OZFxRenderContextAgentSentry(&v10, v8);
+  if (OZFxRenderContextAgentSentry::getAgent(&v10, a1))
   {
-    v5 = (*(a1->var0 + 22))(a1);
+    v6 = (*(a1->var0 + 22))(a1);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  OZFxRenderContextAgentSentry::~OZFxRenderContextAgentSentry(&v9);
-  return v5;
+  OZFxRenderContextAgentSentry::~OZFxRenderContextAgentSentry(&v10);
+  return v6;
 }
 
-void sub_260099138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_260099138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZFxPlugLockSentinel::~OZFxPlugLockSentinel(va);
   _Unwind_Resume(a1);
 }
@@ -8994,9 +8996,9 @@ void sub_260099158(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x260099150);
 }
 
-void sub_2600991EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2600991EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZFxPlugLockSentinel::~OZFxPlugLockSentinel(va);
   _Unwind_Resume(a1);
 }
@@ -9220,7 +9222,7 @@ void OZSceneNodeFile::getAssociatedFileURLs(void *a1@<X8>)
   a1[2] = 0;
 }
 
-void OZSceneNodeFile::setAbsoluteFileURL(OZSceneNodeFile *this, PCURL *a2)
+void OZSceneNodeFile::setAbsoluteFileURL(OZSceneNodeFile *this, CFURLRef *a2)
 {
   v3 = *(this + 193);
   if (v3)
@@ -9233,7 +9235,7 @@ void OZSceneNodeFile::setAbsoluteFileURL(OZSceneNodeFile *this, PCURL *a2)
   operator new();
 }
 
-void OZSceneNodeFile::setRelativeFileURL(OZSceneNodeFile *this, PCURL *a2)
+void OZSceneNodeFile::setRelativeFileURL(OZSceneNodeFile *this, CFURLRef *a2)
 {
   v3 = *(this + 194);
   if (v3)
@@ -9246,16 +9248,16 @@ void OZSceneNodeFile::setRelativeFileURL(OZSceneNodeFile *this, PCURL *a2)
   operator new();
 }
 
-PCURL *OZSceneNodeFile::getURL@<X0>(OZSceneNodeFile *this@<X0>, PCURL *a2@<X8>)
+void OZSceneNodeFile::getURL(OZSceneNodeFile *this@<X0>, PCURL *a2@<X8>)
 {
   if (*(this + 1561) == 1)
   {
-    return PCURL::PCURL(a2, this + 196, 0);
+    PCURL::PCURL(a2, this + 196, 0);
   }
 
   else
   {
-    return PCURL::PCURL(a2, *(this + 193));
+    PCURL::PCURL(a2, *(this + 193));
   }
 }
 
@@ -9316,7 +9318,7 @@ uint64_t OZSceneNodeFile::isAssociatedFileMissing(uint64_t a1, uint64_t a2)
       }
 
       PCURL::~PCURL(&v17);
-      v4 = (v4 + 8);
+      ++v4;
     }
 
     while (v4 != v5);
@@ -9350,9 +9352,9 @@ void OZSceneNodeFile::getFilename(OZSceneNodeFile *this@<X0>, PCSharedCount *a2@
   }
 }
 
-void sub_260099E04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260099E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -9373,9 +9375,9 @@ void OZSceneNodeFile::getShortFilename(OZSceneNodeFile *this@<X0>, PCSharedCount
   }
 }
 
-void sub_260099EB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260099EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -9396,9 +9398,9 @@ void OZSceneNodeFile::getExtension(OZSceneNodeFile *this@<X0>, PCSharedCount *a2
   }
 }
 
-void sub_260099F64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_260099F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -9419,9 +9421,9 @@ void OZSceneNodeFile::getAsFileSystemString(OZSceneNodeFile *this@<X0>, PCShared
   }
 }
 
-void sub_26009A014(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26009A014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -9442,9 +9444,9 @@ void OZSceneNodeFile::getAsURLString(const PCString *this@<X0>, PCString *a2@<X8
   }
 }
 
-void sub_26009A0C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26009A0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -9562,7 +9564,7 @@ void std::vector<PCURL>::__destroy_vector::operator()[abi:ne200100](void ***a1)
     {
       do
       {
-        PCURL::~PCURL((v4 - 8));
+        PCURL::~PCURL(v4 - 1);
       }
 
       while (v4 != v2);
@@ -9575,7 +9577,7 @@ void std::vector<PCURL>::__destroy_vector::operator()[abi:ne200100](void ***a1)
   }
 }
 
-uint64_t std::vector<PCURL>::__emplace_back_slow_path<PCURL const&>(uint64_t a1, const PCURL *a2)
+uint64_t std::vector<PCURL>::__emplace_back_slow_path<PCURL const&>(uint64_t a1, CFURLRef *a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 3;
   v3 = v2 + 1;
@@ -9626,14 +9628,14 @@ uint64_t std::vector<PCURL>::__emplace_back_slow_path<PCURL const&>(uint64_t a1,
   return v13;
 }
 
-void sub_26009A7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26009A7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<PCURL>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PCURL>,PCURL*>(int a1, PCURL *a2, PCURL *a3, PCURL *this)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PCURL>,PCURL*>(int a1, const void **a2, const void **a3, PCURL *this)
 {
   if (a2 != a3)
   {
@@ -9642,8 +9644,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PCURL>
     v8 = a2;
     do
     {
-      PCURL::PCURL(this, v8);
-      v8 = (v8 + 8);
+      PCURL::PCURL(this, v8++);
       this = (this + 8);
       v7 -= 8;
     }
@@ -9651,8 +9652,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PCURL>
     while (v8 != a3);
     while (v6 != a3)
     {
-      PCURL::~PCURL(v6);
-      v6 = (v6 + 8);
+      PCURL::~PCURL(v6++);
     }
   }
 }
@@ -9702,7 +9702,7 @@ void OZLocking::OZLocking(OZLocking *this)
   *(this + 16) = &unk_2871D83A0;
 }
 
-char *OZLocking::getLockDependenciesForElement(char *result, unint64_t a2, uint64_t a3, uint64_t a4)
+void *OZLocking::getLockDependenciesForElement(void *result, char *a2, uint64_t a3, uint64_t **a4)
 {
   if (result)
   {
@@ -9711,7 +9711,7 @@ char *OZLocking::getLockDependenciesForElement(char *result, unint64_t a2, uint6
     v26 = result;
     if (result)
     {
-      for (i = *(a4 + 8); i; i = *i)
+      for (i = a4[1]; i; i = *i)
       {
         v10 = i[4];
         if (result >= v10)
@@ -9732,12 +9732,12 @@ char *OZLocking::getLockDependenciesForElement(char *result, unint64_t a2, uint6
 
       else
       {
-        v27[0] = result;
-        v27[2] = v27;
-        std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(a3, v27);
+        v27 = result;
+        v28 = &v27;
+        std::__tree<std::__value_type<OZLocking *,std::set<OZLocking *>>,std::__map_value_compare<OZLocking *,std::__value_type<OZLocking *,std::set<OZLocking *>>,std::less<OZLocking *>,true>,std::allocator<std::__value_type<OZLocking *,std::set<OZLocking *>>>>::__emplace_unique_key_args<OZLocking *,std::piecewise_construct_t const&,std::tuple<OZLocking * const&>,std::tuple<>>(a3, &v27, &std::piecewise_construct, &v28);
       }
 
-      std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v26);
+      std::__tree<OZLocking *>::__emplace_unique_key_args<OZLocking *,OZLocking *>(a4, &v26, &v26);
     }
 
     else
@@ -9748,14 +9748,14 @@ char *OZLocking::getLockDependenciesForElement(char *result, unint64_t a2, uint6
     v11 = v7;
     do
     {
-      for (j = *(v11 + 126); j != v11 + 1000; j = *(j + 1))
+      for (j = v11[126]; j != v11 + 125; j = j[1])
       {
-        v13 = *(j + 2);
+        v13 = j[2];
         if (v13)
         {
           if (v14)
           {
-            for (k = *(a4 + 8); k; k = *k)
+            for (k = a4[1]; k; k = *k)
             {
               v16 = k[4];
               if (v14 >= v16)
@@ -9777,7 +9777,7 @@ LABEL_24:
         ;
       }
 
-      v11 = *(v11 + 120);
+      v11 = v11[120];
     }
 
     while (v11);

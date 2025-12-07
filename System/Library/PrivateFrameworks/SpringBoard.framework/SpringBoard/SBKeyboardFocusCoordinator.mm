@@ -1008,7 +1008,7 @@ void __109__SBKeyboardFocusCoordinator_redirectSpringBoardLockFocusForReason_toP
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [SBKeyboardFocusCoordinator focusLockSpringBoardWindow:v13 forReason:a2];
+      [(SBKeyboardFocusCoordinator *)v13 focusLockSpringBoardWindow:a2 forReason:self];
     }
 
     v14 = [v11 focusLockSpringBoardWindow:windowCopy forReason:v13];
@@ -1054,7 +1054,7 @@ void __109__SBKeyboardFocusCoordinator_redirectSpringBoardLockFocusForReason_toP
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [SBKeyboardFocusCoordinator focusLockSpringBoardWindowScene:v12 forReason:a2];
+      [(SBKeyboardFocusCoordinator *)v12 focusLockSpringBoardWindowScene:a2 forReason:self];
     }
 
     v13 = [v10 focusLockSpringBoardForReason:v12];
@@ -1108,7 +1108,7 @@ void __109__SBKeyboardFocusCoordinator_redirectSpringBoardLockFocusForReason_toP
   return v2;
 }
 
-uint64_t __65__SBKeyboardFocusCoordinator_presentingKeyboardProcessIdentifier__block_invoke(uint64_t a1, void *a2)
+void *__65__SBKeyboardFocusCoordinator_presentingKeyboardProcessIdentifier__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 presentingKeyboardProcessIdentifier];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1169,7 +1169,7 @@ uint64_t __65__SBKeyboardFocusCoordinator_presentingKeyboardProcessIdentifier__b
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [SBKeyboardFocusCoordinator requestKeyboardFocusOverrideSceneIdentityTokenStringRepresentation:v9 forAccessibilityReason:a2];
+    [(SBKeyboardFocusCoordinator *)v9 requestKeyboardFocusOverrideSceneIdentityTokenStringRepresentation:a2 forAccessibilityReason:self];
   }
 
   v12 = [(SBKeyboardFocusSceneProviding *)self->_sceneProvider sceneForIdentityTokenStringRepresentation:v9];
@@ -1312,7 +1312,7 @@ LABEL_16:
   identityToken2 = [_FBSScene identityToken];
   v10 = [identityToken2 isEqual:identityToken];
 
-  if (v10 & 1) == 0 && ((-[SBKeyboardFocusSceneProviding anyConnectedSBWindowSceneContainsSceneIdentity:](self->_sceneProvider, "anyConnectedSBWindowSceneContainsSceneIdentity:", identityToken) & 1) != 0 || (-[SBKeyboardFocusSceneProviding isSystemUISceneIdentityToken:](self->_sceneProvider, "isSystemUISceneIdentityToken:", identityToken) & 1) != 0 || (externalSceneIdentities = self->_externalSceneIdentities, [identityToken stringRepresentation], v14 = objc_claimAutoreleasedReturnValue(), LOBYTE(externalSceneIdentities) = -[NSSet containsObject:](externalSceneIdentities, "containsObject:", v14), v14, (externalSceneIdentities)))
+  if (v10 & 1) == 0 && ((-[SBKeyboardFocusSceneProviding anyConnectedSBWindowSceneContainsSceneIdentity:](self->_sceneProvider, "anyConnectedSBWindowSceneContainsSceneIdentity:", identityToken) & 1) != 0 || (-[SBKeyboardFocusSceneProviding isSystemUISceneIdentityToken:](self->_sceneProvider, "isSystemUISceneIdentityToken:", identityToken) & 1) != 0 || (externalSceneIdentities = self->_externalSceneIdentities, [identityToken stringRepresentation], v14 = objc_claimAutoreleasedReturnValue(), LOBYTE(externalSceneIdentities) = objc_msgSend_containsObject_(externalSceneIdentities), v14, (externalSceneIdentities)))
   {
     v12 = 1;
   }
@@ -2068,7 +2068,7 @@ LABEL_14:
   preventFocusForSceneAssertion = self->_preventFocusForSceneAssertion;
   tokenCopy = token;
   context = [(BSCompoundAssertion *)preventFocusForSceneAssertion context];
-  v6 = [context containsObject:tokenCopy];
+  v6 = objc_msgSend_containsObject_(context);
 
   return v6;
 }
@@ -3034,21 +3034,18 @@ LABEL_27:
 
 - (void)windowSceneDidDisconnect:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v4 = MEMORY[0x277CCACA8];
-  v13 = objc_opt_class();
-  v14 = a1;
-  v5 = [v4 stringWithFormat:@"no such scene <%@: %p>"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"no such scene <%@: %p>", objc_opt_class(), a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v6 = OUTLINED_FUNCTION_10_9();
-    v7 = NSStringFromClass(v6);
+    v4 = OUTLINED_FUNCTION_10_9();
+    v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
-  [v5 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -3056,27 +3053,27 @@ LABEL_27:
 - (void)bufferEventsForSpringBoardScene:(void *)a1 reason:(char *)a2 .cold.1(void *a1, char *a2)
 {
   v3 = MEMORY[0x277CCACA8];
-  v12 = [a1 _sceneIdentifier];
-  v4 = [v3 stringWithFormat:@"[coordinator] buffer events requested but we don't have a matching sceneController for its windowScene %@"];
+  v4 = [a1 _sceneIdentifier];
+  v5 = [v3 stringWithFormat:@"[coordinator] buffer events requested but we don't have a matching sceneController for its windowScene %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_10_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_10_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)bufferEventsForSpringBoardScene:(char *)a1 reason:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3084,7 +3081,7 @@ LABEL_27:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"reason", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3094,7 +3091,7 @@ LABEL_27:
 
 - (void)removeKeyboardFocusFromScene:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSceneClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3102,7 +3099,7 @@ LABEL_27:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSceneClass]", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3112,7 +3109,7 @@ LABEL_27:
 
 - (void)removeKeyboardFocusFromScene:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3120,7 +3117,7 @@ LABEL_27:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3130,7 +3127,7 @@ LABEL_27:
 
 - (void)userFocusRequestForScene:(char *)a1 reason:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSceneClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3138,7 +3135,7 @@ LABEL_27:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSceneClass]", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3148,7 +3145,7 @@ LABEL_27:
 
 - (void)userFocusRequestForScene:(char *)a1 reason:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3156,7 +3153,7 @@ LABEL_27:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3166,7 +3163,7 @@ LABEL_27:
 
 - (void)userFocusRequestForScene:(char *)a1 reason:completion:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3174,7 +3171,7 @@ LABEL_27:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3184,7 +3181,7 @@ LABEL_27:
 
 - (void)userFocusRequestForScene:(char *)a1 reason:completion:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -3192,7 +3189,7 @@ LABEL_27:
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3208,36 +3205,36 @@ LABEL_27:
   _os_log_error_impl(&dword_21ED4E000, a2, OS_LOG_TYPE_ERROR, "Focus rule set with from pid %d and no token; PID-only rules are not valid", v2, 8u);
 }
 
-- (void)focusLockSpringBoardWindow:(void *)a1 forReason:(const char *)a2 .cold.1(void *a1, const char *a2)
+- (void)focusLockSpringBoardWindow:(uint64_t)a3 forReason:.cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromClass(v5);
   objc_opt_class();
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"reason", v5, v7];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"reason", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_9_0();
-    v15 = @"SBKeyboardFocusCoordinator.m";
-    v16 = 1024;
-    v17 = 516;
-    v18 = v12;
-    v19 = v8;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v14);
+    v16 = @"SBKeyboardFocusCoordinator.m";
+    v17 = 1024;
+    v18 = 516;
+    v19 = v13;
+    v20 = v9;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -3247,20 +3244,20 @@ LABEL_27:
   v2 = MEMORY[0x277CCACA8];
   objc_opt_class();
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"reason", v4];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_10_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_10_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"reason", v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -3282,36 +3279,36 @@ LABEL_27:
   OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10);
 }
 
-- (void)focusLockSpringBoardWindowScene:(void *)a1 forReason:(const char *)a2 .cold.1(void *a1, const char *a2)
+- (void)focusLockSpringBoardWindowScene:(uint64_t)a3 forReason:.cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromClass(v5);
   objc_opt_class();
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"reason", v5, v7];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"reason", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_9_0();
-    v15 = @"SBKeyboardFocusCoordinator.m";
-    v16 = 1024;
-    v17 = 528;
-    v18 = v12;
-    v19 = v8;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v14);
+    v16 = @"SBKeyboardFocusCoordinator.m";
+    v17 = 1024;
+    v18 = 528;
+    v19 = v13;
+    v20 = v9;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -3321,27 +3318,27 @@ LABEL_27:
   v2 = MEMORY[0x277CCACA8];
   objc_opt_class();
   v3 = objc_opt_class();
-  v12 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"reason", v4];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_10_9();
-    v6 = NSStringFromClass(v5);
+    v6 = OUTLINED_FUNCTION_10_9();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, @"reason", v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v4 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)focusLockSpringBoardWindowScene:(uint64_t)a1 forReason:(char *)a2 .cold.3(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"[coordinator] request focus lock for SB window scene %@ but we don't have a matching sceneController for its windowScene"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"[coordinator] request focus lock for SB window scene %@ but we don't have a matching sceneController for its windowScene", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -3349,7 +3346,7 @@ LABEL_27:
     v4 = OUTLINED_FUNCTION_5_0();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -3357,38 +3354,38 @@ LABEL_27:
   __break(0);
 }
 
-- (void)requestKeyboardFocusOverrideSceneIdentityTokenStringRepresentation:(void *)a1 forAccessibilityReason:(const char *)a2 .cold.1(void *a1, const char *a2)
+- (void)requestKeyboardFocusOverrideSceneIdentityTokenStringRepresentation:(uint64_t)a3 forAccessibilityReason:.cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v22 = *MEMORY[0x277D85DE8];
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromClass(v5);
   objc_opt_class();
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"tokenString", v5, v7];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"tokenString", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_9_0();
-    v16 = @"SBKeyboardFocusCoordinator.m";
-    v17 = 1024;
-    v18 = 569;
-    v19 = v12;
-    v20 = v8;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v13, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v15);
+    v17 = @"SBKeyboardFocusCoordinator.m";
+    v18 = 1024;
+    v19 = 569;
+    v20 = v13;
+    v21 = v9;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v14, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v16);
   }
 
-  v14 = v8;
-  [v8 UTF8String];
+  v15 = v9;
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

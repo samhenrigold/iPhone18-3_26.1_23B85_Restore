@@ -1,9807 +1,9858 @@
-void std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_3,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_3>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
+_DWORD *physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::resize(_DWORD *result, uint64_t a2, _DWORD *a3)
 {
-  v2 = *a2;
-  if (v2)
+  v4 = a2;
+  v5 = result;
+  if ((result[3] & 0x7FFFFFFFu) < a2)
   {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_3,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_3>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
+    result = physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::recreate(result, a2);
   }
 
-  else
+  v6 = v5[2];
+  if (v6 < v4)
   {
-    return 0;
-  }
-}
-
-void std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_4,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_4>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_4,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_4>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_5,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_5>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_5,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_5>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_6,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_6>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_6,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_6>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_7,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_7>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_7,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_7>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_8,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_8>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_8,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_8>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_9,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_9>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_9,std::allocator<createClipAssetData(REAssetManager *,RETimelineDefinition *)::$_9>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void re::make::shared::object<anonymous namespace::TimelineDefinition,re::AssetHandle &>(re *a1, const re::AssetHandle *a2)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 112, 8);
-  re::AssetHandle::AssetHandle(v6, a2);
-  *a1 = v5;
-  re::AssetHandle::~AssetHandle(v6);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateTimelineGroup::$_0,std::allocator<RETimelineDefinitionCreateTimelineGroup::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateTimelineGroup::$_0,std::allocator<RETimelineDefinitionCreateTimelineGroup::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<RETimelineDefinitionCreateOrbitAnimation::$_0,std::allocator<RETimelineDefinitionCreateOrbitAnimation::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateOrbitAnimation::$_0,std::allocator<RETimelineDefinitionCreateOrbitAnimation::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<RETimelineDefinitionCreateFloatBlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloatBlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateFloatBlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloatBlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<float>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2AD80;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2AD80;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateDoubleBlendTree::$_0,std::allocator<RETimelineDefinitionCreateDoubleBlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateDoubleBlendTree::$_0,std::allocator<RETimelineDefinitionCreateDoubleBlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<double>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2AE48;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2AE48;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateFloat2BlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloat2BlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateFloat2BlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloat2BlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<re::Vector2<float>>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2AF10;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2AF10;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateFloat3BlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloat3BlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateFloat3BlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloat3BlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<re::Vector3<float>>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2AFD8;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2AFD8;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateFloat4BlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloat4BlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateFloat4BlendTree::$_0,std::allocator<RETimelineDefinitionCreateFloat4BlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<re::Vector4<float>>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2B0A0;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2B0A0;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateQuaternionBlendTree::$_0,std::allocator<RETimelineDefinitionCreateQuaternionBlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateQuaternionBlendTree::$_0,std::allocator<RETimelineDefinitionCreateQuaternionBlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<re::Quaternion<float>>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2B168;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2B168;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateSRTBlendTree::$_0,std::allocator<RETimelineDefinitionCreateSRTBlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateSRTBlendTree::$_0,std::allocator<RETimelineDefinitionCreateSRTBlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<re::GenericSRT<float>>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2B230;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2B230;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void std::__function::__func<RETimelineDefinitionCreateSkeletalPoseBlendTree::$_0,std::allocator<RETimelineDefinitionCreateSkeletalPoseBlendTree::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateSkeletalPoseBlendTree::$_0,std::allocator<RETimelineDefinitionCreateSkeletalPoseBlendTree::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void TimelineDefinitionForBlendTree<re::SkeletalPose>::~TimelineDefinitionForBlendTree(uint64_t *a1)
-{
-  *a1 = &unk_1F5D2B2F8;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-}
-
-{
-  *a1 = &unk_1F5D2B2F8;
-  v2 = (a1 + 15);
-  re::DynamicArray<unsigned long>::deinit((a1 + 71));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 65);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 56);
-  re::DynamicArray<re::RigGraphInputValue>::deinit((a1 + 48));
-  re::DynamicArray<re::RigGraphConnection>::deinit(a1 + 43);
-  re::DynamicArray<re::RigDataTypeClass::RigDataTypeAttribute>::deinit((a1 + 38));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 33));
-  re::DynamicArray<re::RigGraphParameterProxy>::deinit((a1 + 28));
-  re::StringID::destroyString((a1 + 26));
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1 + 20);
-  re::DynamicArray<re::AnimationBlendTreeBuilder<float>::BlendTreeBuilderNode>::deinit(v2);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::AnimationBlendTreeBuilder<float>::addRigNode(uint64_t a1, const StringID *a2, StringID *a3, const StringID *a4, float a5)
-{
-  v9 = *(a1 + 392);
-  re::StringID::StringID(&v12, a3);
-  re::StringID::StringID(v13, a2);
-  v14 = 0;
-  v15 = &str_67;
-  v16 = 0;
-  v17 = &str_67;
-  re::StringID::StringID(v18, a4);
-  v19 = a5;
-  re::DynamicArray<re::AnimationBlendTreeNodeDescription>::add(v9, &v12);
-  if (v18[0])
-  {
-    if (v18[0])
+    v7 = *v5 + 4 * v4;
+    v8 = (*v5 + 4 * v6);
+    do
     {
-    }
-  }
-
-  v18[0] = 0;
-  v18[1] = &str_67;
-  if (v16)
-  {
-    if (v16)
-    {
-    }
-  }
-
-  v16 = 0;
-  v17 = &str_67;
-  if (v14)
-  {
-    if (v14)
-    {
-    }
-  }
-
-  v14 = 0;
-  v15 = &str_67;
-  if (v13[0])
-  {
-    if (v13[0])
-    {
-    }
-  }
-
-  v13[0] = 0;
-  v13[1] = &str_67;
-  if (v12)
-  {
-    if (v12)
-    {
-    }
-  }
-
-  return *(*(a1 + 392) + 16) - 1;
-}
-
-uint64_t re::AnimationBlendTreeBuilder<float>::addClip(uint64_t a1, const StringID *a2, const StringID *a3, const StringID *a4, float a5)
-{
-  v10 = *(a1 + 392);
-  re::StringID::StringID(&v14, a2);
-  v15 = 4206304;
-  v16 = "Clip";
-  if (*&a4->var0 <= 1uLL)
-  {
-    var1 = a4->var1;
-    if (var1)
-    {
-      if (!*var1)
-      {
-        a4 = a2;
-      }
-    }
-  }
-
-  re::StringID::StringID(v17, a4);
-  v18 = 0;
-  v19 = &str_67;
-  re::StringID::StringID(v20, a3);
-  v21 = a5;
-  re::DynamicArray<re::AnimationBlendTreeNodeDescription>::add(v10, &v14);
-  if (v20[0])
-  {
-    if (v20[0])
-    {
-    }
-  }
-
-  v20[0] = 0;
-  v20[1] = &str_67;
-  if (v18)
-  {
-    if (v18)
-    {
-    }
-  }
-
-  v18 = 0;
-  v19 = &str_67;
-  if (v17[0])
-  {
-    if (v17[0])
-    {
-    }
-  }
-
-  v17[0] = 0;
-  v17[1] = &str_67;
-  if (v15)
-  {
-    if (v15)
-    {
-    }
-  }
-
-  v15 = 0;
-  v16 = &str_67;
-  if (v14)
-  {
-    if (v14)
-    {
-    }
-  }
-
-  return *(*(a1 + 392) + 16) - 1;
-}
-
-uint64_t re::AnimationBlendTreeBuilder<float>::addConnection(uint64_t a1, const StringID *a2, const StringID *a3, const StringID *a4, const StringID *a5)
-{
-  v9 = *(a1 + 392);
-  re::StringID::StringID(&v12, a2);
-  re::StringID::invalid(v13);
-  re::StringID::StringID(v14, a4);
-  re::StringID::invalid(v15);
-  re::StringID::invalid(v16);
-  re::StringID::StringID(v17, a3);
-  re::StringID::invalid(v18);
-  re::StringID::StringID(v19, a5);
-  re::StringID::invalid(v20);
-  re::StringID::invalid(v21);
-  v10 = re::DynamicArray<re::RigGraphConnection>::add((v9 + 40), &v12);
-  if (v21[0])
-  {
-    if (v21[0])
-    {
-    }
-  }
-
-  v21[0] = 0;
-  v21[1] = &str_67;
-  if (v20[0])
-  {
-    if (v20[0])
-    {
-    }
-  }
-
-  v20[0] = 0;
-  v20[1] = &str_67;
-  if (v19[0])
-  {
-    if (v19[0])
-    {
-    }
-  }
-
-  v19[0] = 0;
-  v19[1] = &str_67;
-  if (v18[0])
-  {
-    if (v18[0])
-    {
-    }
-  }
-
-  v18[0] = 0;
-  v18[1] = &str_67;
-  if (v17[0])
-  {
-    if (v17[0])
-    {
-    }
-  }
-
-  v17[0] = 0;
-  v17[1] = &str_67;
-  if (v16[0])
-  {
-    if (v16[0])
-    {
-    }
-  }
-
-  v16[0] = 0;
-  v16[1] = &str_67;
-  if (v15[0])
-  {
-    if (v15[0])
-    {
-    }
-  }
-
-  v15[0] = 0;
-  v15[1] = &str_67;
-  if (v14[0])
-  {
-    if (v14[0])
-    {
-    }
-  }
-
-  v14[0] = 0;
-  v14[1] = &str_67;
-  if (v13[0])
-  {
-    if (v13[0])
-    {
-    }
-  }
-
-  v13[0] = 0;
-  v13[1] = &str_67;
-  if (v12)
-  {
-    if (v12)
-    {
-    }
-  }
-
-  return *(*(a1 + 392) + 56) - 1;
-}
-
-void std::__function::__func<RETimelineDefinitionCreateTypedEventTimeline::$_0,std::allocator<RETimelineDefinitionCreateTypedEventTimeline::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateTypedEventTimeline::$_0,std::allocator<RETimelineDefinitionCreateTypedEventTimeline::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<RETimelineDefinitionCreateAudioAnimation::$_0,std::allocator<RETimelineDefinitionCreateAudioAnimation::$_0>,void ()(re::TimelineAssetData *)>::operator()(_anonymous_namespace_ *a1, void (****a2)(void))
-{
-  v2 = *a2;
-  if (v2)
-  {
-    (**v2)(v2);
-
-    v3();
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateAudioAnimation::$_0,std::allocator<RETimelineDefinitionCreateAudioAnimation::$_0>,void ()(re::TimelineAssetData *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<RETimelineDefinitionCreateEasingFunctionEx::$_0,std::allocator<RETimelineDefinitionCreateEasingFunctionEx::$_0>,void ()(re::EasingFunction *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__value_func<void ()(re::EasingFunction *)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(re::EasingFunction *)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+      *v8++ = *a3;
     }
 
-    else
-    {
-      *(a1 + 24) = v3;
-      *(a2 + 24) = 0;
-    }
+    while (v8 < v7);
   }
 
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-uint64_t *std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>::~unique_ptr[abi:nn200100](uint64_t *a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    std::function<void ()(re::EasingFunction *)>::operator()((a1 + 1), v2);
-  }
-
-  std::__function::__value_func<void ()(re::EasingFunction *)>::~__value_func[abi:nn200100]((a1 + 1));
-  return a1;
-}
-
-uint64_t std::function<void ()(re::EasingFunction *)>::operator()(uint64_t a1, uint64_t a2)
-{
-  v5 = a2;
-  v2 = *(a1 + 24);
-  if (v2)
-  {
-    return (*(*v2 + 48))(v2, &v5);
-  }
-
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return re::make::shared::object<re::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>,std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>(v4);
-}
-
-_anonymous_namespace_ *re::make::shared::object<re::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>,std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>@<X0>(re *a1@<X0>, _anonymous_namespace_ **a2@<X8>)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 64, 8);
-  result = re::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>(v5, a1);
-  *a2 = result;
+  v5[2] = v4;
   return result;
 }
 
-_anonymous_namespace_ *re::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>(_anonymous_namespace_ *a1, uint64_t *a2)
+_OWORD *physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::resize(_OWORD *result, uint64_t a2, __int128 *a3)
 {
-  ArcSharedObject::ArcSharedObject(a1, 0);
-  *a1 = &unk_1F5D2B4D0;
-  v4 = *a2;
-  *a2 = 0;
-  *(a1 + 3) = v4;
-  std::__function::__value_func<void ()(re::EasingFunction *)>::__value_func[abi:nn200100](a1 + 32, (a2 + 1));
-  return a1;
-}
-
-void *re::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>::~Shareable(void *a1)
-{
-  *a1 = &unk_1F5D2B4D0;
-  std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>::~unique_ptr[abi:nn200100](a1 + 3);
-  *a1 = &unk_1F5CCF868;
-  objc_destructInstance(a1 + 1);
-  return a1;
-}
-
-void re::Shareable<std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>>::~Shareable(void *a1)
-{
-  *a1 = &unk_1F5D2B4D0;
-  std::unique_ptr<re::EasingFunction,std::function<void ()(re::EasingFunction*)>>::~unique_ptr[abi:nn200100](a1 + 3);
-  *a1 = &unk_1F5CCF868;
-  objc_destructInstance(a1 + 1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void RERenderGraphEmitterPreloadProvidersAssets(uint64_t a1, uint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, &v10);
-  if (!v11 || (v3 = atomic_load((v11 + 896)), v3 != 2))
+  v4 = a2;
+  v5 = result;
+  if ((*(result + 3) & 0x7FFFFFFFu) < a2)
   {
-    re::AssetHandle::loadAsync(&v10);
-    (*(**(v11 + 24) + 208))(&v9);
-    v6 = v9 + 8;
-    re::AssetLoadRequest::addAsset(v9, &v10);
-    re::AssetHandle::AssetHandle((&v7 + 8), &v10);
-    *(&v8 + 1) = a2;
-    operator new();
+    result = physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::recreate(result, a2);
   }
 
-  v4 = atomic_load((v11 + 896));
-  if (v4 == 2)
+  v6 = *(v5 + 2);
+  if (v6 < v4)
   {
-    ++*(v11 + 276);
-    v5 = re::AssetHandle::loadedAsset<re::RenderGraphEmitterAsset>(&v10);
-    if (v5)
+    v7 = *v5 + 16 * v4;
+    v8 = (*v5 + 16 * v6);
+    v9 = *a3;
+    do
     {
-      (*(**(v5 + 16) + 16))(*(v5 + 16), a2, *(v5 + 24));
+      *v8++ = v9;
     }
+
+    while (v8 < v7);
   }
 
-  re::AssetHandle::~AssetHandle(&v10);
+  *(v5 + 2) = v4;
+  return result;
 }
 
-void RERenderGraphEmitterAssetRegisterProviders(re *a1, uint64_t a2)
+float32x4_t physx::computeVolumeIntegralsEberlySIMD(uint64_t a1, uint64_t a2, float *a3, float32x4_t result, double a5, double a6, double a7, double a8, float32x4_t a9)
 {
-  if (*(a2 + 112))
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    re::AssetAPIHelper::assetHandleCreate(a1, &v8);
-    re::AssetHandle::loadNow(v9, 0);
-    if (v9)
+    v10 = 0;
+    result.i64[0] = *a3;
+    result.i64[1] = *(a3 + 2);
+    v11 = *(a1 + 8);
+    v12 = *(a1 + 32);
+    v13 = *(a1 + 56);
+    v14 = 0uLL;
+    v15 = 0;
+    a9.i64[0] = 0;
+    v16 = 0uLL;
+    v17 = 0uLL;
+    do
     {
-      v3 = atomic_load((v9 + 896));
-      if (v3 == 2)
+      v18 = (v12 + 20 * v10);
+      if (v18[1].i8[2] != 2)
       {
-        ++*(v9 + 276);
-        v4 = re::AssetHandle::loadedAsset<re::RenderGraphEmitterAsset>(&v8);
-        if (v4)
+        v19 = 0;
+        v20 = v18[1].u16[0];
+        v21 = vsubq_f32(*(v11 + 12 * *(v13 + v20)), result);
+        v22 = vextq_s8(v21, v21, 8uLL).u64[0];
+        *v23.f32 = vext_s8(*v21.i8, v22, 4uLL);
+        v23.i64[1] = __PAIR64__(v22.u32[1], v21.u32[0]);
+        v24 = *v18;
+        v24.i32[3] = 0;
+        v25 = vmulq_f32(v21, v21);
+        v26 = vmulq_f32(v21, v25);
+        do
         {
-          v5 = *(a2 + 112);
-          if (v5)
+          v27 = vsubq_f32(*(v11 + 12 * *(v13 + 1 + v20 + v19)), result);
+          v28 = vsubq_f32(*(v11 + 12 * *(v13 + v20 + (v19 + 2))), result);
+          v29 = vextq_s8(v27, v27, 8uLL).u64[0];
+          *v30.f32 = vext_s8(*v27.i8, v29, 4uLL);
+          v31 = vsubq_f32(v27, v21);
+          v32 = vsubq_f32(v28, v21);
+          v33 = vmls_f32(vmul_f32(*v31.i8, *&vextq_s8(v32, v32, 4uLL)), *&vextq_s8(v31, v31, 4uLL), *v32.i8);
+          *v31.i8 = vext_s8(v33, vmls_f32(vmul_f32(*&vextq_s8(v31, v31, 8uLL), *v32.i8), *v31.i8, *&vextq_s8(v32, v32, 8uLL)), 4uLL);
+          v31.i64[1] = v33.u32[0];
+          v34 = v31;
+          v34.i32[3] = 0;
+          v35 = vmulq_f32(v24, v34);
+          v36 = vpaddq_f32(v35, v35);
+          *v36.f32 = vpadd_f32(*v36.f32, *v36.f32);
+          v37 = vdupq_lane_s32(*&vmvnq_s8(vcgtq_f32(a9, v36)), 0);
+          v38 = vbslq_s8(v37, v28, v27);
+          v39 = vbslq_s8(v37, v27, v28);
+          v27.i32[1] = v29.i32[1];
+          v30.i64[1] = v27.i64[0];
+          v27.i64[0] = vextq_s8(v28, v28, 8uLL).u64[0];
+          *v40.f32 = vext_s8(*v28.i8, *v27.i8, 4uLL);
+          v28.i32[1] = v27.i32[1];
+          v40.i64[1] = v28.i64[0];
+          v41 = vbslq_s8(v37, v31, vnegq_f32(v31));
+          v42 = vaddq_f32(v21, v39);
+          v43 = vaddq_f32(v38, v42);
+          v44 = vmlaq_f32(v25, v42, v39);
+          v45 = vmlaq_f32(v26, v44, v39);
+          v46 = vmlaq_f32(v44, v43, v38);
+          v15 = vmla_n_f32(v15, vdup_lane_s32(*v43.f32, 0), v41.f32[0]);
+          v14 = vmlaq_f32(v14, v46, v41);
+          v16 = vmlaq_f32(v16, vmlaq_f32(v45, v46, v38), v41);
+          v17 = vmlaq_f32(v17, vmlaq_f32(vmlaq_f32(vmulq_f32(vmlaq_f32(v46, vaddq_f32(v21, v43), v21), v23), vmlaq_f32(v46, vaddq_f32(v39, v43), v39), v30), vmlaq_f32(v46, vaddq_f32(v38, v43), v38), v40), v41);
+          ++v19;
+        }
+
+        while (v18[1].u8[2] - 2 != v19);
+      }
+
+      ++v10;
+    }
+
+    while (v10 != v9);
+    *result.f32 = vmul_f32(v15, vdup_n_s32(0x3E2AAAABu));
+    v47 = vmulq_f32(v16, vdupq_n_s32(0x3C888889u));
+    v48 = vmulq_f32(v14, vdupq_n_s32(0x3D2AAAABu));
+    v49 = vmulq_f32(v17, vdupq_n_s32(0x3C088889u));
+  }
+
+  else
+  {
+    result.i64[0] = 0;
+    v49 = 0uLL;
+    v47.i64[0] = 0;
+    v47.i32[2] = 0;
+    v48 = 0uLL;
+  }
+
+  v50 = vrecpe_f32(*result.f32);
+  v51 = 4;
+  do
+  {
+    v50 = vmul_f32(v50, vrecps_f32(*result.f32, v50));
+    --v51;
+  }
+
+  while (v51);
+  _Q1 = vmulq_n_f32(v48, v50.f32[0]);
+  *a2 = _Q1;
+  v53 = (v47.f32[1] + v47.f32[2]);
+  *(a2 + 16) = result.f32[0];
+  *(a2 + 24) = v53;
+  v54 = (v47.f32[0] + v47.f32[2]);
+  v55 = vaddv_f32(*v47.f32);
+  v56 = -*&v49.i32[1];
+  *(a2 + 56) = v54;
+  *(a2 + 64) = v56;
+  _S5 = _Q1.i32[2];
+  _S6 = _Q1.i32[1];
+  __asm { FMLA            S17, S6, V1.S[1] }
+
+  *(a2 + 88) = v55;
+  *(a2 + 96) = v53 - (_S17 * result.f32[0]);
+  __asm { FMLA            S18, S5, V1.S[2] }
+
+  v65 = vmuls_lane_f32(*&_Q1.i32[1], *_Q1.i8, 1) + (*_Q1.i32 * *_Q1.i32);
+  *(a2 + 160) = v55 - (v65 * result.f32[0]);
+  v66 = v56 + vmuls_lane_f32(vmuls_lane_f32(result.f32[0], *_Q1.i8, 1), _Q1, 2);
+  *(a2 + 128) = v54 - (_S18 * result.f32[0]);
+  *(a2 + 136) = v66;
+  v67.i32[0] = vextq_s8(v49, v49, 8uLL).u32[0];
+  v67.i32[1] = v49.i32[0];
+  v68 = vcvtq_f64_f32(vneg_f32(v67));
+  *(a2 + 32) = v68.f64[1];
+  *(a2 + 72) = v68.f64[0];
+  *(a2 + 80) = v56;
+  *(a2 + 40) = v68;
+  v69 = vextq_s8(_Q1, _Q1, 8uLL).u32[0];
+  v70 = vaddq_f64(v68, vcvtq_f64_f32(vmul_f32(*_Q1.i8, vmul_n_f32(__PAIR64__(_Q1.u32[0], v69), result.f32[0]))));
+  *(a2 + 120) = v70.i64[1];
+  *(a2 + 144) = v70.i64[0];
+  *(a2 + 152) = v66;
+  *(a2 + 104) = vextq_s8(v70, v70, 8uLL);
+  v71 = *a3;
+  v72 = a3[2];
+  if (COERCE_FLOAT(*a3) != 0.0 || v71.f32[1] != 0.0 || v72 != 0.0)
+  {
+    _D21 = vadd_f32(*_Q1.i8, v71);
+    v74 = *&_Q1.i32[2] + v72;
+    _S24 = _D21.i32[1];
+    __asm { FMLA            S23, S24, V21.S[1] }
+
+    *(a2 + 24) = v53 - (result.f32[0] * (_S17 - _S23));
+    v77 = v54 - (result.f32[0] * (_S18 - (vmul_f32(_D21, _D21).f32[0] + (v74 * v74))));
+    *(a2 + 88) = v55 - (result.f32[0] * (v65 - (vmuls_lane_f32(*&_D21.i32[1], _D21, 1) + (*_D21.i32 * *_D21.i32))));
+    v78 = (result.f32[0] * ((*&_Q1.i32[1] * *&_Q1.i32[2]) - (*&_D21.i32[1] * v74)));
+    v79 = vdup_lane_s32(_D21, 0);
+    v79.f32[0] = v74;
+    result = vaddq_f64(v68, vcvtq_f64_f32(vmul_n_f32(vmla_n_f32(vmul_f32(_D21, vneg_f32(v79)), __PAIR64__(_Q1.u32[1], v69), *_Q1.i32), result.f32[0])));
+    *(a2 + 32) = result.i64[1];
+    *(a2 + 56) = v77;
+    *(a2 + 64) = v56 + v78;
+    *(a2 + 72) = result.i64[0];
+    *(a2 + 80) = v56 + v78;
+    *(a2 + 40) = result;
+    *a2 = _D21;
+    *(a2 + 8) = v74;
+  }
+
+  return result;
+}
+
+uint64_t physx::computeVolumeIntegralsEberly(uint64_t result, uint64_t a2, float *a3)
+{
+  v107 = *MEMORY[0x1E69E9840];
+  v105 = 0u;
+  memset(v106, 0, sizeof(v106));
+  v103 = 0u;
+  v104 = 0u;
+  v3 = *(result + 40);
+  if (v3)
+  {
+    v4 = 0;
+    v5 = *(result + 8);
+    v6 = *(result + 32);
+    v7 = 0.0;
+    v8 = 0.0;
+    v9 = *(result + 56);
+    v10 = 0.0;
+    v11 = 0.0;
+    v12 = 0.0;
+    v13 = 0.0;
+    v100 = a3[1];
+    v101 = *a3;
+    v14 = 0.0;
+    v15 = 0.0;
+    v99 = a3[2];
+    v16 = 0.0;
+    v17 = 0.0;
+    do
+    {
+      v18 = v6 + 20 * v4;
+      v19 = *(v18 + 18);
+      if (v19 != 2)
+      {
+        v20 = (v9 + *(v18 + 16));
+        v21 = (v5 + 12 * *v20);
+        v22 = v21[1] - v100;
+        v23 = v21[2] - v99;
+        v96 = *(v18 + 4);
+        v97 = *v18;
+        v95 = *(v18 + 8);
+        v98 = *v21 - v101;
+        v24 = v98;
+        v25 = v22;
+        v26 = v23;
+        v27 = v24 * v24;
+        v28 = v25 * v25;
+        v29 = v26 * v26;
+        for (i = 2; i != v19; ++i)
+        {
+          v31 = (v5 + 12 * v20[(i - 1) % v19]);
+          v32 = *v31 - v101;
+          v33 = v31[1] - v100;
+          v34 = v31[2] - v99;
+          result = v5 + 12 * v20[i % v19];
+          v35 = *result - v101;
+          v36 = *(result + 4) - v100;
+          v37 = *(result + 8) - v99;
+          v38 = ((v33 - v22) * (v37 - v23)) - ((v34 - v23) * (v36 - v22));
+          v39 = ((v34 - v23) * (v35 - v98)) - ((v32 - v98) * (v37 - v23));
+          v40 = ((v32 - v98) * (v36 - v22)) - ((v33 - v22) * (v35 - v98));
+          if ((((v96 * v39) + (v38 * v97)) + (v40 * v95)) >= 0.0)
           {
-            v6 = *(v5 + 296);
+            v41 = *result - v101;
+            v42 = *(result + 4) - v100;
+            v43 = *(result + 8) - v99;
+            v35 = v32;
+            v36 = v33;
+            v37 = v34;
           }
 
           else
           {
-            v6 = 0;
+            v38 = -v38;
+            v39 = -v39;
+            v40 = -v40;
+            v41 = v32;
+            v42 = v33;
+            v43 = v34;
           }
 
-          (*(**(v4 + 16) + 24))(*(v4 + 16), v6, *(v4 + 24));
+          v44 = v35;
+          v45 = v41;
+          v46 = v38;
+          v47 = v24 + v44 + v45;
+          v48 = v27 + v44 * (v24 + v44);
+          v49 = v48 + v45 * v47;
+          v50 = v49 + v24 * (v47 + v24);
+          v51 = v49 + v44 * (v47 + v44);
+          v17 = v17 + v46 * v47;
+          v52 = v49 + v45 * (v47 + v45);
+          v16 = v16 + v46 * v49;
+          v13 = v13 + v46 * (v48 * v44 + v24 * v27 + v45 * v49);
+          v53 = v42;
+          v54 = v25 + v36;
+          v55 = v51 * v36 + v25 * v50 + v53 * v52;
+          v56 = v54 + v53;
+          v57 = v28 + v36 * v54;
+          v10 = v10 + v46 * v55;
+          v58 = v57 + v53 * v56;
+          v15 = v15 + v39 * v58;
+          v12 = v12 + v39 * (v57 * v36 + v25 * v28 + v53 * v58);
+          v59 = v43;
+          v60 = v26 + v37;
+          v61 = (v58 + v36 * (v56 + v36)) * v37 + v26 * (v58 + v25 * (v56 + v25)) + v59 * (v58 + v53 * (v56 + v53));
+          v62 = v60 + v59;
+          v63 = v29 + v37 * v60;
+          v8 = v8 + v39 * v61;
+          v64 = v63 + v59 * v62;
+          v14 = v14 + v40 * v64;
+          v11 = v11 + v40 * (v63 * v37 + v26 * v29 + v59 * v64);
+          v7 = v7 + v40 * ((v64 + v37 * (v62 + v37)) * v44 + v24 * (v64 + v26 * (v62 + v26)) + v45 * (v64 + v59 * (v62 + v59)));
         }
       }
+
+      ++v4;
     }
 
-    re::AssetHandle::~AssetHandle(&v8);
+    while (v4 != v3);
+    v103.f64[0] = v16;
+    v103.f64[1] = v15;
+    *&v104 = v14;
+    *(&v104 + 1) = v13;
+    *&v105 = v12;
+    *(&v105 + 1) = v11;
+    *v106 = v10;
+    *&v106[8] = v8;
+    *&v106[16] = v7;
   }
 
-  else if ((atomic_exchange(&RERenderGraphEmitterAssetRegisterProviders::__FILE____LINE___logged, 1u) & 1) == 0)
+  else
   {
-    v7 = *re::graphicsLogObjects(a1);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "Tried to call RERenderGraphEmitterAssetRegisterProviders, but DrawingManager was null!", &v8, 2u);
-    }
+    v17 = 0.0;
   }
+
+  v65 = 0;
+  v102 = v17;
+  do
+  {
+    *(&v102 + v65 * 16) = vmulq_f64(xmmword_1E31179A8[v65], *(&v102 + v65 * 16));
+    ++v65;
+  }
+
+  while (v65 != 5);
+  v66 = v102;
+  _D1 = vcvt_f32_f64(vdivq_f64(v103, vdupq_lane_s64(*&v102, 0)));
+  *a2 = _D1;
+  v68 = *(&v104 + 1);
+  v69 = *&v104 / v66;
+  *(a2 + 8) = v69;
+  v70 = v105;
+  v71 = *&v105 + *(&v105 + 1);
+  *(a2 + 16) = v66;
+  *(a2 + 24) = v71;
+  v72 = *(&v70 + 1) + v68;
+  v73 = *&v70 + v68;
+  v74 = *v106;
+  v75 = -*v106;
+  *(a2 + 48) = -*v106;
+  *(a2 + 56) = *(&v70 + 1) + v68;
+  *(a2 + 32) = v75;
+  v76 = vnegq_f64(*&v106[8]);
+  *(a2 + 80) = v76.f64[0];
+  *(a2 + 88) = v73;
+  *(a2 + 64) = v76;
+  *(a2 + 40) = v76.f64[1];
+  _S17 = _D1.i32[1];
+  __asm { FMLA            S18, S17, V1.S[1] }
+
+  v83 = vmul_f32(_D1, _D1).f32[0] + (v69 * v69);
+  v84 = vmuls_lane_f32(_D1.f32[1], _D1, 1) + (_D1.f32[0] * _D1.f32[0]);
+  v85 = -(v74 - v66 * vmuls_lane_f32(_D1.f32[0], _D1, 1));
+  *(a2 + 96) = v71 - v66 * _S18;
+  *(a2 + 104) = v85;
+  v86 = v76.f64[0] + v66 * vmuls_lane_f32(v69, _D1, 1);
+  *(a2 + 128) = v72 - v66 * v83;
+  *(a2 + 136) = v86;
+  v87 = v76.f64[1] + v66 * (v69 * _D1.f32[0]);
+  *(a2 + 152) = v86;
+  *(a2 + 160) = v73 - v66 * v84;
+  *(a2 + 144) = v87;
+  *(a2 + 112) = v87;
+  *(a2 + 120) = v85;
+  v88 = a3[1];
+  v89 = a3[2];
+  if (*a3 != 0.0 || v88 != 0.0 || v89 != 0.0)
+  {
+    v90 = *a3 + _D1.f32[0];
+    v91 = v88 + _D1.f32[1];
+    v92 = v89 + v69;
+    *(a2 + 88) = v73 + -v66 * (v84 - ((v91 * v91) + (v90 * v90)));
+    v93 = v75 + v66 * ((_D1.f32[0] * _D1.f32[1]) - (v90 * v91));
+    *(a2 + 24) = v71 + -v66 * (_S18 - ((v92 * v92) + (v91 * v91)));
+    *(a2 + 32) = v93;
+    v76.f64[0] = v76.f64[0] + v66 * ((_D1.f32[1] * v69) - (v91 * v92));
+    *(a2 + 56) = v72 + -v66 * (v83 - ((v90 * v90) + (v92 * v92)));
+    *(a2 + 64) = v76.f64[0];
+    v94 = v76.f64[1] + v66 * ((v69 * _D1.f32[0]) - (v92 * v90));
+    *(a2 + 72) = v94;
+    *(a2 + 80) = v76.f64[0];
+    *(a2 + 40) = v94;
+    *(a2 + 48) = v93;
+    *a2 = v90;
+    *(a2 + 4) = v91;
+    *(a2 + 8) = v92;
+  }
+
+  return result;
 }
 
-void RERenderGraphEmitterAssetUnregisterProviders(re *a1, uint64_t a2)
+void physx::ConvexMeshBuilder::~ConvexMeshBuilder(physx::ConvexMeshBuilder *this)
 {
-  if (*(a2 + 112))
+  v2 = *(this + 19);
+  if (v2)
   {
-    re::AssetAPIHelper::assetHandleCreate(a1, v8);
-    v3 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v8);
-    if (v3)
-    {
-      v4 = *(v3 + 16);
-      v5 = *(a2 + 112);
-      if (v5)
-      {
-        v6 = *(v5 + 296);
-      }
-
-      else
-      {
-        v6 = 0;
-      }
-
-      (*(*v4 + 32))(v4, v6);
-    }
-
-    re::AssetHandle::~AssetHandle(v8);
+    physx::BigConvexData::~BigConvexData(*(this + 19));
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v2);
   }
 
-  else if ((atomic_exchange(&RERenderGraphEmitterAssetUnregisterProviders::__FILE____LINE___logged, 1u) & 1) == 0)
-  {
-    v7 = *re::graphicsLogObjects(a1);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v8[0]) = 0;
-      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "Tried to call RERenderGraphEmitterAssetUnregisterProviders, but DrawingManager was null!", v8, 2u);
-    }
-  }
+  *(this + 19) = 0;
+
+  physx::ConvexPolygonsBuilder::~ConvexPolygonsBuilder(this);
 }
 
-uint64_t re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(re::RenderGraphEmitterAsset *a1)
+uint64_t physx::ConvexMeshBuilder::build(float32x4_t *a1, uint64_t a2, unsigned int a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = re::RenderGraphEmitterAsset::assetType(a1);
-  v3 = re::AssetHandle::assetWithType(a1, v2, 0);
-  if (!v3)
+  v8 = *(a2 + 16);
+  if (v8 < 3 || v8 >= 0x10000 && (*(a2 + 72) & 1) != 0)
   {
-    v4 = *re::assetsLogObjects(0);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    goto LABEL_9;
+  }
+
+  if (!*(a2 + 8))
+  {
+    goto LABEL_9;
+  }
+
+  if (*a2 < 0xCu || *(a2 + 76) < 4u)
+  {
+    goto LABEL_9;
+  }
+
+  if (*(a2 + 32))
+  {
+    if (*(a2 + 40) < 4u || !*(a2 + 56))
     {
-      v6 = v4;
-      v7 = re::AssetHandle::assetInfo(a1);
-      if (v7[17])
-      {
-        v8 = v7[18];
-      }
+      goto LABEL_9;
+    }
 
-      else
-      {
-        v8 = v7 + 137;
-      }
-
-      v9 = 136315138;
-      v10 = v8;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid asset: '%s'", &v9, 0xCu);
+    v14 = *(a2 + 72);
+    v15 = (v14 & 1) != 0 ? 2 : 4;
+    if (*(a2 + 48) < v15 || *(a2 + 24) <= 0x13u)
+    {
+      goto LABEL_9;
     }
   }
 
-  return v3;
+  else
+  {
+    v14 = *(a2 + 72);
+    if ((v14 & 2) == 0)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  v16 = *(a2 + 74);
+  if ((v14 & 0x20) != 0)
+  {
+    if ((v16 - 4) < 0xFD)
+    {
+      goto LABEL_25;
+    }
+
+LABEL_9:
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 73, "Gu::ConvexMesh::loadFromDesc: desc.isValid() failed!", a6, a7, a8);
+    return 0;
+  }
+
+  if ((v16 - 8) >= 0xF9)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_25:
+  result = physx::ConvexMeshBuilder::loadConvexHull(a1, a2, a5);
+  if (result)
+  {
+    v17 = a1[7].u8[6];
+    physx::Gu::computeBoundsAroundVertices(&v23, v17, a1->i64[0]);
+    v18 = vextq_s8(v23, v23, 8uLL);
+    v19 = vextq_s8(v23, v18, 0xCuLL);
+    v20 = vsubq_f32(v23, v19);
+    *&v19.i32[1] = v24;
+    v21 = vaddq_f32(v23, v19);
+    v21.i32[3] = v20.i32[3];
+    v22 = vsub_f32(v24, vext_s8(*v23.i8, *v18.i8, 4uLL));
+    v18.i64[0] = 0x3F0000003F000000;
+    v18.i64[1] = 0x3F0000003F000000;
+    a1[5] = vmulq_f32(v21, v18);
+    *a1[6].f32 = vmul_f32(v22, 0x3F0000003F000000);
+    if (v17 > a3)
+    {
+      physx::ConvexMeshBuilder::computeGaussMaps(a1);
+    }
+
+    if ((a4 & 1) == 0)
+    {
+      physx::ConvexMeshBuilder::computeInternalObjects(a1);
+    }
+
+    return 1;
+  }
+
+  return result;
 }
 
-void RERenderGraphEmitterAssetExecute(re *a1, uint64_t a2)
+uint64_t physx::ConvexMeshBuilder::loadConvexHull(uint64_t *a1, unsigned int *a2, uint64_t a3)
 {
-  if (*(a2 + 112))
+  v196 = *MEMORY[0x1E69E9840];
+  v6 = a2[4];
+  MEMORY[0x1EEE9AC00](a1);
+  v8 = &v165 - v7;
+  bzero(&v165 - v7, v9);
+  if (v6)
   {
-    re::AssetAPIHelper::assetHandleCreate(a1, &v6);
-    re::AssetHandle::loadNow(v7, 0);
-    if (v7)
+    v11 = *a2;
+    v12 = *(a2 + 1);
+    v13 = v8;
+    v14 = v6;
+    do
     {
-      v3 = atomic_load((v7 + 896));
-      if (v3 == 2)
-      {
-        ++*(v7 + 276);
-        v4 = re::AssetHandle::loadedAsset<re::RenderGraphEmitterAsset>(&v6);
-        if (v4)
-        {
-          (*(**(v4 + 16) + 40))(*(v4 + 16), a2);
-        }
-      }
+      *v13 = *v12;
+      *(v13 + 2) = *(v12 + 8);
+      v13 += 12;
+      v12 += v11;
+      --v14;
     }
 
-    re::AssetHandle::~AssetHandle(&v6);
+    while (v14);
   }
 
-  else if ((atomic_exchange(&RERenderGraphEmitterAssetExecute::__FILE____LINE___logged, 1u) & 1) == 0)
+  v174 = a3;
+  v15 = *(a2 + 7);
+  if (v15)
   {
-    v5 = *re::graphicsLogObjects(a1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v16 = a2[16];
+    MEMORY[0x1EEE9AC00](v10);
+    v18 = &v165 - ((v17 + 15) & 0x7FFFFFFF0);
+    bzero(v18, v17);
+    if (a2[18])
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEFAULT, "Tried to call RERenderGraphEmitterAssetExecute, but DrawingManager was null!", &v6, 2u);
-    }
-  }
-}
-
-void RERenderGraphEmitterAssetExecuteWorkload(re *a1, uint64_t a2, uint64_t a3)
-{
-  if (*(a2 + 112))
-  {
-    re::AssetAPIHelper::assetHandleCreate(a1, &v8);
-    re::AssetHandle::loadNow(v9, 0);
-    if (v9)
-    {
-      v5 = atomic_load((v9 + 896));
-      if (v5 == 2)
-      {
-        ++*(v9 + 276);
-        v6 = re::AssetHandle::loadedAsset<re::RenderGraphEmitterAsset>(&v8);
-        if (v6)
-        {
-          (*(**(v6 + 16) + 48))(*(v6 + 16), a2, a3);
-        }
-      }
-    }
-
-    re::AssetHandle::~AssetHandle(&v8);
-  }
-
-  else if ((atomic_exchange(RERenderGraphEmitterAssetExecuteWorkload::__FILE____LINE___logged, 1u) & 1) == 0)
-  {
-    v7 = *re::graphicsLogObjects(a1);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "Tried to call RERenderGraphEmitterAssetExecute, but DrawingManager was null!", &v8, 2u);
-    }
-  }
-}
-
-void RERenderGraphEmitterAssetSetRuntimeSetting(uint64_t a1, const char *a2, char *a3)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v26);
-  v5 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v26);
-  if (v5)
-  {
-    v6 = *(v5 + 16);
-    v7 = &unk_1EE187000;
-    {
-      v7 = &unk_1EE187000;
       if (v16)
       {
-        re::introspect<BOOL>(BOOL)::info = re::introspect_BOOL(0, v17);
-        v7 = &unk_1EE187000;
-      }
-    }
-
-    if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v7[42], a2, a3) & 1) == 0)
-    {
-      v8 = &unk_1EE187000;
-      {
-        v8 = &unk_1EE187000;
-        if (v18)
-        {
-          re::introspect<double>(BOOL)::info = re::introspect_double(0, v19);
-          v8 = &unk_1EE187000;
-        }
-      }
-
-      if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v8[41], a2, a3) & 1) == 0)
-      {
-        v9 = &unk_1EE187000;
-        {
-          v9 = &unk_1EE187000;
-          if (v20)
-          {
-            re::introspect<float>(BOOL)::info = re::introspect_float(0, v21);
-            v9 = &unk_1EE187000;
-          }
-        }
-
-        if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v9[40], a2, a3) & 1) == 0)
-        {
-          v10 = &unk_1EE187000;
-          {
-            v10 = &unk_1EE187000;
-            if (v22)
-            {
-              re::introspect<int>(BOOL)::info = re::introspect_int(0, v23);
-              v10 = &unk_1EE187000;
-            }
-          }
-
-          if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v10[38], a2, a3) & 1) == 0)
-          {
-            v11 = &unk_1EE187000;
-            {
-              v11 = &unk_1EE187000;
-              if (v24)
-              {
-                re::introspect<unsigned int>(BOOL)::info = re::introspect_uint32_t(0, v25);
-                v11 = &unk_1EE187000;
-              }
-            }
-
-            if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v11[37], a2, a3) & 1) == 0)
-            {
-              v12 = re::introspect<re::Vector2<float>>(0);
-              if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v12, a2, a3) & 1) == 0)
-              {
-                v13 = re::introspect<re::Vector3<float>>(0);
-                if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v13, a2, a3) & 1) == 0)
-                {
-                  v14 = re::introspect<re::Vector4<float>>(0);
-                  if ((re::RenderGraphEmitterBase::setRuntimeSetting(v6, v14, a2, a3) & 1) == 0)
-                  {
-                    v15 = re::introspect<re::Quaternion<float>>(0);
-                    re::RenderGraphEmitterBase::setRuntimeSetting(v6, v15, a2, a3);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(v26);
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingBool(uint64_t a1, const char *a2, char a3)
-{
-  v14 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v13);
-  re::AssetHandle::AssetHandle(v11, v13);
-  signalModifiedRuntimeSetting(v12);
-  re::AssetHandle::~AssetHandle(v11);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v10 = v5;
-      v5 = v10;
-      if (v9)
-      {
-        re::introspect<BOOL>(BOOL)::info = re::introspect_BOOL(0, v8);
-        v5 = v10;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<BOOL>(BOOL)::info, a2, &v14);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v6;
-}
-
-_anonymous_namespace_ *signalModifiedRuntimeSetting(_anonymous_namespace_ *result)
-{
-  if (result)
-  {
-    v1 = *(result + 3);
-    if (v1)
-    {
-      result = re::ServiceLocator::serviceOrNull<re::FrameAnalysisService>(*(v1 + 1984));
-      if (result)
-      {
-        v2 = *(*result + 160);
-
-        return v2();
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingDouble(uint64_t a1, const char *a2, double a3)
-{
-  v14 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v13);
-  re::AssetHandle::AssetHandle(v11, v13);
-  signalModifiedRuntimeSetting(v12);
-  re::AssetHandle::~AssetHandle(v11);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v10 = v5;
-      v5 = v10;
-      if (v9)
-      {
-        re::introspect<double>(BOOL)::info = re::introspect_double(0, v8);
-        v5 = v10;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<double>(BOOL)::info, a2, &v14);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v6;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingFloat(uint64_t a1, const char *a2, float a3)
-{
-  v14 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v13);
-  re::AssetHandle::AssetHandle(v11, v13);
-  signalModifiedRuntimeSetting(v12);
-  re::AssetHandle::~AssetHandle(v11);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v10 = v5;
-      v5 = v10;
-      if (v9)
-      {
-        re::introspect<float>(BOOL)::info = re::introspect_float(0, v8);
-        v5 = v10;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<float>(BOOL)::info, a2, &v14);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v6;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingInt32(uint64_t a1, const char *a2, int a3)
-{
-  v14 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v13);
-  re::AssetHandle::AssetHandle(v11, v13);
-  signalModifiedRuntimeSetting(v12);
-  re::AssetHandle::~AssetHandle(v11);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v10 = v5;
-      v5 = v10;
-      if (v9)
-      {
-        re::introspect<int>(BOOL)::info = re::introspect_int(0, v8);
-        v5 = v10;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<int>(BOOL)::info, a2, &v14);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v6;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingUInt32(uint64_t a1, const char *a2, int a3)
-{
-  v14 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v13);
-  re::AssetHandle::AssetHandle(v11, v13);
-  signalModifiedRuntimeSetting(v12);
-  re::AssetHandle::~AssetHandle(v11);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v10 = v5;
-      v5 = v10;
-      if (v9)
-      {
-        re::introspect<unsigned int>(BOOL)::info = re::introspect_uint32_t(0, v8);
-        v5 = v10;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<unsigned int>(BOOL)::info, a2, &v14);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v6;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingVector2F(uint64_t a1, const char *a2, double a3)
-{
-  v13 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v12);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v12);
-  re::AssetHandle::AssetHandle(v10, v12);
-  signalModifiedRuntimeSetting(v11);
-  re::AssetHandle::~AssetHandle(v10);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v9 = v5;
-      v5 = v9;
-      if (v8)
-      {
-        re::introspect<re::Vector2<float>>(BOOL)::info = re::introspect_Vector2F(0);
-        v5 = v9;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<re::Vector2<float>>(BOOL)::info, a2, &v13);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v12);
-  return v6;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingVector3F(uint64_t a1, const char *a2, __n128 a3)
-{
-  v13 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v12);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v12);
-  re::AssetHandle::AssetHandle(v10, v12);
-  signalModifiedRuntimeSetting(v11);
-  re::AssetHandle::~AssetHandle(v10);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v9 = v5;
-      v5 = v9;
-      if (v8)
-      {
-        re::introspect<re::Vector3<float>>(BOOL)::info = re::introspect_Vector3F(0);
-        v5 = v9;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<re::Vector3<float>>(BOOL)::info, a2, &v13);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v12);
-  return v6;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingVector4F(uint64_t a1, const char *a2, __n128 a3)
-{
-  v13 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v12);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v12);
-  re::AssetHandle::AssetHandle(v10, v12);
-  signalModifiedRuntimeSetting(v11);
-  re::AssetHandle::~AssetHandle(v10);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v9 = v5;
-      v5 = v9;
-      if (v8)
-      {
-        re::introspect<re::Vector4<float>>(BOOL)::info = re::introspect_Vector4F(0);
-        v5 = v9;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<re::Vector4<float>>(BOOL)::info, a2, &v13);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v12);
-  return v6;
-}
-
-uint64_t RERenderGraphEmitterAssetSetRuntimeSettingQuaternionF(uint64_t a1, const char *a2, __n128 a3)
-{
-  v13 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v12);
-  v4 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v12);
-  re::AssetHandle::AssetHandle(v10, v12);
-  signalModifiedRuntimeSetting(v11);
-  re::AssetHandle::~AssetHandle(v10);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    {
-      v9 = v5;
-      v5 = v9;
-      if (v8)
-      {
-        re::introspect<re::Quaternion<float>>(BOOL)::info = re::introspect_QuaternionF(0);
-        v5 = v9;
-      }
-    }
-
-    v6 = re::RenderGraphEmitterBase::setRuntimeSetting(v5, re::introspect<re::Quaternion<float>>(BOOL)::info, a2, &v13);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v12);
-  return v6;
-}
-
-void RERenderGraphSelectionEmitterAddCallback(uint64_t a1, uint64_t a2, void *a3)
-{
-  v11[4] = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v10);
-  v6 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v10);
-  if (v6)
-  {
-    v7 = *(v6 + 16);
-    v8 = _Block_copy(v5);
-    v11[0] = &unk_1F5D2B598;
-    v11[1] = v8;
-    v11[3] = v11;
-    v9 = *(*(a2 + 144) + 24) & 0xFFFFFFFFFFFFFFFLL | (*(*(a2 + 144) + 16) << 60);
-    re::RenderGraphSelectionEmitter::addSelectionCompleteCallback(v7, &v9, v11);
-    std::__function::__value_func<void ()(re::Slice<unsigned long long> const&)>::~__value_func[abi:nn200100](v11);
-  }
-
-  re::AssetHandle::~AssetHandle(v10);
-}
-
-void RERenderGraphSelectionEmitterAddConcludeCallback(uint64_t a1, uint64_t a2, void *a3)
-{
-  v11[4] = *MEMORY[0x1E69E9840];
-  v5 = a3;
-  re::AssetAPIHelper::assetHandleCreate(a1, v10);
-  v6 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v10);
-  if (v6)
-  {
-    v7 = *(v6 + 16);
-    v8 = _Block_copy(v5);
-    v11[0] = &unk_1F5D2B628;
-    v11[1] = v8;
-    v11[3] = v11;
-    v9 = *(*(a2 + 144) + 24) & 0xFFFFFFFFFFFFFFFLL | (*(*(a2 + 144) + 16) << 60);
-    re::RenderGraphSelectionEmitter::addSelectionConcludeCallback(v7, &v9, v11);
-    std::__function::__value_func<void ()(re::Slice<re::RenderGraphSelectionConcludeResult> const&)>::~__value_func[abi:nn200100](v11);
-  }
-
-  re::AssetHandle::~AssetHandle(v10);
-}
-
-void RERenderGraphSelectionEmitterSetFilteredEntityIDs(uint64_t a1, const __CFArray *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v3 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v4);
-  if (v3)
-  {
-    re::RenderGraphSelectionEmitter::setFilteredEntityIDSet(*(v3 + 16), a2);
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-}
-
-void RERenderGraphSelectionEmitterSetParams(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6)
-{
-  v14[3] = &unk_1F5D10168;
-  *(&v16 + 4) = -1;
-  v6.i64[0] = 0x3F0000003FLL;
-  v6.i64[1] = 0x3F0000003FLL;
-  *&v17[8] = vnegq_f32(v6);
-  *&v17[24] = *&v17[8];
-  *&v17[40] = *&v17[8];
-  *&v17[56] = *&v17[8];
-  *&v17[72] = *&v17[8];
-  *&v17[88] = *&v17[8];
-  *&v17[104] = *&v17[8];
-  *&v17[120] = *&v17[8];
-  *&v15 = __PAIR64__(a3, a2);
-  *(&v15 + 1) = __PAIR64__(a5, a4);
-  LODWORD(v16) = a6 ^ 1;
-  re::AssetAPIHelper::assetHandleCreate(a1, v14);
-  v7 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v14);
-  if (v7)
-  {
-    v8 = *(v7 + 16);
-    *(v8 + 456) = *&v17[128];
-    v9 = *&v17[112];
-    *(v8 + 424) = *&v17[96];
-    *(v8 + 440) = v9;
-    v10 = *&v17[48];
-    *(v8 + 360) = *&v17[32];
-    *(v8 + 376) = v10;
-    v11 = *&v17[80];
-    *(v8 + 392) = *&v17[64];
-    *(v8 + 408) = v11;
-    v12 = v16;
-    *(v8 + 296) = v15;
-    *(v8 + 312) = v12;
-    v13 = *&v17[16];
-    *(v8 + 328) = *v17;
-    *(v8 + 344) = v13;
-  }
-
-  re::AssetHandle::~AssetHandle(v14);
-}
-
-void RERenderGraphSelectionEmitterSetParamsWithTargetSize(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6, unsigned int a7, unsigned int a8)
-{
-  v16[3] = &unk_1F5D10168;
-  *&v17 = __PAIR64__(a3, a2);
-  *(&v17 + 1) = __PAIR64__(a5, a4);
-  LODWORD(v18) = a6 ^ 1;
-  *(&v18 + 4) = __PAIR64__(a8, a7);
-  v8.i64[0] = 0x3F0000003FLL;
-  v8.i64[1] = 0x3F0000003FLL;
-  *&v19[8] = vnegq_f32(v8);
-  *&v19[24] = *&v19[8];
-  *&v19[40] = *&v19[8];
-  *&v19[56] = *&v19[8];
-  *&v19[72] = *&v19[8];
-  *&v19[88] = *&v19[8];
-  *&v19[104] = *&v19[8];
-  *&v19[120] = *&v19[8];
-  re::AssetAPIHelper::assetHandleCreate(a1, v16);
-  v9 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v16);
-  if (v9)
-  {
-    v10 = *(v9 + 16);
-    *(v10 + 456) = *&v19[128];
-    v11 = *&v19[112];
-    *(v10 + 424) = *&v19[96];
-    *(v10 + 440) = v11;
-    v12 = *&v19[48];
-    *(v10 + 360) = *&v19[32];
-    *(v10 + 376) = v12;
-    v13 = *&v19[80];
-    *(v10 + 392) = *&v19[64];
-    *(v10 + 408) = v13;
-    v14 = v18;
-    *(v10 + 296) = v17;
-    *(v10 + 312) = v14;
-    v15 = *&v19[16];
-    *(v10 + 328) = *v19;
-    *(v10 + 344) = v15;
-  }
-
-  re::AssetHandle::~AssetHandle(v16);
-}
-
-void RERenderGraphSelectionEmitterSetParamsWithTargetSizeEx(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6, unsigned int a7, unsigned int a8, __n128 a9, __n128 a10, __n128 a11, __n128 a12, __n128 a13, __n128 a14, __n128 a15, __n128 a16)
-{
-  v23[3] = &unk_1F5D10168;
-  *&v24 = __PAIR64__(a3, a2);
-  *(&v24 + 1) = __PAIR64__(a5, a4);
-  LODWORD(v25) = a6 ^ 1;
-  *(&v25 + 4) = __PAIR64__(a8, a7);
-  *&v26[8] = a9;
-  *&v26[24] = a10;
-  *&v26[40] = a11;
-  *&v26[56] = a12;
-  *&v26[72] = a13;
-  *&v26[88] = a14;
-  *&v26[104] = a15;
-  *&v26[120] = a16;
-  re::AssetAPIHelper::assetHandleCreate(a1, v23);
-  v16 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v23);
-  if (v16)
-  {
-    v17 = *(v16 + 16);
-    *(v17 + 456) = *&v26[128];
-    v18 = *&v26[112];
-    *(v17 + 424) = *&v26[96];
-    *(v17 + 440) = v18;
-    v19 = *&v26[48];
-    *(v17 + 360) = *&v26[32];
-    *(v17 + 376) = v19;
-    v20 = *&v26[80];
-    *(v17 + 392) = *&v26[64];
-    *(v17 + 408) = v20;
-    v21 = v25;
-    *(v17 + 296) = v24;
-    *(v17 + 312) = v21;
-    v22 = *&v26[16];
-    *(v17 + 328) = *v26;
-    *(v17 + 344) = v22;
-  }
-
-  re::AssetHandle::~AssetHandle(v23);
-}
-
-void RERenderGraphSelectionEmitterSetScene(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v3 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v4);
-  if (v3)
-  {
-    re::StringID::operator=((*(v3 + 16) + 488), (*(a2 + 104) + 288));
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-}
-
-uint64_t RERenderGraphSimpleForwardEmitterGetDisplayWireframe(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v4);
-  if (v1)
-  {
-    v2 = *(*(v1 + 16) + 136);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2 & 1;
-}
-
-void RERenderGraphSimpleForwardEmitterSetDisplayWireframe(uint64_t a1, char a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v3 = re::AssetHandle::blockUntilLoaded<re::RenderGraphEmitterAsset>(v4);
-  if (v3)
-  {
-    *(*(v3 + 16) + 136) = a2;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-}
-
-uint64_t re::AssetHandle::loadedAsset<re::RenderGraphEmitterAsset>(re::RenderGraphEmitterAsset *a1)
-{
-  if (!*(a1 + 1))
-  {
-    return 0;
-  }
-
-  v2 = re::RenderGraphEmitterAsset::assetType(a1);
-
-  return re::AssetHandle::assetWithType(a1, v2, 1);
-}
-
-void *std::__function::__func<RERenderGraphEmitterPreloadProvidersAssets::$_0,std::allocator<RERenderGraphEmitterPreloadProvidersAssets::$_0>,void ()(BOOL)>::~__func(void *a1)
-{
-  *a1 = &unk_1F5D2B518;
-  re::AssetHandle::~AssetHandle((a1 + 2));
-  return a1;
-}
-
-void std::__function::__func<RERenderGraphEmitterPreloadProvidersAssets::$_0,std::allocator<RERenderGraphEmitterPreloadProvidersAssets::$_0>,void ()(BOOL)>::~__func(void *a1)
-{
-  *a1 = &unk_1F5D2B518;
-  re::AssetHandle::~AssetHandle((a1 + 2));
-
-  JUMPOUT(0x1E6906520);
-}
-
-re::AssetHandle *std::__function::__func<RERenderGraphEmitterPreloadProvidersAssets::$_0,std::allocator<RERenderGraphEmitterPreloadProvidersAssets::$_0>,void ()(BOOL)>::__clone(void *a1, void *a2)
-{
-  v4 = a1[1];
-  *a2 = &unk_1F5D2B518;
-  a2[1] = v4;
-  result = re::AssetHandle::AssetHandle((a2 + 2), (a1 + 2));
-  a2[5] = a1[5];
-  return result;
-}
-
-void std::__function::__func<RERenderGraphEmitterPreloadProvidersAssets::$_0,std::allocator<RERenderGraphEmitterPreloadProvidersAssets::$_0>,void ()(BOOL)>::destroy_deallocate(uint64_t a1)
-{
-  re::AssetHandle::~AssetHandle((a1 + 16));
-
-  operator delete(a1);
-}
-
-void std::__function::__func<RERenderGraphEmitterPreloadProvidersAssets::$_0,std::allocator<RERenderGraphEmitterPreloadProvidersAssets::$_0>,void ()(BOOL)>::operator()(void *a1, _BYTE *a2)
-{
-  if (*a2 == 1)
-  {
-    v3 = a1[3];
-    if (v3)
-    {
-      v4 = a1[5];
-      v5 = atomic_load((v3 + 896));
-      if (v5 == 2)
-      {
-        ++*(a1[3] + 276);
-        v6 = re::AssetHandle::loadedAsset<re::RenderGraphEmitterAsset>((a1 + 2));
-        if (v6)
-        {
-          (*(**(v6 + 16) + 16))(*(v6 + 16), v4, *(v6 + 24));
-        }
-      }
-    }
-  }
-
-  v7 = a1[1];
-}
-
-uint64_t std::__function::__func<RERenderGraphEmitterPreloadProvidersAssets::$_0,std::allocator<RERenderGraphEmitterPreloadProvidersAssets::$_0>,void ()(BOOL)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<RERenderGraphSelectionEmitterAddCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddCallback::$_0>,void ()(re::Slice<unsigned long long> const&)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *std::__function::__func<RERenderGraphSelectionEmitterAddCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddCallback::$_0>,void ()(re::Slice<unsigned long long> const&)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2B598;
-  result = _Block_copy(*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-void std::__function::__func<RERenderGraphSelectionEmitterAddCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddCallback::$_0>,void ()(re::Slice<unsigned long long> const&)>::destroy_deallocate(id *a1)
-{
-
-  operator delete(a1);
-}
-
-uint64_t std::__function::__func<RERenderGraphSelectionEmitterAddCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddCallback::$_0>,void ()(re::Slice<unsigned long long> const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__function::__func<RERenderGraphSelectionEmitterAddConcludeCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddConcludeCallback::$_0>,void ()(re::Slice<re::RenderGraphSelectionConcludeResult> const&)>::~__func(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *std::__function::__func<RERenderGraphSelectionEmitterAddConcludeCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddConcludeCallback::$_0>,void ()(re::Slice<re::RenderGraphSelectionConcludeResult> const&)>::__clone(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2B628;
-  result = _Block_copy(*(a1 + 8));
-  a2[1] = result;
-  return result;
-}
-
-void std::__function::__func<RERenderGraphSelectionEmitterAddConcludeCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddConcludeCallback::$_0>,void ()(re::Slice<re::RenderGraphSelectionConcludeResult> const&)>::destroy_deallocate(id *a1)
-{
-
-  operator delete(a1);
-}
-
-uint64_t std::__function::__func<RERenderGraphSelectionEmitterAddConcludeCallback::$_0,std::allocator<RERenderGraphSelectionEmitterAddConcludeCallback::$_0>,void ()(re::Slice<re::RenderGraphSelectionConcludeResult> const&)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t REStateParameterBlackboardAssetCreateAsset(re *a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, unint64_t a8, uint64_t a9)
-{
-  v84 = *MEMORY[0x1E69E9840];
-  v14 = re::globalAllocators(a1);
-  v15 = (*(*v14[2] + 32))(v14[2], 104, 8);
-  *v15 = &unk_1F5CBE040;
-  *(v15 + 8) = 0u;
-  *(v15 + 24) = 0u;
-  *(v15 + 40) = 0u;
-  *(v15 + 56) = 0u;
-  *(v15 + 72) = 0u;
-  v51 = v15;
-  *(v15 + 88) = 0u;
-  v67 = 0;
-  v68 = 0;
-  v69 = 0;
-  v64 = 0;
-  v65 = 0;
-  v66 = 0;
-  v61 = 0;
-  v62 = 0;
-  v63 = 0;
-  v58 = 0;
-  v59 = 0;
-  v60 = 0;
-  if (a2)
-  {
-    v49 = a5;
-    v16 = 0;
-    v17 = &v54;
-    v18 = (a3 + 8);
-    v19 = 16;
-    do
-    {
-      v20 = *(v18 - 1);
-      v54 = 0;
-      v55 = &str_67;
-      v21 = *v18;
-      v56 = 0;
-      v57 = &str_67;
-      v23 = v68;
-      if (v68 <= v16)
-      {
-        v70 = 0;
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v79 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v71 = 136315906;
-        v72 = "operator[]";
-        v73 = 1024;
-        v74 = 468;
-        v75 = 2048;
-        v76 = v16;
-        v77 = 2048;
-        v78 = v23;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_50:
-        v70 = 0;
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v79 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v71 = 136315906;
-        v72 = "operator[]";
-        v73 = 1024;
-        v74 = 468;
-        v75 = 2048;
-        v76 = v16;
-        v77 = 2048;
-        v78 = v17;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_51:
-        v70 = 0;
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v79 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v71 = 136315906;
-        v72 = "operator[]";
-        v73 = 1024;
-        v74 = 468;
-        v75 = 2048;
-        v76 = v17;
-        v77 = 2048;
-        v78 = v16;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_52:
-        v70 = 0;
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
-        v81 = 0u;
-        v79 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v71 = 136315906;
-        v72 = "operator[]";
-        v73 = 1024;
-        v74 = 468;
-        v75 = 2048;
-        v76 = v17;
-        v77 = 2048;
-        v78 = v16;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v24 = (v69 + v19);
-      re::StringID::operator=((v69 + v19 - 16), &v54);
-      v15 = re::StringID::operator=(v24, &v56);
-      if (v56)
-      {
-        if (v56)
-        {
-        }
-      }
-
-      v56 = 0;
-      v57 = &str_67;
-      if (v54)
-      {
-        if (v54)
-        {
-        }
-      }
-
-      v16 = (v16 + 1);
-      v19 += 32;
-      v18 += 2;
-    }
-
-    while (a2 != v16);
-    a2 = &v67;
-    a5 = v49;
-  }
-
-  if (a4)
-  {
-    v16 = 0;
-    v25 = (a5 + 8);
-    v26 = 16;
-    do
-    {
-      v27 = *(v25 - 1);
-      v54 = 0;
-      v55 = &str_67;
-      v28 = *v25;
-      v56 = 0;
-      v57 = &str_67;
-      v17 = v65;
-      if (v65 <= v16)
-      {
-        goto LABEL_50;
-      }
-
-      v30 = (v66 + v26);
-      re::StringID::operator=((v66 + v26 - 16), &v54);
-      v15 = re::StringID::operator=(v30, &v56);
-      if (v56)
-      {
-        if (v56)
-        {
-        }
-      }
-
-      v56 = 0;
-      v57 = &str_67;
-      if (v54)
-      {
-        if (v54)
-        {
-        }
-      }
-
-      v16 = (v16 + 1);
-      v26 += 32;
-      v25 += 2;
-    }
-
-    while (a4 != v16);
-    a4 = &v64;
-  }
-
-  if (a6)
-  {
-    v17 = 0;
-    v31 = (a7 + 8);
-    v32 = 16;
-    do
-    {
-      v33 = *(v31 - 1);
-      v54 = 0;
-      v55 = &str_67;
-      v34 = *v31;
-      v56 = 0;
-      v57 = &str_67;
-      v16 = v62;
-      if (v62 <= v17)
-      {
-        goto LABEL_51;
-      }
-
-      v36 = (v63 + v32);
-      re::StringID::operator=((v63 + v32 - 16), &v54);
-      v15 = re::StringID::operator=(v36, &v56);
-      if (v56)
-      {
-        if (v56)
-        {
-        }
-      }
-
-      v56 = 0;
-      v57 = &str_67;
-      if (v54)
-      {
-        if (v54)
-        {
-        }
-      }
-
-      v17 = (v17 + 1);
-      v32 += 32;
-      v31 += 2;
-    }
-
-    while (a6 != v17);
-    a6 = &v61;
-  }
-
-  if (a8)
-  {
-    v17 = 0;
-    v38 = (a9 + 8);
-    v39 = 16;
-    do
-    {
-      v40 = *(v38 - 1);
-      v54 = 0;
-      v55 = &str_67;
-      v41 = *v38;
-      v56 = 0;
-      v57 = &str_67;
-      v16 = v59;
-      if (v59 <= v17)
-      {
-        goto LABEL_52;
-      }
-
-      v43 = (v60 + v39);
-      re::StringID::operator=((v60 + v39 - 16), &v54);
-      v37 = re::StringID::operator=(v43, &v56);
-      if (v56)
-      {
-        if (v56)
-        {
-        }
-      }
-
-      v56 = 0;
-      v57 = &str_67;
-      if (v54)
-      {
-        if (v54)
-        {
-        }
-      }
-
-      v17 = (v17 + 1);
-      v39 += 32;
-      v38 += 2;
-    }
-
-    while (a8 != v17);
-    v44 = &v58;
-  }
-
-  else
-  {
-    v44 = 0;
-  }
-
-  inited = re::StateParameterBlackboardAsset::initWithInitData(v51, a2, a4, a6, v44);
-  re::StateParameterBlackboardAsset::assetType(inited);
-  (*(*a1 + 424))(&v79);
-  v46 = v79;
-  if (v79)
-  {
-    v47 = (v79 + 8);
-  }
-
-  re::AssetHandle::~AssetHandle(&v79);
-  re::FixedArray<re::RigGraphOperatorParameterDefinition>::deinit(&v58);
-  re::FixedArray<re::RigGraphOperatorParameterDefinition>::deinit(&v61);
-  re::FixedArray<re::RigGraphOperatorParameterDefinition>::deinit(&v64);
-  re::FixedArray<re::RigGraphOperatorParameterDefinition>::deinit(&v67);
-  return v46;
-}
-
-uint64_t RENetDiscoveryViewCreateWithCallbacks(void *a1)
-{
-  RESyncDiscoveryViewObserverCreate();
-  if (a1[1])
-  {
-    RESyncDiscoveryViewObserverOnCreate();
-  }
-
-  if (a1[2])
-  {
-    RESyncDiscoveryViewObserverOnDestroy();
-  }
-
-  if (a1[3])
-  {
-    RESyncDiscoveryViewObserverOnGetIdentitiesCount();
-  }
-
-  if (a1[4])
-  {
-    RESyncDiscoveryViewObserverOnGetIdentityAtIndex();
-  }
-
-  if (a1[5])
-  {
-    RESyncDiscoveryViewObserverOnGetAuthData();
-  }
-
-  if (a1[6])
-  {
-    RESyncDiscoveryViewObserverOnRequestIdentity();
-  }
-
-  if (a1[7])
-  {
-    RESyncDiscoveryViewObserverOnCreateProtocolLayer();
-  }
-
-  v2 = RESyncDiscoveryViewCreateWithObserver();
-  RESyncRelease();
-  return v2;
-}
-
-void *__RENetDiscoveryViewCreateWithCallbacks_block_invoke_5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = 0;
-  v7 = 0;
-  v5 = 0;
-  result = (*(*(a1 + 32) + 16))(&v5);
-  *a2 = v5;
-  v4 = v7;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v4;
-  return result;
-}
-
-uint64_t RENetDiscoveryViewCreateWithCallbacksV2(void *a1)
-{
-  RESyncDiscoveryViewObserverCreate();
-  if (a1[1])
-  {
-    RESyncDiscoveryViewObserverOnCreate();
-  }
-
-  if (a1[2])
-  {
-    RESyncDiscoveryViewObserverOnDestroy();
-  }
-
-  if (a1[3])
-  {
-    RESyncDiscoveryViewObserverOnGetIdentitiesCount();
-  }
-
-  if (a1[4])
-  {
-    RESyncDiscoveryViewObserverOnGetIdentityAtIndex();
-  }
-
-  if (a1[5])
-  {
-    RESyncDiscoveryViewObserverOnGetAuthData();
-  }
-
-  if (a1[6])
-  {
-    RESyncDiscoveryViewObserverOnRequestIdentity();
-  }
-
-  if (a1[7])
-  {
-    RESyncDiscoveryViewObserverOnCreateProtocolLayer();
-  }
-
-  v2 = RESyncDiscoveryViewCreateWithObserver();
-  RESyncRelease();
-  return v2;
-}
-
-void *__RENetDiscoveryViewCreateWithCallbacksV2_block_invoke_5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = 0;
-  v7 = 0;
-  v5 = 0;
-  result = (*(*(a1 + 32) + 16))(&v5);
-  *a2 = v5;
-  v4 = v7;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v4;
-  return result;
-}
-
-uint64_t RENetIdentityCreateWithCallbacks(void *a1)
-{
-  RESyncDiscoveryIdentityObserverCreate();
-  if (a1[1])
-  {
-    RESyncDiscoveryIdentityObserverOnCreate();
-  }
-
-  if (a1[2])
-  {
-    RESyncDiscoveryIdentityObserverOnDestroy();
-  }
-
-  if (a1[3])
-  {
-    RESyncDiscoveryIdentityObserverOnGetDisplayName();
-  }
-
-  if (a1[4])
-  {
-    RESyncDiscoveryIdentityObserverOnGetAddress();
-  }
-
-  if (a1[5])
-  {
-    RESyncDiscoveryIdentityObserverOnIsLocal();
-  }
-
-  v2 = RESyncIdentityCreateWithObserver();
-  RESyncRelease();
-  return v2;
-}
-
-void RENetAuthDataInvalid(void *a1@<X8>)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-}
-
-uint64_t REMaterialParametersServiceCreateUnlitParameters(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, __n128 a6, float a7)
-{
-  v14 = a6;
-  v15 = a4;
-  re::AssetAPIHelper::assetHandleCreate(a5, v12);
-  (*(*a1 + 24))(&v13, a1, a2, a3, &v14, v12, a7);
-  re::AssetHandle::~AssetHandle(v12);
-  return v13;
-}
-
-uint64_t REMaterialParametersServiceFindUnlitParametersByID(uint64_t a1)
-{
-  result = (*(*a1 + 32))(a1);
-  if (result)
-  {
-    v2 = result;
-    if (re::ecs2::EntityComponentCollection::get((result + 48), re::ecs2::ComponentImpl<re::ecs2::UnlitMaterialParametersComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType))
-    {
-      return v2;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REMaterialParametersServiceFindPbrParametersByID(uint64_t a1)
-{
-  result = (*(*a1 + 32))(a1);
-  if (result)
-  {
-    v2 = result;
-    if (re::ecs2::EntityComponentCollection::get((result + 48), re::ecs2::ComponentImpl<re::ecs2::PbrMaterialParametersComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType))
-    {
-      return v2;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REMaterialParametersServiceGetParametersTypeForID(uint64_t a1)
-{
-  result = (*(*a1 + 32))(a1);
-  if (result)
-  {
-    v2 = result;
-    if (re::ecs2::EntityComponentCollection::get((result + 48), re::ecs2::ComponentImpl<re::ecs2::UnlitMaterialParametersComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType))
-    {
-      return 1;
-    }
-
-    else
-    {
-      return 2 * (re::ecs2::EntityComponentCollection::get((v2 + 48), re::ecs2::ComponentImpl<re::ecs2::PbrMaterialParametersComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType) != 0);
-    }
-  }
-
-  return result;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderCreate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  v2 = (*(*v1[2] + 32))(v1[2], 88, 8);
-  ArcSharedObject::ArcSharedObject(v2, 0);
-  *v2 = &unk_1F5D2B7B8;
-  *(v2 + 80) = 0;
-  *(v2 + 24) = 0u;
-  *(v2 + 40) = 0u;
-  return v2;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderCreateFromAsset(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v8);
-  v2 = re::MeshDeformationAsset::assetType(v1);
-  if (v9 && v2 == *(v9 + 280))
-  {
-    v5 = re::globalAllocators(v2);
-    v4 = (*(*v5[2] + 32))(v5[2], 88, 8);
-    v6 = re::AssetHandle::AssetHandle(v10, &v8);
-    ArcSharedObject::ArcSharedObject(v4, 0);
-    *v4 = &unk_1F5D2B7B8;
-    *(v4 + 80) = 0;
-    *(v4 + 40) = 0u;
-    *(v4 + 24) = 0u;
-    re::AssetHandle::AssetHandle(v11, v10);
-    re::AssetHandle::AssetHandle(buf, v11);
-    re::AssetHandle::operator=(v4 + 24, buf);
-    re::AssetHandle::~AssetHandle(buf);
-    re::AssetHandle::~AssetHandle(v11);
-    re::AssetHandle::~AssetHandle(v10);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v3 = CoreRELog::log;
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(buf[0]) = 0;
-      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Asset reference is not a valid Mesh Deformation Asset.", buf, 2u);
-    }
-
-    v4 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(&v8);
-  return v4;
-}
-
-void REMeshDeformationDefinitionAssetBuilderAddFromMeshDeformationDefinition(uint64_t a1, uint64_t a2)
-{
-  v57 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a2, v42);
-  v5 = re::AssetHandle::blockUntilLoaded<re::MeshDeformationAsset>(v42);
-  if (v5)
-  {
-    v6 = v5;
-    v10 = *(v6 + 16);
-    if (v10)
-    {
-      v11 = v8;
-      v12 = *(v8 + 2);
-      v13 = v12 + 1;
-      if (v12 + 1 <= v7)
-      {
-LABEL_33:
-        v43 = 0;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
-        v54 = 0u;
-        v52 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v44 = 136315906;
-        v45 = "copy";
-        v46 = 1024;
-        v47 = 643;
-        v48 = 2048;
-        v49 = v7;
-        v50 = 2048;
-        v51 = v13;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_34;
-      }
-
-      v13 = v7 + v10;
-      if (__CFADD__(v7, v10))
-      {
-LABEL_34:
-        re::internal::assertLog(7, v9, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::copy(). size = %zu, pos = %zu, count = %zu", "!overflow", "copy", 647, v12, v7, v10);
-        _os_crash();
-        __break(1u);
-        goto LABEL_35;
-      }
-
-      v14 = *(v6 + 32);
-      if (v12 >= v13)
-      {
-        v26 = *(v8 + 4) + 40 * v7;
-        v27 = 40 * v10;
+        v21 = a2[12];
+        v22 = v18;
         do
         {
-          re::DynamicArray<re::DeformationDefinition>::operator=(v26, v14);
-          v14 += 5;
-          v26 += 40;
-          v27 -= 40;
+          *v22 = *v15;
+          v22 += 4;
+          v15 = (v15 + v21);
         }
 
-        while (v27);
+        while (v22 < &v18[4 * v16]);
+      }
+    }
+
+    else if (v16)
+    {
+      v19 = 0;
+      v20 = a2[12];
+      do
+      {
+        *&v18[4 * v19] = *v15;
+        v15 = (v15 + v20);
+        ++v19;
+      }
+
+      while (v16 != v19);
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  v23 = *(a2 + 4);
+  v24 = a2[10];
+  if (v23)
+  {
+    MEMORY[0x1EEE9AC00](v10);
+    v26 = (&v165 - ((v25 + 15) & 0x3FFFFFFFF0));
+    bzero(v26, v25);
+    if (v24)
+    {
+      v27 = a2[6];
+      v28 = v26;
+      v29 = v24;
+      do
+      {
+        *v28 = *v23;
+        v28[4] = *(v23 + 16);
+        v28 += 5;
+        v23 += v27;
+        --v29;
+      }
+
+      while (v29);
+      if (!v174 && v24 != 1)
+      {
+        v30 = 0;
+        v31 = 1;
+        v32 = 9;
+        do
+        {
+          if (LOWORD(v26[v32]) > LOWORD(v26[5 * v30 + 4]))
+          {
+            v30 = v31;
+          }
+
+          ++v31;
+          v32 += 5;
+        }
+
+        while (v24 != v31);
+        if (v30)
+        {
+          v33 = v26[4];
+          v34 = *v26;
+          v35 = &v26[5 * v30];
+          *v26 = *v35;
+          v26[4] = v35[4];
+          *v35 = v34;
+          v35[4] = v33;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  v171 = *(a2 + 36);
+  v36 = a2[16];
+  a1[6] = 0;
+  v37 = a1 + 6;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a1[7] + 38) = v6;
+  v38 = 12 * v6;
+  v39 = &re::introspect_BOOL(BOOL)::info;
+  v40 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v38 + 12, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 119);
+  *a1 = v40;
+  memcpy(v40, v8, 12 * *(a1[7] + 38));
+  *(a1[7] + 39) = 0;
+  if (a1[2])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  a1[2] = 0;
+  if (a1[1])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  a1[1] = 0;
+  if (v24 >= 0x100)
+  {
+    v44 = physx::shdfnd::Foundation::mInstance;
+    v45 = "ConvexHullBuilder::init: convex hull has more than 255 polygons!";
+    v46 = 129;
+LABEL_33:
+    physx::shdfnd::Foundation::error(v44, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", v46, v45, v41, v42, v43);
+LABEL_160:
+    physx::shdfnd::Foundation::error(v39[428], 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 312, "Gu::ConvexMesh::loadConvexHull: convex hull init failed!", v41, v42, v43);
+    return 0;
+  }
+
+  *(a1[7] + 39) = v24;
+  if (v24)
+  {
+    a1[1] = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, (20 * v24), "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 135);
+    v47 = physx::shdfnd::ReflectionAllocator<unsigned char>::allocate(&v190, v36, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 137);
+    v48 = 0;
+    a1[2] = v47;
+    v49 = a1[1];
+    do
+    {
+      v50 = &v26[5 * v48];
+      v51 = v49 + 20 * v48;
+      *(v51 + 16) = v47 - *(a1 + 8);
+      v52 = *(v50 + 8);
+      *(v51 + 18) = v52;
+      if (v52)
+      {
+        v53 = &v18[4 * *(v50 + 9)];
+        v54 = v47;
+        v55 = v52;
+        do
+        {
+          v56 = *v53;
+          v53 += 4;
+          *v54++ = v56;
+          --v55;
+        }
+
+        while (v55);
+        v49 = a1[1];
       }
 
       else
       {
-        re::DynamicArray<re::DeformationStackDefinition>::growCapacity(v8, v7 + v10);
-        v15 = *(v11 + 2);
-        v16 = *(v11 + 4);
-        v17 = v7;
-        v18 = v15 - v7;
-        if (v15 != v7)
-        {
-          v39 = v15 - v7;
-          v40 = *(v11 + 2);
-          v19 = v16 + 40 * v7;
-          v20 = 40 * v15 - 40 * v7;
-          v21 = v14;
-          do
-          {
-            re::DynamicArray<re::DeformationDefinition>::operator=(v19, v21);
-            v21 += 5;
-            v19 += 40;
-            v20 -= 40;
-          }
-
-          while (v20);
-          v16 = *(v11 + 4);
-          v17 = *(v11 + 2);
-          v18 = v39;
-          v15 = v40;
-        }
-
-        if (v18 != v10)
-        {
-          v22 = &v14[5 * v18];
-          v23 = v16 + 40 * v17;
-          v24 = 40 * v10 + 40 * v7 - 40 * v15;
-          do
-          {
-            v25 = re::DynamicArray<re::DeformationDefinition>::DynamicArray(v23, v22);
-            v22 += 5;
-            v23 = v25 + 40;
-            v24 -= 40;
-          }
-
-          while (v24);
-        }
-
-        *(v11 + 2) = v13;
+        v52 = 0;
       }
 
-      ++*(v11 + 6);
+      *(v49 + 20 * v48) = *v50;
+      v47 += v52;
+      ++v48;
     }
 
-    v3 = *(v6 + 56);
-    if (v3)
+    while (v48 != v24);
+  }
+
+  else
+  {
+    a1[1] = 0;
+    a1[2] = physx::shdfnd::ReflectionAllocator<unsigned char>::allocate(&v190, v36, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 137);
+  }
+
+  v57 = v174;
+  if ((physx::ConvexHullBuilder::calculateVertexMapTable(a1, v24, v174 == 0) & 1) == 0)
+  {
+    goto LABEL_160;
+  }
+
+  if (v57 && ((*(*v57 + 32))(v57, v36, a1[2], a1 + 3, a1 + 5, a1 + 6) & 1) != 0)
+  {
+    *(a1[7] + 36) = v36 >> 1;
+    v67 = v171;
+    if (!v24)
     {
-      v29 = v28;
-      v30 = *(v28 + 7);
-      v13 = v30 + 1;
-      if (v30 + 1 <= v2)
+      goto LABEL_125;
+    }
+
+    goto LABEL_116;
+  }
+
+  if (v36)
+  {
+    v44 = physx::shdfnd::Foundation::mInstance;
+    v45 = "Cooking::cookConvexMesh: non-manifold mesh cannot be used, invalid mesh!";
+    v46 = 567;
+    goto LABEL_33;
+  }
+
+  v68 = *(a1[7] + 39);
+  if (a1[3])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  a1[3] = 0;
+  a1[3] = physx::shdfnd::ReflectionAllocator<unsigned char>::allocate(&v190, v36, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 575);
+  v170 = physx::shdfnd::ReflectionAllocator<unsigned int>::allocate(&v190, 4 * (8 * v36), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 577);
+  v174 = v170 + 4 * v36;
+  v173 = v174 + 4 * v36;
+  v172 = v173 + 4 * v36;
+  v168 = v172 + 4 * v36;
+  v167 = v168 + 4 * v36;
+  v69 = v167 + 4 * v36;
+  v70 = (v69 + 4 * v36);
+  v71 = physx::shdfnd::ReflectionAllocator<BOOL>::allocate(&v190, v36, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 589);
+  if (v68)
+  {
+    v72 = 0;
+    v73 = 0;
+    v74 = v170;
+    v75 = a1[1];
+    v76 = a1[2];
+    v78 = v173;
+    v77 = v174;
+    v79 = v71;
+    v80 = v172;
+    do
+    {
+      v81 = v75 + 20 * v72;
+      v82 = *(v81 + 18);
+      if (*(v81 + 18))
       {
-LABEL_35:
-        v43 = 0;
-        v55 = 0u;
-        v56 = 0u;
-        v53 = 0u;
-        v54 = 0u;
-        v52 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v44 = 136315906;
-        v45 = "copy";
-        v46 = 1024;
-        v47 = 643;
-        v48 = 2048;
-        v49 = v2;
-        v50 = 2048;
-        v51 = v13;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_36:
-        re::internal::assertLog(7, v31, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::copy(). size = %zu, pos = %zu, count = %zu", "!overflow", "copy", 647, v30, v2, v3);
-        _os_crash();
-        __break(1u);
+        v83 = 0;
+        v84 = 0;
+        v85 = v76 + *(v81 + 16);
+        do
+        {
+          v86 = *(v85 + v84);
+          if (v82 - 1 == v84)
+          {
+            v87 = 0;
+          }
+
+          else
+          {
+            v87 = v84 + 1;
+          }
+
+          v88 = *(v85 + v87);
+          v89 = v86 > v88;
+          if (v86 <= v88)
+          {
+            v90 = v88;
+          }
+
+          else
+          {
+            v90 = *(v85 + v84);
+          }
+
+          if (v86 >= v88)
+          {
+            v86 = v88;
+          }
+
+          *(v74 + 4 * v84) = v86;
+          *(v77 + 4 * v84) = v90;
+          *(v78 + 4 * v84) = v72;
+          *(v80 + 4 * v84) = v84;
+          *(v79 + v84) = v89;
+          v91 = v73 + v84++;
+          v70[v91] = v91;
+          v83 -= 4;
+        }
+
+        while (v82 != v84);
+        v74 -= v83;
+        v77 -= v83;
+        v78 -= v83;
+        v73 += v84;
+        v79 += v84;
+        v80 -= v83;
       }
 
-      v31 = v2 + v3;
-      if (__CFADD__(v2, v3))
-      {
-        goto LABEL_36;
-      }
+      ++v72;
+    }
 
-      v32 = *(v6 + 72);
-      if (v30 >= v31)
+    while (v72 != v68);
+  }
+
+  v169 = v71;
+  v194 = 0;
+  v193 = 0u;
+  v192 = 0u;
+  v195 = 1;
+  v191 = 0x80000000;
+  v166 = &unk_1F5D21400;
+  v190 = &unk_1F5D21400;
+  physx::Cm::RadixSortBuffered::Sort(&v190);
+  physx::Cm::RadixSortBuffered::Sort(&v190);
+  v92 = v192;
+  if (*v37)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *v37 = 0;
+  *v37 = physx::shdfnd::ReflectionAllocator<unsigned short>::allocate(&v179, 2 * v36, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 635);
+  if (a1[5])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  a1[5] = 0;
+  v93 = physx::shdfnd::ReflectionAllocator<unsigned short>::allocate(&v179, 2 * v36, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 639);
+  a1[5] = v93;
+  v94 = a1[7];
+  *(v94 + 36) = 0;
+  if (v36)
+  {
+    v95 = 0;
+    v96 = 0;
+    v97 = 0;
+    v98 = *v37;
+    v99 = -1;
+    v100 = -1;
+    v101 = -1;
+    v39 = &re::introspect_BOOL(BOOL)::info;
+    v67 = v171;
+    v103 = v169;
+    v102 = v170;
+    v105 = v167;
+    v104 = v168;
+    while (1)
+    {
+      v106 = *(v92 + 4 * v95);
+      v107 = *(v173 + 4 * v106);
+      v108 = *(v172 + 4 * v106);
+      v109 = *(v102 + 4 * v106);
+      v110 = *(v174 + 4 * v106);
+      if (v109 == v101 && v110 == v100)
       {
-        std::__copy_impl::operator()[abi:nn200100]<re::MeshDeformationIndex const*,re::MeshDeformationIndex const*,re::MeshDeformationIndex*>(*(v6 + 72), &v32[6 * v3], *(v28 + 9) + 48 * v2);
+        v114 = v96;
+        v115 = 2 * v96;
+        *(a1[3] + v115 - 2) = v99;
+        *(a1[3] + v115 - 1) = v107;
+        ++v97;
+        v93 = a1[5];
       }
 
       else
       {
-        v41 = v2 + v3;
-        re::DynamicArray<re::MeshDeformationIndex>::growCapacity(v28 + 5, v31);
-        v10 = *(v29 + 7) - v2;
-        v33 = &v32[6 * v10];
-        std::__copy_impl::operator()[abi:nn200100]<re::MeshDeformationIndex const*,re::MeshDeformationIndex const*,re::MeshDeformationIndex*>(v32, v33, *(v29 + 9) + 48 * v2);
-        if (v10 != v3)
+        if (v95 && v97 != 1)
         {
-          v10 = 0;
-          v34 = &v32[6 * v3];
-          v3 = *(v29 + 9) + 48 * *(v29 + 7);
-          do
-          {
-            v35 = v33 + v10;
-            *(v3 + v10) = *(v33 + v10);
-            re::StringID::StringID((v3 + v10 + 8), (v33 + v10 + 8));
-            re::StringID::StringID((v3 + v10 + 24), (v33 + v10 + 24));
-            *(v3 + v10 + 40) = *(v33 + v10 + 40);
-            v10 += 48;
-          }
-
-          while (v35 + 48 != v34);
+          v125 = 675;
+          goto LABEL_159;
         }
 
-        *(v29 + 7) = v41;
+        v97 = 0;
+        if (*(v103 + v106))
+        {
+          v112 = *(v102 + 4 * v106);
+        }
+
+        else
+        {
+          v112 = *(v174 + 4 * v106);
+        }
+
+        if (*(v103 + v106))
+        {
+          v113 = *(v174 + 4 * v106);
+        }
+
+        else
+        {
+          v113 = *(v102 + 4 * v106);
+        }
+
+        *v98 = v113;
+        v98[1] = v112;
+        v98 += 2;
+        v114 = ++v96;
+        v101 = v109;
+        v100 = v110;
+        v99 = v107;
       }
 
-      ++*(v29 + 16);
+      *(v93 + 2 * (v108 + *(a1[1] + 20 * v107 + 16))) = v95 >> 1;
+      *(v104 + 4 * v95) = v107;
+      *(v105 + 4 * v95) = v108;
+      *(v69 + 4 * v95++) = v114 - 1;
+      if (v36 == v95)
+      {
+        v94 = a1[7];
+        goto LABEL_91;
+      }
+    }
+  }
+
+  v96 = 0;
+  v39 = &re::introspect_BOOL(BOOL)::info;
+  v67 = v171;
+  v103 = v169;
+  v102 = v170;
+LABEL_91:
+  *(v94 + 36) = v96;
+  if ((v67 & 0x10) == 0)
+  {
+    physx::Cm::RadixSortBuffered::Sort(&v190);
+    physx::Cm::RadixSortBuffered::Sort(&v190);
+    if (v36)
+    {
+      v116 = v192;
+      v117 = (v69 + 4 * v36);
+      v118 = v36;
+      do
+      {
+        v119 = *v116++;
+        *v117++ = *(v69 + 4 * v119);
+        --v118;
+      }
+
+      while (v118);
     }
 
-    if (v2 < v36)
+    if ((*(a1[7] + 36) & 0x7FFF) != 0)
     {
-      v13 = 48 * v2 + 40;
+      v120 = 8 * (*(a1[7] + 36) & 0x7FFF);
+      v121 = physx::shdfnd::Foundation::mInstance;
+      if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+      {
+        v122 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Gu::EdgeDescData>::getName() [T = physx::Gu::EdgeDescData]";
+      }
+
+      else
+      {
+        v122 = "<allocation names disabled>";
+      }
+
+      v123 = (*(*(v121 + 24) + 16))(v121 + 24, v120, v122, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 725);
+      v124 = 8 * (*(a1[7] + 36) & 0x7FFF);
+    }
+
+    else
+    {
+      v124 = 0;
+      v123 = 0;
+    }
+
+    bzero(v123, v124);
+    for (; v36; LODWORD(v36) = v36 - 1)
+    {
+      v126 = *v70++;
+      ++v123[4 * v126 + 1];
+    }
+
+    v127 = *(a1[7] + 36) & 0x7FFF;
+    v39 = &re::introspect_BOOL(BOOL)::info;
+    v103 = v169;
+    v102 = v170;
+    if ((*(a1[7] + 36) & 0x7FFF) != 0)
+    {
+      v128 = v123 + 1;
       while (1)
       {
-        v38 = *(v37 + 7);
-        if (v38 <= v2)
+        v129 = *v128;
+        v128 += 4;
+        if (v129 != 2)
         {
           break;
         }
 
-        *(*(v37 + 9) + v13) += v7;
-        ++v2;
-        v13 += 48;
-        if (v36 == v2)
+        if (!--v127)
         {
-          goto LABEL_31;
+          goto LABEL_110;
         }
       }
 
-      v43 = 0;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v52 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v44 = 136315906;
-      v45 = "operator[]";
-      v46 = 1024;
-      v47 = 789;
-      v48 = 2048;
-      v49 = v2;
-      v50 = 2048;
-      v51 = v38;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
+      v125 = 739;
+LABEL_159:
+      physx::shdfnd::Foundation::error(v39[428], 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", v125, "Cooking::cookConvexMesh: non-manifold mesh cannot be used, invalid mesh!", v103, v104, v105);
+      v190 = v166;
+      physx::Cm::RadixSortBuffered::reset(&v190);
+      goto LABEL_160;
+    }
+
+    if (v123)
+    {
+LABEL_110:
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v123);
+      v103 = v169;
+      v102 = v170;
+    }
+  }
+
+  if (v102)
+  {
+    (*(*(v39[428] + 24) + 24))();
+    v103 = v169;
+  }
+
+  if (v103)
+  {
+    (*(*(v39[428] + 24) + 24))();
+  }
+
+  v190 = v166;
+  physx::Cm::RadixSortBuffered::reset(&v190);
+  if (v24)
+  {
+LABEL_116:
+    v130 = 0;
+    v131 = *(a1[7] + 38);
+    v132 = *a1;
+    v133 = a1[1];
+    do
+    {
+      v134 = v133 + 20 * v130;
+      if (v131)
+      {
+        v135 = 0;
+        v136 = *v134;
+        v137 = *(v134 + 4);
+        v138 = *(v134 + 8);
+        v139 = -1;
+        v140 = 3.4028e38;
+        v141 = v132;
+        do
+        {
+          v66.i32[0] = *(v141 + 8);
+          *&v65 = ((v137 * *(v141 + 4)) + (*v141 * v136)) + (v66.f32[0] * v138);
+          if (*&v65 < v140)
+          {
+            v140 = ((v137 * *(v141 + 4)) + (*v141 * v136)) + (v66.f32[0] * v138);
+            v139 = v135;
+          }
+
+          ++v135;
+          v141 += 12;
+        }
+
+        while (v131 > v135);
+      }
+
+      else
+      {
+        v139 = -1;
+      }
+
+      *(v134 + 19) = v139;
+      ++v130;
+    }
+
+    while (v130 != v24);
+  }
+
+LABEL_125:
+  if ((v67 & 0x10) == 0 && (physx::ConvexHullBuilder::checkHullPolygons(a1, v58, v59, v60, v61, v41, v42, v43) & 1) == 0)
+  {
+    goto LABEL_160;
+  }
+
+  if (*(a1 + 40) <= 0.0)
+  {
+    v142 = *(a2 + 36);
+    v185 = 0;
+    v187 = 0;
+    v188 = 16711680;
+    v189 = 255;
+    v143 = *(a1 + 118);
+    v179 = 12;
+    v144 = *a1;
+    v145 = a1[1];
+    v180 = *a1;
+    v183 = v145;
+    v181 = v143;
+    v182 = 20;
+    v184 = *(a1[7] + 39);
+    v186 = a1[2];
+    if (v143)
+    {
+      v146 = (v144 + 8);
+      v147 = 0;
+      v62.i64[0] = 0;
+      v148 = v143;
+      do
+      {
+        v63 = *(v146 - 1);
+        v147 = vadd_f32(v147, *&v63);
+        v149 = *v146;
+        v146 += 3;
+        v62.f32[0] = v62.f32[0] + v149;
+        --v148;
+      }
+
+      while (v148);
+    }
+
+    else
+    {
+      v147 = 0;
+      v62.i64[0] = 0;
+    }
+
+    LODWORD(v64) = 1.0;
+    *&v63 = 1.0 / v143;
+    v150 = COERCE_DOUBLE(vmul_n_f32(v147, *&v63));
+    v177 = v150;
+    v62.f32[0] = *&v63 * v62.f32[0];
+    v178 = v62.i32[0];
+    if ((v142 & 0x40) != 0)
+    {
+      physx::computeVolumeIntegralsEberlySIMD(&v179, &v190, &v177, v62, v150, v63, v64, v65, v66);
+    }
+
+    else
+    {
+      physx::computeVolumeIntegralsEberly(&v179, &v190, &v177);
+    }
+
+    v154 = 0;
+    v155 = 24;
+    v156 = a1 + 164;
+    do
+    {
+      v157 = 0;
+      v158 = v155;
+      do
+      {
+        v159 = *(&v190 + v158);
+        *&v156[v157] = v159;
+        v157 += 4;
+        v158 += 24;
+      }
+
+      while (v157 != 12);
+      ++v154;
+      v156 += 12;
+      v155 += 8;
+    }
+
+    while (v154 != 3);
+    v160 = v190;
+    a1[13] = v190;
+    v161 = v191;
+    *(a1 + 28) = v191;
+    if ((*(a1 + 41) >> 23) == 255 || (*(a1 + 42) >> 23) == 255 || (*(a1 + 43) >> 23) == 255 || (*(a1 + 44) >> 23) == 255 || (*(a1 + 45) >> 23) == 255 || (*(a1 + 46) >> 23) == 255 || (*(a1 + 47) >> 23) == 255 || (*(a1 + 48) >> 23) == 255 || (*(a1 + 49) >> 23) == 255 || (v160 >> 23) == 255 || (HIDWORD(v160) >> 23) == 255 || (v161 >> 23) == 255 || (v162 = *&v192, (LODWORD(v162) >> 23) == 255))
+    {
+      physx::shdfnd::Foundation::error(v39[428], 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 242, "Gu::ConvexMesh: Error computing mesh mass properties!\n", v151, v152, v153);
+    }
+
+    else
+    {
+      if (*&v192 < 0.0)
+      {
+        physx::shdfnd::Foundation::error(v39[428], 2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 233, "Gu::ConvexMesh: Mesh has a negative volume! Is it open or do (some) faces have reversed winding? (Taking absolute value.)", v151, v152, v153);
+        physx::PxMat33::operator-(v175, (a1 + 164));
+        v163 = v175[1];
+        *(a1 + 164) = v175[0];
+        *(a1 + 180) = v163;
+        *(a1 + 49) = v176;
+        v162 = -v162;
+      }
+
+      *(a1 + 40) = v162;
+    }
+  }
+
+  return 1;
+}
+
+uint64_t physx::ConvexMeshBuilder::computeGaussMaps(physx::ConvexMeshBuilder *this)
+{
+  v2 = *(this + 19);
+  if (v2)
+  {
+    physx::BigConvexData::~BigConvexData(*(this + 19));
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v2);
+  }
+
+  v3 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v4 = "static const char *physx::shdfnd::ReflectionAllocator<physx::BigConvexData>::getName() [T = physx::BigConvexData]";
+  }
+
+  else
+  {
+    v4 = "<allocation names disabled>";
+  }
+
+  v5 = (*(*(v3 + 24) + 16))(v3 + 24, 48, v4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 388);
+  *v5 = 0;
+  *(v5 + 8) = 0u;
+  *(v5 + 24) = 0u;
+  *(v5 + 40) = 0;
+  *(this + 19) = v5;
+  v6 = *this;
+  v8[1] = v5;
+  v8[2] = v6;
+  v8[0] = this + 80;
+  physx::BigConvexDataBuilder::computeValencies(v8, this);
+  return physx::BigConvexDataBuilder::precompute(v8, 16);
+}
+
+float physx::ConvexMeshBuilder::computeInternalObjects(physx::ConvexMeshBuilder *this)
+{
+  v1 = *(this + 1);
+  *(this + 34) = 2139095039;
+  v2 = *(this + 119);
+  if (*(this + 119))
+  {
+    v3 = *(this + 26);
+    v4 = *(this + 27);
+    v5 = *(this + 28);
+    v6 = v1 + 2;
+    v7 = 3.4028e38;
+    v8 = *(this + 119);
+    do
+    {
+      v9 = fabsf(v6[1] + (((v4 * *(v6 - 1)) + (v3 * *(v6 - 2))) + (v5 * *v6)));
+      if (v9 < v7)
+      {
+        *(this + 34) = v9;
+        v7 = v9;
+      }
+
+      v6 += 5;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  else
+  {
+    v7 = 3.4028e38;
+  }
+
+  *(this + 140) = vneg_f32(0x80000000800000);
+  v10 = this + 140;
+  v11 = (*(this + 22) + *(this + 25)) - (*(this + 22) - *(this + 25));
+  v57 = vsub_f32(vadd_f32(*(this + 80), *(this + 92)), vsub_f32(*(this + 80), *(this + 92)));
+  v58 = v11;
+  v12 = *&vcgt_f32(vdup_lane_s32(v57, 1), v57) & 1;
+  if (v11 <= *(&v57 & 0xFFFFFFFFFFFFFFFBLL | (4 * v12)))
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 2;
+  }
+
+  v14 = v57.f32[(v13 + (v13 >> 1) + 1) & 3];
+  v15 = v57.f32[(v13 + (v13 >> 1) + 1 + (((v13 + (v13 >> 1) + 1) & 3) >> 1) + 1) & 3];
+  if (v14 >= v15)
+  {
+    v16 = (v13 + (v13 >> 1) + 1) & 3;
+  }
+
+  else
+  {
+    v16 = (v13 + (v13 >> 1) + 1 + (((v13 + (v13 >> 1) + 1) & 3) >> 1) + 1) & 3;
+  }
+
+  if (v14 >= v15)
+  {
+    v17 = (v13 + (v13 >> 1) + 1 + (((v13 + (v13 >> 1) + 1) & 3) >> 1) + 1) & 3;
+  }
+
+  else
+  {
+    v17 = (v13 + (v13 >> 1) + 1) & 3;
+  }
+
+  *(this + 37) = 2139095039;
+  if (v2)
+  {
+    v18 = *(this + 26);
+    v19 = *(this + 27);
+    v20 = *(this + 28);
+    v21 = v1;
+    v22 = v2;
+    v23 = v7 / 1.7321;
+    do
+    {
+      v24 = v21[v13];
+      if (fabsf(v24) >= 0.0000001)
+      {
+        v25 = -v21[3] - (((v19 * v21[1]) + (*v21 * v18)) + (v21[2] * v20));
+        v26 = 1.0 / v24;
+        v27 = v23 * v21[v16];
+        v28 = v23 * v21[v17];
+        v29 = fabsf(v26 * ((v25 - v27) - v28));
+        if (v29 <= v23)
+        {
+          v29 = v23;
+        }
+
+        v30 = *&v10[4 * v13];
+        if (v29 >= v30)
+        {
+          v31 = *&v10[4 * v13];
+        }
+
+        else
+        {
+          v31 = v29;
+        }
+
+        v32 = fabsf(v26 * (v28 + (v25 - v27)));
+        if (v32 <= v23)
+        {
+          v32 = v23;
+        }
+
+        if (v32 >= v31)
+        {
+          v33 = v31;
+        }
+
+        else
+        {
+          v33 = v32;
+        }
+
+        v34 = v27 + v25;
+        v35 = fabsf(v26 * (v28 + v34));
+        if (v35 <= v23)
+        {
+          v36 = v23;
+        }
+
+        else
+        {
+          v36 = v35;
+        }
+
+        if (v36 >= v33)
+        {
+          v37 = v33;
+        }
+
+        else
+        {
+          v37 = v36;
+        }
+
+        v38 = fabsf(v26 * (v34 - v28));
+        if (v38 <= v23)
+        {
+          v38 = v23;
+        }
+
+        if (v29 < v30 || v32 < v31 || v36 < v33 || v38 < v37)
+        {
+          if (v38 < v37)
+          {
+            v37 = v38;
+          }
+
+          *&v10[4 * v13] = v37;
+        }
+      }
+
+      v21 += 5;
+      --v22;
+    }
+
+    while (v22);
+    do
+    {
+      v42 = v1[v16];
+      v43 = v1[v17];
+      v44 = v42 + v43;
+      v45 = -v1[3] - (((v19 * v1[1]) + (*v1 * v18)) + (v1[2] * v20));
+      v46 = *&v10[4 * v13] * v1[v13];
+      if (fabsf(v42 + v43) >= 0.0000001)
+      {
+        v47 = fabsf((v45 - v46) / v44);
+        if (v47 <= v23)
+        {
+          v47 = v23;
+        }
+
+        v48 = *&v10[4 * v16];
+        v49 = fabsf((v45 + v46) / v44);
+        if (v49 <= v23)
+        {
+          v49 = v23;
+        }
+
+        if (v47 < v48)
+        {
+          v50 = 1;
+        }
+
+        else
+        {
+          v47 = *&v10[4 * v16];
+          v50 = v49 < v48;
+        }
+
+        if (v50)
+        {
+          if (v49 >= v47)
+          {
+            v49 = v47;
+          }
+
+          *&v10[4 * v16] = v49;
+        }
+      }
+
+      v51 = v42 - v43;
+      if (fabsf(v51) >= 0.0000001)
+      {
+        v52 = fabsf((v45 - v46) / v51);
+        if (v52 <= v23)
+        {
+          v52 = v23;
+        }
+
+        v53 = *&v10[4 * v16];
+        v54 = fabsf((v45 + v46) / v51);
+        if (v54 <= v23)
+        {
+          v54 = v23;
+        }
+
+        if (v52 < v53)
+        {
+          v55 = 1;
+        }
+
+        else
+        {
+          v52 = *&v10[4 * v16];
+          v55 = v54 < v53;
+        }
+
+        if (v55)
+        {
+          if (v54 >= v52)
+          {
+            v54 = v52;
+          }
+
+          *&v10[4 * v16] = v54;
+        }
+      }
+
+      v1 += 5;
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  result = *&v10[4 * v16];
+  *&v10[4 * v17] = result;
+  return result;
+}
+
+uint64_t physx::ConvexMeshBuilder::save(uint64_t *a1, void (***a2)(uint64_t (***)(void, unsigned int *, uint64_t), unsigned int *, uint64_t), uint64_t a3)
+{
+  result = physx::writeHeader(67, 86, 88, 77, 0xDu, a3, a2);
+  if (result)
+  {
+    LODWORD(v12[0]) = 0;
+    (**a2)(a2, v12, 4);
+    result = physx::ConvexHullBuilder::save(a1, a2, a3);
+    if (result)
+    {
+      LODWORD(v12[0]) = 0;
+      (**a2)(a2, v12, 4);
+      physx::writeFloat(a3, a2, *(a1 + 20) - *(a1 + 23));
+      physx::writeFloat(a3, a2, *(a1 + 21) - *(a1 + 24));
+      physx::writeFloat(a3, a2, *(a1 + 22) - *(a1 + 25));
+      physx::writeFloat(a3, a2, *(a1 + 20) + *(a1 + 23));
+      physx::writeFloat(a3, a2, *(a1 + 21) + *(a1 + 24));
+      physx::writeFloat(a3, a2, *(a1 + 22) + *(a1 + 25));
+      physx::writeFloat(a3, a2, *(a1 + 40));
+      physx::writeFloatBuffer(a1 + 41, 9, a3, a2);
+      physx::writeFloatBuffer(a1 + 26, 3, a3, a2);
+      if (a1[19])
+      {
+        if (a3)
+        {
+          v7 = -1;
+        }
+
+        else
+        {
+          v7 = 0;
+        }
+
+        v8 = vbsl_s8(vdup_n_s16(v7), 8388671, 0x3F008000000000);
+        LODWORD(v12[0]) = vuzp1_s8(v8, v8).u32[0];
+        (**a2)(a2, v12, 4);
+        v9 = *a1;
+        v12[1] = a1[19];
+        v12[2] = v9;
+        v12[0] = a1 + 10;
+        physx::BigConvexDataBuilder::save(v12, a2, a3);
+      }
+
+      else
+      {
+        if (a3)
+        {
+          v10 = -1;
+        }
+
+        else
+        {
+          v10 = 0;
+        }
+
+        v11 = vbsl_s8(vdup_n_s16(v10), 8388799, 0xBF008000000000);
+        LODWORD(v12[0]) = vuzp1_s8(v11, v11).u32[0];
+        (**a2)(a2, v12, 4);
+      }
+
+      physx::writeFloat(a3, a2, *(a1 + 34));
+      physx::writeFloat(a3, a2, *(a1 + 35));
+      physx::writeFloat(a3, a2, *(a1 + 36));
+      physx::writeFloat(a3, a2, *(a1 + 37));
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::ConvexMeshBuilder::copy(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 56);
+  v5 = *(v4 + 38);
+  *(a2 + 38) = v5;
+  v6 = *(a1 + 64);
+  v7 = *(v4 + 36) & 0x7FFF;
+  v8 = v7 | (v6 << 15);
+  *(a2 + 36) = v8;
+  v9 = *(v4 + 39);
+  *(a2 + 39) = v9;
+  v10 = 0;
+  if (v9)
+  {
+    v11 = (*(a1 + 8) + 18);
+    v12 = v9;
+    do
+    {
+      v13 = *v11;
+      v11 += 20;
+      v10 += v13;
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  if (v6)
+  {
+    v14 = 4 * v7;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = 15 * v5 + 2 * v7 + 20 * v9 + v14 + v10 + 3;
+  if ((v15 & 0xFFFFFFFC) != 0)
+  {
+    v16 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v15 & 0xFFFFFFFC, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullBuilder.cpp", 449);
+    LODWORD(v9) = *(a2 + 39);
+    v17 = *(a2 + 38);
+    v8 = *(a2 + 36);
+    v5 = *(*(a1 + 56) + 38);
+  }
+
+  else
+  {
+    v16 = 0;
+    v17 = v5;
+  }
+
+  *(a2 + 40) = v16;
+  v18 = (v16 + 20 * v9);
+  v19 = &v18[12 * v17];
+  v20 = v8;
+  v21 = v8 & 0x7FFF;
+  v22 = &v19[2 * v21];
+  v23 = &v22[3 * v17];
+  v24 = 4 * v21;
+  if (v20 < 0)
+  {
+    v25 = v24;
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  memcpy(v18, *a1, 12 * v5);
+  memcpy(*(a2 + 40), *(a1 + 8), 20 * *(a2 + 39));
+  memcpy(&v23[v25], *(a1 + 16), v10);
+  memcpy(v19, *(a1 + 24), 2 * (*(*(a1 + 56) + 36) & 0x7FFF));
+  if (*(a1 + 64))
+  {
+    memcpy(v23, *(a1 + 48), 4 * (*(*(a1 + 56) + 36) & 0x7FFF));
+  }
+
+  memcpy(v22, *(a1 + 32), 3 * *(*(a1 + 56) + 38));
+  *(a2 + 72) = v10;
+  *(a2 + 76) = *(a1 + 160);
+  *(a2 + 92) = *(a1 + 176);
+  *(a2 + 100) = *(a1 + 184);
+  *(a2 + 108) = *(a1 + 192);
+  *a2 = *(a1 + 80);
+  *(a2 + 8) = *(a1 + 88);
+  *(a2 + 16) = *(a1 + 96);
+  *(a2 + 24) = *(a1 + 104);
+  *(a2 + 32) = *(a1 + 112);
+  v26 = *(a1 + 152);
+  if (v26)
+  {
+    *(a1 + 152) = 0;
+  }
+
+  *(a2 + 48) = v26;
+  *(a2 + 120) = v26;
+  *(a2 + 56) = *(a1 + 136);
+  *(a2 + 60) = *(a1 + 140);
+  *(a2 + 64) = *(a1 + 144);
+  *(a2 + 68) = *(a1 + 148);
+  return 1;
+}
+
+float32_t physx::PxMat33::operator-(float32x4_t *a1, float32x4_t *a2)
+{
+  result = -a2[2].f32[0];
+  v3 = vnegq_f32(a2[1]);
+  *a1 = vnegq_f32(*a2);
+  a1[1] = v3;
+  a1[2].f32[0] = result;
+  return result;
+}
+
+uint64_t physx::ConvexMeshBuilder::computeHullPolygons(uint64_t a1, _DWORD *a2, const void *a3, _DWORD *a4, uint64_t a5, uint64_t a6, _DWORD *a7, void *a8, unsigned int *a9, uint64_t *a10, _DWORD *a11, uint64_t *a12)
+{
+  *(a1 + 32) = 0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 68) = *a4;
+  v18 = (a1 + 68);
+  v19 = *a2;
+  *(*(a1 + 56) + 38) = *a2;
+  v20 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * v19 + 12, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexPolygonsBuilder.cpp", 996);
+  *a1 = v20;
+  memcpy(v20, a3, 12 * *(*(a1 + 56) + 38));
+  v21 = physx::shdfnd::ReflectionAllocator<physx::HullTriangleData>::allocate(12 * *v18, 999);
+  v22 = v21;
+  *(a1 + 72) = v21;
+  v247 = a8;
+  if (*v18)
+  {
+    v23 = 0;
+    v24 = v21 + 2;
+    v25 = 2;
+    do
+    {
+      *(v24 - 2) = *(a5 + 4 * (v25 - 2));
+      *(v24 - 1) = *(a5 + 4 * (v25 - 1));
+      *v24 = *(a5 + 4 * v25);
+      v24 += 3;
+      ++v23;
+      v26 = *v18;
+      v25 += 3;
+    }
+
+    while (v23 < v26);
+  }
+
+  else
+  {
+    LODWORD(v26) = 0;
+  }
+
+  LOBYTE(v27) = *(*(a1 + 56) + 38);
+  v28 = *a1;
+  physx::MeshCleaner::MeshCleaner(&v248, v27, *a1, v26, v21, 0.0);
+  v29 = HIDWORD(v248);
+  if (HIDWORD(v248))
+  {
+    v27 = v248;
+    *v18 = HIDWORD(v248);
+    memcpy(v28, __src, (12 * v27));
+    v30 = 0;
+    v31 = v250;
+    v32 = (v22 + 4);
+    do
+    {
+      *(v32 - 1) = *(v31 + 4 * v30);
+      *v32 = *(v31 + 4 * (v30 + 1));
+      v32[1] = *(v31 + 4 * (v30 + 2));
+      v30 += 3;
+      v32 += 3;
+    }
+
+    while (3 * v29 != v30);
+    TestDuplicateTriangles(v18, v22, 1);
+    TestUnifiedNormals(v27, v28, *v18, v22, 1);
+    TestUnifiedNormals(v27, v28, *v18, v22, 1);
+    TestDuplicateTriangles(v18, v22, 1);
+  }
+
+  physx::MeshCleaner::~MeshCleaner(&v248);
+  *(*(a1 + 56) + 38) = v27;
+  v33 = *a1;
+  LODWORD(v248) = *(a1 + 68);
+  if (!TestDuplicateTriangles(&v248, v22, 0) || (TestUnifiedNormals(v27, v33, v248, v22, 0) & 1) == 0)
+  {
+    goto LABEL_170;
+  }
+
+  *(*(a1 + 56) + 39) = 0;
+  if (*(a1 + 16))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *(a1 + 16) = 0;
+  if (*(a1 + 32))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *(a1 + 32) = 0;
+  if (*(a1 + 8))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *(a1 + 8) = 0;
+  v248 = 0;
+  __src = 0;
+  v255 = 0;
+  v256 = 0;
+  v253 = 0;
+  v254 = 0;
+  v252 = 0;
+  v41 = 0;
+  if (!extractHullPolygons(&v252, &v248, a1, &v255, &v253))
+  {
+    goto LABEL_152;
+  }
+
+  v42 = *(*(a1 + 56) + 38);
+  if (v254)
+  {
+    v43 = v42 - v254;
+    if (v42 == v254)
+    {
+      v44 = 0;
+    }
+
+    else
+    {
+      v44 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * (v42 - v254), "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexPolygonsBuilder.cpp", 1057);
+      v42 = *(*(a1 + 56) + 38);
+    }
+
+    v46 = physx::shdfnd::ReflectionAllocator<unsigned char>::allocate(v257, v42, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexPolygonsBuilder.cpp", 1058);
+    if (*(*(a1 + 56) + 38))
+    {
+      v47 = 0;
+      v48 = 0;
+      do
+      {
+        v49 = v254;
+        if (!v254)
+        {
+          goto LABEL_33;
+        }
+
+        v50 = v253;
+        while (1)
+        {
+          v51 = *v50++;
+          if (v51 == v47)
+          {
+            break;
+          }
+
+          if (!--v49)
+          {
+            goto LABEL_33;
+          }
+        }
+
+        if (v49)
+        {
+          v52 = -1;
+        }
+
+        else
+        {
+LABEL_33:
+          v53 = *a1 + 12 * v47;
+          v54 = &v44[3 * v48];
+          *v54 = *v53;
+          v54[2] = *(v53 + 8);
+          v52 = v48++;
+        }
+
+        *(v46 + v47++) = v52;
+      }
+
+      while (v47 < *(*(a1 + 56) + 38));
+    }
+
+    v45 = v252;
+    if (v252)
+    {
+      v55 = 0;
+      v56 = v248;
+      do
+      {
+        v59 = *v56;
+        v57 = v56 + 1;
+        v58 = v59;
+        v60 = v57;
+        v61 = v59;
+        if (v59)
+        {
+          do
+          {
+            *v60 = *(v46 + *v60);
+            ++v60;
+            --v61;
+          }
+
+          while (v61);
+        }
+
+        else
+        {
+          v58 = 0;
+        }
+
+        v56 = &v57[v58];
+        ++v55;
+      }
+
+      while (v55 != v45);
+    }
+
+    if (v46)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v46);
+    }
+
+    LOBYTE(v42) = v43;
+  }
+
+  else
+  {
+    v44 = *a1;
+    v45 = v252;
+  }
+
+  if (v45 >= 0x100)
+  {
+    v62 = physx::shdfnd::Foundation::mInstance;
+    v63 = "ConvexHullBuilder: convex hull has more than 255 polygons!";
+    v64 = 1096;
+LABEL_47:
+    physx::shdfnd::Foundation::error(v62, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexPolygonsBuilder.cpp", v64, v63, v34, v35, v36);
+    goto LABEL_151;
+  }
+
+  *(*(a1 + 56) + 39) = v45;
+  if (v45)
+  {
+    v65 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 20 * v45, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexPolygonsBuilder.cpp", 1102);
+    v66 = 20 * *(*(a1 + 56) + 39);
+  }
+
+  else
+  {
+    v66 = 0;
+    v65 = 0;
+  }
+
+  *(a1 + 8) = v65;
+  bzero(v65, v66);
+  physx::ConvexHullBuilder::computeGeomCenter(*a1, *(*(a1 + 56) + 38), v251, *(a1 + 68), *(a1 + 72), v67);
+  v68 = physx::shdfnd::ReflectionAllocator<unsigned char>::allocate(v257, __src - v45, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexPolygonsBuilder.cpp", 1113);
+  *(a1 + 16) = v68;
+  if (v45)
+  {
+    v69 = 0;
+    v70 = v255;
+    v71 = v248;
+    v72 = *(a1 + 8);
+    do
+    {
+      v73 = v72 + 20 * v69;
+      *(v73 + 16) = v68 - *(a1 + 16);
+      v76 = *v71;
+      v74 = (v71 + 1);
+      v75 = v76;
+      *(v73 + 18) = v76;
+      if (v76)
+      {
+        v77 = 0;
+        v78 = v74;
+        v79 = v75;
+        do
+        {
+          v81 = *v78++;
+          v80 = v81;
+          if (v81 == 255)
+          {
+            --*(*(a1 + 8) + 20 * v69 + 18);
+          }
+
+          else
+          {
+            *(v68 + v77++) = v80;
+          }
+
+          --v79;
+        }
+
+        while (v79);
+        v72 = *(a1 + 8);
+      }
+
+      v82 = (v72 + 20 * v69);
+      v83 = v82[2].u8[2];
+      if (v68 && v44 && v82[2].i8[2])
+      {
+        v84 = 0;
+        v85 = v83 - 1;
+        v86 = 0.0;
+        v87 = 0.0;
+        v88 = 0.0;
+        v89 = 0.0;
+        v90 = 0.0;
+        v91 = 0.0;
+        do
+        {
+          v92 = &v44[3 * *(v68 + v85)];
+          v93 = &v44[3 * *(v68 + v84)];
+          v94 = v92[1];
+          v95 = v93[1];
+          v96 = v92[2];
+          v97 = v93[2];
+          v86 = v86 + ((v94 - v95) * (v96 + v97));
+          v87 = v87 + ((v96 - v97) * (*v92 + *v93));
+          v88 = v88 + ((*v92 - *v93) * (v94 + v95));
+          v89 = v89 + *v93;
+          v90 = v90 + v95;
+          v91 = v91 + v97;
+          v85 = v84++;
+        }
+
+        while (v83 != v84);
+        v82->f32[0] = v86;
+        v82->f32[1] = v87;
+        v82[1].f32[0] = v88;
+        v98 = sqrtf(((v87 * v87) + (v86 * v86)) + (v88 * v88));
+        if (v98 > 0.0)
+        {
+          v99 = 1.0 / v98;
+          v86 = v86 * v99;
+          v87 = v87 * v99;
+          v82->f32[0] = v86;
+          v82->f32[1] = v87;
+          v88 = v88 * v99;
+          v82[1].f32[0] = v88;
+        }
+
+        v82[1].f32[1] = -(((v90 * v87) + (v89 * v86)) + (v91 * v88)) / v83;
+      }
+
+      v100 = v70 + 1;
+      v101 = *v70;
+      if (*v70)
+      {
+        v102 = 0;
+        v103 = 0;
+        v104 = *a1;
+        v105 = 4 * (v101 - 1);
+LABEL_70:
+        ++v100;
+        do
+        {
+          v106 = (*(a1 + 72) + 12 * *(v100 - 1));
+          v107 = &v104[3 * *v106];
+          v108 = &v104[3 * v106[1]];
+          v109 = &v104[3 * v106[2]];
+          v110 = v107[1];
+          v111 = *v108 - *v107;
+          v112 = v108[1] - v110;
+          v113 = *v109 - *v107;
+          v114 = v107[2];
+          v115 = v108[2] - v114;
+          v116 = v109[1] - v110;
+          v117 = v109[2] - v114;
+          v118 = (v112 * v117) - (v115 * v116);
+          v119 = (v115 * v113) - (v111 * v117);
+          v120 = (v111 * v116) - (v112 * v113);
+          v121 = ((v119 * v119) + (v118 * v118)) + (v120 * v120);
+          v122 = 0.0;
+          v123 = 0.0;
+          v124 = 0.0;
+          if (v121 > 0.0)
+          {
+            v125 = 1.0 / sqrtf(v121);
+            v122 = v118 * v125;
+            v123 = v119 * v125;
+            v124 = v120 * v125;
+          }
+
+          if (!v102)
+          {
+            v126 = *v82;
+            v127 = vmuls_lane_f32(v123, *v82, 1) + (v122 * COERCE_FLOAT(*v82));
+            v128 = v82[1].f32[0];
+            if ((v127 + (v124 * v128)) < 0.0)
+            {
+              v102 = 1;
+              v103 = 1;
+              if (v101 != 1)
+              {
+                goto LABEL_70;
+              }
+
+              v70 = (v70 + v105 + 8);
+              goto LABEL_81;
+            }
+          }
+
+          ++v102;
+          ++v100;
+        }
+
+        while (v101 != v102);
+        v70 = (v70 + v105 + 8);
+        if ((v103 & 1) == 0)
+        {
+          goto LABEL_87;
+        }
+
+        v126 = *v82;
+        v128 = v82[1].f32[0];
+LABEL_81:
+        *v82 = vneg_f32(v126);
+        v129 = -v82[1].f32[1];
+        v82[1].f32[0] = -v128;
+        v82[1].f32[1] = v129;
+        if (v68 && v83 >= 2)
+        {
+          v130 = v83 >> 1;
+          v131 = v83 - 1;
+          v132 = v68;
+          do
+          {
+            v133 = *v132;
+            *v132++ = *(v68 + v131);
+            *(v68 + v131--) = v133;
+            --v130;
+          }
+
+          while (v130);
+          v72 = *(a1 + 8);
+        }
+      }
+
+      else
+      {
+        ++v70;
+      }
+
+LABEL_87:
+      v134 = *(a1 + 56);
+      v135 = *(v134 + 38);
+      v136 = (v72 + 20 * v69);
+      if (*(v134 + 38))
+      {
+        _Q2.i64[0] = v136->i64[0];
+        v138 = v136->f32[2];
+        v139 = v72 + 20 * v69;
+        v141 = *(v139 + 12);
+        v140 = (v139 + 12);
+        v142 = v141;
+        v143 = (*a1 + 8);
+        do
+        {
+          v144 = -(((_Q2.f32[1] * *(v143 - 1)) + (_Q2.f32[0] * *(v143 - 2))) + (v138 * *v143));
+          if (v142 > v144)
+          {
+            *v140 = v144;
+            v142 = v144;
+          }
+
+          v143 += 3;
+          --v135;
+        }
+
+        while (v135);
+        _Q2.i64[1] = __PAIR64__(LODWORD(v142), LODWORD(v138));
+      }
+
+      else
+      {
+        _Q2 = *v136;
+      }
+
+      _S4 = v251[2];
+      __asm { FMLA            S3, S4, V2.S[2] }
+
+      if ((_Q2.f32[3] + _S3) > 0.0)
+      {
+        if (v68)
+        {
+          v151 = *(v72 + 20 * v69 + 18);
+          if (v151 >= 2)
+          {
+            v152 = v151 >> 1;
+            v153 = v151 - 1;
+            v154 = v68;
+            do
+            {
+              v155 = *v154;
+              *v154++ = *(v68 + v153);
+              *(v68 + v153--) = v155;
+              --v152;
+            }
+
+            while (v152);
+            v72 = *(a1 + 8);
+            _Q2 = *(v72 + 20 * v69);
+          }
+        }
+
+        *(v72 + 20 * v69) = vnegq_f32(_Q2);
+      }
+
+      v71 = &v74[v75];
+      v68 += *(v72 + 20 * v69++ + 18);
+    }
+
+    while (v69 != v45);
+  }
+
+  if (v44 != *a1)
+  {
+    memcpy(*a1, v44, 12 * v42);
+    if (v44)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v44);
+      v45 = v252;
+    }
+
+    *(*(a1 + 56) + 38) = v42;
+  }
+
+  if (!physx::ConvexHullBuilder::calculateVertexMapTable(a1, v45, 0))
+  {
+    goto LABEL_151;
+  }
+
+  v156 = *(a1 + 56);
+  if (v45)
+  {
+    v157 = 0;
+    v158 = *(v156 + 38);
+    v159 = *a1;
+    v160 = *(a1 + 8);
+    do
+    {
+      v161 = v160 + 20 * v157;
+      if (v158)
+      {
+        v162 = 0;
+        v163 = *v161;
+        v164 = *(v161 + 4);
+        v165 = *(v161 + 8);
+        v166 = -1;
+        v167 = 3.4028e38;
+        v168 = v159;
+        do
+        {
+          v169 = v168[2];
+          if ((((v164 * v168[1]) + (*v168 * v163)) + (v169 * v165)) < v167)
+          {
+            v167 = ((v164 * v168[1]) + (*v168 * v163)) + (v169 * v165);
+            v166 = v162;
+          }
+
+          ++v162;
+          v168 += 3;
+        }
+
+        while (v158 > v162);
+      }
+
+      else
+      {
+        v166 = -1;
+      }
+
+      *(v161 + 19) = v166;
+      ++v157;
+    }
+
+    while (v157 != v45);
+  }
+
+  v170 = *(v156 + 39);
+  if (!v170)
+  {
+    goto LABEL_151;
+  }
+
+  v171 = *(a1 + 8);
+  if (!v171)
+  {
+    goto LABEL_151;
+  }
+
+  v172 = 0;
+  v173 = (v171 + 18);
+  do
+  {
+    v175 = *v173;
+    v173 += 20;
+    v174 = v175;
+    if (v175 <= 2)
+    {
+      v62 = physx::shdfnd::Foundation::mInstance;
+      v63 = "ConvexHullBuilder::CreateTrianglesFromPolygons: convex hull has a polygon with less than 3 vertices!";
+      v64 = 1232;
+      goto LABEL_47;
+    }
+
+    v172 = v172 + v174 - 2;
+    --v170;
+  }
+
+  while (v170);
+  v176 = physx::shdfnd::ReflectionAllocator<physx::HullTriangleData>::allocate(12 * v172, 1238);
+  v178 = v176;
+  v179 = *a1;
+  v180 = *(*(a1 + 56) + 39);
+  if (*(*(a1 + 56) + 39))
+  {
+    v181 = 0;
+    v182 = 0;
+    v184 = *(a1 + 8);
+    v183 = *(a1 + 16);
+    v185 = v176;
+    do
+    {
+      v186 = v184 + 20 * v181;
+      v187 = *(v186 + 18);
+      if (v187 != 2)
+      {
+        v188 = (v183 + *(v186 + 16));
+        for (i = 2; i != v187; ++i)
+        {
+          v190 = *v188;
+          *v185 = v190;
+          v191 = v188[(i - 1) % v187];
+          v185[1] = v191;
+          v192 = v188[i % v187];
+          v185[2] = v192;
+          v193 = &v179[3 * v190];
+          v194 = &v179[3 * v191];
+          v195 = &v179[3 * v192];
+          v196 = v193[1];
+          v197 = *v194 - *v193;
+          v198 = v194[1] - v196;
+          v199 = *v195 - *v193;
+          v200 = v193[2];
+          v201 = v194[2] - v200;
+          v202 = v195[1] - v196;
+          v203 = v195[2] - v200;
+          v177 = ((((v201 * v199) - (v197 * v203)) * ((v201 * v199) - (v197 * v203))) + (((v198 * v203) - (v201 * v202)) * ((v198 * v203) - (v201 * v202)))) + (((v197 * v202) - (v198 * v199)) * ((v197 * v202) - (v198 * v199)));
+          if (v177 == 0.0)
+          {
+            v204 = 0;
+          }
+
+          else
+          {
+            ++v182;
+            v204 = 12;
+          }
+
+          v185 = (v185 + v204);
+        }
+      }
+
+      ++v181;
+    }
+
+    while (v181 != v180);
+  }
+
+  else
+  {
+    v182 = 0;
+  }
+
+  if (*(a1 + 72))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *(a1 + 72) = 0;
+  if (v172 == v182)
+  {
+    v205 = v178;
+  }
+
+  else
+  {
+    v206 = physx::shdfnd::ReflectionAllocator<physx::HullTriangleData>::allocate(12 * v182, 1299);
+    if (!v206)
+    {
+      if (v178)
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v178);
+      }
+
+LABEL_151:
+      v41 = 0;
+      goto LABEL_152;
+    }
+
+    v205 = v206;
+    memcpy(v206, v178, 12 * v182);
+    if (v178)
+    {
+      v177 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v178);
+    }
+  }
+
+  *(a1 + 72) = v205;
+  *(a1 + 68) = v182;
+  physx::ConvexHullBuilder::computeGeomCenter(*a1, *(*(a1 + 56) + 38), v257, v182, v205, v177);
+  if (v182)
+  {
+    v207 = 0;
+    v208 = *v257;
+    v209 = *&v257[1];
+    v210 = (v205 + 8);
+    v211 = *&v257[2];
+    do
+    {
+      v212 = *(v210 - 1);
+      v213 = &v179[3 * *(v210 - 2)];
+      v214 = &v179[3 * v212];
+      v215 = &v179[3 * *v210];
+      v216 = v213[1];
+      v217 = *v214 - *v213;
+      v218 = v214[1] - v216;
+      v219 = v213[2];
+      v220 = v214[2] - v219;
+      v221 = *v215 - *v213;
+      v222 = v215[1] - v216;
+      v223 = v215[2] - v219;
+      v224 = (v218 * v223) - (v220 * v222);
+      v225 = (v220 * v221) - (v217 * v223);
+      v226 = (v217 * v222) - (v218 * v221);
+      v227 = ((v225 * v225) + (v224 * v224)) + (v226 * v226);
+      v228 = 0.0;
+      v229 = 0.0;
+      v230 = 0.0;
+      if (v227 > 0.0)
+      {
+        v231 = 1.0 / sqrtf(v227);
+        v228 = v224 * v231;
+        v229 = v225 * v231;
+        v230 = v226 * v231;
+      }
+
+      if ((((v209 * v229) + (v208 * v228)) + (v211 * v230)) > (((v216 * v229) + (*v213 * v228)) + (v219 * v230)))
+      {
+        *(v210 - 1) = *v210;
+        *v210 = v212;
+        v182 = *v18;
+      }
+
+      ++v207;
+      v210 += 3;
+    }
+
+    while (v207 < v182);
+  }
+
+  v41 = 1;
+LABEL_152:
+  if ((v254 & 0x8000000000000000) == 0 && (v254 & 0x7FFFFFFF00000000) != 0)
+  {
+    v37 = v253;
+    if (v253)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+  }
+
+  if ((v256 & 0x8000000000000000) == 0 && (v256 & 0x7FFFFFFF00000000) != 0)
+  {
+    v37 = v255;
+    if (v255)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+  }
+
+  if ((HIDWORD(__src) & 0x80000000) == 0 && (HIDWORD(__src) & 0x7FFFFFFF) != 0)
+  {
+    v37 = v248;
+    if (v248)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+  }
+
+  if (!v41 || (physx::ConvexHullBuilder::checkHullPolygons(a1, v37, v38, v39, v40, v34, v35, v36) & 1) == 0)
+  {
+LABEL_170:
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 331, "ConvexMeshBuilder::computeHullPolygons: compute convex hull polygons failed. Provided triangles dont form a convex hull.", v34, v35, v36);
+    return 0;
+  }
+
+  v232 = *(a1 + 56);
+  *a7 = *(v232 + 38);
+  *a11 = *(v232 + 39);
+  v233 = (*(*a6 + 16))(a6, 12 * *a7, "PxVec3", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 338);
+  *v247 = v233;
+  memcpy(v233, *a1, (12 * *a7));
+  *a9 = 0;
+  if (*a11)
+  {
+    v234 = 0;
+    v235 = 0;
+    v236 = (*(a1 + 8) + 18);
+    do
+    {
+      v237 = *v236;
+      v236 += 20;
+      v234 += v237;
+      *a9 = v234;
+      ++v235;
+    }
+
+    while (v235 < *a11);
+    v238 = 4 * v234;
+  }
+
+  else
+  {
+    v238 = 0;
+  }
+
+  v240 = (*(*a6 + 16))(a6, v238, "PxU32", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 347);
+  *a10 = v240;
+  if (*a9)
+  {
+    v241 = 0;
+    v242 = *(a1 + 16);
+    do
+    {
+      *(v240 + 4 * v241) = *(v242 + v241);
+      ++v241;
+    }
+
+    while (v241 < *a9);
+  }
+
+  v243 = (*(*a6 + 16))(a6, 20 * *a11, "PxHullPolygon", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexMeshBuilder.cpp", 353);
+  *a12 = v243;
+  v244 = *a11;
+  if (v244)
+  {
+    v245 = v243 + 12;
+    v246 = *(a1 + 8) + 12;
+    do
+    {
+      *(v245 - 12) = *(v246 - 12);
+      *(v245 - 8) = *(v246 - 8);
+      *(v245 - 4) = *(v246 - 4);
+      *v245 = *v246;
+      *(v245 + 4) = *(v246 + 6);
+      *(v245 + 6) = *(v246 + 4);
+      v245 += 20;
+      v246 += 20;
+      --v244;
+    }
+
+    while (v244);
+  }
+
+  return 1;
+}
+
+void physx::ConvexPolygonsBuilder::~ConvexPolygonsBuilder(physx::ConvexPolygonsBuilder *this)
+{
+  if (*(this + 9))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  *(this + 9) = 0;
+
+  physx::ConvexHullBuilder::~ConvexHullBuilder(this);
+}
+
+uint64_t extractHullPolygons(_DWORD *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+{
+  v168 = a5;
+  v166 = a2;
+  v199 = *MEMORY[0x1E69E9840];
+  v8 = *(a3 + 17);
+  v9 = *a3;
+  v10 = *(a3[7] + 38);
+  v11 = a3[9];
+  v187 = *(a3 + 17);
+  v178 = v11;
+  v188 = v11;
+  v189 = 0;
+  v190 = v9;
+  v191 = 1000593162;
+  v185 = 0;
+  v186 = 0;
+  if (!physx::AdjacenciesBuilder::Init(&v185, &v187) || (v12 = physx::Adjacencies::ComputeNbBoundaryEdges(&v185), v12))
+  {
+    v13 = 0;
+    goto LABEL_4;
+  }
+
+  v159 = a3;
+  v163 = a4;
+  MEMORY[0x1EEE9AC00](v12);
+  v165 = &v158 - ((v8 + 15) & 0x1FFFFFFF0);
+  bzero(v165, v8);
+  MEMORY[0x1EEE9AC00](v15);
+  v167 = &v158 - v16;
+  v162 = v10;
+  bzero(&v158 - v16, v10);
+  v160 = a1;
+  *a1 = 0;
+  v17 = v168;
+  v18 = v8;
+  v161 = v8;
+  while (1)
+  {
+    if (v18)
+    {
+      v19 = 0;
+      v20 = v162;
+      v21 = v167;
+      v22 = v165;
+      while (v165[v19] == 1)
+      {
+        if (v18 == ++v19)
+        {
+          goto LABEL_234;
+        }
+      }
+    }
+
+    else
+    {
+      v19 = 0;
+      v20 = v162;
+      v21 = v167;
+      v22 = v165;
+    }
+
+    if (v19 == v18)
+    {
+      break;
+    }
+
+    v183 = 0;
+    v184 = 0;
+    v23 = v186;
+    v164 = v19;
+LABEL_16:
+    extractHullPolygons(unsigned int &,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &,physx::ConvexPolygonsBuilder const&,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>*,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &)::Local::FloodFill(&v183, v23, v19, v22);
+    v24 = 0;
+    v23 = v186;
+    v25 = v184;
+    v26 = v183;
+    v27 = v184 - 1;
+    v28 = 1;
+    v170 = v183;
+    v169 = v184;
+    while (v24 != v25)
+    {
+      v29 = *(v26 + 4 * v24);
+      v173 = v28;
+      v172 = v24 + 1;
+      if (v24 + 1 < v25)
+      {
+        v30 = v28 + 1;
+        v31 = (v26 + 4 * v28);
+        v32 = 1;
+        v33 = v27;
+        while (1)
+        {
+          v34 = *v31++;
+          v35 = (v23 + 12 * v34);
+          v36 = v35[1];
+          v38 = (*v35 & 0x20000000) == 0 || (*v35 & 0x1FFFFFFF) != v29;
+          v39 = v36 & 0x1FFFFFFF;
+          v40 = (v36 & 0x20000000) == 0 && v38;
+          if (v39 == v29)
+          {
+            v38 = v40;
+          }
+
+          v41 = v35[2];
+          if ((v41 & 0x1FFFFFFF) == v29)
+          {
+            if ((v41 & 0x20000000) != 0)
+            {
+              LOBYTE(v38) = 0;
+            }
+
+            if (!v38)
+            {
+              goto LABEL_40;
+            }
+          }
+
+          else if (!v38)
+          {
+            goto LABEL_40;
+          }
+
+          v32 = v30++ < v25;
+          if (!--v33)
+          {
+            goto LABEL_40;
+          }
+        }
+      }
+
+      v32 = 0;
+LABEL_40:
+      v171 = v32;
+      v174 = v27;
+      if (v178)
+      {
+        v42 = 0;
+        v43 = v23 + 12 * v29;
+        v44 = *(v178 + 12 * v29);
+        v176 = *(v178 + 4 * (3 * v29 + 1));
+        v177 = v44;
+        v175 = *(v178 + 4 * (3 * v29 + 2));
+        while (1)
+        {
+          if ((*(v43 + 4 * v42) & 0x20000000) == 0)
+          {
+            if (v42 == 1)
+            {
+              v45 = v177;
+            }
+
+            else
+            {
+              v45 = v176;
+            }
+
+            v46 = 0;
+            if (v42 == 1)
+            {
+              v47 = 2;
+            }
+
+            else
+            {
+              v47 = 1;
+            }
+
+            if (!v42)
+            {
+              v46 = 1;
+            }
+
+            v48 = *(v43 + 4 * v46);
+            v49 = v42 ? v45 : v177;
+            v50 = v42 ? v175 : v176;
+            v51 = v42 ? v47 : 2;
+            LODWORD(v196) = 0;
+            LODWORD(v181) = 0;
+            v52 = v178;
+            NeighborFace = extractHullPolygons(unsigned int &,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &,physx::ConvexPolygonsBuilder const&,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>*,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &)::Local::GetNeighborFace(v29, v49, v23, v178, &v196, &v181);
+            LODWORD(v179) = 0;
+            v195 = 0;
+            v54 = extractHullPolygons(unsigned int &,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &,physx::ConvexPolygonsBuilder const&,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>*,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &)::Local::GetNeighborFace(v48 & 0x1FFFFFFF, v49, v23, v52, &v179, &v195);
+            if (NeighborFace)
+            {
+              if (v54 && v196 == v195 && v181 == v179)
+              {
+                break;
+              }
+            }
+
+            v55 = *(v43 + 4 * v51);
+            v56 = v178;
+            v57 = extractHullPolygons(unsigned int &,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &,physx::ConvexPolygonsBuilder const&,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>*,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &)::Local::GetNeighborFace(v29, v50, v23, v178, &v196, &v181);
+            v58 = extractHullPolygons(unsigned int &,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &,physx::ConvexPolygonsBuilder const&,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>*,physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>> &)::Local::GetNeighborFace(v55 & 0x1FFFFFFF, v50, v23, v56, &v179, &v195);
+            if (v57)
+            {
+              if (v58 && v196 == v195 && v181 == v179)
+              {
+                break;
+              }
+            }
+          }
+
+          if (++v42 == 3)
+          {
+            goto LABEL_69;
+          }
+        }
+
+        v26 = v170;
+LABEL_72:
+        v59 = 0;
+        v22 = v165;
+        do
+        {
+          v60 = v23 + 12 * *(v26 + 4 * v59);
+          *v60 |= 0x2000000020000000uLL;
+          *(v60 + 8) |= 0x20000000u;
+          v22[*(v26 + 4 * v59++)] = 0;
+        }
+
+        while (v59 < v184);
+        LODWORD(v184) = 0;
+        LODWORD(v19) = v164;
+        goto LABEL_16;
+      }
+
+LABEL_69:
+      v28 = v173 + 1;
+      v27 = v174 - 1;
+      v24 = v172;
+      v26 = v170;
+      v25 = v169;
+      if (v171)
+      {
+        goto LABEL_72;
+      }
+    }
+
+    v181 = 0;
+    v182 = 0;
+    if (v25)
+    {
+      v61 = 0;
+      do
+      {
+        v62 = *(v183 + 4 * v61);
+        v63 = *(v178 + 12 * v62);
+        v64 = *(v178 + 4 * (3 * v62 + 1));
+        v65 = *(v178 + 4 * (3 * v62 + 2));
+        v66 = v186;
+        if ((*(v186 + 12 * v62 + 3) & 0x20) != 0)
+        {
+          LODWORD(v196) = *(v178 + 12 * v62);
+          HIDWORD(v196) = v64;
+          v67 = v182;
+          if ((HIDWORD(v182) & 0x7FFFFFFFu) <= v182)
+          {
+            physx::shdfnd::Array<Pair,physx::shdfnd::ReflectionAllocator<Pair>>::growAndPushBack(&v181, &v196);
+          }
+
+          else
+          {
+            *(v181 + 8 * v182) = v196;
+            LODWORD(v182) = v67 + 1;
+          }
+
+          v66 = v186;
+        }
+
+        if ((*(v66 + 12 * v62 + 7) & 0x20) != 0)
+        {
+          v196 = __PAIR64__(v65, v63);
+          v68 = v182;
+          if ((HIDWORD(v182) & 0x7FFFFFFFu) <= v182)
+          {
+            physx::shdfnd::Array<Pair,physx::shdfnd::ReflectionAllocator<Pair>>::growAndPushBack(&v181, &v196);
+          }
+
+          else
+          {
+            *(v181 + 8 * v182) = v196;
+            LODWORD(v182) = v68 + 1;
+          }
+
+          v66 = v186;
+        }
+
+        if ((*(v66 + 12 * v62 + 11) & 0x20) != 0)
+        {
+          v196 = __PAIR64__(v65, v64);
+          v69 = v182;
+          if ((HIDWORD(v182) & 0x7FFFFFFFu) <= v182)
+          {
+            physx::shdfnd::Array<Pair,physx::shdfnd::ReflectionAllocator<Pair>>::growAndPushBack(&v181, &v196);
+          }
+
+          else
+          {
+            *(v181 + 8 * v182) = v196;
+            LODWORD(v182) = v69 + 1;
+          }
+        }
+
+        ++v61;
+      }
+
+      while (v61 < v184);
+    }
+
+    v179 = 0;
+    v180 = 0;
+    physx::shdfnd::Array<Pair,physx::shdfnd::ReflectionAllocator<Pair>>::copy<physx::shdfnd::ReflectionAllocator<Pair>>(&v196, &v181);
+    v73 = v197;
+    v74 = v196;
+    if (v197)
+    {
+      v75 = v197 - 1;
+      while (2)
+      {
+        v76 = 0;
+        v77 = 2;
+        v78 = 1;
+        v79 = v74 + 2;
+        v80 = v75;
+        v81 = v73;
+        while (1)
+        {
+          v82 = v76 + 1;
+          if (v76 + 1 < v81)
+          {
+            break;
+          }
+
+LABEL_106:
+          ++v77;
+          --v80;
+          v79 += 2;
+          ++v78;
+          v76 = v82;
+          if (v82 == v81)
+          {
+            v194 = -1;
+            v195 = -1;
+            v95 = *v74;
+            v194 = v74[1];
+            v195 = v95;
+            if ((HIDWORD(v180) & 0x7FFFFFFFu) <= v180)
+            {
+              physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(&v179, &v195);
+              v96 = v180;
+            }
+
+            else
+            {
+              v179[v180] = v95;
+              v96 = v180 + 1;
+              LODWORD(v180) = v180 + 1;
+            }
+
+            if ((HIDWORD(v180) & 0x7FFFFFFFu) <= v96)
+            {
+              physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(&v179, &v194);
+            }
+
+            else
+            {
+              v179[v96] = v194;
+              LODWORD(v180) = v180 + 1;
+            }
+
+            if (v81 < 2)
+            {
+              if (v81 == 1)
+              {
+                goto LABEL_125;
+              }
+
+              LODWORD(v97) = -1;
+            }
+
+            else
+            {
+              memmove(v74, v74 + 2, 8 * v81 - 8);
+              LODWORD(v97) = v81 - 1;
+              v197 = v81 - 1;
+            }
+
+            v99 = v194;
+            do
+            {
+              v100 = v97;
+              v101 = 1;
+              v102 = v74;
+              v97 = v97;
+              while (1)
+              {
+                v103 = *v102;
+                v193 = v103;
+                v104 = v102[1];
+                v192 = v104;
+                if (v103 == v99)
+                {
+                  break;
+                }
+
+                if (v104 == v99)
+                {
+                  if ((HIDWORD(v180) & 0x7FFFFFFFu) <= v180)
+                  {
+                    physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(&v179, &v193);
+                  }
+
+                  else
+                  {
+                    v179[v180] = v103;
+                    LODWORD(v180) = v180 + 1;
+                  }
+
+                  v99 = v193;
+                  v194 = v193;
+                  v195 = v192;
+                  if (v101 < v100)
+                  {
+                    v106 = 0;
+                    do
+                    {
+                      *&v102[2 * v106] = *&v74[2 * v101 + 2 * v106];
+                      ++v106;
+                    }
+
+                    while (v100 - v101 != v106);
+                  }
+
+                  goto LABEL_146;
+                }
+
+                ++v101;
+                v102 += 2;
+                if (!--v97)
+                {
+                  v98 = 0;
+                  goto LABEL_147;
+                }
+              }
+
+              if ((HIDWORD(v180) & 0x7FFFFFFFu) <= v180)
+              {
+                physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(&v179, &v192);
+              }
+
+              else
+              {
+                v179[v180] = v104;
+                LODWORD(v180) = v180 + 1;
+              }
+
+              v99 = v192;
+              v194 = v192;
+              v195 = v193;
+              if (v101 < v100)
+              {
+                v105 = 0;
+                do
+                {
+                  *&v102[2 * v105] = *&v74[2 * v101 + 2 * v105];
+                  ++v105;
+                }
+
+                while (v100 - v101 != v105);
+              }
+
+LABEL_146:
+              v98 = 1;
+              LODWORD(v97) = v100 - 1;
+            }
+
+            while (v100 != 1);
+            goto LABEL_147;
+          }
+        }
+
+        v83 = &v74[2 * v76];
+        v84 = *v83;
+        v85 = v83[1];
+        v86 = v79;
+        v87 = v80;
+        v88 = v77;
+        while (1)
+        {
+          v70 = v86[1];
+          if (*v86 == v84 && v70 == v85)
+          {
+            break;
+          }
+
+          if (v70 == v84 && *v86 == v85)
+          {
+            break;
+          }
+
+          ++v88;
+          v86 += 2;
+          if (!--v87)
+          {
+            goto LABEL_106;
+          }
+        }
+
+        if (v88 < v81)
+        {
+          v91 = 0;
+          do
+          {
+            *&v86[2 * v91] = *&v74[2 * v88 + 2 * v91];
+            ++v91;
+          }
+
+          while (v88 + v91 < v81);
+        }
+
+        if (v81 - 1 > v82)
+        {
+          v92 = v75 - v78;
+          v93 = &v74[2 * v78];
+          do
+          {
+            v94 = *v93;
+            v93 += 2;
+            *v83 = v94;
+            v83 += 2;
+            --v92;
+          }
+
+          while (v92);
+        }
+
+        v75 -= 2;
+        v73 = v81 - 2;
+        if (v81 != 2)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+LABEL_125:
+    v98 = 1;
+LABEL_147:
+    if ((v198 & 0x80000000) == 0 && (v198 & 0x7FFFFFFF) != 0 && v74 != 0)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v74);
+    }
+
+    if ((v98 & 1) == 0)
+    {
+      physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexPolygonsBuilder.cpp", 943, "Meshmerizer::extractHullPolygons: line strip extraction failed", v70, v71, v72);
+      goto LABEL_159;
+    }
+
+    v108 = v168;
+    v109 = v166;
+    if (!v180)
+    {
+      goto LABEL_159;
+    }
+
+    v110 = v179;
+    v111 = (v180 - 1);
+    LODWORD(v196) = v180 - 1;
+    v112 = *(v166 + 8);
+    if ((*(v166 + 12) & 0x7FFFFFFFu) <= v112)
+    {
+      physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v166, &v196);
+      v109 = v166;
+      v108 = v168;
+      if (v111)
+      {
+LABEL_174:
+        v113 = v110;
+        v114 = v111;
+        do
+        {
+          v115 = *v113;
+          ++v167[v115];
+          v116 = *(v109 + 8);
+          if ((*(v109 + 12) & 0x7FFFFFFFu) <= v116)
+          {
+            physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v109, v113);
+            v109 = v166;
+            v108 = v168;
+          }
+
+          else
+          {
+            *(*v109 + 4 * v116) = v115;
+            ++*(v109 + 8);
+          }
+
+          ++v113;
+          --v114;
+        }
+
+        while (v114);
+      }
+    }
+
+    else
+    {
+      *(*v166 + 4 * v112) = v111;
+      ++*(v109 + 8);
+      if (v111)
+      {
+        goto LABEL_174;
+      }
+    }
+
+    ++*v160;
+    v117 = v184;
+    if (v184)
+    {
+      v118 = 0;
+      while (1)
+      {
+        v119 = 3 * *(v183 + 4 * v118);
+        v120 = *(v178 + 4 * v119);
+        LODWORD(v196) = v120;
+        v121 = *(v178 + 4 * (v119 + 1));
+        v195 = v121;
+        v122 = *(v178 + 4 * (v119 + 2));
+        v194 = v122;
+        v123 = 0;
+        v124 = 0;
+        if (v111)
+        {
+          v125 = 0;
+          v126 = v110;
+          v127 = 1;
+          do
+          {
+            v128 = *v126++;
+            v125 |= v120 == v128;
+            v124 |= v121 == v128;
+            v123 |= v122 == v128;
+            if (v125 & v124 & v123)
+            {
+              break;
+            }
+          }
+
+          while (v127++ < v111);
+          if (v125)
+          {
+            break;
+          }
+        }
+
+        v130 = *(v108 + 8);
+        v131 = *v108;
+        if (v130)
+        {
+          v132 = *v108;
+          v133 = *(v108 + 8);
+          while (1)
+          {
+            v134 = *v132++;
+            if (v134 == v120)
+            {
+              break;
+            }
+
+            if (!--v133)
+            {
+              v135 = *(v108 + 8);
+              goto LABEL_196;
+            }
+          }
+
+          v135 = *(v108 + 8);
+          if (v133)
+          {
+            break;
+          }
+        }
+
+        else
+        {
+          v135 = 0;
+        }
+
+LABEL_196:
+        if ((*(v108 + 12) & 0x7FFFFFFFu) <= v130)
+        {
+          physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v108, &v196);
+          v108 = v168;
+          if (v124)
+          {
+            goto LABEL_215;
+          }
+
+LABEL_204:
+          v136 = *(v108 + 8);
+          v131 = *v108;
+          if (!v136)
+          {
+            goto LABEL_205;
+          }
+
+          goto LABEL_199;
+        }
+
+        v131[v135] = v120;
+        v136 = *(v108 + 8) + 1;
+        *(v108 + 8) = v136;
+        if (v124)
+        {
+          goto LABEL_215;
+        }
+
+        if (!v136)
+        {
+LABEL_205:
+          v137 = 0;
+          goto LABEL_207;
+        }
+
+LABEL_199:
+        v137 = v136;
+        v138 = v131;
+        v139 = v136;
+        while (1)
+        {
+          v140 = *v138++;
+          if (v140 == v195)
+          {
+            break;
+          }
+
+          if (!--v139)
+          {
+            goto LABEL_207;
+          }
+        }
+
+        if (v139)
+        {
+          goto LABEL_215;
+        }
+
+LABEL_207:
+        if ((*(v108 + 12) & 0x7FFFFFFFu) <= v136)
+        {
+          physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v108, &v195);
+          v108 = v168;
+LABEL_215:
+          if ((v123 & 1) == 0)
+          {
+            v141 = *(v108 + 8);
+            v131 = *v108;
+            if (!v141)
+            {
+LABEL_217:
+              v142 = 0;
+LABEL_219:
+              if ((*(v108 + 12) & 0x7FFFFFFFu) <= v141)
+              {
+                physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v108, &v194);
+                v108 = v168;
+              }
+
+              else
+              {
+                v131[v142] = v194;
+                ++*(v108 + 8);
+              }
+
+              goto LABEL_222;
+            }
+
+LABEL_210:
+            v142 = v141;
+            v143 = v131;
+            v144 = v141;
+            while (1)
+            {
+              v145 = *v143++;
+              if (v145 == v194)
+              {
+                break;
+              }
+
+              if (!--v144)
+              {
+                goto LABEL_219;
+              }
+            }
+
+            if (v144)
+            {
+              goto LABEL_222;
+            }
+
+            goto LABEL_219;
+          }
+
+          goto LABEL_222;
+        }
+
+        v131[v137] = v195;
+        v141 = *(v108 + 8) + 1;
+        *(v108 + 8) = v141;
+        if ((v123 & 1) == 0)
+        {
+          if (!v141)
+          {
+            goto LABEL_217;
+          }
+
+          goto LABEL_210;
+        }
+
+LABEL_222:
+        ++v118;
+        v117 = v184;
+        if (v118 >= v184)
+        {
+          goto LABEL_223;
+        }
+      }
+
+      if (v124)
+      {
+        goto LABEL_215;
+      }
+
+      goto LABEL_204;
+    }
+
+LABEL_223:
+    if (v163)
+    {
+      LODWORD(v196) = v117;
+      v146 = v163;
+      v147 = *(v163 + 8);
+      if ((*(v163 + 12) & 0x7FFFFFFFu) <= v147)
+      {
+        physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v163, &v196);
+      }
+
+      else
+      {
+        *(*v163 + 4 * v147) = v117;
+        ++*(v146 + 8);
+      }
+
+      if (v184)
+      {
+        v148 = 0;
+        v149 = 0;
+        do
+        {
+          v150 = v163;
+          v151 = *(v163 + 8);
+          if ((*(v163 + 12) & 0x7FFFFFFFu) <= v151)
+          {
+            physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v163, (v183 + v148));
+          }
+
+          else
+          {
+            *(*v163 + 4 * v151) = *(v183 + 4 * v149);
+            ++*(v150 + 8);
+          }
+
+          ++v149;
+          v148 += 4;
+        }
+
+        while (v149 < v184);
+      }
+    }
+
+LABEL_159:
+    if ((v180 & 0x8000000000000000) == 0 && (v180 & 0x7FFFFFFF00000000) != 0 && v179)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    if ((v182 & 0x8000000000000000) == 0 && (v182 & 0x7FFFFFFF00000000) != 0 && v181)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    if ((v184 & 0x8000000000000000) == 0 && (v184 & 0x7FFFFFFF00000000) != 0 && v183)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    v13 = 0;
+    v17 = v168;
+    v18 = v161;
+    if ((v98 & 1) == 0)
+    {
+      goto LABEL_4;
+    }
+  }
+
+LABEL_234:
+  LODWORD(v196) = 0;
+  if (v20)
+  {
+    for (i = 0; i < v20; LODWORD(v196) = i)
+    {
+      if (v21[i] <= 2u)
+      {
+        v153 = *(v17 + 8);
+        if (v153)
+        {
+          v154 = *v17;
+          v155 = *(v17 + 8);
+          while (1)
+          {
+            v156 = *v154++;
+            if (v156 == i)
+            {
+              break;
+            }
+
+            if (!--v155)
+            {
+              v157 = *(v17 + 8);
+              goto LABEL_244;
+            }
+          }
+
+          v157 = *(v17 + 8);
+          if (v155)
+          {
+            goto LABEL_247;
+          }
+        }
+
+        else
+        {
+          v157 = 0;
+        }
+
+LABEL_244:
+        if ((*(v17 + 12) & 0x7FFFFFFFu) <= v153)
+        {
+          physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(v17, &v196);
+          v17 = v168;
+        }
+
+        else
+        {
+          *(*v17 + 4 * v157) = i;
+          ++*(v17 + 8);
+        }
+      }
+
+LABEL_247:
+      i = v196 + 1;
+    }
+  }
+
+  v13 = 1;
+  if (v163 && *(v17 + 8))
+  {
+    checkRedundantVertices(v160, v166, v159[9], v163, v17);
+  }
+
+LABEL_4:
+  if (v186)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v186 - 16);
+  }
+
+  return v13;
+}
+
+uint64_t local::QuickHullFace::mergeAdjacentFace(uint64_t *a1, void *a2, uint64_t a3, float a4)
+{
+  v7 = *(a2[6] + 56);
+  v50 = v7;
+  v8 = *(a3 + 8);
+  if ((*(a3 + 12) & 0x7FFFFFFFu) <= v8)
+  {
+    physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(a3, &v50);
+  }
+
+  else
+  {
+    *(*a3 + 8 * v8) = v7;
+    *(a3 + 8) = v8 + 1;
+  }
+
+  *(v7 + 60) = 1;
+  v9 = a2[6];
+  v10 = *(v9 + 32);
+  v11 = a2[4];
+  while (1)
+  {
+    v9 = *(v9 + 40);
+    if (*(v11[6] + 56) != v7)
+    {
+      break;
+    }
+
+    v11 = v11[4];
+    if (v11 == a2[4])
+    {
+      return 0;
+    }
+  }
+
+  v12 = a2[5];
+  while (*(*(v12 + 48) + 56) == v7)
+  {
+    v10 = v10[4];
+    v12 = *(v12 + 40);
+    if (v12 == a2[5])
+    {
+      return 0;
+    }
+  }
+
+  v14 = v10[5];
+  if (v9 != v14)
+  {
+    v15 = v9;
+    do
+    {
+      *(v15 + 56) = a1;
+      v15 = *(v15 + 40);
+    }
+
+    while (v15 != v14);
+  }
+
+  if (*a1 == a2)
+  {
+    *a1 = v12;
+  }
+
+  v17 = local::QuickHullFace::connectHalfEdges(a1, v10, v12, a4);
+  v49 = v16;
+  if (v16)
+  {
+    v18 = *(a3 + 8);
+    if ((*(a3 + 12) & 0x7FFFFFFFu) <= v18)
+    {
+      physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(a3, &v49);
+    }
+
+    else
+    {
+      *(*a3 + 8 * v18) = v16;
+      *(a3 + 8) = v18 + 1;
+    }
+  }
+
+  local::QuickHullFace::connectHalfEdges(a1, v11, v9, v17);
+  v49 = v19;
+  if (v19)
+  {
+    v20 = *(a3 + 8);
+    if ((*(a3 + 12) & 0x7FFFFFFFu) <= v20)
+    {
+      physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(a3, &v49);
+    }
+
+    else
+    {
+      *(*a3 + 8 * v20) = v19;
+      *(a3 + 8) = v20 + 1;
+    }
+  }
+
+  v21 = 0;
+  a1[3] = 0;
+  *(a1 + 8) = 0;
+  v22 = *a1;
+  v24 = **a1;
+  v23 = *(*a1 + 4);
+  v25 = *(*a1 + 8);
+  v26 = 0.0;
+  v27 = 3;
+  do
+  {
+    v28 = *(v22 + 40);
+    v29 = (((v23 - v28[1]) * (v23 - v28[1])) + ((v24 - *v28) * (v24 - *v28))) + ((v25 - v28[2]) * (v25 - v28[2]));
+    if (v29 > v26)
+    {
+      v21 = v22;
+    }
+
+    v25 = v28[2];
+    if (v29 > v26)
+    {
+      v26 = v29;
+    }
+
+    v23 = v28[1];
+    v24 = *v28;
+    v22 = *(v22 + 40);
+    --v27;
+  }
+
+  while (v27);
+  v30 = *(v21 + 40);
+  v32 = *v21;
+  v31 = *(v21 + 4);
+  v33 = *v30 - *v21;
+  v34 = *(v30 + 4) - v31;
+  v35 = *(v21 + 8);
+  v36 = *(v30 + 8) - v35;
+  *(a1 + 10) = *v21;
+  *(a1 + 11) = v31;
+  *(a1 + 12) = v35;
+  v37 = 1;
+  v38 = 0.0;
+  v39 = 0.0;
+  v40 = 0.0;
+  do
+  {
+    ++v37;
+    v32 = v32 + *v30;
+    v31 = v31 + *(v30 + 4);
+    v35 = v35 + *(v30 + 8);
+    *(a1 + 10) = v32;
+    *(a1 + 11) = v31;
+    *(a1 + 12) = v35;
+    v30 = *(v30 + 40);
+    v41 = *v30 - *v21;
+    v42 = *(v30 + 4) - *(v21 + 4);
+    v43 = *(v30 + 8) - *(v21 + 8);
+    v40 = v40 + ((v42 * -v36) + (v34 * v43));
+    v39 = v39 + ((v43 * -v33) + (v36 * v41));
+    *(a1 + 6) = v40;
+    *(a1 + 7) = v39;
+    v38 = v38 + ((v41 * -v34) + (v33 * v42));
+    *(a1 + 8) = v38;
+  }
+
+  while (v30 != v21);
+  *(a1 + 4) = v37;
+  v44 = sqrtf(((v39 * v39) + (v40 * v40)) + (v38 * v38));
+  if (v44 > 0.0)
+  {
+    v40 = v40 * (1.0 / v44);
+    v39 = v39 * (1.0 / v44);
+    *(a1 + 6) = v40;
+    *(a1 + 7) = v39;
+    v38 = v38 * (1.0 / v44);
+    *(a1 + 8) = v38;
+  }
+
+  v45 = 1.0 / v37;
+  v46 = v45 * v32;
+  *(a1 + 9) = v44;
+  *(a1 + 10) = v46;
+  v47 = v45 * v31;
+  v48 = v45 * v35;
+  *(a1 + 11) = v47;
+  *(a1 + 12) = v48;
+  *(a1 + 13) = ((v47 * v39) + (v40 * v46)) + (v38 * v48);
+  return 1;
+}
+
+float local::QuickHullFace::connectHalfEdges(void *a1, void *a2, uint64_t a3, float result)
+{
+  v4 = *(a3 + 48);
+  v5 = v4[7];
+  if (*(a2[6] + 56) == v5)
+  {
+    if (*a1 == a2)
+    {
+      *a1 = a3;
+    }
+
+    if (*(v5 + 4) == 3)
+    {
+      v6 = *(v4[4] + 48);
+      *(v5 + 15) = 1;
+    }
+
+    else
+    {
+      v6 = v4[5];
+      v7 = *(v6 + 32);
+      if (*v5 == v7)
+      {
+        *v5 = v6;
+      }
+
+      v8 = *(v7 + 32);
+      *(v6 + 32) = v8;
+      *(v8 + 40) = v6;
+    }
+
+    v9 = 0;
+    v10 = a2[4];
+    *(a3 + 32) = v10;
+    *(v10 + 40) = a3;
+    *(a3 + 48) = v6;
+    *(v6 + 48) = a3;
+    v5[3] = 0;
+    *(v5 + 8) = 0;
+    v11 = *v5;
+    v13 = **v5;
+    v12 = *(*v5 + 4);
+    v14 = *(*v5 + 8);
+    v15 = 0.0;
+    v16 = 3;
+    do
+    {
+      v17 = *(v11 + 40);
+      v18 = (((v12 - v17[1]) * (v12 - v17[1])) + ((v13 - *v17) * (v13 - *v17))) + ((v14 - v17[2]) * (v14 - v17[2]));
+      if (v18 > v15)
+      {
+        v9 = v11;
+      }
+
+      v14 = v17[2];
+      if (v18 > v15)
+      {
+        v15 = v18;
+      }
+
+      v12 = v17[1];
+      v13 = *v17;
+      v11 = *(v11 + 40);
+      --v16;
+    }
+
+    while (v16);
+    v19 = *(v9 + 40);
+    v21 = *v9;
+    v20 = *(v9 + 4);
+    v22 = *v19 - *v9;
+    v23 = *(v19 + 4) - v20;
+    v24 = *(v9 + 8);
+    v25 = *(v19 + 8) - v24;
+    *(v5 + 10) = *v9;
+    *(v5 + 11) = v20;
+    *(v5 + 12) = v24;
+    v26 = 1;
+    v27 = 0.0;
+    v28 = 0.0;
+    v29 = 0.0;
+    do
+    {
+      ++v26;
+      v21 = v21 + *v19;
+      v20 = v20 + *(v19 + 4);
+      v24 = v24 + *(v19 + 8);
+      *(v5 + 10) = v21;
+      *(v5 + 11) = v20;
+      *(v5 + 12) = v24;
+      v19 = *(v19 + 40);
+      v30 = *v19 - *v9;
+      v31 = *(v19 + 4) - *(v9 + 4);
+      v32 = *(v19 + 8) - *(v9 + 8);
+      v29 = v29 + ((v31 * -v25) + (v23 * v32));
+      v28 = v28 + ((v32 * -v22) + (v25 * v30));
+      *(v5 + 6) = v29;
+      *(v5 + 7) = v28;
+      v27 = v27 + ((v30 * -v23) + (v22 * v31));
+      *(v5 + 8) = v27;
+    }
+
+    while (v19 != v9);
+    *(v5 + 4) = v26;
+    v33 = sqrtf(((v28 * v28) + (v29 * v29)) + (v27 * v27));
+    if (v33 > 0.0)
+    {
+      v29 = v29 * (1.0 / v33);
+      v28 = v28 * (1.0 / v33);
+      *(v5 + 6) = v29;
+      *(v5 + 7) = v28;
+      v27 = v27 * (1.0 / v33);
+      *(v5 + 8) = v27;
+    }
+
+    v34 = 1.0 / v26;
+    v35 = v34 * v21;
+    *(v5 + 9) = v33;
+    *(v5 + 10) = v35;
+    v36 = v34 * v20;
+    v37 = v34 * v24;
+    *(v5 + 11) = v36;
+    *(v5 + 12) = v37;
+    result = ((v36 * v28) + (v29 * v35)) + (v27 * v37);
+    *(v5 + 13) = result;
+  }
+
+  else
+  {
+    a2[5] = a3;
+    *(a3 + 32) = a2;
+  }
+
+  return result;
+}
+
+void local::QuickHull::~QuickHull(local::QuickHull *this)
+{
+  v2 = *(this + 105);
+  if ((v2 & 0x80000000) == 0 && (v2 & 0x7FFFFFFF) != 0 && *(this + 51) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v4 = *(this + 101);
+  if ((v4 & 0x80000000) == 0 && (v4 & 0x7FFFFFFF) != 0 && *(this + 49) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v6 = *(this + 97);
+  if ((v6 & 0x80000000) == 0 && (v6 & 0x7FFFFFFF) != 0 && *(this + 47) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v8 = *(this + 93);
+  if ((v8 & 0x80000000) == 0 && (v8 & 0x7FFFFFFF) != 0 && *(this + 45))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v9 = *(this + 89);
+  if ((v9 & 0x80000000) == 0 && (v9 & 0x7FFFFFFF) != 0 && *(this + 43))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v10 = *(this + 33);
+  if ((v10 & 0x80000000) == 0 && (v10 & 0x7FFFFFFF) != 0 && *(this + 15))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v11 = *(this + 28);
+  if (v11)
+  {
+    for (i = 0; i < v11; ++i)
+    {
+      if (*(*(this + 13) + 8 * i))
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        v11 = *(this + 28);
+      }
+    }
+  }
+
+  *(this + 28) = 0;
+  v13 = *(this + 29);
+  if ((v13 & 0x80000000) == 0 && (v13 & 0x7FFFFFFF) != 0 && *(this + 13) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v15 = *(this + 20);
+  if (v15)
+  {
+    for (j = 0; j < v15; ++j)
+    {
+      if (*(*(this + 9) + 8 * j))
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        v15 = *(this + 20);
+      }
+    }
+  }
+
+  *(this + 20) = 0;
+  v17 = *(this + 21);
+  if ((v17 & 0x80000000) == 0 && (v17 & 0x7FFFFFFF) != 0 && *(this + 9) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+}
+
+void *local::QuickHull::preallocate(local::QuickHull *this, uint64_t a2)
+{
+  v2 = a2;
+  if (a2 <= 8)
+  {
+    v4 = 8;
+  }
+
+  else
+  {
+    v4 = a2;
+  }
+
+  *(this + 7) = v4;
+  *(this + 6) = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 32 * v4, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 734);
+  local::MemBlock<local::QuickHullHalfEdge,false>::init(this + 56, 9 * *(this + 7) - 18);
+  v5 = 2 * *(this + 7) - 4;
+  result = local::MemBlock<local::QuickHullFace,true>::init(this + 22, 2 * v5);
+  if ((*(this + 33) & 0x7FFFFFFFu) < v5)
+  {
+    result = physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::recreate(this + 120, v5);
+  }
+
+  if ((*(this + 89) & 0x7FFFFFFFu) < v2)
+  {
+    result = physx::shdfnd::Array<local::QuickHullVertex *,physx::shdfnd::ReflectionAllocator<local::QuickHullVertex *>>::recreate(this + 344, v2);
+  }
+
+  if ((*(this + 97) & 0x7FFFFFE0) == 0)
+  {
+    result = physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::recreate(this + 376, 0x20u);
+  }
+
+  if ((*(this + 101) & 0x7FFFFFE0) == 0)
+  {
+    result = physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::recreate(this + 392, 0x20u);
+  }
+
+  if ((*(this + 105) & 0x7FFFFFE0) == 0)
+  {
+    result = physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::recreate(this + 408, 0x20u);
+  }
+
+  if (v2 >= 0x80)
+  {
+    v7 = 128;
+  }
+
+  else
+  {
+    v7 = v2;
+  }
+
+  if ((*(this + 93) & 0x7FFFFFFFu) < v7)
+  {
+
+    return physx::shdfnd::Array<local::QuickHullHalfEdge *,physx::shdfnd::ReflectionAllocator<local::QuickHullHalfEdge *>>::recreate(this + 360, v7);
+  }
+
+  return result;
+}
+
+uint64_t local::MemBlock<local::QuickHullHalfEdge,false>::init(uint64_t a1, unsigned int a2)
+{
+  *a1 = a2;
+  if (a2)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 72 * a2, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 84);
+  }
+
+  else
+  {
+    result = 0;
+  }
+
+  v5 = result;
+  v4 = *(a1 + 24);
+  if ((*(a1 + 28) & 0x7FFFFFFFu) <= v4)
+  {
+    return physx::shdfnd::Array<local::QuickHullHalfEdge *,physx::shdfnd::ReflectionAllocator<local::QuickHullHalfEdge *>>::growAndPushBack(a1 + 16, &v5);
+  }
+
+  *(*(a1 + 16) + 8 * v4) = result;
+  *(a1 + 24) = v4 + 1;
+  return result;
+}
+
+uint64_t local::MemBlock<local::QuickHullFace,true>::init(unsigned int *a1, unsigned int a2)
+{
+  *a1 = a2;
+  if (a2)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 80 * a2, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 84);
+    v4 = *a1;
+    v9 = result;
+    if (v4)
+    {
+      v5 = 0;
+      for (i = 0; i != v4; ++i)
+      {
+        v7 = result + v5;
+        *v7 = 0;
+        *(v7 + 8) = 0;
+        *(v7 + 16) = 0;
+        *(v7 + 36) = 0;
+        *(v7 + 52) = 0xFF7FFFFF00000000;
+        *(v7 + 60) = 0;
+        *(v7 + 64) = 0;
+        *(v7 + 72) = i;
+        v5 += 80;
+        *(v7 + 76) = 0;
+      }
+    }
+  }
+
+  else
+  {
+    result = 0;
+    v9 = 0;
+  }
+
+  v8 = a1[6];
+  if ((a1[7] & 0x7FFFFFFF) <= v8)
+  {
+    return physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack((a1 + 4), &v9);
+  }
+
+  *(*(a1 + 2) + 8 * v8) = result;
+  a1[6] = v8 + 1;
+  return result;
+}
+
+uint64_t local::QuickHull::createTriangle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v8 = *(a1 + 96);
+  v9 = *(a1 + 88);
+  if (v8 >= v9)
+  {
+    if (v9)
+    {
+      v12 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 80 * v9, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 138);
+      v14 = (a1 + 92);
+      v13 = *(a1 + 92);
+      v15 = *(a1 + 88);
+      v56 = v12;
+      v16 = v13 + 1;
+      *(a1 + 92) = v16;
+      if (v15)
+      {
+        v17 = 0;
+        v18 = v16 * v15;
+        v19 = 80 * v15;
+        do
+        {
+          v20 = v12 + v17;
+          *v20 = 0;
+          *(v20 + 8) = 0;
+          *(v20 + 16) = 0;
+          *(v20 + 36) = 0;
+          *(v20 + 52) = 0xFF7FFFFF00000000;
+          *(v20 + 60) = 0;
+          *(v20 + 64) = 0;
+          *(v20 + 72) = v18;
+          v17 += 80;
+          ++v18;
+          *(v20 + 76) = 0;
+        }
+
+        while (v19 != v17);
+      }
+    }
+
+    else
+    {
+      v12 = 0;
+      v56 = 0;
+      v14 = (a1 + 92);
+      v16 = *(a1 + 92) + 1;
+      *(a1 + 92) = v16;
+    }
+
+    v21 = *(a1 + 112);
+    if ((*(a1 + 116) & 0x7FFFFFFFu) <= v21)
+    {
+      physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(a1 + 104, &v56);
+      v16 = *v14;
+    }
+
+    else
+    {
+      *(*(a1 + 104) + 8 * v21) = v12;
+      *(a1 + 112) = v21 + 1;
+    }
+
+    v11 = *(*(a1 + 104) + 8 * v16);
+    *(a1 + 96) = 1;
+  }
+
+  else
+  {
+    v10 = *(*(a1 + 104) + 8 * *(a1 + 92));
+    *(a1 + 96) = v8 + 1;
+    v11 = v10 + 80 * v8;
+  }
+
+  FreeItem = local::MemBlock<local::QuickHullHalfEdge,false>::getFreeItem((a1 + 56));
+  *(FreeItem + 56) = v11;
+  *FreeItem = *a2;
+  *(FreeItem + 8) = *(a2 + 8);
+  v23 = *(a2 + 28);
+  *(FreeItem + 12) = *(a2 + 12);
+  *(FreeItem + 28) = v23;
+  v24 = local::MemBlock<local::QuickHullHalfEdge,false>::getFreeItem((a1 + 56));
+  *(v24 + 56) = v11;
+  *v24 = *a3;
+  *(v24 + 8) = *(a3 + 8);
+  v25 = *(a3 + 28);
+  *(v24 + 12) = *(a3 + 12);
+  *(v24 + 28) = v25;
+  v26 = local::MemBlock<local::QuickHullHalfEdge,false>::getFreeItem((a1 + 56));
+  v27 = 0;
+  *(v26 + 56) = v11;
+  *v26 = *a4;
+  *(v26 + 8) = *(a4 + 8);
+  v28 = *(a4 + 12);
+  *(v26 + 28) = *(a4 + 28);
+  *(v26 + 12) = v28;
+  *(FreeItem + 32) = v26;
+  *(FreeItem + 40) = v24;
+  *(v24 + 32) = FreeItem;
+  *(v24 + 40) = v26;
+  *(v26 + 32) = v24;
+  *(v26 + 40) = FreeItem;
+  *v11 = FreeItem;
+  *(v11 + 64) = 0;
+  *(v11 + 24) = 0;
+  *(v11 + 32) = 0;
+  v30 = *FreeItem;
+  v29 = *(FreeItem + 4);
+  v31 = *(FreeItem + 8);
+  v32 = 0.0;
+  v33 = 3;
+  do
+  {
+    v34 = *(FreeItem + 40);
+    v35 = (((v29 - v34[1]) * (v29 - v34[1])) + ((v30 - *v34) * (v30 - *v34))) + ((v31 - v34[2]) * (v31 - v34[2]));
+    if (v35 > v32)
+    {
+      v27 = FreeItem;
+    }
+
+    v31 = v34[2];
+    if (v35 > v32)
+    {
+      v32 = v35;
+    }
+
+    v29 = v34[1];
+    v30 = *v34;
+    FreeItem = *(FreeItem + 40);
+    --v33;
+  }
+
+  while (v33);
+  v36 = *(v27 + 40);
+  v38 = *v27;
+  v37 = *(v27 + 4);
+  v39 = *v36 - *v27;
+  v40 = *(v36 + 4) - v37;
+  v41 = *(v27 + 8);
+  v42 = *(v36 + 8) - v41;
+  *(v11 + 40) = *v27;
+  *(v11 + 44) = v37;
+  *(v11 + 48) = v41;
+  v43 = 1;
+  v44 = 0.0;
+  v45 = 0.0;
+  v46 = 0.0;
+  do
+  {
+    ++v43;
+    v38 = v38 + *v36;
+    v37 = v37 + *(v36 + 4);
+    v41 = v41 + *(v36 + 8);
+    *(v11 + 40) = v38;
+    *(v11 + 44) = v37;
+    *(v11 + 48) = v41;
+    v36 = *(v36 + 40);
+    v47 = *v36 - *v27;
+    v48 = *(v36 + 4) - *(v27 + 4);
+    v49 = *(v36 + 8) - *(v27 + 8);
+    v46 = v46 + ((v48 * -v42) + (v40 * v49));
+    v45 = v45 + ((v49 * -v39) + (v42 * v47));
+    *(v11 + 24) = v46;
+    *(v11 + 28) = v45;
+    v44 = v44 + ((v47 * -v40) + (v39 * v48));
+    *(v11 + 32) = v44;
+  }
+
+  while (v36 != v27);
+  *(v11 + 8) = v43;
+  v50 = sqrtf(((v45 * v45) + (v46 * v46)) + (v44 * v44));
+  if (v50 > 0.0)
+  {
+    v46 = v46 * (1.0 / v50);
+    v45 = v45 * (1.0 / v50);
+    *(v11 + 24) = v46;
+    *(v11 + 28) = v45;
+    v44 = v44 * (1.0 / v50);
+    *(v11 + 32) = v44;
+  }
+
+  v51 = 1.0 / v43;
+  v52 = v51 * v38;
+  *(v11 + 36) = v50;
+  *(v11 + 40) = v52;
+  v53 = v51 * v37;
+  v54 = v51 * v41;
+  *(v11 + 44) = v53;
+  *(v11 + 48) = v54;
+  *(v11 + 52) = ((v53 * v45) + (v46 * v52)) + (v44 * v54);
+  return v11;
+}
+
+uint64_t local::QuickHull::buildHull(int8x8_t *this, double a2, __n128 a3, double a4, double a5, double a6, double a7, double a8, float a9)
+{
+  v11 = this + 30;
+  v12 = this + 18;
+  v233 = &this[18] + 4;
+  v250 = *MEMORY[0x1E69E9840];
+  v13 = this + 19;
+  v14 = (&this[19] + 4);
+  v15 = &this[30] + 4;
+  v16 = this + 31;
+  v17 = (&this[31] + 4);
+  v18 = this + 22;
+  v19 = &this[22] + 1;
+  v20 = this + 23;
+  v21 = (&this[23] + 4);
+  v22 = this + 34;
+  v23 = &this[34] + 1;
+  v24 = this + 35;
+  v25 = (&this[35] + 4);
+  v26 = this + 26;
+  v27 = &this[26] + 4;
+  v28 = this + 27;
+  v29 = &this[27] + 4;
+  v30 = this + 38;
+  v232 = v13;
+  v31 = 0uLL;
+  v230 = v15;
+  v231 = v14;
+  v228 = v17;
+  v229 = v16;
+LABEL_2:
+  if (this[17].i8[4] != 1)
+  {
+    v32 = 0;
+    v33 = this[6];
+    do
+    {
+      v34 = &this[v32];
+      v34[18] = **&v33;
+      v34[19].i32[0] = *(*&v33 + 8);
+      v35 = *(*&v33 + 12);
+      v34[21].i32[1] = *(*&v33 + 28);
+      *&v34[19].u8[4] = v35;
+      v34[30] = **&v33;
+      v34[31].i32[0] = *(*&v33 + 8);
+      v36 = *(*&v33 + 12);
+      v34[33].i32[1] = *(*&v33 + 28);
+      *&v34[31].u8[4] = v36;
+      v32 += 4;
+    }
+
+    while (v32 != 12);
+    v37 = *v33.i32[0];
+    a3.n128_u32[0] = *(*&v33 + 4);
+    v38 = *(*&v33 + 8);
+    v39 = this[4].u32[0];
+    if (v39 >= 2)
+    {
+      v40 = v39 - 1;
+      v41 = (*&v33 + 44);
+      v42 = v37;
+      v43 = a3.n128_f32[0];
+      v44 = v38;
+      while (1)
+      {
+        v45 = v41[-1].n128_f32[1];
+        if (v45 <= v42)
+        {
+          v46 = v12;
+          v47 = v233;
+          v48 = v13;
+          v49 = v14;
+          v50 = v41[-1].n128_f32[1];
+          if (v45 >= v37)
+          {
+            goto LABEL_11;
+          }
+        }
+
+        else
+        {
+          v46 = v11;
+          v47 = v15;
+          v48 = v16;
+          v49 = v17;
+          v42 = v41[-1].n128_f32[1];
+          v50 = v37;
+        }
+
+        *v46 = v45;
+        *v47 = v41[-1].n128_u32[2];
+        v48->i32[0] = v41[-1].n128_i32[3];
+        v51 = *v41;
+        v49[1].n128_u32[0] = v41[1].n128_u32[0];
+        *v49 = v51;
+        v37 = v50;
+LABEL_11:
+        v52 = v41[-1].n128_f32[2];
+        if (v52 <= v43)
+        {
+          v53 = v18;
+          v54 = v19;
+          v55 = v20;
+          v56 = v21;
+          v57 = v41[-1].n128_u32[2];
+          if (v52 >= a3.n128_f32[0])
+          {
+            goto LABEL_15;
+          }
+        }
+
+        else
+        {
+          v53 = v22;
+          v54 = v23;
+          v55 = v24;
+          v56 = v25;
+          v43 = v41[-1].n128_f32[2];
+          v57 = a3.n128_u32[0];
+        }
+
+        v53->i32[0] = v41[-1].n128_i32[1];
+        *v54 = v52;
+        v55->i32[0] = v41[-1].n128_i32[3];
+        a3 = *v41;
+        v56[1].n128_u32[0] = v41[1].n128_u32[0];
+        *v56 = a3;
+        a3.n128_u32[0] = v57;
+LABEL_15:
+        v58 = v41[-1].n128_f32[3];
+        if (v58 > v44)
+        {
+          v59 = v30;
+          v61 = &this[39];
+          v60 = &this[38] + 1;
+          v62 = &this[39] + 4;
+          v44 = v41[-1].n128_f32[3];
+          a9 = v38;
+LABEL_18:
+          v59->i32[0] = v41[-1].n128_i32[1];
+          *v60 = v41[-1].n128_u32[2];
+          *v61 = v58;
+          v63 = *v41;
+          *(v62 + 4) = v41[1].n128_u32[0];
+          *v62 = v63;
+          v38 = a9;
+          goto LABEL_19;
+        }
+
+        v59 = v26;
+        v60 = v27;
+        v61 = v28;
+        v62 = v29;
+        a9 = v41[-1].n128_f32[3];
+        if (v58 < v38)
+        {
+          goto LABEL_18;
+        }
+
+LABEL_19:
+        v41 += 2;
+        if (!--v40)
+        {
+          goto LABEL_22;
+        }
+      }
+    }
+
+    v44 = *(*&v33 + 8);
+    v43 = *(*&v33 + 4);
+    v42 = *v33.i32[0];
+LABEL_22:
+    v64 = ((v44 + ((v43 + (v42 - v37)) - a3.n128_f32[0])) - v38) * 0.5;
+    a3.n128_u32[0] = 884998144;
+    v65.i32[0] = vdup_lane_s32(a3.n128_u64[0], 0).u32[0];
+    v65.i32[1] = *(*this + 4);
+    v66 = vmul_n_f32(v65, v64);
+    this[42] = vbsl_s8(vcgt_f32(v66, v65), v66, v65);
+  }
+
+  v67 = 0;
+  v68 = 0;
+  LODWORD(v69) = 0;
+  v70 = 0.0;
+  do
+  {
+    v71 = *&v11->i32[v68] - *&v11[-12].i32[v68];
+    if (v71 <= v70)
+    {
+      v69 = v69;
+    }
+
+    else
+    {
+      v69 = v67;
+    }
+
+    if (v71 > v70)
+    {
+      v70 = *&v11->i32[v68] - *&v11[-12].i32[v68];
+    }
+
+    v68 += 9;
+    ++v67;
+  }
+
+  while (v68 != 27);
+  v72 = *this[42].i32;
+  if (v70 <= v72)
+  {
+    v223 = physx::shdfnd::Foundation::mInstance;
+    v224 = "QuickHullConvexHullLib::findSimplex: Simplex input points appers to be almost at the same place";
+    v225 = 877;
+LABEL_194:
+    physx::shdfnd::Foundation::error(v223, 32, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", v225, v224, v22, v23, v24, v226, v227);
+    return 4;
+  }
+
+  v73 = &v11[4 * v69];
+  v234 = *v73;
+  v74 = v234;
+  v75 = *v73[1].i32;
+  v236 = *&v73[1].u8[4];
+  v237 = v73[3].i32[1];
+  v76 = &v12[4 * v69];
+  v77 = *v76->i32;
+  v78 = *&v76->i32[1];
+  v235 = v75;
+  *v238 = v77;
+  *&v238[1] = v78;
+  v239 = *v76[1].i32;
+  v79 = v239;
+  v80 = *&v76[1].u8[4];
+  v240 = v80;
+  v241 = v76[3].i32[1];
+  v81 = v77 - *&v234;
+  v82 = *(&v234 + 1);
+  v83 = v78 - *(&v234 + 1);
+  v84 = v239 - v75;
+  v85 = sqrtf(((v83 * v83) + (v81 * v81)) + (v84 * v84));
+  if (v85 > 0.0)
+  {
+    v85 = 1.0 / v85;
+    v81 = v81 * v85;
+    v83 = v83 * v85;
+    v84 = v84 * v85;
+  }
+
+  v86 = this[4].u32[0];
+  if (v86)
+  {
+    v87 = -v81;
+    v88 = -v83;
+    v89 = *&this[6] + 12;
+    v90 = 0.0;
+    v91 = this[4].u32[0];
+    do
+    {
+      v92 = *(v89 - 12);
+      v93 = *(v89 - 8);
+      v94 = *(v89 - 4);
+      v95 = ((v93 - *(&v234 + 1)) * -v84) + (v83 * (v94 - v75));
+      v96 = ((v94 - v75) * v87) + (v84 * (v92 - *&v234));
+      v97 = ((v92 - *&v234) * v88) + (v81 * (v93 - *(&v234 + 1)));
+      if ((((v96 * v96) + (v95 * v95)) + (v97 * v97)) > v90 && *v89 != v236 && *v89 != v240)
+      {
+        v243 = *v89;
+        *&v80 = v94;
+        a9 = v93;
+        v9 = v92;
+        v244 = *(v89 + 16);
+        v78 = ((v93 - *(&v234 + 1)) * -v84) + (v83 * (v94 - v75));
+        v79 = ((v94 - v75) * v87) + (v84 * (v92 - *&v234));
+        v85 = ((v92 - *&v234) * v88) + (v81 * (v93 - *(&v234 + 1)));
+        v90 = ((v96 * v96) + (v95 * v95)) + (v97 * v97);
+      }
+
+      v89 += 32;
+      --v91;
+    }
+
+    while (v91);
+    *v242 = v9;
+    *&v242[1] = a9;
+    v242[2] = v80;
+  }
+
+  else
+  {
+    v90 = 0.0;
+  }
+
+  if (sqrtf(v90) <= v72)
+  {
+    v223 = physx::shdfnd::Foundation::mInstance;
+    v224 = "QuickHullConvexHullLib::findSimplex: Simplex input points appers to be colinear.";
+    v225 = 912;
+    goto LABEL_194;
+  }
+
+  v99 = sqrtf(((v79 * v79) + (v78 * v78)) + (v85 * v85));
+  if (v99 > 0.0)
+  {
+    v100 = 1.0 / v99;
+    v78 = v78 * v100;
+    v79 = v79 * v100;
+    v85 = v85 * v100;
+  }
+
+  v101 = (a9 * v79) + (v9 * v78);
+  v102 = v101 + (*&v80 * v85);
+  if (v86)
+  {
+    v103 = (*&this[6] + 12);
+    v104 = 0.0;
+    do
+    {
+      v105 = *(v103 - 3);
+      v106 = *(v103 - 2);
+      v107 = *(v103 - 1);
+      v108 = vabds_f32(((v79 * v106) + (v105 * v78)) + (v107 * v85), v102);
+      if (v108 > v104)
+      {
+        v109 = *v103;
+        v110 = *v103 == v236 || LODWORD(v109) == v240;
+        if (!v110 && LODWORD(v109) != v243)
+        {
+          v246 = *v103;
+          v247 = *(v103 + 4);
+          v101 = v107;
+          v9 = v106;
+          v82 = v105;
+          v104 = v108;
+        }
+      }
+
+      v103 += 8;
+      --v86;
+    }
+
+    while (v86);
+    *v245 = v82;
+    *&v245[1] = v9;
+    *&v245[2] = v101;
+  }
+
+  else
+  {
+    v104 = 0.0;
+  }
+
+  if (fabsf(v104) <= v72)
+  {
+    v223 = physx::shdfnd::Foundation::mInstance;
+    v224 = "QuickHullConvexHullLib::findSimplex: Simplex input points appers to be coplanar.";
+    v225 = 935;
+    goto LABEL_194;
+  }
+
+  for (i = 0; i != 24; i += 8)
+  {
+    v74 = vadd_f32(v74, *&v238[i]);
+    v75 = v75 + *(&v239 + i * 4);
+  }
+
+  v113 = ((v79 * v9) + (v82 * v78)) + (v101 * v85);
+  __asm { FMOV            V3.2S, #0.25 }
+
+  this[2] = vmul_f32(v74, _D3);
+  *this[3].i32 = v75 * 0.25;
+  v248 = v31;
+  v249 = v31;
+  if (v113 >= v102)
+  {
+    Triangle = local::QuickHull::createTriangle(this, &v234, v242, v238);
+    *&v248 = Triangle;
+    *(&v248 + 1) = local::QuickHull::createTriangle(this, v245, &v234, v238);
+    *&v249 = local::QuickHull::createTriangle(this, v245, v238, v242);
+    v133 = local::QuickHull::createTriangle(this, v245, v242, &v234);
+    v134 = 0;
+    *(&v249 + 1) = v133;
+    v135 = -3;
+    do
+    {
+      v136 = v134 + 1;
+      v137 = *(&v248 + v134 + 1);
+      v138 = *v137;
+      v139 = v134 + 2;
+      if (v134 == 2)
+      {
+        v139 = 1;
+      }
+
+      v140 = *(**(&v248 + v139) + 40);
+      *(v138 + 48) = v140;
+      *(v140 + 48) = v138;
+      v141 = *(*(*v137 + 40) + 40);
+      v142 = *Triangle;
+      if (v134)
+      {
+        v143 = v135;
+        do
+        {
+          v142 = *(v142 + 40);
+          _CF = __CFADD__(v143++, 1);
+        }
+
+        while (!_CF);
+      }
+
+      *(v141 + 48) = v142;
+      *(v142 + 48) = v141;
+      ++v135;
+      v134 = v136;
+    }
+
+    while (v136 != 3);
+  }
+
+  else
+  {
+    v118 = local::QuickHull::createTriangle(this, &v234, v238, v242);
+    *&v248 = v118;
+    v119 = local::QuickHull::createTriangle(this, v245, v238, &v234);
+    *(&v248 + 1) = v119;
+    v120 = local::QuickHull::createTriangle(this, v245, v242, v238);
+    *&v249 = v120;
+    *(&v249 + 1) = local::QuickHull::createTriangle(this, v245, &v234, v242);
+    v121 = *(*v119 + 40);
+    v122 = *v120;
+    *(v121 + 48) = *v120;
+    *(v122 + 48) = v121;
+    v123 = *(*(*v119 + 40) + 40);
+    v124 = *v118;
+    v125 = -1;
+    v126 = 1;
+    do
+    {
+      v127 = v125;
+      do
+      {
+        v124 = *(v124 + 40);
+        _CF = __CFADD__(v127++, 1);
+      }
+
+      while (!_CF);
+      *(v123 + 48) = v124;
+      *(v124 + 48) = v123;
+      v128 = v126 + 2;
+      ++v126;
+      v129 = *(&v248 + v126);
+      v130 = *(*v129 + 40);
+      --v125;
+      if (v126 == 3)
+      {
+        v128 = 1;
+      }
+
+      v131 = **(&v248 + v128);
+      *(v130 + 48) = v131;
+      *(v131 + 48) = v130;
+      v123 = *(*(*v129 + 40) + 40);
+      v124 = *v118;
+    }
+
+    while (v126 != 3);
+    *(v123 + 48) = v124;
+    *(v124 + 48) = v123;
+  }
+
+  for (j = 0; j != 32; j += 8)
+  {
+    v145 = this[16].u32[0];
+    if ((this[16].i32[1] & 0x7FFFFFFFu) <= v145)
+    {
+      physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(&this[15], (&v248 + j));
+    }
+
+    else
+    {
+      *(*&this[15] + 8 * v145) = *(&v248 + j);
+      this[16].i32[0] = v145 + 1;
+    }
+  }
+
+  this[17].i32[0] = 4;
+  v146 = this[4].u32[0];
+  if (v146)
+  {
+    v147 = 0;
+    v148 = this[6];
+    v149 = v236;
+    v150 = v240;
+    v151 = v243;
+    v152 = v246;
+    do
+    {
+      v153 = *&v148 + 32 * v147;
+      v154 = *(v153 + 12);
+      if (v154 != v149 && v154 != v150 && v154 != v151 && v154 != v152)
+      {
+        v158 = 0;
+        v159 = 0;
+        v160 = *this[42].i32;
+        v161 = *v153;
+        v162 = *(v153 + 4);
+        v163 = *(v153 + 8);
+        do
+        {
+          v164 = *(&v248 + v158);
+          v165 = v164[13];
+          if (((((v162 * v164[7]) + (v164[6] * v161)) + (v164[8] * v163)) - v165) > v160)
+          {
+            v160 = (((v162 * v164[7]) + (v164[6] * v161)) + (v164[8] * v163)) - v165;
+            v159 = *(&v248 + v158);
+          }
+
+          v158 += 8;
+        }
+
+        while (v158 != 32);
+        if (v159)
+        {
+          *(v153 + 16) = v160;
+          v166 = *(v159 + 16);
+          if (v166)
+          {
+            if (*(v166 + 16) <= v160)
+            {
+              *(v153 + 24) = v166;
+              *(v159 + 16) = v153;
+            }
+
+            else
+            {
+              *(v153 + 24) = *(v166 + 24);
+              *(v166 + 24) = v153;
+            }
+          }
+
+          else
+          {
+            *(v159 + 16) = v153;
+            *(v153 + 16) = v160;
+            *(v153 + 24) = 0;
+          }
+        }
+      }
+
+      ++v147;
+    }
+
+    while (v147 != v146);
+  }
+
+  v167 = this[1];
+  v168 = this[16].u32[0];
+  if ((*(*&v167 + 72) & 4) == 0)
+  {
+LABEL_114:
+    if (this[16].i32[0])
+    {
+      v226 = v12;
+      v227 = v11;
+      v171 = 4;
+      while (1)
+      {
+        v172 = 0;
+        v173 = 0;
+        v174 = *&this[42].i32[1];
+        v175 = this[15];
+        do
+        {
+          v176 = **&v175;
+          if (!*(**&v175 + 60))
+          {
+            v177 = *(v176 + 16);
+            if (v177)
+            {
+              if (v174 < *(v177 + 16))
+              {
+                v173 = **&v175;
+                v174 = *(v177 + 16);
+                v172 = *(v176 + 16);
+              }
+            }
+          }
+
+          *&v175 += 8;
+          --v168;
+        }
+
+        while (v168);
+        v167 = this[1];
+        if (!v172 || *(v172 + 12) == this[5].i32[0] || (*(*&v167 + 72) & 0x20) != 0 && v171 >= *(*&v167 + 74))
+        {
+          goto LABEL_190;
+        }
+
+        v173[2] = *(v173[2] + 24);
+        local::QuickHull::calculateHorizon(this, v172, 0, v173, &this[45], &this[49]);
+        v178 = this[17].i32[0];
+        if ((this[46].i32[0] + v178) >= 0x100)
+        {
+          v219 = this[50].i32[0];
+          if (v219)
+          {
+            v220 = this[49];
+            v221 = this[50].u32[0];
+            do
+            {
+              v222 = *v220++;
+              *(v222 + 60) = 0;
+              --v221;
+            }
+
+            while (v221);
+            this[17].i32[0] = v219 + v178;
+          }
+
+          this[4].i32[1] = v171;
+          return 3;
+        }
+
+        v179 = 0;
+        v180 = 0;
+        v181 = 0;
+        do
+        {
+          v182 = *(*&this[45] + 8 * v179);
+          v183 = local::QuickHull::createTriangle(this, v172, *(v182 + 48), v182);
+          v184 = v183;
+          v234 = v183;
+          v185 = this[16].u32[0];
+          if ((this[16].i32[1] & 0x7FFFFFFFu) <= v185)
+          {
+            physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(&this[15], &v234);
+          }
+
+          else
+          {
+            *(*&this[15] + 8 * v185) = v183;
+            this[16].i32[0] = v185 + 1;
+          }
+
+          ++this[17].i32[0];
+          v186 = *v184;
+          v187 = *(*v184 + 40);
+          v188 = *(v187 + 40);
+          v189 = *(v182 + 48);
+          *(v188 + 48) = v189;
+          *(v189 + 48) = v188;
+          v190 = v186;
+          if (v180)
+          {
+            *(v187 + 48) = v180;
+            *(v180 + 48) = v187;
+            v190 = v181;
+          }
+
+          v191 = this[48].u32[0];
+          if ((this[48].i32[1] & 0x7FFFFFFFu) <= v191)
+          {
+            physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(&this[47], &v234);
+          }
+
+          else
+          {
+            *(*&this[47] + 8 * v191) = v184;
+            this[48].i32[0] = v191 + 1;
+          }
+
+          ++v179;
+          v180 = v186;
+          v181 = v190;
+        }
+
+        while (v179 < this[46].u32[0]);
+        v192 = *(v190 + 40);
+        *(v192 + 48) = v186;
+        *(v186 + 48) = v192;
+        LOBYTE(v234) = 0;
+        v193 = this[48].u32[0];
+        if (v193)
+        {
+          for (k = 0; k < v193; ++k)
+          {
+            v195 = *(*&this[47] + 8 * k);
+            if (!*(v195 + 60))
+            {
+                ;
+              }
+
+              v193 = this[48].u32[0];
+            }
+          }
+
+          if (v234)
+          {
+            goto LABEL_172;
+          }
+
+          if (v193)
+          {
+            for (m = 0; m < v193; ++m)
+            {
+              v197 = *(*&this[47] + 8 * m);
+              if (*(v197 + 60) == 2)
+              {
+                *(v197 + 60) = 0;
+                  ;
+                }
+
+                v193 = this[48].u32[0];
+              }
+            }
+
+            if (v234)
+            {
+LABEL_172:
+              this[5].i32[0] = *(v172 + 12);
+              v214 = this[10].u32[0];
+              v12 = v226;
+              v11 = v227;
+              if (v214)
+              {
+                for (n = 0; n < v214; ++n)
+                {
+                  if (*(*&this[9] + 8 * n))
+                  {
+                    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+                    v214 = this[10].u32[0];
+                  }
+                }
+              }
+
+              this[10].i32[0] = 0;
+              this[7].i32[1] = 0;
+              this[8].i32[0] = 0;
+              local::MemBlock<local::QuickHullHalfEdge,false>::init(&this[7], this[7].u32[0]);
+              v216 = this[14].u32[0];
+              if (v216)
+              {
+                for (ii = 0; ii < v216; ++ii)
+                {
+                  if (*(*&this[13] + 8 * ii))
+                  {
+                    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+                    v216 = this[14].u32[0];
+                  }
+                }
+              }
+
+              this[14].i32[0] = 0;
+              this[11].i32[1] = 0;
+              this[12].i32[0] = 0;
+              local::MemBlock<local::QuickHullFace,true>::init(&this[11], this[11].u32[0]);
+              this[16].i32[0] = 0;
+              this[17].i32[0] = 0;
+              this[44].i32[0] = 0;
+              this[46].i32[0] = 0;
+              this[48].i32[0] = 0;
+              this[50].i32[0] = 0;
+              this[52].i32[0] = 0;
+              v14 = v231;
+              v13 = v232;
+              v16 = v229;
+              v15 = v230;
+              v18 = this + 22;
+              v17 = v228;
+              v20 = this + 23;
+              v19 = &this[22] + 1;
+              v22 = this + 34;
+              v21 = (&this[23] + 4);
+              v24 = this + 35;
+              v23 = &this[34] + 1;
+              v26 = this + 26;
+              v25 = (&this[35] + 4);
+              v28 = this + 27;
+              v27 = &this[26] + 4;
+              v30 = this + 38;
+              v29 = &this[27] + 4;
+              v31 = 0uLL;
+              goto LABEL_2;
+            }
+          }
+        }
+
+        else
+        {
+          v193 = 0;
+        }
+
+        v198 = this[44].u32[0];
+        if (v198)
+        {
+          v199 = 0;
+          v200 = this[47];
+          v201 = this[43];
+          v202 = this[42].i32[0];
+          do
+          {
+            if (v193)
+            {
+              v203 = 0;
+              v204 = *(*&v201 + 8 * v199);
+              v205 = v200;
+              v206 = v193;
+              v207 = *&v202;
+              do
+              {
+                v208 = *v205;
+                if (!*(*v205 + 15))
+                {
+                  v209 = *(v204 + 8);
+                  v210 = v208[6];
+                  v211 = v208[7];
+                  v212 = v208[13];
+                  if (((((*(v204 + 4) * v211) + (v210 * *v204)) + (v208[8] * v209)) - v212) > v207)
+                  {
+                    v207 = (((*(v204 + 4) * v211) + (v210 * *v204)) + (v208[8] * v209)) - v212;
+                    v203 = *v205;
+                  }
+                }
+
+                ++v205;
+                --v206;
+              }
+
+              while (v206);
+              if (v203)
+              {
+                *(v204 + 16) = v207;
+                v213 = *(v203 + 2);
+                if (v213)
+                {
+                  if (*(v213 + 16) <= v207)
+                  {
+                    *(v204 + 24) = v213;
+                    *(v203 + 2) = v204;
+                  }
+
+                  else
+                  {
+                    *(v204 + 24) = *(v213 + 24);
+                    *(v213 + 24) = v204;
+                  }
+                }
+
+                else
+                {
+                  *(v203 + 2) = v204;
+                  *(v204 + 16) = v207;
+                  *(v204 + 24) = 0;
+                }
+              }
+            }
+
+            ++v199;
+          }
+
+          while (v199 != v198);
+        }
+
+        this[44].i32[0] = 0;
+        this[46].i32[0] = 0;
+        this[48].i32[0] = 0;
+        this[50].i32[0] = 0;
+        ++v171;
+        v168 = this[16].u32[0];
+        if (!v168)
+        {
+          v167 = this[1];
+          goto LABEL_190;
+        }
+      }
+    }
+
+LABEL_189:
+    v171 = 4;
+LABEL_190:
+    this[4].i32[1] = v171;
+    return 2 * (v171 > *(*&v167 + 74));
+  }
+
+  if (!this[16].i32[0])
+  {
+    goto LABEL_189;
+  }
+
+  v169 = this[15];
+  v170 = this[16].u32[0];
+  while (*(**&v169 + 36) >= (*this->i32[0] + *this->i32[0]))
+  {
+    *&v169 += 8;
+    if (!--v170)
+    {
+      goto LABEL_114;
+    }
+  }
+
+  return 1;
+}
+
+uint64_t local::QuickHull::calculateHorizon(uint64_t a1, float *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
+{
+  result = local::QuickHull::deleteFacePoints(a1, a4, 0);
+  *(a4 + 15) = 1;
+  v18 = a4;
+  v13 = *(a6 + 8);
+  if ((*(a6 + 12) & 0x7FFFFFFFu) <= v13)
+  {
+    result = physx::shdfnd::Array<local::QuickHullFace *,physx::shdfnd::ReflectionAllocator<local::QuickHullFace *>>::growAndPushBack(a6, &v18);
+  }
+
+  else
+  {
+    *(*a6 + 8 * v13) = a4;
+    *(a6 + 8) = v13 + 1;
+  }
+
+  --*(a1 + 136);
+  if (a3)
+  {
+    v14 = a3[5];
+  }
+
+  else
+  {
+    v14 = *a4;
+    a3 = v14;
+  }
+
+  v18 = v14;
+  do
+  {
+    v15 = v14[6];
+    v16 = v15[7];
+    if (!*(v16 + 60))
+    {
+      if (((((a2[1] * *(v16 + 28)) + (*(v16 + 24) * *a2)) + (*(v16 + 32) * a2[2])) - *(v16 + 52)) <= *(a1 + 336))
+      {
+        v17 = *(a5 + 8);
+        if ((*(a5 + 12) & 0x7FFFFFFFu) <= v17)
+        {
+          result = physx::shdfnd::Array<local::QuickHullHalfEdge *,physx::shdfnd::ReflectionAllocator<local::QuickHullHalfEdge *>>::growAndPushBack(a5, &v18);
+        }
+
+        else
+        {
+          *(*a5 + 8 * v17) = v14;
+          *(a5 + 8) = v17 + 1;
+        }
+      }
+
+      else
+      {
+        result = local::QuickHull::calculateHorizon(a1, a2, v15, v16, a5, a6);
+      }
+    }
+
+    v14 = v14[5];
+    v18 = v14;
+  }
+
+  while (v14 != a3);
+  return result;
+}
+
+uint64_t local::QuickHull::doAdjacentMerge(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
+{
+  v7 = *a2;
+  *a4 = 0;
+  v8 = *(a2 + 36);
+  v9 = 1;
+  while (1)
+  {
+    v10 = v7[6];
+    v11 = *(v10 + 56);
+    if (!a3)
+    {
+      break;
+    }
+
+    if (v8 <= v11[9])
+    {
+      v12 = -*(a1 + 336);
+      if (((((*(*(*(v10 + 48) + 56) + 44) * v11[7]) + (v11[6] * *(*(*(v10 + 48) + 56) + 40))) + (v11[8] * *(*(*(v10 + 48) + 56) + 48))) - v11[13]) > v12)
+      {
+        goto LABEL_16;
+      }
+
+      v16 = v7[7];
+      v13 = ((v11[11] * v16[7]) + (v16[6] * v11[10])) + (v16[8] * v11[12]);
+      v14 = v16[13];
+    }
+
+    else
+    {
+      v12 = -*(a1 + 336);
+      if (((((v11[11] * *(v7[7] + 28)) + (*(v7[7] + 24) * v11[10])) + (*(v7[7] + 32) * v11[12])) - *(v7[7] + 52)) > v12)
+      {
+        goto LABEL_16;
+      }
+
+      v13 = ((*(*(*(v10 + 48) + 56) + 44) * v11[7]) + (v11[6] * *(*(*(v10 + 48) + 56) + 40))) + (v11[8] * *(*(*(v10 + 48) + 56) + 48));
+      v14 = v11[13];
+    }
+
+    if ((v13 - v14) > v12)
+    {
+      v9 = 0;
+    }
+
+LABEL_13:
+    v7 = v7[5];
+    if (v7 == *a2)
+    {
+      result = 0;
+      if ((v9 & 1) == 0)
+      {
+        *(a2 + 60) = 2;
+      }
+
+      return result;
+    }
+  }
+
+  v15 = -*(a1 + 336);
+  if (((((v11[11] * *(v7[7] + 28)) + (*(v7[7] + 24) * v11[10])) + (*(v7[7] + 32) * v11[12])) - *(v7[7] + 52)) <= v15 && ((((*(*(*(v10 + 48) + 56) + 44) * v11[7]) + (v11[6] * *(*(*(v10 + 48) + 56) + 40))) + (v11[8] * *(*(*(v10 + 48) + 56) + 48))) - v11[13]) <= v15)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_16:
+  *(a1 + 416) = 0;
+  if (local::QuickHullFace::mergeAdjacentFace(a2, v7, a1 + 408, v8))
+  {
+    v18 = *(a1 + 416);
+    *(a1 + 136) -= v18;
+    if (v18)
+    {
+      v19 = 0;
+      do
+      {
+        local::QuickHull::deleteFacePoints(a1, *(*(a1 + 408) + 8 * v19++), a2);
+      }
+
+      while (v19 < *(a1 + 416));
+    }
+
+    return 1;
+  }
+
+  else
+  {
+    result = 0;
+    *a4 = 1;
+  }
+
+  return result;
+}
+
+uint64_t local::QuickHull::deleteFacePoints(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a2 + 16);
+  if (v3)
+  {
+    v6 = result;
+    do
+    {
+      while (1)
+      {
+        while (1)
+        {
+          while (1)
+          {
+            v7 = v3;
+            v11 = v3;
+            v3 = *(v3 + 24);
+            *(v7 + 24) = 0;
+            if (a3)
+            {
+              v8 = (((*(v7 + 4) * *(a3 + 28)) + (*(a3 + 24) * *v7)) + (*(a3 + 32) * *(v7 + 8))) - *(a3 + 52);
+              if (v8 > *(v6 + 336))
+              {
+                break;
+              }
+            }
+
+            v10 = *(v6 + 352);
+            if ((*(v6 + 356) & 0x7FFFFFFFu) <= v10)
+            {
+              result = physx::shdfnd::Array<local::QuickHullVertex *,physx::shdfnd::ReflectionAllocator<local::QuickHullVertex *>>::growAndPushBack(v6 + 344, &v11);
+              if (!v3)
+              {
+                goto LABEL_17;
+              }
+            }
+
+            else
+            {
+              *(*(v6 + 344) + 8 * v10) = v7;
+              *(v6 + 352) = v10 + 1;
+              if (!v3)
+              {
+                goto LABEL_17;
+              }
+            }
+          }
+
+          *(v7 + 16) = v8;
+          v9 = *(a3 + 16);
+          if (v9)
+          {
+            break;
+          }
+
+          *(a3 + 16) = v7;
+          *(v7 + 16) = v8;
+          *(v7 + 24) = 0;
+          if (!v3)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        if (*(v9 + 16) <= v8)
+        {
+          break;
+        }
+
+        *(v7 + 24) = *(v9 + 24);
+        *(v9 + 24) = v7;
+        if (!v3)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      *(v7 + 24) = v9;
+      *(a3 + 16) = v7;
+    }
+
+    while (v3);
+LABEL_17:
+    *(a2 + 16) = 0;
+  }
+
+  return result;
+}
+
+BOOL local::QuickHull::canMergeFaces(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  v104 = *MEMORY[0x1E69E9840];
+  v4 = a2[7];
+  v5 = *(a2[6] + 56);
+  v6 = *(v4 + 8);
+  v7 = *(v5 + 4);
+  v8 = v7 + v6;
+  if (v7 + v6 < 0xF)
+  {
+    MEMORY[0x1EEE9AC00](a1);
+    v9 = (&v90 - v10);
+    bzero(&v90 - v10, v11);
+  }
+
+  else
+  {
+    v9 = physx::shdfnd::TempAllocator::allocate(&v91, 72 * (v7 + v6), "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 1447);
+    v6 = *(v4 + 8);
+    v7 = *(v5 + 4);
+  }
+
+  bzero(v9, 72 * (v6 + v7));
+  v92 = 0;
+  v93 = 0;
+  v96 = 0.0;
+  v100 = 0xFF7FFFFF00000000;
+  v101 = 0;
+  v102 = 0;
+  v103 = 0;
+  v91 = v9;
+  v12 = *v4;
+  if (*v4 == v2)
+  {
+    v12 = v12[5];
+  }
+
+  v13 = 0;
+  v14 = 0;
+  v15 = 0;
+  v16 = v12;
+  do
+  {
+    v17 = &v9[9 * v15];
+    v17[7] = &v91;
+    *v17 = *v16;
+    *(v17 + 2) = *(v16 + 2);
+    v18 = *(v16 + 12);
+    *(v17 + 7) = *(v16 + 7);
+    *(v17 + 12) = v18;
+    if (v16 == v2)
+    {
+      v14 = v16[6];
+      v13 = &v9[9 * v15];
+    }
+
+    v19 = v15;
+    if (!v15)
+    {
+      v19 = *(v4 + 8);
+    }
+
+    v20 = v15++;
+    v21 = v19 - 1;
+    if (v16[5] == v12)
+    {
+      v22 = 0;
+    }
+
+    else
+    {
+      v22 = v15;
+    }
+
+    v23 = &v9[9 * v20];
+    v23[4] = &v9[9 * v21];
+    v23[5] = &v9[9 * v22];
+    v16 = v16[5];
+  }
+
+  while (v16 != v12);
+  v24 = *v5;
+  do
+  {
+    v25 = &v9[9 * v15];
+    v25[7] = &v91;
+    *v25 = *v24;
+    *(v25 + 2) = *(v24 + 8);
+    v26 = *(v24 + 12);
+    *(v25 + 7) = *(v24 + 28);
+    *(v25 + 12) = v26;
+    if (v14 == v24)
+    {
+      v14 = &v9[9 * v15];
+    }
+
+    v27 = *v5;
+    if (*(v24 + 40) == *v5)
+    {
+      v29 = *(v4 + 8);
+      v28 = v29;
+    }
+
+    else
+    {
+      v28 = v15 + 1;
+      v29 = *(v4 + 8);
+    }
+
+    v30 = v15;
+    if (v15 == v29)
+    {
+      v30 = v15 + *(v5 + 4);
+    }
+
+    v31 = &v9[9 * v15];
+    v31[4] = &v9[9 * v30 - 9];
+    v31[5] = &v9[9 * v28];
+    ++v15;
+    v24 = *(v24 + 40);
+  }
+
+  while (v24 != v27);
+  v32 = 0;
+  v34 = v13[4];
+  v33 = v13[5];
+  v36 = v14[4];
+  v35 = v14[5];
+  *(v36 + 40) = v33;
+  *(v33 + 32) = v36;
+  *(v34 + 40) = v35;
+  *(v35 + 32) = v34;
+  v94 = 0;
+  v95 = 0.0;
+  v37 = v91;
+  v39 = *v91;
+  v38 = v91[1];
+  v40 = 0.0;
+  v41 = 3;
+  v42 = v91;
+  v43 = v91[2];
+  do
+  {
+    v44 = *(v42 + 5);
+    v45 = (((v38 - v44[1]) * (v38 - v44[1])) + ((v39 - *v44) * (v39 - *v44))) + ((v43 - v44[2]) * (v43 - v44[2]));
+    if (v45 > v40)
+    {
+      v32 = v42;
+    }
+
+    v43 = v44[2];
+    if (v45 > v40)
+    {
+      v40 = v45;
+    }
+
+    v38 = v44[1];
+    v39 = *v44;
+    v42 = *(v42 + 5);
+    --v41;
+  }
+
+  while (v41);
+  v46 = *(v32 + 5);
+  v48 = *v32;
+  v47 = v32[1];
+  v49 = *v46 - *v32;
+  v50 = *(v46 + 4) - v47;
+  v51 = v32[2];
+  v52 = *(v46 + 8) - v51;
+  v97 = *v32;
+  v98 = v47;
+  v99 = v51;
+  v53 = 1;
+  v54 = 0.0;
+  v55 = 0.0;
+  v56 = 0.0;
+  do
+  {
+    ++v53;
+    v48 = v48 + *v46;
+    v97 = v48;
+    v47 = v47 + *(v46 + 4);
+    v98 = v47;
+    v51 = v51 + *(v46 + 8);
+    v99 = v51;
+    v46 = *(v46 + 40);
+    v57 = *v46 - *v32;
+    v58 = *(v46 + 4) - v32[1];
+    v59 = *(v46 + 8) - v32[2];
+    v56 = v56 + ((v58 * -v52) + (v50 * v59));
+    v55 = v55 + ((v59 * -v49) + (v52 * v57));
+    v94 = __PAIR64__(LODWORD(v55), LODWORD(v56));
+    v54 = v54 + ((v57 * -v50) + (v49 * v58));
+    v95 = v54;
+  }
+
+  while (v46 != v32);
+  v92 = v53;
+  v60 = sqrtf(((v55 * v55) + (v56 * v56)) + (v54 * v54));
+  if (v60 > 0.0)
+  {
+    v56 = v56 * (1.0 / v60);
+    v55 = v55 * (1.0 / v60);
+    v94 = __PAIR64__(LODWORD(v55), LODWORD(v56));
+    v54 = v54 * (1.0 / v60);
+    v95 = v54;
+  }
+
+  v61 = 1.0 / v53;
+  v62 = v61 * v48;
+  v96 = v60;
+  v97 = v62;
+  v63 = v61 * v47;
+  v64 = v61 * v51;
+  v98 = v63;
+  v99 = v64;
+  v65 = *(a1 + 32);
+  if (v65)
+  {
+    v66 = ((v63 * v55) + (v56 * v62)) + (v54 * v64);
+    v67 = (*(a1 + 48) + 8);
+    while (((((v55 * *(v67 - 1)) + (v56 * *(v67 - 2))) + (v54 * *v67)) - v66) <= *(a1 + 340))
+    {
+      v67 += 8;
+      if (!--v65)
+      {
+        goto LABEL_38;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_38:
+    v69 = *v91;
+    v68 = v91[1];
+    v70 = v91[2];
+LABEL_39:
+    v37 = *(v37 + 5);
+    v71 = *v37 - v69;
+    v72 = v37[1] - v68;
+    v73 = v37[2] - v70;
+    v74 = sqrtf(((v72 * v72) + (v71 * v71)) + (v73 * v73));
+    if (v74 > 0.0)
+    {
+      v75 = 1.0 / v74;
+      v71 = v71 * v75;
+      v72 = v72 * v75;
+      v73 = v73 * v75;
+    }
+
+    v76 = v73 * -v56;
+    v77 = v71 * -v55;
+    v78 = -((v72 * -v54) + (v55 * v73));
+    v79 = -(v76 + (v54 * v71));
+    v80 = -(v77 + (v56 * v72));
+    v81 = v37;
+    while (((((v81[1] - v68) * v79) + ((*v81 - v69) * v78)) + ((v81[2] - v70) * v80)) <= *(a1 + 336))
+    {
+      v81 = *(v81 + 5);
+      if (v81 == v37)
+      {
+        v70 = v37[2];
+        v68 = v37[1];
+        v69 = *v37;
+        if (v37 != v91)
+        {
+          goto LABEL_39;
+        }
+
+        v83 = v2[5];
+        v82 = v2[6];
+        v84 = v82[7];
+        v85 = v82[4];
+        do
+        {
+          v2 = v2[4];
+          v82 = v82[5];
+          v86 = *(v2[6] + 56);
+        }
+
+        while (v86 == v84);
+        while (1)
+        {
+          v87 = *(*(v83 + 48) + 56);
+          if (v87 != v84)
+          {
+            break;
+          }
+
+          v85 = *(v85 + 32);
+          v83 = *(v83 + 40);
+        }
+
+        if (*(*(v85 + 48) + 56) != v87)
+        {
+          v88 = v86 != *(v82[6] + 56);
+          goto LABEL_53;
+        }
+
+        break;
+      }
+    }
+  }
+
+  v88 = 0;
+LABEL_53:
+  if (v8 >= 0xF)
+  {
+    physx::shdfnd::TempAllocator::deallocate(&v91, v9);
+  }
+
+  return v88;
+}
+
+_DWORD *local::addExpandPoint(_DWORD *result, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  if (v2)
+  {
+    v3 = (*a2 + 60 * v2 - 4);
+    v4 = *(a2 + 8);
+    while (*(v3 - 2) != result[12] || *(v3 - 1) != result[13] || *v3 != result[14])
+    {
+      v3 -= 15;
+      if (!--v4)
+      {
+        goto LABEL_7;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_7:
+    if ((*(a2 + 12) & 0x7FFFFFFFu) <= v2)
+    {
+      return physx::shdfnd::Array<local::ExpandPoint,physx::shdfnd::ReflectionAllocator<local::ExpandPoint>>::growAndPushBack(a2, result);
+    }
+
+    else
+    {
+      v5 = 0;
+      v6 = *a2 + 60 * v2;
+      do
+      {
+        *(v6 + v5 * 4) = *&result[v5];
+        v5 += 4;
+      }
+
+      while (v5 != 12);
+      v7 = *(result + 6);
+      *(v6 + 56) = result[14];
+      *(v6 + 48) = v7;
+      ++*(a2 + 8);
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::QuickHullConvexHullLib::QuickHullConvexHullLib(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 8) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 24) = 0;
+  *(a1 + 48) = 0;
+  *a1 = &unk_1F5D23320;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0u;
+  v6 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v7 = "static const char *physx::shdfnd::ReflectionAllocator<local::QuickHull>::getName() [T = local::QuickHull]";
+  }
+
+  else
+  {
+    v7 = "<allocation names disabled>";
+  }
+
+  v8 = (*(*(v6 + 24) + 16))(v6 + 24, 424, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 1810);
+  *v8 = a3;
+  *(v8 + 8) = a2;
+  *(v8 + 36) = 0xFFFFFFFF00000000;
+  *(v8 + 48) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  *(v8 + 80) = 0;
+  *(v8 + 88) = 0;
+  *(v8 + 72) = 0;
+  *(v8 + 96) = 0;
+  *(v8 + 104) = 0u;
+  *(v8 + 120) = 0u;
+  *(v8 + 133) = 0;
+  __asm { FMOV            V0.2S, #-1.0 }
+
+  *(v8 + 336) = _D0;
+  *(v8 + 344) = 0u;
+  *(v8 + 360) = 0u;
+  *(v8 + 376) = 0u;
+  *(v8 + 392) = 0u;
+  *(v8 + 408) = 0u;
+  *(a1 + 56) = v8;
+  local::QuickHull::preallocate(v8, *(a2 + 16));
+  return a1;
+}
+
+void physx::QuickHullConvexHullLib::~QuickHullConvexHullLib(physx::QuickHullConvexHullLib *this)
+{
+  *this = &unk_1F5D23320;
+  v2 = *(this + 7);
+  if (!*(v2 + 48))
+  {
+    *(v2 + 128) = 0;
+    goto LABEL_5;
+  }
+
+  (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  *(v2 + 48) = 0;
+  v3 = *(this + 7);
+  *(v2 + 128) = 0;
+  v2 = v3;
+  if (v3)
+  {
+LABEL_5:
+    local::QuickHull::~QuickHull(v2);
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v2);
+  }
+
+  v4 = *(this + 8);
+  if (v4)
+  {
+    v5 = *(v4 + 44);
+    if ((v5 & 0x80000000) == 0 && (v5 & 0x7FFFFFFF) != 0 && *(v4 + 32) != 0)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    v7 = *(v4 + 28);
+    if ((v7 & 0x80000000) == 0 && (v7 & 0x7FFFFFFF) != 0 && *(v4 + 16) != 0)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    v9 = *(v4 + 12);
+    if ((v9 & 0x80000000) == 0 && (v9 & 0x7FFFFFFF) != 0 && *v4 != 0)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    }
+
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v4);
+  }
+
+  if (*(this + 9))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *(this + 10) = 0;
+  *this = &unk_1F5D232E8;
+  if (*(this + 3))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  if (*(this + 6))
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+}
+
+{
+  physx::QuickHullConvexHullLib::~QuickHullConvexHullLib(this);
+  if (v1)
+  {
+    v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+    v2();
+  }
+}
+
+uint64_t physx::QuickHullConvexHullLib::createConvexHull(float32x2_t *this)
+{
+  *&v170[24] = *MEMORY[0x1E69E9840];
+  v2 = *(*&this[1] + 16);
+  if (v2 <= 8)
+  {
+    v2 = 8;
+  }
+
+  v3 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * v2, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 1846);
+  v147 = 0;
+  v4 = this[1];
+  v5 = v4[4];
+  v6 = *(v4 + 1);
+  v7 = *v4;
+  if ((v4[18] & 0x100) != 0)
+  {
+    if (v5)
+    {
+      v12 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 12 * v5, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullLib.cpp", 137);
+      v10 = v12;
+      this[6] = v12;
+      v13 = vdup_n_s32(0xFE7FFFFF);
+      v14 = vdup_n_s32(0x7E7FFFFFu);
+      v15 = (v6 + 8);
+      v16 = 8.5071e37;
+      v17 = -8.5071e37;
+      v18 = v5;
+      do
+      {
+        if (v16 >= *v15)
+        {
+          v16 = *v15;
+        }
+
+        v19 = *(v15 - 2);
+        v14 = vbsl_s8(vcgt_f32(v19, v14), v14, v19);
+        v13 = vbsl_s8(vcgt_f32(v13, v19), v13, v19);
+        if (v17 <= *v15)
+        {
+          v17 = *v15;
+        }
+
+        v15 = (v15 + v7);
+        --v18;
+      }
+
+      while (v18);
+      this[4] = vmul_f32(vadd_f32(v14, v13), 0x3F0000003F000000);
+      this[5].f32[0] = (v16 + v17) * 0.5;
+      v20 = (v12 + 8);
+      v21 = (v6 + 8);
+      v22 = v5;
+      do
+      {
+        v23 = *v21 - this[5].f32[0];
+        *(v20 - 1) = vsub_f32(*(v21 - 2), this[4]);
+        *v20 = v23;
+        v20 += 3;
+        v21 = (v21 + v7);
+        --v22;
+      }
+
+      while (v22);
+    }
+
+    else
+    {
+      v10 = 0;
+      this[6] = 0;
+      this[4] = 0;
+      this[5].i32[0] = 0;
+    }
+
+    v8 = this;
+    v9 = v5;
+    v11 = 12;
+  }
+
+  else
+  {
+    v8 = this;
+    v9 = v4[4];
+    v10 = *(v4 + 1);
+    v11 = *v4;
+  }
+
+  if ((physx::ConvexHullLib::cleanupVertices(v8, v9, v10, v11, &v147, v3, &v149, &v148) & 1) == 0)
+  {
+    if (v3)
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v3);
+    }
+
+    return 3;
+  }
+
+  v29 = 0;
+  v30 = v147;
+  v31 = *v3;
+  v32 = *(v3 + 4);
+  v24.i32[0] = *(v3 + 8);
+  do
+  {
+    v33 = (&v161 + v29);
+    *v33 = v31;
+    v33[1] = v32;
+    v33[2] = *v24.i32;
+    v33[3] = 0.0;
+    v34 = (&v152 + v29);
+    *v34 = v31;
+    v34[1] = v32;
+    v34[2] = *v24.i32;
+    v29 += 32;
+    v34[3] = 0.0;
+  }
+
+  while (v29 != 96);
+  if (v30 < 2)
+  {
+    v52 = v31;
+    v51 = v32;
+    v50 = *v24.i32;
+    goto LABEL_40;
+  }
+
+  LODWORD(v28) = v161;
+  v35 = v162;
+  v36 = v163;
+  v37 = v164[0];
+  v38 = v152;
+  v39 = v153;
+  v40 = v154[0];
+  v42 = v165;
+  v41 = v166;
+  v43 = v167;
+  v44 = v168;
+  v46 = v155;
+  v45 = v156;
+  v47 = (v3 + 20);
+  v48 = 1;
+  v49 = v157;
+  v50 = *v24.i32;
+  v51 = v32;
+  v52 = v31;
+  v53 = v158;
+  do
+  {
+    v54 = *(v47 - 2);
+    if (v54 <= v31)
+    {
+      *&v55 = *(v47 - 1);
+      if (v54 < v52)
+      {
+        v36 = *v47;
+        v37 = v48;
+        v35 = *(v47 - 1);
+        *&v28 = *(v47 - 2);
+        v52 = *&v28;
+      }
+    }
+
+    else
+    {
+      v55 = *(v47 - 1);
+      v40 = v48;
+      v38 = *(v47 - 2);
+      v31 = v38;
+      v39 = v55;
+    }
+
+    if (*&v55 <= v32)
+    {
+      v56 = *v47;
+      if (*&v55 < v51)
+      {
+        v44 = v48;
+        v43 = *v47;
+        v41 = v55;
+        v42 = *(v47 - 2);
+        v51 = *&v55;
+      }
+    }
+
+    else
+    {
+      v53 = v48;
+      v49 = *v47;
+      v45 = v55;
+      v46 = *(v47 - 2);
+      v56 = *v47;
+      v32 = *&v55;
+    }
+
+    if (v56 <= *v24.i32)
+    {
+      v57 = &v170[4];
+      v58 = v170;
+      v59 = &v169 + 4;
+      v60 = &v169;
+      v61 = v56;
+      if (v56 >= v50)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    else
+    {
+      v57 = &v160 + 4;
+      v58 = &v160;
+      v59 = &v159 + 4;
+      v60 = &v159;
+      v61 = v50;
+      *v24.i32 = v56;
+    }
+
+    *v60 = v54;
+    *v59 = v55;
+    *v58 = v56;
+    v50 = v61;
+    *v57 = v48;
+LABEL_34:
+    ++v48;
+    v47 += 3;
+  }
+
+  while (v30 != v48);
+  v161 = LODWORD(v28);
+  v162 = v35;
+  v163 = v36;
+  v164[0] = v37;
+  v152 = v38;
+  v153 = v39;
+  v154[0] = v40;
+  v165 = v42;
+  v166 = v41;
+  v167 = v43;
+  v168 = v44;
+  v155 = v46;
+  v156 = v45;
+  v157 = v49;
+  v158 = v53;
+LABEL_40:
+  v63 = 0;
+  v64 = 0;
+  v65 = 0;
+  LODWORD(v66) = 0;
+  v67 = ((*v24.i32 + (((v31 - v52) + v32) - v51)) - v50) * 0.5;
+  v24.i32[0] = 884998144;
+  v68.i32[0] = vdup_lane_s32(v24, 0).u32[0];
+  v68.i32[1] = *(*&this[2] + 4);
+  v25.n128_u64[0] = vmul_n_f32(v68, v67);
+  v69 = 0.0;
+  do
+  {
+    v70 = *(&v152 + v63) - *(&v161 + v63);
+    if (v70 <= v69)
+    {
+      v66 = v66;
+    }
+
+    else
+    {
+      v66 = v64;
+    }
+
+    if (v70 > v69)
+    {
+      v69 = *(&v152 + v63) - *(&v161 + v63);
+    }
+
+    v65 += 32;
+    ++v64;
+    v63 += 36;
+  }
+
+  while (v65 != 96);
+  v71 = vcgt_f32(v25.n128_u64[0], v68);
+  v72 = &v152 + 8 * v66;
+  v73 = *v72;
+  v74 = v72[1];
+  v75 = v72[2];
+  v76 = (&v161 + 8 * v66);
+  v77 = v76[1];
+  v78 = v76[2];
+  v79 = *v76 - *v72;
+  v80 = v77 - v74;
+  v81 = v78 - v75;
+  *&v26 = sqrtf(((v80 * v80) + (v79 * v79)) + (v81 * v81));
+  if (*&v26 > 0.0)
+  {
+    v77 = 1.0;
+    *&v26 = 1.0 / *&v26;
+    v79 = v79 * *&v26;
+    v80 = v80 * *&v26;
+    v81 = v81 * *&v26;
+  }
+
+  v82 = COERCE_DOUBLE(vbsl_s8(v71, v25.n128_u64[0], v68));
+  if (v30)
+  {
+    v83 = 0;
+    v84 = 0;
+    v85 = -v80;
+    v86 = (v3 + 8);
+    v87 = 0.0;
+    do
+    {
+      v88 = *(v86 - 2);
+      v89 = *(v86 - 1);
+      v90 = *v86 - v75;
+      v91 = ((v89 - v74) * -v81) + (v80 * v90);
+      v92 = (v90 * -v79) + (v81 * (v88 - v73));
+      v93 = ((v88 - v73) * v85) + (v79 * (v89 - v74));
+      if ((((v92 * v92) + (v91 * v91)) + (v93 * v93)) > v87)
+      {
+        v25.n128_f32[0] = v91;
+        *v71.i32 = v92;
+        *&v26 = ((v88 - v73) * v85) + (v79 * (v89 - v74));
+        v77 = *(v86 - 2);
+        *&v28 = *(v86 - 1);
+        v78 = *v86;
+        v87 = ((v92 * v92) + (v91 * v91)) + (v93 * v93);
+        v84 = v83;
+      }
+
+      ++v83;
+      v86 += 3;
+    }
+
+    while (v30 != v83);
+    v94 = v84;
+  }
+
+  else
+  {
+    v94 = 0;
+    v87 = 0.0;
+  }
+
+  v95 = sqrtf(v87);
+  v96 = v95 >= *&v82;
+  if (v95 < *&v82)
+  {
+    v97 = v77 - v73;
+    v98 = *&v28 - v74;
+    v99 = v78 - v75;
+    v100 = (((v80 * v98) + (v97 * v79)) + (v99 * v81)) / (((v80 * v80) + (v79 * v79)) + (v81 * v81));
+    v101 = v97 - (v79 * v100);
+    v102 = v98 - (v80 * v100);
+    v103 = v99 - (v81 * v100);
+    v104 = sqrtf(((v102 * v102) + (v101 * v101)) + (v103 * v103));
+    if (v104 > 0.0)
+    {
+      v105 = 1.0 / v104;
+      v101 = v101 * v105;
+      v102 = v102 * v105;
+      v103 = v103 * v105;
+    }
+
+    v77 = v77 + (*&v82 * v101);
+    *&v28 = *&v28 + (*&v82 * v102);
+    v78 = v78 + (*&v82 * v103);
+    v106 = v3 + 12 * v94;
+    *v106 = v77;
+    *(v106 + 4) = LODWORD(v28);
+    *(v106 + 8) = v78;
+  }
+
+  v107 = sqrtf(((*v71.i32 * *v71.i32) + (v25.n128_f32[0] * v25.n128_f32[0])) + (*&v26 * *&v26));
+  if (v107 > 0.0)
+  {
+    v107 = 1.0 / v107;
+    v25.n128_f32[0] = v25.n128_f32[0] * v107;
+    *v71.i32 = *v71.i32 * v107;
+    *&v26 = *&v26 * v107;
+  }
+
+  *&v28 = *&v28 * *v71.i32;
+  *&v27 = (*&v28 + (v77 * v25.n128_f32[0])) + (v78 * *&v26);
+  if (v30)
+  {
+    v108 = 0;
+    v109 = 0;
+    v110 = (v3 + 8);
+    v111 = 0.0;
+    do
+    {
+      v112 = (*v71.i32 * *(v110 - 1)) + (*(v110 - 2) * v25.n128_f32[0]);
+      v113 = *v110;
+      v110 += 3;
+      v107 = v113;
+      *&v28 = vabds_f32(v112 + (v113 * *&v26), *&v27);
+      if (*&v28 > *&v111)
+      {
+        *&v111 = *&v28;
+        v109 = v108;
+      }
+
+      ++v108;
+    }
+
+    while (v30 != v108);
+  }
+
+  else
+  {
+    v109 = 0;
+    v111 = 0.0;
+  }
+
+  *&v111 = fabsf(*&v111);
+  if (*&v111 < *&v82)
+  {
+    v114 = v3 + 12 * v109;
+    LODWORD(v28) = *v114;
+    LODWORD(v111) = *(v114 + 4);
+    v107 = *(v114 + 8);
+    v115 = ((*v71.i32 * *&v111) + (*v114 * v25.n128_f32[0])) + (v107 * *&v26);
+    v116 = *&v82 * v25.n128_f32[0];
+    v117 = *&v82 * *v71.i32;
+    v118 = *&v82 * *&v26;
+    if (v115 <= *&v27)
+    {
+      v25.n128_f32[0] = *&v28 - v116;
+      *v71.i32 = *&v111 - v117;
+      *&v26 = v107 - v118;
+    }
+
+    else
+    {
+      v25.n128_f32[0] = v116 + *&v28;
+      *v71.i32 = v117 + *&v111;
+      *&v26 = v118 + v107;
+    }
+
+    v96 = 0;
+    *v114 = v25.n128_u32[0];
+    *(v114 + 4) = v71.i32[0];
+    *(v114 + 8) = LODWORD(v26);
+  }
+
+  v119 = this[7];
+  v119[4].i32[0] = v30;
+  if (v30)
+  {
+    v120 = 0;
+    v121 = (*&v119[6] + 12);
+    v122 = (v3 + 8);
+    do
+    {
+      v25.n128_u64[0] = *(v122 - 1);
+      *(v121 - 3) = v25.n128_u64[0];
+      v123 = *v122;
+      v122 += 3;
+      v25.n128_u32[0] = v123;
+      *(v121 - 1) = v123;
+      *v121 = v120;
+      v121 += 8;
+      ++v120;
+    }
+
+    while (v30 != v120);
+  }
+
+  if (v96)
+  {
+    for (i = 0; i != 24; i += 8)
+    {
+      v125 = &v119[i / 2];
+      v125[18] = *(&v161 + i * 4);
+      v125[19].i32[0] = v164[i - 1];
+      *&v125[19].u8[4] = *&v164[i];
+      v125[21].i32[1] = v164[i + 4];
+      v125[30] = *(&v152 + i * 4);
+      v125[31].i32[0] = v154[i - 1];
+      v25 = *&v154[i];
+      *&v125[31].u8[4] = v25;
+      v126 = v154[i + 4];
+      v125[33].i32[1] = v126;
+    }
+
+    *&v119[42] = v82;
+    v119[17].i8[4] = 1;
+    v119 = this[7];
+  }
+
+  v127 = local::QuickHull::buildHull(v119, v82, v25, *&v71, v26, v27, v111, v28, v107);
+  v62 = 3;
+  if (v127 <= 1)
+  {
+    if (v127)
+    {
+      if (v127 == 1)
+      {
+        v62 = 1;
+      }
+
+      else
+      {
+        v62 = 3;
+      }
+
+      goto LABEL_117;
+    }
+
+    v129 = this[7];
+    v130 = *(v129 + 128);
+    if (v130)
+    {
+      for (j = 0; j < v130; ++j)
+      {
+        v132 = *(*(v129 + 120) + 8 * j);
+        if (!*(v132 + 60))
+        {
+LABEL_94:
+          v133 = *v132;
+          v134 = *v132;
+          do
+          {
+            v135 = *(v134[6] + 56);
+            if ((((*(v132 + 28) * v135[7]) + (*(v132 + 24) * v135[6])) + (*(v132 + 32) * v135[8])) > 0.99863 && *(v132 + 36) >= v135[9])
+            {
+              if (local::QuickHull::canMergeFaces(v129, v134))
+              {
+                v150 = 0;
+                v151 = 0;
+                local::QuickHullFace::mergeAdjacentFace(v132, v134, &v150, v136);
+                v137 = v151;
+                *(v129 + 136) -= v151;
+                v138 = v150;
+                v139 = v150;
+                if (v137)
+                {
+                  do
+                  {
+                    v140 = *v139++;
+                    local::QuickHull::deleteFacePoints(v129, v140, v132);
+                    --v137;
+                  }
+
+                  while (v137);
+                }
+
+                if ((v151 & 0x8000000000000000) == 0 && (v151 & 0x7FFFFFFF00000000) != 0 && v138 != 0)
+                {
+                  (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v138);
+                }
+
+                goto LABEL_94;
+              }
+
+              v133 = *v132;
+            }
+
+            v134 = v134[5];
+          }
+
+          while (v134 != v133);
+          v130 = *(v129 + 128);
+        }
+      }
+    }
+
+LABEL_113:
+    v62 = 0;
+    goto LABEL_117;
+  }
+
+  if (v127 == 2)
+  {
+    if ((*(*&this[1] + 72) & 0x20) != 0)
+    {
+      v62 = physx::QuickHullConvexHullLib::expandHull(this);
+      goto LABEL_117;
+    }
+
+    physx::QuickHullConvexHullLib::expandHullOBB(this);
+    goto LABEL_113;
+  }
+
+  if (v127 == 3)
+  {
+    v128 = this[1];
+    if (*(*&this[7] + 36) > *(*&v128 + 74))
+    {
+      if ((*(*&v128 + 72) & 0x20) != 0)
+      {
+        physx::QuickHullConvexHullLib::expandHull(this);
+      }
+
+      else
+      {
+        physx::QuickHullConvexHullLib::expandHullOBB(this);
+      }
+    }
+
+    v62 = 2;
+  }
+
+LABEL_117:
+  if ((*(*&this[1] + 72) & 0x80) != 0 && !*&this[8] && !v62)
+  {
+    v142 = this[7];
+    v143 = *(*&v142 + 128);
+    if (v143)
+    {
+      v144 = 0;
+      v145 = *(*&v142 + 120);
+      do
+      {
+        if (!*(*v145 + 60) && v144 <= *(*v145 + 8))
+        {
+          v144 = *(*v145 + 8);
+        }
+
+        v145 += 8;
+        --v143;
+      }
+
+      while (v143);
+      if (v144 >= 0x21)
+      {
+        physx::QuickHullConvexHullLib::expandHullOBB(this);
+      }
+    }
+
+    v62 = 0;
+  }
+
+  (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v3);
+  return v62;
+}
+
+uint64_t physx::QuickHullConvexHullLib::expandHull(physx::QuickHullConvexHullLib *this)
+{
+  v1 = this;
+  v97 = *MEMORY[0x1E69E9840];
+  v95 = 0;
+  v96 = 0;
+  v2 = *(this + 7);
+  v3 = *(v2 + 32);
+  if (v3)
+  {
+    this = physx::shdfnd::Array<local::ExpandPoint,physx::shdfnd::ReflectionAllocator<local::ExpandPoint>>::recreate(&v95, v3);
+    v2 = *(v1 + 7);
+  }
+
+  LODWORD(v4) = *(v2 + 128);
+  if (v4)
+  {
+    v5 = 0;
+    do
+    {
+      v6 = *(*(v2 + 120) + 8 * v5);
+      if (!*(v6 + 60))
+      {
+        v7 = *v6;
+        do
+        {
+          v8 = *(v7[7] + 72);
+          v9 = v7[5];
+          v10 = *(*(v7[6] + 56) + 72);
+          if (v10 >= v8)
+          {
+            v11 = *(v7[7] + 72);
+          }
+
+          else
+          {
+            v11 = *(*(v7[6] + 56) + 72);
+          }
+
+          if (v10 <= v8)
+          {
+            v10 = *(v7[7] + 72);
+          }
+
+          v92 = v11;
+          v93 = v10;
+          v12 = *(*(*(v9 + 48) + 56) + 72);
+          if (v12 >= v11)
+          {
+            v13 = &v94;
+            if (v12 < v10)
+            {
+              v94 = v10;
+              v13 = &v93;
+            }
+          }
+
+          else
+          {
+            v93 = v11;
+            v94 = v10;
+            v13 = &v92;
+          }
+
+          *v13 = v12;
+          this = local::addExpandPoint(v91, &v95);
+          v7 = v7[5];
+        }
+
+        while (v7 != *v6);
+        v2 = *(v1 + 7);
+      }
+
+      ++v5;
+      v4 = *(v2 + 128);
+    }
+
+    while (v5 < v4);
+  }
+
+  v14 = *(v2 + 32);
+  if (v14)
+  {
+    v15 = 0;
+    v16 = *(v2 + 48);
+    do
+    {
+      if (v4)
+      {
+        v17 = *(v2 + 120);
+        v18 = v4;
+        do
+        {
+          v19 = *v17;
+          this = *(*v17 + 15);
+          if (!this)
+          {
+            v20 = (((*(v16 + 32 * v15 + 4) * v19[7]) + (v19[6] * *(v16 + 32 * v15))) + (v19[8] * *(v16 + 32 * v15 + 8))) - v19[13];
+            if (v20 > 0.0 && v20 > v19[14])
+            {
+              v19[14] = v20;
+            }
+          }
+
+          ++v17;
+          --v18;
+        }
+
+        while (v18);
+      }
+
+      ++v15;
+    }
+
+    while (v15 != v14);
+  }
+
+  v21 = v96;
+  if (!v96)
+  {
+    goto LABEL_39;
+  }
+
+  v22 = 0;
+  v23 = *(v2 + 88);
+  v24 = *(v2 + 104);
+  v25 = (v95 + 12);
+  v26 = v95 + 48;
+  do
+  {
+    v27 = 0;
+    v28 = v25;
+    do
+    {
+      v29 = *(v24 + 8 * (*(v26 + v27) / v23)) + 80 * (*(v26 + v27) % v23);
+      v30 = *(v29 + 56);
+      v31 = *(v29 + 32);
+      v32 = -*(v29 + 52);
+      if (v30 > 0.0)
+      {
+        v32 = v32 - v30;
+      }
+
+      *(v28 - 3) = *(v29 + 24);
+      *(v28 - 1) = v31;
+      *v28 = v32;
+      v27 += 4;
+      v28 += 4;
+    }
+
+    while (v27 != 12);
+    ++v22;
+    v25 += 15;
+    v26 += 60;
+  }
+
+  while (v22 != v21);
+  v33 = (12 * v21);
+  if (v33 > 0x400)
+  {
+    v34 = physx::shdfnd::TempAllocator::allocate((&v90 + 7), v33, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2170);
+    v35 = 1;
+    if (!v21)
+    {
+      goto LABEL_45;
+    }
+  }
+
+  else
+  {
+LABEL_39:
+    MEMORY[0x1EEE9AC00](this);
+    v34 = (&v91[-2] - ((v36 + 15) & 0x1FFFFFFF0));
+    bzero(v34, v36);
+    v35 = 0;
+    if (!v21)
+    {
+      goto LABEL_45;
+    }
+  }
+
+  v37 = v34 + 2;
+  v38 = (v95 + 24);
+  v39 = v21;
+  do
+  {
+    v40 = *(v38 - 6);
+    v41 = *(v38 - 5);
+    v42 = *(v38 - 4);
+    v43 = *(v38 - 2);
+    v44 = *(v38 - 1);
+    v45 = *v38;
+    v46 = v38[2];
+    v47 = v38[3];
+    v48 = v38[4];
+    v49.f32[0] = (v41 * *v38) - (v44 * v42);
+    v50 = ((v43 * ((v47 * v42) - (v41 * v48))) + (v40 * ((v44 * v48) - (v47 * *v38)))) + (v46 * v49.f32[0]);
+    if (v50 == 0.0)
+    {
+      v59 = 0;
+      v55 = 0.0;
+      v58 = 0.0;
+      v54 = 1065353216;
+      v57 = 0x3F80000000000000;
+      v60 = 1.0;
+    }
+
+    else
+    {
+      v51 = -v41;
+      v52 = 1.0 / v50;
+      v53.f32[0] = (v44 * v48) - (v45 * v47);
+      v53.f32[1] = -((v43 * v48) - (v45 * v46));
+      v54 = vmul_n_f32(v53, v52);
+      v55 = ((v43 * v47) - (v46 * v44)) * v52;
+      v56.f32[0] = -((v42 * -v47) + (v41 * v48));
+      v56.f32[1] = (v40 * v48) - (v46 * v42);
+      v57 = vmul_n_f32(v56, v52);
+      v58 = -(((v40 * v47) - (v46 * v41)) * v52);
+      v49.f32[1] = -((v40 * v45) - (v43 * v42));
+      v59 = vmul_n_f32(v49, v52);
+      v60 = ((v43 * v51) + (v40 * v44)) * v52;
+    }
+
+    v61 = *(v38 - 3);
+    v62 = v38[1];
+    v63 = v38[5];
+    *(v37 - 1) = vneg_f32(vadd_f32(vadd_f32(vmul_n_f32(v54, v61), vmul_n_f32(v57, v62)), vmul_n_f32(v59, v63)));
+    *v37 = -(((v55 * v61) + (v58 * v62)) + (v60 * v63));
+    v37 += 3;
+    v38 += 15;
+    --v39;
+  }
+
+  while (v39);
+LABEL_45:
+  v64 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v65 = "static const char *physx::shdfnd::ReflectionAllocator<local::QuickHull>::getName() [T = local::QuickHull]";
+  }
+
+  else
+  {
+    v65 = "<allocation names disabled>";
+  }
+
+  v66 = (*(*(v64 + 24) + 16))(v64 + 24, 424, v65, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2178);
+  *v66 = **(v1 + 7);
+  *(v66 + 36) = 0xFFFFFFFF00000000;
+  *(v66 + 48) = 0;
+  v67 = (v66 + 48);
+  *(v66 + 56) = 0;
+  *(v66 + 64) = 0;
+  *(v66 + 80) = 0;
+  *(v66 + 88) = 0;
+  *(v66 + 72) = 0;
+  *(v66 + 96) = 0;
+  *(v66 + 104) = 0u;
+  *(v66 + 120) = 0u;
+  *(v66 + 133) = 0;
+  __asm { FMOV            V1.2S, #-1.0 }
+
+  *(v66 + 336) = _D1;
+  *(v66 + 344) = 0u;
+  *(v66 + 360) = 0u;
+  *(v66 + 376) = 0u;
+  *(v66 + 392) = 0u;
+  *(v66 + 408) = 0u;
+  local::QuickHull::preallocate(v66, v21);
+  *(v66 + 32) = v21;
+  if (v21)
+  {
+    v81 = 0;
+    v82 = (*v67 + 12);
+    v83 = (v34 + 2);
+    do
+    {
+      v73 = *(v83 - 1);
+      *(v82 - 3) = v73;
+      v84 = *v83;
+      v83 = (v83 + 12);
+      LODWORD(v73) = v84;
+      *(v82 - 1) = v84;
+      *v82 = v81;
+      v82 += 8;
+      ++v81;
+    }
+
+    while (v21 != v81);
+  }
+
+  v85 = local::QuickHull::buildHull(v66, v73, v74, v75, v76, v77, v78, v79, v80);
+  if (v85 > 1)
+  {
+    if ((v85 - 2) >= 2)
+    {
+      if (*v67)
+      {
+        (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+        *v67 = 0;
+      }
+
+      *(v66 + 128) = 0;
+      local::QuickHull::~QuickHull(v66);
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v66);
+      v86 = 3;
+      if (!v35)
+      {
+        goto LABEL_65;
+      }
+
+LABEL_64:
+      physx::shdfnd::TempAllocator::deallocate(v91, v34);
+      goto LABEL_65;
+    }
+
+LABEL_58:
+    v87 = *(v1 + 7);
+    if (*(v87 + 48))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+      *(v87 + 48) = 0;
+      v88 = *(v1 + 7);
+      *(v87 + 128) = 0;
+      v87 = v88;
+      if (!v88)
+      {
+LABEL_63:
+        v86 = 0;
+        *(v1 + 7) = v66;
+        if (!v35)
+        {
+          goto LABEL_65;
+        }
+
+        goto LABEL_64;
+      }
+    }
+
+    else
+    {
+      *(v87 + 128) = 0;
+    }
+
+    local::QuickHull::~QuickHull(v87);
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v87);
+    goto LABEL_63;
+  }
+
+  if (!v85)
+  {
+    goto LABEL_58;
+  }
+
+  if (*v67)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    *v67 = 0;
+  }
+
+  *(v66 + 128) = 0;
+  local::QuickHull::~QuickHull(v66);
+  (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v66);
+  v86 = 1;
+  if (v35)
+  {
+    goto LABEL_64;
+  }
+
+LABEL_65:
+  if ((v96 & 0x8000000000000000) == 0 && (v96 & 0x7FFFFFFF00000000) != 0 && v95)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  return v86;
+}
+
+void physx::QuickHullConvexHullLib::expandHullOBB(physx::QuickHullConvexHullLib *this)
+{
+  MEMORY[0x1EEE9AC00](this);
+  v4 = v3;
+  v608 = *MEMORY[0x1E69E9840];
+  v564 = 0;
+  v565 = 0;
+  v5 = *(v3[7] + 128);
+  if (v5)
+  {
+    physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::recreate(&v564, v5);
+    v6 = v4[7];
+    if (*(v6 + 128))
+    {
+      v7 = 0;
+      do
+      {
+        v8 = *(*(v6 + 120) + 8 * v7);
+        if (!*(v8 + 60))
+        {
+          v9 = *(v8 + 24);
+          v10 = *(v8 + 28);
+          *v582 = v9;
+          *&v582[4] = v10;
+          v11 = *(v8 + 32);
+          v12 = *(v8 + 56);
+          v13 = -*(v8 + 52);
+          *&v582[8] = v11;
+          *&v582[12] = v13;
+          if (v12 > 0.0)
+          {
+            v13 = v13 - v12;
+            *&v582[12] = v13;
+          }
+
+          v14 = v565;
+          if ((HIDWORD(v565) & 0x7FFFFFFFu) <= v565)
+          {
+            physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::growAndPushBack(&v564, v582);
+            v6 = v4[7];
+          }
+
+          else
+          {
+            v15 = v564 + 16 * v565;
+            *v15 = v9;
+            *(v15 + 4) = v10;
+            *(v15 + 8) = v11;
+            *(v15 + 12) = v13;
+            LODWORD(v565) = v14 + 1;
+          }
+        }
+
+        ++v7;
+      }
+
+      while (v7 < *(v6 + 128));
+    }
+  }
+
+  v548 = 0;
+  v549 = 0;
+  v550 = 0;
+  v551 = 0;
+  v552 = 0;
+  v553 = 0;
+  v554 = 0;
+  v555 = 0;
+  v556 = 0;
+  v558 = 16711935;
+  physx::QuickHullConvexHullLib::fillConvexMeshDescFromQuickHull(v4, &v548);
+  v21 = *(v4[1] + 72);
+  v557 = v21;
+  v22 = v549;
+  v23 = v550;
+  if (v550)
+  {
+    v24 = (v549 + 8);
+    v25 = 0;
+    v16.i64[0] = 0;
+    v26 = v550;
+    do
+    {
+      v17 = *(v24 - 1);
+      v25 = vadd_f32(v25, *&v17);
+      v27 = *v24;
+      v24 += 3;
+      v16.f32[0] = v16.f32[0] + v27;
+      --v26;
+    }
+
+    while (v26);
+  }
+
+  else
+  {
+    v25 = 0;
+    v16.i64[0] = 0;
+  }
+
+  v28 = v555;
+  v29 = v552;
+  LODWORD(v18) = 1.0;
+  *&v17 = 1.0 / v550;
+  v30 = vmul_n_f32(v25, *&v17);
+  v567 = v30;
+  v16.f32[0] = *&v17 * v16.f32[0];
+  LODWORD(v568) = v16.i32[0];
+  v31 = v556;
+  if (v556)
+  {
+    v32 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v556, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullUtils.cpp", 844);
+    v33 = v32;
+    v34 = 0;
+    do
+    {
+      *(v32 + v34) = *(v28 + 4 * v34);
+      ++v34;
+    }
+
+    while (v31 != v34);
+    v35 = v4;
+  }
+
+  else
+  {
+    v35 = v4;
+    v33 = 0;
+  }
+
+  v36 = v553;
+  if (v553)
+  {
+    v37 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 20 * v553, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullUtils.cpp", 850);
+    v38 = (v37 + 18);
+    v39 = (v29 + 18);
+    v40 = v36;
+    do
+    {
+      v16 = *(v39 - 9);
+      *(v38 - 18) = v16;
+      *v38 = *(v39 - 2);
+      v41 = *v39;
+      v39 += 10;
+      *(v38 - 1) = v41;
+      v38 += 20;
+      --v40;
+    }
+
+    while (v40);
+  }
+
+  else
+  {
+    v37 = 0;
+  }
+
+  LODWORD(__src) = 0;
+  v580 = 255;
+  *(&__src + 1) = v22;
+  v573.i32[0] = 0;
+  v571 = *&v23;
+  v574 = v37;
+  v576 = 0;
+  v575 = v36;
+  v577 = v33;
+  v579 = 16711680;
+  v578 = v31;
+  if ((v21 & 0x40) != 0)
+  {
+    physx::computeVolumeIntegralsEberlySIMD(&__src, v582, &v567, v16, *&v30, v17, v18, v19, v20);
+    if (v23)
+    {
+LABEL_28:
+      v42 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 16 * v23, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullUtils.cpp", 873);
+      v43 = v42;
+      v44 = 0;
+      do
+      {
+        v45 = *v22;
+        v22 = (v22 + 12);
+        *(v42 + v44) = v45;
+        v44 += 16;
+      }
+
+      while (16 * v23 != v44);
       goto LABEL_33;
     }
   }
 
-LABEL_31:
-  re::AssetHandle::~AssetHandle(v42);
-}
-
-uint64_t re::AssetHandle::blockUntilLoaded<re::MeshDeformationAsset>(re::MeshDeformationAsset *a1)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = re::MeshDeformationAsset::assetType(a1);
-  v3 = re::AssetHandle::assetWithType(a1, v2, 0);
-  if (!v3)
-  {
-    v4 = *re::assetsLogObjects(0);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v6 = v4;
-      v7 = re::AssetHandle::assetInfo(a1);
-      if (v7[17])
-      {
-        v8 = v7[18];
-      }
-
-      else
-      {
-        v8 = v7 + 137;
-      }
-
-      v9 = 136315138;
-      v10 = v8;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid asset: '%s'", &v9, 0xCu);
-    }
-  }
-
-  return v3;
-}
-
-re *anonymous namespace::MutableAssetRef<re::MeshDeformationAsset>::get(uint64_t *a1)
-{
-  v16[4] = *MEMORY[0x1E69E9840];
-  v3 = a1 + 3;
-  result = a1[3];
-  if (result)
-  {
-    return result;
-  }
-
-  v4 = a1[1];
-  if (v4)
-  {
-    v5 = atomic_load((v4 + 896));
-    if (v5 == 2)
-    {
-      goto LABEL_7;
-    }
-
-    v6 = a1[1];
-  }
-
   else
   {
-    v6 = 0;
-  }
-
-  re::AssetHandle::loadNow(v6, 0);
-LABEL_7:
-  result = re::AssetHandle::blockUntilLoaded<re::MeshDeformationAsset>(a1);
-  if (result)
-  {
-    v7 = result;
-    v8 = re::globalAllocators(result);
-    v9 = (*(*v8[2] + 32))(v8[2], 80, 8);
-    v10 = v9;
-    *(v9 + 32) = 0;
-    *(v9 + 8) = 0;
-    *(v9 + 16) = 0;
-    *v9 = 0;
-    *(v9 + 24) = 0;
-    if (*v7)
-    {
-      v11 = *(v7 + 2);
-      *v9 = *v7;
-      re::DynamicArray<re::DeformationStackDefinition>::setCapacity(v9, v11);
-      ++*(v10 + 24);
-      re::DynamicArray<re::DeformationStackDefinition>::copy(v10, v7);
-    }
-
-    *(v10 + 40) = 0;
-    *(v10 + 48) = 0;
-    *(v10 + 56) = 0;
-    *(v10 + 64) = 0;
-    v12 = *(v7 + 5);
-    *(v10 + 72) = 0;
-    if (v12)
-    {
-      v13 = *(v7 + 7);
-      *(v10 + 40) = v12;
-      re::DynamicArray<re::MeshDeformationIndex>::setCapacity((v10 + 40), v13);
-      ++*(v10 + 64);
-      re::DynamicArray<re::MeshDeformationIndex>::copy((v10 + 40), v7 + 40);
-    }
-
-    v14[0] = &unk_1F5D2B738;
-    v14[3] = v14;
-    v15 = v10;
-    v16[3] = v16;
-    v16[0] = &unk_1F5D2B738;
-    std::unique_ptr<re::MeshDeformationAsset,std::function<void ()(re::MeshDeformationAsset*)>>::operator=[abi:nn200100](v3, &v15);
-    std::unique_ptr<re::MeshDeformationAsset,std::function<void ()(re::MeshDeformationAsset*)>>::~unique_ptr[abi:nn200100](&v15);
-    std::__function::__value_func<void ()(re::MeshDeformationAsset *)>::~__value_func[abi:nn200100](v14);
-    if (*a1)
-    {
-
-      *a1 = 0;
-    }
-
-    a1[1] = 0;
-    return a1[3];
-  }
-
-  return result;
-}
-
-void REMeshDeformationDefinitionAssetBuilderAddDefaultDeformationStacksForMesh(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a2, v6);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MeshAsset>(v6);
-  if (v3)
-  {
-    v4 = v3;
-    re::MeshDeformationAsset::addDefaultModelStackDefinitionsForAllInstances(v5, v4);
-  }
-
-  re::AssetHandle::~AssetHandle(v6);
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAddDefaultDeformationStacksForMeshModel(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a2, v12);
-  v5 = re::AssetHandle::blockUntilLoaded<re::MeshAsset>(v12);
-  if (!v5)
-  {
-LABEL_11:
-    v9 = 0;
-    goto LABEL_12;
-  }
-
-  v6 = v5;
-  v7 = 32;
-  if (*(v5 + 1264))
-  {
-    v7 = 608;
-  }
-
-  if (*(v5 + v7) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      v14 = a3;
-      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid mesh model index: %zu", buf, 0xCu);
-    }
-
-    goto LABEL_11;
-  }
-
-  v9 = re::MeshDeformationAsset::addDefaultModelStackDefinitionForModel(v8, v6, a3);
-LABEL_12:
-  re::AssetHandle::~AssetHandle(v12);
-  return v9;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAddDefaultDeformationStacksForMeshInstance(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a2, v12);
-  v5 = re::AssetHandle::blockUntilLoaded<re::MeshAsset>(v12);
-  if (!v5)
-  {
-LABEL_11:
-    v9 = 0;
-    goto LABEL_12;
-  }
-
-  v6 = v5;
-  v7 = 72;
-  if (*(v5 + 1264))
-  {
-    v7 = 568;
-  }
-
-  if (*(v5 + v7) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      v14 = a3;
-      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid mesh instance index: %zu", buf, 0xCu);
-    }
-
-    goto LABEL_11;
-  }
-
-  v9 = re::MeshDeformationAsset::addDefaultModelStackDefinitionForInstance(v8, v6, a3);
-LABEL_12:
-  re::AssetHandle::~AssetHandle(v12);
-  return v9;
-}
-
-uint64_t anonymous namespace::MutableAssetRef<re::MeshDeformationAsset>::get(re::MeshDeformationAsset *a1)
-{
-  result = *(a1 + 3);
-  if (result)
-  {
-    return result;
-  }
-
-  v3 = *(a1 + 1);
-  if (!v3)
-  {
-    v5 = 0;
-    goto LABEL_6;
-  }
-
-  v4 = atomic_load((v3 + 896));
-  if (v4 != 2)
-  {
-    v5 = *(a1 + 1);
-LABEL_6:
-    re::AssetHandle::loadNow(v5, 0);
-  }
-
-  return re::AssetHandle::blockUntilLoaded<re::MeshDeformationAsset>(a1);
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAddDeformationStack(uint64_t a1)
-{
-  v5 = 0;
-  memset(v4, 0, sizeof(v4));
-  re::DynamicArray<re::DeformationStackDefinition>::add(v2, v4);
-  re::DynamicArray<re::DeformationDefinition>::deinit(v4);
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderGetDeformationStackDeformerCount(uint64_t a1, unint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  {
-    if (*(v4 + 16) > a2)
-    {
-      return *(*(v4 + 32) + 40 * a2 + 16);
-    }
-
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_9:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v6 = CoreRELog::log;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return 0;
-}
-
-CFTypeRef REMeshDeformationDefinitionAssetBuilderDeformationStackGetDeformerName(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v10 = CoreRELog::log;
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_18:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v11 = CoreRELog::log;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = CFStringCreateWithCString(0, *(*(v7 + 32) + 40 * a3 + 8), 0x8000100u);
-
-  return CFAutorelease(v8);
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackRemoveDeformer(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_6:
-      v9 = CoreRELog::log;
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_16:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_6;
-  }
-
-  if (*(v6 + 2) <= a2)
-  {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  v7 = *(v6 + 4) + 40 * a2;
-  if (*(v7 + 16) > a3)
-  {
-    re::DynamicArray<re::DeformationDefinition>::removeStableAt(v7, a3);
-    return 1;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a3;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-  }
-
-  return 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackMoveDeformer(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_14:
-      v14 = CoreRELog::log;
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-LABEL_19:
-
-        return 0;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a2;
-      v15 = "Invalid deformation stack index: %zu";
-LABEL_27:
-      _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
-      goto LABEL_19;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_14;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = (*(v8 + 4) + 40 * a2);
-  v10 = v9[2];
-  if (v10 <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_19;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v15 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  if (v10 <= a4)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v16 = CoreRELog::log;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a4;
-      _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, "Invalid new deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v11 = (v9[4] + 40 * a3);
-  *buf = *v11;
-  *&buf[8] = v11[1];
-  *v11 = 0;
-  v11[1] = &str_67;
-  *&v18 = v11[2];
-  v11[2] = 0;
-  *(&v18 + 1) = v11[3];
-  v11[3] = 0;
-  *&v19 = v11[4];
-  v11[4] = 0;
-  re::DynamicArray<re::DeformationDefinition>::removeStableAt(v9, a3);
-  re::DynamicArray<re::DeformationDefinition>::insert(v9, a4, buf);
-  v12 = v18;
-  if (v18)
-  {
-    if (*(&v18 + 1))
-    {
-      v12 = (*(*v18 + 40))();
-      *(&v18 + 1) = 0;
-      *&v19 = 0;
-    }
-
-    *&v18 = 0;
-  }
-
-  if (buf[0])
-  {
-    if (buf[0])
-    {
-    }
-  }
-
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddBlendShape(uint64_t a1, unint64_t a2)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      memset(v13, 0, 24);
-      v7 = *&v13[16];
-      *(*&v13[16] + 4) = 0;
-      *v7 = 0;
-      *buf = 0x1954B86F1FEF5A4;
-      *&buf[8] = "Blend Shape";
-      v17 = *v13;
-      v8 = *&v13[16];
-      memset(v13, 0, 24);
-      *&v18 = v8;
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v9 = v17;
-      if (v17)
-      {
-        if (*(&v17 + 1))
-        {
-          v9 = (*(*v17 + 40))();
-          *(&v17 + 1) = 0;
-          *&v18 = 0;
-        }
-
-        *&v17 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v10 = v6[2] - 1;
-      if (*v13 && *&v13[8])
-      {
-        (*(**v13 + 40))();
-      }
-
-      return v10;
-    }
-
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v13 = 136315906;
-    *&v13[4] = "operator[]";
-    *&v13[12] = 1024;
-    *&v13[14] = 789;
-    *&v13[18] = 2048;
-    *&v13[20] = a2;
-    v14 = 2048;
-    v15 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v11 = CoreRELog::log;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsBlendShape(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0xCAA5C378FF7AD2)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "Blend Shape" || strcmp(v9, "Blend Shape") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderBlendShapeGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0xCAA5C378FF7AD2 && ((v9 = *(v8 + 8), v9 == "Blend Shape") || !strcmp(v9, "Blend Shape")))
-    {
-      if (*(v8 + 24) == 5)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected blend shape deformation option size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a blend shape deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderBlendShapeSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0xCAA5C378FF7AD2 || (v11 = *(v10 + 8), v11 != "Blend Shape") && strcmp(v11, "Blend Shape"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not a blend shape deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 5)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected blend shape deformation option size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddSkinning(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      memset(v12, 0, 24);
-      **&v12[16] = 0;
-      *buf = 0x4550755B7A2;
-      *&buf[8] = "Skinning";
-      v16 = *v12;
-      v7 = *&v12[16];
-      memset(v12, 0, 24);
-      *&v17 = v7;
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v8 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v8 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v9 = v6[2] - 1;
-      if (*v12 && *&v12[8])
-      {
-        (*(**v12 + 40))();
-      }
-
-      return v9;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v12 = 136315906;
-    *&v12[4] = "operator[]";
-    *&v12[12] = 1024;
-    *&v12[14] = 789;
-    *&v12[18] = 2048;
-    *&v12[20] = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsSkinning(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x22A83AADBD1)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "Skinning" || strcmp(v9, "Skinning") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderSkinningGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0x22A83AADBD1 && ((v9 = *(v8 + 8), v9 == "Skinning") || !strcmp(v9, "Skinning")))
-    {
-      if (*(v8 + 24) == 2)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected skinning deformation option size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a skinning deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderSkinningSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0x22A83AADBD1 || (v11 = *(v10 + 8), v11 != "Skinning") && strcmp(v11, "Skinning"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not a skinning deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected skinning deformation option size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderSkinningGetEnableSkinningVertexFrame(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = (*(v7 + 32) + 40 * a3);
-    if (*v8 >> 1 == 0x22A83AADBD1 && ((v9 = v8[1], v9 == "Skinning") || !strcmp(v9, "Skinning")))
-    {
-      if (v8[3] == 2)
-      {
-        v13 = *(v8[4] + 1);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected skinning deformation option size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a skinning deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderSkinningSetEnableSkinningVertexFrame(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = (*(v9 + 32) + 40 * a3);
-  if (*v10 >> 1 != 0x22A83AADBD1 || (v11 = v10[1], v11 != "Skinning") && strcmp(v11, "Skinning"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not a skinning deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (v10[3] != 2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected skinning deformation option size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  *(v10[4] + 1) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddRenormalization(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      memset(v12, 0, 24);
-      **&v12[16] = 0;
-      *buf = 0xABCEC87F22A13454;
-      *&buf[8] = "Renormalization";
-      v16 = *v12;
-      v7 = *&v12[16];
-      memset(v12, 0, 24);
-      *&v17 = v7;
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v8 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v8 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v9 = v6[2] - 1;
-      if (*v12 && *&v12[8])
-      {
-        (*(**v12 + 40))();
-      }
-
-      return v9;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v12 = 136315906;
-    *&v12[4] = "operator[]";
-    *&v12[12] = 1024;
-    *&v12[14] = 789;
-    *&v12[18] = 2048;
-    *&v12[20] = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsRenormalization(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x55E7643F91509A2ALL)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "Renormalization" || strcmp(v9, "Renormalization") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderRenormalizationGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0x55E7643F91509A2ALL && ((v9 = *(v8 + 8), v9 == "Renormalization") || !strcmp(v9, "Renormalization")))
-    {
-      if (*(v8 + 24) == 1)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected renormalization deformation option size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a renormalization deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderRenormalizationSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0x55E7643F91509A2ALL || (v11 = *(v10 + 8), v11 != "Renormalization") && strcmp(v11, "Renormalization"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not a renormalization deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected renormalization deformation option size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddTension(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      memset(v12, 0, 24);
-      **&v12[16] = 0;
-      *buf = 0x241C51C064;
-      *&buf[8] = "Tension";
-      v16 = *v12;
-      v7 = *&v12[16];
-      memset(v12, 0, 24);
-      *&v17 = v7;
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v8 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v8 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v9 = v6[2] - 1;
-      if (*v12 && *&v12[8])
-      {
-        (*(**v12 + 40))();
-      }
-
-      return v9;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v12 = 136315906;
-    *&v12[4] = "operator[]";
-    *&v12[12] = 1024;
-    *&v12[14] = 789;
-    *&v12[18] = 2048;
-    *&v12[20] = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsTension(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x120E28E032)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "Tension" || strcmp(v9, "Tension") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderTensionGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0x120E28E032 && ((v9 = *(v8 + 8), v9 == "Tension") || !strcmp(v9, "Tension")))
-    {
-      if (*(v8 + 24) == 1)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected tension deformer options size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a tension deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderTensionSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0x120E28E032 || (v11 = *(v10 + 8), v11 != "Tension") && strcmp(v11, "Tension"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not a tension deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected tension deformer options size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddOffsets(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      memset(v12, 0, 24);
-      **&v12[16] = 0;
-      *buf = 0x70EBDC9CD6B5D4E4;
-      *&buf[8] = "OffsetsDeformer";
-      v16 = *v12;
-      v7 = *&v12[16];
-      memset(v12, 0, 24);
-      *&v17 = v7;
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v8 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v8 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v9 = v6[2] - 1;
-      if (*v12 && *&v12[8])
-      {
-        (*(**v12 + 40))();
-      }
-
-      return v9;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v12 = 136315906;
-    *&v12[4] = "operator[]";
-    *&v12[12] = 1024;
-    *&v12[14] = 789;
-    *&v12[18] = 2048;
-    *&v12[20] = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsOffsets(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x3875EE4E6B5AEA72)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "OffsetsDeformer" || strcmp(v9, "OffsetsDeformer") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderOffsetsGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0x3875EE4E6B5AEA72 && ((v9 = *(v8 + 8), v9 == "OffsetsDeformer") || !strcmp(v9, "OffsetsDeformer")))
-    {
-      if (*(v8 + 24) == 1)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected offsets deformer options size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not an offsets deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderOffsetsSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0x3875EE4E6B5AEA72 || (v11 = *(v10 + 8), v11 != "OffsetsDeformer") && strcmp(v11, "OffsetsDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not an offsets deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected offsets deformer options size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddSmooth(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      memset(v12, 0, 24);
-      **&v12[16] = 0;
-      *buf = 0x5ADE39698BF7F040;
-      *&buf[8] = "SmoothDeformer";
-      v16 = *v12;
-      v7 = *&v12[16];
-      memset(v12, 0, 24);
-      *&v17 = v7;
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v8 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v8 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v9 = v6[2] - 1;
-      if (*v12 && *&v12[8])
-      {
-        (*(**v12 + 40))();
-      }
-
-      return v9;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v12 = 136315906;
-    *&v12[4] = "operator[]";
-    *&v12[12] = 1024;
-    *&v12[14] = 789;
-    *&v12[18] = 2048;
-    *&v12[20] = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsSmooth(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x2D6F1CB4C5FBF820)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "SmoothDeformer" || strcmp(v9, "SmoothDeformer") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderSmoothGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0x2D6F1CB4C5FBF820 && ((v9 = *(v8 + 8), v9 == "SmoothDeformer") || !strcmp(v9, "SmoothDeformer")))
-    {
-      if (*(v8 + 24) == 1)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected smooth deformer options size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a smooth deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderSmoothSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0x2D6F1CB4C5FBF820 || (v11 = *(v10 + 8), v11 != "SmoothDeformer") && strcmp(v11, "SmoothDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not an smooth deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected smooth deformer options size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddBoundingBoxCalculation(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      memset(v12, 0, 24);
-      **&v12[16] = 0;
-      *buf = 0x32458CCC0A585AB0;
-      *&buf[8] = "Bounding Box Calculation";
-      v16 = *v12;
-      v7 = *&v12[16];
-      memset(v12, 0, 24);
-      *&v17 = v7;
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v8 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v8 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      v9 = v6[2] - 1;
-      if (*v12 && *&v12[8])
-      {
-        (*(**v12 + 40))();
-      }
-
-      return v9;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v12 = 136315906;
-    *&v12[4] = "operator[]";
-    *&v12[12] = 1024;
-    *&v12[14] = 789;
-    *&v12[18] = 2048;
-    *&v12[20] = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsBoundingBoxCalculation(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x1922C666052C2D58)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "Bounding Box Calculation" || strcmp(v9, "Bounding Box Calculation") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddCustomDeformer(uint64_t a1, const char *a2, unint64_t a3)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v8 = CoreRELog::log;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(__dst) = 134217984;
-      *(&__dst + 4) = a3;
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", &__dst, 0xCu);
-    }
-
-    return -1;
-  }
-
-  v6 = strlen(a2);
-  if (v6 - 63 <= 0xFFFFFFFFFFFFFFBFLL)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v7 = CoreRELog::log;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(__dst) = 134217984;
-      *(&__dst + 4) = 64;
-      _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Invalid custom deformer name, maximum length is %zu.", &__dst, 0xCu);
-    }
-
-    return -1;
-  }
-
-  v11 = v6;
-  v13 = *(v12 + 2);
-  if (v13 <= a3)
-  {
-    v20 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    __dst = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v23 = 136315906;
-    *&v23[4] = "operator[]";
-    *&v23[12] = 1024;
-    *&v23[14] = 789;
-    *&v23[18] = 2048;
-    *&v23[20] = a3;
-    *&v23[28] = 2048;
-    *&v23[30] = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v14 = (*(v12 + 4) + 40 * a3);
-  v26 = 0u;
-  v27 = 0u;
-  __dst = 0u;
-  v25 = 0u;
-  v15 = memcpy(&__dst, a2, v11);
-  v20 = 0;
-  v21 = 0;
-  v22 = 0;
-  v16 = v22;
-  *v22 = __dst;
-  v16[1] = v25;
-  v16[2] = v26;
-  v16[3] = v27;
-  *v23 = 0xEAA1CBFA3D5AC124;
-  *&v23[8] = "Custom Deformers";
-  v17 = v20;
-  v18 = v21;
-  v20 = 0;
-  v21 = 0;
-  *&v23[16] = v17;
-  *&v23[24] = v18;
-  *&v23[32] = v16;
-  v22 = 0;
-  re::DynamicArray<re::DeformationDefinition>::add(v14, v23);
-  v19 = *&v23[16];
-  if (*&v23[16])
-  {
-    if (*&v23[24])
-    {
-      v19 = (*(**&v23[16] + 40))();
-      *&v23[24] = 0;
-      *&v23[32] = 0;
-    }
-
-    *&v23[16] = 0;
-  }
-
-  if (v23[0])
-  {
-    if (v23[0])
-    {
-    }
-  }
-
-  v9 = v14[2] - 1;
-  if (v20 && v21)
-  {
-    (*(*v20 + 40))();
-  }
-
-  return v9;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsCustomDeformer(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x7550E5FD1EAD6092)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "Custom Deformers" || strcmp(v9, "Custom Deformers") == 0;
-}
-
-const char *REMeshDeformationDefinitionAssetBuilderDeformerIsCustomNamedDeformer(uint64_t a1, const char *a2, unint64_t a3, unint64_t a4)
-{
-  result = REMeshDeformationDefinitionAssetBuilderDeformerCustomDeformerName(a1, a3, a4);
-  if (result)
-  {
-    return (strcmp(result, a2) == 0);
-  }
-
-  return result;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformerCustomDeformerName(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_10:
-      v13 = CoreRELog::log;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_25:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_10;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_25;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_16;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v15 = "Invalid deformer index: %zu";
-    goto LABEL_23;
-  }
-
-  v8 = *(v7 + 32);
-  v9 = (v8 + 40 * a3);
-  if (*v9 >> 1 != 0x7550E5FD1EAD6092)
-  {
-    return 0;
-  }
-
-  v10 = v9[1];
-  if (v10 != "Custom Deformers")
-  {
-    if (strcmp(v10, "Custom Deformers"))
-    {
-      return 0;
-    }
-  }
-
-  v11 = v8 + 40 * a3;
-  if (*(v11 + 24) == 64)
-  {
-    return *(v11 + 32);
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v14 = CoreRELog::log;
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v15 = "Invalid custom deformation options: %zu";
-LABEL_23:
-    _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
-  }
-
-LABEL_16:
-
-  return 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAssignedMeshDeformationStackIndex(uint64_t a1, unint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  {
-    if (*(v4 + 56) > a2)
-    {
-      return *(*(v4 + 72) + 48 * a2 + 40);
-    }
-
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_9:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v6 = CoreRELog::log;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid assigned mesh index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAssignedMeshIdentifierType(uint64_t a1, unint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  {
-    if (*(v4 + 56) > a2)
-    {
-      return *(*(v4 + 72) + 48 * a2);
-    }
-
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_9:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v6 = CoreRELog::log;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid assigned mesh index: %zu", buf, 0xCu);
-  }
-
-  return 0;
-}
-
-CFTypeRef REMeshDeformationDefinitionAssetBuilderAssignedMeshIdentifierName(uint64_t a1, unint64_t a2)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  {
-    if (*(v4 + 56) > a2)
-    {
-      v5 = CFStringCreateWithCString(0, *(*(v4 + 72) + 48 * a2 + 16), 0x8000100u);
-
-      return CFAutorelease(v5);
-    }
-
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_11:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v7 = CoreRELog::log;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Invalid assigned mesh index: %zu", buf, 0xCu);
-  }
-
-  return 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAssignedMeshIdentifierHasPartName(uint64_t a1, unint64_t a2)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  {
-    if (*(v4 + 56) > a2)
-    {
-      v5 = *(v4 + 72) + 48 * a2;
-      v7 = *(v5 + 24);
-      v6 = v5 + 24;
-      return v7 > 1 || (v8 = *(v6 + 8)) == 0 || *v8 != 0;
-    }
-
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_12;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_12:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v10 = CoreRELog::log;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "Invalid assigned mesh index: %zu", buf, 0xCu);
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-CFTypeRef REMeshDeformationDefinitionAssetBuilderAssignedMeshIdentifierPartName(uint64_t a1, unint64_t a2)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  {
-    if (*(v4 + 56) > a2)
-    {
-      v5 = CFStringCreateWithCString(0, *(*(v4 + 72) + 48 * a2 + 32), 0x8000100u);
-
-      return CFAutorelease(v5);
-    }
-
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_11:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v7 = CoreRELog::log;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Invalid assigned mesh index: %zu", buf, 0xCu);
-  }
-
-  return 0;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderAssignedMeshRemove(uint64_t a1, unint64_t a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  if (v4 <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v6 = CoreRELog::log;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 134217984;
-      v9 = a2;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid assigned mesh index: %zu", &v8, 0xCu);
-    }
-  }
-
-  else
-  {
-    re::DynamicArray<re::MeshDeformationIndex>::removeStableAt(v5 + 40, a2);
-  }
-
-  return v4 > a2;
-}
-
-void re::DynamicArray<re::MeshDeformationIndex>::removeStableAt(uint64_t a1, unint64_t a2)
-{
-  v2 = *(a1 + 16);
-  if (v2 <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (v2 - 1 > a2)
-  {
-    v4 = *(a1 + 32);
-    if (v4 + 48 * a2 + 48 != v4 + 48 * v2)
-    {
-      v5 = 48 * a2;
-      v6 = 48 * v2 - 48;
-      do
-      {
-        v7 = (v4 + v5);
-        *(v4 + v5) = *(v4 + v5 + 48);
-        re::StringID::operator=((v4 + v5 + 8), (v4 + v5 + 56));
-        re::StringID::operator=((v7 + 3), v7 + 9);
-        v7[5] = v7[11];
-        v4 += 48;
-        v6 -= 48;
-      }
-
-      while (v5 != v6);
-      v2 = *(a1 + 16);
-    }
-  }
-
-  v8 = *(a1 + 32) + 48 * v2;
-  re::StringID::destroyString((v8 - 24));
-  re::StringID::destroyString((v8 - 40));
-  --*(a1 + 16);
-  ++*(a1 + 24);
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAssignedMeshMove(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v46 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v29 = CoreRELog::log;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a2;
-      _os_log_error_impl(&dword_1E1C61000, v29, OS_LOG_TYPE_ERROR, "Invalid assigned mesh index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_20:
-      v30 = CoreRELog::log;
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a3;
-        _os_log_error_impl(&dword_1E1C61000, v30, OS_LOG_TYPE_ERROR, "Invalid new assigned mesh index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_20;
-  }
-
-  v7 = *(v6 + 7);
-  if (v7 <= a2)
-  {
-    *v34 = 0;
-    v44 = 0u;
-    v45 = 0u;
-    v43 = 0u;
-    *buf = 0u;
-    v42 = 0u;
-    a3 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v32 = "operator[]";
-    *&v32[8] = 1024;
-    *&v32[10] = 789;
-    *&v32[14] = 2048;
-    *&v32[16] = a2;
-    *&v32[24] = 2048;
-    *&v32[26] = v7;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v8 = *(v6 + 9) + 48 * a2;
-  v9 = *v8;
-  v10 = *(v8 + 8);
-  *&v32[4] = v10;
-  v11 = *(v8 + 16);
-  *&v32[12] = v11;
-  *(v8 + 8) = 0;
-  *(v8 + 16) = &str_67;
-  v12 = *(v8 + 24);
-  *&v32[20] = v12;
-  v13 = *(v8 + 32);
-  *&v32[28] = v13;
-  *(v8 + 24) = 0;
-  *(v8 + 32) = &str_67;
-  v14 = *(v8 + 40);
-  v33 = v14;
-  re::DynamicArray<re::MeshDeformationIndex>::removeStableAt(v15 + 40, a2);
-  v17 = *(v16 + 7);
-  v18 = v17 + 1;
-  if (v17 + 1 <= a3)
-  {
-    v44 = 0u;
-    v45 = 0u;
-    v43 = 0u;
-    *buf = 0u;
-    v42 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v34 = 136315906;
-    *&v34[4] = "insert";
-    v35 = 1024;
-    v36 = 887;
-    v37 = 2048;
-    v38 = a3;
-    v39 = 2048;
-    v40 = v18;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v19 = v16;
-  if (v17 >= *(v16 + 6))
-  {
-    v16 = re::DynamicArray<re::MeshDeformationIndex>::growCapacity(v16 + 5, v17 + 1);
-    v17 = *(v19 + 7);
-  }
-
-  v20 = *(v19 + 9) + 48 * v17;
-  if (v17 <= a3)
-  {
-    *v20 = v9;
-    *(v20 + 8) = v10;
-    *(v20 + 16) = v11;
-    *&v32[4] = 0;
-    *&v32[12] = &str_67;
-    *(v20 + 24) = v12;
-    *(v20 + 32) = v13;
-    *(v20 + 40) = v14;
-    ++*(v19 + 7);
-    ++*(v19 + 16);
-  }
-
-  else
-  {
-    *v20 = *(v20 - 48);
-    v21 = *(v20 - 32);
-    *(v20 + 8) = *(v20 - 40);
-    *(v20 + 16) = v21;
-    *(v20 - 40) = 0;
-    *(v20 - 32) = &str_67;
-    *(v20 + 24) = *(v20 - 24);
-    *(v20 - 24) = 0;
-    *(v20 - 16) = &str_67;
-    *(v20 + 40) = *(v20 - 8);
-    v22 = *(v19 + 9);
-    v23 = *(v19 + 7);
-    if (v22 + 48 * v23 - 48 != v22 + 48 * a3)
-    {
-      v24 = 48 * v23;
-      v25 = 48 * a3 + 48;
-      do
-      {
-        v26 = v22 + v24;
-        *(v22 + v24 - 48) = *(v22 + v24 - 96);
-        re::StringID::operator=((v22 + v24 - 40), (v22 + v24 - 88));
-        re::StringID::operator=((v26 - 24), (v26 - 72));
-        *(v26 - 8) = *(v26 - 56);
-        v22 -= 48;
-        v25 += 48;
-      }
-
-      while (v24 != v25);
-      v22 = *(v19 + 9);
-    }
-
-    v27 = v22 + 48 * a3;
-    *v27 = v9;
-    re::StringID::operator=((v27 + 8), &v32[4]);
-    v16 = re::StringID::operator=((v27 + 24), &v32[20]);
-    *(v27 + 40) = v33;
-    v28 = v32[20];
-    ++*(v19 + 7);
-    ++*(v19 + 16);
-    if (v28)
-    {
-    }
-  }
-
-  if (v32[4])
-  {
-  }
-
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderAssignDeformationStack(uint64_t a1, unint64_t a2, int a3, const char *a4, const char *a5)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      v16 = 134217984;
-      *v17 = a2;
-      _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack definition index: %zu", &v16, 0xCu);
-    }
-
-    return 0;
-  }
-
-  if ((a3 - 1) >= 3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v15 = CoreRELog::log;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      v16 = 67109120;
-      *v17 = a3;
-      _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, "Invalid mesh identifier type: %u", &v16, 8u);
-    }
-
-    return 0;
-  }
-
-  LOBYTE(v16) = a3;
-  *&v17[4] = 0;
-  v18 = &str_67;
-  v19 = 0;
-  v20 = &str_67;
-  if (a5)
-  {
-  }
-
-  v21 = a2;
-  v12 = re::DynamicArray<re::MeshDeformationIndex>::add(v10 + 5, &v16);
-  if (v19)
-  {
-    if (v19)
-    {
-    }
-  }
-
-  v19 = 0;
-  v20 = &str_67;
-  if (v17[4])
-  {
-    if (v17[4])
-    {
-    }
-  }
-
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderCreateMeshDeformationDefinitionAsset(void *a1, uint64_t a2)
-{
-  v3 = a1[6];
-  if (v3)
-  {
-    a1[6] = 0;
-    v5 = re::MeshDeformationAsset::assetType(a1);
-    (*(*a2 + 424))(v8, a2, v3, v5, 0, 0, 0);
-  }
-
-  else
-  {
-    re::AssetHandle::AssetHandle(v8, (a1 + 3));
-  }
-
-  v6 = v8[0];
-  v8[0] = 0;
-  re::AssetHandle::~AssetHandle(v8);
-  return v6;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddContact(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      *buf = 0x22F387A552F200A4;
-      *&buf[8] = "ContactDeformer";
-      *v10 = &REMeshDeformationDefinitionAssetBuilderDeformationStackAddContact::kDefaultDeformerOptions;
-      *&v10[8] = 1;
-      *&v17 = 0;
-      v16 = 0uLL;
-      re::FixedArray<unsigned char>::copy(&v16, v10);
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v7 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v7 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      return v6[2] - 1;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v10 = 136315906;
-    *&v10[4] = "operator[]";
-    *&v10[12] = 1024;
-    *&v10[14] = 789;
-    v11 = 2048;
-    v12 = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_16:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v9 = CoreRELog::log;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsContact(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x1179C3D2A9790052)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "ContactDeformer" || strcmp(v9, "ContactDeformer") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderContactGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0x1179C3D2A9790052 && ((v9 = *(v8 + 8), v9 == "ContactDeformer") || !strcmp(v9, "ContactDeformer")))
-    {
-      if (*(v8 + 24) == 1)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected contact deformer options size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a contact deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderContactSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0x1179C3D2A9790052 || (v11 = *(v10 + 8), v11 != "ContactDeformer") && strcmp(v11, "ContactDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not a contact deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected contact deformer options size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddFence(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      *buf = 0x4425D6C2BB3546C6;
-      *&buf[8] = "FenceDeformer";
-      *v10 = &REMeshDeformationDefinitionAssetBuilderDeformationStackAddFence::kDefaultDeformerOptions;
-      *&v10[8] = 257;
-      *&v17 = 0;
-      v16 = 0uLL;
-      re::FixedArray<unsigned char>::copy(&v16, v10);
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v7 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v7 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      return v6[2] - 1;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v10 = 136315906;
-    *&v10[4] = "operator[]";
-    *&v10[12] = 1024;
-    *&v10[14] = 789;
-    v11 = 2048;
-    v12 = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_16:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v9 = CoreRELog::log;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsFence(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x2212EB615D9AA363)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "FenceDeformer" || strcmp(v9, "FenceDeformer") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderFenceGetFenceIDName(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x2212EB615D9AA363 || (v9 = v8[1], v9 != "FenceDeformer") && strcmp(v9, "FenceDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Not a fence deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (v8[3] != 257)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Unexpected fence deformer options size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  return v8[4];
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderFenceSetFenceIDName(uint64_t a1, unint64_t a2, unint64_t a3, char *__s)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  if (strlen(__s) >= 0x80)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v8 = CoreRELog::log;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = 128;
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Fence ID name is longer than max size of %zu", buf, 0xCu);
-    }
-  }
-
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_18:
-      v15 = CoreRELog::log;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_35:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_18;
-  }
-
-  if (*(v9 + 2) <= a2)
-  {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_35;
-  }
-
-  v10 = *(v9 + 4) + 40 * a2;
-  if (*(v10 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    physx::computeVolumeIntegralsEberly(&__src, v582, &v567);
+    if (v23)
     {
-      goto LABEL_24;
+      goto LABEL_28;
     }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v14 = "Invalid deformer index: %zu";
-    goto LABEL_33;
   }
-
-  v11 = *(v10 + 32) + 40 * a3;
-  if (*v11 >> 1 != 0x2212EB615D9AA363 || (v12 = *(v11 + 8), v12 != "FenceDeformer") && strcmp(v12, "FenceDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
 
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v14 = "Not a fence deformer index: %zu";
+  v43 = 0;
 LABEL_33:
-    _os_log_error_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
-LABEL_24:
-
-    return 0;
-  }
-
-  if (*(v11 + 24) != 257)
+  v46 = 0;
+  v47 = v569;
+  v48 = 24;
+  do
   {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v14 = "Unexpected fence deformer options size for deformer index: %zu";
-    goto LABEL_33;
-  }
-
-  strlcpy(*(v11 + 32), __s, 0x80uLL);
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderFenceGetWaitFenceIDName(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x2212EB615D9AA363 || (v9 = v8[1], v9 != "FenceDeformer") && strcmp(v9, "FenceDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Not a fence deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (v8[3] != 257)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Unexpected fence deformer options size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  return v8[4] + 128;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderFenceSetWaitFenceIDName(uint64_t a1, unint64_t a2, unint64_t a3, char *__s)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  if (strlen(__s) >= 0x80)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v8 = CoreRELog::log;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = 128;
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Wait fence ID name is longer than max size of %zu", buf, 0xCu);
-    }
-  }
-
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_18:
-      v15 = CoreRELog::log;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_35:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_18;
-  }
-
-  if (*(v9 + 2) <= a2)
-  {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_35;
-  }
-
-  v10 = *(v9 + 4) + 40 * a2;
-  if (*(v10 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v14 = "Invalid deformer index: %zu";
-    goto LABEL_33;
-  }
-
-  v11 = (*(v10 + 32) + 40 * a3);
-  if (*v11 >> 1 != 0x2212EB615D9AA363 || (v12 = v11[1], v12 != "FenceDeformer") && strcmp(v12, "FenceDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v14 = "Not a fence deformer index: %zu";
-LABEL_33:
-    _os_log_error_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
-LABEL_24:
-
-    return 0;
-  }
-
-  if (v11[3] != 257)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v13 = CoreRELog::log;
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v14 = "Unexpected fence deformer options size for deformer index: %zu";
-    goto LABEL_33;
-  }
-
-  v17 = v11[4];
-  *(v17 + 256) = 13;
-  strlcpy((v17 + 128), __s, 0x80uLL);
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddOpenSubdivComputeSteps(uint64_t a1, unint64_t a2)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  {
-    if (*(v4 + 2) > a2)
-    {
-      v5 = (*(v4 + 4) + 40 * a2);
-      *buf = 0xA6B838C1BF1BB512;
-      *&buf[8] = "OpenSubdivViewIndependentComputeStep";
-      *&v12 = 0;
-      v11 = 0uLL;
-      re::DynamicArray<re::DeformationDefinition>::add(v5, buf);
-      v6 = v11;
-      if (v11)
-      {
-        if (*(&v11 + 1))
-        {
-          v6 = (*(*v11 + 40))();
-          *(&v11 + 1) = 0;
-          *&v12 = 0;
-        }
-
-        *&v11 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      *buf = 0xC6F7B7A81D0D03C8;
-      *&buf[8] = "OpenSubdivViewDependentComputeStep";
-      *&v12 = 0;
-      v11 = 0uLL;
-      re::DynamicArray<re::DeformationDefinition>::add(v5, buf);
-      v7 = v11;
-      if (v11)
-      {
-        if (*(&v11 + 1))
-        {
-          v7 = (*(*v11 + 40))();
-          *(&v11 + 1) = 0;
-          *&v12 = 0;
-        }
-
-        *&v11 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      return v5[2] - 1;
-    }
-
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_23:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v9 = CoreRELog::log;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackIsOpenSubdivComputeSteps(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_16:
-      v14 = CoreRELog::log;
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-LABEL_21:
-
-        return 0;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a2;
-      v16 = "Invalid deformation stack index: %zu";
-LABEL_29:
-      _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
-      goto LABEL_21;
-    }
-
-LABEL_32:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_16;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_32;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  v8 = *(v7 + 16);
-  if (v8 <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_21;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v16 = "Invalid deformer index: %zu";
-    goto LABEL_29;
-  }
-
-  v9 = *(v7 + 32);
-  v10 = (v9 + 40 * a3);
-  if (*v10 >> 1 != 0x535C1C60DF8DDA89)
-  {
-    return 0;
-  }
-
-  v11 = v10[1];
-  if (v11 != "OpenSubdivViewIndependentComputeStep")
-  {
-    if (strcmp(v11, "OpenSubdivViewIndependentComputeStep"))
-    {
-      return 0;
-    }
-  }
-
-  if (a3 + 1 >= v8)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_21;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v15 = "deformer index: %zu is OpenSubdivViewIndependentComputeStep, but is not followed by dependent step. No more deformers in stack.";
-LABEL_27:
-    _os_log_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
-    goto LABEL_21;
-  }
-
-  v12 = (v9 + 40 * (a3 + 1));
-  if (*v12 >> 1 != 0x637BDBD40E8681E4 || (v13 = v12[1], v13 != "OpenSubdivViewDependentComputeStep") && strcmp(v13, "OpenSubdivViewDependentComputeStep"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v14 = CoreRELog::log;
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_21;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v15 = "deformer index: %zu is OpenSubdivViewIndependentComputeStep, but is not followed by dependent step";
-    goto LABEL_27;
-  }
-
-  return 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderDeformationStackAddWrap(uint64_t a1, unint64_t a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    v5 = *(v4 + 2);
-    if (v5 > a2)
-    {
-      v6 = (*(v4 + 4) + 40 * a2);
-      *buf = 0x4005A4B50800FD78;
-      *&buf[8] = "WrapDeformer";
-      *v10 = &REMeshDeformationDefinitionAssetBuilderDeformationStackAddWrap::kDefaultDeformerOptions;
-      *&v10[8] = 1;
-      *&v17 = 0;
-      v16 = 0uLL;
-      re::FixedArray<unsigned char>::copy(&v16, v10);
-      re::DynamicArray<re::DeformationDefinition>::add(v6, buf);
-      v7 = v16;
-      if (v16)
-      {
-        if (*(&v16 + 1))
-        {
-          v7 = (*(*v16 + 40))();
-          *(&v16 + 1) = 0;
-          *&v17 = 0;
-        }
-
-        *&v16 = 0;
-      }
-
-      if (buf[0])
-      {
-        if (buf[0])
-        {
-        }
-      }
-
-      return v6[2] - 1;
-    }
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v10 = 136315906;
-    *&v10[4] = "operator[]";
-    *&v10[12] = 1024;
-    *&v10[14] = 789;
-    v11 = 2048;
-    v12 = a2;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_16:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v9 = CoreRELog::log;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134217984;
-    *&buf[4] = a2;
-    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-  }
-
-  return -1;
-}
-
-BOOL REMeshDeformationDefinitionAssetBuilderDeformerIsWrap(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_8:
-      v11 = CoreRELog::log;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_19:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_8;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      *&buf[4] = a3;
-      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformer index: %zu", buf, 0xCu);
-    }
-
-    return 0;
-  }
-
-  v8 = (*(v7 + 32) + 40 * a3);
-  if (*v8 >> 1 != 0x2002D25A84007EBCLL)
-  {
-    return 0;
-  }
-
-  v9 = v8[1];
-  return v9 == "WrapDeformer" || strcmp(v9, "WrapDeformer") == 0;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderWrapGetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v12 = CoreRELog::log;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      goto LABEL_19;
-    }
-
-LABEL_30:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v6 + 16) <= a2)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_30;
-  }
-
-  v7 = *(v6 + 32) + 40 * a2;
-  if (*(v7 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v10 = CoreRELog::log;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v11 = "Invalid deformer index: %zu";
-  }
-
-  else
-  {
-    v8 = *(v7 + 32) + 40 * a3;
-    if (*v8 >> 1 == 0x2002D25A84007EBCLL && ((v9 = *(v8 + 8), v9 == "WrapDeformer") || !strcmp(v9, "WrapDeformer")))
-    {
-      if (*(v8 + 24) == 1)
-      {
-        v13 = **(v8 + 32);
-        return v13 & 1;
-      }
-
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Unexpected wrap deformer options size for deformer index: %zu";
-    }
-
-    else
-    {
-      if (CoreRELog::onceToken != -1)
-      {
-        dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-      }
-
-      v10 = CoreRELog::log;
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_18;
-      }
-
-      *buf = 134217984;
-      *&buf[4] = a3;
-      v11 = "Not a wrap deformer index: %zu";
-    }
-  }
-
-  _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
-LABEL_18:
-
-LABEL_19:
-  v13 = 0;
-  return v13 & 1;
-}
-
-uint64_t REMeshDeformationDefinitionAssetBuilderWrapSetForceCPU(uint64_t a1, unint64_t a2, unint64_t a3, char a4)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  {
-    if (CoreRELog::onceToken == -1)
-    {
-LABEL_12:
-      v14 = CoreRELog::log;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 134217984;
-        *&buf[4] = a2;
-        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Invalid deformation stack index: %zu", buf, 0xCu);
-      }
-
-      return 0;
-    }
-
-LABEL_29:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    goto LABEL_12;
-  }
-
-  if (*(v8 + 2) <= a2)
-  {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_29;
-  }
-
-  v9 = *(v8 + 4) + 40 * a2;
-  if (*(v9 + 16) <= a3)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Invalid deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  v10 = *(v9 + 32) + 40 * a3;
-  if (*v10 >> 1 != 0x2002D25A84007EBCLL || (v11 = *(v10 + 8), v11 != "WrapDeformer") && strcmp(v11, "WrapDeformer"))
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Not a wrap deformer index: %zu";
-LABEL_27:
-    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
-LABEL_18:
-
-    return 0;
-  }
-
-  if (*(v10 + 24) != 1)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v12 = CoreRELog::log;
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    *buf = 134217984;
-    *&buf[4] = a3;
-    v13 = "Unexpected wrap deformer options size for deformer index: %zu";
-    goto LABEL_27;
-  }
-
-  **(v10 + 32) = a4;
-  return 1;
-}
-
-_anonymous_namespace_ *anonymous namespace::MeshDeformationDefinitionAssetBuilder::init(_anonymous_namespace_::MeshDeformationDefinitionAssetBuilder *this)
-{
-  v8[4] = *MEMORY[0x1E69E9840];
-  v2 = re::globalAllocators(this);
-  v3 = (*(*v2[2] + 32))(v2[2], 80, 8);
-  *v3 = 0u;
-  v3[1] = 0u;
-  v3[2] = 0u;
-  v3[3] = 0u;
-  v3[4] = 0u;
-  v6[0] = &unk_1F5D2B6B8;
-  v6[3] = v6;
-  v7 = v3;
-  v8[3] = v8;
-  v8[0] = &unk_1F5D2B6B8;
-  std::unique_ptr<re::MeshDeformationAsset,std::function<void ()(re::MeshDeformationAsset*)>>::operator=[abi:nn200100](this + 6, &v7);
-  std::unique_ptr<re::MeshDeformationAsset,std::function<void ()(re::MeshDeformationAsset*)>>::~unique_ptr[abi:nn200100](&v7);
-  std::__function::__value_func<void ()(re::MeshDeformationAsset *)>::~__value_func[abi:nn200100](v6);
-  if (result)
-  {
-    v5 = result;
-  }
-
-  return result;
-}
-
-uint64_t *std::unique_ptr<re::MeshDeformationAsset,std::function<void ()(re::MeshDeformationAsset*)>>::operator=[abi:nn200100](uint64_t *a1, uint64_t *a2)
-{
-  v4 = *a2;
-  *a2 = 0;
-  v5 = *a1;
-  *a1 = v4;
-  if (v5)
-  {
-    std::function<void ()(re::MeshDeformationAsset *)>::operator()((a1 + 1), v5);
-  }
-
-  v6 = a1[4];
-  a1[4] = 0;
-  if (v6 == a1 + 1)
-  {
-    (*(*v6 + 32))(v6);
-  }
-
-  else if (v6)
-  {
-    (*(*v6 + 40))(v6);
-  }
-
-  v7 = a2[4];
-  if (v7)
-  {
-    if (v7 == a2 + 1)
-    {
-      a1[4] = (a1 + 1);
-      (*(*a2[4] + 24))(a2[4], a1 + 1);
-    }
-
-    else
-    {
-      a1[4] = v7;
-      a2[4] = 0;
-    }
-  }
-
-  else
-  {
-    a1[4] = 0;
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__func<anonymous namespace::MutableAssetRef<re::MeshDeformationAsset>::init(void)::{lambda(re::MeshDeformationAsset*)#1},std::allocator<anonymous namespace::MutableAssetRef<re::MeshDeformationAsset>::init(void)::{lambda(re::MeshDeformationAsset*)#1}>,void ()(re::MeshDeformationAsset*)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t std::__function::__func<anonymous namespace::MutableAssetRef<re::MeshDeformationAsset>::get(void)::{lambda(re::MeshDeformationAsset*)#1},std::allocator<anonymous namespace::MutableAssetRef<re::MeshDeformationAsset>::get(void)::{lambda(re::MeshDeformationAsset*)#1}>,void ()(re::MeshDeformationAsset*)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void anonymous namespace::MeshDeformationDefinitionAssetBuilder::~MeshDeformationDefinitionAssetBuilder(_anonymous_namespace_::MeshDeformationDefinitionAssetBuilder *this)
-{
-  *this = &unk_1F5D2B7B8;
-  std::unique_ptr<re::MeshDeformationAsset,std::function<void ()(re::MeshDeformationAsset*)>>::~unique_ptr[abi:nn200100](this + 6);
-  re::AssetHandle::~AssetHandle((this + 24));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-unint64_t *std::__copy_impl::operator()[abi:nn200100]<re::MeshDeformationIndex const*,re::MeshDeformationIndex const*,re::MeshDeformationIndex*>(unint64_t *result, unint64_t *a2, uint64_t a3)
-{
-  if (result != a2)
-  {
-    v4 = (a3 + 24);
-    v5 = (result + 3);
+    v49 = 0;
+    v50 = v48;
     do
     {
-      *(v4 - 24) = *(v5 - 24);
-      re::StringID::operator=(v4 - 2, v5 - 2);
-      result = re::StringID::operator=(v4, v5);
-      v4[2] = v5[2];
-      v4 += 6;
-      v6 = v5 + 3;
-      v5 += 6;
+      v51 = *&v582[v50];
+      *(v47 + v49) = v51;
+      v49 += 4;
+      v50 += 24;
     }
 
-    while (v6 != a2);
+    while (v49 != 12);
+    ++v46;
+    v47 = (v47 + 12);
+    v48 += 8;
   }
 
-  return result;
-}
-
-void REAssetDisableNetworkSyncing(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v1);
-  re::AssetHandle::setNetworkSharingMode(v1, 2);
-  re::AssetHandle::~AssetHandle(v1);
-}
-
-uint64_t REAssetSetNetworkSharingMode(uint64_t a1, int a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v5);
-  v3 = re::AssetHandle::setNetworkSharingMode(v5, a2);
-  re::AssetHandle::~AssetHandle(v5);
-  return v3;
-}
-
-uint64_t REAssetIsMemoryAsset(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v3);
-  v1 = *(v3[1] + 328);
-  re::AssetHandle::~AssetHandle(v3);
-  return v1;
-}
-
-BOOL REAssetIsMemoryAssetWithNetworkSyncingEnabled(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v3);
-  isMemoryAssetWithNetworkingSyncingEnabled = re::AssetHandle::isMemoryAssetWithNetworkingSyncingEnabled(v3);
-  re::AssetHandle::~AssetHandle(v3);
-  return isMemoryAssetWithNetworkingSyncingEnabled;
-}
-
-id *_RETestingTextureAssetGetUnderlyingTexture(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v5);
-  v1 = re::AssetHandle::blockUntilLoaded<re::TextureAsset>(v5);
-  if (v1)
+  while (v46 != 3);
+  physx::PxDiagonalize(v569, &v596, &v600);
+  v52 = 0;
+  v53 = v596;
+  v54 = v597;
+  v55 = v598;
+  v56 = v54 + v54;
+  v57 = v55 + v55;
+  v58 = v54 * (v54 + v54);
+  v59 = v55 * (v55 + v55);
+  v60 = (v53 + v53) * v597;
+  v61 = (v53 + v53) * v598;
+  v62 = (v53 + v53) * v599;
+  v63 = v56 * v598;
+  v64 = v56 * v599;
+  v600.f32[0] = (1.0 - v58) - v59;
+  v600.f32[1] = v60 + (v57 * v599);
+  v65 = 1.0 - (v53 * (v53 + v53));
+  v601 = v61 - v64;
+  v602 = v60 - (v57 * v599);
+  v603 = v65 - v59;
+  v604 = v63 + v62;
+  v605 = v61 + v64;
+  v606 = v63 - v62;
+  v607 = v65 - v58;
+  v66 = 1000000000.0;
+  v67.i64[0] = 0x80000000800000;
+  v67.i64[1] = 0x80000000800000;
+  v544 = vnegq_f32(v67);
+  v546 = *v582;
+  do
   {
-    if (*(v1 + 30))
+    v68 = 0;
+    v69 = &v600 + 3 * v52;
+    v70 = *v69;
+    v71 = v69[2];
+    do
     {
-      v1 = 0;
-    }
-
-    else
-    {
-      v1 = v1[14];
-    }
-  }
-
-  v2 = v1;
-  v3 = v2;
-  if (v2)
-  {
-  }
-
-  re::AssetHandle::~AssetHandle(v5);
-
-  return v3;
-}
-
-id _RETestingTextureAssetGetUnderlyingLegacyTexture(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v6);
-  v1 = re::AssetHandle::blockUntilLoaded<re::TextureAsset>(v6);
-  if (v1 && *(v1 + 104) && *(v1 + 96))
-  {
-    re::TextureHandle::unsynchronizedMetalTexture((v1 + 96), &v5);
-    v2 = v5;
-    v3 = v2;
-    if (v2)
-    {
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v6);
-
-  return v3;
-}
-
-uint64_t _RETestingTextureAssetGetPixelFormat(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v3);
-  v1 = *(re::AssetHandle::blockUntilLoaded<re::TextureAsset>(v3) + 344);
-  re::AssetHandle::~AssetHandle(v3);
-  return v1;
-}
-
-uint64_t _RETestingTextureAssetGetImportReport(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v3);
-  v1 = *(re::AssetHandle::blockUntilLoaded<re::TextureAsset>(v3) + 128);
-  re::AssetHandle::~AssetHandle(v3);
-  return v1 & 0x3FF;
-}
-
-CFTypeRef REAssetGetType(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = CFStringCreateWithCString(0, **(v4[1] + 280), 0x8000100u);
-  v2 = CFAutorelease(v1);
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
-}
-
-uint64_t REAssetGetAssetId(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = re::AssetHandle::assetInfo(v4);
-  if (v1[10] == -1)
-  {
-    v2 = 0;
-  }
-
-  else
-  {
-    v2 = v1[10];
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
-}
-
-CFStringRef REAssetCopyDescription(uint64_t a1, char a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v9);
-  re::AssetHandle::getDescription(v9, a2, &v6);
-  if (v7)
-  {
-    v3 = *&v8[7];
-  }
-
-  else
-  {
-    v3 = v8;
-  }
-
-  v4 = CFStringCreateWithCString(0, v3, 0x8000100u);
-  if (v6 && (v7 & 1) != 0)
-  {
-    (*(*v6 + 40))();
-  }
-
-  re::AssetHandle::~AssetHandle(v9);
-  return v4;
-}
-
-uint64_t REAssetComputeEstimatedMemorySize(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v6);
-  v3 = re::ServiceLocator::serviceOrNull<re::AssetService>(a2);
-  v4 = re::AssetManager::assetByteSize(v3, v6);
-  re::AssetHandle::~AssetHandle(v6);
-  return v4;
-}
-
-uint64_t REAssetComputeNonSharedMemorySize(uint64_t a1, uint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v6);
-  v3 = re::ServiceLocator::serviceOrNull<re::AssetService>(a2);
-  v4 = re::AssetManager::assetNonSharedDataByteSize(v3, v6);
-  re::AssetHandle::~AssetHandle(v6);
-  return v4;
-}
-
-uint64_t REAssetSerializeToJSON(uint64_t a1, re::FileStreamWriter *a2)
-{
-  v23[5] = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, &v20);
-  if (!v21)
-  {
-    v5 = 0;
-    v3 = 0;
-    goto LABEL_5;
-  }
-
-  v3 = *(v21 + 280);
-  v4 = atomic_load((v21 + 896));
-  if (v4 != 2)
-  {
-    v5 = v21;
-LABEL_5:
-    re::AssetHandle::loadNow(v5, 0);
-  }
-
-  if (v21)
-  {
-    v6 = atomic_load((v21 + 896));
-    if (v6 == 2)
-    {
-      re::AssetHandle::serializableAsset(&v20, v23);
-      re::FileStreamWriter::open(a2, v15);
-      if (v15[0] == 1)
+      v72 = __sincosf_stret((v68 * 0.31416) * 0.5);
+      *v73.i8 = vmul_n_f32(v70, v72.__sinval);
+      v74 = v73;
+      *&v74.i32[2] = v71 * v72.__sinval;
+      v75 = v74;
+      v75.i32[3] = LODWORD(v72.__cosval);
+      if (v23)
       {
-        v7 = *(*(v21 + 24) + 1808);
-        v22 = v3;
-        v8 = re::HashTable<re::AssetType const*,std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>,re::Hash<re::AssetType const*>,re::EqualTo<re::AssetType const*>,true,false>::operator[](v7, &v22);
-        (*(**v8 + 128))(*v8);
-        v9 = *v8;
-        v10 = v23[0];
-        v11 = (*(*v9 + 128))(v9);
-        v12 = re::AssetHandle::legacy_assetPath(&v20);
-        v13 = re::AssetUtilities::serializeIntrospectedAsset(&v16, v10, v12, v11, 1, 0, 1);
-        if (v15[0])
+        v76 = v75;
+        v76.i32[3] = 0;
+        v77 = vdupq_laneq_s32(v75, 3);
+        LODWORD(v78) = vmla_f32(0xBF000000BF000000, *v77.f32, *v77.f32).u32[0];
+        v79 = vextq_s8(v76, v76, 8uLL).u64[0];
+        v80 = vext_s8(*v73.i8, v79, 4uLL);
+        v81.i64[0] = 0x80000000800000;
+        v81.i64[1] = 0x80000000800000;
+        v82 = vnegq_f32(v81);
+        v83 = v43;
+        v84 = v23;
+        v85 = v546;
+        do
         {
-          if (v17 && v18 == 1)
-          {
-            fclose(v17);
-          }
-
-LABEL_18:
-          std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100](v23);
-          goto LABEL_19;
+          v86 = *v83++;
+          v87 = vsubq_f32(v86, v546);
+          v88 = v87;
+          v88.i32[3] = 0;
+          v89 = vmulq_n_f32(v88, v78);
+          v90 = vextq_s8(v88, v88, 8uLL).u64[0];
+          v91 = vmls_f32(vmul_f32(*v73.i8, vext_s8(*v87.f32, v90, 4uLL)), v80, *v87.f32);
+          *v87.f32 = vext_s8(v91, vmls_f32(vmul_f32(v79, *v87.f32), *v73.i8, v90), 4uLL);
+          v89.i32[3] = 0;
+          v87.i64[1] = v91.u32[0];
+          v92 = vmlsq_f32(v89, v77, v87);
+          v92.i64[1] = vextq_s8(v92, v92, 8uLL).u32[0];
+          v93 = vmulq_f32(v76, v88);
+          v93.i64[0] = vpaddq_f32(v93, v93).u64[0];
+          v94 = vmlaq_n_f32(v92, v76, vpadd_f32(*v93.f32, *v93.f32).f32[0]);
+          v95 = vaddq_f32(v94, v94);
+          v95.i32[3] = 0;
+          v82 = vminq_f32(v82, v95);
+          v81 = vmaxq_f32(v81, v95);
+          --v84;
         }
+
+        while (v84);
       }
 
       else
       {
-        v13 = 0;
+        v81.i64[0] = 0x80000000800000;
+        v81.i64[1] = 0x80000000800000;
+        v82 = v544;
+        v85 = v546;
       }
 
-      if (v18 && (v19 & 1) != 0)
+      v96 = vsubq_f32(v81, v82);
+      v97 = vmuls_lane_f32(vmuls_lane_f32(v96.f32[0], *v96.f32, 1), v96, 2);
+      if (v97 <= v66)
       {
-        (*(*v18 + 40))();
+        v1 = v96.f32[2];
+        v98.i64[0] = 0xBF000000BF000000;
+        v98.i64[1] = 0xBF000000BF000000;
+        v99 = vaddq_f32(v81, vmulq_f32(v96, v98));
+        v100 = vdup_laneq_s32(v74, 2);
+        v101 = vaddq_f32(v75, v75);
+        v102 = vmul_n_f32(v100, v101.f32[0]);
+        v103 = vdup_laneq_s32(v75, 3);
+        v104 = vmul_lane_f32(v103, *v101.f32, 1);
+        v105 = vmul_lane_f32(v100, *v101.f32, 1);
+        v106 = vmul_n_f32(v103, v101.f32[0]);
+        *v107.f32 = vext_s8(vadd_f32(v102, v104), vsub_f32(v105, v106), 4uLL);
+        __asm { FMOV            V23.2S, #1.0 }
+
+        v111 = vdup_lane_s32(*v73.i8, 1);
+        v112 = vsub_f32(_D23, vdup_lane_s32(vmul_f32(*v75.f32, *v101.f32), 0));
+        v113 = vmul_lane_f32(v111, *v101.f32, 1);
+        *&v107.u32[2] = vsub_f32(v112, v113);
+        v114 = vmul_n_f32(v111, v101.f32[0]);
+        v115 = vmul_laneq_f32(v103, v101, 2);
+        v116 = vmul_laneq_f32(v100, v101, 2);
+        *v117.f32 = vext_s8(vsub_f32(v114, v115), vsub_f32(v112, v116), 4uLL);
+        *&v117.u32[2] = vadd_f32(v105, v106);
+        *v118.f32 = vext_s8(vsub_f32(vsub_f32(_D23, v113), v116), vadd_f32(v114, v115), 4uLL);
+        *&v118.u32[2] = vsub_f32(v102, v104);
+        v559 = v73.i64[0];
+        v119 = vaddq_f32(vmulq_laneq_f32(v107, v99, 2), vaddq_f32(vmulq_lane_f32(v117, *v99.f32, 1), vaddq_f32(v85, vmulq_n_f32(v118, v99.f32[0]))));
+        v560 = v71 * v72.__sinval;
+        cosval = v72.__cosval;
+        v562 = *v119.f32;
+        v563 = v119.i32[2];
+        v66 = v97;
+        v2 = *v96.f32;
       }
 
-      goto LABEL_18;
+      ++v68;
+    }
+
+    while (v68 != 20);
+    ++v52;
+  }
+
+  while (v52 != 3);
+  v120 = &re::introspect_BOOL(BOOL)::info;
+  if (v43)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v43);
+  }
+
+  v121 = v35;
+  if (v33)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v33);
+  }
+
+  if (v37)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24, v37);
+  }
+
+  if (v35[9])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v35[9] = 0;
+  v35[10] = 0;
+  v122 = v565;
+  v123 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v124 = "static const char *physx::shdfnd::ReflectionAllocator<physx::ConvexHull>::getName() [T = physx::ConvexHull]";
+  }
+
+  else
+  {
+    v124 = "<allocation names disabled>";
+  }
+
+  v125 = (*(*(v123 + 24) + 16))(v123 + 24, 56, v124, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2255);
+  v600 = vmul_f32(v2, 0x3F0000003F000000);
+  v601 = v1 * 0.5;
+  *(v125 + 16) = 0u;
+  v126 = v125 + 16;
+  *(v125 + 32) = 0u;
+  v127 = v125 + 32;
+  *v125 = 0u;
+  *(v125 + 48) = &v564;
+  v128 = *&v559;
+  v129 = v560;
+  v130 = v129 + v129;
+  v131 = *(&v559 + 1) * (*(&v559 + 1) + *(&v559 + 1));
+  v132 = v129 * (v129 + v129);
+  v133 = (v128 + v128) * *(&v559 + 1);
+  v134 = (v128 + v128) * v560;
+  v135 = (v128 + v128) * cosval;
+  v136 = (*(&v559 + 1) + *(&v559 + 1)) * v560;
+  v137 = (*(&v559 + 1) + *(&v559 + 1)) * cosval;
+  *&__src = (1.0 - v131) - v132;
+  *(&__src + 1) = v133 + (v130 * cosval);
+  v138 = 1.0 - (v128 * (v128 + v128));
+  *(&__src + 2) = v134 - v137;
+  *(&__src + 3) = v133 - (v130 * cosval);
+  v571 = v138 - v132;
+  v572 = v136 + v135;
+  v573.f32[0] = v134 + v137;
+  v573.f32[1] = v136 - v135;
+  *&v574 = v138 - v131;
+  physx::Gu::computeOBBPoints(v582, &v562, &v600, &__src, (&__src + 12), &v573);
+  v139 = *&v582[4];
+  v140 = *&v582[8];
+  *&v569[0] = *v582;
+  DWORD2(v569[0]) = *&v582[8];
+  v141 = *(v125 + 8);
+  v142 = *(v125 + 12) & 0x7FFFFFFF;
+  if (v142 <= v141)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+    v144 = *(v125 + 8);
+    v142 = *(v125 + 12) & 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v143 = (*v125 + 12 * v141);
+    *v143 = *v582;
+    v143[1] = v139;
+    v143[2] = v140;
+    v144 = v141 + 1;
+    *(v125 + 8) = v144;
+  }
+
+  v145 = v589;
+  *&v569[0] = v588;
+  *(v569 + 2) = v589;
+  if (v142 <= v144)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+    v147 = *(v125 + 8);
+    v142 = *(v125 + 12) & 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v146 = *v125 + 12 * v144;
+    *v146 = v588;
+    *(v146 + 8) = v145;
+    v147 = v144 + 1;
+    *(v125 + 8) = v147;
+  }
+
+  v148 = v587;
+  *&v569[0] = v586;
+  *(v569 + 2) = v587;
+  if (v142 <= v147)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+    v150 = *(v125 + 8);
+    v142 = *(v125 + 12) & 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v149 = *v125 + 12 * v147;
+    *v149 = v586;
+    *(v149 + 8) = v148;
+    v150 = v147 + 1;
+    *(v125 + 8) = v150;
+  }
+
+  v151 = v595;
+  *&v569[0] = v594;
+  *(v569 + 2) = v595;
+  if (v142 <= v150)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+    v153 = *(v125 + 8);
+    v142 = *(v125 + 12) & 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v152 = *v125 + 12 * v150;
+    *v152 = v594;
+    *(v152 + 8) = v151;
+    v153 = v150 + 1;
+    *(v125 + 8) = v153;
+  }
+
+  v154 = *&v582[16];
+  v155 = v583;
+  *&v569[0] = *&v582[12];
+  *(v569 + 2) = v583;
+  if (v142 <= v153)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+    v157 = *(v125 + 8);
+    v142 = *(v125 + 12) & 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v156 = (*v125 + 12 * v153);
+    *v156 = *&v582[12];
+    *(v156 + 1) = v154;
+    v156[2] = v155;
+    v157 = v153 + 1;
+    *(v125 + 8) = v157;
+  }
+
+  v158 = v591;
+  *&v569[0] = v590;
+  *(v569 + 2) = v591;
+  if (v142 <= v157)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+    v160 = *(v125 + 8);
+    v142 = *(v125 + 12) & 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v159 = *v125 + 12 * v157;
+    *v159 = v590;
+    *(v159 + 8) = v158;
+    v160 = v157 + 1;
+    *(v125 + 8) = v160;
+  }
+
+  v161 = v585;
+  *&v569[0] = v584;
+  *(v569 + 2) = v585;
+  if (v142 <= v160)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+    v163 = *(v125 + 8);
+    v142 = *(v125 + 12) & 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v162 = *v125 + 12 * v160;
+    *v162 = v584;
+    *(v162 + 8) = v161;
+    v163 = v160 + 1;
+    *(v125 + 8) = v163;
+  }
+
+  v164 = v593;
+  *&v569[0] = v592;
+  *(v569 + 2) = v593;
+  if (v142 <= v163)
+  {
+    physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v569);
+  }
+
+  else
+  {
+    v165 = *v125 + 12 * v163;
+    *v165 = v592;
+    *(v165 + 8) = v164;
+    *(v125 + 8) = v163 + 1;
+  }
+
+  v166 = ((*(&v588 + 1) - *&v582[4]) * (v595 - *&v582[8])) - ((v589 - *&v582[8]) * (*(&v594 + 1) - *&v582[4]));
+  v167 = ((v589 - *&v582[8]) * (*&v594 - *v582)) - ((*&v588 - *v582) * (v595 - *&v582[8]));
+  v168 = ((*&v588 - *v582) * (*(&v594 + 1) - *&v582[4])) - ((*(&v588 + 1) - *&v582[4]) * (*&v594 - *v582));
+  v169 = ((v167 * v167) + (v166 * v166)) + (v168 * v168);
+  v170 = 0.0;
+  v171 = 0.0;
+  v172 = 0.0;
+  if (v169 > 0.0)
+  {
+    v173 = 1.0 / sqrtf(v169);
+    v170 = v166 * v173;
+    v171 = v167 * v173;
+    v172 = v168 * v173;
+  }
+
+  v174 = -(((*&v582[4] * v171) + (*v582 * v170)) + (*&v582[8] * v172));
+  *&v569[0] = __PAIR64__(LODWORD(v171), LODWORD(v170));
+  *(v569 + 2) = v172;
+  *(v569 + 3) = v174;
+  v175 = *(v125 + 40);
+  if ((*(v125 + 44) & 0x7FFFFFFFu) <= v175)
+  {
+    physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::growAndPushBack(v127, v569);
+  }
+
+  else
+  {
+    v176 = *(v125 + 32) + 16 * v175;
+    *v176 = v170;
+    *(v176 + 4) = v171;
+    *(v176 + 8) = v172;
+    *(v176 + 12) = v174;
+    *(v125 + 40) = v175 + 1;
+  }
+
+  v177 = ((*(&v592 + 1) - *(&v584 + 1)) * (v591 - v585)) - ((v593 - v585) * (*(&v590 + 1) - *(&v584 + 1)));
+  v178 = ((v593 - v585) * (*&v590 - *&v584)) - ((*&v592 - *&v584) * (v591 - v585));
+  v179 = ((*&v592 - *&v584) * (*(&v590 + 1) - *(&v584 + 1))) - ((*(&v592 + 1) - *(&v584 + 1)) * (*&v590 - *&v584));
+  v180 = ((v178 * v178) + (v177 * v177)) + (v179 * v179);
+  v181 = 0.0;
+  v182 = 0.0;
+  v183 = 0.0;
+  if (v180 > 0.0)
+  {
+    v184 = 1.0 / sqrtf(v180);
+    v181 = v177 * v184;
+    v182 = v178 * v184;
+    v183 = v179 * v184;
+  }
+
+  v185 = -(((*(&v584 + 1) * v182) + (*&v584 * v181)) + (v585 * v183));
+  *&v569[0] = __PAIR64__(LODWORD(v182), LODWORD(v181));
+  *(v569 + 2) = v183;
+  *(v569 + 3) = v185;
+  v186 = *(v125 + 40);
+  if ((*(v125 + 44) & 0x7FFFFFFFu) <= v186)
+  {
+    physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::growAndPushBack(v127, v569);
+  }
+
+  else
+  {
+    v187 = *(v125 + 32) + 16 * v186;
+    *v187 = v181;
+    *(v187 + 4) = v182;
+    *(v187 + 8) = v183;
+    *(v187 + 12) = v185;
+    *(v125 + 40) = v186 + 1;
+  }
+
+  v188 = ((*&v582[16] - *&v582[4]) * (v591 - *&v582[8])) - ((v583 - *&v582[8]) * (*(&v590 + 1) - *&v582[4]));
+  v189 = ((v583 - *&v582[8]) * (*&v590 - *v582)) - ((*&v582[12] - *v582) * (v591 - *&v582[8]));
+  v190 = ((*&v582[12] - *v582) * (*(&v590 + 1) - *&v582[4])) - ((*&v582[16] - *&v582[4]) * (*&v590 - *v582));
+  v191 = ((v189 * v189) + (v188 * v188)) + (v190 * v190);
+  v192 = 0.0;
+  v193 = 0.0;
+  v194 = 0.0;
+  if (v191 > 0.0)
+  {
+    v195 = 1.0 / sqrtf(v191);
+    v192 = v188 * v195;
+    v193 = v189 * v195;
+    v194 = v190 * v195;
+  }
+
+  v196 = -(((*&v582[4] * v193) + (*v582 * v192)) + (*&v582[8] * v194));
+  *&v569[0] = __PAIR64__(LODWORD(v193), LODWORD(v192));
+  *(v569 + 2) = v194;
+  *(v569 + 3) = v196;
+  v197 = *(v125 + 40);
+  if ((*(v125 + 44) & 0x7FFFFFFFu) <= v197)
+  {
+    physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::growAndPushBack(v127, v569);
+  }
+
+  else
+  {
+    v198 = *(v125 + 32) + 16 * v197;
+    *v198 = v192;
+    *(v198 + 4) = v193;
+    *(v198 + 8) = v194;
+    *(v198 + 12) = v196;
+    *(v125 + 40) = v197 + 1;
+  }
+
+  v199 = ((*(&v592 + 1) - *(&v594 + 1)) * (v585 - v595)) - ((v593 - v595) * (*(&v584 + 1) - *(&v594 + 1)));
+  v200 = ((v593 - v595) * (*&v584 - *&v594)) - ((*&v592 - *&v594) * (v585 - v595));
+  v201 = ((*&v592 - *&v594) * (*(&v584 + 1) - *(&v594 + 1))) - ((*(&v592 + 1) - *(&v594 + 1)) * (*&v584 - *&v594));
+  v202 = ((v200 * v200) + (v199 * v199)) + (v201 * v201);
+  v203 = 0.0;
+  v204 = 0.0;
+  v205 = 0.0;
+  if (v202 > 0.0)
+  {
+    v206 = 1.0 / sqrtf(v202);
+    v203 = v199 * v206;
+    v204 = v200 * v206;
+    v205 = v201 * v206;
+  }
+
+  v207 = -(((*(&v594 + 1) * v204) + (*&v594 * v203)) + (v595 * v205));
+  *&v569[0] = __PAIR64__(LODWORD(v204), LODWORD(v203));
+  *(v569 + 2) = v205;
+  *(v569 + 3) = v207;
+  v208 = *(v125 + 40);
+  if ((*(v125 + 44) & 0x7FFFFFFFu) <= v208)
+  {
+    physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::growAndPushBack(v127, v569);
+  }
+
+  else
+  {
+    v209 = *(v125 + 32) + 16 * v208;
+    *v209 = v203;
+    *(v209 + 4) = v204;
+    *(v209 + 8) = v205;
+    *(v209 + 12) = v207;
+    *(v125 + 40) = v208 + 1;
+  }
+
+  v210 = ((*(&v586 + 1) - *&v582[4]) * (v585 - *&v582[8])) - ((v587 - *&v582[8]) * (*(&v584 + 1) - *&v582[4]));
+  v211 = ((v587 - *&v582[8]) * (*&v584 - *v582)) - ((*&v586 - *v582) * (v585 - *&v582[8]));
+  v212 = ((*&v586 - *v582) * (*(&v584 + 1) - *&v582[4])) - ((*(&v586 + 1) - *&v582[4]) * (*&v584 - *v582));
+  v213 = ((v211 * v211) + (v210 * v210)) + (v212 * v212);
+  v214 = 0.0;
+  v215 = 0.0;
+  v216 = 0.0;
+  if (v213 > 0.0)
+  {
+    v217 = 1.0 / sqrtf(v213);
+    v214 = v210 * v217;
+    v215 = v211 * v217;
+    v216 = v212 * v217;
+  }
+
+  v218 = -(((*&v582[4] * v215) + (*v582 * v214)) + (*&v582[8] * v216));
+  *&v569[0] = __PAIR64__(LODWORD(v215), LODWORD(v214));
+  *(v569 + 2) = v216;
+  *(v569 + 3) = v218;
+  v219 = *(v125 + 40);
+  if ((*(v125 + 44) & 0x7FFFFFFFu) <= v219)
+  {
+    physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::growAndPushBack(v127, v569);
+  }
+
+  else
+  {
+    v220 = *(v125 + 32) + 16 * v219;
+    *v220 = v214;
+    *(v220 + 4) = v215;
+    *(v220 + 8) = v216;
+    *(v220 + 12) = v218;
+    *(v125 + 40) = v219 + 1;
+  }
+
+  v221 = ((*(&v590 + 1) - *(&v588 + 1)) * (v593 - v589)) - ((v591 - v589) * (*(&v592 + 1) - *(&v588 + 1)));
+  v222 = ((v591 - v589) * (*&v592 - *&v588)) - ((*&v590 - *&v588) * (v593 - v589));
+  v223 = ((*&v590 - *&v588) * (*(&v592 + 1) - *(&v588 + 1))) - ((*(&v590 + 1) - *(&v588 + 1)) * (*&v592 - *&v588));
+  v224 = ((v222 * v222) + (v221 * v221)) + (v223 * v223);
+  v225 = 0.0;
+  v226 = 0.0;
+  v227 = 0.0;
+  if (v224 > 0.0)
+  {
+    v228 = 1.0 / sqrtf(v224);
+    v225 = v221 * v228;
+    v226 = v222 * v228;
+    v227 = v223 * v228;
+  }
+
+  v229 = -(((*(&v588 + 1) * v226) + (*&v588 * v225)) + (v589 * v227));
+  *&v569[0] = __PAIR64__(LODWORD(v226), LODWORD(v225));
+  *(v569 + 2) = v227;
+  *(v569 + 3) = v229;
+  v230 = *(v125 + 40);
+  if ((*(v125 + 44) & 0x7FFFFFFFu) <= v230)
+  {
+    physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::growAndPushBack(v127, v569);
+  }
+
+  else
+  {
+    v231 = *(v125 + 32) + 16 * v230;
+    *v231 = v225;
+    *(v231 + 4) = v226;
+    *(v231 + 8) = v227;
+    *(v231 + 12) = v229;
+    *(v125 + 40) = v230 + 1;
+  }
+
+  LODWORD(v569[0]) = 11;
+  v232 = *(v125 + 24);
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v232)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v233 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v232) = v569[0];
+    v233 = *(v125 + 24) + 1;
+    *(v125 + 24) = v233;
+  }
+
+  LODWORD(v569[0]) = 65559;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v233)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v234 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v233) = v569[0];
+    v234 = *(v125 + 24) + 1;
+    *(v125 + 24) = v234;
+  }
+
+  LODWORD(v569[0]) = 196623;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v234)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v235 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v234) = v569[0];
+    v235 = *(v125 + 24) + 1;
+    *(v125 + 24) = v235;
+  }
+
+  LODWORD(v569[0]) = 131088;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v235)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v236 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v235) = v569[0];
+    v236 = *(v125 + 24) + 1;
+    *(v125 + 24) = v236;
+  }
+
+  LODWORD(v569[0]) = 17170445;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v236)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v237 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v236) = v569[0];
+    v237 = *(v125 + 24) + 1;
+    *(v125 + 24) = v237;
+  }
+
+  LODWORD(v569[0]) = 17235989;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v237)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v238 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v237) = v569[0];
+    v238 = *(v125 + 24) + 1;
+    *(v125 + 24) = v238;
+  }
+
+  LODWORD(v569[0]) = 17104905;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v238)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v239 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v238) = v569[0];
+    v239 = *(v125 + 24) + 1;
+    *(v125 + 24) = v239;
+  }
+
+  LODWORD(v569[0]) = 17039378;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v239)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v240 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v239) = v569[0];
+    v240 = *(v125 + 24) + 1;
+    *(v125 + 24) = v240;
+  }
+
+  LODWORD(v569[0]) = 33554451;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v240)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v241 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v240) = v569[0];
+    v241 = *(v125 + 24) + 1;
+    *(v125 + 24) = v241;
+  }
+
+  LODWORD(v569[0]) = 33816582;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v241)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v242 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v241) = v569[0];
+    v242 = *(v125 + 24) + 1;
+    *(v125 + 24) = v242;
+  }
+
+  LODWORD(v569[0]) = 33882132;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v242)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v243 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v242) = v569[0];
+    v243 = *(v125 + 24) + 1;
+    *(v125 + 24) = v243;
+  }
+
+  LODWORD(v569[0]) = 33619968;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v243)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v244 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v243) = v569[0];
+    v244 = *(v125 + 24) + 1;
+    *(v125 + 24) = v244;
+  }
+
+  LODWORD(v569[0]) = 50528278;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v244)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v245 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v244) = v569[0];
+    v245 = *(v125 + 24) + 1;
+    *(v125 + 24) = v245;
+  }
+
+  LODWORD(v569[0]) = 50790404;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v245)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v246 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v245) = v569[0];
+    v246 = *(v125 + 24) + 1;
+    *(v125 + 24) = v246;
+  }
+
+  LODWORD(v569[0]) = 50724881;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v246)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v247 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v246) = v569[0];
+    v247 = *(v125 + 24) + 1;
+    *(v125 + 24) = v247;
+  }
+
+  LODWORD(v569[0]) = 50462722;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v247)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v248 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v247) = v569[0];
+    v248 = *(v125 + 24) + 1;
+    *(v125 + 24) = v248;
+  }
+
+  LODWORD(v569[0]) = 67108867;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v248)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v249 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v248) = v569[0];
+    v249 = *(v125 + 24) + 1;
+    *(v125 + 24) = v249;
+  }
+
+  LODWORD(v569[0]) = 67239950;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v249)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v250 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v249) = v569[0];
+    v250 = *(v125 + 24) + 1;
+    *(v125 + 24) = v250;
+  }
+
+  LODWORD(v569[0]) = 67502087;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v250)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v251 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v250) = v569[0];
+    v251 = *(v125 + 24) + 1;
+    *(v125 + 24) = v251;
+  }
+
+  LODWORD(v569[0]) = 67371016;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v251)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v252 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v251) = v569[0];
+    v252 = *(v125 + 24) + 1;
+    *(v125 + 24) = v252;
+  }
+
+  LODWORD(v569[0]) = 83951626;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v252)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v253 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v252) = v569[0];
+    v253 = *(v125 + 24) + 1;
+    *(v125 + 24) = v253;
+  }
+
+  LODWORD(v569[0]) = 84213765;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v253)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v254 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v253) = v569[0];
+    v254 = *(v125 + 24) + 1;
+    *(v125 + 24) = v254;
+  }
+
+  LODWORD(v569[0]) = 84344844;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v254)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    v255 = *(v125 + 24);
+  }
+
+  else
+  {
+    *(*(v125 + 16) + 4 * v254) = v569[0];
+    v255 = *(v125 + 24) + 1;
+    *(v125 + 24) = v255;
+  }
+
+  LODWORD(v569[0]) = 84082689;
+  if ((*(v125 + 28) & 0x7FFFFFFFu) <= v255)
+  {
+    physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::growAndPushBack(v126, v569);
+    if (!v122)
+    {
+      goto LABEL_448;
     }
   }
 
-  v13 = 0;
-LABEL_19:
-  re::AssetHandle::~AssetHandle(&v20);
-  return v13;
-}
-
-uint64_t REAssetGetSwiftObject(uint64_t result)
-{
-  if (result)
+  else
   {
-    v1 = *(result + 24);
-    if (v1)
+    *(*(v125 + 16) + 4 * v255) = v569[0];
+    ++*(v125 + 24);
+    if (!v122)
     {
-      return *(v1 + 784);
-    }
-
-    else
-    {
-      return 0;
+      goto LABEL_448;
     }
   }
 
-  return result;
-}
-
-void REAssetSetSwiftObjectAndRetain()
-{
-  if (CoreRELog::onceToken != -1)
+  v256 = v35[7];
+  if (v122 >= 0x100)
   {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    v257 = 256;
   }
 
-  v0 = CoreRELog::log;
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  else
   {
-    *v1 = 0;
-    _os_log_error_impl(&dword_1E1C61000, v0, OS_LOG_TYPE_ERROR, "REAssetSetSwiftObjectAndRetain is deprecated and no longer supported. NOP", v1, 2u);
-  }
-}
-
-void *re::allocInfo_UnsupportedTestAsset(re *this)
-{
-  if ((atomic_load_explicit(&_MergedGlobals_587, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_587))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C4B70, "UnsupportedTestAsset");
-    __cxa_guard_release(&_MergedGlobals_587);
+    v257 = v122;
   }
 
-  return &unk_1EE1C4B70;
-}
-
-void re::initInfo_UnsupportedTestAsset(re *this, re::IntrospectionBase *a2)
-{
-  v6[0] = 0xD81F23B2DE9B3DD2;
-  v6[1] = "UnsupportedTestAsset";
-  if (v6[0])
+  v536 = v257;
+  v258 = *(v256 + 340);
+  v259 = *(v256 + 336);
+  v260 = -v258;
+  v261 = "shHitCallbackE";
+  do
   {
-    if (v6[0])
+    v262 = v125;
+    v263 = *(v125 + 48);
+    v264 = *(v263 + 8);
+    if (v264)
     {
-    }
-  }
-
-  *(this + 2) = v7;
-  *(this + 2) = 0x100000008;
-  *(this + 6) = 1;
-  *(this + 14) = 1;
-  *(this + 14) = 0;
-  *(this + 8) = &re::initInfo_UnsupportedTestAsset(re::IntrospectionBase *)::structureAttributes;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v5 = v7;
-}
-
-void *re::allocInfo_UnsupportedTestComponent(re *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C4B00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C4B00))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1C4C00, "UnsupportedTestComponent");
-    __cxa_guard_release(&qword_1EE1C4B00);
-  }
-
-  return &unk_1EE1C4C00;
-}
-
-void re::initInfo_UnsupportedTestComponent(re *this, re::IntrospectionBase *a2)
-{
-  v14[0] = 0xA7AE3E843CE658ECLL;
-  v14[1] = "UnsupportedTestComponent";
-  if (v14[0])
-  {
-    if (v14[0])
-    {
-    }
-  }
-
-  *(this + 2) = v15;
-  if ((atomic_load_explicit(&qword_1EE1C4B08, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1C4B08);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::ecs2::introspect_Component(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "ecs2::Component";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 0;
-      *(v8 + 40) = 3;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1C4B48 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v11 = re::introspect_AssetHandle(1, v10);
-      v12 = (*(*v9 + 32))(v9, 72, 8);
-      *v12 = 1;
-      *(v12 + 8) = "asset";
-      *(v12 + 16) = v11;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0x2000000001;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = 0;
-      *(v12 + 56) = 0;
-      *(v12 + 64) = 0;
-      qword_1EE1C4B50 = v12;
-      __cxa_guard_release(&qword_1EE1C4B08);
-    }
-  }
-
-  *(this + 2) = 0x3800000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 2;
-  *(this + 8) = &qword_1EE1C4B48;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = _ZZN2re8internal15setIntroVersionIN12_GLOBAL__N_124UnsupportedTestComponentELNS_17RealityKitReleaseE1EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_;
-  re::internal::prepare(this, v4);
-  v13 = v15;
-}
-
-void re::internal::defaultConstruct<anonymous namespace::UnsupportedTestComponent>(int a1, int a2, ArcSharedObject *this)
-{
-  *(this + 6) = 0;
-  *(this + 1) = 0u;
-  *(this + 2) = 0u;
-  *this = 0u;
-  ArcSharedObject::ArcSharedObject(this, 0);
-  *(v3 + 16) = 0;
-  *(v3 + 24) = 0;
-  *v3 = &unk_1F5D2B978;
-  *(v3 + 40) = 0;
-  *(v3 + 48) = 0;
-  *(v3 + 32) = 0;
-}
-
-void re::internal::defaultConstructV2<anonymous namespace::UnsupportedTestComponent>(uint64_t a1)
-{
-  *(a1 + 48) = 0;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *a1 = 0u;
-  ArcSharedObject::ArcSharedObject(a1, 0);
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0;
-  *v1 = &unk_1F5D2B978;
-  *(v1 + 40) = 0;
-  *(v1 + 48) = 0;
-  *(v1 + 32) = 0;
-}
-
-uint64_t *_RETestingRegisterUnsupportedTestAsset(re *a1)
-{
-  v35 = *MEMORY[0x1E69E9840];
-  v2 = re::introspectionSharedMutex(a1);
-  std::__shared_mutex_base::lock(v2);
-  if ((atomic_load_explicit(&qword_1EE1C4B40, memory_order_acquire) & 1) == 0)
-  {
-    v22 = __cxa_guard_acquire(&qword_1EE1C4B40);
-    if (v22)
-    {
-      v23 = qword_1EE1C4B10;
-      if (!qword_1EE1C4B10)
+      v265 = 0;
+      v266 = -1;
+      v267 = 0.0;
+      while (1)
       {
-        v23 = re::allocInfo_UnsupportedTestComponent(v22);
-        qword_1EE1C4B10 = v23;
-        re::initInfo_UnsupportedTestComponent(v23, v24);
+        v268 = 0.0;
+        v269 = 0.0;
+        if (*(v125 + 8))
+        {
+          v270 = (*v263 + 16 * v265);
+          v271 = *v270;
+          v272 = v270[1];
+          v273 = v270[2];
+          v274 = v270[3];
+          v275 = (*v125 + 8);
+          v276 = *(v125 + 8);
+          do
+          {
+            v277 = (v272 * *(v275 - 1)) + (*(v275 - 2) * v271);
+            v278 = *v275;
+            v275 += 3;
+            v279 = v274 + (v277 + (v278 * v273));
+            if (v268 <= v279)
+            {
+              v268 = v279;
+            }
+
+            if (v269 >= v279)
+            {
+              v269 = v279;
+            }
+
+            --v276;
+          }
+
+          while (v276);
+        }
+
+        v280 = v268 - v269;
+        if (v280 < v258)
+        {
+          v280 = 1.0;
+        }
+
+        v281 = v268 / v280;
+        if (v281 > v267)
+        {
+          v282 = *(v125 + 40);
+          if (v282)
+          {
+            v283 = 0;
+            v284 = (*v263 + 16 * v265);
+            v285 = *v284;
+            v286 = v284[1];
+            while (1)
+            {
+              v287 = (*(v125 + 32) + 16 * v283);
+              v288 = v287[1];
+              if (v285 != *v287)
+              {
+                break;
+              }
+
+              v289 = v284[2];
+              if (v286 != v288)
+              {
+                goto LABEL_210;
+              }
+
+              if (v289 != v287[2])
+              {
+                goto LABEL_210;
+              }
+
+              v290 = 0.0;
+              if (v284[3] != v287[3])
+              {
+                goto LABEL_210;
+              }
+
+LABEL_217:
+              ++v283;
+              v281 = v290;
+              if (v283 == v282)
+              {
+                goto LABEL_221;
+              }
+            }
+
+            v289 = v284[2];
+LABEL_210:
+            if ((((v286 * v288) + (v285 * *v287)) + (v289 * v287[2])) > *(v261 + 592) && (v291 = *(v125 + 24), v291))
+            {
+              v292 = (*(v125 + 16) + 3);
+              while (1)
+              {
+                if (v283 == *v292)
+                {
+                  v293 = (*v125 + 12 * *(v292 - 1));
+                  if ((v284[3] + (((v286 * v293[1]) + (*v293 * v285)) + (v293[2] * v289))) < 0.0)
+                  {
+                    break;
+                  }
+                }
+
+                v292 += 4;
+                if (!--v291)
+                {
+                  goto LABEL_216;
+                }
+              }
+
+              v290 = 0.0;
+            }
+
+            else
+            {
+LABEL_216:
+              v290 = v281;
+            }
+
+            goto LABEL_217;
+          }
+
+          v290 = v281;
+LABEL_221:
+          if (v290 > v267)
+          {
+            v266 = v265;
+            v267 = v290;
+          }
+        }
+
+        if (++v265 == v264)
+        {
+          goto LABEL_226;
+        }
+      }
+    }
+
+    v266 = -1;
+    v267 = 0.0;
+LABEL_226:
+    if (v267 <= v259)
+    {
+      v266 = -1;
+    }
+
+    if ((v266 & 0x80000000) != 0)
+    {
+LABEL_447:
+      v125 = v262;
+      break;
+    }
+
+    v567 = 0;
+    v568 = 0;
+    v294 = *(v125 + 8);
+    if (!v294)
+    {
+      goto LABEL_239;
+    }
+
+    v295 = 0;
+    v296 = 0;
+    v297 = (v564 + 16 * v266);
+    v298 = *v297;
+    v299 = v297[1];
+    v300 = v297[2];
+    v301 = v297[3];
+    v302 = (*v125 + 8);
+    v303 = &v596 + 1;
+    do
+    {
+      v304 = (v299 * *(v302 - 1)) + (*(v302 - 2) * v298);
+      v305 = *v302;
+      v302 += 3;
+      v306 = v301 + (v304 + (v305 * v300));
+      if (v306 > v258)
+      {
+        v307 = 2;
       }
 
-      qword_1EE1C4B38 = v23;
-      __cxa_guard_release(&qword_1EE1C4B40);
-    }
-  }
-
-  v3 = strlen(*(qword_1EE1C4B38 + 48));
-  v28[0] = re::ecs2::Component::dropComponentSuffix(*(qword_1EE1C4B38 + 48), v3);
-  v28[1] = v4;
-  v5 = re::globalAllocators(v28[0]);
-  v6 = (*(*v5[2] + 32))(v5[2], 80, 8);
-  v7 = re::ecs2::ComponentTypeBase::ComponentTypeBase(v6, v28, 0, 0);
-  *v7 = &unk_1F5D2BA00;
-  *(v7 + 48) = 0;
-  *(v7 + 56) = 0u;
-  *(v7 + 72) = 0xFFFFFFFFLL;
-  *(v6 + 56) = re::ecs2::ComponentTypeBase::makeAllocator((v7 + 24), 0x38);
-  if ((atomic_load_explicit(&qword_1EE1C4B40, memory_order_acquire) & 1) == 0)
-  {
-    v25 = __cxa_guard_acquire(&qword_1EE1C4B40);
-    if (v25)
-    {
-      v26 = qword_1EE1C4B10;
-      if (!qword_1EE1C4B10)
+      else
       {
-        v26 = re::allocInfo_UnsupportedTestComponent(v25);
-        qword_1EE1C4B10 = v26;
-        re::initInfo_UnsupportedTestComponent(v26, v27);
+        v307 = v306 < v260;
       }
 
-      qword_1EE1C4B38 = v26;
-      __cxa_guard_release(&qword_1EE1C4B40);
-    }
-  }
-
-  v8 = qword_1EE1C4B38;
-  v9 = *(v8 + 48);
-  if (v9)
-  {
-    v10 = *v9;
-    if (*v9)
-    {
-      v11 = v9[1];
-      if (v11)
+      if (v306 < v260 && v306 <= v258)
       {
-        v12 = (v9 + 2);
+        v308 = v295;
+      }
+
+      else
+      {
+        v308 = -1;
+      }
+
+      v295 += v306 < v260 && v306 <= v258;
+      *v303 = v308;
+      v303[1] = -1;
+      *(v303 - 1) = v307;
+      v296 |= v307;
+      v303 += 3;
+      --v294;
+    }
+
+    while (v294);
+    if ((v296 & 2) == 0)
+    {
+LABEL_239:
+      v309 = v120[428];
+      if ((*(*v309 + 40))(v309))
+      {
+        v310 = "static const char *physx::shdfnd::ReflectionAllocator<physx::ConvexHull>::getName() [T = physx::ConvexHull]";
+      }
+
+      else
+      {
+        v310 = "<allocation names disabled>";
+      }
+
+      v125 = (*(v309[3] + 16))(v309 + 3, 56, v310, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullUtils.cpp", 473);
+      *v125 = 0u;
+      *(v125 + 32) = 0u;
+      *(v125 + 16) = 0u;
+      *(v125 + 48) = *(v262 + 48);
+      physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::resize(v125, *(v262 + 8), &__src);
+      physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::resize((v125 + 16), *(v262 + 24), &__src);
+      physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::resize((v125 + 32), *(v262 + 40), &__src);
+      memcpy(*v125, *v262, (12 * *(v262 + 8)));
+      memcpy(*(v125 + 16), *(v262 + 16), (4 * *(v262 + 24)));
+      memcpy(*(v125 + 32), *(v262 + 32), (16 * *(v262 + 40)));
+      goto LABEL_346;
+    }
+
+    v547 = v125;
+    if (!*(v125 + 40))
+    {
+      LOWORD(v313) = 0;
+      v427 = 0;
+      v428 = 0;
+      v429 = 1;
+      v431 = -1;
+      goto LABEL_321;
+    }
+
+    v534 = v121;
+    v311 = 0;
+    v537 = 0;
+    v312 = 0;
+    v313 = 0;
+    LODWORD(v314) = 0;
+    v541 = v297;
+    do
+    {
+      v315 = 0;
+      v316 = v314;
+      v317 = 255;
+      v314 = 0xFFFFFFFFLL;
+      v318 = 255;
+      v319 = 255;
+      LODWORD(v320) = v316;
+      v321 = v316;
+      v542 = v311;
+      v543 = v313;
+      v545 = v316;
+      v540 = v316;
+      do
+      {
+        v322 = v320;
+        v320 = (v320 + 1);
+        v323 = *(v262 + 16);
+        if (v320 < *(v262 + 24) && v311 == *(v323 + 4 * v320 + 3))
+        {
+          v324 = v320;
+        }
+
+        else
+        {
+          v324 = v321;
+          v314 = v320;
+          LODWORD(v320) = v316;
+        }
+
+        v325 = (v323 + 4 * v322);
+        v326 = *v325;
+        v327 = v323 + 4 * v326;
+        v328 = *(v325 + 2);
+        v329 = &v596 + 3 * v328;
+        v330 = *v329;
+        v331 = v323 + 4 * v324;
+        v334 = *(v331 + 2);
+        v333 = (v331 + 2);
+        v332 = v334;
+        v335 = &v596 + 3 * v334;
+        v336 = *v335;
+        if (v330 == 1)
+        {
+          v600.i16[v322] = v312;
+          v337 = &v582[4 * v312];
+          v337[2] = v329[1];
+          v337[3] = v313;
+          if (v336 == 1)
+          {
+            if (v322 > v326)
+            {
+              v338 = v600.i16[v326];
+              *v337 = v338;
+              *&v582[4 * v338] = v312;
+            }
+
+            ++v312;
+LABEL_266:
+            v262 = v547;
+            goto LABEL_307;
+          }
+
+          if (v322 <= v326)
+          {
+            if (v336)
+            {
+              v262 = v547;
+              v372 = *(v547 + 32);
+              v373 = (v372 + 16 * *(v325 + 3));
+              v374 = (v372 + 16 * *(v327 + 3));
+              v375 = *v373;
+              v376 = v373[1];
+              v377 = v373[2];
+              v378 = *v374;
+              v379 = v374[1];
+              v380 = v374[2];
+              v381 = *v297;
+              v382 = v297[1];
+              v383 = v297[2];
+              v384.f32[0] = (v376 * v380) - (v379 * v377);
+              v385 = ((*v374 * ((v382 * v377) - (v376 * v383))) + (*v373 * ((v379 * v383) - (v382 * v380)))) + (*v297 * v384.f32[0]);
+              if (v385 == 0.0)
+              {
+                v392 = 0x3F80000000000000;
+                v389 = 1065353216;
+                v394 = 0;
+                v395 = 1.0;
+                v390 = 0.0;
+                v393 = 0.0;
+              }
+
+              else
+              {
+                v386 = -v376;
+                v387 = 1.0 / v385;
+                v388.f32[0] = (v379 * v383) - (v380 * v382);
+                v388.f32[1] = -((v378 * v383) - (v380 * v381));
+                v389 = vmul_n_f32(v388, v387);
+                v390 = ((v378 * v382) - (v381 * v379)) * v387;
+                v391.f32[0] = -((v377 * -v382) + (v376 * v383));
+                v391.f32[1] = (v375 * v383) - (v381 * v377);
+                v392 = vmul_n_f32(v391, v387);
+                v393 = -(((v375 * v382) - (v381 * v376)) * v387);
+                v384.f32[1] = -((v375 * v380) - (v378 * v377));
+                v394 = vmul_n_f32(v384, v387);
+                v395 = ((v378 * v386) + (v375 * v379)) * v387;
+              }
+
+              v411 = v373[3];
+              v412 = v374[3];
+              v413 = v297[3];
+              v414 = vneg_f32(vadd_f32(vadd_f32(vmul_n_f32(v389, v411), vmul_n_f32(v392, v412)), vmul_n_f32(v394, v413)));
+              v415 = -(((v390 * v411) + (v393 * v412)) + (v395 * v413));
+              *&v566 = v414;
+              *(&v566 + 2) = v415;
+              v416 = v568;
+              if ((HIDWORD(v568) & 0x7FFFFFFFu) <= v568)
+              {
+                v418 = v295;
+                v419 = v314;
+                physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(&v567, &v566);
+                v313 = v543;
+                v321 = v545;
+                v314 = v419;
+                v262 = v547;
+                v297 = v541;
+                v311 = v542;
+                v295 = v418;
+              }
+
+              else
+              {
+                v417 = (*&v567 + 12 * v568);
+                *v417 = v414;
+                v417[1].f32[0] = v415;
+                LODWORD(v568) = v416 + 1;
+              }
+
+              v317 = v295++;
+              goto LABEL_295;
+            }
+
+            v317 = v335[1];
+            if (v317 == 255)
+            {
+              v399 = *v547 + 12 * v332;
+              v400 = v568;
+              if ((HIDWORD(v568) & 0x7FFFFFFFu) <= v568)
+              {
+                v425 = v295;
+                v539 = v314;
+                physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(&v567, v399);
+                v314 = v539;
+                v297 = v541;
+                v311 = v542;
+                v313 = v543;
+                v295 = v425;
+                v332 = *v333;
+              }
+
+              else
+              {
+                v401 = *&v567 + 12 * v568;
+                *v401 = *v399;
+                *(v401 + 8) = *(v399 + 8);
+                LODWORD(v568) = v400 + 1;
+              }
+
+              v317 = v295;
+              *(&v596 + 3 * v332 + 1) = v295++;
+              v321 = v545;
+            }
+          }
+
+          else
+          {
+            v346 = v600.i16[v326];
+            *v337 = v346;
+            v347 = &v582[4 * v346];
+            *v347 = v312;
+            v317 = v347[2];
+          }
+
+          v262 = v547;
+LABEL_295:
+          if (v318 == 255 || v318 == v317)
+          {
+            ++v312;
+          }
+
+          else
+          {
+            v420 = &v582[4 * (v312 + 1)];
+            v420[2] = v317;
+            v319 = (v312 + 1);
+            v420[3] = v313;
+            *v420 = 255;
+            v312 += 2;
+          }
+
+          goto LABEL_307;
+        }
+
+        if (v336 != 1)
+        {
+          goto LABEL_266;
+        }
+
+        v262 = v547;
+        if (v322 <= v326)
+        {
+          if (*v329)
+          {
+            v348 = *(v547 + 32);
+            v349 = (v348 + 16 * *(v325 + 3));
+            v350 = (v348 + 16 * *(v327 + 3));
+            v351 = *v349;
+            v352 = v349[1];
+            v353 = v349[2];
+            v354 = *v350;
+            v355 = v350[1];
+            v356 = v350[2];
+            v357 = *v297;
+            v358 = v297[1];
+            v359 = v297[2];
+            v360.f32[0] = (v352 * v356) - (v355 * v353);
+            v361 = ((*v350 * ((v358 * v353) - (v352 * v359))) + (*v349 * ((v355 * v359) - (v358 * v356)))) + (*v297 * v360.f32[0]);
+            if (v361 == 0.0)
+            {
+              v368 = 0x3F80000000000000;
+              v365 = 1065353216;
+              v370 = 0;
+              v371 = 1.0;
+              v366 = 0.0;
+              v369 = 0.0;
+            }
+
+            else
+            {
+              v362 = -v352;
+              v363 = 1.0 / v361;
+              v364.f32[0] = (v355 * v359) - (v356 * v358);
+              v364.f32[1] = -((v354 * v359) - (v356 * v357));
+              v365 = vmul_n_f32(v364, v363);
+              v366 = ((v354 * v358) - (v357 * v355)) * v363;
+              v367.f32[0] = -((v353 * -v358) + (v352 * v359));
+              v367.f32[1] = (v351 * v359) - (v357 * v353);
+              v368 = vmul_n_f32(v367, v363);
+              v369 = -(((v351 * v358) - (v357 * v352)) * v363);
+              v360.f32[1] = -((v351 * v356) - (v354 * v353));
+              v370 = vmul_n_f32(v360, v363);
+              v371 = ((v354 * v362) + (v351 * v355)) * v363;
+            }
+
+            v402 = v349[3];
+            v403 = v350[3];
+            v404 = v297[3];
+            v405 = vneg_f32(vadd_f32(vadd_f32(vmul_n_f32(v365, v402), vmul_n_f32(v368, v403)), vmul_n_f32(v370, v404)));
+            v406 = -(((v366 * v402) + (v369 * v403)) + (v371 * v404));
+            *&v566 = v405;
+            *(&v566 + 2) = v406;
+            v407 = v568;
+            if ((HIDWORD(v568) & 0x7FFFFFFFu) <= v568)
+            {
+              v409 = v295;
+              v410 = v314;
+              physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(&v567, &v566);
+              v313 = v543;
+              v321 = v545;
+              v316 = v540;
+              v314 = v410;
+              v297 = v541;
+              v311 = v542;
+              v295 = v409;
+              v262 = v547;
+            }
+
+            else
+            {
+              v408 = (*&v567 + 12 * v568);
+              *v408 = v405;
+              v408[1].f32[0] = v406;
+              LODWORD(v568) = v407 + 1;
+            }
+
+            v318 = v295++;
+          }
+
+          else
+          {
+            v318 = v329[1];
+            if (v318 == 255)
+            {
+              v396 = *v547 + 12 * *(v325 + 2);
+              v397 = v568;
+              if ((HIDWORD(v568) & 0x7FFFFFFFu) <= v568)
+              {
+                v421 = v295;
+                v538 = v314;
+                physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(&v567, v396);
+                v314 = v538;
+                v297 = v541;
+                v311 = v542;
+                v313 = v543;
+                v295 = v421;
+                v262 = v547;
+                v328 = *(v325 + 2);
+              }
+
+              else
+              {
+                v398 = *&v567 + 12 * v568;
+                *v398 = *v396;
+                *(v398 + 8) = *(v396 + 8);
+                LODWORD(v568) = v397 + 1;
+              }
+
+              v318 = v295;
+              *(&v596 + 3 * v328 + 1) = v295++;
+              v321 = v545;
+            }
+          }
+        }
+
+        else
+        {
+          v339 = v600.i16[*v325];
+          v340 = v600.i16[*v325] + 1;
+          v341 = v582[4 * v600.i16[*v325] + 3];
+          if (v340 >= v312 || v582[4 * v340 + 3] != v341)
+          {
+            if (v339 >= 1)
+            {
+              v342 = 1;
+            }
+
+            else
+            {
+              v342 = v600.i16[*v325];
+            }
+
+            v343 = v342 - 1;
+            v344 = &v581[4 * v339];
+            while (v339 >= 2)
+            {
+              v345 = *v344;
+              v344 -= 4;
+              --v339;
+              if (v345 != v341)
+              {
+                goto LABEL_277;
+              }
+            }
+
+            v339 = v343;
+LABEL_277:
+            v340 = v339;
+          }
+
+          v318 = v582[4 * v340 + 2];
+        }
+
+        if (v317 != 255 && v318 != v317)
+        {
+          v422 = &v582[4 * v312];
+          v422[2] = v317;
+          v319 = v312;
+          v422[3] = v313;
+          *v422 = 255;
+          ++v312;
+        }
+
+        v423 = &v582[4 * v312];
+        v423[2] = v318;
+        v423[3] = v313;
+        v600.i16[v322] = v312;
+        if (v322 > *v325)
+        {
+          v424 = v600.i16[*v325];
+          *v423 = v424;
+          *&v582[4 * v424] = v312;
+        }
+
+        ++v312;
+LABEL_307:
+        v315 |= v330;
+      }
+
+      while (v320 != v316);
+      if (v315)
+      {
+        *(&__src + v313) = *(*(v262 + 32) + 16 * v311);
+        v313 = (v313 + 1);
+      }
+
+      v261 = "N5physx2Gu26SweepConvexMeshHitCallbackE" + 25;
+      v120 = &re::introspect_BOOL(BOOL)::info;
+      if (v319 != 255)
+      {
+        v426 = v569 + 4 * v537;
+        *v426 = v319;
+        v426[2] = v318;
+        v426[3] = v317;
+        ++v537;
+      }
+
+      ++v311;
+    }
+
+    while (v311 < *(v262 + 40));
+    v427 = v312;
+    v428 = v537;
+    if (!v537)
+    {
+      v429 = 1;
+      v431 = -1;
+      v121 = v534;
+      goto LABEL_321;
+    }
+
+    v429 = 0;
+    v430 = v313 + 1;
+    *(&__src + v313) = *v297;
+    v431 = v537 - 1;
+    v121 = v534;
+    if (v537 != 1)
+    {
+      LOWORD(v313) = v313 + 1;
+LABEL_321:
+      v432 = 0;
+      v433 = v428 - 2;
+      v434 = 2;
+      while (1)
+      {
+        v435 = *(v569 + 4 * v432 + 3);
+        v436 = v432 + 1;
+        v437 = v569 + 4 * v432 + 4;
+        if (v435 != v437[2])
+        {
+          if (v432 + 2 >= v428)
+          {
+LABEL_344:
+            v125 = 0;
+            goto LABEL_345;
+          }
+
+          v438 = v569 + 4 * v434;
+          v439 = v433;
+          while (v435 != v438[2])
+          {
+            v438 += 4;
+            if (!--v439)
+            {
+              goto LABEL_344;
+            }
+          }
+
+          v440 = *v437;
+          *v437 = *v438;
+          *v438 = v440;
+        }
+
+        ++v434;
+        --v433;
+        v432 = v436;
+        if (v436 == v431)
+        {
+          v430 = v313;
+          break;
+        }
+      }
+    }
+
+    if (v295)
+    {
+      v441 = v295;
+      v535 = v121;
+      v442 = v120[428];
+      if ((*(*v442 + 40))(v442))
+      {
+        v443 = "static const char *physx::shdfnd::ReflectionAllocator<physx::ConvexHull>::getName() [T = physx::ConvexHull]";
+      }
+
+      else
+      {
+        v443 = "<allocation names disabled>";
+      }
+
+      v125 = (*(v442[3] + 16))(v442 + 3, 56, v443, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullUtils.cpp", 787);
+      v444 = *(v547 + 48);
+      *v125 = 0u;
+      *(v125 + 16) = 0u;
+      *(v125 + 32) = 0u;
+      *(v125 + 48) = v444;
+      v445 = *(v547 + 8);
+      if (v445)
+      {
+        v446 = 0;
+        v447 = 0;
+        v448 = 0;
+        v449 = &v596;
+        v450 = v428;
+        v451 = v441;
         do
         {
-          v10 = 31 * v10 + v11;
-          v13 = *v12++;
-          v11 = v13;
+          v452 = *v449;
+          v449 = (v449 + 3);
+          if (v452 == 1)
+          {
+            v453 = *v547 + v446;
+            v454 = *(v125 + 8);
+            if ((*(v125 + 12) & 0x7FFFFFFFu) <= v454)
+            {
+              physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v453);
+              v451 = v441;
+              v450 = v428;
+            }
+
+            else
+            {
+              v455 = *v125 + 12 * v454;
+              *v455 = *v453;
+              *(v455 + 8) = *(v453 + 8);
+              *(v125 + 8) = v454 + 1;
+            }
+
+            ++v448;
+            v445 = *(v547 + 8);
+          }
+
+          ++v447;
+          v446 += 12;
         }
 
-        while (v13);
+        while (v447 < v445);
       }
-    }
-  }
 
-  else
-  {
-    v10 = 0;
-  }
-
-  v32[0] = 2 * v10;
-  v32[1] = v9;
-  *(v6 + 64) = v33[0];
-  if (v32[0])
-  {
-    if (v32[0])
-    {
-    }
-  }
-
-  qword_1EE1C4B30 = v6;
-  v15 = re::ecs2::ComponentTypeRegistry::instance(v14);
-  re::ecs2::ComponentTypeRegistry::add(v15, qword_1EE1C4B30, 1);
-  std::__shared_mutex_base::unlock(v2);
-  v17 = re::globalAllocators(v16);
-  v18 = (*(*v17[2] + 32))(v17[2], 8, 8);
-  *v18 = &unk_1F5D2B800;
-  v32[0] = &unk_1F5D2BAE0;
-  v32[3] = v32;
-  *&v33[0] = v18;
-  v34 = v33 + 1;
-  *(&v33[0] + 1) = &unk_1F5D2BAE0;
-  v19 = std::__function::__value_func<void ()(re::AssetLoader *)>::~__value_func[abi:nn200100](v32);
-  v20 = *&v33[0];
-  *&v33[0] = 0;
-  v29 = v20;
-  if (v34)
-  {
-    if (v34 == (v33 + 8))
-    {
-      v31 = &v30;
-      (*(*v34 + 24))();
-    }
-
-    else
-    {
-      v31 = v34;
-      v34 = 0;
-    }
-  }
-
-  else
-  {
-    v31 = 0;
-  }
-
-  re::AssetManager::registerAssetType(a1, &qword_1EE1C4B58, &v29);
-  std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>::~unique_ptr[abi:nn200100](&v29);
-  return std::unique_ptr<re::AssetLoader,std::function<void ()(re::AssetLoader*)>>::~unique_ptr[abi:nn200100](v33);
-}
-
-void anonymous namespace::UnsupportedTestAsset::assetType(_anonymous_namespace_::UnsupportedTestAsset *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C4B28, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C4B28))
-  {
-    qword_1EE1C4B58 = "UnsupportedTestAsset";
-    qword_1EE1C4B68 = 0;
-    re::AssetType::generateCompiledExtension(&qword_1EE1C4B58);
-
-    __cxa_guard_release(&qword_1EE1C4B28);
-  }
-}
-
-re *_RETestingUnregisterUnsupportedTestAsset(re::ecs2::ComponentTypeRegistry *a1)
-{
-  v1 = re::ecs2::ComponentTypeRegistry::instance(a1);
-  result = re::ecs2::ComponentTypeRegistry::remove(v1, qword_1EE1C4B30);
-  v3 = qword_1EE1C4B30;
-  if (qword_1EE1C4B30)
-  {
-    v4 = re::globalAllocators(result)[2];
-    (*(*v3 + 16))(v3);
-    result = (*(*v4 + 40))(v4, v3);
-  }
-
-  qword_1EE1C4B30 = 0;
-  return result;
-}
-
-void _RETestingEntityAddUnsupportedTestAsset(void *a1, uint64_t a2, int a3)
-{
-  v6 = re::globalAllocators(a1);
-  v7 = (*(*v6[2] + 32))(v6[2], 1, 1);
-  (*(*a2 + 424))(v10, a2, v7, &qword_1EE1C4B58, 0, 0, 0);
-  if (a3)
-  {
-    v8 = re::ecs2::EntityComponentCollection::getOrAdd((a1 + 6), qword_1EE1C4B30);
-    re::AssetHandle::operator=(v8 + 32, v10);
-  }
-
-  else
-  {
-    v9 = a1[24];
-    if (!v9)
-    {
-      v9 = re::ecs2::EntityComponentCollection::add((a1 + 6), re::ecs2::ComponentImpl<re::ecs2::MeshComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)12>::s_componentType);
-    }
-
-    if (*(v9 + 40) != v10[1])
-    {
-      re::AssetHandle::operator=(v9 + 32, v10);
-      re::ecs2::Component::enqueueMarkDirty(v9);
-    }
-  }
-
-  re::AssetHandle::~AssetHandle(v10);
-}
-
-uint64_t RECustomAssetGetObject(uint64_t a1, const re::AssetType *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v6);
-  if (v7 && (v3 = atomic_load((v7 + 896)), v3 == 2))
-  {
-    v4 = *(re::AssetHandle::assetWithType(&v6, a2, 0) + 8);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(&v6);
-  return v4;
-}
-
-re::SharedAssetHandle *RESerializableAssetHandleCreate(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v6);
-  v2 = re::globalAllocators(v1);
-  v3 = (*(*v2[2] + 32))(v2[2], 48, 8);
-  v4 = re::SharedAssetHandle::SharedAssetHandle(v3, v6) + 8;
-  re::AssetHandle::~AssetHandle(v6);
-  return v3;
-}
-
-re::SharedAssetHandle *RESerializableAssetHandleCreateRetained(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v5);
-  v2 = re::globalAllocators(v1);
-  v3 = (*(*v2[2] + 32))(v2[2], 48, 8);
-  re::SharedAssetHandle::SharedAssetHandle(v3, v5);
-  re::AssetHandle::~AssetHandle(v5);
-  return v3;
-}
-
-void REAssetSetMetadataString(uint64_t a1, const char *a2, const char *a3)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v5);
-  re::AssetHandle::setOrClearMetadataString(v5, a2, a3);
-  re::AssetHandle::~AssetHandle(v5);
-}
-
-void REAssetClearMetadataString(uint64_t a1, const char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v3);
-  re::AssetHandle::setOrClearMetadataString(v3, a2, 0);
-  re::AssetHandle::~AssetHandle(v3);
-}
-
-CFStringRef REAssetCopyMetadataString(uint64_t a1, char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v10);
-  re::internal::AssetEntry::getMetadataString(v10[1], a2, 1, v6);
-  if (v6[0] == 1)
-  {
-    if (v8)
-    {
-      v3 = *&v9[7];
-    }
-
-    else
-    {
-      v3 = v9;
-    }
-
-    v4 = CFStringCreateWithCString(0, v3, 0x8000100u);
-    if (v6[0] & 1) != 0 && v7 && (v8)
-    {
-      (*(*v7 + 40))();
-    }
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v10);
-  return v4;
-}
-
-__CFDictionary *REAssetCopyMetadata(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v3);
-  v1 = re::AssetHandle::copyComposedMetadataCFDR(v3);
-  re::AssetHandle::~AssetHandle(v3);
-  return v1;
-}
-
-void REAssetSetDebugName(uint64_t a1, const char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v3);
-  re::AssetHandle::setOrClearMetadataString(v3, "Engine/RE-debugName", a2);
-  re::AssetHandle::~AssetHandle(v3);
-}
-
-CFStringRef REAssetCopyDebugName(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v8);
-  re::internal::AssetEntry::getMetadataString(v8[1], "Engine/RE-debugName", 1, v4);
-  if (v4[0] == 1)
-  {
-    if (v6)
-    {
-      v1 = *&v7[7];
-    }
-
-    else
-    {
-      v1 = v7;
-    }
-
-    v2 = CFStringCreateWithCString(0, v1, 0x8000100u);
-    if (v4[0] & 1) != 0 && v5 && (v6)
-    {
-      (*(*v5 + 40))();
-    }
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v8);
-  return v2;
-}
-
-uint64_t _RERenderManagerExportTextureAssetToKTXWithErrorHandling(int a1, uint64_t a2, re::FileStreamWriter *this, char *a4)
-{
-  re::FileStreamWriter::open(this, v18);
-  if (v18[0])
-  {
-    re::AssetAPIHelper::assetHandleCreate(a2, v17);
-    v6 = re::AssetHandle::loadedAsset<re::TextureAsset>(v17);
-    v7 = v6;
-    if (v6)
-    {
-      v8 = *(v6 + 176);
-      v9 = v8;
-      re::exportToKtx(&v19, (v7 + 112), v8, 0, 0, v13);
-      v7 = v13[0];
-      if ((v13[0] & 1) == 0)
+      else
       {
-        v10 = (v15 & 1) != 0 ? *&v16[7] : v16;
-        re::CoreREAssetUtils::logAndSetErrorFromString(v10, a4, @"REPipelineErrorDomain", 0x64);
-        if (v13[0] & 1) == 0 && v14 && (v15)
-        {
-          (*(*v14 + 40))();
-        }
+        v448 = 0;
+        v450 = v428;
+        v451 = v441;
       }
+
+      _CF = v451 >= v448;
+      v513 = v451 - v448;
+      v121 = v535;
+      v120 = &re::introspect_BOOL(BOOL)::info;
+      v261 = "N5physx2Gu26SweepConvexMeshHitCallbackE" + 25;
+      if (v513 != 0 && _CF)
+      {
+        v514 = 0;
+        do
+        {
+          v515 = *&v567 + v514;
+          v516 = *(v125 + 8);
+          if ((*(v125 + 12) & 0x7FFFFFFFu) <= v516)
+          {
+            physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::growAndPushBack(v125, v515);
+            v450 = v428;
+          }
+
+          else
+          {
+            v517 = *v125 + 12 * v516;
+            *v517 = *v515;
+            *(v517 + 8) = *(v515 + 8);
+            *(v125 + 8) = v516 + 1;
+          }
+
+          v514 += 12;
+          --v513;
+        }
+
+        while (v513);
+      }
+
+      v518 = v450;
+      physx::shdfnd::Array<physx::ConvexHull::HalfEdge,physx::shdfnd::ReflectionAllocator<physx::ConvexHull::HalfEdge>>::resize((v125 + 16), v450 + v427, &v566);
+      physx::shdfnd::Array<physx::PxPlane,physx::shdfnd::ReflectionAllocator<physx::PxPlane>>::resize((v125 + 32), v430, &v566);
+      v519 = *(v125 + 16);
+      if ((v429 & 1) == 0)
+      {
+        v520 = v427;
+        v521 = v569 + 2;
+        v522 = v518;
+        do
+        {
+          v523 = &v519[4 * v520];
+          v523[3] = v430 - 1;
+          v524 = *(v521 - 1);
+          *v523 = v524;
+          *&v582[4 * v524] = v520;
+          v525 = *v521;
+          v521 += 4;
+          v523[2] = v525;
+          ++v520;
+          --v522;
+        }
+
+        while (v522);
+      }
+
+      memcpy(v519, v582, (4 * v427));
+      memcpy(*(v125 + 32), &__src, 16 * v430);
     }
 
     else
     {
-      re::CoreREAssetUtils::logAndSetErrorFromString("Failed to retrieve metalTexture from Asset", a4, @"REPipelineErrorDomain", 0x64);
+      v125 = 0;
+      v261 = "N5physx2Gu26SweepConvexMeshHitCallbackE" + 25;
     }
 
-    re::AssetHandle::~AssetHandle(v17);
+LABEL_345:
+    v262 = v547;
+LABEL_346:
+    if ((v568 & 0x8000000000000000) == 0 && (v568 & 0x7FFFFFFF00000000) != 0 && *&v567 != 0)
+    {
+      (*(*(v120[428] + 24) + 24))();
+    }
+
+    if (!v125)
+    {
+      goto LABEL_447;
+    }
+
+    v457 = 0;
+    LODWORD(v458) = 0;
+    --v536;
+    v459 = *(v125 + 24);
+    v460 = 3;
+    while (v459 != v457)
+    {
+      v461 = *(v125 + 16);
+      v462 = v461 + v460;
+      v463 = *(v461 + v460);
+      if (*(v461 + 4 * v458 + 3) != v463)
+      {
+        LODWORD(v458) = v457;
+      }
+
+      v464 = v458;
+      if (v457 + 1 < v459)
+      {
+        if (*(v462 + 4) == v463)
+        {
+          v464 = v457 + 1;
+        }
+
+        else
+        {
+          v464 = v458;
+        }
+      }
+
+      v465 = *(v462 - 3);
+      if (v465 != 255 && v465 != 0xFFFF)
+      {
+        v460 += 4;
+        ++v457;
+        if (*(v461 + 4 * v465 + 2) == *(v461 + 4 * v464 + 2))
+        {
+          continue;
+        }
+      }
+
+      v468 = *(v125 + 32);
+      goto LABEL_432;
+    }
+
+    if (v459)
+    {
+      v467 = 0;
+      v461 = *(v125 + 16);
+      v468 = *(v125 + 32);
+      v469 = *v125;
+      v470 = (v461 + 3);
+      v471 = 1;
+      while (1)
+      {
+        v472 = *v470;
+        v473 = (v468 + 16 * *v470);
+        v474 = (v469 + 12 * *(v470 - 1));
+        v475 = *v474;
+        v476 = v474[1];
+        v477 = *v473;
+        v478 = v473[1];
+        v479 = v474[2];
+        v480 = v473[2];
+        v481 = (((v476 * v478) + (*v474 * *v473)) + (v479 * v480)) + v473[3];
+        if (v481 > v258 || v481 < v260)
+        {
+          break;
+        }
+
+        if (*(v461 + 4 * v458 + 3) == v472)
+        {
+          v458 = v458;
+        }
+
+        else
+        {
+          v458 = (v471 - 1);
+        }
+
+        v483 = v467 + 1;
+        if (v467 + 1 >= v459 || (v484 = v471, v470[4] != v472))
+        {
+          v484 = v458;
+        }
+
+        v485 = v484 + 1;
+        if (v485 >= v459 || *(v461 + 4 * v485 + 3) != v472)
+        {
+          v485 = v458;
+        }
+
+        if (v467 != v485)
+        {
+          v486 = (v469 + 12 * *(v461 + 4 * v484 + 2));
+          v487 = v486[1];
+          v488 = *v486 - v475;
+          v489 = v487 - v476;
+          v490 = (v469 + 12 * *(v461 + 4 * v485 + 2));
+          v491 = *v490 - *v486;
+          v492 = v486[2];
+          v493 = v492 - v479;
+          v494 = v490[1] - v487;
+          v495 = v490[2] - v492;
+          v496 = (v489 * v495) - (v493 * v494);
+          v497 = (v493 * v491) - (v488 * v495);
+          v498 = (v488 * v494) - (v489 * v491);
+          v499 = sqrtf(((v497 * v497) + (v496 * v496)) + (v498 * v498));
+          if (v499 == 0.0)
+          {
+            v500 = 1.0;
+          }
+
+          else
+          {
+            v500 = v496;
+          }
+
+          if (v499 == 0.0)
+          {
+            v497 = 0.0;
+            v498 = 0.0;
+          }
+
+          if ((((v478 * ((1.0 / v499) * v497)) + (((1.0 / v499) * v500) * v477)) + (((1.0 / v499) * v498) * v480)) <= 0.0)
+          {
+            break;
+          }
+        }
+
+        ++v471;
+        v470 += 4;
+        v467 = v483;
+        if (v483 == v459)
+        {
+          goto LABEL_390;
+        }
+      }
+
+LABEL_432:
+      v526 = *(v125 + 44);
+      if ((v526 & 0x80000000) == 0 && (v526 & 0x7FFFFFFF) != 0 && v468 != 0)
+      {
+LABEL_437:
+        (*(*(v120[428] + 24) + 24))();
+        v461 = *(v125 + 16);
+      }
+
+LABEL_438:
+      v528 = *(v125 + 28);
+      if ((v528 & 0x80000000) == 0 && (v528 & 0x7FFFFFFF) != 0 && v461)
+      {
+LABEL_441:
+        (*(*(v120[428] + 24) + 24))();
+      }
+
+LABEL_442:
+      v529 = *(v125 + 12);
+      if ((v529 & 0x80000000) == 0 && (v529 & 0x7FFFFFFF) != 0 && *v125)
+      {
+        (*(*(v120[428] + 24) + 24))();
+      }
+
+      (*(*(v120[428] + 24) + 24))();
+      goto LABEL_447;
+    }
+
+LABEL_390:
+    v501 = v121[1];
+    if (*(v125 + 8) > *(v501 + 74))
+    {
+      v531 = *(v125 + 44);
+      if ((v531 & 0x80000000) == 0 && (v531 & 0x7FFFFFFF) != 0 && *(v125 + 32))
+      {
+        (*(*(v120[428] + 24) + 24))();
+      }
+
+      v532 = *(v125 + 28);
+      if ((v532 & 0x80000000) == 0 && (v532 & 0x7FFFFFFF) != 0 && *(v125 + 16))
+      {
+        goto LABEL_441;
+      }
+
+      goto LABEL_442;
+    }
+
+    if (v459 && (*(v501 + 72) & 0x80) != 0)
+    {
+      v502 = 0;
+      v503 = 0;
+      v504 = 0;
+      v505 = 0;
+      v461 = *(v125 + 16);
+      v506 = 3;
+      do
+      {
+        v507 = *(v461 + 4 * v503 + 3);
+        v508 = *(v461 + v506);
+        if (v504 > v505)
+        {
+          v509 = v504 + 1;
+        }
+
+        else
+        {
+          v509 = v505;
+        }
+
+        if (v507 == v508)
+        {
+          ++v504;
+        }
+
+        else
+        {
+          v505 = v509;
+          v504 = 0;
+        }
+
+        if (v507 != v508)
+        {
+          v503 = v502;
+        }
+
+        ++v502;
+        v506 += 4;
+      }
+
+      while (v459 != v502);
+      if (v505 >= 0x21)
+      {
+        v533 = *(v125 + 44);
+        if ((v533 & 0x80000000) == 0 && (v533 & 0x7FFFFFFF) != 0 && *(v125 + 32))
+        {
+          goto LABEL_437;
+        }
+
+        goto LABEL_438;
+      }
+    }
+
+    v510 = *(v262 + 44);
+    if ((v510 & 0x80000000) == 0 && (v510 & 0x7FFFFFFF) != 0 && *(v262 + 32))
+    {
+      (*(*(v120[428] + 24) + 24))();
+    }
+
+    v511 = *(v262 + 28);
+    if ((v511 & 0x80000000) == 0 && (v511 & 0x7FFFFFFF) != 0 && *(v262 + 16))
+    {
+      (*(*(v120[428] + 24) + 24))();
+    }
+
+    v512 = *(v262 + 12);
+    if ((v512 & 0x80000000) == 0 && (v512 & 0x7FFFFFFF) != 0 && *v262)
+    {
+      (*(*(v120[428] + 24) + 24))();
+    }
+
+    (*(*(v120[428] + 24) + 24))();
+  }
+
+  while (v536);
+LABEL_448:
+  v121[8] = v125;
+  if ((v565 & 0x8000000000000000) == 0 && (v565 & 0x7FFFFFFF00000000) != 0 && v564 != 0)
+  {
+    (*(*(v120[428] + 24) + 24))();
+  }
+}
+
+void *physx::QuickHullConvexHullLib::fillConvexMeshDescFromQuickHull(void *a1, uint64_t a2)
+{
+  v4 = a1[7];
+  v5 = *(v4 + 128);
+  if (v5)
+  {
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = *(v4 + 120);
+    do
+    {
+      v11 = *(v10 + 8 * v6);
+      if (!*(v11 + 60))
+      {
+        ++v8;
+        v12 = *(v11 + 8);
+        v7 += v12;
+        if (v12 > *(*(v10 + 8 * v9) + 8))
+        {
+          v9 = v6;
+        }
+      }
+
+      ++v6;
+    }
+
+    while (v5 != v6);
   }
 
   else
   {
-    if (v22)
-    {
-      v11 = *&v23[7];
-    }
-
-    else
-    {
-      v11 = v23;
-    }
-
-    re::CoreREAssetUtils::logAndSetErrorFromString(v11, a4, @"REPipelineErrorDomain", 0x64);
+    v9 = 0;
+    v8 = 0;
     v7 = 0;
   }
 
-  if (v18[0] == 1)
+  v13 = *(v4 + 32);
+  v14 = 12 * v13 + 12;
+  v15 = 4 * v13;
+  v16 = 22 * v8 + 4 * v7 + 4 * v13;
+  if (v16 + v14)
   {
-    if (v20 && v21 == 1)
+    v17 = v15;
+    v18 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v16 + v14, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2411);
+    v15 = v17;
+    v19 = v18;
+    v20 = 4 * *(a1[7] + 32);
+  }
+
+  else
+  {
+    v19 = 0;
+    v20 = v15;
+  }
+
+  v21 = v19 + (4 * v7);
+  v22 = v21 + v14;
+  v23 = (v22 + (20 * v8));
+  a1[9] = v19;
+  a1[10] = &v23[v15];
+  result = memset(v23, 255, v20);
+  if (v5)
+  {
+    v25 = 0;
+    v26 = 0;
+    v27 = *(a1[7] + 120);
+    do
     {
-      fclose(v20);
+      v28 = *(v27 + 8 * v25);
+      if (!*(v28 + 15))
+      {
+        v29 = *v28;
+        v30 = *(v29 + 12);
+        if (*&v23[4 * v30] == -1)
+        {
+          v31 = v21 + 12 * v26;
+          *v31 = *v29;
+          *(v31 + 8) = *(v29 + 8);
+          *&v23[4 * v30] = v26++;
+        }
+
+        for (i = *(v29 + 40); i != v29; i = *(i + 40))
+        {
+          v33 = *(i + 12);
+          if (*&v23[4 * v33] == -1)
+          {
+            v34 = v21 + 12 * v26;
+            *v34 = *i;
+            *(v34 + 8) = *(i + 8);
+            *&v23[4 * v33] = v26++;
+          }
+        }
+      }
+
+      ++v25;
+    }
+
+    while (v25 != v5);
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  *(a2 + 16) = v26;
+  *(a2 + 8) = v21;
+  *a2 = 12;
+  *(a2 + 64) = v7;
+  *(a2 + 56) = v19;
+  *(a2 + 48) = 4;
+  *(a2 + 40) = v8;
+  *(a2 + 32) = v22;
+  *(a2 + 24) = 20;
+  if (v5)
+  {
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
+    do
+    {
+      if (v36 == v9)
+      {
+        v38 = 0;
+      }
+
+      else
+      {
+        v38 = v36;
+      }
+
+      if (!v36)
+      {
+        v38 = v9;
+      }
+
+      v39 = *(*(a1[7] + 120) + 8 * v38);
+      if (!*(v39 + 15))
+      {
+        v40 = *v39;
+        *(v40 + 64) = -1;
+        *(v19 + 4 * v37) = *&v23[4 * *(v40 + 12)];
+        v41 = *(v40 + 40);
+        if (v41 != v40)
+        {
+          v42 = v37 + 1;
+          do
+          {
+            result = *&v23[4 * *(v41 + 12)];
+            *(v19 + 4 * v42) = result;
+            *(v41 + 64) = -1;
+            v41 = *(v41 + 40);
+            ++v42;
+          }
+
+          while (v41 != v40);
+        }
+
+        v43 = *(v39 + 8);
+        v44 = -*(v39 + 13);
+        v45 = *(v39 + 4);
+        v46 = v22 + 20 * v35;
+        *(v46 + 18) = v37;
+        v37 += v45;
+        *v46 = v39[3];
+        *(v46 + 8) = v43;
+        *(v46 + 12) = v44;
+        *(v46 + 16) = v45;
+        *(a1[10] + 2 * v35) = v38;
+        *(v39 + 76) = v35++;
+      }
+
+      ++v36;
+    }
+
+    while (v36 != v5);
+  }
+
+  return result;
+}
+
+BOOL physx::QuickHullConvexHullLib::createEdgeList(physx::QuickHullConvexHullLib *this, unsigned int a2, const unsigned __int8 *a3, unsigned __int8 **a4, unsigned __int16 **a5, unsigned __int16 **a6)
+{
+  v6 = *(this + 8);
+  if (!v6)
+  {
+    v13 = physx::shdfnd::ReflectionAllocator<unsigned char>::allocate(&v31, a2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2319);
+    v14 = 2 * a2;
+    v15 = physx::shdfnd::ReflectionAllocator<unsigned short>::allocate(&v30, v14, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2320);
+    v16 = physx::shdfnd::ReflectionAllocator<unsigned short>::allocate(&v29, v14, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2321);
+    *a4 = v13;
+    *a6 = v15;
+    *a5 = v16;
+    v17 = *(this + 7);
+    if (*(v17 + 136))
+    {
+      v18 = 0;
+      v19 = 0;
+      v20 = 0;
+      v21 = 0;
+      do
+      {
+        v22 = *(*(v17 + 120) + 8 * *(*(this + 10) + 2 * v18));
+        v23 = *v22;
+        v24 = *v22;
+        do
+        {
+          v25 = *(v24 + 64);
+          if (v25 == -1)
+          {
+            v15[2 * v19] = a3[v21];
+            if (*(v24 + 40) == v23)
+            {
+              v26 = v20;
+            }
+
+            else
+            {
+              v26 = v21 + 1;
+            }
+
+            v27 = (2 * v19) | 1;
+            v15[v27] = a3[v26];
+            v13[2 * v19] = *(*(v24 + 56) + 76);
+            v13[v27] = *(*(*(*(v24 + 40) + 48) + 56) + 76);
+            v16[v21++] = v19;
+            *(v24 + 64) = v19;
+            v24 = *(v24 + 40);
+            *(*(*(v24 + 48) + 32) + 64) = v19++;
+            v23 = *v22;
+          }
+
+          else
+          {
+            v16[v21] = v25;
+            v24 = *(v24 + 40);
+            ++v21;
+          }
+        }
+
+        while (v24 != v23);
+        ++v18;
+        v17 = *(this + 7);
+        v20 = v21;
+      }
+
+      while (v18 < *(v17 + 136));
     }
   }
 
-  else if (v21 && (v22 & 1) != 0)
-  {
-    (*(*v21 + 40))();
-  }
-
-  return v7;
+  return v6 == 0;
 }
 
-CFStringRef REAssetCopyMemoryAttributionID(uint64_t a1)
+uint64_t physx::QuickHullConvexHullLib::fillConvexMeshDesc(float32x2_t *a1, uint64_t a2)
 {
-  re::AssetAPIHelper::assetHandleCreate(a1, &v7);
-  if (*(v8 + 336) == 1)
+  v4 = a1[8];
+  if (v4)
   {
-    re::DynamicString::format("%llu", &v4, *(v8 + 344));
-    if (v5)
+    v5 = *(*&v4 + 24);
+    v6 = *(*&v4 + 40);
+    v7 = *(*&v4 + 8);
+    v8 = (4 * v5);
+    v9 = v8 + 20 * v6 + 12 * v7;
+    if (v9 == -12)
     {
-      v1 = *&v6[7];
+      v10 = 0;
     }
 
     else
     {
-      v1 = v6;
+      v10 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, (v9 + 12), "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/QuickHullConvexHullLib.cpp", 2529);
+      v4 = a1[8];
     }
 
-    v2 = CFStringCreateWithCString(0, v1, 0x8000100u);
-    if (v4 && (v5 & 1) != 0)
+    a1[9] = v10;
+    v12 = v10 + v8;
+    v13 = (v12 + (20 * v6));
+    result = memcpy(v13, **&v4, (12 * v7));
+    v14 = a1[8];
+    v15 = *(*&v14 + 24);
+    if (v15)
     {
-      (*(*v4 + 40))();
-    }
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(&v7);
-  return v2;
-}
-
-uint64_t REAssetSetMemoryAttributionTarget(uint64_t a1, const char *a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, v8);
-  v7 = 0;
-  if (a2 && sscanf(a2, "%llu", &v7) == 1)
-  {
-    buf[0] = 1;
-    *&v10[4] = v7;
-    v3 = re::AssetHandle::setMemoryAttributionID(v8, buf);
-  }
-
-  else
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v4 = CoreRELog::log;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v6 = "<null>";
-      if (a2)
+      v16 = 0;
+      v17 = 0;
+      v18 = *(*&v14 + 32);
+      do
       {
-        v6 = a2;
+        if (v16 + 1 >= v15)
+        {
+          v19 = 1;
+        }
+
+        else
+        {
+          result = v16 - v15;
+          v19 = 1;
+          while (*(*(*&v14 + 16) + 4 * v16 + 3) == *(*(*&v14 + 16) + 4 * (v16 + v19) + 3))
+          {
+            ++v19;
+            if (!(result + v19))
+            {
+              v19 = v15 - v16;
+              break;
+            }
+          }
+        }
+
+        v20 = v17;
+        v21 = v12 + 20 * v17;
+        *(v21 + 16) = v19;
+        *(v21 + 18) = v16;
+        v22 = (v18 + 16 * v20);
+        *v21 = *v22;
+        *(v21 + 4) = v22[1];
+        *(v21 + 8) = v22[2];
+        *(v21 + 12) = v22[3];
+        if (v19)
+        {
+          v23 = *(*&v14 + 16);
+          do
+          {
+            *(v10 + 4 * v16) = *(v23 + 4 * v16 + 2);
+            ++v16;
+            --v19;
+          }
+
+          while (v19);
+          v15 = *(*&v14 + 24);
+        }
+
+        v17 = v20 + 1;
       }
 
-      *buf = 136315138;
-      *v10 = v6;
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Invalid attribution target: %s", buf, 0xCu);
+      while (v16 < v15);
     }
 
-    v3 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v8);
-  return v3;
-}
-
-re *anonymous namespace::UnsupportedTestAssetLoader::unloadAsset(re *this, void *a2)
-{
-  if (a2)
-  {
-    v2 = *(*re::globalAllocators(this)[2] + 40);
-
-    return v2();
-  }
-
-  return this;
-}
-
-uint64_t anonymous namespace::UnsupportedTestAssetLoader::introspectionType(_anonymous_namespace_::UnsupportedTestAssetLoader *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1C4B20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C4B20))
-  {
-    qword_1EE1C4B18 = re::internal::getOrCreateInfo("UnsupportedTestAsset", re::allocInfo_UnsupportedTestAsset, re::initInfo_UnsupportedTestAsset, &unk_1EE1C4AF8, 0);
-    __cxa_guard_release(&qword_1EE1C4B20);
-  }
-
-  return qword_1EE1C4B18;
-}
-
-void anonymous namespace::UnsupportedTestComponent::~UnsupportedTestComponent(_anonymous_namespace_::UnsupportedTestComponent *this)
-{
-  *this = &unk_1F5D2B978;
-  re::AssetHandle::~AssetHandle((this + 32));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5D2B978;
-  re::AssetHandle::~AssetHandle((this + 32));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void _ZZN2re8internal15setIntroVersionIN12_GLOBAL__N_124UnsupportedTestComponentELNS_17RealityKitReleaseE1EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  if (a1 && ((*(*a1 + 64))(&v5), v5 == 1))
-  {
-    *a2 = v6;
-    v3 = v7;
-    *(a2 + 8) = v7;
-    if (v3 == 1)
+    *(a2 + 64) = v5;
+    *(a2 + 48) = 4;
+    *(a2 + 56) = v10;
+    *(a2 + 16) = v7;
+    *a2 = 12;
+    *(a2 + 8) = v13;
+    *(a2 + 40) = v6;
+    *(a2 + 24) = 20;
+    *(a2 + 32) = v12;
+    if (v6 >= 2)
     {
-      v4 = re::StringID::StringID((a2 + 16), &v8);
-      if (v5 & 1) != 0 && (v7 & 1) != 0 && (*&v8.var0)
+      LODWORD(v24) = 0;
+      v25 = (v8 + v10 + 36);
+      for (i = 1; i != v6; ++i)
       {
-        if (*&v8.var0)
+        v27 = *v25;
+        v25 += 10;
+        if (*(v12 + 20 * v24 + 16) >= v27)
         {
+          v24 = v24;
+        }
+
+        else
+        {
+          v24 = i;
         }
       }
+
+      if (v24)
+      {
+        if (v5)
+        {
+          result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 4 * v5, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcooking/src/convex/ConvexHullLib.cpp", 313);
+        }
+
+        else
+        {
+          result = 0;
+        }
+
+        a1[3] = result;
+        v28 = *v12;
+        v29 = *(v12 + 16);
+        v30 = *(v12 + 18);
+        v31 = v12 + 20 * v24;
+        v45 = v29;
+        v46 = *(v31 + 16);
+        v32 = *(v31 + 18);
+        *v12 = *v31;
+        *(v12 + 16) = *(v31 + 16);
+        *v31 = v28;
+        *(v31 + 16) = v29;
+        *(v31 + 18) = v30;
+        if (*(a2 + 40))
+        {
+          v33 = 0;
+          v34 = 0;
+          v35 = (v8 + v10 + 18);
+          __src = (v10 + 4 * v30);
+          v36 = (v10 + 4 * v32);
+          do
+          {
+            if (v33)
+            {
+              v37 = (*&a1[3] + 4 * v34);
+              if (v24 == v33)
+              {
+                result = memcpy(v37, __src, 4 * v45);
+                *(v12 + 20 * v24 + 18) = v34;
+                v38 = v45;
+              }
+
+              else
+              {
+                result = memcpy(v37, (v10 + 4 * *v35), 4 * *(v35 - 1));
+                *v35 = v34;
+                v38 = *(v35 - 1);
+              }
+            }
+
+            else
+            {
+              result = memcpy(*&a1[3], v36, 4 * v46);
+              *(v12 + 18) = v34;
+              v38 = v46;
+            }
+
+            v34 += v38;
+            ++v33;
+            v35 += 10;
+          }
+
+          while (v33 < *(a2 + 40));
+        }
+
+        *(a2 + 56) = a1[3];
+      }
     }
   }
 
   else
   {
-    *a2 = 1;
-    *(a2 + 8) = 0;
-  }
-}
-
-double re::ecs2::ComponentType<anonymous namespace::UnsupportedTestComponent>::makeBindNode@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  v5 = (*(*a1 + 48))(a1);
-
-  return re::makeRelativeBindNode(v5, a2, a3);
-}
-
-uint64_t re::ecs2::ComponentType<anonymous namespace::UnsupportedTestComponent>::~ComponentType(uint64_t a1)
-{
-  *a1 = &unk_1F5D2BA00;
-  if (*(a1 + 48))
-  {
-    RESyncRelease();
+    result = physx::QuickHullConvexHullLib::fillConvexMeshDescFromQuickHull(a1, a2);
   }
 
-  re::internal::destroyPersistent<re::Allocator>("~ComponentType", 53, *(a1 + 56));
-  *a1 = &unk_1F5CD2AE8;
-  re::StringID::destroyString((a1 + 24));
-  return a1;
-}
-
-void re::ecs2::ComponentType<anonymous namespace::UnsupportedTestComponent>::~ComponentType(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::ecs2::ComponentType<anonymous namespace::UnsupportedTestComponent>::doMakeComponent(void *a1@<X8>)
-{
-  v2 = (*(**(qword_1EE1C4B30 + 56) + 32))(*(qword_1EE1C4B30 + 56), 56, 0);
-  *v2 = 0u;
-  *(v2 + 16) = 0u;
-  *(v2 + 32) = 0u;
-  *(v2 + 48) = 0;
-  ArcSharedObject::ArcSharedObject(v2, 0);
-  *(v3 + 16) = 0;
-  *(v3 + 24) = 0;
-  *v3 = &unk_1F5D2B978;
-  *(v3 + 40) = 0;
-  *(v3 + 48) = 0;
-  *(v3 + 32) = 0;
-  *a1 = v3;
-}
-
-re::ecs2::SceneComponentCollectionBase *re::ecs2::ComponentType<anonymous namespace::UnsupportedTestComponent>::doMakeSceneComponentCollection(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 784, 8);
-  v4 = re::ecs2::SceneComponentCollectionBase::SceneComponentCollectionBase(v3, a1);
-  *v4 = &unk_1F5D2BA70;
-  v5 = (v4 + 480);
-  *(v4 + 60) = 0;
-  *(v4 + 488) = 0u;
-  *(v4 + 126) = 1;
-  *(v4 + 64) = 0;
-  *(v4 + 520) = 0u;
-  *(v4 + 134) = 0;
-  *(v4 + 34) = 0u;
-  *(v4 + 140) = 1;
-  *(v4 + 71) = 0;
-  *(v4 + 36) = 0u;
-  *(v4 + 148) = 0;
-  *(v4 + 600) = 0u;
-  *(v4 + 154) = 1;
-  *(v4 + 39) = 0u;
-  *(v4 + 162) = 0;
-  *(v4 + 80) = 0;
-  *(v4 + 84) = 0;
-  *(v4 + 170) = 0;
-  *(v4 + 41) = 0u;
-  *(v4 + 176) = 0;
-  *(v4 + 43) = 0u;
-  *(v4 + 708) = 0x1FFFFFFFFLL;
-  *(v4 + 45) = 0u;
-  *(v4 + 186) = 0;
-  *(v4 + 92) = 0;
-  *(v4 + 192) = 0;
-  *(v4 + 47) = 0u;
-  *(v4 + 772) = 0x1FFFFFFFFLL;
-  return v3;
-}
-
-uint64_t re::ecs2::ComponentType<anonymous namespace::UnsupportedTestComponent>::doGetComponentIntrospectionInfo()
-{
-  if ((atomic_load_explicit(&qword_1EE1C4B40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C4B40))
+  if ((*(*&a1[1] + 72) & 0x100) != 0)
   {
-    qword_1EE1C4B38 = re::internal::getOrCreateInfo("UnsupportedTestComponent", re::allocInfo_UnsupportedTestComponent, re::initInfo_UnsupportedTestComponent, &qword_1EE1C4B10, 0);
-    __cxa_guard_release(&qword_1EE1C4B40);
-  }
-
-  return qword_1EE1C4B38;
-}
-
-__n128 re::ecs2::ComponentType<anonymous namespace::UnsupportedTestComponent>::doGetComponentTypeID@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
-{
-  result = a1[4];
-  *a2 = result;
-  return result;
-}
-
-void re::ecs2::SceneComponentCollection<anonymous namespace::UnsupportedTestComponent>::~SceneComponentCollection(uint64_t a1)
-{
-  *a1 = &unk_1F5D2BA70;
-  re::ecs2::ComponentBucketsBase::deinit((a1 + 480));
-  re::DataArray<re::Function<void ()(re::ecs2::ComponentBucketsBase *,re::ecs2::ComponentBucketWillRemoveComponentFromBucketEvent const&)>>::deinit(a1 + 720);
-  re::DynamicArray<unsigned long>::deinit(a1 + 720);
-  re::DataArray<re::Function<void ()(re::ecs2::ComponentBucketsBase *,re::ecs2::ComponentBucketsDidAddComponentToBucketEvent const&)>>::deinit(a1 + 656);
-  re::DynamicArray<unsigned long>::deinit(a1 + 656);
-  re::BucketArray<unsigned long,8ul>::deinit(a1 + 600);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1 + 600);
-  re::BucketArray<re::HashTable<re::ecs2::Component *,re::DataArrayHandle<re::ecs2::Component *>,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,true,false>,8ul>::deinit(a1 + 544);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1 + 544);
-  re::BucketArray<re::DataArray<re::ecs2::Component *>,8ul>::deinit(a1 + 488);
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(a1 + 488);
-
-  re::ecs2::SceneComponentCollectionBase::~SceneComponentCollectionBase(a1);
-}
-
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t std::__function::__func<_RETestingRegisterUnsupportedTestAsset::$_0,std::allocator<_RETestingRegisterUnsupportedTestAsset::$_0>,void ()(re::AssetLoader *)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-re::SharedAssetHandle *re::SharedAssetHandle::SharedAssetHandle(re::SharedAssetHandle *this, const re::AssetHandle *a2)
-{
-  ArcSharedObject::ArcSharedObject(this, 0);
-  *this = &unk_1F5CBB540;
-  re::AssetHandle::AssetHandle((this + 24), a2);
-  return this;
-}
-
-re *re::internal::destroyPersistent<csq::v2::PredicateBase<re::ecs2::Entity,re::query::SceneEntityDataSource>>(re *result)
-{
-  if (result)
-  {
-    v1 = result;
-    v2 = re::globalAllocators(result)[2];
-    (**v1)(v1);
-    v3 = *(*v2 + 40);
-
-    return v3(v2, v1);
-  }
-
-  return result;
-}
-
-re *re::internal::destroyPersistent<csq::v2::PredicateBase<re::ecs2::Component,re::DynamicArray<re::ecs2::Component*>>>(re *result)
-{
-  if (result)
-  {
-    v1 = result;
-    v2 = re::globalAllocators(result)[2];
-    (**v1)(v1);
-    v3 = *(*v2 + 40);
-
-    return v3(v2, v1);
-  }
-
-  return result;
-}
-
-re *REEntityQueryDestroy(re *result)
-{
-  if (result)
-  {
-    v1 = result;
-    v2 = re::globalAllocators(result)[2];
-    v3 = *(v1 + 1);
-    if (v3)
+    v39 = *(a2 + 16);
+    if (v39)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+      v40 = (*(a2 + 8) + 8);
+      do
+      {
+        v41 = *v40 + a1[5].f32[0];
+        *(v40 - 1) = vadd_f32(*(v40 - 2), a1[4]);
+        *v40 = v41;
+        v40 += 3;
+        --v39;
+      }
+
+      while (v39);
     }
 
-    v4 = *(*v2 + 40);
+    v42 = *(a2 + 40);
+    if (v42)
+    {
+      v43 = (*(a2 + 32) + 12);
+      do
+      {
+        *v43 = *v43 - (((*(v43 - 2) * a1[4].f32[1]) + (*(v43 - 3) * a1[4].f32[0])) + (*(v43 - 1) * a1[5].f32[0]));
+        v43 += 5;
+        --v42;
+      }
 
-    return v4(v2, v1);
+      while (v42);
+    }
   }
 
   return result;
 }
 
-re *REComponentQueryDestroy(re *result)
+uint64_t physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::resize(uint64_t result, unsigned int a2, uint64_t *a3)
 {
-  if (result)
+  v5 = result;
+  if ((*(result + 12) & 0x7FFFFFFFu) < a2)
   {
-    v1 = result;
-    v2 = re::globalAllocators(result)[2];
-    v3 = *(v1 + 1);
-    if (v3)
+    result = physx::shdfnd::Array<physx::PxVec3,physx::shdfnd::ReflectionAllocator<physx::PxVec3>>::recreate(result, a2);
+  }
+
+  v6 = *(v5 + 8);
+  if (v6 < a2)
+  {
+    v7 = *v5 + 12 * a2;
+    v8 = *v5 + 12 * v6;
+    v9 = *a3;
+    v10 = *(a3 + 2);
+    do
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v3);
+      *v8 = v9;
+      *(v8 + 8) = v10;
+      v8 += 12;
     }
 
-    v4 = *(*v2 + 40);
-
-    return v4(v2, v1);
+    while (v8 < v7);
   }
 
+  *(v5 + 8) = a2;
   return result;
 }
 
-void *REQueryCreateCustomEntityPredicate(void *a1)
+BOOL TestDuplicateTriangles(unsigned int *a1, uint64_t a2, int a3)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = _Block_copy(v1);
-  v3 = re::globalAllocators(v2)[2];
-  v4 = *(*v3 + 32);
+  v28 = *MEMORY[0x1E69E9840];
+  v3 = 1;
+  if (a2)
+  {
+    v5 = *a1;
+    if (v5)
+    {
+      MEMORY[0x1EEE9AC00](a1);
+      v9 = &v20 - ((v8 + 15) & 0x1FFFFFFFF0);
+      bzero(v9, v8);
+      v10 = v9 + 8;
+      v11 = (a2 + 8);
+      v12 = v5;
+      do
+      {
+        *(v10 - 1) = *(v11 - 1);
+        v13 = *v11;
+        v11 += 3;
+        *v10 = v13;
+        v10 += 3;
+        --v12;
+      }
 
-  v5 = v4(v3, 80, 8);
-  v6 = _Block_copy(v2);
-  v8[0] = &unk_1F5D2C2A8;
-  v8[1] = v6;
-  v8[3] = v8;
-  v5[1] = 0;
-  v5[2] = 0;
-  v5[3] = v5 + 3;
-  v5[4] = v5 + 3;
-  *v5 = &unk_1F5D2C338;
-  v5[9] = v5 + 6;
-  v5[5] = 0;
-  v5[6] = &unk_1F5D2C2A8;
-  v5[7] = _Block_copy(v6);
-  std::__function::__value_func<BOOL ()(re::ecs2::Entity const*)>::~__value_func[abi:nn200100](v8);
+      while (v12);
+      v25 = 0;
+      v26 = 0;
+      v27 = 0;
+      v24 = v9;
+      v23 = v5;
+      physx::ReducedVertexCloud::Reduce(&v23, &v21);
+      v14 = v22;
+      v3 = v22 >= *a1;
+      if (v22 < *a1)
+      {
+        if (a3)
+        {
+          *a1 = v22;
+          if (v14)
+          {
+            v15 = 0;
+            v16 = (a2 + 8);
+            v17 = (v21 + 8);
+            do
+            {
+              *(v16 - 2) = *(v17 - 2);
+              *(v16 - 1) = *(v17 - 1);
+              v18 = *v17;
+              v17 += 3;
+              *v16 = v18;
+              v16 += 3;
+              ++v15;
+            }
 
-  return v5;
-}
+            while (v15 < *a1);
+          }
+        }
+      }
 
-void *REQueryCreateCustomComponentPredicate(void *a1)
-{
-  v8[4] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = _Block_copy(v1);
-  v3 = re::globalAllocators(v2)[2];
-  v4 = *(*v3 + 32);
+      physx::ReducedVertexCloud::Clean(&v23);
+    }
+  }
 
-  v5 = v4(v3, 80, 8);
-  v6 = _Block_copy(v2);
-  v8[0] = &unk_1F5D2C398;
-  v8[1] = v6;
-  v8[3] = v8;
-  v5[1] = 0;
-  v5[2] = 0;
-  v5[3] = v5 + 3;
-  v5[4] = v5 + 3;
-  *v5 = &unk_1F5D2C428;
-  v5[9] = v5 + 6;
-  v5[5] = 0;
-  v5[6] = &unk_1F5D2C398;
-  v5[7] = _Block_copy(v6);
-  std::__function::__value_func<BOOL ()(re::ecs2::Component const*)>::~__value_func[abi:nn200100](v8);
-
-  return v5;
-}
-
-void *REQueryCreateAndEntityPredicate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  result = (*(*v1[2] + 32))(v1[2], 48, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  *result = &unk_1F5D2BB60;
-  return result;
-}
-
-void *REQueryCreateAndComponentPredicate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  result = (*(*v1[2] + 32))(v1[2], 48, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  *result = &unk_1F5D2BBD8;
-  return result;
-}
-
-void *REQueryCreateOrEntityPredicate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  result = (*(*v1[2] + 32))(v1[2], 48, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  *result = &unk_1F5D2BCC0;
-  return result;
-}
-
-void *REQueryCreateOrComponentPredicate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  result = (*(*v1[2] + 32))(v1[2], 48, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  *result = &unk_1F5D2BE00;
-  return result;
-}
-
-void *REQueryCreateNotEntityPredicate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  result = (*(*v1[2] + 32))(v1[2], 48, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  *result = &unk_1F5D2BF40;
-  return result;
-}
-
-void *REQueryCreateNotComponentPredicate(re *a1)
-{
-  v1 = re::globalAllocators(a1);
-  result = (*(*v1[2] + 32))(v1[2], 48, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  *result = &unk_1F5D2C040;
-  return result;
-}
-
-void *REQueryCreateHasEntityPredicate(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  result = (*(*v2[2] + 32))(v2[2], 56, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  result[6] = a1;
-  *result = &unk_1F5D1AC58;
-  return result;
-}
-
-uint64_t REQueryCreateEntityIsActivePredicate(re *a1)
-{
-  v1 = a1;
-  v2 = re::globalAllocators(a1);
-  result = (*(*v2[2] + 32))(v2[2], 56, 8);
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *(result + 24) = result + 24;
-  *(result + 32) = result + 24;
-  *(result + 40) = 0;
-  *result = &unk_1F5D2C140;
-  *(result + 48) = v1;
-  return result;
-}
-
-__n128 REQueryCreateEntityInBoundsPredicate(re *a1, __n128 a2, __n128 a3)
-{
-  v3 = re::globalAllocators(a1);
-  v4 = (*(*v3[2] + 32))(v3[2], 80, 16);
-  *v4 = 0u;
-  *(v4 + 16) = 0u;
-  *(v4 + 24) = v4 + 24;
-  *(v4 + 32) = v4 + 24;
-  *(v4 + 40) = 0;
-  *v4 = &unk_1F5D1ABA8;
-  result = a3;
-  *(v4 + 48) = a2;
-  *(v4 + 64) = a3;
-  return result;
-}
-
-void *REQueryCreateIsDescendantEntityPredicate(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  result = (*(*v2[2] + 32))(v2[2], 88, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  result[6] = a1;
-  *result = &unk_1F5D2C1B8;
-  result[10] = 0;
-  return result;
-}
-
-void *REQueryCreateIsDescendantCallbackEntityPredicate(void *a1)
-{
-  v6[4] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = re::globalAllocators(v1);
-  v3 = (*(*v2[2] + 32))(v2[2], 88, 8);
-  v4 = _Block_copy(v1);
-
-  v6[0] = &unk_1F5D2C488;
-  v6[1] = v4;
-  v6[3] = v6;
-  v3[1] = 0;
-  v3[2] = 0;
-  v3[3] = v3 + 3;
-  v3[4] = v3 + 3;
-  v3[5] = 0;
-  v3[6] = 0;
-  *v3 = &unk_1F5D2C1B8;
-  std::__function::__value_func<re::ecs2::Entity const* ()(void)>::__value_func[abi:nn200100]((v3 + 7), v6);
-  std::__function::__value_func<re::ecs2::Entity const* ()(void)>::~__value_func[abi:nn200100](v6);
   return v3;
-}
-
-void *REQueryCreateIsChildEntityPredicate(re *a1)
-{
-  v2 = re::globalAllocators(a1);
-  result = (*(*v2[2] + 32))(v2[2], 88, 8);
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = result + 3;
-  result[4] = result + 3;
-  result[5] = 0;
-  result[6] = a1;
-  *result = &unk_1F5D2C218;
-  result[10] = 0;
-  return result;
 }

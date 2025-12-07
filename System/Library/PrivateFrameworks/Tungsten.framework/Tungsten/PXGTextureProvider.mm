@@ -40,13 +40,13 @@
   if (v2)
   {
     v2->_lookupLock._os_unfair_lock_opaque = 0;
-    indexSet = [MEMORY[0x277CCAB58] indexSet];
+    v4 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     lookupLock_activeRequests = v3->_lookupLock_activeRequests;
-    v3->_lookupLock_activeRequests = indexSet;
+    v3->_lookupLock_activeRequests = v4;
 
-    indexSet2 = [MEMORY[0x277CCAB58] indexSet];
+    v6 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     requestIDsPendingCancellation = v3->_requestIDsPendingCancellation;
-    v3->_requestIDsPendingCancellation = indexSet2;
+    v3->_requestIDsPendingCancellation = v6;
 
     v3->_canDeliverThumbnailData = 1;
     v3->_preferredColorSpaceName = 12;

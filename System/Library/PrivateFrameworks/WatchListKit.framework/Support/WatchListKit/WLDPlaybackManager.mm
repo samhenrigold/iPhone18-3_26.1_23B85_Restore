@@ -1723,14 +1723,13 @@ LABEL_18:
 void __59__WLDPlaybackManager__promptForBundleID_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = +[WLKChannelUtilities sharedInstanceFiltered];
-  v6 = [v2 channelIDForBundleID:*(a1 + 32)];
+  v5 = [v2 channelIDForBundleID:*(a1 + 32)];
 
-  v3 = *(a1 + 32);
-  v4 = WLKSubscriptionIdentifierForBundleID();
-  v5 = [*(a1 + 40) settingsForChannelID:v6 externalID:v4];
-  NSLog(@"WLDPlaybackManager: Settings recall after prompting for bundle:%@ externalID:%@, settings%@, channelID:%@", *(a1 + 32), v4, v5, v6);
+  v3 = WLKSubscriptionIdentifierForBundleID();
+  v4 = [*(a1 + 40) settingsForChannelID:v5 externalID:v3];
+  NSLog(@"WLDPlaybackManager: Settings recall after prompting for bundle:%@ externalID:%@, settings%@, channelID:%@", *(a1 + 32), v3, v4, v5);
   *(*(a1 + 48) + 48) = 0;
-  (*(*(a1 + 56) + 16))(*(a1 + 56), [v5 accessStatus] == 1);
+  (*(*(a1 + 56) + 16))(*(a1 + 56), [v4 accessStatus] == 1);
 }
 
 BOOL __44__WLDPlaybackManager__scanForPendingReports__block_invoke(id a1, NSURL *a2, NSError *a3)

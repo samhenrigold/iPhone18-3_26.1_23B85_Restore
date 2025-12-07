@@ -17,20 +17,7 @@
   v31.super_class = NFStepUpController;
   v13 = [(NFStepUpController *)&v31 init];
   v14 = v13;
-  if (!v13)
-  {
-    goto LABEL_3;
-  }
-
-  objc_storeStrong(&v13->_workQueue, queue);
-  objc_storeStrong(&v14->_driverWrapper, wrapper);
-  objc_storeWeak(&v14->_expressModeManager, managerCopy);
-  v14->_transactionType = 0;
-  v15 = objc_opt_new();
-  stsHelper = v14->_stsHelper;
-  v14->_stsHelper = v15;
-
-  if (!v14->_stsHelper)
+  if (v13 && (objc_storeStrong(&v13->_workQueue, queue), objc_storeStrong(&v14->_driverWrapper, wrapper), objc_storeWeak(&v14->_expressModeManager, managerCopy), v14->_transactionType = 0, v15 = objc_opt_new(), stsHelper = v14->_stsHelper, v14->_stsHelper = v15, stsHelper, !v14->_stsHelper))
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
     Logger = NFLogGetLogger();
@@ -83,7 +70,6 @@
 
   else
   {
-LABEL_3:
     v17 = v14;
   }
 

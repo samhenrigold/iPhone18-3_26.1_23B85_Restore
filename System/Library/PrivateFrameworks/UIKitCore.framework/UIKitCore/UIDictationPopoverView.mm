@@ -305,7 +305,7 @@
         v18 = [v17 indicatorIconForDictationLanguage:v15 scaleFactor:1.0];
         [v16 setImage:v18 forState:0];
 
-        if ([v15 isEqualToString:dictationLanguage])
+        if (objc_msgSend_isEqualToString_(v15))
         {
           +[UIColor blueColor];
         }
@@ -360,7 +360,7 @@
   v6 = +[UIDictationController sharedInstance];
   [v6 setReasonType:28];
 
-  if ([(UIButton *)self->_languageButton isEqual:pressedCopy])
+  if (objc_msgSend_isEqual_(self->_languageButton))
   {
     v7 = +[UIKeyboardInputModeController sharedInputModeController];
     enabledDictationLanguages = [v7 enabledDictationLanguages];

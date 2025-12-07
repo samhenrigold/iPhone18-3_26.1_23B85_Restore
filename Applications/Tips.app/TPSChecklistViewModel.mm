@@ -121,7 +121,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR___TPSChecklistViewModel_currentDisplayTips);
   *(self + OBJC_IVAR___TPSChecklistViewModel_currentDisplayTips) = v4;
 }
 
@@ -169,7 +168,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10001E970(v8);
+  sub_10001E970(v8, v9);
 }
 
 - (BOOL)hasContent
@@ -258,26 +257,25 @@
 - (id)assetsBaseURLFor:(id)for
 {
   v5 = sub_10001B4A4(&unk_1000B3380, &qword_100079940);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v18 - v7;
+  v7 = &v17 - v6;
   forCopy = for;
   selfCopy = self;
-  sub_100027A38(forCopy, v8);
+  sub_100027A38(forCopy, v7);
 
-  v11 = type metadata accessor for URL();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v8, 1, v11);
-  v14 = 0;
-  if (v13 != 1)
+  v10 = type metadata accessor for URL();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v7, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    URL._bridgeToObjectiveC()(v13);
-    v16 = v15;
-    (*(v12 + 8))(v8, v11);
-    v14 = v16;
+    URL._bridgeToObjectiveC()(v12);
+    v15 = v14;
+    (*(v11 + 8))(v7, v10);
+    v13 = v15;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)titleFor:(id)for

@@ -235,13 +235,13 @@
   v15[2] = *MEMORY[0x1E69E9840];
   motionCopy = motion;
   v6 = motionCopy;
-  if (self->_contentMotion != motionCopy && ![(_UIFloatingMotionConfiguration *)motionCopy isEqual:?])
+  if (self->_contentMotion != motionCopy && (objc_msgSend_isEqual_(motionCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_contentMotion, motion);
     [(_UIFloatingMotionConfiguration *)v6 rotation];
     self->_contentRotation.x = v7;
     self->_contentRotation.y = v8;
-    [(_UIFloatingMotionConfiguration *)v6 translation];
+    objc_msgSend_translation(v6);
     self->_contentTranslation.x = v9;
     self->_contentTranslation.y = v10;
     [(NSMutableArray *)self->_contentMotionEffects removeAllObjects];
@@ -384,7 +384,7 @@
 
 - (void)_updateDefaultBackgroundFillsForHighlightStyle:(int64_t)style
 {
-  if (self->_highlightStyle == 1 && _UISolariumEnabled() && ((_UIInternalPreferenceUsesDefault(&_MergedGlobals_924, @"UISolariumFloatingContentViewEnableBackgroundFills", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48A90C))
+  if (self->_highlightStyle == 1 && _UISolariumEnabled() && (_UIInternalPreferenceUsesDefault(&_MergedGlobals_924, @"UISolariumFloatingContentViewEnableBackgroundFills", _UIInternalPreferenceUpdateBool) || byte_1ED48A90C))
   {
     v6 = [UIColor colorWithWhite:1.0 alpha:0.3];
     v7 = [UIColor colorWithWhite:1.0 alpha:0.6];
@@ -398,7 +398,7 @@
     v14 = [UIColor colorWithWhite:1.0 alpha:v13];
     [v12 alphaComponent];
     v39 = [UIColor colorWithWhite:1.0 alpha:v15 * 0.888888889];
-    if ((_UIInternalPreferenceUsesDefault(&dword_1ED48A910, @"UISolariumFloatingContentViewDebugBackgroundFills", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48A914)
+    if (!_UIInternalPreferenceUsesDefault(&dword_1ED48A910, @"UISolariumFloatingContentViewDebugBackgroundFills", _UIInternalPreferenceUpdateBool) && byte_1ED48A914)
     {
       v36 = [UIColor colorWithRed:1.0 green:0.6 blue:0.6 alpha:1.0];
       v35 = [UIColor colorWithRed:0.6 green:0.6 blue:1.0 alpha:1.0];
@@ -1249,7 +1249,7 @@ LABEL_7:
 
 - (void)_updateMarkerLayerIfPresent
 {
-  if (os_variant_has_internal_diagnostics() && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeUIViews, @"VisualizeUIViews", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48A8C4)
+  if (os_variant_has_internal_diagnostics() && !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeUIViews, @"VisualizeUIViews", _UIInternalPreferenceUpdateBool) && byte_1ED48A8C4)
   {
     v4 = objc_getAssociatedObject(self, &__UIViewMarkerLayerKey);
     if (v4)
@@ -1354,7 +1354,7 @@ LABEL_7:
 
   [(UIView *)self->_transformView insertSubview:self->_punchoutShadowView atIndex:0];
   layer = [(UIView *)self->_punchoutShadowView layer];
-  v6 = +[UIColor blackColor];
+  v6 = objc_msgSend_blackColor(UIColor);
   [layer setShadowColor:{objc_msgSend(v6, "CGColor")}];
 
   [layer setPunchoutShadow:1];
@@ -3040,7 +3040,7 @@ LABEL_32:
 
     v66 = _UIInternalPreferenceUsesDefault(algn_1ED48A9B8, @"UISolariumFloatingContentViewModifyTransformMaxSize", _UIInternalPreferenceUpdateDouble);
     v63 = qword_1ED48A9C0;
-    v64 = v66 == 0;
+    v64 = !v66;
     v65 = 1760.0;
     goto LABEL_52;
   }
@@ -3062,7 +3062,7 @@ LABEL_32:
 
     v62 = _UIInternalPreferenceUsesDefault(algn_1ED48A998, @"UISolariumFloatingContentViewModifyTransformMaxArea", _UIInternalPreferenceUpdateDouble);
     v63 = qword_1ED48A9A0;
-    v64 = v62 == 0;
+    v64 = !v62;
     v65 = 985600.0;
 LABEL_52:
     if (!v64)

@@ -13,7 +13,7 @@
   swift_beginAccess();
   if (*(self + v3))
   {
-    sub_1B7EC9FD0(0, &qword_1EBA64920);
+    sub_1B7EC9FD0(0, &qword_1EBA64920, 0x1E69DC888);
 
     v4 = sub_1B7ED3C10();
   }
@@ -31,7 +31,7 @@
   colorsCopy = colors;
   if (colors)
   {
-    sub_1B7EC9FD0(0, &qword_1EBA64920);
+    sub_1B7EC9FD0(0, &qword_1EBA64920, 0x1E69DC888);
     colorsCopy = sub_1B7ED3C20();
   }
 

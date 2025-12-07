@@ -43,53 +43,53 @@
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [defaultManager fileExistsAtPath:@"/var/mobile/Library/Application Support/com.apple.palette.green.plist"];
 
-  v5 = 3;
+  v6 = 3;
   if (!v4)
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  self->_fileExistenceState = v5;
+  self->_fileExistenceState = v6;
   if (v4)
   {
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:@"/var/mobile/Library/Application Support/com.apple.palette.green.plist"];
-    v7 = [v6 objectForKey:@"state"];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:@"/var/mobile/Library/Application Support/com.apple.palette.green.plist"];
+    v8 = [v7 objectForKey:@"state"];
 
-    v8 = SBLogGreen();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-    if (v7)
+    v10 = SBLogGreen(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    if (v8)
     {
-      if (v9)
+      if (v11)
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Read non-empty file from disk", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Read non-empty file from disk", buf, 2u);
       }
 
-      v10 = 3;
+      v12 = 3;
     }
 
-    else if (v9)
+    else if (v11)
     {
-      *v13 = 0;
-      v10 = 2;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Empty on disk", v13, 2u);
+      *v15 = 0;
+      v12 = 2;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Empty on disk", v15, 2u);
     }
 
     else
     {
-      v10 = 2;
+      v12 = 2;
     }
 
-    self->_fileExistenceState = v10;
+    self->_fileExistenceState = v12;
   }
 
   else
   {
-    v11 = SBLogGreen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = SBLogGreen(v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "File not on disk", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_INFO, "File not on disk", v14, 2u);
     }
 
     self->_fileExistenceState = 1;
@@ -307,7 +307,7 @@
 
   else
   {
-    v5 = SBLogGreen();
+    v5 = SBLogGreen(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;

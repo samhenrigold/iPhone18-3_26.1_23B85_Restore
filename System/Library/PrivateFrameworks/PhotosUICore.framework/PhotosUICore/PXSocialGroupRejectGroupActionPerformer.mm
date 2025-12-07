@@ -25,15 +25,15 @@
 {
   referenceCopy = reference;
   v5 = swift_unknownObjectRetain();
-  v6 = sub_1A3DE2278(v5);
+  v7 = sub_1A3DE2278(v5, v6);
 
   swift_unknownObjectRelease();
-  return v6 & 1;
+  return v7 & 1;
 }
 
 + (id)localizedTitleForUseCase:(unint64_t)case assetCollectionReference:(id)reference withInputs:(id)inputs
 {
-  sub_1A3C38BD4();
+  sub_1A3C38BD4(0xD000000000000024);
   v5 = sub_1A524C634();
 
   return v5;
@@ -50,7 +50,7 @@
 {
   ObjectType = swift_getObjectType();
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C38278(&unk_1EB1356B0);
+  sub_1A3C38278(&unk_1EB1356B0, &unk_1A5377DC0);
   sub_1A524C3E4();
   typeCopy = type;
   referenceCopy = reference;

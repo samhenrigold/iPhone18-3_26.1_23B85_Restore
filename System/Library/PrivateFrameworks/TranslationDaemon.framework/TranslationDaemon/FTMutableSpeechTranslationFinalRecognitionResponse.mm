@@ -6,6 +6,7 @@
 - (void)setRecognition_result:(id)recognition_result;
 - (void)setRecognition_text:(id)recognition_text;
 - (void)setRequest_id:(id)request_id;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSource_locale:(id)source_locale;
 @end
@@ -55,6 +56,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setReturn_str:(id)return_str

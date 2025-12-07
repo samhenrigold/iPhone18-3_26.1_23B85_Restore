@@ -145,36 +145,36 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
 
 - (void)exportMediaObjects:(id)objects withFileNames:(id)names completion:(id)completion
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   namesCopy = names;
   completionCopy = completion;
-  v65 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v100 = 0u;
+  v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v68 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
+  v104 = 0u;
   obj = objectsCopy;
   v8 = 0;
   v9 = 0;
-  v10 = [obj countByEnumeratingWithState:&v100 objects:v107 count:16];
+  v10 = [obj countByEnumeratingWithState:&v101 objects:v108 count:16];
   if (v10)
   {
-    v11 = *v101;
+    v11 = *v102;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v101 != v11)
+        if (*v102 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v100 + 1) + 8 * i);
+        v13 = *(*(&v101 + 1) + 8 * i);
         if ([v13 isPhotosCompatible])
         {
-          [v65 addObject:v13];
+          [v66 addObject:v13];
           if ([v13 mediaType] == 3)
           {
             ++v9;
@@ -188,28 +188,28 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
 
         else
         {
-          [v67 addObject:v13];
+          [v68 addObject:v13];
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v100 objects:v107 count:16];
+      v10 = [obj countByEnumeratingWithState:&v101 objects:v108 count:16];
     }
 
     while (v10);
   }
 
   group = dispatch_group_create();
+  v97 = 0;
+  v98 = &v97;
+  v99 = 0x2020000000;
+  v100 = 1;
+  v91 = 0;
+  v92 = &v91;
+  v93 = 0x3032000000;
+  v94 = __Block_byref_object_copy__60;
+  v95 = __Block_byref_object_dispose__60;
   v96 = 0;
-  v97 = &v96;
-  v98 = 0x2020000000;
-  v99 = 1;
-  v90 = 0;
-  v91 = &v90;
-  v92 = 0x3032000000;
-  v93 = __Block_byref_object_copy__60;
-  v94 = __Block_byref_object_dispose__60;
-  v95 = 0;
-  v14 = [v65 count];
+  v14 = [v66 count];
   v15 = &off_190DCE000;
   if (v14)
   {
@@ -218,25 +218,25 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
     uUIDString = [uUID UUIDString];
 
     v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v88 = 0u;
     v89 = 0u;
-    v86 = 0u;
+    v90 = 0u;
     v87 = 0u;
-    v18 = v65;
-    v19 = [v18 countByEnumeratingWithState:&v86 objects:v106 count:16];
+    v88 = 0u;
+    v18 = v66;
+    v19 = [v18 countByEnumeratingWithState:&v87 objects:v107 count:16];
     if (v19)
     {
-      v20 = *v87;
+      v20 = *v88;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v87 != v20)
+          if (*v88 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v86 + 1) + 8 * j);
+          v22 = *(*(&v87 + 1) + 8 * j);
           syndicationIdentifier = [v22 syndicationIdentifier];
           if (!syndicationIdentifier)
           {
@@ -244,7 +244,7 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v105 = v22;
+              v106 = v22;
               _os_log_error_impl(&dword_19020E000, v24, OS_LOG_TYPE_ERROR, "Syndication identifier was nil for media object. mediaObject: %@", buf, 0xCu);
             }
 
@@ -254,7 +254,7 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
           [v17 addObject:syndicationIdentifier];
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v86 objects:v106 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v87 objects:v107 count:16];
       }
 
       while (v19);
@@ -266,7 +266,7 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v105 = v17;
+        v106 = v17;
         _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "Saving media objects with syndication identifiers to photo library %@", buf, 0xCu);
       }
     }
@@ -277,16 +277,16 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
     block[1] = 3221225472;
     block[2] = __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke;
     block[3] = &unk_1E72F6890;
-    v76 = v18;
-    v77 = v17;
-    v78 = uUIDString;
+    v77 = v18;
+    v78 = v17;
+    v79 = uUIDString;
     selfCopy = self;
-    v83 = v26;
-    v84 = v9;
-    v85 = v8;
-    v81 = &v96;
-    v82 = &v90;
-    v80 = group;
+    v84 = v26;
+    v85 = v9;
+    v86 = v8;
+    v82 = &v97;
+    v83 = &v91;
+    v81 = group;
     v28 = uUIDString;
     v29 = v17;
     dispatch_async(_serialBackgroundQueue, block);
@@ -296,55 +296,56 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
 
   v30 = 0;
   v31 = *(v15 + 189);
-  while (v30 < [v67 count])
+  while (v30 < [v68 count])
   {
-    v32 = [v67 objectAtIndex:v30];
+    v32 = [v68 objectAtIndex:v30];
     dispatch_group_enter(group);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && [v32 isAudioMessage])
     {
       fileURL = [v32 fileURL];
-      if ([v32 isFromMe])
+      isFromMe = [v32 isFromMe];
+      if (isFromMe)
       {
-        senderHandle = CKFrameworkBundle();
-        v34 = [senderHandle localizedStringForKey:@"AUDIO_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+        senderHandle = CKFrameworkBundle(isFromMe);
+        v35 = [senderHandle localizedStringForKey:@"AUDIO_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
       }
 
       else
       {
         senderHandle = [v32 senderHandle];
-        v48 = MEMORY[0x1E696AEC0];
-        v49 = CKFrameworkBundle();
-        v50 = [v49 localizedStringForKey:@"AUDIO_MESSAGE_FROM" value:&stru_1F04268F8 table:@"ChatKit"];
+        v49 = MEMORY[0x1E696AEC0];
+        v50 = CKFrameworkBundle(senderHandle);
+        v51 = [v50 localizedStringForKey:@"AUDIO_MESSAGE_FROM" value:&stru_1F04268F8 table:@"ChatKit"];
         fullName = [senderHandle fullName];
-        v52 = [v48 stringWithFormat:v50, fullName];
+        v53 = [v49 stringWithFormat:v51, fullName];
 
         mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-        v54 = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
+        v55 = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
 
-        if (v54)
+        if (v55)
         {
-          v55 = @"\u200F";
+          v56 = @"\u200F";
         }
 
         else
         {
-          v55 = @"\u200E";
+          v56 = @"\u200E";
         }
 
-        v34 = [(__CFString *)v55 stringByAppendingString:v52];
+        v35 = [(__CFString *)v56 stringByAppendingString:v53];
       }
 
-      v56 = MEMORY[0x1E69E06E0];
+      v57 = MEMORY[0x1E69E06E0];
       date = [MEMORY[0x1E695DF00] date];
-      v73[0] = MEMORY[0x1E69E9820];
-      v73[1] = v31;
-      v73[2] = __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke_263;
-      v73[3] = &unk_1E72F1C08;
-      v74 = completionCopy;
-      [v56 importRecordingWithSourceAudioURL:fileURL name:v34 date:date completionHandler:v73];
+      v74[0] = MEMORY[0x1E69E9820];
+      v74[1] = v31;
+      v74[2] = __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke_263;
+      v74[3] = &unk_1E72F1C08;
+      v75 = completionCopy;
+      [v57 importRecordingWithSourceAudioURL:fileURL name:v35 date:date completionHandler:v74];
 
-      filename = v74;
+      filename = v75;
       goto LABEL_53;
     }
 
@@ -363,11 +364,11 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
       fileURL2 = [transfer2 fileURL];
       path = [fileURL2 path];
 
-      v40 = [fileURL URLsForDirectory:15 inDomains:1];
-      firstObject = [v40 firstObject];
+      v41 = [fileURL URLsForDirectory:15 inDomains:1];
+      firstObject = [v41 firstObject];
 
-      v42 = [firstObject URLByAppendingPathComponent:filename];
-      path2 = [v42 path];
+      v43 = [firstObject URLByAppendingPathComponent:filename];
+      path2 = [v43 path];
 
       if ([fileURL fileExistsAtPath:path2])
       {
@@ -379,12 +380,12 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
         uniqueSavePath = path2;
       }
 
-      v46 = uniqueSavePath;
-      v72 = 0;
-      v47 = [fileURL copyItemAtPath:path toPath:uniqueSavePath error:&v72];
-      v34 = v72;
+      v47 = uniqueSavePath;
+      v73 = 0;
+      v48 = [fileURL copyItemAtPath:path toPath:uniqueSavePath error:&v73];
+      v35 = v73;
 
-      if (v47)
+      if (v48)
       {
         goto LABEL_47;
       }
@@ -392,19 +393,19 @@ void __52__CKMediaObjectExportManager__serialBackgroundQueue__block_invoke()
 
     else
     {
-      v45 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v46 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v105 = v32;
-        _os_log_error_impl(&dword_19020E000, v45, OS_LOG_TYPE_ERROR, "Transfer filename was empty for mediaObject: %@", buf, 0xCu);
+        v106 = v32;
+        _os_log_error_impl(&dword_19020E000, v46, OS_LOG_TYPE_ERROR, "Transfer filename was empty for mediaObject: %@", buf, 0xCu);
       }
 
-      v34 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CKFileTransferErrorDomain" code:0 userInfo:0];
+      v35 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CKFileTransferErrorDomain" code:0 userInfo:0];
     }
 
-    *(v97 + 24) = 0;
-    objc_storeStrong(v91 + 5, v34);
+    *(v98 + 24) = 0;
+    objc_storeStrong(v92 + 5, v35);
 LABEL_47:
     dispatch_group_leave(group);
 LABEL_53:
@@ -413,18 +414,18 @@ LABEL_54:
     ++v30;
   }
 
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = v31;
-  v68[2] = __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke_267;
-  v68[3] = &unk_1E72F68B8;
-  v69 = completionCopy;
-  v70 = &v96;
-  v71 = &v90;
-  v58 = completionCopy;
-  dispatch_group_notify(group, MEMORY[0x1E69E96A0], v68);
+  v69[0] = MEMORY[0x1E69E9820];
+  v69[1] = v31;
+  v69[2] = __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke_267;
+  v69[3] = &unk_1E72F68B8;
+  v70 = completionCopy;
+  v71 = &v97;
+  v72 = &v91;
+  v59 = completionCopy;
+  dispatch_group_notify(group, MEMORY[0x1E69E96A0], v69);
 
-  _Block_object_dispose(&v90, 8);
-  _Block_object_dispose(&v96, 8);
+  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v97, 8);
 }
 
 void __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke(uint64_t a1)
@@ -471,7 +472,7 @@ void __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completio
   [v4 performChanges:v19 completionHandler:v13];
 }
 
-unint64_t __74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke_2(id *a1)
+void *__74__CKMediaObjectExportManager_exportMediaObjects_withFileNames_completion___block_invoke_2(id *a1)
 {
   result = [a1[4] count];
   if (result)

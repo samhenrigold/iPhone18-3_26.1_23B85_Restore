@@ -56,7 +56,7 @@
 
 - (void)isShieldRequiredWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840, &qword_1ADB783A0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -87,7 +87,7 @@
 
 - (void)requestAccessWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB598840, &qword_1ADB783A0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

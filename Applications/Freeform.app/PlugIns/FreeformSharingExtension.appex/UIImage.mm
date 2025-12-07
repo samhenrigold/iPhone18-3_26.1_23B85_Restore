@@ -141,7 +141,7 @@
 + (id)crl_bidiConsciousImageNamed:(id)named
 {
   v3 = [UIImage imageNamed:named];
-  if (CRLUILayoutIsRTL())
+  if (CRLUILayoutIsRTL(v3, v4))
   {
     imageWithHorizontallyFlippedOrientation = [v3 imageWithHorizontallyFlippedOrientation];
 
@@ -237,7 +237,7 @@ LABEL_13:
 {
   onCopy = on;
   selfCopy = self;
-  if (CRLUILayoutIsRTL())
+  if (CRLUILayoutIsRTL(selfCopy, v5))
   {
     imageFlippedForRightToLeftLayoutDirection = selfCopy;
     if (![(UIImage *)selfCopy imageOrientation])

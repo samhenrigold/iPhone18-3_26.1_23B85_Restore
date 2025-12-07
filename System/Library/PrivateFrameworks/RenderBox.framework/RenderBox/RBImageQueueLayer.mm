@@ -39,19 +39,19 @@
     return 0;
   }
 
-  v4.receiver = slots;
-  v4.super_class = RBImageQueueLayer;
-  v1 = objc_msgSendSuper2(&v4, sel_init);
-  if (v1)
+  v6.receiver = slots;
+  v6.super_class = RBImageQueueLayer;
+  v3 = objc_msgSendSuper2(&v6, sel_init);
+  if (v3)
   {
-    v3 = [RBImageQueueContents initWithSlots:?];
+    v5 = [[RBImageQueueContents alloc] initWithSlots:a2];
 
-    v1[6] = v3;
-    [v1 setContents:v1[6]];
-    [v1 setContentsGravity:*MEMORY[0x1E6979DC0]];
+    v3[6] = v5;
+    [v3 setContents:v3[6]];
+    [v3 setContentsGravity:*MEMORY[0x1E6979DC0]];
   }
 
-  return v1;
+  return v3;
 }
 
 @end

@@ -14,14 +14,14 @@
 
 - (MLFeatureProvider)featureProvider
 {
-  v2 = sub_21AED1F94();
+  v2 = sub_21AED1F94(self, a2);
 
   return v2;
 }
 
 - (MLBatchProvider)batchProvider
 {
-  v2 = sub_21AED1FD4();
+  v2 = sub_21AED1FD4(self, a2);
 
   return v2;
 }

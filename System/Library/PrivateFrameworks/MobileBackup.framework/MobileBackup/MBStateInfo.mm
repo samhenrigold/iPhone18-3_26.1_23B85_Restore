@@ -58,11 +58,11 @@
 
 - (MBStateInfo)initWithDictionaryRepresentation:(id)representation
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
-  v37.receiver = self;
-  v37.super_class = MBStateInfo;
-  v5 = [(MBStateInfo *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = MBStateInfo;
+  v5 = [(MBStateInfo *)&v36 init];
   if (!v5)
   {
     goto LABEL_26;
@@ -117,33 +117,33 @@ LABEL_8:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v34;
+        v21 = *v33;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v34 != v21)
+            if (*v33 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = [MBError errorWithDictionaryRepresentation:*(*(&v33 + 1) + 8 * i), v33];
+            v23 = [MBError errorWithDictionaryRepresentation:*(*(&v32 + 1) + 8 * i), v32];
             if (v23)
             {
               [(NSMutableArray *)v5->_errors addObject:v23];
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v32 objects:v37 count:16];
         }
 
         while (v20);
@@ -156,7 +156,7 @@ LABEL_8:
     [(NSMutableArray *)v5->_errors addObject:?];
   }
 
-  v24 = [representationCopy objectForKeyedSubscript:{@"date", v33}];
+  v24 = [representationCopy objectForKeyedSubscript:{@"date", v32}];
   v25 = v24;
   if (v24)
   {
@@ -179,7 +179,6 @@ LABEL_8:
   v5->_backupAttemptCount = [v30 integerValue];
 
 LABEL_26:
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -281,7 +280,7 @@ LABEL_26:
 
 - (id)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -310,29 +309,29 @@ LABEL_26:
   if (selfCopy->_errors)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = selfCopy->_errors;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = [MBError dictionaryRepresentationForError:*(*(&v21 + 1) + 8 * i), v21];
+          v16 = [MBError dictionaryRepresentationForError:*(*(&v20 + 1) + 8 * i), v20];
           [array addObject:v16];
         }
 
-        v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v13);
@@ -341,7 +340,7 @@ LABEL_26:
     [dictionary setValue:array forKey:@"errors"];
   }
 
-  [dictionary setValue:selfCopy->_date forKey:{@"date", v21}];
+  [dictionary setValue:selfCopy->_date forKey:{@"date", v20}];
   restoredSnapshotBackupPolicy = selfCopy->_restoredSnapshotBackupPolicy;
   if (restoredSnapshotBackupPolicy)
   {
@@ -352,7 +351,6 @@ LABEL_26:
   [dictionary setValue:v18 forKey:@"backupAttemptCount"];
 
   objc_sync_exit(selfCopy);
-  v19 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -363,12 +361,10 @@ LABEL_26:
   objc_sync_enter(selfCopy);
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  Name = class_getName(v4);
-  date = selfCopy->_date;
-  v7 = [v3 stringWithFormat:@"<%s: %p state=%d, progress=%.3f, timeRemaining=%lu, isCloud=%d, isBackground=%d, date=%@, error=%@>", Name, selfCopy, selfCopy->_state, selfCopy->_progress, selfCopy->_estimatedTimeRemaining, selfCopy->_isCloud, selfCopy->_isBackground, date, selfCopy->_error];;
+  v5 = [v3 stringWithFormat:@"<%s: %p state=%d, progress=%.3f, timeRemaining=%lu, isCloud=%d, isBackground=%d, date=%@, error=%@>", class_getName(v4), selfCopy, selfCopy->_state, selfCopy->_progress, selfCopy->_estimatedTimeRemaining, selfCopy->_isCloud, selfCopy->_isBackground, selfCopy->_date, selfCopy->_error];;
   objc_sync_exit(selfCopy);
 
-  return v7;
+  return v5;
 }
 
 @end

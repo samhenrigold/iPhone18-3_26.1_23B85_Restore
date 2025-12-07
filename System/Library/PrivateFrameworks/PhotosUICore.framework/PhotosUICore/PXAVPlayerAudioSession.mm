@@ -121,7 +121,7 @@ void __49__PXAVPlayerAudioSession__loadDurationFromAsset___block_invoke(uint64_t
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 duration];
+    objc_msgSend_duration(v4);
   }
 
   else
@@ -175,7 +175,7 @@ void __49__PXAVPlayerAudioSession__loadDurationFromAsset___block_invoke_54(uint6
     [(PXAVPlayerAudioSession *)self performInternalChanges:v22];
     [(PXAVPlayerAudioSession *)self _loadDurationFromAsset:assetCopy];
     objc_initWeak(&location, self);
-    [(PXAudioSession *)self startTime];
+    objc_msgSend_startTime(self);
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __55__PXAVPlayerAudioSession__handleAVAsset_audioMix_info___block_invoke_2;
@@ -482,7 +482,7 @@ void __45__PXAVPlayerAudioSession__updatePlayerVolume__block_invoke(uint64_t a1,
       memset(&v15, 0, sizeof(v15));
       asset = [(PXAudioSession *)self asset];
       v10 = PXAudioAssetDefaultEntryPoint(asset);
-      [v10 time];
+      objc_msgSend_time(v10);
       CMTimeMakeWithSeconds(&v15, v11, 600);
 
       v12[0] = MEMORY[0x1E69E9820];
@@ -553,7 +553,7 @@ void __73__PXAVPlayerAudioSession_observeValueForKeyPath_ofObject_change_context
   else
   {
 
-    return [(PXAudioSession *)self startTime];
+    return objc_msgSend_startTime(self);
   }
 }
 

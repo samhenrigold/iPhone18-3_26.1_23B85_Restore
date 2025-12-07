@@ -19,7 +19,7 @@
 
 - (id)_internalConnectToServer
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_stateLock);
   policy = [(SUCoreConnectClient *)self policy];
   if ([policy usesPersistentXPCConnections])
@@ -50,29 +50,29 @@
   v13 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284218650];
   v14 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284217B08];
   v15 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_284218160];
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x3042000000;
-  v43[3] = __Block_byref_object_copy__2;
-  v43[4] = __Block_byref_object_dispose__2;
-  objc_initWeak(&v44, self);
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __47__SUCoreConnectClient__internalConnectToServer__block_invoke;
-  v40[3] = &unk_2787BC968;
-  v42 = v43;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3042000000;
+  v42[3] = __Block_byref_object_copy__2;
+  v42[4] = __Block_byref_object_dispose__2;
+  objc_initWeak(&v43, self);
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __47__SUCoreConnectClient__internalConnectToServer__block_invoke;
+  v39[3] = &unk_2787BC968;
+  v41 = v42;
   v16 = v9;
-  v41 = v16;
-  v36 = MEMORY[0x2318E52D0](v40);
-  [v16 setInvalidationHandler:v36];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __47__SUCoreConnectClient__internalConnectToServer__block_invoke_87;
-  v37[3] = &unk_2787BC968;
-  v39 = v43;
+  v40 = v16;
+  v35 = MEMORY[0x2318E52D0](v39);
+  [v16 setInvalidationHandler:v35];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __47__SUCoreConnectClient__internalConnectToServer__block_invoke_87;
+  v36[3] = &unk_2787BC968;
+  v38 = v42;
   v17 = v16;
-  v38 = v17;
-  v18 = MEMORY[0x2318E52D0](v37);
+  v37 = v17;
+  v18 = MEMORY[0x2318E52D0](v36);
   [v17 setInterruptionHandler:v18];
   v19 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
   [v13 setClasses:v19 forSelector:sel_connectProtocolFromServerSendClientMessage_reply_ argumentIndex:0 ofReply:0];
@@ -115,7 +115,7 @@
       policy7 = [(SUCoreConnectClient *)self policy];
       serviceName2 = [policy7 serviceName];
       *buf = 138543362;
-      v46 = serviceName2;
+      v45 = serviceName2;
       _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[ConnectToServer](%{public}@) Client usesPersistentXPCConnections, assigning serverConnection", buf, 0xCu);
     }
 
@@ -124,12 +124,11 @@
 
   serverConnection2 = v17;
 
-  _Block_object_dispose(v43, 8);
-  objc_destroyWeak(&v44);
+  _Block_object_dispose(v42, 8);
+  objc_destroyWeak(&v43);
 
 LABEL_12:
   os_unfair_lock_unlock(&self->_stateLock);
-  v34 = *MEMORY[0x277D85DE8];
 
   return serverConnection2;
 }
@@ -179,7 +178,7 @@ LABEL_12:
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   serverConnection = [(SUCoreConnectClient *)self serverConnection];
 
   if (serverConnection)
@@ -193,9 +192,9 @@ LABEL_12:
       serviceName = [policy serviceName];
       serverConnection2 = [(SUCoreConnectClient *)self serverConnection];
       *buf = 138543618;
-      v15 = serviceName;
-      v16 = 2114;
-      v17 = serverConnection2;
+      v14 = serviceName;
+      v15 = 2114;
+      v16 = serverConnection2;
       _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[InvalidateConnection](%{public}@) Invalidating the persistent server connection %{public}@", buf, 0x16u);
     }
 
@@ -211,10 +210,9 @@ LABEL_12:
     [(SUCoreConnectClient *)self setServerConnection:0];
   }
 
-  v13.receiver = self;
-  v13.super_class = SUCoreConnectClient;
-  [(SUCoreConnectClient *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SUCoreConnectClient;
+  [(SUCoreConnectClient *)&v12 dealloc];
 }
 
 + (id)_sharedClientLogger
@@ -238,7 +236,7 @@ uint64_t __42__SUCoreConnectClient__sharedClientLogger__block_invoke()
 
 - (void)_invalidateConnectionIfNonPersistent:(id)persistent
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   persistentCopy = persistent;
   os_unfair_lock_lock(&self->_stateLock);
   policy = [(SUCoreConnectClient *)self policy];
@@ -255,11 +253,11 @@ uint64_t __42__SUCoreConnectClient__sharedClientLogger__block_invoke()
       {
         policy2 = [(SUCoreConnectClient *)self policy];
         serviceName = [policy2 serviceName];
-        v16 = 138543618;
-        v17 = serviceName;
-        v18 = 2114;
-        v19 = persistentCopy;
-        _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[InvalidateConnection](%{public}@) Not invalidating server connection %{public}@ as client usesPersistentXPCConnections", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = serviceName;
+        v17 = 2114;
+        v18 = persistentCopy;
+        _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[InvalidateConnection](%{public}@) Not invalidating server connection %{public}@ as client usesPersistentXPCConnections", &v15, 0x16u);
       }
 
       goto LABEL_10;
@@ -277,11 +275,11 @@ uint64_t __42__SUCoreConnectClient__sharedClientLogger__block_invoke()
   {
     policy3 = [(SUCoreConnectClient *)self policy];
     serviceName2 = [policy3 serviceName];
-    v16 = 138543618;
-    v17 = serviceName2;
-    v18 = 2114;
-    v19 = persistentCopy;
-    _os_log_impl(&dword_22E2D6000, oslog2, OS_LOG_TYPE_DEFAULT, "[InvalidateConnection](%{public}@) Invalidating the server connection %{public}@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = serviceName2;
+    v17 = 2114;
+    v18 = persistentCopy;
+    _os_log_impl(&dword_22E2D6000, oslog2, OS_LOG_TYPE_DEFAULT, "[InvalidateConnection](%{public}@) Invalidating the server connection %{public}@", &v15, 0x16u);
   }
 
   [persistentCopy setInvalidationHandler:0];
@@ -289,13 +287,11 @@ uint64_t __42__SUCoreConnectClient__sharedClientLogger__block_invoke()
   [persistentCopy invalidate];
 LABEL_10:
   os_unfair_lock_unlock(&self->_stateLock);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_droppedConnection:(id)connection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   selfCopy = self;
   v6 = selfCopy;
@@ -309,15 +305,15 @@ LABEL_10:
     if (v9)
     {
       clientDelegateCallbackQueue = [(os_unfair_lock_s *)v6 clientDelegateCallbackQueue];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __42__SUCoreConnectClient__droppedConnection___block_invoke;
-      v18[3] = &unk_2787BC990;
-      v19 = v6;
-      v20 = connectionCopy;
-      dispatch_async(clientDelegateCallbackQueue, v18);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __42__SUCoreConnectClient__droppedConnection___block_invoke;
+      v17[3] = &unk_2787BC990;
+      v18 = v6;
+      v19 = connectionCopy;
+      dispatch_async(clientDelegateCallbackQueue, v17);
 
-      oslog = v19;
+      oslog = v18;
     }
 
     else
@@ -330,9 +326,9 @@ LABEL_10:
         policy2 = [(os_unfair_lock_s *)v6 policy];
         serviceName = [policy2 serviceName];
         *buf = 138543618;
-        v22 = serviceName;
-        v23 = 2114;
-        v24 = connectionCopy;
+        v21 = serviceName;
+        v22 = 2114;
+        v23 = connectionCopy;
         _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[ConnectionDropped](%{public}@) Client connection dropped from XPC server, no delegate callback provided for connection %{public}@", buf, 0x16u);
       }
     }
@@ -352,13 +348,11 @@ LABEL_10:
       [SUCoreConnectClient _droppedConnection:oslog2];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SUCoreConnectClient__droppedConnection___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) logger];
   v3 = [v2 oslog];
 
@@ -367,23 +361,21 @@ void __42__SUCoreConnectClient__droppedConnection___block_invoke(uint64_t a1)
     v4 = [*(a1 + 32) policy];
     v5 = [v4 serviceName];
     v6 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[ConnectionDropped](%{public}@) Client connection dropped to XPC server, calling connectionClosed delegate callback for connection %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[ConnectionDropped](%{public}@) Client connection dropped to XPC server, calling connectionClosed delegate callback for connection %{public}@", &v9, 0x16u);
   }
 
   v7 = [*(a1 + 32) policy];
   v8 = [v7 clientDelegate];
   [v8 connectionClosed];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SUCoreConnectClient__internalConnectToServer__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D64460] sharedLogger];
   v3 = [v2 oslog];
 
@@ -395,22 +387,20 @@ void __47__SUCoreConnectClient__internalConnectToServer__block_invoke(uint64_t a
     v7 = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
     v8 = [v7 policy];
     v9 = [v8 serviceName];
-    v12 = 138543618;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v9;
-    _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[CLIENT-%{public}@][InvalidatedHandler](%{public}@) Connection invalidated", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v6;
+    v13 = 2114;
+    v14 = v9;
+    _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[CLIENT-%{public}@][InvalidatedHandler](%{public}@) Connection invalidated", &v11, 0x16u);
   }
 
   v10 = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
   [v10 _droppedConnection:*(a1 + 32)];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SUCoreConnectClient__internalConnectToServer__block_invoke_87(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D64460] sharedLogger];
   v3 = [v2 oslog];
 
@@ -422,17 +412,15 @@ void __47__SUCoreConnectClient__internalConnectToServer__block_invoke_87(uint64_
     v7 = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
     v8 = [v7 policy];
     v9 = [v8 serviceName];
-    v12 = 138543618;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v9;
-    _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[CLIENT-%{public}@][InterruptedHandler](%{public}@) Connection interrupted", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v6;
+    v13 = 2114;
+    v14 = v9;
+    _os_log_impl(&dword_22E2D6000, v3, OS_LOG_TYPE_DEFAULT, "[CLIENT-%{public}@][InterruptedHandler](%{public}@) Connection interrupted", &v11, 0x16u);
   }
 
   v10 = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
   [v10 _droppedConnection:*(a1 + 32)];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToServerWithSynchronousCompletion:(id)completion
@@ -506,13 +494,13 @@ uint64_t __53__SUCoreConnectClient_connectToServerWithCompletion___block_invoke(
 
 - (void)connectClientSendServerMessage:(id)message proxyObject:(id)object withReply:(id)reply
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   objectCopy = object;
   replyCopy = reply;
-  v45 = 0;
-  v11 = [(SUCoreConnectClient *)self _connectMessageMatchesClient:messageCopy errorPtr:&v45];
-  v12 = v45;
+  v44 = 0;
+  v11 = [(SUCoreConnectClient *)self _connectMessageMatchesClient:messageCopy errorPtr:&v44];
+  v12 = v44;
   if (v11)
   {
     _internalConnectToServer = [(SUCoreConnectClient *)self _internalConnectToServer];
@@ -526,35 +514,35 @@ uint64_t __53__SUCoreConnectClient_connectToServerWithCompletion___block_invoke(
         policy = [(SUCoreConnectClient *)self policy];
         serviceName = [policy serviceName];
         *buf = 138543874;
-        v47 = serviceName;
-        v48 = 2114;
-        v49 = messageCopy;
-        v50 = 2114;
-        v51 = _internalConnectToServer;
+        v46 = serviceName;
+        v47 = 2114;
+        v48 = messageCopy;
+        v49 = 2114;
+        v50 = _internalConnectToServer;
         _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) Connected to server and calling sendMessage %{public}@ for connection %{public}@", buf, 0x20u);
       }
 
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_108;
-      v37[3] = &unk_2787BCB48;
-      v37[4] = self;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_108;
+      v36[3] = &unk_2787BCB48;
+      v36[4] = self;
       v18 = _internalConnectToServer;
-      v38 = v18;
+      v37 = v18;
       v19 = replyCopy;
-      v39 = v19;
-      v20 = [v18 remoteObjectProxyWithErrorHandler:v37];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_111;
-      v34[3] = &unk_2787BCB70;
-      v34[4] = self;
+      v38 = v19;
+      v20 = [v18 remoteObjectProxyWithErrorHandler:v36];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_111;
+      v33[3] = &unk_2787BCB70;
+      v33[4] = self;
       _internalConnectToServer = v18;
-      v35 = _internalConnectToServer;
-      v36 = v19;
-      [v20 connectProtocolFromClientSendServerMessage:messageCopy proxyObject:objectCopy withReply:v34];
+      v34 = _internalConnectToServer;
+      v35 = v19;
+      [v20 connectProtocolFromClientSendServerMessage:messageCopy proxyObject:objectCopy withReply:v33];
 
-      v21 = v38;
+      v21 = v37;
       goto LABEL_14;
     }
 
@@ -566,14 +554,14 @@ uint64_t __53__SUCoreConnectClient_connectToServerWithCompletion___block_invoke(
     if (replyCopy)
     {
       clientCompletionQueue = [(SUCoreConnectClient *)self clientCompletionQueue];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_104;
-      v40[3] = &unk_2787BCB20;
-      v41 = replyCopy;
-      dispatch_async(clientCompletionQueue, v40);
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_104;
+      v39[3] = &unk_2787BCB20;
+      v40 = replyCopy;
+      dispatch_async(clientCompletionQueue, v39);
 
-      v21 = v41;
+      v21 = v40;
 LABEL_14:
 
       goto LABEL_15;
@@ -609,11 +597,11 @@ LABEL_14:
       block[1] = 3221225472;
       block[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke;
       block[3] = &unk_2787BCAF8;
-      v44 = replyCopy;
-      v43 = v12;
+      v43 = replyCopy;
+      v42 = v12;
       dispatch_async(clientCompletionQueue2, block);
 
-      _internalConnectToServer = v44;
+      _internalConnectToServer = v43;
     }
 
     else
@@ -626,15 +614,13 @@ LABEL_14:
         policy2 = [(SUCoreConnectClient *)self policy];
         serviceName2 = [policy2 serviceName];
         *buf = 138543362;
-        v47 = serviceName2;
+        v46 = serviceName2;
         _os_log_impl(&dword_22E2D6000, _internalConnectToServer, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) Validation Error: No reply completion was provided", buf, 0xCu);
       }
     }
   }
 
 LABEL_15:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_104(uint64_t a1)
@@ -647,22 +633,22 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
 
 void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_108(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) logger];
   v5 = [v4 oslog];
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v14 = [*(a1 + 32) policy];
-    v15 = [v14 serviceName];
-    v16 = *(a1 + 40);
+    v13 = [*(a1 + 32) policy];
+    v14 = [v13 serviceName];
+    v15 = *(a1 + 40);
     *buf = 138543874;
-    v21 = v15;
-    v22 = 2114;
-    v23 = v3;
-    v24 = 2114;
-    v25 = v16;
+    v20 = v14;
+    v21 = 2114;
+    v22 = v3;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_22E2D6000, v5, OS_LOG_TYPE_ERROR, "[SendServerMessage](%{public}@) ErrorHandler: Calling provided reply completion on connection error %{public}@ for connection %{public}@", buf, 0x20u);
   }
 
@@ -670,15 +656,15 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
   if (*(a1 + 48))
   {
     v7 = [v6 clientCompletionQueue];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_109;
-    v17[3] = &unk_2787BCAF8;
-    v19 = *(a1 + 48);
-    v18 = v3;
-    dispatch_async(v7, v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_109;
+    v16[3] = &unk_2787BCAF8;
+    v18 = *(a1 + 48);
+    v17 = v3;
+    dispatch_async(v7, v16);
 
-    v8 = v19;
+    v8 = v18;
   }
 
   else
@@ -692,20 +678,19 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
       v11 = [v10 serviceName];
       v12 = *(a1 + 40);
       *buf = 138543618;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v12;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v12;
       _os_log_impl(&dword_22E2D6000, v8, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) ErrorHandler: No reply completion was provided for connection %{public}@", buf, 0x16u);
     }
   }
 
   [*(a1 + 32) _invalidateConnectionIfNonPersistent:*(a1 + 40)];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_111(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) logger];
@@ -717,13 +702,13 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
     v10 = [v9 serviceName];
     v11 = *(a1 + 40);
     *buf = 138544130;
-    v41 = v10;
-    v42 = 2114;
-    v43 = v5;
-    v44 = 2114;
-    v45 = v6;
-    v46 = 2114;
-    v47 = v11;
+    v40 = v10;
+    v41 = 2114;
+    v42 = v5;
+    v43 = 2114;
+    v44 = v6;
+    v45 = 2114;
+    v46 = v11;
     _os_log_impl(&dword_22E2D6000, v8, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) sendMessage response received from server with response %{public}@ error %{public}@ for connection %{public}@", buf, 0x2Au);
   }
 
@@ -735,12 +720,12 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
     block[1] = 3221225472;
     block[2] = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_112;
     block[3] = &unk_2787BCAD0;
-    v39 = *(a1 + 48);
-    v37 = v5;
-    v38 = v6;
+    v38 = *(a1 + 48);
+    v36 = v5;
+    v37 = v6;
     dispatch_async(v13, block);
 
-    v14 = v39;
+    v14 = v38;
 LABEL_9:
 
     goto LABEL_10;
@@ -762,42 +747,40 @@ LABEL_9:
       v22 = [v21 serviceName];
       v23 = *(a1 + 40);
       *buf = 138543618;
-      v41 = v22;
-      v42 = 2114;
-      v43 = v23;
+      v40 = v22;
+      v41 = 2114;
+      v42 = v23;
       _os_log_impl(&dword_22E2D6000, v19, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) Calling reply delegate callback 'handleResponse:error:' for connection %{public}@", buf, 0x16u);
     }
 
     v24 = [*(a1 + 32) clientDelegateCallbackQueue];
-    v29 = MEMORY[0x277D85DD0];
-    v30 = 3221225472;
-    v31 = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_115;
-    v32 = &unk_2787BCA08;
-    v33 = *(a1 + 32);
-    v34 = v5;
-    v35 = v6;
-    dispatch_async(v24, &v29);
+    v28 = MEMORY[0x277D85DD0];
+    v29 = 3221225472;
+    v30 = __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_115;
+    v31 = &unk_2787BCA08;
+    v32 = *(a1 + 32);
+    v33 = v5;
+    v34 = v6;
+    dispatch_async(v24, &v28);
 
-    v14 = v34;
+    v14 = v33;
     goto LABEL_9;
   }
 
   if (v20)
   {
-    v26 = [*(a1 + 32) policy];
-    v27 = [v26 serviceName];
-    v28 = *(a1 + 40);
+    v25 = [*(a1 + 32) policy];
+    v26 = [v25 serviceName];
+    v27 = *(a1 + 40);
     *buf = 138543618;
-    v41 = v27;
-    v42 = 2114;
-    v43 = v28;
+    v40 = v26;
+    v41 = 2114;
+    v42 = v27;
     _os_log_impl(&dword_22E2D6000, v19, OS_LOG_TYPE_DEFAULT, "[SendServerMessage](%{public}@) Client does not respond to the handleMessage:reply: delegate callback and no reply completion was provided for connection %{public}@", buf, 0x16u);
   }
 
 LABEL_10:
-  [*(a1 + 32) _invalidateConnectionIfNonPersistent:{*(a1 + 40), v29, v30, v31, v32, v33}];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) _invalidateConnectionIfNonPersistent:{*(a1 + 40), v28, v29, v30, v31, v32}];
 }
 
 void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withReply___block_invoke_115(uint64_t a1)
@@ -809,12 +792,12 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
 
 - (id)connectClientSendSynchronousServerMessage:(id)message proxyObject:(id)object errorPtr:(id *)ptr
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   objectCopy = object;
-  v46 = 0;
-  v10 = [(SUCoreConnectClient *)self _connectMessageMatchesClient:messageCopy errorPtr:&v46];
-  v11 = v46;
+  v45 = 0;
+  v10 = [(SUCoreConnectClient *)self _connectMessageMatchesClient:messageCopy errorPtr:&v45];
+  v11 = v45;
   if (v10)
   {
     _internalConnectToServer = [(SUCoreConnectClient *)self _internalConnectToServer];
@@ -832,51 +815,51 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
         *&buf[12] = 2114;
         *&buf[14] = messageCopy;
         *&buf[22] = 2114;
-        v48 = _internalConnectToServer;
+        v47 = _internalConnectToServer;
         _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SendServerMessageSync](%{public}@) Connected to server and calling synchronous sendMessage %{public}@ for connection %{public}@", buf, 0x20u);
       }
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v48 = __Block_byref_object_copy__120;
-      v49 = __Block_byref_object_dispose__121;
-      v50 = 0;
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x3032000000;
-      v43 = __Block_byref_object_copy__120;
-      v44 = __Block_byref_object_dispose__121;
-      v45 = 0;
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyObject_errorPtr___block_invoke;
-      v37[3] = &unk_2787BCB98;
-      v37[4] = self;
+      v47 = __Block_byref_object_copy__120;
+      v48 = __Block_byref_object_dispose__121;
+      v49 = 0;
+      v39 = 0;
+      v40 = &v39;
+      v41 = 0x3032000000;
+      v42 = __Block_byref_object_copy__120;
+      v43 = __Block_byref_object_dispose__121;
+      v44 = 0;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyObject_errorPtr___block_invoke;
+      v36[3] = &unk_2787BCB98;
+      v36[4] = self;
       v17 = _internalConnectToServer;
-      v38 = v17;
-      v39 = &v40;
-      v18 = [v17 synchronousRemoteObjectProxyWithErrorHandler:v37];
-      v29 = MEMORY[0x277D85DD0];
-      v30 = 3221225472;
-      v31 = __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyObject_errorPtr___block_invoke_122;
-      v32 = &unk_2787BCBC0;
+      v37 = v17;
+      v38 = &v39;
+      v18 = [v17 synchronousRemoteObjectProxyWithErrorHandler:v36];
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyObject_errorPtr___block_invoke_122;
+      v31 = &unk_2787BCBC0;
       selfCopy = self;
       v19 = v17;
-      v34 = v19;
-      v35 = buf;
-      v36 = &v40;
-      [v18 connectProtocolFromClientSendServerMessage:messageCopy proxyObject:objectCopy withReply:&v29];
+      v33 = v19;
+      v34 = buf;
+      v35 = &v39;
+      [v18 connectProtocolFromClientSendServerMessage:messageCopy proxyObject:objectCopy withReply:&v28];
 
-      [(SUCoreConnectClient *)self _invalidateConnectionIfNonPersistent:v19, v29, v30, v31, v32, selfCopy];
+      [(SUCoreConnectClient *)self _invalidateConnectionIfNonPersistent:v19, v28, v29, v30, v31, selfCopy];
       if (ptr)
       {
-        *ptr = v41[5];
+        *ptr = v40[5];
       }
 
       v20 = *(*&buf[8] + 40);
 
-      _Block_object_dispose(&v40, 8);
+      _Block_object_dispose(&v39, 8);
       _Block_object_dispose(buf, 8);
     }
 
@@ -924,42 +907,38 @@ void __76__SUCoreConnectClient_connectClientSendServerMessage_proxyObject_withRe
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 void __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyObject_errorPtr___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) logger];
   v5 = [v4 oslog];
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v9 = [*(a1 + 32) policy];
-    v10 = [v9 serviceName];
-    v11 = *(a1 + 40);
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 2114;
-    v15 = v3;
-    v16 = 2114;
-    v17 = v11;
-    _os_log_error_impl(&dword_22E2D6000, v5, OS_LOG_TYPE_ERROR, "[SendServerMessageSync](%{public}@) ErrorHandler: synchronous object proxy returned an error %{public}@ for connection %{public}@", &v12, 0x20u);
+    v8 = [*(a1 + 32) policy];
+    v9 = [v8 serviceName];
+    v10 = *(a1 + 40);
+    v11 = 138543874;
+    v12 = v9;
+    v13 = 2114;
+    v14 = v3;
+    v15 = 2114;
+    v16 = v10;
+    _os_log_error_impl(&dword_22E2D6000, v5, OS_LOG_TYPE_ERROR, "[SendServerMessageSync](%{public}@) ErrorHandler: synchronous object proxy returned an error %{public}@ for connection %{public}@", &v11, 0x20u);
   }
 
   v6 = *(*(a1 + 48) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyObject_errorPtr___block_invoke_122(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) logger];
@@ -970,15 +949,15 @@ void __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyOb
     v9 = [*(a1 + 32) policy];
     v10 = [v9 serviceName];
     v11 = *(a1 + 40);
-    v18 = 138544130;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v5;
-    v22 = 2114;
-    v23 = v6;
-    v24 = 2114;
-    v25 = v11;
-    _os_log_impl(&dword_22E2D6000, v8, OS_LOG_TYPE_DEFAULT, "[SendServerMessageSync](%{public}@) sendMessage response received from server with response %{public}@ error %{public}@ for connection %{public}@", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v10;
+    v19 = 2114;
+    v20 = v5;
+    v21 = 2114;
+    v22 = v6;
+    v23 = 2114;
+    v24 = v11;
+    _os_log_impl(&dword_22E2D6000, v8, OS_LOG_TYPE_DEFAULT, "[SendServerMessageSync](%{public}@) sendMessage response received from server with response %{public}@ error %{public}@ for connection %{public}@", &v17, 0x2Au);
   }
 
   v12 = *(*(a1 + 48) + 8);
@@ -989,13 +968,11 @@ void __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyOb
   v15 = *(*(a1 + 56) + 8);
   v16 = *(v15 + 40);
   *(v15 + 40) = v6;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceCloseConnection
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   logger = [(SUCoreConnectClient *)self logger];
   oslog = [logger oslog];
 
@@ -1003,12 +980,10 @@ void __86__SUCoreConnectClient_connectClientSendSynchronousServerMessage_proxyOb
   {
     policy = [(SUCoreConnectClient *)self policy];
     serviceName = [policy serviceName];
-    v8 = 138543362;
-    v9 = serviceName;
-    _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[ForceCloseConnection](%{public}@) Incoming client request to force close connection", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = serviceName;
+    _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[ForceCloseConnection](%{public}@) Incoming client request to force close connection", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectProtocolFromServerRequestClientID:(id)d
@@ -1037,7 +1012,7 @@ void __64__SUCoreConnectClient_connectProtocolFromServerRequestClientID___block_
 
 - (void)connectProtocolFromServerSendClientMessage:(id)message reply:(id)reply
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   replyCopy = reply;
   policy = [(SUCoreConnectClient *)self policy];
@@ -1051,12 +1026,12 @@ void __64__SUCoreConnectClient_connectProtocolFromServerRequestClientID___block_
     block[1] = 3221225472;
     block[2] = __72__SUCoreConnectClient_connectProtocolFromServerSendClientMessage_reply___block_invoke;
     block[3] = &unk_2787BCC10;
-    v27 = messageCopy;
+    v26 = messageCopy;
     selfCopy = self;
-    v29 = replyCopy;
+    v28 = replyCopy;
     dispatch_async(clientMessageQueue, block);
 
-    v12 = v27;
+    v12 = v26;
   }
 
   else
@@ -1075,24 +1050,24 @@ void __64__SUCoreConnectClient_connectProtocolFromServerRequestClientID___block_
         policy2 = [(SUCoreConnectClient *)self policy];
         serviceName = [policy2 serviceName];
         *buf = 138543874;
-        v31 = serviceName;
-        v32 = 2114;
-        v33 = messageCopy;
-        v34 = 2114;
-        v35 = v12;
+        v30 = serviceName;
+        v31 = 2114;
+        v32 = messageCopy;
+        v33 = 2114;
+        v34 = v12;
         _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SendClientMessage](%{public}@) Client does not respond to handleMessage:%{public}@, error:%{public}@, calling reply block", buf, 0x20u);
       }
 
       clientReplyCompletionQueue = [(SUCoreConnectClient *)self clientReplyCompletionQueue];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __72__SUCoreConnectClient_connectProtocolFromServerSendClientMessage_reply___block_invoke_128;
-      v23[3] = &unk_2787BCAF8;
-      v25 = replyCopy;
-      v24 = v12;
-      dispatch_async(clientReplyCompletionQueue, v23);
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __72__SUCoreConnectClient_connectProtocolFromServerSendClientMessage_reply___block_invoke_128;
+      v22[3] = &unk_2787BCAF8;
+      v24 = replyCopy;
+      v23 = v12;
+      dispatch_async(clientReplyCompletionQueue, v22);
 
-      oslog = v25;
+      oslog = v24;
     }
 
     else if (v16)
@@ -1100,16 +1075,14 @@ void __64__SUCoreConnectClient_connectProtocolFromServerRequestClientID___block_
       policy3 = [(SUCoreConnectClient *)self policy];
       serviceName2 = [policy3 serviceName];
       *buf = 138543874;
-      v31 = serviceName2;
-      v32 = 2114;
-      v33 = messageCopy;
-      v34 = 2114;
-      v35 = v12;
+      v30 = serviceName2;
+      v31 = 2114;
+      v32 = messageCopy;
+      v33 = 2114;
+      v34 = v12;
       _os_log_impl(&dword_22E2D6000, oslog, OS_LOG_TYPE_DEFAULT, "[SendClientMessage](%{public}@) Client does not respond to handleMessage:%{public}@, error: %{public}@, and no reply block provided", buf, 0x20u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SUCoreConnectClient_connectProtocolFromServerSendClientMessage_reply___block_invoke(id *a1)
@@ -1141,62 +1114,49 @@ void __72__SUCoreConnectClient_connectProtocolFromServerSendClientMessage_reply_
 
 - (void)connectClientSendServerMessage:(void *)a1 proxyObject:withReply:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 policy];
   v2 = [v1 serviceName];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectClientSendServerMessage:(void *)a1 proxyObject:withReply:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 policy];
   v2 = [v1 serviceName];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectClientSendServerMessage:(void *)a1 proxyObject:withReply:.cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 policy];
   v2 = [v1 serviceName];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectClientSendSynchronousServerMessage:(void *)a1 proxyObject:(uint64_t)a2 errorPtr:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 policy];
   v6 = [v5 serviceName];
   OUTLINED_FUNCTION_6();
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_22E2D6000, a3, OS_LOG_TYPE_ERROR, "[SendServerMessageSync](%{public}@) Validation Error: Returning synchronous reply with error %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_22E2D6000, a3, OS_LOG_TYPE_ERROR, "[SendServerMessageSync](%{public}@) Validation Error: Returning synchronous reply with error %{public}@", v7, 0x16u);
 }
 
 - (void)connectClientSendSynchronousServerMessage:(void *)a1 proxyObject:(NSObject *)a2 errorPtr:.cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 policy];
   v4 = [v3 serviceName];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_22E2D6000, a2, OS_LOG_TYPE_ERROR, "[SendServerMessageSync](%{public}@) No server connection present to send client->server message", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22E2D6000, a2, OS_LOG_TYPE_ERROR, "[SendServerMessageSync](%{public}@) No server connection present to send client->server message", v5, 0xCu);
 }
 
 @end

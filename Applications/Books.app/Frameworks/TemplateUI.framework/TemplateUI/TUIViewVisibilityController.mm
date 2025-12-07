@@ -108,7 +108,7 @@
   if ([(_TUIViewVisibilityObserver *)v11 needsTimer])
   {
     options = [(_TUIViewVisibilityObserver *)v11 options];
-    [options duration];
+    objc_msgSend_duration(options);
     [(TUIViewVisibilityController *)self _scheduleUpdateAtTime:v14 + v16];
   }
 
@@ -143,7 +143,7 @@
   if ([(_TUIViewVisibilityObserver *)v11 needsTimer])
   {
     options = [(_TUIViewVisibilityObserver *)v11 options];
-    [options duration];
+    objc_msgSend_duration(options);
     [(TUIViewVisibilityController *)self _scheduleUpdateAtTime:v14 + v16];
   }
 
@@ -208,7 +208,7 @@
           if ([v14 needsTimer])
           {
             options = [v14 options];
-            [options duration];
+            objc_msgSend_duration(options);
             v19 = v7 + v18;
 
             v12 = fmin(v12, v19);
@@ -257,7 +257,7 @@
         if ([v11 needsTimer])
         {
           options = [v11 options];
-          [options duration];
+          objc_msgSend_duration(options);
           v14 = v13 + time;
 
           v9 = fmin(v9, v14);

@@ -16,31 +16,31 @@
 
   if (trackNumber)
   {
-    v20.receiver = self;
-    v20.super_class = PTCinematographyUserTap;
-    v13 = [(PTCinematographyUserTap *)&v20 init];
-    v14 = v13;
-    if (v13)
+    v21.receiver = self;
+    v21.super_class = PTCinematographyUserTap;
+    v14 = [(PTCinematographyUserTap *)&v21 init];
+    v15 = v14;
+    if (v14)
     {
-      v15 = *&time->var0;
-      *(v13 + 5) = time->var3;
-      *(v13 + 24) = v15;
-      objc_storeStrong(v13 + 2, detection);
-      v14[8] = strong;
-      v16 = groupCopy && PTGroupIDIsValid([detectionCopy groupIdentifier]);
-      v14[9] = v16;
+      v16 = *&time->var0;
+      *(v14 + 5) = time->var3;
+      *(v14 + 24) = v16;
+      objc_storeStrong(v14 + 2, detection);
+      v15[8] = strong;
+      v17 = groupCopy && PTGroupIDIsValid([detectionCopy groupIdentifier]);
+      v15[9] = v17;
     }
 
-    self = v14;
+    self = v15;
     selfCopy = self;
   }
 
   else
   {
-    v17 = _PTLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [PTCinematographyUserTap initWithTime:v17 tappedDetection:? strong:? group:?];
+      [PTCinematographyUserTap initWithTime:v18 tappedDetection:? strong:? group:?];
     }
 
     selfCopy = 0;

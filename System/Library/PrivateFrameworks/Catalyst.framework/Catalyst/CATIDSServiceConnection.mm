@@ -241,16 +241,17 @@ void __202__CATIDSServiceConnection_initWithMetadata_configuration_IDSPrimitives
   v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   CATAssertIsQueue(self->mWorkQueue);
-  if (![(CATIDSServiceConnection *)self isClosed])
+  isClosed = [(CATIDSServiceConnection *)self isClosed];
+  if ((isClosed & 1) == 0)
   {
-    v8 = _CATLogGeneral_2();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = _CATLogGeneral_2(isClosed);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
       *&buf[4] = self;
       *&buf[12] = 2048;
       *&buf[14] = number;
-      _os_log_impl(&dword_24329F000, v8, OS_LOG_TYPE_INFO, "%{public}@ received data number %lu", buf, 0x16u);
+      _os_log_impl(&dword_24329F000, v9, OS_LOG_TYPE_INFO, "%{public}@ received data number %lu", buf, 0x16u);
     }
 
     mDelegateQueue = self->mDelegateQueue;
@@ -260,17 +261,15 @@ void __202__CATIDSServiceConnection_initWithMetadata_configuration_IDSPrimitives
     v13[3] = &unk_278DA7470;
     v13[4] = self;
     v14 = dataCopy;
-    v10 = v13;
+    v11 = v13;
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __CATPerformBlock_block_invoke_7;
     v16 = &unk_278DA7208;
-    v17 = v10;
-    v11 = mDelegateQueue;
-    dispatch_async(v11, buf);
+    v17 = v11;
+    v12 = mDelegateQueue;
+    dispatch_async(v12, buf);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __78__CATIDSServiceConnection_connectionDataAggregator_aggregatedData_withNumber___block_invoke(uint64_t a1)
@@ -284,23 +283,22 @@ void __78__CATIDSServiceConnection_connectionDataAggregator_aggregatedData_withN
   v13 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   CATAssertIsQueue(self->mWorkQueue);
-  if (![(CATIDSServiceConnection *)self isClosed])
+  isClosed = [(CATIDSServiceConnection *)self isClosed];
+  if ((isClosed & 1) == 0)
   {
-    v6 = _CATLogGeneral_2();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = _CATLogGeneral_2(isClosed);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = 138543618;
       selfCopy = self;
       v11 = 2114;
       v12 = numbersCopy;
-      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "%{public}@ missing sequence numbers. Requesting retransmission of %{public}@", &v9, 0x16u);
+      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "%{public}@ missing sequence numbers. Requesting retransmission of %{public}@", &v9, 0x16u);
     }
 
-    v7 = [(CATIDSServiceConnection *)self retransmitContentForSequenceNumbers:numbersCopy];
-    [(CATIDSServiceConnection *)self sendContent:v7];
+    v8 = [(CATIDSServiceConnection *)self retransmitContentForSequenceNumbers:numbersCopy];
+    [(CATIDSServiceConnection *)self sendContent:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDataAggregatorWantsToReportSequenceNumber:(id)number
@@ -314,18 +312,16 @@ void __78__CATIDSServiceConnection_connectionDataAggregator_aggregatedData_withN
 {
   v9 = *MEMORY[0x277D85DE8];
   CATAssertIsQueue(self->mWorkQueue);
-  v4 = _CATLogGeneral_2();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = _CATLogGeneral_2(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_24329F000, v4, OS_LOG_TYPE_INFO, "%{public}@ sending acknowledge to remote", &v7, 0xCu);
+    _os_log_impl(&dword_24329F000, v5, OS_LOG_TYPE_INFO, "%{public}@ sending acknowledge to remote", &v7, 0xCu);
   }
 
   acknowledgeContent = [objc_opt_class() acknowledgeContent];
   [(CATIDSServiceConnection *)self sendContent:acknowledgeContent];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageProcessorWantsToExtendKeepAlive:(id)alive
@@ -341,31 +337,30 @@ void __78__CATIDSServiceConnection_connectionDataAggregator_aggregatedData_withN
   v11[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   CATAssertIsQueue(self->mWorkQueue);
-  if (![(CATIDSServiceConnection *)self isClosed])
+  isClosed = [(CATIDSServiceConnection *)self isClosed];
+  if ((isClosed & 1) == 0)
   {
-    v6 = _CATLogGeneral_2();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CATLogGeneral_2(isClosed);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CATIDSServiceConnection *)self messageProcessor:errorCopy wantsToCloseWithError:v6];
+      [(CATIDSServiceConnection *)self messageProcessor:errorCopy wantsToCloseWithError:v7];
     }
 
     if (errorCopy)
     {
       v10 = *MEMORY[0x277CCA7E8];
       v11[0] = errorCopy;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v8 = CATErrorWithCodeAndUserInfo(603, v7);
-    [(CATIDSServiceConnection *)self tearDownWithError:v8 shouldReportToRemote:0];
+    v9 = CATErrorWithCodeAndUserInfo(603, v8);
+    [(CATIDSServiceConnection *)self tearDownWithError:v9 shouldReportToRemote:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageProcessor:(id)processor wantsAggregation:(id)aggregation
@@ -378,31 +373,31 @@ void __78__CATIDSServiceConnection_connectionDataAggregator_aggregatedData_withN
 
 - (void)messageProcessor:(id)processor wantsRetransmission:(id)retransmission
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   retransmissionCopy = retransmission;
   CATAssertIsQueue(self->mWorkQueue);
   v6 = [retransmissionCopy count];
-  v7 = _CATLogGeneral_2();
+  v7 = _CATLogGeneral_2(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
   if (v6)
   {
     if (v8)
     {
-      v13 = 138543618;
+      v12 = 138543618;
       selfCopy2 = self;
-      v15 = 2114;
-      v16 = retransmissionCopy;
+      v14 = 2114;
+      v15 = retransmissionCopy;
       v9 = "%{public}@ attempting to retransmit %{public}@";
       v10 = v7;
       v11 = 22;
 LABEL_6:
-      _os_log_impl(&dword_24329F000, v10, OS_LOG_TYPE_INFO, v9, &v13, v11);
+      _os_log_impl(&dword_24329F000, v10, OS_LOG_TYPE_INFO, v9, &v12, v11);
     }
   }
 
   else if (v8)
   {
-    v13 = 138543362;
+    v12 = 138543362;
     selfCopy2 = self;
     v9 = "%{public}@ attempting to retransmit the world";
     v10 = v7;
@@ -411,25 +406,23 @@ LABEL_6:
   }
 
   [(CATIDSServiceConnectionDataMessageQueue *)self->mDataMessageQueue retransmitSequenceNumbers:retransmissionCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageProcessor:(id)processor receivedExpectedSequence:(unint64_t)sequence
 {
   v12 = *MEMORY[0x277D85DE8];
   CATAssertIsQueue(self->mWorkQueue);
-  v6 = _CATLogGeneral_2();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _CATLogGeneral_2(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = 138543618;
     selfCopy = self;
     v10 = 2048;
     sequenceCopy = sequence;
-    _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "%{public}@ received request to compute missing sequence numbers with expected sequence number %lu", &v8, 0x16u);
+    _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "%{public}@ received request to compute missing sequence numbers with expected sequence number %lu", &v8, 0x16u);
   }
 
   [(CATIDSServiceConnectionDataAggregator *)self->mDataAggregator receiveExpectedSequenceNumber:sequence];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageProcessor:(id)processor wantsToAckUpTo:(unint64_t)to
@@ -460,7 +453,7 @@ LABEL_6:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          [CATIDSServiceConnection processMessage:senderAppleID:senderAddress:];
+          [CATIDSServiceConnection processMessage:message senderAppleID:? senderAddress:?];
         }
 
         [(CATIDSServiceConnectionMessageProcessor *)self->mMessageProcessor receiveMessage:message];
@@ -473,18 +466,16 @@ LABEL_6:
 {
   v11 = *MEMORY[0x277D85DE8];
   CATAssertIsQueue(self->mWorkQueue);
-  v6 = _CATLogGeneral_2();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _CATLogGeneral_2(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v9 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "%{public}@ requesting remote computes missing data.", &v9, 0xCu);
+    _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "%{public}@ requesting remote computes missing data.", &v9, 0xCu);
   }
 
-  v7 = [(CATIDSServiceConnection *)self requestMissingDataContentWithExpectedSequenceNumber:remote];
-  [(CATIDSServiceConnection *)self sendContent:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = [(CATIDSServiceConnection *)self requestMissingDataContentWithExpectedSequenceNumber:remote];
+  [(CATIDSServiceConnection *)self sendContent:v8];
 }
 
 - (void)dataMessageQueue:(id)queue needsToSendContents:(id)contents shouldSkipTheLine:(BOOL)line completion:(id)completion
@@ -562,21 +553,21 @@ CATActiveServiceConnectionIDSMessage *__93__CATIDSServiceConnection_dataMessageQ
 
 void __93__CATIDSServiceConnection_dataMessageQueue_needsToSendContents_shouldSkipTheLine_completion___block_invoke_3(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   CATAssertIsQueue(*(a1 + 32));
   v2 = *(a1 + 40);
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __93__CATIDSServiceConnection_dataMessageQueue_needsToSendContents_shouldSkipTheLine_completion___block_invoke_4;
-  v15 = &unk_278DA71E0;
-  v17 = *(a1 + 56);
-  v16 = *(a1 + 48);
-  v3 = &v12;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __93__CATIDSServiceConnection_dataMessageQueue_needsToSendContents_shouldSkipTheLine_completion___block_invoke_4;
+  v14 = &unk_278DA71E0;
+  v16 = *(a1 + 56);
+  v15 = *(a1 + 48);
+  v3 = &v11;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_7;
   block[3] = &unk_278DA7208;
-  v19 = v3;
+  v18 = v3;
   v4 = v2;
   dispatch_async(v4, block);
 
@@ -588,17 +579,15 @@ void __93__CATIDSServiceConnection_dataMessageQueue_needsToSendContents_shouldSk
     v7 = WeakRetained;
     if (WeakRetained && ([WeakRetained isClosed] & 1) == 0)
     {
-      v20 = *MEMORY[0x277CCA7E8];
+      v19 = *MEMORY[0x277CCA7E8];
       v8 = [*(a1 + 48) error];
-      v21[0] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v20[0] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v10 = CATErrorWithCodeAndUserInfo(604, v9);
 
       [v7 tearDownWithError:v10 shouldReportToRemote:0];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __93__CATIDSServiceConnection_dataMessageQueue_needsToSendContents_shouldSkipTheLine_completion___block_invoke_4(uint64_t a1)
@@ -625,36 +614,34 @@ void __93__CATIDSServiceConnection_dataMessageQueue_needsToSendContents_shouldSk
   CATAssertIsQueue(self->mWorkQueue);
   if (finalFireCopy)
   {
-    v8 = _CATLogGeneral_2();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CATLogGeneral_2(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [CATIDSServiceConnection keepAliveTimerDidFire:v8 fireCount:? isFinalFire:?];
+      [CATIDSServiceConnection keepAliveTimerDidFire:v9 fireCount:? isFinalFire:?];
     }
 
     keepAliveContent = CATErrorWithCodeAndUserInfo(600, 0);
     [(CATIDSServiceConnection *)self tearDownWithError:keepAliveContent shouldReportToRemote:1];
-LABEL_9:
-
-    goto LABEL_10;
   }
 
-  if (countCopy)
+  else
   {
-    v10 = _CATLogGeneral_2();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    if ((countCopy & 1) == 0)
+    {
+      return;
+    }
+
+    v11 = _CATLogGeneral_2(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_24329F000, v10, OS_LOG_TYPE_INFO, "%{public}@ sending keepalive to remote", &v12, 0xCu);
+      _os_log_impl(&dword_24329F000, v11, OS_LOG_TYPE_INFO, "%{public}@ sending keepalive to remote", &v12, 0xCu);
     }
 
     keepAliveContent = [objc_opt_class() keepAliveContent];
     [(CATIDSServiceConnection *)self sendContent:keepAliveContent];
-    goto LABEL_9;
   }
-
-LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendContent:(id)content
@@ -723,36 +710,35 @@ void __39__CATIDSServiceConnection_sendContent___block_invoke_2(uint64_t a1)
   if (*(a1 + 32))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
+    v3 = WeakRetained;
     if (WeakRetained)
     {
-      v3 = _CATLogGeneral_2();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = _CATLogGeneral_2(WeakRetained);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         v8 = *(a1 + 40);
         v9 = [*(a1 + 32) verboseDescription];
         *buf = 138543874;
-        v13 = WeakRetained;
+        v13 = v3;
         v14 = 2114;
         v15 = v8;
         v16 = 2114;
         v17 = v9;
-        _os_log_error_impl(&dword_24329F000, v3, OS_LOG_TYPE_ERROR, "%{public}@ Failed to send IDS message %{public}@ from. Error: %{public}@", buf, 0x20u);
+        _os_log_error_impl(&dword_24329F000, v4, OS_LOG_TYPE_ERROR, "%{public}@ Failed to send IDS message %{public}@ from. Error: %{public}@", buf, 0x20u);
       }
 
-      if (([WeakRetained isClosed] & 1) == 0)
+      if (([v3 isClosed] & 1) == 0)
       {
-        v4 = *(a1 + 32);
+        v5 = *(a1 + 32);
         v10 = *MEMORY[0x277CCA7E8];
-        v11 = v4;
-        v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-        v6 = CATErrorWithCodeAndUserInfo(604, v5);
+        v11 = v5;
+        v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+        v7 = CATErrorWithCodeAndUserInfo(604, v6);
 
-        [WeakRetained tearDownWithError:v6 shouldReportToRemote:0];
+        [v3 tearDownWithError:v7 shouldReportToRemote:0];
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tearDownWithError:(id)error shouldReportToRemote:(BOOL)remote
@@ -865,38 +851,35 @@ void __66__CATIDSServiceConnection_tearDownWithError_shouldReportToRemote___bloc
 
 - (void)messageProcessor:(NSObject *)a3 wantsToCloseWithError:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 verboseDescription];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ closed by the remote. Error: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ closed by the remote. Error: %{public}@", &v6, 0x16u);
 }
 
-- (void)processMessage:senderAppleID:senderAddress:.cold.1()
+- (void)processMessage:(uint64_t)a1 senderAppleID:senderAddress:.cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CATIDSServiceConnection processMessage:senderAppleID:senderAddress:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CATIDSServiceConnection.m" lineNumber:393 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CATIDSServiceConnection processMessage:senderAppleID:senderAddress:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CATIDSServiceConnection.m" lineNumber:393 description:{@"expected %@, got %@", v3, v5}];
 }
 
 - (void)keepAliveTimerDidFire:(uint64_t)a1 fireCount:(NSObject *)a2 isFinalFire:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = v2;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ timed out waiting to hear anything from the remote. Aggregator: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = v2;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ timed out waiting to hear anything from the remote. Aggregator: %{public}@", &v3, 0x16u);
 }
 
 @end

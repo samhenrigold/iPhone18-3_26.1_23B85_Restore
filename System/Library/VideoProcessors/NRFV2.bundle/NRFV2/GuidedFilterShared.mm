@@ -32,16 +32,16 @@
 + (id)getSharedInstanceOrRelease:(BOOL)release
 {
   releaseCopy = release;
-  v4 = objc_opt_class();
-  objc_sync_enter(v4);
-  v5 = qword_2A18C2318;
+  v5 = objc_opt_class();
+  objc_sync_enter(v5);
+  v6 = qword_2A18C2318;
   if (releaseCopy)
   {
     qword_2A18C2318 = 0;
 
-    v5 = qword_2A18C2318;
+    v6 = qword_2A18C2318;
 LABEL_5:
-    v8 = v5;
+    v9 = v6;
     goto LABEL_6;
   }
 
@@ -50,22 +50,22 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v6 = objc_alloc_init(GuidedFilterShared);
-  v7 = qword_2A18C2318;
-  qword_2A18C2318 = v6;
+  v7 = objc_alloc_init(GuidedFilterShared);
+  v8 = qword_2A18C2318;
+  qword_2A18C2318 = v7;
 
-  v5 = qword_2A18C2318;
+  v6 = qword_2A18C2318;
   if (qword_2A18C2318)
   {
     goto LABEL_5;
   }
 
-  FigDebugAssert3();
-  v8 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v11, v12, v13, v14, vars0, vars8);
+  v9 = 0;
 LABEL_6:
-  objc_sync_exit(v4);
+  objc_sync_exit(v5);
 
-  return v8;
+  return v9;
 }
 
 @end

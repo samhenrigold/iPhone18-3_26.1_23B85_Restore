@@ -197,7 +197,6 @@
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __69__AKPrivateEmailController_lookupPrivateEmailWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -245,7 +244,6 @@ void __69__AKPrivateEmailController_lookupPrivateEmailWithContext_completion___b
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __69__AKPrivateEmailController_lookupPrivateEmailWithContext_completion___block_invoke_104(NSObject *a1, void *a2)
@@ -265,7 +263,6 @@ void __69__AKPrivateEmailController_lookupPrivateEmailWithContext_completion___b
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPrivateEmailForAltDSID:(id)d withKey:(id)key completion:(id)completion
@@ -348,7 +345,6 @@ void __69__AKPrivateEmailController_lookupPrivateEmailWithContext_completion___b
   objc_storeStrong(&v45, 0);
   objc_storeStrong(&v46, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKPrivateEmailController_fetchPrivateEmailForAltDSID_withKey_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -396,7 +392,6 @@ void __75__AKPrivateEmailController_fetchPrivateEmailForAltDSID_withKey_completi
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKPrivateEmailController_fetchPrivateEmailForAltDSID_withKey_completion___block_invoke_106(NSObject *a1, void *a2)
@@ -416,7 +411,6 @@ void __75__AKPrivateEmailController_fetchPrivateEmailForAltDSID_withKey_completi
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerPrivateEmailForAltDSID:(id)d withKey:(id)key completion:(id)completion
@@ -499,7 +493,6 @@ void __75__AKPrivateEmailController_fetchPrivateEmailForAltDSID_withKey_completi
   objc_storeStrong(&v45, 0);
   objc_storeStrong(&v46, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKPrivateEmailController_registerPrivateEmailForAltDSID_withKey_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -547,7 +540,6 @@ void __78__AKPrivateEmailController_registerPrivateEmailForAltDSID_withKey_compl
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKPrivateEmailController_registerPrivateEmailForAltDSID_withKey_completion___block_invoke_107(NSObject *a1, void *a2)
@@ -567,7 +559,6 @@ void __78__AKPrivateEmailController_registerPrivateEmailForAltDSID_withKey_compl
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)registerPrivateEmailWithContext:(id)context completion:(id)completion
@@ -647,7 +638,6 @@ void __78__AKPrivateEmailController_registerPrivateEmailForAltDSID_withKey_compl
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKPrivateEmailController_registerPrivateEmailWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -695,7 +685,6 @@ void __71__AKPrivateEmailController_registerPrivateEmailWithContext_completion__
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKPrivateEmailController_registerPrivateEmailWithContext_completion___block_invoke_108(NSObject *a1, void *a2)
@@ -715,7 +704,6 @@ void __71__AKPrivateEmailController_registerPrivateEmailWithContext_completion__
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPrivateEmailWithContext:(id)context completion:(id)completion
@@ -795,7 +783,6 @@ void __71__AKPrivateEmailController_registerPrivateEmailWithContext_completion__
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKPrivateEmailController_fetchPrivateEmailWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -843,7 +830,6 @@ void __68__AKPrivateEmailController_fetchPrivateEmailWithContext_completion___bl
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKPrivateEmailController_fetchPrivateEmailWithContext_completion___block_invoke_109(NSObject *a1, void *a2)
@@ -863,7 +849,6 @@ void __68__AKPrivateEmailController_fetchPrivateEmailWithContext_completion___bl
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)getContextForRequestContext:(id)context completion:(id)completion
@@ -953,7 +938,6 @@ void __67__AKPrivateEmailController_getContextForRequestContext_completion___blo
   objc_storeStrong((*(a1[5] + 8) + 40), 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __67__AKPrivateEmailController_getContextForRequestContext_completion___block_invoke_111(NSObject *a1, void *a2)
@@ -973,7 +957,6 @@ void __67__AKPrivateEmailController_getContextForRequestContext_completion___blo
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)deletePrivateEmailDatabaseWithCompletion:(id)completion
@@ -1050,7 +1033,6 @@ void __67__AKPrivateEmailController_getContextForRequestContext_completion___blo
   _Block_object_dispose(v35, 8);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __69__AKPrivateEmailController_deletePrivateEmailDatabaseWithCompletion___block_invoke(void *a1, char a2, id obj)
@@ -1087,7 +1069,6 @@ void __69__AKPrivateEmailController_deletePrivateEmailDatabaseWithCompletion___b
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __69__AKPrivateEmailController_deletePrivateEmailDatabaseWithCompletion___block_invoke_113(NSObject *a1, void *a2)
@@ -1107,7 +1088,6 @@ void __69__AKPrivateEmailController_deletePrivateEmailDatabaseWithCompletion___b
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)privateEmailListVersionWithCompletion:(id)completion
@@ -1184,7 +1164,6 @@ void __69__AKPrivateEmailController_deletePrivateEmailDatabaseWithCompletion___b
   _Block_object_dispose(v35, 8);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __66__AKPrivateEmailController_privateEmailListVersionWithCompletion___block_invoke(void *a1, void *a2, void *a3)
@@ -1223,7 +1202,6 @@ void __66__AKPrivateEmailController_privateEmailListVersionWithCompletion___bloc
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __66__AKPrivateEmailController_privateEmailListVersionWithCompletion___block_invoke_115(NSObject *a1, void *a2)
@@ -1243,7 +1221,6 @@ void __66__AKPrivateEmailController_privateEmailListVersionWithCompletion___bloc
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)removePrivateEmailKey:(id)key completion:(id)completion
@@ -1323,7 +1300,6 @@ void __66__AKPrivateEmailController_privateEmailListVersionWithCompletion___bloc
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __61__AKPrivateEmailController_removePrivateEmailKey_completion___block_invoke(void *a1, void *a2)
@@ -1359,7 +1335,6 @@ void __61__AKPrivateEmailController_removePrivateEmailKey_completion___block_inv
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __61__AKPrivateEmailController_removePrivateEmailKey_completion___block_invoke_116(NSObject *a1, void *a2)
@@ -1379,7 +1354,6 @@ void __61__AKPrivateEmailController_removePrivateEmailKey_completion___block_inv
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)listAllPrivateEmailsForAltDSID:(id)d completion:(id)completion
@@ -1459,7 +1433,6 @@ void __61__AKPrivateEmailController_removePrivateEmailKey_completion___block_inv
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKPrivateEmailController_listAllPrivateEmailsForAltDSID_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1508,7 +1481,6 @@ void __70__AKPrivateEmailController_listAllPrivateEmailsForAltDSID_completion___
 
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKPrivateEmailController_listAllPrivateEmailsForAltDSID_completion___block_invoke_118(NSObject *a1, void *a2)
@@ -1528,7 +1500,6 @@ void __70__AKPrivateEmailController_listAllPrivateEmailsForAltDSID_completion___
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchSignInWithApplePrivateEmailWithContext:(id)context completion:(id)completion
@@ -1608,7 +1579,6 @@ void __70__AKPrivateEmailController_listAllPrivateEmailsForAltDSID_completion___
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKPrivateEmailController_fetchSignInWithApplePrivateEmailWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1656,7 +1626,6 @@ void __83__AKPrivateEmailController_fetchSignInWithApplePrivateEmailWithContext_
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKPrivateEmailController_fetchSignInWithApplePrivateEmailWithContext_completion___block_invoke_119(NSObject *a1, void *a2)
@@ -1676,7 +1645,6 @@ void __83__AKPrivateEmailController_fetchSignInWithApplePrivateEmailWithContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

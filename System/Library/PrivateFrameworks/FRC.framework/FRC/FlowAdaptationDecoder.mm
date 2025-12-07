@@ -40,9 +40,7 @@
   if ([(FlowEstimate *)self revision]!= 1)
   {
     self->super._outputBlobs = &off_27EF7E070;
-    v4 = [(NSString *)self->_espresso_file stringByAppendingFormat:@"_rev%ld", [(FlowEstimate *)self revision]];
-    v5 = self->_espresso_file;
-    self->_espresso_file = v4;
+    self->_espresso_file = [(NSString *)self->_espresso_file stringByAppendingFormat:@"_rev%ld", [(FlowEstimate *)self revision]];
 
     MEMORY[0x2821F96F8]();
   }
@@ -50,37 +48,24 @@
 
 - (BOOL)bindCVPixelBuffers:(__CVBuffer *)buffers correlation:(__CVBuffer *)correlation flow:(__CVBuffer *)flow output:(__CVBuffer *)output
 {
-  p_net = &self->super.super._net;
-  v8 = *self->super._inputBlobs;
-  plan = self->super.super._net.plan;
-  v10 = *&p_net->network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     NSLog(&cfstr_ErrorFailedToB_4.isa);
     return 0;
   }
 
-  v11 = *(self->super._inputBlobs + 1);
-  v12 = p_net->plan;
-  v13 = *&p_net->network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     NSLog(&cfstr_ErrorFailedToB_1.isa);
     return 0;
   }
 
-  v14 = *(self->super._inputBlobs + 2);
-  v15 = p_net->plan;
-  v16 = *&p_net->network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     NSLog(&cfstr_ErrorFailedToB_0.isa);
     return 0;
   }
 
-  v17 = *self->super._outputBlobs;
-  v18 = p_net->plan;
-  v19 = *&p_net->network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     NSLog(&cfstr_ErrorFailedToB_5.isa);
@@ -122,14 +107,11 @@ void __71__FlowAdaptationDecoder_estimateFlow_correlation_flow_output_callback__
   if ([*(a1 + 32) bindCVPixelBuffers:*(a1 + 56) correlation:*(a1 + 64) flow:*(a1 + 72) output:*(a1 + 80)])
   {
     kdebug_trace();
-    v2 = *(a1 + 32);
-    v3 = *(v2 + 16);
-    v4 = *(v2 + 40);
-    v5 = MEMORY[0x277D85DD0];
-    v6 = *(a1 + 40);
+    v2 = MEMORY[0x277D85DD0];
+    v3 = *(a1 + 40);
     if (espresso_plan_submit())
     {
-      NSLog(&cfstr_Flowadaptation.isa, [*(a1 + 32) usage], v5, 3221225472, __71__FlowAdaptationDecoder_estimateFlow_correlation_flow_output_callback___block_invoke_2, &unk_278FEA538, v6);
+      NSLog(&cfstr_Flowadaptation.isa, [*(a1 + 32) usage], v2, 3221225472, __71__FlowAdaptationDecoder_estimateFlow_correlation_flow_output_callback___block_invoke_2, &unk_278FEA538, v3);
       *(*(*(a1 + 48) + 8) + 24) = 0;
     }
   }

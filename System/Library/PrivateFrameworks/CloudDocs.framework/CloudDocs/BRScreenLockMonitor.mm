@@ -101,16 +101,16 @@ uint64_t __46__BRScreenLockMonitor_sharedScreenLockMonitor__block_invoke()
 
 - (void)_invalidateScreenLockManager
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = brc_bread_crumbs("[BRScreenLockMonitor _invalidateScreenLockManager]", 124);
   v4 = brc_default_log(1, 0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
+    v7 = 136315394;
     uTF8String = [@"com.apple.springboard.lockstate" UTF8String];
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Unregister for %s%@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] Unregister for %s%@", &v7, 0x16u);
   }
 
   screenLockedUnlockedNotifyToken = self->_screenLockedUnlockedNotifyToken;
@@ -122,8 +122,6 @@ uint64_t __46__BRScreenLockMonitor_sharedScreenLockMonitor__block_invoke()
 
   screenLockObservers = self->_screenLockObservers;
   self->_screenLockObservers = 0;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setScreenLocked:(BOOL)locked
@@ -141,44 +139,42 @@ uint64_t __46__BRScreenLockMonitor_sharedScreenLockMonitor__block_invoke()
 
 void __40__BRScreenLockMonitor__setScreenLocked___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v1 + 20) != v2)
   {
     *(v1 + 20) = v2;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v4 = *(*(a1 + 32) + 24);
-    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) screenLockChanged:{*(a1 + 40), v10}];
+          [*(*(&v9 + 1) + 8 * v8++) screenLockChanged:{*(a1 + 40), v9}];
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer
@@ -220,22 +216,20 @@ uint64_t __35__BRScreenLockMonitor_addObserver___block_invoke(uint64_t a1)
 
 - (void)init
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2112;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_1AE2A9000, log, 0x90u, "[ERROR] can't register to screen lock/unlock changes. error: %d%@", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AE2A9000, log, 0x90u, "[ERROR] can't register to screen lock/unlock changes. error: %d%@", v3, 0x12u);
 }
 
 - (void)_getScreenLockedStateFromToken
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1AE2A9000, a2, 0x90u, "[ERROR] Failed to query whether screen is locked%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AE2A9000, a2, 0x90u, "[ERROR] Failed to query whether screen is locked%@", &v2, 0xCu);
 }
 
 @end

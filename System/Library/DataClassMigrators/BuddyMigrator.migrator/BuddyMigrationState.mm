@@ -30,19 +30,8 @@
 {
   v3 = [preferences objectForKey:@"showMigrationOnLaunch" includeCache:0];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || ([v3 objectForKeyedSubscript:@"productBuild"], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "objectForKeyedSubscript:", @"intent"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "objectForKeyedSubscript:", @"persistDate"), v6 = objc_claimAutoreleasedReturnValue(), v7 = -[BuddyMigrationState initWithProductBuild:intent:persistDate:]([BuddyMigrationState alloc], "initWithProductBuild:intent:persistDate:", v4, objc_msgSend(v5, "unsignedIntegerValue"), v6), v6, v5, v4, !v7))
   {
-    goto LABEL_3;
-  }
-
-  v4 = [v3 objectForKeyedSubscript:@"productBuild"];
-  v5 = [v3 objectForKeyedSubscript:@"intent"];
-  v6 = [v3 objectForKeyedSubscript:@"persistDate"];
-  v7 = -[BuddyMigrationState initWithProductBuild:intent:persistDate:]([BuddyMigrationState alloc], "initWithProductBuild:intent:persistDate:", v4, [v5 unsignedIntegerValue], v6);
-
-  if (!v7)
-  {
-LABEL_3:
     v8 = _BYLoggingFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {

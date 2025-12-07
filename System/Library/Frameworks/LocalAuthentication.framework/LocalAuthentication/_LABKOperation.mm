@@ -9,6 +9,7 @@
 - (void)dispatchDelegateSelector:(SEL)selector block:(id)block;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)operation:(id)operation finishedWithReason:(int64_t)reason;
+- (void)operation:(id)operation presenceStateChanged:(BOOL)changed;
 - (void)operation:(id)operation stateChanged:(int64_t)changed;
 - (void)setQueue:(id)queue;
 - (void)startWithReply:(id)reply;
@@ -355,6 +356,29 @@ LABEL_6:
   {
     delegate2 = [(_LABKOperation *)self delegate];
     [delegate2 operation:self stateChanged:changed];
+  }
+}
+
+- (void)operation:(id)operation presenceStateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  operationCopy = operation;
+  v8 = objc_opt_class();
+  v9 = "NO";
+  if (changedCopy)
+  {
+    v9 = "YES";
+  }
+
+  [_LABKLog logClass:v8 selector:a2 message:@"%@, %s", operationCopy, v9];
+
+  delegate = [(_LABKOperation *)self delegate];
+  v11 = objc_opt_respondsToSelector();
+
+  if (v11)
+  {
+    delegate2 = [(_LABKOperation *)self delegate];
+    [delegate2 operation:self presenceStateChanged:changedCopy];
   }
 }
 

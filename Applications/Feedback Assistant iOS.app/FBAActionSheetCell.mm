@@ -44,11 +44,12 @@
 
 - (_TtC18Feedback_Assistant18FBAActionSheetCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
+  selfCopy = self;
   if (identifier)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant18FBAActionSheetCell_actionTitleLabel) = 0;
-    *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant18FBAActionSheetCell_actionImageView) = 0;
+    *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant18FBAActionSheetCell_actionTitleLabel) = 0;
+    *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant18FBAActionSheetCell_actionImageView) = 0;
     v6 = String._bridgeToObjectiveC()();
   }
 
@@ -59,8 +60,8 @@
     *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant18FBAActionSheetCell_actionImageView) = 0;
   }
 
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for FBAActionSheetCell();
+  v9.receiver = selfCopy;
+  v9.super_class = type metadata accessor for FBAActionSheetCell(self, a2);
   v7 = [(FBAActionSheetCell *)&v9 initWithStyle:style reuseIdentifier:v6];
 
   return v7;
@@ -71,7 +72,7 @@
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant18FBAActionSheetCell_actionTitleLabel) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant18FBAActionSheetCell_actionImageView) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FBAActionSheetCell();
+  v7.super_class = type metadata accessor for FBAActionSheetCell(self, a2);
   coderCopy = coder;
   v5 = [(FBAActionSheetCell *)&v7 initWithCoder:coderCopy];
 

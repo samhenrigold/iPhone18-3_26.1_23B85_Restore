@@ -8,6 +8,7 @@
 - (void)_addCancelationToken:(id)token;
 - (void)_cancelAllTokens;
 - (void)_removeCancelationToken:(id)token;
+- (void)assertIsExecuting:(BOOL)executing;
 - (void)dealloc;
 - (void)performBlock:(id)block;
 - (void)performSyncBarrierBlock:(id)block;
@@ -194,6 +195,13 @@ void __47__EFStoppableScheduler_performCancelableBlock___block_invoke(uint64_t a
   return v6;
 }
 
+- (void)assertIsExecuting:(BOOL)executing
+{
+  executingCopy = executing;
+  v4 = EFAtomicObjectLoad(&self->_scheduler);
+  [v4 assertIsExecuting:executingCopy];
+}
+
 - (void)suspend
 {
   v2 = EFAtomicObjectLoad(&self->_scheduler);
@@ -261,51 +269,50 @@ void __45__EFStoppableScheduler__addCancelationToken___block_invoke_2(uint64_t a
 
 - (void)_cancelAllTokens
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__7;
-  v17 = __Block_byref_object_dispose__7;
-  v18 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__7;
+  v16 = __Block_byref_object_dispose__7;
+  v17 = 0;
   tokens = self->_tokens;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __40__EFStoppableScheduler__cancelAllTokens__block_invoke;
-  v12[3] = &unk_1E824A1F0;
-  v12[4] = &v13;
-  [(EFLocked *)tokens performWhileLocked:v12];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __40__EFStoppableScheduler__cancelAllTokens__block_invoke;
+  v11[3] = &unk_1E824A1F0;
+  v11[4] = &v12;
+  [(EFLocked *)tokens performWhileLocked:v11];
   v9 = 0u;
-  v3 = v14[5];
-  v4 = [v3 countByEnumeratingWithState:&v8 objects:v19 count:16];
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v3 = v13[5];
+  v4 = [v3 countByEnumeratingWithState:&v7 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) cancel];
+        [*(*(&v7 + 1) + 8 * v6++) cancel];
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v8 objects:v19 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v7 objects:v18 count:16];
     }
 
     while (v4);
   }
 
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
 }
 
 void __40__EFStoppableScheduler__cancelAllTokens__block_invoke(uint64_t a1, void *a2)

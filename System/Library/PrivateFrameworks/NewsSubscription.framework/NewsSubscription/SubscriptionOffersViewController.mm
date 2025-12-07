@@ -31,24 +31,24 @@
   ObjectType = swift_getObjectType();
   v6 = sub_1D78B33C4();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17.receiver = self;
-  v17.super_class = ObjectType;
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18.receiver = self;
+  v18.super_class = ObjectType;
   selfCopy = self;
-  [(SubscriptionOffersViewController *)&v17 viewDidDisappear:disappearCopy];
-  v11 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC16NewsSubscription32SubscriptionOffersViewController_eventHandler);
+  [(SubscriptionOffersViewController *)&v18 viewDidDisappear:disappearCopy];
+  v12 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC16NewsSubscription32SubscriptionOffersViewController_eventHandler);
   sub_1D78B33B4();
-  v12 = sub_1D78B33A4();
-  v14 = v13;
-  (*(v7 + 8))(v9, v6);
-  v11[4] = v12;
-  v11[5] = v14;
+  v13 = sub_1D78B33A4();
+  v15 = v14;
+  (*(v7 + 8))(v10, v6);
+  v12[4] = v13;
+  v12[5] = v15;
 
-  v15 = v11[16];
-  v16 = v11[17];
-  __swift_project_boxed_opaque_existential_1(v11 + 13, v15);
-  (*(v16 + 16))(v15, v16);
+  v16 = v12[16];
+  v17 = v12[17];
+  __swift_project_boxed_opaque_existential_1(v12 + 13, v16);
+  (*(v17 + 16))(v16, v17);
 }
 
 - (void)viewDidLoad
@@ -67,12 +67,12 @@
   v4 = *&v2[OBJC_IVAR____TtC16NewsSubscription32SubscriptionOffersViewController_viewModel];
   if (v4 && (v5 = *(v3 + 1), v6 = *(v3 + 2), v7 = *(v3 + 3), v8 = *(v3 + 4), v9 = *(v3 + 5), v10 = v3[48], v13 = *&v2[OBJC_IVAR____TtC16NewsSubscription32SubscriptionOffersViewController_viewModel], v14 = v5 & 1, v15 = v6, v16 = v7, v17 = v8, v18 = v9, v19 = v10 & 1, (v11 = *&v2[OBJC_IVAR____TtC16NewsSubscription32SubscriptionOffersViewController_tag]) != 0))
   {
-    sub_1D7788A84(v4);
+    sub_1D7788A84(v4, v5, v6, v7, v8, v9);
     swift_unknownObjectRetain();
     sub_1D7786BC8(&v13, v11);
     swift_unknownObjectRelease();
 
-    sub_1D7788AD0(v4);
+    sub_1D7788AD0(v4, v5, v6, v7, v8, v9);
   }
 
   else

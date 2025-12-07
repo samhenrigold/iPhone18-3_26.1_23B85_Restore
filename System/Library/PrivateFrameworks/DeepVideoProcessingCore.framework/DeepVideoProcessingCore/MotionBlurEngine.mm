@@ -32,8 +32,8 @@
     return 2;
   }
 
-  [(MotionBlurEngine *)self preferredTransform];
-  if (!CGAffineTransformIsIdentity(&v9) && ([(MotionBlurEngine *)self preferredTransform], [(MotionBlurEngine *)self preferredTransform], v4 = atan2(v8, __x), v5 = (v4 * 180.0) / 3.14159265, v5 == 180.0))
+  objc_msgSend_preferredTransform(self, a2);
+  if (!CGAffineTransformIsIdentity(&v9) && (objc_msgSend_preferredTransform(self), objc_msgSend_preferredTransform(self), v4 = atan2(v8, __x), v5 = (v4 * 180.0) / 3.14159265, v5 == 180.0))
   {
     return 3;
   }
@@ -351,14 +351,14 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  [secondFrameCopy presentationTimeStamp];
+  objc_msgSend_presentationTimeStamp(secondFrameCopy);
   if (!frameCopy)
   {
     goto LABEL_6;
   }
 
 LABEL_4:
-  [frameCopy presentationTimeStamp];
+  objc_msgSend_presentationTimeStamp(frameCopy);
 LABEL_7:
   CMTimeSubtract(&v34, &lhs, &rhs);
   rhs = *(&self->_onDemandSynthesisBufferAllocation + 4);
@@ -399,7 +399,7 @@ LABEL_33:
 
   if (secondFrameCopy)
   {
-    [secondFrameCopy presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(secondFrameCopy);
   }
 
   else
@@ -432,7 +432,7 @@ LABEL_30:
       memset(&v43, 0, sizeof(v43));
       if (futureFrameCopy)
       {
-        [futureFrameCopy presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(futureFrameCopy);
       }
 
       else
@@ -440,7 +440,7 @@ LABEL_30:
         memset(&lhs, 0, sizeof(lhs));
       }
 
-      [frameCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(frameCopy);
       CMTimeSubtract(&v43, &lhs, &rhs);
       rhs = *(&self->_onDemandSynthesisBufferAllocation + 4);
       time2 = v43;
@@ -521,7 +521,7 @@ LABEL_30:
               {
                 if (futureFrameCopy)
                 {
-                  [futureFrameCopy presentationTimeStamp];
+                  objc_msgSend_presentationTimeStamp(futureFrameCopy);
                 }
 
                 else
@@ -818,36 +818,40 @@ LABEL_2:
 - (int64_t)flowUpscalingAndPseudoDepthComputingWarmup:(BOOL)warmup
 {
   warmupCopy = warmup;
-  OUTLINED_FUNCTION_0_0();
+  v5 = 732312080;
+  OUTLINED_FUNCTION_0_0(732312076);
   result = [(MotionBlurEngine *)self bindWithMTLTextureFromDownscaledImage:[(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledFirstRGB] downscaledSecond:[(ImageProcessor_Ext *)self->_imageProcessor packedDownscaledSecondRGB] forwardFlow:self->_flowForward backwardFlow:self->_flowBackward prevBackwardFlow:self->_prevBackwardFlow remianedErrorMask:self->_remainedFlowErrorMask fullresImage:[(ImageProcessor_Ext *)self->_imageProcessor unifiedRGB] upscaledFlow:self->_upscaleFlow depth:self->_depth interleaveFactor:1];
   if (!result)
   {
-    if (!self->_pseudoDepth && !self->_flowFailureDetection || (LOBYTE(v16) = warmupCopy, LODWORD(v6) = 1.0, (result = [(PseudoDepthGenerator *)self->_pseudoDepthGenerator flowFailureAndCorrectionFromDownscaleFirstImage:self->_downscaleFirstImageTexture downscaleSecondImage:self->_downscaleSecondImageTexture backwardFlow:self->_flowBackwardTexture forwardFlow:self->_flowForwardTexture prevBackFlow:self->_prevBackwardFlowTexture remainedErrorMask:self->_remainedFlowErrorMaskTexture effectiveResolution:self->_effectiveFlowResolution.width interleave_factor:self->_effectiveFlowResolution.height timeScale:v6 warmup:1, v16]) == 0))
+    if (!self->_pseudoDepth && !self->_flowFailureDetection || (LOBYTE(v17) = warmupCopy, LODWORD(v7) = 1.0, (result = [(PseudoDepthGenerator *)self->_pseudoDepthGenerator flowFailureAndCorrectionFromDownscaleFirstImage:self->_downscaleFirstImageTexture downscaleSecondImage:self->_downscaleSecondImageTexture backwardFlow:self->_flowBackwardTexture forwardFlow:self->_flowForwardTexture prevBackFlow:self->_prevBackwardFlowTexture remainedErrorMask:self->_remainedFlowErrorMaskTexture effectiveResolution:self->_effectiveFlowResolution.width interleave_factor:self->_effectiveFlowResolution.height timeScale:v7 warmup:1, v17]) == 0))
     {
       if (warmupCopy)
       {
-        goto LABEL_19;
+        [OUTLINED_FUNCTION_1_16() updateUsePreviousInfoFromIsFirstFrame:self->_effectiveFlowResolution.width isLastFrame:self->_effectiveFlowResolution.height isRandomAccessMode:? effectiveResolution:? isInitialization:?];
+LABEL_21:
+        OUTLINED_FUNCTION_0_0(v5);
+        return 0;
       }
 
       if (self->_pseudoDepth)
       {
         if ([(PseudoDepthGenerator *)self->_pseudoDepthGenerator sceneChange]&& !self->_lastFrame)
         {
-          v7 = 360;
+          v8 = 360;
           if (self->_firstFrame)
           {
-            v7 = 280;
+            v8 = 280;
           }
         }
 
         else
         {
-          v7 = 280;
+          v8 = 280;
         }
 
         flowUpscale = self->_flowUpscale;
         fullresGuideImageTexture = self->_fullresGuideImageTexture;
-        flowBackwardTexture = *(&self->super.isa + v7);
+        flowBackwardTexture = *(&self->super.isa + v8);
       }
 
       else
@@ -860,13 +864,13 @@ LABEL_2:
       result = [(FlowUpscale *)flowUpscale flowUpscalingFromImage:fullresGuideImageTexture inputFlow:flowBackwardTexture outputFlow:self->_upscaleFlowTexture interleave_factor:1];
       if (!result)
       {
-        OUTLINED_FUNCTION_0_0();
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732312080);
+        OUTLINED_FUNCTION_0_0(732312084);
         pseudoDepthGenerator = self->_pseudoDepthGenerator;
         if (self->_pseudoDepth)
         {
-          LODWORD(v11) = 1.0;
-          result = [(PseudoDepthGenerator *)pseudoDepthGenerator PseudoDepthFromBackwardFlow:self->_flowBackwardTexture forwardFlow:self->_flowForwardTexture fullresFlow:self->_upscaleFlowTexture depth:self->_depthTexture prevBackFlow:self->_prevBackwardFlowTexture flowErrorMask:self->_remainedFlowErrorMaskTexture interleave_factor:v11 timeScale:1 downscale_factor:4];
+          LODWORD(v12) = 1.0;
+          result = [(PseudoDepthGenerator *)pseudoDepthGenerator PseudoDepthFromBackwardFlow:self->_flowBackwardTexture forwardFlow:self->_flowForwardTexture fullresFlow:self->_upscaleFlowTexture depth:self->_depthTexture prevBackFlow:self->_prevBackwardFlowTexture flowErrorMask:self->_remainedFlowErrorMaskTexture interleave_factor:v12 timeScale:1 downscale_factor:4];
           if (result)
           {
             return result;
@@ -877,18 +881,17 @@ LABEL_2:
         {
           rgbaFirst = [(ImageProcessor_Ext *)self->_imageProcessor rgbaFirst];
           rgbaSecond = [(ImageProcessor_Ext *)self->_imageProcessor rgbaSecond];
-          LODWORD(v15) = 1.0;
-          result = [(PseudoDepthGenerator *)pseudoDepthGenerator approximateDepthWithBackwarpLossFromFirstImage:rgbaFirst secondImage:rgbaSecond fullresFlow:self->_upscaleFlow depth:self->_depth interleavFactor:1 timeScale:v15];
+          LODWORD(v16) = 1.0;
+          result = [(PseudoDepthGenerator *)pseudoDepthGenerator approximateDepthWithBackwarpLossFromFirstImage:rgbaFirst secondImage:rgbaSecond fullresFlow:self->_upscaleFlow depth:self->_depth interleavFactor:1 timeScale:v16];
           if (result)
           {
             return result;
           }
         }
 
-LABEL_19:
         [OUTLINED_FUNCTION_1_16() updateUsePreviousInfoFromIsFirstFrame:self->_effectiveFlowResolution.width isLastFrame:self->_effectiveFlowResolution.height isRandomAccessMode:? effectiveResolution:? isInitialization:?];
-        OUTLINED_FUNCTION_0_0();
-        return 0;
+        v5 = 732312088;
+        goto LABEL_21;
       }
     }
   }
@@ -907,11 +910,11 @@ LABEL_19:
     v12 = [(ImageProcessor_Ext *)self->_imageProcessor preserveCMAttachmentFirstFrame:frameCopy secondFrame:currFrameCopy];
     if (!v12)
     {
-      OUTLINED_FUNCTION_0_0();
+      OUTLINED_FUNCTION_0_0(732311708);
       v12 = -[ImageProcessor_Ext preProcessFirstInput:secondInput:waitForCompletion:](self->_imageProcessor, "preProcessFirstInput:secondInput:waitForCompletion:", [frameCopy buffer], objc_msgSend(v10, "buffer"), 0);
       if (!v12)
       {
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732311712);
         self->_flowForward = pair->var0;
         self->_flowBackward = pair->var1;
         v12 = [(MotionBlurEngine *)self flowUpscalingAndPseudoDepthComputingWarmup:1];
@@ -937,7 +940,7 @@ LABEL_19:
   v15 = 12;
   if (framesCopy && secondCopy && destination)
   {
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(732312092);
     v16 = [(Synthesis_Ext *)self->_synthesis createFeaturesFromImage:[(ImageProcessor_Ext *)self->_imageProcessor unifiedRGB] flowForward:self->_flowForward flowBackward:self->_flowBackward depth:self->_depth fullresFlow:self->_upscaleFlow remainedErrorMask:self->_remainedFlowErrorMask];
     if (v16)
     {
@@ -970,7 +973,7 @@ LABEL_19:
         if (!v15)
         {
           ++self->_totalFramesSynthesized;
-          OUTLINED_FUNCTION_0_0();
+          OUTLINED_FUNCTION_0_0(732312096);
         }
       }
     }

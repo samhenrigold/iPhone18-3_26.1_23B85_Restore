@@ -52,7 +52,7 @@
     v5->_queue = v7;
 
     v9 = objc_alloc(MEMORY[0x1E698AFF0]);
-    v10 = __atxlog_handle_modes();
+    v10 = __atxlog_handle_modes(v9);
     v11 = [v9 initWithCacheFilePath:pathCopy loggingHandle:v10 debugName:@"installed suggested pages"];
     cache = v5->_cache;
     v5->_cache = v11;
@@ -277,8 +277,7 @@ void __78__ATXInstalledSuggestedPagesTracker_storePageIdentifier_modeUUID_forPag
   [v6 setModeUUID:*(a1 + 48)];
   [v5 removeObject:v6];
   [v5 addObject:v6];
-  [*(a1 + 32) trackSuggestedHomePageWithAction:0 pageType:*(a1 + 56) identifier:*(a1 + 40)];
-  v7 = __atxlog_handle_modes();
+  v7 = __atxlog_handle_modes([*(a1 + 32) trackSuggestedHomePageWithAction:0 pageType:*(a1 + 56) identifier:*(a1 + 40)]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -305,7 +304,7 @@ void __78__ATXInstalledSuggestedPagesTracker_storePageIdentifier_modeUUID_forPag
 
 void __72__ATXInstalledSuggestedPagesTracker_removePagesWithIdentifiersNotInSet___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _allInstalledPages];
   v3 = v2;
   if (v2)
@@ -320,53 +319,54 @@ void __72__ATXInstalledSuggestedPagesTracker_removePagesWithIdentifiersNotInSet_
 
   v5 = v4;
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __72__ATXInstalledSuggestedPagesTracker_removePagesWithIdentifiersNotInSet___block_invoke_2;
-  v21[3] = &unk_1E80C3A28;
-  v22 = *(a1 + 40);
-  v6 = [v5 objectsPassingTest:v21];
-  if ([v6 count])
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __72__ATXInstalledSuggestedPagesTracker_removePagesWithIdentifiersNotInSet___block_invoke_2;
+  v22[3] = &unk_1E80C3A28;
+  v23 = *(a1 + 40);
+  v6 = [v5 objectsPassingTest:v22];
+  v7 = [v6 count];
+  if (v7)
   {
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v6;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXInstalledSuggestedPagesTracker: Removing installed suggested pages: %@", buf, 0xCu);
+      v26 = v6;
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXInstalledSuggestedPagesTracker: Removing installed suggested pages: %@", buf, 0xCu);
     }
 
     [v5 minusSet:v6];
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
-    if (v9)
+    v19 = 0u;
+    v9 = v6;
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v18;
+      v11 = v10;
+      v12 = *v19;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v11)
+          if (*v19 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
-          v14 = *(a1 + 32);
-          v15 = [v13 pageType];
-          v16 = [v13 identifier];
-          [v14 trackSuggestedHomePageWithAction:1 pageType:v15 identifier:v16];
+          v14 = *(*(&v18 + 1) + 8 * i);
+          v15 = *(a1 + 32);
+          v16 = [v14 pageType];
+          v17 = [v14 identifier];
+          [v15 trackSuggestedHomePageWithAction:1 pageType:v16 identifier:v17];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     [*(a1 + 32) _serializePages:v5];
@@ -377,7 +377,7 @@ uint64_t __72__ATXInstalledSuggestedPagesTracker_removePagesWithIdentifiersNotIn
 {
   v2 = *(a1 + 32);
   v3 = [a2 identifier];
-  LODWORD(v2) = [v2 containsObject:v3];
+  LODWORD(v2) = objc_msgSend_containsObject_(v2);
 
   return v2 ^ 1;
 }

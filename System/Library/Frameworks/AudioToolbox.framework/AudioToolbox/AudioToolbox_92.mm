@@ -44,7 +44,7 @@ unint64_t bit_allocation_second_fx(unint64_t a1, unint64_t a2, uint64_t a3, unin
 LABEL_9:
       v26 = v24;
       v27 = (a11 + 2 * v24);
-      v28 = v27 + 1;
+      v28 = (v27 + 1);
       if (v27 < a11 || v28 > a12 || v27 >= v28)
       {
         goto LABEL_215;
@@ -121,7 +121,7 @@ LABEL_29:
     v26 = v24;
 LABEL_31:
     v35 = (a5 + 2 * v26);
-    v36 = v35 + 1;
+    v36 = (v35 + 1);
     if (v35 < a5 || v36 > a6 || v35 >= v36)
     {
       goto LABEL_215;
@@ -246,7 +246,7 @@ LABEL_65:
         if (v55 >= 1)
         {
           v56 = (a5 + 2 * v53);
-          v57 = v56 + 1;
+          v57 = (v56 + 1);
           if (v56 < a5 || v57 > a6 || v56 >= v57)
           {
             goto LABEL_215;
@@ -1767,7 +1767,7 @@ LABEL_348:
   return result;
 }
 
-unint64_t encode_position_ari_fx(unint64_t a1, float *a2, unint64_t a3, int a4, int *a5)
+uint64_t encode_position_ari_fx(unint64_t a1, float *a2, unint64_t a3, int a4, int *a5)
 {
   v135[1] = *MEMORY[0x1E69E9840];
   memset(v133, 0, sizeof(v133));
@@ -2214,19 +2214,19 @@ LABEL_134:
             }
 
             *(v133 + v117 + 1) = v123;
-            v124 = v130 + v116;
-            if (v130 + v116 < v130 || v124 + 4 > a3 || v124 > v124 + 4)
+            v124 = &v130[v116];
+            if (&v130[v116] < v130 || v124 + 4 > a3 || v124 > v124 + 4)
             {
               goto LABEL_196;
             }
 
-            if (*(v130 + 4 * v117) != 0.0)
+            if (v130[v117] != 0.0)
             {
               v118 = v117;
             }
 
             ++v117;
-            v116 += 4;
+            ++v116;
             v119 += 2;
           }
 
@@ -2301,7 +2301,7 @@ LABEL_164:
         goto LABEL_165;
       }
 
-      v115 = (v130 + 4 * v106);
+      v115 = &v130[v106];
       if (v115 < v130 || (v115 + 1) > a3 || v115 > v115 + 1)
       {
         goto LABEL_196;
@@ -2343,7 +2343,7 @@ LABEL_143:
   return result;
 }
 
-unint64_t encode_magnitude_tcq_fx(unint64_t result, uint64_t a2, int a3, int a4, int a5, uint64_t a6, int *a7)
+uint64_t encode_magnitude_tcq_fx(uint64_t result, uint64_t a2, int a3, int a4, int a5, uint64_t a6, int *a7)
 {
   v79 = result;
   v85 = 0x3FFF;
@@ -2949,18 +2949,18 @@ LABEL_69:
   }
 }
 
-unint64_t transmission_bits(uint64_t a1, int a2)
+unint64_t transmission_bits(unint64_t *a1, int a2)
 {
   result = bitstream_save_bit(*a1, a2);
-  v5 = *(a1 + 20);
-  v6 = *(a1 + 24) + 1;
-  *(a1 + 24) = v6;
+  v5 = *(a1 + 5);
+  v6 = *(a1 + 6) + 1;
+  *(a1 + 6) = v6;
   v7 = a2 == 0;
   if (v5 >= 1)
   {
     do
     {
-      if (v6 >= *(a1 + 28))
+      if (v6 >= *(a1 + 7))
       {
         break;
       }
@@ -3006,11 +3006,11 @@ unint64_t bitstream_save_bit(unint64_t result, char a2)
 unint64_t ar_encode(unint64_t result, __int16 *a2, unint64_t a3, int a4)
 {
   v4 = &a2[a4];
-  v5 = v4 + 1;
+  v5 = (v4 + 1);
   v7 = v4 < a2 || v5 > a3 || v4 >= v5;
   v8 = a2 + 1;
   v10 = !v7 && v8 <= a3 && v8 >= a2;
-  v11 = v4 + 2;
+  v11 = (v4 + 2);
   if (v10 && v11 <= a3 && v5 <= v11)
   {
     v14 = result;
@@ -3026,12 +3026,12 @@ unint64_t ar_encode(unint64_t result, __int16 *a2, unint64_t a3, int a4)
         {
           if (i < 0x4000 || v18 >> 14 > 2)
           {
-            v14[2] = i;
-            v14[3] = v18;
+            *(v14 + 8) = i;
+            *(v14 + 12) = v18;
             return result;
           }
 
-          ++v14[5];
+          ++*(v14 + 20);
           v18 -= 0x4000;
           i -= 0x4000;
         }
@@ -3516,7 +3516,7 @@ LABEL_129:
   return result;
 }
 
-unint64_t ar_make_model(unint64_t result, unint64_t a2, unint64_t a3, unsigned int a4)
+unint64_t ar_make_model(unint64_t result, unint64_t a2, unint64_t a3, int a4)
 {
   if (a4 >= 1)
   {
@@ -3582,7 +3582,7 @@ LABEL_15:
         {
           __break(0x5519u);
 LABEL_16:
-          v13 = a4 - 1;
+          v13 = (a4 - 1);
           if (a4 == 1)
           {
             break;
@@ -4037,7 +4037,7 @@ uint64_t set_val_Word32(uint64_t result, int a2, int a3)
   return result;
 }
 
-void CNG_enc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _OWORD *a9, unint64_t a10, __int16 *a11, __int16 a12, unint64_t a13, unint64_t a14, _WORD *a15, uint64_t a16, uint64_t a17)
+void CNG_enc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 *a9, unint64_t a10, __int16 *a11, __int16 a12, unint64_t a13, unint64_t a14, _WORD *a15, uint64_t a16, uint64_t a17)
 {
   v17 = MEMORY[0x1EEE9AC00](a1);
   v19 = v18;
@@ -5779,8 +5779,8 @@ LABEL_345:
 
         else
         {
-          v231 = &ENR_ATT[2 * v230];
-          if (v231 < ENR_ATT || v231 + 2 > &subband_search_offsets_13p2kbps_Har || v231 > v231 + 2)
+          v231 = &ENR_ATT[v230];
+          if (v231 < ENR_ATT || v231 + 1 > &subband_search_offsets_13p2kbps_Har || v231 > v231 + 1)
           {
             goto LABEL_605;
           }
@@ -6133,7 +6133,7 @@ float *CNG_exc(uint64_t a1, int a2, float *a3, __int16 *a4, void **a5, float **a
     {
       v37 = a5[1];
       v38 = (*a5 - 4 * v35);
-      if (v38 > v37 || a5[2] > v38 || v35 > (v37 - v38) >> 2)
+      if (v38 > v37 || a5[2] > v38 || v35 > v37 - v38)
       {
         goto LABEL_166;
       }
@@ -6230,7 +6230,7 @@ LABEL_26:
         goto LABEL_166;
       }
 
-      if ((v47 - v48) < 253 || a6[2] > v48)
+      if (v47 - v48 < 253 || a6[2] > v48)
       {
         goto LABEL_166;
       }
@@ -6289,13 +6289,13 @@ LABEL_26:
       goto LABEL_166;
     }
 
-    if (v55 > &v56[-v57])
+    if (v55 > v56 - v57)
     {
       goto LABEL_166;
     }
 
     memcpy(*a5, v53, 4 * v148);
-    if (v57 > v57 + v55)
+    if (v57 > &v57[v55])
     {
       goto LABEL_166;
     }
@@ -6649,7 +6649,7 @@ LABEL_144:
     v130 = a6[1];
     v44 = v130 >= *a6;
     v132 = v130 - *a6;
-    if (!v44 || a6[2] > v131 || __x > v132 || (memcpy(*a6, __b, __x), v131 > &v131[__x / 4]) || (v133 = *a25, v134 = a25[1], *a25 > v134) || a25[2] > v133 || __x > v134 - v133 || (v136 = *a5, v135 = a5[1], *a5 > v135) || a5[2] > v136 || __x > v135 - v136 || (memcpy(*a5, v133, __x), v136 > &v136[__x]))
+    if (!v44 || a6[2] > v131 || __x > v132 || (memcpy(*a6, __b, __x), v131 > v131 + __x) || (v133 = *a25, v134 = a25[1], *a25 > v134) || a25[2] > v133 || __x > v134 - v133 || (v136 = *a5, v135 = a5[1], *a5 > v135) || a5[2] > v136 || __x > v135 - v136 || (memcpy(*a5, v133, __x), v136 > &v136[__x]))
     {
 LABEL_166:
       __break(0x5519u);
@@ -6679,7 +6679,7 @@ LABEL_166:
   }
 }
 
-void FdCng_exc(uint64_t a1, _WORD *a2, int a3, __int128 *a4, int a5, _OWORD *a6, unint64_t __dst, unint64_t a8, unint64_t a9, uint64_t a10, char *a11, char *a12, unint64_t a13, float *a14, unint64_t a15)
+void FdCng_exc(uint64_t a1, _WORD *a2, int a3, __int128 *a4, int a5, _OWORD *a6, char *__dst, unint64_t a8, unint64_t a9, uint64_t a10, char *a11, char *a12, unint64_t a13, float *a14, unint64_t a15)
 {
   *a2 = -1;
   if (a3 >= 64)
@@ -6776,7 +6776,7 @@ LABEL_24:
   interp_code_4over2(a12, a13, a14, a15, a3);
 }
 
-unint64_t syn_12k8(unint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5)
+char *syn_12k8(char *result, unint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5)
 {
   if (result >= 1)
   {
@@ -6890,7 +6890,7 @@ float *save_old_syn(float *result, char *a2, unint64_t a3, float *__dst, unint64
   }
 
   v11 = a5 - __dst;
-  if (a5 < __dst || a7 < __src || a7 - __src < v10 || v11 < v10 || (v18 = result, result = memmove(__dst, __src, v10), &__dst[v10 / 4] < __dst) || (v19 = &__dst[v9], v19 < __dst) || (v18 - v9) >= 1 && ((v20 = a5 - v19, a5 < v19) || a3 < a2 || (v21 = 4 * (v18 - v9), v21 > a3 - a2) || v21 > v20 || (result = memmove(&__dst[v9], a2, v21), &v19[v21] < v19)) || (v22 = &a2[4 * v18 + -4 * v9], v22 < a2) || a3 < v22 || a3 - v22 < v10 || (result = memmove(__src, v22, v10), &__src[v10] < __src) || v18 < 0 || v11 >> 2 < v18)
+  if (a5 < __dst || a7 < __src || a7 - __src < v10 || v11 < v10 || (v18 = result, result = memmove(__dst, __src, v10), &__dst[v10 / 4] < __dst) || (v19 = &__dst[v9], v19 < __dst) || (v18 - v9) >= 1 && ((v20 = a5 - v19, a5 < v19) || a3 < a2 || (v21 = 4 * (v18 - v9), v21 > a3 - a2) || v21 > v20 || (result = memmove(&__dst[v9], a2, v21), &v19[v21 / 4] < v19)) || (v22 = &a2[4 * v18 + -4 * v9], v22 < a2) || a3 < v22 || a3 - v22 < v10 || (result = memmove(__src, v22, v10), &__src[v10] < __src) || v18 < 0 || v11 >> 2 < v18)
   {
     __break(0x5519u);
   }
@@ -6904,7 +6904,7 @@ float *save_old_syn(float *result, char *a2, unint64_t a3, float *__dst, unint64
   return result;
 }
 
-void lsf_enc(unint64_t a1, unsigned int a2, int a3, unint64_t a4, unint64_t a5, __int128 *a6, unint64_t a7, uint64_t a8, __int128 *a9, unint64_t a10, unint64_t *a11, _DWORD *a12, __int16 a13)
+void lsf_enc(unint64_t a1, unsigned int a2, int a3, float *a4, unint64_t a5, __int128 *a6, unint64_t a7, uint64_t a8, __int128 *a9, unint64_t a10, unint64_t *a11, _DWORD *a12, __int16 a13)
 {
   v129[1] = *MEMORY[0x1E69E9840];
   *&v13 = -1;
@@ -6952,11 +6952,11 @@ void lsf_enc(unint64_t a1, unsigned int a2, int a3, unint64_t a4, unint64_t a5, 
   v23 = (v14 * 0.5) / 3.1416;
   do
   {
-    *(a4 + v19) = v23 * acosf(*(a6 + v19));
-    v19 += 4;
+    a4[v19] = v23 * acosf(*(a6 + v19 * 4));
+    ++v19;
   }
 
-  while (v19 != 64);
+  while (v19 != 16);
   gp_clip_test_lsf(*(a1 + 96), a4, a5, (a1 + 18436), a1 + 18460, 0);
   v25 = *(a1 + 96);
   if (v25 == 2400)
@@ -7186,9 +7186,9 @@ LABEL_32:
   }
 
   lsf_end_enc(a1, a4, a5, a4, a5, (a1 + 18476), a1 + 18540, vaddq_s64(vdupq_n_s64(a1), xmmword_19B0B31F0), v14, v24, (a1 + 18540), a1 + 18604, v26, v27, *(a1 + 130), a1 + 3540, v25, (a1 + 5464), (a1 + 5460), v31, 0, 0, 0, 0, 0, 0, *(a1 + 18606));
-  for (i = 0; i != 64; i += 4)
+  for (i = 0; i != 16; ++i)
   {
-    *(a6 + i) = cosf((*(a4 + i) * 3.1416) / v22);
+    *(a6 + i * 4) = cosf((a4[i] * 3.1416) / v22);
   }
 
   if (*(a1 + 52108) == 3 && !*(a1 + 88))
@@ -7199,9 +7199,9 @@ LABEL_32:
     }
 
     v33 = *a4;
-    v34 = *(a4 + 16);
-    v35 = *(a4 + 48);
-    *(a1 + 5300) = *(a4 + 32);
+    v34 = *(a4 + 1);
+    v35 = *(a4 + 3);
+    *(a1 + 5300) = *(a4 + 2);
     *(a1 + 5316) = v35;
     *(a1 + 5268) = v33;
     *(a1 + 5284) = v34;
@@ -7277,8 +7277,8 @@ LABEL_32:
       goto LABEL_229;
     }
 
-    v51 = (a4 + v44);
-    if (a4 + v44 < a4 || (v51 + 1) > a5 || v51 > v51 + 1 || v48 + v44 > v21 || v46 + v44 > v48 + v44)
+    v51 = &a4[v44 / 4];
+    if (&a4[v44 / 4] < a4 || (v51 + 1) > a5 || v51 > v51 + 1 || v48 + v44 > v21 || v46 + v44 > v48 + v44)
     {
       goto LABEL_229;
     }
@@ -7300,9 +7300,9 @@ LABEL_32:
   }
 
   v54 = *a4;
-  v55 = *(a4 + 16);
-  v56 = *(a4 + 48);
-  *(a1 + 23164) = *(a4 + 32);
+  v55 = *(a4 + 1);
+  v56 = *(a4 + 3);
+  *(a1 + 23164) = *(a4 + 2);
   *(a1 + 23180) = v56;
   *v47 = v54;
   *(a1 + 23148) = v55;
@@ -7321,9 +7321,9 @@ LABEL_32:
     *(a1 + 5204) = v57;
     *(a1 + 5220) = v58;
     v60 = *a4;
-    v61 = *(a4 + 16);
-    v62 = *(a4 + 48);
-    *(a1 + 5300) = *(a4 + 32);
+    v61 = *(a4 + 1);
+    v62 = *(a4 + 3);
+    *(a1 + 5300) = *(a4 + 2);
     *(a1 + 5316) = v62;
     *(a1 + 5268) = v60;
     *(a1 + 5284) = v61;
@@ -7561,7 +7561,7 @@ LABEL_154:
 
     if (a3 == 1)
     {
-      v70 = &tbl_mid_unv_wb_5b;
+      v70 = tbl_mid_unv_wb_5b;
     }
 
     else
@@ -7890,7 +7890,7 @@ void encod_ppp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 
     v673[0] = *v629;
     *&v673[1] = *(v629 + 16);
-    find_targets(v673, v633 + 1352, v633 + 1416, v37, v631, v633 + 1352, v635, v46, v45, a13, a14, 0x40u, v634, v630, v660, v662, 0, 0, v657, &v659, (v33 + 110872), v33 + 110896);
+    find_targets(v673, v633 + 1352, v633 + 1416, v37, v631, v633 + 1352, v635, v46, v45, a13, a14, 64, v634, v630, v660, v662, 0, 0, v657, &v659, (v33 + 110872), (v33 + 110896));
     if (v37)
     {
       v56 = *(v34 + 1170);
@@ -8071,7 +8071,7 @@ LABEL_119:
     v638 = NAN;
     if (v70 != 1)
     {
-      *&v673[0] = v615 - 4 * v76;
+      *&v673[0] = &v615[-4 * v76];
       *(v673 + 8) = v620;
       if (v66 > v602)
       {
@@ -8929,7 +8929,7 @@ LABEL_397:
     v286 = DTFS_new();
     memcpy(v673, __dst, 0x348uLL);
     DTFS_copy(v619, v673);
-    if (v286 > v286 + 840)
+    if (v286 > v286 + 210)
     {
       goto LABEL_870;
     }
@@ -9717,7 +9717,7 @@ LABEL_581:
         goto LABEL_870;
       }
 
-      memmove(v619 + 408, v585 + 408, 4 * v449 + 4);
+      memmove(v619 + 408, v585 + 102, 4 * v449 + 4);
     }
 
     DTFS_pol2car(v619);

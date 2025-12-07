@@ -398,7 +398,7 @@ void __60__PKSpaceInsertionController__didGrabInsertSpaceAffordance___block_invo
 
   if (v37)
   {
-    [v37 drawingTransform];
+    objc_msgSend_drawingTransform(v37);
     v38 = v32 / sqrt(v44 * v44 + v43 * v43);
     v39 = objc_loadWeakRetained(&self->_selectionController);
     v40 = v39;
@@ -1176,7 +1176,7 @@ void __70__PKSpaceInsertionController__makeSpaceWithOffset_spaceInsertionType___
 
   if (v14)
   {
-    [v14 drawingTransform];
+    objc_msgSend_drawingTransform(v14);
     CGAffineTransformInvert(&v24, &v23);
     b = v24.b;
     d = v24.d;

@@ -47,6 +47,8 @@
 - (void)requestToEnableDisplayedNotifications:(id)notifications from:(id)from withID:(id)d;
 - (void)revokeSentMessage:(id)message inChat:(id)chat;
 - (void)sendGroupPhotoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account isPhotoRefresh:(BOOL)refresh;
+- (void)sendLazuliSpamReport:(id)report isBot:(BOOL)bot spamType:(unint64_t)type;
+- (void)sendReadReceiptForMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style;
 - (void)sendReadReceiptForMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style reflectOnly:(BOOL)only;
 - (void)subjectUpdated:(id)updated forGroupChat:(id)chat withNewSubject:(id)subject updatedBy:(id)by;
 - (void)systemConfigurationChanged:(id)changed withConfiguration:(id)configuration;
@@ -55,6 +57,14 @@
 @end
 
 @implementation RCSServiceSession
+
+- (void)sendLazuliSpamReport:(id)report isBot:(BOOL)bot spamType:(unint64_t)type
+{
+  botCopy = bot;
+  reportCopy = report;
+  selfCopy = self;
+  RCSServiceSession.sendLazuliSpamReport(_:isBot:spamType:)(reportCopy, botCopy, type);
+}
 
 - (BOOL)isGroupMessagingEnabledFor:(id)for
 {
@@ -67,19 +77,7 @@
 
 - (int64_t)maxSizePerAttachmentWithCount:(int)count lastAddressedHandle:(id)handle lastAddressedSIMID:(id)d
 {
-  if (!d)
-  {
-    return 104857600;
-  }
-
-  v6 = sub_F07EC();
-  v8 = v7;
-  selfCopy = self;
-  sub_3FF00(v6, v8, &selRef_maxTransferSize);
-  v11 = v10;
-  LOBYTE(v6) = v12;
-
-  if ((v6 & 1) == 0)
+  if (d && (v6 = sub_F07EC(), v8 = v7, v9 = self, sub_3FF00(v6, v8, &selRef_maxTransferSize), v11 = v10, LOBYTE(v6) = v12, v8, v12, v13, v14, v15, v16, v17, v18, v9, (v6 & 1) == 0))
   {
     return v11;
   }
@@ -284,6 +282,8 @@
   v6 = v5;
   selfCopy = self;
   sub_613D0(v4, v6);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)didReceiveMessage:(id)message forChat:(id)chat style:(unsigned __int8)style fromIDSID:(id)d
@@ -304,6 +304,10 @@
   messageCopy = message;
   selfCopy = self;
   RCSServiceSession.didReceiveMessage(_:forChat:style:fromIDSID:)(messageCopy, v10, v12, style, v13, d);
+
+  v12, v17, v18, v19, v20, v21, v22, v23;
+
+  d, v24, v25, v26, v27, v28, v29, v30;
 }
 
 - (void)leaveChat:(id)chat style:(unsigned __int8)style
@@ -312,6 +316,8 @@
   v8 = v7;
   selfCopy = self;
   RCSServiceSession.leaveChat(_:style:)(v6, v8, style);
+
+  v8, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (void)invitePersonInfo:(id)info withMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style
@@ -349,6 +355,11 @@ LABEL_5:
 LABEL_8:
   selfCopy = self;
   sub_7BDB0(2, infoCopy, v12, d, v14, identifier, style);
+
+  identifier, v17, v18, v19, v20, v21, v22, v23;
+  d, v24, v25, v26, v27, v28, v29, v30;
+
+  infoCopy, v31, v32, v33, v34, v35, v36, v37;
 }
 
 - (void)removePersonInfo:(id)info chatID:(id)d identifier:(id)identifier style:(unsigned __int8)style
@@ -386,16 +397,22 @@ LABEL_5:
 LABEL_8:
   selfCopy = self;
   sub_7BDB0(3, infoCopy, v11, d, v13, identifier, style);
+
+  identifier, v16, v17, v18, v19, v20, v21, v22;
+  d, v23, v24, v25, v26, v27, v28, v29;
+
+  infoCopy, v30, v31, v32, v33, v34, v35, v36;
 }
 
 - (id)replicationPhoneNumbers
 {
   selfCopy = self;
-  RCSServiceSession.replicationPhoneNumbers()();
+  v3 = RCSServiceSession.replicationPhoneNumbers()();
 
-  v3 = sub_F0C0C();
+  v4 = sub_F0C0C();
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)replicationRequirementsSatisfiedForPhoneNumber:(id)number simID:(id)d
@@ -420,6 +437,8 @@ LABEL_8:
   v13.value._object = d;
   v14 = RCSServiceSession.replicationRequirementsSatisfied(forPhoneNumber:simID:)(v12, v13);
 
+  v8, v15, v16, v17, v18, v19, v20, v21;
+  d, v22, v23, v24, v25, v26, v27, v28;
   return v14;
 }
 
@@ -439,17 +458,20 @@ LABEL_8:
   v7 = v6;
   if (sub_F07EC() == v5 && v8 == v7)
   {
-
+    v8, v8, v9, v10, v11, v12, v13, v14;
+    v7, v35, v36, v37, v38, v39, v40, v41;
     return 0;
   }
 
   else
   {
-    v10 = sub_F122C();
+    v16 = v8;
+    v17 = sub_F122C();
     nameCopy = name;
     selfCopy = self;
-
-    if (v10)
+    v16, v20, v21, v22, v23, v24, v25, v26;
+    v7, v27, v28, v29, v30, v31, v32, v33;
+    if (v17)
     {
 
       return 0;
@@ -457,11 +479,11 @@ LABEL_8:
 
     else
     {
-      v15.receiver = selfCopy;
-      v15.super_class = RCSServiceSession;
-      v14 = [(RCSServiceSession *)&v15 replicationRequiredForMessageBodyAttributeName:nameCopy];
+      v43.receiver = selfCopy;
+      v43.super_class = RCSServiceSession;
+      v42 = [(RCSServiceSession *)&v43 replicationRequiredForMessageBodyAttributeName:nameCopy];
 
-      return v14;
+      return v42;
     }
   }
 }
@@ -489,14 +511,16 @@ LABEL_8:
 - (id)makeSenderFor:(id)for forChat:(id)chat chatStyle:(unsigned __int8)style recipients:(id)recipients
 {
   sub_388C8(&qword_128568, &qword_F3950);
-  sub_F09FC();
+  v10 = sub_F09FC();
   forCopy = for;
   chatCopy = chat;
   selfCopy = self;
-  RCSServiceSession.makeSender(for:for:chatStyle:recipients:)(forCopy, chatCopy, style);
-  v14 = v13;
+  RCSServiceSession.makeSender(for:for:chatStyle:recipients:)(forCopy, chatCopy, style, v10);
+  v15 = v14;
 
-  return v14;
+  v10, v16, v17, v18, v19, v20, v21, v22;
+
+  return v15;
 }
 
 - (void)revokeSentMessage:(id)message inChat:(id)chat
@@ -510,21 +534,21 @@ LABEL_8:
 - (void)didDeleteChatGUID:(id)d chatIdentifier:(id)identifier style:(unsigned __int8)style groupID:(id)iD originalGroupID:(id)groupID properties:(id)properties lastAddressedLocalHandle:(id)handle lastAddressedSIMID:(id)self0
 {
   styleCopy = style;
-  v34 = sub_F07EC();
+  v83 = sub_F07EC();
   v15 = v14;
-  v33 = sub_F07EC();
+  v82 = sub_F07EC();
   v17 = v16;
   if (iD)
   {
-    v32 = sub_F07EC();
-    v36 = v18;
+    v81 = sub_F07EC();
+    v85 = v18;
     if (groupID)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    v31 = 0;
+    v80 = 0;
     v20 = 0;
     if (properties)
     {
@@ -534,15 +558,15 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v32 = 0;
-  v36 = 0;
+  v81 = 0;
+  v85 = 0;
   if (!groupID)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v31 = sub_F07EC();
+  v80 = sub_F07EC();
   v20 = v19;
   if (properties)
   {
@@ -585,7 +609,16 @@ LABEL_10:
   v28 = 0;
   v30 = 0;
 LABEL_13:
-  RCSServiceSession.didDeleteChatGUID(_:chatIdentifier:style:groupID:originalGroupID:properties:lastAddressedLocalHandle:lastAddressedSIMID:)(v34, v15, v33, v17, styleCopy, v32, v36, v31, v20, v21, v25, v27, v28, v30);
+  RCSServiceSession.didDeleteChatGUID(_:chatIdentifier:style:groupID:originalGroupID:properties:lastAddressedLocalHandle:lastAddressedSIMID:)(v83, v15, v82, v17, styleCopy, v81, v85, v80, v20, v21, v25, v27, v28, v30);
+
+  v15, v31, v32, v33, v34, v35, v36, v37;
+  v17, v38, v39, v40, v41, v42, v43, v44;
+  v30, v45, v46, v47, v48, v49, v50, v51;
+  v27, v52, v53, v54, v55, v56, v57, v58;
+  v21, v59, v60, v61, v62, v63, v64, v65;
+  v20, v66, v67, v68, v69, v70, v71, v72;
+
+  v85, v73, v74, v75, v76, v77, v78, v79;
 }
 
 - (BOOL)shouldSendReadReceiptsForChat:(id)chat style:(unsigned __int8)style
@@ -595,7 +628,74 @@ LABEL_13:
   selfCopy = self;
   v10 = RCSServiceSession.shouldSendReadReceipts(forChat:style:)(v6, v8, style);
 
+  v8, v11, v12, v13, v14, v15, v16, v17;
   return v10 & 1;
+}
+
+- (void)sendReadReceiptForMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style
+{
+  styleCopy = style;
+  identifierCopy = identifier;
+  if (d)
+  {
+    sub_F07EC();
+    v11 = v10;
+    if (identifierCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+    if (identifier)
+    {
+LABEL_3:
+      sub_F07EC();
+      identifierCopy = v12;
+      if (v11)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_8:
+      messageCopy = message;
+      selfCopy = self;
+      v15 = 0;
+      if (identifierCopy)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  if (!v11)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_4:
+  messageCopy2 = message;
+  selfCopy2 = self;
+  v15 = sub_F07BC();
+  if (identifierCopy)
+  {
+LABEL_5:
+    v16 = sub_F07BC();
+    goto LABEL_10;
+  }
+
+LABEL_9:
+  v16 = 0;
+LABEL_10:
+  [(RCSServiceSession *)self sendReadReceiptForMessage:message toChatID:v15 identifier:v16 style:styleCopy reflectOnly:0];
+
+  identifierCopy, v19, v20, v21, v22, v23, v24, v25;
+
+  v11, v26, v27, v28, v29, v30, v31, v32;
 }
 
 - (void)sendReadReceiptForMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style reflectOnly:(BOOL)only
@@ -604,25 +704,34 @@ LABEL_13:
   if (d)
   {
     sub_F07EC();
+    v13 = v12;
     if (identifierCopy)
     {
 LABEL_3:
-      v12 = sub_F07EC();
-      identifierCopy = v13;
+      v14 = sub_F07EC();
+      identifierCopy = v15;
       goto LABEL_6;
     }
   }
 
-  else if (identifier)
+  else
   {
-    goto LABEL_3;
+    v13 = 0;
+    if (identifier)
+    {
+      goto LABEL_3;
+    }
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_6:
   messageCopy = message;
   selfCopy = self;
-  sub_93078(message, v12, identifierCopy, style, only);
+  sub_93078(message, v14, identifierCopy, style, only);
+
+  v13, v18, v19, v20, v21, v22, v23, v24;
+
+  identifierCopy, v25, v26, v27, v28, v29, v30, v31;
 }
 
 - (BOOL)chatCanMergeWithSuperChat:(id)chat
@@ -638,8 +747,8 @@ LABEL_6:
 {
   if (name)
   {
-    v27 = sub_F07EC();
-    v29 = v12;
+    v70 = sub_F07EC();
+    v72 = v12;
     if (displayName)
     {
       goto LABEL_3;
@@ -656,8 +765,8 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v27 = 0;
-  v29 = 0;
+  v70 = 0;
+  v72 = 0;
   if (!displayName)
   {
     goto LABEL_6;
@@ -683,7 +792,16 @@ LABEL_8:
   v22 = sub_F07EC();
   v24 = v23;
   v25 = sub_F07EC();
-  RCSServiceSession.updateDisplayName(_:fromDisplayName:fromID:forChatID:identifier:style:messageID:)(v27, v29, v13, v15, v16, d, v19, v21, v22, v24, style, v25, v26);
+  v27 = v26;
+  RCSServiceSession.updateDisplayName(_:fromDisplayName:fromID:forChatID:identifier:style:messageID:)(v70, v72, v13, v15, v16, d, v19, v21, v22, v24, style, v25, v26);
+
+  v21, v28, v29, v30, v31, v32, v33, v34;
+  v24, v35, v36, v37, v38, v39, v40, v41;
+  v27, v42, v43, v44, v45, v46, v47, v48;
+  d, v49, v50, v51, v52, v53, v54, v55;
+  v15, v56, v57, v58, v59, v60, v61, v62;
+
+  v72, v63, v64, v65, v66, v67, v68, v69;
 }
 
 - (void)sendGroupPhotoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account isPhotoRefresh:(BOOL)refresh
@@ -709,6 +827,12 @@ LABEL_8:
   v21 = v20;
   selfCopy = self;
   RCSServiceSession.sendGroupPhotoUpdate(_:toChatID:identifier:style:account:isPhotoRefresh:)(v10, v12, v13, v15, v16, v18, styleCopy, v19, v21, refresh);
+
+  v15, v23, v24, v25, v26, v27, v28, v29;
+  v18, v30, v31, v32, v33, v34, v35, v36;
+  v21, v37, v38, v39, v40, v41, v42, v43;
+
+  v12, v44, v45, v46, v47, v48, v49, v50;
 }
 
 - (void)_updatePhoneNumberCallerID
@@ -723,10 +847,12 @@ LABEL_8:
   chatCopy = chat;
   selfCopy = self;
   RCSServiceSession.groupID(for:)(chatCopy);
+  v7 = v6;
 
-  v6 = sub_F07BC();
+  v8 = sub_F07BC();
+  v7, v9, v10, v11, v12, v13, v14, v15;
 
-  return v6;
+  return v8;
 }
 
 - (BOOL)allowedToSendMessage:(id)message toChat:(id)chat
@@ -801,31 +927,31 @@ LABEL_8:
 - (void)fireTimerWithTimer:(id)timer
 {
   v5 = sub_388C8(&qword_127EB0, &unk_F2B30);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = sub_F0B1C();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v7 = &v14 - v6;
+  v8 = sub_F0B1C();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
   sub_F0AEC();
   timerCopy = timer;
   selfCopy = self;
-  v12 = timerCopy;
-  v13 = sub_F0ADC();
-  v14 = swift_allocObject();
-  v14[2] = v13;
-  v14[3] = &protocol witness table for MainActor;
-  v14[4] = selfCopy;
-  v14[5] = v12;
-  sub_3CC0C(0, 0, v8, &unk_F3F40, v14);
+  v11 = timerCopy;
+  v12 = sub_F0ADC();
+  v13 = swift_allocObject();
+  v13[2] = v12;
+  v13[3] = &protocol witness table for MainActor;
+  v13[4] = selfCopy;
+  v13[5] = v11;
+  sub_3CC0C(0, 0, v7, &unk_F3F40, v13);
 }
 
 - (void)handler:(id)handler messageIDDelivered:(id)delivered toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier timeStamp:(id)stamp storageContext:(id)context
 {
+  identifierCopy = identifier;
   if (delivered)
   {
     v14 = sub_F07EC();
     v16 = v15;
-    if (!identifier)
+    if (!identifierCopy)
     {
       goto LABEL_4;
     }
@@ -839,12 +965,14 @@ LABEL_8:
   {
 LABEL_3:
     sub_F07EC();
+    identifierCopy = v17;
   }
 
 LABEL_4:
   if (fromIdentifier)
   {
     sub_F07EC();
+    fromIdentifier = v18;
   }
 
   handlerCopy = handler;
@@ -852,32 +980,36 @@ LABEL_4:
   contextCopy = context;
   selfCopy = self;
   sub_A7E58(v14, v16);
+
+  identifierCopy, v23, v24, v25, v26, v27, v28, v29;
+  fromIdentifier, v30, v31, v32, v33, v34, v35, v36;
+
+  v16, v37, v38, v39, v40, v41, v42, v43;
 }
 
 - (void)calculateReachabilityWithRequest:(id)request responseHandler:(id)handler
 {
   v7 = sub_388C8(&qword_127EB0, &unk_F2B30);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
+  v9 = &v17 - v8;
   requestCopy = request;
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_F0AFC();
-  v13 = sub_F0B1C();
-  (*(*(v13 - 8) + 56))(v10, 0, 1, v13);
+  v12 = sub_F0B1C();
+  (*(*(v12 - 8) + 56))(v9, 0, 1, v12);
   sub_F0AEC();
-  v14 = requestCopy;
+  v13 = requestCopy;
   swift_unknownObjectRetain();
-  v15 = selfCopy;
-  v16 = sub_F0ADC();
-  v17 = swift_allocObject();
-  v17[2] = v16;
-  v17[3] = &protocol witness table for MainActor;
-  v17[4] = v15;
-  v17[5] = v14;
-  v17[6] = handler;
-  sub_3CC0C(0, 0, v10, &unk_F42B8, v17);
+  v14 = selfCopy;
+  v15 = sub_F0ADC();
+  v16 = swift_allocObject();
+  v16[2] = v15;
+  v16[3] = &protocol witness table for MainActor;
+  v16[4] = v14;
+  v16[5] = v13;
+  v16[6] = handler;
+  sub_3CC0C(0, 0, v9, &unk_F42B8, v16);
 
   swift_unknownObjectRelease();
 }

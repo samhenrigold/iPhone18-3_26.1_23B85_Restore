@@ -7,7 +7,7 @@
 
 - (void)hostViewControllerDidActivate:(id)activate
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1809E8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E1809E8, &qword_23B7BEA40);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   v8 = sub_23B7BC930();

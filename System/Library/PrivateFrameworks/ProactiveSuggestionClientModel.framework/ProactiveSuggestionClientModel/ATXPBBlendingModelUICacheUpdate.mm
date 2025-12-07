@@ -13,12 +13,8 @@
 - (id)dictionaryRepresentation;
 - (uint64_t)addClientModelCacheUpdateUUIDStrings:(uint64_t)strings;
 - (uint64_t)addClientModelIds:(uint64_t)ids;
-- (uint64_t)clearClientModelCacheUpdateUUIDStrings;
-- (uint64_t)clearClientModelIds;
 - (uint64_t)clientModelCacheUpdateUUIDStrings;
-- (uint64_t)clientModelCacheUpdateUUIDStringsCount;
 - (uint64_t)clientModelIds;
-- (uint64_t)clientModelIdsCount;
 - (uint64_t)consumerSubTypeString;
 - (uint64_t)hasCacheCreationDate;
 - (uint64_t)homeScreenCachedSuggestion;
@@ -28,6 +24,10 @@
 - (uint64_t)suggestionLayout;
 - (uint64_t)uuidString;
 - (unint64_t)hash;
+- (void)clearClientModelCacheUpdateUUIDStrings;
+- (void)clearClientModelIds;
+- (void)clientModelCacheUpdateUUIDStringsCount;
+- (void)clientModelIdsCount;
 - (void)copyTo:(uint64_t)to;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setClientModelCacheUpdateUUIDStrings:(uint64_t)strings;
@@ -114,7 +114,7 @@
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_uuidString)
   {
@@ -126,68 +126,66 @@
     PBDataWriterWriteStringField();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_clientModelIds;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v11 = self->_clientModelCacheUpdateUUIDStrings;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
-  if (v12)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_clientModelCacheUpdateUUIDStrings;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v20;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v20 != v14)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   if (self->_homeScreenCachedSuggestion)
@@ -202,7 +200,6 @@
 
   if (*&self->_has)
   {
-    cacheCreationDate = self->_cacheCreationDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -210,13 +207,11 @@
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_uuidString copyWithZone:zone];
   v7 = *(v5 + 64);
@@ -226,67 +221,67 @@
   v9 = *(v5 + 32);
   *(v5 + 32) = v8;
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v10 = self->_clientModelIds;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v35;
+    v13 = *v34;
     do
     {
       v14 = 0;
       do
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v34 + 1) + 8 * v14) copyWithZone:zone];
+        v15 = [*(*(&v33 + 1) + 8 * v14) copyWithZone:zone];
         [(ATXPBBlendingModelUICacheUpdate *)v5 addClientModelIds:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v12);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v16 = self->_clientModelCacheUpdateUUIDStrings;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       v20 = 0;
       do
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v30 + 1) + 8 * v20) copyWithZone:{zone, v30}];
+        v21 = [*(*(&v29 + 1) + 8 * v20) copyWithZone:{zone, v29}];
         [(ATXPBBlendingModelUICacheUpdate *)v5 addClientModelCacheUpdateUUIDStrings:v21];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v18);
@@ -306,11 +301,10 @@
     *(v5 + 72) |= 1u;
   }
 
-  v26 = [(ATXPBSpotlightSuggestionLayout *)self->_spotlightSuggestionLayout copyWithZone:zone, v30];
+  v26 = [(ATXPBSpotlightSuggestionLayout *)self->_spotlightSuggestionLayout copyWithZone:zone, v29];
   v27 = *(v5 + 48);
   *(v5 + 48) = v26;
 
-  v28 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -376,7 +370,6 @@
     }
   }
 
-  v11 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_cacheCreationDate != *(equalCopy + 1))
@@ -388,24 +381,24 @@
   else if (*(equalCopy + 72))
   {
 LABEL_21:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
   spotlightSuggestionLayout = self->_spotlightSuggestionLayout;
   if (spotlightSuggestionLayout | *(equalCopy + 6))
   {
-    v13 = [(ATXPBSpotlightSuggestionLayout *)spotlightSuggestionLayout isEqual:?];
+    v12 = [(ATXPBSpotlightSuggestionLayout *)spotlightSuggestionLayout isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_22:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash
@@ -472,7 +465,7 @@ LABEL_22:
   return result;
 }
 
-- (uint64_t)clearClientModelIds
+- (void)clearClientModelIds
 {
   if (result)
   {
@@ -506,7 +499,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)clientModelIdsCount
+- (void)clientModelIdsCount
 {
   if (result)
   {
@@ -527,7 +520,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearClientModelCacheUpdateUUIDStrings
+- (void)clearClientModelCacheUpdateUUIDStrings
 {
   if (result)
   {
@@ -561,7 +554,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)clientModelCacheUpdateUUIDStringsCount
+- (void)clientModelCacheUpdateUUIDStringsCount
 {
   if (result)
   {
@@ -770,7 +763,7 @@ LABEL_22:
 
 - (void)mergeFrom:(uint64_t)from
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (from)
@@ -781,27 +774,27 @@ LABEL_22:
       objc_storeStrong((from + 64), v5);
     }
 
-    v6 = *(v4 + 4);
+    v6 = v4[4];
     if (v6)
     {
       objc_storeStrong((from + 32), v6);
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v7 = *(v4 + 3);
-    v8 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v7 = v4[3];
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
@@ -809,27 +802,27 @@ LABEL_22:
           [(ATXPBBlendingModelUICacheUpdate *)from addClientModelIds:?];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v9);
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v12 = *(v4 + 2);
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v12 = v4[2];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
@@ -837,14 +830,14 @@ LABEL_22:
           [(ATXPBBlendingModelUICacheUpdate *)from addClientModelCacheUpdateUUIDStrings:?];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v14);
     }
 
     v17 = *(from + 40);
-    v18 = *(v4 + 5);
+    v18 = v4[5];
     if (v17)
     {
       if (v18)
@@ -859,7 +852,7 @@ LABEL_22:
     }
 
     v19 = *(from + 56);
-    v20 = *(v4 + 7);
+    v20 = v4[7];
     if (v19)
     {
       if (v20)
@@ -873,29 +866,27 @@ LABEL_22:
       objc_storeStrong((from + 56), v20);
     }
 
-    if (*(v4 + 72))
+    if (v4[9])
     {
-      *(from + 8) = *(v4 + 1);
+      *(from + 8) = v4[1];
       *(from + 72) |= 1u;
     }
 
     v21 = *(from + 48);
-    v22 = *(v4 + 6);
+    v22 = v4[6];
     if (v21)
     {
       if (v22)
       {
-        [v21 mergeFrom:v24];
+        [v21 mergeFrom:v23];
       }
     }
 
     else if (v22)
     {
-      objc_storeStrong((from + 48), *(v4 + 6));
+      objc_storeStrong((from + 48), v4[6]);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)uuidString

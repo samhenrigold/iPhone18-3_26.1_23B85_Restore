@@ -54,6 +54,7 @@
 - (void)_renameRequest:(id)request;
 - (void)_transactionObjectRemoved:(id)removed message:(id)message;
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message;
+- (void)_updateActionSetRequest:(id)request postUpdate:(BOOL)update;
 - (void)activateAfterResidentChangeWithCompletion:(id)completion;
 - (void)activateWithCompletion:(id)completion;
 - (void)configure:(id)configure messageDispatcher:(id)dispatcher queue:(id)queue;
@@ -64,11 +65,13 @@
 - (void)invalidate;
 - (void)markChangedForMessage:(id)message triggerModel:(id)model;
 - (void)reEvaluate:(unint64_t)evaluate;
+- (void)removeActionSet:(id)set postUpdate:(BOOL)update;
 - (void)removeActionSetForKey:(id)key;
 - (void)removeAllActionSets;
 - (void)sendTriggerFiredNotification:(id)notification;
 - (void)setActionSetForKey:(id)key value:(id)value;
 - (void)setConfiguredName:(id)name;
+- (void)setEnabled:(BOOL)enabled message:(id)message;
 - (void)setName:(id)name;
 - (void)triggerFired;
 - (void)userDidConfirmExecute:(BOOL)execute completionHandler:(id)handler;
@@ -94,29 +97,29 @@
 
 - (BOOL)supportsDeviceWithCapabilities:(id)capabilities
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   actionSets = [(HMDTrigger *)self actionSets];
-  v6 = [actionSets countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [actionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     v9 = 1;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(actionSets);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([v11 containsShortcutActions])
         {
           v9 &= [capabilitiesCopy supportsShortcutActions];
@@ -128,7 +131,7 @@
         }
       }
 
-      v7 = [actionSets countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [actionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -139,7 +142,6 @@
     LOBYTE(v9) = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
@@ -161,7 +163,7 @@
 
 void __29__HMDTrigger_confirmResident__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -172,24 +174,24 @@ void __29__HMDTrigger_confirmResident__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to confirm primary resident with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Successfully confirmed primary resident";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -198,7 +200,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateEventTriggerMessage:(int)message message:(id)a4 relay:(BOOL)relay
@@ -232,7 +233,7 @@ LABEL_5:
     v14 = [v10 mutableCopy];
     [v14 setResponseHandler:v12];
     [v14 setRemote:{objc_msgSend(v10, "isRemote")}];
-    v15 = [v14 copy];
+    v15 = objc_msgSend_copy(v14);
     goto LABEL_7;
   }
 
@@ -399,7 +400,7 @@ LABEL_20:
 
 - (void)_encodeWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   home = [(HMDTrigger *)self home];
   [coderCopy encodeConditionalObject:home forKey:@"home"];
@@ -465,18 +466,18 @@ LABEL_5:
     goto LABEL_8;
   }
 
-  v24 = objc_autoreleasePoolPush();
+  v23 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v26 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v25 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v27 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v27;
-    _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Owner user is not set in the trigger", &v28, 0xCu);
+    v26 = HMFGetLogIdentifier();
+    v27 = 138543362;
+    v28 = v26;
+    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Owner user is not set in the trigger", &v27, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v24);
+  objc_autoreleasePoolPop(v23);
   if (v13)
   {
 LABEL_8:
@@ -485,8 +486,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -499,7 +498,7 @@ LABEL_9:
 
 - (id)_initWithCoder:(id)coder
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"triggerName"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"triggerUUID"];
@@ -507,52 +506,52 @@ LABEL_9:
   v8 = [(HMDTrigger *)self initWithName:v5 uuid:v7];
   if (v8)
   {
-    v43 = v7;
-    v44 = v6;
-    v45 = v5;
+    v42 = v7;
+    v43 = v6;
+    v44 = v5;
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"home"];
     objc_storeWeak(&v8->_home, v9);
 
     v10 = MEMORY[0x277CBEB98];
-    v53[0] = objc_opt_class();
-    v53[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+    v52[0] = objc_opt_class();
+    v52[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
     v12 = [v10 setWithArray:v11];
 
     v13 = MEMORY[0x277CBEB98];
-    v52[0] = objc_opt_class();
-    v52[1] = objc_opt_class();
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+    v51[0] = objc_opt_class();
+    v51[1] = objc_opt_class();
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
     v15 = [v13 setWithArray:v14];
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"triggerActionSetUUIDs"];
 
-    v42 = v12;
+    v41 = v12;
     v17 = [coderCopy decodeObjectOfClasses:v12 forKey:@"triggerActionSets"];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v18 = [v17 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v45 objects:v50 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v47;
+      v20 = *v46;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v47 != v20)
+          if (*v46 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v46 + 1) + 8 * i);
+          v22 = *(*(&v45 + 1) + 8 * i);
           uuid = [v22 uuid];
           uUIDString = [uuid UUIDString];
           [(HMDTrigger *)v8 setActionSetForKey:uUIDString value:v22];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
       while (v19);
@@ -571,8 +570,8 @@ LABEL_9:
       [(HMDTrigger *)v8 setActionSetUUIDs:v26];
     }
 
-    v7 = v43;
-    v6 = v44;
+    v7 = v42;
+    v6 = v43;
 
     -[HMDTrigger setActive:](v8, "setActive:", [coderCopy decodeBoolForKey:@"triggerActive"]);
     v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"triggerLastFireDate"];
@@ -592,18 +591,17 @@ LABEL_9:
     v8->_configuredName = hm_truncatedNameString;
 
     v35 = MEMORY[0x277CBEB98];
-    v50 = objc_opt_class();
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+    v49 = objc_opt_class();
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
     v37 = [v35 setWithArray:v36];
 
     v38 = [coderCopy decodeObjectOfClasses:v37 forKey:*MEMORY[0x277CD1270]];
     policy = v8->_policy;
     v8->_policy = v38;
 
-    v5 = v45;
+    v5 = v44;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -619,7 +617,7 @@ LABEL_9:
 
 - (void)executeCompleteWithError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   policy = [(HMDTrigger *)self policy];
   objc_opt_class();
@@ -643,24 +641,22 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = errorCopy;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Trigger is marked to be deleted after execution (finished with error: %@), removing...", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = errorCopy;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Trigger is marked to be deleted after execution (finished with error: %@), removing...", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     home = [(HMDTrigger *)selfCopy home];
     [home removeTrigger:selfCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTriggerUpdate:(id)update message:(id)message
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -671,11 +667,11 @@ LABEL_9:
     v11 = HMFGetLogIdentifier();
     setProperties = [updateCopy setProperties];
     *buf = 138543874;
-    v76 = v11;
-    v77 = 2112;
-    v78 = updateCopy;
-    v79 = 2112;
-    v80 = setProperties;
+    v75 = v11;
+    v76 = 2112;
+    v77 = updateCopy;
+    v78 = 2112;
+    v79 = setProperties;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling base trigger update: %@, %@", buf, 0x20u);
   }
 
@@ -722,15 +718,15 @@ LABEL_9:
     name3 = [(HMDTrigger *)v23 name];
     configuredName3 = [(HMDTrigger *)v23 configuredName];
     *buf = 138544386;
-    v76 = v25;
-    v77 = 2112;
-    v78 = name;
-    v79 = 2112;
-    v80 = name3;
-    v81 = 2112;
-    v82 = configuredName;
-    v83 = 2112;
-    v84 = configuredName3;
+    v75 = v25;
+    v76 = 2112;
+    v77 = name;
+    v78 = 2112;
+    v79 = name3;
+    v80 = 2112;
+    v81 = configuredName;
+    v82 = 2112;
+    v83 = configuredName3;
     _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Parameter configured From : [%@, %@] To: [%@, %@]", buf, 0x34u);
 
     v16 = 0x277CBE000uLL;
@@ -757,9 +753,9 @@ LABEL_9:
   {
     v37 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v76 = v37;
-    v77 = 2112;
-    v78 = v30;
+    v75 = v37;
+    v76 = 2112;
+    v77 = v30;
     _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, "%{public}@name parameter configured : payload : %@", buf, 0x16u);
   }
 
@@ -798,15 +794,15 @@ LABEL_13:
     owningDevice = [updateCopy owningDevice];
     [(HMDTrigger *)selfCopy setOwningDevice:owningDevice];
 
-    v73[0] = *MEMORY[0x277CD2768];
+    v72[0] = *MEMORY[0x277CD2768];
     uuid2 = [(HMDTrigger *)selfCopy uuid];
     uUIDString = [uuid2 UUIDString];
-    v73[1] = @"HM.device";
-    v74[0] = uUIDString;
+    v72[1] = @"HM.device";
+    v73[0] = uUIDString;
     owningDevice2 = [(HMDTrigger *)selfCopy owningDevice];
     v53 = encodeRootObjectForIncomingXPCMessage(owningDevice2, 0);
-    v74[1] = v53;
-    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+    v73[1] = v53;
+    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:2];
 
     [messageCopy respondWithPayload:v54];
   }
@@ -819,10 +815,10 @@ LABEL_13:
     active = [updateCopy active];
     -[HMDTrigger setActive:](selfCopy, "setActive:", [active BOOLValue]);
 
-    v71 = *MEMORY[0x277CD2730];
+    v70 = *MEMORY[0x277CD2730];
     v58 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDTrigger active](selfCopy, "active")}];
-    v72 = v58;
-    v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+    v71 = v58;
+    v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
 
     [messageCopy respondWithPayload:v59];
   }
@@ -861,8 +857,6 @@ LABEL_13:
   }
 
   [(HMDTrigger *)selfCopy markChangedForMessage:messageCopy triggerModel:updateCopy];
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fillBaseObjectChangeModel:(id)model
@@ -878,7 +872,7 @@ LABEL_13:
   [modelCopy setActive:v7];
 
   actionSetUUIDs = [(HMDTrigger *)self actionSetUUIDs];
-  v9 = [actionSetUUIDs copy];
+  v9 = objc_msgSend_copy(actionSetUUIDs);
   [modelCopy setCurrentActionSets:v9];
 
   mostRecentFireDate = [(HMDTrigger *)self mostRecentFireDate];
@@ -900,61 +894,59 @@ LABEL_13:
 
 - (void)_registerForMessages
 {
-  v30[4] = *MEMORY[0x277D85DE8];
-  v24 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
-  [v24 setRoles:{objc_msgSend(v24, "roles") | 4}];
-  v3 = [v24 copy];
+  v29[4] = *MEMORY[0x277D85DE8];
+  v23 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
+  [v23 setRoles:{objc_msgSend(v23, "roles") | 4}];
+  v3 = objc_msgSend_copy(v23);
   home = [(HMDTrigger *)self home];
   v4 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
   msgDispatcher = [(HMDTrigger *)self msgDispatcher];
   v6 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v30[0] = v6;
-  v30[1] = v3;
-  v30[2] = v4;
+  v29[0] = v6;
+  v29[1] = v3;
+  v29[2] = v4;
   v7 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v30[3] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+  v29[3] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
   [msgDispatcher registerForMessage:@"kRenameTriggerRequestKey" receiver:self policies:v8 selector:sel__handleRenameRequest_];
 
   v9 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v29[0] = v9;
-  v29[1] = v3;
-  v29[2] = v4;
+  v28[0] = v9;
+  v28[1] = v3;
+  v28[2] = v4;
   v10 = [HMDConfigurationMessagePolicy policyWithOperationTypes:5];
-  v29[3] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+  v28[3] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
   [msgDispatcher registerForMessage:@"kUpdateActionSetTriggerRequestKey" receiver:self policies:v11 selector:sel__handleUpdateActionSetRequest_];
 
   v12 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v28[0] = v12;
-  v28[1] = v3;
-  v28[2] = v4;
+  v27[0] = v12;
+  v27[1] = v3;
+  v27[2] = v4;
   v13 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v28[3] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+  v27[3] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
   [msgDispatcher registerForMessage:@"kActivateTriggerRequestKey" receiver:self policies:v14 selector:sel__handleActivateTriggerRequest_];
 
   v15 = *MEMORY[0x277CD1298];
   v16 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v27[0] = v16;
-  v27[1] = v3;
-  v27[2] = v4;
+  v26[0] = v16;
+  v26[1] = v3;
+  v26[2] = v4;
   v17 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v27[3] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
+  v26[3] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
   [msgDispatcher registerForMessage:v15 receiver:self policies:v18 selector:sel__handleUpdateTriggerPolicyRequest_];
 
   v19 = *MEMORY[0x277CD1290];
   v20 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v26[0] = v20;
-  v26[1] = v3;
-  v26[2] = v4;
+  v25[0] = v20;
+  v25[1] = v3;
+  v25[2] = v4;
   v21 = [HMDConfigurationMessagePolicy policyWithOperationTypes:4];
-  v26[3] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
+  v25[3] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
   [msgDispatcher registerForMessage:v19 receiver:self policies:v22 selector:sel__handleRemoveTriggerPolicyRequest_];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userDidConfirmExecute:(BOOL)execute completionHandler:(id)handler
@@ -968,7 +960,7 @@ LABEL_13:
 - (void)_executeActionSets:(id)sets captureCurrentState:(BOOL)state completionHandler:(id)handler
 {
   stateCopy = state;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   setsCopy = sets;
   handlerCopy = handler;
   v7 = objc_autoreleasePoolPush();
@@ -1002,8 +994,8 @@ LABEL_13:
     }
 
     objc_autoreleasePoolPop(v13);
-    v37 = [MEMORY[0x277CCA9B8] hmErrorWithCode:10];
-    handlerCopy[2](handlerCopy, v37, 0);
+    v36 = [MEMORY[0x277CCA9B8] hmErrorWithCode:10];
+    handlerCopy[2](handlerCopy, v36, 0);
   }
 
   else
@@ -1025,66 +1017,66 @@ LABEL_13:
       }
 
       objc_autoreleasePoolPop(v26);
-      v37 = [MEMORY[0x277CCA9B8] hmErrorWithCode:21];
-      handlerCopy[2](handlerCopy, v37, 0);
+      v36 = [MEMORY[0x277CCA9B8] hmErrorWithCode:21];
+      handlerCopy[2](handlerCopy, v36, 0);
     }
 
     else
     {
-      v37 = [setsCopy na_filter:&__block_literal_global_67];
-      if ([v37 count])
+      v36 = [setsCopy na_filter:&__block_literal_global_67];
+      if ([v36 count])
       {
         v19 = dispatch_group_create();
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v57 = __Block_byref_object_copy__544;
-        v58 = __Block_byref_object_dispose__545;
-        v59 = 0;
-        v53[0] = 0;
-        v53[1] = v53;
-        v53[2] = 0x3032000000;
-        v53[3] = __Block_byref_object_copy__544;
-        v53[4] = __Block_byref_object_dispose__545;
+        v56 = __Block_byref_object_copy__544;
+        v57 = __Block_byref_object_dispose__545;
+        v58 = 0;
+        v52[0] = 0;
+        v52[1] = v52;
+        v52[2] = 0x3032000000;
+        v52[3] = __Block_byref_object_copy__544;
+        v52[4] = __Block_byref_object_dispose__545;
         dictionary = [MEMORY[0x277CBEB38] dictionary];
+        v48 = 0u;
         v49 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v52 = 0u;
-        obj = v37;
-        v20 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+        obj = v36;
+        v20 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
         if (v20)
         {
-          v21 = *v50;
+          v21 = *v49;
           do
           {
             v22 = 0;
             do
             {
-              if (*v50 != v21)
+              if (*v49 != v21)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v49 + 1) + 8 * v22);
+              v23 = *(*(&v48 + 1) + 8 * v22);
               dispatch_group_enter(v19);
-              v44[0] = MEMORY[0x277D85DD0];
-              v44[1] = 3221225472;
-              v44[2] = __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler___block_invoke_68;
-              v44[3] = &unk_2797209A8;
-              v44[4] = selfCopy;
-              v47 = buf;
+              v43[0] = MEMORY[0x277D85DD0];
+              v43[1] = 3221225472;
+              v43[2] = __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler___block_invoke_68;
+              v43[3] = &unk_2797209A8;
+              v43[4] = selfCopy;
+              v46 = buf;
               v24 = v19;
-              v48 = v53;
-              v45 = v24;
-              v46 = v23;
-              [v23 executeWithTriggerSource:selfCopy captureCurrentState:stateCopy completionHandler:v44];
+              v47 = v52;
+              v44 = v24;
+              v45 = v23;
+              [v23 executeWithTriggerSource:selfCopy captureCurrentState:stateCopy completionHandler:v43];
 
               ++v22;
             }
 
             while (v20 != v22);
-            v20 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+            v20 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
           }
 
           while (v20);
@@ -1095,12 +1087,12 @@ LABEL_13:
         block[1] = 3221225472;
         block[2] = __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler___block_invoke_3;
         block[3] = &unk_27972C358;
-        v41 = handlerCopy;
-        v42 = buf;
-        v43 = v53;
+        v40 = handlerCopy;
+        v41 = buf;
+        v42 = v52;
         dispatch_group_notify(v19, workQueue, block);
 
-        _Block_object_dispose(v53, 8);
+        _Block_object_dispose(v52, 8);
         _Block_object_dispose(buf, 8);
       }
 
@@ -1123,8 +1115,6 @@ LABEL_13:
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler___block_invoke_68(uint64_t a1, void *a2, void *a3)
@@ -1183,7 +1173,7 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
 
 - (void)_handleRemoveTriggerPolicyRequest:(id)request
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   policy = [(HMDTrigger *)self policy];
 
@@ -1224,29 +1214,27 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Policy already removed", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Policy already removed", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
     [requestCopy respondWithSuccess];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateTriggerPolicyRequest:(id)request
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   home = [(HMDTrigger *)self home];
   if (home)
   {
     v6 = [requestCopy dictionaryForKey:*MEMORY[0x277CD1278]];
-    v26 = 0;
-    v7 = [v6 hmf_BOOLForKey:*MEMORY[0x277CD1260] isPresent:&v26];
-    if (v26)
+    v25 = 0;
+    v7 = [v6 hmf_BOOLForKey:*MEMORY[0x277CD1260] isPresent:&v25];
+    if (v25)
     {
       v8 = v7;
       emptyModelObject = [(HMDTrigger *)self emptyModelObject];
@@ -1284,7 +1272,7 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v24;
+        v27 = v24;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Invalid payload for update policy request", buf, 0xCu);
       }
 
@@ -1303,7 +1291,7 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v20;
+      v27 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Trigger not associated to a home", buf, 0xCu);
     }
 
@@ -1311,8 +1299,6 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     v6 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [requestCopy respondWithError:v6];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateTriggerRequest:(id)request
@@ -1349,21 +1335,24 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
 - (void)_handleActivateTriggerRequest:(id)request
 {
   v4 = [(HMDTrigger *)self updateEventTriggerMessage:10 message:request relay:1];
+  v5 = v4;
   if (v4)
   {
-    [(HMDTrigger *)self _activateTriggerRequest:v4];
+    v6 = v4;
+    v4 = [(HMDTrigger *)self _activateTriggerRequest:v4];
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (void)_actionSetsUpdated:(id)updated message:(id)message
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   messageCopy = message;
   v7 = MEMORY[0x277CBEB58];
-  v74 = updatedCopy;
+  v73 = updatedCopy;
   currentActionSets = [updatedCopy currentActionSets];
   v9 = [v7 setWithArray:currentActionSets];
 
@@ -1371,8 +1360,8 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
   actionSetMapKeys = [(HMDTrigger *)self actionSetMapKeys];
   v12 = [v10 setWithArray:actionSetMapKeys];
 
-  v75 = v12;
-  v76 = v9;
+  v74 = v12;
+  v75 = v9;
   [v9 minusSet:v12];
   v13 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1381,18 +1370,18 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v107 = v16;
-    v108 = 2112;
-    v109 = v9;
+    v106 = v16;
+    v107 = 2112;
+    v108 = v9;
     _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@addedActionSets: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
   v17 = MEMORY[0x277CBEB98];
-  currentActionSets2 = [v74 currentActionSets];
+  currentActionSets2 = [v73 currentActionSets];
   v19 = [v17 setWithArray:currentActionSets2];
-  v20 = v75;
-  [v75 minusSet:v19];
+  v20 = v74;
+  [v74 minusSet:v19];
 
   v21 = objc_autoreleasePoolPush();
   v22 = selfCopy;
@@ -1401,43 +1390,43 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v107 = v24;
-    v108 = 2112;
-    v109 = v75;
+    v106 = v24;
+    v107 = 2112;
+    v108 = v74;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@removedActionSets: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v21);
-  v90 = v22;
-  if ([v76 count])
+  v89 = v22;
+  if ([v75 count])
   {
     home = [(HMDTrigger *)v22 home];
+    v95 = 0u;
     v96 = 0u;
     v97 = 0u;
     v98 = 0u;
-    v99 = 0u;
-    v26 = v76;
-    v89 = [v26 countByEnumeratingWithState:&v96 objects:v105 count:16];
-    if (v89)
+    v26 = v75;
+    v88 = [v26 countByEnumeratingWithState:&v95 objects:v104 count:16];
+    if (v88)
     {
-      v78 = 0;
-      v87 = *v97;
-      v85 = *MEMORY[0x277CD2728];
-      v83 = *MEMORY[0x277CD2040];
-      v81 = *MEMORY[0x277CD2720];
-      v79 = *MEMORY[0x277CD2738];
+      v77 = 0;
+      v86 = *v96;
+      v84 = *MEMORY[0x277CD2728];
+      v82 = *MEMORY[0x277CD2040];
+      v80 = *MEMORY[0x277CD2720];
+      v78 = *MEMORY[0x277CD2738];
       obj = v26;
       do
       {
         v27 = 0;
         do
         {
-          if (*v97 != v87)
+          if (*v96 != v86)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v96 + 1) + 8 * v27);
+          v28 = *(*(&v95 + 1) + 8 * v27);
           v29 = objc_autoreleasePoolPush();
           v30 = v22;
           v31 = HMFGetOSLogHandle();
@@ -1445,9 +1434,9 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
           {
             v32 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v107 = v32;
-            v108 = 2112;
-            v109 = v28;
+            v106 = v32;
+            v107 = 2112;
+            v108 = v28;
             _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Action set %@ has been added", buf, 0x16u);
           }
 
@@ -1459,7 +1448,7 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
             v35 = v34;
             if (([v34 containsShortcutActions] & 1) != 0 || objc_msgSend(v35, "containsMediaPlaybackActions"))
             {
-              v78 = 1;
+              v77 = 1;
             }
 
             [(HMDTrigger *)v30 setActionSetForKey:v28 value:v35];
@@ -1472,17 +1461,17 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
               [actionSetUUIDs2 addObject:v28];
             }
 
-            v104[0] = v28;
-            v103[0] = v85;
-            v103[1] = v83;
+            v103[0] = v28;
+            v102[0] = v84;
+            v102[1] = v82;
             name = [v35 name];
-            v104[1] = name;
-            v103[2] = v81;
+            v103[1] = name;
+            v102[2] = v80;
             type = [v35 type];
-            v103[3] = v79;
-            v104[2] = type;
-            v104[3] = MEMORY[0x277CBEC38];
-            v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:4];
+            v102[3] = v78;
+            v103[2] = type;
+            v103[3] = MEMORY[0x277CBEC38];
+            v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:v102 count:4];
 
             v42 = objc_autoreleasePoolPush();
             v43 = v30;
@@ -1491,10 +1480,10 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
             {
               v45 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v107 = v45;
+              v106 = v45;
               _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_INFO, "%{public}@Responding to clients that actionSet has been added to the trigger.", buf, 0xCu);
 
-              v22 = v90;
+              v22 = v89;
             }
 
             objc_autoreleasePoolPop(v42);
@@ -1510,9 +1499,9 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
             {
               v49 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v107 = v49;
-              v108 = 2112;
-              v109 = v28;
+              v106 = v49;
+              v107 = 2112;
+              v108 = v28;
               _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@Action set %@ could not be found", buf, 0x16u);
             }
 
@@ -1522,14 +1511,14 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
           ++v27;
         }
 
-        while (v89 != v27);
-        v50 = [obj countByEnumeratingWithState:&v96 objects:v105 count:16];
-        v89 = v50;
+        while (v88 != v27);
+        v50 = [obj countByEnumeratingWithState:&v95 objects:v104 count:16];
+        v88 = v50;
       }
 
       while (v50);
 
-      if (v78)
+      if (v77)
       {
         [(HMDTrigger *)v30 confirmResident];
       }
@@ -1539,35 +1528,35 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     {
     }
 
-    v20 = v75;
+    v20 = v74;
   }
 
   if ([v20 count])
   {
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
     v93 = 0u;
-    v80 = v20;
-    v51 = [v80 countByEnumeratingWithState:&v92 objects:v102 count:16];
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v79 = v20;
+    v51 = [v79 countByEnumeratingWithState:&v91 objects:v101 count:16];
     if (v51)
     {
       v52 = v51;
-      v53 = *v93;
-      v86 = *MEMORY[0x277CD2040];
-      v88 = *MEMORY[0x277CD2728];
-      v82 = *MEMORY[0x277CD2738];
-      v84 = *MEMORY[0x277CD2720];
+      v53 = *v92;
+      v85 = *MEMORY[0x277CD2040];
+      v87 = *MEMORY[0x277CD2728];
+      v81 = *MEMORY[0x277CD2738];
+      v83 = *MEMORY[0x277CD2720];
       do
       {
         for (i = 0; i != v52; ++i)
         {
-          if (*v93 != v53)
+          if (*v92 != v53)
           {
-            objc_enumerationMutation(v80);
+            objc_enumerationMutation(v79);
           }
 
-          v55 = *(*(&v92 + 1) + 8 * i);
+          v55 = *(*(&v91 + 1) + 8 * i);
           v56 = objc_autoreleasePoolPush();
           v57 = v22;
           v58 = HMFGetOSLogHandle();
@@ -1575,9 +1564,9 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
           {
             v59 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v107 = v59;
-            v108 = 2112;
-            v109 = v55;
+            v106 = v59;
+            v107 = 2112;
+            v108 = v55;
             _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_INFO, "%{public}@Action set %@ has been deleted", buf, 0x16u);
           }
 
@@ -1589,17 +1578,17 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
             actionSetUUIDs3 = [(HMDTrigger *)v57 actionSetUUIDs];
             [actionSetUUIDs3 removeObject:v55];
 
-            v101[0] = v55;
-            v100[0] = v88;
-            v100[1] = v86;
+            v100[0] = v55;
+            v99[0] = v87;
+            v99[1] = v85;
             name2 = [v60 name];
-            v101[1] = name2;
-            v100[2] = v84;
+            v100[1] = name2;
+            v99[2] = v83;
             type2 = [v60 type];
-            v100[3] = v82;
-            v101[2] = type2;
-            v101[3] = MEMORY[0x277CBEC28];
-            v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:4];
+            v99[3] = v81;
+            v100[2] = type2;
+            v100[3] = MEMORY[0x277CBEC28];
+            v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:4];
 
             v65 = objc_autoreleasePoolPush();
             v66 = v57;
@@ -1608,14 +1597,14 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
             {
               v68 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v107 = v68;
+              v106 = v68;
               _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_INFO, "%{public}@Notifying clients that actionSet has been removed from the trigger.", buf, 0xCu);
             }
 
             objc_autoreleasePoolPop(v65);
             [messageCopy respondWithPayload:v64];
 
-            v22 = v90;
+            v22 = v89;
           }
 
           else
@@ -1627,9 +1616,9 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
             {
               v72 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v107 = v72;
-              v108 = 2112;
-              v109 = v55;
+              v106 = v72;
+              v107 = 2112;
+              v108 = v55;
               _os_log_impl(&dword_2531F8000, v71, OS_LOG_TYPE_INFO, "%{public}@Action set %@ could not be found", buf, 0x16u);
             }
 
@@ -1637,33 +1626,100 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
           }
         }
 
-        v52 = [v80 countByEnumeratingWithState:&v92 objects:v102 count:16];
+        v52 = [v79 countByEnumeratingWithState:&v91 objects:v101 count:16];
       }
 
       while (v52);
     }
 
-    v20 = v75;
+    v20 = v74;
+  }
+}
+
+- (void)_updateActionSetRequest:(id)request postUpdate:(BOOL)update
+{
+  updateCopy = update;
+  requestCopy = request;
+  v6 = [requestCopy numberForKey:*MEMORY[0x277CD2738]];
+  if (v6)
+  {
+    home = [(HMDTrigger *)self home];
+    if (home)
+    {
+      v8 = home;
+      responseHandler2 = [requestCopy stringForKey:*MEMORY[0x277CD2720]];
+      v10 = [responseHandler2 isEqualToString:*MEMORY[0x277CCF1A0]];
+      bOOLValue = [v6 BOOLValue];
+      if (v10)
+      {
+        if ([requestCopy isEntitledForSPIAccess] & 1) != 0 || (objc_msgSend(requestCopy, "isRemote"))
+        {
+          if (bOOLValue)
+          {
+            [(HMDTrigger *)self _handleAddTriggerOwnedActionSetRequest:requestCopy];
+          }
+
+          else
+          {
+            [(HMDTrigger *)self _handleRemoveTriggerOwnedActionSetRequest:requestCopy postUpdate:updateCopy];
+          }
+        }
+
+        else
+        {
+          responseHandler = [requestCopy responseHandler];
+          v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+          (responseHandler)[2](responseHandler, v14, 0);
+        }
+      }
+
+      else if (bOOLValue)
+      {
+        [(HMDTrigger *)self _handleAddActionSetRequest:requestCopy];
+      }
+
+      else
+      {
+        [(HMDTrigger *)self _handleRemoveActionSetRequest:requestCopy postUpdate:updateCopy];
+      }
+    }
+
+    else
+    {
+      responseHandler2 = [requestCopy responseHandler];
+      v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+      (responseHandler2)[2](responseHandler2, v12, 0);
+
+      v8 = 0;
+    }
   }
 
-  v73 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:20 userInfo:0];
+    responseHandler2 = [requestCopy responseHandler];
+    (responseHandler2)[2](responseHandler2, v8, 0);
+  }
 }
 
 - (void)_handleUpdateActionSetRequest:(id)request
 {
   v4 = [(HMDTrigger *)self updateEventTriggerMessage:9 message:request relay:1];
+  v5 = v4;
   if (v4)
   {
-    [(HMDTrigger *)self _updateActionSetRequest:v4 postUpdate:1];
+    v6 = v4;
+    v4 = [(HMDTrigger *)self _updateActionSetRequest:v4 postUpdate:1];
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (void)_handleRemoveTriggerOwnedActionSetRequest:(id)request postUpdate:(BOOL)update
 {
   updateCopy = update;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = [requestCopy uuidForKey:*MEMORY[0x277CD2728]];
   if (v7)
@@ -1700,7 +1756,7 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
       [actionSetUUIDs removeObject:uUIDString];
 
       actionSetUUIDs2 = [(HMDTrigger *)self actionSetUUIDs];
-      v22 = [actionSetUUIDs2 copy];
+      v22 = objc_msgSend_copy(actionSetUUIDs2);
       [v18 setCurrentActionSets:v22];
 
       [v12 add:v18 withMessage:requestCopy];
@@ -1714,9 +1770,9 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         v26 = HMFGetLogIdentifier();
-        v28 = 138543362;
-        v29 = v26;
-        _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Remove of trigger owned action set, not posting event trigger update model as requested", &v28, 0xCu);
+        v27 = 138543362;
+        v28 = v26;
+        _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Remove of trigger owned action set, not posting event trigger update model as requested", &v27, 0xCu);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -1731,14 +1787,12 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     (home)[2](home, v12, 0);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRemoveActionSetRequest:(id)request postUpdate:(BOOL)update
 {
   updateCopy = update;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = [requestCopy uuidForKey:*MEMORY[0x277CD2728]];
   if (v7)
@@ -1764,7 +1818,7 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
       [actionSetUUIDs removeObject:uUIDString];
 
       actionSetUUIDs2 = [(HMDTrigger *)self actionSetUUIDs];
-      v14 = [actionSetUUIDs2 copy];
+      v14 = objc_msgSend_copy(actionSetUUIDs2);
       [v10 setCurrentActionSets:v14];
 
       home = [(HMDTrigger *)self home];
@@ -1785,9 +1839,9 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         v25 = HMFGetLogIdentifier();
-        v27 = 138543362;
-        v28 = v25;
-        _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Remove of trigger action set, not posting event trigger update model as requested", &v27, 0xCu);
+        v26 = 138543362;
+        v27 = v25;
+        _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Remove of trigger action set, not posting event trigger update model as requested", &v26, 0xCu);
       }
 
       objc_autoreleasePoolPop(v22);
@@ -1800,13 +1854,11 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     (responseHandler)[2](responseHandler, v21, 0);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAddTriggerOwnedActionSetRequest:(id)request
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy uuidForKey:*MEMORY[0x277CD0B10]];
   if (v5)
@@ -1840,7 +1892,7 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     [actionSetUUIDs addObject:uUIDString2];
 
     actionSetUUIDs2 = [(HMDTrigger *)self actionSetUUIDs];
-    v18 = [actionSetUUIDs2 copy];
+    v18 = objc_msgSend_copy(actionSetUUIDs2);
     [v14 setCurrentActionSets:v18];
 
     backingStore = [home backingStore];
@@ -1861,9 +1913,9 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     v26 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v26;
-    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ActionSetUUID not set.", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = v26;
+    _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ActionSetUUID not set.", &v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
@@ -1876,8 +1928,6 @@ BOOL __71__HMDTrigger__executeActionSets_captureCurrentState_completionHandler__
     (home)[2](home, v9, 0);
 LABEL_10:
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAddActionSetRequest:(id)request
@@ -1905,7 +1955,7 @@ LABEL_10:
     [actionSetUUIDs addObject:uUIDString];
 
     actionSetUUIDs2 = [(HMDTrigger *)self actionSetUUIDs];
-    v11 = [actionSetUUIDs2 copy];
+    v11 = objc_msgSend_copy(actionSetUUIDs2);
     [v7 setCurrentActionSets:v11];
 
     home = [(HMDTrigger *)self home];
@@ -1928,7 +1978,7 @@ LABEL_10:
 
 - (id)trimmedNameFromName:(id)name configuredName:(id)configuredName error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   configuredNameCopy = configuredName;
   home = [(HMDTrigger *)self home];
@@ -1947,7 +1997,7 @@ LABEL_10:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v31;
+      v45 = v31;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Trimmed name is now empty", buf, 0xCu);
     }
 
@@ -1966,9 +2016,9 @@ LABEL_10:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v46 = v19;
-    v47 = 2112;
-    v48 = v13;
+    v45 = v19;
+    v46 = 2112;
+    v47 = v13;
     _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Processing new trigger name after trimming invalid characters: '%@'", buf, 0x16u);
   }
 
@@ -1991,7 +2041,7 @@ LABEL_10:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v46 = v28;
+        v45 = v28;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Cannot rename the trigger as new trigger name & configured names are same.", buf, 0xCu);
       }
 
@@ -2015,7 +2065,7 @@ LABEL_20:
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v41;
+      v45 = v41;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Allowing rename request as current name and new trimmed name are the same but current configured name and new configured name are different", buf, 0xCu);
     }
 
@@ -2037,18 +2087,18 @@ LABEL_20:
       {
         v38 = HMFGetLogIdentifier();
         [(HMDTrigger *)v36 name];
-        v39 = v44 = v35;
+        v39 = v43 = v35;
         *buf = 138544130;
-        v46 = v38;
-        v47 = 2112;
-        v48 = v39;
-        v49 = 2112;
-        v50 = v13;
-        v51 = 2112;
-        v52 = v34;
+        v45 = v38;
+        v46 = 2112;
+        v47 = v39;
+        v48 = 2112;
+        v49 = v13;
+        v50 = 2112;
+        v51 = v34;
         _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Cannot rename the trigger from '%@' to '%@': %@", buf, 0x2Au);
 
-        v35 = v44;
+        v35 = v43;
       }
 
       objc_autoreleasePoolPop(v35);
@@ -2073,14 +2123,12 @@ LABEL_20:
 
 LABEL_27:
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v32;
 }
 
 - (void)_renameRequest:(id)request
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy stringForKey:*MEMORY[0x277CD2758]];
   v6 = v5;
@@ -2104,7 +2152,7 @@ LABEL_8:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v11;
+      v37 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@New name is longer than the pre-defined max length", buf, 0xCu);
     }
 
@@ -2118,124 +2166,126 @@ LABEL_8:
   home = [(HMDTrigger *)self home];
   if (home)
   {
-    v17 = objc_autoreleasePoolPush();
+    v16 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       name = [(HMDTrigger *)selfCopy2 name];
       configuredName = [(HMDTrigger *)selfCopy2 configuredName];
       *buf = 138544386;
-      v38 = v20;
-      v39 = 2112;
-      v40 = name;
-      v41 = 2112;
-      v42 = v6;
-      v43 = 2112;
-      v44 = configuredName;
-      v45 = 2112;
-      v46 = v14;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Rename request received: '%@' -> '%@', '%@' -> '%@'", buf, 0x34u);
+      v37 = v19;
+      v38 = 2112;
+      v39 = name;
+      v40 = 2112;
+      v41 = v6;
+      v42 = 2112;
+      v43 = configuredName;
+      v44 = 2112;
+      v45 = v14;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Rename request received: '%@' -> '%@', '%@' -> '%@'", buf, 0x34u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v36 = 0;
-    v23 = [(HMDTrigger *)selfCopy2 trimmedNameFromName:v6 configuredName:v14 error:&v36];
-    v24 = v36;
-    if (v23)
+    objc_autoreleasePoolPop(v16);
+    v35 = 0;
+    v22 = [(HMDTrigger *)selfCopy2 trimmedNameFromName:v6 configuredName:v14 error:&v35];
+    v23 = v35;
+    if (v22)
     {
       emptyModelObject = [(HMDTrigger *)selfCopy2 emptyModelObject];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v26 = emptyModelObject;
+        v25 = emptyModelObject;
       }
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
 
-      v27 = v26;
+      v26 = v25;
 
-      [v27 setName:v23];
-      [v27 setConfiguredName:v14];
+      [v26 setName:v22];
+      [v26 setConfiguredName:v14];
       backingStore = [home backingStore];
       name2 = [requestCopy name];
-      v30 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
-      [backingStore transaction:name2 options:v30];
-      v35 = home;
-      v31 = v14;
-      v33 = v32 = v24;
+      v29 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
+      [backingStore transaction:name2 options:v29];
+      v34 = home;
+      v30 = v14;
+      v32 = v31 = v23;
 
-      [v33 add:v27 withMessage:requestCopy];
-      [v33 run];
+      [v32 add:v26 withMessage:requestCopy];
+      [v32 run];
 
-      v24 = v32;
-      v14 = v31;
-      home = v35;
+      v23 = v31;
+      v14 = v30;
+      home = v34;
     }
 
     else
     {
-      [requestCopy respondWithError:v24];
+      [requestCopy respondWithError:v23];
     }
   }
 
   else
   {
-    v34 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-    [requestCopy respondWithError:v34];
+    v33 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+    [requestCopy respondWithError:v33];
   }
 
 LABEL_9:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRenameRequest:(id)request
 {
   v4 = [(HMDTrigger *)self updateEventTriggerMessage:8 message:request relay:1];
+  v5 = v4;
   if (v4)
   {
-    [(HMDTrigger *)self _renameRequest:v4];
+    v6 = v4;
+    v4 = [(HMDTrigger *)self _renameRequest:v4];
+    v5 = v6;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (void)_activate:(BOOL)_activate completionHandler:(id)handler
 {
   _activateCopy = _activate;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (_activateCopy)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     actionSets = [(HMDTrigger *)self actionSets];
-    v8 = [actionSets countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [actionSets countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(actionSets);
           }
 
-          actions = [*(*(&v16 + 1) + 8 * i) actions];
+          actions = [*(*(&v15 + 1) + 8 * i) actions];
           v10 += [actions count];
         }
 
-        v9 = [actionSets countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [actionSets countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -2263,13 +2313,11 @@ LABEL_10:
   }
 
 LABEL_14:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markChangedForMessage:(id)message triggerModel:(id)model
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   modelCopy = model;
   home = [(HMDTrigger *)self home];
@@ -2294,9 +2342,9 @@ LABEL_14:
     if (v14)
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Not re-activating the trigger after applying the trigger model since it only contains mostRecentFireDate", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Not re-activating the trigger after applying the trigger model since it only contains mostRecentFireDate", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -2307,16 +2355,14 @@ LABEL_14:
     if (v14)
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v16;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Activating the trigger after applying the trigger model", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v16;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Activating the trigger after applying the trigger model", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     [(HMDTrigger *)selfCopy activateWithCompletion:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)modelContainsTriggerFired:(id)fired
@@ -2339,7 +2385,7 @@ LABEL_14:
 
 - (void)activateAfterResidentChangeWithCompletion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2347,15 +2393,13 @@ LABEL_14:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Re-evaluating trigger after resident change", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Re-evaluating trigger after resident change", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDTrigger *)selfCopy activateWithCompletion:completionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateWithCompletion:(id)completion
@@ -2373,18 +2417,18 @@ LABEL_14:
 
 - (void)activateWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if ([(HMDTrigger *)self isConfigured])
   {
     workQueue = [(HMDTrigger *)self workQueue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __37__HMDTrigger_activateWithCompletion___block_invoke;
-    v11[3] = &unk_279735738;
-    v11[4] = self;
-    v12 = completionCopy;
-    dispatch_async(workQueue, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __37__HMDTrigger_activateWithCompletion___block_invoke;
+    v10[3] = &unk_279735738;
+    v10[4] = self;
+    v11 = completionCopy;
+    dispatch_async(workQueue, v10);
   }
 
   else
@@ -2396,14 +2440,12 @@ LABEL_14:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Work queue is not configured, cannot activate", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isConfigured
@@ -2442,7 +2484,7 @@ LABEL_14:
 
 - (void)invalidate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -2450,36 +2492,36 @@ LABEL_14:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v20 = v6;
+    v19 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Invalidating trigger", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   actionSets = [(HMDTrigger *)selfCopy actionSets];
-  v8 = [actionSets countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [actionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(actionSets);
         }
 
-        [(HMDTrigger *)selfCopy removeActionSet:*(*(&v14 + 1) + 8 * v11++) postUpdate:0];
+        [(HMDTrigger *)selfCopy removeActionSet:*(*(&v13 + 1) + 8 * v11++) postUpdate:0];
       }
 
       while (v9 != v11);
-      v9 = [actionSets countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [actionSets countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -2490,7 +2532,6 @@ LABEL_14:
   [actionSetUUIDs removeAllObjects];
 
   [(HMDTrigger *)selfCopy setMsgDispatcher:0];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure:(id)configure messageDispatcher:(id)dispatcher queue:(id)queue
@@ -2519,34 +2560,34 @@ LABEL_14:
 
 - (BOOL)isAssociatedWithAccessory:(id)accessory
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   actionSets = [(HMDTrigger *)self actionSets];
-  v6 = [actionSets countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [actionSets countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(actionSets);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) isAssociatedWithAccessory:accessoryCopy])
+        if ([*(*(&v10 + 1) + 8 * i) isAssociatedWithAccessory:accessoryCopy])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [actionSets countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [actionSets countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -2558,7 +2599,6 @@ LABEL_14:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2583,22 +2623,20 @@ LABEL_11:
 
 - (void)_recentFireDateUpdated:(id)updated
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (updated)
   {
     [(HMDTrigger *)self setMostRecentFireDate:?];
-    v10 = *MEMORY[0x277CD2748];
-    v8 = *MEMORY[0x277CD2750];
+    v9 = *MEMORY[0x277CD2748];
+    v7 = *MEMORY[0x277CD2750];
     mostRecentFireDate = [(HMDTrigger *)self mostRecentFireDate];
-    v9 = mostRecentFireDate;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-    v11[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v8 = mostRecentFireDate;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
     [(HMDTrigger *)self sendTriggerFiredNotification:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerFired
@@ -2631,26 +2669,26 @@ LABEL_11:
 
 - (void)reEvaluate:(unint64_t)evaluate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (![(HMDTrigger *)self isConfigured])
   {
-    v8 = objc_autoreleasePoolPush();
+    v7 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
-      v12 = "%{public}@Cannot re-evaluate trigger, work queue has not been configured yet";
+      v10 = HMFGetLogIdentifier();
+      v12 = 138543362;
+      v13 = v10;
+      v11 = "%{public}@Cannot re-evaluate trigger, work queue has not been configured yet";
 LABEL_12:
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, v12, &v15, 0xCu);
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v11, &v12, 0xCu);
     }
 
 LABEL_13:
 
-    objc_autoreleasePoolPop(v8);
-    goto LABEL_14;
+    objc_autoreleasePoolPop(v7);
+    return;
   }
 
   home = [(HMDTrigger *)self home];
@@ -2658,44 +2696,100 @@ LABEL_13:
 
   if ((isOwnerUser & 1) == 0)
   {
-    v8 = objc_autoreleasePoolPush();
+    v7 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
-      v12 = "%{public}@Cannot re-evaluate trigger, not a owner user";
+      v10 = HMFGetLogIdentifier();
+      v12 = 138543362;
+      v13 = v10;
+      v11 = "%{public}@Cannot re-evaluate trigger, not a owner user";
       goto LABEL_12;
     }
 
     goto LABEL_13;
   }
 
-  if (evaluate != 1)
+  if (evaluate == 1)
   {
-    if (!evaluate)
-    {
-      v7 = *MEMORY[0x277D85DE8];
 
-      [(HMDTrigger *)self _checkForNoActions];
-      return;
-    }
-
-LABEL_14:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
+    [(HMDTrigger *)self _forceEvaluate];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  else if (!evaluate)
+  {
 
-  [(HMDTrigger *)self _forceEvaluate];
+    [(HMDTrigger *)self _checkForNoActions];
+  }
+}
+
+- (void)removeActionSet:(id)set postUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v32 = *MEMORY[0x277D85DE8];
+  setCopy = set;
+  home = [(HMDTrigger *)self home];
+  isOwnerUser = [home isOwnerUser];
+
+  if (isOwnerUser)
+  {
+    actionSets = [(HMDTrigger *)self actionSets];
+    v10 = [actionSets containsObject:setCopy];
+
+    if (v10)
+    {
+      v11 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v13 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        v14 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v29 = v14;
+        v30 = 2112;
+        v31 = setCopy;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Action set %@ has been removed from home, cleaning the trigger", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v11);
+      v15 = MEMORY[0x277D0F848];
+      v16 = *MEMORY[0x277CD2738];
+      v27[0] = MEMORY[0x277CBEC28];
+      uuid = [setCopy uuid];
+      uUIDString = [uuid UUIDString];
+      v27[1] = uUIDString;
+      v26[2] = *MEMORY[0x277CD2720];
+      type = [setCopy type];
+      v27[2] = type;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+      v21 = [v15 messageWithName:@"kUpdateActionSetTriggerRequestKey" messagePayload:v20];
+
+      [v21 setRemote:1];
+      [(HMDTrigger *)selfCopy _updateActionSetRequest:v21 postUpdate:updateCopy];
+    }
+  }
+
+  else
+  {
+    v22 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      v25 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v29 = v25;
+      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Not the owner of this home, cannot clean up the action set reference", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v22);
+  }
 }
 
 - (void)_forceEvaluate
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ([(HMDTrigger *)self active])
   {
     v3 = objc_autoreleasePoolPush();
@@ -2704,41 +2798,39 @@ LABEL_14:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Trigger is active. Hence force evaluating", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Trigger is active. Hence force evaluating", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [(HMDTrigger *)selfCopy _activateWithCompletion:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasNoActions
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   actionSets = [(HMDTrigger *)self actionSets];
-  v3 = [actionSets countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [actionSets countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(actionSets);
         }
 
-        actions = [*(*(&v12 + 1) + 8 * i) actions];
+        actions = [*(*(&v11 + 1) + 8 * i) actions];
         v8 = [actions count];
 
         if (v8)
@@ -2748,7 +2840,7 @@ LABEL_14:
         }
       }
 
-      v4 = [actionSets countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [actionSets countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -2761,8 +2853,37 @@ LABEL_14:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
+}
+
+- (void)setEnabled:(BOOL)enabled message:(id)message
+{
+  enabledCopy = enabled;
+  messageCopy = message;
+  emptyModelObject = [(HMDTrigger *)self emptyModelObject];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v8 = emptyModelObject;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = v8;
+
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [v9 setActive:v10];
+
+  home = [(HMDTrigger *)self home];
+  backingStore = [home backingStore];
+  v13 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
+  v14 = [backingStore transaction:@"setEnabled" options:v13];
+
+  [v14 add:v9 withMessage:messageCopy];
+  [v14 run];
 }
 
 - (NSArray)actionSets
@@ -2887,8 +3008,8 @@ LABEL_11:
 
 - (id)dumpStateWithPrivacyLevel:(unint64_t)level
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v37 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
+  v45 = *MEMORY[0x277D85DE8];
+  v36 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
   v4 = MEMORY[0x277CCACA8];
   name = [(HMDTrigger *)self name];
   configuredName = [(HMDTrigger *)self configuredName];
@@ -2902,9 +3023,9 @@ LABEL_11:
   policy = [(HMDTrigger *)self policy];
   v13 = [v4 stringWithFormat:@"name: %@, configuredName: %@, uuid: %@, enabled: %@, activeOnLocalDevice: %@, lastFireDate: %@, Policy: %@", name, configuredName, uUIDString, v9, v10, mostRecentFireDate, policy];
 
-  v14 = v37;
-  v36 = v13;
-  [v37 setObject:v13 forKeyedSubscript:*MEMORY[0x277D0F170]];
+  v14 = v36;
+  v35 = v13;
+  [v36 setObject:v13 forKeyedSubscript:*MEMORY[0x277D0F170]];
   actionSets = [(HMDTrigger *)self actionSets];
   v16 = [actionSets count];
 
@@ -2912,36 +3033,36 @@ LABEL_11:
   {
     v17 = MEMORY[0x277CBEB18];
     actionSets2 = [(HMDTrigger *)self actionSets];
-    v40 = [v17 arrayWithCapacity:{objc_msgSend(actionSets2, "count")}];
+    v39 = [v17 arrayWithCapacity:{objc_msgSend(actionSets2, "count")}];
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obj = [(HMDTrigger *)self actionSets];
-    v19 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v19 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v42;
+      v21 = *v41;
       v22 = *MEMORY[0x277CCF1A0];
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v42 != v21)
+          if (*v41 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v41 + 1) + 8 * i);
+          v24 = *(*(&v40 + 1) + 8 * i);
           type = [v24 type];
           v26 = [type isEqualToString:v22];
 
           if (v26)
           {
             name2 = [v24 dumpStateWithPrivacyLevel:level];
-            [v40 addObject:name2];
+            [v39 addObject:name2];
           }
 
           else
@@ -2953,74 +3074,70 @@ LABEL_11:
             uUIDString2 = [uuid2 UUIDString];
             actions = [v24 actions];
             v33 = [v28 stringWithFormat:@"name: %@, type: %@, uuid: %@, numActions: %ld", name2, type2, uUIDString2, objc_msgSend(actions, "count")];
-            [v40 addObject:v33];
+            [v39 addObject:v33];
           }
         }
 
-        v20 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v20 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
       }
 
       while (v20);
     }
 
-    v14 = v37;
-    [v37 setObject:v40 forKeyedSubscript:*MEMORY[0x277D0F048]];
+    v14 = v36;
+    [v36 setObject:v39 forKeyedSubscript:*MEMORY[0x277D0F048]];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)attributeDescriptions
 {
-  v36[9] = *MEMORY[0x277D85DE8];
+  v35[9] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMDTrigger *)self name];
-  v34 = [v3 initWithName:@"NM" value:name];
-  v36[0] = v34;
+  v33 = [v3 initWithName:@"NM" value:name];
+  v35[0] = v33;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   configuredName = [(HMDTrigger *)self configuredName];
-  v32 = [v4 initWithName:@"CN" value:configuredName];
-  v36[1] = v32;
+  v31 = [v4 initWithName:@"CN" value:configuredName];
+  v35[1] = v31;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDTrigger *)self uuid];
-  v30 = [v5 initWithName:@"UUID" value:uuid];
-  v36[2] = v30;
+  v29 = [v5 initWithName:@"UUID" value:uuid];
+  v35[2] = v29;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDTrigger *)self active];
-  v29 = HMFBooleanToString();
-  v28 = [v6 initWithName:@"ACT" value:v29];
-  v36[3] = v28;
+  v28 = HMFBooleanToString();
+  v27 = [v6 initWithName:@"ACT" value:v28];
+  v35[3] = v27;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDTrigger *)self shouldActivateOnLocalDevice];
-  v27 = HMFBooleanToString();
-  v26 = [v7 initWithName:@"AOLD" value:v27];
-  v36[4] = v26;
+  v26 = HMFBooleanToString();
+  v25 = [v7 initWithName:@"AOLD" value:v26];
+  v35[4] = v25;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   owningDevice = [(HMDTrigger *)self owningDevice];
   identifier = [owningDevice identifier];
   v10 = [v8 initWithName:@"DE" value:identifier];
-  v36[5] = v10;
+  v35[5] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   owner = [(HMDTrigger *)self owner];
   userID = [owner userID];
   defaultFormatter = [MEMORY[0x277D0F8D8] defaultFormatter];
   v15 = [v11 initWithName:@"USR" value:userID options:2 formatter:defaultFormatter];
-  v36[6] = v15;
+  v35[6] = v15;
   v16 = objc_alloc(MEMORY[0x277D0F778]);
   actionSets = [(HMDTrigger *)self actionSets];
   v18 = [v16 initWithName:@"AS" value:actionSets];
-  v36[7] = v18;
+  v35[7] = v18;
   v19 = objc_alloc(MEMORY[0x277D0F778]);
   policy = [(HMDTrigger *)self policy];
   v21 = [v19 initWithName:@"PO" value:policy];
-  v36[8] = v21;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:9];
+  v35[8] = v21;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:9];
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (void)dealloc
@@ -3133,7 +3250,7 @@ LABEL_11:
     if (v10)
     {
       hm_truncatedNameString = [nameCopy hm_truncatedNameString];
-      v12 = [hm_truncatedNameString copy];
+      v12 = objc_msgSend_copy(hm_truncatedNameString);
       name = v10->_name;
       v10->_name = v12;
 
@@ -3159,11 +3276,11 @@ LABEL_11:
 
 + (id)messageBindingForDispatcher:(id)dispatcher message:(id)message receiver:(id)receiver
 {
-  v44[5] = *MEMORY[0x277D85DE8];
+  v41[5] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   receiverCopy = receiver;
   objc_opt_class();
-  v41 = receiverCopy;
+  v38 = receiverCopy;
   if (objc_opt_isKindOfClass())
   {
     v7 = receiverCopy;
@@ -3179,39 +3296,39 @@ LABEL_11:
 
   v10 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
   [v10 setRoles:{objc_msgSend(v10, "roles") | 4}];
-  v40 = v10;
-  v11 = [v10 copy];
+  v37 = v10;
+  v11 = objc_msgSend_copy(v10);
   v12 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
   v13 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v44[0] = v13;
+  v41[0] = v13;
   v14 = objc_opt_new();
-  v44[1] = v14;
+  v41[1] = v14;
   v15 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v44[2] = v15;
-  v44[3] = v11;
-  v44[4] = v12;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:5];
+  v41[2] = v15;
+  v41[3] = v11;
+  v41[4] = v12;
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:5];
 
   v16 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v43[0] = v16;
+  v40[0] = v16;
   v17 = objc_opt_new();
-  v43[1] = v17;
+  v40[1] = v17;
   v18 = [HMDConfigurationMessagePolicy policyWithOperationTypes:4];
-  v43[2] = v18;
-  v43[3] = v11;
-  v43[4] = v12;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:5];
+  v40[2] = v18;
+  v40[3] = v11;
+  v40[4] = v12;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:5];
 
   v19 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v42[0] = v19;
+  v39[0] = v19;
   v20 = v12;
   v21 = objc_opt_new();
-  v42[1] = v21;
+  v39[1] = v21;
   v22 = [HMDConfigurationMessagePolicy policyWithOperationTypes:5];
-  v42[2] = v22;
-  v42[3] = v11;
-  v42[4] = v12;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:5];
+  v39[2] = v22;
+  v39[3] = v11;
+  v39[4] = v12;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:5];
 
   name = [messageCopy name];
   LODWORD(v22) = HMFEqualObjects();
@@ -3219,38 +3336,29 @@ LABEL_11:
   name2 = [messageCopy name];
   if (v22)
   {
-    v26 = v37;
+    v26 = v34;
     v27 = HMFCreateMessageBinding();
-    v28 = v39;
+    v28 = v36;
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v26 = v37;
+  v26 = v34;
   v29 = HMFEqualObjects();
 
   name2 = [messageCopy name];
-  v28 = v39;
-  if (v29)
-  {
-    goto LABEL_9;
-  }
-
-  v30 = HMFEqualObjects();
-
-  name2 = [messageCopy name];
-  if (v30 || (v31 = *MEMORY[0x277CD1298], v32 = HMFEqualObjects(), name2, [messageCopy name], name2 = objc_claimAutoreleasedReturnValue(), v32))
+  v28 = v36;
+  if (v29 || (v30 = HMFEqualObjects(), name2, [messageCopy name], name2 = objc_claimAutoreleasedReturnValue(), v30) || (v31 = HMFEqualObjects(), name2, objc_msgSend(messageCopy, "name"), name2 = objc_claimAutoreleasedReturnValue(), v31))
   {
 LABEL_9:
     v27 = HMFCreateMessageBinding();
     goto LABEL_10;
   }
 
-  v35 = *MEMORY[0x277CD1290];
-  v36 = HMFEqualObjects();
+  v33 = HMFEqualObjects();
 
-  if (v36)
+  if (v33)
   {
     name2 = [messageCopy name];
     goto LABEL_9;
@@ -3258,8 +3366,6 @@ LABEL_9:
 
   v27 = 0;
 LABEL_11:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -3278,84 +3384,81 @@ LABEL_11:
 
 uint64_t __25__HMDTrigger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v1_606 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_606;
+  logCategory__hmf_once_v1_606 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (NSDictionary)bulletinContext
 {
-  v19[7] = *MEMORY[0x277D85DE8];
+  v18[7] = *MEMORY[0x277D85DE8];
   home = [(HMDTrigger *)self home];
-  v18[0] = @"home";
+  v17[0] = @"home";
   contextID = [home contextID];
-  v19[0] = contextID;
-  v18[1] = @"trigger";
+  v18[0] = contextID;
+  v17[1] = @"trigger";
   contextID2 = [(HMDTrigger *)self contextID];
-  v19[1] = contextID2;
-  v18[2] = *MEMORY[0x277CCF328];
+  v18[1] = contextID2;
+  v17[2] = *MEMORY[0x277CCF328];
   contextSPIUniqueIdentifier = [home contextSPIUniqueIdentifier];
   uUIDString = [contextSPIUniqueIdentifier UUIDString];
-  v19[2] = uUIDString;
-  v18[3] = *MEMORY[0x277CCF348];
+  v18[2] = uUIDString;
+  v17[3] = *MEMORY[0x277CCF348];
   contextSPIUniqueIdentifier2 = [(HMDTrigger *)self contextSPIUniqueIdentifier];
   uUIDString2 = [contextSPIUniqueIdentifier2 UUIDString];
-  v19[3] = uUIDString2;
-  v18[4] = *MEMORY[0x277CCF350];
+  v18[3] = uUIDString2;
+  v17[4] = *MEMORY[0x277CCF350];
   name = [(HMDTrigger *)self name];
-  v19[4] = name;
-  v18[5] = @"home.uuid.internal";
+  v18[4] = name;
+  v17[5] = @"home.uuid.internal";
   uuid = [home uuid];
   uUIDString3 = [uuid UUIDString];
-  v19[5] = uUIDString3;
-  v18[6] = @"trigger.uuid.internal";
+  v18[5] = uUIDString3;
+  v17[6] = @"trigger.uuid.internal";
   uuid2 = [(HMDTrigger *)self uuid];
   uUIDString4 = [uuid2 UUIDString];
-  v19[6] = uUIDString4;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:7];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v18[6] = uUIDString4;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
 
   return v12;
 }
 
 - (NSDictionary)actionContext
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v16[0] = @"itemType";
-  v16[1] = @"identifier";
-  v17[0] = @"TRIGGER";
-  v17[1] = @"trigger_execute";
-  v16[2] = @"title";
+  v16[4] = *MEMORY[0x277D85DE8];
+  v15[0] = @"itemType";
+  v15[1] = @"identifier";
+  v16[0] = @"TRIGGER";
+  v16[1] = @"trigger_execute";
+  v15[2] = @"title";
   v2 = HMDLocalizedStringForKey(@"CONFIRM_EXECUTE_SECURE_TRIGGER_ACTION_YES");
-  v16[3] = @"shouldDismiss";
+  v15[3] = @"shouldDismiss";
   v3 = MEMORY[0x277CBEC38];
-  v17[2] = v2;
-  v17[3] = MEMORY[0x277CBEC38];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[2] = v2;
+  v16[3] = MEMORY[0x277CBEC38];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
 
-  v14[0] = @"itemType";
-  v14[1] = @"identifier";
-  v15[0] = @"TRIGGER";
-  v15[1] = @"trigger_doNotExecute";
-  v14[2] = @"title";
+  v13[0] = @"itemType";
+  v13[1] = @"identifier";
+  v14[0] = @"TRIGGER";
+  v14[1] = @"trigger_doNotExecute";
+  v13[2] = @"title";
   v5 = HMDLocalizedStringForKey(@"CONFIRM_EXECUTE_SECURE_TRIGGER_ACTION_NO");
-  v14[3] = @"shouldDismiss";
-  v15[2] = v5;
-  v15[3] = v3;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v13[3] = @"shouldDismiss";
+  v14[2] = v5;
+  v14[3] = v3;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
-  v11[1] = v6;
-  v12[0] = @"buttonCategory";
-  v12[1] = @"bulletinActionButtonDescription";
-  v13[0] = &unk_286627430;
-  v11[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-  v13[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[1] = v6;
+  v11[0] = @"buttonCategory";
+  v11[1] = @"bulletinActionButtonDescription";
+  v12[0] = &unk_286627430;
+  v10[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v12[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v8;
 }
@@ -3370,11 +3473,10 @@ uint64_t __25__HMDTrigger_logCategory__block_invoke()
 
 - (NSString)urlString
 {
-  v2 = *MEMORY[0x277CCF2B8];
   uuid = [(HMDTrigger *)self uuid];
-  v4 = hm_assistantIdentifier();
+  v3 = hm_assistantIdentifier();
 
-  return v4;
+  return v3;
 }
 
 @end

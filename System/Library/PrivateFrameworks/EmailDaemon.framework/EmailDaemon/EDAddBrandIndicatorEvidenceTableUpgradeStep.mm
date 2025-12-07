@@ -29,29 +29,31 @@ void ___ef_log_EDAddBrandIndicatorEvidenceTableUpgradeStep_block_invoke()
   v24 = 0u;
   obj = [manager allJournals];
   v8 = [obj countByEnumeratingWithState:&v21 objects:v30 count:16];
+  v9 = v8;
   if (v8)
   {
-    v9 = *v22;
+    v10 = *v22;
     while (2)
     {
-      for (i = 0; i != v8; ++i)
+      v11 = 0;
+      do
       {
-        if (*v22 != v9)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
-        v12 = _ef_log_EDAddBrandIndicatorEvidenceTableUpgradeStep();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v12 = *(*(&v21 + 1) + 8 * v11);
+        v13 = _ef_log_EDAddBrandIndicatorEvidenceTableUpgradeStep(v8);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          number = [v11 number];
+          number = [v12 number];
           LODWORD(buf) = 134217984;
           *(&buf + 4) = number;
-          _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Upgrading journal %lu", &buf, 0xCu);
+          _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Upgrading journal %lu", &buf, 0xCu);
         }
 
-        if (![connectionCopy attachJournalDatabase:v11 withName:@"journal" error:error])
+        if (![connectionCopy attachJournalDatabase:v12 withName:@"journal" error:error])
         {
           goto LABEL_19;
         }
@@ -72,10 +74,10 @@ void ___ef_log_EDAddBrandIndicatorEvidenceTableUpgradeStep_block_invoke()
         {
           if (error)
           {
-            v15 = *(*(&buf + 1) + 40);
-            if (v15)
+            v16 = *(*(&buf + 1) + 40);
+            if (v16)
             {
-              *error = v15;
+              *error = v16;
             }
           }
 
@@ -93,9 +95,13 @@ LABEL_19:
         {
           goto LABEL_20;
         }
+
+        ++v11;
       }
 
+      while (v9 != v11);
       v8 = [obj countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v9 = v8;
       LOBYTE(detachJournalDatabase) = 1;
       if (v8)
       {
@@ -113,7 +119,6 @@ LABEL_19:
 
 LABEL_20:
 
-  v16 = *MEMORY[0x1E69E9840];
   return detachJournalDatabase;
 }
 
@@ -241,37 +246,35 @@ BOOL __86__EDAddBrandIndicatorEvidenceTableUpgradeStep_runWithConnection_journal
 
 + (id)_brandIndicatorEvidenceTableSchemaWithBrandIndicatorsTableSchema:(id)schema
 {
-  v21[4] = *MEMORY[0x1E69E9840];
+  v20[4] = *MEMORY[0x1E69E9840];
   schemaCopy = schema;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"brand_indicator" nullable:0];
   v5 = objc_alloc(MEMORY[0x1E699B958]);
-  v21[0] = v4;
+  v20[0] = v4;
   v6 = [MEMORY[0x1E699B8D0] textColumnWithName:@"url" collation:1 nullable:0];
-  v21[1] = v6;
+  v20[1] = v6;
   v7 = [MEMORY[0x1E699B8D0] blobColumnWithName:@"evidence" nullable:1];
-  v21[2] = v7;
+  v20[2] = v7;
   v8 = [MEMORY[0x1E699B8D0] textColumnWithName:@"unverified_messages" collation:1 nullable:1];
-  v21[3] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+  v20[3] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
   v10 = [v5 initWithName:@"brand_indicator_evidence" rowIDType:2 columns:v9];
 
-  v20[0] = @"brand_indicator";
-  v20[1] = @"url";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+  v19[0] = @"brand_indicator";
+  v19[1] = @"url";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
   [v10 addUniquenessConstraintForColumns:v11 conflictResolution:1];
 
   v12 = [MEMORY[0x1E699B8C8] column:@"unverified_messages"];
   isNotNull = [v12 isNotNull];
 
   v14 = objc_alloc(MEMORY[0x1E699B900]);
-  v19 = @"unverified_messages";
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+  v18 = @"unverified_messages";
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
   v16 = [v14 initWithTableName:@"brand_indicator_evidence" columnNames:v15 where:isNotNull unique:0];
 
   [v10 addIndex:v16];
   [v4 setAsForeignKeyForTable:schemaCopy onDelete:2 onUpdate:2];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

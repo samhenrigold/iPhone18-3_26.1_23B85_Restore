@@ -125,8 +125,8 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E3DCFDD4();
+  v5 = OUTLINED_FUNCTION_10_0();
+  sub_1E3DCFDD4(v5);
 }
 
 - (void)vui_viewWillAppear:(BOOL)appear
@@ -175,8 +175,8 @@
 {
   sub_1E42062B4();
   selfCopy = self;
-  OUTLINED_FUNCTION_38();
-  sub_1E3DD1970();
+  v6 = OUTLINED_FUNCTION_38();
+  sub_1E3DD1970(v6);
 }
 
 - (void)recordPageHandler
@@ -195,8 +195,8 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E3DD1FAC();
+  v5 = OUTLINED_FUNCTION_10_0();
+  sub_1E3DD1FAC(v5);
   swift_unknownObjectRelease();
 }
 

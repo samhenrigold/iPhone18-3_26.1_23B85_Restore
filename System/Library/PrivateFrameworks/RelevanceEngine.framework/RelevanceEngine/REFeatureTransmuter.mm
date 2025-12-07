@@ -87,7 +87,7 @@ void __86__REFeatureTransmuter_initWithInputFeatures_outputFeatures_outputFeatur
 
 - (id)_buildGraph
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [[REDependencyGraph alloc] initWithPointerFunctions:0];
   allFeatures = [(REFeatureSet *)self->_outputSet allFeatures];
   v5 = [allFeatures mutableCopy];
@@ -106,26 +106,26 @@ void __86__REFeatureTransmuter_initWithInputFeatures_outputFeatures_outputFeatur
         [(REDependencyGraph *)v3 addItem:lastObject];
       }
 
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       _dependentFeatures = [lastObject _dependentFeatures];
-      v10 = [_dependentFeatures countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [_dependentFeatures countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v18;
+        v12 = *v17;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v18 != v12)
+            if (*v17 != v12)
             {
               objc_enumerationMutation(_dependentFeatures);
             }
 
-            v14 = *(*(&v17 + 1) + 8 * i);
+            v14 = *(*(&v16 + 1) + 8 * i);
             if (![(REDependencyGraph *)v3 containsItem:v14])
             {
               [(REDependencyGraph *)v3 addItem:v14];
@@ -135,7 +135,7 @@ void __86__REFeatureTransmuter_initWithInputFeatures_outputFeatures_outputFeatur
             [v5 addObject:v14];
           }
 
-          v11 = [_dependentFeatures countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v11 = [_dependentFeatures countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v11);
@@ -143,82 +143,80 @@ void __86__REFeatureTransmuter_initWithInputFeatures_outputFeatures_outputFeatur
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)transformFeatureMaps:(id)maps
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   mapsCopy = maps;
   createFeatureMap = [(REFeatureMapGenerator *)self->_outputFeatureMapGenerator createFeatureMap];
   [(REFeatureMap *)self->_scratchValues removeAllValues];
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __44__REFeatureTransmuter_transformFeatureMaps___block_invoke;
-  v61[3] = &unk_2785FB840;
-  v61[4] = self;
-  v38 = mapsCopy;
-  v62 = v38;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __44__REFeatureTransmuter_transformFeatureMaps___block_invoke;
+  v60[3] = &unk_2785FB840;
+  v60[4] = self;
+  v37 = mapsCopy;
+  v61 = v37;
   v6 = createFeatureMap;
-  v63 = v6;
-  v7 = MEMORY[0x22AABC5E0](v61);
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __44__REFeatureTransmuter_transformFeatureMaps___block_invoke_2;
-  v59[3] = &unk_2785FB868;
-  v59[4] = self;
-  v37 = v6;
-  v60 = v37;
-  v41 = MEMORY[0x22AABC5E0](v59);
+  v62 = v6;
+  v7 = MEMORY[0x22AABC5E0](v60);
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __44__REFeatureTransmuter_transformFeatureMaps___block_invoke_2;
+  v58[3] = &unk_2785FB868;
+  v58[4] = self;
+  v36 = v6;
+  v59 = v36;
+  v40 = MEMORY[0x22AABC5E0](v58);
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = self->_orderedFeatures;
-  v43 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v66 count:16];
-  if (v43)
+  v42 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v65 count:16];
+  if (v42)
   {
-    v42 = *v56;
+    v41 = *v55;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v43; ++i)
+      for (i = 0; i != v42; ++i)
       {
-        if (*v56 != v42)
+        if (*v55 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v55 + 1) + 8 * i);
+        v9 = *(*(&v54 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           transformer = [v9 transformer];
-          v44 = v9;
+          v43 = v9;
           _dependentFeatures = [v9 _dependentFeatures];
+          v50 = 0u;
           v51 = 0u;
           v52 = 0u;
           v53 = 0u;
-          v54 = 0u;
           v12 = _dependentFeatures;
-          v13 = [v12 countByEnumeratingWithState:&v51 objects:v65 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v50 objects:v64 count:16];
           if (v13)
           {
             v14 = v13;
             v15 = 0;
-            v16 = *v52;
+            v16 = *v51;
             while (2)
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v52 != v16)
+                if (*v51 != v16)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v18 = v7[2](v7, *(*(&v51 + 1) + 8 * j));
+                v18 = v7[2](v7, *(*(&v50 + 1) + 8 * j));
                 if (!v18)
                 {
 
@@ -228,7 +226,7 @@ void __86__REFeatureTransmuter_initWithInputFeatures_outputFeatures_outputFeatur
                 self->_scratchTaggedValues[v15++] = v18;
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v51 objects:v65 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v50 objects:v64 count:16];
               if (v14)
               {
                 continue;
@@ -244,7 +242,7 @@ void __86__REFeatureTransmuter_initWithInputFeatures_outputFeatures_outputFeatur
           }
 
           v33 = [transformer _createTransformFromValues:self->_scratchTaggedValues count:v15];
-          (v41)[2](v41, v44, v33);
+          (v40)[2](v40, v43, v33);
           REReleaseFeatureValueTaggedPointer(v33);
 LABEL_30:
         }
@@ -254,31 +252,31 @@ LABEL_30:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v39 = i;
-            v45 = v9;
+            v38 = i;
+            v44 = v9;
             features = [v9 features];
             v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(features, "count")}];
+            v46 = 0u;
             v47 = 0u;
             v48 = 0u;
             v49 = 0u;
-            v50 = 0u;
             v21 = features;
-            v22 = [v21 countByEnumeratingWithState:&v47 objects:v64 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v46 objects:v63 count:16];
             if (v22)
             {
               v23 = v22;
               v24 = 0;
-              v25 = *v48;
+              v25 = *v47;
               while (2)
               {
                 for (k = 0; k != v23; ++k)
                 {
-                  if (*v48 != v25)
+                  if (*v47 != v25)
                   {
                     objc_enumerationMutation(v21);
                   }
 
-                  v27 = *(*(&v47 + 1) + 8 * k);
+                  v27 = *(*(&v46 + 1) + 8 * k);
                   v28 = (v7)[2](v7, v27);
                   if (!v28)
                   {
@@ -291,7 +289,7 @@ LABEL_30:
                   [v20 addObject:v29];
                 }
 
-                v23 = [v21 countByEnumeratingWithState:&v47 objects:v64 count:16];
+                v23 = [v21 countByEnumeratingWithState:&v46 objects:v63 count:16];
                 if (v23)
                 {
                   continue;
@@ -303,31 +301,30 @@ LABEL_30:
 
             v30 = RECrossFeatureValues(selfCopy->_scratchTaggedValues, v20);
             v31 = RECreateIntegerFeatureValueTaggedPointer(v30);
-            (v41)[2](v41, v45, v31);
+            (v40)[2](v40, v44, v31);
             REReleaseFeatureValueTaggedPointer(v31);
 LABEL_32:
 
-            i = v39;
+            i = v38;
             self = selfCopy;
           }
 
           else
           {
             v32 = (v7)[2](v7, v9);
-            (v41)[2](v41, v9, v32);
+            (v40)[2](v40, v9, v32);
           }
         }
       }
 
-      v43 = [(NSArray *)obj countByEnumeratingWithState:&v55 objects:v66 count:16];
+      v42 = [(NSArray *)obj countByEnumeratingWithState:&v54 objects:v65 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
 
-  v34 = v37;
-  v35 = *MEMORY[0x277D85DE8];
-  return v37;
+  v34 = v36;
+  return v36;
 }
 
 uint64_t __44__REFeatureTransmuter_transformFeatureMaps___block_invoke(uint64_t a1, void *a2)

@@ -171,7 +171,7 @@ LABEL_3:
   v30 = v29;
   if (viewCopy)
   {
-    [v29 transform];
+    objc_msgSend_transform(v29);
     a = v93.a;
     b = v93.b;
     c = v93.c;
@@ -259,7 +259,7 @@ LABEL_3:
     v57 = v85;
     if (viewCopy)
     {
-      [v30 transform];
+      objc_msgSend_transform(v30);
       v59 = t1.a;
       v58 = t1.b;
     }
@@ -824,7 +824,7 @@ LABEL_6:
     v41 = v37;
     if (coderCopy)
     {
-      [coderCopy decodeCGAffineTransformForKey:@"overrideStackTransform"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else
@@ -1043,7 +1043,7 @@ LABEL_6:
   {
     v5 = equalCopy;
     backgroundColor = self->_backgroundColor;
-    if ((backgroundColor == *(v5 + 8) || [(UIColor *)backgroundColor isEqual:?]) && self->_contentOffset.x == *(v5 + 16) && self->_contentOffset.y == *(v5 + 17))
+    if ((backgroundColor == *(v5 + 8) || objc_msgSend_isEqual_(backgroundColor)) && self->_contentOffset.x == *(v5 + 16) && self->_contentOffset.y == *(v5 + 17))
     {
       v8 = self->_contentSize.width == *(v5 + 1) && self->_contentSize.height == *(v5 + 2);
       v9 = v8 && self->_contentSize.depth == *(v5 + 3);
@@ -1062,10 +1062,10 @@ LABEL_6:
             if (_deferringTokenEqualToToken(self->_coordinateSpaceSourceLayerContext, *(v5 + 12)))
             {
               outline = self->_outline;
-              if ((outline == *(v5 + 9) || [(UIBezierPath *)outline isEqual:?]) && self->_hasCustomOutline == v5[58])
+              if ((outline == *(v5 + 9) || objc_msgSend_isEqual_(outline)) && self->_hasCustomOutline == v5[58])
               {
                 shadowPath = self->_shadowPath;
-                if ((shadowPath == *(v5 + 10) || [(UIBezierPath *)shadowPath isEqual:?]) && self->_previewMode == *(v5 + 14) && self->_avoidAnimation == v5[59])
+                if ((shadowPath == *(v5 + 10) || objc_msgSend_isEqual_(shadowPath)) && self->_previewMode == *(v5 + 14) && self->_avoidAnimation == v5[59])
                 {
                   if (_deferringTokenEqualToToken(self->_shadowProperties, *(v5 + 11)))
                   {

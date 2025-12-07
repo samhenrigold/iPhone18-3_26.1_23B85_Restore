@@ -869,15 +869,15 @@ void __58__VUIURLImageLoader_URLSession_task_didCompleteWithError___block_invoke
   }
 }
 
-uint64_t __58__VUIURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_2(uint64_t result)
+id *__58__VUIURLImageLoader_URLSession_task_didCompleteWithError___block_invoke_2(id *result)
 {
-  if (*(result + 56))
+  if (result[7])
   {
     v1 = result;
-    result = [*(result + 32) state];
+    result = [result[4] state];
     if (result != 2)
     {
-      v2 = *(*(v1 + 56) + 16);
+      v2 = *(v1[7] + 2);
 
       return v2();
     }

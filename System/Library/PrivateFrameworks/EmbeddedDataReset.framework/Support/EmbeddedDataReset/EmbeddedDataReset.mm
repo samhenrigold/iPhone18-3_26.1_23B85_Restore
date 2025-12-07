@@ -29,62 +29,62 @@ id sub_1000011DC(uint64_t a1)
   return +[CATransaction commit];
 }
 
-id sub_100001320(uint64_t a1)
+id sub_100001320(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 48);
-  if (v2 >= 0.0 && v2 <= 1.0)
+  v3 = *(a1 + 48);
+  if (v3 >= 0.0 && v3 <= 1.0)
   {
-    *(*(a1 + 32) + 16) = v2;
+    *(*(a1 + 32) + 16) = v3;
   }
 
-  v4 = sub_100002D58(2uLL);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002D58(2uLL);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 48);
+    v6 = *(a1 + 48);
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained progress];
-    v13 = 134218240;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v7;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "got progress here: %lf, self.progress: %lf", &v13, 0x16u);
+    v14 = 134218240;
+    v15 = v6;
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "got progress here: %lf, self.progress: %lf", &v14, 0x16u);
   }
 
   +[CATransaction begin];
-  v8 = objc_loadWeakRetained((a1 + 40));
-  v9 = [v8 resetProgressWindow];
-  v10 = objc_loadWeakRetained((a1 + 40));
-  [v10 progress];
-  *&v11 = v11;
-  [v9 setProgressValue:v11];
+  v9 = objc_loadWeakRetained((a1 + 40));
+  v10 = [v9 resetProgressWindow];
+  v11 = objc_loadWeakRetained((a1 + 40));
+  [v11 progress];
+  *&v12 = v12;
+  [v10 setProgressValue:v12];
 
   return +[CATransaction commit];
 }
 
-void sub_100001ADC(uint64_t a1)
+void sub_100001ADC(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100002D58(2uLL);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100002D58(2uLL);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Invalidating connection in daemon", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection in daemon", v5, 2u);
   }
 
-  v3 = [*(a1 + 32) clients];
-  [v3 removeObject:*(a1 + 40)];
+  v4 = [*(a1 + 32) clients];
+  [v4 removeObject:*(a1 + 40)];
 }
 
-void sub_100001B68(uint64_t a1)
+void sub_100001B68(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100002D58(2uLL);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100002D58(2uLL);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Interrupting connection in daemon", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Interrupting connection in daemon", v5, 2u);
   }
 
-  v3 = [*(a1 + 32) clients];
-  [v3 removeObject:*(a1 + 40)];
+  v4 = [*(a1 + 32) clients];
+  [v4 removeObject:*(a1 + 40)];
 }
 
 void sub_100001FB0(id a1, NSError *a2)
@@ -129,32 +129,32 @@ void sub_10000230C(uint64_t a1, void *a2)
   [v5 didBeginDataResetWithMode:*(a1 + 32)];
 }
 
-void sub_1000027E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1000027E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100002818(uint64_t a1)
+void sub_100002818(uint64_t a1, uint64_t a2)
 {
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
     *(*(a1 + 32) + 48) = 0;
     *(*(*(a1 + 40) + 8) + 24) = 1;
-    v1 = sub_100002D58(2uLL);
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v2 = sub_100002D58(2uLL);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "No error, reboot", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "No error, reboot", v5, 2u);
     }
 
-    v2 = [[FBSShutdownOptions alloc] initWithReason:@"ResetOrRestoreComplete"];
-    [v2 setRebootType:1];
-    [v2 setSource:1];
-    v3 = +[FBSSystemService sharedService];
-    [v3 shutdownWithOptions:v2];
+    v3 = [[FBSShutdownOptions alloc] initWithReason:@"ResetOrRestoreComplete"];
+    [v3 setRebootType:1];
+    [v3 setSource:1];
+    v4 = +[FBSSystemService sharedService];
+    [v4 shutdownWithOptions:v3];
   }
 }
 
@@ -185,38 +185,38 @@ void sub_100002904(uint64_t a1, void *a2)
   [v6 didCompleteDataResetMode:v7 withError:v8 completion:v9];
 }
 
-void sub_100002A7C(void *a1)
+void sub_100002A7C(void *a1, uint64_t a2)
 {
   --*(*(a1[6] + 8) + 24);
-  v2 = sub_100002D58(2uLL);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100002D58(2uLL);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1[6] + 8) + 24);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "decrement observer to: %d", v5, 8u);
+    v4 = *(*(a1[6] + 8) + 24);
+    v6[0] = 67109120;
+    v6[1] = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "decrement observer to: %d", v6, 8u);
   }
 
   if (!*(*(a1[6] + 8) + 24) && !a1[4])
   {
-    v4 = sub_100002D58(2uLL);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002D58(2uLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v5[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Observer count is zero reboot!", v5, 2u);
+      LOWORD(v6[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Observer count is zero reboot!", v6, 2u);
     }
 
     (*(a1[5] + 16))();
   }
 }
 
-uint64_t sub_100002BB4(uint64_t a1)
+uint64_t sub_100002BB4(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100002D58(2uLL);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100002D58(2uLL);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "5s elapsed to reboot.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "5s elapsed to reboot.", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();

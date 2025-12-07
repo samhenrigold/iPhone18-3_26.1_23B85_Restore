@@ -1,9578 +1,3 @@
-void sub_10028C8DC(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistancePressure);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistancePressure);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistancePressure;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE40, &qword_100393F00);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistancePressure);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistancePressure);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistancePressure;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE40, &qword_100393F00);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10028CB2C()
-{
-  v1 = sub_100024A2C(&qword_10042BE40, &qword_100393F00);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistancePressure;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE40, &qword_100393F00);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistancePressure(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE40, &qword_100393F00);
-  return v8;
-}
-
-uint64_t sub_10028CC4C()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE40, &qword_100393F00);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistancePressure(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistancePressure;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE40, &qword_100393F00);
-  return swift_endAccess();
-}
-
-uint64_t sub_10028CD94@<X0>(void *a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE48, &qword_100393F08);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAccel;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE48, &qword_100393F08);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceAccel(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceAccel);
-  }
-
-  *a1 = &_swiftEmptyArrayStorage;
-  v11 = a1 + *(v9 + 20);
-  UnknownStorage.init()();
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE48, &qword_100393F08);
-  }
-
-  return result;
-}
-
-uint64_t sub_10028CF34@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
-{
-  *a2 = &_swiftEmptyArrayStorage;
-  v2 = a2 + *(a1(0) + 20);
-  return UnknownStorage.init()();
-}
-
-uint64_t sub_10028CF7C(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE48, &qword_100393F08);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceAccel);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceAccel(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAccel;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE48, &qword_100393F08);
-  return swift_endAccess();
-}
-
-void (*sub_10028D0E8(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE48, &qword_100393F08) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceAccel(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAccel;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE48, &qword_100393F08);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    *v13 = &_swiftEmptyArrayStorage;
-    v18 = v13 + *(v8 + 20);
-    UnknownStorage.init()();
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE48, &qword_100393F08);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceAccel);
-  }
-
-  return sub_10028D344;
-}
-
-void sub_10028D344(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceAccel);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceAccel);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAccel;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE48, &qword_100393F08);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceAccel);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceAccel);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAccel;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE48, &qword_100393F08);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10028D594()
-{
-  v1 = sub_100024A2C(&qword_10042BE48, &qword_100393F08);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAccel;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE48, &qword_100393F08);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceAccel(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE48, &qword_100393F08);
-  return v8;
-}
-
-uint64_t sub_10028D6B4()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE48, &qword_100393F08);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceAccel(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAccel;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE48, &qword_100393F08);
-  return swift_endAccess();
-}
-
-uint64_t sub_10028D7FC@<X0>(void *a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE50, &qword_100393F10);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceGyro;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE50, &qword_100393F10);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceGyro(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceGyro);
-  }
-
-  *a1 = &_swiftEmptyArrayStorage;
-  v11 = a1 + *(v9 + 20);
-  UnknownStorage.init()();
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE50, &qword_100393F10);
-  }
-
-  return result;
-}
-
-uint64_t sub_10028D99C(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE50, &qword_100393F10);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceGyro);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceGyro(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceGyro;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE50, &qword_100393F10);
-  return swift_endAccess();
-}
-
-void (*sub_10028DB08(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE50, &qword_100393F10) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceGyro(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceGyro;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE50, &qword_100393F10);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    *v13 = &_swiftEmptyArrayStorage;
-    v18 = v13 + *(v8 + 20);
-    UnknownStorage.init()();
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE50, &qword_100393F10);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceGyro);
-  }
-
-  return sub_10028DD64;
-}
-
-void sub_10028DD64(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceGyro);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceGyro);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceGyro;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE50, &qword_100393F10);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceGyro);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceGyro);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceGyro;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE50, &qword_100393F10);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10028DFB4()
-{
-  v1 = sub_100024A2C(&qword_10042BE50, &qword_100393F10);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceGyro;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE50, &qword_100393F10);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceGyro(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE50, &qword_100393F10);
-  return v8;
-}
-
-uint64_t sub_10028E0D4()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE50, &qword_100393F10);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceGyro(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceGyro;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE50, &qword_100393F10);
-  return swift_endAccess();
-}
-
-uint64_t sub_10028E21C@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE58, &qword_100393F18);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceDem;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE58, &qword_100393F18);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceDem);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  v13 = a1 + v9[7];
-  *v13 = 0;
-  *(v13 + 8) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE58, &qword_100393F18);
-  }
-
-  return result;
-}
-
-int *sub_10028E3E0@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  result = a1(0);
-  v5 = a2 + result[5];
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = a2 + result[6];
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  v7 = a2 + result[7];
-  *v7 = 0;
-  *(v7 + 8) = 1;
-  return result;
-}
-
-uint64_t sub_10028E448(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE58, &qword_100393F18);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceDem);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceDem;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE58, &qword_100393F18);
-  return swift_endAccess();
-}
-
-void (*sub_10028E5B4(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE58, &qword_100393F18) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 1);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceDem;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE58, &qword_100393F18);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + v8[5];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v13 + v8[6];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    v20 = v13 + v8[7];
-    *v20 = 0;
-    *(v20 + 8) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE58, &qword_100393F18);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceDem);
-  }
-
-  return sub_10028E834;
-}
-
-void sub_10028E834(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceDem);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceDem);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceDem;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE58, &qword_100393F18);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceDem);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceDem);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceDem;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE58, &qword_100393F18);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10028EA84()
-{
-  v1 = sub_100024A2C(&qword_10042BE58, &qword_100393F18);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceDem;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE58, &qword_100393F18);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE58, &qword_100393F18);
-  return v8;
-}
-
-uint64_t sub_10028EBA4()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE58, &qword_100393F18);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceDem;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE58, &qword_100393F18);
-  return swift_endAccess();
-}
-
-uint64_t sub_10028ECEC@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE60, &qword_100393F20);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v19 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMapVector;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE60, &qword_100393F20);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceMapVector);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  v13 = a1 + v9[7];
-  *v13 = 0;
-  *(v13 + 8) = 1;
-  *(a1 + v9[8]) = 2;
-  v14 = a1 + v9[9];
-  *v14 = 0;
-  *(v14 + 8) = 1;
-  v15 = a1 + v9[10];
-  *v15 = 0;
-  *(v15 + 8) = 1;
-  v16 = a1 + v9[11];
-  *v16 = 0;
-  *(v16 + 8) = 1;
-  v17 = a1 + v9[12];
-  *v17 = 0;
-  *(v17 + 8) = 1;
-  *(a1 + v9[13]) = 2;
-  *(a1 + v9[14]) = 2;
-  *(a1 + v9[15]) = 2;
-  *(a1 + v9[16]) = 2;
-  *(a1 + v9[17]) = 2;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE60, &qword_100393F20);
-  }
-
-  return result;
-}
-
-int *sub_10028EF0C@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
-  v3 = a1 + result[5];
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  v4 = a1 + result[6];
-  *v4 = 0;
-  *(v4 + 8) = 1;
-  v5 = a1 + result[7];
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  *(a1 + result[8]) = 2;
-  v6 = a1 + result[9];
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  v7 = a1 + result[10];
-  *v7 = 0;
-  *(v7 + 8) = 1;
-  v8 = a1 + result[11];
-  *v8 = 0;
-  *(v8 + 8) = 1;
-  v9 = a1 + result[12];
-  *v9 = 0;
-  *(v9 + 8) = 1;
-  *(a1 + result[13]) = 2;
-  *(a1 + result[14]) = 2;
-  *(a1 + result[15]) = 2;
-  *(a1 + result[16]) = 2;
-  *(a1 + result[17]) = 2;
-  return result;
-}
-
-uint64_t sub_10028EFE0(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE60, &qword_100393F20);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceMapVector);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMapVector;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE60, &qword_100393F20);
-  return swift_endAccess();
-}
-
-void (*sub_10028F14C(uint64_t *a1))(void **a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x60uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 48) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE60, &qword_100393F20) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v6 = malloc(v5);
-  }
-
-  v4[7] = v6;
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
-  v4[8] = v7;
-  v8 = *(v7 - 8);
-  v4[9] = v8;
-  v9 = *(v8 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    v4[10] = swift_coroFrameAlloc();
-    v10 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4[10] = malloc(*(v8 + 64));
-    v10 = malloc(v9);
-  }
-
-  v4[11] = v10;
-  sub_10028ECEC(v10);
-  return sub_10028F294;
-}
-
-void sub_10028F294(void **a1, char a2)
-{
-  v2 = *a1;
-  if (a2)
-  {
-    v3 = v2[6];
-    sub_1002F7C50(v2[11], v2[10], type metadata accessor for Proto_Gpsd_SetAssistanceMapVector);
-    v4 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-    v5 = *(v3 + v4);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v3 + v4);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v9 = *(v8 + 48);
-      v10 = *(v8 + 52);
-      v11 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v3 + v4) = v11;
-      v7 = v11;
-    }
-
-    v13 = v2[10];
-    v12 = v2[11];
-    v14 = v2[8];
-    v15 = v2[9];
-    v16 = v2[7];
-    sub_1002F7BE8(v13, v16, type metadata accessor for Proto_Gpsd_SetAssistanceMapVector);
-    (*(v15 + 56))(v16, 0, 1, v14);
-    v17 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMapVector;
-    swift_beginAccess();
-    sub_10000AD64(v16, v7 + v17, &qword_10042BE60, &qword_100393F20);
-    swift_endAccess();
-    sub_1002F7CB8(v12, type metadata accessor for Proto_Gpsd_SetAssistanceMapVector);
-  }
-
-  else
-  {
-    v18 = v2[6];
-    v19 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-    v20 = *(v18 + v19);
-    v21 = swift_isUniquelyReferenced_nonNull_native();
-    v22 = *(v18 + v19);
-    if ((v21 & 1) == 0)
-    {
-      v23 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v24 = *(v23 + 48);
-      v25 = *(v23 + 52);
-      v26 = swift_allocObject();
-      sub_1002C2FB8(v22);
-      *(v18 + v19) = v26;
-      v22 = v26;
-    }
-
-    v13 = v2[10];
-    v12 = v2[11];
-    v27 = v2[8];
-    v28 = v2[9];
-    v16 = v2[7];
-    sub_1002F7BE8(v12, v16, type metadata accessor for Proto_Gpsd_SetAssistanceMapVector);
-    (*(v28 + 56))(v16, 0, 1, v27);
-    v29 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMapVector;
-    swift_beginAccess();
-    sub_10000AD64(v16, v22 + v29, &qword_10042BE60, &qword_100393F20);
-    swift_endAccess();
-  }
-
-  free(v12);
-  free(v13);
-  free(v16);
-
-  free(v2);
-}
-
-BOOL sub_10028F4E0()
-{
-  v1 = sub_100024A2C(&qword_10042BE60, &qword_100393F20);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMapVector;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE60, &qword_100393F20);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE60, &qword_100393F20);
-  return v8;
-}
-
-uint64_t sub_10028F600()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE60, &qword_100393F20);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMapVector;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE60, &qword_100393F20);
-  return swift_endAccess();
-}
-
-uint64_t sub_10028F748@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE68, &qword_100393F28);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMotionActivityContext;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE68, &qword_100393F28);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  *(a1 + v9[6]) = 10;
-  *(a1 + v9[7]) = 5;
-  *(a1 + v9[8]) = 6;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE68, &qword_100393F28);
-  }
-
-  return result;
-}
-
-int *sub_10028F8F8@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
-  v3 = a1 + result[5];
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  *(a1 + result[6]) = 10;
-  *(a1 + result[7]) = 5;
-  *(a1 + result[8]) = 6;
-  return result;
-}
-
-uint64_t sub_10028F95C(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE68, &qword_100393F28);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMotionActivityContext;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE68, &qword_100393F28);
-  return swift_endAccess();
-}
-
-void (*sub_10028FAC8(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE68, &qword_100393F28) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 1);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMotionActivityContext;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE68, &qword_100393F28);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + v8[5];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    *(v13 + v8[6]) = 10;
-    *(v13 + v8[7]) = 5;
-    *(v13 + v8[8]) = 6;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE68, &qword_100393F28);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext);
-  }
-
-  return sub_10028FD4C;
-}
-
-void sub_10028FD4C(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMotionActivityContext;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE68, &qword_100393F28);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMotionActivityContext;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE68, &qword_100393F28);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10028FF9C()
-{
-  v1 = sub_100024A2C(&qword_10042BE68, &qword_100393F28);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMotionActivityContext;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE68, &qword_100393F28);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE68, &qword_100393F28);
-  return v8;
-}
-
-uint64_t sub_1002900BC()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE68, &qword_100393F28);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMotionActivityContext;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE68, &qword_100393F28);
-  return swift_endAccess();
-}
-
-uint64_t sub_100290204@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE70, &qword_100393F30);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMountState;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE70, &qword_100393F30);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceMountState);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + *(v9 + 20);
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  *(a1 + *(v9 + 24)) = 4;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE70, &qword_100393F30);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029039C@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
-  v3 = a1 + *(result + 20);
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  *(a1 + *(result + 24)) = 4;
-  return result;
-}
-
-uint64_t sub_1002903E8(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE70, &qword_100393F30);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceMountState);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMountState;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE70, &qword_100393F30);
-  return swift_endAccess();
-}
-
-void (*sub_100290554(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE70, &qword_100393F30) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMountState;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE70, &qword_100393F30);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + *(v8 + 20);
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    *(v13 + *(v8 + 24)) = 4;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE70, &qword_100393F30);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceMountState);
-  }
-
-  return sub_1002907C0;
-}
-
-void sub_1002907C0(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceMountState);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceMountState);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMountState;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE70, &qword_100393F30);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceMountState);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceMountState);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMountState;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE70, &qword_100393F30);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100290A10()
-{
-  v1 = sub_100024A2C(&qword_10042BE70, &qword_100393F30);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMountState;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE70, &qword_100393F30);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE70, &qword_100393F30);
-  return v8;
-}
-
-uint64_t sub_100290B30()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE70, &qword_100393F30);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceMountState;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE70, &qword_100393F30);
-  return swift_endAccess();
-}
-
-uint64_t sub_100290C78@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE78, &qword_100393F38);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSignalEnvironment;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE78, &qword_100393F38);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = 8;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE78, &qword_100393F38);
-  }
-
-  return result;
-}
-
-uint64_t sub_100290E18(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE78, &qword_100393F38);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSignalEnvironment;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE78, &qword_100393F38);
-  return swift_endAccess();
-}
-
-void (*sub_100290F84(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE78, &qword_100393F38) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSignalEnvironment;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE78, &qword_100393F38);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + *(v8 + 20)) = 8;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE78, &qword_100393F38);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment);
-  }
-
-  return sub_1002911DC;
-}
-
-void sub_1002911DC(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSignalEnvironment;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE78, &qword_100393F38);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSignalEnvironment;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE78, &qword_100393F38);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029142C()
-{
-  v1 = sub_100024A2C(&qword_10042BE78, &qword_100393F38);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSignalEnvironment;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE78, &qword_100393F38);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE78, &qword_100393F38);
-  return v8;
-}
-
-uint64_t sub_10029154C()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE78, &qword_100393F38);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSignalEnvironment;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE78, &qword_100393F38);
-  return swift_endAccess();
-}
-
-uint64_t sub_100291694@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE80, &qword_100393F40);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v16 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSpeedConstraint;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE80, &qword_100393F40);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  v13 = a1 + v9[7];
-  *v13 = 0;
-  *(v13 + 8) = 1;
-  v14 = a1 + v9[8];
-  *v14 = 0;
-  *(v14 + 8) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE80, &qword_100393F40);
-  }
-
-  return result;
-}
-
-int *sub_100291850@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
-  v3 = a1 + result[5];
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  v4 = a1 + result[6];
-  *v4 = 0;
-  *(v4 + 8) = 1;
-  v5 = a1 + result[7];
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = a1 + result[8];
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  return result;
-}
-
-uint64_t sub_1002918C0(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE80, &qword_100393F40);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSpeedConstraint;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE80, &qword_100393F40);
-  return swift_endAccess();
-}
-
-void (*sub_100291A2C(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE80, &qword_100393F40) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 1);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSpeedConstraint;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE80, &qword_100393F40);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + v8[5];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v13 + v8[6];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    v20 = v13 + v8[7];
-    *v20 = 0;
-    *(v20 + 8) = 1;
-    v21 = v13 + v8[8];
-    *v21 = 0;
-    *(v21 + 8) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE80, &qword_100393F40);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint);
-  }
-
-  return sub_100291CBC;
-}
-
-void sub_100291CBC(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSpeedConstraint;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE80, &qword_100393F40);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSpeedConstraint;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE80, &qword_100393F40);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100291F0C()
-{
-  v1 = sub_100024A2C(&qword_10042BE80, &qword_100393F40);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSpeedConstraint;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE80, &qword_100393F40);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE80, &qword_100393F40);
-  return v8;
-}
-
-uint64_t sub_10029202C()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE80, &qword_100393F40);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceSpeedConstraint;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE80, &qword_100393F40);
-  return swift_endAccess();
-}
-
-uint64_t sub_100292174@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE88, &qword_100393F48);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v15 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAlongTrackVelocity;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE88, &qword_100393F48);
-  v9 = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + v9[5];
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = a1 + v9[6];
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  v13 = a1 + v9[7];
-  *v13 = 0;
-  *(v13 + 8) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE88, &qword_100393F48);
-  }
-
-  return result;
-}
-
-uint64_t sub_100292338(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE88, &qword_100393F48);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity);
-  v17 = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAlongTrackVelocity;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE88, &qword_100393F48);
-  return swift_endAccess();
-}
-
-void (*sub_1002924A4(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE88, &qword_100393F48) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 1);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAlongTrackVelocity;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE88, &qword_100393F48);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + v8[5];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v13 + v8[6];
-    *v19 = 0;
-    *(v19 + 8) = 1;
-    v20 = v13 + v8[7];
-    *v20 = 0;
-    *(v20 + 8) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE88, &qword_100393F48);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity);
-  }
-
-  return sub_100292724;
-}
-
-void sub_100292724(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAlongTrackVelocity;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE88, &qword_100393F48);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAlongTrackVelocity;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE88, &qword_100393F48);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100292974()
-{
-  v1 = sub_100024A2C(&qword_10042BE88, &qword_100393F48);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAlongTrackVelocity;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE88, &qword_100393F48);
-  v7 = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE88, &qword_100393F48);
-  return v8;
-}
-
-uint64_t sub_100292A94()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE88, &qword_100393F48);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setAssistanceAlongTrackVelocity;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE88, &qword_100393F48);
-  return swift_endAccess();
-}
-
-uint64_t sub_100292BDC@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE90, &qword_100393F50);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectAssistanceFile;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE90, &qword_100393F50);
-  v9 = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_InjectAssistanceFile);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = xmmword_10036D770;
-  *(a1 + *(v9 + 24)) = 3;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE90, &qword_100393F50);
-  }
-
-  return result;
-}
-
-double sub_100292D70@<D0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  v2 = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
-  result = 0.0;
-  *(a1 + *(v2 + 20)) = xmmword_10036D770;
-  *(a1 + *(v2 + 24)) = 3;
-  return result;
-}
-
-uint64_t sub_100292DB8(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE90, &qword_100393F50);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_InjectAssistanceFile);
-  v17 = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectAssistanceFile;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE90, &qword_100393F50);
-  return swift_endAccess();
-}
-
-void (*sub_100292F24(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE90, &qword_100393F50) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectAssistanceFile;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE90, &qword_100393F50);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + *(v8 + 20)) = xmmword_10036D770;
-    *(v13 + *(v8 + 24)) = 3;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE90, &qword_100393F50);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_InjectAssistanceFile);
-  }
-
-  return sub_10029318C;
-}
-
-void sub_10029318C(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_InjectAssistanceFile);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_InjectAssistanceFile);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectAssistanceFile;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE90, &qword_100393F50);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_InjectAssistanceFile);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_InjectAssistanceFile);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectAssistanceFile;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE90, &qword_100393F50);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_1002933DC()
-{
-  v1 = sub_100024A2C(&qword_10042BE90, &qword_100393F50);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectAssistanceFile;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE90, &qword_100393F50);
-  v7 = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE90, &qword_100393F50);
-  return v8;
-}
-
-uint64_t sub_1002934FC()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE90, &qword_100393F50);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectAssistanceFile;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE90, &qword_100393F50);
-  return swift_endAccess();
-}
-
-uint64_t sub_100293644@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BE98, &qword_100393F58);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRtiFile;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BE98, &qword_100393F58);
-  v9 = type metadata accessor for Proto_Gpsd_InjectRtiFile(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_InjectRtiFile);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = xmmword_10036D770;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BE98, &qword_100393F58);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002937E4(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BE98, &qword_100393F58);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_InjectRtiFile);
-  v17 = type metadata accessor for Proto_Gpsd_InjectRtiFile(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRtiFile;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BE98, &qword_100393F58);
-  return swift_endAccess();
-}
-
-void (*sub_100293950(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BE98, &qword_100393F58) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_InjectRtiFile(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRtiFile;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BE98, &qword_100393F58);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + *(v8 + 20)) = xmmword_10036D770;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BE98, &qword_100393F58);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_InjectRtiFile);
-  }
-
-  return sub_100293BAC;
-}
-
-void sub_100293BAC(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_InjectRtiFile);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_InjectRtiFile);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRtiFile;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BE98, &qword_100393F58);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_InjectRtiFile);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_InjectRtiFile);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRtiFile;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BE98, &qword_100393F58);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100293DFC()
-{
-  v1 = sub_100024A2C(&qword_10042BE98, &qword_100393F58);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRtiFile;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BE98, &qword_100393F58);
-  v7 = type metadata accessor for Proto_Gpsd_InjectRtiFile(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BE98, &qword_100393F58);
-  return v8;
-}
-
-uint64_t sub_100293F1C()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BE98, &qword_100393F58);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_InjectRtiFile(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRtiFile;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BE98, &qword_100393F58);
-  return swift_endAccess();
-}
-
-uint64_t sub_100294064@<X0>(void *a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEA0, &qword_100393F60);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectSvidBlocklist;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEA0, &qword_100393F60);
-  v9 = type metadata accessor for Proto_Gpsd_InjectSvidBlocklist(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_InjectSvidBlocklist);
-  }
-
-  *a1 = &_swiftEmptyArrayStorage;
-  v11 = a1 + *(v9 + 20);
-  UnknownStorage.init()();
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEA0, &qword_100393F60);
-  }
-
-  return result;
-}
-
-uint64_t sub_100294204(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEA0, &qword_100393F60);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_InjectSvidBlocklist);
-  v17 = type metadata accessor for Proto_Gpsd_InjectSvidBlocklist(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectSvidBlocklist;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEA0, &qword_100393F60);
-  return swift_endAccess();
-}
-
-void (*sub_100294370(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEA0, &qword_100393F60) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_InjectSvidBlocklist(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectSvidBlocklist;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEA0, &qword_100393F60);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    *v13 = &_swiftEmptyArrayStorage;
-    v18 = v13 + *(v8 + 20);
-    UnknownStorage.init()();
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEA0, &qword_100393F60);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_InjectSvidBlocklist);
-  }
-
-  return sub_1002945CC;
-}
-
-void sub_1002945CC(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_InjectSvidBlocklist);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_InjectSvidBlocklist);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectSvidBlocklist;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEA0, &qword_100393F60);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_InjectSvidBlocklist);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_InjectSvidBlocklist);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectSvidBlocklist;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEA0, &qword_100393F60);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029481C()
-{
-  v1 = sub_100024A2C(&qword_10042BEA0, &qword_100393F60);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectSvidBlocklist;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEA0, &qword_100393F60);
-  v7 = type metadata accessor for Proto_Gpsd_InjectSvidBlocklist(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEA0, &qword_100393F60);
-  return v8;
-}
-
-uint64_t sub_10029493C()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEA0, &qword_100393F60);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_InjectSvidBlocklist(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectSvidBlocklist;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEA0, &qword_100393F60);
-  return swift_endAccess();
-}
-
-uint64_t sub_100294A84@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEA8, &qword_100393F68);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__deleteGnssData;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEA8, &qword_100393F68);
-  v9 = type metadata accessor for Proto_Gpsd_DeleteGnssData(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_DeleteGnssData);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + *(v9 + 20);
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEA8, &qword_100393F68);
-  }
-
-  return result;
-}
-
-uint64_t sub_100294C28(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEA8, &qword_100393F68);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_DeleteGnssData);
-  v17 = type metadata accessor for Proto_Gpsd_DeleteGnssData(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__deleteGnssData;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEA8, &qword_100393F68);
-  return swift_endAccess();
-}
-
-void (*sub_100294D94(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEA8, &qword_100393F68) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_DeleteGnssData(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__deleteGnssData;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEA8, &qword_100393F68);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + *(v8 + 20);
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEA8, &qword_100393F68);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_DeleteGnssData);
-  }
-
-  return sub_100294FF4;
-}
-
-void sub_100294FF4(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_DeleteGnssData);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_DeleteGnssData);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__deleteGnssData;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEA8, &qword_100393F68);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_DeleteGnssData);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_DeleteGnssData);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__deleteGnssData;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEA8, &qword_100393F68);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100295244()
-{
-  v1 = sub_100024A2C(&qword_10042BEA8, &qword_100393F68);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__deleteGnssData;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEA8, &qword_100393F68);
-  v7 = type metadata accessor for Proto_Gpsd_DeleteGnssData(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEA8, &qword_100393F68);
-  return v8;
-}
-
-uint64_t sub_100295364()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEA8, &qword_100393F68);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_DeleteGnssData(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__deleteGnssData;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEA8, &qword_100393F68);
-  return swift_endAccess();
-}
-
-uint64_t sub_1002954AC@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEB0, &qword_100393F70);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setPvtmReport;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEB0, &qword_100393F70);
-  v9 = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
-  v10 = *(*(v9 - 1) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetPvtmReport);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + v9[5]) = 2;
-  *(a1 + v9[6]) = 2;
-  *(a1 + v9[7]) = 2;
-  *(a1 + v9[8]) = 2;
-  *(a1 + v9[9]) = 2;
-  *(a1 + v9[10]) = 2;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEB0, &qword_100393F70);
-  }
-
-  return result;
-}
-
-int *sub_100295658@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
-  *(a1 + result[5]) = 2;
-  *(a1 + result[6]) = 2;
-  *(a1 + result[7]) = 2;
-  *(a1 + result[8]) = 2;
-  *(a1 + result[9]) = 2;
-  *(a1 + result[10]) = 2;
-  return result;
-}
-
-uint64_t sub_1002956B8(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEB0, &qword_100393F70);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetPvtmReport);
-  v17 = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setPvtmReport;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEB0, &qword_100393F70);
-  return swift_endAccess();
-}
-
-void (*sub_100295824(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEB0, &qword_100393F70) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 1);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setPvtmReport;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEB0, &qword_100393F70);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + v8[5]) = 2;
-    *(v13 + v8[6]) = 2;
-    *(v13 + v8[7]) = 2;
-    *(v13 + v8[8]) = 2;
-    *(v13 + v8[9]) = 2;
-    *(v13 + v8[10]) = 2;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEB0, &qword_100393F70);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetPvtmReport);
-  }
-
-  return sub_100295AA4;
-}
-
-void sub_100295AA4(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetPvtmReport);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetPvtmReport);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setPvtmReport;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEB0, &qword_100393F70);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetPvtmReport);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetPvtmReport);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setPvtmReport;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEB0, &qword_100393F70);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100295CF4()
-{
-  v1 = sub_100024A2C(&qword_10042BEB0, &qword_100393F70);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setPvtmReport;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEB0, &qword_100393F70);
-  v7 = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEB0, &qword_100393F70);
-  return v8;
-}
-
-uint64_t sub_100295E14()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEB0, &qword_100393F70);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setPvtmReport;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEB0, &qword_100393F70);
-  return swift_endAccess();
-}
-
-uint64_t sub_100295F5C@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEB8, &qword_100393F78);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setNmeaHandler;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEB8, &qword_100393F78);
-  v9 = type metadata accessor for Proto_Gpsd_SetNmeaHandler(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetNmeaHandler);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + *(v9 + 20);
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEB8, &qword_100393F78);
-  }
-
-  return result;
-}
-
-uint64_t sub_100296100@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  result = a1(0);
-  v5 = a2 + *(result + 20);
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  return result;
-}
-
-uint64_t sub_100296148(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEB8, &qword_100393F78);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetNmeaHandler);
-  v17 = type metadata accessor for Proto_Gpsd_SetNmeaHandler(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setNmeaHandler;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEB8, &qword_100393F78);
-  return swift_endAccess();
-}
-
-void (*sub_1002962B4(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEB8, &qword_100393F78) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetNmeaHandler(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setNmeaHandler;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEB8, &qword_100393F78);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + *(v8 + 20);
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEB8, &qword_100393F78);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetNmeaHandler);
-  }
-
-  return sub_100296514;
-}
-
-void sub_100296514(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetNmeaHandler);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetNmeaHandler);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setNmeaHandler;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEB8, &qword_100393F78);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetNmeaHandler);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetNmeaHandler);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setNmeaHandler;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEB8, &qword_100393F78);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100296764()
-{
-  v1 = sub_100024A2C(&qword_10042BEB8, &qword_100393F78);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setNmeaHandler;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEB8, &qword_100393F78);
-  v7 = type metadata accessor for Proto_Gpsd_SetNmeaHandler(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEB8, &qword_100393F78);
-  return v8;
-}
-
-uint64_t sub_100296884()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEB8, &qword_100393F78);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetNmeaHandler(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setNmeaHandler;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEB8, &qword_100393F78);
-  return swift_endAccess();
-}
-
-uint64_t sub_1002969CC@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEC0, &qword_100393F80);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigSimulatorMode;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEC0, &qword_100393F80);
-  v9 = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = 2;
-  v11 = a1 + *(v9 + 24);
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEC0, &qword_100393F80);
-  }
-
-  return result;
-}
-
-uint64_t sub_100296B64@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
-  *(a1 + *(result + 20)) = 2;
-  v3 = a1 + *(result + 24);
-  *v3 = 0;
-  *(v3 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_100296BB0(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEC0, &qword_100393F80);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode);
-  v17 = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigSimulatorMode;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEC0, &qword_100393F80);
-  return swift_endAccess();
-}
-
-void (*sub_100296D1C(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEC0, &qword_100393F80) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigSimulatorMode;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEC0, &qword_100393F80);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + *(v8 + 20)) = 2;
-    v18 = v13 + *(v8 + 24);
-    *v18 = 0;
-    *(v18 + 4) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEC0, &qword_100393F80);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode);
-  }
-
-  return sub_100296F88;
-}
-
-void sub_100296F88(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigSimulatorMode;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEC0, &qword_100393F80);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigSimulatorMode;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEC0, &qword_100393F80);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_1002971D8()
-{
-  v1 = sub_100024A2C(&qword_10042BEC0, &qword_100393F80);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigSimulatorMode;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEC0, &qword_100393F80);
-  v7 = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEC0, &qword_100393F80);
-  return v8;
-}
-
-uint64_t sub_1002972F8()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEC0, &qword_100393F80);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigSimulatorMode;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEC0, &qword_100393F80);
-  return swift_endAccess();
-}
-
-uint64_t sub_100297440@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEC8, &qword_100393F88);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigEnableGnssConstellations;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEC8, &qword_100393F88);
-  v9 = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + *(v9 + 20);
-  *v11 = 0;
-  *(v11 + 4) = 1;
-  v12 = a1 + *(v9 + 24);
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEC8, &qword_100393F88);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002975F4(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEC8, &qword_100393F88);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations);
-  v17 = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigEnableGnssConstellations;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEC8, &qword_100393F88);
-  return swift_endAccess();
-}
-
-void (*sub_100297760(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEC8, &qword_100393F88) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigEnableGnssConstellations;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEC8, &qword_100393F88);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + *(v8 + 20);
-    *v18 = 0;
-    *(v18 + 4) = 1;
-    v19 = v13 + *(v8 + 24);
-    *v19 = 0;
-    *(v19 + 4) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEC8, &qword_100393F88);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations);
-  }
-
-  return sub_1002979D0;
-}
-
-void sub_1002979D0(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigEnableGnssConstellations;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEC8, &qword_100393F88);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigEnableGnssConstellations;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEC8, &qword_100393F88);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100297C20()
-{
-  v1 = sub_100024A2C(&qword_10042BEC8, &qword_100393F88);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigEnableGnssConstellations;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEC8, &qword_100393F88);
-  v7 = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEC8, &qword_100393F88);
-  return v8;
-}
-
-uint64_t sub_100297D40()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEC8, &qword_100393F88);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigEnableGnssConstellations;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEC8, &qword_100393F88);
-  return swift_endAccess();
-}
-
-uint64_t sub_100297E88@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BED0, &qword_100393F90);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigDutyCycling;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BED0, &qword_100393F90);
-  v9 = type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetConfigDutyCycling);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = 2;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BED0, &qword_100393F90);
-  }
-
-  return result;
-}
-
-uint64_t sub_100298028@<X0>(uint64_t (*a1)(void)@<X0>, char a2@<W1>, uint64_t a3@<X8>)
-{
-  UnknownStorage.init()();
-  result = a1(0);
-  *(a3 + *(result + 20)) = a2;
-  return result;
-}
-
-uint64_t sub_100298070(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BED0, &qword_100393F90);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetConfigDutyCycling);
-  v17 = type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigDutyCycling;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BED0, &qword_100393F90);
-  return swift_endAccess();
-}
-
-void (*sub_1002981DC(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BED0, &qword_100393F90) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigDutyCycling;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BED0, &qword_100393F90);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + *(v8 + 20)) = 2;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BED0, &qword_100393F90);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetConfigDutyCycling);
-  }
-
-  return sub_100298434;
-}
-
-void sub_100298434(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetConfigDutyCycling);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetConfigDutyCycling);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigDutyCycling;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BED0, &qword_100393F90);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetConfigDutyCycling);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetConfigDutyCycling);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigDutyCycling;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BED0, &qword_100393F90);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100298684()
-{
-  v1 = sub_100024A2C(&qword_10042BED0, &qword_100393F90);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigDutyCycling;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BED0, &qword_100393F90);
-  v7 = type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BED0, &qword_100393F90);
-  return v8;
-}
-
-uint64_t sub_1002987A4()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BED0, &qword_100393F90);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigDutyCycling;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BED0, &qword_100393F90);
-  return swift_endAccess();
-}
-
-uint64_t sub_1002988EC@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BED8, &qword_100393F98);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__terminationImminent;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BED8, &qword_100393F98);
-  v9 = type metadata accessor for Proto_Gpsd_TerminationImminent(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_TerminationImminent);
-  }
-
-  UnknownStorage.init()();
-  v11 = (a1 + *(v9 + 20));
-  *v11 = 0;
-  v11[1] = 0;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BED8, &qword_100393F98);
-  }
-
-  return result;
-}
-
-uint64_t sub_100298A88(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BED8, &qword_100393F98);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_TerminationImminent);
-  v17 = type metadata accessor for Proto_Gpsd_TerminationImminent(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__terminationImminent;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BED8, &qword_100393F98);
-  return swift_endAccess();
-}
-
-void (*sub_100298BF4(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BED8, &qword_100393F98) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_TerminationImminent(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__terminationImminent;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BED8, &qword_100393F98);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = (v13 + *(v8 + 20));
-    *v18 = 0;
-    v18[1] = 0;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BED8, &qword_100393F98);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_TerminationImminent);
-  }
-
-  return sub_100298E4C;
-}
-
-void sub_100298E4C(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_TerminationImminent);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_TerminationImminent);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__terminationImminent;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BED8, &qword_100393F98);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_TerminationImminent);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_TerminationImminent);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__terminationImminent;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BED8, &qword_100393F98);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029909C()
-{
-  v1 = sub_100024A2C(&qword_10042BED8, &qword_100393F98);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__terminationImminent;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BED8, &qword_100393F98);
-  v7 = type metadata accessor for Proto_Gpsd_TerminationImminent(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BED8, &qword_100393F98);
-  return v8;
-}
-
-uint64_t sub_1002991BC()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BED8, &qword_100393F98);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_TerminationImminent(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__terminationImminent;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BED8, &qword_100393F98);
-  return swift_endAccess();
-}
-
-uint64_t sub_100299304@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEE0, &qword_100393FA0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exitMessage;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEE0, &qword_100393FA0);
-  v9 = type metadata accessor for Proto_Gpsd_ExitMessage(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_ExitMessage);
-  }
-
-  UnknownStorage.init()();
-  v11 = (a1 + *(v9 + 20));
-  *v11 = 0;
-  v11[1] = 0;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEE0, &qword_100393FA0);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002994A0@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  result = a1(0);
-  v5 = (a2 + *(result + 20));
-  *v5 = 0;
-  v5[1] = 0;
-  return result;
-}
-
-uint64_t sub_1002994E0(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEE0, &qword_100393FA0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_ExitMessage);
-  v17 = type metadata accessor for Proto_Gpsd_ExitMessage(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exitMessage;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEE0, &qword_100393FA0);
-  return swift_endAccess();
-}
-
-void (*sub_10029964C(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEE0, &qword_100393FA0) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_ExitMessage(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exitMessage;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEE0, &qword_100393FA0);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = (v13 + *(v8 + 20));
-    *v18 = 0;
-    v18[1] = 0;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEE0, &qword_100393FA0);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_ExitMessage);
-  }
-
-  return sub_1002998A4;
-}
-
-void sub_1002998A4(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_ExitMessage);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_ExitMessage);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exitMessage;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEE0, &qword_100393FA0);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_ExitMessage);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_ExitMessage);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exitMessage;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEE0, &qword_100393FA0);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_100299AF4()
-{
-  v1 = sub_100024A2C(&qword_10042BEE0, &qword_100393FA0);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exitMessage;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEE0, &qword_100393FA0);
-  v7 = type metadata accessor for Proto_Gpsd_ExitMessage(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEE0, &qword_100393FA0);
-  return v8;
-}
-
-uint64_t sub_100299C14()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEE0, &qword_100393FA0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_ExitMessage(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exitMessage;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEE0, &qword_100393FA0);
-  return swift_endAccess();
-}
-
-uint64_t sub_100299D5C@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEE8, &qword_100393FA8);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectLtlInfo;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEE8, &qword_100393FA8);
-  v9 = type metadata accessor for Proto_Gpsd_LtlInfo(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_LtlInfo);
-  }
-
-  UnknownStorage.init()();
-  v11 = *(v9 + 20);
-  if (qword_100480FB0 != -1)
-  {
-    swift_once();
-  }
-
-  *(a1 + v11) = qword_100480FB8;
-  v12 = v10(v6, 1, v9);
-
-  if (v12 != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEE8, &qword_100393FA8);
-  }
-
-  return result;
-}
-
-uint64_t sub_100299F60(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEE8, &qword_100393FA8);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_LtlInfo);
-  v17 = type metadata accessor for Proto_Gpsd_LtlInfo(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectLtlInfo;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEE8, &qword_100393FA8);
-  return swift_endAccess();
-}
-
-void (*sub_10029A0CC(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEE8, &qword_100393FA8) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_LtlInfo(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectLtlInfo;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEE8, &qword_100393FA8);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = *(v8 + 20);
-    if (qword_100480FB0 != -1)
-    {
-      swift_once();
-    }
-
-    *(v13 + v18) = qword_100480FB8;
-    v19 = v17(v7, 1, v8);
-
-    if (v19 != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEE8, &qword_100393FA8);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_LtlInfo);
-  }
-
-  return sub_10029A364;
-}
-
-void sub_10029A364(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_LtlInfo);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_LtlInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectLtlInfo;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEE8, &qword_100393FA8);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_LtlInfo);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_LtlInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectLtlInfo;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEE8, &qword_100393FA8);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029A5B4()
-{
-  v1 = sub_100024A2C(&qword_10042BEE8, &qword_100393FA8);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectLtlInfo;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEE8, &qword_100393FA8);
-  v7 = type metadata accessor for Proto_Gpsd_LtlInfo(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEE8, &qword_100393FA8);
-  return v8;
-}
-
-uint64_t sub_10029A6D4()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEE8, &qword_100393FA8);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_LtlInfo(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectLtlInfo;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEE8, &qword_100393FA8);
-  return swift_endAccess();
-}
-
-uint64_t sub_10029A81C@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEF0, &qword_100393FB0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startContext;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEF0, &qword_100393FB0);
-  started = type metadata accessor for Proto_Gpsd_StartContext(0);
-  v10 = *(*(started - 1) + 48);
-  if (v10(v6, 1, started) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_StartContext);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + started[5]) = 2;
-  *(a1 + started[6]) = 2;
-  *(a1 + started[7]) = 2;
-  v11 = a1 + started[8];
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  *(a1 + started[9]) = 2;
-  result = (v10)(v6, 1, started);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEF0, &qword_100393FB0);
-  }
-
-  return result;
-}
-
-int *sub_10029A9CC@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_StartContext(0);
-  *(a1 + result[5]) = 2;
-  *(a1 + result[6]) = 2;
-  *(a1 + result[7]) = 2;
-  v3 = a1 + result[8];
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  *(a1 + result[9]) = 2;
-  return result;
-}
-
-uint64_t sub_10029AA30(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEF0, &qword_100393FB0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_StartContext);
-  started = type metadata accessor for Proto_Gpsd_StartContext(0);
-  (*(*(started - 8) + 56))(v7, 0, 1, started);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startContext;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEF0, &qword_100393FB0);
-  return swift_endAccess();
-}
-
-void (*sub_10029AB9C(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEF0, &qword_100393FB0) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  started = type metadata accessor for Proto_Gpsd_StartContext(0);
-  *(v4 + 96) = started;
-  v9 = *(started - 1);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startContext;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEF0, &qword_100393FB0);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, started) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + started[5]) = 2;
-    *(v13 + started[6]) = 2;
-    *(v13 + started[7]) = 2;
-    v18 = v13 + started[8];
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    *(v13 + started[9]) = 2;
-    if (v17(v7, 1, started) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEF0, &qword_100393FB0);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_StartContext);
-  }
-
-  return sub_10029AE20;
-}
-
-void sub_10029AE20(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_StartContext);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_StartContext);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startContext;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEF0, &qword_100393FB0);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_StartContext);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_StartContext);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startContext;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEF0, &qword_100393FB0);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029B070()
-{
-  v1 = sub_100024A2C(&qword_10042BEF0, &qword_100393FB0);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startContext;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEF0, &qword_100393FB0);
-  started = type metadata accessor for Proto_Gpsd_StartContext(0);
-  v8 = (*(*(started - 8) + 48))(v4, 1, started) != 1;
-  sub_1000059A8(v4, &qword_10042BEF0, &qword_100393FB0);
-  return v8;
-}
-
-uint64_t sub_10029B190()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEF0, &qword_100393FB0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  started = type metadata accessor for Proto_Gpsd_StartContext(0);
-  (*(*(started - 8) + 56))(v5, 1, 1, started);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startContext;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEF0, &qword_100393FB0);
-  return swift_endAccess();
-}
-
-uint64_t sub_10029B2D8@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BEF8, &qword_100393FB8);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v14 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setThermalRiskState;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BEF8, &qword_100393FB8);
-  v9 = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetThermalRiskState);
-  }
-
-  UnknownStorage.init()();
-  v11 = a1 + *(v9 + 20);
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = a1 + *(v9 + 24);
-  *v12 = 0;
-  *(v12 + 4) = 1;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BEF8, &qword_100393FB8);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029B474@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
-  v3 = a1 + *(result + 20);
-  *v3 = 0;
-  *(v3 + 8) = 1;
-  v4 = a1 + *(result + 24);
-  *v4 = 0;
-  *(v4 + 4) = 1;
-  return result;
-}
-
-uint64_t sub_10029B4C4(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BEF8, &qword_100393FB8);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetThermalRiskState);
-  v17 = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setThermalRiskState;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BEF8, &qword_100393FB8);
-  return swift_endAccess();
-}
-
-void (*sub_10029B630(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BEF8, &qword_100393FB8) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setThermalRiskState;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BEF8, &qword_100393FB8);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    v18 = v13 + *(v8 + 20);
-    *v18 = 0;
-    *(v18 + 8) = 1;
-    v19 = v13 + *(v8 + 24);
-    *v19 = 0;
-    *(v19 + 4) = 1;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BEF8, &qword_100393FB8);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetThermalRiskState);
-  }
-
-  return sub_10029B8A0;
-}
-
-void sub_10029B8A0(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetThermalRiskState);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetThermalRiskState);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setThermalRiskState;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BEF8, &qword_100393FB8);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetThermalRiskState);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetThermalRiskState);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setThermalRiskState;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BEF8, &qword_100393FB8);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029BAF0()
-{
-  v1 = sub_100024A2C(&qword_10042BEF8, &qword_100393FB8);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setThermalRiskState;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BEF8, &qword_100393FB8);
-  v7 = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BEF8, &qword_100393FB8);
-  return v8;
-}
-
-uint64_t sub_10029BC10()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BEF8, &qword_100393FB8);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setThermalRiskState;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BEF8, &qword_100393FB8);
-  return swift_endAccess();
-}
-
-uint64_t sub_10029BD58@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF00, &qword_100393FC0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigRfBandEnable;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF00, &qword_100393FC0);
-  v9 = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = 2;
-  *(a1 + *(v9 + 24)) = 2;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF00, &qword_100393FC0);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029BEE4@<X0>(uint64_t a1@<X8>)
-{
-  UnknownStorage.init()();
-  result = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
-  *(a1 + *(result + 20)) = 2;
-  *(a1 + *(result + 24)) = 2;
-  return result;
-}
-
-uint64_t sub_10029BF24(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF00, &qword_100393FC0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable);
-  v17 = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigRfBandEnable;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF00, &qword_100393FC0);
-  return swift_endAccess();
-}
-
-void (*sub_10029C090(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF00, &qword_100393FC0) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigRfBandEnable;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF00, &qword_100393FC0);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + *(v8 + 20)) = 2;
-    *(v13 + *(v8 + 24)) = 2;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF00, &qword_100393FC0);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable);
-  }
-
-  return sub_10029C2F0;
-}
-
-void sub_10029C2F0(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigRfBandEnable;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF00, &qword_100393FC0);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigRfBandEnable;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF00, &qword_100393FC0);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029C540()
-{
-  v1 = sub_100024A2C(&qword_10042BF00, &qword_100393FC0);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigRfBandEnable;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF00, &qword_100393FC0);
-  v7 = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF00, &qword_100393FC0);
-  return v8;
-}
-
-uint64_t sub_10029C660()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF00, &qword_100393FC0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__setConfigRfBandEnable;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF00, &qword_100393FC0);
-  return swift_endAccess();
-}
-
-uint64_t sub_10029C7A8@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF08, &qword_100393FC8);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRavenOrbitFile;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF08, &qword_100393FC8);
-  v9 = type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile);
-  }
-
-  UnknownStorage.init()();
-  *(a1 + *(v9 + 20)) = xmmword_10036D770;
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF08, &qword_100393FC8);
-  }
-
-  return result;
-}
-
-double sub_10029C948@<D0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1(0);
-  result = 0.0;
-  *(a2 + *(v4 + 20)) = xmmword_10036D770;
-  return result;
-}
-
-uint64_t sub_10029C98C(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF08, &qword_100393FC8);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile);
-  v17 = type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRavenOrbitFile;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF08, &qword_100393FC8);
-  return swift_endAccess();
-}
-
-void (*sub_10029CAF8(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF08, &qword_100393FC8) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRavenOrbitFile;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF08, &qword_100393FC8);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    UnknownStorage.init()();
-    *(v13 + *(v8 + 20)) = xmmword_10036D770;
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF08, &qword_100393FC8);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile);
-  }
-
-  return sub_10029CD54;
-}
-
-void sub_10029CD54(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRavenOrbitFile;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF08, &qword_100393FC8);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRavenOrbitFile;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF08, &qword_100393FC8);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029CFA4()
-{
-  v1 = sub_100024A2C(&qword_10042BF08, &qword_100393FC8);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRavenOrbitFile;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF08, &qword_100393FC8);
-  v7 = type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF08, &qword_100393FC8);
-  return v8;
-}
-
-uint64_t sub_10029D0C4()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF08, &qword_100393FC8);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__injectRavenOrbitFile;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF08, &qword_100393FC8);
-  return swift_endAccess();
-}
-
-uint64_t sub_10029D20C@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF10, &qword_100393FD0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__emergConfig;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF10, &qword_100393FD0);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_EmergConfig);
-  }
-
-  sub_1001E6CBC(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF10, &qword_100393FD0);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029D384(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF10, &qword_100393FD0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_EmergConfig);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__emergConfig;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF10, &qword_100393FD0);
-  return swift_endAccess();
-}
-
-void (*sub_10029D4F0(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF10, &qword_100393FD0) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__emergConfig;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF10, &qword_100393FD0);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001E6CBC(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF10, &qword_100393FD0);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_EmergConfig);
-  }
-
-  return sub_10029D73C;
-}
-
-void sub_10029D73C(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_EmergConfig);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_EmergConfig);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__emergConfig;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF10, &qword_100393FD0);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_EmergConfig);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_EmergConfig);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__emergConfig;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF10, &qword_100393FD0);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029D98C()
-{
-  v1 = sub_100024A2C(&qword_10042BF10, &qword_100393FD0);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__emergConfig;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF10, &qword_100393FD0);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF10, &qword_100393FD0);
-  return v8;
-}
-
-uint64_t sub_10029DAAC()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF10, &qword_100393FD0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_EmergConfig(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__emergConfig;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF10, &qword_100393FD0);
-  return swift_endAccess();
-}
-
-void (*sub_10029DC5C(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x68uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 88) = v1;
-  v5 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 96) = v5;
-  v6 = (*(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gemProtocolRequest);
-  swift_beginAccess();
-  v7 = *v6;
-  v8 = v6[1];
-  if (v8 >> 60 == 15)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v9 = *v6;
-  }
-
-  v10 = 0xC000000000000000;
-  if (v8 >> 60 != 15)
-  {
-    v10 = v6[1];
-  }
-
-  *(v4 + 72) = v9;
-  *(v4 + 80) = v10;
-  sub_10000BE4C(v7, v8);
-  return sub_10029DD20;
-}
-
-uint64_t sub_10029DDBC@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF18, &qword_100393FD8);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionRequest;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF18, &qword_100393FD8);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_PositionRequest(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_PositionRequest);
-  }
-
-  sub_1001AF174(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF18, &qword_100393FD8);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029DF34(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF18, &qword_100393FD8);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_PositionRequest);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_PositionRequest(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionRequest;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF18, &qword_100393FD8);
-  return swift_endAccess();
-}
-
-void (*sub_10029E0A0(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF18, &qword_100393FD8) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_PositionRequest(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionRequest;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF18, &qword_100393FD8);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001AF174(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF18, &qword_100393FD8);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_PositionRequest);
-  }
-
-  return sub_10029E2EC;
-}
-
-void sub_10029E2EC(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_PositionRequest);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_PositionRequest);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionRequest;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF18, &qword_100393FD8);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_PositionRequest);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_PositionRequest);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionRequest;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF18, &qword_100393FD8);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029E53C()
-{
-  v1 = sub_100024A2C(&qword_10042BF18, &qword_100393FD8);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionRequest;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF18, &qword_100393FD8);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_PositionRequest(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF18, &qword_100393FD8);
-  return v8;
-}
-
-uint64_t sub_10029E65C()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF18, &qword_100393FD8);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_PositionRequest(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionRequest;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF18, &qword_100393FD8);
-  return swift_endAccess();
-}
-
-void (*sub_10029E80C(uint64_t *a1))(uint64_t *a1, uint64_t a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x58uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 84) = v5;
-  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__sessionID;
-  swift_beginAccess();
-  v7 = *v6;
-  if (*(v6 + 4))
-  {
-    v7 = 0;
-  }
-
-  *(v4 + 80) = v7;
-  return sub_10029E8C4;
-}
-
-uint64_t sub_10029E960@<X0>(void *a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF20, &qword_100393FE0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsReferenceTime;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF20, &qword_100393FE0);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime);
-  }
-
-  sub_1001DB920(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF20, &qword_100393FE0);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029EAD8(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF20, &qword_100393FE0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsReferenceTime;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF20, &qword_100393FE0);
-  return swift_endAccess();
-}
-
-void (*sub_10029EC44(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF20, &qword_100393FE0) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsReferenceTime;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF20, &qword_100393FE0);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001DB920(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF20, &qword_100393FE0);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime);
-  }
-
-  return sub_10029EE90;
-}
-
-void sub_10029EE90(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsReferenceTime;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF20, &qword_100393FE0);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsReferenceTime;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF20, &qword_100393FE0);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029F0E0()
-{
-  v1 = sub_100024A2C(&qword_10042BF20, &qword_100393FE0);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsReferenceTime;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF20, &qword_100393FE0);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF20, &qword_100393FE0);
-  return v8;
-}
-
-uint64_t sub_10029F200()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF20, &qword_100393FE0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_GpsReferenceTime(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsReferenceTime;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF20, &qword_100393FE0);
-  return swift_endAccess();
-}
-
-uint64_t sub_10029F348@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF28, &qword_100393FE8);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__referenceLocation;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF28, &qword_100393FE8);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
-  }
-
-  sub_1001DC978(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF28, &qword_100393FE8);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029F4C0(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF28, &qword_100393FE8);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__referenceLocation;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF28, &qword_100393FE8);
-  return swift_endAccess();
-}
-
-void (*sub_10029F62C(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF28, &qword_100393FE8) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__referenceLocation;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF28, &qword_100393FE8);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001DC978(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF28, &qword_100393FE8);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
-  }
-
-  return sub_10029F878;
-}
-
-void sub_10029F878(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__referenceLocation;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF28, &qword_100393FE8);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__referenceLocation;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF28, &qword_100393FE8);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_10029FAC8()
-{
-  v1 = sub_100024A2C(&qword_10042BF28, &qword_100393FE8);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__referenceLocation;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF28, &qword_100393FE8);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF28, &qword_100393FE8);
-  return v8;
-}
-
-uint64_t sub_10029FBE8()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF28, &qword_100393FE8);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_ReferenceLocation(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__referenceLocation;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF28, &qword_100393FE8);
-  return swift_endAccess();
-}
-
-uint64_t sub_10029FD30@<X0>(void *a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF30, &qword_100393FF0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsNavigationModel;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF30, &qword_100393FF0);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel);
-  }
-
-  sub_1001E5414(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF30, &qword_100393FF0);
-  }
-
-  return result;
-}
-
-uint64_t sub_10029FEA8(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF30, &qword_100393FF0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsNavigationModel;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF30, &qword_100393FF0);
-  return swift_endAccess();
-}
-
-void (*sub_1002A0014(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF30, &qword_100393FF0) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsNavigationModel;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF30, &qword_100393FF0);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001E5414(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF30, &qword_100393FF0);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel);
-  }
-
-  return sub_1002A0260;
-}
-
-void sub_1002A0260(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsNavigationModel;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF30, &qword_100393FF0);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsNavigationModel;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF30, &qword_100393FF0);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_1002A04B0()
-{
-  v1 = sub_100024A2C(&qword_10042BF30, &qword_100393FF0);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsNavigationModel;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF30, &qword_100393FF0);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF30, &qword_100393FF0);
-  return v8;
-}
-
-uint64_t sub_1002A05D0()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF30, &qword_100393FF0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_GpsNavigationModel(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsNavigationModel;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF30, &qword_100393FF0);
-  return swift_endAccess();
-}
-
-uint64_t sub_1002A0718@<X0>(char *a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF38, &qword_100393FF8);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsAcqAssistance;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF38, &qword_100393FF8);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
-  }
-
-  sub_1001E897C(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF38, &qword_100393FF8);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002A0890(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF38, &qword_100393FF8);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsAcqAssistance;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF38, &qword_100393FF8);
-  return swift_endAccess();
-}
-
-void (*sub_1002A09FC(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF38, &qword_100393FF8) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsAcqAssistance;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF38, &qword_100393FF8);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001E897C(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF38, &qword_100393FF8);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
-  }
-
-  return sub_1002A0C48;
-}
-
-void sub_1002A0C48(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsAcqAssistance;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF38, &qword_100393FF8);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsAcqAssistance;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF38, &qword_100393FF8);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_1002A0E98()
-{
-  v1 = sub_100024A2C(&qword_10042BF38, &qword_100393FF8);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsAcqAssistance;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF38, &qword_100393FF8);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF38, &qword_100393FF8);
-  return v8;
-}
-
-uint64_t sub_1002A0FB8()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF38, &qword_100393FF8);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_GpsAcqAssistance(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gpsAcqAssistance;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF38, &qword_100393FF8);
-  return swift_endAccess();
-}
-
-uint64_t sub_1002A1100@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF40, &qword_100394000);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistance;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF40, &qword_100394000);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance);
-  }
-
-  sub_1001E93F0(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF40, &qword_100394000);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002A1278(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF40, &qword_100394000);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistance;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF40, &qword_100394000);
-  return swift_endAccess();
-}
-
-void (*sub_1002A13E4(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF40, &qword_100394000) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistance;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF40, &qword_100394000);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001E93F0(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF40, &qword_100394000);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance);
-  }
-
-  return sub_1002A1630;
-}
-
-void sub_1002A1630(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistance;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF40, &qword_100394000);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistance;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF40, &qword_100394000);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_1002A1880()
-{
-  v1 = sub_100024A2C(&qword_10042BF40, &qword_100394000);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistance;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF40, &qword_100394000);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF40, &qword_100394000);
-  return v8;
-}
-
-uint64_t sub_1002A19A0()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF40, &qword_100394000);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistance(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistance;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF40, &qword_100394000);
-  return swift_endAccess();
-}
-
-uint64_t sub_1002A1AE8@<X0>(uint64_t a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF48, &qword_100394008);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneContext;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF48, &qword_100394008);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_CplaneContext);
-  }
-
-  sub_1001E5FFC(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF48, &qword_100394008);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002A1C60(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF48, &qword_100394008);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_CplaneContext);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneContext;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF48, &qword_100394008);
-  return swift_endAccess();
-}
-
-void (*sub_1002A1DCC(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF48, &qword_100394008) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneContext;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF48, &qword_100394008);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001E5FFC(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF48, &qword_100394008);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_CplaneContext);
-  }
-
-  return sub_1002A2018;
-}
-
-void sub_1002A2018(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_CplaneContext);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_CplaneContext);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneContext;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF48, &qword_100394008);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_CplaneContext);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_CplaneContext);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneContext;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF48, &qword_100394008);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_1002A2268()
-{
-  v1 = sub_100024A2C(&qword_10042BF48, &qword_100394008);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneContext;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF48, &qword_100394008);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF48, &qword_100394008);
-  return v8;
-}
-
-uint64_t sub_1002A2388()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF48, &qword_100394008);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_CplaneContext(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneContext;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF48, &qword_100394008);
-  return swift_endAccess();
-}
-
-void (*sub_1002A24E8(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x60uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 80) = v1;
-  v5 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 88) = v5;
-  v6 = *(v1 + v5);
-  v7 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplInitVec;
-  swift_beginAccess();
-  *(v4 + 72) = *(v6 + v7);
-
-  return sub_1002A2598;
-}
-
-uint64_t sub_1002A25A4@<X0>(void *a1@<X8>)
-{
-  v3 = sub_100024A2C(&qword_10042BF50, &qword_100394010);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__locationID;
-  swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF50, &qword_100394010);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_LocationId(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
-  {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_LocationId);
-  }
-
-  sub_1001A1C38(a1);
-  result = (v10)(v6, 1, v9);
-  if (result != 1)
-  {
-    return sub_1000059A8(v6, &qword_10042BF50, &qword_100394010);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002A271C(uint64_t a1)
-{
-  v2 = v1;
-  v4 = sub_100024A2C(&qword_10042BF50, &qword_100394010);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
-  }
-
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_LocationId);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_LocationId(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__locationID;
-  swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF50, &qword_100394010);
-  return swift_endAccess();
-}
-
-void (*sub_1002A2888(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x88uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(*(sub_100024A2C(&qword_10042BF50, &qword_100394010) - 8) + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 80) = swift_coroFrameAlloc();
-    v6 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 80) = malloc(v5);
-    v6 = malloc(v5);
-  }
-
-  v7 = v6;
-  *(v4 + 88) = v6;
-  v8 = type metadata accessor for Proto_Gnss_Emergency_LocationId(0);
-  *(v4 + 96) = v8;
-  v9 = *(v8 - 8);
-  v10 = v9;
-  *(v4 + 104) = v9;
-  v11 = *(v9 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    *(v4 + 112) = swift_coroFrameAlloc();
-    v12 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    *(v4 + 112) = malloc(*(v9 + 64));
-    v12 = malloc(v11);
-  }
-
-  v13 = v12;
-  *(v4 + 120) = v12;
-  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 128) = v14;
-  v15 = *(v1 + v14);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__locationID;
-  swift_beginAccess();
-  sub_10000A0A4(v15 + v16, v7, &qword_10042BF50, &qword_100394010);
-  v17 = *(v10 + 48);
-  if (v17(v7, 1, v8) == 1)
-  {
-    sub_1001A1C38(v13);
-    if (v17(v7, 1, v8) != 1)
-    {
-      sub_1000059A8(v7, &qword_10042BF50, &qword_100394010);
-    }
-  }
-
-  else
-  {
-    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_LocationId);
-  }
-
-  return sub_1002A2AD4;
-}
-
-void sub_1002A2AD4(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 128);
-  if (a2)
-  {
-    v4 = *(v2 + 72);
-    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_LocationId);
-    v5 = *(v4 + v3);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
-      v13 = swift_allocObject();
-      sub_1002C2FB8(v7);
-      *(v9 + v8) = v13;
-      v7 = v13;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v15, v19, type metadata accessor for Proto_Gnss_Emergency_LocationId);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__locationID;
-    swift_beginAccess();
-    sub_10000AD64(v19, v7 + v20, &qword_10042BF50, &qword_100394010);
-    swift_endAccess();
-    sub_1002F7CB8(v14, type metadata accessor for Proto_Gnss_Emergency_LocationId);
-  }
-
-  else
-  {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
-    {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
-      v30 = swift_allocObject();
-      sub_1002C2FB8(v24);
-      *(v26 + v25) = v30;
-      v24 = v30;
-    }
-
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    sub_1002F7BE8(v14, v19, type metadata accessor for Proto_Gnss_Emergency_LocationId);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__locationID;
-    swift_beginAccess();
-    sub_10000AD64(v19, v24 + v33, &qword_10042BF50, &qword_100394010);
-    swift_endAccess();
-  }
-
-  free(v14);
-  free(v15);
-  free(v18);
-  free(v19);
-
-  free(v2);
-}
-
-BOOL sub_1002A2D24()
-{
-  v1 = sub_100024A2C(&qword_10042BF50, &qword_100394010);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v10 - v3;
-  v5 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__locationID;
-  swift_beginAccess();
-  sub_10000A0A4(v5 + v6, v4, &qword_10042BF50, &qword_100394010);
-  v7 = type metadata accessor for Proto_Gnss_Emergency_LocationId(0);
-  v8 = (*(*(v7 - 8) + 48))(v4, 1, v7) != 1;
-  sub_1000059A8(v4, &qword_10042BF50, &qword_100394010);
-  return v8;
-}
-
-uint64_t sub_1002A2E44()
-{
-  v1 = v0;
-  v2 = sub_100024A2C(&qword_10042BF50, &qword_100394010);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v18 - v4;
-  v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v0 + v6);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v0 + v6);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v1 + v6) = v13;
-  }
-
-  v15 = type metadata accessor for Proto_Gnss_Emergency_LocationId(0);
-  (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
-  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__locationID;
-  swift_beginAccess();
-  sub_10000AD64(v5, v9 + v16, &qword_10042BF50, &qword_100394010);
-  return swift_endAccess();
-}
-
-uint64_t sub_1002A2FAC(uint64_t (*a1)(void), void *a2)
-{
-  v3 = (*(v2 + *(a1(0) + 20)) + *a2);
-  swift_beginAccess();
-  if (v3[4])
-  {
-    return 0;
-  }
-
-  else
-  {
-    return *v3;
-  }
-}
-
-uint64_t sub_1002A3060(int a1, uint64_t (*a2)(void), uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
-{
-  v9 = v5;
-  v11 = *(a2(0) + 20);
-  v12 = *(v5 + v11);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v5 + v11);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v15 = a3(0);
-    v16 = *(v15 + 48);
-    v17 = *(v15 + 52);
-    v18 = swift_allocObject();
-    v19 = v14;
-    v14 = v18;
-    a4(v19);
-    *(v9 + v11) = v18;
-  }
-
-  v20 = v14 + *a5;
-  result = swift_beginAccess();
-  *v20 = a1;
-  *(v20 + 4) = 0;
-  return result;
-}
-
-void (*sub_1002A3124(uint64_t *a1))(uint64_t *a1, uint64_t a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x58uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 72) = v1;
-  v5 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  *(v4 + 84) = v5;
-  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplInitIndex;
-  swift_beginAccess();
-  v7 = *v6;
-  if (*(v6 + 4))
-  {
-    v7 = 0;
-  }
-
-  *(v4 + 80) = v7;
-  return sub_1002A31DC;
-}
-
-void sub_1002A3210(uint64_t *a1, uint64_t a2, uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
-{
-  v8 = *a1;
-  v9 = *(*a1 + 80);
-  v10 = *(*a1 + 84);
-  v11 = *(*a1 + 72);
-  v12 = *(v11 + v10);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *(v11 + v10);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v15 = *(v8 + 84);
-    v16 = *(v8 + 72);
-    v17 = a3(0);
-    v18 = *(v17 + 48);
-    v19 = *(v17 + 52);
-    v20 = swift_allocObject();
-    v21 = v14;
-    v14 = v20;
-    a4(v21);
-    *(v16 + v15) = v20;
-  }
-
-  v22 = v14 + *a5;
-  swift_beginAccess();
-  *v22 = v9;
-  *(v22 + 4) = 0;
-
-  free(v8);
-}
-
 BOOL sub_1002A3320(uint64_t (*a1)(void), void *a2)
 {
   v3 = *(v2 + *(a1(0) + 20)) + *a2;
@@ -9584,62 +9,53 @@ uint64_t sub_1002A33D0(uint64_t (*a1)(void), uint64_t (*a2)(void), void (*a3)(ui
 {
   v8 = v4;
   v9 = *(a1(0) + 20);
-  v10 = *(v4 + v9);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v12 = *(v4 + v9);
+  v11 = *(v4 + v9);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v13 = a2(0);
-    v14 = *(v13 + 48);
-    v15 = *(v13 + 52);
-    v16 = swift_allocObject();
-    v17 = v12;
-    v12 = v16;
-    a3(v17);
-    *(v8 + v9) = v16;
+    a2(0);
+    v12 = swift_allocObject();
+    v13 = v11;
+    v11 = v12;
+    a3(v13);
+    *(v8 + v9) = v12;
   }
 
-  v18 = v12 + *a4;
+  v14 = v11 + *a4;
   result = swift_beginAccess();
-  *v18 = 0;
-  *(v18 + 4) = 1;
+  *v14 = 0;
+  *(v14 + 4) = 1;
   return result;
 }
 
 uint64_t sub_1002A349C(uint64_t *a1)
 {
-  v3 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v4 = *a1;
+  type metadata accessor for Proto_Gpsd_Request(0);
   swift_beginAccess();
-  v5 = *(v3 + v4);
 }
 
 uint64_t sub_1002A3500(uint64_t a1, uint64_t *a2)
 {
   v4 = v2;
   v6 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v9;
-    v9 = v13;
-    sub_1002C2FB8(v14);
-    *(v4 + v6) = v13;
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v9 = swift_allocObject();
+    v10 = v8;
+    v8 = v9;
+    sub_1002C2FB8(v10);
+    *(v4 + v6) = v9;
   }
 
-  v15 = *a2;
+  v11 = *a2;
   swift_beginAccess();
-  v16 = *(v9 + v15);
-  *(v9 + v15) = a1;
+  *(v8 + v11) = a1;
 }
 
-void (*sub_1002A35A8(uint64_t *a1))(uint64_t *a1, char a2)
+void (*sub_1002A35A8(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -9667,62 +83,50 @@ void (*sub_1002A35A8(uint64_t *a1))(uint64_t *a1, char a2)
 void sub_1002A3664(uint64_t *a1, char a2, uint64_t *a3)
 {
   v4 = *a1;
-  v6 = (*a1 + 72);
-  v5 = *v6;
-  v7 = *(*a1 + 88);
-  v8 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  v6 = *(*a1 + 88);
+  v7 = *(*a1 + 80);
   if (a2)
   {
-    v9 = *(*a1 + 72);
 
-    v10 = *(v8 + v7);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v12 = *(v8 + v7);
+    v9 = *(v7 + v6);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v13 = *(v4 + 88);
-      v14 = *(v4 + 80);
-      v15 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v16 = *(v15 + 48);
-      v17 = *(v15 + 52);
-      v18 = swift_allocObject();
-      v19 = v12;
-      v12 = v18;
-      sub_1002C2FB8(v19);
-      *(v14 + v13) = v18;
+      v10 = *(v4 + 88);
+      v11 = *(v4 + 80);
+      type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+      v12 = swift_allocObject();
+      v13 = v9;
+      v9 = v12;
+      sub_1002C2FB8(v13);
+      *(v11 + v10) = v12;
     }
 
-    v20 = *a3;
+    v14 = *a3;
     swift_beginAccess();
-    v21 = *(v12 + v20);
-    *(v12 + v20) = v5;
-
-    v22 = *v6;
+    *(v9 + v14) = v5;
   }
 
   else
   {
-    v23 = *(v8 + v7);
-    v24 = swift_isUniquelyReferenced_nonNull_native();
-    v25 = *(v8 + v7);
-    if ((v24 & 1) == 0)
+    v15 = swift_isUniquelyReferenced_nonNull_native();
+    v16 = *(v7 + v6);
+    if ((v15 & 1) == 0)
     {
-      v26 = *(v4 + 88);
-      v27 = *(v4 + 80);
-      v28 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-      v29 = *(v28 + 48);
-      v30 = *(v28 + 52);
-      v31 = swift_allocObject();
-      v32 = v25;
-      v25 = v31;
-      sub_1002C2FB8(v32);
-      *(v27 + v26) = v31;
+      v17 = *(v4 + 88);
+      v18 = *(v4 + 80);
+      type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+      v19 = swift_allocObject();
+      v20 = v16;
+      v16 = v19;
+      sub_1002C2FB8(v20);
+      *(v18 + v17) = v19;
     }
 
-    v33 = *a3;
+    v21 = *a3;
     swift_beginAccess();
-    v34 = *(v25 + v33);
-    *(v25 + v33) = v5;
+    *(v16 + v21) = v5;
   }
 
   free(v4);
@@ -9740,28 +144,25 @@ uint64_t sub_1002A37F8(char a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
-    v11 = swift_allocObject();
-    v12 = v7;
-    v7 = v11;
-    sub_1002C2FB8(v12);
-    *(v2 + v4) = v11;
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    sub_1002C2FB8(v8);
+    *(v2 + v4) = v7;
   }
 
-  v13 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__servingCellLte;
+  v9 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__servingCellLte;
   result = swift_beginAccess();
-  *(v7 + v13) = a1 & 1;
+  *(v6 + v9) = a1 & 1;
   return result;
 }
 
-void (*sub_1002A389C(uint64_t *a1))(uint64_t *a1)
+void (*sub_1002A389C(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -9785,34 +186,31 @@ void (*sub_1002A389C(uint64_t *a1))(uint64_t *a1)
   return sub_1002A3948;
 }
 
-void sub_1002A3948(uint64_t *a1)
+void sub_1002A3948(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 80);
-  v3 = *(*a1 + 72);
-  v4 = *(*a1 + 84);
-  v5 = *(v3 + v2);
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  v5 = *(*a1 + 84);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v3 + v2);
+  v7 = *(v4 + v3);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 80);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
-    v13 = swift_allocObject();
-    v14 = v7;
-    v7 = v13;
-    sub_1002C2FB8(v14);
-    *(v9 + v8) = v13;
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v7;
+    v7 = v10;
+    sub_1002C2FB8(v11);
+    *(v9 + v8) = v10;
   }
 
-  v15 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__servingCellLte;
+  v12 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__servingCellLte;
   swift_beginAccess();
-  *(v7 + v15) = v4;
+  *(v7 + v12) = v5;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL sub_1002A3A14()
@@ -9827,27 +225,24 @@ uint64_t sub_1002A3A70()
 {
   v1 = v0;
   v2 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
-    v9 = swift_allocObject();
-    sub_1002C2FB8(v5);
-    *(v1 + v2) = v9;
-    v5 = v9;
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v5 = swift_allocObject();
+    sub_1002C2FB8(v4);
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__servingCellLte;
+  v6 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__servingCellLte;
   result = swift_beginAccess();
-  *(v5 + v10) = 2;
+  *(v4 + v6) = 2;
   return result;
 }
 
-void (*sub_1002A3B70(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+void (*sub_1002A3B70(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -9879,25 +274,24 @@ void (*sub_1002A3B70(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 uint64_t sub_1002A3CC4@<X0>(uint64_t a1@<X8>)
 {
   v3 = sub_100024A2C(&qword_10042BF58, &qword_100394018);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v12 - v5;
-  v7 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
-  v8 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
   swift_beginAccess();
-  sub_10000A0A4(v7 + v8, v6, &qword_10042BF58, &qword_100394018);
-  v9 = type metadata accessor for Proto_Gnss_Emergency_SuplContext(0);
-  v10 = *(*(v9 - 8) + 48);
-  if (v10(v6, 1, v9) != 1)
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF58, &qword_100394018);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SuplContext(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
   {
-    return sub_1002F7BE8(v6, a1, type metadata accessor for Proto_Gnss_Emergency_SuplContext);
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_SuplContext);
   }
 
   sub_1001A78C0(a1);
-  result = (v10)(v6, 1, v9);
+  result = (v9)(v5, 1, v8);
   if (result != 1)
   {
-    return sub_1000059A8(v6, &qword_10042BF58, &qword_100394018);
+    return sub_1000059A8(v5, &qword_10042BF58, &qword_100394018);
   }
 
   return result;
@@ -9907,31 +301,27 @@ uint64_t sub_1002A3E3C(uint64_t a1)
 {
   v2 = v1;
   v4 = sub_100024A2C(&qword_10042BF58, &qword_100394018);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
-  v9 = *(v1 + v8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(v1 + v8);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
-    v15 = swift_allocObject();
-    v16 = v11;
-    v11 = v15;
-    sub_1002C2FB8(v16);
-    *(v2 + v8) = v15;
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002C2FB8(v11);
+    *(v2 + v7) = v10;
   }
 
-  sub_1002F7BE8(a1, v7, type metadata accessor for Proto_Gnss_Emergency_SuplContext);
-  v17 = type metadata accessor for Proto_Gnss_Emergency_SuplContext(0);
-  (*(*(v17 - 8) + 56))(v7, 0, 1, v17);
-  v18 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_SuplContext);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_SuplContext(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
   swift_beginAccess();
-  sub_10000AD64(v7, v11 + v18, &qword_10042BF58, &qword_100394018);
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF58, &qword_100394018);
   return swift_endAccess();
 }
 
@@ -10007,4 +397,9554 @@ void (*sub_1002A3FA8(uint64_t *a1))(uint64_t *a1, char a2)
   }
 
   return sub_1002A41F4;
+}
+
+void sub_1002A41F4(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_SuplContext);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002C2FB8(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_SuplContext);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF58, &qword_100394018);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_SuplContext);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002C2FB8(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_SuplContext);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF58, &qword_100394018);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A4444()
+{
+  v1 = sub_100024A2C(&qword_10042BF58, &qword_100394018);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF58, &qword_100394018);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_SuplContext(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF58, &qword_100394018);
+  return v7;
+}
+
+uint64_t sub_1002A4564()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF58, &qword_100394018);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002C2FB8(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_SuplContext(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplContext;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF58, &qword_100394018);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A46AC@<X0>(void *a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF60, &qword_100394020);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementList;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF60, &qword_100394020);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList);
+  }
+
+  sub_1001A2798(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF60, &qword_100394020);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002A4824(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF60, &qword_100394020);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002C2FB8(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementList;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF60, &qword_100394020);
+  return swift_endAccess();
+}
+
+void (*sub_1002A4990(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF60, &qword_100394020) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementList;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF60, &qword_100394020);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001A2798(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF60, &qword_100394020);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList);
+  }
+
+  return sub_1002A4BDC;
+}
+
+void sub_1002A4BDC(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002C2FB8(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementList;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF60, &qword_100394020);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002C2FB8(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementList;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF60, &qword_100394020);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A4E2C()
+{
+  v1 = sub_100024A2C(&qword_10042BF60, &qword_100394020);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Request(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementList;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF60, &qword_100394020);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF60, &qword_100394020);
+  return v7;
+}
+
+uint64_t sub_1002A4F4C()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF60, &qword_100394020);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Request(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Request._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002C2FB8(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementList(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf18Proto_Gpsd_RequestP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementList;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF60, &qword_100394020);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A50DC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100303344();
+
+  return Enum.hash(into:)(a1, a2, v4);
+}
+
+uint64_t sub_1002A5128@<X0>(_BYTE *a1@<X8>, unint64_t a2@<X0>)
+{
+  result = sub_1002F8058(a2);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_1002A5174@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = sub_1002F8058(*a1);
+  *a2 = result;
+  return result;
+}
+
+uint64_t sub_1002A51F0@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X1>, uint64_t *a3@<X2>, uint64_t a5@<X8>)
+{
+  UnknownStorage.init()();
+  v9 = *(a1(0) + 20);
+  if (*a2 != -1)
+  {
+    swift_once();
+  }
+
+  *(a5 + v9) = *a3;
+}
+
+uint64_t sub_1002A529C()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Response(0) + 20));
+  if (v1 == 62)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002A52C8(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Response(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002A52F8(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Response(0) + 20);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 62)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002A5384()
+{
+  result = type metadata accessor for Proto_Gpsd_Response(0);
+  *(v0 + *(result + 20)) = 62;
+  return result;
+}
+
+uint64_t sub_1002A53C4(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Response(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002A53FC(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Response(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002A5494()
+{
+  result = type metadata accessor for Proto_Gpsd_Response(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002A54C4()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Response(0) + 28));
+  if (v1 == 10)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002A54F0(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Response(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002A5520(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Response(0) + 28);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 10)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_100025584;
+}
+
+uint64_t sub_1002A55AC()
+{
+  result = type metadata accessor for Proto_Gpsd_Response(0);
+  *(v0 + *(result + 28)) = 10;
+  return result;
+}
+
+int *sub_1002A55D4@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gpsd_Response(0);
+  *(a1 + result[5]) = 62;
+  v3 = a1 + result[6];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  *(a1 + result[7]) = 10;
+  return result;
+}
+
+uint64_t sub_1002A5634()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 16) == 24)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 16);
+  }
+}
+
+uint64_t sub_1002A5688(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    sub_1002D9034(v8);
+    *(v2 + v4) = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 16) = a1;
+  return result;
+}
+
+void (*sub_1002A5720(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 16);
+  if (v7 == 24)
+  {
+    LOBYTE(v7) = 0;
+  }
+
+  *(v4 + 84) = v7;
+  return sub_1002A57C8;
+}
+
+void sub_1002A57C8(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v7;
+    v7 = v10;
+    sub_1002D9034(v11);
+    *(v9 + v8) = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 16) = v3;
+
+  free(v2);
+}
+
+BOOL sub_1002A5890()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 16) != 24;
+}
+
+uint64_t sub_1002A5928()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 17) == 62)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 17);
+  }
+}
+
+uint64_t sub_1002A597C(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    sub_1002D9034(v8);
+    *(v2 + v4) = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 17) = a1;
+  return result;
+}
+
+void (*sub_1002A5A14(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 17);
+  if (v7 == 62)
+  {
+    LOBYTE(v7) = 0;
+  }
+
+  *(v4 + 84) = v7;
+  return sub_1002A5ABC;
+}
+
+void sub_1002A5ABC(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v7;
+    v7 = v10;
+    sub_1002D9034(v11);
+    *(v9 + v8) = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 17) = v3;
+
+  free(v2);
+}
+
+BOOL sub_1002A5B84()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 17) != 62;
+}
+
+uint64_t sub_1002A5BD8()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v5 = swift_allocObject();
+    v6 = v4;
+    v4 = v5;
+    sub_1002D9034(v6);
+    *(v1 + v2) = v5;
+  }
+
+  result = swift_beginAccess();
+  *(v4 + 17) = 62;
+  return result;
+}
+
+uint64_t sub_1002A5C68()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 32))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 24);
+  }
+}
+
+uint64_t sub_1002A5CC0(uint64_t a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    sub_1002D9034(v8);
+    *(v2 + v4) = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 24) = a1;
+  *(v6 + 32) = 0;
+  return result;
+}
+
+void (*sub_1002A5D5C(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x60uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 80) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 88) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 24);
+  if (*(v6 + 32))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 72) = v7;
+  return sub_1002A5E08;
+}
+
+void sub_1002A5E08(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 88);
+  v5 = *(*a1 + 80);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 88);
+    v9 = *(v2 + 80);
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v7;
+    v7 = v10;
+    sub_1002D9034(v11);
+    *(v9 + v8) = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 24) = v3;
+  *(v7 + 32) = 0;
+
+  free(v2);
+}
+
+BOOL sub_1002A5ED4()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  swift_beginAccess();
+  return (*(v1 + 32) & 1) == 0;
+}
+
+uint64_t sub_1002A5F28()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v5 = swift_allocObject();
+    v6 = v4;
+    v4 = v5;
+    sub_1002D9034(v6);
+    *(v1 + v2) = v5;
+  }
+
+  result = swift_beginAccess();
+  *(v4 + 24) = 0;
+  *(v4 + 32) = 1;
+  return result;
+}
+
+uint64_t sub_1002A5FBC@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF68, &qword_100394028);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__fix;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF68, &qword_100394028);
+  v8 = type metadata accessor for Proto_Gnss_Fix(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Fix);
+  }
+
+  sub_10026D97C(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF68, &qword_100394028);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002A6134(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF68, &qword_100394028);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Fix);
+  v12 = type metadata accessor for Proto_Gnss_Fix(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__fix;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF68, &qword_100394028);
+  return swift_endAccess();
+}
+
+void (*sub_1002A62A0(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF68, &qword_100394028) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Fix(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__fix;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF68, &qword_100394028);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_10026D97C(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF68, &qword_100394028);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Fix);
+  }
+
+  return sub_1002A64EC;
+}
+
+void sub_1002A64EC(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Fix);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Fix);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__fix;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF68, &qword_100394028);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Fix);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Fix);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__fix;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF68, &qword_100394028);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A673C()
+{
+  v1 = sub_100024A2C(&qword_10042BF68, &qword_100394028);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__fix;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF68, &qword_100394028);
+  v6 = type metadata accessor for Proto_Gnss_Fix(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF68, &qword_100394028);
+  return v7;
+}
+
+uint64_t sub_1002A685C()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF68, &qword_100394028);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Fix(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__fix;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF68, &qword_100394028);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A69A4@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF70, &qword_100394030);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__meas;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF70, &qword_100394030);
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents);
+  }
+
+  sub_100069CA0(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF70, &qword_100394030);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002A6B1C(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF70, &qword_100394030);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents);
+  v12 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__meas;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF70, &qword_100394030);
+  return swift_endAccess();
+}
+
+void (*sub_1002A6C88(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF70, &qword_100394030) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__meas;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF70, &qword_100394030);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_100069CA0(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF70, &qword_100394030);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents);
+  }
+
+  return sub_1002A6ED4;
+}
+
+void sub_1002A6ED4(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__meas;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF70, &qword_100394030);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__meas;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF70, &qword_100394030);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A7124()
+{
+  v1 = sub_100024A2C(&qword_10042BF70, &qword_100394030);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__meas;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF70, &qword_100394030);
+  v6 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF70, &qword_100394030);
+  return v7;
+}
+
+uint64_t sub_1002A7244()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF70, &qword_100394030);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for CLP_LogEntry_PrivateData_MeasurementReportCallbackContents(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__meas;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF70, &qword_100394030);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A738C@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF78, &qword_100394038);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__powerMeasurement;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF78, &qword_100394038);
+  v8 = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_PwrMeasurement);
+  }
+
+  sub_1002713D8(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF78, &qword_100394038);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002A7504(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF78, &qword_100394038);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_PwrMeasurement);
+  v12 = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__powerMeasurement;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF78, &qword_100394038);
+  return swift_endAccess();
+}
+
+void (*sub_1002A7670(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF78, &qword_100394038) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__powerMeasurement;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF78, &qword_100394038);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1002713D8(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF78, &qword_100394038);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_PwrMeasurement);
+  }
+
+  return sub_1002A78BC;
+}
+
+void sub_1002A78BC(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_PwrMeasurement);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_PwrMeasurement);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__powerMeasurement;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF78, &qword_100394038);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_PwrMeasurement);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_PwrMeasurement);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__powerMeasurement;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF78, &qword_100394038);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A7B0C()
+{
+  v1 = sub_100024A2C(&qword_10042BF78, &qword_100394038);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__powerMeasurement;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF78, &qword_100394038);
+  v6 = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF78, &qword_100394038);
+  return v7;
+}
+
+uint64_t sub_1002A7C2C()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF78, &qword_100394038);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_PwrMeasurement(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__powerMeasurement;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF78, &qword_100394038);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A7D74@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF80, &qword_100394040);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__status;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF80, &qword_100394040);
+  v8 = type metadata accessor for Proto_Gpsd_Status(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gpsd_Status);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 8) = 1;
+  *(a1 + v8[7]) = 2;
+  *(a1 + v8[8]) = 2;
+  *(a1 + v8[9]) = 2;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF80, &qword_100394040);
+  }
+
+  return result;
+}
+
+int *sub_1002A7F2C@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 8) = 1;
+  *(a1 + result[7]) = 2;
+  *(a1 + result[8]) = 2;
+  *(a1 + result[9]) = 2;
+  return result;
+}
+
+uint64_t sub_1002A7F98(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF80, &qword_100394040);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gpsd_Status);
+  v12 = type metadata accessor for Proto_Gpsd_Status(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__status;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF80, &qword_100394040);
+  return swift_endAccess();
+}
+
+void (*sub_1002A8104(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF80, &qword_100394040) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gpsd_Status(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 1);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__status;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF80, &qword_100394040);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    UnknownStorage.init()();
+    v18 = v13 + v8[5];
+    *v18 = 0;
+    *(v18 + 8) = 1;
+    v19 = v13 + v8[6];
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    *(v13 + v8[7]) = 2;
+    *(v13 + v8[8]) = 2;
+    *(v13 + v8[9]) = 2;
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF80, &qword_100394040);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_Status);
+  }
+
+  return sub_1002A8390;
+}
+
+void sub_1002A8390(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_Status);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gpsd_Status);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__status;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF80, &qword_100394040);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gpsd_Status);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gpsd_Status);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__status;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF80, &qword_100394040);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A85E0()
+{
+  v1 = sub_100024A2C(&qword_10042BF80, &qword_100394040);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__status;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF80, &qword_100394040);
+  v6 = type metadata accessor for Proto_Gpsd_Status(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF80, &qword_100394040);
+  return v7;
+}
+
+uint64_t sub_1002A8700()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF80, &qword_100394040);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gpsd_Status(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__status;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF80, &qword_100394040);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A8848@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF88, &qword_100394048);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__timeTransferDataExtend;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF88, &qword_100394048);
+  v8 = type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_TimeTransferDataExtend);
+  }
+
+  sub_10026FE90(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF88, &qword_100394048);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002A89C0(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF88, &qword_100394048);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_TimeTransferDataExtend);
+  v12 = type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__timeTransferDataExtend;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF88, &qword_100394048);
+  return swift_endAccess();
+}
+
+void (*sub_1002A8B2C(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF88, &qword_100394048) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__timeTransferDataExtend;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF88, &qword_100394048);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_10026FE90(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF88, &qword_100394048);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_TimeTransferDataExtend);
+  }
+
+  return sub_1002A8D78;
+}
+
+void sub_1002A8D78(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_TimeTransferDataExtend);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_TimeTransferDataExtend);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__timeTransferDataExtend;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF88, &qword_100394048);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_TimeTransferDataExtend);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_TimeTransferDataExtend);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__timeTransferDataExtend;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF88, &qword_100394048);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A8FC8()
+{
+  v1 = sub_100024A2C(&qword_10042BF88, &qword_100394048);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__timeTransferDataExtend;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF88, &qword_100394048);
+  v6 = type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF88, &qword_100394048);
+  return v7;
+}
+
+uint64_t sub_1002A90E8()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF88, &qword_100394048);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_TimeTransferDataExtend(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__timeTransferDataExtend;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF88, &qword_100394048);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A9230@<X0>(char *a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF90, &qword_100394050);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v13 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__recoveryStatistics;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF90, &qword_100394050);
+  v8 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gpsd_RecoveryStatistics);
+  }
+
+  *a1 = &_swiftEmptyArrayStorage;
+  UnknownStorage.init()();
+  v10 = *(v8 + 24);
+  v11 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  (*(*(v11 - 8) + 56))(&a1[v10], 1, 1, v11);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF90, &qword_100394050);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002A93FC@<X0>(char *a1@<X8>)
+{
+  *a1 = &_swiftEmptyArrayStorage;
+  v2 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  UnknownStorage.init()();
+  v3 = *(v2 + 24);
+  v4 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(&a1[v3], 1, 1, v4);
+}
+
+uint64_t sub_1002A9490(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF90, &qword_100394050);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gpsd_RecoveryStatistics);
+  v12 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__recoveryStatistics;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF90, &qword_100394050);
+  return swift_endAccess();
+}
+
+void (*sub_1002A95FC(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF90, &qword_100394050) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__recoveryStatistics;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF90, &qword_100394050);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    *v13 = &_swiftEmptyArrayStorage;
+    UnknownStorage.init()();
+    v18 = *(v8 + 24);
+    v19 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+    (*(*(v19 - 8) + 56))(&v13[v18], 1, 1, v19);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF90, &qword_100394050);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_RecoveryStatistics);
+  }
+
+  return sub_1002A989C;
+}
+
+void sub_1002A989C(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_RecoveryStatistics);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gpsd_RecoveryStatistics);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__recoveryStatistics;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF90, &qword_100394050);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gpsd_RecoveryStatistics);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gpsd_RecoveryStatistics);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__recoveryStatistics;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF90, &qword_100394050);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002A9AEC()
+{
+  v1 = sub_100024A2C(&qword_10042BF90, &qword_100394050);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__recoveryStatistics;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF90, &qword_100394050);
+  v6 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF90, &qword_100394050);
+  return v7;
+}
+
+uint64_t sub_1002A9C0C()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF90, &qword_100394050);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__recoveryStatistics;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF90, &qword_100394050);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002A9D54@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BF98, &qword_100394058);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__ltlInfoRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BF98, &qword_100394058);
+  v8 = type metadata accessor for Proto_Gpsd_LtlInfoRequest(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gpsd_LtlInfoRequest);
+  }
+
+  UnknownStorage.init()();
+  *(a1 + *(v8 + 20)) = 5;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BF98, &qword_100394058);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002A9EF4(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BF98, &qword_100394058);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gpsd_LtlInfoRequest);
+  v12 = type metadata accessor for Proto_Gpsd_LtlInfoRequest(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__ltlInfoRequest;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BF98, &qword_100394058);
+  return swift_endAccess();
+}
+
+void (*sub_1002AA060(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BF98, &qword_100394058) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gpsd_LtlInfoRequest(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__ltlInfoRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BF98, &qword_100394058);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    UnknownStorage.init()();
+    *(v13 + *(v8 + 20)) = 5;
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BF98, &qword_100394058);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_LtlInfoRequest);
+  }
+
+  return sub_1002AA2B8;
+}
+
+void sub_1002AA2B8(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_LtlInfoRequest);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gpsd_LtlInfoRequest);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__ltlInfoRequest;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BF98, &qword_100394058);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gpsd_LtlInfoRequest);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gpsd_LtlInfoRequest);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__ltlInfoRequest;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BF98, &qword_100394058);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002AA508()
+{
+  v1 = sub_100024A2C(&qword_10042BF98, &qword_100394058);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__ltlInfoRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BF98, &qword_100394058);
+  v6 = type metadata accessor for Proto_Gpsd_LtlInfoRequest(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BF98, &qword_100394058);
+  return v7;
+}
+
+uint64_t sub_1002AA628()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BF98, &qword_100394058);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gpsd_LtlInfoRequest(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__ltlInfoRequest;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BF98, &qword_100394058);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002AA770@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFA0, &qword_100394060);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedExtendedEphemeris;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFA0, &qword_100394060);
+  v8 = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris);
+  }
+
+  sub_100271B24(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFA0, &qword_100394060);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002AA8E8(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFA0, &qword_100394060);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris);
+  v12 = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedExtendedEphemeris;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFA0, &qword_100394060);
+  return swift_endAccess();
+}
+
+void (*sub_1002AAA54(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFA0, &qword_100394060) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedExtendedEphemeris;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFA0, &qword_100394060);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_100271B24(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFA0, &qword_100394060);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris);
+  }
+
+  return sub_1002AACA0;
+}
+
+void sub_1002AACA0(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedExtendedEphemeris;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFA0, &qword_100394060);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedExtendedEphemeris;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFA0, &qword_100394060);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002AAEF0()
+{
+  v1 = sub_100024A2C(&qword_10042BFA0, &qword_100394060);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedExtendedEphemeris;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFA0, &qword_100394060);
+  v6 = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFA0, &qword_100394060);
+  return v7;
+}
+
+uint64_t sub_1002AB010()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFA0, &qword_100394060);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_DecodedExtendedEphemeris(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedExtendedEphemeris;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFA0, &qword_100394060);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002AB158@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFA8, &qword_100394068);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedRti;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFA8, &qword_100394068);
+  v8 = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_DecodedRti);
+  }
+
+  sub_100271674(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFA8, &qword_100394068);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002AB2D0(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFA8, &qword_100394068);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_DecodedRti);
+  v12 = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedRti;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFA8, &qword_100394068);
+  return swift_endAccess();
+}
+
+void (*sub_1002AB43C(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFA8, &qword_100394068) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedRti;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFA8, &qword_100394068);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_100271674(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFA8, &qword_100394068);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_DecodedRti);
+  }
+
+  return sub_1002AB688;
+}
+
+void sub_1002AB688(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_DecodedRti);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_DecodedRti);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedRti;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFA8, &qword_100394068);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_DecodedRti);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_DecodedRti);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedRti;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFA8, &qword_100394068);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002AB8D8()
+{
+  v1 = sub_100024A2C(&qword_10042BFA8, &qword_100394068);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedRti;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFA8, &qword_100394068);
+  v6 = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFA8, &qword_100394068);
+  return v7;
+}
+
+uint64_t sub_1002AB9F8()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFA8, &qword_100394068);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_DecodedRti(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedRti;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFA8, &qword_100394068);
+  return swift_endAccess();
+}
+
+void (*sub_1002ABB58(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__startStatus;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 10)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return sub_1002ABC08;
+}
+
+uint64_t sub_1002ABC3C(uint64_t *a1)
+{
+  v3 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v4 = *a1;
+  swift_beginAccess();
+  if (*(v3 + v4) == 10)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v3 + v4);
+  }
+}
+
+uint64_t sub_1002ABCA4(char a1, uint64_t *a2)
+{
+  v4 = v2;
+  v6 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v2 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v9 = swift_allocObject();
+    v10 = v8;
+    v8 = v9;
+    sub_1002D9034(v10);
+    *(v4 + v6) = v9;
+  }
+
+  v11 = *a2;
+  result = swift_beginAccess();
+  *(v8 + v11) = a1;
+  return result;
+}
+
+void (*sub_1002ABD44(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__stopStatus;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 10)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return sub_1002ABDF4;
+}
+
+void sub_1002ABE00(uint64_t *a1, char a2, uint64_t *a3)
+{
+  v4 = *a1;
+  v5 = *(*a1 + 84);
+  v6 = *(*a1 + 80);
+  v7 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v7 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v10 = *(v4 + 80);
+    v11 = *(v4 + 72);
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v12 = swift_allocObject();
+    v13 = v9;
+    v9 = v12;
+    sub_1002D9034(v13);
+    *(v11 + v10) = v12;
+  }
+
+  v14 = *a3;
+  swift_beginAccess();
+  *(v9 + v14) = v5;
+
+  free(v4);
+}
+
+BOOL sub_1002ABEDC(uint64_t *a1)
+{
+  v3 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v4 = *a1;
+  swift_beginAccess();
+  return *(v3 + v4) != 10;
+}
+
+uint64_t sub_1002ABF48(uint64_t *a1, char a2)
+{
+  v5 = v2;
+  v6 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v8 = *(v2 + v6);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v9 = swift_allocObject();
+    v10 = v8;
+    v8 = v9;
+    sub_1002D9034(v10);
+    *(v5 + v6) = v9;
+  }
+
+  v11 = *a1;
+  result = swift_beginAccess();
+  *(v8 + v11) = a2;
+  return result;
+}
+
+uint64_t sub_1002ABFE8@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFB0, &qword_100394070);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v14 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exception;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFB0, &qword_100394070);
+  v8 = type metadata accessor for Proto_Gpsd_Exception(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gpsd_Exception);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 4) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 4) = 1;
+  v12 = a1 + v8[7];
+  *v12 = 0;
+  *(v12 + 4) = 1;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFB0, &qword_100394070);
+  }
+
+  return result;
+}
+
+int *sub_1002AC194@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gpsd_Exception(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 4) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 4) = 1;
+  v5 = a1 + result[7];
+  *v5 = 0;
+  *(v5 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_1002AC1F4(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFB0, &qword_100394070);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gpsd_Exception);
+  v12 = type metadata accessor for Proto_Gpsd_Exception(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exception;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFB0, &qword_100394070);
+  return swift_endAccess();
+}
+
+void (*sub_1002AC360(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFB0, &qword_100394070) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gpsd_Exception(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 1);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exception;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFB0, &qword_100394070);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    UnknownStorage.init()();
+    v18 = v13 + v8[5];
+    *v18 = 0;
+    *(v18 + 4) = 1;
+    v19 = v13 + v8[6];
+    *v19 = 0;
+    *(v19 + 4) = 1;
+    v20 = v13 + v8[7];
+    *v20 = 0;
+    *(v20 + 4) = 1;
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFB0, &qword_100394070);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_Exception);
+  }
+
+  return sub_1002AC5E0;
+}
+
+void sub_1002AC5E0(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_Exception);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gpsd_Exception);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exception;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFB0, &qword_100394070);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gpsd_Exception);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gpsd_Exception);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exception;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFB0, &qword_100394070);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002AC830()
+{
+  v1 = sub_100024A2C(&qword_10042BFB0, &qword_100394070);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exception;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFB0, &qword_100394070);
+  v6 = type metadata accessor for Proto_Gpsd_Exception(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFB0, &qword_100394070);
+  return v7;
+}
+
+uint64_t sub_1002AC950()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFB0, &qword_100394070);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gpsd_Exception(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__exception;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFB0, &qword_100394070);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002ACA98@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFB8, &qword_100394078);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v14 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__askBasebandReset;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFB8, &qword_100394078);
+  v8 = type metadata accessor for Proto_Gpsd_AskBasebandReset(0);
+  v9 = *(*(v8 - 1) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gpsd_AskBasebandReset);
+  }
+
+  UnknownStorage.init()();
+  v10 = a1 + v8[5];
+  *v10 = 0;
+  *(v10 + 8) = 1;
+  v11 = a1 + v8[6];
+  *v11 = 0;
+  *(v11 + 8) = 1;
+  v12 = (a1 + v8[7]);
+  *v12 = 0;
+  v12[1] = 0;
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFB8, &qword_100394078);
+  }
+
+  return result;
+}
+
+int *sub_1002ACC40@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gpsd_AskBasebandReset(0);
+  v3 = a1 + result[5];
+  *v3 = 0;
+  *(v3 + 8) = 1;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 8) = 1;
+  v5 = (a1 + result[7]);
+  *v5 = 0;
+  v5[1] = 0;
+  return result;
+}
+
+uint64_t sub_1002ACC9C(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFB8, &qword_100394078);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gpsd_AskBasebandReset);
+  v12 = type metadata accessor for Proto_Gpsd_AskBasebandReset(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__askBasebandReset;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFB8, &qword_100394078);
+  return swift_endAccess();
+}
+
+void (*sub_1002ACE08(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFB8, &qword_100394078) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gpsd_AskBasebandReset(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 1);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__askBasebandReset;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFB8, &qword_100394078);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    UnknownStorage.init()();
+    v18 = v13 + v8[5];
+    *v18 = 0;
+    *(v18 + 8) = 1;
+    v19 = v13 + v8[6];
+    *v19 = 0;
+    *(v19 + 8) = 1;
+    v20 = (v13 + v8[7]);
+    *v20 = 0;
+    v20[1] = 0;
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFB8, &qword_100394078);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_AskBasebandReset);
+  }
+
+  return sub_1002AD084;
+}
+
+void sub_1002AD084(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gpsd_AskBasebandReset);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gpsd_AskBasebandReset);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__askBasebandReset;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFB8, &qword_100394078);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gpsd_AskBasebandReset);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gpsd_AskBasebandReset);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__askBasebandReset;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFB8, &qword_100394078);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002AD2D4()
+{
+  v1 = sub_100024A2C(&qword_10042BFB8, &qword_100394078);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__askBasebandReset;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFB8, &qword_100394078);
+  v6 = type metadata accessor for Proto_Gpsd_AskBasebandReset(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFB8, &qword_100394078);
+  return v7;
+}
+
+uint64_t sub_1002AD3F4()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFB8, &qword_100394078);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gpsd_AskBasebandReset(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__askBasebandReset;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFB8, &qword_100394078);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002AD53C@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFC0, &qword_100394080);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__summaryReport;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFC0, &qword_100394080);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SummaryReport(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_SummaryReport);
+  }
+
+  sub_10019F6D8(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFC0, &qword_100394080);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002AD6B4(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFC0, &qword_100394080);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_SummaryReport);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_SummaryReport(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__summaryReport;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFC0, &qword_100394080);
+  return swift_endAccess();
+}
+
+void (*sub_1002AD820(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFC0, &qword_100394080) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SummaryReport(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__summaryReport;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFC0, &qword_100394080);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_10019F6D8(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFC0, &qword_100394080);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_SummaryReport);
+  }
+
+  return sub_1002ADA6C;
+}
+
+void sub_1002ADA6C(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_SummaryReport);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_SummaryReport);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__summaryReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFC0, &qword_100394080);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_SummaryReport);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_SummaryReport);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__summaryReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFC0, &qword_100394080);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002ADCBC()
+{
+  v1 = sub_100024A2C(&qword_10042BFC0, &qword_100394080);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__summaryReport;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFC0, &qword_100394080);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_SummaryReport(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFC0, &qword_100394080);
+  return v7;
+}
+
+uint64_t sub_1002ADDDC()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFC0, &qword_100394080);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_SummaryReport(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__summaryReport;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFC0, &qword_100394080);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002ADF44(uint64_t (*a1)(void), void *a2)
+{
+  v3 = (*(v2 + *(a1(0) + 20)) + *a2);
+  swift_beginAccess();
+  v4 = *v3;
+  v5 = v3[1];
+  if (v5 >> 60 == 15)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = *v3;
+  }
+
+  sub_10000BE4C(v4, v5);
+  return v6;
+}
+
+uint64_t sub_1002AE00C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(void), void (*a5)(uint64_t), void *a6)
+{
+  v10 = v6;
+  v13 = *(a3(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v15 = *(v6 + v13);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a4(0);
+    v16 = swift_allocObject();
+    v17 = v15;
+    v15 = v16;
+    a5(v17);
+    *(v10 + v13) = v16;
+  }
+
+  v18 = (v15 + *a6);
+  swift_beginAccess();
+  v19 = *v18;
+  v20 = v18[1];
+  *v18 = a1;
+  v18[1] = a2;
+  return sub_10000CA64(v19, v20);
+}
+
+void (*sub_1002AE0D8(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x68uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 88) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 96) = v5;
+  v6 = (*(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__gemProtocolIndication);
+  swift_beginAccess();
+  v7 = *v6;
+  v8 = v6[1];
+  if (v8 >> 60 == 15)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = *v6;
+  }
+
+  v10 = 0xC000000000000000;
+  if (v8 >> 60 != 15)
+  {
+    v10 = v6[1];
+  }
+
+  *(v4 + 72) = v9;
+  *(v4 + 80) = v10;
+  sub_10000BE4C(v7, v8);
+  return sub_1002AE19C;
+}
+
+void sub_1002AE1D0(uint64_t *a1, char a2, uint64_t (*a3)(void), void (*a4)(uint64_t), void *a5)
+{
+  v8 = *a1;
+  v9 = *(*a1 + 72);
+  v10 = *(*a1 + 96);
+  v11 = *(*a1 + 80);
+  v12 = *(*a1 + 88);
+  if (a2)
+  {
+    sub_1000150EC(*(*a1 + 72), v11);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v14 = *(v12 + v10);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v15 = *(v8 + 96);
+      v16 = *(v8 + 88);
+      a3(0);
+      v17 = swift_allocObject();
+      a4(v14);
+      *(v16 + v15) = v17;
+      v14 = v17;
+    }
+
+    v18 = (v14 + *a5);
+    swift_beginAccess();
+    v19 = *v18;
+    v20 = v18[1];
+    *v18 = v9;
+    v18[1] = v11;
+    sub_10000CA64(v19, v20);
+    sub_100005B2C(*(v8 + 72), *(v8 + 80));
+  }
+
+  else
+  {
+    v21 = swift_isUniquelyReferenced_nonNull_native();
+    v22 = *(v12 + v10);
+    if ((v21 & 1) == 0)
+    {
+      v23 = *(v8 + 96);
+      v24 = *(v8 + 88);
+      a3(0);
+      v25 = swift_allocObject();
+      a4(v22);
+      *(v24 + v23) = v25;
+      v22 = v25;
+    }
+
+    v26 = (v22 + *a5);
+    swift_beginAccess();
+    v27 = *v26;
+    v28 = v26[1];
+    *v26 = v9;
+    v26[1] = v11;
+    sub_10000CA64(v27, v28);
+  }
+
+  free(v8);
+}
+
+BOOL sub_1002AE35C(uint64_t (*a1)(void), void *a2)
+{
+  v3 = *(v2 + *(a1(0) + 20)) + *a2;
+  swift_beginAccess();
+  return *(v3 + 8) >> 60 != 15;
+}
+
+uint64_t sub_1002AE410(uint64_t (*a1)(void), uint64_t (*a2)(void), void (*a3)(uint64_t), void *a4)
+{
+  v8 = v4;
+  v9 = *(a1(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v4 + v9);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a2(0);
+    v12 = swift_allocObject();
+    v13 = v11;
+    v11 = v12;
+    a3(v13);
+    *(v8 + v9) = v12;
+  }
+
+  v14 = (v11 + *a4);
+  swift_beginAccess();
+  v15 = *v14;
+  v16 = v14[1];
+  *v14 = xmmword_10036D770;
+  return sub_10000CA64(v15, v16);
+}
+
+uint64_t sub_1002AE4D8@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFC8, &qword_100394088);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionReport;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFC8, &qword_100394088);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_PositionReport(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
+  }
+
+  sub_1001C81E0(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFC8, &qword_100394088);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002AE650(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFC8, &qword_100394088);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_PositionReport(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionReport;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFC8, &qword_100394088);
+  return swift_endAccess();
+}
+
+void (*sub_1002AE7BC(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFC8, &qword_100394088) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_PositionReport(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionReport;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFC8, &qword_100394088);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001C81E0(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFC8, &qword_100394088);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
+  }
+
+  return sub_1002AEA08;
+}
+
+void sub_1002AEA08(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_PositionReport);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFC8, &qword_100394088);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_PositionReport);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFC8, &qword_100394088);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002AEC58()
+{
+  v1 = sub_100024A2C(&qword_10042BFC8, &qword_100394088);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionReport;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFC8, &qword_100394088);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_PositionReport(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFC8, &qword_100394088);
+  return v7;
+}
+
+uint64_t sub_1002AED78()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFC8, &qword_100394088);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_PositionReport(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__positionReport;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFC8, &qword_100394088);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002AEEC0@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFD0, &qword_100394090);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReport;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFD0, &qword_100394090);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReport(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+  }
+
+  sub_1001D0BD4(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFD0, &qword_100394090);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002AF038(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFD0, &qword_100394090);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReport(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReport;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFD0, &qword_100394090);
+  return swift_endAccess();
+}
+
+void (*sub_1002AF1A4(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFD0, &qword_100394090) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReport(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReport;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFD0, &qword_100394090);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001D0BD4(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFD0, &qword_100394090);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+  }
+
+  return sub_1002AF3F0;
+}
+
+void sub_1002AF3F0(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFD0, &qword_100394090);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_MeasurementReport);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFD0, &qword_100394090);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002AF640()
+{
+  v1 = sub_100024A2C(&qword_10042BFD0, &qword_100394090);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReport;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFD0, &qword_100394090);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReport(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFD0, &qword_100394090);
+  return v7;
+}
+
+uint64_t sub_1002AF760()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFD0, &qword_100394090);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReport(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReport;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFD0, &qword_100394090);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002AF8A8@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFD8, &qword_100394098);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__assistanceNeededReport;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFD8, &qword_100394098);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport);
+  }
+
+  sub_1001D7E9C(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFD8, &qword_100394098);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002AFA20(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFD8, &qword_100394098);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__assistanceNeededReport;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFD8, &qword_100394098);
+  return swift_endAccess();
+}
+
+void (*sub_1002AFB8C(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFD8, &qword_100394098) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__assistanceNeededReport;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFD8, &qword_100394098);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001D7E9C(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFD8, &qword_100394098);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport);
+  }
+
+  return sub_1002AFDD8;
+}
+
+void sub_1002AFDD8(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__assistanceNeededReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFD8, &qword_100394098);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__assistanceNeededReport;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFD8, &qword_100394098);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002B0028()
+{
+  v1 = sub_100024A2C(&qword_10042BFD8, &qword_100394098);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__assistanceNeededReport;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFD8, &qword_100394098);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFD8, &qword_100394098);
+  return v7;
+}
+
+uint64_t sub_1002B0148()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFD8, &qword_100394098);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_AssistanceNeededReport(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__assistanceNeededReport;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFD8, &qword_100394098);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002B0290@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFE0, &qword_1003940A0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistanceRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFE0, &qword_1003940A0);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest);
+  }
+
+  sub_1001E8B90(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFE0, &qword_1003940A0);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B0408(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFE0, &qword_1003940A0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistanceRequest;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFE0, &qword_1003940A0);
+  return swift_endAccess();
+}
+
+void (*sub_1002B0574(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFE0, &qword_1003940A0) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistanceRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFE0, &qword_1003940A0);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001E8B90(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFE0, &qword_1003940A0);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest);
+  }
+
+  return sub_1002B07C0;
+}
+
+void sub_1002B07C0(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistanceRequest;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFE0, &qword_1003940A0);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistanceRequest;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFE0, &qword_1003940A0);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002B0A10()
+{
+  v1 = sub_100024A2C(&qword_10042BFE0, &qword_1003940A0);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistanceRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFE0, &qword_1003940A0);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFE0, &qword_1003940A0);
+  return v7;
+}
+
+uint64_t sub_1002B0B30()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFE0, &qword_1003940A0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_CellFTAssistanceRequest(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cellFtAssistanceRequest;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFE0, &qword_1003940A0);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002B0C78@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFE8, &qword_1003940A8);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReportWithEstimate;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFE8, &qword_1003940A8);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate);
+  }
+
+  sub_1001EF59C(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFE8, &qword_1003940A8);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B0DF0(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFE8, &qword_1003940A8);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReportWithEstimate;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFE8, &qword_1003940A8);
+  return swift_endAccess();
+}
+
+void (*sub_1002B0F5C(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFE8, &qword_1003940A8) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReportWithEstimate;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFE8, &qword_1003940A8);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001EF59C(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFE8, &qword_1003940A8);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate);
+  }
+
+  return sub_1002B11A8;
+}
+
+void sub_1002B11A8(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReportWithEstimate;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFE8, &qword_1003940A8);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReportWithEstimate;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFE8, &qword_1003940A8);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002B13F8()
+{
+  v1 = sub_100024A2C(&qword_10042BFE8, &qword_1003940A8);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReportWithEstimate;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFE8, &qword_1003940A8);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFE8, &qword_1003940A8);
+  return v7;
+}
+
+uint64_t sub_1002B1518()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFE8, &qword_1003940A8);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_MeasurementReportWithEstimate(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__cplaneMeasurementReportWithEstimate;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFE8, &qword_1003940A8);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002B1660@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFF0, &qword_1003940B0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplSessionStatus;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFF0, &qword_1003940B0);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SessionStatus(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_SessionStatus);
+  }
+
+  sub_1001ABCF8(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFF0, &qword_1003940B0);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B17D8(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFF0, &qword_1003940B0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_SessionStatus);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_SessionStatus(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplSessionStatus;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFF0, &qword_1003940B0);
+  return swift_endAccess();
+}
+
+void (*sub_1002B1944(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFF0, &qword_1003940B0) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_SessionStatus(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplSessionStatus;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFF0, &qword_1003940B0);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001ABCF8(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFF0, &qword_1003940B0);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_SessionStatus);
+  }
+
+  return sub_1002B1B90;
+}
+
+void sub_1002B1B90(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_SessionStatus);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_SessionStatus);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplSessionStatus;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFF0, &qword_1003940B0);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_SessionStatus);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_SessionStatus);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplSessionStatus;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFF0, &qword_1003940B0);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002B1DE0()
+{
+  v1 = sub_100024A2C(&qword_10042BFF0, &qword_1003940B0);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplSessionStatus;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFF0, &qword_1003940B0);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_SessionStatus(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFF0, &qword_1003940B0);
+  return v7;
+}
+
+uint64_t sub_1002B1F00()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFF0, &qword_1003940B0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_SessionStatus(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplSessionStatus;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFF0, &qword_1003940B0);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002B2048@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042BFF8, &qword_1003940B8);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedSuplInit;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042BFF8, &qword_1003940B8);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Init(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_Init);
+  }
+
+  sub_1001A67B4(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042BFF8, &qword_1003940B8);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B21C0(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042BFF8, &qword_1003940B8);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_Init);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_Init(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedSuplInit;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042BFF8, &qword_1003940B8);
+  return swift_endAccess();
+}
+
+void (*sub_1002B232C(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042BFF8, &qword_1003940B8) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_Init(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedSuplInit;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042BFF8, &qword_1003940B8);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001A67B4(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042BFF8, &qword_1003940B8);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_Init);
+  }
+
+  return sub_1002B2578;
+}
+
+void sub_1002B2578(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_Init);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_Init);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedSuplInit;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042BFF8, &qword_1003940B8);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_Init);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_Init);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedSuplInit;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042BFF8, &qword_1003940B8);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002B27C8()
+{
+  v1 = sub_100024A2C(&qword_10042BFF8, &qword_1003940B8);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedSuplInit;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042BFF8, &qword_1003940B8);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_Init(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042BFF8, &qword_1003940B8);
+  return v7;
+}
+
+uint64_t sub_1002B28E8()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042BFF8, &qword_1003940B8);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_Init(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__decodedSuplInit;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042BFF8, &qword_1003940B8);
+  return swift_endAccess();
+}
+
+void (*sub_1002B2A98(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 84) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplInitIndex;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 4))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 80) = v7;
+  return sub_1002B2B50;
+}
+
+uint64_t sub_1002B2BEC()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v2 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplInitDecodeResult;
+  swift_beginAccess();
+  if (*(v1 + v2) == 4)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + v2);
+  }
+}
+
+void (*sub_1002B2C54(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplInitDecodeResult;
+  swift_beginAccess();
+  v8 = *(v6 + v7);
+  if (v8 == 4)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  *(v4 + 84) = v8;
+  return sub_1002B2D04;
+}
+
+BOOL sub_1002B2D10()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v2 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__suplInitDecodeResult;
+  swift_beginAccess();
+  return *(v1 + v2) != 4;
+}
+
+void (*sub_1002B2DE4(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 84) = v5;
+  v6 = *(v1 + v5) + OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__simInstance;
+  swift_beginAccess();
+  v7 = *v6;
+  if (*(v6 + 4))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 80) = v7;
+  return sub_1002B2E9C;
+}
+
+uint64_t sub_1002B2F38@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042C000, &unk_1003940C0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = *(v1 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v7 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v6 + v7, v5, &qword_10042C000, &unk_1003940C0);
+  v8 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest(0);
+  v9 = *(*(v8 - 8) + 48);
+  if (v9(v5, 1, v8) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest);
+  }
+
+  sub_1001A1EE8(a1);
+  result = (v9)(v5, 1, v8);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042C000, &unk_1003940C0);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B30B0(uint64_t a1)
+{
+  v2 = v1;
+  v4 = sub_100024A2C(&qword_10042C000, &unk_1003940C0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v15 - v5;
+  v7 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v9 = *(v1 + v7);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v9;
+    v9 = v10;
+    sub_1002D9034(v11);
+    *(v2 + v7) = v10;
+  }
+
+  sub_1002F7BE8(a1, v6, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest);
+  v12 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest(0);
+  (*(*(v12 - 8) + 56))(v6, 0, 1, v12);
+  v13 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementRequest;
+  swift_beginAccess();
+  sub_10000AD64(v6, v9 + v13, &qword_10042C000, &unk_1003940C0);
+  return swift_endAccess();
+}
+
+void (*sub_1002B321C(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x88uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042C000, &unk_1003940C0) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 80) = swift_coroFrameAlloc();
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 80) = malloc(v5);
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  *(v4 + 88) = v6;
+  v8 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest(0);
+  *(v4 + 96) = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  *(v4 + 104) = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *(v4 + 112) = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *(v4 + 112) = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  *(v4 + 120) = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  *(v4 + 128) = v14;
+  v15 = *(v1 + v14);
+  v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v15 + v16, v7, &qword_10042C000, &unk_1003940C0);
+  v17 = *(v10 + 48);
+  if (v17(v7, 1, v8) == 1)
+  {
+    sub_1001A1EE8(v13);
+    if (v17(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042C000, &unk_1003940C0);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest);
+  }
+
+  return sub_1002B3468;
+}
+
+void sub_1002B3468(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 128);
+  if (a2)
+  {
+    v4 = *(v2 + 72);
+    sub_1002F7C50(*(v2 + 120), *(v2 + 112), type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v6 = *(v4 + v3);
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v9 = swift_allocObject();
+      sub_1002D9034(v6);
+      *(v8 + v7) = v9;
+      v6 = v9;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v11, v15, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementRequest;
+    swift_beginAccess();
+    sub_10000AD64(v15, v6 + v16, &qword_10042C000, &unk_1003940C0);
+    swift_endAccess();
+    sub_1002F7CB8(v10, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest);
+  }
+
+  else
+  {
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
+    {
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+      v22 = swift_allocObject();
+      sub_1002D9034(v19);
+      *(v21 + v20) = v22;
+      v19 = v22;
+    }
+
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    sub_1002F7BE8(v10, v15, type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementRequest;
+    swift_beginAccess();
+    sub_10000AD64(v15, v19 + v25, &qword_10042C000, &unk_1003940C0);
+    swift_endAccess();
+  }
+
+  free(v10);
+  free(v11);
+  free(v14);
+  free(v15);
+
+  free(v2);
+}
+
+BOOL sub_1002B36B8()
+{
+  v1 = sub_100024A2C(&qword_10042C000, &unk_1003940C0);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v9 - v2;
+  v4 = *(v0 + *(type metadata accessor for Proto_Gpsd_Indication(0) + 20));
+  v5 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementRequest;
+  swift_beginAccess();
+  sub_10000A0A4(v4 + v5, v3, &qword_10042C000, &unk_1003940C0);
+  v6 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest(0);
+  v7 = (*(*(v6 - 8) + 48))(v3, 1, v6) != 1;
+  sub_1000059A8(v3, &qword_10042C000, &unk_1003940C0);
+  return v7;
+}
+
+uint64_t sub_1002B37D8()
+{
+  v1 = v0;
+  v2 = sub_100024A2C(&qword_10042C000, &unk_1003940C0);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v13 - v3;
+  v5 = *(type metadata accessor for Proto_Gpsd_Indication(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v0 + v5);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_Indication._StorageClass(0);
+    v8 = swift_allocObject();
+    v9 = v7;
+    v7 = v8;
+    sub_1002D9034(v9);
+    *(v1 + v5) = v8;
+  }
+
+  v10 = type metadata accessor for Proto_Gnss_Emergency_WlanMeasurementRequest(0);
+  (*(*(v10 - 8) + 56))(v4, 1, 1, v10);
+  v11 = OBJC_IVAR____TtCV10ALProtobuf21Proto_Gpsd_IndicationP33_D7E5B2DD45535F54EF008B6FDC82B89E13_StorageClass__wlanMeasurementRequest;
+  swift_beginAccess();
+  sub_10000AD64(v4, v7 + v11, &qword_10042C000, &unk_1003940C0);
+  return swift_endAccess();
+}
+
+uint64_t sub_1002B3968(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1003032F0();
+
+  return Enum.hash(into:)(a1, a2, v4);
+}
+
+uint64_t sub_1002B39B4@<X0>(_BYTE *a1@<X8>, unint64_t a2@<X0>)
+{
+  result = sub_1002F8158(a2);
+  *a1 = result;
+  return result;
+}
+
+uint64_t sub_1002B3A00@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = sub_1002F8158(*a1);
+  *a2 = result;
+  return result;
+}
+
+uint64_t sub_1002B3AB8(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B3AF0(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Status(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100026DCC;
+}
+
+uint64_t sub_1002B3B88()
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B3BD0(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 24));
+  if (v2[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v2;
+  }
+}
+
+uint64_t sub_1002B3C0C(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B3C44(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Status(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B3CDC()
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B3D34(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B3D64(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Status(0) + 28);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B3DEC()
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  *(v0 + *(result + 28)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B3E3C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  *(v1 + *(result + 32)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B3E6C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Status(0) + 32);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B3EF4()
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  *(v0 + *(result + 32)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B3F44(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  *(v1 + *(result + 36)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B3F74(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_Status(0) + 36);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_100025584;
+}
+
+uint64_t sub_1002B3FFC()
+{
+  result = type metadata accessor for Proto_Gpsd_Status(0);
+  *(v0 + *(result + 36)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B4058(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B4088(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetPvtmReport(0) + 20);
+  v4 = *(v1 + v3);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = (v4 == 2) | v4 & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B411C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v0 + *(result + 20)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B416C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B419C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetPvtmReport(0) + 24);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B4224()
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v0 + *(result + 24)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B4274(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B42A4(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetPvtmReport(0) + 28);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B432C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v0 + *(result + 28)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B437C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v1 + *(result + 32)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B43AC(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetPvtmReport(0) + 32);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B4434()
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v0 + *(result + 32)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B4484(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v1 + *(result + 36)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B44B4(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetPvtmReport(0) + 36);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B453C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v0 + *(result + 36)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B458C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v1 + *(result + 40)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B45BC(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetPvtmReport(0) + 40);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B4644()
+{
+  result = type metadata accessor for Proto_Gpsd_SetPvtmReport(0);
+  *(v0 + *(result + 40)) = 2;
+  return result;
+}
+
+uint64_t (*sub_1002B469C(uint64_t a1))(uint64_t, char)
+{
+  *(a1 + 16) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0) + 20);
+  *(a1 + 24) = v3;
+  v4 = (v1 + v3);
+  v5 = *v4;
+  v6 = v4[1];
+  if (v6 >> 60 == 15)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = *v4;
+  }
+
+  v8 = 0xC000000000000000;
+  if (v6 >> 60 != 15)
+  {
+    v8 = v6;
+  }
+
+  *a1 = v7;
+  *(a1 + 8) = v8;
+  sub_10000BE4C(v5, v6);
+  return sub_1003034BC;
+}
+
+uint64_t sub_1002B475C()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0) + 24));
+  if (v1 == 3)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B4788(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B47B8(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0) + 24);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 3)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B4844()
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceFile(0);
+  *(v0 + *(result + 24)) = 3;
+  return result;
+}
+
+uint64_t sub_1002B4884(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 20));
+  v3 = v2[1];
+  if (v3 >> 60 == 15)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = *v2;
+  }
+
+  sub_10000BE4C(*v2, v3);
+  return v4;
+}
+
+uint64_t sub_1002B48F4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v6 = v3 + *(a3(0) + 20);
+  result = sub_10000CA64(*v6, *(v6 + 8));
+  *v6 = a1;
+  *(v6 + 8) = a2;
+  return result;
+}
+
+uint64_t (*sub_1002B4940(uint64_t a1))(uint64_t, char)
+{
+  *(a1 + 16) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectRtiFile(0) + 20);
+  *(a1 + 24) = v3;
+  v4 = (v1 + v3);
+  v5 = *v4;
+  v6 = v4[1];
+  if (v6 >> 60 == 15)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = *v4;
+  }
+
+  v8 = 0xC000000000000000;
+  if (v6 >> 60 != 15)
+  {
+    v8 = v6;
+  }
+
+  *a1 = v7;
+  *(a1 + 8) = v8;
+  sub_10000BE4C(v5, v6);
+  return sub_1002B49B4;
+}
+
+double sub_1002B4A04(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 20);
+  sub_10000CA64(*v2, *(v2 + 8));
+  result = 0.0;
+  *v2 = xmmword_10036D770;
+  return result;
+}
+
+uint64_t (*sub_1002B4A7C(uint64_t a1))(uint64_t, char)
+{
+  *(a1 + 16) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectRavenOrbitFile(0) + 20);
+  *(a1 + 24) = v3;
+  v4 = (v1 + v3);
+  v5 = *v4;
+  v6 = v4[1];
+  if (v6 >> 60 == 15)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = *v4;
+  }
+
+  v8 = 0xC000000000000000;
+  if (v6 >> 60 != 15)
+  {
+    v8 = v6;
+  }
+
+  *a1 = v7;
+  *(a1 + 8) = v8;
+  sub_10000BE4C(v5, v6);
+  return sub_1003034BC;
+}
+
+uint64_t sub_1002B4BB4@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042AAE8, &qword_100390F28);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v10 - v4;
+  v6 = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  sub_10000A0A4(v1 + *(v6 + 20), v5, &qword_10042AAE8, &qword_100390F28);
+  v7 = type metadata accessor for Proto_Gnss_Position(0);
+  v8 = *(*(v7 - 8) + 48);
+  if (v8(v5, 1, v7) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gnss_Position);
+  }
+
+  sub_10026A5F4(a1);
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042AAE8, &qword_100390F28);
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B4D08(uint64_t a1)
+{
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0) + 20);
+  sub_1000059A8(v1 + v3, &qword_10042AAE8, &qword_100390F28);
+  sub_1002F7BE8(a1, v1 + v3, type metadata accessor for Proto_Gnss_Position);
+  v4 = type metadata accessor for Proto_Gnss_Position(0);
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(v1 + v3, 0, 1, v4);
+}
+
+void (*sub_1002B4DC0(void *a1))(uint64_t **a1, uint64_t a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *v3 = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042AAE8, &qword_100390F28) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  v4[1] = v6;
+  v8 = type metadata accessor for Proto_Gnss_Position(0);
+  v4[2] = v8;
+  v9 = *(v8 - 8);
+  v10 = v9;
+  v4[3] = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    v4[4] = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4[4] = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  v4[5] = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0) + 20);
+  *(v4 + 12) = v14;
+  sub_10000A0A4(v1 + v14, v7, &qword_10042AAE8, &qword_100390F28);
+  v15 = *(v10 + 48);
+  if (v15(v7, 1, v8) == 1)
+  {
+    sub_10026A5F4(v13);
+    if (v15(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042AAE8, &qword_100390F28);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gnss_Position);
+  }
+
+  return sub_1002B4FCC;
+}
+
+BOOL sub_1002B5008()
+{
+  v1 = sub_100024A2C(&qword_10042AAE8, &qword_100390F28);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  sub_10000A0A4(v0 + *(v4 + 20), v3, &qword_10042AAE8, &qword_100390F28);
+  v5 = type metadata accessor for Proto_Gnss_Position(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  sub_1000059A8(v3, &qword_10042AAE8, &qword_100390F28);
+  return v6;
+}
+
+uint64_t sub_1002B50FC()
+{
+  v1 = *(type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0) + 20);
+  sub_1000059A8(v0 + v1, &qword_10042AAE8, &qword_100390F28);
+  v2 = type metadata accessor for Proto_Gnss_Position(0);
+  v3 = *(*(v2 - 8) + 56);
+
+  return v3(v0 + v1, 1, 1, v2);
+}
+
+uint64_t sub_1002B5188()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0) + 24));
+  if (v1 == 4)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B51B4(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B51E4(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0) + 24);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 4)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B5270()
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  *(v0 + *(result + 24)) = 4;
+  return result;
+}
+
+uint64_t sub_1002B52C0(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B52F0(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0) + 28);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B5378()
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  *(v0 + *(result + 28)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B53B8(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B53F0(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0) + 32);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B5488()
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistancePosition(0);
+  v2 = v0 + *(result + 32);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B54E8(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 20));
+  if (v2[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v2;
+  }
+}
+
+uint64_t sub_1002B5524(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B555C(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B55F4()
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B563C(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B5674(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B570C()
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B573C()
+{
+  v1 = (v0 + *(type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0) + 28));
+  if (v1[8])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v1;
+  }
+}
+
+uint64_t sub_1002B5770(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B57A8(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B5840()
+{
+  result = type metadata accessor for Proto_Gpsd_InjectAssistanceTime(0);
+  v2 = v0 + *(result + 28);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B5888(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_DeleteGnssData(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B58C0(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_DeleteGnssData(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B5958()
+{
+  result = type metadata accessor for Proto_Gpsd_DeleteGnssData(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B59A0(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetNmeaHandler(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B59D8(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetNmeaHandler(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B5A70()
+{
+  result = type metadata accessor for Proto_Gpsd_SetNmeaHandler(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B5AB8@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1(0) + 20);
+  v5 = type metadata accessor for UnknownStorage();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t sub_1002B5B54(uint64_t a1, uint64_t (*a2)(void))
+{
+  v4 = *(a2(0) + 20);
+  v5 = type metadata accessor for UnknownStorage();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t sub_1002B5D24(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B5D5C(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceDem(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B5DF4()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B5E3C(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B5E74(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceDem(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B5F10()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B5F58(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B5F90(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceDem(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B602C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceDem(0);
+  v2 = v0 + *(result + 28);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B6074(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B60AC(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B6144()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+double sub_1002B618C(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 24);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B61CC(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B6204(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B62A0()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+double sub_1002B62E8(uint64_t (*a1)(void))
+{
+  v2 = v1 + *(a1(0) + 28);
+  result = *v2;
+  if (*(v2 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B6328(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B6360(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B63FC()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v2 = v0 + *(result + 28);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B6454(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v1 + *(result + 32)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B6484(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 32);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B650C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v0 + *(result + 32)) = 2;
+  return result;
+}
+
+double sub_1002B6534()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 36);
+  result = *v1;
+  if (*(v1 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B656C(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v4 = v1 + *(result + 36);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B65A4(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 36);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B6640()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v2 = v0 + *(result + 36);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+double sub_1002B6670()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 40);
+  result = *v1;
+  if (*(v1 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B66A8(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v4 = v1 + *(result + 40);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B66E0(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 40);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B677C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v2 = v0 + *(result + 40);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+double sub_1002B67AC()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 44);
+  result = *v1;
+  if (*(v1 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B67E4(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v4 = v1 + *(result + 44);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B681C(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 44);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B68B8()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v2 = v0 + *(result + 44);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+double sub_1002B68E8()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 48);
+  result = *v1;
+  if (*(v1 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B6920(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v4 = v1 + *(result + 48);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B6958(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 48);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B69F4()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  v2 = v0 + *(result + 48);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B6A4C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v1 + *(result + 52)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B6A7C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 52);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B6B04()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v0 + *(result + 52)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B6B54(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v1 + *(result + 56)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B6B84(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 56);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B6C0C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v0 + *(result + 56)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B6C5C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v1 + *(result + 60)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B6C8C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 60);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B6D14()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v0 + *(result + 60)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B6D64(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v1 + *(result + 64)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B6D94(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 64);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B6E1C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v0 + *(result + 64)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B6E6C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v1 + *(result + 68)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B6E9C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0) + 68);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B6F24()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMapVector(0);
+  *(v0 + *(result + 68)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B6F64(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B6F9C(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B7034()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B7064()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0) + 24));
+  if (v1 == 10)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B7090(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B70C0(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0) + 24);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 10)
+  {
+    LOBYTE(v4) = 1;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B714C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  *(v0 + *(result + 24)) = 10;
+  return result;
+}
+
+uint64_t sub_1002B7174()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0) + 28));
+  if (v1 == 5)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B71A0(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B71D0(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0) + 28);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 5)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B725C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  *(v0 + *(result + 28)) = 5;
+  return result;
+}
+
+uint64_t sub_1002B7284()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0) + 32));
+  if (v1 == 6)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B72B0(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  *(v1 + *(result + 32)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B72E0(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0) + 32);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 6)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B736C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMotionActivityContext(0);
+  *(v0 + *(result + 32)) = 6;
+  return result;
+}
+
+uint64_t sub_1002B73AC(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B73E4(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B747C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B74AC()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0) + 24));
+  if (v1 == 4)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B74D8(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B7508(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0) + 24);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 4)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B7594()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceMountState(0);
+  *(v0 + *(result + 24)) = 4;
+  return result;
+}
+
+uint64_t sub_1002B75BC()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0) + 20));
+  if (v1 == 8)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B75E8(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B7618(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0) + 20);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 8)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B76A4()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSignalEnvironment(0);
+  *(v0 + *(result + 20)) = 8;
+  return result;
+}
+
+uint64_t sub_1002B76E4(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B771C(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B77B4()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B77FC(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B7834(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B78D0()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B7918(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B7950(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B79EC()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v2 = v0 + *(result + 28);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+double sub_1002B7A1C()
+{
+  v1 = v0 + *(type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0) + 32);
+  result = *v1;
+  if (*(v1 + 8))
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t sub_1002B7A54(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v4 = v1 + *(result + 32);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B7A8C(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0) + 32);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B7B28()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceSpeedConstraint(0);
+  v2 = v0 + *(result + 32);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B7B70(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B7BA8(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B7C40()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B7C88(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B7CC0(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0) + 24);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B7D5C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B7DA4(double a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
+  v4 = v1 + *(result + 28);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B7DDC(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0) + 28);
+  *(a1 + 16) = v3;
+  v4 = v1 + v3;
+  v5 = *v4;
+  if (*(v4 + 8))
+  {
+    v5 = 0.0;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B7E78()
+{
+  result = type metadata accessor for Proto_Gpsd_SetAssistanceAlongTrackVelocity(0);
+  v2 = v0 + *(result + 28);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B7EC0(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B7EF8(uint64_t a1))(uint64_t result)
+{
+  *(a1 + 8) = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetThermalRiskState(0) + 20);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 8))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *a1 = v5;
+  return sub_100036308;
+}
+
+uint64_t sub_1002B7F90()
+{
+  result = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 8) = 1;
+  return result;
+}
+
+uint64_t sub_1002B7FD8(int a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B8010(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetThermalRiskState(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return sub_1000362C0;
+}
+
+uint64_t sub_1002B80A8()
+{
+  result = type metadata accessor for Proto_Gpsd_SetThermalRiskState(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_1002B8100(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B8130(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0) + 20);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B81B8()
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
+  *(v0 + *(result + 20)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B81F8(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 24));
+  if (v2[4])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *v2;
+  }
+}
+
+uint64_t sub_1002B8234(int a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B826C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return sub_1000362C0;
+}
+
+uint64_t sub_1002B8304()
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigSimulatorMode(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_1002B834C(int a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
+  v4 = v1 + *(result + 20);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B8384(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0) + 20);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return sub_1000362C0;
+}
+
+uint64_t sub_1002B841C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
+  v2 = v0 + *(result + 20);
+  *v2 = 0;
+  *(v2 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_1002B8464(int a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B849C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return sub_1000362C0;
+}
+
+uint64_t sub_1002B8534()
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigEnableGnssConstellations(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_1002B858C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B85BC(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0) + 20);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B8644()
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
+  *(v0 + *(result + 20)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B8694(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
+  *(v1 + *(result + 24)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B86C4(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0) + 24);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B874C()
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigRfBandEnable(0);
+  *(v0 + *(result + 24)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B879C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B87CC(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0) + 20);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B8854()
+{
+  result = type metadata accessor for Proto_Gpsd_SetConfigDutyCycling(0);
+  *(v0 + *(result + 20)) = 2;
+  return result;
+}
+
+void (*sub_1002B88AC(uint64_t *a1))(uint64_t **a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 16) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_TerminationImminent(0) + 20);
+  *(v4 + 32) = v5;
+  v6 = (v1 + v5);
+  v7 = v6[1];
+  if (v7)
+  {
+    v8 = *v6;
+    v9 = v7;
+  }
+
+  else
+  {
+    v8 = 0;
+    v9 = 0xE000000000000000;
+  }
+
+  *(v4 + 24) = v7;
+  *v4 = v8;
+  *(v4 + 8) = v9;
+
+  return sub_100268FE8;
+}
+
+uint64_t sub_1002B89BC(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 20));
+  if (v2[1])
+  {
+    v3 = *v2;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+uint64_t sub_1002B8A30(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v6 = (v3 + *(a3(0) + 20));
+
+  *v6 = a1;
+  v6[1] = a2;
+  return result;
+}
+
+void (*sub_1002B8A7C(uint64_t *a1))(uint64_t **a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 16) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_ExitMessage(0) + 20);
+  *(v4 + 32) = v5;
+  v6 = (v1 + v5);
+  v7 = v6[1];
+  if (v7)
+  {
+    v8 = *v6;
+    v9 = v7;
+  }
+
+  else
+  {
+    v8 = 0;
+    v9 = 0xE000000000000000;
+  }
+
+  *(v4 + 24) = v7;
+  *v4 = v8;
+  *(v4 + 8) = v9;
+
+  return sub_100268FE8;
+}
+
+uint64_t sub_1002B8B74(uint64_t (*a1)(void))
+{
+  v2 = (v1 + *(a1(0) + 20));
+
+  *v2 = 0;
+  v2[1] = 0;
+  return result;
+}
+
+uint64_t sub_1002B8BB4@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_100024A2C(&qword_10042C008, &qword_1003940D0);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v11 - v4;
+  v6 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  sub_10000A0A4(v1 + *(v6 + 24), v5, &qword_10042C008, &qword_1003940D0);
+  v7 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
+  {
+    return sub_1002F7BE8(v5, a1, type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus);
+  }
+
+  UnknownStorage.init()();
+  *(a1 + v7[5]) = 2;
+  v9 = a1 + v7[6];
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  *(a1 + v7[7]) = 2;
+  *(a1 + v7[8]) = 2;
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return sub_1000059A8(v5, &qword_10042C008, &qword_1003940D0);
+  }
+
+  return result;
+}
+
+int *sub_1002B8D38@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  *(a1 + result[5]) = 2;
+  v3 = a1 + result[6];
+  *v3 = 0;
+  *(v3 + 4) = 1;
+  *(a1 + result[7]) = 2;
+  *(a1 + result[8]) = 2;
+  return result;
+}
+
+uint64_t sub_1002B8D94(uint64_t a1)
+{
+  v3 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics(0) + 24);
+  sub_1000059A8(v1 + v3, &qword_10042C008, &qword_1003940D0);
+  sub_1002F7BE8(a1, v1 + v3, type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus);
+  v4 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(v1 + v3, 0, 1, v4);
+}
+
+void (*sub_1002B8E4C(void *a1))(uint64_t **a1, uint64_t a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x38uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *v3 = v1;
+  v5 = *(*(sub_100024A2C(&qword_10042C008, &qword_1003940D0) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    v6 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v6 = malloc(v5);
+  }
+
+  v7 = v6;
+  v4[1] = v6;
+  v8 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v4[2] = v8;
+  v9 = *(v8 - 1);
+  v10 = v9;
+  v4[3] = v9;
+  v11 = *(v9 + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    v4[4] = swift_coroFrameAlloc();
+    v12 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4[4] = malloc(*(v9 + 64));
+    v12 = malloc(v11);
+  }
+
+  v13 = v12;
+  v4[5] = v12;
+  v14 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics(0) + 24);
+  *(v4 + 12) = v14;
+  sub_10000A0A4(v1 + v14, v7, &qword_10042C008, &qword_1003940D0);
+  v15 = *(v10 + 48);
+  if (v15(v7, 1, v8) == 1)
+  {
+    UnknownStorage.init()();
+    *(v13 + v8[5]) = 2;
+    v16 = v13 + v8[6];
+    *v16 = 0;
+    *(v16 + 4) = 1;
+    *(v13 + v8[7]) = 2;
+    *(v13 + v8[8]) = 2;
+    if (v15(v7, 1, v8) != 1)
+    {
+      sub_1000059A8(v7, &qword_10042C008, &qword_1003940D0);
+    }
+  }
+
+  else
+  {
+    sub_1002F7BE8(v7, v13, type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus);
+  }
+
+  return sub_1002B9088;
+}
+
+BOOL sub_1002B90C4()
+{
+  v1 = sub_100024A2C(&qword_10042C008, &qword_1003940D0);
+  __chkstk_darwin(v1 - 8);
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for Proto_Gpsd_RecoveryStatistics(0);
+  sub_10000A0A4(v0 + *(v4 + 24), v3, &qword_10042C008, &qword_1003940D0);
+  v5 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  sub_1000059A8(v3, &qword_10042C008, &qword_1003940D0);
+  return v6;
+}
+
+uint64_t sub_1002B91B8()
+{
+  v1 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics(0) + 24);
+  sub_1000059A8(v0 + v1, &qword_10042C008, &qword_1003940D0);
+  v2 = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v3 = *(*(v2 - 8) + 56);
+
+  return v3(v0 + v1, 1, 1, v2);
+}
+
+uint64_t sub_1002B92E4(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B9314(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0) + 20);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B939C()
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  *(v0 + *(result + 20)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B93DC(int a1)
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B9414(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return sub_1000362C0;
+}
+
+uint64_t sub_1002B94AC()
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 4) = 1;
+  return result;
+}
+
+uint64_t sub_1002B9504(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  *(v1 + *(result + 28)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B9534(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0) + 28);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B95BC()
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  *(v0 + *(result + 28)) = 2;
+  return result;
+}
+
+uint64_t sub_1002B960C(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  *(v1 + *(result + 32)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B963C(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0) + 32);
+  *(a1 + 8) = v3;
+  *(a1 + 12) = *(v1 + v3) & 1;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B96C4()
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryStatus(0);
+  *(v0 + *(result + 32)) = 2;
+  return result;
+}
+
+void (*sub_1002B971C(uint64_t *a1))(uint64_t **a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 16) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryPoint(0) + 20);
+  *(v4 + 32) = v5;
+  v6 = (v1 + v5);
+  v7 = v6[1];
+  if (v7)
+  {
+    v8 = *v6;
+    v9 = v7;
+  }
+
+  else
+  {
+    v8 = 0;
+    v9 = 0xE000000000000000;
+  }
+
+  *(v4 + 24) = v7;
+  *v4 = v8;
+  *(v4 + 8) = v9;
+
+  return sub_100268FE8;
+}
+
+uint64_t sub_1002B982C(int a1)
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryPoint(0);
+  v4 = v1 + *(result + 24);
+  *v4 = a1;
+  *(v4 + 4) = 0;
+  return result;
+}
+
+uint64_t (*sub_1002B9864(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryPoint(0) + 24);
+  *(a1 + 12) = v3;
+  v4 = (v1 + v3);
+  if (*(v4 + 4))
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = *v4;
+  }
+
+  *(a1 + 8) = v5;
+  return sub_1000362C0;
+}
+
+uint64_t sub_1002B98FC()
+{
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryPoint(0);
+  v2 = v0 + *(result + 24);
+  *v2 = 0;
+  *(v2 + 4) = 1;
+  return result;
+}
+
+void (*sub_1002B995C(uint64_t *a1))(uint64_t **a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x28uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 16) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryPoint(0) + 28);
+  *(v4 + 32) = v5;
+  v6 = (v1 + v5);
+  v7 = v6[1];
+  if (v7)
+  {
+    v8 = *v6;
+    v9 = v7;
+  }
+
+  else
+  {
+    v8 = 0;
+    v9 = 0xE000000000000000;
+  }
+
+  *(v4 + 24) = v7;
+  *v4 = v8;
+  *(v4 + 8) = v9;
+
+  return sub_100268FE8;
+}
+
+int *sub_1002B9A54@<X0>(uint64_t a1@<X8>)
+{
+  UnknownStorage.init()();
+  result = type metadata accessor for Proto_Gpsd_RecoveryStatistics.RecoveryPoint(0);
+  v3 = (a1 + result[5]);
+  *v3 = 0;
+  v3[1] = 0;
+  v4 = a1 + result[6];
+  *v4 = 0;
+  *(v4 + 4) = 1;
+  v5 = (a1 + result[7]);
+  *v5 = 0;
+  v5[1] = 0;
+  return result;
+}
+
+uint64_t sub_1002B9AC4@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t a2@<X8>)
+{
+  v3 = a1(0);
+  v4 = *(*(v3 - 8) + 56);
+
+  return v4(a2, 1, 1, v3);
+}
+
+uint64_t sub_1002B9B38()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_LtlInfoRequest(0) + 20));
+  if (v1 == 5)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t sub_1002B9B64(char a1)
+{
+  result = type metadata accessor for Proto_Gpsd_LtlInfoRequest(0);
+  *(v1 + *(result + 20)) = a1;
+  return result;
+}
+
+uint64_t (*sub_1002B9B94(uint64_t a1))(uint64_t result)
+{
+  *a1 = v1;
+  v3 = *(type metadata accessor for Proto_Gpsd_LtlInfoRequest(0) + 20);
+  *(a1 + 8) = v3;
+  v4 = *(v1 + v3);
+  if (v4 == 5)
+  {
+    LOBYTE(v4) = 0;
+  }
+
+  *(a1 + 12) = v4;
+  return sub_1000362EC;
+}
+
+uint64_t sub_1002B9C20()
+{
+  result = type metadata accessor for Proto_Gpsd_LtlInfoRequest(0);
+  *(v0 + *(result + 20)) = 5;
+  return result;
+}
+
+uint64_t sub_1002B9C48()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 16) & 1;
+}
+
+uint64_t sub_1002B9C98(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_LtlInfo._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    sub_1002F01B8(v8);
+    *(v2 + v4) = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 16) = a1 & 1;
+  return result;
+}
+
+void (*sub_1002B9D34(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  *(v4 + 84) = *(v6 + 16) & 1;
+  return sub_1002B9DD8;
+}
+
+void sub_1002B9DD8(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  v5 = *(*a1 + 84);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v4 + v3);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for Proto_Gpsd_LtlInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v7;
+    v7 = v10;
+    sub_1002F01B8(v11);
+    *(v9 + v8) = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 16) = v5;
+
+  free(v2);
+}
+
+BOOL sub_1002B9E9C()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 16) != 2;
+}
+
+uint64_t sub_1002B9F34(uint64_t (*a1)(void), uint64_t (*a2)(void), void (*a3)(uint64_t), char a4)
+{
+  v8 = v4;
+  v9 = *(a1(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v11 = *(v4 + v9);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    a2(0);
+    v12 = swift_allocObject();
+    v13 = v11;
+    v11 = v12;
+    a3(v13);
+    *(v8 + v9) = v12;
+  }
+
+  result = swift_beginAccess();
+  *(v11 + 16) = a4;
+  return result;
+}
+
+uint64_t sub_1002B9FE4()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 24))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 20);
+  }
+}
+
+uint64_t sub_1002BA03C(int a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_LtlInfo._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    sub_1002F01B8(v8);
+    *(v2 + v4) = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 20) = a1;
+  *(v6 + 24) = 0;
+  return result;
+}
+
+void (*sub_1002BA0D8(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20);
+  *(v4 + 84) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 20);
+  if (*(v6 + 24))
+  {
+    v7 = 0;
+  }
+
+  *(v4 + 80) = v7;
+  return sub_1002BA184;
+}
+
+void sub_1002BA184(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 84);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 84);
+    v9 = *(v2 + 72);
+    type metadata accessor for Proto_Gpsd_LtlInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v7;
+    v7 = v10;
+    sub_1002F01B8(v11);
+    *(v9 + v8) = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 20) = v3;
+  *(v7 + 24) = 0;
+
+  free(v2);
+}
+
+BOOL sub_1002BA250()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20));
+  swift_beginAccess();
+  return (*(v1 + 24) & 1) == 0;
+}
+
+uint64_t sub_1002BA2A4()
+{
+  v1 = v0;
+  v2 = *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v4 = *(v0 + v2);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_LtlInfo._StorageClass(0);
+    v5 = swift_allocObject();
+    sub_1002F01B8(v4);
+    *(v1 + v2) = v5;
+    v4 = v5;
+  }
+
+  result = swift_beginAccess();
+  *(v4 + 20) = 0;
+  *(v4 + 24) = 1;
+  return result;
+}
+
+uint64_t sub_1002BA338()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20));
+  swift_beginAccess();
+  if (*(v1 + 25) == 5)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(v1 + 25);
+  }
+}
+
+uint64_t sub_1002BA38C(char a1)
+{
+  v2 = v1;
+  v4 = *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6 = *(v1 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    type metadata accessor for Proto_Gpsd_LtlInfo._StorageClass(0);
+    v7 = swift_allocObject();
+    v8 = v6;
+    v6 = v7;
+    sub_1002F01B8(v8);
+    *(v2 + v4) = v7;
+  }
+
+  result = swift_beginAccess();
+  *(v6 + 25) = a1;
+  return result;
+}
+
+void (*sub_1002BA424(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  if (&_swift_coroFrameAlloc)
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x58uLL);
+  }
+
+  v4 = v3;
+  *a1 = v3;
+  *(v3 + 72) = v1;
+  v5 = *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20);
+  *(v4 + 80) = v5;
+  v6 = *(v1 + v5);
+  swift_beginAccess();
+  v7 = *(v6 + 25);
+  if (v7 == 5)
+  {
+    LOBYTE(v7) = 0;
+  }
+
+  *(v4 + 84) = v7;
+  return sub_1002BA4CC;
+}
+
+void sub_1002BA4CC(uint64_t *a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 84);
+  v4 = *(*a1 + 80);
+  v5 = *(*a1 + 72);
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v5 + v4);
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+  {
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for Proto_Gpsd_LtlInfo._StorageClass(0);
+    v10 = swift_allocObject();
+    v11 = v7;
+    v7 = v10;
+    sub_1002F01B8(v11);
+    *(v9 + v8) = v10;
+  }
+
+  swift_beginAccess();
+  *(v7 + 25) = v3;
+
+  free(v2);
+}
+
+BOOL sub_1002BA594()
+{
+  v1 = *(v0 + *(type metadata accessor for Proto_Gpsd_LtlInfo(0) + 20));
+  swift_beginAccess();
+  return *(v1 + 25) != 5;
 }

@@ -1,5 +1,6 @@
 @interface REDependentRelevanceProvider
 + (id)_dependentConditionWithRelevanceProvider:(id)provider invertsRelevance:(BOOL)relevance;
++ (id)dependentProviderWithProvider:(id)provider invertsRelevance:(BOOL)relevance;
 @end
 
 @implementation REDependentRelevanceProvider
@@ -123,6 +124,14 @@ uint64_t __90__REDependentRelevanceProvider__dependentConditionWithRelevanceProv
   }
 
   return result;
+}
+
++ (id)dependentProviderWithProvider:(id)provider invertsRelevance:(BOOL)relevance
+{
+  v4 = [REDependentRelevanceProvider _dependentConditionWithRelevanceProvider:provider invertsRelevance:relevance];
+  v5 = [[REConditionalRelevanceProvider alloc] initWithRelevanceCondition:v4];
+
+  return v5;
 }
 
 @end

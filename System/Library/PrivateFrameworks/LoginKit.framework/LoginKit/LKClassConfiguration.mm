@@ -123,37 +123,37 @@
 {
   v112 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  LKRegisterLoginKitLogging();
+  LKRegisterLoginKitLogging(dictionaryCopy, v6);
   v103.receiver = self;
   v103.super_class = LKClassConfiguration;
-  v6 = [(LKClassConfiguration *)&v103 init];
-  v7 = v6;
-  if (v6)
+  v7 = [(LKClassConfiguration *)&v103 init];
+  v8 = v7;
+  if (v7)
   {
-    objc_storeStrong(&v6->_classRosterInformationDictionary, dictionary);
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"OrganizationName"];
-    schoolName = v7->_schoolName;
-    v7->_schoolName = v8;
+    objc_storeStrong(&v7->_classRosterInformationDictionary, dictionary);
+    v9 = [dictionaryCopy objectForKeyedSubscript:@"OrganizationName"];
+    schoolName = v8->_schoolName;
+    v8->_schoolName = v9;
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"PayloadCertificatePersistentID"];
-    payloadCertificatePersistentID = v7->_payloadCertificatePersistentID;
-    v7->_payloadCertificatePersistentID = v10;
+    v11 = [dictionaryCopy objectForKeyedSubscript:@"PayloadCertificatePersistentID"];
+    payloadCertificatePersistentID = v8->_payloadCertificatePersistentID;
+    v8->_payloadCertificatePersistentID = v11;
 
-    v12 = objc_opt_new();
-    classesByClassGroupName = v7->_classesByClassGroupName;
-    v7->_classesByClassGroupName = v12;
+    v13 = objc_opt_new();
+    classesByClassGroupName = v8->_classesByClassGroupName;
+    v8->_classesByClassGroupName = v13;
 
-    v14 = objc_opt_new();
-    classesByClassID = v7->_classesByClassID;
-    v7->_classesByClassID = v14;
+    v15 = objc_opt_new();
+    classesByClassID = v8->_classesByClassID;
+    v8->_classesByClassID = v15;
 
-    v16 = objc_opt_new();
-    usersWithAppleIDByIdentifier = v7->_usersWithAppleIDByIdentifier;
-    v7->_usersWithAppleIDByIdentifier = v16;
+    v17 = objc_opt_new();
+    usersWithAppleIDByIdentifier = v8->_usersWithAppleIDByIdentifier;
+    v8->_usersWithAppleIDByIdentifier = v17;
 
-    v18 = objc_opt_new();
-    usersByUsername = v7->_usersByUsername;
-    v7->_usersByUsername = v18;
+    v19 = objc_opt_new();
+    usersByUsername = v8->_usersByUsername;
+    v8->_usersByUsername = v19;
 
     v86 = objc_opt_new();
     v84 = objc_opt_new();
@@ -163,63 +163,63 @@
     v101 = 0u;
     v102 = 0u;
     v79 = dictionaryCopy;
-    v20 = [dictionaryCopy objectForKeyedSubscript:@"Users"];
-    v21 = [v20 countByEnumeratingWithState:&v99 objects:v111 count:16];
-    if (v21)
+    v21 = [dictionaryCopy objectForKeyedSubscript:@"Users"];
+    v22 = [v21 countByEnumeratingWithState:&v99 objects:v111 count:16];
+    if (v22)
     {
-      v22 = v21;
-      v23 = *v100;
+      v23 = v22;
+      v24 = *v100;
       do
       {
-        v24 = 0;
+        v25 = 0;
         do
         {
-          if (*v100 != v23)
+          if (*v100 != v24)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v21);
           }
 
-          v25 = [LKUser userFromDictionary:*(*(&v99 + 1) + 8 * v24)];
-          identifier = [v25 identifier];
-          [v86 setObject:v25 forKeyedSubscript:identifier];
+          v26 = [LKUser userFromDictionary:*(*(&v99 + 1) + 8 * v25)];
+          identifier = [v26 identifier];
+          [v86 setObject:v26 forKeyedSubscript:identifier];
 
-          username = [v25 username];
+          username = [v26 username];
 
           if (username)
           {
-            v28 = v7->_usersByUsername;
-            username2 = [v25 username];
-            [(NSMutableDictionary *)v28 setObject:v25 forKeyedSubscript:username2];
+            v29 = v8->_usersByUsername;
+            username2 = [v26 username];
+            [(NSMutableDictionary *)v29 setObject:v26 forKeyedSubscript:username2];
 
-            identifier2 = [v25 identifier];
+            identifier2 = [v26 identifier];
 
             if (identifier2)
             {
-              v31 = v7->_usersWithAppleIDByIdentifier;
-              identifier3 = [v25 identifier];
-              [(NSMutableDictionary *)v31 setObject:v25 forKeyedSubscript:identifier3];
+              v32 = v8->_usersWithAppleIDByIdentifier;
+              identifier3 = [v26 identifier];
+              [(NSMutableDictionary *)v32 setObject:v26 forKeyedSubscript:identifier3];
             }
           }
 
           else
           {
-            v33 = LKLogParsing;
+            v34 = LKLogParsing;
             if (os_log_type_enabled(LKLogParsing, OS_LOG_TYPE_DEBUG))
             {
-              [(LKClassConfiguration *)&v109 initWithDictionary:v33, v25, &v110];
+              [(LKClassConfiguration *)&v109 initWithDictionary:v34, v26, &v110];
             }
           }
 
-          [v84 addObject:v25];
+          [v84 addObject:v26];
 
-          ++v24;
+          ++v25;
         }
 
-        while (v22 != v24);
-        v22 = [v20 countByEnumeratingWithState:&v99 objects:v111 count:16];
+        while (v23 != v25);
+        v23 = [v21 countByEnumeratingWithState:&v99 objects:v111 count:16];
       }
 
-      while (v22);
+      while (v23);
     }
 
     obj = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -227,169 +227,168 @@
     v96 = 0u;
     v97 = 0u;
     v98 = 0u;
-    v34 = [v79 objectForKeyedSubscript:@"Groups"];
-    v35 = [v34 countByEnumeratingWithState:&v95 objects:v108 count:16];
-    if (v35)
+    v35 = [v79 objectForKeyedSubscript:@"Groups"];
+    v36 = [v35 countByEnumeratingWithState:&v95 objects:v108 count:16];
+    if (v36)
     {
-      v36 = v35;
-      v37 = *v96;
+      v37 = v36;
+      v38 = *v96;
       do
       {
-        v38 = 0;
+        v39 = 0;
         do
         {
-          if (*v96 != v37)
+          if (*v96 != v38)
           {
-            objc_enumerationMutation(v34);
+            objc_enumerationMutation(v35);
           }
 
-          v39 = [[LKClass alloc] initWithClassDictionary:*(*(&v95 + 1) + 8 * v38) usersByUserIdentifier:v86];
-          classID = [(LKClass *)v39 classID];
-          if (classID && (v41 = classID, -[LKClass students](v39, "students"), v42 = objc_claimAutoreleasedReturnValue(), v43 = [v42 count], v42, v41, v43))
+          v40 = [[LKClass alloc] initWithClassDictionary:*(*(&v95 + 1) + 8 * v39) usersByUserIdentifier:v86];
+          classID = [(LKClass *)v40 classID];
+          if (classID && (v42 = classID, -[LKClass students](v40, "students"), v43 = objc_claimAutoreleasedReturnValue(), v44 = [v43 count], v43, v42, v44))
           {
-            v44 = v7->_classesByClassID;
-            classID2 = [(LKClass *)v39 classID];
-            [(NSMutableDictionary *)v44 setObject:v39 forKeyedSubscript:classID2];
+            v45 = v8->_classesByClassID;
+            classID2 = [(LKClass *)v40 classID];
+            [(NSMutableDictionary *)v45 setObject:v40 forKeyedSubscript:classID2];
 
-            [obj addObject:v39];
-            instructors = [(LKClass *)v39 instructors];
+            [obj addObject:v40];
+            instructors = [(LKClass *)v40 instructors];
 
             if (instructors)
             {
-              instructors2 = [(LKClass *)v39 instructors];
+              instructors2 = [(LKClass *)v40 instructors];
               [v80 addObjectsFromArray:instructors2];
             }
           }
 
           else
           {
-            v48 = LKLogParsing;
+            v49 = LKLogParsing;
             if (os_log_type_enabled(LKLogParsing, OS_LOG_TYPE_DEBUG))
             {
-              [(LKClassConfiguration *)&v106 initWithDictionary:v48, v39, &v107];
+              [(LKClassConfiguration *)&v106 initWithDictionary:v49, v40, &v107];
             }
           }
 
-          ++v38;
+          ++v39;
         }
 
-        while (v36 != v38);
-        v36 = [v34 countByEnumeratingWithState:&v95 objects:v108 count:16];
+        while (v37 != v39);
+        v37 = [v35 countByEnumeratingWithState:&v95 objects:v108 count:16];
       }
 
-      while (v36);
+      while (v37);
     }
 
-    allValues = [(NSMutableDictionary *)v7->_usersWithAppleIDByIdentifier allValues];
-    students = v7->_students;
-    v7->_students = allValues;
+    allValues = [(NSMutableDictionary *)v8->_usersWithAppleIDByIdentifier allValues];
+    students = v8->_students;
+    v8->_students = allValues;
 
-    objc_storeStrong(&v7->_classes, obj);
+    objc_storeStrong(&v8->_classes, obj);
     allObjects = [v80 allObjects];
-    instructors = v7->_instructors;
-    v7->_instructors = allObjects;
+    instructors = v8->_instructors;
+    v8->_instructors = allObjects;
 
-    v53 = [(NSMutableDictionary *)v7->_classesByClassID mutableCopy];
+    v54 = [(NSMutableDictionary *)v8->_classesByClassID mutableCopy];
     v85 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v82 = [v79 objectForKeyedSubscript:@"Departments"];
-    v54 = [v82 countByEnumeratingWithState:&v91 objects:v105 count:16];
-    if (v54)
+    v55 = [v82 countByEnumeratingWithState:&v91 objects:v105 count:16];
+    if (v55)
     {
-      v55 = v54;
+      v56 = v55;
       v83 = *v92;
       do
       {
-        for (i = 0; i != v55; ++i)
+        for (i = 0; i != v56; ++i)
         {
           if (*v92 != v83)
           {
             objc_enumerationMutation(v82);
           }
 
-          v57 = [[LKClassGroup alloc] initWithClassGroupDictionary:*(*(&v91 + 1) + 8 * i) classesDictionaryByClassID:v7->_classesByClassID];
-          classGroupName = [(LKClassGroup *)v57 classGroupName];
+          v58 = [[LKClassGroup alloc] initWithClassGroupDictionary:*(*(&v91 + 1) + 8 * i) classesDictionaryByClassID:v8->_classesByClassID];
+          classGroupName = [(LKClassGroup *)v58 classGroupName];
 
           if (classGroupName)
           {
-            classes = [(LKClassGroup *)v57 classes];
-            v60 = v7;
-            v61 = v7->_classesByClassGroupName;
-            classGroupName2 = [(LKClassGroup *)v57 classGroupName];
-            [(NSMutableDictionary *)v61 setObject:classes forKeyedSubscript:classGroupName2];
+            classes = [(LKClassGroup *)v58 classes];
+            v61 = v8;
+            v62 = v8->_classesByClassGroupName;
+            classGroupName2 = [(LKClassGroup *)v58 classGroupName];
+            [(NSMutableDictionary *)v62 setObject:classes forKeyedSubscript:classGroupName2];
 
             v89 = 0u;
             v90 = 0u;
             v87 = 0u;
             v88 = 0u;
-            classes2 = [(LKClassGroup *)v57 classes];
-            v64 = [classes2 countByEnumeratingWithState:&v87 objects:v104 count:16];
-            if (v64)
+            classes2 = [(LKClassGroup *)v58 classes];
+            v65 = [classes2 countByEnumeratingWithState:&v87 objects:v104 count:16];
+            if (v65)
             {
-              v65 = v64;
-              v66 = *v88;
+              v66 = v65;
+              v67 = *v88;
               do
               {
-                for (j = 0; j != v65; ++j)
+                for (j = 0; j != v66; ++j)
                 {
-                  if (*v88 != v66)
+                  if (*v88 != v67)
                   {
                     objc_enumerationMutation(classes2);
                   }
 
                   classID3 = [*(*(&v87 + 1) + 8 * j) classID];
-                  [v53 removeObjectForKey:classID3];
+                  [v54 removeObjectForKey:classID3];
                 }
 
-                v65 = [classes2 countByEnumeratingWithState:&v87 objects:v104 count:16];
+                v66 = [classes2 countByEnumeratingWithState:&v87 objects:v104 count:16];
               }
 
-              while (v65);
+              while (v66);
             }
 
-            v7 = v60;
+            v8 = v61;
           }
 
-          [(NSArray *)v85 addObject:v57];
+          [(NSArray *)v85 addObject:v58];
         }
 
-        v55 = [v82 countByEnumeratingWithState:&v91 objects:v105 count:16];
+        v56 = [v82 countByEnumeratingWithState:&v91 objects:v105 count:16];
       }
 
-      while (v55);
+      while (v56);
     }
 
-    allValues2 = [v53 allValues];
+    allValues2 = [v54 allValues];
     if ([allValues2 count])
     {
-      v70 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v71 = [v70 localizedStringForKey:@"Other Classes" value:&stru_286839188 table:0];
+      v71 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v72 = [v71 localizedStringForKey:@"Other Classes" value:&stru_286839188 table:0];
 
-      v72 = [allValues2 count];
-      if (v72 == [(NSArray *)v7->_classes count])
+      v73 = [allValues2 count];
+      if (v73 == [(NSArray *)v8->_classes count])
       {
-        v73 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v74 = [v73 localizedStringForKey:@"All Classes" value:&stru_286839188 table:0];
+        v74 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v75 = [v74 localizedStringForKey:@"All Classes" value:&stru_286839188 table:0];
 
-        v71 = v74;
+        v72 = v75;
       }
 
-      [(NSMutableDictionary *)v7->_classesByClassGroupName setObject:allValues2 forKeyedSubscript:v71];
-      v75 = [[LKClassGroup alloc] initWithGroupName:v71 classes:allValues2];
-      [(NSArray *)v85 addObject:v75];
+      [(NSMutableDictionary *)v8->_classesByClassGroupName setObject:allValues2 forKeyedSubscript:v72];
+      v76 = [[LKClassGroup alloc] initWithGroupName:v72 classes:allValues2];
+      [(NSArray *)v85 addObject:v76];
     }
 
-    classGroups = v7->_classGroups;
-    v7->_classGroups = v85;
+    classGroups = v8->_classGroups;
+    v8->_classGroups = v85;
 
     dictionaryCopy = v79;
   }
 
-  v77 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (LKClassConfiguration)initWithPropertyList:(id)list
@@ -418,7 +417,7 @@
 
 - (id)studentForStudentIdentifier:(id)identifier inClass:(id)class
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   classCopy = class;
   usersWithAppleIDByIdentifier = [(LKClassConfiguration *)self usersWithAppleIDByIdentifier];
@@ -426,25 +425,25 @@
 
   if (v9)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     students = [classCopy students];
-    v11 = [students countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [students countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
-      v12 = *v20;
+      v12 = *v19;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(students);
           }
 
-          identifier = [*(*(&v19 + 1) + 8 * i) identifier];
+          identifier = [*(*(&v18 + 1) + 8 * i) identifier];
           identifier2 = [v9 identifier];
           v16 = [identifier isEqualToString:identifier2];
 
@@ -455,7 +454,7 @@
           }
         }
 
-        v11 = [students countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [students countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           continue;
@@ -472,8 +471,6 @@ LABEL_12:
   {
     v11 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -489,7 +486,7 @@ LABEL_12:
 
 - (id)studentForUsername:(id)username inClass:(id)class
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   classCopy = class;
   usersByUsername = [(LKClassConfiguration *)self usersByUsername];
@@ -497,25 +494,25 @@ LABEL_12:
 
   if (v9)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     students = [classCopy students];
-    v11 = [students countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [students countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
-      v12 = *v20;
+      v12 = *v19;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(students);
           }
 
-          username = [*(*(&v19 + 1) + 8 * i) username];
+          username = [*(*(&v18 + 1) + 8 * i) username];
           username2 = [v9 username];
           v16 = [username isEqualToString:username2];
 
@@ -526,7 +523,7 @@ LABEL_12:
           }
         }
 
-        v11 = [students countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [students countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           continue;
@@ -544,8 +541,6 @@ LABEL_12:
     v11 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
@@ -560,42 +555,40 @@ LABEL_12:
 
 - (id)classesByClassGroupNameDictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_classesByClassGroupName allKeys];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = allKeys;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [LKClasses alloc];
-        v12 = [(NSMutableDictionary *)self->_classesByClassGroupName objectForKeyedSubscript:v10, v16];
+        v12 = [(NSMutableDictionary *)self->_classesByClassGroupName objectForKeyedSubscript:v10, v15];
         v13 = [(LKClasses *)v11 initWithClassArray:v12];
         [v4 setObject:v13 forKey:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

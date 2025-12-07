@@ -84,17 +84,17 @@
       if (v7)
       {
         v8 = [dictionaryCopy objectForKeyedSubscript:@"UIPrototypingValueType"];
-        if ([v8 isEqualToString:@"UIPrototypingValueTypeInteger"])
+        if (objc_msgSend_isEqualToString_(v8))
         {
           v9 = 0;
         }
 
-        else if ([v8 isEqualToString:@"UIPrototypingValueTypeFloat"])
+        else if (objc_msgSend_isEqualToString_(v8))
         {
           v9 = 1;
         }
 
-        else if ([v8 isEqualToString:@"UIPrototypingValueTypeBool"])
+        else if (objc_msgSend_isEqualToString_(v8))
         {
           v9 = 2;
         }

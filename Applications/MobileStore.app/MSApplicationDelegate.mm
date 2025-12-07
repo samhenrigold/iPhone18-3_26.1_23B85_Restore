@@ -453,24 +453,25 @@
   v14 = [[SUUIURL alloc] initWithURL:lCopy];
   [v14 setReferrerApplicationName:sourceApplicationCopy];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v15 = sub_1000030EC();
-    v16 = *sub_100003194("LSReferrerURLKey", v15);
-    if (v16)
+    v17 = sub_1000030EC(isKindOfClass, v16);
+    v18 = *sub_100003194("LSReferrerURLKey", v17);
+    if (v18)
     {
-      v17 = [annotationCopy objectForKey:v16];
+      v19 = [annotationCopy objectForKey:v18];
     }
 
     else
     {
-      v17 = 0;
+      v19 = 0;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v14 setReferrerURLString:v17];
+      [v14 setReferrerURLString:v19];
     }
 
     else
@@ -478,7 +479,7 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        absoluteString = [v17 absoluteString];
+        absoluteString = [v19 absoluteString];
         [v14 setReferrerURLString:absoluteString];
       }
     }
@@ -486,23 +487,23 @@
 
   objc_initWeak(&location, self);
   applicationController = self->_applicationController;
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_1000042B4;
-  v25[3] = &unk_1000105B8;
-  objc_copyWeak(&v27, &location);
-  v20 = v14;
-  v26 = v20;
-  [(SUUIApplicationController *)applicationController evaluateBlockWhenLoaded:v25];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_1000042B4;
+  v27[3] = &unk_1000105B8;
+  objc_copyWeak(&v29, &location);
+  v22 = v14;
+  v28 = v22;
+  [(SUUIApplicationController *)applicationController evaluateBlockWhenLoaded:v27];
   self->_onActiveShouldResumeApplication = 0;
   clientContext = [(SUUIApplicationController *)self->_applicationController clientContext];
-  [clientContext setPurchaseReferrerURL:v20];
+  [clientContext setPurchaseReferrerURL:v22];
 
   launchURL = self->_launchURL;
-  self->_launchURL = v20;
-  v23 = v20;
+  self->_launchURL = v22;
+  v25 = v22;
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
 
   return 1;
@@ -522,30 +523,30 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v31 objects:v37 count:16];
       if (v14)
       {
         v15 = v14;
-        v28 = v12;
-        v29 = v11;
-        v30 = optionsCopy;
+        v27 = v12;
+        v28 = v11;
+        v29 = optionsCopy;
         selfCopy = self;
-        v16 = *v33;
+        v16 = *v32;
         while (2)
         {
           for (i = 0; i != v15; i = i + 1)
           {
-            if (*v33 != v16)
+            if (*v32 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v32 + 1) + 8 * i);
+            v18 = *(*(&v31 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -562,7 +563,7 @@
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v32 objects:v38 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v31 objects:v37 count:16];
           if (v15)
           {
             continue;
@@ -573,8 +574,8 @@
 
         self = selfCopy;
 LABEL_14:
-        v11 = v29;
-        v12 = v28;
+        v11 = v28;
+        v12 = v27;
       }
     }
   }
@@ -602,14 +603,13 @@ LABEL_14:
     goto LABEL_25;
   }
 
-  v36 = 138412290;
-  v37 = optionsCopy;
-  LODWORD(v27) = 12;
-  v25 = _os_log_send_and_compose_impl();
+  v35 = 138412290;
+  v36 = optionsCopy;
+  v25 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "Running PPT with options: %@", &v35, 12);
 
   if (v25)
   {
-    oSLogObject = [NSString stringWithCString:v25 encoding:4, &v36, v27];
+    oSLogObject = [NSString stringWithCString:v25 encoding:4];
     free(v25);
     SSFileLog();
 LABEL_25:
@@ -726,23 +726,22 @@ LABEL_25:
 
 - (void)_loadApplicationWithLaunchOptions:(id)options
 {
-  applicationController = self->_applicationController;
   optionsCopy = options;
-  v14 = [objc_opt_class() applicationOptionsWithLaunchOptions:optionsCopy];
+  v13 = [objc_opt_class() applicationOptionsWithLaunchOptions:optionsCopy];
 
-  [(SUUIApplicationController *)self->_applicationController loadApplicationWithOptions:v14];
+  [(SUUIApplicationController *)self->_applicationController loadApplicationWithOptions:v13];
   clientContext = [(SUUIApplicationController *)self->_applicationController clientContext];
-  v7 = clientContext;
+  v6 = clientContext;
   if (clientContext)
   {
     clientInterface = [clientContext clientInterface];
-    v9 = [[SULegacyClientBridge alloc] initWithClientInterface:clientInterface];
+    v8 = [[SULegacyClientBridge alloc] initWithClientInterface:clientInterface];
     legacyBridge = self->_legacyBridge;
-    self->_legacyBridge = v9;
+    self->_legacyBridge = v8;
 
-    v11 = self->_legacyBridge;
+    v10 = self->_legacyBridge;
     tabBarController = [(SUUIApplicationController *)self->_applicationController tabBarController];
-    [(SULegacyClientBridge *)v11 setRootViewController:tabBarController];
+    [(SULegacyClientBridge *)v10 setRootViewController:tabBarController];
 
     [SUClientDispatch setClientBridge:self->_legacyBridge];
     purchaseManager = [clientInterface purchaseManager];
@@ -844,12 +843,12 @@ LABEL_8:
 
   else if (clientContext)
   {
-    v69[0] = _NSConcreteStackBlock;
-    v69[1] = 3221225472;
-    v69[2] = sub_100005C48;
-    v69[3] = &unk_100010678;
-    v70 = clientContext;
-    v7 = objc_retainBlock(v69);
+    v67[0] = _NSConcreteStackBlock;
+    v67[1] = 3221225472;
+    v67[2] = sub_100005C48;
+    v67[3] = &unk_100010678;
+    v68 = clientContext;
+    v7 = objc_retainBlock(v67);
   }
 
   else
@@ -863,30 +862,30 @@ LABEL_8:
     v8 = [(MSApplicationDelegate *)selfCopy _newDefaultTabBarItemsWithClientContext:clientContext style:style];
   }
 
-  v60 = clientContext;
-  v67 = 0u;
-  v68 = 0u;
+  v58 = clientContext;
   v65 = 0u;
   v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v65 objects:v71 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v63 objects:v69 count:16];
   if (v10)
   {
     v11 = v10;
-    v62 = v9;
-    v12 = *v66;
-    v61 = v5;
+    v60 = v9;
+    v12 = *v64;
+    v59 = v5;
     do
     {
       v13 = 0;
       do
       {
-        if (*v66 != v12)
+        if (*v64 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v65 + 1) + 8 * v13);
+        v14 = *(*(&v63 + 1) + 8 * v13);
         tabIdentifier = [v14 tabIdentifier];
         if ([tabIdentifier isEqualToString:@"music"])
         {
@@ -949,9 +948,9 @@ LABEL_26:
           v16 = [[UITabBarItem alloc] initWithTabBarSystemItem:8 tag:0];
           if (v7)
           {
-            v33 = v7->invoke;
-            v34 = v7;
-            v35 = @"SEARCH";
+            v31 = v7->invoke;
+            v32 = v7;
+            v33 = @"SEARCH";
             goto LABEL_34;
           }
 
@@ -961,32 +960,31 @@ LABEL_26:
         if ([tabIdentifier isEqualToString:@"audiobooks"])
         {
           v16 = objc_alloc_init(UITabBarItem);
-          v36 = [UIImage imageNamed:@"UITabBarAudiobooks"];
-          _imageThatSuppressesAccessibilityHairlineThickening = [v36 _imageThatSuppressesAccessibilityHairlineThickening];
+          v34 = [UIImage imageNamed:@"UITabBarAudiobooks"];
+          _imageThatSuppressesAccessibilityHairlineThickening = [v34 _imageThatSuppressesAccessibilityHairlineThickening];
           [v16 setImage:_imageThatSuppressesAccessibilityHairlineThickening];
 
-          v38 = [UIImage imageNamed:@"UITabBarAudiobooksSelected"];
-          _imageThatSuppressesAccessibilityHairlineThickening2 = [v38 _imageThatSuppressesAccessibilityHairlineThickening];
+          v36 = [UIImage imageNamed:@"UITabBarAudiobooksSelected"];
+          _imageThatSuppressesAccessibilityHairlineThickening2 = [v36 _imageThatSuppressesAccessibilityHairlineThickening];
           [v16 setSelectedImage:_imageThatSuppressesAccessibilityHairlineThickening2];
 
           if (v7)
           {
-            v40 = v7->invoke(v7, @"AUDIOBOOKS");
-            [v16 setTitle:v40];
+            v38 = v7->invoke(v7, @"AUDIOBOOKS");
+            [v16 setTitle:v38];
           }
 
           [v14 setBarTintStyle:2];
-          v30 = SUStorePageViewController_ptr;
-          v5 = v61;
-          v9 = v62;
+          v5 = v59;
+          v9 = v60;
           goto LABEL_28;
         }
 
         if ([tabIdentifier isEqualToString:@"tones"])
         {
           v16 = objc_alloc_init(UITabBarItem);
-          v41 = [UIImage _systemImageNamed:@"bell.fill"];
-          [v16 setImage:v41];
+          v39 = [UIImage _systemImageNamed:@"bell.fill"];
+          [v16 setImage:v39];
 
           if (v7)
           {
@@ -1001,13 +999,11 @@ LABEL_18:
           v23 = 2;
 LABEL_27:
           [v22 setBarTintStyle:v23];
-          v30 = SUStorePageViewController_ptr;
 LABEL_28:
-          v31 = *v30;
           [v14 setRootViewControllerClass:objc_opt_class()];
           [v14 setUnderlyingTabBarItem:v16];
-          v32 = sub_100001468();
-          [v14 setUserInterfaceTintColor:v32];
+          v30 = sub_100001468();
+          [v14 setUserInterfaceTintColor:v30];
 
           [v5 addObject:v14];
           goto LABEL_29;
@@ -1018,11 +1014,11 @@ LABEL_28:
           v16 = [[UITabBarItem alloc] initWithTabBarSystemItem:11 tag:0];
           if (v7)
           {
-            v33 = v7->invoke;
-            v34 = v7;
-            v35 = @"CHARTS";
+            v31 = v7->invoke;
+            v32 = v7;
+            v33 = @"CHARTS";
 LABEL_34:
-            v21 = v33(v34, v35);
+            v21 = v31(v32, v33);
             [v16 _setInternalTitle:v21];
 LABEL_17:
 
@@ -1037,8 +1033,8 @@ LABEL_45:
         if ([tabIdentifier isEqualToString:@"genius"])
         {
           v16 = objc_alloc_init(UITabBarItem);
-          v42 = [UIImage _systemImageNamed:@"genius"];
-          [v16 setImage:v42];
+          v40 = [UIImage _systemImageNamed:@"genius"];
+          [v16 setImage:v40];
 
           if (!v7)
           {
@@ -1057,8 +1053,8 @@ LABEL_16:
         if ([tabIdentifier isEqualToString:@"purchased"])
         {
           v16 = objc_alloc_init(UITabBarItem);
-          v43 = [UIImage _systemImageNamed:@"purchased"];
-          [v16 setImage:v43];
+          v41 = [UIImage _systemImageNamed:@"purchased"];
+          [v16 setImage:v41];
 
           if (!v7)
           {
@@ -1074,20 +1070,19 @@ LABEL_16:
         if ([tabIdentifier isEqualToString:@"downloads"])
         {
           _downloadManager = [(MSApplicationDelegate *)selfCopy _downloadManager];
-          v45 = [(MSApplicationDelegate *)selfCopy _showsDownloadsTabForDownloadManager:_downloadManager];
+          v43 = [(MSApplicationDelegate *)selfCopy _showsDownloadsTabForDownloadManager:_downloadManager];
 
-          if (v45)
+          if (v43)
           {
             v16 = [[UITabBarItem alloc] initWithTabBarSystemItem:9 tag:0];
             if (v7)
             {
-              v46 = v7->invoke(v7, @"DOWNLOADS");
-              [v16 setTitle:v46];
+              v44 = v7->invoke(v7, @"DOWNLOADS");
+              [v16 setTitle:v44];
             }
 
             [v14 setBarTintStyle:2];
             [v14 setAlwaysCreatesRootViewController:1];
-            v30 = SUUIDownloadsViewController_ptr;
             goto LABEL_28;
           }
         }
@@ -1097,15 +1092,15 @@ LABEL_16:
           if ([tabIdentifier isEqualToString:@"itunesu"])
           {
             v16 = objc_alloc_init(UITabBarItem);
-            v47 = [UIImage imageNamed:@"UITabBariTunesU"];
-            _imageThatSuppressesAccessibilityHairlineThickening3 = [v47 _imageThatSuppressesAccessibilityHairlineThickening];
+            v45 = [UIImage imageNamed:@"UITabBariTunesU"];
+            _imageThatSuppressesAccessibilityHairlineThickening3 = [v45 _imageThatSuppressesAccessibilityHairlineThickening];
             [v16 setImage:_imageThatSuppressesAccessibilityHairlineThickening3];
 
             if (v7)
             {
-              v49 = v7->invoke;
-              v50 = v7;
-              v51 = @"ITUNES_U";
+              v47 = v7->invoke;
+              v48 = v7;
+              v49 = @"ITUNES_U";
               goto LABEL_63;
             }
 
@@ -1115,24 +1110,23 @@ LABEL_16:
           if ([tabIdentifier isEqualToString:@"podcast"])
           {
             v16 = objc_alloc_init(UITabBarItem);
-            v52 = [UIImage imageNamed:@"UITabBarPodcasts"];
-            _imageThatSuppressesAccessibilityHairlineThickening4 = [v52 _imageThatSuppressesAccessibilityHairlineThickening];
+            v50 = [UIImage imageNamed:@"UITabBarPodcasts"];
+            _imageThatSuppressesAccessibilityHairlineThickening4 = [v50 _imageThatSuppressesAccessibilityHairlineThickening];
             [v16 setImage:_imageThatSuppressesAccessibilityHairlineThickening4];
 
             if (v7)
             {
-              v49 = v7->invoke;
-              v50 = v7;
-              v51 = @"PODCASTS";
+              v47 = v7->invoke;
+              v48 = v7;
+              v49 = @"PODCASTS";
 LABEL_63:
-              v54 = v49(v50, v51);
-              [v16 setTitle:v54];
+              v52 = v47(v48, v49);
+              [v16 setTitle:v52];
             }
 
 LABEL_64:
             [v14 setBarTintStyle:2];
-            v30 = SUStorePageViewController_ptr;
-            v9 = v62;
+            v9 = v60;
             goto LABEL_28;
           }
         }
@@ -1143,25 +1137,25 @@ LABEL_29:
       }
 
       while (v11 != v13);
-      v55 = [v9 countByEnumeratingWithState:&v65 objects:v71 count:16];
-      v11 = v55;
+      v53 = [v9 countByEnumeratingWithState:&v63 objects:v69 count:16];
+      v11 = v53;
     }
 
-    while (v55);
+    while (v53);
   }
 
-  v56 = +[NSUserDefaults standardUserDefaults];
-  v57 = [v56 objectForKey:@"MSApplicationDelegateTabBarOrdering"];
+  v54 = +[NSUserDefaults standardUserDefaults];
+  v55 = [v54 objectForKey:@"MSApplicationDelegateTabBarOrdering"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v63[0] = _NSConcreteStackBlock;
-    v63[1] = 3221225472;
-    v63[2] = sub_100005D30;
-    v63[3] = &unk_1000106E0;
-    v64 = v57;
-    [v5 sortUsingComparator:v63];
+    v61[0] = _NSConcreteStackBlock;
+    v61[1] = 3221225472;
+    v61[2] = sub_100005D30;
+    v61[3] = &unk_1000106E0;
+    v62 = v55;
+    [v5 sortUsingComparator:v61];
   }
 
   return v5;

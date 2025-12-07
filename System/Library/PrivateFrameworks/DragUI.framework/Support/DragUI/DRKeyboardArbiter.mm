@@ -14,6 +14,7 @@
 - (void)queue_sceneBecameFocused:(id)focused withCompletion:(id)completion;
 - (void)queue_setKeyboardDisabled:(BOOL)disabled withCompletion:(id)completion;
 - (void)queue_setLastEventSource:(int64_t)source withCompletion:(id)completion;
+- (void)setKeyboardTotalDisable:(BOOL)disable withFence:(id)fence completionHandler:(id)handler;
 @end
 
 @implementation DRKeyboardArbiter
@@ -67,6 +68,15 @@
   v3 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v5];
 
   return v3;
+}
+
+- (void)setKeyboardTotalDisable:(BOOL)disable withFence:(id)fence completionHandler:(id)handler
+{
+  disableCopy = disable;
+  handlerCopy = handler;
+  fenceCopy = fence;
+  proxy = [(DRKeyboardArbiter *)self proxy];
+  [proxy setKeyboardTotalDisable:disableCopy withFence:fenceCopy completionHandler:handlerCopy];
 }
 
 - (void)queue_keyboardChanged:(id)changed onComplete:(id)complete

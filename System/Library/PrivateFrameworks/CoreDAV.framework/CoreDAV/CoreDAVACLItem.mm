@@ -60,29 +60,29 @@
 
 - (id)notGrantedSubsetOfACEs:(id)es
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   esCopy = es;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = esCopy;
-  v5 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+  v5 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v56;
+    v7 = *v55;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v56 != v7)
+        if (*v55 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v55 + 1) + 8 * i);
+        v9 = *(*(&v54 + 1) + 8 * i);
         principal = [v9 principal];
         hashString = [principal hashString];
         v12 = [dictionary objectForKey:hashString];
@@ -101,62 +101,62 @@
         [v12 unionSet:v17];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
+      v6 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
     }
 
     while (v6);
   }
 
-  v38 = [CoreDAVACEItem privilegeItemWithNameSpace:@"DAV:" andName:@"all"];
-  hashString3 = [v38 hashString];
+  v37 = [CoreDAVACEItem privilegeItemWithNameSpace:@"DAV:" andName:@"all"];
+  hashString3 = [v37 hashString];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   accessControlEntities = [(CoreDAVACLItem *)self accessControlEntities];
-  v44 = [accessControlEntities countByEnumeratingWithState:&v51 objects:v60 count:16];
-  if (v44)
+  v43 = [accessControlEntities countByEnumeratingWithState:&v50 objects:v59 count:16];
+  if (v43)
   {
-    v41 = dictionary;
-    v42 = *v52;
+    v40 = dictionary;
+    v41 = *v51;
     do
     {
-      for (j = 0; j != v44; ++j)
+      for (j = 0; j != v43; ++j)
       {
-        if (*v52 != v42)
+        if (*v51 != v41)
         {
           objc_enumerationMutation(accessControlEntities);
         }
 
-        v20 = *(*(&v51 + 1) + 8 * j);
+        v20 = *(*(&v50 + 1) + 8 * j);
         principal3 = [v20 principal];
         hashString4 = [principal3 hashString];
         v23 = [dictionary objectForKey:hashString4];
 
         if ([v23 count])
         {
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
           v48 = 0u;
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
           grant2 = [v20 grant];
           privileges2 = [grant2 privileges];
 
-          v26 = [privileges2 countByEnumeratingWithState:&v47 objects:v59 count:16];
+          v26 = [privileges2 countByEnumeratingWithState:&v46 objects:v58 count:16];
           if (v26)
           {
             v27 = v26;
-            v28 = *v48;
+            v28 = *v47;
             while (2)
             {
               for (k = 0; k != v27; ++k)
               {
-                if (*v48 != v28)
+                if (*v47 != v28)
                 {
                   objc_enumerationMutation(privileges2);
                 }
 
-                v30 = *(*(&v47 + 1) + 8 * k);
+                v30 = *(*(&v46 + 1) + 8 * k);
                 hashString5 = [v30 hashString];
                 v32 = [hashString5 isEqualToString:hashString3];
 
@@ -170,7 +170,7 @@
                 [v23 removeObject:hashString6];
               }
 
-              v27 = [privileges2 countByEnumeratingWithState:&v47 objects:v59 count:16];
+              v27 = [privileges2 countByEnumeratingWithState:&v46 objects:v58 count:16];
               if (v27)
               {
                 continue;
@@ -182,32 +182,30 @@
 
 LABEL_26:
 
-          dictionary = v41;
+          dictionary = v40;
         }
       }
 
-      v44 = [accessControlEntities countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v43 = [accessControlEntities countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
-    while (v44);
+    while (v43);
   }
 
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __41__CoreDAVACLItem_notGrantedSubsetOfACEs___block_invoke;
-  v45[3] = &unk_278E31488;
-  v46 = dictionary;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __41__CoreDAVACLItem_notGrantedSubsetOfACEs___block_invoke;
+  v44[3] = &unk_278E31488;
+  v45 = dictionary;
   v34 = dictionary;
-  v35 = [obj objectsPassingTest:v45];
-
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = [obj objectsPassingTest:v44];
 
   return v35;
 }
 
 uint64_t __41__CoreDAVACLItem_notGrantedSubsetOfACEs___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 principal];
@@ -216,27 +214,27 @@ uint64_t __41__CoreDAVACLItem_notGrantedSubsetOfACEs___block_invoke(uint64_t a1,
 
   if ([v7 count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = [v3 grant];
     v9 = [v8 privileges];
 
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = [*(*(&v17 + 1) + 8 * i) hashString];
+          v13 = [*(*(&v16 + 1) + 8 * i) hashString];
           v14 = [v7 containsObject:v13];
 
           if (v14)
@@ -246,7 +244,7 @@ uint64_t __41__CoreDAVACLItem_notGrantedSubsetOfACEs___block_invoke(uint64_t a1,
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v10)
         {
           continue;
@@ -264,7 +262,6 @@ LABEL_12:
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

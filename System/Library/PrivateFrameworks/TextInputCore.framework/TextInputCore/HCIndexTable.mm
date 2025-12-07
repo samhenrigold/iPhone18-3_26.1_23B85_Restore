@@ -48,7 +48,7 @@
 
 - (BOOL)writeToFile:(id)file
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [fileCopy path];
@@ -62,32 +62,32 @@
   {
     fileHeader = [(HCIndexTable *)self fileHeader];
     v11 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:fileHeader length:24 freeWhenDone:0];
-    v22 = 0;
-    [v9 writeData:v11 error:&v22];
-    v12 = v22;
+    v21 = 0;
+    [v9 writeData:v11 error:&v21];
+    v12 = v21;
     if (v12 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       localizedDescription = [v12 localizedDescription];
       *buf = 136315394;
-      v24 = "[HCIndexTable writeToFile:]";
-      v25 = 2112;
-      v26 = localizedDescription;
+      v23 = "[HCIndexTable writeToFile:]";
+      v24 = 2112;
+      v25 = localizedDescription;
       _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  %@", buf, 0x16u);
     }
 
     v13 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:self->_mutableHuffmanCodes.__begin_ length:self->_mutableHuffmanCodes.__end_ - self->_mutableHuffmanCodes.__begin_ freeWhenDone:0];
-    v21 = 0;
-    [v9 writeData:v13 error:&v21];
-    v14 = v21;
+    v20 = 0;
+    [v9 writeData:v13 error:&v20];
+    v14 = v20;
 
     v15 = v14 == 0;
     if (v14 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       localizedDescription2 = [v14 localizedDescription];
       *buf = 136315394;
-      v24 = "[HCIndexTable writeToFile:]";
-      v25 = 2112;
-      v26 = localizedDescription2;
+      v23 = "[HCIndexTable writeToFile:]";
+      v24 = 2112;
+      v25 = localizedDescription2;
       _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  %@", buf, 0x16u);
     }
   }
@@ -98,16 +98,15 @@
     {
       path3 = [fileCopy path];
       *buf = 136315394;
-      v24 = "[HCIndexTable writeToFile:]";
-      v25 = 2112;
-      v26 = path3;
+      v23 = "[HCIndexTable writeToFile:]";
+      v24 = 2112;
+      v25 = path3;
       _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Couldn't open file '%@' for writing.", buf, 0x16u);
     }
 
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -214,12 +213,12 @@
 
 + (id)indexTableFromFile:(id)file
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEA90];
   path = [file path];
-  v11 = 0;
-  v5 = [v3 dataWithContentsOfFile:path options:8 error:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [v3 dataWithContentsOfFile:path options:8 error:&v10];
+  v6 = v10;
 
   if (v6)
   {
@@ -227,9 +226,9 @@
     {
       localizedDescription = [v6 localizedDescription];
       *buf = 136315394;
-      v13 = "+[HCIndexTable indexTableFromFile:]";
-      v14 = 2112;
-      v15 = localizedDescription;
+      v12 = "+[HCIndexTable indexTableFromFile:]";
+      v13 = 2112;
+      v14 = localizedDescription;
       _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Error while loading index map from file: '%@'", buf, 0x16u);
     }
 
@@ -240,8 +239,6 @@
   {
     v7 = [[HCIndexTable alloc] initWithHuffmanCodesMemoryMappedData:v5];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

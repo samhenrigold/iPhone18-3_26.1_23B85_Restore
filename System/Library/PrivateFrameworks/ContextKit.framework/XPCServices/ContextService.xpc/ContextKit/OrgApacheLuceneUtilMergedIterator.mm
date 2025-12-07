@@ -105,7 +105,7 @@ LABEL_16:
     v2 = 0;
     while (1)
     {
-      v3 = *(v1 + 3);
+      v3 = *(v1 + 24);
       if (!v3)
       {
         break;
@@ -130,7 +130,7 @@ LABEL_16:
       }
 
       hasNext = [v6 hasNext];
-      v8 = *(v1 + 3);
+      v8 = *(v1 + 24);
       v9 = *(v8 + 8);
       if (hasNext)
       {
@@ -145,7 +145,7 @@ LABEL_16:
           break;
         }
 
-        v11 = *(v1 + 3);
+        v11 = *(v1 + 24);
         v12 = *(v11 + 8);
         if (v2 >= v12)
         {
@@ -159,19 +159,19 @@ LABEL_16:
         }
 
         JreStrongAssign((v10 + 16), [*(v13 + 8) next]);
-        if (!*(v1 + 2))
+        if (!*(v1 + 16))
         {
           break;
         }
 
-        v14 = *(v1 + 3);
+        v14 = *(v1 + 24);
         v15 = *(v14 + 8);
         if (v2 >= v15)
         {
           IOSArray_throwOutOfBoundsWithMsg(v15, v2);
         }
 
-        result = [*(v1 + 2) addWithId:*(v14 + 24 + 8 * v2)];
+        result = [*(v1 + 16) addWithId:*(v14 + 24 + 8 * v2)];
       }
 
       else
@@ -190,7 +190,7 @@ LABEL_16:
         result = JreStrongAssign((v16 + 16), 0);
       }
 
-      if (++v2 >= v1[9])
+      if (++v2 >= *(v1 + 36))
       {
         goto LABEL_25;
       }
@@ -200,21 +200,21 @@ LABEL_16:
   }
 
 LABEL_25:
-  v1[9] = 0;
+  *(v1 + 36) = 0;
   return result;
 }
 
 - (id)pullTop
 {
-  v1 = *(self + 24);
+  v1 = *(self + 3);
   if (!v1)
   {
     goto LABEL_17;
   }
 
-  v3 = *(self + 36);
-  *(self + 36) = v3 + 1;
-  v4 = *(self + 16);
+  v3 = self[9];
+  self[9] = v3 + 1;
+  v4 = *(self + 2);
   if (!v4)
   {
     goto LABEL_17;
@@ -223,9 +223,9 @@ LABEL_25:
   IOSObjectArray_Set(v1, v3, [v4 pop]);
   if (*(self + 32) == 1)
   {
-    while ([*(self + 16) size])
+    while ([*(self + 2) size])
     {
-      v5 = [*(self + 16) top];
+      v5 = [*(self + 2) top];
       if (!v5)
       {
         goto LABEL_17;
@@ -237,7 +237,7 @@ LABEL_25:
         goto LABEL_17;
       }
 
-      v7 = *(self + 24);
+      v7 = *(self + 3);
       v8 = *(v7 + 8);
       if (v8 <= 0)
       {
@@ -255,13 +255,13 @@ LABEL_25:
         break;
       }
 
-      v10 = *(self + 36);
-      *(self + 36) = v10 + 1;
-      IOSObjectArray_Set(*(self + 24), v10, [*(self + 16) pop]);
+      v10 = self[9];
+      self[9] = v10 + 1;
+      IOSObjectArray_Set(*(self + 3), v10, [*(self + 2) pop]);
     }
   }
 
-  v11 = *(self + 24);
+  v11 = *(self + 3);
   v12 = *(v11 + 8);
   if (v12 <= 0)
   {
@@ -277,7 +277,7 @@ LABEL_17:
 
   v14 = *(v13 + 16);
 
-  return JreStrongAssign((self + 8), v14);
+  return JreStrongAssign(self + 1, v14);
 }
 
 - (void)dealloc

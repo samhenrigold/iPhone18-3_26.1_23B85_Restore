@@ -7,6 +7,7 @@
 - (void)_updateStrokeColorForUpdatedUserInterfaceStyle;
 - (void)didMoveToWindow;
 - (void)layoutSubviews;
+- (void)setIndeterminate:(BOOL)indeterminate;
 - (void)setPrimaryAction:(id)action;
 - (void)setProgress:(double)progress animated:(BOOL)animated;
 - (void)tintColorDidChange;
@@ -126,6 +127,32 @@
   }
 }
 
+- (void)setIndeterminate:(BOOL)indeterminate
+{
+  if (self->_indeterminate != indeterminate)
+  {
+    indeterminateCopy = indeterminate;
+    self->_indeterminate = indeterminate;
+    [(CAShapeLayer *)self->_borderLayer setHidden:?];
+    [(CAShapeLayer *)self->_progressLayer setHidden:indeterminateCopy];
+    [(UIImageView *)self->_imageView setHidden:indeterminateCopy];
+    v5 = indeterminateCopy ^ 1;
+    [(CAShapeLayer *)self->_indeterminateLayer setHidden:v5];
+    if (v5)
+    {
+      indeterminateLayer = self->_indeterminateLayer;
+
+      [(CAShapeLayer *)indeterminateLayer removeAllAnimations];
+    }
+
+    else
+    {
+
+      [(MUCircleProgressView *)self _startIndeterminateAnimation];
+    }
+  }
+}
+
 - (void)_handleTap:(id)tap
 {
   primaryAction = self->_primaryAction;
@@ -209,13 +236,13 @@
 {
   y = frame.origin.y;
   x = frame.origin.x;
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   [(MUCircleProgressView *)self intrinsicContentSize:frame.origin.x];
   v7 = v6;
   [(MUCircleProgressView *)self intrinsicContentSize];
-  v51.receiver = self;
-  v51.super_class = MUCircleProgressView;
-  v9 = [(MUCircleProgressView *)&v51 initWithFrame:x, y, v7, v8];
+  v50.receiver = self;
+  v50.super_class = MUCircleProgressView;
+  v9 = [(MUCircleProgressView *)&v50 initWithFrame:x, y, v7, v8];
   v10 = v9;
   if (v9)
   {
@@ -255,10 +282,10 @@
     [(CAShapeLayer *)v10->_progressLayer setLineWidth:v14];
     v24 = *MEMORY[0x1E6979E78];
     [(CAShapeLayer *)v10->_progressLayer setLineCap:*MEMORY[0x1E6979E78]];
-    CATransform3DMakeRotation(&v50, -1.57079633, 0.0, 0.0, 1.0);
+    CATransform3DMakeRotation(&v49, -1.57079633, 0.0, 0.0, 1.0);
     v25 = v10->_progressLayer;
-    v49 = v50;
-    [(CAShapeLayer *)v25 setTransform:&v49];
+    v48 = v49;
+    [(CAShapeLayer *)v25 setTransform:&v48];
     [(CAShapeLayer *)v10->_progressLayer setStrokeStart:0.0];
     [(CAShapeLayer *)v10->_progressLayer setStrokeEnd:0.0];
     layer4 = [(MUCircleProgressView *)v10 layer];
@@ -301,19 +328,18 @@
     [layer6 addSublayer:v10->_indeterminateLayer];
 
     v40 = objc_opt_self();
-    v53[0] = v40;
-    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+    v52[0] = v40;
+    v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:1];
     v42 = [(MUCircleProgressView *)v10 registerForTraitChanges:v41 withAction:sel__updateBorderWidthForUpdatedDisplayScale];
 
     v43 = objc_opt_self();
-    v52 = v43;
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+    v51 = v43;
+    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
     v45 = [(MUCircleProgressView *)v10 registerForTraitChanges:v44 withAction:sel__updateStrokeColorForUpdatedUserInterfaceStyle];
 
     v46 = v10;
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -2,8 +2,9 @@
 + (BOOL)_isRegion:(id)region onLeftOfRegion:(id)ofRegion withTolerance:(double)tolerance;
 + (id)_findSubTextFieldsInFields:(const void *)fields maxLength:(unint64_t)length minAspectRatio:(double)ratio contentTypes:(const void *)types includeNone:(BOOL)none;
 + (id)groupAndAssignStructuralContentTypesForFields:(id)fields locale:(id)locale updateExternalFields:(BOOL)externalFields;
-+ (void)_groupOrRefinePhoneNumberWithContext:(ContentTypeRefinementContext *)context shouldGroup:(BOOL)group;
++ (void)_groupCreditCardNumberWithContext:(ContentTypeRefinementContext *)context shouldGroup:(BOOL)group;
 + (void)_refineAddressTypesWithContext:(ContentTypeRefinementContext *)context;
++ (void)_refineCreditCardExpirationTypesWithContext:(ContentTypeRefinementContext *)context;
 + (void)_refineDateAndBirthdayTypesWithContext:(ContentTypeRefinementContext *)context locale:(id)locale;
 @end
 
@@ -39,14 +40,6 @@
   }
 
   return v28;
-}
-
-+ (void)_groupOrRefinePhoneNumberWithContext:(ContentTypeRefinementContext *)context shouldGroup:(BOOL)group
-{
-  __p = 0;
-  v5 = 0;
-  v6 = 0;
-  std::vector<CRFormContentType>::__init_with_size[abi:ne200100]<CRFormContentType const*,CRFormContentType const*>();
 }
 
 + (id)_findSubTextFieldsInFields:(const void *)fields maxLength:(unint64_t)length minAspectRatio:(double)ratio contentTypes:(const void *)types includeNone:(BOOL)none
@@ -178,8 +171,44 @@ LABEL_41:
 + (void)_refineDateAndBirthdayTypesWithContext:(ContentTypeRefinementContext *)context locale:(id)locale
 {
   localeCopy = locale;
-  +[CRFormContentTypeUtilities contentTypeIsBirthdayComponent:](CRFormContentTypeUtilities, "contentTypeIsBirthdayComponent:", [*(*(context->var1 + 1) + 16) textContentType]);
-  std::vector<CRFormContentType>::__init_with_size[abi:ne200100]<CRFormContentType const*,CRFormContentType const*>();
+  v6 = +[CRFormContentTypeUtilities contentTypeIsBirthdayComponent:](CRFormContentTypeUtilities, "contentTypeIsBirthdayComponent:", [*(*(context->var1 + 1) + 16) textContentType]);
+  if (v6)
+  {
+    v7 = &_ZGRZ74__CRFormContentTypeRefiner__refineDateAndBirthdayTypesWithContext_locale__E14kBirthdayTypes_;
+  }
+
+  else
+  {
+    v7 = _ZGRZ74__CRFormContentTypeRefiner__refineDateAndBirthdayTypesWithContext_locale__E10kDateTypes_;
+  }
+
+  if (v6)
+  {
+    v8 = &_ZGRZ72__CRFormContentTypeRefiner__refineCreditCardExpirationTypesWithContext__E11kCCExpTypes_;
+  }
+
+  else
+  {
+    v8 = &_ZGRZ74__CRFormContentTypeRefiner__refineDateAndBirthdayTypesWithContext_locale__E14kBirthdayTypes_;
+  }
+
+  memset(__p, 0, sizeof(__p));
+  std::vector<CRFormContentType>::__init_with_size[abi:ne200100]<CRFormContentType const*,CRFormContentType const*>(__p, v7, v8, 4);
+}
+
++ (void)_groupCreditCardNumberWithContext:(ContentTypeRefinementContext *)context shouldGroup:(BOOL)group
+{
+  v6 = *MEMORY[0x1E69E9840];
+  textContentType = [*(*(context->var1 + 1) + 16) textContentType];
+  memset(__p, 0, sizeof(__p));
+  std::vector<CRFormContentType>::__init_with_size[abi:ne200100]<CRFormContentType const*,CRFormContentType const*>(__p, &textContentType, &v6, 1);
+}
+
++ (void)_refineCreditCardExpirationTypesWithContext:(ContentTypeRefinementContext *)context
+{
+  [*(*(context->var1 + 1) + 16) textContentType];
+  memset(__p, 0, sizeof(__p));
+  std::vector<CRFormContentType>::__init_with_size[abi:ne200100]<CRFormContentType const*,CRFormContentType const*>(__p, _ZGRZ72__CRFormContentTypeRefiner__refineCreditCardExpirationTypesWithContext__E11kCCExpTypes_, &qword_1B42AF6A0, 3);
 }
 
 + (void)_refineAddressTypesWithContext:(ContentTypeRefinementContext *)context

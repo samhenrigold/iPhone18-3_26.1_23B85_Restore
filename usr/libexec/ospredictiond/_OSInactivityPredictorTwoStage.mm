@@ -2,12 +2,90 @@
 + (id)alternatePredictor;
 + (id)evaluator;
 + (id)predictor;
+- (_OSInactivityPredictorTwoStage)initWithAlternateModel:(BOOL)model inEvaluationMode:(BOOL)mode;
 - (id)longInactivityPredictionResultAtDate:(id)date withLockHistory:(id)history withOptions:(int64_t)options withError:(id *)error;
 - (id)longInactivityPredictionResultAtDate:(id)date withTimeSinceInactive:(double)inactive withOptions:(int64_t)options withError:(id *)error;
 - (void)updateTrialParameters:(BOOL)parameters;
 @end
 
 @implementation _OSInactivityPredictorTwoStage
+
+- (_OSInactivityPredictorTwoStage)initWithAlternateModel:(BOOL)model inEvaluationMode:(BOOL)mode
+{
+  modeCopy = mode;
+  modelCopy = model;
+  v25.receiver = self;
+  v25.super_class = _OSInactivityPredictorTwoStage;
+  v6 = [(_OSInactivityPredictor *)&v25 init];
+  if (v6)
+  {
+    if (modeCopy)
+    {
+      v7 = "inactivity.twoStageEvaluator";
+    }
+
+    else
+    {
+      v7 = "inactivity.twoStagePredictor";
+    }
+
+    v8 = os_log_create("com.apple.osintelligence", v7);
+    v9 = *(v6 + 14);
+    *(v6 + 14) = v8;
+
+    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v11 = dispatch_queue_create("com.apple.osintelligence.queue", v10);
+    v12 = *(v6 + 15);
+    *(v6 + 15) = v11;
+
+    v13 = +[NSDate distantPast];
+    v14 = *(v6 + 16);
+    *(v6 + 16) = v13;
+
+    if (os_log_type_enabled(*(v6 + 14), OS_LOG_TYPE_DEBUG))
+    {
+      sub_10005BF28();
+    }
+
+    if (modelCopy)
+    {
+      v15 = @"twoStageXGB_v3_alt";
+    }
+
+    else
+    {
+      v15 = @"twoStageXGB_v3";
+    }
+
+    [v6 setPredictorType:v15];
+    [v6 setQueryingMechanism:@"single"];
+    [v6 setRequireEnoughHistory:1];
+    if (os_log_type_enabled(*(v6 + 14), OS_LOG_TYPE_DEBUG))
+    {
+      sub_10005A7A8();
+    }
+
+    v16 = [TRIClient clientWithIdentifier:293];
+    v17 = *(v6 + 13);
+    *(v6 + 13) = v16;
+
+    [v6 updateTrialParameters:modelCopy];
+    objc_initWeak(&location, v6);
+    v18 = *(v6 + 13);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10001DAF4;
+    v21[3] = &unk_100094E38;
+    objc_copyWeak(&v22, &location);
+    v23 = modelCopy;
+    v19 = [v18 addUpdateHandlerForNamespaceName:@"COREOS_PREDICTION_INACTIVITY" usingBlock:v21];
+    [v6 setConfidenceThresholdRelaxed:0.5];
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&location);
+  }
+
+  return v6;
+}
 
 - (void)updateTrialParameters:(BOOL)parameters
 {

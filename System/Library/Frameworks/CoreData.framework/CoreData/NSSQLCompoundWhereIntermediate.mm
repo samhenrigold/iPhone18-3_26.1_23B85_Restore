@@ -61,33 +61,33 @@
 
 - (NSSQLCompoundWhereIntermediate)initWithPredicate:(id)predicate inScope:(id)scope inContext:(id)context
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = NSSQLCompoundWhereIntermediate;
-  v6 = [(NSSQLWhereIntermediate *)&v21 initWithPredicate:predicate inScope:scope];
+  v22 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = NSSQLCompoundWhereIntermediate;
+  v6 = [(NSSQLWhereIntermediate *)&v20 initWithPredicate:predicate inScope:scope];
   if (v6)
   {
     v6->_subclauses = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     subpredicates = [(NSPredicate *)v6->super._predicate subpredicates];
-    v8 = [subpredicates countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [subpredicates countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -111,17 +111,16 @@
 LABEL_15:
             if (![context objectForKey:@"NSUnderlyingException"])
             {
-              [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Problem with subpredicate %@", v12), 0), @"NSUnderlyingException"}];
+              [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12), 0), @"NSUnderlyingException"}];
             }
 
-            v6 = 0;
-            goto LABEL_18;
+            return 0;
           }
 
           [(NSMutableArray *)v6->_subclauses addObject:v13];
         }
 
-        v9 = [subpredicates countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v9 = [subpredicates countByEnumeratingWithState:&v16 objects:v21 count:16];
         if (v9)
         {
           continue;
@@ -132,8 +131,6 @@ LABEL_15:
     }
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -223,7 +220,7 @@ LABEL_20:
 
   if (compoundPredicateType)
   {
-    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unknown compound predicate type %@", self->super._predicate), 0), @"NSUnderlyingException"}];
+    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->super._predicate), 0), @"NSUnderlyingException"}];
     goto LABEL_22;
   }
 
@@ -247,10 +244,7 @@ LABEL_22:
 
   if (![context objectForKey:@"NSUnderlyingException"])
   {
-    v19 = MEMORY[0x1E695DF30];
-    v20 = *MEMORY[0x1E695D940];
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to generate compound where clause for predicate (%@) (unknown problem)", self->super._predicate];
-    [context setObject:objc_msgSend(v19 forKey:{"exceptionWithName:reason:userInfo:", v20, v21, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", self->super._predicate, @"predicate", @"NSUnderlyingException"}];
+    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->super._predicate), objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", self->super._predicate, @"predicate", @"NSUnderlyingException"}];
   }
 
   return 0;

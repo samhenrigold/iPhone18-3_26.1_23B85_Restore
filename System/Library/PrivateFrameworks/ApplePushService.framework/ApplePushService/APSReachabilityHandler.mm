@@ -3,6 +3,7 @@
 - (unsigned)currentFlags;
 - (void)disable;
 - (void)enable;
+- (void)noteReachabilityChange:(unsigned int)change;
 - (void)raiseReachabilityChange;
 @end
 
@@ -73,6 +74,88 @@
   self->_pendingReachabilityChange = 0;
   SCNetworkReachabilityGetFlags(self->_connectionReachability, &flags);
   [(APSReachabilityHandler *)self noteReachabilityChange:flags];
+}
+
+- (void)noteReachabilityChange:(unsigned int)change
+{
+  v3 = *&change;
+  +[NSDate timeIntervalSinceReferenceDate];
+  v6 = v5;
+  lastReachabilityFlags = self->_lastReachabilityFlags;
+  v8 = +[APSLog courier];
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (lastReachabilityFlags == v3)
+  {
+    if (v9)
+    {
+      *buf = 138412546;
+      selfCopy4 = self;
+      v19 = 1024;
+      v20 = v3;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@: network reachability hasn't changed, still 0x%02x", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    if (v9)
+    {
+      v10 = self->_lastReachabilityFlags;
+      *buf = 138412802;
+      selfCopy4 = self;
+      v19 = 1024;
+      v20 = v3;
+      v21 = 1024;
+      v22 = v10;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@: network reachability changed to 0x%02x (from 0x%02x)", buf, 0x18u);
+    }
+
+    self->_lastReachabilityFlags = v3;
+  }
+
+  if (self->_pendingReachabilityChange)
+  {
+    v11 = +[APSLog courier];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      selfCopy4 = self;
+      v19 = 1024;
+      v20 = v3;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Rate limiting network reachability change events, ignoring 0x%02x", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    v12 = v6 - self->_lastReachabilityChangeHandled;
+    if (v12 >= 3.0 || v12 < 0.0)
+    {
+      self->_lastReachabilityChangeHandled = v6;
+      reachabilityBlock = [(APSReachabilityHandler *)self reachabilityBlock];
+      reachabilityBlock[2](reachabilityBlock, v3);
+    }
+
+    else
+    {
+      v13 = +[APSLog courier];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        selfCopy4 = self;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@: Rate limiting network reachability change events, rescheduling event", buf, 0xCu);
+      }
+
+      self->_pendingReachabilityChange = 1;
+      v14 = dispatch_time(0, 3000000000);
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000859E4;
+      block[3] = &unk_100186D90;
+      block[4] = self;
+      dispatch_after(v14, &_dispatch_main_q, block);
+    }
+  }
 }
 
 @end

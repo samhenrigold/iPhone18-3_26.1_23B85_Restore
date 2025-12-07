@@ -14,9 +14,9 @@
     +[NSCharacterSet(SafariCoreExtras) safari_lockRelatedEmojiCharacterSet];
   }
 
-  v1 = safari_lockRelatedEmojiCharacterSet_emojiRelatedToLocks;
+  v2 = safari_lockRelatedEmojiCharacterSet_emojiRelatedToLocks;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_whitespaceAndNewlineCharacterSet
@@ -38,22 +38,20 @@
     +[NSCharacterSet(SafariCoreExtras) safari_asciiDigitCharacterSet];
   }
 
-  v1 = safari_asciiDigitCharacterSet_asciiDigitCharacterSet;
+  v2 = safari_asciiDigitCharacterSet_asciiDigitCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)safari_obscuredPasswordCharacterSets
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"*"];
   v1 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@".", v0}];
-  v6[1] = v1;
+  v5[1] = v1;
   v2 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"•"];
-  v6[2] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[2] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
 
   return v3;
 }

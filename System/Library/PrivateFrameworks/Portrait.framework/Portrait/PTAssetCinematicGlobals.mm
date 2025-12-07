@@ -62,7 +62,7 @@
 
   if (readerCopy)
   {
-    [readerCopy frameDuration];
+    objc_msgSend_frameDuration(readerCopy);
   }
 
   else

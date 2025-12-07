@@ -28,8 +28,7 @@
 
   [(NSXPCConnection *)self->_connectionToServer setInterruptionHandler:&__block_literal_global_10];
   [(NSXPCConnection *)self->_connectionToServer setInvalidationHandler:&__block_literal_global_16];
-  [(NSXPCConnection *)self->_connectionToServer resume];
-  v14 = logHandle();
+  v14 = logHandle([(NSXPCConnection *)self->_connectionToServer resume]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -41,12 +40,12 @@
   return v15;
 }
 
-void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_14()
+void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_14(uint64_t a1)
 {
-  v0 = logHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = logHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_14_cold_1(v0);
+    __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_14_cold_1(v1);
   }
 }
 
@@ -85,7 +84,7 @@ void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_14()
 
   else
   {
-    createXPCConnection = logHandle();
+    createXPCConnection = logHandle(0);
     if (os_log_type_enabled(createXPCConnection, OS_LOG_TYPE_DEBUG))
     {
       [PerfPowerServicesReaderHelper postDataRequest:createXPCConnection outError:?];
@@ -101,35 +100,36 @@ void __58__PerfPowerServicesReaderHelper_postDataRequest_outError___block_invoke
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = logHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = logHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __58__PerfPowerServicesReaderHelper_postDataRequest_outError___block_invoke_cold_1(v6, v7);
+      __58__PerfPowerServicesReaderHelper_postDataRequest_outError___block_invoke_cold_1(v7, v8);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
 
-  v8 = *(*(a1 + 40) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
 }
 
-void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke()
+void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke(uint64_t a1)
 {
-  v0 = logHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = logHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_cold_1(v0);
+    __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_cold_1(v1);
   }
 }
 
 void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_17(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = logHandle();
+  v3 = logHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_17_cold_1(v2, v3);
@@ -138,37 +138,32 @@ void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_17(ui
 
 - (void)postDataRequest:(os_log_t)log outError:.cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[PerfPowerServicesReaderHelper postDataRequest:outError:]";
-  v4 = 2112;
-  v5 = @"Empty request";
-  _os_log_debug_impl(&dword_25E225000, log, OS_LOG_TYPE_DEBUG, "(%s) %@", &v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[PerfPowerServicesReaderHelper postDataRequest:outError:]";
+  v3 = 2112;
+  v4 = @"Empty request";
+  _os_log_debug_impl(&dword_25E225000, log, OS_LOG_TYPE_DEBUG, "(%s) %@", &v1, 0x16u);
 }
 
 void __58__PerfPowerServicesReaderHelper_postDataRequest_outError___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 136315394;
-  v6 = "[PerfPowerServicesReaderHelper postDataRequest:outError:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "(%s) Error while processing request: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[PerfPowerServicesReaderHelper postDataRequest:outError:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "(%s) Error while processing request: %@", &v4, 0x16u);
 }
 
 void __52__PerfPowerServicesReaderHelper_createXPCConnection__block_invoke_17_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_25E225000, a2, OS_LOG_TYPE_ERROR, "Connection error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_25E225000, a2, OS_LOG_TYPE_ERROR, "Connection error: %@", &v4, 0xCu);
 }
 
 @end

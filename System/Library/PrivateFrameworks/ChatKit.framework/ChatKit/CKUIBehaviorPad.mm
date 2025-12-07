@@ -261,7 +261,7 @@ void __24__CKUIBehaviorPad_theme__block_invoke()
   return canShowContactPhotosInConversationList_sBehavior_6182;
 }
 
-uint64_t __57__CKUIBehaviorPad_canShowContactPhotosInConversationList__block_invoke(uint64_t a1)
+void *__57__CKUIBehaviorPad_canShowContactPhotosInConversationList__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) conversationListCellUsesLargeTextLayout];
   canShowContactPhotosInConversationList_sBehavior_6182 = result ^ 1;
@@ -313,7 +313,7 @@ uint64_t __57__CKUIBehaviorPad_canShowContactPhotosInConversationList__block_inv
   return shouldUnreadIndicatorChangeOnSelection_sBehavior_6196;
 }
 
-uint64_t __57__CKUIBehaviorPad_shouldUnreadIndicatorChangeOnSelection__block_invoke(uint64_t a1)
+void *__57__CKUIBehaviorPad_shouldUnreadIndicatorChangeOnSelection__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldUnreadIndicatorChangeOnSelection];
   shouldUnreadIndicatorChangeOnSelection_sBehavior_6196 = result;
@@ -721,7 +721,7 @@ double __45__CKUIBehaviorPad_searchPhotosThumbnailWidth__block_invoke(uint64_t a
   return *&searchLinksThumbnailWidth_sBehavior_6299;
 }
 
-uint64_t __44__CKUIBehaviorPad_searchLinksThumbnailWidth__block_invoke(uint64_t a1)
+void *__44__CKUIBehaviorPad_searchLinksThumbnailWidth__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) maxConversationListWidth];
   searchLinksThumbnailWidth_sBehavior_6299 = v2;

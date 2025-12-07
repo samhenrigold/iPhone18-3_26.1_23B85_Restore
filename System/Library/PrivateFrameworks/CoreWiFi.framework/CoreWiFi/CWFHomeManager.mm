@@ -23,12 +23,12 @@
 
 - (BOOL)initHomeManagerInstance
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   sub_1E0D32224();
   if (!objc_opt_class())
   {
-    v21 = CWFGetOSLog();
-    if (v21)
+    v20 = CWFGetOSLog();
+    if (v20)
     {
       defaultPrivateConfiguration = CWFGetOSLog();
     }
@@ -36,18 +36,18 @@
     else
     {
       defaultPrivateConfiguration = MEMORY[0x1E69E9C10];
-      v22 = MEMORY[0x1E69E9C10];
+      v21 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(defaultPrivateConfiguration, OS_LOG_TYPE_ERROR))
     {
-      *v29 = 136446722;
-      *&v29[4] = "[CWFHomeManager initHomeManagerInstance]";
-      *&v29[12] = 2082;
-      *&v29[14] = "CWFHomeManager.m";
-      *&v29[22] = 1024;
-      LODWORD(v30) = 90;
-      _os_log_send_and_compose_impl();
+      *v28 = 136446722;
+      *&v28[4] = "[CWFHomeManager initHomeManagerInstance]";
+      *&v28[12] = 2082;
+      *&v28[14] = "CWFHomeManager.m";
+      *&v28[22] = 1024;
+      LODWORD(v29) = 90;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, defaultPrivateConfiguration, 16, "[corewifi] %{public}s (%{public}s:%u) HomeManager instance not available", v28, 28);
     }
 
     v4 = 0;
@@ -58,53 +58,53 @@
 
   if (!_homeManager)
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2050000000;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2050000000;
     v5 = qword_1ED7E3A30;
-    v28 = qword_1ED7E3A30;
+    v27 = qword_1ED7E3A30;
     if (!qword_1ED7E3A30)
     {
-      *v29 = MEMORY[0x1E69E9820];
-      *&v29[8] = 3221225472;
-      *&v29[16] = sub_1E0D33FB8;
-      v30 = &unk_1E86E5600;
-      v31 = &v25;
+      *v28 = MEMORY[0x1E69E9820];
+      *&v28[8] = 3221225472;
+      *&v28[16] = sub_1E0D33FB8;
+      v29 = &unk_1E86E5600;
+      v30 = &v24;
       sub_1E0D33E74();
       Class = objc_getClass("HMFLocationAuthorization");
-      *(v31[1] + 24) = Class;
-      qword_1ED7E3A30 = *(v31[1] + 24);
-      v5 = v26[3];
+      *(v30[1] + 24) = Class;
+      qword_1ED7E3A30 = *(v30[1] + 24);
+      v5 = v25[3];
     }
 
     v7 = v5;
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
     v8 = [v5 alloc];
     v9 = [MEMORY[0x1E696AAE8] bundleWithPath:@"/System/Library/PrivateFrameworks/MobileWiFi.framework"];
     v10 = [v8 initWithBundle:v9];
     [(CWFHomeManager *)self set_homeLocationAuthorization:v10];
 
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2050000000;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2050000000;
     v11 = qword_1ED7E3A38;
-    v28 = qword_1ED7E3A38;
+    v27 = qword_1ED7E3A38;
     if (!qword_1ED7E3A38)
     {
-      *v29 = MEMORY[0x1E69E9820];
-      *&v29[8] = 3221225472;
-      *&v29[16] = sub_1E0D34008;
-      v30 = &unk_1E86E5600;
-      v31 = &v25;
+      *v28 = MEMORY[0x1E69E9820];
+      *&v28[8] = 3221225472;
+      *&v28[16] = sub_1E0D34008;
+      v29 = &unk_1E86E5600;
+      v30 = &v24;
       sub_1E0D33E74();
       v12 = objc_getClass("HMMutableHomeManagerConfiguration");
-      *(v31[1] + 24) = v12;
-      qword_1ED7E3A38 = *(v31[1] + 24);
-      v11 = v26[3];
+      *(v30[1] + 24) = v12;
+      qword_1ED7E3A38 = *(v30[1] + 24);
+      v11 = v25[3];
     }
 
     v13 = v11;
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
     defaultPrivateConfiguration = [v11 defaultPrivateConfiguration];
     [defaultPrivateConfiguration setOptions:576];
     [defaultPrivateConfiguration setAdaptive:1];
@@ -126,8 +126,8 @@
 
     else
     {
-      v23 = CWFGetOSLog();
-      if (v23)
+      v22 = CWFGetOSLog();
+      if (v22)
       {
         _homeManager3 = CWFGetOSLog();
       }
@@ -135,38 +135,35 @@
       else
       {
         _homeManager3 = MEMORY[0x1E69E9C10];
-        v24 = MEMORY[0x1E69E9C10];
+        v23 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(_homeManager3, OS_LOG_TYPE_ERROR))
       {
-        *v29 = 136446722;
-        *&v29[4] = "[CWFHomeManager initHomeManagerInstance]";
-        *&v29[12] = 2082;
-        *&v29[14] = "CWFHomeManager.m";
-        *&v29[22] = 1024;
-        LODWORD(v30) = 103;
-        _os_log_send_and_compose_impl();
+        *v28 = 136446722;
+        *&v28[4] = "[CWFHomeManager initHomeManagerInstance]";
+        *&v28[12] = 2082;
+        *&v28[14] = "CWFHomeManager.m";
+        *&v28[22] = 1024;
+        LODWORD(v29) = 103;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, _homeManager3, 16, "[corewifi] %{public}s (%{public}s:%u) null _homeManager", v28, 28, v24);
       }
     }
 
 LABEL_11:
-    goto LABEL_12;
+    return v4;
   }
 
-  v4 = 0;
-LABEL_12:
-  v19 = *MEMORY[0x1E69E9840];
-  return v4;
+  return 0;
 }
 
 - (CWFHomeManager)initWithDelegate:(id)delegate
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
-  v25.receiver = self;
-  v25.super_class = CWFHomeManager;
-  v5 = [(CWFHomeManager *)&v25 init];
+  v23.receiver = self;
+  v23.super_class = CWFHomeManager;
+  v5 = [(CWFHomeManager *)&v23 init];
   if (v5)
   {
     v6 = dispatch_queue_create("com.apple.wifi.CWFHomeManager", 0);
@@ -202,19 +199,17 @@ LABEL_12:
 
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = 136446722;
-          v27 = "[CWFHomeManager initWithDelegate:]";
-          v28 = 2082;
-          v29 = "CWFHomeManager.m";
-          v30 = 1024;
-          v31 = 131;
-          LODWORD(v24) = 28;
-          v23 = &v26;
-          _os_log_send_and_compose_impl();
+          v24 = 136446722;
+          v25 = "[CWFHomeManager initWithDelegate:]";
+          v26 = 2082;
+          v27 = "CWFHomeManager.m";
+          v28 = 1024;
+          v29 = 131;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 0, "[corewifi] %{public}s (%{public}s:%u) unable to register for events", &v24, 28);
         }
       }
 
-      if ([(CWFHomeManager *)v5 initHomeManagerInstance:v23])
+      if ([(CWFHomeManager *)v5 initHomeManagerInstance])
       {
         _homeManager = [(CWFHomeManager *)v5 _homeManager];
         v16 = [_homeManager _beginActiveAssertionWithReason:@"com.apple.wifi.HMNotificationAssertion"];
@@ -224,8 +219,8 @@ LABEL_12:
       else
       {
 
-        v20 = CWFGetOSLog();
-        if (v20)
+        v19 = CWFGetOSLog();
+        if (v19)
         {
           _homeManager = CWFGetOSLog();
         }
@@ -233,18 +228,19 @@ LABEL_12:
         else
         {
           _homeManager = MEMORY[0x1E69E9C10];
-          v22 = MEMORY[0x1E69E9C10];
+          v21 = MEMORY[0x1E69E9C10];
         }
 
         if (os_log_type_enabled(_homeManager, OS_LOG_TYPE_ERROR))
         {
-          v26 = 136446722;
-          v27 = "[CWFHomeManager initWithDelegate:]";
-          v28 = 2082;
-          v29 = "CWFHomeManager.m";
-          v30 = 1024;
-          v31 = 136;
-          _os_log_send_and_compose_impl();
+          v24 = 136446722;
+          v25 = "[CWFHomeManager initWithDelegate:]";
+          v26 = 2082;
+          v27 = "CWFHomeManager.m";
+          v28 = 1024;
+          v29 = 136;
+          LODWORD(v22) = 28;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, _homeManager, 16, "[corewifi] %{public}s (%{public}s:%u) unable to create HomeManager", &v24, v22);
         }
 
         v5 = 0;
@@ -253,8 +249,8 @@ LABEL_12:
 
     else
     {
-      v19 = CWFGetOSLog();
-      if (v19)
+      v18 = CWFGetOSLog();
+      if (v18)
       {
         v11 = CWFGetOSLog();
       }
@@ -262,18 +258,17 @@ LABEL_12:
       else
       {
         v11 = MEMORY[0x1E69E9C10];
-        v21 = MEMORY[0x1E69E9C10];
+        v20 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v26) = 0;
-        _os_log_send_and_compose_impl();
+        LOWORD(v24) = 0;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 0, "[corewifi] Trying to register with NULL delegate", &v24, 2);
       }
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -305,7 +300,7 @@ LABEL_12:
 
 - (int)createServiceObjectFor:(int64_t)for withParams:(id)params andAccessory:(id)accessory
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   if (for == 1)
   {
@@ -316,17 +311,17 @@ LABEL_12:
     if (v11)
     {
       _serviceQueue = [(CWFHomeManager *)self _serviceQueue];
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 3221225472;
-      block[2] = sub_1E0D32BD0;
-      block[3] = &unk_1E86E6B18;
+      block = MEMORY[0x1E69E9820];
+      v31 = 3221225472;
+      v32 = sub_1E0D32BD0;
+      v33 = &unk_1E86E6B18;
       v13 = v11;
-      v31 = v13;
+      v34 = v13;
       v14 = accessoryCopy;
-      v32 = v14;
+      v35 = v14;
       selfCopy = self;
-      v34 = 1;
-      dispatch_async(_serviceQueue, block);
+      v37 = 1;
+      dispatch_async(_serviceQueue, &block);
 
       _serviceObjects = [(CWFHomeManager *)self _serviceObjects];
       uniqueIdentifier = [v14 uniqueIdentifier];
@@ -350,27 +345,27 @@ LABEL_12:
       {
         uniqueIdentifier2 = [v14 uniqueIdentifier];
         _serviceObjects2 = [(CWFHomeManager *)self _serviceObjects];
-        v35 = 136447234;
-        v36 = "[CWFHomeManager createServiceObjectFor:withParams:andAccessory:]";
-        v37 = 2082;
-        v38 = "CWFHomeManager.m";
-        v39 = 1024;
-        v40 = 178;
-        v41 = 2114;
-        v42 = uniqueIdentifier2;
-        v43 = 2114;
-        v44 = _serviceObjects2;
-        _os_log_send_and_compose_impl();
+        v38 = 136447234;
+        v39 = "[CWFHomeManager createServiceObjectFor:withParams:andAccessory:]";
+        v40 = 2082;
+        v41 = "CWFHomeManager.m";
+        v42 = 1024;
+        v43 = 178;
+        v44 = 2114;
+        v45 = uniqueIdentifier2;
+        v46 = 2114;
+        v47 = _serviceObjects2;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 0, "[corewifi] %{public}s (%{public}s:%u) Successfully added service object for UUID %{public}@, %{public}@", &v38, 48, block, v31, v32, v33);
       }
 
       v21 = 0;
-      v25 = v31;
+      v25 = v34;
     }
 
     else
     {
-      v28 = CWFGetOSLog();
-      if (v28)
+      v27 = CWFGetOSLog();
+      if (v27)
       {
         v25 = CWFGetOSLog();
       }
@@ -378,20 +373,21 @@ LABEL_12:
       else
       {
         v25 = MEMORY[0x1E69E9C10];
-        v29 = MEMORY[0x1E69E9C10];
+        v28 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [accessoryCopy uniqueIdentifier];
-        v35 = 136446978;
-        v36 = "[CWFHomeManager createServiceObjectFor:withParams:andAccessory:]";
-        v37 = 2082;
-        v38 = "CWFHomeManager.m";
-        v39 = 1024;
-        v40 = 165;
-        v42 = v41 = 2114;
-        _os_log_send_and_compose_impl();
+        uniqueIdentifier3 = [accessoryCopy uniqueIdentifier];
+        v38 = 136446978;
+        v39 = "[CWFHomeManager createServiceObjectFor:withParams:andAccessory:]";
+        v40 = 2082;
+        v41 = "CWFHomeManager.m";
+        v42 = 1024;
+        v43 = 165;
+        v44 = 2114;
+        v45 = uniqueIdentifier3;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to create service for UUID %{public}@", &v38, 38);
       }
 
       v21 = -3931;
@@ -403,7 +399,6 @@ LABEL_12:
     v21 = -3900;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -457,20 +452,18 @@ LABEL_12:
       v45 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_67;
+      v71 = 136446722;
+      v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+      v73 = 2082;
+      v74 = "CWFHomeManager.m";
+      v75 = 1024;
+      v76 = 225;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, homes, 0, "[corewifi] %{public}s (%{public}s:%u) No homeManager present present", &v71, 28);
     }
 
-    v71 = 136446722;
-    v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-    v73 = 2082;
-    v74 = "CWFHomeManager.m";
-    v75 = 1024;
-    v76 = 225;
-LABEL_66:
-    _os_log_send_and_compose_impl();
-    goto LABEL_67;
+    goto LABEL_65;
   }
 
   _delegate = [(CWFHomeManager *)self _delegate];
@@ -489,18 +482,18 @@ LABEL_66:
       v46 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_67;
+      v71 = 136446722;
+      v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+      v73 = 2082;
+      v74 = "CWFHomeManager.m";
+      v75 = 1024;
+      v76 = 230;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, homes, 0, "[corewifi] %{public}s (%{public}s:%u) No delegate present", &v71, 28);
     }
 
-    v71 = 136446722;
-    v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-    v73 = 2082;
-    v74 = "CWFHomeManager.m";
-    v75 = 1024;
-    v76 = 230;
-    goto LABEL_66;
+    goto LABEL_65;
   }
 
   if (![(CWFHomeManager *)self _isHomeInformationAvailable])
@@ -517,18 +510,18 @@ LABEL_66:
       v47 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_67;
+      v71 = 136446722;
+      v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+      v73 = 2082;
+      v74 = "CWFHomeManager.m";
+      v75 = 1024;
+      v76 = 235;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, homes, 0, "[corewifi] %{public}s (%{public}s:%u) Home information not updated", &v71, 28);
     }
 
-    v71 = 136446722;
-    v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-    v73 = 2082;
-    v74 = "CWFHomeManager.m";
-    v75 = 1024;
-    v76 = 235;
-    goto LABEL_66;
+    goto LABEL_65;
   }
 
   if (!changeCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -545,18 +538,18 @@ LABEL_66:
       v44 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_82;
+      v71 = 136446722;
+      v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+      v73 = 2082;
+      v74 = "CWFHomeManager.m";
+      v75 = 1024;
+      v76 = 240;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, homes, 0, "[corewifi] %{public}s (%{public}s:%u) Invalid accessory UUID", &v71, 28);
     }
 
-    v71 = 136446722;
-    v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-    v73 = 2082;
-    v74 = "CWFHomeManager.m";
-    v75 = 1024;
-    v76 = 240;
-    goto LABEL_81;
+    goto LABEL_79;
   }
 
   if (!paramsCopy)
@@ -570,21 +563,21 @@ LABEL_66:
     else
     {
       homes = MEMORY[0x1E69E9C10];
-      v54 = MEMORY[0x1E69E9C10];
+      v53 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_82;
+      v71 = 136446722;
+      v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+      v73 = 2082;
+      v74 = "CWFHomeManager.m";
+      v75 = 1024;
+      v76 = 245;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, homes, 0, "[corewifi] %{public}s (%{public}s:%u) Invalid params dictionary", &v71, 28);
     }
 
-    v71 = 136446722;
-    v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-    v73 = 2082;
-    v74 = "CWFHomeManager.m";
-    v75 = 1024;
-    v76 = 245;
-    goto LABEL_81;
+    goto LABEL_79;
   }
 
   if (type >= 2)
@@ -598,25 +591,23 @@ LABEL_66:
     else
     {
       homes = MEMORY[0x1E69E9C10];
-      v55 = MEMORY[0x1E69E9C10];
+      v54 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(homes, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_82;
+      v71 = 136446722;
+      v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+      v73 = 2082;
+      v74 = "CWFHomeManager.m";
+      v75 = 1024;
+      v76 = 250;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, homes, 0, "[corewifi] %{public}s (%{public}s:%u) Invalid CWFHM service type", &v71, 28);
     }
 
-    v71 = 136446722;
-    v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-    v73 = 2082;
-    v74 = "CWFHomeManager.m";
-    v75 = 1024;
-    v76 = 250;
-LABEL_81:
-    _os_log_send_and_compose_impl();
-LABEL_82:
+LABEL_79:
     v48 = -3900;
-    goto LABEL_68;
+    goto LABEL_66;
   }
 
   typeCopy = type;
@@ -630,18 +621,18 @@ LABEL_82:
   v62 = [homes countByEnumeratingWithState:&v67 objects:v80 count:16];
   if (!v62)
   {
-LABEL_67:
+LABEL_65:
     v48 = -3931;
-LABEL_68:
+LABEL_66:
     v59 = v48;
-    goto LABEL_69;
+    goto LABEL_67;
   }
 
   v61 = *v68;
   v59 = -3931;
   obj = homes;
   v57 = changeCopy;
-  do
+  while (2)
   {
     for (i = 0; i != v62; ++i)
     {
@@ -657,125 +648,126 @@ LABEL_68:
       v66 = 0u;
       accessories = [v14 accessories];
       v16 = [accessories countByEnumeratingWithState:&v63 objects:v79 count:16];
-      if (!v16)
+      if (v16)
       {
-        goto LABEL_27;
-      }
-
-      v17 = v16;
-      v18 = *v64;
-      while (2)
-      {
-        for (j = 0; j != v17; ++j)
+        v17 = v16;
+        v18 = *v64;
+LABEL_15:
+        v19 = 0;
+        while (1)
         {
           if (*v64 != v18)
           {
             objc_enumerationMutation(accessories);
           }
 
-          v20 = *(*(&v63 + 1) + 8 * j);
+          v20 = *(*(&v63 + 1) + 8 * v19);
           uniqueIdentifier = [v20 uniqueIdentifier];
           v22 = [changeCopy isEqual:uniqueIdentifier];
 
           if (v22)
           {
-            _serviceObjects = [(CWFHomeManager *)self _serviceObjects];
-            v24 = [_serviceObjects objectForKey:changeCopy];
+            break;
+          }
 
-            if (!v24)
+          if (v17 == ++v19)
+          {
+            v17 = [accessories countByEnumeratingWithState:&v63 objects:v79 count:16];
+            if (v17)
             {
-              _serviceObjects2 = [(CWFHomeManager *)self _serviceObjects];
-              dictionary = [MEMORY[0x1E695DF90] dictionary];
-              [_serviceObjects2 setObject:dictionary forKey:changeCopy];
+              goto LABEL_15;
             }
 
-            _serviceObjects3 = [(CWFHomeManager *)self _serviceObjects];
-            uniqueIdentifier2 = [v20 uniqueIdentifier];
-            v29 = [_serviceObjects3 objectForKey:uniqueIdentifier2];
-            v30 = [(CWFHomeManager *)self getServiceTypeStringFor:typeCopy];
-            v31 = [v29 objectForKey:v30];
-
-            if (v31)
-            {
-              v33 = CWFGetOSLog();
-              if (v33)
-              {
-                v34 = CWFGetOSLog();
-              }
-
-              else
-              {
-                v34 = MEMORY[0x1E69E9C10];
-                v36 = MEMORY[0x1E69E9C10];
-              }
-
-              homes = obj;
-              changeCopy = v57;
-
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
-              {
-                v71 = 136446722;
-                v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-                v73 = 2082;
-                v74 = "CWFHomeManager.m";
-                v75 = 1024;
-                v76 = 261;
-                goto LABEL_40;
-              }
-            }
-
-            else
-            {
-              v32 = [(CWFHomeManager *)self createServiceObjectFor:typeCopy withParams:paramsCopy andAccessory:v20];
-              if (!v32)
-              {
-                v59 = 0;
-                changeCopy = v57;
-                goto LABEL_27;
-              }
-
-              v59 = v32;
-              v35 = CWFGetOSLog();
-              changeCopy = v57;
-              if (v35)
-              {
-                v34 = CWFGetOSLog();
-              }
-
-              else
-              {
-                v34 = MEMORY[0x1E69E9C10];
-                v37 = MEMORY[0x1E69E9C10];
-              }
-
-              homes = obj;
-
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
-              {
-                v71 = 136446978;
-                v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
-                v73 = 2082;
-                v74 = "CWFHomeManager.m";
-                v75 = 1024;
-                v76 = 266;
-                v77 = 1024;
-                v78 = v59;
-LABEL_40:
-                _os_log_send_and_compose_impl();
-              }
-            }
-
-            goto LABEL_69;
+            goto LABEL_27;
           }
         }
 
-        v17 = [accessories countByEnumeratingWithState:&v63 objects:v79 count:16];
-        if (v17)
+        _serviceObjects = [(CWFHomeManager *)self _serviceObjects];
+        v24 = [_serviceObjects objectForKey:changeCopy];
+
+        if (!v24)
         {
-          continue;
+          _serviceObjects2 = [(CWFHomeManager *)self _serviceObjects];
+          dictionary = [MEMORY[0x1E695DF90] dictionary];
+          [_serviceObjects2 setObject:dictionary forKey:changeCopy];
         }
 
-        break;
+        _serviceObjects3 = [(CWFHomeManager *)self _serviceObjects];
+        uniqueIdentifier2 = [v20 uniqueIdentifier];
+        v29 = [_serviceObjects3 objectForKey:uniqueIdentifier2];
+        v30 = [(CWFHomeManager *)self getServiceTypeStringFor:typeCopy];
+        v31 = [v29 objectForKey:v30];
+
+        if (v31)
+        {
+          v33 = CWFGetOSLog();
+          if (v33)
+          {
+            v34 = CWFGetOSLog();
+          }
+
+          else
+          {
+            v34 = MEMORY[0x1E69E9C10];
+            v36 = MEMORY[0x1E69E9C10];
+          }
+
+          homes = obj;
+          changeCopy = v57;
+
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          {
+            v71 = 136446722;
+            v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+            v73 = 2082;
+            v74 = "CWFHomeManager.m";
+            v75 = 1024;
+            v76 = 261;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 0, "[corewifi] %{public}s (%{public}s:%u) Service already exists", &v71, 28);
+          }
+        }
+
+        else
+        {
+          v32 = [(CWFHomeManager *)self createServiceObjectFor:typeCopy withParams:paramsCopy andAccessory:v20];
+          if (!v32)
+          {
+            v59 = 0;
+            changeCopy = v57;
+            goto LABEL_27;
+          }
+
+          v59 = v32;
+          v35 = CWFGetOSLog();
+          changeCopy = v57;
+          if (v35)
+          {
+            v34 = CWFGetOSLog();
+          }
+
+          else
+          {
+            v34 = MEMORY[0x1E69E9C10];
+            v37 = MEMORY[0x1E69E9C10];
+          }
+
+          homes = obj;
+
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          {
+            v71 = 136446978;
+            v72 = "[CWFHomeManager registerForAccessoryStateChange:withParams:forCWFHMServiceType:]";
+            v73 = 2082;
+            v74 = "CWFHomeManager.m";
+            v75 = 1024;
+            v76 = 266;
+            v77 = 1024;
+            v78 = v59;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 0, "[corewifi] %{public}s (%{public}s:%u) Unable to trigger service creation %d", &v71, 34);
+          }
+        }
+
+        goto LABEL_67;
       }
 
 LABEL_27:
@@ -783,10 +775,15 @@ LABEL_27:
 
     homes = obj;
     v62 = [obj countByEnumeratingWithState:&v67 objects:v80 count:16];
+    if (v62)
+    {
+      continue;
+    }
+
+    break;
   }
 
-  while (v62);
-LABEL_69:
+LABEL_67:
 
   v49 = CWFGetOSLog();
   if (v49)
@@ -810,10 +807,10 @@ LABEL_69:
     v76 = 275;
     v77 = 1024;
     v78 = v59;
-    _os_log_send_and_compose_impl();
+    LODWORD(v55) = 34;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v50, 0, "[corewifi] %{public}s (%{public}s:%u) Starting with params [%d]", &v71, v55);
   }
 
-  v52 = *MEMORY[0x1E69E9840];
   return v59;
 }
 

@@ -89,13 +89,13 @@
   [(MapsRAPDebugController *)self prepareDefaultSimJanaURL];
   objc_initWeak(location, self);
   v3 = objc_alloc_init(RAPWebBundleConfigurationManager);
-  configuration = [(RAPWebBundleConfigurationManager *)v3 configuration];
+  v4 = objc_msgSend_configuration(v3);
   v29[0] = _NSConcreteStackBlock;
   v29[1] = 3221225472;
   v29[2] = sub_100B84694;
   v29[3] = &unk_101658D78;
   objc_copyWeak(&v31, location);
-  v5 = configuration;
+  v5 = v4;
   v30 = v5;
   v6 = [(MapsDebugValuesViewController *)self addSectionWithTitle:0 content:v29];
   environmentsSectionController = [(MapsRAPDebugController *)self environmentsSectionController];

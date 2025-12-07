@@ -536,7 +536,7 @@ LABEL_14:
   if (!v92)
   {
     blackImage = [*(v48 + 1624) blackImage];
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     v93 = [blackImage imageByCroppingToRect:?];
   }
 
@@ -591,7 +591,7 @@ LABEL_14:
   [v154 imageSize];
   [v154 imageSize];
   NURectNormalize();
-  [v144 extent];
+  objc_msgSend_extent(v144);
   NURectDenormalize();
   v123 = [v144 imageByCroppingToRect:?];
   [(_PIParallaxLayerStackDebugImageCollector *)self setDebugInputImage:imageCopy];

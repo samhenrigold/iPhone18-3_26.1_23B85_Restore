@@ -95,22 +95,21 @@ LABEL_10:
 
 - (void)_logErrorLog:(id)log
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CD4640];
   logCopy = log;
   currentContext = [v3 currentContext];
   v6 = [currentContext objectForKeyedSubscript:@"console"];
   v7 = [v6 objectForKeyedSubscript:@"error"];
-  v11[0] = logCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = logCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   v9 = [v7 callWithArguments:v8];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_backingObjectForJSValue:(id)value
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = [valueCopy valueForProperty:@"_backingObject"];
   if ([v5 isUndefined])
@@ -127,7 +126,7 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = toObject[1];
+    v21 = toObject[1];
   }
 
   else
@@ -135,29 +134,29 @@ LABEL_10:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v20 = v5;
-      v21 = valueCopy;
-      v22 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(toObject, "count")}];
+      v19 = v5;
+      v20 = valueCopy;
+      v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(toObject, "count")}];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       obj = toObject;
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v25;
+        v10 = *v24;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v25 != v10)
+            if (*v24 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v24 + 1) + 8 * i);
+            v12 = *(*(&v23 + 1) + 8 * i);
             v13 = objc_autoreleasePoolPush();
             v14 = [v12 objectForKeyedSubscript:@"_backingObject"];
             v15 = v14[1];
@@ -171,31 +170,29 @@ LABEL_10:
 
             else
             {
-              [v22 addObject:v14[1]];
+              [v21 addObject:v14[1]];
             }
 
             objc_autoreleasePoolPop(v13);
           }
 
-          v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v9);
       }
 
-      v5 = v20;
-      valueCopy = v21;
+      v5 = v19;
+      valueCopy = v20;
     }
 
     else
     {
-      v22 = toObject;
+      v21 = toObject;
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 @end

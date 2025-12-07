@@ -172,26 +172,13 @@ LABEL_14:
   advertisableItems = [(UASimulatorAdvertiser *)self advertisableItems];
   v4 = [advertisableItems count];
 
-  if (!v4)
-  {
-    goto LABEL_4;
-  }
-
-  v5 = +[NSMutableString string];
-  [v5 appendFormat:@"### UASimulatorAdvertiser:"];
-  advertisableItems2 = [(UASimulatorAdvertiser *)self advertisableItems];
-  firstObject = [advertisableItems2 firstObject];
-  [v5 appendFormat:@"%@", firstObject];
-
-  [v5 appendString:@"\n"];
-  if (v5)
+  if (v4 && (+[NSMutableString string](NSMutableString, "string"), v5 = objc_claimAutoreleasedReturnValue(), [v5 appendFormat:@"### UASimulatorAdvertiser:"], -[UASimulatorAdvertiser advertisableItems](self, "advertisableItems"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "firstObject"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "appendFormat:", @"%@", v7), v7, v6, objc_msgSend(v5, "appendString:", @"\n"), v5))
   {
     v8 = [v5 copy];
   }
 
   else
   {
-LABEL_4:
     v8 = 0;
   }
 

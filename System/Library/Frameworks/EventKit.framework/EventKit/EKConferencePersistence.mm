@@ -14,31 +14,31 @@
   v7 = [firstObject URL];
   v8 = [EKConferenceUtils synchronousAppTitleOnlyForURL:v7 incomplete:0];
 
-  v9 = EKBundle();
-  v10 = [v9 localizedStringForKey:@"Video Call" value:&stru_1F1B49D68 table:0];
+  v10 = EKBundle(v9);
+  v11 = [v10 localizedStringForKey:@"Video Call" value:&stru_1F1B49D68 table:0];
 
   serializationBlockTitle = [conferenceCopy serializationBlockTitle];
 
   if (v8)
   {
-    v12 = v8;
+    v13 = v8;
   }
 
   else
   {
-    v12 = v10;
+    v13 = v11;
   }
 
   if (serializationBlockTitle)
   {
-    v12 = serializationBlockTitle;
+    v13 = serializationBlockTitle;
   }
 
-  v13 = v12;
+  v14 = v13;
 
-  v14 = [MEMORY[0x1E6992F38] serializeConference:v4 serializationBlockTitle:v13];
+  v15 = [MEMORY[0x1E6992F38] serializeConference:v4 serializationBlockTitle:v14];
 
-  return v14;
+  return v15;
 }
 
 + (id)deserializeConference:(id)conference

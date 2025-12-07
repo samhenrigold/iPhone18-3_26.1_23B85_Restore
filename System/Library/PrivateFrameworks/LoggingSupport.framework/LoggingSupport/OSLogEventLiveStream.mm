@@ -12,7 +12,7 @@
 
 void __43__OSLogEventLiveStream__activateLiveStream__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (MEMORY[0x2318E23F0]() == MEMORY[0x277D86480])
   {
@@ -32,14 +32,14 @@ LABEL_16:
     }
 
     [*(*(*(a1 + 40) + 8) + 24) _unmake];
-    v12 = [*(a1 + 32) invalidationHandler];
+    v11 = [*(a1 + 32) invalidationHandler];
 
-    if (v12)
+    if (v11)
     {
-      v13 = [*(a1 + 32) invalidationHandler];
-      v14 = *(*(a1 + 32) + 80);
-      v15 = [OSLogEventStreamPosition alloc];
-      (v13)[2](v13, v14, v15);
+      v12 = [*(a1 + 32) invalidationHandler];
+      v13 = *(*(a1 + 32) + 80);
+      v14 = [OSLogEventStreamPosition alloc];
+      (v12)[2](v12, v13, v14);
 
       [*(a1 + 32) setInvalidationHandler:0];
     }
@@ -47,11 +47,11 @@ LABEL_16:
 
   else
   {
-    v20 = 0;
+    v19 = 0;
     v4 = v3;
     if (MEMORY[0x2318E23F0]() != MEMORY[0x277D86468])
     {
-      asprintf(&v20, "Not a dictionary\n");
+      asprintf(&v19, "Not a dictionary\n");
       goto LABEL_9;
     }
 
@@ -59,21 +59,21 @@ LABEL_16:
     if (MEMORY[0x2318E23F0]() != MEMORY[0x277D864C8])
     {
       v8 = xpc_copy_short_description();
-      asprintf(&v20, "Action is %s (not uint64, which was expected)\n", v8);
+      asprintf(&v19, "Action is %s (not uint64, which was expected)\n", v8);
       free(v8);
 LABEL_8:
 
 LABEL_9:
-      v9 = v20;
+      v9 = v19;
       v10 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
       if (v9)
       {
         if (v10)
         {
           *buf = 136446210;
-          v22 = v9;
+          v21 = v9;
           _os_log_error_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error with received event: %{public}s", buf, 0xCu);
-          v9 = v20;
+          v9 = v19;
         }
 
         free(v9);
@@ -89,26 +89,26 @@ LABEL_9:
     }
 
     value = xpc_uint64_get_value(v7);
-    v17 = value;
+    v16 = value;
     if (value != 6 && value != 12)
     {
-      asprintf(&v20, "Action is %llu (not %llu or %llu, which was expected)\n", value, 6, 12);
+      asprintf(&v19, "Action is %llu (not %llu or %llu, which was expected)\n", value, 6, 12);
       goto LABEL_8;
     }
 
     [*(*(*(a1 + 40) + 8) + 24) _setThreadCrumb];
-    v18 = *(a1 + 32);
-    if (v17 == 6)
+    v17 = *(a1 + 32);
+    if (v16 == 6)
     {
-      [v18 _handleStreamedObject:v4 usingProxy:*(*(*(a1 + 40) + 8) + 24)];
+      [v17 _handleStreamedObject:v4 usingProxy:*(*(*(a1 + 40) + 8) + 24)];
     }
 
     else
     {
-      v19 = v18[13];
-      if (v19)
+      v18 = v17[13];
+      if (v18)
       {
-        (*(v19 + 16))(v19, 0);
+        (*(v18 + 16))(v18, 0);
       }
     }
 
@@ -122,8 +122,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -281,7 +279,7 @@ void __34__OSLogEventLiveStream_invalidate__block_invoke(uint64_t a1)
 
 void __43__OSLogEventLiveStream__activateLiveStream__block_invoke_10(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   xdict = a2;
   if (MEMORY[0x2318E23F0]() == MEMORY[0x277D86480])
   {
@@ -298,8 +296,22 @@ void __43__OSLogEventLiveStream__activateLiveStream__block_invoke_10(uint64_t a1
 
     if (uint64 != 1)
     {
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
+      v9 = 0;
+      memset(v12, 0, sizeof(v12));
+      v6 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v7 = 3;
+      }
+
+      else
+      {
+        v7 = 2;
+      }
+
+      v10 = 134217984;
+      v11 = 0;
+      _os_log_send_and_compose_impl(v7, &v9, v12, 80, &dword_22E01A000, v6, 16, "assertion failure: error == (1ull) -> %llu", &v10);
       _os_crash_msg();
       __break(1u);
     }
@@ -312,7 +324,6 @@ void __43__OSLogEventLiveStream__activateLiveStream__block_invoke_10(uint64_t a1
 
   xpc_connection_cancel(*(*v4 + 88));
 LABEL_7:
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStreamedObject:(id)object usingProxy:(id)proxy

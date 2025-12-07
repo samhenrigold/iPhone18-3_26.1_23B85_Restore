@@ -47,36 +47,28 @@
 
 - (void)setJobLabel:(id)label
 {
-  v4 = [label copy];
-  jobLabel = self->super._jobLabel;
-  self->super._jobLabel = v4;
+  self->super._jobLabel = [label copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setExecutablePath:(id)path
 {
-  v4 = [path copy];
-  executablePath = self->super._executablePath;
-  self->super._executablePath = v4;
+  self->super._executablePath = [path copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setPath:(id)path
 {
-  v4 = [path copy];
-  path = self->super._path;
-  self->super._path = v4;
+  self->super._path = [path copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setUnderlyingAssertion:(id)assertion
 {
-  v4 = [assertion copy];
-  underlyingAssertion = self->super._underlyingAssertion;
-  self->super._underlyingAssertion = v4;
+  self->super._underlyingAssertion = [assertion copy];
 
   MEMORY[0x2821F96F8]();
 }

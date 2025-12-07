@@ -204,7 +204,7 @@ LABEL_6:
   displayCopy = display;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
-  v7 = [(NSMutableSet *)self->_lock_derivedDisplaysAwaitingConnection containsObject:displayCopy];
+  v7 = objc_msgSend_containsObject_(self->_lock_derivedDisplaysAwaitingConnection);
   [(NSMutableSet *)self->_lock_derivedDisplaysAwaitingConnection removeObject:displayCopy];
   os_unfair_lock_unlock(&self->_lock);
   if (v7)

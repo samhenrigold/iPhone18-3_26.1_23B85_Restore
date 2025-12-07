@@ -82,28 +82,8 @@
 
 - (void)beginFieldDetectTimeout
 {
-  if (self && self->_fieldDetectTimer)
+  if (self && self->_fieldDetectTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1AF58, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, stru_68.segname, v8, v25), v26 = sub_1812C(), sub_345D4(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1AF58, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, stru_68.segname, v8, v25);
-  v26 = sub_1812C();
-  sub_345D4(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     fieldDetectTimer = self->_fieldDetectTimer;
   }
 
@@ -130,44 +110,20 @@ LABEL_3:
 
 - (BOOL)isFieldDetectTimerValid
 {
-  if (!self)
+  if (!self || !self->_fieldDetectTimer)
   {
     return 0;
   }
 
-  v3 = self->_fieldDetectTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
 
 - (void)beginTagReadTimeout
 {
-  if (self && self->_tagReadTimer)
+  if (self && self->_tagReadTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1AFE8, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, &dword_1C + 2, v8, v25), v26 = sub_1812C(), sub_34768(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1AFE8, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, &dword_1C + 2, v8, v25);
-  v26 = sub_1812C();
-  sub_34768(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     tagReadTimer = self->_tagReadTimer;
   }
 
@@ -194,44 +150,20 @@ LABEL_3:
 
 - (BOOL)isTagReadTimerValid
 {
-  if (!self)
+  if (!self || !self->_tagReadTimer)
   {
     return 0;
   }
 
-  v3 = self->_tagReadTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
 
 - (void)beginMachineIdentityVerificationTimeout
 {
-  if (self && self->_machineIdentityVerificationTimer)
+  if (self && self->_machineIdentityVerificationTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B078, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, &dword_0 + 3, v8, v25), v26 = sub_1812C(), sub_348FC(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B078, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, &dword_0 + 3, v8, v25);
-  v26 = sub_1812C();
-  sub_348FC(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     machineIdentityVerificationTimer = self->_machineIdentityVerificationTimer;
   }
 
@@ -258,44 +190,20 @@ LABEL_3:
 
 - (BOOL)isMachineIdentityVerificationTimerValid
 {
-  if (!self)
+  if (!self || !self->_machineIdentityVerificationTimer)
   {
     return 0;
   }
 
-  v3 = self->_machineIdentityVerificationTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
 
 - (void)beginUserAcceptanceTimeout
 {
-  if (self && self->_userAcceptanceTimer)
+  if (self && self->_userAcceptanceTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B108, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, stru_248.segname, v8, v25), v26 = sub_1812C(), sub_34A90(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B108, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, stru_248.segname, v8, v25);
-  v26 = sub_1812C();
-  sub_34A90(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     userAcceptanceTimer = self->_userAcceptanceTimer;
   }
 
@@ -322,44 +230,20 @@ LABEL_3:
 
 - (BOOL)isUserAcceptanceTimerValid
 {
-  if (!self)
+  if (!self || !self->_userAcceptanceTimer)
   {
     return 0;
   }
 
-  v3 = self->_userAcceptanceTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
 
 - (void)beginWaitForMachineStartTimeout
 {
-  if (self && self->_waitForMachineStartTimer)
+  if (self && self->_waitForMachineStartTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B198, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, stru_68.segname, v8, v25), v26 = sub_1812C(), sub_34C24(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B198, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, stru_68.segname, v8, v25);
-  v26 = sub_1812C();
-  sub_34C24(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     waitForMachineStartTimer = self->_waitForMachineStartTimer;
   }
 
@@ -386,44 +270,20 @@ LABEL_3:
 
 - (BOOL)isWaitForMachineStartTimerValid
 {
-  if (!self)
+  if (!self || !self->_waitForMachineStartTimer)
   {
     return 0;
   }
 
-  v3 = self->_waitForMachineStartTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
 
 - (void)beginPauseTimeout
 {
-  if (self && self->_pauseTimer)
+  if (self && self->_pauseTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B228, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, stru_68.segname, v8, v25), v26 = sub_1812C(), sub_34DB8(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B228, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, stru_68.segname, v8, v25);
-  v26 = sub_1812C();
-  sub_34DB8(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     pauseTimer = self->_pauseTimer;
   }
 
@@ -450,44 +310,20 @@ LABEL_3:
 
 - (BOOL)isPauseTimerValid
 {
-  if (!self)
+  if (!self || !self->_pauseTimer)
   {
     return 0;
   }
 
-  v3 = self->_pauseTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
 
 - (void)beginDisconnectTimeout
 {
-  if (self && self->_disconnectTimer)
+  if (self && self->_disconnectTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B2B8, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, &dword_1C + 2, v8, v25), v26 = sub_1812C(), sub_34F4C(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B2B8, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, &dword_1C + 2, v8, v25);
-  v26 = sub_1812C();
-  sub_34F4C(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     disconnectTimer = self->_disconnectTimer;
   }
 
@@ -514,44 +350,20 @@ LABEL_3:
 
 - (BOOL)isDisconnectTimerValid
 {
-  if (!self)
+  if (!self || !self->_disconnectTimer)
   {
     return 0;
   }
 
-  v3 = self->_disconnectTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
 
 - (void)beginRetryConnectionTimeout
 {
-  if (self && self->_retryConnectionTimer)
+  if (self && self->_retryConnectionTimer || ((sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location), v12 = [HDFitnessMachineStateTimer alloc], !self) ? (queue = 0) : (queue = self->_queue), v14 = queue, sub_1B54C(), sub_1B598(), sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B348, &unk_5D520, v35, location), v23 = sub_1B58C(), sub_3433C(v23, v24, &stru_20.cmd + 3, v8, v25), v26 = sub_1812C(), sub_350E0(v26, v27), v12, v8, objc_destroyWeak((v9 + 32)), objc_destroyWeak(&location), self))
   {
-    goto LABEL_3;
-  }
-
-  sub_1B5C4(self, a2, v2, v3, v4, v5, v6, v7, v28, v30, v32, v33, v34, location);
-  v12 = [HDFitnessMachineStateTimer alloc];
-  v13 = self ? self->_queue : 0;
-  v14 = v13;
-  sub_1B54C();
-  sub_1B598();
-  sub_1B5F4(v15, v16, v17, v18, v19, v20, v21, v22, v29, v31, sub_1B348, &unk_5D520, v35, location);
-  v23 = sub_1B58C();
-  sub_3433C(v23, v24, &stru_20.cmd + 3, v8, v25);
-  v26 = sub_1812C();
-  sub_350E0(v26, v27);
-
-  objc_destroyWeak((v9 + 32));
-  objc_destroyWeak(&location);
-  if (self)
-  {
-LABEL_3:
     retryConnectionTimer = self->_retryConnectionTimer;
   }
 
@@ -578,16 +390,12 @@ LABEL_3:
 
 - (BOOL)isRetryConnectionTimerValid
 {
-  if (!self)
+  if (!self || !self->_retryConnectionTimer)
   {
     return 0;
   }
 
-  v3 = self->_retryConnectionTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }
@@ -653,16 +461,12 @@ LABEL_3:
 
 - (BOOL)isMfaTimerValid
 {
-  if (!self)
+  if (!self || !self->_mfaTimer)
   {
     return 0;
   }
 
-  v3 = self->_mfaTimer;
-  if (!v3)
-  {
-    return 0;
-  }
+  sub_1B570();
 
   return v2;
 }

@@ -14,18 +14,16 @@
 
 - (AXChartDescriptor)accessibilityChartDescriptor
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc(MEMORY[0x29EDB8050]);
   _accessibilitySeriesTitle = [(AXSTGraphContainerElement *)self _accessibilitySeriesTitle];
   _accessibilityChartSummary = [(AXSTGraphContainerElement *)self _accessibilityChartSummary];
   _accessibilityXAxis = [(AXSTGraphContainerElement *)self _accessibilityXAxis];
   _accessibilityYAxis = [(AXSTGraphContainerElement *)self _accessibilityYAxis];
   _accessibilityDataSeries = [(AXSTGraphContainerElement *)self _accessibilityDataSeries];
-  v13[0] = _accessibilityDataSeries;
-  v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
+  v12[0] = _accessibilityDataSeries;
+  v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
   v10 = [v3 initWithTitle:_accessibilitySeriesTitle summary:_accessibilityChartSummary xAxisDescriptor:_accessibilityXAxis yAxisDescriptor:_accessibilityYAxis series:v9];
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return v10;
 }
@@ -59,7 +57,7 @@ id __43__AXSTGraphContainerElement__axXAxisLabels__block_invoke(uint64_t a1, voi
 
 - (id)_accessibilityYAxis
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   itemType = [(AXSTGraphContainerElement *)self itemType];
   if (itemType - 1 >= 4)
   {
@@ -96,28 +94,28 @@ LABEL_8:
 LABEL_11:
   v6 = accessibilityLocalizedString(v5);
 LABEL_12:
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   _axTimeValues = [(AXSTGraphContainerElement *)self _axTimeValues];
-  v8 = [_axTimeValues countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [_axTimeValues countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     v11 = 0.0;
     v12 = 0.0;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(_axTimeValues);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         [v14 doubleValue];
         if (v12 >= v15)
         {
@@ -131,7 +129,7 @@ LABEL_12:
         }
       }
 
-      v9 = [_axTimeValues countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [_axTimeValues countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
@@ -145,15 +143,13 @@ LABEL_12:
 
   v17 = objc_alloc(MEMORY[0x29EDB8078]);
   v18 = accessibilityLocalizedString(@"graph.y.axis.description.usage");
-  v23[0] = MEMORY[0x29EDCA5F8];
-  v23[1] = 3221225472;
-  v23[2] = __48__AXSTGraphContainerElement__accessibilityYAxis__block_invoke;
-  v23[3] = &unk_29F2F3870;
-  v24 = v6;
+  v22[0] = MEMORY[0x29EDCA5F8];
+  v22[1] = 3221225472;
+  v22[2] = __48__AXSTGraphContainerElement__accessibilityYAxis__block_invoke;
+  v22[3] = &unk_29F2F3870;
+  v23 = v6;
   v19 = v6;
-  v20 = [v17 initWithTitle:v18 lowerBound:0 upperBound:v23 gridlinePositions:v12 valueDescriptionProvider:v11];
-
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = [v17 initWithTitle:v18 lowerBound:0 upperBound:v22 gridlinePositions:v12 valueDescriptionProvider:v11];
 
   return v20;
 }

@@ -112,6 +112,7 @@ LABEL_4:
   if (v3)
   {
     v4 = sub_1BE052724();
+    v3, v5, v6, v7, v8, v9, v10, v11;
   }
 
   else
@@ -147,10 +148,14 @@ LABEL_4:
 {
   selfCopy = self;
   sub_1BD65A940();
+  v4 = v3;
+  v6 = v5;
 
-  v3 = sub_1BE052404();
+  v6, v7, v8, v9, v10, v11, v12, v13;
+  v14 = sub_1BE052404();
+  v4, v15, v16, v17, v18, v19, v20, v21;
 
-  return v3;
+  return v14;
 }
 
 - (id)defaultHeaderViewSubTitle
@@ -158,18 +163,21 @@ LABEL_4:
   selfCopy = self;
   sub_1BD65A940();
   v4 = v3;
+  v6 = v5;
 
-  if (v4)
+  v4, v7, v8, v9, v10, v11, v12, v13;
+  if (v6)
   {
-    v5 = sub_1BE052404();
+    v14 = sub_1BE052404();
+    v6, v15, v16, v17, v18, v19, v20, v21;
   }
 
   else
   {
-    v5 = 0;
+    v14 = 0;
   }
 
-  return v5;
+  return v14;
 }
 
 - (id)defaultFields
@@ -178,17 +186,18 @@ LABEL_4:
   if (defaultPaymentSetupProvisioningFields)
   {
     v3 = defaultPaymentSetupProvisioningFields;
-    sub_1BE052744();
+    v4 = sub_1BE052744();
 
-    v4 = sub_1BE052724();
+    v5 = sub_1BE052724();
+    v4, v6, v7, v8, v9, v10, v11, v12;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)fieldCellEditableTextFieldValueDidChange:(id)change
@@ -249,6 +258,8 @@ LABEL_4:
   controllerCopy = controller;
   selfCopy = self;
   sub_1BD65C260(controller, v6);
+
+  v6, v9, v10, v11, v12, v13, v14, v15;
 }
 
 @end

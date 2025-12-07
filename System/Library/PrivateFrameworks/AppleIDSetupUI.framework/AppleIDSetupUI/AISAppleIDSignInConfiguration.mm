@@ -29,21 +29,20 @@
 
 - (NSString)username
 {
-  v2 = (self + OBJC_IVAR___AISAppleIDSignInConfiguration_username);
+  v2 = self + OBJC_IVAR___AISAppleIDSignInConfiguration_username;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_240A2BF1C();
+    v3 = sub_240A2BF1C();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setUsername:(id)username
@@ -62,7 +61,6 @@
 
   v7 = (self + OBJC_IVAR___AISAppleIDSignInConfiguration_username);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -111,14 +109,12 @@
 
 - (NSArray)serviceTypes
 {
-  v3 = OBJC_IVAR___AISAppleIDSignInConfiguration_serviceTypes;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for AIDAServiceType(0);
 
-  v5 = sub_240A2C15C();
+  v2 = sub_240A2C15C();
 
-  return v5;
+  return v2;
 }
 
 - (void)setServiceTypes:(id)types
@@ -127,7 +123,6 @@
   v4 = sub_240A2C16C();
   v5 = OBJC_IVAR___AISAppleIDSignInConfiguration_serviceTypes;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -147,13 +142,11 @@
 
 - (NSArray)privacyLinkIdentifiers
 {
-  v3 = OBJC_IVAR___AISAppleIDSignInConfiguration_privacyLinkIdentifiers;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5 = sub_240A2C15C();
+  v2 = sub_240A2C15C();
 
-  return v5;
+  return v2;
 }
 
 - (void)setPrivacyLinkIdentifiers:(id)identifiers
@@ -161,7 +154,6 @@
   v4 = sub_240A2C16C();
   v5 = OBJC_IVAR___AISAppleIDSignInConfiguration_privacyLinkIdentifiers;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -198,49 +190,47 @@
 - (NSDate)ageMigrationPendingDOB
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E50DCE0, &qword_240A32E20);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8, v5);
-  v7 = &v15 - v6;
-  v8 = OBJC_IVAR___AISAppleIDSignInConfiguration_ageMigrationPendingDOB;
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR___AISAppleIDSignInConfiguration_ageMigrationPendingDOB;
   swift_beginAccess();
-  sub_2409BF428(self + v8, v7);
-  v9 = sub_240A2962C();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v7, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
+  sub_2409BF428(self + v6, v5);
+  v7 = sub_240A2962C();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v13 = sub_240A295EC();
-    (*(v10 + 8))(v7, v9);
-    v12 = v13;
+    v11 = sub_240A295EC();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v12;
+  return v10;
 }
 
 - (void)setAgeMigrationPendingDOB:(id)b
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E50DCE0, &qword_240A32E20);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8, v7);
-  v9 = &v14 - v8;
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v12 - v6;
   if (b)
   {
     sub_240A295FC();
-    v10 = sub_240A2962C();
-    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
+    v8 = sub_240A2962C();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v11 = sub_240A2962C();
-    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
+    v9 = sub_240A2962C();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v12 = OBJC_IVAR___AISAppleIDSignInConfiguration_ageMigrationPendingDOB;
+  v10 = OBJC_IVAR___AISAppleIDSignInConfiguration_ageMigrationPendingDOB;
   swift_beginAccess();
   selfCopy = self;
-  sub_240963E78(v9, self + v12);
+  sub_240963E78(v7, self + v10);
   swift_endAccess();
 }
 

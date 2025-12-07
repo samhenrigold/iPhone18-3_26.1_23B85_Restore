@@ -7,40 +7,39 @@
 - (void)ppt_startIterationWithBlock:(id)block completion:(id)completion
 {
   blockCopy = block;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_10001F208;
-  v27 = sub_10001F234;
-  v28 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_10001F208;
-  v21 = sub_10001F234;
   v22 = 0;
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_100038090;
-  v13[3] = &unk_10005BFD8;
-  v15 = &v23;
-  v16 = &v17;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_10001F208;
+  v26 = sub_10001F234;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_10001F208;
+  v20 = sub_10001F234;
+  v21 = 0;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100038090;
+  v12[3] = &unk_10005BFD8;
+  v14 = &v22;
+  v15 = &v16;
   completionCopy = completion;
-  v14 = completionCopy;
-  v7 = objc_retainBlock(v13);
+  v13 = completionCopy;
+  v7 = objc_retainBlock(v12);
   v8 = [blockCopy copy];
-  v9 = v24[5];
-  v24[5] = v8;
+  v9 = v23[5];
+  v23[5] = v8;
 
   v10 = [v7 copy];
-  v11 = v18[5];
-  v18[5] = v10;
+  v11 = v17[5];
+  v17[5] = v10;
 
-  v12 = v18[5];
-  (*(v24[5] + 16))();
+  (*(v23[5] + 16))();
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
 }
 
 @end

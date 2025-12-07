@@ -6,7 +6,7 @@
 
 - (BOOL)_accessibilityHandleNavigationControllerDidEndTransition
 {
-  v27[2] = *MEMORY[0x29EDCA608];
+  v26[2] = *MEMORY[0x29EDCA608];
   if (UIAccessibilityIsVoiceOverRunning())
   {
     v3 = [*MEMORY[0x29EDC8008] _accessibilityValueForKey:@"applicationDidBecomeActiveDate"];
@@ -42,37 +42,37 @@
             v11 = superview;
             if (!superview)
             {
-              goto LABEL_12;
+              return superview;
             }
           }
 
-          v16 = v12;
-          if ([v16 isCollapsed])
+          v15 = v12;
+          if ([v15 isCollapsed])
           {
             LOBYTE(superview) = 0;
 LABEL_19:
 
-            goto LABEL_12;
+            return superview;
           }
 
           objc_opt_class();
-          v17 = [(PSViewControllerAccessibility *)self safeValueForKey:@"parentViewController"];
-          v18 = __UIAccessibilityCastAsClass();
+          v16 = [(PSViewControllerAccessibility *)self safeValueForKey:@"parentViewController"];
+          v17 = __UIAccessibilityCastAsClass();
 
-          navigationBar = [v18 navigationBar];
+          navigationBar = [v17 navigationBar];
           defaultVoiceOverOptions = [MEMORY[0x29EDC7328] defaultVoiceOverOptions];
-          v21 = [navigationBar _accessibilityLeafDescendantsWithOptions:defaultVoiceOverOptions];
-          firstObject = [v21 firstObject];
+          v20 = [navigationBar _accessibilityLeafDescendantsWithOptions:defaultVoiceOverOptions];
+          firstObject = [v20 firstObject];
 
-          if (firstObject || (-[PSViewControllerAccessibility safeStringForKey:](self, "safeStringForKey:", @"title"), v25 = objc_claimAutoreleasedReturnValue(), v26 = [v25 length], v25, !v26))
+          if (firstObject || (-[PSViewControllerAccessibility safeStringForKey:](self, "safeStringForKey:", @"title"), v24 = objc_claimAutoreleasedReturnValue(), v25 = [v24 length], v24, !v25))
           {
-            v23 = v11;
+            v22 = v11;
           }
 
           else
           {
-            v23 = navigationBar;
-            if (!v23)
+            v22 = navigationBar;
+            if (!v22)
             {
               LOBYTE(superview) = 0;
               goto LABEL_18;
@@ -80,10 +80,10 @@ LABEL_19:
           }
 
           LODWORD(superview) = *MEMORY[0x29EDC7F10];
-          v27[0] = *MEMORY[0x29EDBDB28];
-          v27[1] = v23;
-          v24 = [MEMORY[0x29EDB8D80] arrayWithObjects:v27 count:2];
-          UIAccessibilityPostNotification(superview, v24);
+          v26[0] = *MEMORY[0x29EDBDB28];
+          v26[1] = v22;
+          v23 = [MEMORY[0x29EDB8D80] arrayWithObjects:v26 count:2];
+          UIAccessibilityPostNotification(superview, v23);
 
           LOBYTE(superview) = 1;
 LABEL_18:
@@ -95,8 +95,6 @@ LABEL_18:
   }
 
   LOBYTE(superview) = 0;
-LABEL_12:
-  v14 = *MEMORY[0x29EDCA608];
   return superview;
 }
 

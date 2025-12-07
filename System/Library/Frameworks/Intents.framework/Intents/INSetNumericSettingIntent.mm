@@ -28,8 +28,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v19[5] = *MEMORY[0x1E69E9840];
-  v18[0] = @"settingMetadata";
+  v18[5] = *MEMORY[0x1E69E9840];
+  v17[0] = @"settingMetadata";
   settingMetadata = [(INSetNumericSettingIntent *)self settingMetadata];
   null = settingMetadata;
   if (!settingMetadata)
@@ -37,8 +37,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[0] = null;
-  v18[1] = @"numericValue";
+  v18[0] = null;
+  v17[1] = @"numericValue";
   numericValue = [(INSetNumericSettingIntent *)self numericValue];
   null2 = numericValue;
   if (!numericValue)
@@ -46,8 +46,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[1] = null2;
-  v18[2] = @"boundedValue";
+  v18[1] = null2;
+  v17[2] = @"boundedValue";
   boundedValue = [(INSetNumericSettingIntent *)self boundedValue];
   if ((boundedValue - 1) > 2)
   {
@@ -60,8 +60,8 @@
   }
 
   v9 = v8;
-  v19[2] = v9;
-  v18[3] = @"action";
+  v18[2] = v9;
+  v17[3] = @"action";
   action = [(INSetNumericSettingIntent *)self action];
   if ((action - 1) > 2)
   {
@@ -74,8 +74,8 @@
   }
 
   v12 = v11;
-  v19[3] = v12;
-  v18[4] = @"temporalEventTrigger";
+  v18[3] = v12;
+  v17[4] = @"temporalEventTrigger";
   temporalEventTrigger = [(INSetNumericSettingIntent *)self temporalEventTrigger];
   null3 = temporalEventTrigger;
   if (!temporalEventTrigger)
@@ -83,8 +83,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[4] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v18[4] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
   if (!temporalEventTrigger)
   {
   }
@@ -96,8 +96,6 @@
   if (!settingMetadata)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

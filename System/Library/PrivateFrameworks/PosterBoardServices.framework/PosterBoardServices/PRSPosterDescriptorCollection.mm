@@ -44,44 +44,43 @@ uint64_t __51__PRSPosterDescriptorCollection_mutableDescriptors__block_invoke(ui
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   mutableDescriptors = [(PRSPosterDescriptorCollection *)self mutableDescriptors];
-  v4 = [mutableDescriptors countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [mutableDescriptors countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(mutableDescriptors);
         }
 
-        _path = [*(*(&v11 + 1) + 8 * v7) _path];
+        _path = [*(*(&v10 + 1) + 8 * v7) _path];
         [_path invalidate];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [mutableDescriptors countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [mutableDescriptors countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v10.receiver = self;
-  v10.super_class = PRSPosterDescriptorCollection;
-  [(PRSPosterDescriptorCollection *)&v10 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = PRSPosterDescriptorCollection;
+  [(PRSPosterDescriptorCollection *)&v9 dealloc];
 }
 
 @end

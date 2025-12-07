@@ -43,7 +43,7 @@
 
 - (void)_sendConfirmationToResident:(id)resident
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   workQueue = [(HMDCameraSnapshotReceiver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -56,25 +56,24 @@
     v9 = HMFGetLogIdentifier();
     sessionID = [(HMDCameraSnapshotReceiver *)selfCopy sessionID];
     *buf = 138543618;
-    v18 = v9;
-    v19 = 2112;
-    v20 = sessionID;
+    v17 = v9;
+    v18 = 2112;
+    v19 = sessionID;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Informing the resident that image download task is completed for session ID %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   sessionID2 = [(HMDCameraSnapshotReceiver *)selfCopy sessionID];
   v11SessionID = [sessionID2 sessionID];
-  v16 = v11SessionID;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v15 = v11SessionID;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
 
   [(HMDCameraSnapshotReceiver *)selfCopy _sendMessageWithName:@"kTakeSnapshotRemoteReceivedKey" payload:v13 responseHandler:residentCopy];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRequestWithTierType:(unint64_t)type toResident:(id)resident
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   workQueue = [(HMDCameraSnapshotReceiver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -85,9 +84,9 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v21 = 138543362;
-    v22 = v11;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Relaying request to resident to take image snapshot", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = v11;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Relaying request to resident to take image snapshot", &v20, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -108,7 +107,6 @@
   [dictionary setObject:snapshotCharacteristicEventUUID forKeyedSubscript:@"kCameraProactiveSessionID"];
 
   [(HMDCameraSnapshotReceiver *)selfCopy _sendMessageWithName:@"kTakeSnapshotRemoteRequestKey" payload:dictionary responseHandler:residentCopy];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraSnapshotReceiver)initWithSessionID:(id)d workQueue:(id)queue accessory:(id)accessory uniqueIdentifier:(id)identifier snapshotRequestHandler:(id)handler residentMessageHandler:(id)messageHandler remoteDevice:(id)device
@@ -205,10 +203,9 @@ LABEL_17:
 
 void __40__HMDCameraSnapshotReceiver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_184956;
-  logCategory__hmf_once_v3_184956 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_184956;
+  logCategory__hmf_once_v3_184956 = v0;
 }
 
 @end

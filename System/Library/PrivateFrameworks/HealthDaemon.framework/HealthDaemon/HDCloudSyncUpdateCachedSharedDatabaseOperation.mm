@@ -6,49 +6,49 @@
 
 - (void)main
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   syncAvailability = [repository syncAvailability];
 
   if ([syncAvailability shouldSyncSummarySharingPull] & 1) != 0 || (objc_msgSend(syncAvailability, "shouldSyncSummarySharingPush"))
   {
-    v25 = syncAvailability;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v24 = syncAvailability;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     configuration2 = [(HDCloudSyncOperation *)self configuration];
     repository2 = [configuration2 repository];
     allCKContainers = [repository2 allCKContainers];
 
     obj = allCKContainers;
-    v8 = [allCKContainers countByEnumeratingWithState:&v30 objects:v40 count:16];
+    v8 = [allCKContainers countByEnumeratingWithState:&v29 objects:v39 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v27 = *v31;
+      v26 = *v30;
       do
       {
         v11 = 0;
         v12 = v10;
         do
         {
-          if (*v31 != v27)
+          if (*v30 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v30 + 1) + 8 * v11);
+          v13 = *(*(&v29 + 1) + 8 * v11);
           configuration3 = [(HDCloudSyncOperation *)self configuration];
           cachedCloudState = [configuration3 cachedCloudState];
           containerIdentifier = [v13 containerIdentifier];
           sharedCloudDatabase = [v13 sharedCloudDatabase];
           databaseScope = [sharedCloudDatabase databaseScope];
-          v29 = v12;
-          v19 = [cachedCloudState addDatabaseWithContainerIdentifier:containerIdentifier databaseScope:databaseScope error:&v29];
-          v10 = v29;
+          v28 = v12;
+          v19 = [cachedCloudState addDatabaseWithContainerIdentifier:containerIdentifier databaseScope:databaseScope error:&v28];
+          v10 = v28;
 
           if ((v19 & 1) == 0)
           {
@@ -60,10 +60,10 @@
               containerIdentifier2 = [v13 containerIdentifier];
               *buf = 138543874;
               selfCopy2 = self;
-              v36 = 2114;
-              v37 = containerIdentifier2;
-              v38 = 2114;
-              v39 = v10;
+              v35 = 2114;
+              v36 = containerIdentifier2;
+              v37 = 2114;
+              v38 = v10;
               _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@ Failed to update cache with shared database in container %{public}@, error: %{public}@", buf, 0x20u);
             }
 
@@ -75,7 +75,7 @@
         }
 
         while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+        v9 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
       }
 
       while (v9);
@@ -87,7 +87,7 @@
     }
 
     [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
-    syncAvailability = v25;
+    syncAvailability = v24;
   }
 
   else
@@ -103,8 +103,6 @@
 
     [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

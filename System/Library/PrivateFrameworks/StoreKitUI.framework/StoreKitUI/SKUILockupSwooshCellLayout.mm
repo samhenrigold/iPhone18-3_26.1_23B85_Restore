@@ -151,7 +151,7 @@
 {
   nameCopy = name;
   text = [(UILabel *)self->_artistNameLabel text];
-  if (text != nameCopy && ([text isEqualToString:nameCopy] & 1) == 0)
+  if (text != nameCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     artistNameLabel = self->_artistNameLabel;
     if (nameCopy)
@@ -186,7 +186,7 @@
 {
   categoryCopy = category;
   text = [(UILabel *)self->_categoryLabel text];
-  if (text != categoryCopy && ([text isEqualToString:categoryCopy] & 1) == 0)
+  if (text != categoryCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     categoryLabel = self->_categoryLabel;
     if (categoryCopy)
@@ -220,8 +220,8 @@
 - (void)setColoringWithColorScheme:(id)scheme
 {
   schemeCopy = scheme;
-  primaryTextColor = [schemeCopy primaryTextColor];
-  objc_storeStrong(&self->_primaryTextColor, primaryTextColor);
+  v15 = objc_msgSend_primaryTextColor(schemeCopy);
+  objc_storeStrong(&self->_primaryTextColor, v15);
   categoryLabel = self->_categoryLabel;
   if (self->_primaryTextColor)
   {
@@ -284,7 +284,7 @@
 {
   stringCopy = string;
   text = [(UILabel *)self->_itemCountLabel text];
-  if (text != stringCopy && ([text isEqualToString:stringCopy] & 1) == 0)
+  if (text != stringCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     itemCountLabel = self->_itemCountLabel;
     if (stringCopy)
@@ -319,7 +319,7 @@
 {
   priceCopy = price;
   text = [(UILabel *)self->_priceLabel text];
-  if (text != priceCopy && ([text isEqualToString:priceCopy] & 1) == 0)
+  if (text != priceCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     priceLabel = self->_priceLabel;
     if (priceCopy)
@@ -354,7 +354,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -418,43 +418,44 @@
     if (imageCopy)
     {
       contentView = [(SKUICellLayout *)self contentView];
+      v8 = contentView;
       if (!self->_videoImageView)
       {
-        v7 = objc_alloc_init(MEMORY[0x277D755E8]);
+        v9 = objc_alloc_init(MEMORY[0x277D755E8]);
         videoImageView = self->_videoImageView;
-        self->_videoImageView = v7;
+        self->_videoImageView = v9;
 
-        v9 = self->_videoImageView;
+        v11 = self->_videoImageView;
         parentCellView = [(SKUICellLayout *)self parentCellView];
         backgroundColor = [parentCellView backgroundColor];
-        [(UIImageView *)v9 setBackgroundColor:backgroundColor];
+        [(UIImageView *)v11 setBackgroundColor:backgroundColor];
 
         [(UIImageView *)self->_videoImageView setContentMode:6];
-        [contentView addSubview:self->_videoImageView];
+        contentView = [(UIImageView *)v8 addSubview:self->_videoImageView];
       }
 
       if (!self->_videoPlayButtonImageView)
       {
-        v12 = MEMORY[0x277D755B8];
-        v13 = SKUIBundle();
-        v14 = [v12 imageNamed:@"PlayControl" inBundle:v13];
+        v14 = MEMORY[0x277D755B8];
+        v15 = SKUIBundle(contentView, v7);
+        v16 = [v14 imageNamed:@"PlayControl" inBundle:v15];
 
-        v15 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v14];
+        v17 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v16];
         videoPlayButtonImageView = self->_videoPlayButtonImageView;
-        self->_videoPlayButtonImageView = v15;
+        self->_videoPlayButtonImageView = v17;
 
         [(UIImageView *)self->_videoPlayButtonImageView setContentMode:4];
       }
 
       [(UIImageView *)self->_videoImageView setImage:imageCopy];
-      [contentView insertSubview:self->_videoPlayButtonImageView aboveSubview:self->_videoImageView];
+      [(UIImageView *)v8 insertSubview:self->_videoPlayButtonImageView aboveSubview:self->_videoImageView];
     }
 
     else
     {
       [(UIImageView *)self->_videoPlayButtonImageView setHidden:1];
       [(UIImageView *)self->_videoImageView removeFromSuperview];
-      contentView = self->_videoImageView;
+      v8 = self->_videoImageView;
       self->_videoImageView = 0;
     }
 

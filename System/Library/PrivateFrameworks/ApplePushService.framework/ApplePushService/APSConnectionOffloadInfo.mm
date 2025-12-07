@@ -126,7 +126,7 @@
   *(&self->super.isa + OBJC_IVAR___APSConnectionOffloadInfo_preShareKey) = keyCopy;
   *(&self->super.isa + OBJC_IVAR___APSConnectionOffloadInfo_preShareKeyID) = dCopy;
   v17.receiver = self;
-  v17.super_class = type metadata accessor for ConnectionOffloadInfo();
+  v17.super_class = type metadata accessor for ConnectionOffloadInfo(0);
   return [(APSConnectionOffloadInfo *)&v17 init];
 }
 

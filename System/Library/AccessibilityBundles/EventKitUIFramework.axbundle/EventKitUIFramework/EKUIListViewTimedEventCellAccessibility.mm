@@ -3,6 +3,7 @@
 - (id)_axSafeLabelForUILabelKey:(id)key;
 - (id)accessibilityLabel;
 - (id)accessibilityValue;
+- (void)updateWithEvent:(id)event isMultiday:(BOOL)multiday occurrenceStartDate:(id)date dimmed:(BOOL)dimmed;
 @end
 
 @implementation EKUIListViewTimedEventCellAccessibility
@@ -100,6 +101,18 @@
   }
 
   return v4;
+}
+
+- (void)updateWithEvent:(id)event isMultiday:(BOOL)multiday occurrenceStartDate:(id)date dimmed:(BOOL)dimmed
+{
+  dimmedCopy = dimmed;
+  multidayCopy = multiday;
+  dateCopy = date;
+  eventCopy = event;
+  [(EKUIListViewTimedEventCellAccessibility *)self _axSetIsMultiDay:multidayCopy];
+  v12.receiver = self;
+  v12.super_class = EKUIListViewTimedEventCellAccessibility;
+  [(EKUIListViewTimedEventCellAccessibility *)&v12 updateWithEvent:eventCopy isMultiday:multidayCopy occurrenceStartDate:dateCopy dimmed:dimmedCopy];
 }
 
 @end

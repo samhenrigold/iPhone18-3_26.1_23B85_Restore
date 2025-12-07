@@ -4,6 +4,8 @@
 + (id)callForChannelSource:(id)source joinAction:(id)action;
 + (id)defaultConfigurationWithProviderIdentifier:(id)identifier;
 - (BOOL)_activeStandardCallExists;
+- (BOOL)_recordingClientPIDsContainsProcessIdentifier:(int)identifier;
+- (BOOL)_recordingClientPIDsNotification:(id)notification containsProcessIdentifier:(int)identifier;
 - (BOOL)isReceivingTransmission;
 - (BOOL)isSendingTransmission;
 - (CSDProviderBargeCall)initWithUUID:(id)d configuration:(id)configuration;
@@ -182,13 +184,14 @@
 
 - (void)updateUplinkMuteState
 {
-  if ([(CSDProviderBargeCall *)self _activeStandardCallExists])
+  _activeStandardCallExists = [(CSDProviderBargeCall *)self _activeStandardCallExists];
+  if (_activeStandardCallExists)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004778(_activeStandardCallExists);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v29 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Skipping PushToTalk provider uplink mute state update because an active standard call exists.", v29, 2u);
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Skipping PushToTalk provider uplink mute state update because an active standard call exists.", v33, 2u);
     }
 
     return;
@@ -196,82 +199,88 @@
 
   provider = [(CSDProviderBargeCall *)self provider];
 
-  if (![(CSDProviderBargeCall *)self isPlayingSystemSound])
+  isPlayingSystemSound = [(CSDProviderBargeCall *)self isPlayingSystemSound];
+  if (!isPlayingSystemSound)
   {
     providerBargeCallDelegate = [(CSDProviderBargeCall *)self providerBargeCallDelegate];
-    if (providerBargeCallDelegate && (-[CSDProviderBargeCall channelSource](self, "channelSource"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [providerBargeCallDelegate isAppForegroundForChannelSource:v10], v10, v11))
+    if (providerBargeCallDelegate && (-[CSDProviderBargeCall channelSource](self, "channelSource"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [providerBargeCallDelegate isAppForegroundForChannelSource:v12], v12, v13))
     {
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004778(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = @"NO";
+        v16 = @"NO";
         if (provider)
         {
-          v13 = @"YES";
+          v16 = @"YES";
         }
 
-        *v29 = 138412290;
-        *&v29[4] = v13;
-        v14 = "Unmuting PushToTalk provider uplink because the provider is running in the foreground. Provider configured: %@";
+        *v33 = 138412290;
+        *&v33[4] = v16;
+        v17 = "Unmuting PushToTalk provider uplink because the provider is running in the foreground. Provider configured: %@";
 LABEL_25:
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v14, v29, 0xCu);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v17, v33, 0xCu);
       }
     }
 
     else
     {
-      if (([(CSDCall *)self transmissionState]& 2) != 0 && ![(CSDProviderBargeCall *)self isSendingTransmission])
+      transmissionState = [(CSDCall *)self transmissionState];
+      if ((transmissionState & 2) != 0)
       {
-        providerSource = [(CSDProviderCall *)self providerSource];
-        v16 = -[CSDProviderBargeCall _recordingClientPIDsContainsProcessIdentifier:](self, "_recordingClientPIDsContainsProcessIdentifier:", [providerSource processIdentifier]);
-
-        if ((v16 & 1) == 0)
+        transmissionState = [(CSDProviderBargeCall *)self isSendingTransmission];
+        if ((transmissionState & 1) == 0)
         {
-          v25 = sub_100004778();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          providerSource = [(CSDProviderCall *)self providerSource];
+          v20 = -[CSDProviderBargeCall _recordingClientPIDsContainsProcessIdentifier:](self, "_recordingClientPIDsContainsProcessIdentifier:", [providerSource processIdentifier]);
+
+          if ((v20 & 1) == 0)
           {
-            v26 = @"NO";
-            if (provider)
+            v29 = sub_100004778(transmissionState);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = @"YES";
+              v30 = @"NO";
+              if (provider)
+              {
+                v30 = @"YES";
+              }
+
+              *v33 = 138412290;
+              *&v33[4] = v30;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Muting PushToTalk provider uplink because the barge call is in a receiving only state. Provider configured: %@", v33, 0xCu);
             }
 
-            *v29 = 138412290;
-            *&v29[4] = v26;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Muting PushToTalk provider uplink because the barge call is in a receiving only state. Provider configured: %@", v29, 0xCu);
-          }
+            featureFlags = [(CSDProviderBargeCall *)self featureFlags];
+            sessionBasedMutingEnabled = [featureFlags sessionBasedMutingEnabled];
 
-          featureFlags = [(CSDProviderBargeCall *)self featureFlags];
-          sessionBasedMutingEnabled = [featureFlags sessionBasedMutingEnabled];
+            if (sessionBasedMutingEnabled)
+            {
+              v24 = provider != 0;
+              selfCopy3 = self;
+              v26 = 1;
+              goto LABEL_28;
+            }
 
-          if (sessionBasedMutingEnabled)
-          {
-            v20 = provider != 0;
-            selfCopy3 = self;
-            v22 = 1;
-            goto LABEL_28;
-          }
-
-          selfCopy4 = self;
-          v24 = 1;
+            selfCopy4 = self;
+            v28 = 1;
 LABEL_31:
-          [(CSDProviderCall *)selfCopy4 setUnderlyingUplinkMuted:v24, *v29];
-          goto LABEL_32;
+            [(CSDProviderCall *)selfCopy4 setUnderlyingUplinkMuted:v28, *v33, *&v33[8]];
+            goto LABEL_32;
+          }
         }
       }
 
-      v12 = sub_100004778();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004778(transmissionState);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = @"NO";
+        v21 = @"NO";
         if (provider)
         {
-          v17 = @"YES";
+          v21 = @"YES";
         }
 
-        *v29 = 138412290;
-        *&v29[4] = v17;
-        v14 = "Unmuting PushToTalk provider uplink because the barge call is not in a receiving only state. Provider configured: %@";
+        *v33 = 138412290;
+        *&v33[4] = v21;
+        v17 = "Unmuting PushToTalk provider uplink because the barge call is not in a receiving only state. Provider configured: %@";
         goto LABEL_25;
       }
     }
@@ -281,33 +290,33 @@ LABEL_31:
 
     if (sessionBasedMutingEnabled2)
     {
-      v20 = provider != 0;
+      v24 = provider != 0;
       selfCopy3 = self;
-      v22 = 0;
+      v26 = 0;
 LABEL_28:
-      [(CSDProviderCall *)selfCopy3 setUplinkMuted:v22 userInitiated:v20, *v29];
+      [(CSDProviderCall *)selfCopy3 setUplinkMuted:v26 userInitiated:v24, *v33, *&v33[8]];
 LABEL_32:
 
       return;
     }
 
     selfCopy4 = self;
-    v24 = 0;
+    v28 = 0;
     goto LABEL_31;
   }
 
-  v5 = sub_100004778();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(isPlayingSystemSound);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = @"NO";
+    v8 = @"NO";
     if (provider)
     {
-      v6 = @"YES";
+      v8 = @"YES";
     }
 
-    *v29 = 138412290;
-    *&v29[4] = v6;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Muting PushToTalk provider uplink because a system sound is being played. Provider configured: %@", v29, 0xCu);
+    *v33 = 138412290;
+    *&v33[4] = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Muting PushToTalk provider uplink because a system sound is being played. Provider configured: %@", v33, 0xCu);
   }
 
   featureFlags3 = [(CSDProviderBargeCall *)self featureFlags];
@@ -350,104 +359,113 @@ LABEL_32:
 
 - (void)startTransmissionWithOriginator:(int64_t)originator
 {
-  v5 = sub_100004778();
+  v5 = sub_100004778(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received start transmission request for barge call.", buf, 2u);
   }
 
-  if (originator == 1 && ![(CSDProviderCall *)self accessoryButtonEventsEnabled])
+  if (originator == 1 && (v6 = [(CSDProviderCall *)self accessoryButtonEventsEnabled], (v6 & 1) == 0))
   {
-    providerBargeCallDelegate = sub_100004778();
+    providerBargeCallDelegate = sub_100004778(v6);
     if (os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      v7 = "Ignoring barge call transmit request because the request originated from an accessory and accessory events are disabled for the call.";
-      v8 = v14;
-      goto LABEL_17;
-    }
-  }
-
-  else if ([(CSDProviderBargeCall *)self isSendingTransmission])
-  {
-    providerBargeCallDelegate = sub_100004778();
-    if (os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
-    {
-      v13 = 0;
-      v7 = "Ignoring barge call transmit request because we are already transmitting.";
-      v8 = &v13;
-LABEL_17:
-      _os_log_impl(&_mh_execute_header, providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
-    }
-  }
-
-  else if ([(CSDProviderBargeCall *)self isReceivingTransmission]&& [(CSDProviderCall *)self transmissionMode])
-  {
-    providerBargeCallDelegate = sub_100004778();
-    if (os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = 0;
-      v7 = "Could not begin sending transmission because barge call was receiving a transmission and does not support full-duplex mode.";
-      v8 = &v12;
+      *v17 = 0;
+      v9 = "Ignoring barge call transmit request because the request originated from an accessory and accessory events are disabled for the call.";
+      v10 = v17;
       goto LABEL_17;
     }
   }
 
   else
   {
-    providerBargeCallDelegate = [(CSDProviderBargeCall *)self providerBargeCallDelegate];
-    [providerBargeCallDelegate acquireIndefiniteProcessAssertionForCall:self];
-    if ([(CSDProviderBargeCall *)self isOnHold])
+    isSendingTransmission = [(CSDProviderBargeCall *)self isSendingTransmission];
+    if (isSendingTransmission)
     {
-      [(CSDProviderCall *)self unhold];
+      providerBargeCallDelegate = sub_100004778(isSendingTransmission);
+      if (os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = 0;
+        v9 = "Ignoring barge call transmit request because we are already transmitting.";
+        v10 = &v16;
+LABEL_17:
+        _os_log_impl(&_mh_execute_header, providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
+      }
     }
 
-    v9 = [CXChannelTransmitStartAction alloc];
-    uniqueProxyIdentifierUUID = [(CSDProviderBargeCall *)self uniqueProxyIdentifierUUID];
-    v11 = [v9 initWithChannelUUID:uniqueProxyIdentifierUUID];
+    else if ([(CSDProviderBargeCall *)self isReceivingTransmission]&& (v11 = [(CSDProviderCall *)self transmissionMode]) != 0)
+    {
+      providerBargeCallDelegate = sub_100004778(v11);
+      if (os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 0;
+        v9 = "Could not begin sending transmission because barge call was receiving a transmission and does not support full-duplex mode.";
+        v10 = &v15;
+        goto LABEL_17;
+      }
+    }
 
-    [v11 setOriginator:originator];
-    [providerBargeCallDelegate performChannelAction:v11 forCall:self];
+    else
+    {
+      providerBargeCallDelegate = [(CSDProviderBargeCall *)self providerBargeCallDelegate];
+      [providerBargeCallDelegate acquireIndefiniteProcessAssertionForCall:self];
+      if ([(CSDProviderBargeCall *)self isOnHold])
+      {
+        [(CSDProviderCall *)self unhold];
+      }
+
+      v12 = [CXChannelTransmitStartAction alloc];
+      uniqueProxyIdentifierUUID = [(CSDProviderBargeCall *)self uniqueProxyIdentifierUUID];
+      v14 = [v12 initWithChannelUUID:uniqueProxyIdentifierUUID];
+
+      [v14 setOriginator:originator];
+      [providerBargeCallDelegate performChannelAction:v14 forCall:self];
+    }
   }
 }
 
 - (void)stopTransmissionWithOriginator:(int64_t)originator
 {
-  v5 = sub_100004778();
+  v5 = sub_100004778(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received stop transmission request for barge call.", buf, 2u);
   }
 
-  if (originator == 1 && ![(CSDProviderCall *)self accessoryButtonEventsEnabled])
+  if (originator == 1)
   {
-    providerBargeCallDelegate = sub_100004778();
-    if (!os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
+    accessoryButtonEventsEnabled = [(CSDProviderCall *)self accessoryButtonEventsEnabled];
+    if ((accessoryButtonEventsEnabled & 1) == 0)
     {
-      goto LABEL_14;
-    }
+      providerBargeCallDelegate = sub_100004778(accessoryButtonEventsEnabled);
+      if (!os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_14;
+      }
 
-    *v13 = 0;
-    v10 = "Ignoring barge call end transmit request because the request originated from an accessory and accessory events are disabled for the call.";
-    v11 = v13;
-    goto LABEL_13;
+      *v15 = 0;
+      v12 = "Ignoring barge call end transmit request because the request originated from an accessory and accessory events are disabled for the call.";
+      v13 = v15;
+      goto LABEL_13;
+    }
   }
 
-  if (![(CSDProviderBargeCall *)self isSendingTransmission])
+  isSendingTransmission = [(CSDProviderBargeCall *)self isSendingTransmission];
+  if ((isSendingTransmission & 1) == 0)
   {
-    providerBargeCallDelegate = sub_100004778();
+    providerBargeCallDelegate = sub_100004778(isSendingTransmission);
     if (!os_log_type_enabled(providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v12 = 0;
-    v10 = "Ignoring barge call end transmit request because we are not transmitting.";
-    v11 = &v12;
+    v14 = 0;
+    v12 = "Ignoring barge call end transmit request because we are not transmitting.";
+    v13 = &v14;
 LABEL_13:
-    _os_log_impl(&_mh_execute_header, providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
+    _os_log_impl(&_mh_execute_header, providerBargeCallDelegate, OS_LOG_TYPE_DEFAULT, v12, v13, 2u);
     goto LABEL_14;
   }
 
@@ -457,19 +475,19 @@ LABEL_13:
   }
 
   providerBargeCallDelegate = [(CSDProviderBargeCall *)self providerBargeCallDelegate];
-  v7 = [CXChannelTransmitStopAction alloc];
+  v9 = [CXChannelTransmitStopAction alloc];
   uniqueProxyIdentifierUUID = [(CSDProviderBargeCall *)self uniqueProxyIdentifierUUID];
-  v9 = [v7 initWithChannelUUID:uniqueProxyIdentifierUUID];
+  v11 = [v9 initWithChannelUUID:uniqueProxyIdentifierUUID];
 
-  [v9 setOriginator:originator];
-  [providerBargeCallDelegate performChannelAction:v9 forCall:self];
+  [v11 setOriginator:originator];
+  [providerBargeCallDelegate performChannelAction:v11 forCall:self];
 
 LABEL_14:
 }
 
 - (void)deactivate
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -478,23 +496,23 @@ LABEL_14:
 
   isSendingTransmission = [(CSDProviderBargeCall *)self isSendingTransmission];
   [(CSDProviderCall *)self setActiveRemoteParticipant:0];
-  [(CSDProviderBargeCall *)self setTransmissionState:1];
+  v5 = [(CSDProviderBargeCall *)self setTransmissionState:1];
   if (isSendingTransmission)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Stopping transmission for PushToTalk barge call deactivation.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopping transmission for PushToTalk barge call deactivation.", v11, 2u);
     }
 
     providerBargeCallDelegate = [(CSDProviderBargeCall *)self providerBargeCallDelegate];
-    v7 = [CXChannelTransmitStopAction alloc];
+    v8 = [CXChannelTransmitStopAction alloc];
     uniqueProxyIdentifierUUID = [(CSDProviderBargeCall *)self uniqueProxyIdentifierUUID];
-    v9 = [v7 initWithChannelUUID:uniqueProxyIdentifierUUID];
+    v10 = [v8 initWithChannelUUID:uniqueProxyIdentifierUUID];
 
-    [v9 setOriginator:3];
-    [providerBargeCallDelegate performChannelAction:v9 forCall:self];
+    [v10 setOriginator:3];
+    [providerBargeCallDelegate performChannelAction:v10 forCall:self];
   }
 
   [(CSDProviderCall *)self hold];
@@ -566,32 +584,67 @@ LABEL_14:
   }
 }
 
+- (BOOL)_recordingClientPIDsNotification:(id)notification containsProcessIdentifier:(int)identifier
+{
+  if (identifier < 1)
+  {
+    return 0;
+  }
+
+  v4 = *&identifier;
+  userInfo = [notification userInfo];
+  v6 = [userInfo objectForKeyedSubscript:AVSystemController_RecordingClientPIDsNotificationParameter];
+
+  v7 = [NSNumber numberWithInt:v4];
+  LOBYTE(userInfo) = [v6 containsObject:v7];
+
+  return userInfo;
+}
+
+- (BOOL)_recordingClientPIDsContainsProcessIdentifier:(int)identifier
+{
+  if (identifier < 1)
+  {
+    return 0;
+  }
+
+  v3 = *&identifier;
+  v4 = +[AVSystemController sharedAVSystemController];
+  v5 = [v4 attributeForKey:AVSystemController_RecordingClientPIDsAttribute];
+
+  v6 = [NSNumber numberWithInt:v3];
+  LOBYTE(v4) = [v5 containsObject:v6];
+
+  return v4;
+}
+
 - (void)playSoundForTransmissionState:(int64_t)state completion:(id)completion
 {
   completionCopy = completion;
+  v7 = completionCopy;
   if ((state & 8) != 0)
   {
     if ((state & 4) != 0)
     {
-      v8 = 20;
+      v9 = 20;
     }
 
     else
     {
-      v8 = 21;
+      v9 = 21;
     }
 
-    [(CSDProviderBargeCall *)self playSoundForSoundType:v8 completion:completionCopy];
+    [(CSDProviderBargeCall *)self playSoundForSoundType:v9 completion:completionCopy];
   }
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(completionCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
+      v10 = 134217984;
       stateCopy = state;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "There was no sound type found for transmission state %lu", &v9, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "There was no sound type found for transmission state %lu", &v10, 0xCu);
     }
   }
 }

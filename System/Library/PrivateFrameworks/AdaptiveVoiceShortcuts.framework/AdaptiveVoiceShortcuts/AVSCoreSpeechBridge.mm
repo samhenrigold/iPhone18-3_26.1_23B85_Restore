@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (AVSCoreSpeechBridge)init;
 - (const)recordingASBD;
+- (void)commandControlListener:(id)listener didStopUnexpectedly:(BOOL)unexpectedly;
 - (void)commandControlListener:(id)listener hasLPCMBufferAvailable:(id)available;
 - (void)commandControlListener:(id)listener hasLPCMBufferAvailable:(id)available hostTime:(unint64_t)time;
 - (void)startListening:(id)listening;
@@ -56,52 +57,50 @@ uint64_t __37__AVSCoreSpeechBridge_sharedInstance__block_invoke()
 
 - (void)startListening:(id)listening
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   listeningCopy = listening;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
   v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = 0;
   v5 = dispatch_semaphore_create(0);
   v6 = objc_alloc_init(MEMORY[0x277D01500]);
   commandControlListener = self->_commandControlListener;
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __38__AVSCoreSpeechBridge_startListening___block_invoke;
-  v18 = &unk_278C5C178;
-  v20 = &v28;
-  v21 = &v22;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __38__AVSCoreSpeechBridge_startListening___block_invoke;
+  v17 = &unk_278C5C178;
+  v19 = &v27;
+  v20 = &v21;
   v8 = v5;
-  v19 = v8;
-  [(CSCommandControlListener *)commandControlListener startListenWithOption:v6 completion:&v15];
+  v18 = v8;
+  [(CSCommandControlListener *)commandControlListener startListenWithOption:v6 completion:&v14];
   v9 = dispatch_time(0, 3000000000);
   if (dispatch_semaphore_wait(v8, v9))
   {
-    *(v29 + 24) = 0;
+    *(v28 + 24) = 0;
     v10 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA470];
-    v33[0] = @"Timed out";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:{1, v15, v16, v17, v18}];
+    v31 = *MEMORY[0x277CCA470];
+    v32[0] = @"Timed out";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:{1, v14, v15, v16, v17}];
     v12 = [v10 errorWithDomain:@"CoreSpeechBridge" code:-1 userInfo:v11];
-    v13 = v23[5];
-    v23[5] = v12;
+    v13 = v22[5];
+    v22[5] = v12;
   }
 
   if (listeningCopy)
   {
-    listeningCopy[2](listeningCopy, *(v29 + 24), v23[5]);
+    listeningCopy[2](listeningCopy, *(v28 + 24), v22[5]);
   }
 
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v28, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
 }
 
 void __38__AVSCoreSpeechBridge_startListening___block_invoke(uint64_t a1, char a2, id obj)
@@ -147,6 +146,15 @@ void __38__AVSCoreSpeechBridge_startListening___block_invoke(uint64_t a1, char a
 
     (*(self->_onBufferReceived + 2))();
     availableCopy = v12;
+  }
+}
+
+- (void)commandControlListener:(id)listener didStopUnexpectedly:(BOOL)unexpectedly
+{
+  onStopped = self->_onStopped;
+  if (onStopped)
+  {
+    onStopped[2](onStopped, unexpectedly);
   }
 }
 

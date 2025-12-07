@@ -1,8 +1,34 @@
 @interface PostEspressoShared
 + (id)getSharedInstanceOrRelease:(BOOL)release;
+- (id)getShaders:(id)shaders networkVersion:(int)version;
 @end
 
 @implementation PostEspressoShared
+
+- (id)getShaders:(id)shaders networkVersion:(int)version
+{
+  v4 = *&version;
+  shadersCopy = shaders;
+  shaders = self->_shaders;
+  p_shaders = &self->_shaders;
+  shadersCopy2 = shaders;
+  if (!shadersCopy2)
+  {
+    v10 = [PostEspressoShaders alloc];
+    shadersCopy2 = objc_msgSend_initWithMetal_networkVersion_(v10, v11, shadersCopy, v4);
+    if (shadersCopy2)
+    {
+      objc_storeStrong(p_shaders, shadersCopy2);
+    }
+
+    else
+    {
+      sub_29588642C();
+    }
+  }
+
+  return shadersCopy2;
+}
 
 + (id)getSharedInstanceOrRelease:(BOOL)release
 {

@@ -15,7 +15,7 @@
 
 - (void)seal:(id)seal withReply:(id)reply
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   sealCopy = seal;
   replyCopy = reply;
   if ([(CRChassisController *)self checkRepairEnvironment])
@@ -35,7 +35,7 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v34 = v13;
+          v33 = v13;
           _os_log_impl(&dword_1CEDC5000, v14, OS_LOG_TYPE_DEFAULT, "Sealed system manifest %@", buf, 0xCu);
         }
 
@@ -47,7 +47,7 @@
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v34 = v16;
+            v33 = v16;
             _os_log_impl(&dword_1CEDC5000, v17, OS_LOG_TYPE_DEFAULT, "Live system manifest %@", buf, 0xCu);
           }
 
@@ -56,33 +56,33 @@
           if (v18 && [v18 count])
           {
             v20 = MGCopyAnswer();
-            [v9 setObject:v20 forKeyedSubscript:@"KGBSerialNumber"];
+            objc_msgSend_setObject_forKeyedSubscript_(v9);
 
-            [v9 setObject:&unk_1F4BCD228 forKeyedSubscript:@"patchDataClasses"];
-            v32 = v11;
-            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
-            [v9 setObject:v21 forKeyedSubscript:@"patchDataInstances"];
+            objc_msgSend_setObject_forKeyedSubscript_(v9);
+            v31 = v11;
+            v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+            objc_msgSend_setObject_forKeyedSubscript_(v9);
 
-            v31 = v19;
-            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-            [v9 setObject:v22 forKeyedSubscript:@"patchValues"];
+            v30 = v19;
+            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+            objc_msgSend_setObject_forKeyedSubscript_(v9);
 
-            [v9 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"doSeal"];
+            objc_msgSend_setObject_forKeyedSubscript_(v9);
             v23 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.corerepair" options:0];
             v24 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F4BD2C38];
             [v23 setRemoteObjectInterface:v24];
 
             [v23 resume];
             remoteObjectProxy = [v23 remoteObjectProxy];
-            v28[0] = MEMORY[0x1E69E9820];
-            v28[1] = 3221225472;
-            v28[2] = __38__CRChassisController_seal_withReply___block_invoke;
-            v28[3] = &unk_1E83B3EE8;
-            v28[4] = self;
-            v29 = v23;
-            v30 = replyCopy;
+            v27[0] = MEMORY[0x1E69E9820];
+            v27[1] = 3221225472;
+            v27[2] = __38__CRChassisController_seal_withReply___block_invoke;
+            v27[3] = &unk_1E83B3EE8;
+            v27[4] = self;
+            v28 = v23;
+            v29 = replyCopy;
             v26 = v23;
-            [remoteObjectProxy seal:v9 withReply:v28];
+            [remoteObjectProxy seal:v9 withReply:v27];
           }
 
           else
@@ -113,20 +113,18 @@
   {
     [(CRChassisController *)self replyWithError:@"Not supported under current environment" reply:replyCopy];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CRChassisController_seal_withReply___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = handleForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_1CEDC5000, v4, OS_LOG_TYPE_DEFAULT, "Results %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_1CEDC5000, v4, OS_LOG_TYPE_DEFAULT, "Results %@", &v8, 0xCu);
   }
 
   v5 = [v3 objectForKeyedSubscript:@"statusCode"];
@@ -156,42 +154,40 @@ void __38__CRChassisController_seal_withReply___block_invoke(uint64_t a1, void *
 
   [*(a1 + 32) replyWithMessage:v7 status:v5 results:v6 reply:*(a1 + 48)];
   [*(a1 + 40) invalidate];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)replyWithMessage:(id)message status:(id)status results:(id)results reply:(id)reply
 {
-  v19[3] = *MEMORY[0x1E69E9840];
+  v18[3] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   statusCopy = status;
   resultsCopy = results;
   replyCopy = reply;
-  v18[0] = @"status";
+  v17[0] = @"status";
   null = statusCopy;
   if (!statusCopy)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[0] = null;
-  v18[1] = @"description";
+  v18[0] = null;
+  v17[1] = @"description";
   null2 = messageCopy;
   if (!messageCopy)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[1] = null2;
-  v18[2] = @"results";
+  v18[1] = null2;
+  v17[2] = @"results";
   null3 = resultsCopy;
   if (!resultsCopy)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[2] = null3;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v18[2] = null3;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
   replyCopy[2](replyCopy, v16);
 
   if (resultsCopy)
@@ -225,8 +221,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)overrideParameters:(id)parameters
@@ -248,28 +242,28 @@ LABEL_10:
 
   if (!v8)
   {
-    [v7 setObject:@"https://gg.apple.com" forKeyedSubscript:@"CAURL"];
+    objc_msgSend_setObject_forKeyedSubscript_(v7);
   }
 
   v9 = [v7 objectForKeyedSubscript:@"DSURL"];
 
   if (!v9)
   {
-    [v7 setObject:@"https://skl.apple.com" forKeyedSubscript:@"DSURL"];
+    objc_msgSend_setObject_forKeyedSubscript_(v7);
   }
 
   v10 = [v7 objectForKeyedSubscript:@"TrustObjectURL"];
 
   if (!v10)
   {
-    [v7 setObject:@"http://gg.apple.com/fdrtrustobject" forKeyedSubscript:@"TrustObjectURL"];
+    objc_msgSend_setObject_forKeyedSubscript_(v7);
   }
 
   v11 = [v7 objectForKeyedSubscript:@"SealingURL"];
 
   if (!v11)
   {
-    [v7 setObject:@"https://ig.apple.com" forKeyedSubscript:@"SealingURL"];
+    objc_msgSend_setObject_forKeyedSubscript_(v7);
   }
 
   if (os_variant_has_internal_content())
@@ -289,11 +283,11 @@ LABEL_10:
 
 - (id)overrideFromNVRam:(id)ram
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   ramCopy = ram;
-  v27 = 0;
-  v4 = [CRNVRAMController readNVRAMValueForKey:@"corerepair-override" error:&v27];
-  v5 = v27;
+  v26 = 0;
+  v4 = [CRNVRAMController readNVRAMValueForKey:@"corerepair-override" error:&v26];
+  v5 = v26;
   if (v4)
   {
     v6 = v5 == 0;
@@ -306,9 +300,9 @@ LABEL_10:
 
   if (v6)
   {
-    v26 = 0;
-    v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:4 error:&v26];
-    v11 = v26;
+    v25 = 0;
+    v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:4 error:&v25];
+    v11 = v25;
     v7 = v11;
     if (v10)
     {
@@ -333,7 +327,7 @@ LABEL_10:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v10;
+      v28 = v10;
       _os_log_impl(&dword_1CEDC5000, v14, OS_LOG_TYPE_DEFAULT, "nvram overriede: %@", buf, 0xCu);
     }
 
@@ -353,7 +347,7 @@ LABEL_10:
     if (v16)
     {
       v17 = [v10 objectForKeyedSubscript:@"CAURL"];
-      [v9 setObject:v17 forKeyedSubscript:@"CAURL"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     v18 = [v10 objectForKeyedSubscript:@"DSURL"];
@@ -361,7 +355,7 @@ LABEL_10:
     if (v18)
     {
       v19 = [v10 objectForKeyedSubscript:@"DSURL"];
-      [v9 setObject:v19 forKeyedSubscript:@"DSURL"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     v20 = [v10 objectForKeyedSubscript:@"TrustObjectURL"];
@@ -369,7 +363,7 @@ LABEL_10:
     if (v20)
     {
       v21 = [v10 objectForKeyedSubscript:@"TrustObjectURL"];
-      [v9 setObject:v21 forKeyedSubscript:@"TrustObjectURL"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
 
     v22 = [v10 objectForKeyedSubscript:@"SealingURL"];
@@ -377,7 +371,7 @@ LABEL_10:
     if (v22)
     {
       v23 = [v10 objectForKeyedSubscript:@"SealingURL"];
-      [v9 setObject:v23 forKeyedSubscript:@"SealingURL"];
+      objc_msgSend_setObject_forKeyedSubscript_(v9);
     }
   }
 
@@ -388,44 +382,42 @@ LABEL_10:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v7;
+      v28 = v7;
       _os_log_impl(&dword_1CEDC5000, v8, OS_LOG_TYPE_DEFAULT, "No nvram override: %@", buf, 0xCu);
     }
 
     v9 = ramCopy;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)diffWithSealed:(id)sealed live:(id)live
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   sealedCopy = sealed;
   liveCopy = live;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v7 = sealedCopy;
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         v13 = [v7 objectForKeyedSubscript:v12];
         v14 = [liveCopy objectForKeyedSubscript:v12];
         if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -441,7 +433,7 @@ LABEL_10:
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v28 = v12;
+              v27 = v12;
               _os_log_impl(&dword_1CEDC5000, v15, OS_LOG_TYPE_DEFAULT, "Found diff values of %@", buf, 0xCu);
             }
 
@@ -451,7 +443,7 @@ LABEL_10:
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v28 = v12;
+                v27 = v12;
                 _os_log_impl(&dword_1CEDC5000, v16, OS_LOG_TYPE_DEFAULT, "Ignore %@", buf, 0xCu);
               }
             }
@@ -459,7 +451,7 @@ LABEL_10:
             else
             {
               v16 = [liveCopy objectForKeyedSubscript:v12];
-              [dictionary setObject:v16 forKeyedSubscript:v12];
+              objc_msgSend_setObject_forKeyedSubscript_(dictionary);
             }
           }
 
@@ -469,9 +461,9 @@ LABEL_10:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v28 = v12;
-              v29 = 2112;
-              v30 = v14;
+              v27 = v12;
+              v28 = 2112;
+              v29 = v14;
               v17 = v16;
               v18 = "Invalid type of %@ in live data: %@";
               goto LABEL_20;
@@ -485,9 +477,9 @@ LABEL_10:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v28 = v12;
-            v29 = 2112;
-            v30 = v13;
+            v27 = v12;
+            v28 = 2112;
+            v29 = v13;
             v17 = v16;
             v18 = "Invalid type of %@ in sealed data: %@";
 LABEL_20:
@@ -498,25 +490,22 @@ LABEL_20:
 LABEL_23:
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 - (BOOL)shouldIgnorePatching:(id)patching
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   patchingCopy = patching;
-  LODWORD(v7) = -1281988531;
-  v4 = MGIsDeviceOfType() && (([patchingCopy isEqualToString:{@"BM05", 0xD4C83437A3FD0C4FLL, 0x2B927B663C22D954, v7, v8}] & 1) != 0 || objc_msgSend(patchingCopy, "hasPrefix:", @"N") && (objc_msgSend(patchingCopy, "hasSuffix:", @"4") & 1) != 0);
+  LODWORD(v6) = -1281988531;
+  v4 = MGIsDeviceOfType() && (([patchingCopy isEqualToString:{@"BM05", 0xD4C83437A3FD0C4FLL, 0x2B927B663C22D954, v6, v7}] & 1) != 0 || objc_msgSend(patchingCopy, "hasPrefix:", @"N") && (objc_msgSend(patchingCopy, "hasSuffix:", @"4") & 1) != 0);
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -536,7 +525,7 @@ LABEL_23:
 
 - (id)getAndVerifyDataInstance:(id)instance
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
   v4 = AMFDRSealingMapCopyInstanceForClass();
   v5 = handleForCategory(0);
@@ -546,9 +535,9 @@ LABEL_23:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = instanceCopy;
-      v27 = 2112;
-      v28 = v4;
+      v25 = instanceCopy;
+      v26 = 2112;
+      v27 = v4;
       _os_log_impl(&dword_1CEDC5000, v6, OS_LOG_TYPE_DEFAULT, "Instance of %@ from sealing map: %@", buf, 0x16u);
     }
 
@@ -560,16 +549,16 @@ LABEL_23:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v26 = instanceCopy;
-        v27 = 2112;
-        v28 = v7;
+        v25 = instanceCopy;
+        v26 = 2112;
+        v27 = v7;
         _os_log_impl(&dword_1CEDC5000, v6, OS_LOG_TYPE_DEFAULT, "Instance of %@ from sealing manifest: %@", buf, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(CRChassisController *)v6 getAndVerifyDataInstance:v18, v19, v20, v21, v22, v23, v24];
+      [(CRChassisController *)v6 getAndVerifyDataInstance:v17, v18, v19, v20, v21, v22, v23];
     }
   }
 
@@ -577,14 +566,13 @@ LABEL_23:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(CRChassisController *)v6 getAndVerifyDataInstance:v11, v12, v13, v14, v15, v16, v17];
+      [(CRChassisController *)v6 getAndVerifyDataInstance:v10, v11, v12, v13, v14, v15, v16];
     }
 
     v7 = 0;
   }
 
   AMSupportSafeRelease();
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

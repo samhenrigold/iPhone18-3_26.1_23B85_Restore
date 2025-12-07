@@ -563,7 +563,7 @@ _UIActivityItemsConfigurationActivityItemProvider *__101__UIActivityViewControll
 - (void)setPhotosCarouselViewController:(id)controller
 {
   controllerCopy = controller;
-  if ((_ShareSheetCanUseCustomViewController() & 1) == 0)
+  if ((_ShareSheetCanUseCustomViewController(controllerCopy, v6) & 1) == 0)
   {
     mainPresenter2 = share_sheet_log();
     if (os_log_type_enabled(mainPresenter2, OS_LOG_TYPE_ERROR))
@@ -589,12 +589,12 @@ _UIActivityItemsConfigurationActivityItemProvider *__101__UIActivityViewControll
 
       if (mainPresenter)
       {
-        v11[0] = MEMORY[0x1E69E9820];
-        v11[1] = 3221225472;
-        v11[2] = __60__UIActivityViewController_setPhotosCarouselViewController___block_invoke;
-        v11[3] = &unk_1E71F9510;
-        v11[4] = self;
-        [MEMORY[0x1E69DD250] animateWithDuration:v11 animations:0.5];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __60__UIActivityViewController_setPhotosCarouselViewController___block_invoke;
+        v12[3] = &unk_1E71F9510;
+        v12[4] = self;
+        [MEMORY[0x1E69DD250] animateWithDuration:v12 animations:0.5];
         goto LABEL_10;
       }
     }
@@ -1384,7 +1384,7 @@ LABEL_20:
 
 - (void)_updateActivityItems:(id)items applicationActivities:(id)activities
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   activitiesCopy = activities;
   v8 = self->_activityItems;
@@ -1424,26 +1424,27 @@ LABEL_20:
   }
 
   _isAppearingOrAppeared = [(UIActivityViewController *)self _isAppearingOrAppeared];
-  IsRealityLauncher = _ShareSheetIsRealityLauncher();
+  v17 = _isAppearingOrAppeared;
+  IsRealityLauncher = _ShareSheetIsRealityLauncher(_isAppearingOrAppeared, v18);
   _createContextFromCurrentState = share_sheet_log();
-  v19 = os_log_type_enabled(_createContextFromCurrentState, OS_LOG_TYPE_DEFAULT);
-  if ((v11 | v15) & 1) != 0 && ((IsRealityLauncher ^ 1 | _isAppearingOrAppeared))
+  v21 = os_log_type_enabled(_createContextFromCurrentState, OS_LOG_TYPE_DEFAULT);
+  if ((v11 | v15) & 1) != 0 && ((IsRealityLauncher ^ 1 | v17))
   {
-    if (v19)
+    if (v21)
     {
-      v25 = 138478083;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v14;
-      _os_log_impl(&dword_18B359000, _createContextFromCurrentState, OS_LOG_TYPE_DEFAULT, "UIAVC: update activity items:%{private}@ applicationActivities:%@", &v25, 0x16u);
+      v27 = 138478083;
+      v28 = v10;
+      v29 = 2112;
+      v30 = v14;
+      _os_log_impl(&dword_18B359000, _createContextFromCurrentState, OS_LOG_TYPE_DEFAULT, "UIAVC: update activity items:%{private}@ applicationActivities:%@", &v27, 0x16u);
     }
 
-    if (!_isAppearingOrAppeared)
+    if ((v17 & 1) == 0)
     {
-      v20 = share_sheet_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v22 = share_sheet_log();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        [UIActivityViewController _updateActivityItems:v20 applicationActivities:?];
+        [UIActivityViewController _updateActivityItems:v22 applicationActivities:?];
       }
     }
 
@@ -1455,21 +1456,21 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  if (v19)
+  if (v21)
   {
     mainPresenter = NSStringFromBOOL();
-    v22 = NSStringFromBOOL();
-    v23 = NSStringFromBOOL();
     v24 = NSStringFromBOOL();
-    v25 = 138413058;
-    v26 = mainPresenter;
-    v27 = 2112;
-    v28 = v22;
+    v25 = NSStringFromBOOL();
+    v26 = NSStringFromBOOL();
+    v27 = 138413058;
+    v28 = mainPresenter;
     v29 = 2112;
-    v30 = v23;
+    v30 = v24;
     v31 = 2112;
-    v32 = v24;
-    _os_log_impl(&dword_18B359000, _createContextFromCurrentState, OS_LOG_TYPE_DEFAULT, "UIAVC: ignoring _updateActivityItems request activityItemsNeedsUpdate:%@  applicationActivitiesNeedsUpdate:%@ isAppearingOrAppeared:%@ shouldCheckIsAppearingOrAppeared:%@", &v25, 0x2Au);
+    v32 = v25;
+    v33 = 2112;
+    v34 = v26;
+    _os_log_impl(&dword_18B359000, _createContextFromCurrentState, OS_LOG_TYPE_DEFAULT, "UIAVC: ignoring _updateActivityItems request activityItemsNeedsUpdate:%@  applicationActivitiesNeedsUpdate:%@ isAppearingOrAppeared:%@ shouldCheckIsAppearingOrAppeared:%@", &v27, 0x2Au);
 
 LABEL_22:
   }
@@ -1510,14 +1511,14 @@ LABEL_22:
 
 - (void)_performActivityWithType:(id)type completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   handlerCopy = handler;
-  if (_ShareSheetHostCanPerformActivitySkippingShareSheet())
+  if (_ShareSheetHostCanPerformActivitySkippingShareSheet(handlerCopy, v8))
   {
-    v12 = typeCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
-    [(UIActivityViewController *)self setIncludedActivityTypes:v8];
+    v13 = typeCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+    [(UIActivityViewController *)self setIncludedActivityTypes:v9];
 
     [(UIActivityViewController *)self _createMainPresenterIfNeeded];
     mainPresenter = [(UIActivityViewController *)self mainPresenter];
@@ -1531,12 +1532,12 @@ LABEL_22:
 
   else
   {
-    v11 = share_sheet_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = share_sheet_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = typeCopy;
-      _os_log_impl(&dword_18B359000, v11, OS_LOG_TYPE_DEFAULT, "Not performing activity '%@' because entitlement is needed", buf, 0xCu);
+      v15 = typeCopy;
+      _os_log_impl(&dword_18B359000, v12, OS_LOG_TYPE_DEFAULT, "Not performing activity '%@' because entitlement is needed", buf, 0xCu);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0);

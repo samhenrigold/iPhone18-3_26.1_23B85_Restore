@@ -196,10 +196,10 @@ LABEL_50:
     *&buf[16] = v42;
     if (segmentationResult)
     {
-      [segmentationResult tightBoundsForInstance:v41];
+      objc_msgSend_tightBoundsForInstance_(segmentationResult);
       v106 = 0u;
       v107 = 0u;
-      [segmentationResult fullExtentForInstance:v41];
+      objc_msgSend_fullExtentForInstance_(segmentationResult);
     }
 
     else
@@ -213,7 +213,7 @@ LABEL_50:
     NUScaleToDouble();
     if (v40)
     {
-      [v40 extent];
+      objc_msgSend_extent(v40);
     }
 
     else
@@ -257,7 +257,7 @@ LABEL_30:
   v101 = 0u;
   if (segmentationResult)
   {
-    [segmentationResult tightBoundsForInstance:v41];
+    objc_msgSend_tightBoundsForInstance_(segmentationResult);
   }
 
   v45 = [MEMORY[0x277D3A918] maskIdentifierForSegmentIndex:v41];
@@ -711,7 +711,7 @@ LABEL_54:
   v262 = 0u;
   if (shapeCopy)
   {
-    [shapeCopy extent];
+    objc_msgSend_extent(shapeCopy);
     v94 = v262;
   }
 
@@ -1237,7 +1237,7 @@ LABEL_153:
     v198 = [v197 ciImageTiled:0 closed:1 pressureMode:2 filled:0];
     v199 = [v197 ciImageTiled:0 closed:1 pressureMode:2 filled:1];
     v200 = MEMORY[0x277D3A958];
-    [v198 extent];
+    objc_msgSend_extent(v198);
     v202 = v201;
     v204 = v203;
     v206 = v205;
@@ -1247,7 +1247,7 @@ LABEL_153:
     v211 = v210;
 
     v212 = MEMORY[0x277D3A958];
-    [v199 extent];
+    objc_msgSend_extent(v199);
     v214 = v213;
     v216 = v215;
     v218 = v217;
@@ -1349,7 +1349,7 @@ id __96__PECleanupSegmentAnalyzer__strokeAppearsToBeClosedShape_imageToScreenSpa
   v14 = v13;
   if (v6)
   {
-    [v6 clipRect];
+    objc_msgSend_clipRect(v6);
   }
 
   else
@@ -1406,43 +1406,43 @@ id __96__PECleanupSegmentAnalyzer__strokeAppearsToBeClosedShape_imageToScreenSpa
 
 void __96__PECleanupSegmentAnalyzer__strokeAppearsToBeClosedShape_imageToScreenSpaceScale_lassoDistance___block_invoke_83(uint64_t a1, uint64_t a2, double *a3, float a4, float a5, float a6, float a7, float a8, float a9, double a10, double a11, float a12, float a13, float a14)
 {
-  v20 = a8;
-  v21 = a7;
-  v25 = a14;
-  v26 = (*(*(a1 + 32) + 16))(a7, a8, a9, a12, a13, a14);
-  if (v26 >= *(a1 + 40))
+  v17 = a8;
+  v18 = a7;
+  v22 = a14;
+  v23 = (*(*(a1 + 32) + 16))(a7, a8, a9, a12, a13, a14, a10, a11);
+  if (v23 >= *(a1 + 40))
   {
-    v28 = a12 - v21;
-    v29 = a13 - v20;
-    v30 = fmax(fmin(((a5 - v20) * v29 + (a4 - v21) * v28) / v26, 1.0), 0.0);
-    *&v28 = v21 + v30 * v28;
-    *&v29 = v20 + v30 * v29;
-    *a2 = LODWORD(v28);
-    *(a2 + 4) = LODWORD(v29);
+    v25 = a12 - v18;
+    v26 = a13 - v17;
+    v27 = fmax(fmin(((a5 - v17) * v26 + (a4 - v18) * v25) / v23, 1.0), 0.0);
+    *&v25 = v18 + v27 * v25;
+    *&v26 = v17 + v27 * v26;
+    *a2 = LODWORD(v25);
+    *(a2 + 4) = LODWORD(v26);
     *(a2 + 8) = a6;
-    *a3 = v30;
+    *a3 = v27;
   }
 
   else
   {
-    v31 = (*(*(a1 + 32) + 16))(a4, a5, a6, v21, v20);
-    if (v31 >= (*(*(a1 + 32) + 16))(a4, a5, a6, a12, a13, a14))
+    v28 = (*(*(a1 + 32) + 16))(a4, a5, a6, v18, v17);
+    if (v28 >= (*(*(a1 + 32) + 16))(a4, a5, a6, a12, a13, a14))
     {
-      v27 = 1.0;
-      v21 = a12;
-      v20 = a13;
+      v24 = 1.0;
+      v18 = a12;
+      v17 = a13;
     }
 
     else
     {
-      v27 = 0.0;
-      v25 = a9;
+      v24 = 0.0;
+      v22 = a9;
     }
 
-    *a2 = v21;
-    *(a2 + 4) = v20;
-    *(a2 + 8) = v25;
-    *a3 = v27;
+    *a2 = v18;
+    *(a2 + 4) = v17;
+    *(a2 + 8) = v22;
+    *a3 = v24;
   }
 }
 
@@ -1878,7 +1878,7 @@ LABEL_9:
       memset(buf, 0, 32);
       if (resultCopy)
       {
-        [resultCopy tightBoundsForInstance:v32];
+        objc_msgSend_tightBoundsForInstance_(resultCopy);
       }
 
       if (points)
@@ -2117,7 +2117,7 @@ LABEL_56:
   v50 = 0u;
   if (v13)
   {
-    [v13 extent];
+    objc_msgSend_extent(v13);
   }
 
   v14 = sqrt(count / NUPixelSizeArea());
@@ -2245,7 +2245,7 @@ void __123__PECleanupSegmentAnalyzer__strokeToNormalizedSampledPointArray_maxPoi
   v7 = thresholdImage(strokeImageCopy, 0.0001);
 
   v8 = v7;
-  [v8 extent];
+  objc_msgSend_extent(v8);
   v10 = v9;
   v12 = v11;
   v14 = v13;
@@ -2260,12 +2260,12 @@ void __123__PECleanupSegmentAnalyzer__strokeToNormalizedSampledPointArray_maxPoi
 
   v21 = v6;
   v22 = v20;
-  [v21 extent];
+  objc_msgSend_extent(v21);
   v24 = v23;
   v26 = v25;
   v28 = v27;
   v30 = v29;
-  [v22 extent];
+  objc_msgSend_extent(v22);
   v47.origin.x = v31;
   v47.origin.y = v32;
   v47.size.width = v33;

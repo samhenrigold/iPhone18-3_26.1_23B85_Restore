@@ -19,8 +19,6 @@
 - (void)registerOnStorefrontChange:(id)change;
 - (void)removeObserver:(id)observer;
 - (void)unregisterOnAccountChange:(id)change;
-- (void)unregisterOnRestrictionChange;
-- (void)unregisterOnStorefrontChange;
 @end
 
 @implementation JSAStore
@@ -189,10 +187,10 @@
     return @"iPhone";
   }
 
-  v8 = JSALog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = JSALog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_8319C(v8);
+    sub_8319C(v9);
   }
 
   return 0;
@@ -223,7 +221,7 @@
 - (void)registerOnStorefrontChange:(id)change
 {
   changeCopy = change;
-  v5 = JSALog();
+  v5 = JSALog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136446210;
@@ -237,17 +235,10 @@
   self->_storefrontChangeHandler = v6;
 }
 
-- (void)unregisterOnStorefrontChange
-{
-  storefrontChangeHandler = self->_storefrontChangeHandler;
-  self->_storefrontChangeHandler = 0;
-  _objc_release_x1();
-}
-
 - (void)registerOnAccountChange:(id)change
 {
   changeCopy = change;
-  v5 = JSALog();
+  v5 = JSALog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -283,7 +274,7 @@
 - (void)registerOnRestrictionChange:(id)change
 {
   changeCopy = change;
-  v5 = JSALog();
+  v5 = JSALog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136446210;
@@ -295,13 +286,6 @@
 
   restrictionHandler = self->_restrictionHandler;
   self->_restrictionHandler = v6;
-}
-
-- (void)unregisterOnRestrictionChange
-{
-  restrictionHandler = self->_restrictionHandler;
-  self->_restrictionHandler = 0;
-  _objc_release_x1();
 }
 
 - (BOOL)isAuthenticated
@@ -324,13 +308,14 @@
 
 - (void)beginDelayingNotifications
 {
-  if (![(JSAStore *)self shouldDelayNotifications])
+  shouldDelayNotifications = [(JSAStore *)self shouldDelayNotifications];
+  if ((shouldDelayNotifications & 1) == 0)
   {
-    v3 = JSALog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = JSALog(shouldDelayNotifications);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[Store] begin delaying notifications", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[Store] begin delaying notifications", v6, 2u);
     }
 
     [(JSAStore *)self setShouldDelayNotifications:1];
@@ -341,13 +326,14 @@
 
 - (void)endDelayingNotifications
 {
-  if ([(JSAStore *)self shouldDelayNotifications])
+  shouldDelayNotifications = [(JSAStore *)self shouldDelayNotifications];
+  if (shouldDelayNotifications)
   {
-    v3 = JSALog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = JSALog(shouldDelayNotifications);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[Store] end delaying notifications", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[Store] end delaying notifications", v6, 2u);
     }
 
     [(JSAStore *)self setShouldDelayNotifications:0];
@@ -373,7 +359,7 @@
 
 - (void)account:(unint64_t)account didChangeWithReason:(unint64_t)reason
 {
-  v5 = JSALog();
+  v5 = JSALog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;

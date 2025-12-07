@@ -452,7 +452,7 @@
     {
       v14 = [(NTKDualTimeView *)self _dialColorForColorPalette:paletteCopy];
       v15 = [(NTKDualTimeView *)self _dialColorForColorPalette:colorPaletteCopy];
-      v16 = NTKInterpolateBetweenColors();
+      v16 = NTKInterpolateBetweenColors(fraction);
       [(UIView *)self->_dialBackgroundView setBackgroundColor:v16];
       secondHandView = [(CLKUIAnalogHandsView *)self->_analogHandsView secondHandView];
       [secondHandView setHandDotColor:v16];
@@ -470,7 +470,7 @@
 
       v24 = [(NTKDualTimeView *)self _secondHandColorForColorPalette:paletteCopy];
       v25 = [(NTKDualTimeView *)self _secondHandColorForColorPalette:colorPaletteCopy];
-      v26 = NTKInterpolateBetweenColors();
+      v26 = NTKInterpolateBetweenColors(fraction);
       [(NTKAnalogHandsView *)self->_analogHandsView applySecondHandColor:v26];
 
       v18 = paletteCopy;
@@ -479,27 +479,27 @@
     v27 = [(NTKDualTimeView *)self _hourTickColorForColorPalette:v18];
     v44 = [(NTKDualTimeView *)self _hourTickColorForColorPalette:colorPaletteCopy];
     v45 = v27;
-    v28 = NTKInterpolateBetweenColors();
+    v28 = NTKInterpolateBetweenColors(fraction);
     v29 = [(NTKDualTimeView *)self _minuteTickColorForColorPalette:paletteCopy];
     v40 = [(NTKDualTimeView *)self _minuteTickColorForColorPalette:colorPaletteCopy];
     v42 = v29;
-    v30 = NTKInterpolateBetweenColors();
+    v30 = NTKInterpolateBetweenColors(fraction);
     v43 = v28;
     [(NTKDualTimeView *)self _colorizeAnalogTicksWithHourColor:v28 minuteColor:v30];
     if (!view)
     {
       v31 = [(NTKDualTimeView *)self _digitalTimeLabelColorForColorPalette:paletteCopy, v40, v29];
       v32 = [(NTKDualTimeView *)self _digitalTimeLabelColorForColorPalette:colorPaletteCopy];
-      v33 = NTKInterpolateBetweenColors();
+      v33 = NTKInterpolateBetweenColors(fraction);
       [(NTKDigitalTimeLabel *)self->_digitalTimeLabel setColor:v33];
     }
 
     v34 = [(NTKDualTimeView *)self _secondTickActiveColorForColorPalette:paletteCopy, v40];
     v35 = [(NTKDualTimeView *)self _secondTickActiveColorForColorPalette:colorPaletteCopy];
-    v36 = NTKInterpolateBetweenColors();
+    v36 = NTKInterpolateBetweenColors(fraction);
     v37 = [(NTKDualTimeView *)self _secondTickInactiveColorForColorPalette:paletteCopy];
     v38 = [(NTKDualTimeView *)self _secondTickInactiveColorForColorPalette:colorPaletteCopy];
-    v39 = NTKInterpolateBetweenColors();
+    v39 = NTKInterpolateBetweenColors(fraction);
     [(NTKDualTimeDigitalTicksView *)self->_digitalTicksContainerView setActiveTickColor:v36];
     [(NTKDualTimeDigitalTicksView *)self->_digitalTicksContainerView setInactiveTickColor:v39];
     [(NTKDualTimeView *)self _refreshDigitalTicks];

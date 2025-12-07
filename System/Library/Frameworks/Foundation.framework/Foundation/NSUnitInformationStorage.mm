@@ -45,7 +45,7 @@
   return __NSMeasurementConvertedForFileSizeDescription(scale, 0xFFFF, v12 ^ 1u, v13, 0);
 }
 
-uint64_t __64__NSUnitInformationStorage__measurementWithNaturalScale_system___block_invoke()
+void *__64__NSUnitInformationStorage__measurementWithNaturalScale_system___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{+[NSUnitInformationStorage yobibytes](NSUnitInformationStorage, "yobibytes"), +[NSUnitInformationStorage yobibits](NSUnitInformationStorage, "yobibits"), +[NSUnitInformationStorage zebibytes](NSUnitInformationStorage, "zebibytes"), +[NSUnitInformationStorage zebibits](NSUnitInformationStorage, "zebibits"), +[NSUnitInformationStorage exbibytes](NSUnitInformationStorage, "exbibytes"), +[NSUnitInformationStorage exbibits](NSUnitInformationStorage, "exbibits"), +[NSUnitInformationStorage pebibytes](NSUnitInformationStorage, "pebibytes"), +[NSUnitInformationStorage pebibits](NSUnitInformationStorage, "pebibits"), +[NSUnitInformationStorage tebibytes](NSUnitInformationStorage, "tebibytes"), +[NSUnitInformationStorage tebibits](NSUnitInformationStorage, "tebibits"), +[NSUnitInformationStorage gibibytes](NSUnitInformationStorage, "gibibytes"), +[NSUnitInformationStorage gibibits](NSUnitInformationStorage, "gibibits"), +[NSUnitInformationStorage mebibytes](NSUnitInformationStorage, "mebibytes"), +[NSUnitInformationStorage mebibits](NSUnitInformationStorage, "mebibits"), +[NSUnitInformationStorage kibibytes](NSUnitInformationStorage, "kibibytes"), +[NSUnitInformationStorage kibibits](NSUnitInformationStorage, "kibibits"), 0}];
   qword_1EA7C01F8 = result;

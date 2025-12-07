@@ -1,6 +1,7 @@
 @interface STRestrictionsConverter
 + (id)numberByAgePresetKeyExcludingImageGenerationForRestrictions:(id)restrictions;
 + (id)numberByAgePresetKeyForRestrictions:(id)restrictions;
++ (id)restrictionsWithIsEnabled:(BOOL)enabled valueByAgePresetKey:(id)key;
 + (id)updatedRestrictions:(id)restrictions withImageGenerationRestriction:(int64_t)restriction;
 + (id)updatedRestrictions:(id)restrictions withValueByAgePresetKey:(id)key;
 + (int64_t)imageGenerationRestrictionFromRestrictions:(id)restrictions;
@@ -34,6 +35,18 @@
   v7 = sub_1B83DDC6C();
 
   return v7;
+}
+
++ (id)restrictionsWithIsEnabled:(BOOL)enabled valueByAgePresetKey:(id)key
+{
+  enabledCopy = enabled;
+  sub_1B83DDC7C();
+  initWithIsEnabled_ = [objc_allocWithZone(STMutableRestrictions) initWithIsEnabled_];
+  v7 = sub_1B83DDC6C();
+
+  v8 = [self updatedRestrictions:initWithIsEnabled_ withValueByAgePresetKey:v7];
+
+  return v8;
 }
 
 + (id)updatedRestrictions:(id)restrictions withValueByAgePresetKey:(id)key

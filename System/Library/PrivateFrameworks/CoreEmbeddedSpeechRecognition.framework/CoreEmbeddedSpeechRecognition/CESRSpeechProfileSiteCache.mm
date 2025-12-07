@@ -89,7 +89,7 @@
 
 - (id)speechProfileSiteAtURL:(id)l error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([(CESRSpeechProfileSite *)self->_defaultSpeechProfileSite isEquivalentSpeechProfileSiteURL:lCopy])
   {
@@ -98,26 +98,26 @@
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     allValues = [(NSMutableDictionary *)self->_userExSpeechProfileSites allValues];
-    v9 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           if ([v13 isEquivalentSpeechProfileSiteURL:lCopy])
           {
             v7 = v13;
@@ -126,7 +126,7 @@
           }
         }
 
-        v10 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -141,8 +141,6 @@
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

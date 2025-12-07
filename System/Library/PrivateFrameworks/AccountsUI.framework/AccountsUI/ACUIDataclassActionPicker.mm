@@ -173,7 +173,6 @@ LABEL_9:
     v15 = 0;
   }
 
-  *MEMORY[0x277D85DE8];
   v2 = v15;
 
   return v2;
@@ -236,7 +235,6 @@ LABEL_9:
     v18 = 0;
   }
 
-  *MEMORY[0x277D85DE8];
   v4 = v18;
 
   return v4;
@@ -352,7 +350,6 @@ LABEL_9:
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -405,9 +402,7 @@ intptr_t __50__ACUIDataclassActionPicker_showInViewController___block_invoke_2(u
   *(v3 + 40) = v2;
   MEMORY[0x277D82BD8](v4);
   MEMORY[0x277D82BD8](v6);
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 - (id)title

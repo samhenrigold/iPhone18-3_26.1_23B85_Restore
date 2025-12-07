@@ -11,30 +11,28 @@
 {
   v5 = sub_1C2170024();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v16[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF251D0, &qword_1C2176940);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v16[-v12];
+  v8 = &v14[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBF251D0, &qword_1C2176940);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v14[-v10];
   if (l)
   {
     sub_1C216FFD4();
-    (*(v6 + 32))(v13, v9, v5);
-    (*(v6 + 56))(v13, 0, 1, v5);
+    (*(v6 + 32))(v11, v8, v5);
+    (*(v6 + 56))(v11, 0, 1, v5);
   }
 
   else
   {
-    (*(v6 + 56))(v13, 1, 1, v5);
+    (*(v6 + 56))(v11, 1, 1, v5);
   }
 
   swift_getObjCClassMetadata();
-  v14 = static ASManagedConfiguration.loadFromDisk(plistURL:)(v13);
-  sub_1C20EB498(v13, &qword_1EBF251D0, &qword_1C2176940);
+  v12 = static ASManagedConfiguration.loadFromDisk(plistURL:)(v11);
+  sub_1C20EB498(v11, &qword_1EBF251D0, &qword_1C2176940);
 
-  return v14;
+  return v12;
 }
 
 - (BOOL)isConfiguredForEnterpriseAttestationForRelyingParty:(id)party

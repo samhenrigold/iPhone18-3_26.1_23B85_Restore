@@ -21,7 +21,7 @@
 
 - (THNavigationViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v6 = THBundle();
+  v6 = THBundle(self, a2);
   v9.receiver = self;
   v9.super_class = THNavigationViewController;
   v7 = [(THNavigationViewController *)&v9 initWithNibName:name bundle:v6];

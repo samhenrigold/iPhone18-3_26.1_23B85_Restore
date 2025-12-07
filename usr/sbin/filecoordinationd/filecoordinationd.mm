@@ -132,9 +132,9 @@ LABEL_8:
   _Block_object_dispose(&v23, 8);
 }
 
-void sub_100000D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100000D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -274,9 +274,9 @@ LABEL_17:
   return 0;
 }
 
-void sub_100001158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100001158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -469,22 +469,23 @@ uint64_t receive_nspace_resolve_cancel(uint64_t a1, uint64_t a2)
 
 void init_mig_server()
 {
-  v2 = 1;
-  if (sysctlbyname("vfs.nspace.resolver", 0, 0, &v2, 4uLL))
+  v3 = 1;
+  if (sysctlbyname("vfs.nspace.resolver", 0, 0, &v3, 4uLL))
   {
     v0 = _NSFCLog();
     if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "filecoordinationd is unable to mark itself as an nspace resolver", v1, 2u);
+      *v2 = 0;
+      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "filecoordinationd is unable to mark itself as an nspace resolver", v2, 2u);
     }
   }
 
   else
   {
-    if (bootstrap_check_in(bootstrap_port, "com.apple.FileCoordination.kernel.ipc", &server_port))
+    v1 = bootstrap_check_in(bootstrap_port, "com.apple.FileCoordination.kernel.ipc", &server_port);
+    if (v1)
     {
-      init_mig_server_cold_1();
+      init_mig_server_cold_1(v1);
     }
 
     mig_queue = dispatch_queue_create("com.apple.FileCoordination.fault-mig", 0);
@@ -539,10 +540,11 @@ uint64_t __handle_nspace_request_with_info_block_invoke(uint64_t a1, uint64_t a2
   return make_nspace_handle_response(v5, a2, 0, v6);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t vfs_nspace_server_routine(uint64_t a1)
@@ -561,10 +563,8 @@ uint64_t vfs_nspace_server_routine(uint64_t a1)
 
 _DWORD *_Xnspace_handle(_DWORD *result, uint64_t a2)
 {
-  if ((*result & 0x80000000) == 0 && (v3 = result, result[1] == 4132) && (result = memchr(result + 9, 0, 0x1000uLL)) != 0)
+  if ((*result & 0x80000000) == 0 && result[1] == 4132 && (result = memchr(result + 9, 0, 0x1000uLL)) != 0)
   {
-    v4 = v3[3];
-    v5 = v3[8];
     result = receive_nspace_handle();
     *(a2 + 32) = result;
     *(a2 + 24) = NDR_record;
@@ -787,10 +787,17 @@ uint64_t vfs_nspace_server(_DWORD *a1, uint64_t a2)
   return result;
 }
 
-void init_mig_server_cold_1()
+void handle_nspace_request_with_info_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136380675;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&_mh_execute_header, a2, a3, "Failed to convert path %{private}s to URL", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void init_mig_server_cold_1(int a1)
 {
   _os_assert_log();
-  v0 = _os_crash();
+  v1 = _os_crash();
   __break(1u);
-  NSClassFromString(v0);
+  NSClassFromString(v1);
 }

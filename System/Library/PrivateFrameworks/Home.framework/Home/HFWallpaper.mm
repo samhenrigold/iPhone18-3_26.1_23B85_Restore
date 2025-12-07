@@ -247,15 +247,15 @@ LABEL_19:
 
 - (id)dictionaryRepresentation
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v20[0] = @"Type";
+  v19[0] = @"Type";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HFWallpaper type](self, "type")}];
-  v20[1] = @"Identifier";
-  v21[0] = v4;
+  v19[1] = @"Identifier";
+  v20[0] = v4;
   assetIdentifier = [(HFWallpaper *)self assetIdentifier];
-  v21[1] = assetIdentifier;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = assetIdentifier;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   v7 = [v3 dictionaryWithDictionary:v6];
 
   cropInfo = [(HFWallpaper *)self cropInfo];
@@ -263,12 +263,12 @@ LABEL_19:
   if (cropInfo)
   {
     +[HFWallpaper size];
-    v9 = NSStringFromCGSize(v23);
-    v18 = v9;
+    v9 = NSStringFromCGSize(v22);
+    v17 = v9;
     cropInfo2 = [(HFWallpaper *)self cropInfo];
     dictionaryRepresentation = [cropInfo2 dictionaryRepresentation];
-    v19 = dictionaryRepresentation;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v18 = dictionaryRepresentation;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     [v7 setObject:v12 forKeyedSubscript:@"AllCropInfo"];
   }
 
@@ -280,8 +280,6 @@ LABEL_19:
     dictionaryRepresentation2 = [lastUserSelectedWallpaper2 dictionaryRepresentation];
     [v7 setObject:dictionaryRepresentation2 forKeyedSubscript:@"LastUserSelectedWallpaper"];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -35,32 +35,32 @@
 
 - (void)updateBackgroundColorWithJSString:(id)string
 {
-  v17[7] = *MEMORY[0x1E69E9840];
+  v16[7] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (stringCopy)
   {
-    v16[0] = @"-apple-system-background";
+    v15[0] = @"-apple-system-background";
     systemBackgroundColor = [objc_opt_class() systemBackgroundColor];
-    v17[0] = systemBackgroundColor;
-    v16[1] = @"-apple-system-clear";
+    v16[0] = systemBackgroundColor;
+    v15[1] = @"-apple-system-clear";
     systemClearColor = [objc_opt_class() systemClearColor];
-    v17[1] = systemClearColor;
-    v16[2] = @"-apple-system-secondary-background";
+    v16[1] = systemClearColor;
+    v15[2] = @"-apple-system-secondary-background";
     secondarySystemBackgroundColor = [objc_opt_class() secondarySystemBackgroundColor];
-    v17[2] = secondarySystemBackgroundColor;
-    v16[3] = @"-apple-system-tertiary-background";
+    v16[2] = secondarySystemBackgroundColor;
+    v15[3] = @"-apple-system-tertiary-background";
     tertiarySystemBackgroundColor = [objc_opt_class() tertiarySystemBackgroundColor];
-    v17[3] = tertiarySystemBackgroundColor;
-    v16[4] = @"-apple-system-grouped-background";
+    v16[3] = tertiarySystemBackgroundColor;
+    v15[4] = @"-apple-system-grouped-background";
     systemGroupedBackgroundColor = [objc_opt_class() systemGroupedBackgroundColor];
-    v17[4] = systemGroupedBackgroundColor;
-    v16[5] = @"-apple-system-secondary-grouped-background";
+    v16[4] = systemGroupedBackgroundColor;
+    v15[5] = @"-apple-system-secondary-grouped-background";
     secondarySystemGroupedBackgroundColor = [objc_opt_class() secondarySystemGroupedBackgroundColor];
-    v17[5] = secondarySystemGroupedBackgroundColor;
-    v16[6] = @"-apple-system-tertiary-grouped-background";
+    v16[5] = secondarySystemGroupedBackgroundColor;
+    v15[6] = @"-apple-system-tertiary-grouped-background";
     tertiarySystemGroupedBackgroundColor = [objc_opt_class() tertiarySystemGroupedBackgroundColor];
-    v17[6] = tertiarySystemGroupedBackgroundColor;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:7];
+    v16[6] = tertiarySystemGroupedBackgroundColor;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:7];
 
     v13 = [v12 objectForKeyedSubscript:stringCopy];
     if (v13 || ([MEMORY[0x1E69DC888] ams_colorFromHexString:stringCopy], (v13 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -69,8 +69,6 @@
       [(AMSUIWebAppearance *)self setBackgroundColor:v13];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

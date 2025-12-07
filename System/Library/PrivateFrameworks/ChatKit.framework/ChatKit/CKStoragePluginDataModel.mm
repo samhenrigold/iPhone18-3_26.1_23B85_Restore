@@ -212,7 +212,7 @@
 
   if (v8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5C270);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5C270, &qword_190DFD960);
     v9 = sub_190D57160();
   }
 
@@ -226,7 +226,7 @@
 
 - (void)setCachedAttachments:(id)attachments forAttachmentClass:(id)class
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5C270);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD5C270, &qword_190DFD960);
   v5 = sub_190D57180();
   v6 = sub_190D56F10();
   v8 = v7;

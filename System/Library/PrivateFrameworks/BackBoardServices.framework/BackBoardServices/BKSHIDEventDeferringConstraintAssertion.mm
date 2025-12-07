@@ -36,7 +36,7 @@
 
 - (id)_init
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -46,51 +46,50 @@
       v3 = objc_opt_class();
       if (v3 != objc_opt_class())
       {
-        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDeferringConstraintAssertion cannot be subclassed"];
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v6 = NSStringFromSelector(sel__init);
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
+          v5 = NSStringFromSelector(sel__init);
+          v6 = objc_opt_class();
+          v7 = NSStringFromClass(v6);
           *buf = 138544642;
-          v11 = v6;
-          v12 = 2114;
-          v13 = v8;
-          v14 = 2048;
-          v15 = v1;
-          v16 = 2114;
-          v17 = @"BKSHIDEventDeferringConstraintAssertion.m";
-          v18 = 1024;
-          v19 = 49;
-          v20 = 2114;
-          v21 = v5;
+          v10 = v5;
+          v11 = 2114;
+          v12 = v7;
+          v13 = 2048;
+          v14 = v1;
+          v15 = 2114;
+          v16 = @"BKSHIDEventDeferringConstraintAssertion.m";
+          v17 = 1024;
+          v18 = 49;
+          v19 = 2114;
+          v20 = v4;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v5 UTF8String];
+        [v4 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x18637337CLL);
       }
     }
 
-    v9.receiver = v1;
-    v9.super_class = BKSHIDEventDeferringConstraintAssertion;
-    result = objc_msgSendSuper2(&v9, sel_init);
+    v8.receiver = v1;
+    v8.super_class = BKSHIDEventDeferringConstraintAssertion;
+    return objc_msgSendSuper2(&v8, sel_init);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)appendDescriptionToStream:(id)stream
 {
   streamCopy = stream;
-  v4 = [streamCopy appendObject:self->_pathIdentifier withName:@"pathIdentifier"];
-  v5 = [streamCopy appendObject:self->_selectionTarget withName:@"selectionTarget"];
-  v6 = [streamCopy appendObject:self->_constraint withName:@"constraint"];
-  v7 = [streamCopy appendObject:self->_basis withName:@"basis"];
-  v8 = [streamCopy appendTimeInterval:@"timestamp" withName:0 decomposeUnits:self->_timestamp];
+  v3 = [streamCopy appendObject:? withName:?];
+  v4 = [streamCopy appendObject:? withName:?];
+  v5 = [streamCopy appendObject:? withName:?];
+  v6 = [streamCopy appendObject:? withName:?];
+  v7 = [streamCopy appendTimeInterval:? withName:? decomposeUnits:?];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -106,28 +105,24 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = equalCopy;
-    v6 = v5[1];
-    pathIdentifier = self->_pathIdentifier;
-    if (BSEqualObjects() && (v8 = v5[2], selectionTarget = self->_selectionTarget, BSEqualObjects()) && (v10 = v5[3], constraint = self->_constraint, BSEqualObjects()) && (v12 = v5[4], basis = self->_basis, BSEqualObjects()))
+    v4 = equalCopy;
+    if (BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects())
     {
-      v14 = v5[5];
-      timestamp = self->_timestamp;
-      v16 = BSFloatEqualToFloat();
+      v5 = BSFloatEqualToFloat();
     }
 
     else
     {
-      v16 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v5 = 0;
   }
 
-  return v16;
+  return v5;
 }
 
 - (unint64_t)hash
@@ -136,7 +131,7 @@
   [(BKSHIDEventDeferringSelectionTarget *)self->_selectionTarget hash];
   [(BKSHIDEventDeferringConstraint *)self->_constraint hash];
   [(BKSHIDEventDeferringChangeBasis *)self->_basis hash];
-  v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_timestamp];
+  v3 = [MEMORY[0x1E696AD98] numberWithDouble:?];
   [v3 hash];
 
   return BSHashPurifyNS();
@@ -145,76 +140,75 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  pathIdentifier = self->_pathIdentifier;
-  v9 = coderCopy;
-  if (pathIdentifier)
+  v5 = coderCopy;
+  if (self->_pathIdentifier)
   {
-    [coderCopy encodeObject:pathIdentifier forKey:@"pathIdentifier"];
-    coderCopy = v9;
+    [coderCopy encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  selectionTarget = self->_selectionTarget;
-  if (selectionTarget)
+  if (self->_selectionTarget)
   {
-    [v9 encodeObject:selectionTarget forKey:@"selectionTarget"];
-    coderCopy = v9;
+    [v5 encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  constraint = self->_constraint;
-  if (constraint)
+  if (self->_constraint)
   {
-    [v9 encodeObject:constraint forKey:@"constraint"];
-    coderCopy = v9;
+    [v5 encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  basis = self->_basis;
-  if (basis)
+  if (self->_basis)
   {
-    [v9 encodeObject:basis forKey:@"basis"];
-    coderCopy = v9;
+    [v5 encodeObject:? forKey:?];
+    coderCopy = v5;
   }
 
-  [coderCopy encodeDouble:@"timestamp" forKey:self->_timestamp];
+  [coderCopy encodeDouble:? forKey:?];
 }
 
 - (BKSHIDEventDeferringConstraintAssertion)initWithCoder:(id)coder
 {
-  v19.receiver = self;
-  v19.super_class = BKSHIDEventDeferringConstraintAssertion;
+  v18.receiver = self;
+  v18.super_class = BKSHIDEventDeferringConstraintAssertion;
   coderCopy = coder;
-  v4 = [(BKSHIDEventDeferringConstraintAssertion *)&v19 init];
+  v4 = [(BKSHIDEventDeferringConstraintAssertion *)&v18 init];
   v5 = MEMORY[0x1E695DFD8];
-  v6 = objc_opt_class();
-  v7 = [v5 setWithObjects:{v6, objc_opt_class(), 0, v19.receiver, v19.super_class}];
-  v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"pathIdentifier"];
+  objc_opt_class();
+  v6 = [v5 setWithObjects:{objc_opt_class(), 0, v18.receiver, v18.super_class}];
+  v7 = [coderCopy decodeObjectOfClasses:? forKey:?];
   pathIdentifier = v4->_pathIdentifier;
-  v4->_pathIdentifier = v8;
+  v4->_pathIdentifier = v7;
 
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"selectionTarget"];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
   selectionTarget = v4->_selectionTarget;
-  v4->_selectionTarget = v10;
+  v4->_selectionTarget = v9;
 
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"constraint"];
+  objc_opt_class();
+  v11 = [coderCopy decodeObjectOfClass:? forKey:?];
   constraint = v4->_constraint;
-  v4->_constraint = v12;
+  v4->_constraint = v11;
 
-  v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"basis"];
+  objc_opt_class();
+  v13 = [coderCopy decodeObjectOfClass:? forKey:?];
   basis = v4->_basis;
-  v4->_basis = v14;
+  v4->_basis = v13;
 
-  [coderCopy decodeDoubleForKey:@"timestamp"];
-  v17 = v16;
+  [coderCopy decodeDoubleForKey:?];
+  v16 = v15;
 
-  v4->_timestamp = v17;
+  v4->_timestamp = v16;
   return v4;
 }
 
 - (BKSHIDEventDeferringConstraintAssertion)init
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventDeferringConstraintAssertion"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BKSHIDEventDeferringConstraintAssertion init]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;
@@ -234,10 +228,10 @@
 
 + (id)new
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot directly allocate BKSHIDEventDeferringConstraintAssertion"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[BKSHIDEventDeferringConstraintAssertion new]"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     v5 = 138544130;
     v6 = v3;
     v7 = 2114;

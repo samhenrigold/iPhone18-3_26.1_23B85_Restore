@@ -155,7 +155,7 @@
   return serialQueue;
 }
 
-uint64_t __49__MediaControlsHomeObserver_hasAccessoryWithUID___block_invoke(void *a1)
+void *__49__MediaControlsHomeObserver_hasAccessoryWithUID___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

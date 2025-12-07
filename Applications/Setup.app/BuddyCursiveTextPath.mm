@@ -343,7 +343,7 @@ LABEL_27:
   v60 = 0;
   v59 = 0;
   p_bezierArrays = &selfCopy->_bezierArrays;
-  v57 = sub_1001FB210(&selfCopy->_bezierArrays);
+  v57 = sub_1001FB210(&selfCopy->_bezierArrays.__begin_);
   v56 = sub_1001FB258(p_bezierArrays);
   while (sub_1001FB2A0(&v57, &v56))
   {

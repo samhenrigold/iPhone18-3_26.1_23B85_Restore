@@ -64,28 +64,29 @@
     return self->_library;
   }
 
-  block = self->_block;
-  if (!block || (result = block[2](block, device)) == 0)
+  result = self->_block;
+  if (!result || (result = (*(result + 2))(result, device)) == 0)
   {
     libraryURL = self->_libraryURL;
     if (libraryURL)
     {
-      v11 = 0;
-      v8 = [device newLibraryWithURL:libraryURL error:&v11];
+      v12 = 0;
+      v8 = [device newLibraryWithURL:libraryURL error:&v12];
       if (v8)
       {
         return v8;
       }
 
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = scn_default_log(0, v9);
+      result = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      if (result)
       {
         [SCNMetalLibraryProvider libraryForDevice:];
       }
     }
 
-    v10 = scn_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = scn_default_log(result, v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SCNMetalLibraryProvider libraryForDevice:];
     }
@@ -107,7 +108,7 @@
 
   else
   {
-    v5 = scn_default_log();
+    v5 = scn_default_log(0, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SCNMetalLibraryProvider _libraryHash];

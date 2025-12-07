@@ -96,7 +96,7 @@
 - (id)buildNavigationDetails
 {
   v3 = objc_alloc_init(MNStartNavigationDetails);
-  [(StartNavigationDetailsBuilder *)self options];
+  objc_msgSend_options(self);
   [v3 setGuidanceType:v58];
   tracePlaybackPath = [(StartNavigationDetailsBuilder *)self tracePlaybackPath];
   [v3 setTracePlaybackPath:tracePlaybackPath];
@@ -104,7 +104,7 @@
   traceRecordingNameOverride = [(StartNavigationDetailsBuilder *)self traceRecordingNameOverride];
   [v3 setTraceRecordingNameOverride:traceRecordingNameOverride];
 
-  [(StartNavigationDetailsBuilder *)self options];
+  objc_msgSend_options(self);
   if (v57 == 1)
   {
     Integer = GEOConfigGetInteger();
@@ -116,12 +116,12 @@
   }
 
   [v3 setSimulationType:Integer];
-  [(StartNavigationDetailsBuilder *)self options];
+  objc_msgSend_options(self);
   [v3 setIsReconnecting:v56];
   simulationType = [v3 simulationType];
   if (GEOConfigGetBOOL())
   {
-    [(StartNavigationDetailsBuilder *)self options];
+    objc_msgSend_options(self);
     if (v55 == 2)
     {
       BOOL = GEOConfigGetBOOL();
@@ -242,13 +242,13 @@ LABEL_24:
   bundleIdentifier = [v34 bundleIdentifier];
   [v3 setRequestingAppIdentifier:bundleIdentifier];
 
-  [(StartNavigationDetailsBuilder *)self options];
+  objc_msgSend_options(self);
   v36 = v54;
   if (!v54)
   {
     routeCollection6 = [(StartNavigationDetailsBuilder *)self routeCollection];
     currentRoute4 = [routeCollection6 currentRoute];
-    [(StartNavigationDetailsBuilder *)self options];
+    objc_msgSend_options(self);
     v36 = [currentRoute4 suggestedNavigationModeForLocation:lastLocation context:v53];
   }
 
@@ -268,10 +268,10 @@ LABEL_24:
     v40 = v39;
   }
 
-  [(StartNavigationDetailsBuilder *)self options];
+  objc_msgSend_options(self);
   if (v52 == 1)
   {
-    [(StartNavigationDetailsBuilder *)self options];
+    objc_msgSend_options(self);
     v40 = v51;
     if (!v51)
     {
@@ -299,13 +299,13 @@ LABEL_24:
     }
   }
 
-  [(StartNavigationDetailsBuilder *)self options];
+  objc_msgSend_options(self);
   if (v50)
   {
-    [(StartNavigationDetailsBuilder *)self options];
+    objc_msgSend_options(self);
     if (v49 != 1)
     {
-      [(StartNavigationDetailsBuilder *)self options];
+      objc_msgSend_options(self);
       v40 = v48;
       if (v48 == 3)
       {
@@ -328,7 +328,7 @@ LABEL_24:
   }
 
   [v3 setNavigationType:v40];
-  [(StartNavigationDetailsBuilder *)self options];
+  objc_msgSend_options(self);
   [v3 setGuidanceLevelOverride:v47];
   [v3 setIsResumingMultipointRoute:{-[StartNavigationDetailsBuilder isResumingMultipointRoute](self, "isResumingMultipointRoute")}];
 
@@ -368,7 +368,7 @@ LABEL_24:
   if (v6)
   {
     objc_storeStrong(&v6->_routeCollection, collection);
-    +[StartNavigationDetailsBuilder defaultNavigationDetailsOptions];
+    objc_msgSend_defaultNavigationDetailsOptions(StartNavigationDetailsBuilder);
     *&v7->_options.shouldSimulateLocations = v9;
     *&v7->_options.guidanceType = v10;
     *&v7->_options.isReconnecting = v11;

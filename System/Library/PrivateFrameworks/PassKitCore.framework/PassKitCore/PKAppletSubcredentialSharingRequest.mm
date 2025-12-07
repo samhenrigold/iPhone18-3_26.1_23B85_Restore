@@ -191,9 +191,9 @@ LABEL_3:
       anyObject = [subcredentials anyObject];
 
       identifier = [anyObject identifier];
-      v13 = [identifier isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v13)
+      if (isEqualToString)
       {
         break;
       }

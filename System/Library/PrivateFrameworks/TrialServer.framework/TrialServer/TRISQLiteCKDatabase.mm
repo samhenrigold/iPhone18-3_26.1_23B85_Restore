@@ -16,6 +16,7 @@
 - (BOOL)_translatePredicate:(id)predicate forRecordType:(id)type toSQLExpr:(id *)expr paramBindings:(id *)bindings error:(id *)error;
 - (BOOL)_translateScalarComparisonPredicate:(id)predicate forRecordType:(id)type toSQLExpr:(id *)expr paramBindings:(id *)bindings error:(id *)error;
 - (BOOL)_upsertRecord:(id)record txn:(id)txn error:(id *)error;
+- (BOOL)migrateToVersion:(unsigned int)version;
 - (CKContainer)container;
 - (TRISQLiteCKDatabase)initWithParentDir:(id)dir assetCacheDir:(id)cacheDir;
 - (id)_allRecordTypes;
@@ -32,6 +33,7 @@
 - (id)_valueTypesForFieldsOfRecordType:(id)type;
 - (id)migrations;
 - (id)queriesToSkipFromEmptyToVersion:(unsigned int *)version;
+- (void)_bindParam:(int)param toScalarValue:(id)value forStatement:(id)statement recordId:(id)id;
 - (void)_deleteRecordsWithRecordIds:(id)ids recordType:(id)type txn:(id)txn;
 - (void)_processFetchRecordsOperation:(id)operation;
 - (void)_processModifyRecordsOperation:(id)operation;
@@ -46,7 +48,7 @@
 
 - (TRISQLiteCKDatabase)initWithParentDir:(id)dir assetCacheDir:(id)cacheDir
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   cacheDirCopy = cacheDir;
   v10 = cacheDirCopy;
@@ -73,9 +75,9 @@
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:110 description:{@"Invalid parameter not satisfying: %@", @"assetCacheDir"}];
 
 LABEL_3:
-  v41.receiver = self;
-  v41.super_class = TRISQLiteCKDatabase;
-  v11 = [(TRISQLiteCKDatabase *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = TRISQLiteCKDatabase;
+  v11 = [(TRISQLiteCKDatabase *)&v40 init];
   v12 = v11;
   if (!v11)
   {
@@ -112,9 +114,9 @@ LABEL_3:
 
   v20 = MEMORY[0x277D42630];
   v21 = objc_opt_new();
-  v40 = 0;
-  v22 = [v20 sqliteDatabaseWithFilename:v16 contentProtection:3 errorHandler:v21 error:&v40];
-  v23 = v40;
+  v39 = 0;
+  v22 = [v20 sqliteDatabaseWithFilename:v16 contentProtection:3 errorHandler:v21 error:&v39];
+  v23 = v39;
   db = v12->_db;
   v12->_db = v22;
 
@@ -134,24 +136,24 @@ LABEL_3:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__2;
-  v47 = __Block_byref_object_dispose__2;
-  v48 = 0;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __55__TRISQLiteCKDatabase_initWithParentDir_assetCacheDir___block_invoke;
-  v39[3] = &unk_279DDF778;
-  v39[4] = &buf;
-  if (([(_PASSqliteDatabase *)v25 prepAndRunNonDataQueries:&unk_287FC4ED0 onError:v39]& 1) == 0)
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__2;
+  v46 = __Block_byref_object_dispose__2;
+  v47 = 0;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __55__TRISQLiteCKDatabase_initWithParentDir_assetCacheDir___block_invoke;
+  v38[3] = &unk_279DDF778;
+  v38[4] = &buf;
+  if (([(_PASSqliteDatabase *)v25 prepAndRunNonDataQueries:&unk_287FC4ED0 onError:v38]& 1) == 0)
   {
     v31 = TRILogCategory_Server();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v36 = *(*(&buf + 1) + 40);
-      *v42 = 138543362;
-      v43 = v36;
-      _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "Failed to run initial database pragmas: %{public}@", v42, 0xCu);
+      v35 = *(*(&buf + 1) + 40);
+      *v41 = 138543362;
+      v42 = v35;
+      _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "Failed to run initial database pragmas: %{public}@", v41, 0xCu);
     }
 
     [(_PASSqliteDatabase *)v12->_db closePermanently];
@@ -186,11 +188,11 @@ LABEL_28:
 
   if (![(TRISQLiteCKDatabase *)v12 migrateToVersion:*MEMORY[0x277D426A0]])
   {
-    v35 = TRILogCategory_Server();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v34 = TRILogCategory_Server();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf) = 0;
-      _os_log_error_impl(&dword_26F567000, v35, OS_LOG_TYPE_ERROR, "TRISQLiteCKDatabase: migrations failed", &buf, 2u);
+      _os_log_error_impl(&dword_26F567000, v34, OS_LOG_TYPE_ERROR, "TRISQLiteCKDatabase: migrations failed", &buf, 2u);
     }
 
     goto LABEL_28;
@@ -204,7 +206,6 @@ LABEL_18:
   v29 = v12;
 LABEL_29:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -504,7 +505,7 @@ uint64_t __46__TRISQLiteCKDatabase__processQueryOperation___block_invoke_2(uint6
 
 - (BOOL)_evalQueryOperationWithRecordType:(id)type predicate:(id)predicate sortDescriptors:(id)descriptors offset:(unint64_t)offset resultsLimit:(unint64_t)limit desiredKeys:(id)keys txn:(id)txn error:(id *)self0 recordMatchedBlock:(id)self1
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
@@ -516,59 +517,59 @@ uint64_t __46__TRISQLiteCKDatabase__processQueryOperation___block_invoke_2(uint6
 
   if (descriptors)
   {
-    v56 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:typeCopy];
-    if (!v56)
+    v55 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:typeCopy];
+    if (!v55)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:320 description:{@"Invalid parameter not satisfying: %@", @"valueTypes"}];
     }
 
+    v84 = 0;
     v85 = 0;
-    v86 = 0;
-    if ([(TRISQLiteCKDatabase *)self _parseDesiredKeys:keysCopy recordType:typeCopy unindexedFields:&v86 indexedFields:&v85 error:error])
+    if ([(TRISQLiteCKDatabase *)self _parseDesiredKeys:keysCopy recordType:typeCopy unindexedFields:&v85 indexedFields:&v84 error:error])
     {
-      if (!v86)
+      if (!v85)
       {
         currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:331 description:{@"Invalid parameter not satisfying: %@", @"unindexedDesiredKeys"}];
       }
 
-      if (!v85)
+      if (!v84)
       {
         currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler3 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:332 description:{@"Invalid parameter not satisfying: %@", @"indexedDesiredKeys"}];
       }
 
-      v52 = objc_opt_new();
+      v51 = objc_opt_new();
+      v82 = 0;
       v83 = 0;
-      v84 = 0;
-      if ([(TRISQLiteCKDatabase *)self _translatePredicate:predicateCopy forRecordType:typeCopy toSQLExpr:&v84 paramBindings:&v83 error:error])
+      if ([(TRISQLiteCKDatabase *)self _translatePredicate:predicateCopy forRecordType:typeCopy toSQLExpr:&v83 paramBindings:&v82 error:error])
       {
-        if (!v84)
+        if (!v83)
         {
           currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler4 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:345 description:{@"Invalid parameter not satisfying: %@", @"whereClauseExpr"}];
         }
 
-        if (!v83)
+        if (!v82)
         {
           currentHandler5 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler5 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:346 description:{@"Invalid parameter not satisfying: %@", @"whereClauseBindings"}];
         }
 
-        [v52 addObjectsFromArray:?];
+        [v51 addObjectsFromArray:?];
         if ([descriptorsCopy count])
         {
-          v55 = objc_opt_new();
-          v81 = 0u;
-          v82 = 0u;
-          v79 = 0u;
+          v54 = objc_opt_new();
           v80 = 0u;
+          v81 = 0u;
+          v78 = 0u;
+          v79 = 0u;
           obj = descriptorsCopy;
-          v18 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+          v18 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
           if (v18)
           {
-            v19 = *v80;
+            v19 = *v79;
             v20 = &selRef__requireAssetStoreTempDir;
             while (2)
             {
@@ -576,12 +577,12 @@ uint64_t __46__TRISQLiteCKDatabase__processQueryOperation___block_invoke_2(uint6
               v22 = v20[355];
               do
               {
-                if (*v80 != v19)
+                if (*v79 != v19)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v23 = *(*(&v79 + 1) + 8 * v21);
+                v23 = *(*(&v78 + 1) + 8 * v21);
                 v24 = [v23 key];
                 if (!v24 || (v25 = [v23 selector] == v22, v24, !v25))
                 {
@@ -605,13 +606,13 @@ uint64_t __46__TRISQLiteCKDatabase__processQueryOperation___block_invoke_2(uint6
                 }
 
                 v30 = [v26 initWithFormat:@"%@ %s", v27, v29];
-                [v55 addObject:v30];
+                [v54 addObject:v30];
 
                 ++v21;
               }
 
               while (v18 != v21);
-              v18 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+              v18 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
               v20 = &selRef__requireAssetStoreTempDir;
               if (v18)
               {
@@ -623,7 +624,7 @@ uint64_t __46__TRISQLiteCKDatabase__processQueryOperation___block_invoke_2(uint6
           }
 
           v31 = objc_alloc(MEMORY[0x277CCACA8]);
-          v32 = [v55 componentsJoinedByString:{@", "}];
+          v32 = [v54 componentsJoinedByString:{@", "}];
           v33 = [v31 initWithFormat:@" ORDER BY %@", v32];
         }
 
@@ -639,26 +640,26 @@ uint64_t __46__TRISQLiteCKDatabase__processQueryOperation___block_invoke_2(uint6
 
         else
         {
-          v78[0] = MEMORY[0x277D85DD0];
-          v78[1] = 3221225472;
-          v78[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke;
-          v78[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
-          v78[4] = limit;
-          v40 = MEMORY[0x2743948D0](v78);
-          [v52 addObject:v40];
+          v77[0] = MEMORY[0x277D85DD0];
+          v77[1] = 3221225472;
+          v77[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke;
+          v77[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
+          v77[4] = limit;
+          v40 = MEMORY[0x2743948D0](v77);
+          [v51 addObject:v40];
 
           v39 = @" LIMIT ?";
         }
 
         if (offset)
         {
-          v77[0] = MEMORY[0x277D85DD0];
-          v77[1] = 3221225472;
-          v77[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_2;
-          v77[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
-          v77[4] = offset;
-          v41 = MEMORY[0x2743948D0](v77);
-          [v52 addObject:v41];
+          v76[0] = MEMORY[0x277D85DD0];
+          v76[1] = 3221225472;
+          v76[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_2;
+          v76[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
+          v76[4] = offset;
+          v41 = MEMORY[0x2743948D0](v76);
+          [v51 addObject:v41];
 
           typeCopy = @" OFFSET ?";
         }
@@ -669,42 +670,42 @@ uint64_t __46__TRISQLiteCKDatabase__processQueryOperation___block_invoke_2(uint6
         }
 
         v42 = objc_alloc(MEMORY[0x277CCACA8]);
-        v55 = [v42 initWithFormat:@"SELECT *, trisql_recordId AS trisql_outer_recordId FROM %@ WHERE %@%@%@%@", typeCopy, v84, v33, v39, typeCopy];
-        v73 = 0;
-        v74 = &v73;
-        v75 = 0x2020000000;
-        v76 = 1;
+        v54 = [v42 initWithFormat:@"SELECT *, trisql_recordId AS trisql_outer_recordId FROM %@ WHERE %@%@%@%@", typeCopy, v83, v33, v39, typeCopy];
+        v72 = 0;
+        v73 = &v72;
+        v74 = 0x2020000000;
+        v75 = 1;
         v43 = [txnCopy db];
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_3;
-        v71[3] = &unk_279DDF860;
-        v72 = v52;
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_4;
-        v63[3] = &unk_279DDF888;
-        v63[4] = self;
-        v64 = typeCopy;
-        v65 = v86;
-        v66 = v85;
-        v69 = &v73;
-        errorCopy = error;
-        v67 = txnCopy;
-        v68 = blockCopy;
+        v70[0] = MEMORY[0x277D85DD0];
+        v70[1] = 3221225472;
+        v70[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_3;
+        v70[3] = &unk_279DDF860;
+        v71 = v51;
         v62[0] = MEMORY[0x277D85DD0];
         v62[1] = 3221225472;
-        v62[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_5;
-        v62[3] = &__block_descriptor_40_e37___PASDBIterAction__B_16__0__NSError_8l;
-        v62[4] = error;
-        LODWORD(typeCopy) = [v43 prepAndRunQuery:v55 onPrep:v71 onRow:v63 onError:v62];
+        v62[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_4;
+        v62[3] = &unk_279DDF888;
+        v62[4] = self;
+        v63 = typeCopy;
+        v64 = v85;
+        v65 = v84;
+        v68 = &v72;
+        errorCopy = error;
+        v66 = txnCopy;
+        v67 = blockCopy;
+        v61[0] = MEMORY[0x277D85DD0];
+        v61[1] = 3221225472;
+        v61[2] = __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_5;
+        v61[3] = &__block_descriptor_40_e37___PASDBIterAction__B_16__0__NSError_8l;
+        v61[4] = error;
+        LODWORD(typeCopy) = [v43 prepAndRunQuery:v54 onPrep:v70 onRow:v62 onError:v61];
 
         if (typeCopy)
         {
-          LOBYTE(typeCopy) = *(v74 + 24);
+          LOBYTE(typeCopy) = *(v73 + 24);
         }
 
-        _Block_object_dispose(&v73, 8);
+        _Block_object_dispose(&v72, 8);
 LABEL_41:
       }
 
@@ -730,7 +731,6 @@ LABEL_41:
     LOBYTE(typeCopy) = 0;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return typeCopy & 1;
 }
 
@@ -766,39 +766,37 @@ uint64_t __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_
 
 void __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v11 + 1) + 8 * i) + 16))(*(*(&v11 + 1) + 8 * i));
+        (*(*(*(&v10 + 1) + 8 * i) + 16))(*(*(&v10 + 1) + 8 * i));
         ++v8;
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_sortDescriptors_offset_resultsLimit_desiredKeys_txn_error_recordMatchedBlock___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -828,11 +826,11 @@ uint64_t __144__TRISQLiteCKDatabase__evalQueryOperationWithRecordType_predicate_
 
 - (BOOL)_parseDesiredKeys:(id)keys recordType:(id)type unindexedFields:(id *)fields indexedFields:(id *)indexedFields error:(id *)error
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   typeCopy = type;
-  v59 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:typeCopy];
-  if (!v59)
+  v58 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:typeCopy];
+  if (!v58)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:434 description:{@"Invalid parameter not satisfying: %@", @"valueTypes"}];
@@ -869,33 +867,33 @@ LABEL_3:
   fieldsCopy = fields;
   errorCopy = error;
   location = indexedFields;
-  v55 = typeCopy;
-  v58 = objc_opt_new();
-  v56 = keysCopy;
+  v54 = typeCopy;
+  v57 = objc_opt_new();
+  v55 = keysCopy;
   obj = objc_opt_new();
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   v15 = keysCopy;
-  v16 = [v15 countByEnumeratingWithState:&v65 objects:v70 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v64 objects:v69 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v66;
+    v18 = *v65;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v66 != v18)
+        if (*v65 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v65 + 1) + 8 * i);
+        v20 = *(*(&v64 + 1) + 8 * i);
         v21 = objc_autoreleasePoolPush();
-        v64 = xmmword_26F6C75C0;
-        v22 = [(TRISQLiteCKDatabase *)self _parseIndexedFieldKey:v20 indexRange:&v64];
+        v63 = xmmword_26F6C75C0;
+        v22 = [(TRISQLiteCKDatabase *)self _parseIndexedFieldKey:v20 indexRange:&v63];
         if (!v22)
         {
           v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Can't parse indexed field key: %@", v20];
@@ -910,8 +908,8 @@ LABEL_30:
         }
 
         v23 = v22;
-        v24 = v64;
-        v25 = [v59 objectForKeyedSubscript:v22];
+        v24 = v63;
+        v25 = [v58 objectForKeyedSubscript:v22];
 
         if (v24 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -923,7 +921,7 @@ LABEL_30:
 
         else if (v25)
         {
-          v26 = [v58 objectForKeyedSubscript:v23];
+          v26 = [v57 objectForKeyedSubscript:v23];
           v27 = v26;
           if (v26)
           {
@@ -937,16 +935,16 @@ LABEL_30:
 
           v29 = v28;
 
-          v30 = [MEMORY[0x277CCAE60] valueWithRange:v64];
+          v30 = [MEMORY[0x277CCAE60] valueWithRange:v63];
           [v29 addObject:v30];
 
-          [v58 setObject:v29 forKeyedSubscript:v23];
+          [v57 setObject:v29 forKeyedSubscript:v23];
         }
 
         objc_autoreleasePoolPop(v21);
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v64 objects:v69 count:16];
       if (v17)
       {
         continue;
@@ -956,27 +954,27 @@ LABEL_30:
     }
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v31 = obj;
-  v32 = [v31 countByEnumeratingWithState:&v60 objects:v69 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v59 objects:v68 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v61;
+    v34 = *v60;
     while (2)
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v61 != v34)
+        if (*v60 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v60 + 1) + 8 * j);
-        v37 = [v58 objectForKeyedSubscript:v36];
+        v36 = *(*(&v59 + 1) + 8 * j);
+        v37 = [v57 objectForKeyedSubscript:v36];
 
         if (v37)
         {
@@ -989,7 +987,7 @@ LABEL_30:
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v59 objects:v68 count:16];
       if (v33)
       {
         continue;
@@ -1000,28 +998,27 @@ LABEL_30:
   }
 
   objc_storeStrong(fieldsCopy, obj);
-  objc_storeStrong(location, v58);
+  objc_storeStrong(location, v57);
   v38 = 1;
 LABEL_31:
 
-  typeCopy = v55;
-  keysCopy = v56;
+  typeCopy = v54;
+  keysCopy = v55;
 LABEL_36:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (id)_createRecordFromSelectRow:(id)row recordType:(id)type unindexedDesiredKeys:(id)keys indexedDesiredKeys:(id)desiredKeys txn:(id)txn error:(id *)error
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   rowCopy = row;
   typeCopy = type;
   keysCopy = keys;
   desiredKeysCopy = desiredKeys;
   txnCopy = txn;
   selfCopy = self;
-  v103 = typeCopy;
+  v102 = typeCopy;
   v17 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:typeCopy];
   if (!v17)
   {
@@ -1049,46 +1046,46 @@ LABEL_36:
   allKeys = [desiredKeysCopy allKeys];
   v26 = [keysCopy arrayByAddingObjectsFromArray:allKeys];
 
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
   v114 = 0u;
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
   v27 = v26;
-  v106 = [v27 countByEnumeratingWithState:&v113 objects:v118 count:16];
-  if (!v106)
+  v105 = [v27 countByEnumeratingWithState:&v112 objects:v117 count:16];
+  if (!v105)
   {
     goto LABEL_62;
   }
 
-  v104 = v20;
-  v105 = *v114;
-  v94 = v27;
-  v92 = v17;
+  v103 = v20;
+  v104 = *v113;
+  v93 = v27;
+  v91 = v17;
   do
   {
     v28 = 0;
     do
     {
-      if (*v114 != v105)
+      if (*v113 != v104)
       {
         objc_enumerationMutation(v27);
       }
 
-      v29 = *(*(&v113 + 1) + 8 * v28);
+      v29 = *(*(&v112 + 1) + 8 * v28);
       v30 = objc_autoreleasePoolPush();
       uTF8String = [v29 UTF8String];
       if (!uTF8String)
       {
         [MEMORY[0x277CCA890] currentHandler];
-        v66 = v108 = v30;
+        v66 = v107 = v30;
         [v66 handleFailureInMethod:a2 object:selfCopy file:@"TRISQLiteCKDatabase.m" lineNumber:519 description:{@"Invalid parameter not satisfying: %@", @"columnName"}];
 
-        v30 = v108;
+        v30 = v107;
       }
 
       if (([rowCopy isNullForColumnName:uTF8String table:0] & 1) == 0)
       {
-        v107 = v30;
+        v106 = v30;
         v32 = [v17 objectForKeyedSubscript:v29];
         firstObject = [v32 firstObject];
 
@@ -1105,13 +1102,13 @@ LABEL_36:
             if (sqlite3_column_count([rowCopy stmt]) < 1)
             {
               v53 = 0;
-              v20 = v104;
+              v20 = v103;
             }
 
             else
             {
               v53 = 0;
-              v20 = v104;
+              v20 = v103;
               do
               {
                 v54 = sqlite3_column_name([rowCopy stmt], v53);
@@ -1147,7 +1144,7 @@ LABEL_36:
 
             v37 = v58;
             [v20 setObject:v58 forKeyedSubscript:v29];
-            v27 = v94;
+            v27 = v93;
           }
 
           else
@@ -1163,39 +1160,39 @@ LABEL_36:
             {
               if (firstObject != objc_opt_class())
               {
-                v30 = v107;
+                v30 = v106;
                 if (firstObject == objc_opt_class())
                 {
                   v59 = [rowCopy getNSStringForColumnName:uTF8String table:0];
                   if (!v59)
                   {
-                    v82 = objc_alloc(MEMORY[0x277CCACA8]);
-                    v20 = v104;
-                    recordID = [v104 recordID];
+                    v81 = objc_alloc(MEMORY[0x277CCACA8]);
+                    v20 = v103;
+                    recordID = [v103 recordID];
                     objb = [recordID recordName];
-                    objb = [v82 initWithFormat:@"CKAsset column on record %@ has empty file path.", objb];
-                    v84 = [(TRISQLiteCKDatabase *)selfCopy _errorWithCode:1 message:objb];
-                    v85 = *error;
-                    *error = v84;
+                    objb = [v81 initWithFormat:@"CKAsset column on record %@ has empty file path.", objb];
+                    v83 = [(TRISQLiteCKDatabase *)selfCopy _errorWithCode:1 message:objb];
+                    v84 = *error;
+                    *error = v83;
 
                     goto LABEL_65;
                   }
 
                   v60 = v59;
-                  v20 = v104;
-                  recordID2 = [v104 recordID];
+                  v20 = v103;
+                  recordID2 = [v103 recordID];
                   recordID = v60;
                   v62 = [(TRISQLiteCKDatabase *)selfCopy _assetForLocallyStoredAssetWithFilename:v60 forRecordId:recordID2 error:error];
 
                   if (!v62)
                   {
-                    v30 = v107;
+                    v30 = v106;
                     goto LABEL_65;
                   }
 
-                  [v104 setObject:v62 forKeyedSubscript:v29];
+                  [v103 setObject:v62 forKeyedSubscript:v29];
 
-                  v30 = v107;
+                  v30 = v106;
                   v37 = recordID;
                 }
 
@@ -1203,14 +1200,14 @@ LABEL_36:
                 {
                   if (firstObject != objc_opt_class())
                   {
-                    v79 = objc_alloc(MEMORY[0x277CCACA8]);
+                    v78 = objc_alloc(MEMORY[0x277CCACA8]);
                     recordID = NSStringFromClass(firstObject);
-                    obja = [v79 initWithFormat:@"loading of scalar fields with type %@ is not implemented.", recordID];
-                    v80 = [(TRISQLiteCKDatabase *)selfCopy _errorWithCode:1 message:?];
-                    v81 = *error;
-                    *error = v80;
+                    obja = [v78 initWithFormat:@"loading of scalar fields with type %@ is not implemented.", recordID];
+                    v79 = [(TRISQLiteCKDatabase *)selfCopy _errorWithCode:1 message:?];
+                    v80 = *error;
+                    *error = v79;
 
-                    v20 = v104;
+                    v20 = v103;
 LABEL_65:
 
                     objc_autoreleasePoolPop(v30);
@@ -1224,29 +1221,29 @@ LABEL_65:
                   v37 = v36;
                   if (v36)
                   {
-                    v111 = 0u;
-                    v112 = 0u;
-                    v109 = 0u;
                     v110 = 0u;
+                    v111 = 0u;
+                    v108 = 0u;
+                    v109 = 0u;
                     obj = v36;
-                    v99 = [obj countByEnumeratingWithState:&v109 objects:v117 count:16];
-                    if (v99)
+                    v98 = [obj countByEnumeratingWithState:&v108 objects:v116 count:16];
+                    if (v98)
                     {
                       recordID = v37;
-                      v88 = desiredKeysCopy;
-                      v89 = keysCopy;
-                      v98 = *v110;
-                      v91 = rowCopy;
+                      v87 = desiredKeysCopy;
+                      v88 = keysCopy;
+                      v97 = *v109;
+                      v90 = rowCopy;
                       while (2)
                       {
-                        for (i = 0; i != v99; ++i)
+                        for (i = 0; i != v98; ++i)
                         {
-                          if (*v110 != v98)
+                          if (*v109 != v97)
                           {
                             objc_enumerationMutation(obj);
                           }
 
-                          v39 = *(*(&v109 + 1) + 8 * i);
+                          v39 = *(*(&v108 + 1) + 8 * i);
                           v40 = objc_autoreleasePoolPush();
                           rangeValue = [v39 rangeValue];
                           v43 = rangeValue + v42;
@@ -1254,31 +1251,31 @@ LABEL_65:
                           if (rangeValue + v42 > v35)
                           {
                             v71 = objc_alloc(MEMORY[0x277CCACA8]);
-                            v20 = v104;
-                            recordID3 = [v104 recordID];
+                            v20 = v103;
+                            recordID3 = [v103 recordID];
                             recordName = [recordID3 recordName];
-                            v74 = [v71 initWithFormat:@"desiredKeys specifies range max %tu in array field %@[%@] for record %@, which exceeds maximum array count %tu.", v43, v103, v29, recordName, v44];
+                            v74 = [v71 initWithFormat:@"desiredKeys specifies range max %tu in array field %@[%@] for record %@, which exceeds maximum array count %tu.", v43, v102, v29, recordName, v44];
                             v75 = [(TRISQLiteCKDatabase *)selfCopy _errorWithCode:12 message:v74];
                             v76 = *error;
                             *error = v75;
 
 LABEL_64:
                             objc_autoreleasePoolPop(v40);
-                            desiredKeysCopy = v88;
-                            keysCopy = v89;
-                            rowCopy = v91;
-                            v17 = v92;
-                            v27 = v94;
-                            v30 = v107;
+                            desiredKeysCopy = v87;
+                            keysCopy = v88;
+                            rowCopy = v90;
+                            v17 = v91;
+                            v27 = v93;
+                            v30 = v106;
 
                             goto LABEL_65;
                           }
 
                           v45 = rangeValue;
                           v46 = v42;
-                          v20 = v104;
-                          recordID4 = [v104 recordID];
-                          error = [(TRISQLiteCKDatabase *)selfCopy _loadArrayForRecordType:v103 recordId:recordID4 fieldKey:v29 indexRange:v45 txn:v46 error:txnCopy, error];
+                          v20 = v103;
+                          recordID4 = [v103 recordID];
+                          error = [(TRISQLiteCKDatabase *)selfCopy _loadArrayForRecordType:v102 recordId:recordID4 fieldKey:v29 indexRange:v45 txn:v46 error:txnCopy, error];
 
                           if (!error)
                           {
@@ -1286,15 +1283,15 @@ LABEL_64:
                           }
 
                           v49 = [MEMORY[0x277CBC5A0] keyForListField:v29 withIndexRange:{v45, v46}];
-                          [v104 setObject:error forKeyedSubscript:v49];
+                          [v103 setObject:error forKeyedSubscript:v49];
 
                           objc_autoreleasePoolPop(v40);
                           v35 = v44;
                         }
 
-                        rowCopy = v91;
-                        v99 = [obj countByEnumeratingWithState:&v109 objects:v117 count:16];
-                        if (v99)
+                        rowCopy = v90;
+                        v98 = [obj countByEnumeratingWithState:&v108 objects:v116 count:16];
+                        if (v98)
                         {
                           continue;
                         }
@@ -1302,19 +1299,19 @@ LABEL_64:
                         break;
                       }
 
-                      v51 = v88;
-                      v50 = v89;
-                      v20 = v104;
+                      v51 = v87;
+                      v50 = v88;
+                      v20 = v103;
                       v37 = recordID;
-                      v27 = v94;
-                      v30 = v107;
+                      v27 = v93;
+                      v30 = v106;
                     }
 
                     else
                     {
                       v51 = desiredKeysCopy;
                       v50 = keysCopy;
-                      v20 = v104;
+                      v20 = v103;
                     }
 
                     error2 = obj;
@@ -1326,25 +1323,25 @@ LABEL_64:
                     v50 = keysCopy;
                     recordID = 0;
                     v63 = v35;
-                    v20 = v104;
-                    recordID5 = [v104 recordID];
-                    error2 = [(TRISQLiteCKDatabase *)selfCopy _loadArrayForRecordType:v103 recordId:recordID5 fieldKey:v29 indexRange:0 txn:v63 error:txnCopy, error];
+                    v20 = v103;
+                    recordID5 = [v103 recordID];
+                    error2 = [(TRISQLiteCKDatabase *)selfCopy _loadArrayForRecordType:v102 recordId:recordID5 fieldKey:v29 indexRange:0 txn:v63 error:txnCopy, error];
 
                     if (!error2)
                     {
                       keysCopy = v50;
                       desiredKeysCopy = v51;
-                      v17 = v92;
+                      v17 = v91;
                       goto LABEL_65;
                     }
 
-                    [v104 setObject:error2 forKeyedSubscript:v29];
+                    [v103 setObject:error2 forKeyedSubscript:v29];
                     v37 = 0;
                   }
 
                   keysCopy = v50;
                   desiredKeysCopy = v51;
-                  v17 = v92;
+                  v17 = v91;
                 }
 
                 goto LABEL_50;
@@ -1355,11 +1352,11 @@ LABEL_64:
 
 LABEL_41:
             v37 = v52;
-            v20 = v104;
-            [v104 setObject:v52 forKeyedSubscript:v29];
+            v20 = v103;
+            [v103 setObject:v52 forKeyedSubscript:v29];
           }
 
-          v30 = v107;
+          v30 = v106;
 LABEL_50:
 
           goto LABEL_51;
@@ -1374,9 +1371,9 @@ LABEL_51:
       ++v28;
     }
 
-    while (v28 != v106);
-    v69 = [v27 countByEnumeratingWithState:&v113 objects:v118 count:16];
-    v106 = v69;
+    while (v28 != v105);
+    v69 = [v27 countByEnumeratingWithState:&v112 objects:v117 count:16];
+    v105 = v69;
   }
 
   while (v69);
@@ -1384,8 +1381,6 @@ LABEL_62:
 
   v70 = v20;
 LABEL_66:
-
-  v77 = *MEMORY[0x277D85DE8];
 
   return v70;
 }
@@ -1791,7 +1786,7 @@ LABEL_6:
 
 - (BOOL)_translateCompoundPredicate:(id)predicate forRecordType:(id)type toSQLExpr:(id *)expr paramBindings:(id *)bindings error:(id *)error
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   typeCopy = type;
   compoundPredicateType = [predicateCopy compoundPredicateType];
@@ -1812,21 +1807,21 @@ LABEL_6:
 
       if (v35 == 1)
       {
-        v64 = 0;
+        v63 = 0;
         subpredicates2 = [predicateCopy subpredicates];
         v37 = [subpredicates2 objectAtIndexedSubscript:0];
-        v33 = [(TRISQLiteCKDatabase *)self _translatePredicate:v37 forRecordType:typeCopy toSQLExpr:&v64 paramBindings:bindings error:error];
+        v33 = [(TRISQLiteCKDatabase *)self _translatePredicate:v37 forRecordType:typeCopy toSQLExpr:&v63 paramBindings:bindings error:error];
 
         if (v33)
         {
-          if (!v64)
+          if (!v63)
           {
             currentHandler = [MEMORY[0x277CCA890] currentHandler];
             [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:824 description:{@"Invalid parameter not satisfying: %@", @"subSQLExpr"}];
           }
 
           v38 = objc_alloc(MEMORY[0x277CCACA8]);
-          v39 = [v38 initWithFormat:@"NOT (%@)", v64];
+          v39 = [v38 initWithFormat:@"NOT (%@)", v63];
           v40 = *expr;
           *expr = v39;
         }
@@ -1851,64 +1846,64 @@ LABEL_6:
 
   if (v16)
   {
-    v54 = a2;
+    v53 = a2;
     bindingsCopy = bindings;
     exprCopy = expr;
     v17 = objc_opt_new();
     v18 = objc_opt_new();
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    v57 = predicateCopy;
+    v56 = predicateCopy;
     subpredicates5 = [predicateCopy subpredicates];
-    v20 = [subpredicates5 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    v20 = [subpredicates5 countByEnumeratingWithState:&v59 objects:v64 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v61;
+      v22 = *v60;
       while (2)
       {
         v23 = 0;
         do
         {
-          if (*v61 != v22)
+          if (*v60 != v22)
           {
             objc_enumerationMutation(subpredicates5);
           }
 
-          v24 = *(*(&v60 + 1) + 8 * v23);
-          v64 = 0;
-          v59 = 0;
-          if (![(TRISQLiteCKDatabase *)self _translatePredicate:v24 forRecordType:typeCopy toSQLExpr:&v64 paramBindings:&v59 error:error])
+          v24 = *(*(&v59 + 1) + 8 * v23);
+          v63 = 0;
+          v58 = 0;
+          if (![(TRISQLiteCKDatabase *)self _translatePredicate:v24 forRecordType:typeCopy toSQLExpr:&v63 paramBindings:&v58 error:error])
           {
 
             LOBYTE(v33) = 0;
             goto LABEL_28;
           }
 
-          if (!v64)
+          if (!v63)
           {
             currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler2 handleFailureInMethod:v54 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:854 description:{@"Invalid parameter not satisfying: %@", @"subSQLExpr"}];
+            [currentHandler2 handleFailureInMethod:v53 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:854 description:{@"Invalid parameter not satisfying: %@", @"subSQLExpr"}];
           }
 
-          if (!v59)
+          if (!v58)
           {
             currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-            [currentHandler3 handleFailureInMethod:v54 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:855 description:{@"Invalid parameter not satisfying: %@", @"subBindings"}];
+            [currentHandler3 handleFailureInMethod:v53 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:855 description:{@"Invalid parameter not satisfying: %@", @"subBindings"}];
           }
 
           v25 = objc_alloc(MEMORY[0x277CCACA8]);
-          v26 = [v25 initWithFormat:@"(%@)", v64];
+          v26 = [v25 initWithFormat:@"(%@)", v63];
           [v17 addObject:v26];
 
-          [v18 addObjectsFromArray:v59];
+          [v18 addObjectsFromArray:v58];
           ++v23;
         }
 
         while (v21 != v23);
-        v21 = [subpredicates5 countByEnumeratingWithState:&v60 objects:v65 count:16];
+        v21 = [subpredicates5 countByEnumeratingWithState:&v59 objects:v64 count:16];
         if (v21)
         {
           continue;
@@ -1918,7 +1913,7 @@ LABEL_6:
       }
     }
 
-    if ([v57 compoundPredicateType] == 1)
+    if ([v56 compoundPredicateType] == 1)
     {
       v29 = @" AND ";
     }
@@ -1938,7 +1933,7 @@ LABEL_6:
     LOBYTE(v33) = 1;
 LABEL_28:
 
-    predicateCopy = v57;
+    predicateCopy = v56;
   }
 
   else
@@ -1962,7 +1957,6 @@ LABEL_28:
 
 LABEL_35:
 
-  v51 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -2032,7 +2026,7 @@ LABEL_7:
 
 - (BOOL)_parseScalarExpression:(id)expression forRecordType:(id)type toSQLExpr:(id *)expr paramBindings:(id *)bindings error:(id *)error
 {
-  v70[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   expressionCopy = expression;
   typeCopy = type;
   v15 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:typeCopy];
@@ -2073,7 +2067,7 @@ LABEL_20:
 
       v33 = objc_alloc(MEMORY[0x277CCACA8]);
       keyPath3 = [expressionCopy keyPath];
-      typeCopy = [v33 initWithFormat:@"Field with key %@ is array-typed but is used in an expression where a scalar was expected.", keyPath3, v58];
+      typeCopy = [v33 initWithFormat:@"Field with key %@ is array-typed but is used in an expression where a scalar was expected.", keyPath3, v57];
     }
 
     else
@@ -2106,19 +2100,19 @@ LABEL_20:
       v26 = *expr;
       *expr = @"?";
 
-      v65[0] = MEMORY[0x277D85DD0];
-      v65[1] = 3221225472;
-      v65[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke;
-      v65[3] = &unk_279DDF948;
-      v66 = keyPath2;
-      v27 = MEMORY[0x2743948D0](v65);
-      v70[0] = v27;
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke;
+      v64[3] = &unk_279DDF948;
+      v65 = keyPath2;
+      v27 = MEMORY[0x2743948D0](v64);
+      v69[0] = v27;
       v21 = 1;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:1];
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:1];
       v29 = *bindings;
       *bindings = v28;
 
-      v30 = v66;
+      v30 = v65;
     }
 
     else
@@ -2126,40 +2120,40 @@ LABEL_20:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v39 = keyPath2;
-        v40 = *expr;
+        v38 = keyPath2;
+        v39 = *expr;
         *expr = @"?";
 
-        if (CFNumberIsFloatType(v39))
+        if (CFNumberIsFloatType(v38))
         {
-          v63[0] = MEMORY[0x277D85DD0];
-          v63[1] = 3221225472;
-          v63[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke_2;
-          v63[3] = &unk_279DDF948;
-          v41 = &v64;
-          v64 = v39;
-          v42 = MEMORY[0x2743948D0](v63);
-          v69 = v42;
-          v43 = &v69;
+          v62[0] = MEMORY[0x277D85DD0];
+          v62[1] = 3221225472;
+          v62[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke_2;
+          v62[3] = &unk_279DDF948;
+          v40 = &v63;
+          v63 = v38;
+          v41 = MEMORY[0x2743948D0](v62);
+          v68 = v41;
+          v42 = &v68;
         }
 
         else
         {
-          v61[0] = MEMORY[0x277D85DD0];
-          v61[1] = 3221225472;
-          v61[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke_3;
-          v61[3] = &unk_279DDF948;
-          v41 = &v62;
-          v62 = v39;
-          v42 = MEMORY[0x2743948D0](v61);
-          v68 = v42;
-          v43 = &v68;
+          v60[0] = MEMORY[0x277D85DD0];
+          v60[1] = 3221225472;
+          v60[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke_3;
+          v60[3] = &unk_279DDF948;
+          v40 = &v61;
+          v61 = v38;
+          v41 = MEMORY[0x2743948D0](v60);
+          v67 = v41;
+          v42 = &v67;
         }
 
         v21 = 1;
-        v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
-        v55 = *bindings;
-        *bindings = v54;
+        v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
+        v54 = *bindings;
+        *bindings = v53;
 
         goto LABEL_21;
       }
@@ -2167,34 +2161,34 @@ LABEL_20:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v48 = objc_alloc(MEMORY[0x277CCACA8]);
-        v49 = objc_opt_class();
-        v50 = NSStringFromClass(v49);
-        v51 = [v48 initWithFormat:@"Constant-valued expression of class %@ is not supported in context where a scalar expression is expected.", v50];
-        v52 = [(TRISQLiteCKDatabase *)self _errorWithCode:12 message:v51];
-        v53 = *error;
-        *error = v52;
+        v47 = objc_alloc(MEMORY[0x277CCACA8]);
+        v48 = objc_opt_class();
+        v49 = NSStringFromClass(v48);
+        v50 = [v47 initWithFormat:@"Constant-valued expression of class %@ is not supported in context where a scalar expression is expected.", v49];
+        v51 = [(TRISQLiteCKDatabase *)self _errorWithCode:12 message:v50];
+        v52 = *error;
+        *error = v51;
 
         v21 = 0;
         goto LABEL_21;
       }
 
-      v44 = *expr;
+      v43 = *expr;
       *expr = @"?";
 
-      v59[0] = MEMORY[0x277D85DD0];
-      v59[1] = 3221225472;
-      v59[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke_4;
-      v59[3] = &unk_279DDF948;
-      v60 = keyPath2;
-      v45 = MEMORY[0x2743948D0](v59);
-      v67 = v45;
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __90__TRISQLiteCKDatabase__parseScalarExpression_forRecordType_toSQLExpr_paramBindings_error___block_invoke_4;
+      v58[3] = &unk_279DDF948;
+      v59 = keyPath2;
+      v44 = MEMORY[0x2743948D0](v58);
+      v66 = v44;
       v21 = 1;
-      v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
-      v47 = *bindings;
-      *bindings = v46;
+      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+      v46 = *bindings;
+      *bindings = v45;
 
-      v30 = v60;
+      v30 = v59;
     }
 
 LABEL_21:
@@ -2209,7 +2203,6 @@ LABEL_21:
   v21 = 0;
 LABEL_22:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -2529,7 +2522,7 @@ LABEL_7:
 
 - (BOOL)_parseArrayExpression:(id)expression forRecordType:(id)type usingCTEName:(id)name toSQLCommonTableExpression:(id *)tableExpression paramBindings:(id *)bindings error:(id *)error
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   expressionCopy = expression;
   typeCopy = type;
   nameCopy = name;
@@ -2537,15 +2530,15 @@ LABEL_7:
   if (!v18)
   {
     [MEMORY[0x277CCA890] currentHandler];
-    v82 = v81 = nameCopy;
-    [v82 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:1234 description:{@"Invalid parameter not satisfying: %@", @"valueTypes"}];
+    v81 = v80 = nameCopy;
+    [v81 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:1234 description:{@"Invalid parameter not satisfying: %@", @"valueTypes"}];
 
-    nameCopy = v81;
+    nameCopy = v80;
   }
 
   if ([expressionCopy expressionType] == 3)
   {
-    v92 = nameCopy;
+    v91 = nameCopy;
     keyPath = [expressionCopy keyPath];
     v20 = [v18 objectForKeyedSubscript:keyPath];
 
@@ -2553,7 +2546,7 @@ LABEL_7:
     {
       selfCopy = self;
       bindingsCopy = bindings;
-      v90 = v18;
+      v89 = v18;
       firstObject = [v20 firstObject];
       v23 = objc_opt_class();
       v24 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -2561,7 +2554,7 @@ LABEL_7:
       keyPath3 = keyPath2;
       if (firstObject == v23)
       {
-        v60 = [v24 initWithFormat:@"%@ (value) AS (SELECT value FROM %@_%@ WHERE recordId = trisql_outer_recordId)", v92, typeCopy, keyPath2];
+        v60 = [v24 initWithFormat:@"%@ (value) AS (SELECT value FROM %@_%@ WHERE recordId = trisql_outer_recordId)", v91, typeCopy, keyPath2];
         v61 = *tableExpression;
         *tableExpression = v60;
 
@@ -2580,7 +2573,7 @@ LABEL_7:
         v30 = 0;
       }
 
-      v18 = v90;
+      v18 = v89;
     }
 
     else
@@ -2595,7 +2588,7 @@ LABEL_7:
       v30 = 0;
     }
 
-    nameCopy = v92;
+    nameCopy = v91;
   }
 
   else if ([expressionCopy expressionType])
@@ -2614,53 +2607,53 @@ LABEL_7:
     if (!constantValue)
     {
       [MEMORY[0x277CCA890] currentHandler];
-      v83 = v94 = nameCopy;
+      v82 = v93 = nameCopy;
 
-      nameCopy = v94;
+      nameCopy = v93;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       selfCopy2 = self;
-      v87 = expressionCopy;
+      v86 = expressionCopy;
       bindingsCopy2 = bindings;
-      v85 = constantValue;
-      v91 = v18;
-      v93 = nameCopy;
-      v86 = typeCopy;
+      v84 = constantValue;
+      v90 = v18;
+      v92 = nameCopy;
+      v85 = typeCopy;
       v39 = constantValue;
       v40 = objc_opt_new();
+      v98 = 0u;
       v99 = 0u;
       v100 = 0u;
       v101 = 0u;
-      v102 = 0u;
       v41 = v39;
-      v42 = [v41 countByEnumeratingWithState:&v99 objects:v103 count:16];
-      v95 = v41;
+      v42 = [v41 countByEnumeratingWithState:&v98 objects:v102 count:16];
+      v94 = v41;
       if (v42)
       {
         v43 = v42;
-        v44 = *v100;
+        v44 = *v99;
         while (2)
         {
           for (i = 0; i != v43; ++i)
           {
-            if (*v100 != v44)
+            if (*v99 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = *(*(&v99 + 1) + 8 * i);
+            v46 = *(*(&v98 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v98[0] = MEMORY[0x277D85DD0];
-              v98[1] = 3221225472;
-              v98[2] = __119__TRISQLiteCKDatabase__parseArrayExpression_forRecordType_usingCTEName_toSQLCommonTableExpression_paramBindings_error___block_invoke;
-              v98[3] = &unk_279DDF948;
-              v98[4] = v46;
-              v47 = MEMORY[0x2743948D0](v98);
+              v97[0] = MEMORY[0x277D85DD0];
+              v97[1] = 3221225472;
+              v97[2] = __119__TRISQLiteCKDatabase__parseArrayExpression_forRecordType_usingCTEName_toSQLCommonTableExpression_paramBindings_error___block_invoke;
+              v97[3] = &unk_279DDF948;
+              v97[4] = v46;
+              v47 = MEMORY[0x2743948D0](v97);
               [v40 addObject:v47];
             }
 
@@ -2680,26 +2673,26 @@ LABEL_7:
 
                 v30 = 0;
                 v76 = v69;
-                typeCopy = v86;
-                nameCopy = v93;
-                constantValue = v85;
+                typeCopy = v85;
+                nameCopy = v92;
+                constantValue = v84;
                 goto LABEL_39;
               }
 
               v48 = v46;
               if (CFNumberIsFloatType(v48))
               {
-                v49 = v97;
-                v97[0] = MEMORY[0x277D85DD0];
-                v97[1] = 3221225472;
+                v49 = v96;
+                v96[0] = MEMORY[0x277D85DD0];
+                v96[1] = 3221225472;
                 v50 = __119__TRISQLiteCKDatabase__parseArrayExpression_forRecordType_usingCTEName_toSQLCommonTableExpression_paramBindings_error___block_invoke_2;
               }
 
               else
               {
-                v49 = v96;
-                v96[0] = MEMORY[0x277D85DD0];
-                v96[1] = 3221225472;
+                v49 = v95;
+                v95[0] = MEMORY[0x277D85DD0];
+                v95[1] = 3221225472;
                 v50 = __119__TRISQLiteCKDatabase__parseArrayExpression_forRecordType_usingCTEName_toSQLCommonTableExpression_paramBindings_error___block_invoke_3;
               }
 
@@ -2710,11 +2703,11 @@ LABEL_7:
               v52 = MEMORY[0x2743948D0](v49);
               [v40 addObject:v52];
 
-              v41 = v95;
+              v41 = v94;
             }
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v99 objects:v103 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v98 objects:v102 count:16];
           if (v43)
           {
             continue;
@@ -2742,22 +2735,22 @@ LABEL_7:
 
         v56 = objc_alloc(MEMORY[0x277CCACA8]);
         v57 = [v53 componentsJoinedByString:{@", "}];
-        v58 = [v56 initWithFormat:@"%@ (value) AS (VALUES %@)", v93, v57];
+        v58 = [v56 initWithFormat:@"%@ (value) AS (VALUES %@)", v92, v57];
         v59 = *tableExpression;
         *tableExpression = v58;
 
-        nameCopy = v93;
-        typeCopy = v86;
-        expressionCopy = v87;
+        nameCopy = v92;
+        typeCopy = v85;
+        expressionCopy = v86;
       }
 
       else
       {
-        nameCopy = v93;
-        v77 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ (value) AS (SELECT 1 WHERE 0)", v93];
+        nameCopy = v92;
+        v77 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ (value) AS (SELECT 1 WHERE 0)", v92];
         v53 = *tableExpression;
         *tableExpression = v77;
-        typeCopy = v86;
+        typeCopy = v85;
         v54 = bindingsCopy2;
       }
 
@@ -2765,11 +2758,11 @@ LABEL_7:
       v76 = *v54;
       *v54 = v78;
       v30 = 1;
-      constantValue = v85;
-      v69 = v95;
+      constantValue = v84;
+      v69 = v94;
 LABEL_39:
 
-      v18 = v91;
+      v18 = v90;
     }
 
     else
@@ -2788,7 +2781,6 @@ LABEL_39:
     }
   }
 
-  v79 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -2809,19 +2801,19 @@ void __119__TRISQLiteCKDatabase__parseArrayExpression_forRecordType_usingCTEName
 
 - (void)_processFetchRecordsOperation:(id)operation
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__2;
-  v57 = __Block_byref_object_dispose__2;
-  v58 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__2;
-  v51 = __Block_byref_object_dispose__2;
+  v59 = *MEMORY[0x277D85DE8];
   v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__2;
+  v56 = __Block_byref_object_dispose__2;
+  v57 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__2;
+  v50 = __Block_byref_object_dispose__2;
+  v51 = 0;
   operationCopy = operation;
   recordIDs = [operationCopy recordIDs];
   v5 = recordIDs == 0;
@@ -2829,16 +2821,16 @@ void __119__TRISQLiteCKDatabase__parseArrayExpression_forRecordType_usingCTEName
   if (v5)
   {
     v12 = [(TRISQLiteCKDatabase *)self _errorWithCode:12 message:@"CKFetchRecordsOperation with nil recordIDs is not supported."];
-    currentHandler = v48[5];
-    v48[5] = v12;
+    currentHandler = v47[5];
+    v47[5] = v12;
   }
 
   else
   {
     delegate = [(TRISQLiteCKDatabase *)self delegate];
-    if (delegate && (-[TRISQLiteCKDatabase delegate](self, "delegate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 shouldProcessFetchOperation:operationCopy error:v48 + 5], v7, delegate, (v8 & 1) == 0))
+    if (delegate && (-[TRISQLiteCKDatabase delegate](self, "delegate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 shouldProcessFetchOperation:operationCopy error:v47 + 5], v7, delegate, (v8 & 1) == 0))
     {
-      if (v48[5])
+      if (v47[5])
       {
         goto LABEL_7;
       }
@@ -2851,17 +2843,17 @@ void __119__TRISQLiteCKDatabase__parseArrayExpression_forRecordType_usingCTEName
     {
       v9 = MEMORY[0x277D42640];
       db = self->_db;
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __53__TRISQLiteCKDatabase__processFetchRecordsOperation___block_invoke;
-      v41[3] = &unk_279DDF970;
-      v42 = operationCopy;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __53__TRISQLiteCKDatabase__processFetchRecordsOperation___block_invoke;
+      v40[3] = &unk_279DDF970;
+      v41 = operationCopy;
       selfCopy = self;
-      v44 = &v47;
-      v45 = &v53;
-      v46 = a2;
-      [v9 readTransactionWithHandle:db failableBlock:v41];
-      currentHandler = v42;
+      v43 = &v46;
+      v44 = &v52;
+      v45 = a2;
+      [v9 readTransactionWithHandle:db failableBlock:v40];
+      currentHandler = v41;
     }
   }
 
@@ -2873,34 +2865,34 @@ LABEL_7:
     goto LABEL_22;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   recordIDs2 = [operationCopy recordIDs];
-  v15 = [recordIDs2 countByEnumeratingWithState:&v37 objects:v59 count:16];
+  v15 = [recordIDs2 countByEnumeratingWithState:&v36 objects:v58 count:16];
   if (!v15)
   {
     goto LABEL_21;
   }
 
-  v16 = *v38;
+  v16 = *v37;
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v38 != v16)
+      if (*v37 != v16)
       {
         objc_enumerationMutation(recordIDs2);
       }
 
-      v18 = *(*(&v37 + 1) + 8 * i);
+      v18 = *(*(&v36 + 1) + 8 * i);
       v19 = objc_autoreleasePoolPush();
-      v20 = [v54[5] objectForKeyedSubscript:v18];
+      v20 = [v53[5] objectForKeyedSubscript:v18];
       v21 = v20;
-      if (!v54[5])
+      if (!v53[5])
       {
-        v22 = v48[5];
+        v22 = v47[5];
         goto LABEL_17;
       }
 
@@ -2924,7 +2916,7 @@ LABEL_19:
       objc_autoreleasePoolPop(v19);
     }
 
-    v15 = [recordIDs2 countByEnumeratingWithState:&v37 objects:v59 count:16];
+    v15 = [recordIDs2 countByEnumeratingWithState:&v36 objects:v58 count:16];
   }
 
   while (v15);
@@ -2937,7 +2929,7 @@ LABEL_22:
   {
     v29 = objc_autoreleasePoolPush();
     fetchRecordsCompletionBlock2 = [operationCopy fetchRecordsCompletionBlock];
-    fetchRecordsCompletionBlock2[2](fetchRecordsCompletionBlock2, v54[5], v48[5]);
+    fetchRecordsCompletionBlock2[2](fetchRecordsCompletionBlock2, v53[5], v47[5]);
 
     objc_autoreleasePoolPop(v29);
   }
@@ -2953,51 +2945,50 @@ LABEL_22:
     objc_autoreleasePoolPop(v32);
   }
 
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v46, 8);
 
-  _Block_object_dispose(&v53, 8);
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v52, 8);
 }
 
 uint64_t __53__TRISQLiteCKDatabase__processFetchRecordsOperation___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v20 = a2;
+  v25 = *MEMORY[0x277D85DE8];
+  v19 = a2;
   v3 = [*(a1 + 32) recordIDs];
 
   if (!v3)
   {
-    v18 = [MEMORY[0x277CCA890] currentHandler];
-    [v18 handleFailureInMethod:*(a1 + 64) object:*(a1 + 40) file:@"TRISQLiteCKDatabase.m" lineNumber:1339 description:{@"Invalid parameter not satisfying: %@", @"operation.recordIDs"}];
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    [v17 handleFailureInMethod:*(a1 + 64) object:*(a1 + 40) file:@"TRISQLiteCKDatabase.m" lineNumber:1339 description:{@"Invalid parameter not satisfying: %@", @"operation.recordIDs"}];
   }
 
   v4 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [*(a1 + 40) _allRecordTypes];
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * v8);
+        v9 = *(*(&v20 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         v11 = *(a1 + 40);
         v12 = [*(a1 + 32) recordIDs];
         v13 = [*(a1 + 32) desiredKeys];
-        v14 = [v11 _evalFetchRecordsOperationWithRecordIds:v12 recordType:v9 desiredKeys:v13 txn:v20 error:*(*(a1 + 48) + 8) + 40];
+        v14 = [v11 _evalFetchRecordsOperationWithRecordIds:v12 recordType:v9 desiredKeys:v13 txn:v19 error:*(*(a1 + 48) + 8) + 40];
 
         if (!v14)
         {
@@ -3014,7 +3005,7 @@ uint64_t __53__TRISQLiteCKDatabase__processFetchRecordsOperation___block_invoke(
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v6)
       {
         continue;
@@ -3028,7 +3019,6 @@ uint64_t __53__TRISQLiteCKDatabase__processFetchRecordsOperation___block_invoke(
   v15 = *MEMORY[0x277D42670];
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -3177,26 +3167,26 @@ uint64_t __96__TRISQLiteCKDatabase__evalFetchRecordsOperationWithRecordIds_recor
 
 - (void)_processModifyRecordsOperation:(id)operation
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__2;
-  v64 = __Block_byref_object_dispose__2;
-  v65 = 0;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__2;
+  v63 = __Block_byref_object_dispose__2;
+  v64 = 0;
   v5 = MEMORY[0x277D42640];
   db = self->_db;
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __54__TRISQLiteCKDatabase__processModifyRecordsOperation___block_invoke;
-  v56[3] = &unk_279DDF9C0;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __54__TRISQLiteCKDatabase__processModifyRecordsOperation___block_invoke;
+  v55[3] = &unk_279DDF9C0;
   v7 = operationCopy;
-  v57 = v7;
+  v56 = v7;
   selfCopy = self;
-  v59 = &v60;
-  [v5 writeTransactionWithHandle:db failableBlock:v56];
-  if (!v61[5])
+  v58 = &v59;
+  [v5 writeTransactionWithHandle:db failableBlock:v55];
+  if (!v60[5])
   {
     recordIDsToDelete = [v7 recordIDsToDelete];
     v9 = [recordIDsToDelete count] == 0;
@@ -3207,59 +3197,59 @@ uint64_t __96__TRISQLiteCKDatabase__evalFetchRecordsOperationWithRecordIds_recor
       recordIDsToDelete2 = [v7 recordIDsToDelete];
       v12 = [v10 initWithArray:recordIDsToDelete2];
 
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       recordsToSave = [v7 recordsToSave];
-      v14 = [recordsToSave countByEnumeratingWithState:&v52 objects:v68 count:16];
+      v14 = [recordsToSave countByEnumeratingWithState:&v51 objects:v67 count:16];
       if (v14)
       {
-        v15 = *v53;
+        v15 = *v52;
         do
         {
           v16 = 0;
           do
           {
-            if (*v53 != v15)
+            if (*v52 != v15)
             {
               objc_enumerationMutation(recordsToSave);
             }
 
-            recordID = [*(*(&v52 + 1) + 8 * v16) recordID];
+            recordID = [*(*(&v51 + 1) + 8 * v16) recordID];
             [v12 removeObject:recordID];
 
             ++v16;
           }
 
           while (v14 != v16);
-          v14 = [recordsToSave countByEnumeratingWithState:&v52 objects:v68 count:16];
+          v14 = [recordsToSave countByEnumeratingWithState:&v51 objects:v67 count:16];
         }
 
         while (v14);
       }
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       v18 = v12;
-      v19 = [v18 countByEnumeratingWithState:&v48 objects:v67 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v47 objects:v66 count:16];
       if (v19)
       {
-        v20 = *v49;
+        v20 = *v48;
         do
         {
           v21 = 0;
           do
           {
-            if (*v49 != v20)
+            if (*v48 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
             assetDir = self->_assetDir;
-            recordName = [*(*(&v48 + 1) + 8 * v21) recordName];
+            recordName = [*(*(&v47 + 1) + 8 * v21) recordName];
             v24 = [(NSString *)assetDir stringByAppendingPathComponent:recordName];
 
             defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -3269,7 +3259,7 @@ uint64_t __96__TRISQLiteCKDatabase__evalFetchRecordsOperationWithRecordIds_recor
           }
 
           while (v19 != v21);
-          v19 = [v18 countByEnumeratingWithState:&v48 objects:v67 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v47 objects:v66 count:16];
         }
 
         while (v19);
@@ -3281,26 +3271,26 @@ uint64_t __96__TRISQLiteCKDatabase__evalFetchRecordsOperationWithRecordIds_recor
 
   if (perRecordSaveBlock)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     recordsToSave2 = [v7 recordsToSave];
-    v28 = [recordsToSave2 countByEnumeratingWithState:&v44 objects:v66 count:16];
+    v28 = [recordsToSave2 countByEnumeratingWithState:&v43 objects:v65 count:16];
     if (v28)
     {
-      v29 = *v45;
+      v29 = *v44;
       do
       {
         v30 = 0;
         do
         {
-          if (*v45 != v29)
+          if (*v44 != v29)
           {
             objc_enumerationMutation(recordsToSave2);
           }
 
-          v31 = *(*(&v44 + 1) + 8 * v30);
+          v31 = *(*(&v43 + 1) + 8 * v30);
           v32 = objc_autoreleasePoolPush();
           perRecordSaveBlock2 = [v7 perRecordSaveBlock];
           recordID2 = [v31 recordID];
@@ -3311,7 +3301,7 @@ uint64_t __96__TRISQLiteCKDatabase__evalFetchRecordsOperationWithRecordIds_recor
         }
 
         while (v28 != v30);
-        v28 = [recordsToSave2 countByEnumeratingWithState:&v44 objects:v66 count:16];
+        v28 = [recordsToSave2 countByEnumeratingWithState:&v43 objects:v65 count:16];
       }
 
       while (v28);
@@ -3326,7 +3316,7 @@ uint64_t __96__TRISQLiteCKDatabase__evalFetchRecordsOperationWithRecordIds_recor
     modifyRecordsCompletionBlock2 = [v7 modifyRecordsCompletionBlock];
     recordsToSave3 = [v7 recordsToSave];
     recordIDsToDelete3 = [v7 recordIDsToDelete];
-    (modifyRecordsCompletionBlock2)[2](modifyRecordsCompletionBlock2, recordsToSave3, recordIDsToDelete3, v61[5]);
+    (modifyRecordsCompletionBlock2)[2](modifyRecordsCompletionBlock2, recordsToSave3, recordIDsToDelete3, v60[5]);
 
     objc_autoreleasePoolPop(v36);
   }
@@ -3342,39 +3332,38 @@ uint64_t __96__TRISQLiteCKDatabase__evalFetchRecordsOperationWithRecordIds_recor
     objc_autoreleasePoolPop(v41);
   }
 
-  _Block_object_dispose(&v60, 8);
-  v43 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v59, 8);
 }
 
 uint64_t __54__TRISQLiteCKDatabase__processModifyRecordsOperation___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) recordIDsToDelete];
 
   if (v4)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v5 = [*(a1 + 40) _allRecordTypes];
-    v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
+      v8 = *v26;
       do
       {
         v9 = 0;
         do
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * v9);
+          v10 = *(*(&v25 + 1) + 8 * v9);
           v11 = objc_autoreleasePoolPush();
           v12 = *(a1 + 40);
           v13 = [*(a1 + 32) recordIDsToDelete];
@@ -3385,34 +3374,34 @@ uint64_t __54__TRISQLiteCKDatabase__processModifyRecordsOperation___block_invoke
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v7);
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v14 = [*(a1 + 32) recordsToSave];
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     while (2)
     {
       v18 = 0;
       do
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        if (![*(a1 + 40) _upsertRecord:*(*(&v22 + 1) + 8 * v18) txn:v3 error:*(*(a1 + 48) + 8) + 40])
+        if (![*(a1 + 40) _upsertRecord:*(*(&v21 + 1) + 8 * v18) txn:v3 error:*(*(a1 + 48) + 8) + 40])
         {
           v19 = *MEMORY[0x277D42678];
 
@@ -3423,7 +3412,7 @@ uint64_t __54__TRISQLiteCKDatabase__processModifyRecordsOperation___block_invoke
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v16)
       {
         continue;
@@ -3436,7 +3425,6 @@ uint64_t __54__TRISQLiteCKDatabase__processModifyRecordsOperation___block_invoke
   v19 = *MEMORY[0x277D42670];
 LABEL_20:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -3546,45 +3534,45 @@ void __66__TRISQLiteCKDatabase__deleteRecordsWithRecordIds_recordType_txn___bloc
 
 - (BOOL)_upsertRecord:(id)record txn:(id)txn error:(id *)error
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   txnCopy = txn;
-  v67 = recordCopy;
+  v66 = recordCopy;
   recordType = [recordCopy recordType];
-  v66 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:recordType];
+  v65 = [(TRISQLiteCKDatabase *)self _valueTypesForFieldsOfRecordType:recordType];
 
-  if (v66)
+  if (v65)
   {
-    v65 = objc_opt_new();
     v64 = objc_opt_new();
+    v63 = objc_opt_new();
+    v93 = 0u;
     v94 = 0u;
     v95 = 0u;
     v96 = 0u;
-    v97 = 0u;
     allKeys = [recordCopy allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v94 objects:v98 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v93 objects:v97 count:16];
     if (v9)
     {
-      v10 = *v95;
+      v10 = *v94;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v95 != v10)
+        if (*v94 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v94 + 1) + 8 * v11);
+        v12 = *(*(&v93 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
-        v14 = [v67 objectForKeyedSubscript:v12];
+        v14 = [v66 objectForKeyedSubscript:v12];
         if (!v14)
         {
           currentHandler = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:1581 description:{@"Invalid parameter not satisfying: %@", @"fieldValue"}];
         }
 
-        v15 = [v66 objectForKeyedSubscript:v12];
+        v15 = [v65 objectForKeyedSubscript:v12];
         firstObject = [v15 firstObject];
 
         if (!firstObject)
@@ -3597,7 +3585,7 @@ LABEL_4:
           v54 = objc_alloc(MEMORY[0x277CCACA8]);
           v55 = objc_opt_class();
           recordType3 = NSStringFromClass(v55);
-          recordType2 = [v67 recordType];
+          recordType2 = [v66 recordType];
           v53 = [v54 initWithFormat:@"Can't modify record with unexpected type %@ for field %@ on record type %@.", recordType3, v12, recordType2];
           v56 = [(TRISQLiteCKDatabase *)self _errorWithCode:12 message:v53];
           v57 = *error;
@@ -3608,12 +3596,12 @@ LABEL_4:
 
         if (firstObject == objc_opt_class())
         {
-          v17 = v64;
+          v17 = v63;
         }
 
         else
         {
-          v17 = v65;
+          v17 = v64;
         }
 
         [v17 setObject:v14 forKeyedSubscript:v12];
@@ -3621,7 +3609,7 @@ LABEL_4:
         objc_autoreleasePoolPop(v13);
         if (v9 == ++v11)
         {
-          v9 = [allKeys countByEnumeratingWithState:&v94 objects:v98 count:16];
+          v9 = [allKeys countByEnumeratingWithState:&v93 objects:v97 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -3632,7 +3620,7 @@ LABEL_4:
       }
 
       v49 = objc_alloc(MEMORY[0x277CCACA8]);
-      recordType3 = [v67 recordType];
+      recordType3 = [v66 recordType];
       recordType2 = [v49 initWithFormat:@"Can't modify record using unknown field %@ for record type %@.", v12, recordType3];
       v52 = [(TRISQLiteCKDatabase *)self _errorWithCode:12 message:recordType2];
       v53 = *error;
@@ -3653,104 +3641,104 @@ LABEL_16:
 
     v23 = objc_alloc(MEMORY[0x277CCAB68]);
     v24 = objc_alloc(MEMORY[0x277CCACA8]);
-    recordType4 = [v67 recordType];
+    recordType4 = [v66 recordType];
     v26 = objc_msgSend(v24, "initWithFormat:", @" INSERT INTO %@(    trisql_recordId,     modificationDate,     creationDate"), recordType4;
     v27 = [v23 initWithString:v26];
 
-    v92[0] = MEMORY[0x277D85DD0];
-    v92[1] = 3221225472;
-    v92[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke;
-    v92[3] = &unk_279DDF948;
-    v28 = v67;
-    v93 = v28;
-    v29 = MEMORY[0x2743948D0](v92);
-    [v19 addObject:v29];
-
     v91[0] = MEMORY[0x277D85DD0];
     v91[1] = 3221225472;
-    v91[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_2;
-    v91[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
-    v91[4] = v22;
-    v30 = MEMORY[0x2743948D0](v91);
-    [v19 addObject:v30];
+    v91[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke;
+    v91[3] = &unk_279DDF948;
+    v28 = v66;
+    v92 = v28;
+    v29 = MEMORY[0x2743948D0](v91);
+    [v19 addObject:v29];
 
     v90[0] = MEMORY[0x277D85DD0];
     v90[1] = 3221225472;
-    v90[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_3;
+    v90[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_2;
     v90[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
     v90[4] = v22;
-    v31 = MEMORY[0x2743948D0](v90);
+    v30 = MEMORY[0x2743948D0](v90);
+    [v19 addObject:v30];
+
+    v89[0] = MEMORY[0x277D85DD0];
+    v89[1] = 3221225472;
+    v89[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_3;
+    v89[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
+    v89[4] = v22;
+    v31 = MEMORY[0x2743948D0](v89);
     [v19 addObject:v31];
 
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_4;
-    v85[3] = &unk_279DDFA38;
+    v84[0] = MEMORY[0x277D85DD0];
+    v84[1] = 3221225472;
+    v84[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_4;
+    v84[3] = &unk_279DDFA38;
     v32 = v27;
-    v86 = v32;
+    v85 = v32;
     v33 = v19;
-    v87 = v33;
+    v86 = v33;
     selfCopy = self;
     v34 = v28;
-    v89 = v34;
-    [v65 enumerateKeysAndObjectsUsingBlock:v85];
-    [v65 count];
+    v88 = v34;
+    [v64 enumerateKeysAndObjectsUsingBlock:v84];
+    [v64 count];
     v35 = _PASQMarksSeparatedByCommas();
     [v32 appendFormat:@" VALUES (%@) ON CONFLICT (trisql_recordId) DO "], v35);
 
     v36 = objc_opt_new();
     [v36 addObject:@"modificationDate = ?"];
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 3221225472;
-    v84[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_6;
-    v84[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
-    v84[4] = v22;
-    v37 = MEMORY[0x2743948D0](v84);
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_6;
+    v83[3] = &__block_descriptor_40_e32_v20__0___PASSqliteStatement_8i16l;
+    v83[4] = v22;
+    v37 = MEMORY[0x2743948D0](v83);
     [v33 addObject:v37];
 
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_7;
-    v79[3] = &unk_279DDFA38;
-    v80 = v36;
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_7;
+    v78[3] = &unk_279DDFA38;
+    v79 = v36;
     v38 = v33;
-    v81 = v38;
+    v80 = v38;
     selfCopy2 = self;
     v39 = v34;
-    v83 = v39;
+    v82 = v39;
     v40 = v36;
-    [v65 enumerateKeysAndObjectsUsingBlock:v79];
+    [v64 enumerateKeysAndObjectsUsingBlock:v78];
     [v32 appendString:@"UPDATE SET "];
     v41 = [v40 componentsJoinedByString:{@", "}];
     [v32 appendString:v41];
 
     [v32 appendString:@";"];
     v42 = [txnCopy db];
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_9;
-    v77[3] = &unk_279DDF860;
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_9;
+    v76[3] = &unk_279DDF860;
     allKeys = v38;
-    v78 = allKeys;
-    [v42 prepAndRunQuery:v32 onPrep:v77 onRow:0 onError:0];
+    v77 = allKeys;
+    [v42 prepAndRunQuery:v32 onPrep:v76 onRow:0 onError:0];
 
-    v73 = 0;
-    v74 = &v73;
-    v75 = 0x2020000000;
-    v76 = 1;
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_10;
-    v68[3] = &unk_279DDFA60;
-    v68[4] = self;
-    v69 = v39;
-    v71 = &v73;
+    v72 = 0;
+    v73 = &v72;
+    v74 = 0x2020000000;
+    v75 = 1;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_10;
+    v67[3] = &unk_279DDFA60;
+    v67[4] = self;
+    v68 = v39;
+    v70 = &v72;
     errorCopy = error;
-    v70 = txnCopy;
-    [v64 enumerateKeysAndObjectsUsingBlock:v68];
-    v43 = *(v74 + 24);
+    v69 = txnCopy;
+    [v63 enumerateKeysAndObjectsUsingBlock:v67];
+    v43 = *(v73 + 24);
 
-    _Block_object_dispose(&v73, 8);
+    _Block_object_dispose(&v72, 8);
 LABEL_21:
   }
 
@@ -3766,7 +3754,6 @@ LABEL_21:
     v43 = 0;
   }
 
-  v58 = *MEMORY[0x277D85DE8];
   return v43 & 1;
 }
 
@@ -3842,39 +3829,37 @@ void __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_8(void *a1
 
 void __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_9(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v11 + 1) + 8 * i) + 16))(*(*(&v11 + 1) + 8 * i));
+        (*(*(*(&v10 + 1) + 8 * i) + 16))(*(*(&v10 + 1) + 8 * i));
         ++v8;
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_10(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -3896,7 +3881,7 @@ void __47__TRISQLiteCKDatabase__upsertRecord_txn_error___block_invoke_10(uint64_
 
 - (id)_filenameForLocallyCopiedAsset:(id)asset forRecordId:(id)id error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   idCopy = id;
   v10 = objc_autoreleasePoolPush();
@@ -3921,9 +3906,9 @@ LABEL_15:
 
   v30 = objc_alloc(MEMORY[0x277CBEA90]);
   fileURL2 = [assetCopy fileURL];
-  v43 = 0;
-  assetContent = [v30 initWithContentsOfURL:fileURL2 options:1 error:&v43];
-  v32 = v43;
+  v42 = 0;
+  assetContent = [v30 initWithContentsOfURL:fileURL2 options:1 error:&v42];
+  v32 = v42;
 
   if (!assetContent)
   {
@@ -3936,7 +3921,7 @@ LABEL_15:
   }
 
 LABEL_2:
-  v40 = v10;
+  v39 = v10;
   assetDir = self->_assetDir;
   recordName = [idCopy recordName];
   v14 = [(NSString *)assetDir stringByAppendingPathComponent:recordName];
@@ -3945,9 +3930,9 @@ LABEL_2:
   uUIDString = [v15 UUIDString];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v42 = 0;
-  v18 = [defaultManager createDirectoryAtPath:v14 withIntermediateDirectories:1 attributes:0 error:&v42];
-  v19 = v42;
+  v41 = 0;
+  v18 = [defaultManager createDirectoryAtPath:v14 withIntermediateDirectories:1 attributes:0 error:&v41];
+  v19 = v41;
 
   if ((v18 & 1) == 0)
   {
@@ -3955,15 +3940,15 @@ LABEL_2:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v45 = v19;
+      v44 = v19;
       _os_log_error_impl(&dword_26F567000, v20, OS_LOG_TYPE_ERROR, "Failed to create directory for asset: %{public}@", buf, 0xCu);
     }
   }
 
   v21 = [v14 stringByAppendingPathComponent:uUIDString];
-  v41 = 0;
-  v22 = [assetContent writeToFile:v21 options:0 error:&v41];
-  v23 = v41;
+  v40 = 0;
+  v22 = [assetContent writeToFile:v21 options:0 error:&v40];
+  v23 = v40;
   v24 = v23;
   if (v22)
   {
@@ -3981,12 +3966,10 @@ LABEL_2:
     v25 = 0;
   }
 
-  v10 = v40;
+  v10 = v39;
 
 LABEL_16:
   objc_autoreleasePoolPop(v10);
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -4043,7 +4026,7 @@ LABEL_16:
 
 - (BOOL)_replaceArrayFieldWithKey:(id)key recordType:(id)type recordId:(id)id values:(id)values txn:(id)txn error:(id *)error
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   typeCopy = type;
   idCopy = id;
@@ -4062,9 +4045,9 @@ LABEL_16:
     goto LABEL_29;
   }
 
-  v65 = txnCopy;
-  v62 = typeCopy;
-  v60 = v19;
+  v64 = txnCopy;
+  v61 = typeCopy;
+  v59 = v19;
   v21 = [v19 objectForKeyedSubscript:keyCopy];
   firstObject = [v21 firstObject];
   if (firstObject != objc_opt_class() || [v21 count] <= 1)
@@ -4073,46 +4056,46 @@ LABEL_16:
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:1797 description:{@"Expected array type for %@", keyCopy}];
   }
 
-  v58 = a2;
-  v59 = v21;
-  v63 = keyCopy;
+  v57 = a2;
+  v58 = v21;
+  v62 = keyCopy;
   v23 = [v21 objectAtIndexedSubscript:1];
   v24 = objc_opt_new();
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
-  v61 = valuesCopy;
+  v60 = valuesCopy;
   v25 = valuesCopy;
-  v26 = [v25 countByEnumeratingWithState:&v82 objects:v86 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v81 objects:v85 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v83;
+    v28 = *v82;
     while (2)
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v83 != v28)
+        if (*v82 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v82 + 1) + 8 * i);
+        v30 = *(*(&v81 + 1) + 8 * i);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v40 = objc_alloc(MEMORY[0x277CCACA8]);
           v41 = objc_opt_class();
           v42 = NSStringFromClass(v41);
-          typeCopy = v62;
-          keyCopy = v63;
-          v43 = [v40 initWithFormat:@"Can't modify record of type %@ with unexpected contained type %@ for array field %@.", v62, v42, v63];
+          typeCopy = v61;
+          keyCopy = v62;
+          v43 = [v40 initWithFormat:@"Can't modify record of type %@ with unexpected contained type %@ for array field %@.", v61, v42, v62];
           v44 = [(TRISQLiteCKDatabase *)self _errorWithCode:12 message:v43];
           v45 = *error;
           *error = v44;
 
           v39 = 0;
-          valuesCopy = v61;
+          valuesCopy = v60;
           goto LABEL_27;
         }
 
@@ -4123,9 +4106,9 @@ LABEL_16:
           if (!v31)
           {
             v39 = 0;
-            typeCopy = v62;
-            keyCopy = v63;
-            valuesCopy = v61;
+            typeCopy = v61;
+            keyCopy = v62;
+            valuesCopy = v60;
             goto LABEL_28;
           }
 
@@ -4134,7 +4117,7 @@ LABEL_16:
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v82 objects:v86 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v81 objects:v85 count:16];
       if (v27)
       {
         continue;
@@ -4147,32 +4130,32 @@ LABEL_16:
   if (v23 == objc_opt_class())
   {
     v35 = &__block_literal_global_2;
-    typeCopy = v62;
-    keyCopy = v63;
+    typeCopy = v61;
+    keyCopy = v62;
   }
 
   else
   {
-    typeCopy = v62;
-    keyCopy = v63;
+    typeCopy = v61;
+    keyCopy = v62;
     if (v23 != objc_opt_class())
     {
-      valuesCopy = v61;
+      valuesCopy = v60;
       if (v23 == objc_opt_class())
       {
-        v81[0] = 0;
-        v81[1] = v81;
-        v81[2] = 0x2020000000;
-        v81[3] = 0;
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 3221225472;
-        v78[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_3;
-        v78[3] = &unk_279DDFAA8;
-        v79 = v24;
-        v80 = v81;
-        v35 = MEMORY[0x2743948D0](v78);
+        v80[0] = 0;
+        v80[1] = v80;
+        v80[2] = 0x2020000000;
+        v80[3] = 0;
+        v77[0] = MEMORY[0x277D85DD0];
+        v77[1] = 3221225472;
+        v77[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_3;
+        v77[3] = &unk_279DDFAA8;
+        v78 = v24;
+        v79 = v80;
+        v35 = MEMORY[0x2743948D0](v77);
 
-        _Block_object_dispose(v81, 8);
+        _Block_object_dispose(v80, 8);
       }
 
       else if (v23 == objc_opt_class())
@@ -4184,7 +4167,7 @@ LABEL_16:
       {
         currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
         v34 = NSStringFromClass(v23);
-        [currentHandler2 handleFailureInMethod:v58 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:1846 description:{@"No support for binding array contained type %@", v34}];
+        [currentHandler2 handleFailureInMethod:v57 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:1846 description:{@"No support for binding array contained type %@", v34}];
 
         v35 = 0;
       }
@@ -4195,55 +4178,54 @@ LABEL_16:
     v35 = &__block_literal_global_475;
   }
 
-  valuesCopy = v61;
+  valuesCopy = v60;
 LABEL_26:
   keyCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" DELETE FROM     %@_%@ WHERE     recordId = :record_id;", typeCopy, keyCopy];
-  v47 = [v65 db];
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_5;
-  v76[3] = &unk_279DDF860;
+  v47 = [v64 db];
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_5;
+  v75[3] = &unk_279DDF860;
   v48 = idCopy;
-  v77 = v48;
-  [v47 prepAndRunQuery:keyCopy onPrep:v76 onRow:0 onError:0];
+  v76 = v48;
+  [v47 prepAndRunQuery:keyCopy onPrep:v75 onRow:0 onError:0];
 
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_6;
-  v70[3] = &unk_279DDFAF8;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_6;
+  v69[3] = &unk_279DDFAF8;
   v49 = typeCopy;
-  v71 = v49;
+  v70 = v49;
   v50 = keyCopy;
-  v72 = v50;
-  v51 = v65;
-  v73 = v51;
+  v71 = v50;
+  v51 = v64;
+  v72 = v51;
   v52 = v48;
-  v74 = v52;
-  v75 = v35;
-  v64 = v35;
-  [v25 enumerateObjectsUsingBlock:v70];
+  v73 = v52;
+  v74 = v35;
+  v63 = v35;
+  [v25 enumerateObjectsUsingBlock:v69];
   v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@" UPDATE %@ SET     %@ = :count WHERE trisql_recordId = :record_id", v49, v50];
   v54 = [v51 db];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_8;
-  v67[3] = &unk_279DDFB20;
-  v68 = v25;
-  v69 = v52;
-  [v54 prepAndRunQuery:v53 onPrep:v67 onRow:0 onError:0];
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_8;
+  v66[3] = &unk_279DDFB20;
+  v67 = v25;
+  v68 = v52;
+  [v54 prepAndRunQuery:v53 onPrep:v66 onRow:0 onError:0];
 
   v39 = 1;
-  v42 = v71;
-  v25 = v64;
+  v42 = v70;
+  v25 = v63;
 LABEL_27:
 
 LABEL_28:
-  v20 = v60;
+  v20 = v59;
 
-  txnCopy = v65;
+  txnCopy = v64;
 LABEL_29:
 
-  v55 = *MEMORY[0x277D85DE8];
   return v39;
 }
 
@@ -4303,9 +4285,9 @@ void __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_val
 void __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_values_txn_error___block_invoke_7(void *a1, void *a2)
 {
   v3 = a1[4];
-  v7 = a2;
+  v6 = a2;
   v4 = [v3 recordName];
-  [v7 bindNamedParam:":record_id" toNSString:v4];
+  [v6 bindNamedParam:":record_id" toNSString:v4];
 
   if (a1[7] >= 0x7FFFFFFFFFFFFFFFuLL)
   {
@@ -4317,8 +4299,7 @@ void __86__TRISQLiteCKDatabase__replaceArrayFieldWithKey_recordType_recordId_val
     v5 = a1[7];
   }
 
-  [v7 bindNamedParam:":index" toInt64:v5];
-  v6 = a1[5];
+  [v6 bindNamedParam:":index" toInt64:v5];
   (*(a1[6] + 16))();
 }
 
@@ -4359,11 +4340,10 @@ void __38__TRISQLiteCKDatabase__allRecordTypes__block_invoke()
   v0 = objc_autoreleasePoolPush();
   v1 = objc_autoreleasePoolPush();
   v2 = objc_alloc(MEMORY[0x277CBEB98]);
-  v3 = *MEMORY[0x277D739A8];
-  v4 = [v2 initWithObjects:{*MEMORY[0x277D738A0], *MEMORY[0x277D739A8], *MEMORY[0x277D73840], *MEMORY[0x277D73930], *MEMORY[0x277D73958], *MEMORY[0x277D73848], 0}];
+  v3 = [v2 initWithObjects:{*MEMORY[0x277D738A0], *MEMORY[0x277D739A8], *MEMORY[0x277D73840], *MEMORY[0x277D73930], *MEMORY[0x277D73958], *MEMORY[0x277D73848], 0}];
   objc_autoreleasePoolPop(v1);
-  v5 = qword_281597658;
-  qword_281597658 = v4;
+  v4 = qword_281597658;
+  qword_281597658 = v3;
 
   objc_autoreleasePoolPop(v0);
 }
@@ -4461,316 +4441,310 @@ LABEL_20:
 
 void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke()
 {
-  v43[19] = *MEMORY[0x277D85DE8];
+  v42[19] = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v42[0] = @"modificationDate";
-  v41 = objc_opt_class();
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
-  v43[0] = v21;
-  v42[1] = @"creationDate";
+  v41[0] = @"modificationDate";
   v40 = objc_opt_class();
   v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
-  v43[1] = v20;
-  v42[2] = *MEMORY[0x277D738A8];
+  v42[0] = v20;
+  v41[1] = @"creationDate";
   v39 = objc_opt_class();
   v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
-  v43[2] = v19;
-  v42[3] = *MEMORY[0x277D738E0];
+  v42[1] = v19;
+  v41[2] = *MEMORY[0x277D738A8];
   v38 = objc_opt_class();
   v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
-  v43[3] = v18;
-  v42[4] = *MEMORY[0x277D738B8];
+  v42[2] = v18;
+  v41[3] = *MEMORY[0x277D738E0];
   v37 = objc_opt_class();
   v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
-  v43[4] = v17;
-  v42[5] = *MEMORY[0x277D738B0];
+  v42[3] = v17;
+  v41[4] = *MEMORY[0x277D738B8];
   v36 = objc_opt_class();
   v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-  v43[5] = v16;
-  v42[6] = *MEMORY[0x277D738D0];
+  v42[4] = v16;
+  v41[5] = *MEMORY[0x277D738B0];
   v35 = objc_opt_class();
   v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-  v43[6] = v15;
-  v42[7] = *MEMORY[0x277D738D8];
+  v42[5] = v15;
+  v41[6] = *MEMORY[0x277D738D0];
   v34 = objc_opt_class();
   v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
-  v43[7] = v14;
-  v42[8] = *MEMORY[0x277D73928];
+  v42[6] = v14;
+  v41[7] = *MEMORY[0x277D738D8];
   v33 = objc_opt_class();
   v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-  v43[8] = v13;
-  v42[9] = *MEMORY[0x277D738F0];
+  v42[7] = v13;
+  v41[8] = *MEMORY[0x277D73928];
   v32 = objc_opt_class();
   v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
-  v43[9] = v12;
-  v42[10] = *MEMORY[0x277D738F8];
+  v42[8] = v12;
+  v41[9] = *MEMORY[0x277D738F0];
   v31 = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-  v43[10] = v0;
-  v42[11] = *MEMORY[0x277D738E8];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v42[9] = v11;
+  v41[10] = *MEMORY[0x277D738F8];
   v30 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
-  v43[11] = v1;
-  v42[12] = *MEMORY[0x277D73908];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v42[10] = v0;
+  v41[11] = *MEMORY[0x277D738E8];
   v29 = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-  v43[12] = v2;
-  v42[13] = *MEMORY[0x277D738C0];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v42[11] = v1;
+  v41[12] = *MEMORY[0x277D73908];
   v28 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
-  v43[13] = v3;
-  v42[14] = *MEMORY[0x277D738C8];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
-  v43[14] = v4;
-  v42[15] = *MEMORY[0x277D73910];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v42[12] = v2;
+  v41[13] = *MEMORY[0x277D738C0];
+  v27 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v42[13] = v3;
+  v41[14] = *MEMORY[0x277D738C8];
   v26[0] = objc_opt_class();
   v26[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
-  v43[15] = v5;
-  v42[16] = *MEMORY[0x277D73920];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v42[14] = v4;
+  v41[15] = *MEMORY[0x277D73910];
   v25[0] = objc_opt_class();
   v25[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
-  v43[16] = v6;
-  v42[17] = *MEMORY[0x277D73918];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v42[15] = v5;
+  v41[16] = *MEMORY[0x277D73920];
   v24[0] = objc_opt_class();
   v24[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v43[17] = v7;
-  v42[18] = *MEMORY[0x277D73900];
-  v23 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-  v43[18] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:19];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v42[16] = v6;
+  v41[17] = *MEMORY[0x277D73918];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v42[17] = v7;
+  v41[18] = *MEMORY[0x277D73900];
+  v22 = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v42[18] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:19];
   v10 = qword_281597668;
   qword_281597668 = v9;
 
   objc_autoreleasePoolPop(context);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke_2()
 {
-  v21[8] = *MEMORY[0x277D85DE8];
+  v20[8] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
-  v20[0] = @"modificationDate";
-  v19 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-  v21[0] = v1;
-  v20[1] = @"creationDate";
+  v19[0] = @"modificationDate";
   v18 = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v21[1] = v2;
-  v20[2] = *MEMORY[0x277D739D8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v20[0] = v1;
+  v19[1] = @"creationDate";
   v17 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v21[2] = v3;
-  v20[3] = *MEMORY[0x277D739C8];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v20[1] = v2;
+  v19[2] = *MEMORY[0x277D739D8];
   v16 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-  v21[3] = v4;
-  v20[4] = *MEMORY[0x277D739D0];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v20[2] = v3;
+  v19[3] = *MEMORY[0x277D739C8];
   v15 = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v21[4] = v5;
-  v20[5] = *MEMORY[0x277D739C0];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v20[3] = v4;
+  v19[4] = *MEMORY[0x277D739D0];
   v14 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v21[5] = v6;
-  v20[6] = *MEMORY[0x277D739B8];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-  v21[6] = v7;
-  v20[7] = *MEMORY[0x277D739B0];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v20[4] = v5;
+  v19[5] = *MEMORY[0x277D739C0];
+  v13 = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v20[5] = v6;
+  v19[6] = *MEMORY[0x277D739B8];
   v12[0] = objc_opt_class();
   v12[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-  v21[7] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:{8, v12[0]}];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v20[6] = v7;
+  v19[7] = *MEMORY[0x277D739B0];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v20[7] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:{8, v11[0]}];
   v10 = qword_281597678;
   qword_281597678 = v9;
 
   objc_autoreleasePoolPop(v0);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke_3()
 {
-  v17[6] = *MEMORY[0x277D85DE8];
+  v16[6] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
-  v16[0] = @"modificationDate";
-  v15 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v17[0] = v1;
-  v16[1] = @"creationDate";
+  v15[0] = @"modificationDate";
   v14 = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v17[1] = v2;
-  v16[2] = *MEMORY[0x277D73888];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v16[0] = v1;
+  v15[1] = @"creationDate";
   v13 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v17[2] = v3;
-  v16[3] = *MEMORY[0x277D73880];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v16[1] = v2;
+  v15[2] = *MEMORY[0x277D73888];
   v12 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v17[3] = v4;
-  v16[4] = *MEMORY[0x277D73890];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v16[2] = v3;
+  v15[3] = *MEMORY[0x277D73880];
   v11 = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-  v17[4] = v5;
-  v16[5] = *MEMORY[0x277D73898];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v16[3] = v4;
+  v15[4] = *MEMORY[0x277D73890];
   v10 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-  v17[5] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v16[4] = v5;
+  v15[5] = *MEMORY[0x277D73898];
+  v9 = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v16[5] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
   v8 = qword_281597688;
   qword_281597688 = v7;
 
   objc_autoreleasePoolPop(v0);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke_4()
 {
-  v17[6] = *MEMORY[0x277D85DE8];
+  v16[6] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
-  v16[0] = @"modificationDate";
-  v15 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v17[0] = v1;
-  v16[1] = @"creationDate";
+  v15[0] = @"modificationDate";
   v14 = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v17[1] = v2;
-  v16[2] = *MEMORY[0x277D73948];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v16[0] = v1;
+  v15[1] = @"creationDate";
   v13 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v17[2] = v3;
-  v16[3] = *MEMORY[0x277D73940];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-  v17[3] = v4;
-  v16[4] = *MEMORY[0x277D73938];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v16[1] = v2;
+  v15[2] = *MEMORY[0x277D73948];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v16[2] = v3;
+  v15[3] = *MEMORY[0x277D73940];
   v11[0] = objc_opt_class();
   v11[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-  v17[4] = v5;
-  v16[5] = *MEMORY[0x277D73950];
-  v10 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-  v17[5] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v16[3] = v4;
+  v15[4] = *MEMORY[0x277D73938];
+  v10[0] = objc_opt_class();
+  v10[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v16[4] = v5;
+  v15[5] = *MEMORY[0x277D73950];
+  v9 = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v16[5] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
   v8 = qword_281597698;
   qword_281597698 = v7;
 
   objc_autoreleasePoolPop(v0);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke_5()
 {
-  v27[11] = *MEMORY[0x277D85DE8];
+  v26[11] = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v26[0] = @"modificationDate";
-  v25 = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-  v27[0] = v13;
-  v26[1] = @"creationDate";
+  v25[0] = @"modificationDate";
   v24 = objc_opt_class();
   v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
-  v27[1] = v12;
-  v26[2] = *MEMORY[0x277D73960];
+  v26[0] = v12;
+  v25[1] = @"creationDate";
   v23 = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
-  v27[2] = v0;
-  v26[3] = *MEMORY[0x277D739A0];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v26[1] = v11;
+  v25[2] = *MEMORY[0x277D73960];
   v22 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-  v27[3] = v1;
-  v26[4] = *MEMORY[0x277D73968];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v26[2] = v0;
+  v25[3] = *MEMORY[0x277D739A0];
   v21 = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-  v27[4] = v2;
-  v26[5] = *MEMORY[0x277D73990];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v26[3] = v1;
+  v25[4] = *MEMORY[0x277D73968];
   v20 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-  v27[5] = v3;
-  v26[6] = *MEMORY[0x277D73998];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v26[4] = v2;
+  v25[5] = *MEMORY[0x277D73990];
   v19 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-  v27[6] = v4;
-  v26[7] = *MEMORY[0x277D73988];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v26[5] = v3;
+  v25[6] = *MEMORY[0x277D73998];
   v18 = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v27[7] = v5;
-  v26[8] = *MEMORY[0x277D73978];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v27[8] = v6;
-  v26[9] = *MEMORY[0x277D73980];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v26[6] = v4;
+  v25[7] = *MEMORY[0x277D73988];
+  v17 = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v26[7] = v5;
+  v25[8] = *MEMORY[0x277D73978];
   v16[0] = objc_opt_class();
   v16[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-  v27[9] = v7;
-  v26[10] = *MEMORY[0x277D73970];
-  v15 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v27[10] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:11];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v26[8] = v6;
+  v25[9] = *MEMORY[0x277D73980];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v26[9] = v7;
+  v25[10] = *MEMORY[0x277D73970];
+  v14 = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v26[10] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:11];
   v10 = qword_2815976A8;
   qword_2815976A8 = v9;
 
   objc_autoreleasePoolPop(context);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke_6()
 {
-  v21[8] = *MEMORY[0x277D85DE8];
+  v20[8] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
-  v20[0] = @"modificationDate";
-  v19 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-  v21[0] = v1;
-  v20[1] = @"creationDate";
+  v19[0] = @"modificationDate";
   v18 = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v21[1] = v2;
-  v20[2] = *MEMORY[0x277D73870];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v20[0] = v1;
+  v19[1] = @"creationDate";
   v17 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v21[2] = v3;
-  v20[3] = *MEMORY[0x277D73868];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v20[1] = v2;
+  v19[2] = *MEMORY[0x277D73870];
   v16 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-  v21[3] = v4;
-  v20[4] = *MEMORY[0x277D73858];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v20[2] = v3;
+  v19[3] = *MEMORY[0x277D73868];
   v15 = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v21[4] = v5;
-  v20[5] = *MEMORY[0x277D73850];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v20[3] = v4;
+  v19[4] = *MEMORY[0x277D73858];
   v14 = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v21[5] = v6;
-  v20[6] = *MEMORY[0x277D73860];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v20[4] = v5;
+  v19[5] = *MEMORY[0x277D73850];
   v13 = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v21[6] = v7;
-  v20[7] = *MEMORY[0x277D73878];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v20[5] = v6;
+  v19[6] = *MEMORY[0x277D73860];
   v12 = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v21[7] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:8];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v20[6] = v7;
+  v19[7] = *MEMORY[0x277D73878];
+  v11 = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v20[7] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
   v10 = qword_2815976B8;
   qword_2815976B8 = v9;
 
   objc_autoreleasePoolPop(v0);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_keysForFieldsOfRecordType:(id)type
@@ -4782,21 +4756,189 @@ void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke_6
   return v5;
 }
 
+- (void)_bindParam:(int)param toScalarValue:(id)value forStatement:(id)statement recordId:(id)id
+{
+  v8 = *&param;
+  valueCopy = value;
+  statementCopy = statement;
+  idCopy = id;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [statementCopy bindParam:v8 toNSString:valueCopy];
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v14 = valueCopy;
+      if (CFNumberIsFloatType(v14))
+      {
+        [v14 doubleValue];
+        [statementCopy bindParam:v8 toDouble:?];
+      }
+
+      else
+      {
+        [statementCopy bindParam:v8 toInt64:{objc_msgSend(v14, "longLongValue")}];
+      }
+    }
+
+    else
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        [valueCopy timeIntervalSinceReferenceDate];
+        [statementCopy bindParam:v8 toDouble:?];
+      }
+
+      else
+      {
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          [statementCopy bindParam:v8 toNSData:valueCopy];
+        }
+
+        else
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v20 = 0;
+            v15 = [(TRISQLiteCKDatabase *)self _filenameForLocallyCopiedAsset:valueCopy forRecordId:idCopy error:&v20];
+            if (!v15)
+            {
+              currentHandler = [MEMORY[0x277CCA890] currentHandler];
+              [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:2041 description:{@"Failed to copy asset to local storage: %@", v20}];
+            }
+
+            [statementCopy bindParam:v8 toNSString:v15];
+          }
+
+          else
+          {
+            currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+            v17 = objc_opt_class();
+            v18 = NSStringFromClass(v17);
+            [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:2045 description:{@"Binding scalar values of type %@ is not supported", v18}];
+          }
+        }
+      }
+    }
+  }
+}
+
 - (id)_errorWithCode:(int64_t)code message:(id)message
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   messageCopy = message;
   v7 = [v5 alloc];
   v8 = *MEMORY[0x277CBBF50];
-  v13 = *MEMORY[0x277CCA450];
-  v14[0] = messageCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = messageCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
   v10 = [v7 initWithDomain:v8 code:code userInfo:v9];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
+}
+
+- (BOOL)migrateToVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v20[1] = *MEMORY[0x277D85DE8];
+  v6 = TRILogCategory_Server();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "TRISQLiteCKDatabase now performing migration.", buf, 2u);
+  }
+
+  v7 = objc_alloc(MEMORY[0x277D42588]);
+  v20[0] = self;
+  v8 = 1;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v10 = [v7 initWithMigrationObjects:v9];
+
+  v11 = [v10 migrateDatabasesToVersion:v3];
+  v12 = v11;
+  if (v11 > 2)
+  {
+    if ((v11 - 4) >= 3)
+    {
+      if (v11 == 3)
+      {
+        currentHandler = TRILogCategory_Server();
+        if (os_log_type_enabled(currentHandler, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          v14 = "TRISQLiteCKDatabase has a future schema version, cannot use database.";
+LABEL_15:
+          v15 = currentHandler;
+          v16 = 2;
+          goto LABEL_16;
+        }
+
+        goto LABEL_18;
+      }
+
+LABEL_17:
+      currentHandler = [MEMORY[0x277CCA890] currentHandler];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"TRISQLiteCKDatabase.m" lineNumber:2079 description:@"Unhandled migration result: %u", v12];
+      goto LABEL_18;
+    }
+
+LABEL_11:
+    currentHandler = TRILogCategory_Server();
+    if (os_log_type_enabled(currentHandler, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      v19 = v12;
+      v14 = "TRISQLiteCKDatabase got an unexpected and unrecoverable migration result of %u. Database is considered corrupt and Trial storage will be reset on next launch.";
+      v15 = currentHandler;
+      v16 = 8;
+LABEL_16:
+      _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+      goto LABEL_18;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (!v11)
+  {
+    currentHandler = TRILogCategory_Server();
+    if (os_log_type_enabled(currentHandler, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v14 = "TRISQLiteCKDatabase could not perform migrations (device locked?), try again later.";
+      goto LABEL_15;
+    }
+
+LABEL_18:
+
+    v8 = 0;
+    goto LABEL_19;
+  }
+
+  if (v11 != 1)
+  {
+    if (v11 != 2)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_19:
+
+  return v8;
 }
 
 - (id)_createTableForRecordType:(id)type scalarFields:(id)fields
@@ -4834,182 +4976,180 @@ void __56__TRISQLiteCKDatabase__valueTypesForFieldsOfRecordType___block_invoke_6
 
 - (id)migrations
 {
-  v88[3] = *MEMORY[0x277D85DE8];
-  v87[0] = &unk_287FC45D0;
+  v87[3] = *MEMORY[0x277D85DE8];
+  v86[0] = &unk_287FC45D0;
   v3 = *MEMORY[0x277D738A0];
   v4 = *MEMORY[0x277D738E0];
-  v81[0] = *MEMORY[0x277D738A8];
-  v81[1] = v4;
-  v85[0] = @"REAL";
-  v85[1] = @"TEXT";
+  v80[0] = *MEMORY[0x277D738A8];
+  v80[1] = v4;
+  v84[0] = @"REAL";
+  v84[1] = @"TEXT";
   v5 = *MEMORY[0x277D738B0];
-  v81[2] = *MEMORY[0x277D738B8];
-  v81[3] = v5;
-  v85[2] = @"INTEGER";
-  v85[3] = @"INTEGER";
+  v80[2] = *MEMORY[0x277D738B8];
+  v80[3] = v5;
+  v84[2] = @"INTEGER";
+  v84[3] = @"INTEGER";
   v6 = *MEMORY[0x277D738D8];
-  v81[4] = *MEMORY[0x277D738D0];
-  v81[5] = v6;
-  v85[4] = @"BLOB";
-  v85[5] = @"TEXT";
+  v80[4] = *MEMORY[0x277D738D0];
+  v80[5] = v6;
+  v84[4] = @"BLOB";
+  v84[5] = @"TEXT";
   v7 = *MEMORY[0x277D738F0];
-  v81[6] = *MEMORY[0x277D73928];
-  v81[7] = v7;
-  v85[6] = @"BLOB";
-  v85[7] = @"INTEGER";
+  v80[6] = *MEMORY[0x277D73928];
+  v80[7] = v7;
+  v84[6] = @"BLOB";
+  v84[7] = @"INTEGER";
   v8 = *MEMORY[0x277D738E8];
-  v81[8] = *MEMORY[0x277D738F8];
-  v81[9] = v8;
-  v85[8] = @"INTEGER";
-  v85[9] = @"INTEGER";
+  v80[8] = *MEMORY[0x277D738F8];
+  v80[9] = v8;
+  v84[8] = @"INTEGER";
+  v84[9] = @"INTEGER";
   v9 = *MEMORY[0x277D738C0];
-  v81[10] = *MEMORY[0x277D73908];
-  v81[11] = v9;
-  v85[10] = @"INTEGER";
-  v85[11] = @"INTEGER";
+  v80[10] = *MEMORY[0x277D73908];
+  v80[11] = v9;
+  v84[10] = @"INTEGER";
+  v84[11] = @"INTEGER";
   v10 = *MEMORY[0x277D738C8];
-  v81[12] = *MEMORY[0x277D73900];
-  v81[13] = v10;
-  v85[12] = @"INTEGER";
-  v85[13] = @"INTEGER";
+  v80[12] = *MEMORY[0x277D73900];
+  v80[13] = v10;
+  v84[12] = @"INTEGER";
+  v84[13] = @"INTEGER";
   v12 = *MEMORY[0x277D73920];
-  v82 = *MEMORY[0x277D73910];
-  v11 = v82;
-  v83 = v12;
-  v85[14] = @"INTEGER";
-  v85[15] = @"INTEGER";
-  v84 = *MEMORY[0x277D73918];
-  v13 = v84;
-  v85[16] = @"INTEGER";
-  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v81 count:17];
-  v62 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v3 scalarFields:v63];
-  v86[0] = v62;
-  v61 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v10 attachedToRecordType:v3 sqliteContainedType:@"INTEGER"];
-  v86[1] = v61;
-  v60 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v11 attachedToRecordType:v3 sqliteContainedType:@"INTEGER"];
-  v86[2] = v60;
-  v59 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v12 attachedToRecordType:v3 sqliteContainedType:@"INTEGER"];
-  v86[3] = v59;
-  v58 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v13 attachedToRecordType:v3 sqliteContainedType:@"TEXT"];
-  v86[4] = v58;
+  v81 = *MEMORY[0x277D73910];
+  v11 = v81;
+  v82 = v12;
+  v84[14] = @"INTEGER";
+  v84[15] = @"INTEGER";
+  v83 = *MEMORY[0x277D73918];
+  v13 = v83;
+  v84[16] = @"INTEGER";
+  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v80 count:17];
+  v61 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v3 scalarFields:v62];
+  v85[0] = v61;
+  v60 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v10 attachedToRecordType:v3 sqliteContainedType:@"INTEGER"];
+  v85[1] = v60;
+  v59 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v11 attachedToRecordType:v3 sqliteContainedType:@"INTEGER"];
+  v85[2] = v59;
+  v58 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v12 attachedToRecordType:v3 sqliteContainedType:@"INTEGER"];
+  v85[3] = v58;
+  v57 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v13 attachedToRecordType:v3 sqliteContainedType:@"TEXT"];
+  v85[4] = v57;
   v14 = *MEMORY[0x277D739A8];
   v15 = *MEMORY[0x277D739C8];
-  v77[0] = *MEMORY[0x277D739D8];
-  v77[1] = v15;
-  v80[0] = @"TEXT";
-  v80[1] = @"BLOB";
+  v76[0] = *MEMORY[0x277D739D8];
+  v76[1] = v15;
+  v79[0] = @"TEXT";
+  v79[1] = @"BLOB";
   v16 = *MEMORY[0x277D739C0];
-  v77[2] = *MEMORY[0x277D739D0];
-  v77[3] = v16;
-  v80[2] = @"TEXT";
-  v80[3] = @"BLOB";
+  v76[2] = *MEMORY[0x277D739D0];
+  v76[3] = v16;
+  v79[2] = @"TEXT";
+  v79[3] = @"BLOB";
   v18 = *MEMORY[0x277D739B0];
-  v78 = *MEMORY[0x277D739B8];
-  v17 = v78;
-  v79 = v18;
-  v80[4] = @"INTEGER";
-  v80[5] = @"INTEGER";
-  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v77 count:6];
-  v56 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v14 scalarFields:v57];
-  v86[5] = v56;
-  v55 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v17 attachedToRecordType:v14 sqliteContainedType:@"TEXT"];
-  v86[6] = v55;
-  v54 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v18 attachedToRecordType:v14 sqliteContainedType:@"TEXT"];
-  v86[7] = v54;
-  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:8];
-  v88[0] = v53;
-  v87[1] = &unk_287FC45E8;
+  v77 = *MEMORY[0x277D739B8];
+  v17 = v77;
+  v78 = v18;
+  v79[4] = @"INTEGER";
+  v79[5] = @"INTEGER";
+  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v76 count:6];
+  v55 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v14 scalarFields:v56];
+  v85[5] = v55;
+  v54 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v17 attachedToRecordType:v14 sqliteContainedType:@"TEXT"];
+  v85[6] = v54;
+  v53 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v18 attachedToRecordType:v14 sqliteContainedType:@"TEXT"];
+  v85[7] = v53;
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v85 count:8];
+  v87[0] = v52;
+  v86[1] = &unk_287FC45E8;
   v19 = *MEMORY[0x277D73840];
   v20 = *MEMORY[0x277D73880];
-  v74[0] = *MEMORY[0x277D73888];
-  v74[1] = v20;
-  v75[0] = @"TEXT";
-  v75[1] = @"TEXT";
+  v73[0] = *MEMORY[0x277D73888];
+  v73[1] = v20;
+  v74[0] = @"TEXT";
+  v74[1] = @"TEXT";
   v21 = *MEMORY[0x277D73898];
-  v74[2] = *MEMORY[0x277D73890];
-  v74[3] = v21;
-  v75[2] = @"TEXT";
-  v75[3] = @"BLOB";
-  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:4];
-  v51 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v19 scalarFields:v52];
-  v76[0] = v51;
+  v73[2] = *MEMORY[0x277D73890];
+  v73[3] = v21;
+  v74[2] = @"TEXT";
+  v74[3] = @"BLOB";
+  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:4];
+  v50 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v19 scalarFields:v51];
+  v75[0] = v50;
   v22 = *MEMORY[0x277D73930];
   v23 = *MEMORY[0x277D73950];
-  v70[0] = *MEMORY[0x277D73948];
-  v70[1] = v23;
-  v73[0] = @"TEXT";
-  v73[1] = @"BLOB";
+  v69[0] = *MEMORY[0x277D73948];
+  v69[1] = v23;
+  v72[0] = @"TEXT";
+  v72[1] = @"BLOB";
   v25 = *MEMORY[0x277D73938];
-  v71 = *MEMORY[0x277D73940];
-  v24 = v71;
-  v72 = v25;
-  v73[2] = @"INTEGER";
-  v73[3] = @"INTEGER";
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v70 count:4];
-  v49 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v22 scalarFields:v50];
-  v76[1] = v49;
-  v48 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v24 attachedToRecordType:v22 sqliteContainedType:@"BLOB"];
-  v76[2] = v48;
-  v47 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v25 attachedToRecordType:v22 sqliteContainedType:@"TEXT"];
-  v76[3] = v47;
+  v70 = *MEMORY[0x277D73940];
+  v24 = v70;
+  v71 = v25;
+  v72[2] = @"INTEGER";
+  v72[3] = @"INTEGER";
+  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v69 count:4];
+  v48 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v22 scalarFields:v49];
+  v75[1] = v48;
+  v47 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v24 attachedToRecordType:v22 sqliteContainedType:@"BLOB"];
+  v75[2] = v47;
+  v46 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v25 attachedToRecordType:v22 sqliteContainedType:@"TEXT"];
+  v75[3] = v46;
   v26 = *MEMORY[0x277D73958];
   v27 = *MEMORY[0x277D739A0];
-  v67[0] = *MEMORY[0x277D73960];
-  v67[1] = v27;
-  v69[0] = @"REAL";
-  v69[1] = @"TEXT";
+  v66[0] = *MEMORY[0x277D73960];
+  v66[1] = v27;
+  v68[0] = @"REAL";
+  v68[1] = @"TEXT";
   v28 = *MEMORY[0x277D73990];
-  v67[2] = *MEMORY[0x277D73968];
-  v67[3] = v28;
-  v69[2] = @"INTEGER";
-  v69[3] = @"BLOB";
+  v66[2] = *MEMORY[0x277D73968];
+  v66[3] = v28;
+  v68[2] = @"INTEGER";
+  v68[3] = @"BLOB";
   v29 = *MEMORY[0x277D73988];
-  v67[4] = *MEMORY[0x277D73998];
-  v67[5] = v29;
-  v69[4] = @"TEXT";
-  v69[5] = @"BLOB";
+  v66[4] = *MEMORY[0x277D73998];
+  v66[5] = v29;
+  v68[4] = @"TEXT";
+  v68[5] = @"BLOB";
   v30 = *MEMORY[0x277D73978];
-  v67[6] = *MEMORY[0x277D73970];
-  v67[7] = v30;
-  v69[6] = @"INTEGER";
-  v69[7] = @"INTEGER";
-  v68 = *MEMORY[0x277D73980];
-  v31 = v68;
-  v69[8] = @"INTEGER";
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v67 count:9];
+  v66[6] = *MEMORY[0x277D73970];
+  v66[7] = v30;
+  v68[6] = @"INTEGER";
+  v68[7] = @"INTEGER";
+  v67 = *MEMORY[0x277D73980];
+  v31 = v67;
+  v68[8] = @"INTEGER";
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v66 count:9];
   v33 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v26 scalarFields:v32];
-  v76[4] = v33;
+  v75[4] = v33;
   v34 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v30 attachedToRecordType:v26 sqliteContainedType:@"TEXT"];
-  v76[5] = v34;
+  v75[5] = v34;
   v35 = [(TRISQLiteCKDatabase *)self _createTableForArrayFieldWithKey:v31 attachedToRecordType:v26 sqliteContainedType:@"INTEGER"];
-  v76[6] = v35;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:7];
-  v88[1] = v36;
-  v87[2] = &unk_287FC4600;
+  v75[6] = v35;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:7];
+  v87[1] = v36;
+  v86[2] = &unk_287FC4600;
   v37 = *MEMORY[0x277D73848];
   v38 = *MEMORY[0x277D73868];
-  v64[0] = *MEMORY[0x277D73870];
-  v64[1] = v38;
-  v65[0] = @"TEXT";
-  v65[1] = @"TEXT";
+  v63[0] = *MEMORY[0x277D73870];
+  v63[1] = v38;
+  v64[0] = @"TEXT";
+  v64[1] = @"TEXT";
   v39 = *MEMORY[0x277D73850];
-  v64[2] = *MEMORY[0x277D73858];
-  v64[3] = v39;
-  v65[2] = @"TEXT";
-  v65[3] = @"TEXT";
+  v63[2] = *MEMORY[0x277D73858];
+  v63[3] = v39;
+  v64[2] = @"TEXT";
+  v64[3] = @"TEXT";
   v40 = *MEMORY[0x277D73878];
-  v64[4] = *MEMORY[0x277D73860];
-  v64[5] = v40;
-  v65[4] = @"INTEGER";
-  v65[5] = @"BLOB";
-  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:6];
+  v63[4] = *MEMORY[0x277D73860];
+  v63[5] = v40;
+  v64[4] = @"INTEGER";
+  v64[5] = @"BLOB";
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:6];
   v42 = [(TRISQLiteCKDatabase *)self _createTableForRecordType:v37 scalarFields:v41];
-  v66 = v42;
-  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
-  v88[2] = v43;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:3];
-
-  v45 = *MEMORY[0x277D85DE8];
+  v65 = v42;
+  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+  v87[2] = v43;
+  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:3];
 
   return v44;
 }

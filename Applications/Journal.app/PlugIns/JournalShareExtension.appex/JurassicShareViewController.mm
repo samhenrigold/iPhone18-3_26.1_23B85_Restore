@@ -23,7 +23,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for JurassicShareViewController();
+  v6.super_class = type metadata accessor for JurassicShareViewController(0);
   [(JurassicShareViewController *)&v6 dealloc];
 }
 
@@ -37,7 +37,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for JurassicShareViewController();
+  v5.super_class = type metadata accessor for JurassicShareViewController(0);
   v4 = v5.receiver;
   [(JurassicShareViewController *)&v5 viewWillAppear:appearCopy];
   sub_1000352E0();
@@ -47,7 +47,7 @@
 {
   appearCopy = appear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for JurassicShareViewController();
+  v6.super_class = type metadata accessor for JurassicShareViewController(0);
   v4 = v6.receiver;
   [(JurassicShareViewController *)&v6 viewDidAppear:appearCopy];
   v4[OBJC_IVAR____TtC21JournalShareExtension27JurassicShareViewController_hasAppeared] = 1;
@@ -67,7 +67,7 @@
 
 - (void)extensionWillEnterForeground
 {
-  v3 = sub_100007210(&qword_10014CBD8);
+  v3 = sub_100007210(&qword_10014CBD8, &qword_10010E240);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = sub_100101324();

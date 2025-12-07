@@ -373,33 +373,33 @@
 
 - (id)prewarmingString
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = objc_opt_class();
   [dictionary setObject:NSStringFromClass(v4) forKeyedSubscript:@"FILTERNAME"];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   inputKeys = [(CIFilter *)self inputKeys];
-  v6 = [(NSArray *)inputKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v6 = [(NSArray *)inputKeys countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (!v6)
   {
     goto LABEL_21;
   }
 
   v7 = v6;
-  v8 = *v29;
+  v8 = *v34;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v29 != v8)
+      if (*v34 != v8)
       {
         objc_enumerationMutation(inputKeys);
       }
 
-      v10 = *(*(&v28 + 1) + 8 * i);
+      v10 = *(*(&v33 + 1) + 8 * i);
       v11 = [(CIFilter *)self valueForKey:v10];
       if (v11)
       {
@@ -410,52 +410,53 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v32[0] = @"type";
-            v33[0] = [objc_opt_class() description];
-            v32[1] = @"extent";
+            v37[0] = @"type";
+            v38[0] = [objc_opt_class() description];
+            v37[1] = @"extent";
             [v12 extent];
-            v33[1] = [CIVector vectorWithCGRect:?];
-            v32[2] = @"description";
-            v33[2] = [v12 description];
-            v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:3];
+            v38[1] = [CIVector vectorWithCGRect:?];
+            v37[2] = @"description";
+            v38[2] = [v12 description];
+            v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
             goto LABEL_15;
           }
 
           if (isKind_AVCameraCalibrationDataClass(v12))
           {
-            v16 = AVCameraCalibrationDataDictionary(v12);
+            v17 = AVCameraCalibrationDataDictionary(v12);
 LABEL_15:
-            v17 = v16;
-            v18 = dictionary;
+            v18 = v17;
+            v19 = dictionary;
           }
 
           else
           {
             TypeID = CGColorSpaceGetTypeID();
-            if (TypeID == CFGetTypeID(v12))
+            v21 = CFGetTypeID(v12);
+            if (TypeID == v21)
             {
-              v23 = ci_logger_filter();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v27 = ci_logger_filter(v21, v22);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
-                [CIFilter(SDOFOnlyPrewarmingPrivate) prewarmingString];
+                [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self prewarmingString];
               }
 
               return 0;
             }
 
-            v18 = dictionary;
-            v17 = v12;
+            v19 = dictionary;
+            v18 = v12;
           }
 
-          [v18 setObject:v17 forKeyedSubscript:v10];
+          [v19 setObject:v18 forKeyedSubscript:v10];
           continue;
         }
 
         XMPData = CGImageMetadataCreateXMPData(v12, 0);
         if (!XMPData)
         {
-          v22 = ci_logger_filter();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v26 = ci_logger_filter(0, v15);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             [CIFilter(SDOFOnlyPrewarmingPrivate) prewarmingString];
           }
@@ -463,13 +464,13 @@ LABEL_15:
           return 0;
         }
 
-        v15 = XMPData;
+        v16 = XMPData;
         [dictionary setObject:XMPData forKeyedSubscript:v10];
-        CFRelease(v15);
+        CFRelease(v16);
       }
     }
 
-    v7 = [(NSArray *)inputKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v7 = [(NSArray *)inputKeys countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v7)
     {
       continue;
@@ -479,12 +480,12 @@ LABEL_15:
   }
 
 LABEL_21:
-  v27 = 0;
-  v20 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objc_msgSend(MEMORY[0x1E695DF20] requiringSecureCoding:"dictionaryWithDictionary:" error:{dictionary), 0, &v27}];
-  if (v27)
+  v32 = 0;
+  v23 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:objc_msgSend(MEMORY[0x1E695DF20] requiringSecureCoding:"dictionaryWithDictionary:" error:{dictionary), 0, &v32}];
+  if (v32)
   {
-    v21 = ci_logger_filter();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v25 = ci_logger_filter(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [CIFilter(SDOFOnlyPrewarmingPrivate) prewarmingString];
     }
@@ -492,14 +493,14 @@ LABEL_21:
     return 0;
   }
 
-  v24 = [v20 compressedDataUsingAlgorithm:2 error:&v27];
-  if (!v27)
+  v28 = [v23 compressedDataUsingAlgorithm:2 error:&v32];
+  if (!v32)
   {
-    return [v24 base64EncodedStringWithOptions:1];
+    return [v28 base64EncodedStringWithOptions:1];
   }
 
-  v25 = ci_logger_filter();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v30 = ci_logger_filter(v28, v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     [CIFilter(SDOFOnlyPrewarmingPrivate) prewarmingString];
   }
@@ -510,23 +511,23 @@ LABEL_21:
 + (id)prewarmedFilterFromString:(id)string
 {
   stringCopy = string;
-  v60 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (string)
   {
-    v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:string options:1];
-    if (!v4)
+    v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:string options:1];
+    if (!v5)
     {
       return 0;
     }
 
-    v5 = v4;
-    v54 = 0;
-    v6 = [v4 decompressedDataUsingAlgorithm:2 error:&v54];
+    v6 = v5;
+    v65 = 0;
+    v7 = [v5 decompressedDataUsingAlgorithm:2 error:&v65];
 
-    if (v54)
+    if (v65)
     {
-      v7 = ci_logger_filter();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v10 = ci_logger_filter(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
       }
@@ -534,49 +535,25 @@ LABEL_21:
       return 0;
     }
 
-    v48 = MEMORY[0x1E695DFD8];
-    v47 = objc_opt_self();
-    v46 = objc_opt_self();
-    v45 = objc_opt_self();
-    v9 = objc_opt_self();
-    v10 = objc_opt_self();
-    v11 = objc_opt_self();
+    selfCopy = self;
+    v59 = MEMORY[0x1E695DFD8];
+    v58 = objc_opt_self();
+    v57 = objc_opt_self();
+    v56 = objc_opt_self();
     v12 = objc_opt_self();
     v13 = objc_opt_self();
     v14 = objc_opt_self();
     v15 = objc_opt_self();
     v16 = objc_opt_self();
     v17 = objc_opt_self();
-    v18 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:objc_msgSend(v48 fromData:"setWithObjects:" error:{v47, v46, v45, v9, v10, v11, v12, v13, v14, v15, v16, v17, objc_opt_self(), 0), v6, 0}];
-    if (!v18)
-    {
-      v40 = ci_logger_filter();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-      {
-        +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
-      }
-
-      return 0;
-    }
-
-    v19 = v18;
-    v20 = [v18 objectForKeyedSubscript:@"FILTERNAME"];
-    if (!v20)
-    {
-      v41 = ci_logger_filter();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
-      {
-        +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
-      }
-
-      return 0;
-    }
-
-    v21 = [CIFilter filterWithName:v20];
+    v18 = objc_opt_self();
+    v19 = objc_opt_self();
+    v20 = objc_opt_self();
+    v21 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:objc_msgSend(v59 fromData:"setWithObjects:" error:{v58, v57, v56, v12, v13, v14, v15, v16, v17, v18, v19, v20, objc_opt_self(), 0), v7, 0}];
     if (!v21)
     {
-      v42 = ci_logger_filter();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v50 = ci_logger_filter(0, v22);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
       }
@@ -584,40 +561,65 @@ LABEL_21:
       return 0;
     }
 
-    stringCopy = v21;
-    inputKeys = [(CIFilter *)v21 inputKeys];
-    v50 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v23 = [(NSArray *)inputKeys countByEnumeratingWithState:&v50 objects:v59 count:16];
-    if (v23)
+    v23 = v21;
+    v24 = [v21 objectForKeyedSubscript:@"FILTERNAME"];
+    if (!v24)
     {
-      v24 = v23;
-      v25 = *v51;
+      v51 = ci_logger_filter(0, v25);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      {
+        [(CIFilter(SDOFOnlyPrewarmingPrivate) *)selfCopy prewarmedFilterFromString:v51];
+      }
+
+      return 0;
+    }
+
+    v26 = [CIFilter filterWithName:v24];
+    if (!v26)
+    {
+      v52 = ci_logger_filter(0, v27);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      {
+        +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
+      }
+
+      return 0;
+    }
+
+    stringCopy = v26;
+    inputKeys = [(CIFilter *)v26 inputKeys];
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v29 = [(NSArray *)inputKeys countByEnumeratingWithState:&v61 objects:v70 count:16];
+    if (v29)
+    {
+      v30 = v29;
+      v31 = *v62;
       while (2)
       {
-        v26 = 0;
-        v49 = v24;
+        v32 = 0;
+        v60 = v30;
         do
         {
-          if (*v51 != v25)
+          if (*v62 != v31)
           {
             objc_enumerationMutation(inputKeys);
           }
 
-          v27 = *(*(&v50 + 1) + 8 * v26);
-          v28 = [v19 objectForKey:v27];
-          if (v28)
+          v33 = *(*(&v61 + 1) + 8 * v32);
+          v34 = [v23 objectForKey:v33];
+          if (v34)
           {
-            v29 = v28;
-            if ([v27 isEqualToString:@"inputAuxDataMetadata"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v35 = v34;
+            if ([v33 isEqualToString:@"inputAuxDataMetadata"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v30 = CGImageMetadataCreateFromXMPData(v29);
-              if (!v30)
+              v36 = CGImageMetadataCreateFromXMPData(v35);
+              if (!v36)
               {
-                v43 = ci_logger_filter();
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+                v53 = ci_logger_filter(0, v37);
+                if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
                 {
                   +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
                 }
@@ -625,27 +627,27 @@ LABEL_21:
                 return 0;
               }
 
-              v31 = v30;
-              [stringCopy setValue:v30 forKey:@"inputAuxDataMetadata"];
-              CFRelease(v31);
+              v38 = v36;
+              [stringCopy setValue:v36 forKey:@"inputAuxDataMetadata"];
+              CFRelease(v38);
             }
 
-            else if ([v27 isEqualToString:@"inputCalibrationData"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            else if ([v33 isEqualToString:@"inputCalibrationData"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v32 = AVFDepthCameraCalibrationDataInitWithDictionary(v29);
-              if (!v32)
+              v39 = AVFDepthCameraCalibrationDataInitWithDictionary(v35);
+              if (!v39)
               {
-                v44 = ci_logger_filter();
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                v54 = ci_logger_filter(0, v40);
+                if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
                 {
-                  +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
+                  [(CIFilter(SDOFOnlyPrewarmingPrivate) *)selfCopy prewarmedFilterFromString:v54];
                 }
 
                 return 0;
               }
 
-              v33 = v32;
-              [stringCopy setValue:v32 forKey:@"inputCalibrationData"];
+              v41 = v39;
+              [stringCopy setValue:v39 forKey:@"inputCalibrationData"];
             }
 
             else
@@ -653,43 +655,47 @@ LABEL_21:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                if (([-[__CFData objectForKeyedSubscript:](v29 objectForKeyedSubscript:{@"type", "isEqualToString:", objc_msgSend(objc_opt_class(), "description")}] & 1) == 0)
+                if (([-[__CFData objectForKeyedSubscript:](v35 objectForKeyedSubscript:{@"type", "isEqualToString:", objc_msgSend(objc_opt_class(), "description")}] & 1) == 0)
                 {
                   +[CIFilter(SDOFOnlyPrewarmingPrivate) prewarmedFilterFromString:];
                 }
 
-                [-[__CFData objectForKeyedSubscript:](v29 objectForKeyedSubscript:{@"extent", "CGRectValue"}];
-                [stringCopy setValue:-[CIImage imageByInsertingIntermediate:](-[CIImage imageByCroppingToRect:](+[CIImage imageWithColor:](CIImage forKey:{"imageWithColor:", +[CIColor whiteColor](CIColor, "whiteColor")), "imageByCroppingToRect:", v36, v37, v38, v39), "imageByInsertingIntermediate:", 0), v27}];
-                v24 = v49;
+                [-[__CFData objectForKeyedSubscript:](v35 objectForKeyedSubscript:{@"extent", "CGRectValue"}];
+                [stringCopy setValue:-[CIImage imageByInsertingIntermediate:](-[CIImage imageByCroppingToRect:](+[CIImage imageWithColor:](CIImage forKey:{"imageWithColor:", +[CIColor whiteColor](CIColor, "whiteColor")), "imageByCroppingToRect:", v46, v47, v48, v49), "imageByInsertingIntermediate:", 0), v33}];
+                v30 = v60;
               }
 
               else
               {
-                [stringCopy setValue:v29 forKey:v27];
+                [stringCopy setValue:v35 forKey:v33];
               }
             }
           }
 
-          else if (([v27 isEqualToString:@"inputShape"] & 1) == 0)
+          else
           {
-            v34 = ci_logger_filter();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+            v42 = [v33 isEqualToString:@"inputShape"];
+            if ((v42 & 1) == 0)
             {
-              v35 = [objc_opt_class() description];
-              *buf = 138543618;
-              v56 = v35;
-              v57 = 2114;
-              v58 = v27;
-              _os_log_error_impl(&dword_19CC36000, v34, OS_LOG_TYPE_ERROR, "%{public}@: Unable to find value in dictionary for key %{public}@", buf, 0x16u);
+              v44 = ci_logger_filter(v42, v43);
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+              {
+                v45 = [objc_opt_class() description];
+                *buf = 138543618;
+                v67 = v45;
+                v68 = 2114;
+                v69 = v33;
+                _os_log_error_impl(&dword_19CC36000, v44, OS_LOG_TYPE_ERROR, "%{public}@: Unable to find value in dictionary for key %{public}@", buf, 0x16u);
+              }
             }
           }
 
-          ++v26;
+          ++v32;
         }
 
-        while (v24 != v26);
-        v24 = [(NSArray *)inputKeys countByEnumeratingWithState:&v50 objects:v59 count:16];
-        if (v24)
+        while (v30 != v32);
+        v30 = [(NSArray *)inputKeys countByEnumeratingWithState:&v61 objects:v70 count:16];
+        if (v30)
         {
           continue;
         }
@@ -704,7 +710,7 @@ LABEL_21:
 
 - (BOOL)verifyPrewarmedFilter:(id)filter
 {
-  v171 = *MEMORY[0x1E69E9840];
+  v195 = *MEMORY[0x1E69E9840];
   obj = [(CIFilter *)self inputKeys];
   if (!filter)
   {
@@ -721,34 +727,34 @@ LABEL_21:
   }
 
   filterCopy = filter;
-  v136 = NSSelectorFromString(&cfstr_Isequalto.isa);
-  v158 = 0u;
-  v159 = 0u;
-  v160 = 0u;
-  v161 = 0u;
-  v9 = [(NSArray *)obj countByEnumeratingWithState:&v158 objects:v170 count:16];
+  v160 = NSSelectorFromString(&cfstr_Isequalto.isa);
+  v182 = 0u;
+  v183 = 0u;
+  v184 = 0u;
+  v185 = 0u;
+  v9 = [(NSArray *)obj countByEnumeratingWithState:&v182 objects:v194 count:16];
   if (!v9)
   {
     LOBYTE(v8) = 1;
     return v8;
   }
 
-  v156 = *v159;
+  v180 = *v183;
   v10 = vdupq_n_s32(0x38D1B717u);
-  v153 = v10;
+  v177 = v10;
   v10.i64[0] = 138543362;
-  v135 = v10;
+  v159 = v10;
 LABEL_5:
   v11 = 0;
   while (1)
   {
-    if (*v159 != v156)
+    if (*v183 != v180)
     {
       objc_enumerationMutation(obj);
     }
 
-    v12 = *(*(&v158 + 1) + 8 * v11);
-    v13 = [(CIFilter *)self valueForKey:v12, *&v135];
+    v12 = *(*(&v182 + 1) + 8 * v11);
+    v13 = [(CIFilter *)self valueForKey:v12, *&v159];
     if (!v13)
     {
       goto LABEL_27;
@@ -764,15 +770,15 @@ LABEL_5:
       v20 = v19;
       v22 = v21;
       [v14 extent];
-      v173.origin.x = v23;
-      v173.origin.y = v24;
-      v173.size.width = v25;
-      v173.size.height = v26;
-      v172.origin.x = v16;
-      v172.origin.y = v18;
-      v172.size.width = v20;
-      v172.size.height = v22;
-      if (!CGRectEqualToRect(v172, v173))
+      v197.origin.x = v23;
+      v197.origin.y = v24;
+      v197.size.width = v25;
+      v197.size.height = v26;
+      v196.origin.x = v16;
+      v196.origin.y = v18;
+      v196.size.width = v20;
+      v196.size.height = v22;
+      if (!CGRectEqualToRect(v196, v197))
       {
         [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
       }
@@ -786,29 +792,29 @@ LABEL_5:
       v27 = [filterCopy valueForKey:v12];
       [v13 floatValue];
       v29 = v28;
-      [v27 floatValue];
-      if (v29 != v30)
+      floatValue = [v27 floatValue];
+      if (v29 != v32)
       {
-        v105 = ci_logger_filter();
-        v8 = os_log_type_enabled(v105, OS_LOG_TYPE_ERROR);
+        v129 = ci_logger_filter(floatValue, v31);
+        v8 = os_log_type_enabled(v129, OS_LOG_TYPE_ERROR);
         if (!v8)
         {
           return v8;
         }
 
-        v106 = [objc_opt_class() description];
+        v130 = [objc_opt_class() description];
         [v13 floatValue];
-        v108 = v107;
+        v132 = v131;
         [v27 floatValue];
-        *v164 = 138544130;
-        *&v164[4] = v106;
-        *&v164[12] = 2114;
-        *&v164[14] = v12;
-        *&v164[22] = 2048;
-        v165 = v108;
-        v166 = 2048;
-        v167 = v109;
-        v99 = "%{public}@: Values for %{public}@ are not identical %g != %g";
+        *v188 = 138544130;
+        *&v188[4] = v130;
+        *&v188[12] = 2114;
+        *&v188[14] = v12;
+        *&v188[22] = 2048;
+        v189 = v132;
+        v190 = 2048;
+        v191 = v133;
+        v123 = "%{public}@: Values for %{public}@ are not identical %g != %g";
         goto LABEL_70;
       }
 
@@ -823,76 +829,77 @@ LABEL_5:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v75 = [filterCopy valueForKey:v12];
-      v76 = [v13 count];
-      if (v76 != [v75 count])
+      v83 = [filterCopy valueForKey:v12];
+      v84 = [v13 count];
+      v85 = [v83 count];
+      if (v84 != v85)
       {
-        v105 = ci_logger_filter();
-        v8 = os_log_type_enabled(v105, OS_LOG_TYPE_ERROR);
+        v129 = ci_logger_filter(v85, v86);
+        v8 = os_log_type_enabled(v129, OS_LOG_TYPE_ERROR);
         if (!v8)
         {
           return v8;
         }
 
-        v110 = [objc_opt_class() description];
-        *&v111 = COERCE_DOUBLE([v13 count]);
-        v112 = COERCE_DOUBLE([v75 count]);
-        *v164 = 138544130;
-        *&v164[4] = v110;
-        *&v164[12] = 2114;
-        *&v164[14] = v12;
-        *&v164[22] = 2048;
-        v165 = *&v111;
-        v166 = 2048;
-        v167 = v112;
-        v99 = "%{public}@: vectors don't have the same # of components for key %{public}@ (%zu != %zu)";
+        v134 = [objc_opt_class() description];
+        *&v135 = COERCE_DOUBLE([v13 count]);
+        v136 = COERCE_DOUBLE([v83 count]);
+        *v188 = 138544130;
+        *&v188[4] = v134;
+        *&v188[12] = 2114;
+        *&v188[14] = v12;
+        *&v188[22] = 2048;
+        v189 = *&v135;
+        v190 = 2048;
+        v191 = v136;
+        v123 = "%{public}@: vectors don't have the same # of components for key %{public}@ (%zu != %zu)";
         goto LABEL_70;
       }
 
       if ([v13 count])
       {
-        v77 = 0.0;
+        v87 = 0.0;
         while (1)
         {
-          [v13 valueAtIndex:*&v77];
-          v79 = v78;
-          [v75 valueAtIndex:*&v77];
-          if (vabdd_f64(v79, v80) > 0.0000999999975)
+          [v13 valueAtIndex:*&v87];
+          v89 = v88;
+          v90 = [v83 valueAtIndex:*&v87];
+          if (vabdd_f64(v89, v92) > 0.0000999999975)
           {
             break;
           }
 
-          if (++*&v77 >= [v13 count])
+          if (++*&v87 >= [v13 count])
           {
             goto LABEL_27;
           }
         }
 
-        v94 = ci_logger_filter();
-        v8 = os_log_type_enabled(v94, OS_LOG_TYPE_ERROR);
+        v118 = ci_logger_filter(v90, v91);
+        v8 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
         if (!v8)
         {
           return v8;
         }
 
-        v95 = [objc_opt_class() description];
-        [v13 valueAtIndex:*&v77];
-        v97 = v96;
-        [v75 valueAtIndex:*&v77];
-        *v164 = 138544386;
-        *&v164[4] = v95;
-        *&v164[12] = 2114;
-        *&v164[14] = v12;
-        *&v164[22] = 2048;
-        v165 = v77;
-        v166 = 2048;
-        v167 = v97;
-        v168 = 2048;
-        v169 = v98;
-        v99 = "%{public}@: Values for vector (%{public}@) at index %lu are not equal %g != %g";
+        v119 = [objc_opt_class() description];
+        [v13 valueAtIndex:*&v87];
+        v121 = v120;
+        [v83 valueAtIndex:*&v87];
+        *v188 = 138544386;
+        *&v188[4] = v119;
+        *&v188[12] = 2114;
+        *&v188[14] = v12;
+        *&v188[22] = 2048;
+        v189 = v87;
+        v190 = 2048;
+        v191 = v121;
+        v192 = 2048;
+        v193 = v122;
+        v123 = "%{public}@: Values for vector (%{public}@) at index %lu are not equal %g != %g";
 LABEL_67:
-        v103 = v94;
-        v104 = 52;
+        v127 = v118;
+        v128 = 52;
         goto LABEL_71;
       }
     }
@@ -902,72 +909,75 @@ LABEL_67:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v81 = [filterCopy valueForKey:v12];
+        v93 = [filterCopy valueForKey:v12];
         numberOfComponents = [v13 numberOfComponents];
-        if (numberOfComponents != [v13 numberOfComponents])
+        numberOfComponents2 = [v13 numberOfComponents];
+        if (numberOfComponents != numberOfComponents2)
         {
-          v105 = ci_logger_filter();
-          v8 = os_log_type_enabled(v105, OS_LOG_TYPE_ERROR);
+          v129 = ci_logger_filter(numberOfComponents2, v96);
+          v8 = os_log_type_enabled(v129, OS_LOG_TYPE_ERROR);
           if (!v8)
           {
             return v8;
           }
 
-          v120 = [objc_opt_class() description];
-          *&v121 = COERCE_DOUBLE([v13 numberOfComponents]);
-          v122 = COERCE_DOUBLE([v81 numberOfComponents]);
-          *v164 = 138544130;
-          *&v164[4] = v120;
-          *&v164[12] = 2114;
-          *&v164[14] = v12;
-          *&v164[22] = 2048;
-          v165 = *&v121;
-          v166 = 2048;
-          v167 = v122;
-          v99 = "%{public}@: colors don't have the same # of components for key %{public}@ (%zu != %zu)";
+          v144 = [objc_opt_class() description];
+          *&v145 = COERCE_DOUBLE([v13 numberOfComponents]);
+          v146 = COERCE_DOUBLE([v93 numberOfComponents]);
+          *v188 = 138544130;
+          *&v188[4] = v144;
+          *&v188[12] = 2114;
+          *&v188[14] = v12;
+          *&v188[22] = 2048;
+          v189 = *&v145;
+          v190 = 2048;
+          v191 = v146;
+          v123 = "%{public}@: colors don't have the same # of components for key %{public}@ (%zu != %zu)";
 LABEL_70:
-          v103 = v105;
-          v104 = 42;
+          v127 = v129;
+          v128 = 42;
           goto LABEL_71;
         }
 
         components = [v13 components];
-        components2 = [v81 components];
-        if ([v13 numberOfComponents])
+        components2 = [v93 components];
+        numberOfComponents3 = [v13 numberOfComponents];
+        if (numberOfComponents3)
         {
-          *&v85 = 0.0;
+          v101 = 0.0;
           while (vabdd_f64(*components, *components2) <= 0.0000999999975)
           {
-            ++v85;
+            numberOfComponents3 = [v13 numberOfComponents];
+            ++*&v101;
             ++components2;
             ++components;
-            if (v85 >= [v13 numberOfComponents])
+            if (*&v101 >= numberOfComponents3)
             {
               goto LABEL_27;
             }
           }
 
-          v94 = ci_logger_filter();
-          v8 = os_log_type_enabled(v94, OS_LOG_TYPE_ERROR);
+          v118 = ci_logger_filter(numberOfComponents3, v100);
+          v8 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
           if (!v8)
           {
             return v8;
           }
 
-          v100 = [objc_opt_class() description];
-          v101 = *components;
-          v102 = *components2;
-          *v164 = 138544386;
-          *&v164[4] = v100;
-          *&v164[12] = 2114;
-          *&v164[14] = v12;
-          *&v164[22] = 2048;
-          v165 = *&v85;
-          v166 = 2048;
-          v167 = v101;
-          v168 = 2048;
-          v169 = v102;
-          v99 = "%{public}@: Values for color (%{public}@) at index %lu are not equal %g != %g";
+          v124 = [objc_opt_class() description];
+          v125 = *components;
+          v126 = *components2;
+          *v188 = 138544386;
+          *&v188[4] = v124;
+          *&v188[12] = 2114;
+          *&v188[14] = v12;
+          *&v188[22] = 2048;
+          v189 = v101;
+          v190 = 2048;
+          v191 = v125;
+          v192 = 2048;
+          v193 = v126;
+          v123 = "%{public}@: Values for color (%{public}@) at index %lu are not equal %g != %g";
           goto LABEL_67;
         }
       }
@@ -978,36 +988,36 @@ LABEL_70:
         if (TypeID == CFGetTypeID(v13))
         {
           XMPData = CGImageMetadataCreateXMPData(v13, 0);
-          v88 = CGImageMetadataCreateXMPData([filterCopy valueForKey:v12], 0);
-          if (([(__CFData *)XMPData isEqualToData:v88]& 1) == 0)
+          v104 = CGImageMetadataCreateXMPData([filterCopy valueForKey:v12], 0);
+          if (([(__CFData *)XMPData isEqualToData:v104]& 1) == 0)
           {
-            v89 = [filterCopy valueForKey:v12];
-            *v164 = 0;
-            *&v164[8] = v164;
-            *&v164[16] = 0x2020000000;
-            LOBYTE(v165) = 1;
+            v105 = [filterCopy valueForKey:v12];
+            *v188 = 0;
+            *&v188[8] = v188;
+            *&v188[16] = 0x2020000000;
+            LOBYTE(v189) = 1;
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __61__CIFilter_SDOFOnlyPrewarmingPrivate__verifyPrewarmedFilter___block_invoke;
             block[3] = &unk_1E75C26C0;
-            block[6] = v164;
-            block[7] = v89;
+            block[6] = v188;
+            block[7] = v105;
             block[4] = v13;
             block[5] = self;
             CGImageMetadataEnumerateTagsUsingBlock(v13, 0, 0, block);
-            if ((*(*&v164[8] + 24) & 1) == 0)
+            if ((*(*&v188[8] + 24) & 1) == 0)
             {
-              v90 = ci_logger_filter();
-              if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+              v108 = ci_logger_filter(v106, v107);
+              if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
               {
-                v93 = [objc_opt_class() description];
-                *buf = v135.i32[0];
-                v163 = v93;
-                _os_log_error_impl(&dword_19CC36000, v90, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ", buf, 0xCu);
+                v117 = [objc_opt_class() description];
+                *buf = v159.i32[0];
+                v187 = v117;
+                _os_log_error_impl(&dword_19CC36000, v108, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ", buf, 0xCu);
               }
             }
 
-            _Block_object_dispose(v164, 8);
+            _Block_object_dispose(v188, 8);
           }
 
           if (XMPData)
@@ -1015,28 +1025,29 @@ LABEL_70:
             CFRelease(XMPData);
           }
 
-          if (v88)
+          if (v104)
           {
-            CFRelease(v88);
+            CFRelease(v104);
           }
 
           goto LABEL_27;
         }
 
-        v91 = CGColorSpaceGetTypeID();
-        if (v91 == CFGetTypeID(v13))
+        v109 = CGColorSpaceGetTypeID();
+        if (v109 == CFGetTypeID(v13))
         {
           [filterCopy valueForKey:v12];
-          if ((CGColorSpaceEqualToColorSpace() & 1) == 0)
+          v110 = CGColorSpaceEqualToColorSpace();
+          if ((v110 & 1) == 0)
           {
-            v126 = ci_logger_filter();
-            v8 = os_log_type_enabled(v126, OS_LOG_TYPE_ERROR);
+            v150 = ci_logger_filter(v110, v111);
+            v8 = os_log_type_enabled(v150, OS_LOG_TYPE_ERROR);
             if (!v8)
             {
               return v8;
             }
 
-            [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+            [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v150];
 LABEL_88:
             LOBYTE(v8) = 0;
             return v8;
@@ -1045,75 +1056,76 @@ LABEL_88:
 
         else
         {
-          if ((objc_opt_respondsToSelector() & 1) == 0)
+          v112 = objc_opt_respondsToSelector();
+          if ((v112 & 1) == 0)
           {
-            v130 = ci_logger_filter();
-            v8 = os_log_type_enabled(v130, OS_LOG_TYPE_ERROR);
+            v154 = ci_logger_filter(v112, v113);
+            v8 = os_log_type_enabled(v154, OS_LOG_TYPE_ERROR);
             if (!v8)
             {
               return v8;
             }
 
-            v123 = [objc_opt_class() description];
-            v124 = objc_opt_class();
-            *&v125 = COERCE_DOUBLE(NSStringFromClass(v124));
-            *v164 = 138543874;
-            *&v164[4] = v123;
-            *&v164[12] = 2114;
-            *&v164[14] = v12;
-            *&v164[22] = 2114;
-            v165 = *&v125;
-            v99 = "%{public}@: don't know how to check for equality of contents for key %{public}@ (%{public}@) is nil.";
+            v147 = [objc_opt_class() description];
+            v148 = objc_opt_class();
+            *&v149 = COERCE_DOUBLE(NSStringFromClass(v148));
+            *v188 = 138543874;
+            *&v188[4] = v147;
+            *&v188[12] = 2114;
+            *&v188[14] = v12;
+            *&v188[22] = 2114;
+            v189 = *&v149;
+            v123 = "%{public}@: don't know how to check for equality of contents for key %{public}@ (%{public}@) is nil.";
             goto LABEL_100;
           }
 
-          v92 = [filterCopy valueForKey:v12];
-          if (!v92)
+          v115 = [filterCopy valueForKey:v12];
+          if (!v115)
           {
-            v130 = ci_logger_filter();
-            v8 = os_log_type_enabled(v130, OS_LOG_TYPE_ERROR);
+            v154 = ci_logger_filter(0, v114);
+            v8 = os_log_type_enabled(v154, OS_LOG_TYPE_ERROR);
             if (!v8)
             {
               return v8;
             }
 
-            v127 = [objc_opt_class() description];
-            v128 = objc_opt_class();
-            *&v129 = COERCE_DOUBLE(NSStringFromClass(v128));
-            *v164 = 138543874;
-            *&v164[4] = v127;
-            *&v164[12] = 2114;
-            *&v164[14] = v12;
-            *&v164[22] = 2114;
-            v165 = *&v129;
-            v99 = "%{public}@: object for key %{public}@ (%{public}@) is nil.";
+            v151 = [objc_opt_class() description];
+            v152 = objc_opt_class();
+            *&v153 = COERCE_DOUBLE(NSStringFromClass(v152));
+            *v188 = 138543874;
+            *&v188[4] = v151;
+            *&v188[12] = 2114;
+            *&v188[14] = v12;
+            *&v188[22] = 2114;
+            v189 = *&v153;
+            v123 = "%{public}@: object for key %{public}@ (%{public}@) is nil.";
             goto LABEL_100;
           }
 
-          if (![v13 performSelector:v136 withObject:v92])
+          if (![v13 performSelector:v160 withObject:v115])
           {
-            v130 = ci_logger_filter();
-            v8 = os_log_type_enabled(v130, OS_LOG_TYPE_ERROR);
+            v154 = ci_logger_filter(0, v116);
+            v8 = os_log_type_enabled(v154, OS_LOG_TYPE_ERROR);
             if (!v8)
             {
               return v8;
             }
 
-            v131 = [objc_opt_class() description];
-            v132 = objc_opt_class();
-            *&v133 = COERCE_DOUBLE(NSStringFromClass(v132));
-            *v164 = 138543874;
-            *&v164[4] = v131;
-            *&v164[12] = 2114;
-            *&v164[14] = v12;
-            *&v164[22] = 2114;
-            v165 = *&v133;
-            v99 = "%{public}@: value for key %{public}@ (%{public}@) differs.";
+            v155 = [objc_opt_class() description];
+            v156 = objc_opt_class();
+            *&v157 = COERCE_DOUBLE(NSStringFromClass(v156));
+            *v188 = 138543874;
+            *&v188[4] = v155;
+            *&v188[12] = 2114;
+            *&v188[14] = v12;
+            *&v188[22] = 2114;
+            v189 = *&v157;
+            v123 = "%{public}@: value for key %{public}@ (%{public}@) differs.";
 LABEL_100:
-            v103 = v130;
-            v104 = 32;
+            v127 = v154;
+            v128 = 32;
 LABEL_71:
-            _os_log_error_impl(&dword_19CC36000, v103, OS_LOG_TYPE_ERROR, v99, v164, v104);
+            _os_log_error_impl(&dword_19CC36000, v127, OS_LOG_TYPE_ERROR, v123, v188, v128);
             goto LABEL_88;
           }
         }
@@ -1123,7 +1135,7 @@ LABEL_71:
 LABEL_27:
     if (++v11 == v9)
     {
-      v9 = [(NSArray *)obj countByEnumeratingWithState:&v158 objects:v170 count:16];
+      v9 = [(NSArray *)obj countByEnumeratingWithState:&v182 objects:v194 count:16];
       LOBYTE(v8) = 1;
       if (v9)
       {
@@ -1134,135 +1146,137 @@ LABEL_27:
     }
   }
 
-  v31 = [filterCopy valueForKey:v12];
-  v32 = AVCameraCalibrationDataDictionary(v13);
-  v33 = AVCameraCalibrationDataDictionary(v31);
-  if ([v32 isEqualToDictionary:v33])
+  v33 = [filterCopy valueForKey:v12];
+  v34 = AVCameraCalibrationDataDictionary(v13);
+  v35 = AVCameraCalibrationDataDictionary(v33);
+  if ([v34 isEqualToDictionary:v35])
   {
     goto LABEL_26;
   }
 
-  *v34.i64 = AVCameraCalibrationDataIntrinsicMatrix(v13);
-  v150 = v34;
-  v151 = v35;
-  v152 = v36;
-  *v37.i64 = AVCameraCalibrationDataIntrinsicMatrix(v31);
-  v147 = v37;
-  v148 = v38;
-  v149 = v39;
-  v40 = AVCameraCalibrationDataIntrinsicMatrixReferenceDimensions(v13);
-  v145 = v41;
-  v146 = v40;
-  v42 = AVCameraCalibrationDataIntrinsicMatrixReferenceDimensions(v31);
-  v44 = v43;
-  *v45.i64 = AVCameraCalibrationDataExtrinsicMatrix(v13);
-  v141 = v45;
-  v142 = v46;
-  v143 = v47;
-  v144 = v48;
-  *v49.i64 = AVCameraCalibrationDataExtrinsicMatrix(v31);
-  v137 = v49;
-  v138 = v50;
-  v139 = v51;
-  v140 = v52;
-  v54 = AVCameraCalibrationDataPixelSize(v13, v53);
-  v55 = *&v54;
-  v57 = AVCameraCalibrationDataPixelSize(v31, v56);
-  v58 = *&v57;
-  v60 = AVCameraCalibrationDataLensDistortionLookupTable(v13, v59);
-  v62 = AVCameraCalibrationDataLensDistortionLookupTable(v31, v61);
-  v64 = AVCameraCalibrationDataInverseLensDistortionLookupTable(v13, v63);
-  v66 = AVCameraCalibrationDataInverseLensDistortionLookupTable(v31, v65);
-  v67 = AVCameraCalibrationDataIntrinsicLensDistortionCenter(v13);
-  v69 = v68;
-  v70 = AVCameraCalibrationDataIntrinsicLensDistortionCenter(v13);
-  v72 = v71;
-  v73 = vandq_s8(vandq_s8(vcgeq_f32(v153, vabdq_f32(v150, v147)), vcgeq_f32(v153, vabdq_f32(v151, v148))), vcgeq_f32(v153, vabdq_f32(v152, v149)));
-  v73.i32[3] = v73.i32[2];
-  if ((vminvq_u32(v73) & 0x80000000) == 0)
+  *v36.i64 = AVCameraCalibrationDataIntrinsicMatrix(v13);
+  v174 = v36;
+  v175 = v37;
+  v176 = v38;
+  *v39.i64 = AVCameraCalibrationDataIntrinsicMatrix(v33);
+  v171 = v39;
+  v172 = v40;
+  v173 = v41;
+  v42 = AVCameraCalibrationDataIntrinsicMatrixReferenceDimensions(v13);
+  v169 = v43;
+  v170 = v42;
+  v44 = AVCameraCalibrationDataIntrinsicMatrixReferenceDimensions(v33);
+  v46 = v45;
+  *v47.i64 = AVCameraCalibrationDataExtrinsicMatrix(v13);
+  v165 = v47;
+  v166 = v48;
+  v167 = v49;
+  v168 = v50;
+  *v51.i64 = AVCameraCalibrationDataExtrinsicMatrix(v33);
+  v161 = v51;
+  v162 = v52;
+  v163 = v53;
+  v164 = v54;
+  v56 = AVCameraCalibrationDataPixelSize(v13, v55);
+  v57 = *&v56;
+  v59 = AVCameraCalibrationDataPixelSize(v33, v58);
+  v60 = *&v59;
+  v62 = AVCameraCalibrationDataLensDistortionLookupTable(v13, v61);
+  v64 = AVCameraCalibrationDataLensDistortionLookupTable(v33, v63);
+  v66 = AVCameraCalibrationDataInverseLensDistortionLookupTable(v13, v65);
+  v68 = AVCameraCalibrationDataInverseLensDistortionLookupTable(v33, v67);
+  v69 = AVCameraCalibrationDataIntrinsicLensDistortionCenter(v13);
+  v71 = v70;
+  v74 = AVCameraCalibrationDataIntrinsicLensDistortionCenter(v13);
+  v76 = v75;
+  v77 = vandq_s8(vandq_s8(vcgeq_f32(v177, vabdq_f32(v174, v171)), vcgeq_f32(v177, vabdq_f32(v175, v172))), vcgeq_f32(v177, vabdq_f32(v176, v173)));
+  v77.i32[3] = v77.i32[2];
+  if ((vminvq_u32(v77) & 0x80000000) == 0)
   {
-    v113 = ci_logger_filter();
-    v8 = os_log_type_enabled(v113, OS_LOG_TYPE_ERROR);
+    v137 = ci_logger_filter(v72, v73);
+    v8 = os_log_type_enabled(v137, OS_LOG_TYPE_ERROR);
     if (v8)
     {
-      [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+      [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v137];
       goto LABEL_88;
     }
 
     return v8;
   }
 
-  if (v146 == v42 && v145 == v44)
+  if (v170 == v44 && v169 == v46)
   {
-    v74 = vandq_s8(vandq_s8(vcgeq_f32(v153, vabdq_f32(v141, v137)), vcgeq_f32(v153, vabdq_f32(v142, v138))), vandq_s8(vcgeq_f32(v153, vabdq_f32(v143, v139)), vcgeq_f32(v153, vabdq_f32(v144, v140))));
-    v74.i32[3] = v74.i32[2];
-    if ((vminvq_u32(v74) & 0x80000000) == 0)
+    v78 = vandq_s8(vandq_s8(vcgeq_f32(v177, vabdq_f32(v165, v161)), vcgeq_f32(v177, vabdq_f32(v166, v162))), vandq_s8(vcgeq_f32(v177, vabdq_f32(v167, v163)), vcgeq_f32(v177, vabdq_f32(v168, v164))));
+    v78.i32[3] = v78.i32[2];
+    if ((vminvq_u32(v78) & 0x80000000) == 0)
     {
-      v115 = ci_logger_filter();
-      v8 = os_log_type_enabled(v115, OS_LOG_TYPE_ERROR);
+      v139 = ci_logger_filter(v72, v73);
+      v8 = os_log_type_enabled(v139, OS_LOG_TYPE_ERROR);
       if (!v8)
       {
         return v8;
       }
 
-      [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+      [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v139];
       goto LABEL_88;
     }
 
-    if (vabds_f32(v55, v58) > 0.0001)
+    if (vabds_f32(v57, v60) > 0.0001)
     {
-      v116 = ci_logger_filter();
-      v8 = os_log_type_enabled(v116, OS_LOG_TYPE_ERROR);
+      v140 = ci_logger_filter(v72, v73);
+      v8 = os_log_type_enabled(v140, OS_LOG_TYPE_ERROR);
       if (!v8)
       {
         return v8;
       }
 
-      [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+      [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v140];
       goto LABEL_88;
     }
 
-    if (([v60 isEqualToData:v62] & 1) == 0)
+    v79 = [v62 isEqualToData:v64];
+    if ((v79 & 1) == 0)
     {
-      v117 = ci_logger_filter();
-      v8 = os_log_type_enabled(v117, OS_LOG_TYPE_ERROR);
+      v141 = ci_logger_filter(v79, v80);
+      v8 = os_log_type_enabled(v141, OS_LOG_TYPE_ERROR);
       if (!v8)
       {
         return v8;
       }
 
-      [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+      [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v141];
       goto LABEL_88;
     }
 
-    if (([v64 isEqualToData:v66] & 1) == 0)
+    v81 = [v66 isEqualToData:v68];
+    if ((v81 & 1) == 0)
     {
-      v118 = ci_logger_filter();
-      v8 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
+      v142 = ci_logger_filter(v81, v82);
+      v8 = os_log_type_enabled(v142, OS_LOG_TYPE_ERROR);
       if (!v8)
       {
         return v8;
       }
 
-      [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+      [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v142];
       goto LABEL_88;
     }
 
-    if (v67 != v70 || v69 != v72)
+    if (v69 != v74 || v71 != v76)
     {
-      v119 = ci_logger_filter();
-      v8 = os_log_type_enabled(v119, OS_LOG_TYPE_ERROR);
+      v143 = ci_logger_filter(v81, v82);
+      v8 = os_log_type_enabled(v143, OS_LOG_TYPE_ERROR);
       if (!v8)
       {
         return v8;
       }
 
-      [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+      [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v143];
       goto LABEL_88;
     }
 
 LABEL_26:
-    if (([v32 isEqualToDictionary:v33] & 1) == 0)
+    if (([v34 isEqualToDictionary:v35] & 1) == 0)
     {
       [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
     }
@@ -1270,11 +1284,11 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v114 = ci_logger_filter();
-  v8 = os_log_type_enabled(v114, OS_LOG_TYPE_ERROR);
+  v138 = ci_logger_filter(v72, v73);
+  v8 = os_log_type_enabled(v138, OS_LOG_TYPE_ERROR);
   if (v8)
   {
-    [CIFilter(SDOFOnlyPrewarmingPrivate) verifyPrewarmedFilter:];
+    [(CIFilter(SDOFOnlyPrewarmingPrivate) *)self verifyPrewarmedFilter:v138];
     goto LABEL_88;
   }
 
@@ -1283,7 +1297,7 @@ LABEL_26:
 
 uint64_t __61__CIFilter_SDOFOnlyPrewarmingPrivate__verifyPrewarmedFilter___block_invoke(uint64_t a1, CFStringRef path)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v4 = CGImageMetadataCopyTagWithPath(*(a1 + 32), 0, path);
   v5 = CGImageMetadataCopyTagWithPath(*(a1 + 56), 0, path);
   v6 = v5;
@@ -1302,115 +1316,132 @@ uint64_t __61__CIFilter_SDOFOnlyPrewarmingPrivate__verifyPrewarmedFilter___block
     v8 = CGImageMetadataTagCopyValue(v4);
     v9 = CGImageMetadataTagCopyValue(v6);
     Type = CGImageMetadataTagGetType(v4);
-    v11 = CGImageMetadataTagGetType(v4);
-    v12 = v11;
+    isKindOfClass = CGImageMetadataTagGetType(v4);
+    v13 = isKindOfClass;
     if (v8)
     {
-      v13 = v9 == 0;
+      v14 = v9 == 0;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    v14 = !v13 && Type == v11;
-    if (v14 && CFEqual(v8, v9))
+    if (!v14 && Type == isKindOfClass)
     {
-LABEL_56:
-      CFRelease(v8);
-LABEL_57:
-      if (v9)
+      isKindOfClass = CFEqual(v8, v9);
+      if (isKindOfClass)
       {
-        CFRelease(v9);
-      }
+LABEL_56:
+        CFRelease(v8);
+LABEL_57:
+        if (v9)
+        {
+          CFRelease(v9);
+        }
 
-      goto LABEL_59;
+        goto LABEL_59;
+      }
     }
 
-    v15 = Type == kCGImageMetadataTypeArrayOrdered && v12 == kCGImageMetadataTypeArrayOrdered;
-    if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v16 = Type == kCGImageMetadataTypeArrayOrdered && v13 == 3;
+    if (v16 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0) && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
-      v16 = [v8 count];
-      if (v16 == [v9 count])
+      v17 = [v8 count];
+      if (v17 == [v9 count])
       {
         if ([v8 count])
         {
-          v18 = 0;
-          *&v17 = 138544386;
-          v34 = v17;
+          v19 = 0;
+          *&v18 = 138544386;
+          v39 = v18;
           do
           {
-            v19 = [v8 objectAtIndexedSubscript:{v18, v34}];
-            v20 = [v9 objectAtIndexedSubscript:v18];
-            if (v19)
+            v20 = [v8 objectAtIndexedSubscript:{v19, v39}];
+            v21 = [v9 objectAtIndexedSubscript:v19];
+            if (v20)
             {
-              v21 = v20;
-              if (v20)
+              v22 = v21;
+              if (v21)
               {
-                v22 = CGImageMetadataTagCopyValue(v19);
-                v23 = CGImageMetadataTagCopyValue(v21);
-                v24 = v19;
-                v25 = v23;
-                v35 = v24;
-                cf = CGImageMetadataTagCopyName(v24);
-                v36 = v21;
-                v37 = CGImageMetadataTagCopyName(v21);
-                if (v22 && v25 && !CFEqual(v22, v25))
+                v23 = CGImageMetadataTagCopyValue(v20);
+                v24 = CGImageMetadataTagCopyValue(v22);
+                v25 = v20;
+                v26 = v24;
+                v40 = v25;
+                cf = CGImageMetadataTagCopyName(v25);
+                v41 = v22;
+                v42 = CGImageMetadataTagCopyName(v22);
+                if (v23)
                 {
-                  v26 = v25;
-                  v27 = ci_logger_filter();
-                  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                  if (v26)
                   {
-                    v30 = [objc_opt_class() description];
-                    *buf = v34;
-                    v40 = v30;
-                    v41 = 2114;
-                    v42 = path;
-                    v43 = 2048;
-                    v44 = v18;
-                    v45 = 2114;
-                    v46 = v35;
-                    v47 = 2114;
-                    v48 = v36;
-                    _os_log_error_impl(&dword_19CC36000, v27, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ for array tag %{public}@ at index %lu (%{public}@ != %{public}@)", buf, 0x34u);
-                  }
+                    v27 = CFEqual(v23, v26);
+                    if (!v27)
+                    {
+                      v29 = v26;
+                      v30 = ci_logger_filter(v27, v28);
+                      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                      {
+                        v35 = [objc_opt_class() description];
+                        *buf = v39;
+                        v45 = v35;
+                        v46 = 2114;
+                        v47 = path;
+                        v48 = 2048;
+                        v49 = v19;
+                        v50 = 2114;
+                        v51 = v40;
+                        v52 = 2114;
+                        v53 = v41;
+                        _os_log_error_impl(&dword_19CC36000, v30, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ for array tag %{public}@ at index %lu (%{public}@ != %{public}@)", buf, 0x34u);
+                      }
 
-                  *(*(*(a1 + 48) + 8) + 24) = 0;
-                  v25 = v26;
+                      *(*(*(a1 + 48) + 8) + 24) = 0;
+                      v26 = v29;
+                    }
+                  }
                 }
 
-                v28 = v25;
-                if (cf && v37 && !CFEqual(cf, v37))
+                v31 = v26;
+                if (cf)
                 {
-                  v29 = ci_logger_filter();
-                  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                  if (v42)
                   {
-                    v31 = [objc_opt_class() description];
-                    *buf = v34;
-                    v40 = v31;
-                    v41 = 2114;
-                    v42 = path;
-                    v43 = 2048;
-                    v44 = v18;
-                    v45 = 2114;
-                    v46 = v35;
-                    v47 = 2114;
-                    v48 = v36;
-                    _os_log_error_impl(&dword_19CC36000, v29, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ for array tag %{public}@ at index %lu (%{public}@ != %{public}@)", buf, 0x34u);
+                    v32 = CFEqual(cf, v42);
+                    if (!v32)
+                    {
+                      v34 = ci_logger_filter(v32, v33);
+                      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                      {
+                        v36 = [objc_opt_class() description];
+                        *buf = v39;
+                        v45 = v36;
+                        v46 = 2114;
+                        v47 = path;
+                        v48 = 2048;
+                        v49 = v19;
+                        v50 = 2114;
+                        v51 = v40;
+                        v52 = 2114;
+                        v53 = v41;
+                        _os_log_error_impl(&dword_19CC36000, v34, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ for array tag %{public}@ at index %lu (%{public}@ != %{public}@)", buf, 0x34u);
+                      }
+
+                      *(*(*(a1 + 48) + 8) + 24) = 0;
+                    }
                   }
-
-                  *(*(*(a1 + 48) + 8) + 24) = 0;
                 }
 
-                if (v22)
+                if (v23)
                 {
-                  CFRelease(v22);
+                  CFRelease(v23);
                 }
 
-                if (v28)
+                if (v31)
                 {
-                  CFRelease(v28);
+                  CFRelease(v31);
                 }
 
                 if (cf)
@@ -1418,9 +1449,9 @@ LABEL_57:
                   CFRelease(cf);
                 }
 
-                if (v37)
+                if (v42)
                 {
-                  CFRelease(v37);
+                  CFRelease(v42);
                 }
 
                 if (*(*(*(a1 + 48) + 8) + 24) != 1)
@@ -1430,10 +1461,10 @@ LABEL_57:
               }
             }
 
-            ++v18;
+            ++v19;
           }
 
-          while (v18 < [v8 count]);
+          while (v19 < [v8 count]);
         }
 
 LABEL_55:
@@ -1448,18 +1479,18 @@ LABEL_55:
 
     else
     {
-      v32 = ci_logger_filter();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v37 = ci_logger_filter(isKindOfClass, v12);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 138544130;
-        v40 = [objc_opt_class() description];
-        v41 = 2114;
-        v42 = path;
-        v43 = 2114;
-        v44 = v4;
-        v45 = 2114;
-        v46 = v9;
-        _os_log_error_impl(&dword_19CC36000, v32, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ for tag %{public}@ (%{public}@ != %{public}@)", buf, 0x2Au);
+        v45 = [objc_opt_class() description];
+        v46 = 2114;
+        v47 = path;
+        v48 = 2114;
+        v49 = v4;
+        v50 = 2114;
+        v51 = v9;
+        _os_log_error_impl(&dword_19CC36000, v37, OS_LOG_TYPE_ERROR, "%{public}@: XMP Image metadata may differ for tag %{public}@ (%{public}@ != %{public}@)", buf, 0x2Au);
       }
     }
 
@@ -1836,15 +1867,15 @@ LABEL_26:
   }
 }
 
-void __28__CIFilter_encodeWithCoder___block_invoke()
+void __28__CIFilter_encodeWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v0 = ci_logger_api();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = ci_logger_api(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v1 = 136446210;
-    v2 = "[CIFilter encodeWithCoder:]_block_invoke";
-    _os_log_impl(&dword_19CC36000, v0, OS_LOG_TYPE_INFO, "%{public}s option CIUserInfo is no longer encoded for security.", &v1, 0xCu);
+    v3 = 136446210;
+    v4 = "[CIFilter encodeWithCoder:]_block_invoke";
+    _os_log_impl(&dword_19CC36000, v2, OS_LOG_TYPE_INFO, "%{public}s option CIUserInfo is no longer encoded for security.", &v3, 0xCu);
   }
 }
 
@@ -2077,15 +2108,15 @@ LABEL_34:
   return v17;
 }
 
-void __26__CIFilter_initWithCoder___block_invoke()
+void __26__CIFilter_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v0 = ci_logger_api();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = ci_logger_api(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v1 = 136446210;
-    v2 = "[CIFilter initWithCoder:]_block_invoke";
-    _os_log_impl(&dword_19CC36000, v0, OS_LOG_TYPE_INFO, "%{public}s option CIUserInfo is no longer encoded for security.", &v1, 0xCu);
+    v3 = 136446210;
+    v4 = "[CIFilter initWithCoder:]_block_invoke";
+    _os_log_impl(&dword_19CC36000, v2, OS_LOG_TYPE_INFO, "%{public}s option CIUserInfo is no longer encoded for security.", &v3, 0xCu);
   }
 }
 
@@ -2464,10 +2495,10 @@ uint64_t __28__CIFilter_debugDescription__block_invoke(uint64_t a1, FILE *a2)
 
 - (CIImage)apply:(CIKernel *)k arguments:(NSArray *)args options:(NSDictionary *)dict
 {
-  v61 = *MEMORY[0x1E69E9840];
-  if (!k || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v65 = *MEMORY[0x1E69E9840];
+  if (!k || (v8 = self, objc_opt_class(), self = objc_opt_isKindOfClass(), (self & 1) == 0))
   {
-    v20 = ci_logger_api();
+    v20 = ci_logger_api(self, a2);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [(CIFilter *)v20 apply:v21 arguments:v22 options:v23, v24, v25, v26, v27];
@@ -2497,25 +2528,26 @@ uint64_t __28__CIFilter_debugDescription__block_invoke(uint64_t a1, FILE *a2)
       v19 = v15;
 LABEL_17:
       [objc_msgSend(v19 objectAtIndex:{3), "doubleValue"}];
-      v12 = v37;
+      v12 = v41;
       goto LABEL_22;
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [v15 extent];
-      v9 = v30;
-      v10 = v31;
-      v11 = v32;
-      v12 = v33;
+      v9 = v32;
+      v10 = v33;
+      v11 = v34;
+      v12 = v35;
       goto LABEL_22;
     }
 
-    v38 = ci_logger_api();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v42 = ci_logger_api(isKindOfClass, v31);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      [(CIFilter *)v38 apply:v39 arguments:v40 options:v41, v42, v43, v44, v45];
+      [(CIFilter *)v42 apply:v43 arguments:v44 options:v45, v46, v47, v48, v49];
     }
 
     return 0;
@@ -2524,44 +2556,49 @@ LABEL_17:
   if (v13)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 count] == 4)
+    v36 = objc_opt_isKindOfClass();
+    if (v36)
     {
-      [objc_msgSend(v13 objectAtIndex:{0), "doubleValue"}];
-      v9 = v34;
-      [objc_msgSend(v13 objectAtIndex:{1), "doubleValue"}];
-      v10 = v35;
-      [objc_msgSend(v13 objectAtIndex:{2), "doubleValue"}];
-      v11 = v36;
-      v19 = v13;
-      goto LABEL_17;
+      v36 = [v13 count];
+      if (v36 == 4)
+      {
+        [objc_msgSend(v13 objectAtIndex:{0), "doubleValue"}];
+        v9 = v38;
+        [objc_msgSend(v13 objectAtIndex:{1), "doubleValue"}];
+        v10 = v39;
+        [objc_msgSend(v13 objectAtIndex:{2), "doubleValue"}];
+        v11 = v40;
+        v19 = v13;
+        goto LABEL_17;
+      }
     }
 
-    v46 = ci_logger_api();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+    v50 = ci_logger_api(v36, v37);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
       *buf = 136446210;
-      v60 = "[CIFilter apply:arguments:options:]";
-      _os_log_impl(&dword_19CC36000, v46, OS_LOG_TYPE_INFO, "%{public}s kCIApplyOptionExtent is not an NSArray with four elements. Ignoring.", buf, 0xCu);
+      v64 = "[CIFilter apply:arguments:options:]";
+      _os_log_impl(&dword_19CC36000, v50, OS_LOG_TYPE_INFO, "%{public}s kCIApplyOptionExtent is not an NSArray with four elements. Ignoring.", buf, 0xCu);
     }
   }
 
 LABEL_22:
-  v47 = [(NSDictionary *)dict objectForKey:@"user_info"];
+  v51 = [(NSDictionary *)dict objectForKey:@"user_info"];
   rOISelector = [(CIKernel *)k ROISelector];
-  v49 = NSSelectorFromString(&cfstr_RegionofDestre.isa);
-  v50 = NSSelectorFromString(&cfstr_RegionofDestre_0.isa);
-  if (objc_opt_respondsToSelector() & 1) != 0 || (rOISelector = v49, (objc_opt_respondsToSelector()) || (rOISelector = v50, (objc_opt_respondsToSelector()))
+  v53 = NSSelectorFromString(&cfstr_RegionofDestre.isa);
+  v54 = NSSelectorFromString(&cfstr_RegionofDestre_0.isa);
+  if (objc_opt_respondsToSelector() & 1) != 0 || (rOISelector = v53, (objc_opt_respondsToSelector()) || (rOISelector = v54, (objc_opt_respondsToSelector()))
   {
-    v51 = [(CIFilter *)self methodForSelector:rOISelector];
+    v55 = [(CIFilter *)v8 methodForSelector:rOISelector];
   }
 
   else
   {
-    v51 = 0;
+    v55 = 0;
   }
 
   NSClassFromString(&cfstr_Dgcurvesfilter.isa);
-  isKindOfClass = objc_opt_isKindOfClass();
+  v56 = objc_opt_isKindOfClass();
   NSClassFromString(&cfstr_Pxsoftproofing.isa);
   if (objc_opt_isKindOfClass())
   {
@@ -2570,12 +2607,12 @@ LABEL_22:
       [CIFilter apply:arguments:options:];
     }
 
-    v53 = 2;
+    v57 = 2;
   }
 
   else
   {
-    v53 = isKindOfClass & 1;
+    v57 = v56 & 1;
   }
 
   NSClassFromString(&cfstr_PxCifNoise.isa);
@@ -2586,22 +2623,22 @@ LABEL_22:
       [CIFilter apply:arguments:options:];
     }
 
-    v53 = 3;
+    v57 = 3;
   }
 
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __36__CIFilter_apply_arguments_options___block_invoke_128;
-  v57[3] = &unk_1E75C2748;
-  v58 = v53;
-  v57[6] = v51;
-  v57[7] = v50;
-  v57[4] = self;
-  v57[5] = v47;
+  v61[0] = MEMORY[0x1E69E9820];
+  v61[1] = 3221225472;
+  v61[2] = __36__CIFilter_apply_arguments_options___block_invoke_128;
+  v61[3] = &unk_1E75C2748;
+  v62 = v57;
+  v61[6] = v55;
+  v61[7] = v54;
+  v61[4] = v8;
+  v61[5] = v51;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v54 = [(CIKernel *)k applyWithExtent:args arguments:v9, v10, v11, v12];
+    v58 = [(CIKernel *)k applyWithExtent:args arguments:v9, v10, v11, v12];
   }
 
   else
@@ -2609,7 +2646,7 @@ LABEL_22:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v54 = [(CIKernel *)k applyWithExtent:v57 roiCallback:[(NSArray *)args objectAtIndex:0] inputImage:[(NSArray *)args subarrayWithRange:1 arguments:[(NSArray *)args count]- 1], v9, v10, v11, v12];
+      v58 = [(CIKernel *)k applyWithExtent:v61 roiCallback:[(NSArray *)args objectAtIndex:0] inputImage:[(NSArray *)args subarrayWithRange:1 arguments:[(NSArray *)args count]- 1], v9, v10, v11, v12];
     }
 
     else
@@ -2621,57 +2658,57 @@ LABEL_22:
         goto LABEL_42;
       }
 
-      v54 = [(CIKernel *)k applyWithExtent:v57 roiCallback:args arguments:v9, v10, v11, v12];
+      v58 = [(CIKernel *)k applyWithExtent:v61 roiCallback:args arguments:v9, v10, v11, v12];
     }
   }
 
-  v28 = v54;
+  v28 = v58;
 LABEL_42:
-  v55 = [(NSDictionary *)dict objectForKey:@"color_space"];
-  if (v55)
+  v59 = [(NSDictionary *)dict objectForKey:@"color_space"];
+  if (v59)
   {
-    v56 = v55;
-    if (v55 != [MEMORY[0x1E695DFB0] null])
+    v60 = v59;
+    if (v59 != [MEMORY[0x1E695DFB0] null])
     {
-      return [(CIImage *)v28 imageByColorMatchingColorSpaceToWorkingSpace:v56];
+      return [(CIImage *)v28 imageByColorMatchingColorSpaceToWorkingSpace:v60];
     }
   }
 
   return v28;
 }
 
-void __36__CIFilter_apply_arguments_options___block_invoke()
+void __36__CIFilter_apply_arguments_options___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v0 = ci_logger_api();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = ci_logger_api(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v1 = 136446210;
-    v2 = "[CIFilter apply:arguments:options:]_block_invoke";
-    _os_log_impl(&dword_19CC36000, v0, OS_LOG_TYPE_INFO, "%{public}s The filter PXSoftProofingFilter has an incorrect ROI method for sampler index 1.  This may fail in the future.", &v1, 0xCu);
+    v3 = 136446210;
+    v4 = "[CIFilter apply:arguments:options:]_block_invoke";
+    _os_log_impl(&dword_19CC36000, v2, OS_LOG_TYPE_INFO, "%{public}s The filter PXSoftProofingFilter has an incorrect ROI method for sampler index 1.  This may fail in the future.", &v3, 0xCu);
   }
 }
 
-void __36__CIFilter_apply_arguments_options___block_invoke_125()
+void __36__CIFilter_apply_arguments_options___block_invoke_125(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v0 = ci_logger_api();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = ci_logger_api(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v1 = 136446210;
-    v2 = "[CIFilter apply:arguments:options:]_block_invoke";
-    _os_log_impl(&dword_19CC36000, v0, OS_LOG_TYPE_INFO, "%{public}s The filter PX_CIF_Noise has an incorrect ROI method for sampler index 1.  This may fail in the future.", &v1, 0xCu);
+    v3 = 136446210;
+    v4 = "[CIFilter apply:arguments:options:]_block_invoke";
+    _os_log_impl(&dword_19CC36000, v2, OS_LOG_TYPE_INFO, "%{public}s The filter PX_CIF_Noise has an incorrect ROI method for sampler index 1.  This may fail in the future.", &v3, 0xCu);
   }
 }
 
-void __36__CIFilter_apply_arguments_options___block_invoke_128(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6)
+void __36__CIFilter_apply_arguments_options___block_invoke_128(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
 {
   v6 = *(a1 + 64);
   if ((a2 || v6 != 1) && (a2 != 1 || v6 != 2))
   {
     if (a2 == 1 && v6 == 3)
     {
-      CGRectInset(*&a3, -1.0, -1.0);
+      CGRectInset(*a3.n128_u64, -1.0, -1.0);
     }
 
     else
@@ -2679,7 +2716,7 @@ void __36__CIFilter_apply_arguments_options___block_invoke_128(uint64_t a1, uint
       v7 = *(a1 + 48);
       if (v7)
       {
-        v7(*(a1 + 32), *(a1 + 56), a2, *(a1 + 40));
+        v7(*(a1 + 32), *(a1 + 56), a2, *(a1 + 40), a3, a4, a5, a6);
       }
     }
   }
@@ -2688,24 +2725,26 @@ void __36__CIFilter_apply_arguments_options___block_invoke_128(uint64_t a1, uint
 - (CIImage)apply:(CIKernel *)k
 {
   va_start(va, k);
-  v27 = va_arg(va, void);
-  v26 = *MEMORY[0x1E69E9840];
-  if (k && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v31 = va_arg(va, void);
+  selfCopy = self;
+  v30 = *MEMORY[0x1E69E9840];
+  if (k && (objc_opt_class(), self = objc_opt_isKindOfClass(), (self & 1) != 0))
   {
     array = [MEMORY[0x1E695DF70] array];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    va_copy(v19, va);
-    v8 = v27;
-    if (v27)
+    va_copy(v23, va);
+    v8 = v31;
+    if (v31)
     {
       v9 = 0;
       v10 = 0;
       *&v7 = 138543874;
-      v18 = v7;
+      v22 = v7;
       while (1)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           break;
         }
@@ -2728,12 +2767,13 @@ void __36__CIFilter_apply_arguments_options___block_invoke_128(uint64_t a1, uint
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v14 = objc_opt_isKindOfClass();
+                if ((v14 & 1) == 0)
                 {
-                  v17 = ci_logger_api();
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                  v21 = ci_logger_api(v14, v15);
+                  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                   {
-                    [(CIFilter *)self apply:v10, v17];
+                    [(CIFilter *)selfCopy apply:v10, v21];
                   }
 
                   return 0;
@@ -2743,37 +2783,37 @@ void __36__CIFilter_apply_arguments_options___block_invoke_128(uint64_t a1, uint
           }
         }
 
-        [array addObject:{v8, v18}];
+        [array addObject:{v8, v22}];
         v9 = 0;
 LABEL_18:
-        v13 = va_arg(v19, void);
-        v8 = v13;
-        ++v10;
-        if (!v13)
+        v17 = va_arg(v23, void);
+        v8 = v17;
+        v10 = (v10 + 1);
+        if (!v17)
         {
-          return [(CIFilter *)self apply:k arguments:array options:dictionary, v18];
+          return [(CIFilter *)selfCopy apply:k arguments:array options:dictionary, v22];
         }
       }
 
-      v11 = va_arg(v19, void);
-      if (v11)
+      v13 = va_arg(v23, void);
+      if (v13)
       {
-        [dictionary setValue:v11 forKey:v8];
+        [dictionary setValue:v13 forKey:v8];
       }
 
       else
       {
-        v12 = ci_logger_api();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v16 = ci_logger_api(isKindOfClass, v12);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v14 = [objc_opt_class() description];
-          *buf = v18;
-          v21 = v14;
-          v22 = 2114;
-          v23 = v8;
-          v24 = 1024;
-          v25 = v10;
-          _os_log_error_impl(&dword_19CC36000, v12, OS_LOG_TYPE_ERROR, "[%{public}@ apply:...] The last key %{public}@ at index %d is followed by nil. It will be ignored.", buf, 0x1Cu);
+          v18 = [objc_opt_class() description];
+          *buf = v22;
+          v25 = v18;
+          v26 = 2114;
+          v27 = v8;
+          v28 = 1024;
+          v29 = v10;
+          _os_log_error_impl(&dword_19CC36000, v16, OS_LOG_TYPE_ERROR, "[%{public}@ apply:...] The last key %{public}@ at index %d is followed by nil. It will be ignored.", buf, 0x1Cu);
         }
       }
 
@@ -2782,15 +2822,15 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    return [(CIFilter *)self apply:k arguments:array options:dictionary, v18];
+    return [(CIFilter *)selfCopy apply:k arguments:array options:dictionary, v22];
   }
 
   else
   {
-    v15 = ci_logger_api();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = ci_logger_api(self, a2);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(CIFilter *)self apply:v15];
+      [(CIFilter *)selfCopy apply:v19];
     }
 
     return 0;
@@ -2964,33 +3004,33 @@ LABEL_19:
 
 - (id)_serializedXMPString
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (![(CIFilter *)self _filterClassInCategory:@"CICategoryXMPSerializable"])
   {
     return 0;
   }
 
   name = [(CIFilter *)self name];
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
   inputKeys = [(CIFilter *)self inputKeys];
-  v5 = [(NSArray *)inputKeys countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v5 = [(NSArray *)inputKeys countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v25;
 LABEL_4:
     v8 = 0;
     while (1)
     {
-      if (*v24 != v7)
+      if (*v25 != v7)
       {
         objc_enumerationMutation(inputKeys);
       }
 
-      v9 = *(*(&v23 + 1) + 8 * v8);
+      v9 = *(*(&v24 + 1) + 8 * v8);
       v10 = [(CIFilter *)self valueForKey:v9];
       if ([v9 isEqual:@"inputImage"])
       {
@@ -3013,7 +3053,8 @@ LABEL_4:
         if ((isKindOfClass & 1) == 0)
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v10 length] && (objc_msgSend(v10, "rangeOfString:", @","), !v16))
+          v16 = objc_opt_isKindOfClass();
+          if ((v16 & 1) != 0 && (v16 = [v10 length]) != 0 && (v16 = objc_msgSend(v10, "rangeOfString:", @","), !v17))
           {
             v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@=%s", name, objc_msgSend(v9, "substringFromIndex:", 5), objc_msgSend(v10, "UTF8String")];
           }
@@ -3022,24 +3063,24 @@ LABEL_4:
           {
             if (v10)
             {
-              v18 = ci_logger_api();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+              v19 = ci_logger_api(v16, v17);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 name2 = [(CIFilter *)self name];
-                v21 = [objc_opt_class() description];
+                v22 = [objc_opt_class() description];
                 *buf = 138543874;
-                v28 = name2;
-                v29 = 2114;
-                v30 = v9;
-                v31 = 2114;
-                v32 = v21;
-                _os_log_error_impl(&dword_19CC36000, v18, OS_LOG_TYPE_ERROR, "CIFilter %{public}@ cannot be serialized because %{public}@ value is a %{public}@. Only NSString, NSNumber and CIVector is supported at this time.", buf, 0x20u);
+                v29 = name2;
+                v30 = 2114;
+                v31 = v9;
+                v32 = 2114;
+                v33 = v22;
+                _os_log_error_impl(&dword_19CC36000, v19, OS_LOG_TYPE_ERROR, "CIFilter %{public}@ cannot be serialized because %{public}@ value is a %{public}@. Only NSString, NSNumber and CIVector is supported at this time.", buf, 0x20u);
               }
 
               return 0;
             }
 
-            v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@=nil", name, objc_msgSend(v9, "substringFromIndex:", 5), v22];
+            v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@=nil", name, objc_msgSend(v9, "substringFromIndex:", 5), v23];
           }
 
           goto LABEL_18;
@@ -3055,9 +3096,9 @@ LABEL_18:
 LABEL_19:
       if (v6 == ++v8)
       {
-        v17 = [(NSArray *)inputKeys countByEnumeratingWithState:&v23 objects:v33 count:16];
-        v6 = v17;
-        if (v17)
+        v18 = [(NSArray *)inputKeys countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v6 = v18;
+        if (v18)
         {
           goto LABEL_4;
         }
@@ -3076,14 +3117,14 @@ LABEL_19:
   width = extent.size.width;
   y = extent.origin.y;
   x = extent.origin.x;
-  v80 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   obj = filters;
-  v73 = 0u;
-  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v9 = [filters countByEnumeratingWithState:&v73 objects:v79 count:16];
+  v77 = 0u;
+  v78 = 0u;
+  v9 = [filters countByEnumeratingWithState:&v75 objects:v81 count:16];
   if (v9)
   {
     v10 = v9;
@@ -3091,17 +3132,17 @@ LABEL_19:
     v12 = 0;
     v13 = 0;
     v14 = 0;
-    v15 = *v74;
+    v15 = *v76;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v74 != v15)
+        if (*v76 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v73 + 1) + 8 * i);
+        v17 = *(*(&v75 + 1) + 8 * i);
         v18 = objc_opt_class();
         if ([v18 isSubclassOfClass:objc_opt_class()] && objc_msgSend(v17, "conformsToProtocol:", &unk_1F108B858))
         {
@@ -3127,7 +3168,7 @@ LABEL_19:
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v73 objects:v79 count:16];
+      v10 = [obj countByEnumeratingWithState:&v75 objects:v81 count:16];
     }
 
     while (v10);
@@ -3149,158 +3190,158 @@ LABEL_19:
     }
 
     v22 = *(MEMORY[0x1E695EFD0] + 16);
-    *&v72.a = *MEMORY[0x1E695EFD0];
-    *&v72.c = v22;
-    *&v72.tx = *(MEMORY[0x1E695EFD0] + 32);
+    *&v74.a = *MEMORY[0x1E695EFD0];
+    *&v74.c = v22;
+    *&v74.tx = *(MEMORY[0x1E695EFD0] + 32);
     if (v12)
     {
-      CGAffineTransformFromObject([v12 valueForKey:@"inputTransform"], &v72);
+      CGAffineTransformFromObject([v12 valueForKey:@"inputTransform"], &v74);
     }
 
     if (v11)
     {
       [objc_msgSend(v11 valueForKey:{@"inputRectangle", "CGRectValue"}];
-      v84.origin.x = v23;
-      v84.origin.y = v24;
-      v84.size.width = v25;
-      v84.size.height = v26;
-      v81.origin.x = x;
-      v81.origin.y = y;
-      v81.size.width = width;
-      v81.size.height = height;
-      v82 = CGRectIntersection(v81, v84);
-      v27 = v82.size.width;
-      v28 = v82.size.height;
-      c = v72.c;
-      d = v72.d;
-      a = v72.a;
-      b = v72.b;
-    }
-
-    else
-    {
-      b = v72.b;
-      if (fabs(v72.b) >= 0.0001 || (c = v72.c, fabs(v72.c) >= 0.0001))
-      {
-        a = v72.a;
-        if (fabs(v72.a) >= 0.0001)
-        {
-          goto LABEL_54;
-        }
-
-        d = v72.d;
-        if (fabs(v72.d) >= 0.0001)
-        {
-          goto LABEL_54;
-        }
-
-        c = v72.c;
-      }
-
-      else
-      {
-        a = v72.a;
-        d = v72.d;
-      }
-
-      if (fabs(fabs(a * d - c * v72.b) + -1.0) >= 0.01)
-      {
-        goto LABEL_54;
-      }
-
-      v71 = v72;
+      v86.origin.x = v23;
+      v86.origin.y = v24;
+      v86.size.width = v25;
+      v86.size.height = v26;
       v83.origin.x = x;
       v83.origin.y = y;
       v83.size.width = width;
       v83.size.height = height;
-      v82 = CGRectApplyAffineTransform(v83, &v71);
-      v27 = v62;
-      v28 = v63;
-    }
-
-    v33 = v82.origin.y;
-    *&v72.tx = vsubq_f64(*&v72.tx, v82.origin);
-    v70 = v72;
-    memset(&v71, 0, sizeof(v71));
-    CGAffineTransformInvert(&v71, &v70);
-    v34 = atan2(d - c, b - a) + -2.35619449;
-    if (v34 >= -3.14159265)
-    {
-      v35 = -v34;
+      v84 = CGRectIntersection(v83, v86);
+      v27 = v84.size.width;
+      v28 = v84.size.height;
+      c = v74.c;
+      d = v74.d;
+      a = v74.a;
+      b = v74.b;
     }
 
     else
     {
-      v35 = -6.28318531 - v34;
-    }
-
-    v36 = v35 * 57.2957795;
-    if (fabs(v36) >= 0.01)
-    {
-      v37 = v36;
-    }
-
-    else
-    {
-      v37 = 0.0;
-    }
-
-    v38 = v71.tx + v28 * v71.c + v71.a * 0.0;
-    v39 = v71.ty + v28 * v71.d + v71.b * 0.0;
-    v40 = v71.tx + v71.c * 0.0 + v71.a * v27;
-    v41 = height - v39;
-    v42 = height - (v71.ty + v71.d * 0.0 + v71.b * v27);
-    v43 = v38 >= 0.0 && v38 <= width;
-    if (!v43 || (v40 >= 0.0 ? (v44 = v40 <= width) : (v44 = 0), !v44 || (v42 >= 0.0 ? (v45 = v42 <= height) : (v45 = 0), !v45 || (v41 >= 0.0 ? (v46 = v41 <= height) : (v46 = 0), !v46))))
-    {
-      v47 = ci_logger_api();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      b = v74.b;
+      if (fabs(v74.b) >= 0.0001 || (c = v74.c, fabs(v74.c) >= 0.0001))
       {
-        [(CIFilter(Private) *)v47 _propertyArrayFromFilters:v48 inputImageExtent:v49, v50, v51, v52, v53, v54];
+        a = v74.a;
+        if (fabs(v74.a) >= 0.0001)
+        {
+          goto LABEL_54;
+        }
+
+        d = v74.d;
+        if (fabs(v74.d) >= 0.0001)
+        {
+          goto LABEL_54;
+        }
+
+        c = v74.c;
+      }
+
+      else
+      {
+        a = v74.a;
+        d = v74.d;
+      }
+
+      if (fabs(fabs(a * d - c * v74.b) + -1.0) >= 0.01)
+      {
+        goto LABEL_54;
+      }
+
+      v73 = v74;
+      v85.origin.x = x;
+      v85.origin.y = y;
+      v85.size.width = width;
+      v85.size.height = height;
+      v84 = CGRectApplyAffineTransform(v85, &v73);
+      v27 = v64;
+      v28 = v65;
+    }
+
+    v33 = v84.origin.y;
+    *&v74.tx = vsubq_f64(*&v74.tx, v84.origin);
+    v72 = v74;
+    memset(&v73, 0, sizeof(v73));
+    CGAffineTransformInvert(&v73, &v72);
+    v36 = atan2(d - c, b - a) + -2.35619449;
+    if (v36 >= -3.14159265)
+    {
+      v37 = -v36;
+    }
+
+    else
+    {
+      v37 = -6.28318531 - v36;
+    }
+
+    v38 = v37 * 57.2957795;
+    if (fabs(v38) >= 0.01)
+    {
+      v39 = v38;
+    }
+
+    else
+    {
+      v39 = 0.0;
+    }
+
+    v40 = v73.tx + v28 * v73.c + v73.a * 0.0;
+    v41 = v73.ty + v28 * v73.d + v73.b * 0.0;
+    v42 = v73.tx + v73.c * 0.0 + v73.a * v27;
+    v43 = height - v41;
+    v44 = height - (v73.ty + v73.d * 0.0 + v73.b * v27);
+    v45 = v40 >= 0.0 && v40 <= width;
+    if (!v45 || (v42 >= 0.0 ? (v46 = v42 <= width) : (v46 = 0), !v46 || (v44 >= 0.0 ? (v47 = v44 <= height) : (v47 = 0), !v47 || (v43 >= 0.0 ? (v48 = v43 <= height) : (v48 = 0), !v48))))
+    {
+      v49 = ci_logger_api(v34, v35);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      {
+        [(CIFilter(Private) *)v49 _propertyArrayFromFilters:v50 inputImageExtent:v51, v52, v53, v54, v55, v56];
       }
     }
 
-    v78[0] = metadataPropertyWithDouble(v37);
-    v78[1] = metadataPropertyWithDouble(fmax(fmin(v41 / height, 1.0), 0.0));
-    v78[2] = metadataPropertyWithDouble(fmax(fmin(v42 / height, 1.0), 0.0));
-    v78[3] = metadataPropertyWithDouble(fmax(fmin(v38 / width, 1.0), 0.0));
-    v78[4] = metadataPropertyWithDouble(fmax(fmin(v40 / width, 1.0), 0.0));
-    v78[5] = metadataPropertyWithBool();
-    v78[6] = metadataPropertyWithBool();
-    [array addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v78, 7)}];
+    v80[0] = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"CropAngle", v39);
+    v80[1] = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"CropTop", fmax(fmin(v43 / height, 1.0), 0.0));
+    v80[2] = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"CropBottom", fmax(fmin(v44 / height, 1.0), 0.0));
+    v80[3] = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"CropLeft", fmax(fmin(v40 / width, 1.0), 0.0));
+    v80[4] = metadataPropertyWithDouble(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"CropRight", fmax(fmin(v42 / width, 1.0), 0.0));
+    v80[5] = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"HasCrop", 1);
+    v80[6] = metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"AlreadyApplied", 0);
+    [array addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v80, 7)}];
   }
 
 LABEL_54:
   array2 = [MEMORY[0x1E695DF70] array];
-  v66 = 0u;
-  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v56 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
-  if (v56)
+  v70 = 0u;
+  v71 = 0u;
+  v58 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
+  if (v58)
   {
-    v57 = v56;
-    v58 = *v67;
+    v59 = v58;
+    v60 = *v69;
     do
     {
-      for (j = 0; j != v57; ++j)
+      for (j = 0; j != v59; ++j)
       {
-        if (*v67 != v58)
+        if (*v69 != v60)
         {
           objc_enumerationMutation(obj);
         }
 
-        _serializedXMPString = [*(*(&v66 + 1) + 8 * j) _serializedXMPString];
+        _serializedXMPString = [*(*(&v68 + 1) + 8 * j) _serializedXMPString];
         if (_serializedXMPString)
         {
           [array2 addObject:_serializedXMPString];
         }
       }
 
-      v57 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
+      v59 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
     }
 
-    while (v57);
+    while (v59);
   }
 
   if ([array2 count])
@@ -3535,7 +3576,7 @@ LABEL_54:
 
 + (id)_filterArrayFromProperties:(id)properties
 {
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(CIFilter(Private) *)v3 _filterArrayFromProperties:v4, v5, v6, v7, v8, v9, v10];
@@ -3560,40 +3601,40 @@ LABEL_54:
   return v2;
 }
 
-objc_class *__55__CIFilter_Builtins__distanceGradientFromRedMaskFilter__block_invoke()
+objc_class *__55__CIFilter_Builtins__distanceGradientFromRedMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -3603,10 +3644,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_maximumDistance, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setMaximumDistance_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setMaximumDistance_, floatSetter, "v@:f");
   }
 
   return result;
@@ -3628,89 +3669,89 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__gaussianGradientFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__gaussianGradientFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    v4 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-    v5 = [v3 instancesRespondToSelector:sel_color0];
-    if (v4)
+    class_addMethod(v2, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+    v7 = [v5 instancesRespondToSelector:sel_color0];
+    if (v6)
     {
-      if ((v5 & 1) == 0)
+      if ((v7 & 1) == 0)
       {
-        class_addMethod(v3, sel_color0, iiGetter, "@@:");
+        class_addMethod(v5, sel_color0, iiGetter, "@@:");
       }
 
-      v6 = [v3 instancesRespondToSelector:sel_setColor0_];
-      v7 = iiSetter;
-      if ((v6 & 1) == 0)
+      v8 = [v5 instancesRespondToSelector:sel_setColor0_];
+      v9 = iiSetter;
+      if ((v8 & 1) == 0)
       {
 LABEL_8:
-        class_addMethod(v3, sel_setColor0_, v7, "v@:@");
+        class_addMethod(v5, sel_setColor0_, v9, "v@:@");
       }
     }
 
     else
     {
-      if ((v5 & 1) == 0)
+      if ((v7 & 1) == 0)
       {
-        class_addMethod(v3, sel_color0, objGetter, "@@:");
+        class_addMethod(v5, sel_color0, objGetter, "@@:");
       }
 
-      v16 = [v3 instancesRespondToSelector:sel_setColor0_];
-      v7 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v5 instancesRespondToSelector:sel_setColor0_];
+      v9 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_8;
       }
     }
   }
 
-  v8 = objc_opt_class();
-  if (!v8)
+  v10 = objc_opt_class();
+  if (!v10)
   {
     goto LABEL_15;
   }
 
-  v9 = v8;
-  v10 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v11 = [v9 instancesRespondToSelector:sel_color1];
-  if (v10)
+  v11 = v10;
+  v12 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v13 = [v11 instancesRespondToSelector:sel_color1];
+  if (v12)
   {
-    if ((v11 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      class_addMethod(v9, sel_color1, iiGetter, "@@:");
+      class_addMethod(v11, sel_color1, iiGetter, "@@:");
     }
 
-    v12 = [v9 instancesRespondToSelector:sel_setColor1_];
-    v13 = iiSetter;
-    if ((v12 & 1) == 0)
+    v14 = [v11 instancesRespondToSelector:sel_setColor1_];
+    v15 = iiSetter;
+    if ((v14 & 1) == 0)
     {
 LABEL_14:
-      class_addMethod(v9, sel_setColor1_, v13, "v@:@");
+      class_addMethod(v11, sel_setColor1_, v15, "v@:@");
     }
   }
 
   else
   {
-    if ((v11 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      class_addMethod(v9, sel_color1, objGetter, "@@:");
+      class_addMethod(v11, sel_color1, objGetter, "@@:");
     }
 
-    v17 = [v9 instancesRespondToSelector:sel_setColor1_];
-    v13 = objSetter;
-    if ((v17 & 1) == 0)
+    v19 = [v11 instancesRespondToSelector:sel_setColor1_];
+    v15 = objSetter;
+    if ((v19 & 1) == 0)
     {
       goto LABEL_14;
     }
@@ -3720,10 +3761,10 @@ LABEL_15:
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v15, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v17, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -3745,72 +3786,72 @@ LABEL_15:
   return v2;
 }
 
-uint64_t __54__CIFilter_Builtins__hueSaturationValueGradientFilter__block_invoke()
+uint64_t __54__CIFilter_Builtins__hueSaturationValueGradientFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_value, floatGetter, "f@:");
-    class_addMethod(v1, sel_setValue_, floatSetter, "v@:f");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    class_addMethod(v2, sel_radius, floatGetter, "f@:");
-    class_addMethod(v3, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v2, sel_value, floatGetter, "f@:");
+    class_addMethod(v3, sel_setValue_, floatSetter, "v@:f");
   }
 
   v4 = objc_opt_class();
   if (v4)
   {
     v5 = v4;
-    class_addMethod(v4, sel_softness, floatGetter, "f@:");
-    class_addMethod(v5, sel_setSoftness_, floatSetter, "v@:f");
+    class_addMethod(v4, sel_radius, floatGetter, "f@:");
+    class_addMethod(v5, sel_setRadius_, floatSetter, "v@:f");
   }
 
   v6 = objc_opt_class();
   if (v6)
   {
     v7 = v6;
-    class_addMethod(v6, sel_dither, floatGetter, "f@:");
-    class_addMethod(v7, sel_setDither_, floatSetter, "v@:f");
+    class_addMethod(v6, sel_softness, floatGetter, "f@:");
+    class_addMethod(v7, sel_setSoftness_, floatSetter, "v@:f");
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_dither, floatGetter, "f@:");
+    class_addMethod(v9, sel_setDither_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
-    v10 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
-    v11 = [v9 instancesRespondToSelector:sel_colorSpace];
-    if (v10)
+    v11 = result;
+    v12 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
+    v13 = [v11 instancesRespondToSelector:sel_colorSpace];
+    if (v12)
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_colorSpace, iiGetter, "@@:");
+        class_addMethod(v11, sel_colorSpace, iiGetter, "@@:");
       }
 
-      result = [v9 instancesRespondToSelector:sel_setColorSpace_];
-      v12 = iiSetter;
+      result = [v11 instancesRespondToSelector:sel_setColorSpace_];
+      v14 = iiSetter;
       if ((result & 1) == 0)
       {
 LABEL_14:
 
-        return class_addMethod(v9, sel_setColorSpace_, v12, "v@:@");
+        return class_addMethod(v11, sel_setColorSpace_, v14, "v@:@");
       }
     }
 
     else
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_colorSpace, objGetter, "@@:");
+        class_addMethod(v11, sel_colorSpace, objGetter, "@@:");
       }
 
-      result = [v9 instancesRespondToSelector:sel_setColorSpace_];
-      v12 = objSetter;
+      result = [v11 instancesRespondToSelector:sel_setColorSpace_];
+      v14 = objSetter;
       if ((result & 1) == 0)
       {
         goto LABEL_14;
@@ -3837,56 +3878,56 @@ LABEL_14:
   return v2;
 }
 
-uint64_t __42__CIFilter_Builtins__linearGradientFilter__block_invoke()
+uint64_t __42__CIFilter_Builtins__linearGradientFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_point0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    class_addMethod(v2, sel_point1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v3, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v2, sel_point0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v4 = objc_opt_class();
   if (v4)
   {
     v5 = v4;
-    v6 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-    v7 = [v5 instancesRespondToSelector:sel_color0];
-    if (v6)
+    class_addMethod(v4, sel_point1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v5, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v6 = objc_opt_class();
+  if (v6)
+  {
+    v7 = v6;
+    v8 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+    v9 = [v7 instancesRespondToSelector:sel_color0];
+    if (v8)
     {
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        class_addMethod(v5, sel_color0, iiGetter, "@@:");
+        class_addMethod(v7, sel_color0, iiGetter, "@@:");
       }
 
-      v8 = [v5 instancesRespondToSelector:sel_setColor0_];
-      v9 = iiSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v7 instancesRespondToSelector:sel_setColor0_];
+      v11 = iiSetter;
+      if ((v10 & 1) == 0)
       {
 LABEL_10:
-        class_addMethod(v5, sel_setColor0_, v9, "v@:@");
+        class_addMethod(v7, sel_setColor0_, v11, "v@:@");
       }
     }
 
     else
     {
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        class_addMethod(v5, sel_color0, objGetter, "@@:");
+        class_addMethod(v7, sel_color0, objGetter, "@@:");
       }
 
-      v15 = [v5 instancesRespondToSelector:sel_setColor0_];
-      v9 = objSetter;
-      if ((v15 & 1) == 0)
+      v17 = [v7 instancesRespondToSelector:sel_setColor0_];
+      v11 = objSetter;
+      if ((v17 & 1) == 0)
       {
         goto LABEL_10;
       }
@@ -3899,35 +3940,35 @@ LABEL_10:
     return result;
   }
 
-  v11 = result;
-  v12 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v13 = [v11 instancesRespondToSelector:sel_color1];
-  if (v12)
+  v13 = result;
+  v14 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v15 = [v13 instancesRespondToSelector:sel_color1];
+  if (v14)
   {
-    if ((v13 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      class_addMethod(v11, sel_color1, iiGetter, "@@:");
+      class_addMethod(v13, sel_color1, iiGetter, "@@:");
     }
 
-    result = [v11 instancesRespondToSelector:sel_setColor1_];
-    v14 = iiSetter;
+    result = [v13 instancesRespondToSelector:sel_setColor1_];
+    v16 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_16:
 
-      return class_addMethod(v11, sel_setColor1_, v14, "v@:@");
+      return class_addMethod(v13, sel_setColor1_, v16, "v@:@");
     }
   }
 
   else
   {
-    if ((v13 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      class_addMethod(v11, sel_color1, objGetter, "@@:");
+      class_addMethod(v13, sel_color1, objGetter, "@@:");
     }
 
-    result = [v11 instancesRespondToSelector:sel_setColor1_];
-    v14 = objSetter;
+    result = [v13 instancesRespondToSelector:sel_setColor1_];
+    v16 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_16;
@@ -3953,64 +3994,64 @@ LABEL_16:
   return v2;
 }
 
-uint64_t __42__CIFilter_Builtins__radialGradientFilter__block_invoke()
+uint64_t __42__CIFilter_Builtins__radialGradientFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    class_addMethod(v2, sel_radius0, floatGetter, "f@:");
-    class_addMethod(v3, sel_setRadius0_, floatSetter, "v@:f");
+    class_addMethod(v2, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v4 = objc_opt_class();
   if (v4)
   {
     v5 = v4;
-    class_addMethod(v4, sel_radius1, floatGetter, "f@:");
-    class_addMethod(v5, sel_setRadius1_, floatSetter, "v@:f");
+    class_addMethod(v4, sel_radius0, floatGetter, "f@:");
+    class_addMethod(v5, sel_setRadius0_, floatSetter, "v@:f");
   }
 
   v6 = objc_opt_class();
   if (v6)
   {
     v7 = v6;
-    v8 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-    v9 = [v7 instancesRespondToSelector:sel_color0];
-    if (v8)
+    class_addMethod(v6, sel_radius1, floatGetter, "f@:");
+    class_addMethod(v7, sel_setRadius1_, floatSetter, "v@:f");
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    v10 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+    v11 = [v9 instancesRespondToSelector:sel_color0];
+    if (v10)
     {
-      if ((v9 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
-        class_addMethod(v7, sel_color0, iiGetter, "@@:");
+        class_addMethod(v9, sel_color0, iiGetter, "@@:");
       }
 
-      v10 = [v7 instancesRespondToSelector:sel_setColor0_];
-      v11 = iiSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v9 instancesRespondToSelector:sel_setColor0_];
+      v13 = iiSetter;
+      if ((v12 & 1) == 0)
       {
 LABEL_12:
-        class_addMethod(v7, sel_setColor0_, v11, "v@:@");
+        class_addMethod(v9, sel_setColor0_, v13, "v@:@");
       }
     }
 
     else
     {
-      if ((v9 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
-        class_addMethod(v7, sel_color0, objGetter, "@@:");
+        class_addMethod(v9, sel_color0, objGetter, "@@:");
       }
 
-      v17 = [v7 instancesRespondToSelector:sel_setColor0_];
-      v11 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v9 instancesRespondToSelector:sel_setColor0_];
+      v13 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_12;
       }
@@ -4023,35 +4064,35 @@ LABEL_12:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_color1];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_color1];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_color1, iiGetter, "@@:");
+      class_addMethod(v15, sel_color1, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setColor1_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setColor1_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setColor1_, v16, "v@:@");
+      return class_addMethod(v15, sel_setColor1_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_color1, objGetter, "@@:");
+      class_addMethod(v15, sel_color1, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setColor1_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setColor1_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -4077,40 +4118,40 @@ LABEL_18:
   return v2;
 }
 
-objc_class *__61__CIFilter_Builtins__signedDistanceGradientFromRedMaskFilter__block_invoke()
+objc_class *__61__CIFilter_Builtins__signedDistanceGradientFromRedMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -4120,10 +4161,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_maximumDistance, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setMaximumDistance_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setMaximumDistance_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4145,56 +4186,56 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __48__CIFilter_Builtins__smoothLinearGradientFilter__block_invoke()
+uint64_t __48__CIFilter_Builtins__smoothLinearGradientFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_point0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    class_addMethod(v2, sel_point1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v3, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v2, sel_point0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v4 = objc_opt_class();
   if (v4)
   {
     v5 = v4;
-    v6 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-    v7 = [v5 instancesRespondToSelector:sel_color0];
-    if (v6)
+    class_addMethod(v4, sel_point1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v5, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v6 = objc_opt_class();
+  if (v6)
+  {
+    v7 = v6;
+    v8 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+    v9 = [v7 instancesRespondToSelector:sel_color0];
+    if (v8)
     {
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        class_addMethod(v5, sel_color0, iiGetter, "@@:");
+        class_addMethod(v7, sel_color0, iiGetter, "@@:");
       }
 
-      v8 = [v5 instancesRespondToSelector:sel_setColor0_];
-      v9 = iiSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v7 instancesRespondToSelector:sel_setColor0_];
+      v11 = iiSetter;
+      if ((v10 & 1) == 0)
       {
 LABEL_10:
-        class_addMethod(v5, sel_setColor0_, v9, "v@:@");
+        class_addMethod(v7, sel_setColor0_, v11, "v@:@");
       }
     }
 
     else
     {
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        class_addMethod(v5, sel_color0, objGetter, "@@:");
+        class_addMethod(v7, sel_color0, objGetter, "@@:");
       }
 
-      v15 = [v5 instancesRespondToSelector:sel_setColor0_];
-      v9 = objSetter;
-      if ((v15 & 1) == 0)
+      v17 = [v7 instancesRespondToSelector:sel_setColor0_];
+      v11 = objSetter;
+      if ((v17 & 1) == 0)
       {
         goto LABEL_10;
       }
@@ -4207,35 +4248,35 @@ LABEL_10:
     return result;
   }
 
-  v11 = result;
-  v12 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v13 = [v11 instancesRespondToSelector:sel_color1];
-  if (v12)
+  v13 = result;
+  v14 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v15 = [v13 instancesRespondToSelector:sel_color1];
+  if (v14)
   {
-    if ((v13 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      class_addMethod(v11, sel_color1, iiGetter, "@@:");
+      class_addMethod(v13, sel_color1, iiGetter, "@@:");
     }
 
-    result = [v11 instancesRespondToSelector:sel_setColor1_];
-    v14 = iiSetter;
+    result = [v13 instancesRespondToSelector:sel_setColor1_];
+    v16 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_16:
 
-      return class_addMethod(v11, sel_setColor1_, v14, "v@:@");
+      return class_addMethod(v13, sel_setColor1_, v16, "v@:@");
     }
   }
 
   else
   {
-    if ((v13 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      class_addMethod(v11, sel_color1, objGetter, "@@:");
+      class_addMethod(v13, sel_color1, objGetter, "@@:");
     }
 
-    result = [v11 instancesRespondToSelector:sel_setColor1_];
-    v14 = objSetter;
+    result = [v13 instancesRespondToSelector:sel_setColor1_];
+    v16 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_16;
@@ -4261,61 +4302,61 @@ LABEL_16:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__sharpenLuminanceFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__sharpenLuminanceFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_sharpness, floatGetter, "f@:");
-    class_addMethod(v7, sel_setSharpness_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_sharpness, floatGetter, "f@:");
+    class_addMethod(v9, sel_setSharpness_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4337,61 +4378,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__unsharpMaskFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__unsharpMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_intensity, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setIntensity_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4413,69 +4454,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__circularScreenFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__circularScreenFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_width, floatGetter, "f@:");
-    class_addMethod(v9, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_width, floatGetter, "f@:");
+    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_sharpness, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setSharpness_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setSharpness_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4497,93 +4538,93 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__34__CIFilter_Builtins__CMYKHalftone__block_invoke()
+objc_class *__34__CIFilter_Builtins__CMYKHalftone__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v18 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v20 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_width, floatGetter, "f@:");
-    class_addMethod(v9, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_angle, floatGetter, "f@:");
-    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_width, floatGetter, "f@:");
+    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_sharpness, floatGetter, "f@:");
-    class_addMethod(v13, sel_setSharpness_, floatSetter, "v@:f");
+    class_addMethod(v12, sel_angle, floatGetter, "f@:");
+    class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
   }
 
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_grayComponentReplacement, floatGetter, "f@:");
-    class_addMethod(v15, sel_setGrayComponentReplacement_, floatSetter, "v@:f");
+    class_addMethod(v14, sel_sharpness, floatGetter, "f@:");
+    class_addMethod(v15, sel_setSharpness_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_grayComponentReplacement, floatGetter, "f@:");
+    class_addMethod(v17, sel_setGrayComponentReplacement_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v17 = result;
+    v19 = result;
     class_addMethod(result, sel_underColorRemoval, floatGetter, "f@:");
 
-    return class_addMethod(v17, sel_setUnderColorRemoval_, floatSetter, "v@:f");
+    return class_addMethod(v19, sel_setUnderColorRemoval_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4605,77 +4646,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__dotScreenFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__dotScreenFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_width, floatGetter, "f@:");
-    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_width, floatGetter, "f@:");
+    class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_sharpness, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setSharpness_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setSharpness_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4697,77 +4738,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__hatchedScreenFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__hatchedScreenFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_width, floatGetter, "f@:");
-    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_width, floatGetter, "f@:");
+    class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_sharpness, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setSharpness_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setSharpness_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4789,77 +4830,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__38__CIFilter_Builtins__lineScreenFilter__block_invoke()
+objc_class *__38__CIFilter_Builtins__lineScreenFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_width, floatGetter, "f@:");
-    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_width, floatGetter, "f@:");
+    class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_sharpness, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setSharpness_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setSharpness_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4881,77 +4922,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__bicubicScaleTransformFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__bicubicScaleTransformFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_scale, floatGetter, "f@:");
-    class_addMethod(v7, sel_setScale_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_aspectRatio, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAspectRatio_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_scale, floatGetter, "f@:");
+    class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_parameterB, floatGetter, "f@:");
-    class_addMethod(v11, sel_setParameterB_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_aspectRatio, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAspectRatio_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_parameterB, floatGetter, "f@:");
+    class_addMethod(v13, sel_setParameterB_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_parameterC, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setParameterC_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setParameterC_, floatSetter, "v@:f");
   }
 
   return result;
@@ -4973,102 +5014,102 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__48__CIFilter_Builtins__edgePreserveUpsampleFilter__block_invoke()
+objc_class *__48__CIFilter_Builtins__edgePreserveUpsampleFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_smallImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_smallImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_smallImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_smallImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_smallImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_smallImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setSmallImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setSmallImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setSmallImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setSmallImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_smallImage, objGetter, "@@:");
+      class_addMethod(v9, sel_smallImage, objGetter, "@@:");
     }
 
-    v17 = [v7 instancesRespondToSelector:sel_setSmallImage_];
-    v11 = objSetter;
-    if ((v17 & 1) == 0)
+    v19 = [v9 instancesRespondToSelector:sel_setSmallImage_];
+    v13 = objSetter;
+    if ((v19 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
+  v14 = objc_opt_class();
+  if (v14)
   {
-    v13 = v12;
-    class_addMethod(v12, sel_spatialSigma, floatGetter, "f@:");
-    class_addMethod(v13, sel_setSpatialSigma_, floatSetter, "v@:f");
+    v15 = v14;
+    class_addMethod(v14, sel_spatialSigma, floatGetter, "f@:");
+    class_addMethod(v15, sel_setSpatialSigma_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_lumaSigma, floatGetter, "f@:");
 
-    return class_addMethod(v15, sel_setLumaSigma_, floatSetter, "v@:f");
+    return class_addMethod(v17, sel_setLumaSigma_, floatSetter, "v@:f");
   }
 
   return result;
@@ -5090,85 +5131,85 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__54__CIFilter_Builtins__keystoneCorrectionCombinedFilter__block_invoke()
+objc_class *__54__CIFilter_Builtins__keystoneCorrectionCombinedFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_focalLength, floatGetter, "f@:");
-    class_addMethod(v7, sel_setFocalLength_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_focalLength, floatGetter, "f@:");
+    class_addMethod(v9, sel_setFocalLength_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_topRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v10, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v12, sel_topRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
 
-    return class_addMethod(v15, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    return class_addMethod(v17, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   return result;
@@ -5190,85 +5231,85 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__56__CIFilter_Builtins__keystoneCorrectionHorizontalFilter__block_invoke()
+objc_class *__56__CIFilter_Builtins__keystoneCorrectionHorizontalFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_focalLength, floatGetter, "f@:");
-    class_addMethod(v7, sel_setFocalLength_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_focalLength, floatGetter, "f@:");
+    class_addMethod(v9, sel_setFocalLength_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_topRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v10, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v12, sel_topRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
 
-    return class_addMethod(v15, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    return class_addMethod(v17, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   return result;
@@ -5290,85 +5331,85 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__54__CIFilter_Builtins__keystoneCorrectionVerticalFilter__block_invoke()
+objc_class *__54__CIFilter_Builtins__keystoneCorrectionVerticalFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_focalLength, floatGetter, "f@:");
-    class_addMethod(v7, sel_setFocalLength_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_focalLength, floatGetter, "f@:");
+    class_addMethod(v9, sel_setFocalLength_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_topRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v10, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v12, sel_topRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
 
-    return class_addMethod(v15, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    return class_addMethod(v17, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   return result;
@@ -5390,61 +5431,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__lanczosScaleTransformFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__lanczosScaleTransformFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_scale, floatGetter, "f@:");
-    class_addMethod(v7, sel_setScale_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_scale, floatGetter, "f@:");
+    class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_aspectRatio, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setAspectRatio_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setAspectRatio_, floatSetter, "v@:f");
   }
 
   return result;
@@ -5466,61 +5507,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__maximumScaleTransformFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__maximumScaleTransformFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_scale, floatGetter, "f@:");
-    class_addMethod(v7, sel_setScale_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_scale, floatGetter, "f@:");
+    class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_aspectRatio, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setAspectRatio_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setAspectRatio_, floatSetter, "v@:f");
   }
 
   return result;
@@ -5542,85 +5583,85 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__perspectiveCorrectionFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__perspectiveCorrectionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_topRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v10, sel_topRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v12, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_crop, BOOLGetter, "B@:");
 
-    return class_addMethod(v15, sel_setCrop_, BOOLSetter, "v@:B}");
+    return class_addMethod(v17, sel_setCrop_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -5642,77 +5683,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__perspectiveRotateFilter__block_invoke()
+objc_class *__45__CIFilter_Builtins__perspectiveRotateFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_focalLength, floatGetter, "f@:");
-    class_addMethod(v7, sel_setFocalLength_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_pitch, floatGetter, "f@:");
-    class_addMethod(v9, sel_setPitch_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_focalLength, floatGetter, "f@:");
+    class_addMethod(v9, sel_setFocalLength_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, "yaw", floatGetter, "f@:");
-    class_addMethod(v11, sel_setYaw_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_pitch, floatGetter, "f@:");
+    class_addMethod(v11, sel_setPitch_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, "yaw", floatGetter, "f@:");
+    class_addMethod(v13, sel_setYaw_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_roll, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setRoll_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setRoll_, floatSetter, "v@:f");
   }
 
   return result;
@@ -5734,144 +5775,44 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__48__CIFilter_Builtins__perspectiveTransformFilter__block_invoke()
+objc_class *__48__CIFilter_Builtins__perspectiveTransformFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_topRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v10 = objc_opt_class();
-  if (v10)
-  {
-    v11 = v10;
-    class_addMethod(v10, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v13 = result;
-    class_addMethod(result, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
-
-    return class_addMethod(v13, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  return result;
-}
-
-+ (CIFilter)perspectiveTransformWithExtentFilter
-{
-  v2 = [CIFilter filterWithName:@"CIPerspectiveTransformWithExtent"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __58__CIFilter_Builtins__perspectiveTransformWithExtentFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (perspectiveTransformWithExtentFilter_onceToken != -1)
-  {
-    dispatch_once(&perspectiveTransformWithExtentFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__58__CIFilter_Builtins__perspectiveTransformWithExtentFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
       if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   v8 = objc_opt_class();
@@ -5910,6 +5851,106 @@ LABEL_6:
   return result;
 }
 
++ (CIFilter)perspectiveTransformWithExtentFilter
+{
+  v2 = [CIFilter filterWithName:@"CIPerspectiveTransformWithExtent"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __58__CIFilter_Builtins__perspectiveTransformWithExtentFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (perspectiveTransformWithExtentFilter_onceToken != -1)
+  {
+    dispatch_once(&perspectiveTransformWithExtentFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__58__CIFilter_Builtins__perspectiveTransformWithExtentFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_topRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v17 = result;
+    class_addMethod(result, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
+
+    return class_addMethod(v17, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  return result;
+}
+
 + (CIFilter)straightenFilter
 {
   v2 = [CIFilter filterWithName:@"CIStraightenFilter"];
@@ -5926,40 +5967,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__38__CIFilter_Builtins__straightenFilter__block_invoke()
+objc_class *__38__CIFilter_Builtins__straightenFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -5969,10 +6010,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_angle, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setAngle_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
   }
 
   return result;
@@ -5994,118 +6035,118 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__51__CIFilter_Builtins__accordionFoldTransitionFilter__block_invoke()
+objc_class *__51__CIFilter_Builtins__accordionFoldTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v20 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v20 & 1) == 0)
+      v22 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v22 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v21 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v21 & 1) == 0)
+    v23 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v23 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_bottomHeight, floatGetter, "f@:");
-    class_addMethod(v13, sel_setBottomHeight_, floatSetter, "v@:f");
-  }
-
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_numberOfFolds, floatGetter, "f@:");
-    class_addMethod(v15, sel_setNumberOfFolds_, floatSetter, "v@:f");
+    class_addMethod(v14, sel_bottomHeight, floatGetter, "f@:");
+    class_addMethod(v15, sel_setBottomHeight_, floatSetter, "v@:f");
   }
 
   v16 = objc_opt_class();
   if (v16)
   {
     v17 = v16;
-    class_addMethod(v16, sel_foldShadowAmount, floatGetter, "f@:");
-    class_addMethod(v17, sel_setFoldShadowAmount_, floatSetter, "v@:f");
+    class_addMethod(v16, sel_numberOfFolds, floatGetter, "f@:");
+    class_addMethod(v17, sel_setNumberOfFolds_, floatSetter, "v@:f");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    class_addMethod(v18, sel_foldShadowAmount, floatGetter, "f@:");
+    class_addMethod(v19, sel_setFoldShadowAmount_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v19 = result;
+    v21 = result;
     class_addMethod(result, sel_time, floatGetter, "f@:");
 
-    return class_addMethod(v19, sel_setTime_, floatSetter, "v@:f");
+    return class_addMethod(v21, sel_setTime_, floatSetter, "v@:f");
   }
 
   return result;
@@ -6127,118 +6168,118 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__47__CIFilter_Builtins__barsSwipeTransitionFilter__block_invoke()
+objc_class *__47__CIFilter_Builtins__barsSwipeTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v20 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v20 & 1) == 0)
+      v22 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v22 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v21 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v21 & 1) == 0)
+    v23 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v23 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_angle, floatGetter, "f@:");
-    class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
-  }
-
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_width, floatGetter, "f@:");
-    class_addMethod(v15, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v14, sel_angle, floatGetter, "f@:");
+    class_addMethod(v15, sel_setAngle_, floatSetter, "v@:f");
   }
 
   v16 = objc_opt_class();
   if (v16)
   {
     v17 = v16;
-    class_addMethod(v16, sel_barOffset, floatGetter, "f@:");
-    class_addMethod(v17, sel_setBarOffset_, floatSetter, "v@:f");
+    class_addMethod(v16, sel_width, floatGetter, "f@:");
+    class_addMethod(v17, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    class_addMethod(v18, sel_barOffset, floatGetter, "f@:");
+    class_addMethod(v19, sel_setBarOffset_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v19 = result;
+    v21 = result;
     class_addMethod(result, sel_time, floatGetter, "f@:");
 
-    return class_addMethod(v19, sel_setTime_, floatSetter, "v@:f");
+    return class_addMethod(v21, sel_setTime_, floatSetter, "v@:f");
   }
 
   return result;
@@ -6260,557 +6301,87 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__copyMachineTransitionFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__copyMachineTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v28 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v28 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (!v6)
-  {
-    goto LABEL_13;
-  }
-
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
-    }
-
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
-    {
-LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
-    }
-
-    v29 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v29 & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v13, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
-  v14 = objc_opt_class();
-  if (v14)
-  {
-    v15 = v14;
-    v16 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v17 = [v15 instancesRespondToSelector:sel_color];
-    if (v16)
-    {
-      if ((v17 & 1) == 0)
-      {
-        class_addMethod(v15, sel_color, iiGetter, "@@:");
-      }
-
-      v18 = [v15 instancesRespondToSelector:sel_setColor_];
-      v19 = iiSetter;
-      if ((v18 & 1) == 0)
-      {
-LABEL_20:
-        class_addMethod(v15, sel_setColor_, v19, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v17 & 1) == 0)
-      {
-        class_addMethod(v15, sel_color, objGetter, "@@:");
-      }
-
-      v30 = [v15 instancesRespondToSelector:sel_setColor_];
-      v19 = objSetter;
+      v30 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
       if ((v30 & 1) == 0)
       {
-        goto LABEL_20;
-      }
-    }
-  }
-
-  v20 = objc_opt_class();
-  if (v20)
-  {
-    v21 = v20;
-    class_addMethod(v20, sel_time, floatGetter, "f@:");
-    class_addMethod(v21, sel_setTime_, floatSetter, "v@:f");
-  }
-
-  v22 = objc_opt_class();
-  if (v22)
-  {
-    v23 = v22;
-    class_addMethod(v22, sel_angle, floatGetter, "f@:");
-    class_addMethod(v23, sel_setAngle_, floatSetter, "v@:f");
-  }
-
-  v24 = objc_opt_class();
-  if (v24)
-  {
-    v25 = v24;
-    class_addMethod(v24, sel_width, floatGetter, "f@:");
-    class_addMethod(v25, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v27 = result;
-    class_addMethod(result, sel_opacity, floatGetter, "f@:");
-
-    return class_addMethod(v27, sel_setOpacity_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)disintegrateWithMaskTransitionFilter
-{
-  v2 = [CIFilter filterWithName:@"CIDisintegrateWithMaskTransition"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __58__CIFilter_Builtins__disintegrateWithMaskTransitionFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (disintegrateWithMaskTransitionFilter_onceToken != -1)
-  {
-    dispatch_once(&disintegrateWithMaskTransitionFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__58__CIFilter_Builtins__disintegrateWithMaskTransitionFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v26 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v26 & 1) == 0)
-      {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v27 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v27 & 1) == 0)
+    v31 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v31 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
-  {
-    goto LABEL_19;
-  }
-
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_maskImage];
-  if (v14)
-  {
-    if ((v15 & 1) == 0)
-    {
-      class_addMethod(v13, sel_maskImage, iiGetter, "@@:");
-    }
-
-    v16 = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
-    {
-LABEL_18:
-      class_addMethod(v13, sel_setMaskImage_, v17, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v15 & 1) == 0)
-    {
-      class_addMethod(v13, sel_maskImage, objGetter, "@@:");
-    }
-
-    v28 = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v17 = objSetter;
-    if ((v28 & 1) == 0)
-    {
-      goto LABEL_18;
-    }
-  }
-
-LABEL_19:
-  v18 = objc_opt_class();
-  if (v18)
-  {
-    v19 = v18;
-    class_addMethod(v18, sel_time, floatGetter, "f@:");
-    class_addMethod(v19, sel_setTime_, floatSetter, "v@:f");
-  }
-
-  v20 = objc_opt_class();
-  if (v20)
-  {
-    v21 = v20;
-    class_addMethod(v20, sel_shadowRadius, floatGetter, "f@:");
-    class_addMethod(v21, sel_setShadowRadius_, floatSetter, "v@:f");
-  }
-
-  v22 = objc_opt_class();
-  if (v22)
-  {
-    v23 = v22;
-    class_addMethod(v22, sel_shadowDensity, floatGetter, "f@:");
-    class_addMethod(v23, sel_setShadowDensity_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v25 = result;
-    class_addMethod(result, sel_shadowOffset, pointGetter, "{CGPoint=dd}@:");
-
-    return class_addMethod(v25, sel_setShadowOffset_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  return result;
-}
-
-+ (CIFilter)dissolveTransitionFilter
-{
-  v2 = [CIFilter filterWithName:@"CIDissolveTransition"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __46__CIFilter_Builtins__dissolveTransitionFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (dissolveTransitionFilter_onceToken != -1)
-  {
-    dispatch_once(&dissolveTransitionFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__46__CIFilter_Builtins__dissolveTransitionFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (!v6)
-  {
-    goto LABEL_13;
-  }
-
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
-    }
-
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
-    {
-LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
-    }
-
-    v15 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-LABEL_13:
-  result = objc_opt_class();
-  if (result)
-  {
-    v13 = result;
-    class_addMethod(result, sel_time, floatGetter, "f@:");
-
-    return class_addMethod(v13, sel_setTime_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)flashTransitionFilter
-{
-  v2 = [CIFilter filterWithName:@"CIFlashTransition"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __43__CIFilter_Builtins__flashTransitionFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (flashTransitionFilter_onceToken != -1)
-  {
-    dispatch_once(&flashTransitionFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__43__CIFilter_Builtins__flashTransitionFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v32 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v32 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (!v6)
-  {
-    goto LABEL_13;
-  }
-
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
-    }
-
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
-    {
-LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
-    }
-
-    v33 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v33 & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v14 = objc_opt_class();
   if (v14)
   {
@@ -6836,7 +6407,7 @@ LABEL_13:
       v21 = iiSetter;
       if ((v20 & 1) == 0)
       {
-LABEL_22:
+LABEL_20:
         class_addMethod(v17, sel_setColor_, v21, "v@:@");
       }
     }
@@ -6848,11 +6419,11 @@ LABEL_22:
         class_addMethod(v17, sel_color, objGetter, "@@:");
       }
 
-      v34 = [v17 instancesRespondToSelector:sel_setColor_];
+      v32 = [v17 instancesRespondToSelector:sel_setColor_];
       v21 = objSetter;
-      if ((v34 & 1) == 0)
+      if ((v32 & 1) == 0)
       {
-        goto LABEL_22;
+        goto LABEL_20;
       }
     }
   }
@@ -6869,33 +6440,503 @@ LABEL_22:
   if (v24)
   {
     v25 = v24;
-    class_addMethod(v24, sel_maxStriationRadius, floatGetter, "f@:");
-    class_addMethod(v25, sel_setMaxStriationRadius_, floatSetter, "v@:f");
+    class_addMethod(v24, sel_angle, floatGetter, "f@:");
+    class_addMethod(v25, sel_setAngle_, floatSetter, "v@:f");
   }
 
   v26 = objc_opt_class();
   if (v26)
   {
     v27 = v26;
-    class_addMethod(v26, sel_striationStrength, floatGetter, "f@:");
-    class_addMethod(v27, sel_setStriationStrength_, floatSetter, "v@:f");
+    class_addMethod(v26, sel_width, floatGetter, "f@:");
+    class_addMethod(v27, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v29 = result;
+    class_addMethod(result, sel_opacity, floatGetter, "f@:");
+
+    return class_addMethod(v29, sel_setOpacity_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)disintegrateWithMaskTransitionFilter
+{
+  v2 = [CIFilter filterWithName:@"CIDisintegrateWithMaskTransition"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __58__CIFilter_Builtins__disintegrateWithMaskTransitionFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (disintegrateWithMaskTransitionFilter_onceToken != -1)
+  {
+    dispatch_once(&disintegrateWithMaskTransitionFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__58__CIFilter_Builtins__disintegrateWithMaskTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v28 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v28 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (!v8)
+  {
+    goto LABEL_13;
+  }
+
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
+    }
+
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
+    {
+LABEL_12:
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
+    }
+
+    v29 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v29 & 1) == 0)
+    {
+      goto LABEL_12;
+    }
+  }
+
+LABEL_13:
+  v14 = objc_opt_class();
+  if (!v14)
+  {
+    goto LABEL_19;
+  }
+
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_maskImage];
+  if (v16)
+  {
+    if ((v17 & 1) == 0)
+    {
+      class_addMethod(v15, sel_maskImage, iiGetter, "@@:");
+    }
+
+    v18 = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
+    {
+LABEL_18:
+      class_addMethod(v15, sel_setMaskImage_, v19, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v17 & 1) == 0)
+    {
+      class_addMethod(v15, sel_maskImage, objGetter, "@@:");
+    }
+
+    v30 = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v19 = objSetter;
+    if ((v30 & 1) == 0)
+    {
+      goto LABEL_18;
+    }
+  }
+
+LABEL_19:
+  v20 = objc_opt_class();
+  if (v20)
+  {
+    v21 = v20;
+    class_addMethod(v20, sel_time, floatGetter, "f@:");
+    class_addMethod(v21, sel_setTime_, floatSetter, "v@:f");
+  }
+
+  v22 = objc_opt_class();
+  if (v22)
+  {
+    v23 = v22;
+    class_addMethod(v22, sel_shadowRadius, floatGetter, "f@:");
+    class_addMethod(v23, sel_setShadowRadius_, floatSetter, "v@:f");
+  }
+
+  v24 = objc_opt_class();
+  if (v24)
+  {
+    v25 = v24;
+    class_addMethod(v24, sel_shadowDensity, floatGetter, "f@:");
+    class_addMethod(v25, sel_setShadowDensity_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v27 = result;
+    class_addMethod(result, sel_shadowOffset, pointGetter, "{CGPoint=dd}@:");
+
+    return class_addMethod(v27, sel_setShadowOffset_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  return result;
+}
+
++ (CIFilter)dissolveTransitionFilter
+{
+  v2 = [CIFilter filterWithName:@"CIDissolveTransition"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __46__CIFilter_Builtins__dissolveTransitionFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (dissolveTransitionFilter_onceToken != -1)
+  {
+    dispatch_once(&dissolveTransitionFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__46__CIFilter_Builtins__dissolveTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (!v8)
+  {
+    goto LABEL_13;
+  }
+
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
+    }
+
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
+    {
+LABEL_12:
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
+    }
+
+    v17 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
+    {
+      goto LABEL_12;
+    }
+  }
+
+LABEL_13:
+  result = objc_opt_class();
+  if (result)
+  {
+    v15 = result;
+    class_addMethod(result, sel_time, floatGetter, "f@:");
+
+    return class_addMethod(v15, sel_setTime_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)flashTransitionFilter
+{
+  v2 = [CIFilter filterWithName:@"CIFlashTransition"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __43__CIFilter_Builtins__flashTransitionFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (flashTransitionFilter_onceToken != -1)
+  {
+    dispatch_once(&flashTransitionFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__43__CIFilter_Builtins__flashTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v34 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v34 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (!v8)
+  {
+    goto LABEL_13;
+  }
+
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
+    }
+
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
+    {
+LABEL_12:
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
+    }
+
+    v35 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v35 & 1) == 0)
+    {
+      goto LABEL_12;
+    }
+  }
+
+LABEL_13:
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v17, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    v20 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v21 = [v19 instancesRespondToSelector:sel_color];
+    if (v20)
+    {
+      if ((v21 & 1) == 0)
+      {
+        class_addMethod(v19, sel_color, iiGetter, "@@:");
+      }
+
+      v22 = [v19 instancesRespondToSelector:sel_setColor_];
+      v23 = iiSetter;
+      if ((v22 & 1) == 0)
+      {
+LABEL_22:
+        class_addMethod(v19, sel_setColor_, v23, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v21 & 1) == 0)
+      {
+        class_addMethod(v19, sel_color, objGetter, "@@:");
+      }
+
+      v36 = [v19 instancesRespondToSelector:sel_setColor_];
+      v23 = objSetter;
+      if ((v36 & 1) == 0)
+      {
+        goto LABEL_22;
+      }
+    }
+  }
+
+  v24 = objc_opt_class();
+  if (v24)
+  {
+    v25 = v24;
+    class_addMethod(v24, sel_time, floatGetter, "f@:");
+    class_addMethod(v25, sel_setTime_, floatSetter, "v@:f");
+  }
+
+  v26 = objc_opt_class();
+  if (v26)
+  {
+    v27 = v26;
+    class_addMethod(v26, sel_maxStriationRadius, floatGetter, "f@:");
+    class_addMethod(v27, sel_setMaxStriationRadius_, floatSetter, "v@:f");
   }
 
   v28 = objc_opt_class();
   if (v28)
   {
     v29 = v28;
-    class_addMethod(v28, sel_striationContrast, floatGetter, "f@:");
-    class_addMethod(v29, sel_setStriationContrast_, floatSetter, "v@:f");
+    class_addMethod(v28, sel_striationStrength, floatGetter, "f@:");
+    class_addMethod(v29, sel_setStriationStrength_, floatSetter, "v@:f");
+  }
+
+  v30 = objc_opt_class();
+  if (v30)
+  {
+    v31 = v30;
+    class_addMethod(v30, sel_striationContrast, floatGetter, "f@:");
+    class_addMethod(v31, sel_setStriationContrast_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v31 = result;
+    v33 = result;
     class_addMethod(result, sel_fadeThreshold, floatGetter, "f@:");
 
-    return class_addMethod(v31, sel_setFadeThreshold_, floatSetter, "v@:f");
+    return class_addMethod(v33, sel_setFadeThreshold_, floatSetter, "v@:f");
   }
 
   return result;
@@ -6917,126 +6958,126 @@ LABEL_22:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__modTransitionFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__modTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v22 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v22 & 1) == 0)
+      v24 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v24 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v23 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v23 & 1) == 0)
+    v25 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v25 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_time, floatGetter, "f@:");
-    class_addMethod(v15, sel_setTime_, floatSetter, "v@:f");
+    class_addMethod(v14, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v16 = objc_opt_class();
   if (v16)
   {
     v17 = v16;
-    class_addMethod(v16, sel_angle, floatGetter, "f@:");
-    class_addMethod(v17, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v16, sel_time, floatGetter, "f@:");
+    class_addMethod(v17, sel_setTime_, floatSetter, "v@:f");
   }
 
   v18 = objc_opt_class();
   if (v18)
   {
     v19 = v18;
-    class_addMethod(v18, sel_radius, floatGetter, "f@:");
-    class_addMethod(v19, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v18, sel_angle, floatGetter, "f@:");
+    class_addMethod(v19, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v20 = objc_opt_class();
+  if (v20)
+  {
+    v21 = v20;
+    class_addMethod(v20, sel_radius, floatGetter, "f@:");
+    class_addMethod(v21, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v21 = result;
+    v23 = result;
     class_addMethod(result, sel_compression, floatGetter, "f@:");
 
-    return class_addMethod(v21, sel_setCompression_, floatSetter, "v@:f");
+    return class_addMethod(v23, sel_setCompression_, floatSetter, "v@:f");
   }
 
   return result;
@@ -7058,200 +7099,200 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__pageCurlTransitionFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__pageCurlTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v32 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v32 & 1) == 0)
+      v34 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v34 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v33 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v33 & 1) == 0)
+    v35 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v35 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_backsideImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_backsideImage];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_backsideImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_backsideImage];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_backsideImage, iiGetter, "@@:");
+      class_addMethod(v15, sel_backsideImage, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setBacksideImage_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setBacksideImage_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setBacksideImage_, v17, "v@:@");
+      class_addMethod(v15, sel_setBacksideImage_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_backsideImage, objGetter, "@@:");
+      class_addMethod(v15, sel_backsideImage, objGetter, "@@:");
     }
 
-    v34 = [v13 instancesRespondToSelector:sel_setBacksideImage_];
-    v17 = objSetter;
-    if ((v34 & 1) == 0)
+    v36 = [v15 instancesRespondToSelector:sel_setBacksideImage_];
+    v19 = objSetter;
+    if ((v36 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  v18 = objc_opt_class();
-  if (!v18)
+  v20 = objc_opt_class();
+  if (!v20)
   {
     goto LABEL_25;
   }
 
-  v19 = v18;
-  v20 = [NSStringFromSelector(sel_shadingImage) isEqualToString:@"inputImage"];
-  v21 = [v19 instancesRespondToSelector:sel_shadingImage];
-  if (v20)
+  v21 = v20;
+  v22 = [NSStringFromSelector(sel_shadingImage) isEqualToString:@"inputImage"];
+  v23 = [v21 instancesRespondToSelector:sel_shadingImage];
+  if (v22)
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_shadingImage, iiGetter, "@@:");
+      class_addMethod(v21, sel_shadingImage, iiGetter, "@@:");
     }
 
-    v22 = [v19 instancesRespondToSelector:sel_setShadingImage_];
-    v23 = iiSetter;
-    if ((v22 & 1) == 0)
+    v24 = [v21 instancesRespondToSelector:sel_setShadingImage_];
+    v25 = iiSetter;
+    if ((v24 & 1) == 0)
     {
 LABEL_24:
-      class_addMethod(v19, sel_setShadingImage_, v23, "v@:@");
+      class_addMethod(v21, sel_setShadingImage_, v25, "v@:@");
     }
   }
 
   else
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_shadingImage, objGetter, "@@:");
+      class_addMethod(v21, sel_shadingImage, objGetter, "@@:");
     }
 
-    v35 = [v19 instancesRespondToSelector:sel_setShadingImage_];
-    v23 = objSetter;
-    if ((v35 & 1) == 0)
+    v37 = [v21 instancesRespondToSelector:sel_setShadingImage_];
+    v25 = objSetter;
+    if ((v37 & 1) == 0)
     {
       goto LABEL_24;
     }
   }
 
 LABEL_25:
-  v24 = objc_opt_class();
-  if (v24)
-  {
-    v25 = v24;
-    class_addMethod(v24, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v25, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v26 = objc_opt_class();
   if (v26)
   {
     v27 = v26;
-    class_addMethod(v26, sel_time, floatGetter, "f@:");
-    class_addMethod(v27, sel_setTime_, floatSetter, "v@:f");
+    class_addMethod(v26, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v27, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   v28 = objc_opt_class();
   if (v28)
   {
     v29 = v28;
-    class_addMethod(v28, sel_angle, floatGetter, "f@:");
-    class_addMethod(v29, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v28, sel_time, floatGetter, "f@:");
+    class_addMethod(v29, sel_setTime_, floatSetter, "v@:f");
+  }
+
+  v30 = objc_opt_class();
+  if (v30)
+  {
+    v31 = v30;
+    class_addMethod(v30, sel_angle, floatGetter, "f@:");
+    class_addMethod(v31, sel_setAngle_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v31 = result;
+    v33 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v31, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v33, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -7273,183 +7314,183 @@ LABEL_25:
   return v2;
 }
 
-objc_class *__56__CIFilter_Builtins__pageCurlWithShadowTransitionFilter__block_invoke()
+objc_class *__56__CIFilter_Builtins__pageCurlWithShadowTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v32 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v32 & 1) == 0)
+      v34 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v34 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v33 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v33 & 1) == 0)
+    v35 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v35 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_backsideImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_backsideImage];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_backsideImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_backsideImage];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_backsideImage, iiGetter, "@@:");
+      class_addMethod(v15, sel_backsideImage, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setBacksideImage_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setBacksideImage_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setBacksideImage_, v17, "v@:@");
+      class_addMethod(v15, sel_setBacksideImage_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_backsideImage, objGetter, "@@:");
+      class_addMethod(v15, sel_backsideImage, objGetter, "@@:");
     }
 
-    v34 = [v13 instancesRespondToSelector:sel_setBacksideImage_];
-    v17 = objSetter;
-    if ((v34 & 1) == 0)
+    v36 = [v15 instancesRespondToSelector:sel_setBacksideImage_];
+    v19 = objSetter;
+    if ((v36 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  v18 = objc_opt_class();
-  if (v18)
-  {
-    v19 = v18;
-    class_addMethod(v18, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v19, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v20 = objc_opt_class();
   if (v20)
   {
     v21 = v20;
-    class_addMethod(v20, sel_time, floatGetter, "f@:");
-    class_addMethod(v21, sel_setTime_, floatSetter, "v@:f");
+    class_addMethod(v20, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v21, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   v22 = objc_opt_class();
   if (v22)
   {
     v23 = v22;
-    class_addMethod(v22, sel_angle, floatGetter, "f@:");
-    class_addMethod(v23, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v22, sel_time, floatGetter, "f@:");
+    class_addMethod(v23, sel_setTime_, floatSetter, "v@:f");
   }
 
   v24 = objc_opt_class();
   if (v24)
   {
     v25 = v24;
-    class_addMethod(v24, sel_radius, floatGetter, "f@:");
-    class_addMethod(v25, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v24, sel_angle, floatGetter, "f@:");
+    class_addMethod(v25, sel_setAngle_, floatSetter, "v@:f");
   }
 
   v26 = objc_opt_class();
   if (v26)
   {
     v27 = v26;
-    class_addMethod(v26, sel_shadowSize, floatGetter, "f@:");
-    class_addMethod(v27, sel_setShadowSize_, floatSetter, "v@:f");
+    class_addMethod(v26, sel_radius, floatGetter, "f@:");
+    class_addMethod(v27, sel_setRadius_, floatSetter, "v@:f");
   }
 
   v28 = objc_opt_class();
   if (v28)
   {
     v29 = v28;
-    class_addMethod(v28, sel_shadowAmount, floatGetter, "f@:");
-    class_addMethod(v29, sel_setShadowAmount_, floatSetter, "v@:f");
+    class_addMethod(v28, sel_shadowSize, floatGetter, "f@:");
+    class_addMethod(v29, sel_setShadowSize_, floatSetter, "v@:f");
+  }
+
+  v30 = objc_opt_class();
+  if (v30)
+  {
+    v31 = v30;
+    class_addMethod(v30, sel_shadowAmount, floatGetter, "f@:");
+    class_addMethod(v31, sel_setShadowAmount_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v31 = result;
+    v33 = result;
     class_addMethod(result, sel_shadowExtent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v31, sel_setShadowExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v33, sel_setShadowExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -7471,167 +7512,167 @@ LABEL_19:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__rippleTransitionFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__rippleTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v28 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v28 & 1) == 0)
+      v30 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v30 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v29 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v29 & 1) == 0)
+    v31 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v31 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_shadingImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_shadingImage];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_shadingImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_shadingImage];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_shadingImage, iiGetter, "@@:");
+      class_addMethod(v15, sel_shadingImage, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setShadingImage_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setShadingImage_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setShadingImage_, v17, "v@:@");
+      class_addMethod(v15, sel_setShadingImage_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_shadingImage, objGetter, "@@:");
+      class_addMethod(v15, sel_shadingImage, objGetter, "@@:");
     }
 
-    v30 = [v13 instancesRespondToSelector:sel_setShadingImage_];
-    v17 = objSetter;
-    if ((v30 & 1) == 0)
+    v32 = [v15 instancesRespondToSelector:sel_setShadingImage_];
+    v19 = objSetter;
+    if ((v32 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  v18 = objc_opt_class();
-  if (v18)
-  {
-    v19 = v18;
-    class_addMethod(v18, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v19, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v20 = objc_opt_class();
   if (v20)
   {
     v21 = v20;
-    class_addMethod(v20, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v21, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    class_addMethod(v20, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v21, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v22 = objc_opt_class();
   if (v22)
   {
     v23 = v22;
-    class_addMethod(v22, sel_time, floatGetter, "f@:");
-    class_addMethod(v23, sel_setTime_, floatSetter, "v@:f");
+    class_addMethod(v22, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v23, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   v24 = objc_opt_class();
   if (v24)
   {
     v25 = v24;
-    class_addMethod(v24, sel_width, floatGetter, "f@:");
-    class_addMethod(v25, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v24, sel_time, floatGetter, "f@:");
+    class_addMethod(v25, sel_setTime_, floatSetter, "v@:f");
+  }
+
+  v26 = objc_opt_class();
+  if (v26)
+  {
+    v27 = v26;
+    class_addMethod(v26, sel_width, floatGetter, "f@:");
+    class_addMethod(v27, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v27 = result;
+    v29 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v27, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v29, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -7653,164 +7694,164 @@ LABEL_19:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__swipeTransitionFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__swipeTransitionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v28 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v28 & 1) == 0)
+      v30 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v30 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_targetImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_targetImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_targetImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTargetImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTargetImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_targetImage, objGetter, "@@:");
+      class_addMethod(v9, sel_targetImage, objGetter, "@@:");
     }
 
-    v29 = [v7 instancesRespondToSelector:sel_setTargetImage_];
-    v11 = objSetter;
-    if ((v29 & 1) == 0)
+    v31 = [v9 instancesRespondToSelector:sel_setTargetImage_];
+    v13 = objSetter;
+    if ((v31 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v13, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    v16 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v17 = [v15 instancesRespondToSelector:sel_color];
-    if (v16)
+    class_addMethod(v14, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v15, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    v18 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v19 = [v17 instancesRespondToSelector:sel_color];
+    if (v18)
     {
-      if ((v17 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        class_addMethod(v15, sel_color, iiGetter, "@@:");
+        class_addMethod(v17, sel_color, iiGetter, "@@:");
       }
 
-      v18 = [v15 instancesRespondToSelector:sel_setColor_];
-      v19 = iiSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v17 instancesRespondToSelector:sel_setColor_];
+      v21 = iiSetter;
+      if ((v20 & 1) == 0)
       {
 LABEL_20:
-        class_addMethod(v15, sel_setColor_, v19, "v@:@");
+        class_addMethod(v17, sel_setColor_, v21, "v@:@");
       }
     }
 
     else
     {
-      if ((v17 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        class_addMethod(v15, sel_color, objGetter, "@@:");
+        class_addMethod(v17, sel_color, objGetter, "@@:");
       }
 
-      v30 = [v15 instancesRespondToSelector:sel_setColor_];
-      v19 = objSetter;
-      if ((v30 & 1) == 0)
+      v32 = [v17 instancesRespondToSelector:sel_setColor_];
+      v21 = objSetter;
+      if ((v32 & 1) == 0)
       {
         goto LABEL_20;
       }
     }
   }
 
-  v20 = objc_opt_class();
-  if (v20)
-  {
-    v21 = v20;
-    class_addMethod(v20, sel_time, floatGetter, "f@:");
-    class_addMethod(v21, sel_setTime_, floatSetter, "v@:f");
-  }
-
   v22 = objc_opt_class();
   if (v22)
   {
     v23 = v22;
-    class_addMethod(v22, sel_angle, floatGetter, "f@:");
-    class_addMethod(v23, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v22, sel_time, floatGetter, "f@:");
+    class_addMethod(v23, sel_setTime_, floatSetter, "v@:f");
   }
 
   v24 = objc_opt_class();
   if (v24)
   {
     v25 = v24;
-    class_addMethod(v24, sel_width, floatGetter, "f@:");
-    class_addMethod(v25, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v24, sel_angle, floatGetter, "f@:");
+    class_addMethod(v25, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v26 = objc_opt_class();
+  if (v26)
+  {
+    v27 = v26;
+    class_addMethod(v26, sel_width, floatGetter, "f@:");
+    class_addMethod(v27, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v27 = result;
+    v29 = result;
     class_addMethod(result, sel_opacity, floatGetter, "f@:");
 
-    return class_addMethod(v27, sel_setOpacity_, floatSetter, "v@:f");
+    return class_addMethod(v29, sel_setOpacity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -7832,40 +7873,40 @@ LABEL_20:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__additionCompositingFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__additionCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -7878,35 +7919,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -7932,40 +7973,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __42__CIFilter_Builtins__colorBlendModeFilter__block_invoke()
+uint64_t __42__CIFilter_Builtins__colorBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -7978,35 +8019,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8032,40 +8073,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__colorBurnBlendModeFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__colorBurnBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8078,35 +8119,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8132,40 +8173,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__colorDodgeBlendModeFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__colorDodgeBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8178,35 +8219,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8232,40 +8273,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __43__CIFilter_Builtins__darkenBlendModeFilter__block_invoke()
+uint64_t __43__CIFilter_Builtins__darkenBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8278,35 +8319,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8332,40 +8373,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__differenceBlendModeFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__differenceBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8378,35 +8419,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8432,40 +8473,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __43__CIFilter_Builtins__divideBlendModeFilter__block_invoke()
+uint64_t __43__CIFilter_Builtins__divideBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8478,35 +8519,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8532,40 +8573,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__exclusionBlendModeFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__exclusionBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8578,35 +8619,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8632,40 +8673,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__hardLightBlendModeFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__hardLightBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8678,35 +8719,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8732,40 +8773,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __40__CIFilter_Builtins__hueBlendModeFilter__block_invoke()
+uint64_t __40__CIFilter_Builtins__hueBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8778,35 +8819,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8832,40 +8873,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __44__CIFilter_Builtins__lightenBlendModeFilter__block_invoke()
+uint64_t __44__CIFilter_Builtins__lightenBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8878,35 +8919,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -8932,40 +8973,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__linearBurnBlendModeFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__linearBurnBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -8978,35 +9019,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9032,40 +9073,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __48__CIFilter_Builtins__linearDodgeBlendModeFilter__block_invoke()
+uint64_t __48__CIFilter_Builtins__linearDodgeBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9078,35 +9119,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9132,40 +9173,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __48__CIFilter_Builtins__linearLightBlendModeFilter__block_invoke()
+uint64_t __48__CIFilter_Builtins__linearLightBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9178,35 +9219,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9232,40 +9273,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__luminosityBlendModeFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__luminosityBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9278,35 +9319,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9332,40 +9373,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__maximumCompositingFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__maximumCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9378,35 +9419,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9432,40 +9473,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__minimumCompositingFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__minimumCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9478,35 +9519,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9532,40 +9573,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __45__CIFilter_Builtins__multiplyBlendModeFilter__block_invoke()
+uint64_t __45__CIFilter_Builtins__multiplyBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9578,35 +9619,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9632,40 +9673,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__multiplyCompositingFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__multiplyCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9678,35 +9719,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9732,40 +9773,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __44__CIFilter_Builtins__overlayBlendModeFilter__block_invoke()
+uint64_t __44__CIFilter_Builtins__overlayBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9778,35 +9819,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9832,40 +9873,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __45__CIFilter_Builtins__pinLightBlendModeFilter__block_invoke()
+uint64_t __45__CIFilter_Builtins__pinLightBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9878,35 +9919,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -9932,40 +9973,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__saturationBlendModeFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__saturationBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -9978,35 +10019,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10032,40 +10073,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __43__CIFilter_Builtins__screenBlendModeFilter__block_invoke()
+uint64_t __43__CIFilter_Builtins__screenBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10078,35 +10119,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10132,40 +10173,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__softLightBlendModeFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__softLightBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10178,35 +10219,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10232,40 +10273,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __49__CIFilter_Builtins__sourceAtopCompositingFilter__block_invoke()
+uint64_t __49__CIFilter_Builtins__sourceAtopCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10278,35 +10319,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10332,40 +10373,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__sourceInCompositingFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__sourceInCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10378,35 +10419,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10432,40 +10473,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __48__CIFilter_Builtins__sourceOutCompositingFilter__block_invoke()
+uint64_t __48__CIFilter_Builtins__sourceOutCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10478,35 +10519,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10532,40 +10573,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __49__CIFilter_Builtins__sourceOverCompositingFilter__block_invoke()
+uint64_t __49__CIFilter_Builtins__sourceOverCompositingFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10578,35 +10619,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10632,40 +10673,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __45__CIFilter_Builtins__subtractBlendModeFilter__block_invoke()
+uint64_t __45__CIFilter_Builtins__subtractBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10678,35 +10719,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10732,40 +10773,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __47__CIFilter_Builtins__vividLightBlendModeFilter__block_invoke()
+uint64_t __47__CIFilter_Builtins__vividLightBlendModeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10778,35 +10819,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setBackgroundImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setBackgroundImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10832,40 +10873,40 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __51__CIFilter_Builtins__colorAbsoluteDifferenceFilter__block_invoke()
+uint64_t __51__CIFilter_Builtins__colorAbsoluteDifferenceFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -10878,35 +10919,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_inputImage2) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_inputImage2];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_inputImage2) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_inputImage2];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_inputImage2, iiGetter, "@@:");
+      class_addMethod(v9, sel_inputImage2, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setImage2_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setImage2_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setImage2_, v10, "v@:@");
+      return class_addMethod(v9, sel_setImage2_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_inputImage2, objGetter, "@@:");
+      class_addMethod(v9, sel_inputImage2, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setImage2_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setImage2_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -10932,81 +10973,81 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __38__CIFilter_Builtins__colorClampFilter__block_invoke()
+uint64_t __38__CIFilter_Builtins__colorClampFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v17 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_minComponents) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_minComponents];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_minComponents) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_minComponents];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_minComponents, iiGetter, "@@:");
+      class_addMethod(v9, sel_minComponents, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setMinComponents_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setMinComponents_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setMinComponents_, v11, "v@:@");
+      class_addMethod(v9, sel_setMinComponents_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_minComponents, objGetter, "@@:");
+      class_addMethod(v9, sel_minComponents, objGetter, "@@:");
     }
 
-    v18 = [v7 instancesRespondToSelector:sel_setMinComponents_];
-    v11 = objSetter;
-    if ((v18 & 1) == 0)
+    v20 = [v9 instancesRespondToSelector:sel_setMinComponents_];
+    v13 = objSetter;
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -11019,35 +11060,35 @@ LABEL_13:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_maxComponents) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_maxComponents];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_maxComponents) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_maxComponents];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maxComponents, iiGetter, "@@:");
+      class_addMethod(v15, sel_maxComponents, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaxComponents_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaxComponents_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setMaxComponents_, v16, "v@:@");
+      return class_addMethod(v15, sel_setMaxComponents_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maxComponents, objGetter, "@@:");
+      class_addMethod(v15, sel_maxComponents, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaxComponents_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaxComponents_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -11073,69 +11114,69 @@ LABEL_18:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__colorControlsFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__colorControlsFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_saturation, floatGetter, "f@:");
-    class_addMethod(v7, sel_setSaturation_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_brightness, floatGetter, "f@:");
-    class_addMethod(v9, sel_setBrightness_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_saturation, floatGetter, "f@:");
+    class_addMethod(v9, sel_setSaturation_, floatSetter, "v@:f");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_brightness, floatGetter, "f@:");
+    class_addMethod(v11, sel_setBrightness_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_contrast, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setContrast_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setContrast_, floatSetter, "v@:f");
   }
 
   return result;
@@ -11157,204 +11198,204 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __39__CIFilter_Builtins__colorMatrixFilter__block_invoke()
+uint64_t __39__CIFilter_Builtins__colorMatrixFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v35 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v35 & 1) == 0)
+      v37 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v37 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_RVector) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_RVector];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_RVector) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_RVector];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_RVector, iiGetter, "@@:");
+      class_addMethod(v9, sel_RVector, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setRVector_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setRVector_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setRVector_, v11, "v@:@");
+      class_addMethod(v9, sel_setRVector_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_RVector, objGetter, "@@:");
+      class_addMethod(v9, sel_RVector, objGetter, "@@:");
     }
 
-    v36 = [v7 instancesRespondToSelector:sel_setRVector_];
-    v11 = objSetter;
-    if ((v36 & 1) == 0)
+    v38 = [v9 instancesRespondToSelector:sel_setRVector_];
+    v13 = objSetter;
+    if ((v38 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_GVector) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_GVector];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_GVector) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_GVector];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_GVector, iiGetter, "@@:");
+      class_addMethod(v15, sel_GVector, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setGVector_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setGVector_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setGVector_, v17, "v@:@");
+      class_addMethod(v15, sel_setGVector_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_GVector, objGetter, "@@:");
+      class_addMethod(v15, sel_GVector, objGetter, "@@:");
     }
 
-    v37 = [v13 instancesRespondToSelector:sel_setGVector_];
-    v17 = objSetter;
-    if ((v37 & 1) == 0)
+    v39 = [v15 instancesRespondToSelector:sel_setGVector_];
+    v19 = objSetter;
+    if ((v39 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  v18 = objc_opt_class();
-  if (!v18)
+  v20 = objc_opt_class();
+  if (!v20)
   {
     goto LABEL_25;
   }
 
-  v19 = v18;
-  v20 = [NSStringFromSelector(sel_BVector) isEqualToString:@"inputImage"];
-  v21 = [v19 instancesRespondToSelector:sel_BVector];
-  if (v20)
+  v21 = v20;
+  v22 = [NSStringFromSelector(sel_BVector) isEqualToString:@"inputImage"];
+  v23 = [v21 instancesRespondToSelector:sel_BVector];
+  if (v22)
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_BVector, iiGetter, "@@:");
+      class_addMethod(v21, sel_BVector, iiGetter, "@@:");
     }
 
-    v22 = [v19 instancesRespondToSelector:sel_setBVector_];
-    v23 = iiSetter;
-    if ((v22 & 1) == 0)
+    v24 = [v21 instancesRespondToSelector:sel_setBVector_];
+    v25 = iiSetter;
+    if ((v24 & 1) == 0)
     {
 LABEL_24:
-      class_addMethod(v19, sel_setBVector_, v23, "v@:@");
+      class_addMethod(v21, sel_setBVector_, v25, "v@:@");
     }
   }
 
   else
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_BVector, objGetter, "@@:");
+      class_addMethod(v21, sel_BVector, objGetter, "@@:");
     }
 
-    v38 = [v19 instancesRespondToSelector:sel_setBVector_];
-    v23 = objSetter;
-    if ((v38 & 1) == 0)
+    v40 = [v21 instancesRespondToSelector:sel_setBVector_];
+    v25 = objSetter;
+    if ((v40 & 1) == 0)
     {
       goto LABEL_24;
     }
   }
 
 LABEL_25:
-  v24 = objc_opt_class();
-  if (!v24)
+  v26 = objc_opt_class();
+  if (!v26)
   {
     goto LABEL_31;
   }
 
-  v25 = v24;
-  v26 = [NSStringFromSelector(sel_AVector) isEqualToString:@"inputImage"];
-  v27 = [v25 instancesRespondToSelector:sel_AVector];
-  if (v26)
+  v27 = v26;
+  v28 = [NSStringFromSelector(sel_AVector) isEqualToString:@"inputImage"];
+  v29 = [v27 instancesRespondToSelector:sel_AVector];
+  if (v28)
   {
-    if ((v27 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      class_addMethod(v25, sel_AVector, iiGetter, "@@:");
+      class_addMethod(v27, sel_AVector, iiGetter, "@@:");
     }
 
-    v28 = [v25 instancesRespondToSelector:sel_setAVector_];
-    v29 = iiSetter;
-    if ((v28 & 1) == 0)
+    v30 = [v27 instancesRespondToSelector:sel_setAVector_];
+    v31 = iiSetter;
+    if ((v30 & 1) == 0)
     {
 LABEL_30:
-      class_addMethod(v25, sel_setAVector_, v29, "v@:@");
+      class_addMethod(v27, sel_setAVector_, v31, "v@:@");
     }
   }
 
   else
   {
-    if ((v27 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      class_addMethod(v25, sel_AVector, objGetter, "@@:");
+      class_addMethod(v27, sel_AVector, objGetter, "@@:");
     }
 
-    v39 = [v25 instancesRespondToSelector:sel_setAVector_];
-    v29 = objSetter;
-    if ((v39 & 1) == 0)
+    v41 = [v27 instancesRespondToSelector:sel_setAVector_];
+    v31 = objSetter;
+    if ((v41 & 1) == 0)
     {
       goto LABEL_30;
     }
@@ -11367,35 +11408,35 @@ LABEL_31:
     return result;
   }
 
-  v31 = result;
-  v32 = [NSStringFromSelector(sel_biasVector) isEqualToString:@"inputImage"];
-  v33 = [v31 instancesRespondToSelector:sel_biasVector];
-  if (v32)
+  v33 = result;
+  v34 = [NSStringFromSelector(sel_biasVector) isEqualToString:@"inputImage"];
+  v35 = [v33 instancesRespondToSelector:sel_biasVector];
+  if (v34)
   {
-    if ((v33 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
-      class_addMethod(v31, sel_biasVector, iiGetter, "@@:");
+      class_addMethod(v33, sel_biasVector, iiGetter, "@@:");
     }
 
-    result = [v31 instancesRespondToSelector:sel_setBiasVector_];
-    v34 = iiSetter;
+    result = [v33 instancesRespondToSelector:sel_setBiasVector_];
+    v36 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_36:
 
-      return class_addMethod(v31, sel_setBiasVector_, v34, "v@:@");
+      return class_addMethod(v33, sel_setBiasVector_, v36, "v@:@");
     }
   }
 
   else
   {
-    if ((v33 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
-      class_addMethod(v31, sel_biasVector, objGetter, "@@:");
+      class_addMethod(v33, sel_biasVector, objGetter, "@@:");
     }
 
-    result = [v31 instancesRespondToSelector:sel_setBiasVector_];
-    v34 = objSetter;
+    result = [v33 instancesRespondToSelector:sel_setBiasVector_];
+    v36 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_36;
@@ -11421,163 +11462,163 @@ LABEL_36:
   return v2;
 }
 
-uint64_t __43__CIFilter_Builtins__colorPolynomialFilter__block_invoke()
+uint64_t __43__CIFilter_Builtins__colorPolynomialFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v29 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v29 & 1) == 0)
+      v31 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v31 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_redCoefficients) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_redCoefficients];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_redCoefficients) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_redCoefficients];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_redCoefficients, iiGetter, "@@:");
+      class_addMethod(v9, sel_redCoefficients, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setRedCoefficients_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setRedCoefficients_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setRedCoefficients_, v11, "v@:@");
+      class_addMethod(v9, sel_setRedCoefficients_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_redCoefficients, objGetter, "@@:");
+      class_addMethod(v9, sel_redCoefficients, objGetter, "@@:");
     }
 
-    v30 = [v7 instancesRespondToSelector:sel_setRedCoefficients_];
-    v11 = objSetter;
-    if ((v30 & 1) == 0)
+    v32 = [v9 instancesRespondToSelector:sel_setRedCoefficients_];
+    v13 = objSetter;
+    if ((v32 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_greenCoefficients) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_greenCoefficients];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_greenCoefficients) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_greenCoefficients];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_greenCoefficients, iiGetter, "@@:");
+      class_addMethod(v15, sel_greenCoefficients, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setGreenCoefficients_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setGreenCoefficients_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setGreenCoefficients_, v17, "v@:@");
+      class_addMethod(v15, sel_setGreenCoefficients_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_greenCoefficients, objGetter, "@@:");
+      class_addMethod(v15, sel_greenCoefficients, objGetter, "@@:");
     }
 
-    v31 = [v13 instancesRespondToSelector:sel_setGreenCoefficients_];
-    v17 = objSetter;
-    if ((v31 & 1) == 0)
+    v33 = [v15 instancesRespondToSelector:sel_setGreenCoefficients_];
+    v19 = objSetter;
+    if ((v33 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  v18 = objc_opt_class();
-  if (!v18)
+  v20 = objc_opt_class();
+  if (!v20)
   {
     goto LABEL_25;
   }
 
-  v19 = v18;
-  v20 = [NSStringFromSelector(sel_blueCoefficients) isEqualToString:@"inputImage"];
-  v21 = [v19 instancesRespondToSelector:sel_blueCoefficients];
-  if (v20)
+  v21 = v20;
+  v22 = [NSStringFromSelector(sel_blueCoefficients) isEqualToString:@"inputImage"];
+  v23 = [v21 instancesRespondToSelector:sel_blueCoefficients];
+  if (v22)
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_blueCoefficients, iiGetter, "@@:");
+      class_addMethod(v21, sel_blueCoefficients, iiGetter, "@@:");
     }
 
-    v22 = [v19 instancesRespondToSelector:sel_setBlueCoefficients_];
-    v23 = iiSetter;
-    if ((v22 & 1) == 0)
+    v24 = [v21 instancesRespondToSelector:sel_setBlueCoefficients_];
+    v25 = iiSetter;
+    if ((v24 & 1) == 0)
     {
 LABEL_24:
-      class_addMethod(v19, sel_setBlueCoefficients_, v23, "v@:@");
+      class_addMethod(v21, sel_setBlueCoefficients_, v25, "v@:@");
     }
   }
 
   else
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_blueCoefficients, objGetter, "@@:");
+      class_addMethod(v21, sel_blueCoefficients, objGetter, "@@:");
     }
 
-    v32 = [v19 instancesRespondToSelector:sel_setBlueCoefficients_];
-    v23 = objSetter;
-    if ((v32 & 1) == 0)
+    v34 = [v21 instancesRespondToSelector:sel_setBlueCoefficients_];
+    v25 = objSetter;
+    if ((v34 & 1) == 0)
     {
       goto LABEL_24;
     }
@@ -11590,35 +11631,35 @@ LABEL_25:
     return result;
   }
 
-  v25 = result;
-  v26 = [NSStringFromSelector(sel_alphaCoefficients) isEqualToString:@"inputImage"];
-  v27 = [v25 instancesRespondToSelector:sel_alphaCoefficients];
-  if (v26)
+  v27 = result;
+  v28 = [NSStringFromSelector(sel_alphaCoefficients) isEqualToString:@"inputImage"];
+  v29 = [v27 instancesRespondToSelector:sel_alphaCoefficients];
+  if (v28)
   {
-    if ((v27 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      class_addMethod(v25, sel_alphaCoefficients, iiGetter, "@@:");
+      class_addMethod(v27, sel_alphaCoefficients, iiGetter, "@@:");
     }
 
-    result = [v25 instancesRespondToSelector:sel_setAlphaCoefficients_];
-    v28 = iiSetter;
+    result = [v27 instancesRespondToSelector:sel_setAlphaCoefficients_];
+    v30 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_30:
 
-      return class_addMethod(v25, sel_setAlphaCoefficients_, v28, "v@:@");
+      return class_addMethod(v27, sel_setAlphaCoefficients_, v30, "v@:@");
     }
   }
 
   else
   {
-    if ((v27 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      class_addMethod(v25, sel_alphaCoefficients, objGetter, "@@:");
+      class_addMethod(v27, sel_alphaCoefficients, objGetter, "@@:");
     }
 
-    result = [v25 instancesRespondToSelector:sel_setAlphaCoefficients_];
-    v28 = objSetter;
+    result = [v27 instancesRespondToSelector:sel_setAlphaCoefficients_];
+    v30 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_30;
@@ -11644,40 +11685,40 @@ LABEL_30:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__colorThresholdFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__colorThresholdFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -11687,10 +11728,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_threshold, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setThreshold_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setThreshold_, floatSetter, "v@:f");
   }
 
   return result;
@@ -11712,40 +11753,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__exposureAdjustFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__exposureAdjustFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -11755,10 +11796,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_EV, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setEV_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setEV_, floatSetter, "v@:f");
   }
 
   return result;
@@ -11780,40 +11821,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__gammaAdjustFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__gammaAdjustFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -11823,10 +11864,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_power, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setPower_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setPower_, floatSetter, "v@:f");
   }
 
   return result;
@@ -11848,40 +11889,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__hueAdjustFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__hueAdjustFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -11891,10 +11932,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_angle, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setAngle_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
   }
 
   return result;
@@ -11916,86 +11957,86 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __41__CIFilter_Builtins__systemToneMapFilter__block_invoke()
+uint64_t __41__CIFilter_Builtins__systemToneMapFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v13 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v13 & 1) == 0)
+      v15 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v15 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_displayHeadroom, floatGetter, "f@:");
-    class_addMethod(v7, sel_setDisplayHeadroom_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_displayHeadroom, floatGetter, "f@:");
+    class_addMethod(v9, sel_setDisplayHeadroom_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
-    v10 = [NSStringFromSelector(sel_preferredDynamicRange) isEqualToString:@"inputImage"];
-    v11 = [v9 instancesRespondToSelector:sel_preferredDynamicRange];
-    if (v10)
+    v11 = result;
+    v12 = [NSStringFromSelector(sel_preferredDynamicRange) isEqualToString:@"inputImage"];
+    v13 = [v11 instancesRespondToSelector:sel_preferredDynamicRange];
+    if (v12)
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_preferredDynamicRange, iiGetter, "@@:");
+        class_addMethod(v11, sel_preferredDynamicRange, iiGetter, "@@:");
       }
 
-      result = [v9 instancesRespondToSelector:sel_setPreferredDynamicRange_];
-      v12 = iiSetter;
+      result = [v11 instancesRespondToSelector:sel_setPreferredDynamicRange_];
+      v14 = iiSetter;
       if ((result & 1) == 0)
       {
 LABEL_14:
 
-        return class_addMethod(v9, sel_setPreferredDynamicRange_, v12, "v@:@");
+        return class_addMethod(v11, sel_setPreferredDynamicRange_, v14, "v@:@");
       }
     }
 
     else
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_preferredDynamicRange, objGetter, "@@:");
+        class_addMethod(v11, sel_preferredDynamicRange, objGetter, "@@:");
       }
 
-      result = [v9 instancesRespondToSelector:sel_setPreferredDynamicRange_];
-      v12 = objSetter;
+      result = [v11 instancesRespondToSelector:sel_setPreferredDynamicRange_];
+      v14 = objSetter;
       if ((result & 1) == 0)
       {
         goto LABEL_14;
@@ -12022,81 +12063,81 @@ LABEL_14:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__temperatureAndTintFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__temperatureAndTintFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v17 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_neutral) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_neutral];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_neutral) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_neutral];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_neutral, iiGetter, "@@:");
+      class_addMethod(v9, sel_neutral, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setNeutral_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setNeutral_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setNeutral_, v11, "v@:@");
+      class_addMethod(v9, sel_setNeutral_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_neutral, objGetter, "@@:");
+      class_addMethod(v9, sel_neutral, objGetter, "@@:");
     }
 
-    v18 = [v7 instancesRespondToSelector:sel_setNeutral_];
-    v11 = objSetter;
-    if ((v18 & 1) == 0)
+    v20 = [v9 instancesRespondToSelector:sel_setNeutral_];
+    v13 = objSetter;
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -12109,35 +12150,35 @@ LABEL_13:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_targetNeutral) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_targetNeutral];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_targetNeutral) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_targetNeutral];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_targetNeutral, iiGetter, "@@:");
+      class_addMethod(v15, sel_targetNeutral, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setTargetNeutral_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setTargetNeutral_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setTargetNeutral_, v16, "v@:@");
+      return class_addMethod(v15, sel_setTargetNeutral_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_targetNeutral, objGetter, "@@:");
+      class_addMethod(v15, sel_targetNeutral, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setTargetNeutral_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setTargetNeutral_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -12163,93 +12204,93 @@ LABEL_18:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__toneCurveFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__toneCurveFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v18 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v20 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_point0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_point1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_point0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_point2, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setPoint2_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v10, sel_point1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_point3, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setPoint3_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v12, sel_point2, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setPoint2_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_point4, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v15, sel_setPoint4_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v14, sel_point3, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setPoint3_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_point4, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v17, sel_setPoint4_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v17 = result;
+    v19 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v17, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v19, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -12271,61 +12312,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__toneMapHeadroomFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__toneMapHeadroomFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_sourceHeadroom, floatGetter, "f@:");
-    class_addMethod(v7, sel_setSourceHeadroom_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_sourceHeadroom, floatGetter, "f@:");
+    class_addMethod(v9, sel_setSourceHeadroom_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_targetHeadroom, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setTargetHeadroom_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setTargetHeadroom_, floatSetter, "v@:f");
   }
 
   return result;
@@ -12347,40 +12388,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__36__CIFilter_Builtins__vibranceFilter__block_invoke()
+objc_class *__36__CIFilter_Builtins__vibranceFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -12390,10 +12431,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_amount, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setAmount_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setAmount_, floatSetter, "v@:f");
   }
 
   return result;
@@ -12415,40 +12456,40 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __44__CIFilter_Builtins__whitePointAdjustFilter__block_invoke()
+uint64_t __44__CIFilter_Builtins__whitePointAdjustFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -12461,35 +12502,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_color];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_color];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_color, iiGetter, "@@:");
+      class_addMethod(v9, sel_color, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setColor_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setColor_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setColor_, v10, "v@:@");
+      return class_addMethod(v9, sel_setColor_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_color, objGetter, "@@:");
+      class_addMethod(v9, sel_color, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setColor_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setColor_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -12515,122 +12556,122 @@ LABEL_12:
   return v2;
 }
 
-uint64_t __48__CIFilter_Builtins__colorCrossPolynomialFilter__block_invoke()
+uint64_t __48__CIFilter_Builtins__colorCrossPolynomialFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v23 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v23 & 1) == 0)
+      v25 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v25 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_redCoefficients) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_redCoefficients];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_redCoefficients) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_redCoefficients];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_redCoefficients, iiGetter, "@@:");
+      class_addMethod(v9, sel_redCoefficients, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setRedCoefficients_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setRedCoefficients_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setRedCoefficients_, v11, "v@:@");
+      class_addMethod(v9, sel_setRedCoefficients_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_redCoefficients, objGetter, "@@:");
+      class_addMethod(v9, sel_redCoefficients, objGetter, "@@:");
     }
 
-    v24 = [v7 instancesRespondToSelector:sel_setRedCoefficients_];
-    v11 = objSetter;
-    if ((v24 & 1) == 0)
+    v26 = [v9 instancesRespondToSelector:sel_setRedCoefficients_];
+    v13 = objSetter;
+    if ((v26 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_greenCoefficients) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_greenCoefficients];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_greenCoefficients) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_greenCoefficients];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_greenCoefficients, iiGetter, "@@:");
+      class_addMethod(v15, sel_greenCoefficients, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setGreenCoefficients_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setGreenCoefficients_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setGreenCoefficients_, v17, "v@:@");
+      class_addMethod(v15, sel_setGreenCoefficients_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_greenCoefficients, objGetter, "@@:");
+      class_addMethod(v15, sel_greenCoefficients, objGetter, "@@:");
     }
 
-    v25 = [v13 instancesRespondToSelector:sel_setGreenCoefficients_];
-    v17 = objSetter;
-    if ((v25 & 1) == 0)
+    v27 = [v15 instancesRespondToSelector:sel_setGreenCoefficients_];
+    v19 = objSetter;
+    if ((v27 & 1) == 0)
     {
       goto LABEL_18;
     }
@@ -12643,35 +12684,35 @@ LABEL_19:
     return result;
   }
 
-  v19 = result;
-  v20 = [NSStringFromSelector(sel_blueCoefficients) isEqualToString:@"inputImage"];
-  v21 = [v19 instancesRespondToSelector:sel_blueCoefficients];
-  if (v20)
+  v21 = result;
+  v22 = [NSStringFromSelector(sel_blueCoefficients) isEqualToString:@"inputImage"];
+  v23 = [v21 instancesRespondToSelector:sel_blueCoefficients];
+  if (v22)
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_blueCoefficients, iiGetter, "@@:");
+      class_addMethod(v21, sel_blueCoefficients, iiGetter, "@@:");
     }
 
-    result = [v19 instancesRespondToSelector:sel_setBlueCoefficients_];
-    v22 = iiSetter;
+    result = [v21 instancesRespondToSelector:sel_setBlueCoefficients_];
+    v24 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_24:
 
-      return class_addMethod(v19, sel_setBlueCoefficients_, v22, "v@:@");
+      return class_addMethod(v21, sel_setBlueCoefficients_, v24, "v@:@");
     }
   }
 
   else
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_blueCoefficients, objGetter, "@@:");
+      class_addMethod(v21, sel_blueCoefficients, objGetter, "@@:");
     }
 
-    result = [v19 instancesRespondToSelector:sel_setBlueCoefficients_];
-    v22 = objSetter;
+    result = [v21 instancesRespondToSelector:sel_setBlueCoefficients_];
+    v24 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_24;
@@ -12697,86 +12738,86 @@ LABEL_24:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__colorCubeFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__colorCubeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_cubeDimension, floatGetter, "f@:");
-    class_addMethod(v7, sel_setCubeDimension_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    v10 = [NSStringFromSelector(sel_cubeData) isEqualToString:@"inputImage"];
-    v11 = [v9 instancesRespondToSelector:sel_cubeData];
-    if (v10)
+    class_addMethod(v8, sel_cubeDimension, floatGetter, "f@:");
+    class_addMethod(v9, sel_setCubeDimension_, floatSetter, "v@:f");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    v12 = [NSStringFromSelector(sel_cubeData) isEqualToString:@"inputImage"];
+    v13 = [v11 instancesRespondToSelector:sel_cubeData];
+    if (v12)
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_cubeData, iiGetter, "@@:");
+        class_addMethod(v11, sel_cubeData, iiGetter, "@@:");
       }
 
-      v12 = [v9 instancesRespondToSelector:sel_setCubeData_];
-      v13 = iiSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v11 instancesRespondToSelector:sel_setCubeData_];
+      v15 = iiSetter;
+      if ((v14 & 1) == 0)
       {
 LABEL_14:
-        class_addMethod(v9, sel_setCubeData_, v13, "v@:@");
+        class_addMethod(v11, sel_setCubeData_, v15, "v@:@");
       }
     }
 
     else
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_cubeData, objGetter, "@@:");
+        class_addMethod(v11, sel_cubeData, objGetter, "@@:");
       }
 
-      v17 = [v9 instancesRespondToSelector:sel_setCubeData_];
-      v13 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v11 instancesRespondToSelector:sel_setCubeData_];
+      v15 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_14;
       }
@@ -12786,10 +12827,10 @@ LABEL_14:
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v15, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v17, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -12811,209 +12852,209 @@ LABEL_14:
   return v2;
 }
 
-objc_class *__51__CIFilter_Builtins__colorCubesMixedWithMaskFilter__block_invoke()
+objc_class *__51__CIFilter_Builtins__colorCubesMixedWithMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v34 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v34 & 1) == 0)
+      v36 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v36 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_maskImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_maskImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_maskImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_maskImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setMaskImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setMaskImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setMaskImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setMaskImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_maskImage, objGetter, "@@:");
+      class_addMethod(v9, sel_maskImage, objGetter, "@@:");
     }
 
-    v35 = [v7 instancesRespondToSelector:sel_setMaskImage_];
-    v11 = objSetter;
-    if ((v35 & 1) == 0)
+    v37 = [v9 instancesRespondToSelector:sel_setMaskImage_];
+    v13 = objSetter;
+    if ((v37 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_cubeDimension, floatGetter, "f@:");
-    class_addMethod(v13, sel_setCubeDimension_, floatSetter, "v@:f");
-  }
-
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    v16 = [NSStringFromSelector(sel_cube0Data) isEqualToString:@"inputImage"];
-    v17 = [v15 instancesRespondToSelector:sel_cube0Data];
-    if (v16)
+    class_addMethod(v14, sel_cubeDimension, floatGetter, "f@:");
+    class_addMethod(v15, sel_setCubeDimension_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    v18 = [NSStringFromSelector(sel_cube0Data) isEqualToString:@"inputImage"];
+    v19 = [v17 instancesRespondToSelector:sel_cube0Data];
+    if (v18)
     {
-      if ((v17 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        class_addMethod(v15, sel_cube0Data, iiGetter, "@@:");
+        class_addMethod(v17, sel_cube0Data, iiGetter, "@@:");
       }
 
-      v18 = [v15 instancesRespondToSelector:sel_setCube0Data_];
-      v19 = iiSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v17 instancesRespondToSelector:sel_setCube0Data_];
+      v21 = iiSetter;
+      if ((v20 & 1) == 0)
       {
 LABEL_20:
-        class_addMethod(v15, sel_setCube0Data_, v19, "v@:@");
+        class_addMethod(v17, sel_setCube0Data_, v21, "v@:@");
       }
     }
 
     else
     {
-      if ((v17 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        class_addMethod(v15, sel_cube0Data, objGetter, "@@:");
+        class_addMethod(v17, sel_cube0Data, objGetter, "@@:");
       }
 
-      v36 = [v15 instancesRespondToSelector:sel_setCube0Data_];
-      v19 = objSetter;
-      if ((v36 & 1) == 0)
+      v38 = [v17 instancesRespondToSelector:sel_setCube0Data_];
+      v21 = objSetter;
+      if ((v38 & 1) == 0)
       {
         goto LABEL_20;
       }
     }
   }
 
-  v20 = objc_opt_class();
-  if (!v20)
+  v22 = objc_opt_class();
+  if (!v22)
   {
     goto LABEL_27;
   }
 
-  v21 = v20;
-  v22 = [NSStringFromSelector(sel_cube1Data) isEqualToString:@"inputImage"];
-  v23 = [v21 instancesRespondToSelector:sel_cube1Data];
-  if (v22)
+  v23 = v22;
+  v24 = [NSStringFromSelector(sel_cube1Data) isEqualToString:@"inputImage"];
+  v25 = [v23 instancesRespondToSelector:sel_cube1Data];
+  if (v24)
   {
-    if ((v23 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
-      class_addMethod(v21, sel_cube1Data, iiGetter, "@@:");
+      class_addMethod(v23, sel_cube1Data, iiGetter, "@@:");
     }
 
-    v24 = [v21 instancesRespondToSelector:sel_setCube1Data_];
-    v25 = iiSetter;
-    if ((v24 & 1) == 0)
+    v26 = [v23 instancesRespondToSelector:sel_setCube1Data_];
+    v27 = iiSetter;
+    if ((v26 & 1) == 0)
     {
 LABEL_26:
-      class_addMethod(v21, sel_setCube1Data_, v25, "v@:@");
+      class_addMethod(v23, sel_setCube1Data_, v27, "v@:@");
     }
   }
 
   else
   {
-    if ((v23 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
-      class_addMethod(v21, sel_cube1Data, objGetter, "@@:");
+      class_addMethod(v23, sel_cube1Data, objGetter, "@@:");
     }
 
-    v37 = [v21 instancesRespondToSelector:sel_setCube1Data_];
-    v25 = objSetter;
-    if ((v37 & 1) == 0)
+    v39 = [v23 instancesRespondToSelector:sel_setCube1Data_];
+    v27 = objSetter;
+    if ((v39 & 1) == 0)
     {
       goto LABEL_26;
     }
   }
 
 LABEL_27:
-  v26 = objc_opt_class();
-  if (!v26)
+  v28 = objc_opt_class();
+  if (!v28)
   {
     goto LABEL_33;
   }
 
-  v27 = v26;
-  v28 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
-  v29 = [v27 instancesRespondToSelector:sel_colorSpace];
-  if (v28)
+  v29 = v28;
+  v30 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
+  v31 = [v29 instancesRespondToSelector:sel_colorSpace];
+  if (v30)
   {
-    if ((v29 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
-      class_addMethod(v27, sel_colorSpace, iiGetter, "@@:");
+      class_addMethod(v29, sel_colorSpace, iiGetter, "@@:");
     }
 
-    v30 = [v27 instancesRespondToSelector:sel_setColorSpace_];
-    v31 = iiSetter;
-    if ((v30 & 1) == 0)
+    v32 = [v29 instancesRespondToSelector:sel_setColorSpace_];
+    v33 = iiSetter;
+    if ((v32 & 1) == 0)
     {
 LABEL_32:
-      class_addMethod(v27, sel_setColorSpace_, v31, "v@:@");
+      class_addMethod(v29, sel_setColorSpace_, v33, "v@:@");
     }
   }
 
   else
   {
-    if ((v29 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
-      class_addMethod(v27, sel_colorSpace, objGetter, "@@:");
+      class_addMethod(v29, sel_colorSpace, objGetter, "@@:");
     }
 
-    v38 = [v27 instancesRespondToSelector:sel_setColorSpace_];
-    v31 = objSetter;
-    if ((v38 & 1) == 0)
+    v40 = [v29 instancesRespondToSelector:sel_setColorSpace_];
+    v33 = objSetter;
+    if ((v40 & 1) == 0)
     {
       goto LABEL_32;
     }
@@ -13023,10 +13064,10 @@ LABEL_33:
   result = objc_opt_class();
   if (result)
   {
-    v33 = result;
+    v35 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v33, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v35, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -13048,132 +13089,132 @@ LABEL_33:
   return v2;
 }
 
-uint64_t __51__CIFilter_Builtins__colorCubeWithColorSpaceFilter__block_invoke()
+uint64_t __51__CIFilter_Builtins__colorCubeWithColorSpaceFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v21 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v21 & 1) == 0)
+      v23 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v23 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_cubeDimension, floatGetter, "f@:");
-    class_addMethod(v7, sel_setCubeDimension_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    v10 = [NSStringFromSelector(sel_cubeData) isEqualToString:@"inputImage"];
-    v11 = [v9 instancesRespondToSelector:sel_cubeData];
-    if (v10)
+    class_addMethod(v8, sel_cubeDimension, floatGetter, "f@:");
+    class_addMethod(v9, sel_setCubeDimension_, floatSetter, "v@:f");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    v12 = [NSStringFromSelector(sel_cubeData) isEqualToString:@"inputImage"];
+    v13 = [v11 instancesRespondToSelector:sel_cubeData];
+    if (v12)
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_cubeData, iiGetter, "@@:");
+        class_addMethod(v11, sel_cubeData, iiGetter, "@@:");
       }
 
-      v12 = [v9 instancesRespondToSelector:sel_setCubeData_];
-      v13 = iiSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v11 instancesRespondToSelector:sel_setCubeData_];
+      v15 = iiSetter;
+      if ((v14 & 1) == 0)
       {
 LABEL_14:
-        class_addMethod(v9, sel_setCubeData_, v13, "v@:@");
+        class_addMethod(v11, sel_setCubeData_, v15, "v@:@");
       }
     }
 
     else
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_cubeData, objGetter, "@@:");
+        class_addMethod(v11, sel_cubeData, objGetter, "@@:");
       }
 
-      v22 = [v9 instancesRespondToSelector:sel_setCubeData_];
-      v13 = objSetter;
-      if ((v22 & 1) == 0)
+      v24 = [v11 instancesRespondToSelector:sel_setCubeData_];
+      v15 = objSetter;
+      if ((v24 & 1) == 0)
       {
         goto LABEL_14;
       }
     }
   }
 
-  v14 = objc_opt_class();
-  if (v14)
+  v16 = objc_opt_class();
+  if (v16)
   {
-    v15 = v14;
-    class_addMethod(v14, sel_extrapolate, BOOLGetter, "B@:");
-    class_addMethod(v15, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    v17 = v16;
+    class_addMethod(v16, sel_extrapolate, BOOLGetter, "B@:");
+    class_addMethod(v17, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v17 = result;
-    v18 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
-    v19 = [v17 instancesRespondToSelector:sel_colorSpace];
-    if (v18)
+    v19 = result;
+    v20 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
+    v21 = [v19 instancesRespondToSelector:sel_colorSpace];
+    if (v20)
     {
-      if ((v19 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
-        class_addMethod(v17, sel_colorSpace, iiGetter, "@@:");
+        class_addMethod(v19, sel_colorSpace, iiGetter, "@@:");
       }
 
-      result = [v17 instancesRespondToSelector:sel_setColorSpace_];
-      v20 = iiSetter;
+      result = [v19 instancesRespondToSelector:sel_setColorSpace_];
+      v22 = iiSetter;
       if ((result & 1) == 0)
       {
 LABEL_22:
 
-        return class_addMethod(v17, sel_setColorSpace_, v20, "v@:@");
+        return class_addMethod(v19, sel_setColorSpace_, v22, "v@:@");
       }
     }
 
     else
     {
-      if ((v19 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
-        class_addMethod(v17, sel_colorSpace, objGetter, "@@:");
+        class_addMethod(v19, sel_colorSpace, objGetter, "@@:");
       }
 
-      result = [v17 instancesRespondToSelector:sel_setColorSpace_];
-      v20 = objSetter;
+      result = [v19 instancesRespondToSelector:sel_setColorSpace_];
+      v22 = objSetter;
       if ((result & 1) == 0)
       {
         goto LABEL_22;
@@ -13200,122 +13241,122 @@ LABEL_22:
   return v2;
 }
 
-uint64_t __39__CIFilter_Builtins__colorCurvesFilter__block_invoke()
+uint64_t __39__CIFilter_Builtins__colorCurvesFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v23 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v23 & 1) == 0)
+      v25 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v25 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_curvesData) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_curvesData];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_curvesData) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_curvesData];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_curvesData, iiGetter, "@@:");
+      class_addMethod(v9, sel_curvesData, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setCurvesData_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setCurvesData_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setCurvesData_, v11, "v@:@");
+      class_addMethod(v9, sel_setCurvesData_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_curvesData, objGetter, "@@:");
+      class_addMethod(v9, sel_curvesData, objGetter, "@@:");
     }
 
-    v24 = [v7 instancesRespondToSelector:sel_setCurvesData_];
-    v11 = objSetter;
-    if ((v24 & 1) == 0)
+    v26 = [v9 instancesRespondToSelector:sel_setCurvesData_];
+    v13 = objSetter;
+    if ((v26 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_curvesDomain) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_curvesDomain];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_curvesDomain) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_curvesDomain];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_curvesDomain, iiGetter, "@@:");
+      class_addMethod(v15, sel_curvesDomain, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setCurvesDomain_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setCurvesDomain_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setCurvesDomain_, v17, "v@:@");
+      class_addMethod(v15, sel_setCurvesDomain_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_curvesDomain, objGetter, "@@:");
+      class_addMethod(v15, sel_curvesDomain, objGetter, "@@:");
     }
 
-    v25 = [v13 instancesRespondToSelector:sel_setCurvesDomain_];
-    v17 = objSetter;
-    if ((v25 & 1) == 0)
+    v27 = [v15 instancesRespondToSelector:sel_setCurvesDomain_];
+    v19 = objSetter;
+    if ((v27 & 1) == 0)
     {
       goto LABEL_18;
     }
@@ -13328,35 +13369,35 @@ LABEL_19:
     return result;
   }
 
-  v19 = result;
-  v20 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
-  v21 = [v19 instancesRespondToSelector:sel_colorSpace];
-  if (v20)
+  v21 = result;
+  v22 = [NSStringFromSelector(sel_colorSpace) isEqualToString:@"inputImage"];
+  v23 = [v21 instancesRespondToSelector:sel_colorSpace];
+  if (v22)
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_colorSpace, iiGetter, "@@:");
+      class_addMethod(v21, sel_colorSpace, iiGetter, "@@:");
     }
 
-    result = [v19 instancesRespondToSelector:sel_setColorSpace_];
-    v22 = iiSetter;
+    result = [v21 instancesRespondToSelector:sel_setColorSpace_];
+    v24 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_24:
 
-      return class_addMethod(v19, sel_setColorSpace_, v22, "v@:@");
+      return class_addMethod(v21, sel_setColorSpace_, v24, "v@:@");
     }
   }
 
   else
   {
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      class_addMethod(v19, sel_colorSpace, objGetter, "@@:");
+      class_addMethod(v21, sel_colorSpace, objGetter, "@@:");
     }
 
-    result = [v19 instancesRespondToSelector:sel_setColorSpace_];
-    v22 = objSetter;
+    result = [v21 instancesRespondToSelector:sel_setColorSpace_];
+    v24 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_24;
@@ -13382,40 +13423,40 @@ LABEL_24:
   return v2;
 }
 
-uint64_t __36__CIFilter_Builtins__colorMapFilter__block_invoke()
+uint64_t __36__CIFilter_Builtins__colorMapFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -13428,35 +13469,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_gradientImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_gradientImage];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_gradientImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_gradientImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_gradientImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_gradientImage, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setGradientImage_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setGradientImage_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setGradientImage_, v10, "v@:@");
+      return class_addMethod(v9, sel_setGradientImage_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_gradientImage, objGetter, "@@:");
+      class_addMethod(v9, sel_gradientImage, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setGradientImage_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setGradientImage_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -13482,81 +13523,81 @@ LABEL_12:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__colorMonochromeFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__colorMonochromeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_color];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_color];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_color, iiGetter, "@@:");
+      class_addMethod(v9, sel_color, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setColor_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setColor_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setColor_, v11, "v@:@");
+      class_addMethod(v9, sel_setColor_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_color, objGetter, "@@:");
+      class_addMethod(v9, sel_color, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setColor_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setColor_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -13566,10 +13607,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_intensity, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setIntensity_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -13591,40 +13632,40 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__colorPosterizeFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__colorPosterizeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -13634,10 +13675,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_levels, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setLevels_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setLevels_, floatSetter, "v@:f");
   }
 
   return result;
@@ -13659,40 +13700,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__convertLabToRGBFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__convertLabToRGBFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -13702,10 +13743,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_normalize, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setNormalize_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setNormalize_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -13727,40 +13768,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__convertRGBtoLabFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__convertRGBtoLabFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -13770,10 +13811,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_normalize, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setNormalize_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setNormalize_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -13795,40 +13836,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__34__CIFilter_Builtins__ditherFilter__block_invoke()
+objc_class *__34__CIFilter_Builtins__ditherFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -13838,10 +13879,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_intensity, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setIntensity_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -13863,40 +13904,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__documentEnhancerFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__documentEnhancerFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -13906,10 +13947,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_amount, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setAmount_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setAmount_, floatSetter, "v@:f");
   }
 
   return result;
@@ -13931,81 +13972,81 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __38__CIFilter_Builtins__falseColorFilter__block_invoke()
+uint64_t __38__CIFilter_Builtins__falseColorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v17 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_color0];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_color0];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_color0, iiGetter, "@@:");
+      class_addMethod(v9, sel_color0, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setColor0_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setColor0_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setColor0_, v11, "v@:@");
+      class_addMethod(v9, sel_setColor0_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_color0, objGetter, "@@:");
+      class_addMethod(v9, sel_color0, objGetter, "@@:");
     }
 
-    v18 = [v7 instancesRespondToSelector:sel_setColor0_];
-    v11 = objSetter;
-    if ((v18 & 1) == 0)
+    v20 = [v9 instancesRespondToSelector:sel_setColor0_];
+    v13 = objSetter;
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -14018,35 +14059,35 @@ LABEL_13:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_color1];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_color1];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_color1, iiGetter, "@@:");
+      class_addMethod(v15, sel_color1, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setColor1_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setColor1_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setColor1_, v16, "v@:@");
+      return class_addMethod(v15, sel_setColor1_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_color1, objGetter, "@@:");
+      class_addMethod(v15, sel_color1, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setColor1_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setColor1_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -14072,40 +14113,40 @@ LABEL_18:
   return v2;
 }
 
-uint64_t __31__CIFilter_Builtins__LabDeltaE__block_invoke()
+uint64_t __31__CIFilter_Builtins__LabDeltaE__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v11 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
+      v13 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14118,35 +14159,35 @@ LABEL_6:
     return result;
   }
 
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_image2) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_image2];
-  if (v8)
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_image2) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_image2];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_image2, iiGetter, "@@:");
+      class_addMethod(v9, sel_image2, iiGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setImage2_];
-    v10 = iiSetter;
+    result = [v9 instancesRespondToSelector:sel_setImage2_];
+    v12 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_12:
 
-      return class_addMethod(v7, sel_setImage2_, v10, "v@:@");
+      return class_addMethod(v9, sel_setImage2_, v12, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_image2, objGetter, "@@:");
+      class_addMethod(v9, sel_image2, objGetter, "@@:");
     }
 
-    result = [v7 instancesRespondToSelector:sel_setImage2_];
-    v10 = objSetter;
+    result = [v9 instancesRespondToSelector:sel_setImage2_];
+    v12 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_12;
@@ -14172,81 +14213,81 @@ LABEL_12:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__paletteCentroidFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__paletteCentroidFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_paletteImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_paletteImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_paletteImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_paletteImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_paletteImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_paletteImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setPaletteImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setPaletteImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setPaletteImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setPaletteImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_paletteImage, objGetter, "@@:");
+      class_addMethod(v9, sel_paletteImage, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setPaletteImage_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setPaletteImage_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -14256,10 +14297,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_perceptual, BOOLGetter, "B@:");
 
-    return class_addMethod(v13, sel_setPerceptual_, BOOLSetter, "v@:B}");
+    return class_addMethod(v15, sel_setPerceptual_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14281,81 +14322,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__palettizeFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__palettizeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_paletteImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_paletteImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_paletteImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_paletteImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_paletteImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_paletteImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setPaletteImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setPaletteImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setPaletteImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setPaletteImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_paletteImage, objGetter, "@@:");
+      class_addMethod(v9, sel_paletteImage, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setPaletteImage_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setPaletteImage_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -14365,10 +14406,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_perceptual, BOOLGetter, "B@:");
 
-    return class_addMethod(v13, sel_setPerceptual_, BOOLSetter, "v@:B}");
+    return class_addMethod(v15, sel_setPerceptual_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14390,40 +14431,40 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__photoEffectChromeFilter__block_invoke()
+objc_class *__45__CIFilter_Builtins__photoEffectChromeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14433,10 +14474,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14458,40 +14499,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__photoEffectFadeFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__photoEffectFadeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14501,10 +14542,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14526,40 +14567,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__photoEffectInstantFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__photoEffectInstantFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14569,10 +14610,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14594,40 +14635,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__photoEffectMonoFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__photoEffectMonoFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14637,10 +14678,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14662,40 +14703,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__photoEffectNoirFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__photoEffectNoirFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14705,10 +14746,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14730,40 +14771,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__photoEffectProcessFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__photoEffectProcessFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14773,10 +14814,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14798,40 +14839,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__photoEffectTonalFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__photoEffectTonalFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14841,10 +14882,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14866,40 +14907,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__47__CIFilter_Builtins__photoEffectTransferFilter__block_invoke()
+objc_class *__47__CIFilter_Builtins__photoEffectTransferFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14909,10 +14950,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extrapolate, BOOLGetter, "B@:");
 
-    return class_addMethod(v7, sel_setExtrapolate_, BOOLSetter, "v@:B}");
+    return class_addMethod(v9, sel_setExtrapolate_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -14934,40 +14975,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__sepiaToneFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__sepiaToneFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -14977,10 +15018,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_intensity, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setIntensity_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15002,61 +15043,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__36__CIFilter_Builtins__vignetteFilter__block_invoke()
+objc_class *__36__CIFilter_Builtins__vignetteFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_intensity, floatGetter, "f@:");
-    class_addMethod(v7, sel_setIntensity_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_intensity, floatGetter, "f@:");
+    class_addMethod(v9, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15078,77 +15119,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__vignetteEffectFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__vignetteEffectFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_intensity, floatGetter, "f@:");
-    class_addMethod(v11, sel_setIntensity_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_intensity, floatGetter, "f@:");
+    class_addMethod(v13, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_falloff, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setFalloff_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setFalloff_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15170,69 +15211,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__bumpDistortionFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__bumpDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15254,77 +15295,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__48__CIFilter_Builtins__bumpDistortionLinearFilter__block_invoke()
+objc_class *__48__CIFilter_Builtins__bumpDistortionLinearFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_angle, floatGetter, "f@:");
-    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_angle, floatGetter, "f@:");
+    class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15346,61 +15387,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__50__CIFilter_Builtins__circleSplashDistortionFilter__block_invoke()
+objc_class *__50__CIFilter_Builtins__circleSplashDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15422,69 +15463,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__40__CIFilter_Builtins__circularWrapFilter__block_invoke()
+objc_class *__40__CIFilter_Builtins__circularWrapFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_angle, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15506,81 +15547,81 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__50__CIFilter_Builtins__displacementDistortionFilter__block_invoke()
+objc_class *__50__CIFilter_Builtins__displacementDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_displacementImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_displacementImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_displacementImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_displacementImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_displacementImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_displacementImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setDisplacementImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setDisplacementImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setDisplacementImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setDisplacementImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_displacementImage, objGetter, "@@:");
+      class_addMethod(v9, sel_displacementImage, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setDisplacementImage_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setDisplacementImage_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -15590,10 +15631,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15615,93 +15656,93 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__34__CIFilter_Builtins__drosteFilter__block_invoke()
+objc_class *__34__CIFilter_Builtins__drosteFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v18 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v20 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_insetPoint0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setInsetPoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_insetPoint1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setInsetPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_insetPoint0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setInsetPoint0_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_strands, floatGetter, "f@:");
-    class_addMethod(v11, sel_setStrands_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_insetPoint1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setInsetPoint1_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_periodicity, floatGetter, "f@:");
-    class_addMethod(v13, sel_setPeriodicity_, floatSetter, "v@:f");
+    class_addMethod(v12, sel_strands, floatGetter, "f@:");
+    class_addMethod(v13, sel_setStrands_, floatSetter, "v@:f");
   }
 
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_rotation, floatGetter, "f@:");
-    class_addMethod(v15, sel_setRotation_, floatSetter, "v@:f");
+    class_addMethod(v14, sel_periodicity, floatGetter, "f@:");
+    class_addMethod(v15, sel_setPeriodicity_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_rotation, floatGetter, "f@:");
+    class_addMethod(v17, sel_setRotation_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v17 = result;
+    v19 = result;
     class_addMethod(result, sel_zoom, floatGetter, "f@:");
 
-    return class_addMethod(v17, sel_setZoom_, floatSetter, "v@:f");
+    return class_addMethod(v19, sel_setZoom_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15723,102 +15764,102 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__glassDistortionFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__glassDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_textureImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_textureImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_textureImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_textureImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_textureImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_textureImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setTextureImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setTextureImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setTextureImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setTextureImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_textureImage, objGetter, "@@:");
+      class_addMethod(v9, sel_textureImage, objGetter, "@@:");
     }
 
-    v17 = [v7 instancesRespondToSelector:sel_setTextureImage_];
-    v11 = objSetter;
-    if ((v17 & 1) == 0)
+    v19 = [v9 instancesRespondToSelector:sel_setTextureImage_];
+    v13 = objSetter;
+    if ((v19 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
+  v14 = objc_opt_class();
+  if (v14)
   {
-    v13 = v12;
-    class_addMethod(v12, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v13, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    v15 = v14;
+    class_addMethod(v14, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v15, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v15, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v17, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15840,77 +15881,77 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__40__CIFilter_Builtins__glassLozengeFilter__block_invoke()
+objc_class *__40__CIFilter_Builtins__glassLozengeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_point0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_point1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_point0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_radius, floatGetter, "f@:");
-    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_point1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_radius, floatGetter, "f@:");
+    class_addMethod(v13, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_refraction, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setRefraction_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setRefraction_, floatSetter, "v@:f");
   }
 
   return result;
@@ -15932,61 +15973,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__holeDistortionFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__holeDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -16008,69 +16049,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__lightTunnelFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__lightTunnelFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_rotation, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRotation_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_rotation, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRotation_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -16092,69 +16133,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__ninePartStretchedFilter__block_invoke()
+objc_class *__45__CIFilter_Builtins__ninePartStretchedFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_breakpoint0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setBreakpoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_breakpoint1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setBreakpoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_breakpoint0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setBreakpoint0_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_breakpoint1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setBreakpoint1_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_growAmount, pointGetter, "{CGPoint=dd}@:");
 
-    return class_addMethod(v11, sel_setGrowAmount_, pointSetter, "v@:{CGPoint=dd}}");
+    return class_addMethod(v13, sel_setGrowAmount_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   return result;
@@ -16176,77 +16217,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__ninePartTiledFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__ninePartTiledFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_breakpoint0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setBreakpoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_breakpoint1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setBreakpoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_breakpoint0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setBreakpoint0_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_growAmount, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setGrowAmount_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v10, sel_breakpoint1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setBreakpoint1_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_growAmount, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setGrowAmount_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_flipYTiles, BOOLGetter, "B@:");
 
-    return class_addMethod(v13, sel_setFlipYTiles_, BOOLSetter, "v@:B}");
+    return class_addMethod(v15, sel_setFlipYTiles_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -16268,69 +16309,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__pinchDistortionFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__pinchDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -16352,69 +16393,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__stretchCropFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__stretchCropFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_size, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setSize_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_cropAmount, floatGetter, "f@:");
-    class_addMethod(v9, sel_setCropAmount_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_size, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setSize_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_cropAmount, floatGetter, "f@:");
+    class_addMethod(v11, sel_setCropAmount_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_centerStretchAmount, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setCenterStretchAmount_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setCenterStretchAmount_, floatSetter, "v@:f");
   }
 
   return result;
@@ -16436,77 +16477,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__47__CIFilter_Builtins__torusLensDistortionFilter__block_invoke()
+objc_class *__47__CIFilter_Builtins__torusLensDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_width, floatGetter, "f@:");
-    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_width, floatGetter, "f@:");
+    class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_refraction, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setRefraction_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setRefraction_, floatSetter, "v@:f");
   }
 
   return result;
@@ -16528,69 +16569,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__twirlDistortionFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__twirlDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_angle, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
   }
 
   return result;
@@ -16612,69 +16653,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__vortexDistortionFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__vortexDistortionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_angle, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
   }
 
   return result;
@@ -16696,40 +16737,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__affineClampFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__affineClampFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -16739,10 +16780,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_transform, transformGetter, "{CGAffineTransform=dddddd}@:");
 
-    return class_addMethod(v7, sel_setTransform_, transformSetter, "v@:{CGAffineTransform=dddddd}");
+    return class_addMethod(v9, sel_setTransform_, transformSetter, "v@:{CGAffineTransform=dddddd}");
   }
 
   return result;
@@ -16764,40 +16805,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__38__CIFilter_Builtins__affineTileFilter__block_invoke()
+objc_class *__38__CIFilter_Builtins__affineTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -16807,10 +16848,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_transform, transformGetter, "{CGAffineTransform=dddddd}@:");
 
-    return class_addMethod(v7, sel_setTransform_, transformSetter, "v@:{CGAffineTransform=dddddd}");
+    return class_addMethod(v9, sel_setTransform_, transformSetter, "v@:{CGAffineTransform=dddddd}");
   }
 
   return result;
@@ -16832,488 +16873,44 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__50__CIFilter_Builtins__eightfoldReflectedTileFilter__block_invoke()
+objc_class *__50__CIFilter_Builtins__eightfoldReflectedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v11 = result;
-    class_addMethod(result, sel_width, floatGetter, "f@:");
-
-    return class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)fourfoldReflectedTileFilter
-{
-  v2 = [CIFilter filterWithName:@"CIFourfoldReflectedTile"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __49__CIFilter_Builtins__fourfoldReflectedTileFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (fourfoldReflectedTileFilter_onceToken != -1)
-  {
-    dispatch_once(&fourfoldReflectedTileFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__49__CIFilter_Builtins__fourfoldReflectedTileFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
       if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
-  }
-
-  v10 = objc_opt_class();
-  if (v10)
-  {
-    v11 = v10;
-    class_addMethod(v10, sel_width, floatGetter, "f@:");
-    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v13 = result;
-    class_addMethod(result, sel_acuteAngle, floatGetter, "f@:");
-
-    return class_addMethod(v13, sel_setAcuteAngle_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)fourfoldRotatedTileFilter
-{
-  v2 = [CIFilter filterWithName:@"CIFourfoldRotatedTile"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __47__CIFilter_Builtins__fourfoldRotatedTileFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (fourfoldRotatedTileFilter_onceToken != -1)
-  {
-    dispatch_once(&fourfoldRotatedTileFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__47__CIFilter_Builtins__fourfoldRotatedTileFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v11 = result;
-    class_addMethod(result, sel_width, floatGetter, "f@:");
-
-    return class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)fourfoldTranslatedTileFilter
-{
-  v2 = [CIFilter filterWithName:@"CIFourfoldTranslatedTile"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __50__CIFilter_Builtins__fourfoldTranslatedTileFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (fourfoldTranslatedTileFilter_onceToken != -1)
-  {
-    dispatch_once(&fourfoldTranslatedTileFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__50__CIFilter_Builtins__fourfoldTranslatedTileFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
-  }
-
-  v10 = objc_opt_class();
-  if (v10)
-  {
-    v11 = v10;
-    class_addMethod(v10, sel_width, floatGetter, "f@:");
-    class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v13 = result;
-    class_addMethod(result, sel_acuteAngle, floatGetter, "f@:");
-
-    return class_addMethod(v13, sel_setAcuteAngle_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)glideReflectedTileFilter
-{
-  v2 = [CIFilter filterWithName:@"CIGlideReflectedTile"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __46__CIFilter_Builtins__glideReflectedTileFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (glideReflectedTileFilter_onceToken != -1)
-  {
-    dispatch_once(&glideReflectedTileFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__46__CIFilter_Builtins__glideReflectedTileFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v11 = result;
-    class_addMethod(result, sel_width, floatGetter, "f@:");
-
-    return class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)kaleidoscopeFilter
-{
-  v2 = [CIFilter filterWithName:@"CIKaleidoscope"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __40__CIFilter_Builtins__kaleidoscopeFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (kaleidoscopeFilter_onceToken != -1)
-  {
-    dispatch_once(&kaleidoscopeFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__40__CIFilter_Builtins__kaleidoscopeFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_count, intGetter, "q@:");
-    class_addMethod(v7, sel_setCount_, intSetter, "v@:q}");
   }
 
   v8 = objc_opt_class();
@@ -17322,90 +16919,6 @@ LABEL_6:
     v9 = v8;
     class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
     class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v11 = result;
-    class_addMethod(result, sel_angle, floatGetter, "f@:");
-
-    return class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)opTileFilter
-{
-  v2 = [CIFilter filterWithName:@"CIOpTile"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __34__CIFilter_Builtins__opTileFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (opTileFilter_onceToken != -1)
-  {
-    dispatch_once(&opTileFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__34__CIFilter_Builtins__opTileFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
-      }
-
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_scale, floatGetter, "f@:");
-    class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
@@ -17428,6 +16941,534 @@ LABEL_6:
   return result;
 }
 
++ (CIFilter)fourfoldReflectedTileFilter
+{
+  v2 = [CIFilter filterWithName:@"CIFourfoldReflectedTile"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __49__CIFilter_Builtins__fourfoldReflectedTileFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (fourfoldReflectedTileFilter_onceToken != -1)
+  {
+    dispatch_once(&fourfoldReflectedTileFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__49__CIFilter_Builtins__fourfoldReflectedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_width, floatGetter, "f@:");
+    class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v15 = result;
+    class_addMethod(result, sel_acuteAngle, floatGetter, "f@:");
+
+    return class_addMethod(v15, sel_setAcuteAngle_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)fourfoldRotatedTileFilter
+{
+  v2 = [CIFilter filterWithName:@"CIFourfoldRotatedTile"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __47__CIFilter_Builtins__fourfoldRotatedTileFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (fourfoldRotatedTileFilter_onceToken != -1)
+  {
+    dispatch_once(&fourfoldRotatedTileFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__47__CIFilter_Builtins__fourfoldRotatedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v13 = result;
+    class_addMethod(result, sel_width, floatGetter, "f@:");
+
+    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)fourfoldTranslatedTileFilter
+{
+  v2 = [CIFilter filterWithName:@"CIFourfoldTranslatedTile"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __50__CIFilter_Builtins__fourfoldTranslatedTileFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (fourfoldTranslatedTileFilter_onceToken != -1)
+  {
+    dispatch_once(&fourfoldTranslatedTileFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__50__CIFilter_Builtins__fourfoldTranslatedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_width, floatGetter, "f@:");
+    class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v15 = result;
+    class_addMethod(result, sel_acuteAngle, floatGetter, "f@:");
+
+    return class_addMethod(v15, sel_setAcuteAngle_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)glideReflectedTileFilter
+{
+  v2 = [CIFilter filterWithName:@"CIGlideReflectedTile"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __46__CIFilter_Builtins__glideReflectedTileFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (glideReflectedTileFilter_onceToken != -1)
+  {
+    dispatch_once(&glideReflectedTileFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__46__CIFilter_Builtins__glideReflectedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v13 = result;
+    class_addMethod(result, sel_width, floatGetter, "f@:");
+
+    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)kaleidoscopeFilter
+{
+  v2 = [CIFilter filterWithName:@"CIKaleidoscope"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __40__CIFilter_Builtins__kaleidoscopeFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (kaleidoscopeFilter_onceToken != -1)
+  {
+    dispatch_once(&kaleidoscopeFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__40__CIFilter_Builtins__kaleidoscopeFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_count, intGetter, "q@:");
+    class_addMethod(v9, sel_setCount_, intSetter, "v@:q}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v13 = result;
+    class_addMethod(result, sel_angle, floatGetter, "f@:");
+
+    return class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)opTileFilter
+{
+  v2 = [CIFilter filterWithName:@"CIOpTile"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __34__CIFilter_Builtins__opTileFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (opTileFilter_onceToken != -1)
+  {
+    dispatch_once(&opTileFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__34__CIFilter_Builtins__opTileFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
+      }
+
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_scale, floatGetter, "f@:");
+    class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_angle, floatGetter, "f@:");
+    class_addMethod(v13, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v15 = result;
+    class_addMethod(result, sel_width, floatGetter, "f@:");
+
+    return class_addMethod(v15, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
 + (CIFilter)parallelogramTileFilter
 {
   v2 = [CIFilter filterWithName:@"CIParallelogramTile"];
@@ -17444,77 +17485,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__parallelogramTileFilter__block_invoke()
+objc_class *__45__CIFilter_Builtins__parallelogramTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_acuteAngle, floatGetter, "f@:");
-    class_addMethod(v11, sel_setAcuteAngle_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_acuteAngle, floatGetter, "f@:");
+    class_addMethod(v13, sel_setAcuteAngle_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_width, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setWidth_, floatSetter, "v@:f");
   }
 
   return result;
@@ -17536,77 +17577,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__43__CIFilter_Builtins__perspectiveTileFilter__block_invoke()
+objc_class *__43__CIFilter_Builtins__perspectiveTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_topRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_topLeft, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setTopLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v11, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v10, sel_topRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setTopRight_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_bottomRight, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v13, sel_setBottomRight_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bottomLeft, pointGetter, "{CGPoint=dd}@:");
 
-    return class_addMethod(v13, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
+    return class_addMethod(v15, sel_setBottomLeft_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   return result;
@@ -17628,69 +17669,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__48__CIFilter_Builtins__sixfoldReflectedTileFilter__block_invoke()
+objc_class *__48__CIFilter_Builtins__sixfoldReflectedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_width, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   return result;
@@ -17712,69 +17753,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__sixfoldRotatedTileFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__sixfoldRotatedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_width, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   return result;
@@ -17796,77 +17837,77 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__48__CIFilter_Builtins__triangleKaleidoscopeFilter__block_invoke()
+objc_class *__48__CIFilter_Builtins__triangleKaleidoscopeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_point, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setPoint_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_size, floatGetter, "f@:");
-    class_addMethod(v9, sel_setSize_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_point, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setPoint_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_rotation, floatGetter, "f@:");
-    class_addMethod(v11, sel_setRotation_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_size, floatGetter, "f@:");
+    class_addMethod(v11, sel_setSize_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_rotation, floatGetter, "f@:");
+    class_addMethod(v13, sel_setRotation_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_decay, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setDecay_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setDecay_, floatSetter, "v@:f");
   }
 
   return result;
@@ -17888,69 +17929,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__40__CIFilter_Builtins__triangleTileFilter__block_invoke()
+objc_class *__40__CIFilter_Builtins__triangleTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_width, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   return result;
@@ -17972,69 +18013,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__51__CIFilter_Builtins__twelvefoldReflectedTileFilter__block_invoke()
+objc_class *__51__CIFilter_Builtins__twelvefoldReflectedTileFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_angle, floatGetter, "f@:");
-    class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_angle, floatGetter, "f@:");
+    class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_width, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setWidth_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
   }
 
   return result;
@@ -18056,61 +18097,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__56__CIFilter_Builtins__attributedTextImageGeneratorFilter__block_invoke()
+objc_class *__56__CIFilter_Builtins__attributedTextImageGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_text) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_text];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_text) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_text];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_text, iiGetter, "@@:");
+        class_addMethod(v3, sel_text, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setText_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setText_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setText_, v5, "v@:@");
+        class_addMethod(v3, sel_setText_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_text, objGetter, "@@:");
+        class_addMethod(v3, sel_text, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setText_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setText_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_scaleFactor, floatGetter, "f@:");
-    class_addMethod(v7, sel_setScaleFactor_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_scaleFactor, floatGetter, "f@:");
+    class_addMethod(v9, sel_setScaleFactor_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_padding, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setPadding_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setPadding_, floatSetter, "v@:f");
   }
 
   return result;
@@ -18132,69 +18173,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__aztecCodeGeneratorFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__aztecCodeGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_message];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_message];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_message, iiGetter, "@@:");
+        class_addMethod(v3, sel_message, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setMessage_, v5, "v@:@");
+        class_addMethod(v3, sel_setMessage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_message, objGetter, "@@:");
+        class_addMethod(v3, sel_message, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_correctionLevel, floatGetter, "f@:");
-    class_addMethod(v7, sel_setCorrectionLevel_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_layers, floatGetter, "f@:");
-    class_addMethod(v9, sel_setLayers_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_correctionLevel, floatGetter, "f@:");
+    class_addMethod(v9, sel_setCorrectionLevel_, floatSetter, "v@:f");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_layers, floatGetter, "f@:");
+    class_addMethod(v11, sel_setLayers_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_compactStyle, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setCompactStyle_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setCompactStyle_, floatSetter, "v@:f");
   }
 
   return result;
@@ -18216,7 +18257,7 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __44__CIFilter_Builtins__barcodeGeneratorFilter__block_invoke()
+uint64_t __44__CIFilter_Builtins__barcodeGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   if (!result)
@@ -18224,35 +18265,35 @@ uint64_t __44__CIFilter_Builtins__barcodeGeneratorFilter__block_invoke()
     return result;
   }
 
-  v1 = result;
-  v2 = [NSStringFromSelector(sel_barcodeDescriptor) isEqualToString:@"inputImage"];
-  v3 = [v1 instancesRespondToSelector:sel_barcodeDescriptor];
-  if (v2)
+  v3 = result;
+  v4 = [NSStringFromSelector(sel_barcodeDescriptor) isEqualToString:@"inputImage"];
+  v5 = [v3 instancesRespondToSelector:sel_barcodeDescriptor];
+  if (v4)
   {
-    if ((v3 & 1) == 0)
+    if ((v5 & 1) == 0)
     {
-      class_addMethod(v1, sel_barcodeDescriptor, iiGetter, "@@:");
+      class_addMethod(v3, sel_barcodeDescriptor, iiGetter, "@@:");
     }
 
-    result = [v1 instancesRespondToSelector:sel_setBarcodeDescriptor_];
-    v4 = iiSetter;
+    result = [v3 instancesRespondToSelector:sel_setBarcodeDescriptor_];
+    v6 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_6:
 
-      return class_addMethod(v1, sel_setBarcodeDescriptor_, v4, "v@:@");
+      return class_addMethod(v3, sel_setBarcodeDescriptor_, v6, "v@:@");
     }
   }
 
   else
   {
-    if ((v3 & 1) == 0)
+    if ((v5 & 1) == 0)
     {
-      class_addMethod(v1, sel_barcodeDescriptor, objGetter, "@@:");
+      class_addMethod(v3, sel_barcodeDescriptor, objGetter, "@@:");
     }
 
-    result = [v1 instancesRespondToSelector:sel_setBarcodeDescriptor_];
-    v4 = objSetter;
+    result = [v3 instancesRespondToSelector:sel_setBarcodeDescriptor_];
+    v6 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_6;
@@ -18278,56 +18319,56 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __53__CIFilter_Builtins__blurredRectangleGeneratorFilter__block_invoke()
+uint64_t __53__CIFilter_Builtins__blurredRectangleGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v1, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    class_addMethod(v2, sel_sigma, floatGetter, "f@:");
-    class_addMethod(v3, sel_setSigma_, floatSetter, "v@:f");
+    class_addMethod(v2, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v3, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    class_addMethod(v4, sel_sigma, floatGetter, "f@:");
+    class_addMethod(v5, sel_setSigma_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v5 = result;
-    v6 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v7 = [v5 instancesRespondToSelector:sel_color];
-    if (v6)
+    v7 = result;
+    v8 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v9 = [v7 instancesRespondToSelector:sel_color];
+    if (v8)
     {
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        class_addMethod(v5, sel_color, iiGetter, "@@:");
+        class_addMethod(v7, sel_color, iiGetter, "@@:");
       }
 
-      result = [v5 instancesRespondToSelector:sel_setColor_];
-      v8 = iiSetter;
+      result = [v7 instancesRespondToSelector:sel_setColor_];
+      v10 = iiSetter;
       if ((result & 1) == 0)
       {
 LABEL_10:
 
-        return class_addMethod(v5, sel_setColor_, v8, "v@:@");
+        return class_addMethod(v7, sel_setColor_, v10, "v@:@");
       }
     }
 
     else
     {
-      if ((v7 & 1) == 0)
+      if ((v9 & 1) == 0)
       {
-        class_addMethod(v5, sel_color, objGetter, "@@:");
+        class_addMethod(v7, sel_color, objGetter, "@@:");
       }
 
-      result = [v5 instancesRespondToSelector:sel_setColor_];
-      v8 = objSetter;
+      result = [v7 instancesRespondToSelector:sel_setColor_];
+      v10 = objSetter;
       if ((result & 1) == 0)
       {
         goto LABEL_10;
@@ -18354,72 +18395,72 @@ LABEL_10:
   return v2;
 }
 
-uint64_t __60__CIFilter_Builtins__blurredRoundedRectangleGeneratorFilter__block_invoke()
+uint64_t __60__CIFilter_Builtins__blurredRoundedRectangleGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v1, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    class_addMethod(v2, sel_radius, floatGetter, "f@:");
-    class_addMethod(v3, sel_setRadius_, floatSetter, "v@:f");
+    class_addMethod(v2, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v3, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   v4 = objc_opt_class();
   if (v4)
   {
     v5 = v4;
-    class_addMethod(v4, sel_smoothness, floatGetter, "f@:");
-    class_addMethod(v5, sel_setSmoothness_, floatSetter, "v@:f");
+    class_addMethod(v4, sel_radius, floatGetter, "f@:");
+    class_addMethod(v5, sel_setRadius_, floatSetter, "v@:f");
   }
 
   v6 = objc_opt_class();
   if (v6)
   {
     v7 = v6;
-    class_addMethod(v6, sel_sigma, floatGetter, "f@:");
-    class_addMethod(v7, sel_setSigma_, floatSetter, "v@:f");
+    class_addMethod(v6, sel_smoothness, floatGetter, "f@:");
+    class_addMethod(v7, sel_setSmoothness_, floatSetter, "v@:f");
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    class_addMethod(v8, sel_sigma, floatGetter, "f@:");
+    class_addMethod(v9, sel_setSigma_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
-    v10 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v11 = [v9 instancesRespondToSelector:sel_color];
-    if (v10)
+    v11 = result;
+    v12 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v13 = [v11 instancesRespondToSelector:sel_color];
+    if (v12)
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_color, iiGetter, "@@:");
+        class_addMethod(v11, sel_color, iiGetter, "@@:");
       }
 
-      result = [v9 instancesRespondToSelector:sel_setColor_];
-      v12 = iiSetter;
+      result = [v11 instancesRespondToSelector:sel_setColor_];
+      v14 = iiSetter;
       if ((result & 1) == 0)
       {
 LABEL_14:
 
-        return class_addMethod(v9, sel_setColor_, v12, "v@:@");
+        return class_addMethod(v11, sel_setColor_, v14, "v@:@");
       }
     }
 
     else
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_color, objGetter, "@@:");
+        class_addMethod(v11, sel_color, objGetter, "@@:");
       }
 
-      result = [v9 instancesRespondToSelector:sel_setColor_];
-      v12 = objSetter;
+      result = [v11 instancesRespondToSelector:sel_setColor_];
+      v14 = objSetter;
       if ((result & 1) == 0)
       {
         goto LABEL_14;
@@ -18446,110 +18487,110 @@ LABEL_14:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__checkerboardGeneratorFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__checkerboardGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    v4 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-    v5 = [v3 instancesRespondToSelector:sel_color0];
-    if (v4)
+    class_addMethod(v2, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+    v7 = [v5 instancesRespondToSelector:sel_color0];
+    if (v6)
     {
-      if ((v5 & 1) == 0)
+      if ((v7 & 1) == 0)
       {
-        class_addMethod(v3, sel_color0, iiGetter, "@@:");
+        class_addMethod(v5, sel_color0, iiGetter, "@@:");
       }
 
-      v6 = [v3 instancesRespondToSelector:sel_setColor0_];
-      v7 = iiSetter;
-      if ((v6 & 1) == 0)
+      v8 = [v5 instancesRespondToSelector:sel_setColor0_];
+      v9 = iiSetter;
+      if ((v8 & 1) == 0)
       {
 LABEL_8:
-        class_addMethod(v3, sel_setColor0_, v7, "v@:@");
+        class_addMethod(v5, sel_setColor0_, v9, "v@:@");
       }
     }
 
     else
     {
-      if ((v5 & 1) == 0)
+      if ((v7 & 1) == 0)
       {
-        class_addMethod(v3, sel_color0, objGetter, "@@:");
+        class_addMethod(v5, sel_color0, objGetter, "@@:");
       }
 
-      v18 = [v3 instancesRespondToSelector:sel_setColor0_];
-      v7 = objSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v5 instancesRespondToSelector:sel_setColor0_];
+      v9 = objSetter;
+      if ((v20 & 1) == 0)
       {
         goto LABEL_8;
       }
     }
   }
 
-  v8 = objc_opt_class();
-  if (!v8)
+  v10 = objc_opt_class();
+  if (!v10)
   {
     goto LABEL_15;
   }
 
-  v9 = v8;
-  v10 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v11 = [v9 instancesRespondToSelector:sel_color1];
-  if (v10)
+  v11 = v10;
+  v12 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v13 = [v11 instancesRespondToSelector:sel_color1];
+  if (v12)
   {
-    if ((v11 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      class_addMethod(v9, sel_color1, iiGetter, "@@:");
+      class_addMethod(v11, sel_color1, iiGetter, "@@:");
     }
 
-    v12 = [v9 instancesRespondToSelector:sel_setColor1_];
-    v13 = iiSetter;
-    if ((v12 & 1) == 0)
+    v14 = [v11 instancesRespondToSelector:sel_setColor1_];
+    v15 = iiSetter;
+    if ((v14 & 1) == 0)
     {
 LABEL_14:
-      class_addMethod(v9, sel_setColor1_, v13, "v@:@");
+      class_addMethod(v11, sel_setColor1_, v15, "v@:@");
     }
   }
 
   else
   {
-    if ((v11 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      class_addMethod(v9, sel_color1, objGetter, "@@:");
+      class_addMethod(v11, sel_color1, objGetter, "@@:");
     }
 
-    v19 = [v9 instancesRespondToSelector:sel_setColor1_];
-    v13 = objSetter;
-    if ((v19 & 1) == 0)
+    v21 = [v11 instancesRespondToSelector:sel_setColor1_];
+    v15 = objSetter;
+    if ((v21 & 1) == 0)
     {
       goto LABEL_14;
     }
   }
 
 LABEL_15:
-  v14 = objc_opt_class();
-  if (v14)
+  v16 = objc_opt_class();
+  if (v16)
   {
-    v15 = v14;
-    class_addMethod(v14, sel_width, floatGetter, "f@:");
-    class_addMethod(v15, sel_setWidth_, floatSetter, "v@:f");
+    v17 = v16;
+    class_addMethod(v16, sel_width, floatGetter, "f@:");
+    class_addMethod(v17, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v17 = result;
+    v19 = result;
     class_addMethod(result, sel_sharpness, floatGetter, "f@:");
 
-    return class_addMethod(v17, sel_setSharpness_, floatSetter, "v@:f");
+    return class_addMethod(v19, sel_setSharpness_, floatSetter, "v@:f");
   }
 
   return result;
@@ -18571,61 +18612,61 @@ LABEL_15:
   return v2;
 }
 
-objc_class *__51__CIFilter_Builtins__code128BarcodeGeneratorFilter__block_invoke()
+objc_class *__51__CIFilter_Builtins__code128BarcodeGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_message];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_message];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_message, iiGetter, "@@:");
+        class_addMethod(v3, sel_message, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setMessage_, v5, "v@:@");
+        class_addMethod(v3, sel_setMessage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_message, objGetter, "@@:");
+        class_addMethod(v3, sel_message, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_quietSpace, floatGetter, "f@:");
-    class_addMethod(v7, sel_setQuietSpace_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_quietSpace, floatGetter, "f@:");
+    class_addMethod(v9, sel_setQuietSpace_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_barcodeHeight, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setBarcodeHeight_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setBarcodeHeight_, floatSetter, "v@:f");
   }
 
   return result;
@@ -18647,35 +18688,251 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__51__CIFilter_Builtins__lenticularHaloGeneratorFilter__block_invoke()
+objc_class *__51__CIFilter_Builtins__lenticularHaloGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v2 = objc_opt_class();
   if (v2)
   {
     v3 = v2;
-    v4 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v5 = [v3 instancesRespondToSelector:sel_color];
+    class_addMethod(v2, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v7 = [v5 instancesRespondToSelector:sel_color];
+    if (v6)
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, iiGetter, "@@:");
+      }
+
+      v8 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = iiSetter;
+      if ((v8 & 1) == 0)
+      {
+LABEL_8:
+        class_addMethod(v5, sel_setColor_, v9, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, objGetter, "@@:");
+      }
+
+      v22 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = objSetter;
+      if ((v22 & 1) == 0)
+      {
+        goto LABEL_8;
+      }
+    }
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_haloRadius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setHaloRadius_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_haloWidth, floatGetter, "f@:");
+    class_addMethod(v13, sel_setHaloWidth_, floatSetter, "v@:f");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_haloOverlap, floatGetter, "f@:");
+    class_addMethod(v15, sel_setHaloOverlap_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_striationStrength, floatGetter, "f@:");
+    class_addMethod(v17, sel_setStriationStrength_, floatSetter, "v@:f");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    class_addMethod(v18, sel_striationContrast, floatGetter, "f@:");
+    class_addMethod(v19, sel_setStriationContrast_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v21 = result;
+    class_addMethod(result, sel_time, floatGetter, "f@:");
+
+    return class_addMethod(v21, sel_setTime_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)meshGeneratorFilter
+{
+  v2 = [CIFilter filterWithName:@"CIMeshGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __41__CIFilter_Builtins__meshGeneratorFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (meshGeneratorFilter_onceToken != -1)
+  {
+    dispatch_once(&meshGeneratorFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+uint64_t __41__CIFilter_Builtins__meshGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    class_addMethod(v2, sel_width, floatGetter, "f@:");
+    class_addMethod(v3, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v7 = [v5 instancesRespondToSelector:sel_color];
+    if (v6)
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, iiGetter, "@@:");
+      }
+
+      v8 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = iiSetter;
+      if ((v8 & 1) == 0)
+      {
+LABEL_8:
+        class_addMethod(v5, sel_setColor_, v9, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, objGetter, "@@:");
+      }
+
+      v15 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = objSetter;
+      if ((v15 & 1) == 0)
+      {
+        goto LABEL_8;
+      }
+    }
+  }
+
+  result = objc_opt_class();
+  if (!result)
+  {
+    return result;
+  }
+
+  v11 = result;
+  v12 = [NSStringFromSelector(sel_mesh) isEqualToString:@"inputImage"];
+  v13 = [v11 instancesRespondToSelector:sel_mesh];
+  if (v12)
+  {
+    if ((v13 & 1) == 0)
+    {
+      class_addMethod(v11, sel_mesh, iiGetter, "@@:");
+    }
+
+    result = [v11 instancesRespondToSelector:sel_setMesh_];
+    v14 = iiSetter;
+    if ((result & 1) == 0)
+    {
+LABEL_14:
+
+      return class_addMethod(v11, sel_setMesh_, v14, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v13 & 1) == 0)
+    {
+      class_addMethod(v11, sel_mesh, objGetter, "@@:");
+    }
+
+    result = [v11 instancesRespondToSelector:sel_setMesh_];
+    v14 = objSetter;
+    if ((result & 1) == 0)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  return result;
+}
+
++ (CIFilter)PDF417BarcodeGenerator
+{
+  v2 = [CIFilter filterWithName:@"CIPDF417BarcodeGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __44__CIFilter_Builtins__PDF417BarcodeGenerator__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (PDF417BarcodeGenerator_onceToken != -1)
+  {
+    dispatch_once(&PDF417BarcodeGenerator_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__44__CIFilter_Builtins__PDF417BarcodeGenerator__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_message];
     if (v4)
     {
       if ((v5 & 1) == 0)
       {
-        class_addMethod(v3, sel_color, iiGetter, "@@:");
+        class_addMethod(v3, sel_message, iiGetter, "@@:");
       }
 
-      v6 = [v3 instancesRespondToSelector:sel_setColor_];
+      v6 = [v3 instancesRespondToSelector:sel_setMessage_];
       v7 = iiSetter;
       if ((v6 & 1) == 0)
       {
-LABEL_8:
-        class_addMethod(v3, sel_setColor_, v7, "v@:@");
+LABEL_6:
+        class_addMethod(v3, sel_setMessage_, v7, "v@:@");
       }
     }
 
@@ -18683,14 +18940,14 @@ LABEL_8:
     {
       if ((v5 & 1) == 0)
       {
-        class_addMethod(v3, sel_color, objGetter, "@@:");
+        class_addMethod(v3, sel_message, objGetter, "@@:");
       }
 
-      v20 = [v3 instancesRespondToSelector:sel_setColor_];
+      v30 = [v3 instancesRespondToSelector:sel_setMessage_];
       v7 = objSetter;
-      if ((v20 & 1) == 0)
+      if ((v30 & 1) == 0)
       {
-        goto LABEL_8;
+        goto LABEL_6;
       }
     }
   }
@@ -18699,24 +18956,900 @@ LABEL_8:
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_haloRadius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setHaloRadius_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_minWidth, floatGetter, "f@:");
+    class_addMethod(v9, sel_setMinWidth_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_haloWidth, floatGetter, "f@:");
-    class_addMethod(v11, sel_setHaloWidth_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_maxWidth, floatGetter, "f@:");
+    class_addMethod(v11, sel_setMaxWidth_, floatSetter, "v@:f");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_haloOverlap, floatGetter, "f@:");
-    class_addMethod(v13, sel_setHaloOverlap_, floatSetter, "v@:f");
+    class_addMethod(v12, sel_minHeight, floatGetter, "f@:");
+    class_addMethod(v13, sel_setMinHeight_, floatSetter, "v@:f");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_maxHeight, floatGetter, "f@:");
+    class_addMethod(v15, sel_setMaxHeight_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_dataColumns, floatGetter, "f@:");
+    class_addMethod(v17, sel_setDataColumns_, floatSetter, "v@:f");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    class_addMethod(v18, sel_rows, floatGetter, "f@:");
+    class_addMethod(v19, sel_setRows_, floatSetter, "v@:f");
+  }
+
+  v20 = objc_opt_class();
+  if (v20)
+  {
+    v21 = v20;
+    class_addMethod(v20, sel_preferredAspectRatio, floatGetter, "f@:");
+    class_addMethod(v21, sel_setPreferredAspectRatio_, floatSetter, "v@:f");
+  }
+
+  v22 = objc_opt_class();
+  if (v22)
+  {
+    v23 = v22;
+    class_addMethod(v22, sel_compactionMode, floatGetter, "f@:");
+    class_addMethod(v23, sel_setCompactionMode_, floatSetter, "v@:f");
+  }
+
+  v24 = objc_opt_class();
+  if (v24)
+  {
+    v25 = v24;
+    class_addMethod(v24, sel_compactStyle, floatGetter, "f@:");
+    class_addMethod(v25, sel_setCompactStyle_, floatSetter, "v@:f");
+  }
+
+  v26 = objc_opt_class();
+  if (v26)
+  {
+    v27 = v26;
+    class_addMethod(v26, sel_correctionLevel, floatGetter, "f@:");
+    class_addMethod(v27, sel_setCorrectionLevel_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v29 = result;
+    class_addMethod(result, sel_alwaysSpecifyCompaction, floatGetter, "f@:");
+
+    return class_addMethod(v29, sel_setAlwaysSpecifyCompaction_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)QRCodeGenerator
+{
+  v2 = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __37__CIFilter_Builtins__QRCodeGenerator__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (QRCodeGenerator_onceToken != -1)
+  {
+    dispatch_once(&QRCodeGenerator_onceToken, block);
+  }
+
+  return v2;
+}
+
+uint64_t __37__CIFilter_Builtins__QRCodeGenerator__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_message];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_message, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setMessage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_message, objGetter, "@@:");
+      }
+
+      v13 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = objSetter;
+      if ((v13 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  result = objc_opt_class();
+  if (!result)
+  {
+    return result;
+  }
+
+  v9 = result;
+  v10 = [NSStringFromSelector(sel_correctionLevel) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_correctionLevel];
+  if (v10)
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_correctionLevel, iiGetter, "@@:");
+    }
+
+    result = [v9 instancesRespondToSelector:sel_setCorrectionLevel_];
+    v12 = iiSetter;
+    if ((result & 1) == 0)
+    {
+LABEL_12:
+
+      return class_addMethod(v9, sel_setCorrectionLevel_, v12, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_correctionLevel, objGetter, "@@:");
+    }
+
+    result = [v9 instancesRespondToSelector:sel_setCorrectionLevel_];
+    v12 = objSetter;
+    if ((result & 1) == 0)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  return result;
+}
+
++ (id)roundedQRCodeGeneratorFilter
+{
+  v2 = [CIFilter filterWithName:@"CIRoundedQRCodeGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __50__CIFilter_Builtins__roundedQRCodeGeneratorFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (roundedQRCodeGeneratorFilter_onceToken != -1)
+  {
+    dispatch_once(&roundedQRCodeGeneratorFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+uint64_t __50__CIFilter_Builtins__roundedQRCodeGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_message];
+    if (v4)
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_message, iiGetter, "@@:");
+      }
+
+      v6 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
+      {
+LABEL_6:
+        class_addMethod(v3, sel_setMessage_, v7, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v5 & 1) == 0)
+      {
+        class_addMethod(v3, sel_message, objGetter, "@@:");
+      }
+
+      v33 = [v3 instancesRespondToSelector:sel_setMessage_];
+      v7 = objSetter;
+      if ((v33 & 1) == 0)
+      {
+        goto LABEL_6;
+      }
+    }
+  }
+
+  v8 = objc_opt_class();
+  if (!v8)
+  {
+    goto LABEL_13;
+  }
+
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_correctionLevel) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_correctionLevel];
+  if (v10)
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_correctionLevel, iiGetter, "@@:");
+    }
+
+    v12 = [v9 instancesRespondToSelector:sel_setCorrectionLevel_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
+    {
+LABEL_12:
+      class_addMethod(v9, sel_setCorrectionLevel_, v13, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v11 & 1) == 0)
+    {
+      class_addMethod(v9, sel_correctionLevel, objGetter, "@@:");
+    }
+
+    v34 = [v9 instancesRespondToSelector:sel_setCorrectionLevel_];
+    v13 = objSetter;
+    if ((v34 & 1) == 0)
+    {
+      goto LABEL_12;
+    }
+  }
+
+LABEL_13:
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_scale, floatGetter, "f@:");
+    class_addMethod(v15, sel_setScale_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_roundedMarkers, intGetter, "q@:");
+    class_addMethod(v17, sel_setRoundedMarkers_, intSetter, "v@:q}");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    class_addMethod(v18, sel_roundedData, BOOLGetter, "B@:");
+    class_addMethod(v19, sel_setRoundedData_, BOOLSetter, "v@:B}");
+  }
+
+  v20 = objc_opt_class();
+  if (v20)
+  {
+    v21 = v20;
+    class_addMethod(v20, sel_centerSpaceSize, floatGetter, "f@:");
+    class_addMethod(v21, sel_setCenterSpaceSize_, floatSetter, "v@:f");
+  }
+
+  v22 = objc_opt_class();
+  if (v22)
+  {
+    v23 = v22;
+    v24 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+    v25 = [v23 instancesRespondToSelector:sel_color0];
+    if (v24)
+    {
+      if ((v25 & 1) == 0)
+      {
+        class_addMethod(v23, sel_color0, iiGetter, "@@:");
+      }
+
+      v26 = [v23 instancesRespondToSelector:sel_setColor0_];
+      v27 = iiSetter;
+      if ((v26 & 1) == 0)
+      {
+LABEL_26:
+        class_addMethod(v23, sel_setColor0_, v27, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v25 & 1) == 0)
+      {
+        class_addMethod(v23, sel_color0, objGetter, "@@:");
+      }
+
+      v35 = [v23 instancesRespondToSelector:sel_setColor0_];
+      v27 = objSetter;
+      if ((v35 & 1) == 0)
+      {
+        goto LABEL_26;
+      }
+    }
+  }
+
+  result = objc_opt_class();
+  if (!result)
+  {
+    return result;
+  }
+
+  v29 = result;
+  v30 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v31 = [v29 instancesRespondToSelector:sel_color1];
+  if (v30)
+  {
+    if ((v31 & 1) == 0)
+    {
+      class_addMethod(v29, sel_color1, iiGetter, "@@:");
+    }
+
+    result = [v29 instancesRespondToSelector:sel_setColor1_];
+    v32 = iiSetter;
+    if ((result & 1) == 0)
+    {
+LABEL_32:
+
+      return class_addMethod(v29, sel_setColor1_, v32, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v31 & 1) == 0)
+    {
+      class_addMethod(v29, sel_color1, objGetter, "@@:");
+    }
+
+    result = [v29 instancesRespondToSelector:sel_setColor1_];
+    v32 = objSetter;
+    if ((result & 1) == 0)
+    {
+      goto LABEL_32;
+    }
+  }
+
+  return result;
+}
+
++ (CIFilter)roundedRectangleGeneratorFilter
+{
+  v2 = [CIFilter filterWithName:@"CIRoundedRectangleGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __53__CIFilter_Builtins__roundedRectangleGeneratorFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (roundedRectangleGeneratorFilter_onceToken != -1)
+  {
+    dispatch_once(&roundedRectangleGeneratorFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+uint64_t __53__CIFilter_Builtins__roundedRectangleGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    class_addMethod(v2, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v3, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    class_addMethod(v4, sel_radius, floatGetter, "f@:");
+    class_addMethod(v5, sel_setRadius_, floatSetter, "v@:f");
+  }
+
+  v6 = objc_opt_class();
+  if (v6)
+  {
+    v7 = v6;
+    class_addMethod(v6, sel_smoothness, floatGetter, "f@:");
+    class_addMethod(v7, sel_setSmoothness_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v9 = result;
+    v10 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v11 = [v9 instancesRespondToSelector:sel_color];
+    if (v10)
+    {
+      if ((v11 & 1) == 0)
+      {
+        class_addMethod(v9, sel_color, iiGetter, "@@:");
+      }
+
+      result = [v9 instancesRespondToSelector:sel_setColor_];
+      v12 = iiSetter;
+      if ((result & 1) == 0)
+      {
+LABEL_12:
+
+        return class_addMethod(v9, sel_setColor_, v12, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v11 & 1) == 0)
+      {
+        class_addMethod(v9, sel_color, objGetter, "@@:");
+      }
+
+      result = [v9 instancesRespondToSelector:sel_setColor_];
+      v12 = objSetter;
+      if ((result & 1) == 0)
+      {
+        goto LABEL_12;
+      }
+    }
+  }
+
+  return result;
+}
+
++ (CIFilter)roundedRectangleStrokeGeneratorFilter
+{
+  v2 = [CIFilter filterWithName:@"CIRoundedRectangleStrokeGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __59__CIFilter_Builtins__roundedRectangleStrokeGeneratorFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (roundedRectangleStrokeGeneratorFilter_onceToken != -1)
+  {
+    dispatch_once(&roundedRectangleStrokeGeneratorFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__59__CIFilter_Builtins__roundedRectangleStrokeGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    class_addMethod(v2, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v3, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    class_addMethod(v4, sel_radius, floatGetter, "f@:");
+    class_addMethod(v5, sel_setRadius_, floatSetter, "v@:f");
+  }
+
+  v6 = objc_opt_class();
+  if (v6)
+  {
+    v7 = v6;
+    class_addMethod(v6, sel_smoothness, floatGetter, "f@:");
+    class_addMethod(v7, sel_setSmoothness_, floatSetter, "v@:f");
+  }
+
+  v8 = objc_opt_class();
+  if (v8)
+  {
+    v9 = v8;
+    v10 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v11 = [v9 instancesRespondToSelector:sel_color];
+    if (v10)
+    {
+      if ((v11 & 1) == 0)
+      {
+        class_addMethod(v9, sel_color, iiGetter, "@@:");
+      }
+
+      v12 = [v9 instancesRespondToSelector:sel_setColor_];
+      v13 = iiSetter;
+      if ((v12 & 1) == 0)
+      {
+LABEL_12:
+        class_addMethod(v9, sel_setColor_, v13, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v11 & 1) == 0)
+      {
+        class_addMethod(v9, sel_color, objGetter, "@@:");
+      }
+
+      v16 = [v9 instancesRespondToSelector:sel_setColor_];
+      v13 = objSetter;
+      if ((v16 & 1) == 0)
+      {
+        goto LABEL_12;
+      }
+    }
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v15 = result;
+    class_addMethod(result, sel_width, floatGetter, "f@:");
+
+    return class_addMethod(v15, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)starShineGeneratorFilter
+{
+  v2 = [CIFilter filterWithName:@"CIStarShineGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __46__CIFilter_Builtins__starShineGeneratorFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (starShineGeneratorFilter_onceToken != -1)
+  {
+    dispatch_once(&starShineGeneratorFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__46__CIFilter_Builtins__starShineGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    class_addMethod(v2, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v7 = [v5 instancesRespondToSelector:sel_color];
+    if (v6)
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, iiGetter, "@@:");
+      }
+
+      v8 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = iiSetter;
+      if ((v8 & 1) == 0)
+      {
+LABEL_8:
+        class_addMethod(v5, sel_setColor_, v9, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, objGetter, "@@:");
+      }
+
+      v22 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = objSetter;
+      if ((v22 & 1) == 0)
+      {
+        goto LABEL_8;
+      }
+    }
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_radius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRadius_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_crossScale, floatGetter, "f@:");
+    class_addMethod(v13, sel_setCrossScale_, floatSetter, "v@:f");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_crossAngle, floatGetter, "f@:");
+    class_addMethod(v15, sel_setCrossAngle_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_crossOpacity, floatGetter, "f@:");
+    class_addMethod(v17, sel_setCrossOpacity_, floatSetter, "v@:f");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    class_addMethod(v18, sel_crossWidth, floatGetter, "f@:");
+    class_addMethod(v19, sel_setCrossWidth_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v21 = result;
+    class_addMethod(result, sel_epsilon, floatGetter, "f@:");
+
+    return class_addMethod(v21, sel_setEpsilon_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)stripesGeneratorFilter
+{
+  v2 = [CIFilter filterWithName:@"CIStripesGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __44__CIFilter_Builtins__stripesGeneratorFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (stripesGeneratorFilter_onceToken != -1)
+  {
+    dispatch_once(&stripesGeneratorFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__44__CIFilter_Builtins__stripesGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    class_addMethod(v2, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
+    v7 = [v5 instancesRespondToSelector:sel_color0];
+    if (v6)
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color0, iiGetter, "@@:");
+      }
+
+      v8 = [v5 instancesRespondToSelector:sel_setColor0_];
+      v9 = iiSetter;
+      if ((v8 & 1) == 0)
+      {
+LABEL_8:
+        class_addMethod(v5, sel_setColor0_, v9, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color0, objGetter, "@@:");
+      }
+
+      v20 = [v5 instancesRespondToSelector:sel_setColor0_];
+      v9 = objSetter;
+      if ((v20 & 1) == 0)
+      {
+        goto LABEL_8;
+      }
+    }
+  }
+
+  v10 = objc_opt_class();
+  if (!v10)
+  {
+    goto LABEL_15;
+  }
+
+  v11 = v10;
+  v12 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
+  v13 = [v11 instancesRespondToSelector:sel_color1];
+  if (v12)
+  {
+    if ((v13 & 1) == 0)
+    {
+      class_addMethod(v11, sel_color1, iiGetter, "@@:");
+    }
+
+    v14 = [v11 instancesRespondToSelector:sel_setColor1_];
+    v15 = iiSetter;
+    if ((v14 & 1) == 0)
+    {
+LABEL_14:
+      class_addMethod(v11, sel_setColor1_, v15, "v@:@");
+    }
+  }
+
+  else
+  {
+    if ((v13 & 1) == 0)
+    {
+      class_addMethod(v11, sel_color1, objGetter, "@@:");
+    }
+
+    v21 = [v11 instancesRespondToSelector:sel_setColor1_];
+    v15 = objSetter;
+    if ((v21 & 1) == 0)
+    {
+      goto LABEL_14;
+    }
+  }
+
+LABEL_15:
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_width, floatGetter, "f@:");
+    class_addMethod(v17, sel_setWidth_, floatSetter, "v@:f");
+  }
+
+  result = objc_opt_class();
+  if (result)
+  {
+    v19 = result;
+    class_addMethod(result, sel_sharpness, floatGetter, "f@:");
+
+    return class_addMethod(v19, sel_setSharpness_, floatSetter, "v@:f");
+  }
+
+  return result;
+}
+
++ (CIFilter)sunbeamsGeneratorFilter
+{
+  v2 = [CIFilter filterWithName:@"CISunbeamsGenerator"];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __45__CIFilter_Builtins__sunbeamsGeneratorFilter__block_invoke;
+  block[3] = &unk_1E75C2AA0;
+  block[4] = v2;
+  if (sunbeamsGeneratorFilter_onceToken != -1)
+  {
+    dispatch_once(&sunbeamsGeneratorFilter_onceToken, block);
+  }
+
+  return v2;
+}
+
+objc_class *__45__CIFilter_Builtins__sunbeamsGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  if (v2)
+  {
+    v3 = v2;
+    class_addMethod(v2, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v3, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+  }
+
+  v4 = objc_opt_class();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v7 = [v5 instancesRespondToSelector:sel_color];
+    if (v6)
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, iiGetter, "@@:");
+      }
+
+      v8 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = iiSetter;
+      if ((v8 & 1) == 0)
+      {
+LABEL_8:
+        class_addMethod(v5, sel_setColor_, v9, "v@:@");
+      }
+    }
+
+    else
+    {
+      if ((v7 & 1) == 0)
+      {
+        class_addMethod(v5, sel_color, objGetter, "@@:");
+      }
+
+      v20 = [v5 instancesRespondToSelector:sel_setColor_];
+      v9 = objSetter;
+      if ((v20 & 1) == 0)
+      {
+        goto LABEL_8;
+      }
+    }
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_sunRadius, floatGetter, "f@:");
+    class_addMethod(v11, sel_setSunRadius_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_maxStriationRadius, floatGetter, "f@:");
+    class_addMethod(v13, sel_setMaxStriationRadius_, floatSetter, "v@:f");
   }
 
   v14 = objc_opt_class();
@@ -18747,1098 +19880,6 @@ LABEL_8:
   return result;
 }
 
-+ (CIFilter)meshGeneratorFilter
-{
-  v2 = [CIFilter filterWithName:@"CIMeshGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __41__CIFilter_Builtins__meshGeneratorFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (meshGeneratorFilter_onceToken != -1)
-  {
-    dispatch_once(&meshGeneratorFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-uint64_t __41__CIFilter_Builtins__meshGeneratorFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_width, floatGetter, "f@:");
-    class_addMethod(v1, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  v2 = objc_opt_class();
-  if (v2)
-  {
-    v3 = v2;
-    v4 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v5 = [v3 instancesRespondToSelector:sel_color];
-    if (v4)
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color, iiGetter, "@@:");
-      }
-
-      v6 = [v3 instancesRespondToSelector:sel_setColor_];
-      v7 = iiSetter;
-      if ((v6 & 1) == 0)
-      {
-LABEL_8:
-        class_addMethod(v3, sel_setColor_, v7, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color, objGetter, "@@:");
-      }
-
-      v13 = [v3 instancesRespondToSelector:sel_setColor_];
-      v7 = objSetter;
-      if ((v13 & 1) == 0)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  result = objc_opt_class();
-  if (!result)
-  {
-    return result;
-  }
-
-  v9 = result;
-  v10 = [NSStringFromSelector(sel_mesh) isEqualToString:@"inputImage"];
-  v11 = [v9 instancesRespondToSelector:sel_mesh];
-  if (v10)
-  {
-    if ((v11 & 1) == 0)
-    {
-      class_addMethod(v9, sel_mesh, iiGetter, "@@:");
-    }
-
-    result = [v9 instancesRespondToSelector:sel_setMesh_];
-    v12 = iiSetter;
-    if ((result & 1) == 0)
-    {
-LABEL_14:
-
-      return class_addMethod(v9, sel_setMesh_, v12, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v11 & 1) == 0)
-    {
-      class_addMethod(v9, sel_mesh, objGetter, "@@:");
-    }
-
-    result = [v9 instancesRespondToSelector:sel_setMesh_];
-    v12 = objSetter;
-    if ((result & 1) == 0)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  return result;
-}
-
-+ (CIFilter)PDF417BarcodeGenerator
-{
-  v2 = [CIFilter filterWithName:@"CIPDF417BarcodeGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __44__CIFilter_Builtins__PDF417BarcodeGenerator__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (PDF417BarcodeGenerator_onceToken != -1)
-  {
-    dispatch_once(&PDF417BarcodeGenerator_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__44__CIFilter_Builtins__PDF417BarcodeGenerator__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_message];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_message, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setMessage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_message, objGetter, "@@:");
-      }
-
-      v28 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = objSetter;
-      if ((v28 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_minWidth, floatGetter, "f@:");
-    class_addMethod(v7, sel_setMinWidth_, floatSetter, "v@:f");
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_maxWidth, floatGetter, "f@:");
-    class_addMethod(v9, sel_setMaxWidth_, floatSetter, "v@:f");
-  }
-
-  v10 = objc_opt_class();
-  if (v10)
-  {
-    v11 = v10;
-    class_addMethod(v10, sel_minHeight, floatGetter, "f@:");
-    class_addMethod(v11, sel_setMinHeight_, floatSetter, "v@:f");
-  }
-
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_maxHeight, floatGetter, "f@:");
-    class_addMethod(v13, sel_setMaxHeight_, floatSetter, "v@:f");
-  }
-
-  v14 = objc_opt_class();
-  if (v14)
-  {
-    v15 = v14;
-    class_addMethod(v14, sel_dataColumns, floatGetter, "f@:");
-    class_addMethod(v15, sel_setDataColumns_, floatSetter, "v@:f");
-  }
-
-  v16 = objc_opt_class();
-  if (v16)
-  {
-    v17 = v16;
-    class_addMethod(v16, sel_rows, floatGetter, "f@:");
-    class_addMethod(v17, sel_setRows_, floatSetter, "v@:f");
-  }
-
-  v18 = objc_opt_class();
-  if (v18)
-  {
-    v19 = v18;
-    class_addMethod(v18, sel_preferredAspectRatio, floatGetter, "f@:");
-    class_addMethod(v19, sel_setPreferredAspectRatio_, floatSetter, "v@:f");
-  }
-
-  v20 = objc_opt_class();
-  if (v20)
-  {
-    v21 = v20;
-    class_addMethod(v20, sel_compactionMode, floatGetter, "f@:");
-    class_addMethod(v21, sel_setCompactionMode_, floatSetter, "v@:f");
-  }
-
-  v22 = objc_opt_class();
-  if (v22)
-  {
-    v23 = v22;
-    class_addMethod(v22, sel_compactStyle, floatGetter, "f@:");
-    class_addMethod(v23, sel_setCompactStyle_, floatSetter, "v@:f");
-  }
-
-  v24 = objc_opt_class();
-  if (v24)
-  {
-    v25 = v24;
-    class_addMethod(v24, sel_correctionLevel, floatGetter, "f@:");
-    class_addMethod(v25, sel_setCorrectionLevel_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v27 = result;
-    class_addMethod(result, sel_alwaysSpecifyCompaction, floatGetter, "f@:");
-
-    return class_addMethod(v27, sel_setAlwaysSpecifyCompaction_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)QRCodeGenerator
-{
-  v2 = [CIFilter filterWithName:@"CIQRCodeGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __37__CIFilter_Builtins__QRCodeGenerator__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (QRCodeGenerator_onceToken != -1)
-  {
-    dispatch_once(&QRCodeGenerator_onceToken, block);
-  }
-
-  return v2;
-}
-
-uint64_t __37__CIFilter_Builtins__QRCodeGenerator__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_message];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_message, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setMessage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_message, objGetter, "@@:");
-      }
-
-      v11 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = objSetter;
-      if ((v11 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  result = objc_opt_class();
-  if (!result)
-  {
-    return result;
-  }
-
-  v7 = result;
-  v8 = [NSStringFromSelector(sel_correctionLevel) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_correctionLevel];
-  if (v8)
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_correctionLevel, iiGetter, "@@:");
-    }
-
-    result = [v7 instancesRespondToSelector:sel_setCorrectionLevel_];
-    v10 = iiSetter;
-    if ((result & 1) == 0)
-    {
-LABEL_12:
-
-      return class_addMethod(v7, sel_setCorrectionLevel_, v10, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_correctionLevel, objGetter, "@@:");
-    }
-
-    result = [v7 instancesRespondToSelector:sel_setCorrectionLevel_];
-    v10 = objSetter;
-    if ((result & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  return result;
-}
-
-+ (id)roundedQRCodeGeneratorFilter
-{
-  v2 = [CIFilter filterWithName:@"CIRoundedQRCodeGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __50__CIFilter_Builtins__roundedQRCodeGeneratorFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (roundedQRCodeGeneratorFilter_onceToken != -1)
-  {
-    dispatch_once(&roundedQRCodeGeneratorFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-uint64_t __50__CIFilter_Builtins__roundedQRCodeGeneratorFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_message) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_message];
-    if (v2)
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_message, iiGetter, "@@:");
-      }
-
-      v4 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
-      {
-LABEL_6:
-        class_addMethod(v1, sel_setMessage_, v5, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v3 & 1) == 0)
-      {
-        class_addMethod(v1, sel_message, objGetter, "@@:");
-      }
-
-      v31 = [v1 instancesRespondToSelector:sel_setMessage_];
-      v5 = objSetter;
-      if ((v31 & 1) == 0)
-      {
-        goto LABEL_6;
-      }
-    }
-  }
-
-  v6 = objc_opt_class();
-  if (!v6)
-  {
-    goto LABEL_13;
-  }
-
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_correctionLevel) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_correctionLevel];
-  if (v8)
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_correctionLevel, iiGetter, "@@:");
-    }
-
-    v10 = [v7 instancesRespondToSelector:sel_setCorrectionLevel_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
-    {
-LABEL_12:
-      class_addMethod(v7, sel_setCorrectionLevel_, v11, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v9 & 1) == 0)
-    {
-      class_addMethod(v7, sel_correctionLevel, objGetter, "@@:");
-    }
-
-    v32 = [v7 instancesRespondToSelector:sel_setCorrectionLevel_];
-    v11 = objSetter;
-    if ((v32 & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-  }
-
-LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_scale, floatGetter, "f@:");
-    class_addMethod(v13, sel_setScale_, floatSetter, "v@:f");
-  }
-
-  v14 = objc_opt_class();
-  if (v14)
-  {
-    v15 = v14;
-    class_addMethod(v14, sel_roundedMarkers, intGetter, "q@:");
-    class_addMethod(v15, sel_setRoundedMarkers_, intSetter, "v@:q}");
-  }
-
-  v16 = objc_opt_class();
-  if (v16)
-  {
-    v17 = v16;
-    class_addMethod(v16, sel_roundedData, BOOLGetter, "B@:");
-    class_addMethod(v17, sel_setRoundedData_, BOOLSetter, "v@:B}");
-  }
-
-  v18 = objc_opt_class();
-  if (v18)
-  {
-    v19 = v18;
-    class_addMethod(v18, sel_centerSpaceSize, floatGetter, "f@:");
-    class_addMethod(v19, sel_setCenterSpaceSize_, floatSetter, "v@:f");
-  }
-
-  v20 = objc_opt_class();
-  if (v20)
-  {
-    v21 = v20;
-    v22 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-    v23 = [v21 instancesRespondToSelector:sel_color0];
-    if (v22)
-    {
-      if ((v23 & 1) == 0)
-      {
-        class_addMethod(v21, sel_color0, iiGetter, "@@:");
-      }
-
-      v24 = [v21 instancesRespondToSelector:sel_setColor0_];
-      v25 = iiSetter;
-      if ((v24 & 1) == 0)
-      {
-LABEL_26:
-        class_addMethod(v21, sel_setColor0_, v25, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v23 & 1) == 0)
-      {
-        class_addMethod(v21, sel_color0, objGetter, "@@:");
-      }
-
-      v33 = [v21 instancesRespondToSelector:sel_setColor0_];
-      v25 = objSetter;
-      if ((v33 & 1) == 0)
-      {
-        goto LABEL_26;
-      }
-    }
-  }
-
-  result = objc_opt_class();
-  if (!result)
-  {
-    return result;
-  }
-
-  v27 = result;
-  v28 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v29 = [v27 instancesRespondToSelector:sel_color1];
-  if (v28)
-  {
-    if ((v29 & 1) == 0)
-    {
-      class_addMethod(v27, sel_color1, iiGetter, "@@:");
-    }
-
-    result = [v27 instancesRespondToSelector:sel_setColor1_];
-    v30 = iiSetter;
-    if ((result & 1) == 0)
-    {
-LABEL_32:
-
-      return class_addMethod(v27, sel_setColor1_, v30, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v29 & 1) == 0)
-    {
-      class_addMethod(v27, sel_color1, objGetter, "@@:");
-    }
-
-    result = [v27 instancesRespondToSelector:sel_setColor1_];
-    v30 = objSetter;
-    if ((result & 1) == 0)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  return result;
-}
-
-+ (CIFilter)roundedRectangleGeneratorFilter
-{
-  v2 = [CIFilter filterWithName:@"CIRoundedRectangleGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __53__CIFilter_Builtins__roundedRectangleGeneratorFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (roundedRectangleGeneratorFilter_onceToken != -1)
-  {
-    dispatch_once(&roundedRectangleGeneratorFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-uint64_t __53__CIFilter_Builtins__roundedRectangleGeneratorFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v1, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
-  v2 = objc_opt_class();
-  if (v2)
-  {
-    v3 = v2;
-    class_addMethod(v2, sel_radius, floatGetter, "f@:");
-    class_addMethod(v3, sel_setRadius_, floatSetter, "v@:f");
-  }
-
-  v4 = objc_opt_class();
-  if (v4)
-  {
-    v5 = v4;
-    class_addMethod(v4, sel_smoothness, floatGetter, "f@:");
-    class_addMethod(v5, sel_setSmoothness_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v7 = result;
-    v8 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v9 = [v7 instancesRespondToSelector:sel_color];
-    if (v8)
-    {
-      if ((v9 & 1) == 0)
-      {
-        class_addMethod(v7, sel_color, iiGetter, "@@:");
-      }
-
-      result = [v7 instancesRespondToSelector:sel_setColor_];
-      v10 = iiSetter;
-      if ((result & 1) == 0)
-      {
-LABEL_12:
-
-        return class_addMethod(v7, sel_setColor_, v10, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v9 & 1) == 0)
-      {
-        class_addMethod(v7, sel_color, objGetter, "@@:");
-      }
-
-      result = [v7 instancesRespondToSelector:sel_setColor_];
-      v10 = objSetter;
-      if ((result & 1) == 0)
-      {
-        goto LABEL_12;
-      }
-    }
-  }
-
-  return result;
-}
-
-+ (CIFilter)roundedRectangleStrokeGeneratorFilter
-{
-  v2 = [CIFilter filterWithName:@"CIRoundedRectangleStrokeGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __59__CIFilter_Builtins__roundedRectangleStrokeGeneratorFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (roundedRectangleStrokeGeneratorFilter_onceToken != -1)
-  {
-    dispatch_once(&roundedRectangleStrokeGeneratorFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__59__CIFilter_Builtins__roundedRectangleStrokeGeneratorFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v1, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
-  v2 = objc_opt_class();
-  if (v2)
-  {
-    v3 = v2;
-    class_addMethod(v2, sel_radius, floatGetter, "f@:");
-    class_addMethod(v3, sel_setRadius_, floatSetter, "v@:f");
-  }
-
-  v4 = objc_opt_class();
-  if (v4)
-  {
-    v5 = v4;
-    class_addMethod(v4, sel_smoothness, floatGetter, "f@:");
-    class_addMethod(v5, sel_setSmoothness_, floatSetter, "v@:f");
-  }
-
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    v8 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v9 = [v7 instancesRespondToSelector:sel_color];
-    if (v8)
-    {
-      if ((v9 & 1) == 0)
-      {
-        class_addMethod(v7, sel_color, iiGetter, "@@:");
-      }
-
-      v10 = [v7 instancesRespondToSelector:sel_setColor_];
-      v11 = iiSetter;
-      if ((v10 & 1) == 0)
-      {
-LABEL_12:
-        class_addMethod(v7, sel_setColor_, v11, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v9 & 1) == 0)
-      {
-        class_addMethod(v7, sel_color, objGetter, "@@:");
-      }
-
-      v14 = [v7 instancesRespondToSelector:sel_setColor_];
-      v11 = objSetter;
-      if ((v14 & 1) == 0)
-      {
-        goto LABEL_12;
-      }
-    }
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v13 = result;
-    class_addMethod(result, sel_width, floatGetter, "f@:");
-
-    return class_addMethod(v13, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)starShineGeneratorFilter
-{
-  v2 = [CIFilter filterWithName:@"CIStarShineGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __46__CIFilter_Builtins__starShineGeneratorFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (starShineGeneratorFilter_onceToken != -1)
-  {
-    dispatch_once(&starShineGeneratorFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__46__CIFilter_Builtins__starShineGeneratorFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v2 = objc_opt_class();
-  if (v2)
-  {
-    v3 = v2;
-    v4 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v5 = [v3 instancesRespondToSelector:sel_color];
-    if (v4)
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color, iiGetter, "@@:");
-      }
-
-      v6 = [v3 instancesRespondToSelector:sel_setColor_];
-      v7 = iiSetter;
-      if ((v6 & 1) == 0)
-      {
-LABEL_8:
-        class_addMethod(v3, sel_setColor_, v7, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color, objGetter, "@@:");
-      }
-
-      v20 = [v3 instancesRespondToSelector:sel_setColor_];
-      v7 = objSetter;
-      if ((v20 & 1) == 0)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_radius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
-  }
-
-  v10 = objc_opt_class();
-  if (v10)
-  {
-    v11 = v10;
-    class_addMethod(v10, sel_crossScale, floatGetter, "f@:");
-    class_addMethod(v11, sel_setCrossScale_, floatSetter, "v@:f");
-  }
-
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_crossAngle, floatGetter, "f@:");
-    class_addMethod(v13, sel_setCrossAngle_, floatSetter, "v@:f");
-  }
-
-  v14 = objc_opt_class();
-  if (v14)
-  {
-    v15 = v14;
-    class_addMethod(v14, sel_crossOpacity, floatGetter, "f@:");
-    class_addMethod(v15, sel_setCrossOpacity_, floatSetter, "v@:f");
-  }
-
-  v16 = objc_opt_class();
-  if (v16)
-  {
-    v17 = v16;
-    class_addMethod(v16, sel_crossWidth, floatGetter, "f@:");
-    class_addMethod(v17, sel_setCrossWidth_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v19 = result;
-    class_addMethod(result, sel_epsilon, floatGetter, "f@:");
-
-    return class_addMethod(v19, sel_setEpsilon_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)stripesGeneratorFilter
-{
-  v2 = [CIFilter filterWithName:@"CIStripesGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __44__CIFilter_Builtins__stripesGeneratorFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (stripesGeneratorFilter_onceToken != -1)
-  {
-    dispatch_once(&stripesGeneratorFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__44__CIFilter_Builtins__stripesGeneratorFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v2 = objc_opt_class();
-  if (v2)
-  {
-    v3 = v2;
-    v4 = [NSStringFromSelector(sel_color0) isEqualToString:@"inputImage"];
-    v5 = [v3 instancesRespondToSelector:sel_color0];
-    if (v4)
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color0, iiGetter, "@@:");
-      }
-
-      v6 = [v3 instancesRespondToSelector:sel_setColor0_];
-      v7 = iiSetter;
-      if ((v6 & 1) == 0)
-      {
-LABEL_8:
-        class_addMethod(v3, sel_setColor0_, v7, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color0, objGetter, "@@:");
-      }
-
-      v18 = [v3 instancesRespondToSelector:sel_setColor0_];
-      v7 = objSetter;
-      if ((v18 & 1) == 0)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  v8 = objc_opt_class();
-  if (!v8)
-  {
-    goto LABEL_15;
-  }
-
-  v9 = v8;
-  v10 = [NSStringFromSelector(sel_color1) isEqualToString:@"inputImage"];
-  v11 = [v9 instancesRespondToSelector:sel_color1];
-  if (v10)
-  {
-    if ((v11 & 1) == 0)
-    {
-      class_addMethod(v9, sel_color1, iiGetter, "@@:");
-    }
-
-    v12 = [v9 instancesRespondToSelector:sel_setColor1_];
-    v13 = iiSetter;
-    if ((v12 & 1) == 0)
-    {
-LABEL_14:
-      class_addMethod(v9, sel_setColor1_, v13, "v@:@");
-    }
-  }
-
-  else
-  {
-    if ((v11 & 1) == 0)
-    {
-      class_addMethod(v9, sel_color1, objGetter, "@@:");
-    }
-
-    v19 = [v9 instancesRespondToSelector:sel_setColor1_];
-    v13 = objSetter;
-    if ((v19 & 1) == 0)
-    {
-      goto LABEL_14;
-    }
-  }
-
-LABEL_15:
-  v14 = objc_opt_class();
-  if (v14)
-  {
-    v15 = v14;
-    class_addMethod(v14, sel_width, floatGetter, "f@:");
-    class_addMethod(v15, sel_setWidth_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v17 = result;
-    class_addMethod(result, sel_sharpness, floatGetter, "f@:");
-
-    return class_addMethod(v17, sel_setSharpness_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
-+ (CIFilter)sunbeamsGeneratorFilter
-{
-  v2 = [CIFilter filterWithName:@"CISunbeamsGenerator"];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __45__CIFilter_Builtins__sunbeamsGeneratorFilter__block_invoke;
-  block[3] = &unk_1E75C2AA0;
-  block[4] = v2;
-  if (sunbeamsGeneratorFilter_onceToken != -1)
-  {
-    dispatch_once(&sunbeamsGeneratorFilter_onceToken, block);
-  }
-
-  return v2;
-}
-
-objc_class *__45__CIFilter_Builtins__sunbeamsGeneratorFilter__block_invoke()
-{
-  v0 = objc_opt_class();
-  if (v0)
-  {
-    v1 = v0;
-    class_addMethod(v0, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v1, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
-  v2 = objc_opt_class();
-  if (v2)
-  {
-    v3 = v2;
-    v4 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v5 = [v3 instancesRespondToSelector:sel_color];
-    if (v4)
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color, iiGetter, "@@:");
-      }
-
-      v6 = [v3 instancesRespondToSelector:sel_setColor_];
-      v7 = iiSetter;
-      if ((v6 & 1) == 0)
-      {
-LABEL_8:
-        class_addMethod(v3, sel_setColor_, v7, "v@:@");
-      }
-    }
-
-    else
-    {
-      if ((v5 & 1) == 0)
-      {
-        class_addMethod(v3, sel_color, objGetter, "@@:");
-      }
-
-      v18 = [v3 instancesRespondToSelector:sel_setColor_];
-      v7 = objSetter;
-      if ((v18 & 1) == 0)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  v8 = objc_opt_class();
-  if (v8)
-  {
-    v9 = v8;
-    class_addMethod(v8, sel_sunRadius, floatGetter, "f@:");
-    class_addMethod(v9, sel_setSunRadius_, floatSetter, "v@:f");
-  }
-
-  v10 = objc_opt_class();
-  if (v10)
-  {
-    v11 = v10;
-    class_addMethod(v10, sel_maxStriationRadius, floatGetter, "f@:");
-    class_addMethod(v11, sel_setMaxStriationRadius_, floatSetter, "v@:f");
-  }
-
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_striationStrength, floatGetter, "f@:");
-    class_addMethod(v13, sel_setStriationStrength_, floatSetter, "v@:f");
-  }
-
-  v14 = objc_opt_class();
-  if (v14)
-  {
-    v15 = v14;
-    class_addMethod(v14, sel_striationContrast, floatGetter, "f@:");
-    class_addMethod(v15, sel_setStriationContrast_, floatSetter, "v@:f");
-  }
-
-  result = objc_opt_class();
-  if (result)
-  {
-    v17 = result;
-    class_addMethod(result, sel_time, floatGetter, "f@:");
-
-    return class_addMethod(v17, sel_setTime_, floatSetter, "v@:f");
-  }
-
-  return result;
-}
-
 + (CIFilter)textImageGeneratorFilter
 {
   v2 = [CIFilter filterWithName:@"CITextImageGenerator"];
@@ -19855,110 +19896,110 @@ LABEL_8:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__textImageGeneratorFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__textImageGeneratorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_text) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_text];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_text) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_text];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_text, iiGetter, "@@:");
+        class_addMethod(v3, sel_text, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setText_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setText_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setText_, v5, "v@:@");
+        class_addMethod(v3, sel_setText_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_text, objGetter, "@@:");
+        class_addMethod(v3, sel_text, objGetter, "@@:");
       }
 
-      v18 = [v1 instancesRespondToSelector:sel_setText_];
-      v5 = objSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v3 instancesRespondToSelector:sel_setText_];
+      v7 = objSetter;
+      if ((v20 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_fontName) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_fontName];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_fontName) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_fontName];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_fontName, iiGetter, "@@:");
+      class_addMethod(v9, sel_fontName, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setFontName_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setFontName_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setFontName_, v11, "v@:@");
+      class_addMethod(v9, sel_setFontName_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_fontName, objGetter, "@@:");
+      class_addMethod(v9, sel_fontName, objGetter, "@@:");
     }
 
-    v19 = [v7 instancesRespondToSelector:sel_setFontName_];
-    v11 = objSetter;
-    if ((v19 & 1) == 0)
+    v21 = [v9 instancesRespondToSelector:sel_setFontName_];
+    v13 = objSetter;
+    if ((v21 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
-  {
-    v13 = v12;
-    class_addMethod(v12, sel_fontSize, floatGetter, "f@:");
-    class_addMethod(v13, sel_setFontSize_, floatSetter, "v@:f");
-  }
-
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_scaleFactor, floatGetter, "f@:");
-    class_addMethod(v15, sel_setScaleFactor_, floatSetter, "v@:f");
+    class_addMethod(v14, sel_fontSize, floatGetter, "f@:");
+    class_addMethod(v15, sel_setFontSize_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_scaleFactor, floatGetter, "f@:");
+    class_addMethod(v17, sel_setScaleFactor_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v17 = result;
+    v19 = result;
     class_addMethod(result, sel_padding, floatGetter, "f@:");
 
-    return class_addMethod(v17, sel_setPadding_, floatSetter, "v@:f");
+    return class_addMethod(v19, sel_setPadding_, floatSetter, "v@:f");
   }
 
   return result;
@@ -19980,81 +20021,81 @@ LABEL_13:
   return v2;
 }
 
-uint64_t __46__CIFilter_Builtins__blendWithAlphaMaskFilter__block_invoke()
+uint64_t __46__CIFilter_Builtins__blendWithAlphaMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v17 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setBackgroundImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setBackgroundImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    v18 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = objSetter;
-    if ((v18 & 1) == 0)
+    v20 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = objSetter;
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -20067,35 +20108,35 @@ LABEL_13:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_maskImage];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_maskImage];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, iiGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setMaskImage_, v16, "v@:@");
+      return class_addMethod(v15, sel_setMaskImage_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, objGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -20121,81 +20162,81 @@ LABEL_18:
   return v2;
 }
 
-uint64_t __45__CIFilter_Builtins__blendWithBlueMaskFilter__block_invoke()
+uint64_t __45__CIFilter_Builtins__blendWithBlueMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v17 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setBackgroundImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setBackgroundImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    v18 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = objSetter;
-    if ((v18 & 1) == 0)
+    v20 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = objSetter;
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -20208,35 +20249,35 @@ LABEL_13:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_maskImage];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_maskImage];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, iiGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setMaskImage_, v16, "v@:@");
+      return class_addMethod(v15, sel_setMaskImage_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, objGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -20262,81 +20303,81 @@ LABEL_18:
   return v2;
 }
 
-uint64_t __41__CIFilter_Builtins__blendWithMaskFilter__block_invoke()
+uint64_t __41__CIFilter_Builtins__blendWithMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v17 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setBackgroundImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setBackgroundImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    v18 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = objSetter;
-    if ((v18 & 1) == 0)
+    v20 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = objSetter;
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -20349,35 +20390,35 @@ LABEL_13:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_maskImage];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_maskImage];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, iiGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setMaskImage_, v16, "v@:@");
+      return class_addMethod(v15, sel_setMaskImage_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, objGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -20403,81 +20444,81 @@ LABEL_18:
   return v2;
 }
 
-uint64_t __44__CIFilter_Builtins__blendWithRedMaskFilter__block_invoke()
+uint64_t __44__CIFilter_Builtins__blendWithRedMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v17 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v17 & 1) == 0)
+      v19 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v19 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setBackgroundImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setBackgroundImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    v18 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = objSetter;
-    if ((v18 & 1) == 0)
+    v20 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = objSetter;
+    if ((v20 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -20490,35 +20531,35 @@ LABEL_13:
     return result;
   }
 
-  v13 = result;
-  v14 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_maskImage];
-  if (v14)
+  v15 = result;
+  v16 = [NSStringFromSelector(sel_maskImage) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_maskImage];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, iiGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, iiGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = iiSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = iiSetter;
     if ((result & 1) == 0)
     {
 LABEL_18:
 
-      return class_addMethod(v13, sel_setMaskImage_, v16, "v@:@");
+      return class_addMethod(v15, sel_setMaskImage_, v18, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_maskImage, objGetter, "@@:");
+      class_addMethod(v15, sel_maskImage, objGetter, "@@:");
     }
 
-    result = [v13 instancesRespondToSelector:sel_setMaskImage_];
-    v16 = objSetter;
+    result = [v15 instancesRespondToSelector:sel_setMaskImage_];
+    v18 = objSetter;
     if ((result & 1) == 0)
     {
       goto LABEL_18;
@@ -20544,61 +20585,61 @@ LABEL_18:
   return v2;
 }
 
-objc_class *__33__CIFilter_Builtins__bloomFilter__block_invoke()
+objc_class *__33__CIFilter_Builtins__bloomFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_intensity, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setIntensity_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -20620,85 +20661,85 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__cannyEdgeDetectorFilter__block_invoke()
+objc_class *__45__CIFilter_Builtins__cannyEdgeDetectorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_gaussianSigma, floatGetter, "f@:");
-    class_addMethod(v7, sel_setGaussianSigma_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_perceptual, BOOLGetter, "B@:");
-    class_addMethod(v9, sel_setPerceptual_, BOOLSetter, "v@:B}");
+    class_addMethod(v8, sel_gaussianSigma, floatGetter, "f@:");
+    class_addMethod(v9, sel_setGaussianSigma_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_thresholdHigh, floatGetter, "f@:");
-    class_addMethod(v11, sel_setThresholdHigh_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_perceptual, BOOLGetter, "B@:");
+    class_addMethod(v11, sel_setPerceptual_, BOOLSetter, "v@:B}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_thresholdLow, floatGetter, "f@:");
-    class_addMethod(v13, sel_setThresholdLow_, floatSetter, "v@:f");
+    class_addMethod(v12, sel_thresholdHigh, floatGetter, "f@:");
+    class_addMethod(v13, sel_setThresholdHigh_, floatSetter, "v@:f");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_thresholdLow, floatGetter, "f@:");
+    class_addMethod(v15, sel_setThresholdLow_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_hysteresisPasses, intGetter, "q@:");
 
-    return class_addMethod(v15, sel_setHysteresisPasses_, intSetter, "v@:q}");
+    return class_addMethod(v17, sel_setHysteresisPasses_, intSetter, "v@:q}");
   }
 
   return result;
@@ -20720,81 +20761,81 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__convolution3X3Filter__block_invoke()
+objc_class *__42__CIFilter_Builtins__convolution3X3Filter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -20804,10 +20845,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -20829,81 +20870,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__convolution5X5Filter__block_invoke()
+objc_class *__42__CIFilter_Builtins__convolution5X5Filter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -20913,10 +20954,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -20938,81 +20979,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__convolution7X7Filter__block_invoke()
+objc_class *__42__CIFilter_Builtins__convolution7X7Filter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21022,10 +21063,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21047,81 +21088,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__50__CIFilter_Builtins__convolution9HorizontalFilter__block_invoke()
+objc_class *__50__CIFilter_Builtins__convolution9HorizontalFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21131,10 +21172,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21156,81 +21197,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__48__CIFilter_Builtins__convolution9VerticalFilter__block_invoke()
+objc_class *__48__CIFilter_Builtins__convolution9VerticalFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21240,10 +21281,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21265,81 +21306,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__convolutionRGB3X3Filter__block_invoke()
+objc_class *__45__CIFilter_Builtins__convolutionRGB3X3Filter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21349,10 +21390,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21374,81 +21415,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__convolutionRGB5X5Filter__block_invoke()
+objc_class *__45__CIFilter_Builtins__convolutionRGB5X5Filter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21458,10 +21499,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21483,81 +21524,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__convolutionRGB7X7Filter__block_invoke()
+objc_class *__45__CIFilter_Builtins__convolutionRGB7X7Filter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21567,10 +21608,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21592,81 +21633,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__53__CIFilter_Builtins__convolutionRGB9HorizontalFilter__block_invoke()
+objc_class *__53__CIFilter_Builtins__convolutionRGB9HorizontalFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21676,10 +21717,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21701,81 +21742,81 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__51__CIFilter_Builtins__convolutionRGB9VerticalFilter__block_invoke()
+objc_class *__51__CIFilter_Builtins__convolutionRGB9VerticalFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_weights];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_weights) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_weights];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, iiGetter, "@@:");
+      class_addMethod(v9, sel_weights, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setWeights_, v11, "v@:@");
+      class_addMethod(v9, sel_setWeights_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_weights, objGetter, "@@:");
+      class_addMethod(v9, sel_weights, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setWeights_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setWeights_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -21785,10 +21826,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_bias, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setBias_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setBias_, floatSetter, "v@:f");
   }
 
   return result;
@@ -21810,102 +21851,102 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__coreMLModelFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__coreMLModelFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_model) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_model];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_model) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_model];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_model, iiGetter, "@@:");
+      class_addMethod(v9, sel_model, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setModel_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setModel_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setModel_, v11, "v@:@");
+      class_addMethod(v9, sel_setModel_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_model, objGetter, "@@:");
+      class_addMethod(v9, sel_model, objGetter, "@@:");
     }
 
-    v17 = [v7 instancesRespondToSelector:sel_setModel_];
-    v11 = objSetter;
-    if ((v17 & 1) == 0)
+    v19 = [v9 instancesRespondToSelector:sel_setModel_];
+    v13 = objSetter;
+    if ((v19 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (v12)
+  v14 = objc_opt_class();
+  if (v14)
   {
-    v13 = v12;
-    class_addMethod(v12, sel_headIndex, floatGetter, "f@:");
-    class_addMethod(v13, sel_setHeadIndex_, floatSetter, "v@:f");
+    v15 = v14;
+    class_addMethod(v14, sel_headIndex, floatGetter, "f@:");
+    class_addMethod(v15, sel_setHeadIndex_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_softmaxNormalization, BOOLGetter, "B@:");
 
-    return class_addMethod(v15, sel_setSoftmaxNormalization_, BOOLSetter, "v@:B}");
+    return class_addMethod(v17, sel_setSoftmaxNormalization_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -21927,61 +21968,61 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__crystallizeFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__crystallizeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_center, pointGetter, "{CGPoint=dd}@:");
 
-    return class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    return class_addMethod(v11, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   return result;
@@ -22003,93 +22044,93 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__40__CIFilter_Builtins__depthOfFieldFilter__block_invoke()
+objc_class *__40__CIFilter_Builtins__depthOfFieldFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v18 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v18 & 1) == 0)
+      v20 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v20 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_point0, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_point1, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v9, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
+    class_addMethod(v8, sel_point0, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setPoint0_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_saturation, floatGetter, "f@:");
-    class_addMethod(v11, sel_setSaturation_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_point1, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v11, sel_setPoint1_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_unsharpMaskRadius, floatGetter, "f@:");
-    class_addMethod(v13, sel_setUnsharpMaskRadius_, floatSetter, "v@:f");
+    class_addMethod(v12, sel_saturation, floatGetter, "f@:");
+    class_addMethod(v13, sel_setSaturation_, floatSetter, "v@:f");
   }
 
   v14 = objc_opt_class();
   if (v14)
   {
     v15 = v14;
-    class_addMethod(v14, sel_unsharpMaskIntensity, floatGetter, "f@:");
-    class_addMethod(v15, sel_setUnsharpMaskIntensity_, floatSetter, "v@:f");
+    class_addMethod(v14, sel_unsharpMaskRadius, floatGetter, "f@:");
+    class_addMethod(v15, sel_setUnsharpMaskRadius_, floatSetter, "v@:f");
+  }
+
+  v16 = objc_opt_class();
+  if (v16)
+  {
+    v17 = v16;
+    class_addMethod(v16, sel_unsharpMaskIntensity, floatGetter, "f@:");
+    class_addMethod(v17, sel_setUnsharpMaskIntensity_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v17 = result;
+    v19 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v17, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v19, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22111,40 +22152,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__33__CIFilter_Builtins__edgesFilter__block_invoke()
+objc_class *__33__CIFilter_Builtins__edgesFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -22154,10 +22195,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_intensity, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setIntensity_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22179,40 +22220,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__36__CIFilter_Builtins__edgeWorkFilter__block_invoke()
+objc_class *__36__CIFilter_Builtins__edgeWorkFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -22222,10 +22263,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22247,61 +22288,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__33__CIFilter_Builtins__gloomFilter__block_invoke()
+objc_class *__33__CIFilter_Builtins__gloomFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_intensity, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setIntensity_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setIntensity_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22323,40 +22364,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__47__CIFilter_Builtins__heightFieldFromMaskFilter__block_invoke()
+objc_class *__47__CIFilter_Builtins__heightFieldFromMaskFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -22366,10 +22407,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22391,61 +22432,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__hexagonalPixellateFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__hexagonalPixellateFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22467,69 +22508,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__highlightShadowAdjustFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__highlightShadowAdjustFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_shadowAmount, floatGetter, "f@:");
-    class_addMethod(v9, sel_setShadowAmount_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_shadowAmount, floatGetter, "f@:");
+    class_addMethod(v11, sel_setShadowAmount_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_highlightAmount, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setHighlightAmount_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setHighlightAmount_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22551,85 +22592,85 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__lineOverlayFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__lineOverlayFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_NRNoiseLevel, floatGetter, "f@:");
-    class_addMethod(v7, sel_setNRNoiseLevel_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_NRSharpness, floatGetter, "f@:");
-    class_addMethod(v9, sel_setNRSharpness_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_NRNoiseLevel, floatGetter, "f@:");
+    class_addMethod(v9, sel_setNRNoiseLevel_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_edgeIntensity, floatGetter, "f@:");
-    class_addMethod(v11, sel_setEdgeIntensity_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_NRSharpness, floatGetter, "f@:");
+    class_addMethod(v11, sel_setNRSharpness_, floatSetter, "v@:f");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_threshold, floatGetter, "f@:");
-    class_addMethod(v13, sel_setThreshold_, floatSetter, "v@:f");
+    class_addMethod(v12, sel_edgeIntensity, floatGetter, "f@:");
+    class_addMethod(v13, sel_setEdgeIntensity_, floatSetter, "v@:f");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_threshold, floatGetter, "f@:");
+    class_addMethod(v15, sel_setThreshold_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_contrast, floatGetter, "f@:");
 
-    return class_addMethod(v15, sel_setContrast_, floatSetter, "v@:f");
+    return class_addMethod(v17, sel_setContrast_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22651,81 +22692,81 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__31__CIFilter_Builtins__mixFilter__block_invoke()
+objc_class *__31__CIFilter_Builtins__mixFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_backgroundImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_backgroundImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_backgroundImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setBackgroundImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setBackgroundImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_backgroundImage, objGetter, "@@:");
+      class_addMethod(v9, sel_backgroundImage, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setBackgroundImage_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setBackgroundImage_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -22735,10 +22776,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_amount, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setAmount_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setAmount_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22760,40 +22801,40 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__personSegmentationFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__personSegmentationFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -22803,10 +22844,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_qualityLevel, uintGetter, "Q@:");
 
-    return class_addMethod(v7, sel_setQualityLevel_, uintSetter, "v@:Q}");
+    return class_addMethod(v9, sel_setQualityLevel_, uintSetter, "v@:Q}");
   }
 
   return result;
@@ -22828,61 +22869,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__pixellateFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__pixellateFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -22904,61 +22945,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__pointillizeFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__pointillizeFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_center, pointGetter, "{CGPoint=dd}@:");
 
-    return class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    return class_addMethod(v11, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   return result;
@@ -22980,81 +23021,81 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__shadedMaterialFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__shadedMaterialFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_shadingImage) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_shadingImage];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_shadingImage) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_shadingImage];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_shadingImage, iiGetter, "@@:");
+      class_addMethod(v9, sel_shadingImage, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setShadingImage_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setShadingImage_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setShadingImage_, v11, "v@:@");
+      class_addMethod(v9, sel_setShadingImage_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_shadingImage, objGetter, "@@:");
+      class_addMethod(v9, sel_shadingImage, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setShadingImage_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setShadingImage_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -23064,10 +23105,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_scale, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setScale_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setScale_, floatSetter, "v@:f");
   }
 
   return result;
@@ -23089,333 +23130,333 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__spotColorFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__spotColorFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v54 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v54 & 1) == 0)
+      v56 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v56 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_centerColor1) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_centerColor1];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_centerColor1) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_centerColor1];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_centerColor1, iiGetter, "@@:");
+      class_addMethod(v9, sel_centerColor1, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setCenterColor1_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setCenterColor1_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setCenterColor1_, v11, "v@:@");
+      class_addMethod(v9, sel_setCenterColor1_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_centerColor1, objGetter, "@@:");
+      class_addMethod(v9, sel_centerColor1, objGetter, "@@:");
     }
 
-    v55 = [v7 instancesRespondToSelector:sel_setCenterColor1_];
-    v11 = objSetter;
-    if ((v55 & 1) == 0)
+    v57 = [v9 instancesRespondToSelector:sel_setCenterColor1_];
+    v13 = objSetter;
+    if ((v57 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_replacementColor1) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_replacementColor1];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_replacementColor1) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_replacementColor1];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_replacementColor1, iiGetter, "@@:");
+      class_addMethod(v15, sel_replacementColor1, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setReplacementColor1_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setReplacementColor1_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setReplacementColor1_, v17, "v@:@");
+      class_addMethod(v15, sel_setReplacementColor1_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_replacementColor1, objGetter, "@@:");
+      class_addMethod(v15, sel_replacementColor1, objGetter, "@@:");
     }
 
-    v56 = [v13 instancesRespondToSelector:sel_setReplacementColor1_];
-    v17 = objSetter;
-    if ((v56 & 1) == 0)
+    v58 = [v15 instancesRespondToSelector:sel_setReplacementColor1_];
+    v19 = objSetter;
+    if ((v58 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  v18 = objc_opt_class();
-  if (v18)
-  {
-    v19 = v18;
-    class_addMethod(v18, sel_closeness1, floatGetter, "f@:");
-    class_addMethod(v19, sel_setCloseness1_, floatSetter, "v@:f");
-  }
-
   v20 = objc_opt_class();
   if (v20)
   {
     v21 = v20;
-    class_addMethod(v20, sel_contrast1, floatGetter, "f@:");
-    class_addMethod(v21, sel_setContrast1_, floatSetter, "v@:f");
+    class_addMethod(v20, sel_closeness1, floatGetter, "f@:");
+    class_addMethod(v21, sel_setCloseness1_, floatSetter, "v@:f");
   }
 
   v22 = objc_opt_class();
   if (v22)
   {
     v23 = v22;
-    v24 = [NSStringFromSelector(sel_centerColor2) isEqualToString:@"inputImage"];
-    v25 = [v23 instancesRespondToSelector:sel_centerColor2];
-    if (v24)
+    class_addMethod(v22, sel_contrast1, floatGetter, "f@:");
+    class_addMethod(v23, sel_setContrast1_, floatSetter, "v@:f");
+  }
+
+  v24 = objc_opt_class();
+  if (v24)
+  {
+    v25 = v24;
+    v26 = [NSStringFromSelector(sel_centerColor2) isEqualToString:@"inputImage"];
+    v27 = [v25 instancesRespondToSelector:sel_centerColor2];
+    if (v26)
     {
-      if ((v25 & 1) == 0)
+      if ((v27 & 1) == 0)
       {
-        class_addMethod(v23, sel_centerColor2, iiGetter, "@@:");
+        class_addMethod(v25, sel_centerColor2, iiGetter, "@@:");
       }
 
-      v26 = [v23 instancesRespondToSelector:sel_setCenterColor2_];
-      v27 = iiSetter;
-      if ((v26 & 1) == 0)
+      v28 = [v25 instancesRespondToSelector:sel_setCenterColor2_];
+      v29 = iiSetter;
+      if ((v28 & 1) == 0)
       {
 LABEL_28:
-        class_addMethod(v23, sel_setCenterColor2_, v27, "v@:@");
+        class_addMethod(v25, sel_setCenterColor2_, v29, "v@:@");
       }
     }
 
     else
     {
-      if ((v25 & 1) == 0)
+      if ((v27 & 1) == 0)
       {
-        class_addMethod(v23, sel_centerColor2, objGetter, "@@:");
+        class_addMethod(v25, sel_centerColor2, objGetter, "@@:");
       }
 
-      v57 = [v23 instancesRespondToSelector:sel_setCenterColor2_];
-      v27 = objSetter;
-      if ((v57 & 1) == 0)
+      v59 = [v25 instancesRespondToSelector:sel_setCenterColor2_];
+      v29 = objSetter;
+      if ((v59 & 1) == 0)
       {
         goto LABEL_28;
       }
     }
   }
 
-  v28 = objc_opt_class();
-  if (!v28)
+  v30 = objc_opt_class();
+  if (!v30)
   {
     goto LABEL_35;
   }
 
-  v29 = v28;
-  v30 = [NSStringFromSelector(sel_replacementColor2) isEqualToString:@"inputImage"];
-  v31 = [v29 instancesRespondToSelector:sel_replacementColor2];
-  if (v30)
+  v31 = v30;
+  v32 = [NSStringFromSelector(sel_replacementColor2) isEqualToString:@"inputImage"];
+  v33 = [v31 instancesRespondToSelector:sel_replacementColor2];
+  if (v32)
   {
-    if ((v31 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
-      class_addMethod(v29, sel_replacementColor2, iiGetter, "@@:");
+      class_addMethod(v31, sel_replacementColor2, iiGetter, "@@:");
     }
 
-    v32 = [v29 instancesRespondToSelector:sel_setReplacementColor2_];
-    v33 = iiSetter;
-    if ((v32 & 1) == 0)
+    v34 = [v31 instancesRespondToSelector:sel_setReplacementColor2_];
+    v35 = iiSetter;
+    if ((v34 & 1) == 0)
     {
 LABEL_34:
-      class_addMethod(v29, sel_setReplacementColor2_, v33, "v@:@");
+      class_addMethod(v31, sel_setReplacementColor2_, v35, "v@:@");
     }
   }
 
   else
   {
-    if ((v31 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
-      class_addMethod(v29, sel_replacementColor2, objGetter, "@@:");
+      class_addMethod(v31, sel_replacementColor2, objGetter, "@@:");
     }
 
-    v58 = [v29 instancesRespondToSelector:sel_setReplacementColor2_];
-    v33 = objSetter;
-    if ((v58 & 1) == 0)
+    v60 = [v31 instancesRespondToSelector:sel_setReplacementColor2_];
+    v35 = objSetter;
+    if ((v60 & 1) == 0)
     {
       goto LABEL_34;
     }
   }
 
 LABEL_35:
-  v34 = objc_opt_class();
-  if (v34)
-  {
-    v35 = v34;
-    class_addMethod(v34, sel_closeness2, floatGetter, "f@:");
-    class_addMethod(v35, sel_setCloseness2_, floatSetter, "v@:f");
-  }
-
   v36 = objc_opt_class();
   if (v36)
   {
     v37 = v36;
-    class_addMethod(v36, sel_contrast2, floatGetter, "f@:");
-    class_addMethod(v37, sel_setContrast2_, floatSetter, "v@:f");
+    class_addMethod(v36, sel_closeness2, floatGetter, "f@:");
+    class_addMethod(v37, sel_setCloseness2_, floatSetter, "v@:f");
   }
 
   v38 = objc_opt_class();
   if (v38)
   {
     v39 = v38;
-    v40 = [NSStringFromSelector(sel_centerColor3) isEqualToString:@"inputImage"];
-    v41 = [v39 instancesRespondToSelector:sel_centerColor3];
-    if (v40)
+    class_addMethod(v38, sel_contrast2, floatGetter, "f@:");
+    class_addMethod(v39, sel_setContrast2_, floatSetter, "v@:f");
+  }
+
+  v40 = objc_opt_class();
+  if (v40)
+  {
+    v41 = v40;
+    v42 = [NSStringFromSelector(sel_centerColor3) isEqualToString:@"inputImage"];
+    v43 = [v41 instancesRespondToSelector:sel_centerColor3];
+    if (v42)
     {
-      if ((v41 & 1) == 0)
+      if ((v43 & 1) == 0)
       {
-        class_addMethod(v39, sel_centerColor3, iiGetter, "@@:");
+        class_addMethod(v41, sel_centerColor3, iiGetter, "@@:");
       }
 
-      v42 = [v39 instancesRespondToSelector:sel_setCenterColor3_];
-      v43 = iiSetter;
-      if ((v42 & 1) == 0)
+      v44 = [v41 instancesRespondToSelector:sel_setCenterColor3_];
+      v45 = iiSetter;
+      if ((v44 & 1) == 0)
       {
 LABEL_44:
-        class_addMethod(v39, sel_setCenterColor3_, v43, "v@:@");
+        class_addMethod(v41, sel_setCenterColor3_, v45, "v@:@");
       }
     }
 
     else
     {
-      if ((v41 & 1) == 0)
+      if ((v43 & 1) == 0)
       {
-        class_addMethod(v39, sel_centerColor3, objGetter, "@@:");
+        class_addMethod(v41, sel_centerColor3, objGetter, "@@:");
       }
 
-      v59 = [v39 instancesRespondToSelector:sel_setCenterColor3_];
-      v43 = objSetter;
-      if ((v59 & 1) == 0)
+      v61 = [v41 instancesRespondToSelector:sel_setCenterColor3_];
+      v45 = objSetter;
+      if ((v61 & 1) == 0)
       {
         goto LABEL_44;
       }
     }
   }
 
-  v44 = objc_opt_class();
-  if (!v44)
+  v46 = objc_opt_class();
+  if (!v46)
   {
     goto LABEL_51;
   }
 
-  v45 = v44;
-  v46 = [NSStringFromSelector(sel_replacementColor3) isEqualToString:@"inputImage"];
-  v47 = [v45 instancesRespondToSelector:sel_replacementColor3];
-  if (v46)
+  v47 = v46;
+  v48 = [NSStringFromSelector(sel_replacementColor3) isEqualToString:@"inputImage"];
+  v49 = [v47 instancesRespondToSelector:sel_replacementColor3];
+  if (v48)
   {
-    if ((v47 & 1) == 0)
+    if ((v49 & 1) == 0)
     {
-      class_addMethod(v45, sel_replacementColor3, iiGetter, "@@:");
+      class_addMethod(v47, sel_replacementColor3, iiGetter, "@@:");
     }
 
-    v48 = [v45 instancesRespondToSelector:sel_setReplacementColor3_];
-    v49 = iiSetter;
-    if ((v48 & 1) == 0)
+    v50 = [v47 instancesRespondToSelector:sel_setReplacementColor3_];
+    v51 = iiSetter;
+    if ((v50 & 1) == 0)
     {
 LABEL_50:
-      class_addMethod(v45, sel_setReplacementColor3_, v49, "v@:@");
+      class_addMethod(v47, sel_setReplacementColor3_, v51, "v@:@");
     }
   }
 
   else
   {
-    if ((v47 & 1) == 0)
+    if ((v49 & 1) == 0)
     {
-      class_addMethod(v45, sel_replacementColor3, objGetter, "@@:");
+      class_addMethod(v47, sel_replacementColor3, objGetter, "@@:");
     }
 
-    v60 = [v45 instancesRespondToSelector:sel_setReplacementColor3_];
-    v49 = objSetter;
-    if ((v60 & 1) == 0)
+    v62 = [v47 instancesRespondToSelector:sel_setReplacementColor3_];
+    v51 = objSetter;
+    if ((v62 & 1) == 0)
     {
       goto LABEL_50;
     }
   }
 
 LABEL_51:
-  v50 = objc_opt_class();
-  if (v50)
+  v52 = objc_opt_class();
+  if (v52)
   {
-    v51 = v50;
-    class_addMethod(v50, sel_closeness3, floatGetter, "f@:");
-    class_addMethod(v51, sel_setCloseness3_, floatSetter, "v@:f");
+    v53 = v52;
+    class_addMethod(v52, sel_closeness3, floatGetter, "f@:");
+    class_addMethod(v53, sel_setCloseness3_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v53 = result;
+    v55 = result;
     class_addMethod(result, sel_contrast3, floatGetter, "f@:");
 
-    return class_addMethod(v53, sel_setContrast3_, floatSetter, "v@:f");
+    return class_addMethod(v55, sel_setContrast3_, floatSetter, "v@:f");
   }
 
   return result;
@@ -23437,176 +23478,176 @@ LABEL_51:
   return v2;
 }
 
-uint64_t __37__CIFilter_Builtins__spotLightFilter__block_invoke()
+uint64_t __37__CIFilter_Builtins__spotLightFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v27 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v27 & 1) == 0)
+      v29 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v29 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_lightPosition) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_lightPosition];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_lightPosition) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_lightPosition];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_lightPosition, iiGetter, "@@:");
+      class_addMethod(v9, sel_lightPosition, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setLightPosition_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setLightPosition_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setLightPosition_, v11, "v@:@");
+      class_addMethod(v9, sel_setLightPosition_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_lightPosition, objGetter, "@@:");
+      class_addMethod(v9, sel_lightPosition, objGetter, "@@:");
     }
 
-    v28 = [v7 instancesRespondToSelector:sel_setLightPosition_];
-    v11 = objSetter;
-    if ((v28 & 1) == 0)
+    v30 = [v9 instancesRespondToSelector:sel_setLightPosition_];
+    v13 = objSetter;
+    if ((v30 & 1) == 0)
     {
       goto LABEL_12;
     }
   }
 
 LABEL_13:
-  v12 = objc_opt_class();
-  if (!v12)
+  v14 = objc_opt_class();
+  if (!v14)
   {
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = [NSStringFromSelector(sel_lightPointsAt) isEqualToString:@"inputImage"];
-  v15 = [v13 instancesRespondToSelector:sel_lightPointsAt];
-  if (v14)
+  v15 = v14;
+  v16 = [NSStringFromSelector(sel_lightPointsAt) isEqualToString:@"inputImage"];
+  v17 = [v15 instancesRespondToSelector:sel_lightPointsAt];
+  if (v16)
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_lightPointsAt, iiGetter, "@@:");
+      class_addMethod(v15, sel_lightPointsAt, iiGetter, "@@:");
     }
 
-    v16 = [v13 instancesRespondToSelector:sel_setLightPointsAt_];
-    v17 = iiSetter;
-    if ((v16 & 1) == 0)
+    v18 = [v15 instancesRespondToSelector:sel_setLightPointsAt_];
+    v19 = iiSetter;
+    if ((v18 & 1) == 0)
     {
 LABEL_18:
-      class_addMethod(v13, sel_setLightPointsAt_, v17, "v@:@");
+      class_addMethod(v15, sel_setLightPointsAt_, v19, "v@:@");
     }
   }
 
   else
   {
-    if ((v15 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
-      class_addMethod(v13, sel_lightPointsAt, objGetter, "@@:");
+      class_addMethod(v15, sel_lightPointsAt, objGetter, "@@:");
     }
 
-    v29 = [v13 instancesRespondToSelector:sel_setLightPointsAt_];
-    v17 = objSetter;
-    if ((v29 & 1) == 0)
+    v31 = [v15 instancesRespondToSelector:sel_setLightPointsAt_];
+    v19 = objSetter;
+    if ((v31 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
 LABEL_19:
-  v18 = objc_opt_class();
-  if (v18)
-  {
-    v19 = v18;
-    class_addMethod(v18, sel_brightness, floatGetter, "f@:");
-    class_addMethod(v19, sel_setBrightness_, floatSetter, "v@:f");
-  }
-
   v20 = objc_opt_class();
   if (v20)
   {
     v21 = v20;
-    class_addMethod(v20, sel_concentration, floatGetter, "f@:");
-    class_addMethod(v21, sel_setConcentration_, floatSetter, "v@:f");
+    class_addMethod(v20, sel_brightness, floatGetter, "f@:");
+    class_addMethod(v21, sel_setBrightness_, floatSetter, "v@:f");
+  }
+
+  v22 = objc_opt_class();
+  if (v22)
+  {
+    v23 = v22;
+    class_addMethod(v22, sel_concentration, floatGetter, "f@:");
+    class_addMethod(v23, sel_setConcentration_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v23 = result;
-    v24 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
-    v25 = [v23 instancesRespondToSelector:sel_color];
-    if (v24)
+    v25 = result;
+    v26 = [NSStringFromSelector(sel_color) isEqualToString:@"inputImage"];
+    v27 = [v25 instancesRespondToSelector:sel_color];
+    if (v26)
     {
-      if ((v25 & 1) == 0)
+      if ((v27 & 1) == 0)
       {
-        class_addMethod(v23, sel_color, iiGetter, "@@:");
+        class_addMethod(v25, sel_color, iiGetter, "@@:");
       }
 
-      result = [v23 instancesRespondToSelector:sel_setColor_];
-      v26 = iiSetter;
+      result = [v25 instancesRespondToSelector:sel_setColor_];
+      v28 = iiSetter;
       if ((result & 1) == 0)
       {
 LABEL_28:
 
-        return class_addMethod(v23, sel_setColor_, v26, "v@:@");
+        return class_addMethod(v25, sel_setColor_, v28, "v@:@");
       }
     }
 
     else
     {
-      if ((v25 & 1) == 0)
+      if ((v27 & 1) == 0)
       {
-        class_addMethod(v23, sel_color, objGetter, "@@:");
+        class_addMethod(v25, sel_color, objGetter, "@@:");
       }
 
-      result = [v23 instancesRespondToSelector:sel_setColor_];
-      v26 = objSetter;
+      result = [v25 instancesRespondToSelector:sel_setColor_];
+      v28 = objSetter;
       if ((result & 1) == 0)
       {
         goto LABEL_28;
@@ -23633,77 +23674,77 @@ LABEL_28:
   return v2;
 }
 
-objc_class *__37__CIFilter_Builtins__bokehBlurFilter__block_invoke()
+objc_class *__37__CIFilter_Builtins__bokehBlurFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_ringAmount, floatGetter, "f@:");
-    class_addMethod(v9, sel_setRingAmount_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_ringSize, floatGetter, "f@:");
-    class_addMethod(v11, sel_setRingSize_, floatSetter, "v@:f");
+    class_addMethod(v10, sel_ringAmount, floatGetter, "f@:");
+    class_addMethod(v11, sel_setRingAmount_, floatSetter, "v@:f");
+  }
+
+  v12 = objc_opt_class();
+  if (v12)
+  {
+    v13 = v12;
+    class_addMethod(v12, sel_ringSize, floatGetter, "f@:");
+    class_addMethod(v13, sel_setRingSize_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_softness, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setSoftness_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setSoftness_, floatSetter, "v@:f");
   }
 
   return result;
@@ -23725,40 +23766,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__35__CIFilter_Builtins__boxBlurFilter__block_invoke()
+objc_class *__35__CIFilter_Builtins__boxBlurFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -23768,10 +23809,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -23793,40 +23834,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__36__CIFilter_Builtins__discBlurFilter__block_invoke()
+objc_class *__36__CIFilter_Builtins__discBlurFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -23836,10 +23877,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -23861,40 +23902,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__40__CIFilter_Builtins__gaussianBlurFilter__block_invoke()
+objc_class *__40__CIFilter_Builtins__gaussianBlurFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -23904,10 +23945,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -23929,81 +23970,81 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__maskedVariableBlurFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__maskedVariableBlurFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v14 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v14 & 1) == 0)
+      v16 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v16 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (!v6)
+  v8 = objc_opt_class();
+  if (!v8)
   {
     goto LABEL_13;
   }
 
-  v7 = v6;
-  v8 = [NSStringFromSelector(sel_mask) isEqualToString:@"inputImage"];
-  v9 = [v7 instancesRespondToSelector:sel_mask];
-  if (v8)
+  v9 = v8;
+  v10 = [NSStringFromSelector(sel_mask) isEqualToString:@"inputImage"];
+  v11 = [v9 instancesRespondToSelector:sel_mask];
+  if (v10)
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_mask, iiGetter, "@@:");
+      class_addMethod(v9, sel_mask, iiGetter, "@@:");
     }
 
-    v10 = [v7 instancesRespondToSelector:sel_setMask_];
-    v11 = iiSetter;
-    if ((v10 & 1) == 0)
+    v12 = [v9 instancesRespondToSelector:sel_setMask_];
+    v13 = iiSetter;
+    if ((v12 & 1) == 0)
     {
 LABEL_12:
-      class_addMethod(v7, sel_setMask_, v11, "v@:@");
+      class_addMethod(v9, sel_setMask_, v13, "v@:@");
     }
   }
 
   else
   {
-    if ((v9 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      class_addMethod(v7, sel_mask, objGetter, "@@:");
+      class_addMethod(v9, sel_mask, objGetter, "@@:");
     }
 
-    v15 = [v7 instancesRespondToSelector:sel_setMask_];
-    v11 = objSetter;
-    if ((v15 & 1) == 0)
+    v17 = [v9 instancesRespondToSelector:sel_setMask_];
+    v13 = objSetter;
+    if ((v17 & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -24013,10 +24054,10 @@ LABEL_13:
   result = objc_opt_class();
   if (result)
   {
-    v13 = result;
+    v15 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v13, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v15, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24038,40 +24079,40 @@ LABEL_13:
   return v2;
 }
 
-objc_class *__46__CIFilter_Builtins__morphologyGradientFilter__block_invoke()
+objc_class *__46__CIFilter_Builtins__morphologyGradientFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -24081,10 +24122,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24106,40 +24147,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__morphologyMaximumFilter__block_invoke()
+objc_class *__45__CIFilter_Builtins__morphologyMaximumFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -24149,10 +24190,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24174,40 +24215,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__45__CIFilter_Builtins__morphologyMinimumFilter__block_invoke()
+objc_class *__45__CIFilter_Builtins__morphologyMinimumFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -24217,10 +24258,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_radius, floatGetter, "f@:");
 
-    return class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    return class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24242,61 +24283,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__54__CIFilter_Builtins__morphologyRectangleMaximumFilter__block_invoke()
+objc_class *__54__CIFilter_Builtins__morphologyRectangleMaximumFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_width, floatGetter, "f@:");
-    class_addMethod(v7, sel_setWidth_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_width, floatGetter, "f@:");
+    class_addMethod(v9, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_height, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setHeight_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setHeight_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24318,61 +24359,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__54__CIFilter_Builtins__morphologyRectangleMinimumFilter__block_invoke()
+objc_class *__54__CIFilter_Builtins__morphologyRectangleMinimumFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_width, floatGetter, "f@:");
-    class_addMethod(v7, sel_setWidth_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_width, floatGetter, "f@:");
+    class_addMethod(v9, sel_setWidth_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_height, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setHeight_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setHeight_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24394,61 +24435,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__38__CIFilter_Builtins__motionBlurFilter__block_invoke()
+objc_class *__38__CIFilter_Builtins__motionBlurFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_radius, floatGetter, "f@:");
-    class_addMethod(v7, sel_setRadius_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_radius, floatGetter, "f@:");
+    class_addMethod(v9, sel_setRadius_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_angle, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setAngle_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setAngle_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24470,61 +24511,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__42__CIFilter_Builtins__noiseReductionFilter__block_invoke()
+objc_class *__42__CIFilter_Builtins__noiseReductionFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_noiseLevel, floatGetter, "f@:");
-    class_addMethod(v7, sel_setNoiseLevel_, floatSetter, "v@:f");
+    v9 = v8;
+    class_addMethod(v8, sel_noiseLevel, floatGetter, "f@:");
+    class_addMethod(v9, sel_setNoiseLevel_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_sharpness, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setSharpness_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setSharpness_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24546,61 +24587,61 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__36__CIFilter_Builtins__zoomBlurFilter__block_invoke()
+objc_class *__36__CIFilter_Builtins__zoomBlurFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v10 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v10 & 1) == 0)
+      v12 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v12 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
+  v8 = objc_opt_class();
+  if (v8)
   {
-    v7 = v6;
-    class_addMethod(v6, sel_center, pointGetter, "{CGPoint=dd}@:");
-    class_addMethod(v7, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
+    v9 = v8;
+    class_addMethod(v8, sel_center, pointGetter, "{CGPoint=dd}@:");
+    class_addMethod(v9, sel_setCenter_, pointSetter, "v@:{CGPoint=dd}}");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v9 = result;
+    v11 = result;
     class_addMethod(result, sel_amount, floatGetter, "f@:");
 
-    return class_addMethod(v9, sel_setAmount_, floatSetter, "v@:f");
+    return class_addMethod(v11, sel_setAmount_, floatSetter, "v@:f");
   }
 
   return result;
@@ -24622,69 +24663,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__54__CIFilter_Builtins__areaAlphaWeightedHistogramFilter__block_invoke()
+objc_class *__54__CIFilter_Builtins__areaAlphaWeightedHistogramFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_scale, floatGetter, "f@:");
-    class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_scale, floatGetter, "f@:");
+    class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_count, intGetter, "q@:");
 
-    return class_addMethod(v11, sel_setCount_, intSetter, "v@:q}");
+    return class_addMethod(v13, sel_setCount_, intSetter, "v@:q}");
   }
 
   return result;
@@ -24706,40 +24747,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__areaAverageFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__areaAverageFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -24749,10 +24790,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -24774,40 +24815,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__49__CIFilter_Builtins__areaAverageMaximumRedFilter__block_invoke()
+objc_class *__49__CIFilter_Builtins__areaAverageMaximumRedFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -24817,10 +24858,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -24842,40 +24883,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__areaBoundsRedFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__areaBoundsRedFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -24885,10 +24926,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -24910,69 +24951,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__areaHistogramFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__areaHistogramFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_scale, floatGetter, "f@:");
-    class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_scale, floatGetter, "f@:");
+    class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_count, intGetter, "q@:");
 
-    return class_addMethod(v11, sel_setCount_, intSetter, "v@:q}");
+    return class_addMethod(v13, sel_setCount_, intSetter, "v@:q}");
   }
 
   return result;
@@ -24994,85 +25035,85 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__52__CIFilter_Builtins__areaLogarithmicHistogramFilter__block_invoke()
+objc_class *__52__CIFilter_Builtins__areaLogarithmicHistogramFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v16 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v16 & 1) == 0)
+      v18 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v18 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_scale, floatGetter, "f@:");
-    class_addMethod(v9, sel_setScale_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   v10 = objc_opt_class();
   if (v10)
   {
     v11 = v10;
-    class_addMethod(v10, sel_count, intGetter, "q@:");
-    class_addMethod(v11, sel_setCount_, intSetter, "v@:q}");
+    class_addMethod(v10, sel_scale, floatGetter, "f@:");
+    class_addMethod(v11, sel_setScale_, floatSetter, "v@:f");
   }
 
   v12 = objc_opt_class();
   if (v12)
   {
     v13 = v12;
-    class_addMethod(v12, sel_minimumStop, floatGetter, "f@:");
-    class_addMethod(v13, sel_setMinimumStop_, floatSetter, "v@:f");
+    class_addMethod(v12, sel_count, intGetter, "q@:");
+    class_addMethod(v13, sel_setCount_, intSetter, "v@:q}");
+  }
+
+  v14 = objc_opt_class();
+  if (v14)
+  {
+    v15 = v14;
+    class_addMethod(v14, sel_minimumStop, floatGetter, "f@:");
+    class_addMethod(v15, sel_setMinimumStop_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v15 = result;
+    v17 = result;
     class_addMethod(result, sel_maximumStop, floatGetter, "f@:");
 
-    return class_addMethod(v15, sel_setMaximumStop_, floatSetter, "v@:f");
+    return class_addMethod(v17, sel_setMaximumStop_, floatSetter, "v@:f");
   }
 
   return result;
@@ -25094,40 +25135,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__areaMaximumFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__areaMaximumFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25137,10 +25178,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -25162,40 +25203,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__areaMaximumAlphaFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__areaMaximumAlphaFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25205,10 +25246,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -25230,40 +25271,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__39__CIFilter_Builtins__areaMinimumFilter__block_invoke()
+objc_class *__39__CIFilter_Builtins__areaMinimumFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25273,10 +25314,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -25298,40 +25339,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__areaMinimumAlphaFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__areaMinimumAlphaFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25341,10 +25382,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -25366,40 +25407,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__38__CIFilter_Builtins__areaMinMaxFilter__block_invoke()
+objc_class *__38__CIFilter_Builtins__areaMinMaxFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25409,10 +25450,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -25434,40 +25475,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__areaMinMaxRedFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__areaMinMaxRedFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25477,10 +25518,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -25502,40 +25543,40 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__41__CIFilter_Builtins__columnAverageFilter__block_invoke()
+objc_class *__41__CIFilter_Builtins__columnAverageFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25545,10 +25586,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -25570,69 +25611,69 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__44__CIFilter_Builtins__histogramDisplayFilter__block_invoke()
+objc_class *__44__CIFilter_Builtins__histogramDisplayFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v12 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v14 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_height, floatGetter, "f@:");
-    class_addMethod(v7, sel_setHeight_, floatSetter, "v@:f");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    class_addMethod(v8, sel_highLimit, floatGetter, "f@:");
-    class_addMethod(v9, sel_setHighLimit_, floatSetter, "v@:f");
+    class_addMethod(v8, sel_height, floatGetter, "f@:");
+    class_addMethod(v9, sel_setHeight_, floatSetter, "v@:f");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    class_addMethod(v10, sel_highLimit, floatGetter, "f@:");
+    class_addMethod(v11, sel_setHighLimit_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v11 = result;
+    v13 = result;
     class_addMethod(result, sel_lowLimit, floatGetter, "f@:");
 
-    return class_addMethod(v11, sel_setLowLimit_, floatSetter, "v@:f");
+    return class_addMethod(v13, sel_setLowLimit_, floatSetter, "v@:f");
   }
 
   return result;
@@ -25654,115 +25695,115 @@ LABEL_6:
   return v2;
 }
 
-objc_class *__34__CIFilter_Builtins__KMeansFilter__block_invoke()
+objc_class *__34__CIFilter_Builtins__KMeansFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v20 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v20 & 1) == 0)
+      v22 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v22 & 1) == 0)
       {
         goto LABEL_6;
       }
     }
   }
 
-  v6 = objc_opt_class();
-  if (v6)
-  {
-    v7 = v6;
-    class_addMethod(v6, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
-    class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
-  }
-
   v8 = objc_opt_class();
   if (v8)
   {
     v9 = v8;
-    v10 = [NSStringFromSelector(sel_inputMeans) isEqualToString:@"inputImage"];
-    v11 = [v9 instancesRespondToSelector:sel_inputMeans];
-    if (v10)
+    class_addMethod(v8, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
+    class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+  }
+
+  v10 = objc_opt_class();
+  if (v10)
+  {
+    v11 = v10;
+    v12 = [NSStringFromSelector(sel_inputMeans) isEqualToString:@"inputImage"];
+    v13 = [v11 instancesRespondToSelector:sel_inputMeans];
+    if (v12)
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_inputMeans, iiGetter, "@@:");
+        class_addMethod(v11, sel_inputMeans, iiGetter, "@@:");
       }
 
-      v12 = [v9 instancesRespondToSelector:sel_setInputMeans_];
-      v13 = iiSetter;
-      if ((v12 & 1) == 0)
+      v14 = [v11 instancesRespondToSelector:sel_setInputMeans_];
+      v15 = iiSetter;
+      if ((v14 & 1) == 0)
       {
 LABEL_14:
-        class_addMethod(v9, sel_setInputMeans_, v13, "v@:@");
+        class_addMethod(v11, sel_setInputMeans_, v15, "v@:@");
       }
     }
 
     else
     {
-      if ((v11 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
-        class_addMethod(v9, sel_inputMeans, objGetter, "@@:");
+        class_addMethod(v11, sel_inputMeans, objGetter, "@@:");
       }
 
-      v21 = [v9 instancesRespondToSelector:sel_setInputMeans_];
-      v13 = objSetter;
-      if ((v21 & 1) == 0)
+      v23 = [v11 instancesRespondToSelector:sel_setInputMeans_];
+      v15 = objSetter;
+      if ((v23 & 1) == 0)
       {
         goto LABEL_14;
       }
     }
   }
 
-  v14 = objc_opt_class();
-  if (v14)
-  {
-    v15 = v14;
-    class_addMethod(v14, sel_count, intGetter, "q@:");
-    class_addMethod(v15, sel_setCount_, intSetter, "v@:q}");
-  }
-
   v16 = objc_opt_class();
   if (v16)
   {
     v17 = v16;
-    class_addMethod(v16, sel_passes, floatGetter, "f@:");
-    class_addMethod(v17, sel_setPasses_, floatSetter, "v@:f");
+    class_addMethod(v16, sel_count, intGetter, "q@:");
+    class_addMethod(v17, sel_setCount_, intSetter, "v@:q}");
+  }
+
+  v18 = objc_opt_class();
+  if (v18)
+  {
+    v19 = v18;
+    class_addMethod(v18, sel_passes, floatGetter, "f@:");
+    class_addMethod(v19, sel_setPasses_, floatSetter, "v@:f");
   }
 
   result = objc_opt_class();
   if (result)
   {
-    v19 = result;
+    v21 = result;
     class_addMethod(result, sel_perceptual, BOOLGetter, "B@:");
 
-    return class_addMethod(v19, sel_setPerceptual_, BOOLSetter, "v@:B}");
+    return class_addMethod(v21, sel_setPerceptual_, BOOLSetter, "v@:B}");
   }
 
   return result;
@@ -25784,40 +25825,40 @@ LABEL_14:
   return v2;
 }
 
-objc_class *__38__CIFilter_Builtins__rowAverageFilter__block_invoke()
+objc_class *__38__CIFilter_Builtins__rowAverageFilter__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (v0)
+  v2 = objc_opt_class();
+  if (v2)
   {
-    v1 = v0;
-    v2 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
-    v3 = [v1 instancesRespondToSelector:sel_inputImage];
-    if (v2)
+    v3 = v2;
+    v4 = [NSStringFromSelector(sel_inputImage) isEqualToString:@"inputImage"];
+    v5 = [v3 instancesRespondToSelector:sel_inputImage];
+    if (v4)
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, iiGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, iiGetter, "@@:");
       }
 
-      v4 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = iiSetter;
-      if ((v4 & 1) == 0)
+      v6 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = iiSetter;
+      if ((v6 & 1) == 0)
       {
 LABEL_6:
-        class_addMethod(v1, sel_setInputImage_, v5, "v@:@");
+        class_addMethod(v3, sel_setInputImage_, v7, "v@:@");
       }
     }
 
     else
     {
-      if ((v3 & 1) == 0)
+      if ((v5 & 1) == 0)
       {
-        class_addMethod(v1, sel_inputImage, objGetter, "@@:");
+        class_addMethod(v3, sel_inputImage, objGetter, "@@:");
       }
 
-      v8 = [v1 instancesRespondToSelector:sel_setInputImage_];
-      v5 = objSetter;
-      if ((v8 & 1) == 0)
+      v10 = [v3 instancesRespondToSelector:sel_setInputImage_];
+      v7 = objSetter;
+      if ((v10 & 1) == 0)
       {
         goto LABEL_6;
       }
@@ -25827,10 +25868,10 @@ LABEL_6:
   result = objc_opt_class();
   if (result)
   {
-    v7 = result;
+    v9 = result;
     class_addMethod(result, sel_extent, rectGetter, "{CGRect={CGPoint=dd}{CGSize=dd}}@:");
 
-    return class_addMethod(v7, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+    return class_addMethod(v9, sel_setExtent_, rectSetter, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
   }
 
   return result;
@@ -26373,29 +26414,29 @@ id __42__CIFilter_Interposer__wrapClassIfNeeded___block_invoke()
 
 + (NSArray)filterNamesInCategories:(NSArray *)categories
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFD8] setWithArray:categories];
   v4 = [v3 containsObject:?];
   array = [MEMORY[0x1E695DF70] array];
-  v17 = 0u;
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v6 = [&unk_1F1085608 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v21 = 0u;
+  v22 = 0u;
+  v6 = [&unk_1F1085608 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(&unk_1F1085608);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = [MEMORY[0x1E695DFD8] setWithArray:{+[CIFilterClassCategories classCategoriesForClass:](CIFilterClassCategories, "classCategoriesForClass:", NSClassFromString(v10))}];
         if ([v3 isSubsetOfSet:v11] && ((v4 & 1) != 0 || (objc_msgSend(v11, "containsObject:", @"CICategoryApplePrivate") & 1) == 0))
         {
@@ -26403,28 +26444,28 @@ id __42__CIFilter_Interposer__wrapClassIfNeeded___block_invoke()
         }
       }
 
-      v7 = [&unk_1F1085608 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [&unk_1F1085608 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke;
-  v15[3] = &unk_1E75C2AC8;
-  v16 = v4;
-  v15[4] = v3;
-  v15[5] = array;
-  register_more_builtins(v15);
-  v12 = filterRegistryIsolationQueue();
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke;
+  v17[3] = &unk_1E75C2AC8;
+  v18 = v4;
+  v17[4] = v3;
+  v17[5] = array;
+  v12 = register_more_builtins(v17);
+  v14 = filterRegistryIsolationQueue(v12, v13);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke_2;
   block[3] = &unk_1E75C20F8;
   block[4] = v3;
   block[5] = array;
-  dispatch_sync(v12, block);
+  dispatch_sync(v14, block);
   return [array sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 }
 
@@ -26445,7 +26486,7 @@ uint64_t __54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke
   return result;
 }
 
-uint64_t __54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke_2(uint64_t a1)
+void *__54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke_2(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -26475,7 +26516,7 @@ uint64_t __54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke
           [*(a1 + 40) addObject:v7];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -26522,25 +26563,27 @@ uint64_t __54__CIFilter_CIFilterRegistry__filterNamesInCategories___block_invoke
         }
 
         dictionary = [(NSDictionary *)attributes mutableCopy];
+        v15 = dictionary;
         if (!dictionary)
         {
           dictionary = [MEMORY[0x1E695DF90] dictionary];
+          v15 = dictionary;
         }
 
         if (anObject)
         {
-          [dictionary setObject:anObject forKey:kCIConstructorKey];
+          dictionary = [v15 setObject:anObject forKey:kCIConstructorKey];
         }
 
-        v14 = filterRegistryIsolationQueue();
+        v16 = filterRegistryIsolationQueue(dictionary, v14);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __77__CIFilter_CIFilterRegistry__registerFilterName_constructor_classAttributes___block_invoke;
         block[3] = &unk_1E75C20F8;
-        block[4] = dictionary;
+        block[4] = v15;
         block[5] = name;
-        dispatch_sync(v14, block);
-        v15 = [MEMORY[0x1E696AD80] notificationWithName:kCIFilterAddedNotification object:name];
+        dispatch_sync(v16, block);
+        v17 = [MEMORY[0x1E696AD80] notificationWithName:kCIFilterAddedNotification object:name];
         [objc_msgSend(MEMORY[0x1E696AD90] "defaultQueue")];
       }
 
@@ -26598,28 +26641,28 @@ uint64_t __77__CIFilter_CIFilterRegistry__registerFilterName_constructor_classAt
   v7 = v5;
   if (classNameIsSystemFilter(filterName))
   {
-    v8 = [MEMORY[0x1E696AAE8] bundleForClass:v7];
-    v9 = [(NSString *)filterName stringByAppendingString:@".description"];
-    v10 = @"Filters";
-    v11 = v8;
-    v12 = 0;
+    v9 = [MEMORY[0x1E696AAE8] bundleForClass:v7];
+    v10 = [(NSString *)filterName stringByAppendingString:@".description"];
+    v11 = @"Filters";
+    v12 = v9;
+    v13 = 0;
   }
 
   else
   {
-    if (!classIsBuiltinFilter(v7))
+    if (!classIsBuiltinFilter(v7, v8))
     {
       return filterName;
     }
 
-    v13 = bundleForCIFilter();
-    v12 = [v13 localizedStringForKey:filterName value:0 table:@"Filters"];
-    v10 = @"Descriptions";
-    v11 = v13;
-    v9 = filterName;
+    v14 = bundleForCIFilter();
+    v13 = [v14 localizedStringForKey:filterName value:0 table:@"Filters"];
+    v11 = @"Descriptions";
+    v12 = v14;
+    v10 = filterName;
   }
 
-  return [v11 localizedStringForKey:v9 value:v12 table:v10];
+  return [v12 localizedStringForKey:v10 value:v13 table:v11];
 }
 
 + (NSURL)localizedReferenceDocumentationForFilterName:(NSString *)filterName
@@ -26638,7 +26681,7 @@ uint64_t __77__CIFilter_CIFilterRegistry__registerFilterName_constructor_classAt
   v17 = __Block_byref_object_copy__8;
   v18 = __Block_byref_object_dispose__8;
   v19 = 0;
-  v6 = filterRegistryIsolationQueue();
+  v6 = filterRegistryIsolationQueue(self, a2);
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __64__CIFilter_CIFilterRegistryPrivate__filterWithName_setDefaults___block_invoke;
@@ -26820,7 +26863,7 @@ void *__64__CIFilter_CIFilterRegistryPrivate__filterWithName_setDefaults___block
 {
   if (name)
   {
-    v4 = filterRegistryIsolationQueue();
+    v4 = filterRegistryIsolationQueue(self, a2);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __58__CIFilter_CIFilterRegistryPrivate__unregisterFilterName___block_invoke;
@@ -26835,11 +26878,11 @@ void *__64__CIFilter_CIFilterRegistryPrivate__filterWithName_setDefaults___block
   }
 }
 
-uint64_t __58__CIFilter_CIFilterRegistryPrivate__unregisterFilterName___block_invoke(uint64_t result)
+void *__58__CIFilter_CIFilterRegistryPrivate__unregisterFilterName___block_invoke(void *result)
 {
   if (registeredFilterConstructors)
   {
-    return [registeredFilterConstructors removeObjectForKey:*(result + 32)];
+    return [registeredFilterConstructors removeObjectForKey:result[4]];
   }
 
   return result;
@@ -26847,12 +26890,12 @@ uint64_t __58__CIFilter_CIFilterRegistryPrivate__unregisterFilterName___block_in
 
 + (CIFilter)filterWithImageURL:(NSURL *)url options:(NSDictionary *)options
 {
-  if (-[NSURL isFileURL](url, "isFileURL") && ([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] & 1) == 0)
+  if (-[NSURL isFileURL](url, "isFileURL") && (v6 = [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")], (v6 & 1) == 0))
   {
-    v7 = ci_logger_api();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = ci_logger_api(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [CIFilter(CIRAWFilter) filterWithImageURL:v7 options:?];
+      [CIFilter(CIRAWFilter) filterWithImageURL:v9 options:?];
     }
 
     return 0;
@@ -26998,7 +27041,9 @@ uint64_t __58__CIFilter_CIFilterRegistryPrivate__unregisterFilterName___block_in
     return v6;
   }
 
-  v59 = 0;
+  v61 = 0;
+  v59 = 0u;
+  v60 = 0u;
   v57 = 0u;
   v58 = 0u;
   v55 = 0u;
@@ -27017,30 +27062,28 @@ uint64_t __58__CIFilter_CIFilterRegistryPrivate__unregisterFilterName___block_in
   v44 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
   v38 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  memset(v35, 0, sizeof(v35));
+  v39 = 0u;
+  memset(v37, 0, sizeof(v37));
   if ([(__CFData *)from length]< 0xC)
   {
     return 1;
   }
 
-  [(__CFData *)from getBytes:v33 length:12];
-  v11 = v34;
-  *version = v34;
+  [(__CFData *)from getBytes:v35 length:12];
+  v11 = v36;
+  *version = v36;
   switch(v11)
   {
     case 3:
-      v12 = FigDepthBlurEffectRenderingParametersV3FromCFData(from, v35);
+      v12 = FigDepthBlurEffectRenderingParametersV3FromCFData(from, v37);
       break;
     case 2:
-      v12 = FigDepthBlurEffectRenderingParametersV2FromCFData(from, v35, &v32);
+      v12 = FigDepthBlurEffectRenderingParametersV2FromCFData(from, v37, &v34);
       break;
     case 1:
-      v12 = FigDepthBlurEffectRenderingParametersV1FromCFData(from, v35);
+      v12 = FigDepthBlurEffectRenderingParametersV1FromCFData(from, v37);
       break;
     default:
       goto LABEL_17;
@@ -27056,8 +27099,8 @@ uint64_t __58__CIFilter_CIFilterRegistryPrivate__unregisterFilterName___block_in
   if (v11 == 3 || v11 == 2)
   {
     v6 = 0;
-    *value = *(&v36 + 1);
-    *maxValue = *(&v46 + 3);
+    *value = *(&v38 + 1);
+    *maxValue = *(&v48 + 3);
     return v6;
   }
 
@@ -27066,60 +27109,61 @@ LABEL_17:
 LABEL_18:
   if (v11 >= 4)
   {
-    if (v11 <= +[CIFilter maxSDOFRenderingVersionSupported])
+    v13 = +[CIFilter maxSDOFRenderingVersionSupported];
+    if (v11 <= v13)
     {
-      v14 = NSSelectorFromString(&cfstr_Getrenderingpa.isa);
-      if (v14)
+      v16 = NSSelectorFromString(&cfstr_Getrenderingpa.isa);
+      if (v16)
       {
-        v15 = v14;
-        v16 = [envCCSDOFMetadataClass() methodForSelector:v14];
-        if (v16)
+        v17 = v16;
+        v18 = [envCCSDOFMetadataClass() methodForSelector:v16];
+        if (v18)
         {
-          v17 = v16;
+          v19 = v18;
           envCCSDOFMetadataClass();
           if (objc_opt_respondsToSelector())
           {
-            v18 = envCCSDOFMetadataClass();
-            v19 = v17(v18, v15, from);
-            if (v19)
+            v20 = envCCSDOFMetadataClass();
+            v21 = v19(v20, v17, from);
+            if (v21)
             {
-              v20 = v19;
-              v21 = NSSelectorFromString(&cfstr_Minsimulatedap.isa);
-              if (v21)
+              v22 = v21;
+              v23 = NSSelectorFromString(&cfstr_Minsimulatedap.isa);
+              if (v23)
               {
-                v22 = v21;
-                v23 = [envCCSDOFMetadataClass() methodForSelector:v21];
-                if (v23)
+                v24 = v23;
+                v25 = [envCCSDOFMetadataClass() methodForSelector:v23];
+                if (v25)
                 {
-                  v24 = v23;
+                  v26 = v25;
                   envCCSDOFMetadataClass();
                   if (objc_opt_respondsToSelector())
                   {
-                    v25 = envCCSDOFMetadataClass();
-                    *value = v24(v25, v22, v20);
+                    v27 = envCCSDOFMetadataClass();
+                    *value = v26(v27, v24, v22);
                   }
                 }
               }
 
-              v26 = NSSelectorFromString(&cfstr_Maxsimulatedap.isa);
-              if (v26)
+              v28 = NSSelectorFromString(&cfstr_Maxsimulatedap.isa);
+              if (v28)
               {
-                v27 = v26;
-                v28 = [envCCSDOFMetadataClass() methodForSelector:v26];
-                if (v28)
+                v29 = v28;
+                v30 = [envCCSDOFMetadataClass() methodForSelector:v28];
+                if (v30)
                 {
-                  v29 = v28;
+                  v31 = v30;
                   envCCSDOFMetadataClass();
                   if (objc_opt_respondsToSelector())
                   {
-                    v30 = envCCSDOFMetadataClass();
-                    *maxValue = v29(v30, v27, v20);
+                    v32 = envCCSDOFMetadataClass();
+                    *maxValue = v31(v32, v29, v22);
                   }
                 }
               }
 
               v6 = *value <= 0.0 || *maxValue <= 0.0;
-              free(v20);
+              free(v22);
             }
           }
         }
@@ -27128,10 +27172,10 @@ LABEL_18:
 
     else
     {
-      v13 = ci_logger_render();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = ci_logger_render(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        [CIFilter(PrivateDepthUtilities) getMinMaxSimulatedApertureFrom:version minValue:v13 maxValue:? version:?];
+        [CIFilter(PrivateDepthUtilities) getMinMaxSimulatedApertureFrom:version minValue:v15 maxValue:? version:?];
       }
 
       return 3;
@@ -27141,13 +27185,28 @@ LABEL_18:
   return v6;
 }
 
-- (void)apply:(NSObject *)a3 .cold.1(uint64_t a1, int a2, NSObject *a3)
+- (void)apply:(uint64_t)a3 arguments:(uint64_t)a4 options:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIFilter apply:arguments:options:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s kCIApplyOptionDefinition is not a CIFilterShape or an NSArray with four elements.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)apply:(uint64_t)a3 arguments:(uint64_t)a4 options:(uint64_t)a5 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIFilter apply:arguments:options:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s first parameter should be CIKernel.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)apply:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
+{
+  v4 = a2;
   v9 = *MEMORY[0x1E69E9840];
   v5 = 138543618;
   v6 = [objc_opt_class() description];
   v7 = 1024;
-  v8 = a2;
+  v8 = v4;
   _os_log_error_impl(&dword_19CC36000, a3, OS_LOG_TYPE_ERROR, "[%{public}@ apply:...] Argument at index %d should be a CIImage, CISampler, CIVector, or NSNumber.", &v5, 0x12u);
 }
 

@@ -15,35 +15,35 @@
 
 - (BOOL)isValidDestination:(id)destination error:(id *)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   destinationCopy = destination;
   familyHandles = [(IDSFamilyService *)self familyHandles];
   v8 = [familyHandles count];
 
   if (v8)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v9 = destinationCopy;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v10)
     {
       v11 = v10;
-      v28 = destinationCopy;
+      v27 = destinationCopy;
       errorCopy = error;
-      v13 = *v30;
+      v13 = *v29;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
+          v15 = *(*(&v28 + 1) + 8 * i);
           familyHandles2 = [(IDSFamilyService *)self familyHandles];
           _stripFZIDPrefix = [v15 _stripFZIDPrefix];
           v18 = [familyHandles2 containsObject:_stripFZIDPrefix];
@@ -55,15 +55,15 @@
             {
               _stripFZIDPrefix2 = [v15 _stripFZIDPrefix];
               *buf = 138412290;
-              v36 = _stripFZIDPrefix2;
+              v35 = _stripFZIDPrefix2;
               _os_log_impl(&dword_1959FF000, v20, OS_LOG_TYPE_DEFAULT, "Handle: %@ is not in family.", buf, 0xCu);
             }
 
             if (errorCopy)
             {
-              v33 = *MEMORY[0x1E696A578];
-              v34 = @"Could not send to non family member.";
-              v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+              v32 = *MEMORY[0x1E696A578];
+              v33 = @"Could not send to non family member.";
+              v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
               *errorCopy = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:50 userInfo:v22];
             }
 
@@ -72,7 +72,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
         v19 = 1;
         if (v11)
         {
@@ -83,7 +83,7 @@
       }
 
 LABEL_16:
-      destinationCopy = v28;
+      destinationCopy = v27;
     }
 
     else
@@ -113,15 +113,14 @@ LABEL_16:
       goto LABEL_23;
     }
 
-    v38 = *MEMORY[0x1E696A578];
-    v39[0] = @"Family handles not loaded on service.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x1E696A578];
+    v38[0] = @"Family handles not loaded on service.";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.identityservices.error" code:52 userInfo:v9];
     *error = v19 = 0;
   }
 
 LABEL_23:
-  v26 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -253,7 +252,7 @@ LABEL_23:
 
 - (NSDictionary)dsidToFamilyMember
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = +[IDSDaemonController sharedInstance];
   [v3 blockUntilConnected];
 
@@ -263,31 +262,31 @@ LABEL_23:
 
   v7 = +[IDSDaemonController sharedInstance];
   listener = [v7 listener];
-  v24 = serviceName;
+  v23 = serviceName;
   v9 = [listener familyInfoForService:serviceName];
 
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v11 = [v9 objectForKey:*MEMORY[0x1E69A4CB0]];
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       v15 = 0;
       do
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [objc_alloc(MEMORY[0x1E69A5268]) initWithDictionary:*(*(&v25 + 1) + 8 * v15)];
+        v16 = [objc_alloc(MEMORY[0x1E69A5268]) initWithDictionary:*(*(&v24 + 1) + 8 * v15)];
         dSID = [v16 DSID];
         [(NSDictionary *)v10 setObject:v16 forKey:dSID];
 
@@ -295,7 +294,7 @@ LABEL_23:
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
@@ -308,13 +307,12 @@ LABEL_23:
   v20 = self->_dsidToFamilyMember;
   v21 = v20;
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (NSSet)familyMembers
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = +[IDSDaemonController sharedInstance];
   [v3 blockUntilConnected];
 
@@ -327,34 +325,34 @@ LABEL_23:
   v9 = [listener familyInfoForService:serviceName];
 
   v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v11 = [v9 objectForKey:{*MEMORY[0x1E69A4CB0], 0}];
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       v15 = 0;
       do
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [objc_alloc(MEMORY[0x1E69A5268]) initWithDictionary:*(*(&v23 + 1) + 8 * v15)];
+        v16 = [objc_alloc(MEMORY[0x1E69A5268]) initWithDictionary:*(*(&v22 + 1) + 8 * v15)];
         [(NSSet *)v10 addObject:v16];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v13);
@@ -367,13 +365,12 @@ LABEL_23:
   v19 = self->_familyMembers;
   v20 = v19;
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (void)service:(id)service familyInfoUpdated:(id)updated
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   updatedCopy = updated;
   accounts = [(IDSService *)self accounts];
@@ -387,39 +384,39 @@ LABEL_23:
     if (os_log_type_enabled(accountEnabled, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v31 = serviceCopy;
+      v30 = serviceCopy;
       _os_log_impl(&dword_1959FF000, accountEnabled, OS_LOG_TYPE_DEFAULT, "Service received %@ familyInfoUpdated", buf, 0xCu);
     }
 
     v13 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v14 = [updatedCopy objectForKey:{*MEMORY[0x1E69A4CB0], 0}];
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         v18 = 0;
         do
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [objc_alloc(MEMORY[0x1E69A5268]) initWithDictionary:*(*(&v25 + 1) + 8 * v18)];
+          v19 = [objc_alloc(MEMORY[0x1E69A5268]) initWithDictionary:*(*(&v24 + 1) + 8 * v18)];
           [(NSSet *)v13 addObject:v19];
 
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v16);
@@ -433,8 +430,6 @@ LABEL_23:
     familyHandles = self->familyHandles;
     self->familyHandles = v22;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

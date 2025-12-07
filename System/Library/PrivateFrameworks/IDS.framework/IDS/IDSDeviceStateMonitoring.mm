@@ -88,7 +88,7 @@
 
 - (void)registerForStateUpdates:(id)updates queue:(id)queue
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   queueCopy = queue;
   v8 = [MEMORY[0x1E69A6128] pairWithFirst:updatesCopy second:queueCopy];
@@ -100,22 +100,22 @@
     objc_initWeak(&location, self);
     uTF8String = [(NSString *)self->_name UTF8String];
     queue = self->_queue;
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = sub_195AE4C70;
-    v18 = &unk_1E7442890;
-    objc_copyWeak(&v19, &location);
-    v11 = notify_register_dispatch(uTF8String, &self->_outToken, queue, &v15);
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = sub_195AE4C70;
+    v17 = &unk_1E7442890;
+    objc_copyWeak(&v18, &location);
+    v11 = notify_register_dispatch(uTF8String, &self->_outToken, queue, &v14);
     if (v11)
     {
-      v12 = [IDSLogging IDSDevice:v15];
+      v12 = [IDSLogging IDSDevice:v14];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         name = self->_name;
         *buf = 138412546;
         *&buf[4] = name;
-        v22 = 1024;
-        v23 = v11;
+        v21 = 1024;
+        v22 = v11;
         _os_log_impl(&dword_1959FF000, v12, OS_LOG_TYPE_DEFAULT, "Dispatch registration failed {name: %@, status: %u}", buf, 0x12u);
       }
     }
@@ -131,54 +131,52 @@
       }
     }
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegatesAboutNewState:(unint64_t)state token:(int)token
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (self->_currentState != state)
   {
     self->_currentState = state;
     os_unfair_lock_lock(&self->_lock);
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     selfCopy = self;
     v6 = self->_delegateArray;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v36 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v35 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
           first = [v11 first];
           second = [v11 second];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = sub_195AE4F10;
           block[3] = &unk_1E743E6C0;
-          v22 = first;
+          v21 = first;
           stateCopy = state;
           v14 = first;
           dispatch_async(second, block);
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v36 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v35 count:16];
       }
 
       while (v8);
@@ -191,18 +189,16 @@
       name = self->_name;
       v17 = [(NSMutableArray *)selfCopy->_delegateArray count];
       *buf = 138413058;
-      v29 = name;
-      v30 = 2048;
+      v28 = name;
+      v29 = 2048;
       stateCopy2 = state;
-      v32 = 1024;
+      v31 = 1024;
       tokenCopy = token;
-      v34 = 2048;
-      v35 = v17;
+      v33 = 2048;
+      v34 = v17;
       _os_log_impl(&dword_1959FF000, v15, OS_LOG_TYPE_DEFAULT, "New state {name: %@, state: %lu, token:%d, delegate count:%lu}", buf, 0x26u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unRegisterForStateUpdates:(id)updates

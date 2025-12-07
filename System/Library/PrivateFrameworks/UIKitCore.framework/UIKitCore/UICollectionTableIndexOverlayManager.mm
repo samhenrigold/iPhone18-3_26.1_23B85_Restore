@@ -14,12 +14,12 @@ uint64_t __112___UICollectionTableIndexOverlayManager_transitionIndexOverlayIndi
   return [*(*(a1 + 32) + 16) setAlpha:v1];
 }
 
-uint64_t __112___UICollectionTableIndexOverlayManager_transitionIndexOverlayIndicatorViewToVisible_shouldFadeBackToInvisible___block_invoke_2(uint64_t result)
+void *__112___UICollectionTableIndexOverlayManager_transitionIndexOverlayIndicatorViewToVisible_shouldFadeBackToInvisible___block_invoke_2(void *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    *(*(result + 32) + 48) &= ~1u;
-    return [*(*(result + 32) + 16) setHidden:0];
+    *(result[4] + 48) &= ~1u;
+    return [*(result[4] + 16) setHidden:0];
   }
 
   return result;
@@ -36,12 +36,12 @@ uint64_t __86___UICollectionTableIndexOverlayManager_transitionIndexOverlaySelec
   return [*(*(a1 + 32) + 24) setAlpha:v1];
 }
 
-uint64_t __86___UICollectionTableIndexOverlayManager_transitionIndexOverlaySelectionViewToVisible___block_invoke_2(uint64_t result)
+void *__86___UICollectionTableIndexOverlayManager_transitionIndexOverlaySelectionViewToVisible___block_invoke_2(void *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    *(*(result + 32) + 48) &= ~2u;
-    return [*(*(result + 32) + 24) setHidden:1];
+    *(result[4] + 48) &= ~2u;
+    return [*(result[4] + 24) setHidden:1];
   }
 
   return result;

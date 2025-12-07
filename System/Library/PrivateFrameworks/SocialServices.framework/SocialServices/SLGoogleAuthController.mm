@@ -265,7 +265,7 @@ void __121__SLGoogleAuthController__initWithAccount_accountStore_username_youTub
 
 void __121__SLGoogleAuthController__initWithAccount_accountStore_username_youTube_emailOnly_clientID_presentationBlock_completion___block_invoke_2_31(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) domain];
   if (![v2 isEqualToString:*MEMORY[0x277CBA8B8]])
   {
@@ -288,17 +288,15 @@ LABEL_6:
   v5 = MEMORY[0x277CCA9B8];
   v6 = *MEMORY[0x277CDC7F8];
   v7 = *(a1 + 32);
-  v13 = *MEMORY[0x277CCA7E8];
-  v14[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA7E8];
+  v13[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v9 = [v5 errorWithDomain:v6 code:v4 userInfo:v8];
 
   [*(*(*(a1 + 40) + 8) + 40) _dismissAndCompleteWithIdentity:0 error:v9];
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -411,7 +409,7 @@ LABEL_6:
 
 void __57__SLGoogleAuthController__didRedirectToURL_codeVerifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _SLLog();
@@ -450,26 +448,26 @@ LABEL_16:
 
   if (v15)
   {
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v16 = [v5 usernames];
-    v17 = [v16 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v59 objects:v63 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v61;
+      v19 = *v60;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v61 != v19)
+          if (*v60 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v60 + 1) + 8 * i);
+          v21 = *(*(&v59 + 1) + 8 * i);
           v22 = [*(*(a1 + 32) + 1072) username];
           v23 = [v22 compare:v21 options:1];
 
@@ -480,7 +478,7 @@ LABEL_16:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v60 objects:v64 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v59 objects:v63 count:16];
         if (v18)
         {
           continue;
@@ -492,7 +490,7 @@ LABEL_16:
 
     v24 = [*(*(a1 + 32) + 1072) username];
     v25 = [v5 usernames];
-    v52 = [v25 firstObject];
+    v51 = [v25 firstObject];
     _SLLog();
 
     [SLGoogleAuthController _presentUsernameMismatchAlert:v24];
@@ -540,13 +538,13 @@ LABEL_25:
     block[2] = __57__SLGoogleAuthController__didRedirectToURL_codeVerifier___block_invoke_4;
     block[3] = &unk_279CA4E10;
     v50 = *(a1 + 32);
-    v54 = v5;
-    v55 = v50;
-    v56 = v6;
+    v53 = v5;
+    v54 = v50;
+    v55 = v6;
     v39 = v5;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v49 = v54;
+    v49 = v53;
     goto LABEL_26;
   }
 
@@ -574,17 +572,16 @@ LABEL_25:
   v46 = *(a1 + 32);
   v47 = *(v46 + 1080);
   v48 = *(v46 + 1072);
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __57__SLGoogleAuthController__didRedirectToURL_codeVerifier___block_invoke_2;
-  v57[3] = &unk_279CA4DE8;
-  v58 = v5;
-  v59 = v46;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __57__SLGoogleAuthController__didRedirectToURL_codeVerifier___block_invoke_2;
+  v56[3] = &unk_279CA4DE8;
+  v57 = v5;
+  v58 = v46;
   v49 = v5;
-  [v47 saveAccount:v48 withCompletionHandler:v57];
+  [v47 saveAccount:v48 withCompletionHandler:v56];
 
 LABEL_26:
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SLGoogleAuthController__didRedirectToURL_codeVerifier___block_invoke_2(uint64_t a1, char a2, void *a3)
@@ -741,43 +738,41 @@ void __55__SLGoogleAuthController__presentUsernameMismatchAlert__block_invoke(ui
 
 + (void)_presentInternetOfflineError
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277CBF188];
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277CBF188];
   v2 = SLSocialFrameworkBundle();
   v3 = [v2 localizedStringForKey:@"SIGN_IN_ERROR_TITLE" value:&stru_287B2CFF0 table:@"Localizable"];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277CBF198];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277CBF198];
   v4 = SLSocialFrameworkBundle();
   v5 = [v4 localizedStringForKey:@"SIGN_IN_ERROR_MESSAGE_NO_CONNECTION" value:&stru_287B2CFF0 table:@"Localizable"];
-  v19[1] = v5;
-  v18[2] = *MEMORY[0x277CBF1E8];
+  v18[1] = v5;
+  v17[2] = *MEMORY[0x277CBF1E8];
   v6 = SLSocialFrameworkBundle();
   v7 = [v6 localizedStringForKey:@"SIGN_IN_ERROR_OK" value:&stru_287B2CFF0 table:@"Localizable"];
-  v19[2] = v7;
-  v18[3] = *MEMORY[0x277CBF208];
+  v18[2] = v7;
+  v17[3] = *MEMORY[0x277CBF208];
   v8 = SLSocialFrameworkBundle();
   resourceURL = [v8 resourceURL];
-  v19[3] = resourceURL;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v18[3] = resourceURL;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v10);
-  if (v15[3])
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v10);
+  if (v14[3])
   {
     v11 = dispatch_get_global_queue(25, 0);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __54__SLGoogleAuthController__presentInternetOfflineError__block_invoke;
-    v13[3] = &unk_279CA4E88;
-    v13[4] = &v14;
-    dispatch_async(v11, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __54__SLGoogleAuthController__presentInternetOfflineError__block_invoke;
+    v12[3] = &unk_279CA4E88;
+    v12[4] = &v13;
+    dispatch_async(v11, v12);
   }
 
-  _Block_object_dispose(&v14, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 void __54__SLGoogleAuthController__presentInternetOfflineError__block_invoke(uint64_t a1)

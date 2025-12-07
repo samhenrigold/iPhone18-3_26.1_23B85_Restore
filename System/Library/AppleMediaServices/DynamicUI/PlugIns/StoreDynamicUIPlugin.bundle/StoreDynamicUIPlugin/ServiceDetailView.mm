@@ -58,7 +58,7 @@
   viewCopy = view;
   errorCopy = error;
   selfCopy = self;
-  sub_EA75C(viewCopy);
+  sub_EA75C(viewCopy, errorCopy);
 }
 
 - (void)lockupView:(id)view preprocessOffer:(id)offer inState:(id)state completionBlock:(id)block

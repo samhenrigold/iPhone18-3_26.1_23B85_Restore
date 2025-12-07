@@ -31,14 +31,14 @@
 
 - (CLMonitor)initWithLedgerName:(id)name path:(id)path onSilo:(id)silo authIdentity:(id)identity locationManager:(id)manager handler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = CLMonitor;
-  v15 = [(CLMonitor *)&v29 init];
+  v80 = *MEMORY[0x1E69E9840];
+  v64.receiver = self;
+  v64.super_class = CLMonitor;
+  v15 = [(CLMonitor *)&v64 init];
   if (v15)
   {
     v16 = _os_activity_create(&dword_19B873000, "CL: CLMonitor #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v16, &v28);
+    os_activity_scope_enter(v16, &v63);
 
     if (qword_1ED519088 != -1)
     {
@@ -48,64 +48,66 @@
     v17 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = NSStringFromSelector(a2);
+      v21 = NSStringFromSelector(a2);
       *buf = 68290307;
-      v33 = 2082;
-      v34 = "";
-      v35 = 2082;
-      v36 = "activity";
-      v37 = 2114;
-      v38 = v18;
-      v39 = 2050;
-      v40 = v15;
-      v41 = 2114;
+      v68 = 2082;
+      v69 = "";
+      v70 = 2082;
+      v71 = "activity";
+      v72 = 2114;
+      v73 = v21;
+      v74 = 2050;
+      v75 = v15;
+      v76 = 2114;
       nameCopy = name;
-      v43 = 2113;
+      v78 = 2113;
       identityCopy = identity;
       _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitor #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, name:%{public, location:escape_only}@, authIdentity:%{private, location:escape_only}@}", buf, 0x44u);
     }
 
-    v15->_name = [name copy];
+    v15->_name = objc_msgSend_copy(name, v18, v19, v20);
     v15->_silo = silo;
-    [(CLMonitor *)v15 setManager:manager];
-    v19 = path != 0;
-    v20 = [identity objectForKeyedSubscript:@"kCLMonitorIdentityTokenKey"];
-    v21 = [identity objectForKeyedSubscript:@"kCLMonitorLedgerAccessKey"];
-    dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v31[0] = name;
-    v30[0] = @"kCLMonitorLedgerNameKey";
-    v30[1] = @"kCLMonitorLedgerProcessNameKey";
-    processName = [(CLLocationManager *)[(CLMonitor *)v15 manager] processName];
-    v30[2] = @"kCLMonitorDispatchSiloKey";
+    objc_msgSend_setManager_(v15, v22, manager, v23);
+    v24 = path != 0;
+    v27 = objc_msgSend_objectForKeyedSubscript_(identity, v25, @"kCLMonitorIdentityTokenKey", v26);
+    v30 = objc_msgSend_objectForKeyedSubscript_(identity, v28, @"kCLMonitorLedgerAccessKey", v29);
+    v34 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v31, v32, v33);
+    v66[0] = name;
+    v65[0] = @"kCLMonitorLedgerNameKey";
+    v65[1] = @"kCLMonitorLedgerProcessNameKey";
+    v38 = objc_msgSend_manager(v15, v35, v36, v37);
+    v42 = objc_msgSend_processName(v38, v39, v40, v41);
+    v65[2] = @"kCLMonitorDispatchSiloKey";
     silo = v15->_silo;
-    v31[1] = processName;
-    v31[2] = silo;
-    v30[3] = @"kCLMonitorIdentityTokenKey";
-    v30[4] = @"kCLMonitorLedgerAccessKey";
-    v31[3] = v20;
-    v31[4] = v21;
-    [dictionary addEntriesFromDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v31, v30, 5)}];
+    v66[1] = v42;
+    v66[2] = silo;
+    v65[3] = @"kCLMonitorIdentityTokenKey";
+    v65[4] = @"kCLMonitorLedgerAccessKey";
+    v66[3] = v27;
+    v66[4] = v30;
+    v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v44, v66, v65, 5);
+    objc_msgSend_addEntriesFromDictionary_(v34, v46, v45, v47);
     if (path)
     {
-      v25 = [path copy];
-      [dictionary setObject:v25 forKeyedSubscript:@"kCLMonitorLedgerPathKey"];
+      v51 = objc_msgSend_copy(path, v48, v49, v50);
+      objc_msgSend_setObject_forKeyedSubscript_(v34, v52, v51, @"kCLMonitorLedgerPathKey");
     }
 
-    [(CLMonitor *)v15 setIdentityToken:v20];
-    [(CLMonitor *)v15 setStorageToken:v21];
-    v15->_conditionLedger = [[CLConditionLedger alloc] initWithStoreType:v19 domain:v19 monitorConfiguration:dictionary];
-    [(CLMonitor *)v15 setMonitoringEventHandler:handler];
-    [(CLMonitor *)v15 createConnection];
-    os_activity_scope_leave(&v28);
+    objc_msgSend_setIdentityToken_(v15, v48, v27, v50);
+    objc_msgSend_setStorageToken_(v15, v53, v30, v54);
+    v55 = [CLConditionLedger alloc];
+    v15->_conditionLedger = objc_msgSend_initWithStoreType_domain_monitorConfiguration_(v55, v56, v24, v24, v34);
+    objc_msgSend_setMonitoringEventHandler_(v15, v57, handler, v58);
+    objc_msgSend_createConnection(v15, v59, v60, v61);
+    os_activity_scope_leave(&v63);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)dealloc
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLMonitor #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v4, &state);
 
@@ -117,69 +119,70 @@
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
-    uTF8String = [(NSString *)[(CLMonitor *)self name] UTF8String];
+    v9 = NSStringFromSelector(a2);
+    v13 = objc_msgSend_name(self, v10, v11, v12);
+    v17 = objc_msgSend_UTF8String(v13, v14, v15, v16);
     *buf = 68290050;
     *&buf[4] = 0;
-    *v15 = 2082;
-    *&v15[2] = "";
-    *&v15[10] = 2082;
-    *&v15[12] = "activity";
-    *&v15[20] = 2114;
-    *&v15[22] = v6;
-    v16 = 2050;
+    *v38 = 2082;
+    *&v38[2] = "";
+    *&v38[10] = 2082;
+    *&v38[12] = "activity";
+    *&v38[20] = 2114;
+    *&v38[22] = v9;
+    v39 = 2050;
     selfCopy = self;
-    v18 = 2082;
-    v19 = uTF8String;
+    v41 = 2082;
+    v42 = v17;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitor #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, name:%{public, location:escape_only}s}", buf, 0x3Au);
   }
 
-  [(CLLocationManager *)[(CLMonitor *)self manager] removeIdentifiableClient:self];
+  v18 = objc_msgSend_manager(self, v6, v7, v8);
+  objc_msgSend_removeIdentifiableClient_(v18, v19, self, v20);
   _Block_release(self->_eventHandler);
   self->_eventHandler = 0;
-  [(CLMonitor *)self setIdentityToken:0];
-  [(CLMonitor *)self setStorageToken:0];
+  objc_msgSend_setIdentityToken_(self, v21, 0, v22);
+  objc_msgSend_setStorageToken_(self, v23, 0, v24);
 
   self->_conditionLedger = 0;
-  [(CLMonitor *)self setManager:0];
-  [CLMonitor removeMonitorName:self->_name];
+  objc_msgSend_setManager_(self, v25, 0, v26);
+  objc_msgSend_removeMonitorName_(CLMonitor, v27, self->_name, v28);
 
   self->_name = 0;
   *buf = 0;
-  *v15 = buf;
-  *&v15[8] = 0x2020000000;
+  *v38 = buf;
+  *&v38[8] = 0x2020000000;
   silo = self->_silo;
-  *&v15[16] = self->_locationdConnection;
-  queue = [(CLDispatchSilo *)silo queue];
+  *&v38[16] = self->_locationdConnection;
+  v33 = objc_msgSend_queue(silo, v30, v31, v32);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_19B9D0B34;
   block[3] = &unk_1E753E880;
   block[4] = silo;
   block[5] = buf;
-  dispatch_async(queue, block);
+  dispatch_async(v33, block);
 
   self->_silo = 0;
-  v11.receiver = self;
-  v11.super_class = CLMonitor;
-  [(CLMonitor *)&v11 dealloc];
+  v34.receiver = self;
+  v34.super_class = CLMonitor;
+  [(CLMonitor *)&v34 dealloc];
   _Block_object_dispose(buf, 8);
   os_activity_scope_leave(&state);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
 {
-  name = [(CLMonitor *)self name];
+  v4 = objc_msgSend_name(self, a2, v2, v3);
 
-  return [(NSString *)name hash];
+  return objc_msgSend_hash(v4, v5, v6, v7);
 }
 
 - (NSArray)monitoredIdentifiers
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLMonitor #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v4, &v10);
+  os_activity_scope_enter(v4, &v15);
 
   if (qword_1ED519088 != -1)
   {
@@ -189,67 +192,66 @@
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
+    v9 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "activity";
-    v17 = 2114;
-    v18 = v6;
-    v19 = 2050;
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2082;
+    v21 = "activity";
+    v22 = 2114;
+    v23 = v9;
+    v24 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitor #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
 
-  [(CLDispatchSilo *)self->_silo assertInside];
-  allMonitoringIdentifiers = [(CLConditionLedger *)self->_conditionLedger allMonitoringIdentifiers];
-  os_activity_scope_leave(&v10);
-  v8 = *MEMORY[0x1E69E9840];
-  return allMonitoringIdentifiers;
+  objc_msgSend_assertInside(self->_silo, v6, v7, v8);
+  v13 = objc_msgSend_allMonitoringIdentifiers(self->_conditionLedger, v10, v11, v12);
+  os_activity_scope_leave(&v15);
+  return v13;
 }
 
 - (id)_getMonitoredIdentifiers
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3052000000;
-  v10 = sub_19B9D0FA8;
-  v11 = sub_19B9D0FB8;
-  array = [MEMORY[0x1E695DF70] array];
-  queue = [(CLDispatchSilo *)self->_silo queue];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_19B9D0FC4;
-  v6[3] = &unk_1E753E880;
-  v6[4] = self;
-  v6[5] = &v7;
-  dispatch_sync(queue, v6);
-  v4 = v8[5];
-  _Block_object_dispose(&v7, 8);
-  return v4;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3052000000;
+  v15 = sub_19B9D0FA8;
+  v16 = sub_19B9D0FB8;
+  v17 = objc_msgSend_array(MEMORY[0x1E695DF70], a2, v2, v3);
+  v8 = objc_msgSend_queue(self->_silo, v5, v6, v7);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B9D0FC4;
+  v11[3] = &unk_1E753E880;
+  v11[4] = self;
+  v11[5] = &v12;
+  dispatch_sync(v8, v11);
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+  return v9;
 }
 
 - (id)_getMonitoringRecords
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3052000000;
-  v10 = sub_19B9D0FA8;
-  v11 = sub_19B9D0FB8;
-  dictionary = [MEMORY[0x1E695DF90] dictionary];
-  queue = [(CLDispatchSilo *)self->_silo queue];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_19B9D10F4;
-  v6[3] = &unk_1E753E880;
-  v6[4] = self;
-  v6[5] = &v7;
-  dispatch_sync(queue, v6);
-  v4 = v8[5];
-  _Block_object_dispose(&v7, 8);
-  return v4;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3052000000;
+  v15 = sub_19B9D0FA8;
+  v16 = sub_19B9D0FB8;
+  v17 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, v2, v3);
+  v8 = objc_msgSend_queue(self->_silo, v5, v6, v7);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_19B9D10F4;
+  v11[3] = &unk_1E753E880;
+  v11[4] = self;
+  v11[5] = &v12;
+  dispatch_sync(v8, v11);
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+  return v9;
 }
 
 - (void)setMonitoringEventHandler:(id)handler
@@ -266,7 +268,7 @@
 
 - (void)addConditionForMonitoring:(id)monitoring identifier:(id)identifier options:(unint64_t)options assumedState:(unint64_t)state
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   v12 = _os_activity_create(&dword_19B873000, "CL: CLMonitor #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v12, &state);
 
@@ -278,40 +280,43 @@
   v13 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = NSStringFromSelector(a2);
+    v17 = NSStringFromSelector(a2);
     *buf = 68290306;
     *&buf[4] = 0;
-    v33 = 2082;
-    v34 = "";
-    v35 = 2082;
-    v36 = "activity";
-    v37 = 2114;
-    monitoringCopy = v14;
-    v39 = 2050;
+    v79 = 2082;
+    v80 = "";
+    v81 = 2082;
+    v82 = "activity";
+    v83 = 2114;
+    monitoringCopy = v17;
+    v85 = 2050;
     selfCopy = self;
-    v41 = 2114;
+    v87 = 2114;
     identifierCopy = identifier;
-    v43 = 2050;
+    v89 = 2050;
     stateCopy = state;
     _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitor #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, identifier:%{public, location:escape_only}@, assumedState:%{public, location:CLMonitoringState}lld}", buf, 0x44u);
   }
 
-  [(CLDispatchSilo *)self->_silo assertInside];
-  v15 = [(CLConditionLedger *)self->_conditionLedger monitoringRecordForIdentifier:identifier];
-  v16 = v15;
-  if (!v15)
+  objc_msgSend_assertInside(self->_silo, v14, v15, v16);
+  v20 = objc_msgSend_monitoringRecordForIdentifier_(self->_conditionLedger, v18, identifier, v19);
+  v24 = v20;
+  if (!v20)
   {
 LABEL_16:
-    v25 = [[CLMonitoringRecord alloc] initRecordWithCondition:monitoring identifier:identifier options:options initialState:state];
-    [(CLConditionLedger *)self->_conditionLedger addRecordForMonitoring:v25 identifier:identifier persist:1];
-    if ([(CLMonitor *)self identityToken])
+    v45 = [CLMonitoringRecord alloc];
+    inited = objc_msgSend_initRecordWithCondition_identifier_options_initialState_(v45, v46, monitoring, identifier, options, state);
+    objc_msgSend_addRecordForMonitoring_identifier_persist_(self->_conditionLedger, v48, inited, identifier, 1);
+    if (objc_msgSend_identityToken(self, v49, v50, v51))
     {
       if (self->_locationdConnection)
       {
-        dictionary = [MEMORY[0x1E695DF90] dictionary];
-        [dictionary setObject:-[CLMonitor identityToken](self forKeyedSubscript:{"identityToken"), @"kCLConnectionMessageClientKeyForIdentityValidation"}];
-        [dictionary setObject:v25 forKeyedSubscript:@"kCLConnectionMessageMonitorMonitoringRecordKey"];
-        [dictionary addEntriesFromDictionary:{-[CLMonitor getMonitorConfiguration](self, "getMonitorConfiguration")}];
+        v55 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v52, v53, v54);
+        v59 = objc_msgSend_identityToken(self, v56, v57, v58);
+        objc_msgSend_setObject_forKeyedSubscript_(v55, v60, v59, @"kCLConnectionMessageClientKeyForIdentityValidation");
+        objc_msgSend_setObject_forKeyedSubscript_(v55, v61, inited, @"kCLConnectionMessageMonitorMonitoringRecordKey");
+        MonitorConfiguration = objc_msgSend_getMonitorConfiguration(self, v62, v63, v64);
+        objc_msgSend_addEntriesFromDictionary_(v55, v66, MonitorConfiguration, v67);
         operator new();
       }
 
@@ -320,19 +325,19 @@ LABEL_16:
         dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
       }
 
-      v27 = qword_1ED519090;
+      v68 = qword_1ED519090;
       if (!os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_29;
       }
 
-      uTF8String = [identifier UTF8String];
+      v76 = objc_msgSend_UTF8String(identifier, v73, v74, v75);
       *buf = 68289282;
-      v33 = 2082;
-      v34 = "";
-      v35 = 2082;
-      v36 = uTF8String;
-      v19 = "{msg%{public}.0s:#monitor No valid connection to locationd to add for monitoring, identifier:%{public, location:escape_only}s}";
+      v79 = 2082;
+      v80 = "";
+      v81 = 2082;
+      v82 = v76;
+      v33 = "{msg%{public}.0s:#monitor No valid connection to locationd to add for monitoring, identifier:%{public, location:escape_only}s}";
     }
 
     else
@@ -342,50 +347,51 @@ LABEL_16:
         dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
       }
 
-      v27 = qword_1ED519090;
+      v68 = qword_1ED519090;
       if (!os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_29;
       }
 
-      uTF8String2 = [identifier UTF8String];
+      v72 = objc_msgSend_UTF8String(identifier, v69, v70, v71);
       *buf = 68289282;
-      v33 = 2082;
-      v34 = "";
-      v35 = 2082;
-      v36 = uTF8String2;
-      v19 = "{msg%{public}.0s:#monitor Client is not authorized to monitor just yet., identifier:%{public, location:escape_only}s}";
+      v79 = 2082;
+      v80 = "";
+      v81 = 2082;
+      v82 = v72;
+      v33 = "{msg%{public}.0s:#monitor Client is not authorized to monitor just yet., identifier:%{public, location:escape_only}s}";
     }
 
-    v20 = v27;
-    v21 = 28;
+    v34 = v68;
+    v35 = 28;
     goto LABEL_28;
   }
 
-  if (![objc_msgSend(v15 "condition")])
+  v25 = objc_msgSend_condition(v20, v21, v22, v23);
+  if (!objc_msgSend_isEqual_(v25, v26, monitoring, v27))
   {
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v22 = qword_1ED519090;
+    v36 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      uTF8String3 = [identifier UTF8String];
-      condition = [v16 condition];
+      v40 = objc_msgSend_UTF8String(identifier, v37, v38, v39);
+      v44 = objc_msgSend_condition(v24, v41, v42, v43);
       *buf = 68289539;
       *&buf[4] = 0;
-      v33 = 2082;
-      v34 = "";
-      v35 = 2082;
-      v36 = uTF8String3;
-      v37 = 2113;
-      monitoringCopy = condition;
-      _os_log_impl(&dword_19B873000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor removing currently monitored condition, identifier:%{public, location:escape_only}s, toBeRemoved:%{private, location:escape_only}@}", buf, 0x26u);
+      v79 = 2082;
+      v80 = "";
+      v81 = 2082;
+      v82 = v40;
+      v83 = 2113;
+      monitoringCopy = v44;
+      _os_log_impl(&dword_19B873000, v36, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor removing currently monitored condition, identifier:%{public, location:escape_only}s, toBeRemoved:%{private, location:escape_only}@}", buf, 0x26u);
     }
 
-    [(CLMonitor *)self removeConditionFromMonitoringWithIdentifier:identifier];
+    objc_msgSend_removeConditionFromMonitoringWithIdentifier_(self, v37, identifier, v39);
     goto LABEL_16;
   }
 
@@ -394,51 +400,50 @@ LABEL_16:
     dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
   }
 
-  v17 = qword_1ED519090;
+  v28 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    uTF8String4 = [identifier UTF8String];
+    v32 = objc_msgSend_UTF8String(identifier, v29, v30, v31);
     *buf = 68289539;
     *&buf[4] = 0;
-    v33 = 2082;
-    v34 = "";
-    v35 = 2082;
-    v36 = uTF8String4;
-    v37 = 2113;
+    v79 = 2082;
+    v80 = "";
+    v81 = 2082;
+    v82 = v32;
+    v83 = 2113;
     monitoringCopy = monitoring;
-    v19 = "{msg%{public}.0s:#monitor given identifier and condition is currently monitored, identifier:%{public, location:escape_only}s, condition:%{private, location:escape_only}@}";
-    v20 = v17;
-    v21 = 38;
+    v33 = "{msg%{public}.0s:#monitor given identifier and condition is currently monitored, identifier:%{public, location:escape_only}s, condition:%{private, location:escape_only}@}";
+    v34 = v28;
+    v35 = 38;
 LABEL_28:
-    _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
+    _os_log_impl(&dword_19B873000, v34, OS_LOG_TYPE_DEFAULT, v33, buf, v35);
   }
 
 LABEL_29:
   os_activity_scope_leave(&state);
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addConditionForMonitoring:(id)monitoring identifier:(id)identifier options:(unint64_t)options assumedState:(unint64_t)state
 {
   objc_initWeak(&location, self);
-  queue = [(CLDispatchSilo *)self->_silo queue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_19B9D18D8;
-  v12[3] = &unk_1E753E8A8;
-  objc_copyWeak(v13, &location);
-  v12[4] = monitoring;
-  v12[5] = identifier;
-  v13[1] = options;
-  v13[2] = state;
-  dispatch_async(queue, v12);
-  objc_destroyWeak(v13);
+  v14 = objc_msgSend_queue(self->_silo, v11, v12, v13);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_19B9D18D8;
+  v15[3] = &unk_1E753E8A8;
+  objc_copyWeak(v16, &location);
+  v15[4] = monitoring;
+  v15[5] = identifier;
+  v16[1] = options;
+  v16[2] = state;
+  dispatch_async(v14, v15);
+  objc_destroyWeak(v16);
   objc_destroyWeak(&location);
 }
 
 - (void)removeConditionFromMonitoringWithIdentifier:(NSString *)identifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v6 = _os_activity_create(&dword_19B873000, "CL: CLMonitor #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v6, &state);
 
@@ -450,32 +455,34 @@ LABEL_29:
   v7 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = NSStringFromSelector(a2);
+    v11 = NSStringFromSelector(a2);
     *buf = 68290050;
     *&buf[4] = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
-    v20 = "activity";
-    v21 = 2114;
-    v22 = v8;
-    v23 = 2050;
+    v45 = 2082;
+    v46 = "";
+    v47 = 2082;
+    v48 = "activity";
+    v49 = 2114;
+    v50 = v11;
+    v51 = 2050;
     selfCopy = self;
-    v25 = 2114;
-    v26 = identifier;
+    v53 = 2114;
+    v54 = identifier;
     _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitor #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, identifier:%{public, location:escape_only}@}", buf, 0x3Au);
   }
 
-  [(CLDispatchSilo *)self->_silo assertInside];
-  [(CLConditionLedger *)self->_conditionLedger removeRecordFromMonitoringWithIdentifier:identifier];
-  if ([(CLMonitor *)self identityToken])
+  objc_msgSend_assertInside(self->_silo, v8, v9, v10);
+  objc_msgSend_removeRecordFromMonitoringWithIdentifier_(self->_conditionLedger, v12, identifier, v13);
+  if (objc_msgSend_identityToken(self, v14, v15, v16))
   {
     if (self->_locationdConnection)
     {
-      dictionary = [MEMORY[0x1E695DF90] dictionary];
-      [dictionary setObject:-[CLMonitor identityToken](self forKeyedSubscript:{"identityToken"), @"kCLConnectionMessageClientKeyForIdentityValidation"}];
-      [dictionary setObject:identifier forKeyedSubscript:@"kCLConnectionMessageMonitorIdentifierKey"];
-      [dictionary addEntriesFromDictionary:{-[CLMonitor getMonitorConfiguration](self, "getMonitorConfiguration")}];
+      v20 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v17, v18, v19);
+      v24 = objc_msgSend_identityToken(self, v21, v22, v23);
+      objc_msgSend_setObject_forKeyedSubscript_(v20, v25, v24, @"kCLConnectionMessageClientKeyForIdentityValidation");
+      objc_msgSend_setObject_forKeyedSubscript_(v20, v26, identifier, @"kCLConnectionMessageMonitorIdentifierKey");
+      MonitorConfiguration = objc_msgSend_getMonitorConfiguration(self, v27, v28, v29);
+      objc_msgSend_addEntriesFromDictionary_(v20, v31, MonitorConfiguration, v32);
       operator new();
     }
 
@@ -484,17 +491,17 @@ LABEL_29:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v10 = qword_1ED519090;
+    v33 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      uTF8String = [(NSString *)identifier UTF8String];
+      v42 = objc_msgSend_UTF8String(identifier, v39, v40, v41);
       *buf = 68289282;
       *&buf[4] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2082;
-      v20 = uTF8String;
-      v12 = "{msg%{public}.0s:#monitor No valid connection to locationd to remove from monitoring, identifier:%{public, location:escape_only}s}";
+      v45 = 2082;
+      v46 = "";
+      v47 = 2082;
+      v48 = v42;
+      v38 = "{msg%{public}.0s:#monitor No valid connection to locationd to remove from monitoring, identifier:%{public, location:escape_only}s}";
       goto LABEL_16;
     }
   }
@@ -506,44 +513,43 @@ LABEL_29:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v10 = qword_1ED519090;
+    v33 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      uTF8String2 = [(NSString *)identifier UTF8String];
+      v37 = objc_msgSend_UTF8String(identifier, v34, v35, v36);
       *buf = 68289282;
       *&buf[4] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2082;
-      v20 = uTF8String2;
-      v12 = "{msg%{public}.0s:#monitor Client is not authorized to remove from monitor just yet., identifier:%{public, location:escape_only}s}";
+      v45 = 2082;
+      v46 = "";
+      v47 = 2082;
+      v48 = v37;
+      v38 = "{msg%{public}.0s:#monitor Client is not authorized to remove from monitor just yet., identifier:%{public, location:escape_only}s}";
 LABEL_16:
-      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0x1Cu);
+      _os_log_impl(&dword_19B873000, v33, OS_LOG_TYPE_DEFAULT, v38, buf, 0x1Cu);
     }
   }
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeConditionFromMonitoringWithIdentifier:(id)identifier
 {
   objc_initWeak(&location, self);
-  queue = [(CLDispatchSilo *)self->_silo queue];
+  v8 = objc_msgSend_queue(self->_silo, v5, v6, v7);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_19B9D1E8C;
   block[3] = &unk_1E753E8D0;
-  objc_copyWeak(&v7, &location);
+  objc_copyWeak(&v10, &location);
   block[4] = identifier;
-  dispatch_async(queue, block);
-  objc_destroyWeak(&v7);
+  dispatch_async(v8, block);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 }
 
 - (void)updateEvent:(id)event forIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v8 = _os_activity_create(&dword_19B873000, "CL: CLMonitor #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v8, &state);
 
@@ -555,33 +561,35 @@ LABEL_16:
   v9 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = NSStringFromSelector(a2);
+    v11 = NSStringFromSelector(a2);
     *buf = 68290306;
     *&buf[4] = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
+    v35 = 2082;
+    v36 = "";
+    v37 = 2082;
     identifierCopy3 = "activity";
-    v21 = 2114;
-    eventCopy3 = v10;
-    v23 = 2050;
+    v39 = 2114;
+    eventCopy3 = v11;
+    v41 = 2050;
     selfCopy = self;
-    v25 = 2114;
+    v43 = 2114;
     identifierCopy = identifier;
-    v27 = 2114;
+    v45 = 2114;
     eventCopy = event;
     _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitor #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, identifier:%{public, location:escape_only}@, event:%{public, location:escape_only}@}", buf, 0x44u);
   }
 
-  [(CLConditionLedger *)self->_conditionLedger updateEvent:event forIdentifier:identifier];
-  if ([(CLMonitor *)self identityToken])
+  objc_msgSend_updateEvent_forIdentifier_(self->_conditionLedger, v10, event, identifier);
+  if (objc_msgSend_identityToken(self, v12, v13, v14))
   {
     if (self->_locationdConnection)
     {
-      dictionary = [MEMORY[0x1E695DF90] dictionary];
-      [dictionary setObject:-[CLMonitor identityToken](self forKeyedSubscript:{"identityToken"), @"kCLConnectionMessageClientKeyForIdentityValidation"}];
-      [dictionary setObject:event forKeyedSubscript:@"kCLConnectionMessageMonitorEventKey"];
-      [dictionary addEntriesFromDictionary:{-[CLMonitor getMonitorConfiguration](self, "getMonitorConfiguration")}];
+      v18 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v15, v16, v17);
+      v22 = objc_msgSend_identityToken(self, v19, v20, v21);
+      objc_msgSend_setObject_forKeyedSubscript_(v18, v23, v22, @"kCLConnectionMessageClientKeyForIdentityValidation");
+      objc_msgSend_setObject_forKeyedSubscript_(v18, v24, event, @"kCLConnectionMessageMonitorEventKey");
+      MonitorConfiguration = objc_msgSend_getMonitorConfiguration(self, v25, v26, v27);
+      objc_msgSend_addEntriesFromDictionary_(v18, v29, MonitorConfiguration, v30);
       operator new();
     }
 
@@ -590,18 +598,18 @@ LABEL_16:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v12 = qword_1ED519090;
+    v31 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2114;
+      v35 = 2082;
+      v36 = "";
+      v37 = 2114;
       identifierCopy3 = identifier;
-      v21 = 2113;
+      v39 = 2113;
       eventCopy3 = event;
-      v13 = "{msg%{public}.0s:#monitor No valid connection to locationd to update event, identifier:%{public, location:escape_only}@, event:%{private, location:escape_only}@}";
+      v32 = "{msg%{public}.0s:#monitor No valid connection to locationd to update event, identifier:%{public, location:escape_only}@, event:%{private, location:escape_only}@}";
       goto LABEL_16;
     }
   }
@@ -613,120 +621,135 @@ LABEL_16:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v12 = qword_1ED519090;
+    v31 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2114;
+      v35 = 2082;
+      v36 = "";
+      v37 = 2114;
       identifierCopy3 = identifier;
-      v21 = 2113;
+      v39 = 2113;
       eventCopy3 = event;
-      v13 = "{msg%{public}.0s:#monitor Client is not authorized just yet., identifier:%{public, location:escape_only}@, event:%{private, location:escape_only}@}";
+      v32 = "{msg%{public}.0s:#monitor Client is not authorized just yet., identifier:%{public, location:escape_only}@, event:%{private, location:escape_only}@}";
 LABEL_16:
-      _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0x26u);
+      _os_log_impl(&dword_19B873000, v31, OS_LOG_TYPE_DEFAULT, v32, buf, 0x26u);
     }
   }
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateEventReceivedFromDaemon:(id)daemon
 {
-  v21 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
-  v5 = [objc_msgSend(daemon "lastEvent")];
-  v6 = [(CLMonitor *)self monitoringRecordForIdentifier:v5];
+  v118 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, daemon, v3);
+  Event = objc_msgSend_lastEvent(daemon, v6, v7, v8);
+  v13 = objc_msgSend_identifier(Event, v10, v11, v12);
+  v16 = objc_msgSend_monitoringRecordForIdentifier_(self, v14, v13, v15);
   if (qword_1ED519088 != -1)
   {
     dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
   }
 
-  v7 = qword_1ED519090;
+  v17 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v14[0] = 68289539;
-    v14[1] = 0;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2113;
+    v111[0] = 68289539;
+    v111[1] = 0;
+    v112 = 2082;
+    v113 = "";
+    v114 = 2113;
     daemonCopy = daemon;
-    v19 = 2113;
-    v20 = v6;
-    _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor updatingEventReceivedFromDaemon, newRecordReceivedFromDaemon:%{private, location:escape_only}@, existingRecord:%{private, location:escape_only}@}", v14, 0x26u);
+    v116 = 2113;
+    v117 = v16;
+    _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor updatingEventReceivedFromDaemon, newRecordReceivedFromDaemon:%{private, location:escape_only}@, existingRecord:%{private, location:escape_only}@}", v111, 0x26u);
   }
 
-  if (-[NSArray containsObject:](-[CLMonitor monitoredIdentifiers](self, "monitoredIdentifiers"), "containsObject:", v5) && [objc_msgSend(daemon "condition")])
+  v21 = objc_msgSend_monitoredIdentifiers(self, v18, v19, v20);
+  if (objc_msgSend_containsObject_(v21, v22, v13, v23) && (v27 = objc_msgSend_condition(daemon, v24, v25, v26), v31 = objc_msgSend_condition(v16, v28, v29, v30), objc_msgSend_isEqual_(v27, v32, v31, v33)))
   {
-    if ([objc_msgSend(daemon "lastEvent")])
+    v35 = objc_msgSend_lastEvent(daemon, v24, v34, v26);
+    if (objc_msgSend_state(v35, v36, v37, v38))
     {
-      v8 = [objc_msgSend(daemon "lastEvent")];
-      v9 = v8 != [(CLMonitoringEvent *)[(CLMonitoringRecord *)v6 lastEvent] state];
+      v42 = objc_msgSend_lastEvent(daemon, v39, v40, v41);
+      v46 = objc_msgSend_state(v42, v43, v44, v45);
+      v50 = objc_msgSend_lastEvent(v16, v47, v48, v49);
+      v54 = v46 != objc_msgSend_state(v50, v51, v52, v53);
     }
 
     else
     {
-      v9 = 0;
+      v54 = 0;
     }
 
-    v10 = [objc_msgSend(objc_msgSend(daemon "lastEvent")];
-    if (v9 || !v10)
+    v55 = objc_msgSend_lastEvent(daemon, v39, v40, v41);
+    v59 = objc_msgSend_refinement(v55, v56, v57, v58);
+    v63 = objc_msgSend_lastEvent(v16, v60, v61, v62);
+    v67 = objc_msgSend_refinement(v63, v64, v65, v66);
+    isEqual = objc_msgSend_isEqual_(v59, v68, v67, v69);
+    if (v54 || !isEqual)
     {
-      lastEvent = [daemon lastEvent];
+      v108 = objc_msgSend_lastEvent(daemon, v71, v72, v73);
     }
 
     else
     {
-      lastEvent = -[CLMonitoringEvent initWithIdentifier:refinement:state:date:diagnostics:]([CLMonitoringEvent alloc], "initWithIdentifier:refinement:state:date:diagnostics:", v5, -[CLMonitoringEvent refinement](-[CLMonitoringRecord lastEvent](v6, "lastEvent"), "refinement"), -[CLMonitoringEvent state](-[CLMonitoringRecord lastEvent](v6, "lastEvent"), "state"), -[CLMonitoringEvent date](-[CLMonitoringRecord lastEvent](v6, "lastEvent"), "date"), [objc_msgSend(daemon "lastEvent")]);
+      v74 = [CLMonitoringEvent alloc];
+      v78 = objc_msgSend_lastEvent(v16, v75, v76, v77);
+      v82 = objc_msgSend_refinement(v78, v79, v80, v81);
+      v86 = objc_msgSend_lastEvent(v16, v83, v84, v85);
+      v90 = objc_msgSend_state(v86, v87, v88, v89);
+      v94 = objc_msgSend_lastEvent(v16, v91, v92, v93);
+      v98 = objc_msgSend_date(v94, v95, v96, v97);
+      v102 = objc_msgSend_lastEvent(daemon, v99, v100, v101);
+      v106 = objc_msgSend_diagnosticMask(v102, v103, v104, v105);
+      v108 = objc_msgSend_initWithIdentifier_refinement_state_date_diagnostics_(v74, v107, v13, v82, v90, v98, v106);
     }
 
-    v12 = lastEvent;
+    v109 = v108;
     (*(self->_eventHandler + 2))();
-    [(CLMonitor *)self updateEvent:v12 forIdentifier:v5];
+    objc_msgSend_updateEvent_forIdentifier_(self, v110, v109, v13);
   }
 
   else
   {
-    [(CLMonitor *)self removeConditionFromMonitoringWithIdentifier:v5];
+    objc_msgSend_removeConditionFromMonitoringWithIdentifier_(self, v24, v13, v26);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (CLMonitoringRecord)monitoringRecordForIdentifier:(NSString *)identifier
 {
-  [(CLDispatchSilo *)self->_silo assertInside];
+  objc_msgSend_assertInside(self->_silo, a2, identifier, v3);
   conditionLedger = self->_conditionLedger;
 
-  return [(CLConditionLedger *)conditionLedger monitoringRecordForIdentifier:identifier];
+  return objc_msgSend_monitoringRecordForIdentifier_(conditionLedger, v6, identifier, v7);
 }
 
 - (void)manageConnection
 {
-  [(CLDispatchSilo *)self->_silo assertInside];
-  if ([(CLMonitor *)self identityToken])
+  objc_msgSend_assertInside(self->_silo, a2, v2, v3);
+  if (objc_msgSend_identityToken(self, v5, v6, v7))
   {
 
-    [(CLMonitor *)self createConnection];
+    objc_msgSend_createConnection(self, v8, v9, v10);
   }
 
   else
   {
 
-    [(CLMonitor *)self destroyConnection];
+    objc_msgSend_destroyConnection(self, v8, v9, v10);
   }
 }
 
 - (void)createConnection
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
+  v12 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, v2, v3);
   if (!self->_locationdConnection)
   {
-    if ([(CLMonitor *)self identityToken])
+    if (objc_msgSend_identityToken(self, v5, v6, v7))
     {
       operator new();
     }
@@ -736,24 +759,22 @@ LABEL_16:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v3 = qword_1ED519090;
+    v8 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289026;
       *&buf[4] = 0;
-      v6 = 2082;
-      v7 = "";
-      _os_log_impl(&dword_19B873000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor Client is not authorized just yet to create connection}", buf, 0x12u);
+      v10 = 2082;
+      v11 = "";
+      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor Client is not authorized just yet to create connection}", buf, 0x12u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)destroyConnection
 {
-  v11 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
+  v12 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, v2, v3);
   locationdConnection = self->_locationdConnection;
   if (locationdConnection)
   {
@@ -764,35 +785,35 @@ LABEL_16:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v4 = qword_1ED519090;
+    v6 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 68289282;
-      v6[1] = 0;
-      v7 = 2082;
-      v8 = "";
-      v9 = 2050;
-      v10 = locationdConnection;
-      _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor destroying connection, connection:%{public}p}", v6, 0x1Cu);
+      v7[0] = 68289282;
+      v7[1] = 0;
+      v8 = 2082;
+      v9 = "";
+      v10 = 2050;
+      v11 = locationdConnection;
+      _os_log_impl(&dword_19B873000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor destroying connection, connection:%{public}p}", v7, 0x1Cu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMessageMonitor:(shared_ptr<CLConnectionMessage>)monitor
 {
   var0 = monitor.var0;
-  v22 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = CLConnectionMessage::name(*monitor.var0);
   if (*(v5 + 23) < 0 && *(v5 + 8) == 46 && !memcmp(*v5, "Monitor/kCLConnectionMessageMonitorUpdateEvent", 0x2EuLL))
   {
-    v13 = *var0;
-    v14 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-    [CLConnectionMessage::getDictionaryOfClasses(v13 v14)];
-    v15 = *MEMORY[0x1E69E9840];
+    v12 = *var0;
+    v13 = MEMORY[0x1E695DFD8];
+    v14 = objc_opt_class();
+    v17 = objc_msgSend_setWithObjects_(v13, v15, v14, v16, 0);
+    DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(v12, v17);
+    v21 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v19, @"kCLConnectionMessageMonitorMonitoringRecordKey", v20);
 
-    MEMORY[0x1EEE66B58](self, sel_updateEventReceivedFromDaemon_);
+    MEMORY[0x1EEE66B58](self, sel_updateEventReceivedFromDaemon_, v21, v22);
   }
 
   else
@@ -808,11 +829,11 @@ LABEL_16:
       v7 = CLConnectionMessage::name(*var0);
       v8 = *(v7 + 23) >= 0 ? v7 : *v7;
       *buf = 68289282;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = v8;
+      v24 = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2082;
+      v28 = v8;
       _os_log_impl(&dword_19B873000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#monitor unsupported message received, message:%{public, location:escape_only}s}", buf, 0x1Cu);
       if (qword_1ED519088 != -1)
       {
@@ -835,25 +856,28 @@ LABEL_16:
       }
 
       *buf = 68289282;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = v11;
+      v24 = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2082;
+      v28 = v11;
       _os_signpost_emit_with_name_impl(&dword_19B873000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#monitor unsupported message received", "{msg%{public}.0s:#monitor unsupported message received, message:%{public, location:escape_only}s}", buf, 0x1Cu);
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (id)getMonitorConfiguration
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v3 setObject:-[CLConditionLedger allMonitoringRecordsByIdentifier](self->_conditionLedger forKeyedSubscript:{"allMonitoringRecordsByIdentifier"), @"kCLConnectionMessageMonitorLedger"}];
-  [v3 setObject:-[CLMonitor identityToken](self forKeyedSubscript:{"identityToken"), @"kCLConnectionMessageMonitorIdentityTokenKey"}];
-  [v3 setObject:-[CLMonitor name](self forKeyedSubscript:{"name"), @"kCLConnectionMessageMonitorNameKey"}];
-  [v3 setObject:-[CLLocationManager processName](-[CLMonitor manager](self forKeyedSubscript:{"manager"), "processName"), @"kCLConnectionMessageMonitorProcessNameKey"}];
+  v7 = objc_msgSend_allMonitoringRecordsByIdentifier(self->_conditionLedger, v4, v5, v6);
+  objc_msgSend_setObject_forKeyedSubscript_(v3, v8, v7, @"kCLConnectionMessageMonitorLedger");
+  v12 = objc_msgSend_identityToken(self, v9, v10, v11);
+  objc_msgSend_setObject_forKeyedSubscript_(v3, v13, v12, @"kCLConnectionMessageMonitorIdentityTokenKey");
+  v17 = objc_msgSend_name(self, v14, v15, v16);
+  objc_msgSend_setObject_forKeyedSubscript_(v3, v18, v17, @"kCLConnectionMessageMonitorNameKey");
+  v22 = objc_msgSend_manager(self, v19, v20, v21);
+  v26 = objc_msgSend_processName(v22, v23, v24, v25);
+  objc_msgSend_setObject_forKeyedSubscript_(v3, v27, v26, @"kCLConnectionMessageMonitorProcessNameKey");
 
   return v3;
 }
@@ -868,31 +892,38 @@ LABEL_16:
   v5[4] = self;
   v5[5] = token;
   v5[6] = storageToken;
-  [(CLDispatchSilo *)silo async:v5];
+  objc_msgSend_async_(silo, a2, v5, storageToken);
 }
 
 + (void)_requestMonitorWithConfiguration:(id)configuration locationManager:(id)manager completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
-  if ((sub_19B8B7F14([configuration name]) & 1) == 0)
+  v13 = objc_msgSend_name(configuration, v10, v11, v12);
+  if ((sub_19B8B7F14(v13, v14, v15, v16) & 1) == 0)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v42 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v17, v18, v19);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v42, v43, a2, self, @"CLMonitor.mm", 507, @"Monitor name is not valid");
   }
 
   if (!completion)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v44 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v17, v18, v19);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v44, v45, a2, self, @"CLMonitor.mm", 510, @"Monitor completion handler is nil");
   }
 
-  if (![configuration eventHandler])
+  if (!objc_msgSend_eventHandler(configuration, v17, v18, v19))
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v46 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v20, v21, v22);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v46, v47, a2, self, @"CLMonitor.mm", 513, @"Monitoring event handler is nil");
   }
 
-  if (+[CLMonitor isMonitorNameInUse:](CLMonitor, "isMonitorNameInUse:", [configuration name]))
+  v23 = objc_msgSend_name(configuration, v20, v21, v22);
+  if (objc_msgSend_isMonitorNameInUse_(CLMonitor, v24, v23, v25))
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v48 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v26, v27, v28);
+    v52 = objc_msgSend_name(configuration, v49, v50, v51);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v48, v53, a2, self, @"CLMonitor.mm", 516, @"Monitor named %@ is already in use", v52);
   }
 
   if (!manager)
@@ -902,79 +933,80 @@ LABEL_16:
       dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
     }
 
-    v11 = qword_1ED519090;
+    v54 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "locationManager";
-      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:CLLocationManager must not be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v58 = 0;
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "locationManager";
+      _os_log_impl(&dword_19B873000, v54, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:CLLocationManager must not be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
       }
     }
 
-    v12 = qword_1ED519090;
+    v55 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "locationManager";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CLLocationManager must not be nil", "{msg%{public}.0s:CLLocationManager must not be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v58 = 0;
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "locationManager";
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v55, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CLLocationManager must not be nil", "{msg%{public}.0s:CLLocationManager must not be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6E618);
       }
     }
 
-    v13 = qword_1ED519090;
+    v56 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "locationManager";
-      _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:CLLocationManager must not be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v58 = 0;
+      v59 = 2082;
+      v60 = "";
+      v61 = 2082;
+      v62 = "assert";
+      v63 = 2081;
+      v64 = "locationManager";
+      _os_log_impl(&dword_19B873000, v56, OS_LOG_TYPE_INFO, "{msg%{public}.0s:CLLocationManager must not be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreLocation/CLMonitor.mm", 518, "+[CLMonitor _requestMonitorWithConfiguration:locationManager:completion:]");
     __break(1u);
   }
 
-  if (([manager isMasquerading] & 1) == 0 && (sub_19B8B8818() & 1) == 0)
+  if ((objc_msgSend_isMasquerading(manager, v26, v27, v28) & 1) == 0 && (sub_19B8B8818() & 1) == 0)
   {
     NSLog(&cfstr_ErrorClmonitor.isa);
   }
 
-  [configuration setManager:manager];
-  [configuration setVendingHandler:completion];
-  +[CLMonitor addMonitorName:](CLMonitor, "addMonitorName:", [configuration name]);
-  [manager addIdentifiableClient:configuration];
-  v10 = *MEMORY[0x1E69E9840];
+  objc_msgSend_setManager_(configuration, v29, manager, v30);
+  objc_msgSend_setVendingHandler_(configuration, v31, completion, v32);
+  v36 = objc_msgSend_name(configuration, v33, v34, v35);
+  objc_msgSend_addMonitorName_(CLMonitor, v37, v36, v38);
+  configurationCopy = configuration;
+  objc_msgSend_addIdentifiableClient_(manager, v40, configurationCopy, v41);
 
   objc_sync_exit(self);
 }
 
 + (void)requestMonitorWithConfiguration:(CLMonitorConfiguration *)config completion:(void *)completionHandler
 {
-  +[CLLocationManager weakSharedInstance];
+  v5 = objc_msgSend_weakSharedInstance(CLLocationManager, a2, config, completionHandler);
 
-  MEMORY[0x1EEE66B58](CLMonitor, sel__requestMonitorWithConfiguration_locationManager_completion_);
+  MEMORY[0x1EEE66B58](CLMonitor, sel__requestMonitorWithConfiguration_locationManager_completion_, config, v5);
 }
 
 + (id)sharedMonitorSet
@@ -990,7 +1022,8 @@ LABEL_16:
 + (BOOL)isMonitorNameInUse:(id)use
 {
   os_unfair_lock_lock(&unk_1EAFE50E8);
-  LOBYTE(use) = [+[CLMonitor sharedMonitorSet](CLMonitor "sharedMonitorSet")];
+  v7 = objc_msgSend_sharedMonitorSet(CLMonitor, v4, v5, v6);
+  LOBYTE(use) = objc_msgSend_containsObject_(v7, v8, use, v9);
   os_unfair_lock_unlock(&unk_1EAFE50E8);
   return use;
 }
@@ -998,7 +1031,8 @@ LABEL_16:
 + (void)addMonitorName:(id)name
 {
   os_unfair_lock_lock(&unk_1EAFE50E8);
-  [+[CLMonitor sharedMonitorSet](CLMonitor "sharedMonitorSet")];
+  v7 = objc_msgSend_sharedMonitorSet(CLMonitor, v4, v5, v6);
+  objc_msgSend_addObject_(v7, v8, name, v9);
 
   os_unfair_lock_unlock(&unk_1EAFE50E8);
 }
@@ -1006,7 +1040,8 @@ LABEL_16:
 + (void)removeMonitorName:(id)name
 {
   os_unfair_lock_lock(&unk_1EAFE50E8);
-  [+[CLMonitor sharedMonitorSet](CLMonitor "sharedMonitorSet")];
+  v7 = objc_msgSend_sharedMonitorSet(CLMonitor, v4, v5, v6);
+  objc_msgSend_removeObject_(v7, v8, name, v9);
 
   os_unfair_lock_unlock(&unk_1EAFE50E8);
 }

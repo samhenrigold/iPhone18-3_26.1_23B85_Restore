@@ -8,7 +8,7 @@
 
 - (void)drawWithRect:()NSExtendedStringDrawing options:attributes:context:
 {
-  v17 = MEMORY[0x193AD39D0](0.15);
+  v17 = MEMORY[0x193AD39D0](self, a6, 0.15);
   MEMORY[0x193AD39E0](0.0);
   if (!a8)
   {
@@ -23,7 +23,7 @@
 
 - (double)boundingRectWithSize:()NSExtendedStringDrawing options:attributes:context:
 {
-  v13 = MEMORY[0x193AD39D0](0.15);
+  v13 = MEMORY[0x193AD39D0](self, a4, 0.15);
   v14 = MEMORY[0x193AD39E0](0.0);
   v18 = 0;
   if (!a6)

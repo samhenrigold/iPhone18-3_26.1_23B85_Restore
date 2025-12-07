@@ -384,7 +384,7 @@ uint64_t __71__VSRProcessor_downloadMobileAssetWithInputType_withCompletionHandl
       {
         [configCopy scaleFactor];
         [configCopy scaleFactor];
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732315268);
         if ((getUsageFromSize(self->_frameWidth, self->_frameHeight) & 0x1000) != 0)
         {
           frameWidth = self->_frameWidth;
@@ -409,7 +409,7 @@ uint64_t __71__VSRProcessor_downloadMobileAssetWithInputType_withCompletionHandl
           goto LABEL_36;
         }
 
-        OUTLINED_FUNCTION_0_0();
+        OUTLINED_FUNCTION_0_0(732315664);
         goto LABEL_19;
       }
 
@@ -501,7 +501,7 @@ LABEL_19:
 LABEL_16:
     [configCopy scaleFactor];
     [configCopy scaleFactor];
-    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_0_0(732315268);
     getUsageFromSize(self->_frameWidth, self->_frameHeight);
     v23 = [FRNet alloc];
     v24 = OUTLINED_FUNCTION_4();
@@ -511,7 +511,7 @@ LABEL_16:
 
     if (self->_frNetEngine)
     {
-      OUTLINED_FUNCTION_0_0();
+      OUTLINED_FUNCTION_0_0(732315664);
       if (self->_usePrecomputedFlow)
       {
         goto LABEL_19;

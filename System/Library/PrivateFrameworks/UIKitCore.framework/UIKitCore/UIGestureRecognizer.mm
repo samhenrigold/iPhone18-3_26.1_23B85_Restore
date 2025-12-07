@@ -32,7 +32,10 @@
 - (UIGestureRecognizer)initWithCoder:(NSCoder *)coder;
 - (UIGestureRecognizer)initWithTarget:(id)target action:(SEL)action;
 - (UIView)view;
+- (_BYTE)_cancelRecognition;
 - (_UIGestureRecognizerContainer)container;
+- (char)_isActive;
+- (char)_state;
 - (id)_activeComponentsForEvent:(uint64_t)event;
 - (id)_activeEventOfType:(int64_t)type;
 - (id)_activeEvents;
@@ -43,8 +46,10 @@
 - (id)_failureRequirements;
 - (id)_forceLevelClassifier;
 - (id)_gatherViewsToQueryForDelegateCall;
+- (id)_invalidateInitialTouchType;
 - (id)_pairedGestureIdentifiersAndCreate:(BOOL)create;
 - (id)_rawBriefDescription;
+- (id)_removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:(id *)result;
 - (id)_touchForceObservable;
 - (id)delegate;
 - (id)gestureNode:(id)node roleForRelationType:(int64_t)type relatedNode:(id)relatedNode;
@@ -65,24 +70,19 @@
 - (uint64_t)_delegateShouldReceiveDynamicButtonEvent:(uint64_t)result;
 - (uint64_t)_delegateShouldReceiveEvent:(uint64_t)event;
 - (uint64_t)_delegateShouldReceivePress:(uint64_t)press;
-- (uint64_t)_delegateShouldReceivePressesEvent:(uint64_t)result;
 - (uint64_t)_delegateShouldReceiveTouch:(void *)touch forEvent:;
 - (uint64_t)_hasUnmetRequirementsPreventingExclusion;
 - (uint64_t)_internalShouldReceiveEvent:(uint64_t)event;
-- (uint64_t)_invalidateInitialTouchType;
-- (uint64_t)_isActive;
 - (uint64_t)_node;
-- (uint64_t)_removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:(uint64_t)result;
 - (uint64_t)_shouldReceiveDynamicButton:(uint64_t)button forEvent:;
 - (uint64_t)_shouldReceiveDynamicButtonEvent:(uint64_t)result;
 - (uint64_t)_shouldReceivePress:(uint64_t)press forPressesEvent:;
-- (uint64_t)_state;
+- (unint64_t)_delegateShouldReceivePressesEvent:(unint64_t)result;
 - (void)_addActiveEvent:(uint64_t)event;
 - (void)_addActiveTouches:(uint64_t)touches;
 - (void)_addForceTarget:(void *)target action:;
 - (void)_addTouch:(id)touch forEvent:(id)event;
 - (void)_appendDescriptionToString:(int)string atLevel:(int)level includingDependencies:;
-- (void)_cancelRecognition;
 - (void)_clearDelayedPresses;
 - (void)_clearDelayedTouches;
 - (void)_componentsBegan:(id)began withEvent:(id)event;
@@ -93,9 +93,9 @@
 - (void)_delayActiveEventsToRespondersIfNeeded;
 - (void)_delayPress:(void *)press forEvent:;
 - (void)_delayPressesForEvent:(uint64_t)event inPhase:;
-- (void)_delayPressesForEventIfNeeded:(uint64_t)needed;
+- (void)_delayPressesForEventIfNeeded:(id *)result;
 - (void)_delayTouchesForEvent:(uint64_t)event inPhase:;
-- (void)_delayTouchesForEventIfNeeded:(uint64_t)needed;
+- (void)_delayTouchesForEventIfNeeded:(id *)result;
 - (void)_enqueueDelayedPressesToSend;
 - (void)_enqueueDelayedTouchesToSend;
 - (void)_ensureForceObservationChain;
@@ -156,7 +156,7 @@
 
 @implementation UIGestureRecognizer
 
-- (uint64_t)_state
+- (char)_state
 {
   if (result)
   {
@@ -168,7 +168,7 @@
 
     if (_UIIsGesturesFrameworkEnabled_enabled == 1)
     {
-      phase = [*(v1 + 232) phase];
+      phase = [*(v1 + 29) phase];
       if ((phase - 2) >= 5)
       {
         return 0;
@@ -176,13 +176,13 @@
 
       else
       {
-        return phase - 1;
+        return (phase - 1);
       }
     }
 
     else
     {
-      return *(v1 + 72);
+      return *(v1 + 9);
     }
   }
 
@@ -386,7 +386,7 @@ LABEL_6:
   return v6;
 }
 
-- (uint64_t)_invalidateInitialTouchType
+- (id)_invalidateInitialTouchType
 {
   v10 = *MEMORY[0x1E69E9840];
   if (result)
@@ -408,8 +408,8 @@ LABEL_6:
       }
     }
 
-    *(v1 + 8) &= ~0x80000000000uLL;
-    return [*(v1 + 96) removeAllObjects];
+    v1[1] = (v1[1] & 0xFFFFF7FFFFFFFFFFLL);
+    return [v1[12] removeAllObjects];
   }
 
   return result;
@@ -524,7 +524,7 @@ LABEL_6:
   }
 }
 
-- (uint64_t)_isActive
+- (char)_isActive
 {
   selfCopy = self;
   if (self)
@@ -600,7 +600,7 @@ LABEL_6:
   self->_firstEventTimestamp = 0.0;
   self->_buttonMask = 0;
   self->_modifierFlags = 0;
-  [(UIGestureRecognizer *)self _invalidateInitialTouchType];
+  [(UIGestureRecognizer *)&self->super.isa _invalidateInitialTouchType];
   gestureFlags = self->_gestureFlags;
   *(&self->_gestureFlags + 4) &= ~0x20u;
   self->_machTimeEnqueuedForReset = 0;
@@ -1193,7 +1193,7 @@ LABEL_5:
   sub_18A4A7938();
   swift_unknownObjectRelease();
   sub_18A4A6FB8();
-  sub_188D0FECC(&unk_1ED48E190, MEMORY[0x1E69A28A8]);
+  sub_188D0FECC(&unk_1ED48E190, MEMORY[0x1E69A28A8], MEMORY[0x1E69A28B8]);
   LOBYTE(self) = sub_18A4A7E28();
 
   v12 = *(v4 + 8);
@@ -1558,7 +1558,7 @@ LABEL_16:
 - (void)_sendTouchesToComponentController:(id)controller
 {
   sub_188E4059C();
-  sub_188D0FECC(&qword_1EA941110, sub_188E4059C);
+  sub_188D0FECC(&qword_1EA941110, sub_188E4059C, MEMORY[0x1E69E81B8]);
   v4 = sub_18A4A77A8();
   selfCopy = self;
   sub_18901194C(v4);
@@ -2423,7 +2423,7 @@ LABEL_26:
         gestureEnvironment = self->_gestureEnvironment;
         v10[0] = self;
         v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-        [(UIGestureEnvironment *)gestureEnvironment _cancelGestureRecognizers:v9];
+        [(UIGestureEnvironment *)&gestureEnvironment->super.isa _cancelGestureRecognizers:v9];
       }
     }
   }
@@ -2721,7 +2721,7 @@ LABEL_57:
     }
   }
 
-  [(UIGestureEnvironment *)self->_gestureEnvironment setGestureNeedsUpdate:?];
+  [(UIGestureEnvironment *)&self->_gestureEnvironment->super.isa setGestureNeedsUpdate:?];
   if ((v14 & 0xFFFFFFFFFFFFFFFELL) == 4 && (*(&self->_gestureFlags + 4) & 0x80) != 0)
   {
     _driver = [(UIGestureRecognizer *)self _driver];
@@ -2926,7 +2926,7 @@ LABEL_70:
     name_DO_NOT_USE_DIRECTLY = self->_name_DO_NOT_USE_DIRECTLY;
     p_name_DO_NOT_USE_DIRECTLY = &self->_name_DO_NOT_USE_DIRECTLY;
     v6 = name_DO_NOT_USE_DIRECTLY;
-    if (name_DO_NOT_USE_DIRECTLY != name && ![(NSString *)v6 isEqualToString:name])
+    if (name_DO_NOT_USE_DIRECTLY != name && (objc_msgSend_isEqualToString_(v6) & 1) == 0)
     {
 
       objc_storeStrong(p_name_DO_NOT_USE_DIRECTLY, name);
@@ -3218,7 +3218,7 @@ LABEL_8:
       {
         [(UIGestureRecognizer *)self _hoverExited:ended withEvent:event];
 
-        [(UIGestureRecognizer *)self _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:ended];
+        [(UIGestureRecognizer *)&self->super.isa _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:ended];
       }
     }
 
@@ -3246,7 +3246,7 @@ LABEL_8:
     {
       [event timestamp];
       self->_lastTouchTimestamp = v10;
-      [(UIGestureRecognizer *)self _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:ended];
+      [(UIGestureRecognizer *)&self->super.isa _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:ended];
       [(UIGestureRecognizer *)self _updateForceClassifierWithEvent:event];
       if ((*(&self->_gestureFlags + 4) & 0x80) != 0)
       {
@@ -3276,13 +3276,13 @@ LABEL_8:
   }
 }
 
-- (uint64_t)_removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:(uint64_t)result
+- (id)_removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:(id *)result
 {
   if (result)
   {
     v2 = result;
-    [*(result + 96) minusSet:a2];
-    result = [*(v2 + 96) count];
+    [result[12] minusSet:a2];
+    result = [v2[12] count];
     if (!result)
     {
 
@@ -3314,7 +3314,7 @@ LABEL_8:
       {
         [(UIGestureRecognizer *)self _hoverCancelled:cancelled withEvent:event];
 
-        [(UIGestureRecognizer *)self _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:cancelled];
+        [(UIGestureRecognizer *)&self->super.isa _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:cancelled];
       }
     }
 
@@ -3342,7 +3342,7 @@ LABEL_8:
     {
       [event timestamp];
       self->_lastTouchTimestamp = v10;
-      [(UIGestureRecognizer *)self _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:cancelled];
+      [(UIGestureRecognizer *)&self->super.isa _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:cancelled];
       [(UIGestureRecognizer *)self _updateForceClassifierWithEvent:event];
       if ((*(&self->_gestureFlags + 4) & 0x80) != 0)
       {
@@ -3658,14 +3658,14 @@ uint64_t __65__UIGestureRecognizer__removeTouch_forEvent_byCancellingTouches___b
         }
       }
 
-      [(UIGestureDelayedEventComponentDispatcher *)self->_delayedEventComponentDispatcher enqueueDelayedTouchToSend:v7];
+      [(UIGestureDelayedEventComponentDispatcher *)&self->_delayedEventComponentDispatcher->super.isa enqueueDelayedTouchToSend:v7];
       [(NSMutableArray *)self->_delayedTouches removeObject:v7];
     }
   }
 
   v9 = [MEMORY[0x1E695DFD8] setWithObject:touch];
   [(UIEvent *)event _removeGestureRecognizer:self fromComponents:v9];
-  [(UIGestureRecognizer *)self _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:v9];
+  [(UIGestureRecognizer *)&self->super.isa _removeActiveTouchesAndInvalidateInitialTouchTypeIfNeeded:v9];
   if (_UIIsGesturesFrameworkEnabled_onceToken != -1)
   {
     dispatch_once(&_UIIsGesturesFrameworkEnabled_onceToken, &__block_literal_global_225);
@@ -3688,7 +3688,7 @@ uint64_t __65__UIGestureRecognizer__removeTouch_forEvent_byCancellingTouches___b
     v6 = _UIGestureDelayedTouchForUITouch(button, self->_delayedPresses);
     if (v6)
     {
-      [(UIGestureDelayedEventComponentDispatcher *)self->_delayedEventComponentDispatcher enqueueDelayedPressToSend:v6];
+      [(UIGestureDelayedEventComponentDispatcher *)&self->_delayedEventComponentDispatcher->super.isa enqueueDelayedPressToSend:v6];
       [(NSMutableArray *)self->_delayedPresses removeObject:v6];
     }
   }
@@ -3833,36 +3833,36 @@ LABEL_11:
   return result;
 }
 
-- (void)_delayTouchesForEventIfNeeded:(uint64_t)needed
+- (void)_delayTouchesForEventIfNeeded:(id *)result
 {
-  if (needed)
+  if (result)
   {
-    if (([needed delaysTouchesBegan] & 1) != 0 || objc_msgSend(*(needed + 32), "count"))
+    if (([result delaysTouchesBegan] & 1) != 0 || objc_msgSend(result[4], "count"))
     {
-      [(UIGestureRecognizer *)needed _delayTouchesForEvent:a2 inPhase:0];
+      [(UIGestureRecognizer *)result _delayTouchesForEvent:a2 inPhase:0];
     }
 
-    if ((*(needed + 12) & 2) != 0)
+    if ((*(result + 12) & 2) != 0)
     {
 
-      [(UIGestureRecognizer *)needed _delayTouchesForEvent:a2 inPhase:3];
+      [(UIGestureRecognizer *)result _delayTouchesForEvent:a2 inPhase:3];
     }
   }
 }
 
-- (void)_delayPressesForEventIfNeeded:(uint64_t)needed
+- (void)_delayPressesForEventIfNeeded:(id *)result
 {
-  if (needed)
+  if (result)
   {
-    if (([needed delaysTouchesBegan] & 1) != 0 || objc_msgSend(*(needed + 40), "count"))
+    if (([result delaysTouchesBegan] & 1) != 0 || objc_msgSend(result[5], "count"))
     {
-      [(UIGestureRecognizer *)needed _delayPressesForEvent:a2 inPhase:0];
+      [(UIGestureRecognizer *)result _delayPressesForEvent:a2 inPhase:0];
     }
 
-    if ((*(needed + 12) & 2) != 0)
+    if ((*(result + 12) & 2) != 0)
     {
 
-      [(UIGestureRecognizer *)needed _delayPressesForEvent:a2 inPhase:3];
+      [(UIGestureRecognizer *)result _delayPressesForEvent:a2 inPhase:3];
     }
   }
 }
@@ -4326,7 +4326,7 @@ LABEL_28:
   return result;
 }
 
-- (uint64_t)_delegateShouldReceivePressesEvent:(uint64_t)result
+- (unint64_t)_delegateShouldReceivePressesEvent:(unint64_t)result
 {
   if (result)
   {
@@ -5222,17 +5222,17 @@ LABEL_30:
   }
 }
 
-- (void)_cancelRecognition
+- (_BYTE)_cancelRecognition
 {
-  if (self)
+  if (result)
   {
-    if ((*(self + 12) & 8) != 0)
+    if ((result[12] & 8) != 0)
     {
-      return [self _failWithReason:@"cancelRecognition"];
+      return [result _failWithReason:@"cancelRecognition"];
     }
   }
 
-  return self;
+  return result;
 }
 
 - (void)_exclude
@@ -5297,7 +5297,7 @@ LABEL_10:
 
 LABEL_14:
   self->_state_DO_NOT_USE_DIRECTLY = v4;
-  [(UIGestureEnvironment *)self->_gestureEnvironment setGestureNeedsUpdate:?];
+  [(UIGestureEnvironment *)&self->_gestureEnvironment->super.isa setGestureNeedsUpdate:?];
 }
 
 - (BOOL)_canExcludeOtherExcludables
@@ -5958,7 +5958,7 @@ LABEL_23:
     }
 
     *&self->_gestureFlags |= 0x100000000000uLL;
-    [(UIGestureEnvironment *)self->_gestureEnvironment setGestureNeedsUpdate:?];
+    [(UIGestureEnvironment *)&self->_gestureEnvironment->super.isa setGestureNeedsUpdate:?];
   }
 
   if ([classifier currentForceLevel] != change)
@@ -6050,7 +6050,7 @@ LABEL_23:
           [string appendString:{@", "}];
         }
 
-        [(UIGestureRecognizer *)v13 _appendDescriptionToString:string atLevel:(level + 1) includingDependencies:0];
+        [(UIGestureRecognizer *)v13 _appendDescriptionToString:string atLevel:level + 1 includingDependencies:0];
         v11 = 0;
       }
 

@@ -59,49 +59,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_11;
-  }
-
-  sSID = [(HMHomeWiFiInfo *)self SSID];
-  sSID2 = [v6 SSID];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_11;
-  }
-
-  requiresPassword = [(HMHomeWiFiInfo *)self requiresPassword];
-  if (requiresPassword != [v6 requiresPassword])
-  {
-    goto LABEL_11;
-  }
-
-  bSSID = [(HMHomeWiFiInfo *)self BSSID];
-  bSSID2 = [v6 BSSID];
-  v13 = HMFEqualObjects();
-
-  if (!v13)
-  {
-    goto LABEL_11;
-  }
-
-  rSSI = [(HMHomeWiFiInfo *)self RSSI];
-  rSSI2 = [v6 RSSI];
-  v16 = HMFEqualObjects();
-
-  if (!v16)
-  {
-    goto LABEL_11;
-  }
-
-  displayName = [(HMHomeWiFiInfo *)self displayName];
-  displayName2 = [v6 displayName];
-  v19 = HMFEqualObjects();
-
-  if (v19)
+  if (v6 && (-[HMHomeWiFiInfo SSID](self, "SSID"), v7 = objc_claimAutoreleasedReturnValue(), [v6 SSID], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (v10 = -[HMHomeWiFiInfo requiresPassword](self, "requiresPassword"), v10 == objc_msgSend(v6, "requiresPassword")) && (-[HMHomeWiFiInfo BSSID](self, "BSSID"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "BSSID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && (-[HMHomeWiFiInfo RSSI](self, "RSSI"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "RSSI"), v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16) && (-[HMHomeWiFiInfo displayName](self, "displayName"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "displayName"), v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v17, v19))
   {
     security = [(HMHomeWiFiInfo *)self security];
     security2 = [v6 security];
@@ -110,7 +68,6 @@
 
   else
   {
-LABEL_11:
     v22 = 0;
   }
 

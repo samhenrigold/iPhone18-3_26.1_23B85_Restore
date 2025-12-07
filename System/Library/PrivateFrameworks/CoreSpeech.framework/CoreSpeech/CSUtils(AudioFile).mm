@@ -6,12 +6,12 @@
 
 + (BOOL)readAudioChunksFrom:()AudioFile block:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   inPropertyData[0] = xmmword_222FB8548;
   inPropertyData[1] = unk_222FB8558;
-  v22 = 16;
+  v21 = 16;
   outExtAudioFile = 0;
   outAudioFile = 0;
   if (!AudioFileOpenURL([MEMORY[0x277CBEBC0] URLWithString:v5], kAudioFileReadPermission, 0, &outAudioFile))
@@ -28,7 +28,7 @@
 LABEL_5:
   if (outExtAudioFile)
   {
-    v18 = 0;
+    v17 = 0;
     memset(outPropertyData, 0, sizeof(outPropertyData));
     ioPropertyDataSize = 40;
     ExtAudioFileGetProperty(outExtAudioFile, 0x66666D74u, &ioPropertyDataSize, outPropertyData);
@@ -63,9 +63,9 @@ LABEL_5:
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "+[CSUtils(AudioFile) readAudioChunksFrom:block:]";
-      v25 = 1026;
-      v26 = v10;
+      v23 = "+[CSUtils(AudioFile) readAudioChunksFrom:block:]";
+      v24 = 1026;
+      v25 = v10;
       _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s Error reading audio file: %{public}d, skipping...", buf, 0x12u);
     }
 
@@ -77,7 +77,6 @@ LABEL_14:
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

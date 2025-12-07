@@ -67,11 +67,9 @@
 - (NSString)title
 {
   v2 = sub_251384A84();
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
+  MEMORY[0x28223BE20](v2 - 8, v3);
   v4 = sub_251385E24();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  MEMORY[0x28223BE20](v4 - 8, v5);
   sub_251385F74();
   sub_251385F64();
   sub_251385F54();

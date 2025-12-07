@@ -11,15 +11,13 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"VisibleDescription";
-  v7[1] = @"SearchBase";
-  v7[2] = @"Scope";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[0] = @"VisibleDescription";
+  v6[1] = @"SearchBase";
+  v6[2] = @"Scope";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

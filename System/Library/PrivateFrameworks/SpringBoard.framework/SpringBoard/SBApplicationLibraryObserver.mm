@@ -237,7 +237,7 @@ void __73__SBApplicationLibraryObserver_initWithAppLibrary_splashBoardController
 
 - (id)suspendCalloutsAssertionWithReason:(id)reason
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if (!reasonCopy)
   {
@@ -249,108 +249,112 @@ void __73__SBApplicationLibraryObserver_initWithAppLibrary_splashBoardController
     [SBApplicationLibraryObserver suspendCalloutsAssertionWithReason:];
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__147;
-  v40 = __Block_byref_object_dispose__147;
-  v41 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__147;
+  v42 = __Block_byref_object_dispose__147;
+  v43 = 0;
   v6 = objc_alloc_init(MEMORY[0x277CF0B80]);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke;
-  v32[3] = &unk_2783AEA70;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke;
+  v34[3] = &unk_2783AEA70;
   v7 = v6;
-  v33 = v7;
+  v35 = v7;
   selfCopy = self;
-  v35 = &v36;
-  v8 = MEMORY[0x223D6F7F0](v32);
+  v37 = &v38;
+  v8 = MEMORY[0x223D6F7F0](v34);
   v9 = objc_alloc(MEMORY[0x277CF0B58]);
   v10 = MEMORY[0x277D85CD0];
   v11 = MEMORY[0x277D85CD0];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke_31;
-  v29[3] = &unk_2783C4508;
-  v31 = &v36;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke_31;
+  v31[3] = &unk_2783C4508;
+  v33 = &v38;
   v12 = v8;
-  v30 = v12;
-  v13 = [v9 initWithInfo:0 timeout:v10 forResponseOnQueue:v29 withHandler:0.0];
+  v32 = v12;
+  v13 = [v9 initWithInfo:0 timeout:v10 forResponseOnQueue:v31 withHandler:0.0];
 
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke_33;
-  v27 = &unk_2783A9348;
+  v26 = MEMORY[0x277D85DD0];
+  v27 = 3221225472;
+  v28 = __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke_33;
+  v29 = &unk_2783A9348;
   v14 = v12;
-  v28 = v14;
-  [v13 setInvalidationHandler:&v24];
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p: %@", v13, reasonCopy, v24, v25, v26, v27];
-  v16 = v37[5];
-  v37[5] = v15;
+  v30 = v14;
+  [v13 setInvalidationHandler:&v26];
+  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p: %@", v13, reasonCopy, v26, v27, v28, v29];
+  v16 = v39[5];
+  v39[5] = v15;
 
-  v17 = SBLogAppLibrary();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = SBLogAppLibrary(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = v37[5];
+    v19 = v39[5];
     *buf = 138412290;
-    v43 = v18;
-    _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "adding suspendCalloutsAssertion '%@'", buf, 0xCu);
+    v45 = v19;
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "adding suspendCalloutsAssertion '%@'", buf, 0xCu);
   }
 
   suspendCalloutsAssertionReasons = self->_suspendCalloutsAssertionReasons;
   if (suspendCalloutsAssertionReasons)
   {
-    [(NSMutableSet *)suspendCalloutsAssertionReasons addObject:v37[5]];
+    [(NSMutableSet *)suspendCalloutsAssertionReasons addObject:v39[5]];
   }
 
   else
   {
-    v20 = [MEMORY[0x277CBEB58] setWithObject:v37[5]];
-    v21 = self->_suspendCalloutsAssertionReasons;
-    self->_suspendCalloutsAssertionReasons = v20;
+    v21 = [MEMORY[0x277CBEB58] setWithObject:v39[5]];
+    v22 = self->_suspendCalloutsAssertionReasons;
+    self->_suspendCalloutsAssertionReasons = v21;
 
-    v22 = SBLogAppLibrary();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = SBLogAppLibrary(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "suspending callouts", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "suspending callouts", buf, 2u);
     }
 
     dispatch_suspend(self->_mainQueueProxy);
   }
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v38, 8);
 
   return v13;
 }
 
 void __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) signal] && objc_msgSend(*(*(a1 + 40) + 24), "containsObject:", *(*(*(a1 + 48) + 8) + 40)))
+  v11 = *MEMORY[0x277D85DE8];
+  if ([*(a1 + 32) signal])
   {
-    v2 = SBLogAppLibrary();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = objc_msgSend_containsObject_(*(*(a1 + 40) + 24));
+    if (v2)
     {
-      v3 = *(*(*(a1 + 48) + 8) + 40);
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "removing suspendCalloutsAssertion '%@'", &v7, 0xCu);
-    }
-
-    [*(*(a1 + 40) + 24) removeObject:*(*(*(a1 + 48) + 8) + 40)];
-    if (![*(*(a1 + 40) + 24) count])
-    {
-      v4 = *(a1 + 40);
-      v5 = *(v4 + 24);
-      *(v4 + 24) = 0;
-
-      dispatch_resume(*(*(a1 + 40) + 32));
-      v6 = SBLogAppLibrary();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v3 = SBLogAppLibrary(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v7) = 0;
-        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "resuming callouts", &v7, 2u);
+        v4 = *(*(*(a1 + 48) + 8) + 40);
+        v9 = 138412290;
+        v10 = v4;
+        _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "removing suspendCalloutsAssertion '%@'", &v9, 0xCu);
+      }
+
+      [*(*(a1 + 40) + 24) removeObject:*(*(*(a1 + 48) + 8) + 40)];
+      if (![*(*(a1 + 40) + 24) count])
+      {
+        v5 = *(a1 + 40);
+        v6 = *(v5 + 24);
+        *(v5 + 24) = 0;
+
+        dispatch_resume(*(*(a1 + 40) + 32));
+        v8 = SBLogAppLibrary(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v9) = 0;
+          _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "resuming callouts", &v9, 2u);
+        }
       }
     }
   }
@@ -364,10 +368,10 @@ void __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___blo
 
   if (v5 != 5)
   {
-    v6 = SBLogAppLibrary();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SBLogAppLibrary(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke_31_cold_1(a1, v3, v6);
+      __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___block_invoke_31_cold_1(a1, v3, v7);
     }
   }
 
@@ -378,7 +382,7 @@ void __67__SBApplicationLibraryObserver_suspendCalloutsAssertionWithReason___blo
 {
   observerCopy = observer;
   tableCopy = table;
-  if (observerCopy && ([tableCopy containsObject:observerCopy] & 1) == 0)
+  if (observerCopy && (objc_msgSend_containsObject_(tableCopy) & 1) == 0)
   {
     [tableCopy addObject:observerCopy];
   }
@@ -1225,7 +1229,7 @@ void __55__SBApplicationLibraryObserver__didChangeNetworkUsage___block_invoke(ui
 void __105__SBApplicationLibraryObserver_profileConnectionDidReceiveEffectiveSettingsChangedNotification_userInfo___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAppLibrary();
+  v2 = SBLogAppLibrary(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1277,7 +1281,7 @@ void __105__SBApplicationLibraryObserver_profileConnectionDidReceiveEffectiveSet
 void __99__SBApplicationLibraryObserver_profileConnectionDidReceiveProfileListChangedNotification_userInfo___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAppLibrary();
+  v2 = SBLogAppLibrary(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;

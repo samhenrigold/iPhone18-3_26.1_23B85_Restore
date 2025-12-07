@@ -45,7 +45,7 @@
   {
     selfCopy = self;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB991110);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB991110, &qword_1B780C5F0);
     sub_1B7800E68();
   }
 

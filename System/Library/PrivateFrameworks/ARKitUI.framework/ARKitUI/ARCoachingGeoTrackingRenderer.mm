@@ -17,9 +17,9 @@
   layerCopy = layer;
   deviceCopy = device;
   imageCopy = image;
-  v41.receiver = self;
-  v41.super_class = ARCoachingGeoTrackingRenderer;
-  v15 = [(ARCoachingGeoTrackingRenderer *)&v41 init];
+  v38.receiver = self;
+  v38.super_class = ARCoachingGeoTrackingRenderer;
+  v15 = [(ARCoachingGeoTrackingRenderer *)&v38 init];
   v16 = v15;
   if (v15)
   {
@@ -49,33 +49,33 @@
     v16->_cubeResolveSpring = v25;
 
     [(ARFLSpring *)v16->_cubeResolveSpring parameters];
-    v28 = v27;
     [(ARFLSpring *)v16->_cubeResolveSpring parameters];
-    ARFLSpringParametersMake([(ARFLSpring *)v16->_cubeResolveSpring parameters], v28, v29, 0.699999988);
+    [(ARFLSpring *)v16->_cubeResolveSpring parameters];
+    ARFLSpringParametersMake();
     [(ARFLSpring *)v16->_cubeResolveSpring setParameters:?];
     [(ARFLSpring *)v16->_cubeResolveSpring setTarget:0.0];
     [(ARFLSpring *)v16->_cubeResolveSpring setValue:0.0];
-    v30 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
+    v27 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
     verticalResolvingSpring = v16->_verticalResolvingSpring;
-    v16->_verticalResolvingSpring = v30;
+    v16->_verticalResolvingSpring = v27;
 
     [(ARFLSpring *)v16->_verticalResolvingSpring parameters];
     [(ARFLSpring *)v16->_verticalResolvingSpring setParameters:?];
     [(ARFLSpring *)v16->_verticalResolvingSpring setTarget:0.0];
     [(ARFLSpring *)v16->_verticalResolvingSpring setValue:0.0];
-    v32 = [ARCoachingBasicSpring alloc];
-    LODWORD(v33) = 1128792064;
-    LODWORD(v34) = 22.0;
-    v35 = [(ARCoachingBasicSpring *)v32 initWithTension:v33 friction:v34];
+    v29 = [ARCoachingBasicSpring alloc];
+    LODWORD(v30) = 1128792064;
+    LODWORD(v31) = 22.0;
+    v32 = [(ARCoachingBasicSpring *)v29 initWithTension:v30 friction:v31];
     orientationSpring = v16->_orientationSpring;
-    v16->_orientationSpring = v35;
+    v16->_orientationSpring = v32;
 
-    v37 = objc_alloc_init(MEMORY[0x277CD6D60]);
-    [v37 setDepthCompareFunction:1];
-    [v37 setDepthWriteEnabled:1];
-    v38 = [(MTLDevice *)v16->_device newDepthStencilStateWithDescriptor:v37];
+    v34 = objc_alloc_init(MEMORY[0x277CD6D60]);
+    [v34 setDepthCompareFunction:1];
+    [v34 setDepthWriteEnabled:1];
+    v35 = [(MTLDevice *)v16->_device newDepthStencilStateWithDescriptor:v34];
     depthState = v16->_depthState;
-    v16->_depthState = v38;
+    v16->_depthState = v35;
   }
 
   return v16;
@@ -246,43 +246,41 @@ void __62__ARCoachingGeoTrackingRenderer_prepareWithCompletionHandler___block_in
   texture4 = [v5 texture];
   height3 = [texture4 height];
 
-  kdebug_trace();
-  v15 = _ARLogCoaching_0();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v15 = kdebug_trace();
+  v16 = _ARLogCoaching_0(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
     v26 = 138544130;
-    v27 = v17;
+    v27 = v18;
     v28 = 2048;
     selfCopy = self;
     v30 = 2048;
     v31 = width2;
     v32 = 2048;
     v33 = height3;
-    _os_log_impl(&dword_23D3AE000, v15, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Creating new depth texture because the drawable size has changed to %.0fx%.0f", &v26, 0x2Au);
+    _os_log_impl(&dword_23D3AE000, v16, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Creating new depth texture because the drawable size has changed to %.0fx%.0f", &v26, 0x2Au);
   }
 
-  v18 = height3;
-  v19 = width2 / v18;
-  v20 = tanf(0.56723);
-  LODWORD(v21) = 0;
-  *(&v21 + 1) = 1.0 / v20;
-  *self->_anon_90 = COERCE_UNSIGNED_INT((1.0 / v20) / v19);
-  *&self->_anon_90[16] = v21;
+  v19 = height3;
+  v20 = width2 / v19;
+  v21 = tanf(0.56723);
+  LODWORD(v22) = 0;
+  *(&v22 + 1) = 1.0 / v21;
+  *self->_anon_90 = COERCE_UNSIGNED_INT((1.0 / v21) / v20);
+  *&self->_anon_90[16] = v22;
   *&self->_anon_90[32] = xmmword_23D3DC090;
   *&self->_anon_90[48] = xmmword_23D3DC0A0;
-  v22 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:252 width:width2 height:height3 mipmapped:0];
-  [v22 setStorageMode:2];
-  [v22 setUsage:4];
-  v23 = [(MTLDevice *)self->_device newTextureWithDescriptor:v22];
+  v23 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:252 width:width2 height:height3 mipmapped:0];
+  [v23 setStorageMode:2];
+  [v23 setUsage:4];
+  v24 = [(MTLDevice *)self->_device newTextureWithDescriptor:v23];
   depthTexture = self->_depthTexture;
-  self->_depthTexture = v23;
+  self->_depthTexture = v24;
 
   [(MTLTexture *)self->_depthTexture setLabel:@"Depth texture"];
 LABEL_9:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAnimationTime:(double)time
@@ -298,7 +296,7 @@ LABEL_9:
 
 - (BOOL)loadOutlineModelWith:(id *)with
 {
-  v131 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   v5 = ARKitUIBundle();
   v6 = [v5 URLForResource:@"OutlineModel" withExtension:@"obj"];
   v7 = [[GTMeshData alloc] initWithURL:v6 error:with];
@@ -421,70 +419,71 @@ LABEL_9:
     v68 = self->_device;
     v69 = ARKitUIBundle();
     v70 = [v69 URLForResource:@"default" withExtension:@"metallib"];
-    v120 = v68;
-    v122 = v6;
+    v71 = v70;
+    v123 = v68;
+    v125 = v6;
     if (v70)
     {
-      v124 = 0;
-      v71 = [(MTLDevice *)v68 newLibraryWithURL:v70 error:&v124];
-      v72 = v124;
-      [v71 setLabel:@"com.apple.arkit.coachinganimation.library"];
-      if (!v72)
+      v127 = 0;
+      v72 = [(MTLDevice *)v68 newLibraryWithURL:v70 error:&v127];
+      v73 = v127;
+      v74 = [v72 setLabel:@"com.apple.arkit.coachinganimation.library"];
+      if (!v73)
       {
         goto LABEL_37;
       }
 
-      v73 = v5;
+      v75 = v5;
       if (ARShouldUseLogTypeError_onceToken != -1)
       {
         [ARCoachingGeoTrackingRenderer loadOutlineModelWith:];
       }
 
-      v74 = ARShouldUseLogTypeError_internalOSVersion;
-      v75 = _ARLogCoaching_0();
-      v118 = v73;
-      log = v75;
-      if (v74 == 1)
+      v76 = ARShouldUseLogTypeError_internalOSVersion;
+      v77 = _ARLogCoaching_0(v74);
+      v121 = v75;
+      log = v77;
+      if (v76 == 1)
       {
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
-          localizedDescription = [v72 localizedDescription];
-          localizedFailureReason = [v72 localizedFailureReason];
-          localizedRecoverySuggestion = [v72 localizedRecoverySuggestion];
+          localizedDescription = [v73 localizedDescription];
+          localizedFailureReason = [v73 localizedFailureReason];
+          localizedRecoverySuggestion = [v73 localizedRecoverySuggestion];
           *buf = 138412802;
-          v126 = localizedDescription;
-          v127 = 2112;
+          v129 = localizedDescription;
+          v130 = 2112;
           selfCopy4 = localizedFailureReason;
-          v129 = 2112;
-          v130 = localizedRecoverySuggestion;
-          v78 = localizedRecoverySuggestion;
-          v79 = "Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
-          v80 = log;
-          v81 = OS_LOG_TYPE_ERROR;
+          v132 = 2112;
+          v133 = localizedRecoverySuggestion;
+          v80 = localizedRecoverySuggestion;
+          v81 = "Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
+          v82 = log;
+          v83 = OS_LOG_TYPE_ERROR;
 LABEL_31:
-          _os_log_impl(&dword_23D3AE000, v80, v81, v79, buf, 0x20u);
+          _os_log_impl(&dword_23D3AE000, v82, v83, v81, buf, 0x20u);
         }
       }
 
-      else if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
       {
-        localizedDescription = [v72 localizedDescription];
-        localizedFailureReason = [v72 localizedFailureReason];
-        localizedRecoverySuggestion2 = [v72 localizedRecoverySuggestion];
+        localizedDescription = [v73 localizedDescription];
+        localizedFailureReason = [v73 localizedFailureReason];
+        localizedRecoverySuggestion2 = [v73 localizedRecoverySuggestion];
         *buf = 138412802;
-        v126 = localizedDescription;
-        v127 = 2112;
+        v129 = localizedDescription;
+        v130 = 2112;
         selfCopy4 = localizedFailureReason;
-        v129 = 2112;
-        v130 = localizedRecoverySuggestion2;
-        v78 = localizedRecoverySuggestion2;
-        v79 = "Error: Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
-        v80 = log;
-        v81 = OS_LOG_TYPE_INFO;
+        v132 = 2112;
+        v133 = localizedRecoverySuggestion2;
+        v80 = localizedRecoverySuggestion2;
+        v81 = "Error: Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
+        v82 = log;
+        v83 = OS_LOG_TYPE_INFO;
         goto LABEL_31;
       }
 
-      v5 = v118;
+      v5 = v121;
       goto LABEL_37;
     }
 
@@ -493,69 +492,69 @@ LABEL_31:
       [ARCoachingGeoTrackingRenderer loadOutlineModelWith:];
     }
 
-    v84 = ARShouldUseLogTypeError_internalOSVersion;
-    v85 = _ARLogCoaching_0();
-    v72 = v85;
-    if (v84 == 1)
+    v86 = ARShouldUseLogTypeError_internalOSVersion;
+    v87 = _ARLogCoaching_0(v70);
+    v73 = v87;
+    if (v86 == 1)
     {
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v86 = "Failed to find metal library for coaching animations";
-        v87 = v72;
-        v88 = OS_LOG_TYPE_ERROR;
+        v88 = "Failed to find metal library for coaching animations";
+        v89 = v73;
+        v90 = OS_LOG_TYPE_ERROR;
 LABEL_35:
-        _os_log_impl(&dword_23D3AE000, v87, v88, v86, buf, 2u);
+        _os_log_impl(&dword_23D3AE000, v89, v90, v88, buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v86 = "Error: Failed to find metal library for coaching animations";
-      v87 = v72;
-      v88 = OS_LOG_TYPE_INFO;
+      v88 = "Error: Failed to find metal library for coaching animations";
+      v89 = v73;
+      v90 = OS_LOG_TYPE_INFO;
       goto LABEL_35;
     }
 
-    v71 = 0;
+    v72 = 0;
 LABEL_37:
 
-    v90 = [v71 newFunctionWithName:@"inflatedInverseHullVertexShader"];
-    v91 = [v71 newFunctionWithName:@"solidWhiteFragmentShader"];
+    v92 = [v72 newFunctionWithName:@"inflatedInverseHullVertexShader"];
+    v93 = [v72 newFunctionWithName:@"solidWhiteFragmentShader"];
     [v67 setVertexDescriptor:v11];
-    v121 = v90;
-    [v67 setVertexFunction:v90];
-    [v67 setFragmentFunction:v91];
+    v124 = v92;
+    [v67 setVertexFunction:v92];
+    [v67 setFragmentFunction:v93];
     pixelFormat = self->_pixelFormat;
     colorAttachments = [v67 colorAttachments];
-    v94 = [colorAttachments objectAtIndexedSubscript:0];
-    [v94 setPixelFormat:pixelFormat];
+    v96 = [colorAttachments objectAtIndexedSubscript:0];
+    [v96 setPixelFormat:pixelFormat];
 
     [v67 setDepthAttachmentPixelFormat:252];
     [v67 setLabel:@"Inflated Hull Pipeline"];
-    v95 = [(MTLDevice *)self->_device newRenderPipelineStateWithDescriptor:v67 error:withCopy];
+    v97 = [(MTLDevice *)self->_device newRenderPipelineStateWithDescriptor:v67 error:withCopy];
     inflatedHullPipeline = self->_inflatedHullPipeline;
-    self->_inflatedHullPipeline = v95;
+    self->_inflatedHullPipeline = v97;
 
     if (self->_inflatedHullPipeline)
     {
       [v67 setLabel:@"Block Color Pipeline"];
-      v97 = [v71 newFunctionWithName:@"simplePositionVertexShader"];
-      [v67 setVertexFunction:v97];
+      v100 = [v72 newFunctionWithName:@"simplePositionVertexShader"];
+      [v67 setVertexFunction:v100];
 
-      v98 = [v71 newFunctionWithName:@"solidBlackFragmentShader"];
-      [v67 setFragmentFunction:v98];
+      v101 = [v72 newFunctionWithName:@"solidBlackFragmentShader"];
+      [v67 setFragmentFunction:v101];
 
-      v99 = [(MTLDevice *)self->_device newRenderPipelineStateWithDescriptor:v67 error:withCopy];
+      v102 = [(MTLDevice *)self->_device newRenderPipelineStateWithDescriptor:v67 error:withCopy];
       blockColorPipeline = self->_blockColorPipeline;
-      self->_blockColorPipeline = v99;
+      self->_blockColorPipeline = v102;
 
-      v6 = v122;
+      v6 = v125;
       if (self->_blockColorPipeline)
       {
-        v83 = 1;
-        v101 = v121;
+        v85 = 1;
+        v105 = v124;
 LABEL_56:
 
         goto LABEL_57;
@@ -566,38 +565,38 @@ LABEL_56:
         [ARCoachingGeoTrackingRenderer loadOutlineModelWith:];
       }
 
-      v105 = ARShouldUseLogTypeError_internalOSVersion;
-      v106 = _ARLogGeneral();
-      v104 = v106;
-      if (v105 == 1)
+      v109 = ARShouldUseLogTypeError_internalOSVersion;
+      v110 = _ARLogGeneral(v104);
+      v108 = v110;
+      if (v109 == 1)
       {
-        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
         {
 LABEL_49:
-          v107 = objc_opt_class();
-          v108 = NSStringFromClass(v107);
-          v109 = *withCopy;
+          v111 = objc_opt_class();
+          v112 = NSStringFromClass(v111);
+          v113 = *withCopy;
           *buf = 138543874;
-          v126 = v108;
-          v127 = 2048;
+          v129 = v112;
+          v130 = 2048;
           selfCopy4 = self;
-          v129 = 2112;
-          v130 = v109;
-          v110 = "%{public}@ <%p>: Failed to create content render pipeline state, error: %@.";
-          v111 = v104;
-          v112 = OS_LOG_TYPE_ERROR;
+          v132 = 2112;
+          v133 = v113;
+          v114 = "%{public}@ <%p>: Failed to create content render pipeline state, error: %@.";
+          v115 = v108;
+          v116 = OS_LOG_TYPE_ERROR;
 LABEL_54:
-          _os_log_impl(&dword_23D3AE000, v111, v112, v110, buf, 0x20u);
+          _os_log_impl(&dword_23D3AE000, v115, v116, v114, buf, 0x20u);
         }
 
 LABEL_55:
-        v101 = v121;
+        v105 = v124;
 
-        v83 = 0;
+        v85 = 0;
         goto LABEL_56;
       }
 
-      if (!os_log_type_enabled(v106, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
       {
         goto LABEL_55;
       }
@@ -605,18 +604,18 @@ LABEL_55:
 
     else
     {
-      v6 = v122;
+      v6 = v125;
       if (ARShouldUseLogTypeError_onceToken != -1)
       {
         [ARCoachingGeoTrackingRenderer loadOutlineModelWith:];
       }
 
-      v102 = ARShouldUseLogTypeError_internalOSVersion;
-      v103 = _ARLogGeneral();
-      v104 = v103;
-      if (v102 == 1)
+      v106 = ARShouldUseLogTypeError_internalOSVersion;
+      v107 = _ARLogGeneral(v99);
+      v108 = v107;
+      if (v106 == 1)
       {
-        if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_49;
         }
@@ -624,24 +623,24 @@ LABEL_55:
         goto LABEL_55;
       }
 
-      if (!os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
       {
         goto LABEL_55;
       }
     }
 
-    v113 = objc_opt_class();
-    v108 = NSStringFromClass(v113);
-    v114 = *withCopy;
+    v117 = objc_opt_class();
+    v112 = NSStringFromClass(v117);
+    v118 = *withCopy;
     *buf = 138543874;
-    v126 = v108;
-    v127 = 2048;
+    v129 = v112;
+    v130 = 2048;
     selfCopy4 = self;
-    v129 = 2112;
-    v130 = v114;
-    v110 = "Error: %{public}@ <%p>: Failed to create content render pipeline state, error: %@.";
-    v111 = v104;
-    v112 = OS_LOG_TYPE_INFO;
+    v132 = 2112;
+    v133 = v118;
+    v114 = "Error: %{public}@ <%p>: Failed to create content render pipeline state, error: %@.";
+    v115 = v108;
+    v116 = OS_LOG_TYPE_INFO;
     goto LABEL_54;
   }
 
@@ -651,7 +650,7 @@ LABEL_55:
   }
 
   v9 = ARShouldUseLogTypeError_internalOSVersion;
-  v10 = _ARLogGeneral();
+  v10 = _ARLogGeneral(v7);
   v11 = v10;
   if (v9 == 1)
   {
@@ -660,8 +659,8 @@ LABEL_55:
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
       *buf = 138543618;
-      v126 = v13;
-      v127 = 2048;
+      v129 = v13;
+      v130 = 2048;
       selfCopy4 = self;
       v14 = "%{public}@ <%p>: Loading the outline model failed.";
       v15 = v11;
@@ -673,11 +672,11 @@ LABEL_22:
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v82 = objc_opt_class();
-    v13 = NSStringFromClass(v82);
+    v84 = objc_opt_class();
+    v13 = NSStringFromClass(v84);
     *buf = 138543618;
-    v126 = v13;
-    v127 = 2048;
+    v129 = v13;
+    v130 = 2048;
     selfCopy4 = self;
     v14 = "Error: %{public}@ <%p>: Loading the outline model failed.";
     v15 = v11;
@@ -685,11 +684,10 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v83 = 0;
+  v85 = 0;
 LABEL_57:
 
-  v115 = *MEMORY[0x277D85DE8];
-  return v83;
+  return v85;
 }
 
 - (void)updateFrameStateWithTimeDelta:(double)delta

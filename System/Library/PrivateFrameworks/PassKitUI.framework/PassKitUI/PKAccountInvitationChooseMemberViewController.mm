@@ -171,9 +171,9 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v37.receiver = self;
-  v37.super_class = PKAccountInvitationChooseMemberViewController;
-  [(PKAccountInvitationChooseMemberViewController *)&v37 viewWillLayoutSubviews];
+  v53.receiver = self;
+  v53.super_class = PKAccountInvitationChooseMemberViewController;
+  [(PKAccountInvitationChooseMemberViewController *)&v53 viewWillLayoutSubviews];
   view = [(PKAccountInvitationChooseMemberViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -184,77 +184,88 @@
   v13 = v12;
   [(UITableView *)self->_tableView setFrame:v5, v7, v9, v11];
   [(UITableView *)self->_tableView contentInset];
-  v36 = v14;
+  v52 = v14;
   v16 = v15;
   v18 = v17;
   [(PKPaymentSetupDockView *)self->_dockView sizeThatFits:v9, 1.79769313e308];
-  v20 = v19;
+  v21 = v20;
   if (self->_blurringView)
   {
-    v35 = v18;
-    v38.origin.x = v5;
-    v38.origin.y = v7;
-    v38.size.width = v9;
-    v38.size.height = v11;
-    v21 = CGRectGetMaxY(v38) - (v13 + v20);
-    v39.origin.x = v5;
-    v39.origin.y = v7;
-    v39.size.width = v9;
-    v39.size.height = v11;
-    [(_PKVisibilityBackdropView *)self->_blurringView setFrame:v5, v21, v9, CGRectGetMaxY(v39) - v21];
+    v50 = v19;
+    v51 = v18;
+    v54.origin.x = v5;
+    v54.origin.y = v7;
+    v54.size.width = v9;
+    v54.size.height = v11;
+    v22 = CGRectGetMaxY(v54) - (v13 + v21);
+    v55.origin.x = v5;
+    v55.origin.y = v7;
+    v55.size.width = v9;
+    v55.size.height = v11;
+    [(_PKVisibilityBackdropView *)self->_blurringView setFrame:v5, v22, v9, CGRectGetMaxY(v55) - v22];
     [(_PKVisibilityBackdropView *)self->_blurringView layoutIfNeeded];
     contentView = [(_UIBackdropView *)self->_blurringView contentView];
     [contentView bounds];
+    v48 = v25;
+    v49 = v24;
+    v46 = v27;
+    v47 = v26;
 
     tableView = self->_tableView;
     [(_PKVisibilityBackdropView *)self->_blurringView bounds];
     [(UITableView *)tableView convertRect:self->_blurringView fromView:?];
-    v25 = v24;
+    v30 = v29;
     [(UITableView *)self->_tableView contentSize];
-    v27 = v26;
+    v32 = v31;
     [(UITableView *)self->_tableView bounds];
-    v40.size.height = fmin(v28, v27 - v40.origin.y);
-    v29 = fmin(fmax(CGRectGetMaxY(v40) - v25, 0.0), 30.0) / 30.0;
-    if (self->_backdropWeight != v29)
+    v56.size.height = fmin(v33, v32 - v56.origin.y);
+    v34.n128_f64[0] = fmin(fmax(CGRectGetMaxY(v56) - v30, 0.0), 30.0) / 30.0;
+    if (self->_backdropWeight != v34.n128_f64[0])
     {
-      self->_backdropWeight = v29;
+      *&self->_backdropWeight = v34.n128_u64[0];
       [(_PKVisibilityBackdropView *)self->_blurringView pkui_setVisibility:0 animated:?];
     }
 
-    PKSizeAlignedInRect();
+    v36.n128_u64[0] = v49;
+    v34.n128_u64[0] = v50;
+    v35.n128_f64[0] = v21;
+    v38.n128_u64[0] = v47;
+    v37.n128_u64[0] = v48;
+    v39.n128_u64[0] = v46;
+    PKSizeAlignedInRect(1, v34, v35, v36, v37, v38, v39, v40);
     [(PKPaymentSetupDockView *)self->_dockView setFrame:?];
-    v18 = v35;
+    v18 = v51;
   }
 
   else
   {
-    v41.origin.x = v5;
-    v41.origin.y = v7;
-    v41.size.width = v9;
-    v41.size.height = v11;
-    [(PKPaymentSetupDockView *)self->_dockView setFrame:0.0, CGRectGetMaxY(v41) - v20, v9, v20];
+    v57.origin.x = v5;
+    v57.origin.y = v7;
+    v57.size.width = v9;
+    v57.size.height = v11;
+    [(PKPaymentSetupDockView *)self->_dockView setFrame:0.0, CGRectGetMaxY(v57) - v21, v9, v21];
   }
 
-  [(UITableView *)self->_tableView setContentInset:v36, v16, v20, v18];
-  [(UITableView *)self->_tableView setScrollIndicatorInsets:v36, v16, v20, v18];
-  v42.origin.x = v5;
-  v42.origin.y = v7;
-  v42.size.width = v9;
-  v42.size.height = v11;
-  [(PKTableHeaderView *)self->_headerView sizeThatFits:CGRectGetWidth(v42), 1.79769313e308];
-  if (self->_previousHeaderHeight != v31)
+  [(UITableView *)self->_tableView setContentInset:v52, v16, v21, v18];
+  [(UITableView *)self->_tableView setScrollIndicatorInsets:v52, v16, v21, v18];
+  v58.origin.x = v5;
+  v58.origin.y = v7;
+  v58.size.width = v9;
+  v58.size.height = v11;
+  [(PKTableHeaderView *)self->_headerView sizeThatFits:CGRectGetWidth(v58), 1.79769313e308];
+  if (self->_previousHeaderHeight != v42)
   {
-    v32 = v31;
-    self->_previousHeaderHeight = v31;
-    [(PKTableHeaderView *)self->_headerView setFrame:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v30, v31];
-    [(UITableView *)self->_tableView _tableHeaderHeightDidChangeToHeight:v32];
+    v43 = v42;
+    self->_previousHeaderHeight = v42;
+    [(PKTableHeaderView *)self->_headerView setFrame:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v41, v42];
+    [(UITableView *)self->_tableView _tableHeaderHeightDidChangeToHeight:v43];
   }
 
   if ((_UISolariumEnabled() & 1) == 0)
   {
-    v33 = self->_tableView;
+    v44 = self->_tableView;
     navigationItem = [(PKAccountInvitationChooseMemberViewController *)self navigationItem];
-    [(UITableView *)v33 pkui_adjustManualScrollEdgeAppearanceProgressForNavigationItem:navigationItem];
+    [(UITableView *)v44 pkui_adjustManualScrollEdgeAppearanceProgressForNavigationItem:navigationItem];
   }
 }
 
@@ -432,13 +443,13 @@ uint64_t __90__PKAccountInvitationChooseMemberViewController_didUpdateInvitation
   return [v1 _reloadFamilyCollectionWithForceReload:0 completion:v3];
 }
 
-uint64_t __90__PKAccountInvitationChooseMemberViewController_didUpdateInvitationControllerFamilyCircle__block_invoke_2(uint64_t result, int a2)
+id *__90__PKAccountInvitationChooseMemberViewController_didUpdateInvitationControllerFamilyCircle__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) _updateHeaderFooterText];
-    v3 = *(v2 + 32);
+    [result[4] _updateHeaderFooterText];
+    v3 = v2[4];
 
     return [v3 _updateSnapshotAnimated:1];
   }
@@ -591,12 +602,12 @@ LABEL_6:
 - (void)_handleAddPersonTapped
 {
   v18[2] = *MEMORY[0x1E69E9840];
-  v3 = objc_alloc(_MergedGlobals_7_2());
+  v3 = objc_alloc(_MergedGlobals_7_2(self, a2));
   v4 = off_1EE9A1DE8();
   v5 = [v3 initWithEventType:v4];
 
   [v5 setClientName:@"WalletAppleCard"];
-  v6 = objc_alloc(off_1EE9A1DF0());
+  v6 = objc_alloc((off_1EE9A1DF0)());
   navigationController = [(PKAccountInvitationChooseMemberViewController *)self navigationController];
   v8 = [v6 initWithPresenter:navigationController];
   stateController = self->_stateController;

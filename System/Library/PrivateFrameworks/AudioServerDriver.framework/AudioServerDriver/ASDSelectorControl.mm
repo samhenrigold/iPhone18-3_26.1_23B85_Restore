@@ -1,10 +1,14 @@
 @interface ASDSelectorControl
+- (ASDSelectorControl)initWithIsSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d;
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (BOOL)setSelectedValues:(const unsigned int *)values withCount:(unint64_t)count;
 - (BOOL)setSelectedValues:(id)values;
 - (NSArray)selectedValues;
+- (id)_findValue:(unsigned int)value;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)driverClassName;
 - (id)nameForValue:(unsigned int)value;
 - (id)values;
@@ -19,6 +23,33 @@
 @end
 
 @implementation ASDSelectorControl
+
+- (ASDSelectorControl)initWithIsSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d
+{
+  v21.receiver = self;
+  v21.super_class = ASDSelectorControl;
+  v8 = [(ASDControl *)&v21 initWithElement:*&element inScope:*&scope withPlugin:plugin andObjectClassID:*&d];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_settable = settable;
+    v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    values = v9->_values;
+    v9->_values = v10;
+
+    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v12 bundleIdentifier];
+    v14 = MEMORY[0x277CCACA8];
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    v17 = [v14 stringWithFormat:@"%@.%@.%p", bundleIdentifier, v16, v9];
+    v18 = dispatch_queue_create([v17 UTF8String], 0);
+    valueQueue = v9->_valueQueue;
+    v9->_valueQueue = v18;
+  }
+
+  return v9;
+}
 
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property
 {
@@ -170,7 +201,7 @@ LABEL_11:
   }
 }
 
-uint64_t __77__ASDSelectorControl_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke(void *a1)
+void *__77__ASDSelectorControl_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(a1[4] + 96);
   result = [*(a1[4] + 88) count];
@@ -178,7 +209,7 @@ uint64_t __77__ASDSelectorControl_dataSizeForProperty_withQualifierSize_andQuali
   return result;
 }
 
-uint64_t __77__ASDSelectorControl_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_2(uint64_t a1)
+void *__77__ASDSelectorControl_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 88) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -187,30 +218,30 @@ uint64_t __77__ASDSelectorControl_dataSizeForProperty_withQualifierSize_andQuali
 
 - (unint64_t)_indexOfValue:(unsigned int)value
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_values;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
 LABEL_3:
     v9 = 0;
     v10 = v7;
     v7 += v6;
     while (1)
     {
-      if (*v14 != v8)
+      if (*v13 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      if ([*(*(&v13 + 1) + 8 * v9) value] == value)
+      if ([*(*(&v12 + 1) + 8 * v9) value] == value)
       {
         break;
       }
@@ -218,7 +249,7 @@ LABEL_3:
       ++v10;
       if (v6 == ++v9)
       {
-        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -235,8 +266,23 @@ LABEL_9:
     v10 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
+}
+
+- (id)_findValue:(unsigned int)value
+{
+  v4 = [(ASDSelectorControl *)self _indexOfValue:*&value];
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = [(NSMutableArray *)self->_values objectAtIndex:v4];
+  }
+
+  return v5;
 }
 
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
@@ -356,7 +402,7 @@ LABEL_23:
 
 void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(*(a1 + 32) + 88) count])
   {
@@ -373,26 +419,26 @@ void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSi
       v6 = *(v5 + 96);
     }
 
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = *(v5 + 88);
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           if ([v12 selected])
           {
             if (*(*(*(a1 + 40) + 8) + 24) >= v6)
@@ -408,7 +454,7 @@ void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSi
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -424,12 +470,11 @@ LABEL_15:
   }
 
   objc_autoreleasePoolPop(v2);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = **(a1 + 48);
   if ([*(*(a1 + 32) + 88) count] <= v3 >> 2)
@@ -443,21 +488,21 @@ void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSi
   }
 
   v5 = *(a1 + 56);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = *(*(a1 + 32) + 88);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
 LABEL_6:
     v10 = 0;
     while (1)
     {
-      if (*v13 != v9)
+      if (*v12 != v9)
       {
         objc_enumerationMutation(v6);
       }
@@ -467,10 +512,10 @@ LABEL_6:
         break;
       }
 
-      *(v5 + 4 * (*(*(*(a1 + 40) + 8) + 24))++) = [*(*(&v12 + 1) + 8 * v10) value];
+      *(v5 + 4 * (*(*(*(a1 + 40) + 8) + 24))++) = [*(*(&v11 + 1) + 8 * v10) value];
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v8)
         {
           goto LABEL_6;
@@ -482,7 +527,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_3(uint64_t a1)
@@ -544,30 +588,77 @@ void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSi
   }
 }
 
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (property)
+  {
+    v8 = *&client;
+    v10 = *&dataSize;
+    v12 = *&size;
+    v15 = [(ASDSelectorControl *)self hasProperty:?];
+    if (v15)
+    {
+      v15 = [(ASDSelectorControl *)self isPropertySettable:property];
+      if (v15)
+      {
+        if (property->mSelector == 1935893353)
+        {
+          if (v10 == 4)
+          {
+            v16 = *andData;
+
+            LOBYTE(v15) = [(ASDSelectorControl *)self changeValue:v16];
+          }
+
+          else
+          {
+
+            LOBYTE(v15) = [(ASDSelectorControl *)self changeValues:andData withCount:v10 >> 2];
+          }
+        }
+
+        else
+        {
+          v18.receiver = self;
+          v18.super_class = ASDSelectorControl;
+          LOBYTE(v15) = [(ASDObject *)&v18 setProperty:property withQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+        }
+      }
+    }
+  }
+
+  else
+  {
+    LOBYTE(v15) = 0;
+  }
+
+  return v15;
+}
+
 - (void)_updateSelectedValue
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   self->_selectedValue = 0;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = self->_values;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 selected])
         {
           self->_selectedValue = [v8 value];
@@ -575,7 +666,7 @@ void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSi
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -587,11 +678,9 @@ void __93__ASDSelectorControl_getProperty_withQualifierSize_qualifierData_dataSi
 
 LABEL_11:
 
-  LODWORD(v12) = 0;
+  LODWORD(v11) = 0;
   v9 = [(ASDObject *)self propertyChangedDelegate:0x676C6F6273636369];
-  [v9 changedProperty:&v11 forObject:self];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v9 changedProperty:&v10 forObject:self];
 }
 
 - (void)addValue:(id)value
@@ -733,10 +822,7 @@ void __34__ASDSelectorControl_removeValue___block_invoke(uint64_t a1)
 
 uint64_t __28__ASDSelectorControl_values__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 88) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 88) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -848,7 +934,7 @@ void __35__ASDSelectorControl_kindForValue___block_invoke(uint64_t a1)
 
 void __50__ASDSelectorControl_setSelectedValues_withCount___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 56);
   if (v3)
@@ -866,33 +952,33 @@ void __50__ASDSelectorControl_setSelectedValues_withCount___block_invoke(uint64_
 
   if ([*(v4 + 88) count])
   {
-    v26 = v2;
+    v25 = v2;
     *(*(a1 + 32) + 96) = 0;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v5 = *(*(a1 + 32) + 88);
-    v6 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v32;
+      v8 = *v31;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v32 != v8)
+          if (*v31 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
           [v10 setPrevSelected:{objc_msgSend(v10, "selected")}];
           [v10 setSelected:0];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v7);
@@ -917,26 +1003,26 @@ void __50__ASDSelectorControl_setSelectedValues_withCount___block_invoke(uint64_
       while (v11 < *(a1 + 56));
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v14 = *(*(a1 + 32) + 88);
-    v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v27;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v28 != v17)
+          if (*v27 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * j);
+          v19 = *(*(&v26 + 1) + 8 * j);
           v20 = [v19 prevSelected];
           if (v20 != [v19 selected])
           {
@@ -956,22 +1042,21 @@ void __50__ASDSelectorControl_setSelectedValues_withCount___block_invoke(uint64_
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v16);
     }
 
-    v2 = v26;
+    v2 = v25;
   }
 
   objc_autoreleasePoolPop(v2);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setSelectedValues:(id)values
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   v5 = [valuesCopy count];
   if (!v5)
@@ -988,23 +1073,23 @@ LABEL_17:
   {
     v7 = v6;
     mutableBytes = [v6 mutableBytes];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v20 = valuesCopy;
+    v19 = valuesCopy;
     v9 = valuesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v22;
+      v13 = *v21;
 LABEL_5:
       v14 = 0;
       while (1)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v9);
         }
@@ -1014,7 +1099,7 @@ LABEL_5:
           break;
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
+        v15 = *(*(&v20 + 1) + 8 * v14);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1028,11 +1113,11 @@ LABEL_5:
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              [ASDSelectorControl setSelectedValues:];
+              [ASDSelectorControl setSelectedValues:v15];
             }
 
             v17 = 0;
-            valuesCopy = v20;
+            valuesCopy = v19;
             goto LABEL_24;
           }
 
@@ -1042,7 +1127,7 @@ LABEL_5:
         *(mutableBytes + 4 * v12++) = unsignedIntValue;
         if (v11 == ++v14)
         {
-          v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
           if (v11)
           {
             goto LABEL_5;
@@ -1053,7 +1138,7 @@ LABEL_5:
       }
     }
 
-    valuesCopy = v20;
+    valuesCopy = v19;
     goto LABEL_17;
   }
 
@@ -1065,7 +1150,6 @@ LABEL_5:
   v17 = 0;
 LABEL_24:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -1107,42 +1191,92 @@ LABEL_24:
 
 void __36__ASDSelectorControl_selectedValues__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(*(a1 + 32) + 88);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         if ([v8 selected])
         {
           [*(a1 + 40) addObject:v8];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v23 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v21.receiver = self;
+  v21.super_class = ASDSelectorControl;
+  v7 = [(ASDControl *)&v21 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  isSettable = [(ASDSelectorControl *)self isSettable];
+  v9 = @"NO";
+  if (isSettable)
+  {
+    v9 = @"YES";
+  }
+
+  [v7 appendFormat:@"%@|    Is Settable: %@\n", indentCopy, v9];
+  [v7 appendFormat:@"%@|    Current Item: %u\n", indentCopy, -[ASDSelectorControl selectedValue](self, "selectedValue")];
+  [v7 appendFormat:@"%@|    Available Items:\n", indentCopy];
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  values = [(ASDSelectorControl *)self values];
+  v11 = [values countByEnumeratingWithState:&v17 objects:v22 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = 0;
+    v14 = *v18;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v18 != v14)
+        {
+          objc_enumerationMutation(values);
+        }
+
+        [v7 appendFormat:@"%@|        %u: %@\n", indentCopy, v13, *(*(&v17 + 1) + 8 * i)];
+        v13 = (v13 + 1);
+      }
+
+      v12 = [values countByEnumeratingWithState:&v17 objects:v22 count:16];
+    }
+
+    while (v12);
+  }
+
+  return v7;
 }
 
 - (id)driverClassName
@@ -1196,27 +1330,24 @@ void __36__ASDSelectorControl_selectedValues__block_invoke(uint64_t a1)
   }
 }
 
-- (void)setSelectedValues:.cold.1()
+- (void)setSelectedValues:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   v3 = 136315394;
   v4 = "[ASDSelectorControl setSelectedValues:]";
   v5 = 2112;
-  v6 = v1;
+  v6 = v2;
   _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Bad input object: %@", &v3, 0x16u);
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSelectedValues:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "[ASDSelectorControl setSelectedValues:]";
-  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Memory allocation error.", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "[ASDSelectorControl setSelectedValues:]";
+  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Memory allocation error.", &v0, 0xCu);
 }
 
 @end

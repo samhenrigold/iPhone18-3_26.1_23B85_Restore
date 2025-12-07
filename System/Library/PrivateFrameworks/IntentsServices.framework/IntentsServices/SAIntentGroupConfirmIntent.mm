@@ -29,7 +29,7 @@ void __109__SAIntentGroupConfirmIntent_INSExtensionService__ins_sendIntent_toExt
 
 void __109__SAIntentGroupConfirmIntent_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
@@ -37,9 +37,9 @@ void __109__SAIntentGroupConfirmIntent_INSExtensionService__ins_sendIntent_toExt
     v4 = v2;
     v5 = [v3 backingStore];
     *buf = 136315394;
-    v21 = "[SAIntentGroupConfirmIntent(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]_block_invoke_3";
-    v22 = 2112;
-    v23 = v5;
+    v20 = "[SAIntentGroupConfirmIntent(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]_block_invoke_3";
+    v21 = 2112;
+    v22 = v5;
     _os_log_impl(&dword_25553C000, v4, OS_LOG_TYPE_INFO, "%s intentResponse.backingStore = %@", buf, 0x16u);
   }
 
@@ -80,8 +80,6 @@ void __109__SAIntentGroupConfirmIntent_INSExtensionService__ins_sendIntent_toExt
   v17 = [*(a1 + 40) ins_afAnalyticsContext];
   v18 = IFMergeDictionaries();
   [v15 logEventWithType:v16 context:v18 contextNoCopy:{1, v14, 0}];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -14,7 +14,7 @@
 
 - (void)forceFlushToDisk
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   workQueue = [(HMCacheManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -22,39 +22,37 @@
   v4 = [(NSMutableDictionary *)self->_pendingWrites copy];
   [(NSMutableDictionary *)self->_pendingWrites removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = [v5 objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * v8), v11}];
+        v9 = [v5 objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * v8), v10}];
         [(HMCacheManager *)self _saveCache:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)timerDidFire:(id)fire

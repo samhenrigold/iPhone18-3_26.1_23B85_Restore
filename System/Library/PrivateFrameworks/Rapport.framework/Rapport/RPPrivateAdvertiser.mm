@@ -133,20 +133,19 @@ uint64_t __27__RPPrivateAdvertiser_init__block_invoke()
 
 - (id)description
 {
-  clientID = self->_clientID;
-  serviceType = self->_serviceType;
-  NSAppendPrintF();
-  v3 = 0;
+  v10 = 0;
+  NSAppendPrintF(&v10, "RPPrivateAdvertiser, CID 0x%X, ST '%@'", self->_clientID, self->_serviceType);
+  v3 = v10;
   v4 = v3;
   accessGroup = self->_accessGroup;
   if (accessGroup)
   {
-    v11 = v3;
-    v9 = accessGroup;
-    NSAppendPrintF();
-    v6 = v11;
+    v9 = v3;
+    v6 = accessGroup;
+    NSAppendPrintF(&v9, ", AG '%@'", v6);
+    v7 = v9;
 
-    v4 = v6;
+    v4 = v7;
   }
 
   return v4;
@@ -207,9 +206,9 @@ LABEL_8:
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_1EB97AF78;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)setServiceInfo:(id)info
@@ -308,10 +307,10 @@ int *__31__RPPrivateAdvertiser_activate__block_invoke(uint64_t a1)
 
 - (void)_activateDirect
 {
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -321,80 +320,78 @@ int *__31__RPPrivateAdvertiser_activate__block_invoke(uint64_t a1)
       ucat = self->_ucat;
     }
 
-    clientID = self->_clientID;
-    serviceType = self->_serviceType;
-    LogPrintF();
+    LogPrintF(ucat, "[RPPrivateAdvertiser _activateDirect]", 30, "Activate, CID 0x%X, ST '%@', direct\n", self->_clientID, self->_serviceType);
   }
 
 LABEL_5:
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __38__RPPrivateAdvertiser__activateDirect__block_invoke;
-  v7[3] = &unk_1E7C92D58;
-  v7[4] = self;
-  [gRPPrivateDaemon addAdvertiser:self completion:{v7, clientID, serviceType}];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __38__RPPrivateAdvertiser__activateDirect__block_invoke;
+  v4[3] = &unk_1E7C92D58;
+  v4[4] = self;
+  [gRPPrivateDaemon addAdvertiser:self completion:v4];
 }
 
 void __38__RPPrivateAdvertiser__activateDirect__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = **(v4 + 16);
+  v5 = *(v4 + 16);
+  v6 = *v5;
   if (v3)
   {
-    v14 = v3;
-    if (v5 <= 90)
+    v11 = v3;
+    if (v6 <= 90)
     {
-      if (v5 == -1)
+      if (v6 == -1)
       {
-        v6 = _LogCategory_Initialize();
+        v7 = _LogCategory_Initialize();
         v4 = *(a1 + 32);
-        if (!v6)
+        if (!v7)
         {
           goto LABEL_9;
         }
 
-        v11 = *(v4 + 16);
+        v5 = *(v4 + 16);
+        v3 = v11;
       }
 
-      v12 = *(v4 + 32);
-      LogPrintF();
+      LogPrintF(v5, "[RPPrivateAdvertiser _activateDirect]_block_invoke", 90, "### Activate failed: CID 0x%X, direct, %{error}\n", *(v4 + 32), v3);
       v4 = *(a1 + 32);
     }
 
 LABEL_9:
-    v7 = _Block_copy(*(v4 + 56));
-    v8 = v7;
-    if (v7)
+    v8 = _Block_copy(*(v4 + 56));
+    v9 = v8;
+    if (v8)
     {
-      (*(v7 + 2))(v7, v14);
+      (*(v8 + 2))(v8, v11);
     }
 
     goto LABEL_12;
   }
 
-  if (v5 > 30)
+  if (v6 > 30)
   {
     goto LABEL_13;
   }
 
-  v14 = 0;
-  if (v5 != -1)
+  v11 = 0;
+  if (v6 != -1)
   {
 LABEL_7:
-    v13 = *(v4 + 32);
-    LogPrintF();
+    LogPrintF(v5, "[RPPrivateAdvertiser _activateDirect]_block_invoke", 30, "Activated, CID 0x%X\n", *(v4 + 32));
 LABEL_12:
-    v3 = v14;
+    v3 = v11;
     goto LABEL_13;
   }
 
-  v9 = _LogCategory_Initialize();
+  v10 = _LogCategory_Initialize();
   v3 = 0;
-  if (v9)
+  if (v10)
   {
     v4 = *(a1 + 32);
-    v10 = *(v4 + 16);
+    v5 = *(v4 + 16);
     goto LABEL_7;
   }
 
@@ -403,7 +400,8 @@ LABEL_13:
 
 - (void)_activateXPC:(BOOL)c
 {
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (c)
   {
     if (var0 <= 30)
@@ -412,15 +410,13 @@ LABEL_13:
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_12;
+          goto LABEL_11;
         }
 
         ucat = self->_ucat;
       }
 
-      clientID = self->_clientID;
-      serviceType = self->_serviceType;
-      goto LABEL_8;
+      LogPrintF(ucat, "[RPPrivateAdvertiser _activateXPC:]", 30, "Re-activate, CID 0x%X, ST '%@'\n", self->_clientID, self->_serviceType);
     }
   }
 
@@ -430,95 +426,98 @@ LABEL_13:
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_12;
+        goto LABEL_11;
       }
 
-      v9 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-    clientID = self->_clientID;
-    serviceType = self->_serviceType;
-LABEL_8:
-    LogPrintF();
+    LogPrintF(ucat, "[RPPrivateAdvertiser _activateXPC:]", 30, "Activate, CID 0x%X, ST '%@'\n", self->_clientID, self->_serviceType);
   }
 
-LABEL_12:
-  [(RPPrivateAdvertiser *)self _ensureXPCStarted:clientID];
+LABEL_11:
+  [(RPPrivateAdvertiser *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __36__RPPrivateAdvertiser__activateXPC___block_invoke;
-  v14[3] = &unk_1E7C94CD8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __36__RPPrivateAdvertiser__activateXPC___block_invoke;
+  v11[3] = &unk_1E7C94CD8;
   cCopy = c;
-  v14[4] = self;
-  v8 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __36__RPPrivateAdvertiser__activateXPC___block_invoke_2;
-  v12[3] = &unk_1E7C94CD8;
+  v11[4] = self;
+  v8 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v11];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __36__RPPrivateAdvertiser__activateXPC___block_invoke_2;
+  v9[3] = &unk_1E7C94CD8;
   cCopy2 = c;
-  v12[4] = self;
-  [v8 xpcPrivateAdvertiserActivate:self completion:v12];
+  v9[4] = self;
+  [v8 xpcPrivateAdvertiserActivate:self completion:v9];
 }
 
 void __36__RPPrivateAdvertiser__activateXPC___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  v3 = **(*(a1 + 32) + 16);
+  v9 = a2;
+  v3 = *(*(a1 + 32) + 16);
+  v4 = *v3;
   if (*(a1 + 40) == 1)
   {
-    if (v3 > 90)
+    if (v4 > 90)
     {
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
-    if (v3 != -1)
+    v5 = v9;
+    if (v4 != -1)
     {
-      goto LABEL_7;
+      goto LABEL_4;
     }
 
     if (_LogCategory_Initialize())
     {
-      v4 = *(*(a1 + 32) + 16);
-LABEL_7:
-      LogPrintF();
+      v3 = *(*(a1 + 32) + 16);
+      v5 = v9;
+LABEL_4:
+      LogPrintF(v3, "[RPPrivateAdvertiser _activateXPC:]_block_invoke", 90, "### Re-activate XPC error: %{error}\n", v5);
     }
   }
 
   else
   {
-    if (v3 > 90)
+    if (v4 > 90)
     {
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
-    if (v3 != -1)
+    v6 = v9;
+    if (v4 == -1)
     {
-      goto LABEL_7;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_12;
+      }
+
+      v3 = *(*(a1 + 32) + 16);
+      v6 = v9;
     }
 
-    if (_LogCategory_Initialize())
-    {
-      v7 = *(*(a1 + 32) + 16);
-      goto LABEL_7;
-    }
+    LogPrintF(v3, "[RPPrivateAdvertiser _activateXPC:]_block_invoke", 90, "### Activate XPC error: %{error}\n", v6);
   }
 
-LABEL_11:
-  v5 = _Block_copy(*(*(a1 + 32) + 56));
-  v6 = v5;
-  if (v5)
+LABEL_12:
+  v7 = _Block_copy(*(*(a1 + 32) + 56));
+  v8 = v7;
+  if (v7)
   {
-    (*(v5 + 2))(v5, v8);
+    (*(v7 + 2))(v7, v9);
   }
 }
 
 void __36__RPPrivateAdvertiser__activateXPC___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = **(*(a1 + 32) + 16);
-  v12 = v3;
+  v4 = *(*(a1 + 32) + 16);
+  v5 = *v4;
+  v8 = v3;
   if (!v3)
   {
     if (*(a1 + 40))
@@ -535,29 +534,29 @@ void __36__RPPrivateAdvertiser__activateXPC___block_invoke_2(uint64_t a1, void *
           goto LABEL_22;
         }
 
-        v9 = *(*(a1 + 32) + 16);
+        v4 = *(*(a1 + 32) + 16);
       }
+
+      LogPrintF(v4, "[RPPrivateAdvertiser _activateXPC:]_block_invoke_2", 30, "Re-activated\n");
+      goto LABEL_22;
     }
 
-    else
+    if (v5 > 30)
     {
-      if (v5 > 30)
+      goto LABEL_22;
+    }
+
+    if (v5 == -1)
+    {
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_22;
       }
 
-      if (v5 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_22;
-        }
-
-        v10 = *(*(a1 + 32) + 16);
-      }
+      v4 = *(*(a1 + 32) + 16);
     }
 
-    LogPrintF();
+    LogPrintF(v4, "[RPPrivateAdvertiser _activateXPC:]_block_invoke_2", 30, "Activated\n");
     goto LABEL_22;
   }
 
@@ -572,10 +571,10 @@ void __36__RPPrivateAdvertiser__activateXPC___block_invoke_2(uint64_t a1, void *
           goto LABEL_19;
         }
 
-        v6 = *(*(a1 + 32) + 16);
+        v4 = *(*(a1 + 32) + 16);
       }
 
-      goto LABEL_12;
+      LogPrintF(v4, "[RPPrivateAdvertiser _activateXPC:]_block_invoke_2", 90, "### Re-activate failed: %{error}\n", v8);
     }
   }
 
@@ -588,19 +587,18 @@ void __36__RPPrivateAdvertiser__activateXPC___block_invoke_2(uint64_t a1, void *
         goto LABEL_19;
       }
 
-      v11 = *(*(a1 + 32) + 16);
+      v4 = *(*(a1 + 32) + 16);
     }
 
-LABEL_12:
-    LogPrintF();
+    LogPrintF(v4, "[RPPrivateAdvertiser _activateXPC:]_block_invoke_2", 90, "### Activate failed: %{error}\n", v8);
   }
 
 LABEL_19:
-  v7 = _Block_copy(*(*(a1 + 32) + 56));
-  v8 = v7;
-  if (v7)
+  v6 = _Block_copy(*(*(a1 + 32) + 56));
+  v7 = v6;
+  if (v6)
   {
-    (*(v7 + 2))(v7, v12);
+    (*(v6 + 2))(v6, v8);
   }
 
 LABEL_22:
@@ -655,13 +653,13 @@ uint64_t __40__RPPrivateAdvertiser__ensureXPCStarted__block_invoke_2(uint64_t a1
 
 - (void)_interrupted
 {
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPPrivateAdvertiser _interrupted]", 30, "### Interrupted\n");
       goto LABEL_5;
     }
 
@@ -688,9 +686,9 @@ LABEL_5:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __33__RPPrivateAdvertiser_invalidate__block_invoke(uint64_t result)
+void *__33__RPPrivateAdvertiser_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 11))
   {
     return result;
@@ -698,39 +696,37 @@ uint64_t __33__RPPrivateAdvertiser_invalidate__block_invoke(uint64_t result)
 
   v3 = result;
   *(v2 + 11) = 1;
-  v4 = *(result + 32);
-  v5 = **(v4 + 16);
-  if (v5 <= 30)
+  v4 = result[4];
+  v5 = *(v4 + 16);
+  if (*v5 <= 30)
   {
-    if (v5 == -1)
+    if (*v5 == -1)
     {
-      v6 = *(v4 + 16);
-      v7 = _LogCategory_Initialize();
-      v4 = *(v3 + 32);
-      if (!v7)
+      v6 = _LogCategory_Initialize();
+      v4 = v3[4];
+      if (!v6)
       {
         goto LABEL_6;
       }
 
-      v8 = *(v4 + 16);
+      v5 = *(v4 + 16);
     }
 
-    v9 = *(v4 + 32);
-    LogPrintF();
-    v4 = *(v3 + 32);
+    LogPrintF(v5, "[RPPrivateAdvertiser invalidate]_block_invoke", 30, "Invalidate CID 0x%X\n", *(v4 + 32));
+    v4 = v3[4];
   }
 
 LABEL_6:
   if (*(v4 + 10) == 1)
   {
     [v4 _invalidateDirect];
-    v4 = *(v3 + 32);
+    v4 = v3[4];
   }
 
   if (*(v4 + 24))
   {
     [*(v4 + 24) invalidate];
-    v4 = *(v3 + 32);
+    v4 = v3[4];
   }
 
   return [v4 _invalidated];
@@ -757,10 +753,10 @@ LABEL_6:
     self->_invalidationHandler = 0;
 
     self->_invalidateDone = 1;
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -770,7 +766,7 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPPrivateAdvertiser _invalidated]", 30, "Invalidated\n");
     }
   }
 }
@@ -805,7 +801,8 @@ LABEL_6:
     selfCopy->_changesPending = 0;
     objc_sync_exit(selfCopy);
 
-    var0 = selfCopy->_ucat->var0;
+    ucat = selfCopy->_ucat;
+    var0 = ucat->var0;
     if (changesPending)
     {
       if (var0 <= 30)
@@ -820,24 +817,23 @@ LABEL_6:
           ucat = selfCopy->_ucat;
         }
 
-        v9 = selfCopy;
-        LogPrintF();
+        LogPrintF(ucat, "[RPPrivateAdvertiser _update]", 30, "Update: %@\n", selfCopy);
       }
 
 LABEL_12:
       xpcCnx = selfCopy->_xpcCnx;
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __30__RPPrivateAdvertiser__update__block_invoke;
-      v11[3] = &unk_1E7C92D58;
-      v11[4] = selfCopy;
-      v6 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v11, v9];
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __30__RPPrivateAdvertiser__update__block_invoke_2;
-      v10[3] = &unk_1E7C92D58;
-      v10[4] = selfCopy;
-      [v6 xpcPrivateAdvertiserUpdate:selfCopy completion:v10];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __30__RPPrivateAdvertiser__update__block_invoke;
+      v9[3] = &unk_1E7C92D58;
+      v9[4] = selfCopy;
+      v7 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v9];
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __30__RPPrivateAdvertiser__update__block_invoke_2;
+      v8[3] = &unk_1E7C92D58;
+      v8[4] = selfCopy;
+      [v7 xpcPrivateAdvertiserUpdate:selfCopy completion:v8];
 
       return;
     }
@@ -854,10 +850,10 @@ LABEL_12:
         return;
       }
 
-      v7 = selfCopy->_ucat;
+      ucat = selfCopy->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPPrivateAdvertiser _update]", 10, "Update: unchanged\n");
   }
 }
 
@@ -865,14 +861,14 @@ void __30__RPPrivateAdvertiser__update__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = **(v4 + 16);
-  v10 = v3;
-  if (v5 <= 90)
+  v5 = *(v4 + 16);
+  v9 = v3;
+  if (*v5 <= 90)
   {
-    if (v5 != -1)
+    if (*v5 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v5, "[RPPrivateAdvertiser _update]_block_invoke", 90, "### Update XPC error: %{error}\n", v3);
       v4 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -881,7 +877,8 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v9 = *(v4 + 16);
+      v5 = *(v4 + 16);
+      v3 = v9;
       goto LABEL_3;
     }
   }
@@ -891,7 +888,7 @@ LABEL_5:
   v8 = v7;
   if (v7)
   {
-    (*(v7 + 2))(v7, v10);
+    (*(v7 + 2))(v7, v9);
   }
 }
 
@@ -899,53 +896,54 @@ void __30__RPPrivateAdvertiser__update__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = **(v4 + 16);
-  v11 = v3;
+  v5 = *(v4 + 16);
+  v6 = *v5;
+  v10 = v3;
   if (!v3)
   {
-    if (v5 > 30)
+    if (v6 > 30)
     {
       goto LABEL_12;
     }
 
-    if (v5 == -1)
+    if (v6 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_12;
       }
 
-      v9 = *(*(a1 + 32) + 16);
+      v5 = *(*(a1 + 32) + 16);
     }
 
-    LogPrintF();
+    LogPrintF(v5, "[RPPrivateAdvertiser _update]_block_invoke_2", 30, "Updated\n");
     goto LABEL_12;
   }
 
-  if (v5 <= 90)
+  if (v6 <= 90)
   {
-    if (v5 == -1)
+    if (v6 == -1)
     {
-      v6 = _LogCategory_Initialize();
+      v7 = _LogCategory_Initialize();
       v4 = *(a1 + 32);
-      if (!v6)
+      if (!v7)
       {
         goto LABEL_9;
       }
 
-      v10 = *(v4 + 16);
+      v5 = *(v4 + 16);
     }
 
-    LogPrintF();
+    LogPrintF(v5, "[RPPrivateAdvertiser _update]_block_invoke_2", 90, "### Update failed: %{error}\n", v10);
     v4 = *(a1 + 32);
   }
 
 LABEL_9:
-  v7 = _Block_copy(*(v4 + 56));
-  v8 = v7;
-  if (v7)
+  v8 = _Block_copy(*(v4 + 56));
+  v9 = v8;
+  if (v8)
   {
-    (*(v7 + 2))(v7, v11);
+    (*(v8 + 2))(v8, v10);
   }
 
 LABEL_12:
@@ -964,10 +962,10 @@ int *__31__RPPrivateAdvertiser_activate__block_invoke_cold_1(uint64_t a1, uint64
         return result;
       }
 
-      v4 = *(*a2 + 16);
+      result = *(*a2 + 16);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[RPPrivateAdvertiser activate]_block_invoke", 115, "### Activate after invalidate\n");
   }
 
   return result;

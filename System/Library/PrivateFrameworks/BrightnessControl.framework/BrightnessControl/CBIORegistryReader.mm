@@ -1,4 +1,8 @@
 @interface CBIORegistryReader
++ (id)readerWithService:(unsigned int)service;
++ (id)readerWithService:(unsigned int)service andOptions:(unsigned int)options;
++ (id)readerWithService:(unsigned int)service andPlane:(char)plane[128];
++ (id)readerWithService:(unsigned int)service andPlane:(char)plane[128] andOptions:(unsigned int)options;
 - (CBIORegistryReader)initWithService:(unsigned int)service andPlane:(char)plane[128] andOptions:(unsigned int)options;
 - (void)dealloc;
 @end
@@ -37,6 +41,34 @@
   return 0;
 }
 
++ (id)readerWithService:(unsigned int)service
+{
+  v3 = [[CBIORegistryReader alloc] initWithService:*&service];
+
+  return v3;
+}
+
++ (id)readerWithService:(unsigned int)service andPlane:(char)plane[128]
+{
+  v4 = [[CBIORegistryReader alloc] initWithService:*&service andPlane:plane];
+
+  return v4;
+}
+
++ (id)readerWithService:(unsigned int)service andOptions:(unsigned int)options
+{
+  v4 = [[CBIORegistryReader alloc] initWithService:*&service andOptions:*&options];
+
+  return v4;
+}
+
++ (id)readerWithService:(unsigned int)service andPlane:(char)plane[128] andOptions:(unsigned int)options
+{
+  v5 = [[CBIORegistryReader alloc] initWithService:*&service andPlane:plane andOptions:*&options];
+
+  return v5;
+}
+
 - (void)dealloc
 {
   IOObjectRelease(self->_service);
@@ -47,11 +79,10 @@
 
 - (void)initWithService:(os_log_t)log andPlane:andOptions:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = 128;
-  _os_log_error_impl(&dword_223D10000, log, OS_LOG_TYPE_ERROR, "The length of the plane name is >= %zu", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = 128;
+  _os_log_error_impl(&dword_223D10000, log, OS_LOG_TYPE_ERROR, "The length of the plane name is >= %zu", &v1, 0xCu);
 }
 
 @end

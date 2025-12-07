@@ -24,69 +24,63 @@
   if ([eventCopy count])
   {
     v8 = [v7 objectForKeyedSubscript:@"successes"];
-    if (v8)
+    if (v8 && (v9 = v8, [v7 objectForKeyedSubscript:@"failed"], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10))
     {
-      v9 = v8;
-      v10 = [v7 objectForKeyedSubscript:@"failed"];
-
-      if (v10)
+      v11 = MBGetDefaultLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v11 = MBGetDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "=analytics= CA metrics have both success and failure recordings", buf, 2u);
-          _MBLog();
-        }
-
-        LOBYTE(v12) = 0;
-        goto LABEL_19;
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "=analytics= CA metrics have both success and failure recordings", buf, 2u);
+        _MBLog(@"F ", "=analytics= CA metrics have both success and failure recordings");
       }
+
+      LOBYTE(v12) = 0;
     }
 
-    v13 = MBGetDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    else
     {
-      *buf = 138543618;
-      v19 = nameCopy;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=analytics= Submitting %{public}@: %@", buf, 0x16u);
-      _MBLog();
-    }
+      v13 = MBGetDefaultLog();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138543618;
+        v19 = nameCopy;
+        v20 = 2112;
+        v21 = v7;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=analytics= Submitting %{public}@: %@", buf, 0x16u);
+        _MBLog(@"I ", "=analytics= Submitting %{public}@: %@", nameCopy, v7);
+      }
 
-    v17 = v7;
-    v12 = AnalyticsSendEventLazy();
-    v14 = MBGetDefaultLog();
-    v15 = v14;
-    if (v12)
-    {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v17 = v7;
+      v12 = AnalyticsSendEventLazy();
+      v14 = MBGetDefaultLog();
+      v15 = v14;
+      if (v12)
+      {
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138543362;
+          v19 = nameCopy;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "=analytics= Successfully submitted %{public}@", buf, 0xCu);
+          _MBLog(@"I ", "=analytics= Successfully submitted %{public}@", nameCopy);
+        }
+      }
+
+      else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
         v19 = nameCopy;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "=analytics= Successfully submitted %{public}@", buf, 0xCu);
-LABEL_17:
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=analytics= Failed to submit %{public}@", buf, 0xCu);
+        _MBLog(@"E ", "=analytics= Failed to submit %{public}@", nameCopy);
       }
+
+      v11 = v17;
     }
-
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138543362;
-      v19 = nameCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=analytics= Failed to submit %{public}@", buf, 0xCu);
-      goto LABEL_17;
-    }
-
-    v11 = v17;
-LABEL_19:
-
-    goto LABEL_20;
   }
 
-  LOBYTE(v12) = 1;
-LABEL_20:
+  else
+  {
+    LOBYTE(v12) = 1;
+  }
 
   return v12;
 }
@@ -180,9 +174,9 @@ LABEL_20:
     [v10 setObject:v17 forKeyedSubscript:@"cameraRollBackupState"];
 
     telemetry2 = [statusCopy telemetry];
-    v105 = 0;
-    v19 = +[L28BackupStats l28BackupStatsForAccount:snapshotFormat:backupReason:backupError:error:](L28BackupStats, "l28BackupStatsForAccount:snapshotFormat:backupReason:backupError:error:", serviceAccount, [telemetry2 snapshotFormat], objc_msgSend(statusCopy, "backupReason"), errorCopy, &v105);
-    v20 = v105;
+    v104 = 0;
+    v19 = +[L28BackupStats l28BackupStatsForAccount:snapshotFormat:backupReason:backupError:error:](L28BackupStats, "l28BackupStatsForAccount:snapshotFormat:backupReason:backupError:error:", serviceAccount, [telemetry2 snapshotFormat], objc_msgSend(statusCopy, "backupReason"), errorCopy, &v104);
+    v20 = v104;
 
     if (v19)
     {
@@ -195,16 +189,15 @@ LABEL_20:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v107 = v20;
+        v106 = v20;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to generate L28 stats: %@", buf, 0xCu);
-        v101 = v20;
-        _MBLog();
+        _MBLog(@"E ", "Failed to generate L28 stats: %@", v20);
       }
     }
 
-    v102 = v20;
-    v103 = v19;
-    v104 = serviceAccount;
+    v101 = v20;
+    v102 = v19;
+    v103 = serviceAccount;
     telemetry3 = [statusCopy telemetry];
     attemptSummary = [statusCopy attemptSummary];
     [attemptSummary snapshotFormat];
@@ -460,7 +453,7 @@ LABEL_20:
 
     [MBTelemetry submitEventName:@"com.apple.massStorage.MobileBackupInfo.Backup_1" event:v10];
 
-    serviceAccount = v104;
+    serviceAccount = v103;
   }
 
   else
@@ -470,7 +463,7 @@ LABEL_20:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "nil account", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "nil account");
     }
   }
 }
@@ -570,16 +563,16 @@ LABEL_20:
     v34 = MBStringForSnapshotFormat();
     [v9 setObject:v34 forKeyedSubscript:@"snapshotFormat"];
 
-    v50 = 0;
+    v49 = 0;
     serviceAccount = [statusCopy serviceAccount];
     persona = [serviceAccount persona];
-    v49 = 0;
-    v37 = [MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v50 persona:persona error:&v49];
-    v38 = v49;
+    v48 = 0;
+    v37 = [MBRestoreCloudFormatPolicy isRestoringFromFileLists:&v49 persona:persona error:&v48];
+    v38 = v48;
 
     if (v37)
     {
-      if (v50)
+      if (v49)
       {
         v39 = @"Lightrail";
       }
@@ -598,10 +591,9 @@ LABEL_20:
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v52 = v38;
+        v51 = v38;
         _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Could not determine if restoring using file lists: %@", buf, 0xCu);
-        v48 = v38;
-        _MBLog();
+        _MBLog(@"E ", "Could not determine if restoring using file lists: %@", v38);
       }
     }
 

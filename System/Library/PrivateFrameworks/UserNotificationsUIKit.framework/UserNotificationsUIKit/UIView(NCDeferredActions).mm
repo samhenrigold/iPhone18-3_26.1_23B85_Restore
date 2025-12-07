@@ -1,9 +1,9 @@
 @interface UIView(NCDeferredActions)
 - (uint64_t)_nc_subviewHasDeferredActions;
 - (uint64_t)nc_hasDeferredActions;
-- (uint64_t)nc_performCrossFadeForDeferredActions;
 - (void)_nc_setHasDeferredActions:()NCDeferredActions;
 - (void)_nc_setSubviewHasDeferredActions:()NCDeferredActions;
+- (void)nc_performCrossFadeForDeferredActions;
 - (void)nc_performDeferredActionsIfNeeded;
 - (void)nc_setHasDeferredActions;
 @end
@@ -112,7 +112,7 @@
   }
 }
 
-- (uint64_t)nc_performCrossFadeForDeferredActions
+- (void)nc_performCrossFadeForDeferredActions
 {
   result = [self nc_hasDeferredActions];
   if (result)

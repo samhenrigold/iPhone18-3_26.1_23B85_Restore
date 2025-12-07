@@ -7,10 +7,10 @@
 
 - (BOOL)writeMessage:(id)message
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   data = [message data];
   v5 = [data length];
-  v6 = v13;
+  v6 = v12;
   if (v5 < 0x80)
   {
     LOBYTE(v7) = v5;
@@ -30,7 +30,7 @@
   }
 
   *v6 = v7;
-  if ([(NSOutputStream *)self->_stream write:v13 maxLength:v6 - v13 + 1]== v6 - v13 + 1)
+  if ([(NSOutputStream *)self->_stream write:v12 maxLength:v6 - v12 + 1]== v6 - v12 + 1)
   {
     if ([data length])
     {
@@ -49,7 +49,6 @@
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

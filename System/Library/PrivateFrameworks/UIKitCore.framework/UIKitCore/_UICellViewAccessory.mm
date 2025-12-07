@@ -82,31 +82,31 @@
       v10 = v9;
       if (v8 == v9)
       {
-        v5 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v5 = 0;
+        isEqual = 0;
         if (v8 && v9)
         {
-          v5 = [(UIView *)v8 isEqual:v9];
+          isEqual = objc_msgSend_isEqual_(v8);
         }
       }
     }
 
     else
     {
-      v5 = 1;
+      isEqual = 1;
     }
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 @end

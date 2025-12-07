@@ -43,7 +43,7 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   bundleIdentifier = [(SFResultSection *)self bundleIdentifier];
 
@@ -74,30 +74,30 @@
   if (v13)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     results2 = [(SFResultSection *)self results];
-    v16 = [results2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v16 = [results2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v24;
+      v18 = *v23;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v24 != v18)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(results2);
           }
 
-          dictionaryRepresentation = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v17 = [results2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v17 = [results2 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v17);
@@ -105,8 +105,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"results"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -180,7 +178,7 @@
 
 - (SFResultSection)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     coderCopy = coder;
@@ -195,9 +193,9 @@
     [coderCopy decodeDoubleForKey:@"_rankingScore"];
     self->_rankingScore = v9;
     v10 = MEMORY[0x1E695DFD8];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"_results"];
     results = self->_results;
@@ -228,7 +226,6 @@
     self->_titleButtonItem = v23;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return self;
 }
 

@@ -22,7 +22,7 @@
 
 - (void)main
 {
-  v3 = sub_1003DC0F4();
+  v3 = sub_1003DC0F4(ODRServiceDelegate);
   v4 = v3;
   if (v3)
   {
@@ -38,7 +38,7 @@
 
   v7 = sub_1002A570C([SQLiteTransporter alloc], v6);
   v8 = [ODRDatabaseStore alloc];
-  v9 = sub_1001C0DF0();
+  v9 = sub_1001C0DF0(Environment);
   v10 = sub_1001C0EC4(v9);
   v11 = [(SQLiteDatabaseStore *)v8 initWithDatabase:v10];
 
@@ -83,7 +83,7 @@
     }
   }
 
-  v18 = sub_1001C13C8();
+  v18 = sub_1001C13C8(ODRBackgroundMaintenance);
   sub_1001C15E8(v18);
 
   *&buf = 0;
@@ -92,7 +92,7 @@
   v26 = sub_10033B70C;
   v27 = sub_10033B71C;
   v28 = objc_opt_new();
-  v19 = sub_100208FBC();
+  v19 = sub_100208FBC(ODRDatabaseStore);
   v20[0] = _NSConcreteStackBlock;
   v20[1] = 3221225472;
   v20[2] = sub_10033B724;

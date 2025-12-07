@@ -18,7 +18,7 @@
     +[_EXUtil auditTokenForCurrentProcess];
   }
 
-  return &auditTokenForCurrentProcess_currentAuditToken;
+  return auditTokenForCurrentProcess_currentAuditToken;
 }
 
 + (void)bootstrap
@@ -43,7 +43,7 @@
 
 + (void)_checkIn
 {
-  v2 = _EXDefaultLog();
+  v2 = _EXDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[_EXUtil _checkIn];

@@ -116,17 +116,15 @@
   *&v6 = width;
   *&v7 = __PAIR64__(v4, v6);
   *(&v5 + 1) = COERCE_UNSIGNED_INT(1.0);
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *(&v7 + 1) = COERCE_UNSIGNED_INT(1.0);
-  v10[0] = v5;
-  v10[1] = v7;
+  v9[0] = v5;
+  v9[1] = v7;
   DWORD1(v6) = 0;
   *(&v6 + 1) = COERCE_UNSIGNED_INT(1.0);
-  v10[2] = xmmword_24A8FEFC0;
-  v10[3] = v6;
-  result = [(MTLDevice *)self->_device newBufferWithBytes:v10 length:64 options:0];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  v9[2] = xmmword_24A8FEFC0;
+  v9[3] = v6;
+  return [(MTLDevice *)self->_device newBufferWithBytes:v9 length:64 options:0];
 }
 
 @end

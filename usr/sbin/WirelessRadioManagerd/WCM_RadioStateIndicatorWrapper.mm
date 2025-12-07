@@ -162,7 +162,7 @@
     v12 = xmmword_1002B7770;
     if (!xmmword_1002B7770)
     {
-      AppleSARHelper::create_default_global(&v17, v11);
+      AppleSARHelper::create_default_global(v11);
       v13 = v17;
       v17 = 0uLL;
       v14 = *(&xmmword_1002B7770 + 1);
@@ -213,7 +213,7 @@
   v3 = xmmword_1002B7770;
   if (!xmmword_1002B7770)
   {
-    AppleSARHelper::create_default_global(&v11, v2);
+    AppleSARHelper::create_default_global(v2);
     v4 = v11;
     v11 = 0uLL;
     v5 = *(&xmmword_1002B7770 + 1);
@@ -237,7 +237,7 @@
   }
 
   pthread_mutex_unlock(&stru_1002B7730);
-  v7 = sub_10007511C(v3, &v10, 3u, 0, 0);
+  v7 = sub_10007511C(v3, &v10, 3, 0, 0);
   if (v6)
   {
     sub_100004250(v6);
@@ -304,7 +304,7 @@
     v8 = xmmword_1002B7770;
     if (!xmmword_1002B7770)
     {
-      AppleSARHelper::create_default_global(&v13, v7);
+      AppleSARHelper::create_default_global(v7);
       v9 = v13;
       v13 = 0uLL;
       v10 = *(&xmmword_1002B7770 + 1);
@@ -355,7 +355,7 @@
   v3 = xmmword_1002B7770;
   if (!xmmword_1002B7770)
   {
-    AppleSARHelper::create_default_global(&v11, v2);
+    AppleSARHelper::create_default_global(v2);
     v4 = v11;
     v11 = 0uLL;
     v5 = *(&xmmword_1002B7770 + 1);
@@ -379,7 +379,7 @@
   }
 
   pthread_mutex_unlock(&stru_1002B7730);
-  v7 = sub_10007511C(v3, &v10, 3u, 1u, 0);
+  v7 = sub_10007511C(v3, &v10, 3, 1u, 0);
   if (v6)
   {
     sub_100004250(v6);
@@ -416,7 +416,7 @@
     v6 = xmmword_1002B7770;
     if (!xmmword_1002B7770)
     {
-      AppleSARHelper::create_default_global(&v11, v5);
+      AppleSARHelper::create_default_global(v5);
       v7 = v11;
       v11 = 0uLL;
       v8 = *(&xmmword_1002B7770 + 1);
@@ -467,7 +467,7 @@
   v3 = xmmword_1002B7770;
   if (!xmmword_1002B7770)
   {
-    AppleSARHelper::create_default_global(&v11, v2);
+    AppleSARHelper::create_default_global(v2);
     v4 = v11;
     v11 = 0uLL;
     v5 = *(&xmmword_1002B7770 + 1);
@@ -491,7 +491,7 @@
   }
 
   pthread_mutex_unlock(&stru_1002B7730);
-  v7 = sub_10007511C(v3, &v10, 3u, 2u, 0);
+  v7 = sub_10007511C(v3, &v10, 3, 2u, 0);
   if (v6)
   {
     sub_100004250(v6);

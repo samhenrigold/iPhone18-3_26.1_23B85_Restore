@@ -115,12 +115,12 @@ void __63__MSRichLinkGenerator_createRichLinkWithURL_completionHandler___block_i
 
 void __63__MSRichLinkGenerator_createRichLinkWithURL_completionHandler___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    v43 = v6;
+    v42 = v6;
     v7 = [*(a1 + 48) image];
     v8 = v7;
     if (v7)
@@ -135,7 +135,7 @@ void __63__MSRichLinkGenerator_createRichLinkWithURL_completionHandler___block_i
 
     v11 = v9;
 
-    v45 = v11;
+    v44 = v11;
     v12 = [v11 data];
     v13 = [*(a1 + 48) imageMetadata];
     v14 = [v13 URL];
@@ -151,7 +151,7 @@ void __63__MSRichLinkGenerator_createRichLinkWithURL_completionHandler___block_i
       v16 = [v17 URL];
     }
 
-    v44 = v16;
+    v43 = v16;
     v18 = [v16 path];
     v19 = [v18 lastPathComponent];
     v20 = v19;
@@ -185,17 +185,17 @@ void __63__MSRichLinkGenerator_createRichLinkWithURL_completionHandler___block_i
       v30 = 0;
 LABEL_30:
       v36 = *(a1 + 56);
-      v37 = [v45 MIMEType];
+      v37 = [v44 MIMEType];
       (*(v36 + 16))(v36, v5, v12, v22, v37, v30);
 
-      v6 = v43;
+      v6 = v42;
       goto LABEL_31;
     }
 
     v29 = [MEMORY[0x277CCAD78] UUID];
     v30 = [v29 UUIDString];
 
-    v31 = [v44 absoluteString];
+    v31 = [v43 absoluteString];
     v32 = [v31 ef_stringByEscapingForXML];
 
     if (v32 && [v5 containsString:v32])
@@ -242,21 +242,19 @@ LABEL_29:
   v10 = +[MSRichLinkGenerator log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v39 = MEMORY[0x277D07198];
-    v40 = [*(a1 + 32) absoluteString];
-    v41 = [v39 fullyRedactedStringForString:v40];
-    v42 = *(a1 + 40);
+    v38 = MEMORY[0x277D07198];
+    v39 = [*(a1 + 32) absoluteString];
+    v40 = [v38 fullyRedactedStringForString:v39];
+    v41 = *(a1 + 40);
     *buf = 138543618;
-    v47 = v41;
-    v48 = 2114;
-    v49 = v42;
+    v46 = v40;
+    v47 = 2114;
+    v48 = v41;
     _os_log_error_impl(&dword_257F8E000, v10, OS_LOG_TYPE_ERROR, "Failed to generate html fragment for %{public}@, with error: %{public}@", buf, 0x16u);
   }
 
   (*(*(a1 + 56) + 16))();
 LABEL_31:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -100,10 +100,9 @@ void __75__SBModalAlertPresentationCoordinator_hideApplicationModalAlertsForReas
   v11 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   BSDispatchQueueAssertMain();
-  if (necessaryCopy && ([(NSMutableSet *)self->_activeModalAlertPresenters containsObject:necessaryCopy]& 1) == 0)
+  if (necessaryCopy && (objc_msgSend_containsObject_(self->_activeModalAlertPresenters) & 1) == 0)
   {
-    [(NSMutableSet *)self->_activeModalAlertPresenters addObject:necessaryCopy];
-    v5 = SBLogAlertItems();
+    v5 = SBLogAlertItems([(NSMutableSet *)self->_activeModalAlertPresenters addObject:necessaryCopy]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       scene = [(SBModalAlertPresenter *)necessaryCopy scene];
@@ -123,26 +122,30 @@ void __75__SBModalAlertPresentationCoordinator_hideApplicationModalAlertsForReas
 
 - (void)_removeModalAlertPresenter:(id)presenter
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   presenterCopy = presenter;
   BSDispatchQueueAssertMain();
-  if (presenterCopy && [(NSMutableSet *)self->_activeModalAlertPresenters containsObject:presenterCopy])
+  if (presenterCopy)
   {
-    v5 = SBLogAlertItems();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = objc_msgSend_containsObject_(self->_activeModalAlertPresenters);
+    if (v5)
     {
-      scene = [(SBModalAlertPresenter *)presenterCopy scene];
-      identityToken = [scene identityToken];
-      stringRepresentation = [identityToken stringRepresentation];
-      v9 = 138412290;
-      v10 = stringRepresentation;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Removing modal alert presenter %@", &v9, 0xCu);
-    }
+      v6 = SBLogAlertItems(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        scene = [(SBModalAlertPresenter *)presenterCopy scene];
+        identityToken = [scene identityToken];
+        stringRepresentation = [identityToken stringRepresentation];
+        v10 = 138412290;
+        v11 = stringRepresentation;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Removing modal alert presenter %@", &v10, 0xCu);
+      }
 
-    [(NSMutableSet *)self->_activeModalAlertPresenters removeObject:presenterCopy];
-    if (self->_springBoardModalAlertPresenter == presenterCopy)
-    {
-      [(SBModalAlertPresentationCoordinator *)self _noteSpringBoardModalAlertStateChanged:0];
+      [(NSMutableSet *)self->_activeModalAlertPresenters removeObject:presenterCopy];
+      if (self->_springBoardModalAlertPresenter == presenterCopy)
+      {
+        [(SBModalAlertPresentationCoordinator *)self _noteSpringBoardModalAlertStateChanged:0];
+      }
     }
   }
 }

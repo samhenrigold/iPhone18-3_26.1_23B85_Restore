@@ -447,7 +447,7 @@ uint64_t __77__SBDisplayItemLayoutAttributesProvider_layoutAttributesEntriesForA
 {
   v2 = *(a1 + 32);
   v3 = [a2 displayItem];
-  v4 = [v2 containsObject:v3];
+  v4 = objc_msgSend_containsObject_(v2);
 
   return v4;
 }

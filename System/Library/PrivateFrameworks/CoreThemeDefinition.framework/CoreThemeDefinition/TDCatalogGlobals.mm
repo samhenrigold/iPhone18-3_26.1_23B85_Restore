@@ -132,24 +132,22 @@
 
 - (id)dictionaryForArchiving
 {
-  v6[7] = *MEMORY[0x277D85DE8];
-  v5[0] = @"defaultBlendMode";
-  v6[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TDCatalogGlobals defaultBlendMode](self, "defaultBlendMode")}];
-  v5[1] = @"allowsVibrancy";
-  v6[1] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals allowsVibrancy](self, "allowsVibrancy")}];
-  v5[2] = @"supportsWhitePointAdjustments";
-  v6[2] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals supportsWhitePointAdjustments](self, "supportsWhitePointAdjustments")}];
-  v5[3] = @"supportsBrightnessAdjustments";
-  v6[3] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals supportsBrightnessAdjustments](self, "supportsBrightnessAdjustments")}];
-  v5[4] = @"allowsSystemTintColors";
-  v6[4] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals allowsSystemTintColors](self, "allowsSystemTintColors")}];
-  v5[5] = @"allowsCustomTintColors";
-  v6[5] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals allowsCustomTintColors](self, "allowsCustomTintColors")}];
-  v5[6] = @"supportsMultipleAppearancesForEffects";
-  v6[6] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals supportsMultipleAppearancesForEffects](self, "supportsMultipleAppearancesForEffects")}];
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:7];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[7] = *MEMORY[0x277D85DE8];
+  v4[0] = @"defaultBlendMode";
+  v5[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TDCatalogGlobals defaultBlendMode](self, "defaultBlendMode")}];
+  v4[1] = @"allowsVibrancy";
+  v5[1] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals allowsVibrancy](self, "allowsVibrancy")}];
+  v4[2] = @"supportsWhitePointAdjustments";
+  v5[2] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals supportsWhitePointAdjustments](self, "supportsWhitePointAdjustments")}];
+  v4[3] = @"supportsBrightnessAdjustments";
+  v5[3] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals supportsBrightnessAdjustments](self, "supportsBrightnessAdjustments")}];
+  v4[4] = @"allowsSystemTintColors";
+  v5[4] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals allowsSystemTintColors](self, "allowsSystemTintColors")}];
+  v4[5] = @"allowsCustomTintColors";
+  v5[5] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals allowsCustomTintColors](self, "allowsCustomTintColors")}];
+  v4[6] = @"supportsMultipleAppearancesForEffects";
+  v5[6] = [MEMORY[0x277CCABB0] numberWithBool:{-[TDCatalogGlobals supportsMultipleAppearancesForEffects](self, "supportsMultipleAppearancesForEffects")}];
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:7];
 }
 
 @end

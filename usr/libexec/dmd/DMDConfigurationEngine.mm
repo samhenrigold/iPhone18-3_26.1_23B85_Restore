@@ -640,27 +640,26 @@
     sub_10007F098();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   queue2 = [(DMDConfigurationEngine *)self queue];
   operations = [queue2 operations];
 
-  v6 = [operations countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [operations countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v6)
   {
-    v7 = *v26;
+    v7 = *v25;
 LABEL_5:
     v8 = 0;
     while (1)
     {
-      if (*v26 != v7)
+      if (*v25 != v7)
       {
         objc_enumerationMutation(operations);
       }
 
-      v9 = *(*(&v25 + 1) + 8 * v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -669,7 +668,7 @@ LABEL_5:
 
       if (v6 == ++v8)
       {
-        v6 = [operations countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v6 = [operations countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v6)
         {
           goto LABEL_5;
@@ -684,45 +683,45 @@ LABEL_5:
   {
 LABEL_11:
 
-    v10 = DMFConfigurationEngineLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v9 = DMFConfigurationEngineLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Engine enqueuing operation to process pending declarations in database", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Engine enqueuing operation to process pending declarations in database", buf, 2u);
     }
 
-    v11 = objc_opt_new();
-    [v11 setQueuePriority:0];
+    v10 = objc_opt_new();
+    [v10 setQueuePriority:0];
     database = [(DMDConfigurationEngine *)self database];
-    [v11 setDatabase:database];
+    [v10 setDatabase:database];
 
-    [v11 setDelegate:self];
+    [v10 setDelegate:self];
     deviceStateProvider = [(DMDConfigurationEngine *)self deviceStateProvider];
-    [v11 setDeviceStateProvider:deviceStateProvider];
+    [v10 setDeviceStateProvider:deviceStateProvider];
 
     taskOperationProvider = [(DMDConfigurationEngine *)self taskOperationProvider];
-    [v11 setTaskOperationProvider:taskOperationProvider];
+    [v10 setTaskOperationProvider:taskOperationProvider];
 
     activationPredicateObserverManager = [(DMDConfigurationEngine *)self activationPredicateObserverManager];
-    [v11 setActivationPredicateObserverManager:activationPredicateObserverManager];
+    [v10 setActivationPredicateObserverManager:activationPredicateObserverManager];
 
     objc_initWeak(buf, self);
-    v18 = _NSConcreteStackBlock;
-    v19 = 3221225472;
-    v20 = sub_100029A50;
-    v21 = &unk_1000CEA00;
-    operations = v11;
-    v22 = operations;
-    objc_copyWeak(&v23, buf);
-    v16 = [DMDBlockOperation blockOperationWithBlock:&v18];
-    [operations setQueuePriority:{0, v18, v19, v20, v21}];
-    [v16 addDependency:operations];
-    v29[0] = operations;
-    v29[1] = v16;
-    v17 = [NSArray arrayWithObjects:v29 count:2];
-    [(DMDConfigurationEngine *)self enqueueOperations:v17];
+    v17 = _NSConcreteStackBlock;
+    v18 = 3221225472;
+    v19 = sub_100029A50;
+    v20 = &unk_1000CEA00;
+    operations = v10;
+    v21 = operations;
+    objc_copyWeak(&v22, buf);
+    v15 = [DMDBlockOperation blockOperationWithBlock:&v17];
+    [operations setQueuePriority:{0, v17, v18, v19, v20}];
+    [v15 addDependency:operations];
+    v28[0] = operations;
+    v28[1] = v15;
+    v16 = [NSArray arrayWithObjects:v28 count:2];
+    [(DMDConfigurationEngine *)self enqueueOperations:v16];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 }

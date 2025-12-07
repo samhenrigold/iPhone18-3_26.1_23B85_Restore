@@ -17,8 +17,9 @@
 
 - (OrgApacheLuceneStoreMMapDirectory)initWithOrgLukhnosPortmobileFilePath:(id)path withInt:(int)int
 {
+  v4 = *&int;
   Default = OrgApacheLuceneStoreFSLockFactory_getDefault();
-  OrgApacheLuceneStoreMMapDirectory_initWithOrgLukhnosPortmobileFilePath_withOrgApacheLuceneStoreLockFactory_withInt_(self, path, Default, int);
+  OrgApacheLuceneStoreMMapDirectory_initWithOrgLukhnosPortmobileFilePath_withOrgApacheLuceneStoreLockFactory_withInt_(self, path, Default, v4);
   return self;
 }
 

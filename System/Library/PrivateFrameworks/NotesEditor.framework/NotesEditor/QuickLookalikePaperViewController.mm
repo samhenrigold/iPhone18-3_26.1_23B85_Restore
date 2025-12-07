@@ -52,16 +52,18 @@
   v6 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC11NotesEditor33QuickLookalikePaperViewController_dismissAction);
   if (v6)
   {
+    v7 = v5[1];
 
     v6(selfCopy);
-    sub_21532594C(v6);
+    sub_21532594C(v6, v7);
   }
 
-  __swift_destroy_boxed_opaque_existential_0Tm(&v8);
-  v7 = *v5;
+  __swift_destroy_boxed_opaque_existential_0Tm(v10);
+  v8 = *v5;
+  v9 = v5[1];
   *v5 = 0;
   v5[1] = 0;
-  sub_21532594C(v7);
+  sub_21532594C(v8, v9);
 }
 
 - (void)share:(id)share
@@ -81,7 +83,7 @@
 
   [(QuickLookalikePaperViewController *)selfCopy presentViewController:v5 animated:1 completion:0];
 
-  __swift_destroy_boxed_opaque_existential_0Tm(&v9);
+  __swift_destroy_boxed_opaque_existential_0Tm(v9);
 }
 
 - (void)print:(id)print
@@ -102,7 +104,7 @@
 
   sub_2153D010C();
 
-  sub_2151ADCD8(v6, &qword_27CA5ABC0);
+  sub_2151ADCD8(v6, &qword_27CA5ABC0, &unk_2154BE110);
 }
 
 - (void)saveToFiles

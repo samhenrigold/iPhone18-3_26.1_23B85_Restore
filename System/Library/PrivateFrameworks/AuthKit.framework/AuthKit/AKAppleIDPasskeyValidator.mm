@@ -32,8 +32,8 @@
 
 - (void)canCreatePasskeyWithForced:(BOOL)forced completionHandler:(id)handler
 {
-  v7 = (*(*(sub_1001AD17C(&unk_100372310, &qword_10029CEC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -58,8 +58,8 @@
 
 - (void)canUnenrollPasskeyWithForced:(BOOL)forced completionHandler:(id)handler
 {
-  v7 = (*(*(sub_1001AD17C(&unk_100372310, &qword_10029CEC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v7 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
+  __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -92,8 +92,8 @@
 
 - (void)canDeleteAllPasskeysWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(sub_1001AD17C(&unk_100372310, &qword_10029CEC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_1001AD17C(&unk_100372310, &qword_10029CEC0);
+  __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();

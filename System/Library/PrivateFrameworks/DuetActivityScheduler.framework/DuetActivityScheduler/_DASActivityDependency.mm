@@ -153,30 +153,26 @@
 
 - (id)dictionary
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  isActivityCompletionBased = [(_DASActivityDependency *)self isActivityCompletionBased];
-  identifier = self->_identifier;
-  if (isActivityCompletionBased)
+  v12[1] = *MEMORY[0x1E69E9840];
+  if ([(_DASActivityDependency *)self isActivityCompletionBased])
   {
-    v14 = self->_identifier;
-    v15[0] = &unk_1F2ED4908;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    identifier = self->_identifier;
+    v12[0] = &unk_1F2ED4908;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&identifier count:1];
   }
 
   else
   {
-    v12 = self->_identifier;
-    v10 = @"BatchSize";
-    v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_batchSize];
-    v11 = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-    v13 = v7;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v9 = self->_identifier;
+    v7 = @"BatchSize";
+    v4 = [MEMORY[0x1E696AD98] numberWithInteger:self->_batchSize];
+    v8 = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+    v10 = v5;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v3;
 }
 
 @end

@@ -62,9 +62,11 @@ uint64_t __35__LACBiometryHelper_sharedInstance__block_invoke()
   {
     +[LACBiometryHelper touchIdInstance];
   }
-  sharedInstance_sharedInstance_3 = ;
+  v0 = ;
+  v1 = sharedInstance_sharedInstance_3;
+  sharedInstance_sharedInstance_3 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)touchIdInstance
@@ -81,9 +83,11 @@ uint64_t __35__LACBiometryHelper_sharedInstance__block_invoke()
 
 uint64_t __36__LACBiometryHelper_touchIdInstance__block_invoke()
 {
-  touchIdInstance_touchIdInstance = [[LACBiometryHelper alloc] initWithBiometryType:1];
+  v0 = [[LACBiometryHelper alloc] initWithBiometryType:1];
+  v1 = touchIdInstance_touchIdInstance;
+  touchIdInstance_touchIdInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)faceIdInstance
@@ -100,9 +104,11 @@ uint64_t __36__LACBiometryHelper_touchIdInstance__block_invoke()
 
 uint64_t __35__LACBiometryHelper_faceIdInstance__block_invoke()
 {
-  faceIdInstance_faceIdInstance = [[LACBiometryHelper alloc] initWithBiometryType:2];
+  v0 = [[LACBiometryHelper alloc] initWithBiometryType:2];
+  v1 = faceIdInstance_faceIdInstance;
+  faceIdInstance_faceIdInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (LACBiometryHelper)initWithBiometryType:(int64_t)type
@@ -126,71 +132,71 @@ uint64_t __35__LACBiometryHelper_faceIdInstance__block_invoke()
 
 - (void)_setup
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (+[LACMobileGestalt isSharedIPad])
   {
-    v18 = [LACError errorWithCode:-6 debugDescription:@"Biometry not supported in Shared iPad mode"];
-    [(LACBiometryHelper *)self _setupWithPermanentError:v18];
-    v3 = *MEMORY[0x1E69E9840];
+    v17 = [LACError errorWithCode:-6 debugDescription:@"Biometry not supported in Shared iPad mode"];
+    [(LACBiometryHelper *)self _setupWithPermanentError:v17];
   }
 
   else
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2050000000;
-    v4 = getBKDeviceManagerClass_softClass;
-    v26 = getBKDeviceManagerClass_softClass;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2050000000;
+    v3 = getBKDeviceManagerClass_softClass;
+    v25 = getBKDeviceManagerClass_softClass;
     if (!getBKDeviceManagerClass_softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v29 = __getBKDeviceManagerClass_block_invoke;
-      v30 = &unk_1E7A955D8;
-      v31 = &v23;
+      v28 = __getBKDeviceManagerClass_block_invoke;
+      v29 = &unk_1E7A955D8;
+      v30 = &v22;
       BiometricKitLibraryCore();
       Class = objc_getClass("BKDeviceManager");
-      *(v31[1] + 24) = Class;
-      getBKDeviceManagerClass_softClass = *(v31[1] + 24);
-      v4 = v24[3];
+      *(v30[1] + 24) = Class;
+      getBKDeviceManagerClass_softClass = *(v30[1] + 24);
+      v3 = v23[3];
     }
 
-    v6 = v4;
-    _Block_object_dispose(&v23, 8);
-    if (v4)
+    v5 = v3;
+    _Block_object_dispose(&v22, 8);
+    if (v3)
     {
-      availableDevices = [v4 availableDevices];
+      availableDevices = [v3 availableDevices];
+      v7 = availableDevices;
       if (availableDevices)
       {
-        v8 = LACLogBiometry();
+        v8 = LACLogBiometry(availableDevices);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = availableDevices;
+          *(&buf + 4) = v7;
           _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "Available devices: %@", &buf, 0xCu);
         }
 
-        if ([availableDevices count] || !-[LACBiometryHelper _shouldRetryAvailableDevices](self, "_shouldRetryAvailableDevices"))
+        if ([v7 count] || !-[LACBiometryHelper _shouldRetryAvailableDevices](self, "_shouldRetryAvailableDevices"))
         {
-          v21 = 0u;
-          v22 = 0u;
-          v19 = 0u;
           v20 = 0u;
-          v10 = availableDevices;
-          v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v21 = 0u;
+          v18 = 0u;
+          v19 = 0u;
+          v10 = v7;
+          v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
           if (v11)
           {
-            v12 = *v20;
+            v12 = *v19;
             while (2)
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v20 != v12)
+                if (*v19 != v12)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v14 = *(*(&v19 + 1) + 8 * i);
+                v14 = *(*(&v18 + 1) + 8 * i);
                 type = [v14 type];
                 if (type == [(LACBiometryHelper *)self deviceType])
                 {
@@ -200,7 +206,7 @@ uint64_t __35__LACBiometryHelper_faceIdInstance__block_invoke()
                 }
               }
 
-              v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+              v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
               if (v11)
               {
                 continue;
@@ -233,8 +239,6 @@ LABEL_26:
     {
       [(LACBiometryHelper *)self _setupWithFault:@"Failed to acquire device manager class"];
     }
-
-    v17 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -255,7 +259,7 @@ LABEL_26:
 
   else
   {
-    v5 = LACLogBiometry();
+    v5 = LACLogBiometry(deviceType);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(LACBiometryHelper *)self _shouldRetryAvailableDevices];
@@ -272,8 +276,8 @@ LABEL_26:
   fault = self->_fault;
   self->_fault = v5;
 
-  v7 = LACLogBiometry();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v8 = LACLogBiometry(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     [LACBiometryHelper _setupWithFault:];
   }
@@ -331,12 +335,12 @@ LABEL_11:
         CFNotificationCenterAddObserver(DarwinNotifyCenter, self, BiometricKitNotificationCallback, @"com.apple.BiometricKit.enrollmentChanged", 0, 0);
         v19 = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterAddObserver(v19, self, BiometricKitNotificationCallback, @"com.apple.BiometricKit.generalLockoutStateChanged", 0, 0);
-        descriptor2 = LACLogBiometry();
+        descriptor2 = LACLogBiometry(v20);
         if (os_log_type_enabled(descriptor2, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(descriptorCopy, "type")}];
+          v21 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(descriptorCopy, "type")}];
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = v20;
+          *(&buf + 4) = v21;
           _os_log_impl(&dword_1B0233000, descriptor2, OS_LOG_TYPE_DEFAULT, "Device created successfully with type: %@", &buf, 0xCu);
         }
 
@@ -349,10 +353,10 @@ LABEL_11:
         goto LABEL_11;
       }
 
-      v21 = MEMORY[0x1E696AEC0];
+      v22 = MEMORY[0x1E696AEC0];
       descriptor2 = [(BKDevice *)self->_device descriptor];
-      v22 = [v21 stringWithFormat:@"Unknown device type: %d", -[NSObject type](descriptor2, "type")];
-      [(LACBiometryHelper *)self _setupWithFault:v22];
+      v23 = [v22 stringWithFormat:@"Unknown device type: %d", -[NSObject type](descriptor2, "type")];
+      [(LACBiometryHelper *)self _setupWithFault:v23];
     }
 
     else
@@ -368,8 +372,6 @@ LABEL_14:
 
   [(LACBiometryHelper *)self _setupWithFault:@"Failed to acquire device class"];
 LABEL_15:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -666,7 +668,7 @@ id __59__LACBiometryHelper__biolockoutStateForUser_request_error___block_invoke(
 
 - (id)_lockoutErrorForExtendedState:(int64_t)state userId:(id)id
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   idCopy = id;
   if (state)
   {
@@ -759,14 +761,14 @@ id __59__LACBiometryHelper__biolockoutStateForUser_request_error___block_invoke(
   if (*v8)
   {
     v14 = [LACError errorWithCode:-8 subcode:*v8 debugDescription:v11];
-    v15 = LACLogBiometry();
+    v15 = LACLogBiometry(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v18[0] = 67109378;
-      v18[1] = state;
-      v19 = 2114;
-      v20 = v14;
-      _os_log_impl(&dword_1B0233000, v15, OS_LOG_TYPE_INFO, "lockoutErrorForExtendedState:%d returned %{public}@", v18, 0x12u);
+      v17[0] = 67109378;
+      v17[1] = state;
+      v18 = 2114;
+      v19 = v14;
+      _os_log_impl(&dword_1B0233000, v15, OS_LOG_TYPE_INFO, "lockoutErrorForExtendedState:%d returned %{public}@", v17, 0x12u);
     }
   }
 
@@ -774,8 +776,6 @@ id __59__LACBiometryHelper__biolockoutStateForUser_request_error___block_invoke(
   {
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -806,7 +806,7 @@ id __59__LACBiometryHelper__biolockoutStateForUser_request_error___block_invoke(
   v52 = *MEMORY[0x1E69E9840];
   userCopy = user;
   requestCopy = request;
-  v12 = LACLogBiometry();
+  v12 = LACLogBiometry(requestCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [LACBiometryHelper isLockedOutForUser:adminOnly:request:error:];
@@ -867,7 +867,7 @@ id __59__LACBiometryHelper__biolockoutStateForUser_request_error___block_invoke(
 
     else
     {
-      v19 = LACLogBiometry();
+      v19 = LACLogBiometry(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [(LACBiometryHelper *)v44 isLockedOutForUser:v19 adminOnly:v20 request:v21 error:v22, v23, v24, v25];
@@ -876,23 +876,24 @@ id __59__LACBiometryHelper__biolockoutStateForUser_request_error___block_invoke(
 
     if (error)
     {
-      *error = *(v44[0] + 40);
+      v26 = *(v44[0] + 40);
+      *error = v26;
     }
 
     if (*(v44[0] + 40))
     {
-      v26 = LACLogBiometry();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = LACLogBiometry(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = *(v44[0] + 40);
+        v28 = *(v44[0] + 40);
         purpose = [requestCopy purpose];
         *buf = 138543874;
         v47 = userCopy;
         v48 = 2114;
-        v49 = v27;
+        v49 = v28;
         v50 = 1024;
         v51 = purpose;
-        _os_log_impl(&dword_1B0233000, v26, OS_LOG_TYPE_DEFAULT, "User %{public}@ is locked out: %{public}@, purpose:%d", buf, 0x1Cu);
+        _os_log_impl(&dword_1B0233000, v27, OS_LOG_TYPE_DEFAULT, "User %{public}@ is locked out: %{public}@, purpose:%d", buf, 0x1Cu);
       }
 
       v15 = *(v44[0] + 40) != 0;
@@ -913,7 +914,6 @@ id __59__LACBiometryHelper__biolockoutStateForUser_request_error___block_invoke(
     v15 = 1;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1005,6 +1005,7 @@ LABEL_9:
     v12 = 0;
     v7 = [(BKDevice *)device identitiesDatabaseUUIDForUser:[(LACBiometryHelper *)self _uidFromUserId:dCopy] error:&v12];
     v8 = v12;
+    v9 = v8;
     if (v7)
     {
       v13[0] = 0;
@@ -1015,8 +1016,8 @@ LABEL_9:
 
     else
     {
-      v9 = LACLogBiometry();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = LACLogBiometry(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [LACBiometryHelper catacombUUID:];
       }
@@ -1025,34 +1026,32 @@ LABEL_9:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (BOOL)userPresent:(BOOL *)present error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (![(LACBiometryHelper *)self deviceHasBiometryWithError:error])
   {
-    v17 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   device = self->_device;
-  v22 = 0;
-  v8 = [(BKDevice *)device createPresenceDetectOperationWithError:&v22];
-  v9 = v22;
+  v21 = 0;
+  v8 = [(BKDevice *)device createPresenceDetectOperationWithError:&v21];
+  v9 = v21;
+  v10 = v9;
   if (!v8)
   {
 LABEL_7:
-    if (v9)
+    if (v10)
     {
       goto LABEL_8;
     }
 
 LABEL_19:
-    v13 = 0;
+    v14 = 0;
     if (!error)
     {
       goto LABEL_10;
@@ -1062,62 +1061,60 @@ LABEL_19:
   }
 
   [v8 setPriority:50];
-  v21 = v9;
-  v10 = [v8 startWithError:&v21];
-  v11 = v21;
+  v20 = v10;
+  v11 = [v8 startWithError:&v20];
+  v12 = v20;
 
-  if (v10)
+  if (v11)
   {
-    v20 = v11;
-    v12 = [v8 userPresentWithError:&v20];
-    v9 = v20;
+    v19 = v12;
+    v13 = [v8 userPresentWithError:&v19];
+    v10 = v19;
 
     [v8 cancel];
-    if (v12)
+    if (v13)
     {
-      *present = [v12 BOOLValue];
+      *present = [v13 BOOLValue];
     }
 
     goto LABEL_7;
   }
 
-  v9 = v11;
-  if (!v11)
+  v10 = v12;
+  if (!v12)
   {
     goto LABEL_19;
   }
 
 LABEL_8:
-  v13 = [LACError errorWithCode:-1000 underlyingError:v9 debugDescription:@"Failed to determine user presence status."];
+  v14 = [LACError errorWithCode:-1000 underlyingError:v10 debugDescription:@"Failed to determine user presence status."];
 
   if (error)
   {
 LABEL_9:
-    v14 = v13;
-    *error = v13;
+    v9 = v14;
+    *error = v14;
   }
 
 LABEL_10:
-  v15 = LACLogBiometry();
+  v15 = LACLogBiometry(v9);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = v13;
-    if (!v13)
+    v16 = v14;
+    if (!v14)
     {
       v16 = [MEMORY[0x1E696AD98] numberWithBool:*present];
     }
 
     *buf = 138543362;
-    v24 = v16;
+    v23 = v16;
     _os_log_impl(&dword_1B0233000, v15, OS_LOG_TYPE_DEFAULT, "User present: %{public}@", buf, 0xCu);
-    if (!v13)
+    if (!v14)
     {
     }
   }
 
-  v17 = v13 == 0;
-LABEL_17:
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = v14 == 0;
   return v17;
 }
 
@@ -1128,13 +1125,14 @@ LABEL_17:
   if ([(LACBiometryHelper *)self deviceHasBiometryWithError:0])
   {
     device = self->_device;
-    v10 = 0;
-    v5 = [(BKDevice *)device effectiveProtectedConfigurationForUser:[(LACBiometryHelper *)self _uidFromUserId:userCopy] error:&v10];
-    v7 = v10;
+    v11 = 0;
+    v5 = [(BKDevice *)device effectiveProtectedConfigurationForUser:[(LACBiometryHelper *)self _uidFromUserId:userCopy] error:&v11];
+    v7 = v11;
+    v8 = v7;
     if (!v5)
     {
-      v8 = LACLogBiometry();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = LACLogBiometry(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [LACBiometryHelper _protectedConfigurationForUser:];
       }
@@ -1183,7 +1181,7 @@ LABEL_17:
 - (id)_identitiesForUser:(id)user adminOnly:(BOOL)only
 {
   userCopy = user;
-  v7 = LACLogBiometry();
+  v7 = LACLogBiometry(userCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [LACBiometryHelper _identitiesForUser:adminOnly:];
@@ -1244,21 +1242,21 @@ void __50__LACBiometryHelper__identitiesForUser_adminOnly___block_invoke(uint64_
 
 - (void)_refreshIdentitiesDueToAccessoryChange:(BOOL)change
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   device = self->_device;
   if (device)
   {
     changeCopy = change;
-    v43 = 0;
-    v6 = [(BKDevice *)device identitiesWithError:&v43];
-    v7 = v43;
+    v44 = 0;
+    v6 = [(BKDevice *)device identitiesWithError:&v44];
+    v7 = v44;
     v8 = v7;
     identities = self->_identities;
     if (!v6)
     {
       self->_identities = 0;
 
-      p_super = LACLogBiometry();
+      p_super = LACLogBiometry(v34);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [LACBiometryHelper _refreshIdentitiesDueToAccessoryChange:];
@@ -1268,31 +1266,31 @@ void __50__LACBiometryHelper__identitiesForUser_adminOnly___block_invoke(uint64_
     }
 
     location = &self->_identities;
-    v34 = changeCopy;
-    v37 = v7;
-    v36 = identities;
+    v35 = changeCopy;
+    v38 = v7;
+    v37 = identities;
     v10 = objc_opt_new();
-    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v38 = v6;
+    v43 = 0u;
+    v39 = v6;
     v11 = v6;
-    v12 = [v11 countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v40 objects:v49 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v40;
+      v14 = *v41;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v40 != v14)
+          if (*v41 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v39 + 1) + 8 * i);
+          v16 = *(*(&v40 + 1) + 8 * i);
           v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v16, "userID")}];
           v18 = [v10 objectForKeyedSubscript:v17];
           v19 = v18;
@@ -1313,32 +1311,33 @@ void __50__LACBiometryHelper__identitiesForUser_adminOnly___block_invoke(uint64_
           [v10 setObject:v21 forKey:v22];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v40 objects:v49 count:16];
       }
 
       while (v13);
     }
 
     objc_storeStrong(location, v10);
-    p_super = &v36->super;
-    if (-[LACBiometryHelper _shouldCacheIdentities](self, "_shouldCacheIdentities") || ([*location isEqualToDictionary:v36] & 1) == 0)
+    _shouldCacheIdentities = [(LACBiometryHelper *)self _shouldCacheIdentities];
+    p_super = &v37->super;
+    if ((_shouldCacheIdentities & 1) != 0 || (_shouldCacheIdentities = [*location isEqualToDictionary:v37], (_shouldCacheIdentities & 1) == 0))
     {
-      v24 = LACLogBiometry();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = LACLogBiometry(_shouldCacheIdentities);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = *location;
+        v26 = *location;
         *buf = 138543618;
-        v45 = v36;
-        v46 = 2114;
-        v47 = v25;
-        _os_log_impl(&dword_1B0233000, v24, OS_LOG_TYPE_DEFAULT, "Identities updated from %{public}@ to %{public}@", buf, 0x16u);
+        v46 = v37;
+        v47 = 2114;
+        v48 = v26;
+        _os_log_impl(&dword_1B0233000, v25, OS_LOG_TYPE_DEFAULT, "Identities updated from %{public}@ to %{public}@", buf, 0x16u);
       }
     }
 
     delegate = [(LACBiometryHelper *)self delegate];
     currentMatchingOperationUserId = [delegate currentMatchingOperationUserId];
 
-    v6 = v38;
+    v6 = v39;
     if (currentMatchingOperationUserId)
     {
       if ([currentMatchingOperationUserId intValue] == -1)
@@ -1351,63 +1350,61 @@ void __50__LACBiometryHelper__identitiesForUser_adminOnly___block_invoke(uint64_
 
       else
       {
-        v28 = [(NSDictionary *)v36 objectForKeyedSubscript:currentMatchingOperationUserId];
-        if (!v28)
+        v29 = [(NSDictionary *)v37 objectForKeyedSubscript:currentMatchingOperationUserId];
+        if (!v29)
         {
           goto LABEL_23;
         }
 
-        v29 = v28;
-        v30 = [v10 objectForKeyedSubscript:currentMatchingOperationUserId];
+        v30 = v29;
+        v31 = [v10 objectForKeyedSubscript:currentMatchingOperationUserId];
 
-        if (v30)
+        if (v31)
         {
           goto LABEL_23;
         }
       }
 
       delegate2 = [(LACBiometryHelper *)self delegate];
-      v32 = [(LACBiometryHelper *)self _errorDisconnected:v34 notEnrolled:1];
-      [delegate2 unEnrolledWithError:v32];
+      v33 = [(LACBiometryHelper *)self _errorDisconnected:v35 notEnrolled:1];
+      [delegate2 unEnrolledWithError:v33];
     }
 
 LABEL_23:
     [(LACBiometryHelper *)self _clearHashes];
 
-    v8 = v37;
+    v8 = v38;
 LABEL_26:
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleEnrollmentChangedNotification
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = MEMORY[0x1E695DEC8];
   allObjects = [(NSHashTable *)self->_observers allObjects];
   v5 = [v3 arrayWithArray:allObjects];
 
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 biometryEnrolledStateDidChangeForHelper:self];
@@ -1417,42 +1414,40 @@ LABEL_26:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleLockoutStateChangedNotification
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = MEMORY[0x1E695DEC8];
   allObjects = [(NSHashTable *)self->_observers allObjects];
   v5 = [v3 arrayWithArray:allObjects];
 
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 biometryLockoutStateDidChangeForHelper:self];
@@ -1462,42 +1457,40 @@ LABEL_26:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleAccessoriesChangedNotification
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = MEMORY[0x1E695DEC8];
   allObjects = [(NSHashTable *)self->_observers allObjects];
   v5 = [v3 arrayWithArray:allObjects];
 
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 biometryAccessoriesDidChangeForHelper:self];
@@ -1507,86 +1500,100 @@ LABEL_26:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetBiometry
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "dropAllUnlockTokens failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = LACLogBiometry(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v11 = "[LACBiometryHelper resetBiometry]";
+    _os_log_impl(&dword_1B0233000, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  device = self->_device;
+  v9 = 0;
+  v5 = [(BKDevice *)device dropAllUnlockTokensWithError:&v9];
+  v6 = v9;
+  v7 = v6;
+  if ((v5 & 1) == 0)
+  {
+    v8 = LACLogBiometry(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [LACBiometryHelper resetBiometry];
+    }
+  }
 }
 
 - (id)dumpStatus
 {
-  v27[1] = *MEMORY[0x1E69E9840];
-  v26 = @"biometryType";
+  v26[1] = *MEMORY[0x1E69E9840];
+  v25 = @"biometryType";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{-[LACBiometryHelper biometryType](self, "biometryType")}];
-  v27[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v26[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
 
   v5 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v4];
-  v24 = 0;
-  v6 = [(LACBiometryHelper *)self isAnyUserEnrolledWithError:&v24];
-  v7 = v24;
+  v23 = 0;
+  v6 = [(LACBiometryHelper *)self isAnyUserEnrolledWithError:&v23];
+  v7 = v23;
   if (v6)
   {
-    v18 = v7;
-    v19 = v4;
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
+    v17 = v7;
+    v18 = v4;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     allKeys = [(NSDictionary *)self->_identities allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v9 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v19 + 1) + 8 * i);
           v14 = [(LACBiometryHelper *)self _dumpEnvironmentForUser:v13];
           v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"user %@", v13];
           [v5 setObject:v14 forKey:v15];
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v10 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v10);
     }
 
-    v7 = v18;
-    v4 = v19;
+    v7 = v17;
+    v4 = v18;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_dumpEnvironmentForUser:(id)user
 {
-  v28[8] = *MEMORY[0x1E69E9840];
+  v27[8] = *MEMORY[0x1E69E9840];
   userCopy = user;
-  v27[0] = @"catacombUUID";
-  v22 = [(LACBiometryHelper *)self catacombUUID:userCopy];
-  v5 = [v22 description];
+  v26[0] = @"catacombUUID";
+  v21 = [(LACBiometryHelper *)self catacombUUID:userCopy];
+  v5 = [v21 description];
   v6 = v5;
   v7 = @"nil";
   if (v5)
@@ -1594,47 +1601,45 @@ LABEL_26:
     v7 = v5;
   }
 
-  v28[0] = v7;
-  v27[1] = @"biometryDbHash";
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke;
-  v25[3] = &unk_1E7A963D8;
-  v25[4] = self;
+  v27[0] = v7;
+  v26[1] = @"biometryDbHash";
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke;
+  v24[3] = &unk_1E7A963D8;
+  v24[4] = self;
   v8 = userCopy;
-  v26 = v8;
-  v21 = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke(v25);
-  v28[1] = v21;
-  v27[2] = @"identities";
+  v25 = v8;
+  v20 = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke(v24);
+  v27[1] = v20;
+  v26[2] = @"identities";
   v9 = MEMORY[0x1E696AD98];
   v10 = [(NSDictionary *)self->_identities objectForKeyedSubscript:v8];
   v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
-  v28[2] = v11;
-  v27[3] = @"lockoutState";
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke_2;
-  v23[3] = &unk_1E7A96400;
-  v23[4] = self;
-  v24 = v8;
+  v27[2] = v11;
+  v26[3] = @"lockoutState";
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke_2;
+  v22[3] = &unk_1E7A96400;
+  v22[4] = self;
+  v23 = v8;
   v12 = v8;
-  v13 = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke_2(v23);
-  v28[3] = v13;
-  v27[4] = @"unlock";
+  v13 = __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke_2(v22);
+  v27[3] = v13;
+  v26[4] = @"unlock";
   v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACBiometryHelper isBiometryOnForUnlock:](self, "isBiometryOnForUnlock:", v12)}];
-  v28[4] = v14;
-  v27[5] = @"ApplePay";
+  v27[4] = v14;
+  v26[5] = @"ApplePay";
   v15 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACBiometryHelper isBiometryOnForApplePay:](self, "isBiometryOnForApplePay:", v12)}];
-  v28[5] = v15;
-  v27[6] = @"periocular";
+  v27[5] = v15;
+  v26[6] = @"periocular";
   v16 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACBiometryHelper isPeriocularMatchingEnabledForUser:](self, "isPeriocularMatchingEnabledForUser:", v12)}];
-  v28[6] = v16;
-  v27[7] = @"identification";
+  v27[6] = v16;
+  v26[7] = @"identification";
   v17 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACBiometryHelper isIdentificationEnabled:](self, "isIdentificationEnabled:", v12)}];
-  v28[7] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:8];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v27[7] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:8];
 
   return v18;
 }
@@ -1695,73 +1700,51 @@ id __45__LACBiometryHelper__dumpEnvironmentForUser___block_invoke_2(uint64_t a1)
 
 - (void)_shouldRetryAvailableDevices
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109120;
-  v4[1] = [self deviceType];
-  _os_log_fault_impl(&dword_1B0233000, a2, OS_LOG_TYPE_FAULT, "Unexpected biometry type: %d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = [self deviceType];
+  _os_log_fault_impl(&dword_1B0233000, a2, OS_LOG_TYPE_FAULT, "Unexpected biometry type: %d", v3, 8u);
 }
 
 - (void)_setupWithFault:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  _os_log_fault_impl(&dword_1B0233000, v0, OS_LOG_TYPE_FAULT, "%{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B0233000, v0, OS_LOG_TYPE_FAULT, "%{public}@", v1, 0xCu);
 }
 
 - (void)isLockedOutForUser:adminOnly:request:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1B0233000, v1, OS_LOG_TYPE_DEBUG, "isLockedOutForUser() - UID: %{public}@, request: %{public}@.", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1B0233000, v1, OS_LOG_TYPE_DEBUG, "isLockedOutForUser() - UID: %{public}@, request: %{public}@.", v2, 0x16u);
 }
 
 - (void)isLockedOutForUser:(uint64_t)a3 adminOnly:(uint64_t)a4 request:(uint64_t)a5 error:(uint64_t)a6 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_1(&dword_1B0233000, a2, a3, "bioLockoutState failed: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)catacombUUID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Failed to determine catacomb UUID: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_1(&dword_1B0233000, a2, a3, "bioLockoutState failed: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_protectedConfigurationForUser:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B0233000, v1, OS_LOG_TYPE_ERROR, "Failed to get protected configuration for user %{public}@: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B0233000, v1, OS_LOG_TYPE_ERROR, "Failed to get protected configuration for user %{public}@: %{public}@", v2, 0x16u);
 }
 
 - (void)_identitiesForUser:adminOnly:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  v4 = 1026;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1B0233000, v1, OS_LOG_TYPE_DEBUG, "_identitiesForUser() - UID: %{public}@ adminOnly: %{public}d", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_refreshIdentitiesDueToAccessoryChange:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Failed to read identities: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 1026;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1B0233000, v1, OS_LOG_TYPE_DEBUG, "_identitiesForUser() - UID: %{public}@ adminOnly: %{public}d", v2, 0x12u);
 }
 
 @end

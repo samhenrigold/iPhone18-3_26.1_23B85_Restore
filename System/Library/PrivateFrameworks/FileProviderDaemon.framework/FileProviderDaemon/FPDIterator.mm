@@ -1,4 +1,5 @@
 @interface FPDIterator
++ (id)hybridIteratorForItem:(id)item domain:(id)domain enforceFPItem:(BOOL)pItem;
 + (id)iteratorForLocator:(id)locator manager:(id)manager;
 + (id)iteratorForLocator:(id)locator wantsDisk:(BOOL)disk provider:(id)provider;
 - (BOOL)done;
@@ -115,6 +116,16 @@ LABEL_15:
   return v16;
 }
 
++ (id)hybridIteratorForItem:(id)item domain:(id)domain enforceFPItem:(BOOL)pItem
+{
+  pItemCopy = pItem;
+  domainCopy = domain;
+  itemCopy = item;
+  v9 = [[FPDHybridIterator alloc] initWithItem:itemCopy domain:domainCopy enforceFPItem:pItemCopy];
+
+  return v9;
+}
+
 - (id)nextWithError:(id *)error
 {
   v7 = *MEMORY[0x1E69E9840];
@@ -170,11 +181,10 @@ LABEL_15:
 
 + (void)iteratorForLocator:(uint64_t)a1 wantsDisk:(NSObject *)a2 provider:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Item %@ is a disk identifier, forcing disk enumeration", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Item %@ is a disk identifier, forcing disk enumeration", &v2, 0xCu);
 }
 
 @end

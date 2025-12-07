@@ -31,7 +31,7 @@
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   *(&self->super.isa + OBJC_IVAR____TtC9feedbackdP33_109D9EA95C5E46A2F39C291451DCB14618RemoteAlertManager_remoteAlertHandle) = 0;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for RemoteAlertManager();
+  v6.super_class = type metadata accessor for RemoteAlertManager(0);
   return [(RemoteAlertManager *)&v6 init];
 }
 

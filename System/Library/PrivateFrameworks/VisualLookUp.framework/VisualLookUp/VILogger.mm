@@ -35,7 +35,7 @@
 
 + (OS_os_log)verboseLog
 {
-  v2 = _s12VisualLookUp8VILoggerC10verboseLogSo9OS_os_logCvgZ_0();
+  v2 = _s12VisualLookUp8VILoggerC10verboseLogSo9OS_os_logCvgZ_0(self);
 
   return v2;
 }

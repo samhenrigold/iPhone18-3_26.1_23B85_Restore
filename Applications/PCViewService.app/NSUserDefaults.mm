@@ -8,6 +8,9 @@
 - (int64_t)updateRateExecuteWatch;
 - (void)setExecuteDistanceDefault:(double)default;
 - (void)setExecuteDistanceLarge:(double)large;
+- (void)setForceKillPCViewService:(BOOL)service;
+- (void)setForceKillProximitycontrold:(BOOL)proximitycontrold;
+- (void)setTransferToHomePod:(BOOL)pod;
 - (void)setUpdateRateBluetoothWatch:(int64_t)watch;
 - (void)setUpdateRateExecuteWatch:(int64_t)watch;
 @end
@@ -23,6 +26,14 @@
   return v4;
 }
 
+- (void)setForceKillProximitycontrold:(BOOL)proximitycontrold
+{
+  proximitycontroldCopy = proximitycontrold;
+  selfCopy = self;
+  v4 = String._bridgeToObjectiveC()();
+  [(NSUserDefaults *)selfCopy setBool:proximitycontroldCopy forKey:v4];
+}
+
 - (BOOL)forceKillPCViewService
 {
   selfCopy = self;
@@ -32,6 +43,14 @@
   return v4;
 }
 
+- (void)setForceKillPCViewService:(BOOL)service
+{
+  serviceCopy = service;
+  selfCopy = self;
+  v4 = String._bridgeToObjectiveC()();
+  [(NSUserDefaults *)selfCopy setBool:serviceCopy forKey:v4];
+}
+
 - (BOOL)transferToHomePod
 {
   selfCopy = self;
@@ -39,6 +58,14 @@
   v4 = [(NSUserDefaults *)selfCopy BOOLForKey:v3];
 
   return v4;
+}
+
+- (void)setTransferToHomePod:(BOOL)pod
+{
+  podCopy = pod;
+  selfCopy = self;
+  v4 = String._bridgeToObjectiveC()();
+  [(NSUserDefaults *)selfCopy setBool:podCopy forKey:v4];
 }
 
 - (double)executeDistanceDefault

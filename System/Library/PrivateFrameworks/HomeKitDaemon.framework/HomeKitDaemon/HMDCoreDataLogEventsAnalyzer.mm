@@ -68,7 +68,7 @@ void __44__HMDCoreDataLogEventsAnalyzer_runDailyTask__block_invoke(uint64_t a1, 
 
 - (void)handleCloudKitOperationEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -76,11 +76,11 @@ void __44__HMDCoreDataLogEventsAnalyzer_runDailyTask__block_invoke(uint64_t a1, 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2048;
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2048;
     operationType = [eventCopy operationType];
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Processing HMDCoreDataCloudKitOperationLogEvent, operationType: %lu", &v13, 0x16u);
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Processing HMDCoreDataCloudKitOperationLogEvent, operationType: %lu", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -98,13 +98,11 @@ LABEL_7:
     aggregationEventGroup = [(HMDCoreDataLogEventsAnalyzer *)selfCopy aggregationEventGroup];
     [aggregationEventGroup incrementEventCounterForEventName:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWorkingStoreTransactionEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -113,51 +111,49 @@ LABEL_7:
   {
     v8 = HMFGetLogIdentifier();
     transactionAuthor = [eventCopy transactionAuthor];
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = transactionAuthor;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Processing HMDCoreDataWorkingStoreTransactionLogEvent, author: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = transactionAuthor;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Processing HMDCoreDataWorkingStoreTransactionLogEvent, author: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   aggregationEventGroup = [(HMDCoreDataLogEventsAnalyzer *)selfCopy aggregationEventGroup];
   [aggregationEventGroup incrementEventCounterForEventName:@"WorkingStoreCommitCount"];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCloudStoreTransactionEvent:(id)event
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   aggregationEventGroup = [(HMDCoreDataLogEventsAnalyzer *)self aggregationEventGroup];
   [aggregationEventGroup incrementEventCounterForEventName:@"CloudStoreCommitCount"];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = [eventCopy reasons];
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v27;
+    v9 = *v26;
     *&v7 = 138543874;
-    v23 = v7;
+    v22 = v7;
     do
     {
       v10 = 0;
-      v24 = v8;
+      v23 = v8;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * v10);
+        v11 = *(*(&v25 + 1) + 8 * v10);
         reasons = [eventCopy reasons];
         v13 = [reasons countForObject:v11];
 
@@ -170,18 +166,18 @@ LABEL_7:
           v17 = v9;
           v18 = eventCopy;
           v20 = v19 = self;
-          *buf = v23;
-          v31 = v20;
-          v32 = 2112;
-          v33 = v11;
-          v34 = 2048;
-          v35 = v13;
+          *buf = v22;
+          v30 = v20;
+          v31 = 2112;
+          v32 = v11;
+          v33 = 2048;
+          v34 = v13;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Processing HMDCoreDataCloudStoreTransactionLogEvent with reason: %@ reasonCount: %lu", buf, 0x20u);
 
           self = v19;
           eventCopy = v18;
           v9 = v17;
-          v8 = v24;
+          v8 = v23;
         }
 
         objc_autoreleasePoolPop(v14);
@@ -192,13 +188,11 @@ LABEL_7:
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v8);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeEvent:(id)event
@@ -284,11 +278,11 @@ LABEL_7:
 
 - (HMDCoreDataLogEventsAnalyzer)initWithDataSource:(id)source
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
-  v28.receiver = self;
-  v28.super_class = HMDCoreDataLogEventsAnalyzer;
-  v5 = [(HMDCoreDataLogEventsAnalyzer *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMDCoreDataLogEventsAnalyzer;
+  v5 = [(HMDCoreDataLogEventsAnalyzer *)&v27 init];
   if (v5)
   {
     legacyCountersManager = [sourceCopy legacyCountersManager];
@@ -330,27 +324,25 @@ LABEL_7:
     }
 
     logEventDispatcher = [sourceCopy logEventDispatcher];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v29[2] = objc_opt_class();
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v28[2] = objc_opt_class();
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
     [logEventDispatcher addObserver:v5 forEventClasses:v24];
 
     dailyScheduler = [sourceCopy dailyScheduler];
     [dailyScheduler registerDailyTaskRunner:v5];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (id)managedEventCounterRequestGroups
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"CoreDataAggregationEventGroup";
-  v5[1] = @"CoreDataCloudStoreReasonsGroup";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"CoreDataAggregationEventGroup";
+  v4[1] = @"CoreDataCloudStoreReasonsGroup";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

@@ -101,7 +101,7 @@ LABEL_14:
   if ([(NUVideoSourceNode *)self load:attributes])
   {
     v4 = [NUVideoAttributes alloc];
-    [(NUVideoSourceNode *)self duration];
+    objc_msgSend_duration(self);
     v5 = [(NUVideoAttributes *)v4 initWithDuration:v7];
   }
 
@@ -132,20 +132,20 @@ LABEL_14:
     v12 = v11;
     if (v11)
     {
-      [v11 nu_pixelRect];
+      objc_msgSend_nu_pixelRect(v11);
       v20 = 0uLL;
       v21 = v22;
     }
 
     else
     {
-      [(NUVideoSourceNode *)self cleanAperture];
+      objc_msgSend_cleanAperture(self);
       v20 = v18;
       v21 = v19;
     }
 
     [(_NUVideoProperties *)v7 setCleanAperture:&v20];
-    [(NUVideoSourceNode *)self cleanAperture];
+    objc_msgSend_cleanAperture(self);
     v20 = v16;
     v21 = v17;
     [(_NUVideoProperties *)v7 setOriginalCleanAperture:&v20];
@@ -154,7 +154,7 @@ LABEL_14:
     v20 = *&self->_livePhotoKeyFrameTime.value;
     *&v21 = self->_livePhotoKeyFrameTime.epoch;
     [(_NUVideoProperties *)v7 setLivePhotoKeyFrameTime:&v20];
-    [(NUVideoSourceNode *)self duration];
+    objc_msgSend_duration(self);
     v20 = v14;
     *&v21 = v15;
     [(_NUVideoProperties *)v7 setDuration:&v20];
@@ -351,7 +351,7 @@ LABEL_16:
     if (stateCopy)
     {
 LABEL_3:
-      [stateCopy time];
+      objc_msgSend_time(stateCopy);
       goto LABEL_6;
     }
   }
@@ -506,7 +506,7 @@ LABEL_6:
       _NUAssertFailHandler("[NUVideoSourceNode resolvedNodeWithCachedInputs:settings:pipelineState:error:]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Pipeline/NURenderSourceNode+Video.m", 817, @"Unsupported pipelineState evaluation mode: %@", v80, v81, v82, v83, v13);
     }
 
-    if (!v13 || ([v13 time], (v86 & 1) == 0))
+    if (!v13 || (objc_msgSend_time(v13), (v86 & 1) == 0))
     {
       [NUError unsupportedError:@"invalid frame time" object:v13];
       *error = selfCopy = 0;
@@ -557,7 +557,7 @@ LABEL_51:
     }
 
     v42 = [NUKeyFrameSourceNode alloc];
-    [v13 time];
+    objc_msgSend_time(v13);
     v24 = [(NUKeyFrameSourceNode *)v42 initWithVideoSource:self time:buf settings:v17 orientation:[(NUVideoSourceNode *)self sourceOrientation]];
     goto LABEL_36;
   }
@@ -928,10 +928,10 @@ LABEL_16:
       [v9 naturalSize];
       [v10 setRenderSize:?];
       [v10 setSourceTrackIDForFrameTiming:{objc_msgSend(v9, "trackID")}];
-      [v9 minFrameDuration];
-      if ((v42 & 1) != 0 && ([v9 minFrameDuration], time2 = **&MEMORY[0x1E6960CC0], CMTimeCompare(&time1, &time2) >= 1))
+      objc_msgSend_minFrameDuration(v9);
+      if ((v42 & 1) != 0 && (objc_msgSend_minFrameDuration(v9), time2 = **&MEMORY[0x1E6960CC0], CMTimeCompare(&time1, &time2) >= 1))
       {
-        [v9 minFrameDuration];
+        objc_msgSend_minFrameDuration(v9);
         *&time1.value = v39;
         epoch = v40;
       }
@@ -957,7 +957,7 @@ LABEL_16:
 
       time1.epoch = epoch;
       [v10 setFrameDuration:&time1];
-      if (v10 && ([v10 frameDuration], (v36 & 1) != 0) && (objc_msgSend(v10, "frameDuration"), time2 = **&MEMORY[0x1E6960CC0], CMTimeCompare(&time1, &time2) > 0))
+      if (v10 && (objc_msgSend_frameDuration(v10), (v36 & 1) != 0) && (objc_msgSend_frameDuration(v10), time2 = **&MEMORY[0x1E6960CC0], CMTimeCompare(&time1, &time2) > 0))
       {
         v15 = [NUVideoCompositionInstruction defaultInstructionForAsset:v8 error:error];
         v16 = v15;
@@ -1092,7 +1092,7 @@ LABEL_16:
   v100 = 0u;
   v101 = 0u;
   v99 = 0u;
-  [v9 timeRange];
+  objc_msgSend_timeRange(v9);
   v59 = [NUVideoUtilities metadataTrackWithPortraitVideoDataInAsset:self->_asset];
   if (v59 && ![NUVideoUtilities track:v59 hasSamplesForEachSampleInTrack:v63])
   {
@@ -1193,7 +1193,7 @@ LABEL_16:
           v88 = 0u;
           if (v21)
           {
-            [v21 timeRange];
+            objc_msgSend_timeRange(v21);
           }
 
           else
@@ -1205,7 +1205,7 @@ LABEL_16:
           time2 = v99;
           time2_16 = v100;
           v86 = v101;
-          [NUVideoUtilities conformRange:time1 inRange:&time2];
+          objc_msgSend_conformRange_inRange_(NUVideoUtilities);
           if (BYTE12(v88))
           {
             v22 = 1;
@@ -1411,7 +1411,7 @@ double __36__NUVideoSourceNode__evaluateVideo___block_invoke_2(void *a1, CFDicti
   v7 = a1[5];
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else
@@ -1544,7 +1544,7 @@ double __36__NUVideoSourceNode__evaluateVideo___block_invoke_2(void *a1, CFDicti
     v8 = v7;
     if (v7)
     {
-      [v7 nu_pixelRect];
+      objc_msgSend_nu_pixelRect(v7);
       width = v32;
       p_height = &v33;
     }
@@ -1719,7 +1719,7 @@ __n128 __26__NUVideoSourceNode_load___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __26__NUVideoSourceNode_load___block_invoke_2(uint64_t a1)
+void *__26__NUVideoSourceNode_load___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _load:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2226,7 +2226,7 @@ LABEL_28:
         selfCopy->_corruptionInfo = v31;
       }
 
-      [v26 preferredTransform];
+      objc_msgSend_preferredTransform(v26);
       selfCopy->_orientation = [NUVideoUtilities videoOrientationForAssetPreferredTransform:&buf];
       [v26 nominalFrameRate];
       selfCopy->_nominalFrameRate = v33;
@@ -2326,7 +2326,7 @@ LABEL_28:
 
         if (originalNode)
         {
-          [NUVideoUtilities readStillImageTimeFromVideoAsset:selfCopy->_asset];
+          objc_msgSend_readStillImageTimeFromVideoAsset_(NUVideoUtilities);
           *&selfCopy->_livePhotoKeyFrameTime.value = buf.origin;
           selfCopy->_livePhotoKeyFrameTime.epoch = *&buf.size.width;
         }
@@ -2334,7 +2334,7 @@ LABEL_28:
         v58 = selfCopy->_asset;
         if (v58)
         {
-          [(AVAsset *)v58 duration];
+          objc_msgSend_duration(v58);
         }
 
         else
@@ -2460,7 +2460,7 @@ LABEL_6:
   {
     v17 = 0u;
     v18 = 0u;
-    [(NUVideoSourceNode *)self cleanAperture];
+    objc_msgSend_cleanAperture(self);
   }
 
   v15 = [v7 copy];

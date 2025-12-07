@@ -3,6 +3,7 @@
 - (SFEndLocalSearchFeedback)initWithStartSearch:(id)search;
 - (SFEndLocalSearchFeedback)initWithStartSearch:(id)search queryUnderstandingParse:(id)parse;
 - (SFEndLocalSearchFeedback)initWithStartSearch:(id)search queryUnderstandingParse:(id)parse l1ToL2ResultCount:(unsigned int)count coreSpotlightIndexCount:(unsigned int)indexCount;
+- (SFEndLocalSearchFeedback)initWithStartSearch:(id)search queryUnderstandingParse:(id)parse l1ToL2ResultCount:(unsigned int)count coreSpotlightIndexCount:(unsigned int)indexCount embeddingState:(id)state;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -52,6 +53,21 @@
   }
 
   return v5;
+}
+
+- (SFEndLocalSearchFeedback)initWithStartSearch:(id)search queryUnderstandingParse:(id)parse l1ToL2ResultCount:(unsigned int)count coreSpotlightIndexCount:(unsigned int)indexCount embeddingState:(id)state
+{
+  v8 = *&indexCount;
+  v9 = *&count;
+  stateCopy = state;
+  v14 = [(SFEndLocalSearchFeedback *)self initWithStartSearch:search queryUnderstandingParse:parse l1ToL2ResultCount:v9 coreSpotlightIndexCount:v8];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_embeddingState, state);
+  }
+
+  return v15;
 }
 
 - (SFEndLocalSearchFeedback)initWithStartSearch:(id)search queryUnderstandingParse:(id)parse l1ToL2ResultCount:(unsigned int)count coreSpotlightIndexCount:(unsigned int)indexCount

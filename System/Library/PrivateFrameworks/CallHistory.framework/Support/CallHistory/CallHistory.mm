@@ -3,89 +3,84 @@ int main(int argc, const char **argv, const char **envp)
   if (sub_10000133C())
   {
     v3 = type metadata accessor for CallHistoryDaemon();
-    v56 = v41;
+    v51 = v36;
     v4 = *(v3 - 8);
-    v5 = *(v4 + 64);
     __chkstk_darwin();
-    v7 = v41 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v6 = v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
     CallHistoryDaemon.init()();
-    v8 = type metadata accessor for Logger();
-    v9 = *(v8 - 8);
-    v10 = *(v9 + 64);
+    v7 = type metadata accessor for Logger();
+    v8 = *(v7 - 8);
     __chkstk_darwin();
-    v12 = v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v10 = v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
     static Log.daemon.getter();
-    v13 = Logger.logObject.getter();
-    v14 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v13, v14))
+    v11 = Logger.logObject.getter();
+    v12 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v11, v12))
     {
-      v15 = swift_slowAlloc();
-      v51 = v15;
-      v52 = swift_slowAlloc();
-      v57 = v52;
-      *v15 = 136315138;
-      v47 = type metadata accessor for Date();
-      v48 = v41;
-      v46 = *(v47 - 8);
-      v16 = *(v46 + 64);
+      v13 = swift_slowAlloc();
+      v46 = v13;
+      v47 = swift_slowAlloc();
+      v52 = v47;
+      *v13 = 136315138;
+      v42 = type metadata accessor for Date();
+      v43 = v36;
+      v41 = *(v42 - 8);
       __chkstk_darwin();
-      v49 = v13;
-      v18 = v41 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v44 = v11;
+      v15 = v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
       Date.init()();
-      v42 = type metadata accessor for Date.FormatStyle.DateStyle();
-      v45 = v41;
-      v19 = *(v42 - 8);
-      v50 = v9;
-      v20 = v19;
-      v21 = *(v19 + 64);
+      v37 = type metadata accessor for Date.FormatStyle.DateStyle();
+      v40 = v36;
+      v16 = *(v37 - 8);
+      v45 = v8;
+      v17 = v16;
       __chkstk_darwin();
-      v55 = v3;
-      v23 = v41 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v50 = v3;
+      v19 = v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
       static Date.FormatStyle.DateStyle.complete.getter();
-      v24 = type metadata accessor for Date.FormatStyle.TimeStyle();
-      v44 = v14;
-      v25 = v24;
-      v41[1] = v41;
-      v26 = *(v24 - 8);
-      v54 = v7;
-      v27 = v4;
-      v28 = v26;
-      v29 = *(v26 + 64);
+      v20 = type metadata accessor for Date.FormatStyle.TimeStyle();
+      v39 = v12;
+      v21 = v20;
+      v36[1] = v36;
+      v22 = *(v20 - 8);
+      v49 = v6;
+      v23 = v4;
+      v24 = v22;
       __chkstk_darwin();
-      v31 = v41 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = v36 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
       static Date.FormatStyle.TimeStyle.complete.getter();
-      v32 = Date.formatted(date:time:)();
-      v53 = v41;
-      v33 = v32;
-      v43 = v8;
-      v35 = v34;
-      (*(v28 + 8))(v31, v25);
-      v4 = v27;
-      v36 = v23;
-      v7 = v54;
-      v3 = v55;
-      (*(v20 + 8))(v36, v42);
-      (*(v46 + 8))(v18, v47);
-      v37 = sub_100001420(v33, v35, &v57);
+      v27 = Date.formatted(date:time:)();
+      v48 = v36;
+      v28 = v27;
+      v38 = v7;
+      v30 = v29;
+      (*(v24 + 8))(v26, v21);
+      v4 = v23;
+      v31 = v19;
+      v6 = v49;
+      v3 = v50;
+      (*(v17 + 8))(v31, v37);
+      (*(v41 + 8))(v15, v42);
+      v32 = sub_100001420(v28, v30, &v52);
 
-      v38 = v51;
-      *(v51 + 1) = v37;
-      v39 = v49;
-      _os_log_impl(&_mh_execute_header, v49, v44, "Started daemon at %s", v38, 0xCu);
-      sub_1000019C8(v52);
+      v33 = v46;
+      *(v46 + 1) = v32;
+      v34 = v44;
+      _os_log_impl(&_mh_execute_header, v44, v39, "Started daemon at %s", v33, 0xCu);
+      sub_1000019C8(v47);
 
-      (*(v50 + 8))(v12, v43);
+      (*(v45 + 8))(v10, v38);
     }
 
     else
     {
 
-      (*(v9 + 8))(v12, v8);
+      (*(v8 + 8))(v10, v7);
     }
 
     sub_1000013D4();
     Daemon.main()();
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
   return 0;
@@ -219,11 +214,9 @@ LABEL_8:
 
 char *sub_1000015F8(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100001644(a1, a2);
+  v3 = sub_100001644(a1, a2);
   sub_100001774(&off_1000041A8);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100001644(uint64_t a1, unint64_t a2)
@@ -323,7 +316,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -337,15 +329,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_1000018D4(result, v12, 1, v3);
+  result = sub_1000018D4(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -360,15 +352,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -377,12 +369,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -517,7 +509,6 @@ uint64_t sub_100001A70(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

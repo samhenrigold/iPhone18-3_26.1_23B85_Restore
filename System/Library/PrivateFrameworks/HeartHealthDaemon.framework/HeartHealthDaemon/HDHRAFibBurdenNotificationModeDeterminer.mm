@@ -8,6 +8,8 @@
 - (id)_noNotification;
 - (id)_notificationWithCurrentValue:(id)value errorOut:(id *)out;
 - (id)_previousSampleFromCurrentValue:(id)value error:(id *)error;
+- (id)notificationModeForCurrentValue:(id)value featureStatus:(id)status onboardedWithinAnalysisInterval:(BOOL)interval endWeekdayToFire:(int64_t)fire error:(id *)error;
+- (id)notificationModeForCurrentValue:(id)value featureStatus:(id)status onboardedWithinAnalysisInterval:(BOOL)interval error:(id *)error;
 - (void)_extractFromSample:(id)sample percentageValue:(id *)value isClamped:(id *)clamped;
 @end
 
@@ -32,6 +34,89 @@
   }
 
   return v12;
+}
+
+- (id)notificationModeForCurrentValue:(id)value featureStatus:(id)status onboardedWithinAnalysisInterval:(BOOL)interval error:(id *)error
+{
+  intervalCopy = interval;
+  statusCopy = status;
+  valueCopy = value;
+  v12 = [(HDHRAFibBurdenNotificationModeDeterminer *)self notificationModeForCurrentValue:valueCopy featureStatus:statusCopy onboardedWithinAnalysisInterval:intervalCopy endWeekdayToFire:HKHRAFibBurdenSevenDayAnalysisNotificationEndWeekdayToFire() error:error];
+
+  return v12;
+}
+
+- (id)notificationModeForCurrentValue:(id)value featureStatus:(id)status onboardedWithinAnalysisInterval:(BOOL)interval endWeekdayToFire:(int64_t)fire error:(id *)error
+{
+  intervalCopy = interval;
+  v24 = *MEMORY[0x277D85DE8];
+  valueCopy = value;
+  statusCopy = status;
+  if ([(HDHRAFibBurdenNotificationModeDeterminer *)self _shouldShowNotificationWithEndWeekdayToFire:fire])
+  {
+    requirementsEvaluationByContext = [statusCopy requirementsEvaluationByContext];
+    v15 = [requirementsEvaluationByContext objectForKeyedSubscript:*MEMORY[0x277D12E58]];
+    areAllRequirementsSatisfied = [v15 areAllRequirementsSatisfied];
+
+    if ((areAllRequirementsSatisfied & 1) == 0)
+    {
+      _HKInitializeLogging();
+      v18 = HKHRAFibBurdenLogForCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      {
+        [HDHRAFibBurdenNotificationModeDeterminer notificationModeForCurrentValue:v18 featureStatus:? onboardedWithinAnalysisInterval:? endWeekdayToFire:? error:?];
+      }
+
+      goto LABEL_14;
+    }
+
+    if (HKHRAFibBurdenNotificationsEnabledWithFeatureStatus())
+    {
+      if (valueCopy)
+      {
+        [(HDHRAFibBurdenNotificationModeDeterminer *)self _notificationWithCurrentValue:valueCopy errorOut:error];
+      }
+
+      else
+      {
+        [(HDHRAFibBurdenNotificationModeDeterminer *)self _noDataNotificationWithFeatureStatus:statusCopy onboardedWithinAnalysisInterval:intervalCopy];
+      }
+      _noNotification = ;
+      goto LABEL_15;
+    }
+
+    _HKInitializeLogging();
+    v18 = HKHRAFibBurdenLogForCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 138543362;
+      selfCopy2 = self;
+      v19 = "[%{public}@] User has weekly notifications turned off, suppressing notification";
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    v18 = HKHRAFibBurdenLogForCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = 138543362;
+      selfCopy2 = self;
+      v19 = "[%{public}@] Not showing notification as it is after the cutoff day";
+LABEL_9:
+      _os_log_impl(&dword_229486000, v18, OS_LOG_TYPE_DEFAULT, v19, &v22, 0xCu);
+    }
+  }
+
+LABEL_14:
+
+  _noNotification = [(HDHRAFibBurdenNotificationModeDeterminer *)self _noNotification];
+LABEL_15:
+  v20 = _noNotification;
+
+  return v20;
 }
 
 - ($0AC6E346AE4835514AAA8AC86D8F4844)_dayIndexRangeFromSample:(id)sample
@@ -136,7 +221,7 @@
 
 - (id)_noDataNotificationWithFeatureStatus:(id)status onboardedWithinAnalysisInterval:(BOOL)interval
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (interval)
   {
     _HKInitializeLogging();
@@ -159,8 +244,6 @@
 
     _noNotification = [objc_alloc(MEMORY[0x277D12F50]) initWithType:3 shouldForwardToWatch:areAllRequirementsSatisfied currentPercentage:0 currentValueClamped:0 currentValueDateInterval:0 currentValueUUID:0 previousPercentage:0 previousValueClamped:0 previousTimeZoneDiffersFromCurrent:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return _noNotification;
 }
@@ -227,20 +310,18 @@
 
 - (void)notificationModeForCurrentValue:(uint64_t)a1 featureStatus:(NSObject *)a2 onboardedWithinAnalysisInterval:endWeekdayToFire:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%{public}@] Attempting to post notification for analysis when analysis is not allowed", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%{public}@] Attempting to post notification for analysis when analysis is not allowed", &v2, 0xCu);
 }
 
 - (void)_notificationWithCurrentValue:(uint64_t)a1 errorOut:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%{public}@] Notified sample created, but most recent sample is not for previous calendar week", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%{public}@] Notified sample created, but most recent sample is not for previous calendar week", &v2, 0xCu);
 }
 
 @end

@@ -54,7 +54,7 @@
 
 id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(uint64_t a1)
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69DCAD8];
   v3 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD08]];
   v4 = [v3 _mapkit_fontWithWeight:1.0];
@@ -67,17 +67,17 @@ id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(u
   v10 = v6;
   v11 = objc_alloc_init(v9);
   v12 = [v10 imageWithRenderingMode:2];
-  v60 = v10;
+  v59 = v10;
 
   [v11 setImage:v12];
   v13 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v11];
   v14 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v13];
-  v59 = *MEMORY[0x1E69DB650];
-  v61 = *MEMORY[0x1E69DB650];
-  v62[0] = v8;
+  v58 = *MEMORY[0x1E69DB650];
+  v60 = *MEMORY[0x1E69DB650];
+  v61[0] = v8;
   v15 = MEMORY[0x1E695DF20];
   v16 = v8;
-  v17 = [v15 dictionaryWithObjects:v62 forKeys:&v61 count:1];
+  v17 = [v15 dictionaryWithObjects:v61 forKeys:&v60 count:1];
 
   [v14 addAttributes:v17 range:{0, objc_msgSend(v14, "length")}];
   v18 = [v14 copy];
@@ -95,8 +95,8 @@ id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(u
     v25 = +[MUEVChargingHelper localizedStringForAvailableChargers:outOfTotal:](MUEVChargingHelper, "localizedStringForAvailableChargers:outOfTotal:", v23, [v24 total]);
 
     v26 = [*(a1 + 32) aggregatedInfo];
-    v58 = v18;
-    v57 = v21;
+    v57 = v18;
+    v56 = v21;
     if ([v26 available])
     {
       [MEMORY[0x1E69DC888] systemGreenColor];
@@ -126,11 +126,11 @@ id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(u
     [v44 setImage:v45];
     v46 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v44];
     v47 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:v46];
-    v61 = v59;
-    v62[0] = v42;
+    v60 = v58;
+    v61[0] = v42;
     v48 = MEMORY[0x1E695DF20];
     v49 = v42;
-    v50 = [v48 dictionaryWithObjects:v62 forKeys:&v61 count:1];
+    v50 = [v48 dictionaryWithObjects:v61 forKeys:&v60 count:1];
 
     [v47 addAttributes:v50 range:{0, objc_msgSend(v47, "length")}];
     v51 = [v47 copy];
@@ -143,8 +143,8 @@ id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(u
     [v19 addObject:v52];
     [v19 addObject:v51];
 
-    v18 = v58;
-    v21 = v57;
+    v18 = v57;
+    v21 = v56;
   }
 
   else
@@ -165,8 +165,6 @@ id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(u
   }
 
   v54 = [MapsUILayout buildAttributedDisplayStringForComponents:v19 reverseIfRTLLayout:v21 == 0];
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v54;
 }
@@ -200,7 +198,7 @@ id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(u
 
 + (id)attributedStringFromString:(id)string color:(id)color
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   colorCopy = color;
   v6 = MEMORY[0x1E696AAB0];
   stringCopy = string;
@@ -208,16 +206,15 @@ id __58__MUPlaceRibbonEVChargingViewModel__updateStringProviders__block_invoke(u
   v9 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
   v10 = [v9 _mapkit_fontWithWeight:*MEMORY[0x1E69DB970]];
   v11 = *MEMORY[0x1E69DB650];
-  v18[0] = *MEMORY[0x1E69DB648];
-  v18[1] = v11;
-  v19[0] = v10;
-  v19[1] = colorCopy;
+  v17[0] = *MEMORY[0x1E69DB648];
+  v17[1] = v11;
+  v18[0] = v10;
+  v18[1] = colorCopy;
   v12 = MEMORY[0x1E695DF20];
   v13 = colorCopy;
-  v14 = [v12 dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v14 = [v12 dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   v15 = [v8 initWithString:stringCopy attributes:v14];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

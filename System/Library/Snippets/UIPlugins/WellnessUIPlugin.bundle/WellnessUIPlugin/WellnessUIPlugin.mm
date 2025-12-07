@@ -5,7 +5,7 @@ Swift::Int ResponseFrameworkPlaceholder.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ResponseFrameworkPlaceholder()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ResponseFrameworkPlaceholder(uint64_t a1)
 {
   Hasher.init(_seed:)();
   ResponseFrameworkPlaceholder.hash(into:)();

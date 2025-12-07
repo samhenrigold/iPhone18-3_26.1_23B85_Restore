@@ -67,15 +67,14 @@
 {
   v4 = sub_EB10();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   controllerCopy = controller;
   traitCollection = [controllerCopy traitCollection];
   sub_EC60();
 
   LOBYTE(traitCollection) = sub_EAF0();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return traitCollection & 1;
 }
 
@@ -83,17 +82,14 @@
 {
   v5 = sub_EB10();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_EC80();
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  v12 = sub_EAE0();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_EC80();
+  __chkstk_darwin(v9 - 8);
+  v10 = sub_EAE0();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   controllerCopy = controller;
   sub_EC70();
   sub_EAD0();
@@ -103,8 +99,8 @@
   sub_E4B0();
   sub_EB00();
 
-  (*(v6 + 8))(v9, v5);
-  (*(v13 + 8))(v16, v12);
+  (*(v6 + 8))(v8, v5);
+  (*(v11 + 8))(v13, v10);
 }
 
 @end

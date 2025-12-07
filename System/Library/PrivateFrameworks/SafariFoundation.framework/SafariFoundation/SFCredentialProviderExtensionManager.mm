@@ -137,12 +137,12 @@ void __64__SFCredentialProviderExtensionManager__beginExtensionDiscovery__block_
   }
 }
 
-uint64_t __64__SFCredentialProviderExtensionManager__beginExtensionDiscovery__block_invoke_2(uint64_t result)
+void *__64__SFCredentialProviderExtensionManager__beginExtensionDiscovery__block_invoke_2(void *result)
 {
-  *(*(result + 32) + 48) = *(result + 40) != 0;
-  if (!*(result + 40))
+  *(*(result + 4) + 48) = *(result + 5) != 0;
+  if (!*(result + 5))
   {
-    return [*(result + 32) _updateExtensions:*(result + 48)];
+    return [*(result + 4) _updateExtensions:*(result + 6)];
   }
 
   return result;
@@ -210,7 +210,7 @@ void __76__SFCredentialProviderExtensionManager_getExtensionWithBundleID_complet
 
 void __76__SFCredentialProviderExtensionManager_getExtensionWithBundleID_completion___block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -219,41 +219,41 @@ void __76__SFCredentialProviderExtensionManager_getExtensionWithBundleID_complet
   {
     *(v8 + 24) = 1;
     v9 = *(a1 + 40);
-    v25 = v6;
+    v26 = v6;
     v10 = *(a1 + 32);
-    v26 = v5;
+    v27 = v5;
     [v5 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_179];
-    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v11 = v30 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v30 = 0u;
+    v11 = v31 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v29;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
+          v16 = *(*(&v28 + 1) + 8 * i);
           v17 = [v16 sf_bundleIdentifierForContainingApp];
           v18 = [v17 isEqualToString:v10];
 
           if (v18)
           {
-            v20 = v16;
+            v22 = v16;
 
             goto LABEL_14;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v13)
         {
           continue;
@@ -263,31 +263,29 @@ void __76__SFCredentialProviderExtensionManager_getExtensionWithBundleID_complet
       }
     }
 
-    v19 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v19, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      __76__SFCredentialProviderExtensionManager_getExtensionWithBundleID_completion___block_invoke_7_cold_1(v19);
+      __76__SFCredentialProviderExtensionManager_getExtensionWithBundleID_completion___block_invoke_7_cold_1(v21);
     }
 
-    v20 = [v11 firstObject];
+    v22 = [v11 firstObject];
 LABEL_14:
-    v7 = v25;
-    v5 = v26;
+    v7 = v26;
+    v5 = v27;
 
-    (*(v9 + 16))(v9, v20);
+    (*(v9 + 16))(v9, v22);
   }
 
-  v21 = *(*(a1 + 56) + 8);
-  v22 = *(v21 + 40);
-  if (v22)
+  v23 = *(*(a1 + 56) + 8);
+  v24 = *(v23 + 40);
+  if (v24)
   {
-    *(v21 + 40) = 0;
-    v23 = v22;
+    *(v23 + 40) = 0;
+    v25 = v24;
 
-    [MEMORY[0x277CCA9C8] endMatchingExtensions:v23];
+    [MEMORY[0x277CCA9C8] endMatchingExtensions:v25];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAllExtensionsForContainingApp:(id)app completion:(id)completion
@@ -443,43 +441,43 @@ void __90__SFCredentialProviderExtensionManager__getExtensionsIncludingDisabled_
 
 - (void)_notifyObservers:(id)observers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   observersCopy = observers;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
   v5 = objc_autoreleasePoolPush();
   weakObjectsPointerArray = [MEMORY[0x277CCAC18] weakObjectsPointerArray];
-  v7 = v20[5];
-  v20[5] = weakObjectsPointerArray;
+  v7 = v19[5];
+  v19[5] = weakObjectsPointerArray;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = observersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v24 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v20[5] addPointer:*(*(&v15 + 1) + 8 * v11++)];
+        [v19[5] addPointer:*(*(&v14 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v25 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v24 count:16];
     }
 
     while (v9);
@@ -487,64 +485,59 @@ void __90__SFCredentialProviderExtensionManager__getExtensionsIncludingDisabled_
 
   objc_autoreleasePoolPop(v5);
   v12 = dispatch_get_global_queue(21, 0);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __57__SFCredentialProviderExtensionManager__notifyObservers___block_invoke;
-  v14[3] = &unk_279B61900;
-  v14[4] = self;
-  v14[5] = &v19;
-  dispatch_async(v12, v14);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__SFCredentialProviderExtensionManager__notifyObservers___block_invoke;
+  v13[3] = &unk_279B61900;
+  v13[4] = self;
+  v13[5] = &v18;
+  dispatch_async(v12, v13);
 
-  _Block_object_dispose(&v19, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v18, 8);
 }
 
 uint64_t __57__SFCredentialProviderExtensionManager__notifyObservers___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_recursive_lock_lock_with_options();
-  v3 = objc_autoreleasePoolPush();
+  v2 = objc_autoreleasePoolPush();
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v4 = *(*(*(a1 + 40) + 8) + 40);
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v5)
+  v3 = *(*(*(a1 + 40) + 8) + 40);
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v15;
+    v5 = v4;
+    v6 = *v12;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v12 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        [*(*(&v14 + 1) + 8 * v8++) credentialProviderExtensionManagerExtensionListDidChange:{*(a1 + 32), v14}];
+        [*(*(&v11 + 1) + 8 * v7++) credentialProviderExtensionManagerExtensionListDidChange:{*(a1 + 32), v11}];
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
 
   [*(*(*(a1 + 40) + 8) + 40) setCount:0];
-  v9 = *(*(a1 + 40) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = 0;
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = 0;
 
-  objc_autoreleasePoolPop(v3);
-  v11 = *(a1 + 32);
-  result = os_unfair_recursive_lock_unlock();
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  objc_autoreleasePoolPop(v2);
+  return os_unfair_recursive_lock_unlock();
 }
 
 - (NSSet)extensions
@@ -571,10 +564,7 @@ uint64_t __57__SFCredentialProviderExtensionManager__notifyObservers___block_inv
 
 uint64_t __50__SFCredentialProviderExtensionManager_extensions__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _extensions];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _extensions];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -721,28 +711,28 @@ void __73__SFCredentialProviderExtensionManager_getEnabledExtensionsSynchronousl
 
 - (id)enabledExtensionWithContainingAppBundleID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(SFCredentialProviderExtensionManager *)self getEnabledExtensionsSynchronously];
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v5 = v20 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v20 = 0u;
+  v5 = v21 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v19;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v18 != v8)
+      if (*v19 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v17 + 1) + 8 * v9);
+      v10 = *(*(&v18 + 1) + 8 * v9);
       sf_bundleIdentifierForContainingApp = [v10 sf_bundleIdentifierForContainingApp];
       v12 = [sf_bundleIdentifierForContainingApp isEqualToString:dCopy];
 
@@ -753,7 +743,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -763,9 +753,9 @@ LABEL_3:
       }
     }
 
-    v13 = v10;
+    v15 = v10;
 
-    if (v13)
+    if (v15)
     {
       goto LABEL_14;
     }
@@ -776,18 +766,16 @@ LABEL_3:
 LABEL_9:
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v13, v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [SFCredentialProviderExtensionManager enabledExtensionWithContainingAppBundleID:v14];
+    [SFCredentialProviderExtensionManager enabledExtensionWithContainingAppBundleID:v16];
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v15;
 }
 
 - (void)addObserver:(id)observer
@@ -845,7 +833,7 @@ uint64_t __55__SFCredentialProviderExtensionManager_removeObserver___block_invok
 - (void)_addObserverOnInternalQueue:(id)queue shouldHoldWeakly:(BOOL)weakly
 {
   weaklyCopy = weakly;
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   v7 = [(NSMutableOrderedSet *)self->_observers count];
   allObjects = [(NSHashTable *)self->_weakObservers allObjects];
@@ -874,12 +862,10 @@ uint64_t __55__SFCredentialProviderExtensionManager_removeObserver___block_invok
 
   if (v13 > v10 && self->_extensions)
   {
-    v16[0] = queueCopy;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = queueCopy;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     [(SFCredentialProviderExtensionManager *)self _notifyObservers:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_observerWasRemovedOnInternalQueue
@@ -1080,7 +1066,7 @@ uint64_t __64__SFCredentialProviderExtensionManager_displayNameForExtension___bl
 
 - (BOOL)atLeastOneEnabledExtensionSupportsPasskeys
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_shouldOverrideAtLeastOneExtensionSupportsPasskeys)
   {
     LOBYTE(v3) = self->_overrideAtLeastOneExtensionSupportsPasskeysValue;
@@ -1088,30 +1074,30 @@ uint64_t __64__SFCredentialProviderExtensionManager_displayNameForExtension___bl
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     getEnabledExtensionsSynchronously = [(SFCredentialProviderExtensionManager *)self getEnabledExtensionsSynchronously];
-    v5 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
       v6 = v5;
       v3 = 0;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(getEnabledExtensionsSynchronously);
           }
 
-          v3 |= [(SFCredentialProviderExtensionManager *)self extensionSupportsPasskeys:*(*(&v11 + 1) + 8 * i)];
+          v3 |= [(SFCredentialProviderExtensionManager *)self extensionSupportsPasskeys:*(*(&v10 + 1) + 8 * i)];
         }
 
-        v6 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v6);
@@ -1123,40 +1109,39 @@ uint64_t __64__SFCredentialProviderExtensionManager_displayNameForExtension___bl
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3 & 1;
 }
 
 - (BOOL)atLeastOneEnabledExtensionSupportsOneTimeCodes
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   getEnabledExtensionsSynchronously = [(SFCredentialProviderExtensionManager *)self getEnabledExtensionsSynchronously];
-  v4 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(getEnabledExtensionsSynchronously);
         }
 
-        if ([(SFCredentialProviderExtensionManager *)self extensionSupportsOneTimeCodes:*(*(&v11 + 1) + 8 * i)])
+        if ([(SFCredentialProviderExtensionManager *)self extensionSupportsOneTimeCodes:*(*(&v10 + 1) + 8 * i)])
         {
           v8 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -1169,7 +1154,6 @@ uint64_t __64__SFCredentialProviderExtensionManager_displayNameForExtension___bl
   v8 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1243,10 +1227,10 @@ LABEL_11:
   {
     if (![v7 count])
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(0, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(SFCredentialProviderExtensionManager *)v9 extensionSupportsCredentialExchange:exchangeCopy];
+        [(SFCredentialProviderExtensionManager *)v10 extensionSupportsCredentialExchange:exchangeCopy];
       }
     }
 
@@ -1258,28 +1242,28 @@ LABEL_11:
 
 - (BOOL)atLeastOneAvailableExtensionSupportsCredentialExchange:(id)exchange
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   exchangeCopy = exchange;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   extensionsSync = [(SFCredentialProviderExtensionManager *)self extensionsSync];
-  v6 = [extensionsSync countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [extensionsSync countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(extensionsSync);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         sf_bundleIdentifierForContainingApp = [v10 sf_bundleIdentifierForContainingApp];
         v12 = [exchangeCopy isEqualToString:sf_bundleIdentifierForContainingApp];
 
@@ -1291,7 +1275,7 @@ LABEL_11:
         }
       }
 
-      v7 = [extensionsSync countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [extensionsSync countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -1313,7 +1297,6 @@ LABEL_11:
 
 LABEL_14:
 
-  v14 = *MEMORY[0x277D85DE8];
   return isPasswordsAppInstalled;
 }
 
@@ -1329,34 +1312,34 @@ LABEL_14:
 
 - (BOOL)atLeastOneEnabledExtensionSupportsCredentialUpdate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   getEnabledExtensionsSynchronously = [(SFCredentialProviderExtensionManager *)self getEnabledExtensionsSynchronously];
-  v4 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(getEnabledExtensionsSynchronously);
         }
 
-        if ([(SFCredentialProviderExtensionManager *)self extensionSupportsCredentialUpdate:*(*(&v11 + 1) + 8 * i)])
+        if ([(SFCredentialProviderExtensionManager *)self extensionSupportsCredentialUpdate:*(*(&v10 + 1) + 8 * i)])
         {
           v8 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [getEnabledExtensionsSynchronously countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -1369,7 +1352,6 @@ LABEL_14:
   v8 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1395,14 +1377,12 @@ LABEL_11:
 
 - (void)extensionSupportsCredentialExchange:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 _localizedName];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_26450F000, v3, OS_LOG_TYPE_ERROR, "%{public}@ supports credential exchange but does not specify supported format versions", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_26450F000, v3, OS_LOG_TYPE_ERROR, "%{public}@ supports credential exchange but does not specify supported format versions", &v5, 0xCu);
 }
 
 @end

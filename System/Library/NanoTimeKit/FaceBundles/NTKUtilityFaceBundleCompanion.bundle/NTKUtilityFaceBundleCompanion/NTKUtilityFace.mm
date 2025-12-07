@@ -86,26 +86,17 @@ LABEL_10:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  switch(mode)
+  if (mode == 10 || mode == 13 || mode == 11)
   {
-    case 10:
-      v4 = NTKFaceColorUtilitarianEditOption_ptr;
-LABEL_7:
-      v5 = *v4;
-      v6 = objc_opt_class();
-
-      return v6;
-    case 13:
-      v4 = &off_10258;
-      goto LABEL_7;
-    case 11:
-      v4 = NTKDensityEditOption_ptr;
-      goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  v6 = 0;
+  else
+  {
+    v4 = 0;
+  }
 
-  return v6;
+  return v4;
 }
 
 + (id)_localizedNameOverrideForCustomEditMode:(int64_t)mode forDevice:(id)device

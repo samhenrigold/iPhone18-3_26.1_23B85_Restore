@@ -5,27 +5,27 @@
 
 void __51___GCControllerComponentDescription_initWithCoder___block_invoke()
 {
-  v7 = [MEMORY[0x1E695DFA8] set];
-  [v7 addObject:objc_opt_class()];
-  v0 = _GCHIDEventSourceDescription_Classes();
-  [v7 unionSet:v0];
+  v12 = [MEMORY[0x1E695DFA8] set];
+  v0 = [v12 addObject:objc_opt_class()];
+  v1 = _GCHIDEventSourceDescription_Classes(v0);
+  [v12 unionSet:v1];
 
-  v1 = _GCGamepadEventSourceDescription_Classes();
-  [v7 unionSet:v1];
+  v3 = _GCGamepadEventSourceDescription_Classes(v2);
+  [v12 unionSet:v3];
 
-  v2 = _GCKeyboardEventSourceDescription_Classes();
-  [v7 unionSet:v2];
+  v5 = _GCKeyboardEventSourceDescription_Classes(v4);
+  [v12 unionSet:v5];
 
-  v3 = _GCMotionEventSourceDescription_Classes();
-  [v7 unionSet:v3];
+  v7 = _GCMotionEventSourceDescription_Classes(v6);
+  [v12 unionSet:v7];
 
-  v4 = _GCCollectionEventSourceDescription_Classes();
-  [v7 unionSet:v4];
+  v9 = _GCCollectionEventSourceDescription_Classes(v8);
+  [v12 unionSet:v9];
 
-  [v7 addObject:objc_opt_class()];
-  v5 = [v7 copy];
-  v6 = initWithCoder__BindingClasses;
-  initWithCoder__BindingClasses = v5;
+  [v12 addObject:objc_opt_class()];
+  v10 = [v12 copy];
+  v11 = initWithCoder__BindingClasses;
+  initWithCoder__BindingClasses = v10;
 }
 
 void ___GCControllerComponentDescription_Classes_block_invoke()

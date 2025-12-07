@@ -96,9 +96,10 @@ uint64_t __47__PUICARemoteRenderer_remoteRendererIfPossible__block_invoke(uint64
     v1 = [[PUICALocalRenderer alloc] initWithColorSpace:0];
   }
 
+  v2 = remoteRendererIfPossible___renderer;
   remoteRendererIfPossible___renderer = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (BOOL)supportsRequest:(id)request orError:(id *)error

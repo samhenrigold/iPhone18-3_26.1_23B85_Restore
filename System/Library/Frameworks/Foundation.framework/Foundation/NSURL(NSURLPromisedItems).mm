@@ -139,7 +139,7 @@
 
 - (id)_valueFromFaultDictionary:()NSURLPromisedItems forKey:
 {
-  if ([a4 isEqualToString:*MEMORY[0x1E695DC68]])
+  if (objc_msgSend_isEqualToString_(a4, a2, *MEMORY[0x1E695DC68]))
   {
     v6 = [objc_msgSend(a3 objectForKey:{*MEMORY[0x1E695DC30]), "pathExtension"}];
     if (v6)

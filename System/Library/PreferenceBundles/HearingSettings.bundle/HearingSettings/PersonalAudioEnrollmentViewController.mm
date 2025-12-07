@@ -12,6 +12,8 @@
 - (void)startEnrollmentWithAudiogram:(id)audiogram;
 - (void)updateHeadphoneState;
 - (void)updateIntroButtonTrayCaption:(id)caption;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)welcomeNextButtonTapped:(id)tapped;
 @end
@@ -428,7 +430,7 @@
 
   [(PersonalAudioEnrollmentViewController *)self pushViewController:self->_introController animated:1];
   [(PersonalAudioEnrollmentViewController *)self registerNotifications];
-  AXPerformBlockOnMainThreadAfterDelay();
+  AXPerformBlockOnMainThreadAfterDelay(0.2);
 }
 
 - (void)startEnrollmentWithAudiogram:(id)audiogram
@@ -481,6 +483,25 @@
 
     [(PersonalAudioEnrollmentViewController *)self dismissViewControllerAnimated:1 completion:&stru_48F50];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PersonalAudioEnrollmentViewController;
+  [(PersonalAudioEnrollmentViewController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PersonalAudioEnrollmentViewController;
+  [(PersonalAudioEnrollmentViewController *)&v5 viewDidDisappear:disappear];
+  v3 = +[AVAudioSession sharedInstance];
+  [v3 setActive:0 error:0];
+
+  v4 = +[PASettings sharedInstance];
+  [v4 setCurrentEnrollmentProgress:0];
 }
 
 - (void)didSelectAudiogram:(id)audiogram

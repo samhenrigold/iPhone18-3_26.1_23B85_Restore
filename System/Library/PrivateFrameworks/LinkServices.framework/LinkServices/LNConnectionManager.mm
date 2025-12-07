@@ -60,37 +60,37 @@ uint64_t __37__LNConnectionManager_sharedInstance__block_invoke()
 
 - (void)invalidateAllConnections
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   connectionsByBundleIdentifier = [(LNConnectionManager *)self connectionsByBundleIdentifier];
   v4 = [connectionsByBundleIdentifier copy];
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   allValues = [v4 allValues];
-  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v13 + 1) + 8 * v9++) close];
+        [*(*(&v12 + 1) + 8 * v9++) close];
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -99,11 +99,9 @@ uint64_t __37__LNConnectionManager_sharedInstance__block_invoke()
   v10 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_INFO, "Closed all connections", v12, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_19763D000, v10, OS_LOG_TYPE_INFO, "Closed all connections", v11, 2u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeConnection:(id)connection
@@ -153,14 +151,14 @@ uint64_t __37__LNConnectionManager_sharedInstance__block_invoke()
 
 - (void)donateActionRecord:(id)record completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   handlerCopy = handler;
   hasNextAction = [recordCopy hasNextAction];
   transcriptProvider = [(LNConnectionManager *)self transcriptProvider];
-  v22 = 0;
-  v10 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:recordCopy requiringSecureCoding:1 error:&v22];
-  v11 = v22;
+  v21 = 0;
+  v10 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:recordCopy requiringSecureCoding:1 error:&v21];
+  v11 = v21;
   if (v11)
   {
     v12 = 1;
@@ -177,9 +175,9 @@ uint64_t __37__LNConnectionManager_sharedInstance__block_invoke()
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v24 = recordCopy;
-      v25 = 2112;
-      v26 = v11;
+      v23 = recordCopy;
+      v24 = 2112;
+      v25 = v11;
       _os_log_impl(&dword_19763D000, v13, OS_LOG_TYPE_ERROR, "Object archival failed for %@: %@", buf, 0x16u);
     }
   }
@@ -188,20 +186,18 @@ uint64_t __37__LNConnectionManager_sharedInstance__block_invoke()
   executionDate = [recordCopy executionDate];
   [executionDate timeIntervalSinceReferenceDate];
   v17 = v16;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __60__LNConnectionManager_donateActionRecord_completionHandler___block_invoke;
-  v20[3] = &unk_1E74B2848;
-  v21 = handlerCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __60__LNConnectionManager_donateActionRecord_completionHandler___block_invoke;
+  v19[3] = &unk_1E74B2848;
+  v20 = handlerCopy;
   v18 = handlerCopy;
-  [transcriptProvider donateActionRecordData:v10 bundleIdentifier:bundleIdentifier timestamp:hasNextAction writeImmediately:v20 reply:v17];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [transcriptProvider donateActionRecordData:v10 bundleIdentifier:bundleIdentifier timestamp:hasNextAction writeImmediately:v19 reply:v17];
 }
 
 void __60__LNConnectionManager_donateActionRecord_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -214,13 +210,11 @@ void __60__LNConnectionManager_donateActionRecord_completionHandler___block_invo
     v5 = getLNLogCategoryConnection();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_ERROR, "Error when donating action record to transcript: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_ERROR, "Error when donating action record to transcript: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)connectionForEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier mangledTypeName:(id)name userIdentity:(id)identity error:(id *)error
@@ -389,21 +383,16 @@ LABEL_38:
   instanceIdentifierCopy = instanceIdentifier;
   nameCopy = name;
   identityCopy = identity;
-  if (nameCopy && ([identifierCopy bundleIdentifier], v18 = objc_claimAutoreleasedReturnValue(), v19 = +[LNConnectionPolicy shouldHandleInProcessWithMangledTypeName:bundleIdentifier:](LNConnectionPolicy, "shouldHandleInProcessWithMangledTypeName:bundleIdentifier:", nameCopy, v18), v18, v19))
+  if (nameCopy)
   {
-    v20 = off_1E74AF4A8;
+    bundleIdentifier = [identifierCopy bundleIdentifier];
+    [LNConnectionPolicy shouldHandleInProcessWithMangledTypeName:nameCopy bundleIdentifier:bundleIdentifier];
   }
 
-  else
-  {
-    v20 = off_1E74AF3A8;
-  }
+  v19 = [objc_alloc(objc_opt_class()) initWithEffectiveBundleIdentifier:identifierCopy appBundleIdentifier:bundleIdentifierCopy processInstanceIdentifier:instanceIdentifierCopy appIntentsEnabledOnly:1 userIdentity:identityCopy error:error];
+  v20 = [LNConnectionProxy proxyWithConnection:v19];
 
-  v21 = *v20;
-  v22 = [objc_alloc(objc_opt_class()) initWithEffectiveBundleIdentifier:identifierCopy appBundleIdentifier:bundleIdentifierCopy processInstanceIdentifier:instanceIdentifierCopy appIntentsEnabledOnly:1 userIdentity:identityCopy error:error];
-  v23 = [LNConnectionProxy proxyWithConnection:v22];
-
-  return v23;
+  return v20;
 }
 
 - (void)appDidEnterBackground:(id)background

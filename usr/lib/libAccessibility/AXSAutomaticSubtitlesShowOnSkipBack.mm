@@ -3,7 +3,7 @@
 
 @implementation AXSAutomaticSubtitlesShowOnSkipBack
 
-uint64_t ___AXSAutomaticSubtitlesShowOnSkipBack_block_invoke()
+void *___AXSAutomaticSubtitlesShowOnSkipBack_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

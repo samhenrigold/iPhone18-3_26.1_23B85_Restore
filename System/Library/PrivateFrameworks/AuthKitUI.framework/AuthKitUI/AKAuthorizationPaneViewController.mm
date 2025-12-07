@@ -60,69 +60,67 @@
 
 - (void)viewDidLoad
 {
-  v83[4] = *MEMORY[0x277D85DE8];
+  v98[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v80 = a2;
-  v79.receiver = self;
-  v79.super_class = AKAuthorizationPaneViewController;
-  [(AKAuthorizationPaneViewController *)&v79 viewDidLoad];
+  v95 = a2;
+  v94.receiver = self;
+  v94.super_class = AKAuthorizationPaneViewController;
+  [(AKAuthorizationPaneViewController *)&v94 viewDidLoad];
   view = [(AKAuthorizationPaneViewController *)selfCopy view];
   [view bounds];
-  v76 = v84;
-  CGRectGetWidth(v84);
+  v91 = v99;
+  CGRectGetWidth(v99);
   CGRectMake_0();
-  *&v77 = v2;
-  *(&v77 + 1) = v3;
-  *&v78 = v4;
-  *(&v78 + 1) = v5;
+  *&v92 = v2;
+  *(&v92 + 1) = v3;
+  *&v93 = v4;
+  *(&v93 + 1) = v5;
   MEMORY[0x277D82BD8](view);
-  v19 = [objc_alloc(MEMORY[0x277D75B40]) initWithFrame:+[AKAuthorizationAppearance tableViewStyle](AKAuthorizationAppearance style:{"tableViewStyle"), v77, v78}];
+  v34 = [objc_alloc(MEMORY[0x277D75B40]) initWithFrame:+[AKAuthorizationAppearance tableViewStyle](AKAuthorizationAppearance style:{"tableViewStyle"), v92, v93}];
   [(AKAuthorizationPaneViewController *)selfCopy setTableView:?];
-  MEMORY[0x277D82BD8](v19);
   +[AKAuthorizationPaneMetrics tableSectionFooterHeight];
-  v20 = v6;
+  v35 = v6;
   tableView = [(AKAuthorizationPaneViewController *)selfCopy tableView];
-  [(UITableView *)tableView setSectionFooterHeight:v20];
-  MEMORY[0x277D82BD8](tableView);
+  [(UITableView *)tableView setSectionFooterHeight:v35];
+  *&v7 = MEMORY[0x277D82BD8](tableView).n128_u64[0];
   tableView2 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [(UITableView *)tableView2 setTranslatesAutoresizingMaskIntoConstraints:0];
-  MEMORY[0x277D82BD8](tableView2);
   clearColor = [MEMORY[0x277D75348] clearColor];
   tableView3 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [(UITableView *)tableView3 setBackgroundColor:clearColor];
   MEMORY[0x277D82BD8](tableView3);
-  MEMORY[0x277D82BD8](clearColor);
+  *&v8 = MEMORY[0x277D82BD8](clearColor).n128_u64[0];
   tableView4 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [(UITableView *)tableView4 setAlwaysBounceVertical:0];
-  MEMORY[0x277D82BD8](tableView4);
+  *&v9 = MEMORY[0x277D82BD8](tableView4).n128_u64[0];
   tableView5 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [(UITableView *)tableView5 setShowsVerticalScrollIndicator:0];
-  MEMORY[0x277D82BD8](tableView5);
+  *&v10 = MEMORY[0x277D82BD8](tableView5).n128_u64[0];
   _newStackView = [(AKAuthorizationPaneViewController *)selfCopy _newStackView];
   paneHeaderStackView = selfCopy->_paneHeaderStackView;
   selfCopy->_paneHeaderStackView = _newStackView;
-  MEMORY[0x277D82BD8](paneHeaderStackView);
+  *&v13 = MEMORY[0x277D82BD8](paneHeaderStackView).n128_u64[0];
   _newContainerView = [(AKAuthorizationPaneViewController *)selfCopy _newContainerView];
   tableView6 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [(UITableView *)tableView6 setTableHeaderView:_newContainerView];
   MEMORY[0x277D82BD8](tableView6);
-  MEMORY[0x277D82BD8](_newContainerView);
+  *&v14 = MEMORY[0x277D82BD8](_newContainerView).n128_u64[0];
   tableView7 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView = [(UITableView *)tableView7 tableHeaderView];
   [(UIView *)tableHeaderView addSubview:selfCopy->_paneHeaderStackView];
   MEMORY[0x277D82BD8](tableHeaderView);
   MEMORY[0x277D82BD8](tableView7);
-  v75 = 0;
-  v9 = objc_alloc(MEMORY[0x277D75D68]);
-  v10 = [v9 initWithEffect:v75];
+  v90 = 0;
+  v15 = objc_alloc(MEMORY[0x277D75D68]);
+  v16 = [v15 initWithEffect:v90];
   blurryTray = selfCopy->_blurryTray;
-  selfCopy->_blurryTray = v10;
-  MEMORY[0x277D82BD8](blurryTray);
-  [(UIVisualEffectView *)selfCopy->_blurryTray setTranslatesAutoresizingMaskIntoConstraints:0];
+  selfCopy->_blurryTray = v16;
+  *&v18 = MEMORY[0x277D82BD8](blurryTray).n128_u64[0];
+  [(UIVisualEffectView *)selfCopy->_blurryTray setTranslatesAutoresizingMaskIntoConstraints:0, v18];
   _newStackView2 = [(AKAuthorizationPaneViewController *)selfCopy _newStackView];
   paneFooterStackView = selfCopy->_paneFooterStackView;
   selfCopy->_paneFooterStackView = _newStackView2;
-  MEMORY[0x277D82BD8](paneFooterStackView);
+  *&v21 = MEMORY[0x277D82BD8](paneFooterStackView).n128_u64[0];
   contentView = [(UIVisualEffectView *)selfCopy->_blurryTray contentView];
   [(UIView *)contentView addSubview:selfCopy->_paneFooterStackView];
   MEMORY[0x277D82BD8](contentView);
@@ -131,170 +129,169 @@
   tableView8 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [view2 addSubview:?];
   MEMORY[0x277D82BD8](tableView8);
-  MEMORY[0x277D82BD8](view2);
+  *&v22 = MEMORY[0x277D82BD8](view2).n128_u64[0];
   view3 = [(AKAuthorizationPaneViewController *)selfCopy view];
   [view3 setAccessibilityIdentifier:*MEMORY[0x277CEFEA0]];
-  MEMORY[0x277D82BD8](view3);
+  *&v23 = MEMORY[0x277D82BD8](view3).n128_u64[0];
   [(AKAuthorizationPaneViewController *)selfCopy _setupContexts];
   array = [MEMORY[0x277CBEB18] array];
-  v35 = array;
+  v50 = array;
   paneHeaderStackView = [(AKAuthorizationPaneViewController *)selfCopy paneHeaderStackView];
   topAnchor = [(UIStackView *)paneHeaderStackView topAnchor];
   tableView9 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView2 = [(UITableView *)tableView9 tableHeaderView];
   topAnchor2 = [(UIView *)tableHeaderView2 topAnchor];
-  v55 = [topAnchor constraintEqualToAnchor:?];
-  v83[0] = v55;
+  v70 = [topAnchor constraintEqualToAnchor:?];
+  v98[0] = v70;
   paneHeaderStackView2 = [(AKAuthorizationPaneViewController *)selfCopy paneHeaderStackView];
   bottomAnchor = [(UIStackView *)paneHeaderStackView2 bottomAnchor];
   tableView10 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView3 = [(UITableView *)tableView10 tableHeaderView];
   bottomAnchor2 = [(UIView *)tableHeaderView3 bottomAnchor];
-  v49 = [bottomAnchor constraintEqualToAnchor:?];
-  v83[1] = v49;
+  v64 = [bottomAnchor constraintEqualToAnchor:?];
+  v98[1] = v64;
   paneHeaderStackView3 = [(AKAuthorizationPaneViewController *)selfCopy paneHeaderStackView];
   leadingAnchor = [(UIStackView *)paneHeaderStackView3 leadingAnchor];
   tableView11 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView4 = [(UITableView *)tableView11 tableHeaderView];
   leadingAnchor2 = [(UIView *)tableHeaderView4 leadingAnchor];
-  v43 = [leadingAnchor constraintEqualToAnchor:?];
-  v83[2] = v43;
+  v58 = [leadingAnchor constraintEqualToAnchor:?];
+  v98[2] = v58;
   paneHeaderStackView4 = [(AKAuthorizationPaneViewController *)selfCopy paneHeaderStackView];
   trailingAnchor = [(UIStackView *)paneHeaderStackView4 trailingAnchor];
   tableView12 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView5 = [(UITableView *)tableView12 tableHeaderView];
   trailingAnchor2 = [(UIView *)tableHeaderView5 trailingAnchor];
-  v37 = [trailingAnchor constraintEqualToAnchor:?];
-  v83[3] = v37;
-  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:4];
-  [v35 addObjectsFromArray:?];
-  MEMORY[0x277D82BD8](v36);
-  MEMORY[0x277D82BD8](v37);
+  v52 = [trailingAnchor constraintEqualToAnchor:?];
+  v98[3] = v52;
+  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:4];
+  [v50 addObjectsFromArray:?];
+  MEMORY[0x277D82BD8](v51);
+  MEMORY[0x277D82BD8](v52);
   MEMORY[0x277D82BD8](trailingAnchor2);
   MEMORY[0x277D82BD8](tableHeaderView5);
   MEMORY[0x277D82BD8](tableView12);
   MEMORY[0x277D82BD8](trailingAnchor);
   MEMORY[0x277D82BD8](paneHeaderStackView4);
-  MEMORY[0x277D82BD8](v43);
+  MEMORY[0x277D82BD8](v58);
   MEMORY[0x277D82BD8](leadingAnchor2);
   MEMORY[0x277D82BD8](tableHeaderView4);
   MEMORY[0x277D82BD8](tableView11);
   MEMORY[0x277D82BD8](leadingAnchor);
   MEMORY[0x277D82BD8](paneHeaderStackView3);
-  MEMORY[0x277D82BD8](v49);
+  MEMORY[0x277D82BD8](v64);
   MEMORY[0x277D82BD8](bottomAnchor2);
   MEMORY[0x277D82BD8](tableHeaderView3);
   MEMORY[0x277D82BD8](tableView10);
   MEMORY[0x277D82BD8](bottomAnchor);
   MEMORY[0x277D82BD8](paneHeaderStackView2);
-  MEMORY[0x277D82BD8](v55);
+  MEMORY[0x277D82BD8](v70);
   MEMORY[0x277D82BD8](topAnchor2);
   MEMORY[0x277D82BD8](tableHeaderView2);
   MEMORY[0x277D82BD8](tableView9);
   MEMORY[0x277D82BD8](topAnchor);
-  MEMORY[0x277D82BD8](paneHeaderStackView);
-  v62 = array;
-  v61 = MEMORY[0x277CCAAD0];
+  *&v24 = MEMORY[0x277D82BD8](paneHeaderStackView).n128_u64[0];
+  v77 = array;
+  v76 = MEMORY[0x277CCAAD0];
   tableView13 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   view4 = [(AKAuthorizationPaneViewController *)selfCopy view];
-  v63 = [v61 ak_constraintsForView:tableView13 equalToView:?];
-  [v62 addObjectsFromArray:?];
-  MEMORY[0x277D82BD8](v63);
+  v78 = [v76 ak_constraintsForView:tableView13 equalToView:?];
+  [v77 addObjectsFromArray:?];
+  MEMORY[0x277D82BD8](v78);
   MEMORY[0x277D82BD8](view4);
-  MEMORY[0x277D82BD8](tableView13);
+  *&v25 = MEMORY[0x277D82BD8](tableView13).n128_u64[0];
   paneHeaderStackView5 = [(AKAuthorizationPaneViewController *)selfCopy paneHeaderStackView];
   widthAnchor = [(UIStackView *)paneHeaderStackView5 widthAnchor];
-  v14 = [widthAnchor constraintEqualToConstant:0.0];
+  v26 = [widthAnchor constraintEqualToConstant:0.0];
   headerWidthConstraint = selfCopy->_headerWidthConstraint;
-  selfCopy->_headerWidthConstraint = v14;
+  selfCopy->_headerWidthConstraint = v26;
   MEMORY[0x277D82BD8](headerWidthConstraint);
   MEMORY[0x277D82BD8](widthAnchor);
-  MEMORY[0x277D82BD8](paneHeaderStackView5);
+  *&v28 = MEMORY[0x277D82BD8](paneHeaderStackView5).n128_u64[0];
   paneFooterStackView = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
   widthAnchor2 = [(UIStackView *)paneFooterStackView widthAnchor];
-  v16 = [widthAnchor2 constraintEqualToConstant:0.0];
+  v29 = [widthAnchor2 constraintEqualToConstant:0.0];
   footerWidthConstraint = selfCopy->_footerWidthConstraint;
-  selfCopy->_footerWidthConstraint = v16;
+  selfCopy->_footerWidthConstraint = v29;
   MEMORY[0x277D82BD8](footerWidthConstraint);
   MEMORY[0x277D82BD8](widthAnchor2);
-  MEMORY[0x277D82BD8](paneFooterStackView);
-  v70 = array;
+  *&v31 = MEMORY[0x277D82BD8](paneFooterStackView).n128_u64[0];
+  v85 = array;
   headerWidthConstraint = [(AKAuthorizationPaneViewController *)selfCopy headerWidthConstraint];
-  v82[0] = headerWidthConstraint;
+  v97[0] = headerWidthConstraint;
   footerWidthConstraint = [(AKAuthorizationPaneViewController *)selfCopy footerWidthConstraint];
-  v82[1] = footerWidthConstraint;
-  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
-  [v70 addObjectsFromArray:?];
-  MEMORY[0x277D82BD8](v71);
+  v97[1] = footerWidthConstraint;
+  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:2];
+  [v85 addObjectsFromArray:?];
+  MEMORY[0x277D82BD8](v86);
   MEMORY[0x277D82BD8](footerWidthConstraint);
-  MEMORY[0x277D82BD8](headerWidthConstraint);
-  [MEMORY[0x277CCAAD0] activateConstraints:array];
+  *&v32 = MEMORY[0x277D82BD8](headerWidthConstraint).n128_u64[0];
+  [MEMORY[0x277CCAAD0] activateConstraints:{array, v32}];
   [(AKAuthorizationPaneViewController *)selfCopy sizeToFitPaneContent];
   objc_storeStrong(&array, 0);
-  objc_storeStrong(&v75, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(&v90, 0);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  v17 = a2;
+  v19 = a2;
   appearCopy = appear;
-  v15.receiver = self;
-  v15.super_class = AKAuthorizationPaneViewController;
-  [(AKAuthorizationPaneViewController *)&v15 viewWillAppear:appear];
+  v17.receiver = self;
+  v17.super_class = AKAuthorizationPaneViewController;
+  [(AKAuthorizationPaneViewController *)&v17 viewWillAppear:appear];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-  MEMORY[0x277D82BD8](currentDevice);
+  *&v3 = MEMORY[0x277D82BD8](currentDevice).n128_u64[0];
   if (userInterfaceIdiom == 1)
   {
     navigationController = [(AKAuthorizationPaneViewController *)selfCopy navigationController];
     view = [navigationController view];
     [view frame];
-    v12 = v3;
-    v13 = v4;
+    v14 = v4;
+    v15 = v5;
     MEMORY[0x277D82BD8](view);
-    MEMORY[0x277D82BD8](navigationController);
+    *&v6 = MEMORY[0x277D82BD8](navigationController).n128_u64[0];
     navigationController2 = [(AKAuthorizationPaneViewController *)selfCopy navigationController];
     navigationBar = [navigationController2 navigationBar];
     [navigationBar size];
-    v14 = v12 - v5;
+    v16 = v14 - v7;
     MEMORY[0x277D82BD8](navigationBar);
     MEMORY[0x277D82BD8](navigationController2);
-    [(AKAuthorizationPaneViewController *)selfCopy setPreferredContentSize:v13, v14];
+    [(AKAuthorizationPaneViewController *)selfCopy setPreferredContentSize:v15, v16];
   }
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  v9 = a2;
+  v11 = a2;
   appearCopy = appear;
-  v7.receiver = self;
-  v7.super_class = AKAuthorizationPaneViewController;
-  [(AKAuthorizationPaneViewController *)&v7 viewDidAppear:appear];
+  v9.receiver = self;
+  v9.super_class = AKAuthorizationPaneViewController;
+  [(AKAuthorizationPaneViewController *)&v9 viewDidAppear:appear];
   view = [(AKAuthorizationPaneViewController *)selfCopy view];
   [view setNeedsLayout];
-  MEMORY[0x277D82BD8](view);
+  *&v3 = MEMORY[0x277D82BD8](view).n128_u64[0];
   view2 = [(AKAuthorizationPaneViewController *)selfCopy view];
   [view2 layoutIfNeeded];
-  MEMORY[0x277D82BD8](view2);
-  v5 = selfCopy;
+  *&v4 = MEMORY[0x277D82BD8](view2).n128_u64[0];
+  v7 = selfCopy;
   tableView = [(AKAuthorizationPaneViewController *)selfCopy tableView];
-  [(AKAuthorizationPaneViewController *)v5 _adjustForPositionOfScrollView:?];
+  [(AKAuthorizationPaneViewController *)v7 _adjustForPositionOfScrollView:?];
   MEMORY[0x277D82BD8](tableView);
 }
 
 - (void)viewSafeAreaInsetsDidChange
 {
   selfCopy = self;
-  v5 = a2;
-  v4.receiver = self;
-  v4.super_class = AKAuthorizationPaneViewController;
-  [(AKAuthorizationPaneViewController *)&v4 viewSafeAreaInsetsDidChange];
+  v6 = a2;
+  v5.receiver = self;
+  v5.super_class = AKAuthorizationPaneViewController;
+  [(AKAuthorizationPaneViewController *)&v5 viewSafeAreaInsetsDidChange];
   blurryTray = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
   [(UIVisualEffectView *)blurryTray setNeedsUpdateConstraints];
-  MEMORY[0x277D82BD8](blurryTray);
+  *&v2 = MEMORY[0x277D82BD8](blurryTray).n128_u64[0];
   blurryTray2 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
   [(UIVisualEffectView *)blurryTray2 layoutIfNeeded];
   MEMORY[0x277D82BD8](blurryTray2);
@@ -313,7 +310,6 @@
   v6 = [(AKAuthorizationPaneContext *)v5 initWithPaneViewController:self stackView:?];
   [(AKAuthorizationPaneViewController *)self setFooterPaneContext:?];
   MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](paneFooterStackView);
   array = [MEMORY[0x277CBEB18] array];
   [(AKAuthorizationPaneViewController *)self setMutableConstraints:?];
   MEMORY[0x277D82BD8](array);
@@ -341,81 +337,81 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  v34 = a2;
-  v33.receiver = self;
-  v33.super_class = AKAuthorizationPaneViewController;
-  [(AKAuthorizationPaneViewController *)&v33 viewDidLayoutSubviews];
+  v47 = a2;
+  v46.receiver = self;
+  v46.super_class = AKAuthorizationPaneViewController;
+  [(AKAuthorizationPaneViewController *)&v46 viewDidLayoutSubviews];
   tableView = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView = [(UITableView *)tableView tableHeaderView];
-  MEMORY[0x277D82BD8](tableView);
+  *&v2 = MEMORY[0x277D82BD8](tableView).n128_u64[0];
   if (tableHeaderView)
   {
-    [(AKAuthorizationPaneViewController *)selfCopy _setCompressedHeightForView:tableHeaderView];
+    [(AKAuthorizationPaneViewController *)selfCopy _setCompressedHeightForView:tableHeaderView, v2];
   }
 
   tableView2 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   location = [(UITableView *)tableView2 tableFooterView];
-  MEMORY[0x277D82BD8](tableView2);
+  *&v3 = MEMORY[0x277D82BD8](tableView2).n128_u64[0];
   if (location)
   {
-    [(AKAuthorizationPaneViewController *)selfCopy _setCompressedHeightForView:location];
+    [(AKAuthorizationPaneViewController *)selfCopy _setCompressedHeightForView:location, v3];
   }
 
-  [(AKAuthorizationPaneViewController *)selfCopy _contentTrayOffsetAdjustedForScrollInset:1];
+  [(AKAuthorizationPaneViewController *)selfCopy _contentTrayOffsetAdjustedForScrollInset:1, v3];
   UIEdgeInsetsMake_0();
-  v27 = v2;
-  v28 = v3;
-  v29 = v4;
-  v30 = v5;
+  v40 = v4;
+  v41 = v5;
+  v42 = v6;
+  v43 = v7;
   tableView3 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
-  [(UITableView *)tableView3 _setContentScrollInset:v27, v28, v29, v30];
-  MEMORY[0x277D82BD8](tableView3);
+  [(UITableView *)tableView3 _setContentScrollInset:v40, v41, v42, v43];
+  *&v8 = MEMORY[0x277D82BD8](tableView3).n128_u64[0];
   tableView4 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView2 = [(UITableView *)tableView4 tableHeaderView];
   [(UIView *)tableHeaderView2 setNeedsLayout];
   MEMORY[0x277D82BD8](tableHeaderView2);
-  MEMORY[0x277D82BD8](tableView4);
+  *&v9 = MEMORY[0x277D82BD8](tableView4).n128_u64[0];
   tableView5 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView3 = [(UITableView *)tableView5 tableHeaderView];
   [(UIView *)tableHeaderView3 layoutIfNeeded];
   MEMORY[0x277D82BD8](tableHeaderView3);
-  MEMORY[0x277D82BD8](tableView5);
+  *&v10 = MEMORY[0x277D82BD8](tableView5).n128_u64[0];
   tableView6 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableView7 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableHeaderView4 = [(UITableView *)tableView7 tableHeaderView];
   [(UITableView *)tableView6 setTableHeaderView:?];
   MEMORY[0x277D82BD8](tableHeaderView4);
   MEMORY[0x277D82BD8](tableView7);
-  MEMORY[0x277D82BD8](tableView6);
+  *&v11 = MEMORY[0x277D82BD8](tableView6).n128_u64[0];
   tableView8 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableFooterView = [(UITableView *)tableView8 tableFooterView];
   [(UIView *)tableFooterView setNeedsLayout];
   MEMORY[0x277D82BD8](tableFooterView);
-  MEMORY[0x277D82BD8](tableView8);
+  *&v12 = MEMORY[0x277D82BD8](tableView8).n128_u64[0];
   tableView9 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableFooterView2 = [(UITableView *)tableView9 tableFooterView];
   [(UIView *)tableFooterView2 layoutIfNeeded];
   MEMORY[0x277D82BD8](tableFooterView2);
-  MEMORY[0x277D82BD8](tableView9);
+  *&v13 = MEMORY[0x277D82BD8](tableView9).n128_u64[0];
   tableView10 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableView11 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   tableFooterView3 = [(UITableView *)tableView11 tableFooterView];
   [(UITableView *)tableView10 setTableFooterView:?];
   MEMORY[0x277D82BD8](tableFooterView3);
   MEMORY[0x277D82BD8](tableView11);
-  MEMORY[0x277D82BD8](tableView10);
+  *&v14 = MEMORY[0x277D82BD8](tableView10).n128_u64[0];
   tableView12 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [(UITableView *)tableView12 setNeedsLayout];
-  MEMORY[0x277D82BD8](tableView12);
+  *&v15 = MEMORY[0x277D82BD8](tableView12).n128_u64[0];
   tableView13 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   [(UITableView *)tableView13 layoutIfNeeded];
-  MEMORY[0x277D82BD8](tableView13);
+  *&v16 = MEMORY[0x277D82BD8](tableView13).n128_u64[0];
   blurryTray = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
   [(UIVisualEffectView *)blurryTray setNeedsLayout];
-  MEMORY[0x277D82BD8](blurryTray);
+  *&v17 = MEMORY[0x277D82BD8](blurryTray).n128_u64[0];
   blurryTray2 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
   [(UIVisualEffectView *)blurryTray2 layoutIfNeeded];
-  MEMORY[0x277D82BD8](blurryTray2);
+  *&v18 = MEMORY[0x277D82BD8](blurryTray2).n128_u64[0];
   [(AKAuthorizationPaneViewController *)selfCopy _configureContentTrayIfNeeded];
   [(AKAuthorizationPaneViewController *)selfCopy sizeToFitPaneContent];
   [(AKAuthorizationPaneViewController *)selfCopy _updateBlurForTray];
@@ -442,67 +438,66 @@
 
 - (void)_configureContentTrayIfNeeded
 {
-  v129[4] = *MEMORY[0x277D85DE8];
+  v134[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v124 = a2;
+  v129 = a2;
   tableView = [(AKAuthorizationPaneViewController *)self tableView];
   tableFooterView = [(UITableView *)tableView tableFooterView];
-  v114 = tableFooterView != 0;
+  v119 = tableFooterView != 0;
   MEMORY[0x277D82BD8](tableFooterView);
-  MEMORY[0x277D82BD8](tableView);
-  v123 = v114;
+  v128 = v119;
   _shouldEmbedContentTray = [(AKAuthorizationPaneViewController *)selfCopy _shouldEmbedContentTray];
-  v119 = 0;
-  v117 = 0;
-  v115 = 1;
-  if (_shouldEmbedContentTray == v114)
+  v124 = 0;
+  v122 = 0;
+  v120 = 1;
+  if (_shouldEmbedContentTray == v119)
   {
     blurryTray = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
-    v119 = 1;
+    v124 = 1;
     superview = [(UIVisualEffectView *)blurryTray superview];
-    v117 = 1;
-    v115 = superview == 0;
+    v122 = 1;
+    v120 = superview == 0;
   }
 
-  if (v117)
+  if (v122)
   {
     MEMORY[0x277D82BD8](superview);
   }
 
-  if (v119)
+  if (v124)
   {
     MEMORY[0x277D82BD8](blurryTray);
   }
 
-  v121 = v115;
-  if (v115)
+  v126 = v120;
+  if (v120)
   {
     blurryTray2 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
     superview2 = [(UIVisualEffectView *)blurryTray2 superview];
     MEMORY[0x277D82BD8](superview2);
-    MEMORY[0x277D82BD8](blurryTray2);
+    v3 = MEMORY[0x277D82BD8](blurryTray2).n128_u64[0];
     if (superview2)
     {
       blurryTray3 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       [(UIVisualEffectView *)blurryTray3 removeFromSuperview];
-      MEMORY[0x277D82BD8](blurryTray3);
+      v3 = MEMORY[0x277D82BD8](blurryTray3).n128_u64[0];
     }
 
     tableView2 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
     tableFooterView2 = [(UITableView *)tableView2 tableFooterView];
     MEMORY[0x277D82BD8](tableFooterView2);
-    MEMORY[0x277D82BD8](tableView2);
+    v4 = MEMORY[0x277D82BD8](tableView2).n128_u64[0];
     if (tableFooterView2)
     {
       tableView3 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
       [(UITableView *)tableView3 setTableFooterView:0];
-      MEMORY[0x277D82BD8](tableView3);
+      v4 = MEMORY[0x277D82BD8](tableView3).n128_u64[0];
     }
 
     array = [MEMORY[0x277CBEB18] array];
     mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
     isAuthKitSolariumFeatureEnabled = [mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled];
-    MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
+    *&v5 = MEMORY[0x277D82BD8](mEMORY[0x277CF0228]).n128_u64[0];
     if (isAuthKitSolariumFeatureEnabled)
     {
       paneFooterStackView = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
@@ -510,56 +505,56 @@
       blurryTray4 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView = [(UIVisualEffectView *)blurryTray4 contentView];
       topAnchor2 = [(UIView *)contentView topAnchor];
-      v99 = [topAnchor constraintEqualToAnchor:?];
-      v129[0] = v99;
+      v104 = [topAnchor constraintEqualToAnchor:?];
+      v134[0] = v104;
       paneFooterStackView2 = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
       bottomAnchor = [(UIStackView *)paneFooterStackView2 bottomAnchor];
       blurryTray5 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView2 = [(UIVisualEffectView *)blurryTray5 contentView];
       bottomAnchor2 = [(UIView *)contentView2 bottomAnchor];
-      v93 = [bottomAnchor constraintEqualToAnchor:?];
-      v129[1] = v93;
+      v98 = [bottomAnchor constraintEqualToAnchor:?];
+      v134[1] = v98;
       paneFooterStackView3 = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
       leadingAnchor = [(UIStackView *)paneFooterStackView3 leadingAnchor];
       blurryTray6 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView3 = [(UIVisualEffectView *)blurryTray6 contentView];
       leadingAnchor2 = [(UIView *)contentView3 leadingAnchor];
-      v87 = [leadingAnchor constraintEqualToAnchor:?];
-      v129[2] = v87;
+      v92 = [leadingAnchor constraintEqualToAnchor:?];
+      v134[2] = v92;
       paneFooterStackView4 = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
       trailingAnchor = [(UIStackView *)paneFooterStackView4 trailingAnchor];
       blurryTray7 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView4 = [(UIVisualEffectView *)blurryTray7 contentView];
       trailingAnchor2 = [(UIView *)contentView4 trailingAnchor];
-      v81 = [trailingAnchor constraintEqualToAnchor:?];
-      v129[3] = v81;
-      v80 = [MEMORY[0x277CBEA60] arrayWithObjects:v129 count:4];
+      v86 = [trailingAnchor constraintEqualToAnchor:?];
+      v134[3] = v86;
+      v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v134 count:4];
       [array addObjectsFromArray:?];
-      MEMORY[0x277D82BD8](v80);
-      MEMORY[0x277D82BD8](v81);
+      MEMORY[0x277D82BD8](v85);
+      MEMORY[0x277D82BD8](v86);
       MEMORY[0x277D82BD8](trailingAnchor2);
       MEMORY[0x277D82BD8](contentView4);
       MEMORY[0x277D82BD8](blurryTray7);
       MEMORY[0x277D82BD8](trailingAnchor);
       MEMORY[0x277D82BD8](paneFooterStackView4);
-      MEMORY[0x277D82BD8](v87);
+      MEMORY[0x277D82BD8](v92);
       MEMORY[0x277D82BD8](leadingAnchor2);
       MEMORY[0x277D82BD8](contentView3);
       MEMORY[0x277D82BD8](blurryTray6);
       MEMORY[0x277D82BD8](leadingAnchor);
       MEMORY[0x277D82BD8](paneFooterStackView3);
-      MEMORY[0x277D82BD8](v93);
+      MEMORY[0x277D82BD8](v98);
       MEMORY[0x277D82BD8](bottomAnchor2);
       MEMORY[0x277D82BD8](contentView2);
       MEMORY[0x277D82BD8](blurryTray5);
       MEMORY[0x277D82BD8](bottomAnchor);
       MEMORY[0x277D82BD8](paneFooterStackView2);
-      MEMORY[0x277D82BD8](v99);
+      MEMORY[0x277D82BD8](v104);
       MEMORY[0x277D82BD8](topAnchor2);
       MEMORY[0x277D82BD8](contentView);
       MEMORY[0x277D82BD8](blurryTray4);
       MEMORY[0x277D82BD8](topAnchor);
-      MEMORY[0x277D82BD8](paneFooterStackView);
+      v6 = MEMORY[0x277D82BD8](paneFooterStackView).n128_u64[0];
     }
 
     else
@@ -569,69 +564,69 @@
       blurryTray8 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView5 = [(UIVisualEffectView *)blurryTray8 contentView];
       topAnchor4 = [(UIView *)contentView5 topAnchor];
-      v74 = [topAnchor3 constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:1.0 multiplier:?];
-      v128[0] = v74;
+      v79 = [topAnchor3 constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:1.0 multiplier:?];
+      v133[0] = v79;
       paneFooterStackView6 = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
       bottomAnchor3 = [(UIStackView *)paneFooterStackView6 bottomAnchor];
       blurryTray9 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView6 = [(UIVisualEffectView *)blurryTray9 contentView];
       bottomAnchor4 = [(UIView *)contentView6 bottomAnchor];
-      v68 = [bottomAnchor3 constraintLessThanOrEqualToSystemSpacingBelowAnchor:-1.0 multiplier:?];
-      v128[1] = v68;
+      v73 = [bottomAnchor3 constraintLessThanOrEqualToSystemSpacingBelowAnchor:-1.0 multiplier:?];
+      v133[1] = v73;
       paneFooterStackView7 = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
       centerYAnchor = [(UIStackView *)paneFooterStackView7 centerYAnchor];
       blurryTray10 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView7 = [(UIVisualEffectView *)blurryTray10 contentView];
       centerYAnchor2 = [(UIView *)contentView7 centerYAnchor];
-      v62 = [centerYAnchor constraintEqualToAnchor:?];
-      v128[2] = v62;
+      v67 = [centerYAnchor constraintEqualToAnchor:?];
+      v133[2] = v67;
       paneFooterStackView8 = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
       leadingAnchor3 = [(UIStackView *)paneFooterStackView8 leadingAnchor];
       blurryTray11 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView8 = [(UIVisualEffectView *)blurryTray11 contentView];
       leadingAnchor4 = [(UIView *)contentView8 leadingAnchor];
-      v56 = [leadingAnchor3 constraintEqualToAnchor:?];
-      v128[3] = v56;
+      v61 = [leadingAnchor3 constraintEqualToAnchor:?];
+      v133[3] = v61;
       paneFooterStackView9 = [(AKAuthorizationPaneViewController *)selfCopy paneFooterStackView];
       trailingAnchor3 = [(UIStackView *)paneFooterStackView9 trailingAnchor];
       blurryTray12 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       contentView9 = [(UIVisualEffectView *)blurryTray12 contentView];
       trailingAnchor4 = [(UIView *)contentView9 trailingAnchor];
-      v50 = [trailingAnchor3 constraintEqualToAnchor:?];
-      v128[4] = v50;
-      v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v128 count:5];
+      v55 = [trailingAnchor3 constraintEqualToAnchor:?];
+      v133[4] = v55;
+      v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v133 count:5];
       [array addObjectsFromArray:?];
-      MEMORY[0x277D82BD8](v49);
-      MEMORY[0x277D82BD8](v50);
+      MEMORY[0x277D82BD8](v54);
+      MEMORY[0x277D82BD8](v55);
       MEMORY[0x277D82BD8](trailingAnchor4);
       MEMORY[0x277D82BD8](contentView9);
       MEMORY[0x277D82BD8](blurryTray12);
       MEMORY[0x277D82BD8](trailingAnchor3);
       MEMORY[0x277D82BD8](paneFooterStackView9);
-      MEMORY[0x277D82BD8](v56);
+      MEMORY[0x277D82BD8](v61);
       MEMORY[0x277D82BD8](leadingAnchor4);
       MEMORY[0x277D82BD8](contentView8);
       MEMORY[0x277D82BD8](blurryTray11);
       MEMORY[0x277D82BD8](leadingAnchor3);
       MEMORY[0x277D82BD8](paneFooterStackView8);
-      MEMORY[0x277D82BD8](v62);
+      MEMORY[0x277D82BD8](v67);
       MEMORY[0x277D82BD8](centerYAnchor2);
       MEMORY[0x277D82BD8](contentView7);
       MEMORY[0x277D82BD8](blurryTray10);
       MEMORY[0x277D82BD8](centerYAnchor);
       MEMORY[0x277D82BD8](paneFooterStackView7);
-      MEMORY[0x277D82BD8](v68);
+      MEMORY[0x277D82BD8](v73);
       MEMORY[0x277D82BD8](bottomAnchor4);
       MEMORY[0x277D82BD8](contentView6);
       MEMORY[0x277D82BD8](blurryTray9);
       MEMORY[0x277D82BD8](bottomAnchor3);
       MEMORY[0x277D82BD8](paneFooterStackView6);
-      MEMORY[0x277D82BD8](v74);
+      MEMORY[0x277D82BD8](v79);
       MEMORY[0x277D82BD8](topAnchor4);
       MEMORY[0x277D82BD8](contentView5);
       MEMORY[0x277D82BD8](blurryTray8);
       MEMORY[0x277D82BD8](topAnchor3);
-      MEMORY[0x277D82BD8](paneFooterStackView5);
+      v6 = MEMORY[0x277D82BD8](paneFooterStackView5).n128_u64[0];
     }
 
     if (_shouldEmbedContentTray)
@@ -640,69 +635,67 @@
       _newContainerView = [(AKAuthorizationPaneViewController *)selfCopy _newContainerView];
       [(UITableView *)tableView4 setTableFooterView:?];
       MEMORY[0x277D82BD8](_newContainerView);
-      MEMORY[0x277D82BD8](tableView4);
       tableView5 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
       tableFooterView3 = [(UITableView *)tableView5 tableFooterView];
       blurryTray13 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       [(UIView *)tableFooterView3 addSubview:?];
       MEMORY[0x277D82BD8](blurryTray13);
       MEMORY[0x277D82BD8](tableFooterView3);
-      MEMORY[0x277D82BD8](tableView5);
       blurryTray14 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       topAnchor5 = [(UIVisualEffectView *)blurryTray14 topAnchor];
       tableView6 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
       tableFooterView4 = [(UITableView *)tableView6 tableFooterView];
       topAnchor6 = [(UIView *)tableFooterView4 topAnchor];
-      v43 = [topAnchor5 constraintEqualToAnchor:?];
-      v127[0] = v43;
+      v48 = [topAnchor5 constraintEqualToAnchor:?];
+      v132[0] = v48;
       blurryTray15 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       bottomAnchor5 = [(UIVisualEffectView *)blurryTray15 bottomAnchor];
       tableView7 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
       tableFooterView5 = [(UITableView *)tableView7 tableFooterView];
       bottomAnchor6 = [(UIView *)tableFooterView5 bottomAnchor];
-      v37 = [bottomAnchor5 constraintEqualToAnchor:?];
-      v127[1] = v37;
+      v42 = [bottomAnchor5 constraintEqualToAnchor:?];
+      v132[1] = v42;
       blurryTray16 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       leadingAnchor5 = [(UIVisualEffectView *)blurryTray16 leadingAnchor];
       tableView8 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
       tableFooterView6 = [(UITableView *)tableView8 tableFooterView];
       leadingAnchor6 = [(UIView *)tableFooterView6 leadingAnchor];
-      v31 = [leadingAnchor5 constraintEqualToAnchor:?];
-      v127[2] = v31;
+      v36 = [leadingAnchor5 constraintEqualToAnchor:?];
+      v132[2] = v36;
       blurryTray17 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       trailingAnchor5 = [(UIVisualEffectView *)blurryTray17 trailingAnchor];
       tableView9 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
       tableFooterView7 = [(UITableView *)tableView9 tableFooterView];
       trailingAnchor6 = [(UIView *)tableFooterView7 trailingAnchor];
-      v25 = [trailingAnchor5 constraintEqualToAnchor:?];
-      v127[3] = v25;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v127 count:4];
+      v30 = [trailingAnchor5 constraintEqualToAnchor:?];
+      v132[3] = v30;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v132 count:4];
       [array addObjectsFromArray:?];
-      MEMORY[0x277D82BD8](v24);
-      MEMORY[0x277D82BD8](v25);
+      MEMORY[0x277D82BD8](v29);
+      MEMORY[0x277D82BD8](v30);
       MEMORY[0x277D82BD8](trailingAnchor6);
       MEMORY[0x277D82BD8](tableFooterView7);
       MEMORY[0x277D82BD8](tableView9);
       MEMORY[0x277D82BD8](trailingAnchor5);
       MEMORY[0x277D82BD8](blurryTray17);
-      MEMORY[0x277D82BD8](v31);
+      MEMORY[0x277D82BD8](v36);
       MEMORY[0x277D82BD8](leadingAnchor6);
       MEMORY[0x277D82BD8](tableFooterView6);
       MEMORY[0x277D82BD8](tableView8);
       MEMORY[0x277D82BD8](leadingAnchor5);
       MEMORY[0x277D82BD8](blurryTray16);
-      MEMORY[0x277D82BD8](v37);
+      MEMORY[0x277D82BD8](v42);
       MEMORY[0x277D82BD8](bottomAnchor6);
       MEMORY[0x277D82BD8](tableFooterView5);
       MEMORY[0x277D82BD8](tableView7);
       MEMORY[0x277D82BD8](bottomAnchor5);
       MEMORY[0x277D82BD8](blurryTray15);
-      MEMORY[0x277D82BD8](v43);
+      MEMORY[0x277D82BD8](v48);
       MEMORY[0x277D82BD8](topAnchor6);
       MEMORY[0x277D82BD8](tableFooterView4);
       MEMORY[0x277D82BD8](tableView6);
       MEMORY[0x277D82BD8](topAnchor5);
-      MEMORY[0x277D82BD8](blurryTray14);
+      v7 = MEMORY[0x277D82BD8](blurryTray14).n128_u64[0];
     }
 
     else
@@ -711,47 +704,44 @@
       blurryTray18 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       [view addSubview:?];
       MEMORY[0x277D82BD8](blurryTray18);
-      MEMORY[0x277D82BD8](view);
       blurryTray19 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       heightAnchor = [(UIVisualEffectView *)blurryTray19 heightAnchor];
       +[AKAuthorizationPaneMetrics blurryTrayHeight];
-      v16 = [heightAnchor constraintGreaterThanOrEqualToConstant:?];
-      v126[0] = v16;
+      v21 = [heightAnchor constraintGreaterThanOrEqualToConstant:?];
+      v131[0] = v21;
       blurryTray20 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       bottomAnchor7 = [(UIVisualEffectView *)blurryTray20 bottomAnchor];
       view2 = [(AKAuthorizationPaneViewController *)selfCopy view];
       bottomAnchor8 = [view2 bottomAnchor];
-      v11 = [bottomAnchor7 constraintEqualToAnchor:?];
-      v126[1] = v11;
+      v16 = [bottomAnchor7 constraintEqualToAnchor:?];
+      v131[1] = v16;
       blurryTray21 = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
       centerXAnchor = [(UIVisualEffectView *)blurryTray21 centerXAnchor];
       view3 = [(AKAuthorizationPaneViewController *)selfCopy view];
       centerXAnchor2 = [view3 centerXAnchor];
-      v6 = [centerXAnchor constraintEqualToAnchor:?];
-      v126[2] = v6;
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v126 count:3];
+      v11 = [centerXAnchor constraintEqualToAnchor:?];
+      v131[2] = v11;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v131 count:3];
       [array addObjectsFromArray:?];
-      MEMORY[0x277D82BD8](v5);
-      MEMORY[0x277D82BD8](v6);
+      MEMORY[0x277D82BD8](v10);
+      MEMORY[0x277D82BD8](v11);
       MEMORY[0x277D82BD8](centerXAnchor2);
       MEMORY[0x277D82BD8](view3);
       MEMORY[0x277D82BD8](centerXAnchor);
       MEMORY[0x277D82BD8](blurryTray21);
-      MEMORY[0x277D82BD8](v11);
+      MEMORY[0x277D82BD8](v16);
       MEMORY[0x277D82BD8](bottomAnchor8);
       MEMORY[0x277D82BD8](view2);
       MEMORY[0x277D82BD8](bottomAnchor7);
       MEMORY[0x277D82BD8](blurryTray20);
-      MEMORY[0x277D82BD8](v16);
+      MEMORY[0x277D82BD8](v21);
       MEMORY[0x277D82BD8](heightAnchor);
-      MEMORY[0x277D82BD8](blurryTray19);
+      v7 = MEMORY[0x277D82BD8](blurryTray19).n128_u64[0];
     }
 
-    [MEMORY[0x277CCAAD0] activateConstraints:array];
+    [MEMORY[0x277CCAAD0] activateConstraints:{array, *&v7}];
     objc_storeStrong(&array, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBlurForTray
@@ -769,7 +759,7 @@
   objc_storeStrong(v8, 0);
 }
 
-uint64_t __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invoke(uint64_t a1)
+double __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invoke(uint64_t a1)
 {
   v7 = 0;
   v6 = 0;
@@ -791,21 +781,23 @@ uint64_t __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invok
     v3 = [*(a1 + 32) blurryTray];
     [v3 setEffect:v4];
     MEMORY[0x277D82BD8](v3);
-    return MEMORY[0x277D82BD8](v4);
+    *&result = MEMORY[0x277D82BD8](v4).n128_u64[0];
   }
 
   else
   {
     v2 = [*(a1 + 32) blurryTray];
     [v2 setEffect:0];
-    return MEMORY[0x277D82BD8](v2);
+    *&result = MEMORY[0x277D82BD8](v2).n128_u64[0];
   }
+
+  return result;
 }
 
 - (double)_contentTrayOffsetAdjustedForScrollInset:(BOOL)inset
 {
   selfCopy = self;
-  v44 = a2;
+  v43 = a2;
   insetCopy = inset;
   if ([(AKAuthorizationPaneViewController *)self _shouldEmbedContentTray])
   {
@@ -813,19 +805,17 @@ uint64_t __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invok
   }
 
   location = [(AKAuthorizationPaneViewController *)selfCopy _indexPathForLastRow];
-  v38 = *MEMORY[0x277CBF3A0];
-  v40 = *(MEMORY[0x277CBF3A0] + 16);
   if ([location row] == 0x7FFFFFFFFFFFFFFFLL)
   {
     tableView = [(AKAuthorizationPaneViewController *)selfCopy tableView];
     tableHeaderView = [(UITableView *)tableView tableHeaderView];
     [(UIView *)tableHeaderView frame];
-    *&v34 = v7;
-    *(&v34 + 1) = v8;
-    *&v35 = v9;
-    *(&v35 + 1) = v10;
-    v39 = v34;
-    v41 = v35;
+    *&v35 = v7;
+    *(&v35 + 1) = v8;
+    *&v36 = v9;
+    *(&v36 + 1) = v10;
+    v39 = v35;
+    v40 = v36;
     MEMORY[0x277D82BD8](tableHeaderView);
     MEMORY[0x277D82BD8](tableView);
   }
@@ -834,72 +824,72 @@ uint64_t __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invok
   {
     tableView2 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
     [(UITableView *)tableView2 rectForRowAtIndexPath:location];
-    *&v36 = v3;
-    *(&v36 + 1) = v4;
-    *&v37 = v5;
-    *(&v37 + 1) = v6;
-    v39 = v36;
-    v41 = v37;
+    *&v37 = v3;
+    *(&v37 + 1) = v4;
+    *&v38 = v5;
+    *(&v38 + 1) = v6;
+    v39 = v37;
+    v40 = v38;
     MEMORY[0x277D82BD8](tableView2);
   }
 
   tableView3 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
   view = [(AKAuthorizationPaneViewController *)selfCopy view];
-  [(UITableView *)tableView3 convertRect:v39 toView:v41];
-  v33.origin.x = v11;
-  v33.origin.y = v12;
-  v33.size.width = v13;
-  v33.size.height = v14;
+  [(UITableView *)tableView3 convertRect:v39 toView:v40];
+  v34.origin.x = v11;
+  v34.origin.y = v12;
+  v34.size.width = v13;
+  v34.size.height = v14;
   MEMORY[0x277D82BD8](view);
-  MEMORY[0x277D82BD8](tableView3);
+  v15 = MEMORY[0x277D82BD8](tableView3).n128_u64[0];
   if (insetCopy)
   {
     tableView4 = [(AKAuthorizationPaneViewController *)selfCopy tableView];
     [(UITableView *)tableView4 contentOffset];
-    v25 = v15;
+    v26 = v16;
     [(AKAuthorizationPaneViewController *)selfCopy _navigationBarHeaderHeight];
-    v33.origin.y = v33.origin.y + v25 + v16;
-    MEMORY[0x277D82BD8](tableView4);
+    v34.origin.y = v34.origin.y + v26 + v17;
+    v15 = MEMORY[0x277D82BD8](tableView4).n128_u64[0];
   }
 
-  v31 = 0;
+  v32 = 0;
   if (insetCopy)
   {
     [(AKAuthorizationPaneViewController *)selfCopy contentScrollOffset];
-    Height = v17;
+    Height = v18;
   }
 
   else
   {
     blurryTray = [(AKAuthorizationPaneViewController *)selfCopy blurryTray];
-    v31 = 1;
+    v32 = 1;
     [(UIVisualEffectView *)blurryTray frame];
-    Height = CGRectGetHeight(v47);
+    Height = CGRectGetHeight(v46);
   }
 
-  if (v31)
+  if (v32)
   {
     MEMORY[0x277D82BD8](blurryTray);
   }
 
-  MaxY = CGRectGetMaxY(v33);
+  MaxY = CGRectGetMaxY(v34);
   view2 = [(AKAuthorizationPaneViewController *)selfCopy view];
   [view2 frame];
-  v22 = MaxY - (CGRectGetMaxY(v48) - Height);
+  v23 = MaxY - (CGRectGetMaxY(v47) - Height);
   MEMORY[0x277D82BD8](view2);
-  if (insetCopy && v22 > 0.0)
+  if (insetCopy && v23 > 0.0)
   {
-    v46 = Height;
+    v45 = Height;
   }
 
   else
   {
-    v18 = CGFloatMax(v22, 0.0);
-    v46 = CGFloatMin(Height, v18);
+    v19 = CGFloatMax(v23, 0.0);
+    v45 = CGFloatMin(Height, v19);
   }
 
   objc_storeStrong(&location, 0);
-  return v46;
+  return v45;
 }
 
 - (BOOL)_isContentUnderTray
@@ -1014,126 +1004,126 @@ uint64_t __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invok
 {
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen bounds];
-  v10 = v2;
+  v11 = v2;
   MEMORY[0x277D82BD8](mainScreen);
   mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
-  v20 = 0;
-  v18 = 0;
-  v16 = 0;
-  v14 = 0;
-  v12 = 0;
+  v21 = 0;
+  v19 = 0;
+  v17 = 0;
+  v15 = 0;
+  v13 = 0;
   if ([mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled])
   {
     view = [(AKAuthorizationPaneViewController *)self view];
-    v20 = 1;
+    v21 = 1;
     window = [view window];
-    v18 = 1;
-    v8 = 1;
+    v19 = 1;
+    v9 = 1;
     if ([window interfaceOrientation] != 4)
     {
       view2 = [(AKAuthorizationPaneViewController *)self view];
-      v16 = 1;
+      v17 = 1;
       window2 = [view2 window];
-      v14 = 1;
-      v8 = [window2 interfaceOrientation] == 3;
+      v15 = 1;
+      v9 = [window2 interfaceOrientation] == 3;
     }
 
-    v12 = v8;
+    v13 = v9;
   }
 
-  if (v14)
+  if (v15)
   {
     MEMORY[0x277D82BD8](window2);
   }
 
-  if (v16)
+  if (v17)
   {
     MEMORY[0x277D82BD8](view2);
   }
 
-  if (v18)
+  if (v19)
   {
     MEMORY[0x277D82BD8](window);
   }
 
-  if (v20)
+  if (v21)
   {
     MEMORY[0x277D82BD8](view);
   }
 
   MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
-  if (v12)
+  if (v13)
   {
-    return v10 * 4.0 / 5.0;
+    return v11 * 4.0 / 5.0;
   }
 
   +[AKAuthorizationPaneMetrics maximumContentHeightFactor];
-  v13 = v10 * v3;
+  v14 = v11 * v3;
   mEMORY[0x277CF0228]2 = [MEMORY[0x277CF0228] sharedManager];
   isLisbonAvailable = [mEMORY[0x277CF0228]2 isLisbonAvailable];
-  MEMORY[0x277D82BD8](mEMORY[0x277CF0228]2);
+  *&v4 = MEMORY[0x277D82BD8](mEMORY[0x277CF0228]2).n128_u64[0];
   if (!isLisbonAvailable)
   {
     [(AKAuthorizationPaneViewController *)self _navigationBarHeaderHeight];
-    return v13 - v4;
+    return v14 - v5;
   }
 
-  return v13;
+  return v14;
 }
 
 - (double)maximumContentWidth
 {
   mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
-  v16 = 0;
-  v14 = 0;
-  v12 = 0;
+  v17 = 0;
+  v15 = 0;
+  v13 = 0;
+  v11 = 0;
   v10 = 0;
-  v9 = 0;
   if ([mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled])
   {
     view = [(AKAuthorizationPaneViewController *)self view];
-    v16 = 1;
+    v17 = 1;
     window = [view window];
-    v14 = 1;
-    v7 = 1;
+    v15 = 1;
+    v8 = 1;
     if ([window interfaceOrientation] != 4)
     {
       view2 = [(AKAuthorizationPaneViewController *)self view];
-      v12 = 1;
+      v13 = 1;
       window2 = [view2 window];
-      v10 = 1;
-      v7 = [window2 interfaceOrientation] == 3;
+      v11 = 1;
+      v8 = [window2 interfaceOrientation] == 3;
     }
 
-    v9 = v7;
+    v10 = v8;
   }
 
-  if (v10)
+  if (v11)
   {
     MEMORY[0x277D82BD8](window2);
   }
 
-  if (v12)
+  if (v13)
   {
     MEMORY[0x277D82BD8](view2);
   }
 
-  if (v14)
+  if (v15)
   {
     MEMORY[0x277D82BD8](window);
   }
 
-  if (v16)
+  if (v17)
   {
     MEMORY[0x277D82BD8](view);
   }
 
-  MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
-  if (v9)
+  *&v2 = MEMORY[0x277D82BD8](mEMORY[0x277CF0228]).n128_u64[0];
+  if (v10)
   {
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen bounds];
-    v19 = v2 / 2.0;
+    v20 = v3 / 2.0;
     MEMORY[0x277D82BD8](mainScreen);
   }
 
@@ -1141,117 +1131,117 @@ uint64_t __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invok
   {
     mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen2 bounds];
-    v19 = v3;
+    v20 = v4;
     MEMORY[0x277D82BD8](mainScreen2);
   }
 
-  return v19;
+  return v20;
 }
 
 - (void)sizeToFitPaneContent
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v44 = a2;
+  v48 = a2;
   if ([(AKAuthorizationPaneViewController *)self isViewLoaded])
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-    MEMORY[0x277D82BD8](currentDevice);
+    *&v2 = MEMORY[0x277D82BD8](currentDevice).n128_u64[0];
     if (userInterfaceIdiom != 1)
     {
       view = [(AKAuthorizationPaneViewController *)selfCopy view];
       [view bounds];
-      v42 = v47;
-      Width = CGRectGetWidth(v47);
+      v46 = v51;
+      Width = CGRectGetWidth(v51);
       MEMORY[0x277D82BD8](view);
-      v43 = Width;
+      v47 = Width;
       [(AKAuthorizationPaneViewController *)selfCopy intrinsicContentHeight];
-      v41 = v2;
-      v23 = v2;
+      v45 = v3;
+      v27 = v3;
       [(AKAuthorizationPaneViewController *)selfCopy maximumContentHeight];
-      if (v23 > v3)
+      if (v27 > v4)
       {
         [(AKAuthorizationPaneViewController *)selfCopy maximumContentHeight];
-        v41 = v4;
+        v45 = v5;
       }
 
-      v5 = v43;
-      if (v43 == 0.0 || ([(AKAuthorizationPaneViewController *)selfCopy maximumContentWidth], v7 = v6, v5 = v43, v43 > v7))
+      v6 = v47;
+      if (v47 == 0.0 || ([(AKAuthorizationPaneViewController *)selfCopy maximumContentWidth], v8 = v7, v6 = v47, v47 > v8))
       {
         [(AKAuthorizationPaneViewController *)selfCopy maximumContentWidth];
-        v43 = v8;
+        v47 = v9;
       }
 
       CGSizeMake_0();
-      *&v40 = v9;
-      *(&v40 + 1) = v10;
-      v39 = v40;
-      [(AKAuthorizationPaneViewController *)selfCopy setPreferredContentSize:v9, v10];
+      *&v44 = v10;
+      *(&v44 + 1) = v11;
+      v43 = v44;
+      [(AKAuthorizationPaneViewController *)selfCopy setPreferredContentSize:v10, v11];
       mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
       isAuthKitSolariumFeatureEnabled = [mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled];
-      MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
+      *&v12 = MEMORY[0x277D82BD8](mEMORY[0x277CF0228]).n128_u64[0];
       if (isAuthKitSolariumFeatureEnabled)
       {
         sheetPresentationController = [(AKAuthorizationPaneViewController *)selfCopy sheetPresentationController];
         if (sheetPresentationController)
         {
           [sheetPresentationController setDelegate:selfCopy];
-          v37 = MEMORY[0x277D82BE0](@"detentIdentifier");
-          v15 = MEMORY[0x277D75A28];
-          v14 = v37;
-          v30 = MEMORY[0x277D85DD0];
-          v31 = -1073741824;
-          v32 = 0;
-          v33 = __57__AKAuthorizationPaneViewController_sizeToFitPaneContent__block_invoke;
-          v34 = &unk_2784A5E70;
-          v35 = MEMORY[0x277D82BE0](selfCopy);
-          location = [v15 customDetentWithIdentifier:v14 resolver:&v30];
+          v41 = MEMORY[0x277D82BE0](@"detentIdentifier");
+          v19 = MEMORY[0x277D75A28];
+          v18 = v41;
+          v34 = MEMORY[0x277D85DD0];
+          v35 = -1073741824;
+          v36 = 0;
+          v37 = __57__AKAuthorizationPaneViewController_sizeToFitPaneContent__block_invoke;
+          v38 = &unk_2784A5E70;
+          v39 = MEMORY[0x277D82BE0](selfCopy);
+          location = [v19 customDetentWithIdentifier:v18 resolver:&v34];
           view2 = [(AKAuthorizationPaneViewController *)selfCopy view];
           window = [view2 window];
-          v28 = 0;
-          v26 = 0;
-          v18 = 1;
+          v32 = 0;
+          v30 = 0;
+          v22 = 1;
           if ([window interfaceOrientation] != 4)
           {
             view3 = [(AKAuthorizationPaneViewController *)selfCopy view];
-            v28 = 1;
+            v32 = 1;
             window2 = [view3 window];
-            v26 = 1;
-            v18 = [window2 interfaceOrientation] == 3;
+            v30 = 1;
+            v22 = [window2 interfaceOrientation] == 3;
           }
 
-          if (v26)
+          if (v30)
           {
             MEMORY[0x277D82BD8](window2);
           }
 
-          if (v28)
+          if (v32)
           {
             MEMORY[0x277D82BD8](view3);
           }
 
           MEMORY[0x277D82BD8](window);
-          MEMORY[0x277D82BD8](view2);
-          if (v18)
+          *&v13 = MEMORY[0x277D82BD8](view2).n128_u64[0];
+          if (v22)
           {
-            [sheetPresentationController setPrefersEdgeAttachedInCompactHeight:1];
+            [sheetPresentationController setPrefersEdgeAttachedInCompactHeight:{1, v13}];
             [sheetPresentationController setWidthFollowsPreferredContentSizeWhenEdgeAttached:1];
           }
 
           else
           {
-            v12 = sheetPresentationController;
-            v46[0] = location;
-            v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
-            [v12 setDetents:?];
-            MEMORY[0x277D82BD8](v13);
-            [sheetPresentationController setSelectedDetentIdentifier:v37];
+            v16 = sheetPresentationController;
+            v50[0] = location;
+            v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:{1, v13}];
+            [v16 setDetents:?];
+            *&v14 = MEMORY[0x277D82BD8](v17).n128_u64[0];
+            [sheetPresentationController setSelectedDetentIdentifier:{v41, v14}];
           }
 
           objc_storeStrong(&location, 0);
-          objc_storeStrong(&v35, 0);
-          objc_storeStrong(&v37, 0);
+          objc_storeStrong(&v39, 0);
+          objc_storeStrong(&v41, 0);
         }
 
         objc_storeStrong(&sheetPresentationController, 0);
@@ -1262,8 +1252,6 @@ uint64_t __55__AKAuthorizationPaneViewController__updateBlurForTray__block_invok
       MEMORY[0x277D82BD8](view4);
     }
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 double __57__AKAuthorizationPaneViewController_sizeToFitPaneContent__block_invoke(id *a1, void *a2)
@@ -1285,17 +1273,17 @@ double __57__AKAuthorizationPaneViewController_sizeToFitPaneContent__block_invok
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, change);
-  v7.receiver = selfCopy;
-  v7.super_class = AKAuthorizationPaneViewController;
-  [(AKAuthorizationPaneViewController *)&v7 traitCollectionDidChange:location[0]];
+  v8.receiver = selfCopy;
+  v8.super_class = AKAuthorizationPaneViewController;
+  [(AKAuthorizationPaneViewController *)&v8 traitCollectionDidChange:location[0]];
   traitCollection = [(AKAuthorizationPaneViewController *)selfCopy traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
   preferredContentSizeCategory2 = [location[0] preferredContentSizeCategory];
-  v6 = [preferredContentSizeCategory isEqualToString:?];
+  v7 = [preferredContentSizeCategory isEqualToString:?];
   MEMORY[0x277D82BD8](preferredContentSizeCategory2);
   MEMORY[0x277D82BD8](preferredContentSizeCategory);
-  MEMORY[0x277D82BD8](traitCollection);
-  if (!v6)
+  *&v3 = MEMORY[0x277D82BD8](traitCollection).n128_u64[0];
+  if (!v7)
   {
     [(AKAuthorizationPaneViewController *)selfCopy sizeToFitPaneContent];
   }
@@ -1341,44 +1329,44 @@ double __57__AKAuthorizationPaneViewController_sizeToFitPaneContent__block_invok
 
 - (void)_adjustForPositionOfScrollView:(id)view
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, view);
   [location[0] contentOffset];
-  v12 = v3;
+  v14 = v3;
   navigationController = [(AKAuthorizationPaneViewController *)selfCopy navigationController];
   navigationBar = [navigationController navigationBar];
   [navigationBar frame];
-  v14 = 0;
-  v13 = 0;
-  if (v12 > -CGRectGetHeight(v19))
+  v16 = 0;
+  v15 = 0;
+  if (v14 > -CGRectGetHeight(v21))
   {
     mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
-    v14 = 1;
-    v13 = [mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled] == 0;
+    v16 = 1;
+    v15 = [mEMORY[0x277CF0228] isAuthKitSolariumFeatureEnabled] == 0;
   }
 
-  if (v14)
+  if (v16)
   {
     MEMORY[0x277D82BD8](mEMORY[0x277CF0228]);
   }
 
   MEMORY[0x277D82BD8](navigationBar);
-  MEMORY[0x277D82BD8](navigationController);
-  if (v13)
+  *&v4 = MEMORY[0x277D82BD8](navigationController).n128_u64[0];
+  if (v15)
   {
-    v9 = [MEMORY[0x277D75210] effectWithStyle:{+[AKAuthorizationAppearance paneBlurEffectStyle](AKAuthorizationAppearance, "paneBlurEffectStyle")}];
-    v18[0] = v9;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v11 = [MEMORY[0x277D75210] effectWithStyle:{+[AKAuthorizationAppearance paneBlurEffectStyle](AKAuthorizationAppearance, "paneBlurEffectStyle", v4)}];
+    v20[0] = v11;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     navigationController2 = [(AKAuthorizationPaneViewController *)selfCopy navigationController];
     navigationBar2 = [navigationController2 navigationBar];
-    [navigationBar2 setBackgroundEffects:v8];
+    [navigationBar2 setBackgroundEffects:v10];
     MEMORY[0x277D82BD8](navigationBar2);
     MEMORY[0x277D82BD8](navigationController2);
-    MEMORY[0x277D82BD8](v8);
-    MEMORY[0x277D82BD8](v9);
+    MEMORY[0x277D82BD8](v10);
+    v5 = MEMORY[0x277D82BD8](v11).n128_u64[0];
   }
 
   else
@@ -1387,12 +1375,11 @@ double __57__AKAuthorizationPaneViewController_sizeToFitPaneContent__block_invok
     navigationBar3 = [navigationController3 navigationBar];
     [navigationBar3 setBackgroundEffects:0];
     MEMORY[0x277D82BD8](navigationBar3);
-    MEMORY[0x277D82BD8](navigationController3);
+    v5 = MEMORY[0x277D82BD8](navigationController3).n128_u64[0];
   }
 
   [(AKAuthorizationPaneViewController *)selfCopy _updateBlurForTray];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section
@@ -1511,21 +1498,20 @@ double __57__AKAuthorizationPaneViewController_sizeToFitPaneContent__block_invok
 {
   tableView = [(AKAuthorizationPaneViewController *)self tableView];
   v7 = [(AKAuthorizationPaneViewController *)self _safeIndexWithCount:[(UITableView *)tableView numberOfSections]];
-  MEMORY[0x277D82BD8](tableView);
+  *&v2 = MEMORY[0x277D82BD8](tableView).n128_u64[0];
   if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v9 = [MEMORY[0x277CCAA70] indexPathForRow:0x7FFFFFFFFFFFFFFFLL inSection:?];
+    v10 = [MEMORY[0x277CCAA70] indexPathForRow:0x7FFFFFFFFFFFFFFFLL inSection:v2];
   }
 
   else
   {
     tableView2 = [(AKAuthorizationPaneViewController *)self tableView];
-    v4 = [(AKAuthorizationPaneViewController *)self _safeIndexWithCount:[(UITableView *)tableView2 numberOfRowsInSection:v7]];
-    MEMORY[0x277D82BD8](tableView2);
-    v9 = [MEMORY[0x277CCAA70] indexPathForRow:v4 inSection:v7];
+    v8 = [(AKAuthorizationPaneViewController *)self _safeIndexWithCount:[(UITableView *)tableView2 numberOfRowsInSection:v7]];
+    v10 = [MEMORY[0x277CCAA70] indexPathForRow:v8 inSection:{v7, MEMORY[0x277D82BD8](tableView2).n128_f64[0]}];
   }
 
-  return v9;
+  return v10;
 }
 
 - (int64_t)_safeIndexWithCount:(int64_t)count
